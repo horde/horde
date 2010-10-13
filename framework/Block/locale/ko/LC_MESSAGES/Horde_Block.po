@@ -1,0 +1,85 @@
+# Korean translations for Horde_Block module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Block module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Block\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: lib/Horde/Block/Ui.php:97
+#, fuzzy
+msgid "Application"
+msgstr "실행"
+
+#: lib/Horde/Block/Collection.php:410
+#, fuzzy, php-format
+msgid "Block \"%s\" of application \"%s\" not found."
+msgstr "통지 리스너 %s을(를) 찾을 수 없습니다."
+
+#: lib/Horde/Block/Layout.php:130 lib/Horde/Block/Layout.php:131
+msgid "Edit"
+msgstr "수정"
+
+#: lib/Horde/Block/Ui.php:89
+msgid "Edit Block"
+msgstr ""
+
+#: lib/Horde/Block/Layout/View.php:98
+msgid "Error"
+msgstr "오류"
+
+#: lib/Horde/Block/Layout/Manager.php:576
+#, fuzzy
+msgid "Expand"
+msgstr "모두 확장"
+
+#: lib/Horde/Block/Layout/Manager.php:610
+msgid "Move Down"
+msgstr "아래로 이동"
+
+#: lib/Horde/Block/Layout/Manager.php:614
+#, fuzzy
+msgid "Move Left"
+msgstr "위로 이동"
+
+#: lib/Horde/Block/Layout/Manager.php:618
+#, fuzzy
+msgid "Move Right"
+msgstr "오른쪽"
+
+#: lib/Horde/Block/Layout/Manager.php:606
+msgid "Move Up"
+msgstr "위로 이동"
+
+#: lib/Horde/Block/Layout/Manager.php:121
+msgid "No block exists at the requested position"
+msgstr ""
+
+#: lib/Horde/Block/Layout.php:139
+msgid "Really delete this block?"
+msgstr ""
+
+#: lib/Horde/Block/Layout.php:136 lib/Horde/Block/Layout.php:140
+#, fuzzy
+msgid "Remove"
+msgstr "페어(pair) 삭제"
+
+#: lib/Horde/Block/Layout/Manager.php:581
+msgid "Shrink"
+msgstr ""
+
+#: lib/Horde/Block/Layout/Manager.php:245
+#, php-format
+msgid "You are not allowed to create more than %d block."
+msgid_plural "You are not allowed to create more than %d blocks."
+msgstr[0] ""

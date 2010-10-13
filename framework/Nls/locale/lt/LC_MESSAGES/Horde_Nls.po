@@ -1,0 +1,1071 @@
+# Lithuanian translations for Horde_Nls module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Nls module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Nls\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
+"100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: lib/Horde/Nls/Countries.php:10 lib/Horde/Nls/Tld.php:18
+msgid "Afghanistan"
+msgstr "Afganistanas"
+
+#: lib/Horde/Nls/Tld.php:31
+msgid "Aland Islands"
+msgstr "Alandų salos"
+
+#: lib/Horde/Nls/Countries.php:11 lib/Horde/Nls/Tld.php:21
+msgid "Albania"
+msgstr "Albanija"
+
+#: lib/Horde/Nls/Countries.php:12 lib/Horde/Nls/Tld.php:75
+msgid "Algeria"
+msgstr "Alžyras"
+
+#: lib/Horde/Nls/Countries.php:13 lib/Horde/Nls/Tld.php:27
+msgid "American Samoa"
+msgstr "Amerikos Samoa"
+
+#: lib/Horde/Nls/Countries.php:14 lib/Horde/Nls/Tld.php:16
+msgid "Andorra"
+msgstr "Andora"
+
+#: lib/Horde/Nls/Countries.php:15 lib/Horde/Nls/Tld.php:24
+msgid "Angola"
+msgstr "Angola"
+
+#: lib/Horde/Nls/Countries.php:16 lib/Horde/Nls/Tld.php:20
+msgid "Anguilla"
+msgstr "Angilai"
+
+#: lib/Horde/Nls/Geoip.php:340
+msgid "Anonymous Proxy"
+msgstr "Anoniminis proxy serveris"
+
+#: lib/Horde/Nls/Countries.php:17 lib/Horde/Nls/Tld.php:25
+msgid "Antarctica"
+msgstr "Antarktida"
+
+#: lib/Horde/Nls/Countries.php:18 lib/Horde/Nls/Tld.php:19
+msgid "Antigua and Barbuda"
+msgstr "Antigua ir Barbuda"
+
+#: lib/Horde/Nls/Countries.php:19 lib/Horde/Nls/Tld.php:26
+msgid "Argentina"
+msgstr "Argentina"
+
+#: lib/Horde/Nls/Countries.php:20 lib/Horde/Nls/Tld.php:22
+msgid "Armenia"
+msgstr "Armėnija"
+
+#: lib/Horde/Nls/Countries.php:21 lib/Horde/Nls/Tld.php:30
+msgid "Aruba"
+msgstr "Aruba"
+
+#: lib/Horde/Nls/Tld.php:15
+msgid "Ascension Island"
+msgstr "Kristaus žengimo į dangų sala"
+
+#: lib/Horde/Nls/Geoip.php:338
+msgid "Asia/Pacific Region"
+msgstr "Azija/Ramiojo vandenyno regionas"
+
+#: lib/Horde/Nls/Countries.php:22 lib/Horde/Nls/Tld.php:29
+msgid "Australia"
+msgstr "Australija"
+
+#: lib/Horde/Nls/Countries.php:23 lib/Horde/Nls/Tld.php:28
+msgid "Austria"
+msgstr "Austrija"
+
+#: lib/Horde/Nls/Countries.php:24 lib/Horde/Nls/Tld.php:32
+msgid "Azerbaijan"
+msgstr "Azerbaidžanas"
+
+#: lib/Horde/Nls/Countries.php:25 lib/Horde/Nls/Tld.php:46
+msgid "Bahamas"
+msgstr "Bahamai"
+
+#: lib/Horde/Nls/Countries.php:26 lib/Horde/Nls/Tld.php:39
+msgid "Bahrain"
+msgstr "Bahreinas"
+
+#: lib/Horde/Nls/Countries.php:27 lib/Horde/Nls/Tld.php:35
+msgid "Bangladesh"
+msgstr "Bagladešas"
+
+#: lib/Horde/Nls/Countries.php:28 lib/Horde/Nls/Tld.php:34
+msgid "Barbados"
+msgstr "Barbadosas"
+
+#: lib/Horde/Nls/Countries.php:29 lib/Horde/Nls/Tld.php:50
+msgid "Belarus"
+msgstr "Baltarusija"
+
+#: lib/Horde/Nls/Countries.php:30 lib/Horde/Nls/Tld.php:36
+msgid "Belgium"
+msgstr "Belgija"
+
+#: lib/Horde/Nls/Countries.php:31 lib/Horde/Nls/Tld.php:51
+msgid "Belize"
+msgstr "Belizas"
+
+#: lib/Horde/Nls/Countries.php:32 lib/Horde/Nls/Tld.php:41
+msgid "Benin"
+msgstr "Beninas"
+
+#: lib/Horde/Nls/Countries.php:33 lib/Horde/Nls/Tld.php:42
+msgid "Bermuda"
+msgstr "Bermudai"
+
+#: lib/Horde/Nls/Countries.php:34 lib/Horde/Nls/Tld.php:47
+msgid "Bhutan"
+msgstr "Butanas"
+
+#: lib/Horde/Nls/Countries.php:35 lib/Horde/Nls/Tld.php:44
+msgid "Bolivia"
+msgstr "Bolivija"
+
+#: lib/Horde/Nls/Countries.php:36 lib/Horde/Nls/Tld.php:33
+msgid "Bosnia and Herzegovina"
+msgstr "Bosnija ir Hercegovina"
+
+#: lib/Horde/Nls/Countries.php:37 lib/Horde/Nls/Tld.php:49
+msgid "Botswana"
+msgstr "Botsvana"
+
+#: lib/Horde/Nls/Countries.php:38 lib/Horde/Nls/Tld.php:48
+msgid "Bouvet Island"
+msgstr "Buvet sala"
+
+#: lib/Horde/Nls/Countries.php:39 lib/Horde/Nls/Tld.php:45
+msgid "Brazil"
+msgstr "Brazilija"
+
+#: lib/Horde/Nls/Countries.php:40 lib/Horde/Nls/Tld.php:120
+msgid "British Indian Ocean Territory"
+msgstr "Britų Indijos vandenyno teritoja"
+
+#: lib/Horde/Nls/Countries.php:41 lib/Horde/Nls/Tld.php:43
+msgid "Brunei Darussalam"
+msgstr "Brunėjaus darusalemas"
+
+#: lib/Horde/Nls/Countries.php:42 lib/Horde/Nls/Tld.php:38
+msgid "Bulgaria"
+msgstr "Bulgarija"
+
+#: lib/Horde/Nls/Countries.php:43 lib/Horde/Nls/Tld.php:37
+msgid "Burkina Faso"
+msgstr "Burkinas Fasas"
+
+#: lib/Horde/Nls/Countries.php:44 lib/Horde/Nls/Tld.php:40
+msgid "Burundi"
+msgstr "Burundija"
+
+#: lib/Horde/Nls/Countries.php:45 lib/Horde/Nls/Tld.php:131
+msgid "Cambodia"
+msgstr "Kambodža"
+
+#: lib/Horde/Nls/Countries.php:46 lib/Horde/Nls/Tld.php:61
+msgid "Cameroon"
+msgstr "Kamerūnas"
+
+#: lib/Horde/Nls/Countries.php:47 lib/Horde/Nls/Tld.php:52
+msgid "Canada"
+msgstr "Kanada"
+
+#: lib/Horde/Nls/Countries.php:48 lib/Horde/Nls/Tld.php:66
+msgid "Cape Verde"
+msgstr "Keipverdis"
+
+#: lib/Horde/Nls/Countries.php:49 lib/Horde/Nls/Tld.php:138
+msgid "Cayman Islands"
+msgstr "Kaimanų salos"
+
+#: lib/Horde/Nls/Countries.php:50 lib/Horde/Nls/Tld.php:55
+msgid "Central African Republic"
+msgstr "Centrinės Afrikos Respublika"
+
+#: lib/Horde/Nls/Countries.php:51 lib/Horde/Nls/Tld.php:227
+msgid "Chad"
+msgstr "Čadas"
+
+#: lib/Horde/Nls/Countries.php:52 lib/Horde/Nls/Tld.php:60
+msgid "Chile"
+msgstr "Čilė"
+
+#: lib/Horde/Nls/Countries.php:53 lib/Horde/Nls/Tld.php:62
+msgid "China"
+msgstr "Kinija"
+
+#: lib/Horde/Nls/Countries.php:54 lib/Horde/Nls/Tld.php:67
+msgid "Christmas Island"
+msgstr "Kalėdų sala"
+
+#: lib/Horde/Nls/Countries.php:55 lib/Horde/Nls/Tld.php:53
+msgid "Cocos (Keeling) Islands"
+msgstr "Kokoso (Kylingo) salos"
+
+#: lib/Horde/Nls/Countries.php:56 lib/Horde/Nls/Tld.php:63
+msgid "Colombia"
+msgstr "Kolumbija"
+
+#: lib/Horde/Nls/Countries.php:57 lib/Horde/Nls/Tld.php:133
+msgid "Comoros"
+msgstr "Komorai"
+
+#: lib/Horde/Nls/Countries.php:58
+msgid "Congo"
+msgstr "Kongas"
+
+#: lib/Horde/Nls/Tld.php:56
+msgid "Congo, Republic of"
+msgstr "Kongo Respublika"
+
+#: lib/Horde/Nls/Countries.php:59 lib/Horde/Nls/Tld.php:54
+msgid "Congo, The Democratic Republic of the"
+msgstr "Demokratinė Kongo Respublika"
+
+#: lib/Horde/Nls/Countries.php:60 lib/Horde/Nls/Tld.php:59
+msgid "Cook Islands"
+msgstr "Kuko salos"
+
+#: lib/Horde/Nls/Countries.php:61 lib/Horde/Nls/Tld.php:64
+msgid "Costa Rica"
+msgstr "Kosta Rika"
+
+#: lib/Horde/Nls/Countries.php:62 lib/Horde/Nls/Tld.php:58
+msgid "Cote d'Ivoire"
+msgstr "Dramblio Kaulo Krantas"
+
+#: lib/Horde/Nls/Countries.php:63
+msgid "Croatia"
+msgstr "Kroatija"
+
+#: lib/Horde/Nls/Tld.php:112
+msgid "Croatia/Hrvatska"
+msgstr "Kroatija"
+
+#: lib/Horde/Nls/Countries.php:64 lib/Horde/Nls/Tld.php:65
+msgid "Cuba"
+msgstr "Kuba"
+
+#: lib/Horde/Nls/Countries.php:65 lib/Horde/Nls/Tld.php:68
+msgid "Cyprus"
+msgstr "Kipras"
+
+#: lib/Horde/Nls/Countries.php:66 lib/Horde/Nls/Tld.php:69
+msgid "Czech Republic"
+msgstr "Čekijos Respublika"
+
+#: lib/Horde/Nls/Countries.php:67 lib/Horde/Nls/Tld.php:72
+msgid "Denmark"
+msgstr "Danija"
+
+#: lib/Horde/Nls/Countries.php:68 lib/Horde/Nls/Tld.php:71
+msgid "Djibouti"
+msgstr "Džibutis"
+
+#: lib/Horde/Nls/Countries.php:69 lib/Horde/Nls/Tld.php:73
+msgid "Dominica"
+msgstr "Dominika"
+
+#: lib/Horde/Nls/Countries.php:70 lib/Horde/Nls/Tld.php:74
+msgid "Dominican Republic"
+msgstr "Dominikos Respublika"
+
+#: lib/Horde/Nls/Tld.php:237
+msgid "East Timor"
+msgstr "Rytų Timoras"
+
+#: lib/Horde/Nls/Countries.php:71 lib/Horde/Nls/Tld.php:76
+msgid "Ecuador"
+msgstr "Ekvadoras"
+
+#: lib/Horde/Nls/Countries.php:72 lib/Horde/Nls/Tld.php:78
+msgid "Egypt"
+msgstr "Egiptas"
+
+#: lib/Horde/Nls/Countries.php:73 lib/Horde/Nls/Tld.php:223
+msgid "El Salvador"
+msgstr "Salvadoras"
+
+#: lib/Horde/Nls/Countries.php:74 lib/Horde/Nls/Tld.php:102
+msgid "Equatorial Guinea"
+msgstr "Ekvatoriaus Gvinėja"
+
+#: lib/Horde/Nls/Countries.php:75 lib/Horde/Nls/Tld.php:80
+msgid "Eritrea"
+msgstr "Eritrėja"
+
+#: lib/Horde/Nls/Countries.php:76 lib/Horde/Nls/Tld.php:77
+msgid "Estonia"
+msgstr "Estija"
+
+#: lib/Horde/Nls/Countries.php:77 lib/Horde/Nls/Tld.php:82
+msgid "Ethiopia"
+msgstr "Etiopija"
+
+#: lib/Horde/Nls/Geoip.php:339
+msgid "Europe"
+msgstr "Europa"
+
+#: lib/Horde/Nls/Tld.php:83
+msgid "European Union"
+msgstr "Europos Sąjunga"
+
+#: lib/Horde/Nls/Countries.php:78 lib/Horde/Nls/Tld.php:86
+msgid "Falkland Islands (Malvinas)"
+msgstr "Folklandų salos (Malvinai)"
+
+#: lib/Horde/Nls/Countries.php:79 lib/Horde/Nls/Tld.php:88
+msgid "Faroe Islands"
+msgstr "Farerų salos"
+
+#: lib/Horde/Nls/Countries.php:80 lib/Horde/Nls/Tld.php:85
+msgid "Fiji"
+msgstr "Fidžis"
+
+#: lib/Horde/Nls/Countries.php:81 lib/Horde/Nls/Tld.php:84
+msgid "Finland"
+msgstr "Suomija"
+
+#: lib/Horde/Nls/Countries.php:82 lib/Horde/Nls/Tld.php:89
+msgid "France"
+msgstr "Prancūzija"
+
+#: lib/Horde/Nls/Countries.php:83 lib/Horde/Nls/Tld.php:94
+msgid "French Guiana"
+msgstr "Prancūzijos Gviana"
+
+#: lib/Horde/Nls/Countries.php:84 lib/Horde/Nls/Tld.php:188
+msgid "French Polynesia"
+msgstr "Prancūzijos Polinezija"
+
+#: lib/Horde/Nls/Countries.php:85 lib/Horde/Nls/Tld.php:228
+msgid "French Southern Territories"
+msgstr "Prancūzijos pietinės teritorijos"
+
+#: lib/Horde/Nls/Countries.php:86 lib/Horde/Nls/Tld.php:90
+msgid "Gabon"
+msgstr "Gabonas"
+
+#: lib/Horde/Nls/Countries.php:87 lib/Horde/Nls/Tld.php:99
+msgid "Gambia"
+msgstr "Gambija"
+
+#: lib/Horde/Nls/Countries.php:88 lib/Horde/Nls/Tld.php:93
+msgid "Georgia"
+msgstr "Gruzija"
+
+#: lib/Horde/Nls/Countries.php:89 lib/Horde/Nls/Tld.php:70
+msgid "Germany"
+msgstr "Vokietija"
+
+#: lib/Horde/Nls/Countries.php:90 lib/Horde/Nls/Tld.php:96
+msgid "Ghana"
+msgstr "Gana"
+
+#: lib/Horde/Nls/Countries.php:91 lib/Horde/Nls/Tld.php:97
+msgid "Gibraltar"
+msgstr "Gibraltaras"
+
+#: lib/Horde/Nls/Countries.php:92 lib/Horde/Nls/Tld.php:103
+msgid "Greece"
+msgstr "Graikija"
+
+#: lib/Horde/Nls/Countries.php:93 lib/Horde/Nls/Tld.php:98
+msgid "Greenland"
+msgstr "Grenlandija"
+
+#: lib/Horde/Nls/Countries.php:94 lib/Horde/Nls/Tld.php:92
+msgid "Grenada"
+msgstr "Grenada"
+
+#: lib/Horde/Nls/Countries.php:95 lib/Horde/Nls/Tld.php:101
+msgid "Guadeloupe"
+msgstr "Gvadelupė"
+
+#: lib/Horde/Nls/Countries.php:96 lib/Horde/Nls/Tld.php:106
+msgid "Guam"
+msgstr "Guama"
+
+#: lib/Horde/Nls/Countries.php:97 lib/Horde/Nls/Tld.php:105
+msgid "Guatemala"
+msgstr "Gvatemala"
+
+#: lib/Horde/Nls/Tld.php:95
+msgid "Guernsey"
+msgstr "Gernsis"
+
+#: lib/Horde/Nls/Countries.php:98 lib/Horde/Nls/Tld.php:100
+msgid "Guinea"
+msgstr "Gvinėja"
+
+#: lib/Horde/Nls/Countries.php:99 lib/Horde/Nls/Tld.php:107
+msgid "Guinea-Bissau"
+msgstr "Bissau-Gvinėja"
+
+#: lib/Horde/Nls/Countries.php:100 lib/Horde/Nls/Tld.php:108
+msgid "Guyana"
+msgstr "Gajana"
+
+#: lib/Horde/Nls/Countries.php:101 lib/Horde/Nls/Tld.php:113
+msgid "Haiti"
+msgstr "Haitis"
+
+#: lib/Horde/Nls/Countries.php:102
+msgid "Heard Island and McDonald Islands"
+msgstr "Herdo sala ir Makdonaldo salos"
+
+#: lib/Horde/Nls/Tld.php:110
+msgid "Heard and McDonald Islands"
+msgstr "Herdas ir Makdonaldo salos"
+
+#: lib/Horde/Nls/Countries.php:103 lib/Horde/Nls/Tld.php:250
+msgid "Holy See (Vatican City State)"
+msgstr "Šventasis Sostas (Vatikano valstija)"
+
+#: lib/Horde/Nls/Countries.php:104 lib/Horde/Nls/Tld.php:111
+msgid "Honduras"
+msgstr "Hondūras"
+
+#: lib/Horde/Nls/Countries.php:105 lib/Horde/Nls/Tld.php:109
+msgid "Hong Kong"
+msgstr "Honkongas"
+
+#: lib/Horde/Nls/Countries.php:106 lib/Horde/Nls/Tld.php:114
+msgid "Hungary"
+msgstr "Vengrija"
+
+#: lib/Horde/Nls/Countries.php:107 lib/Horde/Nls/Tld.php:123
+msgid "Iceland"
+msgstr "Islandija"
+
+#: lib/Horde/Nls/Countries.php:108 lib/Horde/Nls/Tld.php:119
+msgid "India"
+msgstr "Indija"
+
+#: lib/Horde/Nls/Countries.php:109 lib/Horde/Nls/Tld.php:115
+msgid "Indonesia"
+msgstr "Indonezija"
+
+#: lib/Horde/Nls/Countries.php:110 lib/Horde/Nls/Tld.php:122
+msgid "Iran, Islamic Republic of"
+msgstr "Islamiška Irano Respublika"
+
+#: lib/Horde/Nls/Countries.php:111 lib/Horde/Nls/Tld.php:121
+msgid "Iraq"
+msgstr "Irakas"
+
+#: lib/Horde/Nls/Countries.php:112 lib/Horde/Nls/Tld.php:116
+msgid "Ireland"
+msgstr "Airija"
+
+#: lib/Horde/Nls/Tld.php:118
+msgid "Isle of Man"
+msgstr "Meno sala"
+
+#: lib/Horde/Nls/Countries.php:113 lib/Horde/Nls/Tld.php:117
+msgid "Israel"
+msgstr "Izraelis"
+
+#: lib/Horde/Nls/Countries.php:114 lib/Horde/Nls/Tld.php:124
+msgid "Italy"
+msgstr "Italija"
+
+#: lib/Horde/Nls/Countries.php:115 lib/Horde/Nls/Tld.php:126
+msgid "Jamaica"
+msgstr "Jamaika"
+
+#: lib/Horde/Nls/Countries.php:116 lib/Horde/Nls/Tld.php:128
+msgid "Japan"
+msgstr "Japonija"
+
+#: lib/Horde/Nls/Tld.php:125
+msgid "Jersey"
+msgstr "Džersis"
+
+#: lib/Horde/Nls/Countries.php:117 lib/Horde/Nls/Tld.php:127
+msgid "Jordan"
+msgstr "Jordanija"
+
+#: lib/Horde/Nls/Countries.php:118 lib/Horde/Nls/Tld.php:139
+msgid "Kazakhstan"
+msgstr "Kazakstanas"
+
+#: lib/Horde/Nls/Countries.php:119 lib/Horde/Nls/Tld.php:129
+msgid "Kenya"
+msgstr "Kenija"
+
+#: lib/Horde/Nls/Countries.php:120 lib/Horde/Nls/Tld.php:132
+msgid "Kiribati"
+msgstr "Kiribatis"
+
+#: lib/Horde/Nls/Countries.php:121 lib/Horde/Nls/Tld.php:135
+msgid "Korea, Democratic People's Republic of"
+msgstr "Demokratinė Korėjos Liaudies Respublika"
+
+#: lib/Horde/Nls/Countries.php:122 lib/Horde/Nls/Tld.php:136
+msgid "Korea, Republic of"
+msgstr "Korėjos Respublika"
+
+#: lib/Horde/Nls/Countries.php:123 lib/Horde/Nls/Tld.php:137
+msgid "Kuwait"
+msgstr "Kuveitas"
+
+#: lib/Horde/Nls/Countries.php:124 lib/Horde/Nls/Tld.php:130
+msgid "Kyrgyzstan"
+msgstr "Kirgizija"
+
+#: lib/Horde/Nls/Countries.php:125 lib/Horde/Nls/Tld.php:140
+msgid "Lao People's Democratic Republic"
+msgstr "Laoso Demokratinė Liaudies Respublika"
+
+#: lib/Horde/Nls/Countries.php:126 lib/Horde/Nls/Tld.php:149
+msgid "Latvia"
+msgstr "Latvija"
+
+#: lib/Horde/Nls/Countries.php:127 lib/Horde/Nls/Tld.php:141
+msgid "Lebanon"
+msgstr "Libanas"
+
+#: lib/Horde/Nls/Countries.php:128 lib/Horde/Nls/Tld.php:146
+msgid "Lesotho"
+msgstr "Lesotas"
+
+#: lib/Horde/Nls/Countries.php:129 lib/Horde/Nls/Tld.php:145
+msgid "Liberia"
+msgstr "Liberija"
+
+#: lib/Horde/Nls/Countries.php:130 lib/Horde/Nls/Tld.php:150
+msgid "Libyan Arab Jamahiriya"
+msgstr "Libijos Arabų Emyratai"
+
+#: lib/Horde/Nls/Countries.php:131 lib/Horde/Nls/Tld.php:143
+msgid "Liechtenstein"
+msgstr "Lichtenšteinas"
+
+#: lib/Horde/Nls/Countries.php:132 lib/Horde/Nls/Tld.php:147
+msgid "Lithuania"
+msgstr "Lietuva"
+
+#: lib/Horde/Nls/Countries.php:133 lib/Horde/Nls/Tld.php:148
+msgid "Luxembourg"
+msgstr "Liuksemburgas"
+
+#: lib/Horde/Nls/Countries.php:134 lib/Horde/Nls/Tld.php:161
+msgid "Macao"
+msgstr "Makao"
+
+#: lib/Horde/Nls/Countries.php:135 lib/Horde/Nls/Tld.php:157
+msgid "Macedonia, The Former Yugoslav Republic of"
+msgstr "Makedonija"
+
+#: lib/Horde/Nls/Countries.php:136 lib/Horde/Nls/Tld.php:155
+msgid "Madagascar"
+msgstr "Madagaskaras"
+
+#: lib/Horde/Nls/Countries.php:137 lib/Horde/Nls/Tld.php:169
+msgid "Malawi"
+msgstr "Malavis"
+
+#: lib/Horde/Nls/Countries.php:138 lib/Horde/Nls/Tld.php:171
+msgid "Malaysia"
+msgstr "Malaizija"
+
+#: lib/Horde/Nls/Countries.php:139 lib/Horde/Nls/Tld.php:168
+msgid "Maldives"
+msgstr "Maldyvai"
+
+#: lib/Horde/Nls/Countries.php:140 lib/Horde/Nls/Tld.php:158
+msgid "Mali"
+msgstr "Malis"
+
+#: lib/Horde/Nls/Countries.php:141 lib/Horde/Nls/Tld.php:166
+msgid "Malta"
+msgstr "Malta"
+
+#: lib/Horde/Nls/Countries.php:142 lib/Horde/Nls/Tld.php:156
+msgid "Marshall Islands"
+msgstr "Maršalo salos"
+
+#: lib/Horde/Nls/Countries.php:143 lib/Horde/Nls/Tld.php:163
+msgid "Martinique"
+msgstr "Martinika"
+
+#: lib/Horde/Nls/Countries.php:144 lib/Horde/Nls/Tld.php:164
+msgid "Mauritania"
+msgstr "Mauritanija"
+
+#: lib/Horde/Nls/Countries.php:145 lib/Horde/Nls/Tld.php:167
+msgid "Mauritius"
+msgstr "Mauricijus"
+
+#: lib/Horde/Nls/Countries.php:146 lib/Horde/Nls/Tld.php:260
+msgid "Mayotte"
+msgstr "Mojotė"
+
+#: lib/Horde/Nls/Countries.php:147 lib/Horde/Nls/Tld.php:170
+msgid "Mexico"
+msgstr "Meksika"
+
+#: lib/Horde/Nls/Countries.php:148 lib/Horde/Nls/Tld.php:87
+msgid "Micronesia, Federated States of"
+msgstr "Mikronezijos Federacinės Valstijos"
+
+#: lib/Horde/Nls/Countries.php:149 lib/Horde/Nls/Tld.php:153
+msgid "Moldova, Republic of"
+msgstr "Moldovos Respublika"
+
+#: lib/Horde/Nls/Countries.php:150 lib/Horde/Nls/Tld.php:152
+msgid "Monaco"
+msgstr "Monakas"
+
+#: lib/Horde/Nls/Countries.php:151 lib/Horde/Nls/Tld.php:160
+msgid "Mongolia"
+msgstr "Mongolija"
+
+#: lib/Horde/Nls/Tld.php:154
+msgid "Montenegro"
+msgstr "Montenegras"
+
+#: lib/Horde/Nls/Countries.php:152 lib/Horde/Nls/Tld.php:165
+msgid "Montserrat"
+msgstr "Monseratas"
+
+#: lib/Horde/Nls/Countries.php:153 lib/Horde/Nls/Tld.php:151
+msgid "Morocco"
+msgstr "Marokas"
+
+#: lib/Horde/Nls/Countries.php:154 lib/Horde/Nls/Tld.php:172
+msgid "Mozambique"
+msgstr "Mozambikas"
+
+#: lib/Horde/Nls/Countries.php:155 lib/Horde/Nls/Tld.php:159
+msgid "Myanmar"
+msgstr "Mianmaras"
+
+#: lib/Horde/Nls/Countries.php:156 lib/Horde/Nls/Tld.php:173
+msgid "Namibia"
+msgstr "Namibija"
+
+#: lib/Horde/Nls/Countries.php:157 lib/Horde/Nls/Tld.php:182
+msgid "Nauru"
+msgstr "Nauras"
+
+#: lib/Horde/Nls/Countries.php:158 lib/Horde/Nls/Tld.php:181
+msgid "Nepal"
+msgstr "Nepalas"
+
+#: lib/Horde/Nls/Countries.php:159 lib/Horde/Nls/Tld.php:179
+msgid "Netherlands"
+msgstr "Nyderlandai"
+
+#: lib/Horde/Nls/Countries.php:160 lib/Horde/Nls/Tld.php:23
+msgid "Netherlands Antilles"
+msgstr "Nyderlandų Antilai"
+
+#: lib/Horde/Nls/Countries.php:161 lib/Horde/Nls/Tld.php:174
+msgid "New Caledonia"
+msgstr "Naujoji Kaledonija"
+
+#: lib/Horde/Nls/Countries.php:162 lib/Horde/Nls/Tld.php:184
+msgid "New Zealand"
+msgstr "Naujoji Zelandija"
+
+#: lib/Horde/Nls/Countries.php:163 lib/Horde/Nls/Tld.php:178
+msgid "Nicaragua"
+msgstr "Nikaragva"
+
+#: lib/Horde/Nls/Countries.php:164 lib/Horde/Nls/Tld.php:175
+msgid "Niger"
+msgstr "Nigeris"
+
+#: lib/Horde/Nls/Countries.php:165 lib/Horde/Nls/Tld.php:177
+msgid "Nigeria"
+msgstr "Nigerija"
+
+#: lib/Horde/Nls/Countries.php:166 lib/Horde/Nls/Tld.php:183
+msgid "Niue"
+msgstr "Niujė"
+
+#: lib/Horde/Nls/Countries.php:167 lib/Horde/Nls/Tld.php:176
+msgid "Norfolk Island"
+msgstr "Norfolko salos"
+
+#: lib/Horde/Nls/Countries.php:168 lib/Horde/Nls/Tld.php:162
+msgid "Northern Mariana Islands"
+msgstr "Šiaurinės Marijanų salos"
+
+#: lib/Horde/Nls/Countries.php:169 lib/Horde/Nls/Tld.php:180
+msgid "Norway"
+msgstr "Norvegija"
+
+#: lib/Horde/Nls/Countries.php:170 lib/Horde/Nls/Tld.php:185
+msgid "Oman"
+msgstr "Omanas"
+
+#: lib/Horde/Nls/Geoip.php:342
+msgid "Other"
+msgstr "Kita"
+
+#: lib/Horde/Nls/Countries.php:171 lib/Horde/Nls/Tld.php:191
+msgid "Pakistan"
+msgstr "Pakistanas"
+
+#: lib/Horde/Nls/Countries.php:172 lib/Horde/Nls/Tld.php:198
+msgid "Palau"
+msgstr "Palau"
+
+#: lib/Horde/Nls/Countries.php:173 lib/Horde/Nls/Tld.php:196
+msgid "Palestinian Territory, Occupied"
+msgstr "Užimtoji Palestinos teritorija"
+
+#: lib/Horde/Nls/Countries.php:174 lib/Horde/Nls/Tld.php:186
+msgid "Panama"
+msgstr "Panama"
+
+#: lib/Horde/Nls/Countries.php:175 lib/Horde/Nls/Tld.php:189
+msgid "Papua New Guinea"
+msgstr "Papua Naujoji Gvinėja"
+
+#: lib/Horde/Nls/Countries.php:176 lib/Horde/Nls/Tld.php:199
+msgid "Paraguay"
+msgstr "Paragvajus"
+
+#: lib/Horde/Nls/Countries.php:177 lib/Horde/Nls/Tld.php:187
+msgid "Peru"
+msgstr "Peru"
+
+#: lib/Horde/Nls/Countries.php:178 lib/Horde/Nls/Tld.php:190
+msgid "Philippines"
+msgstr "Filipinai"
+
+#: lib/Horde/Nls/Countries.php:179
+msgid "Pitcairn"
+msgstr "Pitkranas"
+
+#: lib/Horde/Nls/Tld.php:194
+msgid "Pitcairn Island"
+msgstr "Pitkrano sala"
+
+#: lib/Horde/Nls/Countries.php:180 lib/Horde/Nls/Tld.php:192
+msgid "Poland"
+msgstr "Lenkija"
+
+#: lib/Horde/Nls/Countries.php:181 lib/Horde/Nls/Tld.php:197
+msgid "Portugal"
+msgstr "Portugalija"
+
+#: lib/Horde/Nls/Countries.php:182 lib/Horde/Nls/Tld.php:195
+msgid "Puerto Rico"
+msgstr "Puerto Rikas"
+
+#: lib/Horde/Nls/Countries.php:183 lib/Horde/Nls/Tld.php:200
+msgid "Qatar"
+msgstr "Kataras"
+
+#: lib/Horde/Nls/Countries.php:184
+msgid "Reunion"
+msgstr "Rejūnija"
+
+#: lib/Horde/Nls/Tld.php:201
+msgid "Reunion Island"
+msgstr "Rejūnijos sala"
+
+#: lib/Horde/Nls/Countries.php:185 lib/Horde/Nls/Tld.php:202
+msgid "Romania"
+msgstr "Rumunija"
+
+#: lib/Horde/Nls/Countries.php:186 lib/Horde/Nls/Tld.php:204
+msgid "Russian Federation"
+msgstr "Rusijos Federacija"
+
+#: lib/Horde/Nls/Countries.php:187 lib/Horde/Nls/Tld.php:205
+msgid "Rwanda"
+msgstr "Ruanda"
+
+#: lib/Horde/Nls/Countries.php:188 lib/Horde/Nls/Tld.php:212
+msgid "Saint Helena"
+msgstr "Šventoji Helena"
+
+#: lib/Horde/Nls/Countries.php:189 lib/Horde/Nls/Tld.php:134
+msgid "Saint Kitts and Nevis"
+msgstr "Saint Kitsas ir Nevisas"
+
+#: lib/Horde/Nls/Countries.php:190 lib/Horde/Nls/Tld.php:142
+msgid "Saint Lucia"
+msgstr "Saint Liucija"
+
+#: lib/Horde/Nls/Countries.php:191 lib/Horde/Nls/Tld.php:193
+msgid "Saint Pierre and Miquelon"
+msgstr "Šventasis Petras ir Migelonas"
+
+#: lib/Horde/Nls/Countries.php:192 lib/Horde/Nls/Tld.php:251
+msgid "Saint Vincent and the Grenadines"
+msgstr "Saint Vincentas ir Grenadinai"
+
+#: lib/Horde/Nls/Countries.php:193 lib/Horde/Nls/Tld.php:258
+msgid "Samoa"
+msgstr "Samoa"
+
+#: lib/Horde/Nls/Countries.php:194 lib/Horde/Nls/Tld.php:217
+msgid "San Marino"
+msgstr "San Marinas"
+
+#: lib/Horde/Nls/Countries.php:195 lib/Horde/Nls/Tld.php:221
+msgid "Sao Tome and Principe"
+msgstr "Sao Tome ir Principė"
+
+#: lib/Horde/Nls/Geoip.php:341
+msgid "Satellite Provider"
+msgstr "Palydovas"
+
+#: lib/Horde/Nls/Countries.php:196 lib/Horde/Nls/Tld.php:206
+msgid "Saudi Arabia"
+msgstr "Saudo Arabija"
+
+#: lib/Horde/Nls/Countries.php:197 lib/Horde/Nls/Tld.php:218
+msgid "Senegal"
+msgstr "Senegalas"
+
+#: lib/Horde/Nls/Tld.php:203
+msgid "Serbia"
+msgstr "Serbija"
+
+#: lib/Horde/Nls/Countries.php:198
+msgid "Serbia and Montenegro"
+msgstr "Serbija ir Montenegras"
+
+#: lib/Horde/Nls/Countries.php:199 lib/Horde/Nls/Tld.php:208
+msgid "Seychelles"
+msgstr "Seišelai"
+
+#: lib/Horde/Nls/Countries.php:200 lib/Horde/Nls/Tld.php:216
+msgid "Sierra Leone"
+msgstr "Siera Leonė"
+
+#: lib/Horde/Nls/Countries.php:201 lib/Horde/Nls/Tld.php:211
+msgid "Singapore"
+msgstr "Singapūras"
+
+#: lib/Horde/Nls/Countries.php:202 lib/Horde/Nls/Tld.php:215
+msgid "Slovakia"
+msgstr "Slovakija"
+
+#: lib/Horde/Nls/Countries.php:203 lib/Horde/Nls/Tld.php:213
+msgid "Slovenia"
+msgstr "Slovėnija"
+
+#: lib/Horde/Nls/Countries.php:204 lib/Horde/Nls/Tld.php:207
+msgid "Solomon Islands"
+msgstr "Solomono salos"
+
+#: lib/Horde/Nls/Countries.php:205 lib/Horde/Nls/Tld.php:219
+msgid "Somalia"
+msgstr "Somalia"
+
+#: lib/Horde/Nls/Countries.php:206 lib/Horde/Nls/Tld.php:262
+msgid "South Africa"
+msgstr "Pietų Afrika"
+
+#: lib/Horde/Nls/Countries.php:207 lib/Horde/Nls/Tld.php:104
+msgid "South Georgia and the South Sandwich Islands"
+msgstr "Pietų Džordžijos ir Pietų Sandvičo salos"
+
+#: lib/Horde/Nls/Tld.php:222
+msgid "Soviet Union"
+msgstr "Sovietų Sąjunga"
+
+#: lib/Horde/Nls/Countries.php:208 lib/Horde/Nls/Tld.php:81
+msgid "Spain"
+msgstr "Ispanija"
+
+#: lib/Horde/Nls/Countries.php:209 lib/Horde/Nls/Tld.php:144
+msgid "Sri Lanka"
+msgstr "Šri Lanka"
+
+#: lib/Horde/Nls/Countries.php:210 lib/Horde/Nls/Tld.php:209
+msgid "Sudan"
+msgstr "Sudanas"
+
+#: lib/Horde/Nls/Countries.php:211 lib/Horde/Nls/Tld.php:220
+msgid "Suriname"
+msgstr "Surinamas"
+
+#: lib/Horde/Nls/Countries.php:212
+msgid "Svalbard and Jan Mayen"
+msgstr "Svalbardas ir Džanmainas"
+
+#: lib/Horde/Nls/Tld.php:214
+msgid "Svalbard and Jan Mayen Islands"
+msgstr "Svalbardo ir Džanmaino salos"
+
+#: lib/Horde/Nls/Countries.php:213 lib/Horde/Nls/Tld.php:225
+msgid "Swaziland"
+msgstr "Svazilandas"
+
+#: lib/Horde/Nls/Countries.php:214 lib/Horde/Nls/Tld.php:210
+msgid "Sweden"
+msgstr "Švedija"
+
+#: lib/Horde/Nls/Countries.php:215 lib/Horde/Nls/Tld.php:57
+msgid "Switzerland"
+msgstr "Šveicarija"
+
+#: lib/Horde/Nls/Countries.php:216 lib/Horde/Nls/Tld.php:224
+msgid "Syrian Arab Republic"
+msgstr "Sirijos Arabų Respublika"
+
+#: lib/Horde/Nls/Tld.php:241
+msgid "Taiwan"
+msgstr "Taivanas"
+
+#: lib/Horde/Nls/Countries.php:217
+msgid "Taiwan, Province of China"
+msgstr "Taivanas, Kinijos provincija"
+
+#: lib/Horde/Nls/Countries.php:218 lib/Horde/Nls/Tld.php:231
+msgid "Tajikistan"
+msgstr "Tadžikistanas"
+
+#: lib/Horde/Nls/Countries.php:219 lib/Horde/Nls/Tld.php:242
+msgid "Tanzania, United Republic of"
+msgstr "Jungtinė Tanzanijos Respublika"
+
+#: lib/Horde/Nls/Countries.php:220 lib/Horde/Nls/Tld.php:230
+msgid "Thailand"
+msgstr "Tailandas"
+
+#: lib/Horde/Nls/Countries.php:221 lib/Horde/Nls/Tld.php:233
+msgid "Timor-Leste"
+msgstr "Timorlestė"
+
+#: lib/Horde/Nls/Countries.php:222 lib/Horde/Nls/Tld.php:229
+msgid "Togo"
+msgstr "Togas"
+
+#: lib/Horde/Nls/Countries.php:223 lib/Horde/Nls/Tld.php:232
+msgid "Tokelau"
+msgstr "Tokelau"
+
+#: lib/Horde/Nls/Countries.php:224 lib/Horde/Nls/Tld.php:236
+msgid "Tonga"
+msgstr "Tonga"
+
+#: lib/Horde/Nls/Countries.php:225 lib/Horde/Nls/Tld.php:239
+msgid "Trinidad and Tobago"
+msgstr "Trinidadas ir Tobagas"
+
+#: lib/Horde/Nls/Countries.php:226 lib/Horde/Nls/Tld.php:235
+msgid "Tunisia"
+msgstr "Tunisas"
+
+#: lib/Horde/Nls/Countries.php:227 lib/Horde/Nls/Tld.php:238
+msgid "Turkey"
+msgstr "Turkija"
+
+#: lib/Horde/Nls/Countries.php:228 lib/Horde/Nls/Tld.php:234
+msgid "Turkmenistan"
+msgstr "Turkmėnija"
+
+#: lib/Horde/Nls/Countries.php:229 lib/Horde/Nls/Tld.php:226
+msgid "Turks and Caicos Islands"
+msgstr "Turkso ir Kaikoso salos"
+
+#: lib/Horde/Nls/Countries.php:230 lib/Horde/Nls/Tld.php:240
+msgid "Tuvalu"
+msgstr "Tuvalu"
+
+#: lib/Horde/Nls/Countries.php:231 lib/Horde/Nls/Tld.php:244
+msgid "Uganda"
+msgstr "Uganda"
+
+#: lib/Horde/Nls/Countries.php:232 lib/Horde/Nls/Tld.php:243
+msgid "Ukraine"
+msgstr "Ukraina"
+
+#: lib/Horde/Nls/Countries.php:233 lib/Horde/Nls/Tld.php:17
+msgid "United Arab Emirates"
+msgstr "Jungtiniai Arabų Emyratai"
+
+#: lib/Horde/Nls/Countries.php:234 lib/Horde/Nls/Tld.php:91
+#: lib/Horde/Nls/Tld.php:245
+msgid "United Kingdom"
+msgstr "Jungtinė Karalystė"
+
+#: lib/Horde/Nls/Countries.php:235 lib/Horde/Nls/Tld.php:247
+msgid "United States"
+msgstr "Jungtinės Valstijos"
+
+#: lib/Horde/Nls/Countries.php:236 lib/Horde/Nls/Tld.php:246
+msgid "United States Minor Outlying Islands"
+msgstr "Jungtinių Valstyjų Atokesnės salos"
+
+#: lib/Horde/Nls/Countries.php:237 lib/Horde/Nls/Tld.php:248
+msgid "Uruguay"
+msgstr "Urugvajus"
+
+#: lib/Horde/Nls/Countries.php:238 lib/Horde/Nls/Tld.php:249
+msgid "Uzbekistan"
+msgstr "Uzbekistanas"
+
+#: lib/Horde/Nls/Countries.php:239 lib/Horde/Nls/Tld.php:256
+msgid "Vanuatu"
+msgstr "Vanuatu"
+
+#: lib/Horde/Nls/Countries.php:240 lib/Horde/Nls/Tld.php:252
+msgid "Venezuela"
+msgstr "Venesuela"
+
+#: lib/Horde/Nls/Countries.php:241 lib/Horde/Nls/Tld.php:255
+msgid "Viet Nam"
+msgstr "Vietnamas"
+
+#: lib/Horde/Nls/Countries.php:242 lib/Horde/Nls/Tld.php:253
+msgid "Virgin Islands, British"
+msgstr "Britų Virdžinijos salos"
+
+#: lib/Horde/Nls/Countries.php:243 lib/Horde/Nls/Tld.php:254
+msgid "Virgin Islands, U.S."
+msgstr "JAV Virdžinijos salos"
+
+#: lib/Horde/Nls/Countries.php:244
+msgid "Wallis and Futuna"
+msgstr "Valis ir Futuna"
+
+#: lib/Horde/Nls/Tld.php:257
+msgid "Wallis and Futuna Islands"
+msgstr "Valio ir Futunos salos"
+
+#: lib/Horde/Nls/Countries.php:245 lib/Horde/Nls/Tld.php:79
+msgid "Western Sahara"
+msgstr "Vakarų Sachara"
+
+#: lib/Horde/Nls/Countries.php:246 lib/Horde/Nls/Tld.php:259
+msgid "Yemen"
+msgstr "Jemenas"
+
+#: lib/Horde/Nls/Tld.php:261
+msgid "Yugoslavia"
+msgstr "Jugoslavija"
+
+#: lib/Horde/Nls/Countries.php:247 lib/Horde/Nls/Tld.php:263
+msgid "Zambia"
+msgstr "Zambija"
+
+#: lib/Horde/Nls/Countries.php:248 lib/Horde/Nls/Tld.php:264
+msgid "Zimbabwe"
+msgstr "Zimbabvė"

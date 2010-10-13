@@ -1,0 +1,72 @@
+# Portuguese translations for Horde_Kolab_Storage module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Kolab_Storage module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Kolab_Storage\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/Horde/Kolab/Storage/Folder/Base.php:993
+#: lib/Horde/Kolab/Storage/Folder/Base.php:999
+#, php-format
+msgid "Failed retrieving the message with ID %s. Original error: %s."
+msgstr ""
+
+#: lib/Horde/Kolab/Storage/Folder/Decorator/Trigger.php:228
+#, php-format
+msgid "Failed triggering folder %s. Error was: %s"
+msgstr ""
+
+#: lib/Horde/Kolab/Storage/Data.php:630
+#, php-format
+msgid "Kolab cache: Object uid %s does not exist in the cache!"
+msgstr ""
+
+#: lib/Horde/Kolab/Storage/Data.php:315
+#, fuzzy, php-format
+msgid "Old object %s does not exist."
+msgstr "A pasta %s não existe."
+
+#: lib/Horde/Kolab/Storage/Data.php:322
+#, php-format
+msgid "Old object %s does not map to a uid."
+msgstr ""
+
+#: lib/Horde/Kolab/Storage/Folder/Base.php:832
+#, php-format
+msgid ""
+"The message with ID %s does not exist. This probably means that the Kolab "
+"object has been modified by somebody else while you were editing it. Your "
+"edits have been lost."
+msgstr ""
+
+#: lib/Horde/Kolab/Storage/Folder/Base.php:1054
+#, php-format
+msgid ""
+"This is a Kolab Groupware object. To view this object you will need an email "
+"client that understands the Kolab Groupware format. For a list of such email "
+"clients please visit %s"
+msgstr ""
+"Este é um objecto Kolab Groupware. Para ver este objecto precisa de um "
+"cliente de correio electrónico que conheça o formato Kolab Groupware. Para "
+"uma lista de clientes de correio electrónico nessas circunstâncias visite %s"
+
+#: lib/Horde/Kolab/Storage/Folder/Base.php:391
+#, php-format
+msgid "Unable to rename %s to %s: destination folder already exists"
+msgstr "Não foi possível renomear %s como %s: a pasta de destino já existe"
+
+#: lib/Horde/Kolab/Storage/Folder/Decorator/Trigger.php:261
+#, fuzzy, php-format
+msgid "Unable to trigger URL %s. Response: %s"
+msgstr "Impossível activar actualização da informação livre/ocupado para %s"

@@ -1,0 +1,84 @@
+# Slovenian translations for Horde_Block module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Block module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Block\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
+
+#: lib/Horde/Block/Ui.php:97
+msgid "Application"
+msgstr "Aplikacija"
+
+#: lib/Horde/Block/Collection.php:410
+#, php-format
+msgid "Block \"%s\" of application \"%s\" not found."
+msgstr "Nisem našel bloka \"%s\", aplikacije \"%s\" ."
+
+#: lib/Horde/Block/Layout.php:130 lib/Horde/Block/Layout.php:131
+msgid "Edit"
+msgstr "Uredi"
+
+#: lib/Horde/Block/Ui.php:89
+msgid "Edit Block"
+msgstr "Uredi stolpec"
+
+#: lib/Horde/Block/Layout/View.php:98
+msgid "Error"
+msgstr "Napaka"
+
+#: lib/Horde/Block/Layout/Manager.php:576
+msgid "Expand"
+msgstr "Povečaj"
+
+#: lib/Horde/Block/Layout/Manager.php:610
+msgid "Move Down"
+msgstr "Pomakni se dol"
+
+#: lib/Horde/Block/Layout/Manager.php:614
+msgid "Move Left"
+msgstr "Pomakni se v levo"
+
+#: lib/Horde/Block/Layout/Manager.php:618
+msgid "Move Right"
+msgstr "Pomakni se v desno"
+
+#: lib/Horde/Block/Layout/Manager.php:606
+msgid "Move Up"
+msgstr "Pomakni se gor"
+
+#: lib/Horde/Block/Layout/Manager.php:121
+msgid "No block exists at the requested position"
+msgstr "Na želenem mest beležka ne obstaja."
+
+#: lib/Horde/Block/Layout.php:139
+msgid "Really delete this block?"
+msgstr ""
+
+#: lib/Horde/Block/Layout.php:136 lib/Horde/Block/Layout.php:140
+msgid "Remove"
+msgstr "Odstrani"
+
+#: lib/Horde/Block/Layout/Manager.php:581
+msgid "Shrink"
+msgstr "Skrči"
+
+#: lib/Horde/Block/Layout/Manager.php:245
+#, fuzzy, php-format
+msgid "You are not allowed to create more than %d block."
+msgid_plural "You are not allowed to create more than %d blocks."
+msgstr[0] "Nimate dovoljenja ustvariti več kot %d blokov."
+msgstr[1] "Nimate dovoljenja ustvariti več kot %d blokov."
+msgstr[2] "Nimate dovoljenja ustvariti več kot %d blokov."
+msgstr[3] "Nimate dovoljenja ustvariti več kot %d blokov."

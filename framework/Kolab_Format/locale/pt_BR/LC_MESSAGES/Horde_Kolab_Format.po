@@ -1,0 +1,30 @@
+# Portuguese translations for Horde_Kolab_Format module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Kolab_Format module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Kolab_Format\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: lib/Horde/Kolab/Format/Xml.php:562 lib/Horde/Kolab/Format/Xml.php:727
+#, php-format
+msgid "Data value for %s is empty in Kolab XML object!"
+msgstr "Valor do dado para %s é vazio no objeto Kolab XML!"
+
+#: lib/Horde/Kolab/Format/Xml.php:456 lib/Horde/Kolab/Format/Xml.php:611
+msgid "No or unreadable content in Kolab XML object"
+msgstr "Nenhum ou ilegível conteúdo em objeto Kolab XML"
+
+#: lib/Horde/Kolab/Format/Xml.php:471
+msgid "UID not found in Kolab XML object"
+msgstr "UID não encontrado no objeto Kolab XML"

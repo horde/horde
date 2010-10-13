@@ -1,0 +1,454 @@
+# Korean translations for Horde_Crypt module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Crypt module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Crypt\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: lib/Horde/Crypt/Smime.php:614
+#, php-format
+msgid "%s Fingerprint"
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:1240
+msgid "A passphrase is required to decrypt a message."
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:1307
+msgid "A public PGP key is required to verify a signed message."
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:1164
+msgid ""
+"A public PGP key, private PGP key, and passphrase are required to sign a "
+"message."
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:311
+msgid "A public S/MIME key is required to encrypt a message."
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:422
+msgid ""
+"A public S/MIME key, private S/MIME key, and passphrase are required to "
+"decrypt a message."
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:360
+msgid ""
+"A public S/MIME key, private S/MIME key, and passphrase are required to sign "
+"a message."
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:506
+msgid "CRL Distribution Points"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:609
+msgid "Certificate Details"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:520
+msgid "Certificate Owner"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:505
+msgid "Certificate Policies"
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:426
+#, fuzzy
+msgid "Comment"
+msgstr "회사"
+
+#: lib/Horde/Crypt/Smime.php:475
+#, fuzzy
+msgid "Common Name"
+msgstr "이름:"
+
+#: lib/Horde/Crypt/Pgp.php:939
+#, fuzzy
+msgid "Connection refused to the public keyserver."
+msgstr "ftp 서버 연결 오류."
+
+#: lib/Horde/Crypt/Pgp.php:950
+#, fuzzy, php-format
+msgid "Connection refused to the public keyserver. Reason: %s (%s)"
+msgstr "ftp 서버 연결 오류."
+
+#: lib/Horde/Crypt/Pgp.php:1132
+#, fuzzy
+msgid "Could not PGP encrypt message: "
+msgstr "1개의 새로운 메시지가 있습니다."
+
+#: lib/Horde/Crypt/Pgp.php:1201
+#, fuzzy
+msgid "Could not PGP sign message: "
+msgstr "1개의 새로운 메시지가 있습니다."
+
+#: lib/Horde/Crypt/Smime.php:330
+#, fuzzy
+msgid "Could not S/MIME encrypt message."
+msgstr "메시지 전송"
+
+#: lib/Horde/Crypt/Smime.php:391
+#, fuzzy
+msgid "Could not S/MIME sign message."
+msgstr "1개의 새로운 메시지가 있습니다."
+
+#: lib/Horde/Crypt/Pgp.php:1276
+msgid "Could not decrypt PGP data: "
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:440
+msgid "Could not decrypt S/MIME data."
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:659
+#, fuzzy
+msgid "Could not determine the recipient's e-mail address."
+msgstr "잘못된 이메일 주소"
+
+#: lib/Horde/Crypt/Pgp.php:759 lib/Horde/Crypt/Pgp.php:848
+#, fuzzy
+msgid "Could not obtain public key from the keyserver."
+msgstr "LDAP 서버 접속 실패"
+
+#: lib/Horde/Crypt/Smime.php:478
+msgid "Country"
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:426
+#, fuzzy
+msgid "E-Mail"
+msgstr "웹메일"
+
+#: lib/Horde/Crypt/Smime.php:474
+#, fuzzy
+msgid "Email Address"
+msgstr "이메일 주소:"
+
+#: lib/Horde/Crypt/Pgp.php:1584 lib/Horde/Crypt/Pgp.php:1592
+msgid "Error while talking to pgp binary."
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:1251 lib/Horde/Crypt/Smime.php:1269
+#: lib/Horde/Crypt/Smime.php:1284
+msgid "Error while talking to smime binary."
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:425
+msgid "Expiration Date"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:586
+#, fuzzy
+msgid "Exponent"
+msgstr "엑스포트"
+
+#: lib/Horde/Crypt/Smime.php:484
+#, fuzzy
+msgid "Given Name"
+msgstr "필드이름"
+
+#: lib/Horde/Crypt/Pgp.php:426
+msgid "Hash-Algorithm"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:534
+msgid "Issuer"
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:424
+msgid "Key Creation"
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:427
+msgid "Key Fingerprint"
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:427
+msgid "Key ID"
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:425
+msgid "Key Length"
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:424
+msgid "Key Type"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:507
+#, fuzzy
+msgid "Key Usage"
+msgstr "메시지"
+
+#: lib/Horde/Crypt/Pgp.php:782
+#, fuzzy
+msgid "Key already exists on the public keyserver."
+msgstr "ftp 서버 연결 오류."
+
+#: lib/Horde/Crypt/Smime.php:480
+#, fuzzy
+msgid "Location"
+msgstr "실행"
+
+#: lib/Horde/Crypt/Smime.php:189
+msgid ""
+"Message Verified Successfully but the signer's certificate could not be "
+"verified."
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:583
+#, fuzzy
+msgid "Modulus"
+msgstr "역할"
+
+#: lib/Horde/Crypt/Pgp.php:424
+msgid "Name"
+msgstr "이름"
+
+#: lib/Horde/Crypt/Smime.php:490
+msgid "Netscape Base URL"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:492
+msgid "Netscape CA Revocation URL"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:494
+msgid "Netscape CA policy URL"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:493
+msgid "Netscape Renewal URL"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:491
+msgid "Netscape Revocation URL"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:495
+msgid "Netscape SSL server name"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:496
+msgid "Netscape certificate comment"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:489
+msgid "Netscape certificate type"
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:449
+msgid "Never"
+msgstr "사용안함"
+
+#: lib/Horde/Crypt/Smime.php:1217
+msgid ""
+"No path to the OpenSSL binary provided. The OpenSSL binary is necessary to "
+"work with PKCS 12 data."
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:451 lib/Horde/Crypt/Pgp.php:452
+msgid "None"
+msgstr "선택하지 않음"
+
+#: lib/Horde/Crypt/Smime.php:549
+#, fuzzy
+msgid "Not After"
+msgstr "임시보관되지 않은 메일"
+
+#: lib/Horde/Crypt/Smime.php:548
+#, fuzzy
+msgid "Not Before"
+msgstr "임시보관되지 않은 메일"
+
+#: lib/Horde/Crypt/Smime.php:231
+msgid "OpenSSL error: Could not extract data from signed S/MIME part."
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:476
+msgid "Organisation"
+msgstr "단체"
+
+#: lib/Horde/Crypt/Smime.php:477
+#, fuzzy
+msgid "Organisational Unit"
+msgstr "단체"
+
+#: lib/Horde/Crypt/Pgp.php:1406
+#, fuzzy
+msgid "PGP Digital Signature"
+msgstr "서명:"
+
+#: lib/Horde/Crypt/Pgp.php:1450
+msgid "PGP Encrypted Data"
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:1511
+msgid "PGP Public Key"
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:1493
+msgid "PGP Signed/Encrypted Data"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:1256
+#, fuzzy
+msgid "Password incorrect"
+msgstr "암호"
+
+#: lib/Horde/Crypt/Pgp.php:447
+msgid "Private Key"
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:447
+msgid "Public Key"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:554
+msgid "Public Key Algorithm"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:553
+msgid "Public Key Info"
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:225
+msgid "Public/Private keypair not generated successfully."
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:572
+#, php-format
+msgid "RSA Public Key (%d bit)"
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:227
+#, fuzzy
+msgid "Returned error message:"
+msgstr "새 메일"
+
+#: lib/Horde/Crypt/Pgp.php:1644
+msgid "Revocation key not generated successfully."
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:252
+msgid "S/MIME Cryptographic Signature"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:283
+#, fuzzy
+msgid "S/MIME Encrypted Message"
+msgstr "메시지 전송"
+
+#: lib/Horde/Crypt/Smime.php:611
+#, fuzzy
+msgid "Serial Number"
+msgstr "숫자"
+
+#: lib/Horde/Crypt/Smime.php:622
+#, fuzzy
+msgid "Signature"
+msgstr "서명:"
+
+#: lib/Horde/Crypt/Smime.php:621
+#, fuzzy
+msgid "Signature Algorithm"
+msgstr "서명:"
+
+#: lib/Horde/Crypt/Smime.php:479
+msgid "State or Province"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:481
+#, fuzzy
+msgid "Street Address"
+msgstr "직장 주소"
+
+#: lib/Horde/Crypt/Smime.php:483
+#, fuzzy
+msgid "Surname"
+msgstr "이름"
+
+#: lib/Horde/Crypt/Smime.php:482
+msgid "Telephone Number"
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:1311
+msgid ""
+"The detached PGP signature block is required to verify the signed message."
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:1146
+msgid "The openssl module is required for the Horde_Crypt_Smime:: class."
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:512
+msgid "Unable to extract certificate details"
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:453 lib/Horde/Crypt/Pgp.php:454
+#: lib/Horde/Crypt/Pgp.php:455
+msgid "Unknown"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:596 lib/Horde/Crypt/Smime.php:844
+#: lib/Horde/Crypt/Smime.php:850
+msgid "Unsupported Extension"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:547
+msgid "Validity"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:191
+#, fuzzy
+msgid "Verification failed - an unknown error has occurred."
+msgstr "<b>치명적인 오류 발생:</b>"
+
+#: lib/Horde/Crypt/Smime.php:193
+msgid "Verification failed - this message may have been tampered with."
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:610
+#, fuzzy
+msgid "Version"
+msgstr "개인 메일"
+
+#: lib/Horde/Crypt/Smime.php:502
+msgid "X509v3 Basic Constraints"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:501
+msgid "X509v3 Extended Key Usage"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:503
+msgid "X509v3 Subject Alternative Name"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:504
+msgid "X509v3 Subject Key Identifier"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:592
+msgid "X509v3 extensions"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:1135
+#, fuzzy
+msgid "not yet implemented"
+msgstr "삭제되지 않은 메일"

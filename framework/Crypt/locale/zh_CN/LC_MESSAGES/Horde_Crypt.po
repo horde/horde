@@ -1,0 +1,427 @@
+# Chinese translations for Horde_Crypt module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Crypt module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Crypt\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lib/Horde/Crypt/Smime.php:614
+#, php-format
+msgid "%s Fingerprint"
+msgstr "%s 指纹"
+
+#: lib/Horde/Crypt/Pgp.php:1240
+msgid "A passphrase is required to decrypt a message."
+msgstr "需要密码才可以解密邮件。"
+
+#: lib/Horde/Crypt/Pgp.php:1307
+msgid "A public PGP key is required to verify a signed message."
+msgstr "需要 PGP 公钥来验证签名邮件。"
+
+#: lib/Horde/Crypt/Pgp.php:1164
+msgid ""
+"A public PGP key, private PGP key, and passphrase are required to sign a "
+"message."
+msgstr "需要 PGP 公钥、私钥和密码来签署邮件。"
+
+#: lib/Horde/Crypt/Smime.php:311
+#, fuzzy
+msgid "A public S/MIME key is required to encrypt a message."
+msgstr "需要 S/MIME 公钥来加密邮件。"
+
+#: lib/Horde/Crypt/Smime.php:422
+msgid ""
+"A public S/MIME key, private S/MIME key, and passphrase are required to "
+"decrypt a message."
+msgstr "需要 S/MIME 公钥、S/MIME 私钥和密码来解密邮件。"
+
+#: lib/Horde/Crypt/Smime.php:360
+msgid ""
+"A public S/MIME key, private S/MIME key, and passphrase are required to sign "
+"a message."
+msgstr "需要 S/MIME 公钥、S/MIME 私钥和密码来签署邮件。"
+
+#: lib/Horde/Crypt/Smime.php:506
+msgid "CRL Distribution Points"
+msgstr "CRL 分发点"
+
+#: lib/Horde/Crypt/Smime.php:609
+msgid "Certificate Details"
+msgstr "证书详情"
+
+#: lib/Horde/Crypt/Smime.php:520
+msgid "Certificate Owner"
+msgstr "证书所有者"
+
+#: lib/Horde/Crypt/Smime.php:505
+msgid "Certificate Policies"
+msgstr "证书政策"
+
+#: lib/Horde/Crypt/Pgp.php:426
+msgid "Comment"
+msgstr "注释"
+
+#: lib/Horde/Crypt/Smime.php:475
+msgid "Common Name"
+msgstr "常用名"
+
+#: lib/Horde/Crypt/Pgp.php:939
+msgid "Connection refused to the public keyserver."
+msgstr "连接公钥服务器被拒。"
+
+#: lib/Horde/Crypt/Pgp.php:950
+#, php-format
+msgid "Connection refused to the public keyserver. Reason: %s (%s)"
+msgstr "连接公钥服务器被拒。原因：%s (%s)"
+
+#: lib/Horde/Crypt/Pgp.php:1132
+msgid "Could not PGP encrypt message: "
+msgstr "无法使用 PGP 加密邮件："
+
+#: lib/Horde/Crypt/Pgp.php:1201
+msgid "Could not PGP sign message: "
+msgstr "无法使用 PGP 签署邮件： "
+
+#: lib/Horde/Crypt/Smime.php:330
+msgid "Could not S/MIME encrypt message."
+msgstr "无法使用 S/MIME 加密邮件。"
+
+#: lib/Horde/Crypt/Smime.php:391
+msgid "Could not S/MIME sign message."
+msgstr "无法使用 S/MIME 签署邮件。"
+
+#: lib/Horde/Crypt/Pgp.php:1276
+msgid "Could not decrypt PGP data: "
+msgstr "无法解密 PGP 数据："
+
+#: lib/Horde/Crypt/Smime.php:440
+msgid "Could not decrypt S/MIME data."
+msgstr "无法解密 S/MIME 数据。"
+
+#: lib/Horde/Crypt/Pgp.php:659
+msgid "Could not determine the recipient's e-mail address."
+msgstr "无法确定收件人电子邮件地址。"
+
+#: lib/Horde/Crypt/Pgp.php:759 lib/Horde/Crypt/Pgp.php:848
+msgid "Could not obtain public key from the keyserver."
+msgstr "无法从证书服务器获取公钥。"
+
+#: lib/Horde/Crypt/Smime.php:478
+msgid "Country"
+msgstr "国家"
+
+#: lib/Horde/Crypt/Pgp.php:426
+msgid "E-Mail"
+msgstr "电子邮件"
+
+#: lib/Horde/Crypt/Smime.php:474
+msgid "Email Address"
+msgstr "电子邮件地址"
+
+#: lib/Horde/Crypt/Pgp.php:1584 lib/Horde/Crypt/Pgp.php:1592
+msgid "Error while talking to pgp binary."
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:1251 lib/Horde/Crypt/Smime.php:1269
+#: lib/Horde/Crypt/Smime.php:1284
+msgid "Error while talking to smime binary."
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:425
+msgid "Expiration Date"
+msgstr "过期日"
+
+#: lib/Horde/Crypt/Smime.php:586
+msgid "Exponent"
+msgstr "说明"
+
+#: lib/Horde/Crypt/Smime.php:484
+msgid "Given Name"
+msgstr "名字"
+
+#: lib/Horde/Crypt/Pgp.php:426
+msgid "Hash-Algorithm"
+msgstr "哈希算法"
+
+#: lib/Horde/Crypt/Smime.php:534
+msgid "Issuer"
+msgstr "发行者"
+
+#: lib/Horde/Crypt/Pgp.php:424
+msgid "Key Creation"
+msgstr "创建密钥"
+
+#: lib/Horde/Crypt/Pgp.php:427
+msgid "Key Fingerprint"
+msgstr "密钥特征"
+
+#: lib/Horde/Crypt/Pgp.php:427
+msgid "Key ID"
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:425
+msgid "Key Length"
+msgstr "密钥长度"
+
+#: lib/Horde/Crypt/Pgp.php:424
+msgid "Key Type"
+msgstr "密钥类型"
+
+#: lib/Horde/Crypt/Smime.php:507
+msgid "Key Usage"
+msgstr "密钥语法"
+
+#: lib/Horde/Crypt/Pgp.php:782
+msgid "Key already exists on the public keyserver."
+msgstr "密钥已在公钥服务器中。"
+
+#: lib/Horde/Crypt/Smime.php:480
+msgid "Location"
+msgstr "地区"
+
+#: lib/Horde/Crypt/Smime.php:189
+msgid ""
+"Message Verified Successfully but the signer's certificate could not be "
+"verified."
+msgstr "邮件验证成功，但签名者的证书验证失败。"
+
+#: lib/Horde/Crypt/Smime.php:583
+msgid "Modulus"
+msgstr "模数"
+
+#: lib/Horde/Crypt/Pgp.php:424
+msgid "Name"
+msgstr "姓名"
+
+#: lib/Horde/Crypt/Smime.php:490
+msgid "Netscape Base URL"
+msgstr "Netscape Base URL"
+
+#: lib/Horde/Crypt/Smime.php:492
+msgid "Netscape CA Revocation URL"
+msgstr "Netscape CA 证书撤销 URL"
+
+#: lib/Horde/Crypt/Smime.php:494
+msgid "Netscape CA policy URL"
+msgstr "Netscape CA 策略 URL"
+
+#: lib/Horde/Crypt/Smime.php:493
+msgid "Netscape Renewal URL"
+msgstr "Netscape 续订 URL"
+
+#: lib/Horde/Crypt/Smime.php:491
+msgid "Netscape Revocation URL"
+msgstr "Netscape  证书撤销 URL"
+
+#: lib/Horde/Crypt/Smime.php:495
+msgid "Netscape SSL server name"
+msgstr "Netscape SSL服务器名称"
+
+#: lib/Horde/Crypt/Smime.php:496
+msgid "Netscape certificate comment"
+msgstr "Netscape 证书注释"
+
+#: lib/Horde/Crypt/Smime.php:489
+msgid "Netscape certificate type"
+msgstr "Netscape 证书类型"
+
+#: lib/Horde/Crypt/Pgp.php:449
+msgid "Never"
+msgstr "永不"
+
+#: lib/Horde/Crypt/Smime.php:1217
+msgid ""
+"No path to the OpenSSL binary provided. The OpenSSL binary is necessary to "
+"work with PKCS 12 data."
+msgstr ""
+"未提供 OpenSSL 二进制库路径。OpenSSL 二进制库需要和 PKCS 12 数据搭配工作。"
+
+#: lib/Horde/Crypt/Pgp.php:451 lib/Horde/Crypt/Pgp.php:452
+msgid "None"
+msgstr "无"
+
+#: lib/Horde/Crypt/Smime.php:549
+msgid "Not After"
+msgstr "不在此之后"
+
+#: lib/Horde/Crypt/Smime.php:548
+msgid "Not Before"
+msgstr "不在此之前"
+
+#: lib/Horde/Crypt/Smime.php:231
+msgid "OpenSSL error: Could not extract data from signed S/MIME part."
+msgstr "OpenSSL 错误：无法从已签名的 S/MIME 部分抽取数据。"
+
+#: lib/Horde/Crypt/Smime.php:476
+msgid "Organisation"
+msgstr "组织"
+
+#: lib/Horde/Crypt/Smime.php:477
+msgid "Organisational Unit"
+msgstr "组织单位"
+
+#: lib/Horde/Crypt/Pgp.php:1406
+msgid "PGP Digital Signature"
+msgstr "PGP 数字签名"
+
+#: lib/Horde/Crypt/Pgp.php:1450
+msgid "PGP Encrypted Data"
+msgstr "PGP 加密数据"
+
+#: lib/Horde/Crypt/Pgp.php:1511
+msgid "PGP Public Key"
+msgstr "PGP 公钥"
+
+#: lib/Horde/Crypt/Pgp.php:1493
+msgid "PGP Signed/Encrypted Data"
+msgstr "PGP 已签名/已加密数据"
+
+#: lib/Horde/Crypt/Smime.php:1256
+msgid "Password incorrect"
+msgstr "密码错误"
+
+#: lib/Horde/Crypt/Pgp.php:447
+msgid "Private Key"
+msgstr "私钥"
+
+#: lib/Horde/Crypt/Pgp.php:447
+msgid "Public Key"
+msgstr "公钥"
+
+#: lib/Horde/Crypt/Smime.php:554
+msgid "Public Key Algorithm"
+msgstr "公钥算法"
+
+#: lib/Horde/Crypt/Smime.php:553
+msgid "Public Key Info"
+msgstr "公钥信息"
+
+#: lib/Horde/Crypt/Pgp.php:225
+msgid "Public/Private keypair not generated successfully."
+msgstr "未成功生成公钥/私钥对。"
+
+#: lib/Horde/Crypt/Smime.php:572
+#, php-format
+msgid "RSA Public Key (%d bit)"
+msgstr "RSA 公钥 (%d 位)"
+
+#: lib/Horde/Crypt/Pgp.php:227
+#, fuzzy
+msgid "Returned error message:"
+msgstr "阅读邮件"
+
+#: lib/Horde/Crypt/Pgp.php:1644
+#, fuzzy
+msgid "Revocation key not generated successfully."
+msgstr "未成功生成公钥/私钥对。"
+
+#: lib/Horde/Crypt/Smime.php:252
+msgid "S/MIME Cryptographic Signature"
+msgstr "S/MIME 加密签名"
+
+#: lib/Horde/Crypt/Smime.php:283
+msgid "S/MIME Encrypted Message"
+msgstr "使用 S/MIME 加密的邮件"
+
+#: lib/Horde/Crypt/Smime.php:611
+msgid "Serial Number"
+msgstr "序列号"
+
+#: lib/Horde/Crypt/Smime.php:622
+msgid "Signature"
+msgstr "签名"
+
+#: lib/Horde/Crypt/Smime.php:621
+msgid "Signature Algorithm"
+msgstr "签名算法"
+
+#: lib/Horde/Crypt/Smime.php:479
+msgid "State or Province"
+msgstr "地区或省"
+
+#: lib/Horde/Crypt/Smime.php:481
+msgid "Street Address"
+msgstr "街道地址"
+
+#: lib/Horde/Crypt/Smime.php:483
+msgid "Surname"
+msgstr "别名"
+
+#: lib/Horde/Crypt/Smime.php:482
+msgid "Telephone Number"
+msgstr "电话号码"
+
+#: lib/Horde/Crypt/Pgp.php:1311
+msgid ""
+"The detached PGP signature block is required to verify the signed message."
+msgstr "验证签名邮件需要有已解开的 PGP 区。"
+
+#: lib/Horde/Crypt/Smime.php:1146
+#, fuzzy
+msgid "The openssl module is required for the Horde_Crypt_Smime:: class."
+msgstr "Horde_Crypt_smime:: 类需要 openssl 模块。"
+
+#: lib/Horde/Crypt/Smime.php:512
+msgid "Unable to extract certificate details"
+msgstr "无法获取证书详情"
+
+#: lib/Horde/Crypt/Pgp.php:453 lib/Horde/Crypt/Pgp.php:454
+#: lib/Horde/Crypt/Pgp.php:455
+msgid "Unknown"
+msgstr "未知"
+
+#: lib/Horde/Crypt/Smime.php:596 lib/Horde/Crypt/Smime.php:844
+#: lib/Horde/Crypt/Smime.php:850
+msgid "Unsupported Extension"
+msgstr "不支持的扩展"
+
+#: lib/Horde/Crypt/Smime.php:547
+msgid "Validity"
+msgstr "有效性"
+
+#: lib/Horde/Crypt/Smime.php:191
+#, fuzzy
+msgid "Verification failed - an unknown error has occurred."
+msgstr "出现未知错误。"
+
+#: lib/Horde/Crypt/Smime.php:193
+msgid "Verification failed - this message may have been tampered with."
+msgstr "验证失败 - 此邮件可能已被他人篡改。"
+
+#: lib/Horde/Crypt/Smime.php:610
+msgid "Version"
+msgstr "版本"
+
+#: lib/Horde/Crypt/Smime.php:502
+msgid "X509v3 Basic Constraints"
+msgstr "X509v3 基本限制"
+
+#: lib/Horde/Crypt/Smime.php:501
+msgid "X509v3 Extended Key Usage"
+msgstr "X509v3 密钥扩展用途"
+
+#: lib/Horde/Crypt/Smime.php:503
+msgid "X509v3 Subject Alternative Name"
+msgstr "X509v3 用户备用名"
+
+#: lib/Horde/Crypt/Smime.php:504
+msgid "X509v3 Subject Key Identifier"
+msgstr "X509v3 用户的公钥标识"
+
+#: lib/Horde/Crypt/Smime.php:592
+msgid "X509v3 extensions"
+msgstr "X509v3 扩展项"
+
+#: lib/Horde/Crypt/Smime.php:1135
+msgid "not yet implemented"
+msgstr "仍未实现"

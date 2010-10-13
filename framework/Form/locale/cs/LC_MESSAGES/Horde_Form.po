@@ -1,0 +1,678 @@
+# Czech translations for Horde_Form module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Form module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Form\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#: Form/Type.php:2520
+#, php-format
+msgid " (%s days ago)"
+msgstr " (před %s dny)"
+
+#: Form/Type.php:2528
+#, php-format
+msgid " (in %s days)"
+msgstr " (v %s dnech)"
+
+#: Form/Type.php:2524
+msgid " (today)"
+msgstr " (dnes)"
+
+#: Form/Type.php:2526
+msgid " (tomorrow)"
+msgstr " (zítra)"
+
+#: Form/Type.php:2522
+msgid " (yesterday)"
+msgstr " (včera)"
+
+#: Form/Type.php:1460
+#, fuzzy, php-format
+msgid "\"%s\" is not a valid email address."
+msgstr "Byla zadána neplatná e-mailová adresa."
+
+#: Form/Type.php:2475
+#, php-format
+msgid "%s is required"
+msgstr "%s je požadováno"
+
+#: Form/Type.php:2190 Form/Type.php:2253
+msgid "-- select --"
+msgstr "-- výběr --"
+
+#: Form/Type.php:843 Form/Type.php:886
+#, fuzzy
+msgid "A temporary directory"
+msgstr "Nelze najít dočasný adresář."
+
+#: Form/Type.php:773
+msgid "Address"
+msgstr "Adresa"
+
+#: Form/Type.php:795
+#, fuzzy
+msgid "Address Link"
+msgstr "Adresář"
+
+#: Form/Type.php:1620
+#, fuzzy
+msgid "Allow multiple addresses?"
+msgstr "Povolit více adres"
+
+#: Form/Type.php:3473
+msgid "Assignment columns"
+msgstr "Sloupce s úkoly"
+
+#: Form/Type.php:3745
+#, fuzzy
+msgid "Category"
+msgstr "Nová kategorie"
+
+#: Form/Type.php:1632
+#, fuzzy
+msgid "Character to split multiple addresses with"
+msgstr "Povolit více adres"
+
+#: Form/Type.php:3161
+msgid "Colour selection"
+msgstr "Paleta barev"
+
+#: Form/Type.php:2072
+msgid "Column titles"
+msgstr "Názvy sloupce"
+
+#: Form/Type.php:662
+msgid "Counted text"
+msgstr "Odpočítaný text"
+
+#: Form/Type.php:909
+#, fuzzy
+msgid "Country drop down list"
+msgstr "Roletový seznam"
+
+#: Form/Type.php:3588
+msgid "Credit card number"
+msgstr "Číslo kreditní karty"
+
+#: Form/Type.php:3643
+msgid ""
+"DSN (see http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
+msgstr ""
+"DSN (viz http://pear.php.net/manual/cs/package.database.db.intro-dsn.php)"
+
+#: Form/Type.php:3641
+#, fuzzy
+msgid "Database lookup"
+msgstr "Hledání v databázi"
+
+#: Form/Type.php:2549
+msgid "Date"
+msgstr "Datum"
+
+#: Form/Type.php:3121
+#, fuzzy
+msgid "Date and time selection"
+msgstr "Výběr datumu"
+
+#: Form/Type.php:2958
+msgid "Date selection"
+msgstr "Výběr datumu"
+
+#: Form/Type.php:132
+msgid "Description"
+msgstr "Popis"
+
+#: Form/Type.php:2968 Form/Type.php:3131
+msgid "Display format"
+msgstr "Formát zobrazení"
+
+#: Form/Type.php:2233
+msgid "Drop down list"
+msgstr "Roletový seznam"
+
+#: Form/Type.php:1617
+msgid "Email"
+msgstr "Email"
+
+#: Form/Type.php:2088
+msgid "Email addresses must match."
+msgstr "Emailové adresy se musí shodovat."
+
+#: Form/Type.php:2115
+msgid "Email with confirmation"
+msgstr "Email s potvrzením"
+
+#: Form/Type.php:2746 Form/Type.php:2962 Form/Type.php:3125
+msgid "End year"
+msgstr "Konec roku"
+
+#: Form/Type.php:2070
+msgid "Field matrix"
+msgstr "Matice pole"
+
+#: Form/Type.php:3696
+msgid "Figlet CAPTCHA"
+msgstr "Figlet CAPTCHA"
+
+#: Form/Type.php:3700
+msgid "Figlet font"
+msgstr "Figlet font"
+
+#: Form/Type.php:3347
+msgid "File selection"
+msgstr "Výběr souboru"
+
+#: Form/Type.php:952
+msgid "File upload"
+msgstr "Přenést soubor"
+
+#: Form/Type.php:3719
+msgid "Font"
+msgstr ""
+
+#: Form/Type.php:152
+msgid "HTML"
+msgstr "HTML"
+
+#: Form/Type.php:115 Form/Type.php:3285
+msgid "Header"
+msgstr "Hlavička"
+
+#: Form/Type/tableset.php:58
+msgid "Headers"
+msgstr "Hlavičky"
+
+#: Form/Type.php:617
+#, fuzzy
+msgid "Helpers"
+msgstr "Pomocník"
+
+#: Form/Type.php:528
+#, fuzzy
+msgid "IP address"
+msgstr "IP adresa"
+
+#: Form/Type.php:558
+#, fuzzy
+msgid "IPv6 address"
+msgstr "IP adresa"
+
+#: Form/Type.php:3349
+msgid "Id"
+msgstr ""
+
+#: Form/Type.php:3715
+#, fuzzy
+msgid "Image CAPTCHA"
+msgstr "Figlet CAPTCHA"
+
+#: Form/Type.php:1292
+msgid "Image upload"
+msgstr "Přenos obrázku"
+
+#: Form/Type.php:263
+msgid "Integer"
+msgstr "Celé číslo"
+
+#: Form/Type.php:317
+msgid "Integer list"
+msgstr "Seznam celých čísel"
+
+#: Form/Type.php:2208 Form/Type.php:2283 Form/Type.php:2356 Form/Type.php:2435
+#: Form/Type/tableset.php:34
+msgid "Invalid data submitted."
+msgstr "Byla zadána neplatná data"
+
+#: Form/Type.php:3479
+msgid "Left header"
+msgstr "Levá hlavička"
+
+#: Form/Type.php:3475
+msgid "Left values"
+msgstr "Hodnoty nalevo"
+
+#: Form/Type.php:1352
+msgid "Link"
+msgstr "Odkaz"
+
+#: Form/Type.php:1355
+msgid "Link URL"
+msgstr "Odkaz na URL"
+
+#: Form/Type.php:1370
+msgid "Link access key"
+msgstr "Odkaz na přístupový klíč"
+
+#: Form/Type.php:3353
+#, fuzzy
+msgid "Link style"
+msgstr "Odkaz na text"
+
+#: Form/Type.php:1361
+msgid "Link target"
+msgstr "Odkaz na cíl"
+
+#: Form/Type.php:1358 Form/Type.php:3351
+msgid "Link text"
+msgstr "Odkaz na text"
+
+#: Form/Type.php:1626
+#, fuzzy
+msgid "Link the email address to the compose page when displaying?"
+msgstr ""
+"Použít odkazy na emailové adresy při zobrazování stránky pro psaní zpráv"
+
+#: Form/Type.php:1367
+msgid "Link title attribute"
+msgstr "Odkaz na název atributu"
+
+#: Form/Type.php:611
+msgid "Long text"
+msgstr "Dlouhý text"
+
+#: Form/Type.php:1298
+#, fuzzy
+msgid "Maximum file size in bytes"
+msgstr "Maximální délka"
+
+#: Form/Type.php:400 Form/Type.php:420 Form/Type.php:446
+msgid "Maximum length"
+msgstr "Maximální délka"
+
+#: Form/Type.php:487
+#, fuzzy
+msgid "Mobile phone number"
+msgstr "Telefonní číslo"
+
+#: Form/Type.php:2742
+msgid "Month and year"
+msgstr "Měsíc a rok"
+
+#: Form/Type.php:2309
+msgid "Multi-level drop down lists"
+msgstr "Více-úrovňové roletové seznamy"
+
+#: Form/Type.php:2366
+msgid "Multiple selection"
+msgstr "Vícenásobná selekce"
+
+#: Form/Type.php:236
+msgid "Number"
+msgstr "Číslo"
+
+#: Form/Type.php:668
+msgid "Number of characters"
+msgstr "Počet znaků"
+
+#: Form/Type.php:615 Form/Type.php:666 Form/Type.php:777 Form/Type.php:847
+#: Form/Type.php:890
+msgid "Number of columns"
+msgstr "Počet sloupců"
+
+#: Form/Type.php:613 Form/Type.php:664 Form/Type.php:775 Form/Type.php:845
+#: Form/Type.php:888
+msgid "Number of rows"
+msgstr "Počet řádků"
+
+#: Form/Type.php:290
+msgid "Octal"
+msgstr "Osmičkový"
+
+#: Form/Type.php:1364
+msgid "Onclick event"
+msgstr "Událost kliknutí"
+
+#: Form/Type.php:2098
+msgid "Only one email address allowed."
+msgstr "Je povolena pouze jedna e-mailová adresa."
+
+#: Form/Type.php:1449
+#, fuzzy
+msgid "Only one email address is allowed."
+msgstr "Je povolena pouze jedna e-mailová adresa."
+
+#: Form/Type.php:839
+#, fuzzy
+msgid "PGP Key"
+msgstr "Veřejný PGP klíč"
+
+#: Form/Type.php:2142
+msgid "Password"
+msgstr "Heslo"
+
+#: Form/Type.php:2175
+msgid "Password with confirmation"
+msgstr "Heslo s potvrzením"
+
+#: Form/Type.php:2157
+msgid "Passwords must match."
+msgstr "Hesla se musí shodovat."
+
+#: Form/Type.php:841
+msgid "Path to the GnuPG binary"
+msgstr ""
+
+#: Form/Type.php:475
+#, fuzzy
+msgid "Phone number"
+msgstr "Telefonní číslo"
+
+#: Form/Type.php:3191
+msgid "Please choose a sound."
+msgstr ""
+
+#: Form/Type.php:2720
+msgid "Please enter a month and a year."
+msgstr "Prosím zadejte měsíc a rok."
+
+#: Form/Type.php:513 Form/Type.php:543
+msgid "Please enter a valid IP address."
+msgstr "Prosím zadejte správnou IP adresu.."
+
+#: Form/Type.php:2800
+msgid "Please enter a valid date, check the number of days in the month."
+msgstr "Prosím zadejte správný datum a zkontrolujte počet dní v měsíci."
+
+#: Form/Type.php:2598
+msgid "Please enter a valid time."
+msgstr "Prosím zadejte správný čas."
+
+#: Form/Type.php:911 Form/Type.php:2237 Form/Type.php:2313 Form/Type.php:3647
+msgid "Prompt text"
+msgstr "Prompt text"
+
+#: Form/Type.php:1623
+msgid "Protect address from spammers?"
+msgstr ""
+
+#: Form/Type.php:2401
+msgid "Radio selection"
+msgstr "Spřažené tlačítko"
+
+#: Form/Type.php:396 Form/Type.php:416 Form/Type.php:442
+msgid "Regex"
+msgstr "Regex"
+
+#: Form/Type.php:3605
+#, fuzzy
+msgid "Relationship browser"
+msgstr "Prohlížeč vztahů"
+
+#: Form/Renderer.php:344
+msgid "Required Field"
+msgstr "Požadované pole"
+
+#: Form.php:632
+msgid "Required secret is invalid - potentially malicious request."
+msgstr ""
+
+#: Form.php:368 Form/Renderer.php:329
+msgid "Reset"
+msgstr "Výchozí nastavení"
+
+#: Form/Type.php:3481
+msgid "Right header"
+msgstr "Hlavička napravo"
+
+#: Form/Type.php:3477
+msgid "Right values"
+msgstr "Hodnoty napravo"
+
+#: Form/Type.php:884
+msgid "S/MIME Key"
+msgstr ""
+
+#: Form/Type.php:3645
+msgid "SQL statement for value lookups"
+msgstr "SQL příkaz pro hledání hodnoty"
+
+#: Form/Type.php:3326
+msgid "Select Files"
+msgstr "Vybrat soubory"
+
+#: Form/Type.php:2803
+msgid "Select all date components."
+msgstr "Vybrat všechny části datumu."
+
+#: Form/Type.php:2450
+msgid "Set"
+msgstr "Nastavit"
+
+#: Form/Type.php:3355
+#, fuzzy
+msgid "Show icon?"
+msgstr "Zobrazit sběrač"
+
+#: Form/Type.php:1296
+#, fuzzy
+msgid "Show option to keep original?"
+msgstr "Zobrazit možnost udržení originálu"
+
+#: Form/Type.php:2964 Form/Type.php:3127
+#, fuzzy
+msgid "Show picker?"
+msgstr "Zobrazit sběrač"
+
+#: Form/Type.php:2688 Form/Type.php:3133
+#, fuzzy
+msgid "Show seconds?"
+msgstr "Přeháňky"
+
+#: Form/Type.php:1294
+#, fuzzy
+msgid "Show upload?"
+msgstr "Zobrazit přenos"
+
+#: Form/Type.php:398 Form/Type.php:418 Form/Type.php:444 Form/Type.php:2370
+#: Form/Type.php:3283 Form/Type.php:3483
+msgid "Size"
+msgstr "Velikost"
+
+#: Form/Type.php:3279
+msgid "Sort order selection"
+msgstr "Směr třídění"
+
+#: Form/Type.php:3200
+#, fuzzy
+msgid "Sound selection"
+msgstr "Vystřihnout výběr"
+
+#: Form/Type.php:98
+msgid "Spacer"
+msgstr "Mezerník"
+
+#: Form/Type.php:2744 Form/Type.php:2960 Form/Type.php:3123
+msgid "Start year"
+msgstr "Rok začátku"
+
+#: Form/Type.php:2966 Form/Type.php:3129
+msgid "Storage format"
+msgstr "Formát uložení"
+
+#: Form/Type.php:414
+msgid "String list"
+msgstr "Seznam řetězce"
+
+#: Form/Type.php:440
+msgid "String list returning an array"
+msgstr ""
+
+#: Form.php:361 Form/Renderer.php:326
+msgid "Submit"
+msgstr "Podat"
+
+#: Form/Type/tableset.php:54
+msgid "Table Set"
+msgstr "Tabulka"
+
+#: Form/Type.php:394 Form/Type.php:3698 Form/Type.php:3717
+msgid "Text"
+msgstr "Text"
+
+#: Form/Type.php:1056
+msgid ""
+"The image file size could not be determined or it was 0 bytes. The upload "
+"may have been interrupted."
+msgstr ""
+
+#: Form/Type.php:1060
+#, fuzzy, php-format
+msgid "The image file was larger than the maximum allowed size (%d bytes)."
+msgstr ""
+"Nastala chyba při přenosu souboru. %s nemůže být větší než maximální "
+"povolená velikost (%d bytů)."
+
+#: Form/Type.php:1629
+msgid "The name to use when linking to the compose page"
+msgstr "Název, který bude použit při odkazování na stránce tvorby zpráv"
+
+#: Form/Type.php:3673
+msgid "The text you entered did not match the text on the screen."
+msgstr "Vámi zadaný text neodpovídá textu na obrazovce."
+
+#: Form/Type.php:644
+#, fuzzy, php-format
+msgid ""
+"There are too many characters in this field. You have entered %d character; "
+msgid_plural ""
+"There are too many characters in this field. You have entered %d characters; "
+msgstr[0] ""
+"Příliš mnoho znaků v poli. Zadali jste %s znaků; musíte zadat méně než %s "
+"znaků."
+msgstr[1] ""
+"Příliš mnoho znaků v poli. Zadali jste %s znaků; musíte zadat méně než %s "
+"znaků."
+msgstr[2] ""
+"Příliš mnoho znaků v poli. Zadali jste %s znaků; musíte zadat méně než %s "
+"znaků."
+
+#: Form/Type.php:3504
+msgid "This does not seem to be a valid card number."
+msgstr "Toto nevypadá jako platné číslo karty."
+
+#: Form/Type.php:169 Form/Type.php:246 Form/Type.php:273 Form/Type.php:300
+#: Form/Type.php:365 Form/Type.php:459 Form/Type.php:517 Form/Type.php:547
+#: Form/Type.php:641 Form/Type.php:1041 Form/Type.php:2083 Form/Type.php:2130
+#: Form/Type.php:2152 Form/Type.php:2199 Form/Type.php:2274 Form/Type.php:2345
+#: Form/Type.php:2559 Form/Type.php:2601 Form/Type.php:2795 Form/Type.php:3144
+#: Form/Type.php:3183 Form/Type.php:3496 Form/Type.php:3668 Form/Type.php:3751
+#: Form/Variable.php:471 Form/Variable.php:479
+msgid "This field is required."
+msgstr "Toto pole je nutné vyplnit."
+
+#: Form/Type.php:254
+msgid "This field may only contain integers."
+msgstr "Toto pole může obsahovat pouze celá čísla."
+
+#: Form/Type.php:2567
+msgid "This field may only contain numbers and the colon."
+msgstr "Toto pole může obsahovat pouze celá čísla a dvojtečku."
+
+#: Form/Type.php:281
+msgid "This field may only contain octal values."
+msgstr "Toto pole může obsahovat pouze osmičkové čísla."
+
+#: Form/Type.php:308
+msgid "This field must be a comma or space separated list of integers"
+msgstr "Toto pole musí být seznam celých čísel oddělených čárkou nebo mezerou"
+
+#: Form/Type.php:180
+msgid "This field must be a valid number."
+msgstr "Toto pole musí být platné číslo."
+
+#: Form/Type.php:3152
+msgid ""
+"This field must contain a color code in the RGB Hex format, for example "
+"'#1234af'."
+msgstr ""
+"Toto pole musí pbsahovat barevný kód v šestnáckovém RGB formátu, např. "
+"'#1234af'."
+
+#: Form.php:629
+msgid "This form has already been processed."
+msgstr "Tento formulář již byl zpracován."
+
+#: Form/Type.php:2576
+msgid "Time"
+msgstr "Čas"
+
+#: Form/Type.php:2686
+msgid "Time selection"
+msgstr "Výběr času"
+
+#: Form/Type.php:1321
+msgid "True or false"
+msgstr "Správně nebo špatně"
+
+#: Form/Type.php:360
+#, fuzzy, php-format
+msgid "Value is over the maximum length of %d."
+msgstr "Hodnota překračuje maximální délku %s."
+
+#: Form/Type.php:2368 Form/Type.php:2403 Form/Type.php:2452 Form/Type.php:3281
+#: Form/Type/tableset.php:56
+msgid "Values"
+msgstr "Hodnoty"
+
+#: Form/Type.php:2235 Form/Type.php:2311
+msgid "Values to select from"
+msgstr "Vybrané hodnoty z"
+
+#: Form/Type.php:3485
+msgid "Width in CSS units"
+msgstr "Šířka v CSS jednotkách"
+
+#: Form/Type.php:2102
+msgid "You did not enter a valid email address."
+msgstr "Byla zadána neplatná e-mailová adresa."
+
+#: Form/Type.php:3028
+#, fuzzy
+msgid "You must choose a date."
+msgstr "Musíte konfigurovat VFS backend."
+
+#: Form/Type.php:3026
+#, fuzzy
+msgid "You must choose a time."
+msgstr "Musíte konfigurovat VFS backend."
+
+#: Form/Type.php:463
+#, fuzzy
+msgid ""
+"You must enter a valid phone number, digits only with an optional '+' for "
+"the international dialing prefix."
+msgstr ""
+"Vložte číslo mobilního telefonu, použijte jen číslic nebo případně '+' pro "
+"mezinárodní čisla."
+
+#: Form/Type.php:371
+#, fuzzy
+msgid "You must enter a valid value."
+msgstr "Musíte zadat platnou hodnotu."
+
+#: Form/Type.php:1470
+#, fuzzy
+msgid "You must enter an email address."
+msgstr "Byla zadána neplatná e-mailová adresa."
+
+#: Form/Type.php:1468
+#, fuzzy
+msgid "You must enter at least one email address."
+msgstr "Byla zadána neplatná e-mailová adresa."
+
+#: Form/Type.php:645
+#, php-format
+msgid "you must enter less than %d."
+msgstr ""

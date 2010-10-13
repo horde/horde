@@ -1,0 +1,75 @@
+# Finnish translations for Horde_Date module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Date module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Date\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/Horde/Date/Utils.php:106
+#, fuzzy, php-format
+msgid "%d days ago"
+msgstr " (%s päivää sitten)"
+
+#: lib/Horde/Date/Utils.php:96
+#, php-format
+msgid "%d hour ago"
+msgid_plural "%d hours ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/Horde/Date/Utils.php:91
+#, fuzzy, php-format
+msgid "%d minute ago"
+msgid_plural "%d minutes ago"
+msgstr[0] "%d minuuttia"
+msgstr[1] "%d minuuttia"
+
+#: lib/Horde/Date/Utils.php:87
+#, php-format
+msgid "%d second ago"
+msgid_plural "%d seconds ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/Horde/Date/Utils.php:111
+#, php-format
+msgid "%d week ago"
+msgid_plural "%d weeks ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/Horde/Date/Recurrence.php:216
+msgid "Daily"
+msgstr "Päivittäin"
+
+#: lib/Horde/Date/Recurrence.php:219
+msgid "Monthly"
+msgstr "Kuukausittain"
+
+#: lib/Horde/Date/Recurrence.php:215
+msgid "No recurrence"
+msgstr "Ei toistoa"
+
+#: lib/Horde/Date/Recurrence.php:217
+msgid "Weekly"
+msgstr "Viikoittain"
+
+#: lib/Horde/Date/Recurrence.php:222
+msgid "Yearly"
+msgstr "Vuosittain"
+
+#: lib/Horde/Date/Utils.php:101
+#, fuzzy, php-format
+msgid "yesterday at %s"
+msgstr " (eilen)"

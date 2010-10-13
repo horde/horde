@@ -1,0 +1,70 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Horde Project
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lib/Horde/Mime/Mdn.php:202
+msgid "Disposition Notification"
+msgstr ""
+
+#: lib/Horde/Mime/Mail.php:460
+msgid "HTML Version of Message"
+msgstr ""
+
+#: lib/Horde/Mime/Mail.php:404
+#, php-format
+msgid "Invalid character in e-mail address: %s."
+msgstr ""
+
+#: lib/Horde/Mime/Headers.php:519
+msgid "List-Archive"
+msgstr ""
+
+#: lib/Horde/Mime/Headers.php:514
+msgid "List-Help"
+msgstr ""
+
+#: lib/Horde/Mime/Headers.php:521
+msgid "List-Id"
+msgstr ""
+
+#: lib/Horde/Mime/Headers.php:517
+msgid "List-Owner"
+msgstr ""
+
+#: lib/Horde/Mime/Headers.php:518
+msgid "List-Post"
+msgstr ""
+
+#: lib/Horde/Mime/Headers.php:516
+msgid "List-Subscribe"
+msgstr ""
+
+#: lib/Horde/Mime/Headers.php:515
+msgid "List-Unsubscribe"
+msgstr ""
+
+#: lib/Horde/Mime/Mail.php:458
+msgid "Plaintext Version of Message"
+msgstr ""
+
+#: lib/Horde/Mime/Mdn.php:213
+#, php-format
+msgid ""
+"The message sent on %s to %s with subject \"%s\" has been displayed.\n"
+"\n"
+"This is no guarantee that the message has been read or understood."
+msgstr ""

@@ -1,0 +1,68 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Horde Project
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lib/Horde/Share/Object/Kolab.php:131
+msgid "Calendar"
+msgstr ""
+
+#: lib/Horde/Share/Object/Kolab.php:127
+msgid "Contacts"
+msgstr ""
+
+#: lib/Horde/Share/Object/Kolab.php:135
+msgid "Filters"
+msgstr ""
+
+#: lib/Horde/Share/Object/Kolab.php:129
+msgid "Notes"
+msgstr ""
+
+#: lib/Horde/Share/Object/Kolab.php:137
+msgid "Preferences"
+msgstr ""
+
+#: lib/Horde/Share/Kolab.php:117 lib/Horde/Share/Sql.php:210
+#, php-format
+msgid "Share \"%s\" does not exist."
+msgstr ""
+
+#: lib/Horde/Share/Sql.php:272
+#, php-format
+msgid "Share ID %d does not exist."
+msgstr ""
+
+#: lib/Horde/Share/Sql/Hierarchical.php:547
+msgid "Share names are not supported in this driver"
+msgstr ""
+
+#: lib/Horde/Share/Object/Kolab.php:133
+msgid "Tasks"
+msgstr ""
+
+#: lib/Horde/Share/Kolab.php:81
+#, php-format
+msgid "The Horde/Kolab integration engine does not support \"%s\""
+msgstr ""
+
+#: lib/Horde/Share/Object/Kolab.php:373
+msgid "The Kolab share object has not been initialized yet!"
+msgstr ""
+
+#: lib/Horde/Share/Object/Kolab.php:153
+msgid "The share has already been initialized!"
+msgstr ""

@@ -1,0 +1,818 @@
+# Finnish translations for Horde_Model module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Model module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Model\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/Horde/Form.php:2062 lib/Horde/Form/Type/Date.php:46
+#, php-format
+msgid " (%s days ago)"
+msgstr " (%s päivää sitten)"
+
+#: lib/Horde/Form.php:2070 lib/Horde/Form/Type/Date.php:54
+#, php-format
+msgid " (in %s days)"
+msgstr " (%s päivässä)"
+
+#: lib/Horde/Form.php:2066 lib/Horde/Form/Type/Date.php:50
+msgid " (today)"
+msgstr " (tänään)"
+
+#: lib/Horde/Form.php:2068 lib/Horde/Form/Type/Date.php:52
+msgid " (tomorrow)"
+msgstr " (huomenna)"
+
+#: lib/Horde/Form.php:2064 lib/Horde/Form/Type/Date.php:48
+msgid " (yesterday)"
+msgstr " (eilen)"
+
+#: lib/Horde/Form.php:1251 lib/Horde/Form/Type/Email.php:88
+#, php-format
+msgid "\"%s\" is not a valid email address."
+msgstr "\"%s\" ei ole oikean muotoinen sähköpostiosoite."
+
+#: lib/Horde/Form.php:2030
+#, php-format
+msgid "%s is required"
+msgstr "%s on pakollinen"
+
+#: lib/Horde/Form.php:1775 lib/Horde/Form.php:1823
+#: lib/Horde/Form/VarRenderer/Xhtml.php:650
+msgid "-- select --"
+msgstr "-- valitse --"
+
+#: www/test.php:39
+#, fuzzy
+msgid "A Date"
+msgstr "Päiväys"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:456
+msgid "Add column"
+msgstr ""
+
+#: www/test.php:82
+msgid "Add user"
+msgstr "Lisää käyttäjä"
+
+#: lib/Horde/Form.php:1074
+msgid "Address"
+msgstr "Osoite"
+
+#: lib/Horde/Form.php:1438
+msgid "Allow multiple addresses?"
+msgstr "Salli monta osoittetta."
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:301
+#: lib/Horde/Form/VarRenderer/Xhtml.php:340
+msgid "April"
+msgstr "huhtikuu"
+
+#: lib/Horde/Form.php:2902
+msgid "Assignment columns"
+msgstr "Tehtäväsarakkeet"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:305
+#: lib/Horde/Form/VarRenderer/Xhtml.php:344
+msgid "August"
+msgstr "elokuu"
+
+#: www/test.php:57
+msgid "Bar field"
+msgstr ""
+
+#: www/test.php:37
+msgid "Boolean"
+msgstr ""
+
+#: lib/Horde/Form.php:1446
+msgid "Character to split multiple addresses with"
+msgstr "Merkki, jolla erotetaan osoitteet toisistaan"
+
+#: www/test.php:60
+msgid "Checkbox Group"
+msgstr ""
+
+#: www/test.php:30
+#, fuzzy
+msgid "Color"
+msgstr "Kolumbia"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:398
+#: lib/Horde/Form/VarRenderer/Xhtml.php:399
+msgid "Color Picker"
+msgstr "Värivalitsin"
+
+#: lib/Horde/Form.php:2662
+msgid "Colour selection"
+msgstr "Värivalinta"
+
+#: lib/Horde/Form.php:1658
+msgid "Column titles"
+msgstr "Sarakkeiden otsikot"
+
+#: lib/Horde/Form.php:1054
+msgid "Counted text"
+msgstr "Laskettu teksti"
+
+#: www/test.php:51
+#, fuzzy
+msgid "Credit Card"
+msgstr "Luottokortinnumero"
+
+#: lib/Horde/Form.php:3017
+msgid "Credit card number"
+msgstr "Luottokortinnumero"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:349
+msgid "DD"
+msgstr "PP"
+
+#: lib/Horde/Form.php:3073
+msgid ""
+"DSN (see http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
+msgstr ""
+"DSN (lisätietoa http://pear.php.net/manual/en/package.database.db.intro-dsn."
+"php)"
+
+#: lib/Horde/Form.php:3071
+msgid "Database lookup"
+msgstr "Tietokantahaku"
+
+#: lib/Horde/Form.php:2091
+msgid "Date"
+msgstr "Päiväys"
+
+#: lib/Horde/Form.php:2622
+msgid "Date and time selection"
+msgstr "Päivämäärän valinta"
+
+#: lib/Horde/Form.php:2483
+msgid "Date selection"
+msgstr "Päivämäärän valinta"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:309
+#: lib/Horde/Form/VarRenderer/Xhtml.php:348
+msgid "December"
+msgstr "joulukuu"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:932
+#, php-format
+msgid "Dial %s"
+msgstr "Valitsin %s"
+
+#: lib/Horde/Form.php:2493 lib/Horde/Form.php:2632
+msgid "Display format"
+msgstr "Esitystapa"
+
+#: lib/Horde/Form.php:1803
+msgid "Drop down list"
+msgstr "Alasvetovalikko"
+
+#: lib/Horde/Form.php:1436 www/test.php:49
+msgid "Email"
+msgstr "Sähköposti"
+
+#: lib/Horde/Form.php:1674 lib/Horde/Form/Type/Email.php:429
+msgid "Email addresses must match."
+msgstr "Sähköpostiosoitteiden pitää olla samat."
+
+#: lib/Horde/Form.php:1700
+msgid "Email with confirmation"
+msgstr "Sähköposti varmistuksella"
+
+#: www/test.php:50
+#, fuzzy
+msgid "Email2"
+msgstr "Sähköposti"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:200
+#: lib/Horde/Form/VarRenderer/Xhtml.php:201
+msgid "Emoticons"
+msgstr "Hymiöt"
+
+#: lib/Horde/Form.php:2283 lib/Horde/Form.php:2487 lib/Horde/Form.php:2626
+msgid "End year"
+msgstr "Päättymisvuosi"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:794
+msgid "Enter the letters below:"
+msgstr "Anna kirjaimet alle:"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:299
+#: lib/Horde/Form/VarRenderer/Xhtml.php:338
+msgid "February"
+msgstr "helmikuu"
+
+#: lib/Horde/Form.php:1656
+msgid "Field matrix"
+msgstr "Kenttämatriisi"
+
+#: lib/Horde/Form.php:3116
+msgid "Figlet CAPTCHA"
+msgstr "Figlet CAPTCHA"
+
+#: lib/Horde/Form.php:3120
+msgid "Figlet font"
+msgstr "Figlet kirjasin"
+
+#: lib/Horde/Form.php:2791
+msgid "File selection"
+msgstr "Tiedoston valinta"
+
+#: lib/Horde/Form.php:1128
+msgid "File upload"
+msgstr "Tiedoston tuonti"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:1037
+msgid "Google Maps"
+msgstr "Google Kartat"
+
+#: lib/Horde/Form.php:2729
+msgid "Header"
+msgstr "Otsake"
+
+#: lib/Horde/Form.php:1015
+msgid "Helper?"
+msgstr "Avustaja?"
+
+#: lib/Horde/Form.php:966
+msgid "IP address"
+msgstr "IP-osoite"
+
+#: lib/Horde/Form.php:2793
+msgid "Id"
+msgstr "Id"
+
+#: www/test.php:24
+msgid "If other, please describe"
+msgstr ""
+
+#: www/test.php:44
+#, fuzzy
+msgid "Insert some text"
+msgstr "Voi laittaa viestejä"
+
+#: www/test.php:44
+msgid "Insert some text in this box"
+msgstr ""
+
+#: lib/Horde/Form.php:737 www/test.php:38
+msgid "Integer"
+msgstr "Kokonaisluku"
+
+#: lib/Horde/Form.php:791
+msgid "Integer list"
+msgstr "Kokonaislukulista"
+
+#: lib/Horde/Form.php:1793 lib/Horde/Form.php:1853 lib/Horde/Form.php:1916
+#: lib/Horde/Form.php:1995 lib/Horde/Form/Type/Enum.php:37
+#: lib/Horde/Form/Type/Set.php:30 lib/Horde/Form/Type/Set.php:62
+#, fuzzy
+msgid "Invalid data."
+msgstr "Epäkelpoa ZIP-tietoa."
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:581
+msgid "Invert selection"
+msgstr "Käännä valinta käänteiseksi"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:298
+#: lib/Horde/Form/VarRenderer/Xhtml.php:337
+msgid "January"
+msgstr "tammikuu"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:304
+#: lib/Horde/Form/VarRenderer/Xhtml.php:343
+msgid "July"
+msgstr "heinäkuu"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:303
+#: lib/Horde/Form/VarRenderer/Xhtml.php:342
+msgid "June"
+msgstr "kesäkuu"
+
+#: lib/Horde/Form.php:2908
+msgid "Left header"
+msgstr "Vasen otsake"
+
+#: lib/Horde/Form.php:2904
+msgid "Left values"
+msgstr "Vasen arvoja"
+
+#: lib/Horde/Form.php:1181
+msgid "Link"
+msgstr "Linkki"
+
+#: lib/Horde/Form.php:1184
+msgid "Link URL"
+msgstr "URL-linkki"
+
+#: lib/Horde/Form.php:1199
+msgid "Link access key"
+msgstr "Linkin pikanäppäin"
+
+#: lib/Horde/Form.php:2797
+msgid "Link style"
+msgstr "Linkkityyli"
+
+#: lib/Horde/Form.php:1190
+msgid "Link target"
+msgstr "Linkin kohde"
+
+#: lib/Horde/Form.php:1187 lib/Horde/Form.php:2795
+msgid "Link text"
+msgstr "Linkin teksti"
+
+#: lib/Horde/Form.php:1442
+msgid "Link the email address to the compose page when displaying?"
+msgstr "Linkitä sähköpostiosoite kirjoita uusi viesti sivulle näkymässä."
+
+#: lib/Horde/Form.php:1196
+msgid "Link title attribute"
+msgstr "Linkin otsikkoatribuutti"
+
+#: lib/Horde/Form.php:1009
+msgid "Long text"
+msgstr "Pitkä teksti"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:297
+#: lib/Horde/Form/VarRenderer/Xhtml.php:336
+msgid "MM"
+msgstr "KK"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:1062
+#, fuzzy
+msgid "Map24 map"
+msgstr "MapQuest kartta"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:993
+#: lib/Horde/Form/VarRenderer/Xhtml.php:1077
+msgid "MapQuest map"
+msgstr "MapQuest kartta"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:300
+#: lib/Horde/Form/VarRenderer/Xhtml.php:339
+msgid "March"
+msgstr "maaliskuu"
+
+#: lib/Horde/Form.php:860 lib/Horde/Form.php:880
+msgid "Maximum length"
+msgstr "Suurin sallittu pituus"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:302
+#: lib/Horde/Form/VarRenderer/Xhtml.php:341
+msgid "May"
+msgstr "toukokuu"
+
+#: lib/Horde/Form.php:925
+msgid "Mobile phone number"
+msgstr "Matkapuhelinnumero"
+
+#: lib/Horde/Form.php:2279
+msgid "Month and year"
+msgstr "kuukausi ja vuosi"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:426
+msgid "Move down"
+msgstr "Siirrä alaspäin"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:422
+#: lib/Horde/Form/VarRenderer/Xhtml.php:423
+#: lib/Horde/Form/VarRenderer/Xhtml.php:425
+msgid "Move up"
+msgstr "Siirrä ylöspäin"
+
+#: lib/Horde/Form.php:1869
+msgid "Multi-level drop down lists"
+msgstr "Monitasoinen alasvetovalikko"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:964
+msgid "Multimap UK map"
+msgstr "Multimap Iso-Britannian kartta"
+
+#: lib/Horde/Form.php:1926
+msgid "Multiple selection"
+msgstr "Monivalinta"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:865 www/test.php:35
+msgid "No"
+msgstr "Ei"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:873
+#: lib/Horde/Form/VarRenderer/Xhtml.php:883
+#: lib/Horde/Form/VarRenderer/Xhtml.php:894
+#: lib/Horde/Form/VarRenderer/Xhtml.php:911
+msgid "No values"
+msgstr "Ei arvoja"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:308
+#: lib/Horde/Form/VarRenderer/Xhtml.php:347
+msgid "November"
+msgstr "marraskuu"
+
+#: lib/Horde/Form.php:711
+msgid "Number"
+msgstr "Lukumäärä"
+
+#: lib/Horde/Form.php:1060
+msgid "Number of characters"
+msgstr "Merkkien lukumäärä"
+
+#: lib/Horde/Form.php:1013 lib/Horde/Form.php:1058 lib/Horde/Form.php:1078
+msgid "Number of columns"
+msgstr "Sarakkaiden lukumäärä"
+
+#: lib/Horde/Form.php:1011 lib/Horde/Form.php:1056 lib/Horde/Form.php:1076
+msgid "Number of rows"
+msgstr "Rivien lukumäärä"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:777
+msgid "Object"
+msgstr "Objekti"
+
+#: lib/Horde/Form.php:764 www/test.php:54
+msgid "Octal"
+msgstr "Oktaali"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:307
+#: lib/Horde/Form/VarRenderer/Xhtml.php:346
+msgid "October"
+msgstr "lokakuu"
+
+#: lib/Horde/Form.php:1193
+msgid "Onclick event"
+msgstr "Napsautustapahtuma"
+
+#: lib/Horde/Form.php:1683 lib/Horde/Form/Type/Email.php:441
+msgid "Only one email address allowed."
+msgstr "Voit laittaa vain yhden sähköpostiosoitteen."
+
+#: lib/Horde/Form.php:1240 lib/Horde/Form/Type/Email.php:77
+msgid "Only one email address is allowed."
+msgstr "Voit laittaa vain yhden sähköpostiosoitteen."
+
+#: lib/Horde/Form.php:1727 www/test.php:42 www/test.php:52
+msgid "Password"
+msgstr "Salasana"
+
+#: lib/Horde/Form.php:1760 www/test.php:53
+msgid "Password with confirmation"
+msgstr "Salasana varmistuksella"
+
+#: lib/Horde/Form.php:1742 lib/Horde/Form/Type/Password.php:38
+msgid "Passwords must match."
+msgstr "Salasanojen pitää olla samat."
+
+#: lib/Horde/Form.php:913
+msgid "Phone number"
+msgstr "Puhelinnumero"
+
+#: lib/Horde/Form.php:2257
+msgid "Please enter a month and a year."
+msgstr "Anna kuukausi ja vuosi."
+
+#: lib/Horde/Form.php:951
+msgid "Please enter a valid IP address."
+msgstr "Anna oikea IP-osoite."
+
+#: lib/Horde/Form.php:2335
+msgid "Please enter a valid date, check the number of days in the month."
+msgstr "Anna oikea päivämäärä; Tarkista päivien lukumäärä kuukaudessa."
+
+#: lib/Horde/Form.php:2140
+msgid "Please enter a valid time."
+msgstr "Anna aika oikeassa muodossa."
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:1218
+msgid "Preview"
+msgstr "Esikatselu"
+
+#: lib/Horde/Form.php:1807 lib/Horde/Form.php:1873 lib/Horde/Form.php:3077
+msgid "Prompt text"
+msgstr "Kehotteen teksti"
+
+#: lib/Horde/Form.php:1440
+msgid "Protect address from spammers?"
+msgstr "Suojaa osoite roskapostittajilta?"
+
+#: www/test.php:55
+#, fuzzy
+msgid "Radio Group"
+msgstr "Muokkaa ryhmää"
+
+#: lib/Horde/Form.php:1961
+msgid "Radio selection"
+msgstr "Radiopainike"
+
+#: lib/Horde/Form.php:856 lib/Horde/Form.php:876
+msgid "Regex"
+msgstr "Säännöllinen lauseke"
+
+#: lib/Horde/Form.php:3034
+msgid "Relationship browser"
+msgstr "Realaatioselain"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:459
+#, fuzzy
+msgid "Remove column"
+msgstr "Poista käyttäjä"
+
+#: lib/Horde/Form/Renderer/Xhtml.php:298
+msgid "Required Field"
+msgstr "Pakollinen kenttä"
+
+#: lib/Horde/Form/Renderer.php:88 lib/Horde/Form/Renderer/Xhtml.php:282
+#: www/test.php:82
+msgid "Reset"
+msgstr "Tyhjennä"
+
+#: lib/Horde/Form.php:2910
+msgid "Right header"
+msgstr "Oikea otsake"
+
+#: lib/Horde/Form.php:2906
+msgid "Right values"
+msgstr "Oikea arvot"
+
+#: lib/Horde/Form.php:3075
+msgid "SQL statement for value lookups"
+msgstr "SQL-lause arvojen hakemiseen"
+
+#: lib/Horde/Form.php:2770
+msgid "Select Files"
+msgstr "Valitse tiedostot"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:579
+msgid "Select all"
+msgstr "Valitse kaikki"
+
+#: lib/Horde/Form.php:2338
+msgid "Select all date components."
+msgstr "Valitse kaikki päivämääräkomponentit"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:777
+msgid "Select an object"
+msgstr "Valitse objekti"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:580
+msgid "Select none"
+msgstr "Tyhjennä valinta"
+
+#: www/test.php:22
+#, fuzzy
+msgid "Select something"
+msgstr "Tyhjennä valinta"
+
+#: www/test.php:48
+#, fuzzy
+msgid "Select something2"
+msgstr "Tyhjennä valinta"
+
+#: www/test.php:33
+#, fuzzy
+msgid "Select:"
+msgstr "Valitse kaikki"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:948
+msgid "Send SMS"
+msgstr "Lähetä SMS"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:306
+#: lib/Horde/Form/VarRenderer/Xhtml.php:345
+msgid "September"
+msgstr "syyskuu"
+
+#: lib/Horde/Form.php:2005
+msgid "Set"
+msgstr "Aseta"
+
+#: lib/Horde/Form.php:2799
+msgid "Show icon?"
+msgstr "Näytä ikoni?"
+
+#: lib/Horde/Form.php:2489 lib/Horde/Form.php:2628
+msgid "Show picker?"
+msgstr "Näytä valitsin?"
+
+#: lib/Horde/Form.php:2225 lib/Horde/Form.php:2634
+msgid "Show seconds?"
+msgstr "Näytä sekunnit?"
+
+#: www/test.php:36
+#, fuzzy
+msgid "Simple description"
+msgstr "Pidempi kuvaus:"
+
+#: lib/Horde/Form.php:858 lib/Horde/Form.php:878 lib/Horde/Form.php:1930
+#: lib/Horde/Form.php:2727 lib/Horde/Form.php:2912
+msgid "Size"
+msgstr "Koko"
+
+#: lib/Horde/Form.php:2723
+msgid "Sort order selection"
+msgstr "Järjestyksen suunnan valinta"
+
+#: lib/Horde/Form.php:2281 lib/Horde/Form.php:2485 lib/Horde/Form.php:2624
+msgid "Start year"
+msgstr "Alkamisvuosi"
+
+#: lib/Horde/Form.php:2491 lib/Horde/Form.php:2630
+msgid "Storage format"
+msgstr "Tallennusmuoto"
+
+#: lib/Horde/Form.php:874
+msgid "String list"
+msgstr "Merkkijonolista"
+
+#: lib/Horde/Form/Renderer.php:81 lib/Horde/Form/Renderer/Xhtml.php:279
+msgid "Submit"
+msgstr "Lähetä"
+
+#: lib/Horde/Form.php:854 lib/Horde/Form.php:3118
+msgid "Text"
+msgstr "Teksti"
+
+#: lib/Horde/Form.php:1444
+msgid "The name to use when linking to the compose page"
+msgstr "Nimi jota käytetään linkitettäessa luo sivulle"
+
+#: lib/Horde/Form.php:3103
+msgid "The text you entered did not match the text on the screen."
+msgstr "Kirjoittamasi teksti ei vastaa tekstiä ruudulla."
+
+#: lib/Horde/Form.php:1042
+#, fuzzy, php-format
+msgid ""
+"There are too many characters in this field. You have entered %s characters; "
+"you must enter less than %s."
+msgstr "Tässä kentässä on liian monta merkkiä. Annoit %d merkin; "
+
+#: lib/Horde/Form.php:2933 lib/Horde/Form/Type/CreditCard.php:18
+msgid "This does not seem to be a valid card number."
+msgstr "Tämä ei vaikuta oikealta korttinumerolta."
+
+#: lib/Horde/Form.php:644 lib/Horde/Form.php:720 lib/Horde/Form.php:747
+#: lib/Horde/Form.php:774 lib/Horde/Form.php:837 lib/Horde/Form.php:896
+#: lib/Horde/Form.php:955 lib/Horde/Form.php:1039 lib/Horde/Form.php:1669
+#: lib/Horde/Form.php:1715 lib/Horde/Form.php:1737 lib/Horde/Form.php:1784
+#: lib/Horde/Form.php:1844 lib/Horde/Form.php:1905 lib/Horde/Form.php:2101
+#: lib/Horde/Form.php:2143 lib/Horde/Form.php:2332 lib/Horde/Form.php:2645
+#: lib/Horde/Form.php:2925 lib/Horde/Form.php:3098 lib/Horde/Form.php:3586
+#: lib/Horde/Form.php:3594 lib/Horde/Form/Type/Color.php:10
+#: lib/Horde/Form/Type/CreditCard.php:10 lib/Horde/Form/Type/Date.php:17
+#: lib/Horde/Form/Type/Email.php:424 lib/Horde/Form/Type/Enum.php:28
+#: lib/Horde/Form/Type/Int.php:10 lib/Horde/Form/Type/Number.php:14
+#: lib/Horde/Form/Type/Octal.php:10 lib/Horde/Form/Type/Password.php:15
+#: lib/Horde/Form/Type/Password.php:33 lib/Horde/Form/Type/Phone.php:14
+#: lib/Horde/Form/Type/Set.php:51 lib/Horde/Form/Type/String.php:32
+#: lib/Horde/Form/Type/Time.php:10
+msgid "This field is required."
+msgstr "Tämä kenttä on pakollinen."
+
+#: lib/Horde/Form.php:728 lib/Horde/Form/Type/Int.php:18
+msgid "This field may only contain integers."
+msgstr "Tässä kentässä pitää olla vain kokonaislukuja."
+
+#: lib/Horde/Form.php:2109 lib/Horde/Form/Type/Time.php:18
+msgid "This field may only contain numbers and the colon."
+msgstr "Tässä kentässä pitää olla numeroita ja pilkku-merkkejä."
+
+#: lib/Horde/Form.php:755 lib/Horde/Form/Type/Octal.php:18
+msgid "This field may only contain octal values."
+msgstr "Tässä kentässä pitää olla oktaalilukuja."
+
+#: lib/Horde/Form.php:782
+msgid "This field must be a comma or space separated list of integers"
+msgstr ""
+"Tässä kentässä pitää olla lista kokonaislukuja, jotka pitää olla erotettu "
+"pilkulla tai välilyönnillä"
+
+#: lib/Horde/Form.php:655 lib/Horde/Form/Type/Number.php:25
+msgid "This field must be a valid number."
+msgstr "Arvon pitää olla numero."
+
+#: lib/Horde/Form.php:2653 lib/Horde/Form/Type/Color.php:18
+msgid ""
+"This field must contain a color code in the RGB Hex format, for example "
+"'#1234af'."
+msgstr ""
+"Tässä kentässä on värimääritys, jonka pitää olla RGB Hex muodoss, "
+"esimerkiksi '#1234af'."
+
+#: lib/Horde/Form.php:388
+msgid "This form has already been processed."
+msgstr "Tämä lomake on jo käsitelty."
+
+#: lib/Horde/Form.php:2118
+msgid "Time"
+msgstr "Aika"
+
+#: lib/Horde/Form.php:2223
+msgid "Time selection"
+msgstr "Ajan valinta"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:551
+msgid ""
+"To select multiple items, hold down the Control (PC) or Command (Mac) key "
+"while clicking."
+msgstr ""
+"Voidaksesi valita useampia vaihtoehtoja, pidä Control- (PC) tai Command- "
+"(Mac) näppäintä pohjassa kun napsautat hiiren painiketta."
+
+#: lib/Horde/Form.php:1150
+msgid "True or false"
+msgstr "Tosi vai epätosi"
+
+#: www/test.php:41
+msgid "Username"
+msgstr "Käyttäjätunnus"
+
+#: lib/Horde/Form.php:834 lib/Horde/Form/Type/String.php:29
+#, fuzzy, php-format
+msgid "Value is over the maximum length of %s."
+msgstr "Arvo on yli pituuden maksimiarvon %d."
+
+#: lib/Horde/Form.php:1928 lib/Horde/Form.php:1963 lib/Horde/Form.php:2007
+#: lib/Horde/Form.php:2725
+msgid "Values"
+msgstr "Arvot"
+
+#: lib/Horde/Form.php:1805 lib/Horde/Form.php:1871
+msgid "Values to select from"
+msgstr "Valittavat arvot"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:970
+msgid "Whereis Australia map"
+msgstr "Whereis Australian kartta"
+
+#: lib/Horde/Form.php:2914
+msgid "Width in CSS units"
+msgstr "Leveys CSS mittayksikköinä"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:310
+#: lib/Horde/Form/VarRenderer/Xhtml.php:353
+msgid "YYYY"
+msgstr "VVVV"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:1017
+msgid "Yahoo! map"
+msgstr "Yahoo! kartta"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:865 www/test.php:34
+msgid "Yes"
+msgstr "Kyllä"
+
+#: lib/Horde/Form.php:1687 lib/Horde/Form/Type/Email.php:445
+msgid "You did not enter a valid email address."
+msgstr "Et antanut oikean muotoista sähköpostiosoitetta."
+
+#: www/test.php:57
+msgid "You have to fill in some long text here"
+msgstr ""
+
+#: lib/Horde/Form.php:901 lib/Horde/Form/Type/Phone.php:19
+msgid ""
+"You must enter a valid phone number, digits only with an optional '+' for "
+"the international dialing prefix."
+msgstr ""
+"Sinun pitää antaa oikea puhelinnumero, vain numeroita ja mahdollisesti '+' "
+"jos käytät kansainvälistä puhelinnumeromuotoa."
+
+#: lib/Horde/Form.php:841 lib/Horde/Form/Type/String.php:36
+msgid "You must enter a valid value."
+msgstr "Sinun täytyy antaa oikea arvo."
+
+#: lib/Horde/Form.php:1261 lib/Horde/Form/Type/Email.php:98
+msgid "You must enter an email address."
+msgstr "Sinun pitää antaa sähköpostiosoite."
+
+#: lib/Horde/Form.php:1259 lib/Horde/Form/Type/Email.php:96
+msgid "You must enter at least one email address."
+msgstr "Sinun pitää antaa ainakin yksi sähköpostiosoite."
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:259
+msgid "hh"
+msgstr "hh"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:269
+msgid "mm"
+msgstr "mm"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:281
+msgid "ss"
+msgstr "ss"
+
+#: www/test.php:53
+msgid "type the password twice to confirm"
+msgstr "varmistaaksesi kirjoita salasana kahdesti"

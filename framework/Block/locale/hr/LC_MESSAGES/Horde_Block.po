@@ -1,0 +1,84 @@
+# Croatian translations for Horde_Block module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Block module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Block\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: lib/Horde/Block/Ui.php:97
+msgid "Application"
+msgstr "Aplikacija"
+
+#: lib/Horde/Block/Collection.php:410
+#, php-format
+msgid "Block \"%s\" of application \"%s\" not found."
+msgstr "Blok \"%s\" aplikacije \"%s\" nije pronađen."
+
+#: lib/Horde/Block/Layout.php:130 lib/Horde/Block/Layout.php:131
+msgid "Edit"
+msgstr "Uredi"
+
+#: lib/Horde/Block/Ui.php:89
+msgid "Edit Block"
+msgstr "Uredi blok"
+
+#: lib/Horde/Block/Layout/View.php:98
+msgid "Error"
+msgstr "Greška"
+
+#: lib/Horde/Block/Layout/Manager.php:576
+msgid "Expand"
+msgstr "Proširi"
+
+#: lib/Horde/Block/Layout/Manager.php:610
+msgid "Move Down"
+msgstr "Pomakni dolje"
+
+#: lib/Horde/Block/Layout/Manager.php:614
+msgid "Move Left"
+msgstr "Pomakni lijevo"
+
+#: lib/Horde/Block/Layout/Manager.php:618
+msgid "Move Right"
+msgstr "Pomakni desno"
+
+#: lib/Horde/Block/Layout/Manager.php:606
+msgid "Move Up"
+msgstr "Pomakni gore"
+
+#: lib/Horde/Block/Layout/Manager.php:121
+msgid "No block exists at the requested position"
+msgstr "Ne postoji blok na traženoj poziciji."
+
+#: lib/Horde/Block/Layout.php:139
+msgid "Really delete this block?"
+msgstr "Stvarno obrisati ovaj blok?"
+
+#: lib/Horde/Block/Layout.php:136 lib/Horde/Block/Layout.php:140
+msgid "Remove"
+msgstr "Obriši"
+
+# suzi, skupi
+#: lib/Horde/Block/Layout/Manager.php:581
+msgid "Shrink"
+msgstr "Smanji"
+
+#: lib/Horde/Block/Layout/Manager.php:245
+#, php-format
+msgid "You are not allowed to create more than %d block."
+msgid_plural "You are not allowed to create more than %d blocks."
+msgstr[0] "Nemate ovlasti za kreiranje više od %d bloka."
+msgstr[1] "Nemate ovlasti za kreiranje više od %d bloka."
+msgstr[2] "Nemate ovlasti za kreiranje više od %d blokova."

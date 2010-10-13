@@ -1,0 +1,665 @@
+# Bulgarian translations for Horde_Form module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Form module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Form\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Form/Type.php:2520
+#, php-format
+msgid " (%s days ago)"
+msgstr " (%s дни назад)"
+
+#: Form/Type.php:2528
+#, fuzzy, php-format
+msgid " (in %s days)"
+msgstr " (%s дни назад)"
+
+#: Form/Type.php:2524
+msgid " (today)"
+msgstr " (днес)"
+
+#: Form/Type.php:2526
+msgid " (tomorrow)"
+msgstr ""
+
+#: Form/Type.php:2522
+msgid " (yesterday)"
+msgstr " (вчера)"
+
+#: Form/Type.php:1460
+#, fuzzy, php-format
+msgid "\"%s\" is not a valid email address."
+msgstr "Не въведохте валиден email адрес."
+
+#: Form/Type.php:2475
+#, php-format
+msgid "%s is required"
+msgstr "%s необходим"
+
+#: Form/Type.php:2190 Form/Type.php:2253
+msgid "-- select --"
+msgstr ""
+
+#: Form/Type.php:843 Form/Type.php:886
+msgid "A temporary directory"
+msgstr ""
+
+#: Form/Type.php:773
+msgid "Address"
+msgstr "Адрес"
+
+#: Form/Type.php:795
+#, fuzzy
+msgid "Address Link"
+msgstr "Адресен бележник"
+
+#: Form/Type.php:1620
+msgid "Allow multiple addresses?"
+msgstr ""
+
+#: Form/Type.php:3473
+msgid "Assignment columns"
+msgstr ""
+
+#: Form/Type.php:3745
+msgid "Category"
+msgstr ""
+
+#: Form/Type.php:1632
+msgid "Character to split multiple addresses with"
+msgstr ""
+
+#: Form/Type.php:3161
+msgid "Colour selection"
+msgstr ""
+
+#: Form/Type.php:2072
+msgid "Column titles"
+msgstr ""
+
+#: Form/Type.php:662
+msgid "Counted text"
+msgstr ""
+
+#: Form/Type.php:909
+msgid "Country drop down list"
+msgstr ""
+
+#: Form/Type.php:3588
+msgid "Credit card number"
+msgstr ""
+
+#: Form/Type.php:3643
+msgid ""
+"DSN (see http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
+msgstr ""
+
+#: Form/Type.php:3641
+msgid "Database lookup"
+msgstr ""
+
+#: Form/Type.php:2549
+msgid "Date"
+msgstr ""
+
+#: Form/Type.php:3121
+#, fuzzy
+msgid "Date and time selection"
+msgstr "Съвпадащи Дата и Час Полета"
+
+#: Form/Type.php:2958
+msgid "Date selection"
+msgstr ""
+
+#: Form/Type.php:132
+#, fuzzy
+msgid "Description"
+msgstr "Пълно описание:"
+
+#: Form/Type.php:2968 Form/Type.php:3131
+#, fuzzy
+msgid "Display format"
+msgstr "Дисплей Опции"
+
+#: Form/Type.php:2233
+msgid "Drop down list"
+msgstr ""
+
+#: Form/Type.php:1617
+msgid "Email"
+msgstr "Писмо"
+
+#: Form/Type.php:2088
+msgid "Email addresses must match."
+msgstr "Email адресите трябва да съвпадат."
+
+#: Form/Type.php:2115
+msgid "Email with confirmation"
+msgstr ""
+
+#: Form/Type.php:2746 Form/Type.php:2962 Form/Type.php:3125
+msgid "End year"
+msgstr ""
+
+#: Form/Type.php:2070
+msgid "Field matrix"
+msgstr ""
+
+#: Form/Type.php:3696
+msgid "Figlet CAPTCHA"
+msgstr ""
+
+#: Form/Type.php:3700
+msgid "Figlet font"
+msgstr ""
+
+#: Form/Type.php:3347
+msgid "File selection"
+msgstr ""
+
+#: Form/Type.php:952
+#, fuzzy
+msgid "File upload"
+msgstr "Име на файл"
+
+#: Form/Type.php:3719
+msgid "Font"
+msgstr ""
+
+#: Form/Type.php:152
+msgid "HTML"
+msgstr ""
+
+#: Form/Type.php:115 Form/Type.php:3285
+#, fuzzy
+msgid "Header"
+msgstr "Заглавия"
+
+#: Form/Type/tableset.php:58
+#, fuzzy
+msgid "Headers"
+msgstr "Заглавия"
+
+#: Form/Type.php:617
+#, fuzzy
+msgid "Helpers"
+msgstr "Помощ"
+
+#: Form/Type.php:528
+#, fuzzy
+msgid "IP address"
+msgstr "Адрес"
+
+#: Form/Type.php:558
+#, fuzzy
+msgid "IPv6 address"
+msgstr "Адрес"
+
+#: Form/Type.php:3349
+msgid "Id"
+msgstr ""
+
+#: Form/Type.php:3715
+msgid "Image CAPTCHA"
+msgstr ""
+
+#: Form/Type.php:1292
+msgid "Image upload"
+msgstr ""
+
+#: Form/Type.php:263
+msgid "Integer"
+msgstr ""
+
+#: Form/Type.php:317
+msgid "Integer list"
+msgstr ""
+
+#: Form/Type.php:2208 Form/Type.php:2283 Form/Type.php:2356 Form/Type.php:2435
+#: Form/Type/tableset.php:34
+msgid "Invalid data submitted."
+msgstr "Изпратените данни са невалидни."
+
+#: Form/Type.php:3479
+msgid "Left header"
+msgstr ""
+
+#: Form/Type.php:3475
+#, fuzzy
+msgid "Left values"
+msgstr "Няма стойности"
+
+#: Form/Type.php:1352
+msgid "Link"
+msgstr ""
+
+#: Form/Type.php:1355
+msgid "Link URL"
+msgstr ""
+
+#: Form/Type.php:1370
+msgid "Link access key"
+msgstr ""
+
+#: Form/Type.php:3353
+msgid "Link style"
+msgstr ""
+
+#: Form/Type.php:1361
+msgid "Link target"
+msgstr ""
+
+#: Form/Type.php:1358 Form/Type.php:3351
+msgid "Link text"
+msgstr ""
+
+#: Form/Type.php:1626
+msgid "Link the email address to the compose page when displaying?"
+msgstr ""
+
+#: Form/Type.php:1367
+msgid "Link title attribute"
+msgstr ""
+
+#: Form/Type.php:611
+msgid "Long text"
+msgstr ""
+
+#: Form/Type.php:1298
+msgid "Maximum file size in bytes"
+msgstr ""
+
+#: Form/Type.php:400 Form/Type.php:420 Form/Type.php:446
+msgid "Maximum length"
+msgstr ""
+
+#: Form/Type.php:487
+msgid "Mobile phone number"
+msgstr ""
+
+#: Form/Type.php:2742
+msgid "Month and year"
+msgstr ""
+
+#: Form/Type.php:2309
+msgid "Multi-level drop down lists"
+msgstr ""
+
+#: Form/Type.php:2366
+msgid "Multiple selection"
+msgstr ""
+
+#: Form/Type.php:236
+#, fuzzy
+msgid "Number"
+msgstr "Членове"
+
+#: Form/Type.php:668
+msgid "Number of characters"
+msgstr ""
+
+#: Form/Type.php:615 Form/Type.php:666 Form/Type.php:777 Form/Type.php:847
+#: Form/Type.php:890
+msgid "Number of columns"
+msgstr ""
+
+#: Form/Type.php:613 Form/Type.php:664 Form/Type.php:775 Form/Type.php:845
+#: Form/Type.php:888
+msgid "Number of rows"
+msgstr ""
+
+#: Form/Type.php:290
+msgid "Octal"
+msgstr ""
+
+#: Form/Type.php:1364
+msgid "Onclick event"
+msgstr ""
+
+#: Form/Type.php:2098
+msgid "Only one email address allowed."
+msgstr ""
+
+#: Form/Type.php:1449
+msgid "Only one email address is allowed."
+msgstr ""
+
+#: Form/Type.php:839
+msgid "PGP Key"
+msgstr ""
+
+#: Form/Type.php:2142
+msgid "Password"
+msgstr "Парола"
+
+#: Form/Type.php:2175
+msgid "Password with confirmation"
+msgstr ""
+
+#: Form/Type.php:2157
+msgid "Passwords must match."
+msgstr "Некоректна парола."
+
+#: Form/Type.php:841
+msgid "Path to the GnuPG binary"
+msgstr ""
+
+#: Form/Type.php:475
+msgid "Phone number"
+msgstr ""
+
+#: Form/Type.php:3191
+msgid "Please choose a sound."
+msgstr ""
+
+#: Form/Type.php:2720
+msgid "Please enter a month and a year."
+msgstr "Моля, въведете месец и година."
+
+#: Form/Type.php:513 Form/Type.php:543
+#, fuzzy
+msgid "Please enter a valid IP address."
+msgstr "Моля, въведете месец и година."
+
+#: Form/Type.php:2800
+msgid "Please enter a valid date, check the number of days in the month."
+msgstr ""
+
+#: Form/Type.php:2598
+#, fuzzy
+msgid "Please enter a valid time."
+msgstr "Моля, въведете месец и година."
+
+#: Form/Type.php:911 Form/Type.php:2237 Form/Type.php:2313 Form/Type.php:3647
+msgid "Prompt text"
+msgstr ""
+
+#: Form/Type.php:1623
+msgid "Protect address from spammers?"
+msgstr ""
+
+#: Form/Type.php:2401
+msgid "Radio selection"
+msgstr ""
+
+#: Form/Type.php:396 Form/Type.php:416 Form/Type.php:442
+msgid "Regex"
+msgstr ""
+
+#: Form/Type.php:3605
+msgid "Relationship browser"
+msgstr ""
+
+#: Form/Renderer.php:344
+msgid "Required Field"
+msgstr ""
+
+#: Form.php:632
+msgid "Required secret is invalid - potentially malicious request."
+msgstr ""
+
+#: Form.php:368 Form/Renderer.php:329
+msgid "Reset"
+msgstr ""
+
+#: Form/Type.php:3481
+msgid "Right header"
+msgstr ""
+
+#: Form/Type.php:3477
+#, fuzzy
+msgid "Right values"
+msgstr "Light Blue"
+
+#: Form/Type.php:884
+msgid "S/MIME Key"
+msgstr ""
+
+#: Form/Type.php:3645
+msgid "SQL statement for value lookups"
+msgstr ""
+
+#: Form/Type.php:3326
+#, fuzzy
+msgid "Select Files"
+msgstr "Избери"
+
+#: Form/Type.php:2803
+#, fuzzy
+msgid "Select all date components."
+msgstr "Изберете формат за Датата:"
+
+#: Form/Type.php:2450
+#, fuzzy
+msgid "Set"
+msgstr "Избери"
+
+#: Form/Type.php:3355
+msgid "Show icon?"
+msgstr ""
+
+#: Form/Type.php:1296
+msgid "Show option to keep original?"
+msgstr ""
+
+#: Form/Type.php:2964 Form/Type.php:3127
+msgid "Show picker?"
+msgstr ""
+
+#: Form/Type.php:2688 Form/Type.php:3133
+msgid "Show seconds?"
+msgstr ""
+
+#: Form/Type.php:1294
+msgid "Show upload?"
+msgstr ""
+
+#: Form/Type.php:398 Form/Type.php:418 Form/Type.php:444 Form/Type.php:2370
+#: Form/Type.php:3283 Form/Type.php:3483
+msgid "Size"
+msgstr "Размер"
+
+#: Form/Type.php:3279
+msgid "Sort order selection"
+msgstr ""
+
+#: Form/Type.php:3200
+msgid "Sound selection"
+msgstr ""
+
+#: Form/Type.php:98
+msgid "Spacer"
+msgstr ""
+
+#: Form/Type.php:2744 Form/Type.php:2960 Form/Type.php:3123
+msgid "Start year"
+msgstr ""
+
+#: Form/Type.php:2966 Form/Type.php:3129
+#, fuzzy
+msgid "Storage format"
+msgstr "Информация за Вас"
+
+#: Form/Type.php:414
+msgid "String list"
+msgstr ""
+
+#: Form/Type.php:440
+msgid "String list returning an array"
+msgstr ""
+
+#: Form.php:361 Form/Renderer.php:326
+msgid "Submit"
+msgstr "Изпрати"
+
+#: Form/Type/tableset.php:54
+msgid "Table Set"
+msgstr ""
+
+#: Form/Type.php:394 Form/Type.php:3698 Form/Type.php:3717
+#, fuzzy
+msgid "Text"
+msgstr "Само текст"
+
+#: Form/Type.php:1056
+msgid ""
+"The image file size could not be determined or it was 0 bytes. The upload "
+"may have been interrupted."
+msgstr ""
+
+#: Form/Type.php:1060
+#, fuzzy, php-format
+msgid "The image file was larger than the maximum allowed size (%d bytes)."
+msgstr ""
+"Имаше проблем при изпращането на файла. %s е по-голям от максимално "
+"допустимия размер (%d байта)."
+
+#: Form/Type.php:1629
+msgid "The name to use when linking to the compose page"
+msgstr ""
+
+#: Form/Type.php:3673
+msgid "The text you entered did not match the text on the screen."
+msgstr ""
+
+#: Form/Type.php:644
+#, fuzzy, php-format
+msgid ""
+"There are too many characters in this field. You have entered %d character; "
+msgid_plural ""
+"There are too many characters in this field. You have entered %d characters; "
+msgstr[0] ""
+"Има твърде много символи в това поле. Въвели сте %s символа; трябва да "
+"въведете по-малко от %s."
+msgstr[1] ""
+"Има твърде много символи в това поле. Въвели сте %s символа; трябва да "
+"въведете по-малко от %s."
+
+#: Form/Type.php:3504
+#, fuzzy
+msgid "This does not seem to be a valid card number."
+msgstr "Това не е валиден rar архив."
+
+#: Form/Type.php:169 Form/Type.php:246 Form/Type.php:273 Form/Type.php:300
+#: Form/Type.php:365 Form/Type.php:459 Form/Type.php:517 Form/Type.php:547
+#: Form/Type.php:641 Form/Type.php:1041 Form/Type.php:2083 Form/Type.php:2130
+#: Form/Type.php:2152 Form/Type.php:2199 Form/Type.php:2274 Form/Type.php:2345
+#: Form/Type.php:2559 Form/Type.php:2601 Form/Type.php:2795 Form/Type.php:3144
+#: Form/Type.php:3183 Form/Type.php:3496 Form/Type.php:3668 Form/Type.php:3751
+#: Form/Variable.php:471 Form/Variable.php:479
+msgid "This field is required."
+msgstr "Това поле е необходимо."
+
+#: Form/Type.php:254
+msgid "This field may only contain integers."
+msgstr "Това поле може да съдържа само цели числа."
+
+#: Form/Type.php:2567
+msgid "This field may only contain numbers and the colon."
+msgstr "Това поле може да съдържа само числа и двоеточие."
+
+#: Form/Type.php:281
+#, fuzzy
+msgid "This field may only contain octal values."
+msgstr "Това поле може да съдържа само номера."
+
+#: Form/Type.php:308
+msgid "This field must be a comma or space separated list of integers"
+msgstr "Това поле трябва да е запетая или интервал разделен списък променливи"
+
+#: Form/Type.php:180
+#, fuzzy
+msgid "This field must be a valid number."
+msgstr "Тази стойност трябва да е число."
+
+#: Form/Type.php:3152
+msgid ""
+"This field must contain a color code in the RGB Hex format, for example "
+"'#1234af'."
+msgstr ""
+
+#: Form.php:629
+msgid "This form has already been processed."
+msgstr "Тази форма вече беше обработена."
+
+#: Form/Type.php:2576
+msgid "Time"
+msgstr ""
+
+#: Form/Type.php:2686
+msgid "Time selection"
+msgstr ""
+
+#: Form/Type.php:1321
+msgid "True or false"
+msgstr ""
+
+#: Form/Type.php:360
+#, php-format
+msgid "Value is over the maximum length of %d."
+msgstr ""
+
+#: Form/Type.php:2368 Form/Type.php:2403 Form/Type.php:2452 Form/Type.php:3281
+#: Form/Type/tableset.php:56
+#, fuzzy
+msgid "Values"
+msgstr "Няма стойности"
+
+#: Form/Type.php:2235 Form/Type.php:2311
+msgid "Values to select from"
+msgstr ""
+
+#: Form/Type.php:3485
+msgid "Width in CSS units"
+msgstr ""
+
+#: Form/Type.php:2102
+msgid "You did not enter a valid email address."
+msgstr "Не въведохте валиден email адрес."
+
+#: Form/Type.php:3028
+#, fuzzy
+msgid "You must choose a date."
+msgstr "Трябва да зададете потребител за опресняване."
+
+#: Form/Type.php:3026
+msgid "You must choose a time."
+msgstr ""
+
+#: Form/Type.php:463
+msgid ""
+"You must enter a valid phone number, digits only with an optional '+' for "
+"the international dialing prefix."
+msgstr ""
+
+#: Form/Type.php:371
+#, fuzzy
+msgid "You must enter a valid value."
+msgstr "Не въведохте валиден email адрес."
+
+#: Form/Type.php:1470
+#, fuzzy
+msgid "You must enter an email address."
+msgstr "Не въведохте валиден email адрес."
+
+#: Form/Type.php:1468
+#, fuzzy
+msgid "You must enter at least one email address."
+msgstr "Не въведохте валиден email адрес."
+
+#: Form/Type.php:645
+#, php-format
+msgid "you must enter less than %d."
+msgstr ""

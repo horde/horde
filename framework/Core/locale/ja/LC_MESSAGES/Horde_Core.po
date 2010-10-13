@@ -1,0 +1,998 @@
+# Japanese translations for Horde_Core module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Core module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Core\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: lib/Horde.php:1613
+#, php-format
+msgid " (Accesskey %s)"
+msgstr "アクセスキイ %s"
+
+#: lib/Horde/Registry.php:1122 lib/Horde/Registry.php:1573
+#, php-format
+msgid "\"%s\" is not configured in the Horde Registry."
+msgstr "\"%s\" は Horde レジストリに設定されていません。"
+
+#: lib/Horde/Core/Factory/Share.php:83
+#, php-format
+msgid "\"%s\" share driver not found."
+msgstr "共有ドライブ \"%s\" が見付かりません。"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:134
+#, fuzzy, php-format
+msgid "%d contact was successfully added to your address book."
+msgid_plural "%d contacts were successfully added to your address book."
+msgstr[0] "連絡先はあなたのアドレス帳に追加されました。"
+
+#: lib/Horde/Core/Auth/Application.php:583
+#, php-format
+msgid "%d day until your password expires."
+msgid_plural "%d days until your password expires."
+msgstr[0] "パスワードはあと %d 日有効です。"
+
+#: lib/Horde/Core/Auth/Signup/Form.php:37
+#, php-format
+msgid "%s Sign Up"
+msgstr "%s サインアップ"
+
+#: lib/Horde/Registry.php:1220
+#, fuzzy, php-format
+msgid "%s is not authorized for %s."
+msgstr "%s は %s で認証されていません。"
+
+#: lib/Horde/Core/Perms/Ui.php:338 lib/Horde/Core/Perms/Ui.php:397
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:847
+msgid "-- select --"
+msgstr "-- 選択 --"
+
+#: lib/Horde/Core/Notification/Status.php:82
+msgid "1 day"
+msgstr "１日"
+
+#: lib/Horde/Core/Notification/Status.php:80
+msgid "1 hour"
+msgstr "１時間"
+
+#: lib/Horde/Core/Notification/Status.php:79
+msgid "15 minutes"
+msgstr "15 分"
+
+#: lib/Horde/Core/Notification/Status.php:78
+msgid "5 minutes"
+msgstr "5 分"
+
+#: lib/Horde/Core/Notification/Status.php:81
+msgid "6 hours"
+msgstr "6 時間"
+
+#: lib/Horde/Core/Ui/Pager.php:86
+msgid "<Previous"
+msgstr "<前のページ"
+
+#: lib/Horde.php:109
+msgid "A fatal error has occurred"
+msgstr "致命的なエラーが発生しました"
+
+#: lib/Horde/Core/Prefs/Identity.php:81
+#, php-format
+msgid ""
+"A message has been sent to \"%s\" to verify that this is really your "
+"address. The new email address is activated as soon as you confirm this "
+"message."
+msgstr ""
+"メールアドレスを検証するためのメッセージが \"%s\" に送信されました。新しい"
+"メールアドレスはそのメッセージを確認してから有効になります。"
+
+#: lib/Horde/Core/Auth/Signup/Base.php:96
+#, php-format
+msgid ""
+"A new account for the user \"%s\" has been requested through the signup form."
+msgstr ""
+
+#: lib/Horde/Script/Files.php:128
+msgid ""
+"A popup window could not be opened. Your browser may be blocking popups."
+msgstr ""
+
+#: lib/Horde/Core/Auth/Signup/Base.php:103
+#, fuzzy, php-format
+msgid "Account signup request for \"%s\""
+msgstr "\"%s\" のサインアップ要求を本当に削除していいですか？"
+
+#: lib/Horde/Core/Perms/Ui.php:192 lib/Horde/Core/Ui/VarRenderer/Html.php:651
+msgid "Add"
+msgstr "追加"
+
+#: lib/Horde/Core/Perms/Ui.php:130
+msgid "Add Child Permission"
+msgstr "サブアクセス権を追加"
+
+#: lib/Horde/Core/Perms/Ui.php:101
+msgid "Add New Permission"
+msgstr "新しいをアクセス権を追加"
+
+#: lib/Horde/Core/Perms/Ui.php:78
+msgid "Add Permission"
+msgstr "アクセス権を追加"
+
+#: lib/Horde/Core/Perms/Ui.php:191
+#, php-format
+msgid "Add a child permission to \"%s\""
+msgstr "サブアクセス権を \"%s\" に追加"
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:107
+#, fuzzy
+msgid "Add source"
+msgstr "ユーザを追加"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:415
+msgid "Add to address book:"
+msgstr "アドレス帳に追加:"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:430
+msgid "Add to my address book"
+msgstr "マイアドレス帳に追加"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:237
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:301
+msgid "Address"
+msgstr "住所"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:417
+msgid "Address Book"
+msgstr "アドレス帳"
+
+#: lib/Horde/Core/Sidebar.php:58
+msgid "Administration"
+msgstr "管理"
+
+#: lib/Horde/Core/Notification/Status.php:98
+msgid "Alarm"
+msgstr "アラーム"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:161
+msgid "Alias"
+msgstr "別名"
+
+#: lib/Horde/Core/Perms/Ui.php:253
+msgid "All Authenticated Users"
+msgstr "全認証ユーザ"
+
+#: lib/Horde/Core/Perms/Ui.php:104
+msgid "All Permissions"
+msgstr "全てのアクセス権"
+
+#: lib/Horde/Core/Prefs/Ui.php:259 lib/Horde/Core/Prefs/Ui.php:275
+msgid "An illegal value was specified."
+msgstr "不正な値が指定されています"
+
+#: lib/Horde/Core/Auth/Signup/Base.php:98
+msgid "Approve the account:"
+msgstr ""
+
+#: lib/Horde/Core/Ui/JsCalendar.php:139
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:463
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:501
+msgid "April"
+msgstr "４月"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:143
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:467
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:505
+msgid "August"
+msgstr "８月"
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:214
+#, fuzzy
+msgid "Available address books:"
+msgstr "アドレス帳に追加:"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:168
+msgid "Birthday"
+msgstr "誕生日"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:543
+msgid "Calendar"
+msgstr "予定表"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:327
+msgid "Cell Phone"
+msgstr "携帯電話"
+
+#: lib/Horde/Core/Auth/Signup/Form.php:53
+#: lib/Horde/Core/Auth/Signup/Form.php:67
+msgid "Choose a password"
+msgstr "パスワードを選択"
+
+#: lib/Horde/Core/Auth/Signup/Form.php:50
+#: lib/Horde/Core/Auth/Signup/Form.php:66
+msgid "Choose a username"
+msgstr "ユーザ名を選択"
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:208
+msgid "Choose the order of address books to search when expanding addresses."
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:599
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:601
+msgid "Color Picker"
+msgstr "色選択"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:379
+msgid "Company"
+msgstr "会社"
+
+#: lib/Horde/Core/Prefs/Identity.php:72
+msgid "Confirm new email address"
+msgstr "メールアドレスの確認"
+
+#: lib/Horde/Core/Perms/Ui.php:284
+msgid "Creator Permissions"
+msgstr "作成者のアクセス権"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:510
+msgid "DD"
+msgstr "日"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:147
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:471
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:509
+msgid "December"
+msgstr "12月"
+
+#: lib/Horde/Core/Perms/Ui.php:483 lib/Horde/Core/Perms/Ui.php:501
+msgid "Delete"
+msgstr "削除"
+
+#: lib/Horde/Core/Perms/Ui.php:82 lib/Horde/Core/Perms/Ui.php:138
+msgid "Delete Permission"
+msgstr "アクセス権を削除"
+
+#: lib/Horde/Core/Perms/Ui.php:482
+#, php-format
+msgid "Delete permissions for \"%s\""
+msgstr "\"%s\" のアクセス権を削除"
+
+#: lib/Horde/Core/Perms/Ui.php:485
+#, php-format
+msgid "Delete permissions for \"%s\" and any sub-permissions?"
+msgstr "\"%s\" のアクセス権とそのサブアクセス権を全て削除しますか？"
+
+#: lib/Horde/Core/Auth/Signup/Base.php:100
+msgid "Deny the account:"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:381
+msgid "Department"
+msgstr "部署"
+
+#: lib/Horde.php:127
+msgid "Details"
+msgstr ""
+
+#: lib/Horde.php:132
+msgid "Details have been logged for the administrator."
+msgstr "詳細は管理者のために記録されました。"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1188
+#, php-format
+msgid "Dial %s"
+msgstr "ダイアル %s"
+
+#: lib/Horde/Core/Notification/Status.php:77
+msgid "Dismiss"
+msgstr "止める"
+
+#: lib/Horde/Core/Perms/Ui.php:483
+msgid "Do not delete"
+msgstr "削除しない"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:216
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:280
+#, fuzzy
+msgid "Domestic Address"
+msgstr "自宅の住所"
+
+#: lib/Horde/Core/Perms/Ui.php:81 lib/Horde/Core/Perms/Ui.php:136
+msgid "Edit Permission"
+msgstr "アクセス権の編集"
+
+#: lib/Horde/Core/Perms/Ui.php:416
+#, php-format
+msgid "Edit permissions for \"%s\""
+msgstr "\"%s\" のアクセス権の編集"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:364
+msgid "Email"
+msgstr "電子メール"
+
+#: lib/Horde/Core/Prefs/Identity.php:105
+msgid "Email addresses to confirm not found."
+msgstr "確認用メールアドレスが見つかりません。"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:336
+msgid "Emoticons"
+msgstr "顔文字"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:988
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1000
+msgid "Enter the letters below:"
+msgstr "以下の文字を入力："
+
+#: lib/Horde/Core/Notification/Status.php:103
+msgid "Error"
+msgstr "エラー"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:318
+msgid "Fax"
+msgstr "FAX"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:137
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:461
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:499
+msgid "February"
+msgstr "２月"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:279
+msgid "Fix ratio"
+msgstr "固定比率"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:254
+msgid "Flip"
+msgstr ""
+
+#: lib/Horde/Core/Ui/JsCalendar.php:105
+msgid "Fr"
+msgstr "金"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:123
+msgid "Friday"
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Ui.php:597 lib/Horde/Core/Sidebar.php:91
+msgid "Global Preferences"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1333
+msgid "Google Maps"
+msgstr "Google マップ"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:260
+msgid "Grayscale"
+msgstr "グレイスケール"
+
+#: lib/Horde/Core/Perms/Ui.php:358
+msgid "Groups"
+msgstr "グループ"
+
+#: lib/Horde/Core/Perms/Ui.php:271
+msgid "Guest Permissions"
+msgstr "ゲストアクセス権"
+
+#: lib/Horde/Help.php:218 lib/Horde/Help.php:219 lib/Horde/Menu.php:197
+msgid "Help"
+msgstr "ヘルプ"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:208
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:272
+msgid "Home Address"
+msgstr "自宅の住所"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:321
+msgid "Home Phone"
+msgstr "自宅の電話番号"
+
+#: lib/Horde/Core/Perms/Ui.php:297
+msgid "Individual Users"
+msgstr "個別ユーザ"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:220
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:284
+#, fuzzy
+msgid "International Address"
+msgstr "代替のメールアドレス"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:777
+#: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:26
+msgid "Invert selection"
+msgstr "選択を反転"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:136
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:460
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:498
+msgid "January"
+msgstr "１月"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:142
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:466
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:504
+msgid "July"
+msgstr "７月"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:141
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:465
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:503
+msgid "June"
+msgstr "６月"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:287
+msgid "Keep original?"
+msgstr "オリジナルを保存？"
+
+#: lib/Horde/Core/Sidebar.php:120
+msgid "Log in"
+msgstr "ログイン"
+
+#: lib/Horde/Core/Sidebar.php:113
+msgid "Log out"
+msgstr "ログアウト"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:459
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:497
+msgid "MM"
+msgstr "月"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1259
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1308
+msgid "MapQuest map"
+msgstr "MapQuest マップ"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:138
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:462
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:500
+msgid "March"
+msgstr "３月"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:140
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:464
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:502
+msgid "May"
+msgstr "５月"
+
+#: lib/Horde/Core/Notification/Status.php:109
+msgid "Message"
+msgstr "本文"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:257
+msgid "Mirror"
+msgstr "ミラー"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:101
+msgid "Mo"
+msgstr "月"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:119
+msgid "Monday"
+msgstr "月曜"
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:112
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:623
+msgid "Move down"
+msgstr "下へ"
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:111
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:622
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:623
+msgid "Move up"
+msgstr "上へ"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1228
+msgid "Multimap UK map"
+msgstr "Multimap マップ"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:157
+msgid "Name"
+msgstr "名前"
+
+#: lib/Horde/Core/Ui/Pager.php:129
+msgid "Next>"
+msgstr "次のページ>"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1093
+msgid "No"
+msgstr "いいえ"
+
+#: lib/Horde/Core/Factory/Twitter.php:43
+msgid "No OAuth Key or Secret found for the Twitter API"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:569
+msgid "No Sound"
+msgstr "音なし"
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:246
+#, fuzzy
+msgid "No address book selected."
+msgstr "アドレス帳"
+
+#: lib/Horde/Core/Perms/Ui.php:200
+msgid "No children can be added to this permission."
+msgstr "このアクセス権にはサブアクセス権は追加できません。"
+
+#: lib/Horde.php:868
+#, php-format
+msgid "No configuration information specified for %s."
+msgstr "%s の設定情報が指定されていません。"
+
+#: lib/Horde/Core/Ajax/Application.php:185
+#, fuzzy
+msgid "No valid email address found"
+msgstr "\"%s\" は有効な電子メールアドレスではありません。"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1101
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1111
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1122
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1139
+msgid "No values"
+msgstr "値なし"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:387
+msgid "Notes"
+msgstr "メモ"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:146
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:470
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:508
+msgid "November"
+msgstr "11月"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:969
+msgid "Object"
+msgstr "オブジェクト"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:145
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:469
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:507
+msgid "October"
+msgstr "10月"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:228
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:292
+#, fuzzy
+msgid "Parcel Address"
+msgstr "Eメールアドレス"
+
+#: lib/Horde/Core/Perms/Ui.php:200
+msgid "Permission"
+msgstr "アクセス権"
+
+#: lib/Horde/Core/Perms/Ui.php:205 lib/Horde/Core/Perms/Ui.php:208
+msgid "Permissions"
+msgstr "アクセス権"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:330
+msgid "Phone"
+msgstr "電話"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:176
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:184
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:188
+#, fuzzy
+msgid "Photo"
+msgstr "写真"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:224
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:288
+#, fuzzy
+msgid "Postal Address"
+msgstr "Eメールアドレス"
+
+#: lib/Horde/Core/Sidebar.php:80
+msgid "Preferences"
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Ui.php:597
+#, fuzzy, php-format
+msgid "Preferences for %s"
+msgstr "%s のアイコン"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:232
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:296
+#, fuzzy
+msgid "Preferred Address"
+msgstr "住所番地"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1527
+msgid "Preview"
+msgstr "プレビュー"
+
+#: lib/Horde/Menu.php:189
+msgid "Problem"
+msgstr "障害"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:654
+msgid "Remove"
+msgstr "削除"
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:108
+#, fuzzy
+msgid "Remove source"
+msgstr "ユーザを削除"
+
+#: lib/Horde.php:878
+#, php-format
+msgid "Required \"%s\" not specified in %s configuration."
+msgstr "要求された \"%s\" は %s の設定に指定されていません。"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:242
+msgid "Reset"
+msgstr "リセット"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:374
+msgid "Role"
+msgstr "役割"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:248
+msgid "Rotate 180"
+msgstr "180度回転"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:245
+msgid "Rotate Left"
+msgstr "左に回転"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:251
+msgid "Rotate Right"
+msgstr "右に回転"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:106
+msgid "Sa"
+msgstr "土"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:124
+msgid "Saturday"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:543
+msgid "Select a date"
+msgstr "日付を指定"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:775
+#: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:24
+msgid "Select all"
+msgstr "全て選択"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:969
+msgid "Select an object"
+msgstr "オブジェクトを選択"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:776
+#: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:25
+msgid "Select none"
+msgstr "どれも選択しない"
+
+#: lib/Horde/Core/Prefs/Ui.php:758
+msgid "Select the identity you want to change:"
+msgstr "変更したいIDを選択:"
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:209
+#, fuzzy
+msgid "Selected address books:"
+msgstr "アドレス帳に追加:"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1204
+msgid "Send SMS"
+msgstr "SMS 送信"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:144
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:468
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:506
+msgid "September"
+msgstr "９月"
+
+#: lib/Horde/Core/Auth/Signup/Form.php:39
+msgid "Sign up"
+msgstr "サインアップ"
+
+#: lib/Horde/Core/Notification/Status.php:85
+msgid "Snooze..."
+msgstr ""
+
+#: lib/Horde/Core/Ui/JsCalendar.php:100
+msgid "Su"
+msgstr "日"
+
+#: lib/Horde/Core/Notification/Status.php:115
+msgid "Success"
+msgstr "成功"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:118
+msgid "Sunday"
+msgstr "日曜"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:104
+msgid "Th"
+msgstr "木"
+
+#: lib/Horde/Core/Binder/History.php:13
+msgid "The History system is disabled."
+msgstr "履歴システムは無効になっています。"
+
+#: lib/Horde/Core/Prefs/Identity.php:130
+#, php-format
+msgid ""
+"The email address %s has been added to your identities. You can close this "
+"window now."
+msgstr ""
+"メールアドレス %s があなたの ID に追加されました。このウインドーは閉じても構"
+"いません。"
+
+#: lib/Horde.php:675
+msgid "The encryption features require a secure web connection."
+msgstr "暗号化には安全なウェブ接続が必要です。"
+
+#: lib/Horde.php:879
+#, php-format
+msgid "The file %s should contain a %s setting."
+msgstr "ファイル %s には %s の設定が必須です。"
+
+#: lib/Horde.php:869
+#, php-format
+msgid "The file %s should contain some %s settings."
+msgstr "ファイル %s には %s の設定が必須です。"
+
+#: lib/Horde.php:128
+msgid ""
+"The full error message is logged in Horde's log file, and is shown below "
+"only to administrators. Non-administrative users will not see error details."
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Ui.php:825
+#, php-format
+msgid "The identity \"%s\" has been deleted."
+msgstr "ID \"%s\" は削除されました。"
+
+#: lib/Horde/Core/Prefs/Ui.php:871
+msgid "The new from address can't be verified, try again later: "
+msgstr "新しい from アドレスは確認できませんでした。後で再度試して下さい。"
+
+#: lib/Horde/Core/Prefs/Identity.php:96 lib/Horde/Core/Prefs/Identity.php:102
+msgid "There are no email addresses to confirm."
+msgstr "確認すべきメールアドレスがありません。"
+
+#: lib/Horde/Core/Prefs/Ui.php:398
+#, fuzzy
+msgid "There are no preferences available for this application."
+msgstr "指定できるオプションはありません。"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:129
+#, fuzzy
+msgid "There was an error importing the contact data:"
+msgstr "連絡先データのインポート中にエラーが発生しました。"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:115
+#, fuzzy
+msgid "There was an error reading the contact data."
+msgstr "連絡先データのインポート中にエラーが発生しました。"
+
+#: lib/Horde/Core/Prefs/Ui.php:289
+#, fuzzy
+msgid "This number must be non-zero."
+msgstr "この番号は最小でも1でなくてはいけません。"
+
+#: lib/Horde.php:381
+#, php-format
+msgid ""
+"This request cannot be completed because the link you followed or the form "
+"you submitted was only valid for %s minutes. Please try again now."
+msgstr ""
+
+#: lib/Horde/Registry.php:474
+msgid "This system is currently deactivated."
+msgstr "このシステムは一時的に無効になっています。"
+
+#: lib/Horde/Core/Prefs/Ui.php:287
+msgid "This value must be a number."
+msgstr "この値は数字でなければなりません。"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:122
+msgid "Thursday"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:369
+msgid "Title"
+msgstr "タイトル"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:748
+msgid ""
+"To select multiple items, hold down the Control (PC) or Command (Mac) key "
+"while clicking."
+msgstr ""
+"複数の項目を選択するには、PCではControlキイ、MacならCommandキイを押しながらク"
+"リックします。"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:102
+msgid "Tu"
+msgstr "火"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:120
+msgid "Tuesday"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:393
+msgid "URL"
+msgstr "URL"
+
+#: lib/Horde/Core/Perms/Ui.php:243
+msgid "Update"
+msgstr "更新"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:221
+msgid "Upload"
+msgstr "アップロード"
+
+#: lib/Horde/Core/Auth/Signup/Sql.php:96
+#, fuzzy, php-format
+msgid "User \"%s\" does not exist."
+msgstr "フォルダー \"%s\" がありません"
+
+#: lib/Horde/Core/Prefs/Ui.php:551
+#, fuzzy
+msgid "User Preferences"
+msgstr "差分を表示"
+
+#: lib/Horde/Core/Auth/Signup/Base.php:129
+#, php-format
+msgid "Username \"%s\" already exists."
+msgstr "ユーザ名 \"%s\" は既にあります。"
+
+#: lib/Horde/Core/Notification/Status.php:121
+msgid "Warning"
+msgstr "警告"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:103
+msgid "We"
+msgstr "水"
+
+#: lib/Horde.php:376
+msgid ""
+"We cannot verify that this request was really sent by you. It could be a "
+"malicious request. If you intended to perform this action, you can retry it "
+"now."
+msgstr ""
+
+#: lib/Horde/Core/Ui/JsCalendar.php:121
+msgid "Wednesday"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1235
+msgid "Whereis Australia map"
+msgstr "Whereis オーストラリアマップ"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:212
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:276
+msgid "Work Address"
+msgstr "勤務先の住所"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:324
+msgid "Work Phone"
+msgstr "勤務先の電話番号"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:472
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:514
+msgid "YYYY"
+msgstr "年"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1279
+msgid "Yahoo! map"
+msgstr "Yahoo! マップ"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1093
+msgid "Yes"
+msgstr "はい"
+
+#: lib/Horde/Registry.php:1841
+msgid "You are not authenticated."
+msgstr "あなたは認証されていません。"
+
+#: lib/Horde/Core/Prefs/Identity.php:62
+#, php-format
+msgid ""
+"You have requested to add the email address \"%s\" to the list of your "
+"personal email addresses.\n"
+"\n"
+"Go to the following link to confirm that this is really your address:\n"
+"%s\n"
+"\n"
+"If you don't know what this message means, you can delete it."
+msgstr ""
+"あなたはメールアドレス \"%s\" をあなた個人のメールアドレスとして登録するよう"
+"に要求しました。\n"
+"\n"
+"次のリンクで、本当にあなたのメールアドレスかどうを確認して下さい：\n"
+"%s\n"
+"\n"
+"もしもこのメッセージに心当たりがないなら、このメッセージを削除して下さい。"
+
+#: lib/Horde/Core/Factory/Vfs.php:82
+msgid "You must configure a VFS backend."
+msgstr "VFS バックエンドを設定する必要があります。"
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:411
+#, php-format
+msgid "You must provide a setting for \"%s\"."
+msgstr "\"%s\" の設定をして下さい。"
+
+#: lib/Horde/Core/Prefs/Ui.php:839
+msgid "Your default identity has been changed."
+msgstr "あなたのデフォルトIDは変更されました。"
+
+#: lib/Horde/Core/Prefs/Ui.php:757
+msgid "Your default identity:"
+msgstr "あなたのデフォルトID:"
+
+#: lib/Horde/Core/Prefs/Ui.php:323
+#, fuzzy
+msgid "Your preferences have been updated for the duration of this session."
+msgstr "あなたのオプションは現在のセッション中に変更されました。"
+
+#: lib/Horde/Core/Prefs/Ui.php:325
+#, fuzzy
+msgid "Your preferences have been updated."
+msgstr "オプションは更新されました。"
+
+#: lib/Horde/Core/Text/Filter/Highlightquotes.php:75
+msgid "[Hide Quoted Text]"
+msgstr "[引用文を隠す]"
+
+#: lib/Horde/Core/Text/Filter/Highlightquotes.php:73
+#, fuzzy, php-format
+msgid "[Show Quoted Text - %d lines]"
+msgstr "[引用文を表示 - %d 行]"
+
+#: lib/Horde.php:2083
+msgid "_Home"
+msgstr "_Hホーム"
+
+#: lib/Horde/Menu.php:218
+msgid "_Log in"
+msgstr "_Lログイン"
+
+#: lib/Horde/Menu.php:213
+msgid "_Log out"
+msgstr "_Lログアウト"
+
+#: lib/Horde/Menu.php:182
+msgid "_Preferences"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:272
+msgid "h:"
+msgstr "h:"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:416
+msgid "hh"
+msgstr "hh"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:427
+msgid "mm"
+msgstr "mm"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:444
+msgid "ss"
+msgstr "ss"
+
+#: lib/Horde/Core/Auth/Signup/Form.php:53
+#: lib/Horde/Core/Auth/Signup/Form.php:67
+msgid "type the password twice to confirm"
+msgstr "確認のためパスワード2度入力して下さい"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:111
+msgid "vCard"
+msgstr "vCard"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:264
+msgid "w:"
+msgstr "w:"

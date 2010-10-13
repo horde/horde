@@ -1,0 +1,648 @@
+# Estonian translations for Horde_Form module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Form module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Form\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: Form/Type.php:2520
+#, php-format
+msgid " (%s days ago)"
+msgstr " (%s päeva tagasi)"
+
+#: Form/Type.php:2528
+#, php-format
+msgid " (in %s days)"
+msgstr " (%s päeva pärast)"
+
+#: Form/Type.php:2524
+msgid " (today)"
+msgstr " (täna)"
+
+#: Form/Type.php:2526
+msgid " (tomorrow)"
+msgstr " (homme)"
+
+#: Form/Type.php:2522
+msgid " (yesterday)"
+msgstr " (eile)"
+
+#: Form/Type.php:1460
+#, php-format
+msgid "\"%s\" is not a valid email address."
+msgstr "\"%s\" ei ole korrektne maili aadress."
+
+#: Form/Type.php:2475
+#, php-format
+msgid "%s is required"
+msgstr "%s on kohustuslik"
+
+#: Form/Type.php:2190 Form/Type.php:2253
+msgid "-- select --"
+msgstr "-- vali --"
+
+#: Form/Type.php:843 Form/Type.php:886
+#, fuzzy
+msgid "A temporary directory"
+msgstr "Ei leia ajutist kataloogi"
+
+#: Form/Type.php:773
+msgid "Address"
+msgstr "Aadress"
+
+#: Form/Type.php:795
+#, fuzzy
+msgid "Address Link"
+msgstr "Aadressiraamat"
+
+#: Form/Type.php:1620
+msgid "Allow multiple addresses?"
+msgstr "Luba mitut aadressi?"
+
+#: Form/Type.php:3473
+msgid "Assignment columns"
+msgstr "Veerud"
+
+#: Form/Type.php:3745
+msgid "Category"
+msgstr "Kategoorja"
+
+#: Form/Type.php:1632
+msgid "Character to split multiple addresses with"
+msgstr "Märk millega eraldada mitut aadressi"
+
+#: Form/Type.php:3161
+msgid "Colour selection"
+msgstr "Värvi valik"
+
+#: Form/Type.php:2072
+msgid "Column titles"
+msgstr "Veergude pealkirjad"
+
+#: Form/Type.php:662
+msgid "Counted text"
+msgstr "Piiratud pikkusega tekst"
+
+#: Form/Type.php:909
+msgid "Country drop down list"
+msgstr "Maade nimekiri"
+
+#: Form/Type.php:3588
+msgid "Credit card number"
+msgstr "Krediitkaardi number"
+
+#: Form/Type.php:3643
+msgid ""
+"DSN (see http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
+msgstr ""
+"DSN (vaata http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
+
+#: Form/Type.php:3641
+msgid "Database lookup"
+msgstr "Andmebaasiotsing"
+
+#: Form/Type.php:2549
+msgid "Date"
+msgstr "Kuupäev"
+
+#: Form/Type.php:3121
+msgid "Date and time selection"
+msgstr "Kuupäeva valik"
+
+#: Form/Type.php:2958
+msgid "Date selection"
+msgstr "Kuupäeva valik"
+
+#: Form/Type.php:132
+msgid "Description"
+msgstr "Kirjeldus"
+
+#: Form/Type.php:2968 Form/Type.php:3131
+msgid "Display format"
+msgstr "Ekraani seaded"
+
+#: Form/Type.php:2233
+msgid "Drop down list"
+msgstr "Nimekiri"
+
+#: Form/Type.php:1617
+msgid "Email"
+msgstr "E-post"
+
+#: Form/Type.php:2088
+msgid "Email addresses must match."
+msgstr "E-posti aadressid peavad klappima."
+
+#: Form/Type.php:2115
+msgid "Email with confirmation"
+msgstr "E-post kinnitusega"
+
+#: Form/Type.php:2746 Form/Type.php:2962 Form/Type.php:3125
+msgid "End year"
+msgstr "Aasta lõpp"
+
+#: Form/Type.php:2070
+msgid "Field matrix"
+msgstr "Field matrix"
+
+#: Form/Type.php:3696
+msgid "Figlet CAPTCHA"
+msgstr "Figlet CAPTCHA"
+
+#: Form/Type.php:3700
+msgid "Figlet font"
+msgstr "Figlet font"
+
+#: Form/Type.php:3347
+msgid "File selection"
+msgstr "Faili valik"
+
+#: Form/Type.php:952
+msgid "File upload"
+msgstr "Faili üleslaadimine"
+
+#: Form/Type.php:3719
+msgid "Font"
+msgstr "Kirjatüüp"
+
+#: Form/Type.php:152
+msgid "HTML"
+msgstr "HTML"
+
+#: Form/Type.php:115 Form/Type.php:3285
+msgid "Header"
+msgstr "Päis"
+
+#: Form/Type/tableset.php:58
+msgid "Headers"
+msgstr "Päised"
+
+#: Form/Type.php:617
+#, fuzzy
+msgid "Helpers"
+msgstr "Abiline?"
+
+#: Form/Type.php:528
+msgid "IP address"
+msgstr "IP aadress"
+
+#: Form/Type.php:558
+#, fuzzy
+msgid "IPv6 address"
+msgstr "IP aadress"
+
+#: Form/Type.php:3349
+msgid "Id"
+msgstr "ID"
+
+#: Form/Type.php:3715
+msgid "Image CAPTCHA"
+msgstr "Pildi CAPTCHA"
+
+#: Form/Type.php:1292
+msgid "Image upload"
+msgstr "Pildi üleslaadimine"
+
+#: Form/Type.php:263
+msgid "Integer"
+msgstr "Täisarv"
+
+#: Form/Type.php:317
+msgid "Integer list"
+msgstr "Täisarvude nimekiri"
+
+#: Form/Type.php:2208 Form/Type.php:2283 Form/Type.php:2356 Form/Type.php:2435
+#: Form/Type/tableset.php:34
+msgid "Invalid data submitted."
+msgstr "Sisestati vigased andmed."
+
+#: Form/Type.php:3479
+msgid "Left header"
+msgstr "Vasak päis"
+
+#: Form/Type.php:3475
+msgid "Left values"
+msgstr "Vasakud väärtused"
+
+#: Form/Type.php:1352
+msgid "Link"
+msgstr "Link"
+
+#: Form/Type.php:1355
+msgid "Link URL"
+msgstr "Lingi URL"
+
+#: Form/Type.php:1370
+msgid "Link access key"
+msgstr "Lingi võti"
+
+#: Form/Type.php:3353
+msgid "Link style"
+msgstr "Lingi stiil"
+
+#: Form/Type.php:1361
+msgid "Link target"
+msgstr "Lingi siht"
+
+#: Form/Type.php:1358 Form/Type.php:3351
+msgid "Link text"
+msgstr "Lingi tekst"
+
+#: Form/Type.php:1626
+msgid "Link the email address to the compose page when displaying?"
+msgstr "Esitamisel seosta e-posti aadress uue kirja aknaga?"
+
+#: Form/Type.php:1367
+msgid "Link title attribute"
+msgstr "Lingi pealkirja tunnus"
+
+#: Form/Type.php:611
+msgid "Long text"
+msgstr "Pikk tekst"
+
+#: Form/Type.php:1298
+msgid "Maximum file size in bytes"
+msgstr "Suurim faili suurus baitides"
+
+#: Form/Type.php:400 Form/Type.php:420 Form/Type.php:446
+msgid "Maximum length"
+msgstr "Suurim pikkus"
+
+#: Form/Type.php:487
+msgid "Mobile phone number"
+msgstr "Mobiil telefoninumber"
+
+#: Form/Type.php:2742
+msgid "Month and year"
+msgstr "Kuu ja aasta"
+
+#: Form/Type.php:2309
+msgid "Multi-level drop down lists"
+msgstr "Mitmetasemeline loend"
+
+#: Form/Type.php:2366
+msgid "Multiple selection"
+msgstr "Valik"
+
+#: Form/Type.php:236
+msgid "Number"
+msgstr "Arv"
+
+#: Form/Type.php:668
+msgid "Number of characters"
+msgstr "Märkide arv"
+
+#: Form/Type.php:615 Form/Type.php:666 Form/Type.php:777 Form/Type.php:847
+#: Form/Type.php:890
+msgid "Number of columns"
+msgstr "Veergude arv"
+
+#: Form/Type.php:613 Form/Type.php:664 Form/Type.php:775 Form/Type.php:845
+#: Form/Type.php:888
+msgid "Number of rows"
+msgstr "Ridade arv"
+
+#: Form/Type.php:290
+msgid "Octal"
+msgstr "Kaheksandnumber"
+
+#: Form/Type.php:1364
+msgid "Onclick event"
+msgstr "Vajutamise sündmus"
+
+#: Form/Type.php:2098
+msgid "Only one email address allowed."
+msgstr "Lubatud on ainult üks e-posti aadress."
+
+#: Form/Type.php:1449
+msgid "Only one email address is allowed."
+msgstr "Lubatud on ainult üks maili aadress."
+
+#: Form/Type.php:839
+#, fuzzy
+msgid "PGP Key"
+msgstr "PGP avalik võti"
+
+#: Form/Type.php:2142
+msgid "Password"
+msgstr "Salasõna"
+
+#: Form/Type.php:2175
+msgid "Password with confirmation"
+msgstr "Salasõna kinnitusega"
+
+#: Form/Type.php:2157
+msgid "Passwords must match."
+msgstr "Salasõnad peavad klappima."
+
+#: Form/Type.php:841
+msgid "Path to the GnuPG binary"
+msgstr ""
+
+#: Form/Type.php:475
+msgid "Phone number"
+msgstr "Telefoninumber"
+
+#: Form/Type.php:3191
+msgid "Please choose a sound."
+msgstr "Palun vale heli."
+
+#: Form/Type.php:2720
+msgid "Please enter a month and a year."
+msgstr "Sisesta kuu ja aasta."
+
+#: Form/Type.php:513 Form/Type.php:543
+msgid "Please enter a valid IP address."
+msgstr "Sisesta korrektne IP aadress."
+
+#: Form/Type.php:2800
+msgid "Please enter a valid date, check the number of days in the month."
+msgstr "Sisesta korrektne kuupäev, kontrolli päevade arvu kuus."
+
+#: Form/Type.php:2598
+msgid "Please enter a valid time."
+msgstr "Sisesta korrektne aeg."
+
+#: Form/Type.php:911 Form/Type.php:2237 Form/Type.php:2313 Form/Type.php:3647
+msgid "Prompt text"
+msgstr "Selgitav tekst"
+
+#: Form/Type.php:1623
+msgid "Protect address from spammers?"
+msgstr "Kaitse aadressi spammi eest?"
+
+#: Form/Type.php:2401
+msgid "Radio selection"
+msgstr "Valik"
+
+#: Form/Type.php:396 Form/Type.php:416 Form/Type.php:442
+msgid "Regex"
+msgstr "Regulaaravaldis"
+
+#: Form/Type.php:3605
+msgid "Relationship browser"
+msgstr "Suhete sirvija"
+
+#: Form/Renderer.php:344
+msgid "Required Field"
+msgstr "Kohustuslik väli"
+
+#: Form.php:632
+msgid "Required secret is invalid - potentially malicious request."
+msgstr "Nõutud saladus on kehtetu - võimalik pahatahtlik päring."
+
+#: Form.php:368 Form/Renderer.php:329
+msgid "Reset"
+msgstr "Tühjenda"
+
+#: Form/Type.php:3481
+msgid "Right header"
+msgstr "Parem päis"
+
+#: Form/Type.php:3477
+msgid "Right values"
+msgstr "Paremad väärtused"
+
+#: Form/Type.php:884
+msgid "S/MIME Key"
+msgstr ""
+
+#: Form/Type.php:3645
+msgid "SQL statement for value lookups"
+msgstr "SQL avaldis väärtuste leidmiseks"
+
+#: Form/Type.php:3326
+msgid "Select Files"
+msgstr "Vali failid"
+
+#: Form/Type.php:2803
+msgid "Select all date components."
+msgstr "Vali kõik kuupäeva koostisosad."
+
+#: Form/Type.php:2450
+msgid "Set"
+msgstr "Hulk"
+
+#: Form/Type.php:3355
+msgid "Show icon?"
+msgstr "Näita ikoone?"
+
+#: Form/Type.php:1296
+msgid "Show option to keep original?"
+msgstr "Paku võimalust originaali säilitamiseks?"
+
+#: Form/Type.php:2964 Form/Type.php:3127
+msgid "Show picker?"
+msgstr "Näita valijat?"
+
+#: Form/Type.php:2688 Form/Type.php:3133
+msgid "Show seconds?"
+msgstr "Näita sekundeid?"
+
+#: Form/Type.php:1294
+msgid "Show upload?"
+msgstr "Näita uploadi?"
+
+#: Form/Type.php:398 Form/Type.php:418 Form/Type.php:444 Form/Type.php:2370
+#: Form/Type.php:3283 Form/Type.php:3483
+msgid "Size"
+msgstr "Suurus"
+
+#: Form/Type.php:3279
+msgid "Sort order selection"
+msgstr "Sorteerimisjärjekorra valik"
+
+#: Form/Type.php:3200
+#, fuzzy
+msgid "Sound selection"
+msgstr "Värvi valik"
+
+#: Form/Type.php:98
+msgid "Spacer"
+msgstr "Eraldaja"
+
+#: Form/Type.php:2744 Form/Type.php:2960 Form/Type.php:3123
+msgid "Start year"
+msgstr "Algusaasta"
+
+#: Form/Type.php:2966 Form/Type.php:3129
+msgid "Storage format"
+msgstr "Salvestusformaat"
+
+#: Form/Type.php:414
+msgid "String list"
+msgstr "Stringide loend"
+
+#: Form/Type.php:440
+msgid "String list returning an array"
+msgstr ""
+
+#: Form.php:361 Form/Renderer.php:326
+msgid "Submit"
+msgstr "Kinnita"
+
+#: Form/Type/tableset.php:54
+msgid "Table Set"
+msgstr "Tabelite hulk"
+
+#: Form/Type.php:394 Form/Type.php:3698 Form/Type.php:3717
+msgid "Text"
+msgstr "Tekst"
+
+#: Form/Type.php:1056
+msgid ""
+"The image file size could not be determined or it was 0 bytes. The upload "
+"may have been interrupted."
+msgstr ""
+"Pildi suurust ei õnnestunu kindlaks teha või see oli 0 baiti. "
+"Ülesselaadimine on katkestatud."
+
+#: Form/Type.php:1060
+#, php-format
+msgid "The image file was larger than the maximum allowed size (%d bytes)."
+msgstr "Pildi fail oli suurem kui maksimaalne lubatud suurus (%d baiti)."
+
+#: Form/Type.php:1629
+msgid "The name to use when linking to the compose page"
+msgstr "Nimi mida kasutada editori lehega linkimisel"
+
+#: Form/Type.php:3673
+msgid "The text you entered did not match the text on the screen."
+msgstr "Sinu sisestatud tekst ei kattu ekraanil olevaga."
+
+#: Form/Type.php:644
+#, fuzzy, php-format
+msgid ""
+"There are too many characters in this field. You have entered %d character; "
+msgid_plural ""
+"There are too many characters in this field. You have entered %d characters; "
+msgstr[0] ""
+"Selles väljas on liialt palju märke. Sa sisestasid %s märki; lubatud pole "
+"rohkem kui %s."
+msgstr[1] ""
+"Selles väljas on liialt palju märke. Sa sisestasid %s märki; lubatud pole "
+"rohkem kui %s."
+
+#: Form/Type.php:3504
+msgid "This does not seem to be a valid card number."
+msgstr "See ei näi olevat kehtiv kaardi number."
+
+#: Form/Type.php:169 Form/Type.php:246 Form/Type.php:273 Form/Type.php:300
+#: Form/Type.php:365 Form/Type.php:459 Form/Type.php:517 Form/Type.php:547
+#: Form/Type.php:641 Form/Type.php:1041 Form/Type.php:2083 Form/Type.php:2130
+#: Form/Type.php:2152 Form/Type.php:2199 Form/Type.php:2274 Form/Type.php:2345
+#: Form/Type.php:2559 Form/Type.php:2601 Form/Type.php:2795 Form/Type.php:3144
+#: Form/Type.php:3183 Form/Type.php:3496 Form/Type.php:3668 Form/Type.php:3751
+#: Form/Variable.php:471 Form/Variable.php:479
+msgid "This field is required."
+msgstr "See väli on kohustuslik."
+
+#: Form/Type.php:254
+msgid "This field may only contain integers."
+msgstr "See väli võib sisaldada vaid täisarve."
+
+#: Form/Type.php:2567
+msgid "This field may only contain numbers and the colon."
+msgstr "See väli võib sisaldada ainult numbreid ja koolonit."
+
+#: Form/Type.php:281
+msgid "This field may only contain octal values."
+msgstr "See väli võib sisaldada ainult kaheksandarve."
+
+#: Form/Type.php:308
+msgid "This field must be a comma or space separated list of integers"
+msgstr "See väli peab olema komaga või tühikuga eraldatud täisarvude loend"
+
+#: Form/Type.php:180
+msgid "This field must be a valid number."
+msgstr "See väli peab olema korrektne arv."
+
+#: Form/Type.php:3152
+msgid ""
+"This field must contain a color code in the RGB Hex format, for example "
+"'#1234af'."
+msgstr "See väli peab sisaldama värvikoodi RGB Hex kujul, näiteks '#1234af'."
+
+#: Form.php:629
+msgid "This form has already been processed."
+msgstr "See vorm on juba läbi töötatud."
+
+#: Form/Type.php:2576
+msgid "Time"
+msgstr "Aeg"
+
+#: Form/Type.php:2686
+msgid "Time selection"
+msgstr "Aja valik"
+
+#: Form/Type.php:1321
+msgid "True or false"
+msgstr "Tõde või vale"
+
+#: Form/Type.php:360
+#, php-format
+msgid "Value is over the maximum length of %d."
+msgstr "Väärtus ületab %d maksimumpikkuse."
+
+#: Form/Type.php:2368 Form/Type.php:2403 Form/Type.php:2452 Form/Type.php:3281
+#: Form/Type/tableset.php:56
+msgid "Values"
+msgstr "Väärtused"
+
+#: Form/Type.php:2235 Form/Type.php:2311
+msgid "Values to select from"
+msgstr "Väärtused mille hulgast valida"
+
+#: Form/Type.php:3485
+msgid "Width in CSS units"
+msgstr "Laius CSS ühikutes"
+
+#: Form/Type.php:2102
+msgid "You did not enter a valid email address."
+msgstr "Sa ei sisestanud korrektset e-posti aadressi."
+
+#: Form/Type.php:3028
+#, fuzzy
+msgid "You must choose a date."
+msgstr "Sa pead sisestama korrektse väärtuse."
+
+#: Form/Type.php:3026
+#, fuzzy
+msgid "You must choose a time."
+msgstr "Sa pead sisestama korrektse väärtuse."
+
+#: Form/Type.php:463
+msgid ""
+"You must enter a valid phone number, digits only with an optional '+' for "
+"the international dialing prefix."
+msgstr ""
+"Sa pead sisestama kehtiva mobiiltelefoni numbri mis sisaldab ainult numbreid "
+"ja mille alguses võib olla '+' rahvusvahelise suunakoodi tunnusena."
+
+#: Form/Type.php:371
+msgid "You must enter a valid value."
+msgstr "Sa pead sisestama korrektse väärtuse."
+
+#: Form/Type.php:1470
+msgid "You must enter an email address."
+msgstr "Sa pead sisestama maili aadressi."
+
+#: Form/Type.php:1468
+msgid "You must enter at least one email address."
+msgstr "Kirjal peab olema vähemalt üks saaja."
+
+#: Form/Type.php:645
+#, php-format
+msgid "you must enter less than %d."
+msgstr "sa pead vähem sisestama kui %d."

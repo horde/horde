@@ -1,0 +1,1044 @@
+# Icelandic translations for Horde_Core module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Core module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Core\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: lib/Horde.php:1613
+#, php-format
+msgid " (Accesskey %s)"
+msgstr ""
+
+#: lib/Horde/Registry.php:1122 lib/Horde/Registry.php:1573
+#, php-format
+msgid "\"%s\" is not configured in the Horde Registry."
+msgstr ""
+
+#: lib/Horde/Core/Factory/Share.php:83
+#, php-format
+msgid "\"%s\" share driver not found."
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:134
+#, fuzzy, php-format
+msgid "%d contact was successfully added to your address book."
+msgid_plural "%d contacts were successfully added to your address book."
+msgstr[0] "Netfangið \"%s\" var bætt í netfangabókina"
+msgstr[1] "Netfangið \"%s\" var bætt í netfangabókina"
+
+#: lib/Horde/Core/Auth/Application.php:583
+#, php-format
+msgid "%d day until your password expires."
+msgid_plural "%d days until your password expires."
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/Horde/Core/Auth/Signup/Form.php:37
+#, php-format
+msgid "%s Sign Up"
+msgstr ""
+
+#: lib/Horde/Registry.php:1220
+#, php-format
+msgid "%s is not authorized for %s."
+msgstr ""
+
+#: lib/Horde/Core/Perms/Ui.php:338 lib/Horde/Core/Perms/Ui.php:397
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:847
+#, fuzzy
+msgid "-- select --"
+msgstr "engin regla valin"
+
+#: lib/Horde/Core/Notification/Status.php:82
+msgid "1 day"
+msgstr ""
+
+#: lib/Horde/Core/Notification/Status.php:80
+msgid "1 hour"
+msgstr ""
+
+#: lib/Horde/Core/Notification/Status.php:79
+#, fuzzy
+msgid "15 minutes"
+msgstr "Á fimm mínútna fresti"
+
+#: lib/Horde/Core/Notification/Status.php:78
+#, fuzzy
+msgid "5 minutes"
+msgstr "Á fimm mínútna fresti"
+
+#: lib/Horde/Core/Notification/Status.php:81
+msgid "6 hours"
+msgstr ""
+
+#: lib/Horde/Core/Ui/Pager.php:86
+#, fuzzy
+msgid "<Previous"
+msgstr "Fyrri blaðsíða"
+
+#: lib/Horde.php:109
+msgid "A fatal error has occurred"
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Identity.php:81
+#, php-format
+msgid ""
+"A message has been sent to \"%s\" to verify that this is really your "
+"address. The new email address is activated as soon as you confirm this "
+"message."
+msgstr ""
+
+#: lib/Horde/Core/Auth/Signup/Base.php:96
+#, php-format
+msgid ""
+"A new account for the user \"%s\" has been requested through the signup form."
+msgstr ""
+
+#: lib/Horde/Script/Files.php:128
+msgid ""
+"A popup window could not be opened. Your browser may be blocking popups."
+msgstr ""
+
+#: lib/Horde/Core/Auth/Signup/Base.php:103
+#, fuzzy, php-format
+msgid "Account signup request for \"%s\""
+msgstr "Ert þú viss um að þú viljir gera þetta?"
+
+#: lib/Horde/Core/Perms/Ui.php:192 lib/Horde/Core/Ui/VarRenderer/Html.php:651
+#, fuzzy
+msgid "Add"
+msgstr "Sendandanetfang"
+
+#: lib/Horde/Core/Perms/Ui.php:130
+#, fuzzy
+msgid "Add Child Permission"
+msgstr "Persónulegt"
+
+#: lib/Horde/Core/Perms/Ui.php:101
+#, fuzzy
+msgid "Add New Permission"
+msgstr "Persónulegt"
+
+#: lib/Horde/Core/Perms/Ui.php:78
+#, fuzzy
+msgid "Add Permission"
+msgstr "Persónulegt"
+
+#: lib/Horde/Core/Perms/Ui.php:191
+#, php-format
+msgid "Add a child permission to \"%s\""
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:107
+msgid "Add source"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:415
+#, fuzzy
+msgid "Add to address book:"
+msgstr "Bæta í netfangabók (%s)"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:430
+#, fuzzy
+msgid "Add to my address book"
+msgstr "Bæta í netfangabók (%s)"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:237
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:301
+#, fuzzy
+msgid "Address"
+msgstr "Sendandanetfang"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:417
+msgid "Address Book"
+msgstr "Netfangabók"
+
+#: lib/Horde/Core/Sidebar.php:58
+#, fuzzy
+msgid "Administration"
+msgstr "Upplýsingar um notanda"
+
+#: lib/Horde/Core/Notification/Status.php:98
+msgid "Alarm"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:161
+msgid "Alias"
+msgstr ""
+
+#: lib/Horde/Core/Perms/Ui.php:253
+#, fuzzy
+msgid "All Authenticated Users"
+msgstr "Endurvísun misheppaðist."
+
+#: lib/Horde/Core/Perms/Ui.php:104
+#, fuzzy
+msgid "All Permissions"
+msgstr "Persónulegt"
+
+#: lib/Horde/Core/Prefs/Ui.php:259 lib/Horde/Core/Prefs/Ui.php:275
+msgid "An illegal value was specified."
+msgstr "Ótækt gildi tilgreint."
+
+#: lib/Horde/Core/Auth/Signup/Base.php:98
+msgid "Approve the account:"
+msgstr ""
+
+#: lib/Horde/Core/Ui/JsCalendar.php:139
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:463
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:501
+msgid "April"
+msgstr "apríl"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:143
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:467
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:505
+msgid "August"
+msgstr "ágúst"
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:214
+#, fuzzy
+msgid "Available address books:"
+msgstr "Bæta í netfangabók (%s)"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:168
+msgid "Birthday"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:543
+msgid "Calendar"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:327
+#, fuzzy
+msgid "Cell Phone"
+msgstr "Tímabelti"
+
+#: lib/Horde/Core/Auth/Signup/Form.php:53
+#: lib/Horde/Core/Auth/Signup/Form.php:67
+#, fuzzy
+msgid "Choose a password"
+msgstr "Semja nýtt skeyti"
+
+#: lib/Horde/Core/Auth/Signup/Form.php:50
+#: lib/Horde/Core/Auth/Signup/Form.php:66
+#, fuzzy
+msgid "Choose a username"
+msgstr "Semja nýtt skeyti"
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:208
+msgid "Choose the order of address books to search when expanding addresses."
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:599
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:601
+msgid "Color Picker"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:379
+#, fuzzy
+msgid "Company"
+msgstr "Afrit"
+
+#: lib/Horde/Core/Prefs/Identity.php:72
+#, fuzzy
+msgid "Confirm new email address"
+msgstr "Netfang"
+
+#: lib/Horde/Core/Perms/Ui.php:284
+#, fuzzy
+msgid "Creator Permissions"
+msgstr "Valkostir notanda"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:510
+msgid "DD"
+msgstr ""
+
+#: lib/Horde/Core/Ui/JsCalendar.php:147
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:471
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:509
+msgid "December"
+msgstr "desember"
+
+#: lib/Horde/Core/Perms/Ui.php:483 lib/Horde/Core/Perms/Ui.php:501
+msgid "Delete"
+msgstr "Eyða"
+
+#: lib/Horde/Core/Perms/Ui.php:82 lib/Horde/Core/Perms/Ui.php:138
+#, fuzzy
+msgid "Delete Permission"
+msgstr "Eyða skeytum"
+
+#: lib/Horde/Core/Perms/Ui.php:482
+#, fuzzy, php-format
+msgid "Delete permissions for \"%s\""
+msgstr "Eyða skeytum"
+
+#: lib/Horde/Core/Perms/Ui.php:485
+#, php-format
+msgid "Delete permissions for \"%s\" and any sub-permissions?"
+msgstr ""
+
+#: lib/Horde/Core/Auth/Signup/Base.php:100
+msgid "Deny the account:"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:381
+msgid "Department"
+msgstr ""
+
+#: lib/Horde.php:127
+msgid "Details"
+msgstr ""
+
+#: lib/Horde.php:132
+#, fuzzy
+msgid "Details have been logged for the administrator."
+msgstr ""
+"Þetta skeyti hefur verið sent til kerfisumsjónar sem tilkynning um ruslpóst "
+"(SPAM)."
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1188
+#, php-format
+msgid "Dial %s"
+msgstr ""
+
+#: lib/Horde/Core/Notification/Status.php:77
+msgid "Dismiss"
+msgstr ""
+
+#: lib/Horde/Core/Perms/Ui.php:483
+#, fuzzy
+msgid "Do not delete"
+msgstr "Endurvekja"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:216
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:280
+#, fuzzy
+msgid "Domestic Address"
+msgstr "Sendandanetfang"
+
+#: lib/Horde/Core/Perms/Ui.php:81 lib/Horde/Core/Perms/Ui.php:136
+#, fuzzy
+msgid "Edit Permission"
+msgstr "Persónulegt"
+
+#: lib/Horde/Core/Perms/Ui.php:416
+#, fuzzy, php-format
+msgid "Edit permissions for \"%s\""
+msgstr "Valstillingar"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:364
+msgid "Email"
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Identity.php:105
+#, fuzzy
+msgid "Email addresses to confirm not found."
+msgstr "Netfang"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:336
+#, fuzzy
+msgid "Emoticons"
+msgstr "Valstillingar"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:988
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1000
+msgid "Enter the letters below:"
+msgstr ""
+
+#: lib/Horde/Core/Notification/Status.php:103
+msgid "Error"
+msgstr "Villa"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:318
+msgid "Fax"
+msgstr ""
+
+#: lib/Horde/Core/Ui/JsCalendar.php:137
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:461
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:499
+msgid "February"
+msgstr "febrúar"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:279
+msgid "Fix ratio"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:254
+msgid "Flip"
+msgstr ""
+
+#: lib/Horde/Core/Ui/JsCalendar.php:105
+#, fuzzy
+msgid "Fr"
+msgstr "Frá"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:123
+msgid "Friday"
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Ui.php:597 lib/Horde/Core/Sidebar.php:91
+msgid "Global Preferences"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1333
+#, fuzzy
+msgid "Google Maps"
+msgstr "Leita í skeytum"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:260
+msgid "Grayscale"
+msgstr ""
+
+#: lib/Horde/Core/Perms/Ui.php:358
+msgid "Groups"
+msgstr ""
+
+#: lib/Horde/Core/Perms/Ui.php:271
+#, fuzzy
+msgid "Guest Permissions"
+msgstr "Eyða skeytum"
+
+#: lib/Horde/Help.php:218 lib/Horde/Help.php:219 lib/Horde/Menu.php:197
+msgid "Help"
+msgstr "Hjálp"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:208
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:272
+#, fuzzy
+msgid "Home Address"
+msgstr "Sendandanetfang"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:321
+#, fuzzy
+msgid "Home Phone"
+msgstr "Tímabelti"
+
+#: lib/Horde/Core/Perms/Ui.php:297
+msgid "Individual Users"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:220
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:284
+#, fuzzy
+msgid "International Address"
+msgstr "Netfang"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:777
+#: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:26
+#, fuzzy
+msgid "Invert selection"
+msgstr "engin regla valin"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:136
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:460
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:498
+msgid "January"
+msgstr "janúar"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:142
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:466
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:504
+msgid "July"
+msgstr "júlí"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:141
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:465
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:503
+msgid "June"
+msgstr "júní"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:287
+msgid "Keep original?"
+msgstr ""
+
+#: lib/Horde/Core/Sidebar.php:120
+msgid "Log in"
+msgstr "Tengjast"
+
+#: lib/Horde/Core/Sidebar.php:113
+msgid "Log out"
+msgstr "Útskrá"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:459
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:497
+msgid "MM"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1259
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1308
+msgid "MapQuest map"
+msgstr ""
+
+#: lib/Horde/Core/Ui/JsCalendar.php:138
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:462
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:500
+msgid "March"
+msgstr "mars"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:140
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:464
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:502
+msgid "May"
+msgstr "maí"
+
+#: lib/Horde/Core/Notification/Status.php:109
+msgid "Message"
+msgstr "Skeyti"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:257
+msgid "Mirror"
+msgstr "Spegla"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:101
+msgid "Mo"
+msgstr "Má"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:119
+msgid "Monday"
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:112
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:623
+#, fuzzy
+msgid "Move down"
+msgstr "færa niður"
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:111
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:622
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:623
+#, fuzzy
+msgid "Move up"
+msgstr "færa upp"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1228
+msgid "Multimap UK map"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:157
+msgid "Name"
+msgstr "Nafn"
+
+#: lib/Horde/Core/Ui/Pager.php:129
+#, fuzzy
+msgid "Next>"
+msgstr "Næsta"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1093
+msgid "No"
+msgstr "Nei"
+
+#: lib/Horde/Core/Factory/Twitter.php:43
+msgid "No OAuth Key or Secret found for the Twitter API"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:569
+msgid "No Sound"
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:246
+#, fuzzy
+msgid "No address book selected."
+msgstr "Netfangabók"
+
+#: lib/Horde/Core/Perms/Ui.php:200
+msgid "No children can be added to this permission."
+msgstr ""
+
+#: lib/Horde.php:868
+#, php-format
+msgid "No configuration information specified for %s."
+msgstr ""
+
+#: lib/Horde/Core/Ajax/Application.php:185
+msgid "No valid email address found"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1101
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1111
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1122
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1139
+msgid "No values"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:387
+#, fuzzy
+msgid "Notes"
+msgstr "Engin"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:146
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:470
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:508
+msgid "November"
+msgstr "nóvember"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:969
+#, fuzzy
+msgid "Object"
+msgstr "Efni"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:145
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:469
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:507
+msgid "October"
+msgstr "október"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:228
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:292
+#, fuzzy
+msgid "Parcel Address"
+msgstr "Sendandanetfang"
+
+#: lib/Horde/Core/Perms/Ui.php:200
+#, fuzzy
+msgid "Permission"
+msgstr "Persónulegt"
+
+#: lib/Horde/Core/Perms/Ui.php:205 lib/Horde/Core/Perms/Ui.php:208
+#, fuzzy
+msgid "Permissions"
+msgstr "Persónulegt"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:330
+#, fuzzy
+msgid "Phone"
+msgstr "enginn"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:176
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:184
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:188
+msgid "Photo"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:224
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:288
+#, fuzzy
+msgid "Postal Address"
+msgstr "Sendandanetfang"
+
+#: lib/Horde/Core/Sidebar.php:80
+msgid "Preferences"
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Ui.php:597
+#, php-format
+msgid "Preferences for %s"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:232
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:296
+#, fuzzy
+msgid "Preferred Address"
+msgstr "Sendandanetfang"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1527
+#, fuzzy
+msgid "Preview"
+msgstr "Fyrri blaðsíða"
+
+#: lib/Horde/Menu.php:189
+#, fuzzy
+msgid "Problem"
+msgstr "Vandamál?"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:654
+#, fuzzy
+msgid "Remove"
+msgstr "Halda áfram"
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:108
+#, fuzzy
+msgid "Remove source"
+msgstr "fjarlægja handrit"
+
+#: lib/Horde.php:878
+#, php-format
+msgid "Required \"%s\" not specified in %s configuration."
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:242
+msgid "Reset"
+msgstr "Endursetja"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:374
+msgid "Role"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:248
+#, fuzzy
+msgid "Rotate 180"
+msgstr "Tengiliðalisti"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:245
+#, fuzzy
+msgid "Rotate Left"
+msgstr "Tengiliðalisti"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:251
+#, fuzzy
+msgid "Rotate Right"
+msgstr "Tengiliðalisti"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:106
+#, fuzzy
+msgid "Sa"
+msgstr "Vista sem"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:124
+msgid "Saturday"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:543
+#, fuzzy
+msgid "Select a date"
+msgstr "Veldu kenni"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:775
+#: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:24
+#, fuzzy
+msgid "Select all"
+msgstr "Velja allt"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:969
+#, fuzzy
+msgid "Select an object"
+msgstr "Velja ekkert"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:776
+#: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:25
+#, fuzzy
+msgid "Select none"
+msgstr "Velja ekkert"
+
+#: lib/Horde/Core/Prefs/Ui.php:758
+msgid "Select the identity you want to change:"
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:209
+#, fuzzy
+msgid "Selected address books:"
+msgstr "Bæta í netfangabók (%s)"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1204
+#, fuzzy
+msgid "Send SMS"
+msgstr "Senda skeyti"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:144
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:468
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:506
+msgid "September"
+msgstr "september"
+
+#: lib/Horde/Core/Auth/Signup/Form.php:39
+#, fuzzy
+msgid "Sign up"
+msgstr "Undirskrift þín:"
+
+#: lib/Horde/Core/Notification/Status.php:85
+msgid "Snooze..."
+msgstr ""
+
+#: lib/Horde/Core/Ui/JsCalendar.php:100
+msgid "Su"
+msgstr ""
+
+#: lib/Horde/Core/Notification/Status.php:115
+msgid "Success"
+msgstr "Framkvæmt"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:118
+msgid "Sunday"
+msgstr ""
+
+#: lib/Horde/Core/Ui/JsCalendar.php:104
+msgid "Th"
+msgstr ""
+
+#: lib/Horde/Core/Binder/History.php:13
+msgid "The History system is disabled."
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Identity.php:130
+#, php-format
+msgid ""
+"The email address %s has been added to your identities. You can close this "
+"window now."
+msgstr ""
+
+#: lib/Horde.php:675
+msgid "The encryption features require a secure web connection."
+msgstr ""
+
+#: lib/Horde.php:879
+#, php-format
+msgid "The file %s should contain a %s setting."
+msgstr ""
+
+#: lib/Horde.php:869
+#, php-format
+msgid "The file %s should contain some %s settings."
+msgstr ""
+
+#: lib/Horde.php:128
+msgid ""
+"The full error message is logged in Horde's log file, and is shown below "
+"only to administrators. Non-administrative users will not see error details."
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Ui.php:825
+#, php-format
+msgid "The identity \"%s\" has been deleted."
+msgstr "Kenninu \"%s\" hefur verið eytt."
+
+#: lib/Horde/Core/Prefs/Ui.php:871
+msgid "The new from address can't be verified, try again later: "
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Identity.php:96 lib/Horde/Core/Prefs/Identity.php:102
+msgid "There are no email addresses to confirm."
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Ui.php:398
+#, fuzzy
+msgid "There are no preferences available for this application."
+msgstr "Það eru engin skeyti í þessu pósthólfi."
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:129
+#, fuzzy
+msgid "There was an error importing the contact data:"
+msgstr "Villa kom upp þegar átti að vista uppkastið."
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:115
+#, fuzzy
+msgid "There was an error reading the contact data."
+msgstr "Villa kom upp þegar átti að vista uppkastið."
+
+#: lib/Horde/Core/Prefs/Ui.php:289
+#, fuzzy
+msgid "This number must be non-zero."
+msgstr "Talan verður að vera að lágmarki 1."
+
+#: lib/Horde.php:381
+#, php-format
+msgid ""
+"This request cannot be completed because the link you followed or the form "
+"you submitted was only valid for %s minutes. Please try again now."
+msgstr ""
+
+#: lib/Horde/Registry.php:474
+msgid "This system is currently deactivated."
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Ui.php:287
+msgid "This value must be a number."
+msgstr "Þetta gildi verður að vera tala."
+
+#: lib/Horde/Core/Ui/JsCalendar.php:122
+msgid "Thursday"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:369
+msgid "Title"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:748
+msgid ""
+"To select multiple items, hold down the Control (PC) or Command (Mac) key "
+"while clicking."
+msgstr ""
+
+#: lib/Horde/Core/Ui/JsCalendar.php:102
+msgid "Tu"
+msgstr ""
+
+#: lib/Horde/Core/Ui/JsCalendar.php:120
+msgid "Tuesday"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:393
+msgid "URL"
+msgstr ""
+
+#: lib/Horde/Core/Perms/Ui.php:243
+#, fuzzy
+msgid "Update"
+msgstr "Dags"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:221
+msgid "Upload"
+msgstr ""
+
+#: lib/Horde/Core/Auth/Signup/Sql.php:96
+#, php-format
+msgid "User \"%s\" does not exist."
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Ui.php:551
+msgid "User Preferences"
+msgstr ""
+
+#: lib/Horde/Core/Auth/Signup/Base.php:129
+#, fuzzy, php-format
+msgid "Username \"%s\" already exists."
+msgstr "Mappan \"%s\" er nú þegar til"
+
+#: lib/Horde/Core/Notification/Status.php:121
+msgid "Warning"
+msgstr "Aðvörun"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:103
+msgid "We"
+msgstr ""
+
+#: lib/Horde.php:376
+msgid ""
+"We cannot verify that this request was really sent by you. It could be a "
+"malicious request. If you intended to perform this action, you can retry it "
+"now."
+msgstr ""
+
+#: lib/Horde/Core/Ui/JsCalendar.php:121
+msgid "Wednesday"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1235
+msgid "Whereis Australia map"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:212
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:276
+#, fuzzy
+msgid "Work Address"
+msgstr "Sendandanetfang"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:324
+#, fuzzy
+msgid "Work Phone"
+msgstr "Tímabelti"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:472
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:514
+msgid "YYYY"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1279
+msgid "Yahoo! map"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1093
+msgid "Yes"
+msgstr "Já"
+
+#: lib/Horde/Registry.php:1841
+msgid "You are not authenticated."
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Identity.php:62
+#, php-format
+msgid ""
+"You have requested to add the email address \"%s\" to the list of your "
+"personal email addresses.\n"
+"\n"
+"Go to the following link to confirm that this is really your address:\n"
+"%s\n"
+"\n"
+"If you don't know what this message means, you can delete it."
+msgstr ""
+
+#: lib/Horde/Core/Factory/Vfs.php:82
+msgid "You must configure a VFS backend."
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:411
+#, fuzzy, php-format
+msgid "You must provide a setting for \"%s\"."
+msgstr "Tilgreindu viðtakanda."
+
+#: lib/Horde/Core/Prefs/Ui.php:839
+#, fuzzy
+msgid "Your default identity has been changed."
+msgstr "Sjálfgefið kenni þitt:"
+
+#: lib/Horde/Core/Prefs/Ui.php:757
+msgid "Your default identity:"
+msgstr "Sjálfgefið kenni þitt:"
+
+#: lib/Horde/Core/Prefs/Ui.php:323
+#, fuzzy
+msgid "Your preferences have been updated for the duration of this session."
+msgstr "Stillingar þínar hafa verið uppfærðar."
+
+#: lib/Horde/Core/Prefs/Ui.php:325
+#, fuzzy
+msgid "Your preferences have been updated."
+msgstr "Stillingar þínar hafa verið uppfærðar."
+
+#: lib/Horde/Core/Text/Filter/Highlightquotes.php:75
+msgid "[Hide Quoted Text]"
+msgstr ""
+
+#: lib/Horde/Core/Text/Filter/Highlightquotes.php:73
+#, php-format
+msgid "[Show Quoted Text - %d lines]"
+msgstr ""
+
+#: lib/Horde.php:2083
+msgid "_Home"
+msgstr ""
+
+#: lib/Horde/Menu.php:218
+#, fuzzy
+msgid "_Log in"
+msgstr "Tengjast"
+
+#: lib/Horde/Menu.php:213
+msgid "_Log out"
+msgstr "Útskrá"
+
+#: lib/Horde/Menu.php:182
+msgid "_Preferences"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:272
+msgid "h:"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:416
+msgid "hh"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:427
+msgid "mm"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:444
+msgid "ss"
+msgstr ""
+
+#: lib/Horde/Core/Auth/Signup/Form.php:53
+#: lib/Horde/Core/Auth/Signup/Form.php:67
+msgid "type the password twice to confirm"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:111
+msgid "vCard"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:264
+#, fuzzy
+msgid "w:"
+msgstr "Áframs.:"

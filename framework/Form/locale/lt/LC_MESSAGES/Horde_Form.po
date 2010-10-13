@@ -1,0 +1,652 @@
+# Lithuanian translations for Horde_Form module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Form module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Form\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
+"100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: Form/Type.php:2520
+#, php-format
+msgid " (%s days ago)"
+msgstr " (prieš %s dienas)"
+
+#: Form/Type.php:2528
+#, php-format
+msgid " (in %s days)"
+msgstr " (po %s dienų)"
+
+#: Form/Type.php:2524
+msgid " (today)"
+msgstr " (šiandien)"
+
+#: Form/Type.php:2526
+msgid " (tomorrow)"
+msgstr " (rytoj)"
+
+#: Form/Type.php:2522
+msgid " (yesterday)"
+msgstr " (vakar)"
+
+#: Form/Type.php:1460
+#, php-format
+msgid "\"%s\" is not a valid email address."
+msgstr "\"%s\" yra neteisingas el. pašto adresas."
+
+#: Form/Type.php:2475
+#, php-format
+msgid "%s is required"
+msgstr "%s yra privalomas"
+
+#: Form/Type.php:2190 Form/Type.php:2253
+msgid "-- select --"
+msgstr "-- pasirinkite --"
+
+#: Form/Type.php:843 Form/Type.php:886
+#, fuzzy
+msgid "A temporary directory"
+msgstr "Negaliu rasti laikinojo katalogo."
+
+#: Form/Type.php:773
+msgid "Address"
+msgstr "Adresas"
+
+#: Form/Type.php:795
+#, fuzzy
+msgid "Address Link"
+msgstr "Adresai"
+
+#: Form/Type.php:1620
+msgid "Allow multiple addresses?"
+msgstr "Leisti keletą adresų?"
+
+#: Form/Type.php:3473
+msgid "Assignment columns"
+msgstr "Priskyrimo stulpeliai"
+
+#: Form/Type.php:3745
+msgid "Category"
+msgstr "Kategorija"
+
+#: Form/Type.php:1632
+msgid "Character to split multiple addresses with"
+msgstr "Simbolis adresų atskyrimui"
+
+#: Form/Type.php:3161
+msgid "Colour selection"
+msgstr "Spalvos pasirinkimas"
+
+#: Form/Type.php:2072
+msgid "Column titles"
+msgstr "Stulpelių pavadinimai"
+
+#: Form/Type.php:662
+msgid "Counted text"
+msgstr "Ribotas tekstas"
+
+#: Form/Type.php:909
+msgid "Country drop down list"
+msgstr "Išsiskleidžiantis valstybių sąrašas"
+
+#: Form/Type.php:3588
+msgid "Credit card number"
+msgstr "Kreditinės kortelės numeris"
+
+#: Form/Type.php:3643
+msgid ""
+"DSN (see http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
+msgstr ""
+"DSN (žiūrėkite http://pear.php.net/manual/en/package.database.db.intro-dsn."
+"php)"
+
+#: Form/Type.php:3641
+msgid "Database lookup"
+msgstr "Duomenų bazės turinys"
+
+#: Form/Type.php:2549
+msgid "Date"
+msgstr "Data"
+
+#: Form/Type.php:3121
+msgid "Date and time selection"
+msgstr "Datos ir laiko pasirinkimas"
+
+#: Form/Type.php:2958
+msgid "Date selection"
+msgstr "Datos pasirinkimas"
+
+#: Form/Type.php:132
+msgid "Description"
+msgstr "Aprašymas"
+
+#: Form/Type.php:2968 Form/Type.php:3131
+msgid "Display format"
+msgstr "Vaizdavimo formatas"
+
+#: Form/Type.php:2233
+msgid "Drop down list"
+msgstr "Išsiskleidžiantis sąrašas"
+
+#: Form/Type.php:1617
+msgid "Email"
+msgstr "El. paštas"
+
+#: Form/Type.php:2088
+msgid "Email addresses must match."
+msgstr "El. pašto adresai turi sutapti."
+
+#: Form/Type.php:2115
+msgid "Email with confirmation"
+msgstr "El. pašto adresas su patvirtinimu"
+
+#: Form/Type.php:2746 Form/Type.php:2962 Form/Type.php:3125
+msgid "End year"
+msgstr "Galiniai metai"
+
+#: Form/Type.php:2070
+msgid "Field matrix"
+msgstr "Laukelių matrica"
+
+#: Form/Type.php:3696
+msgid "Figlet CAPTCHA"
+msgstr "Figlet CAPTCHA"
+
+#: Form/Type.php:3700
+msgid "Figlet font"
+msgstr "Šriftas"
+
+#: Form/Type.php:3347
+msgid "File selection"
+msgstr "Failo pasirinkimas"
+
+#: Form/Type.php:952
+msgid "File upload"
+msgstr "Failo siuntimas"
+
+#: Form/Type.php:3719
+msgid "Font"
+msgstr "Šriftas"
+
+#: Form/Type.php:152
+msgid "HTML"
+msgstr "HTML"
+
+#: Form/Type.php:115 Form/Type.php:3285
+msgid "Header"
+msgstr "Antraštė"
+
+#: Form/Type/tableset.php:58
+msgid "Headers"
+msgstr "Antraštės"
+
+#: Form/Type.php:617
+#, fuzzy
+msgid "Helpers"
+msgstr "Pagalbininkas?"
+
+#: Form/Type.php:528
+msgid "IP address"
+msgstr "IP adresas"
+
+#: Form/Type.php:558
+#, fuzzy
+msgid "IPv6 address"
+msgstr "IP adresas"
+
+#: Form/Type.php:3349
+msgid "Id"
+msgstr "Id"
+
+#: Form/Type.php:3715
+msgid "Image CAPTCHA"
+msgstr "Paveikslėlio CAPTCHA"
+
+#: Form/Type.php:1292
+msgid "Image upload"
+msgstr "Paveikslėlio įkėlimas"
+
+#: Form/Type.php:263
+msgid "Integer"
+msgstr "Skaičius"
+
+#: Form/Type.php:317
+msgid "Integer list"
+msgstr "Skaičių sąrašas"
+
+#: Form/Type.php:2208 Form/Type.php:2283 Form/Type.php:2356 Form/Type.php:2435
+#: Form/Type/tableset.php:34
+msgid "Invalid data submitted."
+msgstr "Įvesti neteisingi duomenys."
+
+#: Form/Type.php:3479
+msgid "Left header"
+msgstr "Kairioji antraštė"
+
+#: Form/Type.php:3475
+msgid "Left values"
+msgstr "Kairiosios reikšmės"
+
+#: Form/Type.php:1352
+msgid "Link"
+msgstr "Nuoroda"
+
+#: Form/Type.php:1355
+msgid "Link URL"
+msgstr "Nuorodos URL"
+
+#: Form/Type.php:1370
+msgid "Link access key"
+msgstr "Nuorodos mygtukas"
+
+#: Form/Type.php:3353
+msgid "Link style"
+msgstr "Nuorodos stilius"
+
+#: Form/Type.php:1361
+msgid "Link target"
+msgstr "Nuorodos tikslas"
+
+#: Form/Type.php:1358 Form/Type.php:3351
+msgid "Link text"
+msgstr "Nuorodos tekstas"
+
+#: Form/Type.php:1626
+msgid "Link the email address to the compose page when displaying?"
+msgstr "Padaryti el. pašto adresą nuoroda į laiško rašymo puslapį?"
+
+#: Form/Type.php:1367
+msgid "Link title attribute"
+msgstr "Nuorodos pavadinimo atributas"
+
+#: Form/Type.php:611
+msgid "Long text"
+msgstr "Ilgas tekstas"
+
+#: Form/Type.php:1298
+msgid "Maximum file size in bytes"
+msgstr "Maksimalus failo dydis baitais"
+
+#: Form/Type.php:400 Form/Type.php:420 Form/Type.php:446
+msgid "Maximum length"
+msgstr "Maksimalus ilgis"
+
+#: Form/Type.php:487
+msgid "Mobile phone number"
+msgstr "Mobilaus telefono numeris"
+
+#: Form/Type.php:2742
+msgid "Month and year"
+msgstr "Mėnesiai ir metai"
+
+#: Form/Type.php:2309
+msgid "Multi-level drop down lists"
+msgstr "Keleto lygių išsiskleidžiantis sąrašas"
+
+#: Form/Type.php:2366
+msgid "Multiple selection"
+msgstr "Keletas pasirinkimų"
+
+#: Form/Type.php:236
+msgid "Number"
+msgstr "Numeris"
+
+#: Form/Type.php:668
+msgid "Number of characters"
+msgstr "Simbolių skaičius"
+
+#: Form/Type.php:615 Form/Type.php:666 Form/Type.php:777 Form/Type.php:847
+#: Form/Type.php:890
+msgid "Number of columns"
+msgstr "Stulpelių skaičius"
+
+#: Form/Type.php:613 Form/Type.php:664 Form/Type.php:775 Form/Type.php:845
+#: Form/Type.php:888
+msgid "Number of rows"
+msgstr "Eilučių skaičius"
+
+#: Form/Type.php:290
+msgid "Octal"
+msgstr "Aštuntainis"
+
+#: Form/Type.php:1364
+msgid "Onclick event"
+msgstr "Įvykis vykdomas paspaudus pele"
+
+#: Form/Type.php:2098
+msgid "Only one email address allowed."
+msgstr "Leidžiamas tik vienas el. pašto adresas."
+
+#: Form/Type.php:1449
+msgid "Only one email address is allowed."
+msgstr "Leidžiamas tik vienas el. pašto adresas."
+
+#: Form/Type.php:839
+#, fuzzy
+msgid "PGP Key"
+msgstr "PGP viešasis raktas"
+
+#: Form/Type.php:2142
+msgid "Password"
+msgstr "Slaptažodis"
+
+#: Form/Type.php:2175
+msgid "Password with confirmation"
+msgstr "Slaptažodis su patvirtinimu"
+
+#: Form/Type.php:2157
+msgid "Passwords must match."
+msgstr "Slaptažodžiai turi sutapti."
+
+#: Form/Type.php:841
+msgid "Path to the GnuPG binary"
+msgstr ""
+
+#: Form/Type.php:475
+msgid "Phone number"
+msgstr "Telefono numeris"
+
+#: Form/Type.php:3191
+msgid "Please choose a sound."
+msgstr "Pasirinkite garsą."
+
+#: Form/Type.php:2720
+msgid "Please enter a month and a year."
+msgstr "Įveskite mėnesį ir metus."
+
+#: Form/Type.php:513 Form/Type.php:543
+msgid "Please enter a valid IP address."
+msgstr "Įveskite teisingą IP adresą."
+
+#: Form/Type.php:2800
+msgid "Please enter a valid date, check the number of days in the month."
+msgstr "Įveskite teisingą datą, patikrinkite dienų skaičių mėnesyje."
+
+#: Form/Type.php:2598
+msgid "Please enter a valid time."
+msgstr "Įveskite teisingą laiką."
+
+#: Form/Type.php:911 Form/Type.php:2237 Form/Type.php:2313 Form/Type.php:3647
+msgid "Prompt text"
+msgstr "Prašymas tekstui"
+
+#: Form/Type.php:1623
+msgid "Protect address from spammers?"
+msgstr "Apsaugoti adresą nuo interneto šiukšlių?"
+
+#: Form/Type.php:2401
+msgid "Radio selection"
+msgstr "'Radio' pasirinkimas"
+
+#: Form/Type.php:396 Form/Type.php:416 Form/Type.php:442
+msgid "Regex"
+msgstr "Regex"
+
+#: Form/Type.php:3605
+msgid "Relationship browser"
+msgstr "Sąryšių naršyklė"
+
+#: Form/Renderer.php:344
+msgid "Required Field"
+msgstr "Privalomas laukas"
+
+#: Form.php:632
+msgid "Required secret is invalid - potentially malicious request."
+msgstr ""
+"Privalomas slaptas laukas yra neteisingas - gali būti kad turite "
+"piktavališkų kėslų."
+
+#: Form.php:368 Form/Renderer.php:329
+msgid "Reset"
+msgstr "Iš naujo"
+
+#: Form/Type.php:3481
+msgid "Right header"
+msgstr "Dešinioji antraštė"
+
+#: Form/Type.php:3477
+msgid "Right values"
+msgstr "Dešiniosios reikšmės"
+
+#: Form/Type.php:884
+msgid "S/MIME Key"
+msgstr ""
+
+#: Form/Type.php:3645
+msgid "SQL statement for value lookups"
+msgstr "SQL užklausa reikšmėms gauti"
+
+#: Form/Type.php:3326
+msgid "Select Files"
+msgstr "Pasirinkite failus"
+
+#: Form/Type.php:2803
+msgid "Select all date components."
+msgstr "Pasirinkite visus datos komponentus."
+
+#: Form/Type.php:2450
+msgid "Set"
+msgstr "Rinkinys"
+
+#: Form/Type.php:3355
+msgid "Show icon?"
+msgstr "Rodyti piktogramą?"
+
+#: Form/Type.php:1296
+msgid "Show option to keep original?"
+msgstr "Rodyti galimybę palikti originalą?"
+
+#: Form/Type.php:2964 Form/Type.php:3127
+msgid "Show picker?"
+msgstr "Rodyti spalvų paletę?"
+
+#: Form/Type.php:2688 Form/Type.php:3133
+msgid "Show seconds?"
+msgstr "Rodyti sekundes?"
+
+#: Form/Type.php:1294
+msgid "Show upload?"
+msgstr "Rodyti failų įkėlimą?"
+
+#: Form/Type.php:398 Form/Type.php:418 Form/Type.php:444 Form/Type.php:2370
+#: Form/Type.php:3283 Form/Type.php:3483
+msgid "Size"
+msgstr "Dydis"
+
+#: Form/Type.php:3279
+msgid "Sort order selection"
+msgstr "Rūšiavimo tvarkos pasirinkimas"
+
+#: Form/Type.php:3200
+#, fuzzy
+msgid "Sound selection"
+msgstr "Spalvos pasirinkimas"
+
+#: Form/Type.php:98
+msgid "Spacer"
+msgstr "Tarpas"
+
+#: Form/Type.php:2744 Form/Type.php:2960 Form/Type.php:3123
+msgid "Start year"
+msgstr "Pradiniai metai"
+
+#: Form/Type.php:2966 Form/Type.php:3129
+msgid "Storage format"
+msgstr "Saugojimo formatas"
+
+#: Form/Type.php:414
+msgid "String list"
+msgstr "Žodžių sąrašas"
+
+#: Form/Type.php:440
+msgid "String list returning an array"
+msgstr ""
+
+#: Form.php:361 Form/Renderer.php:326
+msgid "Submit"
+msgstr "Įvesti"
+
+#: Form/Type/tableset.php:54
+msgid "Table Set"
+msgstr "Lentelė"
+
+#: Form/Type.php:394 Form/Type.php:3698 Form/Type.php:3717
+msgid "Text"
+msgstr "Tekstas"
+
+#: Form/Type.php:1056
+msgid ""
+"The image file size could not be determined or it was 0 bytes. The upload "
+"may have been interrupted."
+msgstr ""
+"Nepavyko nustatyti paveikslėlio failo dydžio arba jo dydis buvo 0 baitų. "
+"Įkėlimas nutrauktas."
+
+#: Form/Type.php:1060
+#, php-format
+msgid "The image file was larger than the maximum allowed size (%d bytes)."
+msgstr "Paveikslėio failas yra didesnis negu leidžiamas dydis (%d baitai)."
+
+#: Form/Type.php:1629
+msgid "The name to use when linking to the compose page"
+msgstr "Pavadinimas kurį naudosite nuorodoje į laiško rašymo puslapį"
+
+#: Form/Type.php:3673
+msgid "The text you entered did not match the text on the screen."
+msgstr "Tekstas, kūrį įrašėte, nesutampa su tekstu rodomu ekrane."
+
+#: Form/Type.php:644
+#, php-format
+msgid ""
+"There are too many characters in this field. You have entered %d character; "
+msgid_plural ""
+"There are too many characters in this field. You have entered %d characters; "
+msgstr[0] "Šiame lauke įvesta per daug simbolių. Jūs įvedėte %d simbolį; "
+msgstr[1] "Šiame lauke įvesta per daug simbolių. Jūs įvedėte %d simbolius; "
+msgstr[2] "Šiame lauke įvesta per daug simbolių. Jūs įvedėte %d simbolių; "
+
+#: Form/Type.php:3504
+msgid "This does not seem to be a valid card number."
+msgstr "Atrodo, kad tai neteisingas kortelės numeris."
+
+#: Form/Type.php:169 Form/Type.php:246 Form/Type.php:273 Form/Type.php:300
+#: Form/Type.php:365 Form/Type.php:459 Form/Type.php:517 Form/Type.php:547
+#: Form/Type.php:641 Form/Type.php:1041 Form/Type.php:2083 Form/Type.php:2130
+#: Form/Type.php:2152 Form/Type.php:2199 Form/Type.php:2274 Form/Type.php:2345
+#: Form/Type.php:2559 Form/Type.php:2601 Form/Type.php:2795 Form/Type.php:3144
+#: Form/Type.php:3183 Form/Type.php:3496 Form/Type.php:3668 Form/Type.php:3751
+#: Form/Variable.php:471 Form/Variable.php:479
+msgid "This field is required."
+msgstr "Šis laukas yra privalomas."
+
+#: Form/Type.php:254
+msgid "This field may only contain integers."
+msgstr "Šiame lauke gali būti tik sveikieji skaičiai."
+
+#: Form/Type.php:2567
+msgid "This field may only contain numbers and the colon."
+msgstr "Šiame lauke gali būti tik skaičiai ir dvitaškiai."
+
+#: Form/Type.php:281
+msgid "This field may only contain octal values."
+msgstr "Šiame lauke gali būti tik aštuntainiai skaičiai."
+
+#: Form/Type.php:308
+msgid "This field must be a comma or space separated list of integers"
+msgstr ""
+"Šiame lauke turi būti kableliais arba tarpais atskirti sveikieji skaičiai"
+
+#: Form/Type.php:180
+msgid "This field must be a valid number."
+msgstr "Ši reikšmė turi būti skaičius."
+
+#: Form/Type.php:3152
+msgid ""
+"This field must contain a color code in the RGB Hex format, for example "
+"'#1234af'."
+msgstr ""
+"Šiame lauke gali būti tik spalvos kodas RGB Hex formate, pavyzdžiui "
+"'#1234AF'."
+
+#: Form.php:629
+msgid "This form has already been processed."
+msgstr "Ši forma jau apdorota."
+
+#: Form/Type.php:2576
+msgid "Time"
+msgstr "Laikas"
+
+#: Form/Type.php:2686
+msgid "Time selection"
+msgstr "Laiko pasirinkimas"
+
+#: Form/Type.php:1321
+msgid "True or false"
+msgstr "Taip arba ne"
+
+#: Form/Type.php:360
+#, php-format
+msgid "Value is over the maximum length of %d."
+msgstr "Reikšmė ilgesnė nei %d."
+
+#: Form/Type.php:2368 Form/Type.php:2403 Form/Type.php:2452 Form/Type.php:3281
+#: Form/Type/tableset.php:56
+msgid "Values"
+msgstr "Reikšmės"
+
+#: Form/Type.php:2235 Form/Type.php:2311
+msgid "Values to select from"
+msgstr "Reikšmės iš kurių galima pasirinkti"
+
+#: Form/Type.php:3485
+msgid "Width in CSS units"
+msgstr "Plotis CSS matais"
+
+#: Form/Type.php:2102
+msgid "You did not enter a valid email address."
+msgstr "Įvedėte neteisingą el. pašto adresą."
+
+#: Form/Type.php:3028
+#, fuzzy
+msgid "You must choose a date."
+msgstr "Turite įvesti teisingą reikšmę."
+
+#: Form/Type.php:3026
+#, fuzzy
+msgid "You must choose a time."
+msgstr "Turite įvesti teisingą reikšmę."
+
+#: Form/Type.php:463
+msgid ""
+"You must enter a valid phone number, digits only with an optional '+' for "
+"the international dialing prefix."
+msgstr ""
+"Turite įvesti teisingą telefono numerį (tik skaičius ir '+', jeigu norite "
+"nurodyti tarptautinį kodą)."
+
+#: Form/Type.php:371
+msgid "You must enter a valid value."
+msgstr "Turite įvesti teisingą reikšmę."
+
+#: Form/Type.php:1470
+msgid "You must enter an email address."
+msgstr "Jūs turite įrašyti el. pašto adresą."
+
+#: Form/Type.php:1468
+msgid "You must enter at least one email address."
+msgstr "Jūs turite įrašyti bent vieną el. pašto adresą."
+
+#: Form/Type.php:645
+#, php-format
+msgid "you must enter less than %d."
+msgstr "turite įrašyti mažiau nei %d."

@@ -1,0 +1,70 @@
+# Slovenian translations for Horde_Share module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Share module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Share\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
+
+#: lib/Horde/Share/Object/Kolab.php:131
+msgid "Calendar"
+msgstr "Koledar"
+
+#: lib/Horde/Share/Object/Kolab.php:127
+msgid "Contacts"
+msgstr "Stiki"
+
+#: lib/Horde/Share/Object/Kolab.php:135
+msgid "Filters"
+msgstr "Filtri"
+
+#: lib/Horde/Share/Object/Kolab.php:129
+msgid "Notes"
+msgstr "Zapiski"
+
+#: lib/Horde/Share/Object/Kolab.php:137
+msgid "Preferences"
+msgstr ""
+
+#: lib/Horde/Share/Kolab.php:117 lib/Horde/Share/Sql.php:210
+#, fuzzy, php-format
+msgid "Share \"%s\" does not exist."
+msgstr "%s mapa ne obstaja "
+
+#: lib/Horde/Share/Sql.php:272
+#, fuzzy, php-format
+msgid "Share ID %d does not exist."
+msgstr "%s mapa ne obstaja "
+
+#: lib/Horde/Share/Sql/Hierarchical.php:547
+msgid "Share names are not supported in this driver"
+msgstr ""
+
+#: lib/Horde/Share/Object/Kolab.php:133
+msgid "Tasks"
+msgstr "Opravila"
+
+#: lib/Horde/Share/Kolab.php:81
+#, php-format
+msgid "The Horde/Kolab integration engine does not support \"%s\""
+msgstr "Horde/Kolab integracija ne podpira \"%s\""
+
+#: lib/Horde/Share/Object/Kolab.php:373
+msgid "The Kolab share object has not been initialized yet!"
+msgstr ""
+
+#: lib/Horde/Share/Object/Kolab.php:153
+#, fuzzy
+msgid "The share has already been initialized!"
+msgstr "Ta oblika je bila že obdelana."

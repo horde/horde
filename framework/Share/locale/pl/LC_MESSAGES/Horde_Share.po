@@ -1,0 +1,69 @@
+# Polish translations for Horde_Share module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Share module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Share\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+
+#: lib/Horde/Share/Object/Kolab.php:131
+msgid "Calendar"
+msgstr "Kalendarz"
+
+#: lib/Horde/Share/Object/Kolab.php:127
+msgid "Contacts"
+msgstr ""
+
+#: lib/Horde/Share/Object/Kolab.php:135
+msgid "Filters"
+msgstr "Filtry"
+
+#: lib/Horde/Share/Object/Kolab.php:129
+msgid "Notes"
+msgstr "Uwagi"
+
+#: lib/Horde/Share/Object/Kolab.php:137
+msgid "Preferences"
+msgstr ""
+
+#: lib/Horde/Share/Kolab.php:117 lib/Horde/Share/Sql.php:210
+#, fuzzy, php-format
+msgid "Share \"%s\" does not exist."
+msgstr "Plik tymczasowy \"%s\" nie istnieje."
+
+#: lib/Horde/Share/Sql.php:272
+#, fuzzy, php-format
+msgid "Share ID %d does not exist."
+msgstr "Folder %s nie istnieje"
+
+#: lib/Horde/Share/Sql/Hierarchical.php:547
+msgid "Share names are not supported in this driver"
+msgstr ""
+
+#: lib/Horde/Share/Object/Kolab.php:133
+msgid "Tasks"
+msgstr "Zadania"
+
+#: lib/Horde/Share/Kolab.php:81
+#, fuzzy, php-format
+msgid "The Horde/Kolab integration engine does not support \"%s\""
+msgstr "Horde/Kolab: Silnik integracyjny wymaga rozszerzenia 'domxml'"
+
+#: lib/Horde/Share/Object/Kolab.php:373
+msgid "The Kolab share object has not been initialized yet!"
+msgstr ""
+
+#: lib/Horde/Share/Object/Kolab.php:153
+msgid "The share has already been initialized!"
+msgstr ""

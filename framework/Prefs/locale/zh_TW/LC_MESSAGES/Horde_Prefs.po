@@ -1,0 +1,49 @@
+# Chinese translations for Horde_Prefs module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Prefs module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Prefs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lib/Horde/Prefs/Identity.php:131
+msgid "Default Identity"
+msgstr "預設的身份識別"
+
+#: lib/Horde/Prefs/Ldap.php:142
+msgid "Internal LDAP error.  Details have been logged for the administrator."
+msgstr "內部 LDAP 錯誤: 細節請參考系統管理登錄."
+
+#: lib/Horde/Prefs/CategoryManager.php:57
+msgid "New Category"
+msgstr "新增分類"
+
+#: lib/Horde/Prefs/CategoryManager.php:88
+msgid "Please type the new category name:"
+msgstr "請輸入新的分類名稱:"
+
+#: lib/Horde/Prefs/CategoryManager.php:66
+msgid "Unfiled"
+msgstr "未分類"
+
+#: lib/Horde/Prefs/Identity.php:352
+msgid "Unnamed"
+msgstr "未命名"
+
+#: lib/Horde/Prefs/CategoryManager.php:51
+#, php-format
+msgid "Use Current: %s"
+msgstr "使用目前的: %s"
+
+#: lib/Horde/Prefs/CategoryManager.php:89
+msgid "You must type a new category name."
+msgstr "你必須輸入新分類的名稱."

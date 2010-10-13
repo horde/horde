@@ -1,0 +1,81 @@
+# Portuguese translations for Horde_Block module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Block module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Block\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/Horde/Block/Ui.php:97
+msgid "Application"
+msgstr "Aplicação"
+
+#: lib/Horde/Block/Collection.php:410
+#, php-format
+msgid "Block \"%s\" of application \"%s\" not found."
+msgstr "O bloco \"%s\" da aplicação \"%s\" não foi encontrado."
+
+#: lib/Horde/Block/Layout.php:130 lib/Horde/Block/Layout.php:131
+msgid "Edit"
+msgstr "Editar"
+
+#: lib/Horde/Block/Ui.php:89
+msgid "Edit Block"
+msgstr "Editar Bloco"
+
+#: lib/Horde/Block/Layout/View.php:98
+msgid "Error"
+msgstr "Erro"
+
+#: lib/Horde/Block/Layout/Manager.php:576
+msgid "Expand"
+msgstr "Expandir"
+
+#: lib/Horde/Block/Layout/Manager.php:610
+msgid "Move Down"
+msgstr "Descer"
+
+#: lib/Horde/Block/Layout/Manager.php:614
+msgid "Move Left"
+msgstr "Mover para a Esquerda"
+
+#: lib/Horde/Block/Layout/Manager.php:618
+msgid "Move Right"
+msgstr "Mover para a Direita"
+
+#: lib/Horde/Block/Layout/Manager.php:606
+msgid "Move Up"
+msgstr "Subir"
+
+#: lib/Horde/Block/Layout/Manager.php:121
+msgid "No block exists at the requested position"
+msgstr "Não existe bloco na posição indicada"
+
+#: lib/Horde/Block/Layout.php:139
+msgid "Really delete this block?"
+msgstr ""
+
+#: lib/Horde/Block/Layout.php:136 lib/Horde/Block/Layout.php:140
+msgid "Remove"
+msgstr "Remover"
+
+#: lib/Horde/Block/Layout/Manager.php:581
+msgid "Shrink"
+msgstr "Encolher"
+
+#: lib/Horde/Block/Layout/Manager.php:245
+#, fuzzy, php-format
+msgid "You are not allowed to create more than %d block."
+msgid_plural "You are not allowed to create more than %d blocks."
+msgstr[0] "Não tem permissão para criar mais de %d blocos."
+msgstr[1] "Não tem permissão para criar mais de %d blocos."

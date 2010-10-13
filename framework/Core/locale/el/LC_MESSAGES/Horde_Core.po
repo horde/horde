@@ -1,0 +1,1007 @@
+# Greek translations for Horde_Core module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Core module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Core\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/Horde.php:1613
+#, php-format
+msgid " (Accesskey %s)"
+msgstr " (Κλειδί πρόσβασης %s)"
+
+#: lib/Horde/Registry.php:1122 lib/Horde/Registry.php:1573
+#, fuzzy, php-format
+msgid "\"%s\" is not configured in the Horde Registry."
+msgstr "'%s' δεν έχει ρυθμιστεί στο registry της εφαρμογής Horde"
+
+#: lib/Horde/Core/Factory/Share.php:83
+#, fuzzy, php-format
+msgid "\"%s\" share driver not found."
+msgstr "%s αναπαραστάτης δενδρικής δομής δεν βρέθηκε."
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:134
+#, fuzzy, php-format
+msgid "%d contact was successfully added to your address book."
+msgid_plural "%d contacts were successfully added to your address book."
+msgstr[0] "Η επαφή προστέθηκε επιτυχώς στο Διευθυνσιογράφο σας."
+msgstr[1] "Η επαφή προστέθηκε επιτυχώς στο Διευθυνσιογράφο σας."
+
+#: lib/Horde/Core/Auth/Application.php:583
+#, php-format
+msgid "%d day until your password expires."
+msgid_plural "%d days until your password expires."
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/Horde/Core/Auth/Signup/Form.php:37
+#, php-format
+msgid "%s Sign Up"
+msgstr "%s Εγγραφή"
+
+#: lib/Horde/Registry.php:1220
+#, fuzzy, php-format
+msgid "%s is not authorized for %s."
+msgstr "Ο χρήστης %s δεν είναι εξουσιοδοτημένος για %s."
+
+#: lib/Horde/Core/Perms/Ui.php:338 lib/Horde/Core/Perms/Ui.php:397
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:847
+msgid "-- select --"
+msgstr "-- επιλογή --"
+
+#: lib/Horde/Core/Notification/Status.php:82
+msgid "1 day"
+msgstr ""
+
+#: lib/Horde/Core/Notification/Status.php:80
+#, fuzzy
+msgid "1 hour"
+msgstr "24 ώρες"
+
+#: lib/Horde/Core/Notification/Status.php:79
+#, fuzzy
+msgid "15 minutes"
+msgstr "%s λεπτά"
+
+#: lib/Horde/Core/Notification/Status.php:78
+#, fuzzy
+msgid "5 minutes"
+msgstr "%s λεπτά"
+
+#: lib/Horde/Core/Notification/Status.php:81
+#, fuzzy
+msgid "6 hours"
+msgstr "24 ώρες"
+
+#: lib/Horde/Core/Ui/Pager.php:86
+#, fuzzy
+msgid "<Previous"
+msgstr "Προηγούμενη Σελίδα"
+
+#: lib/Horde.php:109
+msgid "A fatal error has occurred"
+msgstr "Παρουσιάσθηκε κρίσιμο λάθος"
+
+#: lib/Horde/Core/Prefs/Identity.php:81
+#, php-format
+msgid ""
+"A message has been sent to \"%s\" to verify that this is really your "
+"address. The new email address is activated as soon as you confirm this "
+"message."
+msgstr ""
+
+#: lib/Horde/Core/Auth/Signup/Base.php:96
+#, php-format
+msgid ""
+"A new account for the user \"%s\" has been requested through the signup form."
+msgstr ""
+
+#: lib/Horde/Script/Files.php:128
+msgid ""
+"A popup window could not be opened. Your browser may be blocking popups."
+msgstr ""
+
+#: lib/Horde/Core/Auth/Signup/Base.php:103
+#, fuzzy, php-format
+msgid "Account signup request for \"%s\""
+msgstr "Είστε σίγουρη για τη διαγραφή της αίτησης υπογραφής για %s ?"
+
+#: lib/Horde/Core/Perms/Ui.php:192 lib/Horde/Core/Ui/VarRenderer/Html.php:651
+msgid "Add"
+msgstr "Προσθήκη"
+
+#: lib/Horde/Core/Perms/Ui.php:130
+msgid "Add Child Permission"
+msgstr "Προσθήκη άδειας υποομάδας (child permission)"
+
+#: lib/Horde/Core/Perms/Ui.php:101
+msgid "Add New Permission"
+msgstr "Προσθήκη νέας άδειας"
+
+#: lib/Horde/Core/Perms/Ui.php:78
+#, fuzzy
+msgid "Add Permission"
+msgstr "Προσθήκη νέας άδειας"
+
+#: lib/Horde/Core/Perms/Ui.php:191
+#, fuzzy, php-format
+msgid "Add a child permission to \"%s\""
+msgstr "Προσθήκη άδειας (permission) υποομάδας στο '%s'"
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:107
+#, fuzzy
+msgid "Add source"
+msgstr "Προσθήκη χρήστη"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:415
+msgid "Add to address book:"
+msgstr "Προσθήκη στο Διευθυνσιογράφο:"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:430
+msgid "Add to my address book"
+msgstr "Προσθήκη στο Διευθυνσιογράφο μου"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:237
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:301
+msgid "Address"
+msgstr "Διεύθυνση"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:417
+msgid "Address Book"
+msgstr "Διευθυνσιογράφος"
+
+#: lib/Horde/Core/Sidebar.php:58
+msgid "Administration"
+msgstr "Διαχείριση"
+
+#: lib/Horde/Core/Notification/Status.php:98
+msgid "Alarm"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:161
+msgid "Alias"
+msgstr "Ψευδώνυμο"
+
+#: lib/Horde/Core/Perms/Ui.php:253
+msgid "All Authenticated Users"
+msgstr "Ολοι οι έγκυροι χρήστες"
+
+#: lib/Horde/Core/Perms/Ui.php:104
+msgid "All Permissions"
+msgstr "Ολα τα δικαιώματα"
+
+#: lib/Horde/Core/Prefs/Ui.php:259 lib/Horde/Core/Prefs/Ui.php:275
+msgid "An illegal value was specified."
+msgstr "Ορίστηκε μία μη επιτρεπόμενη τιμή."
+
+#: lib/Horde/Core/Auth/Signup/Base.php:98
+msgid "Approve the account:"
+msgstr ""
+
+#: lib/Horde/Core/Ui/JsCalendar.php:139
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:463
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:501
+msgid "April"
+msgstr "Απρίλιος"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:143
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:467
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:505
+msgid "August"
+msgstr "Αύγουστος"
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:214
+#, fuzzy
+msgid "Available address books:"
+msgstr "Προσθήκη στο Διευθυνσιογράφο:"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:168
+msgid "Birthday"
+msgstr "Γενέθλια"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:543
+msgid "Calendar"
+msgstr "Ημερολόγιο"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:327
+msgid "Cell Phone"
+msgstr "Κινητό Τηλέφωνο"
+
+#: lib/Horde/Core/Auth/Signup/Form.php:53
+#: lib/Horde/Core/Auth/Signup/Form.php:67
+msgid "Choose a password"
+msgstr "Επιλέξτε κωδικό"
+
+#: lib/Horde/Core/Auth/Signup/Form.php:50
+#: lib/Horde/Core/Auth/Signup/Form.php:66
+msgid "Choose a username"
+msgstr "Επιλέξτε όνομα χρήστη"
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:208
+msgid "Choose the order of address books to search when expanding addresses."
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:599
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:601
+msgid "Color Picker"
+msgstr "Επιλέκτης Χρώματος"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:379
+msgid "Company"
+msgstr "Εταιρεία"
+
+#: lib/Horde/Core/Prefs/Identity.php:72
+#, fuzzy
+msgid "Confirm new email address"
+msgstr "Εναλλακτική διεύθυνση email"
+
+#: lib/Horde/Core/Perms/Ui.php:284
+msgid "Creator Permissions"
+msgstr "Εξουσιοδοτήσεις Δημιουργού"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:510
+msgid "DD"
+msgstr "ΜΜ"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:147
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:471
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:509
+msgid "December"
+msgstr "Δεκέμβριος"
+
+#: lib/Horde/Core/Perms/Ui.php:483 lib/Horde/Core/Perms/Ui.php:501
+msgid "Delete"
+msgstr "Διαγραφή"
+
+#: lib/Horde/Core/Perms/Ui.php:82 lib/Horde/Core/Perms/Ui.php:138
+msgid "Delete Permission"
+msgstr "Διαγραφή Εξουσιοδότησης"
+
+#: lib/Horde/Core/Perms/Ui.php:482
+#, fuzzy, php-format
+msgid "Delete permissions for \"%s\""
+msgstr "Διαγραφή εξουσιοδοτήσεων για '%s'"
+
+#: lib/Horde/Core/Perms/Ui.php:485
+#, fuzzy, php-format
+msgid "Delete permissions for \"%s\" and any sub-permissions?"
+msgstr "Διαγραφή εξουσιοδοτήσεων για '%s' και κάθε υπο-εξουσιοδότηση;"
+
+#: lib/Horde/Core/Auth/Signup/Base.php:100
+msgid "Deny the account:"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:381
+#, fuzzy
+msgid "Department"
+msgstr "Ανάπτυξη"
+
+#: lib/Horde.php:127
+msgid "Details"
+msgstr ""
+
+#: lib/Horde.php:132
+msgid "Details have been logged for the administrator."
+msgstr "Οι λεπτομέρειες έχουν καταγραφεί για τον διαχειριστή."
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1188
+#, php-format
+msgid "Dial %s"
+msgstr ""
+
+#: lib/Horde/Core/Notification/Status.php:77
+msgid "Dismiss"
+msgstr ""
+
+#: lib/Horde/Core/Perms/Ui.php:483
+msgid "Do not delete"
+msgstr "Μη διαγράφεις"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:216
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:280
+#, fuzzy
+msgid "Domestic Address"
+msgstr "Διεύθυνση Σπιτιού"
+
+#: lib/Horde/Core/Perms/Ui.php:81 lib/Horde/Core/Perms/Ui.php:136
+msgid "Edit Permission"
+msgstr "Επεξεργασία Εξουσιοδότησης"
+
+#: lib/Horde/Core/Perms/Ui.php:416
+#, fuzzy, php-format
+msgid "Edit permissions for \"%s\""
+msgstr "Επεξεργασία Εξουσιοδοτήσεων για %s"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:364
+msgid "Email"
+msgstr "Αλληλογραφία"
+
+#: lib/Horde/Core/Prefs/Identity.php:105
+#, fuzzy
+msgid "Email addresses to confirm not found."
+msgstr "Η διεύθυνση Email πρέπει να ταιριάζει."
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:336
+msgid "Emoticons"
+msgstr "Αισθήματα"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:988
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1000
+msgid "Enter the letters below:"
+msgstr ""
+
+#: lib/Horde/Core/Notification/Status.php:103
+msgid "Error"
+msgstr "Λάθος"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:318
+msgid "Fax"
+msgstr "ΦΑΞ"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:137
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:461
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:499
+msgid "February"
+msgstr "Φεβρουάριος"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:279
+msgid "Fix ratio"
+msgstr "Σταθερός λόγος"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:254
+msgid "Flip"
+msgstr "Flip"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:105
+msgid "Fr"
+msgstr "Πα"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:123
+msgid "Friday"
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Ui.php:597 lib/Horde/Core/Sidebar.php:91
+msgid "Global Preferences"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1333
+msgid "Google Maps"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:260
+msgid "Grayscale"
+msgstr ""
+
+#: lib/Horde/Core/Perms/Ui.php:358
+msgid "Groups"
+msgstr "Ομάδες"
+
+#: lib/Horde/Core/Perms/Ui.php:271
+msgid "Guest Permissions"
+msgstr "Ιδιότητες Guest"
+
+#: lib/Horde/Help.php:218 lib/Horde/Help.php:219 lib/Horde/Menu.php:197
+msgid "Help"
+msgstr "Βοήθεια"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:208
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:272
+msgid "Home Address"
+msgstr "Διεύθυνση Σπιτιού"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:321
+msgid "Home Phone"
+msgstr "Τηλέφωνο Σπιτιού"
+
+#: lib/Horde/Core/Perms/Ui.php:297
+msgid "Individual Users"
+msgstr "Ιδιαίτεροι Χρήστες"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:220
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:284
+#, fuzzy
+msgid "International Address"
+msgstr "Εναλλακτική διεύθυνση email"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:777
+#: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:26
+#, fuzzy
+msgid "Invert selection"
+msgstr "Αποκοπή επιλογής"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:136
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:460
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:498
+msgid "January"
+msgstr "Ιανουάριος"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:142
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:466
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:504
+msgid "July"
+msgstr "Ιούλιος"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:141
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:465
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:503
+msgid "June"
+msgstr "Ιούνιος"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:287
+msgid "Keep original?"
+msgstr "Να κρατήσω το αυθεντικό;"
+
+#: lib/Horde/Core/Sidebar.php:120
+msgid "Log in"
+msgstr "Είσοδος"
+
+#: lib/Horde/Core/Sidebar.php:113
+msgid "Log out"
+msgstr "Έξοδος"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:459
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:497
+msgid "MM"
+msgstr "ΜΜ"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1259
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1308
+msgid "MapQuest map"
+msgstr ""
+
+#: lib/Horde/Core/Ui/JsCalendar.php:138
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:462
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:500
+msgid "March"
+msgstr "Μάρτιος"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:140
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:464
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:502
+msgid "May"
+msgstr "Μάιος"
+
+#: lib/Horde/Core/Notification/Status.php:109
+msgid "Message"
+msgstr "Μήνυμα"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:257
+msgid "Mirror"
+msgstr "Καθρέπτης"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:101
+msgid "Mo"
+msgstr "Δε"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:119
+msgid "Monday"
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:112
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:623
+msgid "Move down"
+msgstr "Κίνηση κάτω"
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:111
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:622
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:623
+msgid "Move up"
+msgstr "Κίνηση πάνω"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1228
+msgid "Multimap UK map"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:157
+msgid "Name"
+msgstr "Όνομα"
+
+#: lib/Horde/Core/Ui/Pager.php:129
+#, fuzzy
+msgid "Next>"
+msgstr "Επόμενο"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1093
+msgid "No"
+msgstr "Οχι"
+
+#: lib/Horde/Core/Factory/Twitter.php:43
+msgid "No OAuth Key or Secret found for the Twitter API"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:569
+#, fuzzy
+msgid "No Sound"
+msgstr "Δε βρέθηκαν εικονίδια."
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:246
+#, fuzzy
+msgid "No address book selected."
+msgstr "Διευθυνσιογράφος"
+
+#: lib/Horde/Core/Perms/Ui.php:200
+msgid "No children can be added to this permission."
+msgstr "Δεν μπορούν να προστεθούν υποκατηγορίες σε αυτή την εξουσιοδότηση."
+
+#: lib/Horde.php:868
+#, php-format
+msgid "No configuration information specified for %s."
+msgstr "Δεν ορίσθηκαν πληροφορίες ρυθμίσεων για %s."
+
+#: lib/Horde/Core/Ajax/Application.php:185
+#, fuzzy
+msgid "No valid email address found"
+msgstr "Δε δώσατε έγγυρη διεύθυνση email."
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1101
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1111
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1122
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1139
+msgid "No values"
+msgstr "Δεν υπάρχουν τιμές"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:387
+msgid "Notes"
+msgstr "Σημειώσεις"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:146
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:470
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:508
+msgid "November"
+msgstr "Νοέμβριος"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:969
+msgid "Object"
+msgstr "Αντικείμενο"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:145
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:469
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:507
+msgid "October"
+msgstr "Οκτώβριος"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:228
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:292
+#, fuzzy
+msgid "Parcel Address"
+msgstr "IP-Διεύθυνση"
+
+#: lib/Horde/Core/Perms/Ui.php:200
+msgid "Permission"
+msgstr "Εξουσιοδότηση"
+
+#: lib/Horde/Core/Perms/Ui.php:205 lib/Horde/Core/Perms/Ui.php:208
+#, fuzzy
+msgid "Permissions"
+msgstr "Εξουσιοδοτήσεις"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:330
+msgid "Phone"
+msgstr "Τηλέφωνο"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:176
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:184
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:188
+#, fuzzy
+msgid "Photo"
+msgstr "Φωτογραφίες"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:224
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:288
+#, fuzzy
+msgid "Postal Address"
+msgstr "IP-Διεύθυνση"
+
+#: lib/Horde/Core/Sidebar.php:80
+msgid "Preferences"
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Ui.php:597
+#, fuzzy, php-format
+msgid "Preferences for %s"
+msgstr "Εικονίδια για %s"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:232
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:296
+#, fuzzy
+msgid "Preferred Address"
+msgstr "Διεύθυνση-Οδός"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1527
+msgid "Preview"
+msgstr "Προεπισκόπιση"
+
+#: lib/Horde/Menu.php:189
+msgid "Problem"
+msgstr "Πρόβλημα"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:654
+msgid "Remove"
+msgstr "Αφαίρεση"
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:108
+#, fuzzy
+msgid "Remove source"
+msgstr "Διαγραφή χρήστη"
+
+#: lib/Horde.php:878
+#, fuzzy, php-format
+msgid "Required \"%s\" not specified in %s configuration."
+msgstr "Το απαιτούμενο '%s' δεν καθορίσθηκε στο %s configuration."
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:242
+msgid "Reset"
+msgstr "Επαναφορά"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:374
+msgid "Role"
+msgstr "Ρόλος"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:248
+msgid "Rotate 180"
+msgstr "Περιστροφή 180°"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:245
+msgid "Rotate Left"
+msgstr "Περιστροφή Αριστερά"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:251
+msgid "Rotate Right"
+msgstr "Περιστροφή Δεξιά"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:106
+msgid "Sa"
+msgstr "Σα"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:124
+msgid "Saturday"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:543
+msgid "Select a date"
+msgstr "Επιλέξτε μια ημερομηνία"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:775
+#: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:24
+#, fuzzy
+msgid "Select all"
+msgstr "Επιλογή Αρχείων"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:969
+msgid "Select an object"
+msgstr "Επιλογή ενός αντικειμένου"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:776
+#: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:25
+#, fuzzy
+msgid "Select none"
+msgstr "Επιλέξτε νέο Ιδιοκτήτη"
+
+#: lib/Horde/Core/Prefs/Ui.php:758
+msgid "Select the identity you want to change:"
+msgstr "Επιλέξτε τη ταυτότητα που θέλετε να αλλάξετε:"
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:209
+#, fuzzy
+msgid "Selected address books:"
+msgstr "Προσθήκη στο Διευθυνσιογράφο:"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1204
+msgid "Send SMS"
+msgstr "Αποστολή SMS"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:144
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:468
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:506
+msgid "September"
+msgstr "Σεπτέμβριος"
+
+#: lib/Horde/Core/Auth/Signup/Form.php:39
+msgid "Sign up"
+msgstr "Είσοδος-Υπογραφή"
+
+#: lib/Horde/Core/Notification/Status.php:85
+msgid "Snooze..."
+msgstr ""
+
+#: lib/Horde/Core/Ui/JsCalendar.php:100
+msgid "Su"
+msgstr "Κυ"
+
+#: lib/Horde/Core/Notification/Status.php:115
+msgid "Success"
+msgstr "Επιτυχία"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:118
+msgid "Sunday"
+msgstr ""
+
+#: lib/Horde/Core/Ui/JsCalendar.php:104
+msgid "Th"
+msgstr "Τε"
+
+#: lib/Horde/Core/Binder/History.php:13
+#, fuzzy
+msgid "The History system is disabled."
+msgstr "Η δημιουργία λίστας χρηστών έχει απενεργοποιηθεί."
+
+#: lib/Horde/Core/Prefs/Identity.php:130
+#, php-format
+msgid ""
+"The email address %s has been added to your identities. You can close this "
+"window now."
+msgstr ""
+
+#: lib/Horde.php:675
+msgid "The encryption features require a secure web connection."
+msgstr "Οι δυνατότητες κρυπτογράφησης απαιτούν ασφαλή σύνδεση WEB."
+
+#: lib/Horde.php:879
+#, php-format
+msgid "The file %s should contain a %s setting."
+msgstr "Το αρχείο %s πρέπει να περιέχει μια %s ρύθμιση."
+
+#: lib/Horde.php:869
+#, php-format
+msgid "The file %s should contain some %s settings."
+msgstr "Το αρχείο %s πρέπει να περιέχει κάποιες %s ρυθμίσεις."
+
+#: lib/Horde.php:128
+msgid ""
+"The full error message is logged in Horde's log file, and is shown below "
+"only to administrators. Non-administrative users will not see error details."
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Ui.php:825
+#, php-format
+msgid "The identity \"%s\" has been deleted."
+msgstr "Η ταυτότητα \"%s\" διαγράφηκε."
+
+#: lib/Horde/Core/Prefs/Ui.php:871
+msgid "The new from address can't be verified, try again later: "
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Identity.php:96 lib/Horde/Core/Prefs/Identity.php:102
+msgid "There are no email addresses to confirm."
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Ui.php:398
+#, fuzzy
+msgid "There are no preferences available for this application."
+msgstr "Δεν υπάρχουν Επιλογές διαθέσιμες."
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:129
+#, fuzzy
+msgid "There was an error importing the contact data:"
+msgstr "Παρουσιάσθηκε σφάλμα κατά την εισαγωγή δεδομένων Διευθυνσιογράφου."
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:115
+#, fuzzy
+msgid "There was an error reading the contact data."
+msgstr "Παρουσιάσθηκε σφάλμα κατά την εισαγωγή δεδομένων Διευθυνσιογράφου."
+
+#: lib/Horde/Core/Prefs/Ui.php:289
+#, fuzzy
+msgid "This number must be non-zero."
+msgstr "Αυτός ο αριθμός πρέπει να είναι τουλάχιστον ένα."
+
+#: lib/Horde.php:381
+#, php-format
+msgid ""
+"This request cannot be completed because the link you followed or the form "
+"you submitted was only valid for %s minutes. Please try again now."
+msgstr ""
+
+#: lib/Horde/Registry.php:474
+msgid "This system is currently deactivated."
+msgstr "Το σύστημα αυτό έχει απενεργοποιηθεί."
+
+#: lib/Horde/Core/Prefs/Ui.php:287
+msgid "This value must be a number."
+msgstr "Αυτή η τιμή πρέπει να είναι αριθμός."
+
+#: lib/Horde/Core/Ui/JsCalendar.php:122
+msgid "Thursday"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:369
+msgid "Title"
+msgstr "Τίτλος"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:748
+msgid ""
+"To select multiple items, hold down the Control (PC) or Command (Mac) key "
+"while clicking."
+msgstr ""
+"Για να κρατήσετε πολλαπλά αντικείμενα, κρατήστε πατημάνο το Control (PC) ή "
+"το Command (Mac) πλήκτρο, ενώ κάνετε κλικ."
+
+#: lib/Horde/Core/Ui/JsCalendar.php:102
+msgid "Tu"
+msgstr "Τρ"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:120
+msgid "Tuesday"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:393
+msgid "URL"
+msgstr "Ηλεκτρονική Διεύθυνση"
+
+#: lib/Horde/Core/Perms/Ui.php:243
+msgid "Update"
+msgstr "Ενημέρωση"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:221
+msgid "Upload"
+msgstr "Αποστολή"
+
+#: lib/Horde/Core/Auth/Signup/Sql.php:96
+#, fuzzy, php-format
+msgid "User \"%s\" does not exist."
+msgstr "Ο φάκελος %s δεν υπάρχει"
+
+#: lib/Horde/Core/Prefs/Ui.php:551
+#, fuzzy
+msgid "User Preferences"
+msgstr "εμφάνιση διαφορών"
+
+#: lib/Horde/Core/Auth/Signup/Base.php:129
+#, fuzzy, php-format
+msgid "Username \"%s\" already exists."
+msgstr "Το όνομα χρήστη '%s' υπάρχει ήδη."
+
+#: lib/Horde/Core/Notification/Status.php:121
+msgid "Warning"
+msgstr "Προειδοποίηση"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:103
+msgid "We"
+msgstr "Τε"
+
+#: lib/Horde.php:376
+msgid ""
+"We cannot verify that this request was really sent by you. It could be a "
+"malicious request. If you intended to perform this action, you can retry it "
+"now."
+msgstr ""
+
+#: lib/Horde/Core/Ui/JsCalendar.php:121
+msgid "Wednesday"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1235
+msgid "Whereis Australia map"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:212
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:276
+msgid "Work Address"
+msgstr "Διεύθυνση Εργασίας"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:324
+msgid "Work Phone"
+msgstr "Τηλέφωνο Εργασίας"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:472
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:514
+msgid "YYYY"
+msgstr "ΕΕΕΕ"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1279
+msgid "Yahoo! map"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1093
+msgid "Yes"
+msgstr "Ναί"
+
+#: lib/Horde/Registry.php:1841
+msgid "You are not authenticated."
+msgstr "Δεν έχετε αυθεντικοποιηθεί."
+
+#: lib/Horde/Core/Prefs/Identity.php:62
+#, php-format
+msgid ""
+"You have requested to add the email address \"%s\" to the list of your "
+"personal email addresses.\n"
+"\n"
+"Go to the following link to confirm that this is really your address:\n"
+"%s\n"
+"\n"
+"If you don't know what this message means, you can delete it."
+msgstr ""
+
+#: lib/Horde/Core/Factory/Vfs.php:82
+msgid "You must configure a VFS backend."
+msgstr "Πρέπει να ρυθμίσετε το VFS-Backend."
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:411
+#, fuzzy, php-format
+msgid "You must provide a setting for \"%s\"."
+msgstr "Πρέπει να δώσετε ένα όνομα για τη νέα κατηγορία."
+
+#: lib/Horde/Core/Prefs/Ui.php:839
+#, fuzzy
+msgid "Your default identity has been changed."
+msgstr "Η προκαθορισμένη σας ταυτότητα:"
+
+#: lib/Horde/Core/Prefs/Ui.php:757
+msgid "Your default identity:"
+msgstr "Η προκαθορισμένη σας ταυτότητα:"
+
+#: lib/Horde/Core/Prefs/Ui.php:323
+#, fuzzy
+msgid "Your preferences have been updated for the duration of this session."
+msgstr "Οι επιλογές σας έχουν ενημερωθεί για τη διάρκεια αυτής της σύνδεσης."
+
+#: lib/Horde/Core/Prefs/Ui.php:325
+#, fuzzy
+msgid "Your preferences have been updated."
+msgstr "Οι επιλογές σας έχουν ενημερωθεί."
+
+#: lib/Horde/Core/Text/Filter/Highlightquotes.php:75
+msgid "[Hide Quoted Text]"
+msgstr "[Απόκρυψη κειμένου σε εισαγωγικά]"
+
+#: lib/Horde/Core/Text/Filter/Highlightquotes.php:73
+#, fuzzy, php-format
+msgid "[Show Quoted Text - %d lines]"
+msgstr "[Εμφάνιση κειμένου σε εισαγωγικά - %s γραμμές]"
+
+#: lib/Horde.php:2083
+#, fuzzy
+msgid "_Home"
+msgstr "Αρχική Σελίδα"
+
+#: lib/Horde/Menu.php:218
+msgid "_Log in"
+msgstr "Είσοδος"
+
+#: lib/Horde/Menu.php:213
+msgid "_Log out"
+msgstr "Εξοδος"
+
+#: lib/Horde/Menu.php:182
+msgid "_Preferences"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:272
+msgid "h:"
+msgstr "h:"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:416
+msgid "hh"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:427
+msgid "mm"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:444
+msgid "ss"
+msgstr ""
+
+#: lib/Horde/Core/Auth/Signup/Form.php:53
+#: lib/Horde/Core/Auth/Signup/Form.php:67
+msgid "type the password twice to confirm"
+msgstr "Γράψτε τον κωδικό δύο φορές για επιβεβαίωση"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:111
+msgid "vCard"
+msgstr "Ψηφιακή Κάρτα"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:264
+msgid "w:"
+msgstr ""

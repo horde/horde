@@ -1,0 +1,81 @@
+# Catalan translations for Horde_Block module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Block module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Block\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: lib/Horde/Block/Ui.php:97
+msgid "Application"
+msgstr "Aplicació"
+
+#: lib/Horde/Block/Collection.php:410
+#, php-format
+msgid "Block \"%s\" of application \"%s\" not found."
+msgstr "No s'ha trobat el bloc \"%s\" de l'aplicació \"%s\" ."
+
+#: lib/Horde/Block/Layout.php:130 lib/Horde/Block/Layout.php:131
+msgid "Edit"
+msgstr "Edita"
+
+#: lib/Horde/Block/Ui.php:89
+msgid "Edit Block"
+msgstr "Edita bloc"
+
+#: lib/Horde/Block/Layout/View.php:98
+msgid "Error"
+msgstr "Error"
+
+#: lib/Horde/Block/Layout/Manager.php:576
+msgid "Expand"
+msgstr "Expandeix"
+
+#: lib/Horde/Block/Layout/Manager.php:610
+msgid "Move Down"
+msgstr "Moure cap avall"
+
+#: lib/Horde/Block/Layout/Manager.php:614
+msgid "Move Left"
+msgstr "Moure a l'esquerra"
+
+#: lib/Horde/Block/Layout/Manager.php:618
+msgid "Move Right"
+msgstr "Moure a la dreta"
+
+#: lib/Horde/Block/Layout/Manager.php:606
+msgid "Move Up"
+msgstr "Moure cap amunt"
+
+#: lib/Horde/Block/Layout/Manager.php:121
+msgid "No block exists at the requested position"
+msgstr "No existeix cap bloc en la posició sol·licitada"
+
+#: lib/Horde/Block/Layout.php:139
+msgid "Really delete this block?"
+msgstr ""
+
+#: lib/Horde/Block/Layout.php:136 lib/Horde/Block/Layout.php:140
+msgid "Remove"
+msgstr "Suprimir"
+
+#: lib/Horde/Block/Layout/Manager.php:581
+msgid "Shrink"
+msgstr "Reduïu"
+
+#: lib/Horde/Block/Layout/Manager.php:245
+#, fuzzy, php-format
+msgid "You are not allowed to create more than %d block."
+msgid_plural "You are not allowed to create more than %d blocks."
+msgstr[0] "No està autoritzat a crear més de %d blocs."
+msgstr[1] "No està autoritzat a crear més de %d blocs."

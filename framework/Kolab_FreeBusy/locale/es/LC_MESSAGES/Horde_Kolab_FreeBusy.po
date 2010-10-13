@@ -1,0 +1,117 @@
+# Spanish translations for Horde_Kolab_FreeBusy module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Kolab_FreeBusy module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Kolab_FreeBusy\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/Horde/Kolab/FreeBusy/View.php:241
+msgid "401 Unauthorized"
+msgstr ""
+
+#: lib/Horde/Kolab/FreeBusy/View.php:220
+#, fuzzy
+msgid "404 Not Found"
+msgstr "Sin sonido"
+
+#: lib/Horde/Kolab/FreeBusy/View.php:258
+msgid "500 Server Error"
+msgstr ""
+
+#: lib/Horde/Kolab/FreeBusy/View.php:258
+msgid "Error"
+msgstr "Error"
+
+#: lib/Horde/Kolab/FreeBusy/Report.php:66
+#, fuzzy
+msgid "Errors:"
+msgstr "Error"
+
+#: lib/Horde/Kolab/FreeBusy/Report.php:58
+#, php-format
+msgid "Failed regenerating calendar %s: %s"
+msgstr ""
+
+#: lib/Horde/Kolab/FreeBusy/Imap.php:141
+#, php-format
+msgid "Folder %s does not exist!"
+msgstr "¡La carpeta %s no existe!"
+
+#: lib/Horde/Kolab/FreeBusy/Imap.php:148
+#, php-format
+msgid "Folder %s has type \"%s\" not \"event\"!"
+msgstr "¡La carpeta %s es de tipo \"%s\" no \"acontecimiento\"!"
+
+#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:196
+#, fuzzy, php-format
+msgid "Invalid authentication for user %s!"
+msgstr "Dirección de correo no válida."
+
+#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:218
+#, fuzzy, php-format
+msgid "No such account %s!"
+msgstr "¡El objeto %s no existe!"
+
+#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Kolab.php:82
+#, fuzzy, php-format
+msgid "No such folder %s"
+msgstr "El archivo no existe"
+
+#: lib/Horde/Kolab/FreeBusy/View.php:220
+#, fuzzy
+msgid "Not found"
+msgstr "No se ha encontrado %s."
+
+#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:192
+#, fuzzy
+msgid "Please authenticate!"
+msgstr "No está autentificado."
+
+#: lib/Horde/Kolab/FreeBusy/Report.php:45
+msgid "Starting to regenerate the free/busy cache..."
+msgstr ""
+
+#: lib/Horde/Kolab/FreeBusy/Report.php:74
+msgid "Successfully regenerated all calendar caches!"
+msgstr ""
+
+#: lib/Horde/Kolab/FreeBusy/Report.php:51
+#, fuzzy, php-format
+msgid "Successfully regenerated calendar \"%s\"!"
+msgstr "Se ha eliminado correctamente \"%s\"."
+
+#: lib/Horde/Kolab/FreeBusy/View.php:218
+#, fuzzy, php-format
+msgid "The requested URL %s was not found on this server."
+msgstr ""
+"No se encontró en el sistema el programa para ver este tipo de datos (%s)."
+
+#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Kolab.php:197
+#, fuzzy
+msgid "Unable to determine owner of the free/busy data!"
+msgstr "Incapaz de determinar el directorio actual."
+
+#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:295
+#, fuzzy, php-format
+msgid "Unable to read free/busy information from %s"
+msgstr "Incapaz de cargar la definición de %s."
+
+#: lib/Horde/Kolab/FreeBusy/View.php:241
+msgid "Unauthorized"
+msgstr ""
+
+#: lib/Horde/Kolab/FreeBusy/View.php:242
+#, fuzzy
+msgid "You are not authorized to access the requested URL."
+msgstr "Carece de permiso para modificar grupos."

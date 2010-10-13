@@ -1,0 +1,118 @@
+# Hungarian translations for Horde_Kolab_FreeBusy module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Kolab_FreeBusy module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Kolab_FreeBusy\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/Horde/Kolab/FreeBusy/View.php:241
+msgid "401 Unauthorized"
+msgstr ""
+
+#: lib/Horde/Kolab/FreeBusy/View.php:220
+#, fuzzy
+msgid "404 Not Found"
+msgstr "Nincs hang"
+
+#: lib/Horde/Kolab/FreeBusy/View.php:258
+msgid "500 Server Error"
+msgstr ""
+
+#: lib/Horde/Kolab/FreeBusy/View.php:258
+msgid "Error"
+msgstr "Hiba"
+
+#: lib/Horde/Kolab/FreeBusy/Report.php:66
+#, fuzzy
+msgid "Errors:"
+msgstr "Hiba"
+
+#: lib/Horde/Kolab/FreeBusy/Report.php:58
+#, php-format
+msgid "Failed regenerating calendar %s: %s"
+msgstr ""
+
+#: lib/Horde/Kolab/FreeBusy/Imap.php:141
+#, php-format
+msgid "Folder %s does not exist!"
+msgstr "%s mappa nem létezik!"
+
+#: lib/Horde/Kolab/FreeBusy/Imap.php:148
+#, php-format
+msgid "Folder %s has type \"%s\" not \"event\"!"
+msgstr "%s mappa típus \"%s\", nem pedig \"esemény\"!"
+
+#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:196
+#, fuzzy, php-format
+msgid "Invalid authentication for user %s!"
+msgstr "Hibás/elfogadhatatlan címzés."
+
+#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:218
+#, fuzzy, php-format
+msgid "No such account %s!"
+msgstr "Nincs ilyen objektum %s!"
+
+#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Kolab.php:82
+#, fuzzy, php-format
+msgid "No such folder %s"
+msgstr "Nincs ilyen állomány"
+
+#: lib/Horde/Kolab/FreeBusy/View.php:220
+#, fuzzy
+msgid "Not found"
+msgstr "%s nem található."
+
+#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:192
+#, fuzzy
+msgid "Please authenticate!"
+msgstr "Az Ön felhasználóazonosítása nem történt meg."
+
+#: lib/Horde/Kolab/FreeBusy/Report.php:45
+msgid "Starting to regenerate the free/busy cache..."
+msgstr ""
+
+#: lib/Horde/Kolab/FreeBusy/Report.php:74
+msgid "Successfully regenerated all calendar caches!"
+msgstr ""
+
+#: lib/Horde/Kolab/FreeBusy/Report.php:51
+#, fuzzy, php-format
+msgid "Successfully regenerated calendar \"%s\"!"
+msgstr "Sikeresen töröltük \"%s\"-t."
+
+#: lib/Horde/Kolab/FreeBusy/View.php:218
+#, fuzzy, php-format
+msgid "The requested URL %s was not found on this server."
+msgstr ""
+"A program (%s), amivel ez az állománytípus megjeleníthető, nem található a "
+"rendszerben."
+
+#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Kolab.php:197
+#, fuzzy
+msgid "Unable to determine owner of the free/busy data!"
+msgstr "Nem határozható meg a jelenleg érvényes alkönytár."
+
+#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:295
+#, fuzzy, php-format
+msgid "Unable to read free/busy information from %s"
+msgstr "Nem sikerült beolvasni %s definícióját."
+
+#: lib/Horde/Kolab/FreeBusy/View.php:241
+msgid "Unauthorized"
+msgstr ""
+
+#: lib/Horde/Kolab/FreeBusy/View.php:242
+#, fuzzy
+msgid "You are not authorized to access the requested URL."
+msgstr "Ön nem jogosult csoportokat módosítani."

@@ -1,0 +1,805 @@
+# Macedonian translations for Horde_Model module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Model module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Model\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lib/Horde/Form.php:2062 lib/Horde/Form/Type/Date.php:46
+#, php-format
+msgid " (%s days ago)"
+msgstr ""
+
+#: lib/Horde/Form.php:2070 lib/Horde/Form/Type/Date.php:54
+#, php-format
+msgid " (in %s days)"
+msgstr ""
+
+#: lib/Horde/Form.php:2066 lib/Horde/Form/Type/Date.php:50
+msgid " (today)"
+msgstr ""
+
+#: lib/Horde/Form.php:2068 lib/Horde/Form/Type/Date.php:52
+msgid " (tomorrow)"
+msgstr ""
+
+#: lib/Horde/Form.php:2064 lib/Horde/Form/Type/Date.php:48
+msgid " (yesterday)"
+msgstr ""
+
+#: lib/Horde/Form.php:1251 lib/Horde/Form/Type/Email.php:88
+#, php-format
+msgid "\"%s\" is not a valid email address."
+msgstr ""
+
+#: lib/Horde/Form.php:2030
+#, php-format
+msgid "%s is required"
+msgstr ""
+
+#: lib/Horde/Form.php:1775 lib/Horde/Form.php:1823
+#: lib/Horde/Form/VarRenderer/Xhtml.php:650
+msgid "-- select --"
+msgstr ""
+
+#: www/test.php:39
+msgid "A Date"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:456
+msgid "Add column"
+msgstr ""
+
+#: www/test.php:82
+msgid "Add user"
+msgstr "Додади корисник"
+
+#: lib/Horde/Form.php:1074
+msgid "Address"
+msgstr "Адреса"
+
+#: lib/Horde/Form.php:1438
+msgid "Allow multiple addresses?"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:301
+#: lib/Horde/Form/VarRenderer/Xhtml.php:340
+msgid "April"
+msgstr ""
+
+#: lib/Horde/Form.php:2902
+msgid "Assignment columns"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:305
+#: lib/Horde/Form/VarRenderer/Xhtml.php:344
+msgid "August"
+msgstr ""
+
+#: www/test.php:57
+msgid "Bar field"
+msgstr ""
+
+#: www/test.php:37
+msgid "Boolean"
+msgstr ""
+
+#: lib/Horde/Form.php:1446
+msgid "Character to split multiple addresses with"
+msgstr ""
+
+#: www/test.php:60
+msgid "Checkbox Group"
+msgstr ""
+
+#: www/test.php:30
+msgid "Color"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:398
+#: lib/Horde/Form/VarRenderer/Xhtml.php:399
+msgid "Color Picker"
+msgstr ""
+
+#: lib/Horde/Form.php:2662
+msgid "Colour selection"
+msgstr ""
+
+#: lib/Horde/Form.php:1658
+msgid "Column titles"
+msgstr ""
+
+#: lib/Horde/Form.php:1054
+msgid "Counted text"
+msgstr ""
+
+#: www/test.php:51
+msgid "Credit Card"
+msgstr ""
+
+#: lib/Horde/Form.php:3017
+msgid "Credit card number"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:349
+msgid "DD"
+msgstr "DD"
+
+#: lib/Horde/Form.php:3073
+msgid ""
+"DSN (see http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
+msgstr ""
+
+#: lib/Horde/Form.php:3071
+msgid "Database lookup"
+msgstr ""
+
+#: lib/Horde/Form.php:2091
+msgid "Date"
+msgstr ""
+
+#: lib/Horde/Form.php:2622
+#, fuzzy
+msgid "Date and time selection"
+msgstr "Мапирај ги полињата за датум и време"
+
+#: lib/Horde/Form.php:2483
+msgid "Date selection"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:309
+#: lib/Horde/Form/VarRenderer/Xhtml.php:348
+msgid "December"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:932
+#, php-format
+msgid "Dial %s"
+msgstr ""
+
+#: lib/Horde/Form.php:2493 lib/Horde/Form.php:2632
+msgid "Display format"
+msgstr ""
+
+#: lib/Horde/Form.php:1803
+msgid "Drop down list"
+msgstr ""
+
+#: lib/Horde/Form.php:1436 www/test.php:49
+msgid "Email"
+msgstr "е-пошта"
+
+#: lib/Horde/Form.php:1674 lib/Horde/Form/Type/Email.php:429
+#, fuzzy
+msgid "Email addresses must match."
+msgstr "Лозинките мора да бидат исти."
+
+#: lib/Horde/Form.php:1700
+msgid "Email with confirmation"
+msgstr ""
+
+#: www/test.php:50
+#, fuzzy
+msgid "Email2"
+msgstr "е-пошта"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:200
+#: lib/Horde/Form/VarRenderer/Xhtml.php:201
+msgid "Emoticons"
+msgstr ""
+
+#: lib/Horde/Form.php:2283 lib/Horde/Form.php:2487 lib/Horde/Form.php:2626
+msgid "End year"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:794
+msgid "Enter the letters below:"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:299
+#: lib/Horde/Form/VarRenderer/Xhtml.php:338
+msgid "February"
+msgstr ""
+
+#: lib/Horde/Form.php:1656
+msgid "Field matrix"
+msgstr ""
+
+#: lib/Horde/Form.php:3116
+msgid "Figlet CAPTCHA"
+msgstr ""
+
+#: lib/Horde/Form.php:3120
+msgid "Figlet font"
+msgstr ""
+
+#: lib/Horde/Form.php:2791
+msgid "File selection"
+msgstr ""
+
+#: lib/Horde/Form.php:1128
+msgid "File upload"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:1037
+msgid "Google Maps"
+msgstr ""
+
+#: lib/Horde/Form.php:2729
+msgid "Header"
+msgstr ""
+
+#: lib/Horde/Form.php:1015
+#, fuzzy
+msgid "Helper?"
+msgstr "Помош"
+
+#: lib/Horde/Form.php:966
+#, fuzzy
+msgid "IP address"
+msgstr "Адреса"
+
+#: lib/Horde/Form.php:2793
+msgid "Id"
+msgstr ""
+
+#: www/test.php:24
+msgid "If other, please describe"
+msgstr ""
+
+#: www/test.php:44
+msgid "Insert some text"
+msgstr ""
+
+#: www/test.php:44
+msgid "Insert some text in this box"
+msgstr ""
+
+#: lib/Horde/Form.php:737 www/test.php:38
+msgid "Integer"
+msgstr ""
+
+#: lib/Horde/Form.php:791
+msgid "Integer list"
+msgstr ""
+
+#: lib/Horde/Form.php:1793 lib/Horde/Form.php:1853 lib/Horde/Form.php:1916
+#: lib/Horde/Form.php:1995 lib/Horde/Form/Type/Enum.php:37
+#: lib/Horde/Form/Type/Set.php:30 lib/Horde/Form/Type/Set.php:62
+msgid "Invalid data."
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:581
+msgid "Invert selection"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:298
+#: lib/Horde/Form/VarRenderer/Xhtml.php:337
+msgid "January"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:304
+#: lib/Horde/Form/VarRenderer/Xhtml.php:343
+msgid "July"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:303
+#: lib/Horde/Form/VarRenderer/Xhtml.php:342
+msgid "June"
+msgstr ""
+
+#: lib/Horde/Form.php:2908
+msgid "Left header"
+msgstr ""
+
+#: lib/Horde/Form.php:2904
+#, fuzzy
+msgid "Left values"
+msgstr "Пример:"
+
+#: lib/Horde/Form.php:1181
+msgid "Link"
+msgstr ""
+
+#: lib/Horde/Form.php:1184
+msgid "Link URL"
+msgstr ""
+
+#: lib/Horde/Form.php:1199
+msgid "Link access key"
+msgstr ""
+
+#: lib/Horde/Form.php:2797
+msgid "Link style"
+msgstr ""
+
+#: lib/Horde/Form.php:1190
+msgid "Link target"
+msgstr ""
+
+#: lib/Horde/Form.php:1187 lib/Horde/Form.php:2795
+msgid "Link text"
+msgstr ""
+
+#: lib/Horde/Form.php:1442
+msgid "Link the email address to the compose page when displaying?"
+msgstr ""
+
+#: lib/Horde/Form.php:1196
+msgid "Link title attribute"
+msgstr ""
+
+#: lib/Horde/Form.php:1009
+msgid "Long text"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:297
+#: lib/Horde/Form/VarRenderer/Xhtml.php:336
+msgid "MM"
+msgstr "MM"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:1062
+msgid "Map24 map"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:993
+#: lib/Horde/Form/VarRenderer/Xhtml.php:1077
+msgid "MapQuest map"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:300
+#: lib/Horde/Form/VarRenderer/Xhtml.php:339
+msgid "March"
+msgstr ""
+
+#: lib/Horde/Form.php:860 lib/Horde/Form.php:880
+msgid "Maximum length"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:302
+#: lib/Horde/Form/VarRenderer/Xhtml.php:341
+msgid "May"
+msgstr ""
+
+#: lib/Horde/Form.php:925
+msgid "Mobile phone number"
+msgstr ""
+
+#: lib/Horde/Form.php:2279
+msgid "Month and year"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:426
+msgid "Move down"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:422
+#: lib/Horde/Form/VarRenderer/Xhtml.php:423
+#: lib/Horde/Form/VarRenderer/Xhtml.php:425
+msgid "Move up"
+msgstr ""
+
+#: lib/Horde/Form.php:1869
+msgid "Multi-level drop down lists"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:964
+msgid "Multimap UK map"
+msgstr ""
+
+#: lib/Horde/Form.php:1926
+msgid "Multiple selection"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:865 www/test.php:35
+msgid "No"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:873
+#: lib/Horde/Form/VarRenderer/Xhtml.php:883
+#: lib/Horde/Form/VarRenderer/Xhtml.php:894
+#: lib/Horde/Form/VarRenderer/Xhtml.php:911
+msgid "No values"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:308
+#: lib/Horde/Form/VarRenderer/Xhtml.php:347
+msgid "November"
+msgstr ""
+
+#: lib/Horde/Form.php:711
+msgid "Number"
+msgstr ""
+
+#: lib/Horde/Form.php:1060
+msgid "Number of characters"
+msgstr ""
+
+#: lib/Horde/Form.php:1013 lib/Horde/Form.php:1058 lib/Horde/Form.php:1078
+msgid "Number of columns"
+msgstr ""
+
+#: lib/Horde/Form.php:1011 lib/Horde/Form.php:1056 lib/Horde/Form.php:1076
+msgid "Number of rows"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:777
+msgid "Object"
+msgstr ""
+
+#: lib/Horde/Form.php:764 www/test.php:54
+msgid "Octal"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:307
+#: lib/Horde/Form/VarRenderer/Xhtml.php:346
+msgid "October"
+msgstr ""
+
+#: lib/Horde/Form.php:1193
+msgid "Onclick event"
+msgstr ""
+
+#: lib/Horde/Form.php:1683 lib/Horde/Form/Type/Email.php:441
+msgid "Only one email address allowed."
+msgstr ""
+
+#: lib/Horde/Form.php:1240 lib/Horde/Form/Type/Email.php:77
+msgid "Only one email address is allowed."
+msgstr ""
+
+#: lib/Horde/Form.php:1727 www/test.php:42 www/test.php:52
+msgid "Password"
+msgstr "Лозинка"
+
+#: lib/Horde/Form.php:1760 www/test.php:53
+msgid "Password with confirmation"
+msgstr ""
+
+#: lib/Horde/Form.php:1742 lib/Horde/Form/Type/Password.php:38
+msgid "Passwords must match."
+msgstr "Лозинките мора да бидат исти."
+
+#: lib/Horde/Form.php:913
+msgid "Phone number"
+msgstr ""
+
+#: lib/Horde/Form.php:2257
+msgid "Please enter a month and a year."
+msgstr ""
+
+#: lib/Horde/Form.php:951
+msgid "Please enter a valid IP address."
+msgstr ""
+
+#: lib/Horde/Form.php:2335
+msgid "Please enter a valid date, check the number of days in the month."
+msgstr ""
+
+#: lib/Horde/Form.php:2140
+msgid "Please enter a valid time."
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:1218
+msgid "Preview"
+msgstr ""
+
+#: lib/Horde/Form.php:1807 lib/Horde/Form.php:1873 lib/Horde/Form.php:3077
+msgid "Prompt text"
+msgstr ""
+
+#: lib/Horde/Form.php:1440
+msgid "Protect address from spammers?"
+msgstr ""
+
+#: www/test.php:55
+msgid "Radio Group"
+msgstr ""
+
+#: lib/Horde/Form.php:1961
+msgid "Radio selection"
+msgstr ""
+
+#: lib/Horde/Form.php:856 lib/Horde/Form.php:876
+msgid "Regex"
+msgstr ""
+
+#: lib/Horde/Form.php:3034
+msgid "Relationship browser"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:459
+msgid "Remove column"
+msgstr ""
+
+#: lib/Horde/Form/Renderer/Xhtml.php:298
+msgid "Required Field"
+msgstr ""
+
+#: lib/Horde/Form/Renderer.php:88 lib/Horde/Form/Renderer/Xhtml.php:282
+#: www/test.php:82
+msgid "Reset"
+msgstr "Reset"
+
+#: lib/Horde/Form.php:2910
+msgid "Right header"
+msgstr ""
+
+#: lib/Horde/Form.php:2906
+msgid "Right values"
+msgstr ""
+
+#: lib/Horde/Form.php:3075
+msgid "SQL statement for value lookups"
+msgstr ""
+
+#: lib/Horde/Form.php:2770
+msgid "Select Files"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:579
+msgid "Select all"
+msgstr ""
+
+#: lib/Horde/Form.php:2338
+#, fuzzy
+msgid "Select all date components."
+msgstr "Избери формат за датумот:"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:777
+msgid "Select an object"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:580
+msgid "Select none"
+msgstr ""
+
+#: www/test.php:22
+#, fuzzy
+msgid "Select something"
+msgstr "Избери две одговарачки полиња."
+
+#: www/test.php:48
+#, fuzzy
+msgid "Select something2"
+msgstr "Избери две одговарачки полиња."
+
+#: www/test.php:33
+msgid "Select:"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:948
+msgid "Send SMS"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:306
+#: lib/Horde/Form/VarRenderer/Xhtml.php:345
+msgid "September"
+msgstr ""
+
+#: lib/Horde/Form.php:2005
+msgid "Set"
+msgstr ""
+
+#: lib/Horde/Form.php:2799
+msgid "Show icon?"
+msgstr ""
+
+#: lib/Horde/Form.php:2489 lib/Horde/Form.php:2628
+msgid "Show picker?"
+msgstr ""
+
+#: lib/Horde/Form.php:2225 lib/Horde/Form.php:2634
+msgid "Show seconds?"
+msgstr ""
+
+#: www/test.php:36
+#, fuzzy
+msgid "Simple description"
+msgstr "Опис на проблемот"
+
+#: lib/Horde/Form.php:858 lib/Horde/Form.php:878 lib/Horde/Form.php:1930
+#: lib/Horde/Form.php:2727 lib/Horde/Form.php:2912
+msgid "Size"
+msgstr ""
+
+#: lib/Horde/Form.php:2723
+msgid "Sort order selection"
+msgstr ""
+
+#: lib/Horde/Form.php:2281 lib/Horde/Form.php:2485 lib/Horde/Form.php:2624
+msgid "Start year"
+msgstr ""
+
+#: lib/Horde/Form.php:2491 lib/Horde/Form.php:2630
+msgid "Storage format"
+msgstr ""
+
+#: lib/Horde/Form.php:874
+msgid "String list"
+msgstr ""
+
+#: lib/Horde/Form/Renderer.php:81 lib/Horde/Form/Renderer/Xhtml.php:279
+msgid "Submit"
+msgstr ""
+
+#: lib/Horde/Form.php:854 lib/Horde/Form.php:3118
+msgid "Text"
+msgstr ""
+
+#: lib/Horde/Form.php:1444
+msgid "The name to use when linking to the compose page"
+msgstr ""
+
+#: lib/Horde/Form.php:3103
+msgid "The text you entered did not match the text on the screen."
+msgstr ""
+
+#: lib/Horde/Form.php:1042
+#, php-format
+msgid ""
+"There are too many characters in this field. You have entered %s characters; "
+"you must enter less than %s."
+msgstr ""
+
+#: lib/Horde/Form.php:2933 lib/Horde/Form/Type/CreditCard.php:18
+msgid "This does not seem to be a valid card number."
+msgstr ""
+
+#: lib/Horde/Form.php:644 lib/Horde/Form.php:720 lib/Horde/Form.php:747
+#: lib/Horde/Form.php:774 lib/Horde/Form.php:837 lib/Horde/Form.php:896
+#: lib/Horde/Form.php:955 lib/Horde/Form.php:1039 lib/Horde/Form.php:1669
+#: lib/Horde/Form.php:1715 lib/Horde/Form.php:1737 lib/Horde/Form.php:1784
+#: lib/Horde/Form.php:1844 lib/Horde/Form.php:1905 lib/Horde/Form.php:2101
+#: lib/Horde/Form.php:2143 lib/Horde/Form.php:2332 lib/Horde/Form.php:2645
+#: lib/Horde/Form.php:2925 lib/Horde/Form.php:3098 lib/Horde/Form.php:3586
+#: lib/Horde/Form.php:3594 lib/Horde/Form/Type/Color.php:10
+#: lib/Horde/Form/Type/CreditCard.php:10 lib/Horde/Form/Type/Date.php:17
+#: lib/Horde/Form/Type/Email.php:424 lib/Horde/Form/Type/Enum.php:28
+#: lib/Horde/Form/Type/Int.php:10 lib/Horde/Form/Type/Number.php:14
+#: lib/Horde/Form/Type/Octal.php:10 lib/Horde/Form/Type/Password.php:15
+#: lib/Horde/Form/Type/Password.php:33 lib/Horde/Form/Type/Phone.php:14
+#: lib/Horde/Form/Type/Set.php:51 lib/Horde/Form/Type/String.php:32
+#: lib/Horde/Form/Type/Time.php:10
+msgid "This field is required."
+msgstr ""
+
+#: lib/Horde/Form.php:728 lib/Horde/Form/Type/Int.php:18
+msgid "This field may only contain integers."
+msgstr ""
+
+#: lib/Horde/Form.php:2109 lib/Horde/Form/Type/Time.php:18
+msgid "This field may only contain numbers and the colon."
+msgstr ""
+
+#: lib/Horde/Form.php:755 lib/Horde/Form/Type/Octal.php:18
+msgid "This field may only contain octal values."
+msgstr ""
+
+#: lib/Horde/Form.php:782
+msgid "This field must be a comma or space separated list of integers"
+msgstr ""
+
+#: lib/Horde/Form.php:655 lib/Horde/Form/Type/Number.php:25
+msgid "This field must be a valid number."
+msgstr ""
+
+#: lib/Horde/Form.php:2653 lib/Horde/Form/Type/Color.php:18
+msgid ""
+"This field must contain a color code in the RGB Hex format, for example "
+"'#1234af'."
+msgstr ""
+
+#: lib/Horde/Form.php:388
+msgid "This form has already been processed."
+msgstr ""
+
+#: lib/Horde/Form.php:2118
+msgid "Time"
+msgstr ""
+
+#: lib/Horde/Form.php:2223
+msgid "Time selection"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:551
+msgid ""
+"To select multiple items, hold down the Control (PC) or Command (Mac) key "
+"while clicking."
+msgstr ""
+
+#: lib/Horde/Form.php:1150
+msgid "True or false"
+msgstr ""
+
+#: www/test.php:41
+msgid "Username"
+msgstr "Корисничко име"
+
+#: lib/Horde/Form.php:834 lib/Horde/Form/Type/String.php:29
+#, php-format
+msgid "Value is over the maximum length of %s."
+msgstr ""
+
+#: lib/Horde/Form.php:1928 lib/Horde/Form.php:1963 lib/Horde/Form.php:2007
+#: lib/Horde/Form.php:2725
+msgid "Values"
+msgstr ""
+
+#: lib/Horde/Form.php:1805 lib/Horde/Form.php:1871
+msgid "Values to select from"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:970
+msgid "Whereis Australia map"
+msgstr ""
+
+#: lib/Horde/Form.php:2914
+msgid "Width in CSS units"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:310
+#: lib/Horde/Form/VarRenderer/Xhtml.php:353
+msgid "YYYY"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:1017
+msgid "Yahoo! map"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:865 www/test.php:34
+msgid "Yes"
+msgstr ""
+
+#: lib/Horde/Form.php:1687 lib/Horde/Form/Type/Email.php:445
+msgid "You did not enter a valid email address."
+msgstr ""
+
+#: www/test.php:57
+msgid "You have to fill in some long text here"
+msgstr ""
+
+#: lib/Horde/Form.php:901 lib/Horde/Form/Type/Phone.php:19
+msgid ""
+"You must enter a valid phone number, digits only with an optional '+' for "
+"the international dialing prefix."
+msgstr ""
+
+#: lib/Horde/Form.php:841 lib/Horde/Form/Type/String.php:36
+msgid "You must enter a valid value."
+msgstr ""
+
+#: lib/Horde/Form.php:1261 lib/Horde/Form/Type/Email.php:98
+#, fuzzy
+msgid "You must enter an email address."
+msgstr "Ваша Email адреса:"
+
+#: lib/Horde/Form.php:1259 lib/Horde/Form/Type/Email.php:96
+msgid "You must enter at least one email address."
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:259
+msgid "hh"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:269
+msgid "mm"
+msgstr ""
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:281
+msgid "ss"
+msgstr ""
+
+#: www/test.php:53
+msgid "type the password twice to confirm"
+msgstr ""

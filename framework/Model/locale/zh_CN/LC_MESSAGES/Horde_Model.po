@@ -1,0 +1,821 @@
+# Chinese translations for Horde_Model module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Model module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Model\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lib/Horde/Form.php:2062 lib/Horde/Form/Type/Date.php:46
+#, php-format
+msgid " (%s days ago)"
+msgstr " (%s 日前)"
+
+#: lib/Horde/Form.php:2070 lib/Horde/Form/Type/Date.php:54
+#, php-format
+msgid " (in %s days)"
+msgstr " (%s 日内)"
+
+#: lib/Horde/Form.php:2066 lib/Horde/Form/Type/Date.php:50
+msgid " (today)"
+msgstr " (今日)"
+
+#: lib/Horde/Form.php:2068 lib/Horde/Form/Type/Date.php:52
+msgid " (tomorrow)"
+msgstr " (明日)"
+
+#: lib/Horde/Form.php:2064 lib/Horde/Form/Type/Date.php:48
+msgid " (yesterday)"
+msgstr " (昨日)"
+
+#: lib/Horde/Form.php:1251 lib/Horde/Form/Type/Email.php:88
+#, php-format
+msgid "\"%s\" is not a valid email address."
+msgstr "“%s”不是有效的电子邮件地址。"
+
+#: lib/Horde/Form.php:2030
+#, php-format
+msgid "%s is required"
+msgstr "%s 必填项"
+
+#: lib/Horde/Form.php:1775 lib/Horde/Form.php:1823
+#: lib/Horde/Form/VarRenderer/Xhtml.php:650
+msgid "-- select --"
+msgstr "-- 选择 --"
+
+#: www/test.php:39
+#, fuzzy
+msgid "A Date"
+msgstr "日期"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:456
+msgid "Add column"
+msgstr ""
+
+#: www/test.php:82
+msgid "Add user"
+msgstr "添加用户"
+
+#: lib/Horde/Form.php:1074
+msgid "Address"
+msgstr "地址"
+
+#: lib/Horde/Form.php:1438
+#, fuzzy
+msgid "Allow multiple addresses?"
+msgstr "允许多个地址"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:301
+#: lib/Horde/Form/VarRenderer/Xhtml.php:340
+msgid "April"
+msgstr "四月"
+
+#: lib/Horde/Form.php:2902
+msgid "Assignment columns"
+msgstr "分配列"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:305
+#: lib/Horde/Form/VarRenderer/Xhtml.php:344
+msgid "August"
+msgstr "八月"
+
+#: www/test.php:57
+msgid "Bar field"
+msgstr ""
+
+#: www/test.php:37
+msgid "Boolean"
+msgstr ""
+
+#: lib/Horde/Form.php:1446
+msgid "Character to split multiple addresses with"
+msgstr "用于隔开多个地址的字符"
+
+#: www/test.php:60
+msgid "Checkbox Group"
+msgstr ""
+
+#: www/test.php:30
+msgid "Color"
+msgstr "色彩"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:398
+#: lib/Horde/Form/VarRenderer/Xhtml.php:399
+msgid "Color Picker"
+msgstr "色彩选择器"
+
+#: lib/Horde/Form.php:2662
+msgid "Colour selection"
+msgstr "色彩选择"
+
+#: lib/Horde/Form.php:1658
+msgid "Column titles"
+msgstr "列标题"
+
+#: lib/Horde/Form.php:1054
+msgid "Counted text"
+msgstr "所计文本"
+
+#: www/test.php:51
+#, fuzzy
+msgid "Credit Card"
+msgstr "信用卡号"
+
+#: lib/Horde/Form.php:3017
+msgid "Credit card number"
+msgstr "信用卡号"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:349
+msgid "DD"
+msgstr "DD"
+
+#: lib/Horde/Form.php:3073
+msgid ""
+"DSN (see http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
+msgstr ""
+"DSN (参见 http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
+
+#: lib/Horde/Form.php:3071
+#, fuzzy
+msgid "Database lookup"
+msgstr "数据库查询"
+
+#: lib/Horde/Form.php:2091
+msgid "Date"
+msgstr "日期"
+
+#: lib/Horde/Form.php:2622
+#, fuzzy
+msgid "Date and time selection"
+msgstr "日期选择"
+
+#: lib/Horde/Form.php:2483
+msgid "Date selection"
+msgstr "日期选择"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:309
+#: lib/Horde/Form/VarRenderer/Xhtml.php:348
+msgid "December"
+msgstr "十二月"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:932
+#, php-format
+msgid "Dial %s"
+msgstr "拨打 %s"
+
+#: lib/Horde/Form.php:2493 lib/Horde/Form.php:2632
+msgid "Display format"
+msgstr "显示格式"
+
+#: lib/Horde/Form.php:1803
+msgid "Drop down list"
+msgstr "下拉列表"
+
+#: lib/Horde/Form.php:1436 www/test.php:49
+msgid "Email"
+msgstr "电子邮件"
+
+#: lib/Horde/Form.php:1674 lib/Horde/Form/Type/Email.php:429
+msgid "Email addresses must match."
+msgstr "电子邮件地址必须匹配。"
+
+#: lib/Horde/Form.php:1700
+msgid "Email with confirmation"
+msgstr "电子邮件确认"
+
+#: www/test.php:50
+#, fuzzy
+msgid "Email2"
+msgstr "电子邮件"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:200
+#: lib/Horde/Form/VarRenderer/Xhtml.php:201
+msgid "Emoticons"
+msgstr "表情符号"
+
+#: lib/Horde/Form.php:2283 lib/Horde/Form.php:2487 lib/Horde/Form.php:2626
+msgid "End year"
+msgstr "年末"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:794
+msgid "Enter the letters below:"
+msgstr "请在下面输入文字："
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:299
+#: lib/Horde/Form/VarRenderer/Xhtml.php:338
+msgid "February"
+msgstr "二月"
+
+#: lib/Horde/Form.php:1656
+msgid "Field matrix"
+msgstr "面阵"
+
+#: lib/Horde/Form.php:3116
+msgid "Figlet CAPTCHA"
+msgstr "Figlet CAPTCHA"
+
+#: lib/Horde/Form.php:3120
+msgid "Figlet font"
+msgstr "Figlet 字体"
+
+#: lib/Horde/Form.php:2791
+msgid "File selection"
+msgstr "选择文件"
+
+#: lib/Horde/Form.php:1128
+msgid "File upload"
+msgstr "上传文件"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:1037
+msgid "Google Maps"
+msgstr "Google 地图"
+
+#: lib/Horde/Form.php:2729
+msgid "Header"
+msgstr "标题"
+
+#: lib/Horde/Form.php:1015
+#, fuzzy
+msgid "Helper?"
+msgstr "帮助程序"
+
+#: lib/Horde/Form.php:966
+#, fuzzy
+msgid "IP address"
+msgstr "地址"
+
+#: lib/Horde/Form.php:2793
+msgid "Id"
+msgstr ""
+
+#: www/test.php:24
+msgid "If other, please describe"
+msgstr ""
+
+#: www/test.php:44
+#, fuzzy
+msgid "Insert some text"
+msgstr "插入信息"
+
+#: www/test.php:44
+msgid "Insert some text in this box"
+msgstr ""
+
+#: lib/Horde/Form.php:737 www/test.php:38
+msgid "Integer"
+msgstr "整数"
+
+#: lib/Horde/Form.php:791
+msgid "Integer list"
+msgstr "整数列表"
+
+#: lib/Horde/Form.php:1793 lib/Horde/Form.php:1853 lib/Horde/Form.php:1916
+#: lib/Horde/Form.php:1995 lib/Horde/Form/Type/Enum.php:37
+#: lib/Horde/Form/Type/Set.php:30 lib/Horde/Form/Type/Set.php:62
+#, fuzzy
+msgid "Invalid data."
+msgstr "无效的 ZIP 数据。"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:581
+msgid "Invert selection"
+msgstr "反向选择"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:298
+#: lib/Horde/Form/VarRenderer/Xhtml.php:337
+msgid "January"
+msgstr "一月"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:304
+#: lib/Horde/Form/VarRenderer/Xhtml.php:343
+msgid "July"
+msgstr "七月"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:303
+#: lib/Horde/Form/VarRenderer/Xhtml.php:342
+msgid "June"
+msgstr "六月"
+
+#: lib/Horde/Form.php:2908
+msgid "Left header"
+msgstr "页眉居左"
+
+#: lib/Horde/Form.php:2904
+msgid "Left values"
+msgstr "左值"
+
+#: lib/Horde/Form.php:1181
+msgid "Link"
+msgstr "链接"
+
+#: lib/Horde/Form.php:1184
+msgid "Link URL"
+msgstr "URL 链接"
+
+#: lib/Horde/Form.php:1199
+msgid "Link access key"
+msgstr "链接访问密钥"
+
+#: lib/Horde/Form.php:2797
+#, fuzzy
+msgid "Link style"
+msgstr "链接文本"
+
+#: lib/Horde/Form.php:1190
+msgid "Link target"
+msgstr "链接目标"
+
+#: lib/Horde/Form.php:1187 lib/Horde/Form.php:2795
+msgid "Link text"
+msgstr "链接文本"
+
+#: lib/Horde/Form.php:1442
+#, fuzzy
+msgid "Link the email address to the compose page when displaying?"
+msgstr "当显示时将邮件地址链接到写邮件页面"
+
+#: lib/Horde/Form.php:1196
+msgid "Link title attribute"
+msgstr "链接标题属性"
+
+#: lib/Horde/Form.php:1009
+msgid "Long text"
+msgstr "长文本"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:297
+#: lib/Horde/Form/VarRenderer/Xhtml.php:336
+msgid "MM"
+msgstr "月"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:1062
+#, fuzzy
+msgid "Map24 map"
+msgstr "MapQuest 地图"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:993
+#: lib/Horde/Form/VarRenderer/Xhtml.php:1077
+msgid "MapQuest map"
+msgstr "MapQuest 地图"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:300
+#: lib/Horde/Form/VarRenderer/Xhtml.php:339
+msgid "March"
+msgstr "三月"
+
+#: lib/Horde/Form.php:860 lib/Horde/Form.php:880
+msgid "Maximum length"
+msgstr "最大长度"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:302
+#: lib/Horde/Form/VarRenderer/Xhtml.php:341
+msgid "May"
+msgstr "五月"
+
+#: lib/Horde/Form.php:925
+#, fuzzy
+msgid "Mobile phone number"
+msgstr "电话号码"
+
+#: lib/Horde/Form.php:2279
+msgid "Month and year"
+msgstr "月份和年份"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:426
+msgid "Move down"
+msgstr "下移"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:422
+#: lib/Horde/Form/VarRenderer/Xhtml.php:423
+#: lib/Horde/Form/VarRenderer/Xhtml.php:425
+msgid "Move up"
+msgstr "上移"
+
+#: lib/Horde/Form.php:1869
+msgid "Multi-level drop down lists"
+msgstr "多层下拉式列表"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:964
+msgid "Multimap UK map"
+msgstr "Multimap UK 地图"
+
+#: lib/Horde/Form.php:1926
+msgid "Multiple selection"
+msgstr "复选"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:865 www/test.php:35
+msgid "No"
+msgstr "否"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:873
+#: lib/Horde/Form/VarRenderer/Xhtml.php:883
+#: lib/Horde/Form/VarRenderer/Xhtml.php:894
+#: lib/Horde/Form/VarRenderer/Xhtml.php:911
+msgid "No values"
+msgstr "无值"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:308
+#: lib/Horde/Form/VarRenderer/Xhtml.php:347
+msgid "November"
+msgstr "十一月"
+
+#: lib/Horde/Form.php:711
+msgid "Number"
+msgstr "编号"
+
+#: lib/Horde/Form.php:1060
+msgid "Number of characters"
+msgstr "字符数"
+
+#: lib/Horde/Form.php:1013 lib/Horde/Form.php:1058 lib/Horde/Form.php:1078
+msgid "Number of columns"
+msgstr "列数"
+
+#: lib/Horde/Form.php:1011 lib/Horde/Form.php:1056 lib/Horde/Form.php:1076
+msgid "Number of rows"
+msgstr "行数"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:777
+msgid "Object"
+msgstr "对象"
+
+#: lib/Horde/Form.php:764 www/test.php:54
+msgid "Octal"
+msgstr "八进制"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:307
+#: lib/Horde/Form/VarRenderer/Xhtml.php:346
+msgid "October"
+msgstr "十月"
+
+#: lib/Horde/Form.php:1193
+msgid "Onclick event"
+msgstr "Onclick 事件"
+
+#: lib/Horde/Form.php:1683 lib/Horde/Form/Type/Email.php:441
+msgid "Only one email address allowed."
+msgstr "仅允许一个电子邮件地址。"
+
+#: lib/Horde/Form.php:1240 lib/Horde/Form/Type/Email.php:77
+msgid "Only one email address is allowed."
+msgstr "仅允许一个电子邮件地址。"
+
+#: lib/Horde/Form.php:1727 www/test.php:42 www/test.php:52
+msgid "Password"
+msgstr "密码"
+
+#: lib/Horde/Form.php:1760 www/test.php:53
+msgid "Password with confirmation"
+msgstr "密码确认"
+
+#: lib/Horde/Form.php:1742 lib/Horde/Form/Type/Password.php:38
+msgid "Passwords must match."
+msgstr "密码必须匹配。"
+
+#: lib/Horde/Form.php:913
+#, fuzzy
+msgid "Phone number"
+msgstr "电话号码"
+
+#: lib/Horde/Form.php:2257
+msgid "Please enter a month and a year."
+msgstr "请输入月份和年份。"
+
+#: lib/Horde/Form.php:951
+msgid "Please enter a valid IP address."
+msgstr "请输入有效的 IP 地址。"
+
+#: lib/Horde/Form.php:2335
+msgid "Please enter a valid date, check the number of days in the month."
+msgstr "请输入有效日期，并检查该月中的天数。"
+
+#: lib/Horde/Form.php:2140
+msgid "Please enter a valid time."
+msgstr "请输入有效的时间。"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:1218
+msgid "Preview"
+msgstr "预览"
+
+#: lib/Horde/Form.php:1807 lib/Horde/Form.php:1873 lib/Horde/Form.php:3077
+msgid "Prompt text"
+msgstr "提示内容"
+
+#: lib/Horde/Form.php:1440
+msgid "Protect address from spammers?"
+msgstr ""
+
+#: www/test.php:55
+#, fuzzy
+msgid "Radio Group"
+msgstr "编辑组"
+
+#: lib/Horde/Form.php:1961
+msgid "Radio selection"
+msgstr "单选"
+
+#: lib/Horde/Form.php:856 lib/Horde/Form.php:876
+msgid "Regex"
+msgstr "Regex"
+
+#: lib/Horde/Form.php:3034
+#, fuzzy
+msgid "Relationship browser"
+msgstr "关联浏览器"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:459
+#, fuzzy
+msgid "Remove column"
+msgstr "删除用户"
+
+#: lib/Horde/Form/Renderer/Xhtml.php:298
+msgid "Required Field"
+msgstr "必填字段"
+
+#: lib/Horde/Form/Renderer.php:88 lib/Horde/Form/Renderer/Xhtml.php:282
+#: www/test.php:82
+msgid "Reset"
+msgstr "重置"
+
+#: lib/Horde/Form.php:2910
+msgid "Right header"
+msgstr "页眉居右"
+
+#: lib/Horde/Form.php:2906
+msgid "Right values"
+msgstr "右边数值"
+
+#: lib/Horde/Form.php:3075
+msgid "SQL statement for value lookups"
+msgstr "用于查找数值的 SQL 语句"
+
+#: lib/Horde/Form.php:2770
+msgid "Select Files"
+msgstr "选择文件"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:579
+msgid "Select all"
+msgstr "全选"
+
+#: lib/Horde/Form.php:2338
+msgid "Select all date components."
+msgstr "选择所有日期组件。"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:777
+msgid "Select an object"
+msgstr "选择对象"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:580
+msgid "Select none"
+msgstr "全部不选"
+
+#: www/test.php:22
+#, fuzzy
+msgid "Select something"
+msgstr "全部不选"
+
+#: www/test.php:48
+#, fuzzy
+msgid "Select something2"
+msgstr "全部不选"
+
+#: www/test.php:33
+#, fuzzy
+msgid "Select:"
+msgstr "全选"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:948
+msgid "Send SMS"
+msgstr "发送 SMS"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:306
+#: lib/Horde/Form/VarRenderer/Xhtml.php:345
+msgid "September"
+msgstr "九月"
+
+#: lib/Horde/Form.php:2005
+msgid "Set"
+msgstr "设置"
+
+#: lib/Horde/Form.php:2799
+#, fuzzy
+msgid "Show icon?"
+msgstr "显示选择器"
+
+#: lib/Horde/Form.php:2489 lib/Horde/Form.php:2628
+#, fuzzy
+msgid "Show picker?"
+msgstr "显示选择器"
+
+#: lib/Horde/Form.php:2225 lib/Horde/Form.php:2634
+#, fuzzy
+msgid "Show seconds?"
+msgstr "阵雨"
+
+#: www/test.php:36
+#, fuzzy
+msgid "Simple description"
+msgstr "完整描述"
+
+#: lib/Horde/Form.php:858 lib/Horde/Form.php:878 lib/Horde/Form.php:1930
+#: lib/Horde/Form.php:2727 lib/Horde/Form.php:2912
+msgid "Size"
+msgstr "大小"
+
+#: lib/Horde/Form.php:2723
+msgid "Sort order selection"
+msgstr "排列方向选择"
+
+#: lib/Horde/Form.php:2281 lib/Horde/Form.php:2485 lib/Horde/Form.php:2624
+msgid "Start year"
+msgstr "起始年份"
+
+#: lib/Horde/Form.php:2491 lib/Horde/Form.php:2630
+msgid "Storage format"
+msgstr "存储格式"
+
+#: lib/Horde/Form.php:874
+msgid "String list"
+msgstr "字符串列表"
+
+#: lib/Horde/Form/Renderer.php:81 lib/Horde/Form/Renderer/Xhtml.php:279
+msgid "Submit"
+msgstr "提交"
+
+#: lib/Horde/Form.php:854 lib/Horde/Form.php:3118
+msgid "Text"
+msgstr "文本"
+
+#: lib/Horde/Form.php:1444
+msgid "The name to use when linking to the compose page"
+msgstr "写邮件页面链接所用的名称"
+
+#: lib/Horde/Form.php:3103
+msgid "The text you entered did not match the text on the screen."
+msgstr "您所输入的内容与屏幕上的内容不相符。"
+
+#: lib/Horde/Form.php:1042
+#, php-format
+msgid ""
+"There are too many characters in this field. You have entered %s characters; "
+"you must enter less than %s."
+msgstr ""
+"此字段中包含太多字符。您已输入 %s 个字符；您所输入的字符必须小于 %s 个。"
+
+#: lib/Horde/Form.php:2933 lib/Horde/Form/Type/CreditCard.php:18
+msgid "This does not seem to be a valid card number."
+msgstr "信用卡号码可能无效。"
+
+#: lib/Horde/Form.php:644 lib/Horde/Form.php:720 lib/Horde/Form.php:747
+#: lib/Horde/Form.php:774 lib/Horde/Form.php:837 lib/Horde/Form.php:896
+#: lib/Horde/Form.php:955 lib/Horde/Form.php:1039 lib/Horde/Form.php:1669
+#: lib/Horde/Form.php:1715 lib/Horde/Form.php:1737 lib/Horde/Form.php:1784
+#: lib/Horde/Form.php:1844 lib/Horde/Form.php:1905 lib/Horde/Form.php:2101
+#: lib/Horde/Form.php:2143 lib/Horde/Form.php:2332 lib/Horde/Form.php:2645
+#: lib/Horde/Form.php:2925 lib/Horde/Form.php:3098 lib/Horde/Form.php:3586
+#: lib/Horde/Form.php:3594 lib/Horde/Form/Type/Color.php:10
+#: lib/Horde/Form/Type/CreditCard.php:10 lib/Horde/Form/Type/Date.php:17
+#: lib/Horde/Form/Type/Email.php:424 lib/Horde/Form/Type/Enum.php:28
+#: lib/Horde/Form/Type/Int.php:10 lib/Horde/Form/Type/Number.php:14
+#: lib/Horde/Form/Type/Octal.php:10 lib/Horde/Form/Type/Password.php:15
+#: lib/Horde/Form/Type/Password.php:33 lib/Horde/Form/Type/Phone.php:14
+#: lib/Horde/Form/Type/Set.php:51 lib/Horde/Form/Type/String.php:32
+#: lib/Horde/Form/Type/Time.php:10
+msgid "This field is required."
+msgstr "此为必填字段。"
+
+#: lib/Horde/Form.php:728 lib/Horde/Form/Type/Int.php:18
+msgid "This field may only contain integers."
+msgstr "此字段仅可以包含整数。"
+
+#: lib/Horde/Form.php:2109 lib/Horde/Form/Type/Time.php:18
+msgid "This field may only contain numbers and the colon."
+msgstr "此字段仅可以包含数字和冒号。"
+
+#: lib/Horde/Form.php:755 lib/Horde/Form/Type/Octal.php:18
+msgid "This field may only contain octal values."
+msgstr "此字段仅可以包含八进制数值。"
+
+#: lib/Horde/Form.php:782
+msgid "This field must be a comma or space separated list of integers"
+msgstr "此字段内容必须为逗号或空格隔开的整数列表"
+
+#: lib/Horde/Form.php:655 lib/Horde/Form/Type/Number.php:25
+msgid "This field must be a valid number."
+msgstr "此字段内容必须是有效数字。"
+
+#: lib/Horde/Form.php:2653 lib/Horde/Form/Type/Color.php:18
+msgid ""
+"This field must contain a color code in the RGB Hex format, for example "
+"'#1234af'."
+msgstr "此字段内容必须包含十六进制的 RGB 颜色代码，例如 “#1234af”。"
+
+#: lib/Horde/Form.php:388
+msgid "This form has already been processed."
+msgstr "此表格已处理过。"
+
+#: lib/Horde/Form.php:2118
+msgid "Time"
+msgstr "时间"
+
+#: lib/Horde/Form.php:2223
+msgid "Time selection"
+msgstr "时区选择"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:551
+msgid ""
+"To select multiple items, hold down the Control (PC) or Command (Mac) key "
+"while clicking."
+msgstr "若要选择多项，请在单击时按住 Control 键(PC) 或 Command 键(Mac)。"
+
+#: lib/Horde/Form.php:1150
+msgid "True or false"
+msgstr "True 或 false"
+
+#: www/test.php:41
+msgid "Username"
+msgstr "用户名"
+
+#: lib/Horde/Form.php:834 lib/Horde/Form/Type/String.php:29
+#, php-format
+msgid "Value is over the maximum length of %s."
+msgstr "数值已超过 %s 的最大长度。"
+
+#: lib/Horde/Form.php:1928 lib/Horde/Form.php:1963 lib/Horde/Form.php:2007
+#: lib/Horde/Form.php:2725
+msgid "Values"
+msgstr "值"
+
+#: lib/Horde/Form.php:1805 lib/Horde/Form.php:1871
+msgid "Values to select from"
+msgstr "待选值"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:970
+msgid "Whereis Australia map"
+msgstr "澳大利亚地图位置"
+
+#: lib/Horde/Form.php:2914
+msgid "Width in CSS units"
+msgstr "CSS单元的宽度"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:310
+#: lib/Horde/Form/VarRenderer/Xhtml.php:353
+msgid "YYYY"
+msgstr "年"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:1017
+msgid "Yahoo! map"
+msgstr "Yahoo! 地图"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:865 www/test.php:34
+msgid "Yes"
+msgstr "是"
+
+#: lib/Horde/Form.php:1687 lib/Horde/Form/Type/Email.php:445
+msgid "You did not enter a valid email address."
+msgstr "您输入的电子邮件地址无效。"
+
+#: www/test.php:57
+msgid "You have to fill in some long text here"
+msgstr ""
+
+#: lib/Horde/Form.php:901 lib/Horde/Form/Type/Phone.php:19
+msgid ""
+"You must enter a valid phone number, digits only with an optional '+' for "
+"the international dialing prefix."
+msgstr "您需要输入有效的电话号码，国际号码的数字之前可带“+”前缀。"
+
+#: lib/Horde/Form.php:841 lib/Horde/Form/Type/String.php:36
+msgid "You must enter a valid value."
+msgstr "您需要输入有效值。"
+
+#: lib/Horde/Form.php:1261 lib/Horde/Form/Type/Email.php:98
+msgid "You must enter an email address."
+msgstr "您需要输入的电子邮件地址。"
+
+#: lib/Horde/Form.php:1259 lib/Horde/Form/Type/Email.php:96
+msgid "You must enter at least one email address."
+msgstr "您需要输入至少一个电子邮件地址。"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:259
+msgid "hh"
+msgstr "小时"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:269
+msgid "mm"
+msgstr "分钟"
+
+#: lib/Horde/Form/VarRenderer/Xhtml.php:281
+msgid "ss"
+msgstr "秒"
+
+#: www/test.php:53
+msgid "type the password twice to confirm"
+msgstr "请键入密码两次进行确认"
