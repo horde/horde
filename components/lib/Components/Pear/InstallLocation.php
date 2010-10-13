@@ -136,6 +136,25 @@ class Components_Pear_InstallLocation
         }
     }
 
+    /**
+     * Set the paths to the resource directories.
+     *
+     * @param array $options The application options
+     *
+     * @return NULL
+     */
+    public function setResourceDirectories(array $options)
+    {
+        if (!empty($options['channelxmlpath'])) {
+            $this->setChannelDirectory($options['channelxmlpath']);
+        } else if (!empty($options['sourcepath'])) {
+            $this->setChannelDirectory($options['sourcepath']);
+        }
+        if (!empty($options['sourcepath'])) {
+            $this->setSourceDirectory($options['sourcepath']);
+        }
+    }
+
     public function createPearConfig()
     {
         if (empty($this->_config_file)) {

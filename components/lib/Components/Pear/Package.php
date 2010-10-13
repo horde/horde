@@ -42,6 +42,13 @@ class Components_Pear_Package
     private $_environment;
 
     /**
+     * The factory for PEAR class instances.
+     *
+     * @param Components_Pear_Factory
+     */
+    private $_factory;
+
+    /**
      * The path to the package XML file.
      *
      * @param string
@@ -85,6 +92,18 @@ class Components_Pear_Package
     }
 
     /**
+     * Define the factory that creates our PEAR dependencies.
+     *
+     * @param Components_Pear_Factory
+     *
+     * @return NULL
+     */
+    public function setFactory(Components_Pear_Factory $factory)
+    {
+        $this->_factory = $factory;
+    }
+
+    /**
      * Return the PEAR environment for this package.
      *
      * @return Components_Pear_InstallLocation
@@ -118,12 +137,10 @@ class Components_Pear_Package
     {
         $this->_checkSetup();
         if ($this->_package_file === null) {
-            $config = $this->getEnvironment()->getPearConfig();
-            $pkg = new PEAR_PackageFile($config);
-            $this->_package_file = $pkg->fromPackageFile($this->_package_xml_path, PEAR_VALIDATE_NORMAL);
-            if ($this->_package_file instanceOf PEAR_Error) {
-                throw new Components_Exception($this->_package_file->getMessage());
-            }
+            $this->_package_file = $this->_factory->getPackageFile(
+                $this->_package_xml_path,
+                $this->getEnvironment()
+            );
         }
         return $this->_package_file;
     }
@@ -137,44 +154,10 @@ class Components_Pear_Package
     {
         $this->_checkSetup();
         if ($this->_package_rw_file === null) {
-            /**
-             * Ensure we setup the PEAR_Config according to the PEAR environment
-             * the user set.
-             */
-            $this->getEnvironment()->getPearConfig();
-
-            if (!class_exists('PEAR_PackageFileManager2')) {
-                throw new Components_Exception(
-                    'The Package "PEAR_PackageFileManager2" is missing in the PEAR environment. Please install it so that you can run this action.'
-                );
-            }
-
-            $this->_package_rw_file = PEAR_PackageFileManager2::importOptions(
+            $this->_package_rw_file = $this->_factory->getPackageRwFile(
                 $this->_package_xml_path,
-                array(
-                    'packagedirectory' => dirname($this->_package_xml_path),
-                    'filelistgenerator' => 'file',
-                    'clearcontents' => false,
-                    'clearchangelog' => false,
-                    'simpleoutput' => true,
-                    'ignore' => array('*~', 'conf.php', 'CVS/*'),
-                    'include' => '*',
-                    'dir_roles' =>
-                    array(
-                        'doc'       => 'doc',
-                        'example'   => 'doc',
-                        'js'        => 'horde',
-                        'lib'       => 'php',
-                        'migration' => 'data',
-                        'script'    => 'script',
-                        'test'      => 'test',
-                    ),
-                )
+                $this->getEnvironment()
             );
-
-            if ($this->_package_rw_file instanceOf PEAR_Error) {
-                throw new Components_Exception($this->_package_file->getMessage());
-            }
         }
         return $this->_package_rw_file;
     }
@@ -188,8 +171,10 @@ class Components_Pear_Package
      */
     private function _checkSetup()
     {
-        if ($this->_environment === null || $this->_package_xml_path === null) {
-            throw new Components_Exception('You need to set the environment and the path to the package file first!');
+        if ($this->_environment === null
+            || $this->_package_xml_path === null
+            || $this->_factory === null) {
+            throw new Components_Exception('You need to set the factory, the environment and the path to the package file first!');
         }
     }
 
