@@ -1,0 +1,112 @@
+# Croatian translations for Horde_Mime_Viewer module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Mime_Viewer module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Mime_Viewer\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 22:57+0200\n"
+"PO-Revision-Date: 2010-10-13 22:57+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: lib/Horde/Mime/Viewer/Rar.php:90 lib/Horde/Mime/Viewer/Tgz.php:108
+#: lib/Horde/Mime/Viewer/Zip.php:99
+msgid "Archive File Size"
+msgstr ""
+
+#: lib/Horde/Mime/Viewer/Rar.php:85 lib/Horde/Mime/Viewer/Tgz.php:103
+#: lib/Horde/Mime/Viewer/Zip.php:98
+msgid "Archive Name"
+msgstr ""
+
+#: lib/Horde/Mime/Viewer/Rar.php:103 lib/Horde/Mime/Viewer/Tgz.php:121
+#: lib/Horde/Mime/Viewer/Zip.php:104
+msgid "Attributes"
+msgstr ""
+
+#: lib/Horde/Mime/Viewer/Rfc822.php:70
+msgid "Bcc"
+msgstr ""
+
+#: lib/Horde/Mime/Viewer/Rfc822.php:69
+msgid "Cc"
+msgstr ""
+
+#: lib/Horde/Mime/Viewer/Rfc822.php:66
+msgid "Date"
+msgstr "Datum"
+
+#: lib/Horde/Mime/Viewer/Rar.php:95 lib/Horde/Mime/Viewer/Tgz.php:113
+#: lib/Horde/Mime/Viewer/Zip.php:101
+#, php-format
+msgid "File Count: %d file"
+msgid_plural "File Count: %d files"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: lib/Horde/Mime/Viewer/Rar.php:102 lib/Horde/Mime/Viewer/Tgz.php:120
+#, fuzzy
+msgid "File Name"
+msgstr "Puno Ime"
+
+#: lib/Horde/Mime/Viewer/Rfc822.php:67
+#, fuzzy
+msgid "From"
+msgstr "Sa "
+
+#: lib/Horde/Mime/Viewer/Rar.php:106 lib/Horde/Mime/Viewer/Zip.php:107
+msgid "Method"
+msgstr ""
+
+#: lib/Horde/Mime/Viewer/Rar.php:105 lib/Horde/Mime/Viewer/Tgz.php:123
+#: lib/Horde/Mime/Viewer/Zip.php:106
+msgid "Modified Date"
+msgstr ""
+
+#: lib/Horde/Mime/Viewer/Rar.php:107 lib/Horde/Mime/Viewer/Zip.php:108
+msgid "Ratio"
+msgstr ""
+
+#: lib/Horde/Mime/Viewer/Rfc822.php:71
+#, fuzzy
+msgid "Reply-To"
+msgstr "Reply-To"
+
+#: lib/Horde/Mime/Viewer/Rar.php:104 lib/Horde/Mime/Viewer/Tgz.php:122
+#: lib/Horde/Mime/Viewer/Zip.php:105
+msgid "Size"
+msgstr ""
+
+#: lib/Horde/Mime/Viewer/Rfc822.php:72
+msgid "Subject"
+msgstr ""
+
+#: lib/Horde/Mime/Viewer/Rfc822.php:68
+msgid "To"
+msgstr ""
+
+#: lib/Horde/Mime/Viewer/Rtf.php:75
+msgid "Unable to translate this RTF document"
+msgstr ""
+
+#: lib/Horde/Mime/Viewer/Msword.php:76
+msgid "Unable to translate this Word document"
+msgstr ""
+
+#: lib/Horde/Mime/Viewer/Wordperfect.php:75
+msgid "Unable to translate this WordPerfect document"
+msgstr ""
+
+#: lib/Horde/Mime/Viewer/Rar.php:78 lib/Horde/Mime/Viewer/Tgz.php:96
+#: lib/Horde/Mime/Viewer/Zip.php:90
+msgid "unnamed"
+msgstr ""
