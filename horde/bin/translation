@@ -1011,7 +1011,7 @@ function commit($help_only = false)
                 $files = array_merge($files, strip_horde(search_ext('xml', $dirs[$i] . DS . 'locale')));
             } else {
                 $files = array_merge($files, strip_horde(get_po_files($dirs[$i] . DS . 'po')));
-                $files = array_merge($files, strip_horde(search_file('^[a-z]{2}_[A-Z]{2}', $dirs[$i] . DS . 'locale', true)));
+                $files = array_merge($files, strip_horde(search_file('^[a-z]{2}(_[A-Z]{2})?', $dirs[$i] . DS . 'locale', true)));
             }
         } else {
             if ($help_only &&
