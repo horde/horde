@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 3.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2005-05-08 16:42+0900\n"
+"POT-Creation-Date: 2010-10-13 02:42+0200\n"
 "PO-Revision-Date: 2001-11-09 16:29+0900\n"
 "Last-Translator: Jinhyok Heo <novembre@ournature.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -15,1211 +15,1491 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: templates/maintenance/confirm_top.inc:11
-#, php-format
-msgid ""
-" &#151; %s is ready to perform the maintenance operations checked below."
+#: lib/Block/weatherdotcom.php:260 lib/Block/weatherdotcom.php:363
+#: lib/Block/weatherdotcom.php:409
+msgid " at "
 msgstr ""
-" &#151; %s은(는) 아래에 설정된 유지관리 작업을 수행할 준비가 되었습니다."
 
-#: lib/Horde.php:1283
-msgid " (Accesskey %s)"
-msgstr " (단축키 %s)"
+#: admin/groups.php:50
+#, fuzzy, php-format
+msgid "\"%s\" was added to the groups system."
+msgstr "'%s'가 시스템에 추가되었습니다."
 
-#: lib/Horde/Form.php:2356
-msgid " (today)"
-msgstr " (오늘)"
+#: admin/perms/addchild.php:43
+#, fuzzy, php-format
+msgid "\"%s\" was added to the permissions system."
+msgstr "'%s'가 시스템에 추가되었습니다."
 
-#: lib/Horde/Form.php:2358
-msgid " (tomorrow)"
-msgstr " (내일)"
+#: admin/groups.php:56 admin/perms/addchild.php:47
+#, php-format
+msgid "\"%s\" was not created: %s."
+msgstr ""
 
-#: lib/Horde/Form.php:2354
-msgid " (yesterday)"
-msgstr " (어제)"
+#: lib/Block/account.php:83
+#, php-format
+msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
+msgstr ""
 
-#: templates/maintenance/notice_top.inc:4
+#: lib/Block/weatherdotcom.php:241
+#, fuzzy, php-format
+msgid "%d %s and %s"
+msgstr "%d / %d (메시지: %d)"
+
+#: lib/Block/account.php:708 lib/Block/account.php:720
+#, php-format
+msgid "%d days until your password expires."
+msgstr ""
+
+#: lib/Block/metar.php:281
+#, fuzzy, php-format
+msgid "%d minutes"
+msgstr "5분 마다"
+
+#: services/facebook.php:114
+#, php-format
+msgid "%d person likes this"
+msgid_plural "%d persons like this"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/admin/user/list.inc:4
+#, fuzzy, php-format
+msgid "%d to %d of %d"
+msgstr "%d / %d (메시지: %d)"
+
+#: lib/Block/weatherdotcom.php:288
+#, php-format
+msgid "%d-day forecast"
+msgstr ""
+
+#: services/logintasks.php:83
 #, fuzzy, php-format
 msgid "%s - Notice"
 msgstr "참조"
 
-#: templates/admin/common-header.inc:29
-msgid "%s Administration"
-msgstr "%s 관리"
+#: admin/config/config.php:21 admin/config/index.php:226
+#, fuzzy, php-format
+msgid "%s Configuration"
+msgstr "메일 서버 정보사항"
 
-#: templates/maintenance/confirm_top.inc:4
-#, php-format
-msgid "%s Maintenance Operations - Confirmation"
+#: services/logintasks.php:64
+#, fuzzy, php-format
+msgid "%s Tasks - Confirmation"
 msgstr "%s 유지관리 작업 - 확인"
 
-#: lib/VFS/ftp.php:596 lib/VFS/ftp.php:666
-msgid "%s already exists."
-msgstr "\"%s\"는 이미 있습니다."
+#: services/logintasks.php:74
+#, php-format
+msgid "%s Terms of Agreement"
+msgstr ""
 
-#: lib/Horde/MIME/Viewer/icalendar.php:524
+#: lib/Block/metar.php:154 lib/Block/metar.php:160 lib/Block/metar.php:234
+#: lib/Block/metar.php:340 lib/Block/metar.php:346
 #, fuzzy, php-format
-msgid "%s has replied to the invitation to %s."
-msgstr "%s 정의를 읽을 수 없습니다."
-
-#: lib/Block/metar.php:284
-#, fuzzy, php-format
-msgid "%s minutes"
-msgstr "5분 마다"
-
-#: templates/admin/user/list.inc:6
-#, fuzzy, php-format
-msgid "%s to %s of %s"
+msgid "%s at %s %s"
 msgstr "%d / %d (메시지: %d)"
 
-#: lib/Horde/Kolab.php:912
+#: services/logintasks.php:63
 #, fuzzy, php-format
-msgid "%s's Address Book"
-msgstr "주소록"
+msgid ""
+"%s is ready to perform the tasks checked below. Check the box for any "
+"operation(s) you want to perform at this time."
+msgstr "지금 수행할 작업을 선택하세요."
 
-#: lib/Horde/Kolab.php:904
+#: lib/Block/vatid.php:58
 #, fuzzy, php-format
-msgid "%s's Calendar"
-msgstr "달력"
+msgid "%s not found."
+msgstr "통지 리스너 %s을(를) 찾을 수 없습니다."
 
-#: lib/Horde/Registry.php:582 lib/Horde/Registry.php:982
+#: lib/Block/weatherdotcom.php:367 lib/Block/weatherdotcom.php:412
+msgid ", gusting "
+msgstr ""
+
+#: lib/Block/metar.php:183 lib/Block/metar.php:188
 #, php-format
-msgid "'%s' is not configured in the Horde Registry."
-msgstr "%s'이(가) Horde 레지스트리에서 설정되어 있지 않습니다."
+msgid ", gusting %s %s"
+msgstr ""
 
-#: admin/groups.php:57
-#, fuzzy, php-format
-msgid "'%s' was added to the groups system."
-msgstr "'%s'가 시스템에 추가되었습니다."
+#: lib/Block/metar.php:196
+#, php-format
+msgid ", variable from %s to %s"
+msgstr ""
 
-#: lib/Block/time.php:20
+#: lib/Block/time.php:26
 #, fuzzy
 msgid "12 Hour Format"
 msgstr "정보"
 
-#: lib/Block/time.php:19
+#: lib/Block/time.php:25
 #, fuzzy
 msgid "24 Hour Format"
 msgstr "정보"
 
-#: templates/data/time.inc:28
+#: templates/data/datetime.inc:109 templates/data/time.inc:28
 msgid "24 hours"
 msgstr "24 시간"
 
-#: lib/Horde.php:166
-#, fuzzy
-msgid "A fatal error has occurred"
-msgstr "<b>치명적인 오류 발생:</b>"
+#: templates/prefs/facebook.html:15
+msgid ""
+"<tag:app_name /> can interact with your Facebook account, but you must login "
+"to Facebook manually each time."
+msgstr ""
 
-#: templates/data/time.inc:29
+#: templates/prefs/facebook.html:38
+msgid "<tag:app_name /> cannot read your stream messages."
+msgstr ""
+
+#: templates/prefs/facebook.html:26
+msgid ""
+"<tag:app_name /> cannot set your status messages or publish other content to "
+"Facebook."
+msgstr ""
+
+#: templates/prefs/twitter.html:9
+msgid "<tag:appname /> can interact with your Twitter account"
+msgstr ""
+
+#: services/keyboard.php:46
+msgid "A characters"
+msgstr ""
+
+#: lib/Block/metar.php:117
+msgid "A database backend is required for this block."
+msgstr ""
+
+#: admin/activesync.php:35
+msgid ""
+"A device wipe has been requested. Device will be wiped on next "
+"syncronization attempt."
+msgstr ""
+
+#: admin/config/index.php:92 admin/config/index.php:124
+#, php-format
+msgid "A newer version (%s) exists."
+msgstr ""
+
+#: lib/Prefs/Ui.php:743
+#, php-format
+msgid ""
+"A remote wipe for device id %s has been initiated. The device will be wiped "
+"during the next synchronisation."
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:7
+#, fuzzy
+msgid "AM Clouds"
+msgstr "복사"
+
+#: lib/Block/weatherdotcom_strings.php:8
+msgid "AM Drizzle"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:9
+msgid "AM Fog"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:10
+#, fuzzy
+msgid "AM Light Rain"
+msgstr "로그인"
+
+#: lib/Block/weatherdotcom_strings.php:11
+#, fuzzy
+msgid "AM Light Snow"
+msgstr "로그인"
+
+#: lib/Block/weatherdotcom_strings.php:12
+#, fuzzy
+msgid "AM Rain"
+msgstr "가장자리"
+
+#: lib/Block/weatherdotcom_strings.php:13
+msgid "AM Showers"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:14
+msgid "AM Snow"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:15
+msgid "AM Snow Showers"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:16
+msgid "AM Sun"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:17
+msgid "AM T-Showers"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:18
+msgid "AM T-Storms"
+msgstr ""
+
+#: templates/data/datetime.inc:110 templates/data/time.inc:29
 msgid "AM/PM"
 msgstr "오전/오후"
 
-#: templates/javascript/htmlarea_lang.js:30
-msgid "About this editor"
-msgstr "이 에디터는"
+#: lib/Block/account.php:3
+#, fuzzy
+msgid "Account Information"
+msgstr "정보"
 
-#: config/prefs.php.dist:75
+#: config/prefs.php.dist:276
 #, fuzzy
 msgid "Account Password"
 msgstr "암호 확인"
 
-#: config/registry.php.dist:320
-#, fuzzy
-msgid "Accounting"
-msgstr "오름차순"
-
-#: lib/Horde/MIME/Viewer/icalendar.php:451
-#: lib/Horde/MIME/Viewer/icalendar.php:625
+#: admin/activesync.php:126
 #, fuzzy
 msgid "Actions"
 msgstr "실행"
 
-#: admin/perms/addchild.php:54 lib/Horde/Perms/UI.php:136
-#: templates/portal/add.inc:14 templates/admin/groups/addchild.inc:16
+#: config/prefs.php.dist:676
+msgid "ActiveSync"
+msgstr ""
+
+#: admin/activesync.php:71
+#, fuzzy
+msgid "ActiveSync Device Administration"
+msgstr "Horde 사용자 관리"
+
+#: admin/activesync.php:199 lib/Api.php:80
+msgid "ActiveSync Devices"
+msgstr ""
+
+#: admin/activesync.php:20 lib/Prefs/Ui.php:376
+msgid "ActiveSync not activated."
+msgstr ""
+
+#: templates/admin/groups/addchild.inc:12 templates/portal/add.inc:14
 msgid "Add"
 msgstr "추가"
+
+#: services/portal/index.php:68
+msgid "Add Content"
+msgstr ""
 
 #: templates/portal/add.inc:5
 #, fuzzy
 msgid "Add Here:"
 msgstr "사용자 추가"
 
-#: admin/user.php:30
+#: templates/admin/groups/edit.inc:49
+#, fuzzy
+msgid "Add Members"
+msgstr "11월"
+
+#: admin/groups.php:253 templates/admin/groups/addchild.inc:7
+#, fuzzy, php-format
+msgid "Add a child group to \"%s\""
+msgstr "LDAP 서버 접속 실패"
+
+#: admin/groups.php:238
+#, fuzzy
+msgid "Add a new group"
+msgstr "새로운 사용자 추가:"
+
+#: admin/user.php:21
 msgid "Add a new user:"
 msgstr "새로운 사용자 추가:"
 
-#: templates/admin/groups/edit.inc:35
+#: admin/alarms.php:22
 #, fuzzy
-msgid "Add new members"
+msgid "Add new alarm"
 msgstr "새로운 사용자 추가:"
 
-#: templates/data/csvmap.inc:103
+#: templates/data/csvmap.inc:92
 msgid "Add pair"
 msgstr "페어(pair) 추가"
 
-#: lib/Horde/MIME/Viewer/vcard.php:74
-#, fuzzy
-msgid "Add to address book:"
-msgstr "(%s)를 주소록에 추가"
-
-#: lib/Horde/MIME/Viewer/vcard.php:81
-#, fuzzy
-msgid "Add to my address book"
-msgstr "(%s)를 주소록에 추가"
-
-#: admin/user.php:31
+#: admin/user.php:22
 msgid "Add user"
 msgstr "사용자 추가"
 
-#: templates/admin/user/noadd.inc:4
+#: admin/signup_confirm.php:80 admin/user.php:92
+#, php-format
+msgid ""
+"Added \"%s\" to the system, but could not add additional signup information: "
+"%s."
+msgstr ""
+
+#: signup.php:44
+#, php-format
+msgid "Added \"%s\" to the system. You can log in now."
+msgstr ""
+
+#: templates/admin/user/noadd.inc:2
 msgid "Adding users is disabled."
 msgstr "사용자 추가 사용안함"
 
-#: lib/Horde/Form.php:1438 lib/Horde/MIME/Viewer/vcard.php:129
-#: lib/Horde/MIME/Viewer/vcard.php:176
+#: lib/Block/vatid.php:101
 msgid "Address"
 msgstr "주소"
 
-#: config/registry.php.dist:134
+#: config/registry.php.dist:142
 msgid "Address Book"
 msgstr "주소록"
 
-#: admin/index.php:19 services/portal/sidebar.php:114
-msgid "Administration"
-msgstr "관리"
+#: admin/alarms.php:26
+msgid "Alarm end"
+msgstr ""
 
-#: config/registry.php.dist:406
-#, fuzzy
-msgid "Ads"
-msgstr "추가"
+#: admin/alarms.php:28
+msgid "Alarm methods"
+msgstr ""
 
-#: lib/Horde/NLS/tld.php:21 lib/Horde/NLS/countries.php:12
-#: lib/Horde/NLS/GeoIP.php:58
+#: admin/alarms.php:25
+msgid "Alarm start"
+msgstr ""
+
+#: admin/alarms.php:27
 #, fuzzy
-msgid "Albania"
+msgid "Alarm text"
+msgstr "대체 글"
+
+#: admin/alarms.php:24
+msgid "Alarm title"
+msgstr ""
+
+#: admin/alarms.php:133
+#, fuzzy
+msgid "Alarms"
 msgstr "얼라이어스"
 
-#: lib/Horde/NLS/tld.php:74 lib/Horde/NLS/countries.php:13
-#: lib/Horde/NLS/GeoIP.php:71
-#, fuzzy
-msgid "Algeria"
-msgstr "얼라이어스"
-
-#: lib/Horde/MIME/Viewer/vcard.php:110
-msgid "Alias"
-msgstr "얼라이어스"
-
-#: templates/javascript/htmlarea_table_lang.js:16
-msgid "Align"
-msgstr "정렬"
-
-#: templates/javascript/htmlarea_lang.js:67
-msgid "Alignment:"
-msgstr "정렬:"
-
-#: lib/Block/fortune.php:87
+#: lib/Block/fortune.php:94
 msgid "All"
 msgstr "모두 선택"
 
-#: templates/javascript/htmlarea_table_lang.js:17
-msgid "All four sides"
-msgstr "모든 4면"
+#: templates/shares/edit.inc:58
+#, fuzzy
+msgid "All Authenticated Users"
+msgstr "메일 전달 오류:"
 
-#: services/resetpassword.php:35
+#: admin/groups.php:26 admin/groups.php:244
+#, fuzzy
+msgid "All Groups"
+msgstr "삭제"
+
+#: admin/activesync.php:50
+msgid "All policy keys successfully reset."
+msgstr ""
+
+#: lib/Prefs/Ui.php:753
+msgid ""
+"All state removed for your devices. They will resynchronize next time they "
+"connect to the server."
+msgstr ""
+
+#: lib/Prefs/Ui.php:724
+msgid "All synchronization sessions deleted."
+msgstr ""
+
+#: config/prefs.php.dist:644
+msgid "Alternate IMSP Login"
+msgstr ""
+
+#: config/prefs.php.dist:658
+#, fuzzy
+msgid "Alternate IMSP Password"
+msgstr "암호 확인"
+
+#: config/prefs.php.dist:652
+msgid "Alternate IMSP Username"
+msgstr ""
+
+#: services/resetpassword.php:31
 #, fuzzy
 msgid "Alternate email address"
 msgstr "잘못된 이메일 주소"
 
-#: templates/javascript/htmlarea_lang.js:122
-#: templates/javascript/htmlarea_anselimage_lang.js:25
-msgid "Alternate text:"
-msgstr "대체 글"
+#: lib/Block/weatherdotcom.php:170
+#, fuzzy
+msgid "An unknown error has occured."
+msgstr "<b>치명적인 오류 발생:</b>"
 
-#: lib/Horde/Prefs/UI.php:97 lib/Horde/Prefs/UI.php:117
-msgid "An illegal value was specified."
-msgstr "잘못된 문자가 있습니다."
-
-#: services/resetpassword.php:49
+#: services/resetpassword.php:48
 #, fuzzy
 msgid "Answer"
 msgstr "회신한 메일"
 
-#: admin/templates.php:74 admin/phpshell.php:30 lib/Horde/Block/UI.php:59
-#: templates/admin/setup/index.html:6
+#: templates/data/csvmap.inc:112 templates/admin/config/index.html:11
 #, fuzzy
 msgid "Application"
 msgstr "실행"
 
-#: lib/Horde/UI/VarRenderer/html.php:377 lib/Horde/UI/VarRenderer/html.php:414
-#: templates/javascript/open_calendar.js:68
-msgid "April"
-msgstr "4월"
+#: admin/phpshell.php:44
+#, fuzzy
+msgid "Application Context: "
+msgstr "실행"
 
-#: templates/admin/user/removequeued.inc:9
-#, fuzzy, php-format
-msgid "Are you sure you want to remove the signup request for %s ?"
-msgstr "계속 진행하시겠습니까?"
+#: util/icon_browser.php:45
+#, fuzzy
+msgid "Application List"
+msgstr "실행"
 
-#: templates/admin/groups/delete.inc:9
+#: admin/config/index.php:160
+#, fuzzy
+msgid "Application is ready."
+msgstr "실행"
+
+#: admin/config/index.php:95 admin/config/index.php:127
+msgid "Application is up-to-date."
+msgstr ""
+
+#: templates/admin/user/approve.inc:33
+msgid "Approve"
+msgstr ""
+
+#: config/nls.php:167
+msgid "Arabic (Windows-1256)"
+msgstr ""
+
+#: admin/alarms.php:123
 #, fuzzy, php-format
-msgid "Are you sure you wish to delete '%s' and any sub-groups?"
+msgid "Are you sure you want to delete '%s'?"
 msgstr "이 메시지를 영원히 삭제하시겠습니까?"
 
-#: config/prefs.php.dist:415
-msgid "Ask for confirmation before doing maintenance operations?"
-msgstr "유지관리실행전 확인하기"
-
-#: lib/Horde/MIME/Viewer/icalendar.php:577
-#, fuzzy
-msgid "Attendees"
-msgstr "파일 첨부"
-
-#: lib/Horde/UI/VarRenderer/html.php:381 lib/Horde/UI/VarRenderer/html.php:418
-#: templates/javascript/open_calendar.js:72
-msgid "August"
-msgstr "8월"
-
-#: lib/Horde/NLS/tld.php:28 lib/Horde/NLS/countries.php:24
-#: lib/Horde/NLS/GeoIP.php:60
-#, fuzzy
-msgid "Austria"
-msgstr "8월"
-
-#: lib/Horde/Auth/ldap.php:189
+#: templates/admin/user/removequeued.inc:10
 #, fuzzy, php-format
-msgid "Auth_ldap: Unable to add user %s. This is what the server said: "
-msgstr "임시보관함 저장 오류. 서버의 오류 메시지: %s"
+msgid "Are you sure you want to remove the signup request for \"%s\"?"
+msgstr "계속 진행하시겠습니까?"
 
-#: lib/Net/SMS/clickatell_http.php:299
+#: templates/admin/groups/delete.inc:7
+#, fuzzy, php-format
+msgid "Are you sure you wish to delete \"%s\" and any sub-groups?"
+msgstr "이 메시지를 영원히 삭제하시겠습니까?"
+
+#: config/nls.php:168
+msgid "Armenian (ARMSCII-8)"
+msgstr ""
+
+#: lib/Block/fortune.php:35
+msgid "Art"
+msgstr ""
+
+#: lib/Block/fortune.php:36
+msgid "Ascii Art"
+msgstr ""
+
+#: templates/problem/problem.inc:43
+msgid "Attachment"
+msgstr ""
+
+#: admin/groups.php:72
+msgid "Attempt to delete a non-existent group."
+msgstr ""
+
+#: admin/perms/delete.php:24
+msgid "Attempt to delete a non-existent permission."
+msgstr ""
+
+#: admin/perms/edit.php:92
+msgid "Attempt to edit a non-existent permission."
+msgstr ""
+
+#: services/shares/edit.php:66
+msgid "Attempt to edit a non-existent share."
+msgstr ""
+
+#: admin/sessions.php:40
 #, fuzzy
-msgid "Authentication failed"
+msgid "Authenticated to:"
 msgstr "삭제 실패"
 
-#: lib/Net/SMS/clickatell_http.php:69 lib/Net/SMS/clickatell_http.php:78
-#, fuzzy, php-format
-msgid "Authentication failed. %s"
-msgstr "메일 전달 오류:"
+#: templates/prefs/facebook.html:27
+msgid "Authorize Publish"
+msgstr ""
 
-#: lib/VFS/ftp.php:800
-#, fuzzy
-msgid "Authentication to FTP server failed."
-msgstr "ftp 서버 연결 오류."
+#: templates/prefs/facebook.html:39
+msgid "Authorize Read:"
+msgstr ""
 
-#: templates/data/csvmap.inc:83
+#: templates/prefs/facebook.html:16
+msgid "Authorize an infinite session:"
+msgstr ""
+
+#: templates/data/csvmap.inc:70
 msgid "Available fields:"
 msgstr "가능한 필드:"
 
-#: templates/javascript/htmlarea_table_lang.js:18
-msgid "Background"
-msgstr "배경"
+#: themes/azur/info.php:6
+msgid "Azur"
+msgstr ""
 
-#: templates/javascript/htmlarea_lang.js:23
-msgid "Background Color"
-msgstr "배경 색깔"
+#: lib/Block/fortune.php:37
+msgid "BOFH Excuses"
+msgstr ""
 
-#: lib/Horde/NLS/tld.php:50 lib/Horde/NLS/countries.php:32
-#: lib/Horde/NLS/GeoIP.php:64
-#, fuzzy
-msgid "Belize"
-msgstr "크기"
+#: config/nls.php:169
+msgid "Baltic (ISO-8859-13)"
+msgstr ""
 
-#: lib/Horde/MIME/Viewer/vcard.php:114
-msgid "Birthday"
-msgstr "생일"
+#: themes/barbie/info.php:2
+msgid "Barbie"
+msgstr ""
 
-#: lib/Horde/Block/Collection.php:326
+#: util/icon_browser.php:34
 #, fuzzy, php-format
-msgid "Block \"%s\" of application \"%s\" not found."
+msgid "Base graphics directory \"%s\" not found."
 msgstr "통지 리스너 %s을(를) 찾을 수 없습니다."
 
-#: templates/javascript/htmlarea_lang.js:8
-msgid "Bold"
-msgstr "굵게"
+#: templates/portal/layout.inc:90
+msgid "Block Settings"
+msgstr ""
 
-#: templates/javascript/htmlarea_table_lang.js:20
-msgid "Border"
-msgstr "경계"
+#: templates/portal/layout.inc:72
+msgid "Block Type"
+msgstr ""
 
-#: templates/javascript/htmlarea_lang.js:85
-msgid "Border thickness:"
-msgstr "경계 두께"
+#: themes/bluemoon/info.php:2
+#, fuzzy
+msgid "Blue Moon"
+msgstr "새 메일"
 
-#: templates/javascript/htmlarea_table_lang.js:21
-msgid "Borders"
-msgstr "경계"
+#: themes/bluewhite/info.php:2
+msgid "Blue and White"
+msgstr ""
 
-#: lib/Block/fortune.php:96
+#: config/registry.php.dist:226
+msgid "Bookmarks"
+msgstr ""
+
+#: lib/Block/fortune.php:103
 msgid "Both"
 msgstr "모두"
 
-#: templates/javascript/htmlarea_table_lang.js:22
-#: templates/javascript/htmlarea_lang.js:75
-msgid "Bottom"
-msgstr "아래"
+#: themes/brown/info.php:2
+msgid "Brown"
+msgstr ""
 
-#: lib/Horde/NLS/tld.php:44 lib/Horde/NLS/countries.php:40
-#: lib/Horde/NLS/GeoIP.php:63
+#: admin/sessions.php:38
 #, fuzzy
-msgid "Brazil"
-msgstr "웹메일"
+msgid "Browser:"
+msgstr "행:"
 
-#: templates/javascript/htmlarea_lang.js:19
-msgid "Bulleted List"
-msgstr "기호 리스트"
-
-#: config/registry.php.dist:397
+#: themes/burntorange/info.php:7
 #, fuzzy
-msgid "CMS"
-msgstr "CVS"
+msgid "Burnt Orange"
+msgstr "변경사항 되돌리기"
 
-#: templates/javascript/htmlarea_context_lang.js:27
-msgid "C_ell Properties..."
-msgstr "_e셀 속성..."
+#: lib/Block/weatherdotcom.php:166
+msgid "Cache init was not completed."
+msgstr ""
 
-#: lib/Horde/UI/VarRenderer/html.php:456 config/registry.php.dist:143
+#: config/registry.php.dist:157
 msgid "Calendar"
 msgstr "달력"
 
-#: lib/Block/weatherdotcom.php:209
+#: lib/Block/weatherdotcom.php:250
 #, fuzzy
 msgid "Calm"
 msgstr "취소"
 
-#: lib/Horde/Auth/cyrus.php:241 lib/Horde/Auth/cyrsql.php:312
-#, fuzzy, php-format
-msgid "Can't connect to IMAP server: %s"
-msgstr "LDAP 서버 접속 실패"
+#: themes/camouflage/info.php:2
+msgid "Camouflage"
+msgstr ""
 
-#: lib/Horde/NLS/tld.php:51 lib/Horde/NLS/countries.php:48
-#: lib/Horde/NLS/GeoIP.php:65
-#, fuzzy
-msgid "Canada"
-msgstr "달력"
-
-#: admin/user.php:101 admin/user.php:120
-#: templates/javascript/htmlarea_lang.js:47
-#: templates/javascript/htmlarea_lang.js:65
-#: templates/admin/groups/delete.inc:14 templates/admin/user/clear.inc:17
-#: templates/admin/user/remove.inc:17
+#: admin/user.php:115 admin/user.php:135 templates/admin/groups/delete.inc:11
+#: templates/admin/user/clear.inc:12 templates/admin/user/remove.inc:12
 msgid "Cancel"
 msgstr "취소"
 
-#: templates/problem/problem.inc:59
+#: templates/problem/problem.inc:58
 msgid "Cancel Problem Report"
 msgstr "오류 보고하기 취소"
 
-#: templates/javascript/htmlarea_table_lang.js:24
-msgid "Caption"
-msgstr "캡션"
-
-#: lib/Horde/MIME/Viewer/vcard.php:197
-msgid "Cell Phone"
-msgstr "휴대폰"
-
-#: templates/javascript/htmlarea_table_lang.js:25
-msgid "Cell Properties"
-msgstr "셀 속성"
-
-#: templates/javascript/htmlarea_lang.js:114
-msgid "Cell padding:"
-msgstr "셀 페딩"
-
-#: templates/javascript/htmlarea_table_lang.js:61
-msgid "Cell properties"
-msgstr "셀 속성"
-
-#: templates/javascript/htmlarea_lang.js:112
-msgid "Cell spacing:"
-msgstr "셀 간격"
-
-#: lib/Horde/Form.php:1266
-msgid "Cellphone"
-msgstr "휴대폰"
-
-#: templates/javascript/htmlarea_table_lang.js:26
-msgid "Center"
-msgstr "가운데"
-
-#: lib/Horde/NLS/tld.php:221 lib/Horde/NLS/countries.php:52
-#: lib/Horde/NLS/GeoIP.php:109
+#: admin/activesync.php:183 templates/prefs/activesync.html:31
 #, fuzzy
-msgid "Chad"
-msgstr "vCard"
+msgid "Cancel Wipe"
+msgstr "취소"
 
-#: lib/Horde/MIME/Viewer/icalendar.php:596
-#, fuzzy
-msgid "Chair Person"
-msgstr "개인 메일"
+#: services/resetpassword.php:17
+msgid "Cannot reset password automatically, contact your administrator."
+msgstr ""
 
-#: templates/rpcsum/rpcsum.inc:24 templates/rpcsum/rpcsum.inc:97
+#: config/prefs.php.dist:440
+msgid "Categories and Labels"
+msgstr ""
+
+#: config/nls.php:170
+msgid "Celtic (ISO-8859-14)"
+msgstr ""
+
+#: config/nls.php:171
+msgid "Central European (ISO-8859-2)"
+msgstr ""
+
+#: templates/prefs/rpc.html:33
 msgid "Change"
 msgstr "변경"
 
-#: config/prefs.php.dist:66
+#: services/changepassword.php:23
+#, fuzzy
+msgid "Change Your Password"
+msgstr "암호 확인"
+
+#: config/prefs.php.dist:214
 #, fuzzy
 msgid ""
 "Change the name and address that people see when they read and reply to your "
 "emails."
 msgstr "메일을 보낼때 사용할 이름, 주소, 서명을 변경합니다."
 
-#: templates/javascript/htmlarea_table_lang.js:27
+#: services/changepassword.php:17
+msgid ""
+"Changing your password is not supported with the current configuration.  "
+"Contact your administrator."
+msgstr ""
+
+#: lib/Block/vatid.php:45
 #, fuzzy
-msgid "Char"
-msgstr "vCard"
-
-#: templates/javascript/htmlarea_context_lang.js:25
-msgid "Chec_k Link..."
-msgstr "_k링크 검사..."
-
-#: templates/maintenance/confirm_top.inc:13
-msgid "Check the box for any operation(s) you want to perform at this time."
-msgstr "지금 수행할 작업을 선택하세요."
-
-#: lib/Horde/NLS/tld.php:59 lib/Horde/NLS/countries.php:53
-#: lib/Horde/NLS/GeoIP.php:68
-#, fuzzy
-msgid "Chile"
+msgid "Check"
 msgstr "제목"
 
-#: lib/Horde/NLS/tld.php:61 lib/Horde/NLS/countries.php:54
-#: lib/Horde/NLS/GeoIP.php:68
-msgid "China"
-msgstr "중국"
+#: templates/admin/config/index.html:4
+msgid "Check for newer versions"
+msgstr ""
 
-#: lib/Horde/Auth/Signup.php:282
+#: lib/Block/vatid.php:47
 #, fuzzy
-msgid "Choose a password"
+msgid "Checking"
+msgstr "_k링크 검사..."
+
+#: templates/admin/groups/addchild.inc:10
+#, fuzzy
+msgid "Child"
+msgstr "제목"
+
+#: config/nls.php:172
+msgid "Chinese Simplified (GB2312)"
+msgstr ""
+
+#: config/nls.php:173
+msgid "Chinese Traditional (Big5)"
+msgstr ""
+
+#: services/obrowser/index.php:91
+#, fuzzy, php-format
+msgid "Choose %s"
 msgstr "암호 확인"
 
-#: lib/Horde/Auth/Signup.php:281
-#, fuzzy
-msgid "Choose a username"
-msgstr "메시지 작성"
+#: config/prefs.php.dist:403
+msgid "Choose how to display dates (abbreviated format):"
+msgstr ""
 
-#: lib/Horde/MIME/Viewer/icalendar.php:452
-#: lib/Horde/MIME/Viewer/icalendar.php:626
-#, fuzzy
-msgid "Choose an action:"
-msgstr "선택사항:"
+#: config/prefs.php.dist:377
+msgid "Choose how to display dates (full format):"
+msgstr ""
 
-#: templates/javascript/htmlarea_listtype_lang.js:22
-msgid "Choose list style type (for ordered lists)"
-msgstr "순서 리스트 종류 선택"
+#: config/prefs.php.dist:419
+msgid "Choose how to display times:"
+msgstr ""
 
-#: lib/VFS.php:655 lib/Net/SMS.php:311
-#, fuzzy, php-format
-msgid "Class definition of %s not found."
-msgstr "통지 리스너 %s을(를) 찾을 수 없습니다."
-
-#: lib/Block/weatherdotcom.php:328
+#: lib/Block/weatherdotcom_strings.php:19
 #, fuzzy
 msgid "Clear"
 msgstr "달력"
 
-#: templates/javascript/htmlarea_lang.js:42
-msgid "Clear MSOffice tags"
-msgstr "MS오피스 테그 지우기"
+#: admin/sqlshell.php:109
+#, fuzzy
+msgid "Clear Query"
+msgstr "검색항목 초기화"
 
-#: templates/admin/user/clear.inc:16
+#: templates/admin/user/clear.inc:5
+#, fuzzy, php-format
+msgid "Clear out user: %s"
+msgstr "검색항목 초기화"
+
+#: templates/admin/user/clear.inc:11
 #, fuzzy
 msgid "Clear user"
 msgstr "검색항목 초기화"
 
-#: services/keyboard.php:146 templates/shares/edit.inc:12
+#: templates/admin/user/list.inc:37
+#, fuzzy
+msgid "Clear user data"
+msgstr "검색항목 초기화"
+
+#: lib/Block/weatherdotcom_strings.php:20
+msgid "Clearing Early"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:21
+#, fuzzy
+msgid "Clearing Late"
+msgstr "검색항목 초기화"
+
+#: templates/prefs/addressbooks.html:3
+msgid ""
+"Click on one of your selected address books and then select all fields to "
+"search."
+msgstr ""
+
+#: templates/logintasks/logintasks.html:38
+msgid "Click to Continue"
+msgstr ""
+
+#: templates/prefs/syncml.html:13
+msgid "Client Anchor"
+msgstr ""
+
+#: services/keyboard.php:154 templates/shares/edit.inc:12
 msgid "Close Window"
 msgstr "창 닫기"
 
-#: lib/Block/weatherdotcom.php:329
+#: lib/Block/metar.php:239
+#, fuzzy
+msgid "Clouds"
+msgstr "복사"
+
+#: lib/Block/weatherdotcom_strings.php:22
+#, fuzzy
+msgid "Clouds Early"
+msgstr "복사"
+
+#: lib/Block/weatherdotcom_strings.php:23
+#, fuzzy
+msgid "Clouds Late"
+msgstr "교정된 문자열"
+
+#: lib/Block/weatherdotcom_strings.php:24
 #, fuzzy
 msgid "Cloudy"
 msgstr "복사"
 
-#: templates/portal/sidebar.inc:4
+#: admin/sessions.php:31
+#, fuzzy
+msgid "Collapse"
+msgstr "왼쪽막대 닫기"
+
+#: templates/sidebar/sidebar.inc:3
 msgid "Collapse Sidebar"
 msgstr "왼쪽막대 닫기"
 
-#: templates/javascript/htmlarea_table_lang.js:28
-msgid "Collapsed borders"
-msgstr "합쳐진 경계"
+#: lib/Prefs/Ui.php:237
+msgid "Color Picker"
+msgstr ""
 
-#: lib/Block/color.php:18 lib/Block/color.php:29
-#: templates/javascript/htmlarea_table_lang.js:29
-msgid "Color"
-msgstr "색깔"
-
-#: lib/Horde/Form.php:2835
-#, fuzzy
-msgid "Colour selection"
-msgstr "선택사항:"
-
-#: templates/javascript/htmlarea_lang.js:103
-msgid "Cols:"
-msgstr "열:"
-
-#: config/registry.php.dist:289
-msgid "Comics"
-msgstr "Comics"
-
-#: admin/cmdshell.php:25
+#: admin/cmdshell.php:20 admin/cmdshell.php:42
 #, fuzzy
 msgid "Command"
 msgstr "회사"
 
-#: po/translation.php:97
+#: admin/cmdshell.php:14
 #, fuzzy
-msgid "Commands:"
+msgid "Command Shell"
 msgstr "회사"
 
-#: lib/Horde/NLS/tld.php:130 lib/Horde/NLS/countries.php:58
-#: lib/Horde/NLS/GeoIP.php:85
-#, fuzzy
-msgid "Comoros"
-msgstr "새 메일"
-
-#: lib/Horde/MIME/Viewer/vcard.php:242
-msgid "Company"
+#: services/facebook.php:101
+#, fuzzy, php-format
+msgid "Comments: %d"
 msgstr "회사"
 
-#: lib/Horde/MIME/Viewer/icalendar.php:697
-#, fuzzy
-msgid "Completed"
-msgstr "새 메일"
-
-#: lib/Horde/Text/Filter/emails.php:81 lib/Horde/Text/Filter/emails.php:87
-#: lib/Horde/Text/Filter/emails.php:97 lib/Horde/Text/Filter/emails.php:101
-#, php-format
-msgid "Compose Message (%s)"
-msgstr "메시지 작성 (%s)"
-
-#: lib/Block/fortune.php:31
+#: lib/Block/fortune.php:38
 #, fuzzy
 msgid "Computers"
 msgstr "새 메일"
 
-#: lib/Block/metar.php:247
+#: lib/Block/weatherdotcom.php:300
+#, fuzzy
+msgid "Condition"
+msgstr "결론"
+
+#: lib/Block/metar.php:244
 #, fuzzy
 msgid "Conditions"
 msgstr "결론"
 
-#: templates/admin/user/update.inc:37
+#: admin/config/config.php:65 templates/admin/config/config.html:9
+#, fuzzy
+msgid "Configuration"
+msgstr "메일 서버 정보사항"
+
+#: admin/config/diff.php:80
+msgid "Configuration Differences"
+msgstr ""
+
+#: config/prefs.php.dist:665
+msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
+msgstr ""
+
+#: admin/config/index.php:155
+msgid "Configuration is out of date."
+msgstr ""
+
+#: templates/admin/config/index.html:61
+msgid "Configuration upgrade scripts available"
+msgstr ""
+
+#: admin/config/index.php:111
+#, php-format
+msgid "Configure %s"
+msgstr ""
+
+#: templates/admin/user/update.inc:28
 msgid "Confirm Password"
 msgstr "암호 확인"
 
-#: lib/Horde/IMAP/ACL/rfc2086.php:206 lib/Horde/IMAP/ACL/rfc2086.php:319
+#: services/changepassword.php:25 services/resetpassword.php:25
 #, fuzzy
-msgid "Connection failed."
-msgstr "삭제 실패"
+msgid "Continue"
+msgstr "결론"
 
-#: lib/Horde/IMAP/ACL/rfc2086.php:206 lib/Horde/IMAP/ACL/rfc2086.php:319
-#, fuzzy
-msgid "Connection failed: "
-msgstr "삭제 실패"
-
-#: lib/Horde/Crypt/pgp.php:793
-#, fuzzy
-msgid "Connection refused to the public keyserver."
-msgstr "ftp 서버 연결 오류."
-
-#: lib/VFS/ftp.php:794
-#, fuzzy
-msgid "Connection to FTP server failed."
-msgstr "ftp 서버 연결 오류."
-
-#: lib/Horde/MIME/Viewer/vcard.php:56
-#, fuzzy
-msgid "Contacts were successfully added to your address book."
-msgstr "항목 \"%s\"가 주소록에 추가되었습니다."
-
-#: lib/Horde/MIME/Viewer/rar.php:59 lib/Horde/MIME/Viewer/zip.php:63
-#: lib/Horde/MIME/Viewer/tgz.php:78
-#, php-format
-msgid "Contents of '%s'"
-msgstr "'%s'의 내용"
-
-#: lib/Block/fortune.php:32
+#: lib/Block/fortune.php:39
 #, fuzzy
 msgid "Cookie"
 msgstr "새 메일"
 
-#: templates/javascript/htmlarea_context_lang.js:21
-msgid "Copy"
-msgstr "복사"
-
-#: templates/javascript/htmlarea_lang.js:36
-msgid "Copy selection"
-msgstr "복사"
-
-#: po/translation.php:1072
-#, fuzzy, php-format
-msgid "Copying %s to %s"
-msgstr "[라인 %s / %s]"
-
-#: lib/Horde/Crypt/pgp.php:1055
+#: themes/cornflower/info.php:2
 #, fuzzy
-msgid "Could not PGP sign message."
-msgstr "1개의 새로운 메시지가 있습니다."
+msgid "Cornflower"
+msgstr "색깔"
 
-#: lib/Horde/Auth/ldap.php:113
+#: lib/Block/account.php:484
 #, fuzzy
 msgid "Could not bind to LDAP server."
 msgstr "LDAP 서버 접속 실패"
 
-#: lib/Net/SMS/sms2email_http.php:702 lib/Net/SMS/clickatell_http.php:354
+#: lib/Block/account.php:463
+#, fuzzy
+msgid "Could not connect to LDAP server."
+msgstr "LDAP 서버 접속 실패"
+
+#: admin/config/index.php:27
 #, fuzzy, php-format
-msgid "Could not open %s."
-msgstr "%s를 엽니다?"
+msgid "Could not connect to server \"%s\" using FTP: %s"
+msgstr "LDAP 서버 접속 실패"
 
-#: lib/Horde/Maintenance.php:415
-#, php-format
-msgid "Could not open Maintenance_Task module %s"
-msgstr "Maintenance_Task 모듈 %s 를 열 수 없습니다."
+#: admin/config/index.php:66
+msgid "Could not contact server. Try again later."
+msgstr ""
 
-#: lib/VFS/ISOWriter/RealInputStrategy/copy.php:71
+#: admin/config/scripts.php:35
 #, fuzzy, php-format
-msgid "Could not open directory '%s'."
-msgstr "Maintenance_Task 모듈 %s을(를) 열 수 없습니다."
+msgid "Could not delete configuration upgrade script \"%s\"."
+msgstr "Horde가 바르게 설정되지 않았습니다."
 
-#: lib/Net/SMS/sms2email_http.php:279
-#, fuzzy, php-format
-msgid "Could not retrieve address book. %s"
-msgstr "쓰기가능한 주소록이 없습니다."
+#: templates/prefs/twitter.html:14
+msgid ""
+"Could not find authorization for <tag:appname /> to interact with your "
+"Twitter account"
+msgstr ""
 
-#: admin/setup/config.php:54
+#: services/resetpassword.php:92
+#, fuzzy
+msgid ""
+"Could not reset the password for the requested user. Some or all of the "
+"details are not correct. Try again or contact your administrator if you need "
+"further help."
+msgstr ""
+"추가하는데 오류가 발생했습니다. 시스템관리자에게 도움을 요청하시기 바랍니다."
+
+#: admin/config/config.php:43
 #, fuzzy
 msgid "Could not revert configuration."
 msgstr "Horde가 바르게 설정되지 않았습니다."
 
-#: admin/setup/scripts.php:71
+#: admin/config/index.php:41
 #, fuzzy, php-format
-msgid "Could not save %s configuration."
+msgid "Could not save a backup configuation: %s"
 msgstr "VFS 설정 정보에서 'port'이 없습니다."
 
-#: lib/Horde/Auth/ldap.php:123
-#, fuzzy
-msgid "Could not search the LDAP server."
-msgstr "LDAP 서버 접속 실패"
+#: admin/config/scripts.php:94
+#, fuzzy, php-format
+msgid "Could not save configuration upgrade script to: \"%s\"."
+msgstr "VFS 설정 정보에서 'port'이 없습니다."
 
-#: lib/Horde/Form.php:1416
-#, fuzzy
-msgid "Counted text"
-msgstr "교정된 문자열"
+#: admin/config/config.php:53
+#, fuzzy, php-format
+msgid "Could not save the backup configuration file %s."
+msgstr "VFS 설정 정보에서 'port'이 없습니다."
 
-#: templates/rpcsum/rpcsum.inc:21 templates/rpcsum/rpcsum.inc:97
-#: templates/rpcsum/rpcsum.inc:101
+#: admin/config/config.php:65
+#, php-format
+msgid ""
+"Could not save the configuration file %s. You can either use one of the "
+"options to save the code back on %s or copy manually the code below to %s."
+msgstr ""
+
+#: admin/config/index.php:51
+#, fuzzy, php-format
+msgid "Could not write configuration for \"%s\": %s"
+msgstr "Horde가 바르게 설정되지 않았습니다."
+
+#: lib/Block/vatid.php:91
+#, fuzzy
+msgid "Country"
+msgstr "새 메일"
+
+#: templates/prefs/rpc.html:34
 msgid "Create"
 msgstr "만들기"
 
-#: templates/javascript/htmlarea_context_lang.js:67
-msgid "Create a link"
-msgstr "링크 만들기"
-
-#: templates/prefs/identityselect.inc:89
+#: templates/prefs/identityselect.html:22
 #, fuzzy
-msgid "Create a new one"
-msgstr "휴지통 새로 만들기"
+msgid "Create New Identity"
+msgstr "기본 식별자"
 
-#: lib/Horde/IMAP/ACL/rfc2086.php:95
+#: lib/Block/moon.php:24
 #, fuzzy
-msgid "Create sub folders"
-msgstr "새폴더 만들기"
+msgid "Current 4 Phases"
+msgstr "현재 스타일"
 
-#: lib/Horde/NLS/tld.php:109 lib/Horde/NLS/countries.php:64
-#: lib/Horde/NLS/GeoIP.php:80
+#: templates/admin/alarms/list.html.php:2
 #, fuzzy
-msgid "Croatia"
-msgstr "만들기"
+msgid "Current Alarms"
+msgstr "교정된 문자열"
 
-#: lib/Block/time.php:3 lib/Block/time.php:30
+#: admin/sessions.php:23
+#, fuzzy
+msgid "Current Sessions"
+msgstr "현재 URL은"
+
+#: lib/Block/time.php:3 lib/Block/time.php:36
 #, fuzzy
 msgid "Current Time"
 msgstr "교정된 문자열"
 
-#: templates/javascript/htmlarea_context_lang.js:53
-msgid "Current URL is"
-msgstr "현재 URL은"
-
-#: templates/javascript/htmlarea_lang.js:32
-msgid "Current style"
+#: lib/Block/metar.php:31
+#, fuzzy
+msgid "Current Weather"
 msgstr "현재 스타일"
 
-#: config/prefs.php.dist:108
-#, fuzzy, php-format
-msgid "Customize tasks to run upon logon to %s."
-msgstr "IMP 로그온시 시작되는 작업을 설정합니다."
+#: lib/Block/weatherdotcom.php:279
+#, fuzzy
+msgid "Current condition: "
+msgstr "결론"
 
-#: templates/javascript/htmlarea_context_lang.js:20
-msgid "Cut"
-msgstr "자르기"
+#: config/nls.php:174
+msgid "Cyrillic (KOI8-R)"
+msgstr ""
 
-#: templates/javascript/htmlarea_lang.js:35
-msgid "Cut selection"
-msgstr "자르기"
+#: config/nls.php:175
+msgid "Cyrillic (Windows-1251)"
+msgstr ""
 
-#: lib/Horde/UI/VarRenderer/html.php:423 templates/data/date.inc:47
-#: templates/data/date.inc:48 templates/data/date.inc:49
-#: templates/data/date.inc:50
+#: config/nls.php:176
+msgid "Cyrillic/Ukrainian (KOI8-U)"
+msgstr ""
+
+#: templates/data/date.inc:47 templates/data/date.inc:48
+#: templates/data/date.inc:49 templates/data/date.inc:50
+#: templates/data/datetime.inc:89 templates/data/datetime.inc:90
+#: templates/data/datetime.inc:91 templates/data/datetime.inc:92
 msgid "DD"
 msgstr "DD"
 
-#: lib/Horde/Maintenance.php:38
-msgid "Daily"
-msgstr "일별"
-
-#: config/registry.php.dist:423
+#: templates/data/csvmap.inc:101
 #, fuzzy
 msgid "Data"
 msgstr "일자"
 
-#: lib/Horde/Form.php:2382 lib/Horde/MIME/Viewer/rfc822.php:77
+#: admin/datatree.php:62
+#, fuzzy
+msgid "DataTree"
+msgstr "일자"
+
+#: admin/datatree.php:59
+#, fuzzy
+msgid "DataTree Browser"
+msgstr "일자"
+
+#: templates/prefs/syncml.html:11
+#, fuzzy
+msgid "Database"
+msgstr "일자"
+
+#: lib/Block/vatid.php:94
 msgid "Date"
 msgstr "날짜"
 
-#: templates/admin/user/approve.inc:12
+#: templates/admin/user/approve.inc:23
 #, fuzzy
 msgid "Date Received"
 msgstr "수신 날짜:"
 
-#: lib/Block/weatherdotcom.php:277
+#: templates/data/datetime.inc:70 templates/data/datetime.inc:71
+#, php-format
+msgid "Date: %s; time: %s"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:295 lib/Block/weatherdotcom.php:324
 #, fuzzy
 msgid "Day"
 msgstr "일별"
 
-#: templates/javascript/htmlarea_context_lang.js:35
-msgid "De_lete Column"
-msgstr "_l열 삭제"
-
-#: lib/Horde/UI/VarRenderer/html.php:385 lib/Horde/UI/VarRenderer/html.php:422
-#: templates/javascript/open_calendar.js:76
-msgid "December"
-msgstr "12월"
-
-#: templates/javascript/htmlarea_listtype_lang.js:16
-msgid "Decimal numbers"
-msgstr "숫자"
-
-#: lib/Horde/MIME/Viewer/icalendar.php:685
-#, fuzzy
-msgid "Declined"
-msgstr "삭제된 메일"
-
-#: templates/javascript/htmlarea_lang.js:20
-msgid "Decrease Indent"
-msgstr "내어쓰기"
-
-#: lib/prefs.php:108 lib/Horde/Prefs/UI.php:191
+#: lib/Prefs/Ui.php:69 lib/Prefs/Ui.php:74
 msgid "Default"
 msgstr "기본"
 
-#: templates/prefs/categorymanagement.inc:47
-#: templates/prefs/categorymanagement.inc:81
+#: lib/Prefs/Ui.php:252 lib/Prefs/Ui.php:282
 #, fuzzy
 msgid "Default Color"
 msgstr "기본값 사용"
 
-#: lib/Horde/Identity.php:92
-msgid "Default Identity"
-msgstr "기본 식별자"
+#: lib/Block/account.php:78
+#, fuzzy
+msgid "Default Shell"
+msgstr "기본"
 
-#: lib/Block/fortune.php:33
+#: lib/Block/fortune.php:40
 #, fuzzy
 msgid "Definitions"
 msgstr "규칙 정의"
 
-#: lib/Horde/MIME/Viewer/icalendar.php:643
-#, fuzzy
-msgid "Delegate position"
-msgstr "메시지 작성"
-
-#: lib/Horde/MIME/Viewer/icalendar.php:693
-#, fuzzy
-msgid "Delegated"
-msgstr "삭제된 메일"
-
-#: admin/groups.php:72 admin/perms/delete.php:46 admin/perms/delete.php:52
-#: lib/Horde/Perms.php:297 lib/Horde/Perms/UI.php:327
-#: lib/Horde/Perms/UI.php:347 templates/shares/edit.inc:36
-#: templates/shares/edit.inc:70 templates/shares/edit.inc:93
-#: templates/shares/edit.inc:116 templates/shares/edit.inc:139
-#: templates/shares/edit.inc:182 templates/rpcsum/rpcsum.inc:73
-#: templates/rpcsum/rpcsum.inc:99 templates/admin/groups/delete.inc:13
-#: templates/admin/user/list.inc:34
+#: admin/groups.php:68 templates/admin/groups/delete.inc:10
+#: templates/admin/user/list.inc:34 templates/shares/edit.inc:63
+#: templates/shares/edit.inc:83 templates/shares/edit.inc:98
+#: templates/shares/edit.inc:118 templates/shares/edit.inc:134
+#: templates/shares/edit.inc:154 templates/shares/edit.inc:169
+#: templates/shares/edit.inc:193 templates/shares/edit.inc:228
+#: templates/shares/edit.inc:255 templates/shares/edit.inc:271
+#: templates/shares/edit.inc:291 templates/shares/edit.inc:320
+#: templates/prefs/identityselect.html:34 templates/prefs/rpc.html:35
+#: templates/prefs/syncml.html:14 templates/prefs/syncml.html:23
 msgid "Delete"
 msgstr "삭제"
 
-#: admin/groups.php:189 admin/groups.php:217
+#: admin/alarms.php:122 admin/groups.php:254
+#, fuzzy, php-format
+msgid "Delete \"%s\""
+msgstr "삭제"
+
+#: templates/prefs/syncml.html:30
+msgid "Delete All SyncML Data"
+msgstr ""
+
+#: admin/groups.php:215
 #, fuzzy
 msgid "Delete Group"
 msgstr "삭제"
 
-#: lib/Horde/Perms/UI.php:60 lib/Horde/Perms/UI.php:84
-#, fuzzy
-msgid "Delete Permission"
-msgstr "메시지 삭제"
+#: admin/config/scripts.php:33
+#, php-format
+msgid "Deleted configuration upgrade script \"%s\"."
+msgstr ""
 
-#: lib/Horde/IMAP/ACL/rfc2086.php:96
-#, fuzzy
-msgid "Delete and purge messages"
-msgstr "삭제된 메일"
+#: lib/Prefs/Ui.php:717
+#, php-format
+msgid "Deleted synchronization session for device \"%s\" and database \"%s\"."
+msgstr ""
 
-#: templates/javascript/htmlarea_table_lang.js:57
-msgid "Delete cell"
-msgstr "셀 삭제"
-
-#: templates/javascript/htmlarea_table_lang.js:63
-msgid "Delete column"
-msgstr "열 삭제"
-
-#: templates/javascript/htmlarea_table_lang.js:67
-msgid "Delete row"
-msgstr "행 삭제"
-
-#: templates/prefs/deleteidentity.inc:15
-#, fuzzy
-msgid "Delete selected identity"
-msgstr "식별자 선택"
-
-#: templates/javascript/htmlarea_context_lang.js:66
-msgid "Delete the current column"
-msgstr "현재 열 지움"
-
-#: templates/javascript/htmlarea_context_lang.js:62
-msgid "Delete the current row"
-msgstr "현재 행 지움"
-
-#: lib/Net/SMS/sms2email_http.php:585 lib/Net/SMS/sms2email_http.php:619
-#: lib/Net/SMS/clickatell_http.php:227 lib/Net/SMS/clickatell_http.php:261
-#, fuzzy
-msgid "Delivery time"
-msgstr "삭제"
-
-#: services/problem.php:95 services/problem.php:99 services/problem.php:109
+#: templates/problem/problem.inc:27
 msgid "Describe the Problem"
 msgstr "오류 설명"
 
-#: lib/Horde/Form.php:933 lib/Horde/MIME/Viewer/icalendar.php:565
-#: templates/javascript/htmlarea_table_lang.js:30
-msgid "Description"
-msgstr "설명:"
+#: config/registry.php.dist:239
+msgid "Development"
+msgstr ""
 
-#: lib/Horde.php:205
-msgid "Details have been logged for the administrator."
-msgstr "세부정보가 관리자를 위해 기록되어졌습니다."
+#: templates/prefs/activesync.html:20 templates/prefs/syncml.html:10
+#, fuzzy
+msgid "Device"
+msgstr "미리보기"
 
-#: lib/Block/google.php:39
-msgid "Directory"
-msgstr "디렉토리"
+#: admin/activesync.php:119
+msgid "Device ID"
+msgstr ""
 
-#: config/prefs.php.dist:97
-msgid "Display Options"
+#: templates/prefs/activesync.html:11
+#, fuzzy
+msgid "Device Management"
+msgstr "파일 관리자"
+
+#: lib/Prefs/Ui.php:432
+msgid "Device id:"
+msgstr ""
+
+#: admin/activesync.php:167 lib/Prefs/Ui.php:420
+msgid "Device is wiped"
+msgstr ""
+
+#: admin/activesync.php:45
+#, fuzzy
+msgid "Device successfully removed."
+msgstr "'%s'가 시스템에 추가되었습니다."
+
+#: admin/activesync.php:40
+msgid "Device wipe successfully canceled."
+msgstr ""
+
+#: lib/Block/metar.php:212
+msgid "Dew Point"
+msgstr ""
+
+#: lib/Block/metar.php:289
+msgid "Dew Point for last hour: "
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:231
+msgid "Dew point: "
+msgstr ""
+
+#: templates/prefs/facebook.html:11 templates/prefs/facebook.html:22
+#: templates/prefs/facebook.html:34 templates/prefs/twitter.html:10
+#, fuzzy
+msgid "Disable"
+msgstr "마지막 페이지"
+
+#: config/prefs.php.dist:345
+#, fuzzy
+msgid "Display 24-hour times?"
 msgstr "화면 설정"
 
-#: lib/Horde/Form.php:2806
+#: config/prefs.php.dist:468
 #, fuzzy
-msgid "Display format"
+msgid "Display Preferences"
 msgstr "화면 설정"
 
-#: admin/perms/delete.php:46 lib/Horde/Perms/UI.php:327
+#: lib/Block/weatherdotcom.php:86
 #, fuzzy
-msgid "Do not delete"
+msgid "Display detailed forecast"
+msgstr "화면 설정"
+
+#: lib/Block/metar.php:84
+#, fuzzy
+msgid "Display forecast (TAF)"
+msgstr "화면 설정"
+
+#: scripts/import_squirrelmail_prefs.php:77
+#, fuzzy
+msgid "Do not use Drafts"
 msgstr "복구"
 
-#: services/maintenance.php:24
-msgid "Do not directly access maintenance.php"
-msgstr "maintenance.php에 직접 접근하지 마세요."
+#: scripts/import_squirrelmail_prefs.php:44
+#: scripts/import_squirrelmail_prefs.php:145
+#, fuzzy
+msgid "Do not use Sent"
+msgstr "복구"
 
-#: templates/data/tsvinfo.inc:19 templates/data/csvinfo.inc:19
+#: scripts/import_squirrelmail_prefs.php:183
+msgid "Do not use Trash"
+msgstr ""
+
+#: templates/data/csvinfo.inc:12 templates/data/tsvinfo.inc:12
 msgid "Does the first row contain the field names? If yes, check this box:"
 msgstr "첫번째 행은 항목 이름을 갖고 있습니까? 그렇다면, 여기를 체크하세요:"
 
-#: lib/Horde/MIME/Contents.php:868
-msgid "Download"
-msgstr "내려받기"
+#: templates/login/login.inc:72
+msgid "Don't have an account? Sign up."
+msgstr ""
 
-#: lib/Horde/MIME/Contents.php:868
+#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:61
+#, fuzzy
+msgid "Done"
+msgstr "선택하지 않음"
+
+#: admin/config/index.php:92 admin/config/index.php:124
 #, php-format
 msgid "Download %s"
 msgstr "%s 내려받기"
 
-#: lib/Block/fortune.php:34
+#: admin/config/index.php:179
+msgid "Download generated configuration as PHP script."
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:25
+msgid "Drizzle"
+msgstr ""
+
+#: lib/Block/fortune.php:41
 #, fuzzy
 msgid "Drugs"
 msgstr "벌레들"
 
-#: lib/Horde/Crypt/pgp.php:399
-#, fuzzy
-msgid "E-Mail"
-msgstr "웹메일"
+#: services/keyboard.php:64
+msgid "E characters"
+msgstr ""
 
-#: lib/Horde/Perms.php:296 templates/shares/edit.inc:35
-#: templates/shares/edit.inc:69 templates/shares/edit.inc:92
-#: templates/shares/edit.inc:115 templates/shares/edit.inc:138
-#: templates/shares/edit.inc:181 templates/rpcsum/rpcsum.inc:72
-#: templates/portal/edit.inc:22
+#: lib/Block/vatid.php:3
+msgid "EU VAT identification"
+msgstr ""
+
+#: templates/shares/edit.inc:62 templates/shares/edit.inc:79
+#: templates/shares/edit.inc:97 templates/shares/edit.inc:114
+#: templates/shares/edit.inc:133 templates/shares/edit.inc:150
+#: templates/shares/edit.inc:168 templates/shares/edit.inc:189
+#: templates/shares/edit.inc:224 templates/shares/edit.inc:251
+#: templates/shares/edit.inc:270 templates/shares/edit.inc:287
+#: templates/shares/edit.inc:316
 msgid "Edit"
 msgstr "수정"
 
-#: services/shares/edit.php:239
-msgid "Edit Permissions for %s"
+#: admin/alarms.php:89
+#, fuzzy, php-format
+msgid "Edit \"%s\""
+msgstr "수정"
+
+#: admin/groups.php:214
+#, fuzzy
+msgid "Edit Group"
+msgstr "삭제"
+
+#: templates/prefs/app.html:7
+#, fuzzy
+msgid "Edit Preferences for"
 msgstr "%s 권한 수정"
 
-#: templates/prefs/app.inc:9
-msgid "Edit options for:"
-msgstr "선택사항 수정:"
+#: services/shares/edit.php:259
+#, fuzzy
+msgid "Edit permissions"
+msgstr "%s 권한 수정"
 
-#: lib/Block/fortune.php:35
+#: services/shares/edit.php:260 templates/shares/edit.inc:14
+#, fuzzy, php-format
+msgid "Edit permissions for \"%s\""
+msgstr "%s 권한 수정"
+
+#: lib/Block/fortune.php:42
 #, fuzzy
 msgid "Education"
 msgstr "소개"
 
-#: templates/javascript/htmlarea_context_lang.js:42
-msgid "Element..."
-msgstr "요소..."
-
-#: templates/javascript/htmlarea_lang.js:109
-msgid "Em"
-msgstr "em"
-
-#: lib/Horde/Form.php:1853 lib/Horde/MIME/Viewer/vcard.php:227
-msgid "Email"
-msgstr "이메일"
-
-#: lib/Horde/Crypt/smime.php:589 templates/admin/groups/edit.inc:12
-#: templates/admin/user/update.inc:40
+#: templates/admin/groups/edit.inc:11 templates/admin/user/update.inc:45
 #, fuzzy
 msgid "Email Address"
 msgstr "이메일 주소:"
 
-#: lib/Horde/Form.php:1947
+#: lib/Prefs/Ui.php:225
 #, fuzzy
-msgid "Email addresses must match."
-msgstr "암호가 일치하지 않습니다."
+msgid "Enter a name for the new category:"
+msgstr "\\n새로운 메일함의 이름을 입력하세요:\\n"
 
-#: lib/Horde/Form.php:1973
-#, fuzzy
-msgid "Email with confirmation"
-msgstr "기타 정보"
+#: config/prefs.php.dist:288
+msgid ""
+"Enter a security question which you will be asked if you need to reset your "
+"password, e.g. 'what is the name of your pet?':"
+msgstr ""
 
-#: lib/Horde/UI/VarRenderer/html.php:280
-msgid "Emoticons"
-msgstr "이모티콘"
-
-#: lib/Net/SMS/clickatell_http.php:311
-#, fuzzy
-msgid "Empty message."
-msgstr "중요한 메일"
-
-#: lib/Horde/Auth/ldap.php:131
-msgid "Empty result."
-msgstr "결과 없음"
-
-#: templates/javascript/htmlarea_lang.js:29
-msgid "Enlarge Editor"
-msgstr "편집기 확대"
-
-#: templates/javascript/htmlarea_lang.js:119
-#: templates/javascript/htmlarea_anselimage_lang.js:22
-msgid "Enter the image URL here"
-msgstr "그림 URL 입력"
-
-#: lib/Horde/Notification/Listener/status.php:29
-#: lib/Block/weatherdotcom.php:41 lib/Block/weatherdotcom.php:51
-#: lib/Block/metar.php:36 services/portal/index.php:78
+#: lib/Block/metar.php:41 lib/Block/weatherdotcom.php:50
 msgid "Error"
 msgstr "오류"
 
-#: po/translation.php:413 po/translation.php:522 po/translation.php:1358
-#: po/translation.php:1419 po/translation.php:1482
-#, fuzzy
-msgid "Error: "
-msgstr "오류"
+#: lib/Prefs/Ui.php:577 services/twitter.php:128 services/twitter.php:151
+#, fuzzy, php-format
+msgid ""
+"Error connecting to Twitter: %s Details have been logged for the "
+"administrator."
+msgstr "세부정보가 관리자를 위해 기록되어졌습니다."
 
-#: config/prefs.php.dist:329
+#: lib/Prefs/Ui.php:715
+msgid "Error deleting synchronization session:"
+msgstr ""
+
+#: lib/Prefs/Ui.php:722
+msgid "Error deleting synchronization sessions:"
+msgstr ""
+
+#: services/changepassword.php:61
+#, php-format
+msgid "Error updating password: %s"
+msgstr ""
+
+#: lib/Block/fortune.php:43
+msgid "Ethnic"
+msgstr ""
+
+#: services/facebook.php:69
+msgid "Event Invites:"
+msgstr ""
+
+#: templates/portal/layout.inc:101 config/prefs.php.dist:520
 msgid "Every 15 minutes"
 msgstr "15분 마다"
 
-#: config/prefs.php.dist:379
+#: config/prefs.php.dist:559
 #, fuzzy
 msgid "Every 2 minutes"
 msgstr "5분 마다"
 
-#: config/prefs.php.dist:326 config/prefs.php.dist:377
+#: templates/portal/layout.inc:98 config/prefs.php.dist:517
+#: config/prefs.php.dist:557
 msgid "Every 30 seconds"
 msgstr "30초 마다"
 
-#: config/prefs.php.dist:328 config/prefs.php.dist:380
+#: templates/portal/layout.inc:100 config/prefs.php.dist:519
+#: config/prefs.php.dist:560
 msgid "Every 5 minutes"
 msgstr "5분 마다"
 
-#: lib/Horde/Maintenance.php:39
-msgid "Every Login"
-msgstr "모든 로그인"
-
-#: config/prefs.php.dist:330
+#: templates/portal/layout.inc:102 config/prefs.php.dist:521
 msgid "Every half hour"
 msgstr "30분 마다"
 
-#: config/prefs.php.dist:327 config/prefs.php.dist:378
+#: templates/portal/layout.inc:103
+#, fuzzy
+msgid "Every hour"
+msgstr "30분 마다"
+
+#: templates/portal/layout.inc:99 config/prefs.php.dist:518
+#: config/prefs.php.dist:558
 msgid "Every minute"
 msgstr "매분"
 
-#: templates/data/datemap.inc:28
+#: templates/data/datemap.inc:24
 msgid "Example values:"
 msgstr "예:"
 
-#: lib/Horde/Block/Layout.php:386
+#: admin/cmdshell.php:48 admin/phpshell.php:55 admin/sqlshell.php:108
+msgid "Execute"
+msgstr ""
+
+#: admin/sessions.php:30
 #, fuzzy
 msgid "Expand"
 msgstr "모두 확장"
 
-#: templates/portal/sidebar.inc:31
-msgid "Expand Sidebar"
-msgstr "왼쪽막대 확장"
-
-#: lib/Horde/Crypt/smime.php:700
+#: lib/Block/iframe.php:29
 #, fuzzy
-msgid "Exponent"
-msgstr "엑스포트"
+msgid "Extra Large"
+msgstr "다음 페이지"
 
-#: templates/javascript/htmlarea_table_lang.js:31
-msgid "FG Color"
-msgstr "전경색"
-
-#: lib/Horde/Prefs/sql.php:240
-msgid "Failed retrieving preferences."
-msgstr "환경설정 읽기 오류."
-
-#: lib/Horde/Auth/ldap.php:103
-msgid "Failed to connect to LDAP server."
-msgstr "LDAP 서버 접속 실패"
-
-#: lib/Horde/Auth/smb.php:103
+#: templates/admin/config/index.html:74
 #, fuzzy
-msgid "Failed to connect to SMB server."
-msgstr "LDAP 서버 접속 실패"
+msgid "FTP upload of configuration"
+msgstr "Horde가 바르게 설정되지 않았습니다."
 
-#: lib/VFS/ftp.php:636
-#, fuzzy, php-format
-msgid "Failed to copy to \"%s\"."
-msgstr "LDAP 서버 접속 실패"
+#: config/prefs.php.dist:604
+msgid "Facebook Integration"
+msgstr ""
 
-#: lib/Horde/Auth/sasl.php:92
-#, fuzzy
-msgid "Failed to create new SASL connection."
-msgstr "LDAP 연결 %s 실패"
+#: themes/fadetogreen/info.php:9
+msgid "Fade to Green"
+msgstr ""
 
-#: lib/VFS/ftp.php:671
-#, fuzzy, php-format
-msgid "Failed to move to \"%s\"."
-msgstr "LDAP 서버 접속 실패"
-
-#: lib/Block/weatherdotcom.php:330
+#: lib/Block/weatherdotcom_strings.php:26
 #, fuzzy
 msgid "Fair"
 msgstr "필터"
 
-#: lib/Horde/CLI.php:235
+#: lib/Block/feed.php:41
+msgid "Feed"
+msgstr ""
+
+#: lib/Block/feed.php:17
 #, fuzzy
-msgid "Fatal Error:"
-msgstr "읽어오기(임포트) 오류: "
+msgid "Feed Address"
+msgstr "직장 주소"
 
-#: lib/Horde/MIME/Viewer/vcard.php:190
-msgid "Fax"
-msgstr "팩스"
+#: lib/Block/metar.php:215
+msgid "Feels Like"
+msgstr ""
 
-#: lib/Horde/UI/VarRenderer/html.php:375 lib/Horde/UI/VarRenderer/html.php:412
-#: templates/javascript/open_calendar.js:66
-msgid "February"
-msgstr "2월"
+#: lib/Block/weatherdotcom.php:235
+msgid "Feels like: "
+msgstr ""
 
-#: config/registry.php.dist:349
+#: lib/Block/weatherdotcom_strings.php:27
+msgid "Few Showers"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:28
+msgid "Few Snow Showers"
+msgstr ""
+
+#: templates/prefs/addressbooks.html:17
+msgid "Fields to search"
+msgstr ""
+
+#: config/registry.php.dist:340
 msgid "File Manager"
 msgstr "파일 관리자"
 
-#: lib/Horde/MIME/Viewer/rar.php:66 lib/Horde/MIME/Viewer/zip.php:70
-#: lib/Horde/MIME/Viewer/tgz.php:85
+#: lib/Block/fb_stream.php:82
 #, fuzzy
-msgid "File Name"
-msgstr "필드이름"
+msgid "Filter"
+msgstr "필터"
 
-#: lib/Horde/Form.php:2980
-#, fuzzy
-msgid "File selection"
-msgstr "규칙(률) 선택 오류"
-
-#: lib/Horde/Form.php:1483
-#, fuzzy
-msgid "File upload"
-msgstr "필드"
-
-#: config/registry.php.dist:86
+#: config/registry.php.dist:93
 msgid "Filters"
 msgstr "필터"
 
-#: lib/Horde/NLS/tld.php:82 lib/Horde/NLS/countries.php:82
-#: lib/Horde/NLS/GeoIP.php:72
-#, fuzzy
-msgid "Finland"
-msgstr "찾기"
-
-#: lib/Block/moon.php:171
+#: lib/Block/moon.php:164
 #, fuzzy
 msgid "First Half"
 msgstr "첫페이지"
 
-#: lib/Block/moon.php:74 lib/Block/moon.php:76
+#: lib/Block/moon.php:72 lib/Block/moon.php:74
 #, fuzzy
 msgid "First Quarter"
 msgstr "첫페이지"
 
-#: templates/javascript/htmlarea_lang.js:22
-msgid "Font Color"
-msgstr "글자 색깔"
+#: lib/Block/weatherdotcom_strings.php:29
+msgid "Fog"
+msgstr ""
 
-#: config/registry.php.dist:431
+#: lib/Block/weatherdotcom_strings.php:30
+msgid "Fog Early"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:31
+msgid "Fog Late"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:32
+msgid "Foggy"
+msgstr ""
+
+#: lib/Block/fortune.php:44
+msgid "Food"
+msgstr ""
+
+#: lib/Block/metar.php:329
+msgid "Forecast (TAF)"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:74
+msgid ""
+"Forecast Days (note that the returned forecast returns both day and night; a "
+"large number here could result in a wide block)"
+msgstr ""
+
+#: templates/login/login.inc:81
 #, fuzzy
-msgid "Forms"
-msgstr "위치"
+msgid "Forgot your password?"
+msgstr "암호 확인"
 
-#: lib/Block/fortune.php:38
+#: lib/Block/fortune.php:28
+#, fuzzy
+msgid "Fortune"
+msgstr "참조"
+
+#: lib/Block/fortune.php:106
+#, fuzzy
+msgid "Fortune type"
+msgstr "참조"
+
+#: lib/Block/fortune.php:45
 #, fuzzy
 msgid "Fortunes"
 msgstr "참조"
 
-#: config/registry.php.dist:414
+#: lib/Block/fortune.php:46
+#, fuzzy
+msgid "Fortunes 2"
+msgstr "참조"
+
+#: config/registry.php.dist:376
 #, fuzzy
 msgid "Forums"
 msgstr "메일함"
 
-#: config/registry.php.dist:358
+#: config/registry.php.dist:113
 #, fuzzy
 msgid "Forwards"
 msgstr "전달"
 
-#: templates/javascript/open_calendar.js:60
-#, fuzzy
-msgid "Fr"
-msgstr "위치"
+#: lib/Block/weatherdotcom_strings.php:33
+msgid "Freezing Drizzle"
+msgstr ""
 
-#: templates/javascript/htmlarea_table_lang.js:33
-msgid "Frames"
-msgstr "프레임"
+#: services/facebook.php:68
+msgid "Friend Requests:"
+msgstr ""
 
-#: lib/Horde/NLS/tld.php:87 lib/Horde/NLS/countries.php:83
-#: lib/Horde/NLS/GeoIP.php:74
-#, fuzzy
-msgid "France"
-msgstr "취소"
-
-#: lib/Horde/MIME/Viewer/icalendar.php:417
-#, fuzzy
-msgid "Free/Busy Information"
-msgstr "메일 서버 정보사항"
-
-#: lib/Horde/MIME/Viewer/rfc822.php:79
-msgid "From"
-msgstr "위치"
-
-#: lib/Block/weatherdotcom.php:211
+#: lib/Block/weatherdotcom.php:252 lib/Block/weatherdotcom.php:362
+#: lib/Block/weatherdotcom.php:408
 #, fuzzy
 msgid "From the "
 msgstr "위치"
@@ -1229,203 +1509,228 @@ msgstr "위치"
 msgid "Full Description"
 msgstr "전체 설명:"
 
-#: templates/admin/user/update.inc:39
+#: lib/Block/moon.php:79 lib/Block/moon.php:174
+msgid "Full Moon"
+msgstr ""
+
+#: lib/Block/account.php:68 templates/admin/user/update.inc:37
 #, fuzzy
 msgid "Full Name"
 msgstr "이름:"
 
-#: lib/Horde/NLS/tld.php:69 lib/Horde/NLS/countries.php:90
-#: lib/Horde/NLS/GeoIP.php:70
-msgid "Germany"
-msgstr "독일"
+#: admin/config/config.php:31
+#, fuzzy, php-format
+msgid "Generate %s Configuration"
+msgstr "메일 서버 정보사항"
 
-#: po/translation.php:1352
-#, fuzzy
-msgid "Getopt Error: "
-msgstr "읽어오기(임포트) 오류: "
+#: templates/admin/config/config.html:6
+msgid "Generated Code"
+msgstr ""
 
-#: lib/Horde/Crypt/smime.php:599
-#, fuzzy
-msgid "Given Name"
-msgstr "필드이름"
+#: lib/Block/fb_stream.php:192 lib/Block/twitter_timeline.php:171
+msgid "Get More"
+msgstr ""
 
-#: templates/prefs/app.inc:16
+#: templates/prefs/app.html:10
+msgid "Global Preferences"
+msgstr ""
+
+#: templates/prefs/app.html:17
 msgid "Go"
 msgstr "가기"
 
-#: lib/Block/google.php:3 lib/Block/google.php:21 lib/Block/google.php:41
+#: lib/Block/fortune.php:47
+msgid "Goedel"
+msgstr ""
+
+#: lib/Block/google.php:3 lib/Block/google.php:19
 #, fuzzy
 msgid "Google Search"
 msgstr "검색항목 초기화"
 
-#: lib/Horde/NLS/tld.php:89 lib/Horde/NLS/countries.php:95
-#: lib/Horde/NLS/GeoIP.php:75
+#: lib/Block/google.php:30
+msgid "Google search is not enabled."
+msgstr ""
+
+#: config/nls.php:177
+msgid "Greek (ISO-8859-7)"
+msgstr ""
+
+#: themes/green/info.php:2
 #, fuzzy
-msgid "Grenada"
+msgid "Green"
 msgstr "읽지 않은 메일"
 
-#: admin/groups.php:170
+#: themes/grey/info.php:2
+msgid "Grey"
+msgstr ""
+
+#: admin/groups.php:195
 #, fuzzy
 msgid "Group Administration"
 msgstr "관리"
 
-#: config/registry.php.dist:439
-#, fuzzy
-msgid "Guestbook"
-msgstr "주소록"
+#: admin/groups.php:44
+#, php-format
+msgid "Group was not created: %s."
+msgstr ""
 
-#: lib/Horde/NLS/tld.php:97 lib/Horde/NLS/countries.php:99
-#: lib/Horde/NLS/GeoIP.php:76
-#, fuzzy
-msgid "Guinea"
-msgstr "6월"
+#: admin/groups.php:268 templates/shares/edit.inc:266
+msgid "Groups"
+msgstr ""
 
-#: lib/Horde/Form.php:914 lib/Horde/Form.php:2921
+#: templates/shares/edit.inc:93
 #, fuzzy
-msgid "Header"
+msgid "Guest Permissions"
+msgstr "메시지 삭제"
+
+#: lib/Block/weatherdotcom_strings.php:34
+#, fuzzy
+msgid "Haze"
 msgstr "헤드라인"
 
-#: templates/javascript/htmlarea_table_lang.js:34
+#: lib/Block/weatherdotcom_strings.php:35
+msgid "Heavy Rain"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:36
+msgid "Heavy T-Storm"
+msgstr ""
+
+#: config/nls.php:178
+msgid "Hebrew (ISO-8859-8-I)"
+msgstr ""
+
+#: lib/Block/iframe.php:24
 msgid "Height"
 msgstr "높이"
 
-#: lib/Horde/Help.php:179 lib/Horde/Help.php:186 services/help/index.php:17
-#: templates/help/index.inc:3
+#: lib/Block/fb_stream.php:92 lib/Block/twitter_timeline.php:87
+msgid "Height of map (width automatically adjusts to block)"
+msgstr ""
+
+#: services/help/index.php:17 templates/help/index.inc:4
 msgid "Help"
 msgstr "도움말"
 
-#: templates/javascript/htmlarea_lang.js:31
-msgid "Help using editor"
-msgstr "도움말"
-
-#: lib/Horde/Form.php:1368
+#: services/help/index.php:70
 #, fuzzy
-msgid "Helper"
+msgid "Help _Topics"
+msgstr "도움알 목차"
+
+#: lib/Block/moon.php:27
+#, fuzzy
+msgid "Hemisphere"
 msgstr "도움말"
 
-#: templates/data/tsvinfo.inc:17 templates/data/csvinfo.inc:17
+#: templates/data/csvinfo.inc:10 templates/data/tsvinfo.inc:10
 msgid "Here is the beginning of the file:"
 msgstr "파일의 시작이 다음과 같습니다:"
 
-#: templates/portal/menu.inc:6 templates/admin/common-header.inc:4
+#: themes/hi-contrast/info.php:3
+msgid "Hi-Contrast"
+msgstr ""
+
+#: templates/prefs/app.html:23
+msgid "Hide Advanced Preferences"
+msgstr ""
+
+#: services/portal/cloud_search.php:33
 #, fuzzy
-msgid "Ho_me"
-msgstr "Horde"
+msgid "Hide Results"
+msgstr "검색 결과"
 
-#: lib/Horde.php:1466
+#: lib/Block/weatherdotcom_strings.php:100
 #, fuzzy
-msgid "Home"
-msgstr "Horde"
+msgid "High"
+msgstr "높이"
 
-#: lib/Horde/MIME/Viewer/vcard.php:125 lib/Horde/MIME/Viewer/vcard.php:158
-msgid "Home Address"
-msgstr "집 주소"
+#: lib/Block/account.php:73
+#, fuzzy
+msgid "Home Directory"
+msgstr "디렉토리"
 
-#: lib/Horde/MIME/Viewer/vcard.php:193
-msgid "Home Phone"
-msgstr "집 전화번호"
-
-#: config/registry.php.dist:62
+#: config/registry.php.dist:76
 msgid "Horde"
 msgstr "Horde"
 
-#: lib/Horde/Kolab.php:1236
-#, fuzzy, php-format
-msgid "Horde/Kolab: Successfully removed %s \"%s\""
-msgstr "메일함 \"%s\"이 \"%s\"로 변경되었습니다."
+#: themes/hordeweb/info.php:2
+msgid "Horde Website"
+msgstr ""
 
-#: lib/Horde/Kolab.php:1182
-#, fuzzy, php-format
-msgid "Horde/Kolab: Successfully synchronised %s \"%s\""
-msgstr "\"%s\" 메일함을 사용합니다."
-
-#: templates/javascript/htmlarea_lang.js:24
-msgid "Horizontal Rule"
-msgstr "수평선"
-
-#: templates/javascript/htmlarea_lang.js:82
-msgid "Horizontal padding"
-msgstr "가로 채움"
-
-#: templates/javascript/htmlarea_lang.js:81
-msgid "Horizontal:"
-msgstr "가로:"
-
-#: templates/javascript/htmlarea_table_lang.js:35
-msgid "How many columns would you like to merge?"
-msgstr "합치고 싶은 열의 수"
-
-#: templates/data/csvinfo.inc:28
+#: templates/data/csvinfo.inc:21
 msgid "How many fields (columns) are there?"
 msgstr "항목(열)의 수?"
 
-#: templates/javascript/htmlarea_table_lang.js:36
-msgid "How many rows would you like to merge?"
-msgstr "합치고 싶은 행의 수"
+#: lib/Block/feed.php:21
+msgid "How many seconds before we check for new articles?"
+msgstr ""
 
-#: lib/Horde/Form.php:1312
-#, fuzzy
-msgid "IP Address"
-msgstr "주소"
+#: lib/Block/metar.php:225 lib/Block/weatherdotcom.php:303
+msgid "Humidity"
+msgstr ""
 
-#: templates/javascript/htmlarea_context_lang.js:29
-msgid "I_nsert Row Before"
-msgstr "_n앞에 행 추가"
+#: lib/Block/weatherdotcom.php:263
+msgid "Humidity: "
+msgstr ""
 
-#: config/prefs.php.dist:366
+#: lib/Block/fortune.php:48
+msgid "Humorists"
+msgstr ""
+
+#: services/keyboard.php:78
+msgid "I characters"
+msgstr ""
+
+#: config/prefs.php.dist:545
 msgid "Icons Only"
 msgstr "아이콘"
 
-#: util/icon_browser.php:49
+#: util/icon_browser.php:53
 #, fuzzy, php-format
 msgid "Icons for %s"
 msgstr "%s에게 소개"
 
-#: config/prefs.php.dist:367
+#: config/prefs.php.dist:546
 msgid "Icons with text"
 msgstr "아이콘과 문자"
 
-#: config/prefs.php.dist:180
+#: themes/ideas/info.php:2
+msgid "Ideas"
+msgstr ""
+
+#: config/prefs.php.dist:226
 msgid "Identity's name:"
 msgstr "식별자 이름:"
 
-#: templates/javascript/htmlarea_lang.js:125
-#: templates/javascript/htmlarea_anselimage_lang.js:28
-msgid "Image Preview:"
-msgstr "그림 미리보기:"
-
-#: templates/javascript/htmlarea_table_lang.js:37
-msgid "Image URL"
-msgstr "그림 URL"
-
-#: templates/javascript/htmlarea_lang.js:118
-#: templates/javascript/htmlarea_anselimage_lang.js:21
-msgid "Image URL:"
-msgstr "그림 URL:"
-
-#: templates/data/tsvinfo.inc:10 templates/data/datemap.inc:10
-#: templates/data/csvmap.inc:57 templates/data/csvinfo.inc:10
+#: templates/data/csvinfo.inc:7 templates/data/csvmap.inc:54
+#: templates/data/datemap.inc:7 templates/data/tsvinfo.inc:7
+#, fuzzy, php-format
 msgid "Import, Step %d"
 msgstr "가져오기, 단계 %s"
 
-#: templates/data/datemap.inc:20
+#: templates/data/datemap.inc:15
+#, php-format
 msgid "Imported field: %s"
 msgstr "가져온 항목: %s"
 
-#: templates/data/csvmap.inc:73
+#: templates/data/csvmap.inc:59
 msgid "Imported fields:"
 msgstr "가져온 항목:"
 
-#: templates/javascript/htmlarea_context_lang.js:30
-msgid "In_sert Row After"
-msgstr "_s다음에 행 추가"
+#: lib/Block/twitter_timeline.php:136
+msgid "In reply to:"
+msgstr ""
 
-#: lib/Net/SMS/sms2email_http.php:657
-#, fuzzy
-msgid "Incorrect username and/or password."
-msgstr "사용자이름과 암호를 입력하세요"
+#: templates/data/csvmap.inc:57
+msgid ""
+"In the lists below select both, a field imported from the source file at the "
+"left, and the matching field available in your address book at the right. "
+"Then hit \"Add pair\" to mark them for the import. Once your are finished "
+"hit \"Next\"."
+msgstr ""
 
-#: services/resetpassword.php:51
+#: services/resetpassword.php:50
 #, fuzzy
 msgid ""
 "Incorrect username or alternate address. Try again or contact your "
@@ -1433,515 +1738,401 @@ msgid ""
 msgstr ""
 "추가하는데 오류가 발생했습니다. 시스템관리자에게 도움을 요청하시기 바랍니다."
 
-#: templates/javascript/htmlarea_lang.js:21
-msgid "Increase Indent"
-msgstr "들여쓰기"
+#: templates/shares/edit.inc:164
+msgid "Individual Users"
+msgstr ""
 
-#: lib/Horde/NLS/tld.php:112 lib/Horde/NLS/countries.php:110
-#: lib/Horde/NLS/GeoIP.php:81
-#, fuzzy
-msgid "Indonesia"
-msgstr "없음"
+#: templates/prefs/facebook.html:10
+msgid "Infinite sessions enabled."
+msgstr ""
 
-#: lib/Horde/MIME/Viewer/rfc822.php:72
-#, fuzzy
-msgid "Info"
-msgstr "무시"
-
-#: config/registry.php.dist:249
+#: config/registry.php.dist:281
 #, fuzzy
 msgid "Information"
 msgstr "정보"
 
-#: templates/javascript/htmlarea_context_lang.js:34
-msgid "Insert C_olumn After"
-msgstr "_o다음에 열 추가"
-
-#: templates/javascript/htmlarea_lang.js:117
-#: templates/javascript/htmlarea_anselimage_lang.js:20
-msgid "Insert Image"
-msgstr "그림 추가"
-
-#: templates/javascript/htmlarea_lang.js:27
-#: templates/javascript/htmlarea_lang.js:100
-msgid "Insert Table"
-msgstr "표 추가"
-
-#: templates/javascript/htmlarea_lang.js:25
-msgid "Insert Web Link"
-msgstr "웹 링크 추가"
-
-#: templates/javascript/htmlarea_context_lang.js:33
-msgid "Insert _Column Before"
-msgstr "_c앞에 열 추가"
-
-#: templates/javascript/htmlarea_context_lang.js:65
-msgid "Insert a new column after the current one"
-msgstr "현재 열 뒤에 새 열 추가"
-
-#: templates/javascript/htmlarea_context_lang.js:64
-msgid "Insert a new column before the current one"
-msgstr "현재 열 앞에 새 열 추가"
-
-#: templates/javascript/htmlarea_context_lang.js:61
-msgid "Insert a new row after the current one"
-msgstr "현재 행 뒤에 새 행 추가"
-
-#: templates/javascript/htmlarea_context_lang.js:60
-msgid "Insert a new row before the current one"
-msgstr "현재 행 앞에 새 행 추가"
-
-#: templates/javascript/htmlarea_context_lang.js:69
-msgid "Insert a paragraph after the current node"
-msgstr "현재 지점 뒤에 단락 추가"
-
-#: templates/javascript/htmlarea_context_lang.js:68
-msgid "Insert a paragraph before the current node"
-msgstr "현재 지점 앞에 단락 추가"
-
-#: templates/javascript/htmlarea_table_lang.js:58
-msgid "Insert cell after"
-msgstr "뒤에 셀 추가"
-
-#: templates/javascript/htmlarea_table_lang.js:59
-msgid "Insert cell before"
-msgstr "앞에 셀 추가"
-
-#: templates/javascript/htmlarea_table_lang.js:64
-msgid "Insert column after"
-msgstr "뒤에 열 추가"
-
-#: templates/javascript/htmlarea_table_lang.js:65
-msgid "Insert column before"
-msgstr "앞에 열 추가"
-
-#: lib/Horde/IMAP/ACL/rfc2086.php:93
+#: lib/Block/weatherdotcom.php:332
 #, fuzzy
-msgid "Insert messages"
-msgstr "회신한 메일"
+msgid "Information no longer available."
+msgstr "이용가능한 선택사항이 없습니다."
 
-#: templates/javascript/htmlarea_context_lang.js:44
-msgid "Insert paragraph after"
-msgstr "뒤에 단락 추가"
+#: templates/admin/groups/edit.inc:36
+msgid "Inherited Members"
+msgstr ""
 
-#: templates/javascript/htmlarea_context_lang.js:43
-msgid "Insert paragraph before"
-msgstr "앞에 단락 추가"
+#: config/prefs.php.dist:304
+msgid "Insert an email address to which you can receive the new password:"
+msgstr ""
 
-#: templates/javascript/htmlarea_table_lang.js:69
-msgid "Insert row after"
-msgstr "뒤에 행 추가"
+#: config/prefs.php.dist:296
+msgid "Insert the required answer to the security question:"
+msgstr ""
 
-#: templates/javascript/htmlarea_table_lang.js:68
-msgid "Insert row before"
-msgstr "앞에 행 추가"
+#: lib/Block/vatid.php:52
+msgid "Invalid VAT identification number format."
+msgstr ""
 
-#: templates/javascript/htmlarea_lang.js:26
-msgid "Insert/Modify Image"
-msgstr "그림 추가/수정"
+#: admin/signup_confirm.php:43
+#, fuzzy, php-format
+msgid "Invalid action %s"
+msgstr "잘못된 이름."
 
-#: templates/javascript/htmlarea_lang.js:89
-msgid "Insert/Modify Link"
-msgstr "링크 추가/수정"
-
-#: admin/setup/config.php:34
+#: admin/config/config.php:24
 #, fuzzy
 msgid "Invalid application."
 msgstr "잘못된 이름."
 
-#: lib/Net/SMS/clickatell_http.php:321
+#: admin/signup_confirm.php:33
 #, fuzzy
-msgid "Invalid batch ID."
+msgid "Invalid hash."
 msgstr "잘못된 이름."
 
-#: lib/Horde/Form.php:2071 lib/Horde/Form.php:2142 lib/Horde/Form.php:2216
-#: lib/Horde/Form.php:2281
+#: lib/Block/weatherdotcom.php:180
 #, fuzzy
-msgid "Invalid data submitted."
+msgid "Invalid license key."
 msgstr "잘못된 이름."
 
-#: lib/Net/SMS/clickatell_http.php:309
+#: lib/Block/weatherdotcom.php:174
 #, fuzzy
-msgid "Invalid destination address."
-msgstr "잘못된 이메일 주소"
-
-#: lib/Net/SMS/clickatell_http.php:316
-#, fuzzy
-msgid "Invalid msg_type."
+msgid "Invalid location provided."
 msgstr "잘못된 이름."
 
-#: lib/Net/SMS/clickatell_http.php:305
-#, fuzzy
-msgid "Invalid or missing parameters."
-msgstr "잘못된 이름."
-
-#: admin/perms/addchild.php:43
+#: admin/perms/addchild.php:23
 #, fuzzy
 msgid "Invalid parent permission."
 msgstr "잘못된 주소록"
 
-#: lib/Net/SMS/clickatell_http.php:315
+#: lib/Block/weatherdotcom.php:176
 #, fuzzy
-msgid "Invalid protocol."
+msgid "Invalid partner id."
 msgstr "잘못된 주소록"
 
-#: lib/Horde/Kolab.php:1071 lib/Horde/Kolab.php:1248
+#: lib/Block/weatherdotcom.php:178
 #, fuzzy
-msgid "Invalid share object"
-msgstr "잘못된 이름."
+msgid "Invalid product code."
+msgstr "잘못된 주소록"
 
-#: lib/Net/SMS/clickatell_http.php:310
-#, fuzzy
-msgid "Invalid source address."
-msgstr "잘못된 이메일 주소"
+#: lib/Block/weatherdotcom_strings.php:37
+msgid "Isolated T-Storms"
+msgstr ""
 
-#: lib/Net/SMS/clickatell_http.php:320
-#, fuzzy
-msgid "Invalid unicode data."
-msgstr "잘못된 이름."
-
-#: lib/Horde/NLS/tld.php:113 lib/Horde/NLS/countries.php:113
-#: lib/Horde/NLS/GeoIP.php:81
-#, fuzzy
-msgid "Ireland"
-msgstr "읽지 않은 메일"
-
-#: templates/javascript/htmlarea_lang.js:9
-msgid "Italic"
-msgstr "기울이기"
-
-#: lib/Horde/NLS/tld.php:121 lib/Horde/NLS/countries.php:115
-#: lib/Horde/NLS/GeoIP.php:83
-#, fuzzy
-msgid "Italy"
-msgstr "일별"
-
-#: lib/Horde/UI/VarRenderer/html.php:374 lib/Horde/UI/VarRenderer/html.php:411
-#: templates/javascript/open_calendar.js:65
-msgid "January"
-msgstr "1월"
-
-#: lib/Horde/NLS/tld.php:125 lib/Horde/NLS/countries.php:117
-#: lib/Horde/NLS/GeoIP.php:84
-msgid "Japan"
-msgstr "일본"
-
-#: config/nls.php.dist:183
+#: config/nls.php:179
 msgid "Japanese (ISO-2022-JP)"
 msgstr "일본어 (ISO-2022-JP)"
 
-#: lib/Horde/UI/VarRenderer/html.php:380 lib/Horde/UI/VarRenderer/html.php:417
-#: templates/javascript/open_calendar.js:71
-msgid "July"
-msgstr "7월"
+#: lib/Block/twitter_timeline.php:138
+msgid "Just now..."
+msgstr ""
 
-#: lib/Horde/UI/VarRenderer/html.php:379 lib/Horde/UI/VarRenderer/html.php:416
-#: templates/javascript/open_calendar.js:70
-msgid "June"
-msgstr "6월"
+#: lib/Block/fortune.php:49
+msgid "Kernel Newbies"
+msgstr ""
 
-#: templates/javascript/htmlarea_table_lang.js:38
-msgid "Justify"
-msgstr "정렬"
+#: services/help/index.php:138
+msgid "Keyword"
+msgstr ""
 
-#: templates/javascript/htmlarea_context_lang.js:37
-#: templates/javascript/htmlarea_lang.js:15
-msgid "Justify Center"
-msgstr "가운데 정렬"
+#: lib/Block/fortune.php:50
+msgid "Kids"
+msgstr ""
 
-#: templates/javascript/htmlarea_context_lang.js:39
-#: templates/javascript/htmlarea_lang.js:17
-msgid "Justify Full"
-msgstr "양쪽 정렬"
+#: themes/kolab/info.php:7
+msgid "Kolab"
+msgstr ""
 
-#: templates/javascript/htmlarea_context_lang.js:36
-#: templates/javascript/htmlarea_lang.js:14
-msgid "Justify Left"
-msgstr "왼쪽 정렬"
-
-#: templates/javascript/htmlarea_context_lang.js:38
-#: templates/javascript/htmlarea_lang.js:16
-msgid "Justify Right"
-msgstr "오른쪽 정렬"
-
-#: lib/Horde/Crypt/smime.php:622
-#, fuzzy
-msgid "Key Usage"
-msgstr "메시지"
-
-#: lib/Horde/NLS/tld.php:133 lib/Horde/NLS/countries.php:123
-#: lib/Horde/NLS/GeoIP.php:86
-msgid "Korea, Republic of"
-msgstr "대한민국"
-
-#: config/nls.php.dist:184
+#: config/nls.php:180
 msgid "Korean (EUC-KR)"
 msgstr "한국어 (EUC-KR)"
 
-#: templates/portal/menu.inc:8
-#, fuzzy
-msgid "La_yout"
-msgstr "로그아웃"
-
-#: templates/login/login.inc:76 po/translation.php:657
+#: login.php:314 templates/login/login.inc:49
 msgid "Language"
 msgstr "언어"
 
-#: lib/Block/moon.php:174
+#: lib/Block/iframe.php:28
+#, fuzzy
+msgid "Large"
+msgstr "언어"
+
+#: lib/Block/moon.php:167
 #, fuzzy
 msgid "Last Half"
 msgstr "마지막 페이지"
 
-#: lib/Block/moon.php:88 lib/Block/moon.php:90
+#: lib/Block/account.php:91
+#, fuzzy
+msgid "Last Password Change"
+msgstr "암호"
+
+#: lib/Block/moon.php:84 lib/Block/moon.php:86
 #, fuzzy
 msgid "Last Quarter"
 msgstr "마지막 페이지"
 
-#: lib/Block/metar.php:149
+#: admin/activesync.php:98 templates/prefs/activesync.html:21
+msgid "Last Sync Time"
+msgstr ""
+
+#: lib/Block/metar.php:146
 #, fuzzy
 msgid "Last Updated:"
 msgstr "마지막 페이지"
 
-#: lib/Horde/Auth.php:691
+#: lib/LoginTasks/Task/LastLogin.php:46
+#, php-format
 msgid "Last login: %s"
 msgstr "마지막 로그인: %s"
 
-#: lib/Horde/Auth.php:693
+#: lib/LoginTasks/Task/LastLogin.php:48
+#, php-format
 msgid "Last login: %s from %s"
 msgstr "마지막 로그인: %s, 접속 위치: %s"
 
-#: lib/Horde/Auth.php:688
+#: lib/LoginTasks/Task/LastLogin.php:44
 msgid "Last login: Never"
 msgstr "마지막 로그인: 없음"
 
-#: templates/javascript/htmlarea_table_lang.js:39
-#: templates/javascript/htmlarea_lang.js:79
-msgid "Layout"
-msgstr "레이아웃"
-
-#: templates/javascript/htmlarea_table_lang.js:40
-#: templates/javascript/htmlarea_lang.js:69
-msgid "Left"
-msgstr "왼쪽"
-
-#: lib/Horde/Form.php:3100
+#: lib/Block/twitter_timeline.php:168
 #, fuzzy
-msgid "Left values"
-msgstr "예:"
+msgid "Latest"
+msgstr "날짜"
 
-#: lib/Block/weatherdotcom.php:337
+#: themes/lavander/info.php:2
+#, fuzzy
+msgid "Lavender"
+msgstr "달력"
+
+#: lib/Block/fortune.php:51
+msgid "Law"
+msgstr ""
+
+#: themes/lightblue/info.php:2
+#, fuzzy
+msgid "Light Blue"
+msgstr "로그인"
+
+#: lib/Block/weatherdotcom_strings.php:38
+#, fuzzy
+msgid "Light Drizzle"
+msgstr "로그인"
+
+#: lib/Block/weatherdotcom_strings.php:39
 #, fuzzy
 msgid "Light Rain"
 msgstr "로그인"
 
-#: lib/Horde/Form.php:1802
+#: lib/Block/weatherdotcom_strings.php:40
 #, fuzzy
-msgid "Link"
+msgid "Light Rain Early"
 msgstr "로그인"
 
-#: lib/Horde/Text/Filter/html2text.php:181
+#: lib/Block/weatherdotcom_strings.php:41
 #, fuzzy
-msgid "Links"
-msgstr "로그인 시작작업"
+msgid "Light Rain Late"
+msgstr "로그인"
 
-#: services/help/index.php:50
-msgid "List Help Topics"
-msgstr "도움알 목차"
+#: lib/Block/weatherdotcom_strings.php:42
+#, fuzzy
+msgid "Light Rain Shower"
+msgstr "로그인"
 
-#: admin/sqlshell.php:137
+#: lib/Block/weatherdotcom_strings.php:43
+#, fuzzy
+msgid "Light Rain with Thunder"
+msgstr "로그인"
+
+#: lib/Block/weatherdotcom_strings.php:44
+#, fuzzy
+msgid "Light Snow"
+msgstr "로그인"
+
+#: lib/Block/weatherdotcom_strings.php:45
+msgid "Light Snow Early"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:46
+msgid "Light Snow Late"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:47
+msgid "Light Snow Shower"
+msgstr ""
+
+#: services/facebook.php:105
+#, fuzzy
+msgid "Like"
+msgstr "로그인"
+
+#: lib/Block/fortune.php:52
+msgid "Limerick"
+msgstr ""
+
+#: lib/Block/fortune.php:53
+#, fuzzy
+msgid "Linux Cookie"
+msgstr "새 메일"
+
+#: admin/sqlshell.php:113
 #, fuzzy
 msgid "List Tables"
 msgstr "마지막 페이지"
 
-#: lib/Horde/MIME/Headers.php:632
-#, fuzzy
-msgid "List-Help"
-msgstr "도움알 목차"
+#: admin/alarms.php:130
+#, php-format
+msgid "Listing alarms failed: %s"
+msgstr ""
 
-#: lib/Horde/MIME/Headers.php:634
-#, fuzzy
-msgid "List-Subscribe"
-msgstr "사용하지 않는 메일함 숨김"
+#: admin/sessions.php:62
+#, fuzzy, php-format
+msgid "Listing sessions failed: %s"
+msgstr "사용할 수 없는 사용자 목록."
 
-#: lib/Horde/MIME/Headers.php:633
-#, fuzzy
-msgid "List-Unsubscribe"
-msgstr "사용하지 않는 메일함 숨김"
-
-#: templates/admin/user/nolist.inc:4
+#: templates/admin/user/nolist.inc:2
 msgid "Listing users is disabled."
 msgstr "사용할 수 없는 사용자 목록."
 
-#: lib/Horde/Crypt/smime.php:595 lib/Horde/MIME/Viewer/icalendar.php:570
-#: lib/Block/weatherdotcom.php:60 lib/Block/sunrise.php:22
-#: lib/Block/metar.php:63
+#: lib/Block/fortune.php:54
+#, fuzzy
+msgid "Literature"
+msgstr "서명:"
+
+#: lib/Block/weatherdotcom.php:215
+#, fuzzy
+msgid "Local time: "
+msgstr "실행"
+
+#: config/prefs.php.dist:313
+msgid "Locale and Time"
+msgstr ""
+
+#: lib/Block/metar.php:64 lib/Block/sunrise.php:20
+#: lib/Block/weatherdotcom.php:59
 #, fuzzy
 msgid "Location"
 msgstr "실행"
 
-#: login.php:155 services/portal/sidebar.php:165 templates/login/mobile.inc:3
-#: templates/login/mobile.inc:15 templates/login/login.inc:83
+#: login.php:261 templates/login/login.inc:64
 msgid "Log in"
 msgstr "로그인"
 
-#: services/portal/sidebar.php:159
-msgid "Log out"
-msgstr "로그아웃"
+#: lib/Block/account.php:64
+#, fuzzy
+msgid "Login"
+msgstr "로그인"
 
-#: config/prefs.php.dist:107
-msgid "Login Tasks"
-msgstr "로그인 시작작업"
-
-#: lib/Horde/Auth.php:952
+#: login.php:286
 #, fuzzy
 msgid "Login failed because your username or password was entered incorrectly."
 msgstr ""
 "어떤 이유로 로그인이 실패했습니다. 대부분의 경우 사용자 이름 또는 암호가 잘"
 "못 입력된 경우 발생합니다."
 
-#: lib/Horde/Auth.php:948
+#: login.php:282
 #, fuzzy
 msgid "Login failed."
 msgstr "삭제 실패"
 
-#: lib/Horde/Form.php:1362
-#, fuzzy
-msgid "Long text"
-msgstr "로그아웃"
+#: templates/prefs/facebook.html:46
+msgid "Login to Facebook and authorize <tag:app_name />"
+msgstr ""
 
-#: lib/Block/fortune.php:48
+#: templates/prefs/twitter.html:21
+msgid "Login to Twitter and authorize the <tag:appname /> application"
+msgstr ""
+
+#: lib/Block/fortune.php:55
 #, fuzzy
 msgid "Love"
 msgstr "이동"
 
-#: templates/javascript/htmlarea_listtype_lang.js:21
-msgid "Lower greek letters"
-msgstr "그리스 소문자"
+#: lib/Block/weatherdotcom_strings.php:98
+msgid "Low"
+msgstr ""
 
-#: templates/javascript/htmlarea_listtype_lang.js:19
-msgid "Lower latin letters"
-msgstr "라틴 소문자"
+#: themes/luc/info.php:2
+msgid "Loyola"
+msgstr ""
 
-#: templates/javascript/htmlarea_listtype_lang.js:17
-msgid "Lower roman numbers"
-msgstr "로마 소문자 숫자"
+#: themes/lucblue/info.php:2
+msgid "Loyola Blue"
+msgstr ""
 
-#: lib/Horde/UI/VarRenderer/html.php:342 lib/Horde/UI/VarRenderer/html.php:373
-#: lib/Horde/UI/VarRenderer/html.php:410 templates/data/date.inc:47
-#: templates/data/date.inc:48 templates/data/date.inc:49
-#: templates/data/date.inc:50
+#: templates/data/date.inc:47 templates/data/date.inc:48
+#: templates/data/date.inc:49 templates/data/date.inc:50
+#: templates/data/datetime.inc:89 templates/data/datetime.inc:90
+#: templates/data/datetime.inc:91 templates/data/datetime.inc:92
 msgid "MM"
 msgstr "MM"
 
-#: lib/Horde/MIME/Viewer/tnef.php:39
-#, fuzzy
-msgid "MS-TNEF Attachment contained no data."
-msgstr "파일에 아무런 자료가 없습니다."
-
-#: lib/Horde/NLS/tld.php:157 lib/Horde/NLS/countries.php:135
-#: lib/Horde/NLS/GeoIP.php:93
-#, fuzzy
-msgid "Macao"
-msgstr "3월"
-
-#: lib/Block/fortune.php:49
+#: lib/Block/fortune.php:56
 #, fuzzy
 msgid "Magic"
 msgstr "웹메일"
 
-#: config/registry.php.dist:71
+#: config/registry.php.dist:85
 msgid "Mail"
 msgstr "메일"
 
-#: templates/javascript/htmlarea_context_lang.js:40
-msgid "Make lin_k..."
-msgstr "_k링크 만들기..."
+#: config/registry.php.dist:403
+msgid "Mail Admin"
+msgstr ""
 
-#: lib/Horde/NLS/tld.php:165 lib/Horde/NLS/countries.php:138
-#: lib/Horde/NLS/GeoIP.php:95
+#: config/prefs.php.dist:441
+msgid ""
+"Manage the list of categories you have to label items with, and colors "
+"associated with those categories."
+msgstr ""
+
+#: config/prefs.php.dist:677
+msgid "Manage your ActiveSync devices."
+msgstr ""
+
+#: templates/data/csvmap.inc:96
 #, fuzzy
-msgid "Malawi"
-msgstr "웹메일"
-
-#: lib/Horde/NLS/tld.php:164 lib/Horde/NLS/countries.php:140
-#: lib/Horde/NLS/GeoIP.php:95
-#, fuzzy
-msgid "Maldives"
-msgstr "메일 필터"
-
-#: lib/Horde/NLS/tld.php:154 lib/Horde/NLS/countries.php:141
-#: lib/Horde/NLS/GeoIP.php:93
-#, fuzzy
-msgid "Mali"
-msgstr "웹메일"
-
-#: lib/Horde/NLS/tld.php:162 lib/Horde/NLS/countries.php:142
-#: lib/Horde/NLS/GeoIP.php:95
-#, fuzzy
-msgid "Malta"
-msgstr "웹메일"
-
-#: lib/Horde/UI/VarRenderer/html.php:376 lib/Horde/UI/VarRenderer/html.php:413
-#: templates/javascript/open_calendar.js:67
-msgid "March"
-msgstr "3월"
-
-#: templates/javascript/htmlarea_table_lang.js:41
-msgid "Margin"
-msgstr "가장자리"
-
-#: templates/data/csvmap.inc:111
-msgid "Matching fields"
+msgid "Matching fields:"
 msgstr "일치하는 항목"
 
-#: lib/Horde/UI/VarRenderer/html.php:378 lib/Horde/UI/VarRenderer/html.php:415
-#: templates/javascript/open_calendar.js:69
-msgid "May"
-msgstr "5월"
+#: lib/Block/metar.php:301
+msgid "Max temp last 24 hours: "
+msgstr ""
 
-#: lib/Horde/NLS/tld.php:253 lib/Horde/NLS/countries.php:147
-#: lib/Horde/NLS/GeoIP.php:118
+#: lib/Block/metar.php:293
+msgid "Max temp last 6 hours: "
+msgstr ""
+
+#: lib/Application.php:38
+msgid "Maximum Number of Portal Blocks"
+msgstr ""
+
+#: lib/Block/fb_stream.php:86
+msgid "Maximum number of entries to display"
+msgstr ""
+
+#: lib/Block/fortune.php:57
 #, fuzzy
-msgid "Mayotte"
-msgstr "5월"
+msgid "Medicine"
+msgstr "삭제된 메일"
 
-#: lib/Horde/MIME/Viewer/icalendar.php:503
-#, fuzzy
-msgid "Meeting Information"
-msgstr "메일 서버 정보사항"
+#: lib/Block/iframe.php:27
+msgid "Medium"
+msgstr ""
 
-#: lib/Horde/MIME/Viewer/icalendar.php:514
-#, fuzzy
-msgid "Meeting Update"
-msgstr "시작하기"
-
-#: templates/admin/groups/edit.inc:19
+#: templates/admin/groups/edit.inc:17
 #, fuzzy
 msgid "Members"
 msgstr "11월"
 
-#: config/prefs.php.dist:368
+#: config/prefs.php.dist:548
 msgid "Menu mode:"
 msgstr "메뉴 모드"
 
-#: templates/javascript/htmlarea_table_lang.js:60
-msgid "Merge cells"
-msgstr "셀 합치기"
+#: lib/Block/metar.php:5
+msgid "Metar Weather"
+msgstr ""
 
-#: lib/Horde/Notification/Listener/status.php:32
-msgid "Message"
-msgstr "메시지"
-
-#: lib/Net/SMS/clickatell_http.php:319
+#: lib/Block/metar.php:42
 #, fuzzy
-msgid "Message expired."
-msgstr "메시지 항목"
-
-#: lib/Net/SMS/sms2email_http.php:591 lib/Net/SMS/sms2email_http.php:626
-#: lib/Net/SMS/clickatell_http.php:233 lib/Net/SMS/clickatell_http.php:268
-#, fuzzy
-msgid "Message type"
-msgstr "메시지 일자"
+msgid "Metar block not available."
+msgstr "이용가능한 선택사항이 없습니다."
 
 #: lib/Block/metar.php:110
 #, fuzzy
@@ -1949,1887 +2140,2051 @@ msgid ""
 "Metar block not available. Details have been logged for the administrator."
 msgstr "세부정보가 관리자를 위해 기록되어졌습니다."
 
-#: templates/javascript/htmlarea_table_lang.js:42
-#: templates/javascript/htmlarea_lang.js:76
-msgid "Middle"
-msgstr "가운데"
+#: lib/Block/weatherdotcom.php:168
+msgid "MetarDB is not connected."
+msgstr ""
 
-#: lib/Horde/UI/VarRenderer/html.php:217
+#: lib/Block/metar.php:74 lib/Block/weatherdotcom.php:69
+msgid "Metric"
+msgstr ""
+
+#: lib/Block/metar.php:305
+msgid "Min temp last 24 hours: "
+msgstr ""
+
+#: lib/Block/metar.php:297
+msgid "Min temp last 6 hours: "
+msgstr ""
+
+#: lib/Block/fortune.php:58
+msgid "Miscellaneous"
+msgstr ""
+
+#: admin/config/index.php:135
+msgid ""
+"Missing configuration. You must generate it before using this application."
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:48
+msgid "Mist"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:99
+msgid "Moderate"
+msgstr ""
+
+#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:57
+#, php-format
+msgid "Modified sequence for %s"
+msgstr ""
+
+#: config/prefs.php.dist:430
 #, fuzzy
-msgid "Mirror"
-msgstr "오류"
+msgid "Monday"
+msgstr "본문"
 
-#: lib/Net/SMS/clickatell_http.php:313
+#: lib/Block/moon.php:3 lib/Block/moon.php:14
+msgid "Moon Phases"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:49
+msgid "Mostly Clear"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:50
 #, fuzzy
-msgid "Missing message ID."
-msgstr "메시지 이동하기"
+msgid "Mostly Cloudy"
+msgstr "복사"
 
-#: templates/javascript/open_calendar.js:56
+#: lib/Block/weatherdotcom_strings.php:51
+msgid "Mostly Cloudy and Windy"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:52
+msgid "Mostly Sunny"
+msgstr ""
+
+#: themes/mozilla/info.php:2
+msgid "Mozilla"
+msgstr ""
+
+#: config/registry.php.dist:333
 #, fuzzy
-msgid "Mo"
-msgstr "이동"
+msgid "My Account"
+msgstr "오름차순"
 
-#: config/registry.php.dist:122
+#: lib/Block/account.php:27
 #, fuzzy
-msgid "Mobile Mail"
-msgstr "새 메일"
+msgid "My Account Information"
+msgstr "정보"
 
-#: templates/javascript/htmlarea_context_lang.js:52
-msgid "Modify URL"
-msgstr "URL 수정"
+#: lib/Block/fb_stream.php:3 lib/Block/fb_stream.php:105
+msgid "My Facebook Stream"
+msgstr ""
 
-#: po/translation.php:657
-#, fuzzy
-msgid "Module"
-msgstr "역할"
+#: services/portal/index.php:62
+msgid "My Portal"
+msgstr ""
 
-#: lib/Horde/Maintenance.php:36
-msgid "Monthly"
-msgstr "매월"
+#: services/portal/edit.php:36
+msgid "My Portal Layout"
+msgstr ""
 
-#: lib/Horde/Block/Layout.php:420
-msgid "Move Down"
-msgstr "아래로 이동"
+#: templates/logintasks/logintasks.html:35
+msgid "NO, I Do NOT Agree"
+msgstr ""
 
-#: lib/Horde/Block/Layout.php:424
-#, fuzzy
-msgid "Move Left"
-msgstr "위로 이동"
-
-#: lib/Horde/Block/Layout.php:416
-msgid "Move Up"
-msgstr "위로 이동"
-
-#: lib/Horde/UI/VarRenderer/html.php:497
-#, fuzzy
-msgid "Move down"
-msgstr "아래로 이동"
-
-#: lib/Horde/UI/VarRenderer/html.php:496 lib/Horde/UI/VarRenderer/html.php:497
-#, fuzzy
-msgid "Move up"
-msgstr "위로 이동"
-
-#: lib/Horde/Crypt/pgp.php:397 lib/Horde/MIME/Viewer/vcard.php:105
-#: lib/Horde/MIME/Viewer/tnef.php:41 lib/Horde/MIME/Viewer/icalendar.php:583
+#: lib/Block/vatid.php:98
 msgid "Name"
 msgstr "이름"
 
-#: lib/Horde/MIME/Viewer/icalendar.php:706
-#, fuzzy
-msgid "Needs Action"
-msgstr "실행"
+#: themes/NeXTgrey/info.php:2
+msgid "NeXT"
+msgstr ""
 
-#: lib/Horde/NLS/tld.php:177 lib/Horde/NLS/countries.php:159
-#: lib/Horde/NLS/GeoIP.php:98
-#, fuzzy
-msgid "Nepal"
-msgstr "새 메일"
-
-#: config/registry.php.dist:242
-msgid "Network"
-msgstr "네트워크"
-
-#: lib/Horde/Crypt/pgp.php:411 config/prefs.php.dist:325
-#: config/prefs.php.dist:376
+#: templates/portal/layout.inc:97 config/prefs.php.dist:516
+#: config/prefs.php.dist:556
 msgid "Never"
 msgstr "사용안함"
 
-#: lib/Block/moon.php:46 lib/Block/moon.php:68 lib/Block/moon.php:179
+#: templates/prefs/category.html:3
+msgid "New Category"
+msgstr ""
+
+#: services/facebook.php:65
+#, fuzzy
+msgid "New Messages:"
+msgstr "메시지"
+
+#: lib/Block/moon.php:44 lib/Block/moon.php:66 lib/Block/moon.php:172
 #, fuzzy
 msgid "New Moon"
 msgstr "새 메일"
 
-#: templates/admin/user/update.inc:35
+#: templates/admin/user/update.inc:12
 #, fuzzy
 msgid "New Username (optional)"
 msgstr "도움말"
 
-#: lib/Horde/NLS/tld.php:180 lib/Horde/NLS/countries.php:163
-#: lib/Horde/NLS/GeoIP.php:99
+#: services/changepassword.php:29
 #, fuzzy
-msgid "New Zealand"
-msgstr "새 메일"
+msgid "New password"
+msgstr "암호"
 
-#: templates/javascript/htmlarea_lang.js:91
-msgid "New window (_blank)"
-msgstr "새 창(_blank)"
+#: services/changepassword.php:40
+#, fuzzy
+msgid "New passwords don't match."
+msgstr "암호가 일치하지 않습니다."
 
-#: lib/Block/google.php:40 lib/Block/fortune.php:52
-#: config/registry.php.dist:264
+#: lib/Block/fortune.php:59 config/registry.php.dist:288
 #, fuzzy
 msgid "News"
 msgstr "새 메일"
 
-#: templates/data/tsvinfo.inc:21 templates/data/datemap.inc:46
-#: templates/data/csvmap.inc:137 templates/data/csvinfo.inc:32
+#: templates/data/csvinfo.inc:25 templates/data/csvmap.inc:119
+#: templates/data/datemap.inc:41 templates/data/tsvinfo.inc:15
 msgid "Next"
 msgstr "다음"
 
-#: lib/Horde/UI/Pager.php:115 lib/Horde/UI/Pager.php:116
-msgid "Next Page"
+#: lib/Block/moon.php:25
+#, fuzzy
+msgid "Next 4 Phases"
 msgstr "다음 페이지"
 
-#: lib/Block/moon.php:27
+#: lib/Block/weatherdotcom.php:382
 #, fuzzy
-msgid "Next Phase"
-msgstr "다음 페이지"
+msgid "Night"
+msgstr "오른쪽"
 
-#: lib/Horde/Prefs/UI.php:366 lib/Horde/Prefs/UI.php:370
-#, fuzzy
-msgid "Next options"
-msgstr "옵션으로 돌아가기"
+#: templates/prefs/alarm.html:32
+msgid "No Sound"
+msgstr ""
 
-#: lib/Horde/NLS/tld.php:171 lib/Horde/NLS/countries.php:165
-#: lib/Horde/NLS/GeoIP.php:97
-#, fuzzy
-msgid "Niger"
-msgstr "사용안함"
+#: templates/admin/config/diff.html:9
+msgid "No available configuration data to show differences for."
+msgstr ""
 
-#: lib/Horde/NLS/tld.php:179 lib/Horde/NLS/countries.php:167
-#: lib/Horde/NLS/GeoIP.php:98
-#, fuzzy
-msgid "Niue"
-msgstr "참조"
-
-#: lib/Horde/UI/VarRenderer/html.php:888
-msgid "No"
-msgstr "아니오"
-
-#: lib/Horde/Auth/mcal.php:54
-#, fuzzy
-msgid "No calendar name provided for MCAL authentication."
-msgstr "SQL 인증 설정정보가 없습니다."
-
-#: admin/setup/diff.php:55
+#: admin/config/diff.php:39
 #, fuzzy
 msgid "No change."
 msgstr "변경사항 되돌리기"
 
-#: po/translation.php:1358
+#: util/icon_browser.php:83
+msgid "No icons found."
+msgstr ""
+
+#: lib/Block/metar.php:121 lib/Block/sunrise.php:38
+#: lib/Block/weatherdotcom.php:133
+msgid "No location is set."
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:172
 #, fuzzy
-msgid "No command specified."
+msgid "No location provided."
 msgstr "폴더를 선택하세요"
 
-#: lib/Horde.php:173 lib/Horde.php:493 lib/Horde/Util.php:753
-#, fuzzy, php-format
-msgid "No configuration information specified for %s."
-msgstr "SQL VFS 설정정보가 없습니다."
+#: lib/Block/fortune.php:101
+msgid "No offensive fortunes"
+msgstr ""
 
-#: lib/VFS/ftp.php:773
-msgid "No configuration information specified for FTP VFS."
-msgstr "FTP VFS를 위한 설정정보가 없습니다."
+#: templates/admin/user/approve.inc:15
+msgid "No pending signups."
+msgstr ""
 
-#: lib/VFS/sql.php:595
-msgid "No configuration information specified for SQL VFS."
-msgstr "SQL VFS 설정정보가 없습니다."
+#: admin/config/index.php:89 admin/config/index.php:121
+msgid "No stable version exists yet."
+msgstr ""
 
-#: lib/VFS/sql_file.php:757
-msgid "No configuration information specified for SQL-File VFS."
-msgstr "SQL-File VFS 설정정보가 없습니다."
+#: lib/Block/weatherdotcom.php:143
+msgid "No temporary directory available for cache."
+msgstr ""
 
-#: po/translation.php:413 po/translation.php:522
+#: admin/signup_confirm.php:57
 #, fuzzy
-msgid "No locale specified."
-msgstr "폴더를 선택하세요"
-
-#: lib/Net/SMS/sms2email_http.php:658
-#, fuzzy
-msgid "No message supplied."
-msgstr "새 메일"
-
-#: lib/Net/SMS/sms2email_http.php:661
-#, fuzzy
-msgid "No name specified."
+msgid "No username specified."
 msgstr "문자열 입력 오류"
 
-#: lib/Net/SMS/sms2email_http.php:662
-#, fuzzy
-msgid "No number specified."
-msgstr "문자열 입력 오류"
+#: admin/config/index.php:140
+msgid "No version found in original configuration. Regenerate configuration."
+msgstr ""
 
-#: lib/Horde/Auth/ldap.php:97
-#, fuzzy
-msgid "No password provided for LDAP authentication."
-msgstr "SQL 인증 설정정보가 없습니다."
+#: admin/config/index.php:148
+msgid "No version found in your configuration. Regenerate configuration."
+msgstr ""
 
-#: lib/Horde/Auth/sasl.php:82 lib/Horde/Auth/login.php:88
-#: lib/Horde/Auth/pam.php:79
-#, fuzzy
-msgid "No password provided for Login authentication."
-msgstr "SQL 인증 설정정보가 없습니다."
-
-#: lib/Horde/Auth/passwd.php:139
-#, fuzzy
-msgid "No password provided for PASSWD authentication."
-msgstr "SQL 인증 설정정보가 없습니다."
-
-#: lib/Horde/Auth/smb.php:89
-#, fuzzy
-msgid "No password provided for SMB authentication."
-msgstr "SQL 인증 설정정보가 없습니다."
-
-#: templates/javascript/htmlarea_table_lang.js:43
-#, fuzzy
-msgid "No rules"
-msgstr "참조"
-
-#: templates/javascript/htmlarea_table_lang.js:44
-#, fuzzy
-msgid "No sides"
-msgstr "참조"
-
-#: lib/Net/SMS/sms2email_http.php:656
-#, fuzzy
-msgid "No username and/or password sent."
-msgstr "사용자이름과 암호를 입력하세요"
-
-#: lib/Horde/Crypt/pgp.php:413 lib/Horde/MIME/Viewer/icalendar.php:560
-#: templates/javascript/htmlarea_table_lang.js:45
-#: templates/prefs/identityselect.inc:88
+#: lib/Prefs/Ui.php:411 templates/prefs/activesync.html:43
+#: templates/prefs/identityselect.html:20 templates/prefs/syncml.html:34
 msgid "None"
 msgstr "선택하지 않음"
 
-#: lib/Horde/NLS/tld.php:176 lib/Horde/NLS/countries.php:170
-#: lib/Horde/NLS/GeoIP.php:98
-#, fuzzy
-msgid "Norway"
-msgstr "전달"
+#: config/nls.php:181
+msgid "Nordic (ISO-8859-10)"
+msgstr ""
 
-#: lib/Horde/Crypt/smime.php:664
-#, fuzzy
-msgid "Not After"
-msgstr "임시보관되지 않은 메일"
+#: lib/Block/moon.php:30 lib/Block/moon.php:58
+msgid "Northern Hemisphere"
+msgstr ""
 
-#: lib/VFS/file.php:356
-#, fuzzy
-msgid "Not a directory"
-msgstr "디렉토리"
+#: admin/activesync.php:171 lib/Prefs/Ui.php:426
+msgid "Not Provisioned"
+msgstr ""
 
-#: lib/VFS/ISOWriter.php:67 lib/VFS/ISOWriter/RealOutputStrategy.php:84
-#: lib/VFS/ISOWriter/RealOutputStrategy.php:95
-#: lib/VFS/ISOWriter/RealInputStrategy.php:49
-#: lib/VFS/ISOWriter/RealInputStrategy.php:60
-#, fuzzy
-msgid "Not implemented."
-msgstr "삭제되지 않은 메일"
-
-#: templates/javascript/htmlarea_lang.js:68
-#, fuzzy
-msgid "Not set"
-msgstr "제목 없음"
-
-#: lib/Horde/MIME/Viewer/vcard.php:247 config/registry.php.dist:159
+#: config/registry.php.dist:211
 msgid "Notes"
 msgstr "참조"
 
-#: templates/maintenance/confirm_top.inc:10
-msgid "Notice"
-msgstr "참조"
+#: services/obrowser/index.php:32
+msgid "Nothing to browse, go back."
+msgstr ""
 
-#: lib/Horde/UI/VarRenderer/html.php:384 lib/Horde/UI/VarRenderer/html.php:421
-#: templates/javascript/open_calendar.js:75
-msgid "November"
-msgstr "11월"
-
-#: lib/Horde/Form.php:1041
+#: lib/Block/feed.php:18
 #, fuzzy
-msgid "Number"
-msgstr "11월"
-
-#: lib/Horde/Form.php:1366 lib/Horde/Form.php:1420 lib/Horde/Form.php:1442
-#: templates/javascript/htmlarea_lang.js:104
-msgid "Number of columns"
-msgstr "열의 수"
-
-#: lib/Horde/Form.php:1364 lib/Horde/Form.php:1418 lib/Horde/Form.php:1440
-#: templates/javascript/htmlarea_lang.js:102
-msgid "Number of rows"
+msgid "Number of articles to display"
 msgstr "행의 수"
 
-#: lib/Horde/UI/VarRenderer/html.php:814
+#: lib/Block/twitter_timeline.php:91
+msgid "Number of seconds to wait to refresh"
+msgstr ""
+
+#: services/keyboard.php:92
+msgid "O characters"
+msgstr ""
+
+#: templates/shares/edit.inc:129
 #, fuzzy
-msgid "Object"
+msgid "Object Creator"
 msgstr "제목"
 
-#: lib/Horde/UI/VarRenderer/html.php:383 lib/Horde/UI/VarRenderer/html.php:420
-#: templates/javascript/open_calendar.js:74
-msgid "October"
-msgstr "10월"
+#: lib/Block/fortune.php:99
+msgid "Offense filter"
+msgstr ""
 
-#: lib/Horde/Form.php:1835 lib/Horde/Form.php:1955
+#: config/registry.php.dist:301
 #, fuzzy
-msgid "Only one email address allowed."
-msgstr "잘못된 이메일 주소"
+msgid "Office"
+msgstr "제목"
 
-#: templates/javascript/htmlarea_context_lang.js:54
-msgid "Opens this link in a new window"
-msgstr "새 창에 링크 열기"
+#: services/changepassword.php:42
+msgid "Old and new passwords must be different."
+msgstr ""
 
-#: services/portal/sidebar.php:152
-msgid "Options"
-msgstr "선택사항"
+#: services/changepassword.php:28
+#, fuzzy
+msgid "Old password"
+msgstr "암호"
 
-#: services/prefs.php:29 templates/prefs/app.inc:4
-msgid "Options for %s"
-msgstr "%s 선택사항"
+#: services/changepassword.php:38
+#, fuzzy
+msgid "Old password is not correct."
+msgstr "암호"
 
-#: po/translation.php:112
-msgid "Options:"
-msgstr "선택사항:"
+#: lib/Block/fortune.php:102
+msgid "Only offensive fortunes"
+msgstr ""
 
-#: templates/javascript/htmlarea_lang.js:18
-msgid "Ordered List"
-msgstr "숫자 목록"
+#: services/shares/edit.php:83
+msgid ""
+"Only the owner or system administrator may change ownership or owner "
+"permissions for a share"
+msgstr ""
 
-#: lib/Horde/Crypt/smime.php:591
-msgid "Organisation"
+#: lib/Block/fortune.php:60
+msgid "Operating System"
+msgstr ""
+
+#: templates/shares/edit.inc:236
+#, fuzzy
+msgid "Or enter a user name:"
+msgstr "메시지 작성"
+
+#: config/registry.php.dist:135
+#, fuzzy
+msgid "Organizing"
 msgstr "단체"
 
-#: lib/Horde/NLS/GeoIP.php:120 services/keyboard.php:117
-#: templates/javascript/htmlarea_lang.js:94
+#: services/keyboard.php:124
 msgid "Other"
 msgstr "기타"
 
-#: config/prefs.php.dist:96 config/prefs.php.dist:106
-#: config/prefs.php.dist:113 config/prefs.php.dist:121
-#: config/prefs.php.dist:129
+#: config/prefs.php.dist:467 config/prefs.php.dist:582
+#: config/prefs.php.dist:603 config/prefs.php.dist:624
+#: config/prefs.php.dist:643 config/prefs.php.dist:663
+#: config/prefs.php.dist:675
 msgid "Other Information"
 msgstr "기타 정보"
 
-#: admin/phpshell.php:63
+#: services/keyboard.php:122
+msgid "Other characters"
+msgstr ""
+
+#: templates/shares/edit.inc:30
+#, fuzzy
+msgid "Owner"
+msgstr "기타"
+
+#: templates/shares/edit.inc:36 templates/shares/edit.inc:45
+msgid "Owner:"
+msgstr ""
+
+#: admin/phpshell.php:51
+msgid "PHP"
+msgstr ""
+
+#: admin/phpshell.php:71
 #, fuzzy
 msgid "PHP Code"
 msgstr "Horde"
 
-#: templates/javascript/htmlarea_table_lang.js:46
-msgid "Padding"
-msgstr "페딩"
+#: admin/phpshell.php:32
+msgid "PHP Shell"
+msgstr ""
 
-#: lib/Horde/NLS/tld.php:182 lib/Horde/NLS/countries.php:175
-#: lib/Horde/NLS/GeoIP.php:99
+#: lib/Block/weatherdotcom_strings.php:54
 #, fuzzy
-msgid "Panama"
-msgstr "이름"
+msgid "PM Clouds"
+msgstr "복사"
 
-#: admin/user.php:36 admin/setup/index.php:174 lib/Horde/Form.php:2002
-#: lib/Net/SMS/sms2email_http.php:557 lib/Net/SMS/clickatell_http.php:203
-#: templates/login/login.inc:70 templates/admin/user/update.inc:36
-#: config/registry.php.dist:367
+#: lib/Block/weatherdotcom_strings.php:55
+msgid "PM Drizzle"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:56
+msgid "PM Fog"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:57
+#, fuzzy
+msgid "PM Light Rain"
+msgstr "로그인"
+
+#: lib/Block/weatherdotcom_strings.php:58
+#, fuzzy
+msgid "PM Light Snow"
+msgstr "로그인"
+
+#: lib/Block/weatherdotcom_strings.php:59
+#, fuzzy
+msgid "PM Rain"
+msgstr "가장자리"
+
+#: lib/Block/weatherdotcom_strings.php:60
+msgid "PM Showers"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:61
+msgid "PM Snow"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:62
+msgid "PM Snow Showers"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:63
+msgid "PM Sun"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:64
+msgid "PM T-Showers"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:65
+msgid "PM T-Storms"
+msgstr ""
+
+#: lib/Block/account.php:287
+msgid "POSIX extension is missing"
+msgstr ""
+
+#: lib/Api.php:62
+msgid "P_HP Shell"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:53
+#, fuzzy
+msgid "Partly Cloudy"
+msgstr "복사"
+
+#: admin/config/index.php:192 admin/user.php:35 admin/user.php:49 login.php:81
+#: templates/admin/user/update.inc:20 config/registry.php.dist:355
 msgid "Password"
 msgstr "암호"
 
-#: lib/Horde/Crypt/smime.php:1354
-#, fuzzy
-msgid "Password incorrect"
-msgstr "암호"
+#: services/changepassword.php:52
+msgid "Password changed successfully."
+msgstr ""
 
-#: templates/rpcsum/rpcsum.inc:90
+#: lib/Prefs/Ui.php:326
 #, fuzzy
 msgid "Password:"
 msgstr "암호"
 
-#: templates/login/mobile.inc:11
-#, fuzzy
-msgid "Password: "
-msgstr "암호"
-
-#: admin/user.php:150 lib/Horde/Form.php:2018
-#: templates/admin/user/update.inc:15
+#: admin/user.php:168 admin/user.php:220
 msgid "Passwords must match."
 msgstr "암호가 일치하지 않습니다."
 
-#: admin/sqlshell.php:128 templates/javascript/htmlarea_context_lang.js:22
+#: admin/sqlshell.php:100
 msgid "Paste"
 msgstr "붙이기"
 
-#: templates/javascript/htmlarea_lang.js:37
-msgid "Paste from clipboard"
-msgstr "클립보드에서 붙이기"
+#: templates/admin/user/approve.inc:9 templates/admin/user/removequeued.inc:7
+msgid "Pending Signups:"
+msgstr ""
 
-#: templates/javascript/htmlarea_lang.js:51
-msgid "Path"
-msgstr "경로"
-
-#: lib/Block/fortune.php:54
+#: lib/Block/fortune.php:61
 #, fuzzy
 msgid "People"
 msgstr "역할"
 
-#: templates/javascript/htmlarea_lang.js:107
-msgid "Percent"
-msgstr "퍼센트"
-
-#: templates/maintenance/confirm_bottom.inc:6
-msgid "Perform Maintenance Operations"
-msgstr "유지 관리 작업 실행"
-
-#: config/prefs.php.dist:396
+#: templates/logintasks/logintasks.html:30
 #, fuzzy
-msgid "Perform maintenance operations on login?"
-msgstr "유지 관리 작업 실행"
+msgid "Perform Login Tasks"
+msgstr "로그인 시작작업"
 
-#: admin/perms/addchild.php:61 admin/perms/addchild.php:64
-#: admin/perms/addchild.php:67
+#: admin/perms/delete.php:42
+#, fuzzy, php-format
+msgid "Permission \"%s\" not deleted."
+msgstr "식별자 \"%s\" 가 삭제되었습니다."
+
+#: admin/perms/index.php:23
 #, fuzzy
-msgid "Permission"
-msgstr "개인 메일"
+msgid "Permissions"
+msgstr "토론"
 
-#: admin/perms/edit.php:224 admin/perms/addchild.php:93
-#: admin/perms/index.php:22 admin/perms/delete.php:74
+#: admin/perms/addchild.php:51 admin/perms/delete.php:46
+#: admin/perms/edit.php:110 admin/perms/index.php:17
 #, fuzzy
 msgid "Permissions Administration"
 msgstr "관리"
 
-#: config/prefs.php.dist:65
+#: config/prefs.php.dist:213
 msgid "Personal Information"
 msgstr "개인 정보"
 
-#: lib/Horde/MIME/Viewer/vcard.php:199
-msgid "Phone"
-msgstr "전화번호"
-
-#: templates/javascript/htmlarea_lang.js:108
-msgid "Pixels"
+#: lib/Block/fortune.php:62
+#, fuzzy
+msgid "Pets"
 msgstr "픽셀"
 
-#: lib/Horde/Form.php:2556
-#, fuzzy
-msgid "Please enter a month and a year."
-msgstr "새로운 이름을 입력하세요:"
+#: config/registry.php.dist:385
+msgid "Photos"
+msgstr ""
 
-#: templates/prefs/categorymanagement.inc:12
-#, fuzzy
-msgid "Please enter a name for the new category:"
-msgstr "\\n새로운 메일함의 이름을 입력하세요:\\n"
+#: lib/Block/fortune.php:63
+msgid "Platitudes"
+msgstr ""
 
-#: lib/Horde/Form.php:1299
+#: login.php:87
 #, fuzzy
-msgid "Please enter a valid IP address."
+msgid "Please enter a password."
 msgstr "올바른 검색 범주를 입력하세요."
 
-#: lib/Horde/Form.php:2434
+#: login.php:86
 #, fuzzy
-msgid "Please enter a valid time."
+msgid "Please enter a username."
 msgstr "올바른 검색 범주를 입력하세요."
 
 #: templates/problem/problem.inc:7
 msgid "Please provide a summary of the problem."
 msgstr "문제에 대한 요약을 입력해 주세요."
 
-#: templates/login/login.inc:18 templates/login/login.inc:22
-msgid "Please provide your username and password"
-msgstr "사용자이름과 암호를 입력하세요"
+#: services/logintasks.php:73
+msgid ""
+"Please read the following text. You MUST agree with the terms to use the "
+"system."
+msgstr ""
 
-#: lib/Horde/MIME/Viewer/icalendar.php:435
+#: services/facebook.php:67
+msgid "Pokes:"
+msgstr ""
+
+#: admin/activesync.php:105
+msgid "Policy Key"
+msgstr ""
+
+#: lib/Prefs/Ui.php:432
+msgid "Policy Key:"
+msgstr ""
+
+#: lib/Block/fortune.php:64
+msgid "Politics"
+msgstr ""
+
+#: services/facebook.php:101
+#, php-format
+msgid "Posted %s"
+msgstr ""
+
+#: templates/block/twitter_tweet.html.php:26
+#, fuzzy, php-format
+msgid "Posted %s via %s"
+msgstr "%d / %d (메시지: %d)"
+
+#: themes/postnuke/info.php:2
 #, fuzzy
-msgid "Please select an action from the menu below."
-msgstr "검색할 최소한 한개의 메일함을 선택하세요."
+msgid "Postnuke"
+msgstr "붙이기"
 
-#: lib/Horde/Prefs/CategoryManager.php:72
+#: lib/Block/metar.php:261 lib/Block/metar.php:266
+#, php-format
+msgid "Precipitation for last %d hour: "
+msgid_plural "Precipitation for last %d hours: "
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/Block/weatherdotcom.php:301
+msgid "Precipitation<br />chance"
+msgstr ""
+
+#: lib/Block/metar.php:220
+msgid "Pressure"
+msgstr ""
+
+#: lib/Block/metar.php:254
+msgid "Pressure at sea level: "
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:239
 #, fuzzy
-msgid "Please type the new category name:"
-msgstr "새로운 이름을 입력하세요:"
+msgid "Pressure: "
+msgstr "암호"
 
-#: config/registry.php.dist:298
-msgid "Presentations"
-msgstr "환경설정"
-
-#: lib/Horde/UI/VarRenderer/html.php:188
-#: templates/javascript/htmlarea_lang.js:120
-#: templates/javascript/htmlarea_anselimage_lang.js:23
-msgid "Preview"
-msgstr "미리보기"
-
-#: templates/javascript/htmlarea_lang.js:121
-#: templates/javascript/htmlarea_anselimage_lang.js:24
-msgid "Preview the image in a new window"
-msgstr "새 창에 미리보기"
-
-#: lib/Horde/UI/Pager.php:71 lib/Horde/UI/Pager.php:72
-msgid "Previous Page"
-msgstr "이전 페이지"
-
-#: lib/Horde/Prefs/UI.php:356 lib/Horde/Prefs/UI.php:360
-#, fuzzy
-msgid "Previous options"
-msgstr "이전 메시지"
-
-#: templates/javascript/htmlarea_lang.js:41
-msgid "Print document"
-msgstr "문서 인쇄"
-
-#: lib/Horde/Menu.php:175
-#, fuzzy
-msgid "Problem"
-msgstr "문제 발생?"
-
-#: services/problem.php:112
+#: services/problem.php:145
 msgid "Problem Description"
 msgstr "문제 설명"
 
-#: lib/Horde/Perms.php:295 templates/shares/edit.inc:34
-#: templates/shares/edit.inc:68 templates/shares/edit.inc:91
-#: templates/shares/edit.inc:114 templates/shares/edit.inc:137
-#: templates/shares/edit.inc:180
+#: admin/activesync.php:171 lib/Prefs/Ui.php:425
+#, fuzzy
+msgid "Provisioned"
+msgstr "개인 메일"
+
+#: templates/prefs/facebook.html:21
+msgid "Publish enabled."
+msgstr ""
+
+#: themes/purple/info.php:2
+msgid "Purple Horde"
+msgstr ""
+
+#: admin/sqlshell.php:50
+msgid "Query"
+msgstr ""
+
+#: lib/Block/account.php:83
+msgid "Quota"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:66
+#, fuzzy
+msgid "Rain"
+msgstr "가장자리"
+
+#: lib/Block/weatherdotcom_strings.php:67
+msgid "Rain Early"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:68
+msgid "Rain Late"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:69
+msgid "Rain Shower"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:70
+msgid "Rain and Snow"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:71
+msgid "Rain to Snow"
+msgstr ""
+
+#: lib/Block/fortune.php:6
+#, fuzzy
+msgid "Random Fortune"
+msgstr "참조"
+
+#: templates/shares/edit.inc:61 templates/shares/edit.inc:75
+#: templates/shares/edit.inc:96 templates/shares/edit.inc:110
+#: templates/shares/edit.inc:132 templates/shares/edit.inc:146
+#: templates/shares/edit.inc:167 templates/shares/edit.inc:185
+#: templates/shares/edit.inc:220 templates/shares/edit.inc:247
+#: templates/shares/edit.inc:269 templates/shares/edit.inc:283
+#: templates/shares/edit.inc:312
 #, fuzzy
 msgid "Read"
 msgstr "읽지 않은 메일"
 
-#: lib/Horde/IMAP/ACL/rfc2086.php:90
+#: templates/prefs/facebook.html:33
 #, fuzzy
-msgid "Read messages"
+msgid "Read enabled"
 msgstr "새 메일"
 
-#: templates/javascript/htmlarea_lang.js:34
-msgid "Redoes your last action"
-msgstr "마지막 명령 반복"
+#: templates/admin/user/remove.inc:8
+#, php-format
+msgid "Really delete \"%s\"? This operation cannot be undone."
+msgstr ""
 
-#: config/prefs.php.dist:331
+#: templates/admin/user/clear.inc:8
+#, php-format
+msgid ""
+"Really remove user data for user \"%s\"? This operation cannot be undone."
+msgstr ""
+
+#: config/prefs.php.dist:562
+msgid "Refresh Dynamic Menu Elements:"
+msgstr ""
+
+#: config/prefs.php.dist:523
 #, fuzzy
 msgid "Refresh Portal View:"
 msgstr "메일함 새로 읽기:"
 
-#: lib/Horde/Form.php:889 lib/Horde/Form.php:1205 lib/Horde/Form.php:1227
+#: templates/portal/layout.inc:94
 #, fuzzy
-msgid "Regex"
-msgstr "재설정"
+msgid "Refresh rate:"
+msgstr "메일함 새로 읽기:"
 
-#: config/prefs.php.dist:114
+#: admin/activesync.php:134
+msgid "Registered User Devices"
+msgstr ""
+
+#: lib/Block/metar.php:321
+msgid "Remarks"
+msgstr ""
+
+#: admin/sessions.php:39 admin/sessions.php:50
+#, fuzzy
+msgid "Remote Host:"
+msgstr "선택된 메일 삭제"
+
+#: config/prefs.php.dist:583
 #, fuzzy
 msgid "Remote Servers"
 msgstr "선택된 메일 삭제"
 
-#: templates/admin/groups/edit.inc:21 templates/admin/user/approve.inc:40
-#: templates/admin/user/removequeued.inc:15
+#: lib/Prefs/Ui.php:324
+msgid "Remote URL (http://www.example.com/horde):"
+msgstr ""
+
+#: admin/activesync.php:185 templates/admin/groups/edit.inc:23
+#: templates/admin/user/approve.inc:40
+#: templates/admin/user/removequeued.inc:13 templates/prefs/activesync.html:33
 #, fuzzy
 msgid "Remove"
 msgstr "페어(pair) 삭제"
 
-#: templates/portal/layout.inc:11
-#, fuzzy
-msgid "Remove Block"
-msgstr "선택된 메일 삭제"
-
-#: lib/Horde/UI/VarRenderer/html.php:532
-#, fuzzy
-msgid "Remove column"
-msgstr "아래로 이동"
-
-#: templates/data/csvmap.inc:136
+#: templates/data/csvmap.inc:118
 msgid "Remove pair"
 msgstr "페어(pair) 삭제"
 
-#: templates/javascript/htmlarea_context_lang.js:41
-#, fuzzy
-msgid "Remove the"
-msgstr "선택된 메일 삭제"
+#: admin/config/index.php:211
+msgid "Remove saved script from server's temporary directory."
+msgstr ""
 
-#: templates/admin/user/remove.inc:16
+#: templates/admin/user/remove.inc:11
 #, fuzzy
 msgid "Remove user"
 msgstr "페어(pair) 삭제"
 
-#: templates/admin/user/remove.inc:7
+#: templates/admin/user/remove.inc:5
 #, fuzzy, php-format
 msgid "Remove user: %s"
 msgstr "페어(pair) 삭제"
 
-#: lib/Horde/MIME/Viewer/icalendar.php:197
-#: lib/Horde/MIME/Viewer/icalendar.php:280
-#: lib/Horde/MIME/Viewer/icalendar.php:349
+#: templates/block/twitter_tweet.html.php:34
 #, fuzzy
-msgid "Reply Sent."
+msgid "Reply"
 msgstr "회신:"
 
-#: lib/Horde/MIME/Viewer/icalendar.php:189
-#, fuzzy, php-format
-msgid "Reply: %s"
-msgstr "회신:"
+#: admin/activesync.php:138
+msgid "Reprovision All Devices"
+msgstr ""
 
-#: lib/Horde.php:180 lib/Horde.php:503
-#, fuzzy, php-format
-msgid "Required '%s' not specified in %s configuration."
-msgstr "VFS 설정 정보에서 'port'이 없습니다."
+#: lib/Block/weatherdotcom.php:160
+#, fuzzy
+msgid "Requested service could not be found."
+msgstr "서명을 변경할 수 없습니다."
 
-#: lib/VFS/sql.php:601 lib/VFS/ftp.php:779 lib/VFS/sql_file.php:763
-#, fuzzy, php-format
-msgid "Required '%s' not specified in VFS configuration."
-msgstr "VFS 설정 정보에서 'port'이 없습니다."
-
-#: lib/Horde/Util.php:761
-#, fuzzy, php-format
-msgid "Required '%s' not specified in configuration."
-msgstr "VFS 설정 정보에서 'port'이 없습니다."
-
-#: admin/user.php:31 lib/Horde/Form.php:339 lib/Horde/Form/Renderer.php:316
-#: templates/rpcsum/rpcsum.inc:101 templates/admin/user/update.inc:44
+#: admin/user.php:22 templates/admin/user/update.inc:54
+#: templates/prefs/rpc.html:36
 msgid "Reset"
 msgstr "입력 취소"
 
-#: services/resetpassword.php:46
+#: services/resetpassword.php:45
 #, fuzzy
 msgid "Reset Password"
 msgstr "암호"
 
-#: services/resetpassword.php:27
+#: services/resetpassword.php:23
 #, fuzzy
 msgid "Reset Your Password"
 msgstr "암호 확인"
 
-#: admin/phpshell.php:66 admin/cmdshell.php:28 admin/sqlshell.php:73
+#: templates/prefs/activesync.html:6
+msgid ""
+"Reset all device state. This will cause your devices to resyncronize all "
+"items."
+msgstr ""
+
+#: admin/sqlshell.php:111
+#, fuzzy
+msgid "Restore Last Query"
+msgstr "마지막 페이지"
+
+#: admin/cmdshell.php:23 admin/phpshell.php:74 admin/sqlshell.php:53
 #, fuzzy
 msgid "Results"
 msgstr "검색 결과"
 
-#: po/translation.php:819
-#, fuzzy
-msgid "Results:"
+#: services/portal/cloud_search.php:30
+#, fuzzy, php-format
+msgid "Results for %s"
 msgstr "검색 결과"
 
-#: templates/rpcsum/rpcsum.inc:102 templates/prefs/end.inc:7
-msgid "Return to Options"
+#: templates/prefs/end.html:7
+#, fuzzy
+msgid "Return to Main Screen"
 msgstr "옵션으로 돌아가기"
 
-#: admin/setup/config.php:44 admin/setup/config.php:48
+#: templates/block/twitter_tweet.html.php:35
+#, fuzzy
+msgid "Retweet"
+msgstr "입력 취소"
+
+#: templates/block/twitter_tweet.html.php:30
+#, php-format
+msgid "Retweeted by %s"
+msgstr ""
+
+#: services/changepassword.php:30
+#, fuzzy
+msgid "Retype new password"
+msgstr "암호"
+
+#: admin/config/config.php:33 admin/config/config.php:37
 #, fuzzy
 msgid "Revert Configuration"
 msgstr "메일 서버 정보사항"
 
-#: config/prefs.php.dist:130
+#: lib/Block/fortune.php:65
 #, fuzzy
-msgid "Rich Text Editor Options"
-msgstr "옵션으로 돌아가기"
+msgid "Riddles"
+msgstr "가운데"
 
-#: templates/javascript/htmlarea_table_lang.js:48
-#: templates/javascript/htmlarea_lang.js:70
-msgid "Right"
-msgstr "오른쪽"
+#: admin/sqlshell.php:101
+msgid "Run"
+msgstr ""
 
-#: templates/javascript/htmlarea_context_lang.js:28
-msgid "Ro_w Properties..."
-msgstr "_w행 속성..."
+#: admin/sqlshell.php:14
+msgid "SQL Shell"
+msgstr ""
 
-#: lib/Horde/MIME/Viewer/vcard.php:237 lib/Horde/MIME/Viewer/icalendar.php:583
-msgid "Role"
-msgstr "역할"
+#: config/registry.php.dist:363
+msgid "SSH"
+msgstr ""
 
-#: templates/javascript/htmlarea_table_lang.js:49
-msgid "Row Properties"
-msgstr "행 속성"
+#: lib/Api.php:67
+msgid "S_QL Shell"
+msgstr ""
 
-#: templates/javascript/htmlarea_table_lang.js:70
-msgid "Row properties"
-msgstr "행 속성"
-
-#: templates/javascript/htmlarea_lang.js:101
-msgid "Rows:"
-msgstr "행:"
-
-#: templates/javascript/htmlarea_table_lang.js:53
-#, fuzzy
-msgid "Rules"
-msgstr "역할"
-
-#: lib/Horde/Crypt/smime.php:341
-#, fuzzy
-msgid "S/MIME Encrypted Message"
-msgstr "메시지 전송"
-
-#: config/registry.php.dist:481
-#, fuzzy
-msgid "SMS Messaging"
-msgstr "메시지 보기"
-
-#: templates/javascript/open_calendar.js:61
-#, fuzzy
-msgid "Sa"
-msgstr "저장"
-
-#: templates/javascript/htmlarea_lang.js:92
-msgid "Same frame (_self)"
-msgstr "같은 프레임(_self)"
-
-#: templates/portal/layout.inc:98
+#: templates/portal/layout.inc:115 templates/prefs/end.html:3
 msgid "Save"
 msgstr "저장"
 
-#: templates/shares/edit.inc:216
+#: templates/admin/groups/edit.inc:63 templates/shares/edit.inc:330
 #, fuzzy, php-format
-msgid "Save %s"
+msgid "Save \"%s\""
 msgstr "다른이름으로 저장"
 
-#: templates/admin/groups/edit.inc:49
+#: templates/shares/edit.inc:331
+msgid "Save and Finish"
+msgstr ""
+
+#: admin/config/index.php:183
+msgid ""
+"Save generated configuration as a PHP script to your server's temporary "
+"directory."
+msgstr ""
+
+#: admin/config/scripts.php:92
 #, fuzzy, php-format
-msgid "Save '%s'"
-msgstr "다른이름으로 저장"
+msgid "Saved configuration upgrade script to: \"%s\"."
+msgstr "SQL VFS 설정정보가 없습니다."
 
-#: templates/prefs/end.inc:5
-msgid "Save Options"
-msgstr "선택사항 저장"
+#: lib/Block/weatherdotcom_strings.php:72
+msgid "Scattered Showers"
+msgstr ""
 
-#: templates/admin/user/list.inc:15 templates/admin/user/list.inc:17
+#: lib/Block/weatherdotcom_strings.php:73
+msgid "Scattered T-Storms"
+msgstr ""
+
+#: lib/Block/fortune.php:66
+msgid "Science"
+msgstr ""
+
+#: services/help/index.php:71
+#, fuzzy
+msgid "Sea_rch"
+msgstr "검색"
+
+#: services/help/index.php:134 templates/admin/user/list.inc:16
 msgid "Search"
 msgstr "검색"
 
-#: config/registry.php.dist:281
+#: templates/admin/user/list.inc:14
 #, fuzzy
-msgid "Search Engines"
-msgstr "검색 결과"
+msgid "Search:"
+msgstr "검색"
 
-#: lib/Horde/Form.php:2958
+#: templates/shares/edit.inc:298 templates/shares/edit.inc:300
 #, fuzzy
-msgid "Select Files"
-msgstr "모두 선택"
+msgid "Select a group to add:"
+msgstr "문자열 선택:"
 
-#: lib/Horde/UI/VarRenderer/html.php:456
+#: templates/shares/edit.inc:38
 #, fuzzy
-msgid "Select a date"
-msgstr "식별자 선택"
-
-#: templates/shares/edit.inc:43
-#, fuzzy
-msgid "Select a new owner"
+msgid "Select a new owner:"
 msgstr "선택 취소"
 
-#: templates/rpcsum/rpcsum.inc:60
+#: templates/prefs/rpc.html:4
 #, fuzzy
 msgid "Select a server"
 msgstr "문자열 선택:"
 
-#: templates/shares/edit.inc:156
+#: templates/shares/edit.inc:202 templates/shares/edit.inc:204
 #, fuzzy
-msgid "Select a user to add"
+msgid "Select a user to add:"
 msgstr "문자열 선택:"
 
-#: lib/Horde/Form.php:2655
-#, fuzzy
-msgid "Select all date components."
-msgstr "날자 형식 선택"
+#: templates/prefs/addressbooks.html:5
+msgid "Select all fields to search when expanding addresses."
+msgstr ""
 
-#: lib/Horde/UI/VarRenderer/html.php:814
-#, fuzzy
-msgid "Select an object"
-msgstr "선택 취소"
-
-#: services/keyboard.php:37
+#: services/keyboard.php:38
 msgid ""
 "Select the characters you need from the boxes below. You can then copy and "
 "paste them from the text area."
 msgstr "아래 상자에서 필요한 문자를 선택하고 복사하여 붙여넣으세요."
 
-#: templates/data/date.inc:34
+#: templates/data/datetime.inc:57
+#, fuzzy
+msgid "Select the date and time format:"
+msgstr "날자 형식 선택"
+
+#: templates/data/date.inc:34 templates/data/datetime.inc:76
 msgid "Select the date delimiter:"
 msgstr "날자 구분표시 선택:"
 
-#: templates/data/date.inc:44
+#: templates/data/date.inc:44 templates/data/datetime.inc:86
 msgid "Select the date format:"
 msgstr "날자 형식 선택"
 
-#: templates/prefs/identityselect.inc:85
+#: templates/data/datetime.inc:66
 #, fuzzy
-msgid "Select the identity you want to change:"
-msgstr "임포트할 위치 선택:"
+msgid "Select the day and time order:"
+msgstr "날자 형식 선택"
 
-#: templates/data/time.inc:16
+#: templates/data/datetime.inc:97 templates/data/time.inc:16
 #, fuzzy
 msgid "Select the time delimiter:"
 msgstr "날자 구분표시 선택:"
 
-#: templates/data/time.inc:25
+#: templates/data/datetime.inc:106 templates/data/time.inc:25
 msgid "Select the time format:"
 msgstr "시간 형식 선택"
 
-#: templates/data/csvmap.inc:64
-msgid "Select two matching fields."
-msgstr "두개의 일치하는 항목 선택"
+#: config/prefs.php.dist:509
+msgid "Select your color scheme."
+msgstr ""
 
-#: config/prefs.php.dist:238
+#: config/prefs.php.dist:328
 msgid "Select your preferred language:"
 msgstr "자주사용하는 언어를 선택하세요."
 
-#: lib/Horde/MIME/Viewer/icalendar.php:653
-#, fuzzy
-msgid "Send Latest Information"
-msgstr "메일 서버 정보사항"
-
-#: templates/problem/problem.inc:58
+#: templates/problem/problem.inc:57
 msgid "Send Problem Report"
 msgstr "문제발생 보고서 전송하기"
 
-#: lib/Horde/UI/VarRenderer/html.php:964
+#: lib/Block/metar.php:311
 #, fuzzy
-msgid "Send SMS"
-msgstr "메시지 전송"
+msgid "Sensor: "
+msgstr " 제목: "
 
-#: lib/Horde/UI/VarRenderer/html.php:382 lib/Horde/UI/VarRenderer/html.php:419
-#: templates/javascript/open_calendar.js:73
-msgid "September"
-msgstr "9월"
-
-#: lib/Horde/Form.php:2296
+#: templates/prefs/syncml.html:12
 #, fuzzy
-msgid "Set"
-msgstr "메시지 선택"
+msgid "Server Time"
+msgstr "삭제"
 
-#: config/prefs.php.dist:84
+#: lib/Block/weatherdotcom.php:164
 #, fuzzy
-msgid "Set your preferred language, timezone and date options."
+msgid "Server data wrong or not available."
+msgstr "이용가능한 선택사항이 없습니다."
+
+#: admin/sessions.php:14
+#, fuzzy
+msgid "Session Admin"
+msgstr "관리"
+
+#: admin/sessions.php:37
+msgid "Session Timestamp:"
+msgstr ""
+
+#: lib/Api.php:57
+#, fuzzy
+msgid "Sessions"
+msgstr "토론"
+
+#: config/prefs.php.dist:277
+msgid ""
+"Set preferences to allow you to reset your password if you ever forget it."
+msgstr ""
+
+#: config/prefs.php.dist:605
+msgid "Set up integration with your Facebook account."
+msgstr ""
+
+#: config/prefs.php.dist:626
+msgid "Set up integration with your Twitter account."
+msgstr ""
+
+#: config/prefs.php.dist:584
+msgid "Set up remote servers that you want to access from your portal."
+msgstr ""
+
+#: config/prefs.php.dist:314
+#, fuzzy
+msgid "Set your preferred language, timezone and date preferences."
 msgstr "페이지 갱신주기 및 기타 화면 설정을 하세요."
 
-#: config/prefs.php.dist:98
+#: config/prefs.php.dist:469
 #, fuzzy
 msgid ""
 "Set your startup application, color scheme, page refreshing, and other "
-"display options."
+"display preferences."
 msgstr "페이지 갱신주기 및 기타 화면 설정을 하세요."
 
-#: templates/problem/problem.inc:43
+#: lib/Block/weatherdotcom.php:190
+msgid "Several locations possible with the parameter: "
+msgstr ""
+
+#: templates/problem/problem.inc:38
 #, fuzzy
 msgid "Short Summary"
 msgstr "간단한 요약:"
 
-#: config/prefs.php.dist:480
+#: config/prefs.php.dist:570
+msgid "Should access keys be defined for most links?"
+msgstr ""
+
+#: templates/shares/edit.inc:60 templates/shares/edit.inc:71
+#: templates/shares/edit.inc:95 templates/shares/edit.inc:106
+#: templates/shares/edit.inc:131 templates/shares/edit.inc:142
+#: templates/shares/edit.inc:166 templates/shares/edit.inc:181
+#: templates/shares/edit.inc:216 templates/shares/edit.inc:243
+#: templates/shares/edit.inc:268 templates/shares/edit.inc:279
+#: templates/shares/edit.inc:308
+msgid "Show"
+msgstr ""
+
+#: templates/prefs/app.html:21
+#, fuzzy
+msgid "Show Advanced Preferences"
+msgstr "사용자 환경"
+
+#: admin/config/index.php:173
+msgid ""
+"Show differences between currently saved and the newly generated "
+"configuration."
+msgstr ""
+
+#: lib/Block/feed.php:24
+msgid "Show extra detail?"
+msgstr ""
+
+#: config/prefs.php.dist:491
 #, fuzzy
 msgid "Show last login time when logging in?"
 msgstr "로그인시 최종 로그인 시간 보여주기"
 
-#: templates/javascript/htmlarea_context_lang.js:58
-msgid "Show the Table Cell Properties dialog"
-msgstr "셀 속성창 보기"
+#: lib/Block/fb_stream.php:89
+msgid "Show notifications"
+msgstr ""
 
-#: templates/javascript/htmlarea_context_lang.js:63
-msgid "Show the Table Properties dialog"
-msgstr "표 속성창 보기"
+#: config/prefs.php.dist:530
+#, php-format
+msgid "Show the %s Menu on the left?"
+msgstr ""
 
-#: templates/javascript/htmlarea_context_lang.js:59
-msgid "Show the Table Row Properties dialog"
-msgstr "열 속성창 보기"
-
-#: templates/javascript/htmlarea_context_lang.js:51
-msgid "Show the image properties dialog"
-msgstr "그림 속성창 보기"
-
-#: lib/Horde/Form.php:1751
+#: lib/Block/weatherdotcom_strings.php:74
 #, fuzzy
-msgid "Show upload"
-msgstr "내려받기"
+msgid "Showers"
+msgstr "읽어오기(임포트)"
 
-#: lib/Horde/Crypt/smime.php:736
+#: lib/Block/weatherdotcom_strings.php:75
 #, fuzzy
-msgid "Signature"
-msgstr "서명:"
+msgid "Showers Early"
+msgstr "간단한 요약:"
 
-#: lib/Horde/Form.php:891 lib/Horde/Form.php:1207 lib/Horde/Form.php:1229
-#: lib/Horde/Form.php:2230 lib/Horde/Form.php:2919 lib/Horde/Form.php:3108
-#: lib/Horde/MIME/Viewer/rar.php:68 lib/Horde/MIME/Viewer/zip.php:72
-#: lib/Horde/MIME/Viewer/tgz.php:87
-msgid "Size"
-msgstr "크기"
+#: lib/Block/weatherdotcom_strings.php:76
+msgid "Showers Late"
+msgstr ""
 
-#: templates/maintenance/confirm_bottom.inc:9
-msgid "Skip Maintenance"
-msgstr "유지관리 생략"
+#: lib/Block/weatherdotcom_strings.php:77
+msgid "Showers in the Vicinity"
+msgstr ""
 
-#: lib/Horde/Form.php:2915
+#: themes/simplex/info.php:2
+msgid "Simplex"
+msgstr ""
+
+#: templates/logintasks/logintasks.html:31
 #, fuzzy
-msgid "Sort order selection"
-msgstr "정렬 방법"
+msgid "Skip Login Tasks"
+msgstr "로그인 시작작업"
 
-#: lib/Net/SMS/sms2email_http.php:581 lib/Net/SMS/sms2email_http.php:613
-#: lib/Net/SMS/clickatell_http.php:223 lib/Net/SMS/clickatell_http.php:255
+#: lib/Block/iframe.php:26
 #, fuzzy
-msgid "Source address"
-msgstr "직장 주소"
+msgid "Small"
+msgstr "이메일"
 
-#: templates/javascript/htmlarea_lang.js:113
-msgid "Space between adjacent cells"
-msgstr "셀간격"
+#: lib/Block/weatherdotcom_strings.php:78
+msgid "Snow"
+msgstr ""
 
-#: templates/javascript/htmlarea_lang.js:115
-msgid "Space between content and border in cell"
-msgstr "셀 경계와 내용 사이의 간격"
+#: lib/Block/weatherdotcom_strings.php:79
+msgid "Snow Early"
+msgstr ""
 
-#: lib/Horde/Form.php:815
+#: lib/Block/weatherdotcom_strings.php:80
+msgid "Snow Late"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:81
+msgid "Snow Shower"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:82
+msgid "Snow Showers"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:83
+msgid "Snow Showers Early"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:84
+msgid "Snow Showers Late"
+msgstr ""
+
+#: lib/Block/metar.php:273
 #, fuzzy
-msgid "Spacer"
+msgid "Snow depth: "
+msgstr " 제목: "
+
+#: lib/Block/metar.php:277
+msgid "Snow equivalent in water: "
+msgstr ""
+
+#: lib/Block/fortune.php:67
+msgid "Songs & Poems"
+msgstr ""
+
+#: config/nls.php:182
+msgid "South European (ISO-8859-3)"
+msgstr ""
+
+#: lib/Block/moon.php:31 lib/Block/moon.php:60
+msgid "Southern Hemisphere"
+msgstr ""
+
+#: config/registry.php.dist:102
+#, fuzzy
+msgid "Spam"
 msgstr "저장"
-
-#: templates/javascript/htmlarea_table_lang.js:55
-#: templates/javascript/htmlarea_lang.js:80
-msgid "Spacing"
-msgstr "거리"
-
-#: templates/javascript/htmlarea_table_lang.js:54
-msgid "Spacing and padding"
-msgstr "거리와 채우기"
 
 #: services/keyboard.php:14
 msgid "Special Character Input"
 msgstr "특수 문자 입력"
 
-#: templates/javascript/htmlarea_table_lang.js:62
-msgid "Split cell"
-msgstr "셀 분할"
-
-#: templates/javascript/htmlarea_table_lang.js:66
-msgid "Split column"
-msgstr "열 분할"
-
-#: templates/javascript/htmlarea_table_lang.js:71
-msgid "Split row"
-msgstr "행 분할"
-
-#: lib/Block/fortune.php:61
+#: lib/Block/fortune.php:68
 #, fuzzy
 msgid "Sports"
 msgstr "읽어오기(임포트)"
 
-#: lib/Block/weatherdotcom.php:68 lib/Block/metar.php:72
+#: lib/Block/metar.php:73 lib/Block/weatherdotcom.php:68
 #, fuzzy
 msgid "Standard"
 msgstr "달력"
 
-#: lib/Horde/Form.php:2804
-#, fuzzy
-msgid "Storage format"
-msgstr "메일 서버 정보사항"
+#: lib/Block/fortune.php:69
+msgid "Star Trek"
+msgstr ""
 
-#: lib/Horde/Crypt/smime.php:596
-#, fuzzy
-msgid "Street Address"
-msgstr "직장 주소"
+#: templates/prefs/activesync.html:2
+msgid "State Management"
+msgstr ""
 
-#: templates/javascript/htmlarea_lang.js:11
-msgid "Strikethrough"
-msgstr "가운데줄"
+#: admin/activesync.php:112 templates/admin/config/index.html:17
+#: templates/prefs/activesync.html:22
+msgid "Status"
+msgstr ""
 
-#: templates/javascript/htmlarea_table_lang.js:23
-msgid "Style [CSS]"
-msgstr "스타일[CSS]"
+#: services/facebook.php:144
+msgid "Status unable to be set."
+msgstr ""
 
-#: util/icon_browser.php:37
+#: util/icon_browser.php:40
 #, fuzzy, php-format
-msgid "Subdirectory '%s' not found."
+msgid "Subdirectory \"%s\" not found."
 msgstr "통지 리스너 %s을(를) 찾을 수 없습니다."
 
-#: lib/Horde/Crypt/smime.php:635 lib/Horde/MIME/Viewer/rfc822.php:78
-msgid "Subject"
-msgstr "제목"
+#: signup.php:52
+#, php-format
+msgid ""
+"Submitted request to add \"%s\" to the system. You cannot log in until your "
+"request has been approved."
+msgstr ""
 
-#: lib/Horde/Form.php:332 lib/Horde/Form/Renderer.php:313
-msgid "Submit"
-msgstr "제출"
+#: services/facebook.php:38
+msgid "Succesfully connected your Facebook account."
+msgstr ""
 
-#: templates/javascript/htmlarea_lang.js:12
-msgid "Subscript"
-msgstr "아래첨자"
-
-#: admin/sqlshell.php:113 lib/Horde/Notification/Listener/status.php:30
+#: admin/sqlshell.php:88
 msgid "Success"
 msgstr "성공"
 
-#: admin/user.php:85
-#, php-format
-msgid "Successfully added '%s' to the system."
+#: admin/signup_confirm.php:85 admin/user.php:100
+#, fuzzy, php-format
+msgid "Successfully added \"%s\" to the system."
 msgstr "'%s'가 시스템에 추가되었습니다."
 
-#: admin/user.php:124
+#: admin/user.php:138
 #, fuzzy, php-format
-msgid "Successfully cleared data for user '%s' from the system."
+msgid "Successfully cleared data for user \"%s\" from the system."
 msgstr "'%s'가 시스템에서 삭제되었습니다."
 
-#: admin/groups.php:81 admin/perms/delete.php:61
+#: admin/groups.php:78 admin/perms/delete.php:36
 #, fuzzy, php-format
-msgid "Successfully deleted '%s'."
+msgid "Successfully deleted \"%s\"."
 msgstr "'%s'가 시스템에 추가되었습니다."
 
-#: admin/user.php:105
-#, php-format
-msgid "Successfully removed '%s' from the system."
+#: admin/user.php:118
+#, fuzzy, php-format
+msgid "Successfully removed \"%s\" from the system."
 msgstr "'%s'가 시스템에서 삭제되었습니다."
 
-#: admin/user.php:168
+#: admin/config/config.php:40
+msgid "Successfully reverted configuration. Reload to see changes."
+msgstr ""
+
+#: admin/config/index.php:39
+#, fuzzy
+msgid "Successfully saved backup configuration."
+msgstr "VFS 설정 정보에서 'port'이 없습니다."
+
+#: admin/config/config.php:51
+#, php-format
+msgid "Successfully saved the backup configuration file %s."
+msgstr ""
+
+#: admin/user.php:184
 #, fuzzy, php-format
-msgid "Successfully updated '%s'"
+msgid "Successfully updated \"%s\""
 msgstr "'%s'가 시스템에 추가되었습니다."
 
-#: admin/setup/config.php:71 admin/setup/index.php:72
+#: admin/config/config.php:60 admin/config/index.php:47
 #, fuzzy, php-format
 msgid "Successfully wrote %s"
 msgstr "'%s'가 시스템에 추가되었습니다."
 
-#: lib/Horde/MIME/Viewer/icalendar.php:558
-#: lib/Horde/MIME/Viewer/icalendar.php:560
-#: templates/javascript/htmlarea_table_lang.js:56
-msgid "Summary"
+#: lib/Block/sunrise.php:63
+#, fuzzy
+msgid "Sun Rise"
+msgstr "제목"
+
+#: lib/Block/sunrise.php:66
+#, fuzzy
+msgid "Sun Set"
+msgstr "제목"
+
+#: config/prefs.php.dist:429
+#, fuzzy
+msgid "Sunday"
 msgstr "요약"
 
-#: lib/Block/weatherdotcom.php:182
+#: lib/Block/weatherdotcom_strings.php:85
+msgid "Sunny"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:220
+#, fuzzy
+msgid "Sunrise"
+msgstr "제목"
+
+#: lib/Block/sunrise.php:3 lib/Block/sunrise.php:14
+#, fuzzy
+msgid "Sunrise/Sunset"
+msgstr "제목"
+
+#: lib/Block/weatherdotcom.php:219
+#, fuzzy
+msgid "Sunrise: "
+msgstr " 제목: "
+
+#: lib/Block/weatherdotcom.php:223
 #, fuzzy
 msgid "Sunset"
 msgstr "제목"
 
-#: lib/Block/weatherdotcom.php:181
+#: lib/Block/weatherdotcom.php:222
 #, fuzzy
 msgid "Sunset: "
 msgstr " 제목: "
 
-#: templates/javascript/htmlarea_lang.js:13
-msgid "Superscript"
-msgstr "윗첨자"
+#: config/prefs.php.dist:664
+msgid "SyncML"
+msgstr ""
 
-#: config/registry.php.dist:465
+#: lib/Block/feed.php:3
+msgid "Syndicated Feed"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:86
+msgid "T-Showers"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:87
+msgid "T-Showers Early"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:88
+msgid "T-Showers Late"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:89
+msgid "T-Storm"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:90
+msgid "T-Storm and Windy"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:91
 #, fuzzy
-msgid "Support"
-msgstr "읽어오기(임포트)"
+msgid "T-Storms"
+msgstr "위치"
 
-#: lib/Horde/NLS/tld.php:215 lib/Horde/NLS/countries.php:212
-#: lib/Horde/NLS/GeoIP.php:107
+#: lib/Block/weatherdotcom_strings.php:92
+msgid "T-Storms Early"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:93
+msgid "T-Storms Late"
+msgstr ""
+
+#: lib/Block/cloud.php:3 lib/Block/cloud.php:23
 #, fuzzy
-msgid "Suriname"
-msgstr "이름"
+msgid "Tag Cloud"
+msgstr "복사"
 
-#: lib/Horde/Crypt/smime.php:598
-#, fuzzy
-msgid "Surname"
-msgstr "이름"
+#: themes/tango-blue/info.php:24
+msgid "Tango Blue"
+msgstr ""
 
-#: lib/Horde/NLS/tld.php:205 lib/Horde/NLS/countries.php:215
-#: lib/Horde/NLS/GeoIP.php:105
-#, fuzzy
-msgid "Sweden"
-msgstr "읽은 메일"
-
-#: lib/Horde/Data/tsv.php:171
-#, fuzzy
-msgid "TSV file"
-msgstr "제목"
-
-#: lib/Horde/UI/Table.php:135
-#, fuzzy
-msgid "Table"
-msgstr "제목"
-
-#: templates/javascript/htmlarea_table_lang.js:73
-msgid "Table Properties"
-msgstr "표 속성"
-
-#: templates/javascript/htmlarea_table_lang.js:72
-msgid "Table properties"
-msgstr "표 속성"
-
-#: config/registry.php.dist:168
+#: config/registry.php.dist:184
 msgid "Tasks"
 msgstr "작업"
 
-#: admin/templates.php:169
+#: themes/gennevilliers/info.php:12
 #, fuzzy
-msgid "Template Administration"
-msgstr "관리"
+msgid "Teal"
+msgstr "새 메일"
 
-#: lib/Horde/Form.php:1203
-msgid "Text"
-msgstr "문자열"
+#: lib/Block/metar.php:285
+msgid "Temp for last hour: "
+msgstr ""
 
-#: config/prefs.php.dist:365
+#: lib/Block/metar.php:209
+msgid "Temperature"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:227
+msgid "Temperature: "
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:296
+#, php-format
+msgid "Temperature<br />(%sHi%s/%sLo%s) &deg;%s"
+msgstr ""
+
+#: lib/Prefs/Ui.php:518 services/facebook.php:31
+msgid "Temporarily unable to connect with Facebook, Please try again."
+msgstr ""
+
+#: lib/Block/twitter_timeline.php:122
+#, fuzzy
+msgid "Temporarily unable to contact Twitter. Please try again later."
+msgstr "업로드 파일 임포트 오류"
+
+#: services/keyboard.php:148
+#, fuzzy
+msgid "Text Area"
+msgstr "문자 정렬"
+
+#: config/prefs.php.dist:544
 msgid "Text Only"
 msgstr "문자"
 
-#: templates/javascript/htmlarea_table_lang.js:74
-msgid "Text align"
-msgstr "문자 정렬"
+#: config/nls.php:183
+msgid "Thai (TIS-620)"
+msgstr ""
 
-#: templates/javascript/htmlarea_lang.js:71
-#, fuzzy
-msgid "Texttop"
-msgstr "문자열"
-
-#: lib/Horde/Auth.php:944
-msgid "Thank you for using the system."
-msgstr "사용해주셔서 감사합니다."
-
-#: lib/Horde/MIME/Viewer/vcard.php:54
-#, fuzzy
-msgid "The contact was successfully added to your address book."
-msgstr "항목 \"%s\"가 주소록에 추가되었습니다."
-
-#: lib/VFS/file.php:164
-#, fuzzy
-msgid "The file can not be copied onto itself."
-msgstr "파일에 아무런 자료가 없습니다."
-
-#: lib/Horde/Data.php:264
-msgid "The file contained no data."
-msgstr "파일에 아무런 자료가 없습니다."
-
-#: lib/Horde/MIME/Viewer/rfc822.php:72
-msgid "The following are the headers for this message/rfc822 message."
-msgstr "아래는 이 message/rfc822 편지의 머릿말입니다."
-
-#: services/prefs.php:88
-#, php-format
-msgid "The identity \"%s\" has been deleted."
+#: lib/Prefs/Ui.php:747
+#, fuzzy, php-format
+msgid "The Remote Wipe for device id %s has been cancelled."
 msgstr "식별자 \"%s\" 가 삭제되었습니다."
 
-#: lib/Horde/MIME/Viewer/deb.php:35 lib/Horde/MIME/Viewer/enscript.php:37
-#: lib/Horde/MIME/Viewer/mspowerpoint.php:35
-#: lib/Horde/MIME/Viewer/msword.php:35 lib/Horde/MIME/Viewer/rpm.php:35
-#: lib/Horde/MIME/Viewer/webcpp.php:40
-#: lib/Horde/MIME/Viewer/srchighlite.php:39
-#: lib/Horde/MIME/Viewer/msexcel.php:35
-#, fuzzy, php-format
-msgid ""
-"The program used to view this data type (%s) was not found on the system."
-msgstr "이 메시지 형태(%s)를 보기 위한 프로그램을 찾을 수 없습니다."
+#: admin/alarms.php:81
+#, fuzzy
+msgid "The alarm has been deleted."
+msgstr "식별자 \"%s\" 가 삭제되었습니다."
 
-#: services/portal/rpcsum.php:78
+#: admin/alarms.php:70
+#, fuzzy
+msgid "The alarm has been saved."
+msgstr "식별자 \"%s\" 가 저장되었습니다."
+
+#: config/prefs.php.dist:246
+msgid "The default e-mail address to use with this identity:"
+msgstr ""
+
+#: lib/Block/vatid.php:76
+msgid ""
+"The member state service could not be reached in time. Try again later or "
+"with a different member state."
+msgstr ""
+
+#: lib/Block/vatid.php:73
+msgid ""
+"The member state service is currently not available. Try again later or with "
+"a different member state."
+msgstr ""
+
+#: lib/Block/vatid.php:67
+msgid "The provided country code is invalid."
+msgstr ""
+
+#: lib/Prefs/Ui.php:681
 #, fuzzy, php-format
 msgid "The server \"%s\" has been deleted."
 msgstr "식별자 \"%s\" 가 삭제되었습니다."
 
-#: services/portal/rpcsum.php:49
+#: lib/Prefs/Ui.php:676
 #, fuzzy, php-format
 msgid "The server \"%s\" has been saved."
 msgstr "식별자 \"%s\" 가 저장되었습니다."
 
-#: admin/user.php:198
+#: lib/Block/vatid.php:70
+msgid "The service is currently not available. Try again later."
+msgstr ""
+
+#: lib/Block/vatid.php:79
+msgid "The service is currently too busy. Try again later."
+msgstr ""
+
+#: admin/user.php:209
 #, fuzzy, php-format
-msgid "The signup request for %s has been removed."
+msgid "The signup request for \"%s\" has been removed."
 msgstr "식별자 \"%s\" 가 저장되었습니다."
 
-#: lib/Horde/Data/csv.php:250 lib/Horde/Data/tsv.php:177
-#, fuzzy
-msgid "The uploaded file could not be saved."
-msgstr "서명을 변경할 수 없습니다."
+#: admin/signup_confirm.php:39
+#, fuzzy, php-format
+msgid "The signup request for user \"%s\" has been removed."
+msgstr "식별자 \"%s\" 가 저장되었습니다."
 
-#: lib/Horde/MIME/Viewer/icalendar.php:93
-#, fuzzy
-msgid "The user's free/busy information was sucessfully stored."
-msgstr "서명이 변경되었습니다."
+#: lib/LoginTasks/Task/TestScriptActive.php:38
+msgid ""
+"The test script is currently enabled. For security reasons, disable test "
+"scripts when you are done testing (see horde/docs/INSTALL)."
+msgstr ""
 
-#: lib/Horde/Prefs/UI.php:182
-msgid "There are no options available."
+#: admin/signup_confirm.php:60 admin/user.php:72
+#, fuzzy, php-format
+msgid "The user \"%s\" already exists."
+msgstr "\"%s\"는 이미 있습니다."
+
+#: services/shares/edit.php:85 services/shares/edit.php:177
+#, fuzzy, php-format
+msgid "The user \"%s\" does not exist."
+msgstr "식별자 \"%s\" 가 삭제되었습니다."
+
+#: lib/Block/weatherdotcom.php:51 lib/Block/weatherdotcom.php:106
+#, fuzzy
+msgid "The weather.com block is not available."
 msgstr "이용가능한 선택사항이 없습니다."
 
-#: signup.php:55
+#: lib/Prefs/Ui.php:46
+msgid "Theme directory can't be opened"
+msgstr ""
+
+#: util/icon_browser.php:28
 #, fuzzy, php-format
-msgid "There was a problem adding '%s' to the system. %s."
+msgid "Themes directory \"%s\" not found."
+msgstr "통지 리스너 %s을(를) 찾을 수 없습니다."
+
+#: admin/signup_confirm.php:74 admin/user.php:84 signup.php:38 signup.php:59
+#, fuzzy, php-format
+msgid "There was a problem adding \"%s\" to the system: %s"
 msgstr "'%s'를 시스템에 추가할 수 없습니다."
 
-#: admin/user.php:73
+#: admin/user.php:140
 #, fuzzy, php-format
-msgid "There was a problem adding '%s' to the system: %s"
-msgstr "'%s'를 시스템에 추가할 수 없습니다."
-
-#: admin/user.php:122
-#, fuzzy, php-format
-msgid "There was a problem clearing data for user '%s' from the system: "
+msgid "There was a problem clearing data for user \"%s\" from the system: "
 msgstr "'%s'를 시스템에서 삭제할 수 없습니다."
 
-#: admin/user.php:103
+#: admin/user.php:120
 #, fuzzy, php-format
-msgid "There was a problem removing '%s' from the system: "
+msgid "There was a problem removing \"%s\" from the system: "
 msgstr "'%s'를 시스템에서 삭제할 수 없습니다."
 
-#: admin/user.php:159
+#: admin/user.php:173
 #, fuzzy, php-format
-msgid "There was a problem updating '%s': %s"
+msgid "There was a problem updating \"%s\": %s"
 msgstr "'%s'를 시스템에 추가할 수 없습니다."
 
-#: lib/Horde/Browser.php:899
-msgid "There was a problem with the file upload: No %s was uploaded."
-msgstr "파일 올리기에 문제가 있습니다. %s 파일이 업로드되지 않았습니다."
-
-#: lib/Horde/Browser.php:904
+#: lib/Block/twitter_timeline.php:110 lib/Block/twitter_timeline.php:126
 #, fuzzy, php-format
-msgid ""
-"There was a problem with the file upload: The %s was larger than the maximum "
-"allowed size (%d bytes)."
-msgstr ""
-"파일 업로드 오류. 이파일은 업로드 허용된 최대 크기(%d MB)보다 큰것 같습니다."
-
-#: lib/Horde/Browser.php:906
-#, fuzzy, php-format
-msgid ""
-"There was a problem with the file upload: The %s was only partially uploaded."
-msgstr ""
-"업로드 파일에 문제가 있습니다. 이파일은 업로드 최대허용크기를 초과합니다."
-
-#: lib/Horde/MIME/Viewer/rfc822.php:38
-#, fuzzy
-msgid "There was an error displaying this message part"
-msgstr "메시지 전송 오류"
-
-#: lib/Horde/MIME/Viewer/vcard.php:42 lib/Horde/MIME/Viewer/vcard.php:51
-#, fuzzy
-msgid "There was an error importing the contact data."
+msgid "There was an error contacting Twitter: %s"
 msgstr "데이타 임포트 오류"
 
-#: lib/Horde/MIME/Viewer/icalendar.php:75
-#, fuzzy, php-format
-msgid "There was an error importing the event: %s."
-msgstr "데이타 임포트 오류"
-
-#: lib/Horde/Data/imc.php:32
-#, fuzzy
-msgid "There was an error importing the iCalendar data."
-msgstr "데이타 임포트 오류"
-
-#: lib/Horde/MIME/Viewer/icalendar.php:105
-#, fuzzy, php-format
-msgid "There was an error importing the task: %s."
-msgstr "데이타 임포트 오류"
-
-#: lib/Horde/MIME/Viewer/icalendar.php:91
-#, fuzzy, php-format
-msgid "There was an error importing user's free/busy information: %s."
-msgstr "데이타 임포트 오류"
-
-#: lib/Net/SMS/sms2email_http.php:665
+#: admin/config/config.php:70
 #, fuzzy
 msgid ""
-"There was an error updating the contact details. Please try again later."
-msgstr "업로드 파일 임포트 오류"
-
-#: lib/Net/SMS/sms2email_http.php:670
-#, fuzzy
-msgid ""
-"There was an error updating the distribution list. Please try again later."
+"There was an error in the configuration form. Perhaps you left out a "
+"required field."
 msgstr "요청된 메시지 읽기 오류"
 
-#: lib/Horde/Form.php:3130
-#, fuzzy
-msgid "This does not seem to be a valid card number."
-msgstr "이 값은 숫자여야 합니다."
+#: lib/Block/fb_stream.php:158 lib/Block/fb_stream.php:183
+#: services/facebook.php:54 services/facebook.php:71
+#, fuzzy, php-format
+msgid "There was an error making the request: %s"
+msgstr "데이타 임포트 오류"
 
-#: lib/Horde/Form.php:984
-#, fuzzy
-msgid "This field must be a valid number."
-msgstr "이 값은 숫자여야 합니다."
+#: lib/Api.php:284
+#, php-format
+msgid ""
+"There was an error removing global data for %s. Details have been logged."
+msgstr ""
 
-#: lib/Horde/Form.php:561
-#, fuzzy
-msgid "This form has already been processed."
-msgstr "이미 주소록에 등록되어 있습니다."
+#: lib/Block/vatid.php:89
+msgid "This VAT identification number is invalid."
+msgstr ""
 
-#: lib/Horde/Prefs/UI.php:128
-msgid "This number must be at least one."
-msgstr "이 숫자는 최소한 1자리 이상이어야 합니다."
+#: lib/Block/vatid.php:86
+msgid "This VAT identification number is valid."
+msgstr ""
 
-#: lib/Horde/Prefs/UI.php:126
-msgid "This value must be a number."
-msgstr "이 값은 숫자여야 합니다."
+#: lib/Block/weatherdotcom_strings.php:94
+msgid "Thunder"
+msgstr ""
 
-#: lib/Horde/Form.php:2411
-#, fuzzy
-msgid "Time"
-msgstr "제목"
+#: config/registry.php.dist:260
+msgid "Tickets"
+msgstr ""
 
-#: lib/Block/time.php:17
+#: config/registry.php.dist:308
+msgid "Time Tracking"
+msgstr ""
+
+#: lib/Block/time.php:23
 #, fuzzy
 msgid "Time format"
 msgstr "시간 설정"
 
-#: lib/Horde/Form.php:2522
-#, fuzzy
-msgid "Time selection"
-msgstr "시간 설정"
+#: templates/data/datetime.inc:60 templates/data/datetime.inc:69
+msgid "Timestamp or unknown"
+msgstr ""
 
-#: lib/Horde/MIME/Viewer/vcard.php:232 lib/Block/iframe.php:20
+#: templates/prefs/syncml.html:2
+msgid "Timestamps of successful synchronization sessions"
+msgstr ""
+
+#: lib/Block/iframe.php:22
 msgid "Title"
 msgstr "제목"
 
-#: templates/javascript/htmlarea_lang.js:96
-msgid "Title (tooltip):"
-msgstr "타이틀(툴팁):"
+#: templates/data/csvmap.inc:95
+msgid ""
+"To exclude a particular field form the import or to correct a wrong match "
+"select a field in the lists below and hit \"Remove pair\"."
+msgstr ""
 
-#: lib/Horde/MIME/Viewer/rfc822.php:80
-msgid "To"
-msgstr "받는 사람"
+#: templates/prefs/addressbooks.html:10
+msgid ""
+"To select multiple fields, hold down the Control (PC) or Command (Mac) while "
+"clicking."
+msgstr ""
 
-#: lib/Block/weatherdotcom.php:251
+#: lib/Block/weatherdotcom.php:313
 #, fuzzy
 msgid "Today"
 msgstr "본문"
 
-#: templates/javascript/htmlarea_lang.js:28
-msgid "Toggle HTML Source"
-msgstr "HTML 소스 보기"
-
-#: lib/Horde/NLS/tld.php:223 lib/Horde/NLS/countries.php:223
-#: lib/Horde/NLS/GeoIP.php:110
+#: lib/Block/weatherdotcom.php:315
 #, fuzzy
-msgid "Togo"
-msgstr "받는 사람"
+msgid "Tomorrow"
+msgstr " (내일)"
 
-#: templates/javascript/htmlarea_table_lang.js:81
-#: templates/javascript/htmlarea_lang.js:77
-msgid "Top"
-msgstr "위"
-
-#: templates/javascript/htmlarea_lang.js:93
-msgid "Top frame (_top)"
-msgstr "상위 프레임(_top)"
-
-#: lib/Block/fortune.php:63
+#: lib/Block/fortune.php:70
 #, fuzzy
 msgid "Translations"
 msgstr "환경설정"
 
-#: lib/Horde/MIME/Viewer/vcard.php:252 lib/Block/iframe.php:17
+#: config/nls.php:184
+msgid "Turkish (ISO-8859-9)"
+msgstr ""
+
+#: lib/Block/twitter_timeline.php:166
+#, fuzzy
+msgid "Tweet"
+msgstr "문자열"
+
+#: config/prefs.php.dist:625
+#, fuzzy
+msgid "Twitter Integration"
+msgstr "기타 정보"
+
+#: lib/Block/twitter_timeline.php:23 lib/Block/twitter_timeline.php:64
+#: lib/Block/twitter_timeline.php:74 lib/Block/twitter_timeline.php:78
+#, php-format
+msgid "Twitter Timeline"
+msgstr ""
+
+#: lib/Block/twitter_timeline.php:70
+#, fuzzy, php-format
+msgid "Twitter Timeline for %s"
+msgstr "%s 권한 수정"
+
+#: services/keyboard.php:108
+msgid "U characters"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:273
+msgid "U.V. index: "
+msgstr ""
+
+#: lib/Block/iframe.php:19
 msgid "URL"
 msgstr "URL"
 
-#: lib/VFS/file.php:360
-#, fuzzy
-msgid "Unable to access VFS directory."
-msgstr "vfsroot 디렉토리를 읽을 수 없습니다."
-
-#: lib/VFS/ftp.php:346
-#, fuzzy, php-format
-msgid "Unable to change permission for VFS file \"%s\"."
-msgstr "VFS 파일 %s/%s의 퍼미션을 변경할 수 없습니다."
-
-#: lib/VFS/file.php:330 lib/VFS/musql.php:502
+#: services/twitter.php:64
 #, php-format
-msgid "Unable to change permission for VFS file %s/%s."
-msgstr "VFS 파일 %s/%s의 퍼미션을 변경할 수 없습니다."
+msgid "Unable to contact Twitter. Please try again later. Error returned: %s"
+msgstr ""
 
-#: lib/VFS/ftp.php:704
+#: admin/groups.php:82 admin/perms/delete.php:39
 #, fuzzy, php-format
-msgid "Unable to change to %s."
-msgstr "SQL 서버에 접속할 수 없습니다."
-
-#: lib/Horde/Auth/sql.php:375
-msgid "Unable to connect to SQL server."
-msgstr "SQL 서버에 접속할 수 없습니다."
-
-#: lib/VFS/ftp.php:788
-#, fuzzy
-msgid "Unable to connect with SSL."
-msgstr "SQL 서버에 접속할 수 없습니다."
-
-#: lib/VFS/file.php:170 lib/VFS/file.php:175 lib/VFS/sql_file.php:197
-#: lib/VFS/sql_file.php:202 lib/VFS/sql_file.php:210
-#, fuzzy
-msgid "Unable to copy VFS file."
+msgid "Unable to delete \"%s\": %s."
 msgstr "VFS 파일 %s/%s을(를) 변경할 수 없습니다."
 
-#: lib/VFS/ftp.php:320
+#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:55
 #, fuzzy, php-format
-msgid "Unable to create VFS directory \"%s\"."
-msgstr "vfsroot 디렉토리를 읽을 수 없습니다."
+msgid "Unable to modify the sequence for %s: %s"
+msgstr "VFS 파일 %s/%s을(를) 변경할 수 없습니다."
 
-#: lib/VFS/file.php:295 lib/VFS/musql.php:273 lib/VFS/sql_file.php:270
+#: services/facebook.php:175
 #, fuzzy
-msgid "Unable to create VFS directory."
-msgstr "vfsroot 디렉토리를 읽을 수 없습니다."
-
-#: lib/VFS/musql.php:126
-#, fuzzy
-msgid "Unable to create VFS file."
+msgid "Unable to set like."
 msgstr "VFS 파일 %s/%s을(를) 변경할 수 없습니다."
 
-#: lib/VFS/file.php:212
-#, fuzzy
-msgid "Unable to create empty VFS file."
-msgstr "VFS 파일 %s/%s을(를) 변경할 수 없습니다."
-
-#: lib/VFS/ftp.php:249
-#, fuzzy, php-format
-msgid "Unable to delete \"%s\", the directory is not empty."
-msgstr "vfsroot 디렉토리를 읽을 수 없습니다."
-
-#: lib/VFS/file.php:270 lib/VFS/sql.php:323 lib/VFS/musql.php:335
-#: lib/VFS/sql_file.php:362
-#, fuzzy, php-format
-msgid "Unable to delete %s, the directory is not empty"
-msgstr "vfsroot 디렉토리를 읽을 수 없습니다."
-
-#: admin/groups.php:79 admin/perms/delete.php:59
-#, fuzzy, php-format
-msgid "Unable to delete '%s': %s."
-msgstr "VFS 파일 %s/%s을(를) 변경할 수 없습니다."
-
-#: lib/VFS/sql_file.php:378 lib/VFS/sql_file.php:382
-#, fuzzy
-msgid "Unable to delete VFS directory recursively."
-msgstr "vfsroot 디렉토리를 읽을 수 없습니다."
-
-#: lib/VFS/file.php:276 lib/VFS/musql.php:348 lib/VFS/musql.php:361
-#: lib/VFS/musql.php:369 lib/VFS/sql_file.php:374
-#, fuzzy
-msgid "Unable to delete VFS directory."
-msgstr "vfsroot 디렉토리를 읽을 수 없습니다."
-
-#: lib/VFS/sql.php:348 lib/VFS/sql.php:360
-#, fuzzy, php-format
-msgid "Unable to delete VFS directory: %s."
-msgstr "디렉토리 검색오류: %s"
-
-#: lib/VFS/ftp.php:179
-#, fuzzy, php-format
-msgid "Unable to delete VFS file \"%s\"."
-msgstr "VFS 파일 %s/%s을(를) 변경할 수 없습니다."
-
-#: lib/VFS/file.php:242 lib/VFS/sql.php:213 lib/VFS/musql.php:173
-#: lib/VFS/musql.php:186 lib/VFS/musql.php:193 lib/VFS/sql_file.php:412
-#: lib/VFS/sql_file.php:420
-#, fuzzy
-msgid "Unable to delete VFS file."
-msgstr "VFS 파일 %s/%s을(를) 변경할 수 없습니다."
-
-#: lib/VFS/sql.php:337
-#, fuzzy, php-format
-msgid "Unable to delete VFS recursively: %s."
-msgstr "VFS 파일 %s/%s을(를) 변경할 수 없습니다."
-
-#: lib/VFS/ftp.php:752
-#, fuzzy
-msgid "Unable to determine current directory."
-msgstr "vfsroot 디렉토리를 읽을 수 없습니다."
-
-#: lib/Net/IMSP.php:460 lib/Net/IMSP/Auth.php:119
-#, php-format
-msgid "Unable to load the definition of %s."
-msgstr "%s 정의를 읽을 수 없습니다."
-
-#: lib/VFS/file.php:139 lib/VFS/file.php:144 lib/VFS/sql_file.php:165
-#: lib/VFS/sql_file.php:170
-#, fuzzy
-msgid "Unable to move VFS file."
-msgstr "VFS 파일 %s/%s을(를) 변경할 수 없습니다."
-
-#: lib/VFS/ftp.php:79
-#, fuzzy, php-format
-msgid "Unable to open VFS file \"%s\"."
-msgstr "VFS 파일 %s/%s을(를) 변경할 수 없습니다."
-
-#: lib/VFS/file.php:219 lib/VFS/sql_file.php:127 lib/VFS/sql_file.php:130
-#, fuzzy
-msgid "Unable to open VFS file for writing."
-msgstr "VFS 파일 %s/%s을(를) 변경할 수 없습니다."
-
-#: lib/VFS/file.php:73 lib/VFS/sql_file.php:73
-#, fuzzy
-msgid "Unable to open VFS file."
-msgstr "VFS 파일 %s/%s을(를) 변경할 수 없습니다."
-
-#: lib/Horde/MIME/Viewer/tgz.php:47
-#, fuzzy
-msgid "Unable to open compressed archive."
-msgstr "환경설정을 변경할 수 없습니다."
-
-#: lib/VFS/file.php:622
-msgid "Unable to read the vfsroot directory."
-msgstr "vfsroot 디렉토리를 읽을 수 없습니다."
-
-#: lib/VFS/sql_file.php:316
-#, fuzzy
-msgid "Unable to rename VFS directory."
-msgstr "vfsroot 디렉토리를 읽을 수 없습니다."
-
-#: lib/VFS/sql.php:255
-#, fuzzy, php-format
-msgid "Unable to rename VFS directory: %s."
-msgstr "VFS 파일 %s/%s을(를) 변경할 수 없습니다."
-
-#: lib/VFS/ftp.php:296
-#, fuzzy, php-format
-msgid "Unable to rename VFS file \"%s\"."
-msgstr "VFS 파일 %s/%s을(를) 변경할 수 없습니다."
-
-#: lib/VFS/file.php:563 lib/VFS/musql.php:241
-#, php-format
-msgid "Unable to rename VFS file %s/%s."
-msgstr "VFS 파일 %s/%s을(를) 변경할 수 없습니다."
-
-#: lib/VFS/sql.php:249 lib/VFS/musql.php:222 lib/VFS/musql.php:485
-#: lib/VFS/sql_file.php:305 lib/VFS/sql_file.php:327
-#, fuzzy
-msgid "Unable to rename VFS file."
-msgstr "VFS 파일 %s/%s을(를) 변경할 수 없습니다."
-
-#: lib/VFS/ISOWriter/mkisofs.php:51
-#, fuzzy
-msgid "Unable to run 'mkisofs'."
-msgstr "VFS 파일 %s/%s을(를) 변경할 수 없습니다."
-
-#: lib/Horde/MIME/Viewer/msword.php:62
-msgid "Unable to translate this Word document"
-msgstr "이 워드문서를 변경할 수 없습니다."
-
-#: lib/VFS/ftp.php:127 lib/VFS/ftp.php:130
-#, fuzzy, php-format
-msgid "Unable to write VFS file \"%s\"."
-msgstr "VFS 파일 %s/%s을(를) 변경할 수 없습니다."
-
-#: lib/VFS/file.php:120
-#, fuzzy
-msgid "Unable to write VFS file (copy() failed)."
-msgstr "VFS 파일 %s/%s을(를) 변경할 수 없습니다."
-
-#: lib/VFS/file.php:223 lib/VFS/sql_file.php:135 lib/VFS/sql_file.php:140
-#, fuzzy
-msgid "Unable to write VFS file data."
-msgstr "VFS 파일 %s/%s을(를) 변경할 수 없습니다."
-
-#: templates/javascript/htmlarea_lang.js:10
-msgid "Underline"
-msgstr "밑줄"
-
-#: templates/prefs/end.inc:6
+#: templates/prefs/end.html:4
 msgid "Undo Changes"
 msgstr "변경사항 되돌리기"
 
-#: templates/javascript/htmlarea_lang.js:33
-msgid "Undoes your last action"
-msgstr "마지막 명령 취소"
-
-#: lib/Horde/Prefs/CategoryManager.php:58
-#: templates/prefs/categorymanagement.inc:64
+#: lib/Prefs/Ui.php:266
 #, fuzzy
 msgid "Unfiled"
 msgstr "읽지 않은 메일"
 
-#: lib/Horde/NLS/tld.php:238 lib/Horde/NLS/countries.php:235
-#: lib/Horde/NLS/GeoIP.php:75
-msgid "United Kingdom"
-msgstr "영국"
+#: config/nls.php:185
+msgid "Unicode (UTF-8)"
+msgstr ""
 
-#: lib/Horde/NLS/tld.php:240 lib/Horde/NLS/countries.php:236
-#: lib/Horde/NLS/GeoIP.php:114
-msgid "United States"
-msgstr "미국"
+#: lib/Block/metar.php:70 lib/Block/weatherdotcom.php:64
+msgid "Units"
+msgstr ""
 
-#: po/translation.php:1482
-#, fuzzy, php-format
-msgid "Unknown command: %s"
-msgstr "%s 내려받기"
+#: lib/Block/weatherdotcom.php:162
+msgid "Unknown location provided."
+msgstr ""
 
-#: templates/javascript/htmlarea_context_lang.js:57
-msgid "Unlink the current element"
-msgstr "현재 요소에 링크 제거"
-
-#: lib/Horde/Identity.php:298
-msgid "Unnamed"
-msgstr "이름 없음"
-
-#: templates/javascript/htmlarea_table_lang.js:82
-msgid "Unset color"
-msgstr "색깔 제거"
-
-#: po/translation.php:657
-#, fuzzy
-msgid "Untranslated"
-msgstr "회신하지 않은 메일"
-
-#: admin/perms/edit.php:106 lib/Horde/Perms/UI.php:191
-#: templates/admin/user/list.inc:36
+#: lib/Block/fb_stream.php:179 templates/admin/user/list.inc:36
 #, fuzzy
 msgid "Update"
 msgstr "일자"
 
-#: templates/admin/user/update.inc:43
+#: templates/admin/user/update.inc:6
+#, fuzzy, php-format
+msgid "Update %s"
+msgstr "일자"
+
+#: templates/admin/user/update.inc:53
 #, fuzzy
 msgid "Update user"
 msgstr "사용자 추가"
 
-#: templates/javascript/htmlarea_listtype_lang.js:20
-msgid "Upper latin letters"
-msgstr "라틴어 대문자"
+#: admin/groups.php:144 admin/perms/edit.php:104 services/shares/edit.php:249
+#, fuzzy, php-format
+msgid "Updated \"%s\"."
+msgstr "사용자 추가"
 
-#: templates/javascript/htmlarea_listtype_lang.js:18
-msgid "Upper roman numbers"
-msgstr "로마 대문자 숫자"
+#: admin/config/index.php:190
+msgid "Upload"
+msgstr ""
 
-#: po/translation.php:35 po/translation.php:92 po/translation.php:93
+#: admin/config/index.php:198
+msgid "Uploaded all application configuration files to the server."
+msgstr ""
+
+#: config/prefs.php.dist:645
+msgid "Use if name/password is different for IMSP server."
+msgstr ""
+
+#: templates/admin/groups/edit.inc:22 templates/admin/groups/edit.inc:60
 #, fuzzy
-msgid "Usage:"
-msgstr "메시지"
+msgid "User"
+msgstr "사용자명"
 
-#: admin/user.php:204
+#: admin/user.php:224
 #, fuzzy
 msgid "User Administration"
 msgstr "Horde 사용자 관리"
 
-#: lib/Horde/Prefs/UI.php:251
-msgid "User Options"
-msgstr "사용자 선택사항"
+#: lib/Prefs/Ui.php:432
+#, fuzzy
+msgid "User Agent:"
+msgstr "사용자명"
 
-#: signup.php:64
+#: signup.php:67
 #, fuzzy
 msgid "User Registration"
 msgstr "Horde 사용자 관리"
 
-#: admin/perms/edit.php:172 lib/Horde/Perms/UI.php:254
-msgid "User permissions"
-msgstr "사용자 권한"
+#: admin/signup_confirm.php:18 signup.php:19
+msgid "User Registration has been disabled for this site."
+msgstr ""
 
-#: admin/user.php:35 admin/setup/index.php:173
-#: lib/Net/SMS/sms2email_http.php:556 lib/Net/SMS/vodafoneitaly_smtp.php:97
-#: lib/Net/SMS/clickatell_http.php:202 services/resetpassword.php:33
-#: templates/login/login.inc:65 templates/admin/user/approve.inc:11
+#: admin/signup_confirm.php:25 signup.php:27
+msgid "User Registration is not properly configured for this site."
+msgstr ""
+
+#: lib/Block/account.php:561
+msgid "User account not found"
+msgstr ""
+
+#: templates/shares/edit.inc:238
+#, fuzzy
+msgid "User to add:"
+msgstr "문자열 선택:"
+
+#: admin/config/index.php:191 admin/user.php:32 admin/user.php:48 login.php:76
+#: services/resetpassword.php:29 templates/admin/user/approve.inc:22
 msgid "Username"
 msgstr "사용자명"
 
-#: lib/Horde/Auth/Signup.php:131
-#, fuzzy, php-format
-msgid "Username '%s' already exists."
-msgstr "메일함 \"%s\"가 이미 사용중입니다."
-
-#: templates/rpcsum/rpcsum.inc:87
+#: lib/Prefs/Ui.php:325
 #, fuzzy
 msgid "Username:"
 msgstr "사용자명"
 
-#: templates/login/mobile.inc:8
-#, fuzzy
-msgid "Username: "
-msgstr "사용자명"
-
-#: lib/Horde/Perms/UI.php:227
+#: templates/admin/groups/edit.inc:53
 #, fuzzy
 msgid "Users"
 msgstr "사용자명"
 
-#: templates/admin/user/list.inc:4
+#: templates/admin/user/list.inc:2
 msgid "Users in the system:"
 msgstr "시스템의 사용자:"
 
-#: config/registry.php.dist:383
+#: lib/Block/vatid.php:19
+msgid "VAT id number verification"
+msgstr ""
+
+#: lib/Block/vatid.php:42
+msgid "VAT identification number:"
+msgstr ""
+
+#: lib/Block/vatid.php:93
+#, fuzzy
+msgid "VAT number"
+msgstr "11월"
+
+#: config/registry.php.dist:122
 #, fuzzy
 msgid "Vacation"
 msgstr "실행"
 
-#: lib/Horde/Crypt/smime.php:724
+#: lib/Block/weatherdotcom.php:248
 #, fuzzy
-msgid "Version"
+msgid "Variable"
+msgstr "제목"
+
+#: config/registry.php.dist:246
+#, fuzzy
+msgid "Version Control"
 msgstr "개인 메일"
 
-#: templates/javascript/htmlarea_table_lang.js:83
-msgid "Vertical align"
-msgstr "수직 정렬"
+#: lib/Block/weatherdotcom_strings.php:101
+msgid "Very High"
+msgstr ""
 
-#: templates/javascript/htmlarea_lang.js:84
-msgid "Vertical padding"
-msgstr "수직 채움"
+#: config/nls.php:186
+msgid "Vietnamese (VISCII)"
+msgstr ""
 
-#: lib/Horde/MIME/Contents.php:994
-#, php-format
-msgid "View %s"
-msgstr "%s 보기"
+#: lib/Block/iframe.php:3
+msgid "View an external web page"
+msgstr ""
 
-#: lib/Horde/MIME/Contents.php:845
-#, fuzzy, php-format
-msgid "View as %s"
-msgstr "%s 보기"
+#: lib/Block/metar.php:204
+msgid "Visibility"
+msgstr ""
 
-#: lib/Horde/MIME/Viewer/icalendar.php:109
-#, fuzzy
-msgid "View task"
-msgstr "%s 보기"
+#: lib/Block/weatherdotcom.php:267
+msgid "Visibility: "
+msgstr ""
 
-#: lib/Horde/Notification/Listener/status.php:31
+#: lib/Block/account.php:98
 msgid "Warning"
 msgstr "경고"
 
-#: po/translation.php:145 po/translation.php:681 po/translation.php:711
-#: po/translation.php:725 po/translation.php:1048 po/translation.php:1057
-#: po/translation.php:1065 po/translation.php:1075 po/translation.php:1085
-#: po/translation.php:1095 po/translation.php:1101 po/translation.php:1216
-#: po/translation.php:1226 po/translation.php:1232 po/translation.php:1252
-#, fuzzy
-msgid "Warning: "
-msgstr "경고"
+#: lib/Block/weatherdotcom.php:32
+msgid "Weather Forecast"
+msgstr ""
 
-#: lib/Horde/Maintenance.php:37
-msgid "Weekly"
-msgstr "매주"
+#: lib/Block/weatherdotcom.php:429
+msgid "Weather data provided by"
+msgstr ""
 
-#: services/portal/mobile.php:28
+#: config/registry.php.dist:369
+msgid "Web Site"
+msgstr ""
+
+#: services/portal/mobile.php:29
 msgid "Welcome"
 msgstr "환영"
 
-#: templates/login/mobile.inc:4 templates/login/login.inc:50
+#: templates/login/login.inc:5 templates/login/mobile.inc:1
 #, php-format
 msgid "Welcome to %s"
 msgstr "환영합니다! %s 입니다."
 
-#: services/portal/mobile.php:29 templates/portal/menu.inc:2
+#: templates/portal/mobile.inc:1
 #, php-format
 msgid "Welcome, %s"
 msgstr "환영합니다, %s"
 
-#: templates/data/csvinfo.inc:21
+#: config/nls.php:187
+msgid "Western (ISO-8859-1)"
+msgstr ""
+
+#: config/nls.php:188
+msgid "Western (ISO-8859-15)"
+msgstr ""
+
+#: config/prefs.php.dist:483
+#, php-format
+msgid "What application should %s display after login?"
+msgstr ""
+
+#: lib/Block/twitter_timeline.php:131
+msgid "What are you working on now?"
+msgstr ""
+
+#: templates/data/csvinfo.inc:14
 msgid "What is the delimiter character?"
 msgstr "구분 문자는 무엇입니까?"
 
-#: templates/data/csvinfo.inc:24
+#: templates/data/csvinfo.inc:17
 msgid "What is the quote character?"
 msgstr "인용 부호는 무엇입니까?"
 
-#: templates/javascript/htmlarea_table_lang.js:84
-msgid "Width"
-msgstr "너비"
+#: lib/Block/fb_stream.php:165
+msgid "What's on your mind?"
+msgstr ""
 
-#: templates/javascript/htmlarea_lang.js:106
-msgid "Width of the table"
+#: config/prefs.php.dist:427
+msgid "Which day would you like to be displayed as the first day of the week?"
+msgstr ""
+
+#: lib/Block/moon.php:21
+msgid "Which phases"
+msgstr ""
+
+#: config/prefs.php.dist:536
+#, fuzzy, php-format
+msgid "Width of the %s menu on the left:"
 msgstr "표의 너비"
 
-#: templates/javascript/htmlarea_lang.js:110
-msgid "Width unit"
-msgstr "너비 단위"
+#: config/registry.php.dist:394
+msgid "Wiki"
+msgstr ""
 
-#: templates/javascript/htmlarea_lang.js:105
-msgid "Width:"
-msgstr "너비:"
-
-#: lib/Block/weatherdotcom.php:372
+#: lib/Block/weatherdotcom.php:303 lib/Block/weatherdotcom_strings.php:95
 #, fuzzy
 msgid "Wind"
 msgstr "찾기"
 
-#: lib/Block/metar.php:154
+#: lib/Block/weatherdotcom_strings.php:96
+#, fuzzy
+msgid "Wind Early"
+msgstr "찾기"
+
+#: lib/Block/weatherdotcom_strings.php:97
+#, fuzzy
+msgid "Wind Late"
+msgstr "찾기"
+
+#: lib/Block/metar.php:79
+msgid "Wind speed in knots"
+msgstr ""
+
+#: lib/Block/metar.php:151
 #, fuzzy
 msgid "Wind:"
 msgstr "찾기"
 
-#: lib/Block/weatherdotcom.php:205
+#: lib/Block/weatherdotcom.php:246
 #, fuzzy
 msgid "Wind: "
 msgstr "찾기"
 
-#: lib/Block/fortune.php:65
+#: lib/Block/account.php:634
+#, fuzzy
+msgid "Windows"
+msgstr "찾기"
+
+#: admin/activesync.php:181 templates/prefs/activesync.html:28
+msgid "Wipe"
+msgstr ""
+
+#: admin/activesync.php:162 lib/Prefs/Ui.php:415
+msgid "Wipe is pending"
+msgstr ""
+
+#: lib/Block/fortune.php:71
+#, fuzzy
+msgid "Wisdom"
+msgstr "찾기"
+
+#: lib/Block/fortune.php:72
 #, fuzzy
 msgid "Work"
 msgstr "또는"
 
-#: lib/Horde/MIME/Viewer/vcard.php:127 lib/Horde/MIME/Viewer/vcard.php:167
-msgid "Work Address"
-msgstr "직장 주소:"
-
-#: lib/Horde/MIME/Viewer/vcard.php:195
-msgid "Work Phone"
-msgstr "직장 전화번호"
+#: config/registry.php.dist:275
+msgid "X-Ref"
+msgstr ""
 
 #: templates/data/date.inc:47 templates/data/date.inc:48
 #: templates/data/date.inc:49 templates/data/date.inc:50
+#: templates/data/datetime.inc:89 templates/data/datetime.inc:90
+#: templates/data/datetime.inc:91 templates/data/datetime.inc:92
 msgid "YY"
 msgstr "YY"
 
-#: lib/Horde/UI/VarRenderer/html.php:386 lib/Horde/UI/VarRenderer/html.php:427
+#: templates/logintasks/logintasks.html:34
+msgid "Yes, I Agree"
+msgstr ""
+
+#: services/facebook.php:110 services/facebook.php:169
+#, php-format
+msgid "You and %d other person likes this"
+msgid_plural "You and %d other people like this"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/Api.php:301
+msgid "You are not allowed to add groups."
+msgstr ""
+
+#: lib/Api.php:476
+msgid "You are not allowed to add shares."
+msgstr ""
+
+#: lib/Api.php:350 lib/Api.php:373 lib/Api.php:399 lib/Api.php:422
 #, fuzzy
-msgid "YYYY"
-msgstr "YY"
+msgid "You are not allowed to change groups."
+msgstr "SQL 서버에 접속할 수 없습니다."
 
-#: lib/Horde/Maintenance.php:35
-msgid "Yearly"
-msgstr "매년"
+#: lib/Api.php:561 lib/Api.php:598 lib/Api.php:640 lib/Api.php:667
+msgid "You are not allowed to change shares."
+msgstr ""
 
-#: lib/Horde/NLS/tld.php:252 lib/Horde/NLS/countries.php:247
-#: lib/Horde/NLS/GeoIP.php:118
-#, fuzzy
-msgid "Yemen"
-msgstr "읽은 메일"
+#: lib/Api.php:327
+msgid "You are not allowed to delete groups."
+msgstr ""
 
-#: lib/Horde/UI/VarRenderer/html.php:888
-msgid "Yes"
-msgstr "예"
+#: lib/Api.php:505
+msgid "You are not allowed to delete shares."
+msgstr ""
 
-#: templates/javascript/htmlarea_lang.js:52
-msgid "You are in TEXT MODE.  Use the [<>] button to switch back to WYSIWYG."
-msgstr "TEXT모드입니다. [<>] 버튼을 누르면 WYSIWYG 모드로 돌아갑니다."
+#: lib/Api.php:820
+msgid "You are not allowed to list groups of shares."
+msgstr ""
 
-#: lib/Horde/Form.php:1839 lib/Horde/Form.php:1959
-#, fuzzy
-msgid "You did not enter a valid email address."
-msgstr "잘못된 이메일 주소"
+#: lib/Api.php:702 lib/Api.php:744
+msgid "You are not allowed to list share permissions."
+msgstr ""
 
-#: lib/Horde/Data.php:274
-#, fuzzy, php-format
+#: lib/Api.php:532
+msgid "You are not allowed to list shares."
+msgstr ""
+
+#: lib/Api.php:448
+msgid "You are not allowed to list users of groups."
+msgstr ""
+
+#: lib/Api.php:786
+msgid "You are not allowed to list users of shares."
+msgstr ""
+
+#: lib/Api.php:216
+msgid "You are not allowed to remove user data."
+msgstr ""
+
+#: lib/Block/fb_stream.php:159 lib/Block/fb_stream.php:184
+#: services/facebook.php:55 services/facebook.php:72
+#, php-format
+msgid "You can also check your Facebook settings in your %s."
+msgstr ""
+
+#: lib/LoginTasks/Task/TosAgreement.php:54
 msgid ""
-"You didn't map any fields from the imported file to the corresponding fields "
-"in %s."
-msgstr "임포트된 파일의 어떤 항목도 Turba의 항목에 맞게 설정하지 않았습니다."
+"You did not agree to the Terms of Service agreement, so you were not allowed "
+"to login."
+msgstr ""
 
-#: lib/Horde/Auth.php:944
+#: login.php:278
 msgid "You have been logged out."
 msgstr "로그아웃 하였습니다."
+
+#: lib/Block/fb_stream.php:124
+#, php-format
+msgid ""
+"You have not properly connected your Facebook account with Horde. You should "
+"check your Facebook settings in your %s."
+msgstr ""
+
+#: lib/Block/twitter_timeline.php:182
+#, php-format
+msgid ""
+"You have not properly connected your Twitter account with Horde. You should "
+"check your Twitter settings in your %s."
+msgstr ""
+
+#: services/facebook.php:112 services/facebook.php:163
+#: services/facebook.php:171
+msgid "You like this"
+msgstr ""
 
 #: templates/problem/problem.inc:11
 msgid "You must describe the problem before you can send the problem report."
 msgstr "문제 보고서를 보내기전에 이문제에 대한 설명을 입력해야 합니다."
 
-#: templates/javascript/htmlarea_lang.js:98
-msgid "You must enter the URL where this link points to"
-msgstr "이 링크가 가리치는 URL을 입력해야 합니다."
-
-#: services/portal/rpcsum.php:80
+#: lib/Prefs/Ui.php:679
 #, fuzzy
 msgid "You must select an server to be deleted."
 msgstr "먼저 삭제할 식별자를 선택해야 합니다."
 
-#: admin/user.php:119
+#: admin/user.php:134
 #, fuzzy
 msgid "You must specify a username to clear out."
 msgstr "삭제할 사용자 이름을 입력해야 합니다."
 
-#: admin/user.php:100
+#: admin/user.php:114
 msgid "You must specify a username to remove."
 msgstr "삭제할 사용자 이름을 입력해야 합니다."
 
-#: admin/user.php:62 templates/admin/user/update.inc:8
+#: admin/user.php:70
 msgid "You must specify the username to add."
 msgstr "추가할 사용자 이름을 입력해야 합니다."
 
-#: admin/user.php:146
+#: admin/user.php:164
 #, fuzzy
 msgid "You must specify the username to update."
 msgstr "추가할 사용자 이름을 입력해야 합니다."
 
-#: lib/Horde/Compress/zip.php:144
-#, fuzzy
-msgid "You must specify what action to perform."
-msgstr "수신인이 없습니다."
-
-#: lib/Horde/Prefs/CategoryManager.php:73
-#, fuzzy
-msgid "You must type a new category name."
-msgstr "삭제할 사용자 이름을 입력해야 합니다."
-
-#: lib/Horde/Auth.php:932
-#, php-format
-msgid "Your %s session has expired. Please login again."
-msgstr "%s 세션이 만료되었습니다. 다시 로그인하세요."
-
-#: templates/problem/problem.inc:38
+#: templates/problem/problem.inc:34
 msgid "Your Email Address"
 msgstr "이메일 주소:"
 
-#: config/prefs.php.dist:202
-msgid "Your From: address:"
-msgstr "메일 주소:"
-
-#: config/prefs.php.dist:64 config/prefs.php.dist:74 config/prefs.php.dist:82
-#: config/prefs.php.dist:89
+#: config/prefs.php.dist:212 config/prefs.php.dist:275
+#: config/prefs.php.dist:312 config/prefs.php.dist:439
 msgid "Your Information"
 msgstr "정보"
 
-#: templates/problem/problem.inc:33
+#: login.php:270
+msgid ""
+"Your Internet Address has changed since the beginning of your session. To "
+"protect your security, you must login again."
+msgstr ""
+
+#: templates/problem/problem.inc:30
 msgid "Your Name"
 msgstr "이름:"
 
-#: templates/admin/user/noadd.inc:9
+#: templates/admin/user/noadd.inc:5
+#, fuzzy
 msgid ""
-"Your authentication backend does not support adding users, or the feature "
-"has been disabled for some other reason."
+"Your authentication backend does not support adding users. If you wish to "
+"use Horde to administer user accounts, you must use a different "
+"authentication backend."
 msgstr ""
 "당신의 인증클라이언트가 사용자를 추가할 수 없습니다. 또는 다른 이유로 사용자 "
 "추가기능을 사용할 수 없습니다."
 
-#: templates/admin/user/nolist.inc:9
+#: templates/admin/user/nolist.inc:5
 msgid ""
 "Your authentication backend does not support listing users, or the feature "
 "has been disabled for some other reason."
@@ -3837,218 +4192,171 @@ msgstr ""
 "당신의 인증클라이언트가 사용자 목록보기를 지원하지 않습니다. 또는 다른 이유"
 "로 사용자 목록보기를 사용할 수 없습니다."
 
-#: lib/Block/iframe.php:50
+#: login.php:274
+msgid ""
+"Your browser appears to have changed since the beginning of your session. To "
+"protect your security, you must login again."
+msgstr ""
+
+#: lib/Block/iframe.php:58
 msgid "Your browser does not support this feature."
 msgstr "브라우저가 이 기능을 지원하지 않습니다."
 
-#: templates/javascript/print.js:27
-msgid ""
-"Your browser does not support this print option. Press Control/Option + P to "
-"print."
-msgstr ""
-"사용하고 계신 브라우저는 인쇄 옵션을 지원하지 않습니다. 인쇄하기 위해서는 컨"
-"트롤/옵션키와 P를 누르세요."
-
-#: config/prefs.php.dist:247
+#: config/prefs.php.dist:337
 msgid "Your current time zone:"
 msgstr "현재 시간대:"
 
-#: config/prefs.php.dist:148
-msgid "Your default identity:"
-msgstr "기본 식별자:"
-
-#: config/prefs.php.dist:191
+#: config/prefs.php.dist:236
 msgid "Your full name:"
 msgstr "전체 이름:"
 
-#: lib/Horde/Prefs/UI.php:156
-msgid "Your options have been updated for the duration of this session."
-msgstr "이 세션 동안 옵션이 저장됩니다."
-
-#: lib/Horde/Prefs/UI.php:158
-msgid "Your options have been updated."
+#: login.php:290
+#, fuzzy
+msgid "Your login has expired."
 msgstr "옵션이 저장되었습니다."
 
-#: templates/rpcsum/rpcsum.inc:58
+#: services/resetpassword.php:74
+#, php-format
+msgid "Your new password for %s is: %s"
+msgstr ""
+
+#: services/resetpassword.php:73
+msgid "Your password has been reset"
+msgstr ""
+
+#: services/resetpassword.php:87
+msgid ""
+"Your password has been reset, but couldn't be sent to you. Please contact "
+"the administrator."
+msgstr ""
+
+#: services/resetpassword.php:82
+msgid ""
+"Your password has been reset, check your email and log in with your new "
+"password."
+msgstr ""
+
+#: lib/Block/account.php:689 lib/Block/account.php:704
+msgid "Your password has expired"
+msgstr ""
+
+#: login.php:178
+msgid "Your password has expired."
+msgstr ""
+
+#: lib/Prefs/Ui.php:322
 #, fuzzy
 msgid "Your remote servers:"
 msgstr "메일 주소:"
 
-#: lib/Horde/Text/Filter/highlightquotes.php:172
-#: templates/javascript/quoteBlocks.js:12
-msgid "[Hide Quoted Text]"
-msgstr "[인용 숨기기]"
+#: login.php:266
+#, fuzzy
+msgid "Your session has expired. Please login again."
+msgstr "%s 세션이 만료되었습니다. 다시 로그인하세요."
 
-#: services/problem.php:56
+#: lib/Block/fortune.php:73
+msgid "Zippy"
+msgstr ""
+
+#: services/problem.php:107
 msgid "[Problem Report]"
 msgstr "[오류 보고하기]"
 
-#: templates/javascript/quoteBlocks.js:13
-msgid "[Show Quoted Text -"
-msgstr "[인용 보기 -"
+#: admin/sessions.php:39
+msgid "[Unknown]"
+msgstr ""
 
-#: lib/Horde/Text/Filter/highlightquotes.php:172
-msgid "[Show Quoted Text - %s lines]"
-msgstr "[인용 보기 - %s 줄]"
+#: lib/Api.php:47
+#, fuzzy
+msgid "_Alarms"
+msgstr "얼라이어스"
 
-#: lib/Horde.php:199
-#, php-format
-msgid "[line %s of %s]"
-msgstr "[라인 %s / %s]"
+#: lib/Api.php:72
+msgid "_CLI"
+msgstr ""
 
-#: lib/Horde.php:1472 templates/portal/menu.inc:11
-msgid "_Administration"
-msgstr "_A관리"
+#: lib/Api.php:27
+#, fuzzy
+msgid "_Configuration"
+msgstr "메일 서버 정보사항"
 
-#: lib/api.php:122
+#: lib/Api.php:52
 #, fuzzy
 msgid "_DataTree"
 msgstr "일자"
 
-#: templates/javascript/htmlarea_context_lang.js:31
-msgid "_Delete Row"
-msgstr "_D행 지움"
+#: lib/Api.php:37
+msgid "_Groups"
+msgstr ""
 
-#: lib/Horde/Menu.php:181
-msgid "_Help"
-msgstr "도움말"
-
-#: templates/javascript/htmlarea_context_lang.js:23
-msgid "_Image Properties..."
-msgstr "_I그림 속성..."
-
-#: lib/Horde/Menu.php:200
-#, fuzzy
-msgid "_Log in"
-msgstr "로그인"
-
-#: lib/Horde/Menu.php:196
-msgid "_Log out"
-msgstr "_L로그아웃"
-
-#: templates/javascript/htmlarea_context_lang.js:24
-msgid "_Modify Link..."
-msgstr "_m링크 수정..."
-
-#: lib/Horde/Menu.php:170
-msgid "_Options"
-msgstr "_O선택사항"
-
-#: lib/api.php:118
+#: lib/Api.php:42
 #, fuzzy
 msgid "_Permissions"
 msgstr "토론"
 
-#: templates/javascript/htmlarea_context_lang.js:26
-msgid "_Remove Link..."
-msgstr "_r링크 삭제.."
-
-#: templates/javascript/htmlarea_context_lang.js:32
-msgid "_Table Properties..."
-msgstr "_t표 속성..."
-
-#: lib/Horde/Kolab.php:911
+#: lib/Api.php:32
 #, fuzzy
-msgid "address book"
-msgstr "주소록"
+msgid "_Users"
+msgstr "사용자명"
 
-#: po/translation.php:711
+#: services/problem.php:56
+msgid "attachment"
+msgstr ""
+
+#: lib/Block/metar.php:167 lib/Block/metar.php:353
+#, fuzzy, php-format
+msgid "calm"
+msgstr "취소"
+
+#: lib/Block/weatherdotcom_strings.php:102
+msgid "falling"
+msgstr ""
+
+#: lib/Block/metar.php:169 lib/Block/metar.php:355 lib/Block/metar.php:381
+#, php-format
+msgid "from the %s (%s) at %s %s"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:254
 #, fuzzy
-msgid "an error has occured:"
-msgstr "<b>치명적인 오류 발생:</b>"
+msgid "gusting"
+msgstr "8월"
 
-#: lib/Horde/Kolab.php:903
-#, fuzzy
-msgid "calendar"
-msgstr "달력"
-
-#: po/translation.php:445 po/translation.php:550 po/translation.php:611
-#: po/translation.php:749 po/translation.php:810 po/translation.php:887
-#, fuzzy
-msgid "done"
-msgstr "완료"
-
-#: po/translation.php:552 po/translation.php:584 po/translation.php:613
-#: po/translation.php:778 po/translation.php:812 po/translation.php:889
-#, fuzzy
-msgid "failed"
-msgstr "새로운 연락처 추가 실패"
-
-#: lib/Horde/Browser.php:870
-#, fuzzy
-msgid "file"
-msgstr "제목"
-
-#: admin/setup/diff.php:68 admin/setup/diff.php:76
+#: admin/config/diff.php:51 admin/config/diff.php:63
 #, fuzzy
 msgid "inline"
 msgstr "없음"
 
-#: templates/javascript/quoteBlocks.js:13
-msgid "lines]"
-msgstr "줄]"
+#: lib/Block/fb_stream.php:124 lib/Block/fb_stream.php:159
+#: lib/Block/fb_stream.php:184 lib/Block/twitter_timeline.php:182
+#: services/facebook.php:55 services/facebook.php:72
+msgid "preferences"
+msgstr ""
 
-#: lib/Horde/Prefs/UI.php:288 services/portal/sidebar.php:207
-msgid "name"
-msgstr "이름"
-
-#: po/translation.php:378
-#, fuzzy
-msgid "not changed"
-msgstr "변경사항 되돌리기"
-
-#: lib/Horde/RPC.php:122
-#, fuzzy
-msgid "not implemented"
-msgstr "삭제되지 않은 메일"
-
-#: lib/Horde/Crypt/smime.php:1245
-#, fuzzy
-msgid "not yet implemented"
-msgstr "삭제되지 않은 메일"
-
-#: lib/Horde/Kolab.php:895
-#, fuzzy
-msgid "notepad"
-msgstr "읽지 않은 메일"
-
-#: templates/javascript/htmlarea_table_lang.js:88
-msgid "percent"
-msgstr "퍼센트"
-
-#: templates/javascript/htmlarea_table_lang.js:89
-msgid "pixels"
-msgstr "픽셀"
-
-#: lib/Block/weatherdotcom.php:380
+#: lib/Block/weatherdotcom_strings.php:104
 #, fuzzy
 msgid "rising"
 msgstr "경고"
 
-#: admin/setup/config.php:98
+#: admin/config/config.php:80
 #, fuzzy
 msgid "show differences"
 msgstr "사용자 환경"
 
-#: lib/Horde/Kolab.php:919
+#: lib/Block/weatherdotcom_strings.php:103
 #, fuzzy
-msgid "task list"
-msgstr "수신거부"
+msgid "steady"
+msgstr "읽지 않은 메일"
 
-#: lib/Horde/MIME/Part.php:17
-msgid "unnamed"
-msgstr "이름 없음"
+#: admin/user.php:35 admin/user.php:49
+msgid "type the password twice to confirm"
+msgstr ""
 
-#: lib/Net/SMS/sms2email_http.php:587 lib/Net/SMS/clickatell_http.php:229
+#: admin/config/diff.php:51 admin/config/diff.php:63
 #, fuzzy
-msgid "user select"
-msgstr "규칙(률) 선택 오류"
+msgid "unified"
+msgstr "읽지 않은 메일"
 
-#: lib/Horde/MIME/Viewer/vcard.php:38
-msgid "vCard"
-msgstr "vCard"
-
-#: lib/Horde/UI/VarRenderer/html.php:224
-#, fuzzy
-msgid "w:"
-msgstr "전달:"
+#: lib/Block/weatherdotcom.php:6
+msgid "weather.com"
+msgstr ""

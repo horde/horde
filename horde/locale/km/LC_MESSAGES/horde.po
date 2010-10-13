@@ -6,7 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: IMP\n"
-"POT-Creation-Date: 2004-12-08 10:28+0100\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 02:42+0200\n"
 "PO-Revision-Date: 2005-06-15 11:53+0700\n"
 "Last-Translator: Leang Chumsoben <soben@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -14,2677 +15,4222 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: framework/Form/Form.php:2377
+#: lib/Block/weatherdotcom.php:260 lib/Block/weatherdotcom.php:363
+#: lib/Block/weatherdotcom.php:409
+msgid " at "
+msgstr ""
+
+#: admin/groups.php:50
 #, php-format
-msgid " (%s days ago)"
-msgstr " (%s ថ្ងៃ​កន្លង​ទៅ)"
+msgid "\"%s\" was added to the groups system."
+msgstr ""
 
-#: framework/Horde/Horde.php:1386
+#: admin/perms/addchild.php:43
 #, php-format
-msgid " (Accesskey %s)"
-msgstr " (គ្រាប់​ចុច​ផ្លូវ​កាត់ %s)"
+msgid "\"%s\" was added to the permissions system."
+msgstr ""
 
-#: framework/Form/Form.php:2381
-msgid " (today)"
-msgstr " (ថ្ងៃ​នេះ)"
-
-#: framework/Form/Form.php:2383
-msgid " (tomorrow)"
-msgstr " (ថ្ងៃ​ស្អែក)"
-
-#: framework/Form/Form.php:2379
-msgid " (yesterday)"
-msgstr " (ម្សិលម៉ិញ)"
-
-#: framework/VFS/VFS/smb.php:219
-#, php-format
-msgid "\"%s\" is not a directory."
+#: admin/groups.php:56 admin/perms/addchild.php:47
+#, fuzzy, php-format
+msgid "\"%s\" was not created: %s."
 msgstr "\"%s\" មិន​មែន​ជា​ថត​ឡើយ ។"
 
-#: framework/CLI/CLI.php:272
+#: lib/Block/account.php:83
 #, php-format
-msgid "\"%s\" is not a valid choice."
-msgstr "\"%s\" មិន​មែន​ជា​ជម្រើស​ត្រឹមត្រូវ​ឡើយ ។"
+msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
+msgstr ""
 
-#: lib/Block/weatherdotcom.php:231
+#: lib/Block/weatherdotcom.php:241
 #, php-format
 msgid "%d %s and %s"
 msgstr "%d %s និង %s"
 
-#: framework/MIME/MIME/Contents.php:842 framework/MIME/MIME/Contents.php:848
+#: lib/Block/account.php:708 lib/Block/account.php:720
 #, php-format
-msgid "%s KB"
-msgstr "%s KB"
+msgid "%d days until your password expires."
+msgstr ""
 
-#: framework/MIME/MIME/Contents.php:840 framework/MIME/MIME/Contents.php:846
+#: lib/Block/metar.php:281
+#, fuzzy, php-format
+msgid "%d minutes"
+msgstr "រៀង​រាល់ ៥ នាទី"
+
+#: services/facebook.php:114
 #, php-format
-msgid "%s MB"
-msgstr "%s មេកាបៃ"
+msgid "%d person likes this"
+msgid_plural "%d persons like this"
+msgstr[0] ""
+msgstr[1] ""
 
-#: framework/Notification/Notification/Listener/mobile.php:96
+#: templates/admin/user/list.inc:4
 #, php-format
-msgid "%s: %s"
-msgstr "%s ៖ %s"
+msgid "%d to %d of %d"
+msgstr ""
 
-#: framework/Perms/Perms/UI.php:294 framework/Perms/Perms/UI.php:348
-#: framework/Form/Form.php:2077 framework/Form/Form.php:2136
-#: framework/UI/UI/VarRenderer/html.php:746
-msgid "-- select --"
-msgstr "-- ជ្រើស --"
+#: lib/Block/weatherdotcom.php:288
+#, php-format
+msgid "%d-day forecast"
+msgstr ""
 
-#: lib/Block/time.php:25
+#: services/logintasks.php:83
+#, php-format
+msgid "%s - Notice"
+msgstr ""
+
+#: admin/config/config.php:21 admin/config/index.php:226
+#, fuzzy, php-format
+msgid "%s Configuration"
+msgstr "កំហុស​ការ​កំណត់​រចនាសម្ព័ន្ធ"
+
+#: services/logintasks.php:64
+#, php-format
+msgid "%s Tasks - Confirmation"
+msgstr ""
+
+#: services/logintasks.php:74
+#, php-format
+msgid "%s Terms of Agreement"
+msgstr ""
+
+#: lib/Block/metar.php:154 lib/Block/metar.php:160 lib/Block/metar.php:234
+#: lib/Block/metar.php:340 lib/Block/metar.php:346
+#, fuzzy, php-format
+msgid "%s at %s %s"
+msgstr "%d %s និង %s"
+
+#: services/logintasks.php:63
+#, php-format
+msgid ""
+"%s is ready to perform the tasks checked below. Check the box for any "
+"operation(s) you want to perform at this time."
+msgstr ""
+
+#: lib/Block/vatid.php:58
+#, fuzzy, php-format
+msgid "%s not found."
+msgstr "រក​មិន​ឃើញ​ធាតុ​បញ្ចូល"
+
+#: lib/Block/weatherdotcom.php:367 lib/Block/weatherdotcom.php:412
+msgid ", gusting "
+msgstr ""
+
+#: lib/Block/metar.php:183 lib/Block/metar.php:188
+#, php-format
+msgid ", gusting %s %s"
+msgstr ""
+
+#: lib/Block/metar.php:196
+#, php-format
+msgid ", variable from %s to %s"
+msgstr ""
+
+#: lib/Block/time.php:26
 msgid "12 Hour Format"
 msgstr "ទ្រង់ទ្រាយ ១២ ម៉ោង"
 
-#: lib/Block/time.php:24
+#: lib/Block/time.php:25
 msgid "24 Hour Format"
 msgstr "ទ្រង់ទ្រាយ ២៤ ម៉ោង"
 
-#: templates/data/time.inc:28
+#: templates/data/datetime.inc:109 templates/data/time.inc:28
 msgid "24 hours"
 msgstr "២៤ ម៉ោង"
 
-#: framework/UI/UI/Pager.php:69
-msgid "<Previous"
-msgstr "<មុន"
+#: templates/prefs/facebook.html:15
+msgid ""
+"<tag:app_name /> can interact with your Facebook account, but you must login "
+"to Facebook manually each time."
+msgstr ""
 
-#: services/help/index.php:53
-msgid "About..."
-msgstr "អំពី​..."
+#: templates/prefs/facebook.html:38
+msgid "<tag:app_name /> cannot read your stream messages."
+msgstr ""
+
+#: templates/prefs/facebook.html:26
+msgid ""
+"<tag:app_name /> cannot set your status messages or publish other content to "
+"Facebook."
+msgstr ""
+
+#: templates/prefs/twitter.html:9
+msgid "<tag:appname /> can interact with your Twitter account"
+msgstr ""
+
+#: services/keyboard.php:46
+#, fuzzy
+msgid "A characters"
+msgstr "ចំនួន​តួអក្សរ"
+
+#: lib/Block/metar.php:117
+msgid "A database backend is required for this block."
+msgstr ""
+
+#: admin/activesync.php:35
+msgid ""
+"A device wipe has been requested. Device will be wiped on next "
+"syncronization attempt."
+msgstr ""
+
+#: admin/config/index.php:92 admin/config/index.php:124
+#, php-format
+msgid "A newer version (%s) exists."
+msgstr ""
+
+#: lib/Prefs/Ui.php:743
+#, php-format
+msgid ""
+"A remote wipe for device id %s has been initiated. The device will be wiped "
+"during the next synchronisation."
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:7
+msgid "AM Clouds"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:8
+msgid "AM Drizzle"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:9
+msgid "AM Fog"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:10
+msgid "AM Light Rain"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:11
+msgid "AM Light Snow"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:12
+#, fuzzy
+msgid "AM Rain"
+msgstr "រឹម​ទំព័រ"
+
+#: lib/Block/weatherdotcom_strings.php:13
+msgid "AM Showers"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:14
+msgid "AM Snow"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:15
+msgid "AM Snow Showers"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:16
+msgid "AM Sun"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:17
+msgid "AM T-Showers"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:18
+msgid "AM T-Storms"
+msgstr ""
+
+#: templates/data/datetime.inc:110 templates/data/time.inc:29
+msgid "AM/PM"
+msgstr ""
 
 #: lib/Block/account.php:3
 msgid "Account Information"
 msgstr "ព័ត៌មាន​អំពីគណនី"
 
-#: framework/Perms/Perms/UI.php:148 templates/portal/add.inc:14
-#: templates/admin/groups/addchild.inc:11
+#: config/prefs.php.dist:276
+#, fuzzy
+msgid "Account Password"
+msgstr "ពាក្យ​សម្ងាត់"
+
+#: admin/activesync.php:126
+#, fuzzy
+msgid "Actions"
+msgstr "ជម្រើស​"
+
+#: config/prefs.php.dist:676
+msgid "ActiveSync"
+msgstr ""
+
+#: admin/activesync.php:71
+#, fuzzy
+msgid "ActiveSync Device Administration"
+msgstr "ការ​គ្រប់គ្រង​អ្នក​ប្រើ"
+
+#: admin/activesync.php:199 lib/Api.php:80
+msgid "ActiveSync Devices"
+msgstr ""
+
+#: admin/activesync.php:20 lib/Prefs/Ui.php:376
+msgid "ActiveSync not activated."
+msgstr ""
+
+#: templates/admin/groups/addchild.inc:12 templates/portal/add.inc:14
 msgid "Add"
 msgstr "បន្ថែម"
 
-#: admin/user.php:31
+#: services/portal/index.php:68
+msgid "Add Content"
+msgstr ""
+
+#: templates/portal/add.inc:5
+#, fuzzy
+msgid "Add Here:"
+msgstr "បន្ថែម​​​អ្នក​ប្រើ"
+
+#: templates/admin/groups/edit.inc:49
+#, fuzzy
+msgid "Add Members"
+msgstr "សមាជិក"
+
+#: admin/groups.php:253 templates/admin/groups/addchild.inc:7
+#, php-format
+msgid "Add a child group to \"%s\""
+msgstr ""
+
+#: admin/groups.php:238
+msgid "Add a new group"
+msgstr ""
+
+#: admin/user.php:21
+#, fuzzy
+msgid "Add a new user:"
+msgstr "បន្ថែម​​​អ្នក​ប្រើ"
+
+#: admin/alarms.php:22
+msgid "Add new alarm"
+msgstr ""
+
+#: templates/data/csvmap.inc:92
+#, fuzzy
+msgid "Add pair"
+msgstr "បន្ថែម​​​អ្នក​ប្រើ"
+
+#: admin/user.php:22
 msgid "Add user"
 msgstr "បន្ថែម​​​អ្នក​ប្រើ"
 
-#: framework/MIME/MIME/Viewer/vcard.php:126
-#: framework/MIME/MIME/Viewer/vcard.php:173 framework/Form/Form.php:1449
+#: admin/signup_confirm.php:80 admin/user.php:92
+#, php-format
+msgid ""
+"Added \"%s\" to the system, but could not add additional signup information: "
+"%s."
+msgstr ""
+
+#: signup.php:44
+#, php-format
+msgid "Added \"%s\" to the system. You can log in now."
+msgstr ""
+
+#: templates/admin/user/noadd.inc:2
+msgid "Adding users is disabled."
+msgstr ""
+
+#: lib/Block/vatid.php:101
 msgid "Address"
 msgstr "អាសយដ្ឋាន"
 
-#: config/registry.php.dist:148
+#: config/registry.php.dist:142
 msgid "Address Book"
 msgstr "សៀវភៅ​អាសយដ្ឋាន"
 
-#: admin/index.php:19 services/portal/sidebar.php:113
-msgid "Administration"
-msgstr "ការ​គ្រប់​គ្រង"
+#: admin/alarms.php:26
+#, fuzzy
+msgid "Alarm end"
+msgstr "អាមេនី"
 
-#: framework/NLS/NLS/tld.php:18 framework/NLS/NLS/countries.php:11
-#: framework/NLS/NLS/GeoIP.php:56
-msgid "Afghanistan"
-msgstr "អាហ្គានីស្ថាន"
+#: admin/alarms.php:28
+msgid "Alarm methods"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:21 framework/NLS/NLS/countries.php:12
-#: framework/NLS/NLS/GeoIP.php:57
-msgid "Albania"
-msgstr "អាល់បានី"
+#: admin/alarms.php:25
+msgid "Alarm start"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:74 framework/NLS/NLS/countries.php:13
-#: framework/NLS/NLS/GeoIP.php:70
-msgid "Algeria"
-msgstr "អាល់ហ្សេរី"
+#: admin/alarms.php:27
+msgid "Alarm text"
+msgstr ""
 
-#: framework/MIME/MIME/Viewer/vcard.php:107
-msgid "Alias"
+#: admin/alarms.php:24
+msgid "Alarm title"
+msgstr ""
+
+#: admin/alarms.php:133
+#, fuzzy
+msgid "Alarms"
 msgstr "ឈ្មោះ​ក្លែងក្លាយ"
 
-#: templates/javascript/htmlarea_table_lang.js:16
-msgid "Align"
-msgstr "តម្រឹម"
-
-#: lib/Block/fortune.php:92
+#: lib/Block/fortune.php:94
 msgid "All"
 msgstr "ទាំង​អស់"
 
-#: services/resetpassword.php:35
+#: templates/shares/edit.inc:58
+msgid "All Authenticated Users"
+msgstr ""
+
+#: admin/groups.php:26 admin/groups.php:244
+#, fuzzy
+msgid "All Groups"
+msgstr "ក្រុម"
+
+#: admin/activesync.php:50
+msgid "All policy keys successfully reset."
+msgstr ""
+
+#: lib/Prefs/Ui.php:753
+msgid ""
+"All state removed for your devices. They will resynchronize next time they "
+"connect to the server."
+msgstr ""
+
+#: lib/Prefs/Ui.php:724
+msgid "All synchronization sessions deleted."
+msgstr ""
+
+#: config/prefs.php.dist:644
+msgid "Alternate IMSP Login"
+msgstr ""
+
+#: config/prefs.php.dist:658
+#, fuzzy
+msgid "Alternate IMSP Password"
+msgstr "ប្ដូរ​អាសយដ្ឋាន​អ៊ីមែល"
+
+#: config/prefs.php.dist:652
+msgid "Alternate IMSP Username"
+msgstr ""
+
+#: services/resetpassword.php:31
 msgid "Alternate email address"
 msgstr "ប្ដូរ​អាសយដ្ឋាន​អ៊ីមែល"
 
-#: framework/NLS/NLS/tld.php:27 framework/NLS/NLS/countries.php:14
-#: framework/NLS/NLS/GeoIP.php:58
-msgid "American Samoa"
-msgstr "សាមូអា អាមេរិក"
+#: lib/Block/weatherdotcom.php:170
+#, fuzzy
+msgid "An unknown error has occured."
+msgstr "មិន​ស្គាល់​កំហុស"
 
-#: framework/NLS/NLS/tld.php:16 framework/NLS/NLS/countries.php:15
-#: framework/NLS/NLS/GeoIP.php:55
-msgid "Andorra"
-msgstr "អង់ដូរ៉ា"
+#: services/resetpassword.php:48
+#, fuzzy
+msgid "Answer"
+msgstr "អ្នក​ប្រើ"
 
-#: framework/NLS/NLS/tld.php:24 framework/NLS/NLS/countries.php:16
-#: framework/NLS/NLS/GeoIP.php:58
-msgid "Angola"
-msgstr "អង់ហ្គោឡា"
-
-#: framework/NLS/NLS/tld.php:20 framework/NLS/NLS/countries.php:17
-#: framework/NLS/NLS/GeoIP.php:57
-msgid "Anguilla"
-msgstr "អង់ហ្ស៊ីឡា"
-
-#: framework/NLS/NLS/tld.php:25 framework/NLS/NLS/countries.php:18
-#: framework/NLS/NLS/GeoIP.php:58
-msgid "Antarctica"
-msgstr "ភាគ​ខាង​ត្បូង"
-
-#: framework/NLS/NLS/tld.php:19 framework/NLS/NLS/countries.php:19
-#: framework/NLS/NLS/GeoIP.php:56
-msgid "Antigua and Barbuda"
-msgstr "អង់ទីហ្គា និង បាប៊ុយដា"
-
-#: admin/templates.php:74 admin/phpshell.php:35
-#: framework/Block/Block/UI.php:58 templates/admin/setup/index.html:6
+#: templates/data/csvmap.inc:112 templates/admin/config/index.html:11
 msgid "Application"
 msgstr "កម្មវិធី"
 
-#: framework/UI/UI/VarRenderer/html.php:403
-#: framework/UI/UI/VarRenderer/html.php:441
-#: templates/javascript/open_calendar.js:68
-msgid "April"
-msgstr "មេសា"
+#: admin/phpshell.php:44
+#, fuzzy
+msgid "Application Context: "
+msgstr "កម្មវិធី"
 
-#: config/nls.php.dist:171
+#: util/icon_browser.php:45
+#, fuzzy
+msgid "Application List"
+msgstr "កម្មវិធី"
+
+#: admin/config/index.php:160
+#, fuzzy
+msgid "Application is ready."
+msgstr "កម្មវិធី"
+
+#: admin/config/index.php:95 admin/config/index.php:127
+msgid "Application is up-to-date."
+msgstr ""
+
+#: templates/admin/user/approve.inc:33
+msgid "Approve"
+msgstr ""
+
+#: config/nls.php:167
 msgid "Arabic (Windows-1256)"
 msgstr "អារ៉ាប់ (Windows-1256)"
 
-#: framework/NLS/NLS/tld.php:26 framework/NLS/NLS/countries.php:20
-#: framework/NLS/NLS/GeoIP.php:58
-msgid "Argentina"
-msgstr "អាហ្សង់ទីន"
+#: admin/alarms.php:123
+#, php-format
+msgid "Are you sure you want to delete '%s'?"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:22 framework/NLS/NLS/countries.php:21
-#: framework/NLS/NLS/GeoIP.php:57
-msgid "Armenia"
-msgstr "អាមេនី"
+#: templates/admin/user/removequeued.inc:10
+#, php-format
+msgid "Are you sure you want to remove the signup request for \"%s\"?"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:30 framework/NLS/NLS/countries.php:22
-#: framework/NLS/NLS/GeoIP.php:59
-msgid "Aruba"
-msgstr "អារូបា"
+#: templates/admin/groups/delete.inc:7
+#, php-format
+msgid "Are you sure you wish to delete \"%s\" and any sub-groups?"
+msgstr ""
 
-#: framework/MIME/MIME/Viewer/rar.php:64 framework/MIME/MIME/Viewer/zip.php:71
-#: framework/MIME/MIME/Viewer/tgz.php:83
-msgid "Attributes"
-msgstr "គុណលក្ខណៈ"
+#: config/nls.php:168
+msgid "Armenian (ARMSCII-8)"
+msgstr ""
 
-#: framework/UI/UI/VarRenderer/html.php:407
-#: framework/UI/UI/VarRenderer/html.php:445
-#: templates/javascript/open_calendar.js:72
-msgid "August"
-msgstr "សីហា"
+#: lib/Block/fortune.php:35
+msgid "Art"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:29 framework/NLS/NLS/countries.php:23
-#: framework/NLS/NLS/GeoIP.php:59
-msgid "Australia"
-msgstr "អូស្ត្រាលី"
+#: lib/Block/fortune.php:36
+msgid "Ascii Art"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:28 framework/NLS/NLS/countries.php:24
-#: framework/NLS/NLS/GeoIP.php:59
-msgid "Austria"
-msgstr "អូទ្រីស"
+#: templates/problem/problem.inc:43
+msgid "Attachment"
+msgstr ""
 
-#: framework/Net_SMS/SMS/clickatell_http.php:290
-msgid "Authentication failed"
+#: admin/groups.php:72
+msgid "Attempt to delete a non-existent group."
+msgstr ""
+
+#: admin/perms/delete.php:24
+msgid "Attempt to delete a non-existent permission."
+msgstr ""
+
+#: admin/perms/edit.php:92
+msgid "Attempt to edit a non-existent permission."
+msgstr ""
+
+#: services/shares/edit.php:66
+msgid "Attempt to edit a non-existent share."
+msgstr ""
+
+#: admin/sessions.php:40
+#, fuzzy
+msgid "Authenticated to:"
 msgstr "ការ​ផ្ទៀង​ផ្ទាត់​ភាព​ត្រឹម​ត្រូវ​បាន​បរាជ័យ"
 
-#: framework/NLS/NLS/tld.php:31 framework/NLS/NLS/countries.php:25
-#: framework/NLS/NLS/GeoIP.php:59
-msgid "Azerbaijan"
-msgstr "អាហ្ស៊ែរបែហ្សង់"
+#: templates/prefs/facebook.html:27
+msgid "Authorize Publish"
+msgstr ""
 
-#: templates/javascript/htmlarea_table_lang.js:18
-msgid "Background"
-msgstr "ផ្ទៃ​ខាង​ក្រោយ"
+#: templates/prefs/facebook.html:39
+msgid "Authorize Read:"
+msgstr ""
 
-#: templates/javascript/htmlarea_lang.js:23
-msgid "Background Color"
-msgstr "ពណ៌​ផ្ទៃ​ខាង​ក្រោយ"
+#: templates/prefs/facebook.html:16
+msgid "Authorize an infinite session:"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:45 framework/NLS/NLS/countries.php:26
-#: framework/NLS/NLS/GeoIP.php:62
-msgid "Bahamas"
-msgstr "បាហាម៉ាស"
+#: templates/data/csvmap.inc:70
+msgid "Available fields:"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:38 framework/NLS/NLS/countries.php:27
-#: framework/NLS/NLS/GeoIP.php:61
-msgid "Bahrain"
+#: themes/azur/info.php:6
+msgid "Azur"
+msgstr ""
+
+#: lib/Block/fortune.php:37
+msgid "BOFH Excuses"
+msgstr ""
+
+#: config/nls.php:169
+#, fuzzy
+msgid "Baltic (ISO-8859-13)"
+msgstr "ទួរគី (ISO-8859-9)"
+
+#: themes/barbie/info.php:2
+#, fuzzy
+msgid "Barbie"
 msgstr "បារ៉ែន"
 
-#: framework/NLS/NLS/tld.php:34 framework/NLS/NLS/countries.php:28
-#: framework/NLS/NLS/GeoIP.php:60
-msgid "Bangladesh"
-msgstr "បង់ក្លាដេស្ហ"
+#: util/icon_browser.php:34
+#, php-format
+msgid "Base graphics directory \"%s\" not found."
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:33 framework/NLS/NLS/countries.php:29
-#: framework/NLS/NLS/GeoIP.php:60
-msgid "Barbados"
-msgstr "បារបាដូស"
+#: templates/portal/layout.inc:90
+msgid "Block Settings"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:49 framework/NLS/NLS/countries.php:30
-#: framework/NLS/NLS/GeoIP.php:63
-msgid "Belarus"
-msgstr "បេឡារុស្ស"
+#: templates/portal/layout.inc:72
+msgid "Block Type"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:35 framework/NLS/NLS/countries.php:31
-#: framework/NLS/NLS/GeoIP.php:60
-msgid "Belgium"
-msgstr "បែល​ហ្ស៊ិក"
+#: themes/bluemoon/info.php:2
+msgid "Blue Moon"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:50 framework/NLS/NLS/countries.php:32
-#: framework/NLS/NLS/GeoIP.php:63
-msgid "Belize"
-msgstr "បេលីហ្ស"
+#: themes/bluewhite/info.php:2
+msgid "Blue and White"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:40 framework/NLS/NLS/countries.php:33
-#: framework/NLS/NLS/GeoIP.php:61
-msgid "Benin"
-msgstr "បេណាំង"
-
-#: framework/NLS/NLS/tld.php:41 framework/NLS/NLS/countries.php:34
-#: framework/NLS/NLS/GeoIP.php:62
-msgid "Bermuda"
-msgstr "ប៊េរមូដា"
-
-#: framework/NLS/NLS/tld.php:46 framework/NLS/NLS/countries.php:35
-#: framework/NLS/NLS/GeoIP.php:63
-msgid "Bhutan"
-msgstr "ប៊ូតាន"
-
-#: framework/MIME/MIME/Viewer/vcard.php:111
-msgid "Birthday"
-msgstr "ថ្ងៃកំណើត"
-
-#: templates/javascript/htmlarea_lang.js:8
-msgid "Bold"
-msgstr "ដិត"
-
-#: framework/NLS/NLS/tld.php:43 framework/NLS/NLS/countries.php:36
-#: framework/NLS/NLS/GeoIP.php:62
-msgid "Bolivia"
-msgstr "បូលីវី"
-
-#: config/registry.php.dist:221
+#: config/registry.php.dist:226
 msgid "Bookmarks"
 msgstr "កន្លែង​ចំណាំ"
 
-#: templates/javascript/htmlarea_table_lang.js:20
-msgid "Border"
-msgstr "ស៊ុម"
-
-#: templates/javascript/htmlarea_table_lang.js:21
-msgid "Borders"
-msgstr "ស៊ុម​"
-
-#: framework/NLS/NLS/tld.php:32 framework/NLS/NLS/countries.php:37
-#: framework/NLS/NLS/GeoIP.php:60
-msgid "Bosnia and Herzegovina"
-msgstr "បូស្ន៊ី និង ហឺហ្ស៊េហ្គោវីណា"
-
-#: lib/Block/fortune.php:101
+#: lib/Block/fortune.php:103
 msgid "Both"
 msgstr "ទាំង​ពីរ​"
 
-#: framework/NLS/NLS/tld.php:48 framework/NLS/NLS/countries.php:38
-#: framework/NLS/NLS/GeoIP.php:63
-msgid "Botswana"
+#: themes/brown/info.php:2
+#, fuzzy
+msgid "Brown"
 msgstr "បុតស្វាណា"
 
-#: templates/javascript/htmlarea_table_lang.js:22
-#: templates/javascript/htmlarea_lang.js:75
-msgid "Bottom"
-msgstr "បាត"
+#: admin/sessions.php:38
+#, fuzzy
+msgid "Browser:"
+msgstr "ជួរ​ដេក ៖"
 
-#: framework/NLS/NLS/tld.php:47 framework/NLS/NLS/countries.php:39
-#: framework/NLS/NLS/GeoIP.php:63
-msgid "Bouvet Island"
-msgstr "កោះ​ប៊ូវ៉ែ"
+#: themes/burntorange/info.php:7
+msgid "Burnt Orange"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:44 framework/NLS/NLS/countries.php:40
-#: framework/NLS/NLS/GeoIP.php:62
-msgid "Brazil"
-msgstr "ប្រេស៊ីល"
+#: lib/Block/weatherdotcom.php:166
+msgid "Cache init was not completed."
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:117 framework/NLS/NLS/countries.php:41
-#: framework/NLS/NLS/GeoIP.php:81
-msgid "British Indian Ocean Territory"
-msgstr "អាណាចក្រ​សមុទ្រ​ឥណ្ឌា អង់គ្លេស"
-
-#: framework/NLS/NLS/tld.php:42 framework/NLS/NLS/countries.php:42
-#: framework/NLS/NLS/GeoIP.php:62
-msgid "Brunei Darussalam"
-msgstr "ប្រ៊ុយណេ​ដារ៊ុយសាឡាម"
-
-#: framework/NLS/NLS/tld.php:37 framework/NLS/NLS/countries.php:43
-#: framework/NLS/NLS/GeoIP.php:61
-msgid "Bulgaria"
-msgstr "ប៊ុលហ្គារី"
-
-#: framework/NLS/NLS/tld.php:36 framework/NLS/NLS/countries.php:44
-#: framework/NLS/NLS/GeoIP.php:61
-msgid "Burkina Faso"
-msgstr "ប៊ូរគីណាហ្វាសូ"
-
-#: framework/NLS/NLS/tld.php:39 framework/NLS/NLS/countries.php:45
-#: framework/NLS/NLS/GeoIP.php:61
-msgid "Burundi"
-msgstr "ប៊ូរុនឌី"
-
-#: framework/MIME/MIME/Viewer/zip.php:75
-msgid "CRC"
-msgstr "CRC"
-
-#: framework/UI/UI/VarRenderer/html.php:483 config/hooks.php.dist:1055
-#: config/registry.php.dist:164
+#: config/registry.php.dist:157
 msgid "Calendar"
 msgstr "ប្រតិទិន"
 
-#: framework/NLS/NLS/tld.php:128 framework/NLS/NLS/countries.php:46
-#: framework/NLS/NLS/GeoIP.php:83
-msgid "Cambodia"
-msgstr "កម្ពុជា"
+#: lib/Block/weatherdotcom.php:250
+#, fuzzy
+msgid "Calm"
+msgstr "បោះបង់"
 
-#: framework/NLS/NLS/tld.php:60 framework/NLS/NLS/countries.php:47
-#: framework/NLS/NLS/GeoIP.php:67
-msgid "Cameroon"
-msgstr "កាម៉ារូន"
+#: themes/camouflage/info.php:2
+msgid "Camouflage"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:51 framework/NLS/NLS/countries.php:48
-#: framework/NLS/NLS/GeoIP.php:64
-msgid "Canada"
-msgstr "កាណាដា"
-
-#: admin/user.php:101 admin/user.php:120
-#: templates/javascript/htmlarea_lang.js:47
-#: templates/javascript/htmlarea_lang.js:65
-#: templates/admin/groups/delete.inc:11 templates/admin/user/clear.inc:12
-#: templates/admin/user/remove.inc:12
+#: admin/user.php:115 admin/user.php:135 templates/admin/groups/delete.inc:11
+#: templates/admin/user/clear.inc:12 templates/admin/user/remove.inc:12
 msgid "Cancel"
 msgstr "បោះបង់"
 
-#: framework/NLS/NLS/tld.php:65 framework/NLS/NLS/countries.php:49
-#: framework/NLS/NLS/GeoIP.php:68
-msgid "Cape Verde"
-msgstr "កាបវែរ"
+#: templates/problem/problem.inc:58
+msgid "Cancel Problem Report"
+msgstr ""
 
-#: templates/javascript/htmlarea_table_lang.js:24
-msgid "Caption"
-msgstr "ចំណងជើង"
+#: admin/activesync.php:183 templates/prefs/activesync.html:31
+#, fuzzy
+msgid "Cancel Wipe"
+msgstr "បោះបង់"
 
-#: framework/Net_SMS/SMS/generic_smtp.php:104
-msgid "Carrier"
-msgstr "វត្ថុ​ដឹក​ជញ្ជូន"
+#: services/resetpassword.php:17
+msgid "Cannot reset password automatically, contact your administrator."
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:135 framework/NLS/NLS/countries.php:50
-#: framework/NLS/NLS/GeoIP.php:86
-msgid "Cayman Islands"
-msgstr "កោះ​កៃម៉ាន"
+#: config/prefs.php.dist:440
+msgid "Categories and Labels"
+msgstr ""
 
-#: templates/javascript/htmlarea_table_lang.js:26
-msgid "Center"
-msgstr "កណ្តាល"
+#: config/nls.php:170
+#, fuzzy
+msgid "Celtic (ISO-8859-14)"
+msgstr "ក្រិក (ISO-8859-7)"
 
-#: framework/NLS/NLS/tld.php:54 framework/NLS/NLS/countries.php:51
-#: framework/NLS/NLS/GeoIP.php:65
-msgid "Central African Republic"
-msgstr "សាធារណរដ្ឋ​អាហ្វ្រិក​កណ្ដាល"
+#: config/nls.php:171
+msgid "Central European (ISO-8859-2)"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:221 framework/NLS/NLS/countries.php:52
-#: framework/NLS/NLS/GeoIP.php:108
-msgid "Chad"
-msgstr "ឆាដ"
-
-#: templates/rpcsum/rpcsum.inc:24 templates/rpcsum/rpcsum.inc:96
+#: templates/prefs/rpc.html:33
 msgid "Change"
 msgstr "ផ្លាស់​ប្តូរ"
 
-#: framework/NLS/NLS/tld.php:59 framework/NLS/NLS/countries.php:53
-#: framework/NLS/NLS/GeoIP.php:67
-msgid "Chile"
+#: services/changepassword.php:23
+msgid "Change Your Password"
+msgstr ""
+
+#: config/prefs.php.dist:214
+msgid ""
+"Change the name and address that people see when they read and reply to your "
+"emails."
+msgstr ""
+
+#: services/changepassword.php:17
+msgid ""
+"Changing your password is not supported with the current configuration.  "
+"Contact your administrator."
+msgstr ""
+
+#: lib/Block/vatid.php:45
+#, fuzzy
+msgid "Check"
 msgstr "ឈីលី"
 
-#: framework/NLS/NLS/tld.php:61 framework/NLS/NLS/countries.php:54
-#: framework/NLS/NLS/GeoIP.php:67
-msgid "China"
+#: templates/admin/config/index.html:4
+msgid "Check for newer versions"
+msgstr ""
+
+#: lib/Block/vatid.php:47
+#, fuzzy
+msgid "Checking"
 msgstr "ចិន"
 
-#: framework/NLS/NLS/tld.php:66 framework/NLS/NLS/countries.php:55
-#: framework/NLS/NLS/GeoIP.php:68
-msgid "Christmas Island"
-msgstr "កោះ​គ្រីស្តម៉ាស"
+#: templates/admin/groups/addchild.inc:10
+#, fuzzy
+msgid "Child"
+msgstr "ឈីលី"
 
-#: lib/Block/weatherdotcom_strings.php:14
+#: config/nls.php:172
+msgid "Chinese Simplified (GB2312)"
+msgstr ""
+
+#: config/nls.php:173
+msgid "Chinese Traditional (Big5)"
+msgstr ""
+
+#: services/obrowser/index.php:91
+#, php-format
+msgid "Choose %s"
+msgstr ""
+
+#: config/prefs.php.dist:403
+msgid "Choose how to display dates (abbreviated format):"
+msgstr ""
+
+#: config/prefs.php.dist:377
+msgid "Choose how to display dates (full format):"
+msgstr ""
+
+#: config/prefs.php.dist:419
+msgid "Choose how to display times:"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:19
 msgid "Clear"
 msgstr "ជម្រះ"
 
-#: admin/sqlshell.php:128
+#: admin/sqlshell.php:109
 msgid "Clear Query"
 msgstr "ជម្រះ​សំណួរ"
 
-#: services/keyboard.php:146 templates/shares/edit.inc:12
+#: templates/admin/user/clear.inc:5
+#, fuzzy, php-format
+msgid "Clear out user: %s"
+msgstr "ជម្រះ​សំណួរ"
+
+#: templates/admin/user/clear.inc:11
+#, fuzzy
+msgid "Clear user"
+msgstr "ជម្រះ​សំណួរ"
+
+#: templates/admin/user/list.inc:37
+#, fuzzy
+msgid "Clear user data"
+msgstr "ជម្រះ​សំណួរ"
+
+#: lib/Block/weatherdotcom_strings.php:20
+#, fuzzy
+msgid "Clearing Early"
+msgstr "ជម្រះ​សំណួរ"
+
+#: lib/Block/weatherdotcom_strings.php:21
+msgid "Clearing Late"
+msgstr ""
+
+#: templates/prefs/addressbooks.html:3
+msgid ""
+"Click on one of your selected address books and then select all fields to "
+"search."
+msgstr ""
+
+#: templates/logintasks/logintasks.html:38
+#, fuzzy
+msgid "Click to Continue"
+msgstr "បន្ត"
+
+#: templates/prefs/syncml.html:13
+msgid "Client Anchor"
+msgstr ""
+
+#: services/keyboard.php:154 templates/shares/edit.inc:12
 msgid "Close Window"
 msgstr "បិទ​បង្អួច"
 
-#: framework/NLS/NLS/tld.php:52 framework/NLS/NLS/countries.php:56
-#: framework/NLS/NLS/GeoIP.php:64
-msgid "Cocos (Keeling) Islands"
-msgstr "កោះ​កូកូ (ឃីលីង)"
+#: lib/Block/metar.php:239
+msgid "Clouds"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:62 framework/NLS/NLS/countries.php:57
-#: framework/NLS/NLS/GeoIP.php:67
-msgid "Colombia"
-msgstr "កូឡុំប៊ី"
+#: lib/Block/weatherdotcom_strings.php:22
+msgid "Clouds Early"
+msgstr ""
 
-#: lib/Block/color.php:18 lib/Block/color.php:29
-#: templates/javascript/htmlarea_table_lang.js:29
-msgid "Color"
-msgstr "ពណ៌"
+#: lib/Block/weatherdotcom_strings.php:23
+msgid "Clouds Late"
+msgstr ""
 
-#: admin/cmdshell.php:25
+#: lib/Block/weatherdotcom_strings.php:24
+#, fuzzy
+msgid "Cloudy"
+msgstr "ប្រទេស"
+
+#: admin/sessions.php:31
+msgid "Collapse"
+msgstr ""
+
+#: templates/sidebar/sidebar.inc:3
+msgid "Collapse Sidebar"
+msgstr ""
+
+#: lib/Prefs/Ui.php:237
+msgid "Color Picker"
+msgstr ""
+
+#: admin/cmdshell.php:20 admin/cmdshell.php:42
 msgid "Command"
 msgstr "ពាក្យ​បញ្ជា"
 
-#: framework/Crypt/Crypt/pgp.php:413
-msgid "Comment"
+#: admin/cmdshell.php:14
+#, fuzzy
+msgid "Command Shell"
+msgstr "ពាក្យ​បញ្ជា"
+
+#: services/facebook.php:101
+#, fuzzy, php-format
+msgid "Comments: %d"
 msgstr "សេចក្តី​​អធិប្បាយ"
 
-#: framework/Crypt/Crypt/smime.php:567
-msgid "Common Name"
-msgstr "ឈ្មោះ​ធម្មតា"
-
-#: framework/NLS/NLS/tld.php:130 framework/NLS/NLS/countries.php:58
-#: framework/NLS/NLS/GeoIP.php:84
-msgid "Comoros"
-msgstr "កុំម៉ូរ៉ូស"
-
-#: framework/MIME/MIME/Viewer/vcard.php:239
-msgid "Company"
-msgstr "ក្រុមហ៊ុន"
-
-#: lib/Block/fortune.php:36
+#: lib/Block/fortune.php:38
 msgid "Computers"
 msgstr "កុំព្យូទ័រ"
 
-#: lib/Block/weatherdotcom.php:290
+#: lib/Block/weatherdotcom.php:300
 msgid "Condition"
 msgstr "លក្ខខណ្ឌ"
 
-#: lib/Block/metar.php:261
+#: lib/Block/metar.php:244
 msgid "Conditions"
 msgstr "លក្ខខណ្ឌ"
 
-#: services/confirm.php:38
-msgid "Confirm Email Address"
-msgstr "អះអាង​អាសយដ្ឋាន​អ៊ីមែល"
+#: admin/config/config.php:65 templates/admin/config/config.html:9
+#, fuzzy
+msgid "Configuration"
+msgstr "កំហុស​ការ​កំណត់​រចនាសម្ព័ន្ធ"
 
-#: framework/Identity/Identity.php:385
-msgid "Confirm new email address"
-msgstr "អះអាង​អាសយដ្ឋាន​អ៊ីមែល​ថ្មី"
+#: admin/config/diff.php:80
+#, fuzzy
+msgid "Configuration Differences"
+msgstr "កំហុស​ការ​កំណត់​រចនាសម្ព័ន្ធ"
 
-#: framework/NLS/NLS/tld.php:55 framework/NLS/NLS/countries.php:59
-#: framework/NLS/NLS/GeoIP.php:66
-msgid "Congo"
-msgstr "កុងហ្គោ"
+#: config/prefs.php.dist:665
+msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
+msgstr ""
 
-#: framework/IMAP/IMAP/ACL/rfc2086.php:199
-#: framework/IMAP/IMAP/ACL/rfc2086.php:310
-msgid "Connection failed."
-msgstr "ការ​តភ្ជាប់​បាន​បរាជ័យ​ ។"
+#: admin/config/index.php:155
+msgid "Configuration is out of date."
+msgstr ""
 
-#: config/hooks.php.dist:1100
-msgid "Contacts"
-msgstr "Contacts"
+#: templates/admin/config/index.html:61
+msgid "Configuration upgrade scripts available"
+msgstr ""
 
-#: services/resetpassword.php:29 services/changepassword.php:33
+#: admin/config/index.php:111
+#, fuzzy, php-format
+msgid "Configure %s"
+msgstr "បន្ត"
+
+#: templates/admin/user/update.inc:28
+#, fuzzy
+msgid "Confirm Password"
+msgstr "ពាក្យ​សម្ងាត់"
+
+#: services/changepassword.php:25 services/resetpassword.php:25
 msgid "Continue"
 msgstr "បន្ត"
 
-#: framework/NLS/NLS/tld.php:58 framework/NLS/NLS/countries.php:61
-#: framework/NLS/NLS/GeoIP.php:66
-msgid "Cook Islands"
-msgstr "កោះ​កូក"
+#: lib/Block/fortune.php:39
+msgid "Cookie"
+msgstr ""
 
-#: templates/javascript/htmlarea_context_lang.js:21
-msgid "Copy"
-msgstr "ចម្លង"
+#: themes/cornflower/info.php:2
+#, fuzzy
+msgid "Cornflower"
+msgstr "ពណ៌"
 
-#: framework/NLS/NLS/tld.php:63 framework/NLS/NLS/countries.php:62
-#: framework/NLS/NLS/GeoIP.php:67
-msgid "Costa Rica"
-msgstr "កូស្តារីកា"
+#: lib/Block/account.php:484
+msgid "Could not bind to LDAP server."
+msgstr ""
 
-#: framework/Crypt/Crypt/smime.php:570
+#: lib/Block/account.php:463
+msgid "Could not connect to LDAP server."
+msgstr ""
+
+#: admin/config/index.php:27
+#, php-format
+msgid "Could not connect to server \"%s\" using FTP: %s"
+msgstr ""
+
+#: admin/config/index.php:66
+msgid "Could not contact server. Try again later."
+msgstr ""
+
+#: admin/config/scripts.php:35
+#, php-format
+msgid "Could not delete configuration upgrade script \"%s\"."
+msgstr ""
+
+#: templates/prefs/twitter.html:14
+msgid ""
+"Could not find authorization for <tag:appname /> to interact with your "
+"Twitter account"
+msgstr ""
+
+#: services/resetpassword.php:92
+msgid ""
+"Could not reset the password for the requested user. Some or all of the "
+"details are not correct. Try again or contact your administrator if you need "
+"further help."
+msgstr ""
+
+#: admin/config/config.php:43
+msgid "Could not revert configuration."
+msgstr ""
+
+#: admin/config/index.php:41
+#, php-format
+msgid "Could not save a backup configuation: %s"
+msgstr ""
+
+#: admin/config/scripts.php:94
+#, php-format
+msgid "Could not save configuration upgrade script to: \"%s\"."
+msgstr ""
+
+#: admin/config/config.php:53
+#, php-format
+msgid "Could not save the backup configuration file %s."
+msgstr ""
+
+#: admin/config/config.php:65
+#, php-format
+msgid ""
+"Could not save the configuration file %s. You can either use one of the "
+"options to save the code back on %s or copy manually the code below to %s."
+msgstr ""
+
+#: admin/config/index.php:51
+#, php-format
+msgid "Could not write configuration for \"%s\": %s"
+msgstr ""
+
+#: lib/Block/vatid.php:91
 msgid "Country"
 msgstr "ប្រទេស"
 
-#: templates/rpcsum/rpcsum.inc:21 templates/rpcsum/rpcsum.inc:96
-#: templates/rpcsum/rpcsum.inc:100
+#: templates/prefs/rpc.html:34
 msgid "Create"
 msgstr "បង្កើត"
 
-#: framework/NLS/NLS/tld.php:109 framework/NLS/NLS/countries.php:64
-#: framework/NLS/NLS/GeoIP.php:79
-msgid "Croatia"
-msgstr "ក្រូអាត"
+#: templates/prefs/identityselect.html:22
+msgid "Create New Identity"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:64 framework/NLS/NLS/countries.php:65
-#: framework/NLS/NLS/GeoIP.php:68
-msgid "Cuba"
-msgstr "គុយបា"
+#: lib/Block/moon.php:24
+#, fuzzy
+msgid "Current 4 Phases"
+msgstr "រចនាប័ទ្ម​បច្ចុប្បន្ន​"
 
-#: lib/Block/time.php:3 lib/Block/time.php:35
+#: templates/admin/alarms/list.html.php:2
+#, fuzzy
+msgid "Current Alarms"
+msgstr "ពេល​វេលា​បច្ចុប្បន្ន"
+
+#: admin/sessions.php:23
+#, fuzzy
+msgid "Current Sessions"
+msgstr "សម័យ"
+
+#: lib/Block/time.php:3 lib/Block/time.php:36
 msgid "Current Time"
 msgstr "ពេល​វេលា​បច្ចុប្បន្ន"
 
-#: templates/javascript/htmlarea_lang.js:32
-msgid "Current style"
+#: lib/Block/metar.php:31
+#, fuzzy
+msgid "Current Weather"
 msgstr "រចនាប័ទ្ម​បច្ចុប្បន្ន​"
 
-#: config/prefs.php.dist:111
-#, php-format
-msgid "Customize tasks to run upon logon to %s."
-msgstr "ប្តូរ​ភារកិច្ច​ដែល​ត្រូវ​រត់​តាម​បំណង អាស្រ័យ​លើ​ការ​ចូល​ទៅ​ %s ។"
+#: lib/Block/weatherdotcom.php:279
+#, fuzzy
+msgid "Current condition: "
+msgstr "លក្ខខណ្ឌ"
 
-#: templates/javascript/htmlarea_context_lang.js:20
-msgid "Cut"
-msgstr "កាត់"
-
-#: framework/NLS/NLS/tld.php:67 framework/NLS/NLS/countries.php:66
-#: framework/NLS/NLS/GeoIP.php:68
-msgid "Cyprus"
-msgstr "ស៊ីពរ៍"
-
-#: config/nls.php.dist:178
+#: config/nls.php:174
 msgid "Cyrillic (KOI8-R)"
 msgstr "ស៊ីរីលីក (KOI8-R)"
 
-#: config/nls.php.dist:179
+#: config/nls.php:175
 msgid "Cyrillic (Windows-1251)"
 msgstr "​​ស៊ីរីលីក (Windows-1251)"
 
-#: framework/NLS/NLS/tld.php:68 framework/NLS/NLS/countries.php:67
-#: framework/NLS/NLS/GeoIP.php:69
-msgid "Czech Republic"
-msgstr "សាធារណ​រដ្ឋ​ឆេក"
+#: config/nls.php:176
+#, fuzzy
+msgid "Cyrillic/Ukrainian (KOI8-U)"
+msgstr "ស៊ីរីលីក (KOI8-R)"
 
-#: framework/UI/UI/VarRenderer/html.php:450 templates/data/date.inc:47
-#: templates/data/date.inc:48 templates/data/date.inc:49
-#: templates/data/date.inc:50
+#: templates/data/date.inc:47 templates/data/date.inc:48
+#: templates/data/date.inc:49 templates/data/date.inc:50
+#: templates/data/datetime.inc:89 templates/data/datetime.inc:90
+#: templates/data/datetime.inc:91 templates/data/datetime.inc:92
 msgid "DD"
 msgstr "DD"
 
-#: framework/Maintenance/Maintenance.php:59
-msgid "Daily"
-msgstr "រាល់​ថ្ងៃ"
+#: templates/data/csvmap.inc:101
+#, fuzzy
+msgid "Data"
+msgstr "កាល​​បរិចេ្ឆទ"
 
-#: framework/MIME/MIME/Viewer/rfc822.php:72 framework/Form/Form.php:2406
+#: admin/datatree.php:62
+#, fuzzy
+msgid "DataTree"
+msgstr "កាល​​បរិចេ្ឆទ"
+
+#: admin/datatree.php:59
+msgid "DataTree Browser"
+msgstr ""
+
+#: templates/prefs/syncml.html:11
+#, fuzzy
+msgid "Database"
+msgstr "កាល​​បរិចេ្ឆទ"
+
+#: lib/Block/vatid.php:94
 msgid "Date"
 msgstr "កាល​​បរិចេ្ឆទ"
 
-#: lib/Block/weatherdotcom.php:285 lib/Block/weatherdotcom.php:314
+#: templates/admin/user/approve.inc:23
+msgid "Date Received"
+msgstr ""
+
+#: templates/data/datetime.inc:70 templates/data/datetime.inc:71
+#, php-format
+msgid "Date: %s; time: %s"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:295 lib/Block/weatherdotcom.php:324
 msgid "Day"
 msgstr "ថ្ងៃ"
 
-#: framework/UI/UI/VarRenderer/html.php:411
-#: framework/UI/UI/VarRenderer/html.php:449
-#: templates/javascript/open_calendar.js:76
-msgid "December"
-msgstr "ធ្នូ"
-
-#: templates/javascript/htmlarea_lang.js:20
-msgid "Decrease Indent"
-msgstr "បន្ថយ ចូល​បន្ទាត់"
-
-#: framework/Prefs/Prefs/UI.php:187 lib/prefs.php:117
+#: lib/Prefs/Ui.php:69 lib/Prefs/Ui.php:74
 msgid "Default"
 msgstr "លំនាំដើម"
 
-#: admin/groups.php:71 framework/Perms/Perms.php:326
-#: framework/Perms/Perms/UI.php:422 framework/Perms/Perms/UI.php:439
-#: templates/shares/edit.inc:36 templates/shares/edit.inc:70
-#: templates/shares/edit.inc:93 templates/shares/edit.inc:116
-#: templates/shares/edit.inc:139 templates/shares/edit.inc:182
-#: templates/rpcsum/rpcsum.inc:73 templates/rpcsum/rpcsum.inc:98
-#: templates/admin/groups/delete.inc:10 templates/admin/user/list.inc:31
+#: lib/Prefs/Ui.php:252 lib/Prefs/Ui.php:282
+#, fuzzy
+msgid "Default Color"
+msgstr "លំនាំដើម"
+
+#: lib/Block/account.php:78
+#, fuzzy
+msgid "Default Shell"
+msgstr "លំនាំដើម"
+
+#: lib/Block/fortune.php:40
+#, fuzzy
+msgid "Definitions"
+msgstr "លក្ខខណ្ឌ"
+
+#: admin/groups.php:68 templates/admin/groups/delete.inc:10
+#: templates/admin/user/list.inc:34 templates/shares/edit.inc:63
+#: templates/shares/edit.inc:83 templates/shares/edit.inc:98
+#: templates/shares/edit.inc:118 templates/shares/edit.inc:134
+#: templates/shares/edit.inc:154 templates/shares/edit.inc:169
+#: templates/shares/edit.inc:193 templates/shares/edit.inc:228
+#: templates/shares/edit.inc:255 templates/shares/edit.inc:271
+#: templates/shares/edit.inc:291 templates/shares/edit.inc:320
+#: templates/prefs/identityselect.html:34 templates/prefs/rpc.html:35
+#: templates/prefs/syncml.html:14 templates/prefs/syncml.html:23
 msgid "Delete"
 msgstr "លុប​"
 
-#: templates/javascript/htmlarea_table_lang.js:63
-msgid "Delete column"
-msgstr "លុប​ជួរ​ឈរ"
+#: admin/alarms.php:122 admin/groups.php:254
+#, fuzzy, php-format
+msgid "Delete \"%s\""
+msgstr "លុប​"
 
-#: templates/javascript/htmlarea_table_lang.js:67
-msgid "Delete row"
+#: templates/prefs/syncml.html:30
+msgid "Delete All SyncML Data"
+msgstr ""
+
+#: admin/groups.php:215
+#, fuzzy
+msgid "Delete Group"
 msgstr "លុប​ជួរដេក"
 
-#: framework/NLS/NLS/tld.php:71 framework/NLS/NLS/countries.php:68
-#: framework/NLS/NLS/GeoIP.php:69
-msgid "Denmark"
-msgstr "ដាណឺម៉ាក"
+#: admin/config/scripts.php:33
+#, php-format
+msgid "Deleted configuration upgrade script \"%s\"."
+msgstr ""
 
-#: framework/Form/Form.php:942 templates/javascript/htmlarea_table_lang.js:30
-msgid "Description"
-msgstr "ការពិពណ៌នា"
+#: lib/Prefs/Ui.php:717
+#, php-format
+msgid "Deleted synchronization session for device \"%s\" and database \"%s\"."
+msgstr ""
 
-#: config/registry.php.dist:235
+#: templates/problem/problem.inc:27
+msgid "Describe the Problem"
+msgstr ""
+
+#: config/registry.php.dist:239
 msgid "Development"
 msgstr "​អភិវឌ្ឍ"
 
-#: lib/Block/google.php:39
-msgid "Directory"
-msgstr "ថត"
+#: templates/prefs/activesync.html:20 templates/prefs/syncml.html:10
+#, fuzzy
+msgid "Device"
+msgstr "មើល​ជា​​​មុន"
 
-#: framework/NLS/NLS/tld.php:70 framework/NLS/NLS/countries.php:69
-#: framework/NLS/NLS/GeoIP.php:69
-msgid "Djibouti"
-msgstr "ហ្ស៊ីបូទី"
+#: admin/activesync.php:119
+msgid "Device ID"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:72 framework/NLS/NLS/countries.php:70
-#: framework/NLS/NLS/GeoIP.php:69
-msgid "Dominica"
-msgstr "ដូមីនីកា"
+#: templates/prefs/activesync.html:11
+msgid "Device Management"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:73 framework/NLS/NLS/countries.php:71
-#: framework/NLS/NLS/GeoIP.php:70
-msgid "Dominican Republic"
-msgstr "សាធារណរដ្ឋ​ដូមីនីកែន"
+#: lib/Prefs/Ui.php:432
+msgid "Device id:"
+msgstr ""
 
-#: templates/login/login.inc:88
+#: admin/activesync.php:167 lib/Prefs/Ui.php:420
+msgid "Device is wiped"
+msgstr ""
+
+#: admin/activesync.php:45
+msgid "Device successfully removed."
+msgstr ""
+
+#: admin/activesync.php:40
+msgid "Device wipe successfully canceled."
+msgstr ""
+
+#: lib/Block/metar.php:212
+msgid "Dew Point"
+msgstr ""
+
+#: lib/Block/metar.php:289
+msgid "Dew Point for last hour: "
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:231
+msgid "Dew point: "
+msgstr ""
+
+#: templates/prefs/facebook.html:11 templates/prefs/facebook.html:22
+#: templates/prefs/facebook.html:34 templates/prefs/twitter.html:10
+#, fuzzy
+msgid "Disable"
+msgstr "តារាង"
+
+#: config/prefs.php.dist:345
+msgid "Display 24-hour times?"
+msgstr ""
+
+#: config/prefs.php.dist:468
+msgid "Display Preferences"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:86
+msgid "Display detailed forecast"
+msgstr ""
+
+#: lib/Block/metar.php:84
+msgid "Display forecast (TAF)"
+msgstr ""
+
+#: scripts/import_squirrelmail_prefs.php:77
+msgid "Do not use Drafts"
+msgstr ""
+
+#: scripts/import_squirrelmail_prefs.php:44
+#: scripts/import_squirrelmail_prefs.php:145
+msgid "Do not use Sent"
+msgstr ""
+
+#: scripts/import_squirrelmail_prefs.php:183
+msgid "Do not use Trash"
+msgstr ""
+
+#: templates/data/csvinfo.inc:12 templates/data/tsvinfo.inc:12
+msgid "Does the first row contain the field names? If yes, check this box:"
+msgstr ""
+
+#: templates/login/login.inc:72
 msgid "Don't have an account? Sign up."
 msgstr "មិន​មាន​គណនី ? សូម​ចុះឈ្មោះ ។"
 
-#: framework/MIME/MIME/Contents.php:858
-msgid "Download"
+#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:61
+#, fuzzy
+msgid "Done"
+msgstr "គ្មាន"
+
+#: admin/config/index.php:92 admin/config/index.php:124
+#, fuzzy, php-format
+msgid "Download %s"
 msgstr "ទាញយក"
 
-#: config/registry.php.dist:83
-msgid "Dynamic Mail"
-msgstr "សំបុត្រ​ថាមវន្ត"
+#: admin/config/index.php:179
+msgid "Download generated configuration as PHP script."
+msgstr ""
 
-#: framework/Crypt/Crypt/pgp.php:413
-msgid "E-Mail"
-msgstr "អ៊ីមែល"
+#: lib/Block/weatherdotcom_strings.php:25
+msgid "Drizzle"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:75 framework/NLS/NLS/countries.php:72
-#: framework/NLS/NLS/GeoIP.php:70
-msgid "Ecuador"
-msgstr "អេក្វាឌ័រ"
+#: lib/Block/fortune.php:41
+msgid "Drugs"
+msgstr ""
 
-#: framework/Perms/Perms.php:325 templates/shares/edit.inc:35
-#: templates/shares/edit.inc:69 templates/shares/edit.inc:92
-#: templates/shares/edit.inc:115 templates/shares/edit.inc:138
-#: templates/shares/edit.inc:181 templates/rpcsum/rpcsum.inc:72
+#: services/keyboard.php:64
+#, fuzzy
+msgid "E characters"
+msgstr "ចំនួន​តួអក្សរ"
+
+#: lib/Block/vatid.php:3
+msgid "EU VAT identification"
+msgstr ""
+
+#: templates/shares/edit.inc:62 templates/shares/edit.inc:79
+#: templates/shares/edit.inc:97 templates/shares/edit.inc:114
+#: templates/shares/edit.inc:133 templates/shares/edit.inc:150
+#: templates/shares/edit.inc:168 templates/shares/edit.inc:189
+#: templates/shares/edit.inc:224 templates/shares/edit.inc:251
+#: templates/shares/edit.inc:270 templates/shares/edit.inc:287
+#: templates/shares/edit.inc:316
 msgid "Edit"
 msgstr "កែ​សម្រួល"
 
-#: lib/Block/fortune.php:40
+#: admin/alarms.php:89
+#, fuzzy, php-format
+msgid "Edit \"%s\""
+msgstr "កែ​សម្រួល"
+
+#: admin/groups.php:214
+#, fuzzy
+msgid "Edit Group"
+msgstr "ក្រុម"
+
+#: templates/prefs/app.html:7
+msgid "Edit Preferences for"
+msgstr ""
+
+#: services/shares/edit.php:259
+#, fuzzy
+msgid "Edit permissions"
+msgstr "សិទ្ធិ"
+
+#: services/shares/edit.php:260 templates/shares/edit.inc:14
+#, php-format
+msgid "Edit permissions for \"%s\""
+msgstr ""
+
+#: lib/Block/fortune.php:42
 msgid "Education"
 msgstr "ការ​អប់រំ"
 
-#: framework/NLS/NLS/tld.php:77 framework/NLS/NLS/countries.php:73
-#: framework/NLS/NLS/GeoIP.php:70
-msgid "Egypt"
-msgstr "អេហ្ស៊ីប"
-
-#: framework/NLS/NLS/tld.php:217 framework/NLS/NLS/countries.php:74
-#: framework/NLS/NLS/GeoIP.php:107
-msgid "El Salvador"
-msgstr "អែលសាល់វ៉ាឌ័រ"
-
-#: framework/MIME/MIME/Viewer/vcard.php:224 framework/Form/Form.php:1877
-msgid "Email"
-msgstr "អ៊ីមែល"
-
-#: framework/Crypt/Crypt/smime.php:566 templates/admin/groups/edit.inc:10
-#: templates/admin/user/update.inc:68
+#: templates/admin/groups/edit.inc:11 templates/admin/user/update.inc:45
 msgid "Email Address"
 msgstr "អាសយដ្ឋាន​អ៊ីមែល"
 
-#: framework/Form/Form.php:1971
-msgid "Email addresses must match."
-msgstr "អាសយដ្ឋាន​អ៊ីមែល​ត្រូវ​តែ​ដូចគ្នា ។"
+#: lib/Prefs/Ui.php:225
+msgid "Enter a name for the new category:"
+msgstr ""
 
-#: framework/UI/UI/VarRenderer/html.php:297
-msgid "Emoticons"
-msgstr "សញ្ញា​អារម្មណ៍"
+#: config/prefs.php.dist:288
+msgid ""
+"Enter a security question which you will be asked if you need to reset your "
+"password, e.g. 'what is the name of your pet?':"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:99 framework/NLS/NLS/countries.php:75
-#: framework/NLS/NLS/GeoIP.php:76
-msgid "Equatorial Guinea"
-msgstr "ហ្គីណេ​អេក្វាទ័រ"
-
-#: framework/NLS/NLS/tld.php:79 framework/NLS/NLS/countries.php:76
-#: framework/NLS/NLS/GeoIP.php:71
-msgid "Eritrea"
-msgstr "អេរីទ្រា"
-
-#: framework/Notification/Notification/Listener/status.php:27
-#: framework/Block/Block/Layout/View.php:94 lib/Block/weatherdotcom.php:53
-#: lib/Block/metar.php:41
+#: lib/Block/metar.php:41 lib/Block/weatherdotcom.php:50
 msgid "Error"
 msgstr "កំហុស"
 
-#: framework/NLS/NLS/tld.php:76 framework/NLS/NLS/countries.php:77
-#: framework/NLS/NLS/GeoIP.php:70
-msgid "Estonia"
+#: lib/Prefs/Ui.php:577 services/twitter.php:128 services/twitter.php:151
+#, php-format
+msgid ""
+"Error connecting to Twitter: %s Details have been logged for the "
+"administrator."
+msgstr ""
+
+#: lib/Prefs/Ui.php:715
+msgid "Error deleting synchronization session:"
+msgstr ""
+
+#: lib/Prefs/Ui.php:722
+msgid "Error deleting synchronization sessions:"
+msgstr ""
+
+#: services/changepassword.php:61
+#, php-format
+msgid "Error updating password: %s"
+msgstr ""
+
+#: lib/Block/fortune.php:43
+#, fuzzy
+msgid "Ethnic"
 msgstr "អេស្តូនី"
 
-#: framework/NLS/NLS/tld.php:81 framework/NLS/NLS/countries.php:78
-#: framework/NLS/NLS/GeoIP.php:71
-msgid "Ethiopia"
-msgstr "អេត្យូពី"
+#: services/facebook.php:69
+msgid "Event Invites:"
+msgstr ""
 
-#: framework/NLS/NLS/GeoIP.php:55
-msgid "Europe"
-msgstr "អឺរ៉ុប"
-
-#: templates/portal/layout.inc:101 config/prefs.php.dist:343
+#: templates/portal/layout.inc:101 config/prefs.php.dist:520
 msgid "Every 15 minutes"
 msgstr "រៀង​រាល់​ ១៥ នាទី"
 
-#: templates/portal/layout.inc:98 config/prefs.php.dist:340
-#: config/prefs.php.dist:391
+#: config/prefs.php.dist:559
+#, fuzzy
+msgid "Every 2 minutes"
+msgstr "រៀង​រាល់ ៥ នាទី"
+
+#: templates/portal/layout.inc:98 config/prefs.php.dist:517
+#: config/prefs.php.dist:557
 msgid "Every 30 seconds"
 msgstr "រៀង​រាល់​ ៣០ វិនាទី"
 
-#: templates/portal/layout.inc:100 config/prefs.php.dist:342
-#: config/prefs.php.dist:394
+#: templates/portal/layout.inc:100 config/prefs.php.dist:519
+#: config/prefs.php.dist:560
 msgid "Every 5 minutes"
 msgstr "រៀង​រាល់ ៥ នាទី"
 
-#: templates/portal/layout.inc:102 config/prefs.php.dist:344
+#: templates/portal/layout.inc:102 config/prefs.php.dist:521
 msgid "Every half hour"
 msgstr "រៀង​រាល់​កន្លះ​ម៉ោង"
 
-#: templates/portal/layout.inc:99 config/prefs.php.dist:341
-#: config/prefs.php.dist:392
+#: templates/portal/layout.inc:103
+#, fuzzy
+msgid "Every hour"
+msgstr "រៀង​រាល់​កន្លះ​ម៉ោង"
+
+#: templates/portal/layout.inc:99 config/prefs.php.dist:518
+#: config/prefs.php.dist:558
 msgid "Every minute"
 msgstr "រៀង​រាល់នាទី"
 
-#: admin/phpshell.php:81 admin/cmdshell.php:50 admin/sqlshell.php:127
+#: templates/data/datemap.inc:24
+msgid "Example values:"
+msgstr ""
+
+#: admin/cmdshell.php:48 admin/phpshell.php:55 admin/sqlshell.php:108
 msgid "Execute"
 msgstr "ប្រតិបត្តិ"
 
-#: framework/Block/Block/Layout/Manager.php:466
+#: admin/sessions.php:30
 msgid "Expand"
 msgstr "បន្លាយ"
 
-#: framework/Crypt/Crypt/smime.php:677
-msgid "Exponent"
-msgstr "អ៊ិចស្បូណង់សែល"
+#: lib/Block/iframe.php:29
+msgid "Extra Large"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:84 framework/NLS/NLS/countries.php:79
-#: framework/NLS/NLS/GeoIP.php:72
-msgid "Falkland Islands (Malvinas)"
-msgstr "កោះ​ហ្វ៉កឡង់ (ម៉ាល់វីណា)"
+#: templates/admin/config/index.html:74
+msgid "FTP upload of configuration"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:86 framework/NLS/NLS/countries.php:80
-#: framework/NLS/NLS/GeoIP.php:73
-msgid "Faroe Islands"
-msgstr "កោះហ្វាអេរូ"
+#: config/prefs.php.dist:604
+msgid "Facebook Integration"
+msgstr ""
 
-#: framework/MIME/MIME/Viewer/vcard.php:187
-msgid "Fax"
-msgstr "ទូរសារ"
+#: themes/fadetogreen/info.php:9
+msgid "Fade to Green"
+msgstr ""
 
-#: framework/UI/UI/VarRenderer/html.php:401
-#: framework/UI/UI/VarRenderer/html.php:439
-#: templates/javascript/open_calendar.js:66
-msgid "February"
-msgstr "កុម្ភៈ"
+#: lib/Block/weatherdotcom_strings.php:26
+#, fuzzy
+msgid "Fair"
+msgstr "សៃ"
 
-#: framework/NLS/NLS/tld.php:83 framework/NLS/NLS/countries.php:81
-#: framework/NLS/NLS/GeoIP.php:72
-msgid "Fiji"
-msgstr "ហ្វីហ្ស៊ី"
+#: lib/Block/feed.php:41
+msgid "Feed"
+msgstr ""
 
-#: services/portal/syncml.php:255
-msgid "File"
-msgstr "ឯកសារ"
+#: lib/Block/feed.php:17
+#, fuzzy
+msgid "Feed Address"
+msgstr "អាសយដ្ឋាន​ផ្ទះ"
 
-#: framework/MIME/MIME/Viewer/rar.php:63 framework/MIME/MIME/Viewer/zip.php:70
-#: framework/MIME/MIME/Viewer/tgz.php:82
-msgid "File Name"
+#: lib/Block/metar.php:215
+msgid "Feels Like"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:235
+msgid "Feels like: "
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:27
+msgid "Few Showers"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:28
+msgid "Few Snow Showers"
+msgstr ""
+
+#: templates/prefs/addressbooks.html:17
+msgid "Fields to search"
+msgstr ""
+
+#: config/registry.php.dist:340
+#, fuzzy
+msgid "File Manager"
 msgstr "ឈ្មោះ​ឯកសារ"
 
-#: config/registry.php.dist:98
+#: lib/Block/fb_stream.php:82
+#, fuzzy
+msgid "Filter"
+msgstr "តម្រង"
+
+#: config/registry.php.dist:93
 msgid "Filters"
 msgstr "តម្រង"
 
-#: framework/NLS/NLS/tld.php:82 framework/NLS/NLS/countries.php:82
-#: framework/NLS/NLS/GeoIP.php:71
-msgid "Finland"
-msgstr "ហ្វាំងឡង់"
+#: lib/Block/moon.php:164
+msgid "First Half"
+msgstr ""
 
-#: framework/UI/UI/VarRenderer/html.php:230
-msgid "Flip"
-msgstr "ត្រឡប់"
+#: lib/Block/moon.php:72 lib/Block/moon.php:74
+msgid "First Quarter"
+msgstr ""
 
-#: templates/javascript/htmlarea_table_lang.js:32
-msgid "Float"
+#: lib/Block/weatherdotcom_strings.php:29
+msgid "Fog"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:30
+msgid "Fog Early"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:31
+#, fuzzy
+msgid "Fog Late"
 msgstr "ទសភាគ"
 
-#: templates/javascript/htmlarea_lang.js:22
-msgid "Font Color"
-msgstr "ពណ៌​ពុម្ព​អក្សរ"
+#: lib/Block/weatherdotcom_strings.php:32
+msgid "Foggy"
+msgstr ""
 
-#: config/registry.php.dist:478
-msgid "Forms"
-msgstr "សំណុំ​​បែបបទ"
+#: lib/Block/fortune.php:44
+msgid "Food"
+msgstr ""
 
-#: templates/javascript/htmlarea_table_lang.js:33
-msgid "Frames"
-msgstr "ស៊ុម"
+#: lib/Block/metar.php:329
+msgid "Forecast (TAF)"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:87 framework/NLS/NLS/countries.php:83
-#: framework/NLS/NLS/GeoIP.php:73
-msgid "France"
+#: lib/Block/weatherdotcom.php:74
+msgid ""
+"Forecast Days (note that the returned forecast returns both day and night; a "
+"large number here could result in a wide block)"
+msgstr ""
+
+#: templates/login/login.inc:81
+msgid "Forgot your password?"
+msgstr ""
+
+#: lib/Block/fortune.php:28
+#, fuzzy
+msgid "Fortune"
 msgstr "បារាំង"
 
-#: framework/NLS/NLS/tld.php:91 framework/NLS/NLS/countries.php:84
-#: framework/NLS/NLS/GeoIP.php:74
-msgid "French Guiana"
-msgstr "ហ្គូអ៊ីយ៉ាណា បារាំង"
+#: lib/Block/fortune.php:106
+msgid "Fortune type"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:184 framework/NLS/NLS/countries.php:85
-#: framework/NLS/NLS/GeoIP.php:98
-msgid "French Polynesia"
-msgstr "ប៉ូលីនេស៊ី​បារាំង"
+#: lib/Block/fortune.php:45
+#, fuzzy
+msgid "Fortunes"
+msgstr "សំណុំ​​បែបបទ"
 
-#: framework/NLS/NLS/tld.php:222 framework/NLS/NLS/countries.php:86
-#: framework/NLS/NLS/GeoIP.php:109
-msgid "French Southern Territories"
-msgstr "អាណចក្រ​ខាង​ត្បូង បារាំង"
+#: lib/Block/fortune.php:46
+msgid "Fortunes 2"
+msgstr ""
 
-#: framework/MIME/MIME/Viewer/rfc822.php:74
-msgid "From"
+#: config/registry.php.dist:376
+#, fuzzy
+msgid "Forums"
+msgstr "សំណុំ​​បែបបទ"
+
+#: config/registry.php.dist:113
+#, fuzzy
+msgid "Forwards"
+msgstr "សំណុំ​​បែបបទ"
+
+#: lib/Block/weatherdotcom_strings.php:33
+msgid "Freezing Drizzle"
+msgstr ""
+
+#: services/facebook.php:68
+msgid "Friend Requests:"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:252 lib/Block/weatherdotcom.php:362
+#: lib/Block/weatherdotcom.php:408
+#, fuzzy
+msgid "From the "
 msgstr "ពី"
 
-#: lib/Block/account.php:61 templates/admin/user/update.inc:60
+#: templates/problem/problem.inc:48
+#, fuzzy
+msgid "Full Description"
+msgstr "ការពិពណ៌នា"
+
+#: lib/Block/moon.php:79 lib/Block/moon.php:174
+msgid "Full Moon"
+msgstr ""
+
+#: lib/Block/account.php:68 templates/admin/user/update.inc:37
 msgid "Full Name"
 msgstr "ឈ្មោះ​ពេញ"
 
-#: framework/NLS/NLS/tld.php:88 framework/NLS/NLS/countries.php:87
-#: framework/NLS/NLS/GeoIP.php:73
-msgid "Gabon"
-msgstr "ហ្គាបុង"
+#: admin/config/config.php:31
+#, php-format
+msgid "Generate %s Configuration"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:96 framework/NLS/NLS/countries.php:88
-#: framework/NLS/NLS/GeoIP.php:75
-msgid "Gambia"
-msgstr "ហ្កាំប៊ី"
+#: templates/admin/config/config.html:6
+msgid "Generated Code"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:90 framework/NLS/NLS/countries.php:89
-#: framework/NLS/NLS/GeoIP.php:74
-msgid "Georgia"
-msgstr "ហ្សកហ្ស៊ី"
+#: lib/Block/fb_stream.php:192 lib/Block/twitter_timeline.php:171
+msgid "Get More"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:69 framework/NLS/NLS/countries.php:90
-#: framework/NLS/NLS/GeoIP.php:69
-msgid "Germany"
-msgstr "អាល្លឺម៉ង់"
+#: templates/prefs/app.html:10
+msgid "Global Preferences"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:93 framework/NLS/NLS/countries.php:91
-#: framework/NLS/NLS/GeoIP.php:75
-msgid "Ghana"
-msgstr "ហ្កាណា"
-
-#: framework/NLS/NLS/tld.php:94 framework/NLS/NLS/countries.php:92
-#: framework/NLS/NLS/GeoIP.php:75
-msgid "Gibraltar"
-msgstr "ហ្គីប្រាល់តា"
-
-#: framework/Crypt/Crypt/smime.php:576
-msgid "Given Name"
-msgstr "នាមខ្លួន"
-
-#: services/portal/sidebar.php:175 templates/prefs/app.inc:10
-#: templates/prefs/app.inc:19
-msgid "Global Options"
-msgstr "ជម្រើស​សកល"
-
-#: templates/prefs/app.inc:17
+#: templates/prefs/app.html:17
 msgid "Go"
 msgstr "ទៅ"
 
-#: framework/UI/UI/VarRenderer/html.php:236
-msgid "Grayscale"
-msgstr "មាត្រដ្ឋាន​ប្រផេះ"
+#: lib/Block/fortune.php:47
+msgid "Goedel"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:100 framework/NLS/NLS/countries.php:93
-#: framework/NLS/NLS/GeoIP.php:76
-msgid "Greece"
-msgstr "ក្រិក"
+#: lib/Block/google.php:3 lib/Block/google.php:19
+#, fuzzy
+msgid "Google Search"
+msgstr "ស្វែងរក"
 
-#: config/nls.php.dist:181
+#: lib/Block/google.php:30
+msgid "Google search is not enabled."
+msgstr ""
+
+#: config/nls.php:177
 msgid "Greek (ISO-8859-7)"
 msgstr "ក្រិក (ISO-8859-7)"
 
-#: framework/NLS/NLS/tld.php:95 framework/NLS/NLS/countries.php:94
-#: framework/NLS/NLS/GeoIP.php:75
-msgid "Greenland"
-msgstr "គ្រីឡង់"
+#: themes/green/info.php:2
+#, fuzzy
+msgid "Green"
+msgstr "ក្រិក"
 
-#: framework/NLS/NLS/tld.php:89 framework/NLS/NLS/countries.php:95
-#: framework/NLS/NLS/GeoIP.php:74
-msgid "Grenada"
-msgstr "ហ្គ្រីណាដា"
+#: themes/grey/info.php:2
+#, fuzzy
+msgid "Grey"
+msgstr "ក្រិក"
 
-#: framework/Perms/Perms/UI.php:314 lib/Block/google.php:38
-#: templates/shares/edit.inc:177
+#: admin/groups.php:195
+#, fuzzy
+msgid "Group Administration"
+msgstr "ការ​គ្រប់​គ្រង"
+
+#: admin/groups.php:44
+#, php-format
+msgid "Group was not created: %s."
+msgstr ""
+
+#: admin/groups.php:268 templates/shares/edit.inc:266
 msgid "Groups"
 msgstr "ក្រុម"
 
-#: framework/NLS/NLS/tld.php:98 framework/NLS/NLS/countries.php:96
-#: framework/NLS/NLS/GeoIP.php:76
-msgid "Guadeloupe"
-msgstr "ហ្គូអាដឺលូប៉េ"
+#: templates/shares/edit.inc:93
+#, fuzzy
+msgid "Guest Permissions"
+msgstr "សិទ្ធិ"
 
-#: framework/NLS/NLS/tld.php:103 framework/NLS/NLS/countries.php:97
-#: framework/NLS/NLS/GeoIP.php:77
-msgid "Guam"
-msgstr "ហ្គាំម"
-
-#: framework/NLS/NLS/tld.php:102 framework/NLS/NLS/countries.php:98
-#: framework/NLS/NLS/GeoIP.php:77
-msgid "Guatemala"
-msgstr "ហ្គាតេម៉ាឡា"
-
-#: framework/NLS/NLS/tld.php:97 framework/NLS/NLS/countries.php:99
-#: framework/NLS/NLS/GeoIP.php:75
-msgid "Guinea"
-msgstr "ហ្គីណេ"
-
-#: framework/NLS/NLS/tld.php:104 framework/NLS/NLS/countries.php:100
-#: framework/NLS/NLS/GeoIP.php:78
-msgid "Guinea-Bissau"
-msgstr "ហ្គីណេប៊ីសៅ"
-
-#: framework/NLS/NLS/tld.php:105 framework/NLS/NLS/countries.php:101
-#: framework/NLS/NLS/GeoIP.php:78
-msgid "Guyana"
-msgstr "ហ្គីយ៉ាណា"
-
-#: framework/Form/Form.php:964
-msgid "HTML"
-msgstr "HTML"
-
-#: framework/NLS/NLS/tld.php:110 framework/NLS/NLS/countries.php:102
-#: framework/NLS/NLS/GeoIP.php:80
-msgid "Haiti"
-msgstr "ហៃទី"
-
-#: framework/Form/Form.php:923 framework/Form/Form.php:2925
-msgid "Header"
+#: lib/Block/weatherdotcom_strings.php:34
+#, fuzzy
+msgid "Haze"
 msgstr "បឋមកថា​"
 
-#: framework/Form/Form/Type/tableset.php:61
-msgid "Headers"
-msgstr "បឋមកថា"
+#: lib/Block/weatherdotcom_strings.php:35
+msgid "Heavy Rain"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:107 framework/NLS/NLS/countries.php:103
-#: framework/NLS/NLS/GeoIP.php:79
-msgid "Heard Island and McDonald Islands"
-msgstr "កោះ​ហ៊ើដ និង កោះ​ម៉ាកដូណាល់"
+#: lib/Block/weatherdotcom_strings.php:36
+msgid "Heavy T-Storm"
+msgstr ""
 
-#: templates/javascript/htmlarea_table_lang.js:34
+#: config/nls.php:178
+#, fuzzy
+msgid "Hebrew (ISO-8859-8-I)"
+msgstr "ក្រិក (ISO-8859-7)"
+
+#: lib/Block/iframe.php:24
 msgid "Height"
 msgstr "កម្ពស់"
 
-#: framework/Horde/Horde/Help.php:181 framework/Horde/Horde/Help.php:182
+#: lib/Block/fb_stream.php:92 lib/Block/twitter_timeline.php:87
+msgid "Height of map (width automatically adjusts to block)"
+msgstr ""
+
 #: services/help/index.php:17 templates/help/index.inc:4
 msgid "Help"
 msgstr "ជំនួយ"
 
-#: lib/Block/weatherdotcom_strings.php:70
+#: services/help/index.php:70
+msgid "Help _Topics"
+msgstr ""
+
+#: lib/Block/moon.php:27
+msgid "Hemisphere"
+msgstr ""
+
+#: templates/data/csvinfo.inc:10 templates/data/tsvinfo.inc:10
+msgid "Here is the beginning of the file:"
+msgstr ""
+
+#: themes/hi-contrast/info.php:3
+#, fuzzy
+msgid "Hi-Contrast"
+msgstr "Contacts"
+
+#: templates/prefs/app.html:23
+msgid "Hide Advanced Preferences"
+msgstr ""
+
+#: services/portal/cloud_search.php:33
+#, fuzzy
+msgid "Hide Results"
+msgstr "លទ្ធ​ផល"
+
+#: lib/Block/weatherdotcom_strings.php:100
 msgid "High"
 msgstr "ខ្ពស់"
 
-#: framework/NLS/NLS/tld.php:243 framework/NLS/NLS/countries.php:104
-#: framework/NLS/NLS/GeoIP.php:114
-msgid "Holy See (Vatican City State)"
-msgstr "ហូលីស៊ី (រដ្ឋ​ក្រុង​វ៉ាទីកង់)"
-
-#: framework/Horde/Horde.php:1555
-msgid "Home"
-msgstr "គេហទំព័រ"
-
-#: framework/MIME/MIME/Viewer/vcard.php:122
-#: framework/MIME/MIME/Viewer/vcard.php:155
-msgid "Home Address"
-msgstr "អាសយដ្ឋាន​ផ្ទះ"
-
-#: lib/Block/account.php:64
+#: lib/Block/account.php:73
 msgid "Home Directory"
 msgstr "ថតផ្ទះ"
 
-#: framework/MIME/MIME/Viewer/vcard.php:190
-msgid "Home Phone"
-msgstr "ទូរស័ព្ទ​ផ្ទះ"
+#: config/registry.php.dist:76
+#, fuzzy
+msgid "Horde"
+msgstr "ស៊ុម"
 
-#: framework/NLS/NLS/tld.php:108 framework/NLS/NLS/countries.php:105
-#: framework/NLS/NLS/GeoIP.php:79
-msgid "Honduras"
-msgstr "ហុងឌូរ៉ាស់"
+#: themes/hordeweb/info.php:2
+msgid "Horde Website"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:106 framework/NLS/NLS/countries.php:106
-#: framework/NLS/NLS/GeoIP.php:78
-msgid "Hong Kong"
-msgstr "ហុងកុង"
+#: templates/data/csvinfo.inc:21
+msgid "How many fields (columns) are there?"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:111 framework/NLS/NLS/countries.php:107
-#: framework/NLS/NLS/GeoIP.php:80
-msgid "Hungary"
-msgstr "ហុងគ្រី"
+#: lib/Block/feed.php:21
+msgid "How many seconds before we check for new articles?"
+msgstr ""
 
-#: framework/Form/Form.php:1320
-msgid "IP Address"
-msgstr "អាសយដ្ឋាន​ IP"
+#: lib/Block/metar.php:225 lib/Block/weatherdotcom.php:303
+#, fuzzy
+msgid "Humidity"
+msgstr "សុពលភាព"
 
-#: framework/NLS/NLS/tld.php:120 framework/NLS/NLS/countries.php:108
-#: framework/NLS/NLS/GeoIP.php:82
-msgid "Iceland"
-msgstr "អ៊ីស្លង់"
+#: lib/Block/weatherdotcom.php:263
+msgid "Humidity: "
+msgstr ""
 
-#: config/prefs.php.dist:380
+#: lib/Block/fortune.php:48
+msgid "Humorists"
+msgstr ""
+
+#: services/keyboard.php:78
+#, fuzzy
+msgid "I characters"
+msgstr "ចំនួន​តួអក្សរ"
+
+#: config/prefs.php.dist:545
 msgid "Icons Only"
 msgstr "តែ​រូបតំណាង"
 
-#: lib/Block/google.php:37
-msgid "Images"
-msgstr "រូបភាព"
+#: util/icon_browser.php:53
+#, php-format
+msgid "Icons for %s"
+msgstr ""
 
-#: templates/javascript/htmlarea_lang.js:21
-msgid "Increase Indent"
-msgstr "បង្កើន​ការ​ចូល​បន្ទាត់"
+#: config/prefs.php.dist:546
+msgid "Icons with text"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:116 framework/NLS/NLS/countries.php:109
-#: framework/NLS/NLS/GeoIP.php:81
-msgid "India"
+#: themes/ideas/info.php:2
+#, fuzzy
+msgid "Ideas"
 msgstr "ឥណ្ឌា"
 
-#: framework/NLS/NLS/tld.php:112 framework/NLS/NLS/countries.php:110
-#: framework/NLS/NLS/GeoIP.php:80
-msgid "Indonesia"
-msgstr "ឥណ្ឌូនេស៊ី"
+#: config/prefs.php.dist:226
+msgid "Identity's name:"
+msgstr ""
 
-#: framework/MIME/MIME/Viewer/rfc822.php:67
-msgid "Info"
-msgstr "ព័ត៌មាន"
+#: templates/data/csvinfo.inc:7 templates/data/csvmap.inc:54
+#: templates/data/datemap.inc:7 templates/data/tsvinfo.inc:7
+#, php-format
+msgid "Import, Step %d"
+msgstr ""
 
-#: config/registry.php.dist:273
+#: templates/data/datemap.inc:15
+#, php-format
+msgid "Imported field: %s"
+msgstr ""
+
+#: templates/data/csvmap.inc:59
+msgid "Imported fields:"
+msgstr ""
+
+#: lib/Block/twitter_timeline.php:136
+msgid "In reply to:"
+msgstr ""
+
+#: templates/data/csvmap.inc:57
+msgid ""
+"In the lists below select both, a field imported from the source file at the "
+"left, and the matching field available in your address book at the right. "
+"Then hit \"Add pair\" to mark them for the import. Once your are finished "
+"hit \"Next\"."
+msgstr ""
+
+#: services/resetpassword.php:50
+msgid ""
+"Incorrect username or alternate address. Try again or contact your "
+"administrator if you need further help."
+msgstr ""
+
+#: templates/shares/edit.inc:164
+msgid "Individual Users"
+msgstr ""
+
+#: templates/prefs/facebook.html:10
+msgid "Infinite sessions enabled."
+msgstr ""
+
+#: config/registry.php.dist:281
 msgid "Information"
 msgstr "ព័ត៌មាន"
 
-#: templates/javascript/htmlarea_lang.js:27
-#: templates/javascript/htmlarea_lang.js:100
-msgid "Insert Table"
-msgstr "បញ្ចូល​តារាង"
+#: lib/Block/weatherdotcom.php:332
+msgid "Information no longer available."
+msgstr ""
 
-#: framework/Form/Form.php:1079
-msgid "Integer"
-msgstr "ចំនួន​គត់"
+#: templates/admin/groups/edit.inc:36
+msgid "Inherited Members"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:118 framework/NLS/NLS/countries.php:112
-#: framework/NLS/NLS/GeoIP.php:81
-msgid "Iraq"
-msgstr "អ៊ីរ៉ាក់"
+#: config/prefs.php.dist:304
+msgid "Insert an email address to which you can receive the new password:"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:113 framework/NLS/NLS/countries.php:113
-#: framework/NLS/NLS/GeoIP.php:80
-msgid "Ireland"
-msgstr "អៀរឡង់"
+#: config/prefs.php.dist:296
+msgid "Insert the required answer to the security question:"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:114 framework/NLS/NLS/countries.php:114
-#: framework/NLS/NLS/GeoIP.php:80
-msgid "Israel"
-msgstr "អ៊ីស្រាអែល"
+#: lib/Block/vatid.php:52
+msgid "Invalid VAT identification number format."
+msgstr ""
 
-#: framework/Crypt/Crypt/smime.php:626
-msgid "Issuer"
-msgstr "អ្នក​ចេញ"
+#: admin/signup_confirm.php:43
+#, php-format
+msgid "Invalid action %s"
+msgstr ""
 
-#: templates/javascript/htmlarea_lang.js:9
-msgid "Italic"
-msgstr "ទ្រេត"
+#: admin/config/config.php:24
+#, fuzzy
+msgid "Invalid application."
+msgstr "កម្មវិធី"
 
-#: framework/NLS/NLS/tld.php:121 framework/NLS/NLS/countries.php:115
-#: framework/NLS/NLS/GeoIP.php:82
-msgid "Italy"
-msgstr "អ៊ីតាលី"
+#: admin/signup_confirm.php:33
+msgid "Invalid hash."
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:123 framework/NLS/NLS/countries.php:116
-#: framework/NLS/NLS/GeoIP.php:82
-msgid "Jamaica"
-msgstr "ចាម៉ៃកា"
+#: lib/Block/weatherdotcom.php:180
+msgid "Invalid license key."
+msgstr ""
 
-#: framework/UI/UI/VarRenderer/html.php:400
-#: framework/UI/UI/VarRenderer/html.php:438
-#: templates/javascript/open_calendar.js:65
-msgid "January"
-msgstr "មករា"
+#: lib/Block/weatherdotcom.php:174
+msgid "Invalid location provided."
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:125 framework/NLS/NLS/countries.php:117
-#: framework/NLS/NLS/GeoIP.php:83
-msgid "Japan"
-msgstr "ជប៉ុន"
+#: admin/perms/addchild.php:23
+msgid "Invalid parent permission."
+msgstr ""
 
-#: config/nls.php.dist:183
+#: lib/Block/weatherdotcom.php:176
+msgid "Invalid partner id."
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:178
+msgid "Invalid product code."
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:37
+msgid "Isolated T-Storms"
+msgstr ""
+
+#: config/nls.php:179
 msgid "Japanese (ISO-2022-JP)"
 msgstr "​ជប៉ុន (ISO-2022-JP)"
 
-#: framework/NLS/NLS/tld.php:124 framework/NLS/NLS/countries.php:118
-#: framework/NLS/NLS/GeoIP.php:83
-msgid "Jordan"
-msgstr "ហ្ស៊កដានី"
+#: lib/Block/twitter_timeline.php:138
+msgid "Just now..."
+msgstr ""
 
-#: framework/UI/UI/VarRenderer/html.php:406
-#: framework/UI/UI/VarRenderer/html.php:444
-#: templates/javascript/open_calendar.js:71
-msgid "July"
-msgstr "កក្កដា"
+#: lib/Block/fortune.php:49
+msgid "Kernel Newbies"
+msgstr ""
 
-#: framework/UI/UI/VarRenderer/html.php:405
-#: framework/UI/UI/VarRenderer/html.php:443
-#: templates/javascript/open_calendar.js:70
-msgid "June"
-msgstr "មិថុនា"
+#: services/help/index.php:138
+msgid "Keyword"
+msgstr ""
 
-#: templates/javascript/htmlarea_table_lang.js:38
-msgid "Justify"
-msgstr "តម្រឹម​សង​ខាង"
+#: lib/Block/fortune.php:50
+msgid "Kids"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:136 framework/NLS/NLS/countries.php:119
-#: framework/NLS/NLS/GeoIP.php:86
-msgid "Kazakhstan"
-msgstr "កាហ្សាក់ស្តង់"
+#: themes/kolab/info.php:7
+msgid "Kolab"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:126 framework/NLS/NLS/countries.php:120
-#: framework/NLS/NLS/GeoIP.php:83
-msgid "Kenya"
-msgstr "កែនយ៉ា"
-
-#: framework/Crypt/Crypt/pgp.php:412
-msgid "Key Length"
-msgstr "ប្រវែង​កូនសោ"
-
-#: framework/Crypt/Crypt/pgp.php:411
-msgid "Key Type"
-msgstr "ប្រភេទ​គ្រាប់​ចុច"
-
-#: framework/NLS/NLS/tld.php:129 framework/NLS/NLS/countries.php:121
-#: framework/NLS/NLS/GeoIP.php:84
-msgid "Kiribati"
-msgstr "គិរិបាទី"
-
-#: config/nls.php.dist:184
+#: config/nls.php:180
 msgid "Korean (EUC-KR)"
 msgstr "​កូរ៉េ (EUC-KR)"
 
-#: framework/NLS/NLS/tld.php:134 framework/NLS/NLS/countries.php:124
-#: framework/NLS/NLS/GeoIP.php:86
-msgid "Kuwait"
-msgstr "គុយ​វ៉ែត"
-
-#: framework/NLS/NLS/tld.php:127 framework/NLS/NLS/countries.php:125
-#: framework/NLS/NLS/GeoIP.php:83
-msgid "Kyrgyzstan"
-msgstr "គៀរហ្គីស្តង់"
-
-#: templates/login/login.inc:75
+#: login.php:314 templates/login/login.inc:49
 msgid "Language"
 msgstr "ភាសា"
 
-#: framework/NLS/NLS/tld.php:137 framework/NLS/NLS/countries.php:126
-#: framework/NLS/NLS/GeoIP.php:87
-msgid "Lao People's Democratic Republic"
-msgstr "សាធារណរដ្ឋ​ប្រជាធិបតេយ្យ​ប្រជាមានិត​ឡាវ"
+#: lib/Block/iframe.php:28
+#, fuzzy
+msgid "Large"
+msgstr "ភាសា"
 
-#: framework/NLS/NLS/tld.php:146 framework/NLS/NLS/countries.php:127
-#: framework/NLS/NLS/GeoIP.php:89
-msgid "Latvia"
-msgstr "ឡាតវីយ៉ា"
+#: lib/Block/moon.php:167
+msgid "Last Half"
+msgstr ""
 
-#: templates/javascript/htmlarea_table_lang.js:39
-#: templates/javascript/htmlarea_lang.js:79
-msgid "Layout"
-msgstr "ប្លង់​"
+#: lib/Block/account.php:91
+msgid "Last Password Change"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:138 framework/NLS/NLS/countries.php:128
-#: framework/NLS/NLS/GeoIP.php:87
-msgid "Lebanon"
-msgstr "លីបង់"
+#: lib/Block/moon.php:84 lib/Block/moon.php:86
+msgid "Last Quarter"
+msgstr ""
 
-#: templates/javascript/htmlarea_table_lang.js:40
-#: templates/javascript/htmlarea_lang.js:69
-msgid "Left"
-msgstr "ឆ្វេង"
+#: admin/activesync.php:98 templates/prefs/activesync.html:21
+msgid "Last Sync Time"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:143 framework/NLS/NLS/countries.php:129
-#: framework/NLS/NLS/GeoIP.php:88
-msgid "Lesotho"
+#: lib/Block/metar.php:146
+#, fuzzy
+msgid "Last Updated:"
+msgstr "ធ្វើ​ឲ្យ​ទាន់​សម័យ"
+
+#: lib/LoginTasks/Task/LastLogin.php:46
+#, php-format
+msgid "Last login: %s"
+msgstr ""
+
+#: lib/LoginTasks/Task/LastLogin.php:48
+#, php-format
+msgid "Last login: %s from %s"
+msgstr ""
+
+#: lib/LoginTasks/Task/LastLogin.php:44
+msgid "Last login: Never"
+msgstr ""
+
+#: lib/Block/twitter_timeline.php:168
+#, fuzzy
+msgid "Latest"
 msgstr "ឡេសូតូ"
 
-#: services/portal/syncml.php:255
-msgid "Level"
-msgstr "កម្រិត"
+#: themes/lavander/info.php:2
+#, fuzzy
+msgid "Lavender"
+msgstr "ប្រតិទិន"
 
-#: framework/NLS/NLS/tld.php:142 framework/NLS/NLS/countries.php:130
-#: framework/NLS/NLS/GeoIP.php:88
-msgid "Liberia"
+#: lib/Block/fortune.php:51
+#, fuzzy
+msgid "Law"
+msgstr "ទាប"
+
+#: themes/lightblue/info.php:2
+msgid "Light Blue"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:38
+msgid "Light Drizzle"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:39
+#, fuzzy
+msgid "Light Rain"
+msgstr "ចូល"
+
+#: lib/Block/weatherdotcom_strings.php:40
+msgid "Light Rain Early"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:41
+msgid "Light Rain Late"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:42
+msgid "Light Rain Shower"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:43
+msgid "Light Rain with Thunder"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:44
+msgid "Light Snow"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:45
+msgid "Light Snow Early"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:46
+msgid "Light Snow Late"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:47
+msgid "Light Snow Shower"
+msgstr ""
+
+#: services/facebook.php:105
+#, fuzzy
+msgid "Like"
+msgstr "តំណ"
+
+#: lib/Block/fortune.php:52
+#, fuzzy
+msgid "Limerick"
 msgstr "លីបេរីយ៉ា"
 
-#: framework/NLS/NLS/tld.php:147 framework/NLS/NLS/countries.php:131
-#: framework/NLS/NLS/GeoIP.php:89
-msgid "Libyan Arab Jamahiriya"
-msgstr "ចាម៉ាអ៊ិរីយ៉ា​អារ៉ាប់ លីប៊ី"
+#: lib/Block/fortune.php:53
+msgid "Linux Cookie"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:140 framework/NLS/NLS/countries.php:132
-#: framework/NLS/NLS/GeoIP.php:88
-msgid "Liechtenstein"
-msgstr "លិចទេនស្តែន"
+#: admin/sqlshell.php:113
+#, fuzzy
+msgid "List Tables"
+msgstr "បញ្ចូល​តារាង"
 
-#: framework/Form/Form.php:1822
-msgid "Link"
-msgstr "តំណ"
+#: admin/alarms.php:130
+#, php-format
+msgid "Listing alarms failed: %s"
+msgstr ""
 
-#: framework/Text_Filter/Filter/html2text.php:182
-msgid "Links"
-msgstr "តំណ"
+#: admin/sessions.php:62
+#, php-format
+msgid "Listing sessions failed: %s"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:144 framework/NLS/NLS/countries.php:133
-#: framework/NLS/NLS/GeoIP.php:89
-msgid "Lithuania"
-msgstr "លីទុយអានី"
+#: templates/admin/user/nolist.inc:2
+msgid "Listing users is disabled."
+msgstr ""
 
-#: framework/MIME/MIME/Viewer/images.php:77
-msgid "Loading..."
-msgstr "កំពុង​ផ្ទុក..."
+#: lib/Block/fortune.php:54
+#, fuzzy
+msgid "Literature"
+msgstr "សីតុណ្ហភាព"
 
-#: framework/Crypt/Crypt/smime.php:572 lib/Block/weatherdotcom.php:62
-#: lib/Block/sunrise.php:22 lib/Block/metar.php:77
+#: lib/Block/weatherdotcom.php:215
+#, fuzzy
+msgid "Local time: "
+msgstr "ទីតាំង"
+
+#: config/prefs.php.dist:313
+msgid "Locale and Time"
+msgstr ""
+
+#: lib/Block/metar.php:64 lib/Block/sunrise.php:20
+#: lib/Block/weatherdotcom.php:59
 msgid "Location"
 msgstr "ទីតាំង"
 
-#: login.php:189 services/portal/sidebar.php:200 templates/login/mobile.inc:3
-#: templates/login/mobile.inc:15 templates/login/login.inc:82
+#: login.php:261 templates/login/login.inc:64
 msgid "Log in"
 msgstr "ចូល"
 
-#: services/portal/sidebar.php:194
-msgid "Log out"
-msgstr "ចេញ"
-
-#: lib/Block/account.php:59
+#: lib/Block/account.php:64
 msgid "Login"
 msgstr "ចូល"
 
-#: config/prefs.php.dist:110
-msgid "Login Tasks"
-msgstr "ភារកិច្ច​ចូល"
+#: login.php:286
+msgid "Login failed because your username or password was entered incorrectly."
+msgstr ""
 
-#: lib/Block/fortune.php:53
+#: login.php:282
+#, fuzzy
+msgid "Login failed."
+msgstr "ការ​តភ្ជាប់​បាន​បរាជ័យ​ ។"
+
+#: templates/prefs/facebook.html:46
+msgid "Login to Facebook and authorize <tag:app_name />"
+msgstr ""
+
+#: templates/prefs/twitter.html:21
+msgid "Login to Twitter and authorize the <tag:appname /> application"
+msgstr ""
+
+#: lib/Block/fortune.php:55
 msgid "Love"
 msgstr "សេចក្តី​ស្រឡាញ់"
 
-#: lib/Block/weatherdotcom_strings.php:68
+#: lib/Block/weatherdotcom_strings.php:98
 msgid "Low"
 msgstr "ទាប"
 
-#: framework/NLS/NLS/tld.php:145 framework/NLS/NLS/countries.php:134
-#: framework/NLS/NLS/GeoIP.php:89
-msgid "Luxembourg"
-msgstr "លុចហ្សំបួរ"
+#: themes/luc/info.php:2
+msgid "Loyola"
+msgstr ""
 
-#: framework/UI/UI/VarRenderer/html.php:399
-#: framework/UI/UI/VarRenderer/html.php:437 templates/data/date.inc:47
-#: templates/data/date.inc:48 templates/data/date.inc:49
-#: templates/data/date.inc:50
+#: themes/lucblue/info.php:2
+msgid "Loyola Blue"
+msgstr ""
+
+#: templates/data/date.inc:47 templates/data/date.inc:48
+#: templates/data/date.inc:49 templates/data/date.inc:50
+#: templates/data/datetime.inc:89 templates/data/datetime.inc:90
+#: templates/data/datetime.inc:91 templates/data/datetime.inc:92
 msgid "MM"
 msgstr "MM"
 
-#: framework/NLS/NLS/tld.php:157 framework/NLS/NLS/countries.php:135
-#: framework/NLS/NLS/GeoIP.php:92
-msgid "Macao"
-msgstr "ម៉ាកាវ"
+#: lib/Block/fortune.php:56
+#, fuzzy
+msgid "Magic"
+msgstr "រឹម​ទំព័រ"
 
-#: framework/NLS/NLS/tld.php:151 framework/NLS/NLS/countries.php:137
-#: framework/NLS/NLS/GeoIP.php:90
-msgid "Madagascar"
-msgstr "ម៉ាដាហ្កាស្ការ"
-
-#: config/registry.php.dist:90
+#: config/registry.php.dist:85
 msgid "Mail"
 msgstr "សំបុត្រ"
 
-#: framework/NLS/NLS/tld.php:165 framework/NLS/NLS/countries.php:138
-#: framework/NLS/NLS/GeoIP.php:94
-msgid "Malawi"
-msgstr "ម៉ាឡាវៃ"
+#: config/registry.php.dist:403
+msgid "Mail Admin"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:167 framework/NLS/NLS/countries.php:139
-#: framework/NLS/NLS/GeoIP.php:95
-msgid "Malaysia"
-msgstr "ម៉ាឡេស៊ី"
+#: config/prefs.php.dist:441
+msgid ""
+"Manage the list of categories you have to label items with, and colors "
+"associated with those categories."
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:164 framework/NLS/NLS/countries.php:140
-#: framework/NLS/NLS/GeoIP.php:94
-msgid "Maldives"
-msgstr "ម៉ាល់ឌីវ"
+#: config/prefs.php.dist:677
+msgid "Manage your ActiveSync devices."
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:154 framework/NLS/NLS/countries.php:141
-#: framework/NLS/NLS/GeoIP.php:92
-msgid "Mali"
-msgstr "ម៉ាលី"
+#: templates/data/csvmap.inc:96
+msgid "Matching fields:"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:162 framework/NLS/NLS/countries.php:142
-#: framework/NLS/NLS/GeoIP.php:94
-msgid "Malta"
-msgstr "ម៉ាល់តា"
+#: lib/Block/metar.php:301
+msgid "Max temp last 24 hours: "
+msgstr ""
 
-#: framework/UI/UI/VarRenderer/html.php:402
-#: framework/UI/UI/VarRenderer/html.php:440
-#: templates/javascript/open_calendar.js:67
-msgid "March"
-msgstr "មីនា"
+#: lib/Block/metar.php:293
+msgid "Max temp last 6 hours: "
+msgstr ""
 
-#: templates/javascript/htmlarea_table_lang.js:41
-msgid "Margin"
-msgstr "រឹម​ទំព័រ"
+#: lib/Application.php:38
+msgid "Maximum Number of Portal Blocks"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:152 framework/NLS/NLS/countries.php:143
-#: framework/NLS/NLS/GeoIP.php:91
-msgid "Marshall Islands"
-msgstr "កោះ Marshall"
+#: lib/Block/fb_stream.php:86
+msgid "Maximum number of entries to display"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:159 framework/NLS/NLS/countries.php:144
-#: framework/NLS/NLS/GeoIP.php:93
-msgid "Martinique"
-msgstr "ម៉ារទីនីគ"
+#: lib/Block/fortune.php:57
+msgid "Medicine"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:160 framework/NLS/NLS/countries.php:145
-#: framework/NLS/NLS/GeoIP.php:93
-msgid "Mauritania"
-msgstr "ម៉ូរីតានី"
+#: lib/Block/iframe.php:27
+#, fuzzy
+msgid "Medium"
+msgstr "បែល​ហ្ស៊ិក"
 
-#: framework/NLS/NLS/tld.php:163 framework/NLS/NLS/countries.php:146
-#: framework/NLS/NLS/GeoIP.php:94
-msgid "Mauritius"
-msgstr "ម៉ូរីទុស"
-
-#: framework/UI/UI/VarRenderer/html.php:404
-#: framework/UI/UI/VarRenderer/html.php:442
-#: templates/javascript/open_calendar.js:69
-msgid "May"
-msgstr "ឧសភា"
-
-#: framework/NLS/NLS/tld.php:253 framework/NLS/NLS/countries.php:147
-#: framework/NLS/NLS/GeoIP.php:117
-msgid "Mayotte"
-msgstr "មៃអូតេ"
-
-#: templates/admin/groups/edit.inc:16
+#: templates/admin/groups/edit.inc:17
 msgid "Members"
 msgstr "សមាជិក"
 
-#: framework/Notification/Notification/Listener/status.php:30
-#: services/portal/syncml.php:255
-msgid "Message"
-msgstr "សារ"
+#: config/prefs.php.dist:548
+msgid "Menu mode:"
+msgstr ""
 
-#: framework/MIME/MIME/Viewer/rar.php:67 framework/MIME/MIME/Viewer/zip.php:74
-msgid "Method"
-msgstr "វិធីសាស្រ្ត"
+#: lib/Block/metar.php:5
+msgid "Metar Weather"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:166 framework/NLS/NLS/countries.php:148
-#: framework/NLS/NLS/GeoIP.php:95
-msgid "Mexico"
+#: lib/Block/metar.php:42
+#, fuzzy
+msgid "Metar block not available."
+msgstr "មិន​អាច​រក​សេវា​បាន"
+
+#: lib/Block/metar.php:110
+msgid ""
+"Metar block not available. Details have been logged for the administrator."
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:168
+msgid "MetarDB is not connected."
+msgstr ""
+
+#: lib/Block/metar.php:74 lib/Block/weatherdotcom.php:69
+#, fuzzy
+msgid "Metric"
 msgstr "ម៉ិចស៊ិក"
 
-#: templates/javascript/htmlarea_table_lang.js:42
-#: templates/javascript/htmlarea_lang.js:76
-msgid "Middle"
-msgstr "កណ្តាល"
+#: lib/Block/metar.php:305
+msgid "Min temp last 24 hours: "
+msgstr ""
 
-#: framework/MIME/MIME/Viewer/tnef.php:38
-msgid "Mime Type"
-msgstr "ប្រភេទ Mime"
+#: lib/Block/metar.php:297
+msgid "Min temp last 6 hours: "
+msgstr ""
 
-#: framework/UI/UI/VarRenderer/html.php:233
-msgid "Mirror"
-msgstr "ឆ្លុះ"
-
-#: lib/Block/fortune.php:56
+#: lib/Block/fortune.php:58
 msgid "Miscellaneous"
 msgstr "ផ្សេងៗ​"
 
-#: framework/NLS/NLS/tld.php:149 framework/NLS/NLS/countries.php:151
-#: framework/NLS/NLS/GeoIP.php:90
-msgid "Monaco"
-msgstr "ម៉ូណាកូ"
+#: admin/config/index.php:135
+msgid ""
+"Missing configuration. You must generate it before using this application."
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:156 framework/NLS/NLS/countries.php:152
-#: framework/NLS/NLS/GeoIP.php:92
-msgid "Mongolia"
-msgstr "ម៉ុងហ្គោលី"
+#: lib/Block/weatherdotcom_strings.php:48
+msgid "Mist"
+msgstr ""
 
-#: framework/Form/Form.php:2592
-msgid "Month and year"
-msgstr "ខែ និង ឆ្នាំ"
-
-#: framework/Maintenance/Maintenance.php:57
-msgid "Monthly"
-msgstr "រាល់​ខែ"
-
-#: framework/NLS/NLS/tld.php:161 framework/NLS/NLS/countries.php:153
-#: framework/NLS/NLS/GeoIP.php:94
-msgid "Montserrat"
+#: lib/Block/weatherdotcom_strings.php:99
+#, fuzzy
+msgid "Moderate"
 msgstr "ម៉ុងសេរ៉ា"
 
-#: framework/NLS/NLS/tld.php:148 framework/NLS/NLS/countries.php:154
-#: framework/NLS/NLS/GeoIP.php:90
-msgid "Morocco"
-msgstr "ម៉ារ៉ុក"
+#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:57
+#, php-format
+msgid "Modified sequence for %s"
+msgstr ""
 
-#: framework/Block/Block/Layout/Manager.php:500
-msgid "Move Down"
-msgstr "ផ្លាស់​ទី​ចុះ​ក្រោម"
+#: config/prefs.php.dist:430
+#, fuzzy
+msgid "Monday"
+msgstr "ថ្ងៃ​នេះ"
 
-#: framework/Block/Block/Layout/Manager.php:504
-msgid "Move Left"
-msgstr "ផ្លាស់​ទី​ទៅ​ឆ្វេង"
+#: lib/Block/moon.php:3 lib/Block/moon.php:14
+msgid "Moon Phases"
+msgstr ""
 
-#: framework/Block/Block/Layout/Manager.php:508
-msgid "Move Right"
-msgstr "ផ្លាស់​ទី​ទៅ​ស្តាំ"
+#: lib/Block/weatherdotcom_strings.php:49
+msgid "Mostly Clear"
+msgstr ""
 
-#: framework/Block/Block/Layout/Manager.php:496
-msgid "Move Up"
-msgstr "ផ្លាស់​ទី​ឡើង​លើ"
+#: lib/Block/weatherdotcom_strings.php:50
+msgid "Mostly Cloudy"
+msgstr ""
 
-#: framework/UI/UI/VarRenderer/html.php:524
-msgid "Move down"
-msgstr "ចុះ​ក្រោម"
+#: lib/Block/weatherdotcom_strings.php:51
+msgid "Mostly Cloudy and Windy"
+msgstr ""
 
-#: framework/UI/UI/VarRenderer/html.php:523
-#: framework/UI/UI/VarRenderer/html.php:524
-msgid "Move up"
-msgstr "ឡើង​លើ"
+#: lib/Block/weatherdotcom_strings.php:52
+msgid "Mostly Sunny"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:168 framework/NLS/NLS/countries.php:155
-#: framework/NLS/NLS/GeoIP.php:95
-msgid "Mozambique"
-msgstr "ម៉ូហ្សាំប៊ិក"
+#: themes/mozilla/info.php:2
+msgid "Mozilla"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:155 framework/NLS/NLS/countries.php:156
-#: framework/NLS/NLS/GeoIP.php:92
-msgid "Myanmar"
-msgstr "មីយ៉ាន់ម៉ា"
+#: config/registry.php.dist:333
+msgid "My Account"
+msgstr ""
 
-#: framework/Crypt/Crypt/pgp.php:411 framework/MIME/MIME/Viewer/vcard.php:102
-#: framework/MIME/MIME/Viewer/tnef.php:38
+#: lib/Block/account.php:27
+#, fuzzy
+msgid "My Account Information"
+msgstr "ព័ត៌មាន​អំពីគណនី"
+
+#: lib/Block/fb_stream.php:3 lib/Block/fb_stream.php:105
+msgid "My Facebook Stream"
+msgstr ""
+
+#: services/portal/index.php:62
+#, fuzzy
+msgid "My Portal"
+msgstr "ព័រទុយហ្គាល់"
+
+#: services/portal/edit.php:36
+msgid "My Portal Layout"
+msgstr ""
+
+#: templates/logintasks/logintasks.html:35
+msgid "NO, I Do NOT Agree"
+msgstr ""
+
+#: lib/Block/vatid.php:98
 msgid "Name"
 msgstr "ឈ្មោះ"
 
-#: framework/NLS/NLS/tld.php:169 framework/NLS/NLS/countries.php:157
-#: framework/NLS/NLS/GeoIP.php:95
-msgid "Namibia"
-msgstr "ណាមីប៊ី"
+#: themes/NeXTgrey/info.php:2
+msgid "NeXT"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:178 framework/NLS/NLS/countries.php:158
-#: framework/NLS/NLS/GeoIP.php:97
-msgid "Nauru"
-msgstr "ណូរុ"
-
-#: framework/NLS/NLS/tld.php:177 framework/NLS/NLS/countries.php:159
-#: framework/NLS/NLS/GeoIP.php:97
-msgid "Nepal"
-msgstr "នេប៉ាល់"
-
-#: framework/NLS/NLS/tld.php:175 framework/NLS/NLS/countries.php:160
-#: framework/NLS/NLS/GeoIP.php:97
-msgid "Netherlands"
-msgstr "​ហុល្លង់"
-
-#: framework/NLS/NLS/tld.php:23 framework/NLS/NLS/countries.php:161
-#: framework/NLS/NLS/GeoIP.php:57
-msgid "Netherlands Antilles"
-msgstr "អង់ទីយ៍​ហូល្លង់"
-
-#: config/registry.php.dist:267
-msgid "Network"
-msgstr "បណ្តាញ"
-
-#: framework/Crypt/Crypt/pgp.php:425 templates/portal/layout.inc:97
-#: config/prefs.php.dist:339 config/prefs.php.dist:390
+#: templates/portal/layout.inc:97 config/prefs.php.dist:516
+#: config/prefs.php.dist:556
 msgid "Never"
 msgstr "កុំ"
 
-#: framework/NLS/NLS/tld.php:170 framework/NLS/NLS/countries.php:162
-#: framework/NLS/NLS/GeoIP.php:95
-msgid "New Caledonia"
+#: templates/prefs/category.html:3
+#, fuzzy
+msgid "New Category"
 msgstr "នូវែលកាលេដូនី"
 
-#: framework/Text_Filter/Filter/emails.php:84
-#: framework/Text_Filter/Filter/emails.php:88
-#: framework/Text_Filter/Filter/emails.php:119
-#, php-format
-msgid "New Message to %s"
+#: services/facebook.php:65
+#, fuzzy
+msgid "New Messages:"
 msgstr "សារ​ថ្មី​ទៅ %s"
 
-#: framework/NLS/NLS/tld.php:180 framework/NLS/NLS/countries.php:163
-#: framework/NLS/NLS/GeoIP.php:98
-msgid "New Zealand"
-msgstr "នូវែលហ៊្សេឡង់"
+#: lib/Block/moon.php:44 lib/Block/moon.php:66 lib/Block/moon.php:172
+msgid "New Moon"
+msgstr ""
 
-#: services/changepassword.php:37
+#: templates/admin/user/update.inc:12
+msgid "New Username (optional)"
+msgstr ""
+
+#: services/changepassword.php:29
 msgid "New password"
 msgstr "ពាក្យ​សម្ងាត់​ថ្មី"
 
-#: lib/Block/google.php:40 lib/Block/fortune.php:57
-#: config/registry.php.dist:305
+#: services/changepassword.php:40
+#, fuzzy
+msgid "New passwords don't match."
+msgstr "ពាក្យ​សម្ងាត់​ថ្មី"
+
+#: lib/Block/fortune.php:59 config/registry.php.dist:288
 msgid "News"
 msgstr "ព័ត៌មាន"
 
-#: config/registry.php.dist:321
-msgid "Newsgroups"
-msgstr "វេទិកា​ព័ត៌មាន"
-
-#: templates/data/tsvinfo.inc:15 templates/data/datemap.inc:41
-#: templates/data/csvmap.inc:129 templates/data/csvinfo.inc:25
+#: templates/data/csvinfo.inc:25 templates/data/csvmap.inc:119
+#: templates/data/datemap.inc:41 templates/data/tsvinfo.inc:15
 msgid "Next"
 msgstr "បន្ទាប់"
 
-#: framework/NLS/NLS/tld.php:174 framework/NLS/NLS/countries.php:164
-#: framework/NLS/NLS/GeoIP.php:96
-msgid "Nicaragua"
-msgstr "នីការ៉ាហ្គ័រ"
+#: lib/Block/moon.php:25
+msgid "Next 4 Phases"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:171 framework/NLS/NLS/countries.php:165
-#: framework/NLS/NLS/GeoIP.php:96
-msgid "Niger"
-msgstr "នីហ្សេរ"
-
-#: framework/NLS/NLS/tld.php:173 framework/NLS/NLS/countries.php:166
-#: framework/NLS/NLS/GeoIP.php:96
-msgid "Nigeria"
-msgstr "នីហ្សេរីយ៉ា"
-
-#: lib/Block/weatherdotcom.php:372
+#: lib/Block/weatherdotcom.php:382
 msgid "Night"
 msgstr "យប់"
 
-#: framework/NLS/NLS/tld.php:179 framework/NLS/NLS/countries.php:167
-#: framework/NLS/NLS/GeoIP.php:97
-msgid "Niue"
-msgstr "នីវ"
+#: templates/prefs/alarm.html:32
+msgid "No Sound"
+msgstr ""
 
-#: framework/UI/UI/VarRenderer/html.php:964
-msgid "No"
-msgstr "ទេ"
+#: templates/admin/config/diff.html:9
+msgid "No available configuration data to show differences for."
+msgstr ""
 
-#: framework/Crypt/Crypt/pgp.php:427
-#: templates/javascript/htmlarea_table_lang.js:45
-#: templates/prefs/identityselect.inc:93
+#: admin/config/diff.php:39
+#, fuzzy
+msgid "No change."
+msgstr "ផ្លាស់​ប្តូរ"
+
+#: util/icon_browser.php:83
+msgid "No icons found."
+msgstr ""
+
+#: lib/Block/metar.php:121 lib/Block/sunrise.php:38
+#: lib/Block/weatherdotcom.php:133
+msgid "No location is set."
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:172
+msgid "No location provided."
+msgstr ""
+
+#: lib/Block/fortune.php:101
+msgid "No offensive fortunes"
+msgstr ""
+
+#: templates/admin/user/approve.inc:15
+msgid "No pending signups."
+msgstr ""
+
+#: admin/config/index.php:89 admin/config/index.php:121
+msgid "No stable version exists yet."
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:143
+msgid "No temporary directory available for cache."
+msgstr ""
+
+#: admin/signup_confirm.php:57
+msgid "No username specified."
+msgstr ""
+
+#: admin/config/index.php:140
+msgid "No version found in original configuration. Regenerate configuration."
+msgstr ""
+
+#: admin/config/index.php:148
+msgid "No version found in your configuration. Regenerate configuration."
+msgstr ""
+
+#: lib/Prefs/Ui.php:411 templates/prefs/activesync.html:43
+#: templates/prefs/identityselect.html:20 templates/prefs/syncml.html:34
 msgid "None"
 msgstr "គ្មាន"
 
-#: framework/NLS/NLS/tld.php:172 framework/NLS/NLS/countries.php:168
-#: framework/NLS/NLS/GeoIP.php:96
-msgid "Norfolk Island"
-msgstr "កោះ​ណ៉ហ្វ៉ក"
+#: config/nls.php:181
+#, fuzzy
+msgid "Nordic (ISO-8859-10)"
+msgstr "ទួរគី (ISO-8859-9)"
 
-#: framework/NLS/NLS/tld.php:158 framework/NLS/NLS/countries.php:169
-#: framework/NLS/NLS/GeoIP.php:93
-msgid "Northern Mariana Islands"
-msgstr "កោះ​ម៉ារៀណា​ភាគ​ខាង​ជើង"
+#: lib/Block/moon.php:30 lib/Block/moon.php:58
+msgid "Northern Hemisphere"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:176 framework/NLS/NLS/countries.php:170
-#: framework/NLS/NLS/GeoIP.php:97
-msgid "Norway"
-msgstr "ន័រវែស"
+#: admin/activesync.php:171 lib/Prefs/Ui.php:426
+msgid "Not Provisioned"
+msgstr ""
 
-#: framework/MIME/MIME/Viewer/vcard.php:244 config/hooks.php.dist:1085
-#: config/registry.php.dist:187
+#: config/registry.php.dist:211
 msgid "Notes"
 msgstr "ចំណាំ"
 
-#: framework/UI/UI/VarRenderer/html.php:410
-#: framework/UI/UI/VarRenderer/html.php:448
-#: templates/javascript/open_calendar.js:75
-msgid "November"
-msgstr "វិច្ឆិកា"
+#: services/obrowser/index.php:32
+msgid "Nothing to browse, go back."
+msgstr ""
 
-#: framework/Form/Form.php:1050
-msgid "Number"
-msgstr "លេខ"
-
-#: framework/Form/Form.php:1433
-msgid "Number of characters"
+#: lib/Block/feed.php:18
+#, fuzzy
+msgid "Number of articles to display"
 msgstr "ចំនួន​តួអក្សរ"
 
-#: templates/javascript/htmlarea_lang.js:46
-#: templates/javascript/htmlarea_lang.js:64
-msgid "OK"
-msgstr "យល់ព្រម"
+#: lib/Block/twitter_timeline.php:91
+msgid "Number of seconds to wait to refresh"
+msgstr ""
 
-#: framework/UI/UI/VarRenderer/html.php:871
-msgid "Object"
+#: services/keyboard.php:92
+#, fuzzy
+msgid "O characters"
+msgstr "ចំនួន​តួអក្សរ"
+
+#: templates/shares/edit.inc:129
+#, fuzzy
+msgid "Object Creator"
 msgstr "វត្ថុ"
 
-#: framework/UI/UI/VarRenderer/html.php:409
-#: framework/UI/UI/VarRenderer/html.php:447
-#: templates/javascript/open_calendar.js:74
-msgid "October"
-msgstr "តុលា"
+#: lib/Block/fortune.php:99
+msgid "Offense filter"
+msgstr ""
 
-#: config/registry.php.dist:342
+#: config/registry.php.dist:301
 msgid "Office"
 msgstr "ការិយាល័យ"
 
-#: services/changepassword.php:36
+#: services/changepassword.php:42
+msgid "Old and new passwords must be different."
+msgstr ""
+
+#: services/changepassword.php:28
 msgid "Old password"
 msgstr "ពាក្យ​សម្ងាត់​ចាស់"
 
-#: framework/NLS/NLS/tld.php:181 framework/NLS/NLS/countries.php:171
-#: framework/NLS/NLS/GeoIP.php:98
-msgid "Oman"
-msgstr "អូមែន"
+#: services/changepassword.php:38
+#, fuzzy
+msgid "Old password is not correct."
+msgstr "ពាក្យ​សម្ងាត់​ចាស់"
 
-#: lib/Block/iframe.php:39 lib/Block/iframe.php:40
-msgid "Open in a new window"
-msgstr "បើក​​ក្នុង​​បង្អួច​ថ្មី"
+#: lib/Block/fortune.php:102
+msgid "Only offensive fortunes"
+msgstr ""
 
-#: lib/Block/fortune.php:58
+#: services/shares/edit.php:83
+msgid ""
+"Only the owner or system administrator may change ownership or owner "
+"permissions for a share"
+msgstr ""
+
+#: lib/Block/fortune.php:60
 msgid "Operating System"
 msgstr "ប្រព័ន្ធ​ប្រតិបត្តិការ"
 
-#: services/portal/sidebar.php:151
-msgid "Options"
-msgstr "ជម្រើស​"
+#: templates/shares/edit.inc:236
+msgid "Or enter a user name:"
+msgstr ""
 
-#: framework/NLS/NLS/GeoIP.php:119 services/keyboard.php:117
-#: templates/javascript/htmlarea_lang.js:94
+#: config/registry.php.dist:135
+msgid "Organizing"
+msgstr ""
+
+#: services/keyboard.php:124
 msgid "Other"
 msgstr "ផ្សេងៗ"
 
-#: templates/javascript/htmlarea_table_lang.js:46
-msgid "Padding"
-msgstr "ចន្លោះ"
+#: config/prefs.php.dist:467 config/prefs.php.dist:582
+#: config/prefs.php.dist:603 config/prefs.php.dist:624
+#: config/prefs.php.dist:643 config/prefs.php.dist:663
+#: config/prefs.php.dist:675
+#, fuzzy
+msgid "Other Information"
+msgstr "ព័ត៌មាន"
 
-#: framework/NLS/NLS/tld.php:187 framework/NLS/NLS/countries.php:172
-#: framework/NLS/NLS/GeoIP.php:99
-msgid "Pakistan"
-msgstr "ប៉ាគីស្ថាន"
+#: services/keyboard.php:122
+#, fuzzy
+msgid "Other characters"
+msgstr "ចំនួន​តួអក្សរ"
 
-#: framework/NLS/NLS/tld.php:194 framework/NLS/NLS/countries.php:173
-#: framework/NLS/NLS/GeoIP.php:101
-msgid "Palau"
-msgstr "ប៉ាឡូ"
+#: templates/shares/edit.inc:30
+#, fuzzy
+msgid "Owner"
+msgstr "ផ្សេងៗ"
 
-#: framework/NLS/NLS/tld.php:182 framework/NLS/NLS/countries.php:175
-#: framework/NLS/NLS/GeoIP.php:98
-msgid "Panama"
-msgstr "ប៉ាណាម៉ា"
+#: templates/shares/edit.inc:36 templates/shares/edit.inc:45
+msgid "Owner:"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:185 framework/NLS/NLS/countries.php:176
-#: framework/NLS/NLS/GeoIP.php:99
-msgid "Papua New Guinea"
-msgstr "ប៉ាពូញូវហ្គីណេ"
+#: admin/phpshell.php:51
+msgid "PHP"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:195 framework/NLS/NLS/countries.php:177
-#: framework/NLS/NLS/GeoIP.php:102
-msgid "Paraguay"
-msgstr "ប៉ារ៉ាហ្គាយ"
+#: admin/phpshell.php:71
+msgid "PHP Code"
+msgstr ""
 
-#: admin/user.php:36 admin/setup/index.php:180
-#: framework/Net_SMS/SMS/sms2email_http.php:537
-#: framework/Net_SMS/SMS/clickatell_http.php:199
-#: framework/Net_SMS/SMS/win_http.php:151 framework/Form/Form.php:2026
-#: templates/login/login.inc:69 templates/admin/user/update.inc:43
-#: config/registry.php.dist:439
+#: admin/phpshell.php:32
+msgid "PHP Shell"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:54
+msgid "PM Clouds"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:55
+msgid "PM Drizzle"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:56
+msgid "PM Fog"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:57
+msgid "PM Light Rain"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:58
+msgid "PM Light Snow"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:59
+#, fuzzy
+msgid "PM Rain"
+msgstr "រឹម​ទំព័រ"
+
+#: lib/Block/weatherdotcom_strings.php:60
+msgid "PM Showers"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:61
+msgid "PM Snow"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:62
+msgid "PM Snow Showers"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:63
+msgid "PM Sun"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:64
+msgid "PM T-Showers"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:65
+msgid "PM T-Storms"
+msgstr ""
+
+#: lib/Block/account.php:287
+msgid "POSIX extension is missing"
+msgstr ""
+
+#: lib/Api.php:62
+msgid "P_HP Shell"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:53
+msgid "Partly Cloudy"
+msgstr ""
+
+#: admin/config/index.php:192 admin/user.php:35 admin/user.php:49 login.php:81
+#: templates/admin/user/update.inc:20 config/registry.php.dist:355
 msgid "Password"
 msgstr "ពាក្យ​សម្ងាត់"
 
-#: templates/rpcsum/rpcsum.inc:90
+#: services/changepassword.php:52
+msgid "Password changed successfully."
+msgstr ""
+
+#: lib/Prefs/Ui.php:326
 msgid "Password:"
 msgstr "ពាក្យ​សម្ងាត់ ៖"
 
-#: admin/sqlshell.php:119 templates/javascript/htmlarea_context_lang.js:22
+#: admin/user.php:168 admin/user.php:220
+#, fuzzy
+msgid "Passwords must match."
+msgstr "អាសយដ្ឋាន​អ៊ីមែល​ត្រូវ​តែ​ដូចគ្នា ។"
+
+#: admin/sqlshell.php:100
 msgid "Paste"
 msgstr "បិទភ្ជាប់"
 
-#: templates/javascript/htmlarea_lang.js:51
-msgid "Path"
-msgstr "ផ្លូវ"
+#: templates/admin/user/approve.inc:9 templates/admin/user/removequeued.inc:7
+msgid "Pending Signups:"
+msgstr ""
 
-#: lib/Block/fortune.php:59
+#: lib/Block/fortune.php:61
 msgid "People"
 msgstr "មនុស្ស"
 
-#: templates/javascript/htmlarea_lang.js:107
-msgid "Percent"
-msgstr "ភាគរយ"
+#: templates/logintasks/logintasks.html:30
+#, fuzzy
+msgid "Perform Login Tasks"
+msgstr "ភារកិច្ច​ចូល"
 
-#: config/prefs.php.dist:410
-msgid "Perform maintenance operations on login?"
-msgstr "ធ្វើ​ប្រតិបត្តិការ​តំហែទាំ ពេល​ចូល ?"
+#: admin/perms/delete.php:42
+#, fuzzy, php-format
+msgid "Permission \"%s\" not deleted."
+msgstr "សិទ្ធិ​ត្រូវ​បាន​បដិសេធ"
 
-#: framework/Perms/Perms/UI.php:156
-msgid "Permission"
-msgstr "សិទ្ធិ"
-
-#: framework/Perms/Perms/UI.php:161 framework/Perms/Perms/UI.php:164
+#: admin/perms/index.php:23
 msgid "Permissions"
 msgstr "សិទ្ធិ"
 
-#: config/prefs.php.dist:68
+#: admin/perms/addchild.php:51 admin/perms/delete.php:46
+#: admin/perms/edit.php:110 admin/perms/index.php:17
+#, fuzzy
+msgid "Permissions Administration"
+msgstr "ការ​គ្រប់គ្រង​អ្នក​ប្រើ"
+
+#: config/prefs.php.dist:213
 msgid "Personal Information"
 msgstr "ព័ត៌មាន​ផ្ទាល់​ខ្លួន"
 
-#: framework/NLS/NLS/tld.php:183 framework/NLS/NLS/countries.php:178
-#: framework/NLS/NLS/GeoIP.php:98
-msgid "Peru"
-msgstr "ប៉េរ៉ូ"
+#: lib/Block/fortune.php:62
+#, fuzzy
+msgid "Pets"
+msgstr "គម្រោង"
 
-#: framework/NLS/NLS/tld.php:186 framework/NLS/NLS/countries.php:179
-#: framework/NLS/NLS/GeoIP.php:99
-msgid "Philippines"
-msgstr "ហ្វីលីពីន"
+#: config/registry.php.dist:385
+msgid "Photos"
+msgstr ""
 
-#: framework/MIME/MIME/Viewer/vcard.php:196
-msgid "Phone"
-msgstr "ទូរស័ព្ទ"
+#: lib/Block/fortune.php:63
+msgid "Platitudes"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:190 framework/NLS/NLS/countries.php:180
-#: framework/NLS/NLS/GeoIP.php:100
-msgid "Pitcairn"
-msgstr "ពីតខាយរិន"
+#: login.php:87
+msgid "Please enter a password."
+msgstr ""
 
-#: templates/javascript/htmlarea_lang.js:108
-msgid "Pixels"
-msgstr "ភីកសែល"
+#: login.php:86
+msgid "Please enter a username."
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:188 framework/NLS/NLS/countries.php:181
-#: framework/NLS/NLS/GeoIP.php:99
-msgid "Poland"
-msgstr "ប៉ូឡូញ"
+#: templates/problem/problem.inc:7
+msgid "Please provide a summary of the problem."
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:193 framework/NLS/NLS/countries.php:182
-#: framework/NLS/NLS/GeoIP.php:101
-msgid "Portugal"
-msgstr "ព័រទុយហ្គាល់"
+#: services/logintasks.php:73
+msgid ""
+"Please read the following text. You MUST agree with the terms to use the "
+"system."
+msgstr ""
 
-#: lib/Block/metar.php:237
+#: services/facebook.php:67
+msgid "Pokes:"
+msgstr ""
+
+#: admin/activesync.php:105
+#, fuzzy
+msgid "Policy Key"
+msgstr "កូនសោ​សាធារណៈ"
+
+#: lib/Prefs/Ui.php:432
+#, fuzzy
+msgid "Policy Key:"
+msgstr "កូនសោ​សាធារណៈ"
+
+#: lib/Block/fortune.php:64
+msgid "Politics"
+msgstr ""
+
+#: services/facebook.php:101
+#, php-format
+msgid "Posted %s"
+msgstr ""
+
+#: templates/block/twitter_tweet.html.php:26
+#, fuzzy, php-format
+msgid "Posted %s via %s"
+msgstr "%d %s និង %s"
+
+#: themes/postnuke/info.php:2
+#, fuzzy
+msgid "Postnuke"
+msgstr "បន្ត"
+
+#: lib/Block/metar.php:261 lib/Block/metar.php:266
+#, php-format
+msgid "Precipitation for last %d hour: "
+msgid_plural "Precipitation for last %d hours: "
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/Block/weatherdotcom.php:301
+msgid "Precipitation<br />chance"
+msgstr ""
+
+#: lib/Block/metar.php:220
 msgid "Pressure"
 msgstr "សម្ពាធ"
 
-#: framework/UI/UI/VarRenderer/html.php:204
-#: templates/javascript/htmlarea_lang.js:120
-#: templates/javascript/htmlarea_anselimage_lang.js:23
-msgid "Preview"
-msgstr "មើល​ជា​​​មុន"
+#: lib/Block/metar.php:254
+msgid "Pressure at sea level: "
+msgstr ""
 
-#: config/registry.php.dist:385
-msgid "Projects"
-msgstr "គម្រោង"
+#: lib/Block/weatherdotcom.php:239
+#, fuzzy
+msgid "Pressure: "
+msgstr "សម្ពាធ"
 
-#: framework/Crypt/Crypt/pgp.php:423
-msgid "Public Key"
-msgstr "កូនសោ​សាធារណៈ"
+#: services/problem.php:145
+#, fuzzy
+msgid "Problem Description"
+msgstr "ការពិពណ៌នា"
 
-#: framework/NLS/NLS/tld.php:191 framework/NLS/NLS/countries.php:183
-#: framework/NLS/NLS/GeoIP.php:100
-msgid "Puerto Rico"
-msgstr "ព័រតូរីកូ"
+#: admin/activesync.php:171 lib/Prefs/Ui.php:425
+#, fuzzy
+msgid "Provisioned"
+msgstr "សិទ្ធិ"
 
-#: framework/NLS/NLS/tld.php:196 framework/NLS/NLS/countries.php:184
-#: framework/NLS/NLS/GeoIP.php:102
-msgid "Qatar"
-msgstr "កាតា"
+#: templates/prefs/facebook.html:21
+msgid "Publish enabled."
+msgstr ""
 
-#: admin/sqlshell.php:63
+#: themes/purple/info.php:2
+msgid "Purple Horde"
+msgstr ""
+
+#: admin/sqlshell.php:50
 msgid "Query"
 msgstr "សំណួរ​"
 
-#: lib/Block/account.php:70
+#: lib/Block/account.php:83
 msgid "Quota"
 msgstr "កូតា"
 
-#: framework/Perms/Perms.php:324 templates/shares/edit.inc:34
-#: templates/shares/edit.inc:68 templates/shares/edit.inc:91
-#: templates/shares/edit.inc:114 templates/shares/edit.inc:137
-#: templates/shares/edit.inc:180
+#: lib/Block/weatherdotcom_strings.php:66
+#, fuzzy
+msgid "Rain"
+msgstr "អេស៉្បាញ"
+
+#: lib/Block/weatherdotcom_strings.php:67
+msgid "Rain Early"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:68
+#, fuzzy
+msgid "Rain Late"
+msgstr "សង់លូស៊ីយ៉ា"
+
+#: lib/Block/weatherdotcom_strings.php:69
+msgid "Rain Shower"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:70
+msgid "Rain and Snow"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:71
+msgid "Rain to Snow"
+msgstr ""
+
+#: lib/Block/fortune.php:6
+msgid "Random Fortune"
+msgstr ""
+
+#: templates/shares/edit.inc:61 templates/shares/edit.inc:75
+#: templates/shares/edit.inc:96 templates/shares/edit.inc:110
+#: templates/shares/edit.inc:132 templates/shares/edit.inc:146
+#: templates/shares/edit.inc:167 templates/shares/edit.inc:185
+#: templates/shares/edit.inc:220 templates/shares/edit.inc:247
+#: templates/shares/edit.inc:269 templates/shares/edit.inc:283
+#: templates/shares/edit.inc:312
 msgid "Read"
 msgstr "អាន"
 
-#: services/portal/syncml.php:147 services/portal/syncml.php:208
-#: services/portal/syncml.php:246
-msgid "Refresh"
-msgstr "ធ្វើ​ឲ្យ​ស្រស់"
+#: templates/prefs/facebook.html:33
+msgid "Read enabled"
+msgstr ""
+
+#: templates/admin/user/remove.inc:8
+#, php-format
+msgid "Really delete \"%s\"? This operation cannot be undone."
+msgstr ""
+
+#: templates/admin/user/clear.inc:8
+#, php-format
+msgid ""
+"Really remove user data for user \"%s\"? This operation cannot be undone."
+msgstr ""
+
+#: config/prefs.php.dist:562
+msgid "Refresh Dynamic Menu Elements:"
+msgstr ""
+
+#: config/prefs.php.dist:523
+#, fuzzy
+msgid "Refresh Portal View:"
+msgstr "អត្រា​ធ្វើ​ឲ្យ​ស្រស់ ៖"
 
 #: templates/portal/layout.inc:94
 msgid "Refresh rate:"
 msgstr "អត្រា​ធ្វើ​ឲ្យ​ស្រស់ ៖"
 
-#: services/portal/syncml.php:147 services/portal/syncml.php:208
-msgid "Reload"
-msgstr "ផ្ទុក​ឡើង​វិញ"
+#: admin/activesync.php:134
+msgid "Registered User Devices"
+msgstr ""
 
-#: lib/Block/metar.php:338
+#: lib/Block/metar.php:321
 msgid "Remarks"
 msgstr "កំណត់​សម្គាល់"
 
-#: templates/portal/layout.inc:8 templates/admin/groups/edit.inc:22
-#: templates/admin/user/approve.inc:28
-#: templates/admin/user/removequeued.inc:13
+#: admin/sessions.php:39 admin/sessions.php:50
+msgid "Remote Host:"
+msgstr ""
+
+#: config/prefs.php.dist:583
+#, fuzzy
+msgid "Remote Servers"
+msgstr "យក​ចេញ"
+
+#: lib/Prefs/Ui.php:324
+msgid "Remote URL (http://www.example.com/horde):"
+msgstr ""
+
+#: admin/activesync.php:185 templates/admin/groups/edit.inc:23
+#: templates/admin/user/approve.inc:40
+#: templates/admin/user/removequeued.inc:13 templates/prefs/activesync.html:33
 msgid "Remove"
 msgstr "យក​ចេញ"
 
-#: admin/user.php:31 framework/Form/Form.php:343
-#: framework/Form/Form/Renderer.php:319 templates/rpcsum/rpcsum.inc:100
-#: templates/admin/user/update.inc:77
+#: templates/data/csvmap.inc:118
+#, fuzzy
+msgid "Remove pair"
+msgstr "យក​ចេញ"
+
+#: admin/config/index.php:211
+msgid "Remove saved script from server's temporary directory."
+msgstr ""
+
+#: templates/admin/user/remove.inc:11
+#, fuzzy
+msgid "Remove user"
+msgstr "យក​ចេញ"
+
+#: templates/admin/user/remove.inc:5
+#, php-format
+msgid "Remove user: %s"
+msgstr ""
+
+#: templates/block/twitter_tweet.html.php:34
+#, fuzzy
+msgid "Reply"
+msgstr "នេប៉ាល់"
+
+#: admin/activesync.php:138
+msgid "Reprovision All Devices"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:160
+msgid "Requested service could not be found."
+msgstr ""
+
+#: admin/user.php:22 templates/admin/user/update.inc:54
+#: templates/prefs/rpc.html:36
 msgid "Reset"
 msgstr "កំណត់​ឡើង​វិញ"
 
-#: admin/phpshell.php:71 admin/cmdshell.php:28 admin/sqlshell.php:66
+#: services/resetpassword.php:45
+#, fuzzy
+msgid "Reset Password"
+msgstr "ពាក្យ​សម្ងាត់"
+
+#: services/resetpassword.php:23
+msgid "Reset Your Password"
+msgstr ""
+
+#: templates/prefs/activesync.html:6
+msgid ""
+"Reset all device state. This will cause your devices to resyncronize all "
+"items."
+msgstr ""
+
+#: admin/sqlshell.php:111
+msgid "Restore Last Query"
+msgstr ""
+
+#: admin/cmdshell.php:23 admin/phpshell.php:74 admin/sqlshell.php:53
 msgid "Results"
 msgstr "លទ្ធ​ផល"
 
-#: templates/rpcsum/rpcsum.inc:101 templates/prefs/end.inc:7
-msgid "Return to Options"
+#: services/portal/cloud_search.php:30
+#, fuzzy, php-format
+msgid "Results for %s"
+msgstr "លទ្ធ​ផល"
+
+#: templates/prefs/end.html:7
+#, fuzzy
+msgid "Return to Main Screen"
 msgstr "ត្រឡប់​ទៅ​ជម្រើស"
 
-#: framework/NLS/NLS/tld.php:197 framework/NLS/NLS/countries.php:185
-#: framework/NLS/NLS/GeoIP.php:102
-msgid "Reunion"
-msgstr "រីអុយនីយ៉ុង"
+#: templates/block/twitter_tweet.html.php:35
+#, fuzzy
+msgid "Retweet"
+msgstr "កំណត់​ឡើង​វិញ"
 
-#: templates/javascript/htmlarea_table_lang.js:48
-#: templates/javascript/htmlarea_lang.js:70
-msgid "Right"
-msgstr "​ស្តាំ"
+#: templates/block/twitter_tweet.html.php:30
+#, php-format
+msgid "Retweeted by %s"
+msgstr ""
 
-#: framework/MIME/MIME/Viewer/vcard.php:234
-msgid "Role"
-msgstr "តួនាទី"
+#: services/changepassword.php:30
+#, fuzzy
+msgid "Retype new password"
+msgstr "ពាក្យ​សម្ងាត់​ថ្មី"
 
-#: framework/NLS/NLS/tld.php:198 framework/NLS/NLS/countries.php:186
-#: framework/NLS/NLS/GeoIP.php:102
-msgid "Romania"
-msgstr "រូម៉ានី"
+#: admin/config/config.php:33 admin/config/config.php:37
+#, fuzzy
+msgid "Revert Configuration"
+msgstr "កំហុស​ការ​កំណត់​រចនាសម្ព័ន្ធ"
 
-#: framework/UI/UI/VarRenderer/html.php:221
-msgid "Rotate Left"
-msgstr "បង្វិល​ទៅ​ឆ្វេង"
+#: lib/Block/fortune.php:65
+#, fuzzy
+msgid "Riddles"
+msgstr "កណ្តាល"
 
-#: framework/UI/UI/VarRenderer/html.php:227
-msgid "Rotate Right"
-msgstr "បង្វិល​ទៅ​ស្ដាំ"
-
-#: templates/javascript/htmlarea_lang.js:101
-msgid "Rows:"
-msgstr "ជួរ​ដេក ៖"
-
-#: admin/sqlshell.php:120
+#: admin/sqlshell.php:101
 msgid "Run"
 msgstr "រត់​"
 
-#: framework/NLS/NLS/tld.php:199 framework/NLS/NLS/countries.php:187
-#: framework/NLS/NLS/GeoIP.php:103
-msgid "Russian Federation"
-msgstr "សហព័ន្ធ​រុស្ស៊ី"
+#: admin/sqlshell.php:14
+msgid "SQL Shell"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:200 framework/NLS/NLS/countries.php:188
-#: framework/NLS/NLS/GeoIP.php:103
-msgid "Rwanda"
-msgstr "រវ៉ាន់ដា"
-
-#: config/registry.php.dist:447
+#: config/registry.php.dist:363
 msgid "SSH"
 msgstr "SSH"
 
-#: framework/NLS/NLS/tld.php:207 framework/NLS/NLS/countries.php:189
-#: framework/NLS/NLS/GeoIP.php:104
-msgid "Saint Helena"
-msgstr "សង់​ហេឡេណា"
+#: lib/Api.php:67
+msgid "S_QL Shell"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:131 framework/NLS/NLS/countries.php:190
-#: framework/NLS/NLS/GeoIP.php:84
-msgid "Saint Kitts and Nevis"
-msgstr "សង់ឃីត និង នេវីស"
-
-#: framework/NLS/NLS/tld.php:139 framework/NLS/NLS/countries.php:191
-#: framework/NLS/NLS/GeoIP.php:87
-msgid "Saint Lucia"
-msgstr "សង់លូស៊ីយ៉ា"
-
-#: framework/NLS/NLS/tld.php:189 framework/NLS/NLS/countries.php:192
-#: framework/NLS/NLS/GeoIP.php:100
-msgid "Saint Pierre and Miquelon"
-msgstr "សង់​ព្យែរ និង មីគុយអេឡុង"
-
-#: framework/NLS/NLS/tld.php:244 framework/NLS/NLS/countries.php:193
-#: framework/NLS/NLS/GeoIP.php:115
-msgid "Saint Vincent and the Grenadines"
-msgstr "សង់វាំងសង់ និង ​ហ្គ្រីណាឌីន"
-
-#: framework/NLS/NLS/tld.php:251 framework/NLS/NLS/countries.php:194
-#: framework/NLS/NLS/GeoIP.php:117
-msgid "Samoa"
-msgstr "សាមូអា"
-
-#: framework/NLS/NLS/tld.php:212 framework/NLS/NLS/countries.php:195
-#: framework/NLS/NLS/GeoIP.php:106
-msgid "San Marino"
-msgstr "សាន់ម៉ារីណូ"
-
-#: framework/NLS/NLS/tld.php:216 framework/NLS/NLS/countries.php:196
-#: framework/NLS/NLS/GeoIP.php:107
-msgid "Sao Tome and Principe"
-msgstr "Sao Tome and Principe"
-
-#: framework/NLS/NLS/tld.php:201 framework/NLS/NLS/countries.php:197
-#: framework/NLS/NLS/GeoIP.php:103
-msgid "Saudi Arabia"
-msgstr "អារ៉ាប់​ប៊ីសាអូឌី"
-
-#: templates/portal/layout.inc:115
+#: templates/portal/layout.inc:115 templates/prefs/end.html:3
 msgid "Save"
 msgstr "រក្សា​​ទុក​​"
 
-#: templates/prefs/end.inc:5
-msgid "Save Options"
-msgstr "រក្សា​ទុក​ ជម្រើស"
+#: templates/admin/groups/edit.inc:63 templates/shares/edit.inc:330
+#, fuzzy, php-format
+msgid "Save \"%s\""
+msgstr "រក្សា​​ទុក​​"
 
-#: templates/admin/user/list.inc:14 templates/admin/user/list.inc:16
+#: templates/shares/edit.inc:331
+#, fuzzy
+msgid "Save and Finish"
+msgstr "Sao Tome and Principe"
+
+#: admin/config/index.php:183
+msgid ""
+"Save generated configuration as a PHP script to your server's temporary "
+"directory."
+msgstr ""
+
+#: admin/config/scripts.php:92
+#, php-format
+msgid "Saved configuration upgrade script to: \"%s\"."
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:72
+msgid "Scattered Showers"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:73
+msgid "Scattered T-Storms"
+msgstr ""
+
+#: lib/Block/fortune.php:66
+msgid "Science"
+msgstr ""
+
+#: services/help/index.php:71
+#, fuzzy
+msgid "Sea_rch"
+msgstr "ស្វែងរក"
+
+#: services/help/index.php:134 templates/admin/user/list.inc:16
 msgid "Search"
 msgstr "ស្វែងរក"
 
-#: config/registry.php.dist:336
-msgid "Search Engines"
-msgstr "ម៉ាស៊ីន​ស្វែងរក"
+#: templates/admin/user/list.inc:14
+#, fuzzy
+msgid "Search:"
+msgstr "ស្វែងរក"
 
-#: framework/UI/UI/VarRenderer/html.php:483
-msgid "Select a date"
-msgstr "ជ្រើស​កាលបរិច្ឆេទ"
+#: templates/shares/edit.inc:298 templates/shares/edit.inc:300
+msgid "Select a group to add:"
+msgstr ""
 
-#: framework/UI/UI/VarRenderer/html.php:674
-msgid "Select all"
-msgstr "ជ្រើស​ទាំងអស់"
-
-#: framework/UI/UI/VarRenderer/html.php:675
-msgid "Select none"
+#: templates/shares/edit.inc:38
+#, fuzzy
+msgid "Select a new owner:"
 msgstr "ជ្រើស​គ្មាន"
 
-#: framework/NLS/NLS/tld.php:213 framework/NLS/NLS/countries.php:198
-#: framework/NLS/NLS/GeoIP.php:106
-msgid "Senegal"
-msgstr "សេណេហ្គាល់"
+#: templates/prefs/rpc.html:4
+#, fuzzy
+msgid "Select a server"
+msgstr "ជ្រើស​កាលបរិច្ឆេទ"
 
-#: framework/UI/UI/VarRenderer/html.php:408
-#: framework/UI/UI/VarRenderer/html.php:446
-#: templates/javascript/open_calendar.js:73
-msgid "September"
-msgstr "កញ្ញា"
+#: templates/shares/edit.inc:202 templates/shares/edit.inc:204
+msgid "Select a user to add:"
+msgstr ""
 
-#: framework/NLS/NLS/countries.php:199
-msgid "Serbia and Montenegro"
-msgstr "សែប៊ី និង ម៉ុងតេណេហ្ក្រូ"
+#: templates/prefs/addressbooks.html:5
+msgid "Select all fields to search when expanding addresses."
+msgstr ""
 
-#: framework/Crypt/Crypt/smime.php:702
-msgid "Serial Number"
-msgstr "លេខ​សម្គាល់"
+#: services/keyboard.php:38
+msgid ""
+"Select the characters you need from the boxes below. You can then copy and "
+"paste them from the text area."
+msgstr ""
 
-#: lib/api.php:145
+#: templates/data/datetime.inc:57
+msgid "Select the date and time format:"
+msgstr ""
+
+#: templates/data/date.inc:34 templates/data/datetime.inc:76
+#, fuzzy
+msgid "Select the date delimiter:"
+msgstr "ជ្រើស​កាលបរិច្ឆេទ"
+
+#: templates/data/date.inc:44 templates/data/datetime.inc:86
+#, fuzzy
+msgid "Select the date format:"
+msgstr "ជ្រើស​កាលបរិច្ឆេទ"
+
+#: templates/data/datetime.inc:66
+msgid "Select the day and time order:"
+msgstr ""
+
+#: templates/data/datetime.inc:97 templates/data/time.inc:16
+msgid "Select the time delimiter:"
+msgstr ""
+
+#: templates/data/datetime.inc:106 templates/data/time.inc:25
+msgid "Select the time format:"
+msgstr ""
+
+#: config/prefs.php.dist:509
+msgid "Select your color scheme."
+msgstr ""
+
+#: config/prefs.php.dist:328
+msgid "Select your preferred language:"
+msgstr ""
+
+#: templates/problem/problem.inc:57
+msgid "Send Problem Report"
+msgstr ""
+
+#: lib/Block/metar.php:311
+msgid "Sensor: "
+msgstr ""
+
+#: templates/prefs/syncml.html:12
+#, fuzzy
+msgid "Server Time"
+msgstr "ពេល​វេលា​បច្ចុប្បន្ន"
+
+#: lib/Block/weatherdotcom.php:164
+msgid "Server data wrong or not available."
+msgstr ""
+
+#: admin/sessions.php:14
+#, fuzzy
+msgid "Session Admin"
+msgstr "សម័យ"
+
+#: admin/sessions.php:37
+#, fuzzy
+msgid "Session Timestamp:"
+msgstr "សម័យ"
+
+#: lib/Api.php:57
 msgid "Sessions"
 msgstr "សម័យ"
 
-#: framework/Form/Form.php:2322
-msgid "Set"
-msgstr "កំណត់"
+#: config/prefs.php.dist:277
+msgid ""
+"Set preferences to allow you to reset your password if you ever forget it."
+msgstr ""
 
-#: admin/setup/config.php:77
-msgid "Setup"
-msgstr "ដំឡើង"
+#: config/prefs.php.dist:605
+msgid "Set up integration with your Facebook account."
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:203 framework/NLS/NLS/countries.php:200
-#: framework/NLS/NLS/GeoIP.php:104
-msgid "Seychelles"
-msgstr "សីស្ហែល"
+#: config/prefs.php.dist:626
+msgid "Set up integration with your Twitter account."
+msgstr ""
 
-#: framework/Perms/Perms.php:323 templates/shares/edit.inc:33
-#: templates/shares/edit.inc:67 templates/shares/edit.inc:90
-#: templates/shares/edit.inc:113 templates/shares/edit.inc:136
-#: templates/shares/edit.inc:179
+#: config/prefs.php.dist:584
+msgid "Set up remote servers that you want to access from your portal."
+msgstr ""
+
+#: config/prefs.php.dist:314
+msgid "Set your preferred language, timezone and date preferences."
+msgstr ""
+
+#: config/prefs.php.dist:469
+msgid ""
+"Set your startup application, color scheme, page refreshing, and other "
+"display preferences."
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:190
+msgid "Several locations possible with the parameter: "
+msgstr ""
+
+#: templates/problem/problem.inc:38
+#, fuzzy
+msgid "Short Summary"
+msgstr "សង្ខេប"
+
+#: config/prefs.php.dist:570
+msgid "Should access keys be defined for most links?"
+msgstr ""
+
+#: templates/shares/edit.inc:60 templates/shares/edit.inc:71
+#: templates/shares/edit.inc:95 templates/shares/edit.inc:106
+#: templates/shares/edit.inc:131 templates/shares/edit.inc:142
+#: templates/shares/edit.inc:166 templates/shares/edit.inc:181
+#: templates/shares/edit.inc:216 templates/shares/edit.inc:243
+#: templates/shares/edit.inc:268 templates/shares/edit.inc:279
+#: templates/shares/edit.inc:308
 msgid "Show"
 msgstr "បង្ហាញ"
 
-#: framework/Block/Block/Layout/Manager.php:471
-msgid "Shrink"
-msgstr "បង្រួញ"
+#: templates/prefs/app.html:21
+msgid "Show Advanced Preferences"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:211 framework/NLS/NLS/countries.php:201
-#: framework/NLS/NLS/GeoIP.php:105
-msgid "Sierra Leone"
-msgstr "សេរ៉ាឡេអូន"
+#: admin/config/index.php:173
+msgid ""
+"Show differences between currently saved and the newly generated "
+"configuration."
+msgstr ""
 
-#: framework/Crypt/Crypt/smime.php:713
-msgid "Signature"
-msgstr "ហត្ថលេខា"
+#: lib/Block/feed.php:24
+msgid "Show extra detail?"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:206 framework/NLS/NLS/countries.php:202
-#: framework/NLS/NLS/GeoIP.php:104
-msgid "Singapore"
-msgstr "សឹង្ហបុរី"
+#: config/prefs.php.dist:491
+msgid "Show last login time when logging in?"
+msgstr ""
 
-#: framework/MIME/MIME/Viewer/rar.php:65 framework/MIME/MIME/Viewer/zip.php:72
-#: framework/MIME/MIME/Viewer/tgz.php:84 framework/Form/Form.php:900
-#: framework/Form/Form.php:1219 framework/Form/Form.php:1241
-#: framework/Form/Form.php:2254 framework/Form/Form.php:2923
-#: framework/Form/Form.php:3116
-msgid "Size"
-msgstr "ទំហំ"
+#: lib/Block/fb_stream.php:89
+msgid "Show notifications"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:210 framework/NLS/NLS/countries.php:203
-#: framework/NLS/NLS/GeoIP.php:105
-msgid "Slovakia"
-msgstr "ស្លូវ៉ាគី"
+#: config/prefs.php.dist:530
+#, php-format
+msgid "Show the %s Menu on the left?"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:208 framework/NLS/NLS/countries.php:204
-#: framework/NLS/NLS/GeoIP.php:105
-msgid "Slovenia"
-msgstr "ស្លូវ៉ានី"
+#: lib/Block/weatherdotcom_strings.php:74
+#, fuzzy
+msgid "Showers"
+msgstr "បង្ហាញ"
 
-#: framework/NLS/NLS/tld.php:202 framework/NLS/NLS/countries.php:205
-#: framework/NLS/NLS/GeoIP.php:103
-msgid "Solomon Islands"
-msgstr "កោះ​សូឡូម៉ូន"
+#: lib/Block/weatherdotcom_strings.php:75
+msgid "Showers Early"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:214 framework/NLS/NLS/countries.php:206
-#: framework/NLS/NLS/GeoIP.php:106
-msgid "Somalia"
+#: lib/Block/weatherdotcom_strings.php:76
+msgid "Showers Late"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:77
+msgid "Showers in the Vicinity"
+msgstr ""
+
+#: themes/simplex/info.php:2
+msgid "Simplex"
+msgstr ""
+
+#: templates/logintasks/logintasks.html:31
+#, fuzzy
+msgid "Skip Login Tasks"
+msgstr "ភារកិច្ច​ចូល"
+
+#: lib/Block/iframe.php:26
+#, fuzzy
+msgid "Small"
 msgstr "សូម៉ាលី"
 
-#: framework/NLS/NLS/tld.php:255 framework/NLS/NLS/countries.php:207
-#: framework/NLS/NLS/GeoIP.php:118
-msgid "South Africa"
-msgstr "អាហ្រិក​​ខាង​ត្បូង"
+#: lib/Block/weatherdotcom_strings.php:78
+#, fuzzy
+msgid "Snow"
+msgstr "បង្ហាញ"
 
-#: framework/NLS/NLS/tld.php:101 framework/NLS/NLS/countries.php:208
-#: framework/NLS/NLS/GeoIP.php:77
-msgid "South Georgia and the South Sandwich Islands"
-msgstr "ហ្សកហ្ស៊ី​ខាង​ត្បូង និង កោះសាំងវិច​ខាង​ត្បូង"
+#: lib/Block/weatherdotcom_strings.php:79
+msgid "Snow Early"
+msgstr ""
 
-#: templates/javascript/htmlarea_table_lang.js:55
-#: templates/javascript/htmlarea_lang.js:80
-msgid "Spacing"
-msgstr "គម្លាត"
+#: lib/Block/weatherdotcom_strings.php:80
+msgid "Snow Late"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:80 framework/NLS/NLS/countries.php:209
-#: framework/NLS/NLS/GeoIP.php:71
-msgid "Spain"
-msgstr "អេស៉្បាញ"
+#: lib/Block/weatherdotcom_strings.php:81
+msgid "Snow Shower"
+msgstr ""
 
-#: config/registry.php.dist:107
+#: lib/Block/weatherdotcom_strings.php:82
+msgid "Snow Showers"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:83
+msgid "Snow Showers Early"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:84
+msgid "Snow Showers Late"
+msgstr ""
+
+#: lib/Block/metar.php:273
+msgid "Snow depth: "
+msgstr ""
+
+#: lib/Block/metar.php:277
+msgid "Snow equivalent in water: "
+msgstr ""
+
+#: lib/Block/fortune.php:67
+msgid "Songs & Poems"
+msgstr ""
+
+#: config/nls.php:182
+#, fuzzy
+msgid "South European (ISO-8859-3)"
+msgstr "ក្រិក (ISO-8859-7)"
+
+#: lib/Block/moon.php:31 lib/Block/moon.php:60
+msgid "Southern Hemisphere"
+msgstr ""
+
+#: config/registry.php.dist:102
 msgid "Spam"
 msgstr "សារ​ឥត​បាន​ការ"
 
-#: framework/NLS/NLS/tld.php:141 framework/NLS/NLS/countries.php:210
-#: framework/NLS/NLS/GeoIP.php:88
-msgid "Sri Lanka"
-msgstr "ស្រីលង្កា"
+#: services/keyboard.php:14
+msgid "Special Character Input"
+msgstr ""
 
-#: lib/Block/weatherdotcom.php:71 lib/Block/metar.php:86
+#: lib/Block/fortune.php:68
+#, fuzzy
+msgid "Sports"
+msgstr "គាំទ្រ"
+
+#: lib/Block/metar.php:73 lib/Block/weatherdotcom.php:68
 msgid "Standard"
 msgstr "ខ្នាត​គំរូ"
 
-#: templates/admin/setup/index.html:12
+#: lib/Block/fortune.php:69
+msgid "Star Trek"
+msgstr ""
+
+#: templates/prefs/activesync.html:2
+msgid "State Management"
+msgstr ""
+
+#: admin/activesync.php:112 templates/admin/config/index.html:17
+#: templates/prefs/activesync.html:22
 msgid "Status"
 msgstr "ស្ថានភាព"
 
-#: templates/javascript/htmlarea_lang.js:11
-msgid "Strikethrough"
-msgstr "បន្ទាត់​ឆូត"
+#: services/facebook.php:144
+msgid "Status unable to be set."
+msgstr ""
 
-#: framework/MIME/MIME/Viewer/rfc822.php:73
-msgid "Subject"
-msgstr "ប្រធាន​បទ"
+#: util/icon_browser.php:40
+#, fuzzy, php-format
+msgid "Subdirectory \"%s\" not found."
+msgstr "រក​មិន​ឃើញ​ធាតុ​បញ្ចូល"
 
-#: framework/Form/Form.php:336 framework/Form/Form/Renderer.php:316
-msgid "Submit"
-msgstr "ដាក់​ស្នើ"
+#: signup.php:52
+#, php-format
+msgid ""
+"Submitted request to add \"%s\" to the system. You cannot log in until your "
+"request has been approved."
+msgstr ""
 
-#: templates/javascript/htmlarea_lang.js:12
-msgid "Subscript"
-msgstr "អក្សរ​តូច​ក្រោម"
+#: services/facebook.php:38
+msgid "Succesfully connected your Facebook account."
+msgstr ""
 
-#: admin/sqlshell.php:104
-#: framework/Notification/Notification/Listener/status.php:28
+#: admin/sqlshell.php:88
 msgid "Success"
 msgstr "ជោគជ័យ"
 
-#: framework/NLS/NLS/tld.php:204 framework/NLS/NLS/countries.php:211
-#: framework/NLS/NLS/GeoIP.php:104
-msgid "Sudan"
+#: admin/signup_confirm.php:85 admin/user.php:100
+#, php-format
+msgid "Successfully added \"%s\" to the system."
+msgstr ""
+
+#: admin/user.php:138
+#, php-format
+msgid "Successfully cleared data for user \"%s\" from the system."
+msgstr ""
+
+#: admin/groups.php:78 admin/perms/delete.php:36
+#, php-format
+msgid "Successfully deleted \"%s\"."
+msgstr ""
+
+#: admin/user.php:118
+#, php-format
+msgid "Successfully removed \"%s\" from the system."
+msgstr ""
+
+#: admin/config/config.php:40
+msgid "Successfully reverted configuration. Reload to see changes."
+msgstr ""
+
+#: admin/config/index.php:39
+msgid "Successfully saved backup configuration."
+msgstr ""
+
+#: admin/config/config.php:51
+#, php-format
+msgid "Successfully saved the backup configuration file %s."
+msgstr ""
+
+#: admin/user.php:184
+#, php-format
+msgid "Successfully updated \"%s\""
+msgstr ""
+
+#: admin/config/config.php:60 admin/config/index.php:47
+#, php-format
+msgid "Successfully wrote %s"
+msgstr ""
+
+#: lib/Block/sunrise.php:63
+msgid "Sun Rise"
+msgstr ""
+
+#: lib/Block/sunrise.php:66
+#, fuzzy
+msgid "Sun Set"
+msgstr "កំណត់"
+
+#: config/prefs.php.dist:429
+#, fuzzy
+msgid "Sunday"
 msgstr "ស៊ូដង់"
 
-#: templates/javascript/htmlarea_table_lang.js:56
-msgid "Summary"
-msgstr "សង្ខេប"
+#: lib/Block/weatherdotcom_strings.php:85
+#, fuzzy
+msgid "Sunny"
+msgstr "ស៊ូដង់"
 
-#: templates/javascript/htmlarea_lang.js:13
-msgid "Superscript"
-msgstr "អក្សរ​តូច​លើ"
-
-#: config/registry.php.dist:394
-msgid "Support"
-msgstr "គាំទ្រ"
-
-#: framework/NLS/NLS/tld.php:215 framework/NLS/NLS/countries.php:212
-#: framework/NLS/NLS/GeoIP.php:106
-msgid "Suriname"
+#: lib/Block/weatherdotcom.php:220
+#, fuzzy
+msgid "Sunrise"
 msgstr "ស៊ូរីណាមី"
 
-#: framework/NLS/NLS/tld.php:209 framework/NLS/NLS/countries.php:213
-#: framework/NLS/NLS/GeoIP.php:105
-msgid "Svalbard and Jan Mayen"
-msgstr "ស្វាល់បាត និង ហ្សង់ម៉ាយេន"
+#: lib/Block/sunrise.php:3 lib/Block/sunrise.php:14
+msgid "Sunrise/Sunset"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:219 framework/NLS/NLS/countries.php:214
-#: framework/NLS/NLS/GeoIP.php:108
-msgid "Swaziland"
-msgstr "ស្វាហ្ស៊ីឡង់"
+#: lib/Block/weatherdotcom.php:219
+msgid "Sunrise: "
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:205 framework/NLS/NLS/countries.php:215
-#: framework/NLS/NLS/GeoIP.php:104
-msgid "Sweden"
-msgstr "ស៊ុយអែដ"
+#: lib/Block/weatherdotcom.php:223
+#, fuzzy
+msgid "Sunset"
+msgstr "កំណត់"
 
-#: framework/NLS/NLS/tld.php:56 framework/NLS/NLS/countries.php:216
-#: framework/NLS/NLS/GeoIP.php:66
-msgid "Switzerland"
-msgstr "ស្វ៊ីស"
+#: lib/Block/weatherdotcom.php:222
+msgid "Sunset: "
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:218 framework/NLS/NLS/countries.php:217
-#: framework/NLS/NLS/GeoIP.php:107
-msgid "Syrian Arab Republic"
-msgstr "សាធារណរដ្ឋ​អារ៉ាប់ ស៊ីរី"
+#: config/prefs.php.dist:664
+msgid "SyncML"
+msgstr ""
 
-#: framework/UI/UI/Table.php:134
-msgid "Table"
-msgstr "តារាង"
+#: lib/Block/feed.php:3
+msgid "Syndicated Feed"
+msgstr ""
 
-#: templates/javascript/htmlarea_table_lang.js:73
-msgid "Table Properties"
-msgstr "លក្ខណៈ​សម្បត្តិ​តារាង"
+#: lib/Block/weatherdotcom_strings.php:86
+#, fuzzy
+msgid "T-Showers"
+msgstr "បង្ហាញ"
 
-#: templates/javascript/htmlarea_table_lang.js:72
-msgid "Table properties"
-msgstr "លក្ខណៈ​សម្បត្តិ​របស់​​តារាង"
+#: lib/Block/weatherdotcom_strings.php:87
+msgid "T-Showers Early"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:234 framework/NLS/NLS/GeoIP.php:111
-msgid "Taiwan"
-msgstr "តៃវ៉ាន់"
+#: lib/Block/weatherdotcom_strings.php:88
+msgid "T-Showers Late"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:225 framework/NLS/NLS/countries.php:219
-#: framework/NLS/NLS/GeoIP.php:109
-msgid "Tajikistan"
-msgstr "តាដហ្ស៊ីគីស្តង់"
+#: lib/Block/weatherdotcom_strings.php:89
+msgid "T-Storm"
+msgstr ""
 
-#: config/hooks.php.dist:1070 config/registry.php.dist:196
+#: lib/Block/weatherdotcom_strings.php:90
+msgid "T-Storm and Windy"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:91
+#, fuzzy
+msgid "T-Storms"
+msgstr "សំណុំ​​បែបបទ"
+
+#: lib/Block/weatherdotcom_strings.php:92
+msgid "T-Storms Early"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:93
+msgid "T-Storms Late"
+msgstr ""
+
+#: lib/Block/cloud.php:3 lib/Block/cloud.php:23
+msgid "Tag Cloud"
+msgstr ""
+
+#: themes/tango-blue/info.php:24
+msgid "Tango Blue"
+msgstr ""
+
+#: config/registry.php.dist:184
 msgid "Tasks"
 msgstr "ភារកិច្ច"
 
-#: framework/Crypt/Crypt/smime.php:574
-msgid "Telephone Number"
-msgstr "លេខ​ទូរស័ព្ទ"
+#: themes/gennevilliers/info.php:12
+#, fuzzy
+msgid "Teal"
+msgstr "នេប៉ាល់"
 
-#: lib/Block/metar.php:226
+#: lib/Block/metar.php:285
+msgid "Temp for last hour: "
+msgstr ""
+
+#: lib/Block/metar.php:209
 msgid "Temperature"
 msgstr "សីតុណ្ហភាព"
 
-#: framework/Form/Form.php:1215 framework/Form/Form.php:3338
-msgid "Text"
+#: lib/Block/weatherdotcom.php:227
+#, fuzzy
+msgid "Temperature: "
+msgstr "សីតុណ្ហភាព"
+
+#: lib/Block/weatherdotcom.php:296
+#, php-format
+msgid "Temperature<br />(%sHi%s/%sLo%s) &deg;%s"
+msgstr ""
+
+#: lib/Prefs/Ui.php:518 services/facebook.php:31
+msgid "Temporarily unable to connect with Facebook, Please try again."
+msgstr ""
+
+#: lib/Block/twitter_timeline.php:122
+msgid "Temporarily unable to contact Twitter. Please try again later."
+msgstr ""
+
+#: services/keyboard.php:148
+#, fuzzy
+msgid "Text Area"
 msgstr "អត្ថបទ"
 
-#: config/prefs.php.dist:379
+#: config/prefs.php.dist:544
 msgid "Text Only"
 msgstr "តែអត្ថបទ"
 
-#: framework/NLS/NLS/tld.php:224 framework/NLS/NLS/countries.php:221
-#: framework/NLS/NLS/GeoIP.php:109
-msgid "Thailand"
-msgstr "ថៃ"
+#: config/nls.php:183
+msgid "Thai (TIS-620)"
+msgstr ""
 
-#: framework/MIME/MIME/Viewer/rfc822.php:35
-msgid "There was an error displaying this message part"
+#: lib/Prefs/Ui.php:747
+#, php-format
+msgid "The Remote Wipe for device id %s has been cancelled."
+msgstr ""
+
+#: admin/alarms.php:81
+msgid "The alarm has been deleted."
+msgstr ""
+
+#: admin/alarms.php:70
+msgid "The alarm has been saved."
+msgstr ""
+
+#: config/prefs.php.dist:246
+msgid "The default e-mail address to use with this identity:"
+msgstr ""
+
+#: lib/Block/vatid.php:76
+msgid ""
+"The member state service could not be reached in time. Try again later or "
+"with a different member state."
+msgstr ""
+
+#: lib/Block/vatid.php:73
+msgid ""
+"The member state service is currently not available. Try again later or with "
+"a different member state."
+msgstr ""
+
+#: lib/Block/vatid.php:67
+msgid "The provided country code is invalid."
+msgstr ""
+
+#: lib/Prefs/Ui.php:681
+#, php-format
+msgid "The server \"%s\" has been deleted."
+msgstr ""
+
+#: lib/Prefs/Ui.php:676
+#, php-format
+msgid "The server \"%s\" has been saved."
+msgstr ""
+
+#: lib/Block/vatid.php:70
+msgid "The service is currently not available. Try again later."
+msgstr ""
+
+#: lib/Block/vatid.php:79
+msgid "The service is currently too busy. Try again later."
+msgstr ""
+
+#: admin/user.php:209
+#, php-format
+msgid "The signup request for \"%s\" has been removed."
+msgstr ""
+
+#: admin/signup_confirm.php:39
+#, php-format
+msgid "The signup request for user \"%s\" has been removed."
+msgstr ""
+
+#: lib/LoginTasks/Task/TestScriptActive.php:38
+msgid ""
+"The test script is currently enabled. For security reasons, disable test "
+"scripts when you are done testing (see horde/docs/INSTALL)."
+msgstr ""
+
+#: admin/signup_confirm.php:60 admin/user.php:72
+#, php-format
+msgid "The user \"%s\" already exists."
+msgstr ""
+
+#: services/shares/edit.php:85 services/shares/edit.php:177
+#, php-format
+msgid "The user \"%s\" does not exist."
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:51 lib/Block/weatherdotcom.php:106
+msgid "The weather.com block is not available."
+msgstr ""
+
+#: lib/Prefs/Ui.php:46
+msgid "Theme directory can't be opened"
+msgstr ""
+
+#: util/icon_browser.php:28
+#, php-format
+msgid "Themes directory \"%s\" not found."
+msgstr ""
+
+#: admin/signup_confirm.php:74 admin/user.php:84 signup.php:38 signup.php:59
+#, php-format
+msgid "There was a problem adding \"%s\" to the system: %s"
+msgstr ""
+
+#: admin/user.php:140
+#, php-format
+msgid "There was a problem clearing data for user \"%s\" from the system: "
+msgstr ""
+
+#: admin/user.php:120
+#, php-format
+msgid "There was a problem removing \"%s\" from the system: "
+msgstr ""
+
+#: admin/user.php:173
+#, php-format
+msgid "There was a problem updating \"%s\": %s"
+msgstr ""
+
+#: lib/Block/twitter_timeline.php:110 lib/Block/twitter_timeline.php:126
+#, fuzzy, php-format
+msgid "There was an error contacting Twitter: %s"
 msgstr "មាន​កំហុស​មួយ ក្នុង​ការ​បង្ហាញ​ផ្នែក​របស់​សារ​នេះ"
 
-#: framework/Form/Form.php:2433 services/portal/syncml.php:255
-msgid "Time"
-msgstr "ពេល​វេលា​"
+#: admin/config/config.php:70
+msgid ""
+"There was an error in the configuration form. Perhaps you left out a "
+"required field."
+msgstr ""
 
-#: lib/Block/time.php:22
+#: lib/Block/fb_stream.php:158 lib/Block/fb_stream.php:183
+#: services/facebook.php:54 services/facebook.php:71
+#, fuzzy, php-format
+msgid "There was an error making the request: %s"
+msgstr "មាន​កំហុស​មួយ ក្នុង​ការ​បង្ហាញ​ផ្នែក​របស់​សារ​នេះ"
+
+#: lib/Api.php:284
+#, php-format
+msgid ""
+"There was an error removing global data for %s. Details have been logged."
+msgstr ""
+
+#: lib/Block/vatid.php:89
+msgid "This VAT identification number is invalid."
+msgstr ""
+
+#: lib/Block/vatid.php:86
+msgid "This VAT identification number is valid."
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:94
+msgid "Thunder"
+msgstr ""
+
+#: config/registry.php.dist:260
+msgid "Tickets"
+msgstr ""
+
+#: config/registry.php.dist:308
+msgid "Time Tracking"
+msgstr ""
+
+#: lib/Block/time.php:23
 msgid "Time format"
 msgstr "ទ្រង់​ទ្រាយ​​​​ពេល​​វេលា​"
 
-#: framework/MIME/MIME/Viewer/vcard.php:229 lib/Block/iframe.php:20
+#: templates/data/datetime.inc:60 templates/data/datetime.inc:69
+#, fuzzy
+msgid "Timestamp or unknown"
+msgstr "មិន​ស្គាល់​ឈ្មោះ​ម៉ាស៊ីន"
+
+#: templates/prefs/syncml.html:2
+msgid "Timestamps of successful synchronization sessions"
+msgstr ""
+
+#: lib/Block/iframe.php:22
 msgid "Title"
 msgstr "ចំណង​ជើង"
 
-#: framework/MIME/MIME/Viewer/rfc822.php:75
-msgid "To"
-msgstr "ទៅ"
+#: templates/data/csvmap.inc:95
+msgid ""
+"To exclude a particular field form the import or to correct a wrong match "
+"select a field in the lists below and hit \"Remove pair\"."
+msgstr ""
 
-#: lib/Block/weatherdotcom.php:303
+#: templates/prefs/addressbooks.html:10
+msgid ""
+"To select multiple fields, hold down the Control (PC) or Command (Mac) while "
+"clicking."
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:313
 msgid "Today"
 msgstr "ថ្ងៃ​នេះ"
 
-#: framework/NLS/NLS/tld.php:223 framework/NLS/NLS/countries.php:223
-#: framework/NLS/NLS/GeoIP.php:109
-msgid "Togo"
-msgstr "តូហ្គោ"
+#: lib/Block/weatherdotcom.php:315
+#, fuzzy
+msgid "Tomorrow"
+msgstr " (ថ្ងៃ​ស្អែក)"
 
-#: framework/NLS/NLS/tld.php:226 framework/NLS/NLS/countries.php:224
-#: framework/NLS/NLS/GeoIP.php:110
-msgid "Tokelau"
-msgstr "តូកេឡាអ៊ូ"
+#: lib/Block/fortune.php:70
+msgid "Translations"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:229 framework/NLS/NLS/countries.php:225
-#: framework/NLS/NLS/GeoIP.php:110
-msgid "Tonga"
-msgstr "តុងហ្គោ"
-
-#: templates/javascript/htmlarea_table_lang.js:81
-#: templates/javascript/htmlarea_lang.js:77
-msgid "Top"
-msgstr "កំពូល"
-
-#: framework/NLS/NLS/tld.php:232 framework/NLS/NLS/countries.php:226
-#: framework/NLS/NLS/GeoIP.php:111
-msgid "Trinidad and Tobago"
-msgstr "ទ្រីនីដាដ និង​​ តូបាហ្គោ"
-
-#: framework/NLS/NLS/tld.php:228 framework/NLS/NLS/countries.php:227
-#: framework/NLS/NLS/GeoIP.php:110
-msgid "Tunisia"
-msgstr "ទុយណេស៊ី"
-
-#: framework/NLS/NLS/tld.php:231 framework/NLS/NLS/countries.php:228
-#: framework/NLS/NLS/GeoIP.php:111
-msgid "Turkey"
-msgstr "ទួរគី"
-
-#: config/nls.php.dist:188
+#: config/nls.php:184
 msgid "Turkish (ISO-8859-9)"
 msgstr "ទួរគី (ISO-8859-9)"
 
-#: framework/NLS/NLS/tld.php:227 framework/NLS/NLS/countries.php:229
-#: framework/NLS/NLS/GeoIP.php:110
-msgid "Turkmenistan"
-msgstr "ទួគមេនីស្តង់"
+#: lib/Block/twitter_timeline.php:166
+#, fuzzy
+msgid "Tweet"
+msgstr "អត្ថបទ"
 
-#: framework/NLS/NLS/tld.php:220 framework/NLS/NLS/countries.php:230
-#: framework/NLS/NLS/GeoIP.php:108
-msgid "Turks and Caicos Islands"
-msgstr "កោះ​ទួក និង​ កៃកូស"
+#: config/prefs.php.dist:625
+msgid "Twitter Integration"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:233 framework/NLS/NLS/countries.php:231
-#: framework/NLS/NLS/GeoIP.php:111
-msgid "Tuvalu"
-msgstr "ទុយវ៉ាលុយ"
+#: lib/Block/twitter_timeline.php:23 lib/Block/twitter_timeline.php:64
+#: lib/Block/twitter_timeline.php:74 lib/Block/twitter_timeline.php:78
+#, php-format
+msgid "Twitter Timeline"
+msgstr ""
 
-#: framework/MIME/MIME/Viewer/vcard.php:249 lib/Block/iframe.php:17
+#: lib/Block/twitter_timeline.php:70
+#, php-format
+msgid "Twitter Timeline for %s"
+msgstr ""
+
+#: services/keyboard.php:108
+#, fuzzy
+msgid "U characters"
+msgstr "ចំនួន​តួអក្សរ"
+
+#: lib/Block/weatherdotcom.php:273
+msgid "U.V. index: "
+msgstr ""
+
+#: lib/Block/iframe.php:19
 msgid "URL"
 msgstr "URL"
 
-#: templates/javascript/htmlarea_lang.js:97
-msgid "URL:"
-msgstr "URL:"
+#: services/twitter.php:64
+#, php-format
+msgid "Unable to contact Twitter. Please try again later. Error returned: %s"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:237 framework/NLS/NLS/countries.php:232
-#: framework/NLS/NLS/GeoIP.php:112
-msgid "Uganda"
-msgstr "អ៊ូហ្គង់ដា"
+#: admin/groups.php:82 admin/perms/delete.php:39
+#, php-format
+msgid "Unable to delete \"%s\": %s."
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:236 framework/NLS/NLS/countries.php:233
-#: framework/NLS/NLS/GeoIP.php:112
-msgid "Ukraine"
-msgstr "អ៊ុយក្រែន"
+#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:55
+#, php-format
+msgid "Unable to modify the sequence for %s: %s"
+msgstr ""
 
-#: templates/javascript/htmlarea_lang.js:10
-msgid "Underline"
-msgstr "គូស​បន្ទាត់​ក្រោម"
+#: services/facebook.php:175
+msgid "Unable to set like."
+msgstr ""
 
-#: framework/Prefs/Prefs/CategoryManager.php:57
-#: templates/prefs/categorymanagement.inc:61
+#: templates/prefs/end.html:4
+#, fuzzy
+msgid "Undo Changes"
+msgstr "ផ្លាស់​ប្តូរ"
+
+#: lib/Prefs/Ui.php:266
 msgid "Unfiled"
 msgstr "មិន​បាន​រៀបចំ"
 
-#: config/nls.php.dist:189
+#: config/nls.php:185
 msgid "Unicode (UTF-8)"
 msgstr "យូនីកូដ (UTF-8)"
 
-#: framework/NLS/NLS/tld.php:17 framework/NLS/NLS/countries.php:234
-#: framework/NLS/NLS/GeoIP.php:56
-msgid "United Arab Emirates"
-msgstr "អារ៉ាប់​រួម"
-
-#: framework/NLS/NLS/tld.php:238 framework/NLS/NLS/countries.php:235
-#: framework/NLS/NLS/GeoIP.php:74
-msgid "United Kingdom"
-msgstr "ចក្រ​ភព​អង់គ្លេស"
-
-#: framework/NLS/NLS/tld.php:240 framework/NLS/NLS/countries.php:236
-#: framework/NLS/NLS/GeoIP.php:113
-msgid "United States"
-msgstr "សហរដ្ឋអាមេរិក"
-
-#: framework/NLS/NLS/tld.php:239 framework/NLS/NLS/countries.php:237
-#: framework/NLS/NLS/GeoIP.php:113
-msgid "United States Minor Outlying Islands"
-msgstr "កោះ​ឆ្ងាយៗ​របស់​សហរដ្ឋ​អាមេរិក"
-
-#: lib/Block/weatherdotcom.php:67 lib/Block/metar.php:83
+#: lib/Block/metar.php:70 lib/Block/weatherdotcom.php:64
 msgid "Units"
 msgstr "ឯកតា"
 
-#: framework/Crypt/Crypt/pgp.php:429 framework/Crypt/Crypt/pgp.php:430
-#: framework/MIME/MIME/Viewer/tgz.php:58
-msgid "Unknown"
-msgstr "មិន​ស្គាល់"
+#: lib/Block/weatherdotcom.php:162
+msgid "Unknown location provided."
+msgstr ""
 
-#: framework/Identity/Identity.php:302
-msgid "Unnamed"
-msgstr "គ្មាន​ឈ្មោះ"
-
-#: framework/Perms/Perms/UI.php:197 templates/admin/user/list.inc:33
+#: lib/Block/fb_stream.php:179 templates/admin/user/list.inc:36
 msgid "Update"
 msgstr "ធ្វើ​ឲ្យ​ទាន់​សម័យ"
 
-#: admin/setup/index.php:178 framework/UI/UI/VarRenderer/html.php:198
+#: templates/admin/user/update.inc:6
+#, fuzzy, php-format
+msgid "Update %s"
+msgstr "ធ្វើ​ឲ្យ​ទាន់​សម័យ"
+
+#: templates/admin/user/update.inc:53
+#, fuzzy
+msgid "Update user"
+msgstr "ធ្វើ​ឲ្យ​ទាន់​សម័យ"
+
+#: admin/groups.php:144 admin/perms/edit.php:104 services/shares/edit.php:249
+#, fuzzy, php-format
+msgid "Updated \"%s\"."
+msgstr "ធ្វើ​ឲ្យ​ទាន់​សម័យ"
+
+#: admin/config/index.php:190
 msgid "Upload"
 msgstr "ផ្ទុក​ឡើង"
 
-#: framework/NLS/NLS/tld.php:241 framework/NLS/NLS/countries.php:238
-#: framework/NLS/NLS/GeoIP.php:113
-msgid "Uruguay"
-msgstr "អ៊ុយរ៉ាហ្គាយ"
+#: admin/config/index.php:198
+msgid "Uploaded all application configuration files to the server."
+msgstr ""
 
-#: templates/admin/groups/edit.inc:21
+#: config/prefs.php.dist:645
+msgid "Use if name/password is different for IMSP server."
+msgstr ""
+
+#: templates/admin/groups/edit.inc:22 templates/admin/groups/edit.inc:60
 msgid "User"
 msgstr "អ្នក​ប្រើ"
 
-#: admin/user.php:203
+#: admin/user.php:224
 msgid "User Administration"
 msgstr "ការ​គ្រប់គ្រង​អ្នក​ប្រើ"
 
-#: admin/user.php:35 admin/setup/index.php:179
-#: framework/Net_SMS/SMS/sms2email_http.php:536
-#: framework/Net_SMS/SMS/vodafoneitaly_smtp.php:98
-#: framework/Net_SMS/SMS/clickatell_http.php:198
-#: framework/Net_SMS/SMS/win_http.php:150 services/resetpassword.php:33
-#: templates/login/login.inc:64 templates/admin/user/approve.inc:12
+#: lib/Prefs/Ui.php:432
+#, fuzzy
+msgid "User Agent:"
+msgstr "ឈ្មោះ​អ្នក​ប្រើ ៖"
+
+#: signup.php:67
+#, fuzzy
+msgid "User Registration"
+msgstr "ការ​គ្រប់គ្រង​អ្នក​ប្រើ"
+
+#: admin/signup_confirm.php:18 signup.php:19
+msgid "User Registration has been disabled for this site."
+msgstr ""
+
+#: admin/signup_confirm.php:25 signup.php:27
+msgid "User Registration is not properly configured for this site."
+msgstr ""
+
+#: lib/Block/account.php:561
+#, fuzzy
+msgid "User account not found"
+msgstr "រក​មិន​ឃើញ​ធាតុ​បញ្ចូល"
+
+#: templates/shares/edit.inc:238
+msgid "User to add:"
+msgstr ""
+
+#: admin/config/index.php:191 admin/user.php:32 admin/user.php:48 login.php:76
+#: services/resetpassword.php:29 templates/admin/user/approve.inc:22
 msgid "Username"
 msgstr "ឈ្មោះ​អ្នក​ប្រើ"
 
-#: templates/rpcsum/rpcsum.inc:87
+#: lib/Prefs/Ui.php:325
 msgid "Username:"
 msgstr "ឈ្មោះ​អ្នក​ប្រើ ៖"
 
-#: framework/NLS/NLS/tld.php:242 framework/NLS/NLS/countries.php:239
-#: framework/NLS/NLS/GeoIP.php:114
-msgid "Uzbekistan"
-msgstr "អ៊ូហ្សបេគីស្តង់"
+#: templates/admin/groups/edit.inc:53
+#, fuzzy
+msgid "Users"
+msgstr "អ្នក​ប្រើ"
 
-#: framework/Crypt/Crypt/smime.php:639
-msgid "Validity"
-msgstr "សុពលភាព"
+#: templates/admin/user/list.inc:2
+msgid "Users in the system:"
+msgstr ""
 
-#: framework/Form/Form.php:2252 framework/Form/Form.php:2274
-#: framework/Form/Form.php:2324 framework/Form/Form.php:2921
-#: framework/Form/Form/Type/tableset.php:59
-msgid "Values"
-msgstr "តម្លៃ"
+#: lib/Block/vatid.php:19
+msgid "VAT id number verification"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:249 framework/NLS/NLS/countries.php:240
-#: framework/NLS/NLS/GeoIP.php:117
-msgid "Vanuatu"
-msgstr "វ៉ានុយអាទុយ"
+#: lib/Block/vatid.php:42
+msgid "VAT identification number:"
+msgstr ""
 
-#: lib/Block/weatherdotcom.php:238
+#: lib/Block/vatid.php:93
+#, fuzzy
+msgid "VAT number"
+msgstr "លេខ"
+
+#: config/registry.php.dist:122
+#, fuzzy
+msgid "Vacation"
+msgstr "ទីតាំង"
+
+#: lib/Block/weatherdotcom.php:248
 msgid "Variable"
 msgstr "អថេរ"
 
-#: framework/NLS/NLS/tld.php:245 framework/NLS/NLS/countries.php:241
-#: framework/NLS/NLS/GeoIP.php:115
-msgid "Venezuela"
-msgstr "វេណេហ្សុយអេឡា"
-
-#: framework/Crypt/Crypt/smime.php:701
-msgid "Version"
-msgstr "កំណែ"
-
-#: config/registry.php.dist:242
+#: config/registry.php.dist:246
 msgid "Version Control"
 msgstr "ការ​ត្រួត​ពិនិត្យ​កំណែ"
 
-#: framework/MIME/MIME/Contents.php:976
-#, php-format
-msgid "View %s"
-msgstr "មើល %s"
+#: lib/Block/weatherdotcom_strings.php:101
+#, fuzzy
+msgid "Very High"
+msgstr "ខ្ពស់"
 
-#: framework/NLS/NLS/tld.php:247 framework/NLS/NLS/countries.php:244
-#: framework/NLS/NLS/GeoIP.php:116
-msgid "Virgin Islands, U.S."
-msgstr "កោះ​វីជីន សហរដ្ឋ​អាមេរិក"
+#: config/nls.php:186
+msgid "Vietnamese (VISCII)"
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:250 framework/NLS/NLS/countries.php:245
-#: framework/NLS/NLS/GeoIP.php:117
-msgid "Wallis and Futuna"
-msgstr "វ៉ាលីស និង ហ្វ៊ូ​ទុយណា"
+#: lib/Block/iframe.php:3
+msgid "View an external web page"
+msgstr ""
 
-#: framework/Notification/Notification/Listener/status.php:29
-#: framework/MIME/MIME/Viewer/html.php:124 lib/Block/account.php:83
+#: lib/Block/metar.php:204
+msgid "Visibility"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:267
+msgid "Visibility: "
+msgstr ""
+
+#: lib/Block/account.php:98
 msgid "Warning"
 msgstr "ព្រមាន"
 
-#: lib/Block/google.php:36
-msgid "Web"
-msgstr "វិប"
+#: lib/Block/weatherdotcom.php:32
+msgid "Weather Forecast"
+msgstr ""
 
-#: config/registry.php.dist:453
+#: lib/Block/weatherdotcom.php:429
+msgid "Weather data provided by"
+msgstr ""
+
+#: config/registry.php.dist:369
 msgid "Web Site"
 msgstr "តំបន់បណ្តាញ"
 
-#: framework/Maintenance/Maintenance.php:58
-msgid "Weekly"
-msgstr "រាល់​សប្ដាហ៍"
-
-#: services/portal/mobile.php:28
+#: services/portal/mobile.php:29
 msgid "Welcome"
 msgstr "សូម​ស្វាគមន៍"
 
-#: templates/login/mobile.inc:4 templates/login/login.inc:57
+#: templates/login/login.inc:5 templates/login/mobile.inc:1
 #, php-format
 msgid "Welcome to %s"
 msgstr "សូម​ស្វាគមន៍​មក​កាន់ %s"
 
-#: framework/NLS/NLS/tld.php:78 framework/NLS/NLS/countries.php:246
-#: framework/NLS/NLS/GeoIP.php:71
-msgid "Western Sahara"
-msgstr "សាហារ៉ា​ខាង​លិច"
+#: templates/portal/mobile.inc:1
+#, fuzzy, php-format
+msgid "Welcome, %s"
+msgstr "សូម​ស្វាគមន៍​មក​កាន់ %s"
 
-#: templates/javascript/htmlarea_table_lang.js:84
-msgid "Width"
+#: config/nls.php:187
+#, fuzzy
+msgid "Western (ISO-8859-1)"
+msgstr "ក្រិក (ISO-8859-7)"
+
+#: config/nls.php:188
+#, fuzzy
+msgid "Western (ISO-8859-15)"
+msgstr "ក្រិក (ISO-8859-7)"
+
+#: config/prefs.php.dist:483
+#, php-format
+msgid "What application should %s display after login?"
+msgstr ""
+
+#: lib/Block/twitter_timeline.php:131
+msgid "What are you working on now?"
+msgstr ""
+
+#: templates/data/csvinfo.inc:14
+msgid "What is the delimiter character?"
+msgstr ""
+
+#: templates/data/csvinfo.inc:17
+msgid "What is the quote character?"
+msgstr ""
+
+#: lib/Block/fb_stream.php:165
+msgid "What's on your mind?"
+msgstr ""
+
+#: config/prefs.php.dist:427
+msgid "Which day would you like to be displayed as the first day of the week?"
+msgstr ""
+
+#: lib/Block/moon.php:21
+msgid "Which phases"
+msgstr ""
+
+#: config/prefs.php.dist:536
+#, php-format
+msgid "Width of the %s menu on the left:"
+msgstr ""
+
+#: config/registry.php.dist:394
+msgid "Wiki"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:303 lib/Block/weatherdotcom_strings.php:95
+#, fuzzy
+msgid "Wind"
 msgstr "ទទឹង​"
 
-#: templates/javascript/htmlarea_lang.js:105
-msgid "Width:"
+#: lib/Block/weatherdotcom_strings.php:96
+msgid "Wind Early"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:97
+msgid "Wind Late"
+msgstr ""
+
+#: lib/Block/metar.php:79
+msgid "Wind speed in knots"
+msgstr ""
+
+#: lib/Block/metar.php:151
+#, fuzzy
+msgid "Wind:"
 msgstr "ទទឹង ៖"
 
-#: config/registry.php.dist:212
-msgid "Wishlist"
-msgstr "បញ្ជី​ប្រាថ្នា"
+#: lib/Block/weatherdotcom.php:246
+#, fuzzy
+msgid "Wind: "
+msgstr "ទទឹង ៖"
 
-#: framework/MIME/MIME/Viewer/vcard.php:124
-#: framework/MIME/MIME/Viewer/vcard.php:164
-msgid "Work Address"
-msgstr "អាសយដ្ឋាន​កន្លែង​ធ្វើ​ការ"
+#: lib/Block/account.php:634
+#, fuzzy
+msgid "Windows"
+msgstr "បិទ​បង្អួច"
 
-#: framework/MIME/MIME/Viewer/vcard.php:192
-msgid "Work Phone"
-msgstr "ទូរស័ព្ទ​​​កន្លែង​​​ធ្វើការ"
+#: admin/activesync.php:181 templates/prefs/activesync.html:28
+msgid "Wipe"
+msgstr ""
+
+#: admin/activesync.php:162 lib/Prefs/Ui.php:415
+msgid "Wipe is pending"
+msgstr ""
+
+#: lib/Block/fortune.php:71
+msgid "Wisdom"
+msgstr ""
+
+#: lib/Block/fortune.php:72
+msgid "Work"
+msgstr ""
+
+#: config/registry.php.dist:275
+msgid "X-Ref"
+msgstr ""
 
 #: templates/data/date.inc:47 templates/data/date.inc:48
 #: templates/data/date.inc:49 templates/data/date.inc:50
+#: templates/data/datetime.inc:89 templates/data/datetime.inc:90
+#: templates/data/datetime.inc:91 templates/data/datetime.inc:92
 msgid "YY"
 msgstr "YY"
 
-#: framework/UI/UI/VarRenderer/html.php:412
-#: framework/UI/UI/VarRenderer/html.php:454
-msgid "YYYY"
-msgstr "YYYY"
+#: templates/logintasks/logintasks.html:34
+msgid "Yes, I Agree"
+msgstr ""
 
-#: framework/Maintenance/Maintenance.php:56
-msgid "Yearly"
-msgstr "ប្រចាំឆ្នាំ"
+#: services/facebook.php:110 services/facebook.php:169
+#, php-format
+msgid "You and %d other person likes this"
+msgid_plural "You and %d other people like this"
+msgstr[0] ""
+msgstr[1] ""
 
-#: framework/NLS/NLS/tld.php:252 framework/NLS/NLS/countries.php:247
-#: framework/NLS/NLS/GeoIP.php:117
-msgid "Yemen"
-msgstr "យេមែន"
+#: lib/Api.php:301
+msgid "You are not allowed to add groups."
+msgstr ""
 
-#: framework/UI/UI/VarRenderer/html.php:964
-msgid "Yes"
-msgstr "បាទ/ចាស"
+#: lib/Api.php:476
+msgid "You are not allowed to add shares."
+msgstr ""
 
-#: templates/problem/problem.inc:33
+#: lib/Api.php:350 lib/Api.php:373 lib/Api.php:399 lib/Api.php:422
+msgid "You are not allowed to change groups."
+msgstr ""
+
+#: lib/Api.php:561 lib/Api.php:598 lib/Api.php:640 lib/Api.php:667
+msgid "You are not allowed to change shares."
+msgstr ""
+
+#: lib/Api.php:327
+msgid "You are not allowed to delete groups."
+msgstr ""
+
+#: lib/Api.php:505
+msgid "You are not allowed to delete shares."
+msgstr ""
+
+#: lib/Api.php:820
+msgid "You are not allowed to list groups of shares."
+msgstr ""
+
+#: lib/Api.php:702 lib/Api.php:744
+msgid "You are not allowed to list share permissions."
+msgstr ""
+
+#: lib/Api.php:532
+msgid "You are not allowed to list shares."
+msgstr ""
+
+#: lib/Api.php:448
+msgid "You are not allowed to list users of groups."
+msgstr ""
+
+#: lib/Api.php:786
+msgid "You are not allowed to list users of shares."
+msgstr ""
+
+#: lib/Api.php:216
+msgid "You are not allowed to remove user data."
+msgstr ""
+
+#: lib/Block/fb_stream.php:159 lib/Block/fb_stream.php:184
+#: services/facebook.php:55 services/facebook.php:72
+#, php-format
+msgid "You can also check your Facebook settings in your %s."
+msgstr ""
+
+#: lib/LoginTasks/Task/TosAgreement.php:54
+msgid ""
+"You did not agree to the Terms of Service agreement, so you were not allowed "
+"to login."
+msgstr ""
+
+#: login.php:278
+msgid "You have been logged out."
+msgstr ""
+
+#: lib/Block/fb_stream.php:124
+#, php-format
+msgid ""
+"You have not properly connected your Facebook account with Horde. You should "
+"check your Facebook settings in your %s."
+msgstr ""
+
+#: lib/Block/twitter_timeline.php:182
+#, php-format
+msgid ""
+"You have not properly connected your Twitter account with Horde. You should "
+"check your Twitter settings in your %s."
+msgstr ""
+
+#: services/facebook.php:112 services/facebook.php:163
+#: services/facebook.php:171
+msgid "You like this"
+msgstr ""
+
+#: templates/problem/problem.inc:11
+msgid "You must describe the problem before you can send the problem report."
+msgstr ""
+
+#: lib/Prefs/Ui.php:679
+msgid "You must select an server to be deleted."
+msgstr ""
+
+#: admin/user.php:134
+msgid "You must specify a username to clear out."
+msgstr ""
+
+#: admin/user.php:114
+msgid "You must specify a username to remove."
+msgstr ""
+
+#: admin/user.php:70
+msgid "You must specify the username to add."
+msgstr ""
+
+#: admin/user.php:164
+msgid "You must specify the username to update."
+msgstr ""
+
+#: templates/problem/problem.inc:34
+#, fuzzy
+msgid "Your Email Address"
+msgstr "អាសយដ្ឋាន​អ៊ីមែល"
+
+#: config/prefs.php.dist:212 config/prefs.php.dist:275
+#: config/prefs.php.dist:312 config/prefs.php.dist:439
+#, fuzzy
+msgid "Your Information"
+msgstr "ព័ត៌មាន"
+
+#: login.php:270
+msgid ""
+"Your Internet Address has changed since the beginning of your session. To "
+"protect your security, you must login again."
+msgstr ""
+
+#: templates/problem/problem.inc:30
 msgid "Your Name"
 msgstr "ឈ្មោះ​របស់អ្នក"
 
-#: framework/NLS/NLS/tld.php:254 framework/NLS/NLS/GeoIP.php:118
-msgid "Yugoslavia"
-msgstr "យូហ្គោស្លាវី"
+#: templates/admin/user/noadd.inc:5
+msgid ""
+"Your authentication backend does not support adding users. If you wish to "
+"use Horde to administer user accounts, you must use a different "
+"authentication backend."
+msgstr ""
 
-#: framework/NLS/NLS/GeoIP.php:118
-msgid "Zaire"
-msgstr "សៃ"
+#: templates/admin/user/nolist.inc:5
+msgid ""
+"Your authentication backend does not support listing users, or the feature "
+"has been disabled for some other reason."
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:256 framework/NLS/NLS/countries.php:248
-#: framework/NLS/NLS/GeoIP.php:118
-msgid "Zambia"
-msgstr "ហ្សាំប៊ី"
+#: login.php:274
+msgid ""
+"Your browser appears to have changed since the beginning of your session. To "
+"protect your security, you must login again."
+msgstr ""
 
-#: framework/NLS/NLS/tld.php:257 framework/NLS/NLS/countries.php:249
-#: framework/NLS/NLS/GeoIP.php:118
-msgid "Zimbabwe"
-msgstr "ហ្ស៊ីមបាវ៉េ"
+#: lib/Block/iframe.php:58
+msgid "Your browser does not support this feature."
+msgstr ""
 
-#: framework/Horde/Horde/Menu.php:190
-msgid "_Log out"
-msgstr "_Lចេញ "
+#: config/prefs.php.dist:337
+msgid "Your current time zone:"
+msgstr ""
 
-#: framework/MIME/MIME/Message.php:134
-msgid "addressee unknown"
-msgstr "មិន​ស្គាល់​អ្នក​ទទួល​សំបុត្រ"
+#: config/prefs.php.dist:236
+#, fuzzy
+msgid "Your full name:"
+msgstr "ឈ្មោះ​របស់អ្នក"
 
-#: framework/MIME/MIME/Message.php:158
-msgid "cannot create output file"
-msgstr "មិន​អាច​បង្កើត​ឯកសារ​លទ្ធផល"
+#: login.php:290
+msgid "Your login has expired."
+msgstr ""
 
-#: framework/MIME/MIME/Message.php:130
-msgid "cannot open input"
-msgstr "មិន​អាច​បើក​ព័ត៌មាន​បញ្ចូល"
+#: services/resetpassword.php:74
+#, php-format
+msgid "Your new password for %s is: %s"
+msgstr ""
 
-#: framework/MIME/MIME/Message.php:122
-msgid "command line usage error"
-msgstr "កំហុស​ការ​ប្រើ​បន្ទាត់​ពាក្យបញ្ជា"
+#: services/resetpassword.php:73
+msgid "Your password has been reset"
+msgstr ""
 
-#: framework/MIME/MIME/Message.php:178
-msgid "configuration error"
+#: services/resetpassword.php:87
+msgid ""
+"Your password has been reset, but couldn't be sent to you. Please contact "
+"the administrator."
+msgstr ""
+
+#: services/resetpassword.php:82
+msgid ""
+"Your password has been reset, check your email and log in with your new "
+"password."
+msgstr ""
+
+#: lib/Block/account.php:689 lib/Block/account.php:704
+msgid "Your password has expired"
+msgstr ""
+
+#: login.php:178
+msgid "Your password has expired."
+msgstr ""
+
+#: lib/Prefs/Ui.php:322
+msgid "Your remote servers:"
+msgstr ""
+
+#: login.php:266
+msgid "Your session has expired. Please login again."
+msgstr ""
+
+#: lib/Block/fortune.php:73
+msgid "Zippy"
+msgstr ""
+
+#: services/problem.php:107
+msgid "[Problem Report]"
+msgstr ""
+
+#: admin/sessions.php:39
+#, fuzzy
+msgid "[Unknown]"
+msgstr "មិន​ស្គាល់"
+
+#: lib/Api.php:47
+#, fuzzy
+msgid "_Alarms"
+msgstr "ឈ្មោះ​ក្លែងក្លាយ"
+
+#: lib/Api.php:72
+msgid "_CLI"
+msgstr ""
+
+#: lib/Api.php:27
+#, fuzzy
+msgid "_Configuration"
 msgstr "កំហុស​ការ​កំណត់​រចនាសម្ព័ន្ធ"
 
-#: framework/MIME/MIME/Message.php:154
-msgid "critical system file missing"
-msgstr "បាត់​ឯកសារ​ប្រព័ន្ធ​សំខាន់​បំផុត"
+#: lib/Api.php:52
+#, fuzzy
+msgid "_DataTree"
+msgstr "កាល​​បរិចេ្ឆទ"
 
-#: framework/MIME/MIME/Message.php:126
-msgid "data format error"
-msgstr "កំហុស​ទ្រង់ទ្រាយ​ទិន្នន័យ"
+#: lib/Api.php:37
+#, fuzzy
+msgid "_Groups"
+msgstr "ក្រុម"
 
-#: framework/MIME/MIME/Message.php:182
-msgid "entry not found"
-msgstr "រក​មិន​ឃើញ​ធាតុ​បញ្ចូល"
+#: lib/Api.php:42
+#, fuzzy
+msgid "_Permissions"
+msgstr "សិទ្ធិ"
 
-#: framework/UI/UI/VarRenderer/html.php:357
-msgid "hh"
-msgstr "hh"
+#: lib/Api.php:32
+#, fuzzy
+msgid "_Users"
+msgstr "អ្នក​ប្រើ"
 
-#: framework/MIME/MIME/Message.php:138
-msgid "host name unknown"
-msgstr "មិន​ស្គាល់​ឈ្មោះ​ម៉ាស៊ីន"
+#: services/problem.php:56
+msgid "attachment"
+msgstr ""
 
-#: framework/MIME/MIME/Message.php:162
-msgid "input/output error"
-msgstr "កំហុស​បញ្ចេញ/បញ្ចូល"
+#: lib/Block/metar.php:167 lib/Block/metar.php:353
+#, php-format
+msgid "calm"
+msgstr ""
 
-#: framework/MIME/MIME/Message.php:146
-msgid "internal software error"
-msgstr "កំហុស​កម្មវិធី​ខាង​ក្រៅ"
+#: lib/Block/weatherdotcom_strings.php:102
+msgid "falling"
+msgstr ""
 
-#: framework/UI/UI/VarRenderer/html.php:368
-msgid "mm"
-msgstr "ម.ម."
+#: lib/Block/metar.php:169 lib/Block/metar.php:355 lib/Block/metar.php:381
+#, php-format
+msgid "from the %s (%s) at %s %s"
+msgstr ""
 
-#: framework/Prefs/Prefs/UI.php:286 services/portal/sidebar.php:170
-#: services/portal/sidebar.php:241
-msgid "name"
-msgstr "ឈ្មោះ"
+#: lib/Block/weatherdotcom.php:254
+#, fuzzy
+msgid "gusting"
+msgstr "សីហា"
 
-#: framework/MIME/MIME/Message.php:174
-msgid "permission denied"
-msgstr "សិទ្ធិ​ត្រូវ​បាន​បដិសេធ"
+#: admin/config/diff.php:51 admin/config/diff.php:63
+#, fuzzy
+msgid "inline"
+msgstr "គូស​បន្ទាត់​ក្រោម"
 
-#: templates/javascript/htmlarea_table_lang.js:89
-msgid "pixels"
-msgstr "ភីកសែល"
+#: lib/Block/fb_stream.php:124 lib/Block/fb_stream.php:159
+#: lib/Block/fb_stream.php:184 lib/Block/twitter_timeline.php:182
+#: services/facebook.php:55 services/facebook.php:72
+msgid "preferences"
+msgstr ""
 
-#: framework/MIME/MIME/Message.php:170
-msgid "remote error in protocol"
-msgstr "កំហុស​ពី​ចម្ងាយ​ក្នុង​ពិធីការ"
+#: lib/Block/weatherdotcom_strings.php:104
+#, fuzzy
+msgid "rising"
+msgstr "សិទ្ធិ"
 
-#: framework/MIME/MIME/Message.php:142
-msgid "service unavailable"
-msgstr "មិន​អាច​រក​សេវា​បាន"
+#: admin/config/config.php:80
+msgid "show differences"
+msgstr ""
 
-#: framework/UI/UI/VarRenderer/html.php:385
-msgid "ss"
-msgstr "ss"
+#: lib/Block/weatherdotcom_strings.php:103
+#, fuzzy
+msgid "steady"
+msgstr "អាន"
 
-#: framework/MIME/MIME/Message.php:150
-msgid "system error"
-msgstr "កំហុស​ប្រព័ន្ធ"
+#: admin/user.php:35 admin/user.php:49
+msgid "type the password twice to confirm"
+msgstr ""
 
-#: framework/MIME/MIME/Message.php:166
-msgid "temporary failure"
-msgstr "បរាជ័យ​បណ្ដោះអាសន្ន"
+#: admin/config/diff.php:51 admin/config/diff.php:63
+#, fuzzy
+msgid "unified"
+msgstr "មិន​បាន​រៀបចំ"
 
-#: framework/VFS/VFS/horde.php:279
-msgid "unknown error"
-msgstr "មិន​ស្គាល់​កំហុស"
-
-#: framework/MIME/MIME/Part.php:27
-msgid "unnamed"
-msgstr "គ្មាន​ឈ្មោះ"
-
-#: framework/MIME/MIME/Viewer/vcard.php:35
-msgid "vCard"
-msgstr "vCard"
+#: lib/Block/weatherdotcom.php:6
+msgid "weather.com"
+msgstr ""

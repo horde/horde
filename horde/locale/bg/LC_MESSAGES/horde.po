@@ -6,7 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde 3.0-cvs\n"
-"POT-Creation-Date: 2002-09-14 00:38-0400\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 02:42+0200\n"
 "PO-Revision-Date: 2002-11-19 20:44-0500\n"
 "Last-Translator: Miroslav Pendev <miro@cybershade.us>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -14,1761 +15,4044 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid ""
-"  -M, --message=MESSAGE  Use this commit message instead of the default ones."
+#: lib/Block/weatherdotcom.php:260 lib/Block/weatherdotcom.php:363
+#: lib/Block/weatherdotcom.php:409
+msgid " at "
 msgstr ""
-"-M, --message=MESSAGE  Използвай това като съобщение, вместо "
-"подразбиращото   се."
 
-msgid ""
-"  -a, --add=FILE        Add this PO file to the compendium. Useful to\n"
-"                        include a compendium from a different branch to\n"
-"                        the generated compendium."
+#: admin/groups.php:50
+#, fuzzy, php-format
+msgid "\"%s\" was added to the groups system."
+msgstr "'%s'беше добавена към групите."
+
+#: admin/perms/addchild.php:43
+#, fuzzy, php-format
+msgid "\"%s\" was added to the permissions system."
+msgstr "'%s' беше добавен към системата за права на потребителите."
+
+#: admin/groups.php:56 admin/perms/addchild.php:47
+#, fuzzy, php-format
+msgid "\"%s\" was not created: %s."
+msgstr "'%s'не беше създаден: %s."
+
+#: lib/Block/account.php:83
+#, php-format
+msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
 msgstr ""
-"  -a, --add=FILE        Добави този PO файл към compendium. Полезно е при\n"
-"                        добавяне на compendium от различен бранш към общ\n"
-"                        compendium."
 
-msgid ""
-"  -b, --base=/PATH  Full path to the (Horde) base directory that should be\n"
-"                    used."
-msgstr "  -b, --base=/PATH  Пълен път до базовата директория на Horde"
-
-msgid ""
-"  -c, --compendium=FILE  Merge new translations to this compendium file\n"
-"                         instead of the default one (compendium.po in the\n"
-"                         horde/po directory."
+#: lib/Block/weatherdotcom.php:241
+#, php-format
+msgid "%d %s and %s"
 msgstr ""
-"  -c, --compendium=FILE  Смеси новите преводи с този compendium файл\n"
-".                         вместо с подразбиращият се (compendium.po в\n"
-"                         horde/po директория."
 
-msgid ""
-"  -c, --compendium=FILE  Use this compendium file instead of the default\n"
-"                         one (compendium.po in the horde/po directory)."
+#: lib/Block/account.php:708 lib/Block/account.php:720
+#, php-format
+msgid "%d days until your password expires."
 msgstr ""
-"  -c, --compendium=FILE  Използвай този compendium файл вмeсто \n"
-"                         подразбиращият се compendium.po в horde/po."
 
-msgid "  -d, --debug       Show error messages from the executed binaries."
+#: lib/Block/metar.php:281
+#, fuzzy, php-format
+msgid "%d minutes"
+msgstr "Всеки 5 минути"
+
+#: services/facebook.php:114
+#, php-format
+msgid "%d person likes this"
+msgid_plural "%d persons like this"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/admin/user/list.inc:4
+#, php-format
+msgid "%d to %d of %d"
 msgstr ""
-"  -d, --debug      Показвай съобщенията за грешки от "
-"изпълнените                           файлове."
 
-msgid "  -d, --directory=DIR   Create compendium in this directory."
-msgstr "  -d, --directory=DIR   Създай compendium в тази директория."
-
-msgid "  -h, --help        Show this help message."
-msgstr "  -h, --help        Покажи това помощно съобщение."
-
-msgid "  -l, --locale=ll_CC     Use only this locale."
-msgstr "  -l, --locale=ll_CC     Използвай само това локализиране."
-
-msgid "  -l, --locale=ll_CC     Use this locale."
-msgstr "  -l, --locale=ll_CC     Използвай това локализиране."
-
-msgid "  -l, --locale=ll_CC    Use this locale."
-msgstr "  -l, --locale=ll_CC    Използвай това локализиране."
-
-msgid "  -m, --module=MODULE    Build MO files only for this (Horde) module."
-msgstr "  -m, --module=MODULE    Компилирай MO файлове само за този модул."
-
-msgid ""
-"  -m, --module=MODULE    Commit translations only for this (Horde) module."
-msgstr "  -m, --module=MODULE    Изпрати преводи само за този модул."
-
-msgid "  -m, --module=MODULE    Merge PO files only for this (Horde) module."
-msgstr "  -m, --module=MODULE    Смеси PO файлове само за този модул."
-
-msgid ""
-"  -m, --module=MODULE    Update help files only for this (Horde) module."
-msgstr "  -m, --module=MODULE    Опресни помощните файлове само за този модул."
-
-msgid "  -m, --module=MODULE    Update only this (Horde) module."
-msgstr "  -m, --module=MODULE    Опресни само този модул."
-
-msgid "  -m, --module=MODULE   Create a PO file only for this (Horde) module."
-msgstr "  -m, --module=MODULE   Създай PO файл само за този модул."
-
-msgid "  -m, --module=MODULE  Generate POT file only for this (Horde) module."
-msgstr "  -m, --module=MODULE  Генерирай POT файл само за този модул."
-
-msgid ""
-"  -n, --new              This is a new translation, commit also CREDITS,\n"
-"                         CHANGES and lang.php.dist or nls.php.dist."
+#: lib/Block/weatherdotcom.php:288
+#, php-format
+msgid "%d-day forecast"
 msgstr ""
-"  -n, --new               Това е нов превод, изпратете също CREDITS, "
-"CHANGES\n"
-"                           и lang.php.dist или nls.php.dist."
 
-msgid ""
-"  -n, --no-compendium    Don't merge new translations to the compendium."
-msgstr "  -n, --no-compendium    Не смесвай нови преводи към compendium."
-
-msgid "  -n, --no-compendium    Don't use a compendium."
-msgstr "  -n, --no-compendium    Не използвай compendium."
-
-msgid "  -t, --test        Show the executed commands but don't run anything."
-msgstr ""
-"  -t, --test        Показвай изпълнените команди, но не изпълнявай нищо"
-
-msgid "  commit      Commit translations to the CVS server."
-msgstr "  commit      Изпрати преводите в CVS сървър."
-
-msgid "  commit-help Commit help files to the CVS server."
-msgstr "  commit-help Изпрати помощните файлове в CVS сървър"
-
-msgid ""
-"  compendium  Rebuild the compendium file. Warning: This overwrites the\n"
-"              current compendium."
-msgstr ""
-"  compendium  Изгради наново compendium файла. Внимание: това ще заличи\n"
-"               текущия compendium."
-
-msgid "  extract     Generate PO template (.pot) files."
-msgstr "  extract     Генерирай PO шаблонен (.pot) файл."
-
-msgid "  help        Show this help message."
-msgstr "  help        Покажи това помощно съобщение."
-
-msgid ""
-"  init        Create one or more PO files for a new locale. Warning: This\n"
-"              overwrites the existing PO files of this locale."
-msgstr ""
-"  init        Създай един или повече PO файла за нова локализация.Внимание:\n"
-"              това ще покрие съществуващите PO файлове за тази локализация."
-
-msgid "  make        Build binary MO files from the specified PO files."
-msgstr "  make        Компилирай бинарни MO файлове от зададените PO файлове."
-
-msgid ""
-"  make-help   Mark all entries in the XML help file being up-to-date and\n"
-"              prepare the file for the next execution of update-help. You\n"
-"              should only run make-help AFTER update-help and revising the\n"
-"              help file."
-msgstr ""
-"  make-help   Маркирай всичко в XML помощният файл като опреснени и \n"
-"              подготви файла за следващо изпълнение на update-help\n"
-"              Необходимо е да стартирате make-help САМО след update-help и\n"
-"              и редактиране на help файла."
-
-msgid ""
-"  merge       Merge the current PO file with the current PO template file."
-msgstr "  merge       Смесване на текущ PO файл с текущ PO шаблонен файл."
-
-msgid "  update      Run extract and merge sequent."
-msgstr "  update      Изпълни extract и merge последователно."
-
-msgid ""
-"  update-help Extract all new and changed entries from the English XML help\n"
-"              file and merge them with the existing ones."
-msgstr ""
-" update-help Екстракт на всички нови и променени редове от English XML help\n"
-"              файл и ги смеси със съществуващите."
-
-#, c-format
-msgid ""
-" &#151; %s is ready to perform the maintenance operations checked below."
-msgstr ""
-" &#151; %s е готов за извършване на избраните операции по обслужването."
-
-#, c-format
-msgid " (%s days ago)"
-msgstr " (%s дни назад)"
-
-msgid " (today)"
-msgstr " (днес)"
-
-msgid " (yesterday)"
-msgstr " (вчера)"
-
-#, c-format
-msgid "%d bytes written."
-msgstr "%d записани байта."
-
-#, c-format
-msgid "%d of %d entries marked as up-to-date"
-msgstr "%d от %d маркирани като опреснени"
-
-#, c-format
+#: services/logintasks.php:83
+#, php-format
 msgid "%s - Notice"
 msgstr "%s - Забележка"
 
-#, c-format
-msgid "%s Maintenance Operations - Confirmation"
+#: admin/config/config.php:21 admin/config/index.php:226
+#, fuzzy, php-format
+msgid "%s Configuration"
+msgstr "Конфигурация"
+
+#: services/logintasks.php:64
+#, fuzzy, php-format
+msgid "%s Tasks - Confirmation"
 msgstr "%s Обслужващи операции - Потвърждение"
 
-#, c-format
-msgid "%s Standard"
-msgstr "%s Стандарт"
-
-#, c-format
+#: services/logintasks.php:74
+#, php-format
 msgid "%s Terms of Agreement"
 msgstr "%s Условия по Споразумението"
 
-#, c-format
-msgid "%s is required"
-msgstr "%s необходим"
-
-#, c-format
-msgid "%s not found. Run 'translation extract' first."
-msgstr "%s не е намерен. Изпълнете 'translation extract'"
-
-#, c-format
-msgid "%s%s Guest Services</a>"
-msgstr "%s%s Услуги за гости</а>"
-
-#, c-format
-msgid ""
-"%sWarning:%s This program was only tested on gettext 0.11. There is no\n"
-"guarantee that it will work with your version of gettext."
+#: lib/Block/metar.php:154 lib/Block/metar.php:160 lib/Block/metar.php:234
+#: lib/Block/metar.php:340 lib/Block/metar.php:346
+#, php-format
+msgid "%s at %s %s"
 msgstr ""
-"%sВнимание:%s Тази програма е тествана само с gettext 0.11. Няма гаранция,\n"
-"че ще работи с вашата версия на gettext"
 
-#, c-format
-msgid "%sfound:%s %s"
-msgstr "%sнамерен:%s %s"
+#: services/logintasks.php:63
+#, fuzzy, php-format
+msgid ""
+"%s is ready to perform the tasks checked below. Check the box for any "
+"operation(s) you want to perform at this time."
+msgstr "Изберете операциите, който искате да извършите сега."
 
-#, c-format
-msgid "'%s' is not configured in the Horde Registry."
-msgstr "'%s' не е конфигуриран в Horde Registry."
+#: lib/Block/vatid.php:58
+#, fuzzy, php-format
+msgid "%s not found."
+msgstr "не беше намерен"
 
-#, c-format
-msgid "'%s' was added to the groups system."
-msgstr "'%s'беше добавена към групите."
+#: lib/Block/weatherdotcom.php:367 lib/Block/weatherdotcom.php:412
+msgid ", gusting "
+msgstr ""
 
-#, c-format
-msgid "'%s' was added to the permissions system."
-msgstr "'%s' беше добавен към системата за права на потребителите."
+#: lib/Block/metar.php:183 lib/Block/metar.php:188
+#, php-format
+msgid ", gusting %s %s"
+msgstr ""
 
-#, c-format
-msgid "'%s' was not created: %s."
-msgstr "'%s'не беше създаден: %s."
+#: lib/Block/metar.php:196
+#, php-format
+msgid ", variable from %s to %s"
+msgstr ""
 
-msgid ", trying C++ instead"
-msgstr ", опит със C++"
+#: lib/Block/time.php:26
+#, fuzzy
+msgid "12 Hour Format"
+msgstr "Информация за Вас"
 
-msgid "---------------------------"
-msgstr "---------------------------"
+#: lib/Block/time.php:25
+#, fuzzy
+msgid "24 Hour Format"
+msgstr "Информация за Вас"
 
+#: templates/data/datetime.inc:109 templates/data/time.inc:28
 msgid "24 hours"
 msgstr "24 часа"
 
-msgid "<b>A fatal error has occurred:</b>"
-msgstr "<b>Непреодолима грешка:</b>"
-
-#, c-format
-msgid "<b>The calendar data is invalid:<br />%s</b>"
-msgstr "<b>Данните за календара са невалидни:<br />%s</b>"
-
-msgid "A public PGP key is required to encrypt a message."
-msgstr "За да криптирате писмо е необходим публичен PGP ключ."
-
-msgid "A public PGP key is required to verify a signed message."
-msgstr "За да проверите подписано писмо е необходим PGP ключ."
-
+#: templates/prefs/facebook.html:15
 msgid ""
-"A public PGP key, private PGP key, and passphrase are required to decrypt a "
-"message."
+"<tag:app_name /> can interact with your Facebook account, but you must login "
+"to Facebook manually each time."
 msgstr ""
-"За да декриптирате писмо са необходими: публичен ключ, личен ключ и ключова "
-"фраза."
 
+#: templates/prefs/facebook.html:38
+msgid "<tag:app_name /> cannot read your stream messages."
+msgstr ""
+
+#: templates/prefs/facebook.html:26
 msgid ""
-"A public PGP key, private PGP key, and passphrase are required to sign a "
-"message."
+"<tag:app_name /> cannot set your status messages or publish other content to "
+"Facebook."
 msgstr ""
-"За да подпишете писмо са необходими: публичен ключ, личен ключ и ключова "
-"фраза."
 
-msgid "A public SMIME key is required to encrypt a message."
-msgstr "За да криптирате писмо е необходим публичен SMIME ключ."
+#: templates/prefs/twitter.html:9
+msgid "<tag:appname /> can interact with your Twitter account"
+msgstr ""
 
-msgid "A public SMIME key is required to verify a signed message."
-msgstr "За да проверите подписано писмо е необходим публичен SMIME ключ."
+#: services/keyboard.php:46
+msgid "A characters"
+msgstr ""
 
+#: lib/Block/metar.php:117
+msgid "A database backend is required for this block."
+msgstr ""
+
+#: admin/activesync.php:35
 msgid ""
-"A public SMIME key, private SMIME key, and passphrase are required to "
-"decrypt a message."
+"A device wipe has been requested. Device will be wiped on next "
+"syncronization attempt."
 msgstr ""
-"За да декриптирате писмо са необходими: публичен SMIME ключ, личен SMIME "
-"ключ и ключова фраза."
 
+#: admin/config/index.php:92 admin/config/index.php:124
+#, php-format
+msgid "A newer version (%s) exists."
+msgstr ""
+
+#: lib/Prefs/Ui.php:743
+#, php-format
 msgid ""
-"A public SMIME key, private SMIME key, and passphrase are required to sign a "
-"message."
+"A remote wipe for device id %s has been initiated. The device will be wiped "
+"during the next synchronisation."
 msgstr ""
-"За да подпишете писмо са необходими: публичен SMIME ключ, личен SMIME ключ и "
-"ключова фраза."
 
+#: lib/Block/weatherdotcom_strings.php:7
+msgid "AM Clouds"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:8
+msgid "AM Drizzle"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:9
+msgid "AM Fog"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:10
+msgid "AM Light Rain"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:11
+msgid "AM Light Snow"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:12
+msgid "AM Rain"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:13
+msgid "AM Showers"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:14
+msgid "AM Snow"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:15
+msgid "AM Snow Showers"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:16
+#, fuzzy
+msgid "AM Sun"
+msgstr "Sun"
+
+#: lib/Block/weatherdotcom_strings.php:17
+msgid "AM T-Showers"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:18
+msgid "AM T-Storms"
+msgstr ""
+
+#: templates/data/datetime.inc:110 templates/data/time.inc:29
 msgid "AM/PM"
 msgstr "AM/PM"
 
-msgid "Add New Group"
-msgstr "Добавяне на нова група"
+#: lib/Block/account.php:3
+#, fuzzy
+msgid "Account Information"
+msgstr "Информация за Вас"
 
-msgid "Add New Permission"
-msgstr "Добавяне на нови права"
+#: config/prefs.php.dist:276
+#, fuzzy
+msgid "Account Password"
+msgstr "Потвърдете паролата"
 
-msgid "Add Sub-group"
-msgstr "Добавяне на под група"
+#: admin/activesync.php:126
+#, fuzzy
+msgid "Actions"
+msgstr "Опции"
 
-msgid "Add Sub-permission"
-msgstr "Добави под-права"
+#: config/prefs.php.dist:676
+msgid "ActiveSync"
+msgstr ""
 
-#, c-format
-msgid "Add a child group to '%s'"
+#: admin/activesync.php:71
+#, fuzzy
+msgid "ActiveSync Device Administration"
+msgstr "Администриране на потребителите"
+
+#: admin/activesync.php:199 lib/Api.php:80
+msgid "ActiveSync Devices"
+msgstr ""
+
+#: admin/activesync.php:20 lib/Prefs/Ui.php:376
+msgid "ActiveSync not activated."
+msgstr ""
+
+#: templates/admin/groups/addchild.inc:12 templates/portal/add.inc:14
+#, fuzzy
+msgid "Add"
+msgstr "Добавки"
+
+#: services/portal/index.php:68
+msgid "Add Content"
+msgstr ""
+
+#: templates/portal/add.inc:5
+#, fuzzy
+msgid "Add Here:"
+msgstr "Адрес"
+
+#: templates/admin/groups/edit.inc:49
+#, fuzzy
+msgid "Add Members"
+msgstr "Членове"
+
+#: admin/groups.php:253 templates/admin/groups/addchild.inc:7
+#, fuzzy, php-format
+msgid "Add a child group to \"%s\""
 msgstr "Добави наследена група към '%s'"
 
-#, c-format
-msgid "Add a child permission to '%s'"
-msgstr "Добави наследени права към '%s'"
+#: admin/groups.php:238
+#, fuzzy
+msgid "Add a new group"
+msgstr "Добавяне на нова група"
 
-msgid "Add a new member"
-msgstr "Добави нов член"
-
+#: admin/user.php:21
 msgid "Add a new user:"
 msgstr "Добави нов потребител:"
 
-msgid "Add summary"
+#: admin/alarms.php:22
+#, fuzzy
+msgid "Add new alarm"
+msgstr "Добави нов потребител:"
+
+#: templates/data/csvmap.inc:92
+#, fuzzy
+msgid "Add pair"
 msgstr "Добави резюме"
 
-msgid "Add this to my calendar"
-msgstr "Добави това към моя календар"
+#: admin/user.php:22
+#, fuzzy
+msgid "Add user"
+msgstr "Добави нов потребител:"
 
-msgid "Add to my address book:"
-msgstr "Добави към моята адресна книга:"
+#: admin/signup_confirm.php:80 admin/user.php:92
+#, php-format
+msgid ""
+"Added \"%s\" to the system, but could not add additional signup information: "
+"%s."
+msgstr ""
 
-msgid "Adding new files to repository:"
-msgstr "Добавяне на нови файлове към хранилището:"
+#: signup.php:44
+#, php-format
+msgid "Added \"%s\" to the system. You can log in now."
+msgstr ""
 
+#: templates/admin/user/noadd.inc:2
 msgid "Adding users is disabled."
 msgstr "Добавянето на потребители е забранено."
 
+#: lib/Block/vatid.php:101
 msgid "Address"
 msgstr "Адрес"
 
+#: config/registry.php.dist:142
 msgid "Address Book"
 msgstr "Адресен бележник"
 
-msgid "Administration"
-msgstr "Администриране"
+#: admin/alarms.php:26
+msgid "Alarm end"
+msgstr ""
 
-msgid "Ads"
-msgstr "Добавки"
+#: admin/alarms.php:28
+msgid "Alarm methods"
+msgstr ""
 
-msgid "Alias"
+#: admin/alarms.php:25
+msgid "Alarm start"
+msgstr ""
+
+#: admin/alarms.php:27
+msgid "Alarm text"
+msgstr ""
+
+#: admin/alarms.php:24
+msgid "Alarm title"
+msgstr ""
+
+#: admin/alarms.php:133
+#, fuzzy
+msgid "Alarms"
 msgstr "Псевдоним"
 
+#: lib/Block/fortune.php:94
+msgid "All"
+msgstr ""
+
+#: templates/shares/edit.inc:58
+msgid "All Authenticated Users"
+msgstr ""
+
+#: admin/groups.php:26 admin/groups.php:244
 msgid "All Groups"
 msgstr "Всички групи"
 
-msgid "All Permissions"
-msgstr "Всички права"
+#: admin/activesync.php:50
+msgid "All policy keys successfully reset."
+msgstr ""
 
-msgid "An illegal value was specified."
-msgstr "Въведената стойност не е допустима."
+#: lib/Prefs/Ui.php:753
+msgid ""
+"All state removed for your devices. They will resynchronize next time they "
+"connect to the server."
+msgstr ""
 
-msgid "Archive File Size"
-msgstr "Размер на архивния файл"
+#: lib/Prefs/Ui.php:724
+msgid "All synchronization sessions deleted."
+msgstr ""
 
-msgid "Archive Name"
-msgstr "Име на архива"
+#: config/prefs.php.dist:644
+msgid "Alternate IMSP Login"
+msgstr ""
 
-#, c-format
-msgid "Are you sure you wish to delete '%s' and any sub-groups?"
+#: config/prefs.php.dist:658
+msgid "Alternate IMSP Password"
+msgstr ""
+
+#: config/prefs.php.dist:652
+msgid "Alternate IMSP Username"
+msgstr ""
+
+#: services/resetpassword.php:31
+#, fuzzy
+msgid "Alternate email address"
+msgstr "Вашия Email адрес:"
+
+#: lib/Block/weatherdotcom.php:170
+#, fuzzy
+msgid "An unknown error has occured."
+msgstr "непреодолима грешка:"
+
+#: services/resetpassword.php:48
+msgid "Answer"
+msgstr ""
+
+#: templates/data/csvmap.inc:112 templates/admin/config/index.html:11
+#, fuzzy
+msgid "Application"
+msgstr "Ваканция"
+
+#: admin/phpshell.php:44
+msgid "Application Context: "
+msgstr ""
+
+#: util/icon_browser.php:45
+#, fuzzy
+msgid "Application List"
+msgstr "Намерени приложения: %s"
+
+#: admin/config/index.php:160
+msgid "Application is ready."
+msgstr ""
+
+#: admin/config/index.php:95 admin/config/index.php:127
+msgid "Application is up-to-date."
+msgstr ""
+
+#: templates/admin/user/approve.inc:33
+msgid "Approve"
+msgstr ""
+
+#: config/nls.php:167
+msgid "Arabic (Windows-1256)"
+msgstr ""
+
+#: admin/alarms.php:123
+#, fuzzy, php-format
+msgid "Are you sure you want to delete '%s'?"
 msgstr "Сигурни ли сте, че искате да изтриете '%s' и всички подгрупи?"
 
-#, c-format
-msgid "Are you sure you wish to delete '%s' and any sub-permissions?"
-msgstr "Сигурни ли сте, че искате да изтриете '%s' и всички подправа?"
+#: templates/admin/user/removequeued.inc:10
+#, php-format
+msgid "Are you sure you want to remove the signup request for \"%s\"?"
+msgstr ""
 
-msgid "Ask for confirmation before doing maintenance operations?"
-msgstr "Да се иска ли потвърждение преди обслужващите операции?"
+#: templates/admin/groups/delete.inc:7
+#, fuzzy, php-format
+msgid "Are you sure you wish to delete \"%s\" and any sub-groups?"
+msgstr "Сигурни ли сте, че искате да изтриете '%s' и всички подгрупи?"
 
+#: config/nls.php:168
+msgid "Armenian (ARMSCII-8)"
+msgstr ""
+
+#: lib/Block/fortune.php:35
+msgid "Art"
+msgstr ""
+
+#: lib/Block/fortune.php:36
+msgid "Ascii Art"
+msgstr ""
+
+#: templates/problem/problem.inc:43
+msgid "Attachment"
+msgstr ""
+
+#: admin/groups.php:72
 msgid "Attempt to delete a non-existent group."
 msgstr "Грешка при изтриване на несъществуваща група."
 
+#: admin/perms/delete.php:24
 msgid "Attempt to delete a non-existent permission."
 msgstr "Грешка при изтриване не несъществуващи права."
 
+#: admin/perms/edit.php:92
 msgid "Attempt to edit a non-existent permission."
 msgstr "Грешка при редактиране на несъществуващи права."
 
-msgid "Attributes"
-msgstr "Атрибути"
+#: services/shares/edit.php:66
+#, fuzzy
+msgid "Attempt to edit a non-existent share."
+msgstr "Грешка при редактиране на несъществуващи права."
 
-msgid "Authentication failed"
+#: admin/sessions.php:40
+#, fuzzy
+msgid "Authenticated to:"
 msgstr "Грешка при идентификация"
 
-msgid "Authentication rejected by RADIUS server."
-msgstr "Идентификацията беше отхвърлена от RADIUS сървъра."
+#: templates/prefs/facebook.html:27
+msgid "Authorize Publish"
+msgstr ""
 
-msgid "Available Columns:"
-msgstr "Налични колони:"
+#: templates/prefs/facebook.html:39
+msgid "Authorize Read:"
+msgstr ""
 
+#: templates/prefs/facebook.html:16
+msgid "Authorize an infinite session:"
+msgstr ""
+
+#: templates/data/csvmap.inc:70
 msgid "Available fields:"
 msgstr "Налични полета:"
 
-msgid "Bad kerberos password."
-msgstr "Невалидна kerberos  парола."
+#: themes/azur/info.php:6
+msgid "Azur"
+msgstr ""
 
-msgid "Bad kerberos username."
-msgstr "Невалидно kerberos потребителско име."
+#: lib/Block/fortune.php:37
+msgid "BOFH Excuses"
+msgstr ""
 
+#: config/nls.php:169
+msgid "Baltic (ISO-8859-13)"
+msgstr ""
+
+#: themes/barbie/info.php:2
 msgid "Barbie"
 msgstr "Barbie"
 
-msgid "Birthday"
-msgstr "Рожден ден"
+#: util/icon_browser.php:34
+#, php-format
+msgid "Base graphics directory \"%s\" not found."
+msgstr ""
 
-msgid "Bold"
-msgstr "Удебелени"
+#: templates/portal/layout.inc:90
+msgid "Block Settings"
+msgstr ""
 
+#: templates/portal/layout.inc:72
+msgid "Block Type"
+msgstr ""
+
+#: themes/bluemoon/info.php:2
+msgid "Blue Moon"
+msgstr ""
+
+#: themes/bluewhite/info.php:2
+msgid "Blue and White"
+msgstr ""
+
+#: config/registry.php.dist:226
 msgid "Bookmarks"
 msgstr "Отметки"
 
+#: lib/Block/fortune.php:103
+msgid "Both"
+msgstr ""
+
+#: themes/brown/info.php:2
 msgid "Brown"
 msgstr "Brown"
 
-msgid "Bugs"
-msgstr "Бъгове"
+#: admin/sessions.php:38
+#, fuzzy
+msgid "Browser:"
+msgstr "Brown"
 
-#, c-format
-msgid "Building MO files for module %s%s%s..."
-msgstr "Компилирай MO файлове за модул %s%s%s..."
-
-#, c-format
-msgid "Building locale %s%s%s... "
-msgstr "Компилиране на локализация %s%s%s..."
-
+#: themes/burntorange/info.php:7
 msgid "Burnt Orange"
 msgstr "Burnt Orange"
 
-msgid "CMS"
-msgstr "CMS"
+#: lib/Block/weatherdotcom.php:166
+msgid "Cache init was not completed."
+msgstr ""
 
-msgid "CRC"
-msgstr "CRC"
-
-msgid "CVS"
-msgstr "CVS"
-
+#: config/registry.php.dist:157
 msgid "Calendar"
 msgstr "Календар"
 
+#: lib/Block/weatherdotcom.php:250
+#, fuzzy
+msgid "Calm"
+msgstr "Откажи"
+
+#: themes/camouflage/info.php:2
 msgid "Camouflage"
 msgstr "Camouflage"
 
-#, c-format
-msgid "Can't connect to IMAP server: %s"
-msgstr "Грешка при свързване с мейл сървър: %s"
-
-#, c-format
-msgid "Can't connect to RPC server: %s"
-msgstr "Грешка при свързване с RPC сървър: %s"
-
-#, c-format
-msgid "Can't get summary list from the server %s: %s"
-msgstr "Грешка при изтегляне на обобщения списък от сървъра %s: %s"
-
+#: admin/user.php:115 admin/user.php:135 templates/admin/groups/delete.inc:11
+#: templates/admin/user/clear.inc:12 templates/admin/user/remove.inc:12
 msgid "Cancel"
 msgstr "Откажи"
 
-#, c-format
-msgid "Cannot remove; children exist (%s)"
-msgstr "Грешка при премахване; (%s) вече съществува"
+#: templates/problem/problem.inc:58
+msgid "Cancel Problem Report"
+msgstr ""
 
-msgid "Cell Phone"
-msgstr "Мобилен телефон"
+#: admin/activesync.php:183 templates/prefs/activesync.html:31
+#, fuzzy
+msgid "Cancel Wipe"
+msgstr "Откажи"
 
-msgid "Centered"
-msgstr "Центриран"
+#: services/resetpassword.php:17
+msgid "Cannot reset password automatically, contact your administrator."
+msgstr ""
 
-msgid "Check the box for any operation(s) you want to perform at this time."
-msgstr "Изберете операциите, който искате да извършите сега."
+#: config/prefs.php.dist:440
+msgid "Categories and Labels"
+msgstr ""
 
-msgid "Checkbook"
+#: config/nls.php:170
+msgid "Celtic (ISO-8859-14)"
+msgstr ""
+
+#: config/nls.php:171
+msgid "Central European (ISO-8859-2)"
+msgstr ""
+
+#: templates/prefs/rpc.html:33
+#, fuzzy
+msgid "Change"
+msgstr "Откажи"
+
+#: services/changepassword.php:23
+#, fuzzy
+msgid "Change Your Password"
+msgstr "Потвърдете паролата"
+
+#: config/prefs.php.dist:214
+msgid ""
+"Change the name and address that people see when they read and reply to your "
+"emails."
+msgstr ""
+
+#: services/changepassword.php:17
+msgid ""
+"Changing your password is not supported with the current configuration.  "
+"Contact your administrator."
+msgstr ""
+
+#: lib/Block/vatid.php:45
+#, fuzzy
+msgid "Check"
 msgstr "Checkbook"
 
-msgid "Cherry"
-msgstr "Cherry"
+#: templates/admin/config/index.html:4
+msgid "Check for newer versions"
+msgstr ""
 
-msgid "Choose the order of the summaries to display in the summary page."
-msgstr "Изберете реда на показване на извлеченията в резюме страницата."
+#: lib/Block/vatid.php:47
+msgid "Checking"
+msgstr ""
 
-msgid "Close Help"
-msgstr "Затвори Помощ"
+#: templates/admin/groups/addchild.inc:10
+msgid "Child"
+msgstr ""
 
-msgid "Close Help Window"
+#: config/nls.php:172
+msgid "Chinese Simplified (GB2312)"
+msgstr ""
+
+#: config/nls.php:173
+msgid "Chinese Traditional (Big5)"
+msgstr ""
+
+#: services/obrowser/index.php:91
+#, php-format
+msgid "Choose %s"
+msgstr ""
+
+#: config/prefs.php.dist:403
+msgid "Choose how to display dates (abbreviated format):"
+msgstr ""
+
+#: config/prefs.php.dist:377
+msgid "Choose how to display dates (full format):"
+msgstr ""
+
+#: config/prefs.php.dist:419
+msgid "Choose how to display times:"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:19
+#, fuzzy
+msgid "Clear"
+msgstr "Календар"
+
+#: admin/sqlshell.php:109
+msgid "Clear Query"
+msgstr ""
+
+#: templates/admin/user/clear.inc:5
+#, fuzzy, php-format
+msgid "Clear out user: %s"
+msgstr "Премахни потребител: %s"
+
+#: templates/admin/user/clear.inc:11
+msgid "Clear user"
+msgstr ""
+
+#: templates/admin/user/list.inc:37
+#, fuzzy
+msgid "Clear user data"
+msgstr "Избери потребител за добавяне"
+
+#: lib/Block/weatherdotcom_strings.php:20
+msgid "Clearing Early"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:21
+msgid "Clearing Late"
+msgstr ""
+
+#: templates/prefs/addressbooks.html:3
+msgid ""
+"Click on one of your selected address books and then select all fields to "
+"search."
+msgstr ""
+
+#: templates/logintasks/logintasks.html:38
+msgid "Click to Continue"
+msgstr ""
+
+#: templates/prefs/syncml.html:13
+msgid "Client Anchor"
+msgstr ""
+
+#: services/keyboard.php:154 templates/shares/edit.inc:12
+#, fuzzy
+msgid "Close Window"
 msgstr "Затвори прозорец \"Помощ\""
 
+#: lib/Block/metar.php:239
+msgid "Clouds"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:22
+msgid "Clouds Early"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:23
+msgid "Clouds Late"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:24
+#, fuzzy
+msgid "Cloudy"
+msgstr "Копирай"
+
+#: admin/sessions.php:31
+msgid "Collapse"
+msgstr ""
+
+#: templates/sidebar/sidebar.inc:3
+msgid "Collapse Sidebar"
+msgstr ""
+
+#: lib/Prefs/Ui.php:237
 msgid "Color Picker"
 msgstr "Избиране на цвят"
 
-msgid "Comics"
-msgstr "Комикси"
-
-msgid "Command options:"
-msgstr "Командни опции:"
-
-msgid "Commands:"
+#: admin/cmdshell.php:20 admin/cmdshell.php:42
+#, fuzzy
+msgid "Command"
 msgstr "Команди:"
 
-msgid "Committing:"
-msgstr "Изпращане:"
+#: admin/cmdshell.php:14
+#, fuzzy
+msgid "Command Shell"
+msgstr "Команди:"
 
-msgid "Company"
-msgstr "Компания"
+#: services/facebook.php:101
+#, fuzzy, php-format
+msgid "Comments: %d"
+msgstr "Команди:"
 
+#: lib/Block/fortune.php:38
+msgid "Computers"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:300
+#, fuzzy
+msgid "Condition"
+msgstr "Конфигурация"
+
+#: lib/Block/metar.php:244
+#, fuzzy
+msgid "Conditions"
+msgstr "Конфигурация"
+
+#: admin/config/config.php:65 templates/admin/config/config.html:9
 msgid "Configuration"
 msgstr "Конфигурация"
 
+#: admin/config/diff.php:80
+#, fuzzy
+msgid "Configuration Differences"
+msgstr "Конфигурация"
+
+#: config/prefs.php.dist:665
+msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
+msgstr ""
+
+#: admin/config/index.php:155
+#, fuzzy
+msgid "Configuration is out of date."
+msgstr "Конфигурация"
+
+#: templates/admin/config/index.html:61
+msgid "Configuration upgrade scripts available"
+msgstr ""
+
+#: admin/config/index.php:111
+#, fuzzy, php-format
+msgid "Configure %s"
+msgstr "Конфигурация"
+
+#: templates/admin/user/update.inc:28
 msgid "Confirm Password"
 msgstr "Потвърдете паролата"
 
-msgid "Connection refused to the public keyserver."
-msgstr "Достъпа до публичния сървър беше отказан."
+#: services/changepassword.php:25 services/resetpassword.php:25
+msgid "Continue"
+msgstr ""
 
-msgid "Connection to ftp server failed."
-msgstr "Връзката със FTP сървъра се провали."
+#: lib/Block/fortune.php:39
+msgid "Cookie"
+msgstr ""
 
-msgid "Console_Getopt not found."
-msgstr "Console_Getopt не е намерен."
+#: themes/cornflower/info.php:2
+msgid "Cornflower"
+msgstr ""
 
-#, c-format
-msgid "Contents of '%s'"
-msgstr "Съдържание на '%s'"
+#: lib/Block/account.php:484
+#, fuzzy
+msgid "Could not bind to LDAP server."
+msgstr "Невъзможност да се осъществи връзка с LDAP сървър."
 
-msgid "Copy"
-msgstr "Копирай"
+#: lib/Block/account.php:463
+#, fuzzy
+msgid "Could not connect to LDAP server."
+msgstr "Невъзможност да се осъществи връзка с LDAP сървър."
 
-#, c-format
-msgid "Copying %s to %s"
-msgstr "копиране на %s от %s"
+#: admin/config/index.php:27
+#, fuzzy, php-format
+msgid "Could not connect to server \"%s\" using FTP: %s"
+msgstr "Грешка при свързване с RPC сървър: %s"
 
-msgid "Could not PGP encrypt message."
-msgstr "Грешка при PGP криптирането на писмо."
+#: admin/config/index.php:66
+msgid "Could not contact server. Try again later."
+msgstr ""
 
-msgid "Could not PGP sign message."
-msgstr "Грешка при PGP подписването на писмо."
+#: admin/config/scripts.php:35
+#, php-format
+msgid "Could not delete configuration upgrade script \"%s\"."
+msgstr ""
 
-msgid "Could not SMIME encrypt message."
-msgstr "Грешка при SMIME криптирането на писмо."
+#: templates/prefs/twitter.html:14
+msgid ""
+"Could not find authorization for <tag:appname /> to interact with your "
+"Twitter account"
+msgstr ""
 
-msgid "Could not SMIME sign message."
-msgstr "Грешка при SMIME подписването на писмо."
+#: services/resetpassword.php:92
+msgid ""
+"Could not reset the password for the requested user. Some or all of the "
+"details are not correct. Try again or contact your administrator if you need "
+"further help."
+msgstr ""
 
-#, c-format
-msgid "Could not copy %s to %s"
-msgstr "Невъзможност да се копира %s то %s."
+#: admin/config/config.php:43
+#, fuzzy
+msgid "Could not revert configuration."
+msgstr "Horde не е конфигуриран коректно"
 
-#, c-format
-msgid "Could not create locale directory for locale %s:"
+#: admin/config/index.php:41
+#, php-format
+msgid "Could not save a backup configuation: %s"
+msgstr ""
+
+#: admin/config/scripts.php:94
+#, php-format
+msgid "Could not save configuration upgrade script to: \"%s\"."
+msgstr ""
+
+#: admin/config/config.php:53
+#, php-format
+msgid "Could not save the backup configuration file %s."
+msgstr ""
+
+#: admin/config/config.php:65
+#, php-format
+msgid ""
+"Could not save the configuration file %s. You can either use one of the "
+"options to save the code back on %s or copy manually the code below to %s."
+msgstr ""
+
+#: admin/config/index.php:51
+#, fuzzy, php-format
+msgid "Could not write configuration for \"%s\": %s"
 msgstr "Грешка при създаване на локална директория за локализация %s"
 
-msgid "Could not decrypt PGP data."
-msgstr "Грешка при декриптирането на PGP данни."
-
-msgid "Could not decrypt SMIME data."
-msgstr "Грешка при декриптирането на SMIME данни."
-
-msgid "Could not determine the recipient's e-mail address."
-msgstr "Некоректен email адрес на получателя."
-
-msgid "Could not obtain public key from the keyserver."
-msgstr "Грешка при получаването на публичния ключ от ключ-сървъра."
-
-#, c-format
-msgid "Could not open Maintenance_Task module %s"
-msgstr "Невъзможност да се отвори Обслужващи_задачи модул %s "
-
-msgid "Cut"
+#: lib/Block/vatid.php:91
+#, fuzzy
+msgid "Country"
 msgstr "изрежи"
 
+#: templates/prefs/rpc.html:34
+msgid "Create"
+msgstr ""
+
+#: templates/prefs/identityselect.html:22
+#, fuzzy
+msgid "Create New Identity"
+msgstr "Идентичност по подразбиране"
+
+#: lib/Block/moon.php:24
+msgid "Current 4 Phases"
+msgstr ""
+
+#: templates/admin/alarms/list.html.php:2
+msgid "Current Alarms"
+msgstr ""
+
+#: admin/sessions.php:23
+#, fuzzy
+msgid "Current Sessions"
+msgstr "Права за гости"
+
+#: lib/Block/time.php:3 lib/Block/time.php:36
+msgid "Current Time"
+msgstr ""
+
+#: lib/Block/metar.php:31
+msgid "Current Weather"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:279
+msgid "Current condition: "
+msgstr ""
+
+#: config/nls.php:174
+msgid "Cyrillic (KOI8-R)"
+msgstr ""
+
+#: config/nls.php:175
+msgid "Cyrillic (Windows-1251)"
+msgstr ""
+
+#: config/nls.php:176
+msgid "Cyrillic/Ukrainian (KOI8-U)"
+msgstr ""
+
+#: templates/data/date.inc:47 templates/data/date.inc:48
+#: templates/data/date.inc:49 templates/data/date.inc:50
+#: templates/data/datetime.inc:89 templates/data/datetime.inc:90
+#: templates/data/datetime.inc:91 templates/data/datetime.inc:92
 msgid "DD"
 msgstr "ДД"
 
-msgid "DHTML Rich Text Editor"
-msgstr "DHTML Rich Text редактор"
-
-msgid "Daily"
-msgstr "Ежедневно"
-
+#: templates/data/csvmap.inc:101
 msgid "Data"
 msgstr "Данни"
 
-msgid "Decrease Indentation"
-msgstr "Намали уеднаквяването"
+#: admin/datatree.php:62
+#, fuzzy
+msgid "DataTree"
+msgstr "Данни"
 
-msgid "Default Identity"
+#: admin/datatree.php:59
+msgid "DataTree Browser"
+msgstr ""
+
+#: templates/prefs/syncml.html:11
+#, fuzzy
+msgid "Database"
+msgstr "Данни"
+
+#: lib/Block/vatid.php:94
+#, fuzzy
+msgid "Date"
+msgstr "Данни"
+
+#: templates/admin/user/approve.inc:23
+msgid "Date Received"
+msgstr ""
+
+#: templates/data/datetime.inc:70 templates/data/datetime.inc:71
+#, php-format
+msgid "Date: %s; time: %s"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:295 lib/Block/weatherdotcom.php:324
+#, fuzzy
+msgid "Day"
+msgstr "Ежедневно"
+
+#: lib/Prefs/Ui.php:69 lib/Prefs/Ui.php:74
+#, fuzzy
+msgid "Default"
+msgstr "Изтрий"
+
+#: lib/Prefs/Ui.php:252 lib/Prefs/Ui.php:282
+#, fuzzy
+msgid "Default Color"
+msgstr "Използвай подразбиращата се стойност"
+
+#: lib/Block/account.php:78
+#, fuzzy
+msgid "Default Shell"
 msgstr "Идентичност по подразбиране"
 
-msgid "Default Permissions"
-msgstr "Права по подразбиране"
+#: lib/Block/fortune.php:40
+msgid "Definitions"
+msgstr ""
 
+#: admin/groups.php:68 templates/admin/groups/delete.inc:10
+#: templates/admin/user/list.inc:34 templates/shares/edit.inc:63
+#: templates/shares/edit.inc:83 templates/shares/edit.inc:98
+#: templates/shares/edit.inc:118 templates/shares/edit.inc:134
+#: templates/shares/edit.inc:154 templates/shares/edit.inc:169
+#: templates/shares/edit.inc:193 templates/shares/edit.inc:228
+#: templates/shares/edit.inc:255 templates/shares/edit.inc:271
+#: templates/shares/edit.inc:291 templates/shares/edit.inc:320
+#: templates/prefs/identityselect.html:34 templates/prefs/rpc.html:35
+#: templates/prefs/syncml.html:14 templates/prefs/syncml.html:23
 msgid "Delete"
 msgstr "Изтрий"
 
-msgid "Deny"
-msgstr "Забрани"
+#: admin/alarms.php:122 admin/groups.php:254
+#, fuzzy, php-format
+msgid "Delete \"%s\""
+msgstr "Изтрий"
 
-msgid "Details have been logged for the administrator."
-msgstr "Детайлите бяха регистрирани за администратора."
+#: templates/prefs/syncml.html:30
+msgid "Delete All SyncML Data"
+msgstr ""
 
-msgid "Discussions"
-msgstr "Дискусии"
+#: admin/groups.php:215
+#, fuzzy
+msgid "Delete Group"
+msgstr "Изтрий"
 
-msgid "Display Options"
+#: admin/config/scripts.php:33
+#, php-format
+msgid "Deleted configuration upgrade script \"%s\"."
+msgstr ""
+
+#: lib/Prefs/Ui.php:717
+#, php-format
+msgid "Deleted synchronization session for device \"%s\" and database \"%s\"."
+msgstr ""
+
+#: templates/problem/problem.inc:27
+msgid "Describe the Problem"
+msgstr ""
+
+#: config/registry.php.dist:239
+msgid "Development"
+msgstr ""
+
+#: templates/prefs/activesync.html:20 templates/prefs/syncml.html:10
+msgid "Device"
+msgstr ""
+
+#: admin/activesync.php:119
+msgid "Device ID"
+msgstr ""
+
+#: templates/prefs/activesync.html:11
+#, fuzzy
+msgid "Device Management"
+msgstr "Файл менажер"
+
+#: lib/Prefs/Ui.php:432
+msgid "Device id:"
+msgstr ""
+
+#: admin/activesync.php:167 lib/Prefs/Ui.php:420
+msgid "Device is wiped"
+msgstr ""
+
+#: admin/activesync.php:45
+msgid "Device successfully removed."
+msgstr ""
+
+#: admin/activesync.php:40
+msgid "Device wipe successfully canceled."
+msgstr ""
+
+#: lib/Block/metar.php:212
+msgid "Dew Point"
+msgstr ""
+
+#: lib/Block/metar.php:289
+msgid "Dew Point for last hour: "
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:231
+msgid "Dew point: "
+msgstr ""
+
+#: templates/prefs/facebook.html:11 templates/prefs/facebook.html:22
+#: templates/prefs/facebook.html:34 templates/prefs/twitter.html:10
+msgid "Disable"
+msgstr ""
+
+#: config/prefs.php.dist:345
+msgid "Display 24-hour times?"
+msgstr ""
+
+#: config/prefs.php.dist:468
+msgid "Display Preferences"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:86
+#, fuzzy
+msgid "Display detailed forecast"
 msgstr "Дисплей Опции"
 
+#: lib/Block/metar.php:84
+msgid "Display forecast (TAF)"
+msgstr ""
+
+#: scripts/import_squirrelmail_prefs.php:77
+msgid "Do not use Drafts"
+msgstr ""
+
+#: scripts/import_squirrelmail_prefs.php:44
+#: scripts/import_squirrelmail_prefs.php:145
+msgid "Do not use Sent"
+msgstr ""
+
+#: scripts/import_squirrelmail_prefs.php:183
+msgid "Do not use Trash"
+msgstr ""
+
+#: templates/data/csvinfo.inc:12 templates/data/tsvinfo.inc:12
+msgid "Does the first row contain the field names? If yes, check this box:"
+msgstr ""
+
+#: templates/login/login.inc:72
+msgid "Don't have an account? Sign up."
+msgstr ""
+
+#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:61
+#, fuzzy
+msgid "Done"
+msgstr "Направено"
+
+#: admin/config/index.php:92 admin/config/index.php:124
+#, fuzzy, php-format
+msgid "Download %s"
+msgstr "Неизвестна команда: %s"
+
+#: admin/config/index.php:179
+msgid "Download generated configuration as PHP script."
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:25
+msgid "Drizzle"
+msgstr ""
+
+#: lib/Block/fortune.php:41
+#, fuzzy
+msgid "Drugs"
+msgstr "Бъгове"
+
+#: services/keyboard.php:64
+msgid "E characters"
+msgstr ""
+
+#: lib/Block/vatid.php:3
+msgid "EU VAT identification"
+msgstr ""
+
+#: templates/shares/edit.inc:62 templates/shares/edit.inc:79
+#: templates/shares/edit.inc:97 templates/shares/edit.inc:114
+#: templates/shares/edit.inc:133 templates/shares/edit.inc:150
+#: templates/shares/edit.inc:168 templates/shares/edit.inc:189
+#: templates/shares/edit.inc:224 templates/shares/edit.inc:251
+#: templates/shares/edit.inc:270 templates/shares/edit.inc:287
+#: templates/shares/edit.inc:316
 msgid "Edit"
 msgstr "Редакция"
 
-#, c-format
-msgid "Edit permissions for '%s'"
+#: admin/alarms.php:89
+#, fuzzy, php-format
+msgid "Edit \"%s\""
+msgstr "Редакция"
+
+#: admin/groups.php:214
+#, fuzzy
+msgid "Edit Group"
+msgstr "Групи"
+
+#: templates/prefs/app.html:7
+msgid "Edit Preferences for"
+msgstr ""
+
+#: services/shares/edit.php:259
+#, fuzzy
+msgid "Edit permissions"
 msgstr "Редакция на правата за '%s'"
 
-msgid "Edit remote content for the Horde summary."
-msgstr "Редакция на нелокалното съдържание за обобщението на Horde."
+#: services/shares/edit.php:260 templates/shares/edit.inc:14
+#, fuzzy, php-format
+msgid "Edit permissions for \"%s\""
+msgstr "Редакция на правата за '%s'"
 
-msgid "Email"
-msgstr "Писмо"
+#: lib/Block/fortune.php:42
+#, fuzzy
+msgid "Education"
+msgstr "Ваканция"
 
+#: templates/admin/groups/edit.inc:11 templates/admin/user/update.inc:45
 msgid "Email Address"
 msgstr "Еmail адрес"
 
-msgid "Email addresses must match."
-msgstr "Email адресите трябва да съвпадат."
+#: lib/Prefs/Ui.php:225
+msgid "Enter a name for the new category:"
+msgstr ""
 
-msgid "Empty result."
-msgstr "Празен резултат."
+#: config/prefs.php.dist:288
+msgid ""
+"Enter a security question which you will be asked if you need to reset your "
+"password, e.g. 'what is the name of your pet?':"
+msgstr ""
 
-msgid "End this row"
-msgstr "Край на реда"
-
-#, c-format
-msgid "Entries: %d total, %d up-to-date, %d new, %d changed, %d unknown"
-msgstr "Редове: %d общо, %d опреснени, %d нови, %d променени, %d неизвестни"
-
+#: lib/Block/metar.php:41 lib/Block/weatherdotcom.php:50
 msgid "Error"
 msgstr "Грешка"
 
-msgid "Error: "
-msgstr "Грешка"
+#: lib/Prefs/Ui.php:577 services/twitter.php:128 services/twitter.php:151
+#, fuzzy, php-format
+msgid ""
+"Error connecting to Twitter: %s Details have been logged for the "
+"administrator."
+msgstr "Детайлите бяха регистрирани за администратора."
 
+#: lib/Prefs/Ui.php:715
+msgid "Error deleting synchronization session:"
+msgstr ""
+
+#: lib/Prefs/Ui.php:722
+msgid "Error deleting synchronization sessions:"
+msgstr ""
+
+#: services/changepassword.php:61
+#, php-format
+msgid "Error updating password: %s"
+msgstr ""
+
+#: lib/Block/fortune.php:43
+msgid "Ethnic"
+msgstr ""
+
+#: services/facebook.php:69
+msgid "Event Invites:"
+msgstr ""
+
+#: templates/portal/layout.inc:101 config/prefs.php.dist:520
 msgid "Every 15 minutes"
 msgstr "Всеки 15 минути"
 
+#: config/prefs.php.dist:559
+#, fuzzy
+msgid "Every 2 minutes"
+msgstr "Всеки 5 минути"
+
+#: templates/portal/layout.inc:98 config/prefs.php.dist:517
+#: config/prefs.php.dist:557
 msgid "Every 30 seconds"
 msgstr "Всеки 30 секунди"
 
+#: templates/portal/layout.inc:100 config/prefs.php.dist:519
+#: config/prefs.php.dist:560
 msgid "Every 5 minutes"
 msgstr "Всеки 5 минути"
 
-msgid "Every Login"
-msgstr "Всяко логване"
-
+#: templates/portal/layout.inc:102 config/prefs.php.dist:521
 msgid "Every half hour"
 msgstr "На всеки половин час"
 
+#: templates/portal/layout.inc:103
+#, fuzzy
+msgid "Every hour"
+msgstr "На всеки половин час"
+
+#: templates/portal/layout.inc:99 config/prefs.php.dist:518
+#: config/prefs.php.dist:558
 msgid "Every minute"
 msgstr "Всяка минута"
 
+#: templates/data/datemap.inc:24
 msgid "Example values:"
 msgstr "Примерни стойности:"
 
-msgid "Executing:"
+#: admin/cmdshell.php:48 admin/phpshell.php:55 admin/sqlshell.php:108
+#, fuzzy
+msgid "Execute"
 msgstr "Изпълняване на:"
 
-#, c-format
-msgid "Extracting from %s... "
-msgstr "Екстракт от %s ..."
+#: admin/sessions.php:30
+msgid "Expand"
+msgstr ""
 
-msgid "Failed retrieving preferences."
-msgstr "Невъзможност да се заредят преференциите."
+#: lib/Block/iframe.php:29
+msgid "Extra Large"
+msgstr ""
 
-msgid "Failed to connect to LDAP server."
-msgstr "Невъзможност да се осъществи връзка с LDAP сървър."
+#: templates/admin/config/index.html:74
+#, fuzzy
+msgid "FTP upload of configuration"
+msgstr "Конфигурация"
 
-msgid "Failed to connect to SMB server."
-msgstr "Грешка при свързване със SMB сървър."
+#: config/prefs.php.dist:604
+msgid "Facebook Integration"
+msgstr ""
 
-msgid "Fax"
-msgstr "Факс"
+#: themes/fadetogreen/info.php:9
+msgid "Fade to Green"
+msgstr ""
 
-#, c-format
-msgid "File Count: %s file"
-msgstr "Брой файлове: %s файл"
+#: lib/Block/weatherdotcom_strings.php:26
+msgid "Fair"
+msgstr ""
 
-#, c-format
-msgid "File Count: %s files"
-msgstr "Брой файлове: %s файла"
+#: lib/Block/feed.php:41
+msgid "Feed"
+msgstr ""
 
+#: lib/Block/feed.php:17
+#, fuzzy
+msgid "Feed Address"
+msgstr "Домашен адрес"
+
+#: lib/Block/metar.php:215
+msgid "Feels Like"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:235
+msgid "Feels like: "
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:27
+msgid "Few Showers"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:28
+msgid "Few Snow Showers"
+msgstr ""
+
+#: templates/prefs/addressbooks.html:17
+msgid "Fields to search"
+msgstr ""
+
+#: config/registry.php.dist:340
 msgid "File Manager"
 msgstr "Файл менажер"
 
-msgid "File Name"
-msgstr "Име на файл"
+#: lib/Block/fb_stream.php:82
+#, fuzzy
+msgid "Filter"
+msgstr "Филтър"
 
-msgid "File uploads not supported."
-msgstr "Изпращането на файлове не се поддържа."
-
+#: config/registry.php.dist:93
 msgid "Filters"
 msgstr "Филтър"
 
+#: lib/Block/moon.php:164
+msgid "First Half"
+msgstr ""
+
+#: lib/Block/moon.php:72 lib/Block/moon.php:74
+msgid "First Quarter"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:29
+msgid "Fog"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:30
+msgid "Fog Early"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:31
+msgid "Fog Late"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:32
+msgid "Foggy"
+msgstr ""
+
+#: lib/Block/fortune.php:44
+msgid "Food"
+msgstr ""
+
+#: lib/Block/metar.php:329
+msgid "Forecast (TAF)"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:74
+msgid ""
+"Forecast Days (note that the returned forecast returns both day and night; a "
+"large number here could result in a wide block)"
+msgstr ""
+
+#: templates/login/login.inc:81
+msgid "Forgot your password?"
+msgstr ""
+
+#: lib/Block/fortune.php:28
+#, fuzzy
+msgid "Fortune"
+msgstr "Форуми"
+
+#: lib/Block/fortune.php:106
+msgid "Fortune type"
+msgstr ""
+
+#: lib/Block/fortune.php:45
+#, fuzzy
+msgid "Fortunes"
+msgstr "Форуми"
+
+#: lib/Block/fortune.php:46
+#, fuzzy
+msgid "Fortunes 2"
+msgstr "Форуми"
+
+#: config/registry.php.dist:376
 msgid "Forums"
 msgstr "Форуми"
 
-msgid "Forwardings"
+#: config/registry.php.dist:113
+#, fuzzy
+msgid "Forwards"
 msgstr "Препращания"
 
-#, c-format
-msgid "Found applications: %s"
-msgstr "Намерени приложения: %s"
+#: lib/Block/weatherdotcom_strings.php:33
+msgid "Freezing Drizzle"
+msgstr ""
 
-msgid "Found directories:"
-msgstr "Намерени директории:"
+#: services/facebook.php:68
+msgid "Friend Requests:"
+msgstr ""
 
-msgid "Full Description:"
+#: lib/Block/weatherdotcom.php:252 lib/Block/weatherdotcom.php:362
+#: lib/Block/weatherdotcom.php:408
+msgid "From the "
+msgstr ""
+
+#: templates/problem/problem.inc:48
+#, fuzzy
+msgid "Full Description"
 msgstr "Пълно описание:"
 
+#: lib/Block/moon.php:79 lib/Block/moon.php:174
+msgid "Full Moon"
+msgstr ""
+
+#: lib/Block/account.php:68 templates/admin/user/update.inc:37
 msgid "Full Name"
 msgstr "Име на файл"
 
-msgid "Getopt Error: "
-msgstr "Getopt грешка: "
+#: admin/config/config.php:31
+#, fuzzy, php-format
+msgid "Generate %s Configuration"
+msgstr "Конфигурация"
 
+#: templates/admin/config/config.html:6
+msgid "Generated Code"
+msgstr ""
+
+#: lib/Block/fb_stream.php:192 lib/Block/twitter_timeline.php:171
+msgid "Get More"
+msgstr ""
+
+#: templates/prefs/app.html:10
+msgid "Global Preferences"
+msgstr ""
+
+#: templates/prefs/app.html:17
+msgid "Go"
+msgstr ""
+
+#: lib/Block/fortune.php:47
+msgid "Goedel"
+msgstr ""
+
+#: lib/Block/google.php:3 lib/Block/google.php:19
+msgid "Google Search"
+msgstr ""
+
+#: lib/Block/google.php:30
+msgid "Google search is not enabled."
+msgstr ""
+
+#: config/nls.php:177
+msgid "Greek (ISO-8859-7)"
+msgstr ""
+
+#: themes/green/info.php:2
 msgid "Green"
 msgstr "Green"
 
+#: themes/grey/info.php:2
 msgid "Grey"
 msgstr "Grey"
 
+#: admin/groups.php:195
 msgid "Group Administration"
 msgstr "Администриране на групи"
 
+#: admin/groups.php:44
+#, fuzzy, php-format
+msgid "Group was not created: %s."
+msgstr "'%s'не беше създаден: %s."
+
+#: admin/groups.php:268 templates/shares/edit.inc:266
 msgid "Groups"
 msgstr "Групи"
 
+#: templates/shares/edit.inc:93
 msgid "Guest Permissions"
 msgstr "Права за гости"
 
-msgid "Guest Services"
-msgstr "Услуги за гости"
+#: lib/Block/weatherdotcom_strings.php:34
+msgid "Haze"
+msgstr ""
 
-msgid "HTTP Authentication not found."
-msgstr "HTTP идентификация не е намерена."
+#: lib/Block/weatherdotcom_strings.php:35
+msgid "Heavy Rain"
+msgstr ""
 
-msgid "HTTPS is currently not supported."
-msgstr "HTTPS не се поддържа."
+#: lib/Block/weatherdotcom_strings.php:36
+msgid "Heavy T-Storm"
+msgstr ""
 
-msgid "Headlines"
-msgstr "Заглавия"
+#: config/nls.php:178
+msgid "Hebrew (ISO-8859-8-I)"
+msgstr ""
 
+#: lib/Block/iframe.php:24
+msgid "Height"
+msgstr ""
+
+#: lib/Block/fb_stream.php:92 lib/Block/twitter_timeline.php:87
+msgid "Height of map (width automatically adjusts to block)"
+msgstr ""
+
+#: services/help/index.php:17 templates/help/index.inc:4
 msgid "Help"
 msgstr "Помощ"
 
-msgid ""
-"Helper application to create and maintain translations for the Horde\n"
-"framework and its applications.\n"
-"For an introduction read the file README in this directory."
+#: services/help/index.php:70
+#, fuzzy
+msgid "Help _Topics"
+msgstr "Помощ теми"
+
+#: lib/Block/moon.php:27
+msgid "Hemisphere"
 msgstr ""
-"Помощно приложение за създаване на преводи за Horde\n"
-"и съпътстващите приложения. За въведение прочетете README в тази директория."
 
-msgid "Home"
-msgstr "Начало"
+#: templates/data/csvinfo.inc:10 templates/data/tsvinfo.inc:10
+msgid "Here is the beginning of the file:"
+msgstr ""
 
-msgid "Home Address"
-msgstr "Домашен адрес"
+#: themes/hi-contrast/info.php:3
+msgid "Hi-Contrast"
+msgstr ""
 
-msgid "Home Phone"
-msgstr "Домашен телефон"
+#: templates/prefs/app.html:23
+msgid "Hide Advanced Preferences"
+msgstr ""
 
+#: services/portal/cloud_search.php:33
+msgid "Hide Results"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:100
+msgid "High"
+msgstr ""
+
+#: lib/Block/account.php:73
+msgid "Home Directory"
+msgstr ""
+
+#: config/registry.php.dist:76
 msgid "Horde"
 msgstr "Horde"
 
-msgid "Horde Administration"
-msgstr "Horde Администриране"
+#: themes/hordeweb/info.php:2
+msgid "Horde Website"
+msgstr ""
 
-msgid "Horde is not properly configured"
-msgstr "Horde не е конфигуриран коректно"
+#: templates/data/csvinfo.inc:21
+msgid "How many fields (columns) are there?"
+msgstr ""
 
-msgid "Horde translation generator"
-msgstr "Horde генератор на преводи"
+#: lib/Block/feed.php:21
+msgid "How many seconds before we check for new articles?"
+msgstr ""
 
-#, c-format
-msgid "IMAP mailbox creation failed: %s"
-msgstr "Грешка при създаване на IMAP пощенска кутия: %s"
+#: lib/Block/metar.php:225 lib/Block/weatherdotcom.php:303
+msgid "Humidity"
+msgstr ""
 
-#, c-format
-msgid "IMAP mailbox deletion failed: %s"
-msgstr "Грешка при изтриване на IMAP пощенска кутия: %s"
+#: lib/Block/weatherdotcom.php:263
+msgid "Humidity: "
+msgstr ""
 
-#, c-format
-msgid "IMAP mailbox quota creation failed: %s"
-msgstr "Грешка поради квота при създаване на IMAP пощенска кутия: %s"
+#: lib/Block/fortune.php:48
+msgid "Humorists"
+msgstr ""
 
-msgid "IP Address not within allowed CIDR block."
-msgstr "IP адреса не е в позволения CIDR блок."
+#: services/keyboard.php:78
+msgid "I characters"
+msgstr ""
 
+#: config/prefs.php.dist:545
 msgid "Icons Only"
 msgstr "Само икони"
 
+#: util/icon_browser.php:53
+#, php-format
+msgid "Icons for %s"
+msgstr ""
+
+#: config/prefs.php.dist:546
 msgid "Icons with text"
 msgstr "Икони с текст"
 
-#, c-format
-msgid "Import Error: Expected \"BEGIN\" on line %d."
-msgstr "Грешка при импорт: Очаква се \"BEGIN\" на ред %d."
+#: themes/ideas/info.php:2
+msgid "Ideas"
+msgstr ""
 
-#, c-format
-msgid "Import Error: Expected \"BEGIN\" on the line %d."
-msgstr "Грешка при импорт: Очаква се \"BEGIN\" в реда %d."
+#: config/prefs.php.dist:226
+msgid "Identity's name:"
+msgstr ""
 
-msgid "Import Error: Malformed line."
-msgstr "Грешка при импорт: Лошо форматиран ред."
+#: templates/data/csvinfo.inc:7 templates/data/csvmap.inc:54
+#: templates/data/datemap.inc:7 templates/data/tsvinfo.inc:7
+#, fuzzy, php-format
+msgid "Import, Step %d"
+msgstr "Импортирано поле: %s"
 
-#, c-format
-msgid "Import Error: Type mismatch. Expected \"END:%s\" on line %d."
-msgstr "Грешка при импорт: Некоректен тип. Очакван \"END:%s\" на ред %d."
-
-msgid "Import Error: Unexpected end of file."
-msgstr "Грешка при импорт: Неочакван край на файла."
-
-msgid "Import to my calendar"
-msgstr "Импортирай в моя календар"
-
-#, c-format
+#: templates/data/datemap.inc:15
+#, php-format
 msgid "Imported field: %s"
 msgstr "Импортирано поле: %s"
 
+#: templates/data/csvmap.inc:59
 msgid "Imported fields:"
 msgstr "Импортирани полета:"
 
-msgid "Increase Indentation"
-msgstr "Увеличаване на уеднаквяването"
+#: lib/Block/twitter_timeline.php:136
+msgid "In reply to:"
+msgstr ""
 
-#, c-format
-msgid "Initializing module %s... "
-msgstr "Инициализиране на модул %s..."
+#: templates/data/csvmap.inc:57
+msgid ""
+"In the lists below select both, a field imported from the source file at the "
+"left, and the matching field available in your address book at the right. "
+"Then hit \"Add pair\" to mark them for the import. Once your are finished "
+"hit \"Next\"."
+msgstr ""
 
-msgid "Insert Ruler"
-msgstr "Вмъкни подравнител"
+#: services/resetpassword.php:50
+msgid ""
+"Incorrect username or alternate address. Try again or contact your "
+"administrator if you need further help."
+msgstr ""
 
-msgid "Invalid data submitted."
+#: templates/shares/edit.inc:164
+msgid "Individual Users"
+msgstr ""
+
+#: templates/prefs/facebook.html:10
+msgid "Infinite sessions enabled."
+msgstr ""
+
+#: config/registry.php.dist:281
+#, fuzzy
+msgid "Information"
+msgstr "Информация за Вас"
+
+#: lib/Block/weatherdotcom.php:332
+msgid "Information no longer available."
+msgstr ""
+
+#: templates/admin/groups/edit.inc:36
+msgid "Inherited Members"
+msgstr ""
+
+#: config/prefs.php.dist:304
+msgid "Insert an email address to which you can receive the new password:"
+msgstr ""
+
+#: config/prefs.php.dist:296
+msgid "Insert the required answer to the security question:"
+msgstr ""
+
+#: lib/Block/vatid.php:52
+msgid "Invalid VAT identification number format."
+msgstr ""
+
+#: admin/signup_confirm.php:43
+#, fuzzy, php-format
+msgid "Invalid action %s"
+msgstr "Намерени приложения: %s"
+
+#: admin/config/config.php:24
+#, fuzzy
+msgid "Invalid application."
+msgstr "Намерени приложения: %s"
+
+#: admin/signup_confirm.php:33
+#, fuzzy
+msgid "Invalid hash."
 msgstr "Изпратените данни са невалидни."
 
-msgid "Invalid response from server"
-msgstr "Невалиден отговор от сървъра"
+#: lib/Block/weatherdotcom.php:180
+msgid "Invalid license key."
+msgstr ""
 
-msgid "Italic"
-msgstr "Наклонени"
+#: lib/Block/weatherdotcom.php:174
+#, fuzzy
+msgid "Invalid location provided."
+msgstr "Изпратените данни са невалидни."
 
-msgid "Justify Full"
-msgstr "пълно подравняване"
+#: admin/perms/addchild.php:23
+msgid "Invalid parent permission."
+msgstr ""
 
-msgid "Justify Left"
-msgstr "ляво подравняване"
+#: lib/Block/weatherdotcom.php:176
+#, fuzzy
+msgid "Invalid partner id."
+msgstr "Изпратените данни са невалидни."
 
-msgid "Justify Right"
-msgstr "дясно подравняване"
+#: lib/Block/weatherdotcom.php:178
+msgid "Invalid product code."
+msgstr ""
 
-msgid "Kerberos server rejected authentication."
-msgstr "Kerberos сървъра отхвърли идентификацията."
+#: lib/Block/weatherdotcom_strings.php:37
+msgid "Isolated T-Storms"
+msgstr ""
 
-msgid "Key already exists on the public keyserver."
-msgstr "Ключа вече съществува в публичния ключсървър."
+#: config/nls.php:179
+msgid "Japanese (ISO-2022-JP)"
+msgstr ""
 
+#: lib/Block/twitter_timeline.php:138
+msgid "Just now..."
+msgstr ""
+
+#: lib/Block/fortune.php:49
+msgid "Kernel Newbies"
+msgstr ""
+
+#: services/help/index.php:138
+msgid "Keyword"
+msgstr ""
+
+#: lib/Block/fortune.php:50
+msgid "Kids"
+msgstr ""
+
+#: themes/kolab/info.php:7
+msgid "Kolab"
+msgstr ""
+
+#: config/nls.php:180
+msgid "Korean (EUC-KR)"
+msgstr ""
+
+#: login.php:314 templates/login/login.inc:49
 msgid "Language"
 msgstr "Език"
 
+#: lib/Block/iframe.php:28
+#, fuzzy
+msgid "Large"
+msgstr "Език"
+
+#: lib/Block/moon.php:167
+msgid "Last Half"
+msgstr ""
+
+#: lib/Block/account.php:91
+#, fuzzy
+msgid "Last Password Change"
+msgstr "Парола: "
+
+#: lib/Block/moon.php:84 lib/Block/moon.php:86
+msgid "Last Quarter"
+msgstr ""
+
+#: admin/activesync.php:98 templates/prefs/activesync.html:21
+msgid "Last Sync Time"
+msgstr ""
+
+#: lib/Block/metar.php:146
+#, fuzzy
+msgid "Last Updated:"
+msgstr "Опресни"
+
+#: lib/LoginTasks/Task/LastLogin.php:46
+#, php-format
+msgid "Last login: %s"
+msgstr ""
+
+#: lib/LoginTasks/Task/LastLogin.php:48
+#, php-format
+msgid "Last login: %s from %s"
+msgstr ""
+
+#: lib/LoginTasks/Task/LastLogin.php:44
+msgid "Last login: Never"
+msgstr ""
+
+#: lib/Block/twitter_timeline.php:168
+msgid "Latest"
+msgstr ""
+
+#: themes/lavander/info.php:2
+#, fuzzy
+msgid "Lavender"
+msgstr "Календар"
+
+#: lib/Block/fortune.php:51
+msgid "Law"
+msgstr ""
+
+#: themes/lightblue/info.php:2
 msgid "Light Blue"
 msgstr "Light Blue"
 
-msgid "List Help Topics"
-msgstr "Помощ теми"
+#: lib/Block/weatherdotcom_strings.php:38
+#, fuzzy
+msgid "Light Drizzle"
+msgstr "Light Blue"
 
+#: lib/Block/weatherdotcom_strings.php:39
+#, fuzzy
+msgid "Light Rain"
+msgstr "Вход"
+
+#: lib/Block/weatherdotcom_strings.php:40
+msgid "Light Rain Early"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:41
+msgid "Light Rain Late"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:42
+msgid "Light Rain Shower"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:43
+msgid "Light Rain with Thunder"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:44
+#, fuzzy
+msgid "Light Snow"
+msgstr "Light Blue"
+
+#: lib/Block/weatherdotcom_strings.php:45
+msgid "Light Snow Early"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:46
+msgid "Light Snow Late"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:47
+msgid "Light Snow Shower"
+msgstr ""
+
+#: services/facebook.php:105
+msgid "Like"
+msgstr ""
+
+#: lib/Block/fortune.php:52
+msgid "Limerick"
+msgstr ""
+
+#: lib/Block/fortune.php:53
+msgid "Linux Cookie"
+msgstr ""
+
+#: admin/sqlshell.php:113
+msgid "List Tables"
+msgstr ""
+
+#: admin/alarms.php:130
+#, php-format
+msgid "Listing alarms failed: %s"
+msgstr ""
+
+#: admin/sessions.php:62
+#, fuzzy, php-format
+msgid "Listing sessions failed: %s"
+msgstr "Списъка с потребители е забранен."
+
+#: templates/admin/user/nolist.inc:2
 msgid "Listing users is disabled."
 msgstr "Списъка с потребители е забранен."
 
-msgid "Loading libraries..."
-msgstr "зареждане на библиотеките..."
+#: lib/Block/fortune.php:54
+msgid "Literature"
+msgstr ""
 
+#: lib/Block/weatherdotcom.php:215
+msgid "Local time: "
+msgstr ""
+
+#: config/prefs.php.dist:313
+msgid "Locale and Time"
+msgstr ""
+
+#: lib/Block/metar.php:64 lib/Block/sunrise.php:20
+#: lib/Block/weatherdotcom.php:59
+#, fuzzy
+msgid "Location"
+msgstr "Ваканция"
+
+#: login.php:261 templates/login/login.inc:64
 msgid "Log in"
 msgstr "Вход"
 
-msgid "Log out"
-msgstr "Изход"
+#: lib/Block/account.php:64
+#, fuzzy
+msgid "Login"
+msgstr "Вход"
 
-msgid "Logout"
-msgstr "Изход"
+#: login.php:286
+msgid "Login failed because your username or password was entered incorrectly."
+msgstr ""
 
+#: login.php:282
+#, fuzzy
+msgid "Login failed."
+msgstr "провалено"
+
+#: templates/prefs/facebook.html:46
+msgid "Login to Facebook and authorize <tag:app_name />"
+msgstr ""
+
+#: templates/prefs/twitter.html:21
+msgid "Login to Twitter and authorize the <tag:appname /> application"
+msgstr ""
+
+#: lib/Block/fortune.php:55
+#, fuzzy
+msgid "Love"
+msgstr "Премахни"
+
+#: lib/Block/weatherdotcom_strings.php:98
+msgid "Low"
+msgstr ""
+
+#: themes/luc/info.php:2
+msgid "Loyola"
+msgstr ""
+
+#: themes/lucblue/info.php:2
+msgid "Loyola Blue"
+msgstr ""
+
+#: templates/data/date.inc:47 templates/data/date.inc:48
+#: templates/data/date.inc:49 templates/data/date.inc:50
+#: templates/data/datetime.inc:89 templates/data/datetime.inc:90
+#: templates/data/datetime.inc:91 templates/data/datetime.inc:92
 msgid "MM"
 msgstr "ММ"
 
-msgid "MS-TNEF Attachment contained no data."
-msgstr "MS-TNEF прикрепеният файл не съдържаше данни."
+#: lib/Block/fortune.php:56
+#, fuzzy
+msgid "Magic"
+msgstr "Поща"
 
+#: config/registry.php.dist:85
 msgid "Mail"
 msgstr "Поща"
 
-msgid "Make sure that you have PEAR installed and in your include path."
-msgstr "Уверете се, че имате PEAR инсталиран и достъпен."
+#: config/registry.php.dist:403
+msgid "Mail Admin"
+msgstr ""
 
-#, c-format
-msgid "Making directory %s"
-msgstr "Създаване на директория %s"
+#: config/prefs.php.dist:441
+msgid ""
+"Manage the list of categories you have to label items with, and colors "
+"associated with those categories."
+msgstr ""
 
-msgid "Map Date and Time Fields"
-msgstr "Съвпадащи Дата и Час Полета"
+#: config/prefs.php.dist:677
+msgid "Manage your ActiveSync devices."
+msgstr ""
 
-msgid "Map Import Fields"
-msgstr "Съвпадащи Импорт Полета"
-
-msgid "Matching fields"
+#: templates/data/csvmap.inc:96
+#, fuzzy
+msgid "Matching fields:"
 msgstr "Съвпадащи полета"
 
+#: lib/Block/metar.php:301
+msgid "Max temp last 24 hours: "
+msgstr ""
+
+#: lib/Block/metar.php:293
+msgid "Max temp last 6 hours: "
+msgstr ""
+
+#: lib/Application.php:38
+msgid "Maximum Number of Portal Blocks"
+msgstr ""
+
+#: lib/Block/fb_stream.php:86
+msgid "Maximum number of entries to display"
+msgstr ""
+
+#: lib/Block/fortune.php:57
+msgid "Medicine"
+msgstr ""
+
+#: lib/Block/iframe.php:27
+msgid "Medium"
+msgstr ""
+
+#: templates/admin/groups/edit.inc:17
 msgid "Members"
 msgstr "Членове"
 
+#: config/prefs.php.dist:548
 msgid "Menu mode:"
 msgstr "Вид на менюто:"
 
-#, c-format
-msgid "Merging all %s.po files to the compendium... "
-msgstr "Смесване на всички %s.po файлове в compendium..."
-
-#, c-format
-msgid "Merging the PO file for %s%s%s to the compendium... "
-msgstr "Смесване на PO файлове за %s%s%s в compendium..."
-
-#, c-format
-msgid "Merging translation for module %s..."
-msgstr "Смесване на преводите за модул %s..."
-
-msgid "Message"
-msgstr "Писмо"
-
-msgid ""
-"Message Verified Successfully but the signer's certificated could not be "
-"verified."
+#: lib/Block/metar.php:5
+msgid "Metar Weather"
 msgstr ""
-"Писмото беше проверено успешно, но сертификата на подписа не беше потвърден."
 
-msgid "Method"
-msgstr "Метод"
+#: lib/Block/metar.php:42
+msgid "Metar block not available."
+msgstr ""
 
-#, c-format
-msgid "Method '%s' is not defined"
-msgstr "Метод '%s' не е дефиниран"
+#: lib/Block/metar.php:110
+#, fuzzy
+msgid ""
+"Metar block not available. Details have been logged for the administrator."
+msgstr "Детайлите бяха регистрирани за администратора."
 
-msgid "Mime Type"
-msgstr "Mime тип"
+#: lib/Block/weatherdotcom.php:168
+msgid "MetarDB is not connected."
+msgstr ""
 
-msgid "Modified Date"
+#: lib/Block/metar.php:74 lib/Block/weatherdotcom.php:69
+msgid "Metric"
+msgstr ""
+
+#: lib/Block/metar.php:305
+msgid "Min temp last 24 hours: "
+msgstr ""
+
+#: lib/Block/metar.php:297
+msgid "Min temp last 6 hours: "
+msgstr ""
+
+#: lib/Block/fortune.php:58
+msgid "Miscellaneous"
+msgstr ""
+
+#: admin/config/index.php:135
+msgid ""
+"Missing configuration. You must generate it before using this application."
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:48
+msgid "Mist"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:99
+#, fuzzy
+msgid "Moderate"
 msgstr "Дата на променяне"
 
-msgid "Monthly"
+#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:57
+#, php-format
+msgid "Modified sequence for %s"
+msgstr ""
+
+#: config/prefs.php.dist:430
+#, fuzzy
+msgid "Monday"
 msgstr "Месечно"
 
-msgid "Move down/right"
-msgstr "премести на долу/дясно"
+#: lib/Block/moon.php:3 lib/Block/moon.php:14
+msgid "Moon Phases"
+msgstr ""
 
-msgid "Move up/left"
-msgstr "премести на горе/ляво"
+#: lib/Block/weatherdotcom_strings.php:49
+msgid "Mostly Clear"
+msgstr ""
 
+#: lib/Block/weatherdotcom_strings.php:50
+msgid "Mostly Cloudy"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:51
+msgid "Mostly Cloudy and Windy"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:52
+msgid "Mostly Sunny"
+msgstr ""
+
+#: themes/mozilla/info.php:2
 msgid "Mozilla"
 msgstr "Mozilla"
 
+#: config/registry.php.dist:333
 msgid "My Account"
 msgstr "Моята Поща"
 
+#: lib/Block/account.php:27
+#, fuzzy
+msgid "My Account Information"
+msgstr "Информация за Вас"
+
+#: lib/Block/fb_stream.php:3 lib/Block/fb_stream.php:105
+msgid "My Facebook Stream"
+msgstr ""
+
+#: services/portal/index.php:62
+msgid "My Portal"
+msgstr ""
+
+#: services/portal/edit.php:36
+msgid "My Portal Layout"
+msgstr ""
+
+#: templates/logintasks/logintasks.html:35
+msgid "NO, I Do NOT Agree"
+msgstr ""
+
+#: lib/Block/vatid.php:98
 msgid "Name"
 msgstr "Име"
 
+#: themes/NeXTgrey/info.php:2
 msgid "NeXT"
 msgstr "NeXt"
 
-msgid "Network"
-msgstr "Мрежа"
-
+#: templates/portal/layout.inc:97 config/prefs.php.dist:516
+#: config/prefs.php.dist:556
 msgid "Never"
 msgstr "Никога"
 
+#: templates/prefs/category.html:3
+msgid "New Category"
+msgstr ""
+
+#: services/facebook.php:65
+#, fuzzy
+msgid "New Messages:"
+msgstr "Писмо"
+
+#: lib/Block/moon.php:44 lib/Block/moon.php:66 lib/Block/moon.php:172
+msgid "New Moon"
+msgstr ""
+
+#: templates/admin/user/update.inc:12
 msgid "New Username (optional)"
 msgstr "Ново потребителско име (опционално)"
 
-msgid "No"
-msgstr "Не"
+#: services/changepassword.php:29
+#, fuzzy
+msgid "New password"
+msgstr "Парола"
 
-msgid "No configuration information specified for FTP VFS."
-msgstr "Няма зададена конфигурация за FTP VFS."
+#: services/changepassword.php:40
+#, fuzzy
+msgid "New passwords don't match."
+msgstr "Некоректна парола."
 
-msgid "No configuration information specified for LDAP Preferences."
-msgstr "Няма зададена конфигурация за LDAP преференции."
+#: lib/Block/fortune.php:59 config/registry.php.dist:288
+#, fuzzy
+msgid "News"
+msgstr "Бележки"
 
-msgid "No configuration information specified for SQL Categories."
-msgstr "Няма конфигурационна информация за SQL категориите"
+#: templates/data/csvinfo.inc:25 templates/data/csvmap.inc:119
+#: templates/data/datemap.inc:41 templates/data/tsvinfo.inc:15
+msgid "Next"
+msgstr ""
 
-msgid "No configuration information specified for SQL Preferences."
-msgstr "Няма конфигурационна информация за SQL преференции."
+#: lib/Block/moon.php:25
+msgid "Next 4 Phases"
+msgstr ""
 
-msgid "No configuration information specified for SQL SessionHandler."
-msgstr "Няма зададена конфигурация за SQL SessionHandler."
+#: lib/Block/weatherdotcom.php:382
+msgid "Night"
+msgstr ""
 
-msgid "No configuration information specified for SQL Tokens."
-msgstr "Няма зададена конфигурация за SQL Tokens."
+#: templates/prefs/alarm.html:32
+#, fuzzy
+msgid "No Sound"
+msgstr "не беше намерен"
 
-msgid "No configuration information specified for SQL VFS."
-msgstr "Няма зададена конфигурация за SQL VFS."
+#: templates/admin/config/diff.html:9
+msgid "No available configuration data to show differences for."
+msgstr ""
 
-msgid "No configuration information specified for SQL authentication."
-msgstr "Няма конфигурационна информация за SQL идентификация."
+#: admin/config/diff.php:39
+msgid "No change."
+msgstr ""
 
-msgid "No configuration information specified for SQL-File VFS."
-msgstr "Няма зададена конфигурация за SQL-File VFS."
+#: util/icon_browser.php:83
+msgid "No icons found."
+msgstr ""
 
-#, c-format
-msgid "No entry with the id '%s' exists in the original help file."
-msgstr "Няма ред с това id '%s' в оригиналния help файл."
+#: lib/Block/metar.php:121 lib/Block/sunrise.php:38
+#: lib/Block/weatherdotcom.php:133
+msgid "No location is set."
+msgstr ""
 
-msgid "No locale specified."
+#: lib/Block/weatherdotcom.php:172
+#, fuzzy
+msgid "No location provided."
 msgstr "Няма зададена локализация."
 
-msgid "No password provided for IMAP authentication."
-msgstr "Няма зададена парола за IMAP идентификация."
+#: lib/Block/fortune.php:101
+msgid "No offensive fortunes"
+msgstr ""
 
-msgid "No password provided for Kerberos authentication."
-msgstr "Няма зададена парола за Kerberos идентификация."
+#: templates/admin/user/approve.inc:15
+msgid "No pending signups."
+msgstr ""
 
-msgid "No password provided for LDAP authentication."
-msgstr "Няма конфигурационна информация за LDAP идентификация."
+#: admin/config/index.php:89 admin/config/index.php:121
+msgid "No stable version exists yet."
+msgstr ""
 
-msgid "No password provided for RADIUS authentication."
-msgstr "Няма конфигурационна информация за RADIUS идентификация."
+#: lib/Block/weatherdotcom.php:143
+msgid "No temporary directory available for cache."
+msgstr ""
 
-msgid "No password provided for SMB authentication."
-msgstr "Няма конфигурационна информация за SMB идентификация."
+#: admin/signup_confirm.php:57
+#, fuzzy
+msgid "No username specified."
+msgstr "Няма зададена локализация."
 
-msgid "No preferences are available."
-msgstr "Няма налични преференции."
+#: admin/config/index.php:140
+msgid "No version found in original configuration. Regenerate configuration."
+msgstr ""
 
-msgid "No valid XML data returned"
-msgstr "Върнатите данни не са XML"
+#: admin/config/index.php:148
+msgid "No version found in your configuration. Regenerate configuration."
+msgstr ""
 
-msgid "No values"
-msgstr "Няма стойности"
+#: lib/Prefs/Ui.php:411 templates/prefs/activesync.html:43
+#: templates/prefs/identityselect.html:20 templates/prefs/syncml.html:34
+#, fuzzy
+msgid "None"
+msgstr "Направено"
 
+#: config/nls.php:181
+msgid "Nordic (ISO-8859-10)"
+msgstr ""
+
+#: lib/Block/moon.php:30 lib/Block/moon.php:58
+msgid "Northern Hemisphere"
+msgstr ""
+
+#: admin/activesync.php:171 lib/Prefs/Ui.php:426
+msgid "Not Provisioned"
+msgstr ""
+
+#: config/registry.php.dist:211
 msgid "Notes"
 msgstr "Бележки"
 
-msgid "Notice"
-msgstr "Съобщение"
+#: services/obrowser/index.php:32
+msgid "Nothing to browse, go back."
+msgstr ""
 
-#, c-format
-msgid "Notification listener %s not found."
-msgstr "Слушателят %s не е намерен."
+#: lib/Block/feed.php:18
+msgid "Number of articles to display"
+msgstr ""
 
-msgid "OK"
-msgstr "ОК"
+#: lib/Block/twitter_timeline.php:91
+msgid "Number of seconds to wait to refresh"
+msgstr ""
 
-msgid "Off"
+#: services/keyboard.php:92
+msgid "O characters"
+msgstr ""
+
+#: templates/shares/edit.inc:129
+msgid "Object Creator"
+msgstr ""
+
+#: lib/Block/fortune.php:99
+msgid "Offense filter"
+msgstr ""
+
+#: config/registry.php.dist:301
+#, fuzzy
+msgid "Office"
 msgstr "Изкл."
 
-msgid "On"
-msgstr "Вкл."
+#: services/changepassword.php:42
+msgid "Old and new passwords must be different."
+msgstr ""
 
-msgid "Options"
-msgstr "Опции"
+#: services/changepassword.php:28
+#, fuzzy
+msgid "Old password"
+msgstr "Парола"
 
-msgid "Options:"
-msgstr "Опции:"
+#: services/changepassword.php:38
+#, fuzzy
+msgid "Old password is not correct."
+msgstr "Некоректна парола или потребителско име!"
 
-msgid "Orange"
+#: lib/Block/fortune.php:102
+msgid "Only offensive fortunes"
+msgstr ""
+
+#: services/shares/edit.php:83
+msgid ""
+"Only the owner or system administrator may change ownership or owner "
+"permissions for a share"
+msgstr ""
+
+#: lib/Block/fortune.php:60
+msgid "Operating System"
+msgstr ""
+
+#: templates/shares/edit.inc:236
+#, fuzzy
+msgid "Or enter a user name:"
+msgstr "Невалидно kerberos потребителско име."
+
+#: config/registry.php.dist:135
+#, fuzzy
+msgid "Organizing"
 msgstr "Orange"
 
-msgid "Ordered List"
-msgstr "Подреден списък"
+#: services/keyboard.php:124
+msgid "Other"
+msgstr ""
 
+#: config/prefs.php.dist:467 config/prefs.php.dist:582
+#: config/prefs.php.dist:603 config/prefs.php.dist:624
+#: config/prefs.php.dist:643 config/prefs.php.dist:663
+#: config/prefs.php.dist:675
 msgid "Other Information"
 msgstr "Друга информация"
 
-msgid "Owner Permissions"
-msgstr "Права на притежателя"
+#: services/keyboard.php:122
+msgid "Other characters"
+msgstr ""
 
+#: templates/shares/edit.inc:30
+msgid "Owner"
+msgstr ""
+
+#: templates/shares/edit.inc:36 templates/shares/edit.inc:45
+msgid "Owner:"
+msgstr ""
+
+#: admin/phpshell.php:51
+msgid "PHP"
+msgstr ""
+
+#: admin/phpshell.php:71
+#, fuzzy
+msgid "PHP Code"
+msgstr "Horde"
+
+#: admin/phpshell.php:32
 msgid "PHP Shell"
 msgstr "PGP Shell"
 
-msgid "PHP support in xgettext: "
-msgstr "PHP поддръжка в xgettext: "
+#: lib/Block/weatherdotcom_strings.php:54
+msgid "PM Clouds"
+msgstr ""
 
+#: lib/Block/weatherdotcom_strings.php:55
+msgid "PM Drizzle"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:56
+msgid "PM Fog"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:57
+msgid "PM Light Rain"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:58
+msgid "PM Light Snow"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:59
+msgid "PM Rain"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:60
+msgid "PM Showers"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:61
+msgid "PM Snow"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:62
+msgid "PM Snow Showers"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:63
+#, fuzzy
+msgid "PM Sun"
+msgstr "Sun"
+
+#: lib/Block/weatherdotcom_strings.php:64
+msgid "PM T-Showers"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:65
+msgid "PM T-Storms"
+msgstr ""
+
+#: lib/Block/account.php:287
+msgid "POSIX extension is missing"
+msgstr ""
+
+#: lib/Api.php:62
+#, fuzzy
+msgid "P_HP Shell"
+msgstr "PGP Shell"
+
+#: lib/Block/weatherdotcom_strings.php:53
+msgid "Partly Cloudy"
+msgstr ""
+
+#: admin/config/index.php:192 admin/user.php:35 admin/user.php:49 login.php:81
+#: templates/admin/user/update.inc:20 config/registry.php.dist:355
 msgid "Password"
 msgstr "Парола"
 
+#: services/changepassword.php:52
+msgid "Password changed successfully."
+msgstr ""
+
+#: lib/Prefs/Ui.php:326
 msgid "Password:"
 msgstr "Парола:"
 
-msgid "Password: "
-msgstr "Парола: "
-
-msgid "Passwords cannot be blank."
-msgstr "Паролата не може да е празна."
-
+#: admin/user.php:168 admin/user.php:220
 msgid "Passwords must match."
 msgstr "Некоректна парола."
 
+#: admin/sqlshell.php:100
 msgid "Paste"
 msgstr "Вмъкни"
 
-msgid "Perform maintenance operations on login?"
-msgstr "Да се извършват ли обслужващите операции при Вход?"
+#: templates/admin/user/approve.inc:9 templates/admin/user/removequeued.inc:7
+msgid "Pending Signups:"
+msgstr ""
 
+#: lib/Block/fortune.php:61
+#, fuzzy
+msgid "People"
+msgstr "Роля"
+
+#: templates/logintasks/logintasks.html:30
+msgid "Perform Login Tasks"
+msgstr ""
+
+#: admin/perms/delete.php:42
+#, php-format
+msgid "Permission \"%s\" not deleted."
+msgstr ""
+
+#: admin/perms/index.php:23
 msgid "Permissions"
 msgstr "Права"
 
+#: admin/perms/addchild.php:51 admin/perms/delete.php:46
+#: admin/perms/edit.php:110 admin/perms/index.php:17
 msgid "Permissions Administration"
 msgstr "Администриране на правата"
 
-msgid "Phone"
-msgstr "Телефон"
+#: config/prefs.php.dist:213
+#, fuzzy
+msgid "Personal Information"
+msgstr "Друга информация"
 
-msgid "Please enter a month and a year."
+#: lib/Block/fortune.php:62
+msgid "Pets"
+msgstr ""
+
+#: config/registry.php.dist:385
+msgid "Photos"
+msgstr ""
+
+#: lib/Block/fortune.php:63
+msgid "Platitudes"
+msgstr ""
+
+#: login.php:87
+#, fuzzy
+msgid "Please enter a password."
+msgstr "Невалидна kerberos  парола."
+
+#: login.php:86
+#, fuzzy
+msgid "Please enter a username."
 msgstr "Моля, въведете месец и година."
 
-msgid "Please enter a month, day, and year."
-msgstr "Моля, въведете месец, ден и година."
+#: templates/problem/problem.inc:7
+msgid "Please provide a summary of the problem."
+msgstr ""
 
+#: services/logintasks.php:73
+#, fuzzy
 msgid ""
-"Please read the following text.  You MUST agree with the terms to use the "
+"Please read the following text. You MUST agree with the terms to use the "
 "system."
 msgstr ""
 "Моля, прочетете следният текст.  Вие ТРЯБВА да се съгласите с условията за "
 "използване на системата."
 
-msgid "Please report any bugs to i18n@lists.horde.org."
-msgstr "Моля, изпращайте информацията за бъгове в i18n@lists.horde.orг"
+#: services/facebook.php:67
+msgid "Pokes:"
+msgstr ""
 
-msgid "Presentations"
-msgstr "Презентации"
+#: admin/activesync.php:105
+msgid "Policy Key"
+msgstr ""
 
-msgid "Problem?"
-msgstr "Проблем?"
+#: lib/Prefs/Ui.php:432
+msgid "Policy Key:"
+msgstr ""
 
-msgid "Public/Private keypair not generated successfully."
-msgstr "Ключова двойка публичен/частен ключ не беше генерирана."
+#: lib/Block/fortune.php:64
+msgid "Politics"
+msgstr ""
 
-msgid "Ratio"
+#: services/facebook.php:101
+#, php-format
+msgid "Posted %s"
+msgstr ""
+
+#: templates/block/twitter_tweet.html.php:26
+#, php-format
+msgid "Posted %s via %s"
+msgstr ""
+
+#: themes/postnuke/info.php:2
+#, fuzzy
+msgid "Postnuke"
+msgstr "Вмъкни"
+
+#: lib/Block/metar.php:261 lib/Block/metar.php:266
+#, php-format
+msgid "Precipitation for last %d hour: "
+msgid_plural "Precipitation for last %d hours: "
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/Block/weatherdotcom.php:301
+msgid "Precipitation<br />chance"
+msgstr ""
+
+#: lib/Block/metar.php:220
+msgid "Pressure"
+msgstr ""
+
+#: lib/Block/metar.php:254
+msgid "Pressure at sea level: "
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:239
+#, fuzzy
+msgid "Pressure: "
+msgstr "Парола: "
+
+#: services/problem.php:145
+#, fuzzy
+msgid "Problem Description"
+msgstr "Пълно описание:"
+
+#: admin/activesync.php:171 lib/Prefs/Ui.php:425
+#, fuzzy
+msgid "Provisioned"
+msgstr "Права"
+
+#: templates/prefs/facebook.html:21
+msgid "Publish enabled."
+msgstr ""
+
+#: themes/purple/info.php:2
+msgid "Purple Horde"
+msgstr ""
+
+#: admin/sqlshell.php:50
+msgid "Query"
+msgstr ""
+
+#: lib/Block/account.php:83
+msgid "Quota"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:66
+#, fuzzy
+msgid "Rain"
 msgstr "Коефициент"
 
+#: lib/Block/weatherdotcom_strings.php:67
+msgid "Rain Early"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:68
+msgid "Rain Late"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:69
+msgid "Rain Shower"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:70
+msgid "Rain and Snow"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:71
+msgid "Rain to Snow"
+msgstr ""
+
+#: lib/Block/fortune.php:6
+msgid "Random Fortune"
+msgstr ""
+
+#: templates/shares/edit.inc:61 templates/shares/edit.inc:75
+#: templates/shares/edit.inc:96 templates/shares/edit.inc:110
+#: templates/shares/edit.inc:132 templates/shares/edit.inc:146
+#: templates/shares/edit.inc:167 templates/shares/edit.inc:185
+#: templates/shares/edit.inc:220 templates/shares/edit.inc:247
+#: templates/shares/edit.inc:269 templates/shares/edit.inc:283
+#: templates/shares/edit.inc:312
 msgid "Read"
 msgstr "Четене"
 
-#, c-format
-msgid "Really delete %s? This operation cannot be undone."
+#: templates/prefs/facebook.html:33
+msgid "Read enabled"
+msgstr ""
+
+#: templates/admin/user/remove.inc:8
+#, fuzzy, php-format
+msgid "Really delete \"%s\"? This operation cannot be undone."
 msgstr "Искате да изтриете %s ли? Тази операция не може да се върне назад."
 
-msgid "Refresh Summary View:"
+#: templates/admin/user/clear.inc:8
+#, fuzzy, php-format
+msgid ""
+"Really remove user data for user \"%s\"? This operation cannot be undone."
+msgstr "Искате да изтриете %s ли? Тази операция не може да се върне назад."
+
+#: config/prefs.php.dist:562
+msgid "Refresh Dynamic Menu Elements:"
+msgstr ""
+
+#: config/prefs.php.dist:523
+#, fuzzy
+msgid "Refresh Portal View:"
 msgstr "Опресни Резюме изгледа:"
 
+#: templates/portal/layout.inc:94
+#, fuzzy
+msgid "Refresh rate:"
+msgstr "Опресни Резюме изгледа:"
+
+#: admin/activesync.php:134
+msgid "Registered User Devices"
+msgstr ""
+
+#: lib/Block/metar.php:321
+#, fuzzy
+msgid "Remarks"
+msgstr "Отметки"
+
+#: admin/sessions.php:39 admin/sessions.php:50
+msgid "Remote Host:"
+msgstr ""
+
+#: config/prefs.php.dist:583
+#, fuzzy
+msgid "Remote Servers"
+msgstr "Вашите сървъри:"
+
+#: lib/Prefs/Ui.php:324
 msgid "Remote URL (http://www.example.com/horde):"
 msgstr "Адрес URL (http://www.example.com/horde):"
 
-msgid "Remote summaries"
-msgstr "Премахни обобщенията"
-
+#: admin/activesync.php:185 templates/admin/groups/edit.inc:23
+#: templates/admin/user/approve.inc:40
+#: templates/admin/user/removequeued.inc:13 templates/prefs/activesync.html:33
 msgid "Remove"
 msgstr "Премахни"
 
-msgid "Remove summary"
+#: templates/data/csvmap.inc:118
+#, fuzzy
+msgid "Remove pair"
 msgstr "Премахни резюме"
 
-#, c-format
+#: admin/config/index.php:211
+msgid "Remove saved script from server's temporary directory."
+msgstr ""
+
+#: templates/admin/user/remove.inc:11
+#, fuzzy
+msgid "Remove user"
+msgstr "Премахни потребител: %s"
+
+#: templates/admin/user/remove.inc:5
+#, php-format
 msgid "Remove user: %s"
 msgstr "Премахни потребител: %s"
 
-msgid "Request couldn't be answered: "
+#: templates/block/twitter_tweet.html.php:34
+msgid "Reply"
+msgstr ""
+
+#: admin/activesync.php:138
+msgid "Reprovision All Devices"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:160
+#, fuzzy
+msgid "Requested service could not be found."
 msgstr "На запитването не беше отговорено: "
 
-msgid "Required 'basedn' not specified in authentication configuration."
-msgstr "Необходимия 'basedn' не е зададен в идентификациите."
-
-msgid "Required 'basedn' not specified in preferences configuration."
-msgstr "Необходимия 'basedn' не е зададен в преференциите."
-
-msgid "Required 'bdc_hostspec' not specified in authentication configuration."
-msgstr "Необходимия 'bdc_hostspec' не е зададен в идентификациите."
-
-msgid "Required 'database' not specified in SessionHandler configuration."
+#: admin/user.php:22 templates/admin/user/update.inc:54
+#: templates/prefs/rpc.html:36
+msgid "Reset"
 msgstr ""
-"Необходимата 'database' не е зададена в конфигурацията на  SessionHandler."
 
-msgid "Required 'database' not specified in VFS configuration."
-msgstr "Необходимата 'database' не е зададена във конфигурацията на VFS."
+#: services/resetpassword.php:45
+#, fuzzy
+msgid "Reset Password"
+msgstr "Парола"
 
-msgid "Required 'database' not specified in authentication configuration."
-msgstr "Необходимата 'database'не е зададена в идентификациите."
+#: services/resetpassword.php:23
+#, fuzzy
+msgid "Reset Your Password"
+msgstr "Потвърдете паролата"
 
-msgid "Required 'database' not specified in categories configuration."
-msgstr "Необходимата 'database' не е зададена в категориите."
-
-msgid "Required 'database' not specified in preferences configuration."
-msgstr "Необходимата 'database' не е зададена в преференциите."
-
-msgid "Required 'database' not specified in token configuration."
-msgstr "Необходимата 'database' не е зададена във token конфигурацията."
-
-msgid "Required 'domain' not specified in authentication configuration."
-msgstr "Необходимият 'domain' не е зададен в конфигурацията за идентификация."
-
-msgid "Required 'hostspec' not specified in SessionHandler configuration."
+#: templates/prefs/activesync.html:6
+msgid ""
+"Reset all device state. This will cause your devices to resyncronize all "
+"items."
 msgstr ""
-"Необходимата 'hostspec' не е зададена в конфигурацията на SessionHandler."
 
-msgid "Required 'hostspec' not specified in VFS configuration."
-msgstr "Необходимия 'hostspec' не е указан в VFS конфигурацията."
-
-msgid "Required 'hostspec' not specified in authentication configuration."
-msgstr "Необходимия 'hostspec' не е зададен в конфигурацията за идентификация."
-
-msgid "Required 'hostspec' not specified in categories configuration."
-msgstr "Необходимия 'hostspec' не е зададен в категориите"
-
-msgid "Required 'hostspec' not specified in preferences configuration."
-msgstr "Нeобходимия 'hostspec' не е зададен в префенрециите."
-
-msgid "Required 'hostspec' not specified in token configuration."
-msgstr "Необходимия 'hostspec' не е указан в token конфигурацията."
-
-msgid "Required 'password' not specified in SessionHandler configuration."
+#: admin/sqlshell.php:111
+msgid "Restore Last Query"
 msgstr ""
-"Необходимата 'password' не е зададена в конфигурацията на SessionHandler."
 
-msgid "Required 'password' not specified in VFS configuration."
-msgstr "Необходимата 'password' не съществува във VFS конфигурация."
-
-msgid "Required 'password' not specified in authentication configuration."
-msgstr "Необходимата 'password' не е зададена в идентификациите."
-
-msgid "Required 'password' not specified in categories configuration."
-msgstr "Необходимата 'password' не е зададена в категориите."
-
-msgid "Required 'password' not specified in preferences configuration."
-msgstr "Необходимата 'password' не е зададена в преференциите."
-
-msgid "Required 'password' not specified in token configuration."
-msgstr "Необходимата 'password' не съществува в token конфигурация."
-
-msgid "Required 'pdc_hostspec' not specified in authentication configuration."
-msgstr "Необходимия 'pdc_hostspec'не е зададен в идентификациите."
-
-msgid "Required 'phptype' not specified in SessionHandler configuration."
+#: admin/cmdshell.php:23 admin/phpshell.php:74 admin/sqlshell.php:53
+msgid "Results"
 msgstr ""
-"Необходимият 'phptype' не е зададен в конфигурацията на SessionHandler."
 
-msgid "Required 'phptype' not specified in VFS configuration."
-msgstr "Необходимия 'phptype' не е зададен във VFS конфигурацията."
-
-msgid "Required 'phptype' not specified in authentication configuration."
-msgstr "Необходимия 'phptype' не е зададен в идентификациите."
-
-msgid "Required 'phptype' not specified in categories configuration."
-msgstr "Необходимия 'phptype' не е зададен в категориите."
-
-msgid "Required 'phptype' not specified in preferences configuration."
-msgstr "Необходимия 'phptype' не е зададен в преференциите."
-
-msgid "Required 'phptype' not specified in token configuration."
-msgstr "Необходимия 'phptype' не е зададен във token конфигурацията."
-
-msgid "Required 'port' not specified in VFS configuration."
-msgstr "Необходимия 'port' не е зададен във VFS конфигурацията."
-
-msgid "Required 'uid' not specified in authentication configuration."
-msgstr "Необходимия 'uid' не е зададен в идентификациите."
-
-msgid "Required 'uid' not specified in preferences configuration."
-msgstr "Необходимия 'uid' не е зададен преференциите."
-
-msgid "Required 'username' not specified in SessionHandler configuration."
+#: services/portal/cloud_search.php:30
+#, php-format
+msgid "Results for %s"
 msgstr ""
-"Необходимото 'username' не е зададено в конфигурацията на SessionHandler."
 
-msgid "Required 'username' not specified in VFS configuration."
-msgstr "Необходимото 'username' не е зададено в VFS конфигурацията."
+#: templates/prefs/end.html:7
+msgid "Return to Main Screen"
+msgstr ""
 
-msgid "Required 'username' not specified in authentication configuration."
-msgstr "Необходимия 'username' не е зададен в идентификациите."
+#: templates/block/twitter_tweet.html.php:35
+msgid "Retweet"
+msgstr ""
 
-msgid "Required 'username' not specified in categories configuration."
-msgstr "Необходимия 'username' не е зададен в конфигурациите."
+#: templates/block/twitter_tweet.html.php:30
+#, php-format
+msgid "Retweeted by %s"
+msgstr ""
 
-msgid "Required 'username' not specified in preferences configuration."
-msgstr "Необходимия 'username' не е зададен в преференциите."
+#: services/changepassword.php:30
+msgid "Retype new password"
+msgstr ""
 
-msgid "Required 'username' not specified in token configuration."
-msgstr "Необходимото 'username' не е зададено в token конфигурацията."
+#: admin/config/config.php:33 admin/config/config.php:37
+#, fuzzy
+msgid "Revert Configuration"
+msgstr "Конфигурация"
 
-msgid "Required 'vfsroot' not specified in VFS configuration."
-msgstr "Необходимия 'vfsroot' не е зададен във VFS конфигурацията."
+#: lib/Block/fortune.php:65
+msgid "Riddles"
+msgstr ""
 
-msgid "Role"
-msgstr "Роля"
+#: admin/sqlshell.php:101
+#, fuzzy
+msgid "Run"
+msgstr "Sun"
 
+#: admin/sqlshell.php:14
 msgid "SQL Shell"
 msgstr "SQL Shell"
 
+#: config/registry.php.dist:363
 msgid "SSH"
 msgstr "SSH"
 
-msgid "Searching Horde applications..."
-msgstr "Търсене на Horde приложенията..."
+#: lib/Api.php:67
+#, fuzzy
+msgid "S_QL Shell"
+msgstr "SQL Shell"
 
-msgid "Searching gettext binaries..."
-msgstr "Търсене на gettext изпълними файлове..."
+#: templates/portal/layout.inc:115 templates/prefs/end.html:3
+msgid "Save"
+msgstr ""
 
-msgid "Select"
-msgstr "Избери"
+#: templates/admin/groups/edit.inc:63 templates/shares/edit.inc:330
+#, php-format
+msgid "Save \"%s\""
+msgstr ""
 
-msgid "Select a group to add"
+#: templates/shares/edit.inc:331
+msgid "Save and Finish"
+msgstr ""
+
+#: admin/config/index.php:183
+msgid ""
+"Save generated configuration as a PHP script to your server's temporary "
+"directory."
+msgstr ""
+
+#: admin/config/scripts.php:92
+#, php-format
+msgid "Saved configuration upgrade script to: \"%s\"."
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:72
+msgid "Scattered Showers"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:73
+msgid "Scattered T-Storms"
+msgstr ""
+
+#: lib/Block/fortune.php:66
+msgid "Science"
+msgstr ""
+
+#: services/help/index.php:71
+msgid "Sea_rch"
+msgstr ""
+
+#: services/help/index.php:134 templates/admin/user/list.inc:16
+msgid "Search"
+msgstr ""
+
+#: templates/admin/user/list.inc:14
+msgid "Search:"
+msgstr ""
+
+#: templates/shares/edit.inc:298 templates/shares/edit.inc:300
+#, fuzzy
+msgid "Select a group to add:"
 msgstr "Изберете група за добавяне"
 
-msgid "Select a new owner"
+#: templates/shares/edit.inc:38
+#, fuzzy
+msgid "Select a new owner:"
 msgstr "Изберете нов притежател на група"
 
+#: templates/prefs/rpc.html:4
 msgid "Select a server"
 msgstr "Изберете сървър"
 
-msgid "Select a user to add"
+#: templates/shares/edit.inc:202 templates/shares/edit.inc:204
+#, fuzzy
+msgid "Select a user to add:"
 msgstr "Избери потребител за добавяне"
 
+#: templates/prefs/addressbooks.html:5
+msgid "Select all fields to search when expanding addresses."
+msgstr ""
+
+#: services/keyboard.php:38
+#, fuzzy
 msgid ""
 "Select the characters you need from the boxes below. You can then copy and "
-"paste them from the textarea."
+"paste them from the text area."
 msgstr ""
 "Изберете необходимите Ви символи. След това ги копирайте от текстовото поле."
 
+#: templates/data/datetime.inc:57
+#, fuzzy
+msgid "Select the date and time format:"
+msgstr "Изберете формат за Датата:"
+
+#: templates/data/date.inc:34 templates/data/datetime.inc:76
 msgid "Select the date delimiter:"
 msgstr "Изберете Дата разделител:"
 
+#: templates/data/date.inc:44 templates/data/datetime.inc:86
 msgid "Select the date format:"
 msgstr "Изберете формат за Датата:"
 
+#: templates/data/datetime.inc:66
+#, fuzzy
+msgid "Select the day and time order:"
+msgstr "Изберете формат за Датата:"
+
+#: templates/data/datetime.inc:97 templates/data/time.inc:16
+#, fuzzy
+msgid "Select the time delimiter:"
+msgstr "Изберете Дата разделител:"
+
+#: templates/data/datetime.inc:106 templates/data/time.inc:25
 msgid "Select the time format:"
 msgstr "Изберете формат за Часа:"
 
-msgid "Select two matching fields."
-msgstr "Изберете две съвпадащи полета:"
-
+#: config/prefs.php.dist:509
 msgid "Select your color scheme."
 msgstr "Изберете вашата схема за цветовете."
 
+#: config/prefs.php.dist:328
 msgid "Select your preferred language:"
 msgstr "Изберете предпочитаният от Вас език:"
 
-msgid "Selected Columns:"
-msgstr "Изберете колони:"
+#: templates/problem/problem.inc:57
+msgid "Send Problem Report"
+msgstr ""
 
-msgid "Set your preferred display language."
-msgstr "Изберете предпочитаният от Вас език за дисплея."
+#: lib/Block/metar.php:311
+msgid "Sensor: "
+msgstr ""
 
+#: templates/prefs/syncml.html:12
+msgid "Server Time"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:164
+msgid "Server data wrong or not available."
+msgstr ""
+
+#: admin/sessions.php:14
+#, fuzzy
+msgid "Session Admin"
+msgstr "Администриране на правата"
+
+#: admin/sessions.php:37
+msgid "Session Timestamp:"
+msgstr ""
+
+#: lib/Api.php:57
+#, fuzzy
+msgid "Sessions"
+msgstr "Права"
+
+#: config/prefs.php.dist:277
+msgid ""
+"Set preferences to allow you to reset your password if you ever forget it."
+msgstr ""
+
+#: config/prefs.php.dist:605
+msgid "Set up integration with your Facebook account."
+msgstr ""
+
+#: config/prefs.php.dist:626
+msgid "Set up integration with your Twitter account."
+msgstr ""
+
+#: config/prefs.php.dist:584
+msgid "Set up remote servers that you want to access from your portal."
+msgstr ""
+
+#: config/prefs.php.dist:314
+#, fuzzy
+msgid "Set your preferred language, timezone and date preferences."
+msgstr "Изберете предпочитаният от Вас език:"
+
+#: config/prefs.php.dist:469
+#, fuzzy
 msgid ""
 "Set your startup application, color scheme, page refreshing, and other "
-"display options."
+"display preferences."
 msgstr ""
 "Задайте Вашето начално приложение, схема за цветове, опресняване на "
 "страницата и други опции за дисплея."
 
-msgid "Short Summary:"
+#: lib/Block/weatherdotcom.php:190
+msgid "Several locations possible with the parameter: "
+msgstr ""
+
+#: templates/problem/problem.inc:38
+#, fuzzy
+msgid "Short Summary"
 msgstr "Кратко резюме:"
 
+#: config/prefs.php.dist:570
+msgid "Should access keys be defined for most links?"
+msgstr ""
+
+#: templates/shares/edit.inc:60 templates/shares/edit.inc:71
+#: templates/shares/edit.inc:95 templates/shares/edit.inc:106
+#: templates/shares/edit.inc:131 templates/shares/edit.inc:142
+#: templates/shares/edit.inc:166 templates/shares/edit.inc:181
+#: templates/shares/edit.inc:216 templates/shares/edit.inc:243
+#: templates/shares/edit.inc:268 templates/shares/edit.inc:279
+#: templates/shares/edit.inc:308
 msgid "Show"
 msgstr "Показване"
 
-msgid "Size"
-msgstr "Размер"
+#: templates/prefs/app.html:21
+msgid "Show Advanced Preferences"
+msgstr ""
 
-msgid "Skipped..."
-msgstr "Прескочено..."
+#: admin/config/index.php:173
+msgid ""
+"Show differences between currently saved and the newly generated "
+"configuration."
+msgstr ""
 
-msgid "Some of Horde's configuration files are missing:"
-msgstr "Някои от конфигурационните файлове на Horde липсват:"
+#: lib/Block/feed.php:24
+msgid "Show extra detail?"
+msgstr ""
 
-msgid "SpamAssassin"
-msgstr "Унищожител на Спам"
+#: config/prefs.php.dist:491
+msgid "Show last login time when logging in?"
+msgstr ""
 
+#: lib/Block/fb_stream.php:89
+msgid "Show notifications"
+msgstr ""
+
+#: config/prefs.php.dist:530
+#, php-format
+msgid "Show the %s Menu on the left?"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:74
+#, fuzzy
+msgid "Showers"
+msgstr "Показване"
+
+#: lib/Block/weatherdotcom_strings.php:75
+msgid "Showers Early"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:76
+msgid "Showers Late"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:77
+msgid "Showers in the Vicinity"
+msgstr ""
+
+#: themes/simplex/info.php:2
+msgid "Simplex"
+msgstr ""
+
+#: templates/logintasks/logintasks.html:31
+msgid "Skip Login Tasks"
+msgstr ""
+
+#: lib/Block/iframe.php:26
+#, fuzzy
+msgid "Small"
+msgstr "Писмо"
+
+#: lib/Block/weatherdotcom_strings.php:78
+#, fuzzy
+msgid "Snow"
+msgstr "Показване"
+
+#: lib/Block/weatherdotcom_strings.php:79
+msgid "Snow Early"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:80
+msgid "Snow Late"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:81
+msgid "Snow Shower"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:82
+msgid "Snow Showers"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:83
+msgid "Snow Showers Early"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:84
+msgid "Snow Showers Late"
+msgstr ""
+
+#: lib/Block/metar.php:273
+msgid "Snow depth: "
+msgstr ""
+
+#: lib/Block/metar.php:277
+msgid "Snow equivalent in water: "
+msgstr ""
+
+#: lib/Block/fortune.php:67
+msgid "Songs & Poems"
+msgstr ""
+
+#: config/nls.php:182
+msgid "South European (ISO-8859-3)"
+msgstr ""
+
+#: lib/Block/moon.php:31 lib/Block/moon.php:60
+msgid "Southern Hemisphere"
+msgstr ""
+
+#: config/registry.php.dist:102
+msgid "Spam"
+msgstr ""
+
+#: services/keyboard.php:14
 msgid "Special Character Input"
 msgstr "Въвеждане на специални символи"
 
-msgid "Submit"
-msgstr "Изпрати"
+#: lib/Block/fortune.php:68
+msgid "Sports"
+msgstr ""
 
+#: lib/Block/metar.php:73 lib/Block/weatherdotcom.php:68
+#, fuzzy
+msgid "Standard"
+msgstr "%s Стандарт"
+
+#: lib/Block/fortune.php:69
+msgid "Star Trek"
+msgstr ""
+
+#: templates/prefs/activesync.html:2
+msgid "State Management"
+msgstr ""
+
+#: admin/activesync.php:112 templates/admin/config/index.html:17
+#: templates/prefs/activesync.html:22
+msgid "Status"
+msgstr ""
+
+#: services/facebook.php:144
+msgid "Status unable to be set."
+msgstr ""
+
+#: util/icon_browser.php:40
+#, fuzzy, php-format
+msgid "Subdirectory \"%s\" not found."
+msgstr "Слушателят %s не е намерен."
+
+#: signup.php:52
+#, php-format
+msgid ""
+"Submitted request to add \"%s\" to the system. You cannot log in until your "
+"request has been approved."
+msgstr ""
+
+#: services/facebook.php:38
+msgid "Succesfully connected your Facebook account."
+msgstr ""
+
+#: admin/sqlshell.php:88
 msgid "Success"
 msgstr "Успех"
 
-#, c-format
-msgid "Successfully added '%s' to the system."
+#: admin/signup_confirm.php:85 admin/user.php:100
+#, fuzzy, php-format
+msgid "Successfully added \"%s\" to the system."
 msgstr "Успешно добавен '%s' към системата."
 
-#, c-format
-msgid "Successfully deleted '%s'."
-msgstr "Успешно изтрит '%s'."
-
-#, c-format
-msgid "Successfully removed '%s' from the system."
+#: admin/user.php:138
+#, fuzzy, php-format
+msgid "Successfully cleared data for user \"%s\" from the system."
 msgstr "Успешно премахнат '%s' от системата."
 
-#, c-format
-msgid "Successfully updated '%s'"
+#: admin/groups.php:78 admin/perms/delete.php:36
+#, fuzzy, php-format
+msgid "Successfully deleted \"%s\"."
+msgstr "Успешно изтрит '%s'."
+
+#: admin/user.php:118
+#, fuzzy, php-format
+msgid "Successfully removed \"%s\" from the system."
+msgstr "Успешно премахнат '%s' от системата."
+
+#: admin/config/config.php:40
+msgid "Successfully reverted configuration. Reload to see changes."
+msgstr ""
+
+#: admin/config/index.php:39
+msgid "Successfully saved backup configuration."
+msgstr ""
+
+#: admin/config/config.php:51
+#, php-format
+msgid "Successfully saved the backup configuration file %s."
+msgstr ""
+
+#: admin/user.php:184
+#, fuzzy, php-format
+msgid "Successfully updated \"%s\""
 msgstr "Успешно беше обновен '%s'."
 
-msgid "Sun"
+#: admin/config/config.php:60 admin/config/index.php:47
+#, fuzzy, php-format
+msgid "Successfully wrote %s"
+msgstr "Успешно беше обновен '%s'."
+
+#: lib/Block/sunrise.php:63
+msgid "Sun Rise"
+msgstr ""
+
+#: lib/Block/sunrise.php:66
+#, fuzzy
+msgid "Sun Set"
 msgstr "Sun"
 
+#: config/prefs.php.dist:429
+#, fuzzy
+msgid "Sunday"
+msgstr "Sun"
+
+#: lib/Block/weatherdotcom_strings.php:85
+#, fuzzy
+msgid "Sunny"
+msgstr "Sun"
+
+#: lib/Block/weatherdotcom.php:220
+#, fuzzy
+msgid "Sunrise"
+msgstr "Sun"
+
+#: lib/Block/sunrise.php:3 lib/Block/sunrise.php:14
+msgid "Sunrise/Sunset"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:219
+msgid "Sunrise: "
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:223
+#, fuzzy
+msgid "Sunset"
+msgstr "Sun"
+
+#: lib/Block/weatherdotcom.php:222
+msgid "Sunset: "
+msgstr ""
+
+#: config/prefs.php.dist:664
+msgid "SyncML"
+msgstr ""
+
+#: lib/Block/feed.php:3
+msgid "Syndicated Feed"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:86
+#, fuzzy
+msgid "T-Showers"
+msgstr "Показване"
+
+#: lib/Block/weatherdotcom_strings.php:87
+msgid "T-Showers Early"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:88
+msgid "T-Showers Late"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:89
+msgid "T-Storm"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:90
+msgid "T-Storm and Windy"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:91
+msgid "T-Storms"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:92
+msgid "T-Storms Early"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:93
+msgid "T-Storms Late"
+msgstr ""
+
+#: lib/Block/cloud.php:3 lib/Block/cloud.php:23
+msgid "Tag Cloud"
+msgstr ""
+
+#: themes/tango-blue/info.php:24
+#, fuzzy
+msgid "Tango Blue"
+msgstr "Light Blue"
+
+#: config/registry.php.dist:184
 msgid "Tasks"
 msgstr "Задачи"
 
+#: themes/gennevilliers/info.php:12
+#, fuzzy
+msgid "Teal"
+msgstr "Годишно"
+
+#: lib/Block/metar.php:285
+msgid "Temp for last hour: "
+msgstr ""
+
+#: lib/Block/metar.php:209
+msgid "Temperature"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:227
+msgid "Temperature: "
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:296
+#, php-format
+msgid "Temperature<br />(%sHi%s/%sLo%s) &deg;%s"
+msgstr ""
+
+#: lib/Prefs/Ui.php:518 services/facebook.php:31
+msgid "Temporarily unable to connect with Facebook, Please try again."
+msgstr ""
+
+#: lib/Block/twitter_timeline.php:122
+msgid "Temporarily unable to contact Twitter. Please try again later."
+msgstr ""
+
+#: services/keyboard.php:148
+msgid "Text Area"
+msgstr ""
+
+#: config/prefs.php.dist:544
 msgid "Text Only"
 msgstr "Само текст"
 
-#, c-format
-msgid "The %s help file for %s doesn't yet exist. Creating a new one."
-msgstr "%s help файл за %s не съществува все още. Създаване на нов."
-
-msgid ""
-"The detached PGP signature block is required to verify the signed message."
+#: config/nls.php:183
+msgid "Thai (TIS-620)"
 msgstr ""
-"Прикрепеният PGP подпис е необходим за да се провери подписаното писмо."
 
-msgid ""
-"The detached SMIME signature block is required to verify the signed message."
+#: lib/Prefs/Ui.php:747
+#, php-format
+msgid "The Remote Wipe for device id %s has been cancelled."
 msgstr ""
-"Прикрепеният SMIME подпис е необходим за да се провери подписаното писмо."
 
-msgid "The encryption features require a secure web connection."
-msgstr "Криптирането изисква криптирана web връзка."
-
-#, c-format
-msgid "The help file %s didn't start with <?xml"
-msgstr "Help файла %s не започва с <?xml"
-
-msgid ""
-"The location of the GnuPG binary must be given to the Crypt_pgp:: class."
+#: admin/alarms.php:81
+msgid "The alarm has been deleted."
 msgstr ""
-"Местоположението на GnuPG файла трябва да бъде даденo на Crypt_pgp:: clas"
 
-msgid "The openssl module is required for the Crypt_smime:: class."
-msgstr "Модулът OpenSSL е необходим за Crypt_smime:: class."
-
-#, c-format
-msgid ""
-"The program used to view this data type (%s) was not found on the system."
-msgstr ""
-"Програмата, която служи за показване на този тип данни (%s) не беше открита "
-"в системата"
-
-msgid ""
-"The registry is how Horde applications find out how to talk to each other. "
-"You should list any installed Horde applications that you have here."
-msgstr ""
-"The Registry (Регистратурата) е начинът по който Horde приложенията разбират "
-"как да комуникират по между си. Би трябвало да опишете инсталираните "
-"приложения тук."
-
-msgid "There are no parts that can be displayed inline."
-msgstr "Няма двойки, които да бъдат показани в линията."
-
-#, c-format
-msgid ""
-"There are too many characters in this field. You have entered %s characters; "
-"you must enter less than %s."
-msgstr ""
-"Има твърде много символи в това поле. Въвели сте %s символа; трябва да "
-"въведете по-малко от %s."
-
-#, c-format
-msgid "There doesn't yet exist a help file for %s."
-msgstr "Не съществува help файл с това име за %s."
-
-#, c-format
-msgid "There was a problem adding '%s' to the system."
-msgstr "Грешка при добавяне на '%s' към системата."
-
-#, c-format
-msgid "There was a problem removing '%s' from the system."
-msgstr "Грешка при премахването на '%s' от системата."
-
-#, c-format
-msgid "There was a problem updating '%s': %s"
-msgstr "Грешка при опресняване на '%s': %s"
-
-#, c-format
-msgid "There was a problem with the file upload: No %s was uploaded."
-msgstr "Грешка при изпращането на файла: %s не беше изпратен."
-
-#, c-format
-msgid ""
-"There was a problem with the file upload: The %s was larger than the maximum "
-"allowed size (%d bytes)."
-msgstr ""
-"Имаше проблем при изпращането на файла. %s е по-голям от максимално "
-"допустимия размер (%d байта)."
-
-#, c-format
-msgid ""
-"There was a problem with the file upload: The %s was only partially uploaded."
-msgstr "Грешка при изпращането на файла. %s беше само отчасти изпратен."
-
-msgid "There was an error importing the calendar data."
-msgstr "Грешка при импортиране на избраните данни за календар."
-
-msgid "There was an error importing the contact data."
-msgstr "Грешка при импорт на данни за контакти."
-
-#, c-format
-msgid ""
-"There was an error opening the file %s. Try running translation.php with the "
-"flag -d to see any error messages from the xml parser."
-msgstr ""
-"Грешка при отварянето на файл %s. Опитайте да стартирате translation.php с "
-"опция -d за да видите съобщениeто за грешка от xml парсерa."
-
-msgid "There was an unknown error verifying this message."
-msgstr "Грешка при проверката на това писмо."
-
-msgid ""
-"This calendar data has been successfully added to your schedule. Click below "
-"to view:"
-msgstr ""
-"Тези данни за календара бяха успешно добавени към Вашата програма. Кликнете "
-"по-долу за да видите:"
-
-msgid ""
-"This contact data has been successfully added to your address book. Click "
-"below to view:"
-msgstr ""
-"Тези данни за контакт бяха успешно добавени към Вашата програма. Кликнете по-"
-"долу за да видите:"
-
-msgid "This does not appear to be a valid rar archive."
-msgstr "Това не е валиден rar архив."
-
-msgid "This does not appear to be a valid zip file."
-msgstr "Това не е валиден zip файл."
-
-msgid "This field is required."
-msgstr "Това поле е необходимо."
-
-msgid "This field may only contain integers."
-msgstr "Това поле може да съдържа само цели числа."
-
-msgid "This field may only contain numbers and the colon."
-msgstr "Това поле може да съдържа само числа и двоеточие."
-
-msgid "This field may only contain numbers."
-msgstr "Това поле може да съдържа само номера."
-
-msgid "This field must be a comma or space separated list of integers"
-msgstr "Това поле трябва да е запетая или интервал разделен списък променливи"
-
-msgid ""
-"This file controls the global set of MIME drivers for the Horde framework, "
-"allowing applications to make use of programs such as enscript or mswordview "
-"to render content into HTML for viewing in a browser."
-msgstr ""
-"Този файл контролира Глобалните настройки за MIME типовете за Horde, което е "
-"необходимо за да могат програми като enscript или mswordview да показват "
-"съдържанието като HTML във вашия браузер (IE, Netscape и т.н.)"
-
-msgid ""
-"This file controls the stylesheet that is used to set colors and fonts for "
-"the Horde framework and all applications that do not provide their own "
-"settings."
-msgstr ""
-"Този файл съдържа стиловете определящи цветовете и шрифтовете за Horde, "
-"както и за всички приложения, които нямат свои настройки."
-
-msgid ""
-"This file maps file extensions to logical MIME types, enabling Horde "
-"applications to figure out how to handle some content such as email "
-"attachments or CVS checkouts."
-msgstr ""
-"Този файл съпоставя файловите разширения на логични MIME типове позволявайки "
-"на Horde да определи как да се справи със закачени към писмото файлове или "
-"CVS проверки."
-
-msgid "This form has already been processed."
+#: admin/alarms.php:70
+#, fuzzy
+msgid "The alarm has been saved."
 msgstr "Тази форма вече беше обработена."
 
-msgid ""
-"This is the main Horde configuration file. It contains paths and basic items "
-"that apply to the core framework and all Horde applications."
+#: config/prefs.php.dist:246
+msgid "The default e-mail address to use with this identity:"
 msgstr ""
-"Това е главния конфигурационен файл на Horde. Той съдържа пътища и основните "
-"неща както за Horde така и за целият пакет приложения."
 
-msgid "This number must be at least one."
-msgstr "Това число трябва да е поне единица."
+#: lib/Block/vatid.php:76
+msgid ""
+"The member state service could not be reached in time. Try again later or "
+"with a different member state."
+msgstr ""
 
-msgid "This server can't uncompress zip and gzip files."
-msgstr "Този сървър не може да декомпресира zip и gzip файлове."
+#: lib/Block/vatid.php:73
+msgid ""
+"The member state service is currently not available. Try again later or with "
+"a different member state."
+msgstr ""
 
-msgid "This value must be a number."
-msgstr "Тази стойност трябва да е число."
+#: lib/Block/vatid.php:67
+msgid "The provided country code is invalid."
+msgstr ""
 
+#: lib/Prefs/Ui.php:681
+#, php-format
+msgid "The server \"%s\" has been deleted."
+msgstr ""
+
+#: lib/Prefs/Ui.php:676
+#, php-format
+msgid "The server \"%s\" has been saved."
+msgstr ""
+
+#: lib/Block/vatid.php:70
+msgid "The service is currently not available. Try again later."
+msgstr ""
+
+#: lib/Block/vatid.php:79
+msgid "The service is currently too busy. Try again later."
+msgstr ""
+
+#: admin/user.php:209
+#, php-format
+msgid "The signup request for \"%s\" has been removed."
+msgstr ""
+
+#: admin/signup_confirm.php:39
+#, php-format
+msgid "The signup request for user \"%s\" has been removed."
+msgstr ""
+
+#: lib/LoginTasks/Task/TestScriptActive.php:38
+msgid ""
+"The test script is currently enabled. For security reasons, disable test "
+"scripts when you are done testing (see horde/docs/INSTALL)."
+msgstr ""
+
+#: admin/signup_confirm.php:60 admin/user.php:72
+#, php-format
+msgid "The user \"%s\" already exists."
+msgstr ""
+
+#: services/shares/edit.php:85 services/shares/edit.php:177
+#, php-format
+msgid "The user \"%s\" does not exist."
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:51 lib/Block/weatherdotcom.php:106
+msgid "The weather.com block is not available."
+msgstr ""
+
+#: lib/Prefs/Ui.php:46
+msgid "Theme directory can't be opened"
+msgstr ""
+
+#: util/icon_browser.php:28
+#, php-format
+msgid "Themes directory \"%s\" not found."
+msgstr ""
+
+#: admin/signup_confirm.php:74 admin/user.php:84 signup.php:38 signup.php:59
+#, fuzzy, php-format
+msgid "There was a problem adding \"%s\" to the system: %s"
+msgstr "Грешка при добавяне на '%s' към системата."
+
+#: admin/user.php:140
+#, fuzzy, php-format
+msgid "There was a problem clearing data for user \"%s\" from the system: "
+msgstr "Грешка при премахването на '%s' от системата."
+
+#: admin/user.php:120
+#, fuzzy, php-format
+msgid "There was a problem removing \"%s\" from the system: "
+msgstr "Грешка при премахването на '%s' от системата."
+
+#: admin/user.php:173
+#, fuzzy, php-format
+msgid "There was a problem updating \"%s\": %s"
+msgstr "Грешка при опресняване на '%s': %s"
+
+#: lib/Block/twitter_timeline.php:110 lib/Block/twitter_timeline.php:126
+#, fuzzy, php-format
+msgid "There was an error contacting Twitter: %s"
+msgstr "Грешка при импортиране на избраните данни за календар."
+
+#: admin/config/config.php:70
+msgid ""
+"There was an error in the configuration form. Perhaps you left out a "
+"required field."
+msgstr ""
+
+#: lib/Block/fb_stream.php:158 lib/Block/fb_stream.php:183
+#: services/facebook.php:54 services/facebook.php:71
+#, fuzzy, php-format
+msgid "There was an error making the request: %s"
+msgstr "Грешка при импорт на данни за контакти."
+
+#: lib/Api.php:284
+#, php-format
+msgid ""
+"There was an error removing global data for %s. Details have been logged."
+msgstr ""
+
+#: lib/Block/vatid.php:89
+msgid "This VAT identification number is invalid."
+msgstr ""
+
+#: lib/Block/vatid.php:86
+msgid "This VAT identification number is valid."
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:94
+msgid "Thunder"
+msgstr ""
+
+#: config/registry.php.dist:260
+msgid "Tickets"
+msgstr ""
+
+#: config/registry.php.dist:308
 msgid "Time Tracking"
 msgstr "Проследяване не време"
 
+#: lib/Block/time.php:23
+msgid "Time format"
+msgstr ""
+
+#: templates/data/datetime.inc:60 templates/data/datetime.inc:69
+msgid "Timestamp or unknown"
+msgstr ""
+
+#: templates/prefs/syncml.html:2
+msgid "Timestamps of successful synchronization sessions"
+msgstr ""
+
+#: lib/Block/iframe.php:22
 msgid "Title"
 msgstr "Длъжност"
 
+#: templates/data/csvmap.inc:95
+msgid ""
+"To exclude a particular field form the import or to correct a wrong match "
+"select a field in the lists below and hit \"Remove pair\"."
+msgstr ""
+
+#: templates/prefs/addressbooks.html:10
+msgid ""
+"To select multiple fields, hold down the Control (PC) or Command (Mac) while "
+"clicking."
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:313
+#, fuzzy
+msgid "Today"
+msgstr " (днес)"
+
+#: lib/Block/weatherdotcom.php:315
+msgid "Tomorrow"
+msgstr ""
+
+#: lib/Block/fortune.php:70
+#, fuzzy
+msgid "Translations"
+msgstr "Презентации"
+
+#: config/nls.php:184
+msgid "Turkish (ISO-8859-9)"
+msgstr ""
+
+#: lib/Block/twitter_timeline.php:166
+msgid "Tweet"
+msgstr ""
+
+#: config/prefs.php.dist:625
+#, fuzzy
+msgid "Twitter Integration"
+msgstr "Друга информация"
+
+#: lib/Block/twitter_timeline.php:23 lib/Block/twitter_timeline.php:64
+#: lib/Block/twitter_timeline.php:74 lib/Block/twitter_timeline.php:78
+#, php-format
+msgid "Twitter Timeline"
+msgstr ""
+
+#: lib/Block/twitter_timeline.php:70
+#, php-format
+msgid "Twitter Timeline for %s"
+msgstr ""
+
+#: services/keyboard.php:108
+msgid "U characters"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:273
+msgid "U.V. index: "
+msgstr ""
+
+#: lib/Block/iframe.php:19
 msgid "URL"
 msgstr "URL"
 
-msgid "Unable to connect to SQL server."
-msgstr "Невъзможност за връзка с SQL сървър."
+#: services/twitter.php:64
+#, php-format
+msgid "Unable to contact Twitter. Please try again later. Error returned: %s"
+msgstr ""
 
-#, c-format
-msgid "Unable to delete '%s': %s."
+#: admin/groups.php:82 admin/perms/delete.php:39
+#, fuzzy, php-format
+msgid "Unable to delete \"%s\": %s."
 msgstr "Грешка при изтриване '%s': %s."
 
-msgid "Unable to open compressed archive."
-msgstr "Грешка при отварянето на компресиран архив."
+#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:55
+#, fuzzy, php-format
+msgid "Unable to modify the sequence for %s: %s"
+msgstr "Грешка при изтриване '%s': %s."
 
-msgid "Unable to read the vfsroot directory."
-msgstr "Грешка при четенето на vfsroot папка."
+#: services/facebook.php:175
+#, fuzzy
+msgid "Unable to set like."
+msgstr "Грешка при изтриване '%s': %s."
 
-msgid "Unable to translate this Word document"
-msgstr "Грешка при превода на този Word документ"
+#: templates/prefs/end.html:4
+msgid "Undo Changes"
+msgstr ""
 
-msgid "Underline"
-msgstr "Подчертани"
+#: lib/Prefs/Ui.php:266
+#, fuzzy
+msgid "Unfiled"
+msgstr "провалено"
 
-#, c-format
-msgid "Unknown command: %s"
-msgstr "Неизвестна команда: %s"
+#: config/nls.php:185
+msgid "Unicode (UTF-8)"
+msgstr ""
 
-msgid "Unordered List"
-msgstr "Неподреден списък"
+#: lib/Block/metar.php:70 lib/Block/weatherdotcom.php:64
+msgid "Units"
+msgstr ""
 
+#: lib/Block/weatherdotcom.php:162
+msgid "Unknown location provided."
+msgstr ""
+
+#: lib/Block/fb_stream.php:179 templates/admin/user/list.inc:36
 msgid "Update"
 msgstr "Опресни"
 
-#, c-format
+#: templates/admin/user/update.inc:6
+#, php-format
 msgid "Update %s"
 msgstr "Опресни %s"
 
-#, c-format
-msgid "Updated '%s'."
+#: templates/admin/user/update.inc:53
+#, fuzzy
+msgid "Update user"
+msgstr "Опресни %s"
+
+#: admin/groups.php:144 admin/perms/edit.php:104 services/shares/edit.php:249
+#, fuzzy, php-format
+msgid "Updated \"%s\"."
 msgstr "Опресненa '%s'."
 
-#, c-format
-msgid "Updating %s help file for %s."
-msgstr "Опресняване на %s help файл за %s."
+#: admin/config/index.php:190
+msgid "Upload"
+msgstr ""
 
-msgid "Usage:"
-msgstr "Използване::"
+#: admin/config/index.php:198
+msgid "Uploaded all application configuration files to the server."
+msgstr ""
 
-msgid "Use Default Value"
-msgstr "Използвай подразбиращата се стойност"
+#: config/prefs.php.dist:645
+msgid "Use if name/password is different for IMSP server."
+msgstr ""
 
+#: templates/admin/groups/edit.inc:22 templates/admin/groups/edit.inc:60
+#, fuzzy
+msgid "User"
+msgstr "Потребители"
+
+#: admin/user.php:224
 msgid "User Administration"
 msgstr "Администриране на потребителите"
 
+#: lib/Prefs/Ui.php:432
+#, fuzzy
+msgid "User Agent:"
+msgstr "Име:"
+
+#: signup.php:67
+#, fuzzy
+msgid "User Registration"
+msgstr "Администриране на потребителите"
+
+#: admin/signup_confirm.php:18 signup.php:19
+msgid "User Registration has been disabled for this site."
+msgstr ""
+
+#: admin/signup_confirm.php:25 signup.php:27
+#, fuzzy
+msgid "User Registration is not properly configured for this site."
+msgstr "Horde не е конфигуриран коректно"
+
+#: lib/Block/account.php:561
+msgid "User account not found"
+msgstr ""
+
+#: templates/shares/edit.inc:238
+#, fuzzy
+msgid "User to add:"
+msgstr "Избери потребител за добавяне"
+
+#: admin/config/index.php:191 admin/user.php:32 admin/user.php:48 login.php:76
+#: services/resetpassword.php:29 templates/admin/user/approve.inc:22
 msgid "Username"
 msgstr "Име"
 
-msgid "Username and/or password not correct."
-msgstr "Некоректна парола или потребителско име!"
-
+#: lib/Prefs/Ui.php:325
 msgid "Username:"
 msgstr "Име:"
 
-msgid "Username: "
-msgstr "Име: "
-
+#: templates/admin/groups/edit.inc:53
 msgid "Users"
 msgstr "Потребители"
 
+#: templates/admin/user/list.inc:2
 msgid "Users in the system:"
 msgstr "Потребители в системата:"
 
+#: lib/Block/vatid.php:19
+msgid "VAT id number verification"
+msgstr ""
+
+#: lib/Block/vatid.php:42
+msgid "VAT identification number:"
+msgstr ""
+
+#: lib/Block/vatid.php:93
+msgid "VAT number"
+msgstr ""
+
+#: config/registry.php.dist:122
 msgid "Vacation"
 msgstr "Ваканция"
 
-msgid "Verification failed - this message may have been tampered with."
-msgstr "Грешка при проверката - това писмо може да е било подправено."
+#: lib/Block/weatherdotcom.php:248
+msgid "Variable"
+msgstr ""
 
+#: config/registry.php.dist:246
+msgid "Version Control"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:101
+msgid "Very High"
+msgstr ""
+
+#: config/nls.php:186
+msgid "Vietnamese (VISCII)"
+msgstr ""
+
+#: lib/Block/iframe.php:3
+msgid "View an external web page"
+msgstr ""
+
+#: lib/Block/metar.php:204
+msgid "Visibility"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:267
+msgid "Visibility: "
+msgstr ""
+
+#: lib/Block/account.php:98
 msgid "Warning"
 msgstr "Внимание"
 
-msgid "Warning: "
-msgstr "Внимание: "
+#: lib/Block/weatherdotcom.php:32
+msgid "Weather Forecast"
+msgstr ""
 
-msgid "Weekly"
-msgstr "Седмично"
+#: lib/Block/weatherdotcom.php:429
+msgid "Weather data provided by"
+msgstr ""
 
-#, c-format
+#: config/registry.php.dist:369
+msgid "Web Site"
+msgstr ""
+
+#: services/portal/mobile.php:29
+#, fuzzy
+msgid "Welcome"
+msgstr "Добре дошли, %s"
+
+#: templates/login/login.inc:5 templates/login/mobile.inc:1
+#, php-format
 msgid "Welcome to %s"
 msgstr "Добре Дошли в %s"
 
-#, c-format
+#: templates/portal/mobile.inc:1
+#, php-format
 msgid "Welcome, %s"
 msgstr "Добре дошли, %s"
 
-#, c-format
+#: config/nls.php:187
+msgid "Western (ISO-8859-1)"
+msgstr ""
+
+#: config/nls.php:188
+msgid "Western (ISO-8859-15)"
+msgstr ""
+
+#: config/prefs.php.dist:483
+#, php-format
 msgid "What application should %s display after login?"
 msgstr "Изберете приложението, което %s да покаже след вход."
 
-msgid "Work Address"
-msgstr "Бизнес адрес"
+#: lib/Block/twitter_timeline.php:131
+msgid "What are you working on now?"
+msgstr ""
 
-msgid "Work Phone"
-msgstr "Бизнес телефон"
+#: templates/data/csvinfo.inc:14
+msgid "What is the delimiter character?"
+msgstr ""
 
-#, c-format
-msgid "Writing updated help file to %s."
-msgstr "Запис на опресненият помощен файл в %s."
+#: templates/data/csvinfo.inc:17
+msgid "What is the quote character?"
+msgstr ""
 
+#: lib/Block/fb_stream.php:165
+msgid "What's on your mind?"
+msgstr ""
+
+#: config/prefs.php.dist:427
+msgid "Which day would you like to be displayed as the first day of the week?"
+msgstr ""
+
+#: lib/Block/moon.php:21
+msgid "Which phases"
+msgstr ""
+
+#: config/prefs.php.dist:536
+#, php-format
+msgid "Width of the %s menu on the left:"
+msgstr ""
+
+#: config/registry.php.dist:394
+msgid "Wiki"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:303 lib/Block/weatherdotcom_strings.php:95
+msgid "Wind"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:96
+msgid "Wind Early"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:97
+msgid "Wind Late"
+msgstr ""
+
+#: lib/Block/metar.php:79
+msgid "Wind speed in knots"
+msgstr ""
+
+#: lib/Block/metar.php:151
+msgid "Wind:"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:246
+#, fuzzy
+msgid "Wind: "
+msgstr "Внимание: "
+
+#: lib/Block/account.php:634
+msgid "Windows"
+msgstr ""
+
+#: admin/activesync.php:181 templates/prefs/activesync.html:28
+msgid "Wipe"
+msgstr ""
+
+#: admin/activesync.php:162 lib/Prefs/Ui.php:415
+msgid "Wipe is pending"
+msgstr ""
+
+#: lib/Block/fortune.php:71
+msgid "Wisdom"
+msgstr ""
+
+#: lib/Block/fortune.php:72
+msgid "Work"
+msgstr ""
+
+#: config/registry.php.dist:275
+msgid "X-Ref"
+msgstr ""
+
+#: templates/data/date.inc:47 templates/data/date.inc:48
+#: templates/data/date.inc:49 templates/data/date.inc:50
+#: templates/data/datetime.inc:89 templates/data/datetime.inc:90
+#: templates/data/datetime.inc:91 templates/data/datetime.inc:92
 msgid "YY"
 msgstr "ГГ"
 
-msgid "Yearly"
-msgstr "Годишно"
+#: templates/logintasks/logintasks.html:34
+msgid "Yes, I Agree"
+msgstr ""
 
-msgid "Yes"
-msgstr "Да"
+#: services/facebook.php:110 services/facebook.php:169
+#, php-format
+msgid "You and %d other person likes this"
+msgid_plural "You and %d other people like this"
+msgstr[0] ""
+msgstr[1] ""
 
-msgid "You did not enter a valid email address."
-msgstr "Не въведохте валиден email адрес."
+#: lib/Api.php:301
+msgid "You are not allowed to add groups."
+msgstr ""
 
+#: lib/Api.php:476
+msgid "You are not allowed to add shares."
+msgstr ""
+
+#: lib/Api.php:350 lib/Api.php:373 lib/Api.php:399 lib/Api.php:422
+msgid "You are not allowed to change groups."
+msgstr ""
+
+#: lib/Api.php:561 lib/Api.php:598 lib/Api.php:640 lib/Api.php:667
+msgid "You are not allowed to change shares."
+msgstr ""
+
+#: lib/Api.php:327
+msgid "You are not allowed to delete groups."
+msgstr ""
+
+#: lib/Api.php:505
+msgid "You are not allowed to delete shares."
+msgstr ""
+
+#: lib/Api.php:820
+msgid "You are not allowed to list groups of shares."
+msgstr ""
+
+#: lib/Api.php:702 lib/Api.php:744
+msgid "You are not allowed to list share permissions."
+msgstr ""
+
+#: lib/Api.php:532
+msgid "You are not allowed to list shares."
+msgstr ""
+
+#: lib/Api.php:448
+msgid "You are not allowed to list users of groups."
+msgstr ""
+
+#: lib/Api.php:786
+msgid "You are not allowed to list users of shares."
+msgstr ""
+
+#: lib/Api.php:216
+msgid "You are not allowed to remove user data."
+msgstr ""
+
+#: lib/Block/fb_stream.php:159 lib/Block/fb_stream.php:184
+#: services/facebook.php:55 services/facebook.php:72
+#, php-format
+msgid "You can also check your Facebook settings in your %s."
+msgstr ""
+
+#: lib/LoginTasks/Task/TosAgreement.php:54
+msgid ""
+"You did not agree to the Terms of Service agreement, so you were not allowed "
+"to login."
+msgstr ""
+
+#: login.php:278
+#, fuzzy
+msgid "You have been logged out."
+msgstr "Вашите конфигурационни опции бяха обновени."
+
+#: lib/Block/fb_stream.php:124
+#, php-format
+msgid ""
+"You have not properly connected your Facebook account with Horde. You should "
+"check your Facebook settings in your %s."
+msgstr ""
+
+#: lib/Block/twitter_timeline.php:182
+#, php-format
+msgid ""
+"You have not properly connected your Twitter account with Horde. You should "
+"check your Twitter settings in your %s."
+msgstr ""
+
+#: services/facebook.php:112 services/facebook.php:163
+#: services/facebook.php:171
+msgid "You like this"
+msgstr ""
+
+#: templates/problem/problem.inc:11
+msgid "You must describe the problem before you can send the problem report."
+msgstr ""
+
+#: lib/Prefs/Ui.php:679
+#, fuzzy
+msgid "You must select an server to be deleted."
+msgstr "Трябва да зададете потребител за изтриване."
+
+#: admin/user.php:134
+#, fuzzy
+msgid "You must specify a username to clear out."
+msgstr "Трябва да зададете потребител за изтриване."
+
+#: admin/user.php:114
 msgid "You must specify a username to remove."
 msgstr "Трябва да зададете потребител за изтриване."
 
+#: admin/user.php:70
 msgid "You must specify the username to add."
 msgstr "Трябва да зададете потребител за добавяне."
 
+#: admin/user.php:164
 msgid "You must specify the username to update."
 msgstr "Трябва да зададете потребител за опресняване."
 
-msgid "Your Email Address:"
+#: templates/problem/problem.inc:34
+#, fuzzy
+msgid "Your Email Address"
 msgstr "Вашия Email адрес:"
 
+#: config/prefs.php.dist:212 config/prefs.php.dist:275
+#: config/prefs.php.dist:312 config/prefs.php.dist:439
 msgid "Your Information"
 msgstr "Информация за Вас"
 
-msgid "Your Name:"
+#: login.php:270
+msgid ""
+"Your Internet Address has changed since the beginning of your session. To "
+"protect your security, you must login again."
+msgstr ""
+
+#: templates/problem/problem.inc:30
+#, fuzzy
+msgid "Your Name"
 msgstr "Вашето име:"
 
+#: templates/admin/user/noadd.inc:5
+#, fuzzy
 msgid ""
-"Your authentication backend does not support adding users, or the feature "
-"has been disabled for some other reason."
+"Your authentication backend does not support adding users. If you wish to "
+"use Horde to administer user accounts, you must use a different "
+"authentication backend."
 msgstr ""
 "Вашият идентификационен драйвер не поддържа добавяне на потребители, или "
 "тази възможност е забранена."
 
+#: templates/admin/user/nolist.inc:5
 msgid ""
 "Your authentication backend does not support listing users, or the feature "
 "has been disabled for some other reason."
@@ -1776,40 +4060,169 @@ msgstr ""
 "Вашият идентификационен драйвер не поддържа списък на потребителите, или "
 "тази възможност е забранена."
 
-msgid "Your options have been updated."
+#: login.php:274
+msgid ""
+"Your browser appears to have changed since the beginning of your session. To "
+"protect your security, you must login again."
+msgstr ""
+
+#: lib/Block/iframe.php:58
+msgid "Your browser does not support this feature."
+msgstr ""
+
+#: config/prefs.php.dist:337
+msgid "Your current time zone:"
+msgstr ""
+
+#: config/prefs.php.dist:236
+#, fuzzy
+msgid "Your full name:"
+msgstr "Вашето име:"
+
+#: login.php:290
+#, fuzzy
+msgid "Your login has expired."
 msgstr "Вашите конфигурационни опции бяха обновени."
 
+#: services/resetpassword.php:74
+#, php-format
+msgid "Your new password for %s is: %s"
+msgstr ""
+
+#: services/resetpassword.php:73
+msgid "Your password has been reset"
+msgstr ""
+
+#: services/resetpassword.php:87
+msgid ""
+"Your password has been reset, but couldn't be sent to you. Please contact "
+"the administrator."
+msgstr ""
+
+#: services/resetpassword.php:82
+msgid ""
+"Your password has been reset, check your email and log in with your new "
+"password."
+msgstr ""
+
+#: lib/Block/account.php:689 lib/Block/account.php:704
+msgid "Your password has expired"
+msgstr ""
+
+#: login.php:178
+msgid "Your password has expired."
+msgstr ""
+
+#: lib/Prefs/Ui.php:322
 msgid "Your remote servers:"
 msgstr "Вашите сървъри:"
 
-#, c-format
-msgid "[line %s of %s]"
-msgstr "[линия %s от %s]"
+#: login.php:266
+msgid "Your session has expired. Please login again."
+msgstr ""
 
-msgid "an error has occured:"
-msgstr "непреодолима грешка:"
+#: lib/Block/fortune.php:73
+msgid "Zippy"
+msgstr ""
 
-msgid "done"
-msgstr "Направено"
+#: services/problem.php:107
+msgid "[Problem Report]"
+msgstr ""
 
-msgid "failed"
+#: admin/sessions.php:39
+msgid "[Unknown]"
+msgstr ""
+
+#: lib/Api.php:47
+#, fuzzy
+msgid "_Alarms"
+msgstr "Псевдоним"
+
+#: lib/Api.php:72
+msgid "_CLI"
+msgstr ""
+
+#: lib/Api.php:27
+#, fuzzy
+msgid "_Configuration"
+msgstr "Конфигурация"
+
+#: lib/Api.php:52
+#, fuzzy
+msgid "_DataTree"
+msgstr "Данни"
+
+#: lib/Api.php:37
+#, fuzzy
+msgid "_Groups"
+msgstr "Групи"
+
+#: lib/Api.php:42
+#, fuzzy
+msgid "_Permissions"
+msgstr "Права"
+
+#: lib/Api.php:32
+#, fuzzy
+msgid "_Users"
+msgstr "Потребители"
+
+#: services/problem.php:56
+msgid "attachment"
+msgstr ""
+
+#: lib/Block/metar.php:167 lib/Block/metar.php:353
+#, php-format
+msgid "calm"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:102
+msgid "falling"
+msgstr ""
+
+#: lib/Block/metar.php:169 lib/Block/metar.php:355 lib/Block/metar.php:381
+#, php-format
+msgid "from the %s (%s) at %s %s"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:254
+msgid "gusting"
+msgstr ""
+
+#: admin/config/diff.php:51 admin/config/diff.php:63
+#, fuzzy
+msgid "inline"
+msgstr "Подчертани"
+
+#: lib/Block/fb_stream.php:124 lib/Block/fb_stream.php:159
+#: lib/Block/fb_stream.php:184 lib/Block/twitter_timeline.php:182
+#: services/facebook.php:55 services/facebook.php:72
+msgid "preferences"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:104
+#, fuzzy
+msgid "rising"
+msgstr "Внимание"
+
+#: admin/config/config.php:80
+msgid "show differences"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:103
+#, fuzzy
+msgid "steady"
+msgstr "Четене"
+
+#: admin/user.php:35 admin/user.php:49
+msgid "type the password twice to confirm"
+msgstr ""
+
+#: admin/config/diff.php:51 admin/config/diff.php:63
+#, fuzzy
+msgid "unified"
 msgstr "провалено"
 
-msgid "file"
-msgstr "файл"
-
-msgid "i18n"
-msgstr "i18n"
-
-msgid "not found"
-msgstr "не беше намерен"
-
-#, c-format
-msgid "the Horde PO file for the locale %s does not exist:"
-msgstr "Horde PO файл за локализация %s не съществува:"
-
-msgid "unnamed"
-msgstr "без име"
-
-msgid "vCard"
-msgstr "vCard"
+#: lib/Block/weatherdotcom.php:6
+msgid "weather.com"
+msgstr ""
