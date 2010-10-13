@@ -4,8 +4,6 @@
 
  - Document usage
 
- - Do the distribution runner.
-
  - Add module for generating component documentation.
 
  - Add module for an initial empty PEAR template
@@ -20,7 +18,5 @@
  - Maybe prefix the job names of packages from the framework with Horde_
 
  - Allow absolute/relative paths as arguments
-
- - Fail on missing dependencies in a decent way
 
  - WWW frontend

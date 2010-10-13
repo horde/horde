@@ -24,8 +24,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-10-12</date>
- <time>22:18:04</time>
+ <date>2010-10-13</date>
+ <time>23:49:33</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -41,6 +41,7 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="data">
+    <file name="distribute_package.spec" role="data" />
     <file name="hudson-component-build.xml.template" role="data" />
     <file name="hudson-component-config.xml.template" role="data" />
     <file name="hudson-component-phpunit.xml.template" role="data" />
@@ -54,9 +55,18 @@
      <dir name="Dependencies">
       <file name="Injector.php" role="php" />
      </dir> <!-- /lib/Components/Dependencies -->
+     <dir name="Helper">
+      <dir name="Tree">
+       <file name="Element.php" role="php" />
+      </dir> <!-- /lib/Components/Helper/Tree -->
+      <file name="InstallationRun.php" role="php" />
+      <file name="ListRun.php" role="php" />
+      <file name="Tree.php" role="php" />
+     </dir> <!-- /lib/Components/Helper -->
      <dir name="Module">
       <file name="Base.php" role="php" />
       <file name="CiSetup.php" role="php" />
+      <file name="Dependencies.php" role="php" />
       <file name="DevPackage.php" role="php" />
       <file name="Distribute.php" role="php" />
       <file name="Installer.php" role="php" />
@@ -70,6 +80,7 @@
      <dir name="Runner">
       <file name="CiPrebuild.php" role="php" />
       <file name="CiSetup.php" role="php" />
+      <file name="Dependencies.php" role="php" />
       <file name="Distribute.php" role="php" />
       <file name="Installer.php" role="php" />
       <file name="PearPackageXml.php" role="php" />
@@ -156,6 +167,8 @@
       <dir name="Components">
        <dir name="Module">
         <file name="CiSetupTest.php" role="test" />
+        <file name="DependenciesTest.php" role="test" />
+        <file name="DistributeTest.php" role="test" />
         <file name="InstallerTest.php" role="test" />
         <file name="PearPackageXmlTest.php" role="test" />
        </dir> <!-- /test/Components/Integration/Components/Module -->
@@ -218,6 +231,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="distribute_package.spec" name="data/distribute_package.spec" />
    <install as="hudson-component-build.xml.template" name="data/hudson-component-build.xml.template" />
    <install as="hudson-component-config.xml.template" name="data/hudson-component-config.xml.template" />
    <install as="hudson-component-phpunit.xml.template" name="data/hudson-component-phpunit.xml.template" />
@@ -233,8 +247,13 @@
    <install as="Components/Config/Application.php" name="lib/Components/Config/Application.php" />
    <install as="Components/Config/Cli.php" name="lib/Components/Config/Cli.php" />
    <install as="Components/Dependencies/Injector.php" name="lib/Components/Dependencies/Injector.php" />
+   <install as="Components/Helper/InstallationRun.php" name="lib/Components/Helper/InstallationRun.php" />
+   <install as="Components/Helper/ListRun.php" name="lib/Components/Helper/ListRun.php" />
+   <install as="Components/Helper/Tree.php" name="lib/Components/Helper/Tree.php" />
+   <install as="Components/Helper/Tree/Element.php" name="lib/Components/Helper/Tree/Element.php" />
    <install as="Components/Module/Base.php" name="lib/Components/Module/Base.php" />
    <install as="Components/Module/CiSetup.php" name="lib/Components/Module/CiSetup.php" />
+   <install as="Components/Module/Dependencies.php" name="lib/Components/Module/Dependencies.php" />
    <install as="Components/Module/DevPackage.php" name="lib/Components/Module/DevPackage.php" />
    <install as="Components/Module/Distribute.php" name="lib/Components/Module/Distribute.php" />
    <install as="Components/Module/Installer.php" name="lib/Components/Module/Installer.php" />
@@ -244,6 +263,7 @@
    <install as="Components/Pear/Package.php" name="lib/Components/Pear/Package.php" />
    <install as="Components/Runner/CiPrebuild.php" name="lib/Components/Runner/CiPrebuild.php" />
    <install as="Components/Runner/CiSetup.php" name="lib/Components/Runner/CiSetup.php" />
+   <install as="Components/Runner/Dependencies.php" name="lib/Components/Runner/Dependencies.php" />
    <install as="Components/Runner/Distribute.php" name="lib/Components/Runner/Distribute.php" />
    <install as="Components/Runner/Installer.php" name="lib/Components/Runner/Installer.php" />
    <install as="Components/Runner/PearPackageXml.php" name="lib/Components/Runner/PearPackageXml.php" />
@@ -274,6 +294,8 @@
    <install as="Components/fixture/templates/hudson-component-phpunit.xml.template" name="test/Components/fixture/templates/hudson-component-phpunit.xml.template" />
    <install as="Components/Integration/ComponentsTest.php" name="test/Components/Integration/ComponentsTest.php" />
    <install as="Components/Integration/Components/Module/CiSetupTest.php" name="test/Components/Integration/Components/Module/CiSetupTest.php" />
+   <install as="Components/Integration/Components/Module/DependenciesTest.php" name="test/Components/Integration/Components/Module/DependenciesTest.php" />
+   <install as="Components/Integration/Components/Module/DistributeTest.php" name="test/Components/Integration/Components/Module/DistributeTest.php" />
    <install as="Components/Integration/Components/Module/InstallerTest.php" name="test/Components/Integration/Components/Module/InstallerTest.php" />
    <install as="Components/Integration/Components/Module/PearPackageXmlTest.php" name="test/Components/Integration/Components/Module/PearPackageXmlTest.php" />
    <install as="Components/Stub/Cli.php" name="test/Components/Stub/Cli.php" />
@@ -290,7 +312,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-10-12</date>
+   <date>2010-10-13</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
 * Initial release

@@ -208,6 +208,14 @@ extends PHPUnit_Extensions_Story_TestCase
             );
             $world['output'] = $this->_callUnstrictComponents();
             break;
+        case 'calling the package with the distribute option and a path to a Horde framework component':
+            $_SERVER['argv'] = array(
+                'horde-components',
+                '--distribute=' . $this->_getTemporaryDirectory(),
+                dirname(__FILE__) . '/fixture/framework/Install'
+            );
+            $world['output'] = $this->_callUnstrictComponents();
+            break;
         default:
             return $this->notImplemented($action);
         }
@@ -404,6 +412,14 @@ extends PHPUnit_Extensions_Story_TestCase
             $this->assertContains(
                 'Dependency',
                 $world['output']
+            );
+            break;
+        case 'a package definition will be generated at the indicated location':
+            $this->assertTrue(
+                file_exists(
+                    $this->_temp_dir . DIRECTORY_SEPARATOR
+                    . 'package.spec'
+                )
             );
             break;
         default:

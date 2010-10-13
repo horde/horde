@@ -47,7 +47,7 @@ extends Components_Module_Base
      */
     public function getOptionGroupDescription()
     {
-        return 'This module prepares a distribution package (e.g. RPM, APT, Ebuild, ...) from a component.';
+        return 'This module prepares a distribution package (e.g. RPM, APT, Ebuild, ...) for a component.';
     }
 
     /**
@@ -63,7 +63,7 @@ extends Components_Module_Base
                 '--distribute',
                 array(
                     'action' => 'store',
-                    'help'   => 'Prepare the component package in the specified DISTRIBUTE location'
+                    'help'   => 'Prepare the package definition for the component in the specified DISTRIBUTE location'
                 )
             ),
         );
