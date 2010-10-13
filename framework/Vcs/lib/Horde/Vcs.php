@@ -543,7 +543,8 @@ class Horde_Vcs
     }
 
     /**
-     *
+     * @param Horde_Vcs_File $fl  The file obejct
+     * @param string $rev         The revision identifier
      */
     public function getLogObject($fl, $rev)
     {
@@ -1176,6 +1177,7 @@ abstract class Horde_Vcs_Log
      */
     public function queryRevision()
     {
+        $this->_ensureInitialized();
         return $this->_rev;
     }
 

@@ -638,7 +638,7 @@ class Horde_Vcs_Log_Cvs extends Horde_Vcs_Log
                      * push valid revisions into the branches array */
                     $brs = preg_split('/;\s*/', $br[1]);
                     foreach ($brs as $brpoint) {
-                        if ($rep->isValidRevision($brpoint)) {
+                        if ($this->_rep->isValidRevision($brpoint)) {
                             $this->_branches[] = $brpoint;
                         }
                     }
