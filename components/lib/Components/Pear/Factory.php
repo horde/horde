@@ -114,6 +114,26 @@ class Components_Pear_Factory
     }
 
     /**
+     * Create a tree helper for a specific PEAR environment..
+     *
+     * @param string $config_file The path to the configuration file.
+     * @param string $root_path   The basic root path for Horde packages.
+     * @param array  $options The application options
+     *
+     * @return Components_Helper_Tree The tree helper.
+     */
+    public function createTreeHelper($config_file, $root_path, array $options)
+    {
+        $environment = $this->_dependencies->createInstance('Components_Pear_InstallLocation');
+        $environment->setLocation(
+            dirname($config_file),
+            basename($config_file)
+        );
+        $environment->setResourceDirectories($options);
+        return new Components_Helper_Tree($this, $environment, $root_path);
+    }
+
+    /**
      * Return the PEAR Package representation.
      *
      * @param string                          $package_xml_path Path to the package.xml file.

@@ -177,7 +177,7 @@ extends PHPUnit_Extensions_Story_TestCase
                 'horde-components',
                 '--channelxmlpath=' . dirname(__FILE__) . '/fixture/channels',
                 '--sourcepath=' . dirname(__FILE__) . '/fixture/packages',
-                '--install=' . $this->_getTemporaryDirectory(),
+                '--install=' . $this->_getTemporaryDirectory() . DIRECTORY_SEPARATOR . '.pearrc',
                 dirname(__FILE__) . '/fixture/framework/Install'
             );
             $world['output'] = $this->_callUnstrictComponents();

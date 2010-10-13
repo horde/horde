@@ -63,7 +63,7 @@ extends Components_Module_Base
                 '--install',
                 array(
                     'action' => 'store',
-                    'help'   => 'Install the element into the specified absolute INSTALL location'
+                    'help'   => 'Install the element into the PEAR environment represented by this PEAR configuration file'
                 )
             ),
             new Horde_Argv_Option(
