@@ -101,37 +101,30 @@ class Components_Runner_Installer
                 . $dependency . DIRECTORY_SEPARATOR . 'package.xml';
         }
 
-        $parser = new PEAR_PackageFile_Parser_v2();
-        $parser->setConfig($environment->getPearConfig());
-        $pkg = $parser->parse(file_get_contents($package_file), $package_file);
-
-        $dependencies = $pkg->getDeps();
-        foreach ($dependencies as $dependency) {
-            if (isset($dependency['channel']) && $dependency['channel'] != 'pear.horde.org') {
-                $environment->provideChannel($dependency['channel']);
-                $key = $dependency['channel'] . '/' . $dependency['name'];
-                if (in_array($key, $this->_run)) {
-                    continue;
-                }
-                $environment->addPackageFromPackage(
-                    $dependency['channel'], $dependency['name']
-                );
-                $this->_run[] = $key;
-            } else if (isset($dependency['channel'])) {
-                $environment->provideChannel($dependency['channel']);
-                $key = $dependency['channel'] . '/' . $dependency['name'];
-                if (in_array($key, $this->_run)) {
-                    continue;
-                }
-                $this->_run[] = $key;
-                $this->_installHordeDependency($environment, $root_path, $dependency['name']);
+        $pkg = $this->_factory->createPackageForEnvironment($package_file, $environment);
+        $environment->provideChannels($pkg->listAllRequiredChannels());
+        foreach ($pkg->listAllExternalDependencies() as $dependency) {
+            $key = $dependency['channel'] . '/' . $dependency['name'];
+            if (in_array($key, $this->_run)) {
+                continue;
             }
+            $environment->addPackageFromPackage(
+                $dependency['channel'], $dependency['name']
+            );
+            $this->_run[] = $key;
+        }
+        foreach ($pkg->listAllHordeDependencies() as $dependency) {
+            $key = $dependency['channel'] . '/' . $dependency['name'];
+            if (in_array($key, $this->_run)) {
+                continue;
+            }
+            $this->_run[] = $key;
+            $this->_installHordeDependency($environment, $root_path, $dependency['name']);
         }
         if (in_array($package_file, $this->_run)) {
             return;
         }
 
-        $environment->provideChannel($pkg->getChannel());
         $environment->addPackageFromSource(
             $package_file
         );

@@ -336,4 +336,54 @@ class Components_Pear_Package
         $this->_getUpdatedPackageFile()->writePackageFile();
         $this->_output->ok('Successfully updated ' . $this->_package_xml_path);
     }    
+
+    /**
+     * Return all channels required for this package and its dependencies.
+     *
+     * @return array The list of channels.
+     */
+    public function listAllRequiredChannels()
+    {
+        $dependencies = array();
+        foreach ($this->_getPackageFile()->getDeps() as $dependency) {
+            if (isset($dependency['channel'])) {
+                $dependencies[] = $dependency['channel'];
+            }
+        }
+        $dependencies[] = $this->_getPackageFile()->getChannel();
+        return array_unique($dependencies);
+    }    
+
+    /**
+     * Return all channels required for this package and its dependencies.
+     *
+     * @return array The list of channels.
+     */
+    public function listAllExternalDependencies()
+    {
+        $dependencies = array();
+        foreach ($this->_getPackageFile()->getDeps() as $dependency) {
+            if (isset($dependency['channel']) && $dependency['channel'] != 'pear.horde.org') {
+                $dependencies[] = $dependency;
+            }
+        }
+        return $dependencies;
+    }    
+
+    /**
+     * Return all channels required for this package and its dependencies.
+     *
+     * @return array The list of channels.
+     */
+    public function listAllHordeDependencies()
+    {
+        $dependencies = array();
+        foreach ($this->_getPackageFile()->getDeps() as $dependency) {
+            if (isset($dependency['channel']) && $dependency['channel'] == 'pear.horde.org') {
+                $dependencies[] = $dependency;
+            }
+        }
+        return $dependencies;
+    }    
+
 }

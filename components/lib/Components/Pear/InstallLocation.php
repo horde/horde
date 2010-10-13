@@ -275,6 +275,20 @@ class Components_Pear_InstallLocation
         }
     }
 
+    /**
+     * Ensure the specified channels exists within the install location.
+     *
+     * @param array $channels The list of channels.
+     *
+     * @return NULL
+     */
+    public function provideChannels(array $channels)
+    {
+        foreach ($channels as $channel) {
+            $this->provideChannel($channel);
+        }
+    }
+
     private function getInstallationHandler()
     {
         $installer = new PEAR_Command_Install(

@@ -53,12 +53,31 @@ class Components_Pear_Factory
      */
     public function createInstallLocation($config_file)
     {
-        $install_location = $this->_dependencies->getInstance('Components_Pear_InstallLocation');
+        $install_location = $this->_dependencies->createInstance('Components_Pear_InstallLocation');
         $install_location->setLocation(
             dirname($config_file),
             basename($config_file)
         );
         return $install_location;
+    }
+
+    /**
+     * Create a package representation for a specific PEAR environment.
+     *
+     * @param string                          $package_file The path of the package XML file.
+     * @param Components_Pear_InstallLocation $environment  The PEAR environment.
+     *
+     * @return NULL
+     */
+    public function createPackageForEnvironment(
+        $package_file,
+        Components_Pear_InstallLocation $environment
+    ) {
+        $package = $this->_dependencies->createInstance('Components_Pear_Package');
+        $package->setFactory($this);
+        $package->setEnvironment($environment);
+        $package->setPackageXml($package_file);
+        return $package;
     }
 
     /**
@@ -71,7 +90,7 @@ class Components_Pear_Factory
      */
     public function createPackageForInstallLocation($package_file, $config_file)
     {
-        $package = $this->_dependencies->getInstance('Components_Pear_Package');
+        $package = $this->_dependencies->createInstance('Components_Pear_Package');
         $package->setFactory($this);
         $package->setEnvironment($this->createInstallLocation($config_file));
         $package->setPackageXml($package_file);
@@ -87,7 +106,7 @@ class Components_Pear_Factory
      */
     public function createPackageForDefaultLocation($package_file)
     {
-        $package = $this->_dependencies->getInstance('Components_Pear_Package');
+        $package = $this->_dependencies->createInstance('Components_Pear_Package');
         $package->setFactory($this);
         $package->setEnvironment($this->_dependencies->getInstance('Components_Pear_InstallLocation'));
         $package->setPackageXml($package_file);
