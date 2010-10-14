@@ -333,13 +333,13 @@ class Horde_Session implements ArrayAccess
          * given page load.  Thus, for arrays ans objects, it is beneficial to
          * always convert to string representations so that the object/array
          * does not need to be rebuilt every time the session is reloaded. */
-        if (is_object($value)) {
+        if (is_object($value) || ($ob->type == 'object')) {
             $value = serialize($value);
             if ($this->_lzf) {
                 $value = lzf_compress($value);
             }
             $_SESSION[self::SERIALIZED][$ob->key] = 's';
-        } elseif (is_array($value)) {
+        } elseif (is_array($value) || ($ob->type == 'array')) {
             $value = json_encode($value);
             if ($this->_lzf) {
                 $value = lzf_compress($value);

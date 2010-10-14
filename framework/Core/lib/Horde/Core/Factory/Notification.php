@@ -7,7 +7,9 @@ class Horde_Core_Factory_Notification
 {
     public function create(Horde_Injector $injector)
     {
-        $notify = Horde_Notification::singleton();
+        $notify = new Horde_Notification_Handler(
+            new Horde_Core_Notification_Storage_Session()
+        );
 
         $notify->addType('default', '*', 'Horde_Core_Notification_Status');
         $notify->addType('status', 'horde.*', 'Horde_Core_Notification_Status');
