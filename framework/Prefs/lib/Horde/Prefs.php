@@ -109,9 +109,10 @@ class Horde_Prefs implements ArrayAccess
     /**
      * Attempts to return a concrete instance based on $driver.
      *
-     * @param mixed $driver  The type of concrete subclass to return.
-     * @param string $scope  The scope for this set of preferences.
-     * @param array $opts    Additional confguration options:
+     * @param string $driver  Either a driver name, or the full class name to
+     *                        use (class must extend Horde_Auth_Base).
+     * @param string $scope   The scope for this set of preferences.
+     * @param array $opts     Additional confguration options:
      * <pre>
      * REQUIRED:
      * ---------
@@ -132,8 +133,8 @@ class Horde_Prefs implements ArrayAccess
      * user - (string) The name of the user who owns this set of preferences.
      *        DEFAULT: NONE
      * </pre>
-     * @param array $params  A hash containing any additional configuration
-     *                       or connection parameters a subclass might need.
+     * @param array $params   A hash containing any additional configuration
+     *                        or connection parameters a subclass might need.
      *
      * @return Horde_Prefs  The newly created concrete instance.
      * @throws Horde_Prefs_Exception
@@ -141,11 +142,14 @@ class Horde_Prefs implements ArrayAccess
     static public function factory($driver, $scope, array $opts = array(),
                                    array $params = array())
     {
-        $driver = ucfirst(basename($driver));
+        /* Base drivers (in Auth/ directory). */
         $class = __CLASS__ . '_' . $driver;
-
         if (!class_exists($class)) {
-            throw new Horde_Prefs_Exception(__CLASS__ . ': class definition not found - ' . $class);
+            /* Explicit class name, */
+            $class = $driver;
+            if (!class_exists($class)) {
+                throw new Horde_Prefs_Exception(__CLASS__ . ': class definition not found - ' . $class);
+            }
         }
 
         $prefs = new $class($scope, $opts, $params);
