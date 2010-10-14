@@ -105,6 +105,20 @@ class Horde_Session implements ArrayAccess
                 /* Is this key serialized? */
                 $_SESSION[self::SERIALIZED] = array();
             }
+
+            /* Determine if we need to force write the session to avoid a
+             * session timeout, even though the session is unchanged.
+             * Theory: On initial login, set the current time plus half of the
+             * max lifetime in the session.  Then check this timestamp before
+             * saving. If we exceed, force a write of the session and set a
+             * new timestamp. Why half the maxlifetime?  It guarantees that if
+             * we are accessing the server via a periodic mechanism (think
+             * folder refreshing in IMP) that we will catch this refresh. */
+            $curr_time = time();
+            if ($curr_time >= intval($this['horde:session_mod'])) {
+                $this['horde:session_mod'] = $curr_time + (ini_get('session.gc_maxlifetime') / 2);
+                $this->sessionHandler->changed = true;
+            }
         }
     }
 
@@ -334,6 +348,7 @@ class Horde_Session implements ArrayAccess
         }
 
         $_SESSION[$ob->app][$ob->name] = $value;
+        $this->sessionHandler->changed = true;
     }
 
     /**

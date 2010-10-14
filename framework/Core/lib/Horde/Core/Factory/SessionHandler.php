@@ -69,10 +69,9 @@ class Horde_Core_Factory_SessionHandler
         }
 
         $params['logger'] = $logger;
-        $params['modified'] = array(
-            'get' => array($this, 'getModified'),
-            'set' => array($this, 'setModified')
-        );
+        // TODO: Uncomment once all session data is saved through
+        //  Horde_Session.
+        //$params['no_md5'] = true
         $params['parse'] = array($this, 'readSessionData');
 
         $driver = basename(strtolower($driver));
@@ -123,20 +122,6 @@ class Horde_Core_Factory_SessionHandler
         }
 
         return false;
-    }
-
-    /**
-     */
-    public function getModified()
-    {
-        return $GLOBALS['session']['horde:session_mod'];
-    }
-
-    /**
-     */
-    public function setModified($date)
-    {
-        $GLOBALS['session']['horde:session_mod'] = $date;
     }
 
 }

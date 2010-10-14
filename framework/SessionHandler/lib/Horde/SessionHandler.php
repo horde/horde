@@ -1,7 +1,6 @@
 <?php
 /**
- * Horde_SessionHandler_Base is the abstract class that all drivers inherit
- * from.
+ * This is the abstract class that all drivers inherit from.
  *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
@@ -10,30 +9,17 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  SessionHandler
  */
 abstract class Horde_SessionHandler
 {
     /**
-     * Hash containing connection parameters.
-     *
-     * @var array
-     */
-    protected $_params = array();
-
-    /**
-     * Initial session data signature.
-     *
-     * @var string
-     */
-    protected $_sig;
-
-    /**
-     * Force saving the session data?
+     * If true, indicates the session data has changed.
      *
      * @var boolean
      */
-    protected $_force = false;
+    public $changed = false;
 
     /**
      * Has a connection been made to the backend?
@@ -50,24 +36,38 @@ abstract class Horde_SessionHandler
     protected $_logger;
 
     /**
+     * Hash containing connection parameters.
+     *
+     * @var array
+     */
+    protected $_params = array();
+
+    /**
+     * Initial session data signature.
+     *
+     * @var string
+     */
+    protected $_sig;
+
+    /**
      * Constructor.
      *
      * @param array $params  Parameters:
      * <pre>
-     * 'logger' - (Horde_Log_Logger) A logger instance.
-     *            DEFAULT: No logging
-     * 'modified' - (array) Callbacks used to store the session last modified
-     *              value.  Needs to define two keys: 'get' and 'set'. 'get'
-     *              returns the last modified value, 'set' receives the last
-     *              modified value as the only parameter.
-     *              DEFAULT: Not saved
-     * 'noset' - (boolean) If true, don't set the save handler.
-     *           DEFAULT: false
-     * 'parse' - (callback) A callback function that parses session
-     *           information into an array. Is passed the raw session data
-     *           as the only argument; expects either false or an array of
-     *           session data as a return.
-     *           DEFAULT: No
+     * logger - (Horde_Log_Logger) A logger instance.
+     *          DEFAULT: No logging
+     * no_md5 - (boolean) If true, does not do MD5 signatures of the session
+     *          to determine if the session has changed. If true, calling code
+     *          is responsible for marking $changed as true when the session
+     *          data has changed.
+     *          DEFAULT: false
+     * noset - (boolean) If true, don't set the save handler.
+     *         DEFAULT: false
+     * parse - (callback) A callback function that parses session
+     *         information into an array. Is passed the raw session data
+     *         as the only argument; expects either false or an array of
+     *         session data as a return.
+     *         DEFAULT: No
      * </pre>
      */
     public function __construct(array $params = array())
@@ -80,10 +80,6 @@ abstract class Horde_SessionHandler
         }
 
         $this->_params = $params;
-
-        if (isset($this->_params['modified'])) {
-            register_shutdown_function(array($this, 'shutdown'));
-        }
 
         if (empty($this->_params['noset'])) {
             ini_set('session.save_handler', 'user');
@@ -107,27 +103,6 @@ abstract class Horde_SessionHandler
          * when the write() handler is called at the end of a session
          * access. */
         session_write_close();
-    }
-
-    /**
-     * Shutdown function.
-     *
-     * Used to determine if we need to write the session to avoid a session
-     * timeout, even though the session is unchanged.
-     * Theory: On initial login, set the current time plus half of the max
-     * lifetime in the session.  Then check this timestamp before saving.
-     * If we exceed, force a write of the session and set a new timestamp.
-     * Why half the maxlifetime?  It guarantees that if we are accessing the
-     * server via a periodic mechanism (think folder refreshing in IMP) that
-     * we will catch this refresh.
-     */
-    public function shutdown()
-    {
-        $curr_time = time();
-        if ($curr_time >= intval(call_user_func($this->_params['modified']['get']))) {
-            call_user_func($this->_params['modified']['set'], $curr_time + (ini_get('session.gc_maxlifetime') / 2));
-            $this->_force = true;
-        }
     }
 
     /**
@@ -205,7 +180,9 @@ abstract class Horde_SessionHandler
     public function read($id)
     {
         $result = $this->_read($id);
-        $this->_sig = md5($result);
+        if (empty($this->_params['no_md5'])) {
+            $this->_sig = md5($result);
+        }
         return $result;
     }
 
@@ -230,14 +207,17 @@ abstract class Horde_SessionHandler
      */
     public function write($id, $session_data)
     {
-        if (!$this->_force && ($this->_sig == md5($session_data))) {
-            if ($this->_logger) {
-                $this->_logger->log('Session data unchanged (id = ' . $id . ')', 'DEBUG');
-            }
-            return true;
+        if ($this->changed ||
+            (empty($this->_params['no_md5']) &&
+             ($this->_sig != md5($session_data)))) {
+            return $this->_write($id, $session_data);
         }
 
-        return $this->_write($id, $session_data);
+        if ($this->_logger) {
+            $this->_logger->log('Session data unchanged (id = ' . $id . ')', 'DEBUG');
+        }
+
+        return true;
     }
 
     /**
