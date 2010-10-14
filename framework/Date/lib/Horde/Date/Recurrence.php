@@ -945,7 +945,7 @@ class Horde_Date_Recurrence
                $remainder = substr($remainder, 1);
         }
         if (!empty($remainder)) {
-            if (strpos($remainder, '#') !== false) {
+            if (strpos($remainder, '#') === 0) {
                 $this->setRecurCount(substr($remainder, 1));
             } else {
                 list($year, $month, $mday) = sscanf($remainder, '%04d%02d%02d');
