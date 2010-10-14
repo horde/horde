@@ -87,13 +87,30 @@ class Horde_Core_Factory_Tree
             }
 
             if (empty($params['nosession'])) {
-                $params['session'] = 'horde_tree';
+                $params['session'] = array(
+                    'get' => array($this, 'getSession'),
+                    'set' => array($this, 'setSession')
+                );
             }
 
             $this->_instances[$id] = Horde_Tree::factory($name, $renderer, $params);
         }
 
         return $this->_instances[$id];
+    }
+
+    /**
+     */
+    public function getSession($instance, $id)
+    {
+        return $GLOBALS['session']['horde:tree-' . $instance . '/' . $id];
+    }
+
+    /**
+     */
+    public function setSession($instance, $id, $val)
+    {
+        $GLOBALS['session']['horde:tree-' . $instance . '/' . $id] = $val;
     }
 
 }

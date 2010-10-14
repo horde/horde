@@ -95,8 +95,10 @@ abstract class Horde_Tree_Base implements Countable
      * @param string $name   The name of this tree instance.
      * @param array $params  Additional parameters.
      * <pre>
-     * session - (string) The name of the session array key to store data.
-     *           If this is an empty string, session storage will be disabled.
+     * session - (array) Callbacks used to store session data. Must define
+     *           two keys: 'get' and 'set'. Function definitions:
+     *           (string) = get([string - Instance], [string - ID]);
+     *           set([string - Instance], [string - ID], [boolean - value]);
      *           DEFAULT: No session storage
      * </pre>
      */
@@ -104,11 +106,6 @@ abstract class Horde_Tree_Base implements Countable
     {
         $this->_instance = $name;
         $this->setOption($params);
-
-        if (($sess = $this->getOption('session')) &&
-            !isset($_SESSION[$sess][$this->_instance])) {
-            $_SESSION[$sess][$this->_instance] = array();
-        }
     }
 
     /**
@@ -198,20 +195,20 @@ abstract class Horde_Tree_Base implements Countable
     {
         $nodeid = $this->_nodeId($id);
 
-        if (($session = $this->getOption('session'))) {
-            $sess = &$_SESSION[$session][$this->_instance];
+        if ($session = $this->getOption('session')) {
             $toggle_id = Horde_Util::getFormData(Horde_Tree::TOGGLE . $this->_instance);
 
             if ($nodeid == $toggle_id) {
                 /* We have a URL toggle request for this node. */
-                $expanded = $sess['expanded'][$nodeid] = isset($sess['expanded'][$id])
+                $expanded = (call_user_func($session['get'], $this->_instance, $id) !== null)
                     /* Use session state if it is set. */
-                    ? (!$sess['expanded'][$nodeid])
+                    ? !call_user_func($session['get'], $this->_instance, $nodeid)
                     /* Otherwise use what was passed through the function. */
-                    : (!$expanded);
-            } elseif (isset($sess['expanded'][$nodeid])) {
+                    : !$expanded;
+                call_user_func($session['set'], $this->_instance, $nodeid, $expanded);
+            } elseif (($exp_get = call_user_func($session['get'], $this->_instance, $nodeid)) !== null) {
                 /* If we have a saved session state use it. */
-                $expanded = $sess['expanded'][$nodeid];
+                $expanded = $exp_get;
             }
         }
 
