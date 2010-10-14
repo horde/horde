@@ -30,7 +30,7 @@ function _uploadFTP($params)
 
     /* Loop through the config and write to FTP. */
     $no_errors = true;
-    foreach ($_SESSION['_config'] as $app => $config) {
+    foreach ($session['horde:config/'] as $app => $config) {
         $path = $registry->get('fileroot', $app) . '/config';
         /* Try to back up the current conf.php. */
         if ($vfs->exists($path, 'conf.php')) {
@@ -45,7 +45,7 @@ function _uploadFTP($params)
         try {
             $vfs->writeData($path, 'conf.php', $config);
             $notification->push(sprintf(_("Successfully wrote %s"), Horde_Util::realPath($path . '/conf.php')), 'horde.success');
-            unset($_SESSION['_config'][$app]);
+            unset($session['horde:config/' . $app]);
         } catch (VFS_Exception $e) {
             $no_errors = false;
             $notification->push(sprintf(_("Could not write configuration for \"%s\": %s"), $app, $e->getMessage()), 'horde.error');
@@ -168,7 +168,7 @@ Horde_Array::arraySort($apps, 'sort');
 /* Set up any actions that may be offered. */
 $actions = array();
 $ftpform = '';
-if (!empty($_SESSION['_config'])) {
+if ($session['horde:config/']) {
     $url = Horde::url('admin/config/diff.php');
     $action = _("Show differences between currently saved and the newly generated configuration.");
     $actions[] = array('icon' => Horde::img('search.png', '', 'align="middle"'),
