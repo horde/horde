@@ -601,6 +601,18 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(4, $r->getRecurCount());
     }
 
+    public function testParseWeeklyWithBrokenRule()
+    {
+        // Outlook (or the Funambol connector) create such rules with both,
+        // date limit and count limit.
+        $r = new Horde_Date_Recurrence('2010-10-13 08:00:00');
+        $r->fromRRule10('W1 WE 20101103T080000 #4');
+        $this->assertEquals(Horde_Date_Recurrence::RECUR_WEEKLY, $r->getRecurType());
+        $this->assertEquals(1, $r->getRecurInterval());
+        $this->assertEquals(Horde_Date::MASK_WEDNESDAY, $r->getRecurOnDays());
+        $this->assertEquals('2010-11-03 00:00:00', (string)$r->recurEnd);
+    }
+
     public function testParseMonthlyDate()
     {
         $r = new Horde_Date_Recurrence('2007-03-01 10:00:00');
