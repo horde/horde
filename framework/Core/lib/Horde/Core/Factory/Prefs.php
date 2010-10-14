@@ -75,7 +75,7 @@ class Horde_Core_Factory_Prefs
     {
         if (empty($GLOBALS['conf']['prefs']['driver']) ||
             !empty($opts['session'])) {
-            $driver = 'Session';
+            $driver = 'Horde_Core_Prefs_Session';
             $params = array();
             unset($opts['session']);
         } else {
@@ -125,7 +125,7 @@ class Horde_Core_Factory_Prefs
                         $GLOBALS['notification']->push($this->_coreDict("The preferences backend is currently unavailable and your preferences have not been loaded. You may continue to use the system with default preferences."));
                     }
                 }
-                $this->_instances[$sig] = Horde_Prefs::factory('Session', $scope);
+                $this->_instances[$sig] = Horde_Prefs::factory('Horde_Core_Prefs_Session', $scope);
             }
         }
 
