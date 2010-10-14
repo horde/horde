@@ -122,7 +122,7 @@ class Horde_Core_Factory_Prefs
                 if (!$GLOBALS['session']['horde:no_prefs']) {
                     $GLOBALS['session']['horde:no_prefs'] = true;
                     if (isset($GLOBALS['notification'])) {
-                        $GLOBALS['notification']->push($this->_coreDict("The preferences backend is currently unavailable and your preferences have not been loaded. You may continue to use the system with default preferences."));
+                        $GLOBALS['notification']->push($this->_coreDict->t("The preferences backend is currently unavailable and your preferences have not been loaded. You may continue to use the system with default preferences."));
                     }
                 }
                 $this->_instances[$sig] = Horde_Prefs::factory('Horde_Core_Prefs_Session', $scope);
@@ -154,7 +154,7 @@ class Horde_Core_Factory_Prefs
             return false;
         }
 
-        $GLOBALS['notification']->push(sprintf($this->_coreDict("The preference \"%s\" could not be saved because its data exceeds the maximum allowable size"), $pref), 'horde.error');
+        $GLOBALS['notification']->push(sprintf($this->_coreDict->t("The preference \"%s\" could not be saved because its data exceeds the maximum allowable size"), $pref), 'horde.error');
         return true;
     }
 
