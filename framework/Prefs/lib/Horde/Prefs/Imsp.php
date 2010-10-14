@@ -77,6 +77,8 @@ class Horde_Prefs_Imsp extends Horde_Prefs_Base
         $this->_connect();
 
         foreach ($dirty_prefs as $scope => $prefs) {
+            $updated = array();
+
             foreach ($prefs as $name => $pref) {
                 // Don't store locked preferences.
                 if ($this->_scopes[$scope][$name]['m'] & self::LOCKED) {
@@ -98,10 +100,12 @@ class Horde_Prefs_Imsp extends Horde_Prefs_Base
 
                 // Clean the pref since it was just saved.
                 $this->_scopes[$scope][$name]['m'] &= ~self::DIRTY;
+
+                $updated[$name] = $this->_scopes[$scope][$name];
             }
 
             // Update the cache for this scope.
-            $this->_cacheUpdate($scope, array_keys($prefs));
+            $this->_cache->update($scope, $updated);
         }
     }
 

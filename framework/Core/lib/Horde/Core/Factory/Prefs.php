@@ -84,7 +84,7 @@ class Horde_Core_Factory_Prefs
         }
 
         $opts = array_merge(array(
-            'cache' => true,
+            'cache' => 'Horde_Prefs_Cache_Session',
             'charset' => 'UTF-8',
             'logger' => $this->_injector->getInstance('Horde_Log_Logger'),
             'password' => '',

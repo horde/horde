@@ -77,7 +77,7 @@ class Horde_Prefs implements ArrayAccess
      * @var array
      */
     protected $_opts = array(
-        'cache' => false,
+        'cache' => 'Horde_Prefs_Cache_Null',
         'logger' => null,
         'password' => '',
         'sizecallback' => null,
@@ -85,12 +85,11 @@ class Horde_Prefs implements ArrayAccess
     );
 
     /**
-     * Array to cache in. Usually a reference to an array in $_SESSION, but
-     * could be overridden by a subclass for testing or other users.
+     * Caching object.
      *
-     * @var array
+     * @var Horde_Prefs_Cache
      */
-    protected $_cache = array();
+    protected $_cache;
 
     /**
      * Hash holding preferences with hook functions defined.
@@ -119,8 +118,8 @@ class Horde_Prefs implements ArrayAccess
      * charset - (string) Default charset.
      * OPTIONAL:
      * ---------
-     * cache - (boolean) Should caching be used?
-     *         DEFAULT: false
+     * cache - (string) The class name defining the cache driver to use.
+     *         DEFAULT: Caching is not used
      * logger - (Horde_Log_Logger) Logging object.
      *          DEFAULT: NONE
      * password - (string) The password associated with 'user'.
@@ -180,19 +179,10 @@ class Horde_Prefs implements ArrayAccess
         $this->_params = $params;
         $this->_scope = $scope;
 
+        $this->_cache = new $this->_opts['cache']($this->getUser());
         $this->_dict = isset($this->_opts['translation'])
             ? $this->_opts['translation']
             : new Horde_Translation_Gettext('Horde_Prefs', dirname(__FILE__) . '/../../locale');
-
-        // Create a unique key that's safe to use for caching even if we want
-        // another user's preferences later, then register the cache array in
-        // $_SESSION.
-        if ($this->_opts['cache']) {
-            $cacheKey = 'horde_prefs_' . $this->getUser();
-
-            // Store a reference to the $_SESSION array.
-            $this->_cache = &$_SESSION[$cacheKey];
-        }
 
         register_shutdown_function(array($this, 'store'));
     }
@@ -244,10 +234,10 @@ class Horde_Prefs implements ArrayAccess
      */
     public function remove($pref)
     {
-        // FIXME not updated yet.
+        // FIXME not updated yet - not removed from backend.
         $scope = $this->_getPreferenceScope($pref);
         unset($this->_prefs[$pref]);
-        unset($this->_cache[$scope][$pref]);
+        $this->_cache->clear($scope, $pref);
     }
 
     /**
@@ -275,7 +265,9 @@ class Horde_Prefs implements ArrayAccess
 
         if ($result && $this->isDirty($pref)) {
             $scope = $this->_getPreferenceScope($pref);
-            $this->_cacheUpdate($scope, array($pref));
+            $this->_cache->update($scope, array(
+                $pref => $this->_scopes[$scope][$pref]
+            ));
 
             /* If this preference has a change hook, call it now. */
             try {
@@ -586,15 +578,16 @@ class Horde_Prefs implements ArrayAccess
         $this->_setDefaults($scope);
 
         // Now check the prefs cache for existing values.
-        if ($this->_cacheLookup($scope)) {
+        if (($cached = $this->_cache->get($scope)) !== false) {
+            $this->_scopes[$scope] = $cached;
             return;
         }
 
         $this->_retrieve($scope);
         $this->_callHooks($scope);
 
-        /* Update the session cache. */
-        $this->_cacheUpdate($scope, array_keys($this->_scopes[$scope]));
+        /* Update the cache. */
+        $this->_cache->update($scope, $this->_scopes[$scope]);
     }
 
     /**
@@ -631,10 +624,10 @@ class Horde_Prefs implements ArrayAccess
             $this->_prefs = array();
 
             /* Destroy the contents of the preferences cache. */
-            unset($this->_cache);
+            $this->_cache->clear();
         } else {
-            /* Remove this scope from the preferences cache, if it exists. */
-            unset($this->_cache[$this->getScope()]);
+            /* Remove this scope from the preferences cache. */
+            $this->_cache->clear($this->getScope());
         }
     }
 
@@ -694,41 +687,6 @@ class Horde_Prefs implements ArrayAccess
         }
 
         return $dirty_prefs;
-    }
-
-    /**
-     * Updates the session-based preferences cache (if available).
-     *
-     * @param string $scope  The scope of the prefs being updated.
-     * @param array $prefs   The preferences to update.
-     */
-    protected function _cacheUpdate($scope, $prefs)
-    {
-        if ($this->_opts['cache'] && isset($this->_cache)) {
-            /* Place each preference in the cache according to its
-             * scope. */
-            foreach ($prefs as $name) {
-                if (isset($this->_scopes[$scope][$name])) {
-                    $this->_cache[$scope][$name] = $this->_scopes[$scope][$name];
-                }
-            }
-        }
-    }
-
-    /**
-     * Tries to find the requested preferences in the cache. If they
-     * exist, update the $_scopes hash with the cached values.
-     *
-     * @return boolean  True on success, false on failure.
-     */
-    protected function _cacheLookup($scope)
-    {
-        if ($this->_opts['cache'] && isset($this->_cache[$scope])) {
-            $this->_scopes[$scope] = $this->_cache[$scope];
-            return true;
-        }
-
-        return false;
     }
 
     /**

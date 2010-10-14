@@ -403,7 +403,7 @@ class Horde_Prefs_Ldap extends Horde_Prefs
             }
 
             // Update the cache for this scope.
-            $this->_cacheUpdate($scope, array_keys($prefs));
+            $this->_cache->update($scope, $prefs);
         }
     }
 

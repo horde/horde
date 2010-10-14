@@ -24,7 +24,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Add array access API to Horde_Prefs.
+ <notes>* Abstract caching code into Horde_Prefs_Cache.
+ * Add array access API to Horde_Prefs.
  * Remove dependency on horde/Core.
  * Use Horde_Db as backend for Sql driver.
  * Moved UI code to horde/Core.
@@ -35,6 +36,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Prefs">
+      <dir name="Cache">
+       <file name="Null.php" role="php" />
+       <file name="Session.php" role="php" />
+      </dir> <!-- /lib/Horde/Prefs/Cache -->
+      <file name="Cache.php" role="php" />
       <file name="CategoryManager.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="File.php" role="php" />
@@ -91,6 +97,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="lib/Horde/Prefs/Cache/Null.php" as="Horde/Prefs/Cache/Null.php" />
+   <install name="lib/Horde/Prefs/Cache/Session.php" as="Horde/Prefs/Cache/Session.php" />
+   <install name="lib/Horde/Prefs/Cache.php" as="Horde/Prefs/Cache.php" />
    <install name="lib/Horde/Prefs/CategoryManager.php" as="Horde/Prefs/CategoryManager.php" />
    <install name="lib/Horde/Prefs/Exception.php" as="Horde/Prefs/Exception.php" />
    <install name="lib/Horde/Prefs/File.php" as="Horde/Prefs/File.php" />

@@ -206,7 +206,7 @@ class Horde_Prefs_KolabImap extends Horde_Prefs_Base
             }
 
             // Update the cache for this scope.
-            $this->_cacheUpdate($scope, array_keys($prefs));
+            $this->_cache->update($scope, $prefs);
         }
     }
 
