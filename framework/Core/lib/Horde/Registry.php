@@ -945,16 +945,15 @@ class Horde_Registry
     }
 
     /**
-     * Return the hook corresponding to the default package that
-     * provides the functionality requested by the $method
-     * parameter. $method is a string consisting of
-     * "packagetype/methodname".
+     * Returns the link corresponding to the default package that provides the
+     * functionality requested by the $method parameter.
      *
-     * @param string $method  The method to link to.
+     * @param string $method  The method to link to, consisting of
+     *                        "packagetype/methodname".
      * @param array $args     Arguments to the method.
      * @param mixed $extra    Extra, non-standard arguments to the method.
      *
-     * @return mixed  TODO
+     * @return string  The link for that method.
      * @throws Horde_Exception
      */
     public function link($method, $args = array(), $extra = '')
@@ -973,14 +972,14 @@ class Horde_Registry
     }
 
     /**
-     * Output the hook corresponding to the specific package named.
+     * Returns the link corresponding to the specific package named.
      *
      * @param string $app   The application being called.
      * @param string $call  The method to link to.
      * @param array $args   Arguments to the method.
      * @param mixed $extra  Extra, non-standard arguments to the method.
      *
-     * @return mixed  TODO
+     * @return string  The link for that method.
      * @throws Horde_Exception
      */
     public function linkByPackage($app, $call, $args = array(), $extra = '')
