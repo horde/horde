@@ -34,35 +34,24 @@ class Horde_Prefs implements ArrayAccess
     protected $_params = array();
 
     /**
-     * Hash holding the current set of preferences. Each preference is
-     * itself a hash, so this will ultimately be multi-dimensional.
-     *
-     * [*pref name*] => Array(
-     *     [d] => (string) Default value
-     *     [m] => (integer) Pref mask
-     *     [v] => (string) Current pref value
-     * )
-     *
-     * @var array
-     */
-    protected $_prefs = array();
-
-    /**
      * String containing the name of the current scope. This is used
-     * to differentiate between sets of preferences (multiple
-     * applications can have a "sortby" preference, for example). By
-     * default, all preferences belong to the "global" (Horde) scope.
+     * to differentiate between sets of preferences.  By default, preferences
+     * belong to the "global" (Horde) scope.
      *
      * @var string
      */
     protected $_scope = 'horde';
 
     /**
-     * Array of loaded scopes. In order to only load what we need, and
-     * to not load things multiple times, we need to maintain a list
-     * of loaded scopes. $this->_prefs will always be the combination
-     * of the current scope and the 'horde' scope (or just the 'horde'
-     * scope).
+     * Preferences list.  Stored by scope name.  Each preference has the
+     * following format:
+     * <pre>
+     * [pref_name] => array(
+     *     [d] => (string) Default value
+     *     [m] => (integer) Pref mask
+     *     [v] => (string) Current pref value
+     * )
+     * </pre>
      *
      * @var array
      */
@@ -120,6 +109,7 @@ class Horde_Prefs implements ArrayAccess
      * REQUIRED:
      * ---------
      * charset - (string) Default charset.
+     *
      * OPTIONAL:
      * ---------
      * cache - (string) The class name defining the cache driver to use.
@@ -239,14 +229,17 @@ class Horde_Prefs implements ArrayAccess
     public function remove($pref)
     {
         // FIXME not updated yet - not removed from backend.
-        $scope = $this->_getPreferenceScope($pref);
-        unset($this->_dirty[$scope][$pref], $this->_prefs[$pref]);
+        $scope = $this->_getPrefScope($pref);
+        unset(
+            $this->_dirty[$scope][$pref],
+            $this->_scopes[$scope][$pref]
+        );
         $this->_cache->clear($scope, $pref);
     }
 
     /**
-     * Sets the given preferences ($pref) to the specified value
-     * ($val), if the preference is modifiable.
+     * Sets the given preference to the specified value if the preference is
+     * modifiable.
      *
      * @param string $pref      The name of the preference to modify.
      * @param string $val       The new value for this preference.
@@ -260,15 +253,16 @@ class Horde_Prefs implements ArrayAccess
      */
     public function setValue($pref, $val, $convert = true)
     {
+        $scope = $this->_getPrefScope($pref);
+
         /* Exit early if this preference is locked or doesn't exist. */
-        if (!isset($this->_prefs[$pref]) || $this->isLocked($pref)) {
+        if (!isset($this->_scopes[$scope][$pref]) || $this->isLocked($pref)) {
             return false;
         }
 
         $result = $this->_setValue($pref, $val, true, $convert);
 
         if ($result && $this->isDirty($pref)) {
-            $scope = $this->_getPreferenceScope($pref);
             $this->_cache->update($scope, array(
                 $pref => $this->_scopes[$scope][$pref]
             ));
@@ -312,11 +306,13 @@ class Horde_Prefs implements ArrayAccess
             $val = $this->convertToDriver($val);
         }
 
+        $scope = $this->_getPrefScope($pref);
+
         // If the preference's value is already equal to $val, don't
         // bother changing it. Changing it would set the "dirty" bit,
         // causing an unnecessary update later.
-        if (isset($this->_prefs[$pref]) &&
-            (($this->_prefs[$pref]['v'] == $val) &&
+        if (isset($this->_scopes[$scope][$pref]) &&
+            (($this->_scopes[$scope][$pref]['v'] == $val) &&
              !$this->isDefault($pref))) {
             return true;
         }
@@ -330,17 +326,14 @@ class Horde_Prefs implements ArrayAccess
 
         // Assign the new value, unset the "default" bit, and set the
         // "dirty" bit.
-        if (empty($this->_prefs[$pref]['m'])) {
-            $this->_prefs[$pref]['m'] = 0;
+        if (empty($this->_scopes[$scope][$pref]['m'])) {
+            $this->_scopes[$scope][$pref]['m'] = 0;
         }
-        $this->_prefs[$pref]['v'] = $val;
+        $this->_scopes[$scope][$pref]['v'] = $val;
         $this->setDefault($pref, false);
         if ($dirty) {
             $this->setDirty($pref, true);
         }
-
-        // Finally, copy into the $_scopes array.
-        $this->_scopes[$this->_getPreferenceScope($pref)][$pref] = $this->_prefs[$pref];
 
         if ($this->_opts['logger']) {
             $this->_opts['logger']->log(__CLASS__ . ': Storing preference value (' . $pref . ')', 'DEBUG');
@@ -361,18 +354,18 @@ class Horde_Prefs implements ArrayAccess
      */
     public function getValue($pref, $convert = true)
     {
-        $value = null;
+        $scope = $this->_getPrefScope($pref);
 
-        if (isset($this->_prefs[$pref]['v'])) {
-            if ($convert) {
-                /* Default values have the current UI charset.
-                 * Stored values have the backend charset. */
-                $value = $this->isDefault($pref)
-                    ? $this->_prefs[$pref]['v']
-                    : $this->convertFromDriver($this->_prefs[$pref]['v']);
-            } else {
-                $value = $this->_prefs[$pref]['v'];
-            }
+        $value = isset($this->_scopes[$scope][$pref]['v'])
+            ? $this->_scopes[$scope][$pref]['v']
+            : null;
+
+        if ($convert &&
+            !is_null($value) &&
+            !$this->isDefault($pref)) {
+            /* Default values have the current UI charset.
+             * Stored values have the backend charset. */
+            $value = $this->convertFromDriver($value);
         }
 
         return $value;
@@ -417,10 +410,12 @@ class Horde_Prefs implements ArrayAccess
      */
     public function setDirty($pref, $bool)
     {
+        $scope = $this->_getPrefScope($pref);
+
         if ($bool) {
-            $this->_dirty[$this->_scope][$pref] = $this->_prefs[$pref];
+            $this->_dirty[$scope][$pref] = $this->_scopes[$scope][$pref];
         } else {
-            unset($this->_dirty[$this->_scope][$pref]);
+            unset($this->_dirty[$scope][$pref]);
         }
 
         $this->_setMask($pref, $bool, self::DIRTY);
@@ -458,9 +453,11 @@ class Horde_Prefs implements ArrayAccess
      */
     public function getDefault($pref)
     {
-        return empty($this->_prefs[$pref]['d'])
+        $scope = $this->_getPrefScope($pref);
+
+        return empty($this->_scopes[$scope][$pref]['d'])
             ? ''
-            : $this->_prefs[$pref]['d'];
+            : $this->_scopes[$scope][$pref]['d'];
     }
 
     /**
@@ -486,12 +483,14 @@ class Horde_Prefs implements ArrayAccess
      */
     protected function _setMask($pref, $bool, $mask)
     {
-        if (isset($this->_prefs[$pref]) &&
+        $scope = $this->_getPrefScope($pref);
+
+        if (isset($this->_scopes[$scope][$pref]) &&
             ($bool != $this->_getMask($pref, $mask))) {
             if ($bool) {
-                $this->_prefs[$pref]['m'] |= $mask;
+                $this->_scopes[$scope][$pref]['m'] |= $mask;
             } else {
-                $this->_prefs[$pref]['m'] &= ~$mask;
+                $this->_scopes[$scope][$pref]['m'] &= ~$mask;
             }
         }
     }
@@ -506,8 +505,10 @@ class Horde_Prefs implements ArrayAccess
      */
     protected function _getMask($pref, $mask)
     {
-        return isset($this->_prefs[$pref]['m'])
-            ? (bool)($this->_prefs[$pref]['m'] & $mask)
+        $scope = $this->_getPrefScope($pref);
+
+        return isset($this->_scopes[$scope][$pref]['m'])
+            ? (bool)($this->_scopes[$scope][$pref]['m'] & $mask)
             : false;
     }
 
@@ -518,14 +519,15 @@ class Horde_Prefs implements ArrayAccess
      *
      * @return string  The scope of the $pref.
      */
-    protected function _getPreferenceScope($pref)
+    protected function _getPrefScope($pref)
     {
-        return $this->getScope();
+        return (isset($this->_scopes[$this->_scope][$pref]) || !isset($this->_scopes['horde'][$pref]))
+            ? $this->_scope
+            : 'horde';
     }
 
     /**
-     * Retrieves preferences for the current scope + the 'horde'
-     * scope.
+     * Retrieves preferences for the current scope + the 'horde' scope.
      *
      * @param string $scope  Optional scope specifier - if not present the
      *                       current scope will be used.
@@ -542,10 +544,6 @@ class Horde_Prefs implements ArrayAccess
         if ($scope != 'horde') {
             $this->_loadScope($scope);
         }
-
-        $this->_prefs = ($scope == 'horde')
-            ? $this->_scopes['horde']
-            : array_merge($this->_scopes['horde'], $this->_scopes[$scope]);
     }
 
     /**
@@ -608,7 +606,7 @@ class Horde_Prefs implements ArrayAccess
         /* Perform a Horde-wide cleanup? */
         if ($all) {
             /* Destroy the contents of the preferences hash. */
-            $this->_dirty = $this->_prefs = array();
+            $this->_dirty = $this->_scopes = array();
 
             /* Destroy the contents of the preferences cache. */
             $this->_cache->clear();
