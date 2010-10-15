@@ -1344,10 +1344,10 @@ class Horde_Registry
                 'user' => $this->getAuth()
             );
         } else {
-            /* If there is no logged in user, return an empty Horde_Prefs::
+            /* If there is no logged in user, return an empty Horde_Prefs
              * object with just default preferences. */
             $opts = array(
-                'cache' => 'Horde_Prefs_Cache_Null',
+                'cache' => null,
                 'session' => true
             );
         }

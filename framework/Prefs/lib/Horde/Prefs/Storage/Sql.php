@@ -1,10 +1,6 @@
 <?php
 /**
- * Preferences storage implementation for PHP's PEAR database
- * abstraction layer.
- *
- * The table structure for the Prefs system is in
- * scripts/sql/horde_prefs.sql.
+ * Preferences storage implementation for a SQL database.
  *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
@@ -12,11 +8,12 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author   Jon Parise <jon@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Prefs
  */
-class Horde_Prefs_Sql extends Horde_Prefs
+class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage
 {
     /**
      * Handle for the current database connection.
@@ -28,10 +25,7 @@ class Horde_Prefs_Sql extends Horde_Prefs
     /**
      * Constructor.
      *
-     * @param string $scope  The scope for this set of preferences.
-     * @param array $opts    See factory() for list of options.
-     * @param array $params  A hash containing any additional configuration
-     *                       or connection parameters a subclass might need.
+     * @param array $params  Configuration parameters.
      * <pre>
      * 'db' - (Horde_Db_Adapter) [REQUIRED] The DB instance.
      * 'table' - (string) The name of the prefs table.
@@ -40,7 +34,7 @@ class Horde_Prefs_Sql extends Horde_Prefs
      *
      * @throws InvalidArgumentException
      */
-    protected function __construct($scope, $opts, $params)
+    public function __construct(array $params = array())
     {
         if (!isset($params['db'])) {
             throw new InvalidArgumentException('Missing db parameter.');
@@ -52,30 +46,25 @@ class Horde_Prefs_Sql extends Horde_Prefs
             'table' => 'horde_prefs'
         ), $params);
 
-        parent::__construct($scope, $opts, $params);
+        parent::__construct($params);
     }
 
     /**
-     * Retrieves the requested set of preferences from the user's database
-     * entry.
-     *
-     * @param string $scope  Scope specifier.
      */
-    protected function _retrieve($scope)
+    public function get($scope)
     {
         $query = 'SELECT pref_scope, pref_name, pref_value FROM ' .
             $this->_params['table'] . ' ' .
             'WHERE pref_uid = ? AND pref_scope = ?';
-        $values = array($this->getUser(), $scope);
+        $values = array($this->_params['user'], $scope);
 
         try {
             $result = $this->_db->selectAll($query, $values);
         } catch (Horde_Db_Exception $e) {
-            if ($this->_opts['logger']) {
-                $this->_opts['logger']->log('No preferences were retrieved.', 'DEBUG');
-            }
-            return;
+            throw Horde_Prefs_Exception($e);
         }
+
+        $ret = array();
 
         foreach ($result as $row) {
             $name = trim($row['pref_name']);
@@ -92,48 +81,30 @@ class Horde_Prefs_Sql extends Horde_Prefs
                 break;
             }
 
-            if (isset($this->_scopes[$scope][$name])) {
-                $this->_scopes[$scope][$name]['m'] &= ~self::PREFS_DEFAULT;
-                $this->_scopes[$scope][$name]['v'] = $row['pref_value'];
-            } else {
-                // This is a shared preference.
-                $this->_scopes[$scope][$name] = array(
-                    'd' => null,
-                    'm' => 0,
-                    'v' => $row['pref_value']
-                );
-            }
+            $ret[$name] = $row['pref_value'];
         }
+
+        return $ret;
     }
 
     /**
-     * Stores preferences to the SQL server.
-     *
-     * @throws Horde_Exception
      */
-    public function store()
+    public function store($prefs)
     {
         // For each preference, check for an existing table row and
         // update it if it's there, or create a new one if it's not.
-        foreach ($this->_dirty as $scope => $prefs) {
-            $updated = array();
-
-            foreach ($prefs as $name => $pref) {
-                // Don't store locked preferences.
-                if ($this->_scopes[$scope][$name]['m'] & self::LOCKED) {
-                    continue;
-                }
-
+        foreach ($prefs as $scope => $p) {
+            foreach ($p as $name => $pref) {
                 // Does a row already exist for this preference?
                 $query = 'SELECT 1 FROM ' . $this->_params['table'] .
                     ' WHERE pref_uid = ? AND pref_name = ?' .
                     ' AND pref_scope = ?';
-                $values = array($this->getUser(), $name, $scope);
+                $values = array($this->_params['user'], $name, $scope);
 
                 try {
                     $check = $this->_db->selectValue($query, $values);
                 } catch (Horde_Db_Exception $e) {
-                    return;
+                    throw Horde_Prefs_Exception($e);
                 }
 
                 $value = strval(isset($pref['v']) ? $pref['v'] : null);
@@ -151,7 +122,7 @@ class Horde_Prefs_Sql extends Horde_Prefs
                         '(pref_uid, pref_scope, pref_name, pref_value) VALUES' .
                         '(?, ?, ?, ?)';
                     $values = array(
-                        $this->getUser(),
+                        $this->_params['user'],
                         $scope,
                         $name,
                         $value
@@ -160,7 +131,7 @@ class Horde_Prefs_Sql extends Horde_Prefs
                     try {
                         $this->_db->insert($query, $values);
                     } catch (Horde_Db_Exception $e) {
-                        return;
+                        throw Horde_Prefs_Exception($e);
                     }
                 } else {
                     // Update the existing row.
@@ -171,7 +142,7 @@ class Horde_Prefs_Sql extends Horde_Prefs
                         ' AND pref_scope = ?';
                     $values = array(
                         $value,
-                        $this->getUser(),
+                        $this->_params['user'],
                         $name,
                         $scope
                     );
@@ -179,40 +150,36 @@ class Horde_Prefs_Sql extends Horde_Prefs
                     try {
                         $this->_db->update($query, $values);
                     } catch (Horde_Db_Exception $e) {
-                        return;
+                        throw Horde_Prefs_Exception($e);
                     }
                 }
-
-                // Clean the pref since it was just saved.
-                $this->_scopes[$scope][$name]['m'] &= ~self::DIRTY;
-
-                $updated[$name] = $this->_scopes[$scope][$name];
             }
-
-            // Update the cache for this scope.
-            $this->_cache->update($scope, $updated);
         }
     }
 
     /**
-     * Clears all preferences from the backend.
-     *
-     * @throws Horde_Exception
      */
-    public function clear()
+    public function remove($scope = null, $pref = null)
     {
-        // Build the SQL query.
         $query = 'DELETE FROM ' . $this->_params['table'] .
-            ' WHERE pref_uid = ?';
-        $values = array($this->getUser());
+                 ' WHERE pref_uid = ?';
+        $values = array($this->_params['user']);
 
-        // Execute the query.
+        if (!is_null($scope)) {
+            $query .= ' AND pref_scope = ?';
+            $values[] = $scope;
+
+            if (!is_null($pref)) {
+                $query .= ' AND pref_name = ?';
+                $values[] = $pref;
+            }
+        }
+
         try {
             $this->_db->delete($query, $values);
-        } catch (Horde_Db_Exception $e) {}
-
-        // Cleanup.
-        parent::clear();
+        } catch (Horde_Db_Exception $e) {
+            throw Horde_Prefs_Exception($e);
+        }
     }
 
 }

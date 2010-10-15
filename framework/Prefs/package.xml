@@ -24,7 +24,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Abstract caching code into Horde_Prefs_Cache.
+ <notes>* Abstract storage code into Horde_Prefs_Storage.
  * Add array access API to Horde_Prefs.
  * Remove dependency on horde/Core.
  * Use Horde_Db as backend for Sql driver.
@@ -36,32 +36,24 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Prefs">
-      <dir name="Cache">
+      <dir name="Storage">
+       <file name="File.php" role="php" />
+       <file name="Imsp.php" role="php" />
+       <file name="Kolab.php" role="php" />
+       <file name="KolabImap.php" role="php" />
+       <file name="Ldap.php" role="php" />
        <file name="Null.php" role="php" />
        <file name="Session.php" role="php" />
-      </dir> <!-- /lib/Horde/Prefs/Cache -->
-      <file name="Cache.php" role="php" />
+       <file name="Sql.php" role="php" />
+      </dir> <!-- /lib/Horde/Prefs/Storage -->
       <file name="CategoryManager.php" role="php" />
       <file name="Exception.php" role="php" />
-      <file name="File.php" role="php" />
       <file name="Identity.php" role="php" />
-      <file name="Imsp.php" role="php" />
-      <file name="Kolab.php" role="php" />
-      <file name="KolabImap.php" role="php" />
-      <file name="Ldap.php" role="php" />
-      <file name="Session.php" role="php" />
-      <file name="Sql.php" role="php" />
+      <file name="Storage.php" role="php" />
      </dir> <!-- /lib/Horde/Prefs -->
      <file name="Prefs.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
-   <dir name="test">
-    <dir name="Horde">
-     <dir name="Prefs">
-      <file name="bug_2838.phpt" role="test" />
-     </dir> <!-- /test/Horde/Prefs -->
-    </dir> <!-- /test/Horde -->
-   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -97,19 +89,18 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Prefs/Cache/Null.php" as="Horde/Prefs/Cache/Null.php" />
-   <install name="lib/Horde/Prefs/Cache/Session.php" as="Horde/Prefs/Cache/Session.php" />
-   <install name="lib/Horde/Prefs/Cache.php" as="Horde/Prefs/Cache.php" />
    <install name="lib/Horde/Prefs/CategoryManager.php" as="Horde/Prefs/CategoryManager.php" />
    <install name="lib/Horde/Prefs/Exception.php" as="Horde/Prefs/Exception.php" />
-   <install name="lib/Horde/Prefs/File.php" as="Horde/Prefs/File.php" />
    <install name="lib/Horde/Prefs/Identity.php" as="Horde/Prefs/Identity.php" />
-   <install name="lib/Horde/Prefs/Imsp.php" as="Horde/Prefs/Imsp.php" />
-   <install name="lib/Horde/Prefs/Kolab.php" as="Horde/Prefs/Kolab.php" />
-   <install name="lib/Horde/Prefs/KolabImap.php" as="Horde/Prefs/KolabImap.php" />
-   <install name="lib/Horde/Prefs/Ldap.php" as="Horde/Prefs/Ldap.php" />
-   <install name="lib/Horde/Prefs/Session.php" as="Horde/Prefs/Session.php" />
-   <install name="lib/Horde/Prefs/Sql.php" as="Horde/Prefs/Sql.php" />
+   <install name="lib/Horde/Prefs/Storage/File.php" as="Horde/Prefs/Storage/File.php" />
+   <install name="lib/Horde/Prefs/Storage/Imsp.php" as="Horde/Prefs/Storage/Imsp.php" />
+   <install name="lib/Horde/Prefs/Storage/Kolab.php" as="Horde/Prefs/Storage/Kolab.php" />
+   <install name="lib/Horde/Prefs/Storage/KolabImap.php" as="Horde/Prefs/Storage/KolabImap.php" />
+   <install name="lib/Horde/Prefs/Storage/Ldap.php" as="Horde/Prefs/Storage/Ldap.php" />
+   <install name="lib/Horde/Prefs/Storage/Null.php" as="Horde/Prefs/Storage/Null.php" />
+   <install name="lib/Horde/Prefs/Storage/Session.php" as="Horde/Prefs/Storage/Session.php" />
+   <install name="lib/Horde/Prefs/Storage/Sql.php" as="Horde/Prefs/Storage/Sql.php" />
+   <install name="lib/Horde/Prefs/Storage.php" as="Horde/Prefs/Storage.php" />
    <install name="lib/Horde/Prefs.php" as="Horde/Prefs.php" />
   </filelist>
  </phprelease>

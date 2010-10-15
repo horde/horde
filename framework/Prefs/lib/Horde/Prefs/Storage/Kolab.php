@@ -1,7 +1,7 @@
 <?php
 /**
  * Kolab implementation of the Horde preference system. Derives from the
- * Prefs_ldap LDAP authentication object, and simply provides parameters to it
+ * Prefs LDAP authentication object, and simply provides parameters to it
  * based on the global Kolab configuration.
  *
  * Copyright 2004-2007 Stuart Binge <s.binge@codefusion.co.za>
@@ -13,17 +13,14 @@
  * @category Horde
  * @package  Prefs
  */
-class Horde_Prefs_Kolab extends Horde_Prefs_Ldap
+class Horde_Prefs_Storage_Kolab extends Horde_Prefs_Storage_Ldap
 {
    /**
      * Constructor.
      *
-     * @param string $scope  The scope for this set of preferences.
-     * @param array $opts    See factory() for list of options.
-     * @param array $params  A hash containing any additional configuration
-     *                       or connection parameters a subclass might need.
+     * @param array $params  Configuration parameters.
      */
-    protected function __construct($scope, $opts, $params)
+    public function __construct(array $params = array())
     {
         require_once 'Horde/Kolab.php';
         $params = array(
@@ -37,7 +34,7 @@ class Horde_Prefs_Kolab extends Horde_Prefs_Ldap
             'uid' => 'mail'
         );
 
-        parent::__construct($scope, $opts, $params);
+        parent::__construct($params);
     }
 
 }

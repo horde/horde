@@ -63,7 +63,8 @@ class Horde_Core_Factory_Prefs
      * Return the Horde_Prefs:: instance.
      *
      * @param string $scope  The scope for this set of preferences.
-     * @param array $opts    See Horde_Prefs::factory(). Additional options:
+     * @param array $opts    See Horde_Prefs::__construct(). Additional
+     *                       options:
      * <pre>
      * 'session' - (boolean) Use the session driver.
      *             DEFAULT: false
@@ -75,7 +76,7 @@ class Horde_Core_Factory_Prefs
     {
         if (empty($GLOBALS['conf']['prefs']['driver']) ||
             !empty($opts['session'])) {
-            $driver = 'Horde_Core_Prefs_Session';
+            $driver = 'Horde_Core_Prefs_Storage_Session';
             $params = array();
             unset($opts['session']);
         } else {
@@ -84,7 +85,7 @@ class Horde_Core_Factory_Prefs
         }
 
         $opts = array_merge(array(
-            'cache' => 'Horde_Core_Prefs_Cache_Session',
+            'cache' => 'Horde_Core_Prefs_Storage_Session',
             'charset' => 'UTF-8',
             'logger' => $this->_injector->getInstance('Horde_Log_Logger'),
             'password' => '',
@@ -122,7 +123,7 @@ class Horde_Core_Factory_Prefs
             }
 
             try {
-                $this->_instances[$sig] = Horde_Prefs::factory($driver, $scope, $opts, $params);
+                $this->_instances[$sig] = new Horde_Prefs($driver, $scope, $opts, $params);
             } catch (Horde_Prefs_Exception $e) {
                 if (!$GLOBALS['session']['horde:no_prefs']) {
                     $GLOBALS['session']['horde:no_prefs'] = true;
@@ -130,7 +131,7 @@ class Horde_Core_Factory_Prefs
                         $GLOBALS['notification']->push($this->_coreDict->t("The preferences backend is currently unavailable and your preferences have not been loaded. You may continue to use the system with default preferences."));
                     }
                 }
-                $this->_instances[$sig] = Horde_Prefs::factory('Horde_Core_Prefs_Session', $scope);
+                $this->_instances[$sig] = new Horde_Prefs('Horde_Core_Prefs_Storage_Session', $scope, $opts);
             }
         }
 
