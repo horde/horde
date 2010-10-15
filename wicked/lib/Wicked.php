@@ -71,7 +71,7 @@ class Wicked
      * @param boolean $full            @see Horde::url()
      * @param integer $append_session  @see Horde::url()
      *
-     * @return string  The URL of $page.
+     * @return Horde_Url  The URL of $page.
      */
     public static function url($page, $full = false, $append_session = 0)
     {
