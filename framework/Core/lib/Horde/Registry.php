@@ -1613,7 +1613,7 @@ class Horde_Registry
         global $session;
 
         /* Do logout tasks. */
-        foreach (array_keys($session['horde:auth_app/']) as $app) {
+        foreach (array_keys($session['horde:auth_app/;array']) as $app) {
             try {
                 $this->callAppMethod($app, 'logout');
             } catch (Horde_Exception $e) {}
