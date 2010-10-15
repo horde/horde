@@ -1345,7 +1345,7 @@ class Horde_Registry
             /* If there is no logged in user, return an empty Horde_Prefs::
              * object with just default preferences. */
             $opts = array(
-                'cache' => false,
+                'cache' => 'Horde_Prefs_Cache_Null',
                 'session' => true
             );
         }

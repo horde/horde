@@ -84,7 +84,7 @@ class Horde_Core_Factory_Prefs
         }
 
         $opts = array_merge(array(
-            'cache' => 'Horde_Prefs_Cache_Session',
+            'cache' => 'Horde_Core_Prefs_Cache_Session',
             'charset' => 'UTF-8',
             'logger' => $this->_injector->getInstance('Horde_Log_Logger'),
             'password' => '',
@@ -92,6 +92,11 @@ class Horde_Core_Factory_Prefs
             'user' => ''
         ), $opts);
         ksort($opts);
+
+        /* Allow no caching to be specified as false-y value. */
+        if (!$opts['cache']) {
+            unset($opts['cache']);
+        }
 
         /* If $params['user_hook'] is defined, use it to retrieve the value to
          * use for the username. */
