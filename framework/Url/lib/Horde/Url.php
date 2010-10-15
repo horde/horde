@@ -280,7 +280,7 @@ class Horde_Url
      */
     public function link(array $attributes = array())
     {
-        $url = (string)$this;
+        $url = (string)$this->setRaw(false);
         $link = '<a';
         if (!empty($url)) {
             $link .= " href=\"$url\"";
