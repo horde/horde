@@ -28,7 +28,7 @@ class Horde_SQL {
      * @return mixed  The SQL test fragment, or an array containing the query
      *                and a list of values if $bind is true.
      */
-    function buildClause(&$dbh, $lhs, $op, $rhs, $bind = false, $params = array())
+    function buildClause($dbh, $lhs, $op, $rhs, $bind = false, $params = array())
     {
         switch ($op) {
         case '|':
@@ -185,7 +185,7 @@ class Horde_SQL {
         return preg_replace('/[?!&]/', '\\\\$0', $query);
     }
 
-    function readBlob(&$dbh, $table, $field, $criteria)
+    function readBlob($dbh, $table, $field, $criteria)
     {
         if (!count($criteria)) {
             return PEAR::raiseError('You must specify the fetch criteria');
@@ -239,7 +239,7 @@ class Horde_SQL {
         return $result;
     }
 
-    function insertBlob(&$dbh, $table, $field, $data, $attributes)
+    function insertBlob($dbh, $table, $field, $data, $attributes)
     {
         $fields = array();
         $values = array();
@@ -300,7 +300,7 @@ class Horde_SQL {
         return $this->_db->query($query, $values);
     }
 
-    function updateBlob(&$dbh, $table, $field, $data, $where, $alsoupdate)
+    function updateBlob($dbh, $table, $field, $data, $where, $alsoupdate)
     {
         $fields = array();
         $values = array();
@@ -389,7 +389,7 @@ class Horde_SQL {
      *
      * @return string  The SQL SET fragment.
      */
-    function updateValues(&$dbh, $values)
+    function updateValues($dbh, $values)
     {
         $ret = array();
         foreach ($values as $key => $value) {
@@ -417,7 +417,7 @@ class Horde_SQL {
      *
      * @return string  The SQL fragment.
      */
-    function insertValues(&$dbh, $values)
+    function insertValues($dbh, $values)
     {
         $columns = array();
         $vals = array();
