@@ -22,20 +22,18 @@
  *
  * On change
  * ---------
- * A hook named prefs_change_hook_<prefname> will be called after that
- * preference is altered. It does not receive any parameters and does not
- * expect a return value.
- *
- * See the prefs_change_hook_theme declaration below for an example.
+ * A hook named prefs_change will be called after a preference is altered.
+ * It is passed the preference name that has changed and does not expect a
+ * return value.
  *
  * Setting value
  * -------------
  * If
  *   'hook' => true
- * exists for a preference (config/prefs.php), a hook named
- * prefs_hook_<prefname> will be run on login. It receives the username as
- * the only parameter and the return value from the function will be used as
- * the preference value.
+ * exists for a preference (config/prefs.php), the prefs_init hook will be run
+ * on login to allow alteration of the default value. This hook receives the
+ * preference name and the username as parameters and uses the return value
+ * from the hook as the new preference value.
  *
  * This hook is ONLY executed on login and preferences are cached during a
  * users' session.
@@ -47,8 +45,6 @@
  * 2) The next time they login and load their preferences, the hook will NOT
  *    be called. However, if the preference is locked, the result of the hook
  *    will never be saved.
- *
- * See the prefs_hook_theme declaration below for an example.
  *
  * Authentication/Login Hooks
  * ==========================
@@ -161,155 +157,165 @@
 
 class Horde_Hooks
 {
-//    // Example theme hook function. This shows how you can access things
-//    // like the currently logged in user, global variables, server config,
-//    // etc. It isn't, however, something you probably want to actually use
-//    // in production, by virtue of demonstrating all those. :)
-//    public function prefs_hook_theme($username = null)
+//    // PREFERENCES INIT: See above for documentation.
+//    public function prefs_init($pref, $username = null)
 //    {
-//        if ($GLOBALS['registry']->getAuth() != 'chuck') {
-//            return 'mozilla';
-//        }
+//        switch ($pref) {
+//        case 'from_addr':
+//            // Example from_addr init. THIS FUNCTION ASSUMES THAT YOU ARE
+//            // USING A LDAP SERVER and that your /etc/ldap.conf is correctly
+//            // set to a valid host.
+//            //
+//            // You are responsible for bringing in to the local scope any
+//            // information you need. You can "global" anything else you
+//            // need.
+//            //
+//            // Returns an address: either just the user@ side or a full
+//            // address.
 //
-//        switch ($GLOBALS['registry']->getApp()) {
-//        case 'imp':
-//            return 'brown';
+//            // Example #1
+//            if (is_null($name)) {
+//                $name = $GLOBALS['registry']->getAuth();
+//            }
 //
-//        case 'turba':
-//            return 'orange';
+//            if (!empty($name)) {
+//                $base_context = 'o=myorg';
+//                $scope = 'sub';
 //
-//        case 'kronolith':
-//            return 'green';
+//                // You will probably need to replace cd= with uid=; this
+//                // syntax is for Netware 5.1 nldap.
+//                $cmd = '/usr/bin/ldapsearch -b ' . $base_context . ' -s ' . $scope . ' cn=' .
+//                       escapeShellCmd($GLOBALS['registry']->getAuth()) .
+//                       ' | /usr/bin/grep mail | /usr/bin/awk \'{print $2}\'';
+//                $mails = `$cmd`;
+//                $mail_array = explode("\n", $mails);
 //
-//        default:
+//                // Send back the first email found, not the whole list.
+//                $mail = $mail_array['0'];
+//
+//                // If no email address is found, then the login name will
+//                // be used.
+//                return (empty($mail) ? '' : $mail);
+//            }
+//
 //            return '';
-//        }
-//    }
-
-
-//    // Example preferences change hook.
-//    public function prefs_change_hook_theme()
-//    {
-//        $GLOBALS['notification']->push('You changed your theme to ' . $GLOBALS['prefs']->getValue('theme') . '.');
-//    }
-
-
-//    // Example from_addr hook function. THIS FUNCTION ASSUMES THAT YOU ARE
-//    // USING A LDAP SERVER and that your /etc/ldap.conf is correctly set to
-//    // a valid host.
-//    //
-//    // You get passed NOTHING; you are responsible for bringing in to scope
-//    // any information you need. You can "global" anything else you need.
-//    // Return an address - either just the user@ side or a full address -
-//    // and it will be used.
-//    public function prefs_hook_from_addr($name = null)
-//    {
-//        // Example #1
-//        if (is_null($name)) {
-//            $name = $GLOBALS['registry']->getAuth();
-//        }
 //
-//        if (!empty($name)) {
-//            $base_context = 'o=myorg';
-//            $scope = 'sub';
 //
-//            // You will probably need to replace cd= with uid=; this syntax
+//            // Example #2
+//            $ldapServer = '172.31.0.236';
+//            $ldapPort = '389';
+//            $searchBase = 'o=myorg';
+//
+//            $ds = @ldap_connect($ldapServer, $ldapPort);
+//
+//            if (is_null($name)) {
+//                $name = $GLOBALS['registry']->getAuth();
+//                if ($name === false) {
+//                    return '';
+//                }
+//            }
+//
+//            // You will probably need to replace cn= with uid=; this syntax
 //            // is for Netware 5.1 nldap.
-//            $cmd  = '/usr/bin/ldapsearch -b ' . $base_context . ' -s ' . $scope . ' cn=' .
-//                escapeShellCmd($GLOBALS['registry']->getAuth()) .
-//                ' | /usr/bin/grep mail | /usr/bin/awk \'{print $2}\'';
-//            $mails = `$cmd`;
-//            $mail_array = explode("\n", $mails);
+//            $searchResult = @ldap_search($ds, $searchBase, 'cn=' . $name);
+//            $information = @ldap_get_entries($ds, $searchResult);
+//            if (($information === false) || ($information['count'] == 0)) {
+//               $user = '';
+//            } else {
+//                $user = ($information[0]['mail'][0] != '')
+//                    ? $information[0]['mail'][0]
+//                    : $information[0]['cn'][0];
+//            }
 //
-//            // Send back the first email found, not the whole list.
-//            $mail = $mail_array['0'];
+//            ldap_close($ds);
 //
-//            // If no email address is found, then the login name will
-//            // be used.
-//            return (empty($mail) ? '' : $mail);
-//        }
-//
-//        return '';
+//            return empty($user) ? $name : $user;
 //
 //
-//        // Example #2
-//        $ldapServer = '172.31.0.236';
-//        $ldapPort = '389';
-//        $searchBase = 'o=myorg';
+//        case 'fullname':
+//            // Examples on how to set the fullname.
 //
-//        $ds = @ldap_connect($ldapServer, $ldapPort);
+//            // Example #1: Set the fullname from the GECOS information in
+//            // the passwd file.
+//            if (is_null($user)) {
+//                $user = $GLOBALS['registry']->getAuth('bare');
+//                if ($user === false) {
+//                    return '';
+//                }
+//            }
 //
-//        if (is_null($name)) {
-//            $name = $GLOBALS['registry']->getAuth();
-//            if ($name === false) {
+//            $array = posix_getpwnam($user);
+//            $gecos_array = explode(',', $array['gecos']);
+//            return empty($gecos_array) ? $user : $gecos_array[0];
+//
+//
+//            // Example #2: Set the fullname from LDAP information. In this
+//            // example we look if a Spanish name exists and return this or
+//            // the standard 'cn' entry if not.
+//            $ldapServer = 'ldap.example.com';
+//            $ldapPort = '389';
+//            $searchBase = 'ou=people,o=example.com';
+//
+//            $ds = @ldap_connect($ldapServer, $ldapPort);
+//
+//            if (is_null($user)) {
+//                $user = $GLOBALS['registry']->getAuth();
+//                if ($user === false) {
+//                    return '';
+//                }
+//            }
+//
+//            $searchResult = @ldap_search($ds, $searchBase, 'uid=' . $user);
+//            $information = @ldap_get_entries($ds, $searchResult);
+//            if (($information === false) || ($information['count'] == 0)) {
+//                $name = '';
+//            } else {
+//                $name = ($information[0]['cn;lang-es'][0] != '')
+//                    ? $information[0]['cn;lang-es'][0]
+//                    : $information[0]['cn'][0];
+//            }
+//
+//            ldap_close($ds);
+//
+//            return empty($name) ? $user : $name;
+//
+//
+//        case 'theme':
+//            // Example theme init. This shows how you can access things
+//            // like the currently logged in user, global variables, server
+//            // config, etc. It isn't, however, something you probably want
+//            // to actually use in production, by virtue of demonstrating all
+//            // those. :)
+//            if ($GLOBALS['registry']->getAuth() != 'foo') {
+//                return 'mozilla';
+//            }
+//
+//            switch ($GLOBALS['registry']->getApp()) {
+//            case 'imp':
+//                return 'brown';
+//
+//            case 'kronolith':
+//                return 'green';
+//
+//            case 'turba':
+//                return 'orange';
+//
+//            default:
 //                return '';
 //            }
+//            break;
 //        }
-//
-//        // You will probably need to replace cn= with uid=; this syntax
-//        // is for Netware 5.1 nldap.
-//        $searchResult = @ldap_search($ds, $searchBase, 'cn=' . $name);
-//        $information = @ldap_get_entries($ds, $searchResult);
-//        if (($information === false) || ($information['count'] == 0)) {
-//             $user = '';
-//        } else {
-//            $user = ($information[0]['mail'][0] != '')
-//                ? $information[0]['mail'][0]
-//                : $information[0]['cn'][0];
-//        }
-//
-//        ldap_close($ds);
-//
-//        return empty($user) ? $name : $user;
-//     }
+//    }
 
 
-//    // Examples on how to set the fullname.
-//    public function prefs_hook_fullname($user = null)
+//    // PREFERENCES CHANGE: See above for documentation.
+//    public function prefs_change($pref)
 //    {
-//        // Example #1: Set the fullname from the GECOS information in the
-//        // passwd file.
-//        if (is_null($user)) {
-//            $user = $GLOBALS['registry']->getAuth('bare');
-//            if ($user === false) {
-//                return '';
-//            }
+//        switch ($pref) {
+//        case 'theme':
+//            $GLOBALS['notification']->push('You changed your theme to ' . $GLOBALS['prefs']->getValue('theme') . '.');
+//            break;
 //        }
-//
-//        $array = posix_getpwnam($user);
-//        $gecos_array = explode(',', $array['gecos']);
-//        return empty($gecos_array) ? $user : $gecos_array[0];
-//
-//
-//        // Example #2: Set the fullname from LDAP information. In this
-//        // example we look if a Spanish name exists and return this or the
-//        // standard 'cn' entry if not.
-//        $$dapServer = 'ldap.example.com';
-//        $ldapPort = '389';
-//        $searchBase = 'ou=people,o=example.com';
-//
-//        $ds = @ldap_connect($ldapServer, $ldapPort);
-//
-//        if (is_null($user)) {
-//            $user = $GLOBALS['registry']->getAuth();
-//            if ($user === false) {
-//                return '';
-//            }
-//        }
-//
-//        $searchResult = @ldap_search($ds, $searchBase, 'uid=' . $user);
-//        $information = @ldap_get_entries($ds, $searchResult);
-//        if (($information === false) || ($information['count'] == 0)) {
-//            $name = '';
-//        } else {
-//            $name = ($information[0]['cn;lang-es'][0] != '')
-//                ? $information[0]['cn;lang-es'][0]
-//                : $information[0]['cn'][0];
-//        }
-//
-//        ldap_close($ds);
-//
-//        return empty($name) ? $user : $name;
 //    }
 
 

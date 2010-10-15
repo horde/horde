@@ -38,6 +38,7 @@ The following hooks have changed:
     * postauthenticate (parameters; return value)
     * username_tobackend, username_frombackend (combined and renamed to
       authusername).
+    * prefs init/change
 
 The format for the config/mime_drivers.php configuration files has changed.
 

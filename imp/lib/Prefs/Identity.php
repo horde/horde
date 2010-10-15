@@ -485,7 +485,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
         }
 
         try {
-            $val = Horde::callHook('prefs_hook_signature', array($val), 'imp');
+            $val = Horde::callHook('signature', array($val), 'imp');
         } catch (Horde_Exception_HookNotSet $e) {}
 
         $this->_cached['signatures'][$key] = $val;

@@ -280,7 +280,7 @@ class Horde_Prefs implements ArrayAccess
 
             /* If this preference has a change hook, call it now. */
             try {
-                Horde::callHook('prefs_change_hook_' . $pref, array(), $scope);
+                Horde::callHook('prefs_change', array($pref), $scope);
             } catch (Horde_Exception_HookNotSet $e) {}
         }
 
@@ -736,7 +736,7 @@ class Horde_Prefs implements ArrayAccess
                 $this->_scopes[$pref_scope][$name]['m'] & self::PREFS_DEFAULT) {
 
                 try {
-                    $val = Horde::callHook('prefs_hook_' . $name, array($this->getUser()), $scope);
+                    $val = Horde::callHook('prefs_init', array($name, $this->getUser()), $scope);
                 } catch (Horde_Exception_HookNotSet $e) {
                     continue;
                 }
