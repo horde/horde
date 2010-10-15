@@ -18,12 +18,13 @@ class Text_Wiki_Render_Xhtml_Registrylink extends Text_Wiki_Render {
      */
     function token($options)
     {
-        $link = $GLOBALS['registry']->link($options['method'], $options['args']);
-        if (is_a($link, 'PEAR_Error')) {
+        try {
+            $link = new Horde_Url($GLOBALS['registry']->link($options['method'], $options['args']));
+        } catch (Horde_Exception $e) {
             return '';
         }
 
-        return Horde::link($link) . $options['title'] . '</a>';
+        return $link->link() . $options['title'] . '</a>';
     }
 
 }
