@@ -47,7 +47,10 @@ class Text_Wiki_Render_Xhtml_Wikilink2 extends Text_Wiki_Render_Xhtml_Wikilink {
             }
         }
 
-        $anchor = '#' . $this->urlEncode(substr($anchor, 1));
+        $anchor = $this->urlEncode(substr($anchor, 1));
+        if (strlen($anchor)) {
+            $anchor = '#' . $anchor;
+        }
 
         // Does the page exist?
         if ($exists) {
