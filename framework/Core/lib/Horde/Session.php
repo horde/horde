@@ -358,7 +358,7 @@ class Horde_Session implements ArrayAccess
         $ob = $this->_parseOffset($offset);
 
         if (isset($_SESSION[$ob->app])) {
-            if (!strlen($ob->key)) {
+            if (!strlen($ob->name)) {
                 foreach (array_keys($_SESSION[$ob->app]) as $key) {
                     unset($_SESSION[self::SERIALIZED][$key]);
                 }
