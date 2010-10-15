@@ -75,9 +75,7 @@ class Wicked
      */
     public static function url($page, $full = false, $append_session = 0)
     {
-        global $conf;
-
-        if (!empty($conf['options']['use_mod_rewrite'])) {
+        if ($GLOBALS['conf']['urls']['pretty'] == 'rewrite') {
             $script = str_replace('%2F', '/', urlencode($page));
         } else {
             $script = Horde_Util::addParameter('display.php', 'page', $page);

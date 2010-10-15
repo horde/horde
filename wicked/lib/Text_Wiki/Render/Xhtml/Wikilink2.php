@@ -47,14 +47,11 @@ class Text_Wiki_Render_Xhtml_Wikilink2 extends Text_Wiki_Render_Xhtml_Wikilink {
             }
         }
 
-        $anchor = '#'.$this->urlEncode(substr($anchor, 1));
+        $anchor = '#' . $this->urlEncode(substr($anchor, 1));
 
-        // does the page exist?
+        // Does the page exist?
         if ($exists) {
-
-            // PAGE EXISTS.
-
-            $href = sprintf($this->getConf('view_url'), (!empty($GLOBALS['conf']['options']['use_mod_rewrite']) ? htmlspecialchars($page) : $this->urlEncode($page))) . $anchor;
+            $href = sprintf($this->getConf('view_url'), $GLOBALS['conf']['urls']['pretty'] == 'rewrite' ? htmlspecialchars($page) : $this->urlEncode($page)) . $anchor;
 
             // get the CSS class and generate output
             $css = ' class="'.$this->textEncode($this->getConf('css')).'"';
@@ -62,9 +59,6 @@ class Text_Wiki_Render_Xhtml_Wikilink2 extends Text_Wiki_Render_Xhtml_Wikilink {
             $start = '<a'.$css.' href="'.$this->textEncode($href).'">';
             $end = '</a>';
         } else {
-
-            // PAGE DOES NOT EXIST.
-
             $new_url = $this->getConf('new_url');
             if (!$new_url) {
                 return $this->textEncode($text);

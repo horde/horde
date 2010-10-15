@@ -47,11 +47,6 @@
   </configsection>
  </configsection>
 
- <configsection name="options" desc="Look and feel">
-  <configheader>Look and feel</configheader>
-  <configboolean name="use_mod_rewrite" desc="Should we use mod_rewrite URL translations for page URLs? If your webserver doesn't have mod_rewrite enabled, enabling this will result in broken links. The default/fallback if this is off is to use GET to pass the page name.">false</configboolean>
- </configsection>
-
  <configsection name="menu">
   <configheader>
     Menu Settings
