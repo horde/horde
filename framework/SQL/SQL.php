@@ -30,11 +30,14 @@ class Horde_SQL {
      */
     function buildClause($dbh, $lhs, $op, $rhs, $bind = false, $params = array())
     {
+        $type = $dbh instanceof Horde_Db_Adapter_Base ? Horde_String::lower($dbh->adapterName()) : $dbh->phptype;
+
         switch ($op) {
         case '|':
         case '&':
-            switch ($dbh->phptype) {
+            switch ($type) {
             case 'pgsql':
+            case 'pdo_postgresql':
                 // Only PgSQL 7.3+ understands SQL99 'SIMILAR TO'; use
                 // ~ for greater backwards compatibility.
                 $query = 'CASE WHEN CAST(%s AS VARCHAR) ~ \'^-?[0-9]+$\' THEN (CAST(%s AS INTEGER) %s %s) <> 0 ELSE FALSE END';
@@ -94,7 +97,7 @@ class Horde_SQL {
             }
 
         case '~':
-            if ($dbh->phptype == 'mysql') {
+            if ($type == 'mysql' || $type == 'mysqli' || $type == 'pdo_mysql') {
                 $op = 'REGEXP';
             }
             if ($bind) {
@@ -130,7 +133,7 @@ class Horde_SQL {
             }
 
         case 'LIKE':
-            if ($dbh->phptype == 'pgsql') {
+            if ($type == 'pgsql' || $type == 'pdo_pgsql') {
                 $query = '%s ILIKE %s';
             } else {
                 $query = 'LOWER(%s) LIKE LOWER(%s)';
