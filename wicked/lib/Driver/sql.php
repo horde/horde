@@ -45,10 +45,6 @@ class Wicked_Driver_sql extends Wicked_Driver {
         $where = 'page_name = ' . $this->_db->quoteString($this->_convertToDriver($pagename));
 
         $pages = $this->_retrieve($this->_params['table'], $where);
-        if (is_a($pages, 'PEAR_Error')) {
-            Horde::logMessage($pages, 'ERR');
-            return $pages;
-        }
 
         if (!empty($pages[0])) {
             return $pages[0];
@@ -115,17 +111,12 @@ class Wicked_Driver_sql extends Wicked_Driver {
     function getRecentChanges($days = 3)
     {
         $where = 'version_created > ' . (time() - (86400 * $days));
-
-        $result = $this->_retrieve($this->_params['table'], $where, 'version_created DESC');
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
-        $result2 = $this->_retrieve($this->_params['historytable'], $where, 'version_created DESC');
-        if (is_a($result2, 'PEAR_Error')) {
-            return $result2;
-        }
-
+        $result = $this->_retrieve($this->_params['table'],
+                                   $where,
+                                   'version_created DESC');
+        $result2 = $this->_retrieve($this->_params['historytable'],
+                                    $where,
+                                    'version_created DESC');
         return array_merge($result, $result2);
     }
 
@@ -199,13 +190,9 @@ class Wicked_Driver_sql extends Wicked_Driver {
     {
         $where = 'page_text LIKE ' . $this->_db->quoteString('%' . $this->_convertToDriver($pagename) . '%');
         $pages = $this->_retrieve($this->_params['table'], $where);
-        if (is_a($pages, 'PEAR_Error')) {
-            return $pages;
-        }
 
         /* We've cast a wide net, so now we filter out pages which don't
          * actually refer to $pagename. */
-
         $patterns = array('/\(\(' . preg_quote($pagename, '/') . '(?:\|[^)]+)?\)\)/');
         if (preg_match('/^' . Wicked::REGEXP_WIKIWORD . '$/', $pagename)) {
             $patterns[] = '/\b' . preg_quote($pagename, '/') . '\b/';
@@ -311,15 +298,9 @@ class Wicked_Driver_sql extends Wicked_Driver {
     {
         $where = 'page_id = ' . (int)$pageId;
         $data = $this->_retrieve($this->_params['attachmenttable'], $where);
-        if (is_a($data, 'PEAR_Error')) {
-            return $data;
-        }
 
         if ($allversions) {
             $more_data = $this->_retrieve($this->_params['attachmenthistorytable'], $where);
-            if (is_a($more_data, 'PEAR_Error')) {
-                return $more_data;
-            }
             $data = array_merge($data, $more_data);
         }
 
@@ -444,10 +425,6 @@ class Wicked_Driver_sql extends Wicked_Driver {
         $where = 'page_id = ' . intval($file['page_id']) .
                  ' AND attachment_name = ' . $this->_db->quoteString($file['attachment_name']);
         $attachments = $this->_retrieve($this->_params['attachmenttable'], $where);
-        if (is_a($attachments, 'PEAR_Error')) {
-            Horde::logMessage($attachments, 'ERR');
-            return $attachments;
-        }
 
         if ($file['change_author'] === false) {
             $file['change_author'] = null;
@@ -785,16 +762,16 @@ class Wicked_Driver_sql extends Wicked_Driver {
                          $table,
                          !empty($sqlWhere) ? ' WHERE ' . $sqlWhere : '',
                          !empty($orderBy) ? ' ORDER BY ' . $orderBy : '');
-
         if (!empty($limit)) {
             $query = $this->_db->addLimitOffset($query, array('limit' => $limit));
         }
 
         Horde::logMessage('Wicked_Driver_sql::_retrieve(): ' . $query, 'DEBUG');
-
-        $result = $this->_db->selectAll($query);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+        try {
+            $result = $this->_db->selectAll($query);
+        } catch (Horde_Db_Exception $e) {
+            Horde::logMessage($e);
+            throw new Wicked_Exception($e);
         }
 
         $pages = array();
