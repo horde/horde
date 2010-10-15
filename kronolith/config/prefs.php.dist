@@ -308,7 +308,6 @@ $_prefs['freebusy_days'] = array(
 // slow to display, you may want to disable and lock this preference.
 $_prefs['display_contact'] = array(
     'value' => 1,
-    'shared' => true,
     'type' => 'checkbox',
     'desc' => _("List all contacts when loading the contacts screen? (if disabled, you will only see contacts that you search for explicitly)"),
 );

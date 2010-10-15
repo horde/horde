@@ -16,7 +16,6 @@ $prefGroups['display'] = array(
 $_prefs['hylax_default_view'] = array(
     'value' => 'summary',
     'locked' => false,
-    'shared' => false,
     'type' => 'enum',
     'enum' => array('summmary' => _("Summary"),
                     'folder' => _("Folders"),

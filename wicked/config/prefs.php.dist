@@ -8,6 +8,5 @@ $_prefs = array();
 $_prefs['sync_data'] = array(
     'value' => 'a:0:{}',
     'locked' => false,
-    'shared' => false,
     'type' => 'implicit'
 );

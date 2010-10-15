@@ -16,7 +16,6 @@ $prefGroups['display'] = array(
 $_prefs['sortby'] = array(
     'value' => 'title',
     'locked' => false,
-    'shared' => false,
     'type' => 'enum',
     'enum' => array('title' => _("Title"),
                     'rating' => _("Highest Rated"),
@@ -28,7 +27,6 @@ $_prefs['sortby'] = array(
 $_prefs['sortdir'] = array(
     'value' => 0,
     'locked' => false,
-    'shared' => false,
     'type' => 'enum',
     'enum' => array(0 => _("Ascending (A to Z)"),
                     1 => _("Descending (9 to 1)")),
@@ -40,7 +38,6 @@ $_prefs['sortdir'] = array(
 $_prefs['show_folder_actions'] = array(
     'value' => 1,
     'locked' => false,
-    'shared' => false,
     'type' => 'checkbox',
     'desc' => _("Show folder actions panel?")
 );
@@ -49,7 +46,6 @@ $_prefs['show_folder_actions'] = array(
 $_prefs['show_in_new_window'] = array(
     'value' => 1,
     'locked' => false,
-    'shared' => false,
     'type' => 'checkbox',
     'desc' => _("Open links in a new window?")
 );
@@ -58,7 +54,6 @@ $_prefs['show_in_new_window'] = array(
 $_prefs['expand_tree'] = array(
     'value' => 'first',
     'locked' => false,
-    'shared' => false,
     'type' => 'enum',
     'enum' => array('none' => _("Completely collapsed"),
                     'first' => _("First level shown"),

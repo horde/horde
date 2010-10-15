@@ -19,9 +19,6 @@ class Horde_Prefs implements ArrayAccess
     /** Preference is administratively locked. */
     const LOCKED = 1;
 
-    /** Preference is shared amongst applications. */
-    const SHARED = 2;
-
     /** Preference value has been changed. */
     const DIRTY = 4;
 
@@ -413,29 +410,6 @@ class Horde_Prefs implements ArrayAccess
     }
 
     /**
-     * Modifies the "shared" bit for the given preference.
-     *
-     * @param string $pref   The name of the preference to modify.
-     * @param boolean $bool  The new boolean value for the "shared" bit.
-     */
-    public function setShared($pref, $bool)
-    {
-        $this->_setMask($pref, $bool, self::SHARED);
-    }
-
-    /**
-     * Returns the state of the "shared" bit for the given preference.
-     *
-     * @param string $pref  The name of the preference to check.
-     *
-     * @return boolean  The boolean state of $pref's "shared" bit.
-     */
-    public function isShared($pref)
-    {
-        return $this->_getMask($pref, self::SHARED);
-    }
-
-    /**
      * Modifies the "dirty" bit for the given preference.
      *
      * @param string $pref      The name of the preference to modify.
@@ -546,7 +520,7 @@ class Horde_Prefs implements ArrayAccess
      */
     protected function _getPreferenceScope($pref)
     {
-        return $this->isShared($pref) ? 'horde' : $this->getScope();
+        return $this->getScope();
     }
 
     /**
@@ -714,28 +688,14 @@ class Horde_Prefs implements ArrayAccess
                 $mask |= self::LOCKED;
             }
 
-            if (empty($pref['shared'])) {
-                $pref_scope = $scope;
-            } else {
-                $mask |= self::SHARED;
-                $pref_scope = 'horde';
-            }
-
-            if (!empty($pref['shared']) &&
-                isset($this->_scopes[$pref_scope][$name])) {
-                // This is a shared preference that was already retrieved.
-                $this->_scopes[$pref_scope][$name]['m'] = $mask & ~self::PREFS_DEFAULT;
-                $this->_scopes[$pref_scope][$name]['d'] = $pref['value'];
-            } else {
-                $this->_scopes[$pref_scope][$name] = array(
-                    'd' => $pref['value'],
-                    'm' => $mask,
-                    'v' => $pref['value']
-                );
-            }
+            $this->_scopes[$scope][$name] = array(
+                'd' => $pref['value'],
+                'm' => $mask,
+                'v' => $pref['value']
+            );
 
             if (!empty($pref['hook'])) {
-                $this->_hooks[$scope][$name] = $pref_scope;
+                $this->_hooks[$scope][$name] = $scope;
             }
         }
     }

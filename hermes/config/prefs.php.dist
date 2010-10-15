@@ -14,7 +14,6 @@ $prefGroups['timer'] = array(
 $_prefs['add_description'] = array(
     'value' => true,
     'locked' => false,
-    'shared' => false,
     'type' => 'checkbox',
     'desc' => _("Add stop watch name and start and end time to the description of the time entry?")
 );
@@ -23,6 +22,5 @@ $_prefs['add_description'] = array(
 $_prefs['running_timers'] = array(
     'value' => '',
     'locked' => false,
-    'shared' => false,
     'type' => 'implicit'
 );

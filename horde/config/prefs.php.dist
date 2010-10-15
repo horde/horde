@@ -23,8 +23,8 @@
  * type - (string) The prefGroup type.
  *        VALUES:
  *          'identities' - An identities screen. The identities screen will
- *                         always show all the shared identities prefs from
- *                         Horde, as well as the identity switching widget.
+ *                         always show all the identities prefs from Horde
+ *                         along with the identity switching widget.
  *                         Additionally, applications can define additional
  *                         identity information in their prefs.php file that
  *                         will be displayed after the Horde-wide settings.
@@ -51,12 +51,6 @@
  *            true: Do not show this preference in the UI and don't allow
  *                  changing by any mechanism.
  *            false: Show this preference in the UI and allow changing.
- *          DEFAULT: false
- *
- * shared - (boolean) Share with other Horde apps?
- *          VALUES:
- *            true: Share this pref with other Horde apps.
- *            false: Keep this pref local to the current app.
  *          DEFAULT: false
  *
  * help - (string) The help file identifier for this preference.
@@ -221,7 +215,6 @@ $prefGroups['identities'] = array(
 // horde/config/hooks.php.
 $_prefs['id'] = array(
     'value' => '',
-    'shared' => true,
     'type' => 'text',
     'desc' => _("Identity's name:")
 );
@@ -231,7 +224,6 @@ $_prefs['id'] = array(
 // horde/config/hooks.php.
 $_prefs['fullname'] = array(
     'value' => '',
-    'shared' => true,
     'type' => 'text',
     'desc' => _("Your full name:")
 );
@@ -241,7 +233,6 @@ $_prefs['fullname'] = array(
 // horde/config/hooks.php.
 $_prefs['from_addr'] = array(
     'value' => '',
-    'shared' => true,
     'type' => 'text',
     'desc' =>  _("The default e-mail address to use with this identity:")
 );
@@ -249,22 +240,19 @@ $_prefs['from_addr'] = array(
 // default identity
 // Set locked to true if you don't want the users to have multiple identities.
 $_prefs['default_identity'] = array(
-    'value' => 0,
-    'shared' => true
+    'value' => 0
 );
 
 // identities data
 $_prefs['identities'] = array(
     // default value = serialize(array())
-    'value' => 'a:0:{}',
-    'shared' => true
+    'value' => 'a:0:{}'
 );
 
 // identify email confirmation
 $_prefs['confirm_email'] = array(
     // default value = serialize(array())
-    'value' => 'a:0:{}',
-    'shared' => true
+    'value' => 'a:0:{}'
 );
 
 
@@ -283,7 +271,6 @@ $prefGroups['forgotpass'] = array(
 // user security question
 $_prefs['security_question'] = array(
     'value' => '',
-    'shared' => true,
     'type' => 'text',
     'desc' => _("Enter a security question which you will be asked if you need to reset your password, e.g. 'what is the name of your pet?':")
 );
@@ -291,7 +278,6 @@ $_prefs['security_question'] = array(
 // user security answer
 $_prefs['security_answer'] = array(
     'value' => '',
-    'shared' => true,
     'type' => 'text',
     'desc' => _("Insert the required answer to the security question:")
 );
@@ -299,7 +285,6 @@ $_prefs['security_answer'] = array(
 // user alternate email
 $_prefs['alternate_email'] = array(
     'value' => '',
-    'shared' => true,
     'type' => 'text',
     'desc' => _("Insert an email address to which you can receive the new password:")
 );
@@ -322,7 +307,6 @@ $prefGroups['language'] = array(
 // Language list is dynamically built when prefs screen is displayed
 $_prefs['language'] = array(
     'value' => '',
-    'shared' => true,
     'type' => 'enum',
     'escaped' => true,
     'desc' => _("Select your preferred language:")
@@ -332,7 +316,6 @@ $_prefs['language'] = array(
 // Timezone list is dynamically built when prefs screen is displayed
 $_prefs['timezone'] = array(
     'value' => '',
-    'shared' => true,
     'type' => 'enum',
     'desc' => _("Your current time zone:")
 );
@@ -340,7 +323,6 @@ $_prefs['timezone'] = array(
 // time format
 $_prefs['twentyFour'] = array(
     'value' => false,
-    'shared' => true,
     'type' => 'checkbox',
     'desc' => _("Display 24-hour times?")
 );
@@ -348,7 +330,6 @@ $_prefs['twentyFour'] = array(
 // date format
 $_prefs['date_format'] = array(
     'value' => '%x',
-    'shared' => true,
     'type' => 'enum',
     'enum' => array(
         '%x' => strftime('%x'),
@@ -380,7 +361,6 @@ $_prefs['date_format'] = array(
 // date format (miniature)
 $_prefs['date_format_mini'] = array(
     'value' => '%x',
-    'shared' => true,
     'type' => 'enum',
     'enum' => array(
         '%x' => strftime('%x'),
@@ -422,7 +402,6 @@ $_prefs['time_format'] = array(
 // what day should be displayed as the first day of the week?
 $_prefs['first_week_day'] = array(
     'value' => '0',
-    'shared' => true,
     'type' => 'enum',
     'desc' => _("Which day would you like to be displayed as the first day of the week?"),
     'enum' => array(
@@ -449,14 +428,12 @@ $_prefs['categorymanagement'] = array(
 
 // categories
 $_prefs['categories'] = array(
-    'value' => '',
-    'shared' => true
+    'value' => ''
 );
 
 // category colors
 $_prefs['category_colors'] = array(
-    'value' => '',
-    'shared' => true
+    'value' => ''
 );
 
 
@@ -478,7 +455,6 @@ $prefGroups['display'] = array(
 // Application list is dynamically built when prefs screen is displayed
 $_prefs['initial_application'] = array(
     'value' => 'horde',
-    'shared' => true,
     'type' => 'enum',
     'desc' => sprintf(_("What application should %s display after login?"), $GLOBALS['registry']->get('name'))
 );
@@ -486,7 +462,6 @@ $_prefs['initial_application'] = array(
 // show the last login time of user
 $_prefs['show_last_login'] = array(
     'value' => true,
-    'shared' => true,
     'type' => 'checkbox',
     'desc' => _("Show last login time when logging in?")
 );
@@ -496,15 +471,13 @@ $_prefs['show_last_login'] = array(
 // login, and the host that the last login was from.
 $_prefs['last_login'] = array(
     // value = serialize(array())
-    'value' => 'a:0:{}',
-    'shared' => true
+    'value' => 'a:0:{}'
 );
 
 // UI theme
 // Theme list is dynamically built when prefs screen is displayed
 $_prefs['theme'] = array(
     'value' => 'silver',
-    'shared' => true,
     'type' => 'enum',
     'desc' => _("Select your color scheme.")
 );
@@ -525,7 +498,6 @@ $_prefs['summary_refresh_time'] = array(
 
 $_prefs['show_sidebar'] = array(
     'value' => true,
-    'shared' => true,
     'type' => 'checkbox',
     'desc' => sprintf(_("Show the %s Menu on the left?"), $GLOBALS['registry']->get('name', 'horde'))
 );
@@ -538,7 +510,6 @@ $_prefs['sidebar_width'] = array(
 
 $_prefs['menu_view'] = array(
     'value' => 'both',
-    'shared' => true,
     'type' => 'enum',
     'enum' => array(
         'text' => _("Text Only"),
@@ -550,7 +521,6 @@ $_prefs['menu_view'] = array(
 
 $_prefs['menu_refresh_time'] = array(
     'value' => 300,
-    'shared' => true,
     'type' => 'enum',
     'enum' => array(
         0 => _("Never"),
@@ -565,7 +535,6 @@ $_prefs['menu_refresh_time'] = array(
 // should we create access keys?
 $_prefs['widget_accesskey'] = array(
     'value' => true,
-    'shared' => true,
     'type' => 'checkbox',
     'desc' => _("Should access keys be defined for most links?")
 );
@@ -612,8 +581,7 @@ $_prefs['facebookmanagement'] = array(
 
 $_prefs['facebook'] = array(
     // value = serialize(array())
-    'value' => 'a:0:{}',
-    'shared' => true
+    'value' => 'a:0:{}'
 );
 
 
@@ -687,6 +655,5 @@ $_prefs['activesyncmanagement'] = array(
 // last time login tasks were run.
 $_prefs['last_logintasks'] = array(
     // value = serialize(array())
-    'value' => 'a:0:{}',
-    'shared' => true
+    'value' => 'a:0:{}'
 );
