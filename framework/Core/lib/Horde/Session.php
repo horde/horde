@@ -302,8 +302,10 @@ class Horde_Session implements ArrayAccess
             return $data;
         }
 
-        if ($this->_lzf) {
-            $data = lzf_decompress($data);
+        if ($this->_lzf &&
+            (($data = @lzf_decompress($data)) === false)) {
+            unset($this[$offset]);
+            return $this[$offset];
         }
 
         return ($_SESSION[self::SERIALIZED][$ob->key] == 's')
