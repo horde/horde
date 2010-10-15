@@ -25,7 +25,7 @@ class Text_Wiki_Render_Xhtml_Url extends Text_Wiki_Render {
         // Find the rightmost dot and determine the filename
         // extension.
         $pos = strrpos($href, '.');
-        $ext = strtolower(substr($href, $pos + 1));
+        $ext = Horde_String::lower(substr($href, $pos + 1));
         $href = htmlspecialchars($href);
 
         // Allow for alternative targets on non-anchor HREFs.
