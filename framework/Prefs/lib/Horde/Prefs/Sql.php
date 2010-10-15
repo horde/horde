@@ -113,15 +113,9 @@ class Horde_Prefs_Sql extends Horde_Prefs
      */
     public function store()
     {
-        // Get the list of preferences that have changed. If there are
-        // none, no need to hit the backend.
-        if (!($dirty_prefs = $this->_dirtyPrefs())) {
-            return;
-        }
-
         // For each preference, check for an existing table row and
         // update it if it's there, or create a new one if it's not.
-        foreach ($dirty_prefs as $scope => $prefs) {
+        foreach ($this->_dirty as $scope => $prefs) {
             $updated = array();
 
             foreach ($prefs as $name => $pref) {

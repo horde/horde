@@ -106,6 +106,13 @@ class Horde_Prefs implements ArrayAccess
     protected $_dict;
 
     /**
+     * List of dirty prefs.
+     *
+     * @var array
+     */
+    protected $_dirty = array();
+
+    /**
      * Attempts to return a concrete instance based on $driver.
      *
      * @param string $driver  Either a driver name, or the full class name to
@@ -236,7 +243,7 @@ class Horde_Prefs implements ArrayAccess
     {
         // FIXME not updated yet - not removed from backend.
         $scope = $this->_getPreferenceScope($pref);
-        unset($this->_prefs[$pref]);
+        unset($this->_dirty[$scope][$pref], $this->_prefs[$pref]);
         $this->_cache->clear($scope, $pref);
     }
 
@@ -436,6 +443,12 @@ class Horde_Prefs implements ArrayAccess
      */
     public function setDirty($pref, $bool)
     {
+        if ($bool) {
+            $this->_dirty[$this->_scope][$pref] = $this->_prefs[$pref];
+        } else {
+            unset($this->_dirty[$this->_scope][$pref]);
+        }
+
         $this->_setMask($pref, $bool, self::DIRTY);
     }
 
@@ -621,7 +634,7 @@ class Horde_Prefs implements ArrayAccess
         /* Perform a Horde-wide cleanup? */
         if ($all) {
             /* Destroy the contents of the preferences hash. */
-            $this->_prefs = array();
+            $this->_dirty = $this->_prefs = array();
 
             /* Destroy the contents of the preferences cache. */
             $this->_cache->clear();
@@ -665,28 +678,6 @@ class Horde_Prefs implements ArrayAccess
         return is_bool($value)
             ? $value
             : Horde_String::convertCharset($value, 'UTF-8', $this->getCharset());
-    }
-
-    /**
-     * Return all "dirty" preferences across all scopes.
-     *
-     * @return array  The values for all dirty preferences, in a
-     *                multi-dimensional array of scope => pref name =>
-     *                pref values.
-     */
-    protected function _dirtyPrefs()
-    {
-        $dirty_prefs = array();
-
-        foreach ($this->_scopes as $scope => $prefs) {
-            foreach ($prefs as $pref_name => $pref) {
-                if (isset($pref['m']) && ($pref['m'] & self::DIRTY)) {
-                    $dirty_prefs[$scope][$pref_name] = $pref;
-                }
-            }
-        }
-
-        return $dirty_prefs;
     }
 
     /**

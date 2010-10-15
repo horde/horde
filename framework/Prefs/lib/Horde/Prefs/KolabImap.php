@@ -148,11 +148,9 @@ class Horde_Prefs_KolabImap extends Horde_Prefs_Base
     {
         // Get the list of preferences that have changed. If there are
         // none, no need to hit the backend.
-        $dirty_prefs = $this->_dirtyPrefs();
-        if (!$dirty_prefs) {
+        if (empty($this->_dirty)) {
             return;
         }
-        $dirty_scopes = array_keys($dirty_prefs);
 
         $this->_connect();
 
@@ -161,7 +159,7 @@ class Horde_Prefs_KolabImap extends Horde_Prefs_Base
         // all of the values of a multi-value entry wholesale, we
         // can't just pick out the dirty preferences; we must update
         // every scope that has dirty preferences.
-        foreach ($dirty_scopes as $scope) {
+        foreach (array_keys($this->_dirty) as $scope) {
             $new_values = array();
             foreach ($this->_scopes[$scope] as $name => $pref) {
                 // Don't store locked preferences.
@@ -200,7 +198,7 @@ class Horde_Prefs_KolabImap extends Horde_Prefs_Base
         }
 
         // Clean the preferences since they were just saved.
-        foreach ($dirty_prefs as $scope => $prefs) {
+        foreach ($this->_dirty as $scope => $prefs) {
             foreach ($prefs as $name => $pref) {
                 $this->_scopes[$scope][$name]['m'] &= ~self::DIRTY;
             }

@@ -319,11 +319,9 @@ class Horde_Prefs_Ldap extends Horde_Prefs
     {
         // Get the list of preferences that have changed. If there are
         // none, no need to hit the backend.
-        $dirty_prefs = $this->_dirtyPrefs();
-        if (!$dirty_prefs) {
+        if (empty($this->_dirty)) {
             return;
         }
-        $dirty_scopes = array_keys($dirty_prefs);
 
         $this->_connect();
 
@@ -333,7 +331,7 @@ class Horde_Prefs_Ldap extends Horde_Prefs
         // can't just pick out the dirty preferences; we must update
         // every scope that has dirty preferences.
         $new_values = array();
-        foreach ($dirty_scopes as $scope) {
+        foreach (array_keys($this->_dirty) as $scope) {
             foreach ($this->_scopes[$scope] as $name => $pref) {
                 // Don't store locked preferences.
                 if (!($pref['m'] & self::LOCKED)) {
@@ -397,7 +395,7 @@ class Horde_Prefs_Ldap extends Horde_Prefs
         }
 
         // Clean the preferences since they were just saved.
-        foreach ($dirty_prefs as $scope => $prefs) {
+        foreach ($this->_dirty as $scope => $prefs) {
             foreach ($prefs as $name => $pref) {
                 $this->_scopes[$scope][$name]['m'] &= ~self::DIRTY;
             }

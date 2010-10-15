@@ -69,14 +69,13 @@ class Horde_Prefs_Imsp extends Horde_Prefs_Base
     {
         // Get the list of preferences that have changed. If there are
         // none, no need to hit the backend.
-        $dirty_prefs = $this->_dirtyPrefs();
-        if (!$dirty_prefs) {
+        if (empty($this->_dirty)) {
             return;
         }
 
         $this->_connect();
 
-        foreach ($dirty_prefs as $scope => $prefs) {
+        foreach ($this->_dirty as $scope => $prefs) {
             $updated = array();
 
             foreach ($prefs as $name => $pref) {

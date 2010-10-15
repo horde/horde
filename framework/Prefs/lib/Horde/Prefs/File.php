@@ -174,20 +174,12 @@ class Horde_Prefs_File extends Horde_Prefs_Base
     /**
      * Stores preferences in the current session.
      *
-     * @return boolean  True on success.
      * @throws Horde_Prefs_Exception
      */
     public function store()
     {
-        if (is_null($this->_dirname)) {
-            return false;
-        }
-
-        // Get the list of preferences that have changed. If there are
-        // none, no need to hit the backend.
-        $dirty_prefs = $this->_dirtyPrefs();
-        if (!$dirty_prefs) {
-            return true;
+        if (is_null($this->_dirname) || empty($this->_dirty)) {
+            return;
         }
 
         // Read in all existing preferences, if any.
@@ -197,7 +189,7 @@ class Horde_Prefs_File extends Horde_Prefs_Base
         }
 
         // Update all values from dirty scope
-        foreach ($dirty_prefs as $scope => $prefs) {
+        foreach ($this->_dirty as $scope => $prefs) {
             foreach ($prefs as $name => $pref) {
                 // Don't store locked preferences.
                 if (!($this->_scopes[$scope][$name]['m'] & self::LOCKED)) {
@@ -212,8 +204,6 @@ class Horde_Prefs_File extends Horde_Prefs_Base
         if ($this->_writeCache() == false) {
             throw new Horde_Prefs_Exception(sprintf('Write of preferences to %s failed', $this->_filename));
         }
-
-        return true;
     }
 
 }
