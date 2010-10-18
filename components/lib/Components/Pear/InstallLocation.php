@@ -376,6 +376,9 @@ class Components_Pear_InstallLocation
 
     private function _identifyMatchingLocalPackage($package)
     {
+        if (empty($this->_source_directory)) {
+            return false;
+        }
         foreach (new DirectoryIterator($this->_source_directory) as $file) {
             if (preg_match('/' . $package . '-[0-9]+(\.[0-9]+)+([a-z0-9]+)?/', $file->getBasename('.tgz'), $matches)) {
                 return $file->getPathname();
