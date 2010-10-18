@@ -36,23 +36,15 @@ class BackLinks extends Wicked_Page {
     }
 
     /**
-     * Render this page in display or block mode.
+     * Renders this page in display or block mode.
      *
-     * @return mixed  Returns contents or PEAR_Error.
+     * @return string  The contents.
+     * @throws Wicked_Exception
      */
     function displayContents($isBlock)
     {
-        global $wicked, $notification;
-
-        $summaries = $wicked->getBackLinks($this->_referrer);
-        if (is_a($summaries, 'PEAR_Error')) {
-            $notification->push('Error retrieving summaries: ' .
-                                $summaries->getMessage(), 'horde.error');
-            return $summaries;
-        }
-
+        $summaries = $GLOBALS['wicked']->getBackLinks($this->_referrer);
         Horde::addScriptFile('tables.js', 'horde', true);
-
         ob_start();
         require WICKED_TEMPLATES . '/pagelist/header.inc';
         foreach ($summaries as $page) {
@@ -64,7 +56,6 @@ class BackLinks extends Wicked_Page {
             require WICKED_TEMPLATES . '/pagelist/summary.inc';
         }
         require WICKED_TEMPLATES . '/pagelist/footer.inc';
-
         return ob_get_clean();
     }
 

@@ -29,13 +29,12 @@ class SyncPages extends Wicked_Page {
 
     /**
      * Constructor
+     *
+     * @throws Wicked_Exception
      */
     function SyncPages()
     {
         $this->_loadSyncDriver();
-        if (is_a($this->_sync, 'PEAR_Error')) {
-            return $this->_sync;
-        }
 
         // Do we need to perform any action?
         switch (Horde_Util::getGet('actionID')) {
@@ -50,9 +49,10 @@ class SyncPages extends Wicked_Page {
     }
 
     /**
-     * Render this page in Content mode.
+     * Renders this page in content mode.
      *
-     * @return string  The page content, or PEAR_Error.
+     * @return string  The page content.
+     * @throws Wicked_Exception
      */
     function content()
     {
@@ -92,9 +92,6 @@ class SyncPages extends Wicked_Page {
                 continue;
             }
             $page = Wicked_Page::getPage($pageName);
-            if (is_a($page, 'PEAR_Error')) {
-                return $page;
-            }
             $new_local[$pageName] = array(
                 'page_majorversion' => $page->_page['page_majorversion'],
                 'page_minorversion' => $page->_page['page_minorversion'],
@@ -116,9 +113,7 @@ class SyncPages extends Wicked_Page {
 
             // Compare checksum
             $page = Wicked_Page::getPage($pageName);
-            if (is_a($page, 'PEAR_Error')) {
-                return $page;
-            } elseif (md5($page->getText()) == $_SESSION['wicked']['sync']['pages'][$pageName]['page_checksum']) {
+            if (md5($page->getText()) == $_SESSION['wicked']['sync']['pages'][$pageName]['page_checksum']) {
                 continue;
             }
 
@@ -135,20 +130,14 @@ class SyncPages extends Wicked_Page {
     }
 
     /**
-     * Render this page in display or block mode.
+     * Renders this page in display or block mode.
      *
-     * @return mixed  Returns page contents or PEAR_Error
+     * @return string  The contents.
+     * @throws Wicked_Exception
      */
     function displayContents($isBlock)
     {
-        global $notification;
-
-        $content = $this->content();
-        if (is_a($content, 'PEAR_Error')) {
-            $notification->push($content);
-        }
-
-        return $content;
+        return $this->content();
     }
 
     /**
@@ -181,6 +170,8 @@ class SyncPages extends Wicked_Page {
 
     /**
      * Get and process sync info form
+     *
+     * @throws Wicked_Exception
      */
     function _syncForm()
     {
@@ -269,15 +260,10 @@ class SyncPages extends Wicked_Page {
                 // Load driver
                 $_SESSION['wicked']['sync'] = $info;
                 $this->_loadSyncDriver();
-                if (is_a($this->_sync, 'PEAR_Error')) {
-                    return $this->_sync;
-                }
 
                 // We submitted the form so we should fetch pages
                 $pages = $this->_sync->getMultiplePageInfo();
-                if (is_a($pages, 'PEAR_Error')) {
-                    $GLOBALS['notification']->push($pages);
-                } elseif (!empty($pages)) {
+                if (!empty($pages)) {
                     $_SESSION['wicked']['sync']['pages'] = $pages;
                 }
                 break;
@@ -317,10 +303,6 @@ class SyncPages extends Wicked_Page {
     function getLocalPageInfo($pageName)
     {
         $page = Wicked_Page::getPage($pageName);
-        if (is_a($page, 'PEAR_Error')) {
-            return $page;
-        }
-
         return array(
             'page_majorversion' => $page->_page['page_majorversion'],
             'page_minorversion' => $page->_page['page_minorversion'],
@@ -335,58 +317,43 @@ class SyncPages extends Wicked_Page {
      * Get page info
      *
      * @param boolean $local Get local or remote info
+     *
+     * @throws Wicked_Exception
      */
     function getRemotePageInfo($pageName)
     {
-        if (isset($_SESSION['wicked']['sync']['pages'][$pageName])) {
-            return $_SESSION['wicked']['sync']['pages'][$pageName];
-        } else {
-            $info = $this->_sync->getPageInfo($pageName);
-            if (!is_a($info, 'PEAR_Error')) {
-                $_SESSION['wicked']['sync']['pages'][$pageName] = $info;
-            }
-            return $info;
+        if (!isset($_SESSION['wicked']['sync']['pages'][$pageName])) {
+            $_SESSION['wicked']['sync']['pages'][$pageName] = $this->_sync->getPageInfo($pageName);
         }
+        return $_SESSION['wicked']['sync']['pages'][$pageName];
     }
 
     /**
      * Download remote page to local server
+     *
+     * @throws Wicked_Exception
      */
     function download($pageName)
     {
         $text = $this->_sync->getPageSource($pageName);
-        if (is_a($text, 'PEAR_Error')) {
-            return $text;
-        }
-
         $page = Wicked_Page::getPage($pageName);
-        if (is_a($page, 'PEAR_Error')) {
-            return $page;
-        }
-
         if (!$page->allows(Wicked::MODE_EDIT)) {
-            return PEAR::RaiseError(sprintf(_("You don't have permission to edit \"%s\"."), $pageName));
+            throw new Wicked_Exception(sprintf(_("You don't have permission to edit \"%s\"."), $pageName));
         }
 
-        $content = $page->getText();
-        if (is_a($content, 'PEAR_Error')) {
+        try {
+            $content = $page->getText();
+            if (trim($text) == trim($content)) {
+                $GLOBALS['notification']->push(_("No changes made"), 'horde.message');
+                return;
+            }
+            $page->updateText($text, _("Downloaded from remote server"), true);
+        } catch (Wicked_Exception $e) {
             // Maybe the page does not exists, if not create it
             if ($GLOBALS['wicked']->pageExists($pageName)) {
-                return $content;
-            } else {
-                $result = $GLOBALS['wicked']->newPage($pageName, $text);
-                if (is_a($result, 'PEAR_Error')) {
-                    return $result;
-                }
+                throw $e;
             }
-        } else {
-            if (trim($text) == trim($content)) {
-                return PEAR::raiseError(_("No changes made"));
-            }
-            $result = $page->updateText($text, _("Downloaded from remote server"), true);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
+            $GLOBALS['wicked']->newPage($pageName, $text);
         }
 
         $GLOBALS['notification']->push(sprintf(_("Page \"%s\" was sucessfuly downloaded from remote to local wiki."), $pageName), 'horde.success');
@@ -401,23 +368,8 @@ class SyncPages extends Wicked_Page {
     function upload($pageName)
     {
         $page = Wicked_Page::getPage($pageName);
-        if (is_a($page, 'PEAR_Error')) {
-            $GLOBALS['notification']->push($page);
-            return $page;
-        }
-
         $content = $page->getText();
-        if (is_a($content, 'PEAR_Error')) {
-            $GLOBALS['notification']->push($content);
-            return $content;
-        }
-
-        $result = $this->_sync->editPage($pageName, $content, _("Uploaded from remote server"), true);
-        if (is_a($result, 'PEAR_Error')) {
-            $GLOBALS['notification']->push($result);
-            return $content;
-        }
-
+        $this->_sync->editPage($pageName, $content, _("Uploaded from remote server"), true);
         $GLOBALS['notification']->push(sprintf(_("Page \"%s\" was sucessfully uploaded from local to remote wiki."), $pageName), 'horde.success');
 
         // Show the newly updated page.

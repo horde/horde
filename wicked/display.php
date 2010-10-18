@@ -11,13 +11,15 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('wicked');
 
-$page = Wicked_Page::getCurrentPage();
-if (is_a($page, 'PEAR_Error')) {
-    $notification->push(_("Internal error viewing requested page"),
-                        'horde.error');
+$actionID = Horde_Util::getFormData('actionID');
+try {
+    $page = Wicked_Page::getCurrentPage();
+} catch (Wicked_Exception $e) {
+    $notification->push(_("Internal error viewing requested page"), 'horde.error');
+    $page = Wicked_Page::getPage('');
+    $actionID = null;
 }
 
-$actionID = Horde_Util::getFormData('actionID');
 switch ($actionID) {
 case 'lock':
     if (!$page->allows(Wicked::MODE_LOCKING)) {
@@ -25,9 +27,10 @@ case 'lock':
                             'horde.error');
         break;
     }
-    $result = $page->lock();
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push(sprintf(_("Page failed to lock: %s"), $result->getMessage()),
+    try {
+        $result = $page->lock();
+    } catch (Wicked_Exception $e) {
+        $notification->push(sprintf(_("Page failed to lock: %s"), $e->getMessage()),
                             'horde.error');
     }
     break;
@@ -37,13 +40,13 @@ case 'unlock':
         $notification->push(_("You are not allowed to unlock this page"),
                             'horde.error');
     }
-    $result = $page->unlock();
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push(
-            sprintf(_("Page failed to unlock: %s"), $result->getMessage()),
-            'horde.error');
-    } else {
+    try {
+        $result = $page->unlock();
         $notification->push(_("Page unlocked"), 'horde.success');
+    } catch (Wicked_Exception $e) {
+        $notification->push(
+            sprintf(_("Page failed to unlock: %s"), $e->getMessage()),
+            'horde.error');
     }
     break;
 
@@ -92,27 +95,29 @@ case 'export':
         break;
     }
 
-    $wiki = &$page->getProcessor($format);
-    $text = $wiki->transform($page->getText(), $format);
-    if (is_a($text, 'PEAR_Error')) {
-        echo $text->getMessage();
-    } else {
+    $wiki = $page->getProcessor($format);
+    try {
+        $text = $wiki->transform($page->getText(), $format);
         $browser->downloadHeaders($page->pageTitle() . $ext, $mime, false, strlen($text));
         echo $text;
+        exit;
+    } catch (Wicked_Exception $e) {
+        $notification->push($e);
     }
-    exit(0);
+    break;
 
 default:
     $wicked->logPageView($page->pageName());
+    break;
 }
 
 if (!$page->allows(Wicked::MODE_DISPLAY)) {
+    if ($page->pageName() == 'WikiHome') {
+        Horde::fatal(_("You don't have permission to view this page."));
+    }
     $notification->push(_("You don't have permission to view this page."),
                         'horde.error');
-    if ($page->pageName() == 'WikiHome') {
-        throw new Horde_Exception(_("You don't have permission to view this page."));
-    }
-    Wicked::url('WikiHome', true)->redirect();
+    $page = Wicked_Page::getPage('');
 }
 
 $params = Horde_Util::getFormData('params');

@@ -78,9 +78,9 @@ class MergeOrRename extends Wicked_Page {
     }
 
     /**
-     * Render this page in Display mode.
+     * Renders this page in display mode.
      *
-     * @return mixed                Returns true or PEAR_Error.
+     * @throws Wicked_Exception
      */
     function display()
     {
@@ -100,11 +100,6 @@ class MergeOrRename extends Wicked_Page {
         $template->set('requiredMarker', $requiredMarker);
 
         $references = $wicked->getBackLinks($referrer);
-        if (is_a($references, 'PEAR_Error')) {
-            $notification->push('Error retrieving back links: ' .
-                                $references->getMessage(), 'horde.error');
-            return $references;
-        }
 
         foreach ($references as $key => $page) {
             $references[$key]['page_url'] = htmlspecialchars(Wicked::url($page['page_name']));
@@ -179,50 +174,30 @@ class MergeOrRename extends Wicked_Page {
         }
 
         $sourcePage = Wicked_Page::getPage($referrer);
-        if (is_a($sourcePage, 'PEAR_Error')) {
-            $notification->push(sprintf(_("Failed to retrieve \"%s\": %s"),
-                                        $referrer, $sourcePage->getMessage()),
-                                'horde.error');
-            return;
-        } elseif (!$this->allows(Wicked::MODE_EDIT)) {
-            $notification->push(sprintf(_("You do not have permission to edit \"%s\""),
-                                        $referrer), 'horde.error');
-            return;
+        if (!$this->allows(Wicked::MODE_EDIT)) {
+            throw new Wicked_Exception(sprintf(_("You do not have permission to edit \"%s\""),
+                                               $referrer));
         }
 
         $destPage = Wicked_Page::getPage($new_name);
-        if (!is_a($destPage, 'PEAR_Error') && !is_a($destPage, 'AddPage')) {
+        if (!is_a($destPage, 'AddPage')) {
             // Destination page exists.
             if ($collision != 'merge') {
                 // We don't want to overwrite.
-                $notification->push(sprintf(_("Page \"%s\" already exists."),
-                                            $new_name), 'horde.error');
-                return;
+                throw new Wicked_Exception(sprintf(_("Page \"%s\" already exists."),
+                                                   $new_name));
             }
             if (!$destPage->allows(Wicked::MODE_EDIT)) {
-                $notification->push(sprintf(_("You do not have permission to edit \"%s\""),
-                                            $new_name), 'horde.error');
-                return;
+                throw new Wicked_Exception(sprintf(_("You do not have permission to edit \"%s\""),
+                                            $new_name));
             }
 
             // Merge the two pages.
             $newText = $destPage->getText() . "\n----\n" . $sourcePage->getText();
             $changelog = sprintf(_("Merged from %s"), $referrer);
-            $result = $wicked->updateText($new_name, $newText, $changelog, true);
-            if (is_a($result, 'PEAR_Error')) {
-                $notification->push(sprintf(_("Error updating %s: %s"),
-                                            $new_name, $result->getMessage()),
-                                    'horde.error');
-                return;
-            }
+            $wicked->updateText($new_name, $newText, $changelog, true);
+            $wicked->removeAllVersions($referrer);
 
-            $result = $wicked->removeAllVersions($referrer);
-            if (is_a($result, 'PEAR_Error')) {
-                $notification->push(sprintf(_("Error deleting %s: %s"),
-                                            $referrer, $result->getMessage()),
-                                    'horde.error');
-                return;
-            }
             $notification->push(sprintf(_("Merged \"%s\" into \"%s\"."), $referrer, $new_name), 'horde.success');
 
             $url = Wicked::url($new_name, true, -1);
@@ -231,13 +206,7 @@ class MergeOrRename extends Wicked_Page {
                 'Subject' => '[' . $registry->get('name') . '] merged: ' . $referrer . ', ' . $new_name));
         } else {
             // Rename the page.
-            $result = $wicked->renamePage($referrer, $new_name);
-            if (is_a($result, 'PEAR_Error')) {
-                $notification->push(sprintf(_("Error renaming \"%s\": %s"),
-                                            $referrer, $result->getMessage()),
-                                    'horde.error');
-                return;
-            }
+            $wicked->renamePage($referrer, $new_name);
             $notification->push(sprintf(_("Renamed \"%s\" to \"%s\"."), $referrer, $new_name), 'horde.success');
 
             $url = Wicked::url($new_name, true, -1);
@@ -261,10 +230,11 @@ class MergeOrRename extends Wicked_Page {
                 $page_name = $new_name;
             }
 
-            $refPage = $wicked->retrieveByName($page_name);
-            if (is_a($refPage, 'PEAR_Error')) {
+            try {
+                $refPage = $wicked->retrieveByName($page_name);
+            } catch (Wicked_Exception $e) {
                 $notification->push(sprintf(_("Error retrieving %s: %s"),
-                                            $page_name, $refPage->getMessage()),
+                                            $page_name, $e->getMessage()),
                                     'horde.error');
                 continue;
             }
@@ -288,13 +258,7 @@ class MergeOrRename extends Wicked_Page {
             }
 
             $newText = preg_replace($from, $to, $refPage['page_text']);
-            $result = $wicked->updateText($page_name, $newText, $changelog, true);
-            if (is_a($result, 'PEAR_Error')) {
-                $notification->push(sprintf(_("Error updating %s: %s"),
-                                            $page_name, $result->getMessage()),
-                                    'horde.warning');
-                return;
-            }
+            $wicked->updateText($page_name, $newText, $changelog, true);
         }
 
         Wicked::url($new_name, true)->redirect();

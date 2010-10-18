@@ -23,36 +23,26 @@ class AllPages extends Wicked_Page {
         Wicked::MODE_DISPLAY => true);
 
     /**
-     * Render this page in Content mode.
+     * Renders this page in content mode.
      *
-     * @return string  The page content, or PEAR_Error.
+     * @return string  The page content.
      */
     function content()
     {
-        global $wicked;
-
-        return $wicked->getAllPages();
+        return $GLOBALS['wicked']->getAllPages();
     }
 
     /**
-     * Render this page in display or block mode.
+     * Renders this page in display or block mode.
      *
-     * @return mixed  Returns page contents or PEAR_Error
+     * @return string  The page contents.
+     * @throws Wicked_Exception
      */
     function displayContents($isBlock)
     {
-        global $notification;
-
-        $summaries = $this->content();
-        if (is_a($summaries, 'PEAR_Error')) {
-            $notification->push('Error retrieving summaries : ' .
-                                $summaries->getMessage(), 'horde.error');
-            return $summaries;
-        }
-
         $template = $GLOBALS['injector']->createInstance('Horde_Template');
         $pages = array();
-        foreach ($summaries as $page) {
+        foreach ($this->content() as $page) {
             $page = new StandardPage($page);
             $pages[] = array('author' => $page->author(),
                              'created' => $page->formatVersionCreated(),

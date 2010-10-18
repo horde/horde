@@ -11,7 +11,7 @@
  * @author  Duck <duck@obala.net>
  * @package Wicked
  */
-class Wicked_Sync {
+abstract class Wicked_Sync {
 
     /**
      * Hash containing connection parameters.
@@ -70,47 +70,39 @@ class Wicked_Sync {
      * Returns a list of available pages.
      *
      * @return array  An array of all available pages.
+     * @throws Wicked_Exception
      */
-    function listPages()
-    {
-        return PEAR::raiseError(_("Unsupported"));
-    }
+    abstract function listPages();
 
     /**
      * Get the wiki source of a page specified by its name.
      *
      * @param string $name  The name of the page to fetch
      *
-     * @return mixed        Array of page data on success; PEAR_Error on failure
+     * @return array  Page data.
+     * @throws Wicked_Exception
      */
-    function getPageSource($pageName)
-    {
-        return PEAR::raiseError(_("Unsupported"));
-    }
+    abstract function getPageSource($pageName);
 
     /**
      * Return basic page information.
      *
      * @param string $pageName Page name
      *
-     * @return mixed        Array of page data on success; PEAR_Error on failure
+     * @return array  Page data.
+     * @throws Wicked_Exception
      */
-    function getPageInfo($pageName)
-    {
-        return PEAR::raiseError(_("Unsupported"));
-    }
+    abstract function getPageInfo($pageName);
 
     /**
      * Return basic information of .multiple pages
      *
      * @param array $pages Page names to get info for
      *
-     * @return mixed        Array of pages data on success; PEAR_Error on failure
+     * @return array  Pages data.
+     * @throws Wicked_Exception
      */
-    function getMultiplePageInfo($pages = array())
-    {
-        return PEAR::raiseError(_("Unsupported"));
-    }
+    abstract function getMultiplePageInfo($pages = array());
 
    /**
      * Return page history.
@@ -118,11 +110,9 @@ class Wicked_Sync {
      * @param string $pagename Page name
      *
      * @return array  An array of page parameters.
+     * @throws Wicked_Exception
      */
-    function getPageHistory($pagename)
-    {
-        return PEAR::raiseError(_("Unsupported"));
-    }
+    abstract function getPageHistory($pagename);
 
     /**
      * Updates content of a wiki page. If the page does not exist it is
@@ -133,11 +123,7 @@ class Wicked_Sync {
      * @param string $changelog Description of the change
      * @param boolean $minorchange True if this is a minor change
      *
-     * @return boolean | PEAR_Error True on success, PEAR_Error on failure.
+     * @throws Wicked_Exception
      */
-    function editPage($pagename, $text, $changelog = '', $minorchange = false)
-    {
-        return PEAR::raiseError(_("Unsupported"));
-    }
-
+    abstract function editPage($pagename, $text, $changelog = '', $minorchange = false);
 }

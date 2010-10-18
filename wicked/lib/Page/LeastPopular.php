@@ -25,37 +25,28 @@ class LeastPopular extends Wicked_Page {
         Wicked::MODE_DISPLAY => true);
 
     /**
-     * Render this page in Content mode.
+     * Renders this page in content mode.
      *
      * @param integer $numPages  How many (at most) pages should we return?
      *
-     * @return string  The page content, or PEAR_Error.
+     * @return string  The page contents.
      */
     function content($numPages = 10)
     {
-        global $wicked;
-
-        return $wicked->leastPopular($numPages);
+        return $GLOBALS['wicked']->leastPopular($numPages);
     }
 
     /**
-     * Render this page in display or block mode.
+     * Renders this page in display or block mode.
      *
-     * @return mixed  Returns content or PEAR_Error.
+     * @return string  The content.
+     * @throws Wicked_Exception
      */
     function displayContents($isBlock)
     {
-        global $notification;
-
-        $summaries = $this->content(10);
-        if (is_a($summaries, 'PEAR_Error')) {
-            $notification->push('Error retrieving LeastPopular: ' . $summaries->getMessage(), 'horde.error');
-            return $summaries;
-        }
-
         $template = $GLOBALS['injector']->createInstance('Horde_Template');
         $pages = array();
-        foreach ($summaries as $page) {
+        foreach ($this->content(10) as $page) {
             $page = new StandardPage($page);
             $pages[] = array('author' => $page->author(),
                              'created' => $page->formatVersionCreated(),

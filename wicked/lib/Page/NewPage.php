@@ -77,9 +77,9 @@ class NewPage extends Wicked_Page {
     }
 
     /**
-     * Render this page in Display mode.
+     * Renders this page in display mode.
      *
-     * @return mixed Returns true or PEAR_Error.
+     * @throws Wicked_Exception
      */
     function display()
     {
@@ -127,12 +127,12 @@ class NewPage extends Wicked_Page {
                 return;
             }
 
-            $result = $wicked->newPage($this->referrer(), $text);
-            if (is_a($result, 'PEAR_Error')) {
-                $notification->push(sprintf(_("Create Failed: %s"),
-                                            $result->getMessage()), 'horde.error');
-            } else {
+            try {
+                $result = $wicked->newPage($this->referrer(), $text);
                 $notification->push(_("Page Created"), 'horde.success');
+            } catch (Wicked_Exception $e) {
+                $notification->push(sprintf(_("Create Failed: %s"),
+                                            $e->getMessage()), 'horde.error');
             }
         }
 

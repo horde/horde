@@ -24,8 +24,9 @@ if ($id !== false) {
 
 $version = Horde_Util::getFormData('version');
 if (empty($version)) {
-    $attachments = $wicked->getAttachedFiles($page_id);
-    if (is_a($attachments, 'PEAR_Error')) {
+    try {
+        $attachments = $wicked->getAttachedFiles($page_id);
+    } catch (Wicked_Exception $e) {
         // If we redirect here, we cause an infinite loop with inline
         // attachments.
         header('HTTP/1.1 404 Not Found');
@@ -47,8 +48,9 @@ if (empty($version)) {
     }
 }
 
-$data = $wicked->getAttachmentContents($page_id, $file, $version);
-if (is_a($data, 'PEAR_Error')) {
+try {
+    $data = $wicked->getAttachmentContents($page_id, $file, $version);
+} catch (Wicked_Exception $e) {
     // If we redirect here, we cause an infinite loop with inline
     // attachments.
     header('HTTP/1.1 404 Not Found');

@@ -1,13 +1,11 @@
 <div class="header">
 <?php
 $right = '';
-$v = $this->versionCreated();
-if (!is_a($v, 'PEAR_Error')) {
+try {
+    $v = $this->versionCreated();
     $right .= sprintf(_("Last Modified %s by %s"), $this->formatVersionCreated(), $this->author());
-}
 
-$v = $this->version();
-if (!is_a($v, 'PEAR_Error') && $this->allows(Wicked::MODE_DIFF)) {
+    $v = $this->version();
     $diff_url = Horde_Util::addParameter(Horde::url('diff.php'),
                                    array('page' => $this->pageName(),
                                          'v1' => '?',
@@ -17,7 +15,8 @@ if (!is_a($v, 'PEAR_Error') && $this->allows(Wicked::MODE_DIFF)) {
     $right .= '&nbsp;' .
         Horde::link($diff_url, $diff_alt) .
         Horde::img('diff.png', $diff_alt) . '</a>';
-}
+} catch (Wicked_Exception $e) {}
+
 if ($right) {
     echo '<div class="smallheader rightFloat">' . $right . '</div>';
 }

@@ -57,9 +57,9 @@ class RevertPage extends Wicked_Page {
     }
 
     /**
-     * Render this page in Display mode.
+     * Renders this page in display mode.
      *
-     * @return mixed True or PEAR_Error.
+     * @throws Wicked_Exception
      */
     function display()
     {
@@ -88,7 +88,6 @@ class RevertPage extends Wicked_Page {
 
 </form>
 <?php
-        return true;
     }
 
     function pageName()

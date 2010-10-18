@@ -42,7 +42,8 @@ class Wicked_Sync_wicked extends Wicked_Sync {
      *
      * @param string $name  The name of the page to fetch
      *
-     * @return mixed        String of page data on success; PEAR_Error on fail
+     * @return string  Page data.
+     * @throws Wicked_Exception
      */
     function getPageSource($pageName)
     {
@@ -54,7 +55,8 @@ class Wicked_Sync_wicked extends Wicked_Sync {
      *
      * @param string $pageName Page name
      *
-     * @return mixed        Array of page data on success; PEAR_Error on failure
+     * @return array  Page data.
+     * @throws Wicked_Exception
      */
     function getPageInfo($pageName)
     {
@@ -66,7 +68,8 @@ class Wicked_Sync_wicked extends Wicked_Sync {
      *
      * @param array $pages Page names to get info for
      *
-     * @return mixed        Array of pages data on success; PEAR_Error on failure
+     * @return array  Pages data.
+     * @throws Wicked_Exception
      */
     function getMultiplePageInfo($pages = array())
     {
@@ -94,11 +97,11 @@ class Wicked_Sync_wicked extends Wicked_Sync {
      * @param string $changelog Description of the change
      * @param boolean $minorchange True if this is a minor change
      *
-     * @return boolean | PEAR_Error True on success, PEAR_Error on failure.
+     * @throws Wicked_Exception
      */
     function editPage($pagename, $text, $changelog = '', $minorchange = false)
     {
-        return $this->_getData('edit', array($pagename, $text, $changelog, $minorchange));
+        $this->_getData('edit', array($pagename, $text, $changelog, $minorchange));
     }
 
     /**
@@ -107,17 +110,21 @@ class Wicked_Sync_wicked extends Wicked_Sync {
      * @param string $method Method name to call
      * @param array $params Array of parameters
      *
-     * @return mixed        Array of pages data on success; PEAR_Error on failure
+     * @return mixed
+     * @throws Wicked_Exception
      */
     function _getData($method, $params = array())
     {
-        return Horde_RPC::request(
-            'xmlrpc',
-            $this->_params['url'],
-            $this->_params['prefix'] . '.' . $method,
-            $params,
-            array('user' => $this->_params['user'],
-                  'pass' => $this->_params['password']));
+        try {
+            return Horde_RPC::request(
+                'xmlrpc',
+                $this->_params['url'],
+                $this->_params['prefix'] . '.' . $method,
+                $params,
+                array('user' => $this->_params['user'],
+                      'pass' => $this->_params['password']));
+        } catch (Horde_Exception $e) {
+            throw new Wicked_Exception($e);
+        }
     }
-
 }

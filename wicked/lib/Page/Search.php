@@ -26,27 +26,26 @@ class Search extends Wicked_Page {
 
     /**
      * Cached search results.
+     *
      * @var array
      */
-    var $_results;
+    var $_results = array();
 
     /**
-     * Render this page in Content mode.
+     * Renders this page in content mode.
      *
      * @param string $searchtext  The title to search for.
      *
-     * @return string  The page content, or PEAR_Error.
+     * @return string  The page content.
      */
     function content($searchtext = '')
     {
         if (empty($searchtext)) {
             return array();
         }
-
-        $titles = $GLOBALS['wicked']->searchTitles($searchtext);
-        $pages = $GLOBALS['wicked']->searchText($searchtext, false);
-
-        return array('titles' => $titles, 'pages' => $pages);
+        return array(
+            'titles' => $GLOBALS['wicked']->searchTitles($searchtext),
+            'pages' => $GLOBALS['wicked']->searchText($searchtext, false));
     }
 
     /**
@@ -65,21 +64,15 @@ class Search extends Wicked_Page {
     }
 
     /**
-     * Render this page in Display mode.
+     * Renders this page in display mode.
      *
      * @param string $searchtext  The title to search for.
      *
-     * @return mixed  Returns true or PEAR_Error.
+     * @throws Wicked_Exception
      */
     function display($searchtext)
     {
         global $notification;
-
-        if (is_a($this->_results, 'PEAR_Error')) {
-            $notification->push('Error retrieving search results: ' .
-                                $this->_results->getMessage(), 'horde.error');
-            return $this->_results;
-        }
 
         if (!$searchtext) {
             require WICKED_TEMPLATES . '/pagelist/search.inc';

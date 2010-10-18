@@ -27,11 +27,13 @@ class StdHistoryPage extends StandardPage {
      *
      * @param string  $pagename    The name of the page to load.
      * @param integer $version     The version of the page to load.
+     *
+     * @throws Wicked_Exception
      */
-    function StdHistoryPage($pagename, $version = null)
+    function __construct($pagename, $version = null)
     {
         if (empty($version)) {
-            parent::StandardPage($pagename);
+            parent::__construct($pagename);
             return;
         }
 
@@ -39,13 +41,11 @@ class StdHistoryPage extends StandardPage {
         $pages = $GLOBALS['wicked']->retrieveHistory($pagename, $version);
 
         // If it didnt find one, return an error.
-        if (is_a($pages, 'PEAR_Error')) {
-            $GLOBALS['notification']->push($pages);
-        } elseif (empty($pages[0])) {
-            $GLOBALS['notification']->push(_("History page not found"));
-        } else {
-            $this->_page = $pages[0];
+        if (empty($pages[0])) {
+            throw new Wicked_Exception(_("History page not found"));
         }
+
+        $this->_page = $pages[0];
     }
 
     function isOld()

@@ -54,17 +54,18 @@ class AddPage extends Wicked_Page {
     }
 
     /**
-     * Render this page in Display mode.
+     * Renders this page in display mode.
      *
-     * @return mixed  Returns true or PEAR_Error.
+     * @throws Wicked_Exception
      */
     function display()
     {
-        $templates = $GLOBALS['wicked']->getMatchingPages('Template', WICKED_PAGE_MATCH_ENDS);
-        if (is_a($templates, 'PEAR_Error')) {
+        try {
+            $templates = $GLOBALS['wicked']->getMatchingPages('Template', WICKED_PAGE_MATCH_ENDS);
+        } catch (Wicked_Exception $e) {
             $GLOBALS['notification']->push(sprintf(_("Error retrieving templates: %s"),
-                                                   $templates->getMessage()), 'horde.error');
-            return $templates;
+                                                   $e->getMessage()), 'horde.error');
+            throw $e;
         }
 
         $search_results = null;
@@ -91,7 +92,6 @@ class AddPage extends Wicked_Page {
         }
 
         require WICKED_TEMPLATES . '/edit/create.inc';
-        return true;
     }
 
     function pageName()

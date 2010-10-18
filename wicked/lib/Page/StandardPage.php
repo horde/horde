@@ -43,15 +43,41 @@ class StandardPage extends Wicked_Page {
      *
      * @param string $pagename The name of the page to represent.
      */
-    function StandardPage($pagename)
+    function __construct($pagename)
     {
         if (is_array($pagename)) {
             $this->_page = $pagename;
             return;
         }
 
-        global $wicked, $notification;
-        $page = $wicked->retrieveByName($pagename);
+        $page = null;
+        try {
+            $page = $GLOBALS['wicked']->retrieveByName($pagename);
+        } catch (Wicked_Exception $e) {
+            // If we can't load $pagename, see if there's default data for it.
+            $pagefile = WICKED_BASE . '/scripts/data/' . basename($pagename);
+            if ($pagename == basename($pagename) &&
+                file_exists($pagefile)) {
+                $text = file_get_contents($pagefile);
+                try {
+                    $GLOBALS['wicked']->newPage($pagename, $text);
+                    try {
+                        $page = $GLOBALS['wicked']->retrieveByName($pagename);
+                    } catch (Wicked_Exception $e) {
+                        $GLOBALS['notification']->push(sprintf(_("Unable to create %s"), $pagename), 'horde.error');
+                    }
+                } catch (Wicked_Exception $e) {}
+            }
+        }
+
+        if ($page) {
+            $this->_page = $page;
+        } else {
+            if ($pagename == 'WikiHome') {
+                $GLOBALS['notification']->push(_("Unable to create WikiHome. The wiki is not configured."), 'horde.error');
+            }
+            $this->_page = array();
+        }
 
         // Make sure 'wicked' permission exists. Set reasonable defaults if
         // necessary.
@@ -78,31 +104,6 @@ class StandardPage extends Wicked_Page {
                 $perm->addGroupPermission($group, $gperm, false);
             }
             $perms->addPermission($perm);
-        }
-
-        // If we can't load $pagename, see if there's default data for it.
-        if (is_a($page, 'PEAR_Error')) {
-            $pagefile = WICKED_BASE . '/scripts/data/' . basename($pagename);
-            if ($pagename == basename($pagename) &&
-                file_exists($pagefile)) {
-                $text = file_get_contents($pagefile);
-                $result = $wicked->newPage($pagename, $text);
-                if (!is_a($result, 'PEAR_Error')) {
-                    $page = $wicked->retrieveByName($pagename);
-                    if (is_a($page, 'PEAR_Error')) {
-                        $notification->push(sprintf(_("Unable to create %s"), $pagename), 'horde.error');
-                    }
-                }
-            }
-        }
-
-        if (is_a($page, 'PEAR_Error')) {
-            if ($pagename == 'WikiHome') {
-                $notification->push(_("Unable to create WikiHome. The wiki is not configured."), 'horde.error');
-            }
-            $this->_page = array();
-        } else {
-            $this->_page = $page;
         }
 
         if ($GLOBALS['conf']['lock']['driver'] != 'none') {
@@ -158,23 +159,18 @@ class StandardPage extends Wicked_Page {
         return parent::allows($mode);
     }
 
+    /**
+     * @throws Wicked_Exception
+     */
     function displayContents($isBlock)
     {
-        global $wicked;
-
         $wiki = $this->getProcessor();
         $text = $wiki->transform($this->getText());
         $attachments = array();
 
         if (!$isBlock) {
-            $pageId = $wicked->getPageId($this->pageName());
-            if (!is_a($pageId, 'PEAR_Error')) {
-                $attachments = $wicked->getAttachedFiles($wicked->getPageId($this->pageName()));
-                if (is_a($attachments, 'PEAR_Error')) {
-                    $attachments = array();
-                }
-            }
-
+            $pageId = $GLOBALS['wicked']->getPageId($this->pageName());
+            $attachments = $GLOBALS['wicked']->getAttachedFiles($pageId);
             if (count($attachments)) {
                 global $mime_drivers, $mime_drivers_map;
                 $result = Horde::loadConfiguration('mime_drivers.php', array('mime_drivers', 'mime_drivers_map'), 'horde');
@@ -191,16 +187,18 @@ class StandardPage extends Wicked_Page {
 
     /**
      * Renders this page in History mode.
+     *
+     * @throws Wicked_Exception
      */
     function history()
     {
-        global $wicked, $notification;
         require_once WICKED_BASE . '/lib/Page/StandardPage/StdHistoryPage.php';
 
-        $summaries = $wicked->getHistory($this->pageName());
-        if (is_a($summaries, 'PEAR_Error')) {
-            $notification->push('Error retrieving histories : ' . $summaries->getMessage(), 'horde.error');
-            return $summaries;
+        try {
+            $summaries = $GLOBALS['wicked']->getHistory($this->pageName());
+        } catch (Wicked_Exception $e) {
+            $GLOBALS['notification']->push('Error retrieving histories : ' . $e->getMessage(), 'horde.error');
+            throw $e;
         }
 
         // Header.
@@ -240,6 +238,9 @@ class StandardPage extends Wicked_Page {
         return $owner != $this->_lock['lock_owner'];
     }
 
+    /**
+     * @throws Wicked_Exception
+     */
     function lock()
     {
         if ($this->_locks) {
@@ -247,7 +248,7 @@ class StandardPage extends Wicked_Page {
             if ($id) {
                 $this->_lock = $this->_locks->getLockInfo($id);
             } else {
-                return PEAR::raiseError(_("The page is already locked."));
+                throw new Wicked_Exception(_("The page is already locked."));
             }
         }
     }
@@ -281,15 +282,15 @@ class StandardPage extends Wicked_Page {
         $time = ceil(($this->_lock['lock_expiry_timestamp'] - time()) / 60);
         return sprintf(ngettext("%d minute", "%d minutes", $time), $time);
     }
-
+    
+    /**
+     * @throws Wicked_Exception
+     */
     function updateText($newtext, $changelog, $minorchange)
     {
         $version = $this->version();
         $result = $GLOBALS['wicked']->updateText($this->pageName(), $newtext,
                                                  $changelog, $minorchange);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
 
         $url = Wicked::url($this->pageName(), true, -1);
         $new_page = $this->getPage($this->pageName());

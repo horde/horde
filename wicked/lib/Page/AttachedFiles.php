@@ -53,27 +53,21 @@ class AttachedFiles extends Wicked_Page {
     }
 
     /**
-     * Returns this page rendered in Content mode.
+     * Returns this page rendered in content mode.
      *
-     * @return string  The page content, or PEAR_Error.
+     * @throws Wicked_Exception
      */
     function content()
     {
         global $wicked, $notification;
 
         if (!$wicked->pageExists($this->referrer())) {
-            $error = sprintf(_("Referrer \"%s\" does not exist."),
-                             $this->referrer());
-            $notification->push($error, 'horde.error');
-            return PEAR::raiseError($error);
+            throw new Wicked_Exception(sprintf(_("Referrer \"%s\" does not exist."),
+                                               $this->referrer()));
         }
 
         $referrer_id = $wicked->getPageId($this->referrer());
-
         $attachments = $wicked->getAttachedFiles($referrer_id, true);
-        if (is_a($attachments, 'PEAR_Error')) {
-            return $attachments;
-        }
 
         foreach ($attachments as $idx => $attach) {
             $attachments[$idx]['date'] = date('M j, Y g:ia',
@@ -98,18 +92,19 @@ class AttachedFiles extends Wicked_Page {
     /**
      * Returns this page rendered in Display mode.
      *
-     * @return mixed  Returns true or PEAR_Error.
+     * @throws Wicked_Exception
      */
     function display()
     {
         global $registry, $wicked, $notification, $conf;
 
-        $attachments = $this->content();
-        if (is_a($attachments, 'PEAR_Error')) {
+        try {
+            $attachments = $this->content();
+        } catch (Wicked_Exception $e) {
             $notification->push(sprintf(_("Error retrieving attachments: %s"),
-                                        $attachments->getMessage()),
+                                        $e->getMessage()),
                                 'horde.error');
-            return $attachments;
+            throw $e;
         }
 
         $template = $GLOBALS['injector']->createInstance('Horde_Template');
@@ -152,7 +147,6 @@ class AttachedFiles extends Wicked_Page {
 
         Horde::addScriptFile('stripe.js', 'horde', true);
         echo $template->fetch(WICKED_TEMPLATES . '/display/AttachedFiles.html');
-        return true;
     }
 
     function pageName()
@@ -191,16 +185,15 @@ class AttachedFiles extends Wicked_Page {
                 return;
             }
 
-            $result = $wicked->removeAttachment(
-                $wicked->getPageId($this->referrer()),
-                $filename, $version);
-            if (is_a($result, 'PEAR_Error')) {
-                $notification->push($result->getMessage(), 'horde.error');
-            } else {
+            try {
+                $wicked->removeAttachment($wicked->getPageId($this->referrer()),
+                                          $filename, $version);
                 $notification->push(
                     sprintf(_("Successfully deleted version %s of \"%s\" from \"%s\""),
                             $version, $filename, $this->referrer()),
                     'horde.success');
+            } catch (Wicked_Exception $e) {
+                $notification->push($result->getMessage(), 'horde.error');
             }
             return;
         }
@@ -244,10 +237,11 @@ class AttachedFiles extends Wicked_Page {
         }
 
         $referrer_id = $wicked->getPageId($this->referrer());
-        $attachments = $wicked->getAttachedFiles($referrer_id);
-        if (is_a($attachments, 'PEAR_Error')) {
+        try {
+            $attachments = $wicked->getAttachedFiles($referrer_id);
+        } catch (Wicked_Exception $e) {
             $notification->push(sprintf(_("Error retrieving attachments: %s"),
-                                        $attachments->getMessage()),
+                                        $e->getMessage()),
                                 'horde.error');
             return;
         }
@@ -285,11 +279,12 @@ class AttachedFiles extends Wicked_Page {
                       'minor'           => $minor_change,
                       'change_log'      => $change_log);
 
-        $result = $wicked->attachFile($file, $data);
-        if (is_a($result, 'PEAR_Error')) {
-            $notification->push($result, 'horde.error');
-            Horde::logMessage($result, 'ERR');
-            return $result;
+        try {
+            $wicked->attachFile($file, $data);
+        } catch (Wicked_Exception $e) {
+            $notification->push($e);
+            Horde::logMessage($e);
+            throw $e;
         }
 
         if ($is_update) {

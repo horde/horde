@@ -90,17 +90,18 @@ class EditPage extends Wicked_Page {
             if ($page->isLocked()) {
                 $page->unlock();
             }
-            $result = $page->lock();
-            if (is_a($result, 'PEAR_Error')) {
-                $GLOBALS['notification']->push(sprintf(_("Page failed to lock: %s"), $result->getMessage()), 'horde.error');
+            try {
+                $page->lock();
+            } catch (Wicked_Exception $e) {
+                $GLOBALS['notification']->push(sprintf(_("Page failed to lock: %s"), $e->getMessage()), 'horde.error');
             }
         }
     }
 
     /**
-     * Render this page in Display mode.
+     * Renders this page in display mode.
      *
-     * @return mixed  Returns true or PEAR_Error.
+     * @throws Wicked_Exception
      */
     function display()
     {
@@ -109,9 +110,7 @@ class EditPage extends Wicked_Page {
         if (is_null($page_text)) {
             $page_text = $page->getText();
         }
-
         require WICKED_TEMPLATES . '/edit/standard.inc';
-        return true;
     }
 
     function pageName()
@@ -174,20 +173,12 @@ class EditPage extends Wicked_Page {
             if (trim($text) == trim($page->getText())) {
                 $notification->push(_("No changes made"), 'horde.warning');
             } else {
-                $result = $page->updateText($text, $changelog, $minorchange);
-                if (is_a($result, 'PEAR_Error')) {
-                    $notification->push(sprintf(_("Save Failed: %s"),
-                                                $result->getMessage()), 'horde.error');
-                } else {
-                    $notification->push(_("Page Saved"), 'horde.success');
-                }
+                $page->updateText($text, $changelog, $minorchange);
+                $notification->push(_("Page Saved"), 'horde.success');
             }
 
             if ($page->allows(Wicked::MODE_UNLOCKING)) {
-                $result = $page->unlock();
-                if (is_a($result, 'PEAR_Error')) {
-                    $GLOBALS['notification']->push(sprintf(_("Page failed to unlock: %s"), $result->getMessage()), 'horde.error');
-                }
+                $page->unlock();
             }
         }
 

@@ -38,7 +38,8 @@ class Wicked_Driver_sql extends Wicked_Driver {
      *
      * @param string $pagename The name of the page to retrieve.
      *
-     * @return mixed  True on success, PEAR_Error on failure.
+     * @return array
+     * @throws Wicked_Exception
      */
     function retrieveByName($pagename)
     {
@@ -50,7 +51,7 @@ class Wicked_Driver_sql extends Wicked_Driver {
             return $pages[0];
         }
 
-        return PEAR::raiseError($pagename . ' not found');
+        throw new Wicked_Exception($pagename . ' not found');
     }
 
     /**
@@ -59,12 +60,13 @@ class Wicked_Driver_sql extends Wicked_Driver {
      * @param string $pagename  The name of the page to retrieve.
      * @param string $version   The version to retrieve.
      *
-     * @return array  The page hash, or PEAR_Error on failure.
+     * @return array  The page hash.
+     * @throws Wicked_Exception
      */
     function retrieveHistory($pagename, $version)
     {
         if (empty($version) or !preg_match('/^[0-9]+\.[0-9]+$/', $version)) {
-            return PEAR::raiseError('invalid version number');
+            throw new Wicked_Exception('invalid version number');
         }
 
         list($major, $minor) = explode('.', $version);
@@ -106,7 +108,8 @@ class Wicked_Driver_sql extends Wicked_Driver {
      *
      * @param integer $days  The number of days to look back.
      *
-     * @return mixed  An array of pages, or PEAR_Error on failure.
+     * @return array  Pages.
+     * @throws Wicked_Exception
      */
     function getRecentChanges($days = 3)
     {
@@ -125,7 +128,8 @@ class Wicked_Driver_sql extends Wicked_Driver {
      *
      * @param integer $limit  The number of most popular pages to return.
      *
-     * @return mixed  An array of pages, or PEAR_Error on failure.
+     * @return array  Pages.
+     * @throws Wicked_Exception
      */
     function mostPopular($limit = 10)
     {
@@ -137,7 +141,8 @@ class Wicked_Driver_sql extends Wicked_Driver {
      *
      * @param integer $limit  The number of least popular pages to return.
      *
-     * @return mixed  An array of pages, or PEAR_Error on failure.
+     * @return array  Pages.
+     * @throws Wicked_Exception
      */
     function leastPopular($limit = 10)
     {
@@ -160,7 +165,8 @@ class Wicked_Driver_sql extends Wicked_Driver {
      *                                     are searched.  If false, only page
      *                                     text is searched.
      *
-     * @return array  A list of pages, or PEAR_Error on failure.
+     * @return array  A list of pages.
+     * @throws Wicked_Exception
      */
     function searchText($searchtext, $title = true)
     {
@@ -169,13 +175,13 @@ class Wicked_Driver_sql extends Wicked_Driver {
 
         $textClause = Horde_SQL_Keywords::parse('page_text', $searchtext);
         if (is_a($textClause, 'PEAR_Error')) {
-            return $textClause;
+            throw new Wicked_Exception($textClause);
         }
 
         if ($title) {
             $nameClause = Horde_SQL_Keywords::parse('page_name', $searchtext);
             if (is_a($nameClause, 'PEAR_Error')) {
-                return $nameClause;
+                throw new Wicked_Exception($nameClause);
             }
 
             $where = '(' . $nameClause . ') OR (' . $textClause . ')';
@@ -291,8 +297,9 @@ class Wicked_Driver_sql extends Wicked_Driver {
      * @param boolean $allversions  Whether to include all versions. If false
      *                              or omitted, only the most recent version
      *                              of each attachment is returned.
-     * @return mixed  An array of key/value arrays describing the attached
-     *                files or a PEAR_Error:: instance on failure.
+     * @return array  An array of key/value arrays describing the attached
+     *                files.
+     * @throws Wicked_Exception
      */
     function getAttachedFiles($pageId, $allversions = false)
     {
@@ -335,14 +342,13 @@ class Wicked_Driver_sql extends Wicked_Driver {
      * @param string $attachment  The name of the file.
      * @param string $version  If specified, the version to delete. If null,
      *                         then all versions of $attachment will be removed.
+     *
+     * @throws Wicked_Exception
      */
     function removeAttachment($pageId, $attachment, $version = null)
     {
         /* Try to delete from the VFS first. */
-        $result = parent::removeAttachment($pageId, $attachment, $version);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        parent::removeAttachment($pageId, $attachment, $version);
 
         /* First try against the current attachments table. */
         $sql = 'DELETE FROM ' . $this->_params['attachmenttable'] .
@@ -378,15 +384,12 @@ class Wicked_Driver_sql extends Wicked_Driver {
      *
      * @param integer $pageId  The Id of the page to remove attachments from.
      *
-     * @return boolean|PEAR_Error  Either true or a PEAR_Error describing failure.
+     * @throws Wicked_Exception
      */
     function removeAllAttachments($pageId)
     {
         /* Try to delete from the VFS first. */
         $result = parent::removeAllAttachments($pageId);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
 
         /* First try against the current attachments table. */
         $sql = 'DELETE FROM ' . $this->_params['attachmenttable'] .
@@ -417,8 +420,8 @@ class Wicked_Driver_sql extends Wicked_Driver {
      *
      * @param array $file  See Wicked_Driver::attachFile().
      *
-     * @return boolean  The new version of the file attached, or a PEAR_Error::
-     *                  instance on failure.
+     * @return string  The new version of the file attached.
+     * @throws Wicked_Exception
      */
     function _attachFile($file)
     {
@@ -479,7 +482,7 @@ class Wicked_Driver_sql extends Wicked_Driver {
      *
      * @param string $pagename  The page that was viewed.
      *
-     * @return mixed  True or PEAR_Error on failure.
+     * @throws Wicked_Exception
      */
     function logPageView($pagename)
     {
@@ -498,16 +501,16 @@ class Wicked_Driver_sql extends Wicked_Driver {
      * @param string $pagename  The new page's name.
      * @param string $text      The new page's text.
      *
-     * @return mixed  True, or PEAR_Error on failure.
+     * @throws Wicked_Exception
      */
     function newPage($pagename, $text)
     {
         if (!strlen($pagename)) {
-            return PEAR::raiseError(_("Page name must not be empty"));
+            throw new Wicked_Exception(_("Page name must not be empty"));
         }
 
         if ($GLOBALS['browser']->isRobot()) {
-            return PEAR::raiseError(_("Robots are not allowed to create pages"));
+            throw new Wicked_Exception(_("Robots are not allowed to create pages"));
         }
 
         $author = $GLOBALS['registry']->getAuth();
@@ -550,7 +553,7 @@ class Wicked_Driver_sql extends Wicked_Driver {
      * @param string $pagename  The name of the page to rename.
      * @param string $newname   The page's new name.
      *
-     * @return mixed  True or PEAR_Error on failure.
+     * @throws Wicked_Exception
      */
     function renamePage($pagename, $newname)
     {
@@ -572,9 +575,6 @@ class Wicked_Driver_sql extends Wicked_Driver {
 
         $changelog = sprintf(_("Renamed page from %s"), $pagename);
         $newPage = $this->retrieveByName($newname);
-        if (is_a($newPage, 'PEAR_Error')) {
-            return $newPage;
-        }
 
         /* Call getPages with no caching so that the new list of pages is
          * read in. */
@@ -665,56 +665,58 @@ class Wicked_Driver_sql extends Wicked_Driver {
 
         Horde::logMessage('Wicked_Driver_sql::removeVersion(): ' . $query, 'DEBUG');
 
-        $result = $this->_db->selectValue($query, $values);
-        if ($result && !is_a($result, 'PEAR_Error')) {
-            /* We're deleting the current version. Have to promote the
-             * next-most revision from the history table. */
-            $query = 'SELECT * FROM ' . $this->_params['historytable'] .
-                     ' WHERE page_name = ? ORDER BY page_majorversion DESC, page_minorversion DESC';
-            $query = $this->_db->addLimitOffset($query, array('limit' => 1));
-
-            Horde::logMessage('Wicked_Driver_sql::removeVersion(): ' . $query, 'DEBUG');
-
-            $revision = $this->_db->selectOne($query, array($this->_convertToDriver($pagename)), DB_FETCHMODE_ASSOC);
-
-            /* Replace the current version of the page with the
-             * version being promoted. */
-            $query = 'UPDATE ' . $this->_params['table'] . ' SET' .
-                ' page_text = ?, page_majorversion = ?, page_minorversion = ?,' .
-                ' version_created = ?, change_author = ?, change_log = ?' .
-                ' WHERE page_name = ?';
-            $values = array($revision['page_text'],
-                            $revision['page_majorversion'],
-                            $revision['page_minorversion'],
-                            $revision['version_created'],
-                            $revision['change_author'],
-                            $revision['change_log'],
-                            $this->_convertToDriver($pagename));
-
-            Horde::logMessage('Wicked_Driver_sql::removeVersion(): ' . $query, 'DEBUG');
-            $this->_db->update($query, $values);
-
-            /* Finally, remove the version that we promoted from the
-             * history table. */
-            $query = 'DELETE FROM ' . $this->_params['historytable'] .
-                ' WHERE page_name = ? and page_majorversion = ? and page_minorversion = ?';
-            $values = array($this->_convertToDriver($pagename), $revision['page_majorversion'], $revision['page_minorversion']);
-
-            Horde::logMessage('Wicked_Driver_sql::removeVersion(): ' . $query, 'DEBUG');
-
-            $this->_db->delete($query, $values);
-        } else {
-            /* Removing a historical revision - we can just slice it
-             * out of the history table. $values is unchanged. */
-            $query = 'DELETE FROM ' . $this->_params['historytable'] .
-                ' WHERE page_name = ? and page_majorversion = ? and page_minorversion = ?';
-
-            Horde::logMessage('Wicked_Driver_sql::removeVersion(): ' . $query, 'DEBUG');
-
-            $this->_db->delete($query, $values);
+        try {
+            $result = $this->_db->selectValue($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            $result = false;
         }
 
-        return true;
+        if (!$result) {
+            /* Removing a historical revision - we can just slice it out of the
+             * history table. $values is unchanged. */
+            $query = 'DELETE FROM ' . $this->_params['historytable'] .
+                ' WHERE page_name = ? and page_majorversion = ? and page_minorversion = ?';
+            Horde::logMessage('Wicked_Driver_sql::removeVersion(): ' . $query, 'DEBUG');
+            $this->_db->delete($query, $values);
+            return;
+        }
+
+        /* We're deleting the current version. Have to promote the
+         * next-most revision from the history table. */
+        $query = 'SELECT * FROM ' . $this->_params['historytable'] .
+                 ' WHERE page_name = ? ORDER BY page_majorversion DESC, page_minorversion DESC';
+        $query = $this->_db->addLimitOffset($query, array('limit' => 1));
+
+        Horde::logMessage('Wicked_Driver_sql::removeVersion(): ' . $query, 'DEBUG');
+
+        $revision = $this->_db->selectOne($query, array($this->_convertToDriver($pagename)), DB_FETCHMODE_ASSOC);
+
+        /* Replace the current version of the page with the
+         * version being promoted. */
+        $query = 'UPDATE ' . $this->_params['table'] . ' SET' .
+            ' page_text = ?, page_majorversion = ?, page_minorversion = ?,' .
+            ' version_created = ?, change_author = ?, change_log = ?' .
+            ' WHERE page_name = ?';
+        $values = array($revision['page_text'],
+                        $revision['page_majorversion'],
+                        $revision['page_minorversion'],
+                        $revision['version_created'],
+                        $revision['change_author'],
+                        $revision['change_log'],
+                        $this->_convertToDriver($pagename));
+
+        Horde::logMessage('Wicked_Driver_sql::removeVersion(): ' . $query, 'DEBUG');
+        $this->_db->update($query, $values);
+
+        /* Finally, remove the version that we promoted from the
+         * history table. */
+        $query = 'DELETE FROM ' . $this->_params['historytable'] .
+            ' WHERE page_name = ? and page_majorversion = ? and page_minorversion = ?';
+        $values = array($this->_convertToDriver($pagename), $revision['page_majorversion'], $revision['page_minorversion']);
+
+        Horde::logMessage('Wicked_Driver_sql::removeVersion(): ' . $query, 'DEBUG');
+
+        $this->_db->delete($query, $values);
     }
 
     /**
@@ -830,14 +832,14 @@ class Wicked_Driver_sql extends Wicked_Driver {
     /**
      * Attempts to open a persistent connection to the SQL server.
      *
-     * @return boolean  True on success, PEAR_Error on failure.
+     * @throws Wicked_Exception
      */
     function connect()
     {
         try {
             $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Adapter');
         } catch (Horde_Exception $e) {
-            return PEAR::raiseError($e->getMessage());
+            throw new Wicked_Exception($e);
         }
 
         $this->_params = array_merge(array(
