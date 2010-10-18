@@ -296,6 +296,7 @@ class Components_Pear_Package
             case 'lib':
             case 'test':
             case 'data':
+            case 'locale':
                 $package->addInstallAs(
                     $file['attribs']['name'], $components[1]
                 );
