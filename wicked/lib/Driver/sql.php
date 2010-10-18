@@ -240,7 +240,7 @@ class Wicked_Driver_sql extends Wicked_Driver {
 
     function getLikePages($pagename)
     {
-        if (Horde_String::isUpper($pagename)) {
+        if (Horde_String::isUpper($pagename, 'UTF-8')) {
             $firstword = $pagename;
             $lastword = null;
         } else {
