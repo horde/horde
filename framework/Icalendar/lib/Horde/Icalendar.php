@@ -557,42 +557,10 @@ class Horde_Icalendar
         }
         $vCal = trim($vCal);
 
-        // All subcomponents.
-        $matches = null;
-        if (preg_match_all('/^BEGIN:(.*)(\r\n|\r|\n)(.*)^END:\1/Uims', $vCal, $matches)) {
-            // vTimezone components are processed first. They are
-            // needed to process vEvents that may use a TZID.
-            foreach ($matches[0] as $key => $data) {
-                $type = trim($matches[1][$key]);
-                if ($type != 'VTIMEZONE') {
-                    continue;
-                }
-                $component = $this->newComponent($type, $this);
-                if ($component === false) {
-                    throw new Horde_Icalendar_Exception('Unable to create object for type ' . $type);
-                }
-                $component->parsevCalendar($data, $type);
-
-                $this->addComponent($component);
-
-                // Remove from the vCalendar data.
-                $vCal = str_replace($data, '', $vCal);
-            }
-
-            // Now process the non-vTimezone components.
-            foreach ($matches[0] as $key => $data) {
-                $type = trim($matches[1][$key]);
-                if ($type == 'VTIMEZONE') {
-                    continue;
-                }
-                $component = $this->newComponent($type, $this);
-                if ($component === false) {
-                    throw new Horde_Icalendar_Exception('Unable to create object for type ' . $type);
-                }
-                $component->parsevCalendar($data, $type);
-
-                $this->addComponent($component);
-
+        // Extract all subcomponents.
+        $matches = $components = null;
+        if (preg_match_all('/^BEGIN:(.*)(\r\n|\r|\n)(.*)^END:\1/Uims', $vCal, $components)) {
+            foreach ($components[0] as $key => $data) {
                 // Remove from the vCalendar data.
                 $vCal = str_replace($data, '', $vCal);
             }
@@ -708,8 +676,12 @@ class Horde_Icalendar
                 // Comma seperated dates.
                 case 'EXDATE':
                 case 'RDATE':
+                    if (!strlen($value)) {
+                        break;
+                    }
                     $dates = array();
-                    preg_match_all('/,([^,]*)/', ',' . $value, $values);
+                    $separator = $this->isOldFormat() ? ';' : ',';
+                    preg_match_all('/' . $separator . '([^' . $separator . ']*)/', $separator . $value, $values);
 
                     foreach ($values[1] as $value) {
                         $stamp = $this->_parseDateTime($value);
@@ -818,6 +790,43 @@ class Horde_Icalendar
                     }
                     break;
                 }
+            }
+        }
+
+        // Process all components.
+        if ($components) {
+            // vTimezone components are processed first. They are
+            // needed to process vEvents that may use a TZID.
+            foreach ($components[0] as $key => $data) {
+                $type = trim($components[1][$key]);
+                if ($type != 'VTIMEZONE') {
+                    continue;
+                }
+                $component = $this->newComponent($type, $this);
+                if ($component === false) {
+                    throw new Horde_Icalendar_Exception('Unable to create object for type ' . $type);
+                }
+                $component->parsevCalendar($data, $type);
+
+                $this->addComponent($component);
+
+                // Remove from the vCalendar data.
+                $vCal = str_replace($data, '', $vCal);
+            }
+
+            // Now process the non-vTimezone components.
+            foreach ($components[0] as $key => $data) {
+                $type = trim($components[1][$key]);
+                if ($type == 'VTIMEZONE') {
+                    continue;
+                }
+                $component = $this->newComponent($type, $this);
+                if ($component === false) {
+                    throw new Horde_Icalendar_Exception('Unable to create object for type ' . $type);
+                }
+                $component->parsevCalendar($data, $type);
+
+                $this->addComponent($component);
             }
         }
 

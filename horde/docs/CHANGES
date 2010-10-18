@@ -53,6 +53,7 @@ v4.0-cvs
 v3.3.10-cvs
 -----------
 
+[jan] Fix importing recurrence exceptions from vCalendar 1.0.
 [mms] Fix preferences management regression (Bug #9289).
 [jan] Fix conversion of all-day events and certain yearly recurring events for
       Funambol clients.
