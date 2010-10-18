@@ -546,6 +546,8 @@ class Horde_Icalendar
      */
     public function parsevCalendar($text, $base = 'VCALENDAR')
     {
+        $this->_attributes = $this->_components = array();
+
         if (preg_match('/^BEGIN:' . $base . '(.*)^END:' . $base . '/ism', $text, $matches)) {
             $container = true;
             $vCal = $matches[1];
@@ -680,7 +682,7 @@ class Horde_Icalendar
                         break;
                     }
                     $dates = array();
-                    $separator = $this->isOldFormat() ? ';' : ',';
+                    $separator = $this->oldFormat ? ';' : ',';
                     preg_match_all('/' . $separator . '([^' . $separator . ']*)/', $separator . $value, $values);
 
                     foreach ($values[1] as $value) {
