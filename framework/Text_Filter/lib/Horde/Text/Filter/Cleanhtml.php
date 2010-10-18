@@ -6,6 +6,8 @@
  * <pre>
  * body_only - (boolean) Only return the body data?
  *             DEFAULT: Return the whole HTML document
+ * charset - (string) Charset of the data.
+ *           DEFAULT: UTF-8
  * size - (integer) Only filter if data is below this size.
  *        DEFAULT: No default
  * </pre>
@@ -29,7 +31,7 @@ class Horde_Text_Filter_Cleanhtml extends Horde_Text_Filter_Base
      */
     protected $_params = array(
         'body_only' => false,
-        'charset' => 'us-ascii',
+        'charset' => 'UTF-8',
         'size' => false
     );
 
