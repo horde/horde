@@ -150,7 +150,7 @@ if (!Horde_Cli::runningFromCLI()) {
 
 // Load the CLI environment - make sure there's no time limit, init
 // some variables, etc.
-$cli = Horde_Cli::init(true);
+$cli = Horde_Cli::init();
 
 $cli->message('Source directory: ' . $srcDir);
 $cli->message('Framework destination directory: ' . $destDir);
