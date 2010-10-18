@@ -17,7 +17,7 @@ class Wicked_Page_AddPage extends Wicked_Page {
      *
      * @var array
      */
-    var $supportedModes = array(
+    public $supportedModes = array(
         Wicked::MODE_DISPLAY => true);
 
     /**
@@ -25,15 +25,15 @@ class Wicked_Page_AddPage extends Wicked_Page {
      *
      * @var string
      */
-    var $_newpage;
+    protected $_newpage;
 
     /**
      * Cached search results.
      * @var array
      */
-    var $_results;
+    protected $_results;
 
-    function __construct($newpage)
+    public function __construct($newpage)
     {
         $this->_newpage = $newpage;
         $this->_results = $GLOBALS['wicked']->searchTitles($newpage);
@@ -42,7 +42,7 @@ class Wicked_Page_AddPage extends Wicked_Page {
     /**
      * Bail out if there's no page name.
      */
-    function preDisplay()
+    public function preDisplay()
     {
         if (!strlen($this->referrer())) {
             $GLOBALS['notification']->push(_("Page name must not be empty"));
@@ -55,7 +55,7 @@ class Wicked_Page_AddPage extends Wicked_Page {
      *
      * @throws Wicked_Exception
      */
-    function display()
+    public function display()
     {
         try {
             $templates = $GLOBALS['wicked']->getMatchingPages('Template', Wicked_Page::MATCH_ENDS);
@@ -91,17 +91,17 @@ class Wicked_Page_AddPage extends Wicked_Page {
         require WICKED_TEMPLATES . '/edit/create.inc';
     }
 
-    function pageName()
+    public function pageName()
     {
         return 'AddPage';
     }
 
-    function pageTitle()
+    public function pageTitle()
     {
         return sprintf(_("Add Page: %s"), $this->referrer());
     }
 
-    function referrer()
+    public function referrer()
     {
         return $this->_newpage;
     }

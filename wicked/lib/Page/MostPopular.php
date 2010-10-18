@@ -17,7 +17,7 @@ class Wicked_Page_MostPopular extends Wicked_Page {
      *
      * @var array
      */
-    var $supportedModes = array(
+    public $supportedModes = array(
         Wicked::MODE_CONTENT => true,
         Wicked::MODE_DISPLAY => true);
 
@@ -28,7 +28,7 @@ class Wicked_Page_MostPopular extends Wicked_Page {
      *
      * @return string  The page content.
      */
-    function content($numPages = 10)
+    public function content($numPages = 10)
     {
         return $GLOBALS['wicked']->mostPopular($numPages);
     }
@@ -39,7 +39,7 @@ class Wicked_Page_MostPopular extends Wicked_Page {
      * @return string  The content.
      * @throws Wicked_Exception
      */
-    function displayContents($isBlock)
+    public function displayContents($isBlock)
     {
         $template = $GLOBALS['injector']->createInstance('Horde_Template');
         $pages = array();
@@ -68,12 +68,12 @@ class Wicked_Page_MostPopular extends Wicked_Page {
         return $contents;
     }
 
-    function pageName()
+    public function pageName()
     {
         return 'MostPopular';
     }
 
-    function pageTitle()
+    public function pageTitle()
     {
         return _("Most Popular");
     }

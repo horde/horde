@@ -17,7 +17,7 @@ class Wicked_Page_RecentChanges extends Wicked_Page {
      *
      * @var array
      */
-    var $supportedModes = array(
+    public $supportedModes = array(
         Wicked::MODE_CONTENT => true,
         Wicked::MODE_DISPLAY => true);
 
@@ -27,7 +27,7 @@ class Wicked_Page_RecentChanges extends Wicked_Page {
      * @return string  The page content.
      * @throws Wicked_Exception
      */
-    function content()
+    public function content()
     {
         global $wicked;
 
@@ -84,19 +84,19 @@ class Wicked_Page_RecentChanges extends Wicked_Page {
      * @return string  The contents.
      * @throws Wicked_Exception
      */
-    function displayContents($isBlock)
+    public function displayContents($isBlock)
     {
         $template = $GLOBALS['injector']->createInstance('Horde_Template');
         $template->set('changes', $this->content());
         return $template->fetch(WICKED_TEMPLATES . '/display/RecentChanges.html');
     }
 
-    function pageName()
+    public function pageName()
     {
         return 'RecentChanges';
     }
 
-    function pageTitle()
+    public function pageTitle()
     {
         return _("Recent Changes");
     }

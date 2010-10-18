@@ -21,7 +21,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
      *
      * @var Horde_Db_Adapter
      */
-    var $_db;
+    protected $_db;
 
     /**
      * Retrieves the page of a particular name from the database.
@@ -31,7 +31,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
      * @return array
      * @throws Wicked_Exception
      */
-    function retrieveByName($pagename)
+    public function retrieveByName($pagename)
     {
         $where = 'page_name = ' . $this->_db->quoteString($this->_convertToDriver($pagename));
 
@@ -53,7 +53,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
      * @return array  The page hash.
      * @throws Wicked_Exception
      */
-    function retrieveHistory($pagename, $version)
+    public function retrieveHistory($pagename, $version)
     {
         if (empty($version) or !preg_match('/^[0-9]+\.[0-9]+$/', $version)) {
             throw new Wicked_Exception('invalid version number');
@@ -68,24 +68,24 @@ class Wicked_Driver_Sql extends Wicked_Driver {
         return $this->_retrieve($this->_params['historytable'], $where);
     }
 
-    function getPage($pagename)
+    public function getPage($pagename)
     {
         $where = 'page_name = ' . $this->_db->quoteString($this->_convertToDriver($pagename));
         return $this->_retrieve($this->_params['table'], $where);
     }
 
-    function getPageById($id)
+    public function getPageById($id)
     {
         $where = 'page_id = ' . (int)$id;
         return $this->_retrieve($this->_params['table'], $where);
     }
 
-    function getAllPages()
+    public function getAllPages()
     {
         return $this->_retrieve($this->_params['table'], '', 'page_name');
     }
 
-    function getHistory($pagename)
+    public function getHistory($pagename)
     {
         $where = 'page_name = ' . $this->_db->quoteString($this->_convertToDriver($pagename)) .
                  ' ORDER BY page_majorversion DESC, page_minorversion DESC';
@@ -101,7 +101,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
      * @return array  Pages.
      * @throws Wicked_Exception
      */
-    function getRecentChanges($days = 3)
+    public function getRecentChanges($days = 3)
     {
         $where = 'version_created > ' . (time() - (86400 * $days));
         $result = $this->_retrieve($this->_params['table'],
@@ -121,7 +121,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
      * @return array  Pages.
      * @throws Wicked_Exception
      */
-    function mostPopular($limit = 10)
+    public function mostPopular($limit = 10)
     {
         return $this->_retrieve($this->_params['table'], '', 'page_hits DESC', $limit);
     }
@@ -134,12 +134,12 @@ class Wicked_Driver_Sql extends Wicked_Driver {
      * @return array  Pages.
      * @throws Wicked_Exception
      */
-    function leastPopular($limit = 10)
+    public function leastPopular($limit = 10)
     {
         return $this->_retrieve($this->_params['table'], '', 'page_hits ASC', $limit);
     }
 
-    function searchTitles($searchtext)
+    public function searchTitles($searchtext)
     {
         require_once 'Horde/SQL.php';
         $searchtext = $this->_convertToDriver($searchtext);
@@ -158,7 +158,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
      * @return array  A list of pages.
      * @throws Wicked_Exception
      */
-    function searchText($searchtext, $title = true)
+    public function searchText($searchtext, $title = true)
     {
         require_once 'Horde/SQL/Keywords.php';
         $searchtext = $this->_convertToDriver($searchtext);
@@ -182,7 +182,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
         return $this->_retrieve($this->_params['table'], $where);
     }
 
-    function getBackLinks($pagename)
+    public function getBackLinks($pagename)
     {
         $where = 'page_text LIKE ' . $this->_db->quoteString('%' . $this->_convertToDriver($pagename) . '%');
         $pages = $this->_retrieve($this->_params['table'], $where);
@@ -209,7 +209,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
         return $pages;
     }
 
-    function getMatchingPages($searchtext, $matchType = Wicked_Page::MATCH_ANY)
+    public function getMatchingPages($searchtext, $matchType = Wicked_Page::MATCH_ANY)
     {
         $searchtext = Horde_String::lower($searchtext);
 
@@ -234,7 +234,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
         return $this->_retrieve($this->_params['table'], implode(' OR ', $clauses));
     }
 
-    function getLikePages($pagename)
+    public function getLikePages($pagename)
     {
         if (Horde_String::isUpper($pagename, 'UTF-8')) {
             $firstword = $pagename;
@@ -291,7 +291,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
      *                files.
      * @throws Wicked_Exception
      */
-    function getAttachedFiles($pageId, $allversions = false)
+    public function getAttachedFiles($pageId, $allversions = false)
     {
         $where = 'page_id = ' . (int)$pageId;
         $data = $this->_retrieve($this->_params['attachmenttable'], $where);
@@ -309,7 +309,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
         return $data;
     }
 
-    function _getAttachedFiles_usort($a, $b)
+    protected function _getAttachedFiles_usort($a, $b)
     {
         $res = strcmp($a['attachment_name'], $b['attachment_name']);
         if ($res != 0) {
@@ -335,7 +335,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
      *
      * @throws Wicked_Exception
      */
-    function removeAttachment($pageId, $attachment, $version = null)
+    public function removeAttachment($pageId, $attachment, $version = null)
     {
         /* Try to delete from the VFS first. */
         parent::removeAttachment($pageId, $attachment, $version);
@@ -376,7 +376,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
      *
      * @throws Wicked_Exception
      */
-    function removeAllAttachments($pageId)
+    public function removeAllAttachments($pageId)
     {
         /* Try to delete from the VFS first. */
         $result = parent::removeAllAttachments($pageId);
@@ -413,7 +413,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
      * @return string  The new version of the file attached.
      * @throws Wicked_Exception
      */
-    function _attachFile($file)
+    protected function _attachFile($file)
     {
         $where = 'page_id = ' . intval($file['page_id']) .
                  ' AND attachment_name = ' . $this->_db->quoteString($file['attachment_name']);
@@ -474,7 +474,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
      *
      * @throws Wicked_Exception
      */
-    function logPageView($pagename)
+    public function logPageView($pagename)
     {
         $query = 'UPDATE ' . $this->_params['table'] .
                  ' SET page_hits = page_hits + 1 WHERE page_name = ?';
@@ -493,7 +493,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
      *
      * @throws Wicked_Exception
      */
-    function newPage($pagename, $text)
+    public function newPage($pagename, $text)
     {
         if (!strlen($pagename)) {
             throw new Wicked_Exception(_("Page name must not be empty"));
@@ -545,7 +545,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
      *
      * @throws Wicked_Exception
      */
-    function renamePage($pagename, $newname)
+    public function renamePage($pagename, $newname)
     {
         $query = 'UPDATE ' . $this->_params['table'] .
                  ' SET page_name = ? WHERE page_name = ?';
@@ -572,7 +572,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
         return $this->updateText($newname, $newPage['page_text'], $changelog, true);
     }
 
-    function updateText($pagename, $text, $changelog, $minorchange)
+    public function updateText($pagename, $text, $changelog, $minorchange)
     {
         if (!$this->pageExists($pagename)) {
             return $this->newPage($pagename, $text);
@@ -622,7 +622,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
         $this->_db->update($query, $values);
     }
 
-    function getPages($special = true, $no_cache = false)
+    public function getPages($special = true, $no_cache = false)
     {
         static $pageNames;
         if (!isset($pageNames) || $no_cache) {
@@ -644,7 +644,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
 
     /**
      */
-    function removeVersion($pagename, $version)
+    public function removeVersion($pagename, $version)
     {
         list($major, $minor) = explode('.', $version);
 
@@ -711,7 +711,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
 
     /**
      */
-    function removeAllVersions($pagename)
+    public function removeAllVersions($pagename)
     {
         $this->_pageNames = null;
 
@@ -748,7 +748,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
      *
      * @return array | object  Either an array of pages or PEAR::Error.
      */
-    function _retrieve($table, $sqlWhere, $orderBy = null, $limit = null)
+    protected function _retrieve($table, $sqlWhere, $orderBy = null, $limit = null)
     {
         $query = sprintf('SELECT * FROM %s%s%s',
                          $table,
@@ -790,7 +790,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
      *
      * @return string  The backend's charset
      */
-    function getCharset()
+    public function getCharset()
     {
         return $this->_params['charset'];
     }
@@ -802,7 +802,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
      *
      * @return mixed        The converted value.
      */
-    function _convertFromDriver($value)
+    protected function _convertFromDriver($value)
     {
         return Horde_String::convertCharset($value, $this->getCharset(), 'UTF-8');
     }
@@ -814,7 +814,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
      *
      * @return mixed        The converted value.
      */
-    function _convertToDriver($value)
+    protected function _convertToDriver($value)
     {
         return Horde_String::convertCharset($value, 'UTF-8', $this->getCharset());
     }
@@ -824,7 +824,7 @@ class Wicked_Driver_Sql extends Wicked_Driver {
      *
      * @throws Wicked_Exception
      */
-    function connect()
+    public function connect()
     {
         try {
             $this->_db = $GLOBALS['injector']->getInstance('Horde_Db_Adapter');

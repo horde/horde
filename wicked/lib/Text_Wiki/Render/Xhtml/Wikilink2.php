@@ -5,8 +5,8 @@ require_once 'Text/Wiki/Render/Xhtml/Wikilink.php';
 /**
  * @package Wicked
  */
-class Text_Wiki_Render_Xhtml_Wikilink2 extends Text_Wiki_Render_Xhtml_Wikilink {
-
+class Text_Wiki_Render_Xhtml_Wikilink2 extends Text_Wiki_Render_Xhtml_Wikilink
+{
     /**
      * Renders a token into XHTML.
      *
@@ -17,7 +17,7 @@ class Text_Wiki_Render_Xhtml_Wikilink2 extends Text_Wiki_Render_Xhtml_Wikilink {
      *
      * @return string The text rendered from the token options.
      */
-    function token($options)
+    public function token($options)
     {
         // make nice variable names (page, anchor, text)
         extract($options);
@@ -107,5 +107,4 @@ class Text_Wiki_Render_Xhtml_Wikilink2 extends Text_Wiki_Render_Xhtml_Wikilink {
         }
         return $output;
     }
-
 }

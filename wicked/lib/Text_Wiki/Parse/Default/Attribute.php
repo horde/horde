@@ -5,17 +5,17 @@
  *
  * @package Wicked
  */
-class Text_Wiki_Parse_Attribute extends Text_Wiki_Parse {
-
+class Text_Wiki_Parse_Attribute extends Text_Wiki_Parse
+{
     /**
      * The regular expression used to find source text matching this rule (this
      * is set in the constructor).
      *
      * @var string
      */
-    var $regex;
+    public $regex;
 
-    function Text_Wiki_Parse_Attribute(&$obj)
+    public function __construct(&$obj)
     {
         parent::Text_Wiki_Parse($obj);
 
@@ -34,7 +34,7 @@ class Text_Wiki_Parse_Attribute extends Text_Wiki_Parse {
      * @return  A delimited token number to be used as a placeholder in
      *          the source text.
      */
-    function process(&$matches)
+    public function process(&$matches)
     {
         $options = array('attributes' => array());
 
@@ -49,5 +49,4 @@ class Text_Wiki_Parse_Attribute extends Text_Wiki_Parse {
 
         return $this->wiki->addToken($this->rule, $options);
     }
-
 }

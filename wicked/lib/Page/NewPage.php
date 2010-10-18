@@ -21,7 +21,7 @@ class Wicked_Page_NewPage extends Wicked_Page {
      *
      * @var array
      */
-    var $supportedModes = array(
+    public $supportedModes = array(
         Wicked::MODE_DISPLAY => true,
         Wicked::MODE_EDIT => true);
 
@@ -30,16 +30,16 @@ class Wicked_Page_NewPage extends Wicked_Page {
      *
      * @var string
      */
-    var $_referrer = null;
+    protected $_referrer = null;
 
     /**
      * Page template to use.
      *
      * @var string
      */
-    var $_template = null;
+    protected $_template = null;
 
-    function __construct($referrer)
+    public function __construct($referrer)
     {
         $this->_referrer = $referrer;
         $this->_template = Horde_Util::getFormData('template');
@@ -50,7 +50,7 @@ class Wicked_Page_NewPage extends Wicked_Page {
      *
      * @return integer  The permissions bitmask.
      */
-    function getPermissions()
+    public function getPermissions()
     {
         return parent::getPermissions($this->referrer());
     }
@@ -59,7 +59,7 @@ class Wicked_Page_NewPage extends Wicked_Page {
      * Send them back whence they came if they aren't allowed to edit
      * this page.
      */
-    function preDisplay()
+    public function preDisplay()
     {
         if (!strlen($this->referrer())) {
             $GLOBALS['notification']->push(_("Page name must not be empty"));
@@ -76,7 +76,7 @@ class Wicked_Page_NewPage extends Wicked_Page {
      *
      * @throws Wicked_Exception
      */
-    function display()
+    public function display()
     {
         // Load the page template.
         if ($this->_template) {
@@ -94,22 +94,22 @@ class Wicked_Page_NewPage extends Wicked_Page {
         return true;
     }
 
-    function pageName()
+    public function pageName()
     {
         return 'NewPage';
     }
 
-    function pageTitle()
+    public function pageTitle()
     {
         return _("New Page");
     }
 
-    function referrer()
+    public function referrer()
     {
         return $this->_referrer;
     }
 
-    function handleAction()
+    public function handleAction()
     {
         global $notification, $wicked;
 

@@ -15,20 +15,20 @@ class Wicked_Page_SyncPages extends Wicked_Page {
     /**
      * Display modes supported by this page.
      */
-    var $supportedModes = array(
+    public $supportedModes = array(
         Wicked::MODE_CONTENT => true);
 
     /**
      * Sync driver
      */
-    var $_sync;
+    protected $_sync;
 
     /**
      * Constructor
      *
      * @throws Wicked_Exception
      */
-    function __construct()
+    public function __construct()
     {
         $this->_loadSyncDriver();
 
@@ -50,7 +50,7 @@ class Wicked_Page_SyncPages extends Wicked_Page {
      * @return string  The page content.
      * @throws Wicked_Exception
      */
-    function content()
+    public function content()
     {
         global $wicked;
 
@@ -131,7 +131,7 @@ class Wicked_Page_SyncPages extends Wicked_Page {
      * @return string  The contents.
      * @throws Wicked_Exception
      */
-    function displayContents($isBlock)
+    public function displayContents($isBlock)
     {
         return $this->content();
     }
@@ -139,7 +139,7 @@ class Wicked_Page_SyncPages extends Wicked_Page {
     /**
      * Page name
      */
-    function pageName()
+    public function pageName()
     {
         return 'SyncPages';
     }
@@ -147,7 +147,7 @@ class Wicked_Page_SyncPages extends Wicked_Page {
     /**
      * Page title
      */
-    function pageTitle()
+    public function pageTitle()
     {
         return _("Sync Pages");
     }
@@ -155,7 +155,7 @@ class Wicked_Page_SyncPages extends Wicked_Page {
     /**
      * Prepare page link
      */
-    function _viewLink($pageName, $local = true)
+    protected function _viewLink($pageName, $local = true)
     {
         if ($local) {
             return  '<a href="' .  Wicked::url($pageName) . '" target="_blank">' . _("View local") . '</a>';
@@ -169,7 +169,7 @@ class Wicked_Page_SyncPages extends Wicked_Page {
      *
      * @throws Wicked_Exception
      */
-    function _syncForm()
+    protected function _syncForm()
     {
         require_once 'Horde/Form.php';
 
@@ -296,7 +296,7 @@ class Wicked_Page_SyncPages extends Wicked_Page {
      *
      * @param boolean $local Get local or remote info
      */
-    function getLocalPageInfo($pageName)
+    public function getLocalPageInfo($pageName)
     {
         $page = Wicked_Page::getPage($pageName);
         return array(
@@ -316,7 +316,7 @@ class Wicked_Page_SyncPages extends Wicked_Page {
      *
      * @throws Wicked_Exception
      */
-    function getRemotePageInfo($pageName)
+    public function getRemotePageInfo($pageName)
     {
         if (!isset($_SESSION['wicked']['sync']['pages'][$pageName])) {
             $_SESSION['wicked']['sync']['pages'][$pageName] = $this->_sync->getPageInfo($pageName);
@@ -329,7 +329,7 @@ class Wicked_Page_SyncPages extends Wicked_Page {
      *
      * @throws Wicked_Exception
      */
-    function download($pageName)
+    public function download($pageName)
     {
         $text = $this->_sync->getPageSource($pageName);
         $page = Wicked_Page::getPage($pageName);
@@ -361,7 +361,7 @@ class Wicked_Page_SyncPages extends Wicked_Page {
     /**
      * Upload local page to remote server
      */
-    function upload($pageName)
+    public function upload($pageName)
     {
         $page = Wicked_Page::getPage($pageName);
         $content = $page->getText();
@@ -375,7 +375,7 @@ class Wicked_Page_SyncPages extends Wicked_Page {
     /**
      * Load sync driver
      */
-    function _loadSyncDriver()
+    protected function _loadSyncDriver()
     {
         if ($this->_sync) {
             return true;

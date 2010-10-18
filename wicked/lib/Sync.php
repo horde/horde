@@ -18,7 +18,7 @@ abstract class Wicked_Sync {
      *
      * @var array
      */
-    var $_params = array();
+    protected $_params = array();
 
     /**
      * Attempts to return a concrete Wicked_Sync instance based on $driver.
@@ -34,7 +34,7 @@ abstract class Wicked_Sync {
      * @return Wicked_Sync    The newly created concrete Wicked_Sync
      *                        instance, or false on an error.
      */
-    function factory($driver = 'Wicked', $params = array())
+    public function factory($driver = 'Wicked', $params = array())
     {
         $driver = Horde_String::ucfirst(basename($driver));
         $class = 'Wicked_Sync_' . $driver;
@@ -57,7 +57,7 @@ abstract class Wicked_Sync {
      *
      * @param array $params  A hash containing connection parameters.
      */
-    function __construct($params = array())
+    public function __construct($params = array())
     {
         $this->_params = $params;
     }

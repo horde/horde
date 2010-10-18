@@ -2,16 +2,16 @@
 /**
  * @package Wicked
  */
-class Text_Wiki_Render_Xhtml_Toc extends Text_Wiki_Render {
-
-    var $conf = array(
+class Text_Wiki_Render_Xhtml_Toc extends Text_Wiki_Render
+{
+    public $conf = array(
         'css_list' => null,
         'css_item' => null,
         'title' => '<strong>Table of Contents</strong>',
         'div_id' => 'toc',
     );
 
-    var $_last_level = null;
+    protected $_last_level = null;
 
     /**
      * Renders a token into text matching the requested format.
@@ -23,7 +23,7 @@ class Text_Wiki_Render_Xhtml_Toc extends Text_Wiki_Render {
      *
      * @return string The text rendered from the token options.
      */
-    function token($options)
+    public function token($options)
     {
         // type, id, level, count, attr.
         extract($options);
@@ -89,5 +89,4 @@ class Text_Wiki_Render_Xhtml_Toc extends Text_Wiki_Render {
             return '</a>';
         }
     }
-
 }

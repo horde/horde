@@ -17,7 +17,7 @@ class Wicked_Page_AttachedFiles extends Wicked_Page {
      *
      * @var array
      */
-    var $supportedModes = array(
+    public $supportedModes = array(
         Wicked::MODE_CONTENT => true,
         Wicked::MODE_EDIT => true,
         Wicked::MODE_REMOVE => true,
@@ -28,12 +28,12 @@ class Wicked_Page_AttachedFiles extends Wicked_Page {
      *
      * @var string
      */
-    var $_referrer = null;
+    protected $_referrer = null;
 
     /**
      * Constructor.
      */
-    function __construct($referrer)
+    public function __construct($referrer)
     {
         $this->_referrer = $referrer;
     }
@@ -43,7 +43,7 @@ class Wicked_Page_AttachedFiles extends Wicked_Page {
      *
      * @return integer  The permissions bitmask.
      */
-    function getPermissions()
+    public function getPermissions()
     {
         return parent::getPermissions($this->referrer());
     }
@@ -53,7 +53,7 @@ class Wicked_Page_AttachedFiles extends Wicked_Page {
      *
      * @throws Wicked_Exception
      */
-    function content()
+    public function content()
     {
         global $wicked, $notification;
 
@@ -90,7 +90,7 @@ class Wicked_Page_AttachedFiles extends Wicked_Page {
      *
      * @throws Wicked_Exception
      */
-    function display()
+    public function display()
     {
         global $registry, $wicked, $notification, $conf;
 
@@ -145,17 +145,17 @@ class Wicked_Page_AttachedFiles extends Wicked_Page {
         echo $template->fetch(WICKED_TEMPLATES . '/display/AttachedFiles.html');
     }
 
-    function pageName()
+    public function pageName()
     {
         return 'AttachedFiles';
     }
 
-    function pageTitle()
+    public function pageTitle()
     {
         return sprintf(_("Attached Files: %s"), $this->referrer());
     }
 
-    function referrer()
+    public function referrer()
     {
         return $this->_referrer;
     }
@@ -163,7 +163,7 @@ class Wicked_Page_AttachedFiles extends Wicked_Page {
     /**
      * Retrieves the form fields and processes the attachment.
      */
-    function handleAction()
+    public function handleAction()
     {
         global $notification, $wicked, $registry, $conf;
 

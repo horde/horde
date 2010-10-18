@@ -17,16 +17,16 @@ class Wicked_Page_RevertPage extends Wicked_Page {
      *
      * @var array
      */
-    var $supportedModes = array(Wicked::MODE_DISPLAY => true);
+    public $supportedModes = array(Wicked::MODE_DISPLAY => true);
 
     /**
      * The page that we're confirming reversion for.
      *
      * @var string
      */
-    var $_referrer = null;
+    protected $_referrer = null;
 
-    function __construct($referrer)
+    public function __construct($referrer)
     {
         $this->_referrer = $referrer;
     }
@@ -36,7 +36,7 @@ class Wicked_Page_RevertPage extends Wicked_Page {
      *
      * @return integer  The permissions bitmask.
      */
-    function getPermissions()
+    public function getPermissions()
     {
         return parent::getPermissions($this->referrer());
     }
@@ -45,7 +45,7 @@ class Wicked_Page_RevertPage extends Wicked_Page {
      * Send them back whence they came if they aren't allowed to
      * edit this page.
      */
-    function preDisplay()
+    public function preDisplay()
     {
         $page = Wicked_Page::getPage($this->referrer());
         if (!$page->allows(Wicked::MODE_EDIT)) {
@@ -58,7 +58,7 @@ class Wicked_Page_RevertPage extends Wicked_Page {
      *
      * @throws Wicked_Exception
      */
-    function display()
+    public function display()
     {
         $version = Horde_Util::getFormData('version');
         $page = Wicked_Page::getPage($this->referrer(), $version);
@@ -87,22 +87,22 @@ class Wicked_Page_RevertPage extends Wicked_Page {
 <?php
     }
 
-    function pageName()
+    public function pageName()
     {
         return 'RevertPage';
     }
 
-    function pageTitle()
+    public function pageTitle()
     {
         return _("Revert Page");
     }
 
-    function referrer()
+    public function referrer()
     {
         return $this->_referrer;
     }
 
-    function handleAction()
+    public function handleAction()
     {
         global $notification;
 

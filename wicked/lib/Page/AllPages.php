@@ -15,7 +15,7 @@ class Wicked_Page_AllPages extends Wicked_Page {
     /**
      * Display modes supported by this page.
      */
-    var $supportedModes = array(
+    public $supportedModes = array(
         Wicked::MODE_CONTENT => true,
         Wicked::MODE_DISPLAY => true);
 
@@ -24,7 +24,7 @@ class Wicked_Page_AllPages extends Wicked_Page {
      *
      * @return string  The page content.
      */
-    function content()
+    public function content()
     {
         return $GLOBALS['wicked']->getAllPages();
     }
@@ -35,7 +35,7 @@ class Wicked_Page_AllPages extends Wicked_Page {
      * @return string  The page contents.
      * @throws Wicked_Exception
      */
-    function displayContents($isBlock)
+    public function displayContents($isBlock)
     {
         $template = $GLOBALS['injector']->createInstance('Horde_Template');
         $pages = array();
@@ -64,12 +64,12 @@ class Wicked_Page_AllPages extends Wicked_Page {
         return $contents;
     }
 
-    function pageName()
+    public function pageName()
     {
         return 'AllPages';
     }
 
-    function pageTitle()
+    public function pageTitle()
     {
         return _("All Pages");
     }

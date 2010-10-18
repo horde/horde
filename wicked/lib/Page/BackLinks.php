@@ -17,7 +17,7 @@ class Wicked_Page_BackLinks extends Wicked_Page {
      *
      * @var array
      */
-    var $supportedModes = array(
+    public $supportedModes = array(
         Wicked::MODE_DISPLAY => true);
 
     /**
@@ -25,9 +25,9 @@ class Wicked_Page_BackLinks extends Wicked_Page {
      *
      * @var string
      */
-    var $_referrer = null;
+    protected $_referrer = null;
 
-    function __construct($referrer)
+    public function __construct($referrer)
     {
         $this->_referrer = $referrer;
     }
@@ -38,7 +38,7 @@ class Wicked_Page_BackLinks extends Wicked_Page {
      * @return string  The contents.
      * @throws Wicked_Exception
      */
-    function displayContents($isBlock)
+    public function displayContents($isBlock)
     {
         $summaries = $GLOBALS['wicked']->getBackLinks($this->_referrer);
         Horde::addScriptFile('tables.js', 'horde', true);
@@ -56,17 +56,17 @@ class Wicked_Page_BackLinks extends Wicked_Page {
         return ob_get_clean();
     }
 
-    function pageName()
+    public function pageName()
     {
         return 'BackLinks';
     }
 
-    function pageTitle()
+    public function pageTitle()
     {
         return sprintf(_("Backlinks: %s"), $this->referrer());
     }
 
-    function referrer()
+    public function referrer()
     {
         return $this->_referrer;
     }

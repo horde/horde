@@ -12,7 +12,7 @@ class Wicked_Page_StandardHistoryPage extends Wicked_Page_StandardPage {
      *
      * @var array
      */
-    var $supportedModes = array(
+    public $supportedModes = array(
         Wicked::MODE_DISPLAY => true,
         Wicked::MODE_EDIT => false,
         Wicked::MODE_REMOVE => true,
@@ -30,7 +30,7 @@ class Wicked_Page_StandardHistoryPage extends Wicked_Page_StandardPage {
      *
      * @throws Wicked_Exception
      */
-    function __construct($pagename, $version = null)
+    public function __construct($pagename, $version = null)
     {
         if (empty($version)) {
             parent::__construct($pagename);
@@ -48,12 +48,12 @@ class Wicked_Page_StandardHistoryPage extends Wicked_Page_StandardPage {
         $this->_page = $pages[0];
     }
 
-    function isOld()
+    public function isOld()
     {
         return true;
     }
 
-    function pageUrl($linkpage = null, $actionId = null)
+    public function pageUrl($linkpage = null, $actionId = null)
     {
         return Horde_Util::addParameter(parent::pageUrl($linkpage, $actionId), 'version', $this->version());
     }

@@ -15,21 +15,21 @@ class Wicked_Page_SyncDiff extends Wicked_Page_SyncPages {
     /**
      * Display modes supported by this page.
      */
-    var $supportedModes = array(
+    public $supportedModes = array(
         Wicked::MODE_CONTENT => true,
         Wicked::MODE_DISPLAY => true);
 
     /**
      * Sync driver
      */
-    var $_sync;
+    protected $_sync;
 
     /**
      * Working page
      */
-    var $_pageName;
+    protected $_pageName;
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         $this->_pageName = Horde_Util::getGet('sync_page');
@@ -40,7 +40,7 @@ class Wicked_Page_SyncDiff extends Wicked_Page_SyncPages {
      *
      * @throws Wicked_Exception
      */
-    function content()
+    public function content()
     {
         if (!$this->_loadSyncDriver()) {
             throw new Wicked_Exception(_("Synchronization is disabled"));
@@ -83,7 +83,7 @@ class Wicked_Page_SyncDiff extends Wicked_Page_SyncPages {
      * @return string  The page contents.
      * @throws Wicked_Exception
      */
-    function displayContents($isBlock)
+    public function displayContents($isBlock)
     {
         return $this->content();
     }
@@ -91,7 +91,7 @@ class Wicked_Page_SyncDiff extends Wicked_Page_SyncPages {
     /**
      * Page name
      */
-    function pageName()
+    public function pageName()
     {
         return 'SyncDiff';
     }
@@ -99,7 +99,7 @@ class Wicked_Page_SyncDiff extends Wicked_Page_SyncPages {
     /**
      * Page title
      */
-    function pageTitle()
+    public function pageTitle()
     {
         return _("Sync Diff");
     }
@@ -110,7 +110,7 @@ class Wicked_Page_SyncDiff extends Wicked_Page_SyncPages {
      *
      * @throws Wicked_Exception
      */
-    function _getSameVersion()
+    protected function _getSameVersion()
     {
         $local = $GLOBALS['wicked']->getHistory($this->_pageName);
         $info = $this->getLocalPageInfo($this->_pageName);

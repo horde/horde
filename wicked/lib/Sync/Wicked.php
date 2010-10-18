@@ -22,14 +22,14 @@ class Wicked_Sync_Wicked extends Wicked_Sync {
      *
      * @return array  An array of all available pages.
      */
-    var $_client;
+    protected $_client;
 
     /**
      * Returns a list of available pages.
      *
      * @return array  An array of all available pages.
      */
-    function listPages()
+    public function listPages()
     {
         return $this->_getData('list');
     }
@@ -42,7 +42,7 @@ class Wicked_Sync_Wicked extends Wicked_Sync {
      * @return string  Page data.
      * @throws Wicked_Exception
      */
-    function getPageSource($pageName)
+    public function getPageSource($pageName)
     {
         return $this->_getData('getPageSource', array($pageName));
     }
@@ -55,7 +55,7 @@ class Wicked_Sync_Wicked extends Wicked_Sync {
      * @return array  Page data.
      * @throws Wicked_Exception
      */
-    function getPageInfo($pageName)
+    public function getPageInfo($pageName)
     {
         return $this->_getData('getPageInfo', array($pageName));
     }
@@ -68,7 +68,7 @@ class Wicked_Sync_Wicked extends Wicked_Sync {
      * @return array  Pages data.
      * @throws Wicked_Exception
      */
-    function getMultiplePageInfo($pages = array())
+    public function getMultiplePageInfo($pages = array())
     {
         return $this->_getData('getMultiplePageInfo', array($pages));
     }
@@ -80,7 +80,7 @@ class Wicked_Sync_Wicked extends Wicked_Sync {
      *
      * @return array  An array of page parameters.
      */
-    function getPageHistory($pagename)
+    public function getPageHistory($pagename)
     {
         return $this->_getData('getPageHistory', array($pagename));
     }
@@ -96,7 +96,7 @@ class Wicked_Sync_Wicked extends Wicked_Sync {
      *
      * @throws Wicked_Exception
      */
-    function editPage($pagename, $text, $changelog = '', $minorchange = false)
+    public function editPage($pagename, $text, $changelog = '', $minorchange = false)
     {
         $this->_getData('edit', array($pagename, $text, $changelog, $minorchange));
     }
@@ -110,7 +110,7 @@ class Wicked_Sync_Wicked extends Wicked_Sync {
      * @return mixed
      * @throws Wicked_Exception
      */
-    function _getData($method, $params = array())
+    protected function _getData($method, $params = array())
     {
         try {
             return Horde_Rpc::request(

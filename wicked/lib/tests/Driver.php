@@ -6,7 +6,7 @@ class Wicked_Driver_TC extends HordeUnitTestCase {
      * Driver we are testing
      * @var object
      */
-    var $wicked;
+    public $wicked;
 
     function setUp()
     {

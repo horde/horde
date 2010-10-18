@@ -17,7 +17,7 @@ class Wicked_Page_StandardPage extends Wicked_Page {
      *
      * @var array
      */
-    var $supportedModes = array(
+    public $supportedModes = array(
         Wicked::MODE_DISPLAY => true,
         Wicked::MODE_EDIT => true,
         Wicked::MODE_REMOVE => true,
@@ -29,21 +29,21 @@ class Wicked_Page_StandardPage extends Wicked_Page {
      *
      * @var Horde_Lock
      */
-    var $_locks = null;
+    protected $_locks = null;
 
     /**
      * Lock information if this page is currently locked.
      *
      * @var array
      */
-    var $_lock = null;
+    protected $_lock = null;
 
     /**
      * Constructs a standard page class to represent a wiki page.
      *
      * @param string $pagename The name of the page to represent.
      */
-    function __construct($pagename)
+    public function __construct($pagename)
     {
         if (is_array($pagename)) {
             $this->_page = $pagename;
@@ -126,7 +126,7 @@ class Wicked_Page_StandardPage extends Wicked_Page {
      *
      * @return boolean  True if the mode is allowed.
      */
-    function allows($mode)
+    public function allows($mode)
     {
         switch ($mode) {
         case Wicked::MODE_EDIT:
@@ -162,7 +162,7 @@ class Wicked_Page_StandardPage extends Wicked_Page {
     /**
      * @throws Wicked_Exception
      */
-    function displayContents($isBlock)
+    public function displayContents($isBlock)
     {
         $wiki = $this->getProcessor();
         $text = $wiki->transform($this->getText());
@@ -190,7 +190,7 @@ class Wicked_Page_StandardPage extends Wicked_Page {
      *
      * @throws Wicked_Exception
      */
-    function history()
+    public function history()
     {
         try {
             $summaries = $GLOBALS['wicked']->getHistory($this->pageName());
@@ -225,7 +225,7 @@ class Wicked_Page_StandardPage extends Wicked_Page {
         require WICKED_TEMPLATES . '/history/footer.inc';
     }
 
-    function isLocked($owner = null)
+    public function isLocked($owner = null)
     {
         if (empty($this->_lock)) {
             return false;
@@ -239,7 +239,7 @@ class Wicked_Page_StandardPage extends Wicked_Page {
     /**
      * @throws Wicked_Exception
      */
-    function lock()
+    public function lock()
     {
         if ($this->_locks) {
             $id = $this->_locks->setLock(Wicked::lockUser(), 'wicked', $this->pageName(), $GLOBALS['conf']['wicked']['lock']['time'] * 60, Horde_Lock::TYPE_EXCLUSIVE);
@@ -251,7 +251,7 @@ class Wicked_Page_StandardPage extends Wicked_Page {
         }
     }
 
-    function unlock()
+    public function unlock()
     {
         if ($this->_locks && $this->_lock) {
             $this->_locks->clearLock($this->_lock['lock_id']);
@@ -259,7 +259,7 @@ class Wicked_Page_StandardPage extends Wicked_Page {
         }
     }
 
-    function getLockRequestor()
+    public function getLockRequestor()
     {
         $requestor = $this->_lock['lock_owner'];
         if ($requestor) {
@@ -275,7 +275,7 @@ class Wicked_Page_StandardPage extends Wicked_Page {
         return _("a guest");
     }
 
-    function getLockTime()
+    public function getLockTime()
     {
         $time = ceil(($this->_lock['lock_expiry_timestamp'] - time()) / 60);
         return sprintf(ngettext("%d minute", "%d minutes", $time), $time);
@@ -284,7 +284,7 @@ class Wicked_Page_StandardPage extends Wicked_Page {
     /**
      * @throws Wicked_Exception
      */
-    function updateText($newtext, $changelog, $minorchange)
+    public function updateText($newtext, $changelog, $minorchange)
     {
         $version = $this->version();
         $result = $GLOBALS['wicked']->updateText($this->pageName(), $newtext,
@@ -305,45 +305,45 @@ class Wicked_Page_StandardPage extends Wicked_Page {
         $this->_page['page_text'] = $newtext;
     }
 
-    function pageID()
+    public function pageID()
     {
         return isset($this->_page['page_id']) ? $this->_page['page_id'] : '';
     }
 
-    function pageName()
+    public function pageName()
     {
         return isset($this->_page['page_name'])
             ? $this->_page['page_name']
             : '';
     }
 
-    function getText()
+    public function getText()
     {
         return isset($this->_page['page_text'])
             ? $this->_page['page_text']
             : '';
     }
 
-    function versionCreated()
+    public function versionCreated()
     {
         return isset($this->_page['version_created'])
             ? $this->_page['version_created']
             : '';
     }
 
-    function hits()
+    public function hits()
     {
         return !empty($this->_page['page_hits'])
             ? $this->_page['page_hits']
             : 0;
     }
 
-    function changeLog()
+    public function changeLog()
     {
         return $this->_page['change_log'];
     }
 
-    function version()
+    public function version()
     {
         if (isset($this->_page['page_majorversion']) &&
             isset($this->_page['page_minorversion'])) {
@@ -354,7 +354,7 @@ class Wicked_Page_StandardPage extends Wicked_Page {
         }
     }
 
-    function diff($version)
+    public function diff($version)
     {
         require WICKED_TEMPLATES . '/diff/diff.inc';
     }
@@ -366,7 +366,7 @@ class Wicked_Page_StandardPage extends Wicked_Page {
      *                          `before the beginning' (empty).
      * @param string $renderer  The diff renderer.
      */
-    function getDiff($version, $renderer = 'unified')
+    public function getDiff($version, $renderer = 'unified')
     {
         if (is_null($version)) {
             $old_page_text = '';

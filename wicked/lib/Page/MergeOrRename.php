@@ -17,7 +17,7 @@ class Wicked_Page_MergeOrRename extends Wicked_Page {
      *
      * @var array
      */
-    var $supportedModes = array(
+    public $supportedModes = array(
         Wicked::MODE_EDIT => true,
         Wicked::MODE_DISPLAY => true);
 
@@ -26,16 +26,16 @@ class Wicked_Page_MergeOrRename extends Wicked_Page {
      *
      * @var string
      */
-    var $_referrer = null;
+    protected $_referrer = null;
 
     /**
      * Validation errors.
      *
      * @var string
      */
-    var $_errors = array();
+    protected $_errors = array();
 
-    function __construct($referrer)
+    public function __construct($referrer)
     {
         $this->_referrer = $referrer;
     }
@@ -50,7 +50,7 @@ class Wicked_Page_MergeOrRename extends Wicked_Page {
      *
      * @return boolean  True if the mode is allowed.
      */
-    function allows($mode)
+    public function allows($mode)
     {
         if ($mode == Wicked::MODE_EDIT) {
             if (!parent::allows(Wicked::MODE_REMOVE)) {
@@ -69,7 +69,7 @@ class Wicked_Page_MergeOrRename extends Wicked_Page {
      *
      * @return integer  The permissions bitmask.
      */
-    function getPermissions()
+    public function getPermissions()
     {
         return parent::getPermissions($this->referrer());
     }
@@ -79,7 +79,7 @@ class Wicked_Page_MergeOrRename extends Wicked_Page {
      *
      * @throws Wicked_Exception
      */
-    function display()
+    public function display()
     {
         global $wicked, $registry, $notification;
 
@@ -127,17 +127,17 @@ class Wicked_Page_MergeOrRename extends Wicked_Page {
         return true;
     }
 
-    function pageName()
+    public function pageName()
     {
         return 'MergeOrRename';
     }
 
-    function pageTitle()
+    public function pageTitle()
     {
         return sprintf(_("Merge/Rename: %s"), $this->referrer());
     }
 
-    function referrer()
+    public function referrer()
     {
         return $this->_referrer;
     }
@@ -145,7 +145,7 @@ class Wicked_Page_MergeOrRename extends Wicked_Page {
     /**
      * Retrieve the form fields and process the merge or rename.
      */
-    function handleAction()
+    public function handleAction()
     {
         global $wicked, $notification, $registry;
 

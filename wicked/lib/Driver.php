@@ -22,21 +22,21 @@ abstract class Wicked_Driver {
      *
      * @var array
      */
-    var $_params = array();
+    protected $_params = array();
 
     /**
      * VFS object for storing attachments.
      *
      * @var VFS
      */
-    var $_vfs;
+    protected $_vfs;
 
     /**
      * Constructs a new Wicked driver object.
      *
      * @param array $params  A hash containing connection parameters.
      */
-    function __construct($params = array())
+    public function __construct($params = array())
     {
         $this->_params = $params;
     }
@@ -46,7 +46,7 @@ abstract class Wicked_Driver {
      *
      * @throws Wicked_Exception
      */
-    function getVFS()
+    public function getVFS()
     {
         if (!$this->_vfs) {
             try {
@@ -98,24 +98,24 @@ abstract class Wicked_Driver {
 
     abstract function renamePage($pagename, $newname);
 
-    function getPageId($pagename)
+    public function getPageId($pagename)
     {
         $pages = $this->getPages();
         $ids = array_flip($pages);
         return isset($ids[$pagename]) ? $ids[$pagename] : false;
     }
 
-    function getPage($pagename)
+    public function getPage($pagename)
     {
         return array();
     }
 
-    function getPageById($id)
+    public function getPageById($id)
     {
         return array();
     }
 
-    function getSpecialPages()
+    public function getSpecialPages()
     {
         static $pages;
         if (isset($pages)) {
@@ -138,12 +138,12 @@ abstract class Wicked_Driver {
         return $pages;
     }
 
-    function getPages($special = true)
+    public function getPages($special = true)
     {
         return array();
     }
 
-    function pageExists($pagename)
+    public function pageExists($pagename)
     {
         return in_array($pagename, $this->getPages());
     }
@@ -231,7 +231,7 @@ abstract class Wicked_Driver {
      *
      * @throws Wicked_Exception
      */
-    function attachFile($file, $data)
+    public function attachFile($file, $data)
     {
         $vfs = $this->getVFS();
         if (!isset($file['change_author'])) {
@@ -260,7 +260,7 @@ abstract class Wicked_Driver {
      *
      * @throws Wicked_Exception
      */
-    function removeAttachment($pageId, $attachment, $version = null)
+    public function removeAttachment($pageId, $attachment, $version = null)
     {
         $vfs = $this->getVFS();
         $path = WICKED_VFS_ATTACH_PATH . '/' . $pageId;
@@ -291,7 +291,7 @@ abstract class Wicked_Driver {
      *
      * @throws Wicked_Exception
      */
-    function removeAllAttachments($pageId)
+    public function removeAllAttachments($pageId)
     {
         $vfs = $this->getVFS();
         if (!$vfs->isFolder(WICKED_VFS_ATTACH_PATH, $pageId)) {
@@ -320,7 +320,7 @@ abstract class Wicked_Driver {
      * @return boolean  The new version of the file attached
      * @throws Wicked_Exception
      */
-    abstract function _attachFile($file);
+    abstract protected function _attachFile($file);
 
     /**
      * Retrieves the contents of an attachment.
@@ -333,7 +333,7 @@ abstract class Wicked_Driver {
      * @return string  The file's contents.
      * @throws Wicked_Exception
      */
-    function getAttachmentContents($pageId, $filename, $version)
+    public function getAttachmentContents($pageId, $filename, $version)
     {
         $vfs = $this->getVFS();
         $path = WICKED_VFS_ATTACH_PATH . '/' . $pageId;
@@ -347,7 +347,7 @@ abstract class Wicked_Driver {
 
     abstract function removeVersion($pagename, $version);
 
-    function removeAllVersions($pagename)
+    public function removeAllVersions($pagename)
     {
         /* When deleting a page, also delete all its attachments. */
         $this->removeAllAttachments($this->getPageId($pagename));
@@ -360,7 +360,7 @@ abstract class Wicked_Driver {
      *
      * @return string  The backend's charset
      */
-    function getCharset()
+    public function getCharset()
     {
         return 'UTF-8';
     }
@@ -376,7 +376,7 @@ abstract class Wicked_Driver {
      * @return Wicked_Driver  The newly created concrete Wicked_Driver instance.
      * @throws Wicked_Exception
      */
-    function factory($driver = null, $params = null)
+    public function factory($driver = null, $params = null)
     {
         if ($driver === null) {
             $driver = $GLOBALS['conf']['storage']['driver'];

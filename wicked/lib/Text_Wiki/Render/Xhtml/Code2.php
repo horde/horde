@@ -12,7 +12,7 @@ class Text_Wiki_Render_Xhtml_Code2 extends Text_Wiki_Render_Xhtml_Code
      *
      * @return string The text rendered from the token options.
      */
-    function token($options)
+    public function token($options)
     {
         $type = $options['attr']['type'];
 

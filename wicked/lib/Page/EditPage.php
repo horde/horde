@@ -20,7 +20,7 @@ class Wicked_Page_EditPage extends Wicked_Page {
      *
      * @var array
      */
-    var $supportedModes = array(
+    public $supportedModes = array(
         Wicked::MODE_DISPLAY => true,
         Wicked::MODE_EDIT => true);
 
@@ -29,9 +29,9 @@ class Wicked_Page_EditPage extends Wicked_Page {
      *
      * @var string
      */
-    var $_referrer = null;
+    protected $_referrer = null;
 
-    function __construct($referrer)
+    public function __construct($referrer)
     {
         $this->_referrer = $referrer;
         if ($GLOBALS['conf']['lock']['driver'] != 'none') {
@@ -49,7 +49,7 @@ class Wicked_Page_EditPage extends Wicked_Page {
      *
      * @return boolean  True if the mode is allowed.
      */
-    function allows($mode)
+    public function allows($mode)
     {
         if ($mode == Wicked::MODE_EDIT) {
             $page = Wicked_Page::getPage($this->referrer());
@@ -65,7 +65,7 @@ class Wicked_Page_EditPage extends Wicked_Page {
      *
      * @return integer  The permissions bitmask.
      */
-    function getPermissions()
+    public function getPermissions()
     {
         return parent::getPermissions($this->referrer());
     }
@@ -74,7 +74,7 @@ class Wicked_Page_EditPage extends Wicked_Page {
      * Send them back whence they came if they aren't allowed to edit
      * this page.
      */
-    function preDisplay()
+    public function preDisplay()
     {
         if (!$this->allows(Wicked::MODE_EDIT)) {
             Wicked::url($this->referrer(), true)->redirect();
@@ -97,7 +97,7 @@ class Wicked_Page_EditPage extends Wicked_Page {
      *
      * @throws Wicked_Exception
      */
-    function display()
+    public function display()
     {
         $page = Wicked_Page::getPage($this->referrer());
         $page_text = Horde_Util::getFormData('page_text');
@@ -107,40 +107,40 @@ class Wicked_Page_EditPage extends Wicked_Page {
         require WICKED_TEMPLATES . '/edit/standard.inc';
     }
 
-    function pageName()
+    public function pageName()
     {
         return 'EditPage';
     }
 
-    function pageTitle()
+    public function pageTitle()
     {
         return _("Edit Page");
     }
 
-    function referrer()
+    public function referrer()
     {
         return $this->_referrer;
     }
 
-    function isLocked()
+    public function isLocked()
     {
         $page = Wicked_Page::getPage($this->referrer());
         return $page->isLocked();
     }
 
-    function getLockRequestor()
+    public function getLockRequestor()
     {
         $page = Wicked_Page::getPage($this->referrer());
         return $page->getLockRequestor();
     }
 
-    function getLockTime()
+    public function getLockTime()
     {
         $page = Wicked_Page::getPage($this->referrer());
         return $page->getLockTime();
     }
 
-    function handleAction()
+    public function handleAction()
     {
         global $notification, $conf;
 

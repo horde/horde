@@ -32,28 +32,28 @@ class Wicked_Page
      *
      * @var array
      */
-    var $supportedModes = array();
+    public $supportedModes = array();
 
     /**
      * Instance of a Text_Wiki processor.
      *
      * @var Text_Wiki
      */
-    var $_proc;
+    protected $_proc;
 
     /**
      * The loaded page info.
      *
      * @var array
      */
-    var $_page;
+    protected $_page;
 
     /**
      * Is this a validly loaded page?
      *
      * @return boolean  True if we've loaded data, false otherwise.
      */
-    function isValid()
+    public function isValid()
     {
         return !empty($this->_page);
     }
@@ -65,7 +65,7 @@ class Wicked_Page
      *
      * @return integer  The permissions bitmask.
      */
-    function getPermissions($pageName = null)
+    public function getPermissions($pageName = null)
     {
         global $wicked;
 
@@ -100,7 +100,7 @@ class Wicked_Page
      *
      * @return boolean  True if the mode is allowed.
      */
-    function allows($mode)
+    public function allows($mode)
     {
         global $browser;
 
@@ -179,7 +179,7 @@ class Wicked_Page
      *
      * @return boolean            True or false
      */
-    function supports($mode)
+    public function supports($mode)
     {
         return !empty($this->supportedModes[$mode]);
     }
@@ -190,7 +190,7 @@ class Wicked_Page
      * @return Wicked_Page  The current page.
      * @throws Wicked_Exception
      */
-    function getCurrentPage()
+    public function getCurrentPage()
     {
         return Wicked_Page::getPage(rtrim(Horde_Util::getFormData('page'), '/'),
                                     Horde_Util::getFormData('version'),
@@ -203,7 +203,7 @@ class Wicked_Page
      * @return Wicked_Page  The requested page.
      * @throws Wicked_Exception
      */
-    function getPage($pagename, $pagever = null, $referrer = null)
+    public function getPage($pagename, $pagever = null, $referrer = null)
     {
         global $conf, $notification, $wicked;
 
@@ -234,12 +234,12 @@ class Wicked_Page
         return new Wicked_Page_AddPage($pagename);
     }
 
-    function versionCreated()
+    public function versionCreated()
     {
         throw new Wicked_Exception(_("Unsupported"));
     }
 
-    function formatVersionCreated()
+    public function formatVersionCreated()
     {
         try {
             $v = $this->versionCreated();
@@ -250,7 +250,7 @@ class Wicked_Page
         return _("Never");
     }
 
-    function author()
+    public function author()
     {
         if (isset($this->_page['change_author'])) {
             $modify = $this->_page['change_author'];
@@ -267,12 +267,12 @@ class Wicked_Page
         return $modify;
     }
 
-    function hits()
+    public function hits()
     {
         throw new Wicked_Exception(_("Unsupported"));
     }
 
-    function version()
+    public function version()
     {
         throw new Wicked_Exception(_("Unsupported"));
     }
@@ -284,7 +284,7 @@ class Wicked_Page
      *                 is the first version.
      * @throws Wicked_Exception
      */
-    function previousVersion()
+    public function previousVersion()
     {
         global $wicked;
 
@@ -319,7 +319,7 @@ class Wicked_Page
                        $history[$i]['page_minorversion']);
     }
 
-    function isOld()
+    public function isOld()
     {
         return false;
     }
@@ -331,7 +331,7 @@ class Wicked_Page
      *
      * @throws Wicked_Exception
      */
-    function display()
+    public function display()
     {
         // Get content first, it might throw an exception.
         $inner = $this->displayContents(false);
@@ -349,7 +349,7 @@ class Wicked_Page
      * $param integer $mode    The page render mode.
      * $param array   $params  Any page parameters.
      */
-    function preDisplay($mode, $params)
+    public function preDisplay($mode, $params)
     {
     }
 
@@ -361,12 +361,12 @@ class Wicked_Page
      * @return string  The content.
      * @throws Wicked_Exception
      */
-    function block()
+    public function block()
     {
         return $this->displayContents(true);
     }
 
-    function displayContents($isBlock)
+    public function displayContents($isBlock)
     {
         throw new Wicked_Exception(_("Unsupported"));
     }
@@ -374,7 +374,7 @@ class Wicked_Page
     /**
      * Renders this page in remove mode.
      */
-    function remove()
+    public function remove()
     {
         throw new Wicked_Exception(_("Unsupported"));
     }
@@ -382,7 +382,7 @@ class Wicked_Page
     /**
      * Renders this page in history mode.
      */
-    function history()
+    public function history()
     {
         throw new Wicked_Exception(_("Unsupported"));
     }
@@ -390,12 +390,12 @@ class Wicked_Page
     /**
      * Renders this page in diff mode.
      */
-    function diff()
+    public function diff()
     {
         throw new Wicked_Exception(_("Unsupported"));
     }
 
-    function &getProcessor($output_format = 'Xhtml')
+    public function &getProcessor($output_format = 'Xhtml')
     {
         if (isset($this->_proc)) {
             return $this->_proc;
@@ -475,7 +475,7 @@ class Wicked_Page
         return $this->_proc;
     }
 
-    function render($mode, $params = null)
+    public function render($mode, $params = null)
     {
         switch ($mode) {
         case Wicked::MODE_CONTENT:
@@ -501,42 +501,42 @@ class Wicked_Page
         }
     }
 
-    function isLocked()
+    public function isLocked()
     {
         return false;
     }
 
-    function lock()
+    public function lock()
     {
         throw new Wicked_Exception(_("Unsupported"));
     }
 
-    function unlock()
+    public function unlock()
     {
         throw new Wicked_Exception(_("Unsupported"));
     }
 
-    function updateText($newtext, $changelog, $minorchange)
+    public function updateText($newtext, $changelog, $minorchange)
     {
         throw new Wicked_Exception(_("Unsupported"));
     }
 
-    function getText()
+    public function getText()
     {
         throw new Wicked_Exception(_("Unsupported"));
     }
 
-    function pageName()
+    public function pageName()
     {
         return null;
     }
 
-    function referrer()
+    public function referrer()
     {
         return null;
     }
 
-    function pageUrl($linkpage = null, $actionId = null)
+    public function pageUrl($linkpage = null, $actionId = null)
     {
         $params = array('page' => $this->pageName());
         if ($this->referrer()) {
@@ -556,12 +556,12 @@ class Wicked_Page
         return Horde_Util::addParameter($url, $params);
     }
 
-    function pageTitle()
+    public function pageTitle()
     {
         return $this->pageName();
     }
 
-    function handleAction()
+    public function handleAction()
     {
         throw new Wicked_Exception(_("Unsupported"));
     }

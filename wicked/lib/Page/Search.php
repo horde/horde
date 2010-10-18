@@ -16,7 +16,7 @@ class Wicked_Page_Search extends Wicked_Page {
      * Display modes supported by this page.
      * @var array
      */
-    var $supportedModes = array(
+    public $supportedModes = array(
         Wicked::MODE_CONTENT => true,
         Wicked::MODE_DISPLAY => true);
 
@@ -25,7 +25,7 @@ class Wicked_Page_Search extends Wicked_Page {
      *
      * @var array
      */
-    var $_results = array();
+    protected $_results = array();
 
     /**
      * Renders this page in content mode.
@@ -34,7 +34,7 @@ class Wicked_Page_Search extends Wicked_Page {
      *
      * @return string  The page content.
      */
-    function content($searchtext = '')
+    public function content($searchtext = '')
     {
         if (empty($searchtext)) {
             return array();
@@ -54,7 +54,7 @@ class Wicked_Page_Search extends Wicked_Page {
      * $param integer $mode    The page render mode.
      * $param array   $params  Any page parameters.
      */
-    function preDisplay($mode, $params)
+    public function preDisplay($mode, $params)
     {
         $this->_results = $this->content($params);
     }
@@ -66,7 +66,7 @@ class Wicked_Page_Search extends Wicked_Page {
      *
      * @throws Wicked_Exception
      */
-    function display($searchtext)
+    public function display($searchtext)
     {
         global $notification;
 
@@ -172,7 +172,7 @@ class Wicked_Page_Search extends Wicked_Page {
         return true;
     }
 
-    function getContext($page, $searchtext)
+    public function getContext($page, $searchtext)
     {
         if (preg_match('/.{0,100}' . preg_quote($searchtext, '/') . '.{0,100}/i', $page->getText(), $context)) {
             return preg_replace('/' . preg_quote($searchtext, '/') . '/i', '<span class="match">' . htmlspecialchars($searchtext) . '</span>', htmlspecialchars($context[0]));
@@ -180,12 +180,12 @@ class Wicked_Page_Search extends Wicked_Page {
         return '';
     }
 
-    function pageName()
+    public function pageName()
     {
         return 'Search';
     }
 
-    function pageTitle()
+    public function pageTitle()
     {
         return _("Search");
     }

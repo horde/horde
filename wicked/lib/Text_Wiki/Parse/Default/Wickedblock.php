@@ -5,8 +5,8 @@
  *
  * @package Wicked
  */
-class Text_Wiki_Parse_Wickedblock extends Text_Wiki_Parse {
-
+class Text_Wiki_Parse_Wickedblock extends Text_Wiki_Parse
+{
     /**
      * The regular expression used to find blocks.
      *
@@ -14,7 +14,7 @@ class Text_Wiki_Parse_Wickedblock extends Text_Wiki_Parse {
      *
      * @var string
      */
-    var $regex = "/\[\[block (.*)?\]\]/sU";
+    public $regex = "/\[\[block (.*)?\]\]/sU";
 
     /**
      * Generates a token entry for the matched text. Token options are:
@@ -29,8 +29,7 @@ class Text_Wiki_Parse_Wickedblock extends Text_Wiki_Parse {
      * @return  A delimited token number to be used as a placeholder in
      *          the source text.
      */
-    function process(&$matches)
+    public function process(&$matches)
     {
     }
-
 }
