@@ -205,7 +205,7 @@ class Wicked_Api extends Horde_Registry_Api
     public function listTemplates()
     {
         global $wicked;
-        $templates = $wicked->getMatchingPages('Template', WICKED_PAGE_MATCH_ENDS);
+        $templates = $wicked->getMatchingPages('Template', Wicked_Page::MATCH_ENDS);
         $list = array(array('category' => _("Wiki Templates"),
             'templates' => array()));
         foreach ($templates as $page) {

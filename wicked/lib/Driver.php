@@ -4,16 +4,6 @@
  */
 
 /**
- * VFS
- */
-require_once 'VFS.php';
-
-define('WICKED_PAGE_MATCH_LEFT', 1);
-define('WICKED_PAGE_MATCH_RIGHT', 2);
-define('WICKED_PAGE_MATCH_ENDS', 3);
-define('WICKED_PAGE_MATCH_ANY', 4);
-
-/**
  * Wicked_Driver:: defines an API for implementing storage backends for
  * Wicked.
  *
@@ -46,7 +36,7 @@ abstract class Wicked_Driver {
      *
      * @param array $params  A hash containing connection parameters.
      */
-    function Wicked_Driver($params = array())
+    function __construct($params = array())
     {
         $this->_params = $params;
     }
@@ -391,7 +381,7 @@ abstract class Wicked_Driver {
         if ($driver === null) {
             $driver = $GLOBALS['conf']['storage']['driver'];
         }
-        $driver = basename($driver);
+        $driver = Horde_String::ucfirst(basename($driver));
 
         if ($params === null) {
             $params = Horde::getDriverConfig('storage', $driver);
@@ -399,15 +389,12 @@ abstract class Wicked_Driver {
 
         $class = 'Wicked_Driver_' . $driver;
         if (!class_exists($class)) {
-            include_once dirname(__FILE__) . '/Driver/' . $driver . '.php';
-        }
-        if (class_exists($class)) {
-            $wicked = new $class($params);
-            $result = $wicked->connect();
-            return $wicked;
+            throw new Wicked_Exception('Definition of ' . $class . ' not found.');
         }
 
-        throw new Wicked_Exception('Definition of ' . $class . ' not found.');
+        $wicked = new $class($params);
+        $result = $wicked->connect();
+        return $wicked;
     }
 
 }

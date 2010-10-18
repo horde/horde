@@ -137,7 +137,7 @@ require WICKED_TEMPLATES . '/menu.inc';
 $page->render(Wicked::MODE_DISPLAY, $params);
 require $registry->get('templates', 'horde') . '/common-footer.inc';
 
-if (is_a($page, 'StandardPage') &&
+if ($page instanceof Wicked_Page_StandardPage &&
     (!isset($_SESSION['wickedSession']['history'][0]) ||
      $_SESSION['wickedSession']['history'][0] != $page->pageName())) {
     array_unshift($_SESSION['wickedSession']['history'], $page->pageName());

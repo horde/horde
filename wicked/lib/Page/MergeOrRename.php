@@ -1,7 +1,4 @@
 <?php
-
-require_once WICKED_BASE . '/lib/Page/StandardPage.php';
-
 /**
  * Special page for merging or renaming pages.
  *
@@ -13,7 +10,7 @@ require_once WICKED_BASE . '/lib/Page/StandardPage.php';
  * @author  Jason M. Felice <eraserhd@speakeasy.net>
  * @package Wicked
  */
-class MergeOrRename extends Wicked_Page {
+class Wicked_Page_MergeOrRename extends Wicked_Page {
 
     /**
      * Display modes supported by this page.
@@ -38,7 +35,7 @@ class MergeOrRename extends Wicked_Page {
      */
     var $_errors = array();
 
-    function MergeOrRename($referrer)
+    function __construct($referrer)
     {
         $this->_referrer = $referrer;
     }

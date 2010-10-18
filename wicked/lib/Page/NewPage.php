@@ -9,17 +9,12 @@
  */
 
 /**
- * StandardPage
- */
-require_once WICKED_BASE . '/lib/Page/StandardPage.php';
-
-/**
  * Wicked NewPage class.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Wicked
  */
-class NewPage extends Wicked_Page {
+class Wicked_Page_NewPage extends Wicked_Page {
 
     /**
      * Display modes supported by this page.
@@ -44,7 +39,7 @@ class NewPage extends Wicked_Page {
      */
     var $_template = null;
 
-    function NewPage($referrer)
+    function __construct($referrer)
     {
         $this->_referrer = $referrer;
         $this->_template = Horde_Util::getFormData('template');

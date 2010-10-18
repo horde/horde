@@ -10,7 +10,7 @@
  * @author  Tyler Colbert <tyler@colberts.us>
  * @package Wicked
  */
-class StandardPage extends Wicked_Page {
+class Wicked_Page_StandardPage extends Wicked_Page {
 
     /**
      * Display modes supported by this page.
@@ -192,8 +192,6 @@ class StandardPage extends Wicked_Page {
      */
     function history()
     {
-        require_once WICKED_BASE . '/lib/Page/StandardPage/StdHistoryPage.php';
-
         try {
             $summaries = $GLOBALS['wicked']->getHistory($this->pageName());
         } catch (Wicked_Exception $e) {
@@ -219,7 +217,7 @@ class StandardPage extends Wicked_Page {
         $show_edit = false;
         foreach ($summaries as $page) {
             $i++;
-            $page = new StdHistoryPage($page);
+            $page = new Wicked_Page_StandardHistoryPage($page);
             require WICKED_TEMPLATES . '/history/summary.inc';
         }
 

@@ -5,7 +5,7 @@
  * @author  Tyler Colbert <tyler@colberts.us>
  * @package Wicked
  */
-class StdHistoryPage extends StandardPage {
+class Wicked_Page_StandardHistoryPage extends Wicked_Page_StandardPage {
 
     /**
      * Display modes supported by this page.

@@ -14,9 +14,6 @@ class Wicked_Driver_TC extends HordeUnitTestCase {
         @define('TEST_PAGE_1', 'driver-pages.phpt Test Page One');
         @define('TEST_PAGE_2', 'Renamed driver-pages.phpt Test Page (Called "Two")');
 
-        require_once WICKED_BASE . '/lib/Driver.php';
-        require_once WICKED_BASE . '/lib/Wicked.php';
-
         $this->wicked = Wicked_Driver::factory('sql', $this->getTestDatabaseSQLDriverConfig());
     }
 

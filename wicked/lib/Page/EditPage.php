@@ -6,12 +6,6 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @package Wicked
- */
-
-/**
- * Page
- */
-require_once WICKED_BASE . '/lib/Page.php';
 
 /**
  * Wicked EditPage class.
@@ -19,7 +13,7 @@ require_once WICKED_BASE . '/lib/Page.php';
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
  * @package Wicked
  */
-class EditPage extends Wicked_Page {
+class Wicked_Page_EditPage extends Wicked_Page {
 
     /**
      * Display modes supported by this page.
@@ -37,7 +31,7 @@ class EditPage extends Wicked_Page {
      */
     var $_referrer = null;
 
-    function EditPage($referrer)
+    function __construct($referrer)
     {
         $this->_referrer = $referrer;
         if ($GLOBALS['conf']['lock']['driver'] != 'none') {

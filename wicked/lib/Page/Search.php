@@ -1,8 +1,4 @@
 <?php
-
-require_once WICKED_BASE . '/lib/Page/StandardPage.php';
-require_once WICKED_BASE . '/lib/Page/StandardPage/StdHistoryPage.php';
-
 /**
  * Wicked SearchAll class.
  *
@@ -14,7 +10,7 @@ require_once WICKED_BASE . '/lib/Page/StandardPage/StdHistoryPage.php';
  * @author Ben Chavet <ben@horde.org>
  * @package Wicked
  */
-class Search extends Wicked_Page {
+class Wicked_Page_Search extends Wicked_Page {
 
     /**
      * Display modes supported by this page.
@@ -86,7 +82,7 @@ class Search extends Wicked_Page {
 
         /* Prepare exact match section */
         $exact = array();
-        $page = new StandardPage($searchtext);
+        $page = new Wicked_Page_StandardPage($searchtext);
         if ($GLOBALS['wicked']->pageExists($searchtext)) {
             $exact[] = array('author' => htmlspecialchars($page->author()),
                              'created' => $page->formatVersionCreated(),
@@ -109,9 +105,9 @@ class Search extends Wicked_Page {
         $titles = array();
         foreach ($this->_results['titles'] as $page) {
             if (!empty($page['page_history'])) {
-                $page = new StdHistoryPage($page);
+                $page = new Wicked_Page_StandardHistoryPage($page);
             } else {
-                $page = new StandardPage($page);
+                $page = new Wicked_Page_StandardPage($page);
             }
 
             $titles[] = array('author' => $page->author(),
@@ -127,9 +123,9 @@ class Search extends Wicked_Page {
         $pages = array();
         foreach ($this->_results['pages'] as $page) {
             if (!empty($page['page_history'])) {
-                $page = new StdHistoryPage($page);
+                $page = new Wicked_Page_StandardHistoryPage($page);
             } else {
-                $page = new StandardPage($page);
+                $page = new Wicked_Page_StandardPage($page);
             }
 
             $pages[] = array('author' => $page->author(),

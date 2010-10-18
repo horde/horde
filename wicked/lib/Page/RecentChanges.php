@@ -1,7 +1,4 @@
 <?php
-
-require_once WICKED_BASE . '/lib/Page/StandardPage.php';
-
 /**
  * Wicked RecentChanges class.
  *
@@ -13,7 +10,7 @@ require_once WICKED_BASE . '/lib/Page/StandardPage.php';
  * @author  Tyler Colbert <tyler@colberts.us>
  * @package Wicked
  */
-class RecentChanges extends Wicked_Page {
+class Wicked_Page_RecentChanges extends Wicked_Page {
 
     /**
      * Display modes supported by this page.
@@ -40,7 +37,7 @@ class RecentChanges extends Wicked_Page {
         $bydate = array();
         $changes = array();
         foreach ($summaries as $page) {
-            $page = new StandardPage($page);
+            $page = new Wicked_Page_StandardPage($page);
 
             $createDate = $page->versionCreated();
             $tm = localtime($createDate, true);

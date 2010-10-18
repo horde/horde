@@ -1,7 +1,4 @@
 <?php
-
-require_once WICKED_BASE . '/lib/Page/StandardPage.php';
-
 /**
  * Wicked RevertPage class (for confirming reversions).
  *
@@ -13,7 +10,7 @@ require_once WICKED_BASE . '/lib/Page/StandardPage.php';
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Wicked
  */
-class RevertPage extends Wicked_Page {
+class Wicked_Page_RevertPage extends Wicked_Page {
 
     /**
      * Display modes supported by this page.
@@ -29,7 +26,7 @@ class RevertPage extends Wicked_Page {
      */
     var $_referrer = null;
 
-    function RevertPage($referrer)
+    function __construct($referrer)
     {
         $this->_referrer = $referrer;
     }

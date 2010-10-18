@@ -34,26 +34,22 @@ abstract class Wicked_Sync {
      * @return Wicked_Sync    The newly created concrete Wicked_Sync
      *                        instance, or false on an error.
      */
-    function factory($driver = 'wicked', $params = array())
+    function factory($driver = 'Wicked', $params = array())
     {
+        $driver = Horde_String::ucfirst(basename($driver));
         $class = 'Wicked_Sync_' . $driver;
+
         if (!class_exists($class)) {
-            include dirname(__FILE__) . '/Sync/' . $driver . '.php';
+            return false;
         }
 
         if (empty($params['user'])) {
             $params['user'] = $GLOBALS['registry']->getAuth();
         }
-
         if (empty($params['password'])) {
             $params['password'] = $GLOBALS['registry']->getAuthCredential('password');
         }
-
-        if (class_exists($class)) {
-            return new $class($params);
-        } else {
-            return false;
-        }
+        return new $class($params);
     }
 
     /**
@@ -61,7 +57,7 @@ abstract class Wicked_Sync {
      *
      * @param array $params  A hash containing connection parameters.
      */
-    function Wicked_Sync($params = array())
+    function __construct($params = array())
     {
         $this->_params = $params;
     }

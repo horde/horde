@@ -1,8 +1,4 @@
 <?php
-
-require_once WICKED_BASE . '/lib/Page/StandardPage.php';
-require_once WICKED_BASE . '/lib/Sync.php';
-
 /**
  * Wicked SyncPages class.
  *
@@ -14,7 +10,7 @@ require_once WICKED_BASE . '/lib/Sync.php';
  * @author  Duck <duck@obala.net>
  * @package Wicked
  */
-class SyncPages extends Wicked_Page {
+class Wicked_Page_SyncPages extends Wicked_Page {
 
     /**
      * Display modes supported by this page.
@@ -32,7 +28,7 @@ class SyncPages extends Wicked_Page {
      *
      * @throws Wicked_Exception
      */
-    function SyncPages()
+    function __construct()
     {
         $this->_loadSyncDriver();
 

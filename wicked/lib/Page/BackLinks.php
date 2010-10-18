@@ -1,7 +1,4 @@
 <?php
-
-require_once WICKED_BASE . '/lib/Page/StandardPage.php';
-
 /**
  * Wicked BackLinks class.
  *
@@ -13,7 +10,7 @@ require_once WICKED_BASE . '/lib/Page/StandardPage.php';
  * @author  Tyler Colbert <tyler@colberts.us>
  * @package Wicked
  */
-class BackLinks extends Wicked_Page {
+class Wicked_Page_BackLinks extends Wicked_Page {
 
     /**
      * Display modes supported by this page.
@@ -30,7 +27,7 @@ class BackLinks extends Wicked_Page {
      */
     var $_referrer = null;
 
-    function BackLinks($referrer)
+    function __construct($referrer)
     {
         $this->_referrer = $referrer;
     }
@@ -49,9 +46,9 @@ class BackLinks extends Wicked_Page {
         require WICKED_TEMPLATES . '/pagelist/header.inc';
         foreach ($summaries as $page) {
             if (!empty($page['page_history'])) {
-                $page = new StdHistoryPage($page);
+                $page = new Wicked_Page_StandardHistoryPage($page);
             } else {
-                $page = new StandardPage($page);
+                $page = new Wicked_Page_StandardPage($page);
             }
             require WICKED_TEMPLATES . '/pagelist/summary.inc';
         }

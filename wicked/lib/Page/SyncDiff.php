@@ -1,7 +1,4 @@
 <?php
-
-require_once WICKED_BASE . '/lib/Page/SyncPages.php';
-
 /**
  * Wicked SyncDiff class.
  *
@@ -13,7 +10,7 @@ require_once WICKED_BASE . '/lib/Page/SyncPages.php';
  * @author  Duck <duck@obala.net>
  * @package Wicked
  */
-class SyncDiff extends SyncPages {
+class Wicked_Page_SyncDiff extends Wicked_Page_SyncPages {
 
     /**
      * Display modes supported by this page.
@@ -32,10 +29,9 @@ class SyncDiff extends SyncPages {
      */
     var $_pageName;
 
-    function SyncDiff()
+    function __construct()
     {
-        parent::SyncPages();
-
+        parent::__construct();
         $this->_pageName = Horde_Util::getGet('sync_page');
     }
 

@@ -14,7 +14,7 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Wicked
  */
-class Wicked_Driver_sql extends Wicked_Driver {
+class Wicked_Driver_Sql extends Wicked_Driver {
 
     /**
      * Handle for the current database connection.
@@ -22,16 +22,6 @@ class Wicked_Driver_sql extends Wicked_Driver {
      * @var Horde_Db_Adapter
      */
     var $_db;
-
-    /**
-     * Constructs a new Wicked SQL driver object.
-     *
-     * @param array $params  A hash containing connection parameters.
-     */
-    function Wicked_Driver_sql($params = array())
-    {
-        parent::Wicked_Driver($params);
-    }
 
     /**
      * Retrieves the page of a particular name from the database.
@@ -219,21 +209,21 @@ class Wicked_Driver_sql extends Wicked_Driver {
         return $pages;
     }
 
-    function getMatchingPages($searchtext, $matchType = WICKED_PAGE_MATCH_ANY)
+    function getMatchingPages($searchtext, $matchType = Wicked_Page::MATCH_ANY)
     {
         $searchtext = Horde_String::lower($searchtext);
 
         /* Short circuit the simple case. */
-        if ($matchType == WICKED_PAGE_MATCH_ANY) {
+        if ($matchType == Wicked_Page::MATCH_ANY) {
             return $this->_retrieve($this->_params['table'],
                                     'LOWER(page_name) LIKE ' . $this->_db->quoteString('%' . $searchtext . '%'));
         }
 
         $clauses = array();
-        if ($matchType & WICKED_PAGE_MATCH_LEFT) {
+        if ($matchType & Wicked_Page::MATCH_LEFT) {
             $clauses[] = 'LOWER(page_name) LIKE ' . $this->_db->quoteString($searchtext . '%');
         }
-        if ($matchType & WICKED_PAGE_MATCH_RIGHT) {
+        if ($matchType & Wicked_Page::MATCH_RIGHT) {
             $clauses[] = 'LOWER(page_name) LIKE ' . $this->_db->quoteString('%' . $searchtext);
         }
 

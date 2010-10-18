@@ -1,8 +1,4 @@
 <?php
-
-/** StandardPage:: */
-require_once WICKED_BASE . '/lib/Page/StandardPage.php';
-
 /**
  * Wicked AttachedFiles class.
  *
@@ -14,7 +10,7 @@ require_once WICKED_BASE . '/lib/Page/StandardPage.php';
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
  * @package Wicked
  */
-class AttachedFiles extends Wicked_Page {
+class Wicked_Page_AttachedFiles extends Wicked_Page {
 
     /**
      * Display modes supported by this page.
@@ -37,7 +33,7 @@ class AttachedFiles extends Wicked_Page {
     /**
      * Constructor.
      */
-    function AttachedFiles($referrer)
+    function __construct($referrer)
     {
         $this->_referrer = $referrer;
     }

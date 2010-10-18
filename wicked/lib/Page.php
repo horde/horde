@@ -10,7 +10,12 @@
  * @author  Tyler Colbert <tyler@colberts.us>
  * @package Wicked
  */
-class Wicked_Page {
+class Wicked_Page
+{
+    const MATCH_LEFT = 1;
+    const MATCH_RIGHT = 2;
+    const MATCH_ENDS = 3;
+    const MATCH_ANY = 4;
 
     /**
      * Display modes supported by this page. Possible modes:
@@ -188,8 +193,8 @@ class Wicked_Page {
     function getCurrentPage()
     {
         return Wicked_Page::getPage(rtrim(Horde_Util::getFormData('page'), '/'),
-                             Horde_Util::getFormData('version'),
-                             Horde_Util::getFormData('referrer'));
+                                    Horde_Util::getFormData('version'),
+                                    Horde_Util::getFormData('referrer'));
     }
 
     /**
@@ -206,33 +211,27 @@ class Wicked_Page {
             $pagename = 'WikiHome';
         }
 
-        $file = WICKED_BASE . '/lib/Page/' . basename($pagename) . '.php';
-        if ($pagename == basename($pagename) &&
-            file_exists($file)) {
-            require_once $file;
-            return new $pagename($referrer);
+        $classname = 'Wicked_Page_' . $pagename;
+        if ($pagename == basename($pagename) && class_exists($classname)) {
+            return new $classname($referrer);
         }
-
-        require_once WICKED_BASE . '/lib/Page/StandardPage.php';
 
         /* If we have a version, but it is actually the most recent version,
          * ignore it. */
         if (!empty($pagever)) {
-            $page = new StandardPage($pagename, false, null);
+            $page = new Wicked_Page_StandardPage($pagename, false, null);
             if ($page->isValid() && $page->version() == $pagever) {
                 return $page;
             }
-            require_once WICKED_BASE . '/lib/Page/StandardPage/StdHistoryPage.php';
-            return new StdHistoryPage($pagename, $pagever);
+            return new Wicked_Page_StandardHistoryPage($pagename, $pagever);
         }
 
-        $page = new StandardPage($pagename);
+        $page = new Wicked_Page_StandardPage($pagename);
         if ($page->isValid() || !$page->allows(Wicked::MODE_EDIT)) {
             return $page;
         }
 
-        require_once WICKED_BASE . '/lib/Page/AddPage.php';
-        return new AddPage($pagename);
+        return new Wicked_Page_AddPage($pagename);
     }
 
     function versionCreated()

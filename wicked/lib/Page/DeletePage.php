@@ -9,17 +9,12 @@
  */
 
 /**
- * Page
- */
-require_once WICKED_BASE . '/lib/Page.php';
-
-/**
  * Wicked DeletePage class (for confirming deletion).
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Wicked
  */
-class DeletePage extends Wicked_Page {
+class Wicked_Page_DeletePage extends Wicked_Page {
 
     /**
      * Display modes supported by this page.
@@ -35,7 +30,7 @@ class DeletePage extends Wicked_Page {
      */
     var $_referrer = null;
 
-    function DeletePage($referrer)
+    function __construct($referrer)
     {
         $this->_referrer = $referrer;
     }

@@ -8,9 +8,6 @@
  * @package Wicked
  */
 
-/** Horde_RPC */
-require_once 'Horde/RPC.php';
-
 /**
  * Wicked_Driver:: defines an API for implementing storage backends for
  * Wicked.
@@ -18,7 +15,7 @@ require_once 'Horde/RPC.php';
  * @author  Duck <duck@obala.net>
  * @package Wicked
  */
-class Wicked_Sync_wicked extends Wicked_Sync {
+class Wicked_Sync_Wicked extends Wicked_Sync {
 
     /**
      * Returns a list of available pages.
@@ -116,7 +113,7 @@ class Wicked_Sync_wicked extends Wicked_Sync {
     function _getData($method, $params = array())
     {
         try {
-            return Horde_RPC::request(
+            return Horde_Rpc::request(
                 'xmlrpc',
                 $this->_params['url'],
                 $this->_params['prefix'] . '.' . $method,

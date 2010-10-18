@@ -1,7 +1,4 @@
 <?php
-
-require_once WICKED_BASE . '/lib/Page/StandardPage.php';
-
 /**
  * Wicked LeastPopular class.
  *
@@ -13,7 +10,7 @@ require_once WICKED_BASE . '/lib/Page/StandardPage.php';
  * @author  Tyler Colbert <tyler@colberts.us>
  * @package Wicked
  */
-class LeastPopular extends Wicked_Page {
+class Wicked_Page_LeastPopular extends Wicked_Page {
 
     /**
      * Display modes supported by this page.
@@ -47,7 +44,7 @@ class LeastPopular extends Wicked_Page {
         $template = $GLOBALS['injector']->createInstance('Horde_Template');
         $pages = array();
         foreach ($this->content(10) as $page) {
-            $page = new StandardPage($page);
+            $page = new Wicked_Page_StandardPage($page);
             $pages[] = array('author' => $page->author(),
                              'created' => $page->formatVersionCreated(),
                              'name' => $page->pageName(),
