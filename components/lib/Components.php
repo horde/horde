@@ -63,7 +63,7 @@ class Components
                 $module->handle($config);
             }
         } catch (Components_Exception $e) {
-            $dependencies->getOutput()->fail($e->getMessage());
+            $dependencies->getOutput()->fail($e);
             return;
         }
     }
