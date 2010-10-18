@@ -7,6 +7,11 @@
  * @subpackage UnitTests
  */
 
+/**
+ * Prepare the test setup.
+ */
+require_once dirname(__FILE__) . '/Autoload.php';
+
 class Horde_Translation_GettextTest extends PHPUnit_Framework_TestCase
 {
     private $_dict;
