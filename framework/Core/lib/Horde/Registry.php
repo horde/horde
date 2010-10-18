@@ -184,7 +184,7 @@ class Horde_Registry
             // Chicken/egg: Browser object doesn't exist yet.
             $browser = new Horde_Core_Browser();
             if ($browser->isBrowser('mozilla')) {
-                session_cache_limiter('private, must-revalidate');
+                $args['session_cache_limiter'] = 'private, must-revalidate';
             }
             break;
 
@@ -198,7 +198,7 @@ class Horde_Registry
         }
 
         $classname = __CLASS__;
-        $registry = $GLOBALS['registry'] = new $classname($s_ctrl);
+        $registry = $GLOBALS['registry'] = new $classname($s_ctrl, $args['session_cache_limiter']);
         $registry->initialApp = $app;
 
         $appob = $registry->getApiInstance($app, 'application');
@@ -244,10 +244,11 @@ class Horde_Registry
      * Create a new Horde_Registry instance.
      *
      * @param integer $session_flags  Any session flags.
+     * @param string $cache_limiter   The cache limiter to use.
      *
      * @throws Horde_Exception
      */
-    public function __construct($session_flags = 0)
+    protected function __construct($session_flags, $cache_limiter)
     {
         /* Define autoloader callbacks. */
         $callbacks = array(
@@ -368,15 +369,16 @@ class Horde_Registry
         }
 
         /* Start a session. */
+        $GLOBALS['session'] = $session = new Horde_Session();
         if ($session_flags & self::SESSION_NONE ||
             (PHP_SAPI == 'cli') ||
             (((PHP_SAPI == 'cgi') || (PHP_SAPI == 'cgi-fcgi')) &&
              empty($_SERVER['SERVER_NAME']))) {
             /* Never start a session if the session flags include
                SESSION_NONE. */
-            $GLOBALS['session'] = $session = new Horde_Session(false);
+            $session->setup(false, $cache_limiter);
         } else {
-            $GLOBALS['session'] = $session = new Horde_Session();
+            $session->setup(true, $cache_limiter);
             if ($session_flags & self::SESSION_READONLY) {
                 /* Close the session immediately so no changes can be made but
                    values are still available. */

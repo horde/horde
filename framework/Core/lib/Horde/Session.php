@@ -52,26 +52,24 @@ class Horde_Session implements ArrayAccess
 
     /**
      * Constructor.
-     *
-     * @param boolean $start  Initiate the session?
      */
-    public function __construct($start = true)
+    public function __construct()
     {
         $this->_lzf = Horde_Util::extensionExists('lzf');
-
-        $this->setup($start);
     }
 
     /**
      * Sets a custom session handler up, if there is one.
      *
-     * @param boolean $start  Initiate the session?
+     * @param boolean $start         Initiate the session?
+     * @param string $cache_limiter  Override for the session cache limiter
+     *                               value.
      *
      * @throws Horde_Exception
      */
-    public function setup($start = true)
+    public function setup($start = true, $cache_limiter = null)
     {
-        global $conf, $registry;
+        global $conf;
 
         ini_set('url_rewriter.tags', 0);
         if (empty($conf['session']['use_only_cookies'])) {
@@ -90,7 +88,7 @@ class Horde_Session implements ArrayAccess
             $conf['cookie']['domain'],
             $conf['use_ssl'] == 1 ? 1 : 0
         );
-        session_cache_limiter(is_null($registry->initParams['session_cache_limiter']) ? $conf['session']['cache_limiter'] : $registry->initParams['session_cache_limiter']);
+        session_cache_limiter(is_null($cache_limiter) ? $conf['session']['cache_limiter'] : $cache_limiter);
         session_name(urlencode($conf['session']['name']));
 
         /* We want to create an instance here, not get, since we may be
