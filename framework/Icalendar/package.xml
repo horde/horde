@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Icalendar</name>
  <channel>pear.horde.org</channel>
  <summary>iCalendar API</summary>
@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-08-04</date>
- <time>17:56:43</time>
+ <date>2010-10-19</date>
+ <time>01:30:55</time>
  <version>
   <release>0.2.0</release>
   <api>0.2.0</api>
@@ -35,72 +35,334 @@
    <dir name="examples">
     <dir name="Horde">
      <dir name="Icalendar">
-      <file baseinstalldir="/" name="exchange.ics" role="doc" />
-      <file baseinstalldir="/" name="exdate.ics" role="doc" />
-      <file baseinstalldir="/" name="ical.ics" role="doc" />
-      <file baseinstalldir="/" name="parser.php" role="doc" />
-      <file baseinstalldir="/" name="test_recurring.vcs" role="doc" />
-      <file baseinstalldir="/" name="vnote.txt" role="doc" />
+      <file name="exchange.ics" role="doc" />
+      <file name="exdate.ics" role="doc" />
+      <file name="ical.ics" role="doc" />
+      <file name="parser.php" role="doc" />
+      <file name="test_recurring.vcs" role="doc" />
+      <file name="vnote.txt" role="doc" />
      </dir> <!-- /examples/Horde/Icalendar -->
     </dir> <!-- /examples/Horde -->
    </dir> <!-- /examples -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Icalendar">
-      <file baseinstalldir="/" name="Daylight.php" role="php" />
-      <file baseinstalldir="/" name="Exception.php" role="php" />
-      <file baseinstalldir="/" name="Standard.php" role="php" />
-      <file baseinstalldir="/" name="Valarm.php" role="php" />
-      <file baseinstalldir="/" name="Vcard.php" role="php" />
-      <file baseinstalldir="/" name="Vevent.php" role="php" />
-      <file baseinstalldir="/" name="Vfreebusy.php" role="php" />
-      <file baseinstalldir="/" name="Vjournal.php" role="php" />
-      <file baseinstalldir="/" name="Vnote.php" role="php" />
-      <file baseinstalldir="/" name="Vtimezone.php" role="php" />
-      <file baseinstalldir="/" name="Vtodo.php" role="php" />
+      <file name="Daylight.php" role="php" />
+      <file name="Exception.php" role="php" />
+      <file name="Standard.php" role="php" />
+      <file name="Valarm.php" role="php" />
+      <file name="Vcard.php" role="php" />
+      <file name="Vevent.php" role="php" />
+      <file name="Vfreebusy.php" role="php" />
+      <file name="Vjournal.php" role="php" />
+      <file name="Vnote.php" role="php" />
+      <file name="Vtimezone.php" role="php" />
+      <file name="Vtodo.php" role="php" />
      </dir> <!-- /lib/Horde/Icalendar -->
-     <file baseinstalldir="/" name="Icalendar.php" role="php" />
+     <file name="Icalendar.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="ar">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/ar/LC_MESSAGES -->
+    </dir> <!-- /locale/ar -->
+    <dir name="bg">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/bg/LC_MESSAGES -->
+    </dir> <!-- /locale/bg -->
+    <dir name="bs">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/bs/LC_MESSAGES -->
+    </dir> <!-- /locale/bs -->
+    <dir name="ca">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/ca/LC_MESSAGES -->
+    </dir> <!-- /locale/ca -->
+    <dir name="cs">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/cs/LC_MESSAGES -->
+    </dir> <!-- /locale/cs -->
+    <dir name="da">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/da/LC_MESSAGES -->
+    </dir> <!-- /locale/da -->
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+    </dir> <!-- /locale/de -->
+    <dir name="el">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/el/LC_MESSAGES -->
+    </dir> <!-- /locale/el -->
+    <dir name="en">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/en/LC_MESSAGES -->
+    </dir> <!-- /locale/en -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+    </dir> <!-- /locale/es -->
+    <dir name="et">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/et/LC_MESSAGES -->
+    </dir> <!-- /locale/et -->
+    <dir name="eu">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/eu/LC_MESSAGES -->
+    </dir> <!-- /locale/eu -->
+    <dir name="fa">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/fa/LC_MESSAGES -->
+    </dir> <!-- /locale/fa -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+    </dir> <!-- /locale/fi -->
+    <dir name="fr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/fr/LC_MESSAGES -->
+    </dir> <!-- /locale/fr -->
+    <dir name="gl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/gl/LC_MESSAGES -->
+    </dir> <!-- /locale/gl -->
+    <dir name="he">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/he/LC_MESSAGES -->
+    </dir> <!-- /locale/he -->
+    <dir name="hr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/hr/LC_MESSAGES -->
+    </dir> <!-- /locale/hr -->
+    <dir name="hu">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/hu/LC_MESSAGES -->
+    </dir> <!-- /locale/hu -->
+    <dir name="id">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/id/LC_MESSAGES -->
+    </dir> <!-- /locale/id -->
+    <dir name="is">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/is/LC_MESSAGES -->
+    </dir> <!-- /locale/is -->
+    <dir name="it">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/it/LC_MESSAGES -->
+    </dir> <!-- /locale/it -->
+    <dir name="ja">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/ja/LC_MESSAGES -->
+    </dir> <!-- /locale/ja -->
+    <dir name="km">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/km/LC_MESSAGES -->
+    </dir> <!-- /locale/km -->
+    <dir name="ko">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/ko/LC_MESSAGES -->
+    </dir> <!-- /locale/ko -->
+    <dir name="lt">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/lt/LC_MESSAGES -->
+    </dir> <!-- /locale/lt -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+    </dir> <!-- /locale/lv -->
+    <dir name="mk">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/mk/LC_MESSAGES -->
+    </dir> <!-- /locale/mk -->
+    <dir name="nb">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/nb/LC_MESSAGES -->
+    </dir> <!-- /locale/nb -->
+    <dir name="nl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/nl/LC_MESSAGES -->
+    </dir> <!-- /locale/nl -->
+    <dir name="nn">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/nn/LC_MESSAGES -->
+    </dir> <!-- /locale/nn -->
+    <dir name="pl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/pl/LC_MESSAGES -->
+    </dir> <!-- /locale/pl -->
+    <dir name="pt">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/pt/LC_MESSAGES -->
+    </dir> <!-- /locale/pt -->
+    <dir name="pt_BR">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/pt_BR/LC_MESSAGES -->
+    </dir> <!-- /locale/pt_BR -->
+    <dir name="ro">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/ro/LC_MESSAGES -->
+    </dir> <!-- /locale/ro -->
+    <dir name="ru">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/ru/LC_MESSAGES -->
+    </dir> <!-- /locale/ru -->
+    <dir name="sk">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/sk/LC_MESSAGES -->
+    </dir> <!-- /locale/sk -->
+    <dir name="sl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/sl/LC_MESSAGES -->
+    </dir> <!-- /locale/sl -->
+    <dir name="sv">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/sv/LC_MESSAGES -->
+    </dir> <!-- /locale/sv -->
+    <dir name="tr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/tr/LC_MESSAGES -->
+    </dir> <!-- /locale/tr -->
+    <dir name="uk">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/uk/LC_MESSAGES -->
+    </dir> <!-- /locale/uk -->
+    <dir name="zh_CN">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/zh_CN/LC_MESSAGES -->
+    </dir> <!-- /locale/zh_CN -->
+    <dir name="zh_TW">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Icalendar.mo" role="data" />
+      <file name="Horde_Icalendar.po" role="data" />
+     </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
+    </dir> <!-- /locale/zh_TW -->
+    <file name="Horde_Icalendar.pot" role="data" />
+   </dir> <!-- /locale -->
    <dir name="test">
     <dir name="Horde">
      <dir name="Icalendar">
       <dir name="fixtures">
        <dir name="vTimezone">
-        <file baseinstalldir="/" name="allcategories.vcs" role="test" />
-        <file baseinstalldir="/" name="arsenal32FC.ics" role="test" />
-        <file baseinstalldir="/" name="AuthorChats.ics" role="test" />
-        <file baseinstalldir="/" name="events.ics" role="test" />
-        <file baseinstalldir="/" name="exchange.ics" role="test" />
-        <file baseinstalldir="/" name="exdate.ics" role="test" />
-        <file baseinstalldir="/" name="iscw.ics" role="test" />
-        <file baseinstalldir="/" name="meeting.ics" role="test" />
-        <file baseinstalldir="/" name="MMMPseminar.ics" role="test" />
-        <file baseinstalldir="/" name="Moon_Days.ics" role="test" />
-        <file baseinstalldir="/" name="privacy_events.ics" role="test" />
-        <file baseinstalldir="/" name="ProjectCalendar.ics" role="test" />
-        <file baseinstalldir="/" name="rfc2445.ics" role="test" />
-        <file baseinstalldir="/" name="SpanishHolidays.ics" role="test" />
-        <file baseinstalldir="/" name="test.vcs" role="test" />
-        <file baseinstalldir="/" name="test4.vcs" role="test" />
-        <file baseinstalldir="/" name="test_recurring.vcs" role="test" />
-        <file baseinstalldir="/" name="wicca.ics" role="test" />
+        <file name="allcategories.vcs" role="test" />
+        <file name="arsenal32FC.ics" role="test" />
+        <file name="AuthorChats.ics" role="test" />
+        <file name="events.ics" role="test" />
+        <file name="exchange.ics" role="test" />
+        <file name="exdate.ics" role="test" />
+        <file name="iscw.ics" role="test" />
+        <file name="meeting.ics" role="test" />
+        <file name="MMMPseminar.ics" role="test" />
+        <file name="Moon_Days.ics" role="test" />
+        <file name="privacy_events.ics" role="test" />
+        <file name="ProjectCalendar.ics" role="test" />
+        <file name="rfc2445.ics" role="test" />
+        <file name="SpanishHolidays.ics" role="test" />
+        <file name="test.vcs" role="test" />
+        <file name="test4.vcs" role="test" />
+        <file name="test_recurring.vcs" role="test" />
+        <file name="wicca.ics" role="test" />
        </dir> <!-- /test/Horde/Icalendar/fixtures/vTimezone -->
       </dir> <!-- /test/Horde/Icalendar/fixtures -->
-      <file baseinstalldir="/" name="bug_7423.phpt" role="test" />
-      <file baseinstalldir="/" name="charset1.phpt" role="test" />
-      <file baseinstalldir="/" name="empty_data.phpt" role="test" />
-      <file baseinstalldir="/" name="geo.phpt" role="test" />
-      <file baseinstalldir="/" name="iCalendar.phpt" role="test" />
-      <file baseinstalldir="/" name="line-folding.phpt" role="test" />
-      <file baseinstalldir="/" name="quoted-params.phpt" role="test" />
-      <file baseinstalldir="/" name="read-escapes.phpt" role="test" />
-      <file baseinstalldir="/" name="read-vcard-org.phpt" role="test" />
-      <file baseinstalldir="/" name="read-write-escapes.phpt" role="test" />
-      <file baseinstalldir="/" name="timezones.phpt" role="test" />
-      <file baseinstalldir="/" name="vcal20.phpt" role="test" />
-      <file baseinstalldir="/" name="vfreebusy.phpt" role="test" />
-      <file baseinstalldir="/" name="write-escapes.phpt" role="test" />
+      <file name="bug_7423.phpt" role="test" />
+      <file name="charset1.phpt" role="test" />
+      <file name="common.php" role="test" />
+      <file name="empty_data.phpt" role="test" />
+      <file name="geo.phpt" role="test" />
+      <file name="iCalendar.phpt" role="test" />
+      <file name="line-folding.phpt" role="test" />
+      <file name="quoted-params.phpt" role="test" />
+      <file name="read-escapes.phpt" role="test" />
+      <file name="read-vcard-org.phpt" role="test" />
+      <file name="read-write-escapes.phpt" role="test" />
+      <file name="timezones.phpt" role="test" />
+      <file name="vcal20.phpt" role="test" />
+      <file name="vfreebusy.phpt" role="test" />
+      <file name="write-escapes.phpt" role="test" />
      </dir> <!-- /test/Horde/Icalendar -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -152,6 +414,7 @@
    <install as="Horde/Icalendar/Vtodo.php" name="lib/Horde/Icalendar/Vtodo.php" />
    <install as="Horde/Icalendar/bug_7423.phpt" name="test/Horde/Icalendar/bug_7423.phpt" />
    <install as="Horde/Icalendar/charset1.phpt" name="test/Horde/Icalendar/charset1.phpt" />
+   <install as="Horde/Icalendar/common.php" name="test/Horde/Icalendar/common.php" />
    <install as="Horde/Icalendar/empty_data.phpt" name="test/Horde/Icalendar/empty_data.phpt" />
    <install as="Horde/Icalendar/geo.phpt" name="test/Horde/Icalendar/geo.phpt" />
    <install as="Horde/Icalendar/iCalendar.phpt" name="test/Horde/Icalendar/iCalendar.phpt" />
@@ -286,7 +549,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2010-08-04</date>
+   <date>2010-10-19</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Initial Horde 4 package.
