@@ -207,7 +207,7 @@ v5.0-git
 v4.3.9-cvs
 ----------
 
-
+[mms] Fix error if user's account only contains an INBOX (Bug #9273).
 
 
 ------
