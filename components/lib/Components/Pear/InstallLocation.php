@@ -364,6 +364,7 @@ class Components_Pear_InstallLocation
                 ),
                 array($package)
             );
+            $this->_output->pear(ob_get_clean());
         }
         $this->_output->ok(
             sprintf(
