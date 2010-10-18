@@ -282,7 +282,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
         $display = $node->textContent;
 
         $parsed_link = parse_url($link);
-        $parsed_display = parse_url($display);
+        $parsed_display = @parse_url($display);
 
         if (isset($parsed_link['path'])) {
             $parsed_link['path'] = trim($parsed_link['path'], '/');
