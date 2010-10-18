@@ -89,7 +89,7 @@ $rows = $db->selectAll(
 $updateSql =
     'UPDATE ' . $conf['storage']['params']['table']
     . ' SET page_name = ?, page_text = ?, change_log = ?'
-    . ' WHERE page_id = ?');
+    . ' WHERE page_id = ?';
 echo 'Converting pages';
 foreach ($rows as $row) {
     $values = Horde_String::convertCharset(
