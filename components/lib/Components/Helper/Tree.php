@@ -150,4 +150,14 @@ class Components_Helper_Tree
             $this
         );
     }
+
+    /**
+     * Return the environment for this tree.
+     *
+     * @return Components_Pear_InstallLocation The installation environment.
+     */
+    public function getEnvironment()
+    {
+        return $this->_environment;
+    }
 }
