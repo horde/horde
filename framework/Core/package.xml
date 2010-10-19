@@ -222,6 +222,7 @@ Application Framework.</description>
        <file name="Widget.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Ui -->
       <file name="Browser.php" role="php" />
+      <file name="Prefs.php" role="php" />
       <file name="Sidebar.php" role="php" />
      </dir> <!-- /lib/Horde/Core -->
      <dir name="Exception">
@@ -409,6 +410,7 @@ Application Framework.</description>
    <install as="Horde/Themes.php" name="lib/Horde/Themes.php" />
    <install as="Horde/Config/Form.php" name="lib/Horde/Config/Form.php" />
    <install as="Horde/Core/Browser.php" name="lib/Horde/Core/Browser.php" />
+   <install as="Horde/Core/Prefs.php" name="lib/Horde/Core/Prefs.php" />
    <install as="Horde/Core/Sidebar.php" name="lib/Horde/Core/Sidebar.php" />
    <install as="Horde/Core/Ajax/Application.php" name="lib/Horde/Core/Ajax/Application.php" />
    <install as="Horde/Core/Ajax/Imple.php" name="lib/Horde/Core/Ajax/Imple.php" />

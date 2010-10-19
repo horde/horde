@@ -127,7 +127,7 @@ class Horde_Core_Factory_Prefs
             }
 
             try {
-                $this->_instances[$sig] = new Horde_Prefs($driver, $scope, $opts, $params);
+                $this->_instances[$sig] = new Horde_Core_Prefs($driver, $scope, $opts, $params);
             } catch (Horde_Prefs_Exception $e) {
                 if (!$GLOBALS['session']['horde:no_prefs']) {
                     $GLOBALS['session']['horde:no_prefs'] = true;
@@ -136,7 +136,7 @@ class Horde_Core_Factory_Prefs
                     }
                 }
                 unset($opts['cache']);
-                $this->_instances[$sig] = new Horde_Prefs('Horde_Core_Prefs_Storage_Session', $scope, $opts);
+                $this->_instances[$sig] = new Horde_Core_Prefs('Horde_Core_Prefs_Storage_Session', $scope, $opts);
             }
         }
 
