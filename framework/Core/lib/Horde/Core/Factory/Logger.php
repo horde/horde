@@ -50,6 +50,12 @@ class Horde_Core_Factory_Logger
         case 'syslog':
             try {
                 $handler = new Horde_Log_Handler_Syslog();
+                if (!empty($conf['log']['name'])) {
+                    $handler->setOption('facility', $conf['log']['name']);
+                }
+                if (!empty($conf['log']['ident'])) {
+                    $handler->setOption('ident', $conf['log']['ident']);
+                }
             } catch (Horde_Log_Exception $e) {
                 return new Horde_Core_Log_Logger(new Horde_Log_Handler_Null());
             }
