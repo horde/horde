@@ -2313,7 +2313,7 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array($ticket);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::getListeners(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),' DEBUG');
+                    $query, implode(',', $values)), 'DEBUG');
         $users = $this->_db->getCol($query, 0, $values);
         if (is_a($users, 'PEAR_Error')) {
             Horde::logMessage($users, 'ERR');
