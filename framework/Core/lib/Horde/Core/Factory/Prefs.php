@@ -116,6 +116,10 @@ class Horde_Core_Factory_Prefs
                 $params['ldap'] = $this->_injector->getInstance('Horde_Core_Factory_Ldap')->getLdap('horde', 'ldap');
                 break;
 
+            case 'Session':
+                unset($opts['cache']);
+                break;
+
             case 'Sql':
                 $params['db'] = $this->_injector->getInstance('Horde_Db_Adapter');
                 $opts['charset'] = $params['db']->getOption('charset');
@@ -131,6 +135,7 @@ class Horde_Core_Factory_Prefs
                         $GLOBALS['notification']->push($this->_coreDict->t("The preferences backend is currently unavailable and your preferences have not been loaded. You may continue to use the system with default preferences."));
                     }
                 }
+                unset($opts['cache']);
                 $this->_instances[$sig] = new Horde_Prefs('Horde_Core_Prefs_Storage_Session', $scope, $opts);
             }
         }
