@@ -271,7 +271,7 @@ var DimpCore = {
         if (type.startsWith('forward') || !args || !args.uids) {
             if (type.startsWith('forward')) {
                 params.uids = this.toRangeString(this.selectionToRange(args.uids));
-            } else if (args.to) {
+            } else if (args && args.to) {
                 params.to = args.to;
             }
             this.popupWindow(this.addURLParam(DIMP.conf.URI_COMPOSE, params), 'compose' + new Date().getTime());
