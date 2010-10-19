@@ -95,11 +95,9 @@ class Horde_Log_Handler_Syslog extends Horde_Log_Handler_Base
      */
     protected function _toSyslog($level)
     {
-        if (isset($this->_priorities[$level])) {
-            return $this->_priorities[$level];
-        }
-
-        return $this->_options['defaultPriority'];
+        return isset($this->_priorities[$level])
+            ? $this->_priorities[$level]
+            : $this->_options['defaultPriority'];
     }
 
     /**
