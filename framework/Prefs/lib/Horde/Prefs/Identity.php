@@ -69,28 +69,26 @@ class Horde_Prefs_Identity
      * Constructor.
      *
      * @param array $params  Parameters:
-     *                       - 'default_identity': (string) The preference name
-     *                                             for the default identity.
-     *                                             DEFAULT: 'default_identity'
-     *                       - 'from_addr': (string) The preference name for
-     *                                      the user's from e-mail address.
-     *                                      DEFAULT: 'from_addr'
-     *                       - 'fullname': (string) The preference name for the
-     *                                     user's full name. DEFAULT: 'fullname'
-     *                       - 'id': (string) The preference name for the
-     *                               identity name. DEFAULT: 'id'
-     *                       - 'identities': (string) The preference name for
-     *                                       the identity store.
-     *                                       DEFAULT: 'identities'
-     *                       - 'prefs': (Horde_Prefs) [REQUIRED] The prefs
-     *                                  object to use.
-     *                       - 'properties': (array) The list of properties for
-                                             the identity.
-     *                                       DEFAULT: array('from_addr', 'fullname', 'id')
-     *                       - 'user': (string) [REQUIRED] The user whose prefs
-     *                                 we are handling.
-     *                       - 'translation': (object) A translation handler
-     *                                        implementing Horde_Translation.
+     * <pre>
+     * default_identity: (string) The preference name for the default
+     *                   identity.
+     *                   DEFAULT: 'default_identity'
+     * from_addr: (string) The preference name for the user's from e-mail
+     *            address.
+     *            DEFAULT: 'from_addr'
+     * fullname: (string) The preference name for the user's full name.
+     *           DEFAULT: 'fullname'
+     * id: (string) The preference name for the identity name.
+     *     DEFAULT: 'id'
+     * identities: (string) The preference name for the identity store.
+     *             DEFAULT: 'identities'
+     * prefs: (Horde_Prefs) [REQUIRED] The prefs object to use.
+     * properties: (array) The list of properties for the identity.
+     *             DEFAULT: array('from_addr', 'fullname', 'id')
+     * translation: (object) A translation handler implementing
+     *              Horde_Translation.
+     * user: (string) [REQUIRED] The user whose prefs we are handling.
+     * </pre>
      */
     public function __construct($params = array())
     {
@@ -102,11 +100,9 @@ class Horde_Prefs_Identity
         $this->_prefs = $params['prefs'];
         $this->_user = $params['user'];
 
-        if (isset($params['translation'])) {
-            $this->_dict = $params['translation'];
-        } else {
-            $this->_dict = new Horde_Translation_Gettext('Horde_Prefs', dirname(__FILE__) . '/../../../locale');
-        }
+        $this->_dict = isset($params['translation'])
+            ? $params['translation']
+            : new Horde_Translation_Gettext('Horde_Prefs', dirname(__FILE__) . '/../../../locale');
 
         if (!($this->_identities = @unserialize($this->_prefs->getValue($this->_prefnames['identities'], false)))) {
             $this->_identities = $this->_prefs->getDefault($this->_prefnames['identities']);
