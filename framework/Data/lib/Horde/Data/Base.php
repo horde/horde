@@ -283,7 +283,7 @@ abstract class Horde_Data_Base
                 throw new Horde_Data_Exception($e);
             }
             if ($_FILES['import_file']['size'] <= 0) {
-                return PEAR::raiseError($this->_dict->t("The file contained no data."));
+                throw new Horde_Data_Exception($this->_dict->t("The file contained no data."));
             }
             $_SESSION['import_data']['format'] = $this->_vars->import_format;
             break;
