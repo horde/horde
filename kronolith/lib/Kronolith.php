@@ -973,7 +973,7 @@ class Kronolith
             $GLOBALS['display_external_calendars'] = array();
             $GLOBALS['display_resource_calendars'] = array();
             $GLOBALS['display_holidays'] = array();
-            $calendars = $sessino['kronolith:display_cal'];
+            $calendars = $GLOBALS['session']['kronolith:display_cal'];
             if (!is_array($calendars)) {
                 $calendars = array($calendars);
             }
