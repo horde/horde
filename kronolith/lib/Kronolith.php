@@ -1561,11 +1561,15 @@ class Kronolith
         }
 
         foreach ($GLOBALS['all_remote_calendars'] as $id => $calendar) {
-            if ($calendar->hasPermission($permission) &&
-                (!$display || $calendar->display())) {
-                if ($flat) {
-                    $calendars['remote_' . $id] = $calendar;
+            try {
+                if ($calendar->hasPermission($permission) &&
+                    (!$display || $calendar->display())) {
+                    if ($flat) {
+                        $calendars['remote_' . $id] = $calendar;
+                    }
                 }
+            } catch (Kronolith_Exception $e) {
+                $GLOBALS['notification']->push(sprintf(_("The calendar %s returned the error: %s"), $calendar->name(), $e->getMessage()), 'horde.error');
             }
         }
 
