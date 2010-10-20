@@ -15,7 +15,7 @@
 
  <configsection name="client">
    <configheader>Clients</configheader>
-   <configenum name="addressbook" desc="Name of client addressbook">
+   <configenum name="addressbook" desc="Name of client addressbook" required="false">
      <values>
        <configspecial name="list-contact-sources"/>
      </values>
