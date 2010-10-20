@@ -132,7 +132,7 @@ class Horde_Prefs_Identity
         }
 
         if ($this->_prefs->isLocked($this->_prefnames['default_identity'])) {
-            foreach ($this->_properties as $key) {
+            foreach ($this->_prefnames['properties'] as $key) {
                 $value = $this->getValue($key);
                 if (is_array($value)) {
                     $value = implode("\n", $value);
@@ -300,7 +300,7 @@ class Horde_Prefs_Identity
      */
     public function isLocked()
     {
-        foreach ($this->_properties as $key) {
+        foreach ($this->_prefnames['properties'] as $key) {
             if (!$this->_prefs->isLocked($key)) {
                 return false;
             }
