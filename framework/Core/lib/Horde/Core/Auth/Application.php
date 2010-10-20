@@ -549,6 +549,8 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
                 }
             }
         }
+
+        return $ret_array;
     }
 
     /**
