@@ -22,11 +22,11 @@ abstract class Horde_Data_Base
     protected $_browser;
 
     /**
-     * File extension.
+     * Cleanup callback function.
      *
-     * @var string
+     * @var callback
      */
-    protected $_extension = '';
+    protected $_cleanupCallback;
 
     /**
      * MIME content type.
@@ -36,11 +36,19 @@ abstract class Horde_Data_Base
     protected $_contentType = 'text/plain';
 
     /**
-     * Cleanup callback function.
+     * Translation provider.
      *
-     * @var callback
+     * @var Horde_Translation
      */
-    protected $_cleanupCallback;
+    protected $_dict;
+
+    /**
+     * File extension.
+     *
+     * @var string
+     */
+    protected $_extension = '';
+
 
     /**
      * Variables object.
@@ -57,22 +65,21 @@ abstract class Horde_Data_Base
     protected $_warnings = array();
 
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_dict;
-
-    /**
      * Constructor.
      *
-     * @param array $params  Optional parameters:
-     *                       - 'browser' (Horde_Browser) A Horde_Browser object.
-     *                       - 'cleanup': (callback) A callback to call at
-     *                                    cleanup time.
-     *                       - 'vars': (Horde_Variables) Form data.
-     *                       - 'translation': (object) A translation handler
-     *                                        implementing Horde_Translation.
+     * @param array $params  Parameters:
+     * <pre>
+     * REQUIRED:
+     * ---------
+     * browser - (Horde_Browser) A browser object.
+     *
+     * OPTIONAL:
+     * ---------
+     * cleanup - (callback) A callback to call at cleanup time.
+     * translation - (object) A translation handler implementing
+     *               Horde_Translation.
+     * vars - (Horde_Variables) Form data.
+     * </pre>
      *
      * @throws InvalidArgumentException
      */
@@ -83,8 +90,7 @@ abstract class Horde_Data_Base
         }
         $this->_browser = $params['browser'];
 
-        if (isset($params['cleanup']) &&
-            is_callable($params['cleanup'])) {
+        if (isset($params['cleanup']) && is_callable($params['cleanup'])) {
             $this->_cleanupCallback = $params['cleanup'];
         }
 
@@ -92,11 +98,9 @@ abstract class Horde_Data_Base
             ? $params['vars']
             : Horde_Variables::getDefaultVariables();
 
-        if (isset($params['translation'])) {
-            $this->_dict = $params['translation'];
-        } else {
-            $this->_dict = new Horde_Translation_Gettext('Horde_Data', dirname(__FILE__) . '/../../../locale');
-        }
+        $this->_dict = isset($params['translation'])
+            ? $params['translation']
+            : new Horde_Translation_Gettext('Horde_Data', dirname(__FILE__) . '/../../../locale');
     }
 
     /**
