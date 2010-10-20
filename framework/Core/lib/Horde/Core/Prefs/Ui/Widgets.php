@@ -19,14 +19,18 @@ class Horde_Core_Prefs_Ui_Widgets
      *
      * @var Horde_Translation
      */
-    protected $_coreDict;
+    static protected $_coreDict;
 
     /**
      * Constructor.
      */
-    public function __construct()
+    static protected function _getDict()
     {
-        $this->_coreDict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../../../../../locale');
+        if (empty(self::$_coreDict)) {
+            self::$_coreDict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../../../../../locale');
+        }
+
+        return self::$_coreDict;
     }
 
     /* Source selection widget. */
@@ -104,12 +108,12 @@ class Horde_Core_Prefs_Ui_Widgets
             ));
         }
 
-        $t->set('addimg', Horde::img(isset($GLOBALS['registry']->nlsconfig['rtl'][$GLOBALS['language']]) ? 'lhand.png' : 'rhand.png', $this->_coreDict->t("Add source")));
-        $t->set('removeimg', Horde::img(isset($GLOBALS['registry']->nlsconfig['rtl'][$GLOBALS['language']]) ? 'rhand.png' : 'lhand.png', $this->_coreDict->t("Remove source")));
+        $t->set('addimg', Horde::img(isset($GLOBALS['registry']->nlsconfig['rtl'][$GLOBALS['language']]) ? 'lhand.png' : 'rhand.png', self::_getDict()->t("Add source")));
+        $t->set('removeimg', Horde::img(isset($GLOBALS['registry']->nlsconfig['rtl'][$GLOBALS['language']]) ? 'rhand.png' : 'lhand.png', self::_getDict()->t("Remove source")));
 
         if (empty($data['no_up'])) {
-            $t->set('upimg', Horde::img('nav/up.png', $this->_coreDict->t("Move up")));
-            $t->set('downimg', Horde::img('nav/down.png', $this->_coreDict->t("Move down")));
+            $t->set('upimg', Horde::img('nav/up.png', self::_getDict()->t("Move up")));
+            $t->set('downimg', Horde::img('nav/down.png', self::_getDict()->t("Move down")));
         }
 
         return $t->fetch(HORDE_TEMPLATES . '/prefs/source.html');
@@ -205,13 +209,13 @@ class Horde_Core_Prefs_Ui_Widgets
 
         if (!empty($selected) || !empty($unselected)) {
             $out = Horde_Core_Prefs_Ui_Widgets::source(array(
-                  'mainlabel' => $this->_coreDict->t("Choose the order of address books to search when expanding addresses."),
-                  'selectlabel' => $this->_coreDict->t("Selected address books:"),
+                  'mainlabel' => self::_getDict()->t("Choose the order of address books to search when expanding addresses."),
+                  'selectlabel' => self::_getDict()->t("Selected address books:"),
                   'sources' => array(array(
                       'selected' => $selected,
                       'unselected' => $unselected
                   )),
-                  'unselectlabel' => $this->_coreDict->t("Available address books:")
+                  'unselectlabel' => self::_getDict()->t("Available address books:")
              ));
 
             $t->set('selected', count($unselected) > 1);
@@ -243,7 +247,7 @@ class Horde_Core_Prefs_Ui_Widgets
 
             Horde::addInlineJsVars(array(
                 'HordeAddressbooksPrefs.fields' => $js,
-                'HordeAddressbooksPrefs.nonetext' => $this->_coreDict->t("No address book selected.")
+                'HordeAddressbooksPrefs.nonetext' => self::_getDict()->t("No address book selected.")
             ));
         }
 
@@ -408,7 +412,7 @@ class Horde_Core_Prefs_Ui_Widgets
                 foreach ($methods[$method]->getParameters() as $param => $info) {
                     $value[$method][$param] = $ui->vars->get($pref . '_' . $param, '');
                     if ($info['required'] && ($value[$method][$param] === '')) {
-                        $GLOBALS['notification']->push(sprintf($this->_coreDict->t("You must provide a setting for \"%s\"."), $methods[$method]->getDescription()), 'horde.error');
+                        $GLOBALS['notification']->push(sprintf(self::_getDict()->t("You must provide a setting for \"%s\"."), $methods[$method]->getDescription()), 'horde.error');
                         return null;
                     }
                 }
