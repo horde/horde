@@ -540,13 +540,16 @@ class Horde_Icalendar
      *
      * @param string $text     The data to parse.
      * @param string $base     The type of the base object.
+     * @param boolean $clear   If true clears this object before parsing.
      *
      * @return boolean  True on successful import, false otherwise.
      * @throws Horde_Icalendar_Exception
      */
-    public function parsevCalendar($text, $base = 'VCALENDAR')
+    public function parsevCalendar($text, $base = 'VCALENDAR', $clear = true)
     {
-        $this->_attributes = $this->_components = array();
+        if ($clear) {
+            $this->clear();
+        }
 
         if (preg_match('/^BEGIN:' . $base . '(.*)^END:' . $base . '/ism', $text, $matches)) {
             $container = true;
