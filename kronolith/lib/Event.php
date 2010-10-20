@@ -1976,7 +1976,7 @@ abstract class Kronolith_Event
 
     public function readForm()
     {
-        global $prefs, $cManager;
+        global $prefs, $cManager, $session;
 
         // Event owner.
         $targetcalendar = Horde_Util::getFormData('targetcalendar');
