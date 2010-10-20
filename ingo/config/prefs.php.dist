@@ -7,14 +7,11 @@
 
 // This preference group will only be displayed if the configured
 // Ingo_Script:: driver can create script files.
-if (!isset($_SESSION['ingo']['script_generate']) ||
-    $_SESSION['ingo']['script_generate']) {
-    $prefGroups['script'] = array(
-        'column' => _("Other Preferences"),
-        'label' => _("Script Updating"),
-        'desc' => _("Preferences about script updating."),
-        'members' => array('auto_update'));
-}
+$prefGroups['script'] = array(
+    'column' => _("Other Preferences"),
+    'label' => _("Script Updating"),
+    'desc' => _("Preferences about script updating."),
+    'members' => array('auto_update'));
 
 // The following preferences are only used for Horde_Script:: drivers that use
 // scripts.
