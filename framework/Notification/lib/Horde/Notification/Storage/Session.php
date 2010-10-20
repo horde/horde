@@ -96,8 +96,8 @@ implements Horde_Notification_Storage_Interface
     /**
      * Store a new event for the given listener stack.
      *
-     * @param string $listener                    The event will be stored for
-     *                                            this listener.
+     * @param string $listener                 The event will be stored for
+     *                                         this listener.
      * @param Horde_Notification_Event $event  The event to store.
      */
     public function push($listener, Horde_Notification_Event $event)
