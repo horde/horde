@@ -451,8 +451,8 @@ class Nag_Api extends Horde_Registry_Api
         switch ($content_type) {
         case 'text/calendar':
         case 'text/x-vcalendar':
-            $iCal = new Horde_iCalendar();
-            if (!is_a($content, 'Horde_iCalendar_vtodo')) {
+            $iCal = new Horde_Icalendar();
+            if (!($content instanceof Horde_Icalendar_Vtodo)) {
                 if (!$iCal->parsevCalendar($content)) {
                     return PEAR::raiseError(_("There was an error importing the iCalendar data."), 400);
                 }
@@ -461,7 +461,7 @@ class Nag_Api extends Horde_Registry_Api
             }
 
             foreach ($iCal->getComponents() as $content) {
-                if (is_a($content, 'Horde_iCalendar_vtodo')) {
+                if ($content instanceof Horde_Icalendar_Vtodo) {
                     $task = new Nag_Task();
                     $task->fromiCalendar($content);
                     $task->tasklist = $tasklist;
@@ -768,8 +768,8 @@ class Nag_Api extends Horde_Registry_Api
         case 'text/x-vcalendar':
         case 'text/calendar':
         case 'text/x-vtodo':
-            $iCal = new Horde_iCalendar();
-            if (!is_a($content, 'Horde_iCalendar_vtodo')) {
+            $iCal = new Horde_Icalendar();
+            if (!($content instanceof Horde_Icalendar_Vtodo)) {
                 if (!$iCal->parsevCalendar($content)) {
                     return PEAR::raiseError(_("There was an error importing the iCalendar data."));
                 }
@@ -784,7 +784,7 @@ class Nag_Api extends Horde_Registry_Api
 
             $ids = array();
             foreach ($components as $content) {
-                if (is_a($content, 'Horde_iCalendar_vtodo')) {
+                if ($content instanceof Horde_iCalendar_vtodo) {
                     $task = new Nag_Task();
                     $task->fromiCalendar($content);
                     if (isset($task->uid) &&
@@ -991,7 +991,7 @@ class Nag_Api extends Horde_Registry_Api
             $version = '1.0';
         case 'text/calendar':
             // Create the new iCalendar container.
-            $iCal = new Horde_iCalendar($version);
+            $iCal = new Horde_Icalendar($version);
             $iCal->setAttribute('PRODID', '-//The Horde Project//Nag ' . $GLOBALS['registry']->getVersion() . '//EN');
             $iCal->setAttribute('METHOD', 'PUBLISH');
 
@@ -1059,7 +1059,7 @@ class Nag_Api extends Horde_Registry_Api
         case 'text/calendar':
             $share = $GLOBALS['nag_shares']->getShare($tasklist);
 
-            $iCal = new Horde_iCalendar($version);
+            $iCal = new Horde_Icalendar($version);
             $iCal->setAttribute('X-WR-CALNAME', $share->get('name'));
 
             $tasks->reset();
@@ -1163,8 +1163,8 @@ class Nag_Api extends Horde_Registry_Api
         switch ($contentType) {
         case 'text/calendar':
         case 'text/x-vcalendar':
-            if (!is_a($content, 'Horde_iCalendar_vtodo')) {
-                $iCal = new Horde_iCalendar();
+            if (!($content instanceof Horde_Icalendar_Vtodo)) {
+                $iCal = new Horde_Icalendar();
                 if (!$iCal->parsevCalendar($content)) {
                     return PEAR::raiseError(_("There was an error importing the iCalendar data."));
                 }
@@ -1172,7 +1172,7 @@ class Nag_Api extends Horde_Registry_Api
                 $components = $iCal->getComponents();
                 $component = null;
                 foreach ($components as $content) {
-                    if (is_a($content, 'Horde_iCalendar_vtodo')) {
+                    if ($content instanceof Horde_Icalendar_Vtodo) {
                         if ($component !== null) {
                             return PEAR::raiseError(_("Multiple iCalendar components found; only one vTodo is supported."));
                         }
