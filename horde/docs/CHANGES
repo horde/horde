@@ -53,6 +53,12 @@ v4.0-cvs
 v3.3.10-cvs
 -----------
 
+[jan] Fix searching DataTree elements (groups) if backend charset is different
+      from interface charset (Bug #9323).
+[mms] Fix accessing IMAP ACLs that contain non-alphanumeric characters
+      (Bug #9299).
+[jan] Avoid fatal errors when using DateTime with not properly configured
+      PHP 5.3+ (Bug #9312).
 [jan] Fix importing recurrence exceptions from vCalendar 1.0.
 [mms] Fix preferences management regression (Bug #9289).
 [jan] Fix conversion of all-day events and certain yearly recurring events for
@@ -89,7 +95,7 @@ v3.3.7
 [mjr] Fix issue in Horde_Image that would cause generated images to lose
       transparency in certain situations.
 [jan] Allow to update existing identities while requiring email confirmation
-      (Sebastian Radish, Bug #8877).
+      (Sebastian Rettenberger, Bug #8877).
 [jan] Fix casting errors when using SQL shares and groups on PostgreSQL
       (Bug #8899).
 [gwr] Allow conf.d style directory configuration overriding (Request #8172).
