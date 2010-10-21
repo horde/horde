@@ -458,6 +458,11 @@ table.searchesmanagement .vfolderenabled {
     padding: 5px 10px;
 }
 
+.prefsAclTable {
+    padding-bottom: 8px;
+    width: 100%;
+}
+
 /* Quota styles. */
 .quotawarn {
     color: #000;

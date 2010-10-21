@@ -4,15 +4,8 @@
  <h3><tag:current /></h3>
 </div>
 
-<table cellspacing="0" width="100%">
-<if:noacl>
- <tr>
-  <td colspan="<tag:maxrule />" class="item leftAlign">
-   <em><strong> <gettext>The current list of users with access to this folder could not be retrieved.</gettext></strong></em>
-  </td>
-  <td></td>
- </tr>
-<else:noacl>
+<table class="prefsAclTable">
+<if:hasacl>
 <tr>
  <th class="item" width="<tag:width />">
   <h4><strong><gettext>User</gettext></strong></h4>
@@ -56,18 +49,8 @@
  </td>
 </loop:rights>
 </tr>
-<tr>
- <td></td>
-</tr>
-<else:canedit>
-<tr>
- <td colspan="<tag:maxrule />" class="item leftAlign">
-  <em><strong><gettext>You do not have permission to change access to this folder.</gettext></strong></em>
- </td>
- <td></td>
-</tr>
-</else:canedit></if:canedit>
-</else:noacl></if:noacl>
+</if:canedit>
+</if:hasacl>
 </table>
 
 <div>

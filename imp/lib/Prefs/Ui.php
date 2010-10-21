@@ -705,13 +705,23 @@ class IMP_Prefs_Ui
         }
         $canEdit = $acl->canEdit($folder, $GLOBALS['registry']->getAuth());
 
+        $canEdit = false;
+
+        if (!$canEdit) {
+            $GLOBALS['notification']->push(_("You do not have permission to change access to this folder."), 'horde.warning');
+        }
+
+        if (!count($curr_acl)) {
+            $GLOBALS['notification']->push(_("The current list of users with access to this folder could not be retrieved."), 'horde.warning');
+        }
+
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
 
         $t->set('options', IMP::flistSelect(array('selected' => $folder)));
         $t->set('current', sprintf(_("Current access to %s"), IMP::displayFolder($folder)));
         $t->set('folder', IMP::formMbox($folder, true));
-        $t->set('noacl', !count($curr_acl));
+        $t->set('hasacl', count($curr_acl));
         $t->set('maxrule', 1);
 
         if (!$t->get('noacl')) {
