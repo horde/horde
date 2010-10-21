@@ -15,7 +15,7 @@ v3.0-git
 v2.3.6-cvs
 ----------
 
-
+[jan] Fix photo corruption when exporting to vCard 3.0 (Bug #9100).
 
 
 ------
