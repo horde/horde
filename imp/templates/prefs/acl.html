@@ -1,11 +1,11 @@
 <input type="hidden" name="acl_folder" value="<tag:folder />" />
 
+<if:hasacl>
 <div>
  <h3><tag:current /></h3>
 </div>
 
 <table class="prefsAclTable">
-<if:hasacl>
 <tr>
  <th class="item" width="<tag:width />">
   <h4><strong><gettext>User</gettext></strong></h4>
@@ -50,8 +50,8 @@
 </loop:rights>
 </tr>
 </if:canedit>
-</if:hasacl>
 </table>
+</if:hasacl>
 
 <div>
  <span class="folderImg"></span>

@@ -701,10 +701,9 @@ class IMP_Prefs_Ui
             $curr_acl = $acl->getACL($folder);
         } catch (IMP_Exception $e) {
             $GLOBALS['notification']->push($e);
-            return '';
+            $curr_acl = array();
         }
         $canEdit = $acl->canEdit($folder, $GLOBALS['registry']->getAuth());
-
         $canEdit = false;
 
         if (!$canEdit) {
@@ -722,9 +721,8 @@ class IMP_Prefs_Ui
         $t->set('current', sprintf(_("Current access to %s"), IMP::displayFolder($folder)));
         $t->set('folder', IMP::formMbox($folder, true));
         $t->set('hasacl', count($curr_acl));
-        $t->set('maxrule', 1);
 
-        if (!$t->get('noacl')) {
+        if (!$t->get('hasacl')) {
             $i = 0;
             $cval = array();
             $protected = $acl->getProtected();
@@ -750,10 +748,6 @@ class IMP_Prefs_Ui
              }
 
              $t->set('curr_acl', $cval);
-             $t->set('maxval', count($curr_acl));
-
-             /* Number of individual ACL options, for table rendering. */
-             $t->set('maxrule', count($rights));
         }
 
         $t->set('canedit', $canEdit);
