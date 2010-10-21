@@ -420,6 +420,7 @@ class DataTree_sql extends DataTree {
             . ' AND datatree_parents = ?';
 
         $ids = array();
+        $name = String::convertCharset($name, NLS::getCharset(), $this->_params['charset']);
         $parts = explode(':', $name);
         foreach ($parts as $part) {
             $result = $this->_db->getOne($query, array($this->_params['group'], $part, count($ids) ? ':' . implode(':', $ids) : ''));
