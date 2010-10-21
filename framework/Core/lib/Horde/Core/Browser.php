@@ -70,7 +70,10 @@ class Horde_Core_Browser extends Horde_Browser
      */
     public function getIEVersion()
     {
-        return $GLOBALS['session']['horde:ie_version'];
+        if (isset($GLOBALS['session']['horde:ie_version'])) {
+            return $GLOBALS['session']['horde:ie_version'];
+        } else {
+            return null;
+        }
     }
-
 }
