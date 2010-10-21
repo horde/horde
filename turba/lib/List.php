@@ -104,11 +104,16 @@ class Turba_List implements Countable
             );
         }
 
-        $need_lastname = false;
-        $last_first = ($GLOBALS['prefs']->getValue('name_format') == 'last_first');
+        $need_lastname = $need_firstname = false;
+        $name_format = $GLOBALS['prefs']->getValue('name_format');
+        $name_sort = $GLOBALS['prefs']->getValue('name_sort');
         foreach ($order as &$field) {
-            if ($last_first && ($field['field'] == 'name')) {
-                $field['field'] = 'lastname';
+            if ($field['field'] == 'name') {
+                if ($name_sort == 'last_first') {
+                    $field['field'] = 'lastname';
+                } elseif ($name_sort == 'first_last') {
+                    $field['field'] = 'firstname';
+                }
             }
 
             if ($field['field'] == 'lastname') {
@@ -116,20 +121,41 @@ class Turba_List implements Countable
                 $need_lastname = true;
                 break;
             }
+            if ($field['field'] == 'firstname') {
+                $field['field'] = '__firstname';
+                $need_firstname = true;
+                break;
+            }
         }
 
-        if (!$need_lastname) {
-            $sorted_objects = $this->objects;
-        } else {
+        if ($need_firstname || $need_lastname) {
             $sorted_objects = array();
             foreach ($this->objects as $key => $object) {
+                $name = $object->getValue('name');
+                $firstname = $object->getValue('firstname');
                 $lastname = $object->getValue('lastname');
                 if (!$lastname) {
-                    $lastname = Turba::guessLastname($object->getValue('name'));
+                    $lastname = Turba::guessLastname($name);
+                }
+                if (!$firstname) {
+                    switch ($name_format) {
+                    case 'last_first':
+                        $firstname = preg_replace('/' . preg_quote($lastname, '/') . ',\s*/', '', $name);
+                        break;
+                    case 'first_last':
+                        $firstname = preg_replace('/\s+' . preg_quote($lastname, '/') . '/', '', $name);
+                        break;
+                    default:
+                        $firstname = preg_replace('/\s*' . preg_quote($lastname, '/') . '(,\s*)?/', '', $name);
+                        break;
+                    }
                 }
                 $object->setValue('__lastname', $lastname);
+                $object->setValue('__firstname', $firstname);
                 $sorted_objects[$key] = $object;
             }
+        } else {
+            $sorted_objects = $this->objects;
         }
 
         $this->_usortCriteria = $order;
