@@ -748,7 +748,7 @@ class IMP_Prefs_Ui
 
         $t->set('canedit', $canEdit);
 
-        if ($session['imp:imap_admin']) {
+        if ($GLOBALS['session']['imp:imap_admin']) {
             $current_users = array_keys($curr_acl);
             $new_user = array();
 
