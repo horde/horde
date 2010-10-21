@@ -10,7 +10,7 @@
 
 <div data-role="page">
 
-<div data-role="header"><h1><?php echo $title ?></h1></div>
+<div data-role="header" data-nobackbtn="true"><h1><?php echo $title ?></h1></div>
 
 <div data-role="content">
 
@@ -21,6 +21,7 @@
 
 <?php
 foreach ($loginparams as $key => $val) {
+    if ($key == 'imp_select_view' || $key == 'new_lang') { continue; }
     switch ($val['type']) {
     case 'hidden':
         echo '<input type="hidden" name="' . $key . '" value="' . (isset($val['value']) ? $val['value'] : '') . '">';
