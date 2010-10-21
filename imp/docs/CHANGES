@@ -2492,7 +2492,7 @@ OLD DIMP CHANGELOG
 v1.1.6-cvs
 ----------
 
-
+[jan] Fix redirecting to login screen if session times out (Bug #9281).
 
 
 ------
