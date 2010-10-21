@@ -388,7 +388,7 @@ class DataTree_sql extends DataTree {
         $query = 'SELECT datatree_id FROM ' . $this->_params['table'] .
             ' WHERE group_uid = ? AND datatree_name = ? AND datatree_parents = ?';
 
-        $object_name = String::convertCharset($object_name, NLS::getCharset(), $this->_params['charset']);
+        $object_name = Horde_String::convertCharset($object_name, 'UTF-8', $this->_params['charset']);
         $object_names = explode(':', $object_name);
         $object_parents = '';
         foreach ($object_names as $name) {
@@ -420,7 +420,7 @@ class DataTree_sql extends DataTree {
             . ' AND datatree_parents = ?';
 
         $ids = array();
-        $name = String::convertCharset($name, NLS::getCharset(), $this->_params['charset']);
+        $name = Horde_String::convertCharset($name, 'UTF-8', $this->_params['charset']);
         $parts = explode(':', $name);
         foreach ($parts as $part) {
             $result = $this->_db->getOne($query, array($this->_params['group'], $part, count($ids) ? ':' . implode(':', $ids) : ''));
