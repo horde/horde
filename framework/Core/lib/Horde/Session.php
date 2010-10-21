@@ -330,7 +330,7 @@ class Horde_Session implements ArrayAccess
     private function _offsetSet($ob, $value)
     {
         /* Each particular piece of session data is generally not used on any
-         * given page load.  Thus, for arrays ans objects, it is beneficial to
+         * given page load.  Thus, for arrays and objects, it is beneficial to
          * always convert to string representations so that the object/array
          * does not need to be rebuilt every time the session is reloaded. */
         if (is_object($value) || ($ob->type == 'object')) {
