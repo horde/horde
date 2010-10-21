@@ -82,7 +82,7 @@ class Horde_LoginTasks
     public function shutdown()
     {
         if (isset($this->_tasklist)) {
-            $this->_tasklist = $this->_backend->storeTasklistInCache($this->_tasklist);
+            $this->_backend->storeTasklistInCache($this->_tasklist);
         }
     }
 
