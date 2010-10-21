@@ -2265,7 +2265,6 @@ var DimpBase = {
         if (val) {
             switch (mode) {
             case 'rename':
-                folder = folder.up('LI');
                 if (folder.retrieve('l') != val) {
                     action = 'renameMailbox';
                     params = {
