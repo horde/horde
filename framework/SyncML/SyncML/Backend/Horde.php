@@ -66,7 +66,7 @@ class SyncML_Backend_Horde extends SyncML_Backend {
         if ($this->_backendMode == SYNCML_BACKENDMODE_SERVER) {
             /* Reload the Horde SessionHandler if necessary. */
             $GLOBALS['session'] = new Horde_Session();
-            $GLOBALS['session']->start(false);
+            $GLOBALS['session']->setup(false);
         }
 
         parent::sessionStart($syncDeviceID, $sessionId, $backendMode);
