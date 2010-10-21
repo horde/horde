@@ -345,6 +345,8 @@ class Horde_Session implements ArrayAccess
                 $value = lzf_compress($value);
             }
             $_SESSION[self::SERIALIZED][$ob->key] = 'j';
+        } else {
+            unset($_SESSION[self::SERIALIZED][$ob->key]);
         }
 
         $_SESSION[$ob->app][$ob->name] = $value;
