@@ -88,16 +88,27 @@ document.observe('dom:loaded', function() {
         this.iframeResize(id);
     };
 
-    IMP.iframeResize = function(id, delay)
+    IMP.iframeResize = function(id)
     {
+        var val,
+            i = 0;
+
         if (id = $(id)) {
-            id.setStyle({ height: Math.max(id.contentWindow.document.body.scrollHeight, id.contentWindow.document.lastChild.scrollHeight) + 'px' });
-            if (!delay) {
-                // For whatever reason, browsers will report different heights
-                // after the initial height setting. Delaying a second height
-                // setting seems to work most of the time to fix this.
-                this.iframeResize.bind(this, id, true).delay(0.5);
-            }
+            val = Math.max(id.contentWindow.document.body.scrollHeight, id.contentWindow.document.lastChild.scrollHeight);
+            id.setStyle({ height: val + 'px' });
+
+            // For whatever reason, browsers will report different heights
+            // after the initial height setting. Try expanding IFRAME up to
+            // 5 times in 20px increments.  If still scrolling, give up to
+            // prevent infinite loops (and giant IFRAMES).
+            do {
+                if (id.contentWindow.document.body.scrollHeight == id.contentWindow.document.lastChild.scrollHeight) {
+                    break;
+                }
+
+                val += 20;
+                id.setStyle({ height: val + 'px' });
+            } while (++i <= 5);
          }
     };
 
