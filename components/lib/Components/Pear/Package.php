@@ -343,6 +343,7 @@ class Components_Pear_Package
                     $file['attribs']['name'], implode('/', $components)
                 );
                 break;
+            case 'bin':
             case 'script':
                 $filename = basename($file['attribs']['name']);
                 if (substr($filename, strlen($filename) - 4) == '.php') {
