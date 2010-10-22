@@ -9,13 +9,13 @@
  */
 
 /**
- * The Horde_Translation_Gettext provides translations through the gettext
- * extension, but fails gracefully if gettext is not installed.
+ * The Horde_Translation_Handler_Gettext provides translations through the
+ * gettext extension, but fails gracefully if gettext is not installed.
  *
  * @author  Jan Schneider <jan@horde.org>
  * @package Translation
  */
-class Horde_Translation_Gettext implements Horde_Translation
+class Horde_Translation_Handler_Gettext implements Horde_Translation_Handler
 {
     /**
      * The translation domain, e.g. package name.

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Translation</name>
  <channel>pear.horde.org</channel>
  <summary>Horde translation library</summary>
@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-10-05</date>
- <time>13:12:56</time>
+ <date>2010-10-22</date>
+ <time>16:08:10</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -29,11 +29,35 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="Translation">
-      <file name="Gettext.php" role="php" />
-     </dir> <!-- //lib/Horde/Translation -->
+      <dir name="Handler">
+       <file name="Gettext.php" role="php" />
+      </dir> <!-- /lib/Horde/Translation/Handler -->
+      <file name="Exception.php" role="php" />
+      <file name="Handler.php" role="php" />
+     </dir> <!-- /lib/Horde/Translation -->
      <file name="Translation.php" role="php" />
-    </dir> <!-- //lib/Horde -->
-   </dir> <!-- //lib -->
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Translation">
+      <dir name="locale">
+       <dir name="de">
+        <dir name="LC_MESSAGES">
+         <file name="Horde_Other.mo" role="test" />
+         <file name="Horde_Other.po" role="test" />
+         <file name="Horde_Translation.mo" role="test" />
+         <file name="Horde_Translation.po" role="test" />
+        </dir> <!-- /test/Horde/Translation/locale/de/LC_MESSAGES -->
+       </dir> <!-- /test/Horde/Translation/locale/de -->
+      </dir> <!-- /test/Horde/Translation/locale -->
+      <file name="AllTests.php" role="test" />
+      <file name="GettextTest.php" role="test" />
+      <file name="TestBase.php" role="test" />
+      <file name="WrapperTest.php" role="test" />
+     </dir> <!-- /test/Horde/Translation -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -54,7 +78,17 @@
  <phprelease>
   <filelist>
    <install as="Horde/Translation.php" name="lib/Horde/Translation.php" />
-   <install as="Horde/Translation/Gettext.php" name="lib/Horde/Translation/Gettext.php" />
+   <install as="Horde/Translation/Exception.php" name="lib/Horde/Translation/Exception.php" />
+   <install as="Horde/Translation/Handler.php" name="lib/Horde/Translation/Handler.php" />
+   <install as="Horde/Translation/Handler/Gettext.php" name="lib/Horde/Translation/Handler/Gettext.php" />
+   <install as="Horde/Translation/AllTests.php" name="test/Horde/Translation/AllTests.php" />
+   <install as="Horde/Translation/GettextTest.php" name="test/Horde/Translation/GettextTest.php" />
+   <install as="Horde/Translation/TestBase.php" name="test/Horde/Translation/TestBase.php" />
+   <install as="Horde/Translation/WrapperTest.php" name="test/Horde/Translation/WrapperTest.php" />
+   <install as="Horde/Translation/locale/de/LC_MESSAGES/Horde_Other.mo" name="test/Horde/Translation/locale/de/LC_MESSAGES/Horde_Other.mo" />
+   <install as="Horde/Translation/locale/de/LC_MESSAGES/Horde_Other.po" name="test/Horde/Translation/locale/de/LC_MESSAGES/Horde_Other.po" />
+   <install as="Horde/Translation/locale/de/LC_MESSAGES/Horde_Translation.mo" name="test/Horde/Translation/locale/de/LC_MESSAGES/Horde_Translation.mo" />
+   <install as="Horde/Translation/locale/de/LC_MESSAGES/Horde_Translation.po" name="test/Horde/Translation/locale/de/LC_MESSAGES/Horde_Translation.po" />
   </filelist>
  </phprelease>
  <changelog>
@@ -67,7 +101,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2010-10-05</date>
+   <date>2010-10-22</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Initial release.

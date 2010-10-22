@@ -9,14 +9,73 @@
  */
 
 /**
- * The Horde_Translation interface defines the interface for any classes
- * providing translations.
+ * Horde_Translation is the base class for any translation wrapper classes in
+ * libraries that want to utilize the Horde_Translation library for
+ * translations.
  *
  * @author  Jan Schneider <jan@horde.org>
  * @package Translation
  */
-interface Horde_Translation
+abstract class Horde_Translation
 {
+    /**
+     * The translation domain, e.g. the library name, for the default gettext
+     * handler.
+     *
+     * @var string
+     */
+    static protected $_domain;
+
+    /**
+     * The relative path to the translations for the default gettext handler.
+     *
+     * This path is relative to the
+     *
+     * @var string
+     */
+    static protected $_directory;
+
+    /**
+     * The handler providing the actual translations.
+     *
+     * @var Horde_Translation_Handler
+     */
+    static protected $_handler;
+
+    /**
+     * Loads a translation handler class pointing to the library's translations
+     * and assigns it to $_handler.
+     *
+     * @param string $handlerClass  The name of a class implementing the
+     *                              Horde_Translation_Handler interface.
+     */
+    static public function loadHandler($handlerClass)
+    {
+        if (!self::$_domain || !self::$_directory) {
+            throw new Horde_Translation_Exception('The domain and directory properties must be set by the class that extends Horde_Translation.');
+        }
+        $backtrace = debug_backtrace();
+        $directory = dirname($backtrace[1]['file']) . '/' . self::$_directory;
+        self::setHandler(new $handlerClass(self::$_domain, $directory));
+    }
+
+    /**
+     * Assigns a translation handler object to $_handler.
+     *
+     * Type hinting isn't used on purpose. You should extend a custom
+     * translation handler passed here from the Horde_Translation interface,
+     * but technically it's sufficient if you provide the API of that
+     * interface.
+     *
+     * @param Horde_Translation_Handler $handler  An object implementing the
+     *                                            Horde_Translation_Handler
+     *                                            interface.
+     */
+    static public function setHandler($handler)
+    {
+        self::$_handler = $handler;
+    }
+
     /**
      * Returns the translation of a message.
      *
@@ -25,7 +84,13 @@ interface Horde_Translation
      * @return string  The string translation, or the original string if no
      *                 translation exists.
      */
-    public function t($message);
+    static public function t($message)
+    {
+        if (!self::$_handler) {
+            self::loadHandler('Horde_Translation_Handler_Gettext');
+        }
+        return self::$_handler->t($message);
+    }
 
     /**
      * Returns the plural translation of a message.
@@ -37,5 +102,11 @@ interface Horde_Translation
      * @return string  The string translation, or the original string if no
      *                 translation exists.
      */
-    public function ngettext($singular, $plural, $number);
+    static public function ngettext($singular, $plural, $number)
+    {
+        if (!self::$_handler) {
+            self::loadHandler();
+        }
+        return self::$_handler->ngettext($singular, $plural, $number);
+    }
 }
