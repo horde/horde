@@ -305,82 +305,30 @@ is a fork of the File_CSV class of PEAR&apos;s File package.</description>
     <dir name="Horde">
      <dir name="Csv">
       <file name="001.csv" role="test" />
-      <file name="001.diff" role="test" />
-      <file name="001.exp" role="test" />
-      <file name="001.log" role="test" />
-      <file name="001.out" role="test" />
       <file name="001.phpt" role="test" />
       <file name="002.csv" role="test" />
-      <file name="002.diff" role="test" />
-      <file name="002.exp" role="test" />
-      <file name="002.log" role="test" />
-      <file name="002.out" role="test" />
       <file name="002.phpt" role="test" />
       <file name="003.csv" role="test" />
-      <file name="003.diff" role="test" />
-      <file name="003.exp" role="test" />
-      <file name="003.log" role="test" />
-      <file name="003.out" role="test" />
       <file name="003.phpt" role="test" />
       <file name="004.csv" role="test" />
-      <file name="004.diff" role="test" />
-      <file name="004.exp" role="test" />
-      <file name="004.log" role="test" />
-      <file name="004.out" role="test" />
       <file name="004.phpt" role="test" />
       <file name="005.csv" role="test" />
-      <file name="005.diff" role="test" />
-      <file name="005.exp" role="test" />
-      <file name="005.log" role="test" />
-      <file name="005.out" role="test" />
       <file name="005.phpt" role="test" />
       <file name="bug_3839.csv" role="test" />
-      <file name="bug_3839.diff" role="test" />
-      <file name="bug_3839.exp" role="test" />
-      <file name="bug_3839.log" role="test" />
-      <file name="bug_3839.out" role="test" />
       <file name="bug_3839.phpt" role="test" />
       <file name="bug_4025.csv" role="test" />
-      <file name="bug_4025.diff" role="test" />
-      <file name="bug_4025.exp" role="test" />
-      <file name="bug_4025.log" role="test" />
-      <file name="bug_4025.out" role="test" />
       <file name="bug_4025.phpt" role="test" />
       <file name="bug_6311.csv" role="test" />
-      <file name="bug_6311.diff" role="test" />
-      <file name="bug_6311.exp" role="test" />
-      <file name="bug_6311.log" role="test" />
-      <file name="bug_6311.out" role="test" />
       <file name="bug_6311.phpt" role="test" />
       <file name="bug_6370.csv" role="test" />
-      <file name="bug_6370.diff" role="test" />
-      <file name="bug_6370.exp" role="test" />
-      <file name="bug_6370.log" role="test" />
-      <file name="bug_6370.out" role="test" />
       <file name="bug_6370.phpt" role="test" />
       <file name="bug_6372.csv" role="test" />
-      <file name="bug_6372.diff" role="test" />
-      <file name="bug_6372.exp" role="test" />
-      <file name="bug_6372.log" role="test" />
-      <file name="bug_6372.out" role="test" />
       <file name="bug_6372.phpt" role="test" />
-      <file name="columns.diff" role="test" />
-      <file name="columns.exp" role="test" />
-      <file name="columns.log" role="test" />
-      <file name="columns.out" role="test" />
       <file name="columns.phpt" role="test" />
       <file name="columns1.csv" role="test" />
       <file name="columns2.csv" role="test" />
       <file name="common.php" role="test" />
-      <file name="linebreak.diff" role="test" />
-      <file name="linebreak.exp" role="test" />
-      <file name="linebreak.log" role="test" />
-      <file name="linebreak.out" role="test" />
       <file name="linebreak.phpt" role="test" />
-      <file name="multiline.diff" role="test" />
-      <file name="multiline.exp" role="test" />
-      <file name="multiline.log" role="test" />
-      <file name="multiline.out" role="test" />
       <file name="multiline.phpt" role="test" />
       <file name="multiline1.csv" role="test" />
       <file name="notrailing_crlf.csv" role="test" />
@@ -390,10 +338,6 @@ is a fork of the File_CSV class of PEAR&apos;s File package.</description>
       <file name="quote3.csv" role="test" />
       <file name="quote4.csv" role="test" />
       <file name="quote5.csv" role="test" />
-      <file name="quotes.diff" role="test" />
-      <file name="quotes.exp" role="test" />
-      <file name="quotes.log" role="test" />
-      <file name="quotes.out" role="test" />
       <file name="quotes.phpt" role="test" />
       <file name="simple_cr.csv" role="test" />
       <file name="simple_crlf.csv" role="test" />
@@ -517,83 +461,30 @@ is a fork of the File_CSV class of PEAR&apos;s File package.</description>
    <install as="locale/zh_TW/LC_MESSAGES/Horde_File_Csv.mo" name="locale/zh_TW/LC_MESSAGES/Horde_File_Csv.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_File_Csv.po" name="locale/zh_TW/LC_MESSAGES/Horde_File_Csv.po" />
    <install as="Horde/Csv/001.csv" name="test/Horde/Csv/001.csv" />
-   <install as="Horde/Csv/001.diff" name="test/Horde/Csv/001.diff" />
-   <install as="Horde/Csv/001.exp" name="test/Horde/Csv/001.exp" />
-   <install as="Horde/Csv/001.log" name="test/Horde/Csv/001.log" />
-   <install as="Horde/Csv/001.out" name="test/Horde/Csv/001.out" />
    <install as="Horde/Csv/001.phpt" name="test/Horde/Csv/001.phpt" />
    <install as="Horde/Csv/002.csv" name="test/Horde/Csv/002.csv" />
-   <install as="Horde/Csv/002.diff" name="test/Horde/Csv/002.diff" />
-   <install as="Horde/Csv/002.exp" name="test/Horde/Csv/002.exp" />
-   <install as="Horde/Csv/002.log" name="test/Horde/Csv/002.log" />
-   <install as="Horde/Csv/002.out" name="test/Horde/Csv/002.out" />
    <install as="Horde/Csv/002.phpt" name="test/Horde/Csv/002.phpt" />
    <install as="Horde/Csv/003.csv" name="test/Horde/Csv/003.csv" />
-   <install as="Horde/Csv/003.diff" name="test/Horde/Csv/003.diff" />
-   <install as="Horde/Csv/003.exp" name="test/Horde/Csv/003.exp" />
-   <install as="Horde/Csv/003.log" name="test/Horde/Csv/003.log" />
-   <install as="Horde/Csv/003.out" name="test/Horde/Csv/003.out" />
    <install as="Horde/Csv/003.phpt" name="test/Horde/Csv/003.phpt" />
    <install as="Horde/Csv/004.csv" name="test/Horde/Csv/004.csv" />
-   <install as="Horde/Csv/004.diff" name="test/Horde/Csv/004.diff" />
-   <install as="Horde/Csv/004.exp" name="test/Horde/Csv/004.exp" />
-   <install as="Horde/Csv/004.log" name="test/Horde/Csv/004.log" />
-   <install as="Horde/Csv/004.out" name="test/Horde/Csv/004.out" />
    <install as="Horde/Csv/004.phpt" name="test/Horde/Csv/004.phpt" />
    <install as="Horde/Csv/005.csv" name="test/Horde/Csv/005.csv" />
-   <install as="Horde/Csv/005.diff" name="test/Horde/Csv/005.diff" />
-   <install as="Horde/Csv/005.exp" name="test/Horde/Csv/005.exp" />
-   <install as="Horde/Csv/005.log" name="test/Horde/Csv/005.log" />
-   <install as="Horde/Csv/005.out" name="test/Horde/Csv/005.out" />
    <install as="Horde/Csv/005.phpt" name="test/Horde/Csv/005.phpt" />
    <install as="Horde/Csv/bug_3839.csv" name="test/Horde/Csv/bug_3839.csv" />
-   <install as="Horde/Csv/bug_3839.diff" name="test/Horde/Csv/bug_3839.diff" />
-   <install as="Horde/Csv/bug_3839.exp" name="test/Horde/Csv/bug_3839.exp" />
-   <install as="Horde/Csv/bug_3839.log" name="test/Horde/Csv/bug_3839.log" />
-   <install as="Horde/Csv/bug_3839.out" name="test/Horde/Csv/bug_3839.out" />
    <install as="Horde/Csv/bug_3839.phpt" name="test/Horde/Csv/bug_3839.phpt" />
    <install as="Horde/Csv/bug_4025.csv" name="test/Horde/Csv/bug_4025.csv" />
-   <install as="Horde/Csv/bug_4025.diff" name="test/Horde/Csv/bug_4025.diff" />
-   <install as="Horde/Csv/bug_4025.exp" name="test/Horde/Csv/bug_4025.exp" />
-   <install as="Horde/Csv/bug_4025.log" name="test/Horde/Csv/bug_4025.log" />
-   <install as="Horde/Csv/bug_4025.out" name="test/Horde/Csv/bug_4025.out" />
    <install as="Horde/Csv/bug_4025.phpt" name="test/Horde/Csv/bug_4025.phpt" />
    <install as="Horde/Csv/bug_6311.csv" name="test/Horde/Csv/bug_6311.csv" />
-   <install as="Horde/Csv/bug_6311.diff" name="test/Horde/Csv/bug_6311.diff" />
-   <install as="Horde/Csv/bug_6311.exp" name="test/Horde/Csv/bug_6311.exp" />
-   <install as="Horde/Csv/bug_6311.log" name="test/Horde/Csv/bug_6311.log" />
-   <install as="Horde/Csv/bug_6311.out" name="test/Horde/Csv/bug_6311.out" />
    <install as="Horde/Csv/bug_6311.phpt" name="test/Horde/Csv/bug_6311.phpt" />
    <install as="Horde/Csv/bug_6370.csv" name="test/Horde/Csv/bug_6370.csv" />
-   <install as="Horde/Csv/bug_6370.diff" name="test/Horde/Csv/bug_6370.diff" />
-   <install as="Horde/Csv/bug_6370.exp" name="test/Horde/Csv/bug_6370.exp" />
-   <install as="Horde/Csv/bug_6370.log" name="test/Horde/Csv/bug_6370.log" />
-   <install as="Horde/Csv/bug_6370.out" name="test/Horde/Csv/bug_6370.out" />
    <install as="Horde/Csv/bug_6370.phpt" name="test/Horde/Csv/bug_6370.phpt" />
    <install as="Horde/Csv/bug_6372.csv" name="test/Horde/Csv/bug_6372.csv" />
-   <install as="Horde/Csv/bug_6372.diff" name="test/Horde/Csv/bug_6372.diff" />
-   <install as="Horde/Csv/bug_6372.exp" name="test/Horde/Csv/bug_6372.exp" />
-   <install as="Horde/Csv/bug_6372.log" name="test/Horde/Csv/bug_6372.log" />
-   <install as="Horde/Csv/bug_6372.out" name="test/Horde/Csv/bug_6372.out" />
    <install as="Horde/Csv/bug_6372.phpt" name="test/Horde/Csv/bug_6372.phpt" />
-   <install as="Horde/Csv/columns.diff" name="test/Horde/Csv/columns.diff" />
-   <install as="Horde/Csv/columns.exp" name="test/Horde/Csv/columns.exp" />
-   <install as="Horde/Csv/columns.log" name="test/Horde/Csv/columns.log" />
-   <install as="Horde/Csv/columns.out" name="test/Horde/Csv/columns.out" />
    <install as="Horde/Csv/columns.phpt" name="test/Horde/Csv/columns.phpt" />
    <install as="Horde/Csv/columns1.csv" name="test/Horde/Csv/columns1.csv" />
    <install as="Horde/Csv/columns2.csv" name="test/Horde/Csv/columns2.csv" />
    <install as="Horde/Csv/common.php" name="test/Horde/Csv/common.php" />
-   <install as="Horde/Csv/linebreak.diff" name="test/Horde/Csv/linebreak.diff" />
-   <install as="Horde/Csv/linebreak.exp" name="test/Horde/Csv/linebreak.exp" />
-   <install as="Horde/Csv/linebreak.log" name="test/Horde/Csv/linebreak.log" />
-   <install as="Horde/Csv/linebreak.out" name="test/Horde/Csv/linebreak.out" />
-   <install as="Horde/Csv/linebreak.phpt" name="test/Horde/Csv/linebreak.phpt" />
-   <install as="Horde/Csv/multiline.diff" name="test/Horde/Csv/multiline.diff" />
-   <install as="Horde/Csv/multiline.exp" name="test/Horde/Csv/multiline.exp" />
-   <install as="Horde/Csv/multiline.log" name="test/Horde/Csv/multiline.log" />
-   <install as="Horde/Csv/multiline.out" name="test/Horde/Csv/multiline.out" />
-   <install as="Horde/Csv/multiline.phpt" name="test/Horde/Csv/multiline.phpt" />
+   <install as="Horde/Csv/linebreak.phpt" name="test/Horde/Csv/linebreak.phpt" /   <install as="Horde/Csv/multiline.phpt" name="test/Horde/Csv/multiline.phpt" />
    <install as="Horde/Csv/multiline1.csv" name="test/Horde/Csv/multiline1.csv" />
    <install as="Horde/Csv/notrailing_crlf.csv" name="test/Horde/Csv/notrailing_crlf.csv" />
    <install as="Horde/Csv/notrailing_lf.csv" name="test/Horde/Csv/notrailing_lf.csv" />
@@ -602,10 +493,6 @@ is a fork of the File_CSV class of PEAR&apos;s File package.</description>
    <install as="Horde/Csv/quote3.csv" name="test/Horde/Csv/quote3.csv" />
    <install as="Horde/Csv/quote4.csv" name="test/Horde/Csv/quote4.csv" />
    <install as="Horde/Csv/quote5.csv" name="test/Horde/Csv/quote5.csv" />
-   <install as="Horde/Csv/quotes.diff" name="test/Horde/Csv/quotes.diff" />
-   <install as="Horde/Csv/quotes.exp" name="test/Horde/Csv/quotes.exp" />
-   <install as="Horde/Csv/quotes.log" name="test/Horde/Csv/quotes.log" />
-   <install as="Horde/Csv/quotes.out" name="test/Horde/Csv/quotes.out" />
    <install as="Horde/Csv/quotes.phpt" name="test/Horde/Csv/quotes.phpt" />
    <install as="Horde/Csv/simple_cr.csv" name="test/Horde/Csv/simple_cr.csv" />
    <install as="Horde/Csv/simple_crlf.csv" name="test/Horde/Csv/simple_crlf.csv" />

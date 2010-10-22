@@ -316,16 +316,6 @@
     </dir> <!-- /locale/zh_TW -->
     <file name="Horde_Prefs.pot" role="data" />
    </dir> <!-- /locale -->
-   <dir name="test">
-    <dir name="Horde">
-     <dir name="Prefs">
-      <file name="bug_2838.diff" role="test" />
-      <file name="bug_2838.exp" role="test" />
-      <file name="bug_2838.log" role="test" />
-      <file name="bug_2838.out" role="test" />
-     </dir> <!-- /test/Horde/Prefs -->
-    </dir> <!-- /test/Horde -->
-   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -463,10 +453,6 @@
    <install as="locale/zh_CN/LC_MESSAGES/Horde_Prefs.po" name="locale/zh_CN/LC_MESSAGES/Horde_Prefs.po" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Prefs.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Prefs.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Prefs.po" name="locale/zh_TW/LC_MESSAGES/Horde_Prefs.po" />
-   <install as="Horde/Prefs/bug_2838.diff" name="test/Horde/Prefs/bug_2838.diff" />
-   <install as="Horde/Prefs/bug_2838.exp" name="test/Horde/Prefs/bug_2838.exp" />
-   <install as="Horde/Prefs/bug_2838.log" name="test/Horde/Prefs/bug_2838.log" />
-   <install as="Horde/Prefs/bug_2838.out" name="test/Horde/Prefs/bug_2838.out" />
   </filelist>
  </phprelease>
  <changelog>

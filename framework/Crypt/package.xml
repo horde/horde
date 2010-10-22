@@ -317,92 +317,24 @@
        <file name="pgp_signed2.txt" role="test" />
        <file name="smime_subjectAltName.pem" role="test" />
       </dir> <!-- /test/Horde/Crypt/fixtures -->
-      <file name="bug_6601.diff" role="test" />
-      <file name="bug_6601.exp" role="test" />
-      <file name="bug_6601.log" role="test" />
-      <file name="bug_6601.out" role="test" />
       <file name="bug_6601.phpt" role="test" />
       <file name="pgp.inc" role="test" />
-      <file name="pgp_decrypt.diff" role="test" />
-      <file name="pgp_decrypt.exp" role="test" />
-      <file name="pgp_decrypt.log" role="test" />
-      <file name="pgp_decrypt.out" role="test" />
       <file name="pgp_decrypt.phpt" role="test" />
-      <file name="pgp_decrypt_symmetric.diff" role="test" />
-      <file name="pgp_decrypt_symmetric.exp" role="test" />
-      <file name="pgp_decrypt_symmetric.log" role="test" />
-      <file name="pgp_decrypt_symmetric.out" role="test" />
       <file name="pgp_decrypt_symmetric.phpt" role="test" />
-      <file name="pgp_encrypt.diff" role="test" />
-      <file name="pgp_encrypt.exp" role="test" />
-      <file name="pgp_encrypt.log" role="test" />
-      <file name="pgp_encrypt.out" role="test" />
       <file name="pgp_encrypt.phpt" role="test" />
-      <file name="pgp_encryptedSymmetrically.diff" role="test" />
-      <file name="pgp_encryptedSymmetrically.exp" role="test" />
-      <file name="pgp_encryptedSymmetrically.log" role="test" />
-      <file name="pgp_encryptedSymmetrically.out" role="test" />
       <file name="pgp_encryptedSymmetrically.phpt" role="test" />
-      <file name="pgp_encrypt_symmetric.diff" role="test" />
-      <file name="pgp_encrypt_symmetric.exp" role="test" />
-      <file name="pgp_encrypt_symmetric.log" role="test" />
-      <file name="pgp_encrypt_symmetric.out" role="test" />
       <file name="pgp_encrypt_symmetric.phpt" role="test" />
-      <file name="pgp_generateRevocation.diff" role="test" />
-      <file name="pgp_generateRevocation.exp" role="test" />
-      <file name="pgp_generateRevocation.log" role="test" />
-      <file name="pgp_generateRevocation.out" role="test" />
       <file name="pgp_generateRevocation.phpt" role="test" />
-      <file name="pgp_getSignersKeyID.diff" role="test" />
-      <file name="pgp_getSignersKeyID.exp" role="test" />
-      <file name="pgp_getSignersKeyID.log" role="test" />
-      <file name="pgp_getSignersKeyID.out" role="test" />
       <file name="pgp_getSignersKeyID.phpt" role="test" />
-      <file name="pgp_parsePGPData.diff" role="test" />
-      <file name="pgp_parsePGPData.exp" role="test" />
-      <file name="pgp_parsePGPData.log" role="test" />
-      <file name="pgp_parsePGPData.out" role="test" />
       <file name="pgp_parsePGPData.phpt" role="test" />
-      <file name="pgp_pgpPacketInformation.diff" role="test" />
-      <file name="pgp_pgpPacketInformation.exp" role="test" />
-      <file name="pgp_pgpPacketInformation.log" role="test" />
-      <file name="pgp_pgpPacketInformation.out" role="test" />
       <file name="pgp_pgpPacketInformation.phpt" role="test" />
-      <file name="pgp_pgpPacketSignature.diff" role="test" />
-      <file name="pgp_pgpPacketSignature.exp" role="test" />
-      <file name="pgp_pgpPacketSignature.log" role="test" />
-      <file name="pgp_pgpPacketSignature.out" role="test" />
       <file name="pgp_pgpPacketSignature.phpt" role="test" />
-      <file name="pgp_pgpPacketSignatureByUidIndex.diff" role="test" />
-      <file name="pgp_pgpPacketSignatureByUidIndex.exp" role="test" />
-      <file name="pgp_pgpPacketSignatureByUidIndex.log" role="test" />
-      <file name="pgp_pgpPacketSignatureByUidIndex.out" role="test" />
       <file name="pgp_pgpPacketSignatureByUidIndex.phpt" role="test" />
-      <file name="pgp_pgpPrettyKey.diff" role="test" />
-      <file name="pgp_pgpPrettyKey.exp" role="test" />
-      <file name="pgp_pgpPrettyKey.log" role="test" />
-      <file name="pgp_pgpPrettyKey.out" role="test" />
       <file name="pgp_pgpPrettyKey.phpt" role="test" />
-      <file name="pgp_publicKeyMIMEPart.diff" role="test" />
-      <file name="pgp_publicKeyMIMEPart.exp" role="test" />
-      <file name="pgp_publicKeyMIMEPart.log" role="test" />
-      <file name="pgp_publicKeyMIMEPart.out" role="test" />
       <file name="pgp_publicKeyMIMEPart.phpt" role="test" />
-      <file name="pgp_sign.diff" role="test" />
-      <file name="pgp_sign.exp" role="test" />
-      <file name="pgp_sign.log" role="test" />
-      <file name="pgp_sign.out" role="test" />
       <file name="pgp_sign.phpt" role="test" />
       <file name="pgp_skipif.inc" role="test" />
-      <file name="pgp_verify.diff" role="test" />
-      <file name="pgp_verify.exp" role="test" />
-      <file name="pgp_verify.log" role="test" />
-      <file name="pgp_verify.out" role="test" />
       <file name="pgp_verify.phpt" role="test" />
-      <file name="pgp_verifyPassphrase.diff" role="test" />
-      <file name="pgp_verifyPassphrase.exp" role="test" />
-      <file name="pgp_verifyPassphrase.log" role="test" />
-      <file name="pgp_verifyPassphrase.out" role="test" />
       <file name="pgp_verifyPassphrase.phpt" role="test" />
       <file name="smime.inc" role="test" />
       <file name="smime_skipif.inc" role="test" />
@@ -532,92 +464,24 @@
    <install as="locale/zh_CN/LC_MESSAGES/Horde_Crypt.po" name="locale/zh_CN/LC_MESSAGES/Horde_Crypt.po" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Crypt.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Crypt.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Crypt.po" name="locale/zh_TW/LC_MESSAGES/Horde_Crypt.po" />
-   <install as="Horde/Crypt/bug_6601.diff" name="test/Horde/Crypt/bug_6601.diff" />
-   <install as="Horde/Crypt/bug_6601.exp" name="test/Horde/Crypt/bug_6601.exp" />
-   <install as="Horde/Crypt/bug_6601.log" name="test/Horde/Crypt/bug_6601.log" />
-   <install as="Horde/Crypt/bug_6601.out" name="test/Horde/Crypt/bug_6601.out" />
    <install as="Horde/Crypt/bug_6601.phpt" name="test/Horde/Crypt/bug_6601.phpt" />
    <install as="Horde/Crypt/pgp.inc" name="test/Horde/Crypt/pgp.inc" />
-   <install as="Horde/Crypt/pgp_decrypt.diff" name="test/Horde/Crypt/pgp_decrypt.diff" />
-   <install as="Horde/Crypt/pgp_decrypt.exp" name="test/Horde/Crypt/pgp_decrypt.exp" />
-   <install as="Horde/Crypt/pgp_decrypt.log" name="test/Horde/Crypt/pgp_decrypt.log" />
-   <install as="Horde/Crypt/pgp_decrypt.out" name="test/Horde/Crypt/pgp_decrypt.out" />
    <install as="Horde/Crypt/pgp_decrypt.phpt" name="test/Horde/Crypt/pgp_decrypt.phpt" />
-   <install as="Horde/Crypt/pgp_decrypt_symmetric.diff" name="test/Horde/Crypt/pgp_decrypt_symmetric.diff" />
-   <install as="Horde/Crypt/pgp_decrypt_symmetric.exp" name="test/Horde/Crypt/pgp_decrypt_symmetric.exp" />
-   <install as="Horde/Crypt/pgp_decrypt_symmetric.log" name="test/Horde/Crypt/pgp_decrypt_symmetric.log" />
-   <install as="Horde/Crypt/pgp_decrypt_symmetric.out" name="test/Horde/Crypt/pgp_decrypt_symmetric.out" />
    <install as="Horde/Crypt/pgp_decrypt_symmetric.phpt" name="test/Horde/Crypt/pgp_decrypt_symmetric.phpt" />
-   <install as="Horde/Crypt/pgp_encrypt.diff" name="test/Horde/Crypt/pgp_encrypt.diff" />
-   <install as="Horde/Crypt/pgp_encrypt.exp" name="test/Horde/Crypt/pgp_encrypt.exp" />
-   <install as="Horde/Crypt/pgp_encrypt.log" name="test/Horde/Crypt/pgp_encrypt.log" />
-   <install as="Horde/Crypt/pgp_encrypt.out" name="test/Horde/Crypt/pgp_encrypt.out" />
    <install as="Horde/Crypt/pgp_encrypt.phpt" name="test/Horde/Crypt/pgp_encrypt.phpt" />
-   <install as="Horde/Crypt/pgp_encryptedSymmetrically.diff" name="test/Horde/Crypt/pgp_encryptedSymmetrically.diff" />
-   <install as="Horde/Crypt/pgp_encryptedSymmetrically.exp" name="test/Horde/Crypt/pgp_encryptedSymmetrically.exp" />
-   <install as="Horde/Crypt/pgp_encryptedSymmetrically.log" name="test/Horde/Crypt/pgp_encryptedSymmetrically.log" />
-   <install as="Horde/Crypt/pgp_encryptedSymmetrically.out" name="test/Horde/Crypt/pgp_encryptedSymmetrically.out" />
    <install as="Horde/Crypt/pgp_encryptedSymmetrically.phpt" name="test/Horde/Crypt/pgp_encryptedSymmetrically.phpt" />
-   <install as="Horde/Crypt/pgp_encrypt_symmetric.diff" name="test/Horde/Crypt/pgp_encrypt_symmetric.diff" />
-   <install as="Horde/Crypt/pgp_encrypt_symmetric.exp" name="test/Horde/Crypt/pgp_encrypt_symmetric.exp" />
-   <install as="Horde/Crypt/pgp_encrypt_symmetric.log" name="test/Horde/Crypt/pgp_encrypt_symmetric.log" />
-   <install as="Horde/Crypt/pgp_encrypt_symmetric.out" name="test/Horde/Crypt/pgp_encrypt_symmetric.out" />
    <install as="Horde/Crypt/pgp_encrypt_symmetric.phpt" name="test/Horde/Crypt/pgp_encrypt_symmetric.phpt" />
-   <install as="Horde/Crypt/pgp_generateRevocation.diff" name="test/Horde/Crypt/pgp_generateRevocation.diff" />
-   <install as="Horde/Crypt/pgp_generateRevocation.exp" name="test/Horde/Crypt/pgp_generateRevocation.exp" />
-   <install as="Horde/Crypt/pgp_generateRevocation.log" name="test/Horde/Crypt/pgp_generateRevocation.log" />
-   <install as="Horde/Crypt/pgp_generateRevocation.out" name="test/Horde/Crypt/pgp_generateRevocation.out" />
    <install as="Horde/Crypt/pgp_generateRevocation.phpt" name="test/Horde/Crypt/pgp_generateRevocation.phpt" />
-   <install as="Horde/Crypt/pgp_getSignersKeyID.diff" name="test/Horde/Crypt/pgp_getSignersKeyID.diff" />
-   <install as="Horde/Crypt/pgp_getSignersKeyID.exp" name="test/Horde/Crypt/pgp_getSignersKeyID.exp" />
-   <install as="Horde/Crypt/pgp_getSignersKeyID.log" name="test/Horde/Crypt/pgp_getSignersKeyID.log" />
-   <install as="Horde/Crypt/pgp_getSignersKeyID.out" name="test/Horde/Crypt/pgp_getSignersKeyID.out" />
    <install as="Horde/Crypt/pgp_getSignersKeyID.phpt" name="test/Horde/Crypt/pgp_getSignersKeyID.phpt" />
-   <install as="Horde/Crypt/pgp_parsePGPData.diff" name="test/Horde/Crypt/pgp_parsePGPData.diff" />
-   <install as="Horde/Crypt/pgp_parsePGPData.exp" name="test/Horde/Crypt/pgp_parsePGPData.exp" />
-   <install as="Horde/Crypt/pgp_parsePGPData.log" name="test/Horde/Crypt/pgp_parsePGPData.log" />
-   <install as="Horde/Crypt/pgp_parsePGPData.out" name="test/Horde/Crypt/pgp_parsePGPData.out" />
    <install as="Horde/Crypt/pgp_parsePGPData.phpt" name="test/Horde/Crypt/pgp_parsePGPData.phpt" />
-   <install as="Horde/Crypt/pgp_pgpPacketInformation.diff" name="test/Horde/Crypt/pgp_pgpPacketInformation.diff" />
-   <install as="Horde/Crypt/pgp_pgpPacketInformation.exp" name="test/Horde/Crypt/pgp_pgpPacketInformation.exp" />
-   <install as="Horde/Crypt/pgp_pgpPacketInformation.log" name="test/Horde/Crypt/pgp_pgpPacketInformation.log" />
-   <install as="Horde/Crypt/pgp_pgpPacketInformation.out" name="test/Horde/Crypt/pgp_pgpPacketInformation.out" />
    <install as="Horde/Crypt/pgp_pgpPacketInformation.phpt" name="test/Horde/Crypt/pgp_pgpPacketInformation.phpt" />
-   <install as="Horde/Crypt/pgp_pgpPacketSignature.diff" name="test/Horde/Crypt/pgp_pgpPacketSignature.diff" />
-   <install as="Horde/Crypt/pgp_pgpPacketSignature.exp" name="test/Horde/Crypt/pgp_pgpPacketSignature.exp" />
-   <install as="Horde/Crypt/pgp_pgpPacketSignature.log" name="test/Horde/Crypt/pgp_pgpPacketSignature.log" />
-   <install as="Horde/Crypt/pgp_pgpPacketSignature.out" name="test/Horde/Crypt/pgp_pgpPacketSignature.out" />
    <install as="Horde/Crypt/pgp_pgpPacketSignature.phpt" name="test/Horde/Crypt/pgp_pgpPacketSignature.phpt" />
-   <install as="Horde/Crypt/pgp_pgpPacketSignatureByUidIndex.diff" name="test/Horde/Crypt/pgp_pgpPacketSignatureByUidIndex.diff" />
-   <install as="Horde/Crypt/pgp_pgpPacketSignatureByUidIndex.exp" name="test/Horde/Crypt/pgp_pgpPacketSignatureByUidIndex.exp" />
-   <install as="Horde/Crypt/pgp_pgpPacketSignatureByUidIndex.log" name="test/Horde/Crypt/pgp_pgpPacketSignatureByUidIndex.log" />
-   <install as="Horde/Crypt/pgp_pgpPacketSignatureByUidIndex.out" name="test/Horde/Crypt/pgp_pgpPacketSignatureByUidIndex.out" />
    <install as="Horde/Crypt/pgp_pgpPacketSignatureByUidIndex.phpt" name="test/Horde/Crypt/pgp_pgpPacketSignatureByUidIndex.phpt" />
-   <install as="Horde/Crypt/pgp_pgpPrettyKey.diff" name="test/Horde/Crypt/pgp_pgpPrettyKey.diff" />
-   <install as="Horde/Crypt/pgp_pgpPrettyKey.exp" name="test/Horde/Crypt/pgp_pgpPrettyKey.exp" />
-   <install as="Horde/Crypt/pgp_pgpPrettyKey.log" name="test/Horde/Crypt/pgp_pgpPrettyKey.log" />
-   <install as="Horde/Crypt/pgp_pgpPrettyKey.out" name="test/Horde/Crypt/pgp_pgpPrettyKey.out" />
    <install as="Horde/Crypt/pgp_pgpPrettyKey.phpt" name="test/Horde/Crypt/pgp_pgpPrettyKey.phpt" />
-   <install as="Horde/Crypt/pgp_publicKeyMIMEPart.diff" name="test/Horde/Crypt/pgp_publicKeyMIMEPart.diff" />
-   <install as="Horde/Crypt/pgp_publicKeyMIMEPart.exp" name="test/Horde/Crypt/pgp_publicKeyMIMEPart.exp" />
-   <install as="Horde/Crypt/pgp_publicKeyMIMEPart.log" name="test/Horde/Crypt/pgp_publicKeyMIMEPart.log" />
-   <install as="Horde/Crypt/pgp_publicKeyMIMEPart.out" name="test/Horde/Crypt/pgp_publicKeyMIMEPart.out" />
    <install as="Horde/Crypt/pgp_publicKeyMIMEPart.phpt" name="test/Horde/Crypt/pgp_publicKeyMIMEPart.phpt" />
-   <install as="Horde/Crypt/pgp_sign.diff" name="test/Horde/Crypt/pgp_sign.diff" />
-   <install as="Horde/Crypt/pgp_sign.exp" name="test/Horde/Crypt/pgp_sign.exp" />
-   <install as="Horde/Crypt/pgp_sign.log" name="test/Horde/Crypt/pgp_sign.log" />
-   <install as="Horde/Crypt/pgp_sign.out" name="test/Horde/Crypt/pgp_sign.out" />
    <install as="Horde/Crypt/pgp_sign.phpt" name="test/Horde/Crypt/pgp_sign.phpt" />
    <install as="Horde/Crypt/pgp_skipif.inc" name="test/Horde/Crypt/pgp_skipif.inc" />
-   <install as="Horde/Crypt/pgp_verify.diff" name="test/Horde/Crypt/pgp_verify.diff" />
-   <install as="Horde/Crypt/pgp_verify.exp" name="test/Horde/Crypt/pgp_verify.exp" />
-   <install as="Horde/Crypt/pgp_verify.log" name="test/Horde/Crypt/pgp_verify.log" />
-   <install as="Horde/Crypt/pgp_verify.out" name="test/Horde/Crypt/pgp_verify.out" />
    <install as="Horde/Crypt/pgp_verify.phpt" name="test/Horde/Crypt/pgp_verify.phpt" />
-   <install as="Horde/Crypt/pgp_verifyPassphrase.diff" name="test/Horde/Crypt/pgp_verifyPassphrase.diff" />
-   <install as="Horde/Crypt/pgp_verifyPassphrase.exp" name="test/Horde/Crypt/pgp_verifyPassphrase.exp" />
-   <install as="Horde/Crypt/pgp_verifyPassphrase.log" name="test/Horde/Crypt/pgp_verifyPassphrase.log" />
-   <install as="Horde/Crypt/pgp_verifyPassphrase.out" name="test/Horde/Crypt/pgp_verifyPassphrase.out" />
    <install as="Horde/Crypt/pgp_verifyPassphrase.phpt" name="test/Horde/Crypt/pgp_verifyPassphrase.phpt" />
    <install as="Horde/Crypt/smime.inc" name="test/Horde/Crypt/smime.inc" />
    <install as="Horde/Crypt/smime_skipif.inc" name="test/Horde/Crypt/smime_skipif.inc" />

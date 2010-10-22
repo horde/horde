@@ -517,10 +517,6 @@ Application Framework.</description>
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
       <file name="phpunit.xml" role="test" />
-      <file name="url.diff" role="test" />
-      <file name="url.exp" role="test" />
-      <file name="url.log" role="test" />
-      <file name="url.out" role="test" />
       <file name="url.phpt" role="test" />
      </dir> <!-- /test/Horde/Core -->
     </dir> <!-- /test/Horde -->
@@ -859,10 +855,6 @@ Application Framework.</description>
    <install as="Horde/Core/AllTests.php" name="test/Horde/Core/AllTests.php" />
    <install as="Horde/Core/Autoload.php" name="test/Horde/Core/Autoload.php" />
    <install as="Horde/Core/phpunit.xml" name="test/Horde/Core/phpunit.xml" />
-   <install as="Horde/Core/url.diff" name="test/Horde/Core/url.diff" />
-   <install as="Horde/Core/url.exp" name="test/Horde/Core/url.exp" />
-   <install as="Horde/Core/url.log" name="test/Horde/Core/url.log" />
-   <install as="Horde/Core/url.out" name="test/Horde/Core/url.out" />
    <install as="Horde/Core/url.phpt" name="test/Horde/Core/url.phpt" />
    <install as="Horde/Core/Factory/KolabServerTest.php" name="test/Horde/Core/Factory/KolabServerTest.php" />
    <install as="Horde/Core/Factory/KolabSessionTest.php" name="test/Horde/Core/Factory/KolabSessionTest.php" />

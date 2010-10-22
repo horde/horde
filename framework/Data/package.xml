@@ -341,13 +341,6 @@
      </dir> <!-- /test/Horde/Data -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
-   <dir name="tests">
-    <file name="csv_importFile_01.diff" role="data" />
-    <file name="csv_importFile_01.exp" role="data" />
-    <file name="csv_importFile_01.log" role="data" />
-    <file name="csv_importFile_01.out" role="data" />
-    <file name="csv_importFile_01.php" role="php" />
-   </dir> <!-- /tests -->
   </dir> <!-- / -->
  </contents>
  <dependencies>

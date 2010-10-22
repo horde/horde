@@ -324,17 +324,7 @@ resources a user owns or has access to.</description>
       <file name="KolabScenarioTest.php" role="php" />
      </dir> <!-- /tests/Horde/Share -->
     </dir> <!-- /tests/Horde -->
-    <file name="kolab_createdefault.diff" role="data" />
-    <file name="kolab_createdefault.exp" role="data" />
-    <file name="kolab_createdefault.log" role="data" />
-    <file name="kolab_createdefault.out" role="data" />
-    <file name="kolab_createdefault.php" role="php" />
     <file name="kolab_createdefault.phpt" role="data" />
-    <file name="kolab_list.diff" role="data" />
-    <file name="kolab_list.exp" role="data" />
-    <file name="kolab_list.log" role="data" />
-    <file name="kolab_list.out" role="data" />
-    <file name="kolab_list.php" role="php" />
     <file name="kolab_list.phpt" role="data" />
     <file name="kolab_simple.phpt" role="data" />
    </dir> <!-- /tests -->

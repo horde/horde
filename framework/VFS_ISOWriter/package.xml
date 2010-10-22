@@ -305,23 +305,8 @@ Converted to package.xml 2.0 for pear.horde.org
     <file name="Horde_VFS_ISOWriter.pot" role="data" />
    </dir> <!-- /locale -->
    <dir name="tests">
-    <file name="inputstrategy.diff" role="data" />
-    <file name="inputstrategy.exp" role="data" />
-    <file name="inputstrategy.log" role="data" />
-    <file name="inputstrategy.out" role="data" />
-    <file name="inputstrategy.php" role="php" />
     <file name="inputstrategy.phpt" role="test" />
-    <file name="isowriter.diff" role="data" />
-    <file name="isowriter.exp" role="data" />
-    <file name="isowriter.log" role="data" />
-    <file name="isowriter.out" role="data" />
-    <file name="isowriter.php" role="php" />
     <file name="isowriter.phpt" role="test" />
-    <file name="outputstrategy.diff" role="data" />
-    <file name="outputstrategy.exp" role="data" />
-    <file name="outputstrategy.log" role="data" />
-    <file name="outputstrategy.out" role="data" />
-    <file name="outputstrategy.php" role="php" />
     <file name="outputstrategy.phpt" role="test" />
    </dir> <!-- /tests -->
    <file name="ISOWriter.php" role="php" />
