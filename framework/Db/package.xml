@@ -75,7 +75,6 @@
        <file name="Mysql.php" role="php" />
        <file name="Mysqli.php" role="php" />
        <file name="SplitRead.php" role="php" />
-       <file name="SplitWrite.php" role="php" />
       </dir> <!-- /lib/Horde/Db/Adapter -->
       <dir name="Migration">
        <file name="Base.php" role="php" />
@@ -192,7 +191,6 @@
    <install as="Horde/Db/Adapter/Mysql.php" name="lib/Horde/Db/Adapter/Mysql.php" />
    <install as="Horde/Db/Adapter/Mysqli.php" name="lib/Horde/Db/Adapter/Mysqli.php" />
    <install as="Horde/Db/Adapter/SplitRead.php" name="lib/Horde/Db/Adapter/SplitRead.php" />
-   <install as="Horde/Db/Adapter/SplitWrite.php" name="lib/Horde/Db/Adapter/SplitWrite.php" />
    <install as="Horde/Db/Adapter/Base/Column.php" name="lib/Horde/Db/Adapter/Base/Column.php" />
    <install as="Horde/Db/Adapter/Base/ColumnDefinition.php" name="lib/Horde/Db/Adapter/Base/ColumnDefinition.php" />
    <install as="Horde/Db/Adapter/Base/Index.php" name="lib/Horde/Db/Adapter/Base/Index.php" />
