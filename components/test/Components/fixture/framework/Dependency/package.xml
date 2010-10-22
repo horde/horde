@@ -44,6 +44,12 @@
     <channel>pear.php.net</channel>
    </package>
   </required>
+  <optional>
+   <package>
+    <name>Install</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>

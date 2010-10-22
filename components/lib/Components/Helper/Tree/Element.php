@@ -80,12 +80,17 @@ class Components_Helper_Tree_Element
     /**
      * Install the tree of packages into the environment.
      *
-     * @param Components_Helper_InstallationRun $run The current installation run.
+     * @param Components_Helper_InstallationRun $run     The current installation run.
+     * @param array                             $visited The packages already visited.
      *
      * @return NULL
      */
-    public function installInTree(Components_Helper_InstallationRun $run)
+    public function installInTree(Components_Helper_InstallationRun $run, array $visited = array())
     {
+        if (in_array($this->_package_file, $visited)) {
+            return;
+        }
+        $visited[] = $this->_package_file;
         $run->installChannelsOnce($this->_package->listAllRequiredChannels());
         foreach ($this->_package->listAllExternalDependencies() as $dependency) {
             $run->installExternalPackageOnce(
@@ -97,7 +102,7 @@ class Components_Helper_Tree_Element
                 $this->_package->listAllHordeDependencies()
             ) as $child
         ) {
-            $child->installInTree($run);
+            $child->installInTree($run, $visited);
         }
         $run->installHordePackageOnce($this->_package_file);
     }
