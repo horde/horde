@@ -302,7 +302,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
                 'Horde_LoginTasks_Stub_Notice',
             )
         );
-        $tasks->runTasks(false);
+        $tasks->runTasks();
         $this->assertEquals(
             array(
                 'Horde_LoginTasks_Stub_High',
@@ -324,7 +324,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
         );
         $this->assertContains(
             'URL',
-            (string) $tasks->runTasks(false)
+            (string) $tasks->runTasks()
         );
     }
 
@@ -338,7 +338,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
                 'Horde_LoginTasks_Stub_Notice',
             )
         );
-        $tasks->runTasks(false);
+        $tasks->runTasks();
         $tasklist = $tasks->displayTasks();
         $this->assertEquals(
             'Horde_LoginTasks_Stub_Notice',
@@ -357,7 +357,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
                 'Horde_LoginTasks_Stub_NoticeTwo',
             )
         );
-        $tasks->runTasks(false);
+        $tasks->runTasks();
         $tasklist = $tasks->displayTasks();
         $classes = array();
         foreach ($tasklist as $task) {
@@ -384,10 +384,12 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
                 'Horde_LoginTasks_Stub_NoticeTwo',
             )
         );
-        $tasks->runTasks(false);
+        $tasks->runTasks();
         Horde_LoginTasks_Stub_Task::$executed = array();
         $tasks->displayTasks();
-        $tasks->runTasks(true);
+        $tasks->runTasks(array(
+            'user_confirmed' => true
+        ));
         $this->assertEquals(
             array(
                 'Horde_LoginTasks_Stub_Notice',
@@ -405,19 +407,21 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
                 'Horde_LoginTasks_Stub_Notice',
             )
         );
-        $tasks->runTasks(false, 'redirect');
+        $tasks->runTasks(array(
+            'url' => 'redirect'
+        ));
         $tasks->displayTasks();
         $this->assertContains(
             'URL',
-            (string) $tasks->runTasks(true)
+            (string) $tasks->runTasks(array('user_confirmed' => true))
         );
         $this->assertNull(
-            $tasks->runTasks(false)
+            $tasks->runTasks()
         );
         $tasks->displayTasks();
         $this->assertEquals(
             'redirect',
-            $tasks->runTasks(true)
+            $tasks->runTasks(array('user_confirmed' => true))
         );
     }
 
@@ -438,7 +442,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
         );
         $this->assertContains(
             'URL',
-            (string) $tasks->runTasks(false, 'redirect')
+            (string) $tasks->runTasks(array('url' => 'redirect'))
         );
         $this->assertEquals(
             array(
@@ -458,11 +462,15 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
             ),
             $classes
         );
-        $_POST['logintasks_confirm_0'] = true;
-        $_POST['logintasks_confirm_1'] = true;
         $this->assertContains(
             'URL',
-            (string) $tasks->runTasks(true)
+            (string) $tasks->runTasks(array(
+                'confirmed' => array(
+                    0,
+                    1
+                ),
+                'user_confirmed' => true
+            ))
         );
         $this->assertEquals(
             array(
@@ -472,9 +480,8 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
             ),
             Horde_LoginTasks_Stub_Task::$executed
         );
-        $_POST = array();
         $this->assertNull(
-            $tasks->runTasks(false)
+            $tasks->runTasks()
         );
         $this->assertEquals(
             array(
@@ -498,7 +505,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
         );
         $this->assertContains(
             'URL',
-            (string) $tasks->runTasks(true)
+            (string) $tasks->runTasks(array('user_confirmed' => true))
         );
         $this->assertEquals(
             array(
@@ -521,10 +528,14 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
             ),
             $classes
         );
-        $_POST['logintasks_confirm_0'] = true;
         $this->assertContains(
             'URL',
-            (string) $tasks->runTasks(true)
+            (string) $tasks->runTasks(array(
+                'confirmed' => array(
+                    0
+                ),
+                'user_confirmed' => true
+            ))
         );
         $this->assertEquals(
             array(
@@ -537,7 +548,6 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
             ),
             Horde_LoginTasks_Stub_Task::$executed
         );
-        $_POST = array();
         $tasklist = $tasks->displayTasks();
         $classes = array();
         foreach ($tasklist as $task) {
@@ -550,10 +560,14 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
             ),
             $classes
         );
-        $_POST['logintasks_confirm_0'] = true;
         $this->assertContains(
             'URL',
-            (string) $tasks->runTasks(true)
+            (string) $tasks->runTasks(array(
+                'confirmed' => array(
+                    0
+                ),
+                'user_confirmed' => true
+            ))
         );
         $this->assertEquals(
             array(
@@ -567,7 +581,6 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
             ),
             Horde_LoginTasks_Stub_Task::$executed
         );
-        $_POST = array();
         $tasklist = $tasks->displayTasks();
         $classes = array();
         foreach ($tasklist as $task) {
@@ -582,7 +595,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
         );
         $this->assertContains(
             'redirect',
-            (string) $tasks->runTasks(true)
+            (string) $tasks->runTasks(array('user_confirmed' => true))
         );
         $this->assertEquals(
             array(
