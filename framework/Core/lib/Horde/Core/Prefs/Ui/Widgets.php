@@ -89,12 +89,12 @@ class Horde_Core_Prefs_Ui_Widgets
             ));
         }
 
-        $t->set('addimg', Horde::img(isset($GLOBALS['registry']->nlsconfig['rtl'][$GLOBALS['language']]) ? 'lhand.png' : 'rhand.png', self::_getDict()->t("Add source")));
-        $t->set('removeimg', Horde::img(isset($GLOBALS['registry']->nlsconfig['rtl'][$GLOBALS['language']]) ? 'rhand.png' : 'lhand.png', self::_getDict()->t("Remove source")));
+        $t->set('addimg', Horde::img(isset($GLOBALS['registry']->nlsconfig['rtl'][$GLOBALS['language']]) ? 'lhand.png' : 'rhand.png', Horde_Core_Translation::t("Add source")));
+        $t->set('removeimg', Horde::img(isset($GLOBALS['registry']->nlsconfig['rtl'][$GLOBALS['language']]) ? 'rhand.png' : 'lhand.png', Horde_Core_Translation::t("Remove source")));
 
         if (empty($data['no_up'])) {
-            $t->set('upimg', Horde::img('nav/up.png', self::_getDict()->t("Move up")));
-            $t->set('downimg', Horde::img('nav/down.png', self::_getDict()->t("Move down")));
+            $t->set('upimg', Horde::img('nav/up.png', Horde_Core_Translation::t("Move up")));
+            $t->set('downimg', Horde::img('nav/down.png', Horde_Core_Translation::t("Move down")));
         }
 
         return $t->fetch(HORDE_TEMPLATES . '/prefs/source.html');
@@ -190,13 +190,13 @@ class Horde_Core_Prefs_Ui_Widgets
 
         if (!empty($selected) || !empty($unselected)) {
             $out = Horde_Core_Prefs_Ui_Widgets::source(array(
-                  'mainlabel' => self::_getDict()->t("Choose the order of address books to search when expanding addresses."),
-                  'selectlabel' => self::_getDict()->t("Selected address books:"),
+                  'mainlabel' => Horde_Core_Translation::t("Choose the order of address books to search when expanding addresses."),
+                  'selectlabel' => Horde_Core_Translation::t("Selected address books:"),
                   'sources' => array(array(
                       'selected' => $selected,
                       'unselected' => $unselected
                   )),
-                  'unselectlabel' => self::_getDict()->t("Available address books:")
+                  'unselectlabel' => Horde_Core_Translation::t("Available address books:")
              ));
 
             $t->set('selected', count($unselected) > 1);
@@ -228,7 +228,7 @@ class Horde_Core_Prefs_Ui_Widgets
 
             Horde::addInlineJsVars(array(
                 'HordeAddressbooksPrefs.fields' => $js,
-                'HordeAddressbooksPrefs.nonetext' => self::_getDict()->t("No address book selected.")
+                'HordeAddressbooksPrefs.nonetext' => Horde_Core_Translation::t("No address book selected.")
             ));
         }
 
@@ -393,7 +393,7 @@ class Horde_Core_Prefs_Ui_Widgets
                 foreach ($methods[$method]->getParameters() as $param => $info) {
                     $value[$method][$param] = $ui->vars->get($pref . '_' . $param, '');
                     if ($info['required'] && ($value[$method][$param] === '')) {
-                        $GLOBALS['notification']->push(sprintf(self::_getDict()->t("You must provide a setting for \"%s\"."), $methods[$method]->getDescription()), 'horde.error');
+                        $GLOBALS['notification']->push(sprintf(Horde_Core_Translation::t("You must provide a setting for \"%s\"."), $methods[$method]->getDescription()), 'horde.error');
                         return null;
                     }
                 }
