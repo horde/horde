@@ -105,7 +105,7 @@ abstract class Horde_Translation
     static public function ngettext($singular, $plural, $number)
     {
         if (!self::$_handler) {
-            self::loadHandler();
+            self::loadHandler('Horde_Translation_Handler_Gettext');
         }
         return self::$_handler->ngettext($singular, $plural, $number);
     }

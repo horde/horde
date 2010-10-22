@@ -13,25 +13,24 @@ class Horde_Translation_WrapperTest extends Horde_Translation_TestBase
 {
     public function testWrappers()
     {
-        $this->assertEquals('Heute', Horde_Translation_TestWrapper::t('Today'));
         $this->assertEquals('1 Woche', sprintf(Horde_Translation_TestWrapper::ngettext('%d week', '%d weeks', 1), 1));
+        $this->assertEquals('Heute', Horde_Translation_TestWrapper::t('Today'));
     }
 }
 
 class Horde_Translation_TestWrapper extends Horde_Translation
 {
-    /**
-     * Returns the translation of a message.
-     *
-     * @var string $message  The string to translate.
-     *
-     * @return string  The string translation, or the original string if no
-     *                 translation exists.
-     */
     static public function t($message)
     {
         self::$_domain = 'Horde_Translation';
         self::$_directory = 'locale';
         return parent::t($message);
+    }
+
+    static public function ngettext($singular, $plural, $number)
+    {
+        self::$_domain = 'Horde_Translation';
+        self::$_directory = 'locale';
+        return parent::ngettext($singular, $plural, $number);
     }
 }
