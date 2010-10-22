@@ -240,7 +240,7 @@ class Horde_LoginTasks_LoginTasksTest extends PHPUnit_Framework_TestCase
     {
         Horde_LoginTasks_Stub_Once::$executed = array();
         $tasks = $this->_getLoginTasks(
-            array('Horde_LoginTasks_Stub_Once'
+            array('Horde_LoginTasks_Stub_Once')
         );
         $tasks->runTasks();
         $this->assertEquals(
