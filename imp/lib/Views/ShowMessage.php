@@ -149,7 +149,7 @@ class IMP_Views_ShowMessage
          * done to them. */
         $basic_headers = $imp_ui->basicHeaders();
         if (empty($args['headers'])) {
-            $args['headers'] = array('from', 'date', 'to', 'cc');
+            $args['headers'] = array('from', 'date', 'to', 'cc', 'bcc');
         }
 
         $headers_list = array_intersect_key($basic_headers, array_flip($args['headers']));
@@ -157,7 +157,7 @@ class IMP_Views_ShowMessage
         /* Build From/To/Cc/Bcc/Reply-To links. */
         foreach (array('from', 'to', 'cc', 'bcc', 'reply-to') as $val) {
             if (isset($headers_list[$val]) &&
-                (!$preview || !in_array($val, array('bcc', 'reply-to')))) {
+                (!$preview || ($val != 'reply-to'))) {
                 $tmp = $this->_buildAddressList($envelope[$val]);
                 if (!empty($tmp)) {
                     $result[$val] = $tmp;

@@ -1772,14 +1772,16 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     protected function _dimpComposeSetup()
     {
+        global $injector, $notification, $prefs;
+
         $result = new stdClass;
         $result->action = $this->_action;
         $result->success = 1;
 
         /* Set up identity. */
-        $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
+        $identity = $injector->getInstance('IMP_Identity');
         if (isset($this->_vars->identity) &&
-            !$GLOBALS['prefs']->isLocked('default_identity')) {
+            !$prefs->isLocked('default_identity')) {
             $identity->setDefault($this->_vars->identity);
         }
 
@@ -1788,22 +1790,24 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         try {
             $headers['from'] = $identity->getFromLine(null, $this->_vars->from);
         } catch (Horde_Exception $e) {
-            $GLOBALS['notification']->push($e);
+            $notification->push($e);
             $result->success = 0;
             return array($result);
         }
 
-        $imp_ui = $GLOBALS['injector']->getInstance('IMP_Ui_Compose');
+        $imp_ui = $injector->getInstance('IMP_Ui_Compose');
         $headers['to'] = $imp_ui->getAddressList($this->_vars->to);
-        if ($GLOBALS['prefs']->getValue('compose_cc')) {
+        if ($prefs->getValue('compose_cc') ||
+            !$prefs->isLocked('compose_cc')) {
             $headers['cc'] = $imp_ui->getAddressList($this->_vars->cc);
         }
-        if ($GLOBALS['prefs']->getValue('compose_bcc')) {
+        if ($prefs->getValue('compose_bcc') ||
+            !$prefs->isLocked('compose_bcc')) {
             $headers['bcc'] = $imp_ui->getAddressList($this->_vars->bcc);
         }
         $headers['subject'] = $this->_vars->subject;
 
-        $imp_compose = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Compose')->create($this->_vars->composeCache);
+        $imp_compose = $injector->getInstance('IMP_Injector_Factory_Compose')->create($this->_vars->composeCache);
 
         return array($result, $imp_compose, $headers, $identity);
     }

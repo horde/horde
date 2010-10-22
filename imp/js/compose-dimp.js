@@ -526,7 +526,7 @@ var DimpCompose = {
         if (header.cc) {
             $('cc').setValue(header.cc);
         }
-        if (DIMP.conf_compose.cc) {
+        if (DIMP.conf_compose.cc || header.cc) {
             this.toggleCC('cc', true);
         }
         this.setPopdownLabel('sm', identity.id.smf_name, identity.id.smf_display);
@@ -541,7 +541,7 @@ var DimpCompose = {
             }
             $('bcc').setValue(bcc_add + identity.id.bcc);
         }
-        if (DIMP.conf_compose.bcc) {
+        if (DIMP.conf_compose.bcc || header.bcc) {
             this.toggleCC('bcc', true);
         }
         $('subject').setValue(header.subject);
