@@ -56,6 +56,9 @@ class Horde_Session implements ArrayAccess
     public function __construct()
     {
         $this->_lzf = Horde_Util::extensionExists('lzf');
+
+        /* Make sure global session variable is always initialized. */
+        $_SESSION = array();
     }
 
     /**
