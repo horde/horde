@@ -484,7 +484,8 @@ is a fork of the File_CSV class of PEAR&apos;s File package.</description>
    <install as="Horde/Csv/columns1.csv" name="test/Horde/Csv/columns1.csv" />
    <install as="Horde/Csv/columns2.csv" name="test/Horde/Csv/columns2.csv" />
    <install as="Horde/Csv/common.php" name="test/Horde/Csv/common.php" />
-   <install as="Horde/Csv/linebreak.phpt" name="test/Horde/Csv/linebreak.phpt" /   <install as="Horde/Csv/multiline.phpt" name="test/Horde/Csv/multiline.phpt" />
+   <install as="Horde/Csv/linebreak.phpt" name="test/Horde/Csv/linebreak.phpt" />
+   <install as="Horde/Csv/multiline.phpt" name="test/Horde/Csv/multiline.phpt" />
    <install as="Horde/Csv/multiline1.csv" name="test/Horde/Csv/multiline1.csv" />
    <install as="Horde/Csv/notrailing_crlf.csv" name="test/Horde/Csv/notrailing_crlf.csv" />
    <install as="Horde/Csv/notrailing_lf.csv" name="test/Horde/Csv/notrailing_lf.csv" />
