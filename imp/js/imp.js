@@ -90,25 +90,19 @@ document.observe('dom:loaded', function() {
 
     IMP.iframeResize = function(id)
     {
-        var val,
-            i = 0;
+        var lc, val;
 
         if (id = $(id)) {
-            val = Math.max(id.contentWindow.document.body.scrollHeight, id.contentWindow.document.lastChild.scrollHeight);
+            lc = id.contentWindow.document.lastChild;
+            val = Math.max(id.contentWindow.document.body.scrollHeight, lc.scrollHeight);
             id.setStyle({ height: val + 'px' });
 
             // For whatever reason, browsers will report different heights
-            // after the initial height setting. Try expanding IFRAME up to
-            // 5 times in 20px increments.  If still scrolling, give up to
-            // prevent infinite loops (and giant IFRAMES).
-            do {
-                if (id.contentWindow.document.body.scrollHeight == id.contentWindow.document.lastChild.scrollHeight) {
-                    break;
-                }
-
-                val += 20;
-                id.setStyle({ height: val + 'px' });
-            } while (++i <= 5);
+            // after the initial height setting.
+            // Try expanding IFRAME if we detect a scroll.
+            if (lc.clientHeight != lc.scrollHeight) {
+                id.setStyle({ height: (val + 25) + 'px' });
+            }
          }
     };
 
