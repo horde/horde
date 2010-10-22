@@ -27,31 +27,16 @@ abstract class VFS_ISOWriter_RealOutputStrategy {
     var $_targetFile;
 
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_dict;
-
-    /**
      * Constructor
      *
      * @param object &$targetVfs        The VFS to which we will write the
      *                                  file.
      * @param string $targetFile        The path and name of file to write.
-     * @param array $params  Hash with configuration data. Possible values:
-     *                       - 'translation': A translation handler
-     *                                        implementing Horde_Translation.
      */
-    function VFS_ISOWriter_RealOutputStrategy(&$targetVfs, $targetFile, $params = array())
+    function VFS_ISOWriter_RealOutputStrategy(&$targetVfs, $targetFile)
     {
         $this->_targetVfs = &$targetVfs;
         $this->_targetFile = $targetFile;
-        if (isset($params['translation'])) {
-            $this->_dict = $params['translation'];
-        } else {
-            $this->_dict = new Horde_Translation_Gettext('VFS_ISOWriter', dirname(__FILE__) . '/../locale');
-        }
     }
 
     /**
@@ -77,7 +62,7 @@ abstract class VFS_ISOWriter_RealOutputStrategy {
         if (class_exists($class)) {
             $strategy = new $class($targetVfs, $targetFile);
         } else {
-            $strategy = PEAR::raiseError(sprintf($this->_dict->t("Could not load strategy \"%s\"."),
+            $strategy = PEAR::raiseError(sprintf(Horde_VFS_ISOWriter_Translation::t("Could not load strategy \"%s\"."),
                                                  $method));
         }
 

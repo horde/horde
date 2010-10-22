@@ -31,21 +31,8 @@ class Horde_Form {
     protected $_autofilled = false;
     protected $_help = false;
 
-    /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_dict;
-
-    public function __construct($vars, $title = '', $name = null, $dict = null)
+    public function __construct($vars, $title = '', $name = null)
     {
-        if ($dict) {
-            $this->_dict = $dict;
-        } else {
-            $this->_dict = new Horde_Translation_Gettext('Horde_Model', dirname(__FILE__) . '/../../locale');
-        }
-
         if (is_null($name)) {
             $name = Horde_String::lower(get_class($this));
         }
@@ -385,7 +372,7 @@ class Horde_Form {
         if ($this->_useFormToken) {
             $tokenSource = $GLOBALS['injector']->getInstance('Horde_Token');
             if (!$tokenSource->verify($this->_vars->get($this->_name . '_formToken'))) {
-                $this->_errors['_formToken'] = $this->_dict->t("This form has already been processed.");
+                $this->_errors['_formToken'] = Horde_Model_Translation::t("This form has already been processed.");
             }
         }
 
@@ -641,7 +628,7 @@ class Horde_Form_Type_number extends Horde_Form_Type
     function isValid($var, $vars, $value, &$message)
     {
         if ($var->isRequired() && empty($value) && ((string)(double)$value !== $value)) {
-            $message = $this->_dict->t("This field is required.");
+            $message = Horde_Model_Translation::t("This field is required.");
             return false;
         } elseif (empty($value)) {
             return true;
@@ -652,7 +639,7 @@ class Horde_Form_Type_number extends Horde_Form_Type
             return true;
         }
 
-        $message = $this->_dict->t("This field must be a valid number.");
+        $message = Horde_Model_Translation::t("This field must be a valid number.");
         return false;
     }
 
@@ -708,7 +695,7 @@ class Horde_Form_Type_number extends Horde_Form_Type
      */
     function about()
     {
-        return array('name' => $this->_dict->t("Number"));
+        return array('name' => Horde_Model_Translation::t("Number"));
     }
 }
 
@@ -717,7 +704,7 @@ class Horde_Form_Type_int extends Horde_Form_Type {
     function isValid($var, $vars, $value, &$message)
     {
         if ($var->isRequired() && empty($value) && ((string)(int)$value !== $value)) {
-            $message = $this->_dict->t("This field is required.");
+            $message = Horde_Model_Translation::t("This field is required.");
             return false;
         }
 
@@ -725,7 +712,7 @@ class Horde_Form_Type_int extends Horde_Form_Type {
             return true;
         }
 
-        $message = $this->_dict->t("This field may only contain integers.");
+        $message = Horde_Model_Translation::t("This field may only contain integers.");
         return false;
     }
 
@@ -734,7 +721,7 @@ class Horde_Form_Type_int extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => $this->_dict->t("Integer"));
+        return array('name' => Horde_Model_Translation::t("Integer"));
     }
 
 }
@@ -744,7 +731,7 @@ class Horde_Form_Type_octal extends Horde_Form_Type {
     function isValid($var, $vars, $value, &$message)
     {
         if ($var->isRequired() && empty($value) && ((string)(int)$value !== $value)) {
-            $message = $this->_dict->t("This field is required.");
+            $message = Horde_Model_Translation::t("This field is required.");
             return false;
         }
 
@@ -752,7 +739,7 @@ class Horde_Form_Type_octal extends Horde_Form_Type {
             return true;
         }
 
-        $message = $this->_dict->t("This field may only contain octal values.");
+        $message = Horde_Model_Translation::t("This field may only contain octal values.");
         return false;
     }
 
@@ -761,7 +748,7 @@ class Horde_Form_Type_octal extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => $this->_dict->t("Octal"));
+        return array('name' => Horde_Model_Translation::t("Octal"));
     }
 
 }
@@ -771,7 +758,7 @@ class Horde_Form_Type_intlist extends Horde_Form_Type {
     function isValid($var, $vars, $value, &$message)
     {
         if (empty($value) && $var->isRequired()) {
-            $message = $this->_dict->t("This field is required.");
+            $message = Horde_Model_Translation::t("This field is required.");
             return false;
         }
 
@@ -779,7 +766,7 @@ class Horde_Form_Type_intlist extends Horde_Form_Type {
             return true;
         }
 
-        $message = $this->_dict->t("This field must be a comma or space separated list of integers");
+        $message = Horde_Model_Translation::t("This field must be a comma or space separated list of integers");
         return false;
     }
 
@@ -788,7 +775,7 @@ class Horde_Form_Type_intlist extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => $this->_dict->t("Integer list"));
+        return array('name' => Horde_Model_Translation::t("Integer list"));
     }
 
 }
@@ -831,14 +818,14 @@ class Horde_Form_Type_text extends Horde_Form_Type {
 
         if (!empty($this->_maxlength) && Horde_String::length($value) > $this->_maxlength) {
             $valid = false;
-            $message = sprintf($this->_dict->t("Value is over the maximum length of %s."), $this->_maxlength);
+            $message = sprintf(Horde_Model_Translation::t("Value is over the maximum length of %s."), $this->_maxlength);
         } elseif ($var->isRequired() && empty($this->_regex)) {
             if (!($valid = strlen(trim($value)) > 0)) {
-                $message = $this->_dict->t("This field is required.");
+                $message = Horde_Model_Translation::t("This field is required.");
             }
         } elseif (strlen($this->_regex)) {
             if (!($valid = preg_match($this->_regex, $value))) {
-                $message = $this->_dict->t("You must enter a valid value.");
+                $message = Horde_Model_Translation::t("You must enter a valid value.");
             }
         }
 
@@ -851,13 +838,13 @@ class Horde_Form_Type_text extends Horde_Form_Type {
     function about()
     {
         return array(
-            'name' => $this->_dict->t("Text"),
+            'name' => Horde_Model_Translation::t("Text"),
             'params' => array(
-                'regex'     => array('label' => $this->_dict->t("Regex"),
+                'regex'     => array('label' => Horde_Model_Translation::t("Regex"),
                                      'type'  => 'text'),
-                'size'      => array('label' => $this->_dict->t("Size"),
+                'size'      => array('label' => Horde_Model_Translation::t("Size"),
                                      'type'  => 'int'),
-                'maxlength' => array('label' => $this->_dict->t("Maximum length"),
+                'maxlength' => array('label' => Horde_Model_Translation::t("Maximum length"),
                                      'type'  => 'int')));
     }
 
@@ -871,13 +858,13 @@ class Horde_Form_Type_stringlist extends Horde_Form_Type_text {
     function about()
     {
         return array(
-            'name' => $this->_dict->t("String list"),
+            'name' => Horde_Model_Translation::t("String list"),
             'params' => array(
-                'regex'     => array('label' => $this->_dict->t("Regex"),
+                'regex'     => array('label' => Horde_Model_Translation::t("Regex"),
                                      'type'  => 'text'),
-                'size'      => array('label' => $this->_dict->t("Size"),
+                'size'      => array('label' => Horde_Model_Translation::t("Size"),
                                      'type'  => 'int'),
-                'maxlength' => array('label' => $this->_dict->t("Maximum length"),
+                'maxlength' => array('label' => Horde_Model_Translation::t("Maximum length"),
                                      'type'  => 'int')),
         );
     }
@@ -893,12 +880,12 @@ class Horde_Form_Type_phone extends Horde_Form_Type {
         if ($var->isRequired()) {
             $valid = strlen(trim($value)) > 0;
             if (!$valid) {
-                $message = $this->_dict->t("This field is required.");
+                $message = Horde_Model_Translation::t("This field is required.");
             }
         } else {
             $valid = preg_match('/^\+?[\d()\-\/ ]*$/', $value);
             if (!$valid) {
-                $message = $this->_dict->t("You must enter a valid phone number, digits only with an optional '+' for the international dialing prefix.");
+                $message = Horde_Model_Translation::t("You must enter a valid phone number, digits only with an optional '+' for the international dialing prefix.");
             }
         }
 
@@ -910,7 +897,7 @@ class Horde_Form_Type_phone extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => $this->_dict->t("Phone number"));
+        return array('name' => Horde_Model_Translation::t("Phone number"));
     }
 
 }
@@ -922,7 +909,7 @@ class Horde_Form_Type_cellphone extends Horde_Form_Type_phone {
      */
     function about()
     {
-        return array('name' => $this->_dict->t("Mobile phone number"));
+        return array('name' => Horde_Model_Translation::t("Mobile phone number"));
     }
 
 }
@@ -948,11 +935,11 @@ class Horde_Form_Type_ipaddress extends Horde_Form_Type_text {
             }
 
             if (!$valid) {
-                $message = $this->_dict->t("Please enter a valid IP address.");
+                $message = Horde_Model_Translation::t("Please enter a valid IP address.");
             }
         } elseif ($var->isRequired()) {
             $valid = false;
-            $message = $this->_dict->t("This field is required.");
+            $message = Horde_Model_Translation::t("This field is required.");
         }
 
         return $valid;
@@ -963,7 +950,7 @@ class Horde_Form_Type_ipaddress extends Horde_Form_Type_text {
      */
     function about()
     {
-        return array('name' => $this->_dict->t("IP address"));
+        return array('name' => Horde_Model_Translation::t("IP address"));
     }
 
 }
@@ -1006,13 +993,13 @@ class Horde_Form_Type_longtext extends Horde_Form_Type_text {
     function about()
     {
         return array(
-            'name' => $this->_dict->t("Long text"),
+            'name' => Horde_Model_Translation::t("Long text"),
             'params' => array(
-                'rows'   => array('label' => $this->_dict->t("Number of rows"),
+                'rows'   => array('label' => Horde_Model_Translation::t("Number of rows"),
                                   'type'  => 'int'),
-                'cols'   => array('label' => $this->_dict->t("Number of columns"),
+                'cols'   => array('label' => Horde_Model_Translation::t("Number of columns"),
                                   'type'  => 'int'),
-                'helper' => array('label' => $this->_dict->t("Helper?"),
+                'helper' => array('label' => Horde_Model_Translation::t("Helper?"),
                                   'type'  => 'boolean')));
     }
 
@@ -1036,10 +1023,10 @@ class Horde_Form_Type_countedtext extends Horde_Form_Type_longtext {
 
         if ($var->isRequired() && $length <= 0) {
             $valid = false;
-            $message = $this->_dict->t("This field is required.");
+            $message = Horde_Model_Translation::t("This field is required.");
         } elseif ($length > $this->_chars) {
             $valid = false;
-            $message = sprintf($this->_dict->t("There are too many characters in this field. You have entered %s characters; you must enter less than %s."), Horde_String::length(trim($value)), $this->_chars);
+            $message = sprintf(Horde_Model_Translation::t("There are too many characters in this field. You have entered %s characters; you must enter less than %s."), Horde_String::length(trim($value)), $this->_chars);
         }
 
         return $valid;
@@ -1051,13 +1038,13 @@ class Horde_Form_Type_countedtext extends Horde_Form_Type_longtext {
     function about()
     {
         return array(
-            'name' => $this->_dict->t("Counted text"),
+            'name' => Horde_Model_Translation::t("Counted text"),
             'params' => array(
-                'rows'  => array('label' => $this->_dict->t("Number of rows"),
+                'rows'  => array('label' => Horde_Model_Translation::t("Number of rows"),
                                  'type'  => 'int'),
-                'cols'  => array('label' => $this->_dict->t("Number of columns"),
+                'cols'  => array('label' => Horde_Model_Translation::t("Number of columns"),
                                  'type'  => 'int'),
-                'chars' => array('label' => $this->_dict->t("Number of characters"),
+                'chars' => array('label' => Horde_Model_Translation::t("Number of characters"),
                                  'type'  => 'int')));
     }
 
@@ -1071,11 +1058,11 @@ class Horde_Form_Type_address extends Horde_Form_Type_longtext {
     function about()
     {
         return array(
-            'name' => $this->_dict->t("Address"),
+            'name' => Horde_Model_Translation::t("Address"),
             'params' => array(
-                'rows' => array('label' => $this->_dict->t("Number of rows"),
+                'rows' => array('label' => Horde_Model_Translation::t("Number of rows"),
                                 'type'  => 'int'),
-                'cols' => array('label' => $this->_dict->t("Number of columns"),
+                'cols' => array('label' => Horde_Model_Translation::t("Number of columns"),
                                 'type'  => 'int')));
     }
 
@@ -1125,7 +1112,7 @@ class Horde_Form_Type_file extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => $this->_dict->t("File upload"));
+        return array('name' => Horde_Model_Translation::t("File upload"));
     }
 
 }
@@ -1147,7 +1134,7 @@ class Horde_Form_Type_boolean extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => $this->_dict->t("True or false"));
+        return array('name' => Horde_Model_Translation::t("True or false"));
     }
 
 }
@@ -1178,25 +1165,25 @@ class Horde_Form_Type_link extends Horde_Form_Type {
     function about()
     {
         return array(
-            'name' => $this->_dict->t("Link"),
+            'name' => Horde_Model_Translation::t("Link"),
             'params' => array(
                 'url' => array(
-                    'label' => $this->_dict->t("Link URL"),
+                    'label' => Horde_Model_Translation::t("Link URL"),
                     'type' => 'text'),
                 'text' => array(
-                    'label' => $this->_dict->t("Link text"),
+                    'label' => Horde_Model_Translation::t("Link text"),
                     'type' => 'text'),
                 'target' => array(
-                    'label' => $this->_dict->t("Link target"),
+                    'label' => Horde_Model_Translation::t("Link target"),
                     'type' => 'text'),
                 'onclick' => array(
-                    'label' => $this->_dict->t("Onclick event"),
+                    'label' => Horde_Model_Translation::t("Onclick event"),
                     'type' => 'text'),
                 'title' => array(
-                    'label' => $this->_dict->t("Link title attribute"),
+                    'label' => Horde_Model_Translation::t("Link title attribute"),
                     'type' => 'text'),
                 'accesskey' => array(
-                    'label' => $this->_dict->t("Link access key"),
+                    'label' => Horde_Model_Translation::t("Link access key"),
                     'type' => 'text')));
     }
 
@@ -1237,7 +1224,7 @@ class Horde_Form_Type_email extends Horde_Form_Type {
 
         // Check for too many.
         if (!$this->_allow_multi && count($emails) > 1) {
-            $message = $this->_dict->t("Only one email address is allowed.");
+            $message = Horde_Model_Translation::t("Only one email address is allowed.");
             return false;
         }
 
@@ -1248,7 +1235,7 @@ class Horde_Form_Type_email extends Horde_Form_Type {
                 continue;
             }
             if (!$this->validateEmailAddress($email)) {
-                $message = sprintf($this->_dict->t("\"%s\" is not a valid email address."), $email);
+                $message = sprintf(Horde_Model_Translation::t("\"%s\" is not a valid email address."), $email);
                 return false;
             }
             ++$nonEmpty;
@@ -1256,9 +1243,9 @@ class Horde_Form_Type_email extends Horde_Form_Type {
 
         if (!$nonEmpty && $var->isRequired()) {
             if ($this->_allow_multi) {
-                $message = $this->_dict->t("You must enter at least one email address.");
+                $message = Horde_Model_Translation::t("You must enter at least one email address.");
             } else {
-                $message = $this->_dict->t("You must enter an email address.");
+                $message = Horde_Model_Translation::t("You must enter an email address.");
             }
             return false;
         }
@@ -1433,17 +1420,17 @@ class Horde_Form_Type_email extends Horde_Form_Type {
     function about()
     {
         return array(
-            'name' => $this->_dict->t("Email"),
+            'name' => Horde_Model_Translation::t("Email"),
             'params' => array(
-                'allow_multi' => array('label' => $this->_dict->t("Allow multiple addresses?"),
+                'allow_multi' => array('label' => Horde_Model_Translation::t("Allow multiple addresses?"),
                                        'type'  => 'boolean'),
-                'strip_domain' => array('label' => $this->_dict->t("Protect address from spammers?"),
+                'strip_domain' => array('label' => Horde_Model_Translation::t("Protect address from spammers?"),
                                         'type' => 'boolean'),
-                'link_compose' => array('label' => $this->_dict->t("Link the email address to the compose page when displaying?"),
+                'link_compose' => array('label' => Horde_Model_Translation::t("Link the email address to the compose page when displaying?"),
                                         'type' => 'boolean'),
-                'link_name' => array('label' => $this->_dict->t("The name to use when linking to the compose page"),
+                'link_name' => array('label' => Horde_Model_Translation::t("The name to use when linking to the compose page"),
                                      'type' => 'text'),
-                'delimiters' => array('label' => $this->_dict->t("Character to split multiple addresses with"),
+                'delimiters' => array('label' => Horde_Model_Translation::t("Character to split multiple addresses with"),
                                       'type' => 'text'),
             ),
         );
@@ -1653,9 +1640,9 @@ class Horde_Form_Type_matrix extends Horde_Form_Type {
     function about()
     {
         return array(
-            'name' => $this->_dict->t("Field matrix"),
+            'name' => Horde_Model_Translation::t("Field matrix"),
             'params' => array(
-                'cols' => array('label' => $this->_dict->t("Column titles"),
+                'cols' => array('label' => Horde_Model_Translation::t("Column titles"),
                                 'type'  => 'stringlist')));
     }
 
@@ -1666,12 +1653,12 @@ class Horde_Form_Type_emailConfirm extends Horde_Form_Type {
     function isValid($var, $vars, $value, &$message)
     {
         if ($var->isRequired() && empty($value['original'])) {
-            $message = $this->_dict->t("This field is required.");
+            $message = Horde_Model_Translation::t("This field is required.");
             return false;
         }
 
         if ($value['original'] != $value['confirm']) {
-            $message = $this->_dict->t("Email addresses must match.");
+            $message = Horde_Model_Translation::t("Email addresses must match.");
             return false;
         } else {
             $parser = new Horde_Mail_Rfc822();
@@ -1680,11 +1667,11 @@ class Horde_Form_Type_emailConfirm extends Horde_Form_Type {
             ));
 
             if (count($parsed_email) > 1) {
-                $message = $this->_dict->t("Only one email address allowed.");
+                $message = Horde_Model_Translation::t("Only one email address allowed.");
                 return false;
             }
             if (empty($parsed_email[0]->mailbox)) {
-                $message = $this->_dict->t("You did not enter a valid email address.");
+                $message = Horde_Model_Translation::t("You did not enter a valid email address.");
                 return false;
             }
         }
@@ -1697,7 +1684,7 @@ class Horde_Form_Type_emailConfirm extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => $this->_dict->t("Email with confirmation"));
+        return array('name' => Horde_Model_Translation::t("Email with confirmation"));
     }
 
 }
@@ -1712,7 +1699,7 @@ class Horde_Form_Type_password extends Horde_Form_Type {
             $valid = strlen(trim($value)) > 0;
 
             if (!$valid) {
-                $message = $this->_dict->t("This field is required.");
+                $message = Horde_Model_Translation::t("This field is required.");
             }
         }
 
@@ -1724,7 +1711,7 @@ class Horde_Form_Type_password extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => $this->_dict->t("Password"));
+        return array('name' => Horde_Model_Translation::t("Password"));
     }
 
 }
@@ -1734,12 +1721,12 @@ class Horde_Form_Type_passwordconfirm extends Horde_Form_Type {
     function isValid($var, $vars, $value, &$message)
     {
         if ($var->isRequired() && empty($value['original'])) {
-            $message = $this->_dict->t("This field is required.");
+            $message = Horde_Model_Translation::t("This field is required.");
             return false;
         }
 
         if ($value['original'] != $value['confirm']) {
-            $message = $this->_dict->t("Passwords must match.");
+            $message = Horde_Model_Translation::t("Passwords must match.");
             return false;
         }
 
@@ -1757,7 +1744,7 @@ class Horde_Form_Type_passwordconfirm extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => $this->_dict->t("Password with confirmation"));
+        return array('name' => Horde_Model_Translation::t("Password with confirmation"));
     }
 
 }
@@ -1772,7 +1759,7 @@ class Horde_Form_Type_enum extends Horde_Form_Type {
         $this->_values = $values;
 
         if ($prompt === true) {
-            $this->_prompt = $this->_dict->t("-- select --");
+            $this->_prompt = Horde_Model_Translation::t("-- select --");
         } else {
             $this->_prompt = $prompt;
         }
@@ -1781,7 +1768,7 @@ class Horde_Form_Type_enum extends Horde_Form_Type {
     function isValid($var, $vars, $value, &$message)
     {
         if ($var->isRequired() && $value == '' && !isset($this->_values[$value])) {
-            $message = $this->_dict->t("This field is required.");
+            $message = Horde_Model_Translation::t("This field is required.");
             return false;
         }
 
@@ -1790,7 +1777,7 @@ class Horde_Form_Type_enum extends Horde_Form_Type {
             return true;
         }
 
-        $message = $this->_dict->t("Invalid data.");
+        $message = Horde_Model_Translation::t("Invalid data.");
         return false;
     }
 
@@ -1800,11 +1787,11 @@ class Horde_Form_Type_enum extends Horde_Form_Type {
     function about()
     {
         return array(
-            'name' => $this->_dict->t("Drop down list"),
+            'name' => Horde_Model_Translation::t("Drop down list"),
             'params' => array(
-                'values' => array('label' => $this->_dict->t("Values to select from"),
+                'values' => array('label' => Horde_Model_Translation::t("Values to select from"),
                                   'type'  => 'stringlist'),
-                'prompt' => array('label' => $this->_dict->t("Prompt text"),
+                'prompt' => array('label' => Horde_Model_Translation::t("Prompt text"),
                                   'type'  => 'text')));
     }
 
@@ -1820,7 +1807,7 @@ class Horde_Form_Type_mlenum extends Horde_Form_Type {
         $this->_values = &$values;
 
         if ($prompts === true) {
-            $this->_prompts = array($this->_dict->t("-- select --"), $this->_dict->t("-- select --"));
+            $this->_prompts = array(Horde_Model_Translation::t("-- select --"), Horde_Model_Translation::t("-- select --"));
         } elseif (!is_array($prompts)) {
             $this->_prompts = array($prompts, $prompts);
         } else {
@@ -1841,7 +1828,7 @@ class Horde_Form_Type_mlenum extends Horde_Form_Type {
     function isValid($var, $vars, $value, &$message)
     {
         if ($var->isRequired() && (empty($value['1']) || empty($value['2']))) {
-            $message = $this->_dict->t("This field is required.");
+            $message = Horde_Model_Translation::t("This field is required.");
             return false;
         }
 
@@ -1850,7 +1837,7 @@ class Horde_Form_Type_mlenum extends Horde_Form_Type {
             return true;
         }
 
-        $message = $this->_dict->t("Invalid data.");
+        $message = Horde_Model_Translation::t("Invalid data.");
         return false;
     }
 
@@ -1866,11 +1853,11 @@ class Horde_Form_Type_mlenum extends Horde_Form_Type {
     function about()
     {
         return array(
-            'name' => $this->_dict->t("Multi-level drop down lists"),
+            'name' => Horde_Model_Translation::t("Multi-level drop down lists"),
             'params' => array(
-                'values' => array('label' => $this->_dict->t("Values to select from"),
+                'values' => array('label' => Horde_Model_Translation::t("Values to select from"),
                                   'type'  => 'stringlist'),
-                'prompt' => array('label' => $this->_dict->t("Prompt text"),
+                'prompt' => array('label' => Horde_Model_Translation::t("Prompt text"),
                                   'type'  => 'text')));
     }
 
@@ -1902,7 +1889,7 @@ class Horde_Form_Type_multienum extends Horde_Form_Type_enum {
 
         if (empty($value) && ((string)(int)$value !== $value)) {
             if ($var->isRequired()) {
-                $message = $this->_dict->t("This field is required.");
+                $message = Horde_Model_Translation::t("This field is required.");
                 return false;
             } else {
                 return true;
@@ -1913,7 +1900,7 @@ class Horde_Form_Type_multienum extends Horde_Form_Type_enum {
             return true;
         }
 
-        $message = $this->_dict->t("Invalid data.");
+        $message = Horde_Model_Translation::t("Invalid data.");
         return false;
     }
 
@@ -1923,11 +1910,11 @@ class Horde_Form_Type_multienum extends Horde_Form_Type_enum {
     function about()
     {
         return array(
-            'name' => $this->_dict->t("Multiple selection"),
+            'name' => Horde_Model_Translation::t("Multiple selection"),
             'params' => array(
-                'values' => array('label' => $this->_dict->t("Values"),
+                'values' => array('label' => Horde_Model_Translation::t("Values"),
                                   'type'  => 'stringlist'),
-                'size'   => array('label' => $this->_dict->t("Size"),
+                'size'   => array('label' => Horde_Model_Translation::t("Size"),
                                   'type'  => 'int'))
         );
     }
@@ -1958,9 +1945,9 @@ class Horde_Form_Type_radio extends Horde_Form_Type_enum {
     function about()
     {
         return array(
-            'name' => $this->_dict->t("Radio selection"),
+            'name' => Horde_Model_Translation::t("Radio selection"),
             'params' => array(
-                'values' => array('label' => $this->_dict->t("Values"),
+                'values' => array('label' => Horde_Model_Translation::t("Values"),
                                   'type'  => 'stringlist')));
     }
 
@@ -1992,7 +1979,7 @@ class Horde_Form_Type_set extends Horde_Form_Type {
             return true;
         }
 
-        $message = $this->_dict->t("Invalid data.");
+        $message = Horde_Model_Translation::t("Invalid data.");
         return false;
     }
 
@@ -2002,9 +1989,9 @@ class Horde_Form_Type_set extends Horde_Form_Type {
     function about()
     {
         return array(
-            'name' => $this->_dict->t("Set"),
+            'name' => Horde_Model_Translation::t("Set"),
             'params' => array(
-                'values' => array('label' => $this->_dict->t("Values"),
+                'values' => array('label' => Horde_Model_Translation::t("Values"),
                                   'type'  => 'stringlist')));
     }
 
@@ -2027,7 +2014,7 @@ class Horde_Form_Type_date extends Horde_Form_Type {
             $valid = strlen(trim($value)) > 0;
 
             if (!$valid) {
-                $message = sprintf($this->_dict->t("%s is required"), $var->getHumanName());
+                $message = sprintf(Horde_Model_Translation::t("%s is required"), $var->getHumanName());
             }
         }
 
@@ -2059,15 +2046,15 @@ class Horde_Form_Type_date extends Horde_Form_Type {
                                                    date('j'), date('n'),
                                                    date('Y'));
         if ($ago < -1) {
-            return sprintf($this->_dict->t(" (%s days ago)"), $diffdays);
+            return sprintf(Horde_Model_Translation::t(" (%s days ago)"), $diffdays);
         } elseif ($ago == -1) {
-            return $this->_dict->t(" (yesterday)");
+            return Horde_Model_Translation::t(" (yesterday)");
         } elseif ($ago == 0) {
-            return $this->_dict->t(" (today)");
+            return Horde_Model_Translation::t(" (today)");
         } elseif ($ago == 1) {
-            return $this->_dict->t(" (tomorrow)");
+            return Horde_Model_Translation::t(" (tomorrow)");
         } else {
-            return sprintf($this->_dict->t(" (in %s days)"), $diffdays);
+            return sprintf(Horde_Model_Translation::t(" (in %s days)"), $diffdays);
         }
     }
 
@@ -2088,7 +2075,7 @@ class Horde_Form_Type_date extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => $this->_dict->t("Date"));
+        return array('name' => Horde_Model_Translation::t("Date"));
     }
 
 }
@@ -2098,7 +2085,7 @@ class Horde_Form_Type_time extends Horde_Form_Type {
     function isValid($var, $vars, $value, &$message)
     {
         if ($var->isRequired() && empty($value) && ((string)(double)$value !== $value)) {
-            $message = $this->_dict->t("This field is required.");
+            $message = Horde_Model_Translation::t("This field is required.");
             return false;
         }
 
@@ -2106,7 +2093,7 @@ class Horde_Form_Type_time extends Horde_Form_Type {
             return true;
         }
 
-        $message = $this->_dict->t("This field may only contain numbers and the colon.");
+        $message = Horde_Model_Translation::t("This field may only contain numbers and the colon.");
         return false;
     }
 
@@ -2115,7 +2102,7 @@ class Horde_Form_Type_time extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => $this->_dict->t("Time"));
+        return array('name' => Horde_Model_Translation::t("Time"));
     }
 
 }
@@ -2137,10 +2124,10 @@ class Horde_Form_Type_hourminutesecond extends Horde_Form_Type {
         }
 
         if (!$this->emptyTimeArray($time) && !$this->checktime($time['hour'], $time['minute'], $time['second'])) {
-            $message = $this->_dict->t("Please enter a valid time.");
+            $message = Horde_Model_Translation::t("Please enter a valid time.");
             return false;
         } elseif ($this->emptyTimeArray($time) && $var->isRequired()) {
-            $message = $this->_dict->t("This field is required.");
+            $message = Horde_Model_Translation::t("This field is required.");
             return false;
         }
 
@@ -2220,9 +2207,9 @@ class Horde_Form_Type_hourminutesecond extends Horde_Form_Type {
     function about()
     {
         return array(
-            'name' => $this->_dict->t("Time selection"),
+            'name' => Horde_Model_Translation::t("Time selection"),
             'params' => array(
-                'seconds' => array('label' => $this->_dict->t("Show seconds?"),
+                'seconds' => array('label' => Horde_Model_Translation::t("Show seconds?"),
                                   'type'  => 'boolean')));
     }
 
@@ -2254,7 +2241,7 @@ class Horde_Form_Type_monthyear extends Horde_Form_Type {
 
         if (!$vars->get($this->getMonthVar($var)) ||
             !$vars->get($this->getYearVar($var))) {
-            $message = $this->_dict->t("Please enter a month and a year.");
+            $message = Horde_Model_Translation::t("Please enter a month and a year.");
             return false;
         }
 
@@ -2276,11 +2263,11 @@ class Horde_Form_Type_monthyear extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => $this->_dict->t("Month and year"),
+        return array('name' => Horde_Model_Translation::t("Month and year"),
                      'params' => array(
-                         'start_year' => array('label' => $this->_dict->t("Start year"),
+                         'start_year' => array('label' => Horde_Model_Translation::t("Start year"),
                                                'type'  => 'int'),
-                         'end_year'   => array('label' => $this->_dict->t("End year"),
+                         'end_year'   => array('label' => Horde_Model_Translation::t("End year"),
                                                'type'  => 'int')));
     }
 
@@ -2329,13 +2316,13 @@ class Horde_Form_Type_monthdayyear extends Horde_Form_Type {
         $empty = $this->emptyDateArray($date);
 
         if ($empty == 1 && $var->isRequired()) {
-            $message = $this->_dict->t("This field is required.");
+            $message = Horde_Model_Translation::t("This field is required.");
             return false;
         } elseif ($empty == 0 && !checkdate($date['month'], $date['day'], $date['year'])) {
-            $message = $this->_dict->t("Please enter a valid date, check the number of days in the month.");
+            $message = Horde_Model_Translation::t("Please enter a valid date, check the number of days in the month.");
             return false;
         } elseif ($empty == -1) {
-            $message = $this->_dict->t("Select all date components.");
+            $message = Horde_Model_Translation::t("Select all date components.");
             return false;
         }
 
@@ -2480,17 +2467,17 @@ class Horde_Form_Type_monthdayyear extends Horde_Form_Type {
     function about()
     {
         return array(
-            'name' => $this->_dict->t("Date selection"),
+            'name' => Horde_Model_Translation::t("Date selection"),
             'params' => array(
-                'start_year' => array('label' => $this->_dict->t("Start year"),
+                'start_year' => array('label' => Horde_Model_Translation::t("Start year"),
                                       'type'  => 'int'),
-                'end_year'   => array('label' => $this->_dict->t("End year"),
+                'end_year'   => array('label' => Horde_Model_Translation::t("End year"),
                                       'type'  => 'int'),
-                'picker'     => array('label' => $this->_dict->t("Show picker?"),
+                'picker'     => array('label' => Horde_Model_Translation::t("Show picker?"),
                                       'type'  => 'boolean'),
-                'format_in'  => array('label' => $this->_dict->t("Storage format"),
+                'format_in'  => array('label' => Horde_Model_Translation::t("Storage format"),
                                       'type'  => 'text'),
-                'format_out' => array('label' => $this->_dict->t("Display format"),
+                'format_out' => array('label' => Horde_Model_Translation::t("Display format"),
                                       'type'  => 'text')));
     }
 
@@ -2619,19 +2606,19 @@ class Horde_Form_Type_datetime extends Horde_Form_Type {
     function about()
     {
         return array(
-            'name' => $this->_dict->t("Date and time selection"),
+            'name' => Horde_Model_Translation::t("Date and time selection"),
             'params' => array(
-                'start_year' => array('label' => $this->_dict->t("Start year"),
+                'start_year' => array('label' => Horde_Model_Translation::t("Start year"),
                                       'type'  => 'int'),
-                'end_year'   => array('label' => $this->_dict->t("End year"),
+                'end_year'   => array('label' => Horde_Model_Translation::t("End year"),
                                       'type'  => 'int'),
-                'picker'     => array('label' => $this->_dict->t("Show picker?"),
+                'picker'     => array('label' => Horde_Model_Translation::t("Show picker?"),
                                       'type'  => 'boolean'),
-                'format_in'  => array('label' => $this->_dict->t("Storage format"),
+                'format_in'  => array('label' => Horde_Model_Translation::t("Storage format"),
                                       'type'  => 'text'),
-                'format_out' => array('label' => $this->_dict->t("Display format"),
+                'format_out' => array('label' => Horde_Model_Translation::t("Display format"),
                                       'type'  => 'text'),
-                'seconds'    => array('label' => $this->_dict->t("Show seconds?"),
+                'seconds'    => array('label' => Horde_Model_Translation::t("Show seconds?"),
                                       'type'  => 'boolean')));
     }
 
@@ -2642,7 +2629,7 @@ class Horde_Form_Type_colorpicker extends Horde_Form_Type {
     function isValid($var, $vars, $value, &$message)
     {
         if ($var->isRequired() && empty($value)) {
-            $message = $this->_dict->t("This field is required.");
+            $message = Horde_Model_Translation::t("This field is required.");
             return false;
         }
 
@@ -2650,7 +2637,7 @@ class Horde_Form_Type_colorpicker extends Horde_Form_Type {
             return true;
         }
 
-        $message = $this->_dict->t("This field must contain a color code in the RGB Hex format, for example '#1234af'.");
+        $message = Horde_Model_Translation::t("This field must contain a color code in the RGB Hex format, for example '#1234af'.");
         return false;
     }
 
@@ -2659,7 +2646,7 @@ class Horde_Form_Type_colorpicker extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => $this->_dict->t("Colour selection"));
+        return array('name' => Horde_Model_Translation::t("Colour selection"));
     }
 
 }
@@ -2720,13 +2707,13 @@ class Horde_Form_Type_sorter extends Horde_Form_Type {
     function about()
     {
         return array(
-            'name' => $this->_dict->t("Sort order selection"),
+            'name' => Horde_Model_Translation::t("Sort order selection"),
             'params' => array(
-                'values' => array('label' => $this->_dict->t("Values"),
+                'values' => array('label' => Horde_Model_Translation::t("Values"),
                                   'type'  => 'stringlist'),
-                'size'   => array('label' => $this->_dict->t("Size"),
+                'size'   => array('label' => Horde_Model_Translation::t("Size"),
                                   'type'  => 'int'),
-                'header' => array('label' => $this->_dict->t("Header"),
+                'header' => array('label' => Horde_Model_Translation::t("Header"),
                                   'type'  => 'text')));
     }
 
@@ -2767,7 +2754,7 @@ class Horde_Form_Type_selectfiles extends Horde_Form_Type {
     {
         $this->_selectid = $selectid;
         if (is_null($link_text)) {
-            $link_text = $this->_dict->t("Select Files");
+            $link_text = Horde_Model_Translation::t("Select Files");
         }
         $this->_link_text = $link_text;
         $this->_link_style = $link_style;
@@ -2788,15 +2775,15 @@ class Horde_Form_Type_selectfiles extends Horde_Form_Type {
     function about()
     {
         return array(
-            'name' => $this->_dict->t("File selection"),
+            'name' => Horde_Model_Translation::t("File selection"),
             'params' => array(
-                'selectid'   => array('label' => $this->_dict->t("Id"),
+                'selectid'   => array('label' => Horde_Model_Translation::t("Id"),
                                       'type' => 'text'),
-                'link_text'  => array('label' => $this->_dict->t("Link text"),
+                'link_text'  => array('label' => Horde_Model_Translation::t("Link text"),
                                       'type' => 'text'),
-                'link_style' => array('label' => $this->_dict->t("Link style"),
+                'link_style' => array('label' => Horde_Model_Translation::t("Link style"),
                                       'type' => 'text'),
-                'icon'       => array('label' => $this->_dict->t("Show icon?"),
+                'icon'       => array('label' => Horde_Model_Translation::t("Show icon?"),
                                       'type' => 'boolean')));
     }
 
@@ -2899,19 +2886,19 @@ class Horde_Form_Type_assign extends Horde_Form_Type {
     function about()
     {
         return array(
-            'name' => $this->_dict->t("Assignment columns"),
+            'name' => Horde_Model_Translation::t("Assignment columns"),
             'params' => array(
-                'leftValues'  => array('label' => $this->_dict->t("Left values"),
+                'leftValues'  => array('label' => Horde_Model_Translation::t("Left values"),
                                        'type'  => 'stringlist'),
-                'rightValues' => array('label' => $this->_dict->t("Right values"),
+                'rightValues' => array('label' => Horde_Model_Translation::t("Right values"),
                                        'type'  => 'stringlist'),
-                'leftHeader'  => array('label' => $this->_dict->t("Left header"),
+                'leftHeader'  => array('label' => Horde_Model_Translation::t("Left header"),
                                        'type'  => 'text'),
-                'rightHeader' => array('label' => $this->_dict->t("Right header"),
+                'rightHeader' => array('label' => Horde_Model_Translation::t("Right header"),
                                        'type'  => 'text'),
-                'size'        => array('label' => $this->_dict->t("Size"),
+                'size'        => array('label' => Horde_Model_Translation::t("Size"),
                                        'type'  => 'int'),
-                'width'       => array('label' => $this->_dict->t("Width in CSS units"),
+                'width'       => array('label' => Horde_Model_Translation::t("Width in CSS units"),
                                        'type'  => 'text')));
     }
 
@@ -2922,7 +2909,7 @@ class Horde_Form_Type_creditcard extends Horde_Form_Type {
     function isValid($var, $vars, $value, &$message)
     {
         if (empty($value) && $var->isRequired()) {
-            $message = $this->_dict->t("This field is required.");
+            $message = Horde_Model_Translation::t("This field is required.");
             return false;
         }
 
@@ -2930,7 +2917,7 @@ class Horde_Form_Type_creditcard extends Horde_Form_Type {
             /* getCardType() will also verify the checksum. */
             $type = $this->getCardType($value);
             if ($type === false || $type == 'unknown') {
-                $message = $this->_dict->t("This does not seem to be a valid card number.");
+                $message = Horde_Model_Translation::t("This does not seem to be a valid card number.");
                 return false;
             }
         }
@@ -3014,7 +3001,7 @@ class Horde_Form_Type_creditcard extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => $this->_dict->t("Credit card number"));
+        return array('name' => Horde_Model_Translation::t("Credit card number"));
     }
 
 }
@@ -3031,7 +3018,7 @@ class Horde_Form_Type_obrowser extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => $this->_dict->t("Relationship browser"));
+        return array('name' => Horde_Model_Translation::t("Relationship browser"));
     }
 
 }
@@ -3068,13 +3055,13 @@ class Horde_Form_Type_dblookup extends Horde_Form_Type_enum {
     function about()
     {
         return array(
-            'name' => $this->_dict->t("Database lookup"),
+            'name' => Horde_Model_Translation::t("Database lookup"),
             'params' => array(
-                'dsn' => array('label' => $this->_dict->t("DSN (see http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"),
+                'dsn' => array('label' => Horde_Model_Translation::t("DSN (see http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"),
                                'type'  => 'text'),
-                'sql' => array('label' => $this->_dict->t("SQL statement for value lookups"),
+                'sql' => array('label' => Horde_Model_Translation::t("SQL statement for value lookups"),
                                'type'  => 'text'),
-                'prompt' => array('label' => $this->_dict->t("Prompt text"),
+                'prompt' => array('label' => Horde_Model_Translation::t("Prompt text"),
                                   'type'  => 'text'))
             );
     }
@@ -3095,12 +3082,12 @@ class Horde_Form_Type_figlet extends Horde_Form_Type {
     function isValid($var, $vars, $value, &$message)
     {
         if (empty($value) && $var->isRequired()) {
-            $message = $this->_dict->t("This field is required.");
+            $message = Horde_Model_Translation::t("This field is required.");
             return false;
         }
 
         if (Horde_String::lower($value) != Horde_String::lower($this->_text)) {
-            $message = $this->_dict->t("The text you entered did not match the text on the screen.");
+            $message = Horde_Model_Translation::t("The text you entered did not match the text on the screen.");
             return false;
         }
 
@@ -3113,11 +3100,11 @@ class Horde_Form_Type_figlet extends Horde_Form_Type {
     function about()
     {
         return array(
-            'name' => $this->_dict->t("Figlet CAPTCHA"),
+            'name' => Horde_Model_Translation::t("Figlet CAPTCHA"),
             'params' => array(
-                'text' => array('label' => $this->_dict->t("Text"),
+                'text' => array('label' => Horde_Model_Translation::t("Text"),
                                 'type'  => 'text'),
-                'font' => array('label' => $this->_dict->t("Figlet font"),
+                'font' => array('label' => Horde_Model_Translation::t("Figlet font"),
                                 'type'  => 'text'))
             );
     }
@@ -3583,7 +3570,7 @@ class Horde_Form_Variable {
             $vals = $this->getValue($vars);
             if (!is_array($vals)) {
                 if ($this->required) {
-                    $message = $this->_dict->t("This field is required.");
+                    $message = Horde_Model_Translation::t("This field is required.");
                     return false;
                 } else {
                     return true;
@@ -3591,7 +3578,7 @@ class Horde_Form_Variable {
             }
             foreach ($vals as $i => $value) {
                 if ($value === null && $this->required) {
-                    $message = $this->_dict->t("This field is required.");
+                    $message = Horde_Model_Translation::t("This field is required.");
                     return false;
                 } else {
                     if (!$this->type->isValid($this, $vars, $value, $message)) {

@@ -20,16 +20,11 @@ class Horde_Exception_PermissionDenied extends Horde_Exception
      * @param mixed $message           The exception message, a PEAR_Error
      *                                 object, or an Exception object.
      * @param integer $code            A numeric error code.
-     * @param Horde_Translation $dict  A translation handler implementing
-     *                                 Horde_Translation.
      */
-  public function __construct($message = null, $code = null, $dict = null)
+    public function __construct($message = null, $code = null)
     {
         if (is_null($message)) {
-            if (!$dict) {
-                $dict = new Horde_Translation_Gettext('Horde_Exception', dirname(__FILE__) . '/../../../locale');
-            }
-            $message = $dict->t("Permission Denied");
+            $message = Horde_Exception_Translation::t("Permission Denied");
         }
         parent::__construct($message, $code);
     }

@@ -61,23 +61,9 @@ abstract class Horde_Argv_HelpFormatter
 
     public $parser = null;
 
-    /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_dict;
-
     public function __construct($indent_increment, $max_help_position,
-                                $width = null, $short_first = false,
-                                $dict = null)
+                                $width = null, $short_first = false)
     {
-        if ($dict) {
-            $this->_dict = $dict;
-        } else {
-            $this->_dict = new Horde_Translation_Gettext('Horde_Argv', dirname(__FILE__) . '/../../../locale');
-        }
-
         $this->indent_increment = $indent_increment;
         $this->help_position = $this->max_help_position = $max_help_position;
         if (is_null($width)) {

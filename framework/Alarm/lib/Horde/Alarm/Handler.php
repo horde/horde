@@ -25,27 +25,6 @@ abstract class Horde_Alarm_Handler
     public $alarm;
 
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_dict;
-
-    /**
-     * Constructor.
-     *
-     * @param array $params  Any parameters that the handler might need.
-     */
-    public function __construct(array $params = null)
-    {
-        if (isset($params['translation'])) {
-            $this->_dict = $params['translation'];
-        } else {
-            $this->_dict = new Horde_Translation_Gettext('Horde_Alarm', dirname(__FILE__) . '/../../../locale');
-        }
-    }
-
-    /**
      * Notifies about an alarm.
      *
      * @param array $alarm  An alarm hash.

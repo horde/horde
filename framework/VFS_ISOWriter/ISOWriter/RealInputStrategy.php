@@ -21,28 +21,16 @@ abstract class VFS_ISOWriter_RealInputStrategy {
     var $_sourceVfs = null;
 
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_dict;
-
-    /**
      * The root directory within the source VFS
      *
      * @var string
      */
     var $_sourceRoot;
 
-    function VFS_ISOWriter_RealInputStrategy(&$sourceVfs, $sourceRoot, $params = array())
+    function VFS_ISOWriter_RealInputStrategy(&$sourceVfs, $sourceRoot)
     {
         $this->_sourceVfs = &$sourceVfs;
         $this->_sourceRoot = &$sourceRoot;
-        if (isset($params['translation'])) {
-            $this->_dict = $params['translation'];
-        } else {
-            $this->_dict = new Horde_Translation_Gettext('VFS_ISOWriter', dirname(__FILE__) . '/../locale');
-        }
     }
 
     /**
@@ -82,7 +70,7 @@ abstract class VFS_ISOWriter_RealInputStrategy {
         if (class_exists($class)) {
             $strategy = new $class($sourceVfs, $sourceRoot);
         } else {
-            $strategy = PEAR::raiseError(sprintf($this->_dict->t("Could not load strategy \"%s\"."),
+            $strategy = PEAR::raiseError(sprintf(Horde_VFS_ISOWriter_Translation::t("Could not load strategy \"%s\"."),
                                                  $method));
         }
 

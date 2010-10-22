@@ -23,7 +23,7 @@ class VFS_ISOWriter_RealOutputStrategy_direct extends VFS_ISOWriter_RealOutputSt
         $dir = dirname($filename);
         while (!@is_dir($dir)) {
             if (!@mkdir($dir, 0755)) {
-                return PEAR::raiseError(sprintf($this->_dict->t("Could not mkdir \"%s\"."),
+                return PEAR::raiseError(sprintf(Horde_VFS_ISOWriter_Translation::t("Could not mkdir \"%s\"."),
                                                 $dir));
             }
             $dir = dirname($dir);

@@ -27,25 +27,13 @@ class Horde_Kolab_FreeBusy_View {
     var $_data;
 
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_dict;
-
-    /**
      * Constructor.
      *
      * @param array $data The data to display
      */
-    function Horde_Kolab_FreeBusy_View(&$data, $params = array())
+    function Horde_Kolab_FreeBusy_View(&$data)
     {
         $this->_data = $data;
-        if (isset($params['translation'])) {
-            $this->_dict = $params['translation'];
-        } else {
-            $this->_dict = new Horde_Translation_Gettext('Kolab_FreeBusy', dirname(__FILE__) . '/../../../../locale');
-        }
     }
 
     /**
@@ -215,9 +203,9 @@ class Horde_Kolab_FreeBusy_View_error extends Horde_Kolab_FreeBusy_View {
         } else {
             $url = '/';
         }
-        $message = sprintf($this->_dict->t("The requested URL %s was not found on this server."), $url);
+        $message = sprintf(Horde_Kolab_FreeBusy_Translation::t("The requested URL %s was not found on this server."), $url);
 
-        $this->_errorPage($error, $headers, $this->_dict->t("404 Not Found"), $this->_dict->t("Not found"), $message);
+        $this->_errorPage($error, $headers, Horde_Kolab_FreeBusy_Translation::t("404 Not Found"), Horde_Kolab_FreeBusy_Translation::t("Not found"), $message);
     }
 
     /**
@@ -238,8 +226,8 @@ class Horde_Kolab_FreeBusy_View_error extends Horde_Kolab_FreeBusy_View {
         $headers = array('WWW-Authenticate: Basic realm="freebusy-' . $email_domain . '"',
                          'HTTP/1.0 401 Unauthorized');
 
-        $this->_errorPage($error, $headers, $this->_dict->t("401 Unauthorized"), $this->_dict->t("Unauthorized"),
-                  $this->_dict->t("You are not authorized to access the requested URL."));
+        $this->_errorPage($error, $headers, Horde_Kolab_FreeBusy_Translation::t("401 Unauthorized"), Horde_Kolab_FreeBusy_Translation::t("Unauthorized"),
+                  Horde_Kolab_FreeBusy_Translation::t("You are not authorized to access the requested URL."));
     }
 
     /**
@@ -255,7 +243,7 @@ class Horde_Kolab_FreeBusy_View_error extends Horde_Kolab_FreeBusy_View {
         } else {
             $url = '/';
         }
-        $this->_errorPage($error, $headers, $this->_dict->t("500 Server Error"), $this->_dict->t("Error"),
+        $this->_errorPage($error, $headers, Horde_Kolab_FreeBusy_Translation::t("500 Server Error"), Horde_Kolab_FreeBusy_Translation::t("Error"),
                   htmlentities($$url));
     }
 

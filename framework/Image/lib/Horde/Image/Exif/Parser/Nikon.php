@@ -148,34 +148,34 @@ class Horde_Image_Exif_Parser_Nikon extends Horde_Image_Exif_Parser_Base
             case '0003':
                 //Quality
                 switch ($data) {
-                case 1:  $data = $this->_dict->t("VGA Basic"); break;
-                case 2:  $data = $this->_dict->t("VGA Normal"); break;
-                case 3:  $data = $this->_dict->t("VGA Fine"); break;
-                case 4:  $data = $this->_dict->t("SXGA Basic"); break;
-                case 5:  $data = $this->_dict->t("SXGA Normal"); break;
-                case 6:  $data = $this->_dict->t("SXGA Fine"); break;
-                default: $data = $this->_dict->t("Unknown") . ': ' . $data; break;
+                case 1:  $data = Horde_Image_Translation::t("VGA Basic"); break;
+                case 2:  $data = Horde_Image_Translation::t("VGA Normal"); break;
+                case 3:  $data = Horde_Image_Translation::t("VGA Fine"); break;
+                case 4:  $data = Horde_Image_Translation::t("SXGA Basic"); break;
+                case 5:  $data = Horde_Image_Translation::t("SXGA Normal"); break;
+                case 6:  $data = Horde_Image_Translation::t("SXGA Fine"); break;
+                default: $data = Horde_Image_Translation::t("Unknown") . ': ' . $data; break;
                 }
                 break;
 
             case '0004':
                 //Color
                 switch ($data) {
-                case 1:  $data = $this->_dict->t("Color"); break;
-                case 2:  $data = $this->_dict->t("Monochrome"); break;
-                default: $data = $this->_dict->t("Unknown") . ': ' . $data; break;
+                case 1:  $data = Horde_Image_Translation::t("Color"); break;
+                case 2:  $data = Horde_Image_Translation::t("Monochrome"); break;
+                default: $data = Horde_Image_Translation::t("Unknown") . ': ' . $data; break;
                 }
                 break;
 
             case '0005':
                 //Image Adjustment
                 switch ($data) {
-                case 0:  $data = $this->_dict->t("Normal"); break;
-                case 1:  $data = $this->_dict->t("Bright+"); break;
-                case 2:  $data = $this->_dict->t("Bright-"); break;
-                case 3:  $data = $this->_dict->t("Contrast+"); break;
-                case 4:  $data = $this->_dict->t("Contrast-"); break;
-                default: $data = $this->_dict->t("Unknown") . ': ' . $data; break;
+                case 0:  $data = Horde_Image_Translation::t("Normal"); break;
+                case 1:  $data = Horde_Image_Translation::t("Bright+"); break;
+                case 2:  $data = Horde_Image_Translation::t("Bright-"); break;
+                case 3:  $data = Horde_Image_Translation::t("Contrast+"); break;
+                case 4:  $data = Horde_Image_Translation::t("Contrast-"); break;
+                default: $data = Horde_Image_Translation::t("Unknown") . ': ' . $data; break;
                 }
                 break;
 
@@ -186,30 +186,30 @@ class Horde_Image_Exif_Parser_Nikon extends Horde_Image_Exif_Parser_Base
                 case 2:  $data = 'ISO-160'; break;
                 case 4:  $data = 'ISO-320'; break;
                 case 5:  $data = 'ISO-100'; break;
-                default: $data = $this->_dict->t("Unknown") . ': ' . $data; break;
+                default: $data = Horde_Image_Translation::t("Unknown") . ': ' . $data; break;
                 }
                 break;
 
             case '0007':
                 //White Balance
                 switch ($data) {
-                case 0:  $data = $this->_dict->t("Auto"); break;
-                case 1:  $data = $this->_dict->t("Preset"); break;
-                case 2:  $data = $this->_dict->t("Daylight"); break;
-                case 3:  $data = $this->_dict->t("Incandescense"); break;
-                case 4:  $data = $this->_dict->t("Flourescence"); break;
-                case 5:  $data = $this->_dict->t("Cloudy"); break;
-                case 6:  $data = $this->_dict->t("SpeedLight"); break;
-                default: $data = $this->_dict->t("Unknown") . ': ' . $data; break;
+                case 0:  $data = Horde_Image_Translation::t("Auto"); break;
+                case 1:  $data = Horde_Image_Translation::t("Preset"); break;
+                case 2:  $data = Horde_Image_Translation::t("Daylight"); break;
+                case 3:  $data = Horde_Image_Translation::t("Incandescense"); break;
+                case 4:  $data = Horde_Image_Translation::t("Flourescence"); break;
+                case 5:  $data = Horde_Image_Translation::t("Cloudy"); break;
+                case 6:  $data = Horde_Image_Translation::t("SpeedLight"); break;
+                default: $data = Horde_Image_Translation::t("Unknown") . ': ' . $data; break;
                 }
                 break;
 
             case '000b':
                 //Converter
                 switch ($data) {
-                case 0:  $data = $this->_dict->t("None"); break;
-                case 1:  $data = $this->_dict->t("Fisheye"); break;
-                default: $data = $this->_dict->t("Unknown") . ': ' . $data; break;
+                case 0:  $data = Horde_Image_Translation::t("None"); break;
+                case 1:  $data = Horde_Image_Translation::t("Fisheye"); break;
+                default: $data = Horde_Image_Translation::t("Unknown") . ': ' . $data; break;
                 }
                 break;
             }
@@ -225,7 +225,7 @@ class Horde_Image_Exif_Parser_Nikon extends Horde_Image_Exif_Parser_Base
                 break;
             case '0088':
                 //AF Focus Position
-                $temp = $this->_dict->t("Center");
+                $temp = Horde_Image_Translation::t("Center");
                 $data = bin2hex($data);
                 $data = str_replace('01', 'Top', $data);
                 $data = str_replace('02', 'Bottom', $data);
@@ -253,12 +253,12 @@ class Horde_Image_Exif_Parser_Nikon extends Horde_Image_Exif_Parser_Base
                 //Lens Type
                 $data = hexdec(substr($data, 0, 2));
                 switch ($data) {
-                case 0:  $data = $this->_dict->t("AF non D"); break;
-                case 1:  $data = $this->_dict->t("Manual"); break;
+                case 0:  $data = Horde_Image_Translation::t("AF non D"); break;
+                case 1:  $data = Horde_Image_Translation::t("Manual"); break;
                 case 2:  $data = 'AF-D or AF-S'; break;
                 case 6:  $data = 'AF-D G'; break;
                 case 10:  $data = 'AF-D VR'; break;
-                default: $data = $this->_dict->t("Unknown") . ': ' . $data; break;
+                default: $data = Horde_Image_Translation::t("Unknown") . ': ' . $data; break;
                 }
                 break;
 
@@ -266,11 +266,11 @@ class Horde_Image_Exif_Parser_Nikon extends Horde_Image_Exif_Parser_Base
                 //Flash type
                 $data = hexdec(substr($data,0,2));
                 switch ($data) {
-                case 0:  $data = $this->_dict->t("Did Not Fire"); break;
-                case 4:  $data = $this->_dict->t("Unknown"); break;
-                case 7:  $data = $this->_dict->t("External"); break;
-                case 9:  $data = $this->_dict->t("On Camera"); break;
-                default: $data = $this->_dict->t("Unknown") . ': ' . $data; break;
+                case 0:  $data = Horde_Image_Translation::t("Did Not Fire"); break;
+                case 4:  $data = Horde_Image_Translation::t("Unknown"); break;
+                case 7:  $data = Horde_Image_Translation::t("External"); break;
+                case 9:  $data = Horde_Image_Translation::t("On Camera"); break;
+                default: $data = Horde_Image_Translation::t("Unknown") . ': ' . $data; break;
                 }
                 break;
             }

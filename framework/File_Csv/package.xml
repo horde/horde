@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>File_Csv</name>
  <channel>pear.horde.org</channel>
  <summary>Reads and writes CSV files</summary>
  <description>This package allows reading and creating of CSV data and files. It
-is a fork of the File_CSV class of PEAR&apos;s File package.
- </description>
+is a fork of the File_CSV class of PEAR&apos;s File package.</description>
  <lead>
   <name>Jan Schneider</name>
   <user>jan</user>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-02-03</date>
+ <date>2010-10-22</date>
+ <time>19:03:02</time>
  <version>
   <release>0.2.0</release>
   <api>0.2.0</api>
@@ -25,28 +22,365 @@ is a fork of the File_CSV class of PEAR&apos;s File package.
   <api>beta</api>
  </stability>
  <license uri="http://www.php.net/license">PHP</license>
- <notes>* Initial Horde 4 Package
+ <notes>
+* Initial Horde 4 Package
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="File">
       <dir name="Csv">
        <file name="Exception.php" role="php" />
+       <file name="Translation.php" role="php">
+        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+       </file>
       </dir> <!-- /lib/Horde/File/Csv -->
       <file name="Csv.php" role="php" />
      </dir> <!-- /lib/Horde/File -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="ar">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/ar/LC_MESSAGES -->
+    </dir> <!-- /locale/ar -->
+    <dir name="bg">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/bg/LC_MESSAGES -->
+    </dir> <!-- /locale/bg -->
+    <dir name="bs">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/bs/LC_MESSAGES -->
+    </dir> <!-- /locale/bs -->
+    <dir name="ca">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/ca/LC_MESSAGES -->
+    </dir> <!-- /locale/ca -->
+    <dir name="cs">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/cs/LC_MESSAGES -->
+    </dir> <!-- /locale/cs -->
+    <dir name="da">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/da/LC_MESSAGES -->
+    </dir> <!-- /locale/da -->
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+    </dir> <!-- /locale/de -->
+    <dir name="el">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/el/LC_MESSAGES -->
+    </dir> <!-- /locale/el -->
+    <dir name="en">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/en/LC_MESSAGES -->
+    </dir> <!-- /locale/en -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+    </dir> <!-- /locale/es -->
+    <dir name="et">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/et/LC_MESSAGES -->
+    </dir> <!-- /locale/et -->
+    <dir name="eu">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/eu/LC_MESSAGES -->
+    </dir> <!-- /locale/eu -->
+    <dir name="fa">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/fa/LC_MESSAGES -->
+    </dir> <!-- /locale/fa -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+    </dir> <!-- /locale/fi -->
+    <dir name="fr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/fr/LC_MESSAGES -->
+    </dir> <!-- /locale/fr -->
+    <dir name="gl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/gl/LC_MESSAGES -->
+    </dir> <!-- /locale/gl -->
+    <dir name="he">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/he/LC_MESSAGES -->
+    </dir> <!-- /locale/he -->
+    <dir name="hr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/hr/LC_MESSAGES -->
+    </dir> <!-- /locale/hr -->
+    <dir name="hu">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/hu/LC_MESSAGES -->
+    </dir> <!-- /locale/hu -->
+    <dir name="id">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/id/LC_MESSAGES -->
+    </dir> <!-- /locale/id -->
+    <dir name="is">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/is/LC_MESSAGES -->
+    </dir> <!-- /locale/is -->
+    <dir name="it">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/it/LC_MESSAGES -->
+    </dir> <!-- /locale/it -->
+    <dir name="ja">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/ja/LC_MESSAGES -->
+    </dir> <!-- /locale/ja -->
+    <dir name="km">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/km/LC_MESSAGES -->
+    </dir> <!-- /locale/km -->
+    <dir name="ko">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/ko/LC_MESSAGES -->
+    </dir> <!-- /locale/ko -->
+    <dir name="lt">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/lt/LC_MESSAGES -->
+    </dir> <!-- /locale/lt -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+    </dir> <!-- /locale/lv -->
+    <dir name="mk">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/mk/LC_MESSAGES -->
+    </dir> <!-- /locale/mk -->
+    <dir name="nb">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/nb/LC_MESSAGES -->
+    </dir> <!-- /locale/nb -->
+    <dir name="nl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/nl/LC_MESSAGES -->
+    </dir> <!-- /locale/nl -->
+    <dir name="nn">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/nn/LC_MESSAGES -->
+    </dir> <!-- /locale/nn -->
+    <dir name="pl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/pl/LC_MESSAGES -->
+    </dir> <!-- /locale/pl -->
+    <dir name="pt">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/pt/LC_MESSAGES -->
+    </dir> <!-- /locale/pt -->
+    <dir name="pt_BR">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/pt_BR/LC_MESSAGES -->
+    </dir> <!-- /locale/pt_BR -->
+    <dir name="ro">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/ro/LC_MESSAGES -->
+    </dir> <!-- /locale/ro -->
+    <dir name="ru">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/ru/LC_MESSAGES -->
+    </dir> <!-- /locale/ru -->
+    <dir name="sk">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/sk/LC_MESSAGES -->
+    </dir> <!-- /locale/sk -->
+    <dir name="sl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/sl/LC_MESSAGES -->
+    </dir> <!-- /locale/sl -->
+    <dir name="sv">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/sv/LC_MESSAGES -->
+    </dir> <!-- /locale/sv -->
+    <dir name="tr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/tr/LC_MESSAGES -->
+    </dir> <!-- /locale/tr -->
+    <dir name="uk">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/uk/LC_MESSAGES -->
+    </dir> <!-- /locale/uk -->
+    <dir name="zh_CN">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/zh_CN/LC_MESSAGES -->
+    </dir> <!-- /locale/zh_CN -->
+    <dir name="zh_TW">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_File_Csv.mo" role="data" />
+      <file name="Horde_File_Csv.po" role="data" />
+     </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
+    </dir> <!-- /locale/zh_TW -->
+    <file name="Horde_File_Csv.pot" role="data" />
+   </dir> <!-- /locale -->
    <dir name="test">
     <dir name="Horde">
      <dir name="Csv">
+      <file name="001.csv" role="test" />
+      <file name="001.diff" role="test" />
+      <file name="001.exp" role="test" />
+      <file name="001.log" role="test" />
+      <file name="001.out" role="test" />
+      <file name="001.phpt" role="test" />
+      <file name="002.csv" role="test" />
+      <file name="002.diff" role="test" />
+      <file name="002.exp" role="test" />
+      <file name="002.log" role="test" />
+      <file name="002.out" role="test" />
+      <file name="002.phpt" role="test" />
+      <file name="003.csv" role="test" />
+      <file name="003.diff" role="test" />
+      <file name="003.exp" role="test" />
+      <file name="003.log" role="test" />
+      <file name="003.out" role="test" />
+      <file name="003.phpt" role="test" />
+      <file name="004.csv" role="test" />
+      <file name="004.diff" role="test" />
+      <file name="004.exp" role="test" />
+      <file name="004.log" role="test" />
+      <file name="004.out" role="test" />
+      <file name="004.phpt" role="test" />
+      <file name="005.csv" role="test" />
+      <file name="005.diff" role="test" />
+      <file name="005.exp" role="test" />
+      <file name="005.log" role="test" />
+      <file name="005.out" role="test" />
+      <file name="005.phpt" role="test" />
       <file name="bug_3839.csv" role="test" />
+      <file name="bug_3839.diff" role="test" />
+      <file name="bug_3839.exp" role="test" />
+      <file name="bug_3839.log" role="test" />
+      <file name="bug_3839.out" role="test" />
       <file name="bug_3839.phpt" role="test" />
+      <file name="bug_4025.csv" role="test" />
+      <file name="bug_4025.diff" role="test" />
+      <file name="bug_4025.exp" role="test" />
+      <file name="bug_4025.log" role="test" />
+      <file name="bug_4025.out" role="test" />
+      <file name="bug_4025.phpt" role="test" />
+      <file name="bug_6311.csv" role="test" />
+      <file name="bug_6311.diff" role="test" />
+      <file name="bug_6311.exp" role="test" />
+      <file name="bug_6311.log" role="test" />
+      <file name="bug_6311.out" role="test" />
+      <file name="bug_6311.phpt" role="test" />
+      <file name="bug_6370.csv" role="test" />
+      <file name="bug_6370.diff" role="test" />
+      <file name="bug_6370.exp" role="test" />
+      <file name="bug_6370.log" role="test" />
+      <file name="bug_6370.out" role="test" />
+      <file name="bug_6370.phpt" role="test" />
+      <file name="bug_6372.csv" role="test" />
+      <file name="bug_6372.diff" role="test" />
+      <file name="bug_6372.exp" role="test" />
+      <file name="bug_6372.log" role="test" />
+      <file name="bug_6372.out" role="test" />
+      <file name="bug_6372.phpt" role="test" />
+      <file name="columns.diff" role="test" />
+      <file name="columns.exp" role="test" />
+      <file name="columns.log" role="test" />
+      <file name="columns.out" role="test" />
       <file name="columns.phpt" role="test" />
       <file name="columns1.csv" role="test" />
+      <file name="columns2.csv" role="test" />
       <file name="common.php" role="test" />
+      <file name="linebreak.diff" role="test" />
+      <file name="linebreak.exp" role="test" />
+      <file name="linebreak.log" role="test" />
+      <file name="linebreak.out" role="test" />
+      <file name="linebreak.phpt" role="test" />
+      <file name="multiline.diff" role="test" />
+      <file name="multiline.exp" role="test" />
+      <file name="multiline.log" role="test" />
+      <file name="multiline.out" role="test" />
       <file name="multiline.phpt" role="test" />
       <file name="multiline1.csv" role="test" />
       <file name="notrailing_crlf.csv" role="test" />
@@ -56,6 +390,10 @@ is a fork of the File_CSV class of PEAR&apos;s File package.
       <file name="quote3.csv" role="test" />
       <file name="quote4.csv" role="test" />
       <file name="quote5.csv" role="test" />
+      <file name="quotes.diff" role="test" />
+      <file name="quotes.exp" role="test" />
+      <file name="quotes.log" role="test" />
+      <file name="quotes.out" role="test" />
       <file name="quotes.phpt" role="test" />
       <file name="simple_cr.csv" role="test" />
       <file name="simple_crlf.csv" role="test" />
@@ -77,6 +415,10 @@ is a fork of the File_CSV class of PEAR&apos;s File package.
     <name>PEAR</name>
     <channel>pear.php.net</channel>
    </package>
+   <package>
+    <name>Translation</name>
+    <channel>pear.horde.org</channel>
+   </package>
    <extension>
     <name>pcre</name>
    </extension>
@@ -84,11 +426,208 @@ is a fork of the File_CSV class of PEAR&apos;s File package.
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/File/Csv/Exception.php" as="Horde/File/Csv/Exception.php" />
-   <install name="lib/Horde/File/Csv.php" as="Horde/File/Csv.php" />
+   <install as="Horde/File/Csv.php" name="lib/Horde/File/Csv.php" />
+   <install as="Horde/File/Csv/Exception.php" name="lib/Horde/File/Csv/Exception.php" />
+   <install as="Horde/File/Csv/Translation.php" name="lib/Horde/File/Csv/Translation.php" />
+   <install as="locale/Horde_File_Csv.pot" name="locale/Horde_File_Csv.pot" />
+   <install as="locale/ar/LC_MESSAGES/Horde_File_Csv.mo" name="locale/ar/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/ar/LC_MESSAGES/Horde_File_Csv.po" name="locale/ar/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/bg/LC_MESSAGES/Horde_File_Csv.mo" name="locale/bg/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/bg/LC_MESSAGES/Horde_File_Csv.po" name="locale/bg/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/bs/LC_MESSAGES/Horde_File_Csv.mo" name="locale/bs/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/bs/LC_MESSAGES/Horde_File_Csv.po" name="locale/bs/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/ca/LC_MESSAGES/Horde_File_Csv.mo" name="locale/ca/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/ca/LC_MESSAGES/Horde_File_Csv.po" name="locale/ca/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/cs/LC_MESSAGES/Horde_File_Csv.mo" name="locale/cs/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/cs/LC_MESSAGES/Horde_File_Csv.po" name="locale/cs/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/da/LC_MESSAGES/Horde_File_Csv.mo" name="locale/da/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/da/LC_MESSAGES/Horde_File_Csv.po" name="locale/da/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/de/LC_MESSAGES/Horde_File_Csv.mo" name="locale/de/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/de/LC_MESSAGES/Horde_File_Csv.po" name="locale/de/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/el/LC_MESSAGES/Horde_File_Csv.mo" name="locale/el/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/el/LC_MESSAGES/Horde_File_Csv.po" name="locale/el/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/en/LC_MESSAGES/Horde_File_Csv.mo" name="locale/en/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/en/LC_MESSAGES/Horde_File_Csv.po" name="locale/en/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/es/LC_MESSAGES/Horde_File_Csv.mo" name="locale/es/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/es/LC_MESSAGES/Horde_File_Csv.po" name="locale/es/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/et/LC_MESSAGES/Horde_File_Csv.mo" name="locale/et/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/et/LC_MESSAGES/Horde_File_Csv.po" name="locale/et/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/eu/LC_MESSAGES/Horde_File_Csv.mo" name="locale/eu/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/eu/LC_MESSAGES/Horde_File_Csv.po" name="locale/eu/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/fa/LC_MESSAGES/Horde_File_Csv.mo" name="locale/fa/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/fa/LC_MESSAGES/Horde_File_Csv.po" name="locale/fa/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/fi/LC_MESSAGES/Horde_File_Csv.mo" name="locale/fi/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/fi/LC_MESSAGES/Horde_File_Csv.po" name="locale/fi/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/fr/LC_MESSAGES/Horde_File_Csv.mo" name="locale/fr/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/fr/LC_MESSAGES/Horde_File_Csv.po" name="locale/fr/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/gl/LC_MESSAGES/Horde_File_Csv.mo" name="locale/gl/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/gl/LC_MESSAGES/Horde_File_Csv.po" name="locale/gl/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/he/LC_MESSAGES/Horde_File_Csv.mo" name="locale/he/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/he/LC_MESSAGES/Horde_File_Csv.po" name="locale/he/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/hr/LC_MESSAGES/Horde_File_Csv.mo" name="locale/hr/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/hr/LC_MESSAGES/Horde_File_Csv.po" name="locale/hr/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/hu/LC_MESSAGES/Horde_File_Csv.mo" name="locale/hu/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/hu/LC_MESSAGES/Horde_File_Csv.po" name="locale/hu/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/id/LC_MESSAGES/Horde_File_Csv.mo" name="locale/id/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/id/LC_MESSAGES/Horde_File_Csv.po" name="locale/id/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/is/LC_MESSAGES/Horde_File_Csv.mo" name="locale/is/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/is/LC_MESSAGES/Horde_File_Csv.po" name="locale/is/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/it/LC_MESSAGES/Horde_File_Csv.mo" name="locale/it/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/it/LC_MESSAGES/Horde_File_Csv.po" name="locale/it/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/ja/LC_MESSAGES/Horde_File_Csv.mo" name="locale/ja/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/ja/LC_MESSAGES/Horde_File_Csv.po" name="locale/ja/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/km/LC_MESSAGES/Horde_File_Csv.mo" name="locale/km/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/km/LC_MESSAGES/Horde_File_Csv.po" name="locale/km/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/ko/LC_MESSAGES/Horde_File_Csv.mo" name="locale/ko/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/ko/LC_MESSAGES/Horde_File_Csv.po" name="locale/ko/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/lt/LC_MESSAGES/Horde_File_Csv.mo" name="locale/lt/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/lt/LC_MESSAGES/Horde_File_Csv.po" name="locale/lt/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/lv/LC_MESSAGES/Horde_File_Csv.mo" name="locale/lv/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/lv/LC_MESSAGES/Horde_File_Csv.po" name="locale/lv/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/mk/LC_MESSAGES/Horde_File_Csv.mo" name="locale/mk/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/mk/LC_MESSAGES/Horde_File_Csv.po" name="locale/mk/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/nb/LC_MESSAGES/Horde_File_Csv.mo" name="locale/nb/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/nb/LC_MESSAGES/Horde_File_Csv.po" name="locale/nb/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/nl/LC_MESSAGES/Horde_File_Csv.mo" name="locale/nl/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/nl/LC_MESSAGES/Horde_File_Csv.po" name="locale/nl/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/nn/LC_MESSAGES/Horde_File_Csv.mo" name="locale/nn/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/nn/LC_MESSAGES/Horde_File_Csv.po" name="locale/nn/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/pl/LC_MESSAGES/Horde_File_Csv.mo" name="locale/pl/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/pl/LC_MESSAGES/Horde_File_Csv.po" name="locale/pl/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/pt/LC_MESSAGES/Horde_File_Csv.mo" name="locale/pt/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/pt/LC_MESSAGES/Horde_File_Csv.po" name="locale/pt/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/pt_BR/LC_MESSAGES/Horde_File_Csv.mo" name="locale/pt_BR/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/pt_BR/LC_MESSAGES/Horde_File_Csv.po" name="locale/pt_BR/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/ro/LC_MESSAGES/Horde_File_Csv.mo" name="locale/ro/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/ro/LC_MESSAGES/Horde_File_Csv.po" name="locale/ro/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/ru/LC_MESSAGES/Horde_File_Csv.mo" name="locale/ru/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/ru/LC_MESSAGES/Horde_File_Csv.po" name="locale/ru/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/sk/LC_MESSAGES/Horde_File_Csv.mo" name="locale/sk/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/sk/LC_MESSAGES/Horde_File_Csv.po" name="locale/sk/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/sl/LC_MESSAGES/Horde_File_Csv.mo" name="locale/sl/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/sl/LC_MESSAGES/Horde_File_Csv.po" name="locale/sl/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/sv/LC_MESSAGES/Horde_File_Csv.mo" name="locale/sv/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/sv/LC_MESSAGES/Horde_File_Csv.po" name="locale/sv/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/tr/LC_MESSAGES/Horde_File_Csv.mo" name="locale/tr/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/tr/LC_MESSAGES/Horde_File_Csv.po" name="locale/tr/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/uk/LC_MESSAGES/Horde_File_Csv.mo" name="locale/uk/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/uk/LC_MESSAGES/Horde_File_Csv.po" name="locale/uk/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/zh_CN/LC_MESSAGES/Horde_File_Csv.mo" name="locale/zh_CN/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/zh_CN/LC_MESSAGES/Horde_File_Csv.po" name="locale/zh_CN/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="locale/zh_TW/LC_MESSAGES/Horde_File_Csv.mo" name="locale/zh_TW/LC_MESSAGES/Horde_File_Csv.mo" />
+   <install as="locale/zh_TW/LC_MESSAGES/Horde_File_Csv.po" name="locale/zh_TW/LC_MESSAGES/Horde_File_Csv.po" />
+   <install as="Horde/Csv/001.csv" name="test/Horde/Csv/001.csv" />
+   <install as="Horde/Csv/001.diff" name="test/Horde/Csv/001.diff" />
+   <install as="Horde/Csv/001.exp" name="test/Horde/Csv/001.exp" />
+   <install as="Horde/Csv/001.log" name="test/Horde/Csv/001.log" />
+   <install as="Horde/Csv/001.out" name="test/Horde/Csv/001.out" />
+   <install as="Horde/Csv/001.phpt" name="test/Horde/Csv/001.phpt" />
+   <install as="Horde/Csv/002.csv" name="test/Horde/Csv/002.csv" />
+   <install as="Horde/Csv/002.diff" name="test/Horde/Csv/002.diff" />
+   <install as="Horde/Csv/002.exp" name="test/Horde/Csv/002.exp" />
+   <install as="Horde/Csv/002.log" name="test/Horde/Csv/002.log" />
+   <install as="Horde/Csv/002.out" name="test/Horde/Csv/002.out" />
+   <install as="Horde/Csv/002.phpt" name="test/Horde/Csv/002.phpt" />
+   <install as="Horde/Csv/003.csv" name="test/Horde/Csv/003.csv" />
+   <install as="Horde/Csv/003.diff" name="test/Horde/Csv/003.diff" />
+   <install as="Horde/Csv/003.exp" name="test/Horde/Csv/003.exp" />
+   <install as="Horde/Csv/003.log" name="test/Horde/Csv/003.log" />
+   <install as="Horde/Csv/003.out" name="test/Horde/Csv/003.out" />
+   <install as="Horde/Csv/003.phpt" name="test/Horde/Csv/003.phpt" />
+   <install as="Horde/Csv/004.csv" name="test/Horde/Csv/004.csv" />
+   <install as="Horde/Csv/004.diff" name="test/Horde/Csv/004.diff" />
+   <install as="Horde/Csv/004.exp" name="test/Horde/Csv/004.exp" />
+   <install as="Horde/Csv/004.log" name="test/Horde/Csv/004.log" />
+   <install as="Horde/Csv/004.out" name="test/Horde/Csv/004.out" />
+   <install as="Horde/Csv/004.phpt" name="test/Horde/Csv/004.phpt" />
+   <install as="Horde/Csv/005.csv" name="test/Horde/Csv/005.csv" />
+   <install as="Horde/Csv/005.diff" name="test/Horde/Csv/005.diff" />
+   <install as="Horde/Csv/005.exp" name="test/Horde/Csv/005.exp" />
+   <install as="Horde/Csv/005.log" name="test/Horde/Csv/005.log" />
+   <install as="Horde/Csv/005.out" name="test/Horde/Csv/005.out" />
+   <install as="Horde/Csv/005.phpt" name="test/Horde/Csv/005.phpt" />
+   <install as="Horde/Csv/bug_3839.csv" name="test/Horde/Csv/bug_3839.csv" />
+   <install as="Horde/Csv/bug_3839.diff" name="test/Horde/Csv/bug_3839.diff" />
+   <install as="Horde/Csv/bug_3839.exp" name="test/Horde/Csv/bug_3839.exp" />
+   <install as="Horde/Csv/bug_3839.log" name="test/Horde/Csv/bug_3839.log" />
+   <install as="Horde/Csv/bug_3839.out" name="test/Horde/Csv/bug_3839.out" />
+   <install as="Horde/Csv/bug_3839.phpt" name="test/Horde/Csv/bug_3839.phpt" />
+   <install as="Horde/Csv/bug_4025.csv" name="test/Horde/Csv/bug_4025.csv" />
+   <install as="Horde/Csv/bug_4025.diff" name="test/Horde/Csv/bug_4025.diff" />
+   <install as="Horde/Csv/bug_4025.exp" name="test/Horde/Csv/bug_4025.exp" />
+   <install as="Horde/Csv/bug_4025.log" name="test/Horde/Csv/bug_4025.log" />
+   <install as="Horde/Csv/bug_4025.out" name="test/Horde/Csv/bug_4025.out" />
+   <install as="Horde/Csv/bug_4025.phpt" name="test/Horde/Csv/bug_4025.phpt" />
+   <install as="Horde/Csv/bug_6311.csv" name="test/Horde/Csv/bug_6311.csv" />
+   <install as="Horde/Csv/bug_6311.diff" name="test/Horde/Csv/bug_6311.diff" />
+   <install as="Horde/Csv/bug_6311.exp" name="test/Horde/Csv/bug_6311.exp" />
+   <install as="Horde/Csv/bug_6311.log" name="test/Horde/Csv/bug_6311.log" />
+   <install as="Horde/Csv/bug_6311.out" name="test/Horde/Csv/bug_6311.out" />
+   <install as="Horde/Csv/bug_6311.phpt" name="test/Horde/Csv/bug_6311.phpt" />
+   <install as="Horde/Csv/bug_6370.csv" name="test/Horde/Csv/bug_6370.csv" />
+   <install as="Horde/Csv/bug_6370.diff" name="test/Horde/Csv/bug_6370.diff" />
+   <install as="Horde/Csv/bug_6370.exp" name="test/Horde/Csv/bug_6370.exp" />
+   <install as="Horde/Csv/bug_6370.log" name="test/Horde/Csv/bug_6370.log" />
+   <install as="Horde/Csv/bug_6370.out" name="test/Horde/Csv/bug_6370.out" />
+   <install as="Horde/Csv/bug_6370.phpt" name="test/Horde/Csv/bug_6370.phpt" />
+   <install as="Horde/Csv/bug_6372.csv" name="test/Horde/Csv/bug_6372.csv" />
+   <install as="Horde/Csv/bug_6372.diff" name="test/Horde/Csv/bug_6372.diff" />
+   <install as="Horde/Csv/bug_6372.exp" name="test/Horde/Csv/bug_6372.exp" />
+   <install as="Horde/Csv/bug_6372.log" name="test/Horde/Csv/bug_6372.log" />
+   <install as="Horde/Csv/bug_6372.out" name="test/Horde/Csv/bug_6372.out" />
+   <install as="Horde/Csv/bug_6372.phpt" name="test/Horde/Csv/bug_6372.phpt" />
+   <install as="Horde/Csv/columns.diff" name="test/Horde/Csv/columns.diff" />
+   <install as="Horde/Csv/columns.exp" name="test/Horde/Csv/columns.exp" />
+   <install as="Horde/Csv/columns.log" name="test/Horde/Csv/columns.log" />
+   <install as="Horde/Csv/columns.out" name="test/Horde/Csv/columns.out" />
+   <install as="Horde/Csv/columns.phpt" name="test/Horde/Csv/columns.phpt" />
+   <install as="Horde/Csv/columns1.csv" name="test/Horde/Csv/columns1.csv" />
+   <install as="Horde/Csv/columns2.csv" name="test/Horde/Csv/columns2.csv" />
+   <install as="Horde/Csv/common.php" name="test/Horde/Csv/common.php" />
+   <install as="Horde/Csv/linebreak.diff" name="test/Horde/Csv/linebreak.diff" />
+   <install as="Horde/Csv/linebreak.exp" name="test/Horde/Csv/linebreak.exp" />
+   <install as="Horde/Csv/linebreak.log" name="test/Horde/Csv/linebreak.log" />
+   <install as="Horde/Csv/linebreak.out" name="test/Horde/Csv/linebreak.out" />
+   <install as="Horde/Csv/linebreak.phpt" name="test/Horde/Csv/linebreak.phpt" />
+   <install as="Horde/Csv/multiline.diff" name="test/Horde/Csv/multiline.diff" />
+   <install as="Horde/Csv/multiline.exp" name="test/Horde/Csv/multiline.exp" />
+   <install as="Horde/Csv/multiline.log" name="test/Horde/Csv/multiline.log" />
+   <install as="Horde/Csv/multiline.out" name="test/Horde/Csv/multiline.out" />
+   <install as="Horde/Csv/multiline.phpt" name="test/Horde/Csv/multiline.phpt" />
+   <install as="Horde/Csv/multiline1.csv" name="test/Horde/Csv/multiline1.csv" />
+   <install as="Horde/Csv/notrailing_crlf.csv" name="test/Horde/Csv/notrailing_crlf.csv" />
+   <install as="Horde/Csv/notrailing_lf.csv" name="test/Horde/Csv/notrailing_lf.csv" />
+   <install as="Horde/Csv/quote1.csv" name="test/Horde/Csv/quote1.csv" />
+   <install as="Horde/Csv/quote2.csv" name="test/Horde/Csv/quote2.csv" />
+   <install as="Horde/Csv/quote3.csv" name="test/Horde/Csv/quote3.csv" />
+   <install as="Horde/Csv/quote4.csv" name="test/Horde/Csv/quote4.csv" />
+   <install as="Horde/Csv/quote5.csv" name="test/Horde/Csv/quote5.csv" />
+   <install as="Horde/Csv/quotes.diff" name="test/Horde/Csv/quotes.diff" />
+   <install as="Horde/Csv/quotes.exp" name="test/Horde/Csv/quotes.exp" />
+   <install as="Horde/Csv/quotes.log" name="test/Horde/Csv/quotes.log" />
+   <install as="Horde/Csv/quotes.out" name="test/Horde/Csv/quotes.out" />
+   <install as="Horde/Csv/quotes.phpt" name="test/Horde/Csv/quotes.phpt" />
+   <install as="Horde/Csv/simple_cr.csv" name="test/Horde/Csv/simple_cr.csv" />
+   <install as="Horde/Csv/simple_crlf.csv" name="test/Horde/Csv/simple_crlf.csv" />
+   <install as="Horde/Csv/simple_lf.csv" name="test/Horde/Csv/simple_lf.csv" />
   </filelist>
  </phprelease>
  <changelog>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-01-01</date>
+   <license uri="http://www.php.net/license">PHP</license>
+   <notes>
+First release.
+   </notes>
+  </release>
   <release>
    <date>2006-05-08</date>
    <time>21:32:31</time>
@@ -102,22 +641,23 @@ is a fork of the File_CSV class of PEAR&apos;s File package.
    </stability>
    <license uri="http://www.php.net/license">PHP</license>
    <notes>
-   * Converted to package.xml 2.0 for pear.horde.org
-   * Close Horde bug #6372 (ritaselsky@gmail.com)
+* Converted to package.xml 2.0 for pear.horde.org
+* Close Horde bug #6372 (ritaselsky@gmail.com)
    </notes>
   </release>
   <release>
    <version>
-    <release>0.1.0</release>
-    <api>0.1.0</api>
+    <release>0.2.0</release>
+    <api>0.2.0</api>
    </version>
    <stability>
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2004-01-01</date>
+   <date>2010-10-22</date>
    <license uri="http://www.php.net/license">PHP</license>
-   <notes>First release.
+   <notes>
+* Initial Horde 4 Package
    </notes>
   </release>
  </changelog>

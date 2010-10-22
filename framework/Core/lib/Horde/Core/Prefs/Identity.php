@@ -17,24 +17,6 @@
 class Horde_Core_Prefs_Identity extends Horde_Prefs_Identity
 {
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_coreDict;
-
-    /**
-     * Constructor.
-     *
-     * @see Horde_Prefs_Identity::__construct()
-     */
-    public function __construct($params = array())
-    {
-        $this->_coreDict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../../../../locale');
-        parent::__construct($params);
-    }
-
-    /**
      * Sends a message to an email address supposed to be added to the
      * identity.
      * A message is send to this address containing a link to confirm that the
@@ -59,7 +41,7 @@ class Horde_Core_Prefs_Identity extends Horde_Prefs_Identity
 
         $new_addr = $this->getValue($this->_prefnames['from_addr'], $id);
         $confirm = Horde::getServiceLink('emailconfirm')->add('h', $hash)->setRaw(true);
-        $message = sprintf($this->_coreDict->t("You have requested to add the email address \"%s\" to the list of your personal email addresses.\n\nGo to the following link to confirm that this is really your address:\n%s\n\nIf you don't know what this message means, you can delete it."),
+        $message = sprintf(Horde_Core_Translation::t("You have requested to add the email address \"%s\" to the list of your personal email addresses.\n\nGo to the following link to confirm that this is really your address:\n%s\n\nIf you don't know what this message means, you can delete it."),
                            $new_addr,
                            $confirm);
 
@@ -69,7 +51,7 @@ class Horde_Core_Prefs_Identity extends Horde_Prefs_Identity
         $msg_headers->addHeader('Date', date('r'));
         $msg_headers->addHeader('To', $new_addr);
         $msg_headers->addHeader('From', $old_addr);
-        $msg_headers->addHeader('Subject', $this->_coreDict->t("Confirm new email address"));
+        $msg_headers->addHeader('Subject', Horde_Core_Translation::t("Confirm new email address"));
 
         $body = new Horde_Mime_Part();
         $body->setType('text/plain');
@@ -78,7 +60,7 @@ class Horde_Core_Prefs_Identity extends Horde_Prefs_Identity
 
         $body->send($new_addr, $msg_headers, $GLOBALS['injector']->getInstance('Horde_Mail'));
 
-        $GLOBALS['notification']->push(sprintf($this->_coreDict->t("A message has been sent to \"%s\" to verify that this is really your address. The new email address is activated as soon as you confirm this message."), $new_addr), 'horde.message');
+        $GLOBALS['notification']->push(sprintf(Horde_Core_Translation::t("A message has been sent to \"%s\" to verify that this is really your address. The new email address is activated as soon as you confirm this message."), $new_addr), 'horde.message');
     }
 
     /**
@@ -93,16 +75,16 @@ class Horde_Core_Prefs_Identity extends Horde_Prefs_Identity
 
         $confirm = $this->_prefs->getValue('confirm_email');
         if (empty($confirm)) {
-            $notification->push($this->_coreDict->t("There are no email addresses to confirm."), 'horde.message');
+            $notification->push(Horde_Core_Translation::t("There are no email addresses to confirm."), 'horde.message');
             return;
         }
 
         $confirm = @unserialize($confirm);
         if (empty($confirm)) {
-            $notification->push($this->_coreDict->t("There are no email addresses to confirm."), 'horde.message');
+            $notification->push(Horde_Core_Translation::t("There are no email addresses to confirm."), 'horde.message');
             return;
         } elseif (!isset($confirm[$hash])) {
-            $notifcation->push($this->_coreDict->t("Email addresses to confirm not found."), 'horde.message');
+            $notifcation->push(Horde_Core_Translation::t("Email addresses to confirm not found."), 'horde.message');
             return;
         }
 
@@ -127,7 +109,7 @@ class Horde_Core_Prefs_Identity extends Horde_Prefs_Identity
         unset($confirm[$hash]);
         $this->_prefs->setValue('confirm_email', serialize($confirm));
 
-        $notification->push(sprintf($this->_coreDict->t("The email address %s has been added to your identities. You can close this window now."), $verified[$this->_prefnames['from_addr']]), 'horde.success');
+        $notification->push(sprintf(Horde_Core_Translation::t("The email address %s has been added to your identities. You can close this window now."), $verified[$this->_prefnames['from_addr']]), 'horde.success');
     }
 
     /**

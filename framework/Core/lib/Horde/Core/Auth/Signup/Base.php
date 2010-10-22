@@ -17,21 +17,6 @@
 abstract class Horde_Core_Auth_Signup_Base
 {
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_coreDict;
-
-    /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-        $this->_coreDict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../../../../../locale');
-    }
-
-    /**
      * Adds a new user to the system and handles any extra fields that may have
      * been compiled, relying on the hooks.php file.
      *
@@ -93,14 +78,14 @@ abstract class Horde_Core_Auth_Signup_Base
                 'u' => $signup->name,
                 'h' => hash_hmac('sha1', $signup->name, $conf['secret_key'])
             ));
-            $message = sprintf($this->_coreDict->t("A new account for the user \"%s\" has been requested through the signup form."), $signup->name)
+            $message = sprintf(Horde_Core_Translation::t("A new account for the user \"%s\" has been requested through the signup form."), $signup->name)
                 . "\n\n"
-                . $this->_coreDict->t("Approve the account:")
+                . Horde_Core_Translation::t("Approve the account:")
                 . "\n" . $link->copy()->add('a', 'approve') . "\n"
-                . $this->_coreDict->t("Deny the account:")
+                . Horde_Core_Translation::t("Deny the account:")
                 . "\n" . $link->copy()->add('a', 'deny');
             $mail = new Horde_Mime_Mail(array(
-                'subject' => sprintf($this->_coreDict->t("Account signup request for \"%s\""), $signup->name),
+                'subject' => sprintf(Horde_Core_Translation::t("Account signup request for \"%s\""), $signup->name),
                 'body' => $message,
                 'to' => $conf['signup']['email'],
                 'from' => $conf['signup']['email'],
@@ -126,7 +111,7 @@ abstract class Horde_Core_Auth_Signup_Base
         // the signup queue.
         if ($GLOBALS['auth']->exists($info['user_name']) ||
             $this->exists($info['user_name'])) {
-            throw new Horde_Exception(sprintf($this->_coreDict->t("Username \"%s\" already exists."), $info['user_name']));
+            throw new Horde_Exception(sprintf(Horde_Core_Translation::t("Username \"%s\" already exists."), $info['user_name']));
         }
     }
 

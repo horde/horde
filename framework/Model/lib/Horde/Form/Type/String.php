@@ -26,14 +26,14 @@ class Horde_Form_Type_String extends Horde_Form_Type {
 
         if (!empty($this->_maxlength) && Horde_String::length($value) > $this->_maxlength) {
             $valid = false;
-            $message = sprintf($this->_dict->t("Value is over the maximum length of %s."), $this->_maxlength);
+            $message = sprintf(Horde_Model_Translation::t("Value is over the maximum length of %s."), $this->_maxlength);
         } elseif ($var->required && empty($this->_regex)) {
             if (!($valid = strlen(trim($value)) > 0)) {
-                $message = $this->_dict->t("This field is required.");
+                $message = Horde_Model_Translation::t("This field is required.");
             }
         } elseif (strlen($this->_regex)) {
             if (!($valid = preg_match($this->_regex, $value))) {
-                $message = $this->_dict->t("You must enter a valid value.");
+                $message = Horde_Model_Translation::t("You must enter a valid value.");
             }
         }
 

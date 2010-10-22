@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>VFS</name>
  <channel>pear.php.net</channel>
  <summary>Virtual File System API</summary>
@@ -16,9 +13,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
 * SSH2/SFTP
 * IMAP (Kolab)
 
-Reading, writing and listing of files are all supported, and there are both object-based and array-based interfaces to directory listings.
-
- </description>
+Reading, writing and listing of files are all supported, and there are both object-based and array-based interfaces to directory listings.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chagenbu</user>
@@ -31,7 +26,8 @@ Reading, writing and listing of files are all supported, and there are both obje
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2009-12-31</date>
+ <date>2010-10-22</date>
+ <time>19:02:59</time>
  <version>
   <release>0.4.0</release>
   <api>0.4.0</api>
@@ -41,24 +37,20 @@ Reading, writing and listing of files are all supported, and there are both obje
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Now throws exceptions instead of returning PEAR_Errors. Package now requires PHP 5.</notes>
+ <notes>
+* Now throws exceptions instead of returning PEAR_Errors. Package now requires PHP 5.
+ </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="data">
     <dir name="VFS">
      <file name="muvfs.sql" role="data" />
+     <file name="vfs.mssql.sql" role="data" />
      <file name="vfs.oci8.sql" role="data" />
      <file name="vfs.pgsql.sql" role="data" />
      <file name="vfs.sql" role="data" />
     </dir> <!-- /data/VFS -->
    </dir> <!-- /data -->
-   <dir name="scripts">
-    <dir name="VFS">
-     <file name="vfs.php" role="script">
-      <tasks:replace from="@php_bin@" to="php_bin" type="pear-config"/>
-     </file>
-    </dir> <!-- /scripts/VFS -->
-   </dir> <!-- /scripts -->
    <dir name="lib">
     <dir name="VFS">
      <file name="Browser.php" role="php" />
@@ -75,9 +67,291 @@ Reading, writing and listing of files are all supported, and there are both obje
      <file name="sql.php" role="php" />
      <file name="sql_file.php" role="php" />
      <file name="ssh2.php" role="php" />
+     <file name="Translation.php" role="php">
+      <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+     </file>
     </dir> <!-- /lib/VFS -->
     <file name="VFS.php" role="php" />
    </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="ar">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/ar/LC_MESSAGES -->
+    </dir> <!-- /locale/ar -->
+    <dir name="bg">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/bg/LC_MESSAGES -->
+    </dir> <!-- /locale/bg -->
+    <dir name="bs">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/bs/LC_MESSAGES -->
+    </dir> <!-- /locale/bs -->
+    <dir name="ca">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/ca/LC_MESSAGES -->
+    </dir> <!-- /locale/ca -->
+    <dir name="cs">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/cs/LC_MESSAGES -->
+    </dir> <!-- /locale/cs -->
+    <dir name="da">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/da/LC_MESSAGES -->
+    </dir> <!-- /locale/da -->
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+    </dir> <!-- /locale/de -->
+    <dir name="el">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/el/LC_MESSAGES -->
+    </dir> <!-- /locale/el -->
+    <dir name="en">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/en/LC_MESSAGES -->
+    </dir> <!-- /locale/en -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+    </dir> <!-- /locale/es -->
+    <dir name="et">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/et/LC_MESSAGES -->
+    </dir> <!-- /locale/et -->
+    <dir name="eu">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/eu/LC_MESSAGES -->
+    </dir> <!-- /locale/eu -->
+    <dir name="fa">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/fa/LC_MESSAGES -->
+    </dir> <!-- /locale/fa -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+    </dir> <!-- /locale/fi -->
+    <dir name="fr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/fr/LC_MESSAGES -->
+    </dir> <!-- /locale/fr -->
+    <dir name="gl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/gl/LC_MESSAGES -->
+    </dir> <!-- /locale/gl -->
+    <dir name="he">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/he/LC_MESSAGES -->
+    </dir> <!-- /locale/he -->
+    <dir name="hr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/hr/LC_MESSAGES -->
+    </dir> <!-- /locale/hr -->
+    <dir name="hu">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/hu/LC_MESSAGES -->
+    </dir> <!-- /locale/hu -->
+    <dir name="id">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/id/LC_MESSAGES -->
+    </dir> <!-- /locale/id -->
+    <dir name="is">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/is/LC_MESSAGES -->
+    </dir> <!-- /locale/is -->
+    <dir name="it">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/it/LC_MESSAGES -->
+    </dir> <!-- /locale/it -->
+    <dir name="ja">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/ja/LC_MESSAGES -->
+    </dir> <!-- /locale/ja -->
+    <dir name="km">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/km/LC_MESSAGES -->
+    </dir> <!-- /locale/km -->
+    <dir name="ko">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/ko/LC_MESSAGES -->
+    </dir> <!-- /locale/ko -->
+    <dir name="lt">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/lt/LC_MESSAGES -->
+    </dir> <!-- /locale/lt -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+    </dir> <!-- /locale/lv -->
+    <dir name="mk">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/mk/LC_MESSAGES -->
+    </dir> <!-- /locale/mk -->
+    <dir name="nb">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/nb/LC_MESSAGES -->
+    </dir> <!-- /locale/nb -->
+    <dir name="nl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/nl/LC_MESSAGES -->
+    </dir> <!-- /locale/nl -->
+    <dir name="nn">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/nn/LC_MESSAGES -->
+    </dir> <!-- /locale/nn -->
+    <dir name="pl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/pl/LC_MESSAGES -->
+    </dir> <!-- /locale/pl -->
+    <dir name="pt">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/pt/LC_MESSAGES -->
+    </dir> <!-- /locale/pt -->
+    <dir name="pt_BR">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/pt_BR/LC_MESSAGES -->
+    </dir> <!-- /locale/pt_BR -->
+    <dir name="ro">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/ro/LC_MESSAGES -->
+    </dir> <!-- /locale/ro -->
+    <dir name="ru">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/ru/LC_MESSAGES -->
+    </dir> <!-- /locale/ru -->
+    <dir name="sk">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/sk/LC_MESSAGES -->
+    </dir> <!-- /locale/sk -->
+    <dir name="sl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/sl/LC_MESSAGES -->
+    </dir> <!-- /locale/sl -->
+    <dir name="sv">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/sv/LC_MESSAGES -->
+    </dir> <!-- /locale/sv -->
+    <dir name="tr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/tr/LC_MESSAGES -->
+    </dir> <!-- /locale/tr -->
+    <dir name="uk">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/uk/LC_MESSAGES -->
+    </dir> <!-- /locale/uk -->
+    <dir name="zh_CN">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/zh_CN/LC_MESSAGES -->
+    </dir> <!-- /locale/zh_CN -->
+    <dir name="zh_TW">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_VFS.mo" role="data" />
+      <file name="Horde_VFS.po" role="data" />
+     </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
+    </dir> <!-- /locale/zh_TW -->
+    <file name="Horde_VFS.pot" role="data" />
+   </dir> <!-- /locale -->
+   <dir name="scripts">
+    <dir name="VFS">
+     <file name="vfs.php" role="script">
+      <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
+     </file>
+    </dir> <!-- /scripts/VFS -->
+   </dir> <!-- /scripts -->
+   <dir name="test">
+    <dir name="VFS">
+     <dir name="fixtures">
+      <file name="samba1.txt" role="test" />
+      <file name="samba2.txt" role="test" />
+     </dir> <!-- /test/VFS/fixtures -->
+     <file name="AllTests.php" role="test" />
+     <file name="KolabTest.php" role="test" />
+     <file name="SmbTest.php" role="test" />
+    </dir> <!-- /test/VFS -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -92,102 +366,194 @@ Reading, writing and listing of files are all supported, and there are both obje
     <name>Log</name>
     <channel>pear.php.net</channel>
    </package>
-   <extension>
-    <name>gettext</name>
-   </extension>
+   <package>
+    <name>Translation</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </required>
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="scripts/VFS/vfs.php" as="vfs" />
-   <install name="lib/VFS/Browser.php" as="VFS/Browser.php" />
-   <install name="lib/VFS/Exception.php" as="VFS/Exception.php" />
-   <install name="lib/VFS/file.php" as="VFS/file.php" />
-   <install name="lib/VFS/ftp.php" as="VFS/ftp.php" />
-   <install name="lib/VFS/GC.php" as="VFS/GC.php" />
-   <install name="lib/VFS/horde.php" as="VFS/horde.php" />
-   <install name="lib/VFS/ListItem.php" as="VFS/ListItem.php" />
-   <install name="lib/VFS/musql.php" as="VFS/musql.php" />
-   <install name="lib/VFS/Object.php" as="VFS/Object.php" />
-   <install name="lib/VFS/smb.php" as="VFS/smb.php" />
-   <install name="lib/VFS/sql.php" as="VFS/sql.php" />
-   <install name="lib/VFS/sql_file.php" as="VFS/sql_file.php" />
-   <install name="lib/VFS/ssh2.php" as="VFS/ssh2.php" />
-   <install name="lib/VFS.php" as="VFS.php" />
+   <install as="VFS/muvfs.sql" name="data/VFS/muvfs.sql" />
+   <install as="VFS/vfs.mssql.sql" name="data/VFS/vfs.mssql.sql" />
+   <install as="VFS/vfs.oci8.sql" name="data/VFS/vfs.oci8.sql" />
+   <install as="VFS/vfs.pgsql.sql" name="data/VFS/vfs.pgsql.sql" />
+   <install as="VFS/vfs.sql" name="data/VFS/vfs.sql" />
+   <install as="VFS.php" name="lib/VFS.php" />
+   <install as="VFS/Browser.php" name="lib/VFS/Browser.php" />
+   <install as="VFS/Exception.php" name="lib/VFS/Exception.php" />
+   <install as="VFS/file.php" name="lib/VFS/file.php" />
+   <install as="VFS/ftp.php" name="lib/VFS/ftp.php" />
+   <install as="VFS/GC.php" name="lib/VFS/GC.php" />
+   <install as="VFS/horde.php" name="lib/VFS/horde.php" />
+   <install as="VFS/kolab.php" name="lib/VFS/kolab.php" />
+   <install as="VFS/ListItem.php" name="lib/VFS/ListItem.php" />
+   <install as="VFS/musql.php" name="lib/VFS/musql.php" />
+   <install as="VFS/Object.php" name="lib/VFS/Object.php" />
+   <install as="VFS/smb.php" name="lib/VFS/smb.php" />
+   <install as="VFS/sql.php" name="lib/VFS/sql.php" />
+   <install as="VFS/sql_file.php" name="lib/VFS/sql_file.php" />
+   <install as="VFS/ssh2.php" name="lib/VFS/ssh2.php" />
+   <install as="VFS/Translation.php" name="lib/VFS/Translation.php" />
+   <install as="locale/Horde_VFS.pot" name="locale/Horde_VFS.pot" />
+   <install as="locale/ar/LC_MESSAGES/Horde_VFS.mo" name="locale/ar/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/ar/LC_MESSAGES/Horde_VFS.po" name="locale/ar/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/bg/LC_MESSAGES/Horde_VFS.mo" name="locale/bg/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/bg/LC_MESSAGES/Horde_VFS.po" name="locale/bg/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/bs/LC_MESSAGES/Horde_VFS.mo" name="locale/bs/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/bs/LC_MESSAGES/Horde_VFS.po" name="locale/bs/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/ca/LC_MESSAGES/Horde_VFS.mo" name="locale/ca/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/ca/LC_MESSAGES/Horde_VFS.po" name="locale/ca/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/cs/LC_MESSAGES/Horde_VFS.mo" name="locale/cs/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/cs/LC_MESSAGES/Horde_VFS.po" name="locale/cs/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/da/LC_MESSAGES/Horde_VFS.mo" name="locale/da/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/da/LC_MESSAGES/Horde_VFS.po" name="locale/da/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/de/LC_MESSAGES/Horde_VFS.mo" name="locale/de/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/de/LC_MESSAGES/Horde_VFS.po" name="locale/de/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/el/LC_MESSAGES/Horde_VFS.mo" name="locale/el/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/el/LC_MESSAGES/Horde_VFS.po" name="locale/el/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/en/LC_MESSAGES/Horde_VFS.mo" name="locale/en/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/en/LC_MESSAGES/Horde_VFS.po" name="locale/en/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/es/LC_MESSAGES/Horde_VFS.mo" name="locale/es/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/es/LC_MESSAGES/Horde_VFS.po" name="locale/es/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/et/LC_MESSAGES/Horde_VFS.mo" name="locale/et/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/et/LC_MESSAGES/Horde_VFS.po" name="locale/et/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/eu/LC_MESSAGES/Horde_VFS.mo" name="locale/eu/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/eu/LC_MESSAGES/Horde_VFS.po" name="locale/eu/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/fa/LC_MESSAGES/Horde_VFS.mo" name="locale/fa/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/fa/LC_MESSAGES/Horde_VFS.po" name="locale/fa/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/fi/LC_MESSAGES/Horde_VFS.mo" name="locale/fi/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/fi/LC_MESSAGES/Horde_VFS.po" name="locale/fi/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/fr/LC_MESSAGES/Horde_VFS.mo" name="locale/fr/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/fr/LC_MESSAGES/Horde_VFS.po" name="locale/fr/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/gl/LC_MESSAGES/Horde_VFS.mo" name="locale/gl/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/gl/LC_MESSAGES/Horde_VFS.po" name="locale/gl/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/he/LC_MESSAGES/Horde_VFS.mo" name="locale/he/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/he/LC_MESSAGES/Horde_VFS.po" name="locale/he/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/hr/LC_MESSAGES/Horde_VFS.mo" name="locale/hr/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/hr/LC_MESSAGES/Horde_VFS.po" name="locale/hr/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/hu/LC_MESSAGES/Horde_VFS.mo" name="locale/hu/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/hu/LC_MESSAGES/Horde_VFS.po" name="locale/hu/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/id/LC_MESSAGES/Horde_VFS.mo" name="locale/id/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/id/LC_MESSAGES/Horde_VFS.po" name="locale/id/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/is/LC_MESSAGES/Horde_VFS.mo" name="locale/is/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/is/LC_MESSAGES/Horde_VFS.po" name="locale/is/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/it/LC_MESSAGES/Horde_VFS.mo" name="locale/it/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/it/LC_MESSAGES/Horde_VFS.po" name="locale/it/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/ja/LC_MESSAGES/Horde_VFS.mo" name="locale/ja/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/ja/LC_MESSAGES/Horde_VFS.po" name="locale/ja/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/km/LC_MESSAGES/Horde_VFS.mo" name="locale/km/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/km/LC_MESSAGES/Horde_VFS.po" name="locale/km/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/ko/LC_MESSAGES/Horde_VFS.mo" name="locale/ko/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/ko/LC_MESSAGES/Horde_VFS.po" name="locale/ko/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/lt/LC_MESSAGES/Horde_VFS.mo" name="locale/lt/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/lt/LC_MESSAGES/Horde_VFS.po" name="locale/lt/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/lv/LC_MESSAGES/Horde_VFS.mo" name="locale/lv/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/lv/LC_MESSAGES/Horde_VFS.po" name="locale/lv/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/mk/LC_MESSAGES/Horde_VFS.mo" name="locale/mk/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/mk/LC_MESSAGES/Horde_VFS.po" name="locale/mk/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/nb/LC_MESSAGES/Horde_VFS.mo" name="locale/nb/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/nb/LC_MESSAGES/Horde_VFS.po" name="locale/nb/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/nl/LC_MESSAGES/Horde_VFS.mo" name="locale/nl/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/nl/LC_MESSAGES/Horde_VFS.po" name="locale/nl/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/nn/LC_MESSAGES/Horde_VFS.mo" name="locale/nn/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/nn/LC_MESSAGES/Horde_VFS.po" name="locale/nn/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/pl/LC_MESSAGES/Horde_VFS.mo" name="locale/pl/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/pl/LC_MESSAGES/Horde_VFS.po" name="locale/pl/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/pt/LC_MESSAGES/Horde_VFS.mo" name="locale/pt/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/pt/LC_MESSAGES/Horde_VFS.po" name="locale/pt/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/pt_BR/LC_MESSAGES/Horde_VFS.mo" name="locale/pt_BR/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/pt_BR/LC_MESSAGES/Horde_VFS.po" name="locale/pt_BR/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/ro/LC_MESSAGES/Horde_VFS.mo" name="locale/ro/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/ro/LC_MESSAGES/Horde_VFS.po" name="locale/ro/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/ru/LC_MESSAGES/Horde_VFS.mo" name="locale/ru/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/ru/LC_MESSAGES/Horde_VFS.po" name="locale/ru/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/sk/LC_MESSAGES/Horde_VFS.mo" name="locale/sk/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/sk/LC_MESSAGES/Horde_VFS.po" name="locale/sk/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/sl/LC_MESSAGES/Horde_VFS.mo" name="locale/sl/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/sl/LC_MESSAGES/Horde_VFS.po" name="locale/sl/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/sv/LC_MESSAGES/Horde_VFS.mo" name="locale/sv/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/sv/LC_MESSAGES/Horde_VFS.po" name="locale/sv/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/tr/LC_MESSAGES/Horde_VFS.mo" name="locale/tr/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/tr/LC_MESSAGES/Horde_VFS.po" name="locale/tr/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/uk/LC_MESSAGES/Horde_VFS.mo" name="locale/uk/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/uk/LC_MESSAGES/Horde_VFS.po" name="locale/uk/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/zh_CN/LC_MESSAGES/Horde_VFS.mo" name="locale/zh_CN/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/zh_CN/LC_MESSAGES/Horde_VFS.po" name="locale/zh_CN/LC_MESSAGES/Horde_VFS.po" />
+   <install as="locale/zh_TW/LC_MESSAGES/Horde_VFS.mo" name="locale/zh_TW/LC_MESSAGES/Horde_VFS.mo" />
+   <install as="locale/zh_TW/LC_MESSAGES/Horde_VFS.po" name="locale/zh_TW/LC_MESSAGES/Horde_VFS.po" />
+   <install as="VFS/AllTests.php" name="test/VFS/AllTests.php" />
+   <install as="VFS/KolabTest.php" name="test/VFS/KolabTest.php" />
+   <install as="VFS/SmbTest.php" name="test/VFS/SmbTest.php" />
+   <install as="VFS/fixtures/samba1.txt" name="test/VFS/fixtures/samba1.txt" />
+   <install as="VFS/fixtures/samba2.txt" name="test/VFS/fixtures/samba2.txt" />
   </filelist>
  </phprelease>
  <changelog>
   <release>
-   <date>2009-10-15</date>
    <version>
-    <release>0.3.0</release>
-    <api>0.3.0</api>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>alpha</release>
+    <api>alpha</api>
    </stability>
+   <date>2002-09-24</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>* Allow access to files with multiple consecutive dots in the name (valentin.vidic@carnet.hr; Horde Bug #7646).
-* Rename fixes for SMB driver (leena.heino@uta.fi, Horde Bug #7933).
-* Set LC_TIME to C for consistency in date parsing in the SSH2 backend (michael-dev@fami-braun.de, Horde Bug #6396)
-* Pass -n for numeric UIDs/GIDs in the SSH2 backend when mapping to local user ids (Horde Request #6579)
-* Fix readByteRange() (wrong method name) in SQL backend
-* Add readFile() support, with optimizations for file, ftp, ssh2, and smb backends
-* Add readStream() support to backends that can get a stream resource efficiently
-* Add delete() as a shorter name for deleteFile()
-* Add a Kolab VFS driver.
-* Use streams for file transfers in VFS_ssh2 (jives@jives.ixum.net, Horde Request #8323)
-* Check quota when copying files (Horde Bug #8643).</notes>
+   <notes>
+Initial release as a PEAR package
+   </notes>
   </release>
   <release>
    <version>
-    <release>0.2.0</release>
-    <api>0.2.0</api>
+    <release>0.0.2</release>
+    <api>0.0.2</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>alpha</release>
+    <api>alpha</api>
    </stability>
-   <date>2008-02-16</date>
+   <date>2002-10-22</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>* Fix listing of folders with whitespace in the name using the SSH2 VFS driver (Horde Bug #6227).
-* Fix some string parsing on systems that don't have the 'en' or 'en_US' locales installed (Horde Bug #6194).
-* PHP 4.3.0+ is now required and we make unconditional use of file_get_contents().
-* Use strlen() instead of empty() to check for paths and filenames being set, to allow for potential names of 0 (zero).
-* Converted to package.xml 2.0.
-* Fix saving files in the root directory of an SQL backend.
-* Never generate paths with double slashes in them (//) (Horde Bug #5821)
-* Improve Netware FTP support (Horde Bug #5821)
-* Add read stream support to some backends (Horde Bug #5913)
-* Make the smb backend compatible with samba versions after samba-3.0.25-pre2 (felix.leimbach@gmx.net, Horde Bug #5931)</notes>
+   <notes>
+Added an ObjectVFS wrapper class, returns a ListItem on each call to listFolder, until no items are left.
+   </notes>
   </release>
   <release>
    <version>
-    <release>0.1.0</release>
-    <api>0.1.0</api>
+    <release>0.0.3</release>
+    <api>0.0.3</api>
    </version>
    <stability>
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2006-04-12</date>
+   <date>2003-07-03</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>* SQL drivers now return empty values if the particular parameter does not exist on the server (instead of &apos;-&apos;).
-* Add initial VFS quota support.
-* Fix autocreatePath() to work with directory paths that begin with the base directory.
-* Add &apos;maplocalids&apos; and &apos;timeout&apos; parameters to the FTP driver.
-* In SQL driver, allow &apos;/&apos; to indicate the base directory.
-* Fix return value of deleteFile() in File and SQLFile drivers (PEAR Bug #4425).
-* Fix listFolders() in File driver (PEAR Bug #4533).
-* Add size() and readByteRange(), with File and SQL implementations.
-* Add support for NetWare FTP server listings (Lukas Macura &lt;macura@opf.slu.cz&gt;).
-* Add support for separate read and write DB servers for the SQL driver.
-* Add copy() and move() fallback implementations for all drivers.
-* Add parameters to copy() and move() to automatically create destination directories.
-* Add SSH2/SFTP driver (Cliff Green &lt;green@umdnj.edu&gt;).
-* Let rename() automatically create the destination path.
-* Make sure copy/move doesn&apos;t result in infinite recursion (Horde Bug #3680).
+   <notes>
+Added a class for providing garbage collection; removed all Horde dependancies.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.4</release>
+    <api>0.0.4</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2003-09-09</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Default ftp driver to port 21.
+* Distinguish between connection and authentication errors in the ftp driver.
+* Clean up temporary files if the FTP driver wasn&apos;t able to retrieve a file.
+* Add exists() method.
+* Add emptyFolder() method.
+* Add $recursive parameter to all deleteFolder() implementations.
+* Add FTPS support.
    </notes>
   </release>
   <release>
@@ -201,7 +567,8 @@ Reading, writing and listing of files are all supported, and there are both obje
    </stability>
    <date>2005-04-07</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>* Fix typo that prevented the sql_file driver to load its parameters.
+   <notes>
+* Fix typo that prevented the sql_file driver to load its parameters.
 * PHP 5 compatibility fixes.
 * Add &apos;pasv&apos; parameter for FTP driver.
 * Add writeData() method to sql_file driver.
@@ -221,64 +588,95 @@ Reading, writing and listing of files are all supported, and there are both obje
   </release>
   <release>
    <version>
-    <release>0.0.4</release>
-    <api>0.0.4</api>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
    </version>
    <stability>
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2003-09-09</date>
+   <date>2006-04-12</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>* Default ftp driver to port 21.
-* Distinguish between connection and authentication errors in the ftp driver.
-* Clean up temporary files if the FTP driver wasn&apos;t able to retrieve a file.
-* Add exists() method.
-* Add emptyFolder() method.
-* Add $recursive parameter to all deleteFolder() implementations.
-* Add FTPS support.
+   <notes>
+* SQL drivers now return empty values if the particular parameter does not exist on the server (instead of &apos;-&apos;).
+* Add initial VFS quota support.
+* Fix autocreatePath() to work with directory paths that begin with the base directory.
+* Add &apos;maplocalids&apos; and &apos;timeout&apos; parameters to the FTP driver.
+* In SQL driver, allow &apos;/&apos; to indicate the base directory.
+* Fix return value of deleteFile() in File and SQLFile drivers (PEAR Bug #4425).
+* Fix listFolders() in File driver (PEAR Bug #4533).
+* Add size() and readByteRange(), with File and SQL implementations.
+* Add support for NetWare FTP server listings (Lukas Macura &lt;macura@opf.slu.cz&gt;).
+* Add support for separate read and write DB servers for the SQL driver.
+* Add copy() and move() fallback implementations for all drivers.
+* Add parameters to copy() and move() to automatically create destination directories.
+* Add SSH2/SFTP driver (Cliff Green &lt;green@umdnj.edu&gt;).
+* Let rename() automatically create the destination path.
+* Make sure copy/move doesn&apos;t result in infinite recursion (Horde Bug #3680).
    </notes>
   </release>
   <release>
    <version>
-    <release>0.0.3</release>
-    <api>0.0.3</api>
+    <release>0.2.0</release>
+    <api>0.2.0</api>
    </version>
    <stability>
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2003-07-03</date>
+   <date>2008-02-16</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Added a class for providing garbage collection; removed all Horde dependancies.
+   <notes>
+* Fix listing of folders with whitespace in the name using the SSH2 VFS driver (Horde Bug #6227).
+* Fix some string parsing on systems that don&apos;t have the &apos;en&apos; or &apos;en_US&apos; locales installed (Horde Bug #6194).
+* PHP 4.3.0+ is now required and we make unconditional use of file_get_contents().
+* Use strlen() instead of empty() to check for paths and filenames being set, to allow for potential names of 0 (zero).
+* Converted to package.xml 2.0.
+* Fix saving files in the root directory of an SQL backend.
+* Never generate paths with double slashes in them (//) (Horde Bug #5821)
+* Improve Netware FTP support (Horde Bug #5821)
+* Add read stream support to some backends (Horde Bug #5913)
+* Make the smb backend compatible with samba versions after samba-3.0.25-pre2 (felix.leimbach@gmx.net, Horde Bug #5931)
+   </notes>
+  </release>
+  <release>
+   <date>2009-10-15</date>
+   <version>
+    <release>0.3.0</release>
+    <api>0.3.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Allow access to files with multiple consecutive dots in the name (valentin.vidic@carnet.hr; Horde Bug #7646).
+* Rename fixes for SMB driver (leena.heino@uta.fi, Horde Bug #7933).
+* Set LC_TIME to C for consistency in date parsing in the SSH2 backend (michael-dev@fami-braun.de, Horde Bug #6396)
+* Pass -n for numeric UIDs/GIDs in the SSH2 backend when mapping to local user ids (Horde Request #6579)
+* Fix readByteRange() (wrong method name) in SQL backend
+* Add readFile() support, with optimizations for file, ftp, ssh2, and smb backends
+* Add readStream() support to backends that can get a stream resource efficiently
+* Add delete() as a shorter name for deleteFile()
+* Add a Kolab VFS driver.
+* Use streams for file transfers in VFS_ssh2 (jives@jives.ixum.net, Horde Request #8323)
+* Check quota when copying files (Horde Bug #8643).
    </notes>
   </release>
   <release>
    <version>
-    <release>0.0.2</release>
-    <api>0.0.2</api>
+    <release>0.4.0</release>
+    <api>0.4.0</api>
    </version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api>
+    <release>beta</release>
+    <api>beta</api>
    </stability>
-   <date>2002-10-22</date>
+   <date>2010-10-22</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Added an ObjectVFS wrapper class, returns a ListItem on each call to listFolder, until no items are left.
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.0.1</release>
-    <api>0.0.1</api>
-   </version>
-   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
-   </stability>
-   <date>2002-09-24</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Initial release as a PEAR package
+   <notes>
+* Now throws exceptions instead of returning PEAR_Errors. Package now requires PHP 5.
    </notes>
   </release>
  </changelog>

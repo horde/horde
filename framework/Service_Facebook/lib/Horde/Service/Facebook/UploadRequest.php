@@ -25,13 +25,11 @@ class Horde_Service_Facebook_UploadRequest extends Horde_Service_Facebook_Reques
      * @param Horde_Http_Client      $http_client
      * @param string                 $file
      * @param array                  $params
-     * @param Horde_Translation      $dict  A translation handler implementing
-     *                                      Horde_Translation.
      */
     public function __construct($facebook, $method, $http_client, $file,
-                                $params = array(), $dict = null)
+                                $params = array())
     {
-        parent::__construct($facebook, $method, $http_client, $params, $dict);
+        parent::__construct($facebook, $method, $http_client, $params);
         $this->_filename = $file;
     }
 
@@ -91,7 +89,7 @@ class Horde_Service_Facebook_UploadRequest extends Horde_Service_Facebook_Reques
                                             array('Content-Type' => $content_type,
                                                   'Content-Length' => strlen($content)));
         } catch (Exception $e) {
-            throw new Horde_Service_Facebook_Exception(sprintf($this->_dict->t("Upload failed: %s"), $e->getMessage()));
+            throw new Horde_Service_Facebook_Exception(sprintf(Horde_Service_Facebook_Translation::t("Upload failed: %s"), $e->getMessage()));
         }
 
         return $result->getBody();

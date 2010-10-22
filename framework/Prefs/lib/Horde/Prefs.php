@@ -31,13 +31,6 @@ class Horde_Prefs implements ArrayAccess
     protected $_cache;
 
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_dict;
-
-    /**
      * List of dirty prefs.
      *
      * @var array
@@ -112,8 +105,6 @@ class Horde_Prefs implements ArrayAccess
      * sizecallback - (callback) If set, called when setting a value in the
      *                backend.
      *                DEFAULT: NONE
-     * translation - (object) A translation handler implementing
-     *               Horde_Translation.
      * user - (string) The name of the user who owns this set of preferences.
      *        DEFAULT: NONE
      * </pre>
@@ -132,9 +123,6 @@ class Horde_Prefs implements ArrayAccess
         $this->_opts = array_merge($this->_opts, $opts);
 
         $this->_cache = $this->_getStorage($this->_opts['cache']);
-        $this->_dict = isset($this->_opts['translation'])
-            ? $this->_opts['translation']
-            : new Horde_Translation_Gettext('Horde_Prefs', dirname(__FILE__) . '/../../locale');
         $this->_scope = $scope;
         $this->_storage = $this->_getStorage($driver, $params);
 

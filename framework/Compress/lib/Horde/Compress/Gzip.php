@@ -39,14 +39,14 @@ class Horde_Compress_Gzip extends Horde_Compress
     {
         /* If gzip is not compiled into PHP, return now. */
         if (!Horde_Util::extensionExists('zlib')) {
-            throw new Horde_Exception($this->_dict->t("This server can't uncompress gzip files."));
+            throw new Horde_Exception(Horde_Compress_Translation::t("This server can't uncompress gzip files."));
         }
 
         /* Gzipped File - decompress it first. */
         $position = 0;
         $info = @unpack('CCM/CFLG/VTime/CXFL/COS', substr($data, $position + 2));
         if (!$info) {
-            throw new Horde_Exception($this->_dict->t("Unable to decompress data."));
+            throw new Horde_Exception(Horde_Compress_Translation::t("Unable to decompress data."));
         }
         $position += 10;
 
@@ -76,7 +76,7 @@ class Horde_Compress_Gzip extends Horde_Compress
 
         $result = @gzinflate(substr($data, $position, strlen($data) - $position));
         if (empty($result)) {
-            throw new Horde_Exception($this->_dict->t("Unable to decompress data."));
+            throw new Horde_Exception(Horde_Compress_Translation::t("Unable to decompress data."));
         }
 
         return $result;

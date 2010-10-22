@@ -79,7 +79,7 @@ class Horde_Kolab_FreeBusy_Driver_Freebusy_Kolab extends Horde_Kolab_FreeBusy_Dr
         $req_folder = Horde_String::convertCharset($req_folder, 'UTF-8', 'UTF7-IMAP');
         $folder = explode('/', $req_folder);
         if (count($folder) < 2) {
-            return PEAR::raiseError(sprintf($this->_dict->t("No such folder %s"), $req_folder));
+            return PEAR::raiseError(sprintf(Horde_Kolab_FreeBusy_Translation::t("No such folder %s"), $req_folder));
         }
 
         $folder[0] = strtolower($folder[0]);
@@ -194,7 +194,7 @@ class Horde_Kolab_FreeBusy_Driver_Freebusy_Kolab extends Horde_Kolab_FreeBusy_Dr
                 }
             }
         } else {
-            return PEAR::raiseError($this->_dict->t("Unable to determine owner of the free/busy data!"));
+            return PEAR::raiseError(Horde_Kolab_FreeBusy_Translation::t("Unable to determine owner of the free/busy data!"));
         }
 
         /* Mangle the folder request into an IMAP folder name */

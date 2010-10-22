@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-10-19</date>
- <time>01:30:55</time>
+ <date>2010-10-22</date>
+ <time>19:03:06</time>
  <version>
   <release>0.2.0</release>
   <api>0.2.0</api>
@@ -50,6 +50,9 @@
       <file name="Daylight.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Standard.php" role="php" />
+      <file name="Translation.php" role="php">
+       <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+      </file>
       <file name="Valarm.php" role="php" />
       <file name="Vcard.php" role="php" />
       <file name="Vevent.php" role="php" />
@@ -393,6 +396,10 @@
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Translation</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Util</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -404,6 +411,7 @@
    <install as="Horde/Icalendar/Daylight.php" name="lib/Horde/Icalendar/Daylight.php" />
    <install as="Horde/Icalendar/Exception.php" name="lib/Horde/Icalendar/Exception.php" />
    <install as="Horde/Icalendar/Standard.php" name="lib/Horde/Icalendar/Standard.php" />
+   <install as="Horde/Icalendar/Translation.php" name="lib/Horde/Icalendar/Translation.php" />
    <install as="Horde/Icalendar/Valarm.php" name="lib/Horde/Icalendar/Valarm.php" />
    <install as="Horde/Icalendar/Vcard.php" name="lib/Horde/Icalendar/Vcard.php" />
    <install as="Horde/Icalendar/Vevent.php" name="lib/Horde/Icalendar/Vevent.php" />
@@ -412,6 +420,93 @@
    <install as="Horde/Icalendar/Vnote.php" name="lib/Horde/Icalendar/Vnote.php" />
    <install as="Horde/Icalendar/Vtimezone.php" name="lib/Horde/Icalendar/Vtimezone.php" />
    <install as="Horde/Icalendar/Vtodo.php" name="lib/Horde/Icalendar/Vtodo.php" />
+   <install as="locale/Horde_Icalendar.pot" name="locale/Horde_Icalendar.pot" />
+   <install as="locale/ar/LC_MESSAGES/Horde_Icalendar.mo" name="locale/ar/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/ar/LC_MESSAGES/Horde_Icalendar.po" name="locale/ar/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/bg/LC_MESSAGES/Horde_Icalendar.mo" name="locale/bg/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/bg/LC_MESSAGES/Horde_Icalendar.po" name="locale/bg/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/bs/LC_MESSAGES/Horde_Icalendar.mo" name="locale/bs/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/bs/LC_MESSAGES/Horde_Icalendar.po" name="locale/bs/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/ca/LC_MESSAGES/Horde_Icalendar.mo" name="locale/ca/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/ca/LC_MESSAGES/Horde_Icalendar.po" name="locale/ca/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/cs/LC_MESSAGES/Horde_Icalendar.mo" name="locale/cs/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/cs/LC_MESSAGES/Horde_Icalendar.po" name="locale/cs/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/da/LC_MESSAGES/Horde_Icalendar.mo" name="locale/da/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/da/LC_MESSAGES/Horde_Icalendar.po" name="locale/da/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/de/LC_MESSAGES/Horde_Icalendar.mo" name="locale/de/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/de/LC_MESSAGES/Horde_Icalendar.po" name="locale/de/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/el/LC_MESSAGES/Horde_Icalendar.mo" name="locale/el/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/el/LC_MESSAGES/Horde_Icalendar.po" name="locale/el/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/en/LC_MESSAGES/Horde_Icalendar.mo" name="locale/en/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/en/LC_MESSAGES/Horde_Icalendar.po" name="locale/en/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/es/LC_MESSAGES/Horde_Icalendar.mo" name="locale/es/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/es/LC_MESSAGES/Horde_Icalendar.po" name="locale/es/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/et/LC_MESSAGES/Horde_Icalendar.mo" name="locale/et/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/et/LC_MESSAGES/Horde_Icalendar.po" name="locale/et/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/eu/LC_MESSAGES/Horde_Icalendar.mo" name="locale/eu/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/eu/LC_MESSAGES/Horde_Icalendar.po" name="locale/eu/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/fa/LC_MESSAGES/Horde_Icalendar.mo" name="locale/fa/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/fa/LC_MESSAGES/Horde_Icalendar.po" name="locale/fa/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/fi/LC_MESSAGES/Horde_Icalendar.mo" name="locale/fi/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/fi/LC_MESSAGES/Horde_Icalendar.po" name="locale/fi/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/fr/LC_MESSAGES/Horde_Icalendar.mo" name="locale/fr/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/fr/LC_MESSAGES/Horde_Icalendar.po" name="locale/fr/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/gl/LC_MESSAGES/Horde_Icalendar.mo" name="locale/gl/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/gl/LC_MESSAGES/Horde_Icalendar.po" name="locale/gl/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/he/LC_MESSAGES/Horde_Icalendar.mo" name="locale/he/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/he/LC_MESSAGES/Horde_Icalendar.po" name="locale/he/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/hr/LC_MESSAGES/Horde_Icalendar.mo" name="locale/hr/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/hr/LC_MESSAGES/Horde_Icalendar.po" name="locale/hr/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/hu/LC_MESSAGES/Horde_Icalendar.mo" name="locale/hu/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/hu/LC_MESSAGES/Horde_Icalendar.po" name="locale/hu/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/id/LC_MESSAGES/Horde_Icalendar.mo" name="locale/id/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/id/LC_MESSAGES/Horde_Icalendar.po" name="locale/id/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/is/LC_MESSAGES/Horde_Icalendar.mo" name="locale/is/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/is/LC_MESSAGES/Horde_Icalendar.po" name="locale/is/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/it/LC_MESSAGES/Horde_Icalendar.mo" name="locale/it/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/it/LC_MESSAGES/Horde_Icalendar.po" name="locale/it/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/ja/LC_MESSAGES/Horde_Icalendar.mo" name="locale/ja/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/ja/LC_MESSAGES/Horde_Icalendar.po" name="locale/ja/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/km/LC_MESSAGES/Horde_Icalendar.mo" name="locale/km/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/km/LC_MESSAGES/Horde_Icalendar.po" name="locale/km/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/ko/LC_MESSAGES/Horde_Icalendar.mo" name="locale/ko/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/ko/LC_MESSAGES/Horde_Icalendar.po" name="locale/ko/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/lt/LC_MESSAGES/Horde_Icalendar.mo" name="locale/lt/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/lt/LC_MESSAGES/Horde_Icalendar.po" name="locale/lt/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/lv/LC_MESSAGES/Horde_Icalendar.mo" name="locale/lv/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/lv/LC_MESSAGES/Horde_Icalendar.po" name="locale/lv/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/mk/LC_MESSAGES/Horde_Icalendar.mo" name="locale/mk/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/mk/LC_MESSAGES/Horde_Icalendar.po" name="locale/mk/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/nb/LC_MESSAGES/Horde_Icalendar.mo" name="locale/nb/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/nb/LC_MESSAGES/Horde_Icalendar.po" name="locale/nb/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/nl/LC_MESSAGES/Horde_Icalendar.mo" name="locale/nl/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/nl/LC_MESSAGES/Horde_Icalendar.po" name="locale/nl/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/nn/LC_MESSAGES/Horde_Icalendar.mo" name="locale/nn/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/nn/LC_MESSAGES/Horde_Icalendar.po" name="locale/nn/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/pl/LC_MESSAGES/Horde_Icalendar.mo" name="locale/pl/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/pl/LC_MESSAGES/Horde_Icalendar.po" name="locale/pl/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/pt/LC_MESSAGES/Horde_Icalendar.mo" name="locale/pt/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/pt/LC_MESSAGES/Horde_Icalendar.po" name="locale/pt/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/pt_BR/LC_MESSAGES/Horde_Icalendar.mo" name="locale/pt_BR/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/pt_BR/LC_MESSAGES/Horde_Icalendar.po" name="locale/pt_BR/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/ro/LC_MESSAGES/Horde_Icalendar.mo" name="locale/ro/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/ro/LC_MESSAGES/Horde_Icalendar.po" name="locale/ro/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/ru/LC_MESSAGES/Horde_Icalendar.mo" name="locale/ru/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/ru/LC_MESSAGES/Horde_Icalendar.po" name="locale/ru/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/sk/LC_MESSAGES/Horde_Icalendar.mo" name="locale/sk/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/sk/LC_MESSAGES/Horde_Icalendar.po" name="locale/sk/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/sl/LC_MESSAGES/Horde_Icalendar.mo" name="locale/sl/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/sl/LC_MESSAGES/Horde_Icalendar.po" name="locale/sl/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/sv/LC_MESSAGES/Horde_Icalendar.mo" name="locale/sv/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/sv/LC_MESSAGES/Horde_Icalendar.po" name="locale/sv/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/tr/LC_MESSAGES/Horde_Icalendar.mo" name="locale/tr/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/tr/LC_MESSAGES/Horde_Icalendar.po" name="locale/tr/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/uk/LC_MESSAGES/Horde_Icalendar.mo" name="locale/uk/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/uk/LC_MESSAGES/Horde_Icalendar.po" name="locale/uk/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/zh_CN/LC_MESSAGES/Horde_Icalendar.mo" name="locale/zh_CN/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/zh_CN/LC_MESSAGES/Horde_Icalendar.po" name="locale/zh_CN/LC_MESSAGES/Horde_Icalendar.po" />
+   <install as="locale/zh_TW/LC_MESSAGES/Horde_Icalendar.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Icalendar.mo" />
+   <install as="locale/zh_TW/LC_MESSAGES/Horde_Icalendar.po" name="locale/zh_TW/LC_MESSAGES/Horde_Icalendar.po" />
    <install as="Horde/Icalendar/bug_7423.phpt" name="test/Horde/Icalendar/bug_7423.phpt" />
    <install as="Horde/Icalendar/charset1.phpt" name="test/Horde/Icalendar/charset1.phpt" />
    <install as="Horde/Icalendar/common.php" name="test/Horde/Icalendar/common.php" />
@@ -549,7 +644,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2010-10-19</date>
+   <date>2010-10-22</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Initial Horde 4 package.

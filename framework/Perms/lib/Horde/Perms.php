@@ -167,18 +167,13 @@ class Horde_Perms
      * looking it up in the applications's permission api.
      *
      * @param string $name             The permissions's name.
-     * @param Horde_Translation $dict  A translation handler implementing
-     *                                 Horde_Translation.
      *
      * @return string  The title for the permission.
      */
-    public function getTitle($name, $dict = null)
+    public function getTitle($name)
     {
         if ($name === self::ROOT) {
-            if (!$dict) {
-                $dict = new Horde_Translation_Gettext('Horde_Perms', dirname(__FILE__) . '/../../locale');
-            }
-            return $dict->t("All Permissions");
+            return Horde_Perms_Translation::t("All Permissions");
         }
 
         $levels = explode(':', $name);
@@ -509,22 +504,15 @@ class Horde_Perms
     /**
      * Returns an hash of the available permissions.
      *
-     * @param Horde_Translation $dict  A translation handler implementing
-     *                                 Horde_Translation.
-     *
      * @return array  The available permissions as a hash.
      */
-    static public function getPermsArray($dict = null)
+    static public function getPermsArray()
     {
-        if (!$dict) {
-            $dict = new Horde_Translation_Gettext('Horde_Perms', dirname(__FILE__) . '/../../locale');
-        }
-
         return array(
-            self::SHOW => $dict->t("Show"),
-            self::READ => $dict->t("Read"),
-            self::EDIT => $dict->t("Edit"),
-            self::DELETE => $dict->t("Delete")
+            self::SHOW => Horde_Perms_Translation::t("Show"),
+            self::READ => Horde_Perms_Translation::t("Read"),
+            self::EDIT => Horde_Perms_Translation::t("Edit"),
+            self::DELETE => Horde_Perms_Translation::t("Delete")
         );
     }
 

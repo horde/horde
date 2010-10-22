@@ -38,13 +38,6 @@ class Horde_Block_Collection
     protected $_blocks = array();
 
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_dict;
-
-    /**
      * Returns a single instance of the Horde_Blocks class.
      *
      * @param array $apps  The applications whose blocks to list.
@@ -67,18 +60,10 @@ class Horde_Block_Collection
      * Constructor.
      *
      * @param array $apps              The applications whose blocks to list.
-     * @param Horde_Translation $dict  A translation handler implementing
-     *                                 Horde_Translation.
      */
-    public function __construct($apps = array(), $dict = null)
+    public function __construct($apps = array())
     {
         global $session;
-
-        if ($dict) {
-            $this->_dict = $dict;
-        } else {
-            $this->_dict = new Horde_Translation_Gettext('Horde_Block', dirname(__FILE__) . '/../../../locale');
-        }
 
         $signature = serialize($apps);
         if ($this->_blocks = $session['horde:blocks/' . $signature]) {
@@ -408,7 +393,7 @@ class Horde_Block_Collection
     {
         return isset($this->_blocks[$app][$block])
             ? $this->_blocks[$app][$block]['name']
-            : sprintf($this->_dict->t("Block \"%s\" of application \"%s\" not found."), $block, $app);
+            : sprintf(Horde_Block_Translation::t("Block \"%s\" of application \"%s\" not found."), $block, $app);
     }
 
     /**

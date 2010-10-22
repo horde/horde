@@ -23,21 +23,14 @@ class Horde_Service_Facebook_Request
      * @param string                 $method
      * @param Horde_Http_Client      $http_client
      * @param array                  $params
-     * @param Horde_Translation      $dict  A translation handler implementing
-     *                                      Horde_Translation.
      */
     public function __construct($facebook, $method, $http_client,
-                                $params = array(), $dict = null)
+                                $params = array())
     {
         $this->_facebook = $facebook;
         $this->_http = $http_client;
         $this->_method = $method;
         $this->_params = $params;
-        if ($dict) {
-            $this->_dict = $dict;
-        } else {
-            $this->_dict = new Horde_Translation_Gettext('Horde_Service_Facebook', dirname(__FILE__) . '/../../../../locale');
-        }
     }
 
     /**
@@ -91,7 +84,7 @@ class Horde_Service_Facebook_Request
         } catch (Exception $e) {
             // Not much we can do about a client exception - rethrow it as
             // temporarily unavailable.
-            throw new Horde_Service_Facebook_Exception($this->_dict->t("Service is unavailable. Please try again later."));
+            throw new Horde_Service_Facebook_Exception(Horde_Service_Facebook_Translation::t("Service is unavailable. Please try again later."));
         }
         return $result->getBody();
     }

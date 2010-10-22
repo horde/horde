@@ -14,25 +14,6 @@
  */
 class Horde_Core_Prefs_Ui_Widgets
 {
-    /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    static protected $_coreDict;
-
-    /**
-     * Constructor.
-     */
-    static protected function _getDict()
-    {
-        if (empty(self::$_coreDict)) {
-            self::$_coreDict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../../../../../locale');
-        }
-
-        return self::$_coreDict;
-    }
-
     /* Source selection widget. */
 
     /**

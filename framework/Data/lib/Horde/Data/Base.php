@@ -36,19 +36,11 @@ abstract class Horde_Data_Base
     protected $_contentType = 'text/plain';
 
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_dict;
-
-    /**
      * File extension.
      *
      * @var string
      */
     protected $_extension = '';
-
 
     /**
      * Variables object.
@@ -76,8 +68,6 @@ abstract class Horde_Data_Base
      * OPTIONAL:
      * ---------
      * cleanup - (callback) A callback to call at cleanup time.
-     * translation - (object) A translation handler implementing
-     *               Horde_Translation.
      * vars - (Horde_Variables) Form data.
      * </pre>
      *
@@ -97,10 +87,6 @@ abstract class Horde_Data_Base
         $this->_vars = isset($params['vars'])
             ? $params['vars']
             : Horde_Variables::getDefaultVariables();
-
-        $this->_dict = isset($params['translation'])
-            ? $params['translation']
-            : new Horde_Translation_Gettext('Horde_Data', dirname(__FILE__) . '/../../../locale');
     }
 
     /**
@@ -287,7 +273,7 @@ abstract class Horde_Data_Base
                 throw new Horde_Data_Exception($e);
             }
             if ($_FILES['import_file']['size'] <= 0) {
-                throw new Horde_Data_Exception($this->_dict->t("The file contained no data."));
+                throw new Horde_Data_Exception(Horde_Data_Translation::t("The file contained no data."));
             }
             $_SESSION['import_data']['format'] = $this->_vars->import_format;
             break;

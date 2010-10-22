@@ -42,13 +42,6 @@ class Horde_Core_Factory_Prefs
     private $_injector;
 
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_coreDict;
-
-    /**
      * Constructor.
      *
      * @param Horde_Injector $injector  The injector to use.
@@ -56,7 +49,6 @@ class Horde_Core_Factory_Prefs
     public function __construct(Horde_Injector $injector)
     {
         $this->_injector = $injector;
-        $this->_coreDict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../../../../locale');
     }
 
     /**
@@ -132,7 +124,7 @@ class Horde_Core_Factory_Prefs
                 if (!$GLOBALS['session']['horde:no_prefs']) {
                     $GLOBALS['session']['horde:no_prefs'] = true;
                     if (isset($GLOBALS['notification'])) {
-                        $GLOBALS['notification']->push($this->_coreDict->t("The preferences backend is currently unavailable and your preferences have not been loaded. You may continue to use the system with default preferences."));
+                        $GLOBALS['notification']->push(Horde_Core_Translation::t("The preferences backend is currently unavailable and your preferences have not been loaded. You may continue to use the system with default preferences."));
                     }
                 }
                 unset($opts['cache']);
@@ -165,7 +157,7 @@ class Horde_Core_Factory_Prefs
             return false;
         }
 
-        $GLOBALS['notification']->push(sprintf($this->_coreDict->t("The preference \"%s\" could not be saved because its data exceeds the maximum allowable size"), $pref), 'horde.error');
+        $GLOBALS['notification']->push(sprintf(Horde_Core_Translation::t("The preference \"%s\" could not be saved because its data exceeds the maximum allowable size"), $pref), 'horde.error');
         return true;
     }
 

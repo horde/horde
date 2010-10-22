@@ -74,7 +74,7 @@ class Horde_Form_Type_Email extends Horde_Form_Type {
 
         // Check for too many.
         if (!$this->_allow_multi && count($emails) > 1) {
-            $message = $this->_dict->t("Only one email address is allowed.");
+            $message = Horde_Model_Translation::t("Only one email address is allowed.");
             return false;
         }
 
@@ -85,7 +85,7 @@ class Horde_Form_Type_Email extends Horde_Form_Type {
                 continue;
             }
             if (!$this->validateEmailAddress($email)) {
-                $message = sprintf($this->_dict->t("\"%s\" is not a valid email address."), $email);
+                $message = sprintf(Horde_Model_Translation::t("\"%s\" is not a valid email address."), $email);
                 return false;
             }
             ++$nonEmpty;
@@ -93,9 +93,9 @@ class Horde_Form_Type_Email extends Horde_Form_Type {
 
         if (!$nonEmpty && $var->required) {
             if ($this->_allow_multi) {
-                $message = $this->_dict->t("You must enter at least one email address.");
+                $message = Horde_Model_Translation::t("You must enter at least one email address.");
             } else {
-                $message = $this->_dict->t("You must enter an email address.");
+                $message = Horde_Model_Translation::t("You must enter an email address.");
             }
             return false;
         }
@@ -421,12 +421,12 @@ class Horde_Form_Type_EmailConfirm extends Horde_Form_Type {
     public function isValid($var, $vars, $value, &$message)
     {
         if ($var->required && empty($value['original'])) {
-            $message = $this->_dict->t("This field is required.");
+            $message = Horde_Model_Translation::t("This field is required.");
             return false;
         }
 
         if ($value['original'] != $value['confirm']) {
-            $message = $this->_dict->t("Email addresses must match.");
+            $message = Horde_Model_Translation::t("Email addresses must match.");
             return false;
         } else {
             try {
@@ -438,11 +438,11 @@ class Horde_Form_Type_EmailConfirm extends Horde_Form_Type {
                 return false;
             }
             if (count($parsed_email) > 1) {
-                $message = $this->_dict->t("Only one email address allowed.");
+                $message = Horde_Model_Translation::t("Only one email address allowed.");
                 return false;
             }
             if (empty($parsed_email[0]->mailbox)) {
-                $message = $this->_dict->t("You did not enter a valid email address.");
+                $message = Horde_Model_Translation::t("You did not enter a valid email address.");
                 return false;
             }
         }

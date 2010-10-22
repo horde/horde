@@ -31,7 +31,7 @@ class Horde_Form_Type_tableset extends Horde_Form_Type {
             return true;
         }
 
-        $message = $this->_dict->t("Invalid data submitted.");
+        $message = Horde_Form_Translation::t("Invalid data submitted.");
         return false;
     }
 
@@ -51,11 +51,11 @@ class Horde_Form_Type_tableset extends Horde_Form_Type {
     function about()
     {
         return array(
-            'name' => $this->_dict->t("Table Set"),
+            'name' => Horde_Form_Translation::t("Table Set"),
             'params' => array(
-                'values' => array('label' => $this->_dict->t("Values"),
+                'values' => array('label' => Horde_Form_Translation::t("Values"),
                                   'type'  => 'stringlist'),
-                'header' => array('label' => $this->_dict->t("Headers"),
+                'header' => array('label' => Horde_Form_Translation::t("Headers"),
                                   'type'  => 'stringlist')),
             );
     }

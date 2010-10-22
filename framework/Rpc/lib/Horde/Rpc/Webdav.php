@@ -344,7 +344,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         $pieces = explode('/', trim($this->path, '/'), 2);
 
         if (count($pieces) != 2) {
-            Horde::logMessage(sprintf($this->_dict->t("Error deleting from path %s; must be [app]/[path]", $options['path'])), 'INFO');
+            Horde::logMessage(sprintf(Horde_Rpc_Translation::t("Error deleting from path %s; must be [app]/[path]", $options['path'])), 'INFO');
             return '403 Must supply a resource within the application to delete.';
         }
 
@@ -405,7 +405,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         // Take the module name from the path
         $pieces = explode('/', $path, 2);
         if (count($pieces) != 2) {
-            Horde::logMessage(sprintf($this->_dict->t("Unable to create directory %s; must be [app]/[path]"), $path), 'INFO');
+            Horde::logMessage(sprintf(Horde_Rpc_Translation::t("Unable to create directory %s; must be [app]/[path]"), $path), 'INFO');
             return '403 Must specify a resource within an application.  MKCOL disallowed at top level.';
         }
 
@@ -440,7 +440,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         // Take the module name from the path
         $sourcePieces = explode('/', $path, 2);
         if (count($sourcePieces) != 2) {
-            Horde::logMessage(sprintf($this->_dict->t("Unable to rename %s; must be [app]/[path] and within the same application."), $path), 'INFO');
+            Horde::logMessage(sprintf(Horde_Rpc_Translation::t("Unable to rename %s; must be [app]/[path] and within the same application."), $path), 'INFO');
             return '403 Must specify a resource within an application.  MOVE disallowed at top level.';
         }
 

@@ -26,13 +26,6 @@ abstract class Horde_Image_Exif_Base
     protected $_logger;
 
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_dict;
-
-    /**
      *
      * @param $params
      */
@@ -41,12 +34,6 @@ abstract class Horde_Image_Exif_Base
         if (!empty($params['logger'])) {
             $this->_logger = $params['logger'];
             unset($params['logger']);
-        }
-        if (isset($params['translation'])) {
-            $this->_dict = $params['translation'];
-            unset($params['translation']);
-        } else {
-            $this->_dict = new Horde_Translation_Gettext('Horde_Image', dirname(__FILE__) . '/../../../../locale');
         }
         $this->_params = $params;
     }

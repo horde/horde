@@ -72,7 +72,7 @@ class Horde_Mime_Viewer_Rtf extends Horde_Mime_Viewer_Base
 
         $data = file_exists($tmp_output)
             ? file_get_contents($tmp_output)
-            : $this->_dict->t("Unable to translate this RTF document");
+            : Horde_Mime_Viewer_Translation::t("Unable to translate this RTF document");
 
         return $this->_renderReturn(
             $data,

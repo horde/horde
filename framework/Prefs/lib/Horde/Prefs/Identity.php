@@ -59,13 +59,6 @@ class Horde_Prefs_Identity
     protected $_prefs;
 
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_dict;
-
-    /**
      * Constructor.
      *
      * @param array $params  Parameters:
@@ -85,8 +78,6 @@ class Horde_Prefs_Identity
      * prefs: (Horde_Prefs) [REQUIRED] The prefs object to use.
      * properties: (array) The list of properties for the identity.
      *             DEFAULT: array('from_addr', 'fullname', 'id')
-     * translation: (object) A translation handler implementing
-     *              Horde_Translation.
      * user: (string) [REQUIRED] The user whose prefs we are handling.
      * </pre>
      */
@@ -99,10 +90,6 @@ class Horde_Prefs_Identity
         }
         $this->_prefs = $params['prefs'];
         $this->_user = $params['user'];
-
-        $this->_dict = isset($params['translation'])
-            ? $params['translation']
-            : new Horde_Translation_Gettext('Horde_Prefs', dirname(__FILE__) . '/../../../locale');
 
         if (!($this->_identities = @unserialize($this->_prefs->getValue($this->_prefnames['identities'], false)))) {
             $this->_identities = $this->_prefs->getDefault($this->_prefnames['identities']);
@@ -124,7 +111,7 @@ class Horde_Prefs_Identity
                 $identity[$key] = $this->_prefs->getValue($key);
             }
             if (empty($identity['id'])) {
-                $identity['id'] = $this->_dict->t("Default Identity");
+                $identity['id'] = Horde_Prefs_Translation::t("Default Identity");
             }
 
             $this->_identities = array($identity);
@@ -345,7 +332,7 @@ class Horde_Prefs_Identity
         }
 
         if (!$this->getValue('id', $identity)) {
-            $this->setValue('id', $this->_dict->t("Unnamed"), $identity);
+            $this->setValue('id', Horde_Prefs_Translation::t("Unnamed"), $identity);
         }
 
         /* RFC 2822 [3.2.5] does not allow the '\' character to be used in the

@@ -67,13 +67,6 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
     );
 
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_coreDict;
-
-    /**
      * Constructor.
      *
      * @param array $params  Required parameters:
@@ -101,8 +94,6 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
             $this->_base = $params['base'];
             unset($params['base']);
         }
-
-        $this->_coreDict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../../../../locale');
 
         parent::__construct($params);
     }
@@ -582,7 +573,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
             isset($GLOBALS['notification']) &&
             ($expire = $this->_base->getCredential('expire'))) {
             $toexpire = ($expire - time()) / 86400;
-            $GLOBALS['notification']->push(sprintf($this->_coreDict->ngettext("%d day until your password expires.", "%d days until your password expires.", $toexpire), $toexpire), 'horde.warning');
+            $GLOBALS['notification']->push(sprintf(Horde_Core_Translation::ngettext("%d day until your password expires.", "%d days until your password expires.", $toexpire), $toexpire), 'horde.warning');
         }
 
         if ($this->hasCapability('authenticatecallback')) {

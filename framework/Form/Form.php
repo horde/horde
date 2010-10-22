@@ -39,13 +39,6 @@ class Horde_Form {
     protected $_enctype = null;
     public $_help = false;
 
-    /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_dict;
-
     function Horde_Form(&$vars, $title = '', $name = null, $params = array())
     {
         if (empty($name)) {
@@ -55,13 +48,6 @@ class Horde_Form {
         $this->_vars = &$vars;
         $this->_title = $title;
         $this->_name = $name;
-
-        if (isset($params['translation'])) {
-            $this->_dict = $params['translation'];
-        } else {
-            $this->_dict = new Horde_Translation_Gettext('Horde_Form', dirname(__FILE__) . '/locale');
-        }
-
     }
 
     function __construct($vars, $title = '', $name = null)
@@ -361,14 +347,14 @@ class Horde_Form {
     {
         if ($submit === true || is_null($submit) || empty($submit)) {
             /* Default to 'Submit'. */
-            $submit = array($this->_dict->t("Submit"));
+            $submit = array(Horde_Form_Translation::t("Submit"));
         } elseif (!is_array($submit)) {
             /* Default to array if not passed. */
             $submit = array($submit);
         }
         /* Only if $reset is strictly true insert default 'Reset'. */
         if ($reset === true) {
-            $reset = $this->_dict->t("Reset");
+            $reset = Horde_Form_Translation::t("Reset");
         }
 
         $this->_submit = $submit;
@@ -629,10 +615,10 @@ class Horde_Form {
             $tokenSource = $GLOBALS['injector']->getInstance('Horde_Token');
             $passedToken = $vars->get($this->_name . '_formToken');
             if (!empty($passedToken) && !$tokenSource->verify($passedToken)) {
-                $this->_errors['_formToken'] = $this->_dict->t("This form has already been processed.");
+                $this->_errors['_formToken'] = Horde_Form_Translation::t("This form has already been processed.");
             }
             if (!$GLOBALS['session']['horde:form_secrets/' . $passedToken]) {
-                $this->_errors['_formSecret'] = $this->_dict->t("Required secret is invalid - potentially malicious request.");
+                $this->_errors['_formSecret'] = Horde_Form_Translation::t("Required secret is invalid - potentially malicious request.");
             }
         }
 
