@@ -64,6 +64,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
         }
 
         $this->_connector = $params['connector'];
+        $this->_auth = $params['auth'];
     }
 
     /**
