@@ -561,10 +561,11 @@ class Horde_Prefs implements ArrayAccess
 
         if (($prefs = $this->_storage->get($scope)) !== false) {
             foreach ($prefs as $name => $val) {
-                if ($this->isDefault($name)) {
-                    $this->_scopes[$scope][$name]['d'] = $this->_scopes[$scope][$name]['v'];
-
-                } elseif (!isset($this->_scopes[$scope][$name])) {
+                if (isset($this->_scopes[$scope][$name])) {
+                    if ($this->isDefault($name)) {
+                        $this->_scopes[$scope][$name]['d'] = $this->_scopes[$scope][$name]['v'];
+                    }
+                } else {
                     $this->_scopes[$scope][$name] = array(
                         'm' => 0
                     );
