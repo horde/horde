@@ -24,7 +24,7 @@ Application Framework.</description>
   <active>yes</active>
  </developer>
  <date>2010-10-22</date>
- <time>19:03:05</time>
+ <time>13:14:28</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -116,6 +116,9 @@ Application Framework.</description>
        <file name="SettingsFinder.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Controller -->
       <dir name="Factory">
+       <file name="ActiveSyncBackend.php" role="php" />
+       <file name="ActiveSyncServer.php" role="php" />
+       <file name="ActiveSyncState.php" role="php" />
        <file name="Ajax.php" role="php" />
        <file name="Alarm.php" role="php" />
        <file name="Auth.php" role="php" />
@@ -694,6 +697,9 @@ Application Framework.</description>
    <install as="Horde/Core/Controller/RequestConfiguration.php" name="lib/Horde/Core/Controller/RequestConfiguration.php" />
    <install as="Horde/Core/Controller/RequestMapper.php" name="lib/Horde/Core/Controller/RequestMapper.php" />
    <install as="Horde/Core/Controller/SettingsFinder.php" name="lib/Horde/Core/Controller/SettingsFinder.php" />
+   <install as="Horde/Core/Factory/ActiveSyncBackend.php" name="lib/Horde/Core/Factory/ActiveSyncBackend.php" />
+   <install as="Horde/Core/Factory/ActiveSyncServer.php" name="lib/Horde/Core/Factory/ActiveSyncServer.php" />
+   <install as="Horde/Core/Factory/ActiveSyncState.php" name="lib/Horde/Core/Factory/ActiveSyncState.php" />
    <install as="Horde/Core/Factory/Ajax.php" name="lib/Horde/Core/Factory/Ajax.php" />
    <install as="Horde/Core/Factory/Alarm.php" name="lib/Horde/Core/Factory/Alarm.php" />
    <install as="Horde/Core/Factory/Auth.php" name="lib/Horde/Core/Factory/Auth.php" />

@@ -253,6 +253,9 @@ class Horde_Registry
          * classname (string). If other function needed, define as the
          * second element in an array. */
         $factories = array(
+            'Horde_ActiveSyncBackend' => 'Horde_Core_Factory_ActiveSyncBackend',
+            'Horde_ActiveSyncServer' => 'Horde_Core_Factory_ActiveSyncServer',
+            'Horde_ActiveSyncState' => 'Horde_Core_Factory_ActiveSyncState',
             'Horde_Alarm' => 'Horde_Core_Factory_Alarm',
             'Horde_Browser' => 'Horde_Core_Factory_Browser',
             'Horde_Cache' => 'Horde_Core_Factory_Cache',
