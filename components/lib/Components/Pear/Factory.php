@@ -220,7 +220,7 @@ class Components_Pear_Factory
         );
 
         if ($package_rw_file instanceOf PEAR_Error) {
-            throw new Components_Exception($package_file->getMessage());
+            throw new Components_Exception($package_rw_file->getMessage());
         }
         return $package_rw_file;
     }
