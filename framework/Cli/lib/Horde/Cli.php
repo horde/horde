@@ -14,13 +14,6 @@
 class Horde_Cli
 {
     /**
-     * The location of the data directory which contains locale information.
-     * This contains @data_dir@ if the package has not been installed via
-     * PEAR.
-     */
-    const LOCALE_DIR = '@data_dir@/locale';
-
-    /**
      * Are we running on a console?
      *
      * @var boolean
@@ -135,9 +128,20 @@ class Horde_Cli
     /**
      * Detect the current environment (web server or console) and sets
      * internal values accordingly.
+     *
+     * The constructor must not be called after init().
+     *
+     * @param Horde_Translation $dict  A translation handler implementing
+     *                                 Horde_Translation.
      */
-    public function __construct()
+    public function __construct($dict = null)
     {
+        if ($dict) {
+            $this->_dict = $dict;
+        } else {
+            $this->_dict = new Horde_Translation_Gettext('Horde_Cli', dirname(__FILE__) . '/../../locale');
+        }
+
         $this->_console = $this->runningFromCLI();
 
         if ($this->_console) {
@@ -331,7 +335,7 @@ class Horde_Cli
         }
         $this->writeln($this->red('===================='));
         $this->writeln();
-        $this->writeln($this->red($this->_t("Fatal Error:")));
+        $this->writeln($this->red($this->_dict->t("Fatal Error:")));
         $this->writeln($this->red($error));
         $this->writeln();
         $this->writeln((string)$backtrace);
@@ -365,7 +369,7 @@ class Horde_Cli
                 foreach ($choices as $key => $choice) {
                     $this->writeln($this->indent('(' . $this->bold($key) . ') ' . $choice));
                 }
-                $this->writeln($this->_t("Type your choice: "), true);
+                $this->writeln($this->_dict->t("Type your choice: "), true);
                 @ob_flush();
 
                 // Get the user choice.
@@ -376,7 +380,7 @@ class Horde_Cli
                 if (isset($choices[$response])) {
                     return $response;
                 } else {
-                    $this->writeln($this->red(sprintf($this->_t("\"%s\" is not a valid choice."), $response)));
+                    $this->writeln($this->red(sprintf($this->_dict->t("\"%s\" is not a valid choice."), $response)));
                 }
             } else {
                 @ob_flush();
@@ -446,18 +450,20 @@ class Horde_Cli
      * none. Also initialize a few variables in $_SERVER that aren't present
      * from the CLI.
      *
-     * @param Horde_Translation_Factory $t  A translation factory that
-     *                                      generates a Horde_Translation
-     *                                      instance.
+     * You must not call init() statically before calling the constructor.
+     * Either use the singleton() method to retrieve a Horde_Cli object after
+     * calling init(), or don't call init() statically.
+     *
+     * @param Horde_Translation $dict  A translation handler implementing
+     *                                 Horde_Translation.
      *
      * @return Horde_Cli  A Horde_Cli instance.
      */
-    static public function init(Horde_Translation_Factory $t = null)
+    static public function init($dict = null)
     {
         /* Run constructor now because it requires $_SERVER['SERVER_NAME'] to
          * be empty if called with a CGI SAPI. */
-        $cli = new self();
-        $cli->initTranslation($t);
+        $cli = new self($dict);
 
         @set_time_limit(0);
         ob_implicit_flush(true);
@@ -479,46 +485,6 @@ class Horde_Cli
         }
 
         return $cli;
-    }
-
-    /**
-     * Try to initialize the translation system.
-     *
-     * @param Horde_Translation_Factory $t  A translation factory that
-     *                                      generates a Horde_Translation
-     *                                      instance.
-     *
-     * @return Horde_Cli  A Horde_Cli instance.
-     */
-    public function initTranslation(Horde_Translation_Factory $t = null)
-    {
-        if ($t === null && class_exists('Horde_Translation_Factory_Gettext')) {
-            $t = new Horde_Translation_Factory_Gettext();
-        }
-        if ($t !== null) {
-            $this->_dict = $t->createTranslation('Horde_Cli', self::LOCALE_DIR, dirname(__FILE__) . '/../../locale');
-        } else {
-            $this->_dict = false;
-        }
-    }
-
-    /**
-     * Returns the translation of a message.
-     *
-     * @param string $message  The string to translate.
-     *
-     * @return string  The string translation, or the original string if no
-     *                 translation exists.
-     */
-    private function _t($message)
-    {
-        if ($this->_dict === false) {
-            return $message;
-        } else if ($this->_dict === null) {
-            $this->initTranslation();
-            return $this->_t($message);
-        }
-        return $this->_dict->t($message);
     }
 
     /**
