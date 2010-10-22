@@ -23,6 +23,9 @@ class Horde_Prefs implements ArrayAccess
      *  DEFAULT is a reserved PHP constant. */
     const IS_DEFAULT = 2;
 
+    /* The default scope name. */
+    const DEFAULT_SCOPE = 'horde';
+
     /**
      * Caching object.
      *
@@ -58,7 +61,7 @@ class Horde_Prefs implements ArrayAccess
      *
      * @var string
      */
-    protected $_scope = 'horde';
+    protected $_scope = self::DEFAULT_SCOPE;
 
     /**
      * Preferences list.  Stored by scope name.  Each preference has the
@@ -506,9 +509,9 @@ class Horde_Prefs implements ArrayAccess
      */
     protected function _getPrefScope($pref)
     {
-        return (isset($this->_scopes[$this->_scope][$pref]) || !isset($this->_scopes['horde'][$pref]))
+        return (isset($this->_scopes[$this->_scope][$pref]) || !isset($this->_scopes[self::DEFAULT_SCOPE][$pref]))
             ? $this->_scope
-            : 'horde';
+            : self::DEFAULT_SCOPE;
     }
 
     /**
@@ -525,8 +528,8 @@ class Horde_Prefs implements ArrayAccess
             $this->setScope($scope);
         }
 
-        $this->_loadScope('horde');
-        if ($scope != 'horde') {
+        $this->_loadScope(self::DEFAULT_SCOPE);
+        if ($scope != self::DEFAULT_SCOPE) {
             $this->_loadScope($scope);
         }
     }
