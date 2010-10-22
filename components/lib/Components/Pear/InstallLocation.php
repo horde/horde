@@ -230,10 +230,11 @@ class Components_Pear_InstallLocation
      * Add a channel within the install location.
      *
      * @param string $channel The channel name.
+     * @param string $reason  Optional reason for adding the channel.
      *
      * @return NULL
      */
-    public function addChannel($channel)
+    public function addChannel($channel, $reason = '')
     {
         $channel_handler = new PEAR_Command_Channels(
             new PEAR_Frontend_CLI(),
@@ -259,8 +260,9 @@ class Components_Pear_InstallLocation
         }
         $this->_output->ok(
             sprintf(
-                'Successfully added channel %s',
-                $channel
+                'Successfully added channel %s%s',
+                $channel,
+                $reason
             )
         );
     }
@@ -269,13 +271,14 @@ class Components_Pear_InstallLocation
      * Ensure the specified channel exists within the install location.
      *
      * @param string $channel The channel name.
+     * @param string $reason  Optional reason for adding the channel.
      *
      * @return NULL
      */
-    public function provideChannel($channel)
+    public function provideChannel($channel, $reason = '')
     {
         if (!$this->channelExists($channel)) {
-            $this->addChannel($channel);
+            $this->addChannel($channel, $reason);
         }
     }
 
@@ -283,13 +286,14 @@ class Components_Pear_InstallLocation
      * Ensure the specified channels exists within the install location.
      *
      * @param array $channels The list of channels.
+     * @param string $reason  Optional reason for adding the channels.
      *
      * @return NULL
      */
-    public function provideChannels(array $channels)
+    public function provideChannels(array $channels, $reason = '')
     {
         foreach ($channels as $channel) {
-            $this->provideChannel($channel);
+            $this->provideChannel($channel, $reason);
         }
     }
 
@@ -307,10 +311,11 @@ class Components_Pear_InstallLocation
      * Add a package based on a source directory.
      *
      * @param string $package The path to the package.xml in the source directory.
+     * @param string $reason  Optional reason for adding the package.
      *
      * @return NULL
      */
-    public function addPackageFromSource($package)
+    public function addPackageFromSource($package, $reason = '')
     {
         $installer = $this->getInstallationHandler();
         ob_start();
@@ -322,8 +327,9 @@ class Components_Pear_InstallLocation
         $this->_output->pear(ob_get_clean());
         $this->_output->ok(
             sprintf(
-                'Successfully added package %s',
-                $package
+                'Successfully added package %s%s',
+                $package,
+                $reason
             )
         );
     }
@@ -333,10 +339,11 @@ class Components_Pear_InstallLocation
      *
      * @param string $channel The channel name for the package.
      * @param string $package The name of the package of the path of the tarball.
+     * @param string $reason  Optional reason for adding the package.
      *
      * @return NULL
      */
-    public function addPackageFromPackage($channel, $package)
+    public function addPackageFromPackage($channel, $package, $reason = '')
     {
         $installer = $this->getInstallationHandler();
         if ($local = $this->_identifyMatchingLocalPackage($package)) {
@@ -368,8 +375,9 @@ class Components_Pear_InstallLocation
         }
         $this->_output->ok(
             sprintf(
-                'Successfully added package %s',
-                $package
+                'Successfully added package %s%s',
+                $package,
+                $reason
             )
         );
     }

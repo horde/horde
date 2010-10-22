@@ -91,10 +91,17 @@ class Components_Helper_Tree_Element
             return;
         }
         $visited[] = $this->_package_file;
-        $run->installChannelsOnce($this->_package->listAllRequiredChannels());
+        $reason = sprintf(' [required by %s]', $this->_package->getName());
+        $run->installChannelsOnce($this->_package->listAllRequiredChannels(), $reason);
         foreach ($this->_package->listAllExternalDependencies() as $dependency) {
+            // Refrain from installing optional pecl packages
+            if (isset($dependency['optional'])
+                && $dependency['optional'] != 'no'
+                && $dependency['channel'] == 'pecl.php.net') {
+                continue;
+            }
             $run->installExternalPackageOnce(
-                $dependency['channel'], $dependency['name']
+                $dependency['channel'], $dependency['name'], $reason
             );
         }
         foreach (
@@ -104,7 +111,7 @@ class Components_Helper_Tree_Element
         ) {
             $child->installInTree($run, $visited);
         }
-        $run->installHordePackageOnce($this->_package_file);
+        $run->installHordePackageOnce($this->_package_file, $reason);
     }
 
     /**

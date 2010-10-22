@@ -67,13 +67,16 @@ class Components_Helper_InstallationRun
      * environment. The channels are only going to be installed once during the
      * installation run represented by this instance.
      *
+     * @param array  $channels The channels to install.
+     * @param string $reason   Optional reason for adding the channels.
+     *
      * @return NULL
      */
-    public function installChannelsOnce(array $channels)
+    public function installChannelsOnce(array $channels, $reason = '')
     {
         foreach ($channels as $channel) {
             if (!in_array($channel, $this->_installed_channels)) {
-                $this->_environment->provideChannel($channel);
+                $this->_environment->provideChannel($channel, $reason);
                 $this->_installed_channels[] = $channel;
             }
         }
@@ -86,15 +89,16 @@ class Components_Helper_InstallationRun
      *
      * @param string $package The package that should be installed.
      * @param string $channel The channel of the package.
+     * @param string $reason  Optional reason for adding the package.
      *
      * @return NULL
      */
-    public function installExternalPackageOnce($channel, $package)
+    public function installExternalPackageOnce($channel, $package, $reason = '')
     {
         $key = $channel . '/' . $package;
         if (!in_array($key, $this->_installed_packages)) {
             $this->_environment->addPackageFromPackage(
-                $channel, $package
+                $channel, $package, $reason
             );
             $this->_installed_packages[] = $key;
         }
@@ -107,14 +111,15 @@ class Components_Helper_InstallationRun
      *
      * @param string $package_file The package file indicating which Horde
      *                             source package should be installed.
+     * @param string $reason       Optional reason for adding the package.
      *
      * @return NULL
      */
-    public function installHordePackageOnce($package_file)
+    public function installHordePackageOnce($package_file, $reason = '')
     {
         if (!in_array($package_file, $this->_installed_packages)) {
             $this->_environment->addPackageFromSource(
-                $package_file
+                $package_file, $reason
             );
             $this->_installed_packages[] = $package_file;
         }
