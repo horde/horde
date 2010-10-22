@@ -125,7 +125,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
      */
     public function getFolderList()
     {
-        Horde::startBuffer();
+        ob_start();
 
         $this->_logger->debug('Horde::getFolderList()');
         /* Make sure we have the APIs needed for each folder class */
@@ -218,7 +218,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
     public function getMessageList($folderid, $cutoffdate)
     {
         $this->_logger->debug('Horde::getMessageList(' . $folderid . ', ' . $cutoffdate . ')');
-        Horde::startBuffer();
+        ob_start();
         $messages = array();
 
         switch ($folderid) {
@@ -291,7 +291,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
         $this->_logger->debug("Horde_ActiveSync_Driver_Horde::getServerChanges($folderId, $from_ts, $to_ts, $cutoffdate)");
         $adds = array();
 
-        Horde::startBuffer();
+        ob_start();
         switch ($folderId) {
         case self::APPOINTMENTS_FOLDER:
             if ($from_ts == 0) {
@@ -405,7 +405,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
     public function getMessage($folderid, $id, $truncsize, $mimesupport = 0)
     {
         $this->_logger->debug('Horde::getMessage(' . $folderid . ', ' . $id . ')');
-        Horde::startBuffer();
+        ob_start();
         $message = false;
         switch ($folderid) {
         case self::APPOINTMENTS_FOLDER:
@@ -475,7 +475,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
     public function deleteMessage($folderid, $id)
     {
         $this->_logger->debug('Horde::deleteMessage(' . $folderid . ', ' . $id . ')');
-        Horde::startBuffer();
+        ob_start();
         $status = false;
         switch ($folderid) {
         case self::APPOINTMENTS_FOLDER:
@@ -531,7 +531,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
     public function changeMessage($folderid, $id, $message, $device)
     {
         $this->_logger->debug('Horde::changeMessage(' . $folderid . ', ' . $id . ')');
-        Horde::startBuffer();
+        ob_start();
         $stat = false;
         switch ($folderid) {
         case self::APPOINTMENTS_FOLDER:
@@ -642,7 +642,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
         $return = array('rows' => array(),
                         'range' => $range);
 
-        Horde::startBuffer();
+        ob_start();
         try {
             $results = $this->_connector->contacts_search($query);
         } catch (Horde_ActiveSync_Exception $e) {
@@ -725,7 +725,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
      */
     private function _smartStatMessage($folderid, $id, $hint)
     {
-        Horde::startBuffer();
+        ob_start();
         $this->_logger->debug('ActiveSync_Driver_Horde::_smartStatMessage:' . $folderid . ':' . $id);
         $statKey = $folderid . $id;
         $mod = false;
@@ -773,7 +773,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
 
     private function _endBuffer()
     {
-        if ($output = Horde::endBuffer()) {
+        if ($output = ob_get_clean()) {
             $this->_logger->err('Unexpected output: ' . $output);
         }
     }
