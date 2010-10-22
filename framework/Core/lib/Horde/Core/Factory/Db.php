@@ -112,10 +112,13 @@ class Horde_Core_Factory_Db
      */
     protected function _createDb($config)
     {
+        // Split read?
         if (!empty($config['splitread'])) {
             unset($config['splitread']);
-            $config['write_db'] = $this->_createDb($config);
+            $write_db = $this->_createDb($config);
             $config = array_merge($config, $config['read']);
+            $read_db = $this->_createDb($config);
+            return new Horde_Db_Adapter_SplitRead($read_db, $write_db);
         }
 
         if (!isset($config['adapter'])) {
@@ -143,10 +146,7 @@ class Horde_Core_Factory_Db
         $class = 'Horde_Db_Adapter_' . $adapter;
 
         if (class_exists($class)) {
-            unset($config['read'],
-                  $config['write_db'],
-                  $config['hostspec'],
-                  $config['splitread']);
+            unset($config['hostspec'], $config['splitread']);
             $ob = new $class($config);
 
             if (!isset($config['cache'])) {
