@@ -42,6 +42,11 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
 
     /**
      * Const'r
+     * <pre>
+     * Required params (in addition to the base class' requirements):
+     *   connector => Horde_ActiveSync_Driver_Horde_Connector_Registry object
+     *   auth      => Horde_Auth object
+     * </pre>
      *
      * @param array $params  Configuration parameters.
      *
@@ -53,13 +58,16 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
         if (empty($this->_params['connector'])) {
             throw new InvalidArgumentException('Missing required connector object.');
         }
+
+        if (empty($this->_params['auth'])) {
+            throw new InvalidArgumentException('Missing required Auth object');
+        }
+
         $this->_connector = $params['connector'];
     }
 
     /**
      * Authenticate to Horde
-     *
-     * @TODO: Need to inject the auth handler (waiting for rpc.php refactor)
      *
      * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#Logon($username, $domain, $password)
      */
@@ -67,9 +75,8 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
     {
         $this->_logger->info('Horde_ActiveSync_Driver_Horde::logon attempt for: ' . $username);
         parent::logon($username, $password, $domain);
-        $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
 
-        return $auth->authenticate($username, array('password' => $password));
+        return $this->_auth->authenticate($username, array('password' => $password));
     }
 
     /**
@@ -609,7 +616,7 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
                 $stat = $this->_smartStatMessage($folderid, $id, false);
             }
             break;
-            
+
         default:
             $this->_endBuffer();
             return false;

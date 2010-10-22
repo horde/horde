@@ -109,6 +109,7 @@ case 'ActiveSync':
         'connector' => new Horde_ActiveSync_Driver_Horde_Connector_Registry($params),
         'ping' => $conf['activesync']['ping'],
         'state_basic' => $stateMachine,
+        'auth' => $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
     );
 
     if ($params['provisioning'] = $conf['activesync']['securitypolicies']['provisioning']) {
