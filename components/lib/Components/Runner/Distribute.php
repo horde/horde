@@ -73,7 +73,6 @@ class Components_Runner_Distribute
     {
         $options = $this->_config->getOptions();
         $arguments = $this->_config->getArguments();
-        $location = realpath($options['distribute']);
 
         $template = null;
         foreach (
@@ -99,13 +98,18 @@ class Components_Runner_Distribute
             );
         }
 
+        $package = $this->_factory->createPackageForDefaultLocation(
+            $arguments[0] . DIRECTORY_SEPARATOR . 'package.xml'
+        );
+        $version = $package->getVersion() . 'dev' . strftime('%Y%m%d%H%M');
+        $package->generateSnapshot($version);
+
         ob_start();
         include $template->getPathname();
         $packaging = ob_get_clean();
 
         file_put_contents(
-            realpath($options['distribute']) . DIRECTORY_SEPARATOR
-            . substr($template->getBasename(), 11),
+            $options['distribute'],
             $packaging
         );
     }

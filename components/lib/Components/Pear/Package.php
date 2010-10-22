@@ -199,6 +199,36 @@ class Components_Pear_Package
     }
 
     /**
+     * Return the version for this package.
+     *
+     * @return string The package version.
+     */
+    public function getVersion()
+    {
+        return $this->_getPackageFile()->getVersion();
+    }
+
+    /**
+     * Return the license for this package.
+     *
+     * @return string The package license.
+     */
+    public function getLicense()
+    {
+        return $this->_getPackageFile()->getLicense();
+    }
+
+    /**
+     * Return the summary for this package.
+     *
+     * @return string The package summary.
+     */
+    public function getSummary()
+    {
+        return $this->_getPackageFile()->getSummary();
+    }
+
+    /**
      * Update the content listing of the provided package.
      *
      * @param PEAR_PackageFileManager2 $package The package to update.
@@ -396,5 +426,29 @@ class Components_Pear_Package
         }
         return $dependencies;
     }    
+
+    /**
+     * Generate a snapshot of the package using the provided version number.
+     *
+     * @param string $varsion The snapshot version.
+     *
+     * @return string The path to the snapshot.
+     */
+    public function generateSnapshot($version)
+    {
+        $pkg = $this->_getPackageFile();
+        $pkg->_packageInfo['version']['release'] = $version;
+        $pkg->setDate(date('Y-m-d'));
+        $pkg->setTime(date('H:i:s'));
+        ob_start();
+        $result = $pkg->getDefaultGenerator()
+            ->toTgz(new PEAR_Common());
+        $this->_output->pear(ob_get_clean());
+        if ($result instanceOf PEAR_Error) {
+            throw new Components_Exception($result->getMessage());
+        }
+        $this->_output->ok('Generated snapshot ' . $result);
+        return $result;
+    }
 
 }

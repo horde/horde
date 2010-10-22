@@ -211,7 +211,7 @@ extends PHPUnit_Extensions_Story_TestCase
         case 'calling the package with the distribute option and a path to a Horde framework component':
             $_SERVER['argv'] = array(
                 'horde-components',
-                '--distribute=' . $this->_getTemporaryDirectory(),
+                '--distribute=' . $this->_getTemporaryDirectory() . '/package.spec',
                 dirname(__FILE__) . '/fixture/framework/Install'
             );
             $world['output'] = $this->_callUnstrictComponents();

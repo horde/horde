@@ -83,6 +83,16 @@ implements Components_Dependencies
     }
 
     /**
+     * Returns the snapshot packaging handler for a package.
+     *
+     * @return Components_Runner_DevPackage The snapshot handler.
+     */
+    public function getRunnerDevPackage()
+    {
+        return $this->getInstance('Components_Runner_DevPackage');
+    }
+
+    /**
      * Returns the dependency list handler for a package.
      *
      * @return Components_Runner_Dependencies The dependency handler.
