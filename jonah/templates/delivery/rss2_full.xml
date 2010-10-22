@@ -15,7 +15,7 @@
      <description><tag:stories.description /></description>
      <content:encoded><![CDATA[<tag:stories.body />
 ]]></content:encoded>
-     <pubDate><tag:stories.story_published /></pubDate>
+     <pubDate><tag:stories.published /></pubDate>
      <guid isPermaLink="true"><tag:stories.permalink /></guid>
   </item>
   </loop:stories>
