@@ -86,7 +86,16 @@ abstract class Horde_Image_Base extends EmptyIterator
     /**
      * Constructor.
      *
-     * @param string $rgb  The base color for generated pixels/images.
+     * @param array $params   The image object parameters. Values include:
+     *<pre>
+     *   (optional)width  - The desired image width
+     *   (optional)height - The desired image height
+     *   (optional)type   - The image type (png, jpeg etc...) If not provided,
+     *                      or set by the setType method, any image output will
+     *                      be converted to the default image type of png.
+     *   (optional)data   - The image binary data.
+     *</pre>
+     * @param array $context  The object context - configuration, injected objects
      *
      * @throws InvalidArgumentException
      */
@@ -107,6 +116,10 @@ abstract class Horde_Image_Base extends EmptyIterator
             $this->_height = $params['height'];
         }
         if (!empty($params['type'])) {
+            // We only want the extension, not the full mimetype.
+            if (strpos($type, 'image/') !== false) {
+                $type = substr($type, 6);
+            }
             $this->_type = $params['type'];
         }
 
@@ -176,6 +189,10 @@ abstract class Horde_Image_Base extends EmptyIterator
      */
     public function setType($type)
     {
+        // We only want the extension, not the full mimetype.
+        if (strpos($type, 'image/') !== false) {
+            $type = substr($type, 6);
+        }
         $this->_type = $type;
     }
 

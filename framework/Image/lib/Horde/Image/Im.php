@@ -85,6 +85,8 @@ class Horde_Image_Im extends Horde_Image_Base
 
     /**
      * Constructor.
+     *
+     * @see Horde_Image_Base::_construct
      */
     public function __construct($params, $context = array())
     {
