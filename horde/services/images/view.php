@@ -74,9 +74,11 @@ if (!empty($conf['image']['convert'])) {
     $context['convert'] = $conf['image']['convert'];
     $context['identify'] = $conf['image']['identify'];
 }
-$image = Horde_Image::factory($driver, array('context' => $context));
+$type = Horde_Mime_Magic::analyzeData($file_data);
+$image = Horde_Image::factory($driver,
+                              array('context' => $context));
 $image->loadString($file_data);
-
+$image->setType($type);
 /* Check if no editing action required and send the image to browser. */
 if (empty($action)) {
     $image->display();
