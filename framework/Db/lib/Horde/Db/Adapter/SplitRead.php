@@ -412,7 +412,7 @@ class Horde_Db_Adapter_SplitRead implements Horde_Db_Adapter
      */
     public function addLock(&$sql, array $options = array())
     {
-        $this->_write->addLock(&$sql, $options);
+        $this->_write->addLock($sql, $options);
     }
 
 }
