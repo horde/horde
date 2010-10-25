@@ -154,7 +154,7 @@ class Horde_Image_Effect_Im_PhotoStack extends Horde_Image_Effect
                          'convert' => $this->_image->getConvertPath());
 
         $size = $image->getDimensions();
-        $new = Horde_Image::factory('im', array('data' => $image->raw(), 'context' => $context));
+        $new = new Horde_Image_Im(array('data' => $image->raw()), $context);
         $new->addEffect('RoundCorners', array('border' => 2, 'bordercolor' => '#111', 'background' => 'none'));
         $new->applyEffects();
 

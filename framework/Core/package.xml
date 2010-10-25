@@ -23,8 +23,8 @@ Application Framework.</description>
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2010-10-22</date>
- <time>13:14:28</time>
+ <date>2010-10-25</date>
+ <time>09:15:23</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -137,6 +137,7 @@ Application Framework.</description>
        <file name="History.php" role="php" />
        <file name="HttpClient.php" role="php" />
        <file name="Identity.php" role="php" />
+       <file name="Image.php" role="php" />
        <file name="Imple.php" role="php" />
        <file name="KolabServer.php" role="php" />
        <file name="KolabSession.php" role="php" />
@@ -714,6 +715,7 @@ Application Framework.</description>
    <install as="Horde/Core/Factory/History.php" name="lib/Horde/Core/Factory/History.php" />
    <install as="Horde/Core/Factory/HttpClient.php" name="lib/Horde/Core/Factory/HttpClient.php" />
    <install as="Horde/Core/Factory/Identity.php" name="lib/Horde/Core/Factory/Identity.php" />
+   <install as="Horde/Core/Factory/Image.php" name="lib/Horde/Core/Factory/Image.php" />
    <install as="Horde/Core/Factory/Imple.php" name="lib/Horde/Core/Factory/Imple.php" />
    <install as="Horde/Core/Factory/KolabServer.php" name="lib/Horde/Core/Factory/KolabServer.php" />
    <install as="Horde/Core/Factory/KolabSession.php" name="lib/Horde/Core/Factory/KolabSession.php" />
@@ -901,7 +903,7 @@ Initial packaging
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2010-10-22</date>
+   <date>2010-10-25</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Add Horde_Session.

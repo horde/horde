@@ -485,9 +485,8 @@ function getImageObject($params = array())
                      'convert' => $GLOBALS['convert'],
                      'logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger'),
                      'identify' => $GLOBALS['identify']);
-    $params['context'] = $context;
 
-    return Horde_Image::factory($GLOBALS['driver'], $params);
+    return new Horde_Image_Im($params, $context);
 }
 
 function logThis($effect, $time, $memory)

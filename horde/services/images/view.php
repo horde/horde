@@ -68,17 +68,12 @@ case 'tmp':
 }
 
 /* Load the image object. */
-$context = array('tmpdir' => Horde::getTempDir());
-$driver = $conf['image']['driver'];
-if (!empty($conf['image']['convert'])) {
-    $context['convert'] = $conf['image']['convert'];
-    $context['identify'] = $conf['image']['identify'];
-}
 $type = Horde_Mime_Magic::analyzeData($file_data);
-$image = Horde_Image::factory($driver,
-                              array('context' => $context));
-$image->loadString($file_data);
-$image->setType($type);
+$image = $GLOBALS['injector']
+    ->getInstance('Horde_Core_Factory_Image')
+    ->create(array('type' => $type,
+                   'data' => $file_data));
+
 /* Check if no editing action required and send the image to browser. */
 if (empty($action)) {
     $image->display();

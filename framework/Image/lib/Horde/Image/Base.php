@@ -96,7 +96,10 @@ abstract class Horde_Image_Base extends EmptyIterator
      *   (optional)data   - The image binary data.
      *</pre>
      * @param array $context  The object context - configuration, injected objects
-     *
+     *<pre>
+     *   (required)tmpdir - Temporary directory
+     *   (optional)logger - The logger
+     *</pre>
      * @throws InvalidArgumentException
      */
     protected function __construct($params, $context = array())
@@ -117,8 +120,8 @@ abstract class Horde_Image_Base extends EmptyIterator
         }
         if (!empty($params['type'])) {
             // We only want the extension, not the full mimetype.
-            if (strpos($type, 'image/') !== false) {
-                $type = substr($type, 6);
+            if (strpos($params['type'], 'image/') !== false) {
+                $params['type'] = substr($params['type'], 6);
             }
             $this->_type = $params['type'];
         }
