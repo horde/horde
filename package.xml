@@ -30,10 +30,10 @@ It is highly configurable and can be easily extended.</description>
   <email>del@babel.com.au</email>
   <active>yes</active>
  </developer>
- <date>2007-06-09</date>
+ <date>2010-10-25</date>
  <time>19:44:14</time>
  <version>
-  <release>1.2.0</release>
+  <release>1.2.1</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -42,37 +42,16 @@ It is highly configurable and can be easily extended.</description>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-Stable release for 1.2.0
+QA Release
+Bug #12490 wiki's do not display since php5-5.2.5 upgrade but are editable. 	justinpatrin
+Bug #12580 incorrect/incomplete license in package.xml 	justinpatrin
+Bug #12619 Tab character before # causes invalid Xhtml 	justinpatrin
+Bug #12665 External site documentation link invalid 	justinpatrin
+Doc Bug #14049 Missing documentation	justinpatrin
+Bug #14869 skip tests when config is not available, not fail	justinpatrin
+Bug #15758 URLs with # at the end not considered a url	justinpatrin
+Bug #16222 External documentation is down	justinpatrin
 
-Changes since 1.2.0RC2
- * Fix Bug #10114: Ruleset Case Sensitivity [justinpatrin]
- * Fix Bug #11262: Doesn&apos;t behave nicely with &lt;code type=&quot;php&quot;&gt; [justinpatrin]
- * Fixed a notices about undefined 'css' and 'name' indexes [mic]
- * Allow class to be specified in Xhtml Box and Center renderers [mic]
- * Use css instead of deprecated align attribute for Xhtml/Image alignment [justinpatrin]
- * Don't pop up a new window with Xhtml Interwiki and Phplookup renderers when target is '_self' [justinpatrin]
- * Properly encode text in Xhtml Preformatted renderer [mic]
-
-Changes since 1.2.0RC1 (1.2.0RC2)
- * Added an Address Xhtml renderer
- * Balanced token checking has been added (this means that output such as &lt;b&gt;&lt;i&gt;italic&lt;/b&gt;&lt;/i&gt; is caught)
- * A new stack-based callback system for renderers has been added to allow for more flexible output handling (see BlockQuote)
- * The Url Xhtml renderer now allows a name to be passed in
- * The Url Xhtml, Plain, Latex renderers now allow start/end tokens
- * Package.xml 2.0 is now used exclusively
- * Bug #7320 fix UTF-8 rendering in WikiLink and Freelink
- * Various UTF-8 fixes
- * Bug #6292 remove paragraph tags from around headings and hrs in Xhtml renderer
- * Preformatted Xhtml renderer now correctly escapes output
-
-Changes since 1.1.0 (1.2.0RC1)
- * Internal Text_Wiki error handling used in factory and singleton
- * Needed files are now required
- * bertrand Gugger left development of Text_Wiki
- * Raw output is now encoded in Xhtml renderer to avoid XSS attacks
- * Bug 8313 fix anchor output in Xhtml/Wikilink when used in conjuction with sprintf (thanks to bjs5075 at rit dot edu)
- * Fixed various encoding issues with Xhtml/Wikilink URLs
- * Bug #7091 fixed variable substitution in Latex renderer (thanks randlem at bgsu dot edu)
  </notes>
  <contents>
   <dir name="/">

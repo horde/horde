@@ -14,19 +14,19 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>tomamic@yahoo.it</email>
   <active>yes</active>
  </lead>
- <date>2007-08-01</date>
+ <date>2010-10-25</date>
  <time>12:00:00</time>
  <version>
-  <release>1.0.0</release>
-  <api>1.0.0</api>
+  <release>1.0.1</release>
+  <api>1.0.1</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>Text_Wiki_Creole is now compliant with version 1.0 of Creole specs. See http://www.wikicreole.org/wiki/Creole1.0
-        
+ <notes>QA Release
+Bug #15717 	Header shouldn't need a following empty line
  </notes>
  <contents>
   <dir name="/">
