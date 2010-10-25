@@ -317,6 +317,7 @@ class Components_Pear_Package
 
         $contents = $package->getContents();
         $files = $contents['dir']['file'];
+        $horde_role = false;
 
         foreach ($files as $file) {
             $components = explode('/', $file['attribs']['name'], 2);
@@ -331,6 +332,7 @@ class Components_Pear_Package
                 );
             break;
             case 'js':
+                $horde_role = true;
             case 'locale':
                 $package->addInstallAs(
                     $file['attribs']['name'], $file['attribs']['name']
@@ -355,6 +357,27 @@ class Components_Pear_Package
                 break;
             }
         }
+
+        if ($horde_role) {
+            $roles = $package->getUsesrole();
+            if (!empty($roles)) {
+                if (isset($roles['role'])) {
+                    $roles = array($roles);
+                }
+                foreach ($roles as $role) {
+                    if (isset($role['role']) && $role['role'] == 'horde') {
+                        $horde_role = false;
+                        break;
+                    }
+                }
+            }
+            if ($horde_role) {
+                $package->addUsesrole(
+                    'horde', 'Role', 'pear.horde.org'
+                );
+            }
+        }
+
         return $package;
     }
 

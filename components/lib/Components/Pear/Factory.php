@@ -173,6 +173,56 @@ class Components_Pear_Factory
     }
 
     /**
+     * Create a new PEAR Package representation.
+     *
+     * @param string                          $package_xml_dir Path to the parent directory of the package.xml file.
+     * @param Components_Pear_InstallLocation $environment      The PEAR environment.
+     *
+     * @return PEAR_PackageFile
+     */
+    public function createPackageFile(
+        $package_xml_dir
+    )
+    {
+        $environment = $this->_dependencies->getInstance('Components_Pear_InstallLocation');
+        $pkg = new PEAR_PackageFile_v2_rw();
+        $pkg->setPackage('REPLACE');
+        $pkg->setDescription('REPLACE');
+        $pkg->setSummary('REPLACE');
+        $pkg->setReleaseVersion('0.0.1');
+        $pkg->setApiVersion('0.0.1');
+        $pkg->setReleaseStability('alpha');
+        $pkg->setApiStability('alpha');
+        $pkg->setChannel('pear.horde.org');
+        $pkg->addMaintainer(
+            'lead',
+            'chuck',
+            'Chuck Hagenbuch',
+            'chuck@horde.org'
+        );
+        $pkg->addMaintainer(
+            'lead',
+            'jan',
+            'Jan Schneider',
+            'jan@horde.org'
+        );
+        $pkg->setLicense('REPLACE', 'REPLACE');
+        $pkg->setNotes('* Initial release.');
+        $pkg->clearContents();
+        $pkg->clearDeps();
+        $pkg->setPhpDep('5.2.0');
+        $pkg->setPearinstallerDep('1.9.0');
+        $pkg->setPackageType('php');
+        new PEAR_Validate();
+        $package_file = $pkg->getDefaultGenerator()
+            ->toPackageFile($package_xml_dir, 0);
+        if ($package_file instanceOf PEAR_Error) {
+            throw new Components_Exception($package_file->getMessage());
+        };
+        return $package_file;
+    }
+
+    /**
      * Return a writeable PEAR Package representation.
      *
      * @param string                          $package_xml_path Path to the package.xml file.

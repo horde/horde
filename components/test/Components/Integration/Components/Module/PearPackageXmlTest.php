@@ -82,19 +82,6 @@ extends Components_StoryTestCase
     /**
      * @scenario
      */
-    public function thePOptionFailsWithoutAValidPackage()
-    {
-        $this->given('the default Components setup')
-            ->when(
-                'calling the package with the packagexml option and the path',
-                dirname(dirname(dirname(dirname(__FILE__)))) . '/fixture'
-            )
-            ->then('the call will fail with', 'There is no package.xml at');
-    }
-
-    /**
-     * @scenario
-     */
     public function thePOptionProvidesAnUpdatedPackageXml()
     {
         $this->given('the default Components setup')

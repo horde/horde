@@ -58,6 +58,7 @@ extends Components_Module_Base
     {
         $options = $config->getOptions();
         if (!empty($options['devpackage'])) {
+            $this->requirePackageXml($config->getPackageDirectory());
             $this->_dependencies->getRunnerDevPackage()->run();
         }
     }
