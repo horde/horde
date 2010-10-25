@@ -359,20 +359,20 @@ class IMP_Message
             $body = $flowed->toFlowed(false);
 
             /* Convert to current charset */
-            /* TODO: When Horde_iCalendar supports setting of charsets
+            /* TODO: When Horde_Icalendar supports setting of charsets
              * we need to set it there instead of relying on the fact
              * that both Nag and IMP use the same charset. */
             $body = Horde_String::convertCharset($body, $body_part->getCharset(), 'UTF-8');
 
             /* Create a new iCalendar. */
-            $vCal = new Horde_iCalendar();
+            $vCal = new Horde_Icalendar();
             $vCal->setAttribute('PRODID', '-//The Horde Project//IMP ' . $GLOBALS['registry']->getVersion() . '//EN');
             $vCal->setAttribute('METHOD', 'PUBLISH');
 
             switch ($type) {
             case 'task':
                 /* Create a new vTodo object using this message's contents. */
-                $vTodo = Horde_iCalendar::newComponent('vtodo', $vCal);
+                $vTodo = Horde_Icalendar::newComponent('vtodo', $vCal);
                 $vTodo->setAttribute('SUMMARY', $subject);
                 $vTodo->setAttribute('DESCRIPTION', $body);
                 $vTodo->setAttribute('PRIORITY', '3');
@@ -397,7 +397,7 @@ class IMP_Message
 
             case 'note':
                 /* Create a new vNote object using this message's contents. */
-                $vNote = Horde_iCalendar::newComponent('vnote', $vCal);
+                $vNote = Horde_Icalendar::newComponent('vnote', $vCal);
                 $vNote->setAttribute('BODY', $subject . "\n". $body);
 
                 /* Get the list of editable notepads. */

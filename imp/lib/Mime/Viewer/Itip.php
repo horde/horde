@@ -809,8 +809,8 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
     /**
      * Returns the html for a vEvent.
      *
-     * @todo IMP 5: move organizerName() from Horde_iCalendar_vevent to
-     *       Horde_iCalendar
+     * @todo IMP 5: move organizerName() from Horde_Icalendar_Vevent to
+     *       Horde_Icalendar
      */
     protected function _vTodo($vtodo, $id, $method, $msgs)
     {
