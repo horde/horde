@@ -50,7 +50,7 @@ class Horde_ActiveSync_Driver_Horde_Connector_Registry
     public function calendar_listUids($startstamp, $endstamp)
     {
         try {
-            return $this->_registry->calendar->listUids($startstamp, $endstamp);
+            return $this->_registry->calendar->listUids(null, $startstamp, $endstamp);
         } catch (Exception $e) {
             return array();
         }
