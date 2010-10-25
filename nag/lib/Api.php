@@ -784,7 +784,7 @@ class Nag_Api extends Horde_Registry_Api
 
             $ids = array();
             foreach ($components as $content) {
-                if ($content instanceof Horde_iCalendar_vtodo) {
+                if ($content instanceof Horde_Icalendar_Vtodo) {
                     $task = new Nag_Task();
                     $task->fromiCalendar($content);
                     if (isset($task->uid) &&

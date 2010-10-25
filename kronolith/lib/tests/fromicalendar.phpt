@@ -21,18 +21,18 @@ require 'Date/Calc.php';
 require 'Horde/Date.php';
 require 'Horde/Date/Recurrence.php';
 require 'Horde/Util.php';
-require 'Horde/iCalendar.php';
+require 'Horde/Icalendar.php';
 
-$iCal = new Horde_iCalendar();
+$iCal = new Horde_Icalendar();
 $iCal->parsevCalendar(file_get_contents(dirname(__FILE__) . '/fromicalendar.ics'));
 $components = $iCal->getComponents();
-$iCal2 = new Horde_iCalendar();
+$iCal2 = new Horde_Icalendar();
 
 define('KRONOLITH_BASE', dirname(__FILE__) . '/../..');
 require KRONOLITH_BASE . '/lib/Kronolith.php';
 require KRONOLITH_BASE . '/lib/Driver.php';
 foreach ($components as $content) {
-    if (is_a($content, 'Horde_iCalendar_vevent')) {
+    if (is_a($content, 'Horde_Icalendar_Vevent')) {
         $event = new Kronolith_Event(new Driver);
         $event->fromiCalendar($content);
         echo $event->start->rfc3339DateTime() . "\n";

@@ -513,7 +513,7 @@ abstract class Kronolith_Event
     /**
      * Exports this event in iCalendar format.
      *
-     * @param Horde_Icalendar $calendar  A Horde_iCalendar object that acts as
+     * @param Horde_Icalendar $calendar  A Horde_Icalendar object that acts as
      *                                   a container.
      *
      * @return array  An array of Horde_Icalendar_Vevent objects for this event.

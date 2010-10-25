@@ -79,7 +79,7 @@ class Horde_Itip_Response
      * Return the response as an iCalendar vEvent object.
      *
      * @param Horde_Itip_Response_Type $type The response type.
-     * @param Horde_iCalendar|boolean  $vCal The parent container or false if not
+     * @param Horde_Icalendar|boolean  $vCal The parent container or false if not
      *                                       provided.
      *
      * @return Horde_Icalendar_Vevent The response object.

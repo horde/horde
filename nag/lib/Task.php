@@ -783,14 +783,14 @@ class Nag_Task {
     /**
      * Exports this task in iCalendar format.
      *
-     * @param Horde_iCalendar $calendar  A Horde_iCalendar object that acts as
+     * @param Horde_Icalendar $calendar  A Horde_Icalendar object that acts as
      *                                   the container.
      *
-     * @return Horde_iCalendar_vtodo  A vtodo component of this task.
+     * @return Horde_Icalendar_Vtodo  A vtodo component of this task.
      */
     function toiCalendar($calendar)
     {
-        $vTodo = Horde_iCalendar::newComponent('vtodo', $calendar);
+        $vTodo = Horde_Icalendar::newComponent('vtodo', $calendar);
         $v1 = $calendar->getAttribute('VERSION') == '1.0';
 
         $vTodo->setAttribute('UID', $this->uid);
@@ -830,7 +830,7 @@ class Nag_Task {
                 if ($v1) {
                     $vTodo->setAttribute('AALARM', $this->due - $this->alarm * 60);
                 } else {
-                    $vAlarm = Horde_iCalendar::newComponent('valarm', $vTodo);
+                    $vAlarm = Horde_Icalendar::newComponent('valarm', $vTodo);
                     $vAlarm->setAttribute('ACTION', 'DISPLAY');
                     $vAlarm->setAttribute('TRIGGER;VALUE=DURATION', '-PT' . $this->alarm . 'M');
                     $vTodo->addComponent($vAlarm);
@@ -935,9 +935,9 @@ class Nag_Task {
     }
 
     /**
-     * Creates a task from a Horde_iCalendar_vtodo object.
+     * Creates a task from a Horde_Icalendar_Vtodo object.
      *
-     * @param Horde_iCalendar_vtodo $vTodo  The iCalendar data to update from.
+     * @param Horde_Icalendar_Vtodo $vTodo  The iCalendar data to update from.
      */
     function fromiCalendar($vTodo)
     {

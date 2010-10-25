@@ -222,9 +222,8 @@ class Mnemo_Api extends Horde_Registry_Api
             break;
 
         case 'text/x-vnote':
-            if (!is_a($content, 'Horde_iCalendar_vnote')) {
-                require_once 'Horde/iCalendar.php';
-                $iCal = new Horde_iCalendar();
+            if (!is_a($content, 'Horde_Icalendar_Vnote')) {
+                $iCal = new Horde_Icalendar();
                 if (!$iCal->parsevCalendar($content)) {
                     return PEAR::raiseError(_("There was an error importing the iCalendar data."));
                 }
@@ -241,7 +240,7 @@ class Mnemo_Api extends Horde_Registry_Api
                 default:
                     $ids = array();
                     foreach ($components as $content) {
-                        if (is_a($content, 'Horde_iCalendar_vnote')) {
+                        if (is_a($content, 'Horde_Icalendar_Vnote')) {
                             $note = $storage->fromiCalendar($content);
                             $noteId = $storage->add($note['desc'],
                                                     $note['body'],
@@ -316,7 +315,7 @@ class Mnemo_Api extends Horde_Registry_Api
             require_once 'Horde/iCalendar.php';
 
             // Create the new iCalendar container.
-            $iCal = new Horde_iCalendar('1.1');
+            $iCal = new Horde_Icalendar('1.1');
             $iCal->setAttribute('VERSION', '1.1');
             $iCal->setAttribute('PRODID', '-//The Horde Project//Mnemo ' . Mnemo::VERSION . '//EN');
             $iCal->setAttribute('METHOD', 'PUBLISH');
@@ -397,9 +396,8 @@ class Mnemo_Api extends Horde_Registry_Api
             return $storage->modify($memo['memo_id'], $storage->getMemoDescription($content), $content, null);
 
         case 'text/x-vnote':
-            if (!is_a($content, 'Horde_iCalendar_vnote')) {
-                require_once 'Horde/iCalendar.php';
-                $iCal = new Horde_iCalendar();
+            if (!is_a($content, 'Horde_Icalendar_Vnote')) {
+                $iCal = new Horde_Icalendar();
                 if (!$iCal->parsevCalendar($content)) {
                     return PEAR::raiseError(_("There was an error importing the iCalendar data."));
                 }

@@ -279,7 +279,7 @@ class Horde_Kolab_FreeBusy_Cache {
      *                                        relevant access
      *                                        parameters.
      *
-     * @return Horde_iCalender The remote free/busy information.
+     * @return Horde_Icalender The remote free/busy information.
      */
     function &_fetchRemote($servers, $access)
     {
@@ -935,7 +935,7 @@ class Horde_Kolab_FreeBusy_Cache_File_pvcal extends Horde_Kolab_FreeBusy_Cache_F
     /**
      * Store partial free/busy infomation in the cache file.
      *
-     * @param Horde_iCalendar $pvcal A reference to the data object.
+     * @param Horde_Icalendar $pvcal A reference to the data object.
      *
      * @return boolean|PEAR_Error True if successful.
      */
@@ -949,7 +949,7 @@ class Horde_Kolab_FreeBusy_Cache_File_pvcal extends Horde_Kolab_FreeBusy_Cache_F
      *
      * @param boolean $extended Should the extended information be retrieved?
      *
-     * @return Horde_iCalendar|PEAR_Error The data retrieved from the cache file.
+     * @return Horde_Icalendar|PEAR_Error The data retrieved from the cache file.
      */
     function &loadPVcal($extended)
     {
@@ -1030,7 +1030,7 @@ class Horde_Kolab_FreeBusy_Cache_File_vcal extends Horde_Kolab_FreeBusy_Cache_Fi
     /**
      * Store free/busy infomation in the cache file.
      *
-     * @param Horde_iCalendar $vcal   A reference to the data object.
+     * @param Horde_Icalendar $vcal   A reference to the data object.
      * @param array           $mtimes A list of modification times for the
      *                                partial free/busy cache times.
      *
@@ -1046,7 +1046,7 @@ class Horde_Kolab_FreeBusy_Cache_File_vcal extends Horde_Kolab_FreeBusy_Cache_Fi
     /**
      * Load the free/busy information from the cache.
      *
-     * @return Horde_iCalendar|PEAR_Error The retrieved free/busy information.
+     * @return Horde_Icalendar|PEAR_Error The retrieved free/busy information.
      */
     function &loadVcal()
     {

@@ -117,7 +117,7 @@ case 'export':
             exit;
 
         case Horde_Data::EXPORT_ICALENDAR:
-            $iCal = new Horde_iCalendar();
+            $iCal = new Horde_Icalendar();
             $iCal->setAttribute(
                 'PRODID',
                 '-//The Horde Project//Nag ' . $registry->getVersion() . '//EN');
@@ -176,7 +176,7 @@ if (is_array($next_step)) {
         }
 
         if (!is_array($row)) {
-            if (!is_a($row, 'Horde_iCalendar_vtodo')) {
+            if (!is_a($row, 'Horde_Icalendar_Vtodo')) {
                 continue;
             }
             $task = new Nag_Task();
