@@ -21,7 +21,7 @@ class Horde_Core_Factory_ActiveSyncBackend
         // Backend driver and dependencies
         $params['registry'] = $GLOBALS['registry'];
         $driver_params = array(
-            'connector' => new Horde_ActiveSync_Driver_Horde_Connector_Registry($params),
+            'connector' => new Horde_Core_ActiveSync_Connector($params),
             'ping' => $conf['activesync']['ping'],
             'state_basic' => $injector->getInstance('Horde_ActiveSyncState'),
             'auth' => $injector->getInstance('Horde_Core_Factory_Auth')->create());
@@ -29,7 +29,7 @@ class Horde_Core_Factory_ActiveSyncBackend
             $driver_params['policies'] = $conf['activesync']['securitypolicies'];
         }
 
-        return new Horde_ActiveSync_Driver_Horde($driver_params);
+        return new Horde_Core_ActiveSync_Driver($driver_params);
     }
 
 }

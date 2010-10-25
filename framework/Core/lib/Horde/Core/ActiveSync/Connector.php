@@ -11,7 +11,7 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Horde_ActiveSync
  */
-class Horde_ActiveSync_Driver_Horde_Connector_Registry
+class Horde_Core_ActiveSync_Connector
 {
     /**
      * Horde registry

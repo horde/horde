@@ -24,7 +24,7 @@ Application Framework.</description>
   <active>yes</active>
  </developer>
  <date>2010-10-25</date>
- <time>09:15:23</time>
+ <time>14:04:39</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -79,6 +79,10 @@ Application Framework.</description>
       <file name="Form.php" role="php" />
      </dir> <!-- /lib/Horde/Config -->
      <dir name="Core">
+      <dir name="ActiveSync">
+       <file name="Connector.php" role="php" />
+       <file name="Driver.php" role="php" />
+      </dir> <!-- /lib/Horde/Core/ActiveSync -->
       <dir name="Ajax">
        <dir name="Imple">
         <dir name="Geocoder">
@@ -674,6 +678,8 @@ Application Framework.</description>
    <install as="Horde/Core/Prefs.php" name="lib/Horde/Core/Prefs.php" />
    <install as="Horde/Core/Sidebar.php" name="lib/Horde/Core/Sidebar.php" />
    <install as="Horde/Core/Translation.php" name="lib/Horde/Core/Translation.php" />
+   <install as="Horde/Core/ActiveSync/Connector.php" name="lib/Horde/Core/ActiveSync/Connector.php" />
+   <install as="Horde/Core/ActiveSync/Driver.php" name="lib/Horde/Core/ActiveSync/Driver.php" />
    <install as="Horde/Core/Ajax/Application.php" name="lib/Horde/Core/Ajax/Application.php" />
    <install as="Horde/Core/Ajax/Imple.php" name="lib/Horde/Core/Ajax/Imple.php" />
    <install as="Horde/Core/Ajax/Imple/AutoCompleter.php" name="lib/Horde/Core/Ajax/Imple/AutoCompleter.php" />

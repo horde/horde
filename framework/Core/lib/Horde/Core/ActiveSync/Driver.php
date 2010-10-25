@@ -19,7 +19,7 @@
 * This file is distributed under GPL v2.
 * Consult LICENSE file for details
 ************************************************/
-class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
+class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 {
     /** Constants **/
     const APPOINTMENTS_FOLDER = 'Calendar';
@@ -55,11 +55,11 @@ class Horde_ActiveSync_Driver_Horde extends Horde_ActiveSync_Driver_Base
     public function __construct($params = array())
     {
         parent::__construct($params);
-        if (empty($this->_params['connector'])) {
+        if (empty($this->_params['connector']) || !($this->_params['connector'] instanceof Horde_Core_ActiveSync_Connector)) {
             throw new InvalidArgumentException('Missing required connector object.');
         }
 
-        if (empty($this->_params['auth'])) {
+        if (empty($this->_params['auth']) || !($this->_params['auth'] instanceof Horde_Auth_Base)) {
             throw new InvalidArgumentException('Missing required Auth object');
         }
 
