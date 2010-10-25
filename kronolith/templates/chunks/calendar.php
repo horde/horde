@@ -100,7 +100,7 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 </div>
 
 <div id="kronolithCalendarinternalTabImport" class="kronolithTabsOption" style="display:none">
-  <div class="kronolithDialogInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics.") ?></div>
+  <div class="kronolithDialogInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics.") ?><br /><?php echo _("More information at") ?> <a href="http://ajuda.sapo.pt/">ajuda.sapo.pt</a></div>
   <div>
     <label for="kronolithCalendarinternalImport"><?php echo _("Import ICS file") ?>:</label>
     <input type="file" id="kronolithCalendarinternalImport" name="import_file" /><br />
@@ -114,7 +114,7 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 </div>
 
 <div id="kronolithCalendarinternalTabExport" class="kronolithTabsOption" style="display:none">
-  <div class="kronolithDialogInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics.") ?></div>
+  <div class="kronolithDialogInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics.") ?><br /><?php echo _("More information at") ?> <a href="http://ajuda.sapo.pt/">ajuda.sapo.pt</a></div>
   <div>
     <label><?php echo _("Export ICS file") ?>:</label>
     <a id="kronolithCalendarinternalExport"><?php echo _("Calendar ICS file") ?></a>
@@ -127,6 +127,7 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
   <input type="button" value="<?php echo _("Subscribe") ?>" class="kronolithCalendarSubscribe button ok" style="display:none" />
   <input type="button" value="<?php echo _("Unsubscribe") ?>" class="kronolithCalendarUnsubscribe button ko" style="display:none" />
   <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
+  <span class="kronolithDialogHelp"><a href="http://ajuda.sapo.pt/" target="help"><?php echo _("Need help? See ajuda.sapo.pt") ?></a></span>
 </div>
 </div>
 
@@ -189,7 +190,7 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 </div>
 
 <div id="kronolithCalendartasklistsTabExport" class="kronolithTabsOption" style="display:none">
-  <div class="kronolithDialogInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics.") ?></div>
+  <div class="kronolithDialogInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics.") ?><br /><?php echo _("More information at") ?> <a href="http://ajuda.sapo.pt/">ajuda.sapo.pt</a></div>
   <div>
     <label><?php echo _("Export ICS file") ?>:</label>
     <a id="kronolithCalendartasklistsExport"><?php echo _("Task list ICS file") ?></a>
@@ -202,6 +203,7 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
   <input type="button" value="<?php echo _("Subscribe") ?>" class="kronolithCalendarSubscribe button ok" style="display:none" />
   <input type="button" value="<?php echo _("Unsubscribe") ?>" class="kronolithCalendarUnsubscribe button ko" style="display:none" />
   <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
+  <span class="kronolithDialogHelp"><a href="http://ajuda.sapo.pt/" target="help"><?php echo _("Need help? See ajuda.sapo.pt") ?></a></span>
 </div>
 </div>
 
@@ -229,6 +231,7 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
   <input type="button" value="<?php echo _("Continue") ?>" class="kronolithCalendarContinue button ok" />
   <input type="button" value="<?php echo _("Delete") ?>" class="kronolithCalendarDelete button ko" />
   <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
+  <span class="kronolithDialogHelp"><a href="http://ajuda.sapo.pt/" target="help"><?php echo _("Need help? See ajuda.sapo.pt") ?></a></span>
 </div>
 </div>
 
@@ -250,6 +253,7 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 <div class="kronolithFormActions">
   <input type="button" value="<?php echo _("Continue") ?>" class="kronolithCalendarContinue button ok" />
   <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
+  <span class="kronolithDialogHelp"><a href="http://ajuda.sapo.pt/" target="help"><?php echo _("Need help? See ajuda.sapo.pt") ?></a></span>
 </div>
 </div>
 
@@ -270,6 +274,7 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
   <input type="button" value="<?php echo _("Save") ?>" class="kronolithCalendarSave button ok" />
   <input type="button" value="<?php echo _("Delete") ?>" class="kronolithCalendarDelete button ko" />
   <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
+  <span class="kronolithDialogHelp"><a href="http://ajuda.sapo.pt/" target="help"><?php echo _("Need help? See ajuda.sapo.pt") ?></a></span>
 </div>
 </div>
 
