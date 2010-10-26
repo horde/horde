@@ -596,7 +596,7 @@ Application Framework.</description>
    </package>
    <package>
     <name>Crypt</name>
-    <channel>pear.php.net</channel>
+    <channel>pear.horde.org</channel>
    </package>
    <package>
     <name>DB</name>
