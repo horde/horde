@@ -88,7 +88,7 @@
 
   <form id="kronolithSearchForm" action="">
     <input type="text" id="kronolithSearchTerm" value="<?php echo _("Search") ?>" default="<?php echo _("Search") ?>" />
-    <input id="kronolithSearchButton" type="image" src="<?php echo Horde_Themes::img('search.png') ?>" />
+    <input id="kronolithSearchButton" type="button" value="<?php echo _("Go") ?>" />
   </form>
 
   <div id="kronolithMenuCalendars">

@@ -543,7 +543,17 @@ body.kronolithAjax {
     position: relative;
     top: 10px;
 }
+#kronolithSearchButton {
+    background: transparent url('graphics/search.png');
+    border: none;
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    text-indent: -10000px;
+    cursor: pointer;
+}
 #kronolithSearchTerm {
+    vertical-align: middle;
     width: 126px;
     color: #ccc;
 }
@@ -570,7 +580,7 @@ body.kronolithAjax {
     min-height: 16px;
     margin-bottom: 2px;
     padding: 2px 2px 2px 20px;
-    background: url("graphics/checkbox_off.png") 2px center no-repeat;
+    background: transparent url("graphics/checkbox_off.png") 2px center no-repeat;
     cursor: pointer;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -1103,7 +1113,7 @@ table.kronolithView td.kronolithFirstCol {
     width: 16px;
     height: 16px;
     background-image: url('graphics/print.png');
-    text-indent: -9999px;
+    text-indent: -10000;
     overflow: hidden;
 }
 
