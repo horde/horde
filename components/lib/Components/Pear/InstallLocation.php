@@ -201,11 +201,9 @@ class Components_Pear_InstallLocation
         if (!file_exists($this->_config_file)) {
             $this->createPearConfig();
         }
-        $config = PEAR_Config::singleton($this->_config_file);
-        if ($config instanceOf PEAR_Error) {
-            throw new Components_Exception($config->getMessage());
-        }
-        return $config;
+        return Components_Exception_Pear::catchError(
+            PEAR_Config::singleton($this->_config_file)
+        );
     }
 
     /**
@@ -245,7 +243,9 @@ class Components_Pear_InstallLocation
             . $channel . '.channel.xml';
         if (file_exists($static)) {
             ob_start();
-            $channel_handler->doAdd('channel-add', array(), array($static));
+            Components_Exception_Pear::catchError(
+                $channel_handler->doAdd('channel-add', array(), array($static))
+            );
             $this->_output->pear(ob_get_clean());
         } else {
             $this->_output->warn(
@@ -255,7 +255,9 @@ class Components_Pear_InstallLocation
                 )
             );
             ob_start();
-            $channel_handler->doDiscover('channel-discover', array(), array($channel));
+            Components_Exception_Pear::catchError(
+                $channel_handler->doDiscover('channel-discover', array(), array($channel))
+            );
             $this->_output->pear(ob_get_clean());
         }
         $this->_output->ok(

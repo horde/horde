@@ -24,8 +24,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-10-23</date>
- <time>00:04:23</time>
+ <date>2010-10-26</date>
+ <time>10:08:57</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -60,6 +60,9 @@
      <dir name="Dependencies">
       <file name="Injector.php" role="php" />
      </dir> <!-- /lib/Components/Dependencies -->
+     <dir name="Exception">
+      <file name="Pear.php" role="php" />
+     </dir> <!-- /lib/Components/Exception -->
      <dir name="Helper">
       <dir name="Tree">
        <file name="Element.php" role="php" />
@@ -249,6 +252,7 @@
    <install as="Components/Config/Application.php" name="lib/Components/Config/Application.php" />
    <install as="Components/Config/Cli.php" name="lib/Components/Config/Cli.php" />
    <install as="Components/Dependencies/Injector.php" name="lib/Components/Dependencies/Injector.php" />
+   <install as="Components/Exception/Pear.php" name="lib/Components/Exception/Pear.php" />
    <install as="Components/Helper/InstallationRun.php" name="lib/Components/Helper/InstallationRun.php" />
    <install as="Components/Helper/ListRun.php" name="lib/Components/Helper/ListRun.php" />
    <install as="Components/Helper/Tree.php" name="lib/Components/Helper/Tree.php" />
@@ -314,7 +318,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-10-23</date>
+   <date>2010-10-26</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
 * Initial release

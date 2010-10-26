@@ -251,10 +251,6 @@ class Components_Pear_Package
             }
         }
 
-        /**
-         * @todo: Looks like this throws away any <replace /> tags we have in
-         * the content list. Needs to be fixed.
-         */
         $package->generateContents();
 
         $updated = $package->getContents();
@@ -332,6 +328,7 @@ class Components_Pear_Package
                 );
             break;
             case 'js':
+            case 'horde':
                 $horde_role = true;
             case 'locale':
                 $package->addInstallAs(
@@ -465,12 +462,11 @@ class Components_Pear_Package
         $pkg->setDate(date('Y-m-d'));
         $pkg->setTime(date('H:i:s'));
         ob_start();
-        $result = $pkg->getDefaultGenerator()
-            ->toTgz(new PEAR_Common());
+        $result = Components_Exception_Pear::catchError(
+            $pkg->getDefaultGenerator()
+            ->toTgz(new PEAR_Common())
+        );
         $this->_output->pear(ob_get_clean());
-        if ($result instanceOf PEAR_Error) {
-            throw new Components_Exception($result->getMessage());
-        }
         $this->_output->ok('Generated snapshot ' . $result);
         return $result;
     }

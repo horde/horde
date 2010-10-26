@@ -165,11 +165,9 @@ class Components_Pear_Factory
     )
     {
         $pkg = new PEAR_PackageFile($environment->getPearConfig());
-        $package_file = $pkg->fromPackageFile($package_xml_path, PEAR_VALIDATE_NORMAL);
-        if ($package_file instanceOf PEAR_Error) {
-            throw new Components_Exception($package_file->getMessage());
-        }
-        return $package_file;
+        return Components_Exception_Pear::catchError(
+            $pkg->fromPackageFile($package_xml_path, PEAR_VALIDATE_NORMAL)
+        );
     }
 
     /**
@@ -214,12 +212,10 @@ class Components_Pear_Factory
         $pkg->setPearinstallerDep('1.9.0');
         $pkg->setPackageType('php');
         new PEAR_Validate();
-        $package_file = $pkg->getDefaultGenerator()
-            ->toPackageFile($package_xml_dir, 0);
-        if ($package_file instanceOf PEAR_Error) {
-            throw new Components_Exception($package_file->getMessage());
-        };
-        return $package_file;
+        return Components_Exception_Pear::catchError(
+            $pkg->getDefaultGenerator()
+            ->toPackageFile($package_xml_dir, 0)
+        );
     }
 
     /**
@@ -246,32 +242,32 @@ class Components_Pear_Factory
             );
         }
 
-        $package_rw_file = PEAR_PackageFileManager2::importOptions(
-            $package_xml_path,
-            array(
-                'packagedirectory' => dirname($package_xml_path),
-                'filelistgenerator' => 'file',
-                'clearcontents' => false,
-                'clearchangelog' => false,
-                'simpleoutput' => true,
-                'ignore' => array('*~', 'conf.php', 'CVS/*'),
-                'include' => '*',
-                'dir_roles' =>
+        return Components_Exception_Pear::catchError(
+            PEAR_PackageFileManager2::importOptions(
+                $package_xml_path,
                 array(
-                    'doc'       => 'doc',
-                    'example'   => 'doc',
-                    'js'        => 'horde',
-                    'lib'       => 'php',
-                    'migration' => 'data',
-                    'script'    => 'script',
-                    'test'      => 'test',
-                ),
+                    'packagedirectory' => dirname($package_xml_path),
+                    'filelistgenerator' => 'file',
+                    'clearcontents' => false,
+                    'clearchangelog' => false,
+                    'simpleoutput' => true,
+                    'ignore' => array('*~', 'conf.php', 'CVS/*'),
+                    'include' => '*',
+                    'dir_roles' =>
+                    array(
+                        'bin'       => 'script',
+                        'script'    => 'script',
+                        'doc'       => 'doc',
+                        'example'   => 'doc',
+                        'js'        => 'horde',
+                        'horde'     => 'horde',
+                        'lib'       => 'php',
+                        'migration' => 'data',
+                        'scripts'   => 'data',
+                        'test'      => 'test',
+                    ),
+                )
             )
         );
-
-        if ($package_rw_file instanceOf PEAR_Error) {
-            throw new Components_Exception($package_rw_file->getMessage());
-        }
-        return $package_rw_file;
     }
 }
