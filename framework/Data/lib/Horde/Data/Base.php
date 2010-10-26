@@ -61,12 +61,9 @@ abstract class Horde_Data_Base
      *
      * @param array $params  Parameters:
      * <pre>
-     * REQUIRED:
-     * ---------
-     * browser - (Horde_Browser) A browser object.
-     *
      * OPTIONAL:
      * ---------
+     * browser - (Horde_Browser) A browser object.
      * cleanup - (callback) A callback to call at cleanup time.
      * vars - (Horde_Variables) Form data.
      * </pre>
@@ -75,10 +72,9 @@ abstract class Horde_Data_Base
      */
     public function __construct(array $params = array())
     {
-        if (!isset($params['browser'])) {
-            throw new InvalidArgumentException('Missing browser parameter.');
+        if (isset($params['browser'])) {
+            $this->_browser = $params['browser'];
         }
-        $this->_browser = $params['browser'];
 
         if (isset($params['cleanup']) && is_callable($params['cleanup'])) {
             $this->_cleanupCallback = $params['cleanup'];
@@ -124,6 +120,10 @@ abstract class Horde_Data_Base
      */
     public function getNewline()
     {
+        if (!isset($this->_browser)) {
+            throw new Horde_Data_Exception('Missing browser parameter.');
+        }
+
         switch ($this->_browser->getPlatform()) {
         case 'win':
             return "\r\n";
@@ -266,6 +266,9 @@ abstract class Horde_Data_Base
 
         switch ($action) {
         case Horde_Data::IMPORT_FILE:
+            if (!isset($this->_browser)) {
+                throw new Horde_Data_Exception('Missing browser parameter.');
+            }
             /* Sanitize uploaded file. */
             try {
                 $this->_browser->wasFileUploaded('import_file', $param['file_types'][$this->_vars->import_format]);

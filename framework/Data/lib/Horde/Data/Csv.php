@@ -194,6 +194,10 @@ class Horde_Data_Csv extends Horde_Data_Base
     public function exportFile($filename, $data, $header = false,
                                $export_mapping = array())
     {
+        if (!isset($this->_browser)) {
+            throw new Horde_Data_Exception('Missing browser parameter.');
+        }
+
         $export = $this->exportData($data, $header, $export_mapping);
         $this->_browser->downloadHeaders($filename, 'application/csv', false, strlen($export));
         echo $export;
