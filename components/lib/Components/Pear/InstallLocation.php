@@ -239,6 +239,13 @@ class Components_Pear_InstallLocation
             $this->getPearConfig()
         );
 
+        $this->_output->ok(
+            sprintf(
+                'About to add channel %s%s',
+                $channel,
+                $reason
+            )
+        );
         $static = $this->_channel_directory . DIRECTORY_SEPARATOR
             . $channel . '.channel.xml';
         if (file_exists($static)) {
@@ -320,6 +327,13 @@ class Components_Pear_InstallLocation
     public function addPackageFromSource($package, $reason = '')
     {
         $installer = $this->getInstallationHandler();
+        $this->_output->ok(
+            sprintf(
+                'About to add package %s%s',
+                $package,
+                $reason
+            )
+        );
         ob_start();
         $installer->doInstall(
             'install',
@@ -342,13 +356,39 @@ class Components_Pear_InstallLocation
      * @param string $channel The channel name for the package.
      * @param string $package The name of the package of the path of the tarball.
      * @param string $reason  Optional reason for adding the package.
+     * @param array  $locals  Packages currently being installed.
      *
      * @return NULL
      */
-    public function addPackageFromPackage($channel, $package, $reason = '')
+    public function addPackageFromPackage($channel, $package, $reason = '', array $locals = null)
     {
         $installer = $this->getInstallationHandler();
+        $this->_output->ok(
+            sprintf(
+                'About to add package %s%s',
+                $package,
+                $reason
+            )
+        );
         if ($local = $this->_identifyMatchingLocalPackage($package)) {
+            if (empty($locals)) {
+                $locals = array($package);
+            } else {
+                $locals[] = $package;
+            }
+            $pkg = new PEAR_PackageFile($this->getPearConfig());
+            $pkg = $pkg->fromTgzFile($local, PEAR_VALIDATE_NORMAL);
+            foreach ($pkg->getDeps() as $dependency) {
+                if ($dependency['type'] != 'pkg') {
+                    continue;
+                }
+                if (isset($dependency['optional']) && $dependency['optional'] == 'no') {
+                    if (in_array($dependency['name'], $locals)) {
+                        continue;
+                    }
+                    $this->addPackageFromPackage($dependency['channel'], $dependency['name'], $reason, $locals);
+                }
+            }
             ob_start();
             $installer->doInstall(
                 'install',
