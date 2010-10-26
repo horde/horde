@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Exception</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Exception Handler</summary>
@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2010-10-22</date>
- <time>19:03:02</time>
+ <date>2010-10-26</date>
+ <time>08:24:18</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -43,6 +43,7 @@
      <dir name="Exception">
       <file name="LastError.php" role="php" />
       <file name="NotFound.php" role="php" />
+      <file name="Pear.php" role="php" />
       <file name="PermissionDenied.php" role="php" />
       <file name="Prior.php" role="php" />
       <file name="Translation.php" role="php">
@@ -352,6 +353,7 @@
    <install as="Horde/Exception.php" name="lib/Horde/Exception.php" />
    <install as="Horde/Exception/LastError.php" name="lib/Horde/Exception/LastError.php" />
    <install as="Horde/Exception/NotFound.php" name="lib/Horde/Exception/NotFound.php" />
+   <install as="Horde/Exception/Pear.php" name="lib/Horde/Exception/Pear.php" />
    <install as="Horde/Exception/PermissionDenied.php" name="lib/Horde/Exception/PermissionDenied.php" />
    <install as="Horde/Exception/Prior.php" name="lib/Horde/Exception/Prior.php" />
    <install as="Horde/Exception/Translation.php" name="lib/Horde/Exception/Translation.php" />
@@ -458,7 +460,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2010-10-22</date>
+   <date>2010-10-26</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Initial package.
