@@ -34,7 +34,7 @@ class Horde_Exception_Pear extends Horde_Exception
     public function __construct(PEAR_Error $error)
     {
         parent::__construct(
-            $error->getMessage() . $this->_getPearTrace(),
+            $error->getMessage() . $this->_getPearTrace($error),
             $error->getCode()
         );
     }
@@ -50,11 +50,14 @@ class Horde_Exception_Pear extends Horde_Exception
     {
         $backtrace = $error->getBacktrace();
         if (!empty($backtrace)) {
-            $pear_error .= "\n\n" . 'PEAR Error:' . "\n";
+            $pear_error = "\n\n" . 'PEAR Error:' . "\n";
             foreach ($backtrace as $frame) {
-                $pear_error .= '    ' . $frame['class'] . '->'
-                    . $frame['function'] . ' ' . $frame['file']
-                    . ':' . $frame['line'] . "\n";
+                $pear_error .= '    '
+                    . (isset($frame['class']) ? $frame['class'] : 'unkown')
+                    . (isset($frame['type']) ? $frame['type'] : 'unkown')
+                    . (isset($frame['function']) ? $frame['function'] : 'unkown') . ' '
+                    . (isset($frame['file']) ? $frame['file'] : 'unkown') . ':'
+                    . (isset($frame['line']) ? $frame['line'] : 'unkown') . "\n";
             }
             $pear_error .= "\n";
             return $pear_error;
