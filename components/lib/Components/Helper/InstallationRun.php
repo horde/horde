@@ -90,13 +90,29 @@ class Components_Helper_InstallationRun
      * @param string $package The package that should be installed.
      * @param string $channel The channel of the package.
      * @param string $reason  Optional reason for adding the package.
+     * @param array  $to_add  The local packages currently being added.
      *
      * @return NULL
      */
-    public function installExternalPackageOnce($channel, $package, $reason = '')
+    public function installExternalPackageOnce($channel, $package, $reason = '', array &$to_add = null)
     {
         $key = $channel . '/' . $package;
         if (!in_array($key, $this->_installed_packages)) {
+            if (empty($to_add)) {
+                $to_add = array($key);
+            }
+            foreach ($this->_environment->identifyRequiredLocalDependencies($channel, $package) as $required) {
+                $rkey = $required['channel'] . '/' . $required['name'];
+                if (in_array($rkey, $to_add)) {
+                    continue;
+                }
+                $to_add[] = $rkey;
+                $rreason = sprintf(' [required by %s]', $package);
+                $this->installExternalPackageOnce(
+                    $required['channel'], $required['name'], $rreason, &$to_add
+                );
+            }
+                
             $this->_environment->addPackageFromPackage(
                 $channel, $package, $reason
             );

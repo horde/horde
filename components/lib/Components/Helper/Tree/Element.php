@@ -82,17 +82,21 @@ class Components_Helper_Tree_Element
      *
      * @param Components_Helper_InstallationRun $run     The current installation run.
      * @param array                             $visited The packages already visited.
+     * @param string                            $reason  Optional reason for adding the package.
      *
      * @return NULL
      */
-    public function installInTree(Components_Helper_InstallationRun $run, array $visited = array())
-    {
+    public function installInTree(
+        Components_Helper_InstallationRun $run,
+        array $visited = array(),
+        $reason = ''
+    ) {
         if (in_array($this->_package_file, $visited)) {
             return;
         }
         $visited[] = $this->_package_file;
-        $reason = sprintf(' [required by %s]', $this->_package->getName());
-        $run->installChannelsOnce($this->_package->listAllRequiredChannels(), $reason);
+        $new_reason = sprintf(' [required by %s]', $this->_package->getName());
+        $run->installChannelsOnce($this->_package->listAllRequiredChannels(), $new_reason);
         foreach ($this->_package->listAllExternalDependencies() as $dependency) {
             // Refrain from installing optional pecl packages
             if (isset($dependency['optional'])
@@ -101,7 +105,7 @@ class Components_Helper_Tree_Element
                 continue;
             }
             $run->installExternalPackageOnce(
-                $dependency['channel'], $dependency['name'], $reason
+                $dependency['channel'], $dependency['name'], $new_reason
             );
         }
         foreach (
@@ -109,7 +113,7 @@ class Components_Helper_Tree_Element
                 $this->_package->listAllHordeDependencies()
             ) as $child
         ) {
-            $child->installInTree($run, $visited);
+            $child->installInTree($run, $visited, $new_reason);
         }
         $run->installHordePackageOnce($this->_package_file, $reason);
     }
