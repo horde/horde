@@ -11,7 +11,7 @@ $templates['standard'] = array('name' => _("Standard"),
 <if:error><tr class="text"><td><em><tag:error /></em></td></tr></if:error>
 <if:stories>
 <loop:stories>
-<tr><td><strong><a target="_blank" href="<tag:stories.story_link />"><tag:story_marker /> <tag:stories.story_title /></a></strong><div style="padding-left:10px"><tag:stories.story_desc /></div></td></tr>
+<tr><td><strong><a target="_blank" href="<tag:stories.link />"><tag:story_marker /> <tag:stories.title /></a></strong><div style="padding-left:10px"><tag:stories.desc /></div></td></tr>
 </loop:stories>
 </if:stories>
 
@@ -22,7 +22,7 @@ $templates['media'] = array('name' => _("Media"),
 <if:error><tr class="text"><td><em><tag:error /></em></td></tr></if:error>
 <if:stories>
 <loop:stories>
-<tr><td><strong><a target="_blank" href="<tag:stories.story_link />"><img title="<tag:stories.story_media_description />" style="margin:7px;" src="<tag:stories.story_media_thumbnail_url />" /></a></strong><div style="margin:7px;"><a target="_blank" href="<tag:stories.story_link />"><tag:stories.story_media_title /></a></div></td></tr>
+<tr><td><strong><a target="_blank" href="<tag:stories.link />"><img title="<tag:stories.media_description />" style="margin:7px;" src="<tag:stories.media_thumbnail_url />" /></a></strong><div style="margin:7px;"><a target="_blank" href="<tag:stories.link />"><tag:stories.media_title /></a></div></td></tr>
 </loop:stories>
 </if:stories>
 
@@ -33,7 +33,7 @@ $templates['internal'] = array('name' => _("Internal"),
 <if:error><tr class="text"><td><em><tag:error /></em></td></tr></if:error>
 <if:stories>
 <loop:stories>
-<tr><td><strong><a href="<tag:stories.story_link />"><tag:story_marker /> <tag:stories.story_title /></a></strong><div style="padding-left:10px"><tag:stories.story_desc /></div></td></tr>
+<tr><td><strong><a href="<tag:stories.link />"><tag:story_marker /> <tag:stories.title /></a></strong><div style="padding-left:10px"><tag:stories.desc /></div></td></tr>
 </loop:stories>
 </if:stories>
 
@@ -44,7 +44,7 @@ $templates['compact'] = array('name' => _("Compact"),
 <if:error><tr class="text"><td><em><tag:error /></em></td></tr></if:error>
 <if:stories>
 <loop:stories>
-<tr class="text"><td><a target="_blank" href="<tag:stories.story_link />"><tag:story_marker /> <tag:stories.story_title /></a></td></tr>
+<tr class="text"><td><a target="_blank" href="<tag:stories.link />"><tag:story_marker /> <tag:stories.title /></a></td></tr>
 </loop:stories>
 </if:stories>
 
@@ -54,6 +54,6 @@ $templates['ultracompact'] = array('name' => _("Ultracompact"),
                                    'template' => '<if:error><em><tag:error /></em></if:error>
 <if:stories>
 <loop:stories>
-:: <a target="blank" href="<tag:stories.story_link />"><tag:stories.story_title /></a>
+:: <a target="blank" href="<tag:stories.link />"><tag:stories.title /></a>
 </loop:stories>
 </if:stories>');
