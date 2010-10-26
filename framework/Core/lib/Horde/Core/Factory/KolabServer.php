@@ -345,7 +345,7 @@ class Horde_Core_Factory_KolabServer
      *                                      Horde_Kolab_Server_Composite
      *                                      instance.
      */
-    public function getComposite()
+    public function create()
     {
         return new Horde_Kolab_Server_Composite(
             $this->getServer(),
