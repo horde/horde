@@ -271,18 +271,9 @@ class Horde_Registry
             'Horde_History' => 'Horde_Core_Factory_History',
             'Horde_Log_Logger' => 'Horde_Core_Factory_Logger',
             'Horde_Service_Facebook' => 'Horde_Core_Factory_Facebook',
-            'Horde_Kolab_Server_Composite' => array(
-                'Horde_Core_Factory_KolabServer',
-                'getComposite',
-            ),
-            'Horde_Kolab_Session' => array(
-                'Horde_Core_Factory_KolabSession',
-                'getSession',
-            ),
-            'Horde_Kolab_Storage' => array(
-                'Horde_Core_Factory_KolabStorage',
-                'getStorage',
-            ),
+            'Horde_Kolab_Server_Composite' => 'Horde_Core_Factory_KolabServer',
+            'Horde_Kolab_Session' => 'Horde_Core_Factory_KolabSession',
+            'Horde_Kolab_Storage' => 'Horde_Core_Factory_KolabStorage',
             'Horde_Lock' => 'Horde_Core_Factory_Lock',
             'Horde_Mail' => 'Horde_Core_Factory_Mail',
             'Horde_Memcache' => 'Horde_Core_Factory_Memcache',
