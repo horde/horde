@@ -1,6 +1,6 @@
 <?php
 /**
- * Test the sessionobjects storage driver.
+ * Test the session based storage driver.
  *
  * PHP version 5
  *
@@ -17,7 +17,7 @@
 require_once dirname(__FILE__) . '/../../Autoload.php';
 
 /**
- * Test the sessionobjects storage driver.
+ * Test the session based storage driver.
  *
  * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
  *
@@ -30,26 +30,26 @@ require_once dirname(__FILE__) . '/../../Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-class Horde_Kolab_Session_Class_Storage_SessionobjectsTest extends Horde_Kolab_Session_SessionTestCase
+class Horde_Kolab_Session_Class_Storage_SessionTest extends Horde_Kolab_Session_SessionTestCase
 {
     public function testMethodLoadHasResultQueriedObject()
     {
-        $session_objects = $this->getMock('Horde_SessionObjects', array(), array(), '', false, false);
-        $session_objects->expects($this->once())
-            ->method('query')
+        $session = $this->getMock('ArrayAccess', array(), array(), '', false, false);
+        $session->expects($this->once())
+            ->method('offsetGet')
             ->with('kolab_session');
-        $storage = new Horde_Kolab_Session_Storage_Sessionobjects($session_objects);
+        $storage = new Horde_Kolab_Session_Storage_Session($session);
         $storage->load();
     }
 
     public function testMethodSaveHasPostconditionThatTheSessionDataWasSaved()
     {
-        $session_objects = $this->getMock('Horde_SessionObjects', array(), array(), '', false, false);
-        $session_objects->expects($this->once())
-            ->method('overwrite')
+        $session = $this->getMock('ArrayAccess', array(), array(), '', false, false);
+        $session->expects($this->once())
+            ->method('offsetSet')
             ->with('kolab_session', $this->isInstanceOf('Horde_Kolab_Session'));
-        $session = $this->getMock('Horde_Kolab_Session');
-        $storage = new Horde_Kolab_Session_Storage_Sessionobjects($session_objects);
-        $storage->save($session);
+        $kolab_session = $this->getMock('Horde_Kolab_Session');
+        $storage = new Horde_Kolab_Session_Storage_Session($session);
+        $storage->save($kolab_session);
     }
 }

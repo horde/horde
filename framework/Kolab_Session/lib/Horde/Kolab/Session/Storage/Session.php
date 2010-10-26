@@ -25,24 +25,24 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-class Horde_Kolab_Session_Storage_Sessionobjects
+class Horde_Kolab_Session_Storage_Session
 implements Horde_Kolab_Session_Storage_Interface
 {
     /**
      * The handler for session objects.
      *
-     * @var Horde_SessionObjects
+     * @var array
      */
-    private $_session_objects;
+    private $_session;
 
     /**
      * Constructor
      *
-     * @param Horde_SessionObjects $session_objects The session objects handler.
+     * @param array $session The session handler.
      */
-    public function __construct(Horde_SessionObjects $session_objects)
+    public function __construct($session)
     {
-        $this->_session_objects = $session_objects;
+        $this->_session = $session;
     }
 
     /**
@@ -53,7 +53,7 @@ implements Horde_Kolab_Session_Storage_Interface
      */
     public function load()
     {
-        return $this->_session_objects->query('kolab_session');
+        return $this->_session['kolab_session'];
     }
 
     /**
@@ -65,6 +65,6 @@ implements Horde_Kolab_Session_Storage_Interface
      */
     public function save(Horde_Kolab_Session $session)
     {
-        $this->_session_objects->overwrite('kolab_session', $session);
+        $this->_session['kolab_session'] = $session;
     }
 }
