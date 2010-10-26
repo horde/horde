@@ -823,7 +823,6 @@
       </configsection>
      </case>
      <case name="Session" desc="PHP Sessions"/>
-     <case name="Kolab" desc="Kolab (LDAP)" />
      <case name="KolabImap" desc="Kolab (IMAP)" />
      <case name="Imsp" desc="IMSP Server" />
    </configswitch>

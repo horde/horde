@@ -21,8 +21,8 @@
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>
-* Abstract storage code into Horde_Prefs_Storage.
+ <notes> * Removed Horde_Prefs_Storage_Kolab driver.
+ * Abstract storage code into Horde_Prefs_Storage.
  * Add array access API to Horde_Prefs.
  * Remove dependency on horde/Core.
  * Use Horde_Db as backend for Sql driver.
@@ -37,7 +37,6 @@
       <dir name="Storage">
        <file name="File.php" role="php" />
        <file name="Imsp.php" role="php" />
-       <file name="Kolab.php" role="php" />
        <file name="KolabImap.php" role="php" />
        <file name="Ldap.php" role="php" />
        <file name="Null.php" role="php" />
@@ -360,7 +359,6 @@
    <install as="Horde/Prefs/Translation.php" name="lib/Horde/Prefs/Translation.php" />
    <install as="Horde/Prefs/Storage/File.php" name="lib/Horde/Prefs/Storage/File.php" />
    <install as="Horde/Prefs/Storage/Imsp.php" name="lib/Horde/Prefs/Storage/Imsp.php" />
-   <install as="Horde/Prefs/Storage/Kolab.php" name="lib/Horde/Prefs/Storage/Kolab.php" />
    <install as="Horde/Prefs/Storage/KolabImap.php" name="lib/Horde/Prefs/Storage/KolabImap.php" />
    <install as="Horde/Prefs/Storage/Ldap.php" name="lib/Horde/Prefs/Storage/Ldap.php" />
    <install as="Horde/Prefs/Storage/Null.php" name="lib/Horde/Prefs/Storage/Null.php" />
