@@ -213,11 +213,30 @@ extends PHPUnit_Extensions_Story_TestCase
             );
             $world['output'] = $this->_callUnstrictComponents();
             break;
+        case 'calling the package with the list dependencies option, the nocolor option and a path to a Horde framework component':
+            $_SERVER['argv'] = array(
+                'horde-components',
+                '--nocolor',
+                '--list-deps',
+                dirname(__FILE__) . '/fixture/framework/Install'
+            );
+            $world['output'] = $this->_callUnstrictComponents();
+            break;
         case 'calling the package with the quiet list dependencies option and a path to a Horde framework component':
             $_SERVER['argv'] = array(
                 'horde-components',
                 '--quiet',
                 '--list-deps',
+                dirname(__FILE__) . '/fixture/framework/Install'
+            );
+            $world['output'] = $this->_callUnstrictComponents();
+            break;
+        case 'calling the package with the devpackage option, the archive directory option and a path to a Horde framework component':
+            $_SERVER['argv'] = array(
+                'horde-components',
+                '--verbose',
+                '--devpackage',
+                '--archivedir=' . $this->_getTemporaryDirectory(),
                 dirname(__FILE__) . '/fixture/framework/Install'
             );
             $world['output'] = $this->_callUnstrictComponents();
@@ -432,6 +451,15 @@ extends PHPUnit_Extensions_Story_TestCase
                 'Dependency',
                 $world['output']
             );
+            break;
+        case 'a package snapshot will be generated at the indicated archive directory':
+            $found = false;
+            foreach (new DirectoryIterator($this->_temp_dir) as $file) {
+                if (preg_match('/Install-[0-9]+(\.[0-9]+)+([a-z0-9]+)?/', $file->getBasename('.tgz'), $matches)) {
+                    $found = true;
+                }
+            }
+            $this->assertTrue($found);
             break;
         case 'a package definition will be generated at the indicated location':
             $this->assertTrue(

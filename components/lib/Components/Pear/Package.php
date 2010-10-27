@@ -457,21 +457,25 @@ class Components_Pear_Package
     /**
      * Generate a snapshot of the package using the provided version number.
      *
-     * @param string $varsion The snapshot version.
+     * @param string $version     The snapshot version.
+     * @param string $archive_dir The path where the snapshot should be placed.
      *
      * @return string The path to the snapshot.
      */
-    public function generateSnapshot($version)
+    public function generateSnapshot($version, $archive_dir)
     {
         $pkg = $this->_getPackageFile();
         $pkg->_packageInfo['version']['release'] = $version;
         $pkg->setDate(date('Y-m-d'));
         $pkg->setTime(date('H:i:s'));
         ob_start();
+        $old_dir = getcwd();
+        chdir($archive_dir);
         $result = Components_Exception_Pear::catchError(
             $pkg->getDefaultGenerator()
             ->toTgz(new PEAR_Common())
         );
+        chdir($old_dir);
         $this->_output->pear(ob_get_clean());
         $this->_output->ok('Generated snapshot ' . $result);
         return $result;
