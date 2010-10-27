@@ -69,6 +69,16 @@ extends Components_StoryTestCase
     /**
      * @scenario
      */
+    public function theUOptionWillCreateANewPackageXmlInCaseItIsMissing()
+    {
+        $this->given('the default Components setup')
+            ->when('calling the package with the updatexml option and a path without package.xml')
+            ->then('a new package.xml will be created.');
+    }
+
+    /**
+     * @scenario
+     */
     public function thePOptionFailsWithoutAValidDirectoryPath()
     {
         $this->given('the default Components setup')

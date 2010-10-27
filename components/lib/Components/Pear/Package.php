@@ -256,6 +256,9 @@ class Components_Pear_Package
         $updated = $package->getContents();
         $updated = $updated['dir']['file'];
         foreach ($updated as $file) {
+            if (!isset($file['attribs'])) {
+                continue;
+            }
             if (isset($taskfiles[$file['attribs']['name']])) {
                 foreach ($taskfiles[$file['attribs']['name']] as $tag => $raw) {
                     $taskname = $package->getTask($tag) . '_rw';
@@ -316,6 +319,9 @@ class Components_Pear_Package
         $horde_role = false;
 
         foreach ($files as $file) {
+            if (!isset($file['attribs'])) {
+                continue;
+            }
             $components = explode('/', $file['attribs']['name'], 2);
             switch ($components[0]) {
             case 'doc':

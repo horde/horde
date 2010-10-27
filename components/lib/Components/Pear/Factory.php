@@ -206,11 +206,12 @@ class Components_Pear_Factory
         );
         $pkg->setLicense('REPLACE', 'REPLACE');
         $pkg->setNotes('* Initial release.');
-        $pkg->clearContents();
+        $pkg->clearContents(true);
         $pkg->clearDeps();
         $pkg->setPhpDep('5.2.0');
         $pkg->setPearinstallerDep('1.9.0');
         $pkg->setPackageType('php');
+        $pkg->addFile('', 'something', array('role' => 'php'));
         new PEAR_Validate();
         return Components_Exception_Pear::catchError(
             $pkg->getDefaultGenerator()
