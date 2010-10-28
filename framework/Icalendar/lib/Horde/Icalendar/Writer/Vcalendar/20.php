@@ -30,6 +30,56 @@ class Horde_Icalendar_Writer_Vcalendar_20 extends Horde_Icalendar_Writer_Base
                                     'stamp' => 'DTSTAMP');
 
     /**
+     * Prepares a property value.
+     *
+     * @param mixed $value  A property value.
+     * @param array $params    Property parameters.
+     * @param array $property  A complete property hash.
+     *
+     * @return string  The prepared value.
+     * @throws Horde_Icalendar_Exception if the value contains invalid
+     *                                   characters.
+     */
+    protected function _prepareProperty($value, array $params, array $property)
+    {
+        if ($value instanceof Horde_Date) {
+            if (isset($params['value']) && $params['value'] == 'date') {
+                return $value->format('Ymd');
+            }
+            return $value->timezone == 'UTC'
+                ? $value->format('Ymd\THis\Z')
+                : $value->format('Ymd\THis');
+        }
+        if (isset($property['type']) && $property['type'] == 'string') {
+            // TEXT value as of Section 4.3.11.
+            return preg_replace('/(\r?\n|;|,|\\\\)/', '\\\\$1', $value);
+        }
+        return parent::_prepareProperty($value, $params);
+    }
+
+    /**
+     * Escapes a parameter value according to Section 4.1.
+     *
+     * @param string $value  A parameter value.
+     *
+     * @return string  The escaped (if necessary) value.
+     * @throws Horde_Icalendar_Exception if the value contains invalid
+     *                                   characters.
+     */
+    protected function _prepareParameter($value)
+    {
+        if (preg_match('/[\x00-\x08\x0a-\x1f\x7f"]/', $value)) {
+            // Not a QSAFE-CHAR.
+            throw new Horde_Icalendar_Exception('Invalid parameter value');
+        }
+        if (preg_match('/[;:,]/', $value)) {
+            // Not a SAFE-CHAR.
+            $value = '"' . $value . '"';
+        }
+        return $value;
+    }
+
+    /**
      * Adds some content to the internal line buffer.
      *
      * Applies line-folding techniques as per RFC 2445 Section 4.1.
@@ -58,24 +108,5 @@ class Horde_Icalendar_Writer_Vcalendar_20 extends Horde_Icalendar_Writer_Base
             $contentLen -= $charLen;
             $content = substr($content, $charLen);
         }
-    }
-
-    /**
-     * Converts a property value of an object to a string
-     *
-     * @param object $property  A property value.
-     * @param array $params     Property parameters.
-     *
-     * @return string  The string representation of the object.
-     */
-    protected function _objectToString($property, array $params)
-    {
-        if ($property instanceof Horde_Date) {
-            if (isset($params['value']) && $params['value'] == 'date') {
-                return $property->format('Ymd');
-            }
-            return $property->format('Ymd\THis\Z');
-        }
-        return parent::_objectToString($property, $params);
     }
 }

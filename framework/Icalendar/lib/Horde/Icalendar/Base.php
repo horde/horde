@@ -97,6 +97,8 @@ abstract class Horde_Icalendar_Base implements Iterator
     /**
      * Setter for quickly setting properties without property parameters.
      *
+     * @see setProperty()
+     *
      * @param string $property  A property name.
      * @param mixed $value      A property value.
      * 
@@ -110,6 +112,13 @@ abstract class Horde_Icalendar_Base implements Iterator
 
     /**
      * Sets the value of a property.
+     *
+     * If the value is Horde_Date object, the object's time zone determines
+     * whether the date-time is considered "floating". If the time zone is UTC,
+     * the value is a fixed time, i.e. it is the exact moment in time anywhere
+     * on the world. With any other time zone, the value is considered
+     * floating, i.e. without any particular time zone. It happens at the same
+     * time of day in any time zone.
      *
      * @param string $property  A property name.
      * @param mixed $value      A property value.

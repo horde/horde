@@ -14,10 +14,6 @@
  */
 class Horde_Icalendar_WriterTest extends Horde_Test_Case
 {
-    public function setUp()
-    {
-    }
-
     public function testEscapes()
     {
         $ical = new Horde_Icalendar_Vcalendar(array('version' => '2.0'));

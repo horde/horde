@@ -91,9 +91,7 @@ abstract class Horde_Icalendar_Writer_Base
                 foreach ($property['params'][$num] as $parameter => $pvalue) {
                     $this->_exportParameter($parameter, $pvalue);
                 }
-                if (is_object($value)) {
-                    $value = $this->_objectToString($value, $property['params'][$num]);
-                }
+                $value = $this->_prepareProperty($value, $property['params'][$num], $property);
                 $this->_addToLineBuffer(':' . $value);
                 $this->_output .= $this->_lineBuffer . "\r\n";
             }
@@ -109,34 +107,53 @@ abstract class Horde_Icalendar_Writer_Base
     protected function _exportParameter($name, $value)
     {
         $this->_addToLineBuffer(';' . Horde_String::upper($name));
-        if (is_object($value)) {
-            $value = $this->_objectToString($value, $property['params'][$num]);
-        }
+        $value = $this->_prepareParameter($value);
         $this->_addToLineBuffer('=' . Horde_String::upper($value));
+    }
+
+    /**
+     * Prepares a property value.
+     *
+     * Sub-classes can extend this the method to apply specific escaping.
+     *
+     * @param mixed $value     A property value.
+     * @param array $params    Property parameters.
+     * @param array $property  A complete property hash.
+     *
+     * @return string  The prepared value.
+     * @throws Horde_Icalendar_Exception if the value contains invalid
+     *                                   characters.
+     */
+    protected function _prepareProperty($value, array $params, array $property)
+    {
+        return (string)$property;
+    }
+
+    /**
+     * Prepares a parameter value.
+     *
+     * Sub-classes can extend this the method to apply specific escaping.
+     *
+     * @param string $value  A parameter value.
+     *
+     * @return string  The prepared value.
+     * @throws Horde_Icalendar_Exception if the value contains invalid
+     *                                   characters.
+     */
+    protected function _prepareParameter($value)
+    {
+        return $value;
     }
 
     /**
      * Adds some content to the internal line buffer.
      *
-     * Sub-classes can extend this the method to apply line-folding techniques.
+     * Sub-classes can extend this method to apply line-folding techniques.
      *
      * @param string $content  Content to add to the line buffer.
      */
     protected function _addToLineBuffer($content)
     {
         $this->_lineBuffer .= $content;
-    }
-
-    /**
-     * Converts a property value of an object to a string
-     *
-     * @param object $property  A property value.
-     * @param array $params     Property parameters.
-     *
-     * @return string  The string representation of the object.
-     */
-    protected function _objectToString($property, array $params)
-    {
-        return (string)$property;
     }
 }
