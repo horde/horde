@@ -1,11 +1,34 @@
 <?php
+/**
+ * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ *
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @package  Icalendar
+ */
 
+/**
+ * This class represents a VEVENT component.
+ *
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @package  Icalendar
+ */
 class Horde_Icalendar_Vevent extends Horde_Icalendar_Base
 {
     /**
      * Constructor.
+     *
+     * @param array $properties  A hash of properties and values to populate
+     *                           this object with.
+     *
+     * @throws InvalidArgumentException
+     * @throws Horde_Icalendar_Exception
      */
-    public function __construct($properties = array())
+    public function __construct(array $properties = array())
     {
         $this->_properties += array(
             'uid' => array('required' => true,
@@ -32,15 +55,13 @@ class Horde_Icalendar_Vevent extends Horde_Icalendar_Base
     /**
      * Sets the value of a property.
      *
-     * @param string $property  The name of the property.
-     * @param string $value     The value of the property.
-     * @param array $params     Array containing any addition parameters for
-     *                          this property.
+     * @param string $property  A property name.
+     * @param mixed $value      A property value.
+     * @param array $params     Property parameters.
      * @param boolean $add      Whether to add (instead of replace) the value.
-     *
-     * @throws InvalidArgumentException
      */
-    protected function _setProperty($property, $value, $params = array(), $add = false)
+    protected function _setProperty($property, $value, array $params = array(),
+                                    $add = false)
     {
         if ($property == 'startDate') {
             $this->_validate('start', $value);
@@ -49,5 +70,4 @@ class Horde_Icalendar_Vevent extends Horde_Icalendar_Base
         }
         parent::_setProperty($property, $value, $params, $add);
     }
-
 }

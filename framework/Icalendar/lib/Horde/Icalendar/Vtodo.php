@@ -1,11 +1,34 @@
 <?php
+/**
+ * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ *
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @package  Icalendar
+ */
 
+/**
+ * This class represents a VTODO component.
+ *
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @package  Icalendar
+ */
 class Horde_Icalendar_Vtodo extends Horde_Icalendar_Base
 {
     /**
      * Constructor.
+     *
+     * @param array $properties  A hash of properties and values to populate
+     *                           this object with.
+     *
+     * @throws InvalidArgumentException
+     * @throws Horde_Icalendar_Exception
      */
-    public function __construct($properties = array())
+    public function __construct(array $properties = array())
     {
         $this->_properties += array(
             'uid' => array('required' => true,
@@ -28,5 +51,4 @@ class Horde_Icalendar_Vtodo extends Horde_Icalendar_Base
                                    'type' => 'string'));
         parent::__construct($properties);
     }
-
 }

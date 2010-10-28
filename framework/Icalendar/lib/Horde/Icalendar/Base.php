@@ -1,18 +1,61 @@
 <?php
+/**
+ * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ *
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @package  Icalendar
+ */
 
+/**
+ * This is the base class for any VCALENDAR, VCARD, VEVENT etc. component.
+ *
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @package  Icalendar
+ */
 abstract class Horde_Icalendar_Base implements Iterator
 {
     /**
+     * Subcomponents of this component, e.g. VEVENT and VTODO components inside
+     * a VCALENDAR component.
+     *
      * @var array
      */
     public $components = array();
 
     /**
+     * The component properties.
+     *
+     * This list is populated in the constructor of the sub-classes and
+     * contains all valid properties and property rules for this component
+     * type. The list keys are the property names and the values are hashes
+     * with the following keys:
+     * - 'required' (boolean): Whether this is a mandatory property.
+     * - 'multiple' (boolean): Whether this property can appear multiple times.
+     * - 'type' (string): The scalar type of this property (must have a matching
+     *                    is_*() function.
+     * - 'class' (string): The object type of this property.
+     * - 'values' (array): The property values.
+     * - 'params' (array): The property parameters.
+     *
      * @var array
      */
     protected $_properties = array();
 
-    public function __construct($properties = array())
+    /**
+     * Constructor.
+     *
+     * @param array $properties  A hash of properties and values to populate
+     *                           this object with.
+     *
+     * @throws InvalidArgumentException
+     * @throws Horde_Icalendar_Exception
+     */
+    public function __construct(array $properties = array())
     {
         foreach ($properties as $property => $value) {
             $this->addProperty($property, $value);
@@ -22,14 +65,20 @@ abstract class Horde_Icalendar_Base implements Iterator
     /**
      * Validates a property-value-pair.
      *
+     * Values and parameters might be manipulated by this method.
+     *
+     * @param string $property  A property name.
+     * @param mixed $value      A property value.
+     * @param array $params     Property parameters.
+     *
      * @throws InvalidArgumentException
      */
-    protected function _validate($property, &$value, &$params = array())
+    protected function _validate($property, &$value, array &$params = array())
     {
         if (!isset($this->_properties[$property])) {
             throw new InvalidArgumentException($property . ' is not a valid property');
         }
-        $myProperty = &$this->_properties[$property];
+        $myProperty = $this->_properties[$property];
         if (isset($myProperty['type'])) {
             $func = 'is_' . $myProperty['type'];
             if (!$func) {
@@ -46,8 +95,11 @@ abstract class Horde_Icalendar_Base implements Iterator
     }
 
     /**
-     * Setter.
+     * Setter for quickly setting properties without property parameters.
      *
+     * @param string $property  A property name.
+     * @param mixed $value      A property value.
+     * 
      * @throws InvalidArgumentException
      */
     public function __set($property, $value)
@@ -59,33 +111,31 @@ abstract class Horde_Icalendar_Base implements Iterator
     /**
      * Sets the value of a property.
      *
-     * @param string $property  The name of the property.
-     * @param string $value     The value of the property.
-     * @param array $params     Array containing any addition parameters for
-     *                          this property.
+     * @param string $property  A property name.
+     * @param mixed $value      A property value.
+     * @param array $params     Property parameters.
      *
      * @throws InvalidArgumentException
      */
-    public function setProperty($property, $value, $params = array())
+    public function setProperty($property, $value, array $params = array())
     {
-        $this->_validate($property, $value);
+        $this->_validate($property, $value, $params);
         $this->_setProperty($property, $value, $params);
     }
 
     /**
      * Adds the value of a property.
      *
-     * @param string $property  The name of the property.
-     * @param string $value     The value of the property.
-     * @param array $params     Array containing any addition parameters for
-     *                          this property.
+     * @param string $property  A property name.
+     * @param mixed $value      A property value.
+     * @param array $params     Property parameters.
      *
      * @throws InvalidArgumentException
      * @throws Horde_Icalendar_Exception
      */
-    public function addProperty($property, $value, $params = array())
+    public function addProperty($property, $value, array $params = array())
     {
-        $this->_validate($property, $value);
+        $this->_validate($property, $value, $params);
         if (!$this->_properties[$property]['multiple'] &&
             !empty($this->_properties[$property]['values'])) {
             throw new Horde_Icalendar_Exception($property . ' properties must not occur more than once.');
@@ -96,15 +146,13 @@ abstract class Horde_Icalendar_Base implements Iterator
     /**
      * Sets the value of a property.
      *
-     * @param string $property  The name of the property.
-     * @param string $value     The value of the property.
-     * @param array $params     Array containing any addition parameters for
-     *                          this property.
+     * @param string $property  A property name.
+     * @param mixed $value      A property value.
+     * @param array $params     Property parameters.
      * @param boolean $add      Whether to add (instead of replace) the value.
-     *
-     * @throws InvalidArgumentException
      */
-    protected function _setProperty($property, $value, $params = array(), $add = false)
+    protected function _setProperty($property, $value, array $params = array(),
+                                    $add = false)
     {
         if ($add) {
             if (!isset($this->_properties[$property]['values'])) {
@@ -120,7 +168,12 @@ abstract class Horde_Icalendar_Base implements Iterator
     }
 
     /**
-     * Getter.
+     * Returns the value(s) of a property.
+     *
+     * @param string $property  A property name.
+     *
+     * @return mixed  The property value, or an array of values if the property
+     *                is allowed to have multiple values.
      *
      * @throws InvalidArgumentException
      */
@@ -137,47 +190,24 @@ abstract class Horde_Icalendar_Base implements Iterator
     }
 
     /**
-     * Returns the value of an property.
+     * Returns the parameters of a property.
      *
-     * @param string $name     The name of the property.
-     * @param boolean $params  Return the parameters for this property instead
-     *                         of its value.
+     * @param string $property  A property name.
      *
-     * @return mixed (object)  PEAR_Error if the property does not exist.
-     *               (string)  The value of the property.
-     *               (array)   The parameters for the property or
-     *                         multiple values for an property.
+     * @return array  The parameters for the property.
+     * @throws Horde_Icalendar_Exception
      */
-    function getProperty($name, $params = false)
+    function getParameters($name)
     {
-        $result = array();
-        foreach ($this->_properties as $property) {
-            if ($property['name'] == $name) {
-                if ($params) {
-                    $result[] = $property['params'];
-                } else {
-                    $result[] = $property['value'];
-                }
-            }
+        if (!isset($this->_properties[$property])) {
+            throw new InvalidArgumentException($property . ' is not a valid property');
         }
-        if (!count($result)) {
-            require_once 'PEAR.php';
-            return PEAR::raiseError('Property "' . $name . '" Not Found');
-        } if (count($result) == 1 && !$params) {
-            return $result[0];
-        } else {
-            return $result;
-        }
-    }
-
-    public function getProperties()
-    {
-        return $this->_properties;
+        return $this->_properties[$property]['params'];
     }
 
     /**
-     * Validates the complete component for missing properties or invalid
-     * property combinations.
+     * Validates the complete component, checking for missing properties or
+     * invalid property combinations.
      *
      * @throws Horde_Icalendar_Exception
      */
@@ -201,41 +231,72 @@ abstract class Horde_Icalendar_Base implements Iterator
         }
     }
 
+    /**
+     * Returns the current property information for the Iterator interface.
+     *
+     * @return array  A hash with property information.
+     */
     public function current()
     {
         return current($this->_properties);
     }
 
+    /**
+     * Returns the current property name for the Iterator interface.
+     *
+     * @return string  A property name.
+     */
     public function key()
     {
         return key($this->_properties);
     }
 
+    /**
+     * Advances to the current property for the Iterator interface.
+     */
     public function next()
     {
         next($this->_properties);
     }
 
+    /**
+     * Rewinds to the first property for the Iterator interface.
+     */
     public function rewind()
     {
         reset($this->_properties);
     }
 
+    /**
+     * Returns whether there still more properties for the Iterator interface.
+     *
+     * @return boolean  True if there are more properties to iterate.
+     */
     public function valid()
     {
         return current($this->_properties) !== false;
     }
 
     /**
+     * Exports this component into a string.
+     *
      * @todo Use LSB (static::__CLASS__) once we require PHP 5.3
+     *
+     * @return string  The string representation of this component.
+     * @throws Horde_Icalendar_Exception
      */
     public function export()
     {
         $this->validate();
-        $writer = Horde_Icalendar_Writer::factory(
-            str_replace('Horde_Icalendar_', '', get_class($this)),
-            str_replace('.', '', $this->version));
+
+        $format = str_replace('Horde_Icalendar_', '', get_class($this));
+        $version = str_replace('.', '', $this->version);
+        $class = 'Horde_Icalendar_Writer_' . $format . '_' . $version;
+        if (!class_exists($class)) {
+            throw new Horde_Icalendar_Exception($class . ' not found.');
+        }
+
+        $writer = new $class($params);
         return $writer->export($this);
     }
-
 }

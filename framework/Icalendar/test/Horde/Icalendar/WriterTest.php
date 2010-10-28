@@ -21,6 +21,7 @@ class Horde_Icalendar_WriterTest extends Horde_Test_Case
     public function testEscapes()
     {
         $ical = new Horde_Icalendar_Vcalendar(array('version' => '2.0'));
+        $ical->method = 'PUBLISH';
         $event1 = new Horde_Icalendar_Vevent();
         $event2 = new Horde_Icalendar_Vevent();
 
@@ -40,9 +41,9 @@ class Horde_Icalendar_WriterTest extends Horde_Test_Case
         $ical->components[] = $event2;
 
         $this->assertEquals('BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//The Horde Project//Horde_iCalendar Library//EN
 METHOD:PUBLISH
+PRODID:-//The Horde Project//Horde_Icalendar Library//EN
+VERSION:2.0
 BEGIN:VEVENT
 UID:20041120-8550-innerjoin-org
 DTSTART;VALUE=DATE:20050503
@@ -59,7 +60,8 @@ SUMMARY:Dash (rather than Comma) in the Description Field
 DESCRIPTION:There are important words after this dash - see anything here
   or have the words gone?
 END:VEVENT
-END:VCALENDAR',
+END:VCALENDAR
+',
                             $ical->export());
     }
 
