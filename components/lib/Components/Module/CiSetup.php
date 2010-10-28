@@ -75,9 +75,11 @@ extends Components_Module_Base
         $options = $config->getOptions();
         //@todo Split into two different runners here
         if (!empty($options['cisetup'])) {
+            $this->requirePackageXml($config->getPackageDirectory());
             $this->_dependencies->getRunnerCiSetup()->run();
         }
         if (!empty($options['ciprebuild'])) {
+            $this->requirePackageXml($config->getPackageDirectory());
             $this->_dependencies->getRunnerCiPrebuild()->run();
         }
     }

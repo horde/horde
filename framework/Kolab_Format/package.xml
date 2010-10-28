@@ -413,7 +413,7 @@
   </required>
   <optional>
    <package>
-    <name>Horde_Prefs</name>
+    <name>Prefs</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>

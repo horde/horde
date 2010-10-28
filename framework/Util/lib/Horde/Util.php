@@ -455,6 +455,57 @@ class Horde_Util
     }
 
     /**
+     * Wrapper around fgetcsv().
+     *
+     * Empty lines will be skipped. If the 'length' parameter is provided, all
+     * rows are filled up with empty strings up to this length, or stripped
+     * down to this length.
+     *
+     * @param resource $file  A file pointer.
+     * @param array $params   Optional parameters. Possible values:
+     *                        - 'separator': The field delimiter.
+     *                        - 'quote': The quote character.
+     *                        - 'escape': The escape character.
+     *                        - 'length': The expected number of fields.
+     *
+     * @return array|boolean  A row from the CSV file or false on error or end
+     *                        of file.
+     */
+    static public function getCsv($file, $params = array())
+    {
+        $params += array('separator' => ',', 'quote' => '"', 'escape' => '\\');
+
+        // Detect Mac line endings.
+        $old = ini_get('auto_detect_line_endings');
+        ini_set('auto_detect_line_endings', 1);
+
+        do {
+            // fgetcsv() throws a warning if the quote character is empty.
+            if (!strlen($params['quote']) && $params['escape'] != '\\') {
+                $params['quote'] = '"';
+            }
+            if (!strlen($params['quote'])) {
+                $row = fgetcsv($file, 0, $params['separator']);
+            } else {
+                $row = fgetcsv($file, 0, $params['separator'], $params['quote'], $params['escape']);
+            }
+        } while ($row && $row[0] === null);
+
+        ini_set('auto_detect_line_endings', $old);
+
+        if ($row && !empty($params['length'])) {
+            $length = count($row);
+            if ($length < $params['length']) {
+                $row += array_fill($length, $params['length'] - $length, '');
+            } elseif ($length > $params['length']) {
+                array_splice($row, $params['length']);
+            }
+        }
+
+        return $row;
+    }
+
+    /**
      * Returns the canonical path of the string.  Like PHP's built-in
      * realpath() except the directory need not exist on the local server.
      *

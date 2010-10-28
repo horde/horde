@@ -102,7 +102,7 @@ class Components_Runner_Distribute
             $arguments[0] . DIRECTORY_SEPARATOR . 'package.xml'
         );
         $version = $package->getVersion() . 'dev' . strftime('%Y%m%d%H%M');
-        $package->generateSnapshot($version);
+        $package->generateSnapshot($version, dirname($options['distribute']));
 
         ob_start();
         include $template->getPathname();

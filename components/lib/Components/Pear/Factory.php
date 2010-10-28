@@ -165,11 +165,58 @@ class Components_Pear_Factory
     )
     {
         $pkg = new PEAR_PackageFile($environment->getPearConfig());
-        $package_file = $pkg->fromPackageFile($package_xml_path, PEAR_VALIDATE_NORMAL);
-        if ($package_file instanceOf PEAR_Error) {
-            throw new Components_Exception($package_file->getMessage());
-        }
-        return $package_file;
+        return Components_Exception_Pear::catchError(
+            $pkg->fromPackageFile($package_xml_path, PEAR_VALIDATE_NORMAL)
+        );
+    }
+
+    /**
+     * Create a new PEAR Package representation.
+     *
+     * @param string                          $package_xml_dir Path to the parent directory of the package.xml file.
+     * @param Components_Pear_InstallLocation $environment      The PEAR environment.
+     *
+     * @return PEAR_PackageFile
+     */
+    public function createPackageFile(
+        $package_xml_dir
+    )
+    {
+        $environment = $this->_dependencies->getInstance('Components_Pear_InstallLocation');
+        $pkg = new PEAR_PackageFile_v2_rw();
+        $pkg->setPackage('REPLACE');
+        $pkg->setDescription('REPLACE');
+        $pkg->setSummary('REPLACE');
+        $pkg->setReleaseVersion('0.0.1');
+        $pkg->setApiVersion('0.0.1');
+        $pkg->setReleaseStability('alpha');
+        $pkg->setApiStability('alpha');
+        $pkg->setChannel('pear.horde.org');
+        $pkg->addMaintainer(
+            'lead',
+            'chuck',
+            'Chuck Hagenbuch',
+            'chuck@horde.org'
+        );
+        $pkg->addMaintainer(
+            'lead',
+            'jan',
+            'Jan Schneider',
+            'jan@horde.org'
+        );
+        $pkg->setLicense('REPLACE', 'REPLACE');
+        $pkg->setNotes('* Initial release.');
+        $pkg->clearContents(true);
+        $pkg->clearDeps();
+        $pkg->setPhpDep('5.2.0');
+        $pkg->setPearinstallerDep('1.9.0');
+        $pkg->setPackageType('php');
+        $pkg->addFile('', 'something', array('role' => 'php'));
+        new PEAR_Validate();
+        return Components_Exception_Pear::catchError(
+            $pkg->getDefaultGenerator()
+            ->toPackageFile($package_xml_dir, 0)
+        );
     }
 
     /**
@@ -196,32 +243,32 @@ class Components_Pear_Factory
             );
         }
 
-        $package_rw_file = PEAR_PackageFileManager2::importOptions(
-            $package_xml_path,
-            array(
-                'packagedirectory' => dirname($package_xml_path),
-                'filelistgenerator' => 'file',
-                'clearcontents' => false,
-                'clearchangelog' => false,
-                'simpleoutput' => true,
-                'ignore' => array('*~', 'conf.php', 'CVS/*'),
-                'include' => '*',
-                'dir_roles' =>
+        return Components_Exception_Pear::catchError(
+            PEAR_PackageFileManager2::importOptions(
+                $package_xml_path,
                 array(
-                    'doc'       => 'doc',
-                    'example'   => 'doc',
-                    'js'        => 'horde',
-                    'lib'       => 'php',
-                    'migration' => 'data',
-                    'script'    => 'script',
-                    'test'      => 'test',
-                ),
+                    'packagedirectory' => dirname($package_xml_path),
+                    'filelistgenerator' => 'file',
+                    'clearcontents' => false,
+                    'clearchangelog' => false,
+                    'simpleoutput' => true,
+                    'ignore' => array('*~', 'conf.php', 'CVS/*'),
+                    'include' => '*',
+                    'dir_roles' =>
+                    array(
+                        'bin'       => 'script',
+                        'script'    => 'script',
+                        'doc'       => 'doc',
+                        'example'   => 'doc',
+                        'js'        => 'horde',
+                        'horde'     => 'horde',
+                        'lib'       => 'php',
+                        'migration' => 'data',
+                        'scripts'   => 'data',
+                        'test'      => 'test',
+                    ),
+                )
             )
         );
-
-        if ($package_rw_file instanceOf PEAR_Error) {
-            throw new Components_Exception($package_rw_file->getMessage());
-        }
-        return $package_rw_file;
     }
 }

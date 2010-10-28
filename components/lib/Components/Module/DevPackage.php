@@ -51,6 +51,14 @@ extends Components_Module_Base
                     'help'   => 'generate a development snapshot'
                 )
             ),
+            new Horde_Argv_Option(
+                '-Z',
+                '--archivedir',
+                array(
+                    'action' => 'store',
+                    'help'   => 'the path to the directory where any resulting source archives will be placed.'
+                )
+            )
         );
     }
 
@@ -58,6 +66,7 @@ extends Components_Module_Base
     {
         $options = $config->getOptions();
         if (!empty($options['devpackage'])) {
+            $this->requirePackageXml($config->getPackageDirectory());
             $this->_dependencies->getRunnerDevPackage()->run();
         }
     }

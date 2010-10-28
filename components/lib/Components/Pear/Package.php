@@ -251,15 +251,14 @@ class Components_Pear_Package
             }
         }
 
-        /**
-         * @todo: Looks like this throws away any <replace /> tags we have in
-         * the content list. Needs to be fixed.
-         */
         $package->generateContents();
 
         $updated = $package->getContents();
         $updated = $updated['dir']['file'];
         foreach ($updated as $file) {
+            if (!isset($file['attribs'])) {
+                continue;
+            }
             if (isset($taskfiles[$file['attribs']['name']])) {
                 foreach ($taskfiles[$file['attribs']['name']] as $tag => $raw) {
                     $taskname = $package->getTask($tag) . '_rw';
@@ -317,8 +316,12 @@ class Components_Pear_Package
 
         $contents = $package->getContents();
         $files = $contents['dir']['file'];
+        $horde_role = false;
 
         foreach ($files as $file) {
+            if (!isset($file['attribs'])) {
+                continue;
+            }
             $components = explode('/', $file['attribs']['name'], 2);
             switch ($components[0]) {
             case 'doc':
@@ -331,6 +334,8 @@ class Components_Pear_Package
                 );
             break;
             case 'js':
+            case 'horde':
+                $horde_role = true;
             case 'locale':
                 $package->addInstallAs(
                     $file['attribs']['name'], $file['attribs']['name']
@@ -355,6 +360,27 @@ class Components_Pear_Package
                 break;
             }
         }
+
+        if ($horde_role) {
+            $roles = $package->getUsesrole();
+            if (!empty($roles)) {
+                if (isset($roles['role'])) {
+                    $roles = array($roles);
+                }
+                foreach ($roles as $role) {
+                    if (isset($role['role']) && $role['role'] == 'horde') {
+                        $horde_role = false;
+                        break;
+                    }
+                }
+            }
+            if ($horde_role) {
+                $package->addUsesrole(
+                    'horde', 'Role', 'pear.horde.org'
+                );
+            }
+        }
+
         return $package;
     }
 
@@ -431,23 +457,26 @@ class Components_Pear_Package
     /**
      * Generate a snapshot of the package using the provided version number.
      *
-     * @param string $varsion The snapshot version.
+     * @param string $version     The snapshot version.
+     * @param string $archive_dir The path where the snapshot should be placed.
      *
      * @return string The path to the snapshot.
      */
-    public function generateSnapshot($version)
+    public function generateSnapshot($version, $archive_dir)
     {
         $pkg = $this->_getPackageFile();
         $pkg->_packageInfo['version']['release'] = $version;
         $pkg->setDate(date('Y-m-d'));
         $pkg->setTime(date('H:i:s'));
         ob_start();
-        $result = $pkg->getDefaultGenerator()
-            ->toTgz(new PEAR_Common());
+        $old_dir = getcwd();
+        chdir($archive_dir);
+        $result = Components_Exception_Pear::catchError(
+            $pkg->getDefaultGenerator()
+            ->toTgz(new PEAR_Common())
+        );
+        chdir($old_dir);
         $this->_output->pear(ob_get_clean());
-        if ($result instanceOf PEAR_Error) {
-            throw new Components_Exception($result->getMessage());
-        }
         $this->_output->ok('Generated snapshot ' . $result);
         return $result;
     }

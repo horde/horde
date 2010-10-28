@@ -14,11 +14,7 @@
 /**
  * Require the tested classes.
  */
-require_once 'Horde/Exception.php';
-require_once 'Horde/Exception/LastError.php';
-require_once 'Horde/Exception/NotFound.php';
-require_once 'Horde/Exception/PermissionDenied.php';
-require_once 'Horde/Exception/Prior.php';
+require_once 'Autoload.php';
 
 /**
  * Test for the Horde_Exception:: class.
@@ -139,6 +135,22 @@ class Horde_Exception_ExceptionTest extends  PHPUnit_Framework_TestCase
     {
         $e = new Horde_Exception_LastError('An error occurred: ', $this->_getLastError());
         $this->assertSame('An error occurred: get_last_error', $e->getMessage());
+    }
+
+    public function testCatchingAndConvertingPearErrors()
+    {
+        @require_once 'PEAR.php';
+        if (!class_exists('PEAR_Error')) {
+            $this->markTestSkipped('PEAR_Error is missing!');
+        }
+        try {
+            Horde_Exception_Pear::catchError(new PEAR_Error('An error occurred.'));
+        } catch (Horde_Exception_Pear $e) {
+            $this->assertContains(
+                'Horde_Exception_ExceptionTest->testCatchingAndConvertingPearErrors unkown:unkown',
+                $e->getMessage()
+            );
+        }
     }
 
     private function _getLastError()

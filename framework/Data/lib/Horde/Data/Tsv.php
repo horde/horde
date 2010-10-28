@@ -115,6 +115,10 @@ class Horde_Data_Tsv extends Horde_Data_Base
      */
     public function exportFile($filename, $data, $header = false)
     {
+        if (!isset($this->_browser)) {
+            throw new Horde_Data_Exception('Missing browser parameter.');
+        }
+
         $export = $this->exportData($data, $header);
         $this->_browser->downloadHeaders($filename, 'text/tab-separated-values', false, strlen($export));
         echo $export;

@@ -83,7 +83,7 @@ class Horde_Core_Factory_KolabStorage
      *
      * @return Horde_Kolab_Storage The storage handler.
      */
-    public function getStorage()
+    public function create()
     {
         $configuration = $this->_injector->getInstance('Horde_Kolab_Storage_Configuration');
 

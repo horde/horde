@@ -105,4 +105,16 @@ implements Components_Config
         }
         return $arguments;
     }
+
+    /**
+     * Return the first argument - the package directory - provided by the
+     * configuration handlers.
+     *
+     * @return string The package directory.
+     */
+    public function getPackageDirectory()
+    {
+        $arguments = $this->getArguments();
+        return $arguments[0];
+    }
 }

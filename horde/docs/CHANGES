@@ -50,8 +50,15 @@ v4.0-cvs
 
 
 -----------
-v3.3.10-cvs
+v3.3.11-cvs
 -----------
+
+
+
+
+-------
+v3.3.10
+-------
 
 [jan] Fix searching DataTree elements (groups) if backend charset is different
       from interface charset (Bug #9323).

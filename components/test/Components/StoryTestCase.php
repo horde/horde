@@ -84,6 +84,20 @@ extends PHPUnit_Extensions_Story_TestCase
             );
             $world['output'] = $this->_callUnstrictComponents();
             break;
+        case 'calling the package with the updatexml option and a path without package.xml':
+            $temp = $this->_getTemporaryDirectory();
+            mkdir($temp . DIRECTORY_SEPARATOR . 'test');
+            file_put_contents(
+                $temp . DIRECTORY_SEPARATOR . 'test'  . DIRECTORY_SEPARATOR . 'test.php',
+                '<?php'
+            );
+            $_SERVER['argv'] = array(
+                'horde-components',
+                '--updatexml',
+                $temp
+            );
+            $world['output'] = $this->_callUnstrictComponents();
+            break;
         case 'calling the package with the pearrc, the packagexml option, and a Horde component':
             $_SERVER['argv'] = array(
                 'horde-components',
@@ -199,11 +213,30 @@ extends PHPUnit_Extensions_Story_TestCase
             );
             $world['output'] = $this->_callUnstrictComponents();
             break;
+        case 'calling the package with the list dependencies option, the nocolor option and a path to a Horde framework component':
+            $_SERVER['argv'] = array(
+                'horde-components',
+                '--nocolor',
+                '--list-deps',
+                dirname(__FILE__) . '/fixture/framework/Install'
+            );
+            $world['output'] = $this->_callUnstrictComponents();
+            break;
         case 'calling the package with the quiet list dependencies option and a path to a Horde framework component':
             $_SERVER['argv'] = array(
                 'horde-components',
                 '--quiet',
                 '--list-deps',
+                dirname(__FILE__) . '/fixture/framework/Install'
+            );
+            $world['output'] = $this->_callUnstrictComponents();
+            break;
+        case 'calling the package with the devpackage option, the archive directory option and a path to a Horde framework component':
+            $_SERVER['argv'] = array(
+                'horde-components',
+                '--verbose',
+                '--devpackage',
+                '--archivedir=' . $this->_getTemporaryDirectory(),
                 dirname(__FILE__) . '/fixture/framework/Install'
             );
             $world['output'] = $this->_callUnstrictComponents();
@@ -299,6 +332,11 @@ extends PHPUnit_Extensions_Story_TestCase
             $this->assertRegExp(
                 '#<install as="script" name="script/script.php" />#',
                 $world['output']
+            );
+            break;
+        case 'a new package.xml will be created.':
+            $this->assertTrue(
+                file_exists($this->_temp_dir . DIRECTORY_SEPARATOR . 'package.xml')
             );
             break;
         case 'a new PEAR configuration file will be installed':
@@ -413,6 +451,15 @@ extends PHPUnit_Extensions_Story_TestCase
                 'Dependency',
                 $world['output']
             );
+            break;
+        case 'a package snapshot will be generated at the indicated archive directory':
+            $found = false;
+            foreach (new DirectoryIterator($this->_temp_dir) as $file) {
+                if (preg_match('/Install-[0-9]+(\.[0-9]+)+([a-z0-9]+)?/', $file->getBasename('.tgz'), $matches)) {
+                    $found = true;
+                }
+            }
+            $this->assertTrue($found);
             break;
         case 'a package definition will be generated at the indicated location':
             $this->assertTrue(

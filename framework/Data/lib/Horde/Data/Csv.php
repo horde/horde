@@ -31,7 +31,7 @@ class Horde_Data_Csv extends Horde_Data_Base
      *
      * @var string
      */
-    protected $_contentType = 'text/comma-separated-values';
+    protected $_contentType = 'application/csv';
 
     /**
      * File extension.
@@ -62,23 +62,6 @@ class Horde_Data_Csv extends Horde_Data_Base
     }
 
     /**
-     * Tries to discover the CSV file's parameters.
-     *
-     * @param string $filename  The name of the file to investigate.
-     *
-     * @return array  An associative array with the following possible keys:
-     * <pre>
-     * 'sep':    The field separator
-     * 'quote':  The quoting character
-     * 'fields': The number of fields (columns)
-     * </pre>
-     */
-    public function discoverFormat($filename)
-    {
-        return Horde_File_Csv::discoverFormat($filename);
-    }
-
-    /**
      * Imports and parses a CSV file.
      *
      * @param string $filename  The name of the file to parse.
@@ -93,7 +76,7 @@ class Horde_Data_Csv extends Horde_Data_Base
      * @return array  A two-dimensional array of all imported data rows.  If
      *                $header was true the rows are associative arrays with the
      *                field/column names as the keys.
-     * @throws Horde_File_Csv_Exception
+     * @throws Horde_Data_Exception
      */
     public function importFile($filename, $header = false, $sep = ',',
                                $quote = '', $fields = null,
@@ -105,23 +88,29 @@ class Horde_Data_Csv extends Horde_Data_Base
         }
 
         $conf = array(
-            'crlf' => $crlf,
-            'fields' => $fields,
+            'length' => $fields,
             'quote' => $quote,
-            'sep' => $sep
+            'separator' => $sep
         );
 
-        /* Strip and keep the first line if it contains the field
-         * names. */
+        $fp = @fopen($filename, 'r');
+        if (!$fp) {
+            throw new Hode_Data_Exception('Cannot open file');
+        }
+
+        /* Strip and keep the first line if it contains the field names. */
         if ($header) {
-            $head = Horde_File_Csv::read($filename, $conf);
+            $head = Horde_Util::getCsv($fp, $conf);
+            if (!$head) {
+                return array();
+            }
             if (!empty($charset)) {
                 $head = Horde_String::convertCharset($head, $charset, $this->_charset);
             }
         }
 
         $data = array();
-        while ($line = Horde_File_Csv::read($filename, $conf)) {
+        while ($line = Horde_Util::getCsv($fp, $conf)) {
             if (!empty($charset)) {
                 $line = Horde_String::convertCharset($line, $charset, $this->_charset);
             }
@@ -140,13 +129,6 @@ class Horde_Data_Csv extends Horde_Data_Base
                 $data[] = $newline;
             }
         }
-
-        $fp = Horde_File_Csv::getPointer($filename, $conf);
-        if ($fp) {
-            rewind($fp);
-        }
-
-        $this->_warnings = Horde_File_Csv::warning();
 
         return $data;
     }
@@ -212,6 +194,10 @@ class Horde_Data_Csv extends Horde_Data_Base
     public function exportFile($filename, $data, $header = false,
                                $export_mapping = array())
     {
+        if (!isset($this->_browser)) {
+            throw new Horde_Data_Exception('Missing browser parameter.');
+        }
+
         $export = $this->exportData($data, $header, $export_mapping);
         $this->_browser->downloadHeaders($filename, 'application/csv', false, strlen($export));
         echo $export;
@@ -242,13 +228,6 @@ class Horde_Data_Csv extends Horde_Data_Base
                 throw new Horde_Data_Exception('The uploaded file could not be saved.');
             }
             $_SESSION['import_data']['file_name'] = $file_name;
-
-            /* Try to discover the file format ourselves. */
-            $conf = $this->discoverFormat($file_name);
-            if (!$conf) {
-                $conf = array('sep' => ',');
-            }
-            $_SESSION['import_data'] = array_merge($_SESSION['import_data'], $conf);
 
             /* Check if charset was specified. */
             $_SESSION['import_data']['charset'] = $this->_vars->charset;

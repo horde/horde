@@ -1428,7 +1428,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable
         }
 
         if ($sort) {
-            uksort($map, 'strnatcasecmp');
+            uksort($map, 'strnatcmp');
         }
 
         return $map;

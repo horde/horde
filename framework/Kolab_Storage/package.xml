@@ -479,7 +479,7 @@
     <min>0.1.1</min>
    </package>
    <package>
-    <name>Horde_Cache</name>
+    <name>Cache</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
@@ -487,7 +487,7 @@
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Horde_History</name>
+    <name>History</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
@@ -500,11 +500,11 @@
     <min>0.1.0</min>
    </package>
    <package>
-    <name>Horde_MIME</name>
+    <name>Mime</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Horde_NLS</name>
+    <name>Nls</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>

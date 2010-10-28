@@ -59,6 +59,17 @@ extends Components_StoryTestCase
     /**
      * @scenario
      */
+    public function theTheLOptionListThePackageDependenciesAsTreeWithoutColorIfSelected()
+    {
+        $this->given('the default Components setup')
+            ->when('calling the package with the list dependencies option, the nocolor option and a path to a Horde framework component')
+            ->then('the non-Horde dependencies of the component will be listed')
+            ->and('the Horde dependencies of the component will be listed');
+    }
+
+    /**
+     * @scenario
+     */
     public function theTheVerboseLOptionListThePackageDependenciesAsTree()
     {
         $this->given('the default Components setup')

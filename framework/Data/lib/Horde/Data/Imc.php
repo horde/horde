@@ -67,6 +67,10 @@ class Horde_Data_Imc extends Horde_Data_Base
      */
     public function exportFile($filename, $data)
     {
+        if (!isset($this->_browser)) {
+            throw new Horde_Data_Exception('Missing browser parameter.');
+        }
+
         $export = $this->exportData($data);
         $this->_browser->downloadHeaders($filename, 'text/calendar', false, strlen($export));
         echo $export;

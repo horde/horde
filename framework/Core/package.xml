@@ -23,8 +23,8 @@ Application Framework.</description>
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2010-10-22</date>
- <time>13:14:28</time>
+ <date>2010-10-25</date>
+ <time>14:04:39</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -79,6 +79,10 @@ Application Framework.</description>
       <file name="Form.php" role="php" />
      </dir> <!-- /lib/Horde/Config -->
      <dir name="Core">
+      <dir name="ActiveSync">
+       <file name="Connector.php" role="php" />
+       <file name="Driver.php" role="php" />
+      </dir> <!-- /lib/Horde/Core/ActiveSync -->
       <dir name="Ajax">
        <dir name="Imple">
         <dir name="Geocoder">
@@ -137,6 +141,7 @@ Application Framework.</description>
        <file name="History.php" role="php" />
        <file name="HttpClient.php" role="php" />
        <file name="Identity.php" role="php" />
+       <file name="Image.php" role="php" />
        <file name="Imple.php" role="php" />
        <file name="KolabServer.php" role="php" />
        <file name="KolabSession.php" role="php" />
@@ -591,7 +596,7 @@ Application Framework.</description>
    </package>
    <package>
     <name>Crypt</name>
-    <channel>pear.php.net</channel>
+    <channel>pear.horde.org</channel>
    </package>
    <package>
     <name>DB</name>
@@ -673,6 +678,8 @@ Application Framework.</description>
    <install as="Horde/Core/Prefs.php" name="lib/Horde/Core/Prefs.php" />
    <install as="Horde/Core/Sidebar.php" name="lib/Horde/Core/Sidebar.php" />
    <install as="Horde/Core/Translation.php" name="lib/Horde/Core/Translation.php" />
+   <install as="Horde/Core/ActiveSync/Connector.php" name="lib/Horde/Core/ActiveSync/Connector.php" />
+   <install as="Horde/Core/ActiveSync/Driver.php" name="lib/Horde/Core/ActiveSync/Driver.php" />
    <install as="Horde/Core/Ajax/Application.php" name="lib/Horde/Core/Ajax/Application.php" />
    <install as="Horde/Core/Ajax/Imple.php" name="lib/Horde/Core/Ajax/Imple.php" />
    <install as="Horde/Core/Ajax/Imple/AutoCompleter.php" name="lib/Horde/Core/Ajax/Imple/AutoCompleter.php" />
@@ -714,6 +721,7 @@ Application Framework.</description>
    <install as="Horde/Core/Factory/History.php" name="lib/Horde/Core/Factory/History.php" />
    <install as="Horde/Core/Factory/HttpClient.php" name="lib/Horde/Core/Factory/HttpClient.php" />
    <install as="Horde/Core/Factory/Identity.php" name="lib/Horde/Core/Factory/Identity.php" />
+   <install as="Horde/Core/Factory/Image.php" name="lib/Horde/Core/Factory/Image.php" />
    <install as="Horde/Core/Factory/Imple.php" name="lib/Horde/Core/Factory/Imple.php" />
    <install as="Horde/Core/Factory/KolabServer.php" name="lib/Horde/Core/Factory/KolabServer.php" />
    <install as="Horde/Core/Factory/KolabSession.php" name="lib/Horde/Core/Factory/KolabSession.php" />
@@ -901,7 +909,7 @@ Initial packaging
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2010-10-22</date>
+   <date>2010-10-25</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Add Horde_Session.

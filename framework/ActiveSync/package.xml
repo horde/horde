@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-10-22</date>
- <time>13:14:23</time>
+ <date>2010-10-25</date>
+ <time>14:01:04</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -37,13 +37,7 @@
        <file name="Importer.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Connector -->
       <dir name="Driver">
-       <dir name="Horde">
-        <dir name="Connector">
-         <file name="Registry.php" role="php" />
-        </dir> <!-- /lib/Horde/ActiveSync/Driver/Horde/Connector -->
-       </dir> <!-- /lib/Horde/ActiveSync/Driver/Horde -->
        <file name="Base.php" role="php" />
-       <file name="Horde.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Driver -->
       <dir name="Message">
        <file name="Appointment.php" role="php" />
@@ -133,8 +127,6 @@
    <install as="Horde/ActiveSync/Connector/Exporter.php" name="lib/Horde/ActiveSync/Connector/Exporter.php" />
    <install as="Horde/ActiveSync/Connector/Importer.php" name="lib/Horde/ActiveSync/Connector/Importer.php" />
    <install as="Horde/ActiveSync/Driver/Base.php" name="lib/Horde/ActiveSync/Driver/Base.php" />
-   <install as="Horde/ActiveSync/Driver/Horde.php" name="lib/Horde/ActiveSync/Driver/Horde.php" />
-   <install as="Horde/ActiveSync/Driver/Horde/Connector/Registry.php" name="lib/Horde/ActiveSync/Driver/Horde/Connector/Registry.php" />
    <install as="Horde/ActiveSync/Message/Appointment.php" name="lib/Horde/ActiveSync/Message/Appointment.php" />
    <install as="Horde/ActiveSync/Message/Attendee.php" name="lib/Horde/ActiveSync/Message/Attendee.php" />
    <install as="Horde/ActiveSync/Message/Base.php" name="lib/Horde/ActiveSync/Message/Base.php" />
@@ -184,7 +176,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-10-22</date>
+   <date>2010-10-25</date>
    <license uri="http://www.gnu.org/licenses/gpl-2.0.html">GPLv2</license>
    <notes>
 * Initial release

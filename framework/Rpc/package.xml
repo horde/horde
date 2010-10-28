@@ -337,7 +337,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <min>1.5.0</min>
    </pearinstaller>
    <package>
-    <name>Horde_Framework</name>
+    <name>Core</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>

@@ -201,11 +201,9 @@ class Components_Pear_InstallLocation
         if (!file_exists($this->_config_file)) {
             $this->createPearConfig();
         }
-        $config = PEAR_Config::singleton($this->_config_file);
-        if ($config instanceOf PEAR_Error) {
-            throw new Components_Exception($config->getMessage());
-        }
-        return $config;
+        return Components_Exception_Pear::catchError(
+            PEAR_Config::singleton($this->_config_file)
+        );
     }
 
     /**
@@ -241,11 +239,20 @@ class Components_Pear_InstallLocation
             $this->getPearConfig()
         );
 
+        $this->_output->ok(
+            sprintf(
+                'About to add channel %s%s',
+                $channel,
+                $reason
+            )
+        );
         $static = $this->_channel_directory . DIRECTORY_SEPARATOR
             . $channel . '.channel.xml';
         if (file_exists($static)) {
             ob_start();
-            $channel_handler->doAdd('channel-add', array(), array($static));
+            Components_Exception_Pear::catchError(
+                $channel_handler->doAdd('channel-add', array(), array($static))
+            );
             $this->_output->pear(ob_get_clean());
         } else {
             $this->_output->warn(
@@ -255,7 +262,9 @@ class Components_Pear_InstallLocation
                 )
             );
             ob_start();
-            $channel_handler->doDiscover('channel-discover', array(), array($channel));
+            Components_Exception_Pear::catchError(
+                $channel_handler->doDiscover('channel-discover', array(), array($channel))
+            );
             $this->_output->pear(ob_get_clean());
         }
         $this->_output->ok(
@@ -303,7 +312,6 @@ class Components_Pear_InstallLocation
             new PEAR_Frontend_CLI(),
             $this->getPearConfig()
         );
-        $installer->setErrorHandling(PEAR_ERROR_EXCEPTION);
         return $installer;
     }
 
@@ -318,11 +326,20 @@ class Components_Pear_InstallLocation
     public function addPackageFromSource($package, $reason = '')
     {
         $installer = $this->getInstallationHandler();
+        $this->_output->ok(
+            sprintf(
+                'About to add package %s%s',
+                $package,
+                $reason
+            )
+        );
         ob_start();
-        $installer->doInstall(
-            'install',
-            array('nodeps' => true),
-            array($package)
+        Components_Exception_Pear::catchError(
+            $installer->doInstall(
+                'install',
+                array('nodeps' => true),
+                array($package)
+            )
         );
         $this->_output->pear(ob_get_clean());
         $this->_output->ok(
@@ -332,6 +349,37 @@ class Components_Pear_InstallLocation
                 $reason
             )
         );
+    }
+
+    /**
+     * Identify any dependencies we need when installing via downloaded packages.
+     *
+     * @param string $channel The channel name for the package.
+     * @param string $package The name of the package of the path of the tarball.
+     *
+     * @return array The added packages.
+     */
+    public function identifyRequiredLocalDependencies($channel, $package)
+    {
+        if ($local = $this->_identifyMatchingLocalPackage($package)) {
+            $dependencies = array();
+            $pkg = new PEAR_PackageFile($this->getPearConfig());
+            $pkg = $pkg->fromTgzFile($local, PEAR_VALIDATE_NORMAL);
+            $deps = $pkg->getDeps();
+            if (empty($deps)) {
+                return array();
+            }
+            foreach ($deps as $dependency) {
+                if ($dependency['type'] != 'pkg') {
+                    continue;
+                }
+                if (isset($dependency['optional']) && $dependency['optional'] == 'no') {
+                    $dependencies[] = $dependency;
+                }
+            }
+            return $dependencies;
+        }
+        return array();
     }
 
     /**
@@ -346,14 +394,24 @@ class Components_Pear_InstallLocation
     public function addPackageFromPackage($channel, $package, $reason = '')
     {
         $installer = $this->getInstallationHandler();
+        $this->_output->ok(
+            sprintf(
+                'About to add package %s/%s%s',
+                $channel,
+                $package,
+                $reason
+            )
+        );
         if ($local = $this->_identifyMatchingLocalPackage($package)) {
             ob_start();
-            $installer->doInstall(
-                'install',
-                array(
-                    'offline' => true
-                ),
-                array($local)
+            Components_Exception_Pear::catchError(
+                $installer->doInstall(
+                    'install',
+                    array(
+                        'offline' => true
+                    ),
+                    array($local)
+                )
             );
             $this->_output->pear(ob_get_clean());
         } else {
@@ -364,18 +422,21 @@ class Components_Pear_InstallLocation
                 )
             );
             ob_start();
-            $installer->doInstall(
-                'install',
-                array(
-                    'channel' => $channel,
-                ),
-                array($package)
+            Components_Exception_Pear::catchError(
+                $installer->doInstall(
+                    'install',
+                    array(
+                        'channel' => $channel,
+                    ),
+                    array($package)
+                )
             );
             $this->_output->pear(ob_get_clean());
         }
         $this->_output->ok(
             sprintf(
-                'Successfully added package %s%s',
+                'Successfully added package %s/%s%s',
+                $channel,
                 $package,
                 $reason
             )

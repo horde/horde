@@ -217,42 +217,6 @@ class Horde_Image
     }
 
     /**
-     * Attempts to return a concrete Horde_Image instance based on $driver.
-     *
-     * @param mixed $driver  The type of concrete Horde_Image subclass to
-     *                       return. This is based on the storage driver
-     *                       ($driver). The code is dynamically included. If
-     *                       $driver is an array, then we will look in
-     *                       $driver[0]/lib/Image/ for the subclass
-     *                       implementation named $driver[1].php.
-     * @param array $params  A hash containing any additional configuration or
-     *                       connection parameters a subclass might need.
-     *
-     * @return mixed  Horde_Image object
-     * @throws Horde_Image_Exception
-     */
-    static public function factory($driver, $params = array())
-    {
-        if (is_array($driver)) {
-            list($app, $driver) = $driver;
-        }
-
-        $driver = basename($driver);
-        $class = 'Horde_Image_' . $driver;
-        if (!empty($params['context']) && count($params['context'])) {
-            $context = $params['context'];
-            unset($params['context']);
-        } else {
-            $context = array();
-        }
-        if (class_exists($class)) {
-            return new $class($params, $context);
-        } else {
-            throw new Horde_Image_Exception('Invalid Image driver specified: ' . $class . ' not found.');
-        }
-    }
-
-    /**
      * Return point size for font
      */
     static public function getFontSize($fontsize)

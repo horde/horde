@@ -73,14 +73,13 @@ $codingmap = array(
     '/' => '010100010'
 );
 
-$image = Horde_Image::factory($vars->get('type', 'Png'), array(
+$image = new Horde_Image_Png(array(
     'background' => 'white',
     'context' => array(
         'tmpdir' => Horde::getTempDir()
     ),
     'height' => $height,
-    'width' => $width
-));
+    'width' => $width));
 
 $xpos = 0;
 for ($idx = 0; $idx < $textlen; ++$idx) {

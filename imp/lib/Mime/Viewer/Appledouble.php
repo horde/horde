@@ -115,8 +115,6 @@ class IMP_Mime_Viewer_Appledouble extends Horde_Mime_Viewer_Base
             }
         }
 
-        ksort($ret);
-
         return $ret;
     }
 

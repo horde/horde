@@ -265,12 +265,8 @@ EOD;
         //@TODO: Pass in a Horde_Logger in $context if desired.
         $context = array('tmpdir' => Horde::getTempDir());
         try {
-            if (!empty($GLOBALS['conf']['image']['convert'])) {
-                $context['convert'] = $GLOBALS['conf']['image']['convert'];
-                $context['identify'] = $GLOBALS['conf']['image']['identify'];
-            }
-            $img = Horde_Image::factory($GLOBALS['conf']['image']['driver'], array('context' => $context));
-        } catch (Horde_Image_Exception $e) {
+            $img = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Image')->create();
+        } catch (Horde_Exception $e) {
             return false;
         }
 

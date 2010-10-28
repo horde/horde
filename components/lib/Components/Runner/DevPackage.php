@@ -69,14 +69,21 @@ class Components_Runner_DevPackage
 
     public function run()
     {
-        $options = $this->_config->getOptions();
         $arguments = $this->_config->getArguments();
 
         $package = $this->_factory->createPackageForDefaultLocation(
             $arguments[0] . DIRECTORY_SEPARATOR . 'package.xml'
         );
+
+        $options = $this->_config->getOptions();
+        if ($options['archivedir']) {
+            $archivedir = $options['archivedir'];
+        } else {
+            $archivedir = getcwd();
+        }
         $package->generateSnapshot(
-            $package->getVersion() . 'dev' . strftime('%Y%m%d%H%M')
+            $package->getVersion() . 'dev' . strftime('%Y%m%d%H%M'),
+            $archivedir
         );
     }
 }
