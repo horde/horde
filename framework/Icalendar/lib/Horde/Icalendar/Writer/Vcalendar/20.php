@@ -30,26 +30,21 @@ class Horde_Icalendar_Writer_Vcalendar_20 extends Horde_Icalendar_Writer_Base
                                     'stamp' => 'DTSTAMP');
 
     /**
-     * Exports an individual property into a string.
+     * Converts a property value of an object to a string
      *
-     * @param string $name     A property name.
-     * @param array $property  A property hash.
+     * @param object $property  A property value.
+     * @param array $params     Property parameters.
+     *
+     * @return string  The string representation of the object.
      */
-    protected function _exportProperty($name, $property)
+    protected function _objectToString($property, array $params)
     {
-        if (!isset($property['values'])) {
-            return;
-        }
-        if (isset($property['class']) && $property['class'] == 'Horde_Date') {
-            if (isset($this->_propertyMap[$name])) {
-                $name = $this->_propertyMap[$name];
+        if ($property instanceof Horde_Date) {
+            if (isset($params['value']) && $params['value'] == 'date') {
+                return $property->format('Ymd');
             }
-            foreach ($property['values'] as $value) {
-                $this->_output .= Horde_String::upper($name) . ':' . $value->format('Ymd\THms\Z') . "\n";
-            }
-        } else {
-            parent::_exportProperty($name, $property);
+            return $property->format('Ymd\THis\Z');
         }
+        return parent::_objectToString($property, $params);
     }
-
 }

@@ -27,13 +27,13 @@ class Horde_Icalendar_WriterTest extends Horde_Test_Case
 
         $event1->uid = '20041120-8550-innerjoin-org';
         $event1->startDate = new Horde_Date(array('year' => 2005, 'month' => 5, 'mday' => 3));
-        $event1->stamp = new Horde_Date(array('year' => 2004, 'month' => 11, 'mday' => 20));
+        $event1->stamp = new Horde_Date(array('year' => 2004, 'month' => 11, 'mday' => 20), 'UTC');
         $event1->summary = 'Escaped Comma in Description Field';
         $event1->description = 'There is a comma (escaped with a baskslash) in this sentence and some important words after it, see anything here?';
 
         $event2->uid = '20041120-8549-innerjoin-org';
         $event2->startDate = new Horde_Date(array('year' => 2005, 'month' => 5, 'mday' => 4));
-        $event2->stamp = new Horde_Date(array('year' => 2004, 'month' => 11, 'mday' => 20));
+        $event2->stamp = new Horde_Date(array('year' => 2004, 'month' => 11, 'mday' => 20), 'UTC');
         $event2->summary = 'Dash (rather than Comma) in the Description Field';
         $event2->description = 'There are important words after this dash - see anything here or have the words gone?';
 

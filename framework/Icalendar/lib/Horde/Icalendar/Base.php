@@ -163,7 +163,7 @@ abstract class Horde_Icalendar_Base implements Iterator
             $this->_properties[$property]['params'][] = $params;
         } else {
             $this->_properties[$property]['values'] = array($value);
-            $this->_properties[$property]['params'] = $params;
+            $this->_properties[$property]['params'] = array($params);
         }
     }
 

@@ -79,10 +79,44 @@ abstract class Horde_Icalendar_Writer_Base
             if (isset($this->_propertyMap[$name])) {
                 $name = $this->_propertyMap[$name];
             }
-            foreach ($property['values'] as $value) {
-                $this->_output .= Horde_String::upper($name) . ':' . $value . "\n";
+            foreach ($property['values'] as $num => $value) {
+                $this->_output .= Horde_String::upper($name);
+                foreach ($property['params'][$num] as $parameter => $pvalue) {
+                    $this->_exportParameter($parameter, $pvalue);
+                }
+                if (is_object($value)) {
+                    $value = $this->_objectToString($value, $property['params'][$num]);
+                }
+                $this->_output .= ':' . $value . "\n";
             }
         }
     }
 
+    /**
+     * Exports an individual parameter into a string.
+     *
+     * @param string $name  A parameter name.
+     * @param mixed $value  A parameter value.
+     */
+    protected function _exportParameter($name, $value)
+    {
+        $this->_output .= ';' . Horde_String::upper($name);
+        if (is_object($value)) {
+            $value = $this->_objectToString($value, $property['params'][$num]);
+        }
+        $this->_output .= '=' . Horde_String::upper($value);
+    }
+
+    /**
+     * Converts a property value of an object to a string
+     *
+     * @param object $property  A property value.
+     * @param array $params     Property parameters.
+     *
+     * @return string  The string representation of the object.
+     */
+    protected function _objectToString($property, array $params)
+    {
+        return (string)$property;
+    }
 }
