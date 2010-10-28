@@ -200,7 +200,13 @@ case 'new':
 if ($vars->type == 'redirect') {
     $imp_ui->attachAutoCompleter(array('redirect_to'));
 } else {
-    $imp_ui->attachAutoCompleter(array('to', 'cc', 'bcc', 'redirect_to'));
+    $acomplete = array('to', 'redirect_to');
+    foreach (array('cc', 'bcc') as $val) {
+        if ($prefs->getValue('compose_' . $val)) {
+            $acomplete[] = $val;
+        }
+    }
+    $imp_ui->attachAutoCompleter($acomplete);
     $imp_ui->attachSpellChecker();
     $sig = $identity->getSignature($show_editor ? 'html' : 'text');
     if ($get_sig && !empty($sig)) {

@@ -1797,12 +1797,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         $imp_ui = $injector->getInstance('IMP_Ui_Compose');
         $headers['to'] = $imp_ui->getAddressList($this->_vars->to);
-        if ($prefs->getValue('compose_cc') ||
-            !$prefs->isLocked('compose_cc')) {
+        if ($prefs->getValue('compose_cc')) {
             $headers['cc'] = $imp_ui->getAddressList($this->_vars->cc);
         }
-        if ($prefs->getValue('compose_bcc') ||
-            !$prefs->isLocked('compose_bcc')) {
+        if ($prefs->getValue('compose_bcc')) {
             $headers['bcc'] = $imp_ui->getAddressList($this->_vars->bcc);
         }
         $headers['subject'] = $this->_vars->subject;

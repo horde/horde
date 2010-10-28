@@ -68,8 +68,8 @@ var DimpCompose = {
         }
 
         $('composeCache').clear();
-        $('qreply', 'sendcc', 'sendbcc').invoke('hide');
-        [ $('msgData'), $('togglecc'), $('togglebcc') ].invoke('show');
+        $('qreply', 'sendcc', 'sendbcc').compact().invoke('hide');
+        $('msgData', 'togglecc', 'togglebcc').compact().invoke('show');
         if (IMP_Compose_Base.editor_on) {
             this.toggleHtmlEditor();
         }
@@ -86,7 +86,9 @@ var DimpCompose = {
         var identity = IMP_Compose_Base.getIdentity($F('identity'));
 
         this.setPopdownLabel('sm', identity.id.smf_name, identity.id.smf_display);
-        $('bcc').setValue(identity.id.bcc);
+        if (DIMP.conf_compose.bcc) {
+            $('bcc').setValue(identity.id.bcc);
+        }
         this.setSaveSentMail(identity.id.smf_save);
 
         IMP_Compose_Base.replaceSignature($F('identity'));
@@ -523,26 +525,26 @@ var DimpCompose = {
         opts = opts || {};
 
         $('to').setValue(header.to);
-        if (header.cc) {
+        if (DIMP.conf_compose.cc && header.cc) {
             $('cc').setValue(header.cc);
-        }
-        if (DIMP.conf_compose.cc || header.cc) {
-            this.toggleCC('cc', true);
+            this.toggleCC('cc');
         }
         this.setPopdownLabel('sm', identity.id.smf_name, identity.id.smf_display);
         this.setSaveSentMail(identity.id.smf_save);
-        if (header.bcc) {
-            $('bcc').setValue(header.bcc);
-        }
-        if (identity.id.bcc) {
-            bcc_add = $F('bcc');
-            if (bcc_add) {
-                bcc_add += ', ';
+        if (DIMP.conf_compose.bcc) {
+            if (header.bcc) {
+                $('bcc').setValue(header.bcc);
             }
-            $('bcc').setValue(bcc_add + identity.id.bcc);
-        }
-        if (DIMP.conf_compose.bcc || header.bcc) {
-            this.toggleCC('bcc', true);
+            if (identity.id.bcc) {
+                bcc_add = $F('bcc');
+                if (bcc_add) {
+                    bcc_add += ', ';
+                }
+                $('bcc').setValue(bcc_add + identity.id.bcc);
+            }
+            if ($F('bcc')) {
+                this.toggleCC('bcc');
+            }
         }
         $('subject').setValue(header.subject);
 
@@ -600,7 +602,7 @@ var DimpCompose = {
             !this.auto_save_interval) {
             this.auto_save_interval = new PeriodicalExecuter(function() {
                 if ($('compose').visible()) {
-                    var hdrs = MD5.hash($('to', 'cc', 'bcc', 'subject').invoke('getValue').join('\0')), msg;
+                    var hdrs = MD5.hash($('to', 'cc', 'bcc', 'subject').compact().invoke('getValue').join('\0')), msg;
                     if (this.md5_hdrs) {
                         msg = this.msgHash();
                         if (this.md5_hdrs != hdrs || this.md5_msg != msg) {
@@ -831,20 +833,18 @@ var DimpCompose = {
         DimpCore.doActionComplete({ responseJSON: doc.body.innerHTML.evalJSON(true) }, this.uniqueSubmitCallback.bind(this));
     },
 
-    toggleCC: function(type, immediate)
+    toggleCC: function(type)
     {
-        var t = $('toggle' + type);
+        var t;
 
         $('send' + type).show();
-        if (immediate) {
-            t.hide();
-            this.resizeMsgArea();
+        t = $('toggle' + type);
+        if (t.siblings().size()) {
+            t.remove();
         } else {
-            t.fade({
-                afterFinish: this.resizeMsgArea.bind(this),
-                duration: 0.4
-            });
+            t.up('TR').remove();
         }
+        this.resizeMsgArea();
     },
 
     /* Open the addressbook window. */
@@ -1069,12 +1069,16 @@ var DimpCompose = {
 
         // Automatically resize compose address fields.
         new TextareaResize('to');
-        new TextareaResize('cc');
-        new TextareaResize('bcc');
+        if (DIMP.conf_compose.cc) {
+            new TextareaResize('cc');
+        }
+        if (DIMP.conf_compose.bcc) {
+            new TextareaResize('bcc');
+        }
 
         /* Add addressbook link formatting. */
         if (DIMP.conf_compose.URI_ABOOK) {
-            $('sendto', 'sendcc', 'sendbcc', 'redirect_sendto').each(function(a) {
+            $('sendto', 'sendcc', 'sendbcc', 'redirect_sendto').compact().each(function(a) {
                 a.down('TD.label SPAN').addClassName('composeAddrbook');
             });
         }

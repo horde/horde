@@ -22,16 +22,6 @@
  <div id="writemsg">
   <div class="msgwrite">
    <div class="dimpOptions">
-    <div id="togglecc">
-     <label>
-      <input name="togglecc" type="checkbox" class="checkbox" /><gettext>Show Cc</gettext>
-     </label>
-    </div>
-    <div id="togglebcc">
-     <label>
-      <input name="togglebcc" type="checkbox" class="checkbox" /><gettext>Show Bcc</gettext>
-     </label>
-    </div>
 <if:rte>
     <div>
      <label>
@@ -96,6 +86,7 @@
       <span id="to_loading_img" class="loadingImg" style="display:none"></span>
      </td>
     </tr>
+<if:cc>
     <tr id="sendcc" style="display:none">
      <td class="label">
       <span><gettext>Cc:</gettext></span>
@@ -105,6 +96,8 @@
       <span id="cc_loading_img" class="loadingImg" style="display:none"></span>
      </td>
     </tr>
+</if:cc>
+<if:bcc>
     <tr id="sendbcc" style="display:none">
      <td class="label">
       <span><gettext>Bcc:</gettext></span>
@@ -114,6 +107,20 @@
       <span id="bcc_loading_img" class="loadingImg" style="display:none"></span>
      </td>
     </tr>
+</if:bcc>
+<if:bcc_or_cc>
+    <tr>
+     <td></td>
+     <td>
+<if:cc>
+      <span id="togglecc"><gettext>Add Cc</gettext></span>
+</if:cc>
+<if:bcc>
+      <span id="togglebcc"><gettext>Add Bcc</gettext></span>
+</if:bcc>
+     </td>
+    </tr>
+</if:bcc_or_cc>
     <tr>
      <td class="label">
       <gettext>Subject:</gettext>
