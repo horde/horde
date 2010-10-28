@@ -374,14 +374,14 @@ Initial Horde 4 package
    <dir name="tests">
     <file name="gd.php" role="test" />
     <file name="im.php" role="test" />
-    <file name="img1.jpg" role="data" />
-    <file name="img2.jpg" role="data" />
-    <file name="img3.jpg" role="data" />
-    <file name="img4.jpg" role="data" />
-    <file name="runtest.php" role="php" />
+    <file name="img1.jpg" role="test" />
+    <file name="img2.jpg" role="test" />
+    <file name="img3.jpg" role="test" />
+    <file name="img4.jpg" role="test" />
+    <file name="runtest.php" role="test" />
     <file name="svg.php" role="test" />
     <file name="swf.php" role="test" />
-    <file name="two_page.tif.tiff" role="data" />
+    <file name="two_page.tif.tiff" role="test" />
    </dir> <!-- /tests -->
   </dir> <!-- / -->
  </contents>

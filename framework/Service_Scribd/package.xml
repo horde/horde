@@ -307,7 +307,7 @@
     </dir> <!-- /locale/zh_TW -->
     <file name="Horde_Service_Scribd.pot" role="data" />
    </dir> <!-- /locale -->
-   <file name="test.php" role="php" />
+   <file name="test.php" role="doc" />
   </dir> <!-- / -->
  </contents>
  <dependencies>

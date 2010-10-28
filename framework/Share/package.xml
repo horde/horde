@@ -320,8 +320,8 @@ resources a user owns or has access to.</description>
    <dir name="tests">
     <dir name="Horde">
      <dir name="Share">
-      <file name="AllTests.php" role="php" />
-      <file name="KolabScenarioTest.php" role="php" />
+      <file name="AllTests.php" role="test" />
+      <file name="KolabScenarioTest.php" role="test" />
      </dir> <!-- /tests/Horde/Share -->
     </dir> <!-- /tests/Horde -->
     <file name="kolab_createdefault.phpt" role="data" />
