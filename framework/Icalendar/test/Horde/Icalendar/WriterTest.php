@@ -49,16 +49,16 @@ UID:20041120-8550-innerjoin-org
 DTSTART;VALUE=DATE:20050503
 DTSTAMP:20041120T000000Z
 SUMMARY:Escaped Comma in Description Field
-DESCRIPTION:There is a comma (escaped with a baskslash) in this sentence
-  and some important words after it\, see anything here?
+DESCRIPTION:There is a comma (escaped with a baskslash) in this sentence an
+ d some important words after it\, see anything here?
 END:VEVENT
 BEGIN:VEVENT
 UID:20041120-8549-innerjoin-org
 DTSTART;VALUE=DATE:20050504
 DTSTAMP:20041120T000000Z
 SUMMARY:Dash (rather than Comma) in the Description Field
-DESCRIPTION:There are important words after this dash - see anything here
-  or have the words gone?
+DESCRIPTION:There are important words after this dash - see anything here o
+ r have the words gone?
 END:VEVENT
 END:VCALENDAR
 ',

@@ -36,6 +36,13 @@ abstract class Horde_Icalendar_Writer_Base
     protected $_output = '';
 
     /**
+     * A buffer to collect content for a single propery line.
+     *
+     * @var string
+     */
+    protected $_lineBuffer = '';
+
+    /**
      * Exports a complete Horde_Icalendar object into a string.
      *
      * @param Horde_Icalendar_Base $object  An object to export.
@@ -57,14 +64,14 @@ abstract class Horde_Icalendar_Writer_Base
     protected function _exportComponent(Horde_Icalendar_Base $object)
     {
         $basename = Horde_String::upper(str_replace('Horde_Icalendar_', '', get_class($object)));
-        $this->_output .= 'BEGIN:' . $basename . "\n";
+        $this->_output .= 'BEGIN:' . $basename . "\r\n";
         foreach ($object as $name => $property) {
             $this->_exportProperty($name, $property);
         }
         foreach ($object->components as $component) {
             $this->_exportComponent($component);
         }
-        $this->_output .= 'END:' . $basename . "\n";
+        $this->_output .= 'END:' . $basename . "\r\n";
     }
 
     /**
@@ -80,14 +87,15 @@ abstract class Horde_Icalendar_Writer_Base
                 $name = $this->_propertyMap[$name];
             }
             foreach ($property['values'] as $num => $value) {
-                $this->_output .= Horde_String::upper($name);
+                $this->_lineBuffer = Horde_String::upper($name);
                 foreach ($property['params'][$num] as $parameter => $pvalue) {
                     $this->_exportParameter($parameter, $pvalue);
                 }
                 if (is_object($value)) {
                     $value = $this->_objectToString($value, $property['params'][$num]);
                 }
-                $this->_output .= ':' . $value . "\n";
+                $this->_addToLineBuffer(':' . $value);
+                $this->_output .= $this->_lineBuffer . "\r\n";
             }
         }
     }
@@ -100,11 +108,23 @@ abstract class Horde_Icalendar_Writer_Base
      */
     protected function _exportParameter($name, $value)
     {
-        $this->_output .= ';' . Horde_String::upper($name);
+        $this->_addToLineBuffer(';' . Horde_String::upper($name));
         if (is_object($value)) {
             $value = $this->_objectToString($value, $property['params'][$num]);
         }
-        $this->_output .= '=' . Horde_String::upper($value);
+        $this->_addToLineBuffer('=' . Horde_String::upper($value));
+    }
+
+    /**
+     * Adds some content to the internal line buffer.
+     *
+     * Sub-classes can extend this the method to apply line-folding techniques.
+     *
+     * @param string $content  Content to add to the line buffer.
+     */
+    protected function _addToLineBuffer($content)
+    {
+        $this->_lineBuffer .= $content;
     }
 
     /**

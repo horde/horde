@@ -30,6 +30,37 @@ class Horde_Icalendar_Writer_Vcalendar_20 extends Horde_Icalendar_Writer_Base
                                     'stamp' => 'DTSTAMP');
 
     /**
+     * Adds some content to the internal line buffer.
+     *
+     * Applies line-folding techniques as per RFC 2445 Section 4.1.
+     *
+     * @param string $content  Content to add to the line buffer.
+     */
+    protected function _addToLineBuffer($content)
+    {
+        $bufferLen = strlen($this->_lineBuffer);
+        $contentLen = strlen($content);
+        if ($bufferLen + $contentLen < 76) {
+            $this->_lineBuffer .= $content;
+            return;
+        }
+        while ($contentLen) {
+            $char = Horde_String::substr($content, 0, 1);
+            $charLen = strlen($char);
+            if ($bufferLen + $charLen > 75) {
+                // Wrap
+                $this->_output .= $this->_lineBuffer . "\r\n ";
+                $this->_lineBuffer = '';
+                $bufferLen = 0;
+            }
+            $this->_lineBuffer .= $char;
+            $bufferLen += $charLen;
+            $contentLen -= $charLen;
+            $content = substr($content, $charLen);
+        }
+    }
+
+    /**
      * Converts a property value of an object to a string
      *
      * @param object $property  A property value.
