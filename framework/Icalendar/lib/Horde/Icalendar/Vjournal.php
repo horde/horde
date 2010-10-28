@@ -41,7 +41,7 @@ class Horde_Icalendar_Vjournal extends Horde_Icalendar_Base
                                'multiple' => false,
                                'type' => 'string'),
             'description' => array('required' => false,
-                                   'multiple' => false,
+                                   'multiple' => true,
                                    'type' => 'string'));
         parent::__construct($properties);
     }
