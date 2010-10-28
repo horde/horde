@@ -256,6 +256,7 @@ class Horde_Argv_Parser extends Horde_Argv_OptionContainer
         }
 
         $this->optionGroups[] = $group;
+        $this->defaults = array_merge($this->defaults, $group->defaults);
         return $group;
     }
 
