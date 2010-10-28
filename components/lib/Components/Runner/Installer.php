@@ -79,7 +79,7 @@ class Components_Runner_Installer
         $arguments = $this->_config->getArguments();
         $tree = $this->_factory
             ->createTreeHelper(
-                $environment, dirname(realpath($arguments[0])), $options
+                $environment, realpath($arguments[0]), $options
             );
         $tree->getEnvironment()->provideChannel('pear.horde.org');
         $tree->installTreeInEnvironment(

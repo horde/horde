@@ -55,6 +55,7 @@ extends Components_StoryTestCase
             ->then('the dummy PEAR package will be listed')
             ->and('the non-Horde dependencies of the component would be installed')
             ->and('the Horde dependencies of the component would be installed')
+            ->and('the old-style Horde dependencies of the component would be installed')
             ->and('the component will be listed');
     }
 

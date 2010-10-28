@@ -461,6 +461,13 @@ extends PHPUnit_Extensions_Story_TestCase
                 $trimmed
             );
             break;
+        case 'the old-style Horde dependencies of the component would be installed':
+            $trimmed = strtr($world['output'], array(' ' => '', "\n" => ''));
+            $this->assertRegExp(
+                '#Wouldinstallpackage.*Old/package.xml#',
+                $trimmed
+            );
+            break;
         case 'the Optional package will be listed':
             $trimmed = strtr($world['output'], array(' ' => '', "\n" => ''));
             $this->assertRegExp(

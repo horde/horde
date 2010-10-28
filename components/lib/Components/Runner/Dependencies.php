@@ -72,7 +72,7 @@ class Components_Runner_Dependencies
         $options = $this->_config->getOptions();
         $arguments = $this->_config->getArguments();
         $this->_factory
-            ->createSimpleTreeHelper(dirname(realpath($arguments[0])))
+            ->createSimpleTreeHelper(realpath($arguments[0]))
             ->listDependencyTree(
                 realpath($arguments[0]) . DIRECTORY_SEPARATOR . 'package.xml',
                 $this->_output

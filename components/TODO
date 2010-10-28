@@ -6,8 +6,6 @@
 
  - Add module for generating component documentation.
 
- - Allow handling various Horde package locations (horde/, horde/framework/, Horde_SQL -> horde/framework/SQL)
-
  - Allow linking files during the installation.
 
  - Allow filtering (see http://github.com/horde/horde/commit/404e8d1ea7c0bf99373aec2ce7f2534a442149b3)

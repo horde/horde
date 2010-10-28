@@ -158,7 +158,9 @@ class Components_Pear_Factory
             basename($config_file)
         );
         $environment->setResourceDirectories($options);
-        return new Components_Helper_Tree($this, $environment, $root_path);
+        return new Components_Helper_Tree(
+            $this, $environment, new Components_Helper_Root($root_path)
+        );
     }
 
     /**
@@ -170,12 +172,12 @@ class Components_Pear_Factory
      *
      * @return Components_Helper_Tree The tree helper.
      */
-    public function createSimpleTreeHelper( $root_path)
+    public function createSimpleTreeHelper($root_path)
     {
         return new Components_Helper_Tree(
             $this,
             $this->_dependencies->createInstance('Components_Pear_InstallLocation'),
-            $root_path
+            new Components_Helper_Root($root_path)
         );
     }
 
