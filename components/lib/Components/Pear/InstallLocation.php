@@ -37,6 +37,13 @@ class Components_Pear_InstallLocation
     private $_output;
 
     /**
+     * The factory for PEAR class instances.
+     *
+     * @param Components_Pear_Factory
+     */
+    private $_factory;
+
+    /**
      * The base directory for the PEAR install location.
      *
      * @param string
@@ -69,9 +76,20 @@ class Components_Pear_InstallLocation
      *
      * @param Component_Output $output The output handler.
      */
-    public function __construct(Components_Output $output)
-    {
+    public function __construct(Components_Output $output) {
         $this->_output = $output;
+    }
+
+    /**
+     * Define the factory that creates our PEAR dependencies.
+     *
+     * @param Components_Pear_Factory
+     *
+     * @return NULL
+     */
+    public function setFactory(Components_Pear_Factory $factory)
+    {
+        $this->_factory = $factory;
     }
 
     /**
@@ -352,57 +370,27 @@ class Components_Pear_InstallLocation
     }
 
     /**
-     * Identify any dependencies we need when installing via downloaded packages.
+     * Add an external dependency based on a package name or package tarball.
      *
-     * @param string $channel The channel name for the package.
-     * @param string $package The name of the package of the path of the tarball.
-     *
-     * @return array The added packages.
-     */
-    public function identifyRequiredLocalDependencies($channel, $package)
-    {
-        if ($local = $this->_identifyMatchingLocalPackage($package)) {
-            $dependencies = array();
-            $pkg = new PEAR_PackageFile($this->getPearConfig());
-            $pkg = $pkg->fromTgzFile($local, PEAR_VALIDATE_NORMAL);
-            $deps = $pkg->getDeps();
-            if (empty($deps)) {
-                return array();
-            }
-            foreach ($deps as $dependency) {
-                if ($dependency['type'] != 'pkg') {
-                    continue;
-                }
-                if (isset($dependency['optional']) && $dependency['optional'] == 'no') {
-                    $dependencies[] = $dependency;
-                }
-            }
-            return $dependencies;
-        }
-        return array();
-    }
-
-    /**
-     * Add a package based on a package name or package tarball.
-     *
-     * @param string $channel The channel name for the package.
+     * @param Components_Pear_Dependency $dependency The package dependency.
      * @param string $package The name of the package of the path of the tarball.
      * @param string $reason  Optional reason for adding the package.
      *
      * @return NULL
      */
-    public function addPackageFromPackage($channel, $package, $reason = '')
-    {
+    public function addPackageFromPackage(
+        Components_Pear_Dependency $dependency,
+        $reason = ''
+    ) {
         $installer = $this->getInstallationHandler();
         $this->_output->ok(
             sprintf(
-                'About to add package %s/%s%s',
-                $channel,
-                $package,
+                'About to add external package %s%s',
+                $dependency->key(),
                 $reason
             )
         );
-        if ($local = $this->_identifyMatchingLocalPackage($package)) {
+        if ($local = $this->_identifyMatchingLocalPackage($dependency->name())) {
             ob_start();
             Components_Exception_Pear::catchError(
                 $installer->doInstall(
@@ -417,8 +405,8 @@ class Components_Pear_InstallLocation
         } else {
             $this->_output->warn(
                 sprintf(
-                    'Adding package %s via network.',
-                    $package
+                    'Adding external package %s via network.',
+                    $dependency->key()
                 )
             );
             ob_start();
@@ -426,23 +414,51 @@ class Components_Pear_InstallLocation
                 $installer->doInstall(
                     'install',
                     array(
-                        'channel' => $channel,
+                        'channel' => $dependency->channel(),
                     ),
-                    array($package)
+                    array($dependency->name())
                 )
             );
             $this->_output->pear(ob_get_clean());
         }
         $this->_output->ok(
             sprintf(
-                'Successfully added package %s/%s%s',
-                $channel,
-                $package,
+                'Successfully added external package %s%s',
+                $dependency->key(),
                 $reason
             )
         );
     }
 
+    /**
+     * Identify any dependencies we need when installing via downloaded packages.
+     *
+     * @param Components_Pear_Dependency $dependency The package dependency.
+     * @param string                     $include    Optional dependencies to include.
+     * @param string                     $exclude    Optional dependencies to exclude.
+     *
+     * @return array The added packages.
+     */
+    public function identifyRequiredLocalDependencies(
+        Components_Pear_Dependency $dependency, $include, $exclude
+    ) {
+        if ($local = $this->_identifyMatchingLocalPackage($dependency->name())) {
+            $this->_checkSetup();
+            return $this->_factory
+                ->createTgzPackageForInstallLocation($local, $this)
+                ->getDependencyHelper()
+                ->listExternalDependencies($include, $exclude);
+        }
+        return array();
+    }
+
+    /**
+     * Identify a dependency that is available via a downloaded *.tgz archive.
+     *
+     * @param string $package The package name.
+     *
+     * @return string A path to the local archive if it was found.
+     */
     private function _identifyMatchingLocalPackage($package)
     {
         if (empty($this->_source_directory)) {
@@ -455,4 +471,19 @@ class Components_Pear_InstallLocation
         }
         return false;
     }
+
+    /**
+     * Validate that the required instance parameters are set.
+     *
+     * @return NULL
+     *
+     * @throws Components_Exception In case some settings are missing.
+     */
+    private function _checkSetup()
+    {
+        if ($this->_factory === null) {
+            throw new Components_Exception('You need to set the factory, the environment and the path to the package file first!');
+        }
+    }
+
 }

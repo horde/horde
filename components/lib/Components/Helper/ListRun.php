@@ -37,6 +37,13 @@ class Components_Helper_ListRun
     private $_output;
 
     /**
+     * The tree for this run.
+     *
+     * @var Components_Helper_Tree
+     */
+    private $_tree;
+
+    /**
      * The list of dependencies already displayed.
      *
      * @var array
@@ -53,18 +60,43 @@ class Components_Helper_ListRun
     /**
      * Constructor.
      *
-     * @param Component_Output $output The output handler.
+     * @param Component_Output       $output The output handler.
+     * @param Components_Helper_Tree $tree   The tree for this run.
      */
-    public function __construct(Components_Output $output)
-    {
+    public function __construct(
+        Components_Output $output,
+        Components_Helper_Tree $tree
+    ) {
         $this->_output = $output;
+        $this->_tree = $tree;
         if ($this->_output->isVerbose()) {
-            $output->bold('List contains optional dependencies!');
+            $output->bold('The list contains optional dependencies!');
         } else {
-            $output->bold('List only contains required dependencies!');
+            $output->bold('The list only contains required dependencies!');
         }
         $output->blue('Dependencies on PEAR itself are not displayed.');
         $output->bold('');
+    }
+
+    /**
+     * List the dependency tree for this package.
+     *
+     * @param Components_Pear_Package $package The package that should be installed.
+     * @param int                     $level  The current list level.
+     * @param string                  $parent The name of the parent element.
+     *
+     * @return NULL
+     */
+    public function listTree(
+        Components_Pear_Package $package,
+        $level = 0,
+        $parent = '',
+        $required = true
+    ) {
+        if ($this->_listHordePackage($package, $level, $parent, $required)) {
+            $this->_listExternalPackages($package->getDependencyHelper(), $level + 1);
+            $this->_listHordeDependencies($package->getDependencyHelper(), $level + 1);
+        }
     }
 
     /**
@@ -73,20 +105,15 @@ class Components_Helper_ListRun
      * @param Components_Pear_Package $package The package that should be listed.
      * @param int                     $level   The current list level.
      * @param string                  $parent  Name of the parent element.
-     * @param boolean                 $reqired Is this a required element?
      *
      * @return boolean True in case listing should continue.
      */
-    public function listHordePackage(
+    private function _listHordePackage(
         Components_Pear_Package $package,
         $level,
-        $parent,
-        $required
+        $parent
     ) {
-        if (!$this->_output->isVerbose() && !$required) {
-            return false;
-        }
-        $key = $package->getName() . '@pear.horde.org';
+        $key = $package->getName() . '/pear.horde.org';
         if (!$this->_output->isQuiet()) {
             if (in_array($key, array_keys($this->_displayed_dependencies))) {
                 if (empty($this->_displayed_dependencies[$key])) {
@@ -123,37 +150,66 @@ class Components_Helper_ListRun
     }
 
     /**
-     * List an external package as dependency.
+     * List the horde dependencies.
      *
-     * @param array $dependency The dependency that should be listed.
-     * @param int   $level     The current list level.
+     * @param Components_Pear_Dependencies $dependencies The package dependencies.
+     * @param int                          $level        The current list level.
      *
      * @return NULL
      */
-    public function listExternalPackage(array $dependency, $level)
-    {
-        // Showing PEAR does not make much sense.
-        if ($dependency['name'] == 'PEAR'
-            && $dependency['channel'] == 'pear.php.net') {
-            return;
-        }
-
-        $key = $dependency['name'] . '@' . $dependency['channel'];
-        if (!$this->_output->isQuiet()) {
-            $this->_output->yellow(
-                Horde_String::pad(
-                    $this->_listLevel($level) . '|_' 
-                    . $dependency['name'], 40
-                )
-                . Horde_String::pad(' [' . $dependency['channel'] . ']', 20)
-                . ' (EXTERNAL) ***STOP***'
-            );
+    private function _listHordeDependencies(
+        Components_Pear_Dependencies $dependencies,
+        $level
+    ) {
+        if ($this->_output->isVerbose()) {
+            $list = $dependencies->listAllHordeDependencies();
         } else {
-            $this->_quiet_list[$key] = array(
-                'channel' => $dependency['channel'],
-                'name' => $dependency['name'],
-                'color' => 'yellow'
-            );
+            $list = $dependencies->listRequiredHordeDependencies();
+        }
+        foreach ($this->_tree->getChildren($list) as $child) {
+            $this->listTree($child, $level, $child->getName());
+        }
+    }
+
+    /**
+     * List an external package as dependency.
+     *
+     * @param Components_Pear_Dependencies $dependencies The package dependencies.
+     * @param int                          $level        The current list level.
+     *
+     * @return NULL
+     */
+    private function _listExternalPackages(
+        Components_Pear_Dependencies $dependencies,
+        $level
+    ) {
+        if ($this->_output->isVerbose()) {
+            $list = $dependencies->listAllExternalDependencies();
+        } else {
+            $list = $dependencies->listRequiredExternalDependencies();
+        }
+        foreach ($list as $dependency) {
+            if ($dependency->isPearBase()) {
+                // Showing PEAR does not make much sense.
+                continue;
+            }
+
+            if (!$this->_output->isQuiet()) {
+                $this->_output->yellow(
+                    Horde_String::pad(
+                        $this->_listLevel($level) . '|_' 
+                        . $dependency->name(), 40
+                    )
+                    . Horde_String::pad(' [' . $dependency->channelOrType() . ']', 20)
+                    . ' (EXTERNAL) ***STOP***'
+                );
+            } else {
+                $this->_quiet_list[$dependency->key()] = array(
+                    'channel' => $dependency->channelOrType(),
+                    'name' => $dependency->name(),
+                    'color' => 'yellow'
+                );
+            }
         }
     }
 

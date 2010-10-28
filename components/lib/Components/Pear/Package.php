@@ -56,6 +56,13 @@ class Components_Pear_Package
     private $_package_xml_path;
 
     /**
+     * The path to the package *.tgz file.
+     *
+     * @param string
+     */
+    private $_package_tgz_path;
+
+    /**
      * The package representation.
      *
      * @param PEAR_PackageFile_v2
@@ -129,6 +136,31 @@ class Components_Pear_Package
     }
 
     /**
+     * Return the path to the package.xml.
+     *
+     * @return string
+     */
+    public function getPackageXml()
+    {
+        if ($this->_package_xml_path === null) {
+            throw new Component_Exception('You need to set the package.xml path first!');
+        }
+        return $this->_package_xml_path;
+    }
+
+    /**
+     * Define the package to work on.
+     *
+     * @param string $package_tgz_path Path to the *.tgz file.
+     *
+     * @return NULL
+     */
+    public function setPackageTgz($package_tgz_path)
+    {
+        $this->_package_tgz_path = $package_tgz_path;
+    }
+
+    /**
      * Return the PEAR Package representation.
      *
      * @return PEAR_PackageFile
@@ -137,10 +169,17 @@ class Components_Pear_Package
     {
         $this->_checkSetup();
         if ($this->_package_file === null) {
-            $this->_package_file = $this->_factory->getPackageFile(
-                $this->_package_xml_path,
-                $this->getEnvironment()
-            );
+            if (!empty($this->_package_xml_path)) {
+                $this->_package_file = $this->_factory->getPackageFile(
+                    $this->_package_xml_path,
+                    $this->getEnvironment()
+                );
+            } else {
+                $this->_package_file = $this->_factory->getPackageFileFromTgz(
+                    $this->_package_tgz_path,
+                    $this->getEnvironment()
+                );
+            }
         }
         return $this->_package_file;
     }
@@ -172,7 +211,8 @@ class Components_Pear_Package
     private function _checkSetup()
     {
         if ($this->_environment === null
-            || $this->_package_xml_path === null
+            || ($this->_package_xml_path === null
+                && $this->_package_tgz_path === null)
             || $this->_factory === null) {
             throw new Components_Exception('You need to set the factory, the environment and the path to the package file first!');
         }
@@ -186,6 +226,16 @@ class Components_Pear_Package
     public function getName()
     {
         return $this->_getPackageFile()->getName();
+    }
+
+    /**
+     * Return the channel for the package.
+     *
+     * @return string The package channel.
+     */
+    public function getChannel()
+    {
+        return $this->_getPackageFile()->getChannel();
     }
 
     /**
@@ -406,53 +456,25 @@ class Components_Pear_Package
     }    
 
     /**
-     * Return all channels required for this package and its dependencies.
+     * Return the dependencies for the package.
      *
-     * @return array The list of channels.
+     * @return array The list of dependencies.
      */
-    public function listAllRequiredChannels()
+    public function getDependencies()
     {
-        $dependencies = array();
-        foreach ($this->_getPackageFile()->getDeps() as $dependency) {
-            if (isset($dependency['channel'])) {
-                $dependencies[] = $dependency['channel'];
-            }
-        }
-        $dependencies[] = $this->_getPackageFile()->getChannel();
-        return array_unique($dependencies);
-    }    
+        return $this->_getPackageFile()->getDeps();
+    }
 
     /**
-     * Return all channels required for this package and its dependencies.
+     * Return the dependency helper for the package.
      *
-     * @return array The list of channels.
+     * @return Components_Pear_Dependencies The dependency helper.
      */
-    public function listAllExternalDependencies()
+    public function getDependencyHelper()
     {
-        $dependencies = array();
-        foreach ($this->_getPackageFile()->getDeps() as $dependency) {
-            if (isset($dependency['channel']) && $dependency['channel'] != 'pear.horde.org') {
-                $dependencies[] = $dependency;
-            }
-        }
-        return $dependencies;
-    }    
-
-    /**
-     * Return all channels required for this package and its dependencies.
-     *
-     * @return array The list of channels.
-     */
-    public function listAllHordeDependencies()
-    {
-        $dependencies = array();
-        foreach ($this->_getPackageFile()->getDeps() as $dependency) {
-            if (isset($dependency['channel']) && $dependency['channel'] == 'pear.horde.org') {
-                $dependencies[] = $dependency;
-            }
-        }
-        return $dependencies;
-    }    
+        $this->_checkSetup();
+        return $this->_factory->createDependencies($this);
+    }
 
     /**
      * Generate a snapshot of the package using the provided version number.

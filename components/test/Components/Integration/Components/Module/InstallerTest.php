@@ -48,6 +48,91 @@ extends Components_StoryTestCase
     /**
      * @scenario
      */
+    public function theTheIOptionListsThePackagesToBeInstalledWhenPretendHasBeenSelected()
+    {
+        $this->given('the default Components setup')
+            ->when('calling the package with the install option, the pretend option and a path to a Horde framework component')
+            ->then('the dummy PEAR package will be listed')
+            ->and('the non-Horde dependencies of the component would be installed')
+            ->and('the Horde dependencies of the component would be installed')
+            ->and('the component will be listed');
+    }
+
+    /**
+     * @scenario
+     */
+    public function theTheIOptionAllowsToAvoidIncludingAllOptionalPackages()
+    {
+        $this->given('the default Components setup')
+            ->when('calling the package with the install option, a path to a Horde framework component, and the following include/exclude options', '', '')
+            ->then('the Optional package will not be listed')
+            ->and('the Console_Getopt package will not be listed')
+            ->and('the PECL will package will not be listed');
+    }
+
+    /**
+     * @scenario
+     */
+    public function theTheIOptionAllowsToIncludeSpecificChannels()
+    {
+        $this->given('the default Components setup')
+            ->when('calling the package with the install option, a path to a Horde framework component, and the following include/exclude options', 'channel:pear.php.net,channel:pear.horde.org', '')
+            ->then('the Optional package will be listed')
+            ->and('the Console_Getopt package will be listed')
+            ->and('the PECL will package will not be listed');
+    }
+
+    /**
+     * @scenario
+     */
+    public function theTheIOptionAllowsToIncludeSpecificPackages()
+    {
+        $this->given('the default Components setup')
+            ->when('calling the package with the install option, a path to a Horde framework component, and the following include/exclude options', 'Console_Getopt,Optional', '')
+            ->then('the Optional package will be listed')
+            ->and('the Console_Getopt package will be listed')
+            ->and('the PECL will package will not be listed');
+    }
+
+    /**
+     * @scenario
+     */
+    public function theTheIOptionAllowsToExcludeAllOptionalPackages()
+    {
+        $this->given('the default Components setup')
+            ->when('calling the package with the install option, a path to a Horde framework component, and the following include/exclude options', 'channel:pear.horde.org,channel:pear.php.net', 'ALL')
+            ->then('the Optional package will not be listed')
+            ->and('the Console_Getopt package will not be listed')
+            ->and('the PECL will package will not be listed');
+    }
+
+    /**
+     * @scenario
+     */
+    public function theTheIOptionAllowsToExcludeSpecificChannels()
+    {
+        $this->given('the default Components setup')
+            ->when('calling the package with the install option, a path to a Horde framework component, and the following include/exclude options', 'channel:pear.php.net,channel:pear.horde.org', 'channel:pecl.php.net')
+            ->then('the Optional package will be listed')
+            ->and('the Console_Getopt package will be listed')
+            ->and('the PECL will package will not be listed');
+    }
+
+    /**
+     * @scenario
+     */
+    public function theTheIOptionAllowsToExcludeSpecificPackages()
+    {
+        $this->given('the default Components setup')
+            ->when('calling the package with the install option, a path to a Horde framework component, and the following include/exclude options', 'ALL', 'pecl.php.net/PECL')
+            ->then('the Optional package will be listed')
+            ->and('the Console_Getopt package will be listed')
+            ->and('the PECL will package will not be listed');
+    }
+
+    /**
+     * @scenario
+     */
     public function theTheIOptionInstallsThePackageFromTheCurrentTree()
     {
         $this->given('the default Components setup')

@@ -52,7 +52,7 @@ extends Components_StoryTestCase
     {
         $this->given('the default Components setup')
             ->when('calling the package with the list dependencies option and a path to a Horde framework component')
-            ->then('the non-Horde dependencies of the component will be listed')
+            ->then('the non-Horde dependencies of the component will not be listed')
             ->and('the Horde dependencies of the component will be listed');
     }
 
@@ -63,7 +63,7 @@ extends Components_StoryTestCase
     {
         $this->given('the default Components setup')
             ->when('calling the package with the list dependencies option, the nocolor option and a path to a Horde framework component')
-            ->then('the non-Horde dependencies of the component will be listed')
+            ->then('the non-Horde dependencies of the component will not be listed')
             ->and('the Horde dependencies of the component will be listed');
     }
 
@@ -85,7 +85,7 @@ extends Components_StoryTestCase
     {
         $this->given('the default Components setup')
             ->when('calling the package with the quiet list dependencies option and a path to a Horde framework component')
-            ->then('the non-Horde dependencies of the component will be listed')
+            ->then('the non-Horde dependencies of the component will not be listed')
             ->and('the Horde dependencies of the component will be listed');
     }
 }

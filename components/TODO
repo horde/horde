@@ -6,8 +6,6 @@
 
  - Add module for generating component documentation.
 
- - Allow activating/deactivating optional install elements
-
  - Allow handling various Horde package locations (horde/, horde/framework/, Horde_SQL -> horde/framework/SQL)
 
  - Allow linking files during the installation.
