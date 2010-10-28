@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2010-10-22</date>
- <time>19:02:59</time>
+ <date>2010-10-28</date>
+ <time>12:12:33</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -335,9 +335,12 @@
    <dir name="test">
     <dir name="Horde">
      <dir name="Data">
-      <file name="csv_importFile_01.phpt" role="test" />
-      <file name="simple_dos.csv" role="test" />
-      <file name="simple_unix.csv" role="test" />
+      <dir name="fixtures">
+       <file name="simple_dos.csv" role="test" />
+       <file name="simple_unix.csv" role="test" />
+      </dir> <!-- /test/Horde/Data/fixtures -->
+      <file name="AllTests.php" role="test" />
+      <file name="CsvTest.php" role="test" />
      </dir> <!-- /test/Horde/Data -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -482,9 +485,10 @@
    <install as="locale/zh_CN/LC_MESSAGES/Horde_Data.po" name="locale/zh_CN/LC_MESSAGES/Horde_Data.po" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Data.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Data.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Data.po" name="locale/zh_TW/LC_MESSAGES/Horde_Data.po" />
-   <install as="Horde/Data/csv_importFile_01.phpt" name="test/Horde/Data/csv_importFile_01.phpt" />
-   <install as="Horde/Data/simple_dos.csv" name="test/Horde/Data/simple_dos.csv" />
-   <install as="Horde/Data/simple_unix.csv" name="test/Horde/Data/simple_unix.csv" />
+   <install as="Horde/Data/AllTests.php" name="test/Horde/Data/AllTests.php" />
+   <install as="Horde/Data/CsvTest.php" name="test/Horde/Data/CsvTest.php" />
+   <install as="Horde/Data/fixtures/simple_dos.csv" name="test/Horde/Data/fixtures/simple_dos.csv" />
+   <install as="Horde/Data/fixtures/simple_unix.csv" name="test/Horde/Data/fixtures/simple_unix.csv" />
   </filelist>
  </phprelease>
  <changelog>
@@ -543,7 +547,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2010-10-22</date>
+   <date>2010-10-28</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Initial Horde 4 package.
