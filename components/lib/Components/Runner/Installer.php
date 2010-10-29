@@ -76,12 +76,16 @@ class Components_Runner_Installer
         if (!$environment) {
             $environment = $options['install'];
         }
+        if (empty($options['horde_dir'])) {
+            $options['horde_dir'] = $environment . DIRECTORY_SEPARATOR . 'horde';
+        }
         $arguments = $this->_config->getArguments();
         $tree = $this->_factory
             ->createTreeHelper(
                 $environment, realpath($arguments[0]), $options
             );
         $tree->getEnvironment()->provideChannel('pear.horde.org');
+        $tree->getEnvironment()->getPearConfig()->set('horde_dir', $options['horde_dir'], 'user', 'pear.horde.org');
         $tree->installTreeInEnvironment(
             realpath($arguments[0]) . DIRECTORY_SEPARATOR . 'package.xml',
             $this->_output,

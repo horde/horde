@@ -51,6 +51,13 @@ class Components_Helper_InstallationRun
     private $_output;
 
     /**
+     * The options for this run.
+     *
+     * @param array
+     */
+    private $_options;
+
+    /**
      * The list of channels already installed.
      *
      * @var array
@@ -270,9 +277,15 @@ class Components_Helper_InstallationRun
     private function _installHordePackageOnce($package_file, $reason = '')
     {
         if (empty($this->_options['pretend'])) {
-            $this->_environment->addPackageFromSource(
-                $package_file, $reason
-            );
+            if (empty($this->_options['symlink'])) {
+                $this->_environment->addPackageFromSource(
+                    $package_file, $reason
+                );
+            } else {
+                $this->_environment->linkPackageFromSource(
+                    $package_file, $reason
+                );
+            }
         } else {
             $this->_output->ok(
                 sprintf(

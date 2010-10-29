@@ -370,6 +370,86 @@ class Components_Pear_InstallLocation
     }
 
     /**
+     * Add a package based on a source directory.
+     *
+     * @param string $package The path to the package.xml in the source directory.
+     * @param string $reason  Optional reason for adding the package.
+     *
+     * @return NULL
+     */
+    public function linkPackageFromSource($package, $reason = '')
+    {
+        $this->_output->ok(
+            sprintf(
+                'About to symlink package %s%s',
+                $package,
+                $reason
+            )
+        );
+
+        $hordeDir = $this->getPearConfig()->get('horde_dir');
+        $destDir = $this->getPearConfig()->get('php_dir');
+
+        ob_start();
+        $pkg = $this->_factory->createPackageForEnvironment($package, $this);
+        $dir = dirname($package);
+        foreach ($pkg->getInstallationFilelist() as $file) {
+            $orig = realpath($dir . '/' . $file['attribs']['name']);
+            if (empty($orig)) {
+                $this->_output->warn('Install file does not seem to exist: ' . $dir . '/' . $file['attribs']['name']);
+                continue;
+            }
+
+            switch ($file['attribs']['role']) {
+            case 'horde':
+                if (isset($file['attribs']['install-as'])) {
+                    $dest = $hordeDir . '/' . $file['attribs']['install-as'];
+                } else {
+                    $this->_output->warn('Could not determine install directory (role "horde") for ' . $hordeDir);
+                    continue;
+                }
+                break;
+
+            case 'php':
+                if (isset($file['attribs']['install-as'])) {
+                    $dest = $destDir . '/' . $file['attribs']['install-as'];
+                } elseif (isset($file['attribs']['baseinstalldir'])) {
+                    $dest = $destDir . $file['attribs']['baseinstalldir'] . '/' . $file['attribs']['name'];
+                } else {
+                    $dest = $destDir . '/' . $file['attribs']['name'];
+                }
+                break;
+
+            default:
+                $dest = null;
+                break;
+            }
+
+            if (!is_null($dest)) {
+                if (file_exists($dest)) {
+                    @unlink($dest);
+                } elseif (!file_exists(dirname($dest))) {
+                    @mkdir(dirname($dest), 0777, true);
+                }
+
+                print 'SYMLINK: ' . $orig . ' -> ' . $dest . "\n";
+                if (!symlink($orig, $dest)) {
+                    $this->_output->warn('Could not link ' . $orig . '.');
+                }
+            }
+        }
+        $this->_output->pear(ob_get_clean());
+
+        $this->_output->ok(
+            sprintf(
+                'Successfully symlinked package %s%s',
+                $package,
+                $reason
+            )
+        );
+    }
+
+    /**
      * Add an external dependency based on a package name or package tarball.
      *
      * @param Components_Pear_Dependency $dependency The package dependency.

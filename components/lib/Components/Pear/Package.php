@@ -279,6 +279,16 @@ class Components_Pear_Package
     }
 
     /**
+     * Return the list of files that should be installed for this package.
+     *
+     * @return array The file list.
+     */
+    public function getInstallationFilelist()
+    {
+        return $this->_getPackageFile()->getInstallationFilelist();
+    }
+
+    /**
      * Update the content listing of the provided package.
      *
      * @param PEAR_PackageFileManager2 $package The package to update.

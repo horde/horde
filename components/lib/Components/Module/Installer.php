@@ -110,6 +110,22 @@ extends Components_Module_Base
                     'help'   => 'Just indicate what would be installed.',
                 )
             ),
+            new Horde_Argv_Option(
+                '-s',
+                '--symlink',
+                array(
+                    'action' => 'store_true',
+                    'help'   => 'Symlink the files from the source repository rather than copying them to the install location. This is intended for the development mode where you want to have your edits to have a direct effect on your installation while still retaining the possibility of commiting to your repository.',
+                )
+            ),
+            new Horde_Argv_Option(
+                '-H',
+                '--horde-dir',
+                array(
+                    'action' => 'store',
+                    'help'   => 'The location of the horde installation directory. The default will be the INSTALL/horde directory',
+                )
+            ),
         );
     }
 
