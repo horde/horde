@@ -638,6 +638,7 @@ div.mimeStatusMessage, div.mimePartInfo {
 }
 
 .mimeHeadersPrint {
+    border-color: black;
     /* Must be pixel size to properly work with Mozilla on print page. */
     font-size: 12px;
 }
