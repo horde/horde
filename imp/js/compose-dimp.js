@@ -766,7 +766,7 @@ var DimpCompose = {
 
     resizeMsgArea: function()
     {
-        var mah, rows,
+        var lh, mah, rows,
             cmp = $('composeMessageParent'),
             de = document.documentElement,
             msg = $('composeMessage'),
@@ -799,10 +799,14 @@ var DimpCompose = {
 
             this.rte.resize('99%', mah - pad - 1, false);
         } else {
-            /* Logic: Determine the size of a given textarea row, divide that
-             * size by the available height, round down to the lowest integer
-             * row, and resize the textarea. */
-            rows = parseInt(mah / (msg.clientHeight / msg.readAttribute('rows')), 10);
+            /* If the line-height CSS value exists, use that. */
+            if (!(lh = msg.getStyle('line-height'))) {
+                /* Logic: Determine the size of a given textarea row, divide
+                 * that size by the available height, round down to the lowest
+                 * integer row, and resize the textarea. */
+                lh = msg.clientHeight / msg.readAttribute('rows');
+            }
+            rows = parseInt(mah / parseInt(lh, 10), 10);
             if (!isNaN(rows)) {
                 /* Due to the funky (broken) way some browsers (FF) count
                  * rows, we need to overshoot row estimate and increment
