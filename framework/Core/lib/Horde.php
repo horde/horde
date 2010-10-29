@@ -765,19 +765,21 @@ HTML;
                 : $conf['server']['name'];
             $file = $config_dir . substr($config_file, 0, -4) . '-' . $server_name . '.php';
 
-            self::startBuffer();
-            $success = (is_null($var_names) && !$show_output)
-                ? include_once $file
-                : include $file;
-            $output = self::endBuffer();
+            if (file_exists($file)) {
+                self::startBuffer();
+                $success = (is_null($var_names) && !$show_output)
+                    ? include_once $file
+                    : include $file;
+                $output = self::endBuffer();
 
-            if (!$success) {
-                throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $file));
-            } elseif (!empty($output) && !$show_output) {
-                throw new Horde_Exception(sprintf('Failed to import configuration file "%s": ', $file) . strip_tags($output));
+                if (!$success) {
+                    throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $file));
+                } elseif (!empty($output) && !$show_output) {
+                    throw new Horde_Exception(sprintf('Failed to import configuration file "%s": ', $file) . strip_tags($output));
+                }
+
+                $was_included = true;
             }
-
-            $was_included = true;
         }
 
         // Return an error if neither main or vhosted versions of the config
