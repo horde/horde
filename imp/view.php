@@ -110,7 +110,7 @@ case 'download_render':
         if ($contents->canDisplay($vars->id, IMP_Contents::RENDER_RAW)) {
             $render = $contents->renderMIMEPart($vars->id, IMP_Contents::RENDER_RAW);
             reset($render);
-            $mime->setContents($render[key($render)]['data']);
+            $mime->setContents($render[key($render)]['data'], array('encoding' => 'binary'));
         }
 
         if (!$name = $mime->getName(true)) {
