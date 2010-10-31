@@ -149,7 +149,7 @@ class Turba_Application extends Horde_Registry_Application
     {
         require TURBA_BASE . '/config/backends.php';
 
-        $parms = array(
+        $perms = array(
             'sources' => array(
                 'title' => _("Sources")
             )
