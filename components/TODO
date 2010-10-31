@@ -7,6 +7,9 @@
  - Allow filtering (see http://github.com/horde/horde/commit/404e8d1ea7c0bf99373aec2ce7f2534a442149b3)
    Potentially check with git if the file is relevant or not.
 
+ - Allow channel dependency detection with external/local package
+   dependencies.
+
  - Fix dependency listing with the --optional=yes/no flag
 
  - Allow downloading documentation from the wiki.

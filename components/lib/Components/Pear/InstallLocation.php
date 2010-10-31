@@ -189,10 +189,28 @@ class Components_Pear_InstallLocation
             );
         }
         ob_start();
-        $command_config = new PEAR_Command_Config(new PEAR_Frontend_CLI(), new stdClass);
-        $command_config->doConfigCreate(
-            'config-create', array(), array($this->_base_directory, $this->_config_file)
+        $config = Components_Exception_Pear::catchError(
+            PEAR_Config::singleton($this->_config_file, '#no#system#config#', false)
         );
+        $root = dirname($this->_config_file);
+        $config->noRegistry();
+        $config->set('php_dir', "$root/pear/php", 'user');
+        $config->set('data_dir', "$root/pear/data");
+        $config->set('www_dir', "$root/pear/www");
+        $config->set('cfg_dir', "$root/pear/cfg");
+        $config->set('ext_dir', "$root/pear/ext");
+        $config->set('doc_dir', "$root/pear/docs");
+        $config->set('test_dir', "$root/pear/tests");
+        $config->set('cache_dir', "$root/pear/cache");
+        $config->set('download_dir', "$root/pear/download");
+        $config->set('temp_dir', "$root/pear/temp");
+        $config->set('bin_dir', "$root/pear");
+        $config->writeConfigFile();
+        $config->_noRegistry = false;
+        $config->_registry['default'] = new PEAR_Registry("$root/pear/php");
+        $config->_noRegistry = true;
+        mkdir("$root/pear");
+        mkdir("$root/pear/php");
         $this->_output->pear(ob_get_clean());
         $this->_output->ok(
             sprintf(
@@ -387,16 +405,17 @@ class Components_Pear_InstallLocation
             )
         );
 
-        $hordeDir = $this->getPearConfig()->get('horde_dir');
+        $hordeDir = $this->getPearConfig()->get('horde_dir', 'user', 'pear.horde.org');
         $destDir = $this->getPearConfig()->get('php_dir');
 
         ob_start();
+        $warnings = array();
         $pkg = $this->_factory->createPackageForEnvironment($package, $this);
         $dir = dirname($package);
         foreach ($pkg->getInstallationFilelist() as $file) {
             $orig = realpath($dir . '/' . $file['attribs']['name']);
             if (empty($orig)) {
-                $this->_output->warn('Install file does not seem to exist: ' . $dir . '/' . $file['attribs']['name']);
+                $warnings[] = 'Install file does not seem to exist: ' . $dir . '/' . $file['attribs']['name'];
                 continue;
             }
 
@@ -405,7 +424,7 @@ class Components_Pear_InstallLocation
                 if (isset($file['attribs']['install-as'])) {
                     $dest = $hordeDir . '/' . $file['attribs']['install-as'];
                 } else {
-                    $this->_output->warn('Could not determine install directory (role "horde") for ' . $hordeDir);
+                    $warnings[] = 'Could not determine install directory (role "horde") for ' . $hordeDir;
                     continue;
                 }
                 break;
@@ -434,11 +453,15 @@ class Components_Pear_InstallLocation
 
                 print 'SYMLINK: ' . $orig . ' -> ' . $dest . "\n";
                 if (!symlink($orig, $dest)) {
-                    $this->_output->warn('Could not link ' . $orig . '.');
+                    $warnings[] = 'Could not link ' . $orig . '.';
                 }
             }
         }
         $this->_output->pear(ob_get_clean());
+
+        foreach ($warnings as $warning) {
+            $this->_output->warn($warning);
+        }
 
         $this->_output->ok(
             sprintf(
@@ -471,6 +494,8 @@ class Components_Pear_InstallLocation
             )
         );
         if ($local = $this->_identifyMatchingLocalPackage($dependency->name())) {
+            $pkg = $this->_factory->getPackageFileFromTgz($local, $this);
+
             ob_start();
             Components_Exception_Pear::catchError(
                 $installer->doInstall(
@@ -514,22 +539,19 @@ class Components_Pear_InstallLocation
      * Identify any dependencies we need when installing via downloaded packages.
      *
      * @param Components_Pear_Dependency $dependency The package dependency.
-     * @param string                     $include    Optional dependencies to include.
-     * @param string                     $exclude    Optional dependencies to exclude.
      *
-     * @return array The added packages.
+     * @return Components_Pear_Dependencies The dependency helper for the local package.
      */
     public function identifyRequiredLocalDependencies(
-        Components_Pear_Dependency $dependency, $include, $exclude
+        Components_Pear_Dependency $dependency
     ) {
         if ($local = $this->_identifyMatchingLocalPackage($dependency->name())) {
             $this->_checkSetup();
             return $this->_factory
                 ->createTgzPackageForInstallLocation($local, $this)
-                ->getDependencyHelper()
-                ->listExternalDependencies($include, $exclude);
+                ->getDependencyHelper();
         }
-        return array();
+        return false;
     }
 
     /**

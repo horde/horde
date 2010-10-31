@@ -77,7 +77,7 @@ class Components_Runner_Installer
             $environment = $options['install'];
         }
         if (empty($options['horde_dir'])) {
-            $options['horde_dir'] = $environment . DIRECTORY_SEPARATOR . 'horde';
+            $options['horde_dir'] = dirname($environment) . DIRECTORY_SEPARATOR . 'horde';
         }
         $arguments = $this->_config->getArguments();
         $tree = $this->_factory
@@ -85,7 +85,10 @@ class Components_Runner_Installer
                 $environment, realpath($arguments[0]), $options
             );
         $tree->getEnvironment()->provideChannel('pear.horde.org');
+        $tree->getEnvironment()->addPackageFromSource($tree->getRoot()->getPackageXml('Role'));
+        $tree->getEnvironment()->getPearConfig()->setChannels(array('pear.horde.org', true));
         $tree->getEnvironment()->getPearConfig()->set('horde_dir', $options['horde_dir'], 'user', 'pear.horde.org');
+        Components_Exception_Pear::catchError($tree->getEnvironment()->getPearConfig()->store());
         $tree->installTreeInEnvironment(
             realpath($arguments[0]) . DIRECTORY_SEPARATOR . 'package.xml',
             $this->_output,

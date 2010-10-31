@@ -203,11 +203,26 @@ class Components_Helper_InstallationRun
             if (empty($to_add)) {
                 $to_add = array($dependency->key());
             }
-            foreach (
-                $this->_environment->identifyRequiredLocalDependencies(
-                    $dependency, $this->_options['include'], $this->_options['exclude']
-                ) as $required
-            ) {
+            $dependencies = $this->_environment->identifyRequiredLocalDependencies(
+                $dependency
+            );
+            /**
+             * @todo This section won't really work as reading the package.xml
+             * from an archive fails if the channels are unknown. So we never
+             * get here. Sigh...
+             */
+            if ($dependencies) {
+                $this->_installChannels(
+                    $dependencies, sprintf(' [required by %s]', $dependency->name())
+                );
+                $list = $dependencies->listExternalDependencies(
+                    $this->_options['include'], $this->_options['exclude']
+                );
+            } else {
+                $list = array();
+            }
+
+            foreach ($list as $required) {
                 if (in_array($required->key(), $to_add)) {
                     continue;
                 }

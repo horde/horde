@@ -148,4 +148,14 @@ class Components_Helper_Tree
     {
         return $this->_environment;
     }
+
+    /**
+     * Return the root handler for the horde repository.
+     *
+     * @return Components_Helper_Root The root handler.
+     */
+    public function getRoot()
+    {
+        return $this->_root;
+    }
 }
