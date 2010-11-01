@@ -334,4 +334,18 @@ class Components_Pear_Factory
         $dependencies->setPackage($package);
         return $dependencies;
     }
+
+    /**
+     * Create a package content helper.
+     *
+     * @param PEAR_PackageFileManager2 $package The package.
+     *
+     * @return Components_Pear_Package_Contents The contents helper.
+     */
+    public function createContents(PEAR_PackageFileManager2 $package)
+    {
+        $contents = $this->_dependencies->createInstance('Components_Pear_Package_Contents');
+        $contents->setPackage($package);
+        return $contents;
+    }
 }
