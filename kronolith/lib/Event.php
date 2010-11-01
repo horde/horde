@@ -365,7 +365,13 @@ abstract class Kronolith_Event
             }
             return $this->_tags;
         case 'geoLocation':
-            return $this->getGeolocation();
+            if (!isset($this->_geoLocation) &&
+                ($gDriver = Kronolith::getGeoDriver())) {
+                try {
+                    $this->_geoLocation = $gDriver->getLocation($this->id);
+                } catch (Exception $e) {}
+            }
+            return $this->_geoLocation;
         }
 
         $trace = debug_backtrace();
@@ -2341,13 +2347,13 @@ abstract class Kronolith_Event
         }
 
         // Tags.
-        $this->_tags = Horde_Util::getFormData('tags', $this->tags);
+        $this->tags = Horde_Util::getFormData('tags', $this->tags);
 
         // Geolocation
         if (Horde_Util::getFormData('lat') && Horde_Util::getFormData('lon')) {
-            $this->setGeoLocation(array('lat' => Horde_Util::getFormData('lat'),
-                                        'lon' => Horde_Util::getFormData('lon'),
-                                        'zoom' => Horde_Util::getFormData('zoom')));
+            $this->geoLocation = array('lat' => Horde_Util::getFormData('lat'),
+                                       'lon' => Horde_Util::getFormData('lon'),
+                                       'zoom' => Horde_Util::getFormData('zoom'));
         }
 
         $this->initialized = true;
@@ -2769,34 +2775,6 @@ abstract class Kronolith_Event
         }
 
         return 'kronolithEvent';
-    }
-
-    /**
-     * Setter for geo data
-     *
-     * @param array $data  An array of lat/lng data.
-     */
-    public function setGeoLocation($data)
-    {
-        $this->_geoLocation = $data;
-    }
-
-    /**
-     * Getter for geo data
-     *
-     * @return array  An array of lat/lng data.
-     */
-    public function getGeolocation()
-    {
-        /* Get geolocation data */
-        if (!isset($this->_geoLocation) &&
-            ($gDriver = Kronolith::getGeoDriver())) {
-            try {
-                $this->_geoLocation = $gDriver->getLocation($this->id);
-            } catch (Exception $e) {}
-        }
-
-        return $this->_geoLocation;
     }
 
     private function _formIDEncode($id)
