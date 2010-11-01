@@ -153,8 +153,7 @@ case 'export':
                         $row['recur_interval'] = null;
                         $row['recur_data'] = null;
                     }
-                    $tags = $event->getTags();
-                    $row['tags'] = $tags ? implode(', ', $tags) : '';
+                    $row['tags'] = implode(', ', $event->tags);
                     $data[] = $row;
                 }
             }

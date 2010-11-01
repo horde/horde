@@ -39,7 +39,6 @@ class Kronolith_Event_Kolab extends Kronolith_Event
         $this->alarm = $alarm;
 
         parent::__construct($driver, $eventObject);
-        $this->_tags = Kronolith::getTagger()->getTags($this->uid, 'event');
     }
 
     /**

@@ -104,11 +104,7 @@ class Kronolith_View_EditEvent {
         }
 
         $event = &$this->event;
-
-        // Tags
-        $tagger = Kronolith::getTagger();
-        $tags = $tagger->getTags($event->uid, 'event');
-        $tags = implode(',', array_values($tags));
+        $tags = implode(',', array_values($event->tags));
 
         Horde_Core_Ui_JsCalendar::init(array(
             'full_weekdays' => true

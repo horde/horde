@@ -325,6 +325,7 @@ abstract class Kronolith_Event
         case 'span':
         case 'rowspan':
         case 'geoLocation':
+        case 'tags':
             $this->{'_' . $name} = $value;
             return;
         }
@@ -359,7 +360,10 @@ abstract class Kronolith_Event
         case 'rowspan':
             return $this->{'_' . $name};
         case 'tags':
-            return $this->getTags();
+            if (!isset($this->_tags)) {
+                $this->_tags = Kronolith::getTagger()->getTags($this->uid, 'event');
+            }
+            return $this->_tags;
         case 'geoLocation':
             return $this->getGeolocation();
         }
@@ -571,10 +575,7 @@ abstract class Kronolith_Event
             }
 
             // Tags
-            $tags = $this->tags;
-            if (is_array($tags)) {
-                $tags = implode(', ', $tags);
-            }
+            $tags = implode(', ', $this->tags);
             if (!empty($tags)) {
                 $vEvent->setAttribute('CATEGORIES', $tags);
             }
@@ -1210,10 +1211,7 @@ abstract class Kronolith_Event
         }
 
         /* Categories (Tags) */
-        $tags = $message->getCategories();
-        foreach ($tags as $tag) {
-            $this->tags[] = $tag;
-        }
+        $this->_tags = $message->getCategories();
 
         /* Flag that we are initialized */
         $this->initialized = true;
@@ -2771,30 +2769,6 @@ abstract class Kronolith_Event
         }
 
         return 'kronolithEvent';
-    }
-
-    /**
-     * Setter for tags
-     *
-     * @param array $tags  An array of tag_names
-     */
-    public function setTags($tags)
-    {
-        $this->_tags = $tags;
-    }
-
-    /**
-     * Getter for tags
-     *
-     * @return mixed  An array of tag_names, or false if tags were never set.
-     */
-    public function getTags()
-    {
-        if (!isset($this->_tags)) {
-            $this->_tags = Kronolith::getTagger()->getTags($this->uid, 'event');
-        }
-
-        return $this->_tags;
     }
 
     /**

@@ -279,7 +279,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         foreach ($events as $id) {
             $event = $this->getEvent($id);
             if (isset($tags) && !empty($tags[$event->uid])) {
-                $event->setTags($tags[$event->uid]);
+                $event->tags = $tags[$event->uid];
             }
             Kronolith::addEvents($results, $event, $startDate, $endDate,
                                  $showRecurrence, $json, $coverDates);
