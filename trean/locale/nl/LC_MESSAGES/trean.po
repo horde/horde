@@ -1,0 +1,838 @@
+# Dutch translations for Trean package.
+# Copyright 2005-2009 The Horde Project
+# This file is distributed under the same license as the Trean package.
+# Automatically generated, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Trean 0.1-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2005-05-23 13:05+0200\n"
+"PO-Revision-Date: 2005-05-24 14:55+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: data.php:153
+#, php-format
+msgid "%d Folders and %d Bookmarks imported."
+msgstr "%d Mappen en %d Bladwijzers geïmporteerd"
+
+#: templates/reports/http-status.inc:127
+#, php-format
+msgid "%s Bookmarks"
+msgstr "%s Bladwijzers"
+
+#: templates/browse/subcategories.inc:10
+#, php-format
+msgid "%s Categories"
+msgstr "%s Categorieën:"
+
+#: templates/reports/clicks.inc:49
+#, php-format
+msgid "%s Clicks"
+msgstr "%s keer geopend"
+
+#: reports.php:30
+#, fuzzy, php-format
+msgid "%s Response Codes"
+msgstr "Verantwoordelijke Gebruikers"
+
+#: scripts/upgrades/2005-03-15_move_to_horde_share.php:123 lib/base.php:61
+#, php-format
+msgid "%s's Bookmarks"
+msgstr "%s's Bladwijzers"
+
+#: edit.php:186
+#, php-format
+msgid "'%s' was not renamed: %s."
+msgstr "'%s' is niet hernoemd: %s."
+
+#: templates/reports/clicks.inc:47
+msgid "1 Click"
+msgstr "1 keer geopend"
+
+#: lib/Block/bookmarks.php:52 config/prefs.php.dist:33
+msgid "1 Line"
+msgstr "1 Regel"
+
+#: templates/reports/http-status.inc:59
+#, php-format
+msgid "1xx Response Codes (%s)"
+msgstr ""
+
+#: lib/Block/bookmarks.php:51 config/prefs.php.dist:32
+msgid "2 Line"
+msgstr "2 Regels"
+
+#: templates/reports/http-status.inc:65
+#, php-format
+msgid "2xx Response Codes (%s)"
+msgstr ""
+
+#: lib/Block/bookmarks.php:50 config/prefs.php.dist:31
+msgid "3 Line"
+msgstr "3 Regels"
+
+#: templates/reports/http-status.inc:76
+#, php-format
+msgid "3xx Response Codes (%s)"
+msgstr ""
+
+#: templates/reports/http-status.inc:87
+#, php-format
+msgid "4xx Response Codes (%s)"
+msgstr ""
+
+#: templates/reports/http-status.inc:109
+#, php-format
+msgid "5xx Response Codes (%s)"
+msgstr ""
+
+#: lib/Trean.php:247
+msgid "Accepted"
+msgstr "Geaccepteerd"
+
+#: lib/Block/tree_menu.php:24
+msgid "Add"
+msgstr "Toevoegen"
+
+#: add.php:111
+msgid "Add Bookmark"
+msgstr "Bladwijzer toevoegen"
+
+#: templates/add/add.inc:31
+msgid "Add a new bookmark"
+msgstr "Nieuwe bladwijzer toevoegen:"
+
+#: templates/add/add.inc:82
+msgid "Add to Bookmarks"
+msgstr "Toevoegen aan Bladwijzers"
+
+#: templates/search/results_header.inc:11 templates/browse/bookmarks.inc:28
+#: templates/browse/subcategories.inc:17
+msgid "All"
+msgstr "Alle"
+
+#: lib/Block/bookmarks.php:44
+msgid "All Bookmarks"
+msgstr "Alle Bladwijzers"
+
+#: lib/Trean.php:32
+#, php-format
+msgid "An error occured listing categories: %s"
+msgstr "Een fout vond plaats bij het tonen van categorieën: %s"
+
+#: lib/Trean.php:61
+#, php-format
+msgid "An error occurred counting categories: %s"
+msgstr "Een fout vond plaats in het aantal categorieën: %s"
+
+#: templates/search/search.inc:30
+msgid "And"
+msgstr "En"
+
+#: templates/search/search.inc:39
+msgid "Any Part of field"
+msgstr "Enig deel van veld"
+
+#: templates/search/javascript.inc:31 templates/browse/javascript.inc:90
+msgid "Are you sure you want to delete the selected bookmarks?"
+msgstr "Weet u zeker dat u de geselecteerde bladwijzers wilt verwijderen?"
+
+#: templates/browse/javascript.inc:163
+msgid "Are you sure you want to delete the selected categories?"
+msgstr "Weet u zeker dat u de geselecteerde catagorieën wilt verwijderen?"
+
+#: perms.php:50
+msgid "Attempt to edit a non-existent share."
+msgstr "Poging om een niet bestaande share te bewerken."
+
+#: lib/Trean.php:279
+msgid "Bad Gateway"
+msgstr "Foute Gateway"
+
+#: lib/Trean.php:259
+msgid "Bad Request"
+msgstr "Foute Aanvraag"
+
+#: lib/Bookmarks.php:52
+msgid "Bookmark names must be non-empty"
+msgstr "Bladwijzernamen mogen niet leeg zijn"
+
+#: data.php:17 lib/Block/bookmarks.php:3 lib/Block/bookmarks.php:41
+msgid "Bookmarks"
+msgstr "Bladwijzers"
+
+#: browse.php:83
+msgid "Browse"
+msgstr "Bladeren"
+
+#: templates/edit/footer.inc:4
+msgid "Cancel"
+msgstr "Afbreken"
+
+#: templates/browse/subcategories.inc:10 templates/browse/browse.html:4
+msgid "Categories"
+msgstr "Categorieën"
+
+#: templates/edit/edit.inc:75 templates/add/add.inc:51
+#: lib/Block/bookmarks.php:37
+msgid "Category"
+msgstr "Categorie"
+
+#: lib/Trean.php:83
+msgid "Category does not exist."
+msgstr "Categorie bestaat niet."
+
+#: lib/Bookmarks.php:32
+msgid "Category names must be non-empty"
+msgstr "Categorienamen mogen niet leeg zijn"
+
+#: templates/data/import.inc:11
+msgid "Category to import into:"
+msgstr "Categorie importeren in:"
+
+#: config/prefs.php.dist:11
+msgid "Change the number of columns to display in browse and search results."
+msgstr "Verander de weer te geven kolommen in blader- en zoekresultaten."
+
+#: templates/search/search.inc:26
+msgid "Combine"
+msgstr "Combineer"
+
+#: config/prefs.php.dist:43
+msgid "Completely collapsed"
+msgstr "Helemaal inklappen"
+
+#: config/prefs.php.dist:45
+msgid "Completely expanded"
+msgstr "Helemaal uitgeklapt"
+
+#: lib/Trean.php:268
+msgid "Conflict"
+msgstr "Conflict"
+
+#: lib/Trean.php:243
+msgid "Continue"
+msgstr "Doorgaan"
+
+#: edit.php:164
+msgid "Copied bookmark: "
+msgstr "Gekopiëerde bladwijzer"
+
+#: templates/search/results_header.inc:18 templates/browse/bookmarks.inc:48
+msgid "Copy"
+msgstr "Kopiëren"
+
+#: lib/Trean.php:246
+#, fuzzy
+msgid "Created"
+msgstr "Gemaakt"
+
+#: templates/reports/http-status.inc:119
+#, php-format
+msgid "DNS Failure or Other Error (%s)"
+msgstr "DNS- of andere fout (%s)"
+
+#: templates/add/nocategories.inc:9
+msgid "Define one or more categories for your bookmarks"
+msgstr "Maak één of meer categorieën voor je bladwijzers"
+
+#: templates/search/results_header.inc:16 templates/browse/bookmarks.inc:39
+#: templates/browse/subcategories.inc:21
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: templates/edit/edit.inc:68
+msgid "Delete Bookmark"
+msgstr "Verwijder Bladwijzer"
+
+#: templates/browse/javascript.inc:34
+msgid "Delete current category?"
+msgstr "Huidige categorie verwijderen"
+
+#: templates/browse/bookmarks.inc:66
+msgid "Delete this Category"
+msgstr "Verwijder deze Categorie"
+
+#: edit.php:37 edit.php:79
+msgid "Deleted bookmark: "
+msgstr "Bladwijzer verwijderd"
+
+#: edit.php:212
+msgid "Deleted category: "
+msgstr "Categorie verwijderd"
+
+#: templates/search/search.inc:21 templates/edit/edit.inc:17
+#: templates/add/add.inc:46
+msgid "Description"
+msgstr "Omschrijving"
+
+#: config/prefs.php.dist:10
+msgid "Display Options"
+msgstr "Weergaveopties"
+
+#: config/prefs.php.dist:55
+msgid "Display edit buttons when displaying Bookmarks?"
+msgstr "Bewerkingsknoppen weergeven bij tonen Bladwijzers?"
+
+#: templates/data/export.inc:11
+msgid "Download Category"
+msgstr "Download Categorie"
+
+#: templates/add/add.inc:77
+msgid "Drag the \"Add to Bookmarks\" link below onto your \"Links\" Bar"
+msgstr ""
+"Sleep de \"Toevoegen aan Bladwijzers\" link hieronder naar je \"Links\" "
+"werkbalk"
+
+#: templates/add/add.inc:75
+msgid ""
+"Drag the \"Add to Bookmarks\" link below onto your \"Personal Toolbar\"."
+msgstr ""
+"Sleep de \"Toevoegen aan Bladwijzers\" link hieronder naar je \"Persoonlijke "
+"werkbalk\""
+
+#: templates/search/results_header.inc:15 templates/browse/bookmarks.inc:33
+msgid "Edit"
+msgstr "Bewerken"
+
+#: edit.php:271
+#, fuzzy
+msgid "Edit Bookmark"
+msgstr "Bladwijzer Bewerken"
+
+#: perms.php:241
+msgid "Edit Permissions"
+msgstr "Rechten bewerken"
+
+#: perms.php:244
+#, php-format
+msgid "Edit Permissions for %s"
+msgstr "Rechten van '%s' bewerken"
+
+#: lib/Trean.php:276
+#, fuzzy
+msgid "Expectation Failed"
+msgstr "Vervaldatum"
+
+#: templates/data/export.inc:4
+msgid "Export Bookmarks"
+msgstr "Bladwijzers exporteren"
+
+#: templates/data/import.inc:9
+msgid "File to import:"
+msgstr "Selecteer het importbestand:"
+
+#: config/prefs.php.dist:44
+msgid "First level shown"
+msgstr "Eerste niveau zichtbaar"
+
+#: lib/Trean.php:262
+msgid "Forbidden"
+msgstr "Verborgen"
+
+#: lib/Trean.php:254
+msgid "Found"
+msgstr "Gevonden"
+
+#: lib/Trean.php:281
+msgid "Gateway Time-out"
+msgstr "Gateway Time-out"
+
+#: lib/Trean.php:269
+msgid "Gone"
+msgstr "Uitgevoerd"
+
+#: reports.php:30 templates/reports/list.inc:7
+#: templates/reports/http-status.inc:56 templates/edit/edit.inc:56
+msgid "HTTP Status"
+msgstr "HTTP Status"
+
+#: lib/Trean.php:282
+msgid "HTTP Version not supported"
+msgstr "HTTP versie wordt niet ondersteund."
+
+#: templates/data/import.inc:16
+msgid "Import"
+msgstr "Importeren"
+
+#: data.php:181 templates/data/import.inc:4
+msgid "Import Bookmarks"
+msgstr "Bladwijzers importeren"
+
+#: templates/data/export.inc:9
+msgid "Include Subcategories"
+msgstr "Inclusief Subcategorieën"
+
+#: lib/Trean.php:277
+msgid "Internal Server Error"
+msgstr "Interne Serverfout"
+
+#: templates/add/add.inc:76
+msgid "Internet Explorer"
+msgstr "Internet Explorer"
+
+#: templates/data/import.inc:7
+msgid ""
+"Internet Explorer users will need to export their current Favorites by going "
+"to the \"File\" menu and selecting \"Import and Export\"."
+msgstr ""
+"Gebruikers van Internet Explorer: Eerst Favorieten exporteren via het menu "
+"\"Bestand\", ingang \"Im- en export\"."
+
+#: lib/Trean.php:270
+msgid "Length Required"
+msgstr "Lengte Vereist"
+
+#: templates/search/search.inc:36
+msgid "Match"
+msgstr "Overeenkomst"
+
+#: lib/api.php:34
+msgid "Maximum Number of Bookmarks"
+msgstr "Maximum aantal Bladwijzers."
+
+#: lib/api.php:31
+msgid "Maximum Number of Categories"
+msgstr "Maximum aantal Categorieën."
+
+#: lib/Block/tree_menu.php:3
+#, fuzzy
+msgid "Menu List"
+msgstr "Menulijst"
+
+#: lib/Trean.php:264
+msgid "Method Not Allowed"
+msgstr "Methode niet toegestaan"
+
+#: templates/browse/bookmarks.inc:54
+msgid "More Actions"
+msgstr "Meer Bewerkingen"
+
+#: templates/search/results_header.inc:17 templates/browse/bookmarks.inc:41
+#: templates/browse/subcategories.inc:22
+msgid "Move"
+msgstr "Verplaats"
+
+#: lib/Trean.php:253
+msgid "Moved Permanently"
+msgstr "Permanent verplaatst"
+
+#: edit.php:122
+msgid "Moved bookmark: "
+msgstr "Verplaatste bladwijzer: "
+
+#: edit.php:254
+msgid "Moved category: "
+msgstr "Categorie verplaatst"
+
+#: templates/add/add.inc:74
+msgid "Mozilla"
+msgstr "Mozilla"
+
+#: templates/data/import.inc:6
+msgid ""
+"Mozilla/Firefox users will need to export their current Bookmarks by going "
+"into \"Bookmark Manager\" and selecting \"Export\" from the \"Tools\" menu."
+msgstr ""
+"Gebruikers van Firefox/Mozilla: Eerst Favorieten exporteren via "
+"bladwijzerbeheer, menu \"Bestand\", ingang \"Im- en export\"."
+
+#: lib/Trean.php:252
+msgid "Multiple Choices"
+msgstr "Meerdere Keuzes"
+
+#: lib/Trean.php:87 lib/Block/bookmarks.php:70
+msgid "My Bookmarks"
+msgstr "Mijn Bladwijzers"
+
+#: templates/browse/bookmarks.inc:56 lib/Block/bookmarks.php:75
+msgid "New Bookmark"
+msgstr "Nieuwe Bladwijzer"
+
+#: lib/Trean.php:168
+msgid "New Category"
+msgstr "Nieuwe categorie"
+
+#: templates/browse/bookmarks.inc:63 templates/add/nocategories.inc:4
+msgid "New Subcategory"
+msgstr "Nieuwe Subcategorie"
+
+#: templates/search/results_none.inc:3
+msgid "No Bookmarks found"
+msgstr "Geen Bladwijzers gevonden"
+
+#: lib/Trean.php:249
+msgid "No Content"
+msgstr "Leeg"
+
+#: lib/Block/bookmarks.php:117
+msgid "No bookmarks to display"
+msgstr "Geen bladwijzers weer te geven"
+
+#: lib/Trean.php:248
+#, fuzzy
+msgid "Non-Authoritative Information"
+msgstr "Uw informatie"
+
+#: templates/search/results_header.inc:12 templates/browse/bookmarks.inc:29
+#: templates/browse/subcategories.inc:18 templates/reports/rating.inc:48
+msgid "None"
+msgstr "Geen"
+
+#: lib/Trean.php:265
+msgid "Not Acceptable"
+msgstr ""
+
+#: lib/Trean.php:263
+msgid "Not Found"
+msgstr "Niet gevonden"
+
+#: lib/Trean.php:278
+msgid "Not Implemented"
+msgstr "Niet geimplementeerd."
+
+#: lib/Trean.php:256
+msgid "Not Modified"
+msgstr "Niet gewijzigd"
+
+#: templates/reports/list.inc:13 templates/reports/clicks.inc:5
+msgid "Number of Clicks"
+msgstr "Aantal keer gekozen"
+
+#: config/prefs.php.dist:22
+msgid "Number of columns to display in browse and search results:"
+msgstr "Aantal kolommen weer te geven in de zoekresultaten."
+
+#: lib/Trean.php:245
+msgid "OK"
+msgstr "OK"
+
+#: perms.php:62
+msgid ""
+"Only the owner or system administrator may change ownership or owner "
+"permissions for a share"
+msgstr ""
+"Alleen de eigenaar of een systeembeheerder mag de eigenaarrechten van een "
+"share wijzigen"
+
+#: config/prefs.php.dist:64
+msgid "Open links in a new window?"
+msgstr "Open links in een nieuw venster"
+
+#: templates/search/search.inc:29
+msgid "Or"
+msgstr "Of"
+
+#: config/prefs.php.dist:9
+msgid "Other Options"
+msgstr "Andere opties"
+
+#: lib/Trean.php:251
+msgid "Partial Content"
+msgstr "Gedeeltelijke Inhoud"
+
+#: lib/Trean.php:261
+msgid "Payment Required"
+msgstr "Betaling Vereist"
+
+#: templates/browse/javascript.inc:26
+msgid "Please enter the name of the new category:"
+msgstr "Een naam voor de nieuwe categorie invoeren, a.u.b.:"
+
+#: templates/browse/javascript.inc:42
+msgid "Please modify the name accordingly"
+msgstr "Verander de naam"
+
+#: lib/Trean.php:271
+msgid "Precondition Failed"
+msgstr "Niet aan voorwaarde voldaan"
+
+#: lib/Trean.php:266
+msgid "Proxy Authentication Required"
+msgstr "Authenticatie op proxy vereist"
+
+#: templates/edit/edit.inc:27
+msgid "Rating"
+msgstr "Waardering"
+
+#: templates/reports/list.inc:19 templates/reports/rating.inc:5
+#, fuzzy
+msgid "Ratings"
+msgstr "Regen"
+
+#: templates/edit/edit.inc:63
+#, fuzzy, php-format
+msgid "Redirect to %s"
+msgstr "Verder sturen naar"
+
+#: templates/browse/bookmarks.inc:67
+msgid "Rename this Category"
+msgstr "Categorie hernoemen"
+
+#: reports.php:18
+msgid "Reports"
+msgstr "Rapportages"
+
+#: lib/Trean.php:272
+msgid "Request Entity Too Large"
+msgstr "Teveel data in aanvraag"
+
+#: lib/Trean.php:267
+msgid "Request Time-out"
+msgstr "Aanvraag time-out"
+
+#: lib/Trean.php:273
+msgid "Request-URI Too Large"
+msgstr "Aanvraag-URI te groot"
+
+#: lib/Trean.php:275
+msgid "Requested range not satisfiable"
+msgstr "Gevraagde reeks niet beschikbaar."
+
+#: templates/add/add.inc:64
+msgid "Reset"
+msgstr "Herstellen"
+
+#: lib/Trean.php:250
+msgid "Reset Content"
+msgstr "Inhoud Herstellen"
+
+#: templates/edit/footer.inc:3 templates/add/add.inc:63
+msgid "Save"
+msgstr "Opslaan"
+
+#: search.php:14 templates/search/search.inc:47 lib/Block/tree_menu.php:33
+msgid "Search"
+msgstr "Zoeken"
+
+#: templates/search/search.inc:6
+msgid "Search Bookmarks"
+msgstr "Bladwijzers zoeken"
+
+#: templates/search/results_none.inc:2
+msgid "Search Results"
+msgstr "Zoekresultaten"
+
+#: search.php:65
+#, php-format
+msgid "Search Results (%s)"
+msgstr "Zoekresultaten (%s)"
+
+#: lib/Trean.php:255
+msgid "See Other"
+msgstr "Zie Andere"
+
+#: templates/search/results_header.inc:11 templates/browse/bookmarks.inc:28
+#: templates/browse/subcategories.inc:17
+msgid "Select All"
+msgstr "Selecteer alles"
+
+#: templates/search/results_header.inc:12 templates/browse/bookmarks.inc:29
+#: templates/browse/subcategories.inc:18
+msgid "Select None"
+msgstr "Selecteer niets"
+
+#: templates/search/results_header.inc:10 templates/browse/bookmarks.inc:27
+#: templates/browse/subcategories.inc:16
+#, php-format
+msgid "Select: %s, %s"
+msgstr "Selecteer %s %s"
+
+#: lib/Trean.php:280
+msgid "Service Unavailable"
+msgstr "Dienst niet beschikbaar."
+
+#: templates/browse/bookmarks.inc:70
+msgid "Set Permissions"
+msgstr "Instellen rechten"
+
+#: config/prefs.php.dist:46
+msgid "Should your list of bookmark categories be open when you log in?"
+msgstr "Moet je categorieënlijst openen bij aanloggen?"
+
+#: lib/Trean.php:244
+msgid "Switching Protocols"
+msgstr "Protocol Wijzigen"
+
+#: lib/Block/bookmarks.php:47
+msgid "Template"
+msgstr "Sjabloon"
+
+#: config/prefs.php.dist:34
+msgid "Template to use when displaying bookmarks:"
+msgstr "Sjabloon voor weergave van bladwijzers:"
+
+#: lib/Trean.php:258
+msgid "Temporary Redirect"
+msgstr "Tijdelijk Omleiden"
+
+#: templates/browse/bookmarks.inc:101
+msgid "There are no bookmarks in this category"
+msgstr "Er zijn geen bladwijzers in deze categorie."
+
+#: edit.php:166
+#, php-format
+msgid "There was a problem copying the bookmark: %s"
+msgstr "Probleem bij het kopieren van de bladwijzer: %s."
+
+#: edit.php:39 edit.php:81
+#, php-format
+msgid "There was a problem deleting the bookmark: %s"
+msgstr "Probleem bij het verwijderen van bladwijzer: %s"
+
+#: edit.php:214
+#, php-format
+msgid "There was a problem deleting the category: %s"
+msgstr "Probleem bij verwijderen van de categorie: %s"
+
+#: edit.php:124
+#, php-format
+msgid "There was a problem moving the bookmark: %s"
+msgstr "Probleem bij het verplaatsen van bladwijzer: %s."
+
+#: edit.php:256
+#, php-format
+msgid "There was a problem moving the category: %s"
+msgstr "Probleem bij het verplaatsen van bladwijzer: %s."
+
+#: add.php:64
+#, php-format
+msgid "There was an error adding the bookmark: %s"
+msgstr "Fout bij toevoegen van bladwijzer: %s"
+
+#: edit.php:108 edit.php:150 edit.php:240 add.php:43 add.php:100
+#, php-format
+msgid "There was an error adding the category: %s"
+msgstr "Fout bij toevoegen van categorie: %s"
+
+#: edit.php:62
+#, php-format
+msgid "There was an error saving the bookmark: %s"
+msgstr "Fout bij opslaan van bladwijzer: %s"
+
+#: templates/search/search.inc:16 templates/edit/edit.inc:12
+#: templates/add/add.inc:41
+msgid "Title"
+msgstr "Titel"
+
+#: templates/add/add.inc:73
+msgid "To be able to quickly add bookmarks from your web browser:"
+msgstr "Om snel bladwijzers toe te voegen vanuit je browser:"
+
+#: lib/Block/bookmarks.php:45
+msgid "Top 10 Highest Rated"
+msgstr "Top 10 Hoogst Gewaardeerd"
+
+#: lib/Block/bookmarks.php:46
+msgid "Top 10 Most Clicked"
+msgstr "Top 10 Meest Bezocht"
+
+#: templates/reports/http-status.inc:126
+msgid "Total"
+msgstr "Totaal"
+
+#: templates/search/search.inc:11 templates/edit/edit.inc:22
+#: templates/add/add.inc:36
+msgid "URL"
+msgstr "URL"
+
+#: lib/Trean.php:260
+msgid "Unauthorized"
+msgstr "Geen autorisatie"
+
+#: templates/reports/http-status.inc:123
+#, php-format
+msgid "Unknown (%s)"
+msgstr "Onbekende (%s)"
+
+#: lib/Trean.php:274
+msgid "Unsupported Media Type"
+msgstr "Niet ondersteund Media-Type."
+
+#: perms.php:234
+#, php-format
+msgid "Updated %s."
+msgstr "%s bijgewerkt."
+
+#: lib/Trean.php:257
+msgid "Use Proxy"
+msgstr "Gebruik Proxy"
+
+#: templates/reports/list.inc:1
+msgid "View Report"
+msgstr "Rapport Weergeven"
+
+#: templates/add/add.inc:78
+msgid ""
+"While browsing you will be able to bookmark the current page by clicking "
+"your new \"Add to Bookmarks\" shortcut."
+msgstr ""
+"Tijdens het browsen kun je de huidige pagina aan de bladwijzers "
+"toevoegendoor klikken op je nieuwe \"Toevoegen aan bladwijzers\" "
+"snelkoppeling."
+
+#: templates/search/search.inc:40
+msgid "Whole Field"
+msgstr "Volledige Veld"
+
+#: templates/browse/javascript.inc:26
+msgid "You are creating a category folder."
+msgstr "U maakt een categoriemap."
+
+#: data.php:61 data.php:128 add.php:21
+#, php-format
+msgid "You are not allowed to create more than %d bookmarks."
+msgstr "Maximum aantal bladwijzers is: %d"
+
+#: data.php:52 data.php:103 add.php:84
+#, php-format
+msgid "You are not allowed to create more than %d categories."
+msgstr "Maximum aantal categorieën: %d"
+
+#: templates/browse/javascript.inc:42
+msgid "You are renaming the current category folder."
+msgstr "Je hernoemt categoriemap: "
+
+#: browse.php:25
+msgid "You do not have permission to view this category."
+msgstr "U heeft geen recht om deze categorie in te zien."
+
+#: lib/Trean.php:219
+msgid "_Add"
+msgstr "_Toevoegen"
+
+#: lib/Trean.php:215
+msgid "_Browse"
+msgstr "_Bladeren"
+
+#: lib/Trean.php:226
+msgid "_Import/Export"
+msgstr "_Import/Export"
+
+#: lib/Trean.php:222
+msgid "_Reports"
+msgstr "Rapportages"
+
+#: lib/Trean.php:221
+msgid "_Search"
+msgstr "_Zoeken"
+
+#: templates/bookmark/1line.inc:33 templates/bookmark/standard.inc:33
+#: templates/bookmark/2line.inc:37 templates/search/results.inc:57
+#: templates/block/1line.inc:28 templates/block/standard.inc:29
+#: templates/block/2line.inc:31
+msgid "click"
+msgstr "Klik hier"
+
+#: templates/bookmark/1line.inc:33 templates/bookmark/standard.inc:33
+#: templates/bookmark/2line.inc:37 templates/search/results.inc:57
+#: templates/block/1line.inc:28 templates/block/standard.inc:29
+#: templates/block/2line.inc:31
+msgid "clicks"
+msgstr "x aangeklikt"

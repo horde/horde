@@ -5,16 +5,16 @@ $block_name = _("Sunrise/Sunset");
 /**
  * @package Horde_Block
  */
-class Horde_Block_Horde_sunrise extends Horde_Block {
+class Horde_Block_Horde_sunrise extends Horde_Block
+{
+    protected $_app = 'horde';
 
-    var $_app = 'horde';
-
-    function _title()
+    protected function _title()
     {
         return _("Sunrise/Sunset");
     }
 
-    function _params()
+    protected function _params()
     {
         $params = array('location' => array('type' => 'mlenum',
                                             'name' => _("Location"),
@@ -22,7 +22,7 @@ class Horde_Block_Horde_sunrise extends Horde_Block {
 
         global $coordinates;
         if (!is_array($coordinates)) {
-            include 'Horde/NLS/coordinates.php';
+            include 'Horde/Nls/Coordinates.php';
             if (!is_array($coordinates)) {
                 $coordinates = array();
             }
@@ -32,14 +32,14 @@ class Horde_Block_Horde_sunrise extends Horde_Block {
         return $params;
     }
 
-    function _content()
+    protected function _content()
     {
         if (empty($this->_params['location'])) {
-            return _("No location is set.");
+            throw new Horde_Block_Exception(_("No location is set."));
         }
 
         // Set the timezone variable, if available.
-        Horde_Nls::setTimeZone();
+        $GLOBALS['registry']->setTimeZone();
 
         list($lat, $long) = explode(':', $this->_params['location']);
         $rise = $this->_calculateSunset(time(), $lat, $long, false, floor(date('Z') / 3600));
@@ -48,7 +48,7 @@ class Horde_Block_Horde_sunrise extends Horde_Block {
         $location = '';
         global $coordinates;
         if (!is_array($coordinates)) {
-            require 'Horde/NLS/coordinates.php';
+            require 'Horde/Nls/Coordinates.php';
         }
         foreach ($coordinates as $country) {
             if (array_key_exists($this->_params['location'], $country)) {
@@ -70,7 +70,7 @@ class Horde_Block_Horde_sunrise extends Horde_Block {
     /**
      * http://www.zend.com/codex.php?id=135&single=1
      */
-    function _calculateSunset($date, $latitude, $longitude, $sunset = true, $timezone)
+    private function _calculateSunset($date, $latitude, $longitude, $sunset = true, $timezone)
     {
         $yday = date('z', $date);
         $mon = date('n', $date);

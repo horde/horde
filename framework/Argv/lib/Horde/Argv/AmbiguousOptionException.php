@@ -18,7 +18,7 @@ class Horde_Argv_AmbiguousOptionException extends Horde_Argv_BadOptionException
     public function __construct($opt_str, $possibilities)
     {
         // Have to skip the BadOptionException constructor or the string gets double-prefixed.
-        Horde_Argv_OptionException::__construct(sprintf(_("ambiguous option: %s (%s?)"), $opt_str, implode(', ', $possibilities)));
+        Horde_Argv_OptionException::__construct(sprintf('ambiguous option: %s (%s?)', $opt_str, implode(', ', $possibilities)));
     }
 
 }

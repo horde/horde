@@ -8,19 +8,13 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Jon Parise <jon@horde.org>
- * @package Core
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Jon Parise <jon@horde.org>
+ * @category Horde
+ * @package  Core
  */
 class Horde
 {
-    /**
-     * Log instance.
-     *
-     * @var Log
-     */
-    static protected $_logger;
-
     /**
      * Has compression been started?
      *
@@ -64,119 +58,36 @@ class Horde
     static protected $_inlineScript = array();
 
     /**
-     * Logs a message to the global Horde log backend.
+     * The current buffer level.
      *
-     * @param mixed $message     Either a string or an object with a
-     *                           getMessage() method (e.g. PEAR_Error,
-     *                           Exception).
-     * @param string $file       What file was the log function called from
-     *                           (e.g. __FILE__)?
-     * @param integer $line      What line was the log function called from
-     *                           (e.g. __LINE__)?
-     * @param integer $priority  The priority of the message. One of:
-     * <pre>
-     * PEAR_LOG_EMERG
-     * PEAR_LOG_ALERT
-     * PEAR_LOG_CRIT
-     * PEAR_LOG_ERR
-     * PEAR_LOG_WARNING
-     * PEAR_LOG_NOTICE
-     * PEAR_LOG_INFO
-     * PEAR_LOG_DEBUG
-     * </pre>
+     * @var integer
      */
-    static public function logMessage($message, $file, $line,
-                                      $priority = PEAR_LOG_INFO)
-    {
-        $logger = self::getLogger();
-
-        if ($logger === false) {
-            return;
-        }
-
-        if ($priority > $GLOBALS['conf']['log']['priority']) {
-            return;
-        }
-
-        if ($message instanceof PEAR_Error) {
-            $userinfo = $message->getUserInfo();
-            $message = $message->getMessage();
-            if (!empty($userinfo)) {
-                if (is_array($userinfo)) {
-                    $old_error = error_reporting(0);
-                    $userinfo = implode(', ', $userinfo);
-                    error_reporting($old_error);
-                }
-                $message .= ': ' . $userinfo;
-            }
-        } elseif (is_object($message)) {
-            if (is_callable(array($message, 'toString'))) {
-                $message = $message->toString();
-            } elseif (is_callable(array($message, 'getMessage'))) {
-                $message = $message->getMessage();
-            }
-        }
-
-        $app = isset($GLOBALS['registry'])
-            ? $GLOBALS['registry']->getApp()
-            : null;
-        $message = '[' . ($app ? $app : 'horde') . '] ' . $message . ' [pid ' . getmypid() . ' on line ' . $line . ' of "' . $file . '"]';
-
-        /* Make sure to log in the system's locale and timezone. */
-        $locale = setlocale(LC_TIME, 0);
-        setlocale(LC_TIME, 'C');
-        $tz = getenv('TZ');
-        @putenv('TZ');
-
-        $logger->log($message, $priority);
-
-        /* Restore original locale and timezone. */
-        setlocale(LC_TIME, $locale);
-        if ($tz) {
-            @putenv('TZ=' . $tz);
-        }
-
-        return true;
-    }
+    static protected $_bufferLevel = 0;
 
     /**
-     * Get an instantiated instance of the configured logger, if enabled.
-     * getLogger() will fatally exit if a Log object can not be
-     * instantiated.
+     * Has content been sent at the base buffer level?
      *
-     * @return mixed  Log object on success, false if disabled.
-     * @throws Horde_Exception
+     * @var boolean
      */
-    static public function getLogger()
+    static protected $_contentSent = false;
+
+    /**
+     * META tag cache.
+     *
+     * @var array
+     */
+    static protected $_metaTags = array();
+
+    /**
+     * Shortcut to logging method.
+     *
+     * @see Horde_Core_Log_Logger
+     */
+    static public function logMessage($event, $priority = null,
+                                      array $options = array())
     {
-        global $conf;
-
-        if (empty($conf['log']['enabled'])) {
-            return false;
-        }
-
-        if (isset(self::$_logger)) {
-            return self::$_logger;
-        }
-
-        // Try to make sure that we can log messages somehow.
-        if (empty($conf['log']) ||
-            empty($conf['log']['type']) ||
-            empty($conf['log']['name']) ||
-            empty($conf['log']['ident']) ||
-            !isset($conf['log']['params'])) {
-            throw new Horde_Exception('Horde is not correctly configured to log error messages. You must configure at least a text file log in horde/config/conf.php.');
-        }
-
-        self::$_logger = Log::singleton($conf['log']['type'],
-                                        $conf['log']['name'],
-                                        $conf['log']['ident'],
-                                        $conf['log']['params']);
-        if (!self::$_logger instanceof Log) {
-            throw new Horde_Exception('An error has occurred. Furthermore, Horde encountered an error attempting to log this error. Please check your Horde logging configuration in horde/config/conf.php.');
-        }
-
-        return self::$_logger;
+        $options['trace'] = 2;
+        $GLOBALS['injector']->getInstance('Horde_Log_Logger')->log($event, $priority, $options);
     }
 
     /**
@@ -184,7 +95,6 @@ class Horde
      *
      * @param mixed $error   Either a string or an object with a getMessage()
      *                       method (e.g. PEAR_Error, Exception).
-     *                       @todo Better Exception handling
      * @param integer $file  The file in which the error occured.
      * @param integer $line  The line on which the error occured.
      * @param boolean $log   Log this message via logMessage()?
@@ -192,66 +102,44 @@ class Horde
     static public function fatal($error, $file = null, $line = null,
                                  $log = true)
     {
-        $admin = Horde_Auth::isAdmin();
+        $admin = $GLOBALS['registry']->isAdmin();
         $cli = Horde_Cli::runningFromCLI();
 
-        $errortext = '<h1>' . _("A fatal error has occurred") . '</h1>';
-        if ($error instanceof PEAR_Error) {
-            $info = array_merge(array('file' => 'conf.php', 'variable' => '$conf'),
-                                array($error->getUserInfo()));
+        $errortext = '<h1>' . Horde_Core_Translation::t("A fatal error has occurred") . '</h1>';
 
-            switch ($error->getCode()) {
-            case Horde_Util::HORDE_ERROR_DRIVER_CONFIG_MISSING:
-                $message = sprintf(_("No configuration information specified for %s."), $info['name']) . '<br />' .
-                    sprintf(_("The file %s should contain some %s settings."),
-                            $GLOBALS['registry']->get('fileroot') . '/config/' . $info['file'],
-                            sprintf("%s['%s']['params']", $info['variable'], $info['driver']));
-                break;
-
-            case Horde_Util::HORDE_ERROR_DRIVER_CONFIG:
-                $message = sprintf(_("Required \"%s\" not specified in %s configuration."), $info['field'], $info['name']) . '<br />' .
-                    sprintf(_("The file %s should contain a %s setting."),
-                            $GLOBALS['registry']->get('fileroot') . '/config/' . $info['file'],
-                            sprintf("%s['%s']['params']['%s']", $info['variable'], $info['driver'], $info['field']));
-                break;
-
-            default:
-                $message = $error->getMessage();
-                break;
-            }
-
-            $errortext .= '<h3>' . htmlspecialchars($message) . '</h3>';
-        } elseif (is_object($error) && method_exists($error, 'getMessage')) {
+        if (($error instanceof PEAR_Error) ||
+            (is_object($error) && method_exists($error, 'getMessage'))) {
             $errortext .= '<h3>' . htmlspecialchars($error->getMessage()) . '</h3>';
         } elseif (is_string($error)) {
             $errortext .= '<h3>' . htmlspecialchars($error) . '</h3>';
         }
 
-        if (is_null($file) && $error instanceof Exception) {
-            $file = $error->getFile();
-        }
-        if (is_null($line) && $error instanceof Exception) {
-            $line = $error->getLine();
-        }
-
         if ($admin) {
-            $errortext .= '<p><code>' . sprintf(_("[line %d of %s]"), $line, $file) . '</code></p>';
+            if ($error instanceof Exception) {
+                $trace = $error;
+            } else {
+                $trace = debug_backtrace();
+            }
+            $backtrace = new Horde_Support_Backtrace($trace);
+            $errortext .= '<div id="backtrace"><pre>' . (string)$backtrace . '</pre></div>';
             if (is_object($error)) {
-                $errortext .= '<h3>' . _("Details:") . '</h3>';
-                $errortext .= '<h4>' . _("The full error message is logged in Horde's log file, and is shown below only to administrators. Non-administrative users will not see error details.") . '</h4>';
-                $errortext .= '<p><pre>' . htmlspecialchars(print_r($error, true)) . '</pre></p>';
+                $errortext .= '<h3>' . Horde_Core_Translation::t("Details") . '</h3>';
+                $errortext .= '<h4>' . Horde_Core_Translation::t("The full error message is logged in Horde's log file, and is shown below only to administrators. Non-administrative users will not see error details.") . '</h4>';
+                $errortext .= '<div id="details"><pre>' . htmlspecialchars(print_r($error, true)) . '</pre></div>';
             }
         } elseif ($log) {
-            $errortext .= '<h3>' . _("Details have been logged for the administrator.") . '</h3>';
+            $errortext .= '<h3>' . Horde_Core_Translation::t("Details have been logged for the administrator.") . '</h3>';
         }
 
         // Log the error via logMessage() if requested.
         if ($log) {
-            self::logMessage($error, $file, $line, PEAR_LOG_EMERG);
+            try {
+                self::logMessage($error, 'EMERG');
+            } catch (Exception $e) {}
         }
 
         if ($cli) {
-            echo strip_tags(str_replace(array('<br />', '<p>', '</p>', '<h1>', '</h1>', '<h3>', '</h3>'), "\n", $errortext));
+            echo html_entity_decode(strip_tags(str_replace(array('<br />', '<p>', '</p>', '<h1>', '</h1>', '<h3>', '</h3>'), "\n", $errortext)));
         } else {
             echo <<< HTML
 <html>
@@ -264,17 +152,36 @@ HTML;
     }
 
     /**
+     * Log deprecated errors.
+     *
+     * @param integer $errno     See set_error_handler().
+     * @param string $errstr     See set_error_handler().
+     * @param string $errfile    See set_error_handler().
+     * @param integer $errline   See set_error_handler().
+     * @param array $errcontext  See set_error_handler().
+     */
+    static public function logDeprecated($errno, $errstr, $errfile, $errline,
+                                         $errcontext)
+    {
+        if (class_exists('Horde_Log')) {
+            try {
+                self::logMessage(new ErrorException($errstr, 0, $errno, $errfile, $errline), 'DEBUG');
+            } catch (Exception $e) {}
+        }
+    }
+
+    /**
      * Adds the javascript code to the output (if output has already started)
      * or to the list of script files to include via includeScriptFiles().
+     *
+     * As long as one script file is added, 'prototype.js' will be
+     * automatically added.
      *
      * @param string $file    The full javascript file name.
      * @param string $app     The application name. Defaults to the current
      *                        application.
      * @param array $options  Additional options:
      * <pre>
-     * 'direct' - (boolean) Include the file directly without passing it
-     *            through javascript.php.
-     *            DEFAULT: true
      * 'external' - (boolean) Treat $file as an external URL.
      *              DEFAULT: $file is located in the app's js/ directory.
      * 'full' - (boolean) Output a full URL
@@ -286,9 +193,9 @@ HTML;
     static public function addScriptFile($file, $app = null,
                                          $options = array())
     {
-        $hsf = Horde_Script_Files::singleton();
+        $hsf = $GLOBALS['injector']->getInstance('Horde_Script_Files');
         if (empty($options['external'])) {
-            $hsf->add($file, $app, isset($options['direct']) ? $options['direct'] : true, !empty($options['full']));
+            $hsf->add($file, $app, !empty($options['full']));
         } else {
             $hsf->addExternal($file, $app);
         }
@@ -307,7 +214,7 @@ HTML;
         $driver = empty($conf['cachejs'])
             ? 'none'
             : $conf['cachejsparams']['driver'];
-        $hsf = Horde_Script_Files::singleton();
+        $hsf = $GLOBALS['injector']->getInstance('Horde_Script_Files');
 
         if ($driver == 'none') {
             $hsf->includeFiles();
@@ -315,7 +222,6 @@ HTML;
         }
 
         $js_tocache = $js_force = $js_external = array();
-        $mtime = array(0);
 
         $s_list = $hsf->listFiles();
         if (empty($s_list)) {
@@ -323,7 +229,7 @@ HTML;
         }
 
         if ($driver == 'horde_cache') {
-            $cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], self::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+            $cache = $GLOBALS['injector']->getInstance('Horde_Cache');
             $cache_lifetime = empty($conf['cachejsparams']['lifetime'])
                 ? 0
                 : $conf['cachejsparams']['lifetime'];
@@ -356,7 +262,7 @@ HTML;
         );
         unset($s_list['horde'][0]);
 
-        foreach ($s_list as $app => $files) {
+        foreach ($s_list as $files) {
             foreach ($files as $file) {
                 if ($file['d'] && ($file['f'][0] != '/') && empty($file['e'])) {
                     $js_tocache[] = $file['p'] . $file['f'];
@@ -373,6 +279,10 @@ HTML;
         }
 
         foreach (array_merge($js_force, array($js_tocache)) as $files) {
+            if (!count($files)) {
+                continue;
+            }
+
             $mtime = max($files['mtime']);
             unset($files['mtime']);
 
@@ -406,7 +316,7 @@ HTML;
                         /* Separate JS files with a newline since some
                          * compressors may strip trailing terminators. */
                         try {
-                            $out .= Horde_Text_Filter::filter($js_text, 'JavascriptMinify', $jsmin_params) . "\n";
+                            $out .= $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($js_text, 'JavascriptMinify', $jsmin_params) . "\n";
                         } catch (Horde_Exception $e) {
                             $out .= $js_text . "\n";
                         }
@@ -429,6 +339,8 @@ HTML;
             $hsf->outputTag($js_url);
         }
 
+        $hsf->clear();
+
         foreach ($js_external as $val) {
             $hsf->outputTag($val);
         }
@@ -444,7 +356,8 @@ HTML;
     static public function getRequestToken($slug)
     {
         $token = Horde_Token::generateId($slug);
-        $_SESSION['horde_form_secrets'][$token] = time();
+        $GLOBALS['session']['horde:form_secrets/' . $token] = time();
+
         return $token;
     }
 
@@ -458,15 +371,15 @@ HTML;
      */
     static public function checkRequestToken($slug, $token)
     {
-        if (empty($_SESSION['horde_form_secrets'][$token])) {
-            throw new Horde_Exception(_("We cannot verify that this request was really sent by you. It could be a malicious request. If you intended to perform this action, you can retry it now."));
+        global $conf, $session;
+
+        if (!isset($session['horde:form_secrets/' . $token])) {
+            throw new Horde_Exception(Horde_Core_Translation::t("We cannot verify that this request was really sent by you. It could be a malicious request. If you intended to perform this action, you can retry it now."));
         }
 
-        if (($_SESSION['horde_form_secrets'][$token] + $GLOBALS['conf']['urls']['token_lifetime'] * 60) < time()) {
-            throw new Horde_Exception(sprintf(_("This request cannot be completed because the link you followed or the form you submitted was only valid for %s minutes. Please try again now."), $GLOBALS['conf']['urls']['token_lifetime']));
+        if (($session['horde:form_secrets/' . $token] + $GLOBALS['conf']['urls']['token_lifetime'] * 60) < time()) {
+            throw new Horde_Exception(sprintf(Horde_Core_Translation::t("This request cannot be completed because the link you followed or the form you submitted was only valid for %s minutes. Please try again now."), $GLOBALS['conf']['urls']['token_lifetime']));
         }
-
-        return true;
     }
 
     /**
@@ -492,7 +405,7 @@ HTML;
 
         $queryString .= '&_t=' . $now . '&_h=';
 
-        return $queryString . Horde_Util::uriB64Encode(hash_hmac('sha1', $queryString, $GLOBALS['conf']['secret_key'], true));
+        return $queryString . Horde_Url::uriB64Encode(hash_hmac('sha1', $queryString, $GLOBALS['conf']['secret_key'], true));
     }
 
     /**
@@ -518,7 +431,7 @@ HTML;
         $queryString = substr($data, 0, $pos);
         $hmac = substr($data, $pos);
 
-        if ($hmac != Horde_Util::uriB64Encode(hash_hmac('sha1', $queryString, $GLOBALS['conf']['secret_key'], true))) {
+        if ($hmac != Horde_Url::uriB64Encode(hash_hmac('sha1', $queryString, $GLOBALS['conf']['secret_key'], true))) {
             return false;
         }
 
@@ -529,63 +442,87 @@ HTML;
     }
 
     /**
-     * Checks if services link should be shown and returns the necessary code.
+     * Returns the URL to various Horde services.
      *
-     * @param string $type       Type of link to display
+     * @param string $type       The service to display.
      * <pre>
-     * The following must be defined in Horde's menu config, or else $override
-     * must be true:
-     * 'help', 'problem', 'logout', 'login', 'options'
-     *
-     * The following are service links only and do not need to be defined
-     * in Horde's menu config.
-     * 'cache', 'download', 'go', 'prefsapi'
+     * 'ajax'
+     * 'cache'
+     * 'download'
+     * 'emailconfirm'
+     * 'go'
+     * 'help'
+     * 'imple'
+     * 'login'
+     * 'logintasks'
+     * 'logout'
+     * 'problem'
+     * 'sidebar'
+     * 'prefs'
      * </pre>
      * @param string $app        The name of the current Horde application.
-     * @param boolean $override  Override Horde settings?
      *
      * @return Horde_Url|boolean  The HTML to create the link.
      */
-    static public function getServiceLink($type, $app, $override = false)
+    static public function getServiceLink($type, $app = null)
     {
-        if (!in_array($type, array('cache', 'download', 'go', 'prefsapi')) &&
-            !self::showService($type, $override)) {
-            return false;
-        }
-
-        $webroot = $GLOBALS['registry']->get('webroot', 'horde');
+        $opts = array('app' => 'horde');
 
         switch ($type) {
+        case 'ajax':
+            return self::url('services/ajax.php/' . $app . '/', false, $opts)
+                ->remove('ajaxui');
+
+        case 'cache':
+            $opts['append_session'] = -1;
+            return self::url('services/cache.php', false, $opts);
+
+        case 'download':
+            return self::url('services/download/', false, $opts)
+                ->add('module', $app);
+
+        case 'emailconfirm':
+            return self::url('services/confirm.php', false, $opts);
+
+        case 'go':
+            return self::url('services/go.php', false, $opts)
+                ->remove('ajaxui');
+
         case 'help':
-            return self::url($webroot . '/services/help/')->add('module', $app);
+            return self::url('services/help/', false, $opts)
+                ->add('module', $app);
 
-        case 'problem':
-            return self::url($webroot . '/services/problem.php')
-                ->add('return_url', urlencode(self::selfUrl(true, true, true)));
-
-        case 'logout':
-            return Horde_Auth::getLogoutUrl(array('reason' => Horde_Auth::REASON_LOGOUT));
+        case 'imple':
+            return self::url('services/imple.php', false, $opts)
+                ->remove('ajaxui');
 
         case 'login':
-            return self::url($webroot . '/login.php');
+            return self::url('login.php', false, $opts)
+                ->remove('ajaxui');
 
-        case 'options':
-        case 'prefsapi':
+        case 'logintasks':
+            return self::url('services/logintasks.php', false, $opts)
+                ->add('app', $app);
+
+        case 'logout':
+            return $GLOBALS['registry']->getLogoutUrl(array('reason' => Horde_Auth::REASON_LOGOUT));
+
+        case 'prefs':
             if (!in_array($GLOBALS['conf']['prefs']['driver'], array('', 'none'))) {
-                return self::url($webroot . ($type == 'options' ? '/services/prefs.php' : '/services/prefs/'))
-                    ->add('app', $app);
+                $url = self::url('services/prefs.php', false, $opts);
+                if (!is_null($app)) {
+                    $url->add('app', $app);
+                }
+                return $url;
             }
             break;
 
-        case 'cache':
-            return self::url($webroot . '/services/cache.php', false, -1);
+        case 'problem':
+            return self::url('services/problem.php', false, $opts)
+                ->add('return_url', urlencode(self::selfUrl(true, true, true)));
 
-        case 'download':
-            return self::url($webroot . '/services/download/')
-                ->add('module', $app);
-
-        case 'go':
-            return self::url($webroot . '/services/go.php');
+        case 'sidebar':
+            return self::url('services/sidebar.php', false, $opts);
         }
 
         return false;
@@ -594,17 +531,16 @@ HTML;
     /**
      * Returns a stdClass response object with added notification information.
      *
-     * @param mixed $data                      The 'response' data.
-     * @param Notification_Listener $listener  If set, adds notification
-     *                                         information to object.
+     * @param mixed $data      The 'response' data.
+     * @param boolean $notify  If true, adds notification info to object.
      */
-    static public function prepareResponse($data = null, $listener = null)
+    static public function prepareResponse($data = null, $notify = false)
     {
         $response = new stdClass();
         $response->response = $data;
-        if ($listener) {
-            $GLOBALS['notification']->notify(array('listeners' => 'status', 'store' => true));
-            $stack = $listener->getStack();
+
+        if ($notify) {
+            $stack = $GLOBALS['notification']->notify(array('listeners' => 'status', 'raw' => true));
             if (!empty($stack)) {
                 $response->msgs = $stack;
             }
@@ -622,8 +558,6 @@ HTML;
      */
     static public function sendHTTPResponse($data, $ct)
     {
-        $charset = Horde_Nls::getCharset();
-
         // Output headers and encoded response.
         switch ($ct) {
         case 'json':
@@ -641,13 +575,13 @@ HTML;
              *
              * Finally, add prototypejs security delimiters to returned
              * JSON. */
-            $s_data = Horde_String::convertCharset(str_replace("\00", '', self::escapeJson($data, array('charset' => $charset))), $charset, 'UTF-8');
+            $s_data = str_replace("\00", '', self::escapeJson($data));
 
             if ($ct == 'json') {
                 header('Content-Type: application/json');
                 echo $s_data;
             } else {
-                header('Content-Type: text/html; charset=' . $charset);
+                header('Content-Type: text/html; charset=UTF-8');
                 echo htmlspecialchars($s_data);
             }
             break;
@@ -655,8 +589,9 @@ HTML;
         case 'html':
         case 'plain':
         case 'xml':
-            header('Content-Type: text/' . $ct . '; charset=' . $charset);
-            echo $data;
+            $s_data = is_string($data) ? $data : $data->response;
+            header('Content-Type: text/' . $ct . '; charset=UTF-8');
+            echo $s_data;
             break;
 
         default:
@@ -672,17 +607,21 @@ HTML;
      * @param mixed $data     The data to JSON-ify.
      * @param array $options  Additional options:
      * <pre>
-     * 'charset' - (string) The charset of $data.
-     *             DEFAULT: Horde_Nls::getCharset()
+     * 'nodelimit' - (boolean) Don't add security delimiters?
+     *               DEFAULT: false
      * 'urlencode' - (boolean) URL encode the json string
-     *               DEFAULT: No
+     *               DEFAULT: false
      * </pre>
      *
      * @return string  The escaped string.
      */
-    static public function escapeJson($data, $options = array())
+    static public function escapeJson($data, array $options = array())
     {
-        $json = '/*-secure-' . Horde_Serialize::serialize($data, Horde_Serialize::JSON, empty($options['charset']) ? Horde_Nls::getCharset() : $options['charset']) . '*/';
+        $json = Horde_Serialize::serialize($data, Horde_Serialize::JSON);
+        if (empty($options['nodelimit'])) {
+            $json = '/*-secure-' . $json . '*/';
+        }
+
         return empty($options['urlencode'])
             ? $json
             : '\'' . rawurlencode($json) . '\'';
@@ -732,38 +671,7 @@ HTML;
     static public function requireSecureConnection()
     {
         if (!self::isConnectionSecure()) {
-            throw new Horde_Exception(_("The encryption features require a secure web connection."));
-        }
-    }
-
-    /**
-     * TODO
-     *
-     * @param string $type       The type of link.
-     * @param boolean $override  Override Horde settings?
-     *
-     * @return boolean  True if the link is to be shown.
-     */
-    static public function showService($type, $override = false)
-    {
-        global $conf;
-
-        if (empty($conf['menu']['links'][$type])) {
-            return false;
-        }
-
-        switch ($conf['menu']['links'][$type]) {
-        case 'all':
-            return true;
-
-        case 'never':
-            return $override;
-
-        case 'authenticated':
-            return $override || (bool)Horde_Auth::getAuth();
-
-        default:
-            return $override;
+            throw new Horde_Exception(Horde_Core_Translation::t("The encryption features require a secure web connection."));
         }
     }
 
@@ -795,6 +703,7 @@ HTML;
 
         // Track if we've included some version (main or vhosted) of
         // the config file.
+        $filelist = array();
         $was_included = false;
 
         // Load global configuration file.
@@ -802,26 +711,18 @@ HTML;
             ? HORDE_BASE . '/config/'
             : $registry->get('fileroot', $app) . '/config/';
         $file = $config_dir . $config_file;
-
         if (file_exists($file)) {
-            /* If we are not exporting variables located in the configuration
-             * file, or we are not capturing the output, then there is no
-             * need to load the configuration file more than once. */
-            ob_start();
-            $success = (is_null($var_names) && !$show_output)
-                ? include_once $file
-                : include $file;
-            $output = ob_get_clean();
+            $filelist[$file] = 1;
+        }
 
-            if (!empty($output) && !$show_output) {
-                throw new Horde_Exception(sprintf('Failed to import configuration file "%s": ', $file) . strip_tags($output));
+        // Load global configuration stanzas in .d directory
+        $directory = preg_replace('/\.php$/', '.d', $config_dir . $config_file);
+        if (file_exists($directory) &&
+            is_dir($directory) &&
+            ($sub_files = glob("$directory/*.php"))) {
+            foreach ($sub_files as $val) {
+                $filelist[$val] = 0;
             }
-
-            if (!$success) {
-                throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $file));
-            }
-
-            $was_included = true;
         }
 
         // Load vhost configuration file.
@@ -832,29 +733,44 @@ HTML;
             $file = $config_dir . substr($config_file, 0, -4) . '-' . $server_name . '.php';
 
             if (file_exists($file)) {
-                ob_start();
-                $success = (is_null($var_names) && !$show_output)
-                    ? include_once $file
-                    : include $file;
-                $output = ob_get_clean();
+                $filelist[$file] = 0;
+            }
+        }
 
-                if (!empty($output) && !$show_output) {
+        foreach ($filelist as $file => $log_check) {
+            /* If we are not exporting variables located in the configuration
+             * file, or we are not capturing the output, then there is no
+             * need to load the configuration file more than once. */
+            self::startBuffer();
+            $success = (is_null($var_names) && !$show_output)
+                ? include_once $file
+                : include $file;
+            $output = self::endBuffer();
+
+            if (!empty($output) && !$show_output) {
+                /* Horde 3 -> 4 conversion checking. This is the only place
+                 * to catch PEAR_LOG errors. */
+                if ($log_check &&
+                    isset($conf['log']['priority']) &&
+                    (strpos($conf['log']['priority'], 'PEAR_LOG_') !== false)) {
+                    $conf['log']['priority'] = 'INFO';
+                    self::logMessage('Logging priority is using the old PEAR_LOG constant', 'INFO');
+                } else {
                     throw new Horde_Exception(sprintf('Failed to import configuration file "%s": ', $file) . strip_tags($output));
                 }
-
-                if (!$success) {
-                    throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $file));
-                }
-
-                $was_included = true;
             }
+
+            if (!$success) {
+                throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $file));
+            }
+
+            $was_included = true;
         }
 
         // Return an error if neither main or vhosted versions of the config
         // file exist.
         if (!$was_included) {
-            self::logMessage(sprintf('Failed to import configuration file "%s".', $config_dir . $config_file), __FILE__, __LINE__, PEAR_LOG_DEBUG);
-            return is_array($var_names) ? array() : null;
+            throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $config_dir . $config_file));
         }
 
         if (isset($output) && $show_output) {
@@ -880,7 +796,8 @@ HTML;
      *                        The used configuration array will be
      *                        $conf[$backend]. If an array gets passed, it will
      *                        be $conf[$key1][$key2].
-     * @param string $type    The type of driver.
+     * @param string $type    The type of driver. If null, will not merge with
+     *                        base config.
      *
      * @return array  The connection parameters.
      */
@@ -888,73 +805,28 @@ HTML;
     {
         global $conf;
 
-        $type = Horde_String::lower($type);
+        if (!is_null($type)) {
+            $type = Horde_String::lower($type);
+        }
 
-        $c = null;
         if (is_array($backend)) {
             $c = Horde_Array::getElement($conf, $backend);
         } elseif (isset($conf[$backend])) {
             $c = $conf[$backend];
+        } else {
+            $c = null;
         }
 
         if (!is_null($c) && isset($c['params'])) {
             $c['params']['umask'] = $conf['umask'];
-            if (isset($conf[$type])) {
-                return array_merge($conf[$type], $c['params']);
-            } else {
-                return $c['params'];
-            }
+            return (!is_null($type) && isset($conf[$type]))
+                ? array_merge($conf[$type], $c['params'])
+                : $c['params'];
         }
 
-        return isset($conf[$type]) ? $conf[$type] : array();
-    }
-
-
-    /**
-     * Returns the VFS driver parameters for the specified backend.
-     *
-     * @param string $name  The VFS system name (e.g. 'images', 'documents')
-     *                      being used.
-     *
-     * @return array  A hash with the VFS parameters; the VFS driver in 'type'
-     *                and the connection parameters in 'params'.
-     * @throws Horde_Exception
-     */
-    static public function getVFSConfig($name)
-    {
-        global $conf;
-
-        if (!isset($conf[$name]['type'])) {
-            throw new Horde_Exception(_("You must configure a VFS backend."));
-        }
-
-        $vfs = ($conf[$name]['type'] == 'horde')
-            ? $conf['vfs']
-            : $conf[$name];
-
-        if ($vfs['type'] == 'sql') {
-            $vfs['params'] = self::getDriverConfig($name, 'sql');
-        }
-
-        return $vfs;
-    }
-
-    /**
-     * Return the driver and parameters for the current mailer configuration.
-     *
-     * @return array  Array with driver name and parameter hash.
-     */
-    static public function getMailerConfig()
-    {
-        $mail_driver = $GLOBALS['conf']['mailer']['type'];
-        $mail_params = $GLOBALS['conf']['mailer']['params'];
-        if ($mail_driver == 'smtp' && $mail_params['auth'] &&
-            empty($mail_params['username'])) {
-            $mail_params['username'] = Horde_Auth::getAuth();
-            $mail_params['password'] = Horde_Auth::getCredential('password');
-        }
-
-        return array('type' => $mail_driver, 'params' => $mail_params);
+        return (!is_null($type) && isset($conf[$type]))
+            ? $conf[$type]
+            : array();
     }
 
     /**
@@ -991,8 +863,8 @@ HTML;
 
         if (!is_array($params) || !count($params)) {
             throw new Horde_Exception(
-                sprintf(_("No configuration information specified for %s."), $name) . "\n\n" .
-                sprintf(_("The file %s should contain some %s settings."),
+                sprintf(Horde_Core_Translation::t("No configuration information specified for %s."), $name) . "\n\n" .
+                sprintf(Horde_Core_Translation::t("The file %s should contain some %s settings."),
                     $fileroot . '/config/' . $file,
                     sprintf("%s['%s']['params']", $variable, $driver)));
         }
@@ -1000,8 +872,8 @@ HTML;
         foreach ($fields as $field) {
             if (!isset($params[$field])) {
                 throw new Horde_Exception(
-                    sprintf(_("Required \"%s\" not specified in %s configuration."), $field, $name) . "\n\n" .
-                    sprintf(_("The file %s should contain a %s setting."),
+                    sprintf(Horde_Core_Translation::t("Required \"%s\" not specified in %s configuration."), $field, $name) . "\n\n" .
+                    sprintf(Horde_Core_Translation::t("The file %s should contain a %s setting."),
                         $fileroot . '/config/' . $file,
                         sprintf("%s['%s']['params']['%s']", $variable, $driver, $field)));
             }
@@ -1013,41 +885,65 @@ HTML;
      * If a full URL is requested, all parameter separators get converted to
      * "&", otherwise to "&amp;".
      *
-     * @param string $uri              The URI to be modified.
-     * @param boolean $full            Generate a full (http://server/path/)
-     *                                 URL.
-     * @param integer $append_session  0 = only if needed, 1 = always, -1 =
-     *                                 never.
-     * @param boolean $force_ssl       Ignore $conf['use_ssl'] and force
-     *                                 creation of a SSL URL?
+     * @param mixed $uri      The URI to be modified (either a string or any
+     *                        object with a __toString() function).
+     * @param boolean $full   Generate a full (http://server/path/) URL.
+     * @param mixed $opts     Additional options. If a string/integer, it is
+     *                        taken to be the 'append_session' option.  If an
+     *                        array, one of the following:
+     * <pre>
+     * 'app' - (string) Use this app for the webroot.
+     *         DEFAULT: current application
+     * 'append_session' - (integer) 0 = only if needed [DEFAULT], 1 = always,
+     *                    -1 = never.
+     * 'force_ssl' - (boolean) Ignore $conf['use_ssl'] and force creation of a
+     *               SSL URL?
+     *               DEFAULT: false
+     * </pre>
      *
      * @return Horde_Url  The URL with the session id appended (if needed).
      */
-    static public function url($uri, $full = false, $append_session = 0,
-                               $force_ssl = false)
+    static public function url($uri, $full = false, $opts = array())
     {
-        if ($force_ssl) {
-            $full = true;
+        if (is_array($opts)) {
+            $append_session = isset($opts['append_session'])
+                ? $opts['append_session']
+                : 0;
+            if (!empty($opts['force_ssl'])) {
+                $full = true;
+            }
+        } else {
+            $append_session = $opts;
+            $opts = array();
         }
 
-        if ($full) {
-            global $conf, $registry, $browser;
+        $puri = parse_url($uri);
+        $url = '';
+        $webroot = ltrim($GLOBALS['registry']->get('webroot', empty($opts['app']) ? null : $opts['app']), '/');
 
+        if ($full && !isset($puri['scheme']) && !preg_match('|^([\w+-]{1,20})://|', $webroot) ) {
             /* Store connection parameters in local variables. */
-            $server_name = $conf['server']['name'];
-            $server_port = $conf['server']['port'];
+            $server_name = $GLOBALS['conf']['server']['name'];
+            $server_port = $GLOBALS['conf']['server']['port'];
 
             $protocol = 'http';
-            if ($conf['use_ssl'] == 1) {
+            switch ($GLOBALS['conf']['use_ssl']) {
+            case 1:
                 $protocol = 'https';
-            } elseif ($conf['use_ssl'] == 2 &&
-                      $browser->usingSSLConnection()) {
-                $protocol = 'https';
-            } elseif ($conf['use_ssl'] == 3) {
-                $server_port = '';
-                if ($force_ssl) {
+                break;
+
+            case 2:
+                if ($GLOBALS['browser']->usingSSLConnection()) {
                     $protocol = 'https';
                 }
+                break;
+
+            case 3:
+                $server_port = '';
+                if (!empty($opts['force_ssl'])) {
+                    $protocol = 'https';
+                }
+                break;
             }
 
             /* If using non-standard ports, add the port to the URL. */
@@ -1057,69 +953,35 @@ HTML;
                 $server_name .= ':' . $server_port;
             }
 
-            /* Store the webroot in a local variable. */
-            $webroot = $registry->get('webroot');
-
             $url = $protocol . '://' . $server_name;
-            if (preg_match('|^([\w+-]{1,20})://|', $webroot)) {
-                /* Don't prepend to webroot if it's already absolute. */
-                $url = '';
-            }
+        }
 
-            if (substr($uri, 0, 1) != '/') {
-                /* Simple case for http:// absolute webroots. */
-                if (preg_match('|^([\w+-]{1,20})://|', $uri)) {
-                    $url = $uri;
-                } elseif (substr($webroot, -1) == '/') {
-                    $url .= $webroot . $uri;
-                } else {
-                    $url .= $webroot . '/' . $uri;
-                }
-            } else {
-                $url .= $uri;
-            }
+        if (isset($puri['path']) && substr($puri['path'], 0, 1) == '/' && !preg_match('|^([\w+-]{1,20})://|', $webroot)) {
+            $url .= $puri['path'];
+        } elseif (isset($puri['path']) && preg_match('|^([\w+-]{1,20})://|', $webroot)) {
+            $url = $webroot . (substr($puri['path'], 0, 1) != '/' ? '/' : '') . $puri['path'];
         } else {
-            $url = $uri;
-
-            if (!empty($_SERVER['HTTP_HOST'])) {
-                // Don't generate absolute URLs if we don't have to.
-                if (preg_match('|^([\w+-]{1,20}://' . preg_quote($_SERVER['HTTP_HOST'], '|') . ')/|', $url, $matches)) {
-                    $url = substr($url, strlen($matches[1]));
-                }
-            }
+            $url .= '/' . ($webroot ? $webroot . '/' : '') . (isset($puri['path']) ? $puri['path'] : '');
         }
 
-        return new Horde_Url($url, $full);
-    }
-
-    /**
-     * Returns a session-id-ified version of $uri, using the current
-     * application's webroot setting.
-     *
-     * @param string $uri              The URI to be modified.
-     * @param boolean $full            Generate a full (http://server/path/)
-     *                                 URL.
-     * @param integer $append_session  0 = only if needed, 1 = always, -1 =
-     *                                 never.
-     *
-     * @return Horde_Url  The url with the session id appended.
-     */
-    static public function applicationUrl($uri, $full = false,
-                                          $append_session = 0)
-    {
-        if ($full) {
-            return self::url($uri, $full, $append_session);
+        if (isset($puri['query'])) {
+            $url .= '?' . $puri['query'];
         }
 
-        if (substr($uri, 0, 1) != '/') {
-            $webroot = $GLOBALS['registry']->get('webroot');
-            if (substr($webroot, -1) != '/') {
-                $webroot .= '/';
-            }
-            $uri = $webroot . $uri;
+        $ob = new Horde_Url($url, $full);
+
+        if (empty($GLOBALS['conf']['session']['use_only_cookies']) &&
+            (($append_session == 1) ||
+             (($append_session == 0) && !isset($_COOKIE[session_name()])))) {
+            $ob->add(session_name(), session_id());
         }
 
-        return self::url($uri, $full, $append_session);
+        if (($append_session >= 0) &&
+            Horde_Util::getFormData('ajaxui')) {
+            $ob->add('ajaxui', 1);
+        }
+
+        return $ob;
     }
 
     /**
@@ -1274,14 +1136,11 @@ HTML;
         }
         if (!empty($title)) {
             if ($escape) {
-                $charset = Horde_Nls::getCharset();
-                $old_error = error_reporting(0);
                 $title = str_replace(
                     array("\r", "\n"), '',
-                    htmlspecialchars(
-                        nl2br(htmlspecialchars($title, ENT_QUOTES, $charset)),
-                        ENT_QUOTES, $charset));
-                error_reporting($old_error);
+                    htmlspecialchars(nl2br(htmlspecialchars($title))));
+                /* Remove double encoded entities. */
+                $title = preg_replace('/&amp;([a-z]+|(#\d+));/i', '&\\1;', $title);
             }
             $attributes['title.raw'] = $title;
         }
@@ -1311,10 +1170,8 @@ HTML;
                                        $attributes = array())
     {
         if (!empty($title)) {
-            $charset = Horde_Nls::getCharset();
-            $old_error = error_reporting(0);
-            $title = '&lt;pre&gt;' . preg_replace(array('/\n/', '/((?<!<br)\s{1,}(?<!\/>))/em', '/<br \/><br \/>/', '/<br \/>/'), array('', 'str_repeat("&nbsp;", strlen("$1"))', '&lt;br /&gt; &lt;br /&gt;', '&lt;br /&gt;'), nl2br(htmlspecialchars(htmlspecialchars($title, ENT_QUOTES, $charset), ENT_QUOTES, $charset))) . '&lt;/pre&gt;';
-            error_reporting($old_error);
+            $title = '&lt;pre&gt;' . preg_replace(array('/\n/', '/((?<!<br)\s{1,}(?<!\/>))/em', '/<br \/><br \/>/', '/<br \/>/'), array('', 'str_repeat("&nbsp;", strlen("$1"))', '&lt;br /&gt; &lt;br /&gt;', '&lt;br /&gt;'), nl2br(htmlspecialchars(htmlspecialchars($title)))) . '&lt;/pre&gt;';
+            self::addScriptFile('tooltips.js', 'horde');
         }
 
         return self::link($url, $title, $class, $target, $onclick, null, $accesskey, $attributes, false);
@@ -1354,7 +1211,8 @@ HTML;
      *
      * @param boolean $script_params Include script parameters like
      *                               QUERY_STRING and PATH_INFO?
-     * @param boolean $nocache       Include a nocache parameter in the URL?
+     * @param boolean $nocache       Include a cache-buster parameter in the
+     *                               URL?
      * @param boolean $full          Return a full URL?
      * @param boolean $force_ssl     Ignore $conf['use_ssl'] and force creation
      *                               of a SSL URL?
@@ -1374,55 +1232,48 @@ HTML;
                 $_SERVER['SCRIPT_NAME'] :
                 $_SERVER['PHP_SELF'];
         }
+        if (substr($url, -9) == 'index.php') {
+            $url = substr($url, 0, -9);
+        }
 
         if ($script_params) {
             if ($pathInfo = Horde_Util::getPathInfo()) {
-                $url .= '/' . $pathInfo;
+                $url .= (substr($url, -1) != '/' ?  '/' : '')  . $pathInfo;
             }
             if (!empty($_SERVER['QUERY_STRING'])) {
                 $url .= '?' . $_SERVER['QUERY_STRING'];
             }
         }
 
-        $url = self::url($url, $full, 0, $force_ssl);
+        $url = self::url($url, $full, array('force_ssl' => $force_ssl));
 
-        return $nocache
-            ? Horde_Util::nocacheUrl($url, !$full)
+        return ($nocache && $GLOBALS['browser']->hasQuirk('cache_same_url'))
+            ? $url->unique()
             : $url;
     }
 
     /**
      * Constructs a correctly-pathed link to an image.
      *
-     * @param string $src   The image file.
+     * @param mixed $src    The image file (either a string or a
+     *                      Horde_Themes_Image object).
      * @param string $alt   Text describing the image.
      * @param mixed  $attr  Any additional attributes for the image tag. Can be
      *                      a pre-built string or an array of key/value pairs
      *                      that will be assembled and html-encoded.
-     * @param string $dir   The root graphics directory.
      *
      * @return string  The full image tag.
      */
-    static public function img($src, $alt = '', $attr = '', $dir = null)
+    static public function img($src, $alt = '', $attr = '')
     {
-        $charset = Horde_Nls::getCharset();
-
         /* If browser does not support images, simply return the ALT text. */
         if (!$GLOBALS['browser']->hasFeature('images')) {
-            $old_error = error_reporting(0);
-            $res = htmlspecialchars($alt, ENT_COMPAT, $charset);
-            error_reporting($old_error);
-            return $res;
+            return htmlspecialchars($alt);
         }
 
         /* If no directory has been specified, get it from the registry. */
-        if (is_null($dir)) {
-            $dir = $GLOBALS['registry']->getImageDir();
-        }
-
-        /* If a directory has been provided, prepend it to the image source. */
-        if (!empty($dir)) {
-            $src = $dir . '/' . $src;
+        if (!($src instanceof Horde_Themes_Image) && ($src[0] != '/')) {
+            $src = Horde_Themes::img($src);
         }
 
         /* Build all of the tag attributes. */
@@ -1430,14 +1281,11 @@ HTML;
         if (is_array($attr)) {
             $attributes = array_merge($attributes, $attr);
         }
-        if (empty($attributes['title'])) {
-            $attributes['title'] = '';
-        }
 
         $img = '<img';
         $old_error = error_reporting(0);
         foreach ($attributes as $attribute => $value) {
-            $img .= ' ' . $attribute . '="' . htmlspecialchars($value, ENT_COMPAT, $charset) . '"';
+            $img .= ' ' . $attribute . '="' . htmlspecialchars($value) . '"';
         }
         error_reporting($old_error);
 
@@ -1451,42 +1299,37 @@ HTML;
     }
 
     /**
-     * Same as Horde::img(), but returns a full source url for the image.
+     * Same as self::img(), but returns a full source url for the image.
      * Useful for when the image may be part of embedded Horde content on an
      * external site. Basically a stop-gap measure until Horde_View etc...
      *
-     * @see Horde::img()
+     * @see self::img()
      */
     static public function fullSrcImg($src, $options = array())
     {
-        $charset = Horde_Nls::getCharset();
-
         /* If browser does not support images, simply return the ALT text. */
         if (!$GLOBALS['browser']->hasFeature('images')) {
-            $old_error = error_reporting(0);
-            $res = htmlspecialchars($alt, ENT_COMPAT, $charset);
-            error_reporting($old_error);
-            return $res;
+            return htmlspecialchars($alt);
         }
 
         /* If no directory has been specified, get it from the registry. */
-        $dir = empty($options['dir']) ? $GLOBALS['registry']->getImageDir() : $options['dir'];
+        if (!($src instanceof Horde_Themes_Image) && ($src[0] != '/')) {
+            $src = Horde_Themes::img($src, $options);
+        }
 
         /* If we can send as data, no need to get the full path */
-        $src = self::base64ImgData($dir . '/' . $src);
+        $src = self::base64ImgData($src);
         if (substr($src, 0, 10) != 'data:image') {
-            $src = self::url($src, true, -1);
+            $src = self::url($src, true, array('append_session' => -1));
         }
 
         $img = '<img';
         if (!empty($options['attr'])) {
             /* Build all of the tag attributes. */
             if (is_array($options['attr'])) {
-                $old_error = error_reporting(0);
                 foreach ($options['attr'] as $attribute => $value) {
-                    $img .= ' ' . $attribute . '="' . htmlspecialchars($value, ENT_COMPAT, $charset) . '"';
+                    $img .= ' ' . $attribute . '="' . htmlspecialchars($value) . '"';
                 }
-                error_reporting($old_error);
             }
             /* If the user supplied a pre-built string of attributes, add
              * that. */
@@ -1502,37 +1345,47 @@ HTML;
     /**
      * Generate RFC 2397-compliant image data strings.
      *
-     * @param string $file  Filename containing image data.
+     * @param mixed $in       URI or Horde_Themes_Image object containing
+     *                        image data.
+     * @param integer $limit  Sets a hard size limit for image data; if
+     *                        exceeded, will not string encode.
      *
      * @return string  The string to use in the image 'src' attribute; either
-     *                 the image data if the browser supports, or the filepath
+     *                 the image data if the browser supports, or the URI
      *                 if not.
      */
-    public function base64ImgData($file)
+    public function base64ImgData($in, $limit = null)
     {
         $dataurl = $GLOBALS['browser']->hasFeature('dataurl');
         if (!$dataurl) {
-            return $file;
+            return $in;
+        }
+
+        if (!is_null($limit) &&
+            (is_bool($dataurl) || ($limit < $dataurl))) {
+            $dataurl = $limit;
         }
 
         /* Only encode image files if they are below the dataurl limit. */
-        $filename = realpath($GLOBALS['registry']->get('fileroot', 'horde')) . preg_replace('/^' . preg_quote($GLOBALS['registry']->get('webroot', 'horde'), '/') . '/', '', $file);
-        if (!file_exists($filename)) {
-            return $file;
+        if (!($in instanceof Horde_Themes_Image)) {
+            $in = Horde_Themes_Image::fromUri($in);
+        }
+        if (!file_exists($in->fs)) {
+            return $in->uri;
         }
 
         /* Delete approx. 50 chars from the limit to account for the various
          * data/base64 header text.  Multiply by 0.75 to determine the
          * base64 encoded size. */
         return (($dataurl === true) ||
-                (filesize($filename) <= (($dataurl * 0.75) - 50)))
-            ? 'data:image/' . substr($file, strrpos($file, '.') + 1) . ';base64,' . base64_encode(file_get_contents($filename))
-            : $file;
+                (filesize($in->fs) <= (($dataurl * 0.75) - 50)))
+            ? 'data:image/' . substr($in->uri, strrpos($in->uri, '.') + 1) . ';base64,' . base64_encode(file_get_contents($in->fs))
+            : $in->uri;
     }
 
     /**
      * Determines the location of the system temporary directory. If a specific
-     * setting cannot be found, it defaults to /tmp.
+     * configuration cannot be found, it defaults to /tmp.
      *
      * @return string  A directory name that can be used for temp files.
      *                 Returns false if one could not be found.
@@ -1613,8 +1466,7 @@ HTML;
      */
     static public function allowOutputCompression()
     {
-        $browser = Horde_Browser::singleton();
-        return !$browser->hasQuirk('buggy_compression') &&
+        return !$GLOBALS['browser']->hasQuirk('buggy_compression') &&
                (ini_get('zlib.output_compression') == '') &&
                (ini_get('zend_accelerator.compress_all') == '') &&
                (ini_get('output_handler') != 'ob_gzhandler');
@@ -1643,215 +1495,6 @@ HTML;
     }
 
     /**
-     * Outputs the necessary style tags, honoring configuration choices as
-     * to stylesheet caching.
-     *
-     * @param array $options  Additional options:
-     * <pre>
-     * 'additional' - (array) TODO
-     * 'sub' - (string) TODO
-     * </pre>
-     */
-    static public function includeStylesheetFiles($options = array())
-    {
-        global $conf, $prefs, $registry;
-
-        $themesfs = $registry->get('themesfs');
-        $themesuri = $registry->get('themesuri');
-
-        $css = self::getStylesheets($prefs->getValue('theme'), $options);
-        $css_out = array();
-
-        if (!empty($options['additional'])) {
-            $css = array_merge($css, $options['additional']);
-        }
-
-        $cache_type = empty($conf['cachecss'])
-            ? 'none'
-            : $conf['cachecssparams']['driver'];
-
-        if ($cache_type == 'none') {
-            $css_out = $css;
-        } else {
-            $mtime = array(0);
-            $out = '';
-
-            foreach ($css as $file) {
-                $mtime[] = filemtime($file['f']);
-            }
-
-            $sig = hash('md5', serialize($css) . max($mtime));
-
-            switch ($cache_type) {
-            case 'filesystem':
-                $css_filename = '/static/' . $sig . '.css';
-                $css_path = $GLOBALS['registry']->get('fileroot', 'horde') . $css_filename;
-                $css_url = $GLOBALS['registry']->get('webroot', 'horde') . $css_filename;
-                $exists = file_exists($css_path);
-                break;
-
-            case 'horde_cache':
-                $cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], self::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
-
-                // Do lifetime checking here, not on cache display page.
-                $exists = $cache->exists($sig, empty($GLOBALS['conf']['cachecssparams']['lifetime']) ? 0 : $GLOBALS['conf']['cachecssparams']['lifetime']);
-                $css_url = self::getCacheUrl('css', array('cid' => $sig));
-                break;
-            }
-
-            if (!$exists) {
-                $flags = defined('FILE_IGNORE_NEW_LINES')
-                    ? (FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES)
-                    : 0;
-
-                foreach ($css as $file) {
-                    $path = substr($file['u'], 0, strrpos($file['u'], '/') + 1);
-
-                    // Fix relative URLs, convert graphics URLs to data URLs
-                    // (if possible), remove multiple whitespaces, and strip
-                    // comments.
-                    $tmp = preg_replace(array('/(url\(["\']?)([^\/])/i', '/\s+/', '/\/\*.*?\*\//'), array('$1' . $path . '$2', ' ', ''), implode('', file($file['f'], $flags)));
-                    if ($GLOBALS['browser']->hasFeature('dataurl')) {
-                        $tmp = preg_replace_callback('/(background(?:-image)?:[^;}]*(?:url\(["\']?))(.*?)((?:["\']?\)))/i', array('Horde', 'stylesheetCallback'), $tmp);
-                    }
-                    $out .= $tmp;
-                }
-
-                /* Use CSS tidy to clean up file. */
-                if ($conf['cachecssparams']['compress'] == 'php') {
-                    try {
-                        $out = Horde_Text_Filter::filter($out, 'csstidy');
-                    } catch (Horde_Exception $e) {}
-                }
-
-                switch ($cache_type) {
-                case 'filesystem':
-                    if (!file_put_contents($css_path, $out)) {
-                        throw new Horde_Exception('Could not write cached CSS file to disk.');
-                    }
-                    break;
-
-                case 'horde_cache':
-                    $cache->set($sig, $out);
-                    break;
-                }
-            }
-
-            $css_out = array(array('u' => $css_url));
-        }
-
-        foreach ($css_out as $file) {
-            echo '<link href="' . $file['u'] . "\" rel=\"stylesheet\" type=\"text/css\" />\n";
-        }
-    }
-
-    /**
-     * Callback for includeStylesheetFiles() to convert images to base64
-     * data strings.
-     *
-     * @param array $matches  The list of matches from preg_replace_callback.
-     *
-     * @return string  The image string.
-     */
-    public function stylesheetCallback($matches)
-    {
-        return $matches[1] . self::base64ImgData($matches[2]) . $matches[3];
-    }
-
-    /**
-     * Return the list of base stylesheets to display.
-     * Callback for includeStylesheetFiles() to convert images to base64
-     * data strings.
-     *
-     * @param mixed $theme    The theme to use; specify an empty value to
-     *                        retrieve the theme from user preferences, and
-     *                        false for no theme.
-     * @param array $options  Additional options:
-     * <pre>
-     * 'app' - (string)
-     * 'sub' - (string) TODO
-     * </pre>
-     *
-     * @return array  TODO
-     */
-    public function getStylesheets($theme = '', $options = array())
-    {
-        if (($theme === '') && isset($GLOBALS['prefs'])) {
-            $theme = $GLOBALS['prefs']->getValue('theme');
-        }
-
-        $css = array();
-
-        $css_list = array('screen');
-        if (isset($GLOBALS['nls']['rtl'][$GLOBALS['language']])) {
-            $css_list[] = 'rtl';
-        }
-
-        /* Collect browser specific stylesheets if needed. */
-        switch ($GLOBALS['browser']->getBrowser()) {
-        case 'msie':
-            $ie_major = $GLOBALS['browser']->getMajor();
-            if ($ie_major == 8) {
-                $css_list[] = 'ie8';
-            } elseif ($ie_major == 7) {
-                $css_list[] = 'ie7';
-            } elseif ($ie_major < 7) {
-                $css_list[] = 'ie6_or_less';
-                if ($GLOBALS['browser']->getPlatform() == 'mac') {
-                    $css_list[] = 'ie5mac';
-                }
-            }
-            break;
-
-
-        case 'opera':
-            $css_list[] = 'opera';
-            break;
-
-        case 'mozilla':
-            $css_list[] = 'mozilla';
-            break;
-
-        case 'webkit':
-            $css_list[] = 'webkit';
-        }
-
-        $curr_app = empty($options['app'])
-            ? $GLOBALS['registry']->getApp()
-            : $options['app'];
-        $apps = array_unique(array('horde', $curr_app));
-        $sub = empty($options['sub']) ? null : $options['sub'];
-
-        foreach ($apps as $app) {
-            $themes_fs = $GLOBALS['registry']->get('themesfs', $app) . '/';
-            $themes_uri = self::url($GLOBALS['registry']->get('themesuri', $app), false, -1) . '/';
-
-            foreach ($css_list as $css_name) {
-                $css[$themes_fs . $css_name . '.css'] = $themes_uri . $css_name . '.css';
-                if ($sub && ($app == $curr_app)) {
-                    $css[$themes_fs . $css_name . '-' . $sub . '.css'] = $themes_uri . $css_name . '-' . $sub . '.css';
-                }
-
-                if (!empty($theme)) {
-                    $css[$themes_fs . $theme . '/' . $css_name . '.css'] = $themes_uri . $theme . '/' . $css_name . '.css';
-                    if ($sub && ($app == $curr_app)) {
-                        $css[$themes_fs . $theme . '/' . $css_name . '-' . $sub . '.css'] = $themes_uri . $theme . '/' . $css_name . '-' . $sub . '.css';
-                    }
-                }
-            }
-        }
-
-        $css_out = array();
-        foreach ($css as $f => $u) {
-            if (file_exists($f)) {
-                $css_out[] = array('f' => $f, 'u' => $u);
-            }
-        }
-
-        return $css_out;
-    }
-
-    /**
      * Returns an un-used access key from the label given.
      *
      * @param string $label     The label to choose an access key from.
@@ -1875,10 +1518,10 @@ HTML;
             $used = array_keys(self::$_used);
             sort($used);
             $remaining = str_replace($used, array(), 'abcdefghijklmnopqrstuvwxyz');
-            self::logMessage('Access key information for ' . $script, __FILE__, __LINE__);
-            self::logMessage('Used labels: ' . implode(',', $labels), __FILE__, __LINE__);
-            self::logMessage('Used keys: ' . implode('', $used), __FILE__, __LINE__);
-            self::logMessage('Free keys: ' . $remaining, __FILE__, __LINE__);
+            self::logMessage('Access key information for ' . $script);
+            self::logMessage('Used labels: ' . implode(',', $labels));
+            self::logMessage('Used keys: ' . implode('', $used));
+            self::logMessage('Free keys: ' . $remaining);
             return;
         }
 
@@ -1916,11 +1559,7 @@ HTML;
      */
     static public function stripAccessKey($label)
     {
-        if (!isset(Horde_Nls::$config['multibyte'])) {
-            self::loadConfiguration('nls.php', null, 'horde');
-        }
-
-        $multibyte = isset(Horde_Nls::$config['multibyte'][Horde_Nls::getCharset(true)]);
+        $multibyte = isset($GLOBALS['registry']->nlsconfig['multibyte'][$GLOBALS['registry']->getLanguageCharset()]);
         return preg_replace('/_([A-Za-z])/',
                             $multibyte && preg_match('/[\x80-\xff]/', $label) ? '' : '\1',
                             $label);
@@ -1943,15 +1582,14 @@ HTML;
             return $stripped_label;
         }
 
-        if (isset($GLOBALS['nls']['multibyte'][Horde_Nls::getCharset(true)])) {
+        if (isset($GLOBALS['registry']->nlsconfig['multibyte'][$GLOBALS['registry']->getLanguageCharset()])) {
             /* Prefix parenthesis with the UTF-8 representation of the LRO
              * (Left-to-Right-Override) Unicode codepoint U+202D. */
-            $prefix = Horde_Nls::getCharset() == 'UTF-8' ? "\xe2\x80\xad" : '';
-            return $stripped_label . $prefix . '(<span class="accessKey">'
+            return $stripped_label . "\xe2\x80\xad" . '(<span class="accessKey">'
                 . strtoupper($accessKey) . '</span>' . ')';
-        } else {
-            return str_replace('_' . $accessKey, '<span class="accessKey">' . $accessKey . '</span>', $label);
         }
+
+        return str_replace('_' . $accessKey, '<span class="accessKey">' . $accessKey . '</span>', $label);
     }
 
     /**
@@ -1970,8 +1608,8 @@ HTML;
         $ak = self::getAccessKey($label, $nocheck);
         $attributes = 'title="' . self::stripAccessKey($label);
         if (!empty($ak)) {
-            $attributes .= sprintf(_(" (Accesskey %s)"), strtoupper($ak));
-            $attributes .= '" accesskey="' . $ak;
+            $attributes .= sprintf(Horde_Core_Translation::t(" (Accesskey %s)"), strtoupper($ak))
+              . '" accesskey="' . $ak;
         }
 
         return $attributes . '"';
@@ -2005,6 +1643,9 @@ HTML;
      * Call a Horde hook, handling all of the necessary lookups and parsing
      * of the hook code.
      *
+     * WARNING: Throwing exceptions is expensive, so use callHook() with care
+     * and cache the results if you going to use the results more than once.
+     *
      * @param string $hook  The function to call.
      * @param array  $args  An array of any arguments to pass to the hook
      *                      function.
@@ -2016,64 +1657,58 @@ HTML;
      */
     static public function callHook($hook, $args = array(), $app = 'horde')
     {
-        $error = false;
+        if (!self::hookExists($hook, $app)) {
+            throw new Horde_Exception_HookNotSet();
+        }
+
         $hook_class = $app . '_Hooks';
-
-        if (!class_exists($hook_class)) {
-            try {
-                self::loadConfiguration('hooks.php', null, $app);
-            } catch (Horde_Exception $e) {
-                $error = true;
-            }
-        }
-
-        if (class_exists($hook_class)) {
-            $hook_ob = new $hook_class;
-            $error = !method_exists($hook_ob, $hook);
-        } else {
-            $error = true;
-        }
-
-        if ($error) {
-            $error = sprintf('Hook %s in application %s not called.', $hook, $app);
-            self::logMessage($error, __FILE__, __LINE__, PEAR_LOG_DEBUG);
-            throw new Horde_Exception_HookNotSet($error);
-        }
-
+        $hook_ob = new $hook_class;
         try {
-            self::logMessage(sprintf('Hook %s in application %s called.', $hook, $app), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            self::logMessage(sprintf('Hook %s in application %s called.', $hook, $app), 'DEBUG');
             return call_user_func_array(array($hook_ob, $hook), $args);
         } catch (Horde_Exception $e) {
-            self::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            self::logMessage($e, 'ERR');
             throw $e;
         }
     }
 
     /**
-     * Returns the specified permission for the current user.
+     * Returns whether a hook exists.
      *
-     * @param string $permission  A permission, currently only 'max_blocks'.
+     * Use this if you have to call a hook many times and expect the hook to
+     * not exist.
      *
-     * @return mixed  The value of the specified permission.
+     * @param string $hook  The function to call.
+     * @param string $app   The hook application.
+     *
+     * @return boolean  True if the hook exists.
      */
-    static public function hasPermission($permission)
+    static public function hookExists($hook, $app = 'horde')
     {
-        global $perms;
+        $hook_class = $app . '_Hooks';
 
-        if (!$perms->exists('horde:' . $permission)) {
-            return true;
-        }
-
-        $allowed = $perms->getPermissions('horde:' . $permission);
-        if (is_array($allowed)) {
-            switch ($permission) {
-            case 'max_blocks':
-                $allowed = max($allowed);
-                break;
+        if (!isset(self::$_hooksLoaded[$app])) {
+            self::$_hooksLoaded[$app] = false;
+            if (!class_exists($hook_class, false)) {
+                try {
+                    self::loadConfiguration('hooks.php', null, $app);
+                    self::$_hooksLoaded[$app] = array();
+                } catch (Horde_Exception $e) {}
             }
         }
 
-        return $allowed;
+        if (self::$_hooksLoaded[$app] === false) {
+            return false;
+        }
+
+        if (!isset(self::$_hooksLoaded[$app][$hook])) {
+            self::$_hooksLoaded[$app][$hook] =
+                class_exists($hook_class, false) &&
+                ($hook_ob = new $hook_class) &&
+                method_exists($hook_ob, $hook);
+        }
+
+        return self::$_hooksLoaded[$app][$hook];
     }
 
     /**
@@ -2129,15 +1764,50 @@ HTML;
 
         // If headers have already been sent, we need to output a
         // <script> tag directly.
-        if (ob_get_length() || headers_sent()) {
+        if (self::contentSent()) {
             self::outputInlineScript();
         }
     }
 
     /**
-     * Print pending inline javascript to the output buffer.
+     * Add inline javascript variable definitions to the output buffer.
+     *
+     * @param array $data     Keys are the variable names, values are the data
+     *                        to JSON encode.  If the key begins with a '-', the
+     *                        data will be added to the output as-is.
+     * @param boolean $ret    If true, will return the list of variable
+     *                        definitions instead of outputting to page.
+     * @param string $onload  Wrap the definition in an onload handler?
+     *                        Either 'dom' (on dom:loaded), 'load'.
      */
-    static public function outputInlineScript()
+    static public function addInlineJsVars($data, $ret = false, $onload = null)
+    {
+        $out = array();
+
+        foreach ($data as $key => $val) {
+            if ($key[0] == '-') {
+                $key = substr($key, 1);
+            } else {
+                $val = Horde_Serialize::serialize($val, Horde_Serialize::JSON);
+            }
+
+            $out[] = $key . '=' . $val;
+        }
+
+        if ($ret) {
+            return $out;
+        } else {
+            self::addInlineScript($out, $onload);
+        }
+    }
+
+    /**
+     * Print pending inline javascript to the output buffer.
+     *
+     * @param boolean $raw  Return the raw script (not wrapped in CDATA tags
+     *                      or observe wrappers)?
+     */
+    static public function outputInlineScript($raw = false)
     {
         if (empty(self::$_inlineScript)) {
             return;
@@ -2148,20 +1818,26 @@ HTML;
         foreach (self::$_inlineScript as $key => $val) {
             $val = implode('', $val);
 
-            switch ($key) {
-            case 'dom':
-                $val = 'document.observe("dom:loaded", function() {' . $val . '});';
-                break;
+            if (!$raw) {
+                switch ($key) {
+                case 'dom':
+                    self::addScriptFile('prototype.js', 'horde');
+                    $val = 'document.observe("dom:loaded", function() {' . $val . '});';
+                    break;
 
-            case 'load':
-                $val = 'Event.observe(window, "load", function() {' . $val . '});';
-                break;
+                case 'load':
+                    self::addScriptFile('prototype.js', 'horde');
+                    $val = 'Event.observe(window, "load", function() {' . $val . '});';
+                    break;
+                }
             }
 
             $script[] = $val;
         }
 
-        echo self::wrapInlineScript($script);
+        echo $raw
+            ? implode('', $script)
+            : self::wrapInlineScript($script);
 
         self::$_inlineScript = array();
     }
@@ -2203,8 +1879,7 @@ HTML;
      */
     static public function getCacheUrl($type, $params = array())
     {
-        $registry = Horde_Registry::singleton();
-        $url = Horde_Util::addParameter(self::getserviceLink('cache', 'horde'), array('cache' => $type));
+        $url = self::getserviceLink('cache', 'horde')->add('cache', $type);
         foreach ($params as $key => $val) {
             $url .= '/' . $key . '=' . rawurlencode(strval($val));
         }
@@ -2222,9 +1897,12 @@ HTML;
      *            DEFAULT: 650 px
      * 'menu' - (boolean) Show the browser menu in the popup window?
      *          DEFAULT: false
+     * 'onload' - (string) A JS function to call after the popup window is
+     *            fully loaded.
+     *            DEFAULT: None
      * 'params' - (array) Additional parameters to pass to the URL.
      *            DEFAULT: None
-     * 'urlencode' - (boolean) URL encode the json string
+     * 'urlencode' - (boolean) URL encode the json string?
      *               DEFAULT: No
      * 'width' - (integer) The width of the popup window.
      *           DEFAULT: 700 px
@@ -2253,17 +1931,166 @@ HTML;
         if (!empty($options['height'])) {
             $params->height = $options['height'];
         }
-        if (!empty($options['width'])) {
-            $params->width = $options['width'];
+        if (!empty($options['menu'])) {
+            $params->menu = 1;
+        }
+        if (!empty($options['onload'])) {
+            $params->onload = $options['onload'];
         }
         if (!empty($options['params'])) {
             $params->params = http_build_query(array_map('rawurlencode', $options['params']));
         }
-        if (!empty($options['menu'])) {
-            $params->menu = 1;
+        if (!empty($options['width'])) {
+            $params->width = $options['width'];
         }
 
-        return 'Horde.popup(' . self::escapeJson($params, array('urlencode' => !empty($options['urlencode']))) . ');';
+        return 'void(Horde.popup(' . self::escapeJson($params, array('nodelimit' => true, 'urlencode' => !empty($options['urlencode']))) . '));';
+    }
+
+    /**
+     * Start buffering output.
+     */
+    static public function startBuffer()
+    {
+        if (!self::$_bufferLevel) {
+            self::$_contentSent = self::contentSent();
+        }
+
+        ++self::$_bufferLevel;
+        ob_start();
+    }
+
+    /**
+     * End buffering output.
+     *
+     * @return string  The buffered output.
+     */
+    static public function endBuffer()
+    {
+        if (self::$_bufferLevel) {
+            --self::$_bufferLevel;
+            return ob_get_clean();
+        }
+
+        return '';
+    }
+
+    /**
+     * Has any content been sent to the browser?
+     *
+     * @return boolean  True if content has been sent.
+     */
+    static public function contentSent()
+    {
+        return ((self::$_bufferLevel && self::$_contentSent) ||
+                (!self::$_bufferLevel && (ob_get_length() || headers_sent())));
+    }
+
+    /**
+     * Adds a META http-equiv tag to the page output.
+     *
+     * @param string $type     The http-equiv type value.
+     * @param string $content  The content of the META tag.
+     */
+    static public function addMetaTag($type, $content)
+    {
+        self::$_metaTags[$type] = $content;
+    }
+
+    /**
+     * Adds a META refresh tag.
+     *
+     * @param integer $time  Refresh time.
+     * @param string $url    Refresh URL
+     */
+    static public function metaRefresh($time, $url)
+    {
+        if (!empty($time) && !empty($url)) {
+            self::addMetaTag('refresh', $time . ';url=' . $url);
+        }
+    }
+
+    /**
+     * Adds a META tag to disable DNS prefetching.
+     * See Horde Bug #8836.
+     */
+    static public function noDnsPrefetch()
+    {
+        self::addMetaTag('x-dns-prefetch-control', 'off');
+    }
+
+    /**
+     * Output META tags to page.
+     */
+    static public function outputMetaTags()
+    {
+        foreach (self::$_metaTags as $key => $val) {
+            echo '<meta http-equiv="' . $key . '" content="' . $val . "\" />\n";
+        }
+
+        self::$_metaTags = array();
+    }
+
+    /**
+     * Is an AJAX view supported/available on the current browser?
+     *
+     * @return boolean  True if the AJAX view can be displayed.
+     */
+    static public function ajaxAvailable()
+    {
+        global $browser;
+
+        return $browser->hasFeature('xmlhttpreq') &&
+            (!$browser->isBrowser('msie') || $browser->getMajor() >= 7) &&
+            (!$browser->hasFeature('issafari') || $browser->getMajor() >= 2);
+    }
+
+    /**
+     * Generates the menu output.
+     *
+     * @param array $opts  Additional options:
+     * <pre>
+     * 'app' - (string) The application to generate the menu for.
+     *         DEFAULT: current application
+     * 'mask' - (integer) The Horde_Menu mask to use.
+     *          DEFAULT: Horde_Menu::MASK_ALL
+     * 'menu_ob' - (boolean) If true, returns the menu object
+     *               DEFAULT: false (renders menu)
+     * </pre>
+     * @param string $app  The application to generate the menu for. Defaults
+     *                     to the current app.
+     *
+     * @return string|Horde_Menu  The menu output, or the menu object if
+     *                            'menu_ob' is true.
+     */
+    static public function menu(array $opts = array())
+    {
+        global $injector, $registry;
+
+        if (empty($opts['app'])) {
+            $opts['app'] = $registry->getApp();
+        }
+        if (!isset($opts['mask'])) {
+            $opts['mask'] = Horde_Menu::MASK_ALL;
+        }
+
+        $menu = new Horde_Menu(isset($opts['mask']) ? $opts['mask'] : Horde_Menu::MASK_ALL);
+
+        if (!in_array($registry->get('status', 'horde'), array('notoolbar', 'hidden', 'inactive'))) {
+            $menu->add(Horde::url('services/portal/', false, array('app' => 'horde')), Horde_Core_Translation::t("_Home"), 'horde.png');
+        }
+
+        $registry->callAppMethod($opts['app'], 'menu', array(
+            'args' => array($menu)
+        ));
+
+        if (!empty($opts['menu_ob'])) {
+            return $menu;
+        }
+
+        self::startBuffer();
+        require $registry->get('templates', 'horde') . '/menu/menu.inc';
+        return self::endBuffer();
     }
 
 }

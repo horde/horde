@@ -1,4 +1,23 @@
 <?php
+/**
+ * Gollem application API.
+ *
+ * This file defines Horde's core API interface. Other core Horde libraries
+ * can interact with Horde through this API.
+ *
+ * Copyright 2010 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * @author   Amith Varghese <amith@xalan.com>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @author   Ben Klang <bklang@alkaloid.net>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  Gollem
+ */
+
 /* Determine the base directories. */
 if (!defined('GOLLEM_BASE')) {
     define('GOLLEM_BASE', dirname(__FILE__) . '/..');
@@ -18,17 +37,6 @@ if (!defined('HORDE_BASE')) {
  *  Horde_Registry_Application::). */
 require_once HORDE_BASE . '/lib/core.php';
 
-/**
- * Gollem application API.
- *
- * This file defines Gollem's external API interface. Other
- * applications can interact with Gollem through this API.
- *
- * @author  Amith Varghese (amith@xalan.com)
- * @author  Michael Slusarz (slusarz@curecanti.org)
- * @author  Ben Klang (bklang@alkaloid.net)
- * @package Gollem
- */
 class Gollem_Application extends Horde_Registry_Application
 {
     /**
@@ -39,97 +47,15 @@ class Gollem_Application extends Horde_Registry_Application
     public $version = 'H4 (2.0-git)';
 
     /**
-     * The auth type to use.
-     *
-     * @var string
-     */
-    static public $authType = null;
-
-    /**
-     * Disable compression of pages?
-     *
-     * @var boolean
-     */
-    static public $noCompress = false;
-
-    /**
-     * Constructor.
-
-     * @param array $args  The following entries:
-     * <pre>
-     * 'init' - (boolean|array) If true, perform application init. If an
-     *          array, perform application init and pass the array to init().
-     * </pre>
-     */
-    public function __construct($args = array())
-    {
-        if (!empty($args['init'])) {
-            $this->init(is_array($args['init']) ? $args['init'] : array());
-        }
-    }
-
-    /**
-     * Gollem base initialization.
+     * Gollem initialization.
      *
      * Global variables defined:
      *   $gollem_backends - A link to the current list of available backends
      *   $gollem_be - A link to the current backend parameters in the session
      *   $gollem_vfs - A link to the current VFS object for the active backend
-     *
-     * @param array $args  Optional arguments:
-     * <pre>
-     * 'authentication' - (string) The type of authentication to use:
-     *   'horde' - Only use horde authentication
-     *   'none'  - Do not authenticate
-     *   [DEFAULT] - Authenticate to backend; on no auth redirect to
-     *               login screen
-     * 'nocompress' - (boolean) Controls whether the page should be
-     *                compressed.
-     * 'session_control' - (string) Sets special session control limitations:
-     *   'readonly' - Start session readonly
-     *   [DEFAULT] - Start read/write session
-     * </pre>
      */
-    public function init($args = array())
+    protected function _init()
     {
-        $args = array_merge(array(
-            'authentication' => null,
-            'nocompress' => false,
-            'session_control' => null
-        ), $args);
-
-        self::$authType = $args['authentication'];
-        self::$noCompress = $args['nocompress'];
-
-        // Registry.
-        $s_ctrl = 0;
-        switch ($args['session_control']) {
-        case 'readonly':
-            $s_ctrl = Horde_Registry::SESSION_READONLY;
-            break;
-        }
-
-        $GLOBALS['registry'] = Horde_Registry::singleton($s_ctrl);
-
-        try {
-            $GLOBALS['registry']->pushApp('gollem', array('check_perms' => ($args['authentication'] != 'none'), 'logintasks' => true));
-        } catch (Horde_Exception $e) {
-            Horde_Auth::authenticateFailure('gollem', $e);
-        }
-
-        if (!defined('GOLLEM_TEMPLATES')) {
-            define('GOLLEM_TEMPLATES', $GLOBALS['registry']->get('templates'));
-        }
-
-        // Notification system.
-        $notification = Horde_Notification::singleton();
-        $notification->attach('status');
-
-        // Start compression.
-        if (!self::$noCompress) {
-            Horde::compressOutput();
-        }
-
         // Set the global $gollem_be variable to the current backend's
         // parameters.
         $GLOBALS['gollem_be'] = empty($_SESSION['gollem']['backend_key'])
@@ -147,57 +73,147 @@ class Gollem_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        static $perms = array();
-        if (!empty($perms)) {
-            return $perms;
-        }
-
-        require_once dirname(__FILE__) . '/base.load.php';
-        require GOLLEM_BASE . '/config/backends.php';
-
-        $perms['tree']['gollem']['backends'] = false;
-        $perms['title']['gollem:backends'] = _("Backends");
+        $perms = array(
+            'backends' => array(
+                'title' => _("Backends")
+            )
+        );
 
         // Run through every backend.
-        foreach ($backends as $backend => $curBackend) {
-            $perms['tree']['gollem']['backends'][$backend] = false;
-            $perms['title']['gollem:backends:' . $backend] = $curBackend['name'];
+        require GOLLEM_BASE . '/config/backends.php';
+        foreach ($backends as $key => $val) {
+            $perms['backends:' . $key] = array(
+                'title' => $val['name']
+            );
         }
 
         return $perms;
     }
 
     /**
-     * Special preferences handling on update.
+     * Code to run on init when viewing prefs for this application.
      *
-     * @param string $item      The preference name.
-     * @param boolean $updated  Set to true if preference was updated.
-     *
-     * @return boolean  True if preference was updated.
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
-    public function prefsSpecial($item, $updated)
+    public function prefsInit($ui)
     {
-        switch ($item) {
-        case 'columnselect':
-            $columns = Horde_Util::getFormData('columns');
-            if (!empty($columns)) {
-                $GLOBALS['prefs']->setValue('columns', $columns);
-                return true;
+        global $prefs;
+
+        switch ($ui->group) {
+        case 'display':
+            if (!$prefs->isLocked('columns')) {
+                Horde_Core_Prefs_Ui_Widgets::sourceInit();
             }
             break;
         }
-
-        return $updated;
     }
 
     /**
-     * Generate the menu to use on the prefs page.
+     * Generate code used to display a special preference.
      *
-     * @return Horde_Menu  A Horde_Menu object.
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     * @param string $item             The preference name.
+     *
+     * @return string  The HTML code to display on the prefs page.
      */
-    public function prefsMenu()
+    public function prefsSpecial($ui, $item)
     {
-        return Gollem::getMenu();
+        switch ($item) {
+        case 'columnselect':
+            $cols = json_decode($GLOBALS['prefs']->getValue('columns'));
+            $sources = array();
+
+            foreach ($GLOBALS['gollem_backends'] as $source => $info) {
+                $selected = $unselected = array();
+                $selected_list = isset($cols[$source])
+                    ? array_flip($cols[$source])
+                    : array();
+
+                foreach ($info['attributes'] as $column) {
+                    if (isset($selected_list[$column])) {
+                        $selected[] = array($column, $column);
+                    } else {
+                        $unselected[] = array($column, $column);
+                    }
+                }
+                $sources[$source] = array(
+                    'selected' => $selected,
+                    'unselected' => $unselected,
+                );
+            }
+
+            return Horde_Core_Prefs_Ui_Widgets::source(array(
+                'mainlabel' => _("Choose which backends to display, and in what order:"),
+                'selectlabel' => _("These backends will display in this order:"),
+                'sourcelabel' => _("Select a backend:"),
+                'sources' => $sources,
+                'unselectlabel' => _("Backends that will not be displayed:")
+            ));
+        }
+
+        return '';
+    }
+
+    /**
+     * Add additional items to the menu.
+     *
+     * @param Horde_Menu $menu  The menu object.
+     */
+    public function menu($menu)
+    {
+        $menu->add(Horde::url('manager.php')->add('dir', Gollem::getHome()), _("_My Home"), 'folder_home.png');
+
+        if (!empty($_SESSION['gollem'])) {
+            $backend_key = $_SESSION['gollem']['backend_key'];
+            if ($GLOBALS['registry']->isAdmin()) {
+                $menu->add(Horde::url('permissions.php')->add('backend', $backend_key), _("_Permissions"), 'perms.png');
+            }
+
+            if ($_SESSION['gollem']['backends'][$backend_key]['quota_val'] != -1) {
+                if ($GLOBALS['browser']->hasFeature('javascript')) {
+                    $quota_url = 'javascript:' . Horde::popupJs(Horde::url('quota.php'), array('params' => array('backend' => $backend_key), 'height' => 300, 'width' => 300, 'urlencode' => true));
+                } else {
+                    $quota_url = Horde::url('quota.php')->add('backend', $backend_key);
+                }
+                $menu->add($quota_url, _("Check Quota"), 'info_icon.png');
+            }
+        }
+    }
+
+    /* Sidebar method. */
+
+    /**
+     * Add node(s) to the sidebar tree.
+     *
+     * @param Horde_Tree_Base $tree  Tree object.
+     * @param string $parent         The current parent element.
+     * @param array $params          Additional parameters.
+     *
+     * @throws Horde_Exception
+     */
+    public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
+                                  array $params = array())
+    {
+        // TODO
+        return;
+
+        $login_url = Horde::url('login.php');
+
+        foreach ($GLOBALS['gollem_backends'] as $key => $val) {
+            if (Gollem::checkPermissions('backend', Horde_Perms::SHOW, $key)) {
+                $tree->addNode(
+                    $parent . $key,
+                    $parent,
+                    $val['name'],
+                    1,
+                    false,
+                    array(
+                        'icon' => Horde_Themes::img('gollem.png'),
+                        'url' => $login_url->copy()->add(array('backend_key' => $key, 'change_backend' => 1))
+                    )
+                );
+            }
+        }
     }
 
 }

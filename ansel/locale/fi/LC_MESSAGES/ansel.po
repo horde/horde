@@ -1,0 +1,1981 @@
+# Finnish translation for Ansel.
+# Copyright
+# Leena Heino <liinu@uta.fi>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Ansel 0.1-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2005-03-14 11:02+0200\n"
+"PO-Revision-Date: 2004-12-10 12:59+0200\n"
+"Last-Translator: Leena Heino <liinu@uta.fi>\n"
+"Language-Team: Finnish <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+#: image.php:287
+#, php-format
+msgid "%d images were successfully extracted and uploaded."
+msgstr "%d kuvaa purettiin ja tuotiin onnistuneesti"
+
+#: templates/group/owner.inc:51 templates/group/category.inc:51
+#, php-format
+msgid "%s Galleries"
+msgstr "%s galleriat"
+
+#: lib/Exif.php:262
+#, php-format
+msgid "%s bytes"
+msgstr "%s tavua"
+
+#: templates/list/images.inc:4
+#, php-format
+msgid "%s images"
+msgstr "%s kuvaa"
+
+#: lib/Exif.php:123 lib/Exif.php:129
+#, php-format
+msgid "%s pixels"
+msgstr "%s pikseliä"
+
+#: lib/Exif.php:145 lib/Exif.php:160
+#, php-format
+msgid "%s sec"
+msgstr "%s sek"
+
+#: templates/view/subgallery_header.inc:7
+#, php-format
+msgid "%s to %s of %s subgalleries"
+msgstr "%s - %s / %s aligalleriaa"
+
+#: list.php:46 templates/group/owner.inc:12 lib/Ansel.php:444
+#, php-format
+msgid "%s's Galleries"
+msgstr "%s:n galleriat"
+
+#: gallery.php:257
+#, php-format
+msgid ""
+"'%s' is an invalid unique name; it may already be taken. Please choose a "
+"different unique name."
+msgstr ""
+"'%s' ei ole yksikäsitteinen nimi; Nimi voi olla jo varattu. Valitse uusi "
+"yksikäsitteinen nimi."
+
+#: lib/Gallery.php:1141
+#, php-format
+msgid "(c) %s %s"
+msgstr "(c) %s %s"
+
+#: templates/xppublish/new.inc:14
+msgid "(must be unique)"
+msgstr "(pitää olla yksikäsitteinen)"
+
+#: scripts/ansel.php:299
+msgid "-a, --add[=filename]         Add local file to selected gallery"
+msgstr ""
+"-a, --add[=tiedosto]         Lisää paikallinen tiedosto valittuun galleriaan"
+
+#: scripts/ansel.php:297
+msgid "-c, --create[=shortname/name/description]  Create gallery (and use it)"
+msgstr "-c, --create[=lyhytnimi/nimi/kuvaus] Luo galleria (ja käytä sitä)"
+
+#: scripts/ansel.php:300
+msgid ""
+"-d, --dir[=directory]        Add all files from the directory to the "
+"selected\n"
+"                             gallery"
+msgstr ""
+"-d, --dir[=hakemisto]        Lisää kaikki hakemiston tiedostot "
+"valittuun                              galleriaan"
+
+#: scripts/ansel.php:298
+msgid "-g, --gallery[=shortname]    Select gallery to use"
+msgstr "-g, --gallery[=lyhytnimi]    Valitse käytettävä galleria"
+
+#: scripts/ansel.php:295
+msgid "-h, --help                   Show this help"
+msgstr "-h, --help                   Näytä tämä ohje"
+
+#: scripts/ansel.php:296
+msgid ""
+"-l, --list                   List galleries or images (if combined with -g)"
+msgstr ""
+"-l, --list                   Listaa galleriat tai kuvat (jos -g on myös "
+"asennettu)"
+
+#: scripts/ansel.php:302
+msgid "-p, --password[=password]    Horde login password"
+msgstr "-p, --password[=salasana]    Horde salasana"
+
+#: scripts/ansel.php:301
+msgid "-u, --username[=username]    Horde login username"
+msgstr "-u, --username[=username]    Horde tunnus"
+
+#: templates/group/owner.inc:51 templates/group/category.inc:51
+#, fuzzy
+msgid "1 Gallery"
+msgstr "Galleria"
+
+#: templates/list/images.inc:4
+msgid "1 image"
+msgstr "1 kuva"
+
+#: image.php:285
+msgid "1 image was successfully extracted and uploaded."
+msgstr "1 kuva purettiin ja tuotiin onnistuneesti"
+
+#: templates/slideshow/slideshow.inc:233
+msgid "1 minute"
+msgstr "1 minuutti"
+
+#: templates/slideshow/slideshow.inc:224
+msgid "1 second"
+msgstr "1 sekuntti"
+
+#: templates/slideshow/slideshow.inc:229
+msgid "10 seconds"
+msgstr "10 sekunttia"
+
+#: templates/slideshow/slideshow.inc:230
+msgid "15 seconds"
+msgstr "15 sekunttia"
+
+#: templates/slideshow/slideshow.inc:225
+msgid "2 seconds"
+msgstr "2 sekunttia"
+
+#: templates/slideshow/slideshow.inc:226
+msgid "3 seconds"
+msgstr "3 sekunttia"
+
+#: templates/slideshow/slideshow.inc:231
+msgid "30 seconds"
+msgstr "30 sekunttia"
+
+#: templates/slideshow/slideshow.inc:227
+msgid "4 seconds"
+msgstr "4 sekunttia"
+
+#: templates/slideshow/slideshow.inc:232
+msgid "45 seconds"
+msgstr "45 sekunttia"
+
+#: templates/slideshow/slideshow.inc:228
+msgid "5 seconds"
+msgstr "5 sekunttia"
+
+#: lib/Exif.php:138
+#, php-format
+msgid "90 deg CCW"
+msgstr "90 aseteen CCW"
+
+#: lib/Exif.php:139
+#, php-format
+msgid "90 deg CCW Mirrored"
+msgstr "90 asteen CCW peilikuvana"
+
+#: lib/Exif.php:140
+#, php-format
+msgid "90 deg CW"
+msgstr "90 asteen CW"
+
+#: lib/Exif.php:137
+#, php-format
+msgid "90 deg CW Mirrored"
+msgstr "90 asteen CW peilikuvana"
+
+#: lib/Exif.php:115
+msgid "A-DEP"
+msgstr "A-DEP"
+
+#: gallery.php:311 lib/api.php:254
+#, php-format
+msgid "Access denied deleting gallery %s."
+msgstr "Gallerian %s poistaminen on estetty."
+
+#: image.php:533 image.php:566
+#, php-format
+msgid "Access denied deleting image %s."
+msgstr "Kuvan %s poistaminen on estetty."
+
+#: gallery.php:81
+#, php-format
+msgid "Access denied downloading %s."
+msgstr "%s tallentaminen on estetty."
+
+#: gallery.php:138
+msgid "Access denied editing galleries."
+msgstr "Gallerian muokkaaminen on estetty."
+
+#: gallery.php:194
+#, php-format
+msgid "Access denied saving gallery %s."
+msgstr "Galleriaan %s tallettaminen on estetty."
+
+#: image.php:198 image.php:378
+#, php-format
+msgid "Access denied saving image to %s."
+msgstr "Kuvien tallettaminen %s:ään on estetty"
+
+#: captions.php:29
+#, php-format
+msgid "Access denied setting captions for %s."
+msgstr "Kuvatekstin laittaminen %s on estetty."
+
+#: image.php:160
+msgid "Add Image"
+msgstr "Lisää kuva"
+
+#: templates/view/gallery.inc:93
+msgid "Add Subgallery"
+msgstr "Lisää aligalleria"
+
+#: view.php:112
+msgid "Add a comment"
+msgstr "Lisää kommentti"
+
+#: gallery.php:40 gallery.php:259 gallery.php:267
+msgid "Adding A New Gallery"
+msgstr "Lisätään uuteen galleriaan"
+
+#: gallery.php:73
+#, php-format
+msgid "Adding A Subgallery to %s"
+msgstr "Lisätään aligalleria %s:ään"
+
+#: search.php:83
+msgid "After"
+msgstr "Jälkeen"
+
+#: templates/view/navbar-gallery.inc:5
+msgid "All"
+msgstr "Kaikki"
+
+#: lib/Ansel.php:47
+#, php-format
+msgid "An error occurred listing galleries: %s"
+msgstr "Tapahtui virhe listattaessa gallerioita: %s"
+
+#: lib/Exif.php:321
+msgid "Aperture"
+msgstr "Aukko"
+
+#: templates/gallery/gallery.inc:96
+msgid "Are you sure you want to delete all of the images in this gallery?"
+msgstr "Oletko varma että haluat poistaa kaikki kuvat tästä galleriasta?"
+
+#: templates/view/gallery.inc:44
+msgid "Are you sure you want to delete the selected images?"
+msgstr "Oletko varma että haluat poistaa valitut kuvat?"
+
+#: templates/view/gallery.inc:102
+msgid ""
+"Are you sure you want to delete this gallery? All images in it will be "
+"deleted."
+msgstr ""
+"Oletko varma että haluat poistaa tämän gallerian? Kaikki siinä olevat kuvat "
+"poistetaan."
+
+#: lib/Exif.php:334
+msgid "Artist"
+msgstr "Taiteilija"
+
+#: config/prefs.php.dist:55
+msgid "Ascending"
+msgstr "Nouseva"
+
+#: perms.php:50
+msgid "Attempt to edit a non-existent share."
+msgstr "Yritettiin muokata olematonta jakoa."
+
+#: image.php:343
+#, php-format
+msgid "Attributes for %s :: %s"
+msgstr "Lisätiedot %s:lle :: %s"
+
+#: config/prefs.php.dist:112
+msgid "Automatically generate unique name for new galleries?"
+msgstr "Tee gallerioille automaattisesti yksilöivä nimi."
+
+#: lib/Exif.php:113
+msgid "Av-priority"
+msgstr "Av-prioriteetti"
+
+#: lib/Exif.php:205
+msgid "Average"
+msgstr "Keskiarvo"
+
+#: search.php:84
+msgid "Before"
+msgstr "ennen"
+
+#: search.php:53
+msgid "Begins With"
+msgstr "Alkaa"
+
+#: search.php:82
+msgid "Between"
+msgstr "Välillä"
+
+#: slideshow.php:35
+msgid "Blend"
+msgstr "Pehmennä"
+
+#: slideshow.php:36
+msgid "Blinds"
+msgstr "Kaihtimet"
+
+#: image.php:113
+msgid "Bottom"
+msgstr "Alin"
+
+#: lib/Exif.php:306
+msgid "Camera Make"
+msgstr "Kameran valmistaja"
+
+#: lib/Exif.php:307
+msgid "Camera Model"
+msgstr "Kameran malli"
+
+#: lib/Exif.php:332
+msgid "Camera Orientation"
+msgstr "Kameran asento"
+
+#: lib/Ansel.php:290
+#, php-format
+msgid "Can't get unknown file type '%s'."
+msgstr "Tuntematon tiedostotyyppi '%s'."
+
+#: templates/image/preview_image.inc:29
+msgid "Cancel Change"
+msgstr "Peruuta muutokset"
+
+#: image.php:37 image.php:65 templates/search/search.html:9
+msgid "Caption"
+msgstr "Kuvateksti"
+
+#: captions.php:52 templates/view/gallery.inc:95
+msgid "Caption Editor"
+msgstr "Kuvatekstieditori"
+
+#: templates/view/gallery.inc:95
+msgid "Captions"
+msgstr "Kuvatekstit"
+
+#: captions.php:47
+msgid "Captions Saved."
+msgstr "Kuvatekstiä talletettu."
+
+#: config/prefs.php.dist:66
+msgid "Category"
+msgstr "Kategoria"
+
+#: image.php:109
+msgid "Center"
+msgstr "Keskitetty"
+
+#: lib/Exif.php:206
+msgid "Center Weighted Average"
+msgstr "Keskipainotettu keskiarvo"
+
+#: config/prefs.php.dist:22
+msgid "Change your display options."
+msgstr "Voit muuttaa näkymän asetuksia"
+
+#: config/prefs.php.dist:30
+msgid "Change your gallery creation options."
+msgstr "Voit muuttaa miten gallerian luomiseen liittyviä asetuksia."
+
+#: config/prefs.php.dist:15
+msgid "Change your gallery sorting options."
+msgstr "Voit muttaa gallerian järjestykseen liittyviä asetuksia."
+
+#: slideshow.php:37
+msgid "Checkerboard"
+msgstr "Shakkilauta"
+
+#: templates/xppublish/list.inc:8
+msgid "Choose an existing gallery"
+msgstr "Valitse olemassaoleva galleria"
+
+#: templates/image/exif.inc:3
+msgid "Close"
+msgstr "Sulje"
+
+#: lib/Exif.php:219
+msgid "Cloudy"
+msgstr "Pilvinen"
+
+#: lib/Exif.php:270
+msgid "Color Sequential Area Sensor"
+msgstr "Värijärjestys tilasensori"
+
+#: lib/Exif.php:272
+msgid "Color Sequential Linear Sensor"
+msgstr "Värijärjestys lineaarisensori"
+
+#: lib/Exif.php:329
+msgid "Color Space"
+msgstr "Väriavaruus"
+
+#: ecard.php:42
+msgid "Comments:"
+msgstr "Kommentit:"
+
+#: lib/Exif.php:240
+msgid "Compulsory Flash"
+msgstr "Pakotettu salama"
+
+#: lib/Exif.php:242
+msgid "Compulsory Flash, Return light detected"
+msgstr "Pakotettu salama, heijastunutta valoa havaittu"
+
+#: lib/Exif.php:241
+msgid "Compulsory Flash, Return light not detected"
+msgstr "Pakotettu salama, heijastunutta valoa ei havaittu"
+
+#: search.php:55
+msgid "Contains"
+msgstr "Sisältää"
+
+#: image.php:614
+#, php-format
+msgid "Copied %s to %s."
+msgstr "Kopioitiin %s %s:ksi"
+
+#: templates/view/navbar-gallery.inc:19
+msgid "Copy"
+msgstr "Kopioi"
+
+#: lib/Exif.php:333
+msgid "Copyright"
+msgstr "Tekijänoikeus"
+
+#: scripts/ansel.php:165
+msgid "Couldn't list galleries."
+msgstr "Gallerioita ei voitu listata."
+
+#: scripts/ansel.php:42
+msgid "Couldn't read command-line options."
+msgstr "Komentoriviparametreja ei voitu lukea."
+
+#: templates/xppublish/list.inc:18
+msgid "Create"
+msgstr "Luo"
+
+#: templates/xppublish/new.inc:8
+msgid "Create a new Gallery"
+msgstr "Luo uusi galleria"
+
+#: templates/xppublish/list.inc:16
+msgid "Create a new gallery instead"
+msgstr "Luo uusi galleria sen sijaan"
+
+#: templates/list/images.inc:20
+msgid "Created"
+msgstr "Luotu"
+
+#: templates/view/gallery.inc:158 templates/view/navbar-image.inc:19
+#: templates/crop/crop.inc:44 lib/Ansel.php:485
+msgid "Crop"
+msgstr "Leikkaa"
+
+#: crop.php:56
+msgid "Crop Image"
+msgstr "Leikkaa kuvaa"
+
+#: templates/crop/crop.inc:55
+msgid "Cropped"
+msgstr "Leikattu"
+
+#: lib/Exif.php:223
+msgid "Custom"
+msgstr "Omatekoinen"
+
+#: image.php:102
+msgid "Custom Watermark"
+msgstr "Omatekoinen vesileima"
+
+#: config/prefs.php.dist:128
+msgid "Custom watermark to use for images"
+msgstr "Omatekoinen vesileima käytettäväksi kuvissa"
+
+#: config/prefs.php.dist:44
+msgid "Date Created"
+msgstr "Luontipäivämäärä"
+
+#: search.php:86
+msgid "Date Field"
+msgstr "Päivämääräkentät"
+
+#: search.php:61
+msgid "Date Fields"
+msgstr "Päiväyskentät"
+
+#: lib/Exif.php:312
+msgid "Date Image Digitized"
+msgstr "Digitalisoinnin päivämäärä"
+
+#: lib/Exif.php:310
+msgid "Date Image Modified"
+msgstr "Muokkauksen päivämäärä"
+
+#: lib/Exif.php:311
+msgid "Date Image Taken"
+msgstr "Kuvanoton päivämäärä"
+
+#: config/prefs.php.dist:45
+msgid "Date Modified"
+msgstr "Muokkauksen päivämäärä"
+
+#: search.php:87
+msgid "Date Operator"
+msgstr "Päivämäärätoiminto"
+
+#: search.php:36
+msgid "Date Uploaded"
+msgstr "Päivämäärä tallennettu"
+
+#: config/prefs.php.dist:46
+msgid "Default sorting criteria:"
+msgstr "Oletusjärjestys:"
+
+#: config/prefs.php.dist:57
+msgid "Default sorting direction:"
+msgstr "Oletusjärjestyksen suunta:"
+
+#: templates/slideshow/slideshow.inc:222
+msgid "Delay"
+msgstr "Viive"
+
+#: templates/view/gallery.inc:102 templates/view/navbar-gallery.inc:11
+#: templates/view/navbar-image.inc:23 templates/image/edit_image.inc:40
+msgid "Delete"
+msgstr "Poista"
+
+#: templates/view/gallery.inc:102
+msgid "Delete Gallery"
+msgstr "Poista galleria"
+
+#: image.php:537
+msgid "Deleted the image."
+msgstr "Poista kuva."
+
+#: config/prefs.php.dist:56
+msgid "Descending"
+msgstr "Laskeva"
+
+#: search.php:35 templates/list/gallery_headers.inc:22
+msgid "Description"
+msgstr "Kuvaus"
+
+#: slideshow.php:38
+msgid "Diagonal"
+msgstr "Diagonaalinen"
+
+#: config/prefs.php.dist:21
+msgid "Display Options"
+msgstr "Näkymän asetukset"
+
+#: templates/list/header.inc:7
+#, php-format
+msgid "Displaying from %s to %s of %s galleries"
+msgstr "Näytetään %s - %s / %s gallerioista"
+
+#: templates/group/header.inc:3
+#, php-format
+msgid "Displaying from %s to %s of %s groups"
+msgstr "Näytetään %s - %s / %s ryhmistä"
+
+#: templates/view/gallery.inc:78
+#, php-format
+msgid "Displaying from %s to %s of %s images"
+msgstr "Näytetään %s - %s / %s kuvista"
+
+#: templates/view/navbar-image.inc:23
+#, php-format
+msgid "Do you want to permanently delete %s?"
+msgstr "Haluatko lopullisesti poistaa %s"
+
+#: search.php:56
+msgid "Does Not Contain"
+msgstr "Ei sisällä"
+
+#: slideshow.php:39
+msgid "Doors"
+msgstr "Ovet"
+
+#: lib/Ansel.php:380
+msgid "Download"
+msgstr "Tallenna"
+
+#: templates/view/navbar-image.inc:32
+msgid "Download Full Image"
+msgstr "Tallenna koko kuva"
+
+#: templates/list/gallery_headers.inc:17
+#: templates/list/gallery_summaries.inc:11
+msgid "Download all images in a .zip file"
+msgstr "Tallenna kaikki kuvat .zip tiedostona"
+
+#: xppublish.php:210
+#, php-format
+msgid "ERROR: %s"
+msgstr "VIRHE: %s"
+
+#: lib/Exif.php:110
+msgid "Easy shooting"
+msgstr "Helppokuvaus"
+
+#: ecard.php:91
+msgid "Ecard - "
+msgstr "Ecard -"
+
+#: templates/view/gallery.inc:156 templates/view/navbar-image.inc:17
+#: lib/Ansel.php:480
+msgid "Edit"
+msgstr "Muokkaa"
+
+#: image.php:362
+#, php-format
+msgid "Edit %s :: %s"
+msgstr "Muokkaa %s :: %s"
+
+#: image.php:445
+msgid "Edit Image"
+msgstr "Muokkaa kuvaa"
+
+#: perms.php:241
+msgid "Edit Permissions"
+msgstr "Muokkaa oikeuksia"
+
+#: perms.php:244
+#, php-format
+msgid "Edit Permissions for %s"
+msgstr "Muokkaa '%s':n oikeuksia"
+
+#: image.php:212
+msgid "Edit an image"
+msgstr "Muokkaa kuvaa"
+
+#: image.php:173
+#, php-format
+msgid "Edit properties :: %s"
+msgstr "Muokkaa ominaisuuksia :: %s"
+
+#: templates/gallery/gallery.inc:87
+msgid "Empty Gallery"
+msgstr "Tyhjä galleria"
+
+#: search.php:89
+msgid "End Date"
+msgstr "Päättymispäivämäärä"
+
+#: search.php:54
+msgid "Ends With"
+msgstr "Päättyy"
+
+#: captions.php:23
+#, php-format
+msgid "Error accessing %s: %s"
+msgstr "Virhe avattaessa %s: %s"
+
+#: lib/Exif.php:318
+msgid "Exposure"
+msgstr "Valotus"
+
+#: lib/Exif.php:324
+msgid "Exposure Bias"
+msgstr "Valotuksen painotus"
+
+#: lib/Exif.php:325
+msgid "Exposure Mode"
+msgstr "Valotuksen tila"
+
+#: lib/Exif.php:322
+msgid "F-Number"
+msgstr "F-numero"
+
+#: image.php:71
+#, php-format
+msgid "File %s"
+msgstr "Tiedosto %s"
+
+#: lib/Exif.php:309
+msgid "File Size"
+msgstr "Tiedoston koko"
+
+#: image.php:61 image.php:79
+msgid "File to upload"
+msgstr "Tuotava tiedosto"
+
+#: search.php:37
+msgid "Filename"
+msgstr "Tiedostonnimi"
+
+#: lib/Exif.php:222 lib/Exif.php:237
+msgid "Flash"
+msgstr "Salama"
+
+#: lib/Exif.php:327
+msgid "Flash Setting"
+msgstr "Salaman asetukset"
+
+#: lib/Exif.php:245
+msgid "Flash, Auto-Mode"
+msgstr "Salama, automaattiasetus"
+
+#: lib/Exif.php:247
+msgid "Flash, Auto-Mode, Return light detected"
+msgstr "Salama, automaattiasetus, heijastunutta valoa havaittu"
+
+#: lib/Exif.php:246
+msgid "Flash, Auto-Mode, Return light not detected"
+msgstr "Salama, automaattiasetus, heijastunutta valoa ei havaittu"
+
+#: lib/Exif.php:239
+msgid "Flash, strobe return light detected"
+msgstr "Salama, välkkyvää valoa havaittu"
+
+#: lib/Exif.php:238
+msgid "Flash, strobe return light not detected"
+msgstr "Salama, välkkyvää valua ei havaittu"
+
+#: templates/image/edit_image.inc:26
+msgid "Flip"
+msgstr "Käännä ympäri"
+
+#: lib/Exif.php:221
+msgid "Fluorescent"
+msgstr "Loistava"
+
+#: lib/Exif.php:319
+msgid "Focal Length"
+msgstr "Polttoväli"
+
+#: lib/Exif.php:320
+msgid "Focal Length (35mm equiv)"
+msgstr "Polttoväli (vastaa 35mm)"
+
+#: templates/slideshow/slideshow.inc:87
+msgid "Forward direction"
+msgstr "Suunta eteenpäin"
+
+#: lib/Ansel.php:449
+#, fuzzy
+msgid "Galleries"
+msgstr "_Galleriat"
+
+#: templates/group/header.inc:6
+#, php-format
+msgid "Galleries grouped by %s"
+msgstr "Galleriat ryhmiteltynä %s mukaan"
+
+#: list.php:50 list.php:53
+#, fuzzy, php-format
+msgid "Galleries in category %s"
+msgstr "Gallerian kategoria"
+
+#: templates/search/search.html:8
+msgid "Gallery"
+msgstr "Galleria"
+
+#: templates/gallery/gallery.inc:31
+msgid "Gallery Category"
+msgstr "Gallerian kategoria"
+
+#: templates/gallery/gallery.inc:46 config/prefs.php.dist:42
+msgid "Gallery Description"
+msgstr "Gallerian kuvaus"
+
+#: templates/gallery/gallery.inc:39
+msgid "Gallery Display Name"
+msgstr "Gallerian näkymänimi"
+
+#: list.php:58 list.php:111
+msgid "Gallery List"
+msgstr "Galleria lista"
+
+#: search.php:38 config/prefs.php.dist:41
+msgid "Gallery Name"
+msgstr "Gallerian nimi"
+
+#: config/prefs.php.dist:29
+msgid "Gallery Options"
+msgstr "Gallerian asetukset"
+
+#: config/prefs.php.dist:43
+msgid "Gallery Owner"
+msgstr "Gallerian omistaja"
+
+#: templates/xppublish/new.inc:14
+msgid "Gallery Short Name"
+msgstr "Gallerian lyhyt nimi"
+
+#: templates/gallery/gallery.inc:18
+msgid "Gallery Short Name (must be unique)"
+msgstr "Gallerian lyhyt nimi (pitää olla yksilöivä)"
+
+#: lib/Ansel.php:148
+#, php-format
+msgid "Gallery Unique name '%s' already exists."
+msgstr "Gallerian yksilöivä nimi '%s' on jo olemassa."
+
+#: xppublish.php:121
+msgid "Gallery Unique name is already taken."
+msgstr "Gallerian yksilöivä nimi on jo käytössä."
+
+#: lib/Gallery.php:30
+msgid "Gallery names must be non-empty"
+msgstr "Gallerialla pitää olla nimi"
+
+#: image.php:451
+msgid "Gallery not found."
+msgstr "Galleriaa ei löytynyt."
+
+#: reorder.php:76
+msgid "Gallery re-ordered."
+msgstr "Galleria uudelleen järjestetty"
+
+#: image.php:105
+msgid "Giant"
+msgstr "Jättiläismäinen"
+
+#: slideshow.php:40
+msgid "Gradient"
+msgstr "Gradientti"
+
+#: templates/image/edit_image.inc:32
+msgid "Grayscale"
+msgstr "Harmaasävy"
+
+#: config/prefs.php.dist:68
+msgid "Group galleries by"
+msgstr "Ryhmitä galleriat"
+
+#: lib/Exif.php:314
+msgid "Height"
+msgstr "Korkeus"
+
+#: image.php:110
+msgid "Horizontal Alignment"
+msgstr "Horisontaalinen tasaus"
+
+#: lib/Exif.php:323
+msgid "ISO Setting"
+msgstr "ISO-asetus"
+
+#: templates/search/search.html:7
+msgid "Image"
+msgstr "Kuva"
+
+#: templates/view/navbar-image.inc:30
+msgid "Image Attributes"
+msgstr "Kuvan ominaisuudet"
+
+#: view.php:41
+msgid "Image Details"
+msgstr "Kuvan tiedot"
+
+#: lib/Exif.php:308
+msgid "Image Type"
+msgstr "Kuvan tyyppi"
+
+#: lib/Gallery.php:50
+msgid "Image names must be non-empty"
+msgstr "Kuvalla pitää olla nimi"
+
+#: view.php:56
+msgid "Image not found."
+msgstr "Kuvaa ei löytynyt."
+
+#: scripts/ansel.php:133
+#, php-format
+msgid "Invalid gallery '%s' specified."
+msgstr "Epäkelpo galleria '%s'."
+
+#: xppublish.php:87 xppublish.php:180
+msgid "Invalid gallery specified."
+msgstr "Epäkelpo galleriamääritys."
+
+#: slideshow.php:41
+msgid "Iris"
+msgstr "Iiris"
+
+#: search.php:51
+msgid "Is"
+msgstr "On"
+
+#: search.php:52
+msgid "Is Not"
+msgstr "Ei ole"
+
+#: image.php:105
+msgid "Large"
+msgstr "Suuri"
+
+#: image.php:109
+msgid "Left"
+msgstr "Vasen"
+
+#: templates/crop/crop.inc:22
+msgid "Left X"
+msgstr "Vasen X"
+
+#: scripts/ansel.php:170
+msgid "Listing Gallery/Name"
+msgstr "Listaa galleria/nimi"
+
+#: scripts/ansel.php:154
+#, php-format
+msgid "Listing images in %s"
+msgstr "Listataan kuvat %s:ssä"
+
+#: scripts/ansel.php:108
+#, php-format
+msgid "Logged in successfully as '%s'."
+msgstr "Kirjauduttiin sisään käyttäjänä '%s'."
+
+#: scripts/ansel.php:104
+msgid "Login is incorrect."
+msgstr "Sisäänkirjautuminen epäonnistui."
+
+#: templates/xppublish/login.inc:2
+#, php-format
+msgid "Login to %s"
+msgstr "Kirjaudu sisään %s"
+
+#: templates/slideshow/slideshow.inc:251
+msgid "Loop?"
+msgstr "Looppi?"
+
+#: templates/crop/crop.inc:52
+msgid "Lower Y"
+msgstr "Alin Y"
+
+#: image.php:36 image.php:64
+msgid "Make this the default image for this gallery?"
+msgstr "Laita tämä gallerian oletuskuvaksi."
+
+#: scripts/ansel.php:293
+msgid ""
+"Mandatory arguments to long options are mandatory for short options too."
+msgstr ""
+"Pakolliset optiot pitkille parametreille ovat pakollisia myös lyhyille "
+"parametreille."
+
+#: lib/Exif.php:114 lib/Exif.php:224
+msgid "Manual"
+msgstr "Käsin"
+
+#: search.php:171 search.php:238
+#, php-format
+msgid "Matched %s images"
+msgstr "Täsmäsi %s kuvaa"
+
+#: search.php:171 search.php:238
+msgid "Matched 1 image"
+msgstr "Täsmäsi 1 kuvaan"
+
+#: image.php:105
+msgid "Medium"
+msgstr "Keskikokoinen"
+
+#: lib/Exif.php:326
+msgid "Metering Mode"
+msgstr "Mittausmoodi"
+
+#: image.php:113
+msgid "Middle"
+msgstr "Keskellä"
+
+#: templates/image/edit_image.inc:29
+msgid "Mirror"
+msgstr "Peilikuva"
+
+#: lib/Exif.php:134
+#, php-format
+msgid "Mirrored"
+msgstr "Peilikuvana"
+
+#: templates/list/images.inc:21
+msgid "Modified"
+msgstr "Muokattu"
+
+#: templates/view/gallery.inc:94
+msgid "Modify"
+msgstr "Muuta"
+
+#: templates/view/gallery.inc:94
+msgid "Modify Gallery"
+msgstr "Muuta galleriaa"
+
+#: gallery.php:127
+#, php-format
+msgid "Modifying: %s"
+msgstr "Muutetaan: %s"
+
+#: templates/view/navbar-gallery.inc:13
+msgid "Move"
+msgstr "Siirrä"
+
+#: image.php:580
+#, php-format
+msgid "Moved %s to %s."
+msgstr "Siirrä %s %s:ksi."
+
+#: lib/Exif.php:209
+msgid "Multi-Segment"
+msgstr "Monisegmentti"
+
+#: lib/Exif.php:208
+msgid "Multi-Spot"
+msgstr "Monipiste"
+
+#: image.php:67
+msgid "Multiple Images"
+msgstr "Monia kuvia"
+
+#: list.php:38 templates/group/owner.inc:5 lib/Ansel.php:367 lib/Ansel.php:436
+#, php-format
+msgid "My Galleries"
+msgstr "Omat galleriat"
+
+#: templates/list/gallery_headers.inc:7
+msgid "Name"
+msgstr "Nimi"
+
+#: templates/xppublish/new.inc:33
+msgid "New Gallery Description"
+msgstr "Uuden gallerian kuvaus"
+
+#: templates/xppublish/new.inc:24
+msgid "New Gallery Title"
+msgstr "Uuden gallerian nimi"
+
+#: templates/view/description-image.inc:60
+#: templates/view/description-image.inc:61
+msgid "Next"
+msgstr "Seuraava"
+
+#: config/prefs.php.dist:110
+msgid "No"
+msgstr "Ei"
+
+#: lib/Exif.php:236 lib/Exif.php:243 lib/Exif.php:244 lib/Exif.php:248
+msgid "No Flash"
+msgstr "Ei salamaa"
+
+#: xppublish.php:123
+msgid "No Gallery Name Specified."
+msgstr "Gallerian nimeä ei ole määritelty"
+
+#: xppublish.php:119
+msgid "No Gallery Unique Name Specified."
+msgstr "Gallerian nimi ei ole yksilöivä."
+
+#: templates/image/exif.inc:11
+msgid "No embedded information found."
+msgstr "Sisällytettyä tietoa ei löytynyt"
+
+#: xppublish.php:190
+msgid "No file specified"
+msgstr "Tiedostoa ei määritelty"
+
+#: templates/view/navbar-gallery.inc:6 config/prefs.php.dist:67
+msgid "None"
+msgstr "Ei mitään"
+
+#: lib/Exif.php:133
+#, php-format
+msgid "Normal (O deg)"
+msgstr "Normaali (0 astetta)"
+
+#: lib/Exif.php:266
+msgid "Not defined"
+msgstr "Ei määritelty"
+
+#: crop.php:26 image.php:152
+msgid "Not found or error accessing gallery."
+msgstr "Galleriaa ei löytynyt tai virhe pääsyssä."
+
+#: config/prefs.php.dist:93
+msgid "Number of galleries per page"
+msgstr "Gallerioiden määrä sivulla"
+
+#: config/prefs.php.dist:101
+msgid "Number of groups per page"
+msgstr "Ryhmien määrä sivulla"
+
+#: config/prefs.php.dist:85
+msgid "Number of images per page"
+msgstr "Kuvien määrä sivulla"
+
+#: config/prefs.php.dist:77
+msgid "Number of images per row"
+msgstr "Kuvien määrä rivillä"
+
+#: lib/Exif.php:267
+msgid "One Chip Color Area Sensor"
+msgstr "Yhden värikennon sensori"
+
+#: perms.php:62
+msgid ""
+"Only the owner or system administrator may change ownership or owner "
+"permissions for a share"
+msgstr ""
+"Vain omistaja tai järjestelmän ylläpitäjä voi muuttaa jakojen omistajia tai "
+"oikeuksia"
+
+#: templates/crop/crop.inc:27
+msgid "Original"
+msgstr "Alkuperäinen"
+
+#: lib/Exif.php:211
+msgid "Other"
+msgstr "Muu"
+
+#: config/prefs.php.dist:13 config/prefs.php.dist:20 config/prefs.php.dist:28
+msgid "Other Options"
+msgstr "Muut asetukset"
+
+#: templates/list/images.inc:25 config/prefs.php.dist:65
+msgid "Owner"
+msgstr "Omistaja"
+
+#: templates/view/parents.inc:2
+msgid "Parent Galleries"
+msgstr "Päägalleriat"
+
+#: lib/Exif.php:210
+msgid "Partial"
+msgstr "Osittainen"
+
+#: templates/xppublish/login.inc:14
+msgid "Password"
+msgstr "Salasana"
+
+#: templates/view/gallery.inc:99
+msgid "Permissions"
+msgstr "Oikeudet"
+
+#: templates/xppublish/javascript.inc:63
+msgid "Photo Upload"
+msgstr "Valokuvan tallennus"
+
+#: slideshow.php:42
+msgid "Pinwheel"
+msgstr "Onnenpyörä"
+
+#: slideshow.php:43
+msgid "Pixelate"
+msgstr "Pikselöity"
+
+#: templates/slideshow/slideshow.inc:67
+msgid "Play"
+msgstr "Näytä"
+
+#: xppublish.php:54
+msgid "Please enter your Username and Password."
+msgstr "Anna käyttäjätunnus ja salasanasi."
+
+#: xppublish.php:99 xppublish.php:155
+msgid "Press the 'Back' button and try again."
+msgstr "Napsauta 'Back'-painiketta ja yritä uudestaan."
+
+#: image.php:457
+#, php-format
+msgid "Preview changes for %s :: %s"
+msgstr "Esikatse muutokset %s :: %s"
+
+#: templates/view/description-image.inc:46
+#: templates/view/description-image.inc:47
+msgid "Previous"
+msgstr "Edellinen"
+
+#: lib/Ansel.php:395
+msgid "Print"
+msgstr "Tulosta"
+
+#: templates/view/navbar-image.inc:31
+msgid "Print on Shutterfly"
+msgstr "Tulosta Shutterfly:lle"
+
+#: lib/Exif.php:111
+msgid "Program"
+msgstr "Ohjelma"
+
+#: templates/view/gallery.inc:155 templates/view/navbar-image.inc:16
+msgid "Properties"
+msgstr "Ominaisuudet"
+
+#: xppublish.php:35
+#, php-format
+msgid "Publish to %s"
+msgstr "Julkaise %s:ssä"
+
+#: xppublish.php:23
+#, php-format
+msgid "Publish your photos to %s on %s."
+msgstr "Julkaise valokuvasi %s %s:."
+
+#: slideshow.php:44
+msgid "Radial"
+msgstr "Radiaali"
+
+#: slideshow.php:45
+msgid "Rain"
+msgstr "Sade"
+
+#: slideshow.php:50
+msgid "Random"
+msgstr "Satunnainen"
+
+#: lib/Block/random_gallery.php:3 lib/Block/random_gallery.php:27
+msgid "Random gallery"
+msgstr "Satunnainen galleria"
+
+#: lib/Block/random_photo.php:3 lib/Block/random_photo.php:28
+msgid "Random photo"
+msgstr "Satunnainen"
+
+#: reorder.php:90
+#, php-format
+msgid "Re-order the images in %s"
+msgstr "Järjestä kuvan satunnaisti %s:ssä"
+
+#: lib/Exif.php:249
+msgid "Red Eye"
+msgstr "Punasilmäisyys"
+
+#: lib/Exif.php:255
+msgid "Red Eye, Auto-Mode"
+msgstr "Punasilmäisyys, automaattiasetus"
+
+#: lib/Exif.php:257
+msgid "Red Eye, Auto-Mode, Return light detected"
+msgstr "Punasilmäisyys, automaattiasetus, heijastunutta valoa havaittu"
+
+#: lib/Exif.php:256
+msgid "Red Eye, Auto-Mode, Return light not detected"
+msgstr "Punasilmäisyys, automaattiasetus, heijastunutta valoa ei havaittu"
+
+#: lib/Exif.php:252
+msgid "Red Eye, Compulsory Flash"
+msgstr "Punasilmäisyys, pakotettu salama"
+
+#: lib/Exif.php:254
+msgid "Red Eye, Compulsory Flash, Return light detected"
+msgstr "Punasilmäisyys, pakotettu salama, heijastunutta valoa havaittu"
+
+#: lib/Exif.php:253
+msgid "Red Eye, Compulsory Flash, Return light not detected"
+msgstr "Punasilmäisyys, pakotettu salama, heijastunutta valoa ei havaittu"
+
+#: lib/Exif.php:251
+msgid "Red Eye, Return light detected"
+msgstr "Punasilmäisyys, heijastunutta valoa havaittu"
+
+#: lib/Exif.php:250
+msgid "Red Eye, Return light not detected"
+msgstr "Punasilmäisyys, heijastunutta valoa ei havaittu"
+
+#: templates/view/gallery.inc:79
+msgid "Refresh Gallery View"
+msgstr "Päivitä gallerinäkymä"
+
+#: templates/view/gallery.inc:79 templates/list/header.inc:10
+#: templates/list/header.inc:11 templates/group/header.inc:7
+#: templates/group/header.inc:8
+msgid "Refresh List"
+msgstr "Päivitä lista"
+
+#: templates/view/gallery.inc:96
+msgid "Reorder"
+msgstr "Uudelleenjärjestä"
+
+#: templates/view/gallery.inc:96
+msgid "Reorder Gallery"
+msgstr "Uudelleenjärjestä galleria"
+
+#: templates/crop/crop.inc:3
+msgid "Resize selection"
+msgstr "Muuta valinnan kokoa"
+
+#: templates/slideshow/slideshow.inc:90 templates/slideshow/slideshow.inc:221
+msgid "Reverse direction"
+msgstr "Käännä suuntaan"
+
+#: image.php:109
+msgid "Right"
+msgstr "Oikea"
+
+#: templates/crop/crop.inc:50
+msgid "Right X"
+msgstr "Oikea X"
+
+#: templates/image/edit_image.inc:22
+msgid "Rotate 180"
+msgstr "Käännä 180"
+
+#: templates/image/edit_image.inc:21
+msgid "Rotate Left"
+msgstr "Käännä vastapäivään"
+
+#: templates/image/edit_image.inc:23
+msgid "Rotate Right"
+msgstr "Käännä myötäpäivään"
+
+#: image.php:29 image.php:52 image.php:96 reorder.php:26
+msgid "Save"
+msgstr "Talleta"
+
+#: templates/captions/captions.inc:50
+msgid "Save Captions"
+msgstr "Talleta kuvateksti"
+
+#: templates/image/preview_image.inc:24
+msgid "Save Change"
+msgstr "Talleta muutokset"
+
+#: templates/gallery/gallery.inc:85
+msgid "Save Gallery"
+msgstr "Talleta galleria"
+
+#: image.php:195
+msgid "Save Image"
+msgstr "Talleta kuva"
+
+#: templates/gallery/gallery.inc:74
+msgid "Screen Image Height"
+msgstr "Kuvanäytön korkeus"
+
+#: templates/gallery/gallery.inc:67
+msgid "Screen Image Width"
+msgstr "Kuvanäytön leveys"
+
+#: search.php:28
+msgid "Search"
+msgstr "Haku"
+
+#: search.php:60
+msgid "Search Type"
+msgstr "Haun tyyppi"
+
+#: search.php:97 search.php:102
+#, php-format
+msgid "Search for Images"
+msgstr "Hae kuvia"
+
+#: templates/view/navbar-gallery.inc:5
+msgid "Select All"
+msgstr "Valitse kaikki"
+
+#: templates/view/navbar-gallery.inc:6
+msgid "Select None"
+msgstr "Tyhjennä valinnat"
+
+#: templates/xppublish/list.inc:6
+msgid "Select the Gallery to publish images to"
+msgstr "Valitse galleria, johon kuvat julkaistaan"
+
+#: templates/view/navbar-gallery.inc:4
+#, fuzzy, php-format
+msgid "Select: %s, %s"
+msgstr "Valitse: %s | %s"
+
+#: templates/view/navbar-gallery.inc:20
+msgid "Selected images to"
+msgstr "Valitut kuvat"
+
+#: ecard.php:25
+msgid "Send"
+msgstr "Lähetä"
+
+#: ecard.php:141
+#, php-format
+msgid "Send Ecard :: %s"
+msgstr "Lähetä Ecard :: %s"
+
+#: templates/view/navbar-image.inc:28
+msgid "Send as Ecard"
+msgstr "Lähetä Ecard-muodossa"
+
+#: ecard.php:41
+msgid "Send ecard to the following address:"
+msgstr "Lähetä Ecard seuraaville vastaanottajille:"
+
+#: lib/Exif.php:330
+msgid "Sensing Method"
+msgstr "Tunnistusmetodi"
+
+#: templates/view/gallery.inc:99
+msgid "Set Permissions"
+msgstr "Aseta oikeudet"
+
+#: config/prefs.php.dist:120
+msgid "Show EXIF data"
+msgstr "Näytä EXIF-tiedot"
+
+#: lib/Exif.php:317
+msgid "Shutter Speed"
+msgstr "Sulkijan nopeus"
+
+#: image.php:58
+msgid "Single Image"
+msgstr "Yksittäinen kuva"
+
+#: slideshow.php:46
+msgid "Slide"
+msgstr "Dia"
+
+#: lib/Ansel.php:376
+msgid "Slide Show"
+msgstr "Kuvaesitys"
+
+#: templates/list/gallery_summaries.inc:7
+msgid "Slide show"
+msgstr "Kuvaesitys"
+
+#: slideshow.php:52
+#, php-format
+msgid "Slide show for %s"
+msgstr "Kuvaesitys %s"
+
+#: templates/slideshow/slideshow.inc:79
+msgid "Slide show is running"
+msgstr "Kuvaesitys on käynnissä"
+
+#: image.php:105
+msgid "Small"
+msgstr "Pieni"
+
+#: slideshow.php:47
+msgid "Snow"
+msgstr "Lumi"
+
+#: templates/list/gallery_headers.inc:6 templates/list/gallery_headers.inc:21
+msgid "Sort Direction"
+msgstr "Järjestyksen suunta"
+
+#: config/prefs.php.dist:14
+msgid "Sort Options"
+msgstr "Järjestyksen asetukset"
+
+#: templates/list/gallery_headers.inc:22
+msgid "Sort by Description"
+msgstr "Järjestä kuvauksen mukaan"
+
+#: templates/list/gallery_headers.inc:7
+msgid "Sort by Name"
+msgstr "Järjestä nimen mukaan"
+
+#: gallery.php:186
+#, php-format
+msgid "Specified screen image height is too large, value has been set to %s"
+msgstr "Ruudun määritelty korkeus on liian suuri, arvo on nyt %s"
+
+#: gallery.php:183
+#, php-format
+msgid "Specified screen image height is too small, value has been set to %s"
+msgstr "Ruudun määritelty korkeus on liian pieni, arvo on nyt %s"
+
+#: gallery.php:177
+#, php-format
+msgid "Specified screen image width is too large, value has been set to %s"
+msgstr "Ruudun määritelty leveys on liian suuri, arvo on nyt %s"
+
+#: gallery.php:174
+#, php-format
+msgid "Specified screen image width is too small, value has been set to %s"
+msgstr "Ruudun määritelty leveys on liian pieni, arvo on nyt %s"
+
+#: gallery.php:168
+#, php-format
+msgid "Specified thumbnail height is too large, value has been set to %s"
+msgstr "Pikkukuvan määritelty korkeus on liian suuri, arvo on nyt %s"
+
+#: gallery.php:165
+#, php-format
+msgid "Specified thumbnail height is too small, value has been set to %s"
+msgstr "Pikkukuvan määritelty korkeus on liian pieni, arvo on nyt %s"
+
+#: gallery.php:159
+#, php-format
+msgid "Specified thumbnail width is too large, value has been set to %s"
+msgstr "Pikkukuvan määritelty leveys on liian suuri, arvo on nyt %s"
+
+#: gallery.php:156
+#, php-format
+msgid "Specified thumbnail width is too small, value has been set to %s"
+msgstr "Pikkukuvan määritelty leveys on liian pieni, arvo on nyt %s"
+
+#: slideshow.php:48
+msgid "Spiral"
+msgstr "Spiraali"
+
+#: lib/Exif.php:207
+msgid "Spot"
+msgstr "Piste"
+
+#: search.php:88
+msgid "Start Date"
+msgstr "Alkamispäivämäärä"
+
+#: templates/slideshow/slideshow.inc:76 templates/slideshow/slideshow.inc:221
+msgid "Stop"
+msgstr "Stop"
+
+#: scripts/ansel.php:190 scripts/ansel.php:269
+#, php-format
+msgid "Storing image '%s'..."
+msgstr "Talletetaan kuva '%s'..."
+
+#: slideshow.php:49
+msgid "Stretch"
+msgstr "Venytä"
+
+#: templates/view/subgallery_header.inc:4
+#, php-format
+msgid "Subgalleries of %s"
+msgstr "%s:n aligalleriat"
+
+#: templates/view/gallery.inc:93
+msgid "Subgallery"
+msgstr "Aligalleria"
+
+#: scripts/ansel.php:210
+#, php-format
+msgid "Successfully added %d image(s) (%s) to gallery '%s' from '%s'."
+msgstr "Lisättiin onnistuneesti %d kuvaa (%s) galleriaan '%s' '%s':stä."
+
+#: scripts/ansel.php:197
+#, php-format
+msgid "Successfully added image '%s' to gallery '%s'."
+msgstr "Kuvan '%s' lisäys galleriaan '%s' onnistui."
+
+#: gallery.php:318
+#, php-format
+msgid "Successfully deleted %s."
+msgstr "Poistettiin onnistuneesti %s."
+
+#: lib/Exif.php:218
+msgid "Sunny"
+msgstr "Aurinkoinen"
+
+#: search.php:66
+msgid "Text Field"
+msgstr "Tekstikenttä"
+
+#: search.php:61
+msgid "Text Fields"
+msgstr "Tekstikentät"
+
+#: search.php:67
+msgid "Text Operator"
+msgstr "Tekstitoiminto"
+
+#: search.php:68
+msgid "Text Value"
+msgstr "Tekstin arvo"
+
+#: scripts/ansel.php:236
+#, php-format
+msgid "The directory '%s' doesn't exist."
+msgstr "Hakemistoa '%s' ei ole olemassa."
+
+#: scripts/ansel.php:215
+#, php-format
+msgid "The directory '%s' had no valid images."
+msgstr "Hakemistossa '%s' ei ollut kunnollisia kuvatiedostoja."
+
+#: scripts/ansel.php:253
+#, php-format
+msgid "The directory '%s' is empty."
+msgstr "Hakemisto '%s' on tyhjä."
+
+#: lib/Ansel.php:282
+#, php-format
+msgid "The file '%s' doesn't exist."
+msgstr "Tiedosto '%s' ei ole olemassa."
+
+#: image.php:295 lib/api.php:150
+msgid "The file you uploaded does not appear to be a valid image."
+msgstr "Tuotu tiedosto ei vaikuta kelvolliselta kuvatiedostolta."
+
+#: lib/Ansel.php:175
+#, php-format
+msgid "The gallery \"%s\" could not be created: %s"
+msgstr "Galleriaa \"%s\" ei voitu luoda: %s"
+
+#: gallery.php:283 xppublish.php:129 scripts/ansel.php:120
+#, php-format
+msgid "The gallery \"%s\" couldn't be created: %s"
+msgstr "Galleriaa \"%s\" ei voitu luoda: %s"
+
+#: gallery.php:288 xppublish.php:133 scripts/ansel.php:124
+#, php-format
+msgid "The gallery \"%s\" was created successfully."
+msgstr "Gallerian \"%s\" luonti onnistui."
+
+#: gallery.php:230
+msgid "The gallery was saved."
+msgstr "Galleria talletettiin"
+
+#: image.php:305
+msgid "The image was saved."
+msgstr "Kuva talletettiin"
+
+#: templates/slideshow/slideshow.inc:70
+msgid "The slide show is stopped, click [Play] to resume."
+msgstr "Kuvaesitys on pysäytetty, napsauta [Aloita] jatkaaksesi"
+
+#: image.php:320
+msgid ""
+"The uploaded file appears to be empty. It may not exist on your computer."
+msgstr ""
+"Tuotu tiedosto vaikuttaisi tyhjältä. Ehkä sitä ei ole olemassa "
+"tietokoneellasi."
+
+#: gallery.php:88
+#, php-format
+msgid "There are no images in %s to download."
+msgstr "%s:ssä ei ole kuvia tuotavaksi."
+
+#: slideshow.php:31
+msgid "There are no images in this gallery to show."
+msgstr "Tässä galleriassa ei ole kuvia näytettäväksi."
+
+#: templates/view/gallery.inc:111 templates/captions/captions.inc:52
+msgid "There are no images in this gallery."
+msgstr "Tässä galleriassa ei ole kuvia."
+
+#: list.php:63 lib/Block/random_photo.php:38 lib/Block/random_gallery.php:37
+msgid "There are no photo galleries available."
+msgstr "Valokuvagallerioita ei ole saatavilla."
+
+#: scripts/ansel.php:193 scripts/ansel.php:272
+#, php-format
+msgid "There was a problem adding the image '%s' to gallery '%s'."
+msgstr "Tapahtui virhe lisättäessä kuvaa '%s' galleriaan '%s'."
+
+#: image.php:616
+#, fuzzy, php-format
+msgid "There was a problem copying \"%s\": %s"
+msgstr "Tapahtui virhe kopioitaessa kuvaa: %s"
+
+#: image.php:578
+#, fuzzy, php-format
+msgid "There was a problem deleting \"%s\": %s"
+msgstr "Tapahtui virhe poistettaessa %s: %s"
+
+#: lib/api.php:267
+#, php-format
+msgid "There was a problem deleting %s: %s"
+msgstr "Tapahtui virhe poistettaessa %s: %s"
+
+#: gallery.php:325
+#, php-format
+msgid "There was a problem deleting %s: %s."
+msgstr "Tapahtui virhe poistettaessa %s: %s."
+
+#: image.php:539
+#, php-format
+msgid "There was a problem deleting images: %s"
+msgstr "Tapahtui virhe poistettaessa kuvaa %s"
+
+#: image.php:574
+#, fuzzy, php-format
+msgid "There was a problem moving \"%s\": %s"
+msgstr "Tapahtui virhe siirrettäessä kuvaa: %s"
+
+#: image.php:278 image.php:311
+#, php-format
+msgid "There was a problem saving the image: %s"
+msgstr "Tapahtui virhe talletettaessa kuvaa: %s"
+
+#: xppublish.php:199
+msgid "There was a problem uploading the image."
+msgstr "Tapahtui virhe tuotaessa kuvaa."
+
+#: image.php:318
+#, php-format
+msgid "There was a problem uploading the image: %s"
+msgstr "Tapahtui virhe tuotaessa kuvaa: %s"
+
+#: image.php:255 image.php:263
+#, php-format
+msgid "There was an error processing the uploaded archive: %s"
+msgstr "Tapahtui virhe käsiteltäessä tuotua arkistoa: %s"
+
+#: ecard.php:130
+#, php-format
+msgid "There was an error sending your message: %s"
+msgstr "Tapahtui virhe lähetettäessä viestiäsi: %s"
+
+#: lib/Exif.php:269
+msgid "Three Chip Color Area Sensor"
+msgstr "Kolmen värikennon sensori"
+
+#: search.php:164 search.php:231
+msgid "Thumbnail"
+msgstr "Pikkukuva"
+
+#: templates/gallery/gallery.inc:60
+msgid "Thumbnail Height"
+msgstr "Pikkukuvan korkeus"
+
+#: templates/gallery/gallery.inc:53
+msgid "Thumbnail Width"
+msgstr "Pikkukuvan leveys"
+
+#: image.php:105
+msgid "Tiny"
+msgstr "Pieni"
+
+#: lib/Ansel.php:342
+msgid "Today"
+msgstr "Tänään"
+
+#: image.php:113
+msgid "Top"
+msgstr "Ylös"
+
+#: templates/crop/crop.inc:24
+msgid "Top Y"
+msgstr "Ylin Y"
+
+#: templates/slideshow/slideshow.inc:245
+msgid "Transition"
+msgstr "Muutos"
+
+#: lib/Exif.php:271
+msgid "Trilinear Sensor"
+msgstr "Trilineaarinen sensori"
+
+#: lib/Exif.php:220
+msgid "Tungsten"
+msgstr "Tungsteeni"
+
+#: lib/Exif.php:112
+msgid "Tv-priority"
+msgstr "Tv-prioriteetti"
+
+#: lib/Exif.php:268
+msgid "Two Chip Color Area Sensor"
+msgstr "Kahden tunnistimen sensori"
+
+#: lib/Exif.php:282
+msgid "Uncalibrated"
+msgstr "Kalibroimaton"
+
+#: templates/gallery/gallery.inc:86
+msgid "Undo Changes"
+msgstr "Peru muutokset"
+
+#: list.php:50 templates/group/category.inc:8
+#, fuzzy
+msgid "Unfiled"
+msgstr "Nimetön"
+
+#: lib/Exif.php:204
+msgid "Unknown"
+msgstr "Tuntematon"
+
+#: gallery.php:129
+msgid "Unknown gallery"
+msgstr "Tuntematon galleria"
+
+#: lib/Ansel.php:163
+msgid "Unnamed"
+msgstr "Nimetön"
+
+#: xppublish.php:141
+msgid "Untitled"
+msgstr "Nimetön"
+
+#: perms.php:234
+#, php-format
+msgid "Updated %s."
+msgstr "Päivitettiin %s."
+
+#: templates/view/gallery.inc:92
+msgid "Upload"
+msgstr "Tuo"
+
+#: templates/xppublish/javascript.inc:63
+#, php-format
+msgid "Upload Photos to %s"
+msgstr "Tuo valokuvat %s:ään"
+
+#: image.php:166 image.php:225
+msgid "Upload new images"
+msgstr "Tuo uusia kuvia"
+
+#: lib/Exif.php:135
+#, php-format
+msgid "Upsidedown"
+msgstr "Ylösalaisin"
+
+#: lib/Exif.php:136
+#, php-format
+msgid "Upsidedown Mirrored"
+msgstr "Ylösalaisin peilikuvana"
+
+#: scripts/ansel.php:291
+#, php-format
+msgid "Usage: %s [OPTIONS]..."
+msgstr "Käyttö: %s [PARAMETRIT]..."
+
+#: templates/xppublish/new.inc:17 templates/gallery/gallery.inc:24
+msgid "Use Default"
+msgstr "Käytä oletuksia"
+
+#: ecard.php:32
+msgid "Use the following return address:"
+msgstr "Käytä seuraavaa palautusosoitetta:"
+
+#: lib/Exif.php:328
+msgid "User Comment"
+msgstr "Käyttäjän kommenttin"
+
+#: templates/xppublish/login.inc:11
+msgid "Username"
+msgstr "Käyttäjätunnus"
+
+#: xppublish.php:50
+msgid "Username and Password are incorrect."
+msgstr "Käyttäjätunnus ja salasana on väärin."
+
+#: image.php:114
+msgid "Vertical Alignment"
+msgstr "Vertikaalinen tasaus"
+
+#: templates/list/gallery_summaries.inc:2
+#: templates/list/gallery_summaries.inc:15 templates/list/images.inc:9
+#: templates/list/images.inc:12 templates/list/images.inc:17
+#: lib/Block/random_gallery.php:42
+#, php-format
+msgid "View %s"
+msgstr "Näytä %s"
+
+#: lib/Block/random_photo.php:54
+msgid "View Photo"
+msgstr "Katso kuva"
+
+#: image.php:415 image.php:421 templates/image/edit_image.inc:36
+msgid "Watermark"
+msgstr "Vesileima"
+
+#: image.php:106
+msgid "Watermark Font"
+msgstr "Vesileiman kirjaisin"
+
+#: lib/Exif.php:331
+msgid "White Balance"
+msgstr "Valkotasapaino"
+
+#: lib/Exif.php:313
+msgid "Width"
+msgstr "Leveys"
+
+#: lib/Exif.php:315
+msgid "X Resolution"
+msgstr "X resoluutio"
+
+#: lib/Exif.php:316
+msgid "Y Resolution"
+msgstr "Y resoluutio"
+
+#: config/prefs.php.dist:109
+msgid "Yes"
+msgstr "Kyllä"
+
+#: config/prefs.php.dist:111
+msgid "Yes, and don't prompt to change it"
+msgstr "Kyllä, äläkä kysy muuttaaksesi"
+
+#: lib/Ansel.php:344
+msgid "Yesterday"
+msgstr "Eilen"
+
+#: image.php:352
+msgid "You are not allowed to edit this image."
+msgstr "Sinulla ei ole oikeuksia muuttaa tätä kuvaa."
+
+#: xppublish.php:91 xppublish.php:184
+msgid "You cannot add photos in that gallery."
+msgstr "Sinä et voi lisätä kuvia tähän galleriaan."
+
+#: scripts/ansel.php:139
+#, php-format
+msgid "You cannot add photos to the gallery '%s'."
+msgstr "Sinä et voi lisätä kuvia galleriaan '%s'."
+
+#: gallery.php:313
+#, php-format
+msgid "You cannot delete %s, it contains nested galleries."
+msgstr "Et voi poistaa %s, koska se sisältää sisäkkäisiä gallerioita."
+
+#: gallery.php:53 gallery.php:245
+#, php-format
+msgid "You do not have permission to add children to %s."
+msgstr "Sinulla ei ole oikeuksia lisätä alitasoja %s:lle."
+
+#: gallery.php:348
+#, php-format
+msgid "You do not have permission to empty %s."
+msgstr "Sinulle ei ole oikeuksia tyhjentää %s."
+
+#: reorder.php:47 slideshow.php:24 view.php:27
+msgid "You do not have permission to view this gallery."
+msgstr "Sinulla ei ole oikeuksia katsella tätä galleriaa"
+
+#: ecard.php:102
+msgid ""
+"You have been sent an Ecard. To view the Ecard, you must be able to view "
+"text/html messages in your mail reader. If you are viewing this message, "
+"then most likely your mail reader does not support viewing text/html "
+"messages."
+msgstr ""
+"Olet saanut Ecard:in. Katsoaksesi Ecarc:n, sinun pitää pystyä katsomaan text/"
+"html muodossa olevia viestiä sähköpostiohjelmassasi. Jos näet tämän viestin, "
+"niin todennäköisesti sinun käyttämäsi ohjelma ei tue text/html viestejä."
+
+#: ecard.php:76
+msgid "You must enter an e-mail address to send the message to."
+msgstr "Sinun pitää antaa sähköpostiosoite, johon viesti lähetetään"
+
+#: ecard.php:71
+msgid "You must enter your e-mail address."
+msgstr "Sinun pitää antaa sähköpostiosoite"
+
+#: gallery.php:265
+msgid "You must provide a display name for your new gallery."
+msgstr "Sinun pitää antaa näkymän nimi galleriallesi."
+
+#: image.php:76
+msgid "Zip File Upload"
+msgstr "Zip-tiedosto tuonti"
+
+#: templates/crop/crop.inc:34
+msgid "Zoom"
+msgstr "Zoom"
+
+#: lib/Ansel.php:365
+msgid "_Galleries"
+msgstr "_Galleriat"
+
+#: lib/Ansel.php:390
+msgid "_New Gallery"
+msgstr "_Uusi galleria"
+
+#: lib/Ansel.php:399
+msgid "_Search"
+msgstr "_Haku"
+
+#: lib/Exif.php:279
+msgid "sRGB"
+msgstr "sRGB"

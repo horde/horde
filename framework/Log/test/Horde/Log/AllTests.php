@@ -6,12 +6,12 @@
  * (http://framework.zend.com).  Both that package and this
  * one were written by Mike Naberezny and Chuck Hagenbuch.
  *
- * @category Horde
- * @package  Horde_Log
+ * @author     Mike Naberezny <mike@maintainable.com>
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @category   Horde
+ * @license    http://opensource.org/licenses/bsd-license.php BSD
+ * @package    Log
  * @subpackage UnitTests
- * @author   Mike Naberezny <mike@maintainable.com>
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
  */
 
 /**
@@ -27,13 +27,16 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 require_once 'Horde/Test/AllTests.php';
 
 /**
- * @package    Horde_Log
+ * @category   Horde
+ * @package    Log
  * @subpackage UnitTests
  */
 class Horde_Log_AllTests extends Horde_Test_AllTests
 {
 }
 
+Horde_Log_AllTests::init('Horde_Log', __FILE__);
+
 if (PHPUnit_MAIN_METHOD == 'Horde_Log_AllTests::main') {
-    Horde_Log_AllTests::main('Horde_Log', __FILE__);
+    Horde_Log_AllTests::main();
 }

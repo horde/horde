@@ -66,8 +66,7 @@ implements Horde_Kolab_Server_Query_Interface
     {
         try {
             $filter = $this->_criteria->convert($this);
-            $result = $filter->asString();
-            return $result;
+            return (string)$filter;
         } catch (Horde_Kolab_Server_Exception $e) {
             return '';
         }
@@ -185,15 +184,21 @@ implements Horde_Kolab_Server_Query_Interface
         Horde_Kolab_Server_Query_Element_Single $single,
         $operator
     ) {
-        $result = Net_LDAP2_Filter::create(
-            $this->_structure->mapExternalToInternalAttribute(
-                $single->getName()
-            ),
-            $operator,
-            $single->getValue()
-        );
-        $this->_handleError($result);
-        return $result;
+        try {
+            return Horde_Ldap_Filter::create(
+                $this->_structure->mapExternalToInternalAttribute(
+                    $single->getName()
+                ),
+                $operator,
+                $single->getValue()
+            );
+        } catch (Horde_Ldap_Exception $e) {
+            throw new Horde_Kolab_Server_Exception(
+                $e->getMessage(),
+                Horde_Kolab_Server_Exception::INVALID_QUERY,
+                $e
+            );
+        }
     }
 
     /**
@@ -208,9 +213,15 @@ implements Horde_Kolab_Server_Query_Interface
     public function convertNot(Horde_Kolab_Server_Query_Element_Not $not)
     {
         $elements = $not->getElements();
-        $result = Net_LDAP2_Filter::combine('!', $elements[0]->convert($this));
-        $this->_handleError($result);
-        return $result;
+        try {
+            return Horde_Ldap_Filter::combine('!', $elements[0]->convert($this));
+        } catch (Horde_Ldap_Exception $e) {
+            throw new Horde_Kolab_Server_Exception(
+                $e->getMessage(),
+                Horde_Kolab_Server_Exception::INVALID_QUERY,
+                $e
+            );
+        }
     }
 
     /**
@@ -259,30 +270,14 @@ implements Horde_Kolab_Server_Query_Interface
         foreach ($group->getElements() as $element) {
             $filters[] = $element->convert($this);
         }
-        $result = Net_LDAP2_Filter::combine($operator, $filters);
-        $this->_handleError($result);
-        return $result;
-    }
-
-    /**
-     * Check for a PEAR Error and convert it to an exception if necessary.
-     *
-     * @param mixed $result The result to be tested.
-     * @param code  $code   The error code to use in case the result is an error.
-     *
-     * @return NULL.
-     *
-     * @throws Horde_Kolab_Server_Exception If the connection failed.
-     *
-     * @throws Horde_Kolab_Server_Exception If the query is malformed.
-     */
-    private function _handleError(
-        $result,
-        $code = Horde_Kolab_Server_Exception::INVALID_QUERY
-    ) {
-        if ($result instanceOf PEAR_Error) {
-            throw new Horde_Kolab_Server_Exception($result, $code);
+        try {
+            return Horde_Ldap_Filter::combine($operator, $filters);
+        } catch (Horde_Ldap_Exception $e) {
+            throw new Horde_Kolab_Server_Exception(
+                $e->getMessage(),
+                Horde_Kolab_Server_Exception::INVALID_QUERY,
+                $e
+            );
         }
     }
-
 }

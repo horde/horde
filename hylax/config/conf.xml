@@ -1,6 +1,13 @@
 <?xml version="1.0"?>
-<!-- $Horde: incubator/hylax/config/conf.xml,v 1.5 2005/06/18 01:38:51 jvandal Exp $ -->
 <configuration>
+
+ <configtab name="vfs" desc="Virtual File Storage">
+  <configsection name="vfs">
+   <configheader>Virtual File Storage Settings</configheader>
+   <configvfs switchname="type"/>
+  </configsection>
+ </configtab>
+
  <configtab name="fax" desc="Fax Driver Settings">
   <configsection name="fax">
    <configheader>Fax Driver Settings</configheader>
@@ -24,6 +31,7 @@
    </configswitch>
   </configsection>
  </configtab>
+
  <configtab name="storage" desc="Storage Driver Settings">
   <configsection name="storage">
    <configheader>Storage Driver Settings</configheader>

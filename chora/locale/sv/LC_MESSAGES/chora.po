@@ -1,0 +1,550 @@
+# Chora Swedish translation
+# Copyright 2002-2005 Andreas Dahlén.
+# Andreas Dahlén <andreas@dahlen.ws>, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Chora 2.0-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2005-06-14 22:08+0200\n"
+"PO-Revision-Date: 2005-06-16 13:32+0100\n"
+"Last-Translator: Andreas Dahlén <andreas@dahlen.ws>\n"
+"Language-Team: Swedish <dev@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: templates/annotate/header.inc:4
+msgid "#"
+msgstr "#"
+
+#: templates/log/rev.inc:24 templates/patchsets/ps.inc:12
+#, php-format
+msgid "%s ago"
+msgstr "för %s sedan"
+
+#: templates/diff/hr/footer.inc:19
+#, php-format
+msgid "Added in v.%s"
+msgstr "Tillagd i v.%s"
+
+#: templates/log/request.inc:57
+msgid "All Branches"
+msgstr "Alla grenar"
+
+#: co.php:72 templates/log/rev.inc:8
+msgid "Annotate"
+msgstr "Kommentera"
+
+#: templates/directory/header.inc:16 templates/stats/stats.inc:3
+#: templates/annotate/header.inc:5
+msgid "Author"
+msgstr "Författare"
+
+#: templates/directory/back.inc:4
+msgid "Back"
+msgstr "Tillbaka"
+
+#: templates/log/rev.inc:29 templates/checkout/checkout.inc:27
+msgid "Branch Point for:"
+msgstr "Grenpunkt för:"
+
+#: templates/log/rev.inc:26 templates/checkout/checkout.inc:11
+#: templates/patchsets/ps.inc:14
+msgid "Branch:"
+msgstr "Gren:"
+
+#: lib/Chora.php:466
+msgid "Branches"
+msgstr "Grenar"
+
+#: templates/history/branch_cell.inc:2
+msgid "Branching to"
+msgstr "Förgrenar till"
+
+#: templates/log/rev.inc:35 templates/checkout/checkout.inc:35
+#, php-format
+msgid "Changed since <strong>%s</strong>"
+msgstr "Ädrad sedan <strong>%s</strong>"
+
+#: templates/history/rev.inc:8
+#, php-format
+msgid "Changed: %s"
+msgstr "Ändrad: %s"
+
+#: co.php:70
+#, php-format
+msgid "Checkout of %s (revision %s)"
+msgstr "Utcheckning av %s (revision %s)"
+
+#: templates/cvsgraph/cvsgraph.inc:11
+msgid ""
+"Click on the links in between revisions to get a diff between those "
+"revisions."
+msgstr ""
+"Klicka på länken mellan revisioner för att få skillnaden mellan de "
+"revisionerna."
+
+#: templates/cvsgraph/cvsgraph.inc:10
+msgid "Click on the revisions and branches to display the file."
+msgstr "Klicka på revisionen och gren för att visa filen."
+
+#: templates/log/rev.inc:40 templates/log/rev.inc:49
+msgid "Colored"
+msgstr "Färgad"
+
+#: templates/checkout/checkout.inc:19 templates/patchsets/ps.inc:17
+msgid "Commit Tags:"
+msgstr "Insättningsmärken:"
+
+#: templates/stats/stats.inc:4
+msgid "Commits"
+msgstr "Insättningar"
+
+#: templates/log/request.inc:28
+msgid "Context"
+msgstr "Kontext"
+
+#: config/prefs.php.dist:11
+msgid "Customize tasks to run upon logging in to Chora."
+msgstr "Skräddarsy aktiviteter som körs vid inloggning till Chora."
+
+#: templates/directory/header.inc:21
+msgid "Da_te"
+msgstr "Da_tum"
+
+#: templates/directory/header.inc:21
+msgid "Date"
+msgstr "Datum"
+
+#: patchsets.php:66
+msgid "Deleted"
+msgstr "Raderad"
+
+#: templates/directory/file.inc:5 templates/directory/file.inc:17
+msgid "Deleted File"
+msgstr "Raderar fil"
+
+#: templates/log/rev.inc:13
+msgid "Deselect"
+msgstr "Avmarkera"
+
+#: patchsets.php:63
+msgid "Diff"
+msgstr "Jämför"
+
+#: patchsets.php:46
+msgid "Diff All Files"
+msgstr "Jämför alla filer"
+
+#: diff.php:69
+#, php-format
+msgid "Diff for %s between version %s and %s"
+msgstr "Skillnader för %s mellan version %s och %s"
+
+#: templates/log/rev.inc:48
+#, php-format
+msgid "Diffs to <strong>%s</strong>"
+msgstr "Skillnader till <strong>%s</strong>"
+
+#: templates/log/rev.inc:39
+#, php-format
+msgid "Diffs to version %s"
+msgstr "Skillnad mot version %s"
+
+#: templates/directory/dir.inc:5 templates/directory/dir.inc:7
+msgid "Directory"
+msgstr "Katalog"
+
+#: annotate.php:30 co.php:73 templates/log/rev.inc:10
+msgid "Download"
+msgstr "Hämta"
+
+#: templates/log/request.inc:30
+msgid "Ed Script"
+msgstr "Editera script"
+
+#: templates/error_page.inc:4
+msgid "Error"
+msgstr "Fel"
+
+#: templates/error_page.inc:7
+msgid "Error Encountered"
+msgstr "Fel uppstod"
+
+#: templates/directory/file.inc:7 templates/directory/file.inc:19
+#: templates/directory/header.inc:6
+msgid "File"
+msgstr "Fil"
+
+#: templates/patchsets/ps.inc:21
+msgid "Files Changed:"
+msgstr "Ändrade filer:"
+
+#: templates/log/request.inc:44
+msgid "Get Diffs"
+msgstr "Hämta skillnader"
+
+#: lib/Chora.php:469
+msgid "Graph"
+msgstr "Graf"
+
+#: cvsgraph.php:48
+#, php-format
+msgid "Graph for %s"
+msgstr "Graf för %s"
+
+#: browse.php:40
+msgid "Hide Deleted Files"
+msgstr "Göm raderade filer"
+
+#: browse.php:40
+msgid "Hide _Deleted Files"
+msgstr "Göm _raderade filer"
+
+#: templates/log/request.inc:26
+msgid "Human Readable"
+msgstr "Läsbar för människor"
+
+#: templates/directory/header.inc:23
+msgid "Last Log"
+msgstr "Senaste loggmeddelande"
+
+#: templates/diff/hr/header.inc:5
+#, php-format
+msgid "Last Log Message for rev %s:"
+msgstr "Senaste loggmeddelande för revision %s:"
+
+#: templates/diff/hr/footer.inc:5
+msgid "Legend:"
+msgstr "Förklaring:"
+
+#: templates/annotate/header.inc:7
+msgid "Line"
+msgstr "Rad"
+
+#: templates/diff/hr/row.inc:3 templates/diff/hr/row.inc:7
+#, php-format
+msgid "Line %s"
+msgstr "Rad %s"
+
+#: templates/headerbar.inc:11
+msgid "Location:"
+msgstr "Plats:"
+
+#: templates/checkout/checkout.inc:42
+msgid "Log:"
+msgstr "Logg:"
+
+#: config/prefs.php.dist:10
+msgid "Login Tasks"
+msgstr "Loginaktiviteter"
+
+#: lib/Chora.php:460
+msgid "Logs"
+msgstr "Loggar"
+
+#: templates/log/rev.inc:41 templates/log/rev.inc:50
+msgid "Long"
+msgstr "Lång"
+
+#: diff.php:61
+msgid "Malformed Query"
+msgstr "Felaktig fråga"
+
+#: patchsets.php:59
+msgid "New File"
+msgstr "Ny fil"
+
+#: templates/diff/hr/nochange.inc:6
+msgid "No Viewable Change"
+msgstr "Inga synbara skillnader"
+
+#: templates/log/rev.inc:42 templates/log/rev.inc:51
+msgid "NoWhitespaceChanges"
+msgstr "Inga whitespace skillnader"
+
+#: config/prefs.php.dist:9
+msgid "Other Options"
+msgstr "Andra inställningar"
+
+#: lib/Chora.php:368
+msgid "Other Repositories"
+msgstr "Andra förvaringsplatser"
+
+#: templates/directory/back.inc:4
+msgid "Parent Directory"
+msgstr "Ovanstående mapp"
+
+#: templates/patchsets/ps.inc:6
+#, php-format
+msgid "PatchSet %s</span> by %s"
+msgstr "Patchset %s</span> av %s"
+
+#: lib/Chora.php:463
+msgid "Patchsets"
+msgstr "Patchsets"
+
+#: patchsets.php:27
+#, php-format
+msgid "Patchsets for %s"
+msgstr "Patchset för %s"
+
+#: templates/error_page.inc:13
+msgid "Please contact"
+msgstr "Var god kontakta"
+
+#: templates/diff/hr/footer.inc:11
+#, php-format
+msgid "Removed in v.%s"
+msgstr "Borttagen i v.%s"
+
+#: templates/log/request.inc:14
+msgid "Retrieve diffs between:"
+msgstr "Hämta skillnader mellan:"
+
+#: templates/directory/header.inc:11 templates/annotate/header.inc:6
+msgid "Rev"
+msgstr "Rev"
+
+#: co.php:77
+#, php-format
+msgid "Revision %s for file %s not found."
+msgstr "Revision %s för fil %s saknas."
+
+#: templates/checkout/checkout.inc:4
+#, php-format
+msgid "Revision <strong>%s</strong>, <em>%s</em> (%s ago) by %s"
+msgstr "Revision <strong>%s</strong>, <em>%s</em> (sedan %s) av %s"
+
+#: templates/log/rev.inc:15
+msgid "Select for Diff"
+msgstr "Välj för skillnader"
+
+#: browse.php:42
+msgid "Show Deleted Files"
+msgstr "Visa raderade filer"
+
+#: browse.php:42
+msgid "Show _Deleted Files"
+msgstr "Visa _raderade filer"
+
+#: templates/log/request.inc:29
+msgid "Side-by-Side"
+msgstr "Sida vid sida"
+
+#: templates/directory/header.inc:5 templates/directory/header.inc:10
+#: templates/directory/header.inc:15 templates/directory/header.inc:20
+msgid "Sort Order"
+msgstr "Sorteringsordning"
+
+#: annotate.php:27
+#, php-format
+msgid "Source Annotation of %s for version %s"
+msgstr "Källkommentar av %s för version %s"
+
+#: history.php:160
+#, php-format
+msgid "Source Branching View for %s"
+msgstr "Källgrenvy för %s"
+
+#: browse.php:32
+#, php-format
+msgid "Source Directory of /%s"
+msgstr "Källmapp för /%s"
+
+#: browse.php:126
+#, php-format
+msgid "Source Log for %s"
+msgstr "Källogg för %s"
+
+#: lib/Chora.php:182
+msgid ""
+"SourceRoot not found! This could be a misconfiguration by the server "
+"administrator, or the server could be having temporary problems. Please try "
+"again later."
+msgstr ""
+"SourceRoot saknas! Det kan bero på felaktig konfiguration av "
+"serveradministratören eller ett temporärt fel. Var god fösök igen senare."
+
+#: lib/Chora.php:471
+msgid "Statistics"
+msgstr "Statistik"
+
+#: stats.php:27
+#, php-format
+msgid "Statistics for %s"
+msgstr "Statistik för %s"
+
+#: templates/log/rev.inc:32
+msgid "Tags:"
+msgstr "Märken:"
+
+#: templates/log/request.inc:5
+msgid ""
+"This form allows you to request diffs between any two revisions of a file.  "
+"You may select a symbolic revision name using the selection box or you may "
+"type in a numeric name using the type-in text box."
+msgstr ""
+" Det här formuläret låter dig ta fram skillnader mellan två revisioner av en "
+"fil. Du kan välja ett symboliskt revisionsnamn mha listan eller ange ett "
+"numeriskt namn via textfältet."
+
+#: templates/headerbar.inc:16
+msgid "Tracking Branch"
+msgstr "Spårar gren"
+
+#: templates/log/request.inc:23
+msgid "Type:"
+msgstr "Typ:"
+
+#: templates/log/request.inc:27
+msgid "Unified"
+msgstr "Enad"
+
+#: templates/log/request.inc:18 templates/log/request.inc:38
+msgid "Use Text Field"
+msgstr "Anväänd textfält"
+
+#: config/prefs.php.dist:37
+msgid "Use last viewed file or directory at login time"
+msgstr "Använd senast visad fil eller mapp vid inloggning"
+
+#: annotate.php:29 templates/log/rev.inc:9
+msgid "View"
+msgstr "Visa"
+
+#: templates/log/request.inc:60
+msgid "View Branch"
+msgstr "Visa gren"
+
+#: templates/log/request.inc:54
+msgid "View revisions on:"
+msgstr "Visa revisioner för:"
+
+#: lib/Chora.php:473
+msgid "View:"
+msgstr "Visa:"
+
+#: templates/directory/header.inc:16
+msgid "_Author"
+msgstr "_Författare"
+
+#: lib/Chora.php:466
+msgid "_Branches"
+msgstr "_Grenar"
+
+#: lib/Chora.php:440
+msgid "_Browse"
+msgstr "_Lista"
+
+#: templates/directory/header.inc:6
+msgid "_File"
+msgstr "_Fil"
+
+#: lib/Chora.php:469
+msgid "_Graph"
+msgstr "_Graf"
+
+#: lib/Chora.php:460
+msgid "_Logs"
+msgstr "_Loggar"
+
+#: lib/Chora.php:463
+msgid "_Patchsets"
+msgstr "_Patchsets"
+
+#: templates/directory/header.inc:11
+msgid "_Rev"
+msgstr "_Rev"
+
+#: lib/Chora.php:471
+msgid "_Statistics"
+msgstr "_Statistik"
+
+#: templates/log/request.inc:35
+msgid "and:"
+msgstr "och:"
+
+#: templates/log/rev.inc:5 templates/history/rev.inc:4
+#, php-format
+msgid "by %s"
+msgstr "vid %s"
+
+#: templates/diff/hr/footer.inc:15
+msgid "changed lines"
+msgstr "ändrade rader"
+
+#: lib/Chora.php:31
+msgid "day"
+msgstr "dag"
+
+#: lib/Chora.php:31
+msgid "days"
+msgstr "dagar"
+
+#: templates/error_page.inc:14
+msgid "for further information."
+msgstr "för ytterligare information."
+
+#: lib/Chora.php:30
+msgid "hour"
+msgstr "timme"
+
+#: lib/Chora.php:30
+msgid "hours"
+msgstr "timmar"
+
+#: lib/Chora.php:29
+msgid "minute"
+msgstr "minut"
+
+#: lib/Chora.php:29
+msgid "minutes"
+msgstr "minuter"
+
+#: lib/Chora.php:33
+msgid "month"
+msgstr "månad"
+
+#: lib/Chora.php:33
+msgid "months"
+msgstr "månader"
+
+#: templates/history/branch_cell.inc:6
+#, php-format
+msgid "revision %s"
+msgstr "revision %s"
+
+#: lib/Chora.php:28
+msgid "second"
+msgstr "sekund"
+
+#: lib/Chora.php:28
+msgid "seconds"
+msgstr "sekunder"
+
+#: templates/diff/hr/header.inc:13 templates/diff/hr/header.inc:14
+#, php-format
+msgid "version %s"
+msgstr "version %s"
+
+#: lib/Chora.php:42
+msgid "very little time"
+msgstr "väldigt lite tid"
+
+#: lib/Chora.php:32
+msgid "week"
+msgstr "vecka"
+
+#: lib/Chora.php:32
+msgid "weeks"
+msgstr "veckor"
+
+#: lib/Chora.php:34
+msgid "year"
+msgstr "år"
+
+#: lib/Chora.php:34
+msgid "years"
+msgstr "år"

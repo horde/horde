@@ -10,7 +10,8 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('turba');
 
 if ($conf['documents']['type'] == 'none') {
     throw new Turba_Exception(_("The VFS backend needs to be configured to enable attachment uploads."));
@@ -26,29 +27,25 @@ $type = Horde_Util::getFormData('type');
 if (!isset($cfgSources[$source])) {
     throw new Turba_Exception(_("The contact you requested does not exist."));
 }
-$driver = Turba_Driver::singleton($source);
+
+$driver = $injector->getInstance('Turba_Driver')->getDriver($source);
 $object = $driver->getObject($key);
-if (is_a($object, 'PEAR_Error')) {
-    throw new Turba_Exception($object);
-}
 
 /* Check permissions. */
 if (!$object->hasPermission(Horde_Perms::READ)) {
     throw new Turba_Exception(_("You do not have permission to view this contact."));
 }
 
-$v_params = Horde::getVFSConfig('documents');
-if (is_a($v_params, 'PEAR_Error')) {
-    throw new Turba_Exception($v_params);
+try {
+    $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('documents');
+} catch (Horde_Exception $e) {
+    throw new Turba_Exception($e);
 }
-$vfs = VFS::singleton($v_params['type'], $v_params['params']);
-if (is_a($vfs, 'PEAR_Error')) {
-    throw new Turba_Exception($vfs);
-} else {
+
+try {
     $data = $vfs->read(TURBA_VFS_PATH . '/' . $object->getValue('__uid'), $filename);
-}
-if (is_a($data, 'PEAR_Error')) {
-    Horde::logMessage($data, __FILE__, __LINE__, PEAR_LOG_ERR);
+} catch (VFS_Exception $e) {
+    Horde::logMessage($e, 'ERR');
     throw new Turba_Exception(sprintf(_("Access denied to %s"), $filename));
 }
 
@@ -65,9 +62,8 @@ case 'view_file':
     $mime_part->setContents($data);
     $mime_part->setName($filename);
     $mime_part->buildMimeIds();
-    $viewer = Horde_Mime_Viewer::factory($mime_part);
 
-    $content = $viewer->render('full');
+    $content = $injector->getInstance('Horde_Core_Factory_MimeViewer')->create($mime_part)->render('full');
     $body = $content[1]['data'];
 
     $browser->downloadHeaders($filename, $content[1]['type'], true, strlen($body));

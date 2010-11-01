@@ -73,8 +73,8 @@ class EditReplyStep2Form extends Horde_Form {
                                      'longtext', true);
         $ptext->setDefault($info['reply_text']);
 
-        /* Perms link. */
-        if (Horde_Auth::isAdmin('whups:admin', Horde_Perms::EDIT)) {
+        /* Permissions link. */
+        if ($GLOBALS['registry']->isAdmin(array('permission' => 'whups:admin', 'permlevel' => Horde_Perms::EDIT))) {
             $permslink = array(
                 'text' => _("Edit the permissions on this form reply"),
                 'url' => Horde_Util::addParameter(Horde_Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/admin/perms/edit.php'), 'category', "whups:replies:$reply"), 'autocreate', '1'));

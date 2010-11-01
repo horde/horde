@@ -12,16 +12,17 @@ $block_name = _("Account Information");
  * @author  Jan Schneider <jan@horde.org>
  * @package Horde_Block
  */
-class Horde_Block_Horde_account extends Horde_Block {
+class Horde_Block_Horde_account extends Horde_Block
+{
 
-    var $_app = 'horde';
+    protected $_app = 'horde';
 
     /**
      * The title to go in this block.
      *
      * @return string   The title text.
      */
-    function _title()
+    protected function _title()
     {
         return _("My Account Information");
     }
@@ -31,7 +32,7 @@ class Horde_Block_Horde_account extends Horde_Block {
      *
      * @return string   The content
      */
-    function _content()
+    protected function _content()
     {
         global $registry, $conf;
 
@@ -105,17 +106,19 @@ class Horde_Block_Horde_account extends Horde_Block {
 
         if ($registry->get('status', 'forwards') != 'inactive' &&
             $registry->hasMethod('summary', 'forwards')) {
-            $summary = $registry->callByPackage('forwards', 'summary');
-            if (!is_a($summary, 'PEAR_Error')) {
+            try {
+                $summary = $registry->callByPackage('forwards', 'summary');
                 $output .= '<br />' . $summary . "\n";
-            }
+            } catch (Exception $e) {}
         }
+
         if ($registry->get('status', 'vacation') != 'inactive' &&
             $registry->hasMethod('summary', 'vacation')) {
-            $summary = $registry->callByPackage('vacation', 'summary');
-            if (!is_a($summary, 'PEAR_Error')) {
+            
+            try {
+                $summary = $registry->callByPackage('vacation', 'summary');
                 $output .= '<br />' . $summary . "\n";
-            }
+            } catch (Exception $e) {}
         }
 
         return $output;
@@ -133,7 +136,6 @@ class Horde_Block_Horde_account extends Horde_Block {
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Eric Jon Rostetter <eric.rostetter@physics.utexas.edu>
- * @since   Horde 3.1
  * @package Horde_Block
  */
 class Accounts_Driver {
@@ -153,7 +155,7 @@ class Accounts_Driver {
      */
     function getUsername()
     {
-        return Horde_String::lower(Horde_Auth::getBareAuth());
+        return Horde_String::lower($GLOBALS['registry']->getAuth('bare'));
     }
 
     /**
@@ -163,7 +165,7 @@ class Accounts_Driver {
      */
     function getRealm()
     {
-        return (string)Horde_Auth::getAuthDomain();
+        return strval($GLOBALS['registry']->getAuth('domain'));
     }
 
     /**
@@ -243,7 +245,6 @@ class Accounts_Driver {
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Eric Jon Rostetter <eric.rostetter@physics.utexas.edu>
- * @since   Horde 3.1
  * @package Horde_Block
  */
 class Accounts_Driver_localhost extends Accounts_Driver {
@@ -282,7 +283,7 @@ class Accounts_Driver_localhost extends Accounts_Driver {
 
         if (!isset($information)) {
             // this won't work if we don't have posix extensions
-            if (!Util::extensionExists('posix')) {
+            if (!Horde_Util::extensionExists('posix')) {
                 return PEAR::raiseError(_("POSIX extension is missing"));
             }
 
@@ -411,7 +412,6 @@ class Accounts_Driver_localhost extends Accounts_Driver {
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Eric Jon Rostetter <eric.rostetter@physics.utexas.edu>
- * @since   Horde 3.1
  * @package Horde_Block
  */
 class Accounts_Driver_ldap extends Accounts_Driver {
@@ -574,7 +574,7 @@ class Accounts_Driver_ldap extends Accounts_Driver {
      */
     function getUsername()
     {
-        return $this->_params['strip'] ? Horde_Auth::getBareAuth() : Horde_Auth::getAuth();
+        return $GLOBALS['registry']->getAuth($this->_params['strip'] ? 'bare' : null);
     }
 
     /**

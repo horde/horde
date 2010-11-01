@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<help>
+
+  <entry id="Overview" md5="6c904e7e17dea0fc75802e2c1a534b03" state="uptodate">
+    <title>Chora Überblick</title>
+    <para>
+      Bei Chora handelt es sich um ein Werkzeug zum Betrachten von
+      Repositories, die durch Systeme zur Versionskontrolle verwaltet
+      werden. Es stellt verschiedene Ansichten für Verzeichnisübersichten, die
+      Log-Geschichte, Unterschiede zwischen Versionen, grafische
+      Branchdarstellungen und kommentierte Dateien zur Verfügung.
+    </para>
+  </entry>
+
+  <entry id="chora-button" md5="23ab7e475dc04b66c91b98f6b0f1d743" state="uptodate">
+    <title>Menü: Liste</title>
+    <para>
+      Mit dem Liste-Symbol gelangen Sie zur Hauptansicht
+      (Verzeichnisübersicht) des Standard-Repositories zurück.
+    </para>
+  </entry>
+
+  <entry id="prefs-button" md5="51f095602bb3e62703e72e7fe7fef996" state="uptodate">
+    <title>Menü: Einstellungen</title>
+    <para>
+      Über das Einstellungen-Symbol gelangt man zu den persönlichen
+      Einstellungen, die festlegen, wie sich Chora verhält.
+    </para>
+  </entry>
+
+  <entry id="help-button" md5="11b68a5e1f6cb8f5c2a885c2d65db322" state="uptodate">
+    <title>Menü: Hilfe</title>
+    <para>
+      Das Hilfe-Symbol öffnet diese Hilfe.
+    </para>
+  </entry>
+
+  <entry id="view-checkout" md5="b1f7c7b2eadf56b5266912badebb6bab" state="uptodate">
+    <title>Checkout-Ansicht</title>
+    <para>
+      Die Checkout-Ansicht zeigt den Inhalt einer Datei in einer bestimmten
+      Version und den Logeintrag dieser Version.
+    </para>
+  </entry>
+
+  <entry id="view-annotate" md5="68239aff5736e5b667a52525a1c35866" state="uptodate">
+    <title>Kommentierte Ansicht</title>
+    <para>
+      Die Kommentierte Ansicht zeigt den Inhalt einer Datei zusammen mit den
+      Namen der Autoren, die für die einzelnen Abschnitte verantwortlich sind.
+    </para>
+  </entry>
+
+  <entry id="view-branch" md5="ddaf69ea0dc10b924e8c5905558b2484" state="uptodate">
+    <title>Branch-Ansicht</title>
+    <para>
+      Die Branch-Ansicht zeigt die Versionsgeschichte einer Datei als
+      Baumstruktur der vorhanden Branches. So kann man leicht erkennen, wo
+      Branches in dem Versionsbaum angelegt wurden.
+    </para>
+  </entry>
+
+  <entry id="view-log" md5="3655e86abff5febed002d80ea29f4f87" state="uptodate">
+    <title>Log-Ansicht</title>
+    <para>
+      Die Log-Ansicht zeigt die Geschichte einer Datei, indem alle
+      Log-Einträge aufgelistet werden, wie sie beim Einchecken der Versionen
+      angegeben wurden.
+    </para>
+  </entry>
+
+  <entry id="view-diff" md5="ff743f7a85bf7f0b7e9374d19f40a4fe" state="uptodate">
+    <title>Ansicht der Unterschiede</title>
+    <para>
+      Die Ansicht der Unterschiede zeigt die Unterschiede zwischen zwei
+      Versionen einer Datei an. So lässt sich leicht erkennen, wie eine Datei
+      verändert wurde. Es stehen verschiedene Anzeigeformate zur Verfügung.
+    </para>
+  </entry>
+
+  <entry id="show-deleted-files" md5="96c17a1efe41cd0e1de5c4f37d1e68f2" state="uptodate">
+    <title>Gelöschte Dateien anzeigen/verstecken</title>
+    <para>
+      Sie können auswählen, ob gelöschte Dateien (aus dem Attic) in der
+      Verzeichnisansicht angezeigt oder versteckt werden sollen. Wenn Sie sich
+      gelöschte Dateien anzeigen lassen, werden die entsprechenden Zeilen in
+      einer anderen Darstellung und mit einem <i>Papierkorb</i>-Symbol
+      angezeigt.
+    </para>
+    <para>
+      Standardmäßig werden gelöschte Dateien nicht angezeigt.
+    </para>
+  </entry>
+
+</help>

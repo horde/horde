@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<help>
+  <entry id="summary" state="uptodate" md5="68ca33f7f0c9aae4c103eb47492cdc15">
+<title>Portál</title>
+ <para>
+  Stránka Portálu poskytuje stručný přehled všech důležitých informací.
+  Například může zobrazovat počet emailů, informaci o schůzkách ve Vaěem kalendáři,
+  úkolech, atd. Většina těchto informcí poskytují linky k běžným funkcím,
+  jako například vytvoření nové emailové zprávy, vytvořenmí nové schůzky, atd.
+ </para>
+ <para>
+  Rozvržení této stránky portálu lze nastavit pomocí tlačítka Rozložení.
+  Například, můžete si vybrat, které prvky si přejete zobrazit a také v jakém
+  pořadí.
+ </para>
+</entry>
+  <entry id="navbar" state="uptodate" md5="b8cf0ae19e57dfa0c2b962e516782f47">
+<title>Navigační Lišta pro Aplikace</title>
+ <para>
+  Navigační lišta je umístněna vlevo na webstránce. Klikněte na ikonky
+  této lišty poskytující přehlednější a rychlejší přepínání mezi aplikacemi.
+ </para>
+</entry>
+  <entry id="prefs-do_maintenance" state="uptodate" md5="dd95df07a03031232baea919288b2d00">
+    <title>Nastavení: Údržba: Provést Údržbu</title>
+    <para>
+    Označte tento rámeček, pokud si přejete provést operace údržby při
+    přihlášení do sytému.
+    </para>
+</entry>
+  <entry id="prefs-confirm_maintenance" state="uptodate" md5="a21162cdff3b1d8faeadb7296240036e">
+    <title>Nastavení: Údržba: Potvrdit Údržbu</title>
+    <para>
+    Označte tento rámeček, pokud si přejete potvrdit všechny operace údržby
+    než se provedou. Pokud tento rámeček zůstane neoznačený, potřebné operace
+    se provedou automaticky bez možnosti storna.
+    </para>
+</entry>
+</help>

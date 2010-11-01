@@ -9,12 +9,8 @@
  * @package Kronolith
  */
 
-$kronolith_authentication = 'none';
-$kronolith_session_control = 'none';
-require_once dirname(__FILE__) . '/lib/base.php';
-
-// We want to always generate UTF-8 iCalendar data.
-Horde_Nls::setCharset('UTF-8');
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('kronolith', array('authentication' => 'none', 'session_control' => 'none'));
 
 // Determine the username to show free/busy time for.
 $cal = Horde_Util::getFormData('c');
@@ -27,14 +23,16 @@ if (!empty($cal)) {
     $user = basename($pathInfo);
 }
 
-$cache = Horde_Cache::factory($conf['cache']['driver'], Horde::getDriverConfig('cache', $conf['cache']['driver']));
+$cache = $injector->getInstance('Horde_Cache');
 $key = 'kronolith.fb.' . ($user ? 'u.' . $user : 'c.' . $cal);
 $fb = $cache->get($key, 360);
 if (!$fb) {
     if ($user) {
-        $prefs = Horde_Prefs::singleton($conf['prefs']['driver'], 'kronolith', $user, '', null, false);
-        $prefs->retrieve();
-        Horde_Nls::setTimeZone();
+        $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create('kronolith', array(
+            'cache' => false,
+            'user' => $user
+        ));
+        $registry->setTimeZone();
         $cal = @unserialize($prefs->getValue('fb_cals'));
         if (is_array($cal)) {
             $cal = implode('|', $cal);
@@ -51,16 +49,17 @@ if (!$fb) {
         }
     }
 
-    $fb = Kronolith_FreeBusy::generate(explode('|', $cal), null, null, false, $user);
-    if (is_a($fb, 'PEAR_Error')) {
-        Horde::logMessage($fb, __FILE__, __LINE__, PEAR_LOG_ERR);
+    try {
+        $fb = Kronolith_FreeBusy::generate(explode('|', $cal), null, null, false, $user);
+    } catch (Exception $e) {
+        Horde::logMessage($e, 'ERR');
         exit;
     }
     $cache->set($key, $fb);
 }
 
 $browser->downloadHeaders(($user ? $user : $cal) . '.vfb',
-                          'text/calendar; charset=' . Horde_Nls::getCharset(),
+                          'text/calendar; charset=' . 'UTF-8',
                           true,
                           strlen($fb));
 echo $fb;

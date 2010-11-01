@@ -8,12 +8,12 @@
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
  */
 
-require_once dirname(__FILE__) . '/../lib/base.php';
-require_once TURBA_BASE . '/lib/Forms/DeleteAddressBook.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('turba');
 
 // Exit if this isn't an authenticated user, or if there's no source
 // configured for shares.
-if (!Horde_Auth::getAuth() || empty($_SESSION['turba']['has_share'])) {
+if (!$GLOBALS['registry']->getAuth() || !$session['turba:has_share']) {
     require TURBA_BASE . '/'
         . ($browse_source_count ? basename($prefs->getValue('initial_page')) : 'search.php');
     exit;
@@ -21,41 +21,40 @@ if (!Horde_Auth::getAuth() || empty($_SESSION['turba']['has_share'])) {
 
 $vars = Horde_Variables::getDefaultVariables();
 $addressbook_id = $vars->get('a');
-if ($addressbook_id == Horde_Auth::getAuth()) {
-    $notification->push(_("This addressbook cannot be deleted"), 'horde.warning');
-    header('Location: ' . Horde::applicationUrl('addressbooks/', true));
-    exit;
+if ($addressbook_id == $GLOBALS['registry']->getAuth()) {
+    $notification->push(_("This address book cannot be deleted"), 'horde.warning');
+    Horde::url('addressbooks/', true)->redirect();
 }
 
-$addressbook = $turba_shares->getShare($addressbook_id);
-if (is_a($addressbook, 'PEAR_Error')) {
-    $notification->push($addressbook, 'horde.error');
-    header('Location: ' . Horde::applicationUrl('addressbooks/', true));
-    exit;
-} elseif (!Horde_Auth::getAuth() ||
-          $addressbook->get('owner') != Horde_Auth::getAuth()) {
+try {
+    $addressbook = $turba_shares->getShare($addressbook_id);
+} catch (Horde_Share_Exception $e) {
+    $notification->push($e, 'horde.error');
+    Horde::url('addressbooks/', true)->redirect();
+}
+if (!$GLOBALS['registry']->getAuth() ||
+    $addressbook->get('owner') != $GLOBALS['registry']->getAuth()) {
+
     $notification->push(_("You are not allowed to delete this addressbook."), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('addressbooks/', true));
-    exit;
+    Horde::url('addressbooks/', true)->redirect();
 }
 
-$form = new Turba_DeleteAddressBookForm($vars, $addressbook);
+$form = new Turba_Form_DeleteAddressBook($vars, $addressbook);
 
 // Execute if the form is valid (must pass with POST variables only).
 if ($form->validate(new Horde_Variables($_POST))) {
     $result = $form->execute();
-    if (is_a($result, 'PEAR_Error')) {
+    if ($result instanceof PEAR_Error) {
         $notification->push($result, 'horde.error');
     } elseif ($result) {
         $notification->push(sprintf(_("The addressbook \"%s\" has been deleted."), $addressbook->get('name')), 'horde.success');
     }
 
-    header('Location: ' . Horde::applicationUrl('addressbooks/', true));
-    exit;
+    Horde::url('addressbooks/', true)->redirect();
 }
 
 $title = $form->getTitle();
 require TURBA_TEMPLATES . '/common-header.inc';
 require TURBA_TEMPLATES . '/menu.inc';
-echo $form->renderActive($form->getRenderer(), $vars, 'delete.php', 'post');
+echo $form->renderActive($form->getRenderer(), $vars, Horde::url('addressbooks/delete.php'), 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

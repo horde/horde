@@ -86,9 +86,9 @@ class Horde_Kolab_Server_Class_Server_Object_BaseTest extends Horde_Kolab_Server
         $composite->structure->expects($this->once())
             ->method('getInternalAttributes')
             ->with($this->isInstanceOf('Horde_Kolab_Server_Object_Interface'))
-            ->will($this->returnValue(array('internal' => 'Internal')));
+            ->will($this->returnValue(array('internal')));
         $object = new Object_Mock($composite, 'guid');
-        $this->assertEquals(array('internal' => 'Internal'), $object->getInternalAttributes());
+        $this->assertEquals(array('internal'), $object->getInternalAttributes());
     }
 
     public function testMethodExistsHasResultBooleanFalseIfTheGuidIsNotSpecified()
@@ -104,7 +104,7 @@ class Horde_Kolab_Server_Class_Server_Object_BaseTest extends Horde_Kolab_Server
         $composite->structure->expects($this->once())
             ->method('getInternalAttributes')
             ->with($this->isInstanceOf('Horde_Kolab_Server_Object_Interface'))
-            ->will($this->returnValue(array('internal' => 'Internal')));
+            ->will($this->returnValue(array('internal')));
         $composite->server->expects($this->once())
             ->method('readAttributes')
             ->with('guid', array('internal'))
@@ -119,7 +119,7 @@ class Horde_Kolab_Server_Class_Server_Object_BaseTest extends Horde_Kolab_Server
         $composite->structure->expects($this->once())
             ->method('getInternalAttributes')
             ->with($this->isInstanceOf('Horde_Kolab_Server_Object_Interface'))
-            ->will($this->returnValue(array('internal' => 'Internal')));
+            ->will($this->returnValue(array('internal')));
         $composite->server->expects($this->once())
             ->method('readAttributes')
             ->with('guid', array('internal'))
@@ -134,7 +134,7 @@ class Horde_Kolab_Server_Class_Server_Object_BaseTest extends Horde_Kolab_Server
         $composite->structure->expects($this->once())
             ->method('getInternalAttributes')
             ->with($this->isInstanceOf('Horde_Kolab_Server_Object_Interface'))
-            ->will($this->returnValue(array('internal' => 'Internal')));
+            ->will($this->returnValue(array('internal')));
         $composite->server->expects($this->once())
             ->method('readAttributes')
             ->with('guid', array('internal'))
@@ -151,7 +151,7 @@ class Horde_Kolab_Server_Class_Server_Object_BaseTest extends Horde_Kolab_Server
         $composite->structure->expects($this->exactly(1))
             ->method('getInternalAttributes')
             ->with($this->isInstanceOf('Horde_Kolab_Server_Object_Interface'))
-            ->will($this->returnValue(array('internal' => 'Internal')));
+            ->will($this->returnValue(array('internal')));
         $composite->server->expects($this->once())
             ->method('readAttributes')
             ->with('guid', array('internal'))
@@ -168,7 +168,7 @@ class Horde_Kolab_Server_Class_Server_Object_BaseTest extends Horde_Kolab_Server
         $composite->structure->expects($this->once())
             ->method('getInternalAttributes')
             ->with($this->isInstanceOf('Horde_Kolab_Server_Object_Interface'))
-            ->will($this->returnValue(array('internal' => 'Internal')));
+            ->will($this->returnValue(array('internal')));
         $object = new Object_Mock($composite, 'guid');
         try {
             $object->getInternal(array('test'));
@@ -186,7 +186,7 @@ class Horde_Kolab_Server_Class_Server_Object_BaseTest extends Horde_Kolab_Server
             ->with($this->isInstanceOf('Horde_Kolab_Server_Object_Interface'))
             ->will(
                 $this->returnValue(
-                    array('internal' => 'Internal', 'test' => 'Test')
+                    array('internal', 'test')
                 )
             );
         $composite->server->expects($this->once())
@@ -262,8 +262,7 @@ class Horde_Kolab_Server_Class_Server_Object_BaseTest extends Horde_Kolab_Server
             ->will(
                 $this->returnValue(
                     array(
-                        'objectClass' =>
-                        'Horde_Kolab_Server_Object_Attribute_Objectclass'
+                        'objectClass'
                     )
                 )
             );

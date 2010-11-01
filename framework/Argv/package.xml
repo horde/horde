@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Argv</name>
  <channel>pear.horde.org</channel>
  <summary>Horde command-line argument parsing package</summary>
  <description>This package provides classes for parsing command line
  arguments with various actions, providing help, grouping options, and
- more.
- </description>
+ more.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -22,7 +18,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>mike@maintainable.com</email>
   <active>yes</active>
  </lead>
- <date>2008-01-31</date>
+ <date>2010-10-22</date>
+ <time>19:03:08</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -33,10 +30,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-   * Initial release, ported from Optik (http://optik.sourceforge.net/)
+* Initial release, ported from Optik (http://optik.sourceforge.net/)
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Argv">
@@ -53,10 +50,315 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="OptionValueException.php" role="php" />
       <file name="Parser.php" role="php" />
       <file name="TitledHelpFormatter.php" role="php" />
+      <file name="Translation.php" role="php">
+       <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+      </file>
       <file name="Values.php" role="php" />
      </dir> <!-- /lib/Horde/Argv -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="ar">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/ar/LC_MESSAGES -->
+    </dir> <!-- /locale/ar -->
+    <dir name="bg">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/bg/LC_MESSAGES -->
+    </dir> <!-- /locale/bg -->
+    <dir name="bs">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/bs/LC_MESSAGES -->
+    </dir> <!-- /locale/bs -->
+    <dir name="ca">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/ca/LC_MESSAGES -->
+    </dir> <!-- /locale/ca -->
+    <dir name="cs">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/cs/LC_MESSAGES -->
+    </dir> <!-- /locale/cs -->
+    <dir name="da">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/da/LC_MESSAGES -->
+    </dir> <!-- /locale/da -->
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+    </dir> <!-- /locale/de -->
+    <dir name="el">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/el/LC_MESSAGES -->
+    </dir> <!-- /locale/el -->
+    <dir name="en">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/en/LC_MESSAGES -->
+    </dir> <!-- /locale/en -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+    </dir> <!-- /locale/es -->
+    <dir name="et">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/et/LC_MESSAGES -->
+    </dir> <!-- /locale/et -->
+    <dir name="eu">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/eu/LC_MESSAGES -->
+    </dir> <!-- /locale/eu -->
+    <dir name="fa">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/fa/LC_MESSAGES -->
+    </dir> <!-- /locale/fa -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+    </dir> <!-- /locale/fi -->
+    <dir name="fr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/fr/LC_MESSAGES -->
+    </dir> <!-- /locale/fr -->
+    <dir name="gl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/gl/LC_MESSAGES -->
+    </dir> <!-- /locale/gl -->
+    <dir name="he">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/he/LC_MESSAGES -->
+    </dir> <!-- /locale/he -->
+    <dir name="hr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/hr/LC_MESSAGES -->
+    </dir> <!-- /locale/hr -->
+    <dir name="hu">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/hu/LC_MESSAGES -->
+    </dir> <!-- /locale/hu -->
+    <dir name="id">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/id/LC_MESSAGES -->
+    </dir> <!-- /locale/id -->
+    <dir name="is">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/is/LC_MESSAGES -->
+    </dir> <!-- /locale/is -->
+    <dir name="it">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/it/LC_MESSAGES -->
+    </dir> <!-- /locale/it -->
+    <dir name="ja">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/ja/LC_MESSAGES -->
+    </dir> <!-- /locale/ja -->
+    <dir name="km">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/km/LC_MESSAGES -->
+    </dir> <!-- /locale/km -->
+    <dir name="ko">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/ko/LC_MESSAGES -->
+    </dir> <!-- /locale/ko -->
+    <dir name="lt">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/lt/LC_MESSAGES -->
+    </dir> <!-- /locale/lt -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+    </dir> <!-- /locale/lv -->
+    <dir name="mk">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/mk/LC_MESSAGES -->
+    </dir> <!-- /locale/mk -->
+    <dir name="nb">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/nb/LC_MESSAGES -->
+    </dir> <!-- /locale/nb -->
+    <dir name="nl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/nl/LC_MESSAGES -->
+    </dir> <!-- /locale/nl -->
+    <dir name="nn">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/nn/LC_MESSAGES -->
+    </dir> <!-- /locale/nn -->
+    <dir name="pl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/pl/LC_MESSAGES -->
+    </dir> <!-- /locale/pl -->
+    <dir name="pt">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/pt/LC_MESSAGES -->
+    </dir> <!-- /locale/pt -->
+    <dir name="pt_BR">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/pt_BR/LC_MESSAGES -->
+    </dir> <!-- /locale/pt_BR -->
+    <dir name="ro">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/ro/LC_MESSAGES -->
+    </dir> <!-- /locale/ro -->
+    <dir name="ru">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/ru/LC_MESSAGES -->
+    </dir> <!-- /locale/ru -->
+    <dir name="sk">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/sk/LC_MESSAGES -->
+    </dir> <!-- /locale/sk -->
+    <dir name="sl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/sl/LC_MESSAGES -->
+    </dir> <!-- /locale/sl -->
+    <dir name="sv">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/sv/LC_MESSAGES -->
+    </dir> <!-- /locale/sv -->
+    <dir name="tr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/tr/LC_MESSAGES -->
+    </dir> <!-- /locale/tr -->
+    <dir name="uk">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/uk/LC_MESSAGES -->
+    </dir> <!-- /locale/uk -->
+    <dir name="zh_CN">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/zh_CN/LC_MESSAGES -->
+    </dir> <!-- /locale/zh_CN -->
+    <dir name="zh_TW">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Argv.mo" role="data" />
+      <file name="Horde_Argv.po" role="data" />
+     </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
+    </dir> <!-- /locale/zh_TW -->
+    <file name="Horde_Argv.pot" role="data" />
+   </dir> <!-- /locale -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Argv">
+      <file name="AllTests.php" role="test" />
+      <file name="BoolTest.php" role="test" />
+      <file name="CallbackCheckAbbrevTest.php" role="test" />
+      <file name="CallbackExtraArgsTest.php" role="test" />
+      <file name="CallbackManyArgsTest.php" role="test" />
+      <file name="CallbackMeddleArgsTest.php" role="test" />
+      <file name="CallbackTest.php" role="test" />
+      <file name="CallbackVarArgsTest.php" role="test" />
+      <file name="ChoiceTest.php" role="test" />
+      <file name="ConflictingDefaultsTest.php" role="test" />
+      <file name="ConflictOverrideTest.php" role="test" />
+      <file name="ConflictResolveTest.php" role="test" />
+      <file name="ConflictTest.php" role="test" />
+      <file name="ConflictTestCase.php" role="test" />
+      <file name="CountTest.php" role="test" />
+      <file name="DefaultValuesTest.php" role="test" />
+      <file name="ExpandDefaultsTest.php" role="test" />
+      <file name="ExtendAddActionsTest.php" role="test" />
+      <file name="ExtendAddTypesTest.php" role="test" />
+      <file name="HelpTest.php" role="test" />
+      <file name="InterceptedException.php" role="test" />
+      <file name="InterceptingParser.php" role="test" />
+      <file name="MatchAbbrevTest.php" role="test" />
+      <file name="MultipleArgsAppendTest.php" role="test" />
+      <file name="MultipleArgsTest.php" role="test" />
+      <file name="OptionChecksTest.php" role="test" />
+      <file name="OptionGroupTest.php" role="test" />
+      <file name="OptionValuesTest.php" role="test" />
+      <file name="ParseNumTest.php" role="test" />
+      <file name="ParserTest.php" role="test" />
+      <file name="ProgNameTest.php" role="test" />
+      <file name="StandardTest.php" role="test" />
+      <file name="TestCase.php" role="test" />
+      <file name="TypeAliasesTest.php" role="test" />
+      <file name="VersionTest.php" role="test" />
+     </dir> <!-- /test/Horde/Argv -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -67,24 +369,168 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <pearinstaller>
     <min>1.5.0</min>
    </pearinstaller>
+   <package>
+    <name>Translation</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </required>
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Argv/AmbiguousOptionException.php" as="Horde/Argv/AmbiguousOptionException.php" />
-   <install name="lib/Horde/Argv/BadOptionException.php" as="Horde/Argv/BadOptionException.php" />
-   <install name="lib/Horde/Argv/Exception.php" as="Horde/Argv/Exception.php" />
-   <install name="lib/Horde/Argv/HelpFormatter.php" as="Horde/Argv/HelpFormatter.php" />
-   <install name="lib/Horde/Argv/IndentedHelpFormatter.php" as="Horde/Argv/IndentedHelpFormatter.php" />
-   <install name="lib/Horde/Argv/Option.php" as="Horde/Argv/Option.php" />
-   <install name="lib/Horde/Argv/OptionConflictException.php" as="Horde/Argv/OptionConflictException.php" />
-   <install name="lib/Horde/Argv/OptionContainer.php" as="Horde/Argv/OptionContainer.php" />
-   <install name="lib/Horde/Argv/OptionException.php" as="Horde/Argv/OptionException.php" />
-   <install name="lib/Horde/Argv/OptionGroup.php" as="Horde/Argv/OptionGroup.php" />
-   <install name="lib/Horde/Argv/OptionValueException.php" as="Horde/Argv/OptionValueException.php" />
-   <install name="lib/Horde/Argv/Parser.php" as="Horde/Argv/Parser.php" />
-   <install name="lib/Horde/Argv/TitledHelpFormatter.php" as="Horde/Argv/TitledHelpFormatter.php" />
-   <install name="lib/Horde/Argv/Values.php" as="Horde/Argv/Values.php" />
+   <install as="Horde/Argv/AmbiguousOptionException.php" name="lib/Horde/Argv/AmbiguousOptionException.php" />
+   <install as="Horde/Argv/BadOptionException.php" name="lib/Horde/Argv/BadOptionException.php" />
+   <install as="Horde/Argv/Exception.php" name="lib/Horde/Argv/Exception.php" />
+   <install as="Horde/Argv/HelpFormatter.php" name="lib/Horde/Argv/HelpFormatter.php" />
+   <install as="Horde/Argv/IndentedHelpFormatter.php" name="lib/Horde/Argv/IndentedHelpFormatter.php" />
+   <install as="Horde/Argv/Option.php" name="lib/Horde/Argv/Option.php" />
+   <install as="Horde/Argv/OptionConflictException.php" name="lib/Horde/Argv/OptionConflictException.php" />
+   <install as="Horde/Argv/OptionContainer.php" name="lib/Horde/Argv/OptionContainer.php" />
+   <install as="Horde/Argv/OptionException.php" name="lib/Horde/Argv/OptionException.php" />
+   <install as="Horde/Argv/OptionGroup.php" name="lib/Horde/Argv/OptionGroup.php" />
+   <install as="Horde/Argv/OptionValueException.php" name="lib/Horde/Argv/OptionValueException.php" />
+   <install as="Horde/Argv/Parser.php" name="lib/Horde/Argv/Parser.php" />
+   <install as="Horde/Argv/TitledHelpFormatter.php" name="lib/Horde/Argv/TitledHelpFormatter.php" />
+   <install as="Horde/Argv/Translation.php" name="lib/Horde/Argv/Translation.php" />
+   <install as="Horde/Argv/Values.php" name="lib/Horde/Argv/Values.php" />
+   <install as="locale/Horde_Argv.pot" name="locale/Horde_Argv.pot" />
+   <install as="locale/ar/LC_MESSAGES/Horde_Argv.mo" name="locale/ar/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/ar/LC_MESSAGES/Horde_Argv.po" name="locale/ar/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/bg/LC_MESSAGES/Horde_Argv.mo" name="locale/bg/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/bg/LC_MESSAGES/Horde_Argv.po" name="locale/bg/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/bs/LC_MESSAGES/Horde_Argv.mo" name="locale/bs/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/bs/LC_MESSAGES/Horde_Argv.po" name="locale/bs/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/ca/LC_MESSAGES/Horde_Argv.mo" name="locale/ca/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/ca/LC_MESSAGES/Horde_Argv.po" name="locale/ca/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/cs/LC_MESSAGES/Horde_Argv.mo" name="locale/cs/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/cs/LC_MESSAGES/Horde_Argv.po" name="locale/cs/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/da/LC_MESSAGES/Horde_Argv.mo" name="locale/da/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/da/LC_MESSAGES/Horde_Argv.po" name="locale/da/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/de/LC_MESSAGES/Horde_Argv.mo" name="locale/de/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/de/LC_MESSAGES/Horde_Argv.po" name="locale/de/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/el/LC_MESSAGES/Horde_Argv.mo" name="locale/el/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/el/LC_MESSAGES/Horde_Argv.po" name="locale/el/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/en/LC_MESSAGES/Horde_Argv.mo" name="locale/en/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/en/LC_MESSAGES/Horde_Argv.po" name="locale/en/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/es/LC_MESSAGES/Horde_Argv.mo" name="locale/es/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/es/LC_MESSAGES/Horde_Argv.po" name="locale/es/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/et/LC_MESSAGES/Horde_Argv.mo" name="locale/et/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/et/LC_MESSAGES/Horde_Argv.po" name="locale/et/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/eu/LC_MESSAGES/Horde_Argv.mo" name="locale/eu/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/eu/LC_MESSAGES/Horde_Argv.po" name="locale/eu/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/fa/LC_MESSAGES/Horde_Argv.mo" name="locale/fa/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/fa/LC_MESSAGES/Horde_Argv.po" name="locale/fa/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/fi/LC_MESSAGES/Horde_Argv.mo" name="locale/fi/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/fi/LC_MESSAGES/Horde_Argv.po" name="locale/fi/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/fr/LC_MESSAGES/Horde_Argv.mo" name="locale/fr/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/fr/LC_MESSAGES/Horde_Argv.po" name="locale/fr/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/gl/LC_MESSAGES/Horde_Argv.mo" name="locale/gl/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/gl/LC_MESSAGES/Horde_Argv.po" name="locale/gl/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/he/LC_MESSAGES/Horde_Argv.mo" name="locale/he/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/he/LC_MESSAGES/Horde_Argv.po" name="locale/he/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/hr/LC_MESSAGES/Horde_Argv.mo" name="locale/hr/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/hr/LC_MESSAGES/Horde_Argv.po" name="locale/hr/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/hu/LC_MESSAGES/Horde_Argv.mo" name="locale/hu/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/hu/LC_MESSAGES/Horde_Argv.po" name="locale/hu/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/id/LC_MESSAGES/Horde_Argv.mo" name="locale/id/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/id/LC_MESSAGES/Horde_Argv.po" name="locale/id/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/is/LC_MESSAGES/Horde_Argv.mo" name="locale/is/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/is/LC_MESSAGES/Horde_Argv.po" name="locale/is/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/it/LC_MESSAGES/Horde_Argv.mo" name="locale/it/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/it/LC_MESSAGES/Horde_Argv.po" name="locale/it/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/ja/LC_MESSAGES/Horde_Argv.mo" name="locale/ja/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/ja/LC_MESSAGES/Horde_Argv.po" name="locale/ja/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/km/LC_MESSAGES/Horde_Argv.mo" name="locale/km/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/km/LC_MESSAGES/Horde_Argv.po" name="locale/km/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/ko/LC_MESSAGES/Horde_Argv.mo" name="locale/ko/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/ko/LC_MESSAGES/Horde_Argv.po" name="locale/ko/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/lt/LC_MESSAGES/Horde_Argv.mo" name="locale/lt/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/lt/LC_MESSAGES/Horde_Argv.po" name="locale/lt/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/lv/LC_MESSAGES/Horde_Argv.mo" name="locale/lv/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/lv/LC_MESSAGES/Horde_Argv.po" name="locale/lv/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/mk/LC_MESSAGES/Horde_Argv.mo" name="locale/mk/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/mk/LC_MESSAGES/Horde_Argv.po" name="locale/mk/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/nb/LC_MESSAGES/Horde_Argv.mo" name="locale/nb/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/nb/LC_MESSAGES/Horde_Argv.po" name="locale/nb/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/nl/LC_MESSAGES/Horde_Argv.mo" name="locale/nl/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/nl/LC_MESSAGES/Horde_Argv.po" name="locale/nl/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/nn/LC_MESSAGES/Horde_Argv.mo" name="locale/nn/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/nn/LC_MESSAGES/Horde_Argv.po" name="locale/nn/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/pl/LC_MESSAGES/Horde_Argv.mo" name="locale/pl/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/pl/LC_MESSAGES/Horde_Argv.po" name="locale/pl/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/pt/LC_MESSAGES/Horde_Argv.mo" name="locale/pt/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/pt/LC_MESSAGES/Horde_Argv.po" name="locale/pt/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/pt_BR/LC_MESSAGES/Horde_Argv.mo" name="locale/pt_BR/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/pt_BR/LC_MESSAGES/Horde_Argv.po" name="locale/pt_BR/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/ro/LC_MESSAGES/Horde_Argv.mo" name="locale/ro/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/ro/LC_MESSAGES/Horde_Argv.po" name="locale/ro/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/ru/LC_MESSAGES/Horde_Argv.mo" name="locale/ru/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/ru/LC_MESSAGES/Horde_Argv.po" name="locale/ru/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/sk/LC_MESSAGES/Horde_Argv.mo" name="locale/sk/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/sk/LC_MESSAGES/Horde_Argv.po" name="locale/sk/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/sl/LC_MESSAGES/Horde_Argv.mo" name="locale/sl/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/sl/LC_MESSAGES/Horde_Argv.po" name="locale/sl/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/sv/LC_MESSAGES/Horde_Argv.mo" name="locale/sv/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/sv/LC_MESSAGES/Horde_Argv.po" name="locale/sv/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/tr/LC_MESSAGES/Horde_Argv.mo" name="locale/tr/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/tr/LC_MESSAGES/Horde_Argv.po" name="locale/tr/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/uk/LC_MESSAGES/Horde_Argv.mo" name="locale/uk/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/uk/LC_MESSAGES/Horde_Argv.po" name="locale/uk/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/zh_CN/LC_MESSAGES/Horde_Argv.mo" name="locale/zh_CN/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/zh_CN/LC_MESSAGES/Horde_Argv.po" name="locale/zh_CN/LC_MESSAGES/Horde_Argv.po" />
+   <install as="locale/zh_TW/LC_MESSAGES/Horde_Argv.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Argv.mo" />
+   <install as="locale/zh_TW/LC_MESSAGES/Horde_Argv.po" name="locale/zh_TW/LC_MESSAGES/Horde_Argv.po" />
+   <install as="Horde/Argv/AllTests.php" name="test/Horde/Argv/AllTests.php" />
+   <install as="Horde/Argv/BoolTest.php" name="test/Horde/Argv/BoolTest.php" />
+   <install as="Horde/Argv/CallbackCheckAbbrevTest.php" name="test/Horde/Argv/CallbackCheckAbbrevTest.php" />
+   <install as="Horde/Argv/CallbackExtraArgsTest.php" name="test/Horde/Argv/CallbackExtraArgsTest.php" />
+   <install as="Horde/Argv/CallbackManyArgsTest.php" name="test/Horde/Argv/CallbackManyArgsTest.php" />
+   <install as="Horde/Argv/CallbackMeddleArgsTest.php" name="test/Horde/Argv/CallbackMeddleArgsTest.php" />
+   <install as="Horde/Argv/CallbackTest.php" name="test/Horde/Argv/CallbackTest.php" />
+   <install as="Horde/Argv/CallbackVarArgsTest.php" name="test/Horde/Argv/CallbackVarArgsTest.php" />
+   <install as="Horde/Argv/ChoiceTest.php" name="test/Horde/Argv/ChoiceTest.php" />
+   <install as="Horde/Argv/ConflictingDefaultsTest.php" name="test/Horde/Argv/ConflictingDefaultsTest.php" />
+   <install as="Horde/Argv/ConflictOverrideTest.php" name="test/Horde/Argv/ConflictOverrideTest.php" />
+   <install as="Horde/Argv/ConflictResolveTest.php" name="test/Horde/Argv/ConflictResolveTest.php" />
+   <install as="Horde/Argv/ConflictTest.php" name="test/Horde/Argv/ConflictTest.php" />
+   <install as="Horde/Argv/ConflictTestCase.php" name="test/Horde/Argv/ConflictTestCase.php" />
+   <install as="Horde/Argv/CountTest.php" name="test/Horde/Argv/CountTest.php" />
+   <install as="Horde/Argv/DefaultValuesTest.php" name="test/Horde/Argv/DefaultValuesTest.php" />
+   <install as="Horde/Argv/ExpandDefaultsTest.php" name="test/Horde/Argv/ExpandDefaultsTest.php" />
+   <install as="Horde/Argv/ExtendAddActionsTest.php" name="test/Horde/Argv/ExtendAddActionsTest.php" />
+   <install as="Horde/Argv/ExtendAddTypesTest.php" name="test/Horde/Argv/ExtendAddTypesTest.php" />
+   <install as="Horde/Argv/HelpTest.php" name="test/Horde/Argv/HelpTest.php" />
+   <install as="Horde/Argv/InterceptedException.php" name="test/Horde/Argv/InterceptedException.php" />
+   <install as="Horde/Argv/InterceptingParser.php" name="test/Horde/Argv/InterceptingParser.php" />
+   <install as="Horde/Argv/MatchAbbrevTest.php" name="test/Horde/Argv/MatchAbbrevTest.php" />
+   <install as="Horde/Argv/MultipleArgsAppendTest.php" name="test/Horde/Argv/MultipleArgsAppendTest.php" />
+   <install as="Horde/Argv/MultipleArgsTest.php" name="test/Horde/Argv/MultipleArgsTest.php" />
+   <install as="Horde/Argv/OptionChecksTest.php" name="test/Horde/Argv/OptionChecksTest.php" />
+   <install as="Horde/Argv/OptionGroupTest.php" name="test/Horde/Argv/OptionGroupTest.php" />
+   <install as="Horde/Argv/OptionValuesTest.php" name="test/Horde/Argv/OptionValuesTest.php" />
+   <install as="Horde/Argv/ParseNumTest.php" name="test/Horde/Argv/ParseNumTest.php" />
+   <install as="Horde/Argv/ParserTest.php" name="test/Horde/Argv/ParserTest.php" />
+   <install as="Horde/Argv/ProgNameTest.php" name="test/Horde/Argv/ProgNameTest.php" />
+   <install as="Horde/Argv/StandardTest.php" name="test/Horde/Argv/StandardTest.php" />
+   <install as="Horde/Argv/TestCase.php" name="test/Horde/Argv/TestCase.php" />
+   <install as="Horde/Argv/TypeAliasesTest.php" name="test/Horde/Argv/TypeAliasesTest.php" />
+   <install as="Horde/Argv/VersionTest.php" name="test/Horde/Argv/VersionTest.php" />
   </filelist>
  </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2010-10-22</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* Initial release, ported from Optik (http://optik.sourceforge.net/)
+   </notes>
+  </release>
+ </changelog>
 </package>

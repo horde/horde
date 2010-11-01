@@ -17,7 +17,7 @@
     {
         global $whups_driver;
 
-        $droptext = Horde_UI_VarRenderer_html::selectOptions($whups_driver->getAllTypes());
+        $droptext = Horde_Core_Ui_VarRenderer_html::selectOptions($whups_driver->getAllTypes());
         include WHUPS_TEMPLATES . '/renderer/querysetcurrenttype.inc';
     }
 
@@ -210,7 +210,7 @@ class Horde_Form_Renderer_Query extends Horde_Form_Renderer {
         // little nicer.
         $fimgattrs = 'height="20" width="0" style="vertical-align: middle;"';
         $imgattrs = 'height="20" width="20" style="vertical-align: middle;"';
-        $imgdir = $registry->getImageDir('horde');
+        $imgdir = Horde_Themes::img(null, 'horde');
 
         $space = '';
         $count = count($more);

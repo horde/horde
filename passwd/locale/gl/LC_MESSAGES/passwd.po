@@ -1,0 +1,140 @@
+# passwd 2.2 Galician translation
+#
+# Version inicial de:
+#
+# Rafael Varela <rafael.varela@usc.es>
+# Guillermo Mendez <guille@usc.es>
+# Servicio de atencion a usuarios e sistemas
+# Universidade de Santiago de Compostela
+#
+# Revisada y corregida por:
+#
+# Servicio de normalizacion linguistica <snlusc@usc.es>
+# Universidade de Santiago de Compostela
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: passwd\n"
+"POT-Creation-Date: 2002-02-28 00:14-0600\n"
+"PO-Revision-Date: 2003-08-19 12:42GMT+1\n"
+"Last-Translator: guille <guille@usc.es>\n"
+"Language-Team: Galego\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.9.5\n"
+
+msgid "Change your password"
+msgstr "Cambie a súa chave de acceso"
+
+msgid "Confirm new password:"
+msgstr "Confirme o nova chave de acceso"
+
+msgid "Error"
+msgstr "Erro"
+
+msgid "Failure in changing password : "
+msgstr "Fallou o cambio de chave de acceso"
+
+msgid "Help"
+msgstr "Axuda"
+
+msgid "Language"
+msgstr "Lingua"
+
+msgid "Logout"
+msgstr "Finalizar a sesión"
+
+msgid "Message"
+msgstr "Mensaxe"
+
+msgid "New password:"
+msgstr "Chave de acceso nova:"
+
+msgid "Old password:"
+msgstr "Chave de acceso anterior:"
+
+msgid "Password changed!"
+msgstr "¡Chave de acceso cambiada!"
+
+msgid "Password module is not properly configured"
+msgstr "O módulo para cambiar a chave de acceso non se configurou"
+
+msgid "Problem?"
+msgstr "¿Problemas?"
+
+msgid "Reset"
+msgstr "Reiniciar"
+
+msgid "Select your preferred language:"
+msgstr "Seleccione a lingua:"
+
+msgid "Set the language that menu items, explanations, and help are in."
+msgstr "Establece a lingua dos menús, das explicacións e da axuda."
+
+msgid "Some of Password module's configuration files are missing:"
+msgstr ""
+"Algúns dos arquivos de configuración do módulo para cambiar a chave non se "
+"dan atopado:"
+
+msgid "Success"
+msgstr "Correctamente"
+
+msgid ""
+"This file controls the default preferences for Password module, and also "
+"controls which preferences users can alter."
+msgstr ""
+"Este arquivo controla as preferencias predeterminadas do módulo para cambiar "
+"a chavee ademais controla que preferencias pode mudar o usuario."
+
+msgid ""
+"This file controls the stylesheet that is used to set colors and fonts in "
+"addition to or overriding Horde defaults."
+msgstr ""
+"Este arquivo controla as follas de estilo que se usan para establecer as "
+"cores e tipos de letra, e complemententa ou substitúe os valores "
+"predeterminados de Horde."
+
+msgid ""
+"This is the main Password module configuration file. It contains paths and "
+"options for all Password module scripts."
+msgstr ""
+"Este é o arquivo principal de configuración do módulo para cambiar a chave "
+"de acceso. Contén as rutas e opcións para tódolos programas (deste módulo)."
+
+msgid "Username:"
+msgstr "Usuario:"
+
+msgid "Warning"
+msgstr "Advertencia"
+
+msgid "You can not change passwd for other user"
+msgstr "Non pode mudar a chave de acceso doutro usuario"
+
+#, c-format
+msgid "You can't change password for user %s"
+msgstr "Non pode cambiar a chave de acceso do usuario %s"
+
+msgid "You must give your new password"
+msgstr "Escriba a nova chave de acceso"
+
+msgid "You must give your old password"
+msgstr "Escriba a chave de acceso anterior"
+
+msgid "You must give your userid"
+msgstr "Escriba o seu nome de usuario"
+
+msgid "You must verify your new password"
+msgstr "Repita a nova chave de acceso"
+
+msgid "Your Information"
+msgstr "A súa información"
+
+msgid "Your new passwords didn't match"
+msgstr "As novas chaves de acceso son diferentes"
+
+msgid "Account Manager"
+msgstr "Xestor da conta"
+
+msgid "Changing Password on %s"
+msgstr "Cambiando a chave de acceso en %s"

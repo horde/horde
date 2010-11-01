@@ -29,18 +29,21 @@ var ImpFlagPrefs = {
             return;
         }
 
-        var elt = e.element(), elt2, id;
+        var elt = e.element(), elt2;
 
         while (Object.isElement(elt)) {
             if (elt.hasClassName('flagcolorpicker')) {
                 elt2 = elt.previous('INPUT');
-                id = elt2.readAttribute('id');
                 new ColorPicker({
                     color: $F(elt2),
                     draggable: true,
                     offsetParent: elt,
                     resizable: true,
-                    update: [[ id, 'value' ], [ id, 'background' ]]
+                    update: [
+                        [ elt2, 'value' ],
+                        [ elt2, 'background' ],
+                        [ elt.previous('DIV.flagUser'), 'background' ]
+                    ]
                 });
                 e.stop();
                 return;

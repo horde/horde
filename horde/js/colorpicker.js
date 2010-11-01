@@ -35,7 +35,11 @@ var ColorPicker = Class.create({
             div = new Element('DIV', { id: 'color-picker' }).hide();
             div.insert(
                 new Element('DIV', { className: 'north' }).insert(
-                    new Element('SPAN', { id: 'color-picker-hex' })
+                    new Element('FORM', { id: 'color-picker-hex-form' }).insert(
+                        new Element('SPAN', { id: 'color-picker-hex' })
+                    ).insert(
+                        new Element('INPUT', { id: 'color-picker-hex-edit', size: 6 }).hide()
+                    )
                 ).insert(
                     new Element('DIV', { id: 'color-picker-close' }).insert('X')
                 )
@@ -120,7 +124,9 @@ var ColorPicker = Class.create({
         this.listeners = [
             [ 'color-picker-close', 'click', this.hide.bindAsEventListener(this) ],
             [ 'color-picker-sphere', 'mousedown', this.coreXY.bindAsEventListener(this, 'color-picker-cursor') ],
-            [ 'color-picker-sphere', 'dblclick', this.hide.bindAsEventListener(this) ]
+            [ 'color-picker-sphere', 'dblclick', this.hide.bindAsEventListener(this) ],
+            [ 'color-picker-hex', 'click', this.editHex.bindAsEventListener(this) ],
+            [ $('color-picker-hex').up('FORM'), 'submit', this.editHexSubmit.bindAsEventListener(this) ]
         ];
 
         if (this.options.draggable) {
@@ -138,6 +144,10 @@ var ColorPicker = Class.create({
 
     removeEvents: function()
     {
+        if (!this.listeners) {
+            return;
+        }
+
         this.listeners.each(function(l) {
             $(l[0]).stopObserving(l[1], l[2]);
         });
@@ -171,8 +181,7 @@ var ColorPicker = Class.create({
                 x = v[0] - W2 - 3,
                 y = W - v[1] - W2 + 21,
                 SV = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)),
-                hue = Math.atan2(x, y) / (Math.PI * 2),
-                brightness, c;
+                hue = Math.atan2(x, y) / (Math.PI * 2);
 
             this.hsv = [
                 hue > 0 ? (hue * 360) : ((hue * 360) + 360),
@@ -180,23 +189,7 @@ var ColorPicker = Class.create({
                 SV >= W3 ? Math.max(0, 1 - ((SV - W3) / (W2 - W3))) * 100 : 100
             ];
 
-            c = Color.hsv2hex(this.hsv);
-            brightness = Color.brightness(Color.hsv2rgb(this.hsv));
-
-            $('color-picker-hex').update('#' + c);
-
-            this.options.update.each(function(u) {
-                switch (u[1]) {
-                case 'background':
-                    $(u[0]).setStyle({ backgroundColor: '#' + c }, true);
-                    $(u[0]).setStyle({ color: brightness < 125 ? '#fff' : '#000' }, true);
-                    break;
-
-                case 'value':
-                    $(u[0]).value = '#' + c;
-                    break;
-                }
-            });
+            this.updateColor();
 
             this.coords(W);
         } else if (o == 'color-picker-resize') {
@@ -212,7 +205,12 @@ var ColorPicker = Class.create({
 
     coreXY: function(e, o)
     {
-        if (o != 'color-picker') {
+        if (o == 'color-picker') {
+            if (e.element().up('#color-picker-hex-form') &&
+                !$('color-picker-hex').visible()) {
+                return;
+            }
+        } else {
             e.stop();
         }
 
@@ -250,6 +248,45 @@ var ColorPicker = Class.create({
             this.stop = 1;
             document.stopObserving('mousemove').stopObserving('mouseup');
         }.bind(this));
+    },
+
+    updateColor: function()
+    {
+        var brightness = Color.brightness(Color.hsv2rgb(this.hsv)),
+            c = Color.hsv2hex(this.hsv);
+
+        $('color-picker-hex').update('#' + c);
+
+        this.options.update.each(function(u) {
+            switch (u[1]) {
+            case 'background':
+                $(u[0]).setStyle({
+                    backgroundColor: '#' + c,
+                    color: (brightness < 125 ? '#fff' : '#000')
+                });
+                break;
+
+            case 'value':
+                $(u[0]).value = '#' + c;
+                break;
+            }
+        });
+    },
+
+    editHex: function(e)
+    {
+        e.element().hide().next().setValue('#' + Color.hsv2hex(this.hsv)).show().focus();
+    },
+
+    editHexSubmit: function(e)
+    {
+        var hex = $F(e.element().down('INPUT'));
+        $('color-picker-hex').update(hex);
+        this.hsv = Color.hex2hsv(hex);
+        this.coords(parseInt($('color-picker-sphere').getStyle('width')));
+        this.updateColor();
+        e.element().down().show().next().hide();
+        e.stop();
     }
 
 });
@@ -282,7 +319,8 @@ var Color = {
         ];
     },
 
-    rgb2hex: function(rgb) {
+    rgb2hex: function(rgb)
+    {
         var r = rgb[0].toString(16),
             g = rgb[1].toString(16),
             b = rgb[2].toString(16);
@@ -384,7 +422,7 @@ var Color = {
             }
         }
 
-        return [ H ? H : 0, S ? S : 0, Math.round((max / 255) * 100) ];
+        return [ H ? H : 0, S ? S : 0, (max / 2.55) ];
 
     },
 

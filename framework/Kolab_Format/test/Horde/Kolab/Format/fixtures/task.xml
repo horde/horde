@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<task version="1.0">
+  <uid>1e2f91e4977abfec573916f351db3e14</uid>
+  <body>TEST</body>
+  <categories>Variable</categories>
+  <creation-date>2007-10-29T06:32:14Z</creation-date>
+  <last-modification-date>2007-11-12T15:40:04Z</last-modification-date>
+  <sensitivity>public</sensitivity>
+  <product-id>Horde::Kolab</product-id>
+  <summary>Finish project description</summary>
+  <location></location>
+  <creator>
+    <display-name></display-name>
+    <smtp-address></smtp-address>
+  </creator>
+  <organizer>
+    <display-name></display-name>
+    <smtp-address></smtp-address>
+  </organizer>
+  <start-date>2007-11-06T23:00:00Z</start-date>
+  <recurrence cycle="daily">
+    <interval>1</interval>
+    <range type="none"></range>
+  </recurrence>
+  <priority>1</priority>
+  <completed>100</completed>
+  <status>not-started</status>
+  <due-date>2007-11-07T18:00:00Z</due-date>
+  <estimate>30</estimate>
+</task>

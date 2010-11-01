@@ -18,24 +18,37 @@ class Ingo_Storage_Spam extends Ingo_Storage_Rule
      */
     protected $_obtype = Ingo_Storage::ACTION_SPAM;
 
+    /**
+     */
     protected $_folder = null;
+
+    /**
+     */
     protected $_level = 5;
 
+    /**
+     */
     public function setSpamFolder($folder)
     {
         $this->_folder = $folder;
     }
 
+    /**
+     */
     public function setSpamLevel($level)
     {
         $this->_level = $level;
     }
 
+    /**
+     */
     public function getSpamFolder()
     {
         return $this->_folder;
     }
 
+    /**
+     */
     public function getSpamLevel()
     {
         return $this->_level;

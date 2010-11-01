@@ -6,48 +6,48 @@
  * (http://framework.zend.com).  Both that package and this
  * one were written by Mike Naberezny and Chuck Hagenbuch.
  *
- * @category Horde
- * @package  Horde_Log
+ * @author     Mike Naberezny <mike@maintainable.com>
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @category   Horde
+ * @license    http://opensource.org/licenses/bsd-license.php BSD
+ * @package    Log
  * @subpackage Filters
- * @author   Mike Naberezny <mike@maintainable.com>
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
  */
 
 /**
- * @category Horde
- * @package  Horde_Log
+ * @author     Mike Naberezny <mike@maintainable.com>
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @category   Horde
+ * @license    http://opensource.org/licenses/bsd-license.php BSD
+ * @package    Log
  * @subpackage Filters
- * @author   Mike Naberezny <mike@maintainable.com>
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
  */
-class Horde_Log_Filter_Suppress implements Horde_Log_Filter_Interface
+class Horde_Log_Filter_Suppress implements Horde_Log_Filter
 {
     /**
+     * Accept all events?
+     *
      * @var boolean
      */
-    protected $_accept = true;
+    protected $_accept = Horde_Log_Filter::ACCEPT;
 
     /**
      * This is a simple boolean filter.
      *
-     * Call suppress(true) to suppress all log events.
-     * Call suppress(false) to accept all log events.
-     *
-     * @param  boolean  $suppress  Should all log events be suppressed?
-     * @return  void
+     * @param boolean $suppress  Should all log events be suppressed?
      */
     public function suppress($suppress)
     {
-        $this->_accept = (! $suppress);
+        $this->_accept = !$suppress;
     }
 
     /**
-     * Returns TRUE to accept the message, FALSE to block it.
+     * Returns Horde_Log_Filter::ACCEPT to accept the message,
+     * Horde_Log_Filter::IGNORE to ignore it.
      *
-     * @param  array    $event    event data
-     * @return boolean            accepted?
+     * @param array $event  Event data.
+     *
+     * @return boolean  Accepted?
      */
     public function accept($event)
     {

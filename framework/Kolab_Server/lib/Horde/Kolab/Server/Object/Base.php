@@ -51,7 +51,7 @@ implements Horde_Kolab_Server_Object_Interface
      * @param string                       $guid      GUID of the object.
      */
     public function __construct(
-        Horde_Kolab_Server_Composite_Interface $composite,
+        Horde_Kolab_Server_Composite $composite,
         $guid = null
     ) {
         $this->_composite = $composite;
@@ -87,9 +87,7 @@ implements Horde_Kolab_Server_Object_Interface
     /**
      * Get the internal attributes supported by this object.
      *
-     * @return array The internal attributes supported by this object. This is
-     * an association of internal attribute names an the correspodning attribute
-     * class names.
+     * @return array The internal attributes supported by this object.
      */
     public function getInternalAttributes()
     {
@@ -119,7 +117,7 @@ implements Horde_Kolab_Server_Object_Interface
     public function readInternal()
     {
         return $this->_composite->server->readAttributes(
-            $this->getGuid(), array_keys($this->getInternalAttributes())
+            $this->getGuid(), $this->getInternalAttributes()
         );
     }
 

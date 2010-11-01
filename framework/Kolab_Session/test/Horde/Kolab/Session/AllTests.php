@@ -43,6 +43,8 @@ class Horde_Kolab_Session_AllTests extends Horde_Test_AllTests
 {
 }
 
+Horde_Kolab_Session_AllTests::init('Horde_Kolab_Session', __FILE__);
+
 if (PHPUnit_MAIN_METHOD == 'Horde_Kolab_Session_AllTests::main') {
-    Horde_Kolab_Session_AllTests::main('Horde_Kolab_Session', __FILE__);
+    Horde_Kolab_Session_AllTests::main();
 }

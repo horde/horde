@@ -61,7 +61,8 @@ abstract class Horde_Argv_HelpFormatter
 
     public $parser = null;
 
-    public function __construct($indent_increment, $max_help_position, $width = null, $short_first = false)
+    public function __construct($indent_increment, $max_help_position,
+                                $width = null, $short_first = false)
     {
         $this->indent_increment = $indent_increment;
         $this->help_position = $this->max_help_position = $max_help_position;

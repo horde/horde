@@ -1,0 +1,145 @@
+======================
+ Installing Trean 0.1
+======================
+
+:Last update:   $Date: 2007/06/19 09:56:35 $
+:Revision:      $Revision: 1.11 $
+
+
+This document contains instructions for installing the Trean web-based
+bookmarks application on your system.
+
+For information on the capabilities and features of Trean, see the
+file README_ in the top-level directory of the Trean distribution.
+
+
+Obtaining Trean
+===============
+
+Trean can be obtained from the Horde website and FTP server, at
+
+   http://www.horde.org/trean/
+
+   ftp://ftp.horde.org/pub/trean/
+
+Or use the mirror closest to you:
+
+   http://www.horde.org/mirrors.php
+
+Bleeding-edge development versions of Trean are available via CVS; see the
+file `horde/docs/HACKING`_, or the website http://www.horde.org/source/, for
+information on accessing the Horde CVS repository.
+
+
+Prerequisites
+=============
+
+To function properly, Trean **requires** the following:
+
+1. A working Horde installation.
+
+   Trean runs within the `Horde Application Framework`_, a set of common tools
+   for web applications written in PHP.  You must install Horde before
+   installing Trean.
+
+   .. Important:: Trean requires version 3.2+ of the Horde Framework -
+                  earlier versions of Horde will **not** work.
+
+   The Horde Framework can be obtained from the Horde website and FTP server,
+   at
+
+      http://www.horde.org/horde/
+
+      ftp://ftp.horde.org/pub/horde/
+
+   Many of Trean's prerequisites are also Horde prerequisites.
+
+   .. Important:: Be sure to have completed all of the steps in the
+                  `horde/docs/INSTALL`_ file for the Horde Framework before
+                  installing Trean.
+
+   .. _`Horde Application Framework`: http://www.horde.org/horde/
+
+
+Configuring Trean
+=================
+
+1. Configuring Horde for Trean
+
+   a. Register the application
+
+      In ``horde/config/registry.php``, find the applications['trean'] stanza.
+      The 'status' parameter must be marked '=> active'.  If you have changed
+      the location of Trean relative to Horde, either in the URL, in the
+      filesystem or both, you must update the ``fileroot`` and ``webroot``
+      settings to their correct values.
+
+   b. Configuring a DataTree backend
+
+      Trean requires a permanent ``DataTree`` backend in Horde to manage
+      bookmarks.  If you didn't setup a DataTree backend yet, go to the
+      configuration interface, select Horde from the list of applications and
+      select a driver different than ``None`` on the ``DataTree System`` tab.
+      Make sure that you ran the necessary scripts to create a storage backend
+      for the DataTree system, e.g. one of the ``create.*.sql`` or
+      ``horde_datatree.*.sql`` SQL scripts in ``horde/scripts/sql/``.  You
+      should have done this already during the installation of Horde.
+
+2. Configuring Trean
+
+   To configure Trean, you must login to Horde as a Horde Administrator.  Use
+   the Horde ``Administration`` menu item to get to the administration page,
+   and then click on the ``Configuration`` icon to get the configuration page.
+   Select ``Bookmarks`` from the selection list of applications, and click on
+   the ``Configure`` button.  Fill in or change any configuration values as
+   needed.  When done click on ``Generate Bookmarks Configuration`` to
+   generate the ``conf.php`` file.  If your web server doesn't have write
+   permissions to the Trean configuration directory or file, it will not be
+   able to write the file.  In this case, go back to ``Configuration`` and
+   choose one of the other methods to create the configuration file
+   ``trean/config/conf.php``.
+
+   Note for international users: Trean uses GNU gettext to provide local
+   translations of text displayed by applications; the translations are found
+   in the ``po/`` directory.  If a translation is not yet available for your
+   locale (and you wish to create one), or if you're having trouble using a
+   provided translation, please see the `horde/docs/TRANSLATIONS`_ file for
+   instructions.
+
+3. Testing
+
+    It needs lots so just start playing.
+
+
+Obtaining Support
+=================
+
+If you encounter problems with Trean, help is available!
+
+The Horde Frequently Asked Questions List (FAQ), available on the Web at
+
+  http://www.horde.org/faq/
+
+The Horde Project runs a number of mailing lists, for individual applications
+and for issues relating to the project as a whole.  Information, archives, and
+subscription information can be found at
+
+  http://www.horde.org/mail/
+
+Lastly, Horde developers, contributors and users may also be found on IRC,
+on the channel #horde on the Freenode Network (irc.freenode.net).
+
+Please keep in mind that Trean is free software written by volunteers.  For
+information on reasonable support expectations, please read
+
+  http://www.horde.org/support.php
+
+Thanks for using Trean!
+
+The Trean team
+
+
+.. _README: ?f=README.html
+.. _`horde/docs/INSTALL`: ../../horde/docs/?f=INSTALL.html
+.. _`horde/docs/HACKING`: ../../horde/docs/?f=HACKING.html
+.. _`horde/docs/TRANSLATIONS`: ../../horde/docs/?f=TRANSLATIONS.html

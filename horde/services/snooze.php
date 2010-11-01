@@ -9,15 +9,17 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-new Horde_Application(array('nologintasks' => true));
+Horde_Registry::appInit('horde', array('nologintasks' => true));
 
-$alarm = Horde_Alarm::factory();
+$alarm = $injector->getInstance('Horde_Alarm');
 $id = Horde_Util::getPost('alarm');
 $snooze = Horde_Util::getPost('snooze');
 
 if ($id && $snooze) {
-    if (is_a($result = $alarm->snooze($id, Horde_Auth::getAuth(), (int)$snooze), 'PEAR_Error')) {
-        header('HTTP/1.0 500 ' . $result->getMessage());
+    try {
+        $alarm->snooze($id, $registry->getAuth(), (int)$snooze);
+    } catch (Horde_Alarm_Exception $e) {
+        header('HTTP/1.0 500 ' . $e->getMessage());
     }
 } else {
     header('HTTP/1.0 400 Bad Request');

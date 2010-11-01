@@ -8,7 +8,7 @@
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
  *
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
- * @author  Michael Slusarz <slusarz@curecanti.org>
+ * @author  Michael Slusarz <slusarz@horde.org>
  * @package Ingo
  */
 class Ingo_Script_Imap_Live extends Ingo_Script_Imap_Api
@@ -54,9 +54,12 @@ class Ingo_Script_Imap_Live extends Ingo_Script_Imap_Api
     public function fetchEnvelope($indices)
     {
         if ($GLOBALS['registry']->hasMethod('mail/imapOb')) {
-            $ob = $GLOBALS['registry']->call('mail/imapOb');
             try {
-                return $ob->fetch($this->_params['mailbox'], array(Horde_Imap_Client::FETCH_ENVELOPE => true), array('ids' => $indices));
+                return $GLOBALS['registry']->call('mail/imapOb')->fetch($this->_params['mailbox'], array(
+                    Horde_Imap_Client::FETCH_ENVELOPE => true
+                ), array(
+                    'ids' => $indices
+                ));
             } catch (Horde_Imap_Client_Exception $e) {}
         }
 

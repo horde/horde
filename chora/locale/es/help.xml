@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<help>
+	<entry id="Overview">
+		<title>Introducci&#xF3;n a Chora</title>
+		<para>Chora es una herramienta para examinar dep&#xF3;sitos de c&#xF3;digo gestionados mediante sistemas de control de c&#xF3;digo. Ofrece vista de directorio (archivos), historial del registro, diferencias entre versiones, vista ramificada gr&#xE1;fica y vista de anotaciones.</para>
+	</entry>
+
+	<entry id="chora-button">
+		<title>Botones del men&#xFA;: Examinar</title>
+		<para>El bot&#xF3;n Examinar le devuelve a la visualizaci&#xF3;n principal de archivos de Chora del dep&#xF3;sito por omisi&#xF3;n.</para>
+	</entry>
+
+	<entry id="prefs-button">
+		<title>Botones del men&#xFA;: Opciones</title>
+		<para>El bot&#xF3;n Opciones le permite configurar varias preferencias personales para controlar el comportamiento de Chora.</para>
+	</entry>
+
+	<entry id="help-button">
+		<title>Botones del men&#xFA;: Ayuda</title>
+		<para>El bot&#xF3;n Ayuda le muestra esta pantalla de ayuda.</para>
+	</entry>
+
+	<entry id="view-checkout">
+		<title>Vista de inspecci&#xF3;n</title>
+		<para>La vista de inspecci&#xF3;n muestra el contenido de un archivo en un punto de revisi&#xF3;n, junto con las entradas de registro de dicha revisi&#xF3;n.</para>
+	</entry>
+
+	<entry id="view-annotate">
+		<title>Vista anotada</title>
+		<para>La vista anotada muestra un archivo con las anotaciones de qu&#xE9; autores son responsables de qu&#xE9; partes del contenido del archivo (y por lo tanto se le conoce a menudo como la vista de la "culpa")</para>
+	</entry>
+
+	<entry id="view-branch">
+		<title>Vista ramificada</title>
+		<para>La vista ramificada muestra la historia de versiones de un archivo, distribuida en ramas. &#xC9;sto permite comprobar, de forma visual, d&#xF3;nde se crearon los puntos de ramificaci&#xF3;n del &#xE1;rbol.</para>
+	</entry>
+
+	<entry id="view-log">
+		<title>Vista de registro</title>
+		<para>La vista de registro muestra la historia de un archivo mediante los mensajes de registro de comprobaci&#xF3;n. &#xC9;sto permite ver una historia de los cambios desde el punto de vista de los mensajes de registro que se introdujeron en el momento de la revisi&#xF3;n.</para>
+	</entry>
+
+	<entry id="view-diff">
+		<title>Vista de diferencias</title>
+		<para>La vista de diferencias muestra las diferencias entre dos revisiones distintas de un archivo. &#xC9;sto le permite ver f&#xE1;cilmente los cambios de un archivo. Puede ver las diferencias en varios formatos, incluyendo entre otros un listado coloreado conjunto de las dos revisiones, o un listado de diferencias mediante comandos del editor ed.</para>
+	</entry>
+
+	<entry id="show-deleted-files">
+		<title>Mostrar/Ocultar archivos eliminados</title>
+		<para>Puede optar por ver los archivos eliminados (desde Attic) o por no mostrarlos (ocultarlos) en la vista de archivos. Si prefiere mostrarlos, se ver&#xE1;n atenuados y con un icono de <i>papelera</i>.</para>
+		<para>La opci&#xF3;n por omisi&#xF3;n es no mostrarlos.</para>
+	</entry>
+</help>

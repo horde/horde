@@ -9,7 +9,8 @@
  * @package Chora
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('chora');
 
 /* Spawn the repository and file objects */
 try {
@@ -54,7 +55,7 @@ if ($type != 'colored') {
 $abbrev_r1 = $VC->abbrev($r1);
 $abbrev_r2 = $VC->abbrev($r2);
 $title = sprintf(_("Diff for %s between version %s and %s"),
-                 Horde_Text_Filter::filter($where, 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true, 'encode_all' => true)), $abbrev_r1, $abbrev_r2);
+                 $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($where, 'space2html', array('encode' => true, 'encode_all' => true)), $abbrev_r1, $abbrev_r2);
 
 /* Format log entries. */
 $log_messages = array();

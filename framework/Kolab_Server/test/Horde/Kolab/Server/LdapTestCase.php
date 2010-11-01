@@ -1,6 +1,6 @@
 <?php
 /**
- * Skip LDAP based tests if we don't have ldap or Net_LDAP2.
+ * Skip LDAP based tests if we don't have ldap or Horde_Ldap.
  *
  * PHP version 5
  *
@@ -17,7 +17,7 @@
 require_once dirname(__FILE__) . '/TestCase.php';
 
 /**
- * Skip LDAP based tests if we don't have ldap or Net_LDAP2.
+ * Skip LDAP based tests if we don't have ldap or Horde_Ldap.
  *
  * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
  *
@@ -35,18 +35,11 @@ class Horde_Kolab_Server_LdapTestCase extends Horde_Kolab_Server_TestCase
     public function skipIfNoLdap()
     {
         if (!extension_loaded('ldap') && !@dl('ldap.' . PHP_SHLIB_SUFFIX)) {
-            $this->markTestSuiteSkipped('Ldap extension is missing!');
+            $this->markTestSkipped('Ldap extension is missing!');
         };
 
-        /** Hide strict errors from the Net_LDAP2 library */
-        $error_reporting = error_reporting();
-        error_reporting($error_reporting & ~E_STRICT);
-
-        if (!class_exists('Net_LDAP2')) {
-            $this->markTestSkipped('PEAR package Net_LDAP2 is not installed!');
+        if (!class_exists('Horde_Ldap')) {
+            $this->markTestSkipped('Horde_Ldap is not installed!');
         }
-
-        /** Reactivate original error reporting */
-        error_reporting($error_reporting);
     }
 }

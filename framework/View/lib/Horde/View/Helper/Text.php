@@ -39,7 +39,7 @@ class Horde_View_Helper_Text extends Horde_View_Helper_Base
      * Escapes a value for output in a view template.
      *
      * <code>
-     *   <p><?= $this->h($this->templateVar) ?></p>
+     *   <p><?php echo $this->h($this->templateVar) ?></p>
      * </code>
      *
      * @param   mixed   $var The output to escape.
@@ -77,29 +77,29 @@ class Horde_View_Helper_Text extends Horde_View_Helper_Base
      * array every time it is called. This can be used for example, to alternate
      * classes for table rows:
      *
-     *   <? foreach($items as $item): ?>
-     *     <tr class="<?= $this->cycle("even", "odd") ?>">
+     *   <?php foreach($items as $item): ?>
+     *     <tr class="<?php echo $this->cycle("even", "odd") ?>">
      *       <td>item</td>
      *     </tr>
-     *   <% endforeach %>
+     *   <?php endforeach ?>
      *
      * You can use named cycles to allow nesting in loops.  Passing an array as
      * the last parameter with a <tt>name</tt> key will create a named cycle.
      * You can manually reset a cycle by calling resetCycle() and passing the
      * name of the cycle.
      *
-     *   <? foreach($items as $item): ?>
-     *     <tr class="<?= $this->cycle("even", "odd", array('name' => "row_class")) ?>">
+     *   <?php foreach($items as $item): ?>
+     *     <tr class="<?php echo $this->cycle("even", "odd", array('name' => "row_class")) ?>">
      *       <td>
-     *         <? foreach ($item->values as $value) ?>
-     *           <span style="color:<?= $this->cycle("red", "green", "blue", array('name' => "colors")) ?>">
+     *         <?php foreach ($item->values as $value) ?>
+     *           <span style="color:<?php echo $this->cycle("red", "green", "blue", array('name' => "colors")) ?>">
      *             value
      *           </span>
-     *         <% end %>
-     *         <? $this->resetCycle("colors") ?>
+     *         <?php endforeach ?>
+     *         <?php $this->resetCycle("colors") ?>
      *       </td>
      *    </tr>
-     *   <% endforeach %>
+     *   <?php endforeach ?>
      *
      */
     public function cycle($firstValue)

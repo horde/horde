@@ -12,8 +12,12 @@
 
 class Ingo_Storage_Mock extends Ingo_Storage
 {
+    /**
+     */
     protected $_data = array();
 
+    /**
+     */
     protected function _retrieve($field)
     {
         if (empty($this->_data[$field])) {
@@ -47,6 +51,8 @@ class Ingo_Storage_Mock extends Ingo_Storage
         return $this->_data[$field];
     }
 
+    /**
+     */
     protected function _store(&$ob)
     {
         $this->_data[$ob->obType()] = $ob;

@@ -79,4 +79,4 @@ $results = $twitter->auth->getRequestToken();
 $_SESSION['twitter_request_secret'] = $results->secret;
 
 // Redirect to auth url
-header('Location:' . Horde::externalUrl($twitter->auth->getUserAuthorizationUrl($results), false));
+Horde::externalUrl($twitter->auth->getUserAuthorizationUrl($results), false)->redirect();

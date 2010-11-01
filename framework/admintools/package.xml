@@ -30,33 +30,17 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Initial Horde 4 package.
+ <notes>* Remove obsoleted scripts/config entries.
  </notes>
  <contents>
   <dir name="/">
    <file name="horde-base.php" role="script" />
-   <file name="horde-create-sequence.php" role="script">
-    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config"/>
-   </file>
-   <file name="horde-db-dumpdata.php" role="script">
-    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config"/>
-   </file>
-   <file name="horde-db-dumpschema.php" role="script">
-    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config"/>
-   </file>
-   <file name="horde-db-updatedata.php" role="script">
-    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config"/>
-   </file>
-   <file name="horde-db-updateschema.php" role="script">
-    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config"/>
-   </file>
    <file name="horde-remove-pref.php" role="script">
     <tasks:replace from="@php_bin@" to="php_bin" type="pear-config"/>
    </file>
    <file name="horde-sql-shell.php" role="script">
     <tasks:replace from="@php_bin@" to="php_bin" type="pear-config"/>
    </file>
-   <file name="horde-update.sh" role="script" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -72,17 +56,25 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <phprelease>
   <filelist>
    <install name="horde-base.php" as="horde-base.php" />
-   <install name="horde-create-sequence.php" as="horde-create-sequence.php" />
-   <install name="horde-db-dumpdata.php" as="horde-db-dumpdata.php" />
-   <install name="horde-db-dumpschema.php" as="horde-db-dumpschema.php" />
-   <install name="horde-db-updatedata.php" as="horde-db-updatedata.php" />
-   <install name="horde-db-updateschema.php" as="horde-db-updateschema.php" />
    <install name="horde-remove-pref.php" as="horde-remove-pref.php" />
    <install name="horde-sql-shell.php" as="horde-sql-shell.php" />
-   <install name="horde-update.sh" as="horde-update.sh" />
   </filelist>
  </phprelease>
  <changelog>
+  <release>
+   <date>2009-12-22</date>
+   <version>
+    <release>0.3.0</release>
+    <api>0.3.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>* Initial Horde 4 package.
+   </notes>
+  </release>
   <release>
    <date>2008-06-24</date>
    <version>

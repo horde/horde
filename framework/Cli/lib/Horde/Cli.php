@@ -14,13 +14,6 @@
 class Horde_Cli
 {
     /**
-     * Singleton instance
-     *
-     * @var Horde_Cli
-     */
-    static protected $_instance;
-
-    /**
      * Are we running on a console?
      *
      * @var boolean
@@ -126,24 +119,10 @@ class Horde_Cli
     );
 
     /**
-     * Returns a single instance of the Horde_Cli class.
-     */
-    static public function singleton()
-    {
-        if (!isset(self::$_instance)) {
-            self::$_instance = new self();
-        }
-
-        return self::$_instance;
-    }
-
-    /**
      * Detect the current environment (web server or console) and sets
      * internal values accordingly.
      *
-     * The constructor must not be called after init(). Either use the
-     * singleton() method to retrieve a Horde_Cli object, or don't call init()
-     * statically.
+     * The constructor must not be called after init().
      */
     public function __construct()
     {
@@ -313,6 +292,9 @@ class Horde_Cli
         case 'cli.message':
             $type_message = $this->blue('[  INFO  ] ');
             break;
+
+        default:
+            $type_message = '';
         }
 
         $this->writeln($type_message . $message);
@@ -321,15 +303,26 @@ class Horde_Cli
     /**
      * Displays a fatal error message.
      *
-     * @param string $error  The error text to display.
+     * @param mixed $error  The error text to display, an exception or an
+     *                      object with a getMessage() method.
      */
     public function fatal($error)
     {
+        if ($error instanceof Exception) {
+            $trace = $error;
+        } else {
+            $trace = debug_backtrace();
+        }
+        $backtrace = new Horde_Support_Backtrace($trace);
+        if (is_object($error) && method_exists($error, 'getMessage')) {
+            $error = $error->getMessage();
+        }
         $this->writeln($this->red('===================='));
         $this->writeln();
-        $this->writeln($this->red(_("Fatal Error:")));
+        $this->writeln($this->red(Horde_Cli_Translation::t("Fatal Error:")));
         $this->writeln($this->red($error));
         $this->writeln();
+        $this->writeln((string)$backtrace);
         $this->writeln($this->red('===================='));
         exit(1);
     }
@@ -360,7 +353,7 @@ class Horde_Cli
                 foreach ($choices as $key => $choice) {
                     $this->writeln($this->indent('(' . $this->bold($key) . ') ' . $choice));
                 }
-                $this->writeln(_("Type your choice: "), true);
+                $this->writeln(Horde_Cli_Translation::t("Type your choice: "), true);
                 @ob_flush();
 
                 // Get the user choice.
@@ -371,7 +364,7 @@ class Horde_Cli
                 if (isset($choices[$response])) {
                     return $response;
                 } else {
-                    $this->writeln($this->red(sprintf(_("\"%s\" is not a valid choice."), $response)));
+                    $this->writeln($this->red(sprintf(Horde_Cli_Translation::t("\"%s\" is not a valid choice."), $response)));
                 }
             } else {
                 @ob_flush();
@@ -444,16 +437,19 @@ class Horde_Cli
      * You must not call init() statically before calling the constructor.
      * Either use the singleton() method to retrieve a Horde_Cli object after
      * calling init(), or don't call init() statically.
+     *
+     * @return Horde_Cli  A Horde_Cli instance.
      */
     static public function init()
     {
         /* Run constructor now because it requires $_SERVER['SERVER_NAME'] to
          * be empty if called with a CGI SAPI. */
-        $cli = self::singleton();
+        $cli = new self();
 
         @set_time_limit(0);
         ob_implicit_flush(true);
         ini_set('html_errors', false);
+        set_exception_handler(array($cli, 'fatal'));
         $_SERVER['HTTP_HOST'] = '127.0.0.1';
         $_SERVER['SERVER_NAME'] = '127.0.0.1';
         $_SERVER['SERVER_PORT'] = '';
@@ -468,6 +464,8 @@ class Horde_Cli
         if (!defined('STDERR')) {
             define('STDERR', fopen('php://stderr', 'r'));
         }
+
+        return $cli;
     }
 
     /**

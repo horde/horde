@@ -17,7 +17,6 @@ require_once 'Horde/Form/Variable.php';
  *
  * @author  Robert E. Coyle <robertecoyle@hotmail.com>
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @since   Horde 3.0
  * @package Horde_Form
  */
 class Horde_Form {
@@ -40,7 +39,7 @@ class Horde_Form {
     protected $_enctype = null;
     public $_help = false;
 
-    function Horde_Form(&$vars, $title = '', $name = null)
+    function Horde_Form(&$vars, $title = '', $name = null, $params = array())
     {
         if (empty($name)) {
             $name = Horde_String::lower(get_class($this));
@@ -161,6 +160,9 @@ class Horde_Form {
             throw new Horde_Exception(sprintf('Nonexistant class "%s" for field type "%s"', $type_class, $type));
         }
         $type_ob = new $type_class();
+        if (!$params) {
+            $params = array();
+        }
         call_user_func_array(array($type_ob, 'init'), $params);
         return $type_ob;
     }
@@ -345,14 +347,14 @@ class Horde_Form {
     {
         if ($submit === true || is_null($submit) || empty($submit)) {
             /* Default to 'Submit'. */
-            $submit = array(_("Submit"));
+            $submit = array(Horde_Form_Translation::t("Submit"));
         } elseif (!is_array($submit)) {
             /* Default to array if not passed. */
             $submit = array($submit);
         }
         /* Only if $reset is strictly true insert default 'Reset'. */
         if ($reset === true) {
-            $reset = _("Reset");
+            $reset = Horde_Form_Translation::t("Reset");
         }
 
         $this->_submit = $submit;
@@ -413,9 +415,8 @@ class Horde_Form {
         }
 
         if ($this->_useFormToken) {
-            require_once 'Horde/Token.php';
             $token = Horde_Token::generateId($this->_name);
-            $_SESSION['horde_form_secrets'][$token] = true;
+            $GLOBALS['session']['horde:form_secrets/' . $token] = true;
             $this->_preserveVarByPost($this->_name . '_formToken', $token);
         }
 
@@ -474,9 +475,8 @@ class Horde_Form {
         }
 
         if ($this->_useFormToken) {
-            require_once 'Horde/Token.php';
             $token = Horde_Token::generateId($this->_name);
-            $_SESSION['horde_form_secrets'][$token] = true;
+            $GLOBALS['session']['horde:form_secrets/' . $token] = true;
             $this->_preserveVarByPost($this->_name . '_formToken', $token);
         }
 
@@ -532,9 +532,8 @@ class Horde_Form {
     function preserve($vars)
     {
         if ($this->_useFormToken) {
-            require_once 'Horde/Token.php';
             $token = Horde_Token::generateId($this->_name);
-            $_SESSION['horde_form_secrets'][$token] = true;
+            $GLOBALS['session']['horde:form_secrets/' . $token] = true;
             $this->_preserveVarByPost($this->_name . '_formToken', $token);
         }
 
@@ -613,21 +612,13 @@ class Horde_Form {
         $this->_autofilled = true;
 
         if ($this->_useFormToken) {
-            global $conf;
-            require_once 'Horde/Token.php';
-            if (isset($conf['token'])) {
-                /* If there is a configured token system, set it up. */
-                $tokenSource = &Horde_Token::singleton($conf['token']['driver'], Horde::getDriverConfig('token', $conf['token']['driver']));
-            } else {
-                /* Default to the file system if no config. */
-                $tokenSource = &Horde_Token::singleton('file');
-            }
+            $tokenSource = $GLOBALS['injector']->getInstance('Horde_Token');
             $passedToken = $vars->get($this->_name . '_formToken');
             if (!empty($passedToken) && !$tokenSource->verify($passedToken)) {
-                $this->_errors['_formToken'] = _("This form has already been processed.");
+                $this->_errors['_formToken'] = Horde_Form_Translation::t("This form has already been processed.");
             }
-            if (empty($_SESSION['horde_form_secrets'][$passedToken])) {
-                $this->_errors['_formSecret'] = _("Required secret is invalid - potentially malicious request.");
+            if (!$GLOBALS['session']['horde:form_secrets/' . $passedToken]) {
+                $this->_errors['_formSecret'] = Horde_Form_Translation::t("Required secret is invalid - potentially malicious request.");
             }
         }
 
@@ -654,6 +645,11 @@ class Horde_Form {
     function clearValidation()
     {
         $this->_errors = array();
+    }
+
+    function getErrors()
+    {
+        return $this->_errors;
     }
 
     function getError($var)
@@ -693,7 +689,7 @@ class Horde_Form {
 
     function execute()
     {
-        Horde::logMessage('Warning: Horde_Form::execute() called, should be overridden', __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Warning: Horde_Form::execute() called, should be overridden', 'DEBUG');
     }
 
     /**

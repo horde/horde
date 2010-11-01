@@ -9,14 +9,21 @@
  * @package Kronolith
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('kronolith');
+
+if (Kronolith::showAjaxView()) {
+    Horde::url('', true)->setAnchor('year:' . Kronolith::currentDate()->dateString())->redirect();
+    exit;
+}
 
 $view = Kronolith::getView('Year');
 $title = $view->year;
+$menu = Horde::menu();
 
-Horde::addScriptFile('tooltips.js', 'horde');
 require KRONOLITH_TEMPLATES . '/common-header.inc';
-require KRONOLITH_TEMPLATES . '/menu.inc';
+echo $menu;
+$notification->notify(array('listeners' => 'status'));
 
 echo '<div id="page">';
 Kronolith::tabs();

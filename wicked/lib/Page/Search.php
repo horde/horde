@@ -1,8 +1,4 @@
 <?php
-
-require_once WICKED_BASE . '/lib/Page/StandardPage.php';
-require_once WICKED_BASE . '/lib/Page/StandardPage/StdHistoryPage.php';
-
 /**
  * Wicked SearchAll class.
  *
@@ -14,39 +10,38 @@ require_once WICKED_BASE . '/lib/Page/StandardPage/StdHistoryPage.php';
  * @author Ben Chavet <ben@horde.org>
  * @package Wicked
  */
-class Search extends Page {
+class Wicked_Page_Search extends Wicked_Page {
 
     /**
      * Display modes supported by this page.
      * @var array
      */
-    var $supportedModes = array(
-        WICKED_MODE_CONTENT => true,
-        WICKED_MODE_DISPLAY => true);
+    public $supportedModes = array(
+        Wicked::MODE_CONTENT => true,
+        Wicked::MODE_DISPLAY => true);
 
     /**
      * Cached search results.
+     *
      * @var array
      */
-    var $_results;
+    protected $_results = array();
 
     /**
-     * Render this page in Content mode.
+     * Renders this page in content mode.
      *
      * @param string $searchtext  The title to search for.
      *
-     * @return string  The page content, or PEAR_Error.
+     * @return string  The page content.
      */
-    function content($searchtext = '')
+    public function content($searchtext = '')
     {
         if (empty($searchtext)) {
             return array();
         }
-
-        $titles = $GLOBALS['wicked']->searchTitles($searchtext);
-        $pages = $GLOBALS['wicked']->searchText($searchtext, false);
-
-        return array('titles' => $titles, 'pages' => $pages);
+        return array(
+            'titles' => $GLOBALS['wicked']->searchTitles($searchtext),
+            'pages' => $GLOBALS['wicked']->searchText($searchtext, false));
     }
 
     /**
@@ -59,27 +54,21 @@ class Search extends Page {
      * $param integer $mode    The page render mode.
      * $param array   $params  Any page parameters.
      */
-    function preDisplay($mode, $params)
+    public function preDisplay($mode, $params)
     {
         $this->_results = $this->content($params);
     }
 
     /**
-     * Render this page in Display mode.
+     * Renders this page in display mode.
      *
      * @param string $searchtext  The title to search for.
      *
-     * @return mixed  Returns true or PEAR_Error.
+     * @throws Wicked_Exception
      */
-    function display($searchtext)
+    public function display($searchtext)
     {
         global $notification;
-
-        if (is_a($this->_results, 'PEAR_Error')) {
-            $notification->push('Error retrieving search results: ' .
-                                $this->_results->getMessage(), 'horde.error');
-            return $this->_results;
-        }
 
         if (!$searchtext) {
             require WICKED_TEMPLATES . '/pagelist/search.inc';
@@ -89,12 +78,11 @@ class Search extends Page {
 
         Horde::addScriptFile('tables.js', 'horde', true);
 
-        require_once 'Horde/Template.php';
-        $template = new Horde_Template();
+        $template = $GLOBALS['injector']->createInstance('Horde_Template');
 
         /* Prepare exact match section */
         $exact = array();
-        $page = new StandardPage($searchtext);
+        $page = new Wicked_Page_StandardPage($searchtext);
         if ($GLOBALS['wicked']->pageExists($searchtext)) {
             $exact[] = array('author' => htmlspecialchars($page->author()),
                              'created' => $page->formatVersionCreated(),
@@ -117,9 +105,9 @@ class Search extends Page {
         $titles = array();
         foreach ($this->_results['titles'] as $page) {
             if (!empty($page['page_history'])) {
-                $page = new StdHistoryPage($page);
+                $page = new Wicked_Page_StandardHistoryPage($page);
             } else {
-                $page = new StandardPage($page);
+                $page = new Wicked_Page_StandardPage($page);
             }
 
             $titles[] = array('author' => $page->author(),
@@ -135,9 +123,9 @@ class Search extends Page {
         $pages = array();
         foreach ($this->_results['pages'] as $page) {
             if (!empty($page['page_history'])) {
-                $page = new StdHistoryPage($page);
+                $page = new Wicked_Page_StandardHistoryPage($page);
             } else {
-                $page = new StandardPage($page);
+                $page = new Wicked_Page_StandardPage($page);
             }
 
             $pages[] = array('author' => $page->author(),
@@ -184,7 +172,7 @@ class Search extends Page {
         return true;
     }
 
-    function getContext($page, $searchtext)
+    public function getContext($page, $searchtext)
     {
         if (preg_match('/.{0,100}' . preg_quote($searchtext, '/') . '.{0,100}/i', $page->getText(), $context)) {
             return preg_replace('/' . preg_quote($searchtext, '/') . '/i', '<span class="match">' . htmlspecialchars($searchtext) . '</span>', htmlspecialchars($context[0]));
@@ -192,12 +180,12 @@ class Search extends Page {
         return '';
     }
 
-    function pageName()
+    public function pageName()
     {
         return 'Search';
     }
 
-    function pageTitle()
+    public function pageTitle()
     {
         return _("Search");
     }

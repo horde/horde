@@ -14,21 +14,21 @@ require_once 'Horde/Kolab/Storage/List.php';
  * @author  Gunnar Wrobel <wrobel@pardus.de>
  * @package VFS
  */
-class VFS_kolab extends VFS {
-
+class VFS_kolab extends VFS
+{
     /**
      * Variable holding the connection to the Kolab storage system.
      *
      * @var Horde_Kolab_IMAP
      */
-    var $_imap = false;
+    protected $_imap = false;
 
     /**
      * Cache for the list of folders.
      *
      * @var array
      */
-    var $_folders;
+    protected $_folders;
 
     /**
      * Retrieves a file from the VFS.
@@ -37,15 +37,13 @@ class VFS_kolab extends VFS {
      * @param string $name  The filename to retrieve.
      *
      * @return string  The file data.
+     * @throws VFS_Exception
      */
-    function read($path, $name)
+    public function read($path, $name)
     {
         list($app, $uid) = $this->_getAppUid($path);
         if ($app && $uid) {
-            $handler = &$this->_getAppHandler($app, $uid);
-            if (is_a($handler, 'PEAR_Error')) {
-                return $handler;
-            }
+            $handler = $this->_getAppHandler($app, $uid);
             $object = $handler->getObject($uid);
 
             if (isset($object['_attachments'][$name])) {
@@ -55,18 +53,19 @@ class VFS_kolab extends VFS {
 
         //FIXME
         if ($this->isFolder(dirname($path), basename($path))) {
-            $session = &Horde_Kolab_Session::singleton();
-            $imap = &$session->getImap();
+            $session = Horde_Kolab_Session::singleton();
+            $imap = $session->getImap();
 
             $result = $imap->select(substr($path,1));
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
+            if ($result instanceof PEAR_Error) {
+                throw new VFS_Exception($result->getMessage());
             }
 
             $file = explode('/', $name);
 
             return $this->_getFile($imap, $file[0], $file[1]);
         }
+
         return '';
     }
 
@@ -79,16 +78,13 @@ class VFS_kolab extends VFS {
      *                             be stored.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function write($path, $name, $tmpFile, $autocreate = false)
+    public function write($path, $name, $tmpFile, $autocreate = false)
     {
         list($app, $uid) = $this->_getAppUid($path);
         if ($app) {
-            $handler = &$this->_getAppHandler($app, $uid);
-            if (is_a($handler, 'PEAR_Error')) {
-                return $handler;
-            }
+            $handler = $this->_getAppHandler($app, $uid);
             $object = $handler->getObject($uid);
             $object['_attachments'][$name]['path'] = $tmpFile;
             if (empty($object['link-attachment'])) {
@@ -101,37 +97,29 @@ class VFS_kolab extends VFS {
         }
 
         if ($autocreate && !$this->isFolder(dirname($path), basename($path))) {
-            $result = $this->autocreatePath($path);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
+            $this->autocreatePath($path);
         }
 
         //FIXME
-        return PEAR::raiseError(_("Not supported."));
+        throw new VFS_Exception('Not supported.');
     }
 
     /**
      * Deletes a file from the VFS.
      *
-     * @abstract
-     *
      * @param string $path  The path to delete the file from.
      * @param string $name  The filename to delete.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function deleteFile($path, $name)
+    public function deleteFile($path, $name)
     {
         list($app, $uid) = $this->_getAppUid($path);
         if ($app) {
-            $handler = &$this->_getAppHandler($app, $uid);
-            if (is_a($handler, 'PEAR_Error')) {
-                return $handler;
-            }
+            $handler = $this->_getAppHandler($app, $uid);
             $object = $handler->getObject($uid);
             if (!isset($object['_attachments'][$name])) {
-                return PEAR::raiseError(_("Unable to delete VFS file."));
+                throw new VFS_Exception('Unable to delete VFS file.');
             }
             unset($object['_attachments'][$name]);
             $object['link-attachment'] = array_values(array_diff($object['link-attachment'], array($name)));
@@ -140,7 +128,7 @@ class VFS_kolab extends VFS {
         }
 
         //FIXME
-        return PEAR::raiseError(_("Not supported."));
+        throw new VFS_Exception('Not supported.');
     }
 
     /**
@@ -149,9 +137,9 @@ class VFS_kolab extends VFS {
      * @param string $path  The parent folder.
      * @param string $name  The name of the new folder.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function createFolder($path, $name)
+    public function createFolder($path, $name)
     {
         $list = Kolab_List::singleton();
         $folder = $this->_getFolder($path, $name);
@@ -159,9 +147,9 @@ class VFS_kolab extends VFS {
         $object = $list->getNewFolder();
         $object->setName($folder);
 
-        $result = $object->save(array('type' => 'h-file'));
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+        $object->save(array('type' => 'h-file'));
+        if ($result instanceof PEAR_Error) {
+            throw new VFS_Exception($result->getMessage());
         }
 
         $this->_folders = null;
@@ -174,23 +162,16 @@ class VFS_kolab extends VFS {
      * @param string $name        The name of the folder to delete.
      * @param boolean $recursive  Force a recursive delete?
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function deleteFolder($path, $name, $recursive = false)
+    public function deleteFolder($path, $name, $recursive = false)
     {
         if ($recursive) {
-            $result = $this->emptyFolder($path . '/' . $name);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
+            $this->emptyFolder($path . '/' . $name);
         } else {
             $list = $this->listFolder($path . '/' . $name, null, false);
-            if (is_a($list, 'PEAR_Error')) {
-                return $list;
-            }
             if (count($list)) {
-                return PEAR::raiseError(sprintf(_("Unable to delete %s, the directory is not empty"),
-                                                $path . '/' . $name));
+                throw new VFS_Exception(sprintf('Unable to delete %s, the directory is not empty', $path . '/' . $name));
             }
         }
 
@@ -199,26 +180,19 @@ class VFS_kolab extends VFS {
             /**
              * Objects provide no real folders and we don't delete them.
              */
-            return true;
+            return;
         }
 
         $folders = $this->_getFolders();
-        if (is_a($folders, 'PEAR_Error')) {
-            return $folders;
-        }
         $folder = $this->_getFolder($path, $name);
 
         if (!empty($folders['/' . $folder])) {
-            $result = $folders['/' . $folder]->delete();
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
-
+            $folders['/' . $folder]->delete();
             $this->_folders = null;
-
-            return true;
+            return;
         }
-        return PEAR::raiseError(sprintf('No such folder %s!', '/' . $folder));
+
+        throw new VFS_Exception(sprintf('No such folder %s!', '/' . $folder));
     }
 
     /**
@@ -227,34 +201,21 @@ class VFS_kolab extends VFS {
      *
      * @param string $path  The path of the folder to empty.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function emptyFolder($path)
+    public function emptyFolder($path)
     {
         // Get and delete the subfolders.
         $list = $this->listFolder($path, null, false, true);
-        if (is_a($list, 'PEAR_Error')) {
-            return $list;
-        }
         foreach ($list as $folder) {
-            $result = $this->deleteFolder($path, $folder['name'], true);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
-        }
-        // Only files are left, get and delete them.
-        $list = $this->listFolder($path, null, false);
-        if (is_a($list, 'PEAR_Error')) {
-            return $list;
-        }
-        foreach ($list as $file) {
-            $result = $this->deleteFile($path, $file['name']);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
+            $this->deleteFolder($path, $folder['name'], true);
         }
 
-        return true;
+        // Only files are left, get and delete them.
+        $list = $this->listFolder($path, null, false);
+        foreach ($list as $file) {
+            $this->deleteFile($path, $file['name']);
+        }
     }
 
     /**
@@ -265,45 +226,44 @@ class VFS_kolab extends VFS {
      * @param boolean $dotfiles  Show dotfiles?
      * @param boolean $dironly   Show only directories?
      *
-     * @return array  File list on success or PEAR_Error on failure.
+     * @return array  File list.
+     * @throws VFS_Exception
      */
-    function _listFolder($path = '', $filter = null, $dotfiles = true,
-                         $dironly = false)
+    protected function _listFolder($path = '', $filter = null, $dotfiles = true,
+                                   $dironly = false)
     {
         list($app, $uid) = $this->_getAppUid($path);
         if ($app) {
             if ($dironly) {
-                /** 
+                /**
                  * Objects dont support directories.
                  */
                 return array();
             }
             if ($uid) {
-                $handler = &$this->_getAppHandler($app, $uid);
-                if (is_a($handler, 'PEAR_Error')) {
-                    return $handler;
-                }
+                $handler = $this->_getAppHandler($app, $uid);
                 $object = $handler->getObject($uid);
-                if (is_a($object, 'PEAR_Error')) {
-                    return $object;
+                if ($object instanceof PEAR_Error) {
+                    throw new VFS_Exception($object->getMessage());
                 }
 
-                $filenames = isset($object['_attachments']) ? array_keys($object['_attachments']) : array();
+                $filenames = isset($object['_attachments'])
+                    ? array_keys($object['_attachments'])
+                    : array();
             } else {
                 $filenames = $this->_getAppUids($app);
             }
 
-            $owner = Horde_Auth::getAuth();
+            $owner = $GLOBALS['registry']->getAuth();
 
-            $files = array();
-            $file = array();
-            foreach($filenames as $filename) {
+            $file = $files = array();
+            foreach ($filenames as $filename) {
                 $name = explode('.', $filename);
 
                 if (count($name) == 1) {
                     $file['type'] = '**none';
                 } else {
-                    $file['type'] = VFS::strtolower($name[count($name) - 1]);
+                    $file['type'] = self::strtolower($name[count($name) - 1]);
                 }
 
                 $file['size'] = '-1';
@@ -315,21 +275,17 @@ class VFS_kolab extends VFS {
 
                 $files[$file['name']] = $file;
             }
+
             return $files;
         }
 
-        $owner = Horde_Auth::getAuth();
+        $owner = $GLOBALS['registry']->getAuth();
 
-        $files = array();
+        $file = $files = array();
 
         $folders = $this->listFolders($path, $filter, $dotfiles);
-        if (is_a($folders, 'PEAR_Error')) {
-            return $folders;
-        }
-
         $list = $this->_getFolders();
 
-        $file = array();
         foreach ($folders as $folder) {
             $file['type'] = '**dir';
             $file['size'] = -1;
@@ -346,29 +302,24 @@ class VFS_kolab extends VFS {
             $files[$file['name']] = $file;
         }
 
-        if (!$dironly
-            && $this->isFolder(basename($path), basename($path))
-            && !empty($list[$path])) {
-
-            $session = &Horde_Kolab_Session::singleton();
-            $imap = &$session->getImap();
+        if (!$dironly &&
+            $this->isFolder(basename($path), basename($path)) &&
+            !empty($list[$path])) {
+            $session = Horde_Kolab_Session::singleton();
+            $imap = $session->getImap();
 
             $result = $imap->select(substr($path, 1));
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
+            if ($result instanceof PEAR_Error) {
+                throw new VFS_Exception($result->getMessage());
             }
 
             $uids = $imap->getUids();
-            if (is_a($uids, 'PEAR_Error')) {
-                return $uids;
+            if ($uids instanceof PEAR_Error) {
+                throw new VFS_Exception($uids->getMessage());
             }
 
             foreach ($uids as $uid) {
-                $mFiles = $this->_parseMessage($imap, $uid);
-                if (is_a($mFiles, 'PEAR_Error')) {
-                    return $mFiles;
-                }
-                $result = array_merge($files, $mFiles);
+                $result = array_merge($files, $this->_parseMessage($imap, $uid));
                 $files = $result;
             }
         }
@@ -376,29 +327,30 @@ class VFS_kolab extends VFS {
         return $files;
     }
 
-    function _parseMessage($imap, $uid)
+    /**
+     */
+    protected function _parseMessage($imap, $uid)
     {
         $result = $imap->getMessageHeader($uid);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+        if ($result instanceof PEAR_Error) {
+            throw new VFS_Exception($result->getMessage());
         }
 
         $raw_headers = $result;
 
         $body = $imap->getMessageBody($uid);
-        if (is_a($body, 'PEAR_Error')) {
-            return $body;
+        if ($body instanceof PEAR_Error) {
+            throw new VFS_Exception($body->getMessage());
         }
 
         $raw_message = $raw_headers . $body;
 
-        $mime_message = &MIME_Structure::parseTextMIMEMessage($raw_message);
+        $mime_message = Horde_Mime_Part::parseMessage($raw_message);
         $parts = $mime_message->contentTypeMap();
 
-        $owner = Horde_Auth::getAuth();
+        $owner = $GLOBALS['registry']->getAuth();
 
-        $files = array();
-        $file = array();
+        $file = $files = array();
 
         foreach ($parts as $part_id => $disposition) {
             $part = $mime_message->getPart($part_id);
@@ -426,43 +378,40 @@ class VFS_kolab extends VFS {
         return $files;
     }
 
-
-    function _getFile($imap, $uid, $filename)
+    /**
+     */
+    protected function _getFile($imap, $uid, $filename)
     {
         $result = $imap->getMessageHeader($uid);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+        if ($result instanceof PEAR_Error) {
+            throw new VFS_Exception($result->getMessage());
         }
 
         $raw_headers = $result;
 
         $body = $imap->getMessageBody($uid);
-        if (is_a($body, 'PEAR_Error')) {
-            return $body;
+        if ($body instanceof PEAR_Error) {
+            throw new VFS_Exception($body->getMessage());
         }
 
         $raw_message = $raw_headers . $body;
 
-        $mime_message = &MIME_Structure::parseTextMIMEMessage($raw_message);
+        $mime_message = Horde_Mime_Part::parseMessage($raw_message);
         $parts = $mime_message->contentTypeMap();
 
-        $owner = Horde_Auth::getAuth();
-
-        $files = array();
-        $file = array();
+        $owner = $GLOBALS['registry']->getAuth();
 
         foreach ($parts as $part_id => $disposition) {
             $part = $mime_message->getPart($part_id);
 
-            $f= $part->getDispositionParameter('filename');
-
-            if ($f && $f == $filename ) {
+            $f = $part->getDispositionParameter('filename');
+            if ($f && $f == $filename) {
                 return $part->transferDecode();
             }
         }
+
         return '';
     }
-
 
     /**
      * Returns a sorted list of folders in the specified directory.
@@ -472,16 +421,16 @@ class VFS_kolab extends VFS {
      * @param mixed $filter        Hash of items to filter based on folderlist.
      * @param boolean $dotfolders  Include dotfolders?
      *
-     * @return mixed  Folder list on success or a PEAR_Error object on failure.
+     * @return array  Folder list.
+     * @throws VFS_Exception
      */
-    function listFolders($path = '', $filter = null, $dotfolders = true)
+    public function listFolders($path = '', $filter = null, $dotfolders = true)
     {
         if (substr($path, -1) != '/') {
             $path .= '/';
         }
 
-        $aFolders = array();
-        $aFolder = array();
+        $aFolder = $aFolders = array();
 
         if ($dotfolders && $path != '/') {
             $aFolder['val'] = dirname($path);
@@ -510,7 +459,9 @@ class VFS_kolab extends VFS {
         return $aFolders;
     }
 
-    function _getFolder($path, $name)
+    /**
+     */
+    protected function _getFolder($path, $name)
     {
         $folder = $path . '/' . $name;
 
@@ -525,11 +476,11 @@ class VFS_kolab extends VFS {
         return $folder;
     }
 
-
-    function _getFolders()
+    /**
+     */
+    protected function _getFolders()
     {
         if (!isset($this->_folders)) {
-
             $vfs_folders = array();
 
             $list = Kolab_List::singleton();
@@ -540,8 +491,8 @@ class VFS_kolab extends VFS {
                 $folders = $list->getByType('h-file');
             }
 
-            if (is_a($folders, 'PEAR_Error')) {
-                return $folders;
+            if ($folders instanceof PEAR_Error) {
+                throw new VFS_Exception($folders->getMessage());
             }
 
             foreach ($folders as $folder) {
@@ -559,19 +510,25 @@ class VFS_kolab extends VFS {
             }
             $this->_folders = $vfs_folders;
         }
+
         return $this->_folders;
     }
 
-    function _getAppUid($path)
+    /**
+     */
+    protected function _getAppUid($path)
     {
-        if (defined('TURBA_VFS_PATH')
-            && substr($path, 0, strlen(TURBA_VFS_PATH)) == TURBA_VFS_PATH) {
+        if (defined('TURBA_VFS_PATH') &&
+            substr($path, 0, strlen(TURBA_VFS_PATH)) == TURBA_VFS_PATH) {
             return array('turba', substr($path, strlen(TURBA_VFS_PATH) + 1));
         }
+
         return array(false, false);
     }
 
-    function &_getAppHandler($app, $uid)
+    /**
+     */
+    protected function _getAppHandler($app, $uid)
     {
         global $registry;
 
@@ -588,18 +545,20 @@ class VFS_kolab extends VFS {
                                             'sources' => array_keys($sources),
                                             'fields' => $fields));
             if (!isset($result[$uid])) {
-                return PEAR::raiseError('No such contact!');
+                throw new VFS_Exception('No such contact!');
             }
             $list = Kolab_List::singleton();
-            $share = &$list->getByShare($result[$uid][0]['source'], 'contact');
-            if (is_a($share, 'PEAR_Error')) {
-                return $share;
+            $share = $list->getByShare($result[$uid][0]['source'], 'contact');
+            if ($share instanceof PEAR_Error) {
+                throw new VFS_Exception($share->getMessage());
             }
             return $share->getData();
         }
     }
 
-    function _getAppUids($app)
+    /**
+     */
+    protected function _getAppUids($app)
     {
         global $registry;
 
@@ -621,14 +580,4 @@ class VFS_kolab extends VFS {
         }
     }
 
-    /**
-     * Connecting is not required for this driver.
-     *
-     * @access private
-     *
-     * @return NULL
-     */
-    function _connect()
-    {
-    }
 }

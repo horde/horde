@@ -1,11 +1,12 @@
-//
-//	ApertureToAnselExportPlugin.m
-//	ApertureToAnselExportPlugin
-//
-//	Created by Michael Rubinsky on 8/29/09.
-//	Copyright __MyCompanyName__ 2009. All rights reserved.
-//
-
+/**
+ *	ApertureToAnselExportPlugin.m
+ *	ApertureToAnselExportPlugin
+ *
+ * Copyright 2009-2010 The Horde Project (http://www.horde.org)
+ *
+ * @license http://opensource.org/licenses/bsd-license.php
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ */
 #import "ApertureToAnselExportPlugin.h"
 #import "TURAnselKit.h"
 #import "NSStringAdditions.h"
@@ -36,6 +37,7 @@ NSString * const TURAnselServerNickKey = @"nickname";
 NSString * const TURAnselServerEndpointKey = @"endpoint";
 NSString * const TURAnselServerUsernameKey = @"username";
 NSString * const TURAnselServerPasswordKey = @"password";
+NSString * const TURAnselServerVersionKey = @"version";
 
 @implementation ApertureToAnselExportPlugin
 
@@ -57,36 +59,36 @@ NSString * const TURAnselServerPasswordKey = @"password";
 		if (!_exportManager) {
 			return nil;
         }
-		
+
 		_progressLock = [[NSLock alloc] init];
-        
+
         // Register Application Defaults
         NSMutableDictionary *defaultValues = [NSMutableDictionary dictionary];
         [defaultValues setObject: [NSNumber numberWithInt: 2]
-                          forKey: TURAnselExportSize];    
-        
+                          forKey: TURAnselExportSize];
+
         [defaultValues setObject: [[NSArray alloc] init] forKey: TURAnselServersKey];
-        
+
         [defaultValues setObject: [[NSDictionary alloc] init]
                           forKey: TURAnselDefaultServerKey];
-        
+
         NSUserDefaults *userPrefs = [NSUserDefaults standardUserDefaults];
         [userPrefs registerDefaults: defaultValues];
         [self setStatusText: @"Not Connected" withColor: [NSColor redColor]];
         [spinner stopAnimation: self];
-        
+
         // See if we have any configured servers (need a mutable array, hence the extra step here)
         _anselServers = [[NSMutableArray alloc] initWithArray: [userPrefs objectForKey:TURAnselServersKey]];
-        
+
         // Wait until Aperture's export window is fully loaded before attempting a sheet
         [[NSNotificationCenter defaultCenter] addObserver: self
                                                  selector: @selector(exportWindowDidBecomeKey:)
-                                                     name: NSWindowDidBecomeKeyNotification 
+                                                     name: NSWindowDidBecomeKeyNotification
                                                   object :nil];
-        
-        // Holds gallery's images info for the gallery preview 
+
+        // Holds gallery's images info for the gallery preview
         _browserData = [[NSMutableArray alloc] init];
-        
+
         [self lockProgress];
         exportProgress.currentValue = 0;
         exportProgress.totalValue = 0;
@@ -102,24 +104,24 @@ NSString * const TURAnselServerPasswordKey = @"password";
     NSLog(@"ApertureToAnselExportPlugin: dealloc called");
     [_anselServers release];
     _anselServers = nil;
-    
+
     [_anselController setDelegate:nil];
     [_anselController release];
     _anselController = nil;
-    
+
     [_browserData release];
     _browserData = nil;
-    
+
 	// Release the top-level objects from the nib.
 	[_topLevelNibObjects makeObjectsPerformSelector:@selector(release)];
 	[_topLevelNibObjects release];
-    
+
 	[_progressLock release];
     _progressLock = nil;
-    
+
 	[_exportManager release];
 	_exportManager = nil;
-    
+
     [super dealloc];
 }
 
@@ -141,7 +143,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
 		}
 		[myNib release];
 	}
-	
+
 	return settingsView;
 }
 
@@ -157,7 +159,10 @@ NSString * const TURAnselServerPasswordKey = @"password";
 
 - (void)willBeActivated
 {
-    // noop
+    // Version/build
+    NSDictionary *info = [[NSBundle bundleForClass: [self class]] infoDictionary];
+    NSString *versionString = [NSString stringWithFormat:@"%@ %@", [info objectForKey:@"CFBundleName"], [info objectForKey:@"CFBundleVersion"]];
+    [mVersionString setStringValue: versionString];
 }
 
 - (void)willBeDeactivated
@@ -170,22 +175,22 @@ NSString * const TURAnselServerPasswordKey = @"password";
 
 - (BOOL)allowsOnlyPlugInPresets
 {
-	return NO;	
+	return NO;
 }
 
 - (BOOL)allowsMasterExport
 {
-	return NO;	
+	return NO;
 }
 
 - (BOOL)allowsVersionExport
 {
-	return YES;	
+	return YES;
 }
 
 - (BOOL)wantsFileNamingControls
 {
-	return NO;	
+	return NO;
 }
 
 - (void)exportManagerExportTypeDidChange
@@ -217,7 +222,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
 #pragma mark Export Process Methods
 
 - (void)exportManagerShouldBeginExport
-{	
+{
     NSLog(@"exportManagerShouldBeginExport: %@", _currentGallery);
     if (_currentGallery == nil) {
         NSLog(@"No gallery selected.");
@@ -233,7 +238,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [_exportManager shouldBeginExport];
 }
 
-- (void)exportManagerWillBeginExportToPath:(NSString *)path 
+- (void)exportManagerWillBeginExportToPath:(NSString *)path
 {
     // noop
 }
@@ -258,7 +263,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
                                index + 1, [_exportManager imageCount]] retain];
     [self unlockProgress];
 
-    NSString *base64ImageData = [NSString base64StringFromData: imageData  
+    NSString *base64ImageData = [NSString base64StringFromData: imageData
                                                         length: [imageData length]];
     NSDictionary *properties = [_exportManager propertiesWithoutThumbnailForImageAtIndex: index];
     NSArray *keys = [[NSArray alloc] initWithObjects:
@@ -275,7 +280,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
         fileType = @"image/png";
     } else if ([format isEqual: [NSNumber numberWithInt: kApertureImageFormatTIFF8]] ||
               [format isEqual: [NSNumber numberWithInt: kApertureImageFormatTIFF16]]) {
-        
+
         // Ansel can handle converting the tiff - it is obviously unable to display the original TIFF file.
         fileType = @"image/tiff";
     } else {
@@ -285,10 +290,20 @@ NSString * const TURAnselServerPasswordKey = @"password";
     }
 
     NSLog(@"Image Type: %@", fileType);
+
+    NSDictionary *IPTC = [properties objectForKey: kExportKeyIPTCProperties];
     
+    // Use the IPTC Caption property, if available, otherwise use the version
+    // name.
+    NSString *caption;
+    if ([IPTC objectForKey:@"Caption/Abstract"]) {
+        caption = [IPTC objectForKey:@"Caption/Abstract"];
+    } else {
+        caption = [properties objectForKey:kExportKeyVersionName];
+    }
     NSArray *values = [[NSArray alloc] initWithObjects:
                        path,
-                       [properties objectForKey: kExportKeyVersionName],
+                       caption,
                        base64ImageData,
                        fileType,
                        [properties objectForKey:kExportKeyKeywords],
@@ -297,14 +312,14 @@ NSString * const TURAnselServerPasswordKey = @"password";
     NSDictionary *imageDataDict = [[NSDictionary alloc] initWithObjects:values
                                                                 forKeys:keys];
     NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:
-                            imageDataDict, @"data", 
+                            imageDataDict, @"data",
                             [NSNumber numberWithBool:NO], @"default",
                             nil];
-    
+
 
         //Start upload with current gallery.
         NSLog(@"Uploading photo %d out of %d", index, [_exportManager imageCount]);
-        
+
         // Make sure we are around for all callbacks to return even if Aperture cancelled.
         [self retain];
         [_currentGallery uploadImageObject: params];
@@ -313,10 +328,10 @@ NSString * const TURAnselServerPasswordKey = @"password";
         [imageDataDict release];
         [params release];
 
-    
+
     // Returning NO informs Aperture that the plugin is handling the export,
     // and NOT Aperture.
-	return NO;	
+	return NO;
 }
 
 // Basically just a success callback
@@ -330,10 +345,10 @@ NSString * const TURAnselServerPasswordKey = @"password";
 	// You must call [_exportManager shouldFinishExport] before Aperture will put away the progress window and complete the export.
 	// NOTE: You should assume that your plug-in will be deallocated immediately following this call. Be sure you have cleaned up
 	// any callbacks or running threads before calling.
-    [[NSNotificationCenter defaultCenter] removeObserver: self 
+    [[NSNotificationCenter defaultCenter] removeObserver: self
                                                     name: @"NSPopUpButtonWillPopUpNotification"
                                                   object: nil];
-    
+
     [_exportManager shouldFinishExport];
 }
 
@@ -342,7 +357,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
 	// You must call [_exportManager shouldCancelExport] here or elsewhere before Aperture will cancel the export process
 	// NOTE: You should assume that your plug-in will be deallocated immediately following this call. Be sure you have cleaned up
 	// any callbacks or running threads before calling.
-    [[NSNotificationCenter defaultCenter] removeObserver: self 
+    [[NSNotificationCenter defaultCenter] removeObserver: self
                                                     name: @"NSPopUpButtonWillPopUpNotification"
                                                   object: nil];
     [_anselController cancel];
@@ -359,7 +374,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
 }
 
 - (void)lockProgress
-{	
+{
 	if (!_progressLock) {
 		_progressLock = [[NSLock alloc] init];
     }
@@ -382,7 +397,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
 // The ansel controller is initialized, populate the gallery data
 // and update the UI.
 - (void)TURAnselDidInitialize
-{   
+{
     NSLog(@"TURAnselDidInitialize");
     // Release now that the callback has completed.
     [self release];
@@ -399,7 +414,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
 {
     NSLog(@"method: %@", method);
     NSLog(@"results: %@", results);
-    
+
 }
 
 //@TODO - need to add a flag to indicate if we have a UI or not
@@ -409,7 +424,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
     // Stop the spinner
     [spinner stopAnimation: self];
     [mServersPopUp setEnabled: true];
-    
+
     NSAlert *alert;
     // For some reason, this method doesn't pick up our userInfo dictionary...
     if ([[error userInfo] valueForKey:@"NSLocalizedDescriptionKey"] == nil) {
@@ -422,7 +437,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
             [alert setInformativeText: [[error userInfo] valueForKey: @"NSLocalizedRecoverySuggestionErrorKey"]];
         }
     }
-    
+
     [alert beginSheetModalForWindow:[self window]
                       modalDelegate:nil
                      didEndSelector:nil
@@ -446,7 +461,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
 #pragma mark -
 #pragma mark comboBoxDelegate
 - (void)comboBoxSelectionDidChange:(NSNotification *)notification
-{    
+{
     [spinner startAnimation: self];
     [self setStatusText: @"Loading gallery data..."];
     int row = [galleryCombo indexOfSelectedItem];
@@ -454,11 +469,11 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [_currentGallery autorelease];
     _currentGallery = [[_anselController getGalleryByIndex:row] retain];
     [_currentGallery setDelegate: self];
-    
+
     // Obtain and properly size the image for screen
     NSImage *theImage = [[NSImage alloc] initWithContentsOfURL: [_currentGallery galleryKeyImageURL]];
     NSSize imageSize;
-    
+
     // [NSImage bestRepresentationForDevice] is deprecated in 10.6, use bestRepresentationForRect:context:hints: instead if
     // we are compiling for a TARGET of 10.6
 #if MAC_OS_X_VERSION_MIN_REQUIRED > MAC_OS_X_VERSION_10_5
@@ -470,10 +485,10 @@ NSString * const TURAnselServerPasswordKey = @"password";
 #endif
     [theImage setScalesWhenResized:YES];
     [theImage setSize:imageSize];
-    
+
     // Show it
     [defaultImageView setImage: theImage];
-    
+
     [theImage release];
     [self canExport];
     [viewGallery setEnabled: YES];
@@ -487,9 +502,9 @@ NSString * const TURAnselServerPasswordKey = @"password";
     [[NSNotificationCenter defaultCenter] removeObserver: self
                                                     name: NSWindowDidBecomeKeyNotification
                                                   object: nil];
-    
+
     [self updateServersPopupMenu];
-    
+
     if ([_anselServers count] == 0) {
         [self showNewServerSheet];
     } else {
@@ -499,7 +514,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
         if ([defaultServer count]) {
             _currentServer = [defaultServer retain];
             int itemCount = [mServersPopUp numberOfItems];
-            
+
             // C99 mode is off by default in Apple's gcc.
             int i;
             for (i = 0; i < itemCount; i++) {
@@ -509,7 +524,7 @@ NSString * const TURAnselServerPasswordKey = @"password";
                     break;
                 }
             }
-            
+
             [self doConnect];
         }
     }
@@ -538,22 +553,23 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
                                [mServerSheetHostURL stringValue], TURAnselServerEndpointKey,
                                [mServerSheetUsername stringValue], TURAnselServerUsernameKey,
                                [mServerSheetPassword stringValue], TURAnselServerPasswordKey,
+                               [NSNumber numberWithInt: [mAnselVersion indexOfSelectedItem] + 1] , TURAnselServerVersionKey,
                                nil];
     [_anselServers addObject: newServer];
     [NSApp endSheet: newServerSheet];
     [newServerSheet orderOut: nil];
     _currentServer = [newServer retain];
     [self doConnect];
-    
+
     // Save it to the userdefaults
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    [prefs setObject:_anselServers  forKey:TURAnselServersKey];   
-    
+    [prefs setObject:_anselServers  forKey:TURAnselServersKey];
+
     int defaultState = [mMakeNewServerDefault state];
     if (defaultState == NSOnState) {
         [prefs setObject: _currentServer forKey: TURAnselDefaultServerKey];
     }
-    
+
     [prefs synchronize];
     [self updateServersPopupMenu];
     [newServer release];
@@ -584,6 +600,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
             [self disconnect];
         }
         _currentServer = [[mServersPopUp selectedItem] representedObject];
+        NSLog(@"Current Server: %@", _currentServer);
         [self doConnect];
     }
 }
@@ -603,17 +620,18 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
         [self setStatusText: @"Connected" withColor: [NSColor greenColor]];
         return;
     }
-    
+
     for (NSDictionary *image in images) {
         // The CF Web Services library can return NSNull objects for values that
         // were returned as empty or null, so we need to check for that.
-        // (Even if caption is nil, caption.length will still be zero, so we 
+        // (Even if caption is nil, caption.length will still be zero, so we
         // don't need a seperate case for that).
+        NSLog(@"Image: %@", image);
         NSString *caption = [image objectForKey:@"caption"];
         if (caption == (NSString *)[NSNull null] || [caption length] == 0) {
             caption = [image objectForKey:@"name"];
         }
-        
+
         NSDate *theDate = [NSDate dateWithTimeIntervalSince1970: [[image objectForKey:@"original_date"] doubleValue]];
         AnselGalleryViewItem *item = [[AnselGalleryViewItem alloc] initWithURL: [NSURL URLWithString: [image objectForKey:@"url"]]
                                                                      withTitle: caption
@@ -621,18 +639,18 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
         [_browserData addObject: item];
         [item release];
     }
-    
+
     [NSApp beginSheet: mviewGallerySheet
        modalForWindow: [self window]
         modalDelegate: nil
        didEndSelector: nil
           contextInfo: nil];
-    
+
     [spinner stopAnimation: self];
     [self setStatusText: @"Connected" withColor: [NSColor greenColor]];
-    
+
     [browserView reloadData];
-    
+
 }
 
 - (IBAction) closeGalleryView: (id)sender
@@ -653,24 +671,24 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 - (IBAction)removeServer: (id)sender
 {
     NSTableColumn *theCol = [serverTable tableColumnWithIdentifier:@"nickname"];
-    
-    // We are deleting the entry for the currently selected server - make sure 
+
+    // We are deleting the entry for the currently selected server - make sure
     // we disconnect.
     if ([_currentServer objectForKey:TURAnselServerNickKey] == [[theCol dataCell] stringValue]) {
         [self disconnect];
     }
-    
-    NSUserDefaults *userPrefs = [NSUserDefaults standardUserDefaults]; 
-    
+
+    NSUserDefaults *userPrefs = [NSUserDefaults standardUserDefaults];
+
     // See if the removed server is the current default.
     if ([[userPrefs objectForKey:TURAnselDefaultServerKey] objectForKey: TURAnselServerNickKey] == [[theCol dataCell] stringValue]) {
         [userPrefs setObject: nil forKey:TURAnselDefaultServerKey];
     }
-    
+
     // Remove it from the servers dictionary
     [_anselServers removeObjectAtIndex: [serverTable selectedRow]];
     [userPrefs setObject:_anselServers forKey:TURAnselServersKey];
-    
+
     [userPrefs synchronize];
     [serverTable reloadData];
     [self updateServersPopupMenu];
@@ -682,10 +700,10 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
     NSLog(@"showNewGallery:");
     TURAnselGalleryPanelController *newGalleryController;
     //NSString *albumName;
-    
+
     // Make sure we're not doing this for nothing
     if ([_anselController state] == TURAnselStateConnected) {
-        
+
         //albumName = [mExportMgr albumNameAtIndex: 0];
         newGalleryController = [[TURAnselGalleryPanelController alloc] initWithController: _anselController];
         [newGalleryController setDelegate: self];
@@ -704,8 +722,8 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
         [galleryCombo setEnabled: YES];
     //} else {
     if (1 == 2) {
-        
-    
+
+
         [mNewGalleryButton setEnabled: NO];
         [galleryCombo setEnabled: NO];
         [viewGallery setEnabled: NO];
@@ -735,14 +753,14 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
         [menuItem setRepresentedObject: server];
         [[mServersPopUp menu] addItem: menuItem];
     }
-    
+
     // add separator
     [[mServersPopUp menu] addItem:[NSMenuItem separatorItem]];
-    
+
     // add Add Gallery... and Edit List... options
     [mServersPopUp addItemWithTitle:@"Add Server..."];
     [mServersPopUp addItemWithTitle:@"Edit Server List..."];
-    
+
     // fix selection
     [mServersPopUp selectItemAtIndex:0];
 }
@@ -754,7 +772,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
         modalDelegate: nil
        didEndSelector: nil
           contextInfo: nil];
-    
+
     // Make sure these are cleared.
     [mServerSheetHostURL setStringValue: @""];
     [mServerSheetUsername setStringValue: @""];
@@ -782,25 +800,31 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
     [self setStatusText: @"Connecting..."];
     [spinner startAnimation: self];
 
+    // NSDictionary objects cannot contain nil objects
+    NSNumber *apiversion = [_currentServer objectForKey: TURAnselServerVersionKey];
+    if (apiversion == nil) {
+        apiversion = [NSNumber numberWithInt: 1];
+    }
     NSDictionary *p = [[NSDictionary alloc] initWithObjects: [NSArray arrayWithObjects:
                                                               [_currentServer objectForKey:TURAnselServerEndpointKey],
                                                               [_currentServer objectForKey:TURAnselServerUsernameKey],
                                                               [_currentServer objectForKey:TURAnselServerPasswordKey],
+                                                              apiversion,
                                                               nil]
-                                                    forKeys: [NSArray arrayWithObjects:@"endpoint", @"username", @"password", nil]];
+                                                    forKeys: [NSArray arrayWithObjects:TURAnselServerEndpointKey, TURAnselServerUsernameKey, TURAnselServerPasswordKey, TURAnselServerVersionKey, nil]];
     // Create our controller
     [_anselController autorelease];
     _anselController = [[TURAnsel alloc] initWithConnectionParameters:p];
     [_anselController setDelegate:self];
-    
+
     // Set up the galleryCombo
     [galleryCombo setDataSource:_anselController];
     [galleryCombo setDelegate:self];
     [spinner startAnimation:self];
-    
+
     // Detach to a new thread and do the actual login/retrieval of gallery list
     [NSApplication detachDrawingThread: @selector(connect)
-                              toTarget: self 
+                              toTarget: self
                             withObject: nil];
 
     [p release];
@@ -835,14 +859,14 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
     [_anselController setDelegate: nil];
     [_anselController release];
     _anselController = nil;
-    
+
     [self setStatusText:@"Not logged in" withColor: [NSColor redColor]];
 }
 
 #pragma mark -
 #pragma mark IKImageBrowserView Datasource methods
 - (NSUInteger)numberOfItemsInImageBrowser:(IKImageBrowserView *) aBrowser
-{	
+{
 	return [_browserData count];
 }
 

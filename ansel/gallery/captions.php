@@ -8,27 +8,25 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('ansel');
 
 $galleryId = Horde_Util::getFormData('gallery');
 if (!$galleryId) {
-    header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'),
-                                           true));
+    Ansel::getUrlFor('view', array('view' => 'List'), true)->redirect();
+    exit;
+}
+try {
+    $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($galleryId);
+} catch (Ansel_Exception $e) {
+    $notification->push(sprintf(_("Error accessing %s: %s"), $galleryId, $e->getMessage()), 'horde.error');
+    Ansel::getUrlFor('view', array('view' => 'List'), true)->redirect();
     exit;
 }
 
-$gallery = $ansel_storage->getGallery($galleryId);
-if (is_a($gallery, 'PEAR_Error')) {
-    $notification->push(sprintf(_("Error accessing %s: %s"), $galleryId, $gallery->getMessage()), 'horde.error');
-    header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'),
-                                           true));
-    exit;
-}
-
-if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
     $notification->push(sprintf(_("Access denied setting captions for %s."), $gallery->get('name')), 'horde.error');
-    header('Location: ' . Ansel::getUrlFor('view', array('view' => 'List'),
-                                           true));
+    Ansel::getUrlFor('view', array('view' => 'List'), true)->redirect();
     exit;
 }
 
@@ -50,17 +48,16 @@ case 'save':
     }
 
     $notification->push(_("Captions Saved."), 'horde.success');
-    $style = $gallery->getStyle();
-    header('Location: ' . Ansel::getUrlFor('view', array_merge(
-                                           array('gallery' => $galleryId,
-                                                 'slug' => $gallery->get('slug'),
-                                                 'view' => 'Gallery'),
-                                           $date), true));
+    Ansel::getUrlFor('view', array_merge(array('gallery' => $galleryId,
+                                               'slug' => $gallery->get('slug'),
+                                               'view' => 'Gallery'),
+                                         $date), true)->redirect();
     exit;
 }
 
 $title = _("Caption Editor");
 require ANSEL_TEMPLATES . '/common-header.inc';
-require ANSEL_TEMPLATES . '/menu.inc';
+echo Horde::menu();
+$notification->notify(array('listeners' => 'status'));
 require ANSEL_TEMPLATES . '/captions/captions.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

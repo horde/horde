@@ -1,34 +1,11 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
 /**
  * Upgrades last messages
- *
- * $Horde: agora/scripts/upgrades/2007-09-23_last_message.php,v 1.6 2009/06/10 19:57:52 slusarz Exp $
- *
  */
 
-// No need for auth.
-define('AUTH_HANDLER', true);
-
-// Find the base file paths.
-define('AGORA_BASE', dirname(dirname(dirname(__FILE__))));
-define('HORDE_BASE', dirname(AGORA_BASE));
-
-// Do CLI checks and environment setup first.
-require_once HORDE_BASE . '/lib/core.php';
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment.
-Horde_Cli::init();
-$cli = &Horde_Cli::singleton();
-
-require_once 'MDB2.php';
-require_once HORDE_BASE . '/lib/base.php';
-require_once AGORA_BASE . '/lib/Messages.php';
+require_once dirname(__FILE__) . '/../../lib/Application.php';
+Horde_Registry::appInit('agora', array('authentication' => 'none', 'cli' => true));
 
 /* Open the database. */
 $params = Horde::getDriverConfig('storage', 'sql');

@@ -1,8 +1,8 @@
 <?php
 /**
- * Shout application interface.
+ * Vilma application interface.
  *
- * This file defines Shout's external API interface.
+ * This file defines Vilma's external API interface.
  *
  * Copyright 2006-2010 Alkaloid Networks <http://www.alkaloid.net/>
  *
@@ -19,27 +19,33 @@ define('VILMA_BASE', dirname(__FILE__) . '/..');
 
 class Vilma_Application extends Horde_Registry_Application
 {
+    public $driver = null;
+    public $curdomain = null;
+
+    protected function _init()
+    {
+        $this->driver = Vilma_Driver::singleton();
+
+        // Get the currently active domain, possibly storing a change into the
+        // session
+        $this->curdomain = Vilma::getCurDomain();
+    }
 
     public function perms()
     {
-        static $perms = array();
-        if (!empty($perms)) {
-            return $perms;
-        }
+        $perms = array(
+            'superadmin' => array(
+                'title' => _("Super Administrator")
+            )
+        );
 
-        require_once VILMA_BASE . '/lib/base.php';
-        global $vilma_driver;
-
-        $perms['tree']['vilma']['superadmin'] = false;
-        $perms['title']['vilma:superadmin'] = _("Super Administrator");
-
-        $domains = $vilma_driver->getDomains();
+        $domains = $this->driver->getDomains();
 
         // Run through every domain
         foreach ($domains as $domain) {
-            $d = $domain['domain_id'];
-            $perms['tree']['vilma']['domains'][$d] = false;
-            $perms['title']['vilma:domains:' . $d] = $domain['name'];
+            $perms['domains:' . $domain['domain_id']] = array(
+                'title' => $domain['name']
+            );
         }
 
         return $perms;

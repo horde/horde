@@ -55,7 +55,7 @@ class Ansel_Report {
      */
     function _getUserEmail($user = null)
     {
-        return Horde_Prefs_Identity::singleton('none', $user)->getValue('from_addr');
+        return $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($user)->getValue('from_addr');
     }
 
     /**
@@ -65,11 +65,11 @@ class Ansel_Report {
     {
         $name = $GLOBALS['registry']->getApp() . ':admin';
 
-        if ($GLOBALS['perms']->exists($name)) {
+        if ($GLOBALS['injector']->getInstance('Horde_Perms')->exists($name)) {
             return array();
         }
 
-        $permission = $GLOBALS['perms']->getPermission($name);
+        $permission = $GLOBALS['injector']->getInstance('Horde_Perms')->getPermission($name);
 
         return $permission->getUserPermissions(PERM_DELETE);
     }
@@ -99,7 +99,7 @@ class Ansel_Report {
      */
     function getMessage($message)
     {
-        $message .=  "\n\n" . _("Report by user") . ': ' . Horde_Auth::getAuth()
+        $message .=  "\n\n" . _("Report by user") . ': ' . $GLOBALS['registry']->getAuth()
                  . ' (' . $_SERVER['REMOTE_ADDR'] . ')';
 
         return $message;

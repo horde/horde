@@ -97,20 +97,17 @@ To function properly, Ansel **requires** the following:
 
    b. _`OpenCV`
 
-      The opencv module provides the ability to detect human faces in images.
-      If you would like to be able to have Ansel automatically detect faces in
-      your images, you will need to install the opencv module. You will still be
-      able to manually select faces from your images if you do not have opencv
-      installed.
+      The php-facedetect module provides the ability to detect human faces in
+      images. If you would like to be able to have Ansel automatically detect
+      faces in your images, you will need to install both the opencv library as
+      well as the phpfacedetect extension. You will still be able to manually
+      select faces from your images if you do not have this extension installed.
 
       .. _ `OpenCV library`: http://sourceforge.net/projects/opencvlibrary/
-      .. _ `PHP module`: http://d.hatena.ne.jp/moriyoshi/20070924/1190595577
-
-
-      Alternatively, you may use the php-facedetect module instead of the
-      php-opencv module. You will still need to install the OpenCV library.
-
       .. _ `PHP Module`: http://www.xarg.org/project/php-facedetect/
+
+      NOTE: The php-facedetect extension **requires** the use of opencv library
+            version 1.x. Version 2 will NOT work at this time.
 
    c. _`libpuzzle`
 
@@ -124,10 +121,10 @@ To function properly, Ansel **requires** the following:
 6. The _`ImageMagick` software.
 
    If using the `ImageMagick software`_ you need to set the path to the
-   ``convert`` utility in Horde's setup screen
-   (``Administration/Setup/Horde/Image Manipulation``). You can alternatively
-   use the GD_ extension or the imagick_ extension, but one of these is
-   **required**.
+   ``convert`` utility in Horde's configuration screen
+   (``Administration/Configuration/Horde/Image Manipulation``). You can
+   alternatively use the GD_ extension or the imagick_ extension, but one of
+   these is **required**.
 
    .. _`ImageMagick software`: http://www.imagemagick.org/
 

@@ -22,8 +22,25 @@ class Horde_Support_UuidTest extends PHPUnit_Framework_TestCase
      */
     public function testUuidLength()
     {
-        $uuid = (string)new Horde_Support_Uuid;
+        $uuid = strval(new Horde_Support_Uuid());
         $this->assertEquals(36, strlen($uuid));
+    }
+
+    public function testUuidDuplicates()
+    {
+        $values = array();
+        $cnt = 0;
+
+        for ($i = 0; $i < 10000; ++$i) {
+            $id = strval(new Horde_Support_Uuid());
+            if (isset($values[$id])) {
+                $cnt++;
+            } else {
+                $values[$id] = 1;
+            }
+        }
+
+        $this->assertEquals(0, $cnt);
     }
 
 }

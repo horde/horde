@@ -18,6 +18,20 @@ class Kronolith_Event_Ical extends Kronolith_Event
      */
     public $calendarType = 'remote';
 
+    /**
+     * The Horde_Perms permissions mask matching the CalDAV ACL of this event's
+     * calendar.
+     *
+     * @var integer
+     */
+    public $permission = 0;
+
+    /**
+     * Imports a backend specific event object.
+     *
+     * @param Horde_Icalendar_Vevent  Backend specific event object that this
+     *                                object will represent.
+     */
     public function fromDriver($vEvent)
     {
         $this->fromiCalendar($vEvent);
@@ -25,13 +39,10 @@ class Kronolith_Event_Ical extends Kronolith_Event
         $this->stored = true;
     }
 
-    public function toDriver()
-    {
-        return $this->toiCalendar();
-    }
-
     /**
      * Encapsulates permissions checking.
+     *
+     * $user is being ignored.
      *
      * @param integer $permission  The permission to check for.
      * @param string $user         The user to check permissions for.
@@ -40,14 +51,7 @@ class Kronolith_Event_Ical extends Kronolith_Event
      */
     public function hasPermission($permission, $user = null)
     {
-        switch ($permission) {
-        case Horde_Perms::SHOW:
-        case Horde_Perms::READ:
-            return true;
-
-        default:
-            return false;
-        }
+        return $this->permission & $permission;
     }
 
     /**
@@ -67,12 +71,47 @@ class Kronolith_Event_Ical extends Kronolith_Event
      *
      * @return Horde_Url
      */
-    public function getViewUrl($params = array(), $full = false)
+    public function getViewUrl($params = array(), $full = false, $encoded = true)
     {
         if ($this->url) {
-            return new Horde_Url($this->url, $full);
+            return new Horde_Url($this->url, !$encoded);
         }
-        return parent::getViewUrl($params, $full);
+        return parent::getViewUrl($params, $full, $encoded);
+    }
+
+    /**
+     * Parses the various exception related fields. Only deal with the EXDATE
+     * field here.
+     *
+     * @param Horde_Icalendar $vEvent  The vEvent part.
+     */
+    protected function _handlevEventRecurrence($vEvent)
+    {
+        // Recurrence.
+        try {
+            $rrule = $vEvent->getAttribute('RRULE');
+            if (!is_array($rrule)) {
+                $this->recurrence = new Horde_Date_Recurrence($this->start);
+                if (strpos($rrule, '=') !== false) {
+                    $this->recurrence->fromRRule20($rrule);
+                } else {
+                    $this->recurrence->fromRRule10($rrule);
+                }
+
+                // Exceptions. EXDATE represents deleted events, just add the
+                // exception, no new event is needed.
+                $exdates = $vEvent->getAttributeValues('EXDATE');
+                if (is_array($exdates)) {
+                    foreach ($exdates as $exdate) {
+                        if (is_array($exdate)) {
+                            $this->recurrence->addException((int)$exdate['year'],
+                                                            (int)$exdate['month'],
+                                                            (int)$exdate['mday']);
+                        }
+                    }
+                }
+            }
+        } catch (Horde_Icalendar_Exception $e) {}
     }
 
 }

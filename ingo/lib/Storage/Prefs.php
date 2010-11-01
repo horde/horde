@@ -34,10 +34,10 @@ class Ingo_Storage_Prefs extends Ingo_Storage
      */
     protected function _retrieve($field, $readonly = false)
     {
-        $prefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
-                                        $GLOBALS['registry']->getApp(),
-                                        Ingo::getUser(), '', null, false);
-        $prefs->retrieve();
+        $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create('ingo', array(
+            'cache' => false,
+            'user' => Ingo::getUser()
+        ));
 
         switch ($field) {
         case self::ACTION_BLACKLIST:
@@ -64,7 +64,7 @@ class Ingo_Storage_Prefs extends Ingo_Storage
                 /* Convert rules from the old format. */
                 $data = @unserialize($prefs->getValue('rules'));
             } else {
-                $data = Horde_String::convertCharset($data, $prefs->getCharset(), Horde_Nls::getCharset());
+                $data = Horde_String::convertCharset($data, $prefs->getCharset(), 'UTF-8');
             }
             if ($data) {
                 $ob->setFilterlist($data);
@@ -87,7 +87,7 @@ class Ingo_Storage_Prefs extends Ingo_Storage
                 /* Convert vacation from the old format. */
                 $data = unserialize($prefs->getValue('vacation'));
             } elseif (is_array($data)) {
-                $data = $prefs->convertFromDriver($data, Horde_Nls::getCharset());
+                $data = $prefs->convertFromDriver($data);
             }
             if ($data) {
                 $ob->setVacationAddresses($data['addresses'], false);
@@ -131,10 +131,10 @@ class Ingo_Storage_Prefs extends Ingo_Storage
      */
     protected function _store($ob)
     {
-        $prefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
-                                        $GLOBALS['registry']->getApp(),
-                                        Ingo::getUser(), '', null, false);
-        $prefs->retrieve();
+        $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create('ingo', array(
+            'cache' => false,
+            'user' => Ingo::getUser()
+        ));
 
         switch ($ob->obType()) {
         case self::ACTION_BLACKLIST:
@@ -145,7 +145,7 @@ class Ingo_Storage_Prefs extends Ingo_Storage
             return $prefs->setValue('blacklist', serialize($data));
 
         case self::ACTION_FILTERS:
-            return $prefs->setValue('rules', serialize(Horde_String::convertCharset($ob->getFilterList(), Horde_Nls::getCharset(), $prefs->getCharset())), false);
+            return $prefs->setValue('rules', serialize(Horde_String::convertCharset($ob->getFilterList(), 'UTF-8', $prefs->getCharset())), false);
 
         case self::ACTION_FORWARD:
             $data = array(
@@ -165,7 +165,7 @@ class Ingo_Storage_Prefs extends Ingo_Storage
                 'start' => $ob->getVacationStart(),
                 'end' => $ob->getVacationEnd(),
             );
-            return $prefs->setValue('vacation', serialize($prefs->convertToDriver($data, Horde_Nls::getCharset())), false);
+            return $prefs->setValue('vacation', serialize($prefs->convertToDriver($data)), false);
 
         case self::ACTION_WHITELIST:
             return $prefs->setValue('whitelist', serialize($ob->getWhitelist()));

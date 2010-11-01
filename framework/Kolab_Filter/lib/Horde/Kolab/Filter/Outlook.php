@@ -3,16 +3,6 @@
  * @package Kolab_Filter
  */
 
-/* Load the iCal handling */
-require_once 'Horde/iCalendar.php';
-
-/* Load MIME handlers */
-require_once 'Horde/MIME.php';
-require_once 'Horde/MIME/Message.php';
-require_once 'Horde/MIME/Headers.php';
-require_once 'Horde/MIME/Part.php';
-require_once 'Horde/MIME/Structure.php';
-
 /**
  * Provides Mail rewriting for malformed Outlook messages
  *
@@ -96,7 +86,7 @@ class Kolab_Filter_Outlook
             $email_domain = 'localhost';
         }
 
-        $iCal = new Horde_iCalendar();
+        $iCal = new Horde_Icalendar();
         $iCal->parsevCalendar($icaltxt);
         $vevent =& $iCal->findComponent('VEVENT');
         if ($vevent) {
@@ -114,8 +104,7 @@ class Kolab_Filter_Outlook
                         array(), false);
                     }
                     Horde::logMessage(sprintf("Adding missing organizer '%s <%s>' to iCal.",
-                                              $org_name, $org_email),
-                                      __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                              $org_name, $org_email), 'DEBUG');
                     $icaltxt = $iCal->exportvCalendar();
                 }
             }
@@ -167,8 +156,7 @@ class Kolab_Filter_Outlook
     function embedICal($fqhostname, $sender, $recipients, $origfrom, $subject,
                $tmpfname, $transport)
     {
-        Horde::logMessage(sprintf("Encapsulating iCal message forwarded by %s", $sender),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf("Encapsulating iCal message forwarded by %s", $sender), 'DEBUG');
 
         $forwardtext = "This is an invitation forwarded by outlook and\n".
             "was rectified by the Kolab server.\n".
@@ -195,8 +183,7 @@ class Kolab_Filter_Outlook
         list( $headers, $mime) = Kolab_Filter_Outlook::_mimeParse($requestText);
         $parts = $mime->contentTypeMap();
         if (count($parts) != 1 || $parts[1] != 'text/calendar') {
-            Horde::logMessage("Message does not contain exactly one toplevel text/calendar part, passing through.",
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage("Message does not contain exactly one toplevel text/calendar part, passing through.", 'DEBUG');
             return false;
         }
         $basepart = $mime->getBasePart();

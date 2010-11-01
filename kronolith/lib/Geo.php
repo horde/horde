@@ -28,38 +28,19 @@ abstract class Kronolith_Geo
      * @param unknown_type $params  Any driver specific parameters
      *
      * @return Kronolith_Geo
+     * @throws Kronolith_Exception
      */
     static public function factory($driver = null, $params = array())
     {
         $driver = basename($driver);
         $class = 'Kronolith_Geo_' . $driver;
-
-        if (class_exists($class)) {
-            $driver = new $class(Horde::getDriverConfig('calendar', 'sql'));
-        }
-
+        $driver = new $class(Horde::getDriverConfig('calendar', 'sql'));
         $driver->initialize();
         return $driver;
     }
 
-    /**
-     * Delete an entry from storage
-     *
-     * @param string $event_id
-     *
-     * @return void
-     */
-    public function deleteLocation($event_id)
-    {
-        $sql = "DELETE FROM kronolith_events_geo WHERE event_id = '" . $event_id . "'";
-        $result = $this->_write_db->query($sql);
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result->getMessage());
-        }
-    }
-
     abstract public function setLocation($event_id, $point);
     abstract public function getLocation($event_id);
-    abstract public function removeLocation($event_id);
+    abstract public function deleteLocation($event_id);
     abstract public function search($criteria);
 }

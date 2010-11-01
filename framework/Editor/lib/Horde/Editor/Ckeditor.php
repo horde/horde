@@ -8,19 +8,18 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Editor
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @package  Editor
  */
 class Horde_Editor_Ckeditor extends Horde_Editor
 {
     /**
-     * Constructor.
-     *
      * @param array $params  The following configuration parameters:
      * <pre>
      * 'basic' - (boolean) Load "basic" editor (a small javascript stub that
      *           will download the full code on demand)?
-     * 'config' - (string) The javascript config hash used to indiciate the
+     * 'config' - (array) The javascript config hash used to indiciate the
      *            config for this editor instance.
      * 'id' - (string) The ID of the text area to turn into an editor. If
      *        empty, won't automatically load the editor.
@@ -28,16 +27,25 @@ class Horde_Editor_Ckeditor extends Horde_Editor
      *               instead be stored for access via getJS().
      * </pre>
      */
-    public function __construct($params = array())
+    public function initialize(array $params = array())
     {
+        if (!$this->supportedByBrowser()) {
+            return;
+        }
+
+        $params = array_merge(array(
+            'config' => array()
+        ), $params);
+
         $ck_file = empty($params['basic'])
             ? 'ckeditor.js'
             : 'ckeditor_basic.js';
-        $ck_path = $GLOBALS['registry']->get('webroot', 'horde') . '/services/editor/ckeditor/';
+        $ck_path = $GLOBALS['registry']->get('jsuri', 'horde') . '/';
 
-        if (empty($params['config'])) {
-            $params['config'] = '{}';
-        }
+        /* Globally disable spell check as you type. */
+        $params['config']['scayt_autoStartup'] = false;
+
+        $params['config'] = Horde_Serialize::serialize($params['config'], Horde_Serialize::JSON);
 
         if (empty($params['no_notify'])) {
             Horde::addScriptFile($ck_path . $ck_file, null, array('external' => true));
@@ -47,7 +55,7 @@ class Horde_Editor_Ckeditor extends Horde_Editor
         } else {
             $this->_js = '<script type="text/javascript" src="' . htmlspecialchars($ck_path) . $ck_file . '"></script>';
             if (isset($params['id'])) {
-                $this->_js .= Horde::wrapInlineScript(array('CKEDITOR.replace("' . $params['id'] . '",' . $params['config'] . ')'), 'load');
+                $this->_js .= Horde::wrapInlineScript(array('CKEDITOR.replace("' . $params['id'] . '",' . $params['config'] . ');config.toolbar_Full.push(["Code"]);'), 'load');
             }
         }
     }
@@ -59,9 +67,11 @@ class Horde_Editor_Ckeditor extends Horde_Editor
      */
     public function supportedByBrowser()
     {
-        global $browser;
+        if (!$this->_browser) {
+            return true;
+        }
 
-        switch ($browser->getBrowser()) {
+        switch ($this->_browser->getBrowser()) {
         case 'webkit':
         case 'msie':
         case 'mozilla':
@@ -70,11 +80,10 @@ class Horde_Editor_Ckeditor extends Horde_Editor
             // Firefox: 1.5+
             // Opera: 9.5+
             // Safari: 3.0+
-            return $browser->hasFeature('rte');
+            return $this->_browser->hasFeature('rte');
 
         default:
             return false;
         }
     }
-
 }

@@ -4,8 +4,7 @@
  </span>
 <?php
 printf(_("Galleries grouped by %s"), $groupby);
-echo ' ' . Horde::link(Ansel::getUrlFor('group', array())) .
-Horde::img('reload.png', _("Refresh List"), null, $registry->getImageDir('horde')); ?></a>
+echo ' ' . Ansel::getUrlFor('group', array())->link() . Horde::img('reload.png', _("Refresh List")) ?></a>
 </div>
 <div class="anselActions widget">
   <?php echo _("Group by:") . ' ' . implode(' | ', $groupby_links) ?>

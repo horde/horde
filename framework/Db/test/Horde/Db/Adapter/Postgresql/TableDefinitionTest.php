@@ -26,7 +26,7 @@ class Horde_Db_Adapter_Postgresql_TableDefinitionTest extends PHPUnit_Framework_
 {
     protected function setUp()
     {
-        list($this->_conn,) = $this->sharedFixture->getConnection();
+        list($this->_conn,) = Horde_Db_AllTests::$connFactory->getConnection();
     }
 
 
@@ -77,5 +77,4 @@ class Horde_Db_Adapter_Postgresql_TableDefinitionTest extends PHPUnit_Framework_
     public function testOffsetUnset()
     {
     }
-
 }

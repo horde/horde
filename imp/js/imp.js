@@ -37,24 +37,15 @@ document.observe('dom:loaded', function() {
 
         e.stop();
 
-        elt.fade({
+        elt.slideUp({
             afterFinish: function() { elt.remove(); },
             duration: 0.6
         });
 
-        // Need to use non-prototypejs methods to work with data inside of
-        // the IFRAME. Prototypejs's Selector works, but only if we use
-        // the pure javascript method.
-        if (s.mode != 'normal') {
-            delete Selector._cache['[htmlimgblocked]'];
-            s.mode = 'normal';
-            s.compileMatcher();
-        }
-
         callback = this.imgOnload.bind(this, iframeid);
 
         s.findElements(iframe.contentWindow.document).each(function(img) {
-            var src = decodeURIComponent(img.getAttribute('htmlimgblocked'));
+            var src = img.getAttribute('htmlimgblocked');
             if (img.getAttribute('src')) {
                 img.onload = callback;
                 ++IMP.imgs[iframeid];
@@ -63,14 +54,14 @@ document.observe('dom:loaded', function() {
             } else if (img.getAttribute('background')) {
                 img.setAttribute('background', src);
             } else if (img.style.backgroundImage) {
-                img.style.setProperty('background-image', 'url(' + src + ')', '');
+                if (img.style.setProperty) {
+                    img.style.setProperty('background-image', 'url(' + src + ')', '');
+                } else {
+                    // IE workaround
+                    img.style.backgroundImage = 'url(' + src + ')';
+                }
             }
         });
-
-        // Delete this entry, because in the rare case that another selector
-        // on the page uses the same expression, it will break the next time
-        // it is used.
-        delete Selector._cache['[htmlimgblocked]'];
 
         if (!imgload) {
             this.iframeResize(iframeid);
@@ -97,16 +88,33 @@ document.observe('dom:loaded', function() {
         this.iframeResize(id);
     };
 
-    IMP.iframeResize = function(id, delay)
+    IMP.iframeResize = function(id)
     {
-        id = $(id);
-        id.setStyle({ height: Math.max(id.contentWindow.document.body.scrollHeight, id.contentWindow.document.lastChild.scrollHeight) + 'px' });
-        if (!delay) {
+        var lc, val;
+
+        if (id = $(id)) {
+            lc = id.contentWindow.document.lastChild;
+            val = Math.max(id.contentWindow.document.body.scrollHeight, lc.scrollHeight);
+            id.setStyle({ height: val + 'px' });
+
             // For whatever reason, browsers will report different heights
-            // after the initial height setting. Delaying a second height
-            // setting seems to work most of the time to fix this.
-            this.iframeResize.bind(this, id, true).delay(0.5);
+            // after the initial height setting.
+            // Try expanding IFRAME if we detect a scroll.
+            if (lc.clientHeight != lc.scrollHeight) {
+                id.setStyle({ height: (val + 25) + 'px' });
+            }
+         }
+    };
+
+    IMP.printWindow = function(win)
+    {
+        /* Prototypejs not available in this window. */
+        var fs = win.document.getElementById('frameset');
+        if (fs) {
+            fs.rows = (win.document.getElementById('headers').contentWindow.document.getElementById('headerblock').offsetHeight + 5) + 'px,*';
         }
+        win.print();
+        win.close();
     };
 
     // If menu is present, attach event handlers to folder switcher.

@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Injector</name>
  <channel>pear.horde.org</channel>
  <summary>Horde dependency injection container</summary>
@@ -25,7 +22,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2009-09-20</date>
+ <date>2010-02-11</date>
+ <time>15:00:18</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -36,18 +34,40 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
  <notes>
-   * Initial release, contributed by Blue State Digital
+* Initial release, contributed by Blue State Digital
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Injector">
+      <file name="Readme.html" role="doc" />
+     </dir> <!-- /doc/Horde/Injector -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
+   <dir name="examples">
+    <dir name="Horde">
+     <dir name="Injector">
+      <file name="annotatedsetters.php" role="doc" />
+      <file name="binder.php" role="doc" />
+      <file name="closure.php" role="doc" />
+      <file name="factory.php" role="doc" />
+      <file name="implementation.php" role="doc" />
+      <file name="setget.php" role="doc" />
+     </dir> <!-- /examples/Horde/Injector -->
+    </dir> <!-- /examples/Horde -->
+   </dir> <!-- /examples -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Injector">
       <dir name="Binder">
+       <file name="AnnotatedSetters.php" role="php" />
+       <file name="Closure.php" role="php" />
        <file name="Factory.php" role="php" />
        <file name="Implementation.php" role="php" />
       </dir> <!-- /lib/Horde/Injector/Binder -->
       <file name="Binder.php" role="php" />
+      <file name="DependencyFinder.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Scope.php" role="php" />
       <file name="TopLevel.php" role="php" />
@@ -55,6 +75,21 @@ http://pear.php.net/dtd/package-2.0.xsd">
      <file name="Injector.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Injector">
+      <dir name="Binder">
+       <file name="ClosureTest.php" role="test" />
+       <file name="FactoryTest.php" role="test" />
+       <file name="ImplementationTest.php" role="test" />
+      </dir> <!-- /test/Horde/Injector/Binder -->
+      <file name="AllTests.php" role="test" />
+      <file name="BinderTest.php" role="test" />
+      <file name="InjectorTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
+     </dir> <!-- /test/Horde/Injector -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -69,13 +104,41 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Injector/Binder/Factory.php" as="Horde/Injector/Binder/Factory.php" />
-   <install name="lib/Horde/Injector/Binder/Implementation.php" as="Horde/Injector/Binder/Implementation.php" />
-   <install name="lib/Horde/Injector/Binder.php" as="Horde/Injector/Binder.php" />
-   <install name="lib/Horde/Injector/Exception.php" as="Horde/Injector/Exception.php" />
-   <install name="lib/Horde/Injector/Scope.php" as="Horde/Injector/Scope.php" />
-   <install name="lib/Horde/Injector/TopLevel.php" as="Horde/Injector/TopLevel.php" />
-   <install name="lib/Horde/Injector.php" as="Horde/Injector.php" />
+   <install as="Horde/Injector/Readme.html" name="doc/Horde/Injector/Readme.html" />
+   <install as="Horde/Injector.php" name="lib/Horde/Injector.php" />
+   <install as="Horde/Injector/Binder.php" name="lib/Horde/Injector/Binder.php" />
+   <install as="Horde/Injector/DependencyFinder.php" name="lib/Horde/Injector/DependencyFinder.php" />
+   <install as="Horde/Injector/Exception.php" name="lib/Horde/Injector/Exception.php" />
+   <install as="Horde/Injector/Scope.php" name="lib/Horde/Injector/Scope.php" />
+   <install as="Horde/Injector/TopLevel.php" name="lib/Horde/Injector/TopLevel.php" />
+   <install as="Horde/Injector/Binder/AnnotatedSetters.php" name="lib/Horde/Injector/Binder/AnnotatedSetters.php" />
+   <install as="Horde/Injector/Binder/Closure.php" name="lib/Horde/Injector/Binder/Closure.php" />
+   <install as="Horde/Injector/Binder/Factory.php" name="lib/Horde/Injector/Binder/Factory.php" />
+   <install as="Horde/Injector/Binder/Implementation.php" name="lib/Horde/Injector/Binder/Implementation.php" />
+   <install as="Horde/Injector/AllTests.php" name="test/Horde/Injector/AllTests.php" />
+   <install as="Horde/Injector/BinderTest.php" name="test/Horde/Injector/BinderTest.php" />
+   <install as="Horde/Injector/InjectorTest.php" name="test/Horde/Injector/InjectorTest.php" />
+   <install as="Horde/Injector/phpunit.xml" name="test/Horde/Injector/phpunit.xml" />
+   <install as="Horde/Injector/Binder/ClosureTest.php" name="test/Horde/Injector/Binder/ClosureTest.php" />
+   <install as="Horde/Injector/Binder/FactoryTest.php" name="test/Horde/Injector/Binder/FactoryTest.php" />
+   <install as="Horde/Injector/Binder/ImplementationTest.php" name="test/Horde/Injector/Binder/ImplementationTest.php" />
   </filelist>
  </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2010-02-11</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* Initial release, contributed by Blue State Digital
+   </notes>
+  </release>
+ </changelog>
 </package>

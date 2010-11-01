@@ -21,11 +21,11 @@
 if (!isset($_COOKIE['online'])) {
 
     // Add this to your tempalte file
-    $sql = 'REPLACE INTO folks_online SET user_uid="' . Horde_Auth::getAuth() . '", ip_address="' . $_SERVER["REMOTE_ADDR"] . '", time_last_click="' . $_SERVER['REQUEST_TIME'] . '"';
+    $sql = 'REPLACE INTO folks_online SET user_uid="' . $GLOBALS['registry']->getAuth() . '", ip_address="' . $_SERVER["REMOTE_ADDR"] . '", time_last_click="' . $_SERVER['REQUEST_TIME'] . '"';
     mysql_unbuffered_query($sql);
 
     // If not using cront with online.sql
-    // $sql = 'UPDATE folks_users SET last_online_on = "' . $_SERVER['REQUEST_TIME'] .'" WHERE user_uid = "' . Horde_Auth::getAuth() . '"';
+    // $sql = 'UPDATE folks_users SET last_online_on = "' . $_SERVER['REQUEST_TIME'] .'" WHERE user_uid = "' . $GLOBALS['registry']->getAuth() . '"';
     // mysql_unbuffered_query($sql)
 
     // If not using cront with online.sql

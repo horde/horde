@@ -13,6 +13,13 @@
  */
 class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
 {
+
+    public function __construct($view)
+    {
+        parent::__construct($view);
+        $this->title = _("Standard Gallery");
+    }
+
     /**
      * Perform any tasks that should be performed before the view is rendered.
      *
@@ -32,7 +39,7 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
         global $conf, $prefs, $registry;
 
         $galleryOwner = $this->view->gallery->get('owner');
-        $id = $this->view->gallery->getOwner();
+        $id = $this->view->gallery->getIdentity();
         $owner = $id->getValue('fullname');
         if (!$owner) {
             $owner = $galleryOwner;
@@ -40,10 +47,11 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
 
         /* Only need these if not being called via the api */
         if (empty($this->view->api)) {
-            $option_edit = $this->view->gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT);
-            $option_select = $option_delete = $this->view->gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE);
-            $option_move = ($option_delete && $GLOBALS['ansel_storage']->countGalleries(Horde_Perms::EDIT));
-            $option_copy = ($option_edit && $GLOBALS['ansel_storage']->countGalleries(Horde_Perms::EDIT));
+            $option_edit = $this->view->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
+            $option_select = $option_delete = $this->view->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE);
+            $option_move = ($option_delete && $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->countGalleries(Horde_Perms::EDIT));
+            $option_copy = ($option_edit && $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->countGalleries(Horde_Perms::EDIT));
+
             /* See if we requested a show_actions change */
             if (Horde_Util::getFormData('actionID', '') == 'show_actions') {
                 $prefs->setValue('show_actions', (int)!$prefs->getValue('show_actions'));
@@ -61,8 +69,8 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
             $vars->add('page', $this->view->page);
         }
         if (!empty($this->view->gallery_view_url)) {
-            $pagerurl = str_replace(array('%g', '%s'), array($this->galleryId, $this->gallerySlug), urldecode($this->view->gallery_view_url));
-            $pagerurl = Horde_Util::addParameter($pagerurl, $date_params);
+            $pagerurl = new Horde_Url(str_replace(array('%g', '%s'), array($this->galleryId, $this->gallerySlug), urldecode($this->view->gallery_view_url)));
+            $pagerurl->add($date_params);
         } else {
             /*
              * Build the pager url. Add the needed variables directly to the
@@ -88,14 +96,12 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
                         'perpage' => $this->perpage,
                         'url_callback' => $callback);
 
-        $pager = new Horde_Ui_Pager('page', $vars, $params);
+        $pager = new Horde_Core_Ui_Pager('page', $vars, $params);
 
-        // Note that we can't use Horde_Util::bufferOutput() here since the include
-        // file would be included inside that method's scope, and not this one.
-        ob_start();
+        Horde::startBuffer();
         if (!empty($this->view->api)) {
-            $includes = new Horde_Script_Files();
-            $includes->_add('prototype.js', 'horde', true, true);
+            $includes = $GLOBALS['injector']->createInstance('Horde_Script_Files');
+            $includes->add('prototype.js', 'horde', true, true);
             $includes->includeFiles();
         }
 
@@ -104,25 +110,25 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
         $cellwidth = round(100 / $tilesperrow);
         $count = 0;
         $action_links = array();
-        if ($GLOBALS['conf']['gallery']['downloadzip']) {
-            $action_links[] = Horde::link('#', '', 'widget', '', 'downloadSelected(); return false;') . _("Download selected images") . '</a>';
-
+        $url = new Horde_Url('#');
+        if ($GLOBALS['conf']['gallery']['downloadzip'] && $registry->getAuth()) {
+            $action_links[] = $url->link(array('class' => 'widget', 'onclick.raw' => 'downloadSelected(); return false;')) . _("Download selected images") . '</a>';
         }
         if (!empty($option_edit)) {
-            $action_links[] = Horde::link('#', '', 'widget', '', 'editDates(); return false;') . _("Edit Dates") . '</a>';
+            $action_links[] = $url->link(array('class' => 'widget', 'onclick.raw' => 'editDates(); return false;')) . _("Edit Dates") . '</a>';
         }
         if (!empty($option_delete)) {
-            $action_links[] = Horde::link('#', '', 'widget', '', 'deleteSelected(); return false;') . _("Delete") . '</a>';
+            $action_links[] = $url->link(array('class' => 'widget', 'onclick.raw' => 'deleteSelected(); return false;')) . _("Delete") . '</a>';
         }
         if (!empty($option_move)) {
-            $action_links[] = Horde::link('#', '', 'widget', '', 'moveSelected(); return false;') . _("Move") . '</a>';
+            $action_links[] = $url->link(array('class' => 'widget', 'onclick.raw' =>'moveSelected(); return false;')) . _("Move") . '</a>';
         }
         if (!empty($option_copy)) {
-            $action_links[] = Horde::link('#', '', 'widget', '', 'copySelected(); return false;') . _("Copy") . '</a>';
+            $action_links[] = $url->link(array('class' => 'widget', 'onclick.raw' => 'copySelected(); return false;')) . _("Copy") . '</a>';
         }
         Horde::addScriptFile('popup.js', 'horde');
         include ANSEL_TEMPLATES . '/view/gallery.inc';
-        return ob_get_clean();
+        return Horde::endBuffer();
     }
 
 }

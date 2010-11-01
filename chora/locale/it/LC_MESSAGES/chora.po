@@ -1,0 +1,528 @@
+# Italian translations for chora package.
+# Copyright 2008-2010 The Horde Project
+# This file is distributed under the same license as the chora package.
+# Fabio Pedretti <fabio.pedretti@ing.unibs.it>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: chora v2.1-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2008-09-05 18:12+0200\n"
+"PO-Revision-Date: 2008-09-05 19:15+0200\n"
+"Last-Translator: Fabio Pedretti <fabio.pedretti@ing.unibs.it>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: templates/annotate/header.inc:4
+msgid "#"
+msgstr "#"
+
+#: templates/log/header.inc:17
+#, php-format
+msgid ""
+"%1$s shows diffs to the previous revision. If you select a revision by "
+"clicking its row, %1$s will show the differences to the selected row."
+msgstr ""
+"%1$s mostra le differenze con la revisione precedente. Se scegi una "
+"revisione cliccando la sua riga, %1$s ti mostrerà le differenze con la riga "
+"selezionata."
+
+#: co.php:84
+#, php-format
+msgid "%s Revision %s (%s ago)"
+msgstr "%s revisione %s (%s prima)"
+
+#: templates/annotate/footer.inc:22
+#, php-format
+msgid "%s ago"
+msgstr "%s prima"
+
+#: templates/diff/hr/header.inc:25
+msgid "Added"
+msgstr "Aggiunto"
+
+#: templates/log/header.inc:31
+msgid "All Branches"
+msgstr "Tutti i rami"
+
+#: co.php:89
+msgid "Annotate"
+msgstr "Annotato"
+
+#: templates/stats/stats.inc:4 templates/patchsets/header.inc:15
+#: templates/log/header.inc:49 templates/directory/header.inc:12
+#: templates/annotate/header.inc:5
+msgid "Author"
+msgstr "Autore"
+
+#: templates/diff/hr/header.inc:35 templates/checkout/checkout.inc:4
+msgid "Author:"
+msgstr "Autore:"
+
+#: templates/directory/back.inc:4
+msgid "Back"
+msgstr "Indietro"
+
+#: templates/diff/hr/header.inc:37 templates/checkout/checkout.inc:5
+msgid "Branch:"
+msgstr "Ramo:"
+
+#: lib/Chora.php:498 lib/Chora.php:499 lib/Chora.php:503 lib/Chora.php:504
+msgid "Branches"
+msgstr "Rami"
+
+#: templates/history/branch_cell.inc:2
+msgid "Branching to"
+msgstr "Ramificato da"
+
+#: lib/Chora.php:388
+msgid "Change repositories:"
+msgstr "Cambia deposito:"
+
+#: templates/history/rev.inc:7
+#, php-format
+msgid "Changed: %s"
+msgstr "Cambiato: %s"
+
+#: templates/checkout/checkout.inc:12
+msgid "Checkout"
+msgstr "Controllo"
+
+#: templates/cvsgraph/cvsgraph.inc:5
+msgid ""
+"Click on the links in between revisions to get a diff between those "
+"revisions."
+msgstr ""
+"Clicca sul collegamento tra le revisioni per ottenere una la differenza tra "
+"loro."
+
+#: templates/cvsgraph/cvsgraph.inc:4
+msgid "Click on the revisions and branches to display the file."
+msgstr "Clicca sulle revisioni e ramifica per vedere il file."
+
+#: templates/diff/hr/header.inc:13
+msgid "Column"
+msgstr "Colonna"
+
+#: templates/stats/stats.inc:5
+msgid "Commits"
+msgstr "Assegnare"
+
+#: templates/diff/hr/header.inc:12
+msgid "Context"
+msgstr "Contesto"
+
+#: config/prefs.php.dist:11
+msgid "Customize tasks to run upon logging in to Chora."
+msgstr "Personalizza le operazioni da eseguire quando entri in Chora."
+
+#: templates/directory/header.inc:15
+msgid "Da_te"
+msgstr "Da_ta"
+
+#: templates/patchsets/header.inc:14 templates/log/header.inc:48
+#: templates/directory/header.inc:15
+msgid "Date"
+msgstr "Data"
+
+#: templates/diff/hr/header.inc:36
+msgid "Date:"
+msgstr "Data:"
+
+#: patchsets.php:79
+msgid "Deleted"
+msgstr "Eliminato"
+
+#: templates/directory/file.inc:5 templates/directory/file.inc:28
+msgid "Deleted File"
+msgstr "File eliminato"
+
+#: patchsets.php:76 templates/log/header.inc:16
+msgid "Diff"
+msgstr "Differenza"
+
+#: diff.php:71
+#, php-format
+msgid "Diff for %s between version %s and %s"
+msgstr "Differenza per %s tra le versioni %s e %s"
+
+#: templates/directory/dir.inc:4 templates/directory/dir.inc:6
+msgid "Directory"
+msgstr "Directory"
+
+#: annotate.php:33 co.php:90
+msgid "Download"
+msgstr "Scarica"
+
+#: templates/diff/hr/header.inc:9
+msgid "Download diff as: "
+msgstr "Scarica differenza come: "
+
+#: templates/checkout/checkout.inc:23
+#, php-format
+msgid "Download revision %s"
+msgstr "Scarica revisione %s"
+
+#: templates/diff/hr/header.inc:14
+msgid "Ed Script"
+msgstr "Ed Script"
+
+#: templates/error_page.inc:4
+msgid "Error"
+msgstr "Errore"
+
+#: templates/error_page.inc:7
+msgid "Error Encountered"
+msgstr "Si è verificato un errore"
+
+#: templates/directory/file.inc:7 templates/directory/file.inc:30
+#: templates/directory/header.inc:6
+msgid "File"
+msgstr "File"
+
+#: templates/patchsets/header.inc:16
+msgid "Files"
+msgstr "File"
+
+#: templates/diff/hr/header.inc:16
+msgid "Get Diff"
+msgstr "Ottieni differenze"
+
+#: cvsgraph.php:51
+#, php-format
+msgid "Graph for %s"
+msgstr "Grafico di %s"
+
+#: browse.php:42
+msgid "Hide Deleted Files"
+msgstr "Nascondi File eliminati"
+
+#: browse.php:44
+msgid "Hide _Deleted Files"
+msgstr "_Nascondi File Eliminati"
+
+#: templates/directory/header.inc:17
+msgid "Last Log"
+msgstr "Ultima autenticazione"
+
+#: templates/annotate/header.inc:8
+msgid "Line"
+msgstr "Riga"
+
+#: templates/diff/hr/row.inc:3 templates/diff/hr/row.inc:6
+#, php-format
+msgid "Line %s"
+msgstr "Riga %s"
+
+#: templates/headerbar.inc:5
+msgid "Location:"
+msgstr "Luogo:"
+
+#: templates/patchsets/header.inc:17 templates/log/header.inc:50
+#: templates/diff/hr/header.inc:30 templates/checkout/checkout.inc:1
+msgid "Log Message"
+msgstr "Messaggio utente"
+
+#: config/prefs.php.dist:10
+msgid "Login Tasks"
+msgstr "Operazioni di autenticazione"
+
+#: lib/Chora.php:484 lib/Chora.php:485
+msgid "Logs"
+msgstr "Utenti"
+
+#: diff.php:44
+msgid "Malformed Query"
+msgstr "Richiesta malformulata"
+
+#: lib/Block/tree_menu.php:3
+msgid "Menu List"
+msgstr "Menu Lista"
+
+#: templates/diff/hr/header.inc:26
+msgid "Modified"
+msgstr "Modificato"
+
+#: patchsets.php:72
+msgid "New File"
+msgstr "Nuovo File"
+
+#: templates/diff/hr/nochange.inc:3
+msgid "No Visible Changes"
+msgstr "Nessun cambiamento visibile"
+
+#: templates/log/footer.inc:8
+#, php-format
+msgid ""
+"Only showing the 100 latest revisions. %sShow all revisions?</a> (may take a "
+"while)."
+msgstr ""
+"Mostra solo le 100 ultime revisioni. %smostra tutte le revisioni?</a> "
+"(potrebbe prendere  un while)."
+
+#: config/prefs.php.dist:9
+msgid "Other Options"
+msgstr "Altre Opzioni"
+
+#: templates/directory/back.inc:4
+msgid "Parent Directory"
+msgstr "Directory Principale"
+
+#: templates/patchsets/header.inc:13
+msgid "Patchset"
+msgstr "Patchset"
+
+#: lib/Chora.php:491 lib/Chora.php:492
+msgid "Patchsets"
+msgstr "Patchset"
+
+#: patchsets.php:35
+#, php-format
+msgid "Patchsets for %s"
+msgstr "Patchset per %s"
+
+#: templates/error_page.inc:13
+msgid "Please contact"
+msgstr "Contatta"
+
+#: templates/annotate/header.inc:7
+msgid "Prev"
+msgstr "Precedente"
+
+#: templates/diff/hr/header.inc:27
+msgid "Removed"
+msgstr "Eliminato"
+
+#: lib/api.php:30
+msgid "Repositories"
+msgstr "Deposita"
+
+#: templates/directory/header.inc:9 templates/annotate/header.inc:6
+msgid "Rev"
+msgstr "Rivedi"
+
+#: templates/log/header.inc:47
+msgid "Revision"
+msgstr "Revisione"
+
+#: browse.php:157
+#, php-format
+msgid "Revisions for %s"
+msgstr "Revisioni per %s"
+
+#: templates/patchsets/header.inc:4
+msgid "Search Patchsets:"
+msgstr "Ricerca Patchset:"
+
+#: templates/log/header.inc:4
+msgid "Search Revisions:"
+msgstr "Ricerca revisioni:"
+
+#: templates/log/header.inc:29
+msgid "Show Branch:"
+msgstr "Mostra ramo:"
+
+#: browse.php:42
+msgid "Show Deleted Files"
+msgstr "Mostra File Eliminati"
+
+#: templates/log/header.inc:18
+msgid "Show Differences"
+msgstr "Mostra differenze"
+
+#: browse.php:44
+msgid "Show _Deleted Files"
+msgstr "_Mostra File Eliminati"
+
+#: templates/log/rev.inc:4
+msgid "Show changes to the previous revision"
+msgstr "Mostra cambiamenti alla revisione precedente"
+
+#: templates/log/rev.inc:6
+msgid "Show changes to the selected revision"
+msgstr "Mostra cambiamenti alla revisione selezionata"
+
+#: templates/log/header.inc:13
+#, php-format
+msgid "Show diffs between %s and %s"
+msgstr "Mostra differenze tra %s e %s"
+
+#: annotate.php:30
+#, php-format
+msgid "Source Annotation of %s (revision %s)"
+msgstr "Sorgente annotazione di %s (revisione %s)"
+
+#: history.php:163
+#, php-format
+msgid "Source Branching View for %s"
+msgstr "Ramo sorgente visto per %s"
+
+#: browse.php:35
+#, php-format
+msgid "Source Directory of /%s"
+msgstr "Directory sorgente di /%s"
+
+#: lib/Chora.php:179
+msgid ""
+"SourceRoot not found! This could be a misconfiguration by the server "
+"administrator, or the server could be having temporary problems. Please try "
+"again later."
+msgstr ""
+"Sorgente radice non trovata! Questo potrebbe essere causato da un errata "
+"configurazione dell'amministratore del server, oppure il server potrebbe "
+"avere dei problemi temporanei. Riprovare più tardi."
+
+#: lib/Chora.php:509 lib/Chora.php:510
+msgid "Statistics"
+msgstr "Statistiche"
+
+#: stats.php:27
+#, php-format
+msgid "Statistics for %s"
+msgstr "Statistiche per %s"
+
+#: templates/patchsets/ps.inc:22 templates/log/rev.inc:14
+msgid "Tags"
+msgstr "Tag"
+
+#: templates/diff/hr/header.inc:38 templates/checkout/checkout.inc:6
+msgid "Tags:"
+msgstr "Tag:"
+
+#: templates/headerbar.inc:9
+msgid "Tracking Branch"
+msgstr "Traccia ramificazioni"
+
+#: templates/diff/hr/header.inc:11
+msgid "Unified"
+msgstr "Unificato"
+
+#: templates/diff/hr/header.inc:24
+msgid "Unmodified"
+msgstr "Non modificato"
+
+#: config/prefs.php.dist:37
+msgid "Use last viewed file or directory at login time"
+msgstr "Usa l'ultimo file visto o la directory che si aveva all'autenticazione"
+
+#: templates/diff/hr/header.inc:48 templates/diff/hr/header.inc:49
+#, php-format
+msgid "Version %s"
+msgstr "Versione %s"
+
+#: annotate.php:32 templates/log/header.inc:34
+msgid "View"
+msgstr "Visualizza"
+
+#: lib/Chora.php:513
+msgid "View:"
+msgstr "Visualizza:"
+
+#: templates/directory/header.inc:12
+msgid "_Author"
+msgstr "_Autore"
+
+#: lib/Chora.php:500 lib/Chora.php:505
+msgid "_Branches"
+msgstr "_Ramificazioni"
+
+#: lib/Chora.php:465
+msgid "_Browse"
+msgstr "_Mostra"
+
+#: templates/directory/header.inc:6
+msgid "_File"
+msgstr "_File"
+
+#: lib/Chora.php:486
+msgid "_Logs"
+msgstr "_Logs"
+
+#: lib/Chora.php:493
+msgid "_Patchsets"
+msgstr "_Patchsets"
+
+#: templates/directory/header.inc:9
+msgid "_Rev"
+msgstr "_Rivedi"
+
+#: lib/Chora.php:511
+msgid "_Statistics"
+msgstr "_Statistiche"
+
+#: templates/history/rev.inc:3
+#, php-format
+msgid "by %s"
+msgstr "da %s"
+
+#: lib/Chora.php:31
+msgid "day"
+msgstr "giorno"
+
+#: lib/Chora.php:31
+msgid "days"
+msgstr "giorni"
+
+#: templates/error_page.inc:14
+msgid "for further information."
+msgstr "per ulteriori informazioni"
+
+#: lib/Chora.php:30
+msgid "hour"
+msgstr "ora"
+
+#: lib/Chora.php:30
+msgid "hours"
+msgstr "ore"
+
+#: lib/Chora.php:29
+msgid "minute"
+msgstr "minuto"
+
+#: lib/Chora.php:29
+msgid "minutes"
+msgstr "minuti"
+
+#: lib/Chora.php:33
+msgid "month"
+msgstr "mese"
+
+#: lib/Chora.php:33
+msgid "months"
+msgstr "mesi"
+
+#: templates/history/branch_cell.inc:6
+#, php-format
+msgid "revision %s"
+msgstr "revisione %s"
+
+#: lib/Chora.php:28
+msgid "second"
+msgstr "secondo"
+
+#: lib/Chora.php:28
+msgid "seconds"
+msgstr "secondi"
+
+#: lib/Chora.php:42
+msgid "very little time"
+msgstr "poco tempo"
+
+#: lib/Chora.php:32
+msgid "week"
+msgstr "settimana"
+
+#: lib/Chora.php:32
+msgid "weeks"
+msgstr "settimane"
+
+#: lib/Chora.php:34
+msgid "year"
+msgstr "anno"
+
+#: lib/Chora.php:34
+msgid "years"
+msgstr "anni"

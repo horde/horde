@@ -25,6 +25,8 @@ class Horde_Constraint_AllTests extends Horde_Test_AllTests
 {
 }
 
+Horde_Constraint_AllTests::init('Horde_Constraint', __FILE__);
+
 if (PHPUnit_MAIN_METHOD == 'Horde_Constraint_AllTests::main') {
-    Horde_Constraint_AllTests::main('Horde_Constraint', __FILE__);
+    Horde_Constraint_AllTests::main();
 }

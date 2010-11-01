@@ -4,7 +4,7 @@
  * Controller for handling the form that creates new remote Ansel galleries.
  *
  * Copyright 2009-2010 The Horde Project (http://www.horde.org)
- * 
+ *
  * @license http://opensource.org/licenses/bsd-license.php
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  */
@@ -20,23 +20,23 @@
     _anselController = [theController retain];
     [NSBundle loadNibNamed: @"AnselGalleryPanel"
                      owner: self];
-    
+
     return self;
 }
 - (id)initWithController: (TURAnsel *)theController
-         withGalleryName: (NSString *)galleryName 
+         withGalleryName: (NSString *)galleryName
 {
-    
+
     [super init];
     _anselController = [theController retain];
     [NSBundle loadNibNamed: @"AnselGalleryPanel"
                      owner: self];
-    
+
     [galleryNameTextField setStringValue: galleryName];
-    
-    return self;      
+
+    return self;
 }
-- (void)dealloc 
+- (void)dealloc
 {
     [_anselController release];
     [_controllerWindow release];
@@ -48,7 +48,7 @@
 - (IBAction)cancelNewGallery: (id)sender
 {
     [NSApp endSheet: newGallerySheet];
-    [newGallerySheet orderOut: nil];   
+    [newGallerySheet orderOut: nil];
 }
 
 - (IBAction)doNewGallery: (id)sender
@@ -57,17 +57,17 @@
     NSString *galleryName = [galleryNameTextField stringValue];
     NSString *gallerySlug = [gallerySlugTextField stringValue];
     NSString *galleryDescription = [galleryDescTextField stringValue];
-    
+
     if (!galleryName) {
-        
+
         [NSApp endSheet: newGallerySheet];
         [newGallerySheet orderOut: nil];
-        
+
         NSAlert *alert = [[NSAlert alloc] init];
         [alert setMessageText:@"Gallery names cannot be empty"];
         [alert setAlertStyle: NSCriticalAlertStyle];
         [alert beginSheetModalForWindow: _controllerWindow
-                          modalDelegate: nil 
+                          modalDelegate: nil
                          didEndSelector: nil
                             contextInfo: nil];
         [alert release];
@@ -77,12 +77,12 @@
                             galleryName, @"name",
                             gallerySlug, @"slug",
                             galleryDescription, @"desc", nil];
-    
+
     NSDictionary *results = [[_anselController createNewGallery: params] retain];
-    
+
     [NSApp endSheet: newGallerySheet];
     [newGallerySheet orderOut: nil];
-    
+
     if ([_anselController state] != TURAnselStateError) {
         NSAlert *alert = [[NSAlert alloc] init];
         [alert setMessageText: @"Gallery successfully created."];
@@ -95,7 +95,7 @@
             [_delegate TURAnselGalleryPanelDidAddGallery];
         }
     }
-    
+
     [results release];
 }
 

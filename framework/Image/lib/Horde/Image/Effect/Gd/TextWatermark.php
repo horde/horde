@@ -28,16 +28,8 @@ class Horde_Image_Effect_Gd_TextWatermark extends Horde_Image_Effect
      */
     public function apply()
     {
-        $color = $this->_image->call('imageColorClosest',
-                                      array($this->_image->_im, 255, 255, 255));
-        if (is_a($color, 'PEAR_Error')) {
-            return $color;
-        }
-        $shadow = $this->_image->call('imageColorClosest',
-                                       array($this->_image->_im, 0, 0, 0));
-        if (is_a($shadow, 'PEAR_Error')) {
-            return $shadow;
-        }
+        $color = $this->_image->call('imageColorClosest', array($this->_image->_im, 255, 255, 255));
+        $shadow = $this->_image->call('imageColorClosest', array($this->_image->_im, 0, 0, 0));
 
         // Shadow offset in pixels.
         $drop = 1;
@@ -50,13 +42,7 @@ class Horde_Image_Effect_Gd_TextWatermark extends Horde_Image_Effect
 
         $f = $this->_image->getFont($this->_params['fontsize']);
         $fontwidth = $this->_image->call('imageFontWidth', array($f));
-        if (is_a($fontwidth, 'PEAR_Error')) {
-            return $fontwidth;
-        }
         $fontheight = $this->_image->call('imageFontHeight', array($f));
-        if (is_a($fontheight, 'PEAR_Error')) {
-            return $fontheight;
-        }
 
         // So that shadow is not off the image with right align and bottom valign.
         $margin = floor($padding + $drop) / 2;
@@ -85,37 +71,27 @@ class Horde_Image_Effect_Gd_TextWatermark extends Horde_Image_Effect
         switch ($this->_params['halign']) {
         case 'right':
             foreach ($lines as $line) {
-                if (is_a($result = $this->_image->call('imageString', array($this->_image->_im, $f, ($this->_image->call('imageSX', array($this->_image->_im)) - $fontwidth * strlen($line)) - $margin + $drop, ($y + $drop), $line, $shadow)), 'PEAR_Error')) {
-                    return $result;
-                }
-                $result = $this->_image->call('imageString', array($this->_image->_im, $f, ($this->_image->call('imageSX', array($this->_image->_im)) - $fontwidth * strlen($line)) - $margin, $y, $line, $color));
+                $this->_image->call('imageString', array($this->_image->_im, $f, ($this->_image->call('imageSX', array($this->_image->_im)) - $fontwidth * strlen($line)) - $margin + $drop, ($y + $drop), $line, $shadow));
+                $this->_image->call('imageString', array($this->_image->_im, $f, ($this->_image->call('imageSX', array($this->_image->_im)) - $fontwidth * strlen($line)) - $margin, $y, $line, $color));
                 $y += $fontheight;
             }
             break;
 
         case 'center':
             foreach ($lines as $line) {
-                if (is_a($result = $this->_image->call('imageString', array($this->_image->_im, $f, floor(($this->_image->call('imageSX', array($this->_image->_im)) - $fontwidth * strlen($line)) / 2) + $drop, ($y + $drop), $line, $shadow)), 'PEAR_Error')) {
-                    return $result;
-                }
-                $result = $this->_image->call('imageString', array($this->_image->_im, $f, floor(($this->_image->call('imageSX', array($this->_image->_im)) - $fontwidth * strlen($line)) / 2), $y, $line, $color));
+                $this->_image->call('imageString', array($this->_image->_im, $f, floor(($this->_image->call('imageSX', array($this->_image->_im)) - $fontwidth * strlen($line)) / 2) + $drop, ($y + $drop), $line, $shadow));
+                $this->_image->call('imageString', array($this->_image->_im, $f, floor(($this->_image->call('imageSX', array($this->_image->_im)) - $fontwidth * strlen($line)) / 2), $y, $line, $color));
                 $y += $fontheight;
             }
             break;
 
         default:
             foreach ($lines as $line) {
-                if (is_a($result = $this->_image->call('imageString', array($this->_image->_im, $f, $margin + $drop, ($y + $drop), $line, $shadow)), 'PEAR_Error')) {
-                    return $result;
-                }
-                $result = $this->_image->call('imageString', array($this->_image->_im, $f, $margin, $y, $line, $color));
+                $this->_image->call('imageString', array($this->_image->_im, $f, $margin + $drop, ($y + $drop), $line, $shadow));
+                $this->_image->call('imageString', array($this->_image->_im, $f, $margin, $y, $line, $color));
                 $y += $fontheight;
             }
             break;
-        }
-
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
         }
     }
 

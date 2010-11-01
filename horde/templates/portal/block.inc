@@ -12,7 +12,7 @@
  <script type="text/javascript">
  setTimeout(function() {
      new Ajax.PeriodicalUpdater('block_<?php echo (int)$row_num ?>_<?php echo (int)$col_num ?>',
-                                '<?php echo Horde::applicationUrl('services/portal/index.php') ?>',
+                                '<?php echo Horde::url('services/portal/index.php') ?>',
              { parameters: { httpclient: 1, row: <?php echo (int)$row_num ?>, col: <?php echo (int)$col_num ?> },
                method: 'get',
                evalScripts: true,

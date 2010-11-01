@@ -170,7 +170,7 @@ class Horde_Date
     protected $_formatCache = array();
 
     /**
-     * Build a new date object. If $date contains date parts, use them to
+     * Builds a new date object. If $date contains date parts, use them to
      * initialize the object.
      *
      * Recognized formats:
@@ -212,7 +212,7 @@ class Horde_Date
             $this->_initializeFromObject($date);
         } elseif (is_array($date)) {
             $this->_initializeFromArray($date);
-        } elseif (preg_match('/(\d{4})-?(\d{2})-?(\d{2})T? ?(\d{2}):?(\d{2}):?(\d{2})(Z?)/', $date, $parts) &&
+        } elseif (preg_match('/(\d{4})-?(\d{2})-?(\d{2})T? ?(\d{2}):?(\d{2}):?(\d{2})(?:\.\d+)?(Z?)/', $date, $parts) &&
                   empty($parts[7])) {
             $this->_year  = (int)$parts[1];
             $this->_month = (int)$parts[2];
@@ -220,6 +220,9 @@ class Horde_Date
             $this->_hour  = (int)$parts[4];
             $this->_min   = (int)$parts[5];
             $this->_sec   = (int)$parts[6];
+            if ($parts[7]) {
+                $this->_initializeTimezone('UTC');
+            }
         } elseif (preg_match('/^(\d{4})-?(\d{2})-?(\d{2})$/', $date, $parts) &&
                   $parts[2] > 0 && $parts[2] <= 12 &&
                   $parts[3] > 0 && $parts[3] <= 31) {
@@ -463,7 +466,7 @@ class Horde_Date
     }
 
     /**
-     * Add a number of seconds or units to this date, returning a new Date
+     * Adds a number of seconds or units to this date, returning a new Date
      * object.
      */
     public function add($factor)
@@ -476,11 +479,12 @@ class Horde_Date
         } else {
             $d->sec += $factor;
         }
+
         return $d;
     }
 
     /**
-     * Subtract a number of seconds or units from this date, returning a new
+     * Subtracts a number of seconds or units from this date, returning a new
      * Horde_Date object.
      */
     public function sub($factor)
@@ -500,6 +504,8 @@ class Horde_Date
      * Converts this object to a different timezone.
      *
      * @param string $timezone  The new timezone.
+     *
+     * @return Horde_Date  This object.
      */
     public function setTimezone($timezone)
     {
@@ -513,10 +519,11 @@ class Horde_Date
         $this->_min      = (int)$date->format('i');
         $this->_sec      = (int)$date->format('s');
         $this->_formatCache = array();
+        return $this;
     }
 
     /**
-     * Set the default date format used in __toString()
+     * Sets the default date format used in __toString()
      *
      * @param string $format
      */
@@ -580,7 +587,7 @@ class Horde_Date
     }
 
     /**
-     * Return the number of weeks in the given year (52 or 53).
+     * Returns the number of weeks in the given year (52 or 53).
      *
      * @param integer $year  The year to count the number of weeks in.
      *
@@ -597,7 +604,7 @@ class Horde_Date
     }
 
     /**
-     * Set the date of this object to the $nth weekday of $weekday.
+     * Sets the date of this object to the $nth weekday of $weekday.
      *
      * @param integer $weekday  The day of the week (0 = Sunday, etc).
      * @param integer $nth      The $nth $weekday to set to (defaults to 1).
@@ -630,7 +637,7 @@ class Horde_Date
     }
 
     /**
-     * Compare this date to another date object to see which one is
+     * Compares this date to another date object to see which one is
      * greater (later). Assumes that the dates are in the same
      * timezone.
      *
@@ -693,7 +700,7 @@ class Horde_Date
     }
 
     /**
-     * Compare this to another date object by time, to see which one
+     * Compares this to another date object by time, to see which one
      * is greater (later). Assumes that the dates are in the same
      * timezone.
      *
@@ -720,7 +727,7 @@ class Horde_Date
     }
 
     /**
-     * Compare this to another date object, including times, to see
+     * Compares this to another date object, including times, to see
      * which one is greater (later). Assumes that the dates are in the
      * same timezone.
      *
@@ -756,7 +763,7 @@ class Horde_Date
     }
 
     /**
-     * Get the time offset for local time zone.
+     * Returns the time offset for local time zone.
      *
      * @param boolean $colon  Place a colon between hours and minutes?
      *
@@ -768,7 +775,7 @@ class Horde_Date
     }
 
     /**
-     * Return the unix timestamp representation of this date.
+     * Returns the unix timestamp representation of this date.
      *
      * @return integer  A unix timestamp.
      */
@@ -782,7 +789,7 @@ class Horde_Date
     }
 
     /**
-     * Return the unix timestamp representation of this date, 12:00am.
+     * Returns the unix timestamp representation of this date, 12:00am.
      *
      * @return integer  A unix timestamp.
      */
@@ -796,7 +803,7 @@ class Horde_Date
     }
 
     /**
-     * Format date and time to be passed around as a short url parameter.
+     * Formats date and time to be passed around as a short url parameter.
      *
      * @return string  Date and time.
      */
@@ -806,7 +813,7 @@ class Horde_Date
     }
 
     /**
-     * Format date and time to the ISO format used by JSON.
+     * Formats date and time to the ISO format used by JSON.
      *
      * @return string  Date and time.
      */
@@ -816,7 +823,25 @@ class Horde_Date
     }
 
     /**
-     * Format time using the specifiers available in date() or in the DateTime
+     * Formats date and time to the RFC 2445 iCalendar DATE-TIME format.
+     *
+     * @param boolean $floating  Whether to return a floating date-time
+     *                           (without time zone information).
+     *
+     * @return string  Date and time.
+     */
+    public function toiCalendar($floating = false)
+    {
+        if ($floating) {
+            return $this->format('Ymd\THis');
+        }
+        $dateTime = $this->toDateTime();
+        $dateTime->setTimezone(new DateTimeZone('UTC'));
+        return $dateTime->format('Ymd\THis\Z');
+    }
+
+    /**
+     * Formats time using the specifiers available in date() or in the DateTime
      * class' format() method.
      *
      * To format in languages other than English, use strftime() instead.
@@ -834,7 +859,7 @@ class Horde_Date
     }
 
     /**
-     * Format date and time using strftime() format.
+     * Formats date and time using strftime() format.
      *
      * @return string  strftime() formatted date and time.
      */
@@ -848,7 +873,7 @@ class Horde_Date
     }
 
     /**
-     * Format date and time using a limited set of the strftime() format.
+     * Formats date and time using a limited set of the strftime() format.
      *
      * @return string  strftime() formatted date and time.
      */
@@ -901,7 +926,7 @@ class Horde_Date
     }
 
     /**
-     * Correct any over- or underflows in any of the date's members.
+     * Corrects any over- or underflows in any of the date's members.
      *
      * @param integer $mask  We may not want to correct some overflows.
      */
@@ -971,7 +996,7 @@ class Horde_Date
     }
 
     /**
-     * Handle args in order: year month day hour min sec tz
+     * Handles args in order: year month day hour min sec tz
      */
     protected function _initializeFromArgs($args)
     {

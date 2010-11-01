@@ -8,18 +8,17 @@ $block_name = _("Query Results");
  *
  * @package Horde_Block
  */
-class Horde_Block_Whups_query extends Horde_Block {
+class Horde_Block_Whups_query extends Horde_Block
+{
+    protected $_app = 'whups';
 
-    var $_app = 'whups';
-
-    function _params()
+    protected function _params()
     {
-        require_once dirname(__FILE__) . '/../base.php';
         require_once WHUPS_BASE . '/lib/Query.php';
 
         $qManager = new Whups_QueryManager();
         $qDefault = null;
-        $qParams = $qManager->listQueries(Horde_Auth::getAuth());
+        $qParams = $qManager->listQueries($GLOBALS['registry']->getAuth());
         if (count($qParams)) {
             $qType = 'enum';
         } else {
@@ -38,12 +37,13 @@ class Horde_Block_Whups_query extends Horde_Block {
      *
      * @return string The title text.
      */
-    function _title()
+    protected function _title()
     {
         if (($query = $this->_getQuery()) && $query->name) {
             return Horde::link(Whups::urlFor('query', empty($query->slug) ? array('id' => $query->id) : array('slug' => $query->slug)))
                 . htmlspecialchars($query->name) . '</a>';
         }
+
         return _("Query Results");
     }
 
@@ -52,7 +52,7 @@ class Horde_Block_Whups_query extends Horde_Block {
      *
      * @return string The content.
      */
-    function _content()
+    protected function _content()
     {
         global $whups_driver, $prefs;
 
@@ -84,16 +84,16 @@ class Horde_Block_Whups_query extends Horde_Block {
         }
 
         Horde::addScriptFile('tables.js', 'horde', true);
+
         return '<table id="whups_block_query_' . $query->id . '" cellspacing="0" class="tickets striped sortable">' . $html . '</tbody></table>';
     }
 
-    function _getQuery()
+    private function _getQuery()
     {
         if (empty($this->_params['query'])) {
             return false;
         }
 
-        require_once dirname(__FILE__) . '/../base.php';
         require_once WHUPS_BASE . '/lib/Query.php';
 
         $qManager = new Whups_QueryManager();
@@ -101,7 +101,7 @@ class Horde_Block_Whups_query extends Horde_Block {
         if (is_a($query, 'PEAR_Error')) {
             return false;
         }
-        if (!$query->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+        if (!$query->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
             return false;
         }
 

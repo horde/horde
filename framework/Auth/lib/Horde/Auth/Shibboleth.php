@@ -5,28 +5,15 @@
  * not provide any actual SP functionality, it just takes the username
  * from the HTTP headers that should be set by the Shibboleth SP.
  *
- * Required Parameters:
- * <pre>
- * 'username_header' - (string) Name of the header holding the username of the
- *                     logged in user.
- * </pre>
- *
- * Optional Parameters:
- * <pre>
- * 'password_header' - (string) Name of the header holding the password of the
- *                     logged in user.
- * 'password_holder' - (string) Where the hordeauth password is stored.
- * 'password_preference' - (string) Name of the Horde preference holding the
- *                         password of the logged in user.
- * </pre>
- *
  * Copyright 9Star Research, Inc. 2006 http://www.protectnetwork.org/
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
  *
- * @author  Cassio Nishiguchi <cassio@protectnetwork.org>
- * @package Horde_Auth
+ * @author   Cassio Nishiguchi <cassio@protectnetwork.org>
+ * @category Horde
+ * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
+ * @package  Auth
  */
 class Horde_Auth_Shibboleth extends Horde_Auth_Base
 {
@@ -43,11 +30,24 @@ class Horde_Auth_Shibboleth extends Horde_Auth_Base
     /**
      * Constructor.
      *
-     * @param array $params  A hash containing parameters.
+     * @param array $params  Parameters:
+     * <pre>
+     * 'password_header' - (string) Name of the header holding the password of
+     *                     the logged in user.
+     * 'password_holder' - (string) Where the hordeauth password is stored.
+     * 'password_preference' - (string) Name of the Horde preference holding
+     *                         the password of the logged in user.
+     * 'username_header' - (string) [REQUIRED] Name of the header holding the
+     *                     username of the logged in user.
+     * </pre>
+     *
+     * @throws InvalidArgumentException
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
-        Horde::assertDriverConfig($params, 'auth', array('username_header'), 'authentication Shibboleth');
+        if (!isset($params['username_header'])) {
+            throw new InvalidArgumentException('Missing username_header parameter.');
+        }
 
         $params = array_merge(array(
             'password_header' => '',
@@ -72,7 +72,7 @@ class Horde_Auth_Shibboleth extends Horde_Auth_Base
      */
     protected function _authenticate($userId, $credentials)
     {
-        throw new Horde_Auth_Exception('Not implemented!');
+        throw new Horde_Auth_Exception('Unsupported.');
     }
 
     /**
@@ -81,7 +81,7 @@ class Horde_Auth_Shibboleth extends Horde_Auth_Base
      *
      * @return boolean  Whether or not the client is allowed.
      */
-    protected function _transparent()
+    public function transparent()
     {
         if (empty($_SERVER[$this->_params['username_header']])) {
             return false;
@@ -90,28 +90,39 @@ class Horde_Auth_Shibboleth extends Horde_Auth_Base
         $username = $_SERVER[$this->_params['username_header']];
 
         // Remove scope from username, if present.
-        $pos = strrpos($username, '@');
-        if ($pos !== false) {
-            $username = substr($username, 0, $pos);
-        }
-
-        $this->_credentials['userId'] = $username;
+        $this->setCredential('userId', $this->_removeScope($username));
 
         // Set password for hordeauth login.
         switch ($this->_params['password_holder']) {
         case 'header':
-            $this->_credentials['credentials'] = array(
+            $this->setCredential('credentials', array(
                 'password' => $_SERVER[$this->_params['password_header']]
-            );
+            ));
             break;
 
         case 'preferences':
-            $this->_credentials['credentials'] = array(
+            $this->setCredential('credentials', array(
                 'password' => $_SERVER[$this->_params['password_preference']]
-            );
+            ));
+            break;
         }
 
         return true;
+    }
+
+    /**
+     * Removes the scope from the user name, if present.
+     *
+     * @param string $username  The full user name.
+     *
+     * @return string  The user name without scope.
+     */
+    protected function _removeScope($username)
+    {
+        $pos = strrpos($username, '@');
+        return ($pos !== false)
+            ? substr($username, 0, $pos)
+            : $username;
     }
 
 }

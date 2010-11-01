@@ -46,11 +46,9 @@ class Horde_Rpc_Soap extends Horde_Rpc
      *
      * @access private
      */
-    public function __construct($params = array())
+    public function __construct($request, $params = array())
     {
-        Horde_Nls::setCharset('UTF-8');
-
-        parent::__construct($params);
+        parent::__construct($request, $params);
 
         if (!empty($params['allowedTypes'])) {
             $this->_allowedTypes = $params['allowedTypes'];
@@ -62,7 +60,7 @@ class Horde_Rpc_Soap extends Horde_Rpc
             $this->_serviceName = $params['serviceName'];
         }
 
-        $this->_server = new SoapServer(null, array('uri' => Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/rpc.php', true, -1)));
+        $this->_server = new SoapServer(null, array('uri' => (string)Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/rpc.php', true, -1)));
         $this->_server->addFunction(SOAP_FUNCTIONS_ALL);
         $this->_server->setClass('Horde_Rpc_Soap_Caller', $params);
     }
@@ -91,11 +89,10 @@ class Horde_Rpc_Soap extends Horde_Rpc
                     $GLOBALS['__horde_rpc_PhpSoap']['lastMethodCalled'],
                     implode(', ', array_map(create_function('$a', 'return is_array($a) ? "Array" : $a;'),
                                             $GLOBALS['__horde_rpc_PhpSoap']['lastMethodParams'])),
-                    Horde_Auth::getAuth(),
+                    $GLOBALS['registry']->getAuth(),
                     time() - $beginTime,
                     ob_get_length()),
-            __FILE__, __LINE__, PEAR_LOG_INFO
-        );
+            'INFO');
         return ob_get_clean();
     }
 
@@ -104,31 +101,32 @@ class Horde_Rpc_Soap extends Horde_Rpc
      *
      * This statically called method is actually the SOAP client.
      *
-     * @param string $url     The path to the SOAP server on the called host.
-     * @param string $method  The method to call.
-     * @param array $params   A hash containing any necessary parameters for
-     *                        the method call.
+     * @param string|Horde_Url $url  The path to the SOAP server on the called
+     *                               host.
+     * @param string $method         The method to call.
+     * @param array $params          A hash containing any necessary parameters
+     *                               for the method call.
      * @param $options  Optional associative array of parameters which can be:
-     *                  user                - Basic Auth username
-     *                  pass                - Basic Auth password
-     *                  proxy_host          - Proxy server host
-     *                  proxy_port          - Proxy server port
-     *                  proxy_user          - Proxy auth username
-     *                  proxy_pass          - Proxy auth password
-     *                  timeout             - Connection timeout in seconds.
-     *                  allowRedirects      - Whether to follow redirects or not
-     *                  maxRedirects        - Max number of redirects to follow
-     *                  namespace
-     *                  soapaction
-     *                  from                - SMTP, from address
-     *                  transfer-encoding   - SMTP, sets the
-     *                                        Content-Transfer-Encoding header
-     *                  subject             - SMTP, subject header
-     *                  headers             - SMTP, array-hash of extra smtp
-     *                                        headers
+     *                  - user:              Basic Auth username
+     *                  - pass:              Basic Auth password
+     *                  - proxy_host:        Proxy server host
+     *                  - proxy_port:        Proxy server port
+     *                  - proxy_user:        Proxy auth username
+     *                  - proxy_pass:        Proxy auth password
+     *                  - timeout:           Connection timeout in seconds.
+     *                  - allowRedirects:    Whether to follow redirects or not
+     *                  - maxRedirects:      Max number of redirects to follow
+     *                  - namespace:
+     *                  - soapaction:
+     *                  - from:              SMTP, from address
+     *                  - transfer-encoding: SMTP, sets the
+     *                                       Content-Transfer-Encoding header
+     *                  - subject:           SMTP, subject header
+     *                  - headers:           SMTP, array-hash of extra smtp
+     *                                       headers
      *
-     * @return mixed            The returned result from the method or a PEAR
-     *                          error object on failure.
+     * @return mixed  The returned result from the method
+     * @throws Horde_Rpc_Exception
      */
     public static function request($url, $method, $params = null, $options = array())
     {
@@ -147,11 +145,17 @@ class Horde_Rpc_Soap extends Horde_Rpc
             $options['password'] = $options['pass'];
             unset($options['pass']);
         }
-        $options['location'] = $url;
+        $options['location'] = (string)$url;
         $options['uri'] = $options['namespace'];
+        $options['exceptions'] = true;
 
-        $soap = new SoapClient(null, $options);
-        return $soap->__soapCall($method, $params);
+        $options['trace'] = true;
+        try {
+            $soap = new SoapClient(null, $options);
+            return $soap->__soapCall($method, $params);
+        } catch (Exception $e) {
+            throw new Horde_Rpc_Exception($e);
+        }
     }
 
 }
@@ -199,7 +203,7 @@ class Horde_Rpc_Soap_Caller {
 
         if (!empty($this->_params['allowedMethods']) &&
             !in_array($method, $this->_params['allowedMethods'])) {
-            return sprintf(_("Method \"%s\" is not defined"), $method);
+            return sprintf(Horde_Rpc_Translation::t("Method \"%s\" is not defined"), $method);
         }
 
         $GLOBALS['__horde_rpc_PhpSoap']['lastMethodCalled'] = $method;
@@ -207,7 +211,7 @@ class Horde_Rpc_Soap_Caller {
             !empty($params) ? $params : array();
 
         if (!$GLOBALS['registry']->hasMethod($method)) {
-            return sprintf(_("Method \"%s\" is not defined"), $method);
+            return sprintf(Horde_Rpc_Translation::t("Method \"%s\" is not defined"), $method);
         }
 
         return $GLOBALS['registry']->call($method, $params);

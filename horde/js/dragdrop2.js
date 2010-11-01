@@ -46,10 +46,16 @@
  *   Fired on mousemove.
  *
  * 'DragDrop2:end'
+ *   Fired when dragging ends.
+ *
+ * 'DragDrop2:mousedown'
  *   Fired on mousedown.
  *
+ * 'DragDrop2:mouseup'
+ *   Fored on mouseup *if* the element was not dragged.
+ *
  * 'DragDrop2:start'
- *   Fired on mouseup.
+ *   Fired when first moved more than 'threshold'.
  *
  *
  * new Drop(element, {
@@ -99,7 +105,7 @@
  *
  * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
- * @author  Michael Slusarz <slusarz@curecanti.org>
+ * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde
  */
 
@@ -164,15 +170,9 @@ var DragDrop = {
 
         _mouseHandler: function(e)
         {
-            var elt = e.element();
-
-            if (this.drags.size()) {
-                if (!elt.hasClassName('DragElt')) {
-                    elt = elt.up('.DragElt');
-                }
-                if (elt) {
-                    this.getDrag(elt).mouseDown(e);
-                }
+            var elt = e.findElement('.DragElt');
+            if (this.drags.size() && elt) {
+                this.getDrag(elt).mouseDown(e);
             }
         }
 
@@ -263,9 +263,11 @@ Drag = Class.create({
         DragDrop.Drags.activate(this);
         this.move = 0;
         this.wasDragged = false;
+        this.wasMoved = false;
         this.lastcaption = null;
+        this.clickEvent = e;
 
-        this.element.fire('DragDrop2:start', e);
+        this.element.fire('DragDrop2:mousedown', Object.clone(e));
 
         if (this.options.ghosting || this.options.caption) {
             if (!DragDrop.Drags.cover) {
@@ -281,7 +283,7 @@ Drag = Class.create({
                     if (isNaN(z)) {
                         z = 2;
                     }
-                    DragDrop.Drags.cover.insert(DragDrop.Drags.cover.down().cloneNode(false).setStyle({ zIndex: z }).clonePosition(i).show());
+                    DragDrop.Drags.cover.insert(DragDrop.Drags.cover.down().clone(false).setStyle({ zIndex: z }).clonePosition(i).show());
                 }
             }, this);
         }
@@ -301,28 +303,56 @@ Drag = Class.create({
 
     _mouseMove: function(e)
     {
-        var go, so, eo, po, xy;
+        var go, eo, po, xy, p, delta, int;
 
         if (++this.move <= this.options.threshold) {
             return;
+        } else if (!this.wasMoved) {
+            this.element.fire('DragDrop2:start', Object.clone(this.clickEvent));
+            this.wasMoved = true;
         }
 
         this.lastCoord = xy = [ e.pointerX(), e.pointerY() ];
 
         if (!this.options.caption) {
             if (!this.ghost) {
+                // Use the position of the original click event as the start
+                // coordinate.
+                xy = [ this.clickEvent.pointerX(), this.clickEvent.pointerY() ];
+
                 // Create the "ghost", i.e. the moving element, a clone of the
                 // original element, if it doesn't exist yet.
-                this.ghost = $(this.element.cloneNode(true)).writeAttribute('id', null).addClassName(this.options.classname).clonePosition(this.element, { setHeight: false, setWidth: false }).setStyle({ height: this.element.clientHeight + 'px', position: 'absolute', width: this.element.clientWidth + 'px' });
+                var layout = this.element.getLayout();
+                this.ghost = $(this.element.clone(true))
+                    .writeAttribute('id', null)
+                    .addClassName(this.options.classname)
+                    .setStyle({ position: 'absolute', height: layout.get('height') + 'px', width: layout.get('width') + 'px' });
+
+                var p = this.element.viewportOffset();
+                var delta = document.body.viewportOffset();
+                delta[0] -= document.body.offsetLeft;
+                delta[1] -= document.body.offsetTop;
+                this.ghost.style.left = (p[0] - delta[0]) + 'px';
+                this.ghost.style.top  = (p[1] - delta[1]) + 'px';
 
                 // eo is the offset of the original element to the body.
                 eo = this.element.cumulativeOffset();
 
+                // Save external dimensions, i.e. height and width including
+                // padding and margins, for later usage.
+                this.dim = {
+                    width: layout.get('margin-box-width'),
+                    height: layout.get('margin-box-height')
+                }
+
                 if (this.options.ghosting) {
-                    this.ghost.setOpacity(0.7).setStyle({ zIndex: parseInt(this.element.getStyle('zIndex')) + 1 });
+                    var z = parseInt(this.element.getStyle('zIndex'), 10);
+                    if (isNaN(z)) {
+                        z = 1;
+                    }
+                    this.ghost.setOpacity(0.7).setStyle({ zIndex: z + 1 });
                 } else {
-                    this.elthold = new Element('DIV').clonePosition(this.element);
-                    this.element.hide().insert({ before: this.elthold });
+                    this.element.setStyle({ visibility: 'hidden' });
                 }
 
                 // Insert ghost into the parent, either specified by a
@@ -356,7 +386,7 @@ Drag = Class.create({
                                          this.ghostOffset[1] + xy[1] - eo[1] ];
                 }
 
-                if (!this.options.caption) {
+                if (!this.options.caption && this.options.constraint) {
                     // Because we later only set the left or top coordinates
                     // when using constraints, we have to set the correct
                     // "opposite" coordinates here.
@@ -371,27 +401,12 @@ Drag = Class.create({
                         break;
                     }
                 }
-
-                // Save external dimensions, i.e. height and width including
-                // padding and margins, for later usage.
-                this.dim = this.ghost.getDimensions();
-                [ 'paddingLeft', 'paddingRight', 'marginLeft', 'marginRight' ].each(function(s) {
-                    this.dim.width += parseInt(this.element.getStyle(s));
-                }, this);
-                [ 'paddingTop', 'paddingBottom', 'marginTop', 'marginBottom' ].each(function(s) {
-                    this.dim.height += parseInt(this.element.getStyle(s));
-                }, this);
             }
-
-            // This is called on each mouse move. Get the current scrolling
-            // offset of the ghost, i.e. how far the ghost's parents have
-            // been scrolled.
-            so = this.ghost.cumulativeScrollOffset();
 
             // Subtract the ghost's offset to the original mouse position and
             // add any scrolling.
-            xy[0] -= this.mouseOffset[0] + so[0];
-            xy[1] -= this.mouseOffset[1] + so[1];
+            xy[0] -= this.mouseOffset[0];
+            xy[1] -= this.mouseOffset[1];
 
             this._setContents(this.ghost, xy[0], xy[1]);
         }
@@ -402,7 +417,7 @@ Drag = Class.create({
 
         this.wasDragged = true;
 
-        this.element.fire('DragDrop2:drag', e);
+        this.element.fire('DragDrop2:drag', Object.clone(e));
 
         if (this.options.scroll) {
             this._onMoveScroll();
@@ -411,16 +426,17 @@ Drag = Class.create({
 
     _mouseUp: function(e)
     {
-        var d = DragDrop.Drops.drop;
+        var d = DragDrop.Drops.drop, tmp;
 
         this._stopScrolling();
 
         if (this.ghost) {
             if (!this.options.ghosting) {
-                this.elthold.remove();
-                this.element.show();
+                this.element.setStyle({ visibility: 'visible' });
             }
-            this.ghost.remove();
+            try {
+                this.ghost.remove();
+            } catch (e) {}
             this.ghost = null;
         }
 
@@ -438,7 +454,13 @@ Drag = Class.create({
             DragDrop.Drags.cover.down().siblings().invoke('remove');
         }
 
-        this.element.fire('DragDrop2:end', e);
+        if (!this.element.parentNode) {
+            tmp = new Element('DIV').insert(this.element);
+        }
+
+        this.element.fire(this.wasMoved ? 'DragDrop2:end' : 'DragDrop2:mouseup', Object.clone(e));
+
+        tmp = null;
     },
 
     _onMoveDrag: function(xy, e)
@@ -569,7 +591,7 @@ Drag = Class.create({
     {
         this._stopScrolling();
 
-        var delta, p, speed,
+        var delta, p, speed, vp,
             s = this.options.scroll,
             dim = s.getDimensions();
 
@@ -581,6 +603,7 @@ Drag = Class.create({
         delta = document.viewport.getScrollOffsets();
         p = s.viewportOffset(),
         speed = [ 0, 0 ];
+        vp = document.viewport.getDimensions();
 
         p[0] += s.scrollLeft + delta.left;
         p[2] = p[0] + dim.width;
@@ -591,21 +614,24 @@ Drag = Class.create({
             return;
         }
 
-        p[1] += s.scrollTop + delta.top;
-        p[3] = p[1] + dim.height;
+        p[1] = vp.height - dim.height;
+        p[3] = vp.height - 10;
 
         // Left scroll
         //if (this.lastCoord[0] < p[0]) {
         //    speed[0] = this.lastCoord[0] - p[0];
         //}
+
         // Top scroll
         if (this.lastCoord[1] < p[1]) {
             speed[1] = this.lastCoord[1] - p[1];
         }
+
         // Scroll right
         //if (this.lastCoord[0] > p[2]) {
         //    speed[0] = this.lastCoord[0] - p[2];
         //}
+
         // Scroll left
         if (this.lastCoord[1] > p[3]) {
             speed[1] = this.lastCoord[1] - p[3];
@@ -638,7 +664,7 @@ Drag = Class.create({
 
     _setContents: function(elt, x, y)
     {
-        var e_pos, vp, xy, style;
+        var e_pos, vp, so, xy, style;
 
         if (this.options.offset) {
             x += this.options.offset.x;
@@ -665,6 +691,9 @@ Drag = Class.create({
         } else {
             e_pos = elt.getDimensions();
             vp = document.viewport.getDimensions();
+            so = document.viewport.getScrollOffsets();
+            vp.width += so[0];
+            vp.height += so[1];
             if (x + this.ghostOffset[0] < 0) {
                 x = -this.ghostOffset[0];
             } else if (x + e_pos.width + this.ghostOffset[0] > vp.width) {

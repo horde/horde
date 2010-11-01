@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<help>
+
+<entry id="file-actions" md5="7f0c4e2ccabb226769d9d42336c9a660" state="uptodate">
+    <title>Dateimanager: Aktionen</title>
+    <heading>Verzeichnisse erstellen</heading>
+    <para>Um einen Ordner im aktuellen Verzeichnis zu erstellen, klicken Sie
+    auf das Symbol "Verzeichnis erstellen".</para>
+
+    <heading>Löschen, Ausschneiden, Kopieren und Einfügen von
+    Dateien</heading>
+    <para>Um Dateien zu löschen, auszuschneiden oder zu kopieren, muss
+    mindestens eine Datei ausgewählt sein. Nachdem eine oder mehrere Dateien
+    mit Hilfe der Checkboxen links ausgewählt wurden, können Sie im Menüpunkt
+    "Aktionen:" Kopieren, Ausschneiden, Löschen oder Umbenennen
+    auswählen. Wenn Sie Kopieren oder Ausschneiden gewählt haben, haben Sie
+    nun die Möglichkeit diese Dateien irgendwo im Dateimanager einzufügen.
+    Navigieren Sie in das Verzeichnis, in dem die Dateien eingefügt werden
+    sollen und wählen Sie unter "Aktionen:" Einfügen. Die Dateien werden dann
+    dorthin verschoben oder kopiert.</para>
+
+    <heading>Löschen, Ausschneiden, Kopieren und Einfügen von
+    Verzeichnissen</heading>
+    <para>Standardmäßig können nur Verzeichnisse gelöscht werden, die leer
+    sind. Sie können aber das Löschen von Verzeichnissen mitsamt ihres Inhalts
+    (rekursives Löschen) aktivieren. Wenn Sie versuchen, ein Verzeichnis zu
+    löschen, das nicht leer ist, ohne diese Funktion einzuschalten, wird das
+    Löschen abgebrochen und Sie erhalten eine Fehlermeldung. Um das Löschen
+    von nicht-leeren Verzeichnissen einzuschalten, klicken Sie auf
+    "Einstellungen", noch einmal auf "Einstellungen" und wählen Sie "Ja" in
+    der Auswahlliste.</para>
+    <para>Um Verzeichnisse zu löschen, auszuschneiden oder zu kopieren, muss
+    mindestens ein Verzeichnis ausgewählt sein.  Nachdem ein oder mehrere
+    Verzeichnisse mit Hilfe der Checkboxen links ausgewählt wurden, können Sie
+    im Menüpunkt "Aktionen:" Kopieren, Ausschneiden, Löschen oder Umbenennen
+    auswählen. Wenn Sie Kopieren oder Ausschneiden gewählt haben, haben Sie
+    nun die Möglichkeit diese Verzeichnisse irgendwo im Dateimanager
+    einzufügen. Navigieren Sie in das Verzeichnis, in dem die Verzeichnisse
+    eingefügt werden sollen und wählen Sie unter "Aktionen:" Einfügen. Die
+    Verzeichnisse werden dann dorthin verschoben oder kopiert.</para>
+
+    <heading>Mit der Zwischenablage arbeiten</heading>
+    <para>Wenn Sie eine Datei oder ein Verzeichnis kopiert oder ausgeschnitten
+    haben, finden Sie dieses Element in der Zwischenablage. Dateien oder
+    Verzeichnisse, die ausgeschnitten oder kopiert wurden, können nicht mehr
+    über eine Checkbox ausgewählt werden. Eine fehlende Checkbox zeigt an,
+    dass sich eine Datei oder ein Verzeichnis in der Zwischenablage
+    befindet. Durch Klick auf das Symbol "Zwischenablage anzeigen", erhält man
+    eine Liste der Elemente, die kopiert oder ausgeschnitten wurden. Dieses
+    Symbol erscheint jedoch erst, wenn Dateien oder Verzeichnisse kopiert oder
+    ausgeschnitten wurden. Von dort aus kann man diese Dateien oder
+    Verzeichnisse in das aktuelle Verzeichnis einfügen. Wählen Sie dazu
+    einfach das entsprechende Element aus und klicken auf "Einfügen". Um ein
+    Element aus der Zwischenablage zu entfernen, wählen Sie es aus und klicken
+    dann auf "Entfernen".</para>
+  </entry>
+
+<entry id="file-upload" md5="4bdaf29d2f497ba7a6b53ce378c9badf" state="uptodate">
+    <title>Dateimanager: Hochladen</title>
+    <heading>Dateien hochladen</heading>
+    <para>Um Dateien hochzuladen, wechseln Sie in das entsprechende
+    Verzeichnis, in das die Dateien geladen werden sollen. Wenn Sie sich im
+    entsprechenden Verzeichnis befinden, klicken Sie auf
+    "Durchsuchen...". Damit öffnen Sie einen Dialog, in dem Sie eine Datei
+    auswählen können, die hochgeladen werden soll. Anschließend können Sie
+    noch weitere Dateien auswählen, der Dateimanager fügt automatische neue
+    "Durschsuchen..."-Felder unter den bereits verwendeten hinzu. Wenn Sie
+    fertig sind, klicken Sie auf "Datei(en) hochladen", um die Datei(en) im
+    aktuellen Verzeichnis zu speichern.</para>
+  </entry>
+
+<entry id="sorting" md5="37139f2e5d83ce2930f1b6986580c2f0" state="uptodate">
+    <title>Einträge sortieren</title>
+    <heading>Einträge sortieren</heading>
+    <para>Wenn Sie sich eine Liste von Dateien oder Verzeichnissen ansehen,
+    können Sie diese nach verschiedenen Kriterien sortieren. Klicken Sie dazu
+    auf die entsprechende Spaltenüberschrift, nach der sortiert werden
+    soll. Anschließend wird die Liste aktualisiert und neu sortiert
+    angezeigt. Um zwischen aufsteigender und absteigender Sortierung zu
+    wechseln, klicken Sie erneut auf die Spaltenüberschrift.</para>
+  </entry>
+</help>

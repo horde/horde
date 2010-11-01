@@ -43,7 +43,7 @@ extends Horde_Kolab_Server_Search_Operation_Guid
         $criteria = new Horde_Kolab_Server_Query_Element_And(
             array(
                 new Horde_Kolab_Server_Query_Element_Equals(
-                    'objectBlass',
+                    'objectClass',
                     Horde_Kolab_Server_Object_Groupofnames::OBJECTCLASS_GROUPOFNAMES
                 ),
                 $criteria

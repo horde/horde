@@ -7,10 +7,15 @@
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  */
 
-@define('WHUPS_BASE', dirname(__FILE__) . '/..');
-require_once WHUPS_BASE . '/lib/base.php';
-require_once WHUPS_BASE . '/lib/Ticket.php';
-require_once WHUPS_BASE . '/lib/Ticket.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+
+if (Horde_Util::getPost('formname') == 'addcommentform') {
+    $params = array('notransparent' => true);
+} else {
+    $params = array();
+}
+Horde_Registry::appInit('whups', $params);
+
 require_once WHUPS_BASE . '/lib/Forms/AddComment.php';
 
 $ticket = Whups::getCurrentTicket();
@@ -26,7 +31,7 @@ if ($tid = $vars->get('transaction')) {
         $private = false;
         foreach ($history[$tid]['changes'] as $change) {
             if (!empty($change['private'])) {
-                if (!$GLOBALS['perms']->hasPermission('whups:comments:' . $change['value'], Horde_Auth::getAuth(), Horde_Perms::READ)) {
+                if (!$GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('whups:comments:' . $change['value'], $GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
                     $private = true;
                     break;
                 }

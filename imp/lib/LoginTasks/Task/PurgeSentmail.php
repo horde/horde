@@ -7,9 +7,11 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @author  Jan Schneider <jan@horde.org>
- * @package Horde_LoginTasks
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
 class IMP_LoginTasks_Task_PurgeSentmail extends Horde_LoginTasks_Task
 {
@@ -35,8 +37,8 @@ class IMP_LoginTasks_Task_PurgeSentmail extends Horde_LoginTasks_Task
      */
     public function execute()
     {
-        $imp_folder = IMP_Folder::singleton();
-        $imp_message = IMP_Message::singleton();
+        $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
+        $imp_message = $GLOBALS['injector']->getInstance('IMP_Message');
 
         $mbox_list = $this->_getFolders();
 
@@ -55,13 +57,10 @@ class IMP_LoginTasks_Task_PurgeSentmail extends Horde_LoginTasks_Task
              * than 'purge_sentmail_keep' days. */
             $query = new Horde_Imap_Client_Search_Query();
             $query->dateSearch($del_time, Horde_Imap_Client_Search_Query::DATE_BEFORE);
-            $msg_ids = $GLOBALS['imp_search']->runSearchQuery($query, $mbox);
-            if (empty($msg_ids)) {
-                continue;
-            }
+            $msg_ids = $GLOBALS['injector']->getInstance('IMP_Search')->runQuery($query, $mbox);
 
             /* Go through the message list and delete the messages. */
-            if ($imp_message->delete(array($mbox => $msg_ids), array('nuke' => true))) {
+            if ($imp_message->delete($msg_ids, array('nuke' => true))) {
                 $msgcount = count($msg_ids);
                 if ($msgcount == 1) {
                     $GLOBALS['notification']->push(sprintf(_("Purging 1 message from sent-mail folder %s."), IMP::displayFolder($mbox)), 'horde.message');
@@ -96,7 +95,7 @@ class IMP_LoginTasks_Task_PurgeSentmail extends Horde_LoginTasks_Task
      */
     protected function _getFolders()
     {
-        return Horde_Prefs_Identity::singleton(array('imp', 'imp'))->getAllSentmailfolders();
+        return $GLOBALS['injector']->getInstance('IMP_Identity')->getAllSentmailfolders();
     }
 
 }

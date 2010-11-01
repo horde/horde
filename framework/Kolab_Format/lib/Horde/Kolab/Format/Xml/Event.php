@@ -95,7 +95,7 @@ class Horde_Kolab_Format_Xml_Event extends Horde_Kolab_Format_Xml
      *
      * @return array Array with the object data.
      *
-     * @throws Horde_Exception If parsing the XML data failed.
+     * @throws Horde_Kolab_Format_Exception If parsing the XML data failed.
      */
     protected function _load(&$children)
     {
@@ -121,9 +121,9 @@ class Horde_Kolab_Format_Xml_Event extends Horde_Kolab_Format_Xml
      *
      * @return boolean True on success.
      *
-     * @throws Horde_Exception If converting the data to XML failed.
+     * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
      */
-    protected function _save($root, $object)
+    protected function _save(&$root, $object)
     {
         // Translate start/end date including full day events
         if (!empty($object['_is_all_day'])) {

@@ -14,8 +14,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Crypt
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Crypt
  */
 class Horde_Crypt_Pgp extends Horde_Crypt
 {
@@ -117,22 +119,30 @@ class Horde_Crypt_Pgp extends Horde_Crypt
     protected $_privateKeyring;
 
     /**
+     * Configuration parameters.
+     *
+     * @var array
+     */
+    protected $_params = array();
+
+    /**
      * Constructor.
      *
      * @param array $params  The following parameters:
      * <pre>
      * 'program' - (string) [REQUIRED] The path to the GnuPG binary.
-     * 'temp' - (string) [OPTIONAL] Path to a temporary directory.
+     * 'proxy_host - (string) Proxy host.
+     * 'proxy_port - (integer) Proxy port.
      * </pre>
      *
-     * @throws Horde_Exception
+     * @throws InvalidArgumentException
      */
-    protected function __construct($params = array())
+    public function __construct($params = array())
     {
-        $this->_tempdir = Horde_Util::createTempDir(true, $params['temp']);
+        parent::__construct($params);
 
         if (empty($params['program'])) {
-            throw new Horde_Exception('The location of the GnuPG binary must be given to the Horde_Crypt_Pgp:: class.');
+            throw new InvalidArgumentException('The location of the GnuPG binary must be given to the Horde_Crypt_Pgp:: class.');
         }
 
         /* Store the location of GnuPG and set common options. */
@@ -149,6 +159,8 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         if (strncasecmp(PHP_OS, 'WIN', 3)) {
             array_unshift($this->_gnupg, 'LANG= ;');
         }
+
+        $this->_params = $params;
     }
 
     /**
@@ -167,7 +179,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * 'public'   =>  Public Key
      * 'private'  =>  Private Key
      * </pre>
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function generateKey($realname, $email, $passphrase, $comment = '',
                                 $keylength = 1024)
@@ -210,11 +222,11 @@ class Horde_Crypt_Pgp extends Horde_Crypt
 
         /* If either key is empty, something went wrong. */
         if (empty($public_key) || empty($secret_key)) {
-            $msg = _("Public/Private keypair not generated successfully.");
+            $msg = Horde_Crypt_Translation::t("Public/Private keypair not generated successfully.");
             if (!empty($result->stderr)) {
-                $msg .= ' ' . _("Returned error message:") . ' ' . $result->stderr;
+                $msg .= ' ' . Horde_Crypt_Translation::t("Returned error message:") . ' ' . $result->stderr;
             }
-            throw new Horde_Exception($msg, 'horde.error');
+            throw new Horde_Crypt_Exception($msg);
         }
 
         return array('public' => $public_key, 'private' => $secret_key);
@@ -266,7 +278,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * UID (e.g. revocation signatures and sub keys) will be stored under the
      * special keyword '_SIGNATURE'.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function pgpPacketInformation($pgpdata)
     {
@@ -398,7 +410,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * @param string $pgpdata  The PGP data block.
      *
      * @return string  Tabular information on the PGP key.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function pgpPrettyKey($pgpdata)
     {
@@ -409,10 +421,10 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         if (!empty($packet_info['signature'])) {
             /* Making the property names the same width for all
              * localizations .*/
-            $leftrow = array(_("Name"), _("Key Type"), _("Key Creation"),
-                             _("Expiration Date"), _("Key Length"),
-                             _("Comment"), _("E-Mail"), _("Hash-Algorithm"),
-                             _("Key ID"), _("Key Fingerprint"));
+            $leftrow = array(Horde_Crypt_Translation::t("Name"), Horde_Crypt_Translation::t("Key Type"), Horde_Crypt_Translation::t("Key Creation"),
+                             Horde_Crypt_Translation::t("Expiration Date"), Horde_Crypt_Translation::t("Key Length"),
+                             Horde_Crypt_Translation::t("Comment"), Horde_Crypt_Translation::t("E-Mail"), Horde_Crypt_Translation::t("Hash-Algorithm"),
+                             Horde_Crypt_Translation::t("Key ID"), Horde_Crypt_Translation::t("Key Fingerprint"));
             $leftwidth = array_map('strlen', $leftrow);
             $maxwidth  = max($leftwidth) + 2;
             array_walk($leftrow, array($this, '_pgpPrettyKeyFormatter'), $maxwidth);
@@ -432,15 +444,15 @@ class Horde_Crypt_Pgp extends Horde_Crypt
                 $fingerprint = isset($fingerprints[$key_info['keyid']]) ? $fingerprints[$key_info['keyid']] : null;
 
                 $msg .= $leftrow[0] . (isset($key_info['name']) ? stripcslashes($key_info['name']) : '') . "\n"
-                    . $leftrow[1] . (($key_info['key_type'] == 'public_key') ? _("Public Key") : _("Private Key")) . "\n"
+                    . $leftrow[1] . (($key_info['key_type'] == 'public_key') ? Horde_Crypt_Translation::t("Public Key") : Horde_Crypt_Translation::t("Private Key")) . "\n"
                     . $leftrow[2] . strftime("%D", $key_info['key_created']) . "\n"
-                    . $leftrow[3] . (empty($key_info['key_expires']) ? '[' . _("Never") . ']' : strftime("%D", $key_info['key_expires'])) . "\n"
+                    . $leftrow[3] . (empty($key_info['key_expires']) ? '[' . Horde_Crypt_Translation::t("Never") . ']' : strftime("%D", $key_info['key_expires'])) . "\n"
                     . $leftrow[4] . $key_info['key_size'] . " Bytes\n"
-                    . $leftrow[5] . (empty($key_info['comment']) ? '[' . _("None") . ']' : $key_info['comment']) . "\n"
-                    . $leftrow[6] . (empty($key_info['email']) ? '[' . _("None") . ']' : $key_info['email']) . "\n"
-                    . $leftrow[7] . (empty($key_info['micalg']) ? '[' . _("Unknown") . ']' : $key_info['micalg']) . "\n"
-                    . $leftrow[8] . (empty($key_info['keyid']) ? '[' . _("Unknown") . ']' : $key_info['keyid']) . "\n"
-                    . $leftrow[9] . (empty($fingerprint) ? '[' . _("Unknown") . ']' : $fingerprint) . "\n\n";
+                    . $leftrow[5] . (empty($key_info['comment']) ? '[' . Horde_Crypt_Translation::t("None") . ']' : $key_info['comment']) . "\n"
+                    . $leftrow[6] . (empty($key_info['email']) ? '[' . Horde_Crypt_Translation::t("None") . ']' : $key_info['email']) . "\n"
+                    . $leftrow[7] . (empty($key_info['micalg']) ? '[' . Horde_Crypt_Translation::t("Unknown") . ']' : $key_info['micalg']) . "\n"
+                    . $leftrow[8] . (empty($key_info['keyid']) ? '[' . Horde_Crypt_Translation::t("Unknown") . ']' : $key_info['keyid']) . "\n"
+                    . $leftrow[9] . (empty($fingerprint) ? '[' . Horde_Crypt_Translation::t("Unknown") . ']' : $fingerprint) . "\n\n";
             }
         }
 
@@ -494,7 +506,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * created      =>  Signature creation - UNIX timestamp
      * micalg       =>  The hash used to create the signature
      * </pre>
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function pgpPacketSignature($pgpdata, $email)
     {
@@ -539,7 +551,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * @param string $uid_idx  The UID index.
      *
      * @return array  See pgpPacketSignature().
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function pgpPacketSignatureByUidIndex($pgpdata, $uid_idx)
     {
@@ -607,7 +619,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * @param string $text  The PGP signed text block.
      *
      * @return string  The key ID of the key used to sign $text.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function getSignersKeyID($text)
     {
@@ -637,27 +649,27 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      *
      * @return boolean  Returns true on valid passphrase, false on invalid
      *                  passphrase.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function verifyPassphrase($public_key, $private_key, $passphrase)
     {
         /* Get e-mail address of public key. */
         $key_info = $this->pgpPacketInformation($public_key);
         if (!isset($key_info['signature']['id1']['email'])) {
-            throw new Horde_Exception(_("Could not determine the recipient's e-mail address."), 'horde.error');
+            throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Could not determine the recipient's e-mail address."));
         }
 
         /* Encrypt a test message. */
         try {
             $result = $this->encrypt('Test', array('type' => 'message', 'pubkey' => $public_key, 'recips' => array($key_info['signature']['id1']['email'] => $public_key)));
-        } catch (Horde_Exception $e) {
+        } catch (Horde_Crypt_Exception $e) {
             return false;
         }
 
         /* Try to decrypt the message. */
         try {
             $this->decrypt($result, array('type' => 'message', 'pubkey' => $public_key, 'privkey' => $private_key, 'passphrase' => $passphrase));
-        } catch (Horde_Exception $e) {
+        } catch (Horde_Crypt_Exception $e) {
             return false;
         }
 
@@ -744,7 +756,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
             return substr($start, 0, $length);
         }
 
-        throw new Horde_Exception(_("Could not obtain public key from the keyserver."), 'horde.error');
+        throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Could not obtain public key from the keyserver."));
     }
 
     /**
@@ -754,7 +766,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * @param string $server  The keyserver to use.
      * @param float $timeout  The keyserver timeout.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function putPublicKeyserver($pubkey,
                                        $server = self::KEYSERVER_PUBLIC,
@@ -766,8 +778,8 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         /* See if the public key already exists on the keyserver. */
         try {
             $this->getPublicKeyserver($info['keyid'], $server, $timeout);
-        } catch (Horde_Exception $e) {
-            throw new Horde_Exception(_("Key already exists on the public keyserver."), 'horde.warning');
+        } catch (Horde_Crypt_Exception $e) {
+            throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Key already exists on the public keyserver."));
         }
 
         /* Connect to the public keyserver. _connectKeyserver() */
@@ -794,7 +806,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * @param float $timeout   The keyserver timeout.
      *
      * @return string  The PGP key ID.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function getKeyID($address, $server = self::KEYSERVER_PUBLIC,
                              $timeout = self::KEYSERVER_TIMEOUT)
@@ -833,7 +845,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
             }
         }
 
-        throw new Horde_Exception(_("Could not obtain public key from the keyserver."));
+        throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Could not obtain public key from the keyserver."));
     }
 
     /**
@@ -842,7 +854,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * @param string $pgpdata  The PGP data block.
      *
      * @return array  The fingerprints in $pgpdata indexed by key id.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function getFingerprintsFromKey($pgpdata)
     {
@@ -880,14 +892,14 @@ class Horde_Crypt_Pgp extends Horde_Crypt
     /**
      * Connects to a public key server via HKP (Horrowitz Keyserver Protocol).
      *
-     * @param string $method   POST, GET, etc.
-     * @param string $server   The keyserver to use.
-     * @param string $uri      The URI to access (relative to the server).
-     * @param string $command  The PGP command to run.
-     * @param float $timeout   The timeout value.
+     * @param string $method    POST, GET, etc.
+     * @param string $server    The keyserver to use.
+     * @param string $resource  The URI to access (relative to the server).
+     * @param string $command   The PGP command to run.
+     * @param float $timeout    The timeout value.
      *
      * @return string  The text from standard output on success.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     protected function _connectKeyserver($method, $server, $resource,
                                          $command, $timeout)
@@ -896,15 +908,13 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $output = '';
 
         $port = '11371';
-        if (!empty($GLOBALS['conf']['http']['proxy']['proxy_host'])) {
+        if (!empty($this->_params['proxy_host'])) {
             $resource = 'http://' . $server . ':' . $port . $resource;
 
-            $server = $GLOBALS['conf']['http']['proxy']['proxy_host'];
-            if (!empty($GLOBALS['conf']['http']['proxy']['proxy_port'])) {
-                $port = $GLOBALS['conf']['http']['proxy']['proxy_port'];
-            } else {
-                $port = 80;
-            }
+            $server = $this->_params['proxy_host'];
+            $port = isset($this->_params['proxy_port'])
+                ? $this->_params['proxy_port']
+                : 80;
         }
 
         $command = $method . ' ' . $resource . ' HTTP/1.0' . ($command ? "\r\n" . $command : '');
@@ -926,9 +936,18 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         } while (++$connRefuse < self::KEYSERVER_REFUSE);
 
         if ($errno == 0) {
-            throw new Horde_Exception(_("Connection refused to the public keyserver."), 'horde.error');
+            throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Connection refused to the public keyserver."));
         } else {
-            throw new Horde_Exception(sprintf(_("Connection refused to the public keyserver. Reason: %s (%s)"), Horde_String::convertCharset($errstr, Horde_Nls::getExternalCharset()), $errno), 'horde.error');
+            $charset = 'UTF-8';
+            $lang_charset = setlocale(LC_ALL, 0);
+            if ((strpos($lang_charset, ';') === false) &&
+                (strpos($lang_charset, '/') === false)) {
+                $lang_charset = explode('.', $lang_charset);
+                if ((count($lang_charset) == 2) && !empty($lang_charset[1])) {
+                    $charset = $lang_charset[1];
+                }
+            }
+            throw new Horde_Crypt_Exception(sprintf(Horde_Crypt_Translation::t("Connection refused to the public keyserver. Reason: %s (%s)"), Horde_String::convertCharset($errstr, $charset, 'UTF-8'), $errno));
         }
     }
 
@@ -941,7 +960,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      *                       parameter requirements.
      *
      * @return string  The encrypted message.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function encrypt($text, $params = array())
     {
@@ -967,7 +986,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * 'message' - (string) The signature result text.
      * 'result' - (boolean) The result of the signature test.
      * </pre>
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function decrypt($text, $params = array())
     {
@@ -987,7 +1006,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * @param string $text  The PGP encrypted text.
      *
      * @return boolean  True if the text is symmetricallly encrypted.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function encryptedSymmetrically($text)
     {
@@ -1033,7 +1052,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      *                      (Default) or 'private'
      *
      * @return string  Command line keystring option to use with gpg program.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     protected function _putInKeyring($keys = array(), $type = 'public')
     {
@@ -1076,7 +1095,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * </pre>
      *
      * @return string  The encrypted message.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     protected function _encryptMessage($text, $params)
     {
@@ -1110,7 +1129,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $result = $this->_callGpg($cmdline, 'w', empty($params['symmetric']) ? null : $params['passphrase'], true, true);
         if (empty($result->output)) {
             $error = preg_replace('/\n.*/', '', $result->stderr);
-            throw new Horde_Exception(_("Could not PGP encrypt message: ") . $error, 'horde.error');
+            throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Could not PGP encrypt message: ") . $error);
         }
 
         return $result->output;
@@ -1134,7 +1153,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * </pre>
      *
      * @return string  The signed message.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     protected function _encryptSignature($text, $params)
     {
@@ -1142,7 +1161,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         if (!isset($params['pubkey']) ||
             !isset($params['privkey']) ||
             !isset($params['passphrase'])) {
-            throw new Horde_Exception(_("A public PGP key, private PGP key, and passphrase are required to sign a message."), 'horde.error');
+            throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("A public PGP key, private PGP key, and passphrase are required to sign a message."));
         }
 
         /* Create temp files for input. */
@@ -1179,7 +1198,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $result = $this->_callGpg($cmdline, 'w', $params['passphrase'], true, true);
         if (empty($result->output)) {
             $error = preg_replace('/\n.*/', '', $result->stderr);
-            throw new Horde_Exception(_("Could not PGP sign message: ") . $error, 'horde.error');
+            throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Could not PGP sign message: ") . $error);
         }
 
         return $result->output;
@@ -1210,7 +1229,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * 'message' - (string) The signature result text.
      * 'result' - (boolean) The result of the signature test.
      * </pre>
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     protected function _decryptMessage($text, $params)
     {
@@ -1218,7 +1237,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
 
         /* Check for required parameters. */
         if (!isset($params['passphrase']) && empty($params['no_passphrase'])) {
-            throw new Horde_Exception(_("A passphrase is required to decrypt a message."), 'horde.error');
+            throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("A passphrase is required to decrypt a message."));
         }
 
         /* Create temp files. */
@@ -1254,7 +1273,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         }
         if (empty($result->output)) {
             $error = preg_replace('/\n.*/', '', $result->stderr);
-            throw new Horde_Exception(_("Could not decrypt PGP data: ") . $error, 'horde.error');
+            throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Could not decrypt PGP data: ") . $error);
         }
 
         /* Create the return object. */
@@ -1279,17 +1298,17 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * 'message' - (string) The signature result text.
      * 'result' - (boolean) The result of the signature test.
      * </pre>
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     protected function _decryptSignature($text, $params)
     {
         /* Check for required parameters. */
         if (!isset($params['pubkey'])) {
-            throw new Horde_Exception(_("A public PGP key is required to verify a signed message."), 'horde.error');
+            throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("A public PGP key is required to verify a signed message."));
         }
         if (($params['type'] === 'detached-signature') &&
             !isset($params['signature'])) {
-            throw new Horde_Exception(_("The detached PGP signature block is required to verify the signed message."), 'horde.error');
+            throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("The detached PGP signature block is required to verify the signed message."));
         }
 
         $good_sig_flag = 0;
@@ -1308,7 +1327,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
             '--armor',
             '--always-trust',
             '--batch',
-            '--charset ' . Horde_Nls::getCharset(),
+            '--charset UTF-8',
             $keyring,
             '--verify'
         );
@@ -1339,7 +1358,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * 'message' - (string) The signature result text.
      * 'result' - (boolean) The result of the signature test.
      * </pre>
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     protected function _checkSignatureResult($result, $message = null)
     {
@@ -1348,7 +1367,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
          * Bad signature:
          *   gpg: BAD signature from "blah blah blah (Comment)" */
         if (strpos($result, 'gpg: BAD signature') !== false) {
-            throw new Horde_Exception($result, 'horde.error');
+            throw new Horde_Crypt_Exception($result);
         }
 
         $ob = new stdClass;
@@ -1367,7 +1386,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      *
      * @return mixed  A Horde_Mime_Part object that is signed according to RFC
      *                3156.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function signMIMEPart($mime_part, $params = array())
     {
@@ -1380,13 +1399,12 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $msg_sign = $this->encrypt($mime_part->toString(array('headers' => true, 'canonical' => true, 'encode' => Horde_Mime_Part::ENCODE_7BIT)), $params);
 
         /* Add the PGP signature. */
-        $charset = Horde_Nls::getEmailCharset();
         $pgp_sign = new Horde_Mime_Part();
         $pgp_sign->setType('application/pgp-signature');
-        $pgp_sign->setCharset($charset);
+        $pgp_sign->setCharset($this->_params['email_charset']);
         $pgp_sign->setDisposition('inline');
-        $pgp_sign->setDescription(Horde_String::convertCharset(_("PGP Digital Signature"), Horde_Nls::getCharset(), $charset));
-        $pgp_sign->setContents($msg_sign);
+        $pgp_sign->setDescription(Horde_String::convertCharset(Horde_Crypt_Translation::t("PGP Digital Signature"), 'UTF-8', $this->_params['email_charset']));
+        $pgp_sign->setContents($msg_sign, array('encoding' => '7bit'));
 
         /* Get the algorithim information from the signature. Since we are
          * analyzing a signature packet, we need to use the special keyword
@@ -1415,7 +1433,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      *
      * @return mixed  A Horde_Mime_Part object that is encrypted according to
      *                RFC 3156.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function encryptMIMEPart($mime_part, $params = array())
     {
@@ -1425,24 +1443,23 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $message_encrypt = $this->encrypt($signenc_body, $params);
 
         /* Set up MIME Structure according to RFC 3156. */
-        $charset = Horde_Nls::getEmailCharset();
         $part = new Horde_Mime_Part();
         $part->setType('multipart/encrypted');
-        $part->setCharset($charset);
+        $part->setCharset($this->_params['email_charset']);
         $part->setContentTypeParameter('protocol', 'application/pgp-encrypted');
-        $part->setDescription(Horde_String::convertCharset(_("PGP Encrypted Data"), Horde_Nls::getCharset(), $charset));
+        $part->setDescription(Horde_String::convertCharset(Horde_Crypt_Translation::t("PGP Encrypted Data"), 'UTF-8', $this->_params['email_charset']));
         $part->setContents("This message is in MIME format and has been PGP encrypted.\n");
 
         $part1 = new Horde_Mime_Part();
         $part1->setType('application/pgp-encrypted');
         $part1->setCharset(null);
-        $part1->setContents("Version: 1\n");
+        $part1->setContents("Version: 1\n", array('encoding' => '7bit'));
         $part->addPart($part1);
 
         $part2 = new Horde_Mime_Part();
         $part2->setType('application/octet-stream');
         $part2->setCharset(null);
-        $part2->setContents($message_encrypt);
+        $part2->setContents($message_encrypt, array('encoding' => '7bit'));
         $part2->setDisposition('inline');
         $part->addPart($part2);
 
@@ -1460,7 +1477,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      *
      * @return mixed  A Horde_Mime_Part object that is signed and encrypted
      *                according to RFC 3156.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function signAndEncryptMIMEPart($mime_part, $sign_params = array(),
                                            $encrypt_params = array())
@@ -1472,9 +1489,8 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $part = $this->encryptMIMEPart($part, $encrypt_params);
         $part->setContents("This message is in MIME format and has been PGP signed and encrypted.\n");
 
-        $charset = Horde_Nls::getEmailCharset();
-        $part->setCharset($charset);
-        $part->setDescription(Horde_String::convertCharset(_("PGP Signed/Encrypted Data"), Horde_Nls::getCharset(), $charset));
+        $part->setCharset($this->_params['email_charset']);
+        $part->setDescription(Horde_String::convertCharset(Horde_Crypt_Translation::t("PGP Signed/Encrypted Data"), 'UTF-8', $this->_params['email_charset']));
 
         return $part;
     }
@@ -1489,12 +1505,11 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      */
     public function publicKeyMIMEPart($key)
     {
-        $charset = Horde_Nls::getEmailCharset();
         $part = new Horde_Mime_Part();
         $part->setType('application/pgp-keys');
-        $part->setCharset($charset);
-        $part->setDescription(Horde_String::convertCharset(_("PGP Public Key"), Horde_Nls::getCharset(), $charset));
-        $part->setContents($key);
+        $part->setCharset($this->_params['email_charset']);
+        $part->setDescription(Horde_String::convertCharset(Horde_Crypt_Translation::t("PGP Public Key"), 'UTF-8', $this->_params['email_charset']));
+        $part->setContents($key, array('encoding' => '7bit'));
 
         return $part;
     }
@@ -1511,7 +1526,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * @param boolean $verbose  Run GnuPG with verbose flag?
      *
      * @return stdClass  Class with members output, stderr, and stdout.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     protected function _callGpg($options, $mode, $input = array(),
                                 $output = false, $stderr = false,
@@ -1566,7 +1581,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
                     }
                 }
             } else {
-                throw new Horde_Exception(_("Error while talking to pgp binary."));
+                throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Error while talking to pgp binary."));
             }
         } elseif ($mode == 'r') {
             if ($fp = popen($cmdline, 'r')) {
@@ -1574,7 +1589,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
                     $data->stdout .= fgets($fp, 1024);
                 }
             } else {
-                throw new Horde_Exception(_("Error while talking to pgp binary."));
+                throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Error while talking to pgp binary."));
             }
         }
         pclose($fp);
@@ -1599,7 +1614,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * @param string $passphrase  The passphrase to use for the key.
      *
      * @return string  The revocation certificate.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function generateRevocation($key, $email, $passphrase)
     {
@@ -1626,7 +1641,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
 
         /* If the key is empty, something went wrong. */
         if (empty($results->output)) {
-            throw new Horde_Exception(_("Revocation key not generated successfully."), 'horde.error');
+            throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Revocation key not generated successfully."));
         }
 
         return $results->output;

@@ -10,9 +10,11 @@
      <br />
      <img src="<?php echo $faces->getFaceUrl($face['image_id'], $face_id) ?>" style="padding: 5px;" alt="<?php echo $facename?>" /><br />
      <?php echo sprintf(ngettext("%d photo", "%d photos", count($results)), count($results)); ?><br />
-     <a href="<?php echo Horde_Util::addParameter(Horde::applicationUrl('faces/report.php'), 'face', $face_id) ?>" class="small" title="<?php echo _("Report abuse or submit a removal request") ?>"><?php echo _("Report") ?></a>
+     <?php echo Horde::url('faces/report.php')->add(array('face', $face_id))->link(
+             array('class' => 'small',
+                   'title' => _("Report abuse or submit a removal request"))) . _("Report") . '</a>'?>
    <?php else: ?>
-     <img src="<?php echo Horde_Util::addParameter(Horde::applicationUrl('faces/search/img.php'), 'thumb', 1) ?>" style="padding: 5px;" alt="<?php echo $title ?>" style="width: 50px; height 50px;" /></a>
+     <img src="<?php echo Horde::url('faces/search/img.php')->add('thumb', 1) ?>" style="padding: 5px;" alt="<?php echo $title ?>" style="width: 50px; height 50px;" /></a>
    <?php endif; ?>
   </td>
 <td>

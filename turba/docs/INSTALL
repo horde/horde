@@ -150,10 +150,10 @@ Configuring Turba
 
    Documentation on the format and purpose of those files can be found in each
    file.  You may edit these files if you wish to customize Turba's appearance
-   and behaviour.  With the exception of the ``sources.php`` file the defaults
+   and behaviour.  With the exception of the ``backends.php`` file the defaults
    will be correct for most sites.
 
-   You must configure ``sources.php`` to list your data sources (both SQL and
+   You must configure ``backends.php`` to list your data sources (both SQL and
    LDAP if necessary).  This configuration file contains a large number of
    **examples**.  Please remove or comment out those examples that **you don't
    need**.

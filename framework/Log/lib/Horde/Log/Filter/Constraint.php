@@ -1,33 +1,37 @@
 <?php
 /**
- * @category Horde
- * @package  Horde_Log
+ * @author     James Pepin <james@jamespepin.com>
+ * @category   Horde
+ * @license    http://opensource.org/licenses/bsd-license.php BSD
+ * @package    Log
  * @subpackage Filters
- * @author James Pepin <james@jamespepin.com>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
  */
 
 /**
  * Filters log events using defined constraints on one or more fields of the
- * $event array
+ * $event array.
  *
- * @category Horde
- * @package  Horde_Log
+ * @author     James Pepin <james@jamespepin.com>
+ * @category   Horde
+ * @license    http://opensource.org/licenses/bsd-license.php BSD
+ * @package    Log
  * @subpackage Filters
- * @author James Pepin <james@jamespepin.com>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
  *
  * @todo Implement constraint objects for the different types of filtering ie
  * regex,required,type..etc..  so we can add different constaints ad infinitum.
  */
-class Horde_Log_Filter_Constraint implements Horde_Log_Filter_Interface
+class Horde_Log_Filter_Constraint implements Horde_Log_Filter
 {
     /**
+     * Constraint list.
+     *
      * @var array
      */
     protected $_constraints = array();
 
     /**
+     * Default constraint coupler.
+     *
      * @var Horde_Constraint_Coupler
      * @default Horde_Constraint_And
      */
@@ -36,24 +40,27 @@ class Horde_Log_Filter_Constraint implements Horde_Log_Filter_Interface
     /**
      * Constructor
      *
-     * @param Horde_Constraint_Coupler $coupler The default kind of constraint
-     * to use to couple multiple constraints. Defaults to And.
+     * @param Horde_Constraint_Coupler $coupler  The default kind of
+     *                                           constraint to use to couple
+     *                                           multiple constraints.
+     *                                           Defaults to And.
      */
     public function __construct(Horde_Constraint_Coupler $coupler = null)
     {
-        if (is_null($coupler)) {
-            $coupler = new Horde_Constraint_And();
-        }
-        $this->_coupler = $coupler;
+        $this->_coupler = is_null($coupler)
+            ? new Horde_Constraint_And()
+            : $coupler;
     }
 
     /**
      * Add a constraint to the filter
      *
-     * @param string $field  The field to apply the constraint to
-     * @param Horde_Constraint $constraint  The constraint to apply
+     * @param string $field                 The field to apply the constraint
+     *                                      to.
+     * @param Horde_Constraint $constraint  The constraint to apply.
      *
-     * @return Horde_Log_Filter_Constraint A reference to $this to allow method chaining
+     * @return Horde_Log_Filter_Constraint  A reference to $this to allow
+     *                                      method chaining.
      */
     public function addConstraint($field, Horde_Constraint $constraint)
     {
@@ -61,6 +68,7 @@ class Horde_Log_Filter_Constraint implements Horde_Log_Filter_Interface
             $this->_constraints[$field] = clone($this->_coupler);
         }
         $this->_constraints[$field]->addConstraint($constraint);
+
         return $this;
     }
 
@@ -70,14 +78,15 @@ class Horde_Log_Filter_Constraint implements Horde_Log_Filter_Interface
      * Takes a field name and a regex, if the regex does not match then the
      * event is filtered.
      *
-     * @param string $field The name of the field that should be part of the event
-     * @param string $regex The regular expression to filter by
-     * @return Horde_Log_Filter_Constraint A reference to $this to allow method chaining
+     * @param string $field  The name of the field that should be part of the
+     *                       event.
+     * @param string $regex  The regular expression to filter by.
+     * @return Horde_Log_Filter_Constraint  A reference to $this to allow
+     *                                      method chaining.
      */
     public function addRegex($field, $regex)
     {
-        $constraint = new Horde_Constraint_PregMatch($regex);
-        return $this->addConstraint($field, $constraint);
+        return $this->addConstraint($field, new Horde_Constraint_PregMatch($regex));
     }
 
     /**
@@ -85,43 +94,50 @@ class Horde_Log_Filter_Constraint implements Horde_Log_Filter_Interface
      *
      * If the field does not exist on the event, then it is filtered.
      *
-     * @param string $field The name of the field that should be part of the event
-     * @return Horde_Log_Filter_Constraint A reference to $this to allow method chaining
+     * @param string $field  The name of the field that should be part of the
+     *                       event.
+     *
+     * @return Horde_Log_Filter_Constraint  A reference to $this to allow
+     *                                      method chaining.
      */
     public function addRequiredField($field)
     {
-        $notNull = new Horde_Constraint_Not(new Horde_Constraint_Null());
-        return $this->addConstraint($field, $notNull);
+        return $this->addConstraint($field, new Horde_Constraint_Not(new Horde_Constraint_Null()));
     }
 
     /**
      * Adds all arguments passed as required fields
      *
-     * @return Horde_Log_Filter_Constraint A reference to $this to allow method chaining
+     * @return Horde_Log_Filter_Constraint  A reference to $this to allow
+     *                                      method chaining.
      */
     public function addRequiredFields()
     {
-        $fields = func_get_args();
-        foreach ($fields as $f) {
+        foreach (func_get_args() as $f) {
             $this->addRequiredField($f);
         }
+
         return $this;
     }
 
     /**
-     * Returns TRUE to accept the message, FALSE to block it.
+     * Returns Horde_Log_Filter::ACCEPT to accept the message,
+     * Horde_Log_Filter::IGNORE to ignore it.
      *
-     * @param  array    $event    Log event
-     * @return boolean            accepted?
+     * @param array $event  Log event.
+     *
+     * @return boolean  accepted?
      */
     public function accept($event)
     {
         foreach ($this->_constraints as $field => $constraint) {
             $value = isset($event[$field]) ? $event[$field] : null;
             if (!$constraint->evaluate($value)) {
-                return false;
+                return Horde_Log_Filter::IGNORE;
             }
         }
-        return true;
+
+        return Horde_Log_Filter::ACCEPT;
     }
+
 }

@@ -3,8 +3,6 @@
  * Agora_Messages_split_sql:: provides the functions to access both threads
  * sotred in a scope dedicated tables
  *
- * $Horde: agora/lib/Messages/split_sql.php,v 1.19 2009/01/06 17:48:46 jan Exp $
- *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -173,7 +171,7 @@ class Agora_Messages_split_sql extends Agora_Messages {
 
         $messages = $this->_db->getAssoc($bind[0], null, $bind[1], null, MDB2_FETCHMODE_ASSOC, true);
         if ($messages instanceof PEAR_Error) {
-            Horde::logMessage($messages, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($messages, 'ERR');
             return $messages;
         }
 
@@ -217,7 +215,7 @@ class Agora_Messages_split_sql extends Agora_Messages {
 
         $messages = $this->_db->getAssoc($bind[0], null, $bind[1], null, MDB2_FETCHMODE_ASSOC, true);
         if ($messages instanceof PEAR_Error) {
-            Horde::logMessage($messages, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($messages, 'ERR');
             return $messages;
         }
 

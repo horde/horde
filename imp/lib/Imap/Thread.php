@@ -8,8 +8,10 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package IMP
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
 class IMP_Imap_Thread
 {
@@ -45,18 +47,17 @@ class IMP_Imap_Thread
      * 2 - join
      * 3 - joinbottom-down
      * 4 - joinbottom
-     * 5 - line (reverse)
-     * 6 - join (reverse)
-     * 7 - joinbottom-down (reverse)
-     * 8 - joinbottom (reverse)
      * </pre>
      */
     public function getThreadTreeOb($indices, $sortdir)
     {
         $container = $last_level = $last_thread = null;
-        $rtl = !empty($GLOBALS['nls']['rtl'][$GLOBALS['language']]);
         $thread_level = $tree = array();
         $t = &$this->_thread;
+
+        if (empty($indices)) {
+            return $tree;
+        }
 
         $indices = array_intersect($t->messageList($sortdir), $indices);
 
@@ -94,15 +95,11 @@ class IMP_Imap_Thread
                 $join_img = 2;
             }
 
-            if ($rtl) {
-                $join_img += 4;
-            }
-
             $thread_level[$indentLevel] = $lastinlevel;
             $line = '';
 
             for ($i = 1; $i < $indentLevel; ++$i) {
-                $line .= (!isset($thread_level[$i]) || ($thread_level[$i])) ? 0 : ($rtl ? 5 : 1);
+                $line .= intval(isset($thread_level[$i]) && !$thread_level[$i]);
             }
             $tree[$val] = $line . $join_img;
         }

@@ -3,19 +3,15 @@
  * The Horde_Auth_Http class transparently logs users in to Horde using
  * already present HTTP authentication headers.
  *
- * The 'encryption' parameter specifies what kind of passwords are in
- * the .htpasswd file. The supported options are 'crypt-des' (standard
- * crypted htpasswd entries) and 'aprmd5'. This information is used if
- * you want to directly authenticate users with this driver, instead
- * of relying on transparent auth.
- *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_Auth
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
+ * @package  Auth
  */
 class Horde_Auth_Http extends Horde_Auth_Base
 {
@@ -39,16 +35,23 @@ class Horde_Auth_Http extends Horde_Auth_Base
     /**
      * Constructor.
      *
-     * @param array $params  A hash containing parameters.
+     * @param array $params  Optional parameters:
+     * <pre>
+     * 'encryption' - (string) Kind of passwords in the .htpasswd file.
+     *                Either 'crypt-des' (standard crypted htpasswd entries)
+     *                [DEFAULT] or 'aprmd5'. This information is used if
+     *                you want to directly authenticate users with this
+     *                driver, instead of relying on transparent auth.
+     * 'htpasswd_file' - (string) TODO
+     * </pre>
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
-        parent::__construct($params);
+        $params = array_merge(array(
+            'encryption' => 'crypt-des'
+        ), $params);
 
-        // Default to DES passwords.
-        if (empty($this->_params['encryption'])) {
-            $this->_params['encryption'] = 'crypt-des';
-        }
+        parent::__construct($params);
 
         if (!empty($this->_params['htpasswd_file'])) {
             $users = file($this->_params['htpasswd_file']);
@@ -107,7 +110,7 @@ class Horde_Auth_Http extends Horde_Auth_Base
      *
      * @return boolean  Whether or not the client is allowed.
      */
-    protected function _transparent()
+    public function transparent()
     {
         if (empty($_SERVER['PHP_AUTH_USER']) ||
             empty($_SERVER['PHP_AUTH_PW'])) {

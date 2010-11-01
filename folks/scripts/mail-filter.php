@@ -1,4 +1,4 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
 /**
  * This script parses MIME messages and deactivates users with returned emails.
@@ -37,21 +37,8 @@ Options:
 EOU;
 }
 
-// Do CLI checks and environment setup first.
-require_once dirname(__FILE__) . '/../../lib/core.php';
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment - make sure there's no time limit, init some
-// variables, etc.
-Horde_Cli::init();
-$cli = Horde_Cli::singleton();
-
-$horde_authentication = 'none';
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('folks', array('authentication' => 'none', 'cli' => true));
 
 // Read command-line parameters.
 $info = array();
@@ -100,10 +87,6 @@ foreach (array('host', 'user', 'pass', 'port', 'protocol', 'folder') as $opt) {
     }
 }
 
-// Set charset to UTF-8 for most flexible conversion between email charset and
-// backend charset.
-Horde_Nls::setCharsetEnvironment('UTF-8');
-
 // Read and parse the message.
 $messages = array();
 $imap = @imap_open(sprintf('{%s:%d/%s}%s',
@@ -120,8 +103,11 @@ if (!$imap) {
 $from_str = array('Undelivered Mail', 'MAILER-DAEMON', 'root@' . $conf['server']['name']);
 
 // Connect to db
-$dbconf = Horde::getDriverConfig('storage', 'sql');
-$db = DB::connect($dbconf);
+try {
+    $db = $injector->getInstance('Horde_Core_Factory_DbPear')->create();
+} catch (Horde_Exception $e) {
+    $cli->fatal($e);
+}
 
 // get mails
 $mails = array();
@@ -167,7 +153,7 @@ if ($user_uid instanceof PEAR_Error) {
 }
 
 // mail content
-$edit_url = Horde::applicationUrl('edit/edit.php', true);
+$edit_url = Horde::url('edit/edit.php', true);
 $title = _("Email problem");
 $body = _("Dear %s, we tried to send you an email, but if turns out that the mail is usable any more. Maybe you run over quota. If your mail is discontinued, please update your profile with the email you are using now at %s.");
 

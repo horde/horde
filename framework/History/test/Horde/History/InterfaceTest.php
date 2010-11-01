@@ -45,10 +45,24 @@ class Horde_History_InterfaceTest extends PHPUnit_Framework_TestCase
     private $_db_file;
 
     /**
+     * Test setup.
+     */
+    public function setUp()
+    {
+        if (in_array(self::ENVIRONMENT_DB, $this->getEnvironments())) {
+            /* PEAR DB is not E_STRICT safe. */
+            $this->_errorReporting = error_reporting(E_ALL & ~E_STRICT);
+        }
+    }
+
+    /**
      * Test cleanup.
      */
     public function tearDown()
     {
+        if (in_array(self::ENVIRONMENT_DB, $this->getEnvironments())) {
+            error_reporting($this->_errorReporting);
+        }
         if (!empty($this->_db_file)) {
             unlink($this->_db_file);
         }
@@ -62,10 +76,8 @@ class Horde_History_InterfaceTest extends PHPUnit_Framework_TestCase
     public function getEnvironments()
     {
         if (empty($this->_environments)) {
-            /**
-             * The db environment provides our only test scenario before
-             * refactoring.
-             */
+            /* The db environment provides our only test scenario before
+             * refactoring.  */
             $this->_environments = array(
                 self::ENVIRONMENT_MOCK,
                 /** Uncomment if you want to run a sqlity based test */
@@ -165,15 +177,14 @@ EOL;
         return $this->_histories[$environment];
     }
 
-    public function testMethodSingletonHasResultHordehistoryWhichIsAlwaysTheSame()
+    public function testMethodFactoryHasResultHordehistory()
     {
         foreach ($this->getEnvironments() as $environment) {
             $history = $this->getHistory($environment);
-            $history1 = Horde_History::singleton($environment);
+            $history1 = Horde_History::factory($environment);
             $this->assertType('Horde_History', $history1);
-            $history2 = Horde_History::singleton($environment);
+            $history2 = Horde_History::factory($environment);
             $this->assertType('Horde_History', $history2);
-            $this->assertSame($history1, $history2);
         }
     }
 
@@ -183,7 +194,7 @@ EOL;
             $history = $this->getHistory($environment);
             $history->log('test', array('action' => 'test'));
             $this->assertTrue($history->getActionTimestamp('test', 'test') > 0);
-            $data = $history->getHistory('test')->getData();
+            $data = $history->getHistory('test');
             $this->assertTrue(isset($data[0]['who']));
         }
     }
@@ -217,31 +228,31 @@ EOL;
             $history->log('test', array('who' => 'me', 'ts' => 1000, 'action' => 'test'), false);
             $history->log('test', array('who' => 'you', 'ts' => 2000, 'action' => 'yours'));
             $history->log('test', array('who' => 'you', 'ts' => 2000, 'action' => 'yours'), true);
-            $data = $history->getHistory('test')->getData();
+            $data = $history->getHistory('test');
             $expect = array(
-                array(
-                    'action' => 'test',
-                    'desc'   => '',
-                    'who'    => 'me',
-                    'id'     => 1,
-                    'ts'     => 1000,
-                ),
-                array(
-                    'action' => 'test',
-                    'desc'   => '',
-                    'who'    => 'me',
-                    'id'     => 2,
-                    'ts'     => 1000,
-                ),
-                array(
-                    'action' => 'yours',
-                    'desc'   => '',
-                    'who'    => 'you',
-                    'id'     => 3,
-                    'ts'     => 2000,
-                ),
+                'action' => 'test',
+                'desc'   => '',
+                'who'    => 'me',
+                'id'     => 1,
+                'ts'     => 1000,
             );
-            $this->assertEquals($expect, $data);
+            $this->assertEquals($expect, $data[0]);
+            $expect = array(
+                'action' => 'test',
+                'desc'   => '',
+                'who'    => 'me',
+                'id'     => 2,
+                'ts'     => 1000,
+            );
+            $this->assertEquals($expect, $data[1]);
+            $expect = array(
+                'action' => 'yours',
+                'desc'   => '',
+                'who'    => 'you',
+                'id'     => 3,
+                'ts'     => 2000,
+            );
+            $this->assertEquals($expect, $data[2]);
         }
     }
 
@@ -257,31 +268,30 @@ EOL;
         }
     }
 
-    public function testMethodGethistoryHasResultHordehistoryobjectRepresentingTheHistoryLogMatchingTheGivenGuid()
+    public function testMethodGethistoryHasResultHordehistorylogRepresentingTheHistoryLogMatchingTheGivenGuid()
     {
         foreach ($this->getEnvironments() as $environment) {
             $history = $this->getHistory($environment);
             $history->log('test', array('who' => 'me', 'ts' => 1000, 'action' => 'test'));
             $history->log('test', array('who' => 'you', 'ts' => 2000, 'action' => 'yours', 'extra' => array('a' => 'a')));
-            $data = $history->getHistory('test')->getData();
+            $data = $history->getHistory('test');
             $expect = array(
-                array(
-                    'action' => 'test',
-                    'desc'   => '',
-                    'who'    => 'me',
-                    'id'     => 1,
-                    'ts'     => 1000,
-                ),
-                array(
-                    'action' => 'yours',
-                    'desc'   => '',
-                    'who'    => 'you',
-                    'id'     => 2,
-                    'ts'     => 2000,
-                    'extra'  => array('a' => 'a'),
-                ),
+                'action' => 'test',
+                'desc'   => '',
+                'who'    => 'me',
+                'id'     => 1,
+                'ts'     => 1000,
             );
-            $this->assertEquals($expect, $data);
+            $this->assertEquals($expect, $data[0]);
+            $expect = array(
+                'action' => 'yours',
+                'desc'   => '',
+                'who'    => 'you',
+                'id'     => 2,
+                'ts'     => 2000,
+                'extra'  => array('a' => 'a'),
+            );
+            $this->assertEquals($expect, $data[1]);
         }
     }
 
@@ -419,22 +429,20 @@ EOL;
             $history->log('yours', array('who' => 'you', 'ts' => 2000, 'action' => 'yours'));
             $history->log('yours', array('who' => 'you', 'ts' => 2000, 'action' => 'yours'), true);
             $history->removeByNames(array('test'));
-            $data = $history->getHistory('test')->getData();
-            $this->assertEquals(array(), $data);
-            $data = $history->getHistory('yours')->getData();
+            $data = $history->getHistory('test');
+            $this->assertEquals(0, count($data));
+            $data = $history->getHistory('yours');
             $expect = array(
-                array(
-                    'action' => 'yours',
-                    'desc'   => '',
-                    'who'    => 'you',
-                    'id'     => 3,
-                    'ts'     => 2000,
-                ),
+                'action' => 'yours',
+                'desc'   => '',
+                'who'    => 'you',
+                'id'     => 3,
+                'ts'     => 2000,
             );
-            $this->assertEquals($expect, $data);
+            $this->assertEquals($expect, $data[0]);
             $history->removeByNames(array('yours'));
-            $data = $history->getHistory('yours')->getData();
-            $this->assertEquals(array(), $data);
+            $data = $history->getHistory('yours');
+            $this->assertEquals(0, count($data));
         }
     }
 
@@ -447,14 +455,14 @@ EOL;
             $history->log('yours', array('who' => 'you', 'ts' => 2000, 'action' => 'yours'));
             $history->log('yours', array('who' => 'you', 'ts' => 2000, 'action' => 'yours'), true);
             $history->removeByNames(array('test', 'yours'));
-            $data = $history->getHistory('test')->getData();
-            $this->assertEquals(array(), $data);
-            $data = $history->getHistory('yours')->getData();
-            $this->assertEquals(array(), $data);
+            $data = $history->getHistory('test');
+            $this->assertEquals(0, count($data));
+            $data = $history->getHistory('yours');
+            $this->assertEquals(0, count($data));
         }
     }
 
-    public function testMethodRemovebynamesHasResultBooleanTrueIfParameterNamesIsEmpty()
+    public function testMethodRemovebynamesSucceedsIfParameterNamesIsEmpty()
     {
         foreach ($this->getEnvironments() as $environment) {
             $history = $this->getHistory($environment);
@@ -462,39 +470,7 @@ EOL;
             $history->log('test', array('who' => 'me', 'ts' => 1000, 'action' => 'test'), false);
             $history->log('test', array('who' => 'you', 'ts' => 2000, 'action' => 'yours'));
             $history->log('test', array('who' => 'you', 'ts' => 2000, 'action' => 'yours'), true);
-            $this->assertEquals(true, $data = $history->removeByNames(array()));
-        }
-    }
-
-    public function testBaseHordehistoryClassProvidesIncompleteImplementation()
-    {
-        global $conf;
-
-        try {
-            $history = new Horde_History();
-            $history->getHistory('');
-            $this->fail('No exception was thrown!');
-        } catch (Horde_Exception $e) {
-        }
-        try {
-            $history = new Horde_History();
-            $history->getByTimestamp('=', 1);
-            $this->fail('No exception was thrown!');
-        } catch (Horde_Exception $e) {
-        }
-        try {
-            $history = new Horde_History();
             $history->removeByNames(array());
-            $this->fail('No exception was thrown!');
-        } catch (Horde_Exception $e) {
-        }
-
-        unset($conf['sql']);
-
-        try {
-            $history = Horde_History::singleton();
-            $this->fail('No exception was thrown!');
-        } catch (Horde_Exception $e) {
         }
     }
 
@@ -534,6 +510,10 @@ EOL;
     }
 }
 
+if (!class_exists('DB_common')) {
+    class DB_common {}
+}
+
 /**
  * A dummy database connection producing nothing bot errors.
  *
@@ -552,7 +532,8 @@ class Dummy_Db extends DB_common
 {
     public function &query($query, $params = array())
     {
-        return new PEAR_Error('Error');
+        $e = new PEAR_Error('Error');
+        return $e;
     }
 
     public function nextId($seq_name, $ondemand = true)
@@ -563,12 +544,14 @@ class Dummy_Db extends DB_common
     public function &getAll($query, $params = array(),
                             $fetchmode = DB_FETCHMODE_DEFAULT)
     {
-        return new PEAR_Error('Error');
+        $e = new PEAR_Error('Error');
+        return $e;
     }
 
     public function &getAssoc($query, $force_array = false, $params = array(),
                               $fetchmode = DB_FETCHMODE_DEFAULT, $group = false)
     {
-        return new PEAR_Error('Error');
+        $e = new PEAR_Error('Error');
+        return $e;
     }
 }

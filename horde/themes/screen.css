@@ -15,16 +15,15 @@ body {
     color: #000;
 }
 
-body.scrollbar-quirk {
-    margin-right: 15px;
-}
-
 p {
     margin-bottom: 10px;
 }
 
 a {
     cursor: pointer;
+}
+.horde-block-links a, a.horde-block-links {
+    display: block;
 }
 
 img, .img, .img:active, .img:hover, .img:visited, .image {
@@ -181,9 +180,10 @@ table.nopadding td, table.nopadding th {
 /* Horde UI standard tables */
 table.horde-table {
     width: 99%;
-    margin: 0 0 8px 5px;
+    margin-bottom: 8px;
     border-top: 1px solid #ddd;
     border-left: 1px solid #ddd;
+    border-spacing: 0;
 }
 table.horde-table th {
     padding: 3px;
@@ -306,7 +306,6 @@ a.button {
 }
 
 pre, code, .fixed, table.lineNumbered * {
-    font-size: 100%;
     font-family: Menlo,Consolas,"Lucida Console","DejaVu Sans Mono",monospace;
 }
 
@@ -357,7 +356,7 @@ pre, code, .fixed, table.lineNumbered * {
     color: #000;
     background: #ffc;
     border: 1px solid #aaa;
-    padding: 1px 1px 1px 5px;
+    padding: 1px 3px;
 }
 .notices img, .notice img {
     margin-right: .5em;
@@ -384,17 +383,82 @@ div.nicetitle {
 }
 
 /* Tree styles. */
+.treeIcon {
+    padding-right: 5px;
+}
 .treeRow {
-    overflow: hidden;
-    min-height: 20px;
     clear: both;
+    min-height: 20px;
+    overflow: hidden;
+}
+.treeToggle {
+    cursor: pointer;
+}
+
+.treeHdrSpacer {
+    width: 50%;
+}
+
+span.treeImg {
+    height: 20px;
+    width: 20px;
+    display: -moz-inline-stack;
+    display: inline-block;
+    vertical-align: middle;
+}
+span.treeImg1 {
+    background-image: url("graphics/tree/line.png");
+}
+span.treeImg2 {
+    background-image: url("graphics/tree/join.png");
+}
+span.treeImg3 {
+    background-image: url("graphics/tree/joinbottom-down.png");
+}
+span.treeImg4 {
+    background-image: url("graphics/tree/joinbottom.png");
+}
+span.treeImg5 {
+    background-image: url("graphics/tree/minustop.png");
+}
+span.treeImg6 {
+    background-image: url("graphics/tree/minus.png");
+}
+span.treeImg7 {
+    background-image: url("graphics/tree/minusbottom.png");
+}
+span.treeImg8 {
+    background-image: url("graphics/tree/minusonly.png");
+}
+span.treeImg9 {
+    background-image: url("graphics/tree/plustop.png");
+}
+span.treeImg10 {
+    background-image: url("graphics/tree/plus.png");
+}
+span.treeImg11 {
+    background-image: url("graphics/tree/plusbottom.png");
+}
+span.treeImg12 {
+    background-image: url("graphics/tree/plusonly.png");
+}
+span.treeImg13 {
+    background-image: url("graphics/tree/nullonly.png");
+}
+span.treeImg14 {
+    background-image: url("graphics/tree/folder.png");
+}
+span.treeImg15 {
+    background-image: url("graphics/tree/folderopen.png");
+}
+span.treeImg16 {
+    background-image: url("graphics/tree/leaf.png");
 }
 
 /* Menu styles. */
 #menu {
     overflow: hidden;
     min-height: 50px;
-    margin-bottom: 8px;
     padding-right: 8px;
 }
 #menu ul {
@@ -440,8 +504,8 @@ div.nicetitle {
 }
 
 /* Sidebar styles. */
-.sidebar #menu {
-    margin: 0;
+.sidebar {
+    float: left;
 }
 #sidebarPanel {
     -moz-border-radius-bottomright: 15px;
@@ -468,6 +532,25 @@ div.nicetitle {
 }
 #sidebarPanel a:hover {
     color: #000;
+}
+
+#expandedSidebar {
+    overflow: hidden;
+}
+#expandedSidebar #expandButton {
+    float: right;
+}
+
+#hiddenSidebar img {
+    padding-right: 2px;
+}
+
+/* Main body. */
+.body {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-top: 8px;
 }
 
 /* Pager. */
@@ -525,6 +608,9 @@ div.nicetitle {
     list-style: none;
     display: inline;
 }
+#services_prefs #app {
+    font-weight: bold;
+}
 .prefsOverview div {
     float: left;
 }
@@ -558,6 +644,13 @@ div.prefsContainer {
 }
 div.prefsContainer p {
     padding-top: 1em;
+}
+img.prefsLinkImg {
+    padding-right: 1px;
+}
+span.prefsAdvanced {
+    padding: 3px 10px 0 0;
+    font-size: 80%;
 }
 
 /* Block styles. */
@@ -692,34 +785,39 @@ ul.sound-list {
 }
 
 /* Calendar Popup. */
-table.calendarPopup {
+.hordeCalendarPopup {
     border: 1px solid #ccc;
     background: #fff;
     width: 12em;
 }
-.calendarPopup thead {
+.hordeCalendarPopup thead {
     font-weight: bold;
 }
-.calendarPopup th {
+.hordeCalendarPopup th {
     border-bottom: 1px solid #ccc;
 }
-.calendarPopup tbody {
+.hordeCalendarPopup tbody {
     text-align: right;
 }
-.calendarPopup a {
+.hordeCalendarPopup a {
     color: #000;
     display: block;
     padding: 2px;
 }
-.calendarPopup tbody a:hover {
+.hordeCalendarPopup tbody a:hover {
     background: #ffc;
 }
-.calendarPopup .current {
+.hordeCalendarPopup .hordeCalendarCurrent {
     font-weight: bold;
     background: #eef;
 }
-.calendarPopup .today {
+.hordeCalendarPopup .hordeCalendarToday {
     font-weight: bold;
+}
+.hordeCalendarPopup .hordeCalendarWeek {
+    background: #bbb;
+    font-size: 90%;
+    font-style: italic;
 }
 
 .hidden {
@@ -757,7 +855,6 @@ table.calendarPopup {
     background-color: #fff;
     display: block;
     text-align: left;
-    overflow: hidden;
     margin: 20px auto 0 auto;
     position: absolute;
 }
@@ -849,6 +946,9 @@ table.calendarPopup {
 #color-picker #color-picker-hex:hover {
     color: #fff;
 }
+#color-picker #color-picker-hex-edit {
+    float: left;
+}
 #color-picker #color-picker-resize {
     float: right;
     top: -14px;
@@ -881,6 +981,27 @@ table.calendarPopup {
     float: right;
 }
 
+/* Activesync styles. */
+.activesyncHdr1 {
+    width: 30%;
+}
+.activesyncHdr2 {
+    width: 22%;
+}
+.activesyncHdr3 {
+    width: 6%;
+}
+.activesyncHdr4 {
+    width: 10%;
+}
+.activesyncHdr5 {
+    width: 12%;
+}
+.activesyncHdr6 {
+    width: 10%;
+}
+
+/* Toggle quote styles. */
 .toggleQuoteHide, .toggleQuoteShow {
     font-size: 80%;
     cursor: pointer;
@@ -913,6 +1034,7 @@ table.calendarPopup {
     overflow-y: auto;
     padding: 2px;
     position: absolute;
+    z-index: 10000;
 }
 .KeyNavList ul {
     list-style-type: none;
@@ -955,17 +1077,14 @@ table.calendarPopup {
     background-position: 3px center;
     background-repeat: no-repeat;
     color: #fff;
+    cursor: pointer;
 }
 #Growler div.GrowlerNoticeHead {
     font-weight: bold;
 }
-#Growler div.GrowlerNoticeExit {
-    float: right;
-    font-weight: bold;
-    cursor: pointer;
-}
-#Growler div.GrowlerNoticeExit:hover {
-    color: #444;
+.GrowlerNoticeBody {
+    margin-right: 20px;
+    overflow-x: hidden;
 }
 #Growler div.horde-error, #GrowlerLog li.horde-error {
     background-image: url("graphics/alerts/error.png");
@@ -1013,14 +1132,25 @@ table.calendarPopup {
 #GrowlerLog ul li:last-child {
     border: 0;
 }
-#GrowlerLog li.NoAlerts {
+#GrowlerLog li.GrowlerInfo {
     font-weight: bold;
     background: #999;
 }
-#GrowlerLog span.alertdate {
+#GrowlerLog li.GrowlerNoAlerts {
+    background: #999;
+}
+#GrowlerLog span.GrowlerAlertDate {
     font-size: 90%;
     font-style: italic;
     padding-left: 10px;
+}
+div.GrowlerNoticeExit {
+    cursor: pointer;
+    float: right;
+    font-weight: bold;
+}
+div.GrowlerNoticeExit:hover {
+    color: #444;
 }
 .horde-message, .horde-success, .horde-warning, .horde-error {
     border-color: #316600;
@@ -1079,7 +1209,7 @@ table.calendarPopup {
     -moz-border-radius-topright:4px;
     margin:5px;
 }
-.hordeACTrigger, .hordeACTrigger:focus {
+.hordeACTrigger, .hordeACTrigger:focus, .hordeACTrigger:disabled {
     background:transparent none repeat scroll 0 0;
     border:0 none;
     display:inline;
@@ -1093,6 +1223,139 @@ table.calendarPopup {
 }*/
 .hordeACItemRemove:hover {
     cursor:pointer;
+}
+
+/* Horde_Mime_Viewer styles. */
+.mimeHeaders {
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+    display: -moz-inline-stack;
+    display: inline-block;
+    margin-bottom: 3px;
+    padding: 5px;
+}
+
+/* Context Menus */
+.context {
+    min-width: 180px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10000;
+    border: 1px #d4d4d4 solid;
+    padding: 1px;
+    background: #f4f4f4;
+    color: #000;
+    font-size: 90%;
+}
+.context a, .context a:visited {
+    white-space: nowrap;
+    display: block;
+    padding: 3px;
+    text-decoration: none;
+    color: #000;
+}
+.context a:hover, .context a.contextSubmenu.contextHover {
+    background-color: gray;
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+}
+.context div.sep {
+    background: silver;
+    height: 1px !important;
+    margin: 1px 0;
+    padding: 0;
+}
+.contextSubmenu {
+    background: url("graphics/popright.png") 100% 50% no-repeat;
+    padding-left: 16px;
+}
+.contextSelected {
+    background: #ffa;
+}
+
+/* Social Media Related CSS */
+.hordeSmStreamstory {
+    margin-bottom: 7px;
+    padding-top: 7px;
+    position: relative;
+}
+.hordeSmStreambody {
+    padding: 0 0 0 70px;
+    min-height: 60px;
+}
+.hordeSmStreaminfo {
+    color: #777777;
+    padding: 2px 0 0;
+    font-style: italic;
+}
+.hordeSmGetmore {
+    text-align: center;
+}
+.hordeSmCurrent {
+    font-style: italic;
+    color: gray;
+}
+.hordeSmAvatar {
+    float: left;
+    text-align: center;
+    height: 73px;
+    width: 73px;
+    margin-right: 5px;
+    padding-top: 5px;
+}
+
+/* Uploader */
+.hordeUploaderHeader {
+}
+.hordeUploaderSubHeader {
+    border-bottom: thin solid #000;
+}
+.hordeUploaderFilelist {
+    height: 350px;
+    overflow: auto;
+}
+.hordeUploaderFilename {
+    float: left;
+    width: 200px;
+}
+.hordeUploaderFilestatus,
+.hordeUploaderFilesize,
+.hordeUploaderFileaction
+{
+   float: right;
+   text-align: right;
+}
+.hordeUploaderFilestatus,
+.hordeUploaderFilesize
+{
+    width: 80px;
+}
+.hordeUploaderFileaction
+{
+    width: 16px;
+}
+.hordeUploaderSuccess
+{
+    background-image: url("graphics/alerts/success.png");
+}
+.hordeUploaderError
+{
+    background-image: url("graphics/alerts/error.png");
+}
+.hordeUploaderRemove
+{
+    background-image: url("graphics/delete.png");
+}
+
+/* For in place editing */
+form.inplaceeditor-form {
+    background: none;
+}
+.inplaceeditor-empty {
+    font-style: italic;
+    color: #999;
 }
 
 /* Print CSS. */

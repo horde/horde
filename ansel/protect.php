@@ -8,13 +8,15 @@
  * @author Duck <duck@obala.net>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('ansel');
 
 $vars = Horde_Variables::getDefaultVariables();
-$gallery = $ansel_storage->getGallery($vars->get('gallery'));
-if (is_a($gallery, 'PEAR_Error')) {
-    $notification->push($gallery->getMessage());
-    header('Location: ' . Horde::applicationUrl('list.php'));
+try {
+    $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($vars->get('gallery'));
+} catch (Ansel_Exception $e) {
+    $notification->push($e->getMessage());
+    Horde::url('list.php')->redirect();
     exit;
 }
 $form = new Horde_Form($vars, _("This gallery is protected by a password. Please enter it below."));
@@ -30,14 +32,15 @@ if ($form->validate()) {
         $_SESSION['ansel']['passwd'][$gallery->id] = md5($vars->get('passwd'));
         $url = $vars->get('url');
         if (empty($url)) {
-            $url = Horde::applicationUrl(Horde_Util::addParameter('view.php', 'gallery', $gallery->id));
+            $url = Horde::url('view.php')->add('gallery', $gallery->id);
         }
-        header('Location: ' . $url);
+        $url->redirect();
         exit;
     }
 }
 require ANSEL_TEMPLATES . '/common-header.inc';
-require ANSEL_TEMPLATES . '/menu.inc';
+echo Horde::menu();
+$notification->notify(array('listeners' => 'status'));
 echo '<div class="header">' . Ansel::getBreadCrumbs() . '</div>';
 $form->renderActive(null, null, null, 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

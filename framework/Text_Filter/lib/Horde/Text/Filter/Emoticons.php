@@ -1,11 +1,14 @@
 <?php
 /**
- * The Horde_Text_Filter_Emoticons:: class finds emoticon strings ( :), etc.)
- * in a block of text and turns them into image links.
+ * The Horde_Text_Filter_Emoticons:: class finds emoticon strings in a block
+ * of text and does a transformation on them.
+ *
+ * By default, this filter does not do any transformation to the emoticon.
  *
  * Parameters:
  * <pre>
- * entities -- If true the html entity versions of the patterns will be used.
+ * entities - (boolean) Use HTML entity versions of the patterns?
+ *            DEFAULT: false
  * </pre>
  *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
@@ -13,28 +16,25 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Marko Djukic <marko@oblo.com>
- * @package Horde_Text
+ * @author   Marko Djukic <marko@oblo.com>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Text_Filter
  */
-class Horde_Text_Filter_Emoticons extends Horde_Text_Filter
+class Horde_Text_Filter_Emoticons extends Horde_Text_Filter_Base
 {
     /**
      * Filter parameters.
      *
      * @var array
      */
-    protected $_params = array('entities' => false);
-
-    /**
-     * The icon path.
-     *
-     * @var string
-     */
-    static protected $_iconpath;
+    protected $_params = array(
+        'entities' => false
+    );
 
     /* List complex strings before simpler ones, otherwise for example :((
      * would be matched against :( before :(( is found. */
-    static protected $_icons = array(
+    protected $_emoticons = array(
         ':/' => 'frustrated', ':-/' => 'frustrated',
         // ':*>' => 'blush',
         ':e' => 'disappointed',
@@ -104,30 +104,35 @@ class Horde_Text_Filter_Emoticons extends Horde_Text_Filter
         /* Check for a smiley either immediately at the start of a line or
          * following a space. Use {} as the preg delimiters as this is not
          * found in any smiley. */
-        $regexp['{' . $beg_pattern . implode('|', $patterns) . $end_pattern . '}e'] = 'Horde_Text_Filter_Emoticons::getImage(\'$2\', \'$1\', \'' . ($this->_params['entities'] ? '$3' : '') . '\')';
+        $regexp = '{' . $beg_pattern . implode('|', $patterns) . $end_pattern . '}';
 
-        return array('regexp' => $regexp);
+        return array('regexp_callback' => array(
+            $regexp => array($this, 'emoticonReplace')
+        ));
     }
 
     /**
-     * Returns the img tag for an emoticon.
+     * Returns the replacement emoticon text.
      *
-     * @see self::getPatterns()
+     * @param array $matches  Matches from preg_replace_callback().
      *
-     * @param string $icon     The emoticon.
-     * @param string $prefix   A html prefix.
-     * @param string $postfix  A html postfix.
-     *
-     * @return string  HTML code with the image tag and any additional prefix
-     *                 or postfix.
+     * @return string  The replacement text.
      */
-    static public function getImage($icon, $prefix, $postfix)
+    public function emoticonReplace($matches)
     {
-        if (!isset(self::$_iconpath)) {
-            self::$_iconpath = $GLOBALS['registry']->getImageDir('horde') . '/emoticons';
-        }
+        return $matches[1] . $this->getIcon($matches[2]) . (empty($matches[3]) ? '' : $matches[3]);
+    }
 
-        return $prefix . Horde::img(self::getIcons($icon) . '.png', $icon, array('align' => 'middle', 'title' => $icon), self::$_iconpath) . $postfix;
+    /**
+     * Return the replacement emoticon text.
+     *
+     * @param string $icon  The emoticon name.
+     *
+     * @return string  The replacement text.
+     */
+    public function getIcon($icon)
+    {
+        return $icon;
     }
 
     /**
@@ -136,13 +141,13 @@ class Horde_Text_Filter_Emoticons extends Horde_Text_Filter
      *
      * @param string $icon  If set, return the name for that emoticon only.
      *
-     * @return array|string  Patterns hash or icon name.
+     * @return array|string  Patterns hash or emoticon name.
      */
-    static public function getIcons($icon = null)
+    public function getIcons($icon = null)
     {
         return is_null($icon)
-            ? self::$_icons
-            : (isset(self::$_icons[$icon]) ? self::$_icons[$icon] : null);
+            ? $this->_emoticons
+            : (isset($this->_emoticons[$icon]) ? $this->_emoticons[$icon] : null);
     }
 
 }

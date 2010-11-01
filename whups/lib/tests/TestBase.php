@@ -12,22 +12,8 @@ class Whups_TestBase Extends PHPUnit_Framework_TestCase {
 
     function setUp()
     {
-        // TODO: Do we need to actually fake auth for any tests?
-        @define('AUTH_HANDLER', true);
-        @define('HORDE_BASE', dirname(__FILE__) . '/../../..');
-        @define('WHUPS_BASE', dirname(__FILE__) . '/../..');
-        require_once HORDE_BASE . '/lib/core.php';
-
-        // Need to ensure $browser is in the global scope.
-        $GLOBALS['browser'] = $browser;
-
-        // Set up the CLI enviroment.
-        Horde_Cli::init();
-
-        // Need to load registry. For some reason including base.php doesn't
-        // work properly yet. ($registry is not set when prefs.php loads)?
-        $GLOBALS['registry'] = Horde_Registry::singleton();
-        define('WHUPS_TEMPLATES', $GLOBALS['registry']->get('templates', 'whups'));
+        require_once dirname(__FILE__) . '/../Application.php';
+        Horde_Registry::appInit('whups', array('authentication' => 'none', 'cli' => true));
     }
 
     /**

@@ -4,7 +4,7 @@
 <!-- location -->
 <tr>
  <td class="rightAlign"><strong><?php echo _("Location") ?>&nbsp;&nbsp;</strong></td>
- <td><?php echo empty($location) ? '&nbsp;' : Horde_Text_Filter::filter($location, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'class' => 'text')) ?> </td>
+ <td><?php echo empty($location) ? '&nbsp;' : $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($location, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'class' => 'text')) ?> </td>
 </tr>
 <?php endif; ?>
 
@@ -12,7 +12,7 @@
 <!-- url -->
 <tr>
  <td class="rightAlign"><strong><?php echo _("URL") ?>&nbsp;&nbsp;</strong></td>
- <td><?php echo Horde_Text_Filter::filter($eventurl, 'linkurls') ?></td>
+ <td><?php echo $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($eventurl, 'linkurls') ?></td>
 </tr>
 <?php endif; ?>
 
@@ -26,7 +26,7 @@
 <!-- owner -->
 <tr>
  <td class="rightAlign"><strong><?php echo _("Owner") ?>&nbsp;&nbsp;</strong></td>
- <td><?php echo @htmlspecialchars($owner, ENT_COMPAT, Horde_Nls::getCharset()) ?> </td>
+ <td><?php echo htmlspecialchars($owner) ?> </td>
 </tr>
 <?php endif; ?>
 
@@ -74,19 +74,19 @@ if ($this->event->initialized && $this->event->alarm > 0):
 <?php if (isset($created)): ?>
 <tr>
   <td class="nowrap rightAlign"><strong><?php echo _("Created") ?></strong>&nbsp;&nbsp;</td>
-  <td class="nowrap"><?php  echo $created->strftime($dateFormat) . ' ' . $created->format($timeFormat) . ' ' . @htmlspecialchars($createdby, ENT_COMPAT, Horde_Nls::getCharset()) ?></td>
+  <td class="nowrap"><?php  echo $created->strftime($dateFormat) . ' ' . $created->format($timeFormat) . ' ' . htmlspecialchars($createdby) ?></td>
 </tr>
 <?php endif; ?>
 
 <?php if (isset($modified)): ?>
 <tr>
   <td class="nowrap rightAlign"><strong><?php echo _("Last Modified") ?></strong>&nbsp;&nbsp;</td>
-  <td class="nowrap"><?php echo $modified->strftime($dateFormat) . ' ' . $modified->format($timeFormat) . ' ' . @htmlspecialchars($modifiedby, ENT_COMPAT, Horde_Nls::getCharset()) ?></td>
+  <td class="nowrap"><?php echo $modified->strftime($dateFormat) . ' ' . $modified->format($timeFormat) . ' ' . htmlspecialchars($modifiedby) ?></td>
 </tr>
 <?php endif; ?>
 
 
-<?php if ($this->event->recurs()): ?>
+<?php if ($this->event->recurs() || !empty($this->event->baseid)): ?>
 <!-- recurrence -->
 <tr>
  <td colspan="2" class="control"><strong><?php echo _("Recurrence") ?></strong></td>
@@ -94,7 +94,9 @@ if ($this->event->initialized && $this->event->alarm > 0):
 <tr>
  <td class="rightAlign" valign="top"><strong><?php echo _("Pattern") ?>&nbsp;&nbsp;</strong></td>
  <td valign="top">
-<?php if ($this->event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_DAILY)): ?>
+<?php if ($this->event->baseid):?>
+   <?php echo sprintf(_("This is an exception to a recurring event originally scheduled on %s at %s"), $this->event->exceptionoriginaldate->strftime($GLOBALS['prefs']->getValue('date_format')), $this->event->exceptionoriginaldate->strftime(($GLOBALS['prefs']->getValue('twentyFour') ? '%H:%M' : '%I:%M %p')));?>
+<?php elseif ($this->event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_DAILY)): ?>
    <?php echo _("Daily: Recurs every") . ' ' . $this->event->recurrence->getRecurInterval() . ' ' . _("day(s)") ?>
 <?php elseif ($this->event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_WEEKLY)):
     $weekdays = array();
@@ -121,6 +123,7 @@ if ($this->event->initialized && $this->event->alarm > 0):
 </tr>
 
 <!-- recur end date -->
+<?php if ($this->event->recurs()): ?>
 <tr>
  <td class="rightAlign"><strong><?php echo _("Recur Until") ?>&nbsp;&nbsp;</strong></td>
  <td><?php echo $this->event->recurrence->hasRecurEnd() ? $this->event->recurrence->recurEnd->strftime($dateFormat) . ($this->event->recurrence->recurEnd->hour == 23 && $this->event->recurrence->recurEnd->min == 59 ? '' : ' ' . $this->event->recurrence->recurEnd->format($timeFormat)) : ($this->event->recurrence->getRecurCount() ? sprintf(_("%d times"), $this->event->recurrence->getRecurCount()) : _("No end date")) ?></td>
@@ -132,7 +135,7 @@ if ($this->event->initialized && $this->event->alarm > 0):
  <td class="rightAlign"><strong><?php echo _("Exceptions") ?>&nbsp;&nbsp;</strong></td>
  <td><?php echo $this->event->exceptionsList(); ?></td>
 </tr>
-<?php endif; endif; ?>
+<?php endif; endif; endif; ?>
 
 <!-- tags  -->
 <?php if (!empty($tags)):?>
@@ -150,7 +153,7 @@ if ($this->event->initialized && $this->event->alarm > 0):
  <td colspan="2" class="control"><strong><?php echo _("Description") ?></strong></td>
 </tr>
 <tr>
- <td colspan="2" class="description"><?php echo Horde_Text_Filter::filter($description, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'class' => 'text')) ?></td>
+ <td colspan="2" class="description"><?php echo $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($description, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'class' => 'text')) ?></td>
 </tr>
 <?php endif; ?>
 

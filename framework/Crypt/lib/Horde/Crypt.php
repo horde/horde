@@ -8,17 +8,19 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Crypt
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Crypt
  */
 class Horde_Crypt
 {
     /**
-     * Singleton instances.
+     * Configuration parameters.
      *
      * @var array
      */
-    static protected $_instances = array();
+    protected $_params = array();
 
     /**
      * The temporary directory to use.
@@ -30,69 +32,58 @@ class Horde_Crypt
     /**
      * Attempts to return a concrete Horde_Crypt instance based on $driver.
      *
-     * @param mixed $driver  The type of concrete Horde_Crypt subclass to
-     *                       return. If $driver is an array, then we will look
-     *                       in $driver[0]/lib/Crypt/ for the subclass
-     *                       implementation named $driver[1].php.
-     * @param array $params  A hash containing any additional configuration or
-     *                       parameters a subclass might need.
+     * @param string $driver  Either a driver name, or the full class name to
+     *                        use (class must extend Horde_Crypt).
+     * @param array $params   A hash containing any additional configuration
+     *                        or parameters a subclass might need.
      *
-     * @return Horde_Crypt  The newly created concrete Horde_Crypt instance.
-     * @throws Horde_Exception
+     * @return Horde_Crypt  The newly created concrete instance.
+     * @throws Horde_Crypt_Exception
      */
     static public function factory($driver, $params = array())
     {
-        if (is_array($driver)) {
-            list($app, $driv_name) = $driver;
-            $driver = basename($driv_name);
-        } else {
-            $driver = basename($driver);
-        }
-
         /* Return a base Horde_Crypt object if no driver is specified. */
         if (empty($driver) || (strcasecmp($driver, 'none') == 0)) {
             return new Horde_Crypt();
         }
 
-        $class = (empty($app) ? 'Horde' : $app) . '_Crypt_' . ucfirst($driver);
-
+        /* Base drivers (in Crypt/ directory). */
+        $class = __CLASS__ . '_' . ucfirst(basename($driver));
         if (class_exists($class)) {
             return new $class($params);
         }
 
-        throw new Horde_Exception('Class definition of ' . $class . ' not found.');
+        /* Explicit class name, */
+        $class = $driver;
+        if (class_exists($class)) {
+            return new $class($params);
+        }
+
+        throw new Horde_Crypt_Exception(__CLASS__ . ': Class definition of ' . $driver . ' not found.');
     }
 
     /**
-     * Attempts to return a reference to a concrete Horde_Crypt instance
-     * based on $driver. It will only create a new instance if no
-     * Horde_Crypt instance with the same parameters currently exists.
+     * Constructor.
      *
-     * This should be used if multiple crypto backends (and, thus,
-     * multiple Horde_Crypt instances) are required.
+     * @param array $params  Configuration parameters:
+     *                       - 'email_charset': (string) The default email
+     *                                          charset. DEFAULT: NONE
+     *                       - 'temp': (string) [REQUIRED] Location of
+     *                                          temporary directory.
      *
-     * This method must be invoked as: $var = Horde_Crypt::singleton()
-     *
-     * @param mixed $driver  The type of concrete Horde_Crypt subclass to
-     *                       return. If $driver is an array, then we will look
-     *                       in $driver[0]/lib/Crypt/ for the subclass
-     *                       implementation named $driver[1].php.
-     * @param array $params  A hash containing any additional configuration or
-     *                       connection parameters a subclass might need.
-     *
-     * @return Horde_Crypt  The concrete Horde_Crypt reference.
-     * @throws Horde_Exception
+     * @throws InvalidArgumentException
      */
-    static public function singleton($driver, $params = array())
+    public function __construct(array $params = array())
     {
-        ksort($params);
-        $signature = hash('md5', serialize(array($driver, $params)));
-
-        if (!isset(self::$_instances[$signature])) {
-            self::$_instances[$signature] = self::factory($driver, $params);
+        if (empty($params['temp'])) {
+            throw new InvalidArgumentException('A temporary directory must be provided.');
         }
 
-        return self::$_instances[$signature];
+        $this->_tempdir = Horde_Util::createTempDir(true, $params['temp']);
+
+        $this->_params = array_merge(array(
+            'email_charset' => null,
+        ), $params);
     }
 
     /**
@@ -117,7 +108,7 @@ class Horde_Crypt
      * @param array $params  An array of arguments needed to decrypt the data.
      *
      * @return array  The decrypted data.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function decrypt($data, $params = array())
     {

@@ -1,0 +1,237 @@
+# passwd module translations
+# Copyright 2002-2009 The Horde Project.
+# Gyula Szabo <gyufi@sztaki.hu>, 2003.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: passwd\n"
+"POT-Creation-Date: 2003-03-06 11:46+0100\n"
+"PO-Revision-Date: 2003-03-06 11:49+0100\n"
+"Last-Translator: Gyula Szabo <gyufi@sztaki.hu>\n"
+"Language-Team: Hungarian <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+#: lib/Driver.php:197
+msgid "Backend not correctly implemented."
+msgstr "A Backend nincs megfelelően beillesztve."
+
+#: main.php:221
+msgid "Change Password"
+msgstr "Jelszó módosítás"
+
+#: templates/main/main.inc:26 templates/main/main.inc:79
+msgid "Change your password"
+msgstr "Jelszó módosítás"
+
+#: templates/main/main.inc:33
+#, php-format
+msgid "Changing Password on %s"
+msgstr "Jelszómódosítás a %s szerveren"
+
+#: templates/main/main.inc:57
+msgid "Confirm new password:"
+msgstr "új jelszó megerősítése:"
+
+#: lib/Driver/ldap.php:61 lib/Driver/ldap.php:133
+msgid "Could not bind to ldap server"
+msgstr "Az LDAP szerverhez nem lehet kapcsolódni"
+
+#: lib/Driver/ldap.php:51
+msgid "Could not connect to ldap server"
+msgstr "Az LDAP szerver nem érhető el."
+
+#: lib/Driver/smbpasswd.php:51
+msgid "Could not open pipe to smbpasswd."
+msgstr "Nem lehet csatlakozni az smbpasswd csővezetékhez."
+
+#: status.php:16
+msgid "Error"
+msgstr "Hiba"
+
+#: lib/Driver/poppassd.php:108
+msgid "Error Changing Password"
+msgstr "Jelszómódosítási hiba"
+
+#: lib/Driver/smbpasswd.php:72
+msgid "Error sending data to smbpasswd."
+msgstr "Adattovábbítási hiba az smbpasswd-hez."
+
+#: main.php:179
+msgid "Failure in changing password : "
+msgstr "Hiba a jelszómódosításnál: "
+
+#: templates/menu/menu.inc:30
+msgid "Help"
+msgstr "Segítség"
+
+#: lib/Driver/ldap.php:134 lib/Driver/vmailmgr.php:53
+#: lib/Driver/poppassd.php:102
+msgid "Incorect Password"
+msgstr "Hibás jelszó"
+
+#: templates/menu/menu.inc:41
+msgid "Logout"
+msgstr "Kijelentkezés"
+
+#: status.php:29
+msgid "Message"
+msgstr "Üzenet"
+
+#: templates/main/main.inc:51
+msgid "New password:"
+msgstr "Új jelszó:"
+
+#: templates/main/main.inc:45
+msgid "Old password:"
+msgstr "Jelenlegi jelszó:"
+
+#: main.php:177
+msgid "Password changed!"
+msgstr "A jelszó megváltozott!"
+
+#: lib/Driver/smbpasswd.php:44 lib/Driver/servuftp.php:85
+#: lib/Driver/servuftp.php:122 lib/Driver.php:179 main.php:162
+#: templates/index/notconfigured.inc:4
+msgid "Password module is not properly configured"
+msgstr "A Jelszó modul nincs megfelelően konfigurálva"
+
+#: templates/menu/menu.inc:37
+msgid "Problem?"
+msgstr "Probléma"
+
+#: lib/Driver/sql.php:37 lib/Driver/vpopmail.php:39
+msgid "Required 'phptype' not specified in SQL configuration."
+msgstr "'phptype' nincs specifikálva az SQL konfigurációban."
+
+#: templates/main/main.inc:80
+msgid "Reset"
+msgstr "Tiszta űrlap"
+
+#: templates/main/main.inc:64
+msgid "Server"
+msgstr "Server"
+
+#: templates/index/notconfigured.inc:40
+msgid "Some of Password module's configuration files are missing:"
+msgstr "A következő Password modul konfigurációs állományok hiányzoznak:"
+
+#: status.php:20
+msgid "Success"
+msgstr "Sikerült"
+
+#: templates/index/notconfigured.inc:52
+msgid ""
+"This file contains backed configuration information for the Password module "
+"scripts."
+msgstr ""
+"Ez a file tartalmazza a Passwd modul szkriptjeinek konfigurációsinformációit."
+
+#: templates/index/notconfigured.inc:45
+msgid ""
+"This is the main Password module configuration file. It contains paths and "
+"options for all Password module scripts."
+msgstr ""
+"Ez a Passwd modul fő konfigurációs állománya. Ez tartalmazza az élérési "
+"útvonalakat,és az opciókat a Passwd modul összes szkriptjéhez."
+
+#: lib/Driver/sql.php:68 lib/Driver/vpopmail.php:73
+msgid "Unable to connect to SQL server."
+msgstr "Az SQL szerver nem érhető el."
+
+#: lib/Driver/sql.php:127 lib/Driver/poppassd.php:96
+#: lib/Driver/vpopmail.php:135
+msgid "User not found"
+msgstr "Nincs ilyen felhasználó"
+
+#: lib/Driver/ldap.php:99
+msgid "User not found."
+msgstr "Nincs ilyen felhasználó"
+
+#: templates/main/main.inc:39
+msgid "Username:"
+msgstr "Felhasznólói név:"
+
+#: status.php:24
+msgid "Warning"
+msgstr "Figyelmeztetés"
+
+#: main.php:41
+#, php-format
+msgid "You can't change password for user %s"
+msgstr "Nem tudod megváltoztatni %s jelszavát!"
+
+#: main.php:57
+msgid "You must give your new password"
+msgstr "Meg kell adnod az új jelszót"
+
+#: main.php:49
+msgid "You must give your old password"
+msgstr "Meg kell adnod az eredeti jelszót"
+
+#: main.php:61
+msgid "You must verify your new password"
+msgstr "Az új jelszavadat kétszer kell megadnod"
+
+#: main.php:83
+#, php-format
+msgid ""
+"Your new password is too long; passwords may not be more than %d characters "
+"long!"
+msgstr "A jelszavad túl hosszú! A jelszó nem lehet több %d karakternél!"
+
+#: main.php:144 main.php:152
+msgid "Your new password is too simple to guess!  Not changed!"
+msgstr "A jelszavad túl könnyen kitalálható! Nem módosítom!"
+
+#: main.php:78
+#, php-format
+msgid "Your new password must be at least %d characters long!"
+msgstr "Az új jelszónak legalább %d karaktenek kell lennie!"
+
+#: main.php:71
+msgid "Your new password must be different from your current password"
+msgstr "Az új és a jelenlegi jelszónak különböznie kell"
+
+#: main.php:120
+#, php-format
+msgid "Your new password must contain at least %d alphabetic characters."
+msgstr "Az új jelszónak legalább %d betűt kell tartalmaznia."
+
+#: main.php:125
+#, php-format
+msgid "Your new password must contain at least %d alphanumeric characters."
+msgstr "Az új jelszónak legalább %d alfanumerikus karaktert kell tartalmaznia."
+
+#: main.php:110
+#, php-format
+msgid "Your new password must contain at least %d lowercase characters."
+msgstr "Az új jelszónak legalább %d kisbetűt kell tartalmaznia."
+
+#: main.php:115
+#, php-format
+msgid "Your new password must contain at least %d numeric characters."
+msgstr "Az új jelszónak legalább %d számot kell tartalmaznia."
+
+#: main.php:105
+#, php-format
+msgid "Your new password must contain at least %d uppercase characters."
+msgstr "Az új jelszónak legalább %d nagybetűt kell tartalmaznia."
+
+#: main.php:130
+#, php-format
+msgid "Your new password must contain at less than %d whitespace characters."
+msgstr "Az új jelszó nem tartalmazhat %d-nál több üres karaktert."
+
+#: main.php:132
+msgid "Your new password must not contain whitespace characters."
+msgstr "Az új jelszó nem tartalmazhat üres karaktert."
+
+#: main.php:66
+msgid "Your new passwords didn't match"
+msgstr "Az új jelszavak nem egyeznek!"
+
+#: lib/Driver/smbpasswd.php:97
+msgid "tempnam() failed!"
+msgstr "tempnam() sikertelen!"

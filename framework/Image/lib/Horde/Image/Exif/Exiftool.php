@@ -21,12 +21,11 @@ class Horde_Image_Exif_Exiftool extends Horde_Image_Exif_Base
 
     public function __construct($params)
     {
-        parent::__construct($params);
-        if (!empty($this->_params['exiftool'])) {
-            $this->_exiftool = $this->_params['exiftool'];
-        } else {
+        if (empty($this->_params['exiftool'])) {
             throw new InvalidArgumentException('Missing required exiftool path');
         }
+        parent::__construct($params);
+        $this->_exiftool = $this->_params['exiftool'];
     }
 
     /**
@@ -36,25 +35,30 @@ class Horde_Image_Exif_Exiftool extends Horde_Image_Exif_Base
     public function getData($image)
     {
         // Request the full stream of meta data in JSON format.
-        // -j option outputs in JSON, -n = prevent screen formatting
-        $command = '-j -n ' . $image;
+        // -j option outputs in JSON, appending '#' to the -TAG prevents
+        // screen formatting.
+        $categories = Horde_Image_Exif::getCategories();
+        $tags = '';
+        foreach (array('EXIF', 'IPTC', 'XMP') as $category) {
+            foreach ($categories[$category] as $field => $value) {
+                $tags .= ' -' . $field . '#';
+            }
+        }
+        foreach ($categories['COMPOSITE'] as $field => $value) {
+            $tags .= ' -' . $field;
+        }
+        $command = '-j' . $tags . ' ' . $image;
         $results = json_decode($this->_execute($command));
         if (is_array($results)) {
-            $results = array_pop($results);
-        }
-
-        // Return as an array since that's what all the other Exif classes do...
-        if ($results instanceof stdClass) {
-            return $this->_processData((array)$results);
+            return $this->_processData((array)array_pop($results));
         }
 
         throw new Horde_Image_Exception('Unknown error running exiftool command');
-
     }
 
     public function supportedCategories()
     {
-        return array('EXIF', 'IPTC', 'XMP');
+        return array('EXIF', 'IPTC', 'XMP', 'COMPOSITE');
     }
 
     /**
@@ -68,7 +72,7 @@ class Horde_Image_Exif_Exiftool extends Horde_Image_Exif_Base
     {
         exec($this->_exiftool . ' ' . escapeshellcmd($command), $output, $retval);
         if ($retval) {
-            $this->_logErr(sprintf("Error running command: %s"), $command . "\n" . implode("\n", $output));
+            $this->_logErr(sprintf("Error running command: %s", $command . "\n" . implode("\n", $output)));
         }
         if (is_array($output)) {
             $output = implode('', $output);

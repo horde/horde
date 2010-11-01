@@ -16,8 +16,22 @@
  */
 class Horde_Http_Response_Mock extends Horde_Http_Response_Base
 {
+    /**
+     * Constructor
+     */
+    public function __construct($uri, $stream, $headers = array())
+    {
+        $this->uri = $uri;
+        $this->_stream = $stream;
+        $this->headers = $this->_parseHeaders($headers);
+    }
+
     public function getBody()
     {
-        return $this->body;
+        $content = @stream_get_contents($this->_stream);
+        if ($content === false) {
+            throw new Horde_Http_Exception('Problem reading data from ' . $this->uri . ': ' . $php_errormsg);
+        }
+        return $content;
     }
 }

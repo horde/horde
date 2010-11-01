@@ -3,25 +3,6 @@
  * The Horde_Auth_Ldap class provides an LDAP implementation of the Horde
  * authentication system.
  *
- * Required parameters:
- * <pre>
- * 'basedn'       The base DN for the LDAP server.
- * 'hostspec'     The hostname of the LDAP server.
- * 'uid'          The username search key.
- * 'filter'       The LDAP formatted search filter to search for users. This
- *                setting overrides the 'objectclass' method below.
- * 'objectclass'  The objectclass filter used to search for users. Can be a
- *                single objectclass or an array.
- * </pre>
- *
- * Optional parameters:
- * <pre>
- * 'binddn'       The DN used to bind to the LDAP server
- * 'password'     The password used to bind to the LDAP server
- * 'version'      The version of the LDAP protocol to use.
- *                DEFAULT: NONE (system default will be used)
- * </pre>
- *
  * 'preauthenticate' hook should return LDAP connection information in the
  * 'ldap' credentials key.
  *
@@ -30,8 +11,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
  *
- * @author  Jon Parise <jon@horde.org>
- * @package Horde_Auth
+ * @author   Jon Parise <jon@horde.org>
+ * @category Horde
+ * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
+ * @package  Auth
  */
 class Horde_Auth_Ldap extends Horde_Auth_Base
 {
@@ -50,123 +33,41 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
     );
 
     /**
-     * LDAP connection handle.
+     * LDAP object
      *
-     * @var resource
+     * @var Horde_Ldap
      */
-    protected $_ds;
+    protected $_ldap;
 
     /**
-     * Construct.
+     * Constructor.
      *
-     * @param array $params  A hash containing connection parameters.
+     * @param array $params  Required parameters:
+     * <pre>
+     * 'basedn' - (string) [REQUIRED] The base DN for the LDAP server.
+     * 'filter' - (string) The LDAP formatted search filter to search for
+     *            users. This setting overrides the 'objectclass' parameter.
+     * 'ldap' - (Horde_Ldap) [REQUIRED] Horde LDAP object.
+     * 'objectclass - (string|array): The objectclass filter used to search
+     *                for users. Either a single or an array of objectclasses.
+     * 'uid' - (string) [REQUIRED] The username search key.
+     * </pre>
      *
      * @throws Horde_Auth_Exception
+     * @throws InvalidArgumentException
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
-        if (!Horde_Util::extensionExists('ldap')) {
-            throw new Horde_Auth_Exception(_("Horde_Auth_Ldap: Required LDAP extension not found."));
+        foreach (array('basedn', 'ldap', 'uid') as $val) {
+            if (!isset($params[$val])) {
+                throw new InvalidArgumentException(__CLASS__ . ': Missing ' . $val . ' parameter.');
+            }
         }
 
-        /* Ensure we've been provided with all of the necessary parameters. */
-        Horde::assertDriverConfig($params, 'auth',
-                                  array('hostspec', 'basedn', 'uid'),
-                                  'authentication LDAP');
+        $this->_ldap = $params['ldap'];
+        unset($params['ldap']);
 
         parent::__construct($params);
-    }
-
-    /**
-     * Does an ldap connect and binds as the guest user or as the optional dn.
-     *
-     * @throws Horde_Auth_Exception
-     */
-    protected function _connect()
-    {
-        /* Connect to the LDAP server. */
-        $this->_ds = @ldap_connect($this->_params['hostspec']);
-        if (!$this->_ds) {
-            throw new Horde_Auth_Exception(_("Failed to connect to LDAP server."));
-        }
-
-        if (isset($this->_params['version'])) {
-            if (!ldap_set_option($this->_ds, LDAP_OPT_PROTOCOL_VERSION,
-                                 $this->_params['version'])) {
-                Horde::logMessage(
-                    sprintf('Set LDAP protocol version to %d failed: [%d] %s',
-                            $this->_params['version'],
-                            @ldap_errno($this->_ds),
-                            @ldap_error($this->_ds)),
-                    __FILE__, __LINE__, PEAR_LOG_ERR);
-            }
-        }
-
-        /* Start TLS if we're using it. */
-        if (!empty($this->_params['tls'])) {
-            if (!@ldap_start_tls($this->_ds)) {
-                Horde::logMessage(
-                    sprintf('STARTTLS failed: [%d] %s',
-                            @ldap_errno($this->_ds),
-                            @ldap_error($this->_ds)),
-                    __FILE__, __LINE__, PEAR_LOG_ERR);
-            }
-        }
-
-        /* Work around Active Directory quirk. */
-        if (!empty($this->_params['ad'])) {
-            if (!ldap_set_option($this->_ds, LDAP_OPT_REFERRALS, false)) {
-                Horde::logMessage(
-                    sprintf('Unable to disable directory referrals on this connection to Active Directory: [%d] %s',
-                            @ldap_errno($this->_ds),
-                            @ldap_error($this->_ds)),
-                    __FILE__, __LINE__, PEAR_LOG_ERR);
-            }
-        }
-
-        $bind = isset($this->_params['binddn'])
-            ? @ldap_bind($this->_ds, $this->_params['binddn'], $this->_params['password'])
-            : @ldap_bind($this->_ds);
-
-        if (!$bind) {
-            throw new Horde_Auth_Exception(_("Could not bind to LDAP server."));
-        }
-    }
-
-    /**
-     * Find the user dn
-     *
-     * @param string $userId  The userId to find.
-     *
-     * @return string  The users full DN
-     * @throws Horde_Auth_Exception
-     */
-    protected function _findDN($userId)
-    {
-        /* Search for the user's full DN. */
-        $filter = $this->_getParamFilter();
-        $filter = '(&(' . $this->_params['uid'] . '=' . $userId . ')' .
-                  $filter . ')';
-
-        $func = ($this->_params['scope'] == 'one')
-            ? 'ldap_list'
-            : 'ldap_search';
-
-        $search = @$func($this->_ds, $this->_params['basedn'], $filter,
-                         array($this->_params['uid']));
-        if (!$search) {
-            Horde::logMessage(ldap_error($this->_ds), __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Auth_Exception(_("Could not search the LDAP server."));
-        }
-
-        $result = @ldap_get_entries($this->_ds, $search);
-        if (is_array($result) && (count($result) > 1)) {
-            $dn = $result[0]['dn'];
-        } else {
-            throw new Horde_Auth_Exception(_("Empty result."));
-        }
-
-        return $dn;
     }
 
     /**
@@ -197,64 +98,75 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
          *    pwdlastset: Active Directory
          *    shadow*: shadowUser schema
          *    passwordexpirationtime: Sun and Fedora Directory Server */
-        $result = @ldap_read($this->_ds, $dn, '(objectClass=*)',
-                             array('pwdlastset', 'shadowmax', 'shadowmin',
-                                   'shadowlastchange', 'shadowwarning',
-                                   'passwordexpirationtime'));
-        if ($result) {
-            $information = @ldap_get_entries($this->_ds, $result);
+        try {
+            $result = $this->_ldap->search(null, '(objectClass=*)', array(
+                'attributes' => array(
+                    'pwdlastset',
+                    'shadowmax',
+                    'shadowmin',
+                    'shadowlastchange',
+                    'shadowwarning',
+                    'passwordexpirationtime'
+                ),
+                'scope' => 'base'
+            ));
+        } catch (Horde_Ldap_Exception $e) {
+            return $lookupshadow;
+        }
 
-            if ($this->_params['ad']) {
-                if (isset($information[0]['pwdlastset'][0])) {
-                    /* Active Directory handles timestamps a bit differently.
-                     * Convert the timestamp to a UNIX timestamp. */
-                    $lookupshadow['shadowlastchange'] = floor((($information[0]['pwdlastset'][0] / 10000000) - 11644406783) / 86400) - 1;
+        if (!$result) {
+            return $lookupshadow;
+        }
 
-                    /* Password expiry attributes are in a policy. We cannot
-                     * read them so use the Horde config. */
-                    $lookupshadow['shadowwarning'] = $this->_params['warnage'];
-                    $lookupshadow['shadowmin'] = $this->_params['minage'];
-                    $lookupshadow['shadowmax'] = $this->_params['maxage'];
-                }
-            } elseif (isset($information[0]['passwordexpirationtime'][0])) {
-                /* Sun/Fedora Directory Server uses a special attribute
-                 * passwordexpirationtime.  It has precedence over shadow*
-                 * because it actually locks the expired password at the LDAP
-                 * server level.  The correct way to check expiration should
-                 * be using LDAP controls, unfortunately PHP doesn't support
-                 * controls on bind() responses. */
-                $ldaptimepattern = "/([0-9]{4})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})Z/";
-                if (preg_match($ldaptimepattern, $information[0]['passwordexpirationtime'][0], $regs)) {
-                    /* Sun/Fedora Directory Server return expiration time, not
-                     * last change time. We emulate the behaviour taking it
-                     * back to maxage. */
-                    $lookupshadow['shadowlastchange'] = floor(mktime($regs[4], $regs[5], $regs[6], $regs[2], $regs[3], $regs[1]) / 86400) - $this->_params['maxage'];
+        $info = reset($result);
 
-                    /* Password expiry attributes are in not accessible policy
-                     * entry. */
-                    $lookupshadow['shadowwarning'] = $this->_params['warnage'];
-                    $lookupshadow['shadowmin']     = $this->_params['minage'];
-                    $lookupshadow['shadowmax']     = $this->_params['maxage'];
-                } else {
-                    Horde::logMessage('Wrong time format: ' . $information[0]['passwordexpirationtime'][0], __FILE__, __LINE__, PEAR_LOG_ERR);
-                }
-            } else {
-                if (isset($information[0]['shadowmax'][0])) {
-                    $lookupshadow['shadowmax'] =
-                        $information[0]['shadowmax'][0];
-                }
-                if (isset($information[0]['shadowmin'][0])) {
-                    $lookupshadow['shadowmin'] =
-                        $information[0]['shadowmin'][0];
-                }
-                if (isset($information[0]['shadowlastchange'][0])) {
-                    $lookupshadow['shadowlastchange'] =
-                        $information[0]['shadowlastchange'][0];
-                }
-                if (isset($information[0]['shadowwarning'][0])) {
-                    $lookupshadow['shadowwarning'] =
-                        $information[0]['shadowwarning'][0];
-                }
+        // TODO: 'ad'?
+        if ($this->_params['ad']) {
+            if (isset($info['pwdlastset'][0])) {
+                /* Active Directory handles timestamps a bit differently.
+                 * Convert the timestamp to a UNIX timestamp. */
+                $lookupshadow['shadowlastchange'] = floor((($info['pwdlastset'][0] / 10000000) - 11644406783) / 86400) - 1;
+
+                /* Password expiry attributes are in a policy. We cannot
+                 * read them so use the Horde config. */
+                $lookupshadow['shadowwarning'] = $this->_params['warnage'];
+                $lookupshadow['shadowmin'] = $this->_params['minage'];
+                $lookupshadow['shadowmax'] = $this->_params['maxage'];
+            }
+        } elseif (isset($info['passwordexpirationtime'][0])) {
+            /* Sun/Fedora Directory Server uses a special attribute
+             * passwordexpirationtime.  It has precedence over shadow*
+             * because it actually locks the expired password at the LDAP
+             * server level.  The correct way to check expiration should
+             * be using LDAP controls, unfortunately PHP doesn't support
+             * controls on bind() responses. */
+            $ldaptimepattern = "/([0-9]{4})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})Z/";
+            if (preg_match($ldaptimepattern, $info['passwordexpirationtime'][0], $regs)) {
+                /* Sun/Fedora Directory Server return expiration time, not
+                 * last change time. We emulate the behaviour taking it
+                 * back to maxage. */
+                $lookupshadow['shadowlastchange'] = floor(mktime($regs[4], $regs[5], $regs[6], $regs[2], $regs[3], $regs[1]) / 86400) - $this->_params['maxage'];
+
+                /* Password expiry attributes are in not accessible policy
+                 * entry. */
+                $lookupshadow['shadowwarning'] = $this->_params['warnage'];
+                $lookupshadow['shadowmin']     = $this->_params['minage'];
+                $lookupshadow['shadowmax']     = $this->_params['maxage'];
+            } elseif ($this->_logger) {
+                $this->_logger->log('Wrong time format: ' . $info['passwordexpirationtime'][0], 'ERR');
+            }
+        } else {
+            if (isset($info['shadowmax'][0])) {
+                $lookupshadow['shadowmax'] = $info['shadowmax'][0];
+            }
+            if (isset($info['shadowmin'][0])) {
+                $lookupshadow['shadowmin'] = $info['shadowmin'][0];
+            }
+            if (isset($info['shadowlastchange'][0])) {
+                $lookupshadow['shadowlastchange'] = $info['shadowlastchange'][0];
+            }
+            if (isset($info['shadowwarning'][0])) {
+                $lookupshadow['shadowwarning'] = $info['shadowwarning'][0];
             }
         }
 
@@ -271,17 +183,24 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
      */
     protected function _authenticate($userId, $credentials)
     {
-        /* Connect to the LDAP server. */
-        $this->_connect();
-
         /* Search for the user's full DN. */
-        $dn = $this->_findDN($userId);
+        $this->_ldap->bind();
+        try {
+            $dn = $this->_ldap->findUserDN($userId);
+        } catch (Horde_Exception_NotFound $e) {
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
+        } catch (Horde_Exception_Ldap $e) {
+            throw new Horde_Auth_Exception($e->getMessage(), Horde_Auth::REASON_MESSAGE);
+        }
 
         /* Attempt to bind to the LDAP server as the user. */
-        $bind = @ldap_bind($this->_ds, $dn, $credentials['password']);
-        if ($bind == false) {
-            @ldap_close($this->_ds);
-            throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
+        try {
+            $this->_ldap->bind($dn, $credentials['password']);
+        } catch (Horde_Ldap_Exception $e) {
+            if (Horde_Ldap::errorName($e->getCode() == 'LDAP_INVALID_CREDENTIALS')) {
+                throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
+            }
+            throw new Horde_Auth_Exception($e->getMessage(), Horde_Auth::REASON_MESSAGE);
         }
 
         if ($this->_params['password_expiration'] == 'yes') {
@@ -289,24 +208,21 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
             if ($shadow['shadowmax'] && $shadow['shadowlastchange'] &&
                 $shadow['shadowwarning']) {
                 $today = floor(time() / 86400);
-                $warnday = $shadow['shadowlastchange'] +
-                           $shadow['shadowmax'] - $shadow['shadowwarning'];
                 $toexpire = $shadow['shadowlastchange'] +
                             $shadow['shadowmax'] - $today;
 
+                $warnday = $shadow['shadowlastchange'] + $shadow['shadowmax'] - $shadow['shadowwarning'];
                 if ($today >= $warnday) {
-                    $GLOBALS['notification']->push(sprintf(ngettext("%d day until your password expires.", "%d days until your password expires.", $toexpire), $toexpire), 'horde.warning');
+                    $this->setCredential('expire', $toexpire);
                 }
 
                 if ($toexpire == 0) {
-                    $this->_credentials['params']['change'] = true;
+                    $this->setCredential('change', true);
                 } elseif ($toexpire < 0) {
                     throw new Horde_Auth_Exception('', Horde_Auth::REASON_EXPIRED);
                 }
             }
         }
-
-        @ldap_close($this->_ds);
     }
 
     /**
@@ -320,13 +236,9 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
     public function addUser($userId, $credentials)
     {
         if ($this->_params['ad']) {
-            throw new Horde_Auth_Exception(_("Horde_Auth_Ldap: Adding users is not supported for Active Directory"));
+            throw new Horde_Auth_Exception(__CLASS__ . ': Adding users is not supported for Active Directory.');
         }
 
-        /* Connect to the LDAP server. */
-        $this->_connect();
-
-        list($userId, $credentials) = Horde_Auth::runHook($userId, $credentials, $this->_app, 'preauthenticate', 'admin');
         if (isset($credentials['ldap'])) {
             $entry = $credentials['ldap'];
             $dn = $entry['dn'];
@@ -356,45 +268,41 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
             }
         }
 
-        $result = @ldap_add($this->_ds, $dn, $entry);
-
-        if (!$result) {
-           throw new Horde_Auth_Exception(sprintf(_("Horde_Auth_Ldap: Unable to add user \"%s\". This is what the server said: "), $userId) . @ldap_error($this->_ds));
+        try {
+            $this->_ldap->add(Horde_Ldap_Entry::createFresh($dn, $entry));
+        } catch (Horde_Ldap_Exception $e) {
+           throw new Horde_Auth_Exception(sprintf(__CLASS__ . ': Unable to add user "%s". This is what the server said: ', $userId) . $e->getMessage());
         }
-
-        @ldap_close($this->_ds);
     }
 
     /**
      * Remove a set of authentication credentials.
      *
      * @param string $userId  The userId to add.
+     * @param string $dn      TODO
      *
      * @throws Horde_Auth_Exception
      */
-    public function removeUser($userId)
+    public function removeUser($userId, $dn = null)
     {
         if ($this->_params['ad']) {
-           throw new Horde_Auth_Exception(_("Horde_Auth_Ldap: Removing users is not supported for Active Directory"));
+           throw new Horde_Auth_Exception(__CLASS__ . ': Removing users is not supported for Active Directory');
         }
 
-        /* Connect to the LDAP server. */
-        $this->_connect();
-
-        list($userId, $credentials) = Horde_Auth::runHook($userId, array(), $this->_app, 'preauthenticate', 'admin');
-        if (isset($credentials['ldap'])) {
-            $dn = $credentials['ldap']['dn'];
-        } else {
+        if (is_null($dn)) {
             /* Search for the user's full DN. */
-            $dn = $this->_findDN($userId);
+            try {
+                $dn = $this->_ldap->findUserDN($userId);
+            } catch (Horde_Exception_Ldap $e) {
+                throw new Horde_Auth_Exception($e);
+            }
         }
 
-        $result = @ldap_delete($this->_ds, $dn);
-        if (!$result) {
-           throw new Horde_Auth_Exception(sprintf(_("Auth_ldap: Unable to remove user \"%s\""), $userId));
+        try {
+            $this->_ldap->delete($dn);
+        } catch (Horde_Ldap_Exception $e) {
+           throw new Horde_Auth_Exception(sprintf(__CLASS__ . ': Unable to remove user "%s"', $userId));
         }
-
-        @ldap_close($this->_ds);
 
         Horde_Auth::removeUserData($userId);
     }
@@ -405,27 +313,25 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
      * @param string $oldID       The old userId.
      * @param string $newID       The new userId.
      * @param array $credentials  The new credentials
+     * @param string $olddn       TODO
+     * @param string $newdn       TODO
      *
      * @throws Horde_Auth_Exception
      */
-    public function updateUser($oldID, $newID, $credentials)
+    public function updateUser($oldID, $newID, $credentials, $olddn = null,
+                               $newdn = null)
     {
         if ($this->_params['ad']) {
-           throw new Horde_Auth_Exception(_("Horde_Auth_Ldap: Updating users is not supported for Active Directory."));
+           throw new Horde_Auth_Exception(__CLASS__ . ': Updating users is not supported for Active Directory.');
         }
 
-        /* Connect to the LDAP server. */
-        $this->_connect();
-
-        list($oldID, $old_credentials) = Horde_Auth::runHook($oldID, $credentials, $this->_app, 'preauthenticate', 'admin');
-        if (isset($old_credentials['ldap'])) {
-            $olddn = $old_credentials['ldap']['dn'];
-            list($newID, $new_credentials) = Horde_Auth::runHook($newID, $credentials, $this->_app, 'preauthenticate', 'admin');
-            $newdn = $new_credentials['ldap']['dn'];
-            unset($new_credentials['ldap']['dn']);
-        } else {
+        if (is_null($olddn)) {
             /* Search for the user's full DN. */
-            $dn = $this->_findDN($oldID);
+            try {
+                $dn = $this->_ldap->findUserDN($oldID);
+            } catch (Horde_Exception_Ldap $e) {
+                throw new Horde_Auth_Exception($e);
+            }
 
             $olddn = $dn;
             $newdn = preg_replace('/uid=.*?,/', 'uid=' . $newID . ',', $dn, 1);
@@ -436,7 +342,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
             if ($shadow['shadowlastchange'] &&
                 $shadow['shadowmin'] &&
                 ($shadow['shadowlastchange'] + $shadow['shadowmin'] > (time() / 86400))) {
-                throw new Horde_Auth_Exception(_("Minimum password age has not yet expired"));
+                throw new Horde_Auth_Exception('Minimum password age has not yet expired');
             }
 
             /* Set the lastchange field */
@@ -451,55 +357,16 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
                 'true');
         }
 
-        if ($oldID != $newID) {
-            if (LDAP_OPT_PROTOCOL_VERSION == 3) {
-                ldap_rename($this->_ds, $olddn, $newdn,
-                            $this->_params['basedn'], true);
-
-                $result = ldap_modify($this->_ds, $newdn, $entry);
+        try {
+            if ($oldID != $newID) {
+                $this->_ldap->move($olddn, $newdn);
+                $this->_ldap->modify($newdn, $entry);
             } else {
-                /* Get the complete old record first */
-                $result = @ldap_read($this->_ds, $olddn, 'objectClass=*');
-
-                if ($result) {
-                    $information = @ldap_get_entries($this->_ds, $result);
-
-                    /* Remove the count elements from the array */
-                    $counter = 0;
-                    $newrecord = array();
-                    while (isset($information[0][$counter])) {
-                        if ($information[0][$information[0][$counter]]['count'] == 1) {
-                            $newrecord[$information[0][$counter]] = $information[0][$information[0][$counter]][0];
-                        } else {
-                            $newrecord[$information[0][$counter]] = $information[0][$information[0][$counter]];
-                            unset($newrecord[$information[0][$counter]]['count']);
-                        }
-                        $counter++;
-                    }
-
-                    /* Adjust the changed parameters */
-                    unset($newrecord['dn']);
-                    $newrecord[$this->_params['uid']] = $newID;
-                    $newrecord['userpassword'] = $entry['userpassword'];
-                    if (isset($entry['shadowlastchange'])) {
-                        $newrecord['shadowlastchange'] = $entry['shadowlastchange'];
-                    }
-
-                    $result = ldap_add($this->_ds, $newdn, $newrecord);
-                    if ($result) {
-                        $result = @ldap_delete($this->_ds, $olddn);
-                    }
-                }
+                $this->_ldap->modify($olddn, $entry);
             }
-        } else {
-            $result = @ldap_modify($this->_ds, $olddn, $entry);
+        } catch (Horde_Ldap_Exception $e) {
+            throw new Horde_Auth_Exception(sprintf(__CLASS__ . ': Unable to update user "%s"', $newID));
         }
-
-        if (!$result) {
-            throw new Horde_Auth_Exception(sprintf(_("Horde_Auth_Ldap: Unable to update user \"%s\""), $newID));
-        }
-
-        @ldap_close($this->_ds);
     }
 
     /**
@@ -510,54 +377,26 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
      */
     public function listUsers()
     {
-        /* Connect to the LDAP server. */
-        $this->_connect();
-
-        $filter = $this->_getParamFilter();
-
-        $func = ($this->_params['scope'] == 'one')
-            ? 'ldap_list'
-            : 'ldap_search';
+        $params = array(
+            'attributes' => array($this->_params['uid']),
+            'scope' => $this->_params['scope'],
+            'sizelimit' => isset($this->_params['sizelimit']) ? $this->_params['sizelimit'] : 0
+        );
 
         /* Add a sizelimit, if specified. Default is 0, which means no limit.
          * Note: You cannot override a server-side limit with this. */
-        $sizelimit = isset($this->_params['sizelimit']) ? $this->_params['sizelimit'] : 0;
-        $search = @$func($this->_ds, $this->_params['basedn'], $filter,
-                         array($this->_params['uid']), 0, $sizelimit);
-
-        $entries = @ldap_get_entries($this->_ds, $search);
         $userlist = array();
-        $uid = Horde_String::lower($this->_params['uid']);
-        for ($i = 0; $i < $entries['count']; $i++) {
-            $userlist[$i] = $entries[$i][$uid][0];
-        }
+        try {
+            $search = $this->_ldap->search(
+                $this->_params['basedn'],
+                Horde_Ldap_Filter::build(array('filter' => $this->_params['filter'])),
+                $params);
+            $uid = Horde_String::lower($this->_params['uid']);
+            foreach ($search as $val) {
+                $userlist[] = $val->getValue($uid, 'single');
+            }
+        } catch (Horde_Ldap_Exception $e) {}
 
         return $userlist;
-    }
-
-    /**
-     * Return a formatted LDAP filter as configured within the parameters.
-     *
-     * @return string  LDAP search filter
-     */
-    protected function _getParamFilter()
-    {
-        if (!empty($this->_params['filter'])) {
-            $filter = $this->_params['filter'];
-        } elseif (!is_array($this->_params['objectclass'])) {
-            $filter = 'objectclass=' . $this->_params['objectclass'];
-        } else {
-            $filter = '';
-            if (count($this->_params['objectclass']) > 1) {
-                $filter = '(&' . $filter;
-                foreach ($this->_params['objectclass'] as $objectclass) {
-                    $filter .= '(objectclass=' . $objectclass . ')';
-                }
-                $filter .= ')';
-            } elseif (count($this->_params['objectclass']) == 1) {
-                $filter = '(objectClass=' . $this->_params['objectclass'][0] . ')';
-            }
-        }
-        return $filter;
     }
 }

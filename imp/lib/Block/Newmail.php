@@ -1,12 +1,16 @@
 <?php
 /**
+ * Block: show list of new mail messages.
+ *
  * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @package Horde_Block
- * @author  Michael Slusarz <slusarz@curecanti.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
 class IMP_Block_Newmail extends Horde_Block
 {
@@ -14,34 +18,30 @@ class IMP_Block_Newmail extends Horde_Block
 
     protected function _content()
     {
-        try {
-            new IMP_Application(array('init' => array('authentication' => 'throw')));
-        } catch (Horde_Exception $e) {
-            return;
-        }
-
         /* Filter on INBOX display, if requested. */
         if ($GLOBALS['prefs']->getValue('filter_on_display')) {
-            $imp_filter = new IMP_Filter();
-            $imp_filter->filter('INBOX');
+            $GLOBALS['injector']->getInstance('IMP_Filter')->filter('INBOX');
         }
 
         $query = new Horde_Imap_Client_Search_Query();
         $query->flag('\\seen', false);
-        $ids = $GLOBALS['imp_search']->runSearchQuery($query, 'INBOX', Horde_Imap_Client::SORT_ARRIVAL, 1);
+        $ids = $GLOBALS['injector']->getInstance('IMP_Search')->runQuery($query, 'INBOX', Horde_Imap_Client::SORT_SEQUENCE, 1);
+        $indices = reset($ids);
 
         $html = '<table cellspacing="0" width="100%">';
-        if (empty($ids)) {
+        if (empty($indices)) {
             $html .= '<tr><td><em>' . _("No unread messages") . '</em></td></tr>';
         } else {
-            $charset = Horde_Nls::getCharset();
+            $charset = 'UTF-8';
             $imp_ui = new IMP_Ui_Mailbox('INBOX');
-            $shown = empty($this->_params['msgs_shown']) ? 3 : $this->_params['msgs_shown'];
+            $shown = empty($this->_params['msgs_shown'])
+                ? 3
+                : $this->_params['msgs_shown'];
 
             try {
-                $fetch_ret = $GLOBALS['imp_imap']->ob()->fetch('INBOX', array(
+                $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->fetch('INBOX', array(
                     Horde_Imap_Client::FETCH_ENVELOPE => true
-                ), array('ids' => array_slice($ids, 0, $shown)));
+                ), array('ids' => array_slice($indices, 0, $shown)));
                 reset($fetch_ret);
             } catch (Horde_Imap_Client_Exception $e) {
                 $fetch_ret = array();
@@ -58,7 +58,7 @@ class IMP_Block_Newmail extends Horde_Block
                     '<td>' . htmlspecialchars($date, ENT_QUOTES, $charset) . '</td></tr>';
             }
 
-            $more_msgs = count($ids) - $shown;
+            $more_msgs = count($indices) - $shown;
             $text = ($more_msgs > 0)
                 ? sprintf(ngettext("%d more unseen message...", "%d more unseen messages...", $more_msgs), $more_msgs)
                 : _("Go to your Inbox...");

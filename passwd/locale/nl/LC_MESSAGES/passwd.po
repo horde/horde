@@ -1,0 +1,121 @@
+# Passwd module translations
+# Copyright 2002 Free Software Foundation, Inc.
+# Eric Rostetter <rostetter@mail.utexas.edu>, 2002.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: passwd\n"
+"POT-Creation-Date: 2002-02-19 10:23-0600\n"
+"PO-Revision-Date: 2005-06-01 12:00+0200\n"
+"Last-Translator: Resan Sa-Ardnuam <horde@sa-ardnuam.nl\n"
+"Language-Team: <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Change your password"
+msgstr "Wijzig wachtwoord"
+
+msgid "Confirm new password:"
+msgstr "Nogmaals nieuw wachtwoord:"
+
+msgid "Error"
+msgstr "Fout"
+
+msgid "Failure in changing password : "
+msgstr "Fout bij veranderen van wachtwoord : "
+
+msgid "Help"
+msgstr "Help"
+
+msgid "Language"
+msgstr "Taal"
+
+msgid "Logout"
+msgstr "Afmelden"
+
+msgid "Message"
+msgstr "Bericht"
+
+msgid "New password:"
+msgstr "Nieuw wachtwoord:"
+
+msgid "Old password:"
+msgstr "Oud wachtwoord:"
+
+msgid "Password changed!"
+msgstr "Wachtwoord veranderd!"
+
+msgid "Password module is not properly configured"
+msgstr "Password is niet juist geconfigureerd"
+
+msgid "Problem?"
+msgstr "Probleem?"
+
+msgid "Select your preferred language:"
+msgstr "Selecteer uw taal voorkeur:"
+
+msgid "Set the language that menu items, explanations, and help are in."
+msgstr "Stel de taal in voor menu items, verklaringen en help in "
+
+msgid "Some of Password module's configuration files are missing:"
+msgstr "Een aantal configuratie bestanden van de Password module ontbreken:"
+
+msgid "Success"
+msgstr "Gelukt"
+
+msgid ""
+"This file controls the default preferences for Password module, and also "
+"controls which preferences users can alter."
+msgstr ""
+"Dit bestand regelt de standaard instellingen voor de Password module, en "
+"ookwelke instellingen de gebruiker kan veranderen."
+
+msgid ""
+"This file controls the stylesheet that is used to set colors and fonts in "
+"addition to or overriding Horde defaults."
+msgstr ""
+"Dit bestand beheert de stylesheet die gebruikt wordt om kleuren en "
+"lettertypen toe te voegen of de standaard instelling van Horde de "
+"overschrijven"
+
+msgid ""
+"This is the main Password module configuration file. It contains paths and "
+"options for all Password module scripts."
+msgstr ""
+"Dit is het belangrijkste configuratie bestand van de Password module. Het "
+"bevat paden en opties voor alle Password module scripts."
+
+msgid "Username:"
+msgstr "Gebuikersnaam:"
+
+msgid "Warning"
+msgstr "Waarschuwing"
+
+msgid "You can not change passwd for other user"
+msgstr "U kan niet een wachtwoord veranderen van een andere gebruiker"
+
+#, c-format
+msgid "You can't change password for user %s"
+msgstr "U kan niet het wachtwoord wijzigen voor gebruiker %s"
+
+msgid "You must give your new password"
+msgstr "U moet uw nieuwe wachtwoord geven"
+
+msgid "You must give your old password"
+msgstr "U moet uw oude wachtwoord geven"
+
+msgid "You must give your userid"
+msgstr "U moet uw nieuwe gebruikersnaam geven"
+
+msgid "You must verify your new password"
+msgstr "U moet uw nieuwe wachtwoord verifiëren"
+
+msgid "Your Information"
+msgstr "Uw Informatie"
+
+msgid "Your new passwords didn't match"
+msgstr "Uw nieuwe wachtwoord kwam niet overeen"
+
+msgid "Password"
+msgstr "Wachtwoord"

@@ -211,13 +211,12 @@ class SyncML_Backend {
     var $_debugFiles;
 
     /**
-     * The log level. One of the PEAR_LOG_* constants.
+     * The log level.
      *
-     * @see PEAR Log package
      * @see SyncML_Backend()
-     * @var integer
+     * @var string
      */
-    var $_logLevel = PEAR_LOG_INFO;
+    var $_logLevel = 'INFO';
 
     /**
      * The charset used in the SyncML messages.
@@ -267,9 +266,8 @@ class SyncML_Backend {
      *                                      outgoing packets and data
      *                                      conversions and devinf log in
      *                                      debug_dir.
-     *                       - log_level:   PEAR_LOG_*. Only log entries with
-     *                                      at least this level. Defaults to
-     *                                      PEAR_LOG_INFO.
+     *                       - log_level:   Only log entries with at least
+     *                                      this level. Defaults to 'INFO'.
      */
     function SyncML_Backend($params)
     {
@@ -281,8 +279,7 @@ class SyncML_Backend {
             $this->_logLevel = $params['log_level'];
         }
 
-        $this->logMessage('Backend of class ' . get_class($this) . ' created',
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $this->logMessage('Backend of class ' . get_class($this) . ' created', 'DEBUG');
      }
 
     /**
@@ -460,8 +457,7 @@ class SyncML_Backend {
 
         default:
             $this->logMessage('Invalid database "' . $database
-                              . '". Try tasks, calendar, notes or contacts.',
-                              __FILE__, __LINE__, PEAR_LOG_ERR);
+                              . '". Try tasks, calendar, notes or contacts.', 'ERR');
             return false;
         }
     }
@@ -603,8 +599,7 @@ class SyncML_Backend {
         switch ($credType) {
         case 'syncml:auth-basic':
             list($username, $pwd) = explode(':', base64_decode($credData), 2);
-            $this->logMessage('Checking authentication for user ' . $username,
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            $this->logMessage('Checking authentication for user ' . $username, 'DEBUG');
             return $this->_checkAuthentication($username, $pwd);
 
         case 'syncml:auth-md5':
@@ -636,8 +631,7 @@ class SyncML_Backend {
             return false;
 
         default:
-            $this->logMessage('Unsupported authentication type ' . $credType,
-                              __FILE__, __LINE__, PEAR_LOG_ERR);
+            $this->logMessage('Unsupported authentication type ' . $credType, 'ERR');
             return false;
         }
     }
@@ -761,52 +755,68 @@ class SyncML_Backend {
     /**
      * Logs a message in the backend.
      *
+     * TODO: This should be done via Horde_Log or the equivalent.
+     *
      * @param mixed $message     Either a string or a PEAR_Error object.
      * @param string $file       What file was the log function called from
      *                           (e.g. __FILE__)?
      * @param integer $line      What line was the log function called from
      *                           (e.g. __LINE__)?
      * @param integer $priority  The priority of the message. One of:
-     *                           - PEAR_LOG_EMERG
-     *                           - PEAR_LOG_ALERT
-     *                           - PEAR_LOG_CRIT
-     *                           - PEAR_LOG_ERR
-     *                           - PEAR_LOG_WARNING
-     *                           - PEAR_LOG_NOTICE
-     *                           - PEAR_LOG_INFO
-     *                           - PEAR_LOG_DEBUG
+     *                           - EMERG
+     *                           - ALERT
+     *                           - CRIT
+     *                           - ERR
+     *                           - WARN
+     *                           - NOTICE
+     *                           - INFO
+     *                           - DEBUG
      */
-    function logMessage($message, $file, $line, $priority = PEAR_LOG_INFO)
+    function logMessage($message, $priority = 'INFO')
     {
-        if ($priority > $this->_logLevel)  {
+        if (is_string($priority)) {
+            $priority = defined('Horde_Log::' . $priority)
+                ? constant('Horde_Log::' . $priority)
+                : Horde_Log::INFO;
+        }
+
+        if (is_string($this->_logLevel)) {
+            $loglevel = defined('Horde_Log::' . $this->_logLevel)
+                ? constant('Horde_Log::' . $this->_logLevel)
+                : Horde_Log::INFO;
+        } else {
+            $loglevel = $this->_logLevel;
+        }
+
+        if ($priority > $loglevel) {
             return;
         }
 
         // Internal logging to logtext
         if (is_string($this->_logtext)) {
             switch ($priority) {
-            case PEAR_LOG_EMERG:
+            case 'EMERG':
                 $this->_logtext .= 'EMERG:  ';
                 break;
-            case PEAR_LOG_ALERT:
+            case 'ALERT':
                 $this->_logtext .= 'ALERT:  ';
                 break;
-            case PEAR_LOG_CRIT:
+            case 'CRIT':
                 $this->_logtext .= 'CIRT:   ';
                 break;
-            case PEAR_LOG_ERR:
+            case 'ERR':
                 $this->_logtext .= 'ERR:    ';
                 break;
-            case PEAR_LOG_WARNING:
+            case 'WARNING':
                 $this->_logtext .= 'WARNING:';
                 break;
-            case PEAR_LOG_NOTICE:
+            case 'NOTICE':
                 $this->_logtext .= 'NOTICE: ';
                 break;
-            case PEAR_LOG_INFO:
+            case 'INFO':
                 $this->_logtext .= 'INFO:   ';
                 break;
-            case PEAR_LOG_DEBUG:
+            case 'DEBUG':
                 $this->_logtext .= 'DEBUG:  ';
                 break;
             default:
@@ -885,16 +895,14 @@ class SyncML_Backend {
         if ($type === SYNCML_LOGFILE_CLIENTMESSAGE) {
             $this->logMessage('Started at ' . date('Y-m-d H:i:s')
                               . '. Packet logged in '
-                              . $this->_debugDir . '/' . $filename,
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                              . $this->_debugDir . '/' . $filename, 'DEBUG');
         }
 
         /* Increase packet number. */
         if ($type === SYNCML_LOGFILE_SERVERMESSAGE) {
             $this->logMessage('Finished at ' . date('Y-m-d H:i:s')
                               . '. Packet logged in '
-                              . $this->_debugDir . '/' . $filename,
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                              . $this->_debugDir . '/' . $filename, 'DEBUG');
 
             $fp = @fopen($this->_debugDir . '/packetnum.txt', 'w');
             if ($fp) {

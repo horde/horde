@@ -2,17 +2,19 @@
 /**
  * Shout application interface.
  *
- * This file defines Shout's application interface.
+ * This file defines Horde's core API interface. Other core Horde libraries
+ * can interact with Shout through this API.
  *
  * Copyright 2006-2010 Alkaloid Networks (http://projects.alkaloid.net/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see
  * http://www.opensource.org/licenses/bsd-license.html.
- * 
+ *
  * @author  Ben Klang <ben@alkaloid.net>
  * @package Shout
  */
+
 if (!defined('SHOUT_BASE')) {
     define('SHOUT_BASE', dirname(__FILE__). '/..');
 }
@@ -33,87 +35,106 @@ require_once HORDE_BASE . '/lib/core.php';
 
 class Shout_Application extends Horde_Registry_Application
 {
+    /**
+     * The application's version.
+     *
+     * @var string
+     */
     public $version = 'H4 (1.0-git)';
-    public $contexts = null;
+
+    /**
+     * TODO
+     */
+    public $storage = null;
+
+    /**
+     * TODO
+     */
     public $extensions = null;
+
+    /**
+     * TODO
+     */
     public $devices = null;
 
-    public function __construct($args = array())
+    /**
+     * TODO
+     */
+    public $dialplan = null;
+
+    /**
+     * TODO
+     */
+    public $vfs = null;
+
+    /**
+     * Initialization function.
+     *
+     * Global variables defined:
+     */
+    protected function _init()
     {
-        if (!empty($args['init'])) {
-            $GLOBALS['registry'] = &Horde_Registry::singleton();
-            $registry = &$GLOBALS['registry'];
-            try {
-                $registry->pushApp('shout');
-            } catch (Horde_Exception $e) {
-                Horde_Auth::authenticateFailure('shout', $e);
-            }
-            $conf = &$GLOBALS['conf'];
-
-            // Notification system.
-            $GLOBALS['notification'] = &Horde_Notification::singleton();
-            $notification = &$GLOBALS['notification'];
-            $notification->attach('status');
-
-            define('SHOUT_TEMPLATES', $registry->get('templates'));
-
-            $this->contexts = Shout_Driver::factory('storage');
+        try {
+            $this->storage = Shout_Driver::factory('storage');
             $this->extensions = Shout_Driver::factory('extensions');
             $this->devices = Shout_Driver::factory('devices');
+            $this->dialplan = Shout_Driver::factory('dialplan');
+            $conf = $GLOBALS['conf'];
+            $this->vfs = VFS::singleton($conf['ivr']['driver'], $conf['ivr']['params']);
 
-            try {
-                $contexts = $this->contexts->getContexts();
-            } catch (Shout_Exception $e) {
-                $notification->push($e);
-                $contexts = false;
-            }
+            $accounts = $this->storage->getAccounts();
+        } catch (Shout_Exception $e) {
+            $GLOBALS['notification']->push($e);
+            $accounts = false;
+            return false;
+        }
 
-            if (count($contexts) == 1) {
-                // Default to the user's only context
-                if (!empty($context) && $context != $contexts[0]) {
-                    $notification->push(_("You do not have permission to access that context."), 'horde.error');
-                }
-                $context = $contexts[0];
-            } elseif (!empty($context) && !in_array($context, $contexts)) {
-                $notification->push(_("You do not have permission to access that context."), 'horde.error');
-                $context = false;
-            } elseif (!empty($context)) {
-                $notification->push("Please select a context to continue.", 'horde.info');
-                $context = false;
-            }
+        $account = Horde_Util::getFormData('account');
+        if (empty($account) && !empty($_SESSION['shout']['curaccount'])) {
+            $account = $_SESSION['shout']['curaccount']['code'];
+        }
 
-            $_SESSION['shout']['context'] = $context;
-            
-            /* Start compression. */
-            if (!Horde_Util::nonInputVar('no_compress')) {
-                Horde::compressOutput();
+        if (!empty($account) && !in_array($account, array_keys($accounts))) {
+            // Requested account not available
+            $GLOBALS['notification']->push(_("You do not have permission to access that account."), 'horde.error');
+            $account = false;
+        }
+
+        if (empty($account)) {
+            if (count($accounts)) {
+                // Default to the user's first account
+                $account = reset(array_keys($accounts));
+            } else {
+                // No account requested and/or no accounts available anyway
+                $GLOBALS['notification']->push("Please select a account to continue.", 'horde.info');
+                $account = false;
             }
         }
+
+        $_SESSION['shout']['curaccount'] = $accounts[$account];
     }
 
+    /**
+     * TODO
+     */
     public function perms()
     {
-        static $perms = array();
-        if (!empty($perms)) {
-            return $perms;
-        }
+        $perms = array(
+            'accounts' => array(
+                'title' => _("Accounts")
+            ),
+            'superadmin' => array(
+                'title' => _("Super Administrator")
+            )
+        );
 
-        $perms['tree']['shout']['superadmin'] = false;
-        $perms['title']['shout:superadmin'] = _("Super Administrator");
-
-        if (empty($this->contexts)) {
-            $this->__construct(array('init' => true));
-        }
-
-        $contexts = $this->contexts->getContexts();
-
-        $perms['tree']['shout']['contexts'] = false;
-        $perms['title']['shout:contexts'] = _("Contexts");
+        $accounts = $this->storage->getAccounts();
 
         // Run through every contact source.
-        foreach ($contexts as $context) {
-            $perms['tree']['shout']['contexts'][$context] = false;
-            $perms['title']['shout:contexts:' . $context] = $context;
+        foreach ($accounts as $code => $info) {
+            $perms['account:' . $code] = array(
+                'title' => $info['name']
+            );
 
             foreach(
                 array(
@@ -122,11 +143,33 @@ class Shout_Application extends Horde_Registry_Application
                     'conferences' => 'Conference Rooms',
                 )
                 as $module => $modname) {
-                $perms['tree']['shout']['contexts'][$context][$module] = false;
-                $perms['title']["shout:contexts:$context:$module"] = $modname;
+                $perms['accounts:' . $code . ':' . $module] = array(
+                    'title' => $modname
+                );
             }
         }
 
         return $perms;
     }
+
+
+    public function getRecordings()
+    {
+        $account = $_SESSION['shout']['curaccount']['code'];
+        $rlist = $this->vfs->listFolder($account);
+
+        // In Asterisk, filenames the same basename and different extension are
+        // functionally equivalent.  Asterisk chooses the file based on the least cost
+        // to transcode.  For that reason, we will drop the filename extension when
+        // handling files.
+        $recordings = array();
+        foreach ($rlist as $name => $info) {
+            $name = substr($name, 0, strrpos($name, '.'));
+            $info['name'] = $name;
+            $recordings[$name] = $info;
+        }
+
+        return $recordings;
+    }
+
 }

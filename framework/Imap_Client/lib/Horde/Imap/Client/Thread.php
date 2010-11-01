@@ -10,7 +10,8 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @package  Horde_Imap_Client
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Imap_Client
  */
 class Horde_Imap_Client_Thread
 {
@@ -117,7 +118,7 @@ class Horde_Imap_Client_Thread
     public function getThread($index)
     {
         /* Find the beginning of the thread. */
-        if (($begin = $this->getThreadBase($index)) === false) {
+        if (!($begin = $this->getThreadBase($index))) {
             return array($index);
         }
 

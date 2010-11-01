@@ -4,31 +4,25 @@
  *
  * Copyright 2006-2010 The Horde Project (http://www.horde.org/)
  *
- * $Horde: agora/ban.php,v 1.15 2009-12-01 12:52:38 jan Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-define('AGORA_BASE', dirname(__FILE__));
-require_once AGORA_BASE . '/lib/base.php';
-require_once AGORA_BASE . '/lib/Messages.php';
-
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('agora');
 
 /* Make sure we have a forum id. */
 list($forum_id, , $scope) = Agora::getAgoraId();
 $forums = &Agora_Messages::singleton($scope, $forum_id);
 if ($forums instanceof PEAR_Error) {
     $notification->push($forums->message, 'horde.error');
-    header('Location: ' . Horde::applicationUrl('forums.php'));
-    exit;
+    Horde::url('forums.php', true)->redirect();
 }
 
 /* Check permissions */
 if (!$forums->hasPermission(Horde_Perms::DELETE)) {
     $notification->push(sprintf(_("You don't have permissions to ban users from forum %s."), $forum_id), 'horde.warning');
-    header('Location: ' . Horde::applicationUrl('forums.php'));
-    exit;
+    Horde::url('forums.php', true)->redirect();
 }
 
 /* Ban action */
@@ -39,13 +33,13 @@ if (($action = Horde_Util::getFormData('action')) !== null) {
         $notification->push($result->getMessage(), 'horde.error');
     }
 
-    $url = Agora::setAgoraId($forum_id, null, Horde::applicationUrl('ban.php'), $scope);
+    $url = Agora::setAgoraId($forum_id, null, Horde::url('ban.php'), $scope);
     header('Location: ' . $url);
     exit;
 }
 
 /* Get the list of banned users. */
-$delete = Horde_Util::addParameter(Horde::applicationUrl('ban.php'),
+$delete = Horde_Util::addParameter(Horde::url('ban.php'),
                             array('action' => 'delete',
                                   'scope' => $scope,
                                   'forum_id' => $forum_id));
@@ -64,9 +58,16 @@ $vars->set('action', 'add');
 $form->addVariable(_("User"), 'user', 'text', true);
 
 $view = new Agora_View();
-$view->menu = Agora::getMenu('string');
-$view->formbox = Horde_Util::bufferOutput(array($form, 'renderActive'), null, null, 'ban.php', 'post');
-$view->notify = Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status'));
+$view->menu = Horde::menu();
+
+Horde::startBuffer();
+$form->renderActive(null, null, 'ban.php', 'post');
+$view->formbox = Horde::endBuffer();
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$view->notify = Horde::endBuffer();
+
 $view->banned = $banned;
 $view->forum = $forums->getForum();
 

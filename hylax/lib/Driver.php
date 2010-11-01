@@ -2,8 +2,6 @@
 /**
  * Hylax_Driver Class
  *
- * $Horde: incubator/hylax/lib/Driver.php,v 1.13 2009/01/06 17:50:48 jan Exp $
- *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -52,9 +50,9 @@ class Hylax_Driver {
         if (class_exists($class)) {
             $hylax = new $class($params);
             return $hylax;
-        } else {
-            Horde::fatal(PEAR::raiseError(sprintf(_("No such backend \"%s\" found"), $driver)), __FILE__, __LINE__);
         }
+
+        throw new Horde_Exception(sprintf(_("No such backend \"%s\" found"), $driver));
     }
 
     /**

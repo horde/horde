@@ -13,27 +13,23 @@ $block_name = _("Wiki page");
  * @author  Jason Felice <jason.m.felice@gmail.com>
  * @package Horde_Block
  */
-class Horde_Block_Wicked_page extends Horde_Block {
+class Horde_Block_Wicked_page extends Horde_Block
+{
+    protected $_app = 'wicked';
 
-    var $_app = 'wicked';
-
-    function _title()
+    protected function _title()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
-        $page = Page::getPage($this->_params['page']);
+        $page = Wicked_Page::getPage($this->_params['page']);
         return htmlspecialchars($page->pageName());
     }
 
-    function _content()
+    protected function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
-        $page = Page::getPage($this->_params['page']);
-        return $page->render(WICKED_MODE_BLOCK);
+        $page = Wicked_Page::getPage($this->_params['page']);
+        return $page->render(Wicked::MODE_BLOCK);
     }
 
-    function _params()
+    protected function _params()
     {
         return array('page' => array('type' => 'text',
                                      'name' => _("Name of wiki page to display"),

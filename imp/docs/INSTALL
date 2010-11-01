@@ -245,21 +245,21 @@ Configuring IMP
 
       If you would prefer that your users authenticate directly with IMP,
       without having to authenticate through Horde first, load the
-      ``Administration/Setup/Authentication`` page and from the ``What backend
-      should we use for authenticating users to Horde`` pulldown menu select
-      ``Let a Horde application handle authentication``.  (Please see the
-      second note below.) Select ``imp`` from the ``The application which is
-      providing authentication`` pulldown menu.
+      ``Administration/Configuration/Authentication`` page and from the ``What
+      backend should we use for authenticating users to Horde`` pulldown menu
+      select ``Let a Horde application handle authentication``.  (Please see
+      the second note below.) Select ``imp`` from the ``The application which
+      is providing authentication`` pulldown menu.
 
       .. Note:: **You will have to log in twice if you don't do this** -- Once
                 to Horde and a second time to IMP.
 
-      .. Note:: If this is a new install, you will not be able to configure
-                IMP using the Horde Administration/Setup page if you first
+      .. Note:: If this is a new install, you will not be able to configure IMP
+                using the Horde Administration/Configuration page if you first
                 enabled IMP authentication for Horde.  You must set Horde to
                 use another authentication method (refer to the
-                `horde/docs/INSTALL`_ file), configure IMP, then reset Horde
-                to use IMP authentication.  One way to reset Horde in order to
+                `horde/docs/INSTALL`_ file), configure IMP, then reset Horde to
+                use IMP authentication.  One way to reset Horde in order to
                 reach the Administration page is to replace the Horde
                 configuration file ``conf.php`` with the original in
                 ``horde/config/conf.php.dist``.  You should of course back up
@@ -268,17 +268,11 @@ Configuring IMP
 
 2. Creating the database table
 
-   The specific steps to create the IMP database table depend on which
-   database you've chosen to use.
+   Creating the IMP database table(s) can be accomplished with horde's
+   ``db_migrate`` utility.  If your database is properly setup in the Horde
+   configuration, just run the following:
 
-   First, look in ``scripts/sql/`` to see if a script already exists
-   for your database type.  If so, you should be able to simply execute that
-   script as superuser in your database.  (Note that executing the script as
-   the "horde" user will probably fail when granting privileges.)
-
-   If such a script does not exist, you'll need to build your own, using the
-   file imp.sql as a starting point.  If you need assistance in creating
-   databases, you may wish to let us know on the IMP mailing list.
+      horde/bin/db_migrate imp
 
 3. Configuring IMP
 
@@ -298,21 +292,21 @@ Configuring IMP
    and behavior.  With the following exception, the defaults will be correct
    for most sites.
 
-   a. servers.php
+   a. backends.php
 
       You must be sure to list your IMAP/POP3 server names and configuration
-      information in ``servers.php``.
+      information in ``backends.php``.
 
-   You must login to Horde as a Horde Administrator to finish the
-   configuration of IMP.  Use the Horde ``Administration`` menu item to get to
-   the administration page, and then click on the ``Setup`` icon to get the
+   You must login to Horde as a Horde Administrator to finish the configuration
+   of IMP.  Use the Horde ``Administration`` menu item to get to the
+   administration page, and then click on the ``Configuration`` icon to get the
    configuration page.  Select ``Mail`` from the selection list of
    applications.  Fill in or change any configuration values as needed.  When
    done click on ``Generate Mail Configuration`` to generate the ``conf.php``
    file.  If your web server doesn't have write permissions to the IMP
    configuration directory or file, it will not be able to write the file.  In
-   this case, go back to ``Setup`` and choose one of the other methods to
-   create the configuration file ``imp/config/conf.php``.
+   this case, go back to ``Configuration`` and choose one of the other methods
+   to create the configuration file ``imp/config/conf.php``.
 
    Note for international users: IMP uses GNU gettext to provide local
    translations of text displayed by applications; the translations are found
@@ -370,7 +364,7 @@ Configuring IMP
 
 5. Testing IMP
 
-   Once you have configured IMP, bring up the included test page in your Web
+   Once you have configured IMP, bring up the Horde test page in your Web
    browser to ensure that all necessary prerequisites have been met.  See the
    `horde/docs/INSTALL`_ document for further details on the Horde test
    script.
@@ -378,7 +372,7 @@ Configuring IMP
    The test script will also allow you to test your connection to the mail
    server and provide some auto-detected configuration parameters that can
    then be inserted into the server configuration located in
-   ``imp/config/servers.php``.
+   ``imp/config/backends.php``.
 
    Next, use IMP to login to a known working IMAP or POP3 server.  Test at
    least the following:
@@ -406,8 +400,9 @@ Configuring IMP
    using caching.
 
    To use this caching, you must have a ``Cache System`` configured in Horde's
-   ``Administration/Setup`` screen and have the relevant settings enabled in
-   IMP's setup screen (``Administration/Setup/Webmail/Mailbox``).
+   ``Administration/Configuration`` screen and have the relevant settings
+   enabled in IMP's configuration screen
+   (``Administration/Configuration/Webmail/Mailbox``).
 
 
 Dynamic View Troubleshooting
@@ -436,6 +431,13 @@ list, IRC room, or bug tracker make sure you have a valid javascript error,
 the file the error is being caused in, the line number of the error, and a
 reliable way to reproduce the error.  Developers/other interested folks will
 be much more likely to help you if all this information is provided.
+
+
+Mobile View
+===========
+
+IMP also offers a view optimized for mobile devices that contains no graphics,
+minimal styling, and a reduced feature set (formerly known as MIMP).
 
 
 Obtaining Support

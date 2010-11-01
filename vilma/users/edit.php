@@ -11,27 +11,26 @@
  * @author David Cummings <davidcummings@acm.org>
  */
 
-@define('VILMA_BASE', dirname(__FILE__) . '/..');
-require_once VILMA_BASE . '/lib/base.php';
-require_once 'Horde/Form.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+$vilma = Horde_Registry::appInit('vilma');
 
 require_once VILMA_BASE . '/lib/Forms/EditUserForm.php';
 
 /* Only admin should be using this. */
 if (!Vilma::hasPermission($domain)) {
-    Horde_Auth::authenticateFailure('vilma', $e);
+    $registry->authenticateFailure('vilma', $e);
 }
 $vars = Horde_Variables::getDefaultVariables();
 $address = $vars->get('address');
 $section = Horde_Util::getFormData('section','all');
 
-//$addrInfo = $vilma_driver->getAddressInfo($address, 'all');
+//$addrInfo = $vilma->driver->getAddressInfo($address, 'all');
 $domain = Vilma::stripDomain($address);
 
 /* Check if a form is being edited. */
 if (!$vars->exists('mode')) {
     if ($address) {
-        $address = $vilma_driver->getAddressInfo($address,$section);
+        $address = $vilma->driver->getAddressInfo($address,$section);
         if (is_a($address, 'PEAR_Error')) {
             $notification->push(sprintf(_("Error reading address information from backend: %s"), $address->getMessage()), 'horde.error');
             $url = '/users/index.php';
@@ -64,7 +63,7 @@ if(!isset($tmp)) {
     $vars->set('domain', $domain);
 }
 $form = &new EditUserForm($vars);
-if (!$vars->exists('id') && !$vilma_driver->isBelowMaxUsers($domain)) {
+if (!$vars->exists('id') && !$vilma->driver->isBelowMaxUsers($domain)) {
     $notification->push(sprintf(_("\"%s\" already has the maximum number of users allowed."), $domain), 'horde.error');
     require VILMA_BASE . '/users/index.php';
     exit;
@@ -72,22 +71,22 @@ if (!$vars->exists('id') && !$vilma_driver->isBelowMaxUsers($domain)) {
 if ($form->validate($vars)) {
     $form->getInfo($vars, $info);
     $info['user_name'] = Horde_String::lower($info['user_name']) . '@' . $domain;
-    $user_id = $vilma_driver->saveUser($info);
+    $user_id = $vilma->driver->saveUser($info);
     if (is_a($user_id, 'PEAR_Error')) {
-        Horde::logMessage($user_id, __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage($user_id, 'ERR');
         $notification->push(sprintf(_("Error saving user. %s"), $user_id->getMessage()), 'horde.error');
     } else {
         $notification->push(_("User details saved."), 'horde.success');
         /*
-        $virtuals = $vilma_driver->getVirtuals($info['name']);
+        $virtuals = $vilma->driver->getVirtuals($info['name']);
         if (count($virtuals)) {
             //User has virtual email addresses set up.
-            $url = Horde::applicationUrl('users/index.php', true);
+            $url = Horde::url('users/index.php', true);
             header('Location: ' . (Vilma::hasPermission($domain) ? $url : Horde_Util::addParameter($url, 'domain', $domain, false)));
         } else {
             //User does not have any virtual email addresses set up.
             $notification->push(_("No virtual email address set up for this user. You should set up at least one virtual email address if this user is to receive any emails."), 'horde.warning');
-            $url = Horde::applicationUrl('virtuals/edit.php', true);
+            $url = Horde::url('virtuals/edit.php', true);
             $url = Horde_Util::addParameter($url, array('domain' => $domain, 'stripped_email' => Vilma::stripUser($info['name']), 'virtual_destination' => $info['name']), null, false);
             header('Location: ' . (Vilma::hasPermission($domain) ? $url : Horde_Util::addParameter($url, 'domain', $domain, false)));
         }
@@ -100,11 +99,16 @@ if ($form->validate($vars)) {
 require_once 'Horde/Form/Renderer.php';
 $renderer = &new Horde_Form_Renderer();
 
-$main = Horde_Util::bufferOutput(array($form, 'renderActive'), $renderer, $vars, 'edit.php', 'post');
+Horde::startBuffer();
+$form->renderActive($renderer, $vars, 'edit.php', 'post');
+$main = Horde::endBuffer();
 
 $template->set('main', $main);
 $template->set('menu', Vilma::getMenu('string'));
-$template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$template->set('notify', Horde::endBuffer());
 
 require VILMA_TEMPLATES . '/common-header.inc';
 echo $template->fetch(VILMA_TEMPLATES . '/main/main.html');

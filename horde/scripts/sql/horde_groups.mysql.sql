@@ -1,5 +1,5 @@
 CREATE TABLE horde_groups (
-    group_uid INT(10) UNSIGNED NOT NULL,
+    group_uid INT(11) NOT NULL AUTO_INCREMENT,
     group_name VARCHAR(255) NOT NULL,
     group_parents VARCHAR(255) NOT NULL,
     group_email VARCHAR(255),
@@ -8,8 +8,9 @@ CREATE TABLE horde_groups (
 );
 
 CREATE TABLE horde_groups_members (
-    group_uid INT(10) UNSIGNED NOT NULL,
+    group_uid INT(11) NOT NULL,
     user_uid VARCHAR(255) NOT NULL
 );
+
 CREATE INDEX group_uid_idx ON horde_groups_members (group_uid);
 CREATE INDEX user_uid_idx ON horde_groups_members (user_uid);

@@ -1,4 +1,4 @@
-<form method="post" name="filters" action="<?php echo Horde::applicationUrl('whitelist.php') ?>">
+<form method="post" name="filters" action="<?php echo Horde::url('whitelist.php') ?>">
 <?php Horde_Util::pformInput() ?>
 <input type="hidden" name="actionID" value="rule_update" />
 <h1 class="header">
@@ -21,7 +21,7 @@
   <tr>
     <td colspan="2" class="control">
       <input class="button" type="submit" value="&nbsp;<?php echo _("Save") ?>&nbsp;" />
-      <input class="button" type="button" onclick="document.location.href='<?php echo Horde::applicationUrl('filters.php', true) ?>'" value="<?php echo _("Return to Rules List") ?>" />
+      <input class="button" type="button" onclick="document.location.href='<?php echo Horde::url('filters.php', true) ?>'" value="<?php echo _("Return to Rules List") ?>" />
     </td>
   </tr>
 </table>

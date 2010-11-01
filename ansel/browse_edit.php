@@ -6,10 +6,11 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('ansel');
 
 // Instantiate the blocks objects.
-$blocks = Horde_Block_Collection::singleton('myphotos', array('ansel'));
+$blocks = Horde_Block_Collection::singleton(array('ansel'));
 $layout = Horde_Block_Layout_Manager::singleton('myphotos', $blocks, @unserialize($prefs->getValue('myansel_layout')));
 
 // Handle requested actions.
@@ -23,7 +24,7 @@ if ($layout->updated()) {
 
 $title = _("My Photos :: Add Content");
 require ANSEL_TEMPLATES . '/common-header.inc';
-echo '<div id="menu">' . Ansel::getMenu()->render() . '</div>';
+echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 require $registry->get('templates', 'horde') . '/portal/edit.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

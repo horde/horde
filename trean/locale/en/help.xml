@@ -1,0 +1,16 @@
+<?xml version='1.0'?>
+<!-- $Horde: trean/locale/en_US/help.xml,v 1.1 2002/10/08 16:33:06 ericr Exp $ -->
+<help>
+
+<entry id="Overview">
+    <title>Overview</title>
+    <heading>Introduction</heading>
+    <para>
+  The Bookmarks application allows you to store, organize and manage, and most importantly access your web browser booksmarks on-line and in one central place accessible from any web browser.
+    </para>
+    <para>
+    By storing your bookmarks here, you can access them from any browser on any machine.  This means you can easily access your bookmarks from multiple browsers, multiple machines, remote locations, etc.  And if you upgrade, switch, or test out browsers, you don't have to worry about what happens to your bookmarks or how to import them into the new browser.
+    </para>
+</entry>
+
+</help>

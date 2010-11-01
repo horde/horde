@@ -1,0 +1,39 @@
+<table class="mboxactions">
+ <tr>
+  <td class="mboxcontrol<if:isbottom> topborder</if:isbottom>">
+   <span class="rightFloat">
+    <ul class="msgactions">
+<loop:mboxactions>
+     <li<if:mboxactions.last> class="lastnavbar"</if:mboxactions.last>><tag:mboxactions.v /></li>
+</loop:mboxactions>
+    </ul>
+   </span>
+   <span class="leftFloat">
+    <ul class="msgactions">
+<if:delete>
+     <li><tag:delete /></li>
+</if:delete>
+<if:undelete>
+     <li><tag:undelete /></li>
+</if:undelete>
+<if:blacklist>
+     <li><tag:blacklist /></li>
+</if:blacklist>
+<if:whitelist>
+     <li><tag:whitelist /></li>
+</if:whitelist>
+<if:forward>
+     <li><tag:forward /></li>
+</if:forward>
+<if:spam>
+     <li><tag:spam /></li>
+</if:spam>
+<if:notspam>
+     <li><tag:notspam /></li>
+</if:notspam>
+     <li class="lastnavbar"><tag:view_messages /></li>
+    </ul>
+   </span>
+  </td>
+ </tr>
+</table>

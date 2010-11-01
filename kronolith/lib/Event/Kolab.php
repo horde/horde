@@ -39,8 +39,15 @@ class Kronolith_Event_Kolab extends Kronolith_Event
         $this->alarm = $alarm;
 
         parent::__construct($driver, $eventObject);
+        $this->_tags = Kronolith::getTagger()->getTags($this->uid, 'event');
     }
 
+    /**
+     * Imports a backend specific event object.
+     *
+     * @param array $event  Backend specific event object that this object
+     *                      will represent.
+     */
     public function fromDriver($event)
     {
         $this->id = $event['uid'];
@@ -62,8 +69,8 @@ class Kronolith_Event_Kolab extends Kronolith_Event
         }
 
         if (isset($event['organizer']['smtp-address'])) {
-            if (Kronolith::isUserEmail(Horde_Auth::getAuth(), $event['organizer']['smtp-address'])) {
-                $this->creator = Horde_Auth::getAuth();
+            if (Kronolith::isUserEmail($GLOBALS['registry']->getAuth(), $event['organizer']['smtp-address'])) {
+                $this->creator = $GLOBALS['registry']->getAuth();
             } else {
                 $this->creator = $event['organizer']['smtp-address'];
             }
@@ -157,7 +164,10 @@ class Kronolith_Event_Kolab extends Kronolith_Event
         $this->stored = true;
     }
 
-    public function toDriver()
+    /**
+     * Prepares this event to be saved to the backend.
+     */
+    public function toKolab()
     {
         $event = array();
         $event['uid'] = $this->uid;
@@ -167,7 +177,7 @@ class Kronolith_Event_Kolab extends Kronolith_Event
         $event['sensitivity'] = $this->private ? 'private' : 'public';
 
         // Only set organizer if this is a new event
-        if ($this->getID() == null) {
+        if ($this->_id == null) {
             $organizer = array(
                             'display-name' => Kronolith::getUserName($this->creator),
                             'smtp-address' => Kronolith::getUserEmail($this->creator)

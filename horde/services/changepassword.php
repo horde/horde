@@ -9,14 +9,13 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-new Horde_Application(array('nologintasks' => true));
+Horde_Registry::appInit('horde', array('nologintasks' => true));
 
 // Make sure auth backend allows passwords to be reset.
-$auth = Horde_Auth::singleton($conf['auth']['driver']);
+$auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 if (!$auth->hasCapability('update')) {
     $notification->push(_("Changing your password is not supported with the current configuration.  Contact your administrator."), 'horde.error');
-    header('Location: ' . Horde_Auth::getLoginScreen('', Horde_Util::getFormData('url')));
-    exit;
+    Horde::getServiceLink('login')->add('url', Horde_Util::getFormData('url'))->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -35,7 +34,7 @@ if ($vars->exists('formname')) {
     if ($form->isValid()) {
         $form->getInfo($vars, $info);
 
-        if (Horde_Auth::getCredential('password') != $info['old_password']) {
+        if ($GLOBALS['registry']->getAuthCredential('password') != $info['old_password']) {
             $notification->push(_("Old password is not correct."), 'horde.error');
         } elseif ($info['password_1'] != $info['password_2']) {
             $notification->push(_("New passwords don't match."), 'horde.error');
@@ -48,17 +47,16 @@ if ($vars->exists('formname')) {
              *                                  $conf['auth']['password_policy']);
              */
             try {
-                $auth->updateUser(Horde_Auth::getAuth(), Horde_Auth::getAuth(), array('password' => $info['password_1']));
+                $auth->updateUser($registry->getAuth(), $registry->getAuth(), array('password' => $info['password_1']));
 
                 $notification->push(_("Password changed successfully."), 'horde.success');
 
-                $index_url = Horde::applicationUrl('index.php', true);
+                $index_url = Horde::url('index.php', true);
                 if (!empty($info['return_to'])) {
-                    $index_url = Horde_Util::addParameter($index_url, array('url' => $info['return_to']));
+                    $index_url->add('url', $info['return_to']);
                 }
 
-                header('Location: ' . $index_url);
-                exit;
+                $index_url->redirect();
             } catch (Horde_Auth_Exception $e) {
                 $notification->push(sprintf(_("Error updating password: %s"), $e->getMessage()), 'horde.error');
             }

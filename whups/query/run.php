@@ -9,7 +9,9 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('whups');
+
 require_once WHUPS_BASE . '/lib/Query.php';
 require_once WHUPS_BASE . '/lib/Forms/QueryParameterForm.php';
 require WHUPS_BASE . '/lib/Renderer/Query.php';
@@ -34,14 +36,14 @@ if ($vars->exists('slug')) {
 // read permissions on the requested query, go to the initial Whups page.
 if (!isset($whups_query) ||
     is_a($whups_query, 'PEAR_Error') ||
-    !$whups_query->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+    !$whups_query->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
     if (is_a($whups_query, 'PEAR_Error')) {
         $notification->push($whups_query);
     } elseif (isset($whups_query)) {
         $notification->push(_("Permission denied."), 'horde.error');
     }
-    header('Location: ' . Horde::applicationUrl($prefs->getValue('whups_default_view') . '.php', true));
-    exit;
+    Horde::url($prefs->getValue('whups_default_view') . '.php', true)
+        ->redirect();
 }
 
 // Query actions.
@@ -70,7 +72,7 @@ if (!$whups_query->parameters) {
 
 if ($isvalid) {
     $tickets = $whups_driver->executeQuery($whups_query, $vars);
-    $_SESSION['whups']['last_search'] = Horde::applicationUrl('query/run.php');
+    $_SESSION['whups']['last_search'] = Horde::url('query/run.php');
 }
 
 $title = $whups_query->name ? $whups_query->name : _("Query Results");
@@ -88,8 +90,7 @@ if (!is_null($tickets)) {
             : array('slug' => $whups_query->slug);
         $subscription = Horde::link(Whups::urlFor('query_rss', $params, true, -1),
                                     _("Subscribe to this query"))
-            . Horde::img('feed.png', _("Subscribe to this query"), null,
-                         $GLOBALS['registry']->getImageDir('horde'))
+            . Horde::img('feed.png', _("Subscribe to this query"))
             . '</a>';
     }
     $results = Whups_View::factory(
@@ -98,7 +99,7 @@ if (!is_null($tickets)) {
               'results' => $tickets,
               'extra' => $subscription,
               'values' => Whups::getSearchResultColumns(),
-              'url' => Horde::applicationUrl('query/run.php')));
+              'url' => Horde::url('query/run.php')));
 
     $results->html();
 } else {

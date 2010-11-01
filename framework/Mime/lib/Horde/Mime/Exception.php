@@ -1,6 +1,6 @@
 <?php
 /**
- * Exception handler for the Horde_Mime class.
+ * Exception handler for the horde/MIME package.
  *
  * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
  *
@@ -9,8 +9,9 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @package  Horde_Mime
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Mime
  */
-class Horde_Mime_Exception extends Horde_Exception
+class Horde_Mime_Exception extends Horde_Exception_Prior
 {
 }

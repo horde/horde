@@ -7,8 +7,10 @@
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
  *
- * @author  Michael Rubinsky <mrubinsk@horde.org>
- * @package Turba
+ * @author   Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/asl.php ASL
+ * @package  Turba
  */
 class Turba_Driver_Vbook extends Turba_Driver
 {
@@ -17,14 +19,14 @@ class Turba_Driver_Vbook extends Turba_Driver
      *
      * @var string
      */
-    var $searchType;
+    public $searchType;
 
     /**
      * The search criteria that defines this virtual address book.
      *
      * @var array
      */
-    var $searchCriteria;
+    public $searchCriteria;
 
     /**
      * Return the owner to use when searching or creating contacts in
@@ -32,44 +34,28 @@ class Turba_Driver_Vbook extends Turba_Driver
      *
      * @return string
      */
-    function _getContactOwner()
+    protected function _getContactOwner()
     {
         return $this->_driver->getContactOwner();
     }
 
     /**
-     * Deletes all contacts from an address book. Not implemented for
-     * virtual address books; just returns true so that the address
-     * book can be deleted.
-     *
-     * @return boolean  True
+     * @throws Turba_Exception
      */
-    function deleteAll($sourceName = null)
-    {
-        return true;
-    }
-
-    /**
-     */
-    function _init()
+    protected function _init()
     {
         /* Grab a reference to the share for this vbook. */
-        $this->_share = &$this->_params['share'];
+        $this->_share = $this->_params['share'];
 
         /* Load the underlying driver. */
-        $this->_driver = &Turba_Driver::singleton($this->_params['source']);
-        if (is_a($this->_driver, 'PEAR_Error')) {
-            return $this->_driver;
-        }
+        $this->_driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($this->_params['source']);
 
-        if (!empty($this->_params['criteria'])) {
-            $this->searchCriteria = $this->_params['criteria'];
-        } else {
-            $this->searchCriteria = array();
-        }
-        $this->searchType = count($this->searchCriteria) > 1 ? 'advanced' : 'basic';
-
-        return true;
+        $this->searchCriteria = empty($this->_params['criteria'])
+            ? array()
+            : $this->_params['criteria'];
+        $this->searchType = (count($this->searchCriteria) > 1)
+            ? 'advanced'
+            : 'basic';
     }
 
     /**
@@ -80,8 +66,9 @@ class Turba_Driver_Vbook extends Turba_Driver
      * @param array $fields    List of fields to return
      *
      * @return array  Hash containing the search results.
+     * @throws Turba_Exception
      */
-    function _search($criteria, $fields)
+    protected function _search($criteria, $fields)
     {
         /* Add the passed in search criteria to the vbook criteria
          * (which need to be mapped from turba fields to
@@ -101,31 +88,35 @@ class Turba_Driver_Vbook extends Turba_Driver
      *
      * @return array  Hash containing the search results.
      */
-    function _read($key, $ids, $owner, $fields)
+    protected function _read($key, $ids, $owner, $fields)
     {
         return $this->_driver->_read($key, $ids, $owner, $fields);
     }
 
     /**
      * Not supported for virtual address books.
+     *
+     * @throws Turba_Exception
      */
-    function _add($attributes)
+    protected function _add($attributes)
     {
-        return PEAR::raiseError(_("You cannot add new contacts to a virtual address book"));
+        throw new Turba_Exception(_("You cannot add new contacts to a virtual address book"));
     }
 
     /**
      * Not supported for virtual address books.
+     *
+     * @throws Turba_Exception
      */
-    function _delete($object_key, $object_id)
+    protected function _delete($object_key, $object_id)
     {
-        return PEAR::raiseError(_("You cannot delete contacts from a virtual address book"));
+        throw new Turba_Exception(_("You cannot delete contacts from a virtual address book"));
     }
 
     /**
-     * Not supported for virtual address books.
+     * TODO
      */
-    function _save($object)
+    protected function _save($object)
     {
         return $this->_driver->save($object);
     }
@@ -137,7 +128,7 @@ class Turba_Driver_Vbook extends Turba_Driver
      *
      * @return boolean  True or False.
      */
-    function hasPermission($perm)
+    public function hasPermission($perm)
     {
         return $this->_driver->hasPermission($perm);
     }

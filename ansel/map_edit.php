@@ -8,7 +8,8 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('ansel');
 
 /* Script includes */
 Horde::addScriptFile('http://maps.google.com/maps?file=api&v=2&sensor=false&key=' . $GLOBALS['conf']['api']['googlemaps'], 'ansel', array('external' => true));
@@ -19,18 +20,12 @@ $image_id = Horde_Util::getFormData('image');
 
 /* Sanity checks, perms etc... */
 if (empty($image_id)) {
-    Horde::fatal(_("An error has occured retrieving the image. Details have been logged."), __FILE__, __LINE__, true);
+    throw new Ansel_Exception(_("An error has occured retrieving the image. Details have been logged."));
 }
-$image = $ansel_storage->getImage($image_id);
-if (is_a($image, 'PEAR_Error')) {
-    Horde::fatal(_("An error has occured retrieving the image. Details have been logged."), __FILE__, __LINE__, true);
-}
-$gallery = $ansel_storage->getGallery($image->gallery);
-if (is_a($gallery, 'PEAR_Error')) {
-    Horde::fatal(_("An error has occured retrieving the image. Details have been logged."), __FILE__, __LINE__, true);
-}
-if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
-    Horde::fatal(_("Not Authorized. Details have been logged for the server administrator."), __FILE__, __LINE__, true);
+$image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($image_id);
+$gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($image->gallery);
+if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
+    throw new Horde_Exception_PermissionDenied(_("Not Authorized. Details have been logged for the server administrator."));
 }
 
 /* Determine if we already have a geotag or are we tagging it for the 1st time */
@@ -71,13 +66,13 @@ $returnLink = Ansel::getUrlFor('view', array('view' => 'Image',
                                              'gallery' => $gallery->id));
 $image_tag = '<img src="' . Ansel::getImageUrl($image_id, 'thumb', true) . '" alt="[thumbnail]" />';
 /* Url for geotag ajax helper */
-$gt = Horde_Ajax_Imple::factory(array('ansel', 'ImageSaveGeotag'));
+$gt = $injector->getInstance('Horde_Core_Factory_Imple')->create(array('ansel', 'ImageSaveGeotag'));
 $gtUrl = $gt->getUrl();
 
-$loadingImg = Horde::img('loading.gif', _("Loading..."), '', $registry->getImageDir());
+$loadingImg = Horde::img('loading.gif', _("Loading..."));
 
 /* Obtain other geotagged images to possibly locate this image at */
-$imgs = $GLOBALS['ansel_storage']->getRecentImagesGeodata(Horde_Auth::getAuth());
+$imgs = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getRecentImagesGeodata($GLOBALS['registry']->getAuth());
 if (count($imgs) > 0) {
     $other_images = '<div class="ansel_location_sameas">' . _("Click on a thumbnail to locate at the same point.") . '<br />';
     foreach ($imgs as $id => $data) {
@@ -87,7 +82,8 @@ if (count($imgs) > 0) {
             } else {
                 $title = _point2Deg($data['image_latitude'], true) . ' ' . _point2Deg($data['image_longitude']);
             }
-            $other_images .= Horde::link('#', $title, '', '', "mapEdit.setLocation('" . $data['image_latitude'] . "', '" . $data['image_longitude'] . "', '" . $data['image_location'] . "');return false") . '<img src="' . Ansel::getImageUrl($id, 'mini', true) . '" alt="[thumbnail]" /></a>';
+            $tempurl = new Horde_Url('#');
+            $other_images .= $tempurl->link(array('title' => $title, 'onclick' => "mapEdit.setLocation('" . $data['image_latitude'] . "', '" . $data['image_longitude'] . "', '" . $data['image_location'] . "');return false")) . '<img src="' . Ansel::getImageUrl($id, 'mini', true) . '" alt="[thumbnail]" /></a>';
         }
     }
     $other_images .= '</div>';
@@ -143,11 +139,11 @@ $html = <<<EOT
 </script>
 EOT;
 /* Autocompleter for locations we already have in our DB */
-$ac = Horde_Ajax_Imple::factory(array('ansel', 'LocationAutoCompleter'),
-                                array('triggerId' => 'locationInput',
-                                      'resultsId' => 'locationInput_results',
-                                      'map' => 'mapEdit'));
-$ac->attach();
+$injector->getInstance('Horde_Core_Factory_Imple')->create(array('ansel', 'LocationAutoCompleter'), array(
+    'map' => 'mapEdit',
+    'resultsId' => 'locationInput_results',
+    'triggerId' => 'locationInput'
+));
 //$html .= Horde_Util::bufferOutput(array($ac, 'attach'));
 
 /* Start the output */

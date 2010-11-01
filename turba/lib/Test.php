@@ -54,7 +54,7 @@ class Turba_Test extends Horde_Test
         'config/conf.php' => null,
         'config/mime_drivers.php' => null,
         'config/prefs.php' => null,
-        'config/sources.php' => null
+        'config/backends.php' => null
     );
 
     /**
@@ -91,7 +91,10 @@ class Turba_Test extends Horde_Test
 
         $self_url = Horde::selfUrl()->add('app', 'turba');
 
-        return $ret . Horde_Util::bufferOutput('require', TURBA_TEMPLATES . '/test/ldapserver.inc');
+        Horde::startBuffer();
+        require TURBA_TEMPLATES . '/test/ldapserver.inc';
+
+        return $ret . Horde::endBuffer();
     }
 
     /**

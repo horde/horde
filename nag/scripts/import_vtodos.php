@@ -1,4 +1,4 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
 /**
  * This script imports vTodo data into Nag tasklists.
@@ -13,19 +13,8 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-// Do CLI checks and environment setup first.
-require_once dirname(__FILE__) . '/../lib/base.load.php';
-require_once HORDE_BASE . '/lib/core.php';
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment - make sure there's no time limit, init some
-// variables, etc.
-$cli = Horde_Cli::singleton();
-$cli->init();
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('nag', array('authentication' => 'none', 'cli' => true));
 
 // Read command line parameters.
 if (count($argv) != 3) {
@@ -41,9 +30,6 @@ if (empty($vtodo)) {
     $cli->message('No import data provided.', 'cli.error');
     usage();
 }
-
-// Registry.
-$registry = Horde_Registry::singleton();
 
 // Set user.
 Horde_Auth::setAuth($user, array());

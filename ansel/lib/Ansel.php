@@ -2,7 +2,7 @@
 /**
  * Ansel Base Class.
 
-  * Copyright 2001-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
@@ -11,15 +11,12 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-
-/** Horde_Share */
-require_once 'Horde/Share.php';
-
-/** Need to bring this in explicitly since we extend the object class */
-require_once 'Horde/Share/sql_hierarchical.php';
-
 class Ansel
 {
+    /* Sort constants */
+    const SORT_ASCENDING = 0;
+    const SORT_DESCENDING = 1;
+
     /**
      * Build initial Ansel javascript object.
      *
@@ -34,15 +31,16 @@ class Ansel
     /**
      * Create and initialize the database object.
      *
-     * @return mixed MDB2 object || PEAR_Error
+     * @return mixed MDB2 object
+     * @throws Ansel_Exception
      */
     static public function &getDb()
     {
         $config = $GLOBALS['conf']['sql'];
         unset($config['charset']);
         $mdb = MDB2::singleton($config);
-        if (is_a($mdb, 'PEAR_Error')) {
-            return $mdb;
+        if ($mdb instanceof PEAR_Error) {
+            throw new Ansel_Exception($mdb->getMessage());
         }
         $mdb->setOption('seqcol_name', 'id');
 
@@ -53,6 +51,11 @@ class Ansel
             $mdb->setOption('portability', MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_ERRORS | MDB2_PORTABILITY_RTRIM | MDB2_PORTABILITY_FIX_ASSOC_FIELD_NAMES);
             break;
         default:
+            switch ($mdb->phptype) {
+            case 'oci8':
+                $mdb->setOption('emulate_database', false);
+                break;
+            }
             $mdb->setOption('field_case', CASE_LOWER);
             $mdb->setOption('portability', MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_ERRORS | MDB2_PORTABILITY_FIX_ASSOC_FIELD_NAMES);
         }
@@ -61,75 +64,49 @@ class Ansel
     }
 
     /**
-     * Create and initialize the VFS object
-     *
-     * @return VFS object or fatals on error.
-     */
-    static public function &getVFS()
-    {
-        $v_params = Horde::getVFSConfig('images');
-        if (is_a($v_params, 'PEAR_Error')) {
-            Horde::fatal(_("You must configure a VFS backend to use Ansel."),
-                         __FILE__, __LINE__);
-        }
-        if ($v_params['type'] != 'none') {
-            $vfs = VFS::singleton($v_params['type'], $v_params['params']);
-        }
-        if (empty($vfs) || is_a($vfs, 'PEAR_ERROR')) {
-            Horde::fatal(_("You must configure a VFS backend to use Ansel."),
-                         __FILE__, __LINE__);
-        }
-
-        return $vfs;
-    }
-
-    /**
      * Return a string containing an <option> listing of the given
      * gallery array.
      *
-     * @param array $selected     The gallery_id of the  gallery that is
-     *                            selected by default in the returned option
-     *                            list.
-     * @param integer $perm       The permissions filter to use.
-     * @param mixed $attributes   Restrict the galleries returned to those
-     *                            matching $attributes. An array of
-     *                            attribute/values pairs or a gallery owner
-     *                            username.
-     * @param string $parent      The parent share to start listing at.
-     * @param integer $from       The gallery to start listing at.
-     * @param integer $count      The number of galleries to return.
-     * @param integer $ignore     An Ansel_Gallery id to ignore when building
-     *                            the tree.
+     * @param array $params  An array of options:
+     *   <pre>
+     *     (integer)selected  The gallery_id of the gallery that is selected
+     *     (integer)perm      The permissions filter to use [Horde_Perms::SHOW]
+     *     (mixed)filter      Restrict the galleries returned to those matching
+     *                        the filters. Can be an array of attribute/values
+     *                        pairs or a gallery owner username.
+     *     (boolean)allLevels
+     *     (integer)parent    The parent share to start listing at.
+     *     (integer)from      The gallery to start listing at.
+     *     (integer)count     The number of galleries to return.
+     *     (integer)ignore    An Ansel_Gallery id to ignore when building the tree.
+     *   </pre>
      *
-     * @return string  The <option> list.
+     * @return string  The HTML to display the option list.
      */
-    static public function selectGalleries($selected = null, $perm = Horde_Perms::SHOW,
-                             $attributes = null, $parent = null,
-                             $allLevels = true, $from = 0, $count = 0,
-                             $ignore = null)
+    static public function selectGalleries($params = array())
     {
-        global $ansel_storage;
-        $galleries = $ansel_storage->listGalleries($perm, $attributes, $parent,
-                                                   $allLevels, $from, $count);
-        $tree = Horde_Tree::factory('gallery_tree', 'Select');
+        $params = new Horde_Support_Array($params);
+        $galleries = $GLOBALS['injector']
+            ->getInstance('Ansel_Injector_Factory_Storage')
+            ->create()
+            ->listGalleries($params);
 
-        if (!empty($ignore)) {
-           unset($galleries[$ignore]);
-           if ($selected == $ignore) {
-               $selected = null;
+        $tree = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Tree')->create('gallery_tree', 'Select');
+
+        /* Remove the ignored gallery, make sure it's also not the selected
+         * gallery */
+        if ($params->ignore) {
+           if ($params->selected == $params->ignore) {
+               $params->selected = null;
            }
         }
+
         foreach ($galleries as $gallery_id => $gallery) {
             // We don't use $gallery->getParents() on purpose since we
             // only need the count of parents. This potentially saves a number
             // of DB queries.
             $parents = $gallery->get('parents');
-            if (empty($parents)) {
-                $indents = 0;
-            } else {
-                $indents = substr_count($parents, ':') + 1;
-            }
-
+            $indents = empty($parents) ? 0 : substr_count($parents, ':') + 1;
             $gallery_name = $gallery->get('name');
             $len = Horde_String::length($gallery_name);
             if ($len > 30) {
@@ -137,14 +114,14 @@ class Ansel
             } else {
                 $label = $gallery_name;
             }
-
-            $params['selected'] = ($gallery_id == $selected);
+            $treeparams = array();
+            $treeparams['selected'] = $gallery_id == $params->selected;
             $parent = $gallery->getParent();
-            $parent = (is_null($parent)) ? $parent : $parent->id;
-            if ((!empty($parent) && !empty($galleries[$parent])) ||
-                (empty($parent))) {
-                $tree->addNode($gallery->id, $parent, $label, $indents, true,
-                               $params);
+            $parent = (empty($params['parent'])) ? null : $params['parent']->id;
+            if ((!empty($params['parent']) && !empty($galleries[$params['parent']])) ||
+                (empty($params['parent']))) {
+
+                $tree->addNode($gallery->id, $parent, $label, $indents, true, $treeparams);
             }
         }
 
@@ -152,8 +129,6 @@ class Ansel
     }
 
     /**
-     * Return a link to a photo placeholder, suitable for use in an <img/>
-     * tag (or a Horde::img() call, with the path parameter set to * '').
      * This photo should be used as a placeholder if the correct photo can't
      * be retrieved
      *
@@ -164,7 +139,7 @@ class Ansel
      */
     static public function getErrorImage($view = 'screen')
     {
-        return $GLOBALS['registry']->getImageDir() . '/' . $view . '-error.png';
+        return Horde_Themes::img($view . '-error.png');
     }
 
     /**
@@ -174,17 +149,16 @@ class Ansel
      * @param string $controller       The controller to generate a URL for.
      * @param array $data              The data needed to generate the URL.
      * @param boolean $full            Generate a full URL.
-     * @param integer $append_session  0 = only if needed, 1 = always,
-     *                                 -1 = never.
+     * @param integer $append_session  0 = only if needed, 1 = always, -1 = never.
      *
-     * @param string  The generated URL
+     * @return Horde_Url The generated URL
      */
     static public function getUrlFor($controller, $data, $full = false, $append_session = 0)
     {
         global $prefs;
 
         $rewrite = isset($GLOBALS['conf']['urls']['pretty']) &&
-            $GLOBALS['conf']['urls']['pretty'] == 'rewrite';
+                   $GLOBALS['conf']['urls']['pretty'] == 'rewrite';
 
         switch ($controller ) {
         case 'view':
@@ -193,13 +167,6 @@ class Ansel
 
                 /* Viewing a List */
                 if ($data['view'] == 'List') {
-                    if (!empty($data['groupby']) &&
-                        $data['groupby'] == 'category' &&
-                        empty($data['category']) &&
-                        empty($data['special'])) {
-
-                        $data['groupby'] = 'owner';
-                    }
 
                     $groupby = isset($data['groupby'])
                         ? $data['groupby']
@@ -208,29 +175,23 @@ class Ansel
                         $url = 'user/' . urlencode($data['owner']) . '/';
                     } elseif ($groupby == 'owner') {
                         $url = 'user/';
-                    } elseif ($groupby == 'category' &&
-                              !empty($data['category'])) {
-                            $url = 'category/' . urlencode($data['category']) . '/';
-
-                    } elseif ($groupby == 'category') {
-                        $url = 'category/';
                     } elseif ($groupby == 'none') {
                        $url = 'all/';
                     }
-
+                    $url = Horde::url($url, $full, $append_session);
                     // Keep the URL as clean as possible - don't append the page
                     // number if it's zero, which would be the default.
                     if (!empty($data['page'])) {
-                        $url = Horde_Util::addParameter($url, 'page', $data['page']);
+                        $url->add('page', $data['page']);
                     }
-                    return Horde::applicationUrl($url, $full, $append_session);
+                    return $url;
                 }
 
                 /* Viewing a Gallery or Image */
                 if ($data['view'] == 'Gallery' || $data['view'] == 'Image') {
 
                     /**
-                     * This is needed to correctly generate URLs for images in
+                     * @TODO: This is needed to correctly generate URLs for images in
                      * places that are not specifically requested by the user,
                      * for instance, in a gallery block. Otherwise, the proper
                      * date variables would not be attached to the url, since we
@@ -243,12 +204,9 @@ class Ansel
                         // Getting these objects is not ideal, but at this point
                         // they should already be locally cached so the cost
                         // is minimized.
-                        $i = &$GLOBALS['ansel_storage']->getImage($data['image']);
-                        $g = &$GLOBALS['ansel_storage']->getGallery($data['gallery']);
-                        if (!is_a($g, 'PEAR_Error') &&
-                            !is_a($i, 'PEAR_Error') &&
-                            $g->get('view_mode') == 'Date') {
-
+                        $i = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($data['image']);
+                        $g = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($data['gallery']);
+                        if ($g->get('view_mode') == 'Date') {
                             $imgDate = new Horde_Date($i->originalDate);
                             $data['year'] = $imgDate->year;
                             $data['month'] = $imgDate->month;
@@ -283,132 +241,104 @@ class Ansel
                         $extras['force_grouping'] = $data['force_grouping'];
                     }
 
+                    $url = new Horde_Url($url);
                     if (count($extras)) {
-                        $url = Horde_Util::addParameter($url, $extras);
+                        $url->add($extras);
                     }
 
-                }
+                    /* Slight hack until we delegate at least some of the url
+                     * generation to the gallery/image/view object. */
+                    if ($data['view'] == 'Image' &&
+                        !empty($data['gallery_view']) &&
+                        $data['gallery_view'] == 'GalleryLightbox') {
+                        $url->setAnchor($data['image']);
+                    }
 
-                if ($data['view'] == 'Results')  {
-                    $url = 'tag/' . (!empty($data['tag'])
+                } elseif ($data['view'] == 'Results')  {
+                    $url = new Horde_Url('tag/' . (!empty($data['tag'])
                                      ? urlencode($data['tag']) . '/'
-                                     : '');
+                                     : ''));
 
                     if (!empty($data['actionID'])) {
-                        $url = Horde_Util::addParameter($url, 'actionID',
-                                                  $data['actionID']);
+                        $url->add(array('actionID' => $data['actionID']));
                     }
 
                     if (!empty($data['owner'])) {
-                        $url = Horde_Util::addParameter($url, 'owner',
-                                                  $data['owner']);
+                        $url->add('owner', $data['owner']);
                     }
                 }
 
                 // Keep the URL as clean as possible - don't append the page
                 // number if it's zero, which would be the default.
                 if (!empty($data['page'])) {
-                    $url = Horde_Util::addParameter($url, 'page', $data['page']);
+                    $url->add('page', $data['page']);
                 }
 
                 if (!empty($data['year'])) {
-                    $url = Horde_Util::addParameter($url, array('year' => $data['year'],
-                                                          'month' => (empty($data['month']) ? 0 : $data['month']),
-                                                          'day' => (empty($data['day']) ? 0 : $data['day'])));
+                    $url->add(array('year' => $data['year'],
+                                    'month' => (empty($data['month']) ? 0 : $data['month']),
+                                    'day' => (empty($data['day']) ? 0 : $data['day'])));
                 }
 
-                // If we are using GalleryLightbox, AND we are linking to an
-                // image view, append the imageId here to be sure it's at the
-                // end of the URL. This is a complete hack, but saves us from
-                // having to delegate the URL generation to the view object for
-                // now.
-                if ($data['view'] == 'Image' &&
-                    !empty($data['gallery_view']) &&
-                    $data['gallery_view'] == 'GalleryLightbox') {
+                return Horde::url($url, $full, $append_session);
 
-                    $url .= '#' . $data['image'];
-                }
-
-                return Horde::applicationUrl($url, $full, $append_session);
             } else {
-                $url = Horde::applicationUrl(
-                         Horde_Util::addParameter('view.php', $data),
-                         $full,
-                         $append_session);
+                $url = Horde::url('view.php', $full, $append_session);
 
+                /* See note above about delegating url generation to gallery/view */
                 if ($data['view'] == 'Image' &&
                     !empty($data['gallery_view']) &&
                     $data['gallery_view'] == 'GalleryLightbox') {
-
-                    $url .= '#' . $data['image'];
+                    $data['view'] = 'Gallery';
+                    $url->setAnchor($data['image']);
                 }
 
-                return $url;
-
+                return $url->add($data)->setRaw(true);
             }
-            break;
 
         case 'group':
             if ($rewrite) {
                 if (empty($data['groupby'])) {
                     $data['groupby'] = $prefs->getValue('groupby');
                 }
-
                 if ($data['groupby'] == 'owner') {
                     $url = 'user/';
-                }
-                if ($data['groupby'] == 'category') {
-                    $url = 'category/';
-                }
-                if ($data['groupby'] == 'none') {
+                } elseif ($data['groupby'] == 'none') {
                     $url = 'all/';
                 }
                 unset($data['groupby']);
+
+                $url = Horde::url($url, $full, $append_session);
                 if (count($data)) {
-                    $url = Horde_Util::addParameter($url,$data);
+                    $url->add($data);
                 }
-                return Horde::applicationUrl($url, $full, $append_session);
+                return $url;
             } else {
-                return Horde::applicationUrl(
-                    Horde_Util::addParameter('group.php', $data),
-                    $full,
-                    $append_session);
+                return Horde::url('group.php', $full, $append_session)->add($data);
             }
-            break;
 
         case 'rss_user':
             if ($rewrite) {
-                $url = 'user/' . urlencode($data['owner']) . '/rss';
-                return Horde::applicationUrl($url, $full, $append_session);
+                return Horde::url('user/' . urlencode($data['owner']) . '/rss', $full, $append_session);
             } else {
-                return Horde::applicationUrl(
-                    Horde_Util::addParameter('rss.php',
-                                       array('stream_type' => 'user',
-                                             'id' => $data['owner'])),
-                    $full, $append_session);
+                $url = Horde::url(new Horde_Url('rss.php'), $full, $append_session);
+                return $url->add(array('stream_type' => 'user', 'id' => $data['owner']));
             }
-            break;
 
         case 'rss_gallery':
             if ($rewrite) {
                 $id = (!empty($data['slug'])) ? $data['slug'] : 'id/' . (int)$data['gallery'];
-                $url = 'gallery/' . $id . '/rss';
-                return Horde::applicationUrl($url, $full, $append_session);
+                return Horde::url(new Horde_Url('gallery/' . $id . '/rss'), $full, $append_session);
             } else {
-                return Horde::applicationUrl(
-                    Horde_Util::addParameter('rss.php',
-                                       array('stream_type' => 'gallery',
-                                             'id' => (int)$data['gallery'])),
-                    $full, $append_session);
+                return Horde::url('rss.php', $full, $append_session)->add(
+                            array('stream_type' => 'gallery',
+                                  'id' => (int)$data['gallery']));
             }
-            break;
 
         case 'default_view':
             switch ($prefs->getValue('defaultview')) {
             case 'browse':
-                $url = 'browse.php';
-                return Horde::applicationUrl($url, $full, $append_session);
-                break;
+                return Horde::url(new Horde_Url('browse.php'), $full, $append_session);
 
             case 'galleries':
                 $url = Ansel::getUrlFor('view', array('view' => 'List'), true);
@@ -418,11 +348,12 @@ class Ansel
             default:
                $url = Ansel::getUrlFor('view',
                                        array('view' => 'List',
-                                             'owner' => Horde_Auth::getAuth(),
+                                             'owner' => $GLOBALS['registry']->getAuth(),
                                              'groupby' => 'owner'),
                                        true);
                break;
             }
+
             return $url;
         }
     }
@@ -432,18 +363,17 @@ class Ansel
      * Takes into account $conf['vfs']['direct'] and other
      * factors.
      *
-     * @param string $imageId  The id of the image.
-     * @param string $view     The view ('screen', 'thumb', 'prettythumb' or
-     *                         'full') to show.
-     * @param boolean $full    Return a path that includes the server name?
-     * @param string $style    Use this gallery style
+     * @param string $imageId     The id of the image.
+     * @param string $view        The view ('screen', 'thumb', 'prettythumb' or
+     *                            'full') to show.
+     * @param boolean $full       Return a path that includes the server name?
+     * @param Ansel_Style $style  Use this gallery style
      *
-     * @return string  The image path.
+     * @return Horde_Url The image path.
      */
-    static public function getImageUrl($imageId, $view = 'screen', $full = false,
-                         $style = null)
+    static public function getImageUrl($imageId, $view = 'screen', $full = false, $style = null)
     {
-        global $conf, $ansel_storage;
+        global $conf;
 
         // To avoid having to add a new img/* file everytime we add a new
         // thumbstyle, we check for the 'non-prettythumb' views, then route the
@@ -460,13 +390,13 @@ class Ansel
         }
 
         if (empty($imageId)) {
-            return Ansel::getErrorImage($view);
+            return Horde::url((string)Ansel::getErrorImage($view), $full);
         }
 
         // Default to ansel_default since we really only need to know the style
         // if we are requesting a 'prettythumb'
         if (is_null($style)) {
-            $style = 'ansel_default';
+            $style = Ansel::getStyleDefinition('ansel_default');
         }
 
         // Don't load the image if the view exists
@@ -475,18 +405,17 @@ class Ansel
             // We have to make sure the image exists first, since we won't
             // be going through img/*.php to auto-create it.
             try {
-                $image = $ansel_storage->getImage($imageId);
-            } catch (Horde_Exception $e) {
-                Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
-                return Ansel::getErrorImage($view);
+                $image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($imageId);
+            } catch (Ansel_Exception $e) {
+                Horde::logMessage($e, 'ERR');
+                return Horde::url((string)Ansel::getErrorImage($view), $full);
             }
             try {
                 $image->createView($view, $style, false);
-            } catch (Horde_Exception $e) {
-                return Ansel::getErrorImage($view);
+            } catch (Ansel_Exception $e) {
+                return Horde::url((string)Ansel::getErrorImage($view), $full);
             }
-            $viewHash = $image->getViewHash($view, $style) . '/'
-                . $image->getVFSName($view);
+            $viewHash = $image->getViewHash($view, $style) . '/' . $image->getVFSName($view);
         }
 
         // First check for vfs-direct. If we are not using it, pass this off to
@@ -494,19 +423,19 @@ class Ansel
         if ($conf['vfs']['src'] != 'direct') {
             $params = array('image' => $imageId);
             if (!is_null($style)) {
-                $params['style'] = $style;
+                $params['t'] = $style->thumbstyle;
+                $params['b'] = $style->background;
             }
-            $url = Horde_Util::addParameter('img/' . $view . '.php', $params);
-            return Horde::applicationUrl($url, $full);
+
+            return Horde::url('img/' . $view . '.php', $full)->add($params);
         }
 
         // Using vfs-direct
-        $path = substr(str_pad($imageId, 2, 0, STR_PAD_LEFT), -2) . '/'
-            . $viewHash;
+        $path = substr(str_pad($imageId, 2, 0, STR_PAD_LEFT), -2) . '/' . $viewHash;
         if ($full && substr($conf['vfs']['path'], 0, 7) != 'http://') {
             return Horde::url($conf['vfs']['path'] . $path, true, -1);
         } else {
-            return $conf['vfs']['path'] . htmlspecialchars($path);
+            return new Horde_Url($conf['vfs']['path'] . htmlspecialchars($path));
         }
     }
 
@@ -515,21 +444,13 @@ class Ansel
      *
      * @param array $params  Any additional parameters
      *
-     * @return Horde_Image object | PEAR_Error
+     * @return Horde_Image object
      */
     static public function getImageObject($params = array())
     {
-        global $conf;
-        $context = array('tmpdir' => Horde::getTempDir());
-        if (!empty($conf['image']['convert'])) {
-            $context['convert'] = $conf['image']['convert'];
-        }
-        $params = array_merge(array('type' => $conf['image']['type'],
-                                    'context' => $context),
-                              $params);
-        //@TODO: get around to updating horde/config/conf.xml to include the imagick driver
-        $driver = empty($conf['image']['convert']) ? 'Gd' : 'Im';
-        return Horde_Image::factory($driver, $params);
+        return $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Image')
+            ->create(array('type' => $GLOBALS['conf']['image']['type']));
     }
 
     /**
@@ -538,13 +459,13 @@ class Ansel
      * @param string $file     The filename of the image.
      * @param array $override  Overwrite the file array with these values.
      *
-     * @return array  The image data of the file as an array or PEAR_Error
+     * @return array  The image data of the file as an array
+     * @throws Horde_Exception_NotFound
      */
     static public function getImageFromFile($file, $override = array())
     {
         if (!file_exists($file)) {
-            return PEAR::raiseError(sprintf(_("The file \"%s\" doesn't exist."),
-                                    $file));
+            throw new Horde_Exception_NotFound(sprintf(_("The file \"%s\" doesn't exist."), $file));
         }
 
         global $conf;
@@ -552,7 +473,7 @@ class Ansel
         // Get the mime type of the file (and make sure it's an image).
         $mime_type = Horde_Mime_Magic::analyzeFile($file, isset($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null);
         if (strpos($mime_type, 'image') === false) {
-            return PEAR::raiseError(sprintf(_("Can't get unknown file type \"%s\"."), $file));
+            throw new Horde_Exception_NotFound(sprintf(_("Can't get unknown file type \"%s\"."), $file));
         }
 
         $image = array('image_filename' => basename($file),
@@ -601,76 +522,16 @@ class Ansel
     }
 
     /**
-     * Build Ansel's list of menu items.
-     */
-    static public function getMenu()
-    {
-        global $conf, $registry;
-
-        $menu = new Horde_Menu();
-
-        /* Browse/Search */
-        $menu->add(Horde::applicationUrl('browse.php'), _("_Browse"),
-                   'browse.png', null, null, null,
-                   (($GLOBALS['prefs']->getValue('defaultview') == 'browse' &&
-                     basename($_SERVER['PHP_SELF']) == 'index.php') ||
-                    (basename($_SERVER['PHP_SELF']) == 'browse.php'))
-                   ? 'current'
-                   : '__noselection');
-
-        $menu->add(Ansel::getUrlFor('view', array('view' => 'List')), _("_Galleries"),
-                   'galleries.png', null, null, null,
-                   (($GLOBALS['prefs']->getValue('defaultview') == 'galleries' &&
-                     basename($_SERVER['PHP_SELF']) == 'index.php') ||
-                    ((basename($_SERVER['PHP_SELF']) == 'group.php') &&
-                     Horde_Util::getFormData('owner') !== Horde_Auth::getAuth())
-                    ? 'current'
-                    : '__noselection'));
-        if (Horde_Auth::getAuth()) {
-            $url = Ansel::getUrlFor('view', array('owner' => Horde_Auth::getAuth(),
-                                                  'groupby' => 'owner',
-                                                  'view' => 'List'));
-            $menu->add($url, _("_My Galleries"), 'mygalleries.png', null, null,
-                       null,
-                       (Horde_Util::getFormData('owner', false) == Horde_Auth::getAuth())
-                       ? 'current' :
-                       '__noselection');
-        }
-
-        /* Let authenticated users create new galleries. */
-        if (Horde_Auth::isAdmin() ||
-            (!$GLOBALS['perms']->exists('ansel') && Horde_Auth::getAuth()) ||
-            $GLOBALS['perms']->hasPermission('ansel', Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
-            $menu->add(Horde::applicationUrl(Horde_Util::addParameter('gallery.php', 'actionID', 'add')),
-                       _("_New Gallery"), 'add.png', null, null, null,
-                       (basename($_SERVER['PHP_SELF']) == 'gallery.php' &&
-                        Horde_Util::getFormData('actionID') == 'add')
-                       ? 'current'
-                       : '__noselection');
-        }
-
-        if ($conf['faces']['driver'] && Horde_Auth::isAuthenticated()) {
-            $menu->add(Horde::applicationUrl('faces/search/all.php'), _("_Faces"), 'user.png', $registry->getImageDir('horde'));
-        }
-
-        /* Print. */
-        if ($conf['menu']['print'] && ($pl = Horde_Util::nonInputVar('print_link'))) {
-            $menu->add($pl, _("_Print"), 'print.png',
-                       $registry->getImageDir('horde'), '_blank',
-                       Horde::popupJs($pl, array('urlencode' => true)) . 'return false;');
-        }
-
-        return $menu;
-    }
-
-    /**
      * Generate a list of breadcrumbs showing where we are in the gallery
      * tree.
+     *
+     * @return string
      */
-    static public function getBreadCrumbs($separator = ' &raquo; ', $gallery = null)
+    static public function getBreadCrumbs($gallery = null, $separator = ' &raquo; ')
     {
-        global $prefs, $ansel_storage;
+        global $prefs;
 
+        $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create();
         $groupby = Horde_Util::getFormData('groupby', $prefs->getValue('groupby'));
         $owner = Horde_Util::getFormData('owner');
         $image_id = (int)Horde_Util::getFormData('image');
@@ -681,15 +542,13 @@ class Ansel
         if (is_null($gallery)) {
             $gallery_id = (int)Horde_Util::getFormData('gallery');
             $gallery_slug = Horde_Util::getFormData('slug');
-            if (!empty($gallery_slug)) {
-                $gallery = $ansel_storage->getGalleryBySlug($gallery_slug);
-            } elseif (!empty($gallery_id)) {
-                $gallery = $ansel_storage->getGallery($gallery_id);
-            }
-        }
-
-        if (is_a($gallery, 'PEAR_Error')) {
-            $gallery = null;
+            try {
+                if (!empty($gallery_slug)) {
+                    $gallery = $ansel_storage->getGalleryBySlug($gallery_slug);
+                } elseif (!empty($gallery_id)) {
+                    $gallery = $ansel_storage->getGallery($gallery_id);
+                }
+            } catch (Ansel_Exception $e) {}
         }
 
         if ($gallery) {
@@ -697,26 +556,27 @@ class Ansel
         }
 
         if (!empty($image_id)) {
-            $image = &$ansel_storage->getImage($image_id);
-            if (empty($gallery) && !is_a($image, 'PEAR_Error')) {
+            $image = $ansel_storage->getImage($image_id);
+            if (empty($gallery)) {
                 $gallery = $ansel_storage->getGallery($image->gallery);
             }
         }
-        if (isset($gallery) && !is_a($gallery, 'PEAR_Error')) {
+        if (isset($gallery)) {
             $owner = $gallery->get('owner');
         }
         if (!empty($owner)) {
             if (!$owner) {
                 $owner_title = _("System Galleries");
-            } elseif ($owner == Horde_Auth::getAuth()) {
+            } elseif ($owner == $GLOBALS['registry']->getAuth()) {
                 $owner_title = _("My Galleries");
             } elseif (!empty($GLOBALS['conf']['gallery']['customlabel'])) {
-                $uprefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
-                                           'ansel',
-                                           $owner, '', null, false);
+                $uprefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create('ansel', array(
+                    'cache' => false,
+                    'user' => $owner
+                ));
                 $fullname = $uprefs->getValue('grouptitle');
                 if (!$fullname) {
-                    $identity = Horde_Prefs_Identity::singleton('none', $owner);
+                    $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($owner);
                     $fullname = $identity->getValue('fullname');
                     if (!$fullname) {
                         $fullname = $owner;
@@ -739,8 +599,8 @@ class Ansel
                           'force_grouping' => true);
 
         // Check for an active image
-        if (!empty($image_id) && !is_a($image, 'PEAR_Error')) {
-            $text = '<span class="thiscrumb" id="PhotoName">' . htmlspecialchars($image->filename, ENT_COMPAT, Horde_Nls::getCharset()) . '</span>';
+        if (!empty($image_id)) {
+            $text = '<span class="thiscrumb" id="PhotoName">' . htmlspecialchars($image->filename) . '</span>';
             $nav = $separator . $text . $nav;
             $levels++;
         }
@@ -757,7 +617,7 @@ class Ansel
                     } else {
                         $urlParameters = $urlFlags;
                     }
-                    $nav = $separator . Horde::link(Ansel::getUrlFor('view', array_merge($navdata, $urlParameters))) . $title . '</a>' . $nav;
+                    $nav = $separator . Ansel::getUrlFor('view', array_merge($navdata, $urlParameters))->link() . $title . '</a>' . $nav;
                 } else {
                     $nav = $separator . '<span class="thiscrumb">' . $title . '</span>' . $nav;
                 }
@@ -765,10 +625,10 @@ class Ansel
         }
 
         if (!empty($owner_title)) {
-            $owner_title = htmlspecialchars($owner_title, ENT_COMPAT, Horde_Nls::getCharset());
+            $owner_title = htmlspecialchars($owner_title);
             $levels++;
             if ($gallery) {
-                $nav = $separator . Horde::link(Ansel::getUrlFor('view', array('view' => 'List', 'groupby' => 'owner', 'owner' => $owner, 'havesearch' => $haveSearch))) . $owner_title . '</a>' . $nav;
+                $nav = $separator . Ansel::getUrlFor('view', array('view' => 'List', 'groupby' => 'owner', 'owner' => $owner, 'havesearch' => $haveSearch))->link() . $owner_title . '</a>' . $nav;
             } else {
                 $nav = $separator . $owner_title . $nav;
             }
@@ -776,10 +636,10 @@ class Ansel
 
         if ($haveSearch == 0) {
             $text = _("Galleries");
-            $link = Horde::link(Ansel::getUrlFor('view', array('view' => 'List')));
+            $link = Ansel::getUrlFor('view', array('view' => 'List'))->link();
         } else {
             $text = _("Browse Tags");
-            $link = Horde::link(Ansel::getUrlFor('view', array('view' => 'Results'), true));
+            $link = Ansel::getUrlFor('view', array('view' => 'Results'), true)->link();
         }
         if ($levels > 0) {
             $nav = $link . $text . '</a>' . $nav;
@@ -787,9 +647,7 @@ class Ansel
             $nav = $text . $nav;
         }
 
-        $nav = '<span class="breadcrumbs">' . $nav;
-
-        return $nav;
+        return '<span class="breadcrumbs">' . $nav . '</span>';
     }
 
     /**
@@ -803,8 +661,9 @@ class Ansel
      */
     static public function getStyleSelect($element_name, $selected = '')
     {
-        $styles = Horde::loadConfiguration('styles.php', 'styles', 'ansel');
+        $styles = $GLOBALS['injector']->getInstance('Ansel_Styles');
 
+        // @TODO: Look at this code: probably duplicated in the binder above.
         /* No prettythumbs allowed at all by admin choice */
         if (empty($GLOBALS['conf']['image']['prettythumbs'])) {
             $test = $styles;
@@ -831,92 +690,43 @@ class Ansel
         foreach ($options as $key => $option) {
             $html .= '  <option value="' . $key . '"' . (($selected == $key) ? 'selected="selected"' : '') . '>' . $option . '</option>';
         }
-        $html .= '</select>';
-        return $html;
+
+        return $html .= '</select>';
     }
 
     /**
-     * Get an array of all currently viewable styles.
-     */
-    static public function getAvailableStyles()
-    {
-        /* Brings in the $styles array in this scope only */
-        $styles = Horde::loadConfiguration('styles.php', 'styles', 'ansel');
-
-        /* No prettythumbs allowed at all by admin choice */
-        if (empty($GLOBALS['conf']['image']['prettythumbs'])) {
-            $test = $styles;
-            foreach ($test as $key => $style) {
-                if ($style['thumbstyle'] != 'thumb') {
-                    unset($styles[$key]);
-                }
-            }
-        }
-
-        /* Check if the browser / server has png support */
-        if ($GLOBALS['browser']->hasQuirk('png_transparency') ||
-            $GLOBALS['conf']['image']['type'] != 'png') {
-
-            $test = $styles;
-            foreach ($test as $key => $style) {
-                if (!empty($style['requires_png'])) {
-                    if (!empty($style['fallback'])) {
-                        $styles[$key] = $styles[$style['fallback']];
-                    } else {
-                        unset($styles[$key]);
-                    }
-                }
-            }
-        }
-        return $styles;
-    }
-
-    /**
-     * Get a style definition for the requested named style
+     * Get a pre-defined style definition for the requested named style
      *
      * @param string $style  The name of the style to fetch
      *
-     * @return array  The definition of the requested style if it's available
-     *                otherwise, the ansel_default style is returned.
+     * @return Ansel_Style   The definition of the requested style if it's
+     *                       available, otherwise, the ansel_default style is
+     *                       returned.
      */
     static public function getStyleDefinition($style)
     {
-        if (isset($GLOBALS['ansel_styles'][$style])) {
-            $style_def = $GLOBALS['ansel_styles'][$style];
+        $styles = $GLOBALS['injector']->getInstance('Ansel_Styles');
+        if (isset($styles[$style])) {
+            return new Ansel_Style($styles[$style]);
         } else {
-            $style_def = $GLOBALS['ansel_styles']['ansel_default'];
+            return  new Ansel_Style($styles['ansel_default']);
         }
-
-        /* Fill in defaults */
-        if (empty($style_def['gallery_view'])) {
-            $style_def['gallery_view'] = 'Gallery';
-        }
-        if (empty($style_def['default_galleryimage_type'])) {
-            $style_def['default_galleryimage_type'] = 'plain';
-        }
-        if (empty($style_def['requires_png'])) {
-            $style_def['requires_png'] = false;
-        }
-
-        return $style_def;
     }
 
     /**
      * Return a hash key for the given view and style.
      *
-     * @param string $view   The view (thumb, prettythumb etc...)
-     * @param string $style  The named style.
+     * @param string $view        The view (thumb, prettythumb etc...)
+     * @param Ansel_Style $style  The style object.
      *
      * @return string  A md5 hash suitable for use as a key.
      */
     static public function getViewHash($view, $style)
     {
-        $style = Ansel::getStyleDefinition($style);
-
         if ($view != 'screen' && $view != 'thumb' && $view != 'mini' &&
             $view != 'full') {
 
-            $view = md5($style['thumbstyle'] . '.' . $style['background']);
+            $view = md5($style->thumbstyle . '.' . $style->background);
         }
 
         return $view;
@@ -952,14 +762,14 @@ class Ansel
         $css = array();
         if (!empty($GLOBALS['ansel_stylesheets'])) {
             foreach ($GLOBALS['ansel_stylesheets'] as $css_file) {
-                $css[] = array('u' => Horde::applicationUrl($themesuri . '/' . $css_file, true),
+                $css[] = array('u' => Horde::url($themesuri . '/' . $css_file, true),
                                'f' => $themesfs . '/' . $css_file);
             }
         }
 
         /* Use Horde's stylesheet code if we aren't ouputting css directly */
         if (!$custom_only) {
-            Horde::includeStylesheetFiles(array('additional' => $css));
+            Horde_Themes::includeStylesheetFiles(array('additional' => $css));
         } else {
             foreach ($css as $file) {
                 echo '<link href="' . $file['u']
@@ -977,7 +787,7 @@ class Ansel
      *
      * @param array $date  A full date parts array or an empty array.
      *
-     * @return A trimmed down (if necessary) date parts array.
+     * @return array A trimmed down (if necessary) date parts array.
      */
     static public function getDateParameter($date = array())
     {
@@ -997,17 +807,18 @@ class Ansel
 
     /**
      * Downloads all requested images as a zip file.  Assumes all permissions
-     * have been checked on the requested resource.
+     * have been checked on the requested resource.  Can request either a
+     * single gallery of images, OR an array of individual image ids.
      *
-     * @param array $gallery
-     * @param array $images
+     * @param Ansel_Gallery $gallery  The galleries to download
+     * @param array $images           The images to download
      */
     static public function downloadImagesAsZip($gallery = null, $images = array())
     {
 
         if (empty($GLOBALS['conf']['gallery']['downloadzip'])) {
             $GLOBALS['notification']->push(_("Downloading zip files is not enabled. Talk to your server administrator."));
-            header('Location: ' . Horde::applicationUrl('view.php?view=List', true));
+            Horde::url('view.php?view=List', true)->redirect();
             exit;
         }
 
@@ -1030,7 +841,8 @@ class Ansel
         if (!count($images)) {
             $notification->push(sprintf(_("There are no photos in %s to download."),
                                 $gallery->get('name')), 'horde.message');
-            header('Location: ' . Horde::applicationUrl('view.php?view=List', true));
+
+            Horde::url('view.php?view=List', true)->redirect();
             exit;
         }
 
@@ -1049,20 +861,18 @@ class Ansel
 
         $zipfiles = array();
         foreach ($images as $id) {
-            $image = &$GLOBALS['ansel_storage']->getImage($id);
-            if (!is_a($image, 'PEAR_Error')) {
-                // If we didn't select an entire gallery, check the download
-                // size for each image.
-                if (!isset($view)) {
-                    $g = $GLOBALS['ansel_storage']->getGallery($image->gallery);
-                    $v = $g->canDownload() ? 'full' : 'screen';
-                } else {
-                    $v = $view;
-                }
-
-                $zipfiles[] = array('data' => $image->raw($v),
-                                    'name' => $image->filename);
+            $image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($id);
+            // If we didn't select an entire gallery, check the download
+            // size for each image.
+            if (!isset($view)) {
+                $g = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($image->gallery);
+                $v = $g->canDownload() ? 'full' : 'screen';
+            } else {
+                $v = $view;
             }
+
+            $zipfiles[] = array('data' => $image->raw($v),
+                                'name' => $image->filename);
         }
 
         $zip = Horde_Compress::factory('zip');
@@ -1084,21 +894,51 @@ class Ansel
      *
      * @param array $options  The options to build the view.
      *
-     * @return string  The javascript
+     * @return string  The javascript code
      */
     static public function embedCode($options)
     {
         if (empty($options['container'])) {
-            $domid = md5(uniqid());
+            $domid = uniqid();
             $options['container'] = $domid;
         } else {
             $domid = $options['container'];
         }
 
-        $imple = Horde_Ajax_Imple::factory(array('ansel', 'Embed'), $options);
-        $src = $imple->getUrl();
+        $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('ansel', 'Embed'), $options);
 
-       return '<script type="text/javascript" src="' . $src . '"></script><div id="' . $domid . '"></div>';
+       return '<script type="text/javascript" src="' . $imple->getUrl() . '"></script><div id="' . $domid . '"></div>';
+    }
+
+    /**
+     * Get the URL for a tag search link
+     *
+     * @TODO: Move this to Tagger
+     *
+     * @param array $tags      The tag ids to link to
+     * @param string $action   The action we want to perform with this tag.
+     * @param string $owner    The owner we want to filter the results by
+     *
+     * @return string  The URL for this tag and action
+     */
+    static public function getTagLinks($tags, $action = 'add', $owner = null)
+    {
+
+        $results = array();
+        foreach ($tags as $id => $taginfo) {
+            $params = array('view' => 'Results',
+                            'tag' => $taginfo['tag_name']);
+            if (!empty($owner)) {
+                $params['owner'] = $owner;
+            }
+            if ($action != 'add') {
+                $params['actionID'] = $action;
+            }
+            $link = Ansel::getUrlFor('view', $params, true);
+            $results[$id] = $link;
+        }
+
+        return $results;
     }
 
 }

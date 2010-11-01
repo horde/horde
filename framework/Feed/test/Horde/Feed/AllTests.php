@@ -24,6 +24,8 @@ class Horde_Feed_AllTests extends Horde_Test_AllTests
 {
 }
 
+Horde_Feed_AllTests::init('Horde_Feed', __FILE__);
+
 if (PHPUnit_MAIN_METHOD == 'Horde_Feed_AllTests::main') {
-    Horde_Feed_AllTests::main('Horde_Feed', __FILE__);
+    Horde_Feed_AllTests::main();
 }

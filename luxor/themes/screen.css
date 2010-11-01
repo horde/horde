@@ -1,0 +1,60 @@
+/**
+ * $Horde: luxor/themes/screen.css,v 1.7 2008/08/06 16:10:00 chuck Exp $
+ */
+
+th {
+    border-bottom: 1px solid #999;
+}
+.title {
+    font-size: 120%;
+    font-weight: bold;
+}
+.comment {
+    color: #008000;
+}
+.string {
+    color: #d00;
+}
+.variable {
+    color: #ff8000;
+}
+.variable-highlight {
+    background: yellow;
+}
+.reserved {
+    color: #007f7f;
+}
+.symbol {
+    color: #00b;
+}
+
+dl {
+    margin: 5px;
+}
+dt {
+    font-weight: bold;
+}
+dd {
+    margin-left: 10px;
+}
+
+#headerbar {
+    margin-bottom: .5em;
+}
+
+#filelist {
+    text-align: left;
+    white-space: nowrap;
+}
+#filelist td, #filelist tr {
+    padding: 1px 4px;
+}
+
+#symbol-declarations, #symbol-references {
+    width: 48%;
+    float: left;
+}
+#symbol-declarations h2, #symbol-references h2 {
+    margin-left: .3em;
+    font-size: 1.2em;
+}

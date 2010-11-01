@@ -1,6 +1,6 @@
 <?php
 if (empty($url)) {
-    $url = Horde::applicationUrl('month.php', true)
+    $url = Horde::url('month.php', true)
         ->add(array('month' => $month, 'year' => $year));
 }
 ?>
@@ -12,6 +12,7 @@ if (empty($url)) {
 <input type="hidden" name="url" value="<?php echo htmlspecialchars($url) ?>" />
 <input type="hidden" name="eventID" value="<?php echo htmlspecialchars($this->event->id) ?>" />
 <input type="hidden" name="calendar" value="<?php echo htmlspecialchars($this->event->calendar) ?>" />
+<input type="hidden" name="type" value="<?php echo htmlspecialchars($this->event->calendarType) ?>" />
 
 <table class="striped" cellspacing="0">
 <tr><td class="warning"><?php echo _("This is a recurring event. Delete the current event only, this<br />occurrence and all future occurences, or all occurences?") ?></td></tr>

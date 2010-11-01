@@ -76,7 +76,7 @@ implements Horde_Kolab_Session_Valid_Interface
                 sprintf(
                     "Invalid Kolab session for current user \"%s\", requested"
                     . " user \"%s\" and stored user \"%s\".",
-                    $this->_valid->getAuth()->getCurrentUser(),
+                    $this->_valid->getAuth(),
                     $user,
                     $this->_valid->getSession()->getMail()
                 )
@@ -88,7 +88,7 @@ implements Horde_Kolab_Session_Valid_Interface
     /**
      * Return the session this validator checks.
      *
-     * @return Horde_Kolab_Session_Interface The session checked by this
+     * @return Horde_Kolab_Session The session checked by this
      * validator.
      */
     public function getSession()
@@ -99,8 +99,7 @@ implements Horde_Kolab_Session_Valid_Interface
     /**
      * Return the auth driver of this validator.
      *
-     * @return Horde_Kolab_Session_Auth_Interface The auth driver set for this
-     * validator.
+     * @return mixed The user ID or false if no user is logged in.
      */
     public function getAuth()
     {

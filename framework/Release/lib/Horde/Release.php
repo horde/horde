@@ -337,14 +337,12 @@ class Horde_Release
         $module = $this->_options['module'];
         $all_caps_module = strtoupper($module);
         print "Updating CHANGES file for $module\n";
+        $version = 'v' . $this->_newSourceVersionStringPlain;
 
         // construct the filenames
         $filename_only = 'CHANGES';
         $filename = $this->_directoryName . '/docs/' . $filename_only;
         $newfilename = $filename . '.new';
-
-        $version = 'v' . substr($this->_newSourceVersionStringPlain, 0, strpos($this->_newSourceVersionString, '-'));
-
         $oldfp = fopen($filename, 'r');
         $newfp = fopen($newfilename, 'w');
         fwrite($newfp, str_repeat('-', strlen($version)) . "\n$version\n" .
@@ -466,10 +464,9 @@ class Horde_Release
                 die("\nThere was an error running the command\n$cmd\n");
             }
             print "Installing framework packages\n";
-            if (file_exists("./$directory/scripts/create-symlinks.php")) {
-                system("php ./$directory/scripts/create-symlinks.php --copy --src=./$directory/framework --dest=./$directory/lib");
-            } else {
-                system("horde-fw-symlinks.php --copy --src ./$directory/framework --dest ./$directory/lib");
+            passthru("install_framework --copy --src ./$directory/framework --horde /tmp --dest ./$directory/lib", $result);
+            if ($result) {
+                exit;
             }
 
             print "Setting include path\n";
@@ -543,7 +540,7 @@ class Horde_Release
         }
 
         $url_changelog = $this->_oldVersion
-            ? "http://cvs.horde.org/diff.php/$doc_dir/CHANGES?r1={$this->_oldChangelogVersion}&r2={$this->_changelogVersion}&ty=h"
+            ? "http://cvs.horde.org/diff.php/$doc_dir/CHANGES?rt=horde&r1={$this->_oldChangelogVersion}&r2={$this->_changelogVersion}&ty=h"
             : '';
 
         // Params to add new release on FM
@@ -659,11 +656,13 @@ class Horde_Release
 
         // Building and sending message
         $mail = new Horde_Mime_Mail();
-        $mail->setBody($body, 'utf-8', false);
+        $mail->setBody($body, 'UTF-8', false);
         $mail->addHeaders($headers);
-        $result = $mail->send(array('type' => $this->_options['mailer']['type'], 'params' => $this->_options['mailer']['params']));
-        if (is_a($result, 'PEAR_Error')) {
-            print $result->getMessage() . "\n";
+        try {
+            $class = 'Horde_Mail_Transport_' . ucfirst($this->_options['mailer']['type']);
+            $mail->send(new $class($this->_options['mailer']['params']));
+        } catch (Horde_Mime_Exception $e) {
+            print $e->getMessage() . "\n";
         }
     }
 
@@ -677,6 +676,7 @@ class Horde_Release
     protected function _fmPublish($params)
     {
         $key = $this->_options['fm']['user_token'];
+        $params['tag_list'] = implode(', ', $params['tag_list']);
         $fm_params = array('auth_code' => $key,
                            'release' => $params);
         $http = new Horde_Http_Client();
@@ -686,7 +686,7 @@ class Horde_Release
                                     array('Content-Type' => 'application/json'));
         } catch (Horde_Http_Exception $e) {
             if (strpos($e->getMessage(), '201 Created') === false) {
-                throw new Horde_Exception($e);
+                throw new Horde_Exception_Prior($e);
             } else {
                 return '';
             }
@@ -707,7 +707,7 @@ class Horde_Release
         try {
             $response = $http->get('http://freshmeat.net/projects/' . $this->notes['fm']['project'] . '/urls.json?auth_code=' . $this->_options['fm']['user_token']);
         } catch (Horde_Http_Exception $e) {
-            throw new Horde_Exception($e);
+            throw new Horde_Exception_Prior($e);
         }
 
         $url_response = Horde_Serialize::unserialize($response->getBody(), Horde_Serialize::JSON);
@@ -740,7 +740,7 @@ class Horde_Release
                     $response = $response->getBody();
                 } catch (Horde_Http_Exception $e) {
                     if (strpos($e->getMessage(), '201 Created') === false) {
-                        throw new Horde_Exception($e);
+                        throw new Horde_Exception_Prior($e);
                     } else {
                         $response = '';
                     }
@@ -754,7 +754,7 @@ class Horde_Release
                     $response = $response->getBody();
                     // Status: 200???
                 } catch (Horde_Http_Exception $e) {
-                    throw new Horde_Exception($e);
+                    throw new Horde_Exception_Prior($e);
                 }
             }
         }

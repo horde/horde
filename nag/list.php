@@ -8,7 +8,8 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('nag');
 
 $vars = Horde_Variables::getDefaultVariables();
 
@@ -86,15 +87,16 @@ default:
 
 Horde::addScriptFile('tooltips.js', 'horde');
 Horde::addScriptFile('effects.js', 'horde');
-Horde::addScriptFile('QuickFinder.js', 'horde');
+Horde::addScriptFile('quickfinder.js', 'horde');
 
 require NAG_TEMPLATES . '/common-header.inc';
-require NAG_TEMPLATES . '/menu.inc';
+echo Horde::menu();
+Nag::status();
 echo '<div id="page">';
 
 if (!$prefs->isLocked('show_completed')) {
-    $listurl = Horde::applicationUrl('list.php');
-    $tabs = new Horde_Ui_Tabs('show_completed', $vars);
+    $listurl = Horde::url('list.php');
+    $tabs = new Horde_Core_Ui_Tabs('show_completed', $vars);
     $tabs->addTab(_("_All tasks"), $listurl, Nag::VIEW_ALL);
     $tabs->addTab(_("Incom_plete tasks"), $listurl, Nag::VIEW_INCOMPLETE);
     $tabs->addTab(_("_Future tasks"), $listurl, Nag::VIEW_FUTURE);

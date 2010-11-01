@@ -44,17 +44,17 @@ class Horde_Form_Renderer {
      * Construct a new Horde_Form_Renderer::.
      *
      * @param array $params  This is a hash of renderer-specific parameters.
-     *                       Possible keys:<code>
-     *                       'varrenderer_driver': specifies the driver
-     *                           parameter to Horde_Ui_VarRenderer::factory().
-     *                       'encode_title': @see $_encodeTitle</code>
+     *                       Possible keys:
+     *                       - 'varrenderer_driver': specifies the driver
+     *                         parameter to Horde_Core_Ui_VarRenderer::factory().
+     *                       - 'encode_title': @see $_encodeTitle
      */
     function Horde_Form_Renderer($params = array())
     {
         global $registry;
         if (isset($registry) && is_a($registry, 'Registry')) {
             /* Registry available, so use a pretty image. */
-            $this->_requiredMarker = Horde::img('required.png', '*', '', $registry->getImageDir('horde'));
+            $this->_requiredMarker = Horde::img('required.png', '*');
         } else {
             /* No registry available, use something plain. */
             $this->_requiredMarker = '*';
@@ -68,7 +68,7 @@ class Horde_Form_Renderer {
         if (isset($params['varrenderer_driver'])) {
             $driver = $params['varrenderer_driver'];
         }
-        $this->_varRenderer = Horde_Ui_VarRenderer::factory($driver, $params);
+        $this->_varRenderer = Horde_Core_Ui_VarRenderer::factory($driver, $params);
     }
 
     function showHeader($bool)
@@ -213,7 +213,7 @@ try {
                 }
             }
         }
-        echo '<input type="hidden" name="_formvars" value="' . @htmlspecialchars(serialize($vars), ENT_QUOTES, Horde_Nls::getCharset()) . '" />';
+        echo '<input type="hidden" name="_formvars" value="' . htmlspecialchars(serialize($vars)) . '" />';
     }
 
     function renderFormActive(&$form, &$vars)
@@ -308,10 +308,10 @@ try {
     function submit($submit = null, $reset = false)
     {
         if (is_null($submit) || empty($submit)) {
-            $submit = _("Submit");
+            $submit = Horde_Form_Translation::t("Submit");
         }
         if ($reset === true) {
-            $reset = _("Reset");
+            $reset = Horde_Form_Translation::t("Reset");
         }
         $this->_renderSubmit($submit, $reset);
     }
@@ -326,7 +326,7 @@ try {
             $this->_sectionHeader($name, $extra);
         }
         if ($this->_requiredLegend) {
-            echo '<span class="form-error">' . $this->_requiredMarker . '</span> = ' . _("Required Field");
+            echo '<span class="form-error">' . $this->_requiredMarker . '</span> = ' . Horde_Form_Translation::t("Required Field");
         }
     }
 
@@ -411,7 +411,7 @@ try {
         /* Display any help for the field. */
         if ($var->hasHelp()) {
             global $registry;
-            if (isset($registry) && is_a($registry, 'Registry')) {
+            if (isset($registry) && $registry instanceof Horde_Registry) {
                 $link = Horde_Help::link($GLOBALS['registry']->getApp(), $var->getHelp());
             } else {
                 $link = '<a href="#" onclick="alert(\'' . addslashes(@htmlspecialchars($var->getHelp())) . '\');return false;">' . $this->_helpMarker . '</a>';

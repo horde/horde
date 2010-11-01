@@ -10,10 +10,12 @@
  * @author Your Name <you@example.com>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('skeleton');
 
 $title = _("List");
 
 require SKELETON_TEMPLATES . '/common-header.inc';
-require SKELETON_TEMPLATES . '/menu.inc';
+echo Horde::menu();
+$notification->notify(array('listeners' => 'status'));
 require $registry->get('templates', 'horde') . '/common-footer.inc';

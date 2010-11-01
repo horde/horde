@@ -12,23 +12,23 @@
 
 require_once dirname(__FILE__) . '/tabs.php';
 
-$auth = Horde_Auth::singleton($conf['auth']['driver']);
+$auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 
 // Make sure signups are enabled before proceeding
 if ($conf['signup']['allow'] !== true ||
     !$auth->hasCapability('add')) {
     $notification->push(_("User Registration has been disabled for this site."), 'horde.error');
-    Horde_Auth::authenticateFailure('folks');
+    $registry->authenticateFailure('folks');
 }
 
-$signup = Horde_Auth_Signup::factory();
+$signup = $injector->getInstance('Horde_Core_Auth_Signup');
 if ($signup instanceof PEAR_Error) {
     $notification->push($signup, 'horde.error');
-    Horde_Auth::authenticateFailure('folks');
+    $registry->authenticateFailure('folks');
 }
 
 $vars = Horde_Variables::getDefaultVariables();
-$form = new HordeSignupForm($vars);
+$form = new Horde_Core_Auth_Signup_Form($vars);
 if ($form->validate()) {
     $form->getInfo(null, $info);
     try {
@@ -43,7 +43,7 @@ if ($form->validate()) {
             $success_message = sprintf(_("Added \"%s\" to the system. You can log in now."), $info['user_name']);
         }
         $notification->push($success_message, 'horde.success');
-        Horde_Auth::authenticateFailure('folks');
+        $registry->authenticateFailure('folks');
     } catch (Horde_Exception $e) {
         $notification->push(sprintf(_("There was a problem adding \"%s\" to the system: %s"), $info['user_name'], $e->getMessage()), 'horde.error');
     }

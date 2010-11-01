@@ -26,15 +26,15 @@ $form = new Horde_Form($vars, $title, 'invite');
 $form->addVariable(_("Friend's e-mail"), 'email', 'email', true);
 
 $v = &$form->addVariable(_("Subject"), 'subject', 'text', true);
-$v->setDefault(sprintf(_("%s Invited to join %s."), ucfirst(Horde_Auth::getAuth()), $registry->get('name', 'horde')));
+$v->setDefault(sprintf(_("%s Invited to join %s."), ucfirst($GLOBALS['registry']->getAuth()), $registry->get('name', 'horde')));
 
 $v = &$form->addVariable(_("Body"), 'body', 'longtext', true);
 try {
     $body = Horde::loadConfiguration('invite.php', 'body', 'folks');
     $body = sprintf($body, $registry->get('name', 'horde'),
-                            Folks::getUrlFor('user', Horde_Auth::getAuth(), true),
-                            Horde::applicationUrl('account/signup.php', true),
-                            Horde_Auth::getAuth());
+                            Folks::getUrlFor('user', $GLOBALS['registry']->getAuth(), true),
+                            Horde::url('account/signup.php', true),
+                            $GLOBALS['registry']->getAuth());
 } catch (Horde_Exception $e) {
     $body = $body->getMessage();
 }

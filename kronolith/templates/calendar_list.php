@@ -36,7 +36,7 @@
    <td><?php echo htmlspecialchars($calendar['name']) ?></td>
    <td><?php echo _("Remote") ?></td>
    <td><?php $url = $display_url_base->add('display_cal', 'remote_' . $calendar['url']); echo $url->link(array('title' => _("Click or copy this URL to display this calendar"), 'target' => '_blank')) . htmlspecialchars(shorten_url($url)) . '</a>' ?></td>
-   <td><?php $url = new Horde_Url($calendar['url']); echo $url->link(array('title' => _("Click or copy this URL to display this calendar"), 'target' => '_blank')) . htmlspecialchars(shorten_url($calendar['url'])) . '</a>' ?></td>
+   <td><?php $url = new Horde_Url($calendar['url'], false); echo $url->link(array('title' => _("Click or copy this URL to display this calendar"), 'target' => '_blank')) . htmlspecialchars(shorten_url($calendar['url'])) . '</a>' ?></td>
    <td><?php echo $remote_edit_url_base->add('url', $calendar['url'])->link(array('title' => _("Edit"))) . $edit_img . '</a>' ?></td>
 <?php if (empty($conf['share']['no_sharing'])): ?>
    <td>&nbsp;</td>

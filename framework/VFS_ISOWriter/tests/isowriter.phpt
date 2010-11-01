@@ -9,9 +9,10 @@ require_once dirname(__FILE__) . '/../ISOWriter.php';
 echo "Load... ok\n";
 
 echo "Creating VFS... ";
-$vfs = &VFS::factory('file', array('vfsroot' => '/tmp'));
-if (is_a($vfs, 'PEAR_Error')) {
-    printf("ERROR(1): %s\n", $vfs->getMessage);
+try {
+    $vfs = VFS::factory('file', array('vfsroot' => '/tmp'));
+} catch (VFS_Exception $e) {
+    printf("ERROR(1): %s\n", $e->getMessage);
     exit;
 }
 echo "ok\n";
@@ -25,9 +26,10 @@ foreach ($FILES as $fname => $data) {
     preg_match('!^(.*)/([^/]*)$!', 'root/' . $fname, $matches);
     $path = $matches[1];
     $file = $matches[2];
-    $res = $vfs->writeData($path, $file, $data, true);
-    if (is_a($res, 'PEAR_Error')) {
-        printf("ERROR(1): %s\n", $res->getMessage());
+    try {
+        $vfs->writeData($path, $file, $data, true);
+    } catch (VFS_Exception $e) {
+        printf("ERROR(1): %s\n", $e->getMessage());
         exit;
     }
 }

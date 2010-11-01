@@ -41,7 +41,7 @@ class Whups_Driver {
                 $attribute_id = (int)substr($name, 10);
                 $ticket->change($name, $value);
                 $this->_setAttributeValue($ticket_id, $attribute_id, $value);
-                $this->updateLog($ticket_id, Horde_Auth::getAuth(), array('attribute' => $attribute_id . ':' . $value));
+                $this->updateLog($ticket_id, $GLOBALS['registry']->getAuth(), array('attribute' => $attribute_id . ':' . $value));
             }
         }
     }
@@ -285,12 +285,13 @@ class Whups_Driver {
      */
     function deleteQueue($queueId)
     {
-        $perm = &$GLOBALS['perms']->getPermission("whups:queues:$queueId");
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+        $perm = $perms->getPermission("whups:queues:$queueId");
         if (is_a($perm, 'PEAR_Error')) {
             return;
         }
 
-        return $GLOBALS['perms']->removePermission($perm, true);
+        return $perms->removePermission($perm, true);
     }
 
     /**
@@ -303,12 +304,13 @@ class Whups_Driver {
      */
     function deleteReply($reply)
     {
-        $perm = &$GLOBALS['perms']->getPermission("whups:replies:$reply");
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+        $perm = $perms->getPermission("whups:replies:$reply");
         if (is_a($perm, 'PEAR_Error')) {
             return;
         }
 
-        return $GLOBALS['perms']->removePermission($perm, true);
+        return $perms->removePermission($perm, true);
     }
 
     /**
@@ -389,14 +391,14 @@ class Whups_Driver {
         } elseif (!empty($conf['mail']['from_addr'])) {
             $mail->addHeader('From', $conf['mail']['from_addr']);
         } else {
-            $mail->addHeader('From', Whups::formatUser($from), Horde_Nls::getCharset());
+            $mail->addHeader('From', Whups::formatUser($from), 'UTF-8');
         }
 
         $subject = (is_null($ticket_id)
                     ? ''
                     : '[' . $registry->get('name') . ' #' . $ticket_id . '] ')
             . $subject;
-        $mail->addHeader('Subject', $subject, Horde_Nls::getCharset());
+        $mail->addHeader('Subject', $subject, 'UTF-8');
 
         /* Get our array of comments, sorted in the appropriate order. */
         if (!is_null($ticket_id)) {
@@ -415,7 +417,7 @@ class Whups_Driver {
         $seen_email_addresses = array();
 
         foreach ($recipients as $user) {
-            if ($user == $from && $user == Horde_Auth::getAuth() &&
+            if ($user == $from && $user == $GLOBALS['registry']->getAuth() &&
                 $prefs->getValue('email_others_only')) {
                 continue;
             }
@@ -448,18 +450,20 @@ class Whups_Driver {
                 continue;
             }
 
-            $addr_arr = Horde_Mime_Address::parseAddressList($to);
-            if (!is_a($addr_arr, 'PEAR_Error') && isset($addr_arr[0])) {
-                $bare_address = strtolower($addr_arr[0]['mailbox'] . '@' . $addr_arr[0]['host']);
-                if (!empty($seen_email_addresses[$bare_address])) {
-                    continue;
+            try {
+                $addr_arr = Horde_Mime_Address::parseAddressList($to);
+                if (isset($addr_arr[0])) {
+                    $bare_address = strtolower($addr_arr[0]['mailbox'] . '@' . $addr_arr[0]['host']);
+                    if (!empty($seen_email_addresses[$bare_address])) {
+                        continue;
+                    }
+                    $seen_email_addresses[$bare_address] = true;
+                    
+                    if (empty($full_name) && isset($addr_arr[0]['personal'])) {
+                        $full_name = $addr_arr[0]['personal'];
+                    }
                 }
-                $seen_email_addresses[$bare_address] = true;
-
-                if (empty($full_name) && isset($addr_arr[0]['personal'])) {
-                    $full_name = $addr_arr[0]['personal'];
-                }
-            }
+            } catch (Horde_Mime_Exception $e) {}
 
             // use email address as fallback
             if (empty($full_name)) {
@@ -470,7 +474,7 @@ class Whups_Driver {
                 array('@@comment@@', '@@full_name@@'),
                 array("\n\n" . $formattedComment, $full_name),
                 $message);
-            $mail->setBody($body, Horde_Nls::getCharset());
+            $mail->setBody($body, 'UTF-8');
 
             $mail->addHeader('Message-ID', Horde_Mime::generateMessageId());
             if ($ticket_id) {
@@ -484,16 +488,16 @@ class Whups_Driver {
             }
 
             $mail->clearRecipients();
-            $mail->addHeader('To', $to, Horde_Nls::getCharset());
+            $mail->addHeader('To', $to, 'UTF-8');
 
             try {
-                $mail->send(Horde::getMailerConfig(), true);
+                $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'), true);
                 $entry = sprintf('%s Message sent to %s from "%s"',
                                  $_SERVER['REMOTE_ADDR'], $to,
-                                 Horde_Auth::getAuth());
-                Horde::logMessage($entry, __FILE__, __LINE__, PEAR_LOG_INFO);
+                                 $GLOBALS['registry']->getAuth());
+                Horde::logMessage($entry, 'INFO');
             } catch (Horde_Mime_Exception $e) {
-                Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($e, 'ERR');
             }
         }
     }

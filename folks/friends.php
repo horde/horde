@@ -14,8 +14,8 @@
 require_once dirname(__FILE__) . '/lib/base.php';
 require_once FOLKS_BASE . '/lib/Forms/Activity.php';
 
-if (!Horde_Auth::isAuthenticated()) {
-    Horde_Auth::authenticateFailure('folks');
+if (!$registry->isAuthenticated()) {
+    $registry->authenticateFailure('folks');
 }
 
 $title = _("Friends");
@@ -28,8 +28,7 @@ if ($form->validate()) {
         $notification->push($result);
     } else {
         $notification->push(_("Activity successfully posted"), 'horde.success');
-        header('Location: ' . Horde::applicationUrl('friends.php'));
-        exit;
+        Horde::url('friends.php')->redirect();
     }
 }
 
@@ -59,18 +58,14 @@ krsort($firendActivities);
 $firendActivities = array_slice($firendActivities, 0, 30);
 
 // Own activities
-$activities = $folks_driver->getActivity(Horde_Auth::getAuth());
+$activities = $folks_driver->getActivity($GLOBALS['registry']->getAuth());
 if ($activities instanceof PEAR_Error) {
     $notification->push($activities);
-    header('Location: ' . Folks::getUrlFor('list', 'list'));
-    exit;
+    Folks::getUrlFor('list', 'list')->redirect();
 }
 
 Horde::addScriptFile('stripe.js', 'horde');
-
 require FOLKS_TEMPLATES . '/common-header.inc';
 require FOLKS_TEMPLATES . '/menu.inc';
-
 require FOLKS_TEMPLATES . '/friends/friends.php';
-
 require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -1,0 +1,2473 @@
+# translation of cs_CZ.po to Čeština
+# Whups Czech Translation.
+# Copyright 2002 Pavel Chytil.
+#
+# Pavel Chytil <pavel@chytil.tk>, 2002.
+# Václav Hůla <ax@natur.cuni.cz>, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: cs_CZ\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2008-09-25 12:32+0200\n"
+"PO-Revision-Date: 2008-11-26 16:45+0100\n"
+"Last-Translator: Václav Hůla <ax@natur.cuni.cz>\n"
+"Language-Team: <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 0.2\n"
+"Plural-Forms:  nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#: admin/index.php:745
+#, php-format
+msgid "\"%s\" is no longer among those responsible for \"%s\""
+msgstr "'%s' již nezodpovídá za '%s'"
+
+#: templates/menu.inc:5
+msgid "#Id"
+msgstr "#Id"
+
+#: templates/ticket/watchers.inc:3
+#, php-format
+msgid "%d people watching, %d people responsible"
+msgstr "%d sledujících, %d zodpovídajících"
+
+#: queue/rss.php:96
+#, php-format
+msgid "%s %s tickets in %s"
+msgstr "%s %s lístků v %s"
+
+#: queue/rss.php:100
+#, php-format
+msgid "%s %s tickets in all queues"
+msgstr "%s %s lístků ve všech frontách"
+
+#: lib/Renderer/Comment.php:120
+#, php-format
+msgid "%s &rArr; %s"
+msgstr "%s &rArr; %s"
+
+#: lib/Driver.php:497
+#, php-format
+msgid "%s (%s) wrote:"
+msgstr "%s (%s) napsal:"
+
+#: admin/index.php:700
+#, php-format
+msgid "%s added to those responsible for \"%s\""
+msgstr "'%s' nyní zodpovídá za '%s'"
+
+#: templates/reports/stats.inc:15
+#, php-format
+msgid "%s days"
+msgstr "%s dnů"
+
+#: queue/rss.php:104
+#, php-format
+msgid "%s tickets in %s"
+msgstr "%s lístků v %s"
+
+#: queue/rss.php:108
+#, php-format
+msgid "%s tickets in all queues"
+msgstr "%s lístků ve všech frontách"
+
+#: ticket/watch.php:60
+#, php-format
+msgid "%s will be notified when this ticket is updated."
+msgstr "%s bude upozorněn při změně lístku"
+
+#: ticket/watch.php:72
+#, php-format
+msgid "%s will no longer receive updates for this ticket."
+msgstr "%s již nebude upozorněován při změně lístku"
+
+#: admin/index.php:109
+msgid "- Stage 1"
+msgstr "- krok 1"
+
+#: admin/index.php:114
+msgid "- Stage 2"
+msgstr "- krok 2"
+
+#: scripts/mail-filter.php:172
+msgid "--queue-name or --queue-id must specify a valid and public queue."
+msgstr "--queue-name or --queue-id musí být platná veřejná fronta"
+
+#: templates/prevnext.inc:16
+msgid "<<First"
+msgstr "<<První"
+
+#: templates/prevnext.inc:20
+msgid "<Prev"
+msgstr "<Předchozí"
+
+#: view.php:69
+#, php-format
+msgid "Access denied to %s"
+msgstr "Do %s byl přístup zamítnut"
+
+#: lib/Forms/Admin/Attribute.php:22
+msgid "Add Attribute"
+msgstr "Přidat atribut"
+
+#: lib/Forms/Query.php:266
+msgid "Add Attribute Criterion"
+msgstr "Přidat filtr dle atributu "
+
+#: mybugs.php:55
+msgid "Add Content"
+msgstr "Přidat obsah"
+
+#: query/index.php:233
+msgid "Add Criterion"
+msgstr "Přidat filtr"
+
+#: lib/Forms/Query.php:320
+msgid "Add Date Criterion"
+msgstr "Přidat filtr dle data"
+
+#: lib/Forms/Admin/Reply.php:22
+msgid "Add Form Reply"
+msgstr ""
+
+#: lib/Forms/Query.php:90
+msgid "Add Group Criterion"
+msgstr "Přidat filtr dle skupiny"
+
+#: lib/Forms/Admin/Priority.php:20
+msgid "Add Priority"
+msgstr "Přidat prioritu"
+
+#: lib/Forms/Query.php:168
+msgid "Add Property Criterion"
+msgstr "Přidat filtr dle vlastnosti"
+
+#: lib/Forms/Admin/Queue.php:20 lib/Forms/Admin/Queue.php:21
+msgid "Add Queue"
+msgstr "Přidat frontu"
+
+#: lib/Forms/Admin/State.php:20
+msgid "Add State"
+msgstr "Přidat stav"
+
+#: lib/Forms/Query.php:125
+msgid "Add Text Criterion"
+msgstr "Přidat filtr dle textu"
+
+#: lib/Forms/Admin/Type.php:20 lib/Forms/Admin/Type.php:21
+msgid "Add Type"
+msgstr "Přidat typ lístku"
+
+#: admin/index.php:109 admin/index.php:114
+#, php-format
+msgid "Add Type %s"
+msgstr "Přidat typ %s"
+
+#: lib/Forms/Query.php:41
+msgid "Add User Criterion"
+msgstr "Přidat filtr dle uživatele"
+
+#: lib/Forms/Admin/User.php:21
+msgid "Add Users"
+msgstr "Přidat uživatele"
+
+#: lib/Forms/Admin/Version.php:20
+msgid "Add Version"
+msgstr "Přidat verzi"
+
+#: ticket/watch.php:48
+msgid "Add Watcher"
+msgstr "Přidat sledujícího"
+
+#: templates/prefs/sourceselect.inc:298
+msgid "Add source"
+msgstr "Přidat zdroj"
+
+#: ticket/create.php:55
+#, php-format
+msgid "Adding your ticket failed: %s."
+msgstr "Přidání lístku selhalo: %s"
+
+#: config/prefs.php.dist:24
+msgid "Address Books"
+msgstr "Kontakty"
+
+#: admin/index.php:54 lib/api.php:775
+msgid "Administration"
+msgstr "Administrace"
+
+#: lib/Renderer/Query.php:77 lib/Forms/Query.php:24
+msgid "And"
+msgstr "A"
+
+#: lib/Forms/Query.php:175 lib/Forms/Query.php:182 lib/Forms/Query.php:187
+#: lib/Forms/Query.php:194 lib/Forms/Query.php:199 lib/Forms/Search.php:32
+msgid "Any"
+msgstr "Jakýkoliv"
+
+#: ticket/type.php:42 ticket/queue.php:48
+msgid "Any Group"
+msgstr "Jakákoliv skupina"
+
+#: config/prefs.php.dist:64
+msgid "Ascending"
+msgstr "Vzestupně"
+
+#: lib/api.php:795
+msgid "Assign"
+msgstr "Přiřaď"
+
+#: lib/Whups.php:684 lib/Ticket.php:986 lib/Driver.php:198 lib/api.php:913
+#: lib/Renderer/Query.php:156 config/prefs.php.dist:53
+msgid "Assigned"
+msgstr "Přiřazeno"
+
+#: lib/Forms/Query.php:333 lib/Forms/Search.php:62
+msgid "Assigned from"
+msgstr "Přiřazeno z"
+
+#: lib/Forms/Query.php:334
+msgid "Assigned to"
+msgstr "Přiřazeno"
+
+#: lib/Renderer/Comment.php:73
+#, php-format
+msgid "Assigned to %s"
+msgstr "Přiřazeno %s"
+
+#: admin/index.php:1202
+msgid "Associations updated successfully."
+msgstr "Asociace úspěšně změněny."
+
+#: lib/Forms/CreateTicket.php:153 lib/Forms/EditTicket.php:126
+#: lib/Forms/AddComment.php:24
+msgid "Attachment"
+msgstr "Příloha"
+
+#: ticket/deleteAttachment.php:32
+#, php-format
+msgid "Attachment %s deleted."
+msgstr "Příloha %s byla smazána."
+
+#: lib/Ticket.php:499
+#, php-format
+msgid "Attachment %s not found."
+msgstr "Příloha %s nebyla nalezena."
+
+#: lib/Ticket.php:996
+msgid "Attachments"
+msgstr "Přílohy"
+
+#: query/index.php:159
+msgid "Attri_bute Criteria"
+msgstr "Filtry atri_butu"
+
+#: lib/Driver.php:117
+#, php-format
+msgid "Attribute %d"
+msgstr "Atribut %d"
+
+#: lib/Forms/Admin/Attribute.php:26 lib/Forms/Admin/Attribute.php:96
+#: lib/Forms/Admin/Attribute.php:142
+msgid "Attribute Description"
+msgstr "Popis atributu"
+
+#: lib/Forms/Admin/Attribute.php:25 lib/Forms/Admin/Attribute.php:74
+#: lib/Forms/Admin/Attribute.php:93 lib/Forms/Admin/Attribute.php:139
+msgid "Attribute Name"
+msgstr "Název atributu"
+
+#: lib/Forms/Admin/Attribute.php:31 lib/Forms/Admin/Attribute.php:103
+msgid "Attribute Type"
+msgstr "Typ atributu"
+
+#: lib/Forms/Search.php:20
+msgid "Attributes"
+msgstr "Atributy"
+
+#: lib/Forms/Admin/Type.php:114
+msgid "Attributes for this Type"
+msgstr "Atributy pro tento typ"
+
+#: config/prefs.php.dist:135
+msgid "Autolink to other tickets in comments?"
+msgstr "Automaticky odkazovat na ostatní lístky v komentářích?"
+
+#: templates/prefs/sourceselect.inc:291 templates/prefs/sourceselect.inc:293
+msgid "Available Address books:"
+msgstr "Dostupné adresáře:"
+
+#: scripts/mail-filter.php:174
+msgid "Available queues:"
+msgstr "Dostupné fronty:"
+
+#: reports.php:24
+msgid "Average days to close by Owner"
+msgstr "Průměrně dní do uzavření podle majitelů"
+
+#: reports.php:26
+msgid "Average days to close by Queue"
+msgstr "Průměrně dní do uzavření podle front"
+
+#: reports.php:25
+msgid "Average days to close by Requester"
+msgstr "Průměrně dní do uzavření podle zadavatelů"
+
+#: reports.php:29
+msgid "Average time a ticket is unresolved"
+msgstr "Průměrný čas do uzavření lístku"
+
+#: lib/Forms/Query.php:29
+msgid "Branch Type"
+msgstr "Typ Sekce"
+
+#: scripts/mail-filter.php:199
+msgid "Cannot authenticate at mail server:"
+msgstr "Nelze se připojit ke vzdálenému poštovnímu serveru: "
+
+#: lib/Query.php:164
+msgid "Case Insensitive Substring"
+msgstr "Znakový řetězec nerozlišující velká a malá písmena"
+
+#: templates/renderer/querysetcurrenttype.inc:6
+msgid "Change"
+msgstr "Změň"
+
+#: config/prefs.php.dist:11
+msgid "Change display options such as how search results are sorted."
+msgstr ""
+"Nastavení vlastností zobrazení jako např. jak budou uspořádány výsledky "
+"hledání"
+
+#: config/prefs.php.dist:18
+msgid "Change options for email notifications of ticket activity."
+msgstr "Změnit upozornění e-mailem na změny v lístcích"
+
+#: query/index.php:162
+msgid "Choose Action:"
+msgstr "Vyber Akci:"
+
+#: lib/Query.php:678
+msgid "Choose New Query instead of deleting the root node."
+msgstr "Kořenový uzel nelze smazat."
+
+#: templates/prefs/sourceselect.inc:287
+msgid "Choose the order of address books to search when expanding addresses."
+msgstr ""
+"Vybrat pořadí adresářů, v jakém budou prohledávány při expandování adres."
+
+#: lib/Forms/CreateTicket.php:47 lib/Forms/CreateTicket.php:77
+msgid "Choose:"
+msgstr "Zvolte:"
+
+#: config/prefs.php.dist:145
+msgid "Chronological (oldest first)"
+msgstr "Chronologicky (od nejstarších)"
+
+#: templates/prefs/sourceselect.inc:317
+msgid ""
+"Click on one of your selected address books and then select all fields to "
+"search."
+msgstr ""
+"Klikněte na jeden z Vašich adresářů a vyberte všechna pole, která se budou "
+"prohledávat."
+
+#: lib/Forms/Admin/Type.php:195
+msgid "Clone"
+msgstr "Naklonovat"
+
+#: lib/Forms/Admin/Type.php:202
+msgid "Clone Description"
+msgstr "Popis klonu"
+
+#: admin/index.php:151 lib/Forms/Admin/Type.php:36
+msgid "Clone Type"
+msgstr "Naklonuj typ"
+
+#: config/templates.php.dist:43
+msgid "Comma Separated Values (CSV file)"
+msgstr "Čárkou oddělené hodnoty (Soubor CSV)"
+
+#: ticket/type.php:32 ticket/queue.php:35 lib/Renderer/Query.php:88
+#: lib/Forms/EditTicket.php:131 lib/Forms/AddComment.php:23
+msgid "Comment"
+msgstr "Komentář"
+
+#: lib/Renderer/Comment.php:159
+#, php-format
+msgid "Comment #%d"
+msgstr "Komentář č. %d"
+
+#: lib/Renderer/Comment.php:157
+#, php-format
+msgid "Comment #%d (Private)"
+msgstr "Komentář č. %d (soukromý)"
+
+#: ticket/comment.php:70
+msgid "Comment added"
+msgstr "Komentář byl přidán"
+
+#: ticket/comment.php:35
+#, php-format
+msgid "Comment on %s"
+msgstr "Okomentuj %s"
+
+#: lib/Renderer/Query.php:87
+msgid "Commentor"
+msgstr "Komentář vytvořil"
+
+#: lib/Forms/Admin/Type.php:200
+#, php-format
+msgid "Copy of %s"
+msgstr "Kopie %s"
+
+#: lib/MIME/Viewer/zip.php:52
+msgid "Could not extract the requested file from the Zip archive."
+msgstr "Nelze získat požadovaný soubor z přílohy typu Zip."
+
+#: lib/Forms/Query.php:97
+msgid "Could not find any groups."
+msgstr "Nelze najít žádnou skupinu."
+
+#: lib/Mail.php:100
+#, php-format
+msgid "Could not find ticket \"%s\"."
+msgstr "Nelze najít lístek \"%s\"."
+
+#: lib/Forms/Admin/Type.php:102
+msgid "Create Default Priorities"
+msgstr "Vytvoř priority"
+
+#: lib/Forms/Admin/Type.php:85
+msgid "Create Default States"
+msgstr "Vytvoř základní stavy"
+
+#: config/prefs.php.dist:77
+msgid "Create Ticket"
+msgstr "Vytvoření lístku"
+
+#: lib/Forms/CreateTicket.php:28
+msgid "Create Ticket - Step 1"
+msgstr "Vytvoření lístku - krok 1"
+
+#: lib/Forms/CreateTicket.php:65
+msgid "Create Ticket - Step 2"
+msgstr "Vytvoření lístku - krok 2"
+
+#: lib/Forms/CreateTicket.php:112
+msgid "Create Ticket - Step 3"
+msgstr "Vytvoření lístku - krok 3"
+
+#: lib/Forms/CreateTicket.php:197
+msgid "Create Ticket - Step 4"
+msgstr "Vytvoření lístku - krok 4"
+
+#: lib/Whups.php:682 lib/Ticket.php:971 lib/api.php:918
+#: lib/Renderer/Query.php:141 config/prefs.php.dist:52
+msgid "Created"
+msgstr "Vytvořeno"
+
+#: lib/Ticket.php:614 lib/Ticket.php:640
+msgid "Created By"
+msgstr "Autor"
+
+#: lib/Forms/Query.php:324 lib/Forms/Search.php:56
+msgid "Created from"
+msgstr "Vytvořeno"
+
+#: lib/Forms/Query.php:325
+msgid "Created to"
+msgstr "Vytvořeno "
+
+#: query/index.php:223 query/index.php:240
+msgid "Current Query"
+msgstr "Současný dotaz"
+
+#: templates/renderer/querysetcurrenttype.inc:4
+msgid "Current Ticket Type"
+msgstr "Současný Typ"
+
+#: lib/Ticket.php:725
+msgid "DO NOT REPLY TO THIS MESSAGE. THIS EMAIL ADDRESS IS NOT MONITORED."
+msgstr "NEODPOVÍDEJTE NA TENTO MAIL, TUTO ADRESU NIKDO NEČTE!"
+
+#: config/prefs.php.dist:108
+msgid "Date/Time format for search results"
+msgstr "Formát času ve výsledcích hledání"
+
+#: lib/Forms/Search.php:55
+msgid "Dates"
+msgstr "Datum"
+
+#: lib/Forms/Admin/Queue.php:106
+msgid "Default Ticket Type"
+msgstr "Implicitní typ lístku"
+
+#: config/prefs.php.dist:55
+msgid "Default sorting criteria:"
+msgstr "Výchozí třídící kritéria:"
+
+#: config/prefs.php.dist:66
+msgid "Default sorting direction:"
+msgstr "Implicitní směr třídění:"
+
+#: query/index.php:163
+msgid "Delete"
+msgstr "Vymaž"
+
+#: lib/Whups.php:866 lib/Whups.php:867
+#, php-format
+msgid "Delete %s"
+msgstr "Smazat %s"
+
+#: ticket/delete.php:61
+#, php-format
+msgid "Delete %s?"
+msgstr "Smazat %s?"
+
+#: admin/index.php:947 lib/Forms/Admin/Attribute.php:57
+msgid "Delete Attribute"
+msgstr "Vymaž atribut"
+
+#: lib/Forms/Admin/Attribute.php:132
+msgid "Delete Attribute Confirmation"
+msgstr "Potvrzení smazání atributu"
+
+#: admin/index.php:1082 lib/Forms/Admin/Reply.php:36
+msgid "Delete Form Reply"
+msgstr "Smazat odpověď"
+
+#: lib/Forms/Admin/Reply.php:94
+msgid "Delete Form Reply Confirmation"
+msgstr "Potvrzení smazání odpovědi"
+
+#: admin/index.php:589 lib/Forms/Admin/Priority.php:36
+msgid "Delete Priority"
+msgstr "Vymaž prioritu"
+
+#: lib/Forms/Admin/Priority.php:107
+msgid "Delete Priority Confirmation"
+msgstr "Potvrzení smazání priority"
+
+#: lib/Forms/Query.php:447
+msgid "Delete Query?"
+msgstr "Vymaž dotaz?"
+
+#: admin/index.php:332 lib/Forms/Admin/Queue.php:44
+msgid "Delete Queue"
+msgstr "Vymaž frontu"
+
+#: lib/Forms/Admin/Queue.php:159
+msgid "Delete Queue Confirmation"
+msgstr "Potvrzení smazání fronty"
+
+#: admin/index.php:454 lib/Forms/Admin/State.php:35
+msgid "Delete State"
+msgstr "Vymaž stav"
+
+#: lib/Forms/Admin/State.php:107
+msgid "Delete State Confirmation"
+msgstr "Potvrzení smazání stavu"
+
+#: admin/index.php:145 lib/Forms/Admin/Type.php:37
+msgid "Delete Type"
+msgstr "Vymaž typ"
+
+#: lib/Forms/Admin/Type.php:149
+msgid "Delete Type Confirmation"
+msgstr "Potvrzení smazání typu"
+
+#: admin/index.php:816 lib/Forms/Admin/Version.php:36
+msgid "Delete Version"
+msgstr "Vymaž verzi"
+
+#: lib/Forms/Admin/Version.php:82
+msgid "Delete Version Confirmation"
+msgstr "Potvrzení smazání verze"
+
+#: lib/Ticket.php:619 lib/Ticket.php:717
+msgid "Deleted Attachment"
+msgstr "Smazaná příloha."
+
+#: lib/Renderer/Comment.php:68
+#, php-format
+msgid "Deleted Attachment: %s"
+msgstr "Smazaná příloha \"%s\"."
+
+#: config/prefs.php.dist:65
+msgid "Descending"
+msgstr "Sestupně"
+
+#: lib/Forms/CreateTicket.php:154
+msgid "Description"
+msgstr "Popis"
+
+#: config/prefs.php.dist:10
+msgid "Display Options"
+msgstr "Možnosti zobrazení"
+
+#: lib/Whups.php:857
+msgid "Download"
+msgstr "Stáhnout"
+
+#: templates/view/results.inc:90
+msgid "Download these results as: "
+msgstr "Uložit výsledky jako:"
+
+#: lib/Ticket.php:611 lib/Ticket.php:808 lib/Ticket.php:976 lib/api.php:922
+#: lib/Renderer/Query.php:161
+msgid "Due"
+msgstr "Vyřešit do"
+
+#: lib/Renderer/Comment.php:128
+#, php-format
+msgid "Due &rArr; %s"
+msgstr "Vyřešit do: %s"
+
+#: lib/Forms/CreateTicket.php:151 lib/Forms/EditTicket.php:74
+msgid "Due Date"
+msgstr "Vyřešit do:"
+
+#: lib/Forms/Query.php:336 lib/Forms/Search.php:64
+msgid "Due from"
+msgstr "Řešit od:"
+
+#: lib/Forms/Query.php:337
+msgid "Due to"
+msgstr "Řešit do:"
+
+#: lib/Query.php:230
+msgid "E_xecute Query"
+msgstr "Provést dotaz"
+
+#: query/index.php:164
+msgid "Edit"
+msgstr "Upravit"
+
+#: lib/Forms/Admin/Queue.php:82 lib/Forms/Admin/Type.php:63
+#, php-format
+msgid "Edit %s"
+msgstr "Upravit %s"
+
+#: admin/index.php:942 lib/Forms/Admin/Attribute.php:57
+#: lib/Forms/Admin/Attribute.php:86
+msgid "Edit Attribute"
+msgstr "Upravit atribut"
+
+#: lib/Forms/Query.php:266
+msgid "Edit Attribute Criterion"
+msgstr "Přidat filtr dle atributu"
+
+#: lib/Forms/Admin/Type.php:119
+msgid "Edit Attributes"
+msgstr "Upravit atributy"
+
+#: lib/Forms/Query.php:320
+msgid "Edit Date Criterion"
+msgstr "Přidat filtr dle data"
+
+#: lib/Forms/Admin/Type.php:135
+msgid "Edit Form Replies"
+msgstr "Upravit vzory odpovědí "
+
+#: admin/index.php:1077 lib/Forms/Admin/Reply.php:36
+#: lib/Forms/Admin/Reply.php:64
+msgid "Edit Form Reply"
+msgstr "Upravit vzor odpovědí"
+
+#: lib/Forms/Query.php:90
+msgid "Edit Group Criterion"
+msgstr "Přidat filtr dle skupiny"
+
+#: lib/Forms/Admin/Type.php:98
+msgid "Edit Priorities"
+msgstr "Změň priority"
+
+#: admin/index.php:584 lib/Forms/Admin/Priority.php:36
+#: lib/Forms/Admin/Priority.php:59
+msgid "Edit Priority"
+msgstr "Změň prioritu"
+
+#: lib/Forms/Query.php:168
+msgid "Edit Property Criterion"
+msgstr "Přidat filtr dle vlastnosti"
+
+#: admin/index.php:326 lib/Forms/Admin/Queue.php:44
+#: lib/Forms/Admin/Queue.php:47
+msgid "Edit Queue"
+msgstr "Uprav frontu"
+
+#: lib/Forms/Admin/Queue.php:46
+msgid "Edit Queues"
+msgstr "Změň fronty"
+
+#: admin/index.php:449 lib/Forms/Admin/State.php:35
+#: lib/Forms/Admin/State.php:56
+msgid "Edit State"
+msgstr "Změň stav"
+
+#: lib/Forms/Admin/Type.php:81
+msgid "Edit States"
+msgstr "Změň stavy"
+
+#: lib/Forms/Query.php:125
+msgid "Edit Text Criterion"
+msgstr "Přidat filtr dle textu"
+
+#: admin/index.php:139 lib/Forms/Admin/Type.php:35
+msgid "Edit Type"
+msgstr "Změň typ"
+
+#: lib/Forms/Query.php:41
+msgid "Edit User Criterion"
+msgstr "Přidat filtr dle uživatele"
+
+#: admin/index.php:811 lib/Forms/Admin/Version.php:36
+#: lib/Forms/Admin/Version.php:59
+msgid "Edit Version"
+msgstr "Změň verzi"
+
+#: lib/Query.php:226
+msgid "Edit _Permissions"
+msgstr "Změnit práva"
+
+#: admin/index.php:34
+msgid "Edit _Types"
+msgstr "Změň _Typy"
+
+#: lib/Forms/Admin/Attribute.php:56
+msgid "Edit or Delete Attributes"
+msgstr "Změň nebo smaž atributy"
+
+#: lib/Forms/Admin/Reply.php:35
+msgid "Edit or Delete Form Replies"
+msgstr "Změň nebo smaž vzory odpovědí "
+
+#: lib/Forms/Admin/Priority.php:35
+msgid "Edit or Delete Priorities"
+msgstr "Změň nebo smaž priority"
+
+#: lib/Forms/Admin/Queue.php:43
+msgid "Edit or Delete Queues"
+msgstr "Změň nebo smaž frontu"
+
+#: lib/Forms/Admin/State.php:34
+msgid "Edit or Delete States"
+msgstr "Změň nebo smaž stavy"
+
+#: lib/Forms/Admin/Type.php:34
+msgid "Edit or Delete Types"
+msgstr "Změň nebo smaž typy"
+
+#: lib/Forms/Admin/Version.php:35
+msgid "Edit or Delete Versions"
+msgstr "Změň nebo smaž verze"
+
+#: lib/Forms/Admin/Reply.php:81
+msgid "Edit the permissions on this form reply"
+msgstr "Změň přístupová práva pro tento vzor odpovědí"
+
+#: lib/Forms/Admin/Queue.php:144
+msgid "Edit the permissions on this queue"
+msgstr "Změň přístupová práva v této frontě"
+
+#: lib/Forms/Admin/Queue.php:136
+msgid "Edit the users responsible for this queue"
+msgstr "Změň uživatele zodpovědné za frontu"
+
+#: lib/Forms/Admin/Queue.php:118
+msgid "Edit the versions for this queue"
+msgstr "Změň verze pro tuto frontu"
+
+#: ticket/watch.php:24
+msgid "Email address to notify"
+msgstr "E-mailové adresy pro zaslání upozornění"
+
+#: ticket/watch.php:36
+msgid "Email address to remove"
+msgstr "E-mailové adresy pro odstranění"
+
+#: lib/api.php:504
+msgid "Empty attachment"
+msgstr "Prázdná příloha"
+
+#: scripts/mail-filter.php:188 scripts/mail-filter.php:208
+msgid "Error processing message:"
+msgstr "Nastala chyba při zpracování zprávy"
+
+#: query/index.php:191
+#, php-format
+msgid "Error: Unknown query form \"%s\", defaulting to properties"
+msgstr "Chyba: Neznámý formulář dotazu %s, používám výchozí."
+
+#: lib/Query.php:163
+msgid "Exact Match"
+msgstr "Přesná shoda"
+
+#: query/run.php:111
+msgid "Execute Query"
+msgstr "Provést dotaz"
+
+#: templates/prefs/sourceselect.inc:327
+msgid "Fields to search"
+msgstr "Prohledat pole"
+
+#: lib/Forms/Admin.php:35
+msgid "For tickets from these queues"
+msgstr "Zobrazit lístky v těchto frontách:"
+
+#: lib/Forms/Admin.php:39
+msgid "For tickets which are"
+msgstr "Pro lístky z "
+
+#: lib/api.php:806
+msgid "Form Replies"
+msgstr ""
+
+#: lib/Forms/Admin/Type.php:130
+msgid "Form Replies for this Type"
+msgstr "Vzory odpovědí pro tento typ"
+
+#: lib/Forms/Admin/Reply.php:25 lib/Forms/Admin/Reply.php:52
+#: lib/Forms/Admin/Reply.php:71 lib/Forms/Admin/Reply.php:101
+msgid "Form Reply Name"
+msgstr "Název vzoru odpovědí"
+
+#: lib/Forms/Admin/Reply.php:26 lib/Forms/Admin/Reply.php:74
+#: lib/Forms/Admin/Reply.php:104
+msgid "Form Reply Text"
+msgstr "Text vzoru odpovědí"
+
+#: lib/Forms/EditTicket.php:143
+msgid "Form Reply:"
+msgstr "Vzor odpovědi:"
+
+#: config/prefs.php.dist:9 config/prefs.php.dist:16 config/prefs.php.dist:23
+msgid "General Options"
+msgstr "Všeobecné možnosti"
+
+#: templates/menu.inc:5
+msgid "Go"
+msgstr "Jdi na"
+
+#: lib/Forms/CreateTicket.php:232 lib/Forms/EditTicket.php:114
+msgid "Group Owners"
+msgstr "Skupiny vlastníků"
+
+#: lib/Renderer/Query.php:85 lib/Forms/Query.php:98 lib/Forms/Query.php:100
+msgid "Groups"
+msgstr "Skupiny"
+
+#: lib/api.php:778
+msgid "Hidden Comments"
+msgstr "Skryté komentáře"
+
+#: ticket/index.php:43
+msgid "History"
+msgstr "Historie"
+
+#: query/index.php:165
+msgid "Hoist Children"
+msgstr ""
+
+#: lib/Whups.php:667 lib/Whups.php:674 lib/Renderer/Query.php:83
+#: lib/Forms/Query.php:171 config/prefs.php.dist:45
+msgid "Id"
+msgstr "Id"
+
+#: lib/Forms/Admin.php:42
+msgid ""
+"If you select any tickets that do not have an owner, who should we send "
+"email to?"
+msgstr "Komu se má zaslat mail u lístků s nevyplněným majitelem?"
+
+#: query/index.php:166
+msgid "Insert And"
+msgstr "Vlož A"
+
+#: lib/Forms/Query.php:21
+msgid "Insert Branch"
+msgstr "Vlož Sekci"
+
+#: query/index.php:168
+msgid "Insert Not"
+msgstr "Vlož Ne"
+
+#: query/index.php:167
+msgid "Insert Or"
+msgstr "Vlož Nebo"
+
+#: lib/Forms/Admin/Queue.php:77 lib/Forms/Admin/Queue.php:78
+msgid "Invalid Queue"
+msgstr "Neplatná fronta"
+
+#: lib/Whups.php:261 lib/api.php:495
+msgid "Invalid Ticket Id"
+msgstr "Neplatné ID lístku"
+
+#: lib/api.php:548
+msgid "Invalid argument: Missing attribute name or value."
+msgstr "Neplatné nebo chybějící parametry."
+
+#: lib/api.php:533
+msgid "Invalid arguments: Must supply a ticket number and new attributes."
+msgstr "Neplatné parametry: Zadejte číslo lístku a nové atributy"
+
+#: queue/index.php:30
+msgid "Invalid queue"
+msgstr "Neplatná fronta"
+
+#: search/rss.php:30
+msgid "Invalid search"
+msgstr "Neplatné hledání"
+
+#: lib/api.php:397
+#, php-format
+msgid "Invalid ticket data supplied: %s"
+msgstr "Byla zadána neplatná data: %s"
+
+#: lib/Forms/Admin/Queue.php:113
+msgid "Keep a set of versions for this queue?"
+msgstr "Zachovat sérii verzí pro tuto frontu?"
+
+#: templates/prevnext.inc:30
+msgid "Last>>"
+msgstr "Poslední>>"
+
+#: lib/Forms/Query.php:411
+msgid "Load Query"
+msgstr "Nahrát dotaz"
+
+#: lib/Forms/VarRenderer.php:46
+msgid "Loading..."
+msgstr "Nahrávání..."
+
+#: config/prefs.php.dist:106
+msgid "MM/DD/YY"
+msgstr "MM/DD/RR"
+
+#: config/prefs.php.dist:107
+msgid "MM/DD/YY HH:MM:SS"
+msgstr "MM/DD/RR HH:MM:SS"
+
+#: lib/Forms/Admin/Type.php:193
+#, php-format
+msgid "Make a clone of %s"
+msgstr "Naklonuj %s"
+
+#: lib/Forms/EditTicket.php:167 lib/Forms/AddComment.php:38
+msgid "Make this comment visible only to members of a group?"
+msgstr ""
+
+#: lib/Forms/Query.php:274
+msgid "Match"
+msgstr "Porovnání"
+
+#: lib/Forms/Query.php:45 lib/Forms/Query.php:129 lib/Forms/Query.php:275
+msgid "Match Operator"
+msgstr "Operátor porovnání"
+
+#: lib/Query.php:167
+msgid "Match Pattern"
+msgstr "Formát porovnání"
+
+#: lib/Query.php:166
+msgid "Match Word"
+msgstr "Porovnat Slovo"
+
+#: reports.php:30
+msgid "Maximum time a ticket is unresolved"
+msgstr "Nejdelší čas do uzavření lístku"
+
+#: lib/Block/tree_menu.php:3
+msgid "Menu List"
+msgstr "Seznam nabídky"
+
+#: reports.php:31
+msgid "Minimum time a ticket is unresolved"
+msgstr "Nejkratší čas do uzavření lístku"
+
+#: config/prefs.php.dist:146
+msgid "Most recent first"
+msgstr "Od nejnovějších"
+
+#: templates/prefs/sourceselect.inc:312
+msgid "Move down"
+msgstr "Posunout dolů"
+
+#: templates/prefs/sourceselect.inc:310
+msgid "Move up"
+msgstr "Posunout nahoru"
+
+#: ticket/queue.php:181
+#, php-format
+msgid "Moved ticket %d to \"%s\""
+msgstr "Lístek %d přesunut do \"%s\""
+
+#: mybugs.php:54
+#, php-format
+msgid "My %s"
+msgstr "Moje %s"
+
+#: mybugs_edit.php:33
+#, php-format
+msgid "My %s :: Add Content"
+msgstr "Moje %s: Přidat Komentář"
+
+#: search.php:178 lib/Block/myqueries.php:3 lib/Block/myqueries.php:24
+msgid "My Queries"
+msgstr "Moje Dotazy"
+
+#: lib/Block/myrequests.php:3 lib/Block/myrequests.php:24
+msgid "My Requests"
+msgstr "Požadavky"
+
+#: lib/Block/mytickets.php:3 lib/Block/mytickets.php:24
+#: config/prefs.php.dist:75
+msgid "My Tickets"
+msgstr "Moje lístky"
+
+#: lib/api.php:884
+msgid "My tickets by assignment date"
+msgstr "Moje lístky podle data přiřazení"
+
+#: lib/api.php:883
+msgid "My tickets by creation date"
+msgstr "Moje lístky podle data vytvoření"
+
+#: lib/api.php:885
+msgid "My tickets by due date"
+msgstr "Moje lístky podle požadovaného data uzavření"
+
+#: lib/api.php:886
+msgid "My tickets by resolution date"
+msgstr "Moje lístky podle data uzavření"
+
+#: lib/Forms/Query.php:422
+msgid "Name"
+msgstr "Jméno"
+
+#: lib/Forms/Admin/Type.php:198
+msgid "Name of the cloned copy"
+msgstr "Jméno kopie"
+
+#: lib/Query.php:216
+msgid "Ne_w Query"
+msgstr "_Nový dotaz"
+
+#: lib/Driver.php:197
+msgid "New"
+msgstr "Nové"
+
+#: lib/Ticket.php:618 lib/Ticket.php:711
+msgid "New Attachment"
+msgstr "Nová příloha"
+
+#: lib/Renderer/Comment.php:58 lib/Renderer/Comment.php:62
+#, php-format
+msgid "New Attachment: %s"
+msgstr "Nová příloha: %s"
+
+#: ticket/queue.php:32
+msgid "New Queue"
+msgstr "Přesunout do fronty:"
+
+#: ticket/create.php:67 lib/Block/tree_menu.php:21
+msgid "New Ticket"
+msgstr "Nový lístek"
+
+#: ticket/type.php:31
+msgid "New Type"
+msgstr "Změnit typ na:"
+
+#: templates/prevnext.inc:26
+msgid "Next>"
+msgstr "Další>"
+
+#: ticket/delete.php:33 lib/Forms/Query.php:449 lib/Forms/Admin/Version.php:96
+#: lib/Forms/Admin/State.php:121 lib/Forms/Admin/Priority.php:121
+#: lib/Forms/Admin/Queue.php:174 lib/Forms/Admin/Attribute.php:149
+#: lib/Forms/Admin/Reply.php:110 lib/Forms/Admin/Type.php:176
+msgid "No"
+msgstr "Ne"
+
+#: lib/Ticket.php:100
+#, php-format
+msgid ""
+"No priority for this ticket and no default priority for ticket type \"%s\" "
+"specified."
+msgstr "Lístek nemá prioritu a lístky typu \"%s\" nemají výchozí prioritu."
+
+#: lib/Block/myqueries.php:46
+msgid "No queries have been saved."
+msgstr "Žádné dotazy neuloženy"
+
+#: lib/Block/query.php:62 lib/Driver/sql.php:553
+msgid "No query to run"
+msgstr "Nezadán žádný dotaz"
+
+#: lib/Block/queuecontents.php:25
+msgid "No queues available."
+msgstr "Není dostupná žádná fronta"
+
+#: lib/Ticket.php:92
+#, php-format
+msgid ""
+"No state for this ticket and no default state for ticket type \"%s\" "
+"specified."
+msgstr "Lístek nemá zadaný stav a lístky typu \"%s\" nemají výchozí stav."
+
+#: reports.php:35
+msgid "No stats available."
+msgstr "Nejsou k dospozici žádné statistiky."
+
+#: lib/Driver.php:533
+#, php-format
+msgid "No such backend \"%s\" found"
+msgstr "backend '%s' nenalezen"
+
+#: lib/View.php:33
+#, php-format
+msgid "No such view \"%s\" found"
+msgstr "Pohled '%s' nenalezen"
+
+#: lib/Block/mytickets.php:45
+msgid "No tickets are assigned to you."
+msgstr "Nemáte přiřazeny žádné lístky"
+
+#: lib/Block/unassigned.php:45
+msgid "No tickets are unassigned!"
+msgstr "Žádné nepřiřazené lístky!"
+
+#: lib/Block/queuecontents.php:62 lib/Block/queuecontents.php:73
+msgid "No tickets in queue."
+msgstr "Ve frontě nejsou žádné lístky."
+
+#: lib/Whups.php:716
+msgid "No tickets matched your search criteria."
+msgstr "Nastaveným filtrům nevyhovuje žádný lístek"
+
+#: lib/Ticket.php:84
+#, php-format
+msgid "No type for this ticket and no default type for queue \"%s\" specified."
+msgstr "Lístek nemá typ a lístky z fronty \"%s\" nemají výchozí typ."
+
+#: templates/prefs/sourceselect.inc:35 lib/Reports.php:67
+msgid "None"
+msgstr "Žádný"
+
+#: lib/Renderer/Query.php:79 lib/Forms/Query.php:26
+msgid "Not"
+msgstr "Není"
+
+#: config/prefs.php.dist:17
+msgid "Notification Options"
+msgstr "Možnosti upozorňování"
+
+#: config/prefs.php.dist:117
+msgid "Only notify me of ticket changes from other users?"
+msgstr "Upozorňovat na změny jen od ostatních?"
+
+#: config/prefs.php.dist:126
+msgid "Only notify me of ticket changes with comments?"
+msgstr "Upozorňovat jen na změny s komentáři?"
+
+#: queue/rss.php:43
+msgid "Open"
+msgstr "Otevřené"
+
+#: lib/Block/queuesummary.php:49
+msgid "Open Tickets"
+msgstr "Otevřené lístky"
+
+#: reports.php:23
+msgid "Open Tickets by Owner"
+msgstr "Otevřené lístky podle majitele"
+
+#: reports.php:21
+msgid "Open Tickets by Priority"
+msgstr "Otevřené lístky podle priority"
+
+#: reports.php:18
+msgid "Open Tickets by Queue"
+msgstr "Otevřené lístky podle fronty"
+
+#: reports.php:22
+msgid "Open Tickets by Requester"
+msgstr "Otevřené lístky podle zadavatele"
+
+#: reports.php:19
+msgid "Open Tickets by State"
+msgstr "Otevřené lístky podle stavu"
+
+#: reports.php:20
+msgid "Open Tickets by Type"
+msgstr "Otevřené lístky podle typu"
+
+#: lib/Block/queuecontents.php:47
+#, php-format
+msgid "Open Tickets in %s"
+msgstr "Otevřené lístky v %s"
+
+#: queue/rss.php:119 queue/index.php:43 queue/index.php:57
+#, php-format
+msgid "Open tickets in %s"
+msgstr "Otevřené lístky v %s"
+
+#: queue/rss.php:121
+msgid "Open tickets in all queues."
+msgstr "Otevřené lístky ve všech frontách."
+
+#: lib/Renderer/Query.php:78 lib/Forms/Query.php:25
+msgid "Or"
+msgstr "Nebo"
+
+#: lib/Whups.php:681 lib/Ticket.php:617 lib/Ticket.php:701 lib/Ticket.php:702
+#: lib/Ticket.php:705 lib/Ticket.php:812 lib/Ticket.php:833 lib/Ticket.php:958
+#: lib/Renderer/Query.php:84 lib/Forms/CreateTicket.php:225
+#: lib/Forms/CreateTicket.php:243 lib/Forms/EditTicket.php:104
+msgid "Owners"
+msgstr "Vlastníci"
+
+#: lib/Whups.php:866
+#, php-format
+msgid "Permanently delete %s?"
+msgstr "Permanentně smazat %s?"
+
+#: ticket/update.php:22 ticket/type.php:74 ticket/delete.php:51
+#: ticket/queue.php:131 ticket/deleteAttachment.php:21
+msgid "Permission Denied"
+msgstr "Přístup odepřen"
+
+#: ticket/delete.php:40 lib/Forms/EditTicket.php:197
+msgid "Permission Denied."
+msgstr "Přístup odepřen."
+
+#: query/run.php:44 query/index.php:31 lib/Forms/Query.php:459
+#, php-format
+msgid "Permission denied."
+msgstr "Přístup odepřen."
+
+#: lib/Imple/ContactAutoCompleter.php:227
+msgid "Please resolve ambiguous or invalid addresses."
+msgstr "Prosím opravte nejednoznačné nebo neplatné adresy."
+
+#: lib/Forms/Admin/Type.php:93 lib/Forms/Admin/Type.php:171
+msgid "Priorities for this Type"
+msgstr "Priority pro tento typ"
+
+#: ticket/type.php:66 ticket/queue.php:117 lib/Whups.php:669 lib/Whups.php:678
+#: lib/Ticket.php:610 lib/Ticket.php:807 lib/Ticket.php:953
+#: lib/Renderer/Query.php:125 lib/Forms/CreateTicket.php:147
+#: lib/Forms/EditTicket.php:68 lib/Forms/Query.php:198
+#: config/prefs.php.dist:49
+msgid "Priority"
+msgstr "Priorita"
+
+#: lib/Renderer/Comment.php:115
+#, php-format
+msgid "Priority &rArr; %s"
+msgstr "Priorita &rArr; %s"
+
+#: lib/Forms/Admin/Priority.php:24 lib/Forms/Admin/Priority.php:70
+#: lib/Forms/Admin/Priority.php:118
+msgid "Priority Description"
+msgstr "Popis priority"
+
+#: lib/Forms/Admin/Priority.php:23 lib/Forms/Admin/Priority.php:48
+#: lib/Forms/Admin/Priority.php:67 lib/Forms/Admin/Priority.php:94
+#: lib/Forms/Admin/Priority.php:115
+msgid "Priority Name"
+msgstr "Jméno priority"
+
+#: search.php:178
+msgid "Public Queries"
+msgstr "Veřejné dotazy"
+
+#: query/index.php:172
+msgid "Query Builder"
+msgstr "Tvůrce dotazů"
+
+#: lib/Forms/Query.php:387
+msgid "Query Name"
+msgstr "Jméno dotazu"
+
+#: lib/Forms/QueryParameterForm.php:20
+msgid "Query Parameters"
+msgstr "Parametry dotazů"
+
+#: query/rss.php:63 query/run.php:79 lib/Block/query.php:3
+#: lib/Block/query.php:49
+msgid "Query Results"
+msgstr "Výsledky vyhledávání"
+
+#: lib/Forms/Query.php:389
+msgid "Query Slug"
+msgstr "Slug dotazu"
+
+#: lib/Block/query.php:33
+msgid "Query to run"
+msgstr "Provést dotaz..."
+
+#: lib/Whups.php:679 lib/Ticket.php:606 lib/Ticket.php:803 lib/Ticket.php:918
+#: lib/Ticket.php:923 lib/Renderer/Query.php:94 lib/Forms/Query.php:181
+#: lib/Forms/Search.php:40 lib/Block/queuecontents.php:32
+#: lib/Block/queuesummary.php:49 config/prefs.php.dist:50
+msgid "Queue"
+msgstr "Fronta"
+
+#: lib/Renderer/Comment.php:100
+#, php-format
+msgid "Queue &rArr; %s"
+msgstr "Fronta &rArr; %s"
+
+#: lib/Block/queuecontents.php:3 lib/Block/queuecontents.php:49
+msgid "Queue Contents"
+msgstr "Obsah fronty:"
+
+#: lib/Forms/Admin/Queue.php:24 lib/Forms/Admin/Queue.php:89
+#: lib/Forms/Admin/Queue.php:170
+msgid "Queue Description"
+msgstr "Popis fronty"
+
+#: lib/Forms/Admin/Queue.php:30 lib/Forms/Admin/Queue.php:97
+msgid "Queue Email"
+msgstr "E-mail fronty"
+
+#: lib/Forms/CreateTicket.php:34 lib/Forms/CreateTicket.php:45
+#: lib/Forms/Admin/Queue.php:23 lib/Forms/Admin/Queue.php:60
+#: lib/Forms/Admin/Queue.php:85 lib/Forms/Admin/Queue.php:166
+msgid "Queue Name"
+msgstr "Jméno fronty"
+
+#: lib/Forms/Admin/Queue.php:26 lib/Forms/Admin/Queue.php:93
+msgid "Queue Slug"
+msgstr "Slug fronty"
+
+#: lib/Block/queuesummary.php:3 lib/Block/queuesummary.php:24
+msgid "Queue Summary"
+msgstr "Shrnutí"
+
+#: ticket/queue.php:86 lib/Ticket.php:932 lib/Ticket.php:938
+#: lib/Forms/CreateTicket.php:93
+msgid "Queue Version"
+msgstr "Verze fronty"
+
+#: admin/index.php:35
+msgid "Queue/Type Matri_x"
+msgstr "Matice front/typů"
+
+#: templates/admin/mtmatrix.inc:6
+msgid "Queue/Type Matrix"
+msgstr "Matice front/typů"
+
+#: lib/api.php:163 lib/api.php:781
+msgid "Queues"
+msgstr "Fronty"
+
+#: templates/prevnext.inc:32
+msgid "Re_turn to Search Results"
+msgstr "Zpět na výsledky hledání?"
+
+#: lib/Forms/Admin/Attribute.php:147
+msgid "Really delete this attribute? This may cause data problems!"
+msgstr ""
+"Opravdu chcete vymazat tento atribut? Může to mít za následek problémy s "
+"daty!!"
+
+#: lib/Forms/Admin/Reply.php:108
+msgid "Really delete this form reply?"
+msgstr "Skutečně odstranit tento vzor odpovědi?"
+
+#: lib/Forms/Admin/Priority.php:122
+msgid "Really delete this priority? This may cause data problems!"
+msgstr ""
+"Opravdu chcete vymazat tuto prioritu? Může to mít za následek problémy s "
+"daty!!"
+
+#: lib/Forms/Query.php:450
+msgid "Really delete this query? This operation is not undoable."
+msgstr "Opravdu smazat tento dotaz? Tato operace je nevratná."
+
+#: lib/Forms/Admin/Queue.php:176
+msgid "Really delete this queue? This may cause data problems!"
+msgstr ""
+"Opravdu chcete vymazat tuto frontu? Může to mít za následek problémy s daty!!"
+
+#: lib/Forms/Admin/State.php:122
+msgid "Really delete this state? This may cause data problems!"
+msgstr ""
+"Opravdu chcete vymazat tento stav? Může to mít za následek problémy s daty!!"
+
+#: ticket/delete.php:34
+msgid ""
+"Really delete this ticket? It will NOT be archived, and will be gone forever."
+msgstr ""
+"Opravdu smazat tento lístek? Nebude archivován a bude definitivně smazán."
+
+#: lib/Forms/Admin/Type.php:178
+msgid "Really delete this type? This may cause data problems!"
+msgstr ""
+"Opravdu chcete vymazat tento typ? Může to mít za následek problémy s daty!!"
+
+#: lib/Forms/Admin/Version.php:97
+msgid "Really delete this version? This may cause data problems!"
+msgstr ""
+"Opravdu chcete vymazat tuto verzi? Může to mít za následek problémy s daty!!"
+
+#: lib/Mail.php:217
+msgid "Received message:"
+msgstr "Obdržená zpráva:"
+
+#: search.php:162
+msgid "Refine Search"
+msgstr "Předefinujte vyhledávání"
+
+#: admin/index.php:1170
+msgid "Reminders were sent."
+msgstr "Upomínky rozeslány."
+
+#: lib/Forms/Admin/User.php:59
+msgid "Remove User"
+msgstr "Odstranit uživatele"
+
+#: ticket/watch.php:49
+msgid "Remove Watcher"
+msgstr "Odstranit sledujícího"
+
+#: templates/prefs/sourceselect.inc:300
+msgid "Remove source"
+msgstr "Odstranit zdroj"
+
+#: lib/Renderer/Comment.php:95
+msgid "Reply to this comment"
+msgstr "Odpovědět na komentář"
+
+#: reports.php:40
+msgid "Reports"
+msgstr "Reporty"
+
+#: lib/Whups.php:680 lib/Ticket.php:965 lib/Renderer/Query.php:86
+msgid "Requester"
+msgstr "Zadavatel"
+
+#: lib/Forms/Admin/Attribute.php:28 lib/Forms/Admin/Attribute.php:99
+msgid "Required Attribute?"
+msgstr "Povinný atribut?"
+
+#: lib/Whups.php:685 lib/Ticket.php:991 lib/Driver.php:199 lib/api.php:927
+#: lib/Renderer/Query.php:151 config/prefs.php.dist:54
+msgid "Resolved"
+msgstr "Vyřešeno"
+
+#: lib/Forms/Query.php:330 lib/Forms/Search.php:60
+msgid "Resolved from"
+msgstr "Vyřešeno od"
+
+#: lib/Forms/Query.php:331
+msgid "Resolved to"
+msgstr "Vyřešeno do"
+
+#: lib/Forms/Admin/User.php:61
+msgid "Responsible Users"
+msgstr "Zodpovědní Uživatelé"
+
+#: lib/Whups.php:306
+msgid "S_et Queue"
+msgstr "Změna fronty"
+
+#: lib/Query.php:234
+msgid "Sa_ve Query"
+msgstr "Ulož dotaz"
+
+#: templates/view/results.inc:96 lib/Forms/Query.php:385
+msgid "Save"
+msgstr "Uložit"
+
+#: query/index.php:233
+msgid "Save Criterion"
+msgstr "Uložit kriterium"
+
+#: lib/Forms/Query.php:384
+msgid "Save Query"
+msgstr "Ulož dotaz"
+
+#: search.php:69 lib/Forms/Search.php:19
+msgid "Save as Query"
+msgstr "Ulož jako dotaz"
+
+#: search.php:155 lib/Block/tree_menu.php:30
+msgid "Search"
+msgstr "Hledej"
+
+#: lib/Forms/Query.php:278
+#, php-format
+msgid "Search %s Attribute"
+msgstr "Vyhledávání %s"
+
+#: lib/Forms/Query.php:272 lib/Forms/Query.php:281
+msgid "Search Attribute"
+msgstr "Atributy"
+
+#: lib/Forms/Query.php:48 lib/Forms/Query.php:131
+msgid "Search Comments"
+msgstr "Komentáře"
+
+#: lib/Forms/Query.php:46
+msgid "Search Owners"
+msgstr "Majitelé"
+
+#: lib/Forms/Query.php:47
+msgid "Search Requester"
+msgstr "Zadavatelé"
+
+#: search.php:147 search/rss.php:55 search/rss.php:59
+msgid "Search Results"
+msgstr "Výsledky vyhledávání"
+
+#: templates/prevnext.inc:38
+#, php-format
+msgid "Search Results: %s of %s"
+msgstr "Výsledky vyhledávání %s z %s"
+
+#: lib/Forms/Query.php:130
+msgid "Search Summary"
+msgstr "Shrnutí"
+
+#: config/prefs.php.dist:76
+msgid "Search Tickets"
+msgstr "Hledání v lístcích"
+
+#: config/prefs.php.dist:25
+msgid "Select address book sources for adding and searching for addresses."
+msgstr "Volba zdrojů adresáře pro přidávaní a vyhledávání adres."
+
+#: templates/prefs/sourceselect.inc:319
+msgid "Select all fields to search when expanding addresses."
+msgstr "Vybrat všechna pole pro vyhledávání při expanzi adres."
+
+#: config/prefs.php.dist:78
+msgid "Select the view to display after login:"
+msgstr "Vybrat zobrazení po přihlášení:"
+
+#: templates/prefs/sourceselect.inc:303 templates/prefs/sourceselect.inc:305
+msgid "Selected Address books:"
+msgstr "Vybraný zdroj adresářů:"
+
+#: admin/index.php:36
+msgid "Sen_d Reminders"
+msgstr "Rozeslat upomínky"
+
+#: lib/Forms/Admin.php:23
+msgid "Send Reminders"
+msgstr "Rozeslat upomínky"
+
+#: lib/Forms/Admin.php:34
+msgid "Send only for this list of ticket ids"
+msgstr "Zasílat pouze pro tyto lístky:"
+
+#: lib/Forms/Admin/Priority.php:80 lib/Forms/Admin/Priority.php:82
+msgid "Set Default Priority"
+msgstr "Zadejte výchozí prioritu"
+
+#: lib/Forms/Admin/State.php:80 lib/Forms/Admin/State.php:82
+msgid "Set Default State"
+msgstr "Zadejte výchozí stav"
+
+#: ticket/queue.php:201 ticket/queue.php:210 ticket/queue.php:222
+msgid "Set Queue - Step 1"
+msgstr "Změna fronty - krok 1"
+
+#: ticket/queue.php:202 ticket/queue.php:211
+msgid "Set Queue - Step 2"
+msgstr "Změna fronty - krok 2"
+
+#: ticket/queue.php:212
+msgid "Set Queue - Step 3"
+msgstr "Změna fronty - krok 3"
+
+#: ticket/queue.php:189
+#, php-format
+msgid "Set Queue for %s"
+msgstr "Změna fronty pro %s"
+
+#: lib/api.php:800
+msgid "Set Requester"
+msgstr "Zadavatel"
+
+#: ticket/type.php:139 ticket/type.php:148
+msgid "Set Type - Step 1"
+msgstr "Změna typu - krok 1"
+
+#: ticket/type.php:140
+msgid "Set Type - Step 2"
+msgstr "Změna typu - krok 1"
+
+#: ticket/type.php:127
+#, php-format
+msgid "Set Type for %s"
+msgstr "Změna typu pro %s"
+
+#: lib/Whups.php:311
+msgid "Set _Type"
+msgstr "Změna typu"
+
+#: config/prefs.php.dist:144
+msgid "Show comments in chronological order, or most recent first?"
+msgstr "Zobrazit komentáře  chronologicky nebo od nejnovějších?"
+
+#: config/prefs.php.dist:95
+msgid "Show ticket IDs in the summary view?"
+msgstr "Zobrazovat ID lístků v přehledech?"
+
+#: config/prefs.php.dist:87
+msgid "Show tickets you have requested in the summary view?"
+msgstr "Zobrazovat požadované lístky v přehledech?"
+
+#: config/templates.php.dist:16
+msgid "Simple HTML Report"
+msgstr "Jednoduché HTML"
+
+#: lib/Forms/Admin/Queue.php:27
+#, php-format
+msgid ""
+"Slugs allows direct access to this queue's open tickets by visiting: %s. "
+"<br /> Slug names may contain only letters, numbers or the _ (underscore) "
+"character."
+msgstr ""
+"Slugy umožňují přímý přístup na otevřené lístky v této frontě návštěvou %s. "
+"<br />Slugy mohou obsahovat jen ascii písmena, čísla a _ (podtržítko)"
+
+#: templates/view/results.inc:37 templates/view/results.inc:41
+#, php-format
+msgid "Sort by %s"
+msgstr "Setřídit podle %s"
+
+#: lib/Forms/CreateTicket.php:136 lib/Forms/CreateTicket.php:175
+#: lib/Forms/AddComment.php:20 lib/Forms/AddComment.php:51
+msgid "Spam protection"
+msgstr "Ochrana před spamem"
+
+#: ticket/type.php:65 ticket/queue.php:116 lib/Whups.php:670 lib/Whups.php:676
+#: lib/Ticket.php:609 lib/Ticket.php:806 lib/Ticket.php:949
+#: lib/Renderer/Query.php:117 lib/Forms/EditTicket.php:62
+#: lib/Forms/Query.php:193 config/prefs.php.dist:47
+msgid "State"
+msgstr "Stav"
+
+#: lib/Renderer/Comment.php:110
+#, php-format
+msgid "State &rArr; %s"
+msgstr "Stav &rArr; '%s'"
+
+#: lib/Forms/Admin/State.php:25 lib/Forms/Admin/State.php:70
+msgid "State Category"
+msgstr "Kategorie Stavu"
+
+#: lib/Forms/Admin/State.php:24 lib/Forms/Admin/State.php:67
+#: lib/Forms/Admin/State.php:118
+msgid "State Description"
+msgstr "Popis Stavu"
+
+#: lib/Forms/Admin/State.php:23 lib/Forms/Admin/State.php:47
+#: lib/Forms/Admin/State.php:64 lib/Forms/Admin/State.php:96
+#: lib/Forms/Admin/State.php:115
+msgid "State Name"
+msgstr "Jméno Stavu"
+
+#: lib/Forms/Admin/Type.php:76 lib/Forms/Admin/Type.php:165
+msgid "States for this Type"
+msgstr "Stavy pro tento Typ"
+
+#: templates/ticket/watchers.inc:1
+msgid "Status"
+msgstr "Stav"
+
+#: ticket/create.php:146
+msgid "Submit"
+msgstr "Odeslat"
+
+#: query/run.php:93 query/run.php:94
+msgid "Subscribe to this query"
+msgstr "Přihlástit dotaz"
+
+#: admin/index.php:198
+#, php-format
+msgid "Successfully Cloned %s to %s."
+msgstr "Úspěšně naklonováno %s do %s"
+
+#: ticket/type.php:118
+msgid "Successfully changed ticket type."
+msgstr "Typ lístku úspěšne změněn."
+
+#: ticket/delete.php:30 lib/Whups.php:668 lib/Whups.php:675 lib/Ticket.php:616
+#: lib/Ticket.php:643 lib/Ticket.php:646 lib/Ticket.php:650 lib/Ticket.php:812
+#: lib/Ticket.php:821 lib/Ticket.php:912 lib/Renderer/Query.php:89
+#: lib/Forms/CreateTicket.php:152 lib/Forms/EditTicket.php:58
+#: config/prefs.php.dist:46
+msgid "Summary"
+msgstr "Shrnutí"
+
+#: lib/Renderer/Comment.php:51
+#, php-format
+msgid "Summary &rArr; %s"
+msgstr "Shrnutí &rArr; '%s'"
+
+#: lib/Forms/Search.php:43
+msgid "Summary like"
+msgstr "Shrnutí"
+
+#: lib/Renderer/Comment.php:79
+#, php-format
+msgid "Taken from %s"
+msgstr "Odebráno %s"
+
+#: lib/Forms/Query.php:128
+msgid "Text"
+msgstr "Text"
+
+#: lib/Driver/sql.php:80 lib/Driver/sql.php:1306
+msgid "That queue slug is already taken. Please select another."
+msgstr "Tento slug je již obsazen."
+
+#: lib/Forms/CreateTicket.php:129
+msgid "The Requester's Email Address"
+msgstr "Emailová adresa zadavatele"
+
+#: view.php:58 lib/Ticket.php:439 lib/Ticket.php:487
+msgid "The VFS backend needs to be configured to enable attachment uploads."
+msgstr "Pro odesílání příloh musí být nastaven VSF systém."
+
+#: admin/index.php:906
+#, php-format
+msgid "The attribute \"%s\" has been added to %s."
+msgstr "Atribut '%s' byl přidán do %s."
+
+#: admin/index.php:1006
+msgid "The attribute has been deleted."
+msgstr "Atribut byl vymazán."
+
+#: admin/index.php:974
+msgid "The attribute has been modified."
+msgstr "Atribut byl modifikován."
+
+#: admin/index.php:1015
+msgid "The attribute was not deleted."
+msgstr "Atribut nebyl vymazán."
+
+#: admin/index.php:642
+msgid "The default priority has been set."
+msgstr "Nastavena výchozí priorita."
+
+#: admin/index.php:506
+msgid "The default state has been set."
+msgstr "Nastaven výchozí stav."
+
+#: admin/index.php:1043
+#, php-format
+msgid "The form reply \"%s\" has been added to %s."
+msgstr "Byla přidán vzoru odpovědi '%s' do %s."
+
+#: admin/index.php:1135
+msgid "The form reply has been deleted."
+msgstr "Vzor odpovědi byl vymazán."
+
+#: admin/index.php:1108
+msgid "The form reply has been modified."
+msgstr "Vzor odpovědi byl modifikován."
+
+#: admin/index.php:1144
+msgid "The form reply was not deleted."
+msgstr "Vzor odpovědi nebyl vymazán."
+
+#: admin/index.php:556
+#, php-format
+msgid "The priority \"%s\" has been added to %s."
+msgstr "Byla přidána priorita '%s' do %s."
+
+#: admin/index.php:661
+msgid "The priority has been deleted."
+msgstr "Priorita byla vymazána."
+
+#: admin/index.php:609
+msgid "The priority has been modified."
+msgstr "Priorita byla modifikována."
+
+#: admin/index.php:670
+msgid "The priority was not deleted."
+msgstr "Priorita nebyla vymazána."
+
+#: lib/Forms/Query.php:463
+#, php-format
+msgid "The query \"%s\" couldn't be deleted: %s"
+msgstr "Nelze smazat frontu \"%s\": %s"
+
+#: lib/Forms/Query.php:465
+#, php-format
+msgid "The query \"%s\" has been deleted."
+msgstr "Fronta \"%s\" byla vymazána."
+
+#: lib/Forms/Query.php:430
+#, php-format
+msgid "The query couldn't be loaded:"
+msgstr "Nelze nahrát dotaz"
+
+#: admin/index.php:300
+#, php-format
+msgid "The queue \"%s\" has been created."
+msgstr "Byla vytvořena fronta '%s'"
+
+#: admin/index.php:392
+msgid "The queue has been deleted."
+msgstr "Fronta smazána."
+
+#: admin/index.php:359
+msgid "The queue has been modified."
+msgstr "Fronta upravena."
+
+#: admin/index.php:400
+msgid "The queue was not deleted."
+msgstr "Fronta nebyla smazána"
+
+#: lib/MIME/Viewer/zip.php:58
+msgid "The requested file does not exist in the Zip attachment."
+msgstr "Požadovaný soubor v zip příloze neexistuje."
+
+#: data.php:26
+msgid "The requested template does not exist."
+msgstr "Požadovaný vzor neexistuje."
+
+#: admin/index.php:422
+#, php-format
+msgid "The state \"%s\" has been added to %s."
+msgstr "Stav '%s' byl přidán do %s."
+
+#: admin/index.php:525
+msgid "The state has been deleted."
+msgstr "Stav byl vymazán."
+
+#: admin/index.php:475
+msgid "The state has been modified."
+msgstr "Stav byl modifikován."
+
+#: admin/index.php:533
+msgid "The state was not deleted."
+msgstr "Stav nebyl vymazán."
+
+#: ticket/delete.php:78
+msgid "The ticket was not deleted."
+msgstr "Lístek nebyl vymazán."
+
+#: admin/index.php:223
+#, php-format
+msgid "The type \"%s\" has been modified."
+msgstr "Typ '%s' byl modifikován."
+
+#: admin/index.php:272
+msgid "The type has been deleted."
+msgstr "Typ byl vymazán."
+
+#: admin/index.php:280
+msgid "The type was not deleted."
+msgstr "Typ nebyl vymazán."
+
+#: admin/index.php:776
+#, php-format
+msgid "The version \"%s\" has been added to %s."
+msgstr "Verze '%s' byla přidána do %s."
+
+#: admin/index.php:865
+msgid "The version has been deleted."
+msgstr "Verze byla vymazána."
+
+#: admin/index.php:835
+msgid "The version has been modified."
+msgstr "Verze byla modifikována."
+
+#: admin/index.php:873
+msgid "The version was not deleted."
+msgstr "Verze nebyla vymazána."
+
+#: lib/Forms/Admin/Attribute.php:70
+msgid "There are no attribute types to edit"
+msgstr "Nejsou zde žádné typy, které lze změnit"
+
+#: lib/Forms/Query.php:281
+msgid "There are no attributes defined."
+msgstr "Nejsou definovány stavy."
+
+#: lib/Forms/Admin/Reply.php:48
+msgid "There are no form replies to edit"
+msgstr "Nejsou zde žádné vzory odpovědi, které lze změnit"
+
+#: lib/Block/queuesummary.php:44
+msgid "There are no open tickets."
+msgstr "Žádné otevřené lístky."
+
+#: lib/Forms/Admin/Priority.php:44 lib/Forms/Admin/Priority.php:90
+msgid "There are no priorities to edit"
+msgstr "Nejsou zde žádné priority, které lze změnit"
+
+#: lib/Forms/Admin.php:31
+msgid "There are no queues available."
+msgstr "Není dostupná žádná fronta"
+
+#: lib/Forms/Admin/Queue.php:57
+msgid "There are no queues to edit"
+msgstr "Nejsou žádné fronty k úpravě."
+
+#: lib/Forms/CreateTicket.php:35
+msgid "There are no queues which you can create tickets in."
+msgstr "Není žádná fronta, ve které můžete vytvářet lístky."
+
+#: lib/Forms/Search.php:38
+msgid "There are no queues which you can search."
+msgstr "Není žádná fronta, ve které můžete hledat."
+
+#: lib/Forms/Admin/State.php:43 lib/Forms/Admin/State.php:92
+msgid "There are no states to edit"
+msgstr "Nejsou zde žádné stavy, které lze změnit"
+
+#: lib/Forms/CreateTicket.php:72
+msgid ""
+"There are no ticket types associated with this queue; until there are, you "
+"cannot create any tickets in this queue."
+msgstr ""
+"Tato fronta nemá žádné typy lístků. Dokud se tyto typy nevytvoří, není možné "
+"zadat lístek."
+
+#: lib/Forms/Admin/Type.php:45
+msgid "There are no types to edit"
+msgstr "Nejsou zde žádné typy, které lze změnit"
+
+#: lib/Forms/Admin/User.php:75
+msgid "There are no users responsible for this queue."
+msgstr "Nejsou zde žádní uživatelé zodpovědní za tuto frontu"
+
+#: lib/Forms/CreateTicket.php:242
+msgid "There are no users to which this ticket can be assigned."
+msgstr "Není komu přiřadit lístek"
+
+#: lib/Forms/Admin/Version.php:44
+msgid "There are no versions to edit"
+msgstr "Nejsou zde žádné verze, které lze změnit"
+
+#: lib/Reports.php:143
+msgid "There is no data for this report."
+msgstr "Pro tento report nejdou k dispozici žádná data"
+
+#: admin/index.php:705
+#, php-format
+msgid "There was an error adding \"%s\" to the responsible list for \"%s\":"
+msgstr "Nastala chyba při přidávání '%s' do seznamu zodpovědných pro '%s':"
+
+#: admin/index.php:911
+msgid "There was an error creating the attribute:"
+msgstr "Nastala chyba při vytváření atributu:"
+
+#: admin/index.php:1051
+msgid "There was an error creating the form reply:"
+msgstr "Nastala chyba při vytváření vzoru odpovědi."
+
+#: admin/index.php:561
+msgid "There was an error creating the priority:"
+msgstr "Nastala chyba při vytváření priority:"
+
+#: admin/index.php:309
+msgid "There was an error creating the queue:"
+msgstr "Nastala chyba při vytváření fronty:"
+
+#: admin/index.php:426
+msgid "There was an error creating the state:"
+msgstr "Nastala chyba při vytváření stavu:"
+
+#: admin/index.php:780
+msgid "There was an error creating the version:"
+msgstr "Nastala chyba při vytváření verze:"
+
+#: admin/index.php:1010
+msgid "There was an error deleting the attribute:"
+msgstr "Nastala chyba při vymázávání atributu:"
+
+#: admin/index.php:1139
+msgid "There was an error deleting the form reply:"
+msgstr "Nastala chyba při vymázávání vzoru odpovědi:"
+
+#: admin/index.php:665
+msgid "There was an error deleting the priority:"
+msgstr "Nastala chyba při vymázávání priority:"
+
+#: admin/index.php:395
+msgid "There was an error deleting the queue:"
+msgstr "Nastala chyba při mazání fronty:"
+
+#: admin/index.php:528
+msgid "There was an error deleting the state:"
+msgstr "Nastala chyba při vymázávání stavu:"
+
+#: ticket/delete.php:75
+msgid "There was an error deleting the ticket:"
+msgstr "Nastala chyba při vymázávání lístku:"
+
+#: admin/index.php:275
+msgid "There was an error deleting the type:"
+msgstr "Nastala chyba při vymázávání typu:"
+
+#: admin/index.php:868
+msgid "There was an error deleting the version:"
+msgstr "Nastala chyba při vymázávání verze:"
+
+#: admin/index.php:982
+msgid "There was an error editing the attribute:"
+msgstr "Nastala chyba při změně atributu:"
+
+#: admin/index.php:1104
+msgid "There was an error editing the form reply:"
+msgstr "Nastala chyba při změně vzoru odpovědi:"
+
+#: admin/index.php:615
+msgid "There was an error editing the priority:"
+msgstr "Nastala chyba při změně priority:"
+
+#: admin/index.php:375
+msgid "There was an error editing the queue:"
+msgstr "Nastala chyba při úpravě fronty:"
+
+#: admin/index.php:480
+msgid "There was an error editing the state:"
+msgstr "Nastala chyba při změně stavu:"
+
+#: admin/index.php:841
+msgid "There was an error editing the version:"
+msgstr "Nastala chyba při změně verze:"
+
+#: lib/Forms/Admin/User.php:35
+#, php-format
+msgid "There was an error listing users: %s; %s"
+msgstr "Nastala chyba výpisu uživatelů: %s; %s"
+
+#: queue/index.php:52
+#, php-format
+msgid "There was an error locating tickets in this queue: "
+msgstr "Nastala chyba při hledání lísků: "
+
+#: admin/index.php:219
+msgid "There was an error modifying the type:"
+msgstr "Nastala chyba při změně typu:"
+
+#: search.php:140
+#, php-format
+msgid "There was an error performing your search: %s"
+msgstr "Chyba při hledání: %s"
+
+#: admin/index.php:750
+#, php-format
+msgid ""
+"There was an error removing \"%s\" from the responsible list for \"%s\":"
+msgstr "Nastala chyba při odstraňování '%s' ze seznamu zodpovědných pro '%s':"
+
+#: admin/index.php:638
+msgid "There was an error setting the default priority:"
+msgstr "Nastala chyba při změně implicitní priority."
+
+#: admin/index.php:502
+msgid "There was an error setting the default state:"
+msgstr "Nastala chyba při nastavení výchozího stavu:"
+
+#: lib/Forms/EditTicket.php:166 lib/Forms/AddComment.php:37
+msgid "This comment is visible to everyone"
+msgstr ""
+
+#: lib/Forms/Admin/Queue.php:31
+msgid ""
+"This email address will be used when sending notifications for any queue "
+"tickets."
+msgstr ""
+
+#: data.php:29
+msgid "This is not a search results template."
+msgstr "Toto není šablona výsledků hledání"
+
+#: lib/Query.php:435 lib/Query.php:668
+msgid "This query element cannot be edited."
+msgstr "Nelze smazat tuto část dotazu"
+
+#: ticket/queue.php:81 lib/Forms/CreateTicket.php:88
+msgid ""
+"This queue requires that you specify a version, but there are no versions "
+"associated with it. Until versions are created for this queue, you will not "
+"be able to create tickets."
+msgstr ""
+"Tato fronta vyžaduje zadání verze, ale žádná verze není k dispozici. Dokud "
+"nebudou pro frontu vytvořeny verze nebude možno zadat lístek."
+
+#: lib/Ticket.php:638 lib/Ticket.php:820
+msgid "Ticket"
+msgstr "Lístek"
+
+#: ticket/delete.php:71
+#, php-format
+msgid "Ticket %d has been deleted."
+msgstr "Lístek %d byl vymazán."
+
+#: lib/api.php:850
+#, php-format
+msgid "Ticket %s - %s"
+msgstr "Lístek %s - %s"
+
+#: lib/Driver/sql.php:1081
+#, php-format
+msgid "Ticket %s was not found."
+msgstr "Lístek %s nebyl nalezen."
+
+#: search.php:170
+msgid "Ticket Search"
+msgstr "Prohledávání lístků"
+
+#: lib/Forms/CreateTicket.php:142
+msgid "Ticket State"
+msgstr "Stav oznámení"
+
+#: templates/reports/stats.inc:1
+msgid "Ticket Stats"
+msgstr "Statistiky lístků"
+
+#: lib/Forms/CreateTicket.php:80
+msgid "Ticket Type"
+msgstr "Typ oznámení"
+
+#: lib/Forms/Admin/Queue.php:103
+msgid "Ticket Types associated with this Queue"
+msgstr "Typy asociované s touto frontou"
+
+#: lib/Ticket.php:633
+#, php-format
+msgid "Ticket URL: %s"
+msgstr "URL lístku: %s"
+
+#: ticket/update.php:94
+msgid "Ticket Updated"
+msgstr "Lístek upraven"
+
+#: lib/api.php:871
+msgid "Tickets"
+msgstr "Lístky"
+
+#: query/rss.php:70
+#, php-format
+msgid "Tickets matching the query \"%s\"."
+msgstr ""
+
+#: templates/prefs/sourceselect.inc:322
+msgid ""
+"To select multiple fields, hold down the Control (PC) or Command (Mac) while "
+"clicking."
+msgstr ""
+"Pokud si přejete vybrat více polí, zmáčkněte a držte klávesu Control (PC) "
+"nebo Command (Mac) a klikněte na položku."
+
+#: ticket/queue.php:89 lib/Whups.php:677 lib/Ticket.php:608 lib/Ticket.php:805
+#: lib/Ticket.php:945 lib/Renderer/Query.php:108 lib/Forms/Query.php:174
+#: config/prefs.php.dist:48
+msgid "Type"
+msgstr "Typ"
+
+#: lib/Renderer/Comment.php:105
+#, php-format
+msgid "Type &rArr; %s"
+msgstr "Typ &rArr; %s"
+
+#: lib/Forms/Admin/Type.php:23 lib/Forms/Admin/Type.php:70
+#: lib/Forms/Admin/Type.php:160
+msgid "Type Description"
+msgstr "Popis Typu"
+
+#: lib/Forms/Admin/Type.php:22 lib/Forms/Admin/Type.php:48
+#: lib/Forms/Admin/Type.php:67 lib/Forms/Admin/Type.php:156
+msgid "Type Name"
+msgstr "Jméno Typu"
+
+#: search/rss.php:39
+#, php-format
+msgid "Type: %s; State: %s"
+msgstr "Typ: %s; stav: %s"
+
+#: lib/Ticket.php:961
+msgid "Unassigned"
+msgstr "Nepřiřazené"
+
+#: lib/Block/unassigned.php:3 lib/Block/unassigned.php:24
+msgid "Unassigned Tickets"
+msgstr "Nepřiřazené lístky"
+
+#: lib/Forms/Admin.php:42
+msgid "Unassigned tickets"
+msgstr "Nepřiřazené lístky"
+
+#: lib/Driver.php:196
+msgid "Unconfirmed"
+msgstr "Nepotvrzen"
+
+#: lib/Renderer/Query.php:167 lib/Renderer/Query.php:207
+#, php-format
+msgid "Unknown node type %s"
+msgstr "Neznámý typ uzlu %s"
+
+#: lib/api.php:790
+msgid "Update"
+msgstr "Aktualizovat"
+
+#: ticket/update.php:108
+#, php-format
+msgid "Update %s"
+msgstr "Aktualizovat %s"
+
+#: templates/admin/mtmatrix.inc:29
+msgid "Update Associations"
+msgstr "Ulozit"
+
+#: lib/Whups.php:683 lib/Ticket.php:981 lib/Renderer/Query.php:146
+msgid "Updated"
+msgstr "Upraveno"
+
+#: lib/Ticket.php:615 lib/Ticket.php:640
+msgid "Updated By"
+msgstr "Upravil"
+
+#: lib/Forms/Query.php:327 lib/Forms/Search.php:58
+msgid "Updated from"
+msgstr "Upraveno od"
+
+#: lib/Forms/Query.php:328
+msgid "Updated to"
+msgstr "Upraveno do"
+
+#: lib/Forms/Admin/User.php:34 lib/Forms/Admin/User.php:44
+#: lib/Forms/Admin/User.php:47
+msgid "User"
+msgstr "Uživatel"
+
+#: lib/Forms/Query.php:44
+msgid "User ID"
+msgstr "Uživatel"
+
+#: lib/Forms/Admin/Queue.php:131
+msgid "Users responsible for this Queue"
+msgstr "Uživatelé zodpovědní za tuto frontu"
+
+#: lib/Forms/Admin/User.php:79
+msgid "Users responsible for this queue"
+msgstr "Uživatelé zodpovědní za tuto frontu"
+
+#: lib/Ticket.php:607 lib/Ticket.php:804 lib/Renderer/Query.php:102
+#: lib/Forms/Query.php:185 config/prefs.php.dist:51
+msgid "Version"
+msgstr "Verze"
+
+#: lib/Forms/Admin/Version.php:24 lib/Forms/Admin/Version.php:70
+#: lib/Forms/Admin/Version.php:93
+msgid "Version Description"
+msgstr "Popis Verze"
+
+#: lib/Forms/Admin/Version.php:23 lib/Forms/Admin/Version.php:48
+#: lib/Forms/Admin/Version.php:67 lib/Forms/Admin/Version.php:90
+msgid "Version Name"
+msgstr "Jméno Verze"
+
+#: ticket/type.php:43 ticket/queue.php:50
+msgid "Viewable only by members of"
+msgstr "Povoleno prohlížet pouze členy skupiny"
+
+#: lib/Forms/AddComment.php:25
+msgid "Watch this ticket"
+msgstr "Sledovat tento lístek?"
+
+#: ticket/watch.php:78
+#, php-format
+msgid "Watchers for %s"
+msgstr "Sledující %s"
+
+#: config/prefs.php.dist:104
+msgid "Weekday Day Month"
+msgstr "Den v týdnu Den Měsíc"
+
+#: config/prefs.php.dist:105
+msgid "Weekday Day Month HH:MM:SS TZ"
+msgstr "Den v týdnu Den Měsíc HH:MM:SS Zóna"
+
+#: ticket/delete.php:33 lib/Forms/Query.php:449 lib/Forms/Admin/Version.php:96
+#: lib/Forms/Admin/State.php:121 lib/Forms/Admin/Priority.php:121
+#: lib/Forms/Admin/Queue.php:174 lib/Forms/Admin/Attribute.php:149
+#: lib/Forms/Admin/Reply.php:110 lib/Forms/Admin/Type.php:176
+msgid "Yes"
+msgstr "Ano"
+
+#: view.php:54
+#, php-format
+msgid "You are not allowed to view ticket %d."
+msgstr "Nejste oprávněni prohlížet lístek %d"
+
+#: lib/Driver/sql.php:1090
+#, php-format
+msgid "You do not have permission to access this ticket (%s)."
+msgstr "Nedostatečná práva pro prohlížení tohoto lístku (%s)"
+
+#: lib/api.php:375
+msgid "You do not have permission to update this ticket."
+msgstr "Nedostatečná práva pro úpravu lístku"
+
+#: lib/Block/myrequests.php:46
+msgid "You have no open requests."
+msgstr "Nemáte žádné otevřené požadavky"
+
+#: lib/Forms/Query.php:419 lib/Block/query.php:28
+msgid "You have no saved queries."
+msgstr "Nemáte žádné uložené dotazy"
+
+#: lib/Whups.php:710
+msgid "You must select at least one queue to send reminders for."
+msgstr "Musíte nejdříve vybrat alespoň jednu frontu,"
+
+#: lib/Forms/CreateTicket.php:132 lib/Forms/AddComment.php:18
+msgid "Your Email Address"
+msgstr "Vaše emailová adresa"
+
+#: ticket/create.php:60
+#, php-format
+msgid ""
+"Your ticket ID is %s. An appropriate person has been notified of this "
+"request."
+msgstr ""
+"Váš lístek má ID %s. Náležitá osoba byla informována ohledně tohoto "
+"požadavku."
+
+#: lib/Mail.php:244
+msgid "[ Could not render body of message. ]"
+msgstr "[ zprávu se nepovedlo zobrazit ]"
+
+#: lib/Whups.php:774
+msgid "_Admin"
+msgstr "_Admin"
+
+#: lib/Whups.php:298
+msgid "_Comment"
+msgstr "_Komentář"
+
+#: query/index.php:157
+msgid "_Date Criteria"
+msgstr "Kriterium _Data"
+
+#: lib/Whups.php:316
+msgid "_Delete"
+msgstr "_Smazat"
+
+#: lib/Query.php:237
+msgid "_Delete Query"
+msgstr "Vymaž frontu"
+
+#: lib/Query.php:218
+msgid "_Edit Query"
+msgstr "_Uprav dotaz"
+
+#: admin/index.php:33
+msgid "_Edit Queues"
+msgstr "Změň fronty"
+
+#: templates/menu.inc:5
+msgid "_Go"
+msgstr "Přejít"
+
+#: query/index.php:156
+msgid "_Group Criteria"
+msgstr "Filtry _skupin"
+
+#: lib/Whups.php:292
+msgid "_History"
+msgstr "_Historie"
+
+#: lib/Query.php:231
+msgid "_Load Query"
+msgstr "_Nahraj dotaz"
+
+#: lib/Whups.php:765
+#, php-format
+msgid "_My %s"
+msgstr "_Moje %s"
+
+#: lib/Whups.php:768
+msgid "_New Ticket"
+msgstr "_Nový lístek"
+
+#: query/index.php:154
+msgid "_Property Criteria"
+msgstr "Filtry _vlastností"
+
+#: lib/Whups.php:769
+msgid "_Query Builder"
+msgstr "Tvůrce dotazů"
+
+#: lib/Whups.php:770
+msgid "_Reports"
+msgstr "_Reporty"
+
+#: lib/Whups.php:767
+msgid "_Search"
+msgstr "_Vyhledat"
+
+#: query/index.php:158
+msgid "_Text Criteria"
+msgstr "Filtry _textu"
+
+#: lib/Whups.php:294
+msgid "_Update"
+msgstr "Aktualizovat"
+
+#: query/index.php:155
+msgid "_User Criteria"
+msgstr "Filtry _uživatelů"
+
+#: lib/Whups.php:302
+msgid "_Watch"
+msgstr "_Sledovat"
+
+#: lib/Renderer/Query.php:187
+msgid "contains (case insensitive) substring"
+msgstr "obsahuje znakový řetězec (nerozlišující velká a malá písmena)"
+
+#: lib/Renderer/Query.php:191
+msgid "contains (case sensitive) substring"
+msgstr "obsahuje znakový řetězec (rozlišující velká a malá písmena)"
+
+#: lib/Renderer/Query.php:195
+msgid "contains the word"
+msgstr "obsahuje slovo"
+
+#: lib/Mail.php:94 lib/Mail.php:118 lib/Mail.php:146
+msgid "current user:"
+msgstr "Současný uživatel"
+
+#: lib/api.php:859
+msgid "estimated time"
+msgstr "odhad času"
+
+#: lib/Renderer/Query.php:183
+msgid "is"
+msgstr "je"
+
+#: lib/Renderer/Query.php:175
+msgid "is greater than"
+msgstr "je větší než"
+
+#: lib/Renderer/Query.php:179
+msgid "is less than"
+msgstr "je menší než"
+
+#: lib/Renderer/Query.php:199
+msgid "matches the pattern"
+msgstr "odpovídá vzoru"
+
+#: lib/Forms/Search.php:57 lib/Forms/Search.php:59 lib/Forms/Search.php:61
+#: lib/Forms/Search.php:63 lib/Forms/Search.php:65
+msgid "to"
+msgstr ""

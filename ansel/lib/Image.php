@@ -11,104 +11,186 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_Image
+class Ansel_Image Implements Iterator
 {
     /**
-     * @var integer  The gallery id of this image's parent gallery
-     */
-    var $gallery;
-
-    /**
-     * @var Horde_Image  Horde_Image object for this image.
-     */
-    var $_image;
-
-    var $id = null;
-    var $filename = 'Untitled';
-    var $caption = '';
-    var $type = 'image/jpeg';
-
-    /**
-     * timestamp of uploaded date
+     * The gallery id of this image's parent gallery
      *
      * @var integer
      */
-    var $uploaded;
+    public $gallery;
 
-    var $sort;
-    var $commentCount;
-    var $facesCount;
-    var $lat;
-    var $lng;
-    var $location;
-    var $geotag_timestamp;
+    /**
+     * Image Id
+     *
+     * @var integer
+     */
+    public $id = null;
 
-    var $_dirty;
+    /**
+     * The filename for this image
+     *
+     * @var string
+     */
+    public $filename = 'Untitled';
 
+    /**
+     * Image caption
+     *
+     * @var string
+     */
+    public $caption = '';
+
+    /**
+     * The image's mime type
+     *
+     * @var string
+     */
+    public $type = 'image/jpeg';
+
+    /**
+     * Timestamp of uploaded datetime
+     *
+     * @var integer
+     */
+    public $uploaded;
+
+    /**
+     * Sort count for this image
+     *
+     * @var integer
+     */
+    public $sort;
+
+    /**
+     * The number of comments for this image, if available.
+     *
+     * @var integer
+     */
+    public $commentCount;
+
+    /**
+     * Number of faces in this image
+     * @var integer
+     */
+    public $facesCount;
+
+    /**
+     * Latitude
+     *
+     * @var string
+     */
+    public $lat;
+
+    /**
+     * Longitude
+     *
+     * @var string
+     */
+    public $lng;
+
+    /**
+     * Textual location
+     *
+     * @var string
+     */
+    public $location;
+
+    /**
+     * Timestamp for when image was geotagged
+     *
+     * @var integer
+     */
+    public $geotag_timestamp;
 
     /**
      * Timestamp of original date.
      *
      * @var integer
      */
-    var $originalDate;
+    public $originalDate;
 
     /**
-     * Holds an array of tags for this image
+     * Horde_Image object for this image.
+     *
+     * @var Horde_Image_Base
+     */
+    protected $_image;
+
+    /**
+     * Dirty flag
+     *
+     * @var boolean
+     */
+    protected $_dirty;
+
+    /**
+     * Flags for loaded views
+     *
      * @var array
      */
-    var $_tags = array();
+    protected $_loaded = array();
 
-    var $_loaded = array();
-    var $_data = array();
+    /**
+     * Binary image data for loaded views
+     *
+     * @var array
+     */
+    protected $_data = array();
+    /**
+     * Holds an array of tags for this image
+     *
+     * @var array
+     */
+    protected $_tags = array();
 
     /**
      * Cache the raw EXIF data locally
      *
      * @var array
      */
-    var $_exif = array();
+    protected $_exif = array();
 
     /**
-     * TODO: refactor Ansel_Image to use a ::get() method like Ansel_Gallery
-     * instead of direct instance variable access and all the nonsense below.
+     * Const'r
      *
-     * @param unknown_type $image
+     * @param array $image
+     *
      * @return Ansel_Image
      */
-    function Ansel_Image($image = array())
+    public function __construct($image = array())
     {
         if ($image) {
             $this->filename = $image['image_filename'];
-            $this->caption = $image['image_caption'];
-            $this->sort = $image['image_sort'];
-            $this->gallery = $image['gallery_id'];
 
-            // New image?
+            if  (!empty($image['gallery_id'])) {
+                $this->gallery = $image['gallery_id'];
+            }
+            if (!empty($image['image_caption'])) {
+                $this->caption = $image['image_caption'];
+            }
+            if (isset($image['image_sort'])) {
+                $this->sort = $image['image_sort'];
+            }
             if (!empty($image['image_id'])) {
                 $this->id = $image['image_id'];
             }
-
             if (!empty($image['data'])) {
                 $this->_data['full'] = $image['data'];
             }
-
             if (!empty($image['image_uploaded_date'])) {
                 $this->uploaded = $image['image_uploaded_date'];
             } else {
                 $this->uploaded = time();
             }
-
             if (!empty($image['image_type'])) {
                 $this->type = $image['image_type'];
             }
-
             if (!empty($image['tags'])) {
                 $this->_tags = $image['tags'];
             }
-
             if (!empty($image['image_faces'])) {
-               $this->facesCount = $image['image_faces'];
+                $this->facesCount = $image['image_faces'];
             }
 
             $this->location = !empty($image['image_location']) ? $image['image_location'] : '';
@@ -131,19 +213,29 @@ class Ansel_Image
     }
 
     /**
+     * Obtain a reference to the underlying Horde_Image
+     *
+     * @return Horde_Image_Base
+     */
+    public function &getHordeImage()
+    {
+        return $this->_image;
+    }
+
+    /**
      * Return the vfs path for this image.
      *
-     * @param string $view   The view we want.
-     * @param string $style  A named gallery style.
+     * @param string $view        The view we want.
+     * @param Ansel_Style $style  A named gallery style.
      *
      * @return string  The vfs path for this image.
      */
-    function getVFSPath($view = 'full', $style = null)
+    public function getVFSPath($view = 'full', $style = null)
     {
         $view = $this->getViewHash($view, $style);
         return '.horde/ansel/'
-               . substr(str_pad($this->id, 2, 0, STR_PAD_LEFT), -2)
-               . '/' . $view;
+                . substr(str_pad($this->id, 2, 0, STR_PAD_LEFT), -2)
+                . '/' . $view;
     }
 
     /**
@@ -151,7 +243,7 @@ class Ansel_Image
      *
      * @return string  This image's VFS file name.
      */
-    function getVFSName($view)
+    public function getVFSName($view)
     {
         $vfsname = $this->id;
 
@@ -172,24 +264,24 @@ class Ansel_Image
     /**
      * Loads the given view into memory.
      *
-     * @param string $view   Which view to load.
-     * @param string $style  The named gallery style.
+     * @param string $view        Which view to load.
+     * @param Ansel_Style $style  The gallery style.
      *
      * @return boolean
-     * @throws Horde_Exception
+     * @throws Ansel_Exception
      */
-    function load($view = 'full', $style = null)
+    public function load($view = 'full', $style = null)
     {
         // If this is a new image that hasn't been saved yet, we will
         // already have the full data loaded. If we auto-rotate the image
         // then there is no need to save it just to load it again.
         if ($view == 'full' && !empty($this->_data['full'])) {
-            $this->_image->loadString('original', $this->_data['full']);
+            $this->_image->loadString($this->_data['full']);
             $this->_loaded['full'] = true;
             return true;
         }
-
         $viewHash = $this->getViewHash($view, $style);
+
         /* If we've already loaded the data, just return now. */
         if (!empty($this->_loaded[$viewHash])) {
             return true;
@@ -202,21 +294,22 @@ class Ansel_Image
             return;
         }
 
-        /* We've definitely successfully loaded the image now. */
-        $this->_loaded[$viewHash] = true;
-
         /* Get the VFS info. */
         $vfspath = $this->getVFSPath($view, $style);
 
         /* Read in the requested view. */
-        $data = $GLOBALS['ansel_vfs']->read($vfspath, $this->getVFSName($view));
-        if (is_a($data, 'PEAR_Error')) {
-            Horde::logMessage($date, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Exception($data->getMessage());
+        try {
+            $data = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->read($vfspath, $this->getVFSName($view));
+        } catch (VFS_Exception $e) {
+            Horde::logMessage($e, 'ERR');
+            throw new Ansel_Exception($e);
         }
 
+        /* We've definitely successfully loaded the image now. */
+        $this->_loaded[$viewHash] = true;
         $this->_data[$viewHash] = $data;
-        $this->_image->loadString($vfspath . '/' . $this->id, $data);
+        $this->_image->loadString($data);
+
         return true;
     }
 
@@ -224,15 +317,13 @@ class Ansel_Image
      * Check if an image view exists and returns the vfs name complete with
      * the hash directory name prepended if appropriate.
      *
-     * @param integer $id    Image id to check
-     * @param string $view   Which view to check for
-     * @param string $style  A named gallery style
+     * @param integer $id         Image id to check
+     * @param string $view        Which view to check for
+     * @param Ansel_Style $style  Style object
      *
      * @return mixed  False if image does not exists | string vfs name
-     *
-     * @static
      */
-    function viewExists($id, $view, $style)
+    static public function viewExists($id, $view, $style)
     {
         /* We cannot check empty styles since we cannot get the hash */
         if (empty($style)) {
@@ -240,7 +331,7 @@ class Ansel_Image
         }
 
         /* Get the VFS path. */
-        $view = Ansel_Gallery::getViewHash($view, $style);
+        $view = Ansel::getViewHash($view, $style);
 
         /* Can't call the various vfs methods here, since this method needs
         to be called statically */
@@ -254,7 +345,7 @@ class Ansel_Image
             $vfsname .= 'png';
         }
 
-        if ($GLOBALS['ansel_vfs']->exists($vfspath, $vfsname)) {
+        if ($GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->exists($vfspath, $vfsname)) {
             return $view . '/' . $vfsname;
         } else {
             return false;
@@ -264,86 +355,75 @@ class Ansel_Image
     /**
      * Creates and caches the given view.
      *
-     * @param string $view  Which view to create.
-     * @param string $style  A named gallery style
+     * @param string $view         Which view to create.
+     * @param Ansel_Style  $style  A style object
      *
      * @return boolean
-     * @throws Horde_Exception
+     * @throws Ansel_Exception
      */
-    function createView($view, $style = null)
+    public function createView($view, $style = null)
     {
-        // HACK: Need to replace the image object with a JPG typed image if
-        //       we are generating a screen image. Need to do the replacement
-        //       and do it *here* for BC reasons with Horde_Image...and this
-        //       needs to be done FIRST, since the view might already be cached
-        //       in the VFS.
+        /* Force screen images to ALWAYS be jpegs for performance/size */
         if ($view == 'screen' && $GLOBALS['conf']['image']['type'] != 'jpeg') {
-            $this->_image = Ansel::getImageObject(array('type' => 'jpeg'));
-            $this->_image->reset();
+            $this->_image->setType('jpeg');
         }
 
         /* Get the VFS info. */
         $vfspath = $this->getVFSPath($view, $style);
-        if ($GLOBALS['ansel_vfs']->exists($vfspath, $this->getVFSName($view))) {
+        if ($GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->exists($vfspath, $this->getVFSName($view))) {
             return true;
         }
-
-        $data = $GLOBALS['ansel_vfs']->read($this->getVFSPath('full'),
-                                            $this->getVFSName('full'));
-        if (is_a($data, 'PEAR_Error')) {
-            Horde::logMessage($data, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Exception($data->getMessage());
+        try {
+            $data = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->read($this->getVFSPath('full'), $this->getVFSName('full'));
+        } catch (VFS_Exception $e) {
+            Horde::logMessage($e, 'ERR');
+            throw new Ansel_Exception($e);
         }
-        $this->_image->loadString($this->getVFSPath('full') . '/' . $this->id, $data);
-        $styleDef = Ansel::getStyleDefinition($style);
+
+        $vHash = $this->getViewHash($view, $style);
+        $this->_image->loadString($data);
         if ($view == 'prettythumb') {
-            $viewType = $styleDef['thumbstyle'];
+            $viewType = $style->thumbstyle;
         } else {
-            $viewType = $view;
+            // Screen, Mini, Thumb
+            $viewType = ucfirst($view);
         }
-        $iview = Ansel_ImageView::factory($viewType, array('image' => $this,
-                                                           'style' => $style));
 
-        if (is_a($iview, 'PEAR_Error')) {
+        try {
+            $iview = Ansel_ImageGenerator::factory($viewType, array('image' => $this, 'style' => $style));
+        } catch (Ansel_Exception $e) {
             // It could be we don't support the requested effect, try
             // ansel_default before giving up.
             if ($view == 'prettythumb') {
-                $iview = Ansel_ImageView::factory(
-                    'thumb', array('image' => $this,
-                                   'style' => 'ansel_default'));
-
-                if (is_a($iview, 'PEAR_Error')) {
-                    return $iview;
-                }
+                $iview = Ansel_ImageGenerator::factory('Thumb', array('image' => $this, 'style' => Ansel::getStyleDefinition('ansel_default')));
+            } else {
+                // If it wasn't a prettythumb, then something else must be wrong
+                throw $e;
             }
         }
 
-        $res = $iview->create();
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
+        /* Create the ImageGenerator */
+        $iview->create();
 
-        $view = $this->getViewHash($view, $style);
-
+        /* Cache the data from the new ImageGenerator */
         try {
-            $this->_data[$view] = $this->_image->raw();
+            $this->_data[$vHash] = $this->_image->raw();
         } catch (Horde_Image_Exception $e) {
-            throw new Horde_Exception($e);
+            throw new Ansel_Exception($e);
         }
-        $this->_image->loadString($vfspath . '/' . $this->id,
-                                  $this->_data[$view]);
-        $this->_loaded[$view] = true;
-        $GLOBALS['ansel_vfs']->writeData($vfspath, $this->getVFSName($view),
-                                         $this->_data[$view], true);
 
-        // Autowatermark the screen view
+        /* ...and put it in Horde_Image obejct, then save */
+        $this->_image->loadString($this->_data[$vHash]);
+        $this->_loaded[$vHash] = true;
+        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->writeData($vfspath, $this->getVFSName($vHash), $this->_data[$vHash], true);
+
+        /* Autowatermark the screen view */
         if ($view == 'screen' &&
             $GLOBALS['prefs']->getValue('watermark_auto') &&
             $GLOBALS['prefs']->getValue('watermark_text') != '') {
 
             $this->watermark('screen');
-            $GLOBALS['ansel_vfs']->writeData($vfspath, $this->getVFSName($view),
-                                             $this->_image->_data);
+            $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->writeData($vfspath, $this->getVFSName($view), $this->_image->_data);
         }
 
         return true;
@@ -351,13 +431,22 @@ class Ansel_Image
 
     /**
      * Writes the current data to vfs, used when creating a new image
+     *
+     * @return boolean
+     * @throws Ansel_Exception
      */
-    function _writeData()
+    protected function _writeData()
     {
         $this->_dirty = false;
-        return $GLOBALS['ansel_vfs']->writeData($this->getVFSPath('full'),
-                                                $this->getVFSName('full'),
-                                                $this->_data['full'], true);
+
+        try {
+            $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->writeData(
+                $this->getVFSPath('full'), $this->getVFSName('full'),  $this->_data['full'], true);
+        } catch (VFS_Exception $e) {
+            throw new Ansel_Exception($e);
+        }
+
+        return true;
     }
 
     /**
@@ -367,27 +456,36 @@ class Ansel_Image
      * @param string $data  The new data for this image.
      * @param string $view  If specified, the $data represents only this
      *                      particular view. Cache will not be deleted.
+     *
+     * @return boolean
+     * @throws Ansel_Exception
      */
-    function updateData($data, $view = 'full')
+    public function updateData($data, $view = 'full')
     {
-        if (is_a($data, 'PEAR_Error')) {
-            return $data;
-        }
-
         /* Delete old cached data if we are replacing the full image */
         if ($view == 'full') {
             $this->deleteCache();
         }
 
-        return $GLOBALS['ansel_vfs']->writeData($this->getVFSPath($view),
-                                                $this->getVFSName($view),
-                                                $data, true);
+        try {
+            $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->writeData(
+                $this->getVFSPath($view), $this->getVFSName($view), $data, true);
+        } catch (VFS_Exception $e) {
+            throw new Ansel_Exception($e);
+        }
     }
 
     /**
-     * Update the geotag data
+     * Update the image's geotag data. Saves to backend storage as well, so no
+     * need to call self::save()
+     *
+     * @param string $lat       Latitude
+     * @param string $lng       Longitude
+     * @param string $location  Textual location
+     *
+     * @return void
      */
-    function geotag($lat, $lng, $location = '')
+    public function geotag($lat, $lng, $location = '')
     {
         $this->lat = $lat;
         $this->lng = $lng;
@@ -397,77 +495,21 @@ class Ansel_Image
     }
 
     /**
-     * Save basic image details
+     * Save image details to storage.
      *
-     * @TODO: Move all SQL queries to Ansel_Storage::?
+     * @return integer image id
+     * @throws Ansel_Exception
      */
-    function save()
+    public function save()
     {
-        /* If we have an id, then it's an existing image.*/
+        /* Existing image, just save and exit */
         if ($this->id) {
-            $update = $GLOBALS['ansel_db']->prepare('UPDATE ansel_images SET image_filename = ?, image_type = ?, image_caption = ?, image_sort = ?, image_original_date = ?, image_latitude = ?, image_longitude = ?, image_location = ?, image_geotag_date = ? WHERE image_id = ?');
-            if (is_a($update, 'PEAR_Error')) {
-                Horde::logMessage($update, __FILE__, __LINE__, PEAR_LOG_ERR);
-                return $update;
-            }
-            $result = $update->execute(array(Horde_String::convertCharset($this->filename, Horde_Nls::getCharset(), $GLOBALS['conf']['sql']['charset']),
-                                             $this->type,
-                                             Horde_String::convertCharset($this->caption, Horde_Nls::getCharset(), $GLOBALS['conf']['sql']['charset']),
-                                             $this->sort,
-                                             $this->originalDate,
-                                             $this->lat,
-                                             $this->lng,
-                                             $this->location,
-                                             $this->geotag_timestamp,
-                                             $this->id));
-            if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($update, __FILE__, __LINE__, PEAR_LOG_ERR);
-            } else {
-                $update->free();
-            }
-            return $result;
+            /* Save image details */
+            return $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->saveImage($this);
         }
 
-        /* Saving a new Image */
-        if (!$this->gallery || !strlen($this->filename) || !$this->type) {
-            $error = PEAR::raiseError(_("Incomplete photo"));
-            Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_ERR);
-        }
-
-        /* Get the next image_id */
-        $image_id = $GLOBALS['ansel_db']->nextId('ansel_images');
-        if (is_a($image_id, 'PEAR_Error')) {
-            return $image_id;
-        }
-
-        /* Prepare the SQL statement */
-        $insert = $GLOBALS['ansel_db']->prepare('INSERT INTO ansel_images (image_id, gallery_id, image_filename, image_type, image_caption, image_uploaded_date, image_sort, image_original_date, image_latitude, image_longitude, image_location, image_geotag_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
-        if (is_a($insert, 'PEAR_Error')) {
-            Horde::logMessage($insert, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $insert;
-        }
-
-        /* Perform the INSERT */
-        $result = $insert->execute(array($image_id,
-                                         $this->gallery,
-                                         Horde_String::convertCharset($this->filename, Horde_Nls::getCharset(), $GLOBALS['conf']['sql']['charset']),
-                                         $this->type,
-                                         Horde_String::convertCharset($this->caption, Horde_Nls::getCharset(), $GLOBALS['conf']['sql']['charset']),
-                                         $this->uploaded,
-                                         $this->sort,
-                                         $this->originalDate,
-                                         $this->lat,
-                                         $this->lng,
-                                         $this->location,
-                                         (empty($this->lat) ? 0 : $this->uploaded)));
-        $insert->free();
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $result;
-        }
-
-        /* Keep the image_id */
-        $this->id = $image_id;
+        /* New image, need to save the image files */
+        $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->saveImage($this);
 
         /* The EXIF functions require a stream, so we need to save before we read */
         $this->_writeData();
@@ -485,27 +527,32 @@ class Ansel_Image
 
         /* Save the tags */
         if (count($this->_tags)) {
-            $result = $this->setTags($this->_tags);
-            if (is_a($result, 'PEAR_Error')) {
+            try {
+                $this->setTags($this->_tags);
+            } catch (Exception $e) {
                 // Since we got this far, the image has been added, so
                 // just log the tag failure.
-                Horde::logMessage($result, __LINE__, __FILE__, PEAR_LOG_ERR);
+                Horde::logMessage($e, 'ERR');
             }
         }
 
         /* Save again if EXIF changed any values */
         if (!empty($needUpdate)) {
-            $this->save();
+            $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->saveImage($this);
         }
 
         return $this->id;
     }
 
-   /**
-    * Replace this image's image data.
-    *
-    */
-    function replace($imageData)
+    /**
+     * Replace this image's image data.
+     *
+     * @param array $imageData  An array of image data, the same keys as Const'r
+     *
+     * @return void
+     * @throws Ansel_Exception
+     */
+    public function replace($imageData)
     {
         /* Reset the data array and remove all cached images */
         $this->_data = array();
@@ -513,25 +560,24 @@ class Ansel_Image
 
         /* Remove attributes */
         $result = $GLOBALS['ansel_db']->exec('DELETE FROM ansel_image_attributes WHERE image_id = ' . (int)$this->id);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERROR);
-            return $result;
+        if ($result instanceof PEAR_Error) {
+            throw new Ansel_Exception($result);
         }
+
         /* Load the new image data */
         $this->_getEXIF();
         $this->updateData($imageData);
-
-        return true;
     }
 
     /**
-     * Adds specified EXIF fields to this image's tags. Called during image
-     * upload/creation.
+     * Adds specified EXIF fields to this image's tags.
+     * Called during image upload/creation.
      *
      * @param array $fields  An array of EXIF fields to import as a tag.
      *
+     * @return void
      */
-    function _exifToTags($fields = array())
+    protected function _exifToTags($fields = array())
     {
         $tags = array();
         foreach ($fields as $field) {
@@ -551,30 +597,40 @@ class Ansel_Image
     }
 
     /**
-     * Reads the EXIF data from the image and stores in _exif array() as well
-     * also populates any local properties that come from the EXIF data.
+     * Reads the EXIF data from the image, caches in the object and writes to
+     * storage. Also populates any local properties that come from the EXIF
+     * data.
      *
-     * @return mixed  true if any local properties were modified, false otherwise, PEAR_Error on failure
+     * @return boolean  True if any local properties were modified, False if not.
+     * @throws Ansel_Exception
      */
-    function _getEXIF()
+    protected function _getEXIF()
     {
         /* Clear the local copy */
         $this->_exif = array();
 
         /* Get the data */
-        $imageFile = $GLOBALS['ansel_vfs']->readFile($this->getVFSPath('full'),
-                                                     $this->getVFSName('full'));
-        if (is_a($imageFile, 'PEAR_Error')) {
-            return $imageFile;
+        try {
+            $imageFile = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->readFile(
+                $this->getVFSPath('full'), $this->getVFSName('full'));
+        } catch (VFS_Exception $e) {
+            throw new Ansel_Exception($e);
         }
         $exif = Horde_Image_Exif::factory($GLOBALS['conf']['exif']['driver'], !empty($GLOBALS['conf']['exif']['params']) ? $GLOBALS['conf']['exif']['params'] : array());
-        $exif_fields = $exif->getData($imageFile);
+
+        try {
+            $exif_fields = $exif->getData($imageFile);
+        } catch (Horde_Image_Exception $e) {
+            // Log the error, but it's not the end of the world, so just ignore
+            Horde::logMessage($e, 'ERR');
+            $exif_fields = array();
+            return false;
+        }
 
         /* Flag to determine if we need to resave the image data */
         $needUpdate = false;
 
-        /* Populate any local properties that come from EXIF
-         * Save any geo data to a seperate table as well */
+        /* Populate any local properties that come from EXIF */
         if (!empty($exif_fields['GPSLatitude'])) {
             $this->lat = $exif_fields['GPSLatitude'];
             $this->lng = $exif_fields['GPSLongitude'];
@@ -598,17 +654,10 @@ class Ansel_Image
         $this->_autoRotate();
 
         /* Save attributes. */
-        $insert = $GLOBALS['ansel_db']->prepare('INSERT INTO ansel_image_attributes (image_id, attr_name, attr_value) VALUES (?, ?, ?)');
         foreach ($exif_fields as $name => $value) {
-            $result = $insert->execute(array($this->id, $name, Horde_String::convertCharset($value, Horde_Nls::getCharset(), $GLOBALS['conf']['sql']['charset'])));
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
-            /* Cache it locally */
+            $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->saveImageAttribute($this->id, $name, $value);
             $this->_exif[$name] = Horde_Image_Exif::getHumanReadable($name, $value);
         }
-        $insert->free();
-
 
         return $needUpdate;
     }
@@ -617,13 +666,14 @@ class Ansel_Image
      * Autorotate based on EXIF orientation field. Updates the data in memory
      * only.
      *
+     * @return void
      */
-    function _autoRotate()
+    protected function _autoRotate()
     {
         if (isset($this->_exif['Orientation']) && $this->_exif['Orientation'] != 1) {
             switch ($this->_exif['Orientation']) {
             case 2:
-                 $this->mirror();
+                $this->mirror();
                 break;
 
             case 3:
@@ -664,8 +714,10 @@ class Ansel_Image
 
     /**
      * Reset the image, removing all loaded views.
+     *
+     * @return void
      */
-    function reset()
+    public function reset()
     {
         $this->_image->reset();
         $this->_loaded = array();
@@ -678,53 +730,52 @@ class Ansel_Image
      *
      * @param string $view  Which cache file to delete.
      */
-    function deleteCache($view = 'all')
+    public function deleteCache($view = 'all')
     {
-        /* Delete cached screen image. */
-        if ($view == 'all' || $view == 'screen') {
-            $GLOBALS['ansel_vfs']->deleteFile($this->getVFSPath('screen'),
-                                              $this->getVFSName('screen'));
-        }
+        /* Catch exceptions from VFS */
+        try {
+            /* Delete cached screen image. (We don't care if the file is not found) */
+            if ($view == 'all' || $view == 'screen') {
+                $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->deleteFile(
+                    $this->getVFSPath('screen'), $this->getVFSName('screen'));
+            }
 
-        /* Delete cached thumbnail. */
-        if ($view == 'all' || $view == 'thumb') {
-            $GLOBALS['ansel_vfs']->deleteFile($this->getVFSPath('thumb'),
-                                              $this->getVFSName('thumb'));
-        }
+            /* Delete cached thumbnail. */
+            if ($view == 'all' || $view == 'thumb') {
+                $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->deleteFile(
+                    $this->getVFSPath('thumb'), $this->getVFSName('thumb'));
+            }
 
-        /* Delete cached mini image. */
-        if ($view == 'all' || $view == 'mini') {
-            $GLOBALS['ansel_vfs']->deleteFile($this->getVFSPath('mini'),
-                                              $this->getVFSName('mini'));
-        }
+            /* Delete cached mini image. */
+            if ($view == 'all' || $view == 'mini') {
+                $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->deleteFile(
+                    $this->getVFSPath('mini'), $this->getVFSName('mini'));
+            }
 
-        if ($view == 'all' || $view == 'prettythumb') {
-
-            /* No need to try to delete a hash we already removed */
-            $deleted = array();
-
-            /* Need to generate hashes for each possible style */
-            $styles = Horde::loadConfiguration('styles.php', 'styles', 'ansel');
-            foreach ($styles as $style) {
-                $hash =  md5($style['thumbstyle'] . '.' . $style['background']);
-                if (empty($deleted[$hash])) {
-                    $GLOBALS['ansel_vfs']->deleteFile($this->getVFSPath($hash),
-                                                      $this->getVFSName($hash));
-                    $deleted[$hash] = true;
+            if ($view == 'all' || $view == 'prettythumb') {
+                $styles = Horde::loadConfiguration('styles.php', 'styles', 'ansel');
+                $hashes = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getHashes();
+                foreach ($hashes as $hash)
+                {
+                    $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')
+                        ->create('images')
+                        ->deleteFile($this->getVFSPath($hash), $this->getVFSName($hash));
                 }
             }
-        }
+        } catch (VFS_Exception $e) {}
     }
 
     /**
      * Returns the raw data for the given view.
      *
      * @param string $view  Which view to return.
+     *
+     * @return string  The raw binary image data
      */
-    function raw($view = 'full')
+    public function raw($view = 'full')
     {
         if ($this->_dirty) {
-          return $this->_image->raw();
+            return $this->_image->raw();
         } else {
             $this->load($view);
             return $this->_data[$view];
@@ -735,8 +786,10 @@ class Ansel_Image
      * Sends the correct HTTP headers to the browser to download this image.
      *
      * @param string $view  The view to download.
+     *
+     * @return void
      */
-    function downloadHeaders($view = 'full')
+    public function downloadHeaders($view = 'full')
     {
         global $browser, $conf;
 
@@ -753,36 +806,34 @@ class Ansel_Image
     /**
      * Display the requested view.
      *
-     * @param string $view   Which view to display.
-     * @param string $style  Force use of this gallery style.
+     * @param string $view        Which view to display.
+     * @param Ansel_Style $style  Force use of this gallery style.
+     *
+     * @return void
+     * @throws Horde_Exception_PermissionDenied, Ansel_Exception
      */
-    function display($view = 'full', $style = null)
+    public function display($view = 'full', $style = null)
     {
         if ($view == 'full' && !$this->_dirty) {
-
             // Check full photo permissions
-            $gallery = $GLOBALS['ansel_storage']->getGallery($this->gallery);
-            if (is_a($gallery, 'PEAR_Error')) {
-                return $gallery;
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($this->gallery);
+            if ($gallery instanceof PEAR_Error) {
+                throw new Ansel_Exception($gallery);
             }
             if (!$gallery->canDownload()) {
-                return PEAR::RaiseError(sprintf(_("Access denied downloading photos from \"%s\"."), $gallery->get('name')));
+                throw Horde_Exception_PermissionDenied(sprintf(_("Access denied downloading photos from \"%s\"."), $gallery->get('name')));
             }
 
-            $data = $GLOBALS['ansel_vfs']->read($this->getVFSPath('full'),
-                                                $this->getVFSName('full'));
-
-            if (is_a($data, 'PEAR_Error')) {
-                return $data;
+            try {
+                $data = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->read(
+                    $this->getVFSPath('full'), $this->getVFSName('full'));
+            } catch (VFS_Exception $e) {
+                throw new Ansel_Exception($e);
             }
             echo $data;
-            return;
-        }
-        try {
+        } else {
             $this->load($view, $style);
             $this->_image->display();
-        } catch (Horde_Exception $e) {
-            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
         }
     }
 
@@ -790,93 +841,151 @@ class Ansel_Image
      * Wraps the given view into a file.
      *
      * @param string $view  Which view to wrap up.
+     *
+     * @return void
+     * @throws Ansel_Exception
      */
-    function toFile($view = 'full')
+    public function toFile($view = 'full')
     {
         try {
             $this->load($view);
             return $this->_image->toFile($this->_dirty ? false : $this->_data[$view]);
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
+            throw new Ansel_Exception($e);
         }
     }
 
     /**
      * Returns the dimensions of the given view.
      *
-     * @param string $view  The view (size) to check dimensions for.
+     * @param string $view  The view (full, screen etc..) to get dimensions for
+     *
+     * @return array  A hash of 'width and 'height' dimensions.
+     * @throws Ansel_Exception
      */
-    function getDimensions($view = 'full')
+    public function getDimensions($view = 'full')
     {
         try {
             $this->load($view);
             return $this->_image->getDimensions();
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e->getMessage(), __FILE__, __LINE__);
+            Horde::logMessage($e, 'INFO');
+            throw new Ansel_Exception($e);
         }
     }
 
     /**
      * Rotates the image.
      *
-     * @param string $view The view (size) to work with.
+     * @param string $view    The view (size) to work with.
      * @param integer $angle  What angle to rotate the image by.
+     *
+     * @return void
      */
-    function rotate($view = 'full', $angle)
+    public function rotate($view = 'full', $angle)
     {
         $this->load($view);
         $this->_dirty = true;
         $this->_image->rotate($angle);
     }
 
-    function crop($x1, $y1, $x2, $y2)
+    /**
+     * Crop this image to desired dimensions. Crops the currently loaded
+     * view present in the Horde_Image object.
+     *
+     * @see Horde_Image_Base::crop for explanation of parameters
+     *
+     * @param integer $x1
+     * @param integer $y1
+     * @param integer $x2
+     * @param integer $y2
+     *
+     * @return void
+     * @throws Ansel_Exception
+     */
+    public function crop($x1, $y1, $x2, $y2)
     {
         $this->_dirty = true;
-        $this->_image->crop($x1, $y1, $x2, $y2);
+        try {
+            $this->_image->crop($x1, $y1, $x2, $y2);
+        } catch (Horde_Image_Exception $e) {
+            throw new Ansel_Exception($e);
+        }
+    }
+
+    /**
+     * Resize the current image.
+     *
+     * @param integer $width        The new width.
+     * @param integer $height       The new height.
+     * @param boolean $ratio        Maintain original aspect ratio.
+     * @param boolean $keepProfile  Keep the image meta data.
+     *
+     * @return void
+     * @throws Ansel_Exception
+     */
+    public function resize($width, $height, $ratio = true, $keepProfile = false)
+    {
+        try {
+            $this->_image->resize($width, $height, $ratio, $keepProfile);
+        } catch (Horde_Image_Exception $e) {
+            throw new Ansel_Exception($e);
+        }
     }
 
     /**
      * Converts the image to grayscale.
      *
-     * @param string $view The view (size) to work with.
+     * @param string $view The view (screen, full, etc...) to work with.
+     *
+     * @return void
+     * @throws Ansel_Exception
      */
-    function grayscale($view = 'full')
+    public function grayscale($view = 'full')
     {
         $this->load($view);
         $this->_dirty = true;
-        $this->_image->grayscale();
+        try {
+            $this->_image->grayscale();
+        } catch (Horde_Image_Exception $e) {
+            throw new Ansel_Exception($e);
+        }
     }
 
     /**
      * Watermarks the image.
      *
-     * @param string $view The view (size) to work with.
+     * @param string $view       The view (size) to work with.
      * @param string $watermark  String to use as the watermark.
+     * @param string $halign     Horizontal alignment (Left, Right, Center)
+     * @param string $valign     Vertical alignment (Top, Center, Bottom)
+     * @param string $font       The font to use (not all image drivers will
+     *                           support this).
+     *
+     * @return void
+     * @throws Ansel_Exception
      */
-    function watermark($view = 'full', $watermark = null, $halign = null,
-                       $valign = null, $font = null)
+    public function watermark($view = 'full', $watermark = null, $halign = null,
+            $valign = null, $font = null)
     {
         if (empty($watermark)) {
             $watermark = $GLOBALS['prefs']->getValue('watermark_text');
         }
-
         if (empty($halign)) {
             $halign = $GLOBALS['prefs']->getValue('watermark_horizontal');
         }
-
         if (empty($valign)) {
             $valign = $GLOBALS['prefs']->getValue('watermark_vertical');
         }
-
         if (empty($font)) {
             $font = $GLOBALS['prefs']->getValue('watermark_font');
         }
-
         if (empty($watermark)) {
-            $identity = Horde_Prefs_Identity::singleton();
+            $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
             $name = $identity->getValue('fullname');
             if (empty($name)) {
-                $name = Horde_Auth::getAuth();
+                $name = $GLOBALS['registry']->getAuth();
             }
             $watermark = sprintf(_("(c) %s %s"), date('Y'), $name);
         }
@@ -890,60 +999,105 @@ class Ansel_Image
         if (!empty($GLOBALS['conf']['image']['font'])) {
             $params['font'] = $GLOBALS['conf']['image']['font'];
         }
-        $this->_image->addEffect('TextWatermark', $params);
+
+        try {
+            $this->_image->addEffect('TextWatermark', $params);
+        } catch (Horde_Image_Exception $e) {
+            throw new Ansel_Exception($e);
+        }
     }
 
     /**
      * Flips the image.
      *
-     * @param string $view The view (size) to work with.
+     * @param string $view The view to work with.
+     *
+     * @return void
+     * @throws Ansel_Exception
      */
-    function flip($view = 'full')
+    public function flip($view = 'full')
     {
         $this->load($view);
         $this->_dirty = true;
-        $this->_image->flip();
+
+        try {
+            $this->_image->flip();
+        } catch (Horde_Image_Exception $e) {
+            throw new Ansel_Exception($e);
+        }
     }
 
     /**
      * Mirrors the image.
      *
      * @param string $view The view (size) to work with.
+     *
+     * @return void
+     * @throws Ansel_Exception
      */
-    function mirror($view = 'full')
+    public function mirror($view = 'full')
     {
         $this->load($view);
         $this->_dirty = true;
-        $this->_image->mirror();
+        try {
+            $this->_image->mirror();
+        } catch (Horde_Image_Exception $e) {
+            throw new Ansel_Exception($e);
+        }
+    }
+
+    /**
+     * Add an effect to the effect stack
+     *
+     * @param string $type    The effect to add.
+     * @param array  $params  The effect parameters.
+     *
+     * @return void
+     * @throws Ansel_Exception
+     */
+    public function addEffect($type, $params = array())
+    {
+        try {
+            $this->_image->addEffect($type, $params);
+        } catch (Horde_Image_Exception $e) {
+            Horde::logMessage($e, 'ERR');
+            throw new Ansel_Exception($e);
+        }
+    }
+
+    /**
+     * Apply any pending effects to the underlaying Horde_Image
+     *
+     * @return void
+     * @throws Ansel_Exception
+     */
+    public function applyEffects()
+    {
+        try {
+            $this->_image->applyEffects();
+        } catch (Horde_Image_Exception $e) {
+            throw new Ansel_Exception($e);
+        }
     }
 
     /**
      * Returns this image's tags.
      *
-     * @return mixed  An array of tags | PEAR_Error
      * @see Ansel_Tags::readTags()
+     *
+     * @return array An array of tags
+     * @throws Horde_Exception_PermissionDenied, Ansel_Exception
      */
-    function getTags()
+    public function getTags()
     {
-        global $ansel_storage;
-
         if (count($this->_tags)) {
             return $this->_tags;
         }
-        $gallery = $ansel_storage->getGallery($this->gallery);
-        if (is_a($gallery, 'PEAR_Error')) {
-            return $gallery;
-        }
-        if ($gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
-            $res = Ansel_Tags::readTags($this->id);
-            if (!is_a($res, 'PEAR_Error')) {
-                $this->_tags = $res;
-                return $this->_tags;
-            } else {
-                return $res;
-            }
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($this->gallery);
+        if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
+            return $GLOBALS['injector']->getInstance('Ansel_Tagger')->getTags($this->id, 'image');
         } else {
-            return PEAR::raiseError(_("Access denied viewing this photo."));
+            throw new Horde_Exception_PermissionDenied(_("Access denied viewing this photo."));
         }
     }
 
@@ -951,18 +1105,19 @@ class Ansel_Image
      * Set/replace this image's tags.
      *
      * @param array $tags  An array of tag names to associate with this image.
+     *
+     * @return void
+     * @throws Horde_Exception_PermissionDenied
      */
-    function setTags($tags)
+    public function setTags($tags)
     {
-        global $ansel_storage;
-
-        $gallery = $ansel_storage->getGallery(abs($this->gallery));
-        if ($gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery(abs($this->gallery));
+        if ($gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             // Clear the local cache.
             $this->_tags = array();
-            return Ansel_Tags::writeTags($this->id, $tags);
+            $GLOBALS['injector']->getInstance('Ansel_Tagger')->tag((string)$this->id, $tags, $gallery->get('owner'), 'image');
         } else {
-            return PEAR::raiseError(_("Access denied adding tags to this photo."));
+            throw new Horde_Exception_PermissionDenied(_("Access denied adding tags to this photo."));
         }
     }
 
@@ -970,19 +1125,18 @@ class Ansel_Image
      * Get the Ansel_View_Image_Thumb object
      *
      * @param Ansel_Gallery $parent  The parent Ansel_Gallery object.
-     * @param string $style          A named gallery style to use.
-     * @param boolean $mini          Force the use of a mini thumbnail?
-     * @param array $params          Any additional parameters the Ansel_Tile
+     * @param Ansel_Style   $style   A gallery definition to use.
+     * @param boolean       $mini    Force the use of a mini thumbnail?
+     * @param array         $params  Any additional parameters the Ansel_Tile
      *                               object may need.
      *
+     * @return string  HTML for this image's view tile.
+     *
      */
-    function getTile($parent = null, $style = null, $mini = false,
-                     $params = array())
+    public function getTile($parent = null, $style = null, $mini = false, $params = array())
     {
         if (!is_null($parent) && is_null($style)) {
             $style = $parent->getStyle();
-        } else {
-            $style = Ansel::getStyleDefinition($style);
         }
 
         return Ansel_Tile_Image::getTile($this, $style, $mini, $params);
@@ -990,11 +1144,13 @@ class Ansel_Image
 
     /**
      * Get the image type for the requested view.
+     *
+     * @return string  The requested view's mime type
      */
-    function getType($view = 'full')
+    public function getType($view = 'full')
     {
         if ($view == 'full') {
-           return $this->type;
+            return $this->type;
         } elseif ($view == 'screen') {
             return 'image/jpg';
         } else {
@@ -1005,67 +1161,198 @@ class Ansel_Image
     /**
      * Return a hash key for the given view and style.
      *
-     * @param string $view   The view (thumb, prettythumb etc...)
-     * @param string $style  The named style.
+     * @param string $view        The view (thumb, prettythumb etc...)
+     * @param Ansel_Style $style  The style.
      *
      * @return string  A md5 hash suitable for use as a key.
      */
-    function getViewHash($view, $style = null)
+    public function getViewHash($view, $style = null)
     {
-        global $ansel_storage;
-
         // These views do not care about style...just return the $view value.
-        if ($view == 'screen' || $view == 'thumb' || $view == 'mini' ||
-            $view == 'full') {
-
+        if ($view == 'screen' || $view == 'thumb' || $view == 'mini' || $view == 'full') {
             return $view;
         }
 
         if (is_null($style)) {
-            $gallery = $ansel_storage->getGallery(abs($this->gallery));
-            if (is_a($gallery, 'PEAR_Error')) {
-                return $gallery;
-            }
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery(abs($this->gallery));
             $style = $gallery->getStyle();
-        } else {
-            $style = Ansel::getStyleDefinition($style);
         }
-       $view = md5($style['thumbstyle'] . '.' . $style['background']);
+        $view = md5($style->thumbstyle . '.' . $style->background);
 
-       return $view;
+        return $view;
     }
 
     /**
      * Get the image attributes from the backend.
      *
-     * @param Ansel_Image $image  The image to retrieve attributes for.
-     *                            attributes for.
      * @param boolean $format     Format the EXIF data. If false, the raw data
      *                            is returned.
      *
      * @return array  The EXIF data.
-     * @static
      */
-    function getAttributes($format = false)
+    public function getAttributes($format = false)
     {
-        $attributes = $GLOBALS['ansel_storage']->getImageAttributes($this->id);
-        $fields = Horde_Image_Exif::getFields();
+        $attributes = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImageAttributes($this->id);
+        $exif = Horde_Image_Exif::factory($GLOBALS['conf']['exif']['driver'], !empty($GLOBALS['conf']['exif']['params']) ? $GLOBALS['conf']['exif']['params'] : array());
+        $fields = Horde_Image_Exif::getFields($exif);
         $output = array();
 
         foreach ($fields as $field => $data) {
             if (!isset($attributes[$field])) {
                 continue;
             }
-            $value = Horde_Image_Exif::getHumanReadable($field, Horde_String::convertCharset($attributes[$field], $GLOBALS['conf']['sql']['charset']));
+            $value = Horde_Image_Exif::getHumanReadable($field, Horde_String::convertCharset($attributes[$field], $GLOBALS['conf']['sql']['charset'], 'UTF-8'));
             if (!$format) {
                 $output[$field] = $value;
             } else {
                 $description = isset($data['description']) ? $data['description'] : $field;
-                $output[] = '<td><strong>' . $description . '</strong></td><td>' . htmlspecialchars($value, ENT_COMPAT, Horde_Nls::getCharset()) . '</td>';
+                $output[] = '<td><strong>' . $description . '</strong></td><td>' . htmlspecialchars($value) . '</td>';
             }
         }
 
         return $output;
+    }
+
+    /**
+     * Indicates if this image represents a multipage image.
+     *
+     * @return boolean
+     * @throws Ansel_Exception
+     */
+    public function isMultiPage()
+    {
+        $this->load();
+        try {
+            return $this->_image->getImagePageCount() > 1;
+        } catch (Horde_Image_Exception $e) {
+            throw new Ansel_Exception($e);
+        }
+    }
+
+    /**
+     * Get the number of pages that a multipage image contains.
+     *
+     * @return integer  The number of pages.
+     * @throws Ansel_Exception
+     */
+    public function getImagePageCount()
+    {
+        if (empty($this->_loaded['full'])) {
+            $this->load();
+        }
+
+        try {
+            return $this->_image->getImagePageCount();
+        } catch (Horde_Image_Exception $e) {
+            throw new Ansel_Exception($e);
+        }
+    }
+
+    /**
+     * Reset the iterator to the first image in the set.
+     *
+     * @return void
+     * @throws Ansel_Exception
+     */
+    public function rewind()
+    {
+        if (empty($this->_loaded['full'])) {
+            $this->load();
+        }
+        try {
+            $this->_image->rewind();
+        } catch (Horde_Image_Exception $e) {
+            throw new Ansel_Exception($e);
+        }
+    }
+
+    /**
+     * Return the current image from the internal iterator.
+     *
+     * @return Ansel_Image
+     */
+    public function current()
+    {
+        if (empty($this->_loaded['full'])) {
+            $this->load();
+        }
+        try {
+            return $this->_buildImageObject($this->_image->current());
+        } catch (Horde_Image_Exception $e) {
+            throw new Ansel_Exception($e);
+        }
+    }
+
+    /**
+     * Get the index of the internal iterator.
+     *
+     * @return integer
+     * @throws Ansel_Exception
+     */
+    public function key()
+    {
+        if (empty($this->_loaded['full'])) {
+            $this->load();
+        }
+        try {
+            return $this->_image->key();
+        } catch (Horde_Image_Exception $e) {
+            throw new Ansel_Exception($e);
+        }
+    }
+
+    /**
+     * Advance the iterator
+     *
+     * @return mixed Ansel_Image or false if not valid()
+     */
+    public function next()
+    {
+        if (empty($this->_loaded['full'])) {
+            $this->load();
+        }
+        if ($next = $this->_image->next()) {
+            return $this->_buildImageObject($next);
+        }
+
+        return false;
+    }
+
+    /**
+     * Deterimines if the current iterator item is valid.
+     *
+     * @return boolean
+     * @throws Ansel_Exception
+     */
+    public function valid()
+    {
+        if (empty($this->_loaded['full'])) {
+            $this->load();
+        }
+        try {
+            return $this->_image->valid();
+        } catch (Horde_Image_Exception $e) {
+            throw new Ansel_Exception($e);
+        }
+    }
+
+    /**
+     * Build an Ansel_Image from a given Horde_Image.
+     * Used to wrap iterating the Horde_Image
+     *
+     * @param Horde_Image_Base $image  The Horde_Image
+     *
+     * @return Ansel_Image
+     */
+    protected function _buildImageObject(Horde_Image_Base $image)
+    {
+        $params = array(
+                'image_filename' => $this->filename,
+                'data' => $image->raw(),
+        );
+        $newImage = new Ansel_Image($params);
+
+        return $newImage;
     }
 
 }

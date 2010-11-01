@@ -8,7 +8,7 @@ class Horde_Date_Repeater_Month extends Horde_Date_Repeater
 
     public $currentMonthStart;
 
-    public function next($pointer)
+    public function next($pointer = 'future')
     {
         parent::next($pointer);
 

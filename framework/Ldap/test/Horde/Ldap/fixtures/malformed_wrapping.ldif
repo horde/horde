@@ -1,0 +1,24 @@
+#
+# This is a LDIF file to test wrapping failure
+#
+
+# wrong wrapping (entry must fail because DN is damaged):
+# (note, that there must eb an empty line below this comment, otherwise
+# the DN line is treaten as wrapped comment)
+
+ dn: cn=test1,ou=example,dc=cno
+objectclass: oc1
+cn: test1
+
+# wrong syntax (literal line but no wrapped content)
+dn: cn=test2,ou=example,dc=cno
+objectclass:oc1
+cn: test2
+some_wrong_literal_line
+attr3: foo
+
+# entry ok
+version: 1
+dn: cn=test,ou=example,dc=cno
+objectclass: oc1
+cn: test

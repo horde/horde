@@ -5,35 +5,61 @@
  * This configuration file is used by Horde to determine which Horde
  * applications are installed and where, as well as how they interact.
  *
+ * General Configuration Information
+ * ---------------------------------
+ * The __FILE__ constant used below is the filsystem path to the current file.
+ * dirname() strips off the filename and turns it into just a directory.
+ * By default, locations are relative to this configuration file - which is
+ * almost always what is desired.
+ *
+ * _() is an alias for gettext(), which translates the string into other
+ * languages.
+ *
  * Application registry
  * --------------------
  * The following settings register installed Horde applications.
  * By default, Horde assumes that the application directories live
  * inside the horde directory.
  *
- * Attribute     Type     Description
- * ---------     ----     -----------
- * fileroot      string   The base filesystem path for the module's files.
- * webroot       string   The base URI for the module.
- * jsuri         string   The base URI for static javascript files.
- * jsfs          string   The base filesystem path for static javascript files.
- * themesuri     string   The base URI for the themes. This can be used to
- *                        serve all icons and style sheets from a separate
- *                        server.
- * themesfs      string   The base file system directory for the themes.
- * icon          string   The URI for an icon to show in menus for the module.
- *                        Setting this will override the default theme-based
- *                        logic in the code.
- * name          string   The name used in menus and descriptions for a module
- * status        string   'inactive', 'hidden', 'notoolbar', 'heading',
- *                        'block', 'admin', or 'active'.
- * provides      string   Service types the module provides.
- * initial_page  string   The initial (default) page (filename) for the module.
- * templates     string   The filesystem path to the templates directory.
- * menu_parent   string   The name of the 'heading' group that this app should
- *                        show up under.
- * target        string   The (optional) target frame for the link.
- * url           string   The (optional) URL of 'heading' entries.
+ * fileroot: (string) The base filesystem path for the module's files.
+ * name: (string) The human-readable name used in menus and descriptions for
+ *       a module.
+ * initial_page: (string) The initial (default) page (filename) for the
+ *               module.
+ * menu_parent: (string) The name of the 'heading' group that this app should
+ *              show up under. This can be left out or set to null for
+ *              top-level items.
+ * status: (string) One of the following:
+ *         'active'
+ *         'admin'
+ *         'heading'
+ *         'hidden'
+ *         'inactive'
+ *         'notoolbar'
+ *         'sidebar'
+ * webroot: (string) The base URI path for the module.
+ *          Usually the default should be fine (applications will occur one
+ *          level below the horde directory). However, this setting is useful
+ *          if you want to give an application its own domain.
+ *
+ * Settings that probably should not be changed from the defaults unless you
+ * REALLY know what you are doing:
+ *
+ * icon: (string) The URI for an icon to show in menus for the module.
+ *                Setting this will override the default theme-based logic in
+ *                the code.
+ * jsfs: (string) The base filesystem path for static javascript files.
+ * jsuri: (string) The base URI for static javascript files.
+ * provides: (mixed) Service types the module provides.
+ * sidebar_prefs: (array) Additional params to pass to the sidebar generation
+                  function.
+ * target: (string) The target frame for the link.
+ * templates: (string) The filesystem path to the templates directory.
+ * themesfs: (string) The base file system directory for the themes.
+ * themesuri: (string) The base URI for the themes. This can be used to serve
+ *            all icons and style sheets from a separate server.
+ * url: (string) The URL of 'heading' entries.
+ *
  *
  * $Id$
  */
@@ -46,7 +72,7 @@
 $this->applications['horde'] = array(
     'fileroot' => dirname(__FILE__) . '/..',
     'webroot' => _detect_webroot(),
-    'initial_page' => 'index.php',
+    'initial_page' => 'services/portal/index.php',
     'name' => _("Horde"),
     'status' => 'active',
     'templates' => dirname(__FILE__) . '/../templates',
@@ -54,7 +80,7 @@ $this->applications['horde'] = array(
 );
 
 $this->applications['imp'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../imp',
+    'fileroot' => $this->applications['horde']['fileroot'] . '/imp',
     'webroot' => $this->applications['horde']['webroot'] . '/imp',
     'name' => _("Mail"),
     'status' => 'active',
@@ -62,7 +88,7 @@ $this->applications['imp'] = array(
 );
 
 $this->applications['ingo'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../ingo',
+    'fileroot' => $this->applications['horde']['fileroot'] . '/ingo',
     'webroot' => $this->applications['horde']['webroot'] . '/ingo',
     'name' => _("Filters"),
     'status' => 'active',
@@ -71,7 +97,7 @@ $this->applications['ingo'] = array(
 );
 
 $this->applications['sam'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../sam',
+    'fileroot' => $this->applications['horde']['fileroot'] . '/sam',
     'webroot' => $this->applications['horde']['webroot'] . '/sam',
     'name' => _("Spam"),
     'status' => 'active',
@@ -82,7 +108,7 @@ $this->applications['sam'] = array(
 );
 
 $this->applications['forwards'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../forwards',
+    'fileroot' => $this->applications['horde']['fileroot'] . '/forwards',
     'webroot' => $this->applications['horde']['webroot'] . '/forwards',
     'name' => _("Forwards"),
     'status' => 'active',
@@ -91,7 +117,7 @@ $this->applications['forwards'] = array(
 );
 
 $this->applications['vacation'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../vacation',
+    'fileroot' => $this->applications['horde']['fileroot'] . '/vacation',
     'webroot' => $this->applications['horde']['webroot'] . '/vacation',
     'name' => _("Vacation"),
     'status' => 'active',
@@ -99,10 +125,9 @@ $this->applications['vacation'] = array(
     'menu_parent' => 'imp'
 );
 
-$this->applications['imp-folders'] = array(
-    'status' => 'block',
+$this->applications['imp-menu'] = array(
+    'status' => 'sidebar',
     'app' => 'imp',
-    'blockname' => 'tree_folders',
     'menu_parent' => 'imp',
 );
 
@@ -112,7 +137,7 @@ $this->applications['organizing'] = array(
 );
 
 $this->applications['turba'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../turba',
+    'fileroot' => $this->applications['horde']['fileroot'] . '/turba',
     'webroot' => $this->applications['horde']['webroot'] . '/turba',
     'name' => _("Address Book"),
     'status' => 'active',
@@ -121,14 +146,13 @@ $this->applications['turba'] = array(
 );
 
 $this->applications['turba-menu'] = array(
-    'status' => 'block',
+    'status' => 'sidebar',
     'app' => 'turba',
-    'blockname' => 'tree_menu',
     'menu_parent' => 'turba',
 );
 
 $this->applications['kronolith'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../kronolith',
+    'fileroot' => $this->applications['horde']['fileroot'] . '/kronolith',
     'webroot' => $this->applications['horde']['webroot'] . '/kronolith',
     'name' => _("Calendar"),
     'status' => 'active',
@@ -137,21 +161,25 @@ $this->applications['kronolith'] = array(
 );
 
 $this->applications['kronolith-alarms'] = array(
-    'status' => 'block',
+    'status' => 'sidebar',
     'app' => 'kronolith',
-    'blockname' => 'tree_alarms',
+    'sidebar_params' => array(
+        'id' => 'alarms'
+    ),
     'menu_parent' => 'kronolith',
 );
 
 $this->applications['kronolith-menu'] = array(
-    'status' => 'block',
+    'status' => 'sidebar',
     'app' => 'kronolith',
-    'blockname' => 'tree_menu',
+    'sidebar_params' => array(
+        'id' => 'menu'
+    ),
     'menu_parent' => 'kronolith',
 );
 
 $this->applications['nag'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../nag',
+    'fileroot' => $this->applications['horde']['fileroot'] . '/nag',
     'webroot' => $this->applications['horde']['webroot'] . '/nag',
     'name' => _("Tasks"),
     'status' => 'active',
@@ -160,21 +188,25 @@ $this->applications['nag'] = array(
 );
 
 $this->applications['nag-alarms'] = array(
-    'status' => 'block',
+    'status' => 'sidebar',
     'app' => 'nag',
-    'blockname' => 'tree_alarms',
+    'sidebar_params' => array(
+        'id' => 'alarms'
+    ),
     'menu_parent' => 'nag',
 );
 
 $this->applications['nag-menu'] = array(
-    'status' => 'block',
+    'status' => 'sidebar',
     'app' => 'nag',
-    'blockname' => 'tree_menu',
+    'sidebar_params' => array(
+        'id' => 'menu'
+    ),
     'menu_parent' => 'nag',
 );
 
 $this->applications['mnemo'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../mnemo',
+    'fileroot' => $this->applications['horde']['fileroot'] . '/mnemo',
     'webroot' => $this->applications['horde']['webroot'] . '/mnemo',
     'name' => _("Notes"),
     'status' => 'active',
@@ -183,23 +215,13 @@ $this->applications['mnemo'] = array(
 );
 
 $this->applications['mnemo-menu'] = array(
-    'status' => 'block',
+    'status' => 'sidebar',
     'app' => 'mnemo',
-    'blockname' => 'tree_menu',
     'menu_parent' => 'mnemo',
 );
 
-$this->applications['genie'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../genie',
-    'webroot' => $this->applications['horde']['webroot'] . '/genie',
-    'name' => _("Wishlist"),
-    'status' => 'active',
-    'provides' => 'wishlist',
-    'menu_parent' => 'organizing'
-);
-
 $this->applications['trean'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../trean',
+    'fileroot' => $this->applications['horde']['fileroot'] . '/trean',
     'webroot' => $this->applications['horde']['webroot'] . '/trean',
     'name' => _("Bookmarks"),
     'status' => 'active',
@@ -208,9 +230,8 @@ $this->applications['trean'] = array(
 );
 
 $this->applications['trean-menu'] = array(
-    'status' => 'block',
+    'status' => 'sidebar',
     'app' => 'trean',
-    'blockname' => 'tree_menu',
     'menu_parent' => 'trean',
 );
 
@@ -220,7 +241,7 @@ $this->applications['devel'] = array(
 );
 
 $this->applications['chora'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../chora',
+    'fileroot' => $this->applications['horde']['fileroot'] . '/chora',
     'webroot' => $this->applications['horde']['webroot'] . '/chora',
     'name' => _("Version Control"),
     'status' => 'active',
@@ -228,14 +249,13 @@ $this->applications['chora'] = array(
 );
 
 $this->applications['chora-menu'] = array(
-    'status' => 'block',
+    'status' => 'sidebar',
     'app' => 'chora',
-    'blockname' => 'tree_menu',
     'menu_parent' => 'chora',
 );
 
 $this->applications['whups'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../whups',
+    'fileroot' => $this->applications['horde']['fileroot'] . '/whups',
     'webroot' => $this->applications['horde']['webroot'] . '/whups',
     'name' => _("Tickets"),
     'status' => 'active',
@@ -244,14 +264,13 @@ $this->applications['whups'] = array(
 );
 
 $this->applications['whups-menu'] = array(
-    'status' => 'block',
+    'status' => 'sidebar',
     'app' => 'whups',
-    'blockname' => 'tree_menu',
     'menu_parent' => 'whups',
 );
 
 $this->applications['luxor'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../luxor',
+    'fileroot' => $this->applications['horde']['fileroot'] . '/luxor',
     'webroot' => $this->applications['horde']['webroot'] . '/luxor',
     'name' => _("X-Ref"),
     'status' => 'active',
@@ -263,25 +282,8 @@ $this->applications['info'] = array(
     'status' => 'heading',
 );
 
-$this->applications['klutz'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../klutz',
-    'webroot' => $this->applications['horde']['webroot'] . '/klutz',
-    'name' => _("Comics"),
-    'status' => 'active',
-    'provides' => 'comics',
-    'menu_parent' => 'info'
-);
-
-$this->applications['mottle'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../mottle',
-    'webroot' => $this->applications['horde']['webroot'] . '/mottle',
-    'name' => _("MOTD"),
-    'status' => 'active',
-    'menu_parent' => 'info'
-);
-
 $this->applications['jonah'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../jonah',
+    'fileroot' => $this->applications['horde']['fileroot'] . '/jonah',
     'webroot' => $this->applications['horde']['webroot'] . '/jonah',
     'name' => _("News"),
     'status' => 'active',
@@ -290,18 +292,9 @@ $this->applications['jonah'] = array(
 );
 
 $this->applications['jonah-menu'] = array(
-    'status' => 'block',
+    'status' => 'sidebar',
     'app' => 'jonah',
-    'blockname' => 'tree_menu',
     'menu_parent' => 'jonah',
-);
-
-$this->applications['goops'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../goops',
-    'webroot' => $this->applications['horde']['webroot'] . '/goops',
-    'name' => _("Search Engines"),
-    'status' => 'active',
-    'menu_parent' => 'info'
 );
 
 $this->applications['office'] = array(
@@ -309,36 +302,8 @@ $this->applications['office'] = array(
     'status' => 'heading',
 );
 
-$this->applications['juno'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../juno',
-    'webroot' => $this->applications['horde']['webroot'] . '/juno',
-    'name' => _("Accounting"),
-    'status' => 'active',
-    'menu_parent' => 'office'
-);
-
-$this->applications['midas'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../midas',
-    'webroot' => $this->applications['horde']['webroot'] . '/midas',
-    'name' => _("Ads"),
-    'status' => 'active',
-    'menu_parent' => 'office'
-);
-
-$this->applications['sesha'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../sesha',
-    'webroot' => $this->applications['horde']['webroot'] . '/sesha',
-    'name' => _("Inventory"),
-    'status' => 'active',
-
-    // Uncomment this line if you want Sesha to provide queue and version
-    // names instead of Whups:
-    // 'provides' => array('tickets/listQueues', 'tickets/getQueueDetails', 'tickets/listVersions', 'tickets/getVersionDetails'),
-    'menu_parent' => 'office',
-);
-
 $this->applications['hermes'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../hermes',
+    'fileroot' => $this->applications['horde']['fileroot'] . '/hermes',
     'webroot' => $this->applications['horde']['webroot'] . '/hermes',
     'name' => _("Time Tracking"),
     'status' => 'active',
@@ -347,16 +312,20 @@ $this->applications['hermes'] = array(
 );
 
 $this->applications['hermes-stopwatch'] = array(
-    'status' => 'block',
+    'status' => 'sidebar',
     'app' => 'hermes',
-    'blockname' => 'tree_stopwatch',
+    'sidebar_params' => array(
+        'id' => 'stopwatch',
+    ),
     'menu_parent' => 'hermes',
 );
 
 $this->applications['hermes-menu'] = array(
-    'status' => 'block',
+    'status' => 'sidebar',
     'app' => 'hermes',
-    'blockname' => 'tree_menu',
+    'sidebar_params' => array(
+        'id' => 'menu'
+    ),
     'menu_parent' => 'hermes',
 );
 
@@ -366,7 +335,7 @@ $this->applications['myaccount'] = array(
 );
 
 $this->applications['gollem'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../gollem',
+    'fileroot' => $this->applications['horde']['fileroot'] . '/gollem',
     'webroot' => $this->applications['horde']['webroot'] . '/gollem',
     'name' => _("File Manager"),
     'status' => 'active',
@@ -375,14 +344,13 @@ $this->applications['gollem'] = array(
 );
 
 $this->applications['gollem-menu'] = array(
-    'status' => 'block',
+    'status' => 'sidebar',
     'app' => 'gollem',
-    'blockname' => 'tree_menu',
     'menu_parent' => 'gollem',
 );
 
 $this->applications['passwd'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../passwd',
+    'fileroot' => $this->applications['horde']['fileroot'] . '/passwd',
     'webroot' => $this->applications['horde']['webroot'] . '/passwd',
     'name' => _("Password"),
     'status' => 'active',
@@ -390,7 +358,7 @@ $this->applications['passwd'] = array(
 );
 
 $this->applications['jeta'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../jeta',
+    'fileroot' => $this->applications['horde']['fileroot'] . '/jeta',
     'webroot' => $this->applications['horde']['webroot'] . '/jeta',
     'name' => _("SSH"),
     'status' => 'active',
@@ -403,7 +371,7 @@ $this->applications['website'] = array(
 );
 
 $this->applications['agora'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../agora',
+    'fileroot' => $this->applications['horde']['fileroot'] . '/agora',
     'webroot' => $this->applications['horde']['webroot'] . '/agora',
     'name' => _("Forums"),
     'status' => 'active',
@@ -411,24 +379,8 @@ $this->applications['agora'] = array(
     'menu_parent' => 'website'
 );
 
-$this->applications['ulaform'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../ulaform',
-    'webroot' => $this->applications['horde']['webroot'] . '/ulaform',
-    'name' => _("Forms"),
-    'status' => 'active',
-    'menu_parent' => 'website'
-);
-
-$this->applications['volos'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../volos',
-    'webroot' => $this->applications['horde']['webroot'] . '/volos',
-    'name' => _("Guestbook"),
-    'status' => 'active',
-    'menu_parent' => 'website'
-);
-
 $this->applications['ansel'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../ansel',
+    'fileroot' => $this->applications['horde']['fileroot'] . '/ansel',
     'webroot' => $this->applications['horde']['webroot'] . '/ansel',
     'name' => _("Photos"),
     'status' => 'active',
@@ -436,26 +388,8 @@ $this->applications['ansel'] = array(
     'menu_parent' => 'website'
 );
 
-$this->applications['scry'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../scry',
-    'webroot' => $this->applications['horde']['webroot'] . '/scry',
-    'name' => _("Polls"),
-    'status' => 'active',
-    'provides' => 'polls',
-    'menu_parent' => 'website'
-);
-
-$this->applications['merk'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../merk',
-    'webroot' => $this->applications['horde']['webroot'] . '/merk',
-    'name' => _("Shopping"),
-    'status' => 'active',
-    'provides' => 'shop',
-    'menu_parent' => 'website'
-);
-
 $this->applications['wicked'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../wicked',
+    'fileroot' => $this->applications['horde']['fileroot'] . '/wicked',
     'webroot' => $this->applications['horde']['webroot'] . '/wicked',
     'name' => _("Wiki"),
     'status' => 'active',
@@ -464,19 +398,21 @@ $this->applications['wicked'] = array(
 );
 
 $this->applications['vilma'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../vilma',
+    'fileroot' => $this->applications['horde']['fileroot'] . '/vilma',
     'webroot' => $this->applications['horde']['webroot'] . '/vilma',
     'name' => _("Mail Admin"),
     'status' => 'active',
     'menu_parent' => 'administration'
 );
 
-$this->applications['nic'] = array(
-    'fileroot' => $this->applications['horde']['fileroot'] . '/../nic',
-    'webroot' => $this->applications['horde']['webroot'] . '/nic',
-    'name' => _("Network Tools"),
-    'status' => 'active',
-    'menu_parent' => 'administration'
+$this->applications['content'] = array(
+    'fileroot' => $this->applications['horde']['fileroot'] . '/content',
+    'status' => 'hidden'
+);
+
+$this->applications['timeobjects'] = array(
+    'fileroot' => $this->applications['horde']['fileroot'] . '/timeobjects',
+    'status' => 'hidden'
 );
 
 function _detect_webroot()

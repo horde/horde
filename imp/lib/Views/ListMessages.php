@@ -7,8 +7,10 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package IMP
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
 class IMP_Views_ListMessages
 {
@@ -28,67 +30,85 @@ class IMP_Views_ListMessages
 
         /* Check for quicksearch request. */
         if (strlen($args['qsearchmbox'])) {
-            /* Create the search query. */
-            $query = new Horde_Imap_Client_Search_Query();
-
-            if (strlen($args['qsearchflag'])) {
-                $query->flag($args['qsearchflag'], empty($args['qsearchflagnot']));
+            if (strlen($args['qsearchfilter'])) {
+                $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
+                $imp_search->applyFilter($args['qsearchfilter'], array($args['qsearchmbox']), $mbox);
                 $is_search = true;
-            } elseif (strlen($args['qsearch'])) {
-                $field = $GLOBALS['prefs']->getValue('dimp_qsearch_field');
-                switch ($field) {
-                case 'body':
-                    $query->text($args['qsearch'], true);
+            } else {
+                /* Create the search query. */
+                $c_list = array();
+
+                if (strlen($args['qsearchflag'])) {
+                    $c_list[] = new IMP_Search_Element_Flag(
+                        $args['qsearchflag'],
+                        empty($args['qsearchflagnot'])
+                    );
+
+                    $is_search = true;
+                } elseif (strlen($args['qsearch'])) {
+                    $field = $GLOBALS['prefs']->getValue('dimp_qsearch_field');
+                    $is_search = true;
+
+                    switch ($field) {
+                    case 'all':
+                    case 'body':
+                        $c_list[] = new IMP_Search_Element_Text(
+                            $args['qsearch'],
+                            ($field == 'body')
+                        );
+                        break;
+
+                    case 'from':
+                    case 'subject':
+                        $c_list[] = new IMP_Search_Element_Header(
+                            $args['qsearch'],
+                            $field
+                        );
                     break;
 
-                case 'from':
-                case 'subject':
-                    $query->headerText($field, $args['qsearch']);
-                    break;
+                    case 'recip':
+                        $c_list[] = new IMP_Search_Element_Recipient(
+                            $args['qsearch']
+                        );
+                        break;
 
-                case 'to':
-                    $query2 = new Horde_Imap_Client_Search_Query();
-                    $query2->headerText('cc', $args['qsearch']);
-
-                    $query3 = new Horde_Imap_Client_Search_Query();
-                    $query3->headerText('bcc', $args['qsearch']);
-
-                    $query->headerText('to', $args['qsearch']);
-                    $query->orSearch(array($query2, $query3));
-                    break;
-
-                case 'all':
-                default:
-                    $query->text($args['qsearch'], false);
-                    break;
+                    default:
+                        $is_search = false;
+                        break;
+                    }
                 }
 
-                $is_search = true;
-            }
-
-            /* Set the search in the IMP session. */
-            if ($is_search) {
-                $GLOBALS['imp_search']->createSearchQuery($query, array($args['qsearchmbox']), array(), _("Search Results"), $mbox);
+                /* Store the search in the session. */
+                if ($is_search) {
+                    $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
+                    $imp_search->createQuery(
+                        $c_list,
+                        array($args['qsearchmbox']),
+                        null,
+                        IMP_Search::CREATE_QUERY,
+                        $mbox
+                    );
+                }
             }
         } else {
-            $is_search = $GLOBALS['imp_search']->isSearchMbox($mbox);
+            $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
+            $is_search = $imp_search->isSearchMbox($mbox);
         }
 
         /* Set the current time zone. */
-        Horde_Nls::setTimeZone();
+        $GLOBALS['registry']->setTimeZone();
 
         /* Run filters now. */
         if (!$is_search &&
-            !empty($_SESSION['imp']['filteravail']) &&
+            $GLOBALS['session']['imp:filteravail'] &&
             !empty($args['applyfilter']) ||
             (($mbox == 'INBOX') &&
              $GLOBALS['prefs']->getValue('filter_on_display'))) {
-            $imp_filter = new IMP_Filter();
-            $imp_filter->filter($mbox);
+            $GLOBALS['injector']->getInstance('IMP_Filter')->filter($mbox);
         }
 
         /* Generate the sorted mailbox list now. */
-        $imp_mailbox = IMP_Mailbox::singleton($mbox);
+        $imp_mailbox = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_MailboxList')->create($mbox);
         $sorted_list = $imp_mailbox->getSortedList();
         $msgcount = count($sorted_list['s']);
 
@@ -114,27 +134,50 @@ class IMP_Views_ListMessages
         if ($args['initial'] || !is_null($args['sortdir'])) {
             $md->sortdir = intval($sortpref['dir']);
         }
-        if ($args['initial'] && IMP::isSpecialFolder($mbox)) {
-            $md->special = 1;
+
+        /* Actions only done on 'initial' request. */
+        if ($args['initial']) {
+            if (IMP::isSpecialFolder($mbox)) {
+                $md->special = 1;
+                if ($mbox == IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true)) {
+                    $md->drafts = 1;
+                }
+            } elseif ($mbox == IMP::folderPref($GLOBALS['prefs']->getValue('spam_folder'), true)) {
+                $md->spam = 1;
+            }
+            if ($is_search) {
+                $md->search = 1;
+            }
+
+            /* Generate flag array. */
+            $md->flags = array_keys($GLOBALS['injector']->getInstance('IMP_Imap_Flags')->getList(array('imap' => true, 'mailbox' => $is_search ? null : $mbox)));
         }
-        if ($args['initial'] && $is_search) {
-            $md->search = 1;
+
+        /* The search query may have changed. */
+        if ($is_search &&
+            ($args['initial'] || strlen($args['qsearchmbox']))) {
+            if ($imp_search->isVFolder($mbox)) {
+                $md->slabel = $imp_search[$mbox]->label;
+                $md->vfolder = 1;
+                if (!$imp_search->isVFolder($mbox, true)) {
+                    $md->noedit = 1;
+                }
+            } else {
+                $md->slabel = $imp_search[$mbox]->querytext;
+            }
         }
+
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
 
         /* These entries may change during a session, so always need to
          * update them. */
-        $md->readonly = intval($GLOBALS['imp_imap']->isReadOnly($mbox));
-        if (!$is_search &&
-            !empty($GLOBALS['conf']['server']['sort_limit'])) {
-            $md->sortlimit = $sortpref['limit'] ? 1 : 0;
-        }
+        $md->readonly = intval($imp_imap->isReadOnly($mbox));
 
         /* Check for mailbox existence now. If there are no messages, there
          * is a chance that the mailbox doesn't exist. If there is at least
          * 1 message, we don't need this check. */
         if (empty($msgcount) && !$is_search) {
-            $imp_folder = IMP_Folder::singleton();
-            if (!$imp_folder->exists($mbox)) {
+            if (!$GLOBALS['injector']->getInstance('IMP_Folder')->exists($mbox)) {
                 $GLOBALS['notification']->push(sprintf(_("Mailbox %s does not exist."), IMP::getLabel($mbox)), 'horde.error');
             }
 
@@ -150,9 +193,9 @@ class IMP_Views_ListMessages
             !empty($args['cache'])) {
             $uid_expire = false;
             try {
-                $status = $GLOBALS['imp_imap']->ob()->status($mbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
-                list($old_uidvalid,) = explode('|', $args['cacheid']);
-                $uid_expire = ($old_uidvalid != $status['uidvalidity']);
+                $status = $imp_imap->status($mbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
+                $parsed = $imp_imap->parseCacheId($args['cacheid']);
+                $uid_expire = ($parsed['uidvalidity'] != $status['uidvalidity']);
             } catch (Horde_Imap_Cache_Exception $e) {
                 $uid_expire = true;
             }
@@ -171,16 +214,31 @@ class IMP_Views_ListMessages
         }
 
         /* Get the cached list. */
-        if (empty($args['cache'])) {
-            $cached = array();
-        } else {
+        $cached = $changed = array();
+        if (!empty($args['cache'])) {
+            $cached = $imp_imap->getUtils()->fromSequenceString($args['cache']);
             if ($is_search) {
-                $cached = Horde_Serialize::unserialize($args['cache'], Horde_Serialize::JSON);
+                $cached = array_flip($cached);
             } else {
-                $cached = $GLOBALS['imp_imap']->ob()->utils->fromSequenceString($args['cache']);
-                $cached = reset($cached);
+                $cached = array_flip(reset($cached));
+
+                /* Check for cached entries marked as changed via CONDSTORE
+                 * IMAP extension. If changed, resend the entire entry to
+                 * update the browser cache (done below). */
+                if ($args['change'] && $args['cacheid']) {
+                    if (!isset($parsed)) {
+                        $parsed = $imp_imap->parseCacheId($args['cacheid']);
+                    }
+                    if (!empty($parsed['highestmodseq'])) {
+                        try {
+                            $res = $imp_imap->fetch($mbox, array(Horde_Imap_Client::FETCH_UID => 1), array('changedsince' => $parsed['highestmodseq']));
+                            if (!empty($res)) {
+                                $changed = array_flip(array_keys($res));
+                            }
+                        } catch (Horde_Imap_Client_Exception $e) {}
+                    }
+                }
             }
-            $cached = array_flip($cached);
         }
 
         if (!empty($args['search_unseen'])) {
@@ -234,8 +292,10 @@ class IMP_Views_ListMessages
         foreach ($uidlist as $uid => $seq) {
             $msglist[$seq] = $sorted_list['s'][$seq];
             $rowlist[$uid] = $seq;
-            if (!isset($cached[$uid])) {
-                $data[] = $seq;
+            /* Send browser message data if not already cached or if CONDSTORE
+             * has indiciated that data has changed. */
+            if (!isset($cached[$uid]) || isset($changed[$uid])) {
+                $data[$seq] = 1;
             }
         }
         $result->rowlist = $rowlist;
@@ -246,7 +306,7 @@ class IMP_Views_ListMessages
         if (isset($result->update)) {
             if (($slice_start != 0) &&
                 ($slice_end != count($sorted_list['s']))) {
-                $uidlist = $this->_getUidList(0, count($sorted_list['s']), $sorted_list);
+                $uidlist = $this->_getUidList(1, count($sorted_list['s']), $sorted_list);
             }
 
             $disappear = array();
@@ -271,19 +331,18 @@ class IMP_Views_ListMessages
         }
 
         /* Build the overview list. */
-        $result->data = $this->_getOverviewData($imp_mailbox, $mbox, $data, $is_search);
+        $result->data = $this->_getOverviewData($imp_mailbox, $mbox, array_keys($data), $is_search);
 
         /* Get unseen/thread information. */
         if (!$is_search) {
-            $imptree = IMP_Imap_Tree::singleton();
-            $info = $imptree->getElementInfo($mbox);
-            if (!empty($info)) {
-                $md->unseen = intval($info['unseen']);
-            }
+            try {
+                if ($info = $imp_imap->status($mbox, Horde_Imap_Client::STATUS_UNSEEN)) {
+                    $md->unseen = intval($info['unseen']);
+                }
+            } catch (Horde_Imap_Client_Exception $e) {}
 
             if ($sortpref['by'] == Horde_Imap_Client::SORT_THREAD) {
-                $threadob = $imp_mailbox->getThreadOb();
-                $imp_thread = new IMP_Imap_Thread($threadob);
+                $imp_thread = new IMP_Imap_Thread($imp_mailbox->getThreadOb());
                 $md->thread = $imp_thread->getThreadTreeOb($msglist, $sortpref['dir']);
             }
         } else {
@@ -307,10 +366,10 @@ class IMP_Views_ListMessages
         $ret = array();
 
         for ($i = $start; $i <= $end; ++$i) {
-            $uid = $sorted_list['s'][$i] .
-                (isset($sorted_list['m'][$i])
-                    ? IMP::IDX_SEP . $sorted_list['m'][$i]
-                    : '');
+            $uid = $sorted_list['s'][$i];
+            if (isset($sorted_list['m'][$i])) {
+                $uid = $sorted_list['m'][$i] . IMP_Dimp::IDX_SEP . $uid;
+            }
             if ($uid) {
                 $ret[$uid] = $i;
             }
@@ -322,11 +381,11 @@ class IMP_Views_ListMessages
     /**
      * Obtains IMAP overview data for a given set of message UIDs.
      *
-     * @param IMP_Mailbox $imp_mailbox  An IMP_Mailbox:: object.
-     * @param string $folder            The current folder.
-     * @param array $msglist            The list of message sequence numbers
-     *                                  to process.
-     * @param boolean $search           Is this a search mbox?
+     * @param IMP_Mailbox_List $imp_mailbox  The mailbox list  object.
+     * @param string $folder                 The current folder.
+     * @param array $msglist                 The list of message sequence
+     *                                       numbers to process.
+     * @param boolean $search                Is this a search mbox?
      *
      * @return array  TODO
      * @throws Horde_Exception
@@ -341,7 +400,7 @@ class IMP_Views_ListMessages
 
         /* Get mailbox information. */
         $overview = $imp_mailbox->getMailboxArray($msglist, array('headers' => true, 'structure' => $GLOBALS['prefs']->getValue('atc_flag')));
-        $charset = Horde_Nls::getCharset();
+        $charset = 'UTF-8';
         $imp_ui = new IMP_Ui_Mailbox($folder);
         $no_flags_hook = false;
 
@@ -350,8 +409,7 @@ class IMP_Views_ListMessages
         while (list(,$ob) = each($overview['overview'])) {
             /* Initialize the header fields. */
             $msg = array(
-                'imapuid' => intval($ob['uid']),
-                'menutype' => 'message',
+                'imapuid' => (($GLOBALS['session']['imp:protocol'] == 'pop') ? $ob['uid'] : intval($ob['uid'])),
                 'view' => $ob['mailbox'],
             );
 
@@ -364,11 +422,10 @@ class IMP_Views_ListMessages
                 }
             }
 
-            $imp_flags = IMP_Imap_Flags::singleton();
-            $flag_parse = $imp_flags->parse(array(
+            $flag_parse = $GLOBALS['injector']->getInstance('IMP_Imap_Flags')->parse(array(
                 'atc' => isset($ob['structure']) ? $ob['structure'] : null,
                 'flags' => $ob['flags'],
-                'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']['to']),
+                'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']['to'], array('charset' => $charset)),
                 'priority' => $ob['headers']
             ));
 
@@ -379,9 +436,8 @@ class IMP_Views_ListMessages
                 }
             }
 
-            /* Specific flag checking. */
-            if (in_array('\\draft', $ob['flags'])) {
-                $msg['menutype'] = 'draft';
+            /* Drafts. */
+            if ($imp_ui->isDraft($ob['flags'])) {
                 $msg['draft'] = 1;
             }
 
@@ -406,10 +462,10 @@ class IMP_Views_ListMessages
                 $msg['listmsg'] = 1;
             }
 
-            /* Need both UID and mailbox to create a unique ID string if
+            /* Need both mailbox and UID to create a unique ID string if
              * using a search mailbox.  Otherwise, use only the UID. */
             if ($search) {
-                $msgs[$ob['uid'] . IMP::IDX_SEP . $ob['mailbox']] = $msg;
+                $msgs[$ob['mailbox'] . IMP_Dimp::IDX_SEP . $ob['uid']] = $msg;
             } else {
                 $msgs[$ob['uid']] = $msg;
             }
@@ -435,7 +491,7 @@ class IMP_Views_ListMessages
         $ob = new stdClass;
         $ob->cacheid = 0;
         $ob->data = array();
-        $ob->label = IMP::getLabel($mbox);
+        $ob->label = htmlspecialchars(IMP::getLabel($mbox));
         $ob->metadata = new stdClass;
         $ob->rowlist = array();
         $ob->totalrows = 0;

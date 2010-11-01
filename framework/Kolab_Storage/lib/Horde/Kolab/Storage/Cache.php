@@ -13,11 +13,6 @@
  */
 
 /**
- * The Autoloader allows us to omit "require/include" statements.
- */
-require_once 'Horde/Autoloader.php';
-
-/**
  * The Kolab_Cache class provides a cache for Kolab groupware objects.
  *
  * The Horde_Kolab_Storage_Cache singleton instance provides caching for all
@@ -42,13 +37,6 @@ require_once 'Horde/Autoloader.php';
  */
 class Horde_Kolab_Storage_Cache
 {
-    /**
-     * Singleton instance.
-     *
-     * @var array
-     */
-    static protected $instance;
-
     /**
      * The version of the cache we loaded.
      *
@@ -134,42 +122,11 @@ class Horde_Kolab_Storage_Cache
     /**
      * Constructor.
      *
-     * @todo Improve the cache setup and allow different cache types.
-     *
-     * @throws Horde_Exception
+     * @param Horde_Cache $cache The global cache for temporary data storage.
      */
-    public function __construct()
+    public function __construct($cache)
     {
-        if (!isset($GLOBALS['conf']['kolab']['storage']['cache']['data']['driver'])) {
-            $driver = 'file';
-            $params = array('prefix' => 'kolab_cache', 'dir' => Horde::getTempDir());
-        } else {
-            $driver = $GLOBALS['conf']['kolab']['storage']['cache']['data']['driver'];
-            if (!isset($GLOBALS['conf']['kolab']['storage']['cache']['data']['params'])) {
-
-                $params = array();
-            } else {
-                $params = $GLOBALS['conf']['kolab']['storage']['cache']['data']['params'];
-            }
-        }
-        $this->horde_cache = Horde_Cache::singleton($driver, $params);
-    }
-
-    /**
-     * Attempts to return a reference to a concrete Horde_Kolab_Storage_Cache
-     * instance.  It will only create a new instance if no
-     * Horde_Kolab_Storage_Cache instance currently exists.
-     *
-     * @return Horde_Kolab_Storage_Cache The concrete Horde_Kolab_Storage_Cache
-     *                                   reference, or false on error.
-     */
-    static public function singleton()
-    {
-        if (!isset(self::$instance)) {
-            self::$instance = new self();
-        }
-
-        return self::$instance;
+        $this->horde_cache = $cache;
     }
 
     /**
@@ -238,7 +195,8 @@ class Horde_Kolab_Storage_Cache
      */
     public function storeAttachment($key, $data)
     {
-        return $this->horde_cache->set($key, $data);
+        $this->horde_cache->set($key, $data);
+        return true;
     }
 
     /**

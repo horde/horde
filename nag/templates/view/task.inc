@@ -41,14 +41,14 @@
  <tr>
   <td class="rightAlign" valign="top"><strong><?php echo _("Completed?") ?></strong></td>
   <td>
-  <?php if (!is_a($share, 'PEAR_Error') && $share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+  <?php if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             if (empty($task->completed)) {
-                echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter($taskurl, 'actionID', 'complete_task')), _("Complete Task"), 'widget') . Horde::img('unchecked.png', _("Complete Task")) . '</a>';
+                echo Horde::link(Horde::url(Horde_Util::addParameter($taskurl, 'actionID', 'complete_task')), _("Complete Task"), 'widget') . Horde::img('unchecked.png', _("Complete Task")) . '</a>';
             } else {
-                echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter($taskurl, 'actionID', 'complete_task')), _("Mark as incomplete"), 'widget') . Horde::img('checked.png', _("Mark as incomplete")) . '</a>';
+                echo Horde::link(Horde::url(Horde_Util::addParameter($taskurl, 'actionID', 'complete_task')), _("Mark as incomplete"), 'widget') . Horde::img('checked.png', _("Mark as incomplete")) . '</a>';
             }
         } else {
-            echo Nag::formatCompletion($task->completed) . '</a></td>';
+            echo Nag::formatCompletion($task->completed) . '</a>';
         }
         if (isset($completed)) {
             echo ' <small>' . strftime($prefs->getValue('date_format'), $completed) . ' ' . date($prefs->getValue('twentyFour') ? 'G:i' : 'g:i a', $completed) . '</small>';
@@ -59,14 +59,14 @@
 <?php if (isset($created)): ?>
  <tr>
   <td class="rightAlign"><strong><?php echo _("Created") ?></strong></td>
-  <td><?php echo strftime($prefs->getValue('date_format'), $created) . ' ' . date($prefs->getValue('twentyFour') ? 'G:i' : 'g:i a', $created) . ' ' . @htmlspecialchars($createdby, ENT_COMPAT, Horde_Nls::getCharset()) ?></td>
+  <td><?php echo strftime($prefs->getValue('date_format'), $created) . ' ' . date($prefs->getValue('twentyFour') ? 'G:i' : 'g:i a', $created) . ' ' . htmlspecialchars($createdby) ?></td>
  </tr>
 <?php endif; ?>
 
 <?php if (isset($modified)): ?>
  <tr>
   <td class="rightAlign"><strong><?php echo _("Last Modified") ?></strong></td>
-  <td><?php echo strftime($prefs->getValue('date_format'), $modified) . ' ' . date($prefs->getValue('twentyFour') ? 'G:i' : 'g:i a', $modified) . ' ' . @htmlspecialchars($modifiedby, ENT_COMPAT, Horde_Nls::getCharset()) ?></td>
+  <td><?php echo strftime($prefs->getValue('date_format'), $modified) . ' ' . date($prefs->getValue('twentyFour') ? 'G:i' : 'g:i a', $modified) . ' ' . htmlspecialchars($modifiedby) ?></td>
  </tr>
 <?php endif; ?>
 

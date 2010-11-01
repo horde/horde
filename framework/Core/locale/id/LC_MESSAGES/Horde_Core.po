@@ -1,0 +1,1021 @@
+# Indonesian translations for Horde_Core module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Core module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Core\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: lib/Horde.php:1613
+#, php-format
+msgid " (Accesskey %s)"
+msgstr ""
+
+#: lib/Horde/Registry.php:1122 lib/Horde/Registry.php:1573
+#, php-format
+msgid "\"%s\" is not configured in the Horde Registry."
+msgstr ""
+
+#: lib/Horde/Core/Factory/Share.php:83
+#, fuzzy, php-format
+msgid "\"%s\" share driver not found."
+msgstr "Direktori Motif '%s' tidak ditemukan."
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:134
+#, php-format
+msgid "%d contact was successfully added to your address book."
+msgid_plural "%d contacts were successfully added to your address book."
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/Horde/Core/Auth/Application.php:583
+#, fuzzy, php-format
+msgid "%d day until your password expires."
+msgid_plural "%d days until your password expires."
+msgstr[0] "%d hari sampai sandi anda habis masa berlakunya."
+msgstr[1] "%d hari sampai sandi anda habis masa berlakunya."
+
+#: lib/Horde/Core/Auth/Signup/Form.php:37
+#, php-format
+msgid "%s Sign Up"
+msgstr ""
+
+#: lib/Horde/Registry.php:1220
+#, fuzzy, php-format
+msgid "%s is not authorized for %s."
+msgstr "\"%s\" belum dibuat: %s."
+
+#: lib/Horde/Core/Perms/Ui.php:338 lib/Horde/Core/Perms/Ui.php:397
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:847
+msgid "-- select --"
+msgstr ""
+
+#: lib/Horde/Core/Notification/Status.php:82
+msgid "1 day"
+msgstr ""
+
+#: lib/Horde/Core/Notification/Status.php:80
+#, fuzzy
+msgid "1 hour"
+msgstr "24 jam"
+
+#: lib/Horde/Core/Notification/Status.php:79
+#, fuzzy
+msgid "15 minutes"
+msgstr "%s menit"
+
+#: lib/Horde/Core/Notification/Status.php:78
+#, fuzzy
+msgid "5 minutes"
+msgstr "%s menit"
+
+#: lib/Horde/Core/Notification/Status.php:81
+#, fuzzy
+msgid "6 hours"
+msgstr "24 jam"
+
+#: lib/Horde/Core/Ui/Pager.php:86
+#, fuzzy
+msgid "<Previous"
+msgstr "Lihat"
+
+#: lib/Horde.php:109
+msgid "A fatal error has occurred"
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Identity.php:81
+#, php-format
+msgid ""
+"A message has been sent to \"%s\" to verify that this is really your "
+"address. The new email address is activated as soon as you confirm this "
+"message."
+msgstr ""
+
+#: lib/Horde/Core/Auth/Signup/Base.php:96
+#, php-format
+msgid ""
+"A new account for the user \"%s\" has been requested through the signup form."
+msgstr ""
+
+#: lib/Horde/Script/Files.php:128
+msgid ""
+"A popup window could not be opened. Your browser may be blocking popups."
+msgstr ""
+
+#: lib/Horde/Core/Auth/Signup/Base.php:103
+#, fuzzy, php-format
+msgid "Account signup request for \"%s\""
+msgstr ""
+"Apakah anda yakin anda ingin memindahkan permohonan pendaftaran untuk %s?"
+
+#: lib/Horde/Core/Perms/Ui.php:192 lib/Horde/Core/Ui/VarRenderer/Html.php:651
+msgid "Add"
+msgstr "Tambah"
+
+#: lib/Horde/Core/Perms/Ui.php:130
+#, fuzzy
+msgid "Add Child Permission"
+msgstr "Ubah Izin"
+
+#: lib/Horde/Core/Perms/Ui.php:101
+#, fuzzy
+msgid "Add New Permission"
+msgstr "Ubah Izin"
+
+#: lib/Horde/Core/Perms/Ui.php:78
+#, fuzzy
+msgid "Add Permission"
+msgstr "Ubah Izin"
+
+#: lib/Horde/Core/Perms/Ui.php:191
+#, fuzzy, php-format
+msgid "Add a child permission to \"%s\""
+msgstr "Tambah grup anak ke '%s'"
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:107
+#, fuzzy
+msgid "Add source"
+msgstr "Tambah pengguna"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:415
+#, fuzzy
+msgid "Add to address book:"
+msgstr "Buku Alamat "
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:430
+#, fuzzy
+msgid "Add to my address book"
+msgstr "Buku Alamat "
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:237
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:301
+#, fuzzy
+msgid "Address"
+msgstr "Buku Alamat "
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:417
+msgid "Address Book"
+msgstr "Buku Alamat "
+
+#: lib/Horde/Core/Sidebar.php:58
+msgid "Administration"
+msgstr "Administrasi"
+
+#: lib/Horde/Core/Notification/Status.php:98
+msgid "Alarm"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:161
+msgid "Alias"
+msgstr ""
+
+#: lib/Horde/Core/Perms/Ui.php:253
+msgid "All Authenticated Users"
+msgstr "Semua Pengguna Asli"
+
+#: lib/Horde/Core/Perms/Ui.php:104
+#, fuzzy
+msgid "All Permissions"
+msgstr "Izin"
+
+#: lib/Horde/Core/Prefs/Ui.php:259 lib/Horde/Core/Prefs/Ui.php:275
+msgid "An illegal value was specified."
+msgstr ""
+
+#: lib/Horde/Core/Auth/Signup/Base.php:98
+msgid "Approve the account:"
+msgstr ""
+
+#: lib/Horde/Core/Ui/JsCalendar.php:139
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:463
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:501
+msgid "April"
+msgstr "April"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:143
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:467
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:505
+msgid "August"
+msgstr "Agustus"
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:214
+#, fuzzy
+msgid "Available address books:"
+msgstr "Kolom yang tersedia:"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:168
+msgid "Birthday"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:543
+msgid "Calendar"
+msgstr "Kalender"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:327
+#, fuzzy
+msgid "Cell Phone"
+msgstr "Properti Sel"
+
+#: lib/Horde/Core/Auth/Signup/Form.php:53
+#: lib/Horde/Core/Auth/Signup/Form.php:67
+#, fuzzy
+msgid "Choose a password"
+msgstr "Sandi Baru"
+
+#: lib/Horde/Core/Auth/Signup/Form.php:50
+#: lib/Horde/Core/Auth/Signup/Form.php:66
+msgid "Choose a username"
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:208
+msgid "Choose the order of address books to search when expanding addresses."
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:599
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:601
+msgid "Color Picker"
+msgstr "Pemilih Warna"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:379
+msgid "Company"
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Identity.php:72
+#, fuzzy
+msgid "Confirm new email address"
+msgstr "Pengganti alamat email"
+
+#: lib/Horde/Core/Perms/Ui.php:284
+#, fuzzy
+msgid "Creator Permissions"
+msgstr "Izin Pemilik"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:510
+msgid "DD"
+msgstr "DD"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:147
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:471
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:509
+msgid "December"
+msgstr "Desember"
+
+#: lib/Horde/Core/Perms/Ui.php:483 lib/Horde/Core/Perms/Ui.php:501
+msgid "Delete"
+msgstr "Hapus"
+
+#: lib/Horde/Core/Perms/Ui.php:82 lib/Horde/Core/Perms/Ui.php:138
+#, fuzzy
+msgid "Delete Permission"
+msgstr "Izin tamu"
+
+#: lib/Horde/Core/Perms/Ui.php:482
+#, fuzzy, php-format
+msgid "Delete permissions for \"%s\""
+msgstr "Ubah izin untuk %s"
+
+#: lib/Horde/Core/Perms/Ui.php:485
+#, php-format
+msgid "Delete permissions for \"%s\" and any sub-permissions?"
+msgstr ""
+
+#: lib/Horde/Core/Auth/Signup/Base.php:100
+msgid "Deny the account:"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:381
+#, fuzzy
+msgid "Department"
+msgstr "Perkembangan"
+
+#: lib/Horde.php:127
+msgid "Details"
+msgstr ""
+
+#: lib/Horde.php:132
+#, fuzzy
+msgid "Details have been logged for the administrator."
+msgstr "Area Metar tidak disediakan. Detil telah dicatat untuk administrator."
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1188
+#, php-format
+msgid "Dial %s"
+msgstr ""
+
+#: lib/Horde/Core/Notification/Status.php:77
+msgid "Dismiss"
+msgstr ""
+
+#: lib/Horde/Core/Perms/Ui.php:483
+msgid "Do not delete"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:216
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:280
+#, fuzzy
+msgid "Domestic Address"
+msgstr "Alamat Email"
+
+#: lib/Horde/Core/Perms/Ui.php:81 lib/Horde/Core/Perms/Ui.php:136
+#, fuzzy
+msgid "Edit Permission"
+msgstr "Ubah Izin"
+
+#: lib/Horde/Core/Perms/Ui.php:416
+#, fuzzy, php-format
+msgid "Edit permissions for \"%s\""
+msgstr "Ubah izin untuk %s"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:364
+msgid "Email"
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Identity.php:105
+msgid "Email addresses to confirm not found."
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:336
+msgid "Emoticons"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:988
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1000
+msgid "Enter the letters below:"
+msgstr ""
+
+#: lib/Horde/Core/Notification/Status.php:103
+msgid "Error"
+msgstr "Kesalahan"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:318
+#, fuzzy
+msgid "Fax"
+msgstr "Fax"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:137
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:461
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:499
+msgid "February"
+msgstr "Februari"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:279
+msgid "Fix ratio"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:254
+msgid "Flip"
+msgstr ""
+
+#: lib/Horde/Core/Ui/JsCalendar.php:105
+msgid "Fr"
+msgstr "Jmt"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:123
+msgid "Friday"
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Ui.php:597 lib/Horde/Core/Sidebar.php:91
+msgid "Global Preferences"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1333
+#, fuzzy
+msgid "Google Maps"
+msgstr "Pencarian Google"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:260
+msgid "Grayscale"
+msgstr ""
+
+#: lib/Horde/Core/Perms/Ui.php:358
+msgid "Groups"
+msgstr "Grup"
+
+#: lib/Horde/Core/Perms/Ui.php:271
+msgid "Guest Permissions"
+msgstr "Izin tamu"
+
+#: lib/Horde/Help.php:218 lib/Horde/Help.php:219 lib/Horde/Menu.php:197
+msgid "Help"
+msgstr "Bantuan"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:208
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:272
+#, fuzzy
+msgid "Home Address"
+msgstr "Alamat Email"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:321
+msgid "Home Phone"
+msgstr ""
+
+#: lib/Horde/Core/Perms/Ui.php:297
+msgid "Individual Users"
+msgstr "Pengguna Pribadi"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:220
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:284
+#, fuzzy
+msgid "International Address"
+msgstr "Pengganti alamat email"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:777
+#: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:26
+#, fuzzy
+msgid "Invert selection"
+msgstr "Hapus pilihan"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:136
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:460
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:498
+msgid "January"
+msgstr "Januari"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:142
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:466
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:504
+msgid "July"
+msgstr "Juli"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:141
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:465
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:503
+msgid "June"
+msgstr "Juni"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:287
+msgid "Keep original?"
+msgstr ""
+
+#: lib/Horde/Core/Sidebar.php:120
+msgid "Log in"
+msgstr "Login"
+
+#: lib/Horde/Core/Sidebar.php:113
+msgid "Log out"
+msgstr "Log out"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:459
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:497
+msgid "MM"
+msgstr "MM"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1259
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1308
+msgid "MapQuest map"
+msgstr ""
+
+#: lib/Horde/Core/Ui/JsCalendar.php:138
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:462
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:500
+msgid "March"
+msgstr "Maret"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:140
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:464
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:502
+msgid "May"
+msgstr "Mei"
+
+#: lib/Horde/Core/Notification/Status.php:109
+#, fuzzy
+msgid "Message"
+msgstr "Pesan SMS"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:257
+#, fuzzy
+msgid "Mirror"
+msgstr "Kesalahan"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:101
+msgid "Mo"
+msgstr "Sen"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:119
+msgid "Monday"
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:112
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:623
+msgid "Move down"
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:111
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:622
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:623
+msgid "Move up"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1228
+msgid "Multimap UK map"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:157
+#, fuzzy
+msgid "Name"
+msgstr "Nama Lengkap"
+
+#: lib/Horde/Core/Ui/Pager.php:129
+#, fuzzy
+msgid "Next>"
+msgstr "Berikutnya"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1093
+#, fuzzy
+msgid "No"
+msgstr "Tidak ada"
+
+#: lib/Horde/Core/Factory/Twitter.php:43
+msgid "No OAuth Key or Secret found for the Twitter API"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:569
+#, fuzzy
+msgid "No Sound"
+msgstr "Tidak ada ikon yang ditemukan."
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:246
+msgid "No address book selected."
+msgstr ""
+
+#: lib/Horde/Core/Perms/Ui.php:200
+#, fuzzy
+msgid "No children can be added to this permission."
+msgstr "\"%s\" sudah ditambahkan ke dalam izin sistem."
+
+#: lib/Horde.php:868
+#, php-format
+msgid "No configuration information specified for %s."
+msgstr ""
+
+#: lib/Horde/Core/Ajax/Application.php:185
+msgid "No valid email address found"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1101
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1111
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1122
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1139
+msgid "No values"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:387
+msgid "Notes"
+msgstr "Catatan"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:146
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:470
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:508
+msgid "November"
+msgstr "November"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:969
+#, fuzzy
+msgid "Object"
+msgstr "Pencipta Objek"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:145
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:469
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:507
+msgid "October"
+msgstr "Oktober"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:228
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:292
+#, fuzzy
+msgid "Parcel Address"
+msgstr "Alamat Email"
+
+#: lib/Horde/Core/Perms/Ui.php:200
+#, fuzzy
+msgid "Permission"
+msgstr "Izin"
+
+#: lib/Horde/Core/Perms/Ui.php:205 lib/Horde/Core/Perms/Ui.php:208
+#, fuzzy
+msgid "Permissions"
+msgstr "Izin"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:330
+msgid "Phone"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:176
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:184
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:188
+#, fuzzy
+msgid "Photo"
+msgstr "Foto"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:224
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:288
+#, fuzzy
+msgid "Postal Address"
+msgstr "Alamat Email"
+
+#: lib/Horde/Core/Sidebar.php:80
+msgid "Preferences"
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Ui.php:597
+#, fuzzy, php-format
+msgid "Preferences for %s"
+msgstr "Ikon untuk %s"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:232
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:296
+msgid "Preferred Address"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1527
+msgid "Preview"
+msgstr "Lihat"
+
+#: lib/Horde/Menu.php:189
+#, fuzzy
+msgid "Problem"
+msgstr "[Laporan Masalah]"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:654
+msgid "Remove"
+msgstr "Pindahkan"
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:108
+#, fuzzy
+msgid "Remove source"
+msgstr "Pindahkan pengguna"
+
+#: lib/Horde.php:878
+#, fuzzy, php-format
+msgid "Required \"%s\" not specified in %s configuration."
+msgstr "Tidak dapat menyimpan konfigurasi %s."
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:242
+msgid "Reset"
+msgstr "Atur kembali "
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:374
+msgid "Role"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:248
+msgid "Rotate 180"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:245
+msgid "Rotate Left"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:251
+msgid "Rotate Right"
+msgstr ""
+
+#: lib/Horde/Core/Ui/JsCalendar.php:106
+msgid "Sa"
+msgstr "Sbt"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:124
+msgid "Saturday"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:543
+#, fuzzy
+msgid "Select a date"
+msgstr "Pilih server"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:775
+#: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:24
+#, fuzzy
+msgid "Select all"
+msgstr "Pilih server"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:969
+#, fuzzy
+msgid "Select an object"
+msgstr "Pilih pemilik baru"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:776
+#: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:25
+#, fuzzy
+msgid "Select none"
+msgstr "Pilih pemilik baru"
+
+#: lib/Horde/Core/Prefs/Ui.php:758
+msgid "Select the identity you want to change:"
+msgstr "Pilih identitas yang ingin diubah oleh anda:"
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:209
+msgid "Selected address books:"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1204
+msgid "Send SMS"
+msgstr ""
+
+#: lib/Horde/Core/Ui/JsCalendar.php:144
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:468
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:506
+msgid "September"
+msgstr "September"
+
+#: lib/Horde/Core/Auth/Signup/Form.php:39
+msgid "Sign up"
+msgstr ""
+
+#: lib/Horde/Core/Notification/Status.php:85
+msgid "Snooze..."
+msgstr ""
+
+#: lib/Horde/Core/Ui/JsCalendar.php:100
+msgid "Su"
+msgstr "Min"
+
+#: lib/Horde/Core/Notification/Status.php:115
+msgid "Success"
+msgstr "Berhasil"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:118
+msgid "Sunday"
+msgstr ""
+
+#: lib/Horde/Core/Ui/JsCalendar.php:104
+msgid "Th"
+msgstr "Kms"
+
+#: lib/Horde/Core/Binder/History.php:13
+#, fuzzy
+msgid "The History system is disabled."
+msgstr "Daftar pengguna dinon-aktifkan."
+
+#: lib/Horde/Core/Prefs/Identity.php:130
+#, php-format
+msgid ""
+"The email address %s has been added to your identities. You can close this "
+"window now."
+msgstr ""
+
+#: lib/Horde.php:675
+msgid "The encryption features require a secure web connection."
+msgstr ""
+
+#: lib/Horde.php:879
+#, php-format
+msgid "The file %s should contain a %s setting."
+msgstr ""
+
+#: lib/Horde.php:869
+#, php-format
+msgid "The file %s should contain some %s settings."
+msgstr ""
+
+#: lib/Horde.php:128
+msgid ""
+"The full error message is logged in Horde's log file, and is shown below "
+"only to administrators. Non-administrative users will not see error details."
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Ui.php:825
+#, php-format
+msgid "The identity \"%s\" has been deleted."
+msgstr "Identitas \"%s\" sudah dihapus."
+
+#: lib/Horde/Core/Prefs/Ui.php:871
+msgid "The new from address can't be verified, try again later: "
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Identity.php:96 lib/Horde/Core/Prefs/Identity.php:102
+msgid "There are no email addresses to confirm."
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Ui.php:398
+msgid "There are no preferences available for this application."
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:129
+msgid "There was an error importing the contact data:"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:115
+msgid "There was an error reading the contact data."
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Ui.php:289
+msgid "This number must be non-zero."
+msgstr ""
+
+#: lib/Horde.php:381
+#, php-format
+msgid ""
+"This request cannot be completed because the link you followed or the form "
+"you submitted was only valid for %s minutes. Please try again now."
+msgstr ""
+
+#: lib/Horde/Registry.php:474
+msgid "This system is currently deactivated."
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Ui.php:287
+msgid "This value must be a number."
+msgstr ""
+
+#: lib/Horde/Core/Ui/JsCalendar.php:122
+msgid "Thursday"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:369
+msgid "Title"
+msgstr "Judul"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:748
+msgid ""
+"To select multiple items, hold down the Control (PC) or Command (Mac) key "
+"while clicking."
+msgstr ""
+
+#: lib/Horde/Core/Ui/JsCalendar.php:102
+msgid "Tu"
+msgstr "Sel"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:120
+msgid "Tuesday"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:393
+msgid "URL"
+msgstr "URL"
+
+#: lib/Horde/Core/Perms/Ui.php:243
+msgid "Update"
+msgstr "Perbaharui"
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:221
+msgid "Upload"
+msgstr "Upload"
+
+#: lib/Horde/Core/Auth/Signup/Sql.php:96
+#, php-format
+msgid "User \"%s\" does not exist."
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Ui.php:551
+#, fuzzy
+msgid "User Preferences"
+msgstr "tampilkan perbedaan"
+
+#: lib/Horde/Core/Auth/Signup/Base.php:129
+#, php-format
+msgid "Username \"%s\" already exists."
+msgstr ""
+
+#: lib/Horde/Core/Notification/Status.php:121
+msgid "Warning"
+msgstr "Peringatan"
+
+#: lib/Horde/Core/Ui/JsCalendar.php:103
+msgid "We"
+msgstr "Rabu"
+
+#: lib/Horde.php:376
+msgid ""
+"We cannot verify that this request was really sent by you. It could be a "
+"malicious request. If you intended to perform this action, you can retry it "
+"now."
+msgstr ""
+
+#: lib/Horde/Core/Ui/JsCalendar.php:121
+msgid "Wednesday"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1235
+msgid "Whereis Australia map"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:212
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:276
+#, fuzzy
+msgid "Work Address"
+msgstr "Alamat Email Anda"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:324
+msgid "Work Phone"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:472
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:514
+msgid "YYYY"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1279
+msgid "Yahoo! map"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1093
+msgid "Yes"
+msgstr ""
+
+#: lib/Horde/Registry.php:1841
+msgid "You are not authenticated."
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Identity.php:62
+#, php-format
+msgid ""
+"You have requested to add the email address \"%s\" to the list of your "
+"personal email addresses.\n"
+"\n"
+"Go to the following link to confirm that this is really your address:\n"
+"%s\n"
+"\n"
+"If you don't know what this message means, you can delete it."
+msgstr ""
+
+#: lib/Horde/Core/Factory/Vfs.php:82
+msgid "You must configure a VFS backend."
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Ui/Widgets.php:411
+#, php-format
+msgid "You must provide a setting for \"%s\"."
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Ui.php:839
+msgid "Your default identity has been changed."
+msgstr "Default identitas anda sudah diubah."
+
+#: lib/Horde/Core/Prefs/Ui.php:757
+msgid "Your default identity:"
+msgstr "Default identitas anda:"
+
+#: lib/Horde/Core/Prefs/Ui.php:323
+msgid "Your preferences have been updated for the duration of this session."
+msgstr ""
+
+#: lib/Horde/Core/Prefs/Ui.php:325
+msgid "Your preferences have been updated."
+msgstr ""
+
+#: lib/Horde/Core/Text/Filter/Highlightquotes.php:75
+msgid "[Hide Quoted Text]"
+msgstr "[Sembunyikan Indentasi Teks]"
+
+#: lib/Horde/Core/Text/Filter/Highlightquotes.php:73
+#, fuzzy, php-format
+msgid "[Show Quoted Text - %d lines]"
+msgstr "[Tampilan Indentasi Teks -"
+
+#: lib/Horde.php:2083
+msgid "_Home"
+msgstr ""
+
+#: lib/Horde/Menu.php:218
+#, fuzzy
+msgid "_Log in"
+msgstr "Login"
+
+#: lib/Horde/Menu.php:213
+#, fuzzy
+msgid "_Log out"
+msgstr "Log out"
+
+#: lib/Horde/Menu.php:182
+msgid "_Preferences"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:272
+msgid "h:"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:416
+msgid "hh"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:427
+msgid "mm"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:444
+msgid "ss"
+msgstr ""
+
+#: lib/Horde/Core/Auth/Signup/Form.php:53
+#: lib/Horde/Core/Auth/Signup/Form.php:67
+msgid "type the password twice to confirm"
+msgstr "Ketik sandi dua kali untuk mengkonfirmasi"
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:111
+msgid "vCard"
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:264
+msgid "w:"
+msgstr ""

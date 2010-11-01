@@ -8,54 +8,46 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Duck <duck@obala.net>
- * @package Horde_Cache
+ * @author   Duck <duck@obala.net>
+ * @category Horde
+ * @package  Cache
  */
-class Horde_Cache_Eaccelerator extends Horde_Cache_Base
+class Horde_Cache_Eaccelerator extends Horde_Cache
 {
-     /**
-      * Construct a new Horde_Cache object.
-      *
-      * @param array $params  Parameter array.
-      * @throws Horde_Exception
-      */
+    /**
+     * Construct a new Horde_Cache object.
+     *
+     * @param array $params  Parameter array.
+     *
+     * @throws Horde_Cache_Exception
+     */
     public function __construct($params = array())
     {
         if (!function_exists('eaccelerator_gc')) {
-            throw new Horde_Exception('eAccelerator must be compiled with support for shared memory to use as caching backend.');
+            throw new Horde_Cache_Exception('eAccelerator must be compiled with support for shared memory to use as caching backend.');
         }
 
         parent::__construct($params);
     }
 
     /**
-     * Attempts to retrieve a piece of cached data and return it to the caller.
-     *
-     * @param string $key        Cache key to fetch.
-     * @param integer $lifetime  Lifetime of the key in seconds.
-     *
-     * @return mixed  Cached data, or false if none was found.
      */
-    public function get($key, $lifetime = 1)
+    protected function _get($key, $lifetime)
     {
+        $key = $this->_params['prefix'] . $key;
         $this->_setExpire($key, $lifetime);
         return eaccelerator_get($key);
     }
 
     /**
-     * Attempts to store an object to the cache.
-     *
-     * @param string $key        Cache key (identifier).
-     * @param mixed $data        Data to store in the cache.
-     * @param integer $lifetime  Data lifetime.
-     *
-     * @return boolean  True on success, false on failure.
      */
-    public function set($key, $data, $lifetime = null)
+    protected function _set($key, $data, $lifetime)
     {
+        $key = $this->_params['prefix'] . $key;
         $lifetime = $this->_getLifetime($lifetime);
-        eaccelerator_put($key . '_expire', time(), $lifetime);
-        return eaccelerator_put($key, $data, $lifetime);
+        if (eaccelerator_put($key . '_expire', time(), $lifetime)) {
+            eaccelerator_put($key, $data, $lifetime);
+        }
     }
 
     /**
@@ -69,8 +61,9 @@ class Horde_Cache_Eaccelerator extends Horde_Cache_Base
      */
     public function exists($key, $lifetime = 1)
     {
+        $key = $this->_params['prefix'] . $key;
         $this->_setExpire($key, $lifetime);
-        return (eaccelerator_get($key) === false) ? false : true;
+        return eaccelerator_get($key) !== false;
     }
 
     /**
@@ -82,6 +75,7 @@ class Horde_Cache_Eaccelerator extends Horde_Cache_Base
      */
     public function expire($key)
     {
+        $key = $this->_params['prefix'] . $key;
         eaccelerator_rm($key . '_expire');
         return eaccelerator_rm($key);
     }
@@ -100,6 +94,7 @@ class Horde_Cache_Eaccelerator extends Horde_Cache_Base
             return;
         }
 
+        $key = $this->_params['prefix'] . $key;
         $expire = eaccelerator_get($key . '_expire');
 
         // Set prune period.

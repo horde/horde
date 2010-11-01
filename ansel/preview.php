@@ -8,24 +8,23 @@
  * @author Michael Rubinsky <mrubinsk@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('ansel');
+
 $imageId = Horde_Util::getFormData('image');
-$image = &$ansel_storage->getImage($imageId);
-if (is_a($image, 'PEAR_Error')) {
-    Horde::logMessage($image, __LINE__, __FILE__, PEAR_LOG_ERR);
+try {
+    $image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($imageId);
+    $gal = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery(abs($image->gallery));
+    $img = Ansel::getImageUrl($imageId, 'thumb', false);
+} catch (Ansel_Exception $e) {
+    Horde::logMessage($e->getMessage(), 'ERR');
     exit;
 }
-$gal = $ansel_storage->getGallery(abs($image->gallery));
-if (is_a($gal, 'PEAR_Error')) {
-    Horde::logMessage($image, __LINE__, __FILE__, PEAR_LOG_ERR);
-    exit;
-}
-$img = Ansel::getImageUrl($imageId, 'thumb', false);
-if (!is_a($img, 'PEAR_Error') &&
-        $gal->hasPermission(Horde_Auth::getAuth(), Horde_Perms::SHOW) &&
-        !$gal->hasPasswd() &&
-        $gal->isOldEnough()) {
-    echo '<img src="' . $img . '" alt="' . htmlspecialchars($image->filename) . '" />';
+if ($gal->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW) &&
+    !$gal->hasPasswd() &&
+    $gal->isOldEnough()) {
+
+    echo '<img src="' . $img . '" alt="' . htmlspecialchars($image->filename) . '">';
 } else {
     echo '';
 }

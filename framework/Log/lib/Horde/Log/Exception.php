@@ -6,25 +6,18 @@
  * (http://framework.zend.com).  Both that package and this
  * one were written by Mike Naberezny and Chuck Hagenbuch.
  *
- * @package  Horde_Log
  * @author   Mike Naberezny <mike@maintainable.com>
  * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
  * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @package  Log
  */
 
 /**
- * @package  Horde_Log
  * @author   Mike Naberezny <mike@maintainable.com>
  * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
  * @license  http://opensource.org/licenses/bsd-license.php BSD
+ * @package  Log
  */
-class Horde_Log_Exception extends Exception
-{
-    /**
-     */
-    public function __construct($msg, $code = 0)
-    {
-        parent::__construct($msg, $code);
-    }
-
-}
+class Horde_Log_Exception extends Exception {}

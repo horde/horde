@@ -6,16 +6,14 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-define('BEATNIK_BASE', dirname(__FILE__));
-require_once BEATNIK_BASE . '/lib/base.php';
-require_once BEATNIK_BASE . '/lib/Beatnik.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+$beatnik = Horde_Registry::appInit('beatnik');
 
 try {
-    $zonedata = $beatnik_driver->getRecords($_SESSION['beatnik']['curdomain']['zonename']);
+    $zonedata = $beatnik->driver->getRecords($_SESSION['beatnik']['curdomain']['zonename']);
 } catch (Exception $e) {
     $notification->push($e, 'horde.error');
-    header('Location:' . Horde::applicationUrl('listzones.php'));
-    exit;
+    Horde::url('listzones.php')->redirect();
 }
 
 $title = $_SESSION['beatnik']['curdomain']['zonename'];
@@ -37,9 +35,10 @@ foreach ($fields as $field_id => $field) {
     }
 }
 
-$img_dir = $registry->getImageDir('horde');
-$delete = Horde_Util::addParameter(Horde::applicationUrl('delete.php'), 'curdomain', $_SESSION['beatnik']['curdomain']['zonename']);
-$edit = Horde_Util::addParameter(Horde::applicationUrl('editrec.php'), 'curdomain', $_SESSION['beatnik']['curdomain']['zonename']);
+$img_dir = Horde_Themes::img(null, 'horde');
+$delete = Horde_Util::addParameter(Horde::url('delete.php'), 'curdomain', $_SESSION['beatnik']['curdomain']['zonename']);
+$edit = Horde_Util::addParameter(Horde::url('editrec.php'), 'curdomain', $_SESSION['beatnik']['curdomain']['zonename']);
+$autogen = Horde_Util::addParameter(Horde::url('autogenerate.php'), 'curdomain', $_SESSION['beatnik']['curdomain']['zonename']);
 $rectypes = Beatnik::getRecTypes();
 
 require BEATNIK_TEMPLATES . '/view/header.inc';

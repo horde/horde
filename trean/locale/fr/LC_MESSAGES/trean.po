@@ -1,0 +1,374 @@
+# French translation for Trean package.
+# Copyright YEAR Horde Project
+# This file is distributed under the same license as the PACKAGE package.
+# Raphaël JEUDY <raphael.jeudy@fastorama.com>, 2003.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Trean 1.0-cvs\n"
+"Report-Msgid-Bugs-To: <raphael.jeudy@fastorama.com>\n"
+"POT-Creation-Date: 2003-04-02 20:30+0200\n"
+"PO-Revision-Date: 2003-04-02 23:04+0100\n"
+"Last-Translator: Raphaël JEUDY <raphael.jeudy@fastorama.com>\n"
+"Language-Team: French <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: data.php:70
+#, php-format
+msgid "%d Folders and %d Bookmarks imported."
+msgstr "%d dossiers et %d signets importés."
+
+#: templates/browse/bookmarks.inc:5
+#, php-format
+msgid "%s Bookmarks"
+msgstr "%s Signets"
+
+#: templates/browse/categories.inc:5
+#, php-format
+msgid "%s Subcategories"
+msgstr "%s Sous catégories"
+
+#: add.php:25
+#, php-format
+msgid "'%s' was not added: %s."
+msgstr "'%s' n'a pas été ajouté: %s."
+
+#: add.php:48
+#, php-format
+msgid "'%s' was not created: %s."
+msgstr "'%s' n'a pas été créé: %s."
+
+#: config/prefs.php.dist:40
+msgid "1 Line"
+msgstr "1 ligne"
+
+#: config/prefs.php.dist:39
+msgid "2 Line"
+msgstr "2 lignes"
+
+#: config/prefs.php.dist:38
+msgid "3 Line"
+msgstr "3 lignes"
+
+#: templates/menu/menu.inc:7
+msgid "Add"
+msgstr "Ajouter"
+
+#: add.php:65
+msgid "Add Bookmark"
+msgstr "Ajouter Signet"
+
+#: templates/add/add.inc:11
+msgid "Add a new bookmark"
+msgstr "Ajouter un nouveau signet"
+
+#: templates/add/add.inc:73
+msgid "Add to Bookmarks"
+msgstr "Ajouter aux signets"
+
+#: templates/data/import.inc:23
+msgid "All bookmarks and categories will be imported into here."
+msgstr "Tous les signets et catégories vont être importés ici."
+
+#: templates/search/search.inc:31
+msgid "And"
+msgstr "Et"
+
+#: templates/search/search.inc:40
+msgid "Any Part of field"
+msgstr "N'importe quelle partie du champ"
+
+#: browse.php:7 templates/menu/menu.inc:6
+msgid "Browse"
+msgstr "Parcourir"
+
+#: templates/category/tree.inc:4
+msgid "Categories"
+msgstr "Classer"
+
+#: templates/add/add.inc:39 templates/edit/edit.inc:41
+msgid "Category"
+msgstr "Catégorie"
+
+#: config/prefs.php.dist:13
+msgid "Change the number of columns to display in browse and search results."
+msgstr ""
+"Changez le nombre de colonnes à afficher lors d'une recherche ou d'une "
+"consultation."
+
+#: templates/search/search.inc:27
+msgid "Combine"
+msgstr "Combiner"
+
+#: templates/add/nocategories.inc:11
+msgid "Define one or more categories for your bookmarks"
+msgstr "Definissez une ou plusieurs catégories pour vos signets"
+
+#: templates/bookmark/1line.inc:24 templates/bookmark/1line.inc:25
+#: templates/bookmark/standard.inc:23 templates/bookmark/standard.inc:24
+#: templates/bookmark/2line.inc:25 templates/bookmark/2line.inc:26
+msgid "Delete"
+msgstr "Supprimer"
+
+#: templates/browse/javascript.inc:34
+msgid "Delete current category?"
+msgstr "Supprimer la catégorie?"
+
+#: templates/browse/categories.inc:10
+msgid "Delete this Category"
+msgstr "Supprimer cette catégorie"
+
+#: templates/add/add.inc:34 templates/edit/edit.inc:36
+#: templates/search/search.inc:22
+msgid "Description"
+msgstr "Description"
+
+#: config/prefs.php.dist:12
+msgid "Display Options"
+msgstr "Afficher les options"
+
+#: config/prefs.php.dist:49
+msgid "Display edit buttons when displaying Bookmarks?"
+msgstr "Afficher un bouton d'édition lors de l'affichage des signets?"
+
+#: templates/add/add.inc:65
+msgid "Drag the 'Add to Bookmarks' link below onto your 'Links' Bar"
+msgstr ""
+"Glissez le lien 'Ajouter aux signets' ci-dessous sur votre barre de 'liens'"
+
+#: templates/add/add.inc:63
+msgid "Drag the 'Add to Bookmarks' link below onto your 'Personal Toolbar'"
+msgstr ""
+"Glissez le lien 'Ajouter aux signets' ci-dessous sur votre barre d'outils "
+"'personnel'"
+
+#: templates/bookmark/1line.inc:26 templates/bookmark/1line.inc:27
+#: templates/bookmark/standard.inc:25 templates/bookmark/standard.inc:26
+#: templates/bookmark/2line.inc:27 templates/bookmark/2line.inc:28
+msgid "Edit"
+msgstr "Editer"
+
+#: templates/edit/edit.inc:13
+#, php-format
+msgid "Edit %s"
+msgstr "Editer %s"
+
+#: edit.php:59
+msgid "Edit Bookmark"
+msgstr "Editer le signer"
+
+#: templates/data/import.inc:44
+msgid "Export"
+msgstr "Exporter"
+
+#: templates/data/import.inc:37
+msgid "Export Bookmarks"
+msgstr "Exporter vos signets"
+
+#: templates/menu/menu.inc:23
+msgid "Help"
+msgstr "Aide"
+
+#: templates/data/import.inc:24
+msgid "Import"
+msgstr "Importer"
+
+#: data.php:99 templates/data/import.inc:7
+msgid "Import Bookmarks"
+msgstr "Importer vos signets"
+
+#: templates/menu/menu.inc:15
+msgid "Import/Export"
+msgstr "Importer/Exporter"
+
+#: data.php:14 data.php:72
+msgid "Imported Bookmarks"
+msgstr "Signets importés"
+
+#: templates/add/add.inc:64
+msgid "Internet Explorer"
+msgstr "Internet Explorer"
+
+#: templates/data/import.inc:16
+msgid ""
+"Internet Expolorer Users will need to export their current Favorites by "
+"going to the 'File' menu and selected 'Import and Export'"
+msgstr ""
+"Les utilisateurs d'Internet Explorer devront exporter leurs signets en "
+"allant dans le menu 'Fichier' puis 'Importer et Exporter'"
+
+#: config/prefs.php.dist:6
+msgid "Language"
+msgstr "Langue"
+
+#: templates/search/search.inc:37
+msgid "Match"
+msgstr "Contient"
+
+#: templates/add/add.inc:62
+msgid "Mozilla"
+msgstr "Mozilla"
+
+#: templates/data/import.inc:15
+msgid ""
+"Mozilla will need to export their current Bookmarks by going into 'Bookmark "
+"Manager' and selecting 'Export' from the 'Tools' menu"
+msgstr ""
+"Les utilisateurs de Mozilla devront aller dans le menu 'Bookmarks-> Manage "
+"Bookmarks...->Tools->Export...'"
+
+#: lib/Trean.php:64 templates/browse/bookmarks.inc:5
+#: templates/category/tree.inc:18
+msgid "My Bookmarks"
+msgstr "Mes signets"
+
+#: templates/browse/categories.inc:5
+msgid "My Categories"
+msgstr "Mes categories"
+
+#: templates/add/add.inc:29 templates/edit/edit.inc:31
+#: templates/search/search.inc:17
+msgid "Name"
+msgstr "Nom"
+
+#: templates/browse/bookmarks.inc:11
+msgid "New Bookmark"
+msgstr "Nouveau signet"
+
+#: templates/add/nocategories.inc:5 templates/browse/categories.inc:8
+msgid "New Subcategory"
+msgstr "Nouvelle sous catégorie"
+
+#: templates/search/results_none.inc:3
+msgid "No Bookmarks found"
+msgstr "Pas de signets trouvés"
+
+#: add.php:62
+msgid "No categories defined"
+msgstr "Pas de catégorie définie"
+
+#: config/prefs.php.dist:30
+msgid "Number of columns to display in browse and search results:"
+msgstr ""
+"Nombre de colonnes à afficher lors d'une recherche ou d'une consultation:"
+
+#: config/prefs.php.dist:57
+msgid "Open links in new windows"
+msgstr "Ouvrir le lien dans une nouvelle fenêtre"
+
+#: templates/menu/menu.inc:10
+msgid "Options"
+msgstr "Options"
+
+#: templates/search/search.inc:30
+msgid "Or"
+msgstr "Ou"
+
+#: config/prefs.php.dist:11
+msgid "Other Options"
+msgstr "Autres options"
+
+#: templates/browse/javascript.inc:20
+msgid "Please enter the name of the new category:"
+msgstr "Veuillez entrer le nom de la nouvelle catégorie:"
+
+#: templates/add/add.inc:15 templates/add/add.inc:50
+#: templates/edit/edit.inc:17 templates/edit/edit.inc:52
+msgid "Reset"
+msgstr "RAZ"
+
+#: templates/add/add.inc:14 templates/add/add.inc:49
+#: templates/edit/edit.inc:16 templates/edit/edit.inc:51
+msgid "Save"
+msgstr "Enregistrer"
+
+#: search.php:7 templates/menu/menu.inc:8 templates/search/search.inc:47
+msgid "Search"
+msgstr "Recherche"
+
+#: templates/search/search.inc:7
+msgid "Search Bookmarks"
+msgstr "Rechercher dans les signets"
+
+#: templates/search/results_header.inc:5
+msgid "Search Results"
+msgstr "Résultats de la recherche"
+
+#: templates/data/import.inc:18
+msgid "Select the file to import:"
+msgstr "Séléctionnez le fichier à importer:"
+
+#: config/prefs.php.dist:22
+msgid "Select your preferred language:"
+msgstr "Séléctionnez votre langue par défaut:"
+
+#: config/prefs.php.dist:7
+msgid "Set the your preferred display language."
+msgstr "Séléctionnez votre langue d'affichage."
+
+#: templates/index/notconfigured.inc:39
+msgid "Some of Trean's configuration files are missing:"
+msgstr "Certains fichiers de configuration pour Trean sont manquants:"
+
+#: templates/data/import.inc:19
+msgid "Target Category:"
+msgstr "Catégorie cible:"
+
+#: config/prefs.php.dist:41
+msgid "Template to use when displaying Bookmarks:"
+msgstr "Modèle à utiliser pour l'affichage des signets:"
+
+#: add.php:21
+msgid "There was an error adding the bookmark"
+msgstr "Erreur lors de l'ajout aux signets"
+
+#: templates/index/notconfigured.inc:51
+msgid "This file contains preferences for Trean."
+msgstr "Ce fichiers contient les préférences pour Trean."
+
+#: templates/index/notconfigured.inc:44
+msgid ""
+"This is the main Trean configuration file. It contains options for all Trean "
+"scripts."
+msgstr ""
+"Fichier principal de configuration pour Trean. Il contient les options pour "
+"tous les scripts de Trean."
+
+#: templates/add/add.inc:61
+msgid "To be able to quickly add bookmarks from your web browser:"
+msgstr "Pour ajouter rapidement un signet depuis votre navigateur:"
+
+#: templates/index/notconfigured.inc:4
+msgid "Trean is not properly configured"
+msgstr "Trean n'est pas correctement configuré"
+
+#: templates/add/add.inc:24 templates/edit/edit.inc:26
+#: templates/search/search.inc:12
+msgid "URL"
+msgstr "Adresse"
+
+#: prefs.php:33
+msgid "User Options"
+msgstr "Options utilisateur"
+
+#: templates/add/add.inc:66
+msgid ""
+"While browsing you will be able to add bookmarks by clicking your new 'Add "
+"to Bookmarks' shortcut."
+msgstr ""
+"Lors d'une navigation vous pouvez rapidement ajouter un signet en cliquant "
+"sur le lien 'Ajouter aux signets'."
+
+#: templates/search/search.inc:41
+msgid "Whole Field"
+msgstr "Tout le champ"
+
+#: templates/browse/javascript.inc:20
+msgid "You are creating a category folder."
+msgstr "Vous crééez une catégorie."
+
+#: config/prefs.php.dist:5
+msgid "Your Information"
+msgstr "Votre information"

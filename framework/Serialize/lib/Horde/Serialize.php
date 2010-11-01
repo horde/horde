@@ -8,6 +8,7 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author   Stephane Huther <shuther1@free.fr>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @package  Horde_Serialize
  * @category Horde
  */
@@ -48,7 +49,7 @@ class Horde_Serialize
      *                       requires.
      *
      * @return string  The serialized data.
-     *                 Returns PEAR_Error on error.
+     * @throws Horde_Serialize_Exception
      */
     static public function serialize($data, $mode = array(self::BASIC),
                                      $params = null)
@@ -61,12 +62,9 @@ class Horde_Serialize
         foreach ($mode as $val) {
             /* Check to make sure the mode is supported. */
             if (!self::hasCapability($val)) {
-                return PEAR::raiseError('Unsupported serialization type');
+                throw new Horde_Serialize_Exception('Unsupported serialization type');
             }
             $data = self::_serialize($data, $val, $params);
-            if ($data instanceOf PEAR_Error) {
-                break;
-            }
         }
 
         return $data;
@@ -86,7 +84,7 @@ class Horde_Serialize
      *                       method requires.
      *
      * @return string  The unserialized data.
-     *                 Returns PEAR_Error on error.
+     * @throws Horde_Serialize_Exception
      */
     static public function unserialize($data, $mode = self::BASIC,
                                        $params = null)
@@ -99,12 +97,9 @@ class Horde_Serialize
         foreach ($mode as $val) {
             /* Check to make sure the mode is supported. */
             if (!self::hasCapability($val)) {
-                return PEAR::raiseError('Unsupported unserialization type');
+                throw new Horde_Serialize_Exception('Unsupported unserialization type');
             }
             $data = self::_unserialize($data, $val, $params);
-            if (is_a($data, 'PEAR_Error')) {
-                break;
-            }
         }
 
         return $data;
@@ -170,7 +165,8 @@ class Horde_Serialize
      * @param mixed $params  Any additional parameters the serialization method
      *                       requires.
      *
-     * @return string  A serialized string or PEAR_Error on error.
+     * @return string  A serialized string.
+     * @throws Horde_Serialize_Exception
      */
     static protected function _serialize($data, $mode, $params = null)
     {
@@ -252,12 +248,18 @@ class Horde_Serialize
             $data = self::serialize($data, array(self::UTF7, self::BASIC), $params);
             break;
 
-        // $params = Source character set
         case self::JSON:
-            if (!empty($params)) {
-                $data = Horde_String::convertCharset($data, $params, 'UTF-8');
+            $tmp = json_encode($data);
+
+            /* Basic error handling attempts. Requires PHP 5.3+.
+             * Error code 5, although not documented, indicates non UTF-8
+             * data. */
+            if (function_exists('json_last_error') &&
+                (json_last_error() == 5)) {
+                $data = json_encode(Horde_String::convertCharset($data, $params, 'UTF-8', true));
+            } else {
+                $data = $tmp;
             }
-            $data = json_encode($data);
             break;
 
         case self::LZF:
@@ -266,7 +268,7 @@ class Horde_Serialize
         }
 
         if ($data === false) {
-            return PEAR::raiseError('Serialization failed.');
+            throw new Horde_Serialize_Exception('Serialization failed.');
         }
         return $data;
     }
@@ -281,7 +283,8 @@ class Horde_Serialize
      * @param mixed $params  Any additional parameters the unserialization
      *                       method requires.
      *
-     * @return mixed  Unserialized data on success or PEAR_Error on error.
+     * @return mixed  Unserialized data.
+     * @throws Horde_Serialize_Exception
      */
     static protected function _unserialize(&$data, $mode, $params = null)
     {
@@ -361,8 +364,9 @@ class Horde_Serialize
         }
 
         if ($data === false) {
-            return PEAR::raiseError('Unserialization failed.');
+            throw new Horde_Serialize_Exception('Unserialization failed.');
         }
+
         return $data;
     }
 

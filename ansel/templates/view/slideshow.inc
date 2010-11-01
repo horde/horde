@@ -13,24 +13,23 @@ function stopSlideShow()
 <table width="100%" cellspacing="0">
  <tr class="control">
   <td>
-    <?php if ($this->gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)): ?>
-        <?php echo Horde::link('#', '', '', '_blank', 'SlideController.pause();' . $this->_urls['prop_popup'], '', '', array('id' => 'image_properties_link')) . _("Properties") ?></a>
-      | <?php echo Horde::link(Horde::applicationUrl($this->_urls['edit']), '', '', '', '', '', '', array('id' => 'image_edit_link')) . _("Edit") ?></a>
+    <?php if ($this->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)): ?>
+        <?php $url = new Horde_Url('#'); echo $url->link(array('onclick.raw' => $this->_urls['prop_popup'] . ' SlideController.pause(); return false;','id' => 'image_properties_link')) . _("Properties") ?></a>
+      | <?php echo Horde::url($this->_urls['edit'])->link(array('id' => 'image_edit_link')) . _("Edit") ?></a>
     <?php endif; ?>
-    <?php if ($this->gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)): ?>
-      | <?php echo Horde::link($this->_urls['delete'], '', '', '', 'return window.confirm(\'' . addslashes(sprintf(_("Do you want to permanently delete \"%s\"?"), $this->resource->filename)) . '\');', '', '', array('id' => 'image_delete_link')) . _("Delete") ?></a>
+    <?php if ($this->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)): ?>
+      | <?php echo $this->_urls['delete']->link(array('id' => 'image_delete_link')) . _("Delete") ?></a>
     <?php endif; ?>
   </td>
   <td class="rightAlign">
-
-<?php if (!empty($conf['ecard']['enable'])): ?>
-    <?php echo Horde::link($this->_urls['ecard'], '', '', '_blank', 'SlideController.pause();' . Horde::popupJs($ecardurl, array('urlencode' => true)) . 'return false;', '', '', array('id' => 'image_ecard_link')) . _("Send an Ecard") ?></a> |
+<?php if (!empty($GLOBALS['conf']['ecard']['enable'])): ?>
+    <?php echo $this->_urls['ecard']->link(array('target' => '_blank', 'onclick' => 'SlideController.pause();' . Horde::popupJs($this->_urls['ecard'], array('urlencode' => true)) . 'return false;', 'id' => 'image_ecard_link')) . _("Send an Ecard") ?></a> |
 <?php endif; ?>
-    <?php echo Horde::link($this->_urls['download'], '', '', '', 'SlideController.pause();', '', '', array('id' => 'image_download_link')) . _("Download Original Photo") ?></a>
+    <?php echo $this->_urls['download']->link(array('onclick' => 'SlideController.pause();', 'id' => 'image_download_link')) . _("Download Original Photo") ?></a>
   </td>
  </tr>
 </table>
-<table width="100%" cellpadding="0" cellspacing="0" style="background-color:<?php echo $this->_style['background']; ?>;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background-color:<?php echo $this->_style->background; ?>;">
  <tr>
   <td>
     <div class="slideControls">
@@ -48,7 +47,7 @@ function stopSlideShow()
   <tr>
    <td style="margin:5px;height:<?php echo $GLOBALS['conf']['screen']['height'] ?>px;vertical-align:top;">
      <div id="Container">
-      <?php echo Horde::img('blank.gif', '', array('id' => 'Photo', 'style' => 'display:none;'), $registry->getImageDir('horde')) ?>
+      <?php echo Horde::img('blank.gif', '', array('id' => 'Photo', 'style' => 'display:none')) ?>
      </div>
    </td>
   </tr>

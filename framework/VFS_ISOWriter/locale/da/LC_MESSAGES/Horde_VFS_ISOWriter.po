@@ -1,0 +1,75 @@
+# Danish translations for Horde_VFS_ISOWriter module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_VFS_ISOWriter module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_VFS_ISOWriter\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ISOWriter/RealInputStrategy/copy.php:42
+#: ISOWriter/RealOutputStrategy/copy.php:48
+msgid "Cannot find a temporary directory."
+msgstr "Kan ikke finde et midlertidigt katalog."
+
+#: ISOWriter.php:93
+msgid "Cannot proceed without 'targetFile' parameter."
+msgstr "Kan ikke fortsætte uden 'targetFile'-parametren."
+
+#: ISOWriter/RealInputStrategy.php:85 ISOWriter/RealOutputStrategy.php:80
+#, php-format
+msgid "Could not load strategy \"%s\"."
+msgstr "Kunne ikke hente strategi \"%s\"."
+
+#: ISOWriter/RealInputStrategy/copy.php:106
+#: ISOWriter/RealOutputStrategy/direct.php:26
+#, php-format
+msgid "Could not mkdir \"%s\"."
+msgstr "Kunne ikke mkdir \"%s\"."
+
+#: ISOWriter/RealInputStrategy/copy.php:135
+#, php-format
+msgid "Could not open \"%s\" for writing."
+msgstr "Kunne ikke åbne \"%s\" for skrivning."
+
+#: ISOWriter/RealInputStrategy/copy.php:66
+#, php-format
+msgid "Could not open directory \"%s\"."
+msgstr "Kunne ikke åbne katalog \"%s\"."
+
+#: ISOWriter/RealInputStrategy/copy.php:90
+#, php-format
+msgid "Could not rmdir \"%s\"."
+msgstr "Kunne ikke rmdir \"%s\"."
+
+#: ISOWriter/RealInputStrategy/copy.php:82
+#, php-format
+msgid "Could not unlink \"%s\"."
+msgstr "Kunne ikke <em>unlink</em> \"%s\"."
+
+#: ISOWriter/RealInputStrategy/copy.php:138
+#, php-format
+msgid "Error writing \"%s\"."
+msgstr "Fejl under skrivning af \"%s\"."
+
+#: ISOWriter.php:108
+msgid "No available strategy for making ISO images."
+msgstr "Ingen tilgængelig strategi til at lave ISO-billeder."
+
+#: ISOWriter/mkisofs.php:46
+msgid "Unable to run 'mkisofs'."
+msgstr "Kan ikke afvikle 'mkisofs'."
+
+#: ISOWriter/mkisofs.php:49
+#, php-format
+msgid "mkisofs error code %d while making ISO."
+msgstr "mkisofs fejlkode %d under dannelse af ISO."

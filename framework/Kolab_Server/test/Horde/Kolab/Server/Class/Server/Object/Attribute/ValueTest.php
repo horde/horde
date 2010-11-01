@@ -35,14 +35,14 @@ extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
+        $this->markTestIncomplete('Needs to be fixed');
+
         $this->object = $this->getMock(
-            'Horde_Kolab_Server_Object', array(), array(), '', false
+            'Horde_Kolab_Server_Object_Interface', array(), array(), '', false
         );
         $this->composite = $this->getMock(
             'Horde_Kolab_Server_Composite', array(), array(), '', false
         );
-
-        $this->markTestIncomplete('Needs to be fixed');
     }
 
     public function testMethodValueHasResultArrayTheValuesOfTheAttribute()

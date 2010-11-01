@@ -1,0 +1,54 @@
+# Korean translations for Horde_Prefs module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Prefs module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Prefs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: lib/Horde/Prefs/Identity.php:131
+msgid "Default Identity"
+msgstr "기본 식별자"
+
+#: lib/Horde/Prefs/Ldap.php:142
+#, fuzzy
+msgid "Internal LDAP error.  Details have been logged for the administrator."
+msgstr "세부정보가 관리자를 위해 기록되어졌습니다."
+
+#: lib/Horde/Prefs/CategoryManager.php:57
+msgid "New Category"
+msgstr ""
+
+#: lib/Horde/Prefs/CategoryManager.php:88
+#, fuzzy
+msgid "Please type the new category name:"
+msgstr "새로운 이름을 입력하세요:"
+
+#: lib/Horde/Prefs/CategoryManager.php:66
+#, fuzzy
+msgid "Unfiled"
+msgstr "읽지 않은 메일"
+
+#: lib/Horde/Prefs/Identity.php:352
+msgid "Unnamed"
+msgstr "이름 없음"
+
+#: lib/Horde/Prefs/CategoryManager.php:51
+#, fuzzy, php-format
+msgid "Use Current: %s"
+msgstr "현재 스타일"
+
+#: lib/Horde/Prefs/CategoryManager.php:89
+#, fuzzy
+msgid "You must type a new category name."
+msgstr "삭제할 사용자 이름을 입력해야 합니다."

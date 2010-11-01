@@ -7,7 +7,7 @@
  */
 
 if (Beatnik::needCommit($_SESSION['beatnik']['curdomain']['zonename'])) {
-    $commit = Horde_Util::addParameter(Horde::applicationUrl('commit.php'), array('domain' => 'current'));
+    $commit = Horde_Util::addParameter(Horde::url('commit.php'), array('domain' => 'current'));
     echo Horde::link($commit, _('Commit Changes'), 'button') . _('Commit Changes') . '</a><br /><br />';
 }
 ?>
@@ -19,6 +19,8 @@ $params = array('id' => $_SESSION['beatnik']['curdomain']['id'],
 echo $_SESSION['beatnik']['curdomain']['zonename'] . '&nbsp;'
      . Horde::link(Horde_Util::addParameter($edit, $params))
      . Horde::img('edit.png', _("Edit"), '', $img_dir) . '</a> '
+     . Horde::link(Horde_Util::addParameter($autogen, $params))
+     . Horde::img('devel.png', _("Autogenerate"), '', $img_dir) . '</a> '
      . Horde::link(Horde_Util::addParameter($delete, $params))
      . Horde::img('delete.png', _("Delete"), '', $img_dir) . '</a></td>';
 ?>

@@ -9,7 +9,9 @@
  *
  * @author Duck <duck@obala.net>
  */
-require_once dirname(__FILE__) . '/../lib/base.php';
+
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('ansel');
 
 $image_id = (int)Horde_Util::getFormData('image');
 $face_id = (int)Horde_Util::getFormData('face');
@@ -19,19 +21,20 @@ $urlparams = array('page' => $page);
 if (!empty($url)) {
     $urlparams['url'] = $url;
 }
-$form_post = Horde_Util::addParameter(Horde::applicationUrl('faces/savecustom.php'), $urlparams);
+$form_post = Horde::url('faces/savecustom.php')->add($urlparams);
 
-$image = &$ansel_storage->getImage($image_id);
-if (is_a($image, 'PEAR_Error')) {
+try {
+    $image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($image_id);
+} catch (Ansel_Exception $e) {
     $notification->push($image);
-    header('Location: ' . Horde::applicationUrl('list.php'));
+    Horde::url('list.php')->redirect();
     exit;
 }
 
-$gallery = $ansel_storage->getGallery($image->gallery);
-if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+$gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($image->gallery);
+if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
     $notification->push(_("Access denied editing the photo."));
-    header('Location: ' . Ansel::getUrlFor('view', array('gallery' => $image->gallery)));
+    Ansel::getUrlFor('view', array('gallery' => $image->gallery))->redirect();
     exit;
 }
 
@@ -42,21 +45,20 @@ $y2 = $conf['screen']['width'];
 $name = Horde_Util::getFormData('name');
 
 if ($face_id) {
-    $faces = Ansel_Faces::factory();
+    $faces = $injector->getInstance('Ansel_Faces');
     try {
         $face = $faces->getFaceById($face_id, true);
+        $x1 = $face['face_x1'];
+        $y1 = $face['face_y1'];
+        $x2 = $face['face_x2'];
+        $y2 = $face['face_y2'];
+        if (!empty($face['face_name'])) {
+            $name = $face['face_name'];
+        }
     } catch (Horde_Exception $e) {
         $notification->push($e->getMessage());
+        Horde::url('list.php')->redirect();
     }
-
-    $x1 = $face['face_x1'];
-    $y1 = $face['face_y1'];
-    $x2 = $face['face_x2'];
-    $y2 = $face['face_y2'];
-    if (!empty($face['face_name'])) {
-        $name = $face['face_name'];
-    }
-
 }
 
 $height = $x2 - $x1;
@@ -72,6 +74,7 @@ Horde::addScriptFile('cropper.js');
 Horde::addScriptFile('stripe.js', 'horde');
 
 require ANSEL_TEMPLATES . '/common-header.inc';
-require ANSEL_TEMPLATES . '/menu.inc';
+echo Horde::menu();
+$notification->notify(array('listeners' => 'status'));
 require ANSEL_TEMPLATES . '/faces/custom.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

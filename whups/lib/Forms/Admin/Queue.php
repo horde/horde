@@ -23,7 +23,7 @@ class AddQueueForm extends Horde_Form {
         $this->addVariable(
             _("Queue Slug"), 'slug', 'text', false, false,
             sprintf(_("Slugs allows direct access to this queue's open tickets by visiting: %s. <br /> Slug names may contain only letters, numbers or the _ (underscore) character."),
-                    Horde::applicationUrl('queue/slugname', true)),
+                    Horde::url('queue/slugname', true)),
             array('/^[a-zA-Z1-9_]*$/'));
         $this->addVariable(_("Queue Email"), 'email', 'email', false, false,
                            _("This email address will be used when sending notifications for any queue tickets."));
@@ -114,7 +114,7 @@ class EditQueueStep2Form extends Horde_Form {
         if ($registry->hasMethod('tickets/listVersions') == $registry->getApp()) {
             $versionlink = array(
                 'text' => _("Edit the versions for this queue"),
-                'url' => Horde_Util::addParameter(Horde::applicationUrl('admin/?formname=editversionstep1form'), 'queue', $queue));
+                'url' => Horde_Util::addParameter(Horde::url('admin/?formname=editversionstep1form'), 'queue', $queue));
             $this->addVariable('', 'link', 'link', false, true, null,
                                array($versionlink));
         }
@@ -132,12 +132,12 @@ class EditQueueStep2Form extends Horde_Form {
         $musers->setDefault($whups_driver->getQueueUsers($queue));
         $userlink = array(
             'text' => _("Edit the users responsible for this queue"),
-            'url' => Horde_Util::addParameter(Horde::applicationUrl('admin/?formname=edituserform'), 'queue', $queue));
+            'url' => Horde_Util::addParameter(Horde::url('admin/?formname=edituserform'), 'queue', $queue));
         $this->addVariable('', 'link', 'link', false, true, null,
                            array($userlink));
 
-        /* Perms link. */
-        if (Horde_Auth::isAdmin('whups:admin', Horde_Perms::EDIT)) {
+        /* Permissions link. */
+        if ($GLOBALS['registry']->isAdmin(array('permission' => 'whups:admin', 'permlevel' => Horde_Perms::EDIT))) {
             $permslink = array(
                 'text' => _("Edit the permissions on this queue"),
                 'url' => Horde_Util::addParameter(Horde_Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/admin/perms/edit.php'), 'category', "whups:queues:$queue"), 'autocreate', '1'));

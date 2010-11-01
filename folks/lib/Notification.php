@@ -50,8 +50,8 @@ class Folks_Notification {
         $result = false;
 
         if (empty($user)) {
-            if (Horde_Auth::isAuthenticated()) {
-                $user = Horde_Auth::getAuth();
+            if ($GLOBALS['registry']->isAuthenticated()) {
+                $user = $GLOBALS['registry']->getAuth();
             } else {
                 return true;
             }
@@ -92,8 +92,8 @@ class Folks_Notification {
         $result = false;
 
         if (empty($user)) {
-            if (Horde_Auth::isAuthenticated()) {
-                $user = Horde_Auth::getAuth();
+            if ($GLOBALS['registry']->isAuthenticated()) {
+                $user = $GLOBALS['registry']->getAuth();
             } else {
                 return true;
             }
@@ -164,8 +164,8 @@ class Folks_Notification {
     {
         $name = $GLOBALS['registry']->getApp() . ':admin';
 
-        if ($GLOBALS['perms']->exists($name)) {
-            $permission = $GLOBALS['perms']->getPermission($name);
+        if ($GLOBALS['injector']->getInstance('Horde_Perms')->exists($name)) {
+            $permission = $GLOBALS['injector']->getInstance('Horde_Perms')->getPermission($name);
             if ($permission instanceof PEAR_Error) {
                 return $permission;
             } else {
@@ -221,7 +221,7 @@ class Folks_Notification {
      */
     protected function _getUserFromAddr($user)
     {
-        return Horde_Prefs_Identity::singleton('none', $user)->getValue('from_addr');
+        return $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($user)->getValue('from_addr');
     }
 
     /**

@@ -1,0 +1,74 @@
+  <div><tag:title /></div>
+  <hr />
+  <form action="<tag:url />" method="post" <if:attach><if:attach_data><else:attach_data>enctype="multipart/form-data"</else:attach_data></if:attach_data></if:attach>>
+   <input type="hidden" name="composeCache" value="<tag:cacheid />" />
+<if:redirect>
+   <input type="hidden" name="action" value="rc" />
+<else:redirect>
+   <p>
+    <label for="identity">
+     <gettext>From:</gettext>
+     <select id="identity" name="identity">
+<loop:identities>
+      <option value="<tag:identities.key />"<if:identities.sel> selected="selected"</if:identities.sel>><tag:identities.val /></option>
+</loop:identities>
+     </select>
+    </label>
+   </p>
+</if:redirect>
+<loop:hdrs>
+   <p>
+    <label for="<tag:hdrs.key />">
+     <tag:hdrs.label />
+     <input id="<tag:hdrs.key />" name="<tag:hdrs.key />" value="<tag:hdrs.val />" />
+    </label>
+   </p>
+<if:hdrs.matchlabel>
+   <blockquote>
+    <div><tag:hdrs.matchlabel /></div>
+<loop:hdrs.match>
+    <div><label for="<tag:hdrs.match.id />"><input type="checkbox" name="<tag:hdrs.match.id />" id="<tag:hdrs.match.id />" value="<tag:hdrs.match.val />" /><tag:hdrs.match.val /></label></div>
+</loop:hdrs.match>
+   </blockquote>
+</if:hdrs.matchlabel>
+</loop:hdrs>
+<if:redirect>
+   <p>
+    <input type="submit" name="a" value="<gettext>Redirect</gettext>" />
+<else:redirect>
+   <p>
+    <gettext>Subject:</gettext> <input name="subject" value="<tag:subject />" />
+   </p>
+   <p>
+    <gettext>Message:</gettext>
+    <br />
+    <textarea name="message" rows="10" cols="80"><tag:msg /></textarea>
+   </p>
+   <p>
+<if:compose_enable>
+    <input type="submit" name="a" value="<gettext>Send</gettext>" />
+</if:compose_enable>
+<if:save_draft>
+    <input type="submit" name="a" value="<gettext>Save Draft</gettext>" />
+</if:save_draft>
+</else:redirect></if:redirect>
+    <input type="submit" name="a" value="<gettext>Expand Names</gettext>" />
+    <input type="submit" name="a" value="<gettext>Cancel</gettext>" />
+   </p>
+<if:attach>
+   <hr />
+   <p>
+    <gettext>Attach</gettext>:
+<if:attach_data>
+    <tag:attach_data />
+<else:attach_data>
+    <input name="upload_1" type="file" />
+</else:attach_data></if:attach_data>
+   </p>
+</if:attach>
+  </form>
+  <hr />
+  <div><gettext>Menu</gettext></div>
+  <tag:menu />
+ </body>
+</html>

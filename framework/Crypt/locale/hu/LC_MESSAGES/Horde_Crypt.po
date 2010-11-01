@@ -1,0 +1,440 @@
+# Hungarian translations for Horde_Crypt module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Crypt module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Crypt\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/Horde/Crypt/Smime.php:614
+#, php-format
+msgid "%s Fingerprint"
+msgstr "%s lenyomat"
+
+#: lib/Horde/Crypt/Pgp.php:1240
+msgid "A passphrase is required to decrypt a message."
+msgstr "Egy jelmondat szükséges a levél titkosításának visszafejtéséhez."
+
+#: lib/Horde/Crypt/Pgp.php:1307
+msgid "A public PGP key is required to verify a signed message."
+msgstr ""
+"A digitálisan aláírt levél ellenőrzéséhez egy nyilvános PGP kulcs szükséges."
+
+#: lib/Horde/Crypt/Pgp.php:1164
+msgid ""
+"A public PGP key, private PGP key, and passphrase are required to sign a "
+"message."
+msgstr ""
+"A levél digitális aláírásához egy nyilvános PGP kulcs, egy titkos PGP kulcs "
+"és egy jelmondat szükséges."
+
+#: lib/Horde/Crypt/Smime.php:311
+msgid "A public S/MIME key is required to encrypt a message."
+msgstr "A levél titkosításához egy nyilvános S/MIME kulcs szükséges."
+
+#: lib/Horde/Crypt/Smime.php:422
+msgid ""
+"A public S/MIME key, private S/MIME key, and passphrase are required to "
+"decrypt a message."
+msgstr ""
+"A titkosított levél dekódolásához egy nyilvános S/MIME kulcs, egy titkos S/"
+"MIME kulcs és egy jelmondat szükséges."
+
+#: lib/Horde/Crypt/Smime.php:360
+msgid ""
+"A public S/MIME key, private S/MIME key, and passphrase are required to sign "
+"a message."
+msgstr ""
+"A levél digitális aláírásához egy nyilvános S/MIME kulcs, egy titkos S/MIME "
+"kulcs és egy jelmondat szükséges."
+
+#: lib/Horde/Crypt/Smime.php:506
+msgid "CRL Distribution Points"
+msgstr "A tanúsítványvisszavonási listák (CRL) címei"
+
+#: lib/Horde/Crypt/Smime.php:609
+msgid "Certificate Details"
+msgstr "A tanúsítvány részletes adatai"
+
+#: lib/Horde/Crypt/Smime.php:520
+msgid "Certificate Owner"
+msgstr "A tanúsítvány tulajdonosa"
+
+#: lib/Horde/Crypt/Smime.php:505
+msgid "Certificate Policies"
+msgstr "Tanúsítványfelhasználási irányelvek"
+
+#: lib/Horde/Crypt/Pgp.php:426
+msgid "Comment"
+msgstr "Megjegyzés"
+
+#: lib/Horde/Crypt/Smime.php:475
+msgid "Common Name"
+msgstr "Név, elnevezés"
+
+#: lib/Horde/Crypt/Pgp.php:939
+msgid "Connection refused to the public keyserver."
+msgstr "A nyilvános kulcsok szervere elutasítja a kapcsolatot."
+
+#: lib/Horde/Crypt/Pgp.php:950
+#, php-format
+msgid "Connection refused to the public keyserver. Reason: %s (%s)"
+msgstr "A nyilvános kulcsok szervere elutasítja a kapcsolatot. Oka: %s (%s)"
+
+#: lib/Horde/Crypt/Pgp.php:1132
+msgid "Could not PGP encrypt message: "
+msgstr "Nem sikerült PGP-vel titkosítani a levelet: "
+
+#: lib/Horde/Crypt/Pgp.php:1201
+msgid "Could not PGP sign message: "
+msgstr "A levelet nem sikerült PGP aláírással ellátni: "
+
+#: lib/Horde/Crypt/Smime.php:330
+msgid "Could not S/MIME encrypt message."
+msgstr "A levelet nem sikerült az S/MIME szabvány szerint titkosítani."
+
+#: lib/Horde/Crypt/Smime.php:391
+msgid "Could not S/MIME sign message."
+msgstr "A levelet nem sikerült S/MIME aláírással ellátni."
+
+#: lib/Horde/Crypt/Pgp.php:1276
+msgid "Could not decrypt PGP data: "
+msgstr "Az adatok PGP titkosításból történő dekódolása nem sikerült: "
+
+#: lib/Horde/Crypt/Smime.php:440
+msgid "Could not decrypt S/MIME data."
+msgstr "Az adatok S/MIME titkosításból történő dekódolása nem sikerült."
+
+#: lib/Horde/Crypt/Pgp.php:659
+msgid "Could not determine the recipient's e-mail address."
+msgstr "Nem sikerült megállapítani a címzett email címét."
+
+#: lib/Horde/Crypt/Pgp.php:759 lib/Horde/Crypt/Pgp.php:848
+msgid "Could not obtain public key from the keyserver."
+msgstr "A nyilvános kulcsot nem sikerült megszerezni a kulcsszerverről."
+
+#: lib/Horde/Crypt/Smime.php:478
+msgid "Country"
+msgstr "Ország"
+
+#: lib/Horde/Crypt/Pgp.php:426
+msgid "E-Mail"
+msgstr "Email"
+
+#: lib/Horde/Crypt/Smime.php:474
+msgid "Email Address"
+msgstr "Email cím"
+
+#: lib/Horde/Crypt/Pgp.php:1584 lib/Horde/Crypt/Pgp.php:1592
+msgid "Error while talking to pgp binary."
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:1251 lib/Horde/Crypt/Smime.php:1269
+#: lib/Horde/Crypt/Smime.php:1284
+msgid "Error while talking to smime binary."
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:425
+msgid "Expiration Date"
+msgstr "Az érvényesség lejárata"
+
+#: lib/Horde/Crypt/Smime.php:586
+msgid "Exponent"
+msgstr "Kitevő"
+
+#: lib/Horde/Crypt/Smime.php:484
+msgid "Given Name"
+msgstr "Keresztnév"
+
+#: lib/Horde/Crypt/Pgp.php:426
+msgid "Hash-Algorithm"
+msgstr "Hash algoritmus"
+
+#: lib/Horde/Crypt/Smime.php:534
+msgid "Issuer"
+msgstr "A tanúsítvány kiadója"
+
+#: lib/Horde/Crypt/Pgp.php:424
+msgid "Key Creation"
+msgstr "Kulcs létrehozása"
+
+#: lib/Horde/Crypt/Pgp.php:427
+msgid "Key Fingerprint"
+msgstr "A kulcs lenyomata"
+
+#: lib/Horde/Crypt/Pgp.php:427
+msgid "Key ID"
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:425
+msgid "Key Length"
+msgstr "Kulcshosszúság"
+
+#: lib/Horde/Crypt/Pgp.php:424
+msgid "Key Type"
+msgstr "Kulcs típus"
+
+#: lib/Horde/Crypt/Smime.php:507
+msgid "Key Usage"
+msgstr "A kulcs használata"
+
+#: lib/Horde/Crypt/Pgp.php:782
+msgid "Key already exists on the public keyserver."
+msgstr "A kulcs már létezik a nyilvános kulcsszerveren."
+
+#: lib/Horde/Crypt/Smime.php:480
+msgid "Location"
+msgstr "Hely"
+
+#: lib/Horde/Crypt/Smime.php:189
+msgid ""
+"Message Verified Successfully but the signer's certificate could not be "
+"verified."
+msgstr ""
+"A digitálisan aláírt üzenet hiteles, de az aláíró tanúsítványát nem sikerült "
+"ellenőrizni."
+
+#: lib/Horde/Crypt/Smime.php:583
+msgid "Modulus"
+msgstr "Modulus"
+
+#: lib/Horde/Crypt/Pgp.php:424
+msgid "Name"
+msgstr "Név"
+
+#: lib/Horde/Crypt/Smime.php:490
+msgid "Netscape Base URL"
+msgstr "Netscape bázis-URL"
+
+#: lib/Horde/Crypt/Smime.php:492
+msgid "Netscape CA Revocation URL"
+msgstr "Netscape tanúsítványkiadásijog(CA)-visszavonási URL"
+
+#: lib/Horde/Crypt/Smime.php:494
+msgid "Netscape CA policy URL"
+msgstr "Netscape tanúsítványfelhasználási irányelv URL"
+
+#: lib/Horde/Crypt/Smime.php:493
+msgid "Netscape Renewal URL"
+msgstr "Netscape tanúsítványmegújítási URL"
+
+#: lib/Horde/Crypt/Smime.php:491
+msgid "Netscape Revocation URL"
+msgstr "Netscape tanúsítványvisszavonási URL"
+
+#: lib/Horde/Crypt/Smime.php:495
+msgid "Netscape SSL server name"
+msgstr "Netscape SSL szervernév"
+
+#: lib/Horde/Crypt/Smime.php:496
+msgid "Netscape certificate comment"
+msgstr "Netscape tanúsítvány megjegyzés"
+
+#: lib/Horde/Crypt/Smime.php:489
+msgid "Netscape certificate type"
+msgstr "Netscape tanúsítványtípus"
+
+#: lib/Horde/Crypt/Pgp.php:449
+msgid "Never"
+msgstr "soha"
+
+#: lib/Horde/Crypt/Smime.php:1217
+msgid ""
+"No path to the OpenSSL binary provided. The OpenSSL binary is necessary to "
+"work with PKCS 12 data."
+msgstr ""
+"Nincs megadva az OpenSSL program elérési útvonala. Az OpenSSL program "
+"szükséges a PKCS12 adatok kezeléséhez."
+
+#: lib/Horde/Crypt/Pgp.php:451 lib/Horde/Crypt/Pgp.php:452
+msgid "None"
+msgstr "nincs"
+
+#: lib/Horde/Crypt/Smime.php:549
+msgid "Not After"
+msgstr "Nem később"
+
+#: lib/Horde/Crypt/Smime.php:548
+msgid "Not Before"
+msgstr "Nem korábban"
+
+#: lib/Horde/Crypt/Smime.php:231
+msgid "OpenSSL error: Could not extract data from signed S/MIME part."
+msgstr ""
+"OpenSSL hiba: Nem sikerült kinyerni az adatokat az aláírt S/MIME részből"
+
+#: lib/Horde/Crypt/Smime.php:476
+msgid "Organisation"
+msgstr "Szervezet"
+
+#: lib/Horde/Crypt/Smime.php:477
+msgid "Organisational Unit"
+msgstr "Szervezeti egység"
+
+#: lib/Horde/Crypt/Pgp.php:1406
+msgid "PGP Digital Signature"
+msgstr "PGP digitális aláírás"
+
+#: lib/Horde/Crypt/Pgp.php:1450
+msgid "PGP Encrypted Data"
+msgstr "PGP-vel titkosított adat"
+
+#: lib/Horde/Crypt/Pgp.php:1511
+msgid "PGP Public Key"
+msgstr "PGP nyilvános kulcs"
+
+#: lib/Horde/Crypt/Pgp.php:1493
+msgid "PGP Signed/Encrypted Data"
+msgstr "PGP-vel aláírt/titkosított adat"
+
+#: lib/Horde/Crypt/Smime.php:1256
+msgid "Password incorrect"
+msgstr "Nem megfelelő jelszó"
+
+#: lib/Horde/Crypt/Pgp.php:447
+msgid "Private Key"
+msgstr "Titkos kulcs"
+
+#: lib/Horde/Crypt/Pgp.php:447
+msgid "Public Key"
+msgstr "Nyilvános kulcs"
+
+#: lib/Horde/Crypt/Smime.php:554
+msgid "Public Key Algorithm"
+msgstr "Nyilvános kulcsú algoritmus"
+
+#: lib/Horde/Crypt/Smime.php:553
+msgid "Public Key Info"
+msgstr "Nyilvános kulcs információ"
+
+#: lib/Horde/Crypt/Pgp.php:225
+msgid "Public/Private keypair not generated successfully."
+msgstr "A nyilvános/titkos kulcspárt nem sikerült létrehozni."
+
+#: lib/Horde/Crypt/Smime.php:572
+#, php-format
+msgid "RSA Public Key (%d bit)"
+msgstr "RSA nyilvános kulcs (%d bites)"
+
+#: lib/Horde/Crypt/Pgp.php:227
+msgid "Returned error message:"
+msgstr "A kapott hibaüzenet:"
+
+#: lib/Horde/Crypt/Pgp.php:1644
+msgid "Revocation key not generated successfully."
+msgstr "A kulcsvisszavonáshoz szükséges állományt nem sikerült létrehozni."
+
+#: lib/Horde/Crypt/Smime.php:252
+msgid "S/MIME Cryptographic Signature"
+msgstr "S/MIME digitális aláírás"
+
+#: lib/Horde/Crypt/Smime.php:283
+msgid "S/MIME Encrypted Message"
+msgstr "S/MIME szabvány szerint titkosított levél"
+
+#: lib/Horde/Crypt/Smime.php:611
+msgid "Serial Number"
+msgstr "Sorozatszám"
+
+#: lib/Horde/Crypt/Smime.php:622
+msgid "Signature"
+msgstr "Digitális aláírás"
+
+#: lib/Horde/Crypt/Smime.php:621
+msgid "Signature Algorithm"
+msgstr "A digitális aláírás algoritmusa"
+
+#: lib/Horde/Crypt/Smime.php:479
+msgid "State or Province"
+msgstr "Állam vagy tartomány"
+
+#: lib/Horde/Crypt/Smime.php:481
+msgid "Street Address"
+msgstr "Cím (utca)"
+
+#: lib/Horde/Crypt/Smime.php:483
+msgid "Surname"
+msgstr "Családnév"
+
+#: lib/Horde/Crypt/Smime.php:482
+msgid "Telephone Number"
+msgstr "Telefonszám"
+
+#: lib/Horde/Crypt/Pgp.php:1311
+msgid ""
+"The detached PGP signature block is required to verify the signed message."
+msgstr ""
+"Különálló PGP aláírási blokk szükséges a digitálisan aláírt üzenet "
+"hitelességének ellenőrzéséhez."
+
+#: lib/Horde/Crypt/Smime.php:1146
+#, fuzzy
+msgid "The openssl module is required for the Horde_Crypt_Smime:: class."
+msgstr ""
+"Az openssl modul szükséges a Horde_Crypt_smime:: osztály használatához."
+
+#: lib/Horde/Crypt/Smime.php:512
+msgid "Unable to extract certificate details"
+msgstr "A tanúsítvány részletes adatai nem határozhatók meg"
+
+#: lib/Horde/Crypt/Pgp.php:453 lib/Horde/Crypt/Pgp.php:454
+#: lib/Horde/Crypt/Pgp.php:455
+msgid "Unknown"
+msgstr "Ismeretlen"
+
+#: lib/Horde/Crypt/Smime.php:596 lib/Horde/Crypt/Smime.php:844
+#: lib/Horde/Crypt/Smime.php:850
+msgid "Unsupported Extension"
+msgstr "Nem támogatott extenzió"
+
+#: lib/Horde/Crypt/Smime.php:547
+msgid "Validity"
+msgstr "Érvényesség"
+
+#: lib/Horde/Crypt/Smime.php:191
+#, fuzzy
+msgid "Verification failed - an unknown error has occurred."
+msgstr "Ismeretlen hiba történt."
+
+#: lib/Horde/Crypt/Smime.php:193
+msgid "Verification failed - this message may have been tampered with."
+msgstr ""
+"A hitelesítés nem sikerült - lehet, hogy a levelet valaki megváltoztatta."
+
+#: lib/Horde/Crypt/Smime.php:610
+msgid "Version"
+msgstr "Verzió"
+
+#: lib/Horde/Crypt/Smime.php:502
+msgid "X509v3 Basic Constraints"
+msgstr "X509v3 alapvető korlátozások"
+
+#: lib/Horde/Crypt/Smime.php:501
+msgid "X509v3 Extended Key Usage"
+msgstr "X509v3 kiterjesztett kulcshasználat"
+
+#: lib/Horde/Crypt/Smime.php:503
+msgid "X509v3 Subject Alternative Name"
+msgstr "X509v3 tulajdonos alternatív elnevezése"
+
+#: lib/Horde/Crypt/Smime.php:504
+msgid "X509v3 Subject Key Identifier"
+msgstr "X509v3 tulajdonos kulcsazonosító"
+
+#: lib/Horde/Crypt/Smime.php:592
+msgid "X509v3 extensions"
+msgstr "X509v3 kiterjesztések"
+
+#: lib/Horde/Crypt/Smime.php:1135
+msgid "not yet implemented"
+msgstr "A programnak ez a része még nincs megvalósítva."

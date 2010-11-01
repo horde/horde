@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!-- $Horde: luxor/config/conf.xml,v 1.14 2006/03/04 22:49:19 chuck Exp $ -->
+<configuration>
+ <configsection name="storage">
+  <configheader>Storage System Settings</configheader>
+
+  <configswitch name="driver" desc="What storage driver should we use?">sql
+   <case name="sql" desc="SQL">
+    <configsection name="params">
+     <configsql switchname="driverconfig"/>
+    </configsection>
+   </case>
+  </configswitch>
+ </configsection>
+
+ <configsection name="paths" desc="Paths">
+  <configheader>Paths</configheader>
+  <configstring name="ectags" desc="Location of Exuberant Ctags executable (ctags.sourceforge.net)">/usr/bin/ctags</configstring>
+ </configsection>
+
+ <configsection name="options" desc="Look and feel">
+  <configheader>Look and feel</configheader>
+
+  <configenum name="urls" desc="Does your web server support
+  mod_rewrite?  If so, we can generate &quot;pretty&quot; URLs. If
+  not, pathnames will be propagated using a GET variable instead.">get
+   <values>
+    <value desc="GET (will always work)">get</value>
+    <value desc="mod_rewrite (pretty, short URLs)">rewrite</value>
+   </values>
+  </configenum>
+  <configboolean name="use_show_var" desc="Should we enable highlighting of variables in source listings?">true</configboolean>
+ </configsection>
+
+ <configsection name="menu" desc="Menu settings">
+  <configheader>Menu Settings</configheader>
+  <configmultienum name="apps" desc="Select any applications that should be linked in Luxor's menu">
+   <values>
+    <configspecial name="list-horde-apps" />
+   </values>
+  </configmultienum>
+ </configsection>
+</configuration>

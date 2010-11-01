@@ -40,7 +40,7 @@ extends Horde_Kolab_Server_Search_Operation_Restrictkolab
     public function searchGuidForAlias($alias)
     {
         $criteria = new Horde_Kolab_Server_Query_Element_Equals(
-                'Alias', $alias
+            'alias', $alias
         );
         return parent::searchRestrictKolab($criteria);
     }

@@ -1,10 +1,10 @@
-<form method="post" name="rule" action="<?php echo Horde::applicationUrl('rule.php') ?>">
+<form method="post" name="rule" action="<?php echo Horde::url('rule.php') ?>">
 <?php Horde_Util::pformInput() ?>
 <input type="hidden" name="actionID" value="rule_update" />
 <input type="hidden" name="conditionnumber" value="-1" />
 <input type="hidden" name="new_folder_name" value="" />
-<?php if (!is_null($edit_number)): ?>
-<input type="hidden" name="edit" value="<?php echo $edit_number ?>" />
+<?php if (isset($vars->edit)): ?>
+<input type="hidden" name="edit" value="<?php echo $vars->edit ?>" />
 <?php endif; if (isset($rule['id'])): ?>
 <input type="hidden" name="id" value="<?php echo $rule['id'] ?>" />
 <?php endif; ?>
@@ -18,7 +18,7 @@
 <table width="100%" cellspacing="0">
   <tr class="control">
     <td>
-      <?php echo Horde::label('name', _("Rule Name:")) ?> <input class="input" id="name" name="name" size="50" value="<?php echo (isset($rule['name'])) ? @htmlspecialchars($rule['name'], ENT_COMPAT, Horde_Nls::getCharset()) : '' ?>" />
+      <?php echo Horde::label('name', _("Rule Name:")) ?> <input class="input" id="name" name="name" size="50" value="<?php echo (isset($rule['name'])) ? htmlspecialchars($rule['name']) : '' ?>" />
     </td>
     <td width="40" class="rightAlign">
       <?php echo Horde_Help::link('ingo', 'rule-name') ?>&nbsp;

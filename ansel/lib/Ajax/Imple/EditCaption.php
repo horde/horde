@@ -8,7 +8,7 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_Ajax_Imple_EditCaption extends Horde_Ajax_Imple_Base
+class Ansel_Ajax_Imple_EditCaption extends Horde_Core_Ajax_Imple
 {
     public function __construct($params)
     {
@@ -25,8 +25,7 @@ class Ansel_Ajax_Imple_EditCaption extends Horde_Ajax_Imple_Base
     public function attach()
     {
         Horde::addScriptFile('effects.js', 'horde');
-        Horde::addScriptFile('controls.js', 'horde');
-        Horde::addScriptFile('editcaption.js', 'ansel');
+        Horde::addScriptFile('inplaceeditor.js', 'horde');
 
         $params = array('input' => 'value',
                         'id' => $this->_params['id']);
@@ -35,14 +34,17 @@ class Ansel_Ajax_Imple_EditCaption extends Horde_Ajax_Imple_Base
         $loadTextUrl = $this->_getUrl('EditCaption', 'ansel', array_merge($params, array('action' => 'load')));
         $js = array();
 
-        $js[] = "new Ajax.InPlaceEditor('" . $this->_params['domid'] . "', '" . $url . "', {"
-                . "    callback: function(form, value) {"
-                . "      return 'value=' + encodeURIComponent(value);},"
+        $js[] = "new InPlaceEditor('" . $this->_params['domid'] . "', '" . $url . "', {"
+                . "   callback: function(form, value) {"
+                . "       return 'value=' + encodeURIComponent(value);},"
                 . "   loadTextURL: '". $loadTextUrl . "',"
                 . "   rows:" . $this->_params['rows'] . ","
-                . "   cols:" . $this->_params['cols'] . ","
+                . "   width:" . $this->_params['width'] . ","
                 . "   emptyText: '" . _("Click to add caption...") . "',"
-                . "   onComplete: function(transport, element) {tileExit(this);}"
+                . "   onComplete: function(ipe, opts) { ipe.checkEmpty() },"
+                . "   cancelText: '" . _("Cancel") . "',"
+                . "   okText: '" . _("Ok") . "',"
+                . "   cancelClassName: ''"
                 . "  });";
 
         Horde::addInlineScript($js, 'dom');
@@ -50,13 +52,11 @@ class Ansel_Ajax_Imple_EditCaption extends Horde_Ajax_Imple_Base
 
     public function handle($args, $post)
     {
-        include_once dirname(__FILE__) . '/../../base.php';
-
-        if (Horde_Auth::getAuth()) {
+        if ($GLOBALS['registry']->getAuth()) {
             /* Are we requesting the unformatted text? */
             if (!empty($args['action']) && $args['action'] == 'load') {
                 $id = $args['id'];
-                $image = $GLOBALS['ansel_storage']->getImage($id);
+                $image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($id);
                 $caption = $image->caption;
 
                 return $caption;
@@ -68,19 +68,20 @@ class Ansel_Ajax_Imple_EditCaption extends Horde_Ajax_Imple_Base
                     return '';
             }
             $id = $args['id'];
-            $image = $GLOBALS['ansel_storage']->getImage($id);
-            $g = $GLOBALS['ansel_storage']->getGallery($image->gallery);
-            if ($g->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+            $image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($id);
+            $g = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($image->gallery);
+            if ($g->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
                 $image->caption = $pref_value;
-                $result = $image->save();
-                if (is_a($result, 'PEAR_Error')) {
+                try {
+                    $result = $image->save();
+                } catch (Ansel_Exception $e) {
                     return '';
                 }
             }
-            $imageCaption = Horde_Text_Filter::filter(
-                $image->caption, 'text2html',
+            return $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter(
+                $image->caption,
+                'text2html',
                 array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
-            return $imageCaption;
         }
     }
 

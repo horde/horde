@@ -1,0 +1,4196 @@
+# Finnish translation for Horde.
+# Copyright
+# Leena Heino <liinu@uta.fi>, 2001-2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde 3.2-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 02:42+0200\n"
+"PO-Revision-Date: 2008-05-20 12:59+0200\n"
+"Last-Translator: Leena Heino <liinu@uta.fi>\n"
+"Language-Team: Finnish <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8-bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/Block/weatherdotcom.php:260 lib/Block/weatherdotcom.php:363
+#: lib/Block/weatherdotcom.php:409
+msgid " at "
+msgstr " "
+
+#: admin/groups.php:50
+#, php-format
+msgid "\"%s\" was added to the groups system."
+msgstr "\"%s\" lisättiin ryhmäjärjestelmään."
+
+#: admin/perms/addchild.php:43
+#, php-format
+msgid "\"%s\" was added to the permissions system."
+msgstr "\"%s\" lisättiin oikeuksiin."
+
+#: admin/groups.php:56 admin/perms/addchild.php:47
+#, php-format
+msgid "\"%s\" was not created: %s."
+msgstr "\"%s\" ei luotu: %s."
+
+#: lib/Block/account.php:83
+#, php-format
+msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
+msgstr "%.2fMB käytetty %.2fMB sallitusta (%.2f%%)"
+
+#: lib/Block/weatherdotcom.php:241
+#, php-format
+msgid "%d %s and %s"
+msgstr "%d %s ja %s"
+
+#: lib/Block/account.php:708 lib/Block/account.php:720
+#, php-format
+msgid "%d days until your password expires."
+msgstr "Salasanasi vanhentuu %d päivän päästä."
+
+#: lib/Block/metar.php:281
+#, php-format
+msgid "%d minutes"
+msgstr "%d minuuttia"
+
+#: services/facebook.php:114
+#, php-format
+msgid "%d person likes this"
+msgid_plural "%d persons like this"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/admin/user/list.inc:4
+#, php-format
+msgid "%d to %d of %d"
+msgstr "%d - %d / %d"
+
+#: lib/Block/weatherdotcom.php:288
+#, php-format
+msgid "%d-day forecast"
+msgstr "%d päivän ennustus"
+
+#: services/logintasks.php:83
+#, php-format
+msgid "%s - Notice"
+msgstr "%s - Ilmoitus"
+
+#: admin/config/config.php:21 admin/config/index.php:226
+#, fuzzy, php-format
+msgid "%s Configuration"
+msgstr "Asetukset"
+
+#: services/logintasks.php:64
+#, fuzzy, php-format
+msgid "%s Tasks - Confirmation"
+msgstr "Salasana varmistuksella"
+
+#: services/logintasks.php:74
+#, php-format
+msgid "%s Terms of Agreement"
+msgstr "%s käyttöehdot"
+
+#: lib/Block/metar.php:154 lib/Block/metar.php:160 lib/Block/metar.php:234
+#: lib/Block/metar.php:340 lib/Block/metar.php:346
+#, php-format
+msgid "%s at %s %s"
+msgstr "%s suunta %s %s"
+
+#: services/logintasks.php:63
+#, fuzzy, php-format
+msgid ""
+"%s is ready to perform the tasks checked below. Check the box for any "
+"operation(s) you want to perform at this time."
+msgstr ""
+"%s on valmis suorittamaan ylläpitotoimenpiteitä. Valitse valintaruuduista "
+"suoritettavat toimenpiteet."
+
+#: lib/Block/vatid.php:58
+#, php-format
+msgid "%s not found."
+msgstr "%s ei löytynyt."
+
+#: lib/Block/weatherdotcom.php:367 lib/Block/weatherdotcom.php:412
+msgid ", gusting "
+msgstr ", puuskittaista"
+
+#: lib/Block/metar.php:183 lib/Block/metar.php:188
+#, php-format
+msgid ", gusting %s %s"
+msgstr ", puuskittaista %s %s"
+
+#: lib/Block/metar.php:196
+#, php-format
+msgid ", variable from %s to %s"
+msgstr ", vaihtelevaa %s - %s"
+
+#: lib/Block/time.php:26
+msgid "12 Hour Format"
+msgstr "12-tunnin järjestelmä"
+
+#: lib/Block/time.php:25
+msgid "24 Hour Format"
+msgstr "24-tunnin järjestelmä"
+
+#: templates/data/datetime.inc:109 templates/data/time.inc:28
+msgid "24 hours"
+msgstr "24 tuntia"
+
+#: templates/prefs/facebook.html:15
+msgid ""
+"<tag:app_name /> can interact with your Facebook account, but you must login "
+"to Facebook manually each time."
+msgstr ""
+
+#: templates/prefs/facebook.html:38
+msgid "<tag:app_name /> cannot read your stream messages."
+msgstr ""
+
+#: templates/prefs/facebook.html:26
+msgid ""
+"<tag:app_name /> cannot set your status messages or publish other content to "
+"Facebook."
+msgstr ""
+
+#: templates/prefs/twitter.html:9
+msgid "<tag:appname /> can interact with your Twitter account"
+msgstr ""
+
+#: services/keyboard.php:46
+msgid "A characters"
+msgstr "A-merkkimuunnelmat"
+
+#: lib/Block/metar.php:117
+msgid "A database backend is required for this block."
+msgstr "Tietokantataustajärjestelmää on pakollinen tälle osiolle"
+
+#: admin/activesync.php:35
+msgid ""
+"A device wipe has been requested. Device will be wiped on next "
+"syncronization attempt."
+msgstr ""
+
+#: admin/config/index.php:92 admin/config/index.php:124
+#, php-format
+msgid "A newer version (%s) exists."
+msgstr "Uudempi versio (%s) on olemassa."
+
+#: lib/Prefs/Ui.php:743
+#, php-format
+msgid ""
+"A remote wipe for device id %s has been initiated. The device will be wiped "
+"during the next synchronisation."
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:7
+msgid "AM Clouds"
+msgstr "AM Pilviä"
+
+#: lib/Block/weatherdotcom_strings.php:8
+#, fuzzy
+msgid "AM Drizzle"
+msgstr "AM Räntää"
+
+#: lib/Block/weatherdotcom_strings.php:9
+msgid "AM Fog"
+msgstr "AM Sumu"
+
+#: lib/Block/weatherdotcom_strings.php:10
+msgid "AM Light Rain"
+msgstr "AM kevyttä sadetta"
+
+#: lib/Block/weatherdotcom_strings.php:11
+msgid "AM Light Snow"
+msgstr "AM Kevyttä lumisadetta"
+
+#: lib/Block/weatherdotcom_strings.php:12
+msgid "AM Rain"
+msgstr "AM sade"
+
+#: lib/Block/weatherdotcom_strings.php:13
+msgid "AM Showers"
+msgstr "AM sateita"
+
+#: lib/Block/weatherdotcom_strings.php:14
+msgid "AM Snow"
+msgstr "AM lumi"
+
+#: lib/Block/weatherdotcom_strings.php:15
+msgid "AM Snow Showers"
+msgstr "AM lumisateita"
+
+#: lib/Block/weatherdotcom_strings.php:16
+msgid "AM Sun"
+msgstr "AM lumi"
+
+#: lib/Block/weatherdotcom_strings.php:17
+#, fuzzy
+msgid "AM T-Showers"
+msgstr "AM sateita"
+
+#: lib/Block/weatherdotcom_strings.php:18
+msgid "AM T-Storms"
+msgstr "AM ukkosmyrskyjä"
+
+#: templates/data/datetime.inc:110 templates/data/time.inc:29
+msgid "AM/PM"
+msgstr "AM/PM"
+
+#: lib/Block/account.php:3
+msgid "Account Information"
+msgstr "Käyttäjätunnuksen tiedot"
+
+#: config/prefs.php.dist:276
+msgid "Account Password"
+msgstr "Käyttäjätunnuksen salasana"
+
+#: admin/activesync.php:126
+#, fuzzy
+msgid "Actions"
+msgstr "Asetukset"
+
+#: config/prefs.php.dist:676
+msgid "ActiveSync"
+msgstr ""
+
+#: admin/activesync.php:71
+#, fuzzy
+msgid "ActiveSync Device Administration"
+msgstr "Käyttäjien ylläpito"
+
+#: admin/activesync.php:199 lib/Api.php:80
+msgid "ActiveSync Devices"
+msgstr ""
+
+#: admin/activesync.php:20 lib/Prefs/Ui.php:376
+msgid "ActiveSync not activated."
+msgstr ""
+
+#: templates/admin/groups/addchild.inc:12 templates/portal/add.inc:14
+msgid "Add"
+msgstr "Lisää"
+
+#: services/portal/index.php:68
+msgid "Add Content"
+msgstr "Lisää sisältö"
+
+#: templates/portal/add.inc:5
+msgid "Add Here:"
+msgstr "Lisää tähän:"
+
+#: templates/admin/groups/edit.inc:49
+msgid "Add Members"
+msgstr "Lisää jäseniä"
+
+#: admin/groups.php:253 templates/admin/groups/addchild.inc:7
+#, php-format
+msgid "Add a child group to \"%s\""
+msgstr "Lisää aliryhmä ryhmään \"%s\""
+
+#: admin/groups.php:238
+msgid "Add a new group"
+msgstr "Lisää uusi ryhmä"
+
+#: admin/user.php:21
+msgid "Add a new user:"
+msgstr "Lisää uusi käyttäjä:"
+
+#: admin/alarms.php:22
+msgid "Add new alarm"
+msgstr "Lisää uusi hälytys"
+
+#: templates/data/csvmap.inc:92
+msgid "Add pair"
+msgstr "Lisää pari"
+
+#: admin/user.php:22
+msgid "Add user"
+msgstr "Lisää käyttäjä"
+
+#: admin/signup_confirm.php:80 admin/user.php:92
+#, php-format
+msgid ""
+"Added \"%s\" to the system, but could not add additional signup information: "
+"%s."
+msgstr ""
+"Lisättiin \"%s\" järjestelmään, mutta ei voi lisätä sisäänkirjautumispyynnön "
+"lisätietoja: %s."
+
+#: signup.php:44
+#, php-format
+msgid "Added \"%s\" to the system. You can log in now."
+msgstr "Lisättiin \"%s\" järjestelmään. Voit nyt kirjautua sisään."
+
+#: templates/admin/user/noadd.inc:2
+msgid "Adding users is disabled."
+msgstr "Käyttäjien lisääminen on estetty."
+
+#: lib/Block/vatid.php:101
+msgid "Address"
+msgstr "Osoite"
+
+#: config/registry.php.dist:142
+msgid "Address Book"
+msgstr "Osoitekirja"
+
+#: admin/alarms.php:26
+msgid "Alarm end"
+msgstr "Hälytys loppuu"
+
+#: admin/alarms.php:28
+msgid "Alarm methods"
+msgstr "Hälytysmuodot"
+
+#: admin/alarms.php:25
+msgid "Alarm start"
+msgstr "Hälytys alkaa"
+
+#: admin/alarms.php:27
+msgid "Alarm text"
+msgstr "Hälytysteksti"
+
+#: admin/alarms.php:24
+msgid "Alarm title"
+msgstr "Hälytyksen otsikko"
+
+#: admin/alarms.php:133
+msgid "Alarms"
+msgstr "Hälytykset"
+
+#: lib/Block/fortune.php:94
+msgid "All"
+msgstr "Kaikki"
+
+#: templates/shares/edit.inc:58
+msgid "All Authenticated Users"
+msgstr "Kaikki autentikoidut käyttäjät"
+
+#: admin/groups.php:26 admin/groups.php:244
+msgid "All Groups"
+msgstr "Kaikki ryhmät"
+
+#: admin/activesync.php:50
+msgid "All policy keys successfully reset."
+msgstr ""
+
+#: lib/Prefs/Ui.php:753
+msgid ""
+"All state removed for your devices. They will resynchronize next time they "
+"connect to the server."
+msgstr ""
+
+#: lib/Prefs/Ui.php:724
+msgid "All synchronization sessions deleted."
+msgstr "Kaikki synkronointi-istunnot poistettiin."
+
+#: config/prefs.php.dist:644
+msgid "Alternate IMSP Login"
+msgstr "Vaihtoehtoinen IMSP-sisäänkirjautuminen"
+
+#: config/prefs.php.dist:658
+msgid "Alternate IMSP Password"
+msgstr "Vaihtoehtoinen IMSP-salasana"
+
+#: config/prefs.php.dist:652
+msgid "Alternate IMSP Username"
+msgstr "Vaihtoehtoinen IMSP-käyttäjätunnus"
+
+#: services/resetpassword.php:31
+msgid "Alternate email address"
+msgstr "Vaihtoehtoiset sähköpostiosoitteet"
+
+#: lib/Block/weatherdotcom.php:170
+msgid "An unknown error has occured."
+msgstr "tapahtui tuntematon virhe."
+
+#: services/resetpassword.php:48
+msgid "Answer"
+msgstr "Vastaus"
+
+#: templates/data/csvmap.inc:112 templates/admin/config/index.html:11
+msgid "Application"
+msgstr "Ohjelma"
+
+#: admin/phpshell.php:44
+msgid "Application Context: "
+msgstr "Ohjelman konteksti: "
+
+#: util/icon_browser.php:45
+msgid "Application List"
+msgstr "Ohjelmalista"
+
+#: admin/config/index.php:160
+msgid "Application is ready."
+msgstr "Ohjelma on valmis."
+
+#: admin/config/index.php:95 admin/config/index.php:127
+msgid "Application is up-to-date."
+msgstr "Ohjelma on uusimmassa versiossa."
+
+#: templates/admin/user/approve.inc:33
+msgid "Approve"
+msgstr "Hyväksy"
+
+#: config/nls.php:167
+msgid "Arabic (Windows-1256)"
+msgstr "Arabia (Windows-1256)"
+
+#: admin/alarms.php:123
+#, php-format
+msgid "Are you sure you want to delete '%s'?"
+msgstr "Oletko varma, että haluat poistaa \"%s\"?"
+
+#: templates/admin/user/removequeued.inc:10
+#, php-format
+msgid "Are you sure you want to remove the signup request for \"%s\"?"
+msgstr "Oletko varma, että haluat poistaa sisäänkirjautumispyynnön \"%s\"?"
+
+#: templates/admin/groups/delete.inc:7
+#, php-format
+msgid "Are you sure you wish to delete \"%s\" and any sub-groups?"
+msgstr "Oletko varma, että haluat poistaa \"%s\" ja kaikki sen aliryhmät?"
+
+#: config/nls.php:168
+msgid "Armenian (ARMSCII-8)"
+msgstr "Armenia (ARMSCII-8)"
+
+#: lib/Block/fortune.php:35
+msgid "Art"
+msgstr "Taide"
+
+#: lib/Block/fortune.php:36
+msgid "Ascii Art"
+msgstr "Ascii-taide"
+
+#: templates/problem/problem.inc:43
+msgid "Attachment"
+msgstr "Liite"
+
+#: admin/groups.php:72
+msgid "Attempt to delete a non-existent group."
+msgstr "Yritettiin poistaa olematonta ryhmää."
+
+#: admin/perms/delete.php:24
+msgid "Attempt to delete a non-existent permission."
+msgstr "Yritettiin poistaa olematonta oikeutta."
+
+#: admin/perms/edit.php:92
+msgid "Attempt to edit a non-existent permission."
+msgstr "Yritettiin muokata olematonta oikeutta."
+
+#: services/shares/edit.php:66
+msgid "Attempt to edit a non-existent share."
+msgstr "Yritettiin muokata olematonta jakoa."
+
+#: admin/sessions.php:40
+#, fuzzy
+msgid "Authenticated to:"
+msgstr "Kaikki autentikoidut käyttäjät"
+
+#: templates/prefs/facebook.html:27
+msgid "Authorize Publish"
+msgstr ""
+
+#: templates/prefs/facebook.html:39
+msgid "Authorize Read:"
+msgstr ""
+
+#: templates/prefs/facebook.html:16
+msgid "Authorize an infinite session:"
+msgstr ""
+
+#: templates/data/csvmap.inc:70
+msgid "Available fields:"
+msgstr "Käytettävissäolevat kentät:"
+
+#: themes/azur/info.php:6
+msgid "Azur"
+msgstr "Asuuri"
+
+#: lib/Block/fortune.php:37
+msgid "BOFH Excuses"
+msgstr "BOFH selitykset"
+
+#: config/nls.php:169
+msgid "Baltic (ISO-8859-13)"
+msgstr "Baltia (ISO-8859-13)"
+
+#: themes/barbie/info.php:2
+msgid "Barbie"
+msgstr "Barbie"
+
+#: util/icon_browser.php:34
+#, php-format
+msgid "Base graphics directory \"%s\" not found."
+msgstr "Grafiikoiden perushakemistoa \"%s\" ei löytynyt."
+
+#: templates/portal/layout.inc:90
+msgid "Block Settings"
+msgstr "Osion asetukset"
+
+#: templates/portal/layout.inc:72
+msgid "Block Type"
+msgstr "Osion tyyppi"
+
+#: themes/bluemoon/info.php:2
+msgid "Blue Moon"
+msgstr "Sininen kuu"
+
+#: themes/bluewhite/info.php:2
+msgid "Blue and White"
+msgstr "Sininen ja valkoinen"
+
+#: config/registry.php.dist:226
+msgid "Bookmarks"
+msgstr "Kirjanmerkit"
+
+#: lib/Block/fortune.php:103
+msgid "Both"
+msgstr "Molemmat"
+
+#: themes/brown/info.php:2
+msgid "Brown"
+msgstr "Ruskea"
+
+#: admin/sessions.php:38
+msgid "Browser:"
+msgstr "Selain:"
+
+#: themes/burntorange/info.php:7
+msgid "Burnt Orange"
+msgstr "Poltettu orassi"
+
+#: lib/Block/weatherdotcom.php:166
+msgid "Cache init was not completed."
+msgstr "Välimuistin alustus ei valmistunut."
+
+#: config/registry.php.dist:157
+msgid "Calendar"
+msgstr "Kalenteri"
+
+#: lib/Block/weatherdotcom.php:250
+msgid "Calm"
+msgstr "Tyyni"
+
+#: themes/camouflage/info.php:2
+msgid "Camouflage"
+msgstr "Maastokuviointi"
+
+#: admin/user.php:115 admin/user.php:135 templates/admin/groups/delete.inc:11
+#: templates/admin/user/clear.inc:12 templates/admin/user/remove.inc:12
+msgid "Cancel"
+msgstr "Peru"
+
+#: templates/problem/problem.inc:58
+msgid "Cancel Problem Report"
+msgstr "Peru ongelmaviesti"
+
+#: admin/activesync.php:183 templates/prefs/activesync.html:31
+#, fuzzy
+msgid "Cancel Wipe"
+msgstr "Peru"
+
+#: services/resetpassword.php:17
+msgid "Cannot reset password automatically, contact your administrator."
+msgstr ""
+"Salasanaa ei voi uudelleenasettaa automaattisesti, ota yhteyttä ylläpitäjään."
+
+#: config/prefs.php.dist:440
+msgid "Categories and Labels"
+msgstr "Kategoriat ja otsikot"
+
+#: config/nls.php:170
+msgid "Celtic (ISO-8859-14)"
+msgstr "Keltti (ISO-8859-14)"
+
+#: config/nls.php:171
+msgid "Central European (ISO-8859-2)"
+msgstr "Keski-Eurooppa (ISO-8859-2)"
+
+#: templates/prefs/rpc.html:33
+msgid "Change"
+msgstr "Muuta"
+
+#: services/changepassword.php:23
+msgid "Change Your Password"
+msgstr "Vaihda salasanasi"
+
+#: config/prefs.php.dist:214
+msgid ""
+"Change the name and address that people see when they read and reply to your "
+"emails."
+msgstr ""
+"Voit muuttaa lähettämissäsi sähköposteissa näkyviä nimi- tai osoitetietoja."
+
+#: services/changepassword.php:17
+msgid ""
+"Changing your password is not supported with the current configuration.  "
+"Contact your administrator."
+msgstr ""
+"Salasanan vaihto ei ole käytössä nykyisillä asetuksilla. Ota yhteyttä "
+"ylläpitäjiin."
+
+#: lib/Block/vatid.php:45
+msgid "Check"
+msgstr "Tarkista"
+
+#: templates/admin/config/index.html:4
+msgid "Check for newer versions"
+msgstr "Tarkista onko uudempia versioita"
+
+#: lib/Block/vatid.php:47
+msgid "Checking"
+msgstr "Tarkistetaa"
+
+#: templates/admin/groups/addchild.inc:10
+msgid "Child"
+msgstr "alitaso"
+
+#: config/nls.php:172
+msgid "Chinese Simplified (GB2312)"
+msgstr "Kiina yksikertaistettu (GB2312)"
+
+#: config/nls.php:173
+msgid "Chinese Traditional (Big5)"
+msgstr "Kiina perinteinen (Big5)"
+
+#: services/obrowser/index.php:91
+#, php-format
+msgid "Choose %s"
+msgstr "Valitse %s"
+
+#: config/prefs.php.dist:403
+#, fuzzy
+msgid "Choose how to display dates (abbreviated format):"
+msgstr "Valitse päivämäärien esitysasu:"
+
+#: config/prefs.php.dist:377
+#, fuzzy
+msgid "Choose how to display dates (full format):"
+msgstr "Valitse päivämäärien esitysasu:"
+
+#: config/prefs.php.dist:419
+#, fuzzy
+msgid "Choose how to display times:"
+msgstr "Valitse päivämäärien esitysasu:"
+
+#: lib/Block/weatherdotcom_strings.php:19
+msgid "Clear"
+msgstr "Selkeä"
+
+#: admin/sqlshell.php:109
+msgid "Clear Query"
+msgstr "Poista kysely"
+
+#: templates/admin/user/clear.inc:5
+#, php-format
+msgid "Clear out user: %s"
+msgstr "Poista käyttäjä: %s"
+
+#: templates/admin/user/clear.inc:11
+msgid "Clear user"
+msgstr "Poista käyttäjä"
+
+#: templates/admin/user/list.inc:37
+msgid "Clear user data"
+msgstr "Poista käyttäjän tiedot"
+
+#: lib/Block/weatherdotcom_strings.php:20
+msgid "Clearing Early"
+msgstr "Selkenevää aikaisin"
+
+#: lib/Block/weatherdotcom_strings.php:21
+msgid "Clearing Late"
+msgstr "Selkenevää myöhään"
+
+#: templates/prefs/addressbooks.html:3
+msgid ""
+"Click on one of your selected address books and then select all fields to "
+"search."
+msgstr ""
+
+#: templates/logintasks/logintasks.html:38
+msgid "Click to Continue"
+msgstr "Napsauta jatkaaksesi"
+
+#: templates/prefs/syncml.html:13
+msgid "Client Anchor"
+msgstr "Asiakasankkuri"
+
+#: services/keyboard.php:154 templates/shares/edit.inc:12
+msgid "Close Window"
+msgstr "Sulje ikkuna"
+
+#: lib/Block/metar.php:239
+msgid "Clouds"
+msgstr "Pilviä"
+
+#: lib/Block/weatherdotcom_strings.php:22
+msgid "Clouds Early"
+msgstr "Pilvinen aikaisin"
+
+#: lib/Block/weatherdotcom_strings.php:23
+msgid "Clouds Late"
+msgstr "Pilvinen myöhään"
+
+#: lib/Block/weatherdotcom_strings.php:24
+msgid "Cloudy"
+msgstr "Pilvinen"
+
+#: admin/sessions.php:31
+msgid "Collapse"
+msgstr "Pienennä"
+
+#: templates/sidebar/sidebar.inc:3
+msgid "Collapse Sidebar"
+msgstr "Pienennä sivuvalikko"
+
+#: lib/Prefs/Ui.php:237
+msgid "Color Picker"
+msgstr "Värivalitsin"
+
+#: admin/cmdshell.php:20 admin/cmdshell.php:42
+msgid "Command"
+msgstr "Komento"
+
+#: admin/cmdshell.php:14
+msgid "Command Shell"
+msgstr "Komentotulkki"
+
+#: services/facebook.php:101
+#, fuzzy, php-format
+msgid "Comments: %d"
+msgstr "Kommentti"
+
+#: lib/Block/fortune.php:38
+msgid "Computers"
+msgstr "Tietokoneet"
+
+#: lib/Block/weatherdotcom.php:300
+msgid "Condition"
+msgstr "Olosuhde"
+
+#: lib/Block/metar.php:244
+msgid "Conditions"
+msgstr "Olosuhteet"
+
+#: admin/config/config.php:65 templates/admin/config/config.html:9
+msgid "Configuration"
+msgstr "Asetukset"
+
+#: admin/config/diff.php:80
+msgid "Configuration Differences"
+msgstr "Asetuksien erot"
+
+#: config/prefs.php.dist:665
+msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
+msgstr "Asetukset PDA-laitteiden, älypuhelimien ja Outlookin synkronoitiin."
+
+#: admin/config/index.php:155
+msgid "Configuration is out of date."
+msgstr "Ohjelma-asetukset eivät ole ajantasalla."
+
+#: templates/admin/config/index.html:61
+#, fuzzy
+msgid "Configuration upgrade scripts available"
+msgstr "Asennuksen päivitysskripti on saatavilla"
+
+#: admin/config/index.php:111
+#, php-format
+msgid "Configure %s"
+msgstr "Muokkaa asetuksia %s"
+
+#: templates/admin/user/update.inc:28
+msgid "Confirm Password"
+msgstr "Vahvista kirjoittamalla salasana uudestaan"
+
+#: services/changepassword.php:25 services/resetpassword.php:25
+msgid "Continue"
+msgstr "Jatka"
+
+#: lib/Block/fortune.php:39
+msgid "Cookie"
+msgstr "Eväste"
+
+#: themes/cornflower/info.php:2
+msgid "Cornflower"
+msgstr "Ruiskukka"
+
+#: lib/Block/account.php:484
+msgid "Could not bind to LDAP server."
+msgstr "Ldap-palvelimeen ei voitu autentikoitua"
+
+#: lib/Block/account.php:463
+msgid "Could not connect to LDAP server."
+msgstr "Yhteys ldap-palvelimeen epäonnistui."
+
+#: admin/config/index.php:27
+#, php-format
+msgid "Could not connect to server \"%s\" using FTP: %s"
+msgstr "Ei voitu ottaa yhteyttä palvelimeen \"%s\" käyttäen FTP: %s"
+
+#: admin/config/index.php:66
+#, fuzzy
+msgid "Could not contact server. Try again later."
+msgstr "Tuntematon vastaus palvelimelta, yritä myöhemmin uudestaan."
+
+#: admin/config/scripts.php:35
+#, fuzzy, php-format
+msgid "Could not delete configuration upgrade script \"%s\"."
+msgstr "Ei voitu poistaa päivitysskriptiä \"%s\"."
+
+#: templates/prefs/twitter.html:14
+msgid ""
+"Could not find authorization for <tag:appname /> to interact with your "
+"Twitter account"
+msgstr ""
+
+#: services/resetpassword.php:92
+msgid ""
+"Could not reset the password for the requested user. Some or all of the "
+"details are not correct. Try again or contact your administrator if you need "
+"further help."
+msgstr ""
+"Käyttäjän salasanaa ei voitu nollata. Jotkut tarvittavat tiedot ovat väärin. "
+"Yritä uudestaan tai ota yhteyttä ylläpitoon jos tarvitset lisää apua."
+
+#: admin/config/config.php:43
+msgid "Could not revert configuration."
+msgstr "Ei voitu palauttaa asetuksia."
+
+#: admin/config/index.php:41
+#, php-format
+msgid "Could not save a backup configuation: %s"
+msgstr "Ei voitu tallettaa asetusten varmuuskopiota %s"
+
+#: admin/config/scripts.php:94
+#, fuzzy, php-format
+msgid "Could not save configuration upgrade script to: \"%s\"."
+msgstr "Ei voitu tallettaa asetuspäivitysskriptiä: \"%s\"."
+
+#: admin/config/config.php:53
+#, php-format
+msgid "Could not save the backup configuration file %s."
+msgstr "Ei voitu tallettaa asetusten varmuuskopiota %s."
+
+#: admin/config/config.php:65
+#, php-format
+msgid ""
+"Could not save the configuration file %s. You can either use one of the "
+"options to save the code back on %s or copy manually the code below to %s."
+msgstr ""
+"Asetustiedoston %s talletus epäonnistui. Voit käyttää jotakin asetusta "
+"tallettaaksesi koodin takaisin %s tai tai kopioida käsin alla olevan koodin "
+"tiedostoon %s."
+
+#: admin/config/index.php:51
+#, php-format
+msgid "Could not write configuration for \"%s\": %s"
+msgstr "Viestejä ei voitu poistaa kansiosta \"%s\": %s"
+
+#: lib/Block/vatid.php:91
+msgid "Country"
+msgstr "Maa"
+
+#: templates/prefs/rpc.html:34
+msgid "Create"
+msgstr "Luo"
+
+#: templates/prefs/identityselect.html:22
+#, fuzzy
+msgid "Create New Identity"
+msgstr "Oletusprofiili"
+
+#: lib/Block/moon.php:24
+msgid "Current 4 Phases"
+msgstr "Tämänhetkinen 4 vaihetta"
+
+#: templates/admin/alarms/list.html.php:2
+msgid "Current Alarms"
+msgstr "Tämänhetkiset hälytykset"
+
+#: admin/sessions.php:23
+msgid "Current Sessions"
+msgstr "Tämänhetkiset istunnot"
+
+#: lib/Block/time.php:3 lib/Block/time.php:36
+msgid "Current Time"
+msgstr "Kellonaika tällä hetkellä"
+
+#: lib/Block/metar.php:31
+msgid "Current Weather"
+msgstr "Tämänhetkinen sää"
+
+#: lib/Block/weatherdotcom.php:279
+msgid "Current condition: "
+msgstr "Tämänhetkinen tila: "
+
+#: config/nls.php:174
+msgid "Cyrillic (KOI8-R)"
+msgstr "Kyrillinen (KOI8-R)"
+
+#: config/nls.php:175
+msgid "Cyrillic (Windows-1251)"
+msgstr "Kyrillinen (Windows-1251)"
+
+#: config/nls.php:176
+msgid "Cyrillic/Ukrainian (KOI8-U)"
+msgstr "Kyrillinen/Ukraina (KOI8-U)"
+
+#: templates/data/date.inc:47 templates/data/date.inc:48
+#: templates/data/date.inc:49 templates/data/date.inc:50
+#: templates/data/datetime.inc:89 templates/data/datetime.inc:90
+#: templates/data/datetime.inc:91 templates/data/datetime.inc:92
+msgid "DD"
+msgstr "PP"
+
+#: templates/data/csvmap.inc:101
+msgid "Data"
+msgstr "Tieto"
+
+#: admin/datatree.php:62
+msgid "DataTree"
+msgstr "DataTree"
+
+#: admin/datatree.php:59
+msgid "DataTree Browser"
+msgstr "DataTree Selain"
+
+#: templates/prefs/syncml.html:11
+msgid "Database"
+msgstr "Tietokanta"
+
+#: lib/Block/vatid.php:94
+msgid "Date"
+msgstr "Päiväys"
+
+#: templates/admin/user/approve.inc:23
+msgid "Date Received"
+msgstr "Päivämäärä vastaanotettu"
+
+#: templates/data/datetime.inc:70 templates/data/datetime.inc:71
+#, php-format
+msgid "Date: %s; time: %s"
+msgstr "Päivämäärä: %s; aika: %s"
+
+#: lib/Block/weatherdotcom.php:295 lib/Block/weatherdotcom.php:324
+msgid "Day"
+msgstr "Päivä"
+
+#: lib/Prefs/Ui.php:69 lib/Prefs/Ui.php:74
+msgid "Default"
+msgstr "Oletus"
+
+#: lib/Prefs/Ui.php:252 lib/Prefs/Ui.php:282
+msgid "Default Color"
+msgstr "Oletusväri"
+
+#: lib/Block/account.php:78
+msgid "Default Shell"
+msgstr "Oletus komentotulkki"
+
+#: lib/Block/fortune.php:40
+msgid "Definitions"
+msgstr "Määritelmät"
+
+#: admin/groups.php:68 templates/admin/groups/delete.inc:10
+#: templates/admin/user/list.inc:34 templates/shares/edit.inc:63
+#: templates/shares/edit.inc:83 templates/shares/edit.inc:98
+#: templates/shares/edit.inc:118 templates/shares/edit.inc:134
+#: templates/shares/edit.inc:154 templates/shares/edit.inc:169
+#: templates/shares/edit.inc:193 templates/shares/edit.inc:228
+#: templates/shares/edit.inc:255 templates/shares/edit.inc:271
+#: templates/shares/edit.inc:291 templates/shares/edit.inc:320
+#: templates/prefs/identityselect.html:34 templates/prefs/rpc.html:35
+#: templates/prefs/syncml.html:14 templates/prefs/syncml.html:23
+msgid "Delete"
+msgstr "Poista"
+
+#: admin/alarms.php:122 admin/groups.php:254
+#, php-format
+msgid "Delete \"%s\""
+msgstr "Poista \"%s\""
+
+#: templates/prefs/syncml.html:30
+msgid "Delete All SyncML Data"
+msgstr "Poista kaikki SyncML-tiedot"
+
+#: admin/groups.php:215
+msgid "Delete Group"
+msgstr "Poista ryhmä"
+
+#: admin/config/scripts.php:33
+#, fuzzy, php-format
+msgid "Deleted configuration upgrade script \"%s\"."
+msgstr "Poistettu päivitysskripti \"%s\"."
+
+#: lib/Prefs/Ui.php:717
+#, php-format
+msgid "Deleted synchronization session for device \"%s\" and database \"%s\"."
+msgstr ""
+"Poistettiin synkronointi-istunto laitteelle \"%s\" ja tietokantaan \"%s\"."
+
+#: templates/problem/problem.inc:27
+msgid "Describe the Problem"
+msgstr "Ongelman kuvaus"
+
+#: config/registry.php.dist:239
+msgid "Development"
+msgstr "Kehitys"
+
+#: templates/prefs/activesync.html:20 templates/prefs/syncml.html:10
+msgid "Device"
+msgstr "Laite"
+
+#: admin/activesync.php:119
+#, fuzzy
+msgid "Device ID"
+msgstr "Laite"
+
+#: templates/prefs/activesync.html:11
+#, fuzzy
+msgid "Device Management"
+msgstr "Tiedostohallinta"
+
+#: lib/Prefs/Ui.php:432
+#, fuzzy
+msgid "Device id:"
+msgstr "Laite"
+
+#: admin/activesync.php:167 lib/Prefs/Ui.php:420
+msgid "Device is wiped"
+msgstr ""
+
+#: admin/activesync.php:45
+#, fuzzy
+msgid "Device successfully removed."
+msgstr "%s:n kirjoittaminen onnistui."
+
+#: admin/activesync.php:40
+msgid "Device wipe successfully canceled."
+msgstr ""
+
+#: lib/Block/metar.php:212
+msgid "Dew Point"
+msgstr "Kosteuspiste"
+
+#: lib/Block/metar.php:289
+msgid "Dew Point for last hour: "
+msgstr "Edellisen tunnin kosteuspiste: "
+
+#: lib/Block/weatherdotcom.php:231
+msgid "Dew point: "
+msgstr "Kosteuspiste: "
+
+#: templates/prefs/facebook.html:11 templates/prefs/facebook.html:22
+#: templates/prefs/facebook.html:34 templates/prefs/twitter.html:10
+#, fuzzy
+msgid "Disable"
+msgstr "Näytä taulut"
+
+#: config/prefs.php.dist:345
+msgid "Display 24-hour times?"
+msgstr "Käytä 24-tunnin aikaesitystä."
+
+#: config/prefs.php.dist:468
+#, fuzzy
+msgid "Display Preferences"
+msgstr "Esitystapa yksityiskohtainen ennuste"
+
+#: lib/Block/weatherdotcom.php:86
+msgid "Display detailed forecast"
+msgstr "Esitystapa yksityiskohtainen ennuste"
+
+#: lib/Block/metar.php:84
+msgid "Display forecast (TAF)"
+msgstr "Esitystapa ennusteelle (TAF)"
+
+#: scripts/import_squirrelmail_prefs.php:77
+#, fuzzy
+msgid "Do not use Drafts"
+msgstr "Ei saa poistaa"
+
+#: scripts/import_squirrelmail_prefs.php:44
+#: scripts/import_squirrelmail_prefs.php:145
+#, fuzzy
+msgid "Do not use Sent"
+msgstr "Ei saa poistaa"
+
+#: scripts/import_squirrelmail_prefs.php:183
+msgid "Do not use Trash"
+msgstr ""
+
+#: templates/data/csvinfo.inc:12 templates/data/tsvinfo.inc:12
+msgid "Does the first row contain the field names? If yes, check this box:"
+msgstr "Jos ensimmäinen rivi sisältää sarakkeiden otsikot, niin valitse:"
+
+#: templates/login/login.inc:72
+msgid "Don't have an account? Sign up."
+msgstr "Eikö ole käyttäjätunnusta? Kirjaudu käyttäjäksi."
+
+#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:61
+#, fuzzy
+msgid "Done"
+msgstr "Ei mitään"
+
+#: admin/config/index.php:92 admin/config/index.php:124
+#, php-format
+msgid "Download %s"
+msgstr "Tallenna %s"
+
+#: admin/config/index.php:179
+msgid "Download generated configuration as PHP script."
+msgstr "Tallenna luotu asetustiedosto PHP-skriptinä."
+
+#: lib/Block/weatherdotcom_strings.php:25
+#, fuzzy
+msgid "Drizzle"
+msgstr "AM Räntää"
+
+#: lib/Block/fortune.php:41
+msgid "Drugs"
+msgstr "Huumeet"
+
+#: services/keyboard.php:64
+msgid "E characters"
+msgstr "E-merkkimuunnelmat"
+
+#: lib/Block/vatid.php:3
+msgid "EU VAT identification"
+msgstr "EU ALV tunnus"
+
+#: templates/shares/edit.inc:62 templates/shares/edit.inc:79
+#: templates/shares/edit.inc:97 templates/shares/edit.inc:114
+#: templates/shares/edit.inc:133 templates/shares/edit.inc:150
+#: templates/shares/edit.inc:168 templates/shares/edit.inc:189
+#: templates/shares/edit.inc:224 templates/shares/edit.inc:251
+#: templates/shares/edit.inc:270 templates/shares/edit.inc:287
+#: templates/shares/edit.inc:316
+msgid "Edit"
+msgstr "Muokkaa"
+
+#: admin/alarms.php:89
+#, php-format
+msgid "Edit \"%s\""
+msgstr "Muokkaa \"%s\""
+
+#: admin/groups.php:214
+msgid "Edit Group"
+msgstr "Muokkaa ryhmää"
+
+#: templates/prefs/app.html:7
+msgid "Edit Preferences for"
+msgstr ""
+
+#: services/shares/edit.php:259
+msgid "Edit permissions"
+msgstr "Muokkaa oikeuksia"
+
+#: services/shares/edit.php:260 templates/shares/edit.inc:14
+#, php-format
+msgid "Edit permissions for \"%s\""
+msgstr "Muokkaa \"%s\":n oikeuksia"
+
+#: lib/Block/fortune.php:42
+msgid "Education"
+msgstr "Koulutus"
+
+#: templates/admin/groups/edit.inc:11 templates/admin/user/update.inc:45
+msgid "Email Address"
+msgstr "Sähköpostiosoite"
+
+#: lib/Prefs/Ui.php:225
+#, fuzzy
+msgid "Enter a name for the new category:"
+msgstr "Anna nimi uudelle luokitukselle:"
+
+#: config/prefs.php.dist:288
+msgid ""
+"Enter a security question which you will be asked if you need to reset your "
+"password, e.g. 'what is the name of your pet?':"
+msgstr ""
+"Anna kysymys joka kysytään, jos salasanasi joudutaan nollaamaan esimerkiksi "
+"'mikä on lemmikkisi nimi?':"
+
+#: lib/Block/metar.php:41 lib/Block/weatherdotcom.php:50
+msgid "Error"
+msgstr "Virhe"
+
+#: lib/Prefs/Ui.php:577 services/twitter.php:128 services/twitter.php:151
+#, fuzzy, php-format
+msgid ""
+"Error connecting to Twitter: %s Details have been logged for the "
+"administrator."
+msgstr ""
+"Sisäinen LDAP-virhe. Tarkemmat tiedot on talletettu ylläpidon käsiteltäväksi."
+
+#: lib/Prefs/Ui.php:715
+msgid "Error deleting synchronization session:"
+msgstr "Virhe poistettaessa synkronoiti-istuntoa: "
+
+#: lib/Prefs/Ui.php:722
+msgid "Error deleting synchronization sessions:"
+msgstr "Virhe poistettaessa synkronointi-istuntoja:"
+
+#: services/changepassword.php:61
+#, php-format
+msgid "Error updating password: %s"
+msgstr "Virhe päivitettäessä salasanaa: %s"
+
+#: lib/Block/fortune.php:43
+msgid "Ethnic"
+msgstr "Etninen"
+
+#: services/facebook.php:69
+msgid "Event Invites:"
+msgstr ""
+
+#: templates/portal/layout.inc:101 config/prefs.php.dist:520
+msgid "Every 15 minutes"
+msgstr "15 minuutin välein"
+
+#: config/prefs.php.dist:559
+msgid "Every 2 minutes"
+msgstr "2 minuutin välein"
+
+#: templates/portal/layout.inc:98 config/prefs.php.dist:517
+#: config/prefs.php.dist:557
+msgid "Every 30 seconds"
+msgstr "30 sekunnin välein"
+
+#: templates/portal/layout.inc:100 config/prefs.php.dist:519
+#: config/prefs.php.dist:560
+msgid "Every 5 minutes"
+msgstr "5 minuutin välein"
+
+#: templates/portal/layout.inc:102 config/prefs.php.dist:521
+msgid "Every half hour"
+msgstr "Puolen tunnin välein"
+
+#: templates/portal/layout.inc:103
+msgid "Every hour"
+msgstr "Tunnin välein"
+
+#: templates/portal/layout.inc:99 config/prefs.php.dist:518
+#: config/prefs.php.dist:558
+msgid "Every minute"
+msgstr "Minuutin välein"
+
+#: templates/data/datemap.inc:24
+msgid "Example values:"
+msgstr "Esimerkkiarvot:"
+
+#: admin/cmdshell.php:48 admin/phpshell.php:55 admin/sqlshell.php:108
+msgid "Execute"
+msgstr "Suorita"
+
+#: admin/sessions.php:30
+msgid "Expand"
+msgstr "Laajenna"
+
+#: lib/Block/iframe.php:29
+msgid "Extra Large"
+msgstr "Ekstrasuuri"
+
+#: templates/admin/config/index.html:74
+#, fuzzy
+msgid "FTP upload of configuration"
+msgstr "Talletettiin %s:n asetukset."
+
+#: config/prefs.php.dist:604
+msgid "Facebook Integration"
+msgstr ""
+
+#: themes/fadetogreen/info.php:9
+msgid "Fade to Green"
+msgstr "Sulautuu virheään"
+
+#: lib/Block/weatherdotcom_strings.php:26
+msgid "Fair"
+msgstr "Kaunis"
+
+#: lib/Block/feed.php:41
+msgid "Feed"
+msgstr "Syöte"
+
+#: lib/Block/feed.php:17
+msgid "Feed Address"
+msgstr "Syöteosoite"
+
+#: lib/Block/metar.php:215
+msgid "Feels Like"
+msgstr "Tuntuu kuin"
+
+#: lib/Block/weatherdotcom.php:235
+msgid "Feels like: "
+msgstr "Tuntuu kuin: "
+
+#: lib/Block/weatherdotcom_strings.php:27
+msgid "Few Showers"
+msgstr "Muutamia sateita"
+
+#: lib/Block/weatherdotcom_strings.php:28
+msgid "Few Snow Showers"
+msgstr "Muutamia lumisateita"
+
+#: templates/prefs/addressbooks.html:17
+msgid "Fields to search"
+msgstr ""
+
+#: config/registry.php.dist:340
+msgid "File Manager"
+msgstr "Tiedostohallinta"
+
+#: lib/Block/fb_stream.php:82
+#, fuzzy
+msgid "Filter"
+msgstr "Suodattimet"
+
+#: config/registry.php.dist:93
+msgid "Filters"
+msgstr "Suodattimet"
+
+#: lib/Block/moon.php:164
+msgid "First Half"
+msgstr "Ensimmäinen puolisko"
+
+#: lib/Block/moon.php:72 lib/Block/moon.php:74
+msgid "First Quarter"
+msgstr "Ensimmäinen neljännes"
+
+#: lib/Block/weatherdotcom_strings.php:29
+msgid "Fog"
+msgstr "Sumu"
+
+#: lib/Block/weatherdotcom_strings.php:30
+msgid "Fog Early"
+msgstr "Sumua aikaisin"
+
+#: lib/Block/weatherdotcom_strings.php:31
+msgid "Fog Late"
+msgstr "Sumua myöhään"
+
+#: lib/Block/weatherdotcom_strings.php:32
+msgid "Foggy"
+msgstr "Sumuinen"
+
+#: lib/Block/fortune.php:44
+msgid "Food"
+msgstr "Ruoka"
+
+#: lib/Block/metar.php:329
+msgid "Forecast (TAF)"
+msgstr "Ennuste (TAF)"
+
+#: lib/Block/weatherdotcom.php:74
+msgid ""
+"Forecast Days (note that the returned forecast returns both day and night; a "
+"large number here could result in a wide block)"
+msgstr ""
+"Ennustettavat vuorokaudet (Huomaathan että ennustuksessa on tiedot sekä "
+"päivistä että öistä, joten suuri määrä päiviä aiheuttaa liian leveän osion)"
+
+#: templates/login/login.inc:81
+msgid "Forgot your password?"
+msgstr "Unohditko salasanasi?"
+
+#: lib/Block/fortune.php:28
+msgid "Fortune"
+msgstr "Mietelause"
+
+#: lib/Block/fortune.php:106
+msgid "Fortune type"
+msgstr "Mietelauseen tyyppi"
+
+#: lib/Block/fortune.php:45
+msgid "Fortunes"
+msgstr "Mietelauseet"
+
+#: lib/Block/fortune.php:46
+msgid "Fortunes 2"
+msgstr "Mietelauseet 2"
+
+#: config/registry.php.dist:376
+msgid "Forums"
+msgstr "Foorumit"
+
+#: config/registry.php.dist:113
+msgid "Forwards"
+msgstr "Uudelleenohjaukset"
+
+#: lib/Block/weatherdotcom_strings.php:33
+msgid "Freezing Drizzle"
+msgstr "Alijäähtynyttä räntää"
+
+#: services/facebook.php:68
+msgid "Friend Requests:"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:252 lib/Block/weatherdotcom.php:362
+#: lib/Block/weatherdotcom.php:408
+msgid "From the "
+msgstr "Suunnasta "
+
+#: templates/problem/problem.inc:48
+msgid "Full Description"
+msgstr "Pidempi kuvaus:"
+
+#: lib/Block/moon.php:79 lib/Block/moon.php:174
+msgid "Full Moon"
+msgstr "Täysikuu"
+
+#: lib/Block/account.php:68 templates/admin/user/update.inc:37
+msgid "Full Name"
+msgstr "Koko nimi"
+
+#: admin/config/config.php:31
+#, php-format
+msgid "Generate %s Configuration"
+msgstr "Tee %s asetukset"
+
+#: templates/admin/config/config.html:6
+msgid "Generated Code"
+msgstr "Generoitu koodi"
+
+#: lib/Block/fb_stream.php:192 lib/Block/twitter_timeline.php:171
+msgid "Get More"
+msgstr ""
+
+#: templates/prefs/app.html:10
+msgid "Global Preferences"
+msgstr ""
+
+#: templates/prefs/app.html:17
+msgid "Go"
+msgstr "Mene"
+
+#: lib/Block/fortune.php:47
+msgid "Goedel"
+msgstr "Gödel"
+
+#: lib/Block/google.php:3 lib/Block/google.php:19
+msgid "Google Search"
+msgstr "Google haku"
+
+#: lib/Block/google.php:30
+msgid "Google search is not enabled."
+msgstr "Google-haku ei ole käytössä."
+
+#: config/nls.php:177
+msgid "Greek (ISO-8859-7)"
+msgstr "Kreikka (ISO-8859-7)"
+
+#: themes/green/info.php:2
+msgid "Green"
+msgstr "Vihreä"
+
+#: themes/grey/info.php:2
+msgid "Grey"
+msgstr "Harmaa"
+
+#: admin/groups.php:195
+msgid "Group Administration"
+msgstr "Ryhmän ylläpito"
+
+#: admin/groups.php:44
+#, php-format
+msgid "Group was not created: %s."
+msgstr "Ryhmää ei luotu: %s."
+
+#: admin/groups.php:268 templates/shares/edit.inc:266
+msgid "Groups"
+msgstr "Ryhmät"
+
+#: templates/shares/edit.inc:93
+msgid "Guest Permissions"
+msgstr "Vierailijan oikeudet"
+
+#: lib/Block/weatherdotcom_strings.php:34
+msgid "Haze"
+msgstr "Usva"
+
+#: lib/Block/weatherdotcom_strings.php:35
+msgid "Heavy Rain"
+msgstr "Rankkasateita"
+
+#: lib/Block/weatherdotcom_strings.php:36
+msgid "Heavy T-Storm"
+msgstr "Voimakas ukkosmyrsky"
+
+#: config/nls.php:178
+msgid "Hebrew (ISO-8859-8-I)"
+msgstr "Hebrea (ISO-8859-8-I)"
+
+#: lib/Block/iframe.php:24
+msgid "Height"
+msgstr "Korkeus"
+
+#: lib/Block/fb_stream.php:92 lib/Block/twitter_timeline.php:87
+msgid "Height of map (width automatically adjusts to block)"
+msgstr ""
+
+#: services/help/index.php:17 templates/help/index.inc:4
+msgid "Help"
+msgstr "Ohje"
+
+#: services/help/index.php:70
+msgid "Help _Topics"
+msgstr "Ohjeiden aiheet"
+
+#: lib/Block/moon.php:27
+msgid "Hemisphere"
+msgstr "Pallonpuolisko:"
+
+#: templates/data/csvinfo.inc:10 templates/data/tsvinfo.inc:10
+msgid "Here is the beginning of the file:"
+msgstr "Tässä on tiedoston alkuosa:"
+
+#: themes/hi-contrast/info.php:3
+msgid "Hi-Contrast"
+msgstr "Korkea kontrastinen"
+
+#: templates/prefs/app.html:23
+msgid "Hide Advanced Preferences"
+msgstr ""
+
+#: services/portal/cloud_search.php:33
+msgid "Hide Results"
+msgstr "Piilota tulokset"
+
+#: lib/Block/weatherdotcom_strings.php:100
+msgid "High"
+msgstr "Korkea"
+
+#: lib/Block/account.php:73
+msgid "Home Directory"
+msgstr "Kotihakemisto"
+
+#: config/registry.php.dist:76
+msgid "Horde"
+msgstr "Horde"
+
+#: themes/hordeweb/info.php:2
+msgid "Horde Website"
+msgstr "Horde Www-sivusto"
+
+#: templates/data/csvinfo.inc:21
+msgid "How many fields (columns) are there?"
+msgstr "Kenttien (sarakkeiden) lukumäärä."
+
+#: lib/Block/feed.php:21
+msgid "How many seconds before we check for new articles?"
+msgstr "Kuinka monen sekunnin välein tarkistetaan uudet viestit?"
+
+#: lib/Block/metar.php:225 lib/Block/weatherdotcom.php:303
+msgid "Humidity"
+msgstr "Kosteus"
+
+#: lib/Block/weatherdotcom.php:263
+msgid "Humidity: "
+msgstr "Kosteus: "
+
+#: lib/Block/fortune.php:48
+msgid "Humorists"
+msgstr "Humoristit"
+
+#: services/keyboard.php:78
+msgid "I characters"
+msgstr "I-merkkimuunnelmat"
+
+#: config/prefs.php.dist:545
+msgid "Icons Only"
+msgstr "Vain ikonit"
+
+#: util/icon_browser.php:53
+#, php-format
+msgid "Icons for %s"
+msgstr "Ikonit %s:lle"
+
+#: config/prefs.php.dist:546
+msgid "Icons with text"
+msgstr "Ikonit ja teksti"
+
+#: themes/ideas/info.php:2
+msgid "Ideas"
+msgstr "Ideat"
+
+#: config/prefs.php.dist:226
+msgid "Identity's name:"
+msgstr "Profiilin nimi:"
+
+#: templates/data/csvinfo.inc:7 templates/data/csvmap.inc:54
+#: templates/data/datemap.inc:7 templates/data/tsvinfo.inc:7
+#, php-format
+msgid "Import, Step %d"
+msgstr "Tuonti, askel %d"
+
+#: templates/data/datemap.inc:15
+#, php-format
+msgid "Imported field: %s"
+msgstr "Tuotu kenttä: %s"
+
+#: templates/data/csvmap.inc:59
+msgid "Imported fields:"
+msgstr "Tuodut kentät:"
+
+#: lib/Block/twitter_timeline.php:136
+msgid "In reply to:"
+msgstr ""
+
+#: templates/data/csvmap.inc:57
+msgid ""
+"In the lists below select both, a field imported from the source file at the "
+"left, and the matching field available in your address book at the right. "
+"Then hit \"Add pair\" to mark them for the import. Once your are finished "
+"hit \"Next\"."
+msgstr ""
+"Alla olevista listoista valitse molemmat; vasemmalta lähdetiedostosta "
+"tuotava kentä ja oikealta osoitekirjastasi vastaava kentää. Tämä jälkee "
+"valitse \"Lisää pari\", jolloin merkitset nämä tiedot tuotavaksi. Kun olet "
+"valmis, niin valitse \"Seuraava\"."
+
+#: services/resetpassword.php:50
+msgid ""
+"Incorrect username or alternate address. Try again or contact your "
+"administrator if you need further help."
+msgstr ""
+"Väärä käyttäjätunnus tai vaihtoehtoinen osoite. Yritä uudestaan ja ota "
+"yhteyttä ylläpitoon jos tarvitset lisää apua."
+
+#: templates/shares/edit.inc:164
+msgid "Individual Users"
+msgstr "Yksittäiset käyttäjät"
+
+#: templates/prefs/facebook.html:10
+#, fuzzy
+msgid "Infinite sessions enabled."
+msgstr "Istuntojen listaus epäonnistui: %s"
+
+#: config/registry.php.dist:281
+msgid "Information"
+msgstr "Informaatio"
+
+#: lib/Block/weatherdotcom.php:332
+msgid "Information no longer available."
+msgstr "Tietoa ei ole enää saatavilla."
+
+#: templates/admin/groups/edit.inc:36
+msgid "Inherited Members"
+msgstr "Periytetyt jäsenet"
+
+#: config/prefs.php.dist:304
+msgid "Insert an email address to which you can receive the new password:"
+msgstr "Anna sähköpostiosoite johon uusi salasana lähetetään:"
+
+#: config/prefs.php.dist:296
+msgid "Insert the required answer to the security question:"
+msgstr "Anna vaadittava vastaus turvakysymykseen:"
+
+#: lib/Block/vatid.php:52
+msgid "Invalid VAT identification number format."
+msgstr "Epäkelpo ALV-tunnuksen numeromuoto."
+
+#: admin/signup_confirm.php:43
+#, fuzzy, php-format
+msgid "Invalid action %s"
+msgstr "Epäkelpo ohjelma."
+
+#: admin/config/config.php:24
+msgid "Invalid application."
+msgstr "Epäkelpo ohjelma."
+
+#: admin/signup_confirm.php:33
+#, fuzzy
+msgid "Invalid hash."
+msgstr "Epäkelpo batch ID."
+
+#: lib/Block/weatherdotcom.php:180
+msgid "Invalid license key."
+msgstr "Epäkelpo lisenssiavain."
+
+#: lib/Block/weatherdotcom.php:174
+msgid "Invalid location provided."
+msgstr "Epäkelpo paikkatieto."
+
+#: admin/perms/addchild.php:23
+msgid "Invalid parent permission."
+msgstr "Epäkelvot oikeudet ylemmällä tasolla."
+
+#: lib/Block/weatherdotcom.php:176
+msgid "Invalid partner id."
+msgstr "Epäkelpo parner id."
+
+#: lib/Block/weatherdotcom.php:178
+msgid "Invalid product code."
+msgstr "Epäkelpo tuotekoodi."
+
+#: lib/Block/weatherdotcom_strings.php:37
+msgid "Isolated T-Storms"
+msgstr "Erillisiä Ukkosmyrskyjä"
+
+#: config/nls.php:179
+msgid "Japanese (ISO-2022-JP)"
+msgstr "Japani (ISO-2022-JP)"
+
+#: lib/Block/twitter_timeline.php:138
+msgid "Just now..."
+msgstr ""
+
+#: lib/Block/fortune.php:49
+msgid "Kernel Newbies"
+msgstr "Kernel aloittelijat"
+
+#: services/help/index.php:138
+msgid "Keyword"
+msgstr "Avainsana"
+
+#: lib/Block/fortune.php:50
+msgid "Kids"
+msgstr "Lapset"
+
+#: themes/kolab/info.php:7
+msgid "Kolab"
+msgstr "Kolab"
+
+#: config/nls.php:180
+msgid "Korean (EUC-KR)"
+msgstr "Korea (EUC-KR)"
+
+#: login.php:314 templates/login/login.inc:49
+msgid "Language"
+msgstr "Kieli"
+
+#: lib/Block/iframe.php:28
+msgid "Large"
+msgstr "Suuri"
+
+#: lib/Block/moon.php:167
+msgid "Last Half"
+msgstr "Jälkimmäinen puolisko"
+
+#: lib/Block/account.php:91
+msgid "Last Password Change"
+msgstr "Edellinen salasananvaihto"
+
+#: lib/Block/moon.php:84 lib/Block/moon.php:86
+msgid "Last Quarter"
+msgstr "Jälkimmäinen neljännes"
+
+#: admin/activesync.php:98 templates/prefs/activesync.html:21
+#, fuzzy
+msgid "Last Sync Time"
+msgstr "Lokalisaatio ja aika"
+
+#: lib/Block/metar.php:146
+msgid "Last Updated:"
+msgstr "Päivitetty viimeksi:"
+
+#: lib/LoginTasks/Task/LastLogin.php:46
+#, php-format
+msgid "Last login: %s"
+msgstr "Edellinen sisäänkirjautuminen: %s"
+
+#: lib/LoginTasks/Task/LastLogin.php:48
+#, php-format
+msgid "Last login: %s from %s"
+msgstr "Edellinen sisäänkirjautuminen: %s, %s"
+
+#: lib/LoginTasks/Task/LastLogin.php:44
+msgid "Last login: Never"
+msgstr "Edellinen sisäänkirjautuminen: Ei milloinkaan"
+
+#: lib/Block/twitter_timeline.php:168
+#, fuzzy
+msgid "Latest"
+msgstr "Lesoto"
+
+#: themes/lavander/info.php:2
+msgid "Lavender"
+msgstr "Laventeli"
+
+#: lib/Block/fortune.php:51
+msgid "Law"
+msgstr "Laki"
+
+#: themes/lightblue/info.php:2
+msgid "Light Blue"
+msgstr "Vaalean sininen"
+
+#: lib/Block/weatherdotcom_strings.php:38
+msgid "Light Drizzle"
+msgstr "Kevyttä räntää"
+
+#: lib/Block/weatherdotcom_strings.php:39
+msgid "Light Rain"
+msgstr "Kirjaudu sisään"
+
+#: lib/Block/weatherdotcom_strings.php:40
+msgid "Light Rain Early"
+msgstr "Kevyttä sadetta aikaisin"
+
+#: lib/Block/weatherdotcom_strings.php:41
+msgid "Light Rain Late"
+msgstr "Kevyttä sadetta myöhemmin"
+
+#: lib/Block/weatherdotcom_strings.php:42
+msgid "Light Rain Shower"
+msgstr "Kevyitä sadekuuroja"
+
+#: lib/Block/weatherdotcom_strings.php:43
+msgid "Light Rain with Thunder"
+msgstr "Kevyttä sadetta ja myrskyistä"
+
+#: lib/Block/weatherdotcom_strings.php:44
+msgid "Light Snow"
+msgstr "Kevyttä lumisadetta"
+
+#: lib/Block/weatherdotcom_strings.php:45
+#, fuzzy
+msgid "Light Snow Early"
+msgstr "Kevyttä sadetta aikaisin"
+
+#: lib/Block/weatherdotcom_strings.php:46
+#, fuzzy
+msgid "Light Snow Late"
+msgstr "Kevyttä sadetta myöhemmin"
+
+#: lib/Block/weatherdotcom_strings.php:47
+msgid "Light Snow Shower"
+msgstr "Kevyitä lumikuuroja"
+
+#: services/facebook.php:105
+#, fuzzy
+msgid "Like"
+msgstr "Linkki"
+
+#: lib/Block/fortune.php:52
+msgid "Limerick"
+msgstr "Limerikit"
+
+#: lib/Block/fortune.php:53
+msgid "Linux Cookie"
+msgstr "Linux pipareita"
+
+#: admin/sqlshell.php:113
+msgid "List Tables"
+msgstr "Näytä taulut"
+
+#: admin/alarms.php:130
+#, php-format
+msgid "Listing alarms failed: %s"
+msgstr "Hälytysten listaus epäonnistui: %s"
+
+#: admin/sessions.php:62
+#, php-format
+msgid "Listing sessions failed: %s"
+msgstr "Istuntojen listaus epäonnistui: %s"
+
+#: templates/admin/user/nolist.inc:2
+msgid "Listing users is disabled."
+msgstr "Käyttäjätietojen näyttäminen on estetty."
+
+#: lib/Block/fortune.php:54
+msgid "Literature"
+msgstr "Kirjallisuus"
+
+#: lib/Block/weatherdotcom.php:215
+msgid "Local time: "
+msgstr "Paikallista aikaa: "
+
+#: config/prefs.php.dist:313
+msgid "Locale and Time"
+msgstr "Lokalisaatio ja aika"
+
+#: lib/Block/metar.php:64 lib/Block/sunrise.php:20
+#: lib/Block/weatherdotcom.php:59
+msgid "Location"
+msgstr "Paikka"
+
+#: login.php:261 templates/login/login.inc:64
+msgid "Log in"
+msgstr "Kirjaudu sisään"
+
+#: lib/Block/account.php:64
+msgid "Login"
+msgstr "Kirjaudu sisään"
+
+#: login.php:286
+msgid "Login failed because your username or password was entered incorrectly."
+msgstr ""
+"Sisäänkirjautumisesi epäonnistui. Todennäköisesti kirjoitit väärin "
+"käyttäjätunnuksesi tai salasanasi."
+
+#: login.php:282
+msgid "Login failed."
+msgstr "Sisäänkirjautuminen epäonnistui."
+
+#: templates/prefs/facebook.html:46
+msgid "Login to Facebook and authorize <tag:app_name />"
+msgstr ""
+
+#: templates/prefs/twitter.html:21
+msgid "Login to Twitter and authorize the <tag:appname /> application"
+msgstr ""
+
+#: lib/Block/fortune.php:55
+msgid "Love"
+msgstr "Rakkaus"
+
+#: lib/Block/weatherdotcom_strings.php:98
+msgid "Low"
+msgstr "Matala"
+
+#: themes/luc/info.php:2
+msgid "Loyola"
+msgstr "Loyola"
+
+#: themes/lucblue/info.php:2
+msgid "Loyola Blue"
+msgstr "Loyolan sininen"
+
+#: templates/data/date.inc:47 templates/data/date.inc:48
+#: templates/data/date.inc:49 templates/data/date.inc:50
+#: templates/data/datetime.inc:89 templates/data/datetime.inc:90
+#: templates/data/datetime.inc:91 templates/data/datetime.inc:92
+msgid "MM"
+msgstr "KK"
+
+#: lib/Block/fortune.php:56
+msgid "Magic"
+msgstr "Taikuus"
+
+#: config/registry.php.dist:85
+msgid "Mail"
+msgstr "Sähköposti"
+
+#: config/registry.php.dist:403
+msgid "Mail Admin"
+msgstr "Sähköpostin ylläpito"
+
+#: config/prefs.php.dist:441
+msgid ""
+"Manage the list of categories you have to label items with, and colors "
+"associated with those categories."
+msgstr ""
+"Voit hallinnoida listaa kategorioista, joiden avulla voit liittää asioita "
+"yhteen samojen otsakkeiden alle ja liittää niihin värejä."
+
+#: config/prefs.php.dist:677
+msgid "Manage your ActiveSync devices."
+msgstr ""
+
+#: templates/data/csvmap.inc:96
+msgid "Matching fields:"
+msgstr "Täsmäävät kentät:"
+
+#: lib/Block/metar.php:301
+msgid "Max temp last 24 hours: "
+msgstr "Edellisen 24 tunnin korkein lämpötila: "
+
+#: lib/Block/metar.php:293
+msgid "Max temp last 6 hours: "
+msgstr "Edellisen 6 tunnin korkein lämpötila: "
+
+#: lib/Application.php:38
+msgid "Maximum Number of Portal Blocks"
+msgstr "Portaalilohkojen maksimimäärä"
+
+#: lib/Block/fb_stream.php:86
+#, fuzzy
+msgid "Maximum number of entries to display"
+msgstr "Näytettävien artikkelien lukumäärä"
+
+#: lib/Block/fortune.php:57
+msgid "Medicine"
+msgstr "Lääketiede"
+
+#: lib/Block/iframe.php:27
+msgid "Medium"
+msgstr "Keskikoinen"
+
+#: templates/admin/groups/edit.inc:17
+msgid "Members"
+msgstr "Jäsenet"
+
+#: config/prefs.php.dist:548
+msgid "Menu mode:"
+msgstr "Menun muoto:"
+
+#: lib/Block/metar.php:5
+msgid "Metar Weather"
+msgstr "Metar sää"
+
+#: lib/Block/metar.php:42
+msgid "Metar block not available."
+msgstr "Metar-osio ei ole käytettävissä."
+
+#: lib/Block/metar.php:110
+msgid ""
+"Metar block not available. Details have been logged for the administrator."
+msgstr ""
+"Metar-osio ei ole käytettävissä. Tarkemmat tiedot on talletettu ylläpidon "
+"käsiteltäväksi."
+
+#: lib/Block/weatherdotcom.php:168
+msgid "MetarDB is not connected."
+msgstr "MetarDB ei ole yhdistetty."
+
+#: lib/Block/metar.php:74 lib/Block/weatherdotcom.php:69
+msgid "Metric"
+msgstr "Metrinen"
+
+#: lib/Block/metar.php:305
+msgid "Min temp last 24 hours: "
+msgstr "Edellisen 24 tunnin matalin lämpötila: "
+
+#: lib/Block/metar.php:297
+msgid "Min temp last 6 hours: "
+msgstr "Edellisen 6 tunnin matalin lämpötila: "
+
+#: lib/Block/fortune.php:58
+msgid "Miscellaneous"
+msgstr "Sekalaiset"
+
+#: admin/config/index.php:135
+msgid ""
+"Missing configuration. You must generate it before using this application."
+msgstr ""
+"Asetustiedosto puuttuu. Sinun pitää luoda se ennenkuin voit käyttää tätä "
+"ohjelmaa."
+
+#: lib/Block/weatherdotcom_strings.php:48
+#, fuzzy
+msgid "Mist"
+msgstr "Listaus"
+
+#: lib/Block/weatherdotcom_strings.php:99
+msgid "Moderate"
+msgstr "Kohtalainen"
+
+#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:57
+#, php-format
+msgid "Modified sequence for %s"
+msgstr ""
+
+#: config/prefs.php.dist:430
+msgid "Monday"
+msgstr "maanantai"
+
+#: lib/Block/moon.php:3 lib/Block/moon.php:14
+msgid "Moon Phases"
+msgstr "Kuun vaiheet"
+
+#: lib/Block/weatherdotcom_strings.php:49
+msgid "Mostly Clear"
+msgstr "Suurimmaksi osaksi selkeää"
+
+#: lib/Block/weatherdotcom_strings.php:50
+msgid "Mostly Cloudy"
+msgstr "Suurimmaksi osaksi pilvistä"
+
+#: lib/Block/weatherdotcom_strings.php:51
+msgid "Mostly Cloudy and Windy"
+msgstr "Suurimmaksi osaksi pilvistä ja tuulista"
+
+#: lib/Block/weatherdotcom_strings.php:52
+msgid "Mostly Sunny"
+msgstr "Suurimmaksi osaksi aurinkoista"
+
+#: themes/mozilla/info.php:2
+msgid "Mozilla"
+msgstr "Mozilla"
+
+#: config/registry.php.dist:333
+msgid "My Account"
+msgstr "Käyttäjätietoni"
+
+#: lib/Block/account.php:27
+msgid "My Account Information"
+msgstr "Oman käyttäjätunnuksen tiedot"
+
+#: lib/Block/fb_stream.php:3 lib/Block/fb_stream.php:105
+msgid "My Facebook Stream"
+msgstr ""
+
+#: services/portal/index.php:62
+msgid "My Portal"
+msgstr "Oma portaali"
+
+#: services/portal/edit.php:36
+msgid "My Portal Layout"
+msgstr "Oman portaalin asettelu"
+
+#: templates/logintasks/logintasks.html:35
+msgid "NO, I Do NOT Agree"
+msgstr "EI, EN suostu"
+
+#: lib/Block/vatid.php:98
+msgid "Name"
+msgstr "Nimi"
+
+#: themes/NeXTgrey/info.php:2
+msgid "NeXT"
+msgstr "NeXT"
+
+#: templates/portal/layout.inc:97 config/prefs.php.dist:516
+#: config/prefs.php.dist:556
+msgid "Never"
+msgstr "Ei koskaan"
+
+#: templates/prefs/category.html:3
+msgid "New Category"
+msgstr "Uusi luokitus"
+
+#: services/facebook.php:65
+#, fuzzy
+msgid "New Messages:"
+msgstr "Uusi viesti %s:lle"
+
+#: lib/Block/moon.php:44 lib/Block/moon.php:66 lib/Block/moon.php:172
+msgid "New Moon"
+msgstr "Uusikuu"
+
+#: templates/admin/user/update.inc:12
+msgid "New Username (optional)"
+msgstr "Uusi käyttäjätunnus (vapaaehtoinen)"
+
+#: services/changepassword.php:29
+msgid "New password"
+msgstr "Uusi salasana"
+
+#: services/changepassword.php:40
+msgid "New passwords don't match."
+msgstr "Antamasi uudet salasanat eivät täsmää."
+
+#: lib/Block/fortune.php:59 config/registry.php.dist:288
+msgid "News"
+msgstr "Uutiset"
+
+#: templates/data/csvinfo.inc:25 templates/data/csvmap.inc:119
+#: templates/data/datemap.inc:41 templates/data/tsvinfo.inc:15
+msgid "Next"
+msgstr "Seuraava"
+
+#: lib/Block/moon.php:25
+msgid "Next 4 Phases"
+msgstr "Seuraavat 4 vaihetta"
+
+#: lib/Block/weatherdotcom.php:382
+msgid "Night"
+msgstr "Yö"
+
+#: templates/prefs/alarm.html:32
+msgid "No Sound"
+msgstr "Ei ääniä"
+
+#: templates/admin/config/diff.html:9
+msgid "No available configuration data to show differences for."
+msgstr "Asetustietoja ei ole saatavilla, josta voisi näyttää eroavaisuuksia."
+
+#: admin/config/diff.php:39
+msgid "No change."
+msgstr "Ei muutosta."
+
+#: util/icon_browser.php:83
+msgid "No icons found."
+msgstr "Ikoneita ei löytynyt."
+
+#: lib/Block/metar.php:121 lib/Block/sunrise.php:38
+#: lib/Block/weatherdotcom.php:133
+msgid "No location is set."
+msgstr "Paikkaa ei ole asetettu."
+
+#: lib/Block/weatherdotcom.php:172
+msgid "No location provided."
+msgstr "Paikkaa ei ole annettu."
+
+#: lib/Block/fortune.php:101
+msgid "No offensive fortunes"
+msgstr "Ei loukkaavat mietelauseet"
+
+#: templates/admin/user/approve.inc:15
+msgid "No pending signups."
+msgstr "Ei sisäänkirjautumispyyntöjä jonossa."
+
+#: admin/config/index.php:89 admin/config/index.php:121
+msgid "No stable version exists yet."
+msgstr "Tuotantoversiota ei ole vielä olemassa."
+
+#: lib/Block/weatherdotcom.php:143
+msgid "No temporary directory available for cache."
+msgstr "Välimuistille ei ole väliaikaishakemistoa."
+
+#: admin/signup_confirm.php:57
+#, fuzzy
+msgid "No username specified."
+msgstr "Nimeä ei ollut annettu."
+
+#: admin/config/index.php:140
+msgid "No version found in original configuration. Regenerate configuration."
+msgstr ""
+"Versiotietoja ei löytynyt alkuperäisestä asetuksesta. Luo asetukset "
+"uudelleen."
+
+#: admin/config/index.php:148
+msgid "No version found in your configuration. Regenerate configuration."
+msgstr "Versiotietoja ei löytynyt asetustiedoista. Luo asetukset uudelleen."
+
+#: lib/Prefs/Ui.php:411 templates/prefs/activesync.html:43
+#: templates/prefs/identityselect.html:20 templates/prefs/syncml.html:34
+msgid "None"
+msgstr "Ei mitään"
+
+#: config/nls.php:181
+msgid "Nordic (ISO-8859-10)"
+msgstr "Lappi/Pohjoismaat/Eskimo (ISO-8859-10)"
+
+#: lib/Block/moon.php:30 lib/Block/moon.php:58
+msgid "Northern Hemisphere"
+msgstr "Pohjoinen pallonpuolisko"
+
+#: admin/activesync.php:171 lib/Prefs/Ui.php:426
+#, fuzzy
+msgid "Not Provisioned"
+msgstr "Muokkaa oikeutta"
+
+#: config/registry.php.dist:211
+msgid "Notes"
+msgstr "Muistiinpanot"
+
+#: services/obrowser/index.php:32
+msgid "Nothing to browse, go back."
+msgstr "Ei mitään selattavaa, palaa takaisin."
+
+#: lib/Block/feed.php:18
+msgid "Number of articles to display"
+msgstr "Näytettävien artikkelien lukumäärä"
+
+#: lib/Block/twitter_timeline.php:91
+msgid "Number of seconds to wait to refresh"
+msgstr ""
+
+#: services/keyboard.php:92
+msgid "O characters"
+msgstr "O-merkkimuunnelmat"
+
+#: templates/shares/edit.inc:129
+msgid "Object Creator"
+msgstr "Objektin luoja"
+
+#: lib/Block/fortune.php:99
+msgid "Offense filter"
+msgstr "Loukkaavuussuodatin"
+
+#: config/registry.php.dist:301
+msgid "Office"
+msgstr "Toimisto"
+
+#: services/changepassword.php:42
+msgid "Old and new passwords must be different."
+msgstr "Uusi salasana ei saa olla sama kuin nykyinen salasanasi."
+
+#: services/changepassword.php:28
+msgid "Old password"
+msgstr "Vanha salasana"
+
+#: services/changepassword.php:38
+msgid "Old password is not correct."
+msgstr "Vanha salasana on väärin."
+
+#: lib/Block/fortune.php:102
+msgid "Only offensive fortunes"
+msgstr "Vain loukkaavat mietelauseet"
+
+#: services/shares/edit.php:83
+msgid ""
+"Only the owner or system administrator may change ownership or owner "
+"permissions for a share"
+msgstr ""
+"Vain omistaja tai järjestelmän ylläpitäjä voi muuttaa jakojen omistajia tai "
+"oikeuksia"
+
+#: lib/Block/fortune.php:60
+msgid "Operating System"
+msgstr "Käyttöjärjestelmä"
+
+#: templates/shares/edit.inc:236
+#, fuzzy
+msgid "Or enter a user name:"
+msgstr "Anna asetus_nimi:"
+
+#: config/registry.php.dist:135
+msgid "Organizing"
+msgstr "Organisointi"
+
+#: services/keyboard.php:124
+msgid "Other"
+msgstr "Muu"
+
+#: config/prefs.php.dist:467 config/prefs.php.dist:582
+#: config/prefs.php.dist:603 config/prefs.php.dist:624
+#: config/prefs.php.dist:643 config/prefs.php.dist:663
+#: config/prefs.php.dist:675
+msgid "Other Information"
+msgstr "Muut tiedot"
+
+#: services/keyboard.php:122
+msgid "Other characters"
+msgstr "Muut erikoismerkit"
+
+#: templates/shares/edit.inc:30
+msgid "Owner"
+msgstr "Omistaja"
+
+#: templates/shares/edit.inc:36 templates/shares/edit.inc:45
+msgid "Owner:"
+msgstr "Omistaja:"
+
+#: admin/phpshell.php:51
+msgid "PHP"
+msgstr "PHP"
+
+#: admin/phpshell.php:71
+msgid "PHP Code"
+msgstr "PHP-koodi"
+
+#: admin/phpshell.php:32
+msgid "PHP Shell"
+msgstr "PHP-komentotulkki"
+
+#: lib/Block/weatherdotcom_strings.php:54
+msgid "PM Clouds"
+msgstr "PM Pilviä"
+
+#: lib/Block/weatherdotcom_strings.php:55
+#, fuzzy
+msgid "PM Drizzle"
+msgstr "PM räntää"
+
+#: lib/Block/weatherdotcom_strings.php:56
+msgid "PM Fog"
+msgstr "PM Sumu"
+
+#: lib/Block/weatherdotcom_strings.php:57
+msgid "PM Light Rain"
+msgstr "PM kevyttä sadetta"
+
+#: lib/Block/weatherdotcom_strings.php:58
+msgid "PM Light Snow"
+msgstr "PM Kevyttä lumisadetta"
+
+#: lib/Block/weatherdotcom_strings.php:59
+msgid "PM Rain"
+msgstr "PM sade"
+
+#: lib/Block/weatherdotcom_strings.php:60
+msgid "PM Showers"
+msgstr "PM kuuroja"
+
+#: lib/Block/weatherdotcom_strings.php:61
+msgid "PM Snow"
+msgstr "PM lumi"
+
+#: lib/Block/weatherdotcom_strings.php:62
+msgid "PM Snow Showers"
+msgstr "PM lumisateita"
+
+#: lib/Block/weatherdotcom_strings.php:63
+msgid "PM Sun"
+msgstr "PM lumi"
+
+#: lib/Block/weatherdotcom_strings.php:64
+#, fuzzy
+msgid "PM T-Showers"
+msgstr "PM kuuroja"
+
+#: lib/Block/weatherdotcom_strings.php:65
+msgid "PM T-Storms"
+msgstr "PM ukkosmyrskyjä"
+
+#: lib/Block/account.php:287
+msgid "POSIX extension is missing"
+msgstr "POSIX-laajennukset puuttuvat"
+
+#: lib/Api.php:62
+msgid "P_HP Shell"
+msgstr "P_HP-komentotulkki"
+
+#: lib/Block/weatherdotcom_strings.php:53
+msgid "Partly Cloudy"
+msgstr "Osittain pilvistä"
+
+#: admin/config/index.php:192 admin/user.php:35 admin/user.php:49 login.php:81
+#: templates/admin/user/update.inc:20 config/registry.php.dist:355
+msgid "Password"
+msgstr "Salasana"
+
+#: services/changepassword.php:52
+msgid "Password changed successfully."
+msgstr "Salasanan vaihto onnistui."
+
+#: lib/Prefs/Ui.php:326
+msgid "Password:"
+msgstr "Salasana:"
+
+#: admin/user.php:168 admin/user.php:220
+msgid "Passwords must match."
+msgstr "Salasanojen pitää olla samat."
+
+#: admin/sqlshell.php:100
+msgid "Paste"
+msgstr "Liitä"
+
+#: templates/admin/user/approve.inc:9 templates/admin/user/removequeued.inc:7
+msgid "Pending Signups:"
+msgstr "Jonossa olevat sisäänkirjautumispyynnöt:"
+
+#: lib/Block/fortune.php:61
+msgid "People"
+msgstr "Ihmiset"
+
+#: templates/logintasks/logintasks.html:30
+#, fuzzy
+msgid "Perform Login Tasks"
+msgstr "Tehtävät sisäänkirjautumisessa"
+
+#: admin/perms/delete.php:42
+#, php-format
+msgid "Permission \"%s\" not deleted."
+msgstr "Oikeutta \"%s\" ei poistettu."
+
+#: admin/perms/index.php:23
+msgid "Permissions"
+msgstr "Oikeudet"
+
+#: admin/perms/addchild.php:51 admin/perms/delete.php:46
+#: admin/perms/edit.php:110 admin/perms/index.php:17
+msgid "Permissions Administration"
+msgstr "Oikeuksien ylläpito"
+
+#: config/prefs.php.dist:213
+msgid "Personal Information"
+msgstr "Omat tiedot"
+
+#: lib/Block/fortune.php:62
+msgid "Pets"
+msgstr "Lemmikit"
+
+#: config/registry.php.dist:385
+msgid "Photos"
+msgstr "Valokuvat"
+
+#: lib/Block/fortune.php:63
+msgid "Platitudes"
+msgstr "Kliseet"
+
+#: login.php:87
+#, fuzzy
+msgid "Please enter a password."
+msgstr "Anna aika oikeassa muodossa."
+
+#: login.php:86
+#, fuzzy
+msgid "Please enter a username."
+msgstr "Anna aika oikeassa muodossa."
+
+#: templates/problem/problem.inc:7
+msgid "Please provide a summary of the problem."
+msgstr "Anna lyhyt kuvaus ongelmasta."
+
+#: services/logintasks.php:73
+msgid ""
+"Please read the following text. You MUST agree with the terms to use the "
+"system."
+msgstr ""
+"Lue seuraava teksti. Sinun PITÄÄ suostua käyttöehtoihin voidaksesi käyttää "
+"järjestelmää."
+
+#: services/facebook.php:67
+#, fuzzy
+msgid "Pokes:"
+msgstr "Lemmikit"
+
+#: admin/activesync.php:105
+#, fuzzy
+msgid "Policy Key"
+msgstr "Julkinen avain"
+
+#: lib/Prefs/Ui.php:432
+#, fuzzy
+msgid "Policy Key:"
+msgstr "Julkinen avain"
+
+#: lib/Block/fortune.php:64
+msgid "Politics"
+msgstr "Politiikka"
+
+#: services/facebook.php:101
+#, fuzzy, php-format
+msgid "Posted %s"
+msgstr "Valitse %s"
+
+#: templates/block/twitter_tweet.html.php:26
+#, fuzzy, php-format
+msgid "Posted %s via %s"
+msgstr "%d %s ja %s"
+
+#: themes/postnuke/info.php:2
+msgid "Postnuke"
+msgstr "Postnuke"
+
+#: lib/Block/metar.php:261 lib/Block/metar.php:266
+#, php-format
+msgid "Precipitation for last %d hour: "
+msgid_plural "Precipitation for last %d hours: "
+msgstr[0] "Sademäärä edelliselle %d tunnille: "
+msgstr[1] "Sademäärä edellisille %d tunneille: "
+
+#: lib/Block/weatherdotcom.php:301
+msgid "Precipitation<br />chance"
+msgstr "Haihtuvuus <br />todennäköisyys"
+
+#: lib/Block/metar.php:220
+msgid "Pressure"
+msgstr "Ilmanpaine"
+
+#: lib/Block/metar.php:254
+msgid "Pressure at sea level: "
+msgstr "Ilmanpaine merenpinnassa: "
+
+#: lib/Block/weatherdotcom.php:239
+msgid "Pressure: "
+msgstr "Ilmanpaine: "
+
+#: services/problem.php:145
+msgid "Problem Description"
+msgstr "Ongelman kuvaus"
+
+#: admin/activesync.php:171 lib/Prefs/Ui.php:425
+#, fuzzy
+msgid "Provisioned"
+msgstr "Oikeus"
+
+#: templates/prefs/facebook.html:21
+msgid "Publish enabled."
+msgstr ""
+
+#: themes/purple/info.php:2
+msgid "Purple Horde"
+msgstr "Purpurainen Horde"
+
+#: admin/sqlshell.php:50
+msgid "Query"
+msgstr "Kysele"
+
+#: lib/Block/account.php:83
+msgid "Quota"
+msgstr "Kiintiö"
+
+#: lib/Block/weatherdotcom_strings.php:66
+msgid "Rain"
+msgstr "Sade"
+
+#: lib/Block/weatherdotcom_strings.php:67
+msgid "Rain Early"
+msgstr "Sadetta aikaisin"
+
+#: lib/Block/weatherdotcom_strings.php:68
+msgid "Rain Late"
+msgstr "Sadetta myöhään"
+
+#: lib/Block/weatherdotcom_strings.php:69
+msgid "Rain Shower"
+msgstr "Sadekuuro"
+
+#: lib/Block/weatherdotcom_strings.php:70
+msgid "Rain and Snow"
+msgstr "Vesi ja lumi"
+
+#: lib/Block/weatherdotcom_strings.php:71
+msgid "Rain to Snow"
+msgstr "Vedestä lumeen"
+
+#: lib/Block/fortune.php:6
+msgid "Random Fortune"
+msgstr "Satunnainen mietelause"
+
+#: templates/shares/edit.inc:61 templates/shares/edit.inc:75
+#: templates/shares/edit.inc:96 templates/shares/edit.inc:110
+#: templates/shares/edit.inc:132 templates/shares/edit.inc:146
+#: templates/shares/edit.inc:167 templates/shares/edit.inc:185
+#: templates/shares/edit.inc:220 templates/shares/edit.inc:247
+#: templates/shares/edit.inc:269 templates/shares/edit.inc:283
+#: templates/shares/edit.inc:312
+msgid "Read"
+msgstr "Luku"
+
+#: templates/prefs/facebook.html:33
+#, fuzzy
+msgid "Read enabled"
+msgstr "Voi lukea viestejä"
+
+#: templates/admin/user/remove.inc:8
+#, php-format
+msgid "Really delete \"%s\"? This operation cannot be undone."
+msgstr "Poistetaanko \"%s\"? Tätä toimintoa ei voi peruuttaa."
+
+#: templates/admin/user/clear.inc:8
+#, php-format
+msgid ""
+"Really remove user data for user \"%s\"? This operation cannot be undone."
+msgstr ""
+"Poistetaanko tiedot käyttäjästä \"%s\"? Tätä toimintoa ei voi peruuttaa."
+
+#: config/prefs.php.dist:562
+msgid "Refresh Dynamic Menu Elements:"
+msgstr "Päivät dynaamiset valikkoelementit:"
+
+#: config/prefs.php.dist:523
+msgid "Refresh Portal View:"
+msgstr "Päivitä portaalinäkymää:"
+
+#: templates/portal/layout.inc:94
+msgid "Refresh rate:"
+msgstr "Päivitysnopeus:"
+
+#: admin/activesync.php:134
+msgid "Registered User Devices"
+msgstr ""
+
+#: lib/Block/metar.php:321
+msgid "Remarks"
+msgstr "Muistiinpanot"
+
+#: admin/sessions.php:39 admin/sessions.php:50
+msgid "Remote Host:"
+msgstr "Etäpalvelin:"
+
+#: config/prefs.php.dist:583
+msgid "Remote Servers"
+msgstr "Etäpalvelimet"
+
+#: lib/Prefs/Ui.php:324
+msgid "Remote URL (http://www.example.com/horde):"
+msgstr "Etäpalvelun URL (http://www.example.com/horde):"
+
+#: admin/activesync.php:185 templates/admin/groups/edit.inc:23
+#: templates/admin/user/approve.inc:40
+#: templates/admin/user/removequeued.inc:13 templates/prefs/activesync.html:33
+msgid "Remove"
+msgstr "Poista"
+
+#: templates/data/csvmap.inc:118
+msgid "Remove pair"
+msgstr "Poista pari"
+
+#: admin/config/index.php:211
+msgid "Remove saved script from server's temporary directory."
+msgstr "Poistettiin talletettu skripti palvelimen väliaikaishakemistosta."
+
+#: templates/admin/user/remove.inc:11
+msgid "Remove user"
+msgstr "Poista käyttäjä"
+
+#: templates/admin/user/remove.inc:5
+#, php-format
+msgid "Remove user: %s"
+msgstr "Poista käyttäjä: %s"
+
+#: templates/block/twitter_tweet.html.php:34
+#, fuzzy
+msgid "Reply"
+msgstr "Reply-To"
+
+#: admin/activesync.php:138
+#, fuzzy
+msgid "Reprovision All Devices"
+msgstr "Käyttö kielletty"
+
+#: lib/Block/weatherdotcom.php:160
+msgid "Requested service could not be found."
+msgstr "Pyydettyä palvelua ei löytynyt."
+
+#: admin/user.php:22 templates/admin/user/update.inc:54
+#: templates/prefs/rpc.html:36
+msgid "Reset"
+msgstr "Tyhjennä"
+
+#: services/resetpassword.php:45
+msgid "Reset Password"
+msgstr "Tyhjennä salasana"
+
+#: services/resetpassword.php:23
+msgid "Reset Your Password"
+msgstr "Tyhjennä salasanasi"
+
+#: templates/prefs/activesync.html:6
+msgid ""
+"Reset all device state. This will cause your devices to resyncronize all "
+"items."
+msgstr ""
+
+#: admin/sqlshell.php:111
+msgid "Restore Last Query"
+msgstr "Palauta edellinen kysely"
+
+#: admin/cmdshell.php:23 admin/phpshell.php:74 admin/sqlshell.php:53
+msgid "Results"
+msgstr "Tulokset"
+
+#: services/portal/cloud_search.php:30
+#, php-format
+msgid "Results for %s"
+msgstr "Tulosjoukko %s:lle"
+
+#: templates/prefs/end.html:7
+#, fuzzy
+msgid "Return to Main Screen"
+msgstr "Palaa asetuksiin"
+
+#: templates/block/twitter_tweet.html.php:35
+#, fuzzy
+msgid "Retweet"
+msgstr "Tyhjennä"
+
+#: templates/block/twitter_tweet.html.php:30
+#, php-format
+msgid "Retweeted by %s"
+msgstr ""
+
+#: services/changepassword.php:30
+msgid "Retype new password"
+msgstr "Vahvista uusi salasana"
+
+#: admin/config/config.php:33 admin/config/config.php:37
+msgid "Revert Configuration"
+msgstr "Palauta asetukset"
+
+#: lib/Block/fortune.php:65
+msgid "Riddles"
+msgstr "Arvoitukset"
+
+#: admin/sqlshell.php:101
+msgid "Run"
+msgstr "Suorita"
+
+#: admin/sqlshell.php:14
+msgid "SQL Shell"
+msgstr "SQL-komentotulkki"
+
+#: config/registry.php.dist:363
+msgid "SSH"
+msgstr "SSH"
+
+#: lib/Api.php:67
+msgid "S_QL Shell"
+msgstr "S_QL-komentotulkki"
+
+#: templates/portal/layout.inc:115 templates/prefs/end.html:3
+msgid "Save"
+msgstr "Talleta"
+
+#: templates/admin/groups/edit.inc:63 templates/shares/edit.inc:330
+#, php-format
+msgid "Save \"%s\""
+msgstr "Talleta \"%s\""
+
+#: templates/shares/edit.inc:331
+msgid "Save and Finish"
+msgstr "Talleta ja lopeta"
+
+#: admin/config/index.php:183
+msgid ""
+"Save generated configuration as a PHP script to your server's temporary "
+"directory."
+msgstr ""
+"Talleta luotu asetustiedosto PHP-skriptinä palvelimesi väliaikaishakemistoon."
+
+#: admin/config/scripts.php:92
+#, fuzzy, php-format
+msgid "Saved configuration upgrade script to: \"%s\"."
+msgstr "Asetusten päivitysskripti on talletettu paikkaan: \"%s\"."
+
+#: lib/Block/weatherdotcom_strings.php:72
+msgid "Scattered Showers"
+msgstr "Hajanaisia sateita"
+
+#: lib/Block/weatherdotcom_strings.php:73
+msgid "Scattered T-Storms"
+msgstr "Hajanaisia ukkosmyrskyjä"
+
+#: lib/Block/fortune.php:66
+msgid "Science"
+msgstr "Tiede"
+
+#: services/help/index.php:71
+msgid "Sea_rch"
+msgstr "Ha_ku"
+
+#: services/help/index.php:134 templates/admin/user/list.inc:16
+msgid "Search"
+msgstr "Haku"
+
+#: templates/admin/user/list.inc:14
+msgid "Search:"
+msgstr "Haku:"
+
+#: templates/shares/edit.inc:298 templates/shares/edit.inc:300
+msgid "Select a group to add:"
+msgstr "Valitse lisättävä ryhmä:"
+
+#: templates/shares/edit.inc:38
+msgid "Select a new owner:"
+msgstr "Valitse uusi omistaja:"
+
+#: templates/prefs/rpc.html:4
+msgid "Select a server"
+msgstr "Valitse palvelin"
+
+#: templates/shares/edit.inc:202 templates/shares/edit.inc:204
+msgid "Select a user to add:"
+msgstr "Valitse lisättävä käyttäjä:"
+
+#: templates/prefs/addressbooks.html:5
+msgid "Select all fields to search when expanding addresses."
+msgstr ""
+
+#: services/keyboard.php:38
+msgid ""
+"Select the characters you need from the boxes below. You can then copy and "
+"paste them from the text area."
+msgstr ""
+"Valitse tarvittavat merkit alla olevista valikoista. Voit sen jälkeen "
+"kopioida ja liittää merkit tekstiisi."
+
+#: templates/data/datetime.inc:57
+msgid "Select the date and time format:"
+msgstr "Valitse ajan ja päiväyksen esitystapa:"
+
+#: templates/data/date.inc:34 templates/data/datetime.inc:76
+msgid "Select the date delimiter:"
+msgstr "Valitse päiväyksen erotinmerkki:"
+
+#: templates/data/date.inc:44 templates/data/datetime.inc:86
+msgid "Select the date format:"
+msgstr "Valitse päiväyksen esitystapa:"
+
+#: templates/data/datetime.inc:66
+msgid "Select the day and time order:"
+msgstr "Valitse ajan ja päiväyksen järjestys:"
+
+#: templates/data/datetime.inc:97 templates/data/time.inc:16
+msgid "Select the time delimiter:"
+msgstr "Valitse kellonajan erotinmerkki:"
+
+#: templates/data/datetime.inc:106 templates/data/time.inc:25
+msgid "Select the time format:"
+msgstr "Valitse ajan esitystapa:"
+
+#: config/prefs.php.dist:509
+msgid "Select your color scheme."
+msgstr "Valitse väriteema."
+
+#: config/prefs.php.dist:328
+msgid "Select your preferred language:"
+msgstr "Valitse käytettävä kieli:"
+
+#: templates/problem/problem.inc:57
+msgid "Send Problem Report"
+msgstr "Lähetä ongelmaviesti"
+
+#: lib/Block/metar.php:311
+msgid "Sensor: "
+msgstr "Tunnistin: "
+
+#: templates/prefs/syncml.html:12
+msgid "Server Time"
+msgstr "Palvelimen aika"
+
+#: lib/Block/weatherdotcom.php:164
+msgid "Server data wrong or not available."
+msgstr "Palvelimen tiedot ovat vääriä tai eivät ole käytettävissä."
+
+#: admin/sessions.php:14
+msgid "Session Admin"
+msgstr "Istuntojen hallinta"
+
+#: admin/sessions.php:37
+msgid "Session Timestamp:"
+msgstr "Istunnon aikaleima:"
+
+#: lib/Api.php:57
+msgid "Sessions"
+msgstr "Istunnot"
+
+#: config/prefs.php.dist:277
+#, fuzzy
+msgid ""
+"Set preferences to allow you to reset your password if you ever forget it."
+msgstr ""
+"Salasanan resetointiin liittyviä asetuksia, jos joskus unohdat salasanasi."
+
+#: config/prefs.php.dist:605
+msgid "Set up integration with your Facebook account."
+msgstr ""
+
+#: config/prefs.php.dist:626
+msgid "Set up integration with your Twitter account."
+msgstr ""
+
+#: config/prefs.php.dist:584
+msgid "Set up remote servers that you want to access from your portal."
+msgstr ""
+"Voit asettaa ulkoisten palvelimien asetukset, joita haluat käyttää "
+"portaalissa."
+
+#: config/prefs.php.dist:314
+#, fuzzy
+msgid "Set your preferred language, timezone and date preferences."
+msgstr ""
+"Voit asettaa käytettävän kielen, aikavyöhykkeen ja muita päivämääräasetuksia."
+
+#: config/prefs.php.dist:469
+#, fuzzy
+msgid ""
+"Set your startup application, color scheme, page refreshing, and other "
+"display preferences."
+msgstr ""
+"Voit asettaa aloitusohjelman, väriteeman, näkymän päivityksen ja muita "
+"näkymään liityviä asetuksia."
+
+#: lib/Block/weatherdotcom.php:190
+msgid "Several locations possible with the parameter: "
+msgstr "Useat paikat sopivat annettuun parametriin: "
+
+#: templates/problem/problem.inc:38
+msgid "Short Summary"
+msgstr "Lyhyt kuvaus:"
+
+#: config/prefs.php.dist:570
+msgid "Should access keys be defined for most links?"
+msgstr "Aseteta pikavalintanäppäimet useimmille linkeille."
+
+#: templates/shares/edit.inc:60 templates/shares/edit.inc:71
+#: templates/shares/edit.inc:95 templates/shares/edit.inc:106
+#: templates/shares/edit.inc:131 templates/shares/edit.inc:142
+#: templates/shares/edit.inc:166 templates/shares/edit.inc:181
+#: templates/shares/edit.inc:216 templates/shares/edit.inc:243
+#: templates/shares/edit.inc:268 templates/shares/edit.inc:279
+#: templates/shares/edit.inc:308
+msgid "Show"
+msgstr "Näytä"
+
+#: templates/prefs/app.html:21
+#, fuzzy
+msgid "Show Advanced Preferences"
+msgstr "näytä erot"
+
+#: admin/config/index.php:173
+msgid ""
+"Show differences between currently saved and the newly generated "
+"configuration."
+msgstr ""
+"Näytä erot nykyisen talletetun asetustiedosto version ja uuden luodun "
+"version välillä."
+
+#: lib/Block/feed.php:24
+msgid "Show extra detail?"
+msgstr "Näytetäänkö yksityiskohtaiset tiedot?"
+
+#: config/prefs.php.dist:491
+msgid "Show last login time when logging in?"
+msgstr "Näytä edellisen sisäänkirjautumisen päiväys."
+
+#: lib/Block/fb_stream.php:89
+#, fuzzy
+msgid "Show notifications"
+msgstr "Ponnahdusilmoitus"
+
+#: config/prefs.php.dist:530
+#, php-format
+msgid "Show the %s Menu on the left?"
+msgstr "Näytä vasemmalla valikko %s?"
+
+#: lib/Block/weatherdotcom_strings.php:74
+msgid "Showers"
+msgstr "Sateita"
+
+#: lib/Block/weatherdotcom_strings.php:75
+msgid "Showers Early"
+msgstr "Sateita aikaisin"
+
+#: lib/Block/weatherdotcom_strings.php:76
+msgid "Showers Late"
+msgstr "Sateita myöhemmin"
+
+#: lib/Block/weatherdotcom_strings.php:77
+msgid "Showers in the Vicinity"
+msgstr "Sateita lähettyvilla"
+
+#: themes/simplex/info.php:2
+msgid "Simplex"
+msgstr "Simpleksi"
+
+#: templates/logintasks/logintasks.html:31
+#, fuzzy
+msgid "Skip Login Tasks"
+msgstr "Tehtävät sisäänkirjautumisessa"
+
+#: lib/Block/iframe.php:26
+msgid "Small"
+msgstr "Pieni"
+
+#: lib/Block/weatherdotcom_strings.php:78
+msgid "Snow"
+msgstr "Lumi"
+
+#: lib/Block/weatherdotcom_strings.php:79
+#, fuzzy
+msgid "Snow Early"
+msgstr "Sateita aikaisin"
+
+#: lib/Block/weatherdotcom_strings.php:80
+#, fuzzy
+msgid "Snow Late"
+msgstr "Sateita myöhemmin"
+
+#: lib/Block/weatherdotcom_strings.php:81
+msgid "Snow Shower"
+msgstr "Lumisadetta"
+
+#: lib/Block/weatherdotcom_strings.php:82
+msgid "Snow Showers"
+msgstr "Lumisateita"
+
+#: lib/Block/weatherdotcom_strings.php:83
+msgid "Snow Showers Early"
+msgstr "Lumisateita aikaisin"
+
+#: lib/Block/weatherdotcom_strings.php:84
+msgid "Snow Showers Late"
+msgstr "Lumisateita myöhään"
+
+#: lib/Block/metar.php:273
+msgid "Snow depth: "
+msgstr "Lumen syvyys: "
+
+#: lib/Block/metar.php:277
+msgid "Snow equivalent in water: "
+msgstr "Lumen määrä vetenä: "
+
+#: lib/Block/fortune.php:67
+msgid "Songs & Poems"
+msgstr "Laulut ja Runous"
+
+#: config/nls.php:182
+msgid "South European (ISO-8859-3)"
+msgstr "Etelä-Eurooppa (ISO-8859-3)"
+
+#: lib/Block/moon.php:31 lib/Block/moon.php:60
+msgid "Southern Hemisphere"
+msgstr "Eteläinen pallonpuolisko"
+
+#: config/registry.php.dist:102
+msgid "Spam"
+msgstr "Roskaposti"
+
+#: services/keyboard.php:14
+msgid "Special Character Input"
+msgstr "Erikoismerkkien syöttö"
+
+#: lib/Block/fortune.php:68
+msgid "Sports"
+msgstr "Urheilu"
+
+#: lib/Block/metar.php:73 lib/Block/weatherdotcom.php:68
+msgid "Standard"
+msgstr "Standardi"
+
+#: lib/Block/fortune.php:69
+msgid "Star Trek"
+msgstr "Star Trek"
+
+#: templates/prefs/activesync.html:2
+msgid "State Management"
+msgstr ""
+
+#: admin/activesync.php:112 templates/admin/config/index.html:17
+#: templates/prefs/activesync.html:22
+msgid "Status"
+msgstr "Tila"
+
+#: services/facebook.php:144
+msgid "Status unable to be set."
+msgstr ""
+
+#: util/icon_browser.php:40
+#, php-format
+msgid "Subdirectory \"%s\" not found."
+msgstr "Alihakemistoa \"%s\" ei löytynyt."
+
+#: signup.php:52
+#, php-format
+msgid ""
+"Submitted request to add \"%s\" to the system. You cannot log in until your "
+"request has been approved."
+msgstr ""
+"Lähetettiin \"%s\":n lisäyspyyntö. Et voi kirjautua sisään ennenkuin "
+"pyyntösi on käsitelty ja hyväksytty."
+
+#: services/facebook.php:38
+msgid "Succesfully connected your Facebook account."
+msgstr ""
+
+#: admin/sqlshell.php:88
+msgid "Success"
+msgstr "Onnistui"
+
+#: admin/signup_confirm.php:85 admin/user.php:100
+#, php-format
+msgid "Successfully added \"%s\" to the system."
+msgstr "\"%s\": lisääminen järjestelmään onnistui."
+
+#: admin/user.php:138
+#, php-format
+msgid "Successfully cleared data for user \"%s\" from the system."
+msgstr "Käyttäjän \"%s\" käyttäjätietojen poistaminen järjestelmästä onnistui."
+
+#: admin/groups.php:78 admin/perms/delete.php:36
+#, php-format
+msgid "Successfully deleted \"%s\"."
+msgstr "\"%s\" poistettiin onnistuneesti."
+
+#: admin/user.php:118
+#, php-format
+msgid "Successfully removed \"%s\" from the system."
+msgstr "\"%s\": onnistuttiin poistamaan järjestelmästä."
+
+#: admin/config/config.php:40
+msgid "Successfully reverted configuration. Reload to see changes."
+msgstr ""
+"Palattiin onnistuneesti vanhoihin asetuksiin. Lataa sivu uudestaan "
+"nähdäksesi muutokset."
+
+#: admin/config/index.php:39
+msgid "Successfully saved backup configuration."
+msgstr "Tallennettiin asetuksien varmuuskopio."
+
+#: admin/config/config.php:51
+#, php-format
+msgid "Successfully saved the backup configuration file %s."
+msgstr "Tallennettiin asetuksien varmuuskopio %s."
+
+#: admin/user.php:184
+#, php-format
+msgid "Successfully updated \"%s\""
+msgstr "'%s': päivitys onnistui."
+
+#: admin/config/config.php:60 admin/config/index.php:47
+#, php-format
+msgid "Successfully wrote %s"
+msgstr "%s:n kirjoittaminen onnistui."
+
+#: lib/Block/sunrise.php:63
+msgid "Sun Rise"
+msgstr "Auringonnousu"
+
+#: lib/Block/sunrise.php:66
+msgid "Sun Set"
+msgstr "Auringonlasku"
+
+#: config/prefs.php.dist:429
+msgid "Sunday"
+msgstr "sunnuntai"
+
+#: lib/Block/weatherdotcom_strings.php:85
+msgid "Sunny"
+msgstr "Aurinkoinen"
+
+#: lib/Block/weatherdotcom.php:220
+msgid "Sunrise"
+msgstr "Aurinnnousu"
+
+#: lib/Block/sunrise.php:3 lib/Block/sunrise.php:14
+msgid "Sunrise/Sunset"
+msgstr "Aurinko nousee/laskee"
+
+#: lib/Block/weatherdotcom.php:219
+msgid "Sunrise: "
+msgstr "Aurinnnousu: "
+
+#: lib/Block/weatherdotcom.php:223
+msgid "Sunset"
+msgstr "Auringonlasku"
+
+#: lib/Block/weatherdotcom.php:222
+msgid "Sunset: "
+msgstr "Auringonlasku: "
+
+#: config/prefs.php.dist:664
+msgid "SyncML"
+msgstr "SyncML"
+
+#: lib/Block/feed.php:3
+msgid "Syndicated Feed"
+msgstr "Levitetty syöte"
+
+#: lib/Block/weatherdotcom_strings.php:86
+#, fuzzy
+msgid "T-Showers"
+msgstr "Sateita"
+
+#: lib/Block/weatherdotcom_strings.php:87
+#, fuzzy
+msgid "T-Showers Early"
+msgstr "Sateita aikaisin"
+
+#: lib/Block/weatherdotcom_strings.php:88
+#, fuzzy
+msgid "T-Showers Late"
+msgstr "Sateita myöhemmin"
+
+#: lib/Block/weatherdotcom_strings.php:89
+msgid "T-Storm"
+msgstr "Ukkosmyrsky"
+
+#: lib/Block/weatherdotcom_strings.php:90
+msgid "T-Storm and Windy"
+msgstr "Ukkosmyrskyjä ja tuulista"
+
+#: lib/Block/weatherdotcom_strings.php:91
+msgid "T-Storms"
+msgstr "Ukkosmyrskyt"
+
+#: lib/Block/weatherdotcom_strings.php:92
+msgid "T-Storms Early"
+msgstr "Ukkosmyrskyjä aikaisin"
+
+#: lib/Block/weatherdotcom_strings.php:93
+msgid "T-Storms Late"
+msgstr "Ukkosmyrskyjä myöhään"
+
+#: lib/Block/cloud.php:3 lib/Block/cloud.php:23
+msgid "Tag Cloud"
+msgstr "Avainsanapilvi"
+
+#: themes/tango-blue/info.php:24
+msgid "Tango Blue"
+msgstr "Tango sininen"
+
+#: config/registry.php.dist:184
+msgid "Tasks"
+msgstr "Tehtävät"
+
+#: themes/gennevilliers/info.php:12
+msgid "Teal"
+msgstr "Merensininen"
+
+#: lib/Block/metar.php:285
+msgid "Temp for last hour: "
+msgstr "Lämpötila edelliselle tunnille: "
+
+#: lib/Block/metar.php:209
+msgid "Temperature"
+msgstr "Lämpötila"
+
+#: lib/Block/weatherdotcom.php:227
+msgid "Temperature: "
+msgstr "Lämpötila: "
+
+#: lib/Block/weatherdotcom.php:296
+#, php-format
+msgid "Temperature<br />(%sHi%s/%sLo%s) &deg;%s"
+msgstr "Lämpötila<br />(%sHi%s/%sLo%s) &deg;%s"
+
+#: lib/Prefs/Ui.php:518 services/facebook.php:31
+msgid "Temporarily unable to connect with Facebook, Please try again."
+msgstr ""
+
+#: lib/Block/twitter_timeline.php:122
+#, fuzzy
+msgid "Temporarily unable to contact Twitter. Please try again later."
+msgstr ""
+"Yhteystietojen päivityksessä tapahtui virhe. Yritä myöhemmin uudestaan."
+
+#: services/keyboard.php:148
+msgid "Text Area"
+msgstr "Tekstialue"
+
+#: config/prefs.php.dist:544
+msgid "Text Only"
+msgstr "Vain teksti"
+
+#: config/nls.php:183
+msgid "Thai (TIS-620)"
+msgstr "Thai (TIS-620)"
+
+#: lib/Prefs/Ui.php:747
+#, fuzzy, php-format
+msgid "The Remote Wipe for device id %s has been cancelled."
+msgstr "Palvelin \"%s\" on poistettu."
+
+#: admin/alarms.php:81
+msgid "The alarm has been deleted."
+msgstr "Hälytys on poistettu."
+
+#: admin/alarms.php:70
+msgid "The alarm has been saved."
+msgstr "Hälytys on talletettu."
+
+#: config/prefs.php.dist:246
+msgid "The default e-mail address to use with this identity:"
+msgstr ""
+
+#: lib/Block/vatid.php:76
+msgid ""
+"The member state service could not be reached in time. Try again later or "
+"with a different member state."
+msgstr ""
+"Jäsentietopalveluun ei saatu yhteyttä ajoissa. Yritä myöhemmin uudestaan tai "
+"valitse toinen jäsentieto."
+
+#: lib/Block/vatid.php:73
+msgid ""
+"The member state service is currently not available. Try again later or with "
+"a different member state."
+msgstr ""
+"Jäsentietopalvelu ei ole tällä hetkellä toiminnassa. Yritä myöhemmin "
+"uudestaan tai valitse toinen jäsentieto."
+
+#: lib/Block/vatid.php:67
+msgid "The provided country code is invalid."
+msgstr "Antamasi maakoodi on väärä."
+
+#: lib/Prefs/Ui.php:681
+#, php-format
+msgid "The server \"%s\" has been deleted."
+msgstr "Palvelin \"%s\" on poistettu."
+
+#: lib/Prefs/Ui.php:676
+#, php-format
+msgid "The server \"%s\" has been saved."
+msgstr "Palvelin \"%s\" on talletettu."
+
+#: lib/Block/vatid.php:70
+msgid "The service is currently not available. Try again later."
+msgstr "Palvelu ei ole käytettävissä. Yritä myöhemmin uudestaan."
+
+#: lib/Block/vatid.php:79
+msgid "The service is currently too busy. Try again later."
+msgstr "Palvelu on tällä hetkellä liian ruuhkainen. Yritä myöhemmin uudestaan."
+
+#: admin/user.php:209
+#, php-format
+msgid "The signup request for \"%s\" has been removed."
+msgstr "Sisäänkirjautumispyyntö \"%s\" on poistettu."
+
+#: admin/signup_confirm.php:39
+#, fuzzy, php-format
+msgid "The signup request for user \"%s\" has been removed."
+msgstr "Sisäänkirjautumispyyntö \"%s\" on poistettu."
+
+#: lib/LoginTasks/Task/TestScriptActive.php:38
+msgid ""
+"The test script is currently enabled. For security reasons, disable test "
+"scripts when you are done testing (see horde/docs/INSTALL)."
+msgstr ""
+
+#: admin/signup_confirm.php:60 admin/user.php:72
+#, php-format
+msgid "The user \"%s\" already exists."
+msgstr "Käyttäjätunnus \"%s\" on jo olemassa."
+
+#: services/shares/edit.php:85 services/shares/edit.php:177
+#, fuzzy, php-format
+msgid "The user \"%s\" does not exist."
+msgstr "Jakoa \"%s\" ei ole olemassa."
+
+#: lib/Block/weatherdotcom.php:51 lib/Block/weatherdotcom.php:106
+msgid "The weather.com block is not available."
+msgstr "Osiota weather.com ei ole käytettävissä."
+
+#: lib/Prefs/Ui.php:46
+#, fuzzy
+msgid "Theme directory can't be opened"
+msgstr "Teemahakemistoa \"%s\" ei löytynyt."
+
+#: util/icon_browser.php:28
+#, php-format
+msgid "Themes directory \"%s\" not found."
+msgstr "Teemahakemistoa \"%s\" ei löytynyt."
+
+#: admin/signup_confirm.php:74 admin/user.php:84 signup.php:38 signup.php:59
+#, php-format
+msgid "There was a problem adding \"%s\" to the system: %s"
+msgstr "Joitakin ongelmia \"%s\" lisäämisessä järjestelmään: %s"
+
+#: admin/user.php:140
+#, php-format
+msgid "There was a problem clearing data for user \"%s\" from the system: "
+msgstr ""
+"Käyttäjän \"%s\" käyttäjätietojen poistamisessa järjestelmässä oli ongelmia: "
+
+#: admin/user.php:120
+#, php-format
+msgid "There was a problem removing \"%s\" from the system: "
+msgstr "Joitakin ongelmia \"%s\" poistamisessa järjestelmästä: "
+
+#: admin/user.php:173
+#, php-format
+msgid "There was a problem updating \"%s\": %s"
+msgstr "Joitakin ongelmia \"%s\" päivityksessä: %s"
+
+#: lib/Block/twitter_timeline.php:110 lib/Block/twitter_timeline.php:126
+#, fuzzy, php-format
+msgid "There was an error contacting Twitter: %s"
+msgstr "Yhteystietojen tuonnissa tapahtui virhe:"
+
+#: admin/config/config.php:70
+msgid ""
+"There was an error in the configuration form. Perhaps you left out a "
+"required field."
+msgstr ""
+"Asetustietolomakkeessa on jokin virhe. Ehkä jätit jonkun pakollisen kohdan "
+"täyttämättä."
+
+#: lib/Block/fb_stream.php:158 lib/Block/fb_stream.php:183
+#: services/facebook.php:54 services/facebook.php:71
+#, fuzzy, php-format
+msgid "There was an error making the request: %s"
+msgstr "Yhteystietoja luettaessa tapahtui virhe."
+
+#: lib/Api.php:284
+#, php-format
+msgid ""
+"There was an error removing global data for %s. Details have been logged."
+msgstr ""
+
+#: lib/Block/vatid.php:89
+msgid "This VAT identification number is invalid."
+msgstr "Tämä ALV-tietojen tunnistenumero on epäkelpo."
+
+#: lib/Block/vatid.php:86
+msgid "This VAT identification number is valid."
+msgstr "Tämä ALV-tietojen tunnistenumero on epäkelpo."
+
+#: lib/Block/weatherdotcom_strings.php:94
+msgid "Thunder"
+msgstr "Myrsky"
+
+#: config/registry.php.dist:260
+msgid "Tickets"
+msgstr "Tiketit"
+
+#: config/registry.php.dist:308
+msgid "Time Tracking"
+msgstr "Ajanseuranta"
+
+#: lib/Block/time.php:23
+msgid "Time format"
+msgstr "Ajan esitysmuoto"
+
+#: templates/data/datetime.inc:60 templates/data/datetime.inc:69
+msgid "Timestamp or unknown"
+msgstr "Aikaleima tai tuntematon"
+
+#: templates/prefs/syncml.html:2
+msgid "Timestamps of successful synchronization sessions"
+msgstr "Onnistuneiden synkronointi-istuntojen aikaleimat"
+
+#: lib/Block/iframe.php:22
+msgid "Title"
+msgstr "Titteli"
+
+#: templates/data/csvmap.inc:95
+msgid ""
+"To exclude a particular field form the import or to correct a wrong match "
+"select a field in the lists below and hit \"Remove pair\"."
+msgstr ""
+"Estääksesi sen, että jotain kenttää ei tuoda tai korjataksesi väärin "
+"muodostetun pariliitoksen, niin valitse kentää alla olevasta listasta ja "
+"valitse \"Poista pari\"."
+
+#: templates/prefs/addressbooks.html:10
+#, fuzzy
+msgid ""
+"To select multiple fields, hold down the Control (PC) or Command (Mac) while "
+"clicking."
+msgstr ""
+"Voidaksesi valita useampia vaihtoehtoja, pidä Control- (PC) tai Command- "
+"(Mac) näppäintä pohjassa kun napsautat hiiren painiketta."
+
+#: lib/Block/weatherdotcom.php:313
+msgid "Today"
+msgstr "Tänään"
+
+#: lib/Block/weatherdotcom.php:315
+msgid "Tomorrow"
+msgstr "Huomenna"
+
+#: lib/Block/fortune.php:70
+msgid "Translations"
+msgstr "Käännökset"
+
+#: config/nls.php:184
+msgid "Turkish (ISO-8859-9)"
+msgstr "Turkki (ISO-8859-9)"
+
+#: lib/Block/twitter_timeline.php:166
+#, fuzzy
+msgid "Tweet"
+msgstr "Teksti"
+
+#: config/prefs.php.dist:625
+#, fuzzy
+msgid "Twitter Integration"
+msgstr "Muut tiedot"
+
+#: lib/Block/twitter_timeline.php:23 lib/Block/twitter_timeline.php:64
+#: lib/Block/twitter_timeline.php:74 lib/Block/twitter_timeline.php:78
+#, php-format
+msgid "Twitter Timeline"
+msgstr ""
+
+#: lib/Block/twitter_timeline.php:70
+#, php-format
+msgid "Twitter Timeline for %s"
+msgstr ""
+
+#: services/keyboard.php:108
+msgid "U characters"
+msgstr "U-merkkimuunnelmat"
+
+#: lib/Block/weatherdotcom.php:273
+msgid "U.V. index: "
+msgstr "U.V. -indeksi: "
+
+#: lib/Block/iframe.php:19
+msgid "URL"
+msgstr "URL"
+
+#: services/twitter.php:64
+#, php-format
+msgid "Unable to contact Twitter. Please try again later. Error returned: %s"
+msgstr ""
+
+#: admin/groups.php:82 admin/perms/delete.php:39
+#, php-format
+msgid "Unable to delete \"%s\": %s."
+msgstr "Ei voida poistaa \"%s\": %s."
+
+#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:55
+#, fuzzy, php-format
+msgid "Unable to modify the sequence for %s: %s"
+msgstr "Ei voida poistaa \"%s\": %s."
+
+#: services/facebook.php:175
+#, fuzzy
+msgid "Unable to set like."
+msgstr "Ei voida suorittaa smbclient komentoa."
+
+#: templates/prefs/end.html:4
+msgid "Undo Changes"
+msgstr "Peru muutokset"
+
+#: lib/Prefs/Ui.php:266
+msgid "Unfiled"
+msgstr "Luokittelematon"
+
+#: config/nls.php:185
+msgid "Unicode (UTF-8)"
+msgstr "Unicode (UTF-8)"
+
+#: lib/Block/metar.php:70 lib/Block/weatherdotcom.php:64
+msgid "Units"
+msgstr "Mittayksiköt"
+
+#: lib/Block/weatherdotcom.php:162
+msgid "Unknown location provided."
+msgstr "Annettu paikkatieto on tuntematon."
+
+#: lib/Block/fb_stream.php:179 templates/admin/user/list.inc:36
+msgid "Update"
+msgstr "Päivitä"
+
+#: templates/admin/user/update.inc:6
+#, php-format
+msgid "Update %s"
+msgstr "Päivitä %s"
+
+#: templates/admin/user/update.inc:53
+msgid "Update user"
+msgstr "Päivitä käyttäjä"
+
+#: admin/groups.php:144 admin/perms/edit.php:104 services/shares/edit.php:249
+#, php-format
+msgid "Updated \"%s\"."
+msgstr "Päivitettiin \"%s\"."
+
+#: admin/config/index.php:190
+msgid "Upload"
+msgstr "Tuo"
+
+#: admin/config/index.php:198
+#, fuzzy
+msgid "Uploaded all application configuration files to the server."
+msgstr "Tuo uudet ohjelmien asennustiedostot palvelimelle."
+
+#: config/prefs.php.dist:645
+msgid "Use if name/password is different for IMSP server."
+msgstr "Käytä jos tunnus/salasana on eri IMSP-palvelimelle."
+
+#: templates/admin/groups/edit.inc:22 templates/admin/groups/edit.inc:60
+msgid "User"
+msgstr "Käyttäjä"
+
+#: admin/user.php:224
+msgid "User Administration"
+msgstr "Käyttäjien ylläpito"
+
+#: lib/Prefs/Ui.php:432
+#, fuzzy
+msgid "User Agent:"
+msgstr "Käytä nykyistä: %s"
+
+#: signup.php:67
+msgid "User Registration"
+msgstr "Käyttäjän rekisteröiminen"
+
+#: admin/signup_confirm.php:18 signup.php:19
+msgid "User Registration has been disabled for this site."
+msgstr "Tässä järjestelmässä ei voi rekisteröidä käyttäjiä."
+
+#: admin/signup_confirm.php:25 signup.php:27
+#, fuzzy
+msgid "User Registration is not properly configured for this site."
+msgstr "Tässä järjestelmässä ei voi rekisteröidä käyttäjiä."
+
+#: lib/Block/account.php:561
+msgid "User account not found"
+msgstr "Käyttäjätunnusta ei löytynyt."
+
+#: templates/shares/edit.inc:238
+msgid "User to add:"
+msgstr "Lisättävä käyttäjä:"
+
+#: admin/config/index.php:191 admin/user.php:32 admin/user.php:48 login.php:76
+#: services/resetpassword.php:29 templates/admin/user/approve.inc:22
+msgid "Username"
+msgstr "Käyttäjätunnus"
+
+#: lib/Prefs/Ui.php:325
+msgid "Username:"
+msgstr "Käyttäjätunnus:"
+
+#: templates/admin/groups/edit.inc:53
+msgid "Users"
+msgstr "Käyttäjät"
+
+#: templates/admin/user/list.inc:2
+msgid "Users in the system:"
+msgstr "Järjestelmän käyttäjät:"
+
+#: lib/Block/vatid.php:19
+msgid "VAT id number verification"
+msgstr "ALV id-tunnus varmistus"
+
+#: lib/Block/vatid.php:42
+msgid "VAT identification number:"
+msgstr "ALV-tunnusnumero"
+
+#: lib/Block/vatid.php:93
+msgid "VAT number"
+msgstr "ALV-numero"
+
+#: config/registry.php.dist:122
+msgid "Vacation"
+msgstr "Poissaoloviesti"
+
+#: lib/Block/weatherdotcom.php:248
+msgid "Variable"
+msgstr "Vaihtelevaa"
+
+#: config/registry.php.dist:246
+msgid "Version Control"
+msgstr "Versionhallinta"
+
+#: lib/Block/weatherdotcom_strings.php:101
+msgid "Very High"
+msgstr "Erittäin korkea"
+
+#: config/nls.php:186
+msgid "Vietnamese (VISCII)"
+msgstr "Vietnam (VISCII)"
+
+#: lib/Block/iframe.php:3
+msgid "View an external web page"
+msgstr "Näytä erillisenä www-sivuna"
+
+#: lib/Block/metar.php:204
+msgid "Visibility"
+msgstr "Näkyväisyys"
+
+#: lib/Block/weatherdotcom.php:267
+msgid "Visibility: "
+msgstr "Näkyväisyys: "
+
+#: lib/Block/account.php:98
+msgid "Warning"
+msgstr "Varoitus"
+
+#: lib/Block/weatherdotcom.php:32
+msgid "Weather Forecast"
+msgstr "Sääennuste"
+
+#: lib/Block/weatherdotcom.php:429
+msgid "Weather data provided by"
+msgstr "Säätiedot toimittaa"
+
+#: config/registry.php.dist:369
+msgid "Web Site"
+msgstr "Websivusto"
+
+#: services/portal/mobile.php:29
+msgid "Welcome"
+msgstr "Tervetuloa"
+
+#: templates/login/login.inc:5 templates/login/mobile.inc:1
+#, php-format
+msgid "Welcome to %s"
+msgstr "Tervetuloa ohjelmaan %s"
+
+#: templates/portal/mobile.inc:1
+#, php-format
+msgid "Welcome, %s"
+msgstr "Tervetuloa, %s"
+
+#: config/nls.php:187
+msgid "Western (ISO-8859-1)"
+msgstr "Länsimainen (ISO-8859-1)"
+
+#: config/nls.php:188
+msgid "Western (ISO-8859-15)"
+msgstr "Länsimainen/Euro (ISO-8859-15)"
+
+#: config/prefs.php.dist:483
+#, php-format
+msgid "What application should %s display after login?"
+msgstr "Minkä ohjelman %s käynnistää sisäänkirjautumisen jälkeen."
+
+#: lib/Block/twitter_timeline.php:131
+msgid "What are you working on now?"
+msgstr ""
+
+#: templates/data/csvinfo.inc:14
+msgid "What is the delimiter character?"
+msgstr "Mitä merkkiä käytetään erottimena?"
+
+#: templates/data/csvinfo.inc:17
+msgid "What is the quote character?"
+msgstr "Mitä merkkiä käytetään lainaukseen?"
+
+#: lib/Block/fb_stream.php:165
+msgid "What's on your mind?"
+msgstr ""
+
+#: config/prefs.php.dist:427
+msgid "Which day would you like to be displayed as the first day of the week?"
+msgstr "Mikä päivä aloittaa viikon?"
+
+#: lib/Block/moon.php:21
+msgid "Which phases"
+msgstr "Mitkä vaiheet"
+
+#: config/prefs.php.dist:536
+#, fuzzy, php-format
+msgid "Width of the %s menu on the left:"
+msgstr "Näytä vasemmalla valikko %s?"
+
+#: config/registry.php.dist:394
+msgid "Wiki"
+msgstr "Wiki"
+
+#: lib/Block/weatherdotcom.php:303 lib/Block/weatherdotcom_strings.php:95
+msgid "Wind"
+msgstr "Tuuli"
+
+#: lib/Block/weatherdotcom_strings.php:96
+msgid "Wind Early"
+msgstr "Tuulista aikaisin"
+
+#: lib/Block/weatherdotcom_strings.php:97
+msgid "Wind Late"
+msgstr "Tuulista myöhään"
+
+#: lib/Block/metar.php:79
+msgid "Wind speed in knots"
+msgstr "Tuulennopeus solmuissa"
+
+#: lib/Block/metar.php:151
+msgid "Wind:"
+msgstr "Tuuli:"
+
+#: lib/Block/weatherdotcom.php:246
+msgid "Wind: "
+msgstr "Tuuli: "
+
+#: lib/Block/account.php:634
+msgid "Windows"
+msgstr "Windows"
+
+#: admin/activesync.php:181 templates/prefs/activesync.html:28
+#, fuzzy
+msgid "Wipe"
+msgstr "ke"
+
+#: admin/activesync.php:162 lib/Prefs/Ui.php:415
+msgid "Wipe is pending"
+msgstr ""
+
+#: lib/Block/fortune.php:71
+msgid "Wisdom"
+msgstr "Viisaus"
+
+#: lib/Block/fortune.php:72
+msgid "Work"
+msgstr "Työ"
+
+#: config/registry.php.dist:275
+msgid "X-Ref"
+msgstr "X-Ref"
+
+#: templates/data/date.inc:47 templates/data/date.inc:48
+#: templates/data/date.inc:49 templates/data/date.inc:50
+#: templates/data/datetime.inc:89 templates/data/datetime.inc:90
+#: templates/data/datetime.inc:91 templates/data/datetime.inc:92
+msgid "YY"
+msgstr "VV"
+
+#: templates/logintasks/logintasks.html:34
+msgid "Yes, I Agree"
+msgstr "Kyllä, suostun."
+
+#: services/facebook.php:110 services/facebook.php:169
+#, php-format
+msgid "You and %d other person likes this"
+msgid_plural "You and %d other people like this"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/Api.php:301
+msgid "You are not allowed to add groups."
+msgstr "Et voi lisätä ryhmiin."
+
+#: lib/Api.php:476
+msgid "You are not allowed to add shares."
+msgstr "Et voi tehdä jakoja."
+
+#: lib/Api.php:350 lib/Api.php:373 lib/Api.php:399 lib/Api.php:422
+msgid "You are not allowed to change groups."
+msgstr "Et voi muuttaa ryhmiä."
+
+#: lib/Api.php:561 lib/Api.php:598 lib/Api.php:640 lib/Api.php:667
+msgid "You are not allowed to change shares."
+msgstr "Et voi muuttaa jakoja."
+
+#: lib/Api.php:327
+msgid "You are not allowed to delete groups."
+msgstr "Et voi poistaa ryhmiä."
+
+#: lib/Api.php:505
+msgid "You are not allowed to delete shares."
+msgstr "Et voi poistaa jakoja."
+
+#: lib/Api.php:820
+msgid "You are not allowed to list groups of shares."
+msgstr "Et voi listata ryhmien jakoja."
+
+#: lib/Api.php:702 lib/Api.php:744
+msgid "You are not allowed to list share permissions."
+msgstr "Et voi listata jakojen oikeuksia."
+
+#: lib/Api.php:532
+msgid "You are not allowed to list shares."
+msgstr "Et voi listata jakoja."
+
+#: lib/Api.php:448
+msgid "You are not allowed to list users of groups."
+msgstr "Et voi listata ryhmien jäseniä."
+
+#: lib/Api.php:786
+msgid "You are not allowed to list users of shares."
+msgstr "Et voi listata jakojen jäseniä."
+
+#: lib/Api.php:216
+msgid "You are not allowed to remove user data."
+msgstr "Et voi poistaa käyttäjätietoja."
+
+#: lib/Block/fb_stream.php:159 lib/Block/fb_stream.php:184
+#: services/facebook.php:55 services/facebook.php:72
+#, php-format
+msgid "You can also check your Facebook settings in your %s."
+msgstr ""
+
+#: lib/LoginTasks/Task/TosAgreement.php:54
+msgid ""
+"You did not agree to the Terms of Service agreement, so you were not allowed "
+"to login."
+msgstr ""
+
+#: login.php:278
+msgid "You have been logged out."
+msgstr "Olet kirjautunut ulos."
+
+#: lib/Block/fb_stream.php:124
+#, php-format
+msgid ""
+"You have not properly connected your Facebook account with Horde. You should "
+"check your Facebook settings in your %s."
+msgstr ""
+
+#: lib/Block/twitter_timeline.php:182
+#, php-format
+msgid ""
+"You have not properly connected your Twitter account with Horde. You should "
+"check your Twitter settings in your %s."
+msgstr ""
+
+#: services/facebook.php:112 services/facebook.php:163
+#: services/facebook.php:171
+msgid "You like this"
+msgstr ""
+
+#: templates/problem/problem.inc:11
+msgid "You must describe the problem before you can send the problem report."
+msgstr ""
+"Sinun tulee kuvailla ongelmatilannetta ennenkuin voit lähettää "
+"ongelmaviestin."
+
+#: lib/Prefs/Ui.php:679
+msgid "You must select an server to be deleted."
+msgstr "Sinun pitää valita poistettava palvelin."
+
+#: admin/user.php:134
+msgid "You must specify a username to clear out."
+msgstr "Sinun pitää antaa poistettava käyttäjätunnus."
+
+#: admin/user.php:114
+msgid "You must specify a username to remove."
+msgstr "Sinun pitää antaa poistettava käyttäjätunnus."
+
+#: admin/user.php:70
+msgid "You must specify the username to add."
+msgstr "Sinun pitää antaa lisättävä käyttäjätunnus."
+
+#: admin/user.php:164
+msgid "You must specify the username to update."
+msgstr "Sinun pitää antaa päivitettävä käyttäjätunnus."
+
+#: templates/problem/problem.inc:34
+msgid "Your Email Address"
+msgstr "Sähköpostiosoitteesi"
+
+#: config/prefs.php.dist:212 config/prefs.php.dist:275
+#: config/prefs.php.dist:312 config/prefs.php.dist:439
+msgid "Your Information"
+msgstr "Omat tietosi"
+
+#: login.php:270
+#, fuzzy
+msgid ""
+"Your Internet Address has changed since the beginning of your session. To "
+"protect your security, you must login again."
+msgstr ""
+"Sinun tietokoneesi käyttämä tietoverkko-osoite on muuttunut sen jälkeen kun "
+"olet aloittanut %s istunnon. Tietoturvasyistä sinun pitää kirjautua "
+"uudestaanjärjestelmään."
+
+#: templates/problem/problem.inc:30
+msgid "Your Name"
+msgstr "Nimesi"
+
+#: templates/admin/user/noadd.inc:5
+msgid ""
+"Your authentication backend does not support adding users. If you wish to "
+"use Horde to administer user accounts, you must use a different "
+"authentication backend."
+msgstr ""
+"Käyttämäsi authentication taustajärjestelmä ei tue käyttäjien lisäämistä. "
+"Jos haluat hallinnoida käyttäjätunnuksia, sinun pitää käyttää jotakin toista "
+"authentication taustajärjestelmää."
+
+#: templates/admin/user/nolist.inc:5
+msgid ""
+"Your authentication backend does not support listing users, or the feature "
+"has been disabled for some other reason."
+msgstr ""
+"Käyttämäsi authentication taustajärjestelmä ei tue käyttäjätietojen "
+"näyttämistä tai tämä piirre ei ole jostakin syystä käytettävissä."
+
+#: login.php:274
+#, fuzzy
+msgid ""
+"Your browser appears to have changed since the beginning of your session. To "
+"protect your security, you must login again."
+msgstr ""
+"Sinun käyttämäsi www-selain näyttää olevan muuttunut sen jälkeen kun olet "
+"aloittanut %s istunnon. Tietoturvasyistä sinun pitää kirjautua "
+"uudestaanjärjestelmään."
+
+#: lib/Block/iframe.php:58
+msgid "Your browser does not support this feature."
+msgstr "Selaimesi ei tue tätä toimintoa."
+
+#: config/prefs.php.dist:337
+msgid "Your current time zone:"
+msgstr "Aikavyöhykkeesi:"
+
+#: config/prefs.php.dist:236
+msgid "Your full name:"
+msgstr "Nimesi:"
+
+#: login.php:290
+msgid "Your login has expired."
+msgstr "Istuntosi on vanhentunut."
+
+#: services/resetpassword.php:74
+#, php-format
+msgid "Your new password for %s is: %s"
+msgstr "Sinun salasansi %s:lle on: %s"
+
+#: services/resetpassword.php:73
+msgid "Your password has been reset"
+msgstr "Salasanasi on nollattu"
+
+#: services/resetpassword.php:87
+#, fuzzy
+msgid ""
+"Your password has been reset, but couldn't be sent to you. Please contact "
+"the administrator."
+msgstr ""
+"Salasanasi on nollattu, tarkista sähköpostisi ja kirjaudu sisään uudella "
+"salasanallasi."
+
+#: services/resetpassword.php:82
+msgid ""
+"Your password has been reset, check your email and log in with your new "
+"password."
+msgstr ""
+"Salasanasi on nollattu, tarkista sähköpostisi ja kirjaudu sisään uudella "
+"salasanallasi."
+
+#: lib/Block/account.php:689 lib/Block/account.php:704
+msgid "Your password has expired"
+msgstr "Salasanasi on vanhentunut"
+
+#: login.php:178
+msgid "Your password has expired."
+msgstr "Salasanasi on vanhentunut."
+
+#: lib/Prefs/Ui.php:322
+msgid "Your remote servers:"
+msgstr "Etäpalvelimesi:"
+
+#: login.php:266
+#, fuzzy
+msgid "Your session has expired. Please login again."
+msgstr "Istuntosi %s on vanhentunut. Kirjaudu uudelleen sisään."
+
+#: lib/Block/fortune.php:73
+msgid "Zippy"
+msgstr "Zippy"
+
+#: services/problem.php:107
+msgid "[Problem Report]"
+msgstr "[Ongelma]"
+
+#: admin/sessions.php:39
+msgid "[Unknown]"
+msgstr "[Tuntematon]"
+
+#: lib/Api.php:47
+msgid "_Alarms"
+msgstr "H_älytykset"
+
+#: lib/Api.php:72
+msgid "_CLI"
+msgstr "K_omentotulkki"
+
+#: lib/Api.php:27
+#, fuzzy
+msgid "_Configuration"
+msgstr "Asetukset"
+
+#: lib/Api.php:52
+msgid "_DataTree"
+msgstr "_DataTree"
+
+#: lib/Api.php:37
+msgid "_Groups"
+msgstr "_Ryhmät"
+
+#: lib/Api.php:42
+msgid "_Permissions"
+msgstr "O_ikeudet"
+
+#: lib/Api.php:32
+msgid "_Users"
+msgstr "Kä_yttäjät"
+
+#: services/problem.php:56
+msgid "attachment"
+msgstr "liite"
+
+#: lib/Block/metar.php:167 lib/Block/metar.php:353
+#, php-format
+msgid "calm"
+msgstr "tyyntä"
+
+#: lib/Block/weatherdotcom_strings.php:102
+msgid "falling"
+msgstr "laskeva"
+
+#: lib/Block/metar.php:169 lib/Block/metar.php:355 lib/Block/metar.php:381
+#, php-format
+msgid "from the %s (%s) at %s %s"
+msgstr "suunnasta %s (%s) nopeudella %s %s"
+
+#: lib/Block/weatherdotcom.php:254
+msgid "gusting"
+msgstr "puuskittain"
+
+#: admin/config/diff.php:51 admin/config/diff.php:63
+msgid "inline"
+msgstr "inline"
+
+#: lib/Block/fb_stream.php:124 lib/Block/fb_stream.php:159
+#: lib/Block/fb_stream.php:184 lib/Block/twitter_timeline.php:182
+#: services/facebook.php:55 services/facebook.php:72
+msgid "preferences"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:104
+msgid "rising"
+msgstr "nouseva"
+
+#: admin/config/config.php:80
+msgid "show differences"
+msgstr "näytä erot"
+
+#: lib/Block/weatherdotcom_strings.php:103
+msgid "steady"
+msgstr "vakaa"
+
+#: admin/user.php:35 admin/user.php:49
+msgid "type the password twice to confirm"
+msgstr "varmistaaksesi kirjoita salasana kahdesti"
+
+#: admin/config/diff.php:51 admin/config/diff.php:63
+msgid "unified"
+msgstr "unified"
+
+#: lib/Block/weatherdotcom.php:6
+msgid "weather.com"
+msgstr "weather.com"

@@ -20,6 +20,7 @@
 @synthesize rpcEndPoint;
 @synthesize username;
 @synthesize password;
+@synthesize version;
 
 #pragma mark -
 #pragma mark init/dealloc
@@ -37,6 +38,8 @@
             forKey: @"password"];
     [self setValue: @"The Ansel Cocoa XML-RPC Client"
             forKey: @"userAgent"];
+    [self setValue: [params objectForKey:@"version"]
+            forKey: @"version"];
 
     return self;
 }
@@ -49,6 +52,7 @@
     [username release];
     [password release];
     [userAgent release];
+    [version release];
     [super dealloc];
 }
 
@@ -72,8 +76,16 @@
  */
 - (NSDictionary *)createNewGallery: (NSDictionary *)params
 {
-    NSArray *apiparams = [NSArray arrayWithObjects: @"ansel", params, nil];
-    NSArray *order = [NSArray arrayWithObjects: kTURAnselAPIParamScope, kTURAnselAPIParamGaleryParams, nil];
+    NSArray *apiparams;
+    NSArray *order;
+
+    if ([[self valueForKey: @"version"] intValue] == 2) {
+        apiparams = [NSArray arrayWithObjects: params, nil];
+        order = [NSArray arrayWithObjects: kTURAnselAPIParamGalleryParams, nil];
+    } else {
+        apiparams = [NSArray arrayWithObjects: @"ansel", params, nil];
+        order = [NSArray arrayWithObjects: kTURAnselAPIParamScope, kTURAnselAPIParamGalleryParams, nil];
+    }
 
     NSDictionary *response = [self callRPCMethod: @"images.createGallery"
                                       withParams: apiparams
@@ -144,17 +156,14 @@
         NSLog(@"Results adding credentials to request: %d", success);
         if (!success) {
             NSLog(@"Unable to authenticate");
-
             if ([[self delegate] respondsToSelector: @selector(TURAnselHadError:)]) {
                 NSError *error = [NSError errorWithDomain:@"TURAnsel"
                                                      code: 1
                                                  userInfo:[NSDictionary dictionaryWithObjectsAndKeys: @"Authentication failure.", @"message", nil]];
-
                 [[self delegate] TURAnselHadError: error];
             }
 
             return nil;
-
         } else {
             // Build a new invocation
             [self setState:TURAnselStateWaiting];
@@ -202,25 +211,31 @@
                     [[self delegate] TURAnselHadError: error];
                 }
                 [result autorelease];
-                return nil;
 
+                return nil;
             }
             CFHTTPMessageRef response = (CFHTTPMessageRef)[result objectForKey:(id)kWSHTTPResponseMessage];
             int resStatusCode = CFHTTPMessageGetResponseStatusCode(response);
             NSLog(@"ResponseCode: %d", resStatusCode);
             [self setState:TURAnselStateConnected];
+
             return [result autorelease];
         }
     }
-
     NSLog(@"No authentication information present.");
-    return nil;
 
+    return nil;
 }
 
 #pragma mark -
 #pragma mark Setters/Getters
-// Fetch a gallery by id
+/**
+ * Fetch a gallery by it's id.
+ *
+ * @param NSString galleryId  The gallery's id.
+ *
+ * @return TURAnselGallery  Then gallery object.
+ */
 - (TURAnselGallery *)getGalleryById: (NSString *)galleryId
 {
     for (TURAnselGallery *g in galleryList) {
@@ -235,6 +250,10 @@
 /**
  * Return the gallery at the specified position in the internal storage array.
  * Needed for when we are using this class as a datasource for a UI element.
+ *
+ * @param NSInteger index  The index into the storage array.
+ *
+ * @return TURAnselGallery  The galley obejct located at the specified index.
  */
 - (TURAnselGallery *)getGalleryByIndex: (NSInteger)index
 {
@@ -248,7 +267,6 @@
 {
     return [galleryList count];
 }
-
 - (id)comboBox:(NSComboBox *)aComboBox
   objectValueForItemAtIndex:(NSInteger)index
 {
@@ -266,11 +284,9 @@
 {
     state = newstate;
 }
-
 - (id)delegate {
     return delegate;
 }
-
 - (void)setDelegate:(id)newDelegate {
     delegate = newDelegate;
 }
@@ -284,24 +300,34 @@
  */
 - (void)doLogin
 {
-    NSArray *params = [[NSArray alloc] initWithObjects:
-                       @"ansel",                                 // Scope
-                       [NSNumber numberWithInt: PERMS_EDIT],     // Perms
-                       @"",                                      // No parent
-                       [NSNumber numberWithBool:YES],            // allLevels
-                       [NSNumber numberWithInt: 0],              // Offset
-                       [NSNumber numberWithInt: 0],              // Count
-                       [self valueForKey:@"username"], nil];     // Restrict to user (This should be an option eventually).
+    NSArray *params;
+    NSArray *order;
 
-    NSArray *order = [NSArray arrayWithObjects: kTURAnselAPIParamScope, kTURAnselAPIParamPerms,
-                                                kTURAnselAPIParamParent, kTURAnselAPIParamAllLevels,
-                                                kTURAnselAPIParamOffset, kTURAnselAPIParamCount,
-                                                kTURAnselAPIParamUserOnly, nil];
+    if ([[self valueForKey: @"version"] intValue] == 2) {
+        params = [NSArray arrayWithObjects: [NSDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithInt: PERMS_EDIT], @"perm",
+                                                                                        [self valueForKey:@"username"], @"filter",
+                                                                                        nil],
+                                             nil];
+        order = [NSArray arrayWithObjects: kTURAnselAPIParamSingleParameter, nil];
+    } else {
+        // Assume it's version 1.x
+        params = [NSArray arrayWithObjects:
+                           @"ansel",                                 // Scope
+                           [NSNumber numberWithInt: PERMS_EDIT],     // Perms
+                           @"",                                      // No parent
+                           [NSNumber numberWithBool:YES],            // allLevels
+                           [NSNumber numberWithInt: 0],              // Offset
+                           [NSNumber numberWithInt: 0],              // Count
+                           [self valueForKey:@"username"], nil];     // Restrict to user.
 
+        order = [NSArray arrayWithObjects: kTURAnselAPIParamScope, kTURAnselAPIParamPerms,
+                                                    kTURAnselAPIParamParent, kTURAnselAPIParamAllLevels,
+                                                    kTURAnselAPIParamOffset, kTURAnselAPIParamCount,
+                                                    kTURAnselAPIParamUserOnly, nil];
+    }
     NSDictionary *results = [self callRPCMethod: @"images.listGalleries"
                                      withParams: params
                                       withOrder: order];
-
     if (results) {
         NSDictionary *galleries = [results objectForKey: (id)kWSMethodInvocationResult];
         for (NSString *gal in galleries) {
@@ -320,7 +346,5 @@
         }
 
     }
-
-    [params release];
 }
 @end

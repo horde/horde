@@ -10,44 +10,42 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package VFS
  */
-class VFS_Browser {
-
+class VFS_Browser
+{
     /**
      * The VFS instance that we are browsing.
      *
      * @var VFS
      */
-    var $_vfs;
+    protected $_vfs;
 
     /**
      * The directory where the templates to use are.
      *
      * @var string
      */
-    var $_templates;
+    protected $_templates;
 
     /**
      * Constructor
      *
-     * @param VFS &$vfs          A VFS object.
-     * @param string $templates  TODO
+     * @param VFS $vfs           A VFS object.
+     * @param string $templates  Template directory.
      */
-    function VFS_Browser(&$vfs, $templates)
+    public function __construct($vfs, $templates)
     {
-        if (isset($vfs)) {
-            $this->_vfs = $vfs;
-        }
+        $this->setVFSObject($vfs);
         $this->_templates = $templates;
     }
 
     /**
      * Set the VFS object in the local object.
      *
-     * @param VFS &$vfs  A VFS object.
+     * @param VFS $vfs  A VFS object.
      */
-    function setVFSObject(&$vfs)
+    public function setVFSObject($vfs)
     {
-        $this->_vfs = &$vfs;
+        $this->_vfs = $vfs;
     }
 
     /**
@@ -56,8 +54,10 @@ class VFS_Browser {
      * @param string $path       TODO
      * @param boolean $dotfiles  TODO
      * @param boolean $dironly   TODO
+     *
+     * @throws VFS_Exception
      */
-    function getUI($path, $dotfiles = false, $dironly = false)
+    public function getUI($path, $dotfiles = false, $dironly = false)
     {
         $this->_vfs->listFolder($path, $dotfiles, $dironly);
     }

@@ -1,7 +1,4 @@
 <?php
-
-require_once 'PEAR.php';
-
 /**
  * VFS API for abstracted creation of ISO (CD-ROM) filesystems.
  *
@@ -12,9 +9,9 @@ require_once 'PEAR.php';
  *
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
  * @package VFS_ISO
- * @since   Horde 3.0
  */
-class VFS_ISOWriter {
+abstract class VFS_ISOWriter
+{
 
     /**
      * A VFS object used for reading the source files
@@ -52,14 +49,9 @@ class VFS_ISOWriter {
     /**
      * Create the ISO image
      *
-     * @abstract
-     *
      * @return mixed  Null or PEAR_Error on failure.
      */
-    function process()
-    {
-        return PEAR::raiseError(_("Not implemented."));
-    }
+    abstract public function process();
 
     /**
      * Attempt to create a concrete VFS_ISOWriter subclass.
@@ -86,7 +78,7 @@ class VFS_ISOWriter {
     function &factory(&$sourceVfs, &$targetVfs, $params)
     {
         if (empty($params['targetFile'])) {
-            return PEAR::raiseError(_("Cannot proceed without 'targetFile' parameter."));
+            return PEAR::raiseError(Horde_VFS_ISOWriter_Translation::t("Cannot proceed without 'targetFile' parameter."));
         }
         if (empty($params['sourceRoot'])) {
             $params['sourceRoot'] = '/';
@@ -101,7 +93,7 @@ class VFS_ISOWriter {
             return $isowriter;
         }
 
-        return PEAR::raiseError(_("No available strategy for making ISO images."));
+        return PEAR::raiseError(Horde_VFS_ISOWriter_Translation::t("No available strategy for making ISO images."));
     }
 
 }

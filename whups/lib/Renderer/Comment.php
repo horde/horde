@@ -28,7 +28,7 @@ class Horde_Form_Renderer_Comment extends Horde_Form_Renderer {
         static $canUpdate, $comment_count = 0;
 
         if (!isset($canUpdate)) {
-            $canUpdate = Horde_Auth::getAuth() &&
+            $canUpdate = $GLOBALS['registry']->getAuth() &&
                 Whups::hasPermission($vars->get('queue'), 'queue', 'update');
         }
 
@@ -85,7 +85,7 @@ class Horde_Form_Renderer_Comment extends Horde_Form_Renderer {
                 if ($comment) {
                     $reply =
                         Horde::link(
-                            Horde::applicationUrl(
+                            Horde::url(
                                 Horde_Util::addParameter(
                                     $canUpdate ? 'ticket/update.php' : 'ticket/comment.php',
                                     array('id' => $vars->get('ticket_id'),
@@ -140,9 +140,9 @@ class Horde_Form_Renderer_Comment extends Horde_Form_Renderer {
             $flowed = new Horde_Text_Flowed($comment);
             $flowed->setDelSp(true);
             $comment = $flowed->toFlowed(false);
-            $comment = Horde_Text_Filter::filter(
+            $comment = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter(
                 $comment, array('text2html', 'simplemarkup', 'highlightquotes'),
-                array(array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'class' => null),
+                array(array('parselevel' => Horde_Text_Filter_Text2html::MICRO),
                       array(), array()));
             if ($prefs->getValue('autolink_tickets') &&
                 $conf['prefs']['autolink_terms']) {
@@ -155,7 +155,7 @@ class Horde_Form_Renderer_Comment extends Horde_Form_Renderer {
 
             $comment_count++;
             if ($private) {
-                $comment_label = Horde::img('locked.png', '', null, $registry->getImageDir('horde'))
+                $comment_label = Horde::img('locked.png')
                     . sprintf(_("Comment #%d (Private)"), $comment_count);
             } else {
                 $comment_label = sprintf(_("Comment #%d"), $comment_count);
@@ -167,7 +167,19 @@ class Horde_Form_Renderer_Comment extends Horde_Form_Renderer {
         }
 
         if (count($changes)) {
-            ob_start();
+            // Admins can delete entries.
+            $delete_link = '';
+            if (Whups::hasPermission($vars->get('queue'), 'queue', Horde_Perms::DELETE)) {
+                $delete_link = Horde::url('ticket/delete_history.php')
+                    ->add(array('transaction' => $transaction,
+                                'id' => $vars->get('ticket_id'),
+                                'url' => Whups::urlFor('ticket', $vars->get('ticket_id'), true)))
+                    ->link(array('title' => _("Delete entry"), 'onclick' => 'return window.confirm(\'' . addslashes(_("Permanently delete entry?")) . '\');'))
+                    . Horde::img('delete.png', _("Delete entry"))
+                    . '</a>';
+            }
+
+            Horde::startBuffer();
             $class = $private ? 'pc' : 'c';
 ?>
 <div id="t<?php echo (int)$transaction ?>">
@@ -176,7 +188,7 @@ class Horde_Form_Renderer_Comment extends Horde_Form_Renderer {
   <td width="20%" class="<?php echo $class ?>_l nowrap" valign="top"><?php echo strftime($prefs->getValue('date_format'), $vars->get('timestamp')) ?></td>
   <td width="20%" class="<?php echo $class ?>_m" valign="top"><?php echo $vars->get('user_id') ? Whups::formatUser($vars->get('user_id'), false, true, true) : '&nbsp;' ?></td>
   <td width="30%" class="<?php echo $class ?>_m" valign="top"><?php echo implode('<br />', $changes) ?></td>
-  <td width="30%" class="<?php echo $class ?>_r rightAlign" valign="top"><?php if ($comment && !$private) echo $reply ?></td>
+  <td width="30%" class="<?php echo $class ?>_r rightAlign" valign="top"><?php if ($comment && !$private) echo $reply . ' '; echo $delete_link; ?></td>
  </tr>
 <?php if ($comment): ?>
  <tr><td colspan="4" class="<?php echo $class ?>_b">
@@ -190,8 +202,7 @@ class Horde_Form_Renderer_Comment extends Horde_Form_Renderer {
 </table>
 </div>
 <?php
-            $html = ob_get_contents();
-            ob_end_clean();
+            $html = Horde::endBuffer();
             return $html;
         }
 

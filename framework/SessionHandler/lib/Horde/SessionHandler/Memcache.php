@@ -1,34 +1,21 @@
 <?php
 /**
- * Horde_SessionHandler:: implementation for memcache.
- *
- * NOTE FOR WINDOWS USERS w/PHP 4: Due to limitations in PHP 4, you should not
- * use the memcache driver.  Either upgrade to PHP 5 or use a different
- * session handler.
- *
- * Optional parameters:<pre>
- *   'persistent_driver' - (string) If set, uses this backend to store session
- *                         data persistently.
- *   'persistent_params' - (array) If using a persistent backend, the params
- *                         to use for the persistent backend.
- *   'track' - (boolean) Track active sessions?
- *   'track_lifetime' - (integer) The number of seconds after which tracked
- *                      sessions will be treated as expired.
- * </pre>
+ * Horde_SessionHandler implementation for memcache.
  *
  * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Rong-En Fan <rafan@infor.org>
- * @author  Michael Slusarz <slusarz@curecanti.org>
- * @package Horde_SessionHandler
+ * @author   Rong-En Fan <rafan@infor.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @package  SessionHandler
  */
 class Horde_SessionHandler_Memcache extends Horde_SessionHandler
 {
     /**
-     * Horde_Memcache object.
+     * Memcache object.
      *
      * @var Horde_Memcache
      */
@@ -40,13 +27,6 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
      * @var string
      */
     protected $_id;
-
-    /**
-     * Persistent backend driver.
-     *
-     * @var Horde_SessionHandler
-     */
-    protected $_persistent;
 
     /**
      * Do read-only get?
@@ -65,29 +45,29 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
     /**
      * Constructor.
      *
-     * @param array $params  A hash containing connection parameters.
+     * @param array $params  Parameters:
+     * <pre>
+     * 'memcache' - (Horde_Memcache) [REQUIRED] A memcache object.
+     * 'track' - (boolean) Track active sessions?
+     * 'track_lifetime' - (integer) The number of seconds after which tracked
+     *                    sessions will be treated as expired.
+     * </pre>
      *
-     * @throws Horde_Exception
+     * @throws InvalidArgumentException
      */
-    protected function __construct($params = array())
+    public function __construct(array $params = array())
     {
-        if (!empty($params['persistent_driver'])) {
-            try {
-                $this->_persistent = self::singleton($params['persistent_driver'], empty($params['persistent_params']) ? null : $params['persistent_params']);
-            } catch (Horde_Exception $e) {
-                throw new Horde_Exception('Horde is unable to correctly start the persistent session handler.');
-            }
+        if (empty($params['memcache'])) {
+            throw new InvalidArgumentException('Missing memcache argument.');
         }
+
+        $this->_memcache = $params['memcache'];
+        unset($params['memcache']);
 
         parent::__construct($params);
 
-        // If using a persistent backend, don't track sessions in memcache
-        if (isset($this->_persistent)) {
-            $this->_params['track'] = false;
-        }
-
-        if (empty($this->_params['track_lifetime'])) {
-            $this->_params['track_lifetime'] = ini_get('session.gc_maxlifetime');
+        if (empty($this->_params['track_lt'])) {
+            $this->_params['track_lt'] = ini_get('session.gc_maxlifetime');
         }
 
         if (!empty($this->_params['track']) && (rand(0, 999) == 0)) {
@@ -101,31 +81,19 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
      * @param string $save_path     The path to the session object.
      * @param string $session_name  The name of the session.
      *
-     * @throws Horde_Exception
+     * @throws Horde_SessionHandler_Exception
      */
     protected function _open($save_path = null, $session_name = null)
     {
-        $this->_memcache = Horde_Memcache::singleton();
-
-        if (isset($this->_persistent)) {
-            if (!$this->_persistent->open($save_path, $session_name)) {
-                throw new Horde_Exception('Could not open persistent backend.');
-            }
-        }
     }
 
     /**
      * Close the backend.
-     *
-     * @throws Horde_Exception
      */
     protected function _close()
     {
         if (isset($this->_id)) {
             $this->_memcache->unlock($this->_id);
-        }
-        if (isset($this->_persistent)) {
-            $this->_persistent->close();
         }
     }
 
@@ -148,23 +116,22 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
                 $this->_memcache->unlock($id);
             }
 
-            if (isset($this->_persistent)) {
-                $result = $this->_persistent->read($id);
-            }
-
             if ($result === false) {
-                Horde::logMessage('Error retrieving session data (id = ' . $id . ')', __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                if ($this->_logger) {
+                    $this->_logger->log('Error retrieving session data (id = ' . $id . ')', 'DEBUG');
+                }
                 return false;
             }
-
-            $this->_persistent->write($id, $session_data);
         }
 
         if (!$this->_readonly) {
             $this->_id = $id;
         }
 
-        Horde::logMessage('Read session data (id = ' . $id . ')', __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        if ($this->_logger) {
+            $this->_logger->log('Read session data (id = ' . $id . ')', 'DEBUG');
+        }
+
         return $result;
     }
 
@@ -190,12 +157,10 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
 
         if (!$res &&
             !$this->_memcache->set($id, $session_data)) {
-            Horde::logMessage('Error writing session data (id = ' . $id . ')', __FILE__, __LINE__, PEAR_LOG_ERR);
+            if ($this->_logger) {
+                $this->_logger->log('Error writing session data (id = ' . $id . ')', 'ERR');
+            }
             return false;
-        }
-
-        if (isset($this->_persistent)) {
-            $result = $this->_persistent->write($id, $session_data);
         }
 
         if ($track) {
@@ -210,7 +175,10 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
             $this->_memcache->unlock($this->_trackID);
         }
 
-        Horde::logMessage('Wrote session data (id = ' . $id . ')', __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        if ($this->_logger) {
+            $this->_logger->log('Wrote session data (id = ' . $id . ')', 'DEBUG');
+        }
+
         return true;
     }
 
@@ -227,12 +195,10 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
         $this->_memcache->unlock($id);
 
         if ($result === false) {
-            Horde::logMessage('Failed to delete session (id = ' . $id . ')', __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            if ($this->_logger) {
+                $this->_logger->log('Failed to delete session (id = ' . $id . ')', 'DEBUG');
+            }
             return false;
-        }
-
-        if (isset($this->_persistent)) {
-            $result = $this->_persistent->destroy($id);
         }
 
         if (!empty($this->_params['track'])) {
@@ -245,7 +211,10 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
             $this->_memcache->unlock($this->_trackID);
         }
 
-        Horde::logMessage('Deleted session data (id = ' . $id . ')', __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        if ($this->_logger) {
+            $this->_logger->log('Deleted session data (id = ' . $id . ')', 'DEBUG');
+        }
+
         return true;
     }
 
@@ -258,45 +227,29 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
      */
     public function gc($maxlifetime = 300)
     {
-        $result = true;
-
-        if (isset($this->_persistent)) {
-            $result = $this->_persistent->gc($maxlifetime);
-        }
-
         // Memcache does its own garbage collection.
-        return $result;
+        return true;
     }
 
     /**
      * Get a list of (possibly) valid session identifiers.
      *
      * @return array  A list of session identifiers.
-     * @throws Horde_Exception
+     * @throws Horde_SessionHandler_Exception
      */
     public function getSessionIDs()
     {
-        if (isset($this->_persistent)) {
-            return $this->_persistent->getSessionIDs();
-        }
-
-        try {
-            $this->_open();
-
-            if (empty($this->_params['track'])) {
-                throw new Horde_Exception(_("Memcache session tracking not enabled."));
-            }
-        } catch (Horde_Exception $e) {
-            if (isset($this->_persistent)) {
-                return $this->_persistent->getSessionIDs();
-            }
-            throw $e;
+        if (empty($this->_params['track'])) {
+            throw new Horde_SessionHandler_Exception('Memcache session tracking not enabled.');
         }
 
         $this->trackGC();
 
         $ids = $this->_memcache->get($this->_trackID);
-        return ($ids === false) ? array() : array_keys($ids);
+
+        return ($ids === false)
+            ? array()
+            : array_keys($ids);
     }
 
     /**
@@ -311,6 +264,7 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
         $this->_readonly = true;
         $result = $this->_memcache->get($id);
         $this->_readonly = false;
+
         return $result;
     }
 
@@ -326,7 +280,7 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
             return;
         }
 
-        $tstamp = time() - $this->_params['track_lifetime'];
+        $tstamp = time() - $this->_params['track_lt'];
         $alter = false;
 
         foreach ($ids as $key => $val) {

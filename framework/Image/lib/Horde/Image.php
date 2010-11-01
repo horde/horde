@@ -1,7 +1,7 @@
 <?php
 /**
  * This class provides some utility functions, such as generating highlights
- * of a color as well as a factory method responsible for creating a concerete
+ * of a color as well as a factory method responsible for creating a concrete
  * Horde_Image driver.
  *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
@@ -11,16 +11,12 @@
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- *
  * @package Horde_Image
  */
 class Horde_Image
 {
-    static protected $_loadedEffects = array();
     /**
      * Calculate a lighter (or darker) version of a color.
-     *
-     * @static
      *
      * @param string $color   An HTML color, e.g.: #ffffcc.
      * @param string $factor  TODO
@@ -29,21 +25,17 @@ class Horde_Image
      */
     static public function modifyColor($color, $factor = 0x11)
     {
-        $r = hexdec(substr($color, 1, 2)) + $factor;
-        $g = hexdec(substr($color, 3, 2)) + $factor;
-        $b = hexdec(substr($color, 5, 2)) + $factor;
+        list($r, $g, $b) = self::_getColor($color);
 
-        $r = min(max($r, 0), 255);
-        $g = min(max($g, 0), 255);
-        $b = min(max($b, 0), 255);
+        $r = min(max($r + $factor, 0), 255);
+        $g = min(max($g + $factor, 0), 255);
+        $b = min(max($b + $factor, 0), 255);
 
         return '#' . str_pad(dechex($r), 2, '0', STR_PAD_LEFT) . str_pad(dechex($g), 2, '0', STR_PAD_LEFT) . str_pad(dechex($b), 2, '0', STR_PAD_LEFT);
     }
 
     /**
      * Calculate a more intense version of a color.
-     *
-     * @static
      *
      * @param string $color   An HTML color, e.g.: #ffffcc.
      * @param string $factor  TODO
@@ -52,9 +44,7 @@ class Horde_Image
      */
     static public function moreIntenseColor($color, $factor = 0x11)
     {
-        $r = hexdec(substr($color, 1, 2));
-        $g = hexdec(substr($color, 3, 2));
-        $b = hexdec(substr($color, 5, 2));
+        list($r, $g, $b) = self::_getColor($color);
 
         if ($r >= $g && $r >= $b) {
             $g = $g / $r;
@@ -89,19 +79,58 @@ class Horde_Image
     /**
      * Returns the brightness of a color.
      *
-     * @static
-     *
      * @param string $color  An HTML color, e.g.: #ffffcc.
      *
      * @return integer  The brightness on a scale of 0 to 255.
      */
     static public function brightness($color)
     {
-        $r = hexdec(substr($color, 1, 2));
-        $g = hexdec(substr($color, 3, 2));
-        $b = hexdec(substr($color, 5, 2));
+        list($r, $g, $b) = self::_getColor($color);
 
         return round((($r * 299) + ($g * 587) + ($b * 114)) / 1000);
+    }
+
+    /**
+     * @TODO
+     */
+    static public function grayscaleValue($r, $g, $b)
+    {
+        return round(($r * 0.30) + ($g * 0.59) + ($b * 0.11));
+    }
+
+    /**
+     * @TODO
+     */
+    static public function grayscalePixel($originalPixel)
+    {
+        $gray = Horde_Image::grayscaleValue($originalPixel['red'], $originalPixel['green'], $originalPixel['blue']);
+        return array('red'=>$gray, 'green'=>$gray, 'blue'=>$gray);
+    }
+
+    /**
+     * Normalizes an HTML color.
+     *
+     * @param string $color  An HTML color, e.g.: #ffffcc or #ffc.
+     *
+     * @return array  Array with three elements: red, green, and blue.
+     */
+    static public function _getColor($color)
+    {
+        if ($color[0] == '#') {
+            $color = substr($color, 1);
+        }
+
+        if (strlen($color) == 3) {
+            $color = str_repeat($color[0], 2) .
+                str_repeat($color[1], 2) .
+                str_repeat($color[2], 2);
+        }
+
+        return array(
+            hexdec(substr($color, 0, 2)),
+            hexdec(substr($color, 2, 2)),
+            hexdec(substr($color, 4, 2))
+        );
     }
 
     /**
@@ -188,54 +217,9 @@ class Horde_Image
     }
 
     /**
-     * Attempts to return a concrete Horde_Image instance based on $driver.
-     *
-     * @param mixed $driver  The type of concrete Horde_Image subclass to
-     *                       return. This is based on the storage driver
-     *                       ($driver). The code is dynamically included. If
-     *                       $driver is an array, then we will look in
-     *                       $driver[0]/lib/Image/ for the subclass
-     *                       implementation named $driver[1].php.
-     * @param array $params  A hash containing any additional configuration or
-     *                       connection parameters a subclass might need.
-     *
-     * @return mixed  Horde_Image object | PEAR_Error
-     */
-    static public function factory($driver, $params = array())
-    {
-        if (is_array($driver)) {
-            list($app, $driver) = $driver;
-        }
-
-        $driver = basename($driver);
-        $class = 'Horde_Image_' . $driver;
-        if (!class_exists($class)) {
-            if (!empty($app)) {
-                include_once $GLOBALS['registry']->get('fileroot', $app) . '/lib/Image/' . $driver . '.php';
-            } else {
-                include_once 'Horde/Image/' . $driver . '.php';
-            }
-        }
-
-        if (!empty($params['context']) && count($params['context'])) {
-            $context = $params['context'];
-            unset($params['context']);
-        } else {
-            $context = array();
-        }
-        if (class_exists($class)) {
-            $image = new $class($params, $context);
-        } else {
-            $image = PEAR::raiseError('Class definition of ' . $class . ' not found.');
-        }
-
-        return $image;
-    }
-
-    /**
      * Return point size for font
      */
-    public static function getFontSize($fontsize)
+    static public function getFontSize($fontsize)
     {
         switch ($fontsize) {
         case 'medium':

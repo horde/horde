@@ -2,8 +2,6 @@
 /**
  * The Agora script to display a list of forums.
  *
- * $Horde: agora/forums.php,v 1.71 2009-12-10 17:42:30 jan Exp $
- *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -13,15 +11,16 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('agora');
 
 /* Set up the forums object. */
 $scope = Horde_Util::getGet('scope', 'agora');
 $forums = Agora_Messages::singleton($scope);
 
 /* Set up actions */
-if (Horde_Auth::isAdmin()) {
-    $url = Horde::applicationUrl('forums.php');
+if ($registry->isAdmin()) {
+    $url = Horde::url('forums.php');
     foreach ($registry->listApps(array('hidden', 'notoolbar', 'active')) as $app) {
         if ($registry->hasMethod('hasComments', $app) &&
             $registry->callByPackage($app, 'hasComments') === true) {
@@ -43,7 +42,7 @@ $forum_start = $forum_page * $forums_per_page;
 /* Get the list of forums. */
 $forums_list = $forums->getForums(0, true, $sort_by, $sort_dir, true, $forum_start, $forums_per_page);
 if ($forums_list instanceof PEAR_Error) {
-    Horde::fatal($forums_list, __FILE__, __LINE__);
+    throw new Horde_Exception($forums_list);
 } elseif (empty($forums_list)) {
     $forums_count = 0;
 } else {
@@ -58,13 +57,17 @@ $col_headers = Agora::formatColumnHeaders($col_headers, $sort_by, $sort_dir, 'fo
 $view = new Agora_View();
 $view->col_headers = $col_headers;
 $view->forums_list = $forums_list;
-$view->menu = Agora::getMenu('string');
-$view->notify = Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status'));
+$view->menu = Horde::menu();
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$view->notify = Horde::endBuffer();
+
 $view->actions = empty($actions) ? null : $actions;
 
 /* Set up pager. */
 $vars = Horde_Variables::getDefaultVariables();
-$pager_ob = new Horde_Ui_Pager('forum_page', $vars, array('num' => $forums_count, 'url' => 'forums.php', 'perpage' => $forums_per_page));
+$pager_ob = new Horde_Core_Ui_Pager('forum_page', $vars, array('num' => $forums_count, 'url' => 'forums.php', 'perpage' => $forums_per_page));
 $pager_ob->preserve('scope', $scope);
 $view->pager_link = $pager_ob->render();
 

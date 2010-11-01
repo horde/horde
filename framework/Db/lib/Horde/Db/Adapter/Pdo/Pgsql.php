@@ -75,10 +75,16 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
     ##########################################################################*/
 
     /**
-     * Connect to the db
+     * Connect to the db.
+     *
+     * @throws Horde_Db_Exception
      */
     public function connect()
     {
+        if ($this->_active) {
+            return;
+        }
+
         parent::connect();
 
         $retval = $this->_connection->exec("SET datestyle TO 'iso'");
@@ -132,7 +138,8 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
      * @param   int     $idValue
      * @param   string  $sequenceName
      */
-    public function insert($sql, $arg1=null, $arg2=null, $pk=null, $idValue=null, $sequenceName=null)
+    public function insert($sql, $arg1 = null, $arg2 = null, $pk = null,
+                           $idValue = null, $sequenceName = null)
     {
         // Extract the table from the insert sql. Yuck.
         $temp = explode(' ', $sql, 4);
@@ -142,7 +149,7 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
         if ($this->supportsInsertWithReturning()) {
             if (!$pk) list($pk, $sequenceName) = $this->pkAndSequenceFor($table);
             if ($pk) {
-                $id = $this->selectValue($sql.' RETURNING '.$this->quoteColumnName($pk));
+                $id = $this->selectValue($sql.' RETURNING '.$this->quoteColumnName($pk), $arg1, $arg2);
                 return $id;
             }
         }
@@ -243,5 +250,4 @@ class Horde_Db_Adapter_Pdo_Pgsql extends Horde_Db_Adapter_Pdo_Base
     {
         return (int)$this->selectValue('SELECT currval('.$this->quoteSequenceName($sequenceName).')');
     }
-
 }

@@ -2,8 +2,6 @@
 /**
  * Hylax_Driver_spandsp Class
  *
- * $Horde: incubator/hylax/lib/Driver/spandsp.php,v 1.14 2009/01/06 17:50:48 jan Exp $
- *
  * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -49,7 +47,7 @@ class Hylax_Driver_spandsp extends Hylax_Driver {
         $data .= sprintf("Application: %s\n", 'txfax');
         $data .= sprintf("Data: %s|caller\n", $filename);
 
-        $outfile = sprintf("%s/%s.call", $conf['fax']['params']['outgoing'], md5(microtime()));
+        $outfile = sprintf("%s/%s.call", $conf['fax']['params']['outgoing'], strval(new Horde_Support_Uuid()));
         if ($fh = fopen($outfile, "w")) {
             fwrite($fh, $data);
             fclose($fh);

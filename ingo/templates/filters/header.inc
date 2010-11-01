@@ -1,4 +1,4 @@
-<form method="post" name="filters" action="<?php echo Horde::applicationUrl('filters.php') ?>">
+<form method="post" name="filters" action="<?php echo Horde::url('filters.php') ?>">
 <?php Horde_Util::pformInput() ?>
 <input type="hidden" name="actionID" value="" />
 <div class="header">

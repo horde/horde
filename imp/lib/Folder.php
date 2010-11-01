@@ -10,163 +10,26 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Jon Parise <jon@horde.org>
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package IMP
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Jon Parise <jon@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
 class IMP_Folder
 {
     /**
-     * Singleton instance.
-     *
-     * @var IMP_Folder
-     */
-    static protected $_instance = null;
-
-    /**
-     * Keep around identical lists so that we don't hit the server more that
-     * once in the same page for the same thing.
+     * Mapping of special-use keys to their IMP equivalents.
      *
      * @var array
      */
-    protected $_listCache = null;
-
-    /**
-     * The cache ID used to store mailbox info.
-     *
-     * @var string
-     */
-    protected $_cacheid = null;
-
-    /**
-     * Returns a reference to the global IMP_Folder object, only creating it
-     * if it doesn't already exist. This ensures that only one IMP_Folder
-     * instance is instantiated for any given session.
-     *
-     * @return IMP_Folder  The IMP_Folder instance.
-     */
-    static public function singleton()
-    {
-        if (is_null(self::$_instance)) {
-            self::$_instance = new self();
-        }
-
-        return self::$_instance;
-    }
-
-    /**
-     * Constructor.
-     */
-    protected function __construct()
-    {
-        if (!empty($GLOBALS['conf']['server']['cache_folders'])) {
-            $this->_cacheid = 'imp_folder_cache|' . Horde_Auth::getAuth();
-        }
-    }
-
-    /**
-     * Lists folders.
-     *
-     * @param array $filter  An list of mailboxes that should be left out of
-     *                       the list (UTF7-IMAP).
-     * @param boolean $sub   Should we list only subscribed folders?
-     *
-     * @return array  An array of folders, where each array element is an
-     *                associative array containing three values:
-     * <pre>
-     * 'val' - (string)  Folder name (UTF7-IMAP)
-     * 'label' - (string) Full-length folder name (system charset)
-     * 'abbrev' - (string) Short (26 char) label (system charset)
-     * </pre>
-     */
-    public function flist($filter = array(), $sub = null)
-    {
-        $inbox_entry = array(
-            'INBOX' => array(
-                'val' => 'INBOX',
-                'label' => _("Inbox"),
-                'abbrev' => _("Inbox")
-            )
-        );
-
-        if ($_SESSION['imp']['protocol'] == 'pop') {
-            return $inbox_entry;
-        }
-
-        if (is_null($sub)) {
-            $sub = $GLOBALS['prefs']->getValue('subscribe');
-        }
-
-        /* Compute values that will uniquely identify this list. */
-        $sig = hash('md5', serialize(array(intval($sub), $filter)));
-
-        /* Either get the list from the cache, or go to the IMAP server to
-           obtain it. */
-        $cache = null;
-        if (is_null($this->_listCache)) {
-            if (!is_null($this->_cacheid) && ($cache = IMP::getCache())) {
-                $ret = $cache->get($this->_cacheid, 3600);
-                if (!empty($ret)) {
-                    $this->_listCache = unserialize($ret);
-                }
-            }
-
-            if (empty($this->_listCache)) {
-                $this->_listCache = array();
-            }
-        }
-
-        if (isset($this->_listCache[$sig])) {
-            return $this->_listCache[$sig];
-        }
-
-        $imaptree = IMP_Imap_Tree::singleton();
-
-        $list_mask = IMP_Imap_Tree::FLIST_CONTAINER | IMP_Imap_Tree::FLIST_OB;
-        if (!$sub) {
-            $list_mask |= IMP_Imap_Tree::FLIST_UNSUB;
-        }
-        $flist = $imaptree->folderList($list_mask);
-
-        reset($flist);
-        while (list(,$ob) = each($flist)) {
-            if (in_array($ob['v'], $filter)) {
-                continue;
-            }
-
-            $abbrev = $label = str_repeat(' ', 2 * $ob['c']) . $ob['l'];
-            if (strlen($abbrev) > 26) {
-                $abbrev = Horde_String::substr($abbrev, 0, 10) . '...' . Horde_String::substr($abbrev, -13, 13);
-            }
-            $list[$ob['v']] = array('val' => $imaptree->isContainer($ob) ? '' : $ob['v'], 'label' => $label, 'abbrev' => $abbrev);
-        }
-
-        /* Add the INBOX on top of list if not in the filter list. */
-        if (!in_array('INBOX', $filter)) {
-            $list = $inbox_entry + $list;
-        }
-
-        $this->_listCache[$sig] = $list;
-
-        /* Save in cache, if needed. */
-        if (!is_null($cache)) {
-            $cache->set($this->_cacheid, serialize($this->_listCache), 3600);
-        }
-
-        return $list;
-    }
-
-    /**
-     * Clears the flist folder cache.
-     */
-    public function clearFlistCache()
-    {
-        if (!is_null($this->_cacheid) && ($cache = IMP::getCache())) {
-            $cache->expire($this->_cacheid);
-        }
-        $this->_listCache = array();
-    }
+    static public $specialUse = array(
+        'drafts' => '\\drafts',
+        'sent' => '\\sent',
+        'spam' => '\\junk',
+        'trash' => '\\trash'
+    );
 
     /**
      * Deletes one or more folders.
@@ -192,7 +55,7 @@ class IMP_Folder
             }
 
             try {
-                $GLOBALS['imp_imap']->ob()->deleteMailbox($folder);
+                $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->deleteMailbox($folder);
                 $notification->push(sprintf(_("The folder \"%s\" was successfully deleted."), IMP::displayFolder($folder)), 'horde.success');
                 $deleted[] = $folder;
             } catch (Horde_Imap_Client_Exception $e) {
@@ -201,10 +64,7 @@ class IMP_Folder
         }
 
         if (!empty($deleted)) {
-            /* Update the IMAP_Tree cache. */
-            $imaptree = IMP_Imap_Tree::singleton();
-            $imaptree->delete($deleted);
-
+            $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->delete($deleted);
             $this->_onDelete($deleted);
         }
 
@@ -218,12 +78,6 @@ class IMP_Folder
      */
     protected function _onDelete($deleted)
     {
-        /* Reset the folder cache. */
-        $this->clearFlistCache();
-
-        /* Recreate Virtual Folders. */
-        $GLOBALS['imp_search']->initialize(true);
-
         /* Clear the folder from the sort prefs. */
         foreach ($deleted as $val) {
             IMP::setSort(null, null, $val, true);
@@ -236,6 +90,17 @@ class IMP_Folder
      *
      * @param string $folder      The folder to be created (UTF7-IMAP).
      * @param boolean $subscribe  Subscribe to folder?
+     * @param array $opts         Additional options:
+     * <pre>
+     * 'drafts' - (boolean) Is this a drafts mailbox?
+     *            DEFAULT: false
+     * 'spam' - (boolean) Is this a spam mailbox?
+     *          DEFAULT: false
+     * 'sent' - (boolean) Is this a sent-mail mailbox?
+     *          DEFAULT: false
+     * 'trash' - (boolean) Is this a trash mailbox?
+     *          DEFAULT: false
+     * </pre>
      *
      * @return boolean  Whether or not the folder was successfully created.
      * @throws Horde_Exception
@@ -245,19 +110,19 @@ class IMP_Folder
         global $conf, $notification;
 
         /* Check permissions. */
-        if (!$GLOBALS['perms']->hasAppPermission('create_folders')) {
+        if (!$GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('create_folders')) {
             try {
                 $message = Horde::callHook('perms_denied', array('imp:create_folders'));
             } catch (Horde_Exception_HookNotSet $e) {
-                $message = @htmlspecialchars(_("You are not allowed to create folders."), ENT_COMPAT, Horde_Nls::getCharset());
+                $message = @htmlspecialchars(_("You are not allowed to create folders."), ENT_COMPAT, 'UTF-8');
             }
             $notification->push($message, 'horde.error', array('content.raw'));
             return false;
-        } elseif (!$GLOBALS['perms']->hasAppPermission('max_folders')) {
+        } elseif (!$GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_folders')) {
             try {
                 $message = Horde::callHook('perms_denied', array('imp:max_folders'));
             } catch (Horde_Exception_HookNotSet $e) {
-                $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d folders."), $GLOBALS['perms']->hasAppPermission('max_folders', array('opts' => array('value' => true)))), ENT_COMPAT, Horde_Nls::getCharset());
+                $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d folders."), $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_folders', array('opts' => array('value' => true)))), ENT_COMPAT, 'UTF-8');
             }
             $notification->push($message, 'horde.error', array('content.raw'));
             return false;
@@ -269,9 +134,17 @@ class IMP_Folder
             return false;
         }
 
+        /* Special use flags. */
+        $special_use = array();
+        foreach (self::$specialUse as $key => $val) {
+            if (!empty($this->_opts[$key])) {
+                $special_use[] = $val;
+            }
+        }
+
         /* Attempt to create the mailbox. */
         try {
-            $GLOBALS['imp_imap']->ob()->createMailbox($folder);
+            $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->createMailbox($folder, array('special_use' => $special_use));
         } catch (Horde_Imap_Client_Exception $e) {
             $notification->push(sprintf(_("The folder \"%s\" was not created. This is what the server said"), IMP::displayFolder($folder)) . ': ' . $e->getMessage(), 'horde.error');
             return false;
@@ -284,15 +157,8 @@ class IMP_Folder
             $this->subscribe(array($folder));
         }
 
-        /* Reset the folder cache. */
-        $this->clearFlistCache();
-
-        /* Update the IMAP_Tree object. */
-        $imaptree = IMP_Imap_Tree::singleton();
-        $imaptree->insert($folder);
-
-        /* Recreate Virtual Folders. */
-        $GLOBALS['imp_search']->initialize(true);
+        /* Update the mailbox tree. */
+        $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->insert($folder);
 
         return true;
     }
@@ -306,14 +172,13 @@ class IMP_Folder
      */
     public function exists($folder)
     {
-        $imaptree = IMP_Imap_Tree::singleton();
-        $elt = $imaptree->get($folder);
-        if ($elt) {
-            return !$imaptree->isContainer($elt);
+        $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
+        if (isset($imaptree[$folder])) {
+            return !$imaptree[$folder]->container;
         }
 
         try {
-            $ret = $GLOBALS['imp_imap']->ob()->listMailboxes($folder, array('flat' => true));
+            $ret = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->listMailboxes($folder, array('flat' => true));
             return !empty($ret);
         } catch (Horde_Imap_Client_Exception $e) {
             return false;
@@ -347,14 +212,14 @@ class IMP_Folder
         $deleted = array($old);
         $inserted = array($new);
 
-        $imaptree = IMP_Imap_Tree::singleton();
+        $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
+        $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_NOCONTAINER | IMP_Imap_Tree::FLIST_UNSUB | IMP_Imap_Tree::FLIST_NOBASE, $old);
 
         /* Get list of any folders that are underneath this one. */
-        $all_folders = array_merge(array($old), $imaptree->folderList(IMP_Imap_Tree::FLIST_UNSUB, $old));
-        $sub_folders = $imaptree->folderList();
+        $all_folders = array_merge(array($old), array_keys(iterator_to_array($imaptree)));
 
         try {
-            $GLOBALS['imp_imap']->ob()->renameMailbox($old, $new);
+            $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->renameMailbox($old, $new);
         } catch (Horde_Imap_Client_Exception $e) {
             $GLOBALS['notification']->push(sprintf(_("Renaming \"%s\" to \"%s\" failed. This is what the server said"), IMP::displayFolder($old), IMP::displayFolder($new)) . ': ' . $e->getMessage(), 'horde.error');
             return false;
@@ -398,7 +263,7 @@ class IMP_Folder
 
         foreach (array_filter($folders) as $folder) {
             try {
-                $GLOBALS['imp_imap']->ob()->subscribeMailbox($folder, true);
+                $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->subscribeMailbox($folder, true);
                 $notification->push(sprintf(_("You were successfully subscribed to \"%s\""), IMP::displayFolder($folder)), 'horde.success');
                 $subscribed[] = $folder;
             } catch (Horde_Imap_Client_Exception $e) {
@@ -408,12 +273,7 @@ class IMP_Folder
         }
 
         if (!empty($subscribed)) {
-            /* Initialize the IMAP_Tree object. */
-            $imaptree = IMP_Imap_Tree::singleton();
-            $imaptree->subscribe($subscribed);
-
-            /* Reset the folder cache. */
-            $this->clearFlistCache();
+            $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->subscribe($subscribed);
         }
 
         return $return_value;
@@ -443,7 +303,7 @@ class IMP_Folder
                 $notification->push(sprintf(_("You cannot unsubscribe from \"%s\"."), IMP::displayFolder($folder)), 'horde.error');
             } else {
                 try {
-                    $GLOBALS['imp_imap']->ob()->subscribeMailbox($folder, false);
+                    $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->subscribeMailbox($folder, false);
                     $notification->push(sprintf(_("You were successfully unsubscribed from \"%s\""), IMP::displayFolder($folder)), 'horde.success');
                     $unsubscribed[] = $folder;
                 } catch (Horde_Imap_Client_Exception $e) {
@@ -454,12 +314,7 @@ class IMP_Folder
         }
 
         if (!empty($unsubscribed)) {
-            /* Initialize the IMAP_Tree object. */
-            $imaptree = IMP_Imap_Tree::singleton();
-            $imaptree->unsubscribe($unsubscribed);
-
-            /* Reset the folder cache. */
-            $this->clearFlistCache();
+            $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->unsubscribe($unsubscribed);
         }
 
         return $return_value;
@@ -489,7 +344,7 @@ class IMP_Folder
 
         foreach ($folder_list as $folder) {
             try {
-                $status = $GLOBALS['imp_imap']->ob()->status($folder, Horde_Imap_Client::STATUS_MESSAGES);
+                $status = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->status($folder, Horde_Imap_Client::STATUS_MESSAGES);
             } catch (Horde_Imap_Client_Exception $e) {
                 continue;
             }
@@ -497,11 +352,11 @@ class IMP_Folder
                 /* Download one message at a time to save on memory
                  * overhead. */
                 try {
-                    $res = $GLOBALS['imp_imap']->ob()->fetch($folder, array(
-                            Horde_Imap_Client::FETCH_FULLMSG => array('peek' => true, 'stream' => true),
-                            Horde_Imap_Client::FETCH_ENVELOPE => true,
-                            Horde_Imap_Client::FETCH_DATE => true,
-                        ), array('ids' => array($i), 'sequence' => true));
+                    $res = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->fetch($folder, array(
+                        Horde_Imap_Client::FETCH_FULLMSG => array('peek' => true, 'stream' => true),
+                        Horde_Imap_Client::FETCH_ENVELOPE => true,
+                        Horde_Imap_Client::FETCH_DATE => true,
+                    ), array('ids' => array($i), 'sequence' => true));
                     $ptr = reset($res);
                 } catch (Horde_Imap_Client_Exception $e) {
                     continue;
@@ -542,6 +397,7 @@ class IMP_Folder
     {
         $message = '';
         $msgcount = 0;
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
 
         $fd = fopen($mbox, 'r');
         while (!feof($fd)) {
@@ -550,7 +406,7 @@ class IMP_Folder
             if (preg_match('/From (.+@.+|- )/A', $line)) {
                 if (!empty($message)) {
                     try {
-                        $GLOBALS['imp_imap']->ob()->append($folder, array(array('data' => $message)));
+                        $imp_imap->append($folder, array(array('data' => $message)));
                         ++$msgcount;
                     } catch (Horde_Imap_Client_Exception $e) {}
                 }
@@ -563,11 +419,12 @@ class IMP_Folder
 
         if (!empty($message)) {
             try {
-                $GLOBALS['imp_imap']->ob()->append($folder, array(array('data' => $message)));
+                $imp_imap->append($folder, array(array('data' => $message)));
                 ++$msgcount;
             } catch (Horde_Imap_Client_Exception $e) {}
         }
 
         return $msgcount ? $msgcount : false;
     }
+
 }

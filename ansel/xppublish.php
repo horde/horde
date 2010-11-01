@@ -8,8 +8,8 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-$ansel_authentication = 'none';
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('ansel', array('authentication' => 'none'));
 
 $cmd = Horde_Util::getFormData('cmd');
 if (empty($cmd)) {
@@ -17,9 +17,9 @@ if (empty($cmd)) {
     $publisher->sendRegFile(
         $registry->getApp() . '-' . $conf['server']['name'],
         $registry->get('name'),
-        sprintf(_("Publish your photos to %s on %s."), $registry->get('name'), $conf['server']['name']),
-        Horde::applicationUrl(Horde_Util::addParameter('xppublish.php', 'cmd', 'publish'), true, -1),
-        Horde::url($registry->getImageDir() . '/favicon.ico', true, -1));
+        Horde_String::convertCharset(sprintf(_("Publish your photos to %s on %s."), $registry->get('name'), $conf['server']['name']), 'UTF-8', $registry->getLanguageCharset()),
+        Horde::url('xppublish.php', true, -1)->add('cmd', 'publish'),
+        Horde::url(Horde_Themes::img('favicon.ico'), true, -1));
     exit;
 }
 
@@ -36,7 +36,7 @@ if ($cmd == 'login') {
     $username = Horde_Util::getFormData('username');
     $password = Horde_Util::getFormData('password');
     if ($username && $password) {
-        $auth = Horde_Auth::singleton($conf['auth']['driver']);
+        $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
         if ($auth->authenticate($username,
                                 array('password' => $password))) {
             $cmd = 'list';
@@ -53,7 +53,7 @@ if ($cmd == 'login') {
 }
 
 // If we don't have a valid login, print the login form.
-if (!Horde_Auth::isAuthenticated()) {
+if (!$registry->isAuthenticated()) {
     $PUBLISH_ONNEXT = 'login.submit();';
     $PUBLISH_CMD = 'login.username.focus();';
     require ANSEL_TEMPLATES . '/xppublish/login.inc';
@@ -72,28 +72,28 @@ if ($cmd == 'publish') {
 $galleryId = Horde_Util::getFormData('gallery');
 if ($cmd == 'list') {
     $PUBLISH_ONNEXT = 'folder.submit();';
-    $PUBLISH_ONBACK = 'window.location.href="' . Horde::applicationUrl('xppublish.php?cmd=publish', true) . '";';
+    $PUBLISH_ONBACK = 'window.location.href="' . Horde::url('xppublish.php?cmd=publish', true) . '";';
     $PUBLISH_BUTTONS = 'true,true,true';
     require ANSEL_TEMPLATES . '/xppublish/list.inc';
 }
 
 // Check if a gallery was selected from the list.
 if ($cmd == 'select') {
-    if (!$galleryId || !$ansel_storage->galleryExists($galleryId)) {
+    if (!$galleryId || !$GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->galleryExists($galleryId)) {
         $error = _("Invalid gallery specified.") . "<br />\n";
     } else {
-        $gallery = $ansel_storage->getGallery($galleryId);
-        if (is_a($gallery, 'PEAR_ERROR')) {
-            $error = _("There was an error accessing the gallery");
-        } else {
+        try {
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($galleryId);
             $error = false;
+        } catch (Ansel_Exception $e) {
+            $error = _("There was an error accessing the gallery");
         }
     }
 
     if ($error) {
         echo '<span class="form-error">' . $error . '</span><br />';
         echo _("Press the \"Back\" button and try again.");
-        $PUBLISH_ONBACK = 'window.location.href="' . Horde::applicationUrl('xppublish.php?cmd=list', true) . '";';
+        $PUBLISH_ONBACK = 'window.location.href="' . Horde::url('xppublish.php?cmd=list', true) . '";';
         $PUBLISH_BUTTONS = 'true,false,true';
     } else {
         echo '<form id="folder">';
@@ -113,26 +113,26 @@ if ($cmd == 'new') {
     $gallery_desc = Horde_Util::getFormData('gallery_desc');
     if ($create) {
         /* Creating a new gallery. */
-        $gallery = $ansel_storage->createGallery(array('name' => $gallery_name,
-                                                       'desc' => $gallery_desc));
-        if (is_a($gallery, 'PEAR_Error')) {
-            $error = sprintf(_("The gallery \"%s\" couldn't be created: %s"), $gallery_name, $gallery->getMessage());
-            Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_ERR);
-        } else {
+        try {
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->createGallery(
+                    array('name' => $gallery_name, 'desc' => $gallery_desc));
             $galleryId = $gallery->id;
             $msg = sprintf(_("The gallery \"%s\" was created successfully."), $gallery_name);
-            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage($msg, 'DEBUG');
+        } catch (Ansel_Exception $e) {
+            $error = sprintf(_("The gallery \"%s\" couldn't be created: %s"), $gallery_name, $e->getMessage());
+            Horde::logMessage($error, 'ERR');
         }
     } else {
         if (empty($galleryId) && $prefs->getValue('autoname')) {
-            $galleryId = md5(microtime());
+            $galleryId = strval(new Horde_Support_Uuid());
         }
         if (!$gallery_name) {
             $gallery_name = _("Untitled");
         }
         $PUBLISH_CMD = 'folder.gallery_name.focus(); folder.gallery_name.select();';
         $PUBLISH_ONNEXT = 'folder.submit();';
-        $PUBLISH_ONBACK = 'window.location.href="' . Horde::applicationUrl('xppublish.php?cmd=list', true) . '";';
+        $PUBLISH_ONBACK = 'window.location.href="' . Horde::url('xppublish.php?cmd=list', true) . '";';
         $PUBLISH_BUTTONS = 'true,true,true';
         require ANSEL_TEMPLATES . '/xppublish/new.inc';
         require ANSEL_TEMPLATES . '/xppublish/javascript.inc';
@@ -166,35 +166,40 @@ if ($cmd == 'add') {
     $galleryId = Horde_Util::getFormData('gallery');
     $name = isset($_FILES['imagefile']['name']) ? Horde_Util::dispelMagicQuotes($_FILES['imagefile']['name']) : null;
     $file = isset($_FILES['imagefile']['tmp_name']) ? $_FILES['imagefile']['tmp_name'] : null;
-    if (!$galleryId || !$ansel_storage->galleryExists($galleryId)) {
+    if (!$galleryId || !$GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->galleryExists($galleryId)) {
         $error = _("Invalid gallery specified.") . "<br />\n";
     } else {
-        $gallery = $ansel_storage->getGallery($galleryId);
-        if (is_a($gallery, 'PEAR_ERROR') || !$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
-            $error = sprintf(_("Access denied adding photos to \"%s\"."), $gallery->get('name'));
-        } else {
-            $error = false;
+        try {
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($galleryId);
+            if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
+                $error = sprintf(_("Access denied adding photos to \"%s\"."), $gallery->get('name'));
+            } else {
+                $error = false;
+            }
+        } catch (Ansel_Exception $e) {
+            $error = _("There was an error accessing the gallery");
         }
     }
     if (!$name || $error) {
         $error = _("No file specified");
-    } elseif (is_a($result = Horde_Browser::wasFileUploaded('imagefile', _("photo")), 'PEAR_Error')) {
-        $error = $result->getMessage();
     } else {
-        $image = &Ansel::getImageFromFile($file, array('image_filename' => $name));
-        if (is_a($image, 'PEAR_Error')) {
-            $error = $image->getMessage();
-        }  else {
-            $gallery = $ansel_storage->getGallery($galleryId);
-            $image_id = $gallery->addImage($image);
-            if (is_a($image_id, 'PEAR_Error')) {
-                $error = _("There was a problem uploading the photo.");
-            } else {
+        try {
+            $GLOBALS['browser']->wasFileUploaded('imagefile', _("photo"));
+            try {
+                $image = Ansel::getImageFromFile($file, array('image_filename' => $name));
+            } catch (Ansel_Exception $e) {
+                $error = $e->getMessage();
+            }
+
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($galleryId);
+            try {
+                $image_id = $gallery->addImage($image);
                 $error = false;
+            } catch (Ansel_Exception $e) {
+                $error = _("There was a problem uploading the photo.");
             }
-            if (is_a($image_id, 'PEAR_Error')) {
-                $image_id = $image_id->getMessage();
-            }
+        } catch (Horde_Browser_Exception $e) {
+            $error = $e->getMessage();
         }
     }
 

@@ -65,7 +65,7 @@ class Whups_Driver_sql extends Whups_Driver {
         // Get a new unique id.
         $new_id = $this->_write_db->nextId('whups_queues');
         if (is_a($new_id, 'PEAR_Error')) {
-            Horde::logMessage($new_id, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($new_id, 'ERR');
             return $new_id;
         }
 
@@ -83,19 +83,18 @@ class Whups_Driver_sql extends Whups_Driver {
             . 'VALUES (?, ?, ?, ?, ?)';
         $values = array(
             $new_id,
-            Horde_String::convertCharset($name, Horde_Nls::getCharset(),
-                                   $this->_params['charset']),
-            Horde_String::convertCharset($description, Horde_Nls::getCharset(),
-                                   $this->_params['charset']),
+            Horde_String::convertCharset($name, 'UTF-8',
+                                         $this->_params['charset']),
+            Horde_String::convertCharset($description, 'UTF-8',
+                                         $this->_params['charset']),
             $slug,
             $email);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::addQueue(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -107,24 +106,23 @@ class Whups_Driver_sql extends Whups_Driver {
         // Get a new unique id.
         $new_id = $this->_write_db->nextId('whups_types');
         if (is_a($new_id, 'PEAR_Error')) {
-            Horde::logMessage($new_id, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($new_id, 'ERR');
             return $new_id;
         }
 
         $query = 'INSERT INTO whups_types' .
                  ' (type_id, type_name, type_description) VALUES (?, ?, ?)';
         $values = array($new_id,
-                        Horde_String::convertCharset($name, Horde_Nls::getCharset(),
-                                               $this->_params['charset']),
-                        Horde_String::convertCharset($description, Horde_Nls::getCharset(),
-                                               $this->_params['charset']));
+                        Horde_String::convertCharset($name, 'UTF-8',
+                                                     $this->_params['charset']),
+                        Horde_String::convertCharset($description, 'UTF-8',
+                                                     $this->_params['charset']));
         Horde::logMessage(
             sprintf('Whups_Driver_sql::addType(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -136,7 +134,7 @@ class Whups_Driver_sql extends Whups_Driver {
         // Get a new state id.
         $new_id = $this->_write_db->nextId('whups_states');
         if (is_a($new_id, 'PEAR_Error')) {
-            Horde::logMessage($new_id, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($new_id, 'ERR');
             return $new_id;
         }
 
@@ -144,19 +142,18 @@ class Whups_Driver_sql extends Whups_Driver {
             . 'state_description, state_category) VALUES (?, ?, ?, ?, ?)';
         $values = array($new_id,
                         $typeId,
-                        Horde_String::convertCharset($name, Horde_Nls::getCharset(),
-                                               $this->_params['charset']),
-                        Horde_String::convertCharset($description, Horde_Nls::getCharset(),
-                                               $this->_params['charset']),
-                        Horde_String::convertCharset($category, Horde_Nls::getCharset(),
-                                               $this->_params['charset']));
+                        Horde_String::convertCharset($name, 'UTF-8',
+                                                     $this->_params['charset']),
+                        Horde_String::convertCharset($description, 'UTF-8',
+                                                     $this->_params['charset']),
+                        Horde_String::convertCharset($category, 'UTF-8',
+                                                     $this->_params['charset']));
         Horde::logMessage(
             sprintf('Whups_Driver_sql::addState(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -168,7 +165,7 @@ class Whups_Driver_sql extends Whups_Driver {
         // Get a new priority id.
         $new_id = $this->_write_db->nextId('whups_priorities');
         if (is_a($new_id, 'PEAR_Error')) {
-            Horde::logMessage($new_id, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($new_id, 'ERR');
             return $new_id;
         }
 
@@ -176,17 +173,16 @@ class Whups_Driver_sql extends Whups_Driver {
             . 'priority_name, priority_description) VALUES (?, ?, ?, ?)';
         $values = array($new_id,
                         $typeId,
-                        Horde_String::convertCharset($name, Horde_Nls::getCharset(),
-                                               $this->_params['charset']),
-                        Horde_String::convertCharset($description, Horde_Nls::getCharset(),
-                                               $this->_params['charset']));
+                        Horde_String::convertCharset($name, 'UTF-8',
+                                                     $this->_params['charset']),
+                        Horde_String::convertCharset($description, 'UTF-8',
+                                                     $this->_params['charset']));
         Horde::logMessage(
             sprintf('Whups_Driver_sql::addPriority(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -208,7 +204,7 @@ class Whups_Driver_sql extends Whups_Driver {
         // Get a new version id.
         $new_id = $this->_write_db->nextId('whups_versions');
         if (is_a($new_id, 'PEAR_Error')) {
-            Horde::logMessage($new_id, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($new_id, 'ERR');
             return $new_id;
         }
 
@@ -216,18 +212,17 @@ class Whups_Driver_sql extends Whups_Driver {
             . 'version_name, version_description, version_active) VALUES (?, ?, ?, ?, ?)';
         $values = array((int)$new_id,
                         (int)$queueId,
-                        Horde_String::convertCharset($name, Horde_Nls::getCharset(),
+                        Horde_String::convertCharset($name, 'UTF-8',
                                                      $this->_params['charset']),
-                        Horde_String::convertCharset($description, Horde_Nls::getCharset(),
+                        Horde_String::convertCharset($description, 'UTF-8',
                                                      $this->_params['charset']),
                         (int)$active);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::addVersion(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -248,7 +243,7 @@ class Whups_Driver_sql extends Whups_Driver {
         // Get a new reply id.
         $new_id = $this->_write_db->nextId('whups_replies');
         if (is_a($new_id, 'PEAR_Error')) {
-            Horde::logMessage($new_id, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($new_id, 'ERR');
             return $new_id;
         }
 
@@ -256,17 +251,16 @@ class Whups_Driver_sql extends Whups_Driver {
             . 'reply_name, reply_text) VALUES (?, ?, ?, ?)';
         $values = array($type,
                         $new_id,
-                        Horde_String::convertCharset($name, Horde_Nls::getCharset(),
+                        Horde_String::convertCharset($name, 'UTF-8',
                                                $this->_params['charset']),
-                        Horde_String::convertCharset($text, Horde_Nls::getCharset(),
+                        Horde_String::convertCharset($text, 'UTF-8',
                                                $this->_params['charset']));
         Horde::logMessage(
             sprintf('Whups_Driver_sql::addReply(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -288,7 +282,7 @@ class Whups_Driver_sql extends Whups_Driver {
         // Get the new unique ids for this ticket and the initial comment.
         $ticketId = $this->_write_db->nextId('whups_tickets');
         if (is_a($ticketId, 'PEAR_Error')) {
-            Horde::logMessage($ticketId, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($ticketId, 'ERR');
             return $ticketId;
         }
 
@@ -302,8 +296,8 @@ class Whups_Driver_sql extends Whups_Driver {
             . 'ticket_timestamp, ticket_due, version_id)'
             . ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
         $values = array($ticketId,
-                        Horde_String::convertCharset($summary, Horde_Nls::getCharset(),
-                                               $this->_params['charset']),
+                        Horde_String::convertCharset($summary, 'UTF-8',
+                                                     $this->_params['charset']),
                         $requester,
                         $type,
                         $state,
@@ -314,11 +308,10 @@ class Whups_Driver_sql extends Whups_Driver {
                         $version);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::addTicket(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -328,11 +321,10 @@ class Whups_Driver_sql extends Whups_Driver {
             $values = array((string)$requester, $info['user_email']);
             Horde::logMessage(
                 sprintf('Whups_Driver_sql::addTicket(): query="%s"; values="%s"',
-                        $query, implode(',', $values)),
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                        $query, implode(',', $values)), 'DEBUG');
             $result = $this->_write_db->query($query, $values);
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
         }
@@ -341,7 +333,7 @@ class Whups_Driver_sql extends Whups_Driver {
             $ticketId, $comment, $requester,
             isset($info['user_email']) ? $info['user_email'] : null);
         if (is_a($commentId, 'PEAR_Error')) {
-            Horde::logMessage($commentId, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($commentId, 'ERR');
             return $commentId;
         }
 
@@ -355,7 +347,7 @@ class Whups_Driver_sql extends Whups_Driver {
                                               'comment' => $commentId,
                                               'queue' => $queue));
         if (is_a($transaction, 'PEAR_Error')) {
-            Horde::logMessage($transaction, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($transaction, 'ERR');
             return $transaction;
         }
 
@@ -373,7 +365,7 @@ class Whups_Driver_sql extends Whups_Driver {
                                        array('assign' => $owner),
                                        $transaction);
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
         }
@@ -384,7 +376,7 @@ class Whups_Driver_sql extends Whups_Driver {
                                                 $attribute_id,
                                                 $attribute_value);
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
             $this->updateLog(
@@ -401,7 +393,7 @@ class Whups_Driver_sql extends Whups_Driver {
     {
         $id = $this->_write_db->nextId('whups_comments');
         if (is_a($id, 'PEAR_Error')) {
-            Horde::logMessage($id, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($id, 'ERR');
             return $id;
         }
 
@@ -415,10 +407,10 @@ class Whups_Driver_sql extends Whups_Driver {
                                     array((int)$id,
                                           (int)$ticket_id,
                                           $creator,
-                                          Horde_String::convertCharset($comment, Horde_Nls::getCharset(), $this->_params['charset']),
+                                          Horde_String::convertCharset($comment, 'UTF-8', $this->_params['charset']),
                                           time()));
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -428,11 +420,10 @@ class Whups_Driver_sql extends Whups_Driver {
             $values = array((string)$creator, $creator_email);
             Horde::logMessage(
                 sprintf('Whups_Driver_sql::addComment(): query="%s"; values="%s"',
-                        $query, implode(',', $values)),
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                        $query, implode(',', $values)), 'DEBUG');
             $result = $this->_write_db->query($query, $values);
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
         }
@@ -467,7 +458,7 @@ class Whups_Driver_sql extends Whups_Driver {
             }
 
             $query .= $this->_map[$field] . ' = ?, ';
-            $values[] = Horde_String::convertCharset($value, Horde_Nls::getCharset(), $this->_params['charset']);
+            $values[] = Horde_String::convertCharset($value, 'UTF-8', $this->_params['charset']);
         }
 
         /* Don't try to execute an empty query (if we didn't find any updates
@@ -481,8 +472,7 @@ class Whups_Driver_sql extends Whups_Driver {
 
         Horde::logMessage(
             sprintf('Whups_Driver_sql::updateTicket(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         return $this->_write_db->query($query, $values);
     }
 
@@ -500,8 +490,6 @@ class Whups_Driver_sql extends Whups_Driver {
 
     function deleteTicket($info)
     {
-        global $conf;
-
         $id = (int)$info['id'];
 
         $tables = array('whups_ticket_listeners',
@@ -510,17 +498,18 @@ class Whups_Driver_sql extends Whups_Driver {
                         'whups_tickets',
                         'whups_attributes');
 
-        if (!empty($conf['vfs']['type'])) {
-            require_once 'VFS.php';
-            $vfs = &VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs'));
-            if (is_a($vfs, 'PEAR_Error')) {
-                return $vfs;
-            } else {
-                if ($vfs->isFolder(WHUPS_VFS_ATTACH_PATH, $id)) {
-                    $result = $vfs->deleteFolder(WHUPS_VFS_ATTACH_PATH, $id, true);
-                    if (is_a($result, 'PEAR_Error')) {
-                        return $result;
-                    }
+        if (!empty($GLOBALS['conf']['vfs']['type'])) {
+            try {
+                $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
+            } catch (VFS_Exception $e) {
+                return PEAR::raiseError($e->getMessage());
+            }
+
+            if ($vfs->isFolder(WHUPS_VFS_ATTACH_PATH, $id)) {
+                try {
+                    $vfs->deleteFolder(WHUPS_VFS_ATTACH_PATH, $id, true);
+                } catch (VFS_Exception $e) {
+                    return PEAR::raiseError($e->getMessage());
                 }
             }
         }
@@ -531,11 +520,10 @@ class Whups_Driver_sql extends Whups_Driver {
             $values = array($id);
             Horde::logMessage(
                 sprintf('Whups_Driver_sql::deleteTicket(): query="%s"; values="%s"',
-                        $query, implode(',', $values)),
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                        $query, implode(',', $values)), 'DEBUG');
             $result = $this->_write_db->query($query, $values);
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
         }
@@ -564,11 +552,10 @@ class Whups_Driver_sql extends Whups_Driver {
             . "WHERE $where";
 
         Horde::logMessage(
-                sprintf('Whups_Driver_sql::executeQuery(): query="%s"', $sql),
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                sprintf('Whups_Driver_sql::executeQuery(): query="%s"', $sql), 'DEBUG');
         $ids = $this->_db->getAssoc($sql);
         if (is_a($ids, 'PEAR_Error')) {
-            Horde::logMessage($ids, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($ids, 'ERR');
             $GLOBALS['notification']->push($ids, 'horde.error');
             return array();
         }
@@ -1008,12 +995,11 @@ class Whups_Driver_sql extends Whups_Driver {
             . 'GROUP BY ' . $groupby;
         Horde::logMessage(
             sprintf('Whups_Driver_sql::getTicketsByProperties(): query="%s"',
-                    $query),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query), 'DEBUG');
 
         $info = $this->_db->getAll($query, null, DB_FETCHMODE_ASSOC);
         if (is_a($info, 'PEAR_Error')) {
-            Horde::logMessage($info, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($info, 'ERR');
             return $info;
         }
 
@@ -1021,7 +1007,7 @@ class Whups_Driver_sql extends Whups_Driver {
             return array();
         }
 
-        $info = Horde_String::convertCharset($info, $this->_params['charset']);
+        $info = Horde_String::convertCharset($info, $this->_params['charset'], 'UTF-8');
 
         $tickets = array();
         foreach ($info as $ticket) {
@@ -1076,14 +1062,14 @@ class Whups_Driver_sql extends Whups_Driver {
     {
         $result = $this->getTicketsByProperties(array('id' => $ticket));
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         } elseif (!isset($result[0])) {
             return PEAR::raiseError(sprintf(_("Ticket %s was not found."),
                                             $ticket));
         } else {
             $queues = Whups::permissionsFilter(
-                $this->getQueues(), 'queue', Horde_Perms::READ, Horde_Auth::getAuth(),
+                $this->getQueues(), 'queue', Horde_Perms::READ, $GLOBALS['registry']->getAuth(),
                 $result[0]['user_id_requester']);
             if ($checkPerms &&
                   !in_array($result[0]['queue'], array_flip($queues))) {
@@ -1105,12 +1091,11 @@ class Whups_Driver_sql extends Whups_Driver {
             . 'WHERE ticket_id = ?';
         Horde::logMessage(
             sprintf('Whups_Driver_sql::getTicketState(): query="%s"; values="%s"',
-                    $query, $ticket_id),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, $ticket_id), 'DEBUG');
         $state = $this->_db->getRow($query, array($ticket_id),
                                     DB_FETCHMODE_ASSOC);
         if (is_a($state, 'PEAR_Error')) {
-            Horde::logMessage($state, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($state, 'ERR');
         }
         return $state;
     }
@@ -1124,14 +1109,13 @@ class Whups_Driver_sql extends Whups_Driver {
             $values = array($guest_id);
             Horde::logMessage(
                 sprintf('Whups_Driver_sql::getGuestEmail(): query="%s"; values="%s"',
-                        $query, implode(',', $values)),
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                        $query, implode(',', $values)), 'DEBUG');
             $result = $this->_db->getOne($query, $values);
             if (is_a($result, 'PEAR_Error')) {
                 return $result;
             }
             $guestCache[$guest_id] = Horde_String::convertCharset(
-                $result, $this->_params['charset']);
+                $result, $this->_params['charset'], 'UTF-8');
         }
         return $guestCache[$guest_id];
     }
@@ -1170,16 +1154,15 @@ class Whups_Driver_sql extends Whups_Driver {
         $query = "SELECT $fields FROM whups_logs $join WHERE $where "
             . "ORDER BY whups_logs.transaction_id";
         Horde::logMessage(sprintf('Whups_Driver_sql::_getHistory(): query="%s"',
-                                  $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                  $query), 'DEBUG');
 
         $history = $this->_db->getAll($query, null, DB_FETCHMODE_ASSOC);
         if (is_a($history, 'PEAR_Error')) {
-            Horde::logMessage($history, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($history, 'ERR');
             return $history;
         }
 
-        $history = Horde_String::convertCharset($history, $this->_params['charset']);
+        $history = Horde_String::convertCharset($history, $this->_params['charset'], 'UTF-8');
         for ($i = 0, $iMax = count($history); $i < $iMax; ++$i) {
             if ($history[$i]['log_type'] == 'queue') {
                 $queue = $this->getQueue($history[$i]['log_value_num']);
@@ -1188,6 +1171,81 @@ class Whups_Driver_sql extends Whups_Driver {
         }
 
         return $history;
+    }
+
+    /**
+     * Deletes all changes of a transaction.
+     *
+     * @param integer $transaction  A transaction id.
+     */
+    function deleteHistory($transaction)
+    {
+        $transaction = (int)$transaction;
+
+        /* Deleting comments. */
+        $query = 'SELECT log_value FROM whups_logs WHERE log_type = ? AND transaction_id = ?';
+        $values = array('comment', $transaction);
+        Horde::logMessage(
+            sprintf('Whups_Driver_sql::deleteTransaction(): query="%s"; values="%s"',
+                    $query, implode(',', $values)), 'DEBUG');
+        $comments = $this->_db->getCol($query, 'log_value', $values);
+        if (is_a($comments, 'PEAR_Error')) {
+            Horde::logMessage($comments, 'ERR');
+            return $comments;
+        }
+
+        if ($comments) {
+            $query = sprintf('DELETE FROM whups_comments WHERE comment_id IN (%s)',
+                             implode(',', $comments));
+            Horde::logMessage(
+                sprintf('Whups_Driver_sql::deleteTransaction(): query="%s"', $query), 'DEBUG');
+            $result = $this->_write_db->query($query);
+            if (is_a($result, 'PEAR_Error')) {
+                Horde::logMessage($result, 'ERR');
+                return $result;
+            }
+        }
+
+        /* Deleting attachments. */
+        if (isset($GLOBALS['conf']['vfs']['type'])) {
+            $query = 'SELECT ticket_id, log_value FROM whups_logs WHERE log_type = ? AND transaction_id = ?';
+            $values = array('attachment', $transaction);
+            Horde::logMessage(
+                sprintf('Whups_Driver_sql::deleteTransaction(): query="%s"; values="%s"',
+                        $query, implode(',', $values)), 'DEBUG');
+            $attachments = $this->_db->query($query, $values);
+            if (is_a($attachments, 'PEAR_Error')) {
+                Horde::logMessage($attachments, 'ERR');
+                return $attachments;
+            }
+
+            $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
+            while ($attachment = $attachments->fetchRow(DB_FETCHMODE_ASSOC)) {
+                $dir = WHUPS_VFS_ATTACH_PATH . '/' . $attachment['ticket_id'];
+                if ($vfs->exists($dir, $attachment['log_value'])) {
+                    try {
+                        $result = $vfs->deleteFile($dir, $attachment['log_value']);
+                    } catch (VFS_Exception $e) {
+                        return PEAR::raiseError($e->getMessage());
+                    }
+                } else {
+                    Horde::logMessage(sprintf(_("Attachment %s not found."),
+                                              $attachment['log_value']),
+                                      'WARN');
+                }
+            }
+        }
+
+        $query = 'DELETE FROM whups_logs WHERE transaction_id = ?';
+        Horde::logMessage(
+            sprintf('Whups_Driver_sql::deleteTransaction(): query="%s"; values="%s"',
+                    $query, implode(',', $values)),
+           'DEBUG');
+        $result = $this->_write_db->query($query, array($transaction));
+        if (is_a($result, 'PEAR_Error')) {
+            Horde::logMessage($result, 'ERR');
+        }
+        return $result;
     }
 
     /**
@@ -1214,15 +1272,14 @@ class Whups_Driver_sql extends Whups_Driver {
             . 'GROUP BY q.queue_id, q.queue_slug, q.queue_name, '
             . 'q.queue_description ORDER BY q.queue_name';
         Horde::logMessage(
-            sprintf('Whups_Driver_sql::getQueueSummary(): query="%s"', $sql),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            sprintf('Whups_Driver_sql::getQueueSummary(): query="%s"', $sql), 'DEBUG');
         $queues = $this->_db->getAll($sql, null, DB_FETCHMODE_ASSOC);
         if (is_a($queues, 'PEAR_Error')) {
-            Horde::logMessage($queues, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($queues, 'ERR');
             return $queues;
         }
 
-        return Horde_String::convertCharset($queues, $this->_params['charset']);
+        return Horde_String::convertCharset($queues, $this->_params['charset'], 'UTF-8');
     }
 
     function getQueueInternal($queueId)
@@ -1239,17 +1296,16 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array((int)$queueId);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::getQueueInternal(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         $queue = $this->_db->getRow($query, $values, DB_FETCHMODE_ASSOC);
         if (is_a($queue, 'PEAR_Error')) {
-            Horde::logMessage($queue, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($queue, 'ERR');
             return $queue;
         } elseif (!$queue) {
             return false;
         }
 
-        $queue = Horde_String::convertCharset($queue, $this->_params['charset']);
+        $queue = Horde_String::convertCharset($queue, $this->_params['charset'], 'UTF-8');
         $queues[$queueId] = array('id' => (int)$queue['queue_id'],
                                   'name' => $queue['queue_name'],
                                   'description' => $queue['queue_description'],
@@ -1269,17 +1325,16 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array((string)$slug);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::getQueueInternal(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         $queue = $this->_db->getAll($query, $values);
         if (is_a($queue, 'PEAR_Error')) {
-            Horde::logMessage($queue, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($queue, 'ERR');
             return $queue;
         } elseif (!count($queue)) {
             return $queue;
         }
 
-        $queue = Horde_String::convertCharset($queue, $this->_params['charset']);
+        $queue = Horde_String::convertCharset($queue, $this->_params['charset'], 'UTF-8');
         $queue = $queue[0];
         return array('id' => $queue[0],
                      'name' => $queue[1],
@@ -1300,15 +1355,14 @@ class Whups_Driver_sql extends Whups_Driver {
         $query = 'SELECT queue_id, queue_name FROM whups_queues '
             . 'ORDER BY queue_name';
         Horde::logMessage(sprintf('Whups_Driver_sql::getQueues(): query="%s"',
-                                  $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                  $query), 'DEBUG');
         $queues = $this->_db->getAssoc($query);
         if (is_a($queues, 'PEAR_Error')) {
-            Horde::logMessage($queues, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($queues, 'ERR');
             return array();
         }
 
-        $internals = Horde_String::convertCharset($queues, $this->_params['charset']);
+        $internals = Horde_String::convertCharset($queues, $this->_params['charset'], 'UTF-8');
         return $internals;
     }
 
@@ -1330,10 +1384,10 @@ class Whups_Driver_sql extends Whups_Driver {
                      . 'queue_description = ?, queue_versioned = ?, '
                      . 'queue_slug = ?, queue_email = ? WHERE queue_id = ?';
             $values = array(Horde_String::convertCharset($name,
-                                                   Horde_Nls::getCharset(),
+                                                   'UTF-8',
                                                    $this->_params['charset']),
                             Horde_String::convertCharset($description,
-                                                   Horde_Nls::getCharset(),
+                                                   'UTF-8',
                                                    $this->_params['charset']),
                             (empty($versioned) ? 0 : 1),
                             $slug,
@@ -1341,11 +1395,10 @@ class Whups_Driver_sql extends Whups_Driver {
                             $queueId);
             Horde::logMessage(
                 sprintf('Whups_Driver_sql::updateQueue(): query="%s"; values="%s"',
-                        $query, implode(',', $values)),
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                        $query, implode(',', $values)), 'DEBUG');
             $result = $this->_write_db->query($query, $values);
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
         }
@@ -1355,11 +1408,10 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array($queueId);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::updateQueue(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -1371,11 +1423,10 @@ class Whups_Driver_sql extends Whups_Driver {
                 $values = array($queueId, $typeId, $default == $typeId ? 1 : 0);
                 Horde::logMessage(
                     sprintf('Whups_Driver_sql::updateQueue(): query="%s"; values="%s"',
-                            $query, implode(',', $values)),
-                    __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                            $query, implode(',', $values)), 'DEBUG');
                 $result = $this->_write_db->query($query, $values);
                 if (is_a($result, 'PEAR_Error')) {
-                    Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                    Horde::logMessage($result, 'ERR');
                     return $result;
                 }
             }
@@ -1389,11 +1440,10 @@ class Whups_Driver_sql extends Whups_Driver {
         $query = 'SELECT type_id FROM whups_types_queues '
             . 'WHERE type_default = 1 AND queue_id = ?';
         Horde::logMessage(
-            sprintf('Whups_Driver_sql::setDefaultType(): query="%s"', $query),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            sprintf('Whups_Driver_sql::setDefaultType(): query="%s"', $query), 'DEBUG');
         $type = $this->_db->getOne($query, array($queue));
         if (is_a($type, 'PEAR_Error')) {
-            Horde::logMessage($type, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($type, 'ERR');
             return null;
         }
         return $type;
@@ -1412,11 +1462,10 @@ class Whups_Driver_sql extends Whups_Driver {
             $values = array($queueId);
             Horde::logMessage(
                 sprintf('Whups_Driver_sql::deleteQueue(): query="%s"; values="%s"',
-                        $query, implode(',', $values)),
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                        $query, implode(',', $values)), 'DEBUG');
             $result = $this->_write_db->query($query, $values);
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
         }
@@ -1434,11 +1483,10 @@ class Whups_Driver_sql extends Whups_Driver {
         // Delete existing associations.
         $query = 'DELETE FROM whups_types_queues';
         Horde::logMessage(
-            sprintf('Whups_Driver_sql::updateTypesQueues(): query="%s"', $query),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            sprintf('Whups_Driver_sql::updateTypesQueues(): query="%s"', $query), 'DEBUG');
         $result = $this->_write_db->query($query);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             $this->_write_db->rollback();
             $this->_write_db->autoCommit(true);
             return $result;
@@ -1451,11 +1499,10 @@ class Whups_Driver_sql extends Whups_Driver {
             $values = array((int)$pair[0], (int)$pair[1]);
             Horde::logMessage(
                 sprintf('Whups_Driver_sql::updateTypesQueues(): query="%s"; values="%s"',
-                        $query, implode(',', $values)),
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                        $query, implode(',', $values)), 'DEBUG');
             $result = $this->_write_db->query($query, $values);
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 $this->_write_db->rollback();
                 $this->_write_db->autoCommit(true);
                 return $result;
@@ -1464,7 +1511,7 @@ class Whups_Driver_sql extends Whups_Driver {
 
         $result = $this->_write_db->commit();
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             $this->_write_db->rollback();
             $this->_write_db->autoCommit(true);
             return $result;
@@ -1480,11 +1527,10 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array($queueId);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::getQueueUsers(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         $users = $this->_db->getAssoc($query, false, $values);
         if (is_a($users, 'PEAR_Error')) {
-            Horde::logMessage($users, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($users, 'ERR');
             return array();
         }
 
@@ -1502,11 +1548,10 @@ class Whups_Driver_sql extends Whups_Driver {
             $values = array($queueId, $user);
             Horde::logMessage(
             sprintf('Whups_Driver_sql::addQueueUser(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
             $result = $this->_write_db->query($query, $values);
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
         }
@@ -1520,8 +1565,7 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array($queueId, $userId);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::removeQueueUser(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         return $this->_write_db->query($query, $values);
     }
 
@@ -1535,16 +1579,15 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array($typeId);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::getType(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
 
         $type = $this->_db->getAssoc($query, false, $values);
         if (is_a($type, 'PEAR_Error')) {
-            Horde::logMessage($type, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($type, 'ERR');
             return $type;
         }
 
-        $type = Horde_String::convertCharset($type, $this->_params['charset']);
+        $type = Horde_String::convertCharset($type, $this->_params['charset'], 'UTF-8');
         return array('id' => $typeId,
                      'name' => isset($type[$typeId][0]) ? $type[$typeId][0] : '',
                      'description' => isset($type[$typeId][1]) ? $type[$typeId][1] : '');
@@ -1559,15 +1602,14 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array($queueId);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::getTypes(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         $types = $this->_db->getAssoc($query, false, $values);
         if (is_a($types, 'PEAR_Error')) {
-            Horde::logMessage($types, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($types, 'ERR');
             return array();
         }
 
-        return Horde_String::convertCharset($types, $this->_params['charset']);
+        return Horde_String::convertCharset($types, $this->_params['charset'], 'UTF-8');
     }
 
     function getTypeIds($queueId)
@@ -1577,8 +1619,7 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array($queueId);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::getTypeIds(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         return $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
     }
 
@@ -1586,15 +1627,14 @@ class Whups_Driver_sql extends Whups_Driver {
     {
         $query = 'SELECT type_id, type_name FROM whups_types ORDER BY type_name';
         Horde::logMessage(sprintf('Whups_Driver_sql::getAllTypes(): query="%s"',
-                                  $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                  $query), 'DEBUG');
         $types = $this->_db->getAssoc($query);
         if (is_a($types, 'PEAR_Error')) {
-            Horde::logMessage($types, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($types, 'ERR');
             return array();
         }
 
-        return Horde_String::convertCharset($types, $this->_params['charset']);
+        return Horde_String::convertCharset($types, $this->_params['charset'], 'UTF-8');
     }
 
     function getAllTypeInfo()
@@ -1602,16 +1642,15 @@ class Whups_Driver_sql extends Whups_Driver {
         $query = 'SELECT type_id, type_name, type_description '
             . 'FROM whups_types ORDER BY type_id';
         Horde::logMessage(
-            sprintf('Whups_Driver_sql::getAllTypeInfo(): query="%s"', $query),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            sprintf('Whups_Driver_sql::getAllTypeInfo(): query="%s"', $query), 'DEBUG');
 
         $info = $this->_db->getAll($query, null, DB_FETCHMODE_ASSOC);
         if (is_a($info, 'PEAR_Error')) {
-            Horde::logMessage($info, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($info, 'ERR');
             return $info;
         }
 
-        return Horde_String::convertCharset($info, $this->_params['charset']);
+        return Horde_String::convertCharset($info, $this->_params['charset'], 'UTF-8');
     }
 
     function getTypeName($type)
@@ -1620,31 +1659,29 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array($type);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::getTypeName(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
 
         $name = $this->_db->getOne($query, $values);
         if (is_a($name, 'PEAR_Error')) {
-            Horde::logMessage($name, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($name, 'ERR');
             return $name;
         }
 
-        return Horde_String::convertCharset($name, $this->_params['charset']);
+        return Horde_String::convertCharset($name, $this->_params['charset'], 'UTF-8');
     }
 
     function updateType($typeId, $name, $description)
     {
         $query = 'UPDATE whups_types' .
                  ' SET type_name = ?, type_description = ? WHERE type_id = ?';
-        $values = array(Horde_String::convertCharset($name, Horde_Nls::getCharset(),
-                                               $this->_params['charset']),
-                        Horde_String::convertCharset($description, Horde_Nls::getCharset(),
-                                               $this->_params['charset']),
+        $values = array(Horde_String::convertCharset($name, 'UTF-8',
+                                                     $this->_params['charset']),
+                        Horde_String::convertCharset($description, 'UTF-8',
+                                                     $this->_params['charset']),
                         $typeId);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::updateType(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         return $this->_write_db->query($query, $values);
     }
 
@@ -1655,29 +1692,25 @@ class Whups_Driver_sql extends Whups_Driver {
         $query = 'DELETE FROM whups_states WHERE type_id = ?';
         Horde::logMessage(
             sprintf('Whups_Driver_sql::deleteType(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         $this->_write_db->query($query, $values);
 
         $query = 'DELETE FROM whups_priorities WHERE type_id = ?';
         Horde::logMessage(
             sprintf('Whups_Driver_sql::deleteType(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         $this->_write_db->query($query, $values);
 
         $query = 'DELETE FROM whups_attributes_desc WHERE type_id = ?';
         Horde::logMessage(
             sprintf('Whups_Driver_sql::deleteType(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         $this->_write_db->query($query, $values);
 
         $query = 'DELETE FROM whups_types WHERE type_id = ?';
         Horde::logMessage(
             sprintf('Whups_Driver_sql::deleteType(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         return $this->_write_db->query($query, $values);
     }
 
@@ -1723,12 +1756,11 @@ class Whups_Driver_sql extends Whups_Driver {
 
         $query = "SELECT $fields FROM $from$where ORDER BY $order";
         Horde::logMessage(sprintf('Whups_Driver_sql::getStates(): query="%s"',
-                                  $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                                  $query), 'DEBUG');
 
         $states = $this->_db->getAssoc($query);
         if (is_a($states, 'PEAR_Error')) {
-            Horde::logMessage($states, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($states, 'ERR');
             return $states;
         }
 
@@ -1738,7 +1770,7 @@ class Whups_Driver_sql extends Whups_Driver {
             }
         }
 
-        return Horde_String::convertCharset($states, $this->_params['charset']);
+        return Horde_String::convertCharset($states, $this->_params['charset'], 'UTF-8');
     }
 
     function getState($stateId)
@@ -1751,15 +1783,14 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array($stateId);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::getState(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         $state = $this->_db->getAssoc($query, false, $values);
         if (is_a($state, 'PEAR_Error')) {
-            Horde::logMessage($state, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($state, 'ERR');
             return $state;
         }
 
-        $state = Horde_String::convertCharset($state, $this->_params['charset']);
+        $state = Horde_String::convertCharset($state, $this->_params['charset'], 'UTF-8');
         return array(
             'id' => $stateId,
             'name' => isset($state[$stateId][0]) ? $state[$stateId][0] : '',
@@ -1776,33 +1807,31 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array($type);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::getAllStateInfo(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
 
         $info = $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
         if (is_a($info, 'PEAR_Error')) {
-            Horde::logMessage($info, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($info, 'ERR');
             return $info;
         }
 
-        return Horde_String::convertCharset($info, $this->_params['charset']);
+        return Horde_String::convertCharset($info, $this->_params['charset'], 'UTF-8');
     }
 
     function updateState($stateId, $name, $description, $category)
     {
         $query = 'UPDATE whups_states SET state_name = ?, '
             . 'state_description = ?, state_category = ? WHERE state_id = ?';
-        $values = array(Horde_String::convertCharset($name, Horde_Nls::getCharset(),
-                                               $this->_params['charset']),
-                        Horde_String::convertCharset($description, Horde_Nls::getCharset(),
-                                               $this->_params['charset']),
-                        Horde_String::convertCharset($category, Horde_Nls::getCharset(),
-                                               $this->_params['charset']),
+        $values = array(Horde_String::convertCharset($name, 'UTF-8',
+                                                     $this->_params['charset']),
+                        Horde_String::convertCharset($description, 'UTF-8',
+                                                     $this->_params['charset']),
+                        Horde_String::convertCharset($category, 'UTF-8',
+                                                     $this->_params['charset']),
                         $stateId);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::updateState(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         return $this->_write_db->query($query, $values);
     }
 
@@ -1813,8 +1842,7 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array($type);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::getDefaultState(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         return $this->_db->getOne($query, $values);
     }
 
@@ -1824,19 +1852,17 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array($type);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::setDefaultState(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
         $query = 'UPDATE whups_states SET state_default = 1 WHERE state_id = ?';
         $values = array($state);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::setDefaultState(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         return $this->_write_db->query($query, $values);
     }
 
@@ -1846,8 +1872,7 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array((int)$state_id);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::deleteState(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         return $this->_write_db->query($query, $values);
     }
 
@@ -1868,15 +1893,14 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array((int)$queryId);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::getQuery(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         $query = $this->_db->getRow($query, $values, DB_FETCHMODE_ASSOC);
         if (is_a($query, 'PEAR_Error')) {
-            Horde::logMessage($query, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($query, 'ERR');
             return $query;
         }
 
-        return Horde_String::convertCharset($query, $this->_params['charset']);
+        return Horde_String::convertCharset($query, $this->_params['charset'], 'UTF-8');
     }
 
     /**
@@ -1905,12 +1929,11 @@ class Whups_Driver_sql extends Whups_Driver {
             $values = array($query->id, serialize($query->parameters),
                             serialize($query->query));
         }
-        $values = Horde_String::convertCharset($values, Horde_Nls::getCharset(),
-                                         $this->_params['charset']);
+        $values = Horde_String::convertCharset($values, 'UTF-8',
+                                               $this->_params['charset']);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::saveQuery(): query="%s"; values="%s"',
-                    $q, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $q, implode(',', $values)), 'DEBUG');
         return $this->_write_db->query($q, $values);
     }
 
@@ -1925,8 +1948,7 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array((int)$queryId);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::deleteQuery(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         return $this->_write_db->query($query, $values);
     }
 
@@ -1937,8 +1959,7 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array((int)$state_id, $category);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::isCategory(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         return $this->_db->getOne($query, $values);
     }
 
@@ -1949,16 +1970,15 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array((int)$type);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::getAllPriorityInfo(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
 
         $info = $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
         if (is_a($info, 'PEAR_Error')) {
-            Horde::logMessage($info, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($info, 'ERR');
             return $info;
         }
 
-        return Horde_String::convertCharset($info, $this->_params['charset']);
+        return Horde_String::convertCharset($info, $this->_params['charset'], 'UTF-8');
     }
 
     function getPriorities($type = null)
@@ -1978,12 +1998,11 @@ class Whups_Driver_sql extends Whups_Driver {
         $query = "SELECT $fields FROM $from$where ORDER BY $order";
         Horde::logMessage(
             sprintf('SQL Query by Whups_Driver_sql::getPriorities(): query="%s"',
-                    $query),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query), 'DEBUG');
 
         $priorities = $this->_db->getAssoc($query);
         if (is_a($priorities, 'PEAR_Error')) {
-            Horde::logMessage($priorities, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($priorities, 'ERR');
             return $priorities;
         }
 
@@ -1993,7 +2012,7 @@ class Whups_Driver_sql extends Whups_Driver {
             }
         }
 
-        return Horde_String::convertCharset($priorities, $this->_params['charset']);
+        return Horde_String::convertCharset($priorities, $this->_params['charset'], 'UTF-8');
     }
 
     function getPriority($priorityId)
@@ -2006,15 +2025,14 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array((int)$priorityId);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::getPriority(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         $priority = $this->_db->getAssoc($query, false, $values);
         if (is_a($priority, 'PEAR_Error')) {
-            Horde::logMessage($priority, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($priority, 'ERR');
             return $priority;
         }
 
-        $priority = Horde_String::convertCharset($priority, $this->_params['charset']);
+        $priority = Horde_String::convertCharset($priority, $this->_params['charset'], 'UTF-8');
         return array('id' => $priorityId,
                      'name' => isset($priority[$priorityId][0])
                          ? $priority[$priorityId][0] : '',
@@ -2029,15 +2047,14 @@ class Whups_Driver_sql extends Whups_Driver {
         $query = 'UPDATE whups_priorities' .
                  ' SET priority_name = ?, priority_description = ?' .
                  ' WHERE priority_id = ?';
-        $values = array(Horde_String::convertCharset($name, Horde_Nls::getCharset(),
-                                               $this->_params['charset']),
-                        Horde_String::convertCharset($description, Horde_Nls::getCharset(),
-                                               $this->_params['charset']),
+        $values = array(Horde_String::convertCharset($name, 'UTF-8',
+                                                     $this->_params['charset']),
+                        Horde_String::convertCharset($description, 'UTF-8',
+                                                     $this->_params['charset']),
                         $priorityId);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::updatePriority(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         return $this->_write_db->query($query, $values);
     }
 
@@ -2048,8 +2065,7 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array($type);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::getDefaultPriority(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         return $this->_db->getOne($query, $values);
     }
 
@@ -2060,11 +2076,10 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array($type);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::setDefaultPriority(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
         $query = 'UPDATE whups_priorities SET priority_default = 1 '
@@ -2072,8 +2087,7 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array($priority);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::setDefaultPriority(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         return $this->_write_db->query($query, $values);
     }
 
@@ -2083,8 +2097,7 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array($priorityId);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::deletePriority(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         return $this->_write_db->query($query, $values);
     }
 
@@ -2096,16 +2109,15 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array($queue);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::getVersionInfoInternal(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
 
         $info = $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
         if (is_a($info, 'PEAR_Error')) {
-            Horde::logMessage($info, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($info, 'ERR');
             return $info;
         }
 
-        return Horde_String::convertCharset($info, $this->_params['charset']);
+        return Horde_String::convertCharset($info, $this->_params['charset'], 'UTF-8');
     }
 
     function getVersionInternal($versionId)
@@ -2118,15 +2130,14 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array($versionId);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::getVersionInternal(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         $version = $this->_db->getAssoc($query, false, $values);
         if (is_a($version, 'PEAR_Error')) {
-            Horde::logMessage($version, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($version, 'ERR');
             return $version;
         }
 
-        $version = Horde_String::convertCharset($version, $this->_params['charset']);
+        $version = Horde_String::convertCharset($version, $this->_params['charset'], 'UTF-8');
         return array('id' => $versionId,
                      'name' => isset($version[$versionId][0])
                          ? $version[$versionId][0] : '',
@@ -2140,16 +2151,15 @@ class Whups_Driver_sql extends Whups_Driver {
         $query = 'UPDATE whups_versions SET version_name = ?, '
             . 'version_description = ?, version_active = ? '
             . 'WHERE version_id = ?';
-        $values = array(Horde_String::convertCharset($name, Horde_Nls::getCharset(),
-                                               $this->_params['charset']),
-                        Horde_String::convertCharset($description, Horde_Nls::getCharset(),
-                                               $this->_params['charset']),
+        $values = array(Horde_String::convertCharset($name, 'UTF-8',
+                                                     $this->_params['charset']),
+                        Horde_String::convertCharset($description, 'UTF-8',
+                                                     $this->_params['charset']),
                         (int)$active,
                         (int)$versionId);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::updateVersion(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         return $this->_write_db->query($query, $values);
     }
 
@@ -2159,8 +2169,7 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array($versionId);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::deleteVersion(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         return $this->_write_db->query($query, $values);
     }
 
@@ -2178,16 +2187,15 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array((int)$type);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::getReplies(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
 
         $info = $this->_db->getAssoc($query, false, $values, DB_FETCHMODE_ASSOC);
         if (is_a($info, 'PEAR_Error')) {
-            Horde::logMessage($info, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($info, 'ERR');
             return $info;
         }
 
-        return Horde_String::convertCharset($info, $this->_params['charset']);
+        return Horde_String::convertCharset($info, $this->_params['charset'], 'UTF-8');
     }
 
     /**
@@ -2204,15 +2212,14 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array((int)$reply_id);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::getReply(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         $reply = $this->_db->getRow($query, $values, DB_FETCHMODE_ASSOC);
         if (is_a($reply, 'PEAR_Error')) {
-            Horde::logMessage($reply, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($reply, 'ERR');
             return $reply;
         }
 
-        return Horde_String::convertCharset($reply, $this->_params['charset']);
+        return Horde_String::convertCharset($reply, $this->_params['charset'], 'UTF-8');
     }
 
     /**
@@ -2226,18 +2233,17 @@ class Whups_Driver_sql extends Whups_Driver {
     {
         $query = 'UPDATE whups_replies SET reply_name = ?, '
             . 'reply_text = ? WHERE reply_id = ?';
-        $values = array(Horde_String::convertCharset($name, Horde_Nls::getCharset(),
-                                               $this->_params['charset']),
-                        Horde_String::convertCharset($text, Horde_Nls::getCharset(),
-                                               $this->_params['charset']),
+        $values = array(Horde_String::convertCharset($name, 'UTF-8',
+                                                     $this->_params['charset']),
+                        Horde_String::convertCharset($text, 'UTF-8',
+                                                     $this->_params['charset']),
                         $reply);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::updateReply(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
         }
         return $result;
     }
@@ -2253,11 +2259,10 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array((int)$reply);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::deleteReply(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
         return parent::deleteReply($reply);
@@ -2270,12 +2275,11 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array($ticket, $user);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::addListener(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
 
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -2289,12 +2293,11 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array($ticket, $user);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::deleteListener(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
 
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -2310,16 +2313,15 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array($ticket);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::getListeners(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         $users = $this->_db->getCol($query, 0, $values);
         if (is_a($users, 'PEAR_Error')) {
-            Horde::logMessage($users, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($users, 'ERR');
             return array();
         }
         $tinfo = $this->getTicketDetails($ticket);
         if (is_a($tinfo, 'PEAR_Error')) {
-            Horde::logMessage($tinfo, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($tinfo, 'ERR');
             return array();
         }
         $requester = $tinfo['user_id_requester'];
@@ -2364,7 +2366,7 @@ class Whups_Driver_sql extends Whups_Driver {
         // FIXME: This assumes that $type_id is a valid type id.
         $new_id = $this->_write_db->nextId('whups_attributes_desc');
         if (is_a($new_id, 'PEAR_Error')) {
-            Horde::logMessage($new_id, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($new_id, 'ERR');
             return $new_id;
         }
 
@@ -2374,23 +2376,22 @@ class Whups_Driver_sql extends Whups_Driver {
             . ' VALUES (?, ?, ?, ?, ?, ?, ?)';
         $values = array($new_id,
                         $type_id,
-                        Horde_String::convertCharset($name, Horde_Nls::getCharset(),
-                                               $this->_params['charset']),
-                        Horde_String::convertCharset($desc, Horde_Nls::getCharset(),
-                                               $this->_params['charset']),
+                        Horde_String::convertCharset($name, 'UTF-8',
+                                                     $this->_params['charset']),
+                        Horde_String::convertCharset($desc, 'UTF-8',
+                                                     $this->_params['charset']),
                         $type,
                         serialize(
-                            Horde_String::convertCharset($params, Horde_Nls::getCharset(),
-                                                   $this->_params['charset'])),
+                            Horde_String::convertCharset($params, 'UTF-8',
+                                                         $this->_params['charset'])),
                         (int)($required == 'on'));
 
         Horde::logMessage(
             sprintf('Whups_Driver_sql::addAttributeDesc(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -2404,21 +2405,20 @@ class Whups_Driver_sql extends Whups_Driver {
             . 'SET attribute_name = ?, attribute_description = ?, '
             . 'attribute_type = ?, attribute_params = ?, '
             . 'attribute_required = ? WHERE attribute_id = ?';
-        $values = array(Horde_String::convertCharset($newname, Horde_Nls::getCharset(),
-                                               $this->_params['charset']),
-                        Horde_String::convertCharset($newdesc, Horde_Nls::getCharset(),
-                                               $this->_params['charset']),
+        $values = array(Horde_String::convertCharset($newname, 'UTF-8',
+                                                     $this->_params['charset']),
+                        Horde_String::convertCharset($newdesc, 'UTF-8',
+                                                     $this->_params['charset']),
                         $newtype,
                         serialize(
                             Horde_String::convertCharset($newparams,
-                                                   Horde_Nls::getCharset(),
-                                                   $this->_params['charset'])),
+                                                         'UTF-8',
+                                                         $this->_params['charset'])),
                         (int)($newrequired == 'on'),
                         $attribute_id);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::updateAttributeDesc(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         return $this->_write_db->query($query, $values);
     }
 
@@ -2431,15 +2431,13 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array($attribute_id);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::deleteAttributeDesc(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         $this->_write_db->query($query, $values);
         $query = 'DELETE FROM whups_attributes WHERE attribute_id = ?';
         $values = array($attribute_id);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::deleteAttributeDesc(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         $this->_write_db->query($query, $values);
         $this->_write_db->commit();
         $this->_write_db->autoCommit(true);
@@ -2452,17 +2450,16 @@ class Whups_Driver_sql extends Whups_Driver {
         $query = 'SELECT attribute_id, attribute_name, attribute_description, '
             . 'type_id FROM whups_attributes_desc';
         Horde::logMessage(
-            sprintf('Whups_Driver_sql::getAllAttributes(): query="%s"', $query),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            sprintf('Whups_Driver_sql::getAllAttributes(): query="%s"', $query), 'DEBUG');
 
         $attributes = $this->_db->getAssoc($query, false, array(),
                                            DB_FETCHMODE_ASSOC);
         if (is_a($attributes, 'PEAR_Error')) {
-            Horde::logMessage($attributes, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($attributes, 'ERR');
             return $attributes;
         }
 
-        return Horde_String::convertCharset($attributes, $this->_params['charset']);
+        return Horde_String::convertCharset($attributes, $this->_params['charset'], 'UTF-8');
     }
 
     function getAttributeDesc($attribute_id)
@@ -2477,25 +2474,24 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array($attribute_id);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::getAttributeDesc(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         $attribute = $this->_db->getRow($query, $values, DB_FETCHMODE_ASSOC);
         if (is_a($attribute, 'PEAR_Error')) {
-            Horde::logMessage($attribute, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($attribute, 'ERR');
             return $attribute;
         }
 
         return array(
             'id' => $attribute_id,
             'attribute_name' => Horde_String::convertCharset(
-                $attribute['attribute_name'], $this->_params['charset']),
+                $attribute['attribute_name'], $this->_params['charset'], 'UTF-8'),
             'attribute_description' => Horde_String::convertCharset(
-                $attribute['attribute_description'], $this->_params['charset']),
+                $attribute['attribute_description'], $this->_params['charset'], 'UTF-8'),
             'attribute_type' => empty($attribute['attribute_type'])
                 ? 'text' : $attribute['attribute_type'],
             'attribute_params' => Horde_String::convertCharset(
                 @unserialize($attribute['attribute_params']),
-                $this->_params['charset']),
+                $this->_params['charset'], 'UTF-8'),
             'attribute_required' => (bool)$attribute['attribute_required']);
     }
 
@@ -2506,16 +2502,15 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array($attribute_id);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::getAttributeName(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
 
         $name = $this->_db->getOne($query, $values);
         if (is_a($name, 'PEAR_Error')) {
-            Horde::logMessage($name, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($name, 'ERR');
             return $name;
         }
 
-        return Horde_String::convertCharset($name, $this->_params['charset']);
+        return Horde_String::convertCharset($name, $this->_params['charset'], 'UTF-8');
     }
 
     function _getAttributesForType($type = null, $raw = false)
@@ -2537,13 +2532,12 @@ class Whups_Driver_sql extends Whups_Driver {
         $query = "SELECT $fields FROM $from$where ORDER BY $order";
         Horde::logMessage(
             sprintf('Whups_Driver_sql::getAttributesForType(): query="%s"',
-                    $query),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query), 'DEBUG');
 
         $attributes = $this->_db->getAssoc($query, false, null,
                                            DB_FETCHMODE_ASSOC);
         if (is_a($attributes, 'PEAR_Error')) {
-            Horde::logMessage($attributes, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($attributes, 'ERR');
             return $attributes;
         }
 
@@ -2554,15 +2548,15 @@ class Whups_Driver_sql extends Whups_Driver {
                     . ' (' . $attribute['type_name'] . ')';
             }
             $attributes[$id]['attribute_name'] = Horde_String::convertCharset(
-                $attribute['attribute_name'], $this->_params['charset']);
+                $attribute['attribute_name'], $this->_params['charset'], 'UTF-8');
             $attributes[$id]['attribute_description'] = Horde_String::convertCharset(
-                $attribute['attribute_description'], $this->_params['charset']);
+                $attribute['attribute_description'], $this->_params['charset'], 'UTF-8');
             $attributes[$id]['attribute_type'] =
                 empty($attribute['attribute_type'])
                 ? 'text' : $attribute['attribute_type'];
             $attributes[$id]['attribute_params'] = Horde_String::convertCharset(
                 @unserialize($attribute['attribute_params']),
-                $this->_params['charset']);
+                $this->_params['charset'], 'UTF-8');
             $attributes[$id]['attribute_required'] =
                 (bool)$attribute['attribute_required'];
         }
@@ -2580,16 +2574,15 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array((int)$type_id);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::getAttributeNamesForType(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
 
         $names = $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
         if (is_a($names, 'PEAR_Error')) {
-            Horde::logMessage($names, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($names, 'ERR');
             return $names;
         }
 
-        return Horde_String::convertCharset($names, $this->_params['charset']);
+        return Horde_String::convertCharset($names, $this->_params['charset'], 'UTF-8');
     }
 
     function getAttributeInfoForType($type_id)
@@ -2600,23 +2593,22 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array((int)$type_id);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::getAttributeNamesForType(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
 
         $info = $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
         if (is_a($info, 'PEAR_Error')) {
-            Horde::logMessage($info, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($info, 'ERR');
             return $info;
         }
 
-        return Horde_String::convertCharset($info, $this->_params['charset']);
+        return Horde_String::convertCharset($info, $this->_params['charset'], 'UTF-8');
     }
 
     function _setAttributeValue($ticket_id, $attribute_id, $attribute_value)
     {
         $db_attribute_value = Horde_String::convertCharset((string)$attribute_value,
-                                                     Horde_Nls::getCharset(),
-                                                     $this->_params['charset']);
+                                                           'UTF-8',
+                                                           $this->_params['charset']);
 
         $this->_write_db->autoCommit(false);
         $query = 'DELETE FROM whups_attributes '
@@ -2624,8 +2616,7 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array($ticket_id, $attribute_id);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::_setAttributeValue(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
         $this->_write_db->query($query, $values);
 
         if (!empty($attribute_value)) {
@@ -2635,11 +2626,10 @@ class Whups_Driver_sql extends Whups_Driver {
             $values = array($ticket_id, $attribute_id, $db_attribute_value);
             Horde::logMessage(
                 sprintf('Whups_Driver_sql::_setAttributeValue(): query="%s"; values="%s"',
-                        $query, implode(',', $values)),
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                        $query, implode(',', $values)), 'DEBUG');
             $inserted = $this->_write_db->query($query, $values);
             if (is_a($inserted, 'PEAR_Error')) {
-                Horde::logMessage($inserted, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($inserted, 'ERR');
                 $this->_write_db->rollback();
                 $this->_write_db->autoCommit(true);
                 return $inserted;
@@ -2663,8 +2653,7 @@ class Whups_Driver_sql extends Whups_Driver {
                 . 'FROM whups_attributes WHERE ticket_id IN ('
                 . str_repeat('?, ', count($ticket_id) - 1) . '?)';
             Horde::logMessage(
-                sprintf('Whups_Driver_sql::getAttributes(): query="%s"', $query),
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                sprintf('Whups_Driver_sql::getAttributes(): query="%s"', $query), 'DEBUG');
             $attributes = $this->_db->getAll($query, $ticket_id,
                                              DB_FETCHMODE_ASSOC);
         } else {
@@ -2673,18 +2662,17 @@ class Whups_Driver_sql extends Whups_Driver {
             $values = array((int)$ticket_id);
             Horde::logMessage(
                 sprintf('Whups_Driver_sql::getTicketAttributes(): query="%s"; values="%s"',
-                        $query, implode(',', $values)),
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                        $query, implode(',', $values)), 'DEBUG');
 
             $attributes = $this->_db->getAssoc($query, false, $values);
         }
 
         if (is_a($attributes, 'PEAR_Error')) {
-            Horde::logMessage($attributes, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($attributes, 'ERR');
             return $attributes;
         }
 
-        return Horde_String::convertCharset($attributes, $this->_params['charset']);
+        return Horde_String::convertCharset($attributes, $this->_params['charset'], 'UTF-8');
     }
 
     function getTicketAttributesWithNames($ticket_id)
@@ -2704,8 +2692,7 @@ class Whups_Driver_sql extends Whups_Driver {
                 . str_repeat('?, ', count($ticket_id) - 1) . '?)';
             Horde::logMessage(
                 sprintf('SQL Query by Whups_Driver_sql::getAttributes(): query="%s"',
-                        $query),
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                        $query), 'DEBUG');
             $attributes = $this->_db->getAll($query, $ticket_id,
                                              DB_FETCHMODE_ASSOC);
         } else {
@@ -2716,17 +2703,16 @@ class Whups_Driver_sql extends Whups_Driver {
             $values = array((int)$ticket_id);
             Horde::logMessage(
                 sprintf('Whups_Driver_sql::getTicketAttributesWithNames(): query="%s"; values="%s"',
-                        $query, implode(',', $values)),
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                        $query, implode(',', $values)), 'DEBUG');
 
             $attributes = $this->_db->getAssoc($query, false, $values);
         }
         if (is_a($attributes, 'PEAR_Error')) {
-            Horde::logMessage($attributes, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($attributes, 'ERR');
             return $attributes;
         }
 
-        return Horde_String::convertCharset($attributes, $this->_params['charset']);
+        return Horde_String::convertCharset($attributes, $this->_params['charset'], 'UTF-8');
     }
 
     function _getAllTicketAttributesWithNames($ticket_id)
@@ -2742,26 +2728,25 @@ class Whups_Driver_sql extends Whups_Driver {
         $values = array($ticket_id, $ticket_id);
         Horde::logMessage(
             sprintf('Whups_Driver_sql::getAllTicketAttributesWithNames(): query="%s"; values="%s"',
-                    $query, implode(',', $values)),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $query, implode(',', $values)), 'DEBUG');
 
         $attributes = $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
         if (is_a($attributes, 'PEAR_Error')) {
-            Horde::logMessage($attributes, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($attributes, 'ERR');
             return $attributes;
         }
 
         foreach ($attributes as $id => $attribute) {
             $attributes[$id]['attribute_name'] = Horde_String::convertCharset(
-                $attribute['attribute_name'], $this->_params['charset']);
+                $attribute['attribute_name'], $this->_params['charset'], 'UTF-8');
             $attributes[$id]['attribute_description'] = Horde_String::convertCharset(
-                $attribute['attribute_description'], $this->_params['charset']);
+                $attribute['attribute_description'], $this->_params['charset'], 'UTF-8');
             $attributes[$id]['attribute_type'] =
                 empty($attribute['attribute_type'])
                 ? 'text' : $attribute['attribute_type'];
             $attributes[$id]['attribute_params'] = Horde_String::convertCharset(
                 @unserialize($attribute['attribute_params']),
-                $this->_params['charset']);
+                $this->_params['charset'], 'UTF-8');
             $attributes[$id]['attribute_required'] =
                 (bool)$attribute['attribute_required'];
         }
@@ -2784,8 +2769,7 @@ class Whups_Driver_sql extends Whups_Driver {
             $values = $ticketId;
             Horde::logMessage(
                 sprintf('Whups_Driver_sql::getOwners(): query="%s"; values="%s"',
-                        $query, implode(',', $values)),
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                        $query, implode(',', $values)), 'DEBUG');
             return $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
         } else {
             $query = 'SELECT ticket_owner, ticket_owner '
@@ -2793,8 +2777,7 @@ class Whups_Driver_sql extends Whups_Driver {
             $values = array((int)$ticketId);
             Horde::logMessage(
                 sprintf('Whups_Driver_sql::getOwners(): query="%s"; values="%s"',
-                        $query, implode(',', $values)),
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                        $query, implode(',', $values)), 'DEBUG');
             return $this->_db->getAssoc($query, false, $values);
         }
     }
@@ -2825,16 +2808,15 @@ class Whups_Driver_sql extends Whups_Driver {
                 time(),
                 (string)$user,
                 $type,
-                Horde_String::convertCharset((string)$value, Horde_Nls::getCharset(),
-                                       $this->_params['charset']),
+                Horde_String::convertCharset((string)$value, 'UTF-8',
+                                             $this->_params['charset']),
                 (int)$value);
             Horde::logMessage(
                 sprintf('Whups_Driver_sql::updateLog(): query="%s"; values="%s"',
-                        $query, implode(',', $values)),
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                        $query, implode(',', $values)), 'DEBUG');
             $result = $this->_write_db->query($query, $values);
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
         }
@@ -2862,11 +2844,10 @@ class Whups_Driver_sql extends Whups_Driver {
             $values = array((string)$creator, $creator_email);
             Horde::logMessage(
                 sprintf('Whups_Driver_sql::newTransaction(): query="%s"; values="%s"',
-                        $query, implode(',', $values)),
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                        $query, implode(',', $values)), 'DEBUG');
             $result = $this->_write_db->query($query, $values);
             if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
         }
@@ -2888,58 +2869,8 @@ class Whups_Driver_sql extends Whups_Driver {
      */
     function initialise()
     {
-        Horde::assertDriverConfig($this->_params, 'tickets',
-            array('phptype'));
-
-        if (!isset($this->_params['database'])) {
-            $this->_params['database'] = '';
-        }
-        if (!isset($this->_params['username'])) {
-            $this->_params['username'] = '';
-        }
-        if (!isset($this->_params['hostspec'])) {
-            $this->_params['hostspec'] = '';
-        }
-
-        /* Connect to the SQL server using the supplied parameters. */
-        require_once 'DB.php';
-        $this->_write_db = &DB::connect($this->_params,
-                                        array('persistent' => !empty($this->_params['persistent'])));
-        if (is_a($this->_write_db, 'PEAR_Error')) {
-            Horde::fatal($this->_write_db, __FILE__, __LINE__);
-        }
-
-        // Set DB portability options.
-        switch ($this->_write_db->phptype) {
-        case 'mssql':
-            $this->_write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-            break;
-        default:
-            $this->_write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-        }
-
-        /* Check if we need to set up the read DB connection
-         * seperately. */
-        if (!empty($this->_params['splitread'])) {
-            $params = array_merge($this->_params, $this->_params['read']);
-            $this->_db = &DB::connect($params,
-                                      array('persistent' => !empty($params['persistent'])));
-            if (is_a($this->_db, 'PEAR_Error')) {
-                Horde::fatal($this->_db, __FILE__, __LINE__);
-            }
-
-            // Set DB portability options.
-            switch ($this->_db->phptype) {
-            case 'mssql':
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-                break;
-            default:
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-            }
-        } else {
-            /* Default to the same DB handle for reads. */
-            $this->_db =& $this->_write_db;
-        }
+        $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('read', 'whups', 'tickets');
+        $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('rw', 'whups', 'tickets');
 
         return true;
     }

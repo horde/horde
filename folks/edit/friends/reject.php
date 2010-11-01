@@ -14,37 +14,34 @@
 require_once dirname(__FILE__) . '/../../lib/base.php';
 require_once FOLKS_BASE . '/lib/Friends.php';
 
-if (!Horde_Auth::isAuthenticated()) {
-    Horde_Auth::authenticateFailure('folks');
+if (!$registry->isAuthenticated()) {
+    $registry->authenticateFailure('folks');
 }
 
 $user = Horde_Util::getGet('user');
 if (empty($user)) {
     $notification->push(_("You must supply a username."));
-    header('Location: ' . Horde::applicationUrl('edit/friends/index.php'));
-    exit;
+    Horde::url('edit/friends/index.php')->redirect();
 }
 
 $friends = Folks_Friends::singleton(null, array('user' => $user));
-$result = $friends->removeFriend(Horde_Auth::getAuth());
+$result = $friends->removeFriend($GLOBALS['registry']->getAuth());
 if ($result instanceof PEAR_Error) {
     $notification->push($result);
-    header('Location: ' . Horde::applicationUrl('edit/friends/index.php'));
-    exit;
+    Horde::url('edit/friends/index.php')->redirect();
 }
 
 $notification->push(sprintf(_("User \"%s\" was rejected as a friend."), $user), 'horde.success');
 
 $title = sprintf(_("%s rejected you as a friend on %s"),
-                    Horde_Auth::getAuth(),
+                    $GLOBALS['registry']->getAuth(),
                     $registry->get('name', 'horde'));
 
 $body = sprintf(_("User %s rejected you as a friend on %s.. \nTo see to his profile, go to: %s \n"),
-                Horde_Auth::getAuth(),
+                $GLOBALS['registry']->getAuth(),
                 $registry->get('name', 'horde'),
-                Folks::getUrlFor('user', Horde_Auth::getAuth(), true, -1));
+                Folks::getUrlFor('user', $GLOBALS['registry']->getAuth(), true, -1));
 
 $friends->sendNotification($user, $title, $body);
 
-header('Location: ' . Horde::applicationUrl('edit/friends/index.php'));
-exit;
+Horde::url('edit/friends/index.php')->redirect();

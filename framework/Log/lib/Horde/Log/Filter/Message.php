@@ -6,25 +6,27 @@
  * (http://framework.zend.com).  Both that package and this
  * one were written by Mike Naberezny and Chuck Hagenbuch.
  *
- * @category Horde
- * @package  Horde_Log
+ * @author     Mike Naberezny <mike@maintainable.com>
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @category   Horde
+ * @license    http://opensource.org/licenses/bsd-license.php BSD
+ * @package    Log
  * @subpackage Filters
- * @author   Mike Naberezny <mike@maintainable.com>
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
  */
 
 /**
- * @category Horde
- * @package  Horde_Log
+ * @author     Mike Naberezny <mike@maintainable.com>
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @category   Horde
+ * @license    http://opensource.org/licenses/bsd-license.php BSD
+ * @package    Log
  * @subpackage Filters
- * @author   Mike Naberezny <mike@maintainable.com>
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
  */
-class Horde_Log_Filter_Message implements Horde_Log_Filter_Interface
+class Horde_Log_Filter_Message implements Horde_Log_Filter
 {
     /**
+     * Filter regex.
+     *
      * @var string
      */
     protected $_regexp;
@@ -32,26 +34,30 @@ class Horde_Log_Filter_Message implements Horde_Log_Filter_Interface
     /**
      * Filter out any log messages not matching $regexp.
      *
-     * @param  string  $regexp     Regular expression to test the log message
-     * @throws Horde_Log_Exception  Invalid regular expression
+     * @param string $regexp  Regular expression to test the log message.
+     *
+     * @throws InvalidArgumentException  Invalid regular expression.
      */
     public function __construct($regexp)
     {
         if (@preg_match($regexp, '') === false) {
-            throw new Horde_Log_Exception("Invalid regular expression '$regexp'");
+            throw new InvalidArgumentException('Invalid regular expression ' . $regexp);
         }
+
         $this->_regexp = $regexp;
     }
 
     /**
-     * Returns TRUE to accept the message, FALSE to block it.
+     * Returns Horde_Log_Filter::ACCEPT to accept the message,
+     * Horde_Log_Filter::IGNORE to ignore it.
      *
-     * @param  array    $event    Log event
-     * @return boolean            accepted?
+     * @param array $event  Log event.
+     *
+     * @return boolean  Accepted?
      */
     public function accept($event)
     {
-        return preg_match($this->_regexp, $event['message']) > 0;
+        return (preg_match($this->_regexp, $event['message']) > 0);
     }
 
 }

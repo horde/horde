@@ -4,14 +4,14 @@
  */
 
 $prefGroups['display'] = array(
-    'column' => _("Options"),
+    'column' => _("Preferences"),
     'label' => _("Display Preferences"),
     'desc' => _("Set default display parameters."),
     'members' => array('domain_groups', 'domains_perpage')
 );
 
 $prefGroups['defaults'] = array(
-    'column' => _("Options"),
+    'column' => _("Preferences"),
     'label' => _("Record Defaults"),
     'desc' => _("Set default record parameters."),
     'members' => array('default_ttl')
@@ -21,7 +21,6 @@ $prefGroups['defaults'] = array(
 $_prefs['domain_groups'] = array(
     'value' => '',
     'locked' => false,
-    'shared' => false,
     'type' => 'implicit'
 );
 
@@ -29,7 +28,6 @@ $_prefs['domain_groups'] = array(
 $_prefs['domains_perpage'] = array(
     'value' => 20,
     'locked' => false,
-    'shared' => false,
     'type' => 'number',
     'desc' => _("How many domain to display per page.")
 );
@@ -37,7 +35,6 @@ $_prefs['domains_perpage'] = array(
 $_prefs['default_ttl'] = array(
     'value' => '86400',
     'locked' => false,
-    'shared' => false,
     'type' => 'number',
     'desc' => _("Default Time-To-Live for new records.")
 );

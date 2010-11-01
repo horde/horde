@@ -1307,4 +1307,240 @@
 
  </table>
 
+ <table>
+
+  <name>horde_activesync_state</name>
+
+  <declaration>
+
+   <field>
+    <name>sync_time</name>
+    <type>integer</type>
+    <notnull>false</notnull>
+    <default>0</default>
+   </field>
+
+   <field>
+    <name>sync_key</name>
+    <type>text</type>
+    <length>255</length>
+   </field>
+
+   <field>
+    <name>sync_data</name>
+    <type>clob</type>
+   </field>
+
+   <field>
+    <name>sync_devid</name>
+    <type>text</type>
+    <length>255</length>
+    <notnull>false</notnull>
+   </field>
+
+   <field>
+    <name>sync_folderid</name>
+    <type>text</type>
+    <length>255</length>
+    <notnull>false</notnull>
+   </field>
+
+   <field>
+    <name>sync_user</name>
+    <type>text</type>
+    <length>255</length>
+    <notnull>false</notnull>
+   </field>
+
+   <index>
+    <name>activesync_state_primary</name>
+    <primary>true</primary>
+    <field>
+     <name>sync_key</name>
+    </field>
+   </index>
+
+   <index>
+    <name>activesync_state_folder_idx</name>
+    <field>
+     <name>sync_folderid</name>
+    </field>
+   </index>
+
+   <index>
+    <name>activesync_state_devid_idx</name>
+    <field>
+     <name>sync_devid</name>
+    </field>
+   </index>
+
+  </declaration>
+
+ </table>
+
+  <table>
+
+  <name>horde_activesync_map</name>
+
+  <declaration>
+
+   <field>
+    <name>message_uid</name>
+    <type>text</type>
+    <length>255</length>
+   </field>
+
+   <field>
+    <name>sync_modtime</name>
+    <type>integer</type>
+    <notnull>false</notnull>
+   </field>
+
+   <field>
+    <name>sync_key</name>
+    <type>text</type>
+    <length>255</length>
+   </field>
+
+   <field>
+    <name>sync_devid</name>
+    <type>text</type>
+    <length>255</length>
+    <notnull>false</notnull>
+   </field>
+
+   <field>
+    <name>sync_folderid</name>
+    <type>text</type>
+    <length>255</length>
+    <notnull>false</notnull>
+   </field>
+
+   <field>
+    <name>sync_user</name>
+    <type>text</type>
+    <length>255</length>
+    <notnull>false</notnull>
+   </field>
+
+   <index>
+    <name>activesync_map_message_idx</name>
+    <field>
+     <name>message_uid</name>
+    </field>
+   </index>
+
+   <index>
+    <name>activesync_map_devid_idx</name>
+    <field>
+     <name>sync_devid</name>
+    </field>
+   </index>
+
+   <index>
+    <name>activesync_map_user_idx</name>
+    <field>
+     <name>sync_user</name>
+    </field>
+   </index>
+
+  </declaration>
+
+ </table>
+
+  <table>
+
+  <name>horde_activesync_device</name>
+
+  <declaration>
+
+   <field>
+    <name>device_id</name>
+    <type>text</type>
+    <length>255</length>
+   </field>
+
+   <field>
+    <name>device_type</name>
+    <type>text</type>
+    <length>255</length>
+   </field>
+
+   <field>
+    <name>device_agent</name>
+    <type>text</type>
+    <length>255</length>
+   </field>
+
+   <field>
+    <name>device_supported</name>
+    <type>clob</type>
+    <notnull>false</notnull>
+   </field>
+
+   <field>
+    <name>device_policykey</name>
+    <type>integer</type>
+    <default>0</default>
+   </field>
+
+   <field>
+    <name>device_rwstatus</name>
+    <type>integer</type>
+    <notnull>false</notnull>
+   </field>
+
+   <index>
+    <name>activesync_device_primary</name>
+    <primary>true</primary>
+    <field>
+     <name>device_id</name>
+    </field>
+   </index>
+
+  </declaration>
+
+ </table>
+
+ <table>
+
+  <name>horde_activesync_device_users</name>
+
+  <declaration>
+
+   <field>
+    <name>device_id</name>
+    <type>text</type>
+    <length>255</length>
+   </field>
+
+   <field>
+    <name>device_ping</name>
+    <type>clob</type>
+    <notnull>false</notnull>
+   </field>
+
+   <field>
+    <name>device_folders</name>
+    <type>clob</type>
+    <notnull>false</notnull>
+   </field>
+
+   <field>
+    <name>device_user</name>
+    <type>text</type>
+    <length>255</length>
+    <notnull>false</notnull>
+   </field>
+
+   <index>
+    <name>activesync_device_user_idx</name>
+    <field>
+     <name>device_user</name>
+    </field>
+   </index>
+
+  </declaration>
+
+ </table>
 </database>

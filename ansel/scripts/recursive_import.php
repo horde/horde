@@ -1,4 +1,4 @@
-#!/usr/bin/php -q
+#!/usr/bin/env php
 <?php
 /**
 * This script interfaces with Ansel via the command-line
@@ -9,28 +9,14 @@
 * @author Vijay Mahrra <webmaster@stain.net>
 */
 
-// Do CLI checks and environment setup first.
-require_once dirname(__FILE__) . '/../../lib/base.load.php';
-require_once HORDE_BASE . '/lib/core.php';
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment.
-Horde_Cli::init();
-$cli = Horde_Cli::singleton();
-
-// Load Ansel.
-$ansel_authentication = 'none';
-require_once ANSEL_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/../../lib/Application.php';
+Horde_Registry::appInit('ansel', array('authentication' => 'none', 'cli' => true));
 
 // We accept the user name on the command-line.
-$ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'hu:p:lc:g:a:d:k',
-                              array('help', 'username=', 'password=', 'dir=', 'keep'));
+$ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'hu:p:lc:g:a:d:o:k',
+                              array('help', 'username=', 'password=', 'dir=', 'order=', 'keep'));
 
-if (is_a($ret, 'PEAR_Error')) {
+if ($ret instanceof PEAR_Error) {
     $cli->fatal($ret->getMessage());
 }
 
@@ -62,6 +48,11 @@ foreach ($opts as $opt) {
         $dir = $optValue;
         break;
 
+    case 'o':
+    case '--order':
+        $order = $optValue;
+        break;
+
     case 'h':
     case '--help':
         showHelp();
@@ -75,7 +66,7 @@ foreach ($opts as $opt) {
 
 // Login to horde if username & password are set.
 if (!empty($username) && !empty($password)) {
-    $auth = Horde_Auth::singleton($conf['auth']['driver']);
+    $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
     if (!$auth->authenticate($username, array('password' => $password))) {
         $cli->fatal(_("Username or password is incorrect."));
     } else {
@@ -89,13 +80,15 @@ if (empty($dir)) {
     $cli->fatal(_("You must specify a valid directory."));
 }
 
-Horde_Nls::setCharset('utf-8');
+if (!empty($order) && $order != 'date' && $order != 'name' && $order != 'random') {
+    showHelp();
+    exit;
+}
+
 $gallery_id = processDirectory($dir);
-if (!$keepEmpties && !is_a($gallery_id, 'PEAR_Error')) {
-    $gallery = $ansel_storage->getGallery($gallery_id);
-    if (!is_a($gallery, 'PEAR_Error')) {
-        emptyGalleryCheck($gallery);
-    }
+if (!$keepEmpties) {
+    $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($gallery_id);
+    emptyGalleryCheck($gallery);
 }
 exit;
 
@@ -107,25 +100,66 @@ exit;
 function emptyGalleryCheck($gallery)
 {
     if ($gallery->hasSubGalleries()) {
-        $children = $GLOBALS['ansel_storage']->listGalleries(Horde_Perms::SHOW, null, $gallery, false);
+        $children = $GLOBALS['injector']
+            ->getInstance('Ansel_Injector_Factory_Storage')
+            ->create()
+            ->listGalleries(array('parent' => $gallery));
         foreach ($children as $child) {
             // First check all children to see if they are empty...
             emptyGalleryCheck($child);
             if (!$child->countImages() && !$child->hasSubGalleries()) {
-                $result = $GLOBALS['ansel_storage']->removeGallery($child);
+                $result = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->removeGallery($child);
                 $GLOBALS['cli']->message(sprintf(_("Deleting empty gallery, \"%s\""), $child->get('name')), 'cli.success');
             }
 
             // Refresh the gallery values since we mucked around a bit with it
-            $gallery = $GLOBALS['ansel_storage']->getGallery($gallery->getId());
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($gallery->getId());
             // Now that any empty children are removed, see if we are empty
             if (!$gallery->countImages() && !$gallery->hasSubGalleries()) {
-                $result = $GLOBALS['ansel_storage']->removeGallery($gallery);
+                $result = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->removeGallery($gallery);
                 $GLOBALS['cli']->message(sprintf(_("Deleting empty gallery, \"%s\""), $gallery->get('name')), 'cli.success');
             }
         }
     }
 }
+
+/**
+ * Comparison function to sort randomly
+ */
+function randomCmp($a, $b)
+{
+   return 2*rand(0,1)-1;
+}
+
+/**
+ * Comparison function to sort based on modification time
+ */
+function dateCmp($a, $b)
+{
+   static $cache = array();
+   if (array_key_exists($a, $cache)) {
+      $ta = $cache[$a];
+   } else {
+      $ta = filemtime($a);
+      $cache[$a] = $ta;
+   }
+   if (array_key_exists($b, $cache)) {
+      $tb = $cache[$b];
+   } else {
+      $tb = filemtime($b);
+      $cache[$b] = $tb;
+   }
+   return ($a < $b) ? -1 : 1;
+}
+
+/**
+ * Comparison function to sort based on filename
+ */
+function nameCmp($a, $b)
+{
+   return strcmp($a, $b);
+}
+
 /**
  * Read all images from a directory into the currently selected
  * gallery.
@@ -138,7 +172,9 @@ function emptyGalleryCheck($gallery)
 function processDirectory($dir, $parent = null)
 {
     global $cli;
+    global $order;
 
+    $dir = Horde_Util::realPath($dir);
     if (!is_dir($dir)) {
         $cli->fatal(sprintf(_("\"%s\" is not a directory."), $dir));
     }
@@ -146,12 +182,8 @@ function processDirectory($dir, $parent = null)
     // Create a gallery for this directory level.
     $name = basename($dir);
     $cli->message(sprintf(_("Creating gallery: \"%s\""), $name), 'cli.message');
-    $gallery = $GLOBALS['ansel_storage']->createGallery(array('name' => $name), null, $parent);
-    if (is_a($gallery, 'PEAR_Error')) {
-        $cli->fatal(sprintf(_("The gallery \"%s\" couldn't be created: %s"), $name, $gallery->getMessage()));
-    } else {
-        $cli->message(sprintf(_("The gallery \"%s\" was created successfully."), $name), 'cli.success');
-    }
+    $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->createGallery(array('name' => $name), null, $parent);
+    $cli->message(sprintf(_("The gallery \"%s\" was created successfully."), $name), 'cli.success');
 
     // Read all the files into an array.
     $files = array();
@@ -162,32 +194,25 @@ function processDirectory($dir, $parent = null)
             continue;
         }
         if (is_dir($dir . '/' . $entry)) {
-            $directories[] = $entry;
+            $directories[] = $dir . '/' . $entry;
         } else {
-            $files[] = $entry;
+            $files[] = $dir . '/' . $entry;
         }
     }
     closedir($h);
 
-    if ($files) {
-        chdir($dir);
+    if (!empty($order)) {
+        usort($files, $order.'Cmp');
+        usort($directories, $order.'Cmp');
+    }
 
+    if ($files) {
         // Process each file and upload to the gallery.
         $added_images = array();
         foreach ($files as $file) {
-            $image = Ansel::getImageFromFile($dir . '/' . $file);
-            if (is_a($image, 'PEAR_Error')) {
-                $cli->message($image->getMessage(), 'cli.error');
-                continue;
-            }
-
+            $image = Ansel::getImageFromFile($file);
             $cli->message(sprintf(_("Storing photo \"%s\"..."), $file), 'cli.message');
             $image_id = $gallery->addImage($image);
-            if (is_a($image_id, 'PEAR_Error')) {
-                $cli->message($image_id->getMessage(), 'cli.error');
-                continue;
-            }
-
             $added_images[] = $file;
         }
 
@@ -198,7 +223,7 @@ function processDirectory($dir, $parent = null)
     if ($directories) {
         $cli->message(_("Adding subdirectories:"), 'cli.message');
         foreach ($directories as $directory) {
-            processDirectory($dir . '/' . $directory, $gallery->id);
+            processDirectory($directory, $gallery->id);
         }
     }
 
@@ -216,10 +241,11 @@ function showHelp()
     $cli->writeln();
     $cli->writeln(_("Mandatory arguments to long options are mandatory for short options too."));
     $cli->writeln();
-    $cli->writeln(_("-h, --help                   Show this help"));
-    $cli->writeln(_("-d, --dir[=directory]        Recursively add all files from the directory, creating\n                             a gallery for each directory"));
-    $cli->writeln(_("-u, --username[=username]    Horde login username"));
-    $cli->writeln(_("-p, --password[=password]    Horde login password"));
-    $cli->writeln(_("-k, --keep                   Do not delete empty galleries after import is complete."));
+    $cli->writeln(_("-h, --help                      Show this help"));
+    $cli->writeln(_("-d, --dir[=directory]           Recursively add all files from the directory, \n                                creating a gallery for each directory"));
+    $cli->writeln(_("-u, --username[=username]       Horde login username"));
+    $cli->writeln(_("-p, --password[=password]       Horde login password"));
+    $cli->writeln(_("-o, --order=<name|date|random>  Sorting order criteria"));
+    $cli->writeln(_("-k, --keep                      Do not delete empty galleries after import is complete."));
     $cli->writeln();
 }

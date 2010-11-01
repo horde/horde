@@ -13,13 +13,6 @@
  */
 
 /**
- *  We need the base class
- */
-require_once 'Horde/Kolab/Test/Storage.php';
-
-require_once 'VFS.php';
-
-/**
  * Test the Kolab based virtual file system.
  *
  * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
@@ -34,7 +27,7 @@ require_once 'VFS.php';
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link       http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class VFS_KolabTest extends Horde_Kolab_Test_Storage
+class VFS_KolabTest extends PHPUnit_Framework_TestCase
 {
 
     /**
@@ -44,6 +37,8 @@ class VFS_KolabTest extends Horde_Kolab_Test_Storage
      */
     public function setUp()
     {
+        $this->markTestIncomplete('Convert to Horde4');
+
         $world = $this->prepareBasicSetup();
 
         $this->assertTrue($world['auth']->authenticate('wrobel@example.org',

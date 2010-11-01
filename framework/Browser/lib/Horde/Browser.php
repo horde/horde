@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_Browser:: class provides capability information for the current
+ * The Horde_Browser class provides capability information for the current
  * web client.
  *
  * Browser identification is performed by examining the HTTP_USER_AGENT
@@ -16,7 +16,7 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Jon Parise <jon@horde.org>
  * @category Horde
- * @package  Horde_Browser
+ * @package  Browser
  */
 class Horde_Browser
 {
@@ -262,15 +262,6 @@ class Horde_Browser
     protected $_images = array('jpeg', 'gif', 'png', 'pjpeg', 'x-png', 'bmp');
 
     /**
-     * @deprecated
-     */
-    public static function singleton($userAgent = null, $accept = null)
-    {
-        // trigger_error - warning?
-        return new self($userAgent, $accept);
-    }
-
-    /**
      * Creates a browser instance (Constructor).
      *
      * @param string $userAgent  The browser string to parse.
@@ -390,34 +381,6 @@ class Horde_Browser
             if (($this->_majorVersion < 7) &&
                 preg_match('/windows/i', $agent)) {
                 $this->setQuirk('png_transparency');
-            }
-
-            /* IE 6 (pre-SP1) and 5.5 (pre-SP1) have buggy compression.
-             * The versions affected are as follows:
-             * 6.00.2462.0000  Internet Explorer 6 Public Preview (Beta)
-             * 6.00.2479.0006  Internet Explorer 6 Public Preview (Beta) Refresh
-             * 6.00.2600.0000  Internet Explorer 6 (Windows XP)
-             * 5.50.3825.1300  Internet Explorer 5.5 Developer Preview (Beta)
-             * 5.50.4030.2400  Internet Explorer 5.5 & Internet Tools Beta
-             * 5.50.4134.0100  Internet Explorer 5.5 for Windows Me (4.90.3000)
-             * 5.50.4134.0600  Internet Explorer 5.5
-             * 5.50.4308.2900  Internet Explorer 5.5 Advanced Security Privacy Beta
-             *
-             * See:
-             * ====
-             * http://support.microsoft.com/kb/164539;
-             * http://support.microsoft.com/default.aspx?scid=kb;en-us;Q312496)
-             * http://support.microsoft.com/default.aspx?scid=kb;en-us;Q313712
-             */
-            $ie_vers = $this->getIEVersion();
-            $buggy_list = array(
-                '6,00,2462,0000', '6,0,2462,0', '6,00,2479,0006',
-                '6,0,2479,0006', '6,00,2600,0000', '6,0,2600,0',
-                '5,50,3825,1300', '5,50,4030,2400', '5,50,4134,0100',
-                '5,50,4134,0600', '5,50,4308,2900'
-            );
-            if (!is_null($ie_vers) && in_array($ie_vers, $buggy_list)) {
-                $this->setQuirk('buggy_compression');
             }
 
             /* Some Handhelds have their screen resolution in the user
@@ -1037,16 +1000,16 @@ class Horde_Browser
      * @param string $name   The file description string to use in the error
      *                       message.  Default: 'file'.
      *
-     * @return mixed  True on success, PEAR_Error on error.
+     * @throws Horde_Browser_Exception
      */
     public function wasFileUploaded($field, $name = null)
     {
         if (is_null($name)) {
-            $name = _("file");
+            $name = 'file';
         }
 
         if (!($uploadSize = self::allowFileUploads())) {
-            return PEAR::raiseError(_("File uploads not supported."));
+            throw new Horde_Browser_Exception('File uploads not supported.');
         }
 
         /* Get any index on the field name. */
@@ -1063,21 +1026,24 @@ class Horde_Browser
         } else {
             /* No index, simple set up of vars to check. */
             if (!isset($_FILES[$field])) {
-                return PEAR::raiseError(_("No file uploaded"), UPLOAD_ERR_NO_FILE);
+                throw new Horde_Browser_Exception('No file uploaded', UPLOAD_ERR_NO_FILE);
             }
             $error = $_FILES[$field]['error'];
             $tmp_name = $_FILES[$field]['tmp_name'];
         }
 
-        if (!isset($_FILES) || ($error == UPLOAD_ERR_NO_FILE)) {
-            return PEAR::raiseError(sprintf(_("There was a problem with the file upload: No %s was uploaded."), $name), UPLOAD_ERR_NO_FILE);
+        if (empty($_FILES) || ($error == UPLOAD_ERR_NO_FILE)) {
+            throw new Horde_Browser_Exception(sprintf('There was a problem with the file upload: No %s was uploaded.', $name), UPLOAD_ERR_NO_FILE);
         } elseif (($error == UPLOAD_ERR_OK) && is_uploaded_file($tmp_name)) {
-            return true;
+            if (!filesize($tmp_name)) {
+                throw new Horde_Browser_Exception('The uploaded file appears to be empty. It may not exist on your computer.', UPLOAD_ERR_NO_FILE);
+            }
+            // SUCCESS
         } elseif (($error == UPLOAD_ERR_INI_SIZE) ||
                   ($error == UPLOAD_ERR_FORM_SIZE)) {
-            return PEAR::raiseError(sprintf(_("There was a problem with the file upload: The %s was larger than the maximum allowed size (%d bytes)."), $name, min($uploadSize, Horde_Util::getFormData('MAX_FILE_SIZE'))), $error);
+            throw new Horde_Browser_Exception(sprintf('There was a problem with the file upload: The %s was larger than the maximum allowed size (%d bytes).', $name, min($uploadSize, Horde_Util::getFormData('MAX_FILE_SIZE'))), $error);
         } elseif ($error == UPLOAD_ERR_PARTIAL) {
-            return PEAR::raiseError(sprintf(_("There was a problem with the file upload: The %s was only partially uploaded."), $name), $error);
+            throw new Horde_Browser_Exception(sprintf('There was a problem with the file upload: The %s was only partially uploaded.', $name), $error);
         }
     }
 
@@ -1197,56 +1163,6 @@ class Horde_Browser
         }
 
         return in_array($subtype, $this->_images);
-    }
-
-    /**
-     * Escapes characters in javascript code if the browser requires it.  %23,
-     * %26, and %2B (for some browsers) and %27 need to be escaped or else
-     * javascript will interpret it as a single quote, pound sign, or
-     * ampersand and refuse to work.
-     *
-     * @param string $code  The JS code to escape.
-     *
-     * @return string  The escaped code.
-     */
-    public function escapeJSCode($code)
-    {
-        $from = $to = array();
-
-        if ($this->isBrowser('msie') ||
-            ($this->isBrowser('mozilla') && ($this->getMajor() >= 5)) ||
-            $this->isBrowser('konqueror')) {
-            $from = array('%23', '%26', '%2B');
-            $to = array('%2523', '%2526', '%252B');
-        }
-        $from[] = '%27';
-        $to[] = '\%27';
-
-        return str_replace($from, $to, $code);
-    }
-
-    /**
-     * Sets the IE version in the session.
-     *
-     * @param string $ver  The IE Version string.
-     */
-    public function setIEVersion($ver)
-    {
-        $_SESSION['horde_browser'] = array(
-            'ie_version' => $ver
-        );
-    }
-
-    /**
-     * Returns the IE version stored in the session, if available.
-     *
-     * @return mixed  The IE Version string or null if no string is stored.
-     */
-    public function getIEVersion()
-    {
-        return isset($_SESSION['horde_browser']['ie_version'])
-            ? $_SESSION['horde_browser']['ie_version']
-            : null;
     }
 
 }

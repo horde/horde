@@ -28,7 +28,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2009-11-16</date>
+ <date>2010-04-19</date>
  <version>
   <release>0.2.0</release>
   <api>0.1.0</api>
@@ -43,11 +43,12 @@ http://pear.php.net/dtd/package-2.0.xsd">
   * Fixed handling of whole day invitations.
   * Extended iTip reply delivery to support different transport mechanisms.
   * Splitted Free/Busy functionality in a separate driver class.
-  * kolab/issue973 (Rewritten from shown inconveniently in kontact)
-  * kolab/issue3594 (Mail containing NUL byte not delivered, Kolab
-    Filter does not report lmtp error)
-  * kolab/issue3965 (Always accept: invitations get lost when Calendar
-    folder ist not writable for the calendar user)
+  * kolab/issue4257 ("Always accept" policy doesn't set atendee status to
+    "accepted")
+  * kolab/issue3962 (Names of config variables for "untrusted" text missleading)
+  * kolab/issue3967 (UNTRUSTED vs. UNAUTHENTICATED, distinction considered
+    harmful)
+  * kolab/issue3983 (Phpunit testsuite fails on OpenPKG Kolab 2.2.2)
  </notes>
  <contents>
   <dir name="/">
@@ -64,16 +65,32 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Kolab">
+      <file name="Filter.php" role="php" />
       <dir name="Test">
        <file name="Filter.php" role="php" />
       </dir> <!-- /lib/Horde/Kolab/Test -->
-      <file name="Resource.php" role="php" />
       <dir name="Filter">
+       <file name="Cli.php" role="php" />
+       <dir name="Cli">
+        <file name="Parser.php" role="php" />
+       </dir> <!-- /lib/Horde/Kolab/Filter/Cli -->
+       <file name="Configuration.php" role="php" />
        <file name="Content.php" role="php" />
        <file name="Base.php" role="php" />
+       <file name="Exception.php" role="php" />
+       <dir name="Exception">
+        <file name="IoError.php" role="php" />
+        <file name="Temporary.php" role="php" />
+        <file name="Usage.php" role="php" />
+       </dir> <!-- /lib/Horde/Kolab/Filter/Exception -->
+       <file name="Factory.php" role="php" />
        <file name="Incoming.php" role="php" />
        <file name="Outlook.php" role="php" />
        <file name="Response.php" role="php" />
+       <file name="Temporary.php" role="php" />
+       <dir name="Temporary">
+        <file name="File.php" role="php" />
+       </dir> <!-- /lib/Horde/Kolab/Filter/Temporary -->
        <file name="Transport.php" role="php" />
        <dir name="Transport">
         <file name="drop.php" role="php" />
@@ -86,33 +103,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
         <file name="stdout.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Filter/Transport -->
       </dir> <!-- /lib/Horde/Kolab/Filter -->
-      <dir name="Resource">
-       <file name="Freebusy.php" role="php" />
-       <dir name="Freebusy">
-        <file name="Mock.php" role="php" />
-        <file name="Kolab.php" role="php" />
-       </dir> <!-- /lib/Horde/Kolab/Resource/Freebusy -->
-      </dir> <!-- /lib/Horde/Kolab/Resource -->
      </dir> <!-- /lib/Horde/Kolab -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
-   <dir name="locale" baseinstalldir="/">
-    <dir name="de_DE">
-     <dir name="LC_MESSAGES">
-      <file name="Kolab_Filter.mo" role="data" />
-     </dir> <!-- /locale/de_DE/LC_MESSAGES -->
-    </dir> <!-- /locale/de_DE -->
-    <dir name="fr_FR">
-     <dir name="LC_MESSAGES">
-      <file name="Kolab_Filter.mo" role="data" />
-     </dir> <!-- /locale/fr_FR/LC_MESSAGES -->
-    </dir> <!-- /locale/fr_FR -->
-    <dir name="nl_NL">
-     <dir name="LC_MESSAGES">
-      <file name="Kolab_Filter.mo" role="data" />
-     </dir> <!-- /locale/nl_NL/LC_MESSAGES -->
-    </dir> <!-- /locale/nl_NL -->
-   </dir> <!-- /locale -->
    <dir name="po" baseinstalldir="/">
     <file name="Kolab_Filter.pot" role="data" />
     <file name="de_DE.po" role="data" />
@@ -138,12 +131,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
      <dir name="Kolab">
       <dir name="Filter">
        <file name="AllTests.php" role="test" />
-       <file name="FilterTest.php" role="test" />
-       <file name="ContentTest.php" role="test" />
-       <file name="IncomingTest.php" role="test" />
-       <file name="LoadTest.php" role="test" />
-       <file name="ResourceTest.php" role="test" />
        <dir name="fixtures">
+        <file name="allday_invitation.eml" role="test" />
         <file name="attendee_status_invitation.eml" role="test" />
         <file name="empty.eml" role="test" />
         <file name="empty2.ret" role="test" />
@@ -185,9 +174,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.4.0b1</min>
    </pearinstaller>
    <package>
-    <name>Horde</name>
+    <name>Core</name>
     <channel>pear.horde.org</channel>
-    <min>0.0.2</min>
    </package>
    <package>
     <name>Horde_iCalendar</name>
@@ -196,6 +184,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
    </package>
    <package>
     <name>Argv</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Exception</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
@@ -229,16 +221,23 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <phprelease>
   <filelist>
    <install name="doc/Horde/Kolab/Filter/kolabfilter.1" as="man/man1/kolabfilter.1" />
-   <install name="lib/Horde/Kolab/Resource.php" as="Horde/Kolab/Resource.php" />
-   <install name="lib/Horde/Kolab/Resource/Freebusy.php" as="Horde/Kolab/Resource/Freebusy.php" />
-   <install name="lib/Horde/Kolab/Resource/Freebusy/Kolab.php" as="Horde/Kolab/Resource/Freebusy/Kolab.php" />
-   <install name="lib/Horde/Kolab/Resource/Freebusy/Mock.php" as="Horde/Kolab/Resource/Freebusy/Mock.php" />
-   <install name="lib/Horde/Kolab/Filter/Content.php" as="Horde/Kolab/Filter/Content.php" />
    <install name="lib/Horde/Kolab/Test/Filter.php" as="Horde/Kolab/Test/Filter.php" />
+   <install name="lib/Horde/Kolab/Filter.php" as="Horde/Kolab/Filter.php" />
+   <install name="lib/Horde/Kolab/Filter/Cli.php" as="Horde/Kolab/Filter/Cli.php" />
+   <install name="lib/Horde/Kolab/Filter/Cli/Parser.php" as="Horde/Kolab/Filter/Cli/Parser.php" />
+   <install name="lib/Horde/Kolab/Filter/Configuration.php" as="Horde/Kolab/Filter/Configuration.php" />
+   <install name="lib/Horde/Kolab/Filter/Content.php" as="Horde/Kolab/Filter/Content.php" />
    <install name="lib/Horde/Kolab/Filter/Base.php" as="Horde/Kolab/Filter/Base.php" />
+   <install name="lib/Horde/Kolab/Filter/Exception.php" as="Horde/Kolab/Filter/Exception.php" />
+   <install name="lib/Horde/Kolab/Filter/Exception/IoError.php" as="Horde/Kolab/Filter/Exception/IoError.php" />
+   <install name="lib/Horde/Kolab/Filter/Exception/Temporary.php" as="Horde/Kolab/Filter/Exception/Temporary.php" />
+   <install name="lib/Horde/Kolab/Filter/Exception/Usage.php" as="Horde/Kolab/Filter/Exception/Usage.php" />
+   <install name="lib/Horde/Kolab/Filter/Factory.php" as="Horde/Kolab/Filter/Factory.php" />
    <install name="lib/Horde/Kolab/Filter/Incoming.php" as="Horde/Kolab/Filter/Incoming.php" />
    <install name="lib/Horde/Kolab/Filter/Outlook.php" as="Horde/Kolab/Filter/Outlook.php" />
    <install name="lib/Horde/Kolab/Filter/Response.php" as="Horde/Kolab/Filter/Response.php" />
+   <install name="lib/Horde/Kolab/Filter/Temporary.php" as="Horde/Kolab/Filter/Temporary.php" />
+   <install name="lib/Horde/Kolab/Filter/Temporary/File.php" as="Horde/Kolab/Filter/Temporary/File.php" />
    <install name="lib/Horde/Kolab/Filter/Transport.php" as="Horde/Kolab/Filter/Transport.php" />
    <install name="lib/Horde/Kolab/Filter/Transport/DovecotLDA.php" as="Horde/Kolab/Filter/Transport/DovecotLDA.php" />
    <install name="lib/Horde/Kolab/Filter/Transport/drop.php" as="Horde/Kolab/Filter/Transport/drop.php" />
@@ -251,11 +250,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="script/Horde/Kolab/Filter/kolabmailboxfilter.php" as="kolabmailboxfilter" />
    <install name="script/Horde/Kolab/Filter/kolabfilter.php" as="kolabfilter" />
    <install name="test/Horde/Kolab/Filter/AllTests.php" as="Horde/Kolab/Filter/AllTests.php" />
-   <install name="test/Horde/Kolab/Filter/ContentTest.php" as="Horde/Kolab/Filter/ContentTest.php" />
-   <install name="test/Horde/Kolab/Filter/FilterTest.php" as="Horde/Kolab/Filter/FilterTest.php" />
-   <install name="test/Horde/Kolab/Filter/IncomingTest.php" as="Horde/Kolab/Filter/IncomingTest.php" />
-   <install name="test/Horde/Kolab/Filter/LoadTest.php" as="Horde/Kolab/Filter/LoadTest.php" />
-   <install name="test/Horde/Kolab/Filter/ResourceTest.php" as="Horde/Kolab/Filter/ResourceTest.php" />
+   <install name="test/Horde/Kolab/Filter/fixtures/allday_invitation.eml" as="Horde/Kolab/Filter/fixtures/allday_invitation.eml" />
    <install name="test/Horde/Kolab/Filter/fixtures/attendee_status_invitation.eml" as="Horde/Kolab/Filter/fixtures/attendee_status_invitation.eml" />
    <install name="test/Horde/Kolab/Filter/fixtures/empty.eml" as="Horde/Kolab/Filter/fixtures/empty.eml" />
    <install name="test/Horde/Kolab/Filter/fixtures/empty2.ret" as="Horde/Kolab/Filter/fixtures/empty2.ret" />
@@ -284,6 +279,26 @@ http://pear.php.net/dtd/package-2.0.xsd">
   </filelist>
  </phprelease>
  <changelog>
+  <release>
+   <date>2010-01-11</date>
+   <version>
+    <release>0.1.8</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+   <notes>
+    * Fix quoting when delivering to Dovecot.
+    * kolab/issue973 (Rewritten from shown inconveniently in kontact)
+    * kolab/issue3594 (Mail containing NUL byte not delivered, Kolab
+      Filter does not report lmtp error)
+    * kolab/issue3965 (Always accept: invitations get lost when Calendar
+      folder ist not writable for the calendar user)
+   </notes>
+  </release>
   <release>
    <date>2009-11-16</date>
    <version>

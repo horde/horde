@@ -23,9 +23,9 @@ class Horde_Rpc_Phpgw extends Horde_Rpc
     /**
      * XMLRPC server constructor.
      */
-    function __construct()
+    function __construct($request, $params = array())
     {
-        parent::__construct();
+        parent::__construct($request, $params);
 
         $this->_server = xmlrpc_server_create();
 
@@ -77,35 +77,26 @@ class Horde_Rpc_Phpgw extends Horde_Rpc
         $method = str_replace('.', '/', 'phpgw.' . $method);
 
         if (!$registry->hasMethod($method)) {
-            Horde::logMessage(sprintf(_("Method \"%s\" is not defined"), $method), __FILE__, __LINE__, PEAR_LOG_NOTICE);
-            return sprintf(_("Method \"%s\" is not defined"), $method);
+            Horde::logMessage(sprintf(Horde_Rpc_Translation::t("Method \"%s\" is not defined"), $method), 'NOTICE');
+            return sprintf(Horde_Rpc_Translation::t("Method \"%s\" is not defined"), $method);
         }
 
         // Try to resume a session
         if (isset($params[0]['kp3']) && $params[0]["kp3"] == session_name() && session_id() != $params[0]["sessionid"]) {
-            Horde::logMessage("manually reload session ".$params[0]["sessionid"], __FILE__, __LINE__, PEAR_LOG_NOTICE);
-            // Make sure to force a completely new session ID and clear
-            // all session data.
-            if (version_compare(PHP_VERSION, '4.3.3') !== -1) {
-                session_regenerate_id();
-                session_unset();
-                session_id($params[0]["sessionid"]);
-            } else {
-                @session_destroy();
-                session_id($params[0]["sessionid"]);
-                Horde_Registry::setupSessionHandler();
-                session_start();
-            }
+            Horde::logMessage("manually reload session ".$params[0]["sessionid"], 'NOTICE');
+            session_regenerate_id();
+            session_unset();
+            session_id($params[0]["sessionid"]);
         }
 
         // Be authenticated or call system.login.
-        $authenticated = Horde_Auth::isAuthenticated() || $method== "phpgw/system/login";
+        $authenticated = $registry->isAuthenticated() || $method== "phpgw/system/login";
 
         if ($authenticated) {
-            Horde::logMessage("rpc call $method allowed", __FILE__, __LINE__, PEAR_LOG_NOTICE);
+            Horde::logMessage("rpc call $method allowed", 'NOTICE');
             return $registry->call($method, $params);
         } else {
-            return PEAR::raiseError(_("You did not authenticate."), 'horde.error');
+            return PEAR::raiseError(Horde_Rpc_Translation::t("You did not authenticate."), 'horde.error');
             // return parent::authorize();
             // error 9 "access denied"
         }
@@ -116,23 +107,24 @@ class Horde_Rpc_Phpgw extends Horde_Rpc
      *
      * This statically called method is actually the XMLRPC client.
      *
-     * @param string $url     The path to the XMLRPC server on the called host.
-     * @param string $method  The method to call.
-     * @param array $params   A hash containing any necessary parameters for
-     *                        the method call.
+     * @param string|Horde_Url $url  The path to the XMLRPC server on the
+     *                               called host.
+     * @param string $method         The method to call.
+     * @param array $params          A hash containing any necessary parameters
+     *                               for the method call.
      * @param $options  Optional associative array of parameters which can be:
-     *                  user           - Basic Auth username
-     *                  pass           - Basic Auth password
-     *                  proxy_host     - Proxy server host
-     *                  proxy_port     - Proxy server port
-     *                  proxy_user     - Proxy auth username
-     *                  proxy_pass     - Proxy auth password
-     *                  timeout        - Connection timeout in seconds.
-     *                  allowRedirects - Whether to follow redirects or not
-     *                  maxRedirects   - Max number of redirects to follow
+     *                  - user:           Basic Auth username
+     *                  - pass:           Basic Auth password
+     *                  - proxy_host:     Proxy server host
+     *                  - proxy_port:     Proxy server port
+     *                  - proxy_user:     Proxy auth username
+     *                  - proxy_pass:     Proxy auth password
+     *                  - timeout:        Connection timeout in seconds.
+     *                  - allowRedirects: Whether to follow redirects or not
+     *                  - maxRedirects:   Max number of redirects to follow
      *
-     * @return mixed            The returned result from the method or a PEAR
-     *                          error object on failure.
+     * @return mixed  The returned result from the method.
+     * @throws Horde_Rpc_Exception
      */
     public static function request($url, $method, $params = null, $options = array())
     {
@@ -151,7 +143,7 @@ class Horde_Rpc_Phpgw extends Horde_Rpc
             $options = array_merge($options, $GLOBALS['conf']['http']['proxy']);
         }
 
-        $http = new HTTP_Request($url, $options);
+        $http = new HTTP_Request((string)$url, $options);
         if (!empty($language)) {
             $http->addHeader('Accept-Language', $language);
         }
@@ -161,18 +153,18 @@ class Horde_Rpc_Phpgw extends Horde_Rpc
 
         $result = $http->sendRequest();
         if (is_a($result, 'PEAR_Error')) {
-            return $result;
+            throw new Horde_Rpc_Exception($result);
         } elseif ($http->getResponseCode() != 200) {
-            return PEAR::raiseError(_("Request couldn't be answered. Returned errorcode: ") . $http->getResponseCode(), 'horde.error');
+            throw new Horde_Rpc_Exception(Horde_Rpc_Translation::t("Request couldn't be answered. Returned errorcode: ") . $http->getResponseCode());
         } elseif (strpos($http->getResponseBody(), '<?xml') === false) {
-            return PEAR::raiseError(_("No valid XML data returned"), 'horde.error', null, null, $http->getResponseBody());
+            throw new Horde_Rpc_Exception(Horde_Rpc_Translation::t("No valid XML data returned:") . "\n" . $http->getResponseBody());
         } else {
             $response = @xmlrpc_decode(substr($http->getResponseBody(), strpos($http->getResponseBody(), '<?xml')));
             if (is_array($response) && isset($response['faultString'])) {
-                return PEAR::raiseError($response['faultString'], 'horde.error');
+                throw new Horde_Rpc_Exception($response['faultString']);
             } elseif (is_array($response) && isset($response[0]) &&
                       is_array($response[0]) && isset($response[0]['faultString'])) {
-                return PEAR::raiseError($response[0]['faultString'], 'horde.error');
+                throw new Horde_Rpc_Exception($response[0]['faultString']);
             }
             return $response;
         }

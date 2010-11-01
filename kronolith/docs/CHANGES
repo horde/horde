@@ -2,6 +2,20 @@
 v3.0-git
 --------
 
+[jan] Add CalDAV client support (Request #8525).
+[jan] Send agenda emails with HTML part and convert to Horde_View.
+[mjr] More complete handling of recurring event exceptions when dealing with the
+      iCalendar format (Request #9091).
+[jan] Add remote calendars to the possible list of calendars for free/busy
+      information.
+[jan] Send iTip notifications with HTML part and convert to Horde_View.
+[jan] Add option to notify users about calendar permission changes.
+[mjr] listTimeObject calendars are now viewable independently in the calendar
+      portal blocks (Request #8530).
+[mjr] Recurring event exceptions are now indicated as such in the UI.
+[mjr] Deleting a recurring event now also deletes all exceptions to that event.
+[mjr] Add support for inline maps to the Ajax interface.
+[jan] Add preference to limit the events per day in the month view.
 [jan] Add system calendars (Request #2059).
 [jan] Add URL field to events.
 [jan] Add task management capabilities to the Ajax interface.
@@ -25,10 +39,32 @@ v3.0-git
 
 
 ----------
-v2.3.4-cvs
+v2.3.6-cvs
 ----------
 
 
+
+
+------
+v2.3.5
+------
+
+[gwr] Fix moving events between calendars for the Kolab driver (Bug #7932)
+[jan] Import and export the privacy field in CSV data (Request #9139).
+[mjr] Send an iTip REQUEST, not ADD, when updating an existing event
+      (Bug #9131).
+[jan] Fix all-day events sometimes showing up an day early too (Bug #9012).
+[mjr] Sort exception list before displaying (Request #7688).
+[mjr] Do not remove history entries when removing user data (Bug #8755).
+
+
+------
+v2.3.4
+------
+
+[jan] Delete Horde alarms when resetting an event alarm.
+[jan] Set an alarm to one minute, if users try to set an alarm without time.
+[gwr] Fix editing the start date of recurring events (kolab/issue3885).
 
 
 ------

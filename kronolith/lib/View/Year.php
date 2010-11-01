@@ -21,9 +21,10 @@ class Kronolith_View_Year {
                                         'month' => 12,
                                         'mday' => 31));
 
-        $this->_events = Kronolith::listEvents($startDate, $endDate, $GLOBALS['display_calendars']);
-        if (is_a($this->_events, 'PEAR_Error')) {
-            $GLOBALS['notification']->push($this->_events, 'horde.error');
+        try {
+            $this->_events = Kronolith::listEvents($startDate, $endDate, $GLOBALS['display_calendars']);
+        } catch (Exception $e) {
+            $GLOBALS['notification']->push($e, 'horde.error');
             $this->_events = array();
         }
         if (!is_array($this->_events)) {
@@ -45,7 +46,7 @@ class Kronolith_View_Year {
             $date = new Horde_Date(sprintf('%04d%02d01010101', $this->year, $month));
             $mtitle = $date->strftime('%B');
             $html .= '<h2 class="smallheader"><a class="smallheader" href="'
-                . Horde::applicationUrl('month.php')
+                . Horde::url('month.php')
                 ->add('date', $date->dateString())
                 . '">' . $mtitle . '</a></h2>'
                 . '<table class="nopadding monthgrid" cellspacing="0" width="100%"><thead><tr class="item">';
@@ -112,7 +113,7 @@ class Kronolith_View_Year {
                     }
 
                     /* Set up the link to the day view. */
-                    $url = Horde::applicationUrl('day.php', true)
+                    $url = Horde::url('day.php', true)
                         ->add('date', $date->dateString());
 
                     if ($date->month != $month) {
@@ -164,7 +165,7 @@ class Kronolith_View_Year {
 
     function link($offset = 0, $full = false)
     {
-        return Horde::applicationUrl('year.php', $full)
+        return Horde::url('year.php', $full)
             ->add('date', ($this->year + $offset) . '0101');
     }
 

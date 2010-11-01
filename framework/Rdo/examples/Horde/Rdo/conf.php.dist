@@ -1,9 +1,4 @@
 <?php
 
 // Dist config file for Rdo examples.
-$conf['sql']['adapter'] = 'pdo_mysql';
-$conf['sql']['dsn'] = 'host=127.0.0.1';
-$conf['sql']['database'] = 'horde';
-$conf['sql']['username'] = 'horde';
-$conf['sql']['password'] = '';
-$conf['sql']['charset'] = 'utf-8';
+$conf['adapter'] = new Horde_Db_Adapter_Pdo_Sqlite(array('dbname' => ':memory'));

@@ -2,6 +2,11 @@
 /**
  * The Ansel_View_Abstract:: Parent class for the various Ansel_View classes
  *
+ * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
@@ -31,7 +36,62 @@ abstract class Ansel_View_Base
      */
     protected $_widgets = array();
 
-
+    /**
+     * Const'r
+     *
+     * Any javascript files needed by the (non-api) view should be included
+     * within this method. Additionally, any redirects need to be done in the
+     * cont'r since when ::html() is called, headers will have already been
+     * sent.
+     *
+     * @param array $params  Any parameters that the view might need.
+     * <pre>
+     * gallery_id              The gallery id this view is for. If omitted, it
+     *                         looks for a query parameter called 'gallery'
+     *
+     * gallery_slug            Same as above, but a slug
+     *
+     * gallery_view_url        If set, this is used as the link to a gallery
+     *                         view. %g is replaced by the gallery_id and %s is
+     *                         replaced by the gallery_slug.
+     *
+     * gallery_view            The specific Renderer to use, if needed.
+     *                         (GalleryLightbox, Gallery etc...).
+     *
+     * image_view_url          If this is set, the image tiles will use this url
+     *                         for the image view link. %i and %g will be
+     *                         replaced by image_id and gallery_id respectively.
+     *                         %s will be replaced by the gallery_slug
+     *
+     * image_view_src          If this is set to true, the image view link will go
+     *                         directly to the actual image. This overrides any
+     *                         setting of image_view_url.
+     *
+     * image_view_attributes   An optional array of attribute => value pairs
+     *                         that are used as attributes of the image view
+     *                         link.
+     *
+     * image_view_title        Specifies which property of the image object
+     *                         to use as the image caption.
+     *
+     * image_onclick           Specifies a onclick handler for the image tile
+     *                         links.
+     *
+     * style                   Force the use of this named style.
+     *
+     * api                     If set, we are being called from the external api
+     *
+     * page                    The gallery page number to display if not the
+     *                         default value of the first page (page = 0)
+     *
+     * day, month, year        Numeric date part values to describe the gallery
+     *                         date grouping to view in date mode.
+     *
+     * force_date_grouping     Do not auto navigate to the first date grouping
+     *                         with more then one resource. Used from the api
+     *                         when clicking on breadcrumb links, for example.
+     * </pre>
+     */
     public function __construct($params = array())
     {
         $this->_params = $params;
@@ -53,23 +113,21 @@ abstract class Ansel_View_Base
 
     public function __isset($property)
     {
-        if (empty($this->_params[$property])) {
-            return false;
-        }
-
-        return true;
+        return isset($this->_params[$property]);
     }
 
     /**
-     *
+     * Todo
      *
      * @param integer $galleryId  The gallery id
      * @param string $slug        The gallery slug
      *
      * @return Ansel_Gallery  The requested Ansel_Gallery object
      * @throws Horde_Exception
+     * @throws InvalidArgumentException
+     *
      */
-    protected function &_getGallery($galleryId = null, $slug = '')
+    protected function _getGallery($galleryId = null, $slug = '')
     {
         if (is_null($galleryId) && empty($slug)) {
             $galleryId = !empty($this->_params['gallery_id']) ? $this->_params['gallery_id'] : null;
@@ -77,18 +135,21 @@ abstract class Ansel_View_Base
         }
 
         if (empty($galleryId) && empty($slug)) {
-            throw new Horde_Exception(_("No gallery specified"));
+            throw new InvalidArgumentException(_("No gallery specified"));
         }
 
         // If we have a slug, use it.
-        if (!empty($slug)) {
-            $gallery = &$GLOBALS['ansel_storage']->getGalleryBySlug($slug);
-        } else {
-            $gallery = &$GLOBALS['ansel_storage']->getGallery($galleryId);
+        try {
+            if (!empty($slug)) {
+                $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGalleryBySlug($slug);
+            } else {
+                $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($galleryId);
+            }
+        } catch (Ansel_Exception $e) {
+            throw new Horde_Exception_NotFound($e->getmessage());
         }
-        if (is_a($gallery, 'PEAR_Error')) {
-            throw new Horde_Exception($gallery->getMessage());
-        } elseif (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+
+        if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
             throw new Horde_Exception(sprintf(_("Access denied to gallery \"%s\"."), $gallery->get('name')));
         }
 
@@ -118,7 +179,6 @@ abstract class Ansel_View_Base
             $this->_widgets[] = $widget;
         }
     }
-
 
     /**
      * Output any widgets associated with this view.
@@ -160,11 +220,11 @@ abstract class Ansel_View_Base
      *
      * @param array $params  An array of parameters for this method:
      *   <pre>
-     *      images -     Array of Ansel_Images to generate JSON for [null]
-     *      full   -     Should a full URL be generated? [false]
-     *      from   -     Starting image count [0]
-     *      count  -     The number of images to include (starting at from) [0]
-     *      image_view - The type of ImageView to obtain the src url for. [screen]
+     *      images     - Array of Ansel_Images to generate JSON for [null]
+     *      full       - Should a full URL be generated? [false]
+     *      from       - Starting image count [0]
+     *      count      - The number of images to include (starting at from) [0]
+     *      image_view - The type of ImageGenerator to obtain the src url for. [screen]
      *      view_links - Should the JSON include links to the Image and/or Gallery View? [false]
      *      perpage    - Number of images per page [from user prefs]
      *   </pre>
@@ -175,12 +235,14 @@ abstract class Ansel_View_Base
     {
         global $conf, $prefs;
 
-        $default = array('full' => false,
-                         'from' => 0,
-                         'count' => 0,
-                         'image_view' => 'screen',
-                         'view_links' => false,
-                         'perpage' => $prefs->getValue('tilesperpage', $conf['thumbnail']['perpage']));
+        $default = array(
+            'full' => false,
+            'from' => 0,
+            'count' => 0,
+            'image_view' => 'screen',
+            'view_links' => false,
+            'perpage' => $prefs->getValue('tilesperpage', $conf['thumbnail']['perpage']),
+        );
 
         $params = array_merge($default, $params);
 
@@ -201,9 +263,9 @@ abstract class Ansel_View_Base
                 $curimage = 0;
             }
 
-            $data = array((string)Ansel::getImageUrl($image->id, $params['image_view'], $params['full'], $style['name']),
-                          htmlspecialchars($image->filename, ENT_COMPAT, Horde_Nls::getCharset()),
-                          Horde_Text_Filter::filter($image->caption, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL)),
+            $data = array((string)Ansel::getImageUrl($image->id, $params['image_view'], $params['full'], $style),
+                          htmlspecialchars($image->filename),
+                          $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($image->caption, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL)),
                           $image->id,
                           $curpage);
             if ($params['view_links']) {
@@ -224,7 +286,7 @@ abstract class Ansel_View_Base
             $json[] = $data;
         }
 
-        return Horde_Serialize::serialize($json, Horde_Serialize::JSON, Horde_Nls::getCharset());
+        return Horde_Serialize::serialize($json, Horde_Serialize::JSON);
     }
 
     /**

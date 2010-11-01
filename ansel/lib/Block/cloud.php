@@ -13,38 +13,48 @@ $block_name = _("Tag Cloud");
  * @author  Michael Rubinsky <mrubinsk@horde.org>
  * @package Horde_Block
  */
-class Horde_Block_ansel_cloud extends Horde_Block {
+class Horde_Block_ansel_cloud extends Horde_Block
+{
+    /**
+     *
+     * @var string
+     */
+    protected $_app = 'ansel';
 
-    var $_app = 'ansel';
-
-    function _params()
+    /**
+     *
+     * @return array
+     */
+    protected function _params()
     {
-        $params = array('count' => array(
-                            'name' => _("Number of tags to display"),
-                            'type' => 'int',
-                            'default' => 20));
-        return $params;
+        return array('count' => array(
+                         'name' => _("Number of tags to display"),
+                         'type' => 'int',
+                         'default' => 20));
     }
 
-    function _title()
+    /**
+     *
+     * @return string
+     */
+    protected function _title()
     {
         return _("Tag Cloud");
     }
 
-    function _content()
+    /**
+     * @return string
+     */
+    protected function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
-        global $registry;
-
         /* Get the tags */
-        $tags = Ansel_Tags::listTagInfo(null, $this->_params['count']);
+        $tags = $GLOBALS['injector']->getInstance('Ansel_Tagger')->getCloud(null, $this->_params['count']);
         if (count($tags)) {
-            $cloud = new Horde_Ui_TagCloud();
+            $cloud = new Horde_Core_Ui_TagCloud();
             foreach ($tags as $id => $tag) {
                 $link = Ansel::getUrlFor('view', array('view' => 'Results',
                                                        'tag' => $tag['tag_name']));
-                $cloud->addElement($tag['tag_name'], $link, $tag['total']);
+                $cloud->addElement($tag['tag_name'], $link, $tag['count']);
             }
             $html = $cloud->buildHTML();
         } else {
@@ -52,5 +62,4 @@ class Horde_Block_ansel_cloud extends Horde_Block {
         }
         return $html;
     }
-
 }

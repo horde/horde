@@ -1,6 +1,6 @@
 <?php
 if (isset($language)) {
-    header('Content-type: text/html; charset=' . Horde_Nls::getCharset());
+    header('Content-type: text/html; charset=UTF-8');
     header('Vary: Accept-Language');
 }
 ?>
@@ -11,23 +11,23 @@ if (isset($language)) {
 <?php
 
 $page_title = $registry->get('name');
-if (!empty($title)) $page_title .= ' :: ' . $title;
-if (!empty($refresh_time) && ($refresh_time > 0) && !empty($refresh_url)) {
-    echo "<meta http-equiv=\"refresh\" content=\"$refresh_time;url=$refresh_url\">\n";
+if (!empty($title)) {
+    $page_title .= ' :: ' . $title;
 }
 
+Horde::outputMetaTags();
 Horde::includeScriptFiles();
 
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
-<link href="<?php echo $GLOBALS['registry']->getImageDir()?>/favicon.ico" rel="SHORTCUT ICON" />
+<link href="<?php echo Horde_Themes::img('favicon.ico', array('nohorde' => true)) ?>" rel="SHORTCUT ICON" />
 <link rel="alternate" type="application/rss+xml" href="<?php echo Folks::getUrlFor('feed', 'online') ?>" title="<?php echo _("Online users") ?>" />
-<?php if (Horde_Auth::isAuthenticated()): ?>
+<?php if ($GLOBALS['registry']->isAuthenticated()): ?>
 <link rel="alternate" type="application/rss+xml" href="<?php echo Folks::getUrlFor('feed', 'friends') ?>" title="<?php echo _("Online friends") ?>" />
 <link rel="alternate" type="application/rss+xml" href="<?php echo Folks::getUrlFor('feed', 'activity') ?>" title="<?php echo _("Friends activity") ?>" />
 <link rel="alternate" type="application/rss+xml" href="<?php echo Folks::getUrlFor('feed', 'know') ?>" title="<?php echo _("People you might know") ?>" />
 <?php endif; ?>
-<?php Horde::includeStylesheetFiles() ?>
+<?php Horde_Themes::includeStylesheetFiles() ?>
 </head>
 
-<body<?php if ($bc = Horde_Util::nonInputVar('bodyClass')) echo ' class="' . $bc . '"' ?><?php if ($bi = Horde_Util::nonInputVar('bodyId')) echo ' id="' . $bi . '"'; ?>>
+<body>

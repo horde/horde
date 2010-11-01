@@ -1,0 +1,766 @@
+# Norwegian Bokmal translations for Trean package.
+# Copyright 2005-2009 The Horde Project
+# This file is distributed under the same license as the Trean package.
+# Odd Marthon Lende <dreden@dreden.com>, Fri, April the 1st, 2005
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Trean 0.1-cvs\n"
+"Report-Msgid-Bugs-To: <dreden@dreden.com>\n"
+"POT-Creation-Date: 2005-03-31 20:48+0100\n"
+"PO-Revision-Date: 2005-04-01 16:25+0100\n"
+"Last-Translator: Odd Marthon Lende <dreden@dreden.com>\n"
+"Language-Team: Norwegian Bokmål <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: data.php:67
+#, php-format
+msgid "%d Folders and %d Bookmarks imported."
+msgstr "%d Mapper og %d Snarveier ble importert."
+
+#: templates/reports/http-status.inc:127
+#, php-format
+msgid "%s Bookmarks"
+msgstr "%s Snarveier"
+
+#: templates/browse/subcategories.inc:47
+#, php-format
+msgid "%s Categories"
+msgstr "%s Kategorier"
+
+#: scripts/upgrades/2005-03-15_move_to_horde_share.php:123 lib/base.php:61
+#, php-format
+msgid "%s's Bookmarks"
+msgstr "%s's Snarveier"
+
+#: edit.php:146
+#, php-format
+msgid "'%s' was not renamed: %s."
+msgstr "'%s' ble ikke skiftet navn på: %s."
+
+#: lib/Block/bookmarks.php:47 config/prefs.php.dist:33
+msgid "1 Line"
+msgstr "Første linje"
+
+#: templates/reports/http-status/1xx.inc:13
+msgid "1xx Response Codes"
+msgstr "1xx Respons Koder"
+
+#: templates/reports/http-status.inc:59
+#, php-format
+msgid "1xx Response Codes (%s)"
+msgstr "1xx Respons Koder (%s)"
+
+#: lib/Block/bookmarks.php:46 config/prefs.php.dist:32
+msgid "2 Line"
+msgstr "Andre linje"
+
+#: templates/reports/http-status/2xx.inc:13
+msgid "2xx Response Codes"
+msgstr "2xx Respons Koder"
+
+#: templates/reports/http-status.inc:65
+#, php-format
+msgid "2xx Response Codes (%s)"
+msgstr "2xx Respons Koder (%s)"
+
+#: lib/Block/bookmarks.php:45 config/prefs.php.dist:31
+msgid "3 Line"
+msgstr "Tredje Linje"
+
+#: templates/reports/http-status/3xx.inc:28
+msgid "3xx Response Codes"
+msgstr "3xx Respons Koder"
+
+#: templates/reports/http-status.inc:76
+#, php-format
+msgid "3xx Response Codes (%s)"
+msgstr "3xx Respons Koder (%s)"
+
+#: templates/reports/http-status/4xx.inc:24
+msgid "4xx Response Codes"
+msgstr "4xx Respons Koder"
+
+#: templates/reports/http-status.inc:87
+#, php-format
+msgid "4xx Response Codes (%s)"
+msgstr "4xx Respons Koder (%s)"
+
+#: templates/reports/http-status/5xx.inc:13
+msgid "5xx Response Codes"
+msgstr "5xx Respons Koder"
+
+#: templates/reports/http-status.inc:109
+#, php-format
+msgid "5xx Response Codes (%s)"
+msgstr "5xx Respons Koder (%s)"
+
+#: lib/Trean.php:197
+msgid "Accepted"
+msgstr "Akseptert"
+
+#: lib/Trean.php:170
+msgid "Add"
+msgstr "Legg til"
+
+#: add.php:70
+msgid "Add Bookmark"
+msgstr "Legg til snarvei"
+
+#: templates/add/add.inc:12
+msgid "Add a new bookmark"
+msgstr "Legg til ny snarvei"
+
+#: templates/add/add.inc:68
+msgid "Add to Bookmarks"
+msgstr "Legg til snarvei"
+
+#: templates/browse/bookmarks.inc:95 templates/browse/subcategories.inc:55
+msgid "All"
+msgstr "Alle"
+
+#: lib/Trean.php:27
+msgid "An error occured listing categories: %s"
+msgstr "En ukjent feil oppstod under listing av kategoriene: %s"
+
+#: lib/Trean.php:52
+#, php-format
+msgid "An error occurred counting categories: %s"
+msgstr "En feil oppstod under telling av kategoriene: %s"
+
+#: templates/search/search.inc:29
+msgid "And"
+msgstr "Og"
+
+#: templates/search/search.inc:38
+msgid "Any Part of field"
+msgstr "Hvilken som helst del av feltet"
+
+#: templates/browse/bookmarks.inc:40
+msgid "Are you sure you want to delete the selected bookmarks?"
+msgstr "Er du sikker på at du vil slette valge snarveier?"
+
+#: templates/browse/subcategories.inc:23
+msgid "Are you sure you want to delete the selected categories?"
+msgstr "Er du sikker på at du vil slette valgte kategorier?"
+
+#: perms.php:50
+msgid "Attempt to edit a non-existent share."
+msgstr "Du prøvde å redigere en delt-kategori som ikke eksisterte."
+
+#: lib/Trean.php:229
+msgid "Bad Gateway"
+msgstr "Feil Gateway"
+
+#: lib/Trean.php:209
+msgid "Bad Request"
+msgstr "Feil i forespørselen"
+
+#: lib/Bookmarks.php:53
+msgid "Bookmark names must be non-empty"
+msgstr "Snarveienes navn kan ikke være tomme"
+
+#: data.php:101 lib/Block/bookmarks.php:3
+msgid "Bookmarks"
+msgstr "Snarveier"
+
+#: browse.php:80 lib/Trean.php:169
+msgid "Browse"
+msgstr "Utforsk"
+
+#: templates/edit/footer.inc:4
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: templates/browse/subcategories.inc:47 templates/browse/browse.html:2
+msgid "Categories"
+msgstr "Kategorier"
+
+#: templates/edit/edit.inc:58 templates/add/add.inc:36
+#: lib/Block/bookmarks.php:38
+msgid "Category"
+msgstr "Kategori"
+
+#: lib/Trean.php:74
+msgid "Category does not exist."
+msgstr "Kategorien eksisterer ikke."
+
+#: lib/Bookmarks.php:33
+msgid "Category names must be non-empty"
+msgstr "Kategorienes navn kan ikke være tomme."
+
+#: templates/data/import.inc:12
+msgid "Category to import into:"
+msgstr "Katergori som det skal importeres til:"
+
+#: config/prefs.php.dist:11
+msgid "Change the number of columns to display in browse and search results."
+msgstr ""
+"Skift antall kolonner som skal bli vist for utforsking og søke resultat."
+
+#: templates/search/search.inc:25
+msgid "Combine"
+msgstr "Kombiner"
+
+#: config/prefs.php.dist:43
+msgid "Completely collapsed"
+msgstr "Helt kollapset"
+
+#: config/prefs.php.dist:45
+msgid "Completely expanded"
+msgstr "Helt utvidet"
+
+#: lib/Trean.php:218
+msgid "Conflict"
+msgstr "Konflikt"
+
+#: lib/Trean.php:193
+msgid "Continue"
+msgstr "Fortsett"
+
+#: edit.php:124
+msgid "Copied bookmark: "
+msgstr "Kopiert snarvei: "
+
+#: templates/browse/bookmarks.inc:116
+msgid "Copy"
+msgstr "Kopier"
+
+#: lib/Trean.php:196
+msgid "Created"
+msgstr "Opprettet"
+
+#: templates/reports/http-status/error.inc:18
+msgid "DNS Failure or Other Error"
+msgstr "DNS svikt eller en annen ukjent feil"
+
+#: templates/reports/http-status.inc:119
+#, php-format
+msgid "DNS Failure or Other Error (%s)"
+msgstr "DNS feil eller annen feil (%s)"
+
+#: templates/add/nocategories.inc:9
+msgid "Define one or more categories for your bookmarks"
+msgstr "Opprett en eller fler kategorier for snarveiene dine"
+
+#: templates/browse/bookmarks.inc:107 templates/browse/subcategories.inc:59
+msgid "Delete"
+msgstr "Slett"
+
+#: templates/reports/http-status/4xx.inc:28
+#: templates/reports/http-status/error.inc:18
+msgid "Delete All"
+msgstr "Slett alle"
+
+#: templates/edit/edit.inc:51
+msgid "Delete Bookmark"
+msgstr "Slett snarvei"
+
+#: templates/browse/javascript.inc:29
+msgid "Delete current category?"
+msgstr "Slett nåværende kategorien?"
+
+#: templates/browse/bookmarks.inc:81
+msgid "Delete this Category"
+msgstr "Slett denne kategorien"
+
+#: edit.php:36 edit.php:77
+msgid "Deleted bookmark: "
+msgstr "Slettet snarvei: "
+
+#: edit.php:172
+msgid "Deleted category: "
+msgstr "Slettet kategori: "
+
+#: templates/search/search.inc:20 templates/edit/edit.inc:17
+#: templates/add/add.inc:31
+msgid "Description"
+msgstr "Full beskrivelse:"
+
+#: config/prefs.php.dist:10
+msgid "Display Options"
+msgstr "Visningsvalg"
+
+#: config/prefs.php.dist:55
+msgid "Display edit buttons when displaying Bookmarks?"
+msgstr "Vis redigerings knapper når snarveier blir vist?"
+
+#: templates/data/import.inc:27
+msgid "Download My Bookmarks"
+msgstr "Last ned snarveien(e)"
+
+#: templates/add/add.inc:63
+msgid "Drag the 'Add to Bookmarks' link below onto your 'Links' Bar"
+msgstr ""
+"Dra over 'Legg til snarvei' linken som er nedefor over til 'Snarvei' linjen "
+"din."
+
+#: templates/add/add.inc:61
+msgid "Drag the 'Add to Bookmarks' link below onto your 'Personal Toolbar'"
+msgstr ""
+"Dra over 'Legg til snarvei' linken nedenfor over på 'Din personlige "
+"snarveilinje'"
+
+#: templates/browse/bookmarks.inc:101
+msgid "Edit"
+msgstr "Rediger"
+
+#: edit.php:210
+msgid "Edit Bookmark"
+msgstr "Rediger Snarvei"
+
+#: perms.php:241
+msgid "Edit Permissions"
+msgstr "Rediger adgangs-innstillinger"
+
+#: perms.php:244
+#, php-format
+msgid "Edit Permissions for %s"
+msgstr "Rediger adgangs-innstillinger for %s"
+
+#: templates/reports/http-status/error.inc:15
+msgid "Errors"
+msgstr "Feil"
+
+#: lib/Trean.php:226
+msgid "Expectation Failed"
+msgstr "Forventet handling feilet"
+
+#: templates/data/import.inc:26
+msgid "Export Bookmarks"
+msgstr "Ekporter snarveier"
+
+#: templates/data/import.inc:11
+msgid "File to import:"
+msgstr "Importer filen:"
+
+#: config/prefs.php.dist:44
+msgid "First level shown"
+msgstr "Første nivå vist"
+
+#: lib/Trean.php:212
+msgid "Forbidden"
+msgstr "Forbudt"
+
+#: lib/Trean.php:204
+msgid "Found"
+msgstr "Funnet"
+
+#: lib/Trean.php:231
+msgid "Gateway Time-out"
+msgstr "Gateway Time-Out"
+
+#: lib/Trean.php:219
+msgid "Gone"
+msgstr "Borte"
+
+#: templates/reports/list.inc:5 templates/reports/http-status.inc:56
+#: templates/reports/http-status/2xx.inc:13
+#: templates/reports/http-status/3xx.inc:28
+#: templates/reports/http-status/4xx.inc:24
+#: templates/reports/http-status/5xx.inc:13
+#: templates/reports/http-status/1xx.inc:13
+#: templates/reports/http-status/error.inc:15 templates/edit/edit.inc:39
+msgid "HTTP Status"
+msgstr "HTTP Status"
+
+#: lib/Trean.php:232
+msgid "HTTP Version not supported"
+msgstr "HTTP versjonen er ikke støttet"
+
+#: templates/data/import.inc:16
+msgid "Import"
+msgstr "Importer"
+
+#: data.php:91 templates/data/import.inc:1
+msgid "Import Bookmarks"
+msgstr "Importer snarveier"
+
+#: lib/Trean.php:176
+msgid "Import/Export"
+msgstr "Importer/Eksporter"
+
+#: lib/Trean.php:227
+msgid "Internal Server Error"
+msgstr "Intern tjener feil"
+
+#: templates/add/add.inc:62
+msgid "Internet Explorer"
+msgstr "Internet Explorer"
+
+#: templates/data/import.inc:9
+msgid ""
+"Internet Explorer users will need to export their current Favorites by going "
+"to the 'File' menu and selecting 'Import and Export'."
+msgstr ""
+"Internet Explorer brukere er nødt til å eksportere snarveiene sine ved å gå "
+"til 'Fil' menyen og deretter velge 'Importer og eksporter'."
+
+#: lib/Trean.php:220
+msgid "Length Required"
+msgstr "Lengde er påkrevd"
+
+#: templates/search/search.inc:35
+msgid "Match"
+msgstr "Sammenligne"
+
+#: lib/Trean.php:214
+msgid "Method Not Allowed"
+msgstr "Metoden er ikke tillatt"
+
+#: templates/browse/bookmarks.inc:109 templates/browse/subcategories.inc:60
+msgid "Move"
+msgstr "Flytt"
+
+#: lib/Trean.php:203
+msgid "Moved Permanently"
+msgstr "Flyttet permanent"
+
+#: edit.php:101
+msgid "Moved bookmark: "
+msgstr "Flyttet snarvei: "
+
+#: edit.php:193
+msgid "Moved category: "
+msgstr "Flyttet kategori: "
+
+#: templates/add/add.inc:60
+msgid "Mozilla"
+msgstr "Mozilla"
+
+#: templates/data/import.inc:8
+msgid ""
+"Mozilla users will need to export their current Bookmarks by going into "
+"'Bookmark Manager' and selecting 'Export' from the 'Tools' menu."
+msgstr ""
+"Mozilla brukere er nødt til å eksporte snarveien sine ved å gå inn i "
+"'Bookmark Manager' og velge 'Export fra 'Tools' menyen."
+
+#: lib/Trean.php:202
+msgid "Multiple Choices"
+msgstr "Fler valg"
+
+#: lib/Trean.php:78 lib/Block/bookmarks.php:29 lib/Block/bookmarks.php:65
+msgid "My Bookmarks"
+msgstr "Mine snarveier"
+
+#: templates/browse/bookmarks.inc:78 lib/Block/bookmarks.php:70
+msgid "New Bookmark"
+msgstr "Ny snarvei"
+
+#: templates/browse/bookmarks.inc:79 templates/add/nocategories.inc:4
+msgid "New Subcategory"
+msgstr "Ny underkategori"
+
+#: templates/search/results_none.inc:3
+msgid "No Bookmarks found"
+msgstr "Ingen snarveier funnet"
+
+#: lib/Trean.php:199
+msgid "No Content"
+msgstr "Ikke noe innhold"
+
+#: lib/Block/bookmarks.php:100
+msgid "No bookmarks to display"
+msgstr "Ikke snarveier å vise"
+
+#: lib/Trean.php:198
+msgid "Non-Authoritative Information"
+msgstr "Ikke autorativ informasjon"
+
+#: templates/browse/bookmarks.inc:96 templates/browse/subcategories.inc:56
+msgid "None"
+msgstr "Ingen"
+
+#: lib/Trean.php:215
+msgid "Not Acceptable"
+msgstr "Ikke akseptert"
+
+#: lib/Trean.php:213
+msgid "Not Found"
+msgstr "Ikke funnet"
+
+#: lib/Trean.php:228
+msgid "Not Implemented"
+msgstr "Ikke implementert"
+
+#: lib/Trean.php:206
+msgid "Not Modified"
+msgstr "Ikke endret"
+
+#: config/prefs.php.dist:22
+msgid "Number of columns to display in browse and search results:"
+msgstr "Antall kolonner i oppsummeringsvisningen:"
+
+#: lib/Trean.php:195
+msgid "OK"
+msgstr "OK"
+
+#: perms.php:62
+msgid ""
+"Only the owner or system administrator may change ownership or owner "
+"permissions for a share"
+msgstr ""
+"Bare eieren eller administratoren kan forandre eierforhold eller eier for en "
+"delt kategori."
+
+#: config/prefs.php.dist:64
+msgid "Open links in a new window?"
+msgstr "Åpne vinduer i et eget vindu?"
+
+#: templates/search/search.inc:28
+msgid "Or"
+msgstr "Eller"
+
+#: config/prefs.php.dist:9
+msgid "Other Options"
+msgstr "Andre valg"
+
+#: lib/Trean.php:201
+msgid "Partial Content"
+msgstr "Ufullstendig innhold"
+
+#: lib/Trean.php:211
+msgid "Payment Required"
+msgstr "Du må betale for dette"
+
+#: templates/browse/bookmarks.inc:85
+msgid "Permissions"
+msgstr "Adgangs-innstillinger"
+
+#: templates/browse/javascript.inc:19
+msgid "Please enter the name of the new category:"
+msgstr "Vennligst skriv inn navnet på den nye kategorien:"
+
+#: templates/browse/javascript.inc:39
+msgid "Please modify the name accordingly"
+msgstr "Vennligs endre navnet som dette"
+
+#: lib/Trean.php:221
+msgid "Precondition Failed"
+msgstr "Førtilstand feilet"
+
+#: lib/Trean.php:216
+msgid "Proxy Authentication Required"
+msgstr "Proxy innlogging er påkrevd"
+
+#: templates/reports/http-status/3xx.inc:32
+msgid "Redirect All"
+msgstr "Omadresser alle"
+
+#: templates/edit/edit.inc:46
+msgid "Redirect to %s"
+msgstr "Omadresser til %s"
+
+#: templates/browse/bookmarks.inc:82
+msgid "Rename this Category"
+msgstr "Lag et nytt navn på denne kategorien"
+
+#: reports.php:18 lib/Trean.php:172
+msgid "Reports"
+msgstr "Rapporter"
+
+#: lib/Trean.php:222
+msgid "Request Entity Too Large"
+msgstr "Etterspurt enhet er før stor"
+
+#: lib/Trean.php:217
+msgid "Request Time-out"
+msgstr "Tiden gikk ut for etterspørselen"
+
+#: lib/Trean.php:223
+msgid "Request-URI Too Large"
+msgstr "Størrelse på etterspurt URI er for stor"
+
+#: lib/Trean.php:225
+msgid "Requested range not satisfiable"
+msgstr "Etterspurt rekkevidde holder ikke mål"
+
+#: templates/add/add.inc:47
+msgid "Reset"
+msgstr "Nullstill"
+
+#: lib/Trean.php:200
+msgid "Reset Content"
+msgstr "Nullstill innhold"
+
+#: templates/edit/footer.inc:3 templates/add/add.inc:46
+msgid "Save"
+msgstr "Lagre"
+
+#: search.php:14 templates/search/search.inc:46 lib/Trean.php:171
+msgid "Search"
+msgstr "Søk"
+
+#: templates/search/search.inc:5
+msgid "Search Bookmarks"
+msgstr "Søk i snarveier"
+
+#: templates/search/results_header.inc:5
+msgid "Search Results"
+msgstr "Søkeresultat"
+
+#: lib/Trean.php:205
+msgid "See Other"
+msgstr "Se andre"
+
+#: templates/browse/bookmarks.inc:95 templates/browse/subcategories.inc:55
+msgid "Select All"
+msgstr "Velg alle"
+
+#: templates/browse/bookmarks.inc:96 templates/browse/subcategories.inc:56
+msgid "Select None"
+msgstr "Velg ingen"
+
+#: templates/browse/bookmarks.inc:94 templates/browse/subcategories.inc:54
+msgid "Select: %s | %s"
+msgstr "Velg: %s | %s]"
+
+#: lib/Trean.php:230
+msgid "Service Unavailable"
+msgstr "Tjenesten er dessverre utilgjengelig"
+
+#: templates/browse/bookmarks.inc:85
+msgid "Set Permissions"
+msgstr "Sett adgangs-innstillinger"
+
+#: config/prefs.php.dist:46
+msgid "Should your list of bookmark categories be open when you log in?"
+msgstr "Skal listen din over internett snarveier være åpen når du logger inn?"
+
+#: lib/Trean.php:194
+msgid "Switching Protocols"
+msgstr "Bytter protokoller"
+
+#: lib/Block/bookmarks.php:42
+msgid "Template"
+msgstr "Mal"
+
+#: config/prefs.php.dist:34
+msgid "Template to use when displaying bookmarks:"
+msgstr "Mal som skal brukes under visning av internett snarveier:"
+
+#: lib/Trean.php:208
+msgid "Temporary Redirect"
+msgstr "Omadresser midlertidig"
+
+#: templates/browse/bookmarks.inc:146
+msgid "There are no bookmarks in this category"
+msgstr "Det er ingen snarveien i denne kategorien"
+
+#: edit.php:126
+msgid "There was a problem copying the bookmark: %s"
+msgstr "Det oppstod en feil under kopiering av snarveien: %s"
+
+#: edit.php:38 edit.php:79
+msgid "There was a problem deleting the bookmark: %s"
+msgstr "Det oppstod en feil under sletting av snarveien: %s"
+
+#: edit.php:174
+msgid "There was a problem deleting the category: %s"
+msgstr "Det oppstod en feil under sletting av kategorien: %s"
+
+#: edit.php:103
+msgid "There was a problem moving the bookmark: %s"
+msgstr "Det oppstod et problem under flytting av snarveien: %s"
+
+#: edit.php:195
+msgid "There was a problem moving the category: %s"
+msgstr "Det oppstod et problem når kategorien %s skulle flyttes"
+
+#: add.php:35
+msgid "There was an error adding the bookmark: %s"
+msgstr "Det oppstod en feil når jeg skulle legge til snarveien: %s"
+
+#: add.php:59
+msgid "There was an error adding the category: %s"
+msgstr "Det oppstod en feil når jeg skulle legge %s til i kategorien"
+
+#: edit.php:60
+msgid "There was an error saving the bookmark: %s"
+msgstr "Det oppstod en feil når jeg skulle lagre snarveien: %s"
+
+#: templates/search/search.inc:15 templates/edit/edit.inc:12
+#: templates/add/add.inc:26
+msgid "Title"
+msgstr "Tittel"
+
+#: templates/add/add.inc:59
+msgid "To be able to quickly add bookmarks from your web browser:"
+msgstr ""
+"For å ha muligheten til å legge til internett snarveier raskt direkte fra "
+"browseren:"
+
+#: templates/reports/http-status.inc:126
+msgid "Total"
+msgstr "Totalt"
+
+#: templates/search/search.inc:10 templates/edit/edit.inc:22
+#: templates/add/add.inc:21
+msgid "URL"
+msgstr "URL"
+
+#: lib/Trean.php:210
+msgid "Unauthorized"
+msgstr "Uatorisert"
+
+#: templates/reports/http-status.inc:123
+#, php-format
+msgid "Unknown (%s)"
+msgstr "Ukjent (%s)"
+
+#: lib/Trean.php:224
+msgid "Unsupported Media Type"
+msgstr "Denne media typen er ikke støttet"
+
+#: perms.php:234
+#, php-format
+msgid "Updated %s."
+msgstr "Oppdaterte %s."
+
+#: lib/Trean.php:207
+msgid "Use Proxy"
+msgstr "Bruk proxy"
+
+#: templates/reports/list.inc:1
+msgid "View Report"
+msgstr "Vis Rapport"
+
+#: templates/add/add.inc:64
+msgid ""
+"While browsing you will be able to add bookmarks by clicking your new 'Add "
+"to Bookmarks' shortcut."
+msgstr ""
+"Når du surfer så vil du ha muligheten for å legge til favorittsidene dine "
+"ved å klikke på din nye 'Legg til snarvei' snarvei."
+
+#: templates/search/search.inc:39
+msgid "Whole Field"
+msgstr "Helt felt"
+
+#: templates/browse/javascript.inc:19
+msgid "You are creating a category folder."
+msgstr "Du lager en toppnivåmappe."
+
+#: templates/browse/javascript.inc:39
+msgid "You are renaming the current category folder."
+msgstr "Du gir nytt navn til mappen: "
+
+#: browse.php:28
+msgid "You do not have permission to view this category."
+msgstr "Du har ikke adgang i denne kategorien"
+
+#: templates/bookmark/1line.inc:30 templates/bookmark/standard.inc:27
+#: templates/bookmark/2line.inc:33
+msgid "click"
+msgstr "Klikk"
+
+#: templates/bookmark/1line.inc:30 templates/bookmark/standard.inc:27
+#: templates/bookmark/2line.inc:33
+msgid "clicks"
+msgstr "Klikk"
+
+msgid "Number Of Clicks"
+msgstr "Antall Klikk"

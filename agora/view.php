@@ -2,8 +2,6 @@
 /**
  * Script to download attachments.
  *
- * $Horde: agora/view.php,v 1.14 2009/07/21 06:58:38 duck Exp $
- *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -12,8 +10,8 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-define('AGORA_BASE', dirname(__FILE__));
-require_once AGORA_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('agora', array('authentication' => 'none', 'cli' => true));
 
 $action_id = Horde_Util::getFormData('action_id', 'download');
 $file_id = Horde_Util::getFormData('file_id');

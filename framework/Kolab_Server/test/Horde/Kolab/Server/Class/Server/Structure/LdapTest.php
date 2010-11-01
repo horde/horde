@@ -35,7 +35,7 @@ class Horde_Kolab_Server_Class_Server_Structure_LdapTest extends Horde_Kolab_Ser
     public function setUp()
     {
         $server = $this->getMock('Horde_Kolab_Server_Interface');
-        $this->composite = new Horde_Kolab_Server_Composite_Base(
+        $this->composite = new Horde_Kolab_Server_Composite(
             $server,
             $this->getMock('Horde_Kolab_Server_Objects_Interface'),
             new Horde_Kolab_Server_Structure_Ldap(),
@@ -47,14 +47,14 @@ class Horde_Kolab_Server_Class_Server_Structure_LdapTest extends Horde_Kolab_Ser
     public function testMethodFindHasResultServerResultTheSearchResult()
     {
         $this->skipIfNoLdap();
-        $result = $this->getMock('Horde_Kolab_Server_Result');
+        $result = $this->getMock('Horde_Kolab_Server_Result_Interface');
         $this->composite->server->expects($this->exactly(1))
             ->method('find')
             ->with('(objectClass=equals)', array())
             ->will($this->returnValue($result));
         $equals = new Horde_Kolab_Server_Query_Element_Equals('objectClass', 'equals');
         $this->assertType(
-            'Horde_Kolab_Server_Result',
+            'Horde_Kolab_Server_Result_Interface',
             $this->composite->structure->find($equals, array())
         );
     }
@@ -62,14 +62,14 @@ class Horde_Kolab_Server_Class_Server_Structure_LdapTest extends Horde_Kolab_Ser
     public function testMethodFindBelowHasResultServerResultTheSearchResult()
     {
         $this->skipIfNoLdap();
-        $result = $this->getMock('Horde_Kolab_Server_Result');
+        $result = $this->getMock('Horde_Kolab_Server_Result_Interface');
         $this->composite->server->expects($this->exactly(1))
             ->method('findBelow')
             ->with('(objectClass=equals)', 'base', array())
             ->will($this->returnValue($result));
         $equals = new Horde_Kolab_Server_Query_Element_Equals('objectClass', 'equals');
         $this->assertType(
-            'Horde_Kolab_Server_Result',
+            'Horde_Kolab_Server_Result_Interface',
             $this->composite->structure->findBelow($equals, 'base', array())
         );
     }

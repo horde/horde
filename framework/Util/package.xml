@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Util</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Utility Libraries</summary>
@@ -19,7 +16,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2009-06-09</date>
+ <date>2010-08-15</date>
+ <time>15:27:45</time>
  <version>
   <release>0.2.0</release>
   <api>0.2.0</api>
@@ -29,12 +27,19 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>
+ <notes>* Added Horde_Domhtml::.
+ * Removed Horde_Util::assertDriverConfig().
+ * Removed Horde_Util::bufferOutput().
+ * Removed Horde_Util::uriB64Encode() and Horde_Util::uriB64Decode().
+ * Removed Horde_Util::strftime2date() and Horde_Util::date2strftime().
+ * Removed Horde_Util::closeWindowJs() and Horde_Util::nocacheUrl().
+ * Added Horde_String::convertToUtf8().
+ * Added Horde_Util::abbreviate().
  * Removed Horde_Array::combine() and Horde_Util::hmac().
  * Initial Horde 4 package.
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Array">
@@ -43,6 +48,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
       </dir> <!-- /lib/Horde/Array/Sort -->
      </dir> <!-- /lib/Horde/Array -->
      <file name="Array.php" role="php" />
+     <file name="Domhtml.php" role="php" />
      <file name="String.php" role="php" />
      <file name="Util.php" role="php" />
      <file name="Variables.php" role="php" />
@@ -51,15 +57,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="test">
     <dir name="Horde">
      <dir name="Util">
-      <file name="Array_sort.phpt" role="test" />
-      <file name="Variables_remove.phpt" role="test" />
-      <file name="addParameter.phpt" role="test" />
-      <file name="case.phpt" role="test" />
-      <file name="case_php6.phpt" role="test" />
-      <file name="length.phpt" role="test" />
-      <file name="pad.phpt" role="test" />
-      <file name="removeParameter.phpt" role="test" />
-      <file name="utf-8.phpt" role="test" />
+      <file name="AllTests.php" role="test" />
+      <file name="ArrayTest.php" role="test" />
+      <file name="StringTest.php" role="test" />
+      <file name="UtilTest.php" role="test" />
+      <file name="VariablesTest.php" role="test" />
      </dir> <!-- /test/Horde/Util -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -71,36 +73,78 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>5.2.0</min>
    </php>
    <pearinstaller>
-    <min>1.5.4</min>
+    <min>1.7.0</min>
    </pearinstaller>
+   <package>
+    <name>Url</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </required>
   <optional>
    <package>
-    <name>PEAR</name>
-    <channel>pear.php.net</channel>
-   </package>
-   <package>
-    <name>Browser</name>
+    <name>Imap_Client</name>
     <channel>pear.horde.org</channel>
    </package>
+   <extension>
+    <name>dom</name>
+   </extension>
    <extension>
     <name>iconv</name>
    </extension>
    <extension>
     <name>mbstring</name>
    </extension>
+   <extension>
+    <name>xml</name>
+   </extension>
   </optional>
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Array.php" as="Horde/Array.php" />
-   <install name="lib/Horde/Array/Sort/Helper.php" as="Horde/Array/Sort/Helper.php" />
-   <install name="lib/Horde/String.php" as="Horde/String.php" />
-   <install name="lib/Horde/Util.php" as="Horde/Util.php" />
-   <install name="lib/Horde/Variables.php" as="Horde/Variables.php" />
+   <install as="Horde/Array.php" name="lib/Horde/Array.php" />
+   <install as="Horde/Domhtml.php" name="lib/Horde/Domhtml.php" />
+   <install as="Horde/String.php" name="lib/Horde/String.php" />
+   <install as="Horde/Util.php" name="lib/Horde/Util.php" />
+   <install as="Horde/Variables.php" name="lib/Horde/Variables.php" />
+   <install as="Horde/Array/Sort/Helper.php" name="lib/Horde/Array/Sort/Helper.php" />
+   <install as="Horde/Util/AllTests.php" name="test/Horde/Util/AllTests.php" />
+   <install as="Horde/Util/ArrayTest.php" name="test/Horde/Util/ArrayTest.php" />
+   <install as="Horde/Util/StringTest.php" name="test/Horde/Util/StringTest.php" />
+   <install as="Horde/Util/UtilTest.php" name="test/Horde/Util/UtilTest.php" />
+   <install as="Horde/Util/VariablesTest.php" name="test/Horde/Util/VariablesTest.php" />
   </filelist>
  </phprelease>
  <changelog>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2003-10-28</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+Initial release as a PEAR package
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.2</release>
+    <api>0.0.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-05-08</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+Converted to package.xml 2.0 for pear.horde.org
+   </notes>
+  </release>
   <release>
    <version>
     <release>0.1.0</release>
@@ -112,7 +156,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <api>beta</api>
    </stability>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>* Added magic PHP5 methods to the Variables class.
+   <notes>
+* Added magic PHP5 methods to the Variables class.
 * Added array_merge_recursive_overwrite() to Horde_Array().
 * Fixed a bug in Horde_Array::arraySort where auto-detecting the first key failed.
 * Added sorter functions for array keys.
@@ -132,36 +177,31 @@ http://pear.php.net/dtd/package-2.0.xsd">
 * Added multibyte-safe String::wordwrap() method.
 * Added parameter to use wordwrap() for line folding.
 * Use C as the portable locale (Bug #6194).
-* Don't use utf8_encode/decode on very large strings if other options are available. (Bug #6660)
+* Don&apos;t use utf8_encode/decode on very large strings if other options are available. (Bug #6660)
 * Fixed order of checks in String::convertCharset (Bug #6794).
    </notes>
   </release>
   <release>
    <version>
-    <release>0.0.2</release>
-    <api>0.0.2</api>
+    <release>0.2.0</release>
+    <api>0.2.0</api>
    </version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api>
+    <release>beta</release>
+    <api>beta</api>
    </stability>
-   <date>2006-05-08</date>
+   <date>2010-08-15</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Converted to package.xml 2.0 for pear.horde.org
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.0.1</release>
-    <api>0.0.1</api>
-   </version>
-   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
-   </stability>
-   <date>2003-10-28</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Initial release as a PEAR package
+   <notes>
+* Removed Horde_Util::assertDriverConfig().
+ * Removed Horde_Util::bufferOutput().
+ * Removed Horde_Util::uriB64Encode() and Horde_Util::uriB64Decode().
+ * Removed Horde_Util::strftime2date() and Horde_Util::date2strftime().
+ * Removed Horde_Util::closeWindowJs() and Horde_Util::nocacheUrl().
+ * Added Horde_String::convertToUtf8().
+ * Added Horde_Util::abbreviate().
+ * Removed Horde_Array::combine() and Horde_Util::hmac().
+ * Initial Horde 4 package.
    </notes>
   </release>
  </changelog>

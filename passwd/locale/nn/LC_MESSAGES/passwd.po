@@ -1,0 +1,98 @@
+# Passwd Norwegian Nynorsk translation
+# Copyright 2002 Per-Stian Vatne
+# This file is distributed under the same license as the Passwd package.
+# Per-Stian Vatne <psv@orsta.org>, 2002.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Passwd 0.0.1-cvs\n"
+"POT-Creation-Date: 2002-06-09 01:01+0200\n"
+"PO-Revision-Date: 2002-06-09 01:12+0100\n"
+"Last-Translator: Per-Stian Vatne <psv@orsta.org>\n"
+"Language-Team: Norwegian Nynorsk <nynorsk@orsta.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Change your password"
+msgstr "Endre passord"
+
+msgid "Confirm new password:"
+msgstr "Stadfest nytt passord:"
+
+msgid "Failure in changing password : "
+msgstr "Feil ved endring av passord:"
+
+msgid "Help"
+msgstr "Hjelp"
+
+msgid "Internal Error"
+msgstr "Intern feil"
+
+msgid "Logout"
+msgstr "Logg ut"
+
+msgid "New password:"
+msgstr "Nytt passord:"
+
+msgid ""
+"Note: You will need to logout and back in after you change your password!"
+msgstr "Merk: Du må logge ut og inn igjen etter at du endrar passordet ditt!"
+
+msgid "Old password:"
+msgstr "Gammalt passord:"
+
+msgid "Password changed!"
+msgstr "Passord endra!"
+
+msgid "Password module is not properly configured"
+msgstr "Passord-modulen er ikkje ordentleg konfigurert"
+
+msgid "Problem?"
+msgstr "Problem?"
+
+msgid "Reset"
+msgstr "Nullstill"
+
+msgid "Some of Password module's configuration files are missing:"
+msgstr "Nokre av Passord-modulen sinde konfigurasjonsfiler manglar:"
+
+msgid ""
+"This file controls the default preferences for Password module, and also "
+"controls which preferences users can alter."
+msgstr ""
+"Denne fila kontrollerer standardinnstillingane for Passord-modulen, og "
+"kontrollerer også kva innstillingar brukarane kan endre."
+
+msgid ""
+"This file controls the stylesheet that is used to set colors and fonts in "
+"addition to or overriding Horde defaults."
+msgstr ""
+"Denne fila kontrollerer stilarket som blir brukt til å definere fargar og "
+"skrifttypar, og legg til eller overstyrer standardverdiane til Horde."
+
+msgid ""
+"This is the main Password module configuration file. It contains paths and "
+"options for all Password module scripts."
+msgstr ""
+"Dette er hovedkonfigurasjonsfila for Passord-modulen. Den inneheld "
+"katalognamn og innstillingar for alle skripta i Passord-modulen."
+
+#, c-format
+msgid "You can't change password for user %s"
+msgstr "Du kan ikkje endre passord for brukaren %s"
+
+msgid "You must give your new password"
+msgstr "Du må skrive inn ditt nye passord"
+
+msgid "You must give your old password"
+msgstr "Du må skrive inn ditt gamle passord"
+
+msgid "You must verify your new password"
+msgstr "Du må stadfeste ditt nye passord"
+
+msgid "Your new passwords didn't match"
+msgstr "Dine nye passord samsvarte ikkje"
+
+msgid "Your old password isn't correct"
+msgstr "Ditt gamle passord er ikkje korrekt"

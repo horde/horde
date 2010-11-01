@@ -11,84 +11,124 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-new Horde_Application();
+Horde_Registry::appInit('horde');
 
-if (empty($GLOBALS['conf']['facebook']['enabled']) ||
-    empty($GLOBALS['conf']['facebook']['key']) ||
-    empty($GLOBALS['conf']['facebook']['secret'])) {
-
-    $horde_url = Horde::url($registry->get('webroot', 'horde') . '/index.php');
-    header('Location: ' . $horde_url);
-    exit;
+try {
+    $facebook = $GLOBALS['injector']->getInstance('Horde_Service_Facebook');
+} catch (Horde_Exception $e) {
+    Horde::url('index.php', false, array('app' => 'horde'))->redirect();
 }
 
-// Facebook key and secret
-$apikey = $GLOBALS['conf']['facebook']['key'];
-$secret = $GLOBALS['conf']['facebook']['secret'];
-
-// Create required objects
-$context = array('http_client' => new Horde_Http_Client(),
-                 'http_request' => new Horde_Controller_Request_Http());
-
-$facebook = new Horde_Service_Facebook($apikey, $secret, $context);
-
-// See why we are here.
+/* See why we are here. */
 if ($token = Horde_Util::getFormData('auth_token')) {
+    /* Is this an authentication sequence? */
     // Assume we are here for a successful authentication if we have a
     // auth_token. It *must* be allowed to be in GET since that's how FB
     // sends it. This is the *only* time we will be able to capture these values.
     try {
         $haveSession = $facebook->auth->validateSession(true, true);
     } catch (Horde_Service_Facebook_Exception $e) {
-        $GLOBALS['notify']->push(_("Temporarily unable to connect with Facebook, Please try again."), 'horde.alert');
+        $notification->push(_("Temporarily unable to connect with Facebook, Please try again."), 'horde.alert');
     }
     if ($haveSession) {
         // Remember in user prefs
         $sid =  $facebook->auth->getSessionKey();
         $uid = $facebook->auth->getUser();
         $prefs->setValue('facebook', serialize(array('uid' => $uid, 'sid' => $sid)));
-        $GLOBALS['notification']->push(_("Succesfully connected your Facebook account."), 'horde.success');
+        $notification->push(_("Succesfully connected your Facebook account."), 'horde.success');
+        Horde::url('services/prefs.php', true)->add(array('group' => 'facebook', 'app' => 'horde'))->redirect();
     }
 } else {
-    // Require the rest of the actions to be POST only since following them
-    // could change the user's state.
+
+    /* We are here for an Action request */
     $action = Horde_Util::getPost('actionID');
-
     switch ($action) {
-    case 'revokeInfinite':
-        // Revoke the offline_access permission.
+    case 'getStream':
         $fbp = unserialize($prefs->getValue('facebook'));
-        if (!$fbp) {
-            // Something wrong
-        }
         $facebook->auth->setUser($fbp['uid'], $fbp['sid']);
-        $facebook->auth->revokeExtendedPermission(
-            Horde_Service_Facebook_Auth::EXTEND_PERMS_OFFLINE,
-            $facebook->auth->getUser());
-        break;
+        try {
+            $count = Horde_Util::getPost('count');
+            $filter = Horde_Util::getPost('filter');
+            $stream = $facebook->streams->get('', array(), Horde_Util::getPost('oldest'), Horde_Util::getPost('newest'), $count, $filter);
+        } catch (Horde_Service_Facebook_Exception $e) {
+            $html = sprintf(_("There was an error making the request: %s"), $e->getMessage());
+            $html .= sprintf(_("You can also check your Facebook settings in your %s."), Horde::getServiceLink('prefs', 'horde')->add('group', 'facebook')->link() . _("preferences") . '</a>');
 
-    case 'revokeApplication':
-        $fbp = unserialize($prefs->getValue('facebook'));
-        if (!$fbp) {
-            // Something wrong
+            return $html;
         }
-        $facebook->auth->setUser($fbp['uid'], $fbp['sid']);
-        $facebook->auth->revokeAuthorization();
-        // Clear prefs.
-        $prefs->setValue('facebook', array('uid' => '',
-                                           'sid' => ''));
 
-        break;
-    case 'revokePublish':
-        $fbp = unserialize($prefs->getValue('facebook'));
-        if (!$fbp) {
-            // Something wrong
+        /* Do we want notifications too? */
+        $n_html = '';
+        if (Horde_Util::getPost('notifications')) {
+            try {
+                $notifications = $facebook->notifications->get();
+                $n_html =  _("New Messages:")
+                . ' ' . $notifications['messages']['unread']
+                . ' ' . _("Pokes:") . ' ' . $notifications['pokes']['unread']
+                . ' ' . _("Friend Requests:") . ' ' . count($notifications['friend_requests'])
+                . ' ' . _("Event Invites:") . ' ' . count($notifications['event_invites']);
+            } catch (Horde_Service_Facebook_Exception $e) {
+                $html = sprintf(_("There was an error making the request: %s"), $e->getMessage());
+                $html .= sprintf(_("You can also check your Facebook settings in your %s."), Horde::getServiceLink('prefs', 'horde')->add('group', 'facebook')->link() . _("preferences") . '</a>');
+
+                return $html;
+            }
         }
-        $facebook->auth->setUser($fbp['uid'], $fbp['sid']);
-        $facebook->auth->revokeExtendedPermission(
-            Horde_Service_Facebook_Auth::EXTEND_PERMS_PUBLISHSTREAM,
-            $facebook->auth->getUser());
-        break;
+
+        /* Start parsing the posts */
+        $posts = $stream['posts'];
+        $profiles = array();
+        $newest = $posts[0]['created_time'];
+        $oldest = $posts[count($posts) -1]['created_time'];
+        $instance = Horde_Util::getPost('instance');
+
+        /* Sure would be nice if fb returned these keyed properly... */
+        foreach ($stream['profiles'] as $profile) {
+            $profiles[(string)$profile['id']] = $profile;
+        }
+
+        /* Build Horde_View for each story */
+        $html = '';
+        foreach ($posts as $post) {
+                $postView = new Horde_View(array('templatePath' => HORDE_TEMPLATES . '/block'));
+                $postView->actorImgUrl = $profiles[(string)$post['actor_id']]['pic_square'];
+                $postView->actorProfileLink =  Horde::externalUrl($profiles[(string)$post['actor_id']]['url'], true);
+                $postView->actorName = $profiles[(string)$post['actor_id']]['name'];
+                $postView->message = empty($post['message']) ? '' : $post['message'];
+                $postView->attachment = empty($post['attachment']) ? null : $post['attachment'];
+                $postView->likes = $post['likes'];
+                $postView->postId = $post['post_id'];
+                $postView->postInfo = sprintf(_("Posted %s"), Horde_Date_Utils::relativeDateTime($post['created_time'], $GLOBALS['prefs']->getValue('date_format'), $GLOBALS['prefs']->getValue('twentyFour') ? "%H:%M %P" : "%I %M %P")) . ' ' . sprintf(_("Comments: %d"), $post['comments']['count']);
+
+                /* Build the 'Likes' string. */
+                if (empty($post['likes']['user_likes']) && !empty($post['likes']['can_like'])) {
+                    $like = '<a href="#" onclick="Horde[\'' . $instance . '_facebook\'].addLike(\'' . $post['post_id'] . '\');return false;">' . _("Like") . '</a>';
+                } else {
+                    $like = '';
+                }
+                if (!empty($post['likes']['user_likes']) && !empty($post['likes']['count'])) {
+                    $likes = sprintf(ngettext("You and %d other person likes this", "You and %d other people like this", $post['likes']['count'] - 1), $post['likes']['count'] - 1);
+                } elseif (!empty($post['likes']['user_likes'])) {
+                    $likes = _("You like this");
+                } elseif (!empty($post['likes']['count'])) {
+                    $likes = sprintf(ngettext("%d person likes this", "%d persons like this", $post['likes']['count']), $post['likes']['count']) . (!empty($like) ? ' ' . $like : '');
+                } else {
+                    $likes = $like;
+                }
+                $postView->likesInfo = $likes;
+                $html .= $postView->render('facebook_story');
+        }
+
+        /* Build response structure */
+        $result = array(
+            'o' => $oldest,
+            'n' => $newest,
+            'c' => $html,
+            'nt' => $n_html
+        );
+        header('Content-Type: application/json');
+        echo Horde_Serialize::serialize($result, Horde_Serialize::JSON);
+        exit;
     case 'updateStatus':
         // Set the user's status
         $fbp = unserialize($prefs->getValue('facebook'));
@@ -181,112 +221,3 @@ if (!empty($have_app) && !empty($sid)) {
     }
 }
 
-// If we have a good session, see about our extended permissions
-if (!empty($haveSession)) {
-    try {
-        $have_offline = $facebook->users->hasAppPermission(
-            Horde_Service_Facebook_Auth::EXTEND_PERMS_OFFLINE, $uid);
-        $have_publish = $facebook->users->hasAppPermission(
-            Horde_Service_Facebook_Auth::EXTEND_PERMS_PUBLISHSTREAM, $uid);
-        $have_read = $facebook->users->hasAppPermission(
-            Horde_Service_Facebook_Auth::EXTEND_PERMS_READSTREAM, $uid);
-    } catch (Horde_Service_Facebook_Exception $e) {
-        $error = $e->getMessage();
-    }
-}
-
-// Start rendering the prefs page
-$chunk = Horde_Util::nonInputVar('chunk');
-Horde_Prefs_Ui::generateHeader('horde', null, 'facebook', $chunk);
-$csslink = $GLOBALS['registry']->get('themesuri', 'horde') . '/facebook.css';
-echo '<link href="' . $csslink . '" rel="stylesheet" type="text/css" />';
-
-if (!empty($haveSession)) {
-    // If we are here, we have a valid session. Facebook strongly suggests to
-    // place the user's profile picture with the small Facebook icon on it,
-    // along with the user's full name (as it appears on Facebook) on the page
-    // to clarify this to the user. They also suggest using Facebook CSS rules
-    // for Facebook related notices and content.
-    $fql = 'SELECT first_name, last_name, status, pic_with_logo, current_location FROM user WHERE uid IN (' . $uid . ')';
-
-    try {
-        $user_info = $facebook->fql->run($fql);
-    } catch (Horde_Service_Facebook_Exception $e) {
-        $GLOBALS['notify']->push(_("Temporarily unable to connect with Facebook, Please try again."), 'horde.alert');
-    }
-    // url to revoke authorization
-    $url = Horde_Util::addParameter(Horde::selfUrl(true), array('action' => 'revokeApplication'));
-    $url = Horde::signQueryString($url);
-
-    echo '<div class="fbbluebox" style="float:left">';
-    echo '<span><img src="' . $user_info[0]['pic_with_logo'] . '" /></span>';
-    echo '<span>' . $user_info[0]['first_name'] . ' ' . $user_info[0]['last_name'] . '</span>';
-    echo '</div>';
-    echo '<div class="clear">&nbsp;</div>';
-
-    // Offline access links
-    if (!empty($have_app) && empty($have_offline) ) {
-        // Url for offline_access perms
-        $url = $facebook->auth->getExtendedPermUrl(
-            Horde_Service_Facebook_Auth::EXTEND_PERMS_OFFLINE,
-            Horde_Util::addParameter(Horde::url('services/facebook.php', true), 'action', 'authsuccess'));
-
-        echo '<div class="fbbluebox">'
-            . sprintf(_("%s can interact with your Facebook account, but you must login to Facebook manually each time."), $registry->get('name'))
-            . '<div class="fbaction">' .  _("Authorize an infinite session")
-            . ': <a class="fbbutton" href="'. $url . '">Facebook</a></div></div>';
-
-    } elseif (!empty($have_app)) {
-        // Have offline_access, provide a means to revoke it from within Horde
-        echo '<div class="fbbluebox">'
-            . _("Infinite sessions enabled.")
-            . '<div class="fbaction"><input type="submit" class="fbbutton" value="' . _("Disable") . '" onclick="document.prefs.actionID.value=\'revokeInfinite\'; return true" /></div></div>';
-    }
-
-    // Publish links
-    if (!empty($have_publish)) {
-        // Auth'd the publish API.
-        echo '<div class="fbbluebox">' . _("Publish enabled.")
-            . '<div class="fbaction"><input type="submit" class="fbbutton" value="' . _("Disable") . '" onclick="document.prefs.actionID.value=\'revokePublish\'; return true" /></div></div>';
-    } else {
-        $url = $facebook->auth->getExtendedPermUrl(
-            Horde_Service_Facebook_Auth::EXTEND_PERMS_PUBLISHSTREAM,
-            Horde::url('services/facebook.php', true));
-        echo '<div class="fbbluebox">'
-            . sprintf(_("%s cannot set your status messages or publish other content to Facebook."), $registry->get('name'))
-            . '<div class="fbaction">'
-            . _("Authorize Publish:")
-            . ' <a class="fbbutton" href="' . $url . '">Facebook</a></div></div>';
-    }
-
-    // Read links
-    if (!empty($have_read)) {
-        echo '<div class="fbbluebox">' . _("Read enabled.")
-            . '<div class="fbaction"><input type="submit" class="fbbutton" value="' . _("Disable") . '" onclick="document.prefs.actionID.value=\'revokeRead\'; return true" /></div></div>';
-    } else {
-        $url = $facebook->auth->getExtendedPermUrl(
-            Horde_Service_Facebook_Auth::EXTEND_PERMS_READSTREAM,
-            Horde::url('services/facebook.php', true));
-        echo '<div class="fbbluebox">'
-            . sprintf(_("%s cannot read your stream messages."), $registry->get('name'))
-            . '<div class="fbaction">'
-            . _("Authorize Read:")
-            . ' <a class="fbbutton" href="' . $url . '">Facebook</a></div></div>';
-    }
-
-} else {
-    // No valid session information at all
-    echo '<div class="fberrorbox">'
-        . sprintf(_("Could not find authorization for %s to interact with your Facebook account."), $registry->get('name'))
-        . '</div>';
-        $url = $facebook->auth->getLoginUrl(Horde::url('services/facebook.php', true));
-
-        if (!empty($error)) {
-            echo $error;
-        }
-        echo sprintf(_("Login to Facebook and authorize the %s application:"), $registry->get('name'))
-            . '<a class="fbbutton" href="' . $url . '">Facebook</a>';
-}
-// Need to close the prefs form (opened by the Horde_Prefs_Ui)
-echo '</form>';
-require HORDE_TEMPLATES . '/common-footer.inc';

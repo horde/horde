@@ -36,7 +36,7 @@ function switchDateView(view, date)
 <input type="hidden" name="actionValue" value="" />
 <input type="hidden" name="view" value="<?php echo htmlspecialchars($view) ?>" />
 <input type="hidden" name="date" value="<?php echo $date->dateString() . sprintf("%02d%02d00", $date->hour, $date->min) ?>" />
-<input type="hidden" name="enddate" value=<?php echo $end->dateString() . sprintf("%02d%02d00", $end->hour, $end->min) ?>" />
+<input type="hidden" name="enddate" value="<?php echo $end->dateString() . sprintf("%02d%02d00", $end->hour, $end->min) ?>" />
 
 <h1 class="header"><?php echo htmlspecialchars($title) ?></h1>
 
@@ -51,11 +51,11 @@ function switchDateView(view, date)
 </tr>
 
 <!-- attendees -->
-<?php $i = 0; if (empty($attendees)): ?>
+<?php $i = 0; if (empty($GLOBALS['session']['kronolith:attendees'])): ?>
  <tr><td colspan="4"><em><?php echo _("No attendees") ?></em></td></tr>
-<?php else: foreach ($attendees as $email => $status): ?>
+<?php else: foreach ($GLOBALS['session']['kronolith:attendees'] as $email => $status): ?>
  <tr>
-  <td class="nowrap"><?php $name = strpos($email, '@') === false ? $status['name'] : $email; echo Horde::url('#')->link(array('title' => sprintf(_("Remove %s"), $name), 'onclick' => "performAction('remove', decodeURIComponent('" . rawurlencode($email) . "')); return false;")) . Horde::img('delete.png', '', null, $registry->getImageDir('horde')) . '</a> ' . Horde::url('#')->link(array('title' => sprintf(_("Edit %s"), $name), 'onclick' => "performAction('edit', decodeURIComponent('" . rawurlencode($email) . "')); return false;")) . Horde::img('edit.png', '', null, $registry->getImageDir('horde')) . '</a>' ?></td>
+  <td class="nowrap"><?php $name = strpos($email, '@') === false ? $status['name'] : $email; echo Horde::url('#')->link(array('title' => sprintf(_("Remove %s"), $name), 'onclick' => "performAction('remove', decodeURIComponent('" . rawurlencode($email) . "')); return false;")) . Horde::img('delete.png') . '</a> ' . Horde::url('#')->link(array('title' => sprintf(_("Edit %s"), $name), 'onclick' => "performAction('edit', decodeURIComponent('" . rawurlencode($email) . "')); return false;")) . Horde::img('edit.png') . '</a>' ?></td>
   <td><?php echo htmlspecialchars(empty($status['name']) ? $email : Horde_Mime_Address::trimAddress($status['name'] . (strpos($email, '@') === false ? '' : ' <' . $email . '>'))) ?></td>
   <td>
 <label for="<?php echo "attendance_$i" ?>" class="hidden"><?php echo _("Attendance") ?></label>
@@ -82,7 +82,7 @@ function switchDateView(view, date)
 <tr class="item nowrap leftAlign">
  <th width="2%">&nbsp;</th>
  <th width="48%"><?php echo htmlspecialchars(_("Resource")) ?></th>
- <th wiidth="25%"><?php echo _("Attendance") ?></th>
+ <th width="25%"><?php echo _("Attendance") ?></th>
  <th width="25%"><?php echo _("Response") ?></th>
 </tr>
 
@@ -91,7 +91,7 @@ function switchDateView(view, date)
  <tr><td colspan="4"><em><?php echo _("No attendees") ?></em></td></tr>
 <?php else: foreach ($resources as $id => $resource): ?>
  <tr>
-  <td class="nowrap"><?php echo Horde::url('#')->link(array('title' => sprintf(_("Remove %s"), $resource['name']), 'onclick' => "performAction('removeResource', " . $id . "); return false;")) . Horde::img('delete.png', '', null, $registry->getImageDir('horde')) ?></a></td>
+  <td class="nowrap"><?php echo Horde::url('#')->link(array('title' => sprintf(_("Remove %s"), $resource['name']), 'onclick' => "performAction('removeResource', " . $id . "); return false;")) . Horde::img('delete.png') ?></a></td>
   <td><?php echo htmlspecialchars($resource['name']) ?></td>
   <td>
   <label for="<?php echo "resourceattendance_$i" ?>" class="hidden"><?php echo _("Attendance") ?></label>
@@ -127,7 +127,7 @@ function switchDateView(view, date)
    <span id="newAttendees_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
   </td>
 <?php if ($registry->hasMethod('contacts/search')): ?>
-  <td align="center"><?php echo Horde::url('#')->link(array('class' => 'widget', 'onclick' => 'window.open(\'' . Horde::applicationUrl('contacts.php') . '\', \'contacts\', \'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=270,left=100,top=100\'); return false;')) . Horde::img('addressbook_browse.png') . '<br />' . _("Address Book") . '</a>' ?></td>
+  <td align="center"><?php echo Horde::url('#')->link(array('class' => 'widget', 'onclick' => 'window.open(\'' . Horde::url('contacts.php') . '\', \'contacts\', \'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=270,left=100,top=100\'); return false;')) . Horde::img('addressbook_browse.png') . '<br />' . _("Address Book") . '</a>' ?></td>
 <?php endif; ?>
  </tr>
  <tr>
@@ -145,9 +145,9 @@ function switchDateView(view, date)
 
 <br />
 <div>
- <input type="submit" class="button" name="addNew" value="<?php echo htmlspecialchars(_("Save")) ?>" />
+ <input type="submit" class="button" name="addNew" value="<?php echo htmlspecialchars(_("Update")) ?>" />
  <input type="submit" class="button" name="addNewClose" value="<?php echo htmlspecialchars(_("Save and Finish")) ?>" />
- <?php if (!empty($attendees)): ?><input type="submit" class="button" name="clearAll" value="<?php echo htmlspecialchars(_("Clear all")) ?>" /><?php endif; ?>
+ <?php if (!empty($GLOBALS['session']['kronolith:attendees'])): ?><input type="submit" class="button" name="clearAll" value="<?php echo htmlspecialchars(_("Clear all")) ?>" /><?php endif; ?>
 </div>
 
 <br />

@@ -1,0 +1,27 @@
+==============================
+ Passwd Development TODO List
+==============================
+
+:Last update:   $Date: 2008/10/09 17:12:04 $
+:Revision:      $Revision: 1.13.2.1 $
+:Contact:       sork@lists.horde.org
+
+- There should be more error checking for various things, in particular sanity
+  checking of the form variables passed in.
+
+- Document issues of poppassd/ldap/smbpasswd perhaps allowing weak passwords
+  or otherwise getting around passwd restrictions.  Document the password
+  length and strength tests, and how bad they really are.  We could
+  investigate using cracklib calls, since it is supported by php, but that
+  would require cracklib to be installed on the system and in PHP.
+
+- Need to clean up the ldapd code still.  A work in progress.  Maybe pass the
+  password field "userPassword" as a config item so people can name it
+  differently if needed?
+
+- The exim sql driver defines a lot of stuff in conf.php that should already
+  be defined in Horde/IMP's configs.  We should probably reuse the Horde/IMP
+  stuff rather than duplicating the configuration???
+
+- Display the password policy to the user that he knows how the password
+  should look like (Request #2304).

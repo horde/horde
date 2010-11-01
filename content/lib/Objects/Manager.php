@@ -20,6 +20,7 @@ class Content_Objects_Manager
 {
     /**
      * Database adapter
+     *
      * @var Horde_Db_Adapter
      */
     protected $_db;
@@ -43,19 +44,10 @@ class Content_Objects_Manager
     /**
      * Constructor
      */
-    public function __construct($context = array())
+    public function __construct(Horde_Db_Adapter $db, Content_Types_Manager $typeManager)
     {
-        if (!empty($context['dbAdapter'])) {
-            $this->_db = $context['dbAdapter'];
-        }
-
-        if (!empty($context['typeManager'])) {
-            $this->_typeManager = $context['typeManager'];
-        }
-
-        if (!empty($context['tables'])) {
-            $this->_tables = array_merge($this->_tables, $context['tables']);
-        }
+        $this->_db = $db;
+        $this->_typeManager = $typeManager;
     }
 
     /**
@@ -63,12 +55,25 @@ class Content_Objects_Manager
      * Helps save queries for things like tags when we already know the object
      * doesn't yet exist in rampage tables.
      */
-    public function exists($object, $type)
+    public function exists($objects, $type)
     {
         $type = current($this->_typeManager->ensureTypes($type));
-        $id = $this->_db->selectValue('SELECT object_id FROM ' . $this->_t('objects') . ' WHERE object_name = ' . $this->_db->quote($object) . ' AND type_id = ' . $type);
-        if ($id) {
-            return (int)$id;
+        if (!is_array($objects)) {
+            $objects = array($objects);
+        }
+        if (!count($objects)) {
+            throw new InvalidArgumentException('No object requested');
+        }
+        $params = $objects;
+        $params[] = $type;
+
+        try {
+            $ids = $this->_db->selectAssoc('SELECT object_id, object_name FROM ' . $this->_t('objects') . ' WHERE object_name IN (' . str_repeat('?,', count($objects) - 1) . '?)' . ' AND type_id = ?', $params);
+            if ($ids) {
+                return $ids;
+            }
+        } catch (Horde_Db_Exception $e) {
+            throw new Content_Exception($e);
         }
 
         return false;
@@ -106,20 +111,24 @@ class Content_Objects_Manager
         }
 
         // Get the ids for any objects that already exist.
-        if (count($objectName)) {
-            foreach ($this->_db->selectAll('SELECT object_id, object_name FROM ' . $this->_t('objects')
-                     . ' WHERE object_name IN (' . implode(',', array_map(array($this->_db, 'quote'), array_keys($objectName)))
-                     . ') AND type_id = ' . $type) as $row) {
+        try {
+            if (count($objectName)) {
+                foreach ($this->_db->selectAll('SELECT object_id, object_name FROM ' . $this->_t('objects')
+                         . ' WHERE object_name IN (' . implode(',', array_map(array($this->_db, 'quote'), array_keys($objectName)))
+                         . ') AND type_id = ' . $type) as $row) {
 
-                $objectIndex = $objectName[$row['object_name']];
-                unset($objectName[$row['object_name']]);
-                $objectIds[$objectIndex] = $row['object_id'];
+                    $objectIndex = $objectName[$row['object_name']];
+                    unset($objectName[$row['object_name']]);
+                    $objectIds[$objectIndex] = $row['object_id'];
+                }
             }
-        }
 
-        // Create any objects that didn't already exist
-        foreach ($objectName as $object => $objectIndex) {
-            $objectIds[$objectIndex] = $this->_db->insert('INSERT INTO ' . $this->_t('objects') . ' (object_name, type_id) VALUES (' . $this->_db->quote($object) . ', ' . $type . ')');
+            // Create any objects that didn't already exist
+            foreach ($objectName as $object => $objectIndex) {
+                $objectIds[$objectIndex] = $this->_db->insert('INSERT INTO ' . $this->_t('objects') . ' (object_name, type_id) VALUES (' . $this->_db->quote($object) . ', ' . $type . ')');
+            }
+        } catch (Horde_Db_Exception $e) {
+            throw new Content_Exception($e);
         }
 
         return $objectIds;

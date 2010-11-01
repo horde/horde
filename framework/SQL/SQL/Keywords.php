@@ -37,7 +37,6 @@
  * quoting it or use unbalanced parentheses.
  *
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
- * @since   Horde 3.0
  * @package Horde_SQL
  */
 class Horde_SQL_Keywords {

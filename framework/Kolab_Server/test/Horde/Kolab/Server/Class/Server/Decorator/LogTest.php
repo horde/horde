@@ -89,32 +89,35 @@ class Horde_Kolab_Server_Class_Server_Decorator_LogTest extends PHPUnit_Framewor
 
     public function testMethodFindHasPostconditionThatTheCallWasDelegatedToTheServer()
     {
-        $result = $this->getMock('Horde_Kolab_Server_Result');
+        $result = $this->getMock('Horde_Kolab_Server_Result_Interface');
         $query = $this->getMock(
-            'Horde_Kolab_Server_Query_Element', array(), array(), '', false
+            'Horde_Kolab_Server_Query_Ldap', array(), array(), '', false, false
         );
+        $query->expects($this->once())
+            ->method('__toString')
+            ->will($this->returnValue('filter'));
         $this->server->expects($this->exactly(1))
             ->method('find')
             ->with($query)
             ->will($this->returnValue($result));
         $this->assertType(
-            'Horde_Kolab_Server_Result',
+            'Horde_Kolab_Server_Result_Interface',
             $this->logged->find($query)
         );
     }
 
     public function testMethodFindbelowHasPostconditionThatTheCallWasDelegatedToTheServer()
     {
-        $result = $this->getMock('Horde_Kolab_Server_Result');
+        $result = $this->getMock('Horde_Kolab_Server_Result_Interface');
         $query = $this->getMock(
-            'Horde_Kolab_Server_Query_Element', array(), array(), '', false
+            'Horde_Kolab_Server_Query_Element_Interface', array(), array(), '', false
         );
         $this->server->expects($this->exactly(1))
             ->method('findBelow')
             ->with($query, 'none')
             ->will($this->returnValue($result));
         $this->assertType(
-            'Horde_Kolab_Server_Result',
+            'Horde_Kolab_Server_Result_Interface',
             $this->logged->findBelow($query, 'none')
         );
     }

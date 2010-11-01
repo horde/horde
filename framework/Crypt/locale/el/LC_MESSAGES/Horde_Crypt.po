@@ -1,0 +1,447 @@
+# Greek translations for Horde_Crypt module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Crypt module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Crypt\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/Horde/Crypt/Smime.php:614
+#, php-format
+msgid "%s Fingerprint"
+msgstr "%s Δακτυλικό αποτύπωμα"
+
+#: lib/Horde/Crypt/Pgp.php:1240
+#, fuzzy
+msgid "A passphrase is required to decrypt a message."
+msgstr "Απαιτείται δημόσιο κλειδί PGP για την κρυπτογράφηση ενός μηνύματος."
+
+#: lib/Horde/Crypt/Pgp.php:1307
+msgid "A public PGP key is required to verify a signed message."
+msgstr ""
+"Απαιτείται δημόσιο κλειδί PGP για επιβεβαίωση ενός υπογεγραμμένου μηνύματος."
+
+#: lib/Horde/Crypt/Pgp.php:1164
+msgid ""
+"A public PGP key, private PGP key, and passphrase are required to sign a "
+"message."
+msgstr ""
+"Απαιτείται δημόσιο, προσωπικό PGP κλειδί και λέξη-κωδικός για να υπογράψετε "
+"ψηφιακά ένα μήνυμα."
+
+#: lib/Horde/Crypt/Smime.php:311
+#, fuzzy
+msgid "A public S/MIME key is required to encrypt a message."
+msgstr "Απαιτείται δημόσιο κλειδί S/MIME για την κρυπτογράφηση ενός μηνύματος."
+
+#: lib/Horde/Crypt/Smime.php:422
+msgid ""
+"A public S/MIME key, private S/MIME key, and passphrase are required to "
+"decrypt a message."
+msgstr ""
+"Απαιτείται δημόσιο, προσωπικό S/MIME κλειδί και λέξη-κωδικός για να "
+"αποκρυπτογραφήσετε ένα μήνυμα."
+
+#: lib/Horde/Crypt/Smime.php:360
+msgid ""
+"A public S/MIME key, private S/MIME key, and passphrase are required to sign "
+"a message."
+msgstr ""
+"Απαιτείται δημόσιο, προσωπικό S/MIME κλειδί και λέξη-κωδικός για να "
+"υπογράψετε ψηφιακά ένα μήνυμα."
+
+#: lib/Horde/Crypt/Smime.php:506
+msgid "CRL Distribution Points"
+msgstr "Σημεία διανομής CRL"
+
+#: lib/Horde/Crypt/Smime.php:609
+msgid "Certificate Details"
+msgstr "Λεπτομέρειες Πιστοποιητικού"
+
+#: lib/Horde/Crypt/Smime.php:520
+#, fuzzy
+msgid "Certificate Owner"
+msgstr "Λεπτομέρειες Πιστοποιητικού"
+
+#: lib/Horde/Crypt/Smime.php:505
+msgid "Certificate Policies"
+msgstr "Πολιτική Πιστοποιητικού"
+
+#: lib/Horde/Crypt/Pgp.php:426
+msgid "Comment"
+msgstr "Σχόλιο"
+
+#: lib/Horde/Crypt/Smime.php:475
+msgid "Common Name"
+msgstr "Κοινό Όνομα"
+
+#: lib/Horde/Crypt/Pgp.php:939
+msgid "Connection refused to the public keyserver."
+msgstr "Αρνηση σύνδεσης από το δημόσιο εξυπηρετητή κλειδιών."
+
+#: lib/Horde/Crypt/Pgp.php:950
+#, php-format
+msgid "Connection refused to the public keyserver. Reason: %s (%s)"
+msgstr "Αρνηση σύνδεσης από το δημόσιο εξυπηρετητή κλειδιών. Λόγος : %s (%s)"
+
+#: lib/Horde/Crypt/Pgp.php:1132
+#, fuzzy
+msgid "Could not PGP encrypt message: "
+msgstr "Αδύνατη η κρυπτογράφηση του μηνύματος με PGP."
+
+#: lib/Horde/Crypt/Pgp.php:1201
+#, fuzzy
+msgid "Could not PGP sign message: "
+msgstr "Αδύνατη η υπογραφή του μηνύματος με PGP."
+
+#: lib/Horde/Crypt/Smime.php:330
+msgid "Could not S/MIME encrypt message."
+msgstr "Αδύνατη η κρυπτογράφηση του μηνύματος με S/MIME."
+
+#: lib/Horde/Crypt/Smime.php:391
+msgid "Could not S/MIME sign message."
+msgstr "Αδύνατη η υπογραφή του μηνύματος με S/MIME."
+
+#: lib/Horde/Crypt/Pgp.php:1276
+#, fuzzy
+msgid "Could not decrypt PGP data: "
+msgstr "Αδύνατη η αποκρυπτογράφηση PGP δεδομένων."
+
+#: lib/Horde/Crypt/Smime.php:440
+msgid "Could not decrypt S/MIME data."
+msgstr "Αδύνατη η αποκρυπτογράφηση S/MIME δεδομένων."
+
+#: lib/Horde/Crypt/Pgp.php:659
+msgid "Could not determine the recipient's e-mail address."
+msgstr "Δε μπορώ να διευκρινήσω τη διεύθυνση του παραλήπτη."
+
+#: lib/Horde/Crypt/Pgp.php:759 lib/Horde/Crypt/Pgp.php:848
+msgid "Could not obtain public key from the keyserver."
+msgstr "Αδύνατη η ανάκτηση δημόσιου κλειδιού από τον εξυπηρετητή Δημ.Κλειδιών."
+
+#: lib/Horde/Crypt/Smime.php:478
+msgid "Country"
+msgstr "Χώρα"
+
+#: lib/Horde/Crypt/Pgp.php:426
+#, fuzzy
+msgid "E-Mail"
+msgstr "Αλληλογραφία"
+
+#: lib/Horde/Crypt/Smime.php:474
+msgid "Email Address"
+msgstr "Διεύθυνση Email"
+
+#: lib/Horde/Crypt/Pgp.php:1584 lib/Horde/Crypt/Pgp.php:1592
+msgid "Error while talking to pgp binary."
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:1251 lib/Horde/Crypt/Smime.php:1269
+#: lib/Horde/Crypt/Smime.php:1284
+msgid "Error while talking to smime binary."
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:425
+msgid "Expiration Date"
+msgstr "Ημερομηνία Λήξης"
+
+#: lib/Horde/Crypt/Smime.php:586
+msgid "Exponent"
+msgstr "Εκθέτης"
+
+#: lib/Horde/Crypt/Smime.php:484
+msgid "Given Name"
+msgstr "Μικρό Όνομα"
+
+#: lib/Horde/Crypt/Pgp.php:426
+#, fuzzy
+msgid "Hash-Algorithm"
+msgstr "Αλγόριθμος Υπογραφής"
+
+#: lib/Horde/Crypt/Smime.php:534
+msgid "Issuer"
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:424
+msgid "Key Creation"
+msgstr "Δημιουργία Κλειδιού"
+
+#: lib/Horde/Crypt/Pgp.php:427
+msgid "Key Fingerprint"
+msgstr "Αποτύπωμα Κλειδιού"
+
+#: lib/Horde/Crypt/Pgp.php:427
+msgid "Key ID"
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:425
+msgid "Key Length"
+msgstr "Μήκος Κλειδιού"
+
+#: lib/Horde/Crypt/Pgp.php:424
+msgid "Key Type"
+msgstr "Τύπος Κλειδιού"
+
+#: lib/Horde/Crypt/Smime.php:507
+msgid "Key Usage"
+msgstr "Χρήση Κλειδιού"
+
+#: lib/Horde/Crypt/Pgp.php:782
+msgid "Key already exists on the public keyserver."
+msgstr "Το κλειδί υπάρχει ήδη στον εξυπηρετητή δημόσιων κλειδιών."
+
+#: lib/Horde/Crypt/Smime.php:480
+msgid "Location"
+msgstr "Τόποθεσία"
+
+#: lib/Horde/Crypt/Smime.php:189
+msgid ""
+"Message Verified Successfully but the signer's certificate could not be "
+"verified."
+msgstr ""
+"Το μήνυμα επιβεβαιώθηκε επιτυχώς, αλλά το πιστοποιητικό του υπογράφοντα δε "
+"μπορεί να επιβεβαιωθεί."
+
+#: lib/Horde/Crypt/Smime.php:583
+msgid "Modulus"
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:424
+msgid "Name"
+msgstr "Όνομα"
+
+#: lib/Horde/Crypt/Smime.php:490
+msgid "Netscape Base URL"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:492
+msgid "Netscape CA Revocation URL"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:494
+msgid "Netscape CA policy URL"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:493
+msgid "Netscape Renewal URL"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:491
+msgid "Netscape Revocation URL"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:495
+msgid "Netscape SSL server name"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:496
+msgid "Netscape certificate comment"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:489
+msgid "Netscape certificate type"
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:449
+msgid "Never"
+msgstr "Ποτέ"
+
+#: lib/Horde/Crypt/Smime.php:1217
+msgid ""
+"No path to the OpenSSL binary provided. The OpenSSL binary is necessary to "
+"work with PKCS 12 data."
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:451 lib/Horde/Crypt/Pgp.php:452
+msgid "None"
+msgstr "Καμμία"
+
+#: lib/Horde/Crypt/Smime.php:549
+msgid "Not After"
+msgstr "Όχι Μετά"
+
+#: lib/Horde/Crypt/Smime.php:548
+msgid "Not Before"
+msgstr "Όχι Πριν"
+
+#: lib/Horde/Crypt/Smime.php:231
+msgid "OpenSSL error: Could not extract data from signed S/MIME part."
+msgstr ""
+"OpenSSL-Λάθος: Δεν μπορώ να βγάλω δεδομένα από S/MIME υπογεγραμμένο μέρος."
+
+#: lib/Horde/Crypt/Smime.php:476
+msgid "Organisation"
+msgstr "Οργανισμός"
+
+#: lib/Horde/Crypt/Smime.php:477
+msgid "Organisational Unit"
+msgstr "Τμήμα Οργανισμού"
+
+#: lib/Horde/Crypt/Pgp.php:1406
+msgid "PGP Digital Signature"
+msgstr "Ψηφιακή Υπογραφή PGP"
+
+#: lib/Horde/Crypt/Pgp.php:1450
+msgid "PGP Encrypted Data"
+msgstr "Κρυπτογραφημένα δεδομένα PGP"
+
+#: lib/Horde/Crypt/Pgp.php:1511
+msgid "PGP Public Key"
+msgstr "Δημόσιο Κλειδί PGP"
+
+#: lib/Horde/Crypt/Pgp.php:1493
+msgid "PGP Signed/Encrypted Data"
+msgstr "Υπογεγραμμένα/Κρυπτογραφημένα PGP δεδομένα"
+
+#: lib/Horde/Crypt/Smime.php:1256
+msgid "Password incorrect"
+msgstr "Λάθος κωδικός"
+
+#: lib/Horde/Crypt/Pgp.php:447
+msgid "Private Key"
+msgstr "Προσωπικό Κλειδί"
+
+#: lib/Horde/Crypt/Pgp.php:447
+msgid "Public Key"
+msgstr "Δημόσιο Κλειδί"
+
+#: lib/Horde/Crypt/Smime.php:554
+msgid "Public Key Algorithm"
+msgstr "Αλγόριθμος Δημόσιου Κλειδιού"
+
+#: lib/Horde/Crypt/Smime.php:553
+#, fuzzy
+msgid "Public Key Info"
+msgstr "Δημόσιο Κλειδί"
+
+#: lib/Horde/Crypt/Pgp.php:225
+msgid "Public/Private keypair not generated successfully."
+msgstr "Το ζεύγος Δημόσιου/Προσωπικού κλειδιού δε δημιουργήθηκε επιτυχώς."
+
+#: lib/Horde/Crypt/Smime.php:572
+#, php-format
+msgid "RSA Public Key (%d bit)"
+msgstr "Δημόσιο Κλειδί RSA (%d Bit)"
+
+#: lib/Horde/Crypt/Pgp.php:227
+#, fuzzy
+msgid "Returned error message:"
+msgstr "Ανάγνωση μηνύματος"
+
+#: lib/Horde/Crypt/Pgp.php:1644
+#, fuzzy
+msgid "Revocation key not generated successfully."
+msgstr "Το ζεύγος Δημόσιου/Προσωπικού κλειδιού δε δημιουργήθηκε επιτυχώς."
+
+#: lib/Horde/Crypt/Smime.php:252
+msgid "S/MIME Cryptographic Signature"
+msgstr "Υπογραφή Κρυπτογράφησης S/MIME"
+
+#: lib/Horde/Crypt/Smime.php:283
+msgid "S/MIME Encrypted Message"
+msgstr "Κρυπτογραφημένο μήνυμα S/MIME"
+
+#: lib/Horde/Crypt/Smime.php:611
+msgid "Serial Number"
+msgstr "Σειριακός Αριθμός"
+
+#: lib/Horde/Crypt/Smime.php:622
+msgid "Signature"
+msgstr "Υπογραφή"
+
+#: lib/Horde/Crypt/Smime.php:621
+msgid "Signature Algorithm"
+msgstr "Αλγόριθμος Υπογραφής"
+
+#: lib/Horde/Crypt/Smime.php:479
+msgid "State or Province"
+msgstr "Πολιτεία ή Επαρχία"
+
+#: lib/Horde/Crypt/Smime.php:481
+msgid "Street Address"
+msgstr "Διεύθυνση-Οδός"
+
+#: lib/Horde/Crypt/Smime.php:483
+msgid "Surname"
+msgstr "Επίθετο"
+
+#: lib/Horde/Crypt/Smime.php:482
+msgid "Telephone Number"
+msgstr "Αριθμός Τηλεφώνου"
+
+#: lib/Horde/Crypt/Pgp.php:1311
+msgid ""
+"The detached PGP signature block is required to verify the signed message."
+msgstr ""
+"Το τμήμα PGP που αποσπάσθηκε απαιτείτο για την επαλήθευση του υπογεγραμμένου "
+"μηνήματος."
+
+#: lib/Horde/Crypt/Smime.php:1146
+#, fuzzy
+msgid "The openssl module is required for the Horde_Crypt_Smime:: class."
+msgstr "Η βιβλιοθήκη OpenSSL απαιτείται για Horde_Crypt_smime:: κλάση."
+
+#: lib/Horde/Crypt/Smime.php:512
+msgid "Unable to extract certificate details"
+msgstr "Δε μπορώ να εξάγω πληροφορίες πιστοποιητικού"
+
+#: lib/Horde/Crypt/Pgp.php:453 lib/Horde/Crypt/Pgp.php:454
+#: lib/Horde/Crypt/Pgp.php:455
+msgid "Unknown"
+msgstr "Αγνωστο"
+
+#: lib/Horde/Crypt/Smime.php:596 lib/Horde/Crypt/Smime.php:844
+#: lib/Horde/Crypt/Smime.php:850
+msgid "Unsupported Extension"
+msgstr "Μη υποστηριζόμενη επέκταση"
+
+#: lib/Horde/Crypt/Smime.php:547
+msgid "Validity"
+msgstr "Εγκυρότητα"
+
+#: lib/Horde/Crypt/Smime.php:191
+#, fuzzy
+msgid "Verification failed - an unknown error has occurred."
+msgstr "Παρουσιάσθηκε κρίσιμο λάθος"
+
+#: lib/Horde/Crypt/Smime.php:193
+msgid "Verification failed - this message may have been tampered with."
+msgstr "Η επιβεβαίωση απέτυχε - αυτό το μήνυμα μπορεί να άλλαξε με."
+
+#: lib/Horde/Crypt/Smime.php:610
+msgid "Version"
+msgstr "Έκδοση"
+
+#: lib/Horde/Crypt/Smime.php:502
+msgid "X509v3 Basic Constraints"
+msgstr "X509v3 Βασικοί Περιορισμοί"
+
+#: lib/Horde/Crypt/Smime.php:501
+msgid "X509v3 Extended Key Usage"
+msgstr "X509v3 Χρήση επεκταμένου κλειδιού"
+
+#: lib/Horde/Crypt/Smime.php:503
+msgid "X509v3 Subject Alternative Name"
+msgstr "X509v3 Εναλακτικό Όνομα Θέματος"
+
+#: lib/Horde/Crypt/Smime.php:504
+msgid "X509v3 Subject Key Identifier"
+msgstr "X509v3 Αναγνωριστικό Κλειδί Θέματος"
+
+#: lib/Horde/Crypt/Smime.php:592
+msgid "X509v3 extensions"
+msgstr "X509v3 Επεκτάσεις"
+
+#: lib/Horde/Crypt/Smime.php:1135
+msgid "not yet implemented"
+msgstr "δεν έχει εγκατασταθεί ακόμη"

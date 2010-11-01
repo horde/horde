@@ -202,6 +202,7 @@ class Beatnik_Driver_ldap2dns extends Beatnik_Driver
             'timestamp' => 'dnstimestamp',
             'location' => 'dnslocation',
             'ipaddr' => 'dnsipaddr',
+            'ip6addr' => 'dnsipaddr',
             'cipaddr' => 'dnscipaddr',
             'pointer' => 'dnscname',
             'pref' => 'dnspreference',
@@ -490,7 +491,8 @@ class Beatnik_Driver_ldap2dns extends Beatnik_Driver
      *
      * @access private
      *
-     * @return boolean    True on success; exits (Horde::fatal()) on error.
+     * @return boolean    True on success.
+     * @throws Beatnik_Exception
      *
      * @access private
      */
@@ -505,7 +507,7 @@ class Beatnik_Driver_ldap2dns extends Beatnik_Driver
 
             $this->_LDAP = ldap_connect($this->_params['hostspec'], $port);
             if (!$this->_LDAP) {
-                Horde::fatal("Unable to connect to LDAP server $hostname on $port", __FILE__, __LINE__);
+                throw new Beatnik_Exception("Unable to connect to LDAP server $hostname on $port");
             }
             $res = ldap_set_option($this->_LDAP, LDAP_OPT_PROTOCOL_VERSION, $this->_params['version']);
             if ($res === false) {

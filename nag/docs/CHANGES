@@ -2,6 +2,8 @@
 v3.0-git
 --------
 
+[jan] Add start date to possible colums in task list (Joel Smith
+      <js-horde@jk1.net>, Request #9083).
 [jan] Add system task lists (Request #2059).
 [jan] Set colors per task list (Request #7480).
 [cjh] Quick Add support: there is a javascript UI element for quickly adding
@@ -12,10 +14,28 @@ v3.0-git
 
 
 ----------
-v2.3.5-cvs
+v2.3.7-cvs
 ----------
 
 
+
+
+------
+v2.3.6
+------
+
+[jan] Remove stray closing tag when displaying the date of completion.
+[mjr] Do not remove history entries when removing user data (Bug #8755).
+
+
+------
+v2.3.5
+------
+
+[jan] Set an alarm to one minute, if users try to set an alarm without time.
+[jan] Add missing preference for not sending update notifications to yourself
+      (Joel Smith <js-horde@jk1.net>, Request #8978).
+[gwr] Fix organizer field not saved in tasks (kolab/issue3888).
 
 
 ------

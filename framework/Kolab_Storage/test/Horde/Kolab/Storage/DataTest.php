@@ -30,24 +30,13 @@ require_once 'Autoload.php';
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_DataTest extends Horde_Kolab_Storage_Scenario
+class Horde_Kolab_Storage_DataTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Test setup.
      */
     public function setUp()
     {
-        // No 'auth' in world, so this won't work yet. Skip it.
-        $this->markTestSkipped();
-
-        $world = $this->prepareBasicSetup();
-
-        $this->storage = $this->authenticate($world['auth'],
-                         'wrobel@example.org',
-                         'none');
-
-        $this->folder = $this->prepareNewFolder($this->storage, 'Contacts', 'contact', true);
-        $this->prepareNewFolder($this->storage, 'NewContacts', 'contact');
     }
 
     /**
@@ -55,10 +44,6 @@ class Horde_Kolab_Storage_DataTest extends Horde_Kolab_Storage_Scenario
      */
     public function tearDown()
     {
-        Horde_Imap_Client_Mock::clean();
-        if ($this->storage) {
-            $this->storage->clean();
-        }
     }
 
     /**
@@ -66,9 +51,11 @@ class Horde_Kolab_Storage_DataTest extends Horde_Kolab_Storage_Scenario
      */
     public function testGetCacheKey()
     {
+        $this->markTestIncomplete();
+
         $data = new Horde_Kolab_Storage_Data('test');
 
-        $folder = new Horde_Kolab_Storage_Folder('INBOX/Test');
+        $folder = new Horde_Kolab_Storage_Folder_Base('INBOX/Test');
         $data->setFolder($folder);
         $this->assertEquals('user/wrobel/Test', $data->getCacheKey());
     }
@@ -78,6 +65,8 @@ class Horde_Kolab_Storage_DataTest extends Horde_Kolab_Storage_Scenario
      */
     public function testDelete()
     {
+        $this->markTestIncomplete();
+
         $data = new Horde_Kolab_Storage_Data('contact');
         $data->setFolder($this->folder);
 
@@ -114,6 +103,8 @@ class Horde_Kolab_Storage_DataTest extends Horde_Kolab_Storage_Scenario
      */
     public function testMove()
     {
+        $this->markTestIncomplete();
+
         $data = new Horde_Kolab_Storage_Data('contact');
         $folder = $this->storage->getFolder('INBOX/Contacts');
         $data->setFolder($folder);
@@ -166,21 +157,16 @@ class Horde_Kolab_Storage_DataTest extends Horde_Kolab_Storage_Scenario
      */
     public function testSave()
     {
-        $data = new Horde_Kolab_Storage_Data('contact');
-        $data->setFolder($this->folder);
-        /**
-         * During testing we want to ensure that we do not access any
-         * old, cached data. The cache gets loaded when calling
-         * getObjectIds and is manually expired afterwards.
-         */
-        $result = $data->getObjectIds();
-        $data->expireCache();
-        $object = array(
-            'uid' => '1',
-            'given-name' => 'Gunnar',
-            'full-name' => 'Gunnar Wrobel',
-            'email' => 'p@rdus.de'
-        );
+        $this->markTestIncomplete();
+
+        require_once 'Horde/Group.php';
+        require_once 'Horde/Group/mock.php';
+
+        $group = new Group_mock();
+        $driver = new Horde_Kolab_Storage_Driver_Mock($group);
+        $cache = new Horde_Cache_Mock();
+        $storage = new Horde_Kolab_Storage($driver, $cache);
+        $data = $storage->getFolderData('INBOX/Contacs');
 
         try {
             $result = $data->save($object, '1000');
@@ -231,6 +217,8 @@ class Horde_Kolab_Storage_DataTest extends Horde_Kolab_Storage_Scenario
      */
     public function testObjectDeleteAll()
     {
+        $this->markTestIncomplete();
+
         $data = new Horde_Kolab_Storage_Data('contact');
         $data->setFolder($this->folder);
         /**

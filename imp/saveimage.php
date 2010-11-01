@@ -7,21 +7,22 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package IMP
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-new IMP_Application(array('init' => true));
+Horde_Registry::appInit('imp');
 
-$id = Horde_Util::getFormData('id');
-$muid = Horde_Util::getFormData('muid');
+$vars = Horde_Variables::getDefaultVariables();
 
 /* Run through the action handlers. */
-switch (Horde_Util::getFormData('actionID')) {
+switch ($vars->actionID) {
 case 'save_image':
-    $contents = IMP_Contents::singleton($muid);
-    $mime_part = $contents->getMIMEPart($id);
+    $contents = $injector->getInstance('IMP_Injector_Factory_Contents')->create(new IMP_Indices($vars->mbox, $vars->uid));
+    $mime_part = $contents->getMIMEPart($vars->id);
     $image_data = array(
         'data' => $mime_part->getContents(),
         'description' => $mime_part->getDescription(true),
@@ -29,12 +30,12 @@ case 'save_image':
         'type' => $mime_part->getType()
     );
     try {
-        $registry->call('images/saveImage', array(null, Horde_Util::getFormData('gallery'), $image_data));
+        $registry->images->saveImage($vars->gallery, $image_data);
     } catch (Horde_Exception $e) {
-        $notification->push($e, 'horde.error');
+        $notification->push($e);
         break;
     }
-    Horde_Util::closeWindowJS();
+    echo Horde::wrapInlineScript(array('window.close();'));
     exit;
 }
 
@@ -44,15 +45,16 @@ if (!$registry->hasMethod('images/selectGalleries') ||
 }
 
 /* Build the template. */
-$t = new Horde_Template();
+$t = $injector->createInstance('Horde_Template');
 $t->setOption('gettext', true);
-$t->set('action', Horde::applicationUrl('saveimage.php'));
-$t->set('id', htmlspecialchars($id));
-$t->set('muid', htmlspecialchars($muid));
-$t->set('image_img', Horde::img('mime/image.png', _("Image"), null, $registry->getImageDir('horde')));
+$t->set('action', Horde::url('saveimage.php'));
+$t->set('id', htmlspecialchars($vars->id));
+$t->set('uid', htmlspecialchars($vars->uid));
+$t->set('mbox', htmlspecialchars($vars->mbox));
+$t->set('image_img', Horde::img('mime/image.png', _("Image")));
 
 /* Build the list of galleries. */
-$t->set('gallerylist', $registry->call('images/selectGalleries', array(null, Horde_Perms::EDIT)));
+$t->set('gallerylist', $registry->images->selectGalleries(array('perm' => Horde_Perms::EDIT)));
 
 $title = _("Save Image");
 require IMP_TEMPLATES . '/common-header.inc';

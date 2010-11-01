@@ -56,18 +56,8 @@ function _dump($hash)
     return $dump;
 }
 
-$whups_authentication = 'none';
-require_once dirname(__FILE__) . '/../lib/base.php';
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment - make sure there's no time limit, init some
-// variables, etc.
-Horde_Cli::init();
-$cli = Horde_Cli::singleton();
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('whups', array('authentication' => 'none', 'cli' => true));
 
 // Set server name.
 $conf['server']['name'] = $conf['mail']['server_name'];
@@ -163,10 +153,6 @@ if (empty($info['ticket'])) {
         $cli->fatal($msg);
     }
 }
-
-// Set charset to UTF-8 for most flexible conversion between email charset and
-// backend charset.
-Horde_Nls::setCharsetEnvironment('UTF-8');
 
 // Read and parse the message.
 if (empty($mail['user'])) {

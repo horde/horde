@@ -24,15 +24,14 @@ if (isset($face['similarity'])) {
 if ($face['face_name']) {
     echo '<a href="' . $face_url . '" title="' . _("Find other photos this face appears in") . '">' . _("Others") . '</a><br />';
 } elseif ($GLOBALS['conf']['report_content']['driver']) {
-    echo '<a href="' . Horde_Util::addParameter(Horde::applicationUrl('faces/claim.php'), 'face', $face_id)
-                . '" title="' . _("Tell us who is in this photo") . '">' . _("Claim") . '</a><br />';
+    echo Horde::url('faces/claim.php')->add('face', $face_id)->link(array('title' => _("Tell us who is in this photo")))
+         . _("Claim") . '</a><br />';
 
-    echo '<a href="' . Horde_Util::addParameter(Horde::applicationUrl('faces/report.php'), 'face', $face_id)
-                . '" title="' . _("Report abuse or submit a removal request") . '">' . _("Report") . '</a><br />';
+    echo Horde::url('faces/report.php')->add('face', $face_id)->link(array('title' => _("Report abuse or submit a removal request")))
+         . _("Report") . '</a><br />';
 }
-if ($conf['faces']['search']) {
-    echo '<a href="' . Horde_Util::addParameter(Horde::applicationUrl('faces/search/image_search.php'), 'face_id', $face_id)
-        . '" title="' . _("Find similar") . '">' . _("Similar faces") . '</a>';
+if ($conf['faces']['search'] && Horde_Util::loadExtension('libpuzzle') !== false) {
+    echo Horde::url('faces/search/image_search.php')->add('face_id', $face_id)->link(array('title' => _("Find similar"))) . _("Similar faces") . '</a>';
 }
 ?>
 </div>

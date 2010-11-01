@@ -1,0 +1,4182 @@
+# Basque translation for horde package.
+# This file is distributed under the same license as the horde package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: horde\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 02:42+0200\n"
+"PO-Revision-Date: 2009-11-20 12:25+0100\n"
+"Last-Translator: Euskal Herriko Unibertsitatea <webmaster@ehu.es>\n"
+"Language-Team: Euskal Herriko Unibertsitatea <webmaster@ehu.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/Block/weatherdotcom.php:260 lib/Block/weatherdotcom.php:363
+#: lib/Block/weatherdotcom.php:409
+msgid " at "
+msgstr " - "
+
+#: admin/groups.php:50
+#, php-format
+msgid "\"%s\" was added to the groups system."
+msgstr "\"%s\" gehitu da talde-sisteman."
+
+#: admin/perms/addchild.php:43
+#, php-format
+msgid "\"%s\" was added to the permissions system."
+msgstr "\"%s\" gehitu da baimen-sisteman."
+
+#: admin/groups.php:56 admin/perms/addchild.php:47
+#, php-format
+msgid "\"%s\" was not created: %s."
+msgstr "\"%s\" ez da sortu: %s."
+
+#: lib/Block/account.php:83
+#, php-format
+msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
+msgstr "%.2fMB erabilita / %.2fMB onartuta (%%%.2f)"
+
+#: lib/Block/weatherdotcom.php:241
+#, php-format
+msgid "%d %s and %s"
+msgstr "%d %s eta %s"
+
+#: lib/Block/account.php:708 lib/Block/account.php:720
+#, php-format
+msgid "%d days until your password expires."
+msgstr "%d egun falta pasahitza iraungitzeko."
+
+#: lib/Block/metar.php:281
+#, php-format
+msgid "%d minutes"
+msgstr "%d minutu"
+
+#: services/facebook.php:114
+#, php-format
+msgid "%d person likes this"
+msgid_plural "%d persons like this"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/admin/user/list.inc:4
+#, php-format
+msgid "%d to %d of %d"
+msgstr "%d - %d / %d"
+
+#: lib/Block/weatherdotcom.php:288
+#, php-format
+msgid "%d-day forecast"
+msgstr "%d eguneko iragarpena"
+
+#: services/logintasks.php:83
+#, php-format
+msgid "%s - Notice"
+msgstr "%s - Abisua"
+
+#: admin/config/config.php:21 admin/config/index.php:226
+#, fuzzy, php-format
+msgid "%s Configuration"
+msgstr "Konfigurazioa"
+
+#: services/logintasks.php:64
+#, fuzzy, php-format
+msgid "%s Tasks - Confirmation"
+msgstr "Pasahitza berrespenarekin"
+
+#: services/logintasks.php:74
+#, php-format
+msgid "%s Terms of Agreement"
+msgstr "%s kontratu-baldintzak"
+
+#: lib/Block/metar.php:154 lib/Block/metar.php:160 lib/Block/metar.php:234
+#: lib/Block/metar.php:340 lib/Block/metar.php:346
+#, php-format
+msgid "%s at %s %s"
+msgstr "%s - %s %s"
+
+#: services/logintasks.php:63
+#, fuzzy, php-format
+msgid ""
+"%s is ready to perform the tasks checked below. Check the box for any "
+"operation(s) you want to perform at this time."
+msgstr ""
+"%s prest dago behean hautatutako mantentze-eragiketak egiteko. Hautatu "
+"oraingoan egin nahi dituzun eragiketen ondoko koadroak."
+
+#: lib/Block/vatid.php:58
+#, php-format
+msgid "%s not found."
+msgstr "%s ez da aurkitu."
+
+#: lib/Block/weatherdotcom.php:367 lib/Block/weatherdotcom.php:412
+msgid ", gusting "
+msgstr ", haizetsu "
+
+#: lib/Block/metar.php:183 lib/Block/metar.php:188
+#, php-format
+msgid ", gusting %s %s"
+msgstr ", haizetsu %s %s"
+
+#: lib/Block/metar.php:196
+#, php-format
+msgid ", variable from %s to %s"
+msgstr ", aldakorra %s -> %s"
+
+#: lib/Block/time.php:26
+msgid "12 Hour Format"
+msgstr "12 orduko formatua"
+
+#: lib/Block/time.php:25
+msgid "24 Hour Format"
+msgstr "24 orduko formatua"
+
+#: templates/data/datetime.inc:109 templates/data/time.inc:28
+msgid "24 hours"
+msgstr "24 ordu"
+
+#: templates/prefs/facebook.html:15
+msgid ""
+"<tag:app_name /> can interact with your Facebook account, but you must login "
+"to Facebook manually each time."
+msgstr ""
+
+#: templates/prefs/facebook.html:38
+msgid "<tag:app_name /> cannot read your stream messages."
+msgstr ""
+
+#: templates/prefs/facebook.html:26
+msgid ""
+"<tag:app_name /> cannot set your status messages or publish other content to "
+"Facebook."
+msgstr ""
+
+#: templates/prefs/twitter.html:9
+msgid "<tag:appname /> can interact with your Twitter account"
+msgstr ""
+
+#: services/keyboard.php:46
+msgid "A characters"
+msgstr "A karaktereak"
+
+#: lib/Block/metar.php:117
+msgid "A database backend is required for this block."
+msgstr "Datu-basearen euskarri-modulu bat behar da bloke honentzat."
+
+#: admin/activesync.php:35
+msgid ""
+"A device wipe has been requested. Device will be wiped on next "
+"syncronization attempt."
+msgstr ""
+
+#: admin/config/index.php:92 admin/config/index.php:124
+#, php-format
+msgid "A newer version (%s) exists."
+msgstr "Badago lehendik bertsio berriago bat (%s)."
+
+#: lib/Prefs/Ui.php:743
+#, php-format
+msgid ""
+"A remote wipe for device id %s has been initiated. The device will be wiped "
+"during the next synchronisation."
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:7
+msgid "AM Clouds"
+msgstr "Hodeiak goizean"
+
+#: lib/Block/weatherdotcom_strings.php:8
+msgid "AM Drizzle"
+msgstr "Zirimiria goizean"
+
+#: lib/Block/weatherdotcom_strings.php:9
+msgid "AM Fog"
+msgstr "Lainoa goizean"
+
+#: lib/Block/weatherdotcom_strings.php:10
+msgid "AM Light Rain"
+msgstr "Euri arina goizean"
+
+#: lib/Block/weatherdotcom_strings.php:11
+msgid "AM Light Snow"
+msgstr "Elur arina goizean"
+
+#: lib/Block/weatherdotcom_strings.php:12
+msgid "AM Rain"
+msgstr "Euria goizean"
+
+#: lib/Block/weatherdotcom_strings.php:13
+msgid "AM Showers"
+msgstr "Zaparradak goizean"
+
+#: lib/Block/weatherdotcom_strings.php:14
+msgid "AM Snow"
+msgstr "Elurra goizean"
+
+#: lib/Block/weatherdotcom_strings.php:15
+msgid "AM Snow Showers"
+msgstr "Elur-zaparradak goizean"
+
+#: lib/Block/weatherdotcom_strings.php:16
+msgid "AM Sun"
+msgstr "Eguzkitsu goizean"
+
+#: lib/Block/weatherdotcom_strings.php:17
+msgid "AM T-Showers"
+msgstr "Trumoi-zaparradak goizean"
+
+#: lib/Block/weatherdotcom_strings.php:18
+msgid "AM T-Storms"
+msgstr "Trumoi-ekaitzak goizean"
+
+#: templates/data/datetime.inc:110 templates/data/time.inc:29
+msgid "AM/PM"
+msgstr "AM/PM"
+
+#: lib/Block/account.php:3
+msgid "Account Information"
+msgstr "Kontuaren informazioa"
+
+#: config/prefs.php.dist:276
+msgid "Account Password"
+msgstr "Kontuaren pasahitza"
+
+#: admin/activesync.php:126
+#, fuzzy
+msgid "Actions"
+msgstr "Aukerak"
+
+#: config/prefs.php.dist:676
+msgid "ActiveSync"
+msgstr ""
+
+#: admin/activesync.php:71
+#, fuzzy
+msgid "ActiveSync Device Administration"
+msgstr "Erabiltzaile-administrazioa"
+
+#: admin/activesync.php:199 lib/Api.php:80
+msgid "ActiveSync Devices"
+msgstr ""
+
+#: admin/activesync.php:20 lib/Prefs/Ui.php:376
+#, fuzzy
+msgid "ActiveSync not activated."
+msgstr "%s ez dago aktibatuta."
+
+#: templates/admin/groups/addchild.inc:12 templates/portal/add.inc:14
+msgid "Add"
+msgstr "Gehitu"
+
+#: services/portal/index.php:68
+msgid "Add Content"
+msgstr "Gehitu edukia"
+
+#: templates/portal/add.inc:5
+msgid "Add Here:"
+msgstr "Gehitu hemen:"
+
+#: templates/admin/groups/edit.inc:49
+msgid "Add Members"
+msgstr "Gehitu kideak"
+
+#: admin/groups.php:253 templates/admin/groups/addchild.inc:7
+#, php-format
+msgid "Add a child group to \"%s\""
+msgstr "Gehitu ume taldea hemen: \"%s\""
+
+#: admin/groups.php:238
+msgid "Add a new group"
+msgstr "Gehitu talde berria"
+
+#: admin/user.php:21
+msgid "Add a new user:"
+msgstr "Gehitu erabiltzaile berria:"
+
+#: admin/alarms.php:22
+msgid "Add new alarm"
+msgstr "Gehitu alarma berria"
+
+#: templates/data/csvmap.inc:92
+msgid "Add pair"
+msgstr "Gehitu bikotea"
+
+#: admin/user.php:22
+msgid "Add user"
+msgstr "Gehitu erabiltzailea"
+
+#: admin/signup_confirm.php:80 admin/user.php:92
+#, php-format
+msgid ""
+"Added \"%s\" to the system, but could not add additional signup information: "
+"%s."
+msgstr ""
+"\"%s\" gehitu da sisteman, baina ezin izan da erregistratzeko informazio "
+"osagarririk gehitu: \"%s\"."
+
+#: signup.php:44
+#, php-format
+msgid "Added \"%s\" to the system. You can log in now."
+msgstr "\"%s\" behar bezala gehitu da sisteman. Saioa has dezakezu bertan."
+
+#: templates/admin/user/noadd.inc:2
+msgid "Adding users is disabled."
+msgstr "Erabiltzaileak gehitzea desgaituta dago."
+
+#: lib/Block/vatid.php:101
+msgid "Address"
+msgstr "Helbidea"
+
+#: config/registry.php.dist:142
+msgid "Address Book"
+msgstr "Helbide-liburua"
+
+#: admin/alarms.php:26
+msgid "Alarm end"
+msgstr "Alarma-amaiera"
+
+#: admin/alarms.php:28
+msgid "Alarm methods"
+msgstr "Alarma-metodoak"
+
+#: admin/alarms.php:25
+msgid "Alarm start"
+msgstr "Alarma-hasiera"
+
+#: admin/alarms.php:27
+msgid "Alarm text"
+msgstr "Alarma-testua"
+
+#: admin/alarms.php:24
+msgid "Alarm title"
+msgstr "Alarma-izenburua"
+
+#: admin/alarms.php:133
+msgid "Alarms"
+msgstr "Alarmak"
+
+#: lib/Block/fortune.php:94
+msgid "All"
+msgstr "Denak"
+
+#: templates/shares/edit.inc:58
+msgid "All Authenticated Users"
+msgstr "Erabiltzaile autentifikatu guztiak"
+
+#: admin/groups.php:26 admin/groups.php:244
+msgid "All Groups"
+msgstr "Talde guztiak"
+
+#: admin/activesync.php:50
+msgid "All policy keys successfully reset."
+msgstr ""
+
+#: lib/Prefs/Ui.php:753
+msgid ""
+"All state removed for your devices. They will resynchronize next time they "
+"connect to the server."
+msgstr ""
+
+#: lib/Prefs/Ui.php:724
+msgid "All synchronization sessions deleted."
+msgstr "Sinkronizazio-saio guztiak ezabatu dira."
+
+#: config/prefs.php.dist:644
+msgid "Alternate IMSP Login"
+msgstr "Ordezko IMSP saio-hasiera"
+
+#: config/prefs.php.dist:658
+msgid "Alternate IMSP Password"
+msgstr "Ordezko IMSP pasahitza"
+
+#: config/prefs.php.dist:652
+msgid "Alternate IMSP Username"
+msgstr "Ordezko IMSP erabiltzaile-izena"
+
+#: services/resetpassword.php:31
+msgid "Alternate email address"
+msgstr "Ordezko helbide elektronikoa"
+
+#: lib/Block/weatherdotcom.php:170
+msgid "An unknown error has occured."
+msgstr "Errore ezezaguna gertatu da."
+
+#: services/resetpassword.php:48
+msgid "Answer"
+msgstr "Erantzun"
+
+#: templates/data/csvmap.inc:112 templates/admin/config/index.html:11
+msgid "Application"
+msgstr "Aplikazioa"
+
+#: admin/phpshell.php:44
+msgid "Application Context: "
+msgstr "Aplikazio-testuingurua: "
+
+#: util/icon_browser.php:45
+msgid "Application List"
+msgstr "Aplikazio-zerrenda"
+
+#: admin/config/index.php:160
+msgid "Application is ready."
+msgstr "Aplikazioa prest dago."
+
+#: admin/config/index.php:95 admin/config/index.php:127
+msgid "Application is up-to-date."
+msgstr "Aplikazioa eguneratuta dago."
+
+#: templates/admin/user/approve.inc:33
+msgid "Approve"
+msgstr "Onartu"
+
+#: config/nls.php:167
+msgid "Arabic (Windows-1256)"
+msgstr "Arabiarra (Windows-1256)"
+
+#: admin/alarms.php:123
+#, php-format
+msgid "Are you sure you want to delete '%s'?"
+msgstr "Ziur zaude '%s' ezabatu nahi duzula?"
+
+#: templates/admin/user/removequeued.inc:10
+#, php-format
+msgid "Are you sure you want to remove the signup request for \"%s\"?"
+msgstr "Ziur zaude \"%s\" erregistratzeko eskaera kendu nahi duzula?"
+
+#: templates/admin/groups/delete.inc:7
+#, php-format
+msgid "Are you sure you wish to delete \"%s\" and any sub-groups?"
+msgstr "Ziur zaude \"%s\" eta azpitalde guztiak ezabatu nahi dituzula?"
+
+#: config/nls.php:168
+msgid "Armenian (ARMSCII-8)"
+msgstr "Armeniarra (ARMSCII-8)"
+
+#: lib/Block/fortune.php:35
+msgid "Art"
+msgstr "Artea"
+
+#: lib/Block/fortune.php:36
+msgid "Ascii Art"
+msgstr "Ascii artea"
+
+#: templates/problem/problem.inc:43
+msgid "Attachment"
+msgstr "Eranskina"
+
+#: admin/groups.php:72
+msgid "Attempt to delete a non-existent group."
+msgstr "Ez dagoen talde bat ezabatzen saiatu zara."
+
+#: admin/perms/delete.php:24
+msgid "Attempt to delete a non-existent permission."
+msgstr "Ez dagoen baimen bat ezabatzen saiatu zara."
+
+#: admin/perms/edit.php:92
+msgid "Attempt to edit a non-existent permission."
+msgstr "Ez dagoen baimen bat editatzen saiatu zara."
+
+#: services/shares/edit.php:66
+msgid "Attempt to edit a non-existent share."
+msgstr "Ez dagoen baliabide partekatu bat editatzen saiatu zara."
+
+#: admin/sessions.php:40
+#, fuzzy
+msgid "Authenticated to:"
+msgstr "Erabiltzaile autentifikatu guztiak"
+
+#: templates/prefs/facebook.html:27
+msgid "Authorize Publish"
+msgstr ""
+
+#: templates/prefs/facebook.html:39
+#, fuzzy
+msgid "Authorize Read:"
+msgstr "Baimenik ez"
+
+#: templates/prefs/facebook.html:16
+msgid "Authorize an infinite session:"
+msgstr ""
+
+#: templates/data/csvmap.inc:70
+msgid "Available fields:"
+msgstr "Eremu erabilgarriak:"
+
+#: themes/azur/info.php:6
+msgid "Azur"
+msgstr "Azur"
+
+#: lib/Block/fortune.php:37
+msgid "BOFH Excuses"
+msgstr "BOFH aitzakiak"
+
+#: config/nls.php:169
+msgid "Baltic (ISO-8859-13)"
+msgstr "Baltikokoa (ISO-8859-13)"
+
+#: themes/barbie/info.php:2
+msgid "Barbie"
+msgstr "Barbie"
+
+#: util/icon_browser.php:34
+#, php-format
+msgid "Base graphics directory \"%s\" not found."
+msgstr "Irudien oinarrizko \"%s\" direktorioa ez da aurkitu."
+
+#: templates/portal/layout.inc:90
+msgid "Block Settings"
+msgstr "Bloke-ezarpenak"
+
+#: templates/portal/layout.inc:72
+msgid "Block Type"
+msgstr "Bloke mota"
+
+#: themes/bluemoon/info.php:2
+msgid "Blue Moon"
+msgstr "Ilargi urdina"
+
+#: themes/bluewhite/info.php:2
+msgid "Blue and White"
+msgstr "Zuri-urdina"
+
+#: config/registry.php.dist:226
+msgid "Bookmarks"
+msgstr "Laster-markak"
+
+#: lib/Block/fortune.php:103
+msgid "Both"
+msgstr "Biak"
+
+#: themes/brown/info.php:2
+msgid "Brown"
+msgstr "Marroia"
+
+#: admin/sessions.php:38
+msgid "Browser:"
+msgstr "Arakatzailea:"
+
+#: themes/burntorange/info.php:7
+msgid "Burnt Orange"
+msgstr "Laranja iluna"
+
+#: lib/Block/weatherdotcom.php:166
+msgid "Cache init was not completed."
+msgstr "Cachearen hasieratzea ez da burutu."
+
+#: config/registry.php.dist:157
+msgid "Calendar"
+msgstr "Egutegia"
+
+#: lib/Block/weatherdotcom.php:250
+msgid "Calm"
+msgstr "Barealdia"
+
+#: themes/camouflage/info.php:2
+msgid "Camouflage"
+msgstr "Kamuflajea"
+
+#: admin/user.php:115 admin/user.php:135 templates/admin/groups/delete.inc:11
+#: templates/admin/user/clear.inc:12 templates/admin/user/remove.inc:12
+msgid "Cancel"
+msgstr "Utzi"
+
+#: templates/problem/problem.inc:58
+msgid "Cancel Problem Report"
+msgstr "Utzi arazoaren berri emateari"
+
+#: admin/activesync.php:183 templates/prefs/activesync.html:31
+#, fuzzy
+msgid "Cancel Wipe"
+msgstr "Utzi"
+
+#: services/resetpassword.php:17
+msgid "Cannot reset password automatically, contact your administrator."
+msgstr "Ezin da pasahitza automatikoki berrezarri; esan administratzaileari."
+
+#: config/prefs.php.dist:440
+msgid "Categories and Labels"
+msgstr "Kategoriak eta etiketak"
+
+#: config/nls.php:170
+msgid "Celtic (ISO-8859-14)"
+msgstr "Zeltikoa (ISO-8859-14)"
+
+#: config/nls.php:171
+msgid "Central European (ISO-8859-2)"
+msgstr "Europako Erdialdekoa (ISO-8859-2)"
+
+#: templates/prefs/rpc.html:33
+msgid "Change"
+msgstr "Aldatu"
+
+#: services/changepassword.php:23
+msgid "Change Your Password"
+msgstr "Aldatu pasahitza"
+
+#: config/prefs.php.dist:214
+msgid ""
+"Change the name and address that people see when they read and reply to your "
+"emails."
+msgstr ""
+"Aldatu jendeak zure mezuak irakurtzean eta erantzutean ikusiko dituen izena "
+"eta helbidea."
+
+#: services/changepassword.php:17
+msgid ""
+"Changing your password is not supported with the current configuration.  "
+"Contact your administrator."
+msgstr ""
+"Uneko konfigurazioak ez du onartzen pasahitza aldatzea.  Galdetu "
+"administratzaileari."
+
+#: lib/Block/vatid.php:45
+msgid "Check"
+msgstr "Egiaztatu"
+
+#: templates/admin/config/index.html:4
+msgid "Check for newer versions"
+msgstr "Begiratu bertsio berririk dagoen"
+
+#: lib/Block/vatid.php:47
+msgid "Checking"
+msgstr "Egiaztatzen"
+
+#: templates/admin/groups/addchild.inc:10
+msgid "Child"
+msgstr "Umea"
+
+#: config/nls.php:172
+msgid "Chinese Simplified (GB2312)"
+msgstr "Txinatar soildua (GB2312)"
+
+#: config/nls.php:173
+msgid "Chinese Traditional (Big5)"
+msgstr "Txinatar tradizionala (Big5)"
+
+#: services/obrowser/index.php:91
+#, php-format
+msgid "Choose %s"
+msgstr "Aukeratu %s"
+
+#: config/prefs.php.dist:403
+#, fuzzy
+msgid "Choose how to display dates (abbreviated format):"
+msgstr "Aukeratu datak bistaratzeko modua:"
+
+#: config/prefs.php.dist:377
+#, fuzzy
+msgid "Choose how to display dates (full format):"
+msgstr "Aukeratu datak bistaratzeko modua:"
+
+#: config/prefs.php.dist:419
+#, fuzzy
+msgid "Choose how to display times:"
+msgstr "Aukeratu datak bistaratzeko modua:"
+
+#: lib/Block/weatherdotcom_strings.php:19
+msgid "Clear"
+msgstr "Garbitu"
+
+#: admin/sqlshell.php:109
+msgid "Clear Query"
+msgstr "Garbitu kontsulta"
+
+#: templates/admin/user/clear.inc:5
+#, php-format
+msgid "Clear out user: %s"
+msgstr "Garbitu erabat erabiltzailea: %s"
+
+#: templates/admin/user/clear.inc:11
+msgid "Clear user"
+msgstr "Garbitu erabiltzailea"
+
+#: templates/admin/user/list.inc:37
+msgid "Clear user data"
+msgstr "Garbitu erabiltzaile-datuak"
+
+#: lib/Block/weatherdotcom_strings.php:20
+msgid "Clearing Early"
+msgstr "Argi goizean goiz"
+
+#: lib/Block/weatherdotcom_strings.php:21
+msgid "Clearing Late"
+msgstr "Oskarbi arratsalde-gauerako"
+
+#: templates/prefs/addressbooks.html:3
+msgid ""
+"Click on one of your selected address books and then select all fields to "
+"search."
+msgstr ""
+
+#: templates/logintasks/logintasks.html:38
+msgid "Click to Continue"
+msgstr "Egin klik aurrera jarraitzeko"
+
+#: templates/prefs/syncml.html:13
+msgid "Client Anchor"
+msgstr "Bezero-aingura"
+
+#: services/keyboard.php:154 templates/shares/edit.inc:12
+msgid "Close Window"
+msgstr "Itxi leihoa"
+
+#: lib/Block/metar.php:239
+msgid "Clouds"
+msgstr "Hodeiak"
+
+#: lib/Block/weatherdotcom_strings.php:22
+msgid "Clouds Early"
+msgstr "Hodeiak goizean goiz"
+
+#: lib/Block/weatherdotcom_strings.php:23
+msgid "Clouds Late"
+msgstr "Hodeiak arratsalde-gauerako"
+
+#: lib/Block/weatherdotcom_strings.php:24
+msgid "Cloudy"
+msgstr "Hodeitsu"
+
+#: admin/sessions.php:31
+msgid "Collapse"
+msgstr "Tolestu"
+
+#: templates/sidebar/sidebar.inc:3
+msgid "Collapse Sidebar"
+msgstr "Tolestu alboko barra"
+
+#: lib/Prefs/Ui.php:237
+msgid "Color Picker"
+msgstr "Kolore-hautatzailea"
+
+#: admin/cmdshell.php:20 admin/cmdshell.php:42
+msgid "Command"
+msgstr "Komandoa"
+
+#: admin/cmdshell.php:14
+msgid "Command Shell"
+msgstr "Komando shell-a"
+
+#: services/facebook.php:101
+#, fuzzy, php-format
+msgid "Comments: %d"
+msgstr "Iruzkina"
+
+#: lib/Block/fortune.php:38
+msgid "Computers"
+msgstr "Ordenagailuak"
+
+#: lib/Block/weatherdotcom.php:300
+msgid "Condition"
+msgstr "Egoera"
+
+#: lib/Block/metar.php:244
+msgid "Conditions"
+msgstr "Baldintzak"
+
+#: admin/config/config.php:65 templates/admin/config/config.html:9
+msgid "Configuration"
+msgstr "Konfigurazioa"
+
+#: admin/config/diff.php:80
+msgid "Configuration Differences"
+msgstr "Konfigurazio-desberdintasunak"
+
+#: config/prefs.php.dist:665
+msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
+msgstr "PDA, smartphone eta Outlook-ekin sinkronizatzeko konfigurazioa."
+
+#: admin/config/index.php:155
+msgid "Configuration is out of date."
+msgstr "Konfigurazioa iraungita dago."
+
+#: templates/admin/config/index.html:61
+#, fuzzy
+msgid "Configuration upgrade scripts available"
+msgstr "Konfigurazioa eguneratzeko scriptak erabilgarri daude"
+
+#: admin/config/index.php:111
+#, php-format
+msgid "Configure %s"
+msgstr "Konfiguratu %s"
+
+#: templates/admin/user/update.inc:28
+msgid "Confirm Password"
+msgstr "Berretsi pasahitza"
+
+#: services/changepassword.php:25 services/resetpassword.php:25
+msgid "Continue"
+msgstr "Jarraitu"
+
+#: lib/Block/fortune.php:39
+msgid "Cookie"
+msgstr "Cookie-ak"
+
+#: themes/cornflower/info.php:2
+msgid "Cornflower"
+msgstr "Artalorea"
+
+#: lib/Block/account.php:484
+msgid "Could not bind to LDAP server."
+msgstr "Ezin izan da LDAP zerbitzariarekin lotu."
+
+#: lib/Block/account.php:463
+msgid "Could not connect to LDAP server."
+msgstr "Ezin izan da LDAP zerbitzariarekin konektatu."
+
+#: admin/config/index.php:27
+#, php-format
+msgid "Could not connect to server \"%s\" using FTP: %s"
+msgstr "Ezin izan da \"%s\" zerbitzariarekin konektatu FTP bidez: %s"
+
+#: admin/config/index.php:66
+#, fuzzy
+msgid "Could not contact server. Try again later."
+msgstr "Ustekabeko erantzuna zerbitzaritik, saiatu berriro geroago."
+
+#: admin/config/scripts.php:35
+#, fuzzy, php-format
+msgid "Could not delete configuration upgrade script \"%s\"."
+msgstr "Ezin izan da ezabatu konfigurazioa eguneratzeko \"%s\" scripta."
+
+#: templates/prefs/twitter.html:14
+msgid ""
+"Could not find authorization for <tag:appname /> to interact with your "
+"Twitter account"
+msgstr ""
+
+#: services/resetpassword.php:92
+msgid ""
+"Could not reset the password for the requested user. Some or all of the "
+"details are not correct. Try again or contact your administrator if you need "
+"further help."
+msgstr ""
+"Ezin izan da eskatutako erabiltzailearen pasahitza berrezarri. Xehetasunen "
+"bat ez dago ondo. Saiatu berriro, edo eskatu laguntza administratzaileari, "
+"behar izanez gero."
+
+#: admin/config/config.php:43
+msgid "Could not revert configuration."
+msgstr "Ezin izan da konfigurazioa leheneratu."
+
+#: admin/config/index.php:41
+#, php-format
+msgid "Could not save a backup configuation: %s"
+msgstr "Ezin izan da gorde babeskopiaren konfigurazioa: %s"
+
+#: admin/config/scripts.php:94
+#, fuzzy, php-format
+msgid "Could not save configuration upgrade script to: \"%s\"."
+msgstr "Ezin izan da gorde konfigurazioa eguneratzeko scripta hemen: \"%s\"."
+
+#: admin/config/config.php:53
+#, php-format
+msgid "Could not save the backup configuration file %s."
+msgstr "Ezin izan da gorde babeskopiaren konfigurazioaren %s fitxategia."
+
+#: admin/config/config.php:65
+#, php-format
+msgid ""
+"Could not save the configuration file %s. You can either use one of the "
+"options to save the code back on %s or copy manually the code below to %s."
+msgstr ""
+"Ezin izan da gorde %s konfigurazio-fitxategia. Bi aukera dituzu: kodea "
+"berriz gordetzea %s(e)n, edo kodea eskuz kopiatzea %s azpian."
+
+#: admin/config/index.php:51
+#, php-format
+msgid "Could not write configuration for \"%s\": %s"
+msgstr "Ezin izan da idatzi \"%s\"(r)en konfigurazioa: %s"
+
+#: lib/Block/vatid.php:91
+msgid "Country"
+msgstr "Herrialdea"
+
+#: templates/prefs/rpc.html:34
+msgid "Create"
+msgstr "Sortu"
+
+#: templates/prefs/identityselect.html:22
+#, fuzzy
+msgid "Create New Identity"
+msgstr "Identitate lehenetsia"
+
+#: lib/Block/moon.php:24
+msgid "Current 4 Phases"
+msgstr "Uneko 4 faseak"
+
+#: templates/admin/alarms/list.html.php:2
+msgid "Current Alarms"
+msgstr "Uneko alarmak"
+
+#: admin/sessions.php:23
+msgid "Current Sessions"
+msgstr "Uneko saioak"
+
+#: lib/Block/time.php:3 lib/Block/time.php:36
+msgid "Current Time"
+msgstr "Uneko ordua"
+
+#: lib/Block/metar.php:31
+msgid "Current Weather"
+msgstr "Uneko eguraldia"
+
+#: lib/Block/weatherdotcom.php:279
+msgid "Current condition: "
+msgstr "Uneko egoera: "
+
+#: config/nls.php:174
+msgid "Cyrillic (KOI8-R)"
+msgstr "Zirilikoa (KOI8-R)"
+
+#: config/nls.php:175
+msgid "Cyrillic (Windows-1251)"
+msgstr "Zirilikoa (Windows-1251)"
+
+#: config/nls.php:176
+msgid "Cyrillic/Ukrainian (KOI8-U)"
+msgstr "Zirilikoa/Ukrainarra (KOI8-R)"
+
+#: templates/data/date.inc:47 templates/data/date.inc:48
+#: templates/data/date.inc:49 templates/data/date.inc:50
+#: templates/data/datetime.inc:89 templates/data/datetime.inc:90
+#: templates/data/datetime.inc:91 templates/data/datetime.inc:92
+msgid "DD"
+msgstr "EE"
+
+#: templates/data/csvmap.inc:101
+msgid "Data"
+msgstr "Datuak"
+
+#: admin/datatree.php:62
+msgid "DataTree"
+msgstr "Datu-zuhaitza"
+
+#: admin/datatree.php:59
+msgid "DataTree Browser"
+msgstr "Datu-zuhaitzaren arakatzailea"
+
+#: templates/prefs/syncml.html:11
+msgid "Database"
+msgstr "Datu-basea"
+
+#: lib/Block/vatid.php:94
+msgid "Date"
+msgstr "Data"
+
+#: templates/admin/user/approve.inc:23
+msgid "Date Received"
+msgstr "Data jaso da"
+
+#: templates/data/datetime.inc:70 templates/data/datetime.inc:71
+#, php-format
+msgid "Date: %s; time: %s"
+msgstr "Data: %s; ordua: %s"
+
+#: lib/Block/weatherdotcom.php:295 lib/Block/weatherdotcom.php:324
+msgid "Day"
+msgstr "Eguna"
+
+#: lib/Prefs/Ui.php:69 lib/Prefs/Ui.php:74
+msgid "Default"
+msgstr "Lehenetsia"
+
+#: lib/Prefs/Ui.php:252 lib/Prefs/Ui.php:282
+msgid "Default Color"
+msgstr "Kolore lehenetsia"
+
+#: lib/Block/account.php:78
+msgid "Default Shell"
+msgstr "Shell lehenetsia"
+
+#: lib/Block/fortune.php:40
+msgid "Definitions"
+msgstr "Definizioak"
+
+#: admin/groups.php:68 templates/admin/groups/delete.inc:10
+#: templates/admin/user/list.inc:34 templates/shares/edit.inc:63
+#: templates/shares/edit.inc:83 templates/shares/edit.inc:98
+#: templates/shares/edit.inc:118 templates/shares/edit.inc:134
+#: templates/shares/edit.inc:154 templates/shares/edit.inc:169
+#: templates/shares/edit.inc:193 templates/shares/edit.inc:228
+#: templates/shares/edit.inc:255 templates/shares/edit.inc:271
+#: templates/shares/edit.inc:291 templates/shares/edit.inc:320
+#: templates/prefs/identityselect.html:34 templates/prefs/rpc.html:35
+#: templates/prefs/syncml.html:14 templates/prefs/syncml.html:23
+msgid "Delete"
+msgstr "Ezabatu"
+
+#: admin/alarms.php:122 admin/groups.php:254
+#, php-format
+msgid "Delete \"%s\""
+msgstr "Ezabatu \"%s\""
+
+#: templates/prefs/syncml.html:30
+msgid "Delete All SyncML Data"
+msgstr "Ezabatu SyncML datu guztiak"
+
+#: admin/groups.php:215
+msgid "Delete Group"
+msgstr "Ezabatu taldea"
+
+#: admin/config/scripts.php:33
+#, fuzzy, php-format
+msgid "Deleted configuration upgrade script \"%s\"."
+msgstr "Konfigurazioa eguneratzeko \"%s\" scripta ezabatu da."
+
+#: lib/Prefs/Ui.php:717
+#, php-format
+msgid "Deleted synchronization session for device \"%s\" and database \"%s\"."
+msgstr ""
+"\"%s\" gailuaren eta \"%s\" datu-basearen sinkronizazio-saioa ezabatu da."
+
+#: templates/problem/problem.inc:27
+msgid "Describe the Problem"
+msgstr "Azaldu arazoa"
+
+#: config/registry.php.dist:239
+msgid "Development"
+msgstr "Garapena"
+
+#: templates/prefs/activesync.html:20 templates/prefs/syncml.html:10
+msgid "Device"
+msgstr "Gailua"
+
+#: admin/activesync.php:119
+#, fuzzy
+msgid "Device ID"
+msgstr "Gailua"
+
+#: templates/prefs/activesync.html:11
+#, fuzzy
+msgid "Device Management"
+msgstr "Fitxategi-kudeatzailea"
+
+#: lib/Prefs/Ui.php:432
+#, fuzzy
+msgid "Device id:"
+msgstr "Gailua"
+
+#: admin/activesync.php:167 lib/Prefs/Ui.php:420
+msgid "Device is wiped"
+msgstr ""
+
+#: admin/activesync.php:45
+#, fuzzy
+msgid "Device successfully removed."
+msgstr "Gertaera hau behar bezala kendu da:"
+
+#: admin/activesync.php:40
+msgid "Device wipe successfully canceled."
+msgstr ""
+
+#: lib/Block/metar.php:212
+msgid "Dew Point"
+msgstr "Kondentsazio-puntua"
+
+#: lib/Block/metar.php:289
+msgid "Dew Point for last hour: "
+msgstr "Azken orduko kondentsazio-puntua: "
+
+#: lib/Block/weatherdotcom.php:231
+msgid "Dew point: "
+msgstr "Kondentsazio-puntua: "
+
+#: templates/prefs/facebook.html:11 templates/prefs/facebook.html:22
+#: templates/prefs/facebook.html:34 templates/prefs/twitter.html:10
+#, fuzzy
+msgid "Disable"
+msgstr "Zerrenda - taulak"
+
+#: config/prefs.php.dist:345
+msgid "Display 24-hour times?"
+msgstr "Ordua 24 orduko formatuan erakutsi"
+
+#: config/prefs.php.dist:468
+#, fuzzy
+msgid "Display Preferences"
+msgstr "Hobespenak"
+
+#: lib/Block/weatherdotcom.php:86
+msgid "Display detailed forecast"
+msgstr "Bistaratu iragarpen xehea"
+
+#: lib/Block/metar.php:84
+msgid "Display forecast (TAF)"
+msgstr "Bistaratu iragarpena (TAF)"
+
+#: scripts/import_squirrelmail_prefs.php:77
+#, fuzzy
+msgid "Do not use Drafts"
+msgstr "Ez ezabatu"
+
+#: scripts/import_squirrelmail_prefs.php:44
+#: scripts/import_squirrelmail_prefs.php:145
+#, fuzzy
+msgid "Do not use Sent"
+msgstr "Ez ezabatu"
+
+#: scripts/import_squirrelmail_prefs.php:183
+msgid "Do not use Trash"
+msgstr ""
+
+#: templates/data/csvinfo.inc:12 templates/data/tsvinfo.inc:12
+msgid "Does the first row contain the field names? If yes, check this box:"
+msgstr ""
+"Lehenengo errenkadak eremu-izenak dauzka? Baiezkoan, hautatu koadro hau:"
+
+#: templates/login/login.inc:72
+msgid "Don't have an account? Sign up."
+msgstr "Ez duzu konturik? Erregistratu."
+
+#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:61
+#, fuzzy
+msgid "Done"
+msgstr "Bat ere ez"
+
+#: admin/config/index.php:92 admin/config/index.php:124
+#, php-format
+msgid "Download %s"
+msgstr "Deskargatu %s"
+
+#: admin/config/index.php:179
+msgid "Download generated configuration as PHP script."
+msgstr "Deskargatu sortutako konfigurazioa PHP script gisa."
+
+#: lib/Block/weatherdotcom_strings.php:25
+msgid "Drizzle"
+msgstr "Zirimiria"
+
+#: lib/Block/fortune.php:41
+msgid "Drugs"
+msgstr "Drogak"
+
+#: services/keyboard.php:64
+msgid "E characters"
+msgstr "E karaktereak"
+
+#: lib/Block/vatid.php:3
+msgid "EU VAT identification"
+msgstr "EU BEZ identifikazioa"
+
+#: templates/shares/edit.inc:62 templates/shares/edit.inc:79
+#: templates/shares/edit.inc:97 templates/shares/edit.inc:114
+#: templates/shares/edit.inc:133 templates/shares/edit.inc:150
+#: templates/shares/edit.inc:168 templates/shares/edit.inc:189
+#: templates/shares/edit.inc:224 templates/shares/edit.inc:251
+#: templates/shares/edit.inc:270 templates/shares/edit.inc:287
+#: templates/shares/edit.inc:316
+msgid "Edit"
+msgstr "Editatu"
+
+#: admin/alarms.php:89
+#, php-format
+msgid "Edit \"%s\""
+msgstr "Editatu \"%s\""
+
+#: admin/groups.php:214
+msgid "Edit Group"
+msgstr "Editatu taldea"
+
+#: templates/prefs/app.html:7
+#, fuzzy
+msgid "Edit Preferences for"
+msgstr "Hobespenak"
+
+#: services/shares/edit.php:259
+msgid "Edit permissions"
+msgstr "Editatu baimenak"
+
+#: services/shares/edit.php:260 templates/shares/edit.inc:14
+#, php-format
+msgid "Edit permissions for \"%s\""
+msgstr "Editatu \"%s\"(r)en baimenak"
+
+#: lib/Block/fortune.php:42
+msgid "Education"
+msgstr "Hezkuntza"
+
+#: templates/admin/groups/edit.inc:11 templates/admin/user/update.inc:45
+msgid "Email Address"
+msgstr "Helbide elektronikoa"
+
+#: lib/Prefs/Ui.php:225
+#, fuzzy
+msgid "Enter a name for the new category:"
+msgstr "Idatzi izen bat kategoria berriarentzat:"
+
+#: config/prefs.php.dist:288
+msgid ""
+"Enter a security question which you will be asked if you need to reset your "
+"password, e.g. 'what is the name of your pet?':"
+msgstr ""
+"Sartu pasahitza etab. berrezarri behar dituzunean egingo zaizun segurtasun--"
+"galdera, esate baterako, 'zein da zure maskotaren izena?':"
+
+#: lib/Block/metar.php:41 lib/Block/weatherdotcom.php:50
+msgid "Error"
+msgstr "Errorea"
+
+#: lib/Prefs/Ui.php:577 services/twitter.php:128 services/twitter.php:151
+#, fuzzy, php-format
+msgid ""
+"Error connecting to Twitter: %s Details have been logged for the "
+"administrator."
+msgstr ""
+"Barneko LDAP errorea.  Administratzailearentzako xehetasunak erregistratu "
+"dira."
+
+#: lib/Prefs/Ui.php:715
+msgid "Error deleting synchronization session:"
+msgstr "Errorea sinkronizazio-saioa ezabatzean:"
+
+#: lib/Prefs/Ui.php:722
+msgid "Error deleting synchronization sessions:"
+msgstr "Errorea sinkronizazio-saioak ezabatzean:"
+
+#: services/changepassword.php:61
+#, php-format
+msgid "Error updating password: %s"
+msgstr "Errorea pasahitza eguneratzean: %s"
+
+#: lib/Block/fortune.php:43
+msgid "Ethnic"
+msgstr "Etnikoak"
+
+#: services/facebook.php:69
+msgid "Event Invites:"
+msgstr ""
+
+#: templates/portal/layout.inc:101 config/prefs.php.dist:520
+msgid "Every 15 minutes"
+msgstr "15 minutuz behin"
+
+#: config/prefs.php.dist:559
+msgid "Every 2 minutes"
+msgstr "2 minutuz behin"
+
+#: templates/portal/layout.inc:98 config/prefs.php.dist:517
+#: config/prefs.php.dist:557
+msgid "Every 30 seconds"
+msgstr "30 segundoz behin"
+
+#: templates/portal/layout.inc:100 config/prefs.php.dist:519
+#: config/prefs.php.dist:560
+msgid "Every 5 minutes"
+msgstr "5 minutuz behin"
+
+#: templates/portal/layout.inc:102 config/prefs.php.dist:521
+msgid "Every half hour"
+msgstr "Ordu erdiz behin"
+
+#: templates/portal/layout.inc:103
+msgid "Every hour"
+msgstr "Orduan behin"
+
+#: templates/portal/layout.inc:99 config/prefs.php.dist:518
+#: config/prefs.php.dist:558
+msgid "Every minute"
+msgstr "Minutuan behin"
+
+#: templates/data/datemap.inc:24
+msgid "Example values:"
+msgstr "Balio-adibideak:"
+
+#: admin/cmdshell.php:48 admin/phpshell.php:55 admin/sqlshell.php:108
+msgid "Execute"
+msgstr "Exekutatu"
+
+#: admin/sessions.php:30
+msgid "Expand"
+msgstr "Zabaldu"
+
+#: lib/Block/iframe.php:29
+msgid "Extra Large"
+msgstr "Oso handia"
+
+#: templates/admin/config/index.html:74
+#, fuzzy
+msgid "FTP upload of configuration"
+msgstr "%s konfigurazioa gorde da."
+
+#: config/prefs.php.dist:604
+msgid "Facebook Integration"
+msgstr ""
+
+#: themes/fadetogreen/info.php:9
+msgid "Fade to Green"
+msgstr "Iraungi berderantz"
+
+#: lib/Block/weatherdotcom_strings.php:26
+msgid "Fair"
+msgstr "Atsegina"
+
+#: lib/Block/feed.php:41
+msgid "Feed"
+msgstr "Iturria"
+
+#: lib/Block/feed.php:17
+msgid "Feed Address"
+msgstr "Iturriaren helbidea"
+
+#: lib/Block/metar.php:215
+msgid "Feels Like"
+msgstr "Sentsazio termikoa"
+
+#: lib/Block/weatherdotcom.php:235
+msgid "Feels like: "
+msgstr "Sentsazio termikoa: "
+
+#: lib/Block/weatherdotcom_strings.php:27
+msgid "Few Showers"
+msgstr "Zaparradak"
+
+#: lib/Block/weatherdotcom_strings.php:28
+msgid "Few Snow Showers"
+msgstr "Elur-zaparradak"
+
+#: templates/prefs/addressbooks.html:17
+msgid "Fields to search"
+msgstr ""
+
+#: config/registry.php.dist:340
+msgid "File Manager"
+msgstr "Fitxategi-kudeatzailea"
+
+#: lib/Block/fb_stream.php:82
+#, fuzzy
+msgid "Filter"
+msgstr "Iragazkiak"
+
+#: config/registry.php.dist:93
+msgid "Filters"
+msgstr "Iragazkiak"
+
+#: lib/Block/moon.php:164
+msgid "First Half"
+msgstr "Ilgora (lehen erdia)"
+
+#: lib/Block/moon.php:72 lib/Block/moon.php:74
+msgid "First Quarter"
+msgstr "Ilgora"
+
+#: lib/Block/weatherdotcom_strings.php:29
+msgid "Fog"
+msgstr "Lainoa"
+
+#: lib/Block/weatherdotcom_strings.php:30
+msgid "Fog Early"
+msgstr "Lainoa goizean goiz"
+
+#: lib/Block/weatherdotcom_strings.php:31
+msgid "Fog Late"
+msgstr "Lainoa arratsalde-gauerako"
+
+#: lib/Block/weatherdotcom_strings.php:32
+msgid "Foggy"
+msgstr "Lainotsua"
+
+#: lib/Block/fortune.php:44
+msgid "Food"
+msgstr "Janariak"
+
+#: lib/Block/metar.php:329
+msgid "Forecast (TAF)"
+msgstr "Iragarpena (TAF)"
+
+#: lib/Block/weatherdotcom.php:74
+msgid ""
+"Forecast Days (note that the returned forecast returns both day and night; a "
+"large number here could result in a wide block)"
+msgstr ""
+"Iragarpen-egunak (kontuan hartu bai egunak, eta bai gauak azalduko direla; "
+"egun asko aukeratuz gero, bloke oso handia aterako litzateke)"
+
+#: templates/login/login.inc:81
+msgid "Forgot your password?"
+msgstr "Pasahitza ahaztu zaizu?"
+
+#: lib/Block/fortune.php:28
+msgid "Fortune"
+msgstr "Fortuna"
+
+#: lib/Block/fortune.php:106
+msgid "Fortune type"
+msgstr "Fortuna mota"
+
+#: lib/Block/fortune.php:45
+msgid "Fortunes"
+msgstr "Fortunak"
+
+#: lib/Block/fortune.php:46
+msgid "Fortunes 2"
+msgstr "Fortunak 2"
+
+#: config/registry.php.dist:376
+msgid "Forums"
+msgstr "Foroak"
+
+#: config/registry.php.dist:113
+msgid "Forwards"
+msgstr "Birbidalketak"
+
+#: lib/Block/weatherdotcom_strings.php:33
+msgid "Freezing Drizzle"
+msgstr "Zirimiri izozkorra"
+
+#: services/facebook.php:68
+msgid "Friend Requests:"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:252 lib/Block/weatherdotcom.php:362
+#: lib/Block/weatherdotcom.php:408
+msgid "From the "
+msgstr "Hemendik: "
+
+#: templates/problem/problem.inc:48
+msgid "Full Description"
+msgstr "Azalpen osoa"
+
+#: lib/Block/moon.php:79 lib/Block/moon.php:174
+msgid "Full Moon"
+msgstr "Ilbetea"
+
+#: lib/Block/account.php:68 templates/admin/user/update.inc:37
+msgid "Full Name"
+msgstr "Izen osoa"
+
+#: admin/config/config.php:31
+#, php-format
+msgid "Generate %s Configuration"
+msgstr "Sortu %s konfigurazioa"
+
+#: templates/admin/config/config.html:6
+msgid "Generated Code"
+msgstr "Sortutako kodea"
+
+#: lib/Block/fb_stream.php:192 lib/Block/twitter_timeline.php:171
+msgid "Get More"
+msgstr ""
+
+#: templates/prefs/app.html:10
+#, fuzzy
+msgid "Global Preferences"
+msgstr "Hobespenak"
+
+#: templates/prefs/app.html:17
+msgid "Go"
+msgstr "Joan"
+
+#: lib/Block/fortune.php:47
+msgid "Goedel"
+msgstr "Goedel"
+
+#: lib/Block/google.php:3 lib/Block/google.php:19
+msgid "Google Search"
+msgstr "Google bilaketa"
+
+#: lib/Block/google.php:30
+msgid "Google search is not enabled."
+msgstr "Google bilaketa ez dago gaituta."
+
+#: config/nls.php:177
+msgid "Greek (ISO-8859-7)"
+msgstr "Grekoa (ISO-8859-7)"
+
+#: themes/green/info.php:2
+msgid "Green"
+msgstr "Berdea"
+
+#: themes/grey/info.php:2
+msgid "Grey"
+msgstr "Grisa"
+
+#: admin/groups.php:195
+msgid "Group Administration"
+msgstr "Talde-administrazioa"
+
+#: admin/groups.php:44
+#, php-format
+msgid "Group was not created: %s."
+msgstr "Taldea ez da sortu: %s."
+
+#: admin/groups.php:268 templates/shares/edit.inc:266
+msgid "Groups"
+msgstr "Taldeak"
+
+#: templates/shares/edit.inc:93
+msgid "Guest Permissions"
+msgstr "Gonbidatu-baimenak"
+
+#: lib/Block/weatherdotcom_strings.php:34
+msgid "Haze"
+msgstr "Gandua"
+
+#: lib/Block/weatherdotcom_strings.php:35
+msgid "Heavy Rain"
+msgstr "Euri-jasa"
+
+#: lib/Block/weatherdotcom_strings.php:36
+msgid "Heavy T-Storm"
+msgstr "Trumoi-ekaitz indartsuak"
+
+#: config/nls.php:178
+msgid "Hebrew (ISO-8859-8-I)"
+msgstr "Hebrearra (ISO-8859-8-I)"
+
+#: lib/Block/iframe.php:24
+msgid "Height"
+msgstr "Altuera"
+
+#: lib/Block/fb_stream.php:92 lib/Block/twitter_timeline.php:87
+msgid "Height of map (width automatically adjusts to block)"
+msgstr ""
+
+#: services/help/index.php:17 templates/help/index.inc:4
+msgid "Help"
+msgstr "Laguntza"
+
+#: services/help/index.php:70
+msgid "Help _Topics"
+msgstr "Laguntza-gaiak"
+
+#: lib/Block/moon.php:27
+msgid "Hemisphere"
+msgstr "Hemisferioa"
+
+#: templates/data/csvinfo.inc:10 templates/data/tsvinfo.inc:10
+msgid "Here is the beginning of the file:"
+msgstr "Fitxategi-hasiera hemen dago:"
+
+#: themes/hi-contrast/info.php:3
+msgid "Hi-Contrast"
+msgstr "Kontraste handia"
+
+#: templates/prefs/app.html:23
+#, fuzzy
+msgid "Hide Advanced Preferences"
+msgstr "Hobespenak"
+
+#: services/portal/cloud_search.php:33
+msgid "Hide Results"
+msgstr "Ezkutatu emaitzak"
+
+#: lib/Block/weatherdotcom_strings.php:100
+msgid "High"
+msgstr "Altua"
+
+#: lib/Block/account.php:73
+msgid "Home Directory"
+msgstr "Direktorio nagusia"
+
+#: config/registry.php.dist:76
+msgid "Horde"
+msgstr "Horde"
+
+#: themes/hordeweb/info.php:2
+msgid "Horde Website"
+msgstr "Horde-ren webgunea"
+
+#: templates/data/csvinfo.inc:21
+msgid "How many fields (columns) are there?"
+msgstr "Zenbat eremu (zutabe) daude hor?"
+
+#: lib/Block/feed.php:21
+msgid "How many seconds before we check for new articles?"
+msgstr "Zenbat segundo igaro behar dira artikulu berririk dagoen begiratzeko?"
+
+#: lib/Block/metar.php:225 lib/Block/weatherdotcom.php:303
+msgid "Humidity"
+msgstr "Hezetasuna"
+
+#: lib/Block/weatherdotcom.php:263
+msgid "Humidity: "
+msgstr "Hezetasuna: "
+
+#: lib/Block/fortune.php:48
+msgid "Humorists"
+msgstr "Umoristak"
+
+#: services/keyboard.php:78
+msgid "I characters"
+msgstr "I karaktereak"
+
+#: config/prefs.php.dist:545
+msgid "Icons Only"
+msgstr "Ikonoak bakarrik"
+
+#: util/icon_browser.php:53
+#, php-format
+msgid "Icons for %s"
+msgstr "%s(r)en ikonoak"
+
+#: config/prefs.php.dist:546
+msgid "Icons with text"
+msgstr "Testua duten ikonoak"
+
+#: themes/ideas/info.php:2
+msgid "Ideas"
+msgstr "Ideiak"
+
+#: config/prefs.php.dist:226
+msgid "Identity's name:"
+msgstr "Identitatearen izena:"
+
+#: templates/data/csvinfo.inc:7 templates/data/csvmap.inc:54
+#: templates/data/datemap.inc:7 templates/data/tsvinfo.inc:7
+#, php-format
+msgid "Import, Step %d"
+msgstr "Inportatu, %d urratsa"
+
+#: templates/data/datemap.inc:15
+#, php-format
+msgid "Imported field: %s"
+msgstr "Inportatutako eremua: %s"
+
+#: templates/data/csvmap.inc:59
+msgid "Imported fields:"
+msgstr "Inportatutako eremuak:"
+
+#: lib/Block/twitter_timeline.php:136
+msgid "In reply to:"
+msgstr ""
+
+#: templates/data/csvmap.inc:57
+msgid ""
+"In the lists below select both, a field imported from the source file at the "
+"left, and the matching field available in your address book at the right. "
+"Then hit \"Add pair\" to mark them for the import. Once your are finished "
+"hit \"Next\"."
+msgstr ""
+"Beheko zerrendetan hautatu biak, bai jatorrizko fitxategitik inportatutako "
+"eremu bat ezkerraldean, bai zure helbide elektronikoan erabilgarri dagoen "
+"eremua eskuinaldean. Ondoren, sakatu \"Gehitu bikotea\", inportatzeko "
+"markatzeko. Amaitutakoan, sakatu \"Hurrengoa\"."
+
+#: services/resetpassword.php:50
+msgid ""
+"Incorrect username or alternate address. Try again or contact your "
+"administrator if you need further help."
+msgstr ""
+"Erabiltzaile-izen edo ordezko helbide okerra. Saiatu berriro, edo eskatu "
+"laguntza administratzaileari, behar izanez gero."
+
+#: templates/shares/edit.inc:164
+msgid "Individual Users"
+msgstr "Erabiltzaile indibidualak"
+
+#: templates/prefs/facebook.html:10
+#, fuzzy
+msgid "Infinite sessions enabled."
+msgstr "Huts egin du saioak zerrendatzean: %s"
+
+#: config/registry.php.dist:281
+msgid "Information"
+msgstr "Informazioa"
+
+#: lib/Block/weatherdotcom.php:332
+msgid "Information no longer available."
+msgstr "Informazioa ez dago erabilgarri."
+
+#: templates/admin/groups/edit.inc:36
+msgid "Inherited Members"
+msgstr "Heredatutako kideak"
+
+#: config/prefs.php.dist:304
+msgid "Insert an email address to which you can receive the new password:"
+msgstr "Sartu pasahitz berria jasotzeko helbide elektronikoa:"
+
+#: config/prefs.php.dist:296
+msgid "Insert the required answer to the security question:"
+msgstr "Txertatu segurtasun-galderak eskatutako erantzuna:"
+
+#: lib/Block/vatid.php:52
+msgid "Invalid VAT identification number format."
+msgstr "BEZaren identifikazio-zenbakiaren formatua ez da baliozkoa."
+
+#: admin/signup_confirm.php:43
+#, php-format
+msgid "Invalid action %s"
+msgstr "Ekintza baliogabea: %s"
+
+#: admin/config/config.php:24
+msgid "Invalid application."
+msgstr "Aplikazioa ez da baliozkoa."
+
+#: admin/signup_confirm.php:33
+msgid "Invalid hash."
+msgstr "Hash baliogabea."
+
+#: lib/Block/weatherdotcom.php:180
+msgid "Invalid license key."
+msgstr "Lizentziaren gakoa ez da baliozkoa."
+
+#: lib/Block/weatherdotcom.php:174
+msgid "Invalid location provided."
+msgstr "Emandako kokalekua ez da baliozkoa."
+
+#: admin/perms/addchild.php:23
+msgid "Invalid parent permission."
+msgstr "Guraso-baimena ez da baliozkoa."
+
+#: lib/Block/weatherdotcom.php:176
+msgid "Invalid partner id."
+msgstr "Lagunaren IDa ez da baliozkoa."
+
+#: lib/Block/weatherdotcom.php:178
+msgid "Invalid product code."
+msgstr "Produktu-kodea ez da baliozkoa."
+
+#: lib/Block/weatherdotcom_strings.php:37
+msgid "Isolated T-Storms"
+msgstr "Trumoi-ekaitz bakanak"
+
+#: config/nls.php:179
+msgid "Japanese (ISO-2022-JP)"
+msgstr "Japoniarra (ISO-2022-JP)"
+
+#: lib/Block/twitter_timeline.php:138
+msgid "Just now..."
+msgstr ""
+
+#: lib/Block/fortune.php:49
+msgid "Kernel Newbies"
+msgstr "Kernel-ekin hasiberriak"
+
+#: services/help/index.php:138
+msgid "Keyword"
+msgstr "Gako-hitza"
+
+#: lib/Block/fortune.php:50
+msgid "Kids"
+msgstr "Haurrak"
+
+#: themes/kolab/info.php:7
+msgid "Kolab"
+msgstr "Kolab"
+
+#: config/nls.php:180
+msgid "Korean (EUC-KR)"
+msgstr "Korearra (EUC-KR)"
+
+#: login.php:314 templates/login/login.inc:49
+msgid "Language"
+msgstr "Hizkuntza"
+
+#: lib/Block/iframe.php:28
+msgid "Large"
+msgstr "Handia"
+
+#: lib/Block/moon.php:167
+msgid "Last Half"
+msgstr "Ilbehera (azken erdia)"
+
+#: lib/Block/account.php:91
+msgid "Last Password Change"
+msgstr "Azken pasahitz-aldaketa"
+
+#: lib/Block/moon.php:84 lib/Block/moon.php:86
+msgid "Last Quarter"
+msgstr "Ilbehera"
+
+#: admin/activesync.php:98 templates/prefs/activesync.html:21
+#, fuzzy
+msgid "Last Sync Time"
+msgstr "Konfigurazio lokala eta ordua"
+
+#: lib/Block/metar.php:146
+msgid "Last Updated:"
+msgstr "Azken eguneratzea:"
+
+#: lib/LoginTasks/Task/LastLogin.php:46
+#, php-format
+msgid "Last login: %s"
+msgstr "Azken saio-hasiera: %s"
+
+#: lib/LoginTasks/Task/LastLogin.php:48
+#, php-format
+msgid "Last login: %s from %s"
+msgstr "Azken saio-hasiera: %s - %s"
+
+#: lib/LoginTasks/Task/LastLogin.php:44
+msgid "Last login: Never"
+msgstr "Azken saio-hasiera: inoiz ez"
+
+#: lib/Block/twitter_timeline.php:168
+#, fuzzy
+msgid "Latest"
+msgstr "Lesotho"
+
+#: themes/lavander/info.php:2
+msgid "Lavender"
+msgstr "Izpilikua"
+
+#: lib/Block/fortune.php:51
+msgid "Law"
+msgstr "Zuzenbidea"
+
+#: themes/lightblue/info.php:2
+msgid "Light Blue"
+msgstr "Urdin argia"
+
+#: lib/Block/weatherdotcom_strings.php:38
+msgid "Light Drizzle"
+msgstr "Zirimiri arina"
+
+#: lib/Block/weatherdotcom_strings.php:39
+msgid "Light Rain"
+msgstr "Euri arina"
+
+#: lib/Block/weatherdotcom_strings.php:40
+msgid "Light Rain Early"
+msgstr "Euri arina goizean goiz"
+
+#: lib/Block/weatherdotcom_strings.php:41
+msgid "Light Rain Late"
+msgstr "Euri arina arratsalde-gauean"
+
+#: lib/Block/weatherdotcom_strings.php:42
+msgid "Light Rain Shower"
+msgstr "Euri-zaparrada arinak"
+
+#: lib/Block/weatherdotcom_strings.php:43
+msgid "Light Rain with Thunder"
+msgstr "Euri arina trumoiekin"
+
+#: lib/Block/weatherdotcom_strings.php:44
+msgid "Light Snow"
+msgstr "Elur arina"
+
+#: lib/Block/weatherdotcom_strings.php:45
+msgid "Light Snow Early"
+msgstr "Elur arina goizean goiz"
+
+#: lib/Block/weatherdotcom_strings.php:46
+msgid "Light Snow Late"
+msgstr "Elur arina arratsalde-gauean"
+
+#: lib/Block/weatherdotcom_strings.php:47
+msgid "Light Snow Shower"
+msgstr "Elur arinaren zaparradak"
+
+#: services/facebook.php:105
+#, fuzzy
+msgid "Like"
+msgstr "Esteka"
+
+#: lib/Block/fortune.php:52
+msgid "Limerick"
+msgstr "Limerick"
+
+#: lib/Block/fortune.php:53
+msgid "Linux Cookie"
+msgstr "Linux cookie-a"
+
+#: admin/sqlshell.php:113
+msgid "List Tables"
+msgstr "Zerrenda - taulak"
+
+#: admin/alarms.php:130
+#, php-format
+msgid "Listing alarms failed: %s"
+msgstr "Huts egin du alarmak zerrendatzean: %s"
+
+#: admin/sessions.php:62
+#, php-format
+msgid "Listing sessions failed: %s"
+msgstr "Huts egin du saioak zerrendatzean: %s"
+
+#: templates/admin/user/nolist.inc:2
+msgid "Listing users is disabled."
+msgstr "Erabiltzaileak zerrendatzea desgaituta dago."
+
+#: lib/Block/fortune.php:54
+msgid "Literature"
+msgstr "Literatura"
+
+#: lib/Block/weatherdotcom.php:215
+msgid "Local time: "
+msgstr "Ordu lokala: "
+
+#: config/prefs.php.dist:313
+msgid "Locale and Time"
+msgstr "Konfigurazio lokala eta ordua"
+
+#: lib/Block/metar.php:64 lib/Block/sunrise.php:20
+#: lib/Block/weatherdotcom.php:59
+msgid "Location"
+msgstr "Kokalekua"
+
+#: login.php:261 templates/login/login.inc:64
+msgid "Log in"
+msgstr "Hasi saioa"
+
+#: lib/Block/account.php:64
+msgid "Login"
+msgstr "Saio-hasiera"
+
+#: login.php:286
+msgid "Login failed because your username or password was entered incorrectly."
+msgstr ""
+"Saio-hasierak huts egin du: erabiltzaile-izena edo pasahitza ez dira ondo "
+"sartu."
+
+#: login.php:282
+msgid "Login failed."
+msgstr "Saio-hasierak huts egin du."
+
+#: templates/prefs/facebook.html:46
+msgid "Login to Facebook and authorize <tag:app_name />"
+msgstr ""
+
+#: templates/prefs/twitter.html:21
+msgid "Login to Twitter and authorize the <tag:appname /> application"
+msgstr ""
+
+#: lib/Block/fortune.php:55
+msgid "Love"
+msgstr "Maitasuna"
+
+#: lib/Block/weatherdotcom_strings.php:98
+msgid "Low"
+msgstr "Txikia"
+
+#: themes/luc/info.php:2
+msgid "Loyola"
+msgstr "Loyola"
+
+#: themes/lucblue/info.php:2
+msgid "Loyola Blue"
+msgstr "Loyola Blue"
+
+#: templates/data/date.inc:47 templates/data/date.inc:48
+#: templates/data/date.inc:49 templates/data/date.inc:50
+#: templates/data/datetime.inc:89 templates/data/datetime.inc:90
+#: templates/data/datetime.inc:91 templates/data/datetime.inc:92
+msgid "MM"
+msgstr "HH"
+
+#: lib/Block/fortune.php:56
+msgid "Magic"
+msgstr "Magia"
+
+#: config/registry.php.dist:85
+msgid "Mail"
+msgstr "Posta"
+
+#: config/registry.php.dist:403
+msgid "Mail Admin"
+msgstr "Posta-adm."
+
+#: config/prefs.php.dist:441
+msgid ""
+"Manage the list of categories you have to label items with, and colors "
+"associated with those categories."
+msgstr ""
+"Kudeatu elementuak etiketatzeko kategorien zerrenda, eta kategoriekin "
+"lotutako koloreak."
+
+#: config/prefs.php.dist:677
+msgid "Manage your ActiveSync devices."
+msgstr ""
+
+#: templates/data/csvmap.inc:96
+msgid "Matching fields:"
+msgstr "Bat datozen eremuak:"
+
+#: lib/Block/metar.php:301
+msgid "Max temp last 24 hours: "
+msgstr "Azken 24 orduetako tenp. altuena: "
+
+#: lib/Block/metar.php:293
+msgid "Max temp last 6 hours: "
+msgstr "Azken 6 orduetako tenp. altuena: "
+
+#: lib/Application.php:38
+msgid "Maximum Number of Portal Blocks"
+msgstr "Atari-blokeen gehieneko kopurua"
+
+#: lib/Block/fb_stream.php:86
+#, fuzzy
+msgid "Maximum number of entries to display"
+msgstr "Bistaratzeko artikulu kopurua"
+
+#: lib/Block/fortune.php:57
+msgid "Medicine"
+msgstr "Medikuntza"
+
+#: lib/Block/iframe.php:27
+msgid "Medium"
+msgstr "Ertaina"
+
+#: templates/admin/groups/edit.inc:17
+msgid "Members"
+msgstr "Kideak"
+
+#: config/prefs.php.dist:548
+msgid "Menu mode:"
+msgstr "Menu modua:"
+
+#: lib/Block/metar.php:5
+msgid "Metar Weather"
+msgstr "Metar eguraldia"
+
+#: lib/Block/metar.php:42
+msgid "Metar block not available."
+msgstr "Metar blokea ez dago erabilgarri."
+
+#: lib/Block/metar.php:110
+msgid ""
+"Metar block not available. Details have been logged for the administrator."
+msgstr ""
+"Metar blokea ez dago erabilgarri. Administratzailearentzako xehetasunak "
+"erregistratu dira."
+
+#: lib/Block/weatherdotcom.php:168
+msgid "MetarDB is not connected."
+msgstr "MetarDB ez dago konektatuta."
+
+#: lib/Block/metar.php:74 lib/Block/weatherdotcom.php:69
+msgid "Metric"
+msgstr "Metrikoa"
+
+#: lib/Block/metar.php:305
+msgid "Min temp last 24 hours: "
+msgstr "Azken 24 orduetako tenp. baxuena: "
+
+#: lib/Block/metar.php:297
+msgid "Min temp last 6 hours: "
+msgstr "Azken 6 orduetako tenp. baxuena: "
+
+#: lib/Block/fortune.php:58
+msgid "Miscellaneous"
+msgstr "Askotarikoak"
+
+#: admin/config/index.php:135
+msgid ""
+"Missing configuration. You must generate it before using this application."
+msgstr ""
+"Konfigurazioa falta da. Aplikazio hau erabili aurretik sortu behar duzu."
+
+#: lib/Block/weatherdotcom_strings.php:48
+msgid "Mist"
+msgstr "Behe-lainoa"
+
+#: lib/Block/weatherdotcom_strings.php:99
+msgid "Moderate"
+msgstr "Moderatua"
+
+#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:57
+#, php-format
+msgid "Modified sequence for %s"
+msgstr ""
+
+#: config/prefs.php.dist:430
+msgid "Monday"
+msgstr "Astelehena"
+
+#: lib/Block/moon.php:3 lib/Block/moon.php:14
+msgid "Moon Phases"
+msgstr "Ilargiaren faseak"
+
+#: lib/Block/weatherdotcom_strings.php:49
+msgid "Mostly Clear"
+msgstr "Nahiko oskarbi"
+
+#: lib/Block/weatherdotcom_strings.php:50
+msgid "Mostly Cloudy"
+msgstr "Nahiko hodeitsu"
+
+#: lib/Block/weatherdotcom_strings.php:51
+msgid "Mostly Cloudy and Windy"
+msgstr "Nahiko hodeitsu eta haizetsu"
+
+#: lib/Block/weatherdotcom_strings.php:52
+msgid "Mostly Sunny"
+msgstr "Nahiko eguzkitsu"
+
+#: themes/mozilla/info.php:2
+msgid "Mozilla"
+msgstr "Mozilla"
+
+#: config/registry.php.dist:333
+msgid "My Account"
+msgstr "Nire kontua"
+
+#: lib/Block/account.php:27
+msgid "My Account Information"
+msgstr "Nire kontuaren informazioa"
+
+#: lib/Block/fb_stream.php:3 lib/Block/fb_stream.php:105
+msgid "My Facebook Stream"
+msgstr ""
+
+#: services/portal/index.php:62
+msgid "My Portal"
+msgstr "Nire ataria"
+
+#: services/portal/edit.php:36
+msgid "My Portal Layout"
+msgstr "Nire atariaren diseinua"
+
+#: templates/logintasks/logintasks.html:35
+msgid "NO, I Do NOT Agree"
+msgstr "EZ, EZ nago ados"
+
+#: lib/Block/vatid.php:98
+msgid "Name"
+msgstr "Izena"
+
+#: themes/NeXTgrey/info.php:2
+msgid "NeXT"
+msgstr "NeXT"
+
+#: templates/portal/layout.inc:97 config/prefs.php.dist:516
+#: config/prefs.php.dist:556
+msgid "Never"
+msgstr "Inoiz ez"
+
+#: templates/prefs/category.html:3
+msgid "New Category"
+msgstr "Kategoria berria"
+
+#: services/facebook.php:65
+#, fuzzy
+msgid "New Messages:"
+msgstr "%s(r)entzako mezu berria"
+
+#: lib/Block/moon.php:44 lib/Block/moon.php:66 lib/Block/moon.php:172
+msgid "New Moon"
+msgstr "Ilberria"
+
+#: templates/admin/user/update.inc:12
+msgid "New Username (optional)"
+msgstr "Erabiltzaile-izen berria (aukerakoa)"
+
+#: services/changepassword.php:29
+msgid "New password"
+msgstr "Pasahitz berria"
+
+#: services/changepassword.php:40
+msgid "New passwords don't match."
+msgstr "Pasahitz berriak ez datoz bat."
+
+#: lib/Block/fortune.php:59 config/registry.php.dist:288
+msgid "News"
+msgstr "Berriak"
+
+#: templates/data/csvinfo.inc:25 templates/data/csvmap.inc:119
+#: templates/data/datemap.inc:41 templates/data/tsvinfo.inc:15
+msgid "Next"
+msgstr "Hurrengoa"
+
+#: lib/Block/moon.php:25
+msgid "Next 4 Phases"
+msgstr "Hurrengo 4 faseak"
+
+#: lib/Block/weatherdotcom.php:382
+msgid "Night"
+msgstr "Gaua"
+
+#: templates/prefs/alarm.html:32
+msgid "No Sound"
+msgstr "Soinurik ez"
+
+#: templates/admin/config/diff.html:9
+msgid "No available configuration data to show differences for."
+msgstr "Ez dago konfigurazio-datu erabilgarririk desberdintasunak erakusteko."
+
+#: admin/config/diff.php:39
+msgid "No change."
+msgstr "Aldaketarik ez."
+
+#: util/icon_browser.php:83
+msgid "No icons found."
+msgstr "Ez da ikonorik aurkitu."
+
+#: lib/Block/metar.php:121 lib/Block/sunrise.php:38
+#: lib/Block/weatherdotcom.php:133
+msgid "No location is set."
+msgstr "Ez da kokalekurik ezarri."
+
+#: lib/Block/weatherdotcom.php:172
+msgid "No location provided."
+msgstr "Ez da kokalekurik eman."
+
+#: lib/Block/fortune.php:101
+msgid "No offensive fortunes"
+msgstr "Fortuna iraingarririk ez"
+
+#: templates/admin/user/approve.inc:15
+msgid "No pending signups."
+msgstr "Ez dago erregistrorik zain."
+
+#: admin/config/index.php:89 admin/config/index.php:121
+msgid "No stable version exists yet."
+msgstr "Oraindik ez dago bertsio egonkorrik."
+
+#: lib/Block/weatherdotcom.php:143
+msgid "No temporary directory available for cache."
+msgstr "Ez dago aldi baterako direktoriorik erabilgarri cachean gordetzeko."
+
+#: admin/signup_confirm.php:57
+msgid "No username specified."
+msgstr "Ez da erabiltzaile-izenik zehaztu."
+
+#: admin/config/index.php:140
+msgid "No version found in original configuration. Regenerate configuration."
+msgstr ""
+"Ez da bertsiorik aurkitu jatorrizko konfigurazioan. Birsortu konfigurazioa."
+
+#: admin/config/index.php:148
+msgid "No version found in your configuration. Regenerate configuration."
+msgstr "Ez da bertsiorik aurkitu zure konfigurazioan. Birsortu konfigurazioa."
+
+#: lib/Prefs/Ui.php:411 templates/prefs/activesync.html:43
+#: templates/prefs/identityselect.html:20 templates/prefs/syncml.html:34
+msgid "None"
+msgstr "Bat ere ez"
+
+#: config/nls.php:181
+msgid "Nordic (ISO-8859-10)"
+msgstr "Nordikoa (ISO-8859-10)"
+
+#: lib/Block/moon.php:30 lib/Block/moon.php:58
+msgid "Northern Hemisphere"
+msgstr "Ipar-hemisferioa"
+
+#: admin/activesync.php:171 lib/Prefs/Ui.php:426
+#, fuzzy
+msgid "Not Provisioned"
+msgstr "Editatu baimena"
+
+#: config/registry.php.dist:211
+msgid "Notes"
+msgstr "Oharrak"
+
+#: services/obrowser/index.php:32
+msgid "Nothing to browse, go back."
+msgstr "Ez dago non arakatu, joan atzera."
+
+#: lib/Block/feed.php:18
+msgid "Number of articles to display"
+msgstr "Bistaratzeko artikulu kopurua"
+
+#: lib/Block/twitter_timeline.php:91
+msgid "Number of seconds to wait to refresh"
+msgstr ""
+
+#: services/keyboard.php:92
+msgid "O characters"
+msgstr "0 karaktere"
+
+#: templates/shares/edit.inc:129
+msgid "Object Creator"
+msgstr "Objektu-sortzailea"
+
+#: lib/Block/fortune.php:99
+msgid "Offense filter"
+msgstr "Irainen iragazkia"
+
+#: config/registry.php.dist:301
+msgid "Office"
+msgstr "Bulegoa"
+
+#: services/changepassword.php:42
+msgid "Old and new passwords must be different."
+msgstr "Pasahitz zaharrak eta berriak desberdinak izan behar dute."
+
+#: services/changepassword.php:28
+msgid "Old password"
+msgstr "Pasahitz zaharra"
+
+#: services/changepassword.php:38
+msgid "Old password is not correct."
+msgstr "Pasahitz zaharra okerra da."
+
+#: lib/Block/fortune.php:102
+msgid "Only offensive fortunes"
+msgstr "Fortuna iraingarriak bakarrik"
+
+#: services/shares/edit.php:83
+msgid ""
+"Only the owner or system administrator may change ownership or owner "
+"permissions for a share"
+msgstr ""
+"Jabeak edo sistema-administratzaileak bakarrik alda ditzake baliabide "
+"partekatu baten jabetza edo jabe-baimenak"
+
+#: lib/Block/fortune.php:60
+msgid "Operating System"
+msgstr "Sistema eragilea"
+
+#: templates/shares/edit.inc:236
+msgid "Or enter a user name:"
+msgstr "Edo sartu erabiltzaile-izen bat:"
+
+#: config/registry.php.dist:135
+msgid "Organizing"
+msgstr "Antolamendua"
+
+#: services/keyboard.php:124
+msgid "Other"
+msgstr "Bestelakoak"
+
+#: config/prefs.php.dist:467 config/prefs.php.dist:582
+#: config/prefs.php.dist:603 config/prefs.php.dist:624
+#: config/prefs.php.dist:643 config/prefs.php.dist:663
+#: config/prefs.php.dist:675
+msgid "Other Information"
+msgstr "Bestelako informazioa"
+
+#: services/keyboard.php:122
+msgid "Other characters"
+msgstr "Beste karaktere batzuk"
+
+#: templates/shares/edit.inc:30
+msgid "Owner"
+msgstr "Jabea"
+
+#: templates/shares/edit.inc:36 templates/shares/edit.inc:45
+msgid "Owner:"
+msgstr "Jabea:"
+
+#: admin/phpshell.php:51
+msgid "PHP"
+msgstr "PHP"
+
+#: admin/phpshell.php:71
+msgid "PHP Code"
+msgstr "PHP kodea"
+
+#: admin/phpshell.php:32
+msgid "PHP Shell"
+msgstr "PHP shell-a"
+
+#: lib/Block/weatherdotcom_strings.php:54
+msgid "PM Clouds"
+msgstr "Hodeiak arratsaldean"
+
+#: lib/Block/weatherdotcom_strings.php:55
+msgid "PM Drizzle"
+msgstr "Zirimiria arratsaldean"
+
+#: lib/Block/weatherdotcom_strings.php:56
+msgid "PM Fog"
+msgstr "Lainoa arratsaldean"
+
+#: lib/Block/weatherdotcom_strings.php:57
+msgid "PM Light Rain"
+msgstr "Euri arina arratsaldean"
+
+#: lib/Block/weatherdotcom_strings.php:58
+msgid "PM Light Snow"
+msgstr "Elur arina arratsaldean"
+
+#: lib/Block/weatherdotcom_strings.php:59
+msgid "PM Rain"
+msgstr "Euria arratsaldean"
+
+#: lib/Block/weatherdotcom_strings.php:60
+msgid "PM Showers"
+msgstr "Zaparradak arratsaldean"
+
+#: lib/Block/weatherdotcom_strings.php:61
+msgid "PM Snow"
+msgstr "Elurra arratsaldean"
+
+#: lib/Block/weatherdotcom_strings.php:62
+msgid "PM Snow Showers"
+msgstr "Elur-zaparradak arratsaldean"
+
+#: lib/Block/weatherdotcom_strings.php:63
+msgid "PM Sun"
+msgstr "Eguzkia arratsaldean"
+
+#: lib/Block/weatherdotcom_strings.php:64
+msgid "PM T-Showers"
+msgstr "Trumoi-zaparradak arratsaldean"
+
+#: lib/Block/weatherdotcom_strings.php:65
+msgid "PM T-Storms"
+msgstr "Trumoi-ekaitzak arratsaldean"
+
+#: lib/Block/account.php:287
+msgid "POSIX extension is missing"
+msgstr "POSIX luzapena falta da"
+
+#: lib/Api.php:62
+msgid "P_HP Shell"
+msgstr "_PHP shell-a"
+
+#: lib/Block/weatherdotcom_strings.php:53
+msgid "Partly Cloudy"
+msgstr "Ostarteak"
+
+#: admin/config/index.php:192 admin/user.php:35 admin/user.php:49 login.php:81
+#: templates/admin/user/update.inc:20 config/registry.php.dist:355
+msgid "Password"
+msgstr "Pasahitza"
+
+#: services/changepassword.php:52
+msgid "Password changed successfully."
+msgstr "Pasahitza behar bezala aldatu da."
+
+#: lib/Prefs/Ui.php:326
+msgid "Password:"
+msgstr "Pasahitza:"
+
+#: admin/user.php:168 admin/user.php:220
+msgid "Passwords must match."
+msgstr "Pasahitzek bat etorri behar dute."
+
+#: admin/sqlshell.php:100
+msgid "Paste"
+msgstr "Itsatsi"
+
+#: templates/admin/user/approve.inc:9 templates/admin/user/removequeued.inc:7
+msgid "Pending Signups:"
+msgstr "Zain dauden erregistroak:"
+
+#: lib/Block/fortune.php:61
+msgid "People"
+msgstr "Jendea"
+
+#: templates/logintasks/logintasks.html:30
+#, fuzzy
+msgid "Perform Login Tasks"
+msgstr "Saio-hasierako atazak"
+
+#: admin/perms/delete.php:42
+#, php-format
+msgid "Permission \"%s\" not deleted."
+msgstr "\"%s\" baimena ez da ezabatu."
+
+#: admin/perms/index.php:23
+msgid "Permissions"
+msgstr "Baimenak"
+
+#: admin/perms/addchild.php:51 admin/perms/delete.php:46
+#: admin/perms/edit.php:110 admin/perms/index.php:17
+msgid "Permissions Administration"
+msgstr "Baimenen administrazioa"
+
+#: config/prefs.php.dist:213
+msgid "Personal Information"
+msgstr "Informazio pertsonala"
+
+#: lib/Block/fortune.php:62
+msgid "Pets"
+msgstr "Maskotak"
+
+#: config/registry.php.dist:385
+msgid "Photos"
+msgstr "Argazkiak"
+
+#: lib/Block/fortune.php:63
+msgid "Platitudes"
+msgstr "Topikoak"
+
+#: login.php:87
+#, fuzzy
+msgid "Please enter a password."
+msgstr "Idatzi baliozko ordu bat."
+
+#: login.php:86
+#, fuzzy
+msgid "Please enter a username."
+msgstr "Idatzi baliozko ordu bat."
+
+#: templates/problem/problem.inc:7
+msgid "Please provide a summary of the problem."
+msgstr "Eman arazoari buruzko laburpen bat."
+
+#: services/logintasks.php:73
+msgid ""
+"Please read the following text. You MUST agree with the terms to use the "
+"system."
+msgstr ""
+"Irakurri ondoko testua. Ados egon BEHAR duzu baldintzekin, sistema erabili "
+"ahal izateko."
+
+#: services/facebook.php:67
+#, fuzzy
+msgid "Pokes:"
+msgstr "Maskotak"
+
+#: admin/activesync.php:105
+#, fuzzy
+msgid "Policy Key"
+msgstr "Gako publikoa"
+
+#: lib/Prefs/Ui.php:432
+#, fuzzy
+msgid "Policy Key:"
+msgstr "Gako publikoa"
+
+#: lib/Block/fortune.php:64
+msgid "Politics"
+msgstr "Politika"
+
+#: services/facebook.php:101
+#, fuzzy, php-format
+msgid "Posted %s"
+msgstr "Aukeratu %s"
+
+#: templates/block/twitter_tweet.html.php:26
+#, fuzzy, php-format
+msgid "Posted %s via %s"
+msgstr "%d %s eta %s"
+
+#: themes/postnuke/info.php:2
+msgid "Postnuke"
+msgstr "Postnuke"
+
+#: lib/Block/metar.php:261 lib/Block/metar.php:266
+#, php-format
+msgid "Precipitation for last %d hour: "
+msgid_plural "Precipitation for last %d hours: "
+msgstr[0] "Azken ordubeteko (%d) prezipitazioak: "
+msgstr[1] "Azken %d orduetako prezipitazioak: "
+
+#: lib/Block/weatherdotcom.php:301
+msgid "Precipitation<br />chance"
+msgstr "Prezipitazio<br />-aukera"
+
+#: lib/Block/metar.php:220
+msgid "Pressure"
+msgstr "Presioa"
+
+#: lib/Block/metar.php:254
+msgid "Pressure at sea level: "
+msgstr "Presioa itsas mailan: "
+
+#: lib/Block/weatherdotcom.php:239
+msgid "Pressure: "
+msgstr "Presioa: "
+
+#: services/problem.php:145
+msgid "Problem Description"
+msgstr "Arazoaren azalpena"
+
+#: admin/activesync.php:171 lib/Prefs/Ui.php:425
+#, fuzzy
+msgid "Provisioned"
+msgstr "Baimena"
+
+#: templates/prefs/facebook.html:21
+msgid "Publish enabled."
+msgstr ""
+
+#: themes/purple/info.php:2
+msgid "Purple Horde"
+msgstr "Horde morea"
+
+#: admin/sqlshell.php:50
+msgid "Query"
+msgstr "Kontsulta"
+
+#: lib/Block/account.php:83
+msgid "Quota"
+msgstr "Kuota"
+
+#: lib/Block/weatherdotcom_strings.php:66
+msgid "Rain"
+msgstr "Euria"
+
+#: lib/Block/weatherdotcom_strings.php:67
+msgid "Rain Early"
+msgstr "Euria goizean goiz"
+
+#: lib/Block/weatherdotcom_strings.php:68
+msgid "Rain Late"
+msgstr "Euria arratsalde-gauean"
+
+#: lib/Block/weatherdotcom_strings.php:69
+msgid "Rain Shower"
+msgstr "Euri-zaparrada"
+
+#: lib/Block/weatherdotcom_strings.php:70
+msgid "Rain and Snow"
+msgstr "Euria eta elurra"
+
+#: lib/Block/weatherdotcom_strings.php:71
+msgid "Rain to Snow"
+msgstr "Euria/elurra"
+
+#: lib/Block/fortune.php:6
+msgid "Random Fortune"
+msgstr "Fortunaren gurpila"
+
+#: templates/shares/edit.inc:61 templates/shares/edit.inc:75
+#: templates/shares/edit.inc:96 templates/shares/edit.inc:110
+#: templates/shares/edit.inc:132 templates/shares/edit.inc:146
+#: templates/shares/edit.inc:167 templates/shares/edit.inc:185
+#: templates/shares/edit.inc:220 templates/shares/edit.inc:247
+#: templates/shares/edit.inc:269 templates/shares/edit.inc:283
+#: templates/shares/edit.inc:312
+msgid "Read"
+msgstr "Irakurri"
+
+#: templates/prefs/facebook.html:33
+#, fuzzy
+msgid "Read enabled"
+msgstr "Irakurri mezuak"
+
+#: templates/admin/user/remove.inc:8
+#, php-format
+msgid "Really delete \"%s\"? This operation cannot be undone."
+msgstr "Benetan ezabatu nahi duzu \"%s\"? Eragiketa hau ezin da desegin."
+
+#: templates/admin/user/clear.inc:8
+#, php-format
+msgid ""
+"Really remove user data for user \"%s\"? This operation cannot be undone."
+msgstr ""
+"Benetan kendu nahi dituzu \"%s\" erabiltzailearen erabiltzaile-datuak? "
+"Ezingo duzu eragiketa desegin."
+
+#: config/prefs.php.dist:562
+msgid "Refresh Dynamic Menu Elements:"
+msgstr "Freskatu menu dinamikoko elementuak:"
+
+#: config/prefs.php.dist:523
+msgid "Refresh Portal View:"
+msgstr "Freskatu atariaren ikuspegia"
+
+#: templates/portal/layout.inc:94
+msgid "Refresh rate:"
+msgstr "Freskatzeko ratioa:"
+
+#: admin/activesync.php:134
+msgid "Registered User Devices"
+msgstr ""
+
+#: lib/Block/metar.php:321
+msgid "Remarks"
+msgstr "Oharrak"
+
+#: admin/sessions.php:39 admin/sessions.php:50
+msgid "Remote Host:"
+msgstr "Urruneko ostalaria:"
+
+#: config/prefs.php.dist:583
+msgid "Remote Servers"
+msgstr "Urruneko zerbitzariak"
+
+#: lib/Prefs/Ui.php:324
+msgid "Remote URL (http://www.example.com/horde):"
+msgstr "Urruneko URLa (http://www.example.com/horde):"
+
+#: admin/activesync.php:185 templates/admin/groups/edit.inc:23
+#: templates/admin/user/approve.inc:40
+#: templates/admin/user/removequeued.inc:13 templates/prefs/activesync.html:33
+msgid "Remove"
+msgstr "Kendu"
+
+#: templates/data/csvmap.inc:118
+msgid "Remove pair"
+msgstr "Kendu bikotea"
+
+#: admin/config/index.php:211
+msgid "Remove saved script from server's temporary directory."
+msgstr "Kendu gordetako scripta zerbitzariaren aldi baterako direktoriotik."
+
+#: templates/admin/user/remove.inc:11
+msgid "Remove user"
+msgstr "Kendu erabiltzailea"
+
+#: templates/admin/user/remove.inc:5
+#, php-format
+msgid "Remove user: %s"
+msgstr "Kendu erabiltzailea: %s"
+
+#: templates/block/twitter_tweet.html.php:34
+#, fuzzy
+msgid "Reply"
+msgstr "Erantzun honi"
+
+#: admin/activesync.php:138
+#, fuzzy
+msgid "Reprovision All Devices"
+msgstr "Baimena ukatu da"
+
+#: lib/Block/weatherdotcom.php:160
+msgid "Requested service could not be found."
+msgstr "Eskatutako zerbitzua ezin da aurkitu."
+
+#: admin/user.php:22 templates/admin/user/update.inc:54
+#: templates/prefs/rpc.html:36
+msgid "Reset"
+msgstr "Berrezarri"
+
+#: services/resetpassword.php:45
+msgid "Reset Password"
+msgstr "Berrezarri pasahitza"
+
+#: services/resetpassword.php:23
+msgid "Reset Your Password"
+msgstr "Berrezarri pasahitza"
+
+#: templates/prefs/activesync.html:6
+msgid ""
+"Reset all device state. This will cause your devices to resyncronize all "
+"items."
+msgstr ""
+
+#: admin/sqlshell.php:111
+msgid "Restore Last Query"
+msgstr "Leheneratu azken kontsulta"
+
+#: admin/cmdshell.php:23 admin/phpshell.php:74 admin/sqlshell.php:53
+msgid "Results"
+msgstr "Emaitzak"
+
+#: services/portal/cloud_search.php:30
+#, php-format
+msgid "Results for %s"
+msgstr "Honen emaitzak: %s"
+
+#: templates/prefs/end.html:7
+#, fuzzy
+msgid "Return to Main Screen"
+msgstr "Itzuli aukeretara"
+
+#: templates/block/twitter_tweet.html.php:35
+#, fuzzy
+msgid "Retweet"
+msgstr "Berrezarri"
+
+#: templates/block/twitter_tweet.html.php:30
+#, php-format
+msgid "Retweeted by %s"
+msgstr ""
+
+#: services/changepassword.php:30
+msgid "Retype new password"
+msgstr "Idatzi berriro pasahitz berria"
+
+#: admin/config/config.php:33 admin/config/config.php:37
+msgid "Revert Configuration"
+msgstr "Leheneratu konfigurazioa"
+
+#: lib/Block/fortune.php:65
+msgid "Riddles"
+msgstr "Asmakariak"
+
+#: admin/sqlshell.php:101
+msgid "Run"
+msgstr "Exekutatu"
+
+#: admin/sqlshell.php:14
+msgid "SQL Shell"
+msgstr "SQL shell-a"
+
+#: config/registry.php.dist:363
+msgid "SSH"
+msgstr "SSH"
+
+#: lib/Api.php:67
+msgid "S_QL Shell"
+msgstr "S_QL shell-a"
+
+#: templates/portal/layout.inc:115 templates/prefs/end.html:3
+msgid "Save"
+msgstr "Gorde"
+
+#: templates/admin/groups/edit.inc:63 templates/shares/edit.inc:330
+#, php-format
+msgid "Save \"%s\""
+msgstr "Gorde \"%s\""
+
+#: templates/shares/edit.inc:331
+msgid "Save and Finish"
+msgstr "Gorde eta amaitu"
+
+#: admin/config/index.php:183
+msgid ""
+"Save generated configuration as a PHP script to your server's temporary "
+"directory."
+msgstr ""
+"Gorde sortutako konfigurazioa PHP script gisa zerbitzariaren aldi baterako "
+"direktorioan."
+
+#: admin/config/scripts.php:92
+#, fuzzy, php-format
+msgid "Saved configuration upgrade script to: \"%s\"."
+msgstr "Konfigurazioa eguneratzeko scripta hemen gorde da: \"%s\"."
+
+#: lib/Block/weatherdotcom_strings.php:72
+msgid "Scattered Showers"
+msgstr "Zaparrada bakanak"
+
+#: lib/Block/weatherdotcom_strings.php:73
+msgid "Scattered T-Storms"
+msgstr "Trumoi-ekaitz bakanak"
+
+#: lib/Block/fortune.php:66
+msgid "Science"
+msgstr "Zientzia"
+
+#: services/help/index.php:71
+msgid "Sea_rch"
+msgstr "Bi_latu"
+
+#: services/help/index.php:134 templates/admin/user/list.inc:16
+msgid "Search"
+msgstr "Bilatu"
+
+#: templates/admin/user/list.inc:14
+msgid "Search:"
+msgstr "Bilatu:"
+
+#: templates/shares/edit.inc:298 templates/shares/edit.inc:300
+msgid "Select a group to add:"
+msgstr "Hautatu gehitu nahi duzun taldea:"
+
+#: templates/shares/edit.inc:38
+msgid "Select a new owner:"
+msgstr "Hautatu jabe berria:"
+
+#: templates/prefs/rpc.html:4
+msgid "Select a server"
+msgstr "Hautatu zerbitzaria"
+
+#: templates/shares/edit.inc:202 templates/shares/edit.inc:204
+msgid "Select a user to add:"
+msgstr "Hautatu gehitu nahi duzun erabiltzailea:"
+
+#: templates/prefs/addressbooks.html:5
+msgid "Select all fields to search when expanding addresses."
+msgstr ""
+
+#: services/keyboard.php:38
+msgid ""
+"Select the characters you need from the boxes below. You can then copy and "
+"paste them from the text area."
+msgstr ""
+"Hautatu karaktereak beheko laukietan. Gero, testu-areatik kopiatu eta "
+"itsatsi ahal izango dituzu."
+
+#: templates/data/datetime.inc:57
+msgid "Select the date and time format:"
+msgstr "Hautatu data eta orduaren formatua:"
+
+#: templates/data/date.inc:34 templates/data/datetime.inc:76
+msgid "Select the date delimiter:"
+msgstr "Hautatu data-mugatzailea:"
+
+#: templates/data/date.inc:44 templates/data/datetime.inc:86
+msgid "Select the date format:"
+msgstr "Hautatu data-formatua:"
+
+#: templates/data/datetime.inc:66
+msgid "Select the day and time order:"
+msgstr "Hautatu egunaren eta orduaren ordena:"
+
+#: templates/data/datetime.inc:97 templates/data/time.inc:16
+msgid "Select the time delimiter:"
+msgstr "Hautatu ordu-mugatzailea:"
+
+#: templates/data/datetime.inc:106 templates/data/time.inc:25
+msgid "Select the time format:"
+msgstr "Hautatu ordu-formatua:"
+
+#: config/prefs.php.dist:509
+msgid "Select your color scheme."
+msgstr "Hautatu kolore-eskema"
+
+#: config/prefs.php.dist:328
+msgid "Select your preferred language:"
+msgstr "Hautatu gogokoen duzun hizkuntza:"
+
+#: templates/problem/problem.inc:57
+msgid "Send Problem Report"
+msgstr "Eman arazoaren berri"
+
+#: lib/Block/metar.php:311
+msgid "Sensor: "
+msgstr "Sentsorea: "
+
+#: templates/prefs/syncml.html:12
+msgid "Server Time"
+msgstr "Zerbitzariaren ordua"
+
+#: lib/Block/weatherdotcom.php:164
+msgid "Server data wrong or not available."
+msgstr "Zerbitzariaren datuak okerrak dira edo ez daude erabilgarri."
+
+#: admin/sessions.php:14
+msgid "Session Admin"
+msgstr "Saio-administrazioa"
+
+#: admin/sessions.php:37
+msgid "Session Timestamp:"
+msgstr "Saioaren ordu-zigilua:"
+
+#: lib/Api.php:57
+msgid "Sessions"
+msgstr "Saioak"
+
+#: config/prefs.php.dist:277
+#, fuzzy
+msgid ""
+"Set preferences to allow you to reset your password if you ever forget it."
+msgstr "Ezarri aukerak pasahitza berrezarri ahal izateko, ahaztuz gero."
+
+#: config/prefs.php.dist:605
+msgid "Set up integration with your Facebook account."
+msgstr ""
+
+#: config/prefs.php.dist:626
+msgid "Set up integration with your Twitter account."
+msgstr ""
+
+#: config/prefs.php.dist:584
+msgid "Set up remote servers that you want to access from your portal."
+msgstr "Konfiguratu ataritik atzitu nahi dituzun urruneko zerbitzariak."
+
+#: config/prefs.php.dist:314
+#, fuzzy
+msgid "Set your preferred language, timezone and date preferences."
+msgstr "Ezarri hizkuntza gogokoenaren, ordu-zonaren eta dataren aukerak."
+
+#: config/prefs.php.dist:469
+#, fuzzy
+msgid ""
+"Set your startup application, color scheme, page refreshing, and other "
+"display preferences."
+msgstr ""
+"Ezarri abioko aplikazioa, kolore-eskema, orri-freskatzea eta bestelako "
+"bistaratze-aukerak."
+
+#: lib/Block/weatherdotcom.php:190
+msgid "Several locations possible with the parameter: "
+msgstr "Parametroarekin posible diren hainbat kokaleku: "
+
+#: templates/problem/problem.inc:38
+msgid "Short Summary"
+msgstr "Laburpen txikia"
+
+#: config/prefs.php.dist:570
+msgid "Should access keys be defined for most links?"
+msgstr "Sarbide-gakoak definitu beharko lirateke esteka gehienetarako?"
+
+#: templates/shares/edit.inc:60 templates/shares/edit.inc:71
+#: templates/shares/edit.inc:95 templates/shares/edit.inc:106
+#: templates/shares/edit.inc:131 templates/shares/edit.inc:142
+#: templates/shares/edit.inc:166 templates/shares/edit.inc:181
+#: templates/shares/edit.inc:216 templates/shares/edit.inc:243
+#: templates/shares/edit.inc:268 templates/shares/edit.inc:279
+#: templates/shares/edit.inc:308
+msgid "Show"
+msgstr "Erakutsi"
+
+#: templates/prefs/app.html:21
+#, fuzzy
+msgid "Show Advanced Preferences"
+msgstr "erakutsi desberdintasunak"
+
+#: admin/config/index.php:173
+msgid ""
+"Show differences between currently saved and the newly generated "
+"configuration."
+msgstr ""
+"Erakutsi une honetako konfigurazioaren eta sortu berri den konfigurazioaren "
+"artean dauden desberdintasunak."
+
+#: lib/Block/feed.php:24
+msgid "Show extra detail?"
+msgstr "Erakutsi xehetasun gehiago?"
+
+#: config/prefs.php.dist:491
+msgid "Show last login time when logging in?"
+msgstr "Erakutsi azken saio-hasierako ordua saioa hastean?"
+
+#: lib/Block/fb_stream.php:89
+#, fuzzy
+msgid "Show notifications"
+msgstr "Popup jakinarazpena"
+
+#: config/prefs.php.dist:530
+#, php-format
+msgid "Show the %s Menu on the left?"
+msgstr "Erakutsi %s menua ezkerrean?"
+
+#: lib/Block/weatherdotcom_strings.php:74
+msgid "Showers"
+msgstr "Zaparradak"
+
+#: lib/Block/weatherdotcom_strings.php:75
+msgid "Showers Early"
+msgstr "Zaparradak goizean goiz"
+
+#: lib/Block/weatherdotcom_strings.php:76
+msgid "Showers Late"
+msgstr "Zaparradak arratsalde-gauean"
+
+#: lib/Block/weatherdotcom_strings.php:77
+msgid "Showers in the Vicinity"
+msgstr "Zaparradak inguruan"
+
+#: themes/simplex/info.php:2
+msgid "Simplex"
+msgstr "Simplex"
+
+#: templates/logintasks/logintasks.html:31
+#, fuzzy
+msgid "Skip Login Tasks"
+msgstr "Saio-hasierako atazak"
+
+#: lib/Block/iframe.php:26
+msgid "Small"
+msgstr "Txikia"
+
+#: lib/Block/weatherdotcom_strings.php:78
+msgid "Snow"
+msgstr "Elurra"
+
+#: lib/Block/weatherdotcom_strings.php:79
+msgid "Snow Early"
+msgstr "Elurra goizean goiz"
+
+#: lib/Block/weatherdotcom_strings.php:80
+msgid "Snow Late"
+msgstr "Elurra arratsalde-gauean"
+
+#: lib/Block/weatherdotcom_strings.php:81
+msgid "Snow Shower"
+msgstr "Elur-zaparrada"
+
+#: lib/Block/weatherdotcom_strings.php:82
+msgid "Snow Showers"
+msgstr "Elur-zaparradak"
+
+#: lib/Block/weatherdotcom_strings.php:83
+msgid "Snow Showers Early"
+msgstr "Elur-zaparradak goizean goiz"
+
+#: lib/Block/weatherdotcom_strings.php:84
+msgid "Snow Showers Late"
+msgstr "Elur-zaparradak arratsalde-gauean"
+
+#: lib/Block/metar.php:273
+msgid "Snow depth: "
+msgstr "Elur-sakonera: "
+
+#: lib/Block/metar.php:277
+msgid "Snow equivalent in water: "
+msgstr "Elurraren baliokidea uretan: "
+
+#: lib/Block/fortune.php:67
+msgid "Songs & Poems"
+msgstr "Abestiak eta poemak"
+
+#: config/nls.php:182
+msgid "South European (ISO-8859-3)"
+msgstr "Europako Hegoaldekoa (ISO-8859-3)"
+
+#: lib/Block/moon.php:31 lib/Block/moon.php:60
+msgid "Southern Hemisphere"
+msgstr "Hego-hemisferioa"
+
+#: config/registry.php.dist:102
+msgid "Spam"
+msgstr "Mezu baztergarriak"
+
+#: services/keyboard.php:14
+msgid "Special Character Input"
+msgstr "Karaktere berezien sarrera"
+
+#: lib/Block/fortune.php:68
+msgid "Sports"
+msgstr "Kirolak"
+
+#: lib/Block/metar.php:73 lib/Block/weatherdotcom.php:68
+msgid "Standard"
+msgstr "Estandarra"
+
+#: lib/Block/fortune.php:69
+msgid "Star Trek"
+msgstr "Star Trek"
+
+#: templates/prefs/activesync.html:2
+msgid "State Management"
+msgstr ""
+
+#: admin/activesync.php:112 templates/admin/config/index.html:17
+#: templates/prefs/activesync.html:22
+msgid "Status"
+msgstr "Egoera"
+
+#: services/facebook.php:144
+msgid "Status unable to be set."
+msgstr ""
+
+#: util/icon_browser.php:40
+#, php-format
+msgid "Subdirectory \"%s\" not found."
+msgstr "Ez da aurkitu \"%s\" azpidirektorioa."
+
+#: signup.php:52
+#, php-format
+msgid ""
+"Submitted request to add \"%s\" to the system. You cannot log in until your "
+"request has been approved."
+msgstr ""
+"\"%s\" sisteman gehitzeko eskaera bidali da. Ezin duzu saioa hasi zure "
+"eskaera onartzen den arte."
+
+#: services/facebook.php:38
+msgid "Succesfully connected your Facebook account."
+msgstr ""
+
+#: admin/sqlshell.php:88
+msgid "Success"
+msgstr "Ongi"
+
+#: admin/signup_confirm.php:85 admin/user.php:100
+#, php-format
+msgid "Successfully added \"%s\" to the system."
+msgstr "\"%s\" behar bezala gehitu da sisteman."
+
+#: admin/user.php:138
+#, php-format
+msgid "Successfully cleared data for user \"%s\" from the system."
+msgstr "Behar bezala ezabatu dira sistematik \"%s\" erabiltzailearen datuak."
+
+#: admin/groups.php:78 admin/perms/delete.php:36
+#, php-format
+msgid "Successfully deleted \"%s\"."
+msgstr "Beha bezala ezabatu da \"%s\"."
+
+#: admin/user.php:118
+#, php-format
+msgid "Successfully removed \"%s\" from the system."
+msgstr "Behar bezala kendu da \"%s\" sistematik."
+
+#: admin/config/config.php:40
+msgid "Successfully reverted configuration. Reload to see changes."
+msgstr ""
+"Behar bezala leheneratu da konfigurazioa. Birkargatu aldaketak ikusteko."
+
+#: admin/config/index.php:39
+msgid "Successfully saved backup configuration."
+msgstr "Behar bezala gorde da babeskopiaren konfigurazioa."
+
+#: admin/config/config.php:51
+#, php-format
+msgid "Successfully saved the backup configuration file %s."
+msgstr "Behar bezala gorde da %s fitxategiaren babeskopiaren konfigurazioa."
+
+#: admin/user.php:184
+#, php-format
+msgid "Successfully updated \"%s\""
+msgstr "Behar bezasla eguneratu da \"%s\""
+
+#: admin/config/config.php:60 admin/config/index.php:47
+#, php-format
+msgid "Successfully wrote %s"
+msgstr "Behar bezala idatzi da %s"
+
+#: lib/Block/sunrise.php:63
+msgid "Sun Rise"
+msgstr "Egunsentia"
+
+#: lib/Block/sunrise.php:66
+msgid "Sun Set"
+msgstr "Eguzki-sartzea"
+
+#: config/prefs.php.dist:429
+msgid "Sunday"
+msgstr "Igandea"
+
+#: lib/Block/weatherdotcom_strings.php:85
+msgid "Sunny"
+msgstr "Eguzkitsu"
+
+#: lib/Block/weatherdotcom.php:220
+msgid "Sunrise"
+msgstr "Egunsentia"
+
+#: lib/Block/sunrise.php:3 lib/Block/sunrise.php:14
+msgid "Sunrise/Sunset"
+msgstr "Egunsentia/Eguzki-sartzea"
+
+#: lib/Block/weatherdotcom.php:219
+msgid "Sunrise: "
+msgstr "Egunsentia: "
+
+#: lib/Block/weatherdotcom.php:223
+msgid "Sunset"
+msgstr "Eguzki-sartzea"
+
+#: lib/Block/weatherdotcom.php:222
+msgid "Sunset: "
+msgstr "Eguzki-sartzea: "
+
+#: config/prefs.php.dist:664
+msgid "SyncML"
+msgstr "SyncML"
+
+#: lib/Block/feed.php:3
+msgid "Syndicated Feed"
+msgstr "Iturri sindikatua"
+
+#: lib/Block/weatherdotcom_strings.php:86
+msgid "T-Showers"
+msgstr "Trumoi-zaparradak"
+
+#: lib/Block/weatherdotcom_strings.php:87
+msgid "T-Showers Early"
+msgstr "Trumoi-zaparradak goizean goiz"
+
+#: lib/Block/weatherdotcom_strings.php:88
+msgid "T-Showers Late"
+msgstr "Trumoi-zaparradak arratsalde-gauean"
+
+#: lib/Block/weatherdotcom_strings.php:89
+msgid "T-Storm"
+msgstr "Trumoi-ekaitza"
+
+#: lib/Block/weatherdotcom_strings.php:90
+msgid "T-Storm and Windy"
+msgstr "Trumoi-ekaitza eta haizea"
+
+#: lib/Block/weatherdotcom_strings.php:91
+msgid "T-Storms"
+msgstr "Trumoi-ekaitzak"
+
+#: lib/Block/weatherdotcom_strings.php:92
+msgid "T-Storms Early"
+msgstr "Trumoi-ekaitzak goizean goiz"
+
+#: lib/Block/weatherdotcom_strings.php:93
+msgid "T-Storms Late"
+msgstr "Trumoi-ekaitzak arratsalde-gauean"
+
+#: lib/Block/cloud.php:3 lib/Block/cloud.php:23
+msgid "Tag Cloud"
+msgstr "Etiketa-hodeia"
+
+#: themes/tango-blue/info.php:24
+msgid "Tango Blue"
+msgstr "Tango Blue"
+
+#: config/registry.php.dist:184
+msgid "Tasks"
+msgstr "Zereginak"
+
+#: themes/gennevilliers/info.php:12
+msgid "Teal"
+msgstr "Anila"
+
+#: lib/Block/metar.php:285
+msgid "Temp for last hour: "
+msgstr "Azken orduko tenp.: "
+
+#: lib/Block/metar.php:209
+msgid "Temperature"
+msgstr "Tenperatura"
+
+#: lib/Block/weatherdotcom.php:227
+msgid "Temperature: "
+msgstr "Tenperatura: "
+
+#: lib/Block/weatherdotcom.php:296
+#, php-format
+msgid "Temperature<br />(%sHi%s/%sLo%s) &deg;%s"
+msgstr "Tenperatura<br />(%sMax.%s/%sMin.%s) &deg;%s"
+
+#: lib/Prefs/Ui.php:518 services/facebook.php:31
+msgid "Temporarily unable to connect with Facebook, Please try again."
+msgstr ""
+
+#: lib/Block/twitter_timeline.php:122
+#, fuzzy
+msgid "Temporarily unable to contact Twitter. Please try again later."
+msgstr ""
+"Errore bat gertatu da kontaktuaren xehetasunak eguneratzean. Saiatu berriro "
+"geroago."
+
+#: services/keyboard.php:148
+msgid "Text Area"
+msgstr "Testu-area"
+
+#: config/prefs.php.dist:544
+msgid "Text Only"
+msgstr "Testua bakarrik"
+
+#: config/nls.php:183
+msgid "Thai (TIS-620)"
+msgstr "Thailandiarra (TIS-620)"
+
+#: lib/Prefs/Ui.php:747
+#, fuzzy, php-format
+msgid "The Remote Wipe for device id %s has been cancelled."
+msgstr "\"%s\" zerbitzaria ezabatuta dago."
+
+#: admin/alarms.php:81
+msgid "The alarm has been deleted."
+msgstr "Alarma ezabatu da."
+
+#: admin/alarms.php:70
+msgid "The alarm has been saved."
+msgstr "Alarma gorde da."
+
+#: config/prefs.php.dist:246
+msgid "The default e-mail address to use with this identity:"
+msgstr ""
+
+#: lib/Block/vatid.php:76
+msgid ""
+"The member state service could not be reached in time. Try again later or "
+"with a different member state."
+msgstr ""
+"Ezin izan da kide-egoeraren zerbitzua denboraz atzitu. Saiatu berriro "
+"geroago, edo saiatu beste kide-egoera batekin."
+
+#: lib/Block/vatid.php:73
+msgid ""
+"The member state service is currently not available. Try again later or with "
+"a different member state."
+msgstr ""
+"Kide-egoeraren zerbitzua ez dago erabilgarri une honetan. Saiatu berriro "
+"geroago, edo saiatu beste kide-egoera batekin."
+
+#: lib/Block/vatid.php:67
+msgid "The provided country code is invalid."
+msgstr "Emandako herrialde-kodea ez da baliozkoa."
+
+#: lib/Prefs/Ui.php:681
+#, php-format
+msgid "The server \"%s\" has been deleted."
+msgstr "\"%s\" zerbitzaria ezabatuta dago."
+
+#: lib/Prefs/Ui.php:676
+#, php-format
+msgid "The server \"%s\" has been saved."
+msgstr "\"%s\" zerbitzaria gordeta dago."
+
+#: lib/Block/vatid.php:70
+msgid "The service is currently not available. Try again later."
+msgstr "Zerbitzua ez dago erabilgarri une honetan. Saiatu berriro geroago."
+
+#: lib/Block/vatid.php:79
+msgid "The service is currently too busy. Try again later."
+msgstr "Zerbitzua lanpetuegi dago une honetan. Saiatu berriro geroago."
+
+#: admin/user.php:209
+#, php-format
+msgid "The signup request for \"%s\" has been removed."
+msgstr "\"%s\" erregistratzeko eskaera kendu egin da."
+
+#: admin/signup_confirm.php:39
+#, php-format
+msgid "The signup request for user \"%s\" has been removed."
+msgstr "\"%s\" erabiltzailea erregistratzeko eskaera kendu egin da."
+
+#: lib/LoginTasks/Task/TestScriptActive.php:38
+msgid ""
+"The test script is currently enabled. For security reasons, disable test "
+"scripts when you are done testing (see horde/docs/INSTALL)."
+msgstr ""
+
+#: admin/signup_confirm.php:60 admin/user.php:72
+#, php-format
+msgid "The user \"%s\" already exists."
+msgstr "\"%s\" erabiltzailea badago lehendik."
+
+#: services/shares/edit.php:85 services/shares/edit.php:177
+#, php-format
+msgid "The user \"%s\" does not exist."
+msgstr "\"%s\" erabiltzailea ez dago."
+
+#: lib/Block/weatherdotcom.php:51 lib/Block/weatherdotcom.php:106
+msgid "The weather.com block is not available."
+msgstr "weather.com blokea ez dago erabilgarri."
+
+#: lib/Prefs/Ui.php:46
+#, fuzzy
+msgid "Theme directory can't be opened"
+msgstr "Ez da aurkitu gaien \"%s\" direktorioa."
+
+#: util/icon_browser.php:28
+#, php-format
+msgid "Themes directory \"%s\" not found."
+msgstr "Ez da aurkitu gaien \"%s\" direktorioa."
+
+#: admin/signup_confirm.php:74 admin/user.php:84 signup.php:38 signup.php:59
+#, fuzzy, php-format
+msgid "There was a problem adding \"%s\" to the system: %s"
+msgstr "Arazo bat gertatu da \"%s\" sistematik kentzean: "
+
+#: admin/user.php:140
+#, php-format
+msgid "There was a problem clearing data for user \"%s\" from the system: "
+msgstr ""
+"Arazo bat gertatu da \"%s\" erabiltzailearen datuak sistematik ezabatzean: "
+
+#: admin/user.php:120
+#, php-format
+msgid "There was a problem removing \"%s\" from the system: "
+msgstr "Arazo bat gertatu da \"%s\" sistematik kentzean: "
+
+#: admin/user.php:173
+#, php-format
+msgid "There was a problem updating \"%s\": %s"
+msgstr "Arazo bat gertatu da \"%s\" eguneratzean: %s"
+
+#: lib/Block/twitter_timeline.php:110 lib/Block/twitter_timeline.php:126
+#, fuzzy, php-format
+msgid "There was an error contacting Twitter: %s"
+msgstr "Errore bat gertatu da kontaktuaren datuak inportatzean:"
+
+#: admin/config/config.php:70
+msgid ""
+"There was an error in the configuration form. Perhaps you left out a "
+"required field."
+msgstr ""
+"Errore bat gertatu da konfigurazio-inprimakian. Baliteke beharrezkoa zen "
+"eremu bat bete gabe utzi izana."
+
+#: lib/Block/fb_stream.php:158 lib/Block/fb_stream.php:183
+#: services/facebook.php:54 services/facebook.php:71
+#, fuzzy, php-format
+msgid "There was an error making the request: %s"
+msgstr "Errore bat gertatu da kontaktuaren datuak irakurtzean."
+
+#: lib/Api.php:284
+#, php-format
+msgid ""
+"There was an error removing global data for %s. Details have been logged."
+msgstr ""
+"Errore bat gertatu da %s(r)en datu globalak kentzean. Xehetasunak "
+"erregistratu dira."
+
+#: lib/Block/vatid.php:89
+msgid "This VAT identification number is invalid."
+msgstr "BEZaren identifikazio-zenbaki hau ez da baliozkoa."
+
+#: lib/Block/vatid.php:86
+msgid "This VAT identification number is valid."
+msgstr "BEZaren identifikazio-zenbaki hau ez da baliozkoa."
+
+#: lib/Block/weatherdotcom_strings.php:94
+msgid "Thunder"
+msgstr "Trumoiak"
+
+#: config/registry.php.dist:260
+msgid "Tickets"
+msgstr "Txartelak"
+
+#: config/registry.php.dist:308
+msgid "Time Tracking"
+msgstr "Denbora-pistak"
+
+#: lib/Block/time.php:23
+msgid "Time format"
+msgstr "Ordu-formatua"
+
+#: templates/data/datetime.inc:60 templates/data/datetime.inc:69
+msgid "Timestamp or unknown"
+msgstr "Ordu-zigilua edo ezezaguna"
+
+#: templates/prefs/syncml.html:2
+msgid "Timestamps of successful synchronization sessions"
+msgstr "Behar bezala burututako sinkronizazio-saioen ordu-zigiluak"
+
+#: lib/Block/iframe.php:22
+msgid "Title"
+msgstr "Izenburua"
+
+#: templates/data/csvmap.inc:95
+msgid ""
+"To exclude a particular field form the import or to correct a wrong match "
+"select a field in the lists below and hit \"Remove pair\"."
+msgstr ""
+"Eremu jakin bat inportaziotik kanpo uzteko edo okerreko parekatze bat "
+"zuzentzeko, hautatu eremu bat beheko zerrendan, eta hautatu \"Kendu bikotea"
+"\"."
+
+#: templates/prefs/addressbooks.html:10
+#, fuzzy
+msgid ""
+"To select multiple fields, hold down the Control (PC) or Command (Mac) while "
+"clicking."
+msgstr ""
+"Hainbat elementu hautatzeko, sakatu Ktrl (PC) edo Komandoa (Mac) tekla klik "
+"egiten duzun bitartean."
+
+#: lib/Block/weatherdotcom.php:313
+msgid "Today"
+msgstr "Gaur"
+
+#: lib/Block/weatherdotcom.php:315
+msgid "Tomorrow"
+msgstr "Bihar"
+
+#: lib/Block/fortune.php:70
+msgid "Translations"
+msgstr "Itzulpenak"
+
+#: config/nls.php:184
+msgid "Turkish (ISO-8859-9)"
+msgstr "Turkiarra (ISO-8859-9)"
+
+#: lib/Block/twitter_timeline.php:166
+#, fuzzy
+msgid "Tweet"
+msgstr "Testua"
+
+#: config/prefs.php.dist:625
+#, fuzzy
+msgid "Twitter Integration"
+msgstr "Bestelako informazioa"
+
+#: lib/Block/twitter_timeline.php:23 lib/Block/twitter_timeline.php:64
+#: lib/Block/twitter_timeline.php:74 lib/Block/twitter_timeline.php:78
+#, php-format
+msgid "Twitter Timeline"
+msgstr ""
+
+#: lib/Block/twitter_timeline.php:70
+#, php-format
+msgid "Twitter Timeline for %s"
+msgstr ""
+
+#: services/keyboard.php:108
+msgid "U characters"
+msgstr "U karaktereak"
+
+#: lib/Block/weatherdotcom.php:273
+msgid "U.V. index: "
+msgstr "U.V. indizea: "
+
+#: lib/Block/iframe.php:19
+msgid "URL"
+msgstr "URLa"
+
+#: services/twitter.php:64
+#, php-format
+msgid "Unable to contact Twitter. Please try again later. Error returned: %s"
+msgstr ""
+
+#: admin/groups.php:82 admin/perms/delete.php:39
+#, php-format
+msgid "Unable to delete \"%s\": %s."
+msgstr "Ezin da \"%s\" ezabatu: %s."
+
+#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:55
+#, fuzzy, php-format
+msgid "Unable to modify the sequence for %s: %s"
+msgstr "Ezin da \"%s\" ezabatu: %s."
+
+#: services/facebook.php:175
+#, fuzzy
+msgid "Unable to set like."
+msgstr "Ezin da smbclient exekutatu."
+
+#: templates/prefs/end.html:4
+msgid "Undo Changes"
+msgstr "Desegin aldaketak"
+
+#: lib/Prefs/Ui.php:266
+msgid "Unfiled"
+msgstr "Sailkatu gabea"
+
+#: config/nls.php:185
+msgid "Unicode (UTF-8)"
+msgstr "Unicode (UTF-8)"
+
+#: lib/Block/metar.php:70 lib/Block/weatherdotcom.php:64
+msgid "Units"
+msgstr "Unitateak"
+
+#: lib/Block/weatherdotcom.php:162
+msgid "Unknown location provided."
+msgstr "Emandako kokalekua ezezaguna da."
+
+#: lib/Block/fb_stream.php:179 templates/admin/user/list.inc:36
+msgid "Update"
+msgstr "Eguneratu"
+
+#: templates/admin/user/update.inc:6
+#, php-format
+msgid "Update %s"
+msgstr "Eguneratu %s"
+
+#: templates/admin/user/update.inc:53
+msgid "Update user"
+msgstr "Eguneratu erabiltzailea"
+
+#: admin/groups.php:144 admin/perms/edit.php:104 services/shares/edit.php:249
+#, php-format
+msgid "Updated \"%s\"."
+msgstr "\"%s\" eguneratu da."
+
+#: admin/config/index.php:190
+msgid "Upload"
+msgstr "Kargatu"
+
+#: admin/config/index.php:198
+#, fuzzy
+msgid "Uploaded all application configuration files to the server."
+msgstr "Aplikazioa konfiguratzeko fitxategi guztiak kargatu dira zerbitzarian."
+
+#: config/prefs.php.dist:645
+msgid "Use if name/password is different for IMSP server."
+msgstr "Erabili izena/pasahitza IMSP zerbitzariarena ez bada bakarrik."
+
+#: templates/admin/groups/edit.inc:22 templates/admin/groups/edit.inc:60
+msgid "User"
+msgstr "Erabiltzailea"
+
+#: admin/user.php:224
+msgid "User Administration"
+msgstr "Erabiltzaile-administrazioa"
+
+#: lib/Prefs/Ui.php:432
+#, fuzzy
+msgid "User Agent:"
+msgstr "Erabili unekoa: %s"
+
+#: signup.php:67
+msgid "User Registration"
+msgstr "Erabiltzaile-erregistratzea"
+
+#: admin/signup_confirm.php:18 signup.php:19
+msgid "User Registration has been disabled for this site."
+msgstr "Erabiltzaile-erregistratzea desgaitu da gune honetan."
+
+#: admin/signup_confirm.php:25 signup.php:27
+msgid "User Registration is not properly configured for this site."
+msgstr ""
+"Erabiltzaile-erregistratzea ez dago behar bezala konfiguratuta gune "
+"honetarako."
+
+#: lib/Block/account.php:561
+msgid "User account not found"
+msgstr "Ez da aurkitu erabiltzaile-kontua"
+
+#: templates/shares/edit.inc:238
+msgid "User to add:"
+msgstr "Gehitzeko erabiltzailea:"
+
+#: admin/config/index.php:191 admin/user.php:32 admin/user.php:48 login.php:76
+#: services/resetpassword.php:29 templates/admin/user/approve.inc:22
+msgid "Username"
+msgstr "Erabiltzaile-izena"
+
+#: lib/Prefs/Ui.php:325
+msgid "Username:"
+msgstr "Erabiltzaile-izena:"
+
+#: templates/admin/groups/edit.inc:53
+msgid "Users"
+msgstr "Erabiltzaileak"
+
+#: templates/admin/user/list.inc:2
+msgid "Users in the system:"
+msgstr "Sistemako erabiltzaileak:"
+
+#: lib/Block/vatid.php:19
+msgid "VAT id number verification"
+msgstr "BEZaren ID zenbakiaren egiaztapena"
+
+#: lib/Block/vatid.php:42
+msgid "VAT identification number:"
+msgstr "BEZaren identifikazio-zenbakia:"
+
+#: lib/Block/vatid.php:93
+msgid "VAT number"
+msgstr "BEZ zenbakia"
+
+#: config/registry.php.dist:122
+msgid "Vacation"
+msgstr "Oporrak"
+
+#: lib/Block/weatherdotcom.php:248
+msgid "Variable"
+msgstr "Aldakorra"
+
+#: config/registry.php.dist:246
+msgid "Version Control"
+msgstr "Bertsioaren kontrola"
+
+#: lib/Block/weatherdotcom_strings.php:101
+msgid "Very High"
+msgstr "Oso altua"
+
+#: config/nls.php:186
+msgid "Vietnamese (VISCII)"
+msgstr "Vietnamdarra (VISCII)"
+
+#: lib/Block/iframe.php:3
+msgid "View an external web page"
+msgstr "Ikusi kanpoko web-orri bat"
+
+#: lib/Block/metar.php:204
+msgid "Visibility"
+msgstr "Ikusgaitasuna"
+
+#: lib/Block/weatherdotcom.php:267
+msgid "Visibility: "
+msgstr "Ikusgarritasuna: "
+
+#: lib/Block/account.php:98
+msgid "Warning"
+msgstr "Kontuz"
+
+#: lib/Block/weatherdotcom.php:32
+msgid "Weather Forecast"
+msgstr "Eguraldi-iragarpena"
+
+#: lib/Block/weatherdotcom.php:429
+msgid "Weather data provided by"
+msgstr "Eguraldi-datuen hornitzailea:"
+
+#: config/registry.php.dist:369
+msgid "Web Site"
+msgstr "Webgunea"
+
+#: services/portal/mobile.php:29
+msgid "Welcome"
+msgstr "Ongi etorri"
+
+#: templates/login/login.inc:5 templates/login/mobile.inc:1
+#, php-format
+msgid "Welcome to %s"
+msgstr "%s. Ongi etorri!"
+
+#: templates/portal/mobile.inc:1
+#, php-format
+msgid "Welcome, %s"
+msgstr "Ongi etorri, %s"
+
+#: config/nls.php:187
+msgid "Western (ISO-8859-1)"
+msgstr "Mendebaldekoa (ISO-8859-1)"
+
+#: config/nls.php:188
+msgid "Western (ISO-8859-15)"
+msgstr "Mendebaldekoa (ISO-8859-15)"
+
+#: config/prefs.php.dist:483
+#, php-format
+msgid "What application should %s display after login?"
+msgstr ""
+"Zein aplikazio bistaratu beharko luke %s(e)k aplikazioak saioa hasitakoan?"
+
+#: lib/Block/twitter_timeline.php:131
+msgid "What are you working on now?"
+msgstr ""
+
+#: templates/data/csvinfo.inc:14
+msgid "What is the delimiter character?"
+msgstr "Zein da karaktere mugatzailea?"
+
+#: templates/data/csvinfo.inc:17
+msgid "What is the quote character?"
+msgstr "Zein da aipamen-karakterea?"
+
+#: lib/Block/fb_stream.php:165
+msgid "What's on your mind?"
+msgstr ""
+
+#: config/prefs.php.dist:427
+msgid "Which day would you like to be displayed as the first day of the week?"
+msgstr "Zein egun nahi duzu asteko lehen egun gisa agertzea?"
+
+#: lib/Block/moon.php:21
+msgid "Which phases"
+msgstr "Zein fase"
+
+#: config/prefs.php.dist:536
+#, php-format
+msgid "Width of the %s menu on the left:"
+msgstr "%s menuaren zabalera ezkerrean:"
+
+#: config/registry.php.dist:394
+msgid "Wiki"
+msgstr "Wikia"
+
+#: lib/Block/weatherdotcom.php:303 lib/Block/weatherdotcom_strings.php:95
+msgid "Wind"
+msgstr "Haizea"
+
+#: lib/Block/weatherdotcom_strings.php:96
+msgid "Wind Early"
+msgstr "Haizea goizean goiz"
+
+#: lib/Block/weatherdotcom_strings.php:97
+msgid "Wind Late"
+msgstr "Haizea arratsalde-gauean"
+
+#: lib/Block/metar.php:79
+msgid "Wind speed in knots"
+msgstr "Haizearen abiadura korapilotan"
+
+#: lib/Block/metar.php:151
+msgid "Wind:"
+msgstr "Haizea:"
+
+#: lib/Block/weatherdotcom.php:246
+msgid "Wind: "
+msgstr "Haizea: "
+
+#: lib/Block/account.php:634
+msgid "Windows"
+msgstr "Windows"
+
+#: admin/activesync.php:181 templates/prefs/activesync.html:28
+#, fuzzy
+msgid "Wipe"
+msgstr "Az"
+
+#: admin/activesync.php:162 lib/Prefs/Ui.php:415
+msgid "Wipe is pending"
+msgstr ""
+
+#: lib/Block/fortune.php:71
+msgid "Wisdom"
+msgstr "Jakinduria"
+
+#: lib/Block/fortune.php:72
+msgid "Work"
+msgstr "Lana"
+
+#: config/registry.php.dist:275
+msgid "X-Ref"
+msgstr "X-Ref"
+
+#: templates/data/date.inc:47 templates/data/date.inc:48
+#: templates/data/date.inc:49 templates/data/date.inc:50
+#: templates/data/datetime.inc:89 templates/data/datetime.inc:90
+#: templates/data/datetime.inc:91 templates/data/datetime.inc:92
+msgid "YY"
+msgstr "UU"
+
+#: templates/logintasks/logintasks.html:34
+msgid "Yes, I Agree"
+msgstr "Bai, ados nago"
+
+#: services/facebook.php:110 services/facebook.php:169
+#, php-format
+msgid "You and %d other person likes this"
+msgid_plural "You and %d other people like this"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/Api.php:301
+msgid "You are not allowed to add groups."
+msgstr "Ez daukazu baimenik taldeak gehitzeko."
+
+#: lib/Api.php:476
+msgid "You are not allowed to add shares."
+msgstr "Ez daukazu baimenik partekatzeak gehitzeko."
+
+#: lib/Api.php:350 lib/Api.php:373 lib/Api.php:399 lib/Api.php:422
+msgid "You are not allowed to change groups."
+msgstr "Ez daukazu baimenik taldeak aldatzeko."
+
+#: lib/Api.php:561 lib/Api.php:598 lib/Api.php:640 lib/Api.php:667
+msgid "You are not allowed to change shares."
+msgstr "Ez daukazu baimenik partekatzeak aldatzeko."
+
+#: lib/Api.php:327
+msgid "You are not allowed to delete groups."
+msgstr "Ez daukazu baimenik taldeak ezabatzeko."
+
+#: lib/Api.php:505
+msgid "You are not allowed to delete shares."
+msgstr "Ez daukazu baimenik partekatzeak ezabatzeko."
+
+#: lib/Api.php:820
+msgid "You are not allowed to list groups of shares."
+msgstr "Ez daukazu baimenik partekatze taldeak zerrendatzeko."
+
+#: lib/Api.php:702 lib/Api.php:744
+msgid "You are not allowed to list share permissions."
+msgstr "Ez daukazu baimenik partekatze-baimenak zerrendatzeko."
+
+#: lib/Api.php:532
+msgid "You are not allowed to list shares."
+msgstr "Ez daukazu baimenik partekatzeak zerrendatzeko."
+
+#: lib/Api.php:448
+msgid "You are not allowed to list users of groups."
+msgstr "Ez daukazu baimenik talde-erabiltzaileak zerrendatzeko."
+
+#: lib/Api.php:786
+msgid "You are not allowed to list users of shares."
+msgstr "Ez daukazu baimenik partekatze-erabiltzaileak zerrendatzeko."
+
+#: lib/Api.php:216
+msgid "You are not allowed to remove user data."
+msgstr "Ez daukazu baimenik erabiltzaile-daturik kentzeko."
+
+#: lib/Block/fb_stream.php:159 lib/Block/fb_stream.php:184
+#: services/facebook.php:55 services/facebook.php:72
+#, php-format
+msgid "You can also check your Facebook settings in your %s."
+msgstr ""
+
+#: lib/LoginTasks/Task/TosAgreement.php:54
+msgid ""
+"You did not agree to the Terms of Service agreement, so you were not allowed "
+"to login."
+msgstr ""
+
+#: login.php:278
+msgid "You have been logged out."
+msgstr "Saioa amaitu duzu."
+
+#: lib/Block/fb_stream.php:124
+#, php-format
+msgid ""
+"You have not properly connected your Facebook account with Horde. You should "
+"check your Facebook settings in your %s."
+msgstr ""
+
+#: lib/Block/twitter_timeline.php:182
+#, php-format
+msgid ""
+"You have not properly connected your Twitter account with Horde. You should "
+"check your Twitter settings in your %s."
+msgstr ""
+
+#: services/facebook.php:112 services/facebook.php:163
+#: services/facebook.php:171
+msgid "You like this"
+msgstr ""
+
+#: templates/problem/problem.inc:11
+msgid "You must describe the problem before you can send the problem report."
+msgstr ""
+"Arazoa deskribatu behar duzu, hari buruzko txostena bidali ahal izateko."
+
+#: lib/Prefs/Ui.php:679
+msgid "You must select an server to be deleted."
+msgstr "Zerbitzari bat hautatu behar duzu ezabatzeko."
+
+#: admin/user.php:134
+msgid "You must specify a username to clear out."
+msgstr "Erabiltzaile-izen bat zehaztu behar duzu garbitzeko."
+
+#: admin/user.php:114
+msgid "You must specify a username to remove."
+msgstr "Erabiltzaile-izen bat zehaztu behar duzu kentzeko."
+
+#: admin/user.php:70
+msgid "You must specify the username to add."
+msgstr "Erabiltzaile-izena zehaztu behar duzu gehitzeko."
+
+#: admin/user.php:164
+msgid "You must specify the username to update."
+msgstr "Erabiltzaile-izena zehaztu behar duzu eguneratzeko."
+
+#: templates/problem/problem.inc:34
+msgid "Your Email Address"
+msgstr "Helbide elektronikoa"
+
+#: config/prefs.php.dist:212 config/prefs.php.dist:275
+#: config/prefs.php.dist:312 config/prefs.php.dist:439
+msgid "Your Information"
+msgstr "Zure informazioa"
+
+#: login.php:270
+#, fuzzy
+msgid ""
+"Your Internet Address has changed since the beginning of your session. To "
+"protect your security, you must login again."
+msgstr ""
+"Zure Internet helbidea aldatu da %s saioa hasi duzunetik. Zure segurtasuna "
+"babesteko, saioa hasi behar duzu berriro."
+
+#: templates/problem/problem.inc:30
+msgid "Your Name"
+msgstr "Zure izena"
+
+#: templates/admin/user/noadd.inc:5
+msgid ""
+"Your authentication backend does not support adding users. If you wish to "
+"use Horde to administer user accounts, you must use a different "
+"authentication backend."
+msgstr ""
+"Zure autentifikazio-moduluak ez du erabiltzaileak gehitzerik onartzen. Horde "
+"erabili nahi baduzu erabiltzaile-kontuak kudeatzeko, beste autentifikazio-"
+"modulu bat erabili beharko duzu."
+
+#: templates/admin/user/nolist.inc:5
+msgid ""
+"Your authentication backend does not support listing users, or the feature "
+"has been disabled for some other reason."
+msgstr ""
+"Zure autentifikazio-moduluak ez du onartzen erabiltzaileak zerrendatzea, edo "
+"eginbidea desgaitu egin da, beste zerbait dela-eta."
+
+#: login.php:274
+#, fuzzy
+msgid ""
+"Your browser appears to have changed since the beginning of your session. To "
+"protect your security, you must login again."
+msgstr ""
+"Badirudi arakatzailea aldatu dela %s saioa hasi duzunetik. Zure segurtasuna "
+"babesteko, saioa hasi behar duzu berriro."
+
+#: lib/Block/iframe.php:58
+msgid "Your browser does not support this feature."
+msgstr "Arakatzaileak ez du eginbide hori onartzen."
+
+#: config/prefs.php.dist:337
+msgid "Your current time zone:"
+msgstr "Uneko ordu-zona:"
+
+#: config/prefs.php.dist:236
+msgid "Your full name:"
+msgstr "Zure izena:"
+
+#: login.php:290
+msgid "Your login has expired."
+msgstr "Saio-hasiera iraungi da."
+
+#: services/resetpassword.php:74
+#, php-format
+msgid "Your new password for %s is: %s"
+msgstr "%s(r)en pasahitz berria: %s"
+
+#: services/resetpassword.php:73
+msgid "Your password has been reset"
+msgstr "Pasahitza berrezarri da."
+
+#: services/resetpassword.php:87
+msgid ""
+"Your password has been reset, but couldn't be sent to you. Please contact "
+"the administrator."
+msgstr ""
+"Pasahitza berrezarri da, baina ezin izan zaizu bidali. Jarri harremanetan "
+"administratzailearekin."
+
+#: services/resetpassword.php:82
+msgid ""
+"Your password has been reset, check your email and log in with your new "
+"password."
+msgstr ""
+"Pasahitza berrezarri da; begiratu posta, eta hasi saioa pasahitz berriarekin."
+
+#: lib/Block/account.php:689 lib/Block/account.php:704
+msgid "Your password has expired"
+msgstr "Pasahitza iraungi da"
+
+#: login.php:178
+msgid "Your password has expired."
+msgstr "Pasahitza iraungi da."
+
+#: lib/Prefs/Ui.php:322
+msgid "Your remote servers:"
+msgstr "Urruneko zerbitzariak:"
+
+#: login.php:266
+#, fuzzy
+msgid "Your session has expired. Please login again."
+msgstr "% saioa iraungi da. Hasi berriro saioa."
+
+#: lib/Block/fortune.php:73
+msgid "Zippy"
+msgstr "Zippy"
+
+#: services/problem.php:107
+msgid "[Problem Report]"
+msgstr "[Arazoari buruzko txostena]"
+
+#: admin/sessions.php:39
+msgid "[Unknown]"
+msgstr "[Ezezaguna]"
+
+#: lib/Api.php:47
+msgid "_Alarms"
+msgstr "_Alarmak"
+
+#: lib/Api.php:72
+msgid "_CLI"
+msgstr "_CLI"
+
+#: lib/Api.php:27
+#, fuzzy
+msgid "_Configuration"
+msgstr "Konfigurazioa"
+
+#: lib/Api.php:52
+msgid "_DataTree"
+msgstr "_Datu-zuhaitza"
+
+#: lib/Api.php:37
+msgid "_Groups"
+msgstr "_Taldeak"
+
+#: lib/Api.php:42
+msgid "_Permissions"
+msgstr "_Baimenak"
+
+#: lib/Api.php:32
+msgid "_Users"
+msgstr "_Erabiltzaileak"
+
+#: services/problem.php:56
+msgid "attachment"
+msgstr "eranskina"
+
+#: lib/Block/metar.php:167 lib/Block/metar.php:353
+#, php-format
+msgid "calm"
+msgstr "barealdia"
+
+#: lib/Block/weatherdotcom_strings.php:102
+msgid "falling"
+msgstr "jaisten"
+
+#: lib/Block/metar.php:169 lib/Block/metar.php:355 lib/Block/metar.php:381
+#, php-format
+msgid "from the %s (%s) at %s %s"
+msgstr "noiztik: %s (%s); zein ordutatik: %s %s"
+
+#: lib/Block/weatherdotcom.php:254
+msgid "gusting"
+msgstr "haizetsu"
+
+#: admin/config/diff.php:51 admin/config/diff.php:63
+msgid "inline"
+msgstr "barnean"
+
+#: lib/Block/fb_stream.php:124 lib/Block/fb_stream.php:159
+#: lib/Block/fb_stream.php:184 lib/Block/twitter_timeline.php:182
+#: services/facebook.php:55 services/facebook.php:72
+#, fuzzy
+msgid "preferences"
+msgstr "Hobespenak"
+
+#: lib/Block/weatherdotcom_strings.php:104
+msgid "rising"
+msgstr "igotzen"
+
+#: admin/config/config.php:80
+msgid "show differences"
+msgstr "erakutsi desberdintasunak"
+
+#: lib/Block/weatherdotcom_strings.php:103
+msgid "steady"
+msgstr "egonkorra"
+
+#: admin/user.php:35 admin/user.php:49
+msgid "type the password twice to confirm"
+msgstr "idatzi pasahitza bitan berresteko"
+
+#: admin/config/diff.php:51 admin/config/diff.php:63
+msgid "unified"
+msgstr "bateratua"
+
+#: lib/Block/weatherdotcom.php:6
+msgid "weather.com"
+msgstr "weather.com"

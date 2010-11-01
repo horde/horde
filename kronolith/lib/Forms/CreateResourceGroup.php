@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_Form for creating resource calendars.
+ * Horde_Form for creating resource groups.
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
@@ -8,23 +8,20 @@
  * @package Kronolith
  */
 
-/** Horde_Form */
-require_once 'Horde/Form.php';
-
-/** Horde_Form_Renderer */
-require_once 'Horde/Form/Renderer.php';
-
 /**
- * The Kronolith_CreateResourceForm class provides the form for
- * creating a calendar.
+ * The Kronolith_CreateResourceGroupForm class provides the form for creating
+ * a resource group.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Kronolith
  */
-class Kronolith_CreateResourceGroupForm extends Horde_Form {
-
-    function Kronolith_CreateResourceGroupForm(&$vars)
+class Kronolith_CreateResourceGroupForm extends Horde_Form
+{
+    /**
+     * @throws Kronolith_Exception
+     */
+    public function __construct($vars)
     {
         parent::Horde_Form($vars, _("Create Resource"));
 
@@ -39,15 +36,12 @@ class Kronolith_CreateResourceGroupForm extends Horde_Form {
         $this->setButtons(array(_("Create")));
     }
 
-    function execute()
+    public function execute()
     {
         $new = array('name' => $this->_vars->get('name'),
                      'description' => $this->_vars->get('description'),
                      'members' => $this->_vars->get('members'));
-
-        $resource = new Kronolith_Resource_Group($new);
-
-        return $results = Kronolith_Resource::addResource($resource);
+        return Kronolith_Resource::addResource(new Kronolith_Resource_Group($new));
     }
 
 }

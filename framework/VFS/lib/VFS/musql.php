@@ -3,16 +3,6 @@
 require_once dirname(__FILE__) . '/sql.php';
 
 /**
- * Permission for read access.
- */
-define('VFS_FLAG_READ', 1);
-
-/**
- * Permission for read access.
- */
-define('VFS_FLAG_WRITE', 2);
-
-/**
  * Multi User VFS implementation for PHP's PEAR database
  * abstraction layer.
  *
@@ -64,17 +54,35 @@ define('VFS_FLAG_WRITE', 2);
  * @author  Mike Cochrane <mike@graftonhall.co.nz>
  * @package VFS
  */
-class VFS_musql extends VFS_sql {
+class VFS_musql extends VFS_sql
+{
+    /* Permission for read access. */
+    const FLAG_READ = 1;
+
+    /* Permission for read access. */
+    const FLAG_WRITE = 2;
 
     /**
      * List of permissions and if they can be changed in this VFS
      *
      * @var array
      */
-    var $_permissions = array(
-        'owner' => array('read' => false, 'write' => false, 'execute' => false),
-        'group' => array('read' => false, 'write' => false, 'execute' => false),
-        'all'   => array('read' => true,  'write' => true,  'execute' => false)
+    protected $_permissions = array(
+        'owner' => array(
+            'read' => false,
+            'write' => false,
+            'execute' => false
+        ),
+        'group' => array(
+            'read' => false,
+            'write' => false,
+            'execute' => false
+        ),
+        'all' => array(
+            'read' => true,
+            'write' => true,
+            'execute' => false
+        )
     );
 
     /**
@@ -85,14 +93,11 @@ class VFS_musql extends VFS_sql {
      * @param string $data         The file data.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function writeData($path, $name, $data, $autocreate = false)
+    public function writeData($path, $name, $data, $autocreate = false)
     {
-        $conn = $this->_connect();
-        if (PEAR::isError($conn)) {
-            return $conn;
-        }
+        $this->_connect();
 
         /* Make sure we have write access to this and all parent paths. */
         if ($path != '') {
@@ -100,14 +105,9 @@ class VFS_musql extends VFS_sql {
             $path_name = array_pop($paths);
             if (!$this->isFolder(implode('/', $paths), $path_name)) {
                 if (!$autocreate) {
-                    return PEAR::raiseError(
-                        sprintf(_("Folder \"%s\" does not exist"), $path),
-                        'horde.error');
+                    throw new VFS_Exception(sprintf('Folder "%s" does not exist'), $path);
                 } else {
-                    $result = $this->autocreatePath($path);
-                    if (is_a($result, 'PEAR_Error')) {
-                        return $result;
-                    }
+                    $this->autocreatePath($path);
                 }
             }
             $paths[] = $path_name;
@@ -119,25 +119,25 @@ class VFS_musql extends VFS_sql {
                                $this->_params['table']);
                 $this->log($sql, PEAR_LOG_DEBUG);
                 $results = $this->_db->getAll($sql, array($previous, $thispath));
-                if (is_a($results, 'PEAR_Error')) {
+                if ($results instanceof PEAR_Error) {
                     $this->log($results, PEAR_LOG_ERR);
-                    return $results;
+                    throw new VFS_Exception($results->getMessage());
                 }
                 if (!is_array($results) || count($results) < 1) {
-                    return PEAR::raiseError(_("Unable to create VFS file."));
+                    throw new VFS_Exception('Unable to create VFS file.');
                 }
 
                 $allowed = false;
                 foreach ($results as $result) {
                     if ($result[0] == $this->_params['user'] ||
-                        $result[1] & VFS_FLAG_WRITE) {
+                        $result[1] & self::FLAG_WRITE) {
                         $allowed = true;
                         break;
                     }
                 }
 
                 if (!$allowed) {
-                    return PEAR::raiseError(_("Access denied creating VFS file."));
+                    throw new VFS_Exception('Access denied creating VFS file.');
                 }
 
                 $previous = $thispath;
@@ -153,27 +153,24 @@ class VFS_musql extends VFS_sql {
      * @param string $path  The path to store the file in.
      * @param string $name  The filename to use.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function deleteFile($path, $name)
+    public function deleteFile($path, $name)
     {
-        $conn = $this->_connect();
-        if (PEAR::isError($conn)) {
-            return $conn;
-        }
+        $this->_connect();
 
         $sql = sprintf('SELECT vfs_id, vfs_owner, vfs_perms FROM %s
                         WHERE vfs_path = ? AND vfs_name= ? AND vfs_type = ?',
                        $this->_params['table']);
         $this->log($sql, PEAR_LOG_DEBUG);
-        $fileList = $this->_db->getAll($sql, array($path, $name, VFS_FILE));
+        $fileList = $this->_db->getAll($sql, array($path, $name, self::FILE));
 
-        if (is_a($fileList, 'PEAR_Error')) {
+        if ($fileList instanceof PEAR_Error) {
             $this->log($fileList, PEAR_LOG_ERR);
-            return $fileList;
+            throw new VFS_Exception($fileList->getMessage());
         }
         if (!is_array($fileList) || count($fileList) < 1) {
-            return PEAR::raiseError(_("Unable to delete VFS file."));
+            throw new VFS_Exception('Unable to delete VFS file.');
         }
 
         /* There may be one or more files with the same name but the user may
@@ -181,25 +178,25 @@ class VFS_musql extends VFS_sql {
          * delete the one they have access to. */
         foreach ($fileList as $file) {
             if ($file[1] == $this->_params['user'] ||
-                $file[2] & VFS_FLAG_WRITE) {
+                $file[2] & self::FLAG_WRITE) {
                 $sql = sprintf('DELETE FROM %s WHERE vfs_id = ?',
                                $this->_params['table']);
                 $this->log($sql, PEAR_LOG_DEBUG);
                 $result = $this->_db->query($sql, array($file[0]));
 
-                if (is_a($result, 'PEAR_Error')) {
+                if ($result instanceof PEAR_Error) {
                     $this->log($result, PEAR_LOG_ERR);
-                    return $result;
+                    throw new VFS_Exception($result->getMessage());
                 }
                 if ($this->_db->affectedRows() == 0) {
-                    return PEAR::raiseError(_("Unable to delete VFS file."));
+                    throw new VFS_Exception('Unable to delete VFS file.');
                 }
                 return $result;
             }
         }
 
         // FIXME: 'Access Denied deleting file %s/%s'
-        return PEAR::raiseError(_("Unable to delete VFS file."));
+        throw new VFS_Exception('Unable to delete VFS file.');
     }
 
     /**
@@ -210,14 +207,11 @@ class VFS_musql extends VFS_sql {
      * @param string $newpath  The new path of the file.
      * @param string $newname  The new filename.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function rename($oldpath, $oldname, $newpath, $newname)
+    public function rename($oldpath, $oldname, $newpath, $newname)
     {
-        $conn = $this->_connect();
-        if (PEAR::isError($conn)) {
-            return $conn;
-        }
+        $this->_connect();
 
         $sql = sprintf('SELECT vfs_id, vfs_owner, vfs_perms FROM %s
                         WHERE vfs_path = ? AND vfs_name= ?',
@@ -225,12 +219,12 @@ class VFS_musql extends VFS_sql {
         $this->log($sql, PEAR_LOG_DEBUG);
         $fileList = $this->_db->getAll($sql, array($oldpath, $oldname));
 
-        if (is_a($fileList, 'PEAR_Error')) {
+        if ($fileList instanceof PEAR_Error) {
             $this->log($fileList, PEAR_LOG_ERR);
-            return $fileList;
+            throw new VFS_Exception($fileList);
         }
         if (!is_array($fileList) || count($fileList) < 1) {
-            return PEAR::raiseError(_("Unable to rename VFS file."));
+            throw new VFS_Exception('Unable to rename VFS file.');
         }
 
         if (strpos($newpath, '/') === false) {
@@ -240,9 +234,7 @@ class VFS_musql extends VFS_sql {
             list($parent, $path) = explode('/', $newpath, 2);
         }
         if (!$this->isFolder($parent, $path)) {
-            if (is_a($result = $this->autocreatePath($newpath), 'PEAR_Error')) {
-                return $result;
-            }
+            $this->autocreatePath($newpath);
         }
 
         /* There may be one or more files with the same name but the user may
@@ -250,7 +242,7 @@ class VFS_musql extends VFS_sql {
          * rename the one they have access to. */
         foreach ($fileList as $file) {
             if ($file[1] == $this->_params['user'] ||
-                $file[2] & VFS_FLAG_WRITE) {
+                $file[2] & self::FLAG_WRITE) {
                 $sql = sprintf('UPDATE %s SET vfs_path = ?, vfs_name = ?, vfs_modified = ?
                                 WHERE vfs_id = ?',
                                $this->_params['table']);
@@ -258,16 +250,15 @@ class VFS_musql extends VFS_sql {
                 $result = $this->_db->query(
                     $sql,
                     array($newpath, $newname, time(), $file[0]));
-                if (is_a($result, 'PEAR_Error')) {
+                if ($result instanceof PEAR_Error) {
                     $this->log($result, PEAR_LOG_ERR);
-                    return $result;
+                    throw new VFS_Exception($result->getMessage());
                 }
                 return $result;
             }
         }
 
-        return PEAR::raiseError(sprintf(_("Unable to rename VFS file %s/%s."),
-                                        $oldpath, $oldname));
+        throw new VFS_Exception(sprintf('Unable to rename VFS file %s/%s.', $oldpath, $oldname));
     }
 
     /**
@@ -276,14 +267,11 @@ class VFS_musql extends VFS_sql {
      * @param string $path  Holds the path of directory to create folder.
      * @param string $name  Holds the name of the new folder.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function createFolder($path, $name)
+    public function createFolder($path, $name)
     {
-        $conn = $this->_connect();
-        if (PEAR::isError($conn)) {
-            return $conn;
-        }
+        $this->_connect();
 
         /* Make sure we have write access to this and all parent paths. */
         if (strlen($path)) {
@@ -296,25 +284,25 @@ class VFS_musql extends VFS_sql {
                                $this->_params['table']);
                 $this->log($sql, PEAR_LOG_DEBUG);
                 $results = $this->_db->getAll($sql, array($previous, $thispath));
-                if (is_a($results, 'PEAR_Error')) {
+                if ($results instanceof PEAR_Error) {
                     $this->log($results, PEAR_LOG_ERR);
-                    return $results;
+                    throw new VFS_Exception($results->getMessage());
                 }
                 if (!is_array($results) || count($results) < 1) {
-                    return PEAR::raiseError(_("Unable to create VFS directory."));
+                    throw new VFS_Exception('Unable to create VFS directory.');
                 }
 
                 $allowed = false;
                 foreach ($results as $result) {
                     if ($result[0] == $this->_params['user'] ||
-                        $result[1] & VFS_FLAG_WRITE) {
+                        $result[1] & self::FLAG_WRITE) {
                         $allowed = true;
                         break;
                     }
                 }
 
                 if (!$allowed) {
-                    return PEAR::raiseError(_("Access denied creating VFS directory."));
+                    throw new VFS_Exception('Access denied creating VFS directory.');
                 }
 
                 $previous = $thispath;
@@ -330,9 +318,9 @@ class VFS_musql extends VFS_sql {
         $result = $this->_db->query(
             $sql,
             array($id, VFS_FOLDER, $path, $name, time(), $this->_params['user'], 0));
-        var_dump($this->_db->last_query);
-        if (is_a($result, 'PEAR_Error')) {
+        if ($result instanceof PEAR_Error) {
             $this->log($result, PEAR_LOG_ERR);
+            throw new VFS_Exception($result->getMessage());
         }
 
         return $result;
@@ -345,29 +333,18 @@ class VFS_musql extends VFS_sql {
      * @param string $name        The foldername to use.
      * @param boolean $recursive  Force a recursive delete?
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function deleteFolder($path, $name, $recursive = false)
+    public function deleteFolder($path, $name, $recursive = false)
     {
-        $conn = $this->_connect();
-        if (PEAR::isError($conn)) {
-            return $conn;
-        }
+        $this->_connect();
 
         if ($recursive) {
-            $result = $this->emptyFolder($path . '/' . $name);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
+            $this->emptyFolder($path . '/' . $name);
         } else {
             $list = $this->listFolder($path . '/' . $name);
-            if (is_a($list, 'PEAR_Error')) {
-                return $list;
-            }
             if (count($list)) {
-                return PEAR::raiseError(
-                    sprintf(_("Unable to delete %s, the directory is not empty"),
-                            $path . '/' . $name));
+                throw new VFS_Exception(sprintf('Unable to delete %s, the directory is not empty', $path . '/' . $name));
             }
         }
 
@@ -377,12 +354,12 @@ class VFS_musql extends VFS_sql {
         $this->log($sql, PEAR_LOG_DEBUG);
         $fileList = $this->_db->getAll($sql, array($path, $name, VFS_FOLDER));
 
-        if (is_a($fileList, 'PEAR_Error')) {
+        if ($fileList instanceof PEAR_Error) {
             $this->log($fileList, PEAR_LOG_ERR);
-            return $fileList;
+            throw new VFS_Exception($fileList->getMessage());
         }
         if (!is_array($fileList) || count($fileList) < 1) {
-            return PEAR::raiseError(_("Unable to delete VFS directory."));
+            throw new VFS_Exception('Unable to delete VFS directory.');
         }
 
         /* There may be one or more folders with the same name but as the user
@@ -390,18 +367,18 @@ class VFS_musql extends VFS_sql {
          * to delete the one they have access to */
         foreach ($fileList as $file) {
             if ($file[1] == $this->_params['user'] ||
-                $file[2] & VFS_FLAG_WRITE) {
+                $file[2] & self::FLAG_WRITE) {
                 $sql = sprintf('DELETE FROM %s WHERE vfs_id = ?',
                                $this->_params['table']);
                 $this->log($sql, PEAR_LOG_DEBUG);
                 $result = $this->_db->query($sql, array($file[0]));
 
-                if (is_a($result, 'PEAR_Error')) {
+                if ($result instanceof PEAR_Error) {
                     $this->log($result, PEAR_LOG_ERR);
-                    return $result;
+                    throw new VFS_Exception($result->getMessage());
                 }
                 if ($this->_db->affectedRows() == 0) {
-                    return PEAR::raiseError(_("Unable to delete VFS directory."));
+                    throw new VFS_Exception('Unable to delete VFS directory.');
                 }
 
                 return $result;
@@ -409,7 +386,7 @@ class VFS_musql extends VFS_sql {
         }
 
         // FIXME: 'Access Denied deleting folder %s/%s'
-        return PEAR::raiseError(_("Unable to delete VFS directory."));
+        throw new VFS_Exception('Unable to delete VFS directory.');
     }
 
     /**
@@ -420,15 +397,13 @@ class VFS_musql extends VFS_sql {
      * @param boolean $dotfiles  Show dotfiles?
      * @param boolean $dironly   Show only directories?
      *
-     * @return mixed  File list on success or false on failure.
+     * @return array  File list.
+     * @throws VFS_Exception
      */
-    function _listFolder($path, $filter = null, $dotfiles = true,
-                        $dironly = false)
+    protected function _listFolder($path, $filter = null, $dotfiles = true,
+                                   $dironly = false)
     {
-        $conn = $this->_connect();
-        if (is_a($conn, 'PEAR_Error')) {
-            return $conn;
-        }
+        $this->_connect();
 
         $length_op = $this->_getFileSizeOp();
         $sql = sprintf('SELECT vfs_name, vfs_type, vfs_modified, vfs_owner, vfs_perms, %s(vfs_data) FROM %s
@@ -437,10 +412,10 @@ class VFS_musql extends VFS_sql {
         $this->log($sql, PEAR_LOG_DEBUG);
         $fileList = $this->_db->getAll(
             $sql,
-            array($path, $this->_params['user'], VFS_FLAG_READ));
-        if (is_a($fileList, 'PEAR_Error')) {
+            array($path, $this->_params['user'], self::FLAG_READ));
+        if ($fileList instanceof PEAR_Error) {
             $this->log($fileList, PEAR_LOG_ERR);
-            return $fileList;
+            throw new VFS_Exception($fileList->getMessage());
         }
 
         $files = array();
@@ -452,17 +427,17 @@ class VFS_musql extends VFS_sql {
 
             $file['name'] = stripslashes($line[0]);
 
-            if ($line[1] == VFS_FILE) {
+            if ($line[1] == self::FILE) {
                 $name = explode('.', $line[0]);
 
                 if (count($name) == 1) {
                     $file['type'] = '**none';
                 } else {
-                    $file['type'] = VFS::strtolower($name[count($name) - 1]);
+                    $file['type'] = self::strtolower($name[count($name) - 1]);
                 }
 
                 $file['size'] = $line[5];
-            } elseif ($line[1] == VFS_FOLDER) {
+            } elseif ($line[1] == self::FOLDER) {
                 $file['type'] = '**dir';
                 $file['size'] = -1;
             }
@@ -471,10 +446,10 @@ class VFS_musql extends VFS_sql {
             $file['owner'] = $line[3];
 
             $line[4] = intval($line[4]);
-            $file['perms']  = ($line[1] == VFS_FOLDER) ? 'd' : '-';
+            $file['perms']  = ($line[1] == self::FOLDER) ? 'd' : '-';
             $file['perms'] .= 'rw-';
-            $file['perms'] .= ($line[4] & VFS_FLAG_READ) ? 'r' : '-';
-            $file['perms'] .= ($line[4] & VFS_FLAG_WRITE) ? 'w' : '-';
+            $file['perms'] .= ($line[4] & self::FLAG_READ) ? 'r' : '-';
+            $file['perms'] .= ($line[4] & self::FLAG_WRITE) ? 'w' : '-';
             $file['perms'] .= '-';
             $file['group'] = '';
 
@@ -501,19 +476,16 @@ class VFS_musql extends VFS_sql {
      * @param string $path  Holds the path of directory of the Item.
      * @param string $name  Holds the name of the Item.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function changePermissions($path, $name, $permission)
+    public function changePermissions($path, $name, $permission)
     {
-        $conn = $this->_connect();
-        if (PEAR::isError($conn)) {
-            return $conn;
-        }
+        $this->_connect();
 
         $val = intval(substr($permission, -1));
         $perm = 0;
-        $perm |= ($val & 4) ? VFS_FLAG_READ : 0;
-        $perm |= ($val & 2) ? VFS_FLAG_WRITE : 0;
+        $perm |= ($val & 4) ? self::FLAG_READ : 0;
+        $perm |= ($val & 2) ? self::FLAG_WRITE : 0;
 
         $sql = sprintf('SELECT vfs_id, vfs_owner, vfs_perms FROM %s
                         WHERE vfs_path = ? AND vfs_name= ?',
@@ -521,12 +493,12 @@ class VFS_musql extends VFS_sql {
         $this->log($sql, PEAR_LOG_DEBUG);
         $fileList = $this->_db->getAll($sql, array($path, $name));
 
-        if (is_a($fileList, 'PEAR_Error')) {
+        if ($fileList instanceof PEAR_Error) {
             $this->log($fileList, PEAR_LOG_ERR);
-            return $fileList;
+            throw new VFS_Exception($fileList->getMessage());
         }
         if (!is_array($fileList) || count($fileList) < 1) {
-            return PEAR::raiseError(_("Unable to rename VFS file."));
+            throw new VFS_Exception('Unable to rename VFS file.');
         }
 
         /* There may be one or more files with the same name but the user may
@@ -534,19 +506,20 @@ class VFS_musql extends VFS_sql {
          * chmod the one they have access to. */
         foreach ($fileList as $file) {
             if ($file[1] == $this->_params['user'] ||
-                $file[2] & VFS_FLAG_WRITE) {
+                $file[2] & self::FLAG_WRITE) {
                 $sql = sprintf('UPDATE %s SET vfs_perms = ?
                                 WHERE vfs_id = ?',
                                $this->_params['table']);
                 $this->log($sql, PEAR_LOG_DEBUG);
                 $result = $this->_db->query($sql, array($perm, $file[0]));
+                if ($result instanceof PEAR_Error) {
+                    throw new VFS_Exception($result->getMessage());
+                }
                 return $result;
             }
         }
 
-        return PEAR::raiseError(
-            sprintf(_("Unable to change permission for VFS file %s/%s."),
-                    $path, $name));
+        throw new VFS_Exception(sprintf('Unable to change permission for VFS file %s/%s.', $path, $name));
     }
 
 }

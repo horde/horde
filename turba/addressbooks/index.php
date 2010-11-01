@@ -8,20 +8,21 @@
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
  */
 
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('turba');
 
 // Exit if this isn't an authenticated user, or if there's no source
 // configured for shares.
-if (!Horde_Auth::getAuth() || empty($_SESSION['turba']['has_share'])) {
+if (!$GLOBALS['registry']->getAuth() || !$session['turba:has_share']) {
     require TURBA_BASE . '/'
         . ($browse_source_count ? basename($prefs->getValue('initial_page')) : 'search.php');
     exit;
 }
 
-$browse_url_base = Horde::applicationUrl($browse_source_count ? basename($prefs->getValue('initial_page')) : 'search.php');
-$edit_url_base = Horde::applicationUrl('addressbooks/edit.php');
+$browse_url_base = Horde::url($browse_source_count ? basename($prefs->getValue('initial_page')) : 'search.php');
+$edit_url_base = Horde::url('addressbooks/edit.php');
 $perms_url_base = Horde::url($registry->get('webroot', 'horde') . '/services/shares/edit.php?app=turba', true);
-$delete_url_base = Horde::applicationUrl('addressbooks/delete.php');
+$delete_url_base = Horde::url('addressbooks/delete.php');
 
 // Get the shares owned by the current user, and figure out what we will
 // display the share name as to the user.
@@ -35,10 +36,10 @@ foreach ($addressbooks as $addressbook) {
 }
 asort($sorted_addressbooks);
 
-$browse_img = Horde::img('turba.png', _("Browse"), null, $registry->getImageDir('turba'));
-$edit_img = Horde::img('edit.png', _("Edit"), null, $registry->getImageDir('horde'));
-$perms_img = Horde::img('perms.png', _("Change Permissions"), null, $registry->getImageDir('horde'));
-$delete_img = Horde::img('delete.png', _("Delete"), null, $registry->getImageDir('horde'));
+$browse_img = Horde::img('turba.png', _("Browse"));
+$edit_img = Horde::img('edit.png', _("Edit"));
+$perms_img = Horde::img('perms.png', _("Change Permissions"));
+$delete_img = Horde::img('delete.png', _("Delete"));
 
 Horde::addScriptFile('tables.js', 'horde');
 $title = _("Manage Address Books");

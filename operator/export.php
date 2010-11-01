@@ -9,12 +9,11 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-
-$operator = new Operator_Application(array('init' => true));
-$cache = &$GLOBALS['cache'];
+$operator = Horde_Registry::appInit('operator');
 
 require_once OPERATOR_BASE . '/lib/Form/SearchCDR.php';
 
+$cache = $GLOBALS['cache'];
 $renderer = new Horde_Form_Renderer();
 $vars = Horde_Variables::getDefaultVariables();
 $data = array();
@@ -60,11 +59,7 @@ $title = _("Export Call Detail Records");
 require OPERATOR_TEMPLATES . '/common-header.inc';
 require OPERATOR_TEMPLATES . '/menu.inc';
 $notification->notify();
-$form->renderActive($renderer, $vars, Horde::applicationUrl('export.php'), 'post');;
+$form->renderActive($renderer, $vars, Horde::url('export.php'), 'post');;
 
-$columns = unserialize($prefs->getValue('columns'));
-if (!empty($data)) {
-    require OPERATOR_TEMPLATES . '/search.inc';
-}
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';

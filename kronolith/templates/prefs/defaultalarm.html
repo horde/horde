@@ -1,0 +1,16 @@
+<div>
+ <gettext>Default Alarm Setting:</gettext>
+</div>
+
+<div>
+ <label for="alarm_value" class="hidden"><gettext>Alarm Value</gettext></label>
+ <input type="text" size="2" id="alarm_value" name="alarm_value" value="<tag:alarm_value />" />
+ <label for="alarm_unit" class="hidden"><gettext>Alarm Unit</gettext></label>
+ <select id="alarm_unit" name="alarm_unit">
+  <option value="1"<if:minute> selected="selected"</if:minute>><gettext>Minute(s)</gettext></option>
+  <option value="60"<if:hour> selected="selected"</if:hour>><gettext>Hour(s)</gettext></option>
+  <option value="1440"<if:day> selected="selected"</if:day>><gettext>Day(s)</gettext></option>
+  <option value="10080"<if:week> selected="selected"</if:week>><gettext>Week(s)</gettext></option>
+ </select>
+ <gettext>before the event starts. A value of "0" means no default alarms.</gettext>
+</div>

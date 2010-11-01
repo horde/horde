@@ -8,62 +8,64 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('ansel');
 
 // Delete/empty the gallery if we're provided with a valid galleryId.
 $actionID = Horde_Util::getPost('action');
 $galleryId = Horde_Util::getPost('gallery');
 
 if ($galleryId) {
-    $gallery = $ansel_storage->getGallery($galleryId);
-
+    try {
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($galleryId);
+    } catch (Ansel_Exception $e) {
+        $notification->push($e->getMessage(), 'horde.error');
+        // Return to the default view.
+        Ansel::getUrlFor('default_view', array())->redirect();
+        exit;
+    }
     switch ($actionID) {
     case 'delete':
-        if (is_a($gallery, 'PEAR_Error')) {
-            $notification->push($gallery->getMessage(), 'horde.error');
-        } elseif (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
+        if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
             $notification->push(sprintf(_("Access denied deleting gallery \"%s\"."),
                                         $gallery->get('name')), 'horde.error');
         } else {
-            $result = $ansel_storage->removeGallery($gallery);
-            if (is_a($result, 'PEAR_Error')) {
+            try {
+                $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->removeGallery($gallery);
+                $notification->push(sprintf(_("Successfully deleted %s."), $gallery->get('name')), 'horde.success');
+            } catch (Ansel_Exception $e) {
                 $notification->push(sprintf(
                     _("There was a problem deleting %s: %s"),
-                    $gallery->get('name'), $result->getMessage()),
+                    $gallery->get('name'), $e->getMessage()),
                     'horde.error');
-            } else {
-                $notification->push(sprintf(
-                    _("Successfully deleted %s."),
-                    $gallery->get('name')), 'horde.success');
+            } catch (Horde_Exception_NotFound $e) {
+                Horde::logMessage($e, 'err');
             }
         }
 
         // Clear the OtherGalleries widget cache
-        if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-            $GLOBALS['cache']->expire('Ansel_OtherGalleries' . $gallery->get('owner'));
+        if ($conf['ansel_cache']['usecache']) {
+            $injector->getInstance('Horde_Cache')->expire('Ansel_OtherGalleries' . $gallery->get('owner'));
         }
 
         // Return to the default view.
-        header('Location: ' . Ansel::getUrlFor('default_view', array()));
+        Ansel::getUrlFor('default_view', array())->redirect();
         exit;
 
     case 'empty':
-        if (is_a($gallery, 'PEAR_Error')) {
-            $notification->push($gallery->getMessage(), 'horde.error');
-        } elseif (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
+        if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
             $notification->push(sprintf(_("Access denied deleting gallery \"%s\"."),
                                         $gallery->get('name')),
                                 'horde.error');
         } else {
-            $ansel_storage->emptyGallery($gallery);
+            $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->emptyGallery($gallery);
             $notification->push(sprintf(_("Successfully emptied \"%s\""), $gallery->get('name')));
         }
-        header('Location: '
-               . Ansel::getUrlFor('view',
-                                  array('view' => 'Gallery',
-                                        'gallery' => $galleryId,
-                                        'slug' => $gallery->get('slug')),
-                                  true));
+        Ansel::getUrlFor('view',
+                         array('view' => 'Gallery',
+                               'gallery' => $galleryId,
+                               'slug' => $gallery->get('slug')),
+                         true)->redirect();
         exit;
     }
 }

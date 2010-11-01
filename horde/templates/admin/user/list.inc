@@ -21,24 +21,27 @@
 <?php
 $remove = $auth->hasCapability('remove');
 $total = 0;
+$admin_url = Horde::url('admin/user.php');
+
 foreach ($users as $user):
     if ($total++ < $min || $total > $max) {
         continue;
     }
+    $user_url = $admin_url->copy()->add('user_name', $user);
 ?>
  <tr>
 <?php if ($remove): ?>
-  <td width="1%"><?php echo Horde::link(Horde::applicationUrl('admin/user.php?form=remove_f&user_name=' . $user), _("Delete")) . Horde::img('delete.png', _("Delete")) ?></a></td>
+  <td width="1%"><?php echo Horde::link($user_url->add('form', 'remove_f'), _("Delete")) . Horde::img('delete.png', _("Delete")) ?></a></td>
 <?php endif; ?>
-  <td width="1%"><?php echo Horde::link(Horde::applicationUrl('admin/user.php?form=update_f&user_name=' . $user), _("Update")) .  Horde::img('edit.png', _("Update")) ?></a></td>
-  <td width="1%"><?php echo Horde::link(Horde::applicationUrl('admin/user.php?form=clear_f&user_name=' . $user), _("Clear user data")) .  Horde::img('reload.png', _("Clear user data")) ?></a></td>
+  <td width="1%"><?php echo Horde::link($user_url->add('form', 'update_f'), _("Update")) .  Horde::img('edit.png', _("Update")) ?></a></td>
+  <td width="1%"><?php echo Horde::link($user_url->add('form', 'clear_f'), _("Clear user data")) .  Horde::img('reload.png', _("Clear user data")) ?></a></td>
   <td class="leftAlign"><?php echo $user ?></td>
  </tr>
 <?php endforeach; ?>
 </table>
 <?php
 if ($numitem) {
-    $pager = new Horde_Ui_Pager('page', $vars, array('num' => $total, 'url' => $viewurl, 'page_count' => 10, 'perpage' => $perpage));
+    $pager = new Horde_Core_Ui_Pager('page', $vars, array('num' => $total, 'url' => $viewurl, 'page_count' => 10, 'perpage' => $perpage));
     echo $pager->render($page, $total, $viewurl);
 }
 ?>

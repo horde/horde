@@ -3,17 +3,17 @@
  * The Horde_Auth_Msad class provides an experimental MSAD extension of the
  * LDAP implementation of the Horde authentication system.
  *
- * Required parameters: See Horde_Auth_Ldap.
- *
- * Optional parameters: See Horde_Auth_Ldap.
- *
  * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
  *
- * @author  Francois Helly <fhelly@bebop-design.net>
- * @package Horde_Auth
+ * @todo Use Horde_Ldap
+ *
+ * @author   Francois Helly <fhelly@bebop-design.net>
+ * @category Horde
+ * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
+ * @package  Auth
  */
 class Horde_Auth_Msad extends Horde_Auth_Ldap
 {
@@ -26,10 +26,6 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
      */
     public function __construct($params = array())
     {
-        if (!Horde_Util::extensionExists('ldap')) {
-            throw new Horde_Auth_Exception(_("Horde_Auth_Ldap: Required LDAP extension not found."));
-        }
-
         $params = array_merge(array(
             'adduser' => true,
             'authId' => 'initials',
@@ -46,10 +42,9 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
         }
 
         /* Ensure we've been provided with all of the necessary parameters. */
-        Horde::assertDriverConfig($params, 'auth',
-            array('hostspec', 'basedn'), 'authentication MSAD');
+        //Horde::assertDriverConfig($params, 'auth',
+        //    array('hostspec', 'basedn'), 'authentication MSAD');
 
-        $this->_params = $params;
         /* Adjust capabilities: depending on if SSL encryption is
          * enabled or not */
         $this->_capabilities = array(
@@ -76,7 +71,6 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
         /* Connect to the MSAD server. */
         $this->_connect();
 
-        list($accountName, $credentials) = Horde_Auth::runHook($accountName, $credentials, $this->_app, 'preauthenticate', 'admin');
         if (isset($credentials['ldap'])) {
             $dn = $credentials['ldap']['dn'];
         } else {
@@ -114,7 +108,7 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
         $success = @ldap_add($this->_ds, $dn, $entry);
 
         if (!$success) {
-           throw new Horde_Auth_Exception(sprintf(_("Horde_Auth_Msad: Unable to add user \"%s\". This is what the server said: "), $accountName) . ldap_error($this->_ds));
+           throw new Horde_Auth_Exception(sprintf(__CLASS__ . ': Unable to add user "%s". This is what the server said: ', $accountName) . ldap_error($this->_ds));
         }
 
         @ldap_close($this->_ds);
@@ -124,24 +118,22 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
      * Remove a set of authentication credentials.
      *
      * @param string $accountName  The user sAMAccountName to remove.
+     * @param string $dn           TODO
      *
      * @throws Horde_Auth_Exception
      */
-    public function removeUser($accountName)
+    public function removeUser($accountName, $dn = null)
     {
         /* Connect to the MSAD server. */
         $this->_connect();
 
-        list($accountName, $credentials) = Horde_Auth::runHook($accountName, $credentials, $this->_app, 'preauthenticate', 'admin');
-        if (isset($credentials['ldap'])) {
-            $dn = $credentials['ldap']['dn'];
-        } else {
+        if (is_null($dn)) {
             /* Search for the user's full DN. */
             $dn = $this->_findDN($accountName);
         }
 
         if (!@ldap_delete($this->_ds, $dn)) {
-            throw new Horde_Auth_Exception(sprintf(_("Horde_Auth_Msad: Unable to remove user \"%s\""), $accountName));
+            throw new Horde_Auth_Exception(sprintf(__CLASS__ . ': Unable to remove user "%s"', $accountName));
         }
         @ldap_close($this->_ds);
 
@@ -163,7 +155,6 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
         /* Connect to the MSAD server. */
         $this->_connect();
 
-        list($oldId, $credentials) = Horde_Auth::runHook($oldId, $credentials, $this->_app, 'preauthenticate', 'admin');
         if (isset($credentials['ldap'])) {
             $olddn = $credentials['ldap']['dn'];
         } else {
@@ -187,7 +178,7 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
         }
 
         if (!$success) {
-            throw new Horde_Auth_Exception(sprintf(_("Horde_Auth_Msad: Unable to update user \"%s\""), $newID), __FILE__, __LINE__);
+            throw new Horde_Auth_Exception(sprintf(__CLASS__ . ': Unable to update user "%s"', $newID));
         }
 
         @ldap_close($this->_ds);
@@ -207,6 +198,7 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
         /* Get a new random password. */
         $password = Horde_Auth::genRandomPassword() . '/';
         $this->updateUser($user_id, $user_id, array('userPassword' => $password));
+
         return $password;
     }
 
@@ -221,24 +213,16 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
         $ssl = ($this->_params['ssl']) ? 'ldaps://' : '';
         $this->_ds = ldap_connect($ssl . $this->_params['hostspec'], $this->_params['port']);
         if (!$this->_ds) {
-            throw new Horde_Auth_Exception(_("Failed to connect to MSAD server."));
+            throw new Horde_Auth_Exception('Failed to connect to MSAD server.');
         }
 
-        if (!ldap_set_option($this->_ds, LDAP_OPT_PROTOCOL_VERSION, 3)) {
-            Horde::logMessage(
-            sprintf('Set MSAD protocol version to %d failed: [%d] %s',
-            3,
-            ldap_errno($conn),
-            ldap_error($conn),
-            __FILE__, __LINE__));
-        }
-        if (!ldap_set_option($this->_ds, LDAP_OPT_REFERRALS, 0)) {
-            Horde::logMessage(
-            sprintf('Set MSAD referrals option to %d failed: [%d] %s',
-            0,
-            ldap_errno($conn),
-            ldap_error($conn),
-            __FILE__, __LINE__));
+        if ($this->_logger) {
+            if (!ldap_set_option($this->_ds, LDAP_OPT_PROTOCOL_VERSION, 3)) {
+                $this->_logger->log(sprintf('Set MSAD protocol version to %d failed: [%d] %s', 3, ldap_errno($conn), ldap_error($conn)));
+            }
+            if (!ldap_set_option($this->_ds, LDAP_OPT_REFERRALS, 0)) {
+                $this->_logger->log(sprintf('Set MSAD referrals option to %d failed: [%d] %s', 0, ldap_errno($conn), ldap_error($conn)));
+            }
         }
 
         if (isset($this->_params['binddn'])) {
@@ -250,10 +234,8 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
         }
 
         if (!$bind) {
-            throw new Horde_Auth_Exception(_("Could not bind to MSAD server."));
+            throw new Horde_Auth_Exception('Could not bind to MSAD server.');
         }
-
-        return true;
     }
 
     /**
@@ -277,7 +259,7 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
                                );
             /* Searching the tree is not successful */
             if (!$search) {
-                throw new Horde_Auth_Exception(_("Could not search the MSAD server."));
+                throw new Horde_Auth_Exception('Could not search the MSAD server.');
             }
 
             /* Fetch the search result */
@@ -289,7 +271,7 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
         }
 
         if (!is_array($result) || (count($result) <= 1)) {
-            throw new Horde_Auth_Exception(_("Empty result."));
+            throw new Horde_Auth_Exception('Empty result.');
         }
 
         /* Be sure the horde userId is the configured one */

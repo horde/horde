@@ -1,7 +1,4 @@
 <?php
-
-require_once WICKED_BASE . '/lib/Page/StandardPage.php';
-
 /**
  * Wicked RevertPage class (for confirming reversions).
  *
@@ -13,23 +10,23 @@ require_once WICKED_BASE . '/lib/Page/StandardPage.php';
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Wicked
  */
-class RevertPage extends Page {
+class Wicked_Page_RevertPage extends Wicked_Page {
 
     /**
      * Display modes supported by this page.
      *
      * @var array
      */
-    var $supportedModes = array(WICKED_MODE_DISPLAY => true);
+    public $supportedModes = array(Wicked::MODE_DISPLAY => true);
 
     /**
      * The page that we're confirming reversion for.
      *
      * @var string
      */
-    var $_referrer = null;
+    protected $_referrer = null;
 
-    function RevertPage($referrer)
+    public function __construct($referrer)
     {
         $this->_referrer = $referrer;
     }
@@ -39,7 +36,7 @@ class RevertPage extends Page {
      *
      * @return integer  The permissions bitmask.
      */
-    function getPermissions()
+    public function getPermissions()
     {
         return parent::getPermissions($this->referrer());
     }
@@ -48,24 +45,23 @@ class RevertPage extends Page {
      * Send them back whence they came if they aren't allowed to
      * edit this page.
      */
-    function preDisplay()
+    public function preDisplay()
     {
-        $page = Page::getPage($this->referrer());
-        if (!$page->allows(WICKED_MODE_EDIT)) {
-            header('Location: ' . Wicked::url($this->referrer(), true));
-            exit;
+        $page = Wicked_Page::getPage($this->referrer());
+        if (!$page->allows(Wicked::MODE_EDIT)) {
+            Wicked::url($this->referrer(), true)->redirect();
         }
     }
 
     /**
-     * Render this page in Display mode.
+     * Renders this page in display mode.
      *
-     * @return mixed True or PEAR_Error.
+     * @throws Wicked_Exception
      */
-    function display()
+    public function display()
     {
         $version = Horde_Util::getFormData('version');
-        $page = Page::getPage($this->referrer(), $version);
+        $page = Wicked_Page::getPage($this->referrer(), $version);
         $msg = sprintf(_("Are you sure you want to revert to version %s of this page?"), $version);
 ?>
 <form method="post" name="revertform" action="<?php echo Wicked::url('RevertPage') ?>">
@@ -76,7 +72,7 @@ class RevertPage extends Page {
 <input type="hidden" name="referrer" value="<?php echo htmlspecialchars($page->pageName()) ?>" />
 
 <h1 class="header">
- <?php echo _("RevertPage") . ': ' . Horde::link($page->pageUrl(), $page->pageName(), 'header') . $page->pageName() . '</a>'; if ($page->isLocked()) echo Horde::img('locked.png', _("Locked")) ?>
+ <?php echo _("Revert Page") . ': ' . Horde::link($page->pageUrl(), $page->pageName(), 'header') . $page->pageName() . '</a>'; if ($page->isLocked()) echo Horde::img('locked.png', _("Locked")) ?>
 </h1>
 
 <div class="headerbox" style="padding:4px">
@@ -89,48 +85,44 @@ class RevertPage extends Page {
 
 </form>
 <?php
-        return true;
     }
 
-    function pageName()
+    public function pageName()
     {
         return 'RevertPage';
     }
 
-    function pageTitle()
+    public function pageTitle()
     {
-        return _("RevertPage");
+        return _("Revert Page");
     }
 
-    function referrer()
+    public function referrer()
     {
         return $this->_referrer;
     }
 
-    function handleAction()
+    public function handleAction()
     {
         global $notification;
 
-        $page = Page::getPage($this->referrer());
-        if ($page->allows(WICKED_MODE_EDIT)) {
+        $page = Wicked_Page::getPage($this->referrer());
+        if ($page->allows(Wicked::MODE_EDIT)) {
             $version = Horde_Util::getPost('version');
             if (empty($version)) {
                 $notification->push(sprintf(_("Can't revert to an unknown version.")), 'horde.error');
-                header('Location: ' . Wicked::url($this->referrer(), true));
-            } else {
-                $oldpage = Page::getPage($this->referrer(), $version);
-                $minor = substr($page->version(), 0, strpos($page->version(), '.')) ==
-                    substr($oldpage->version(), 0, strpos($oldpage->version(), '.'));
-                $page->updateText($oldpage->getText(), 'Revert', $minor);
-                $notification->push(sprintf(_("Reverted to version %s of \"%s\"."), $version, $page->pageName()));
-                header('Location: ' . Wicked::url($page->pageName(), true));
+                Wicked::url($this->referrer(), true)->redirect();
             }
-            exit;
+            $oldpage = Wicked_Page::getPage($this->referrer(), $version);
+            $minor = substr($page->version(), 0, strpos($page->version(), '.')) ==
+                substr($oldpage->version(), 0, strpos($oldpage->version(), '.'));
+            $page->updateText($oldpage->getText(), 'Revert', $minor);
+            $notification->push(sprintf(_("Reverted to version %s of \"%s\"."), $version, $page->pageName()));
+            Wicked::url($page->pageName(), true)->redirect();
         }
 
         $notification->push(sprintf(_("You don't have permission to edit \"%s\"."), $page->pageName()), 'horde.warning');
-        header('Location: ' . Wicked::url($this->referrer(), true));
-        exit;
+        Wicked::url($this->referrer(), true)->redirect();
     }
 
 }

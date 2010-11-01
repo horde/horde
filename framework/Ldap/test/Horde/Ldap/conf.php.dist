@@ -1,0 +1,12 @@
+<?php
+$conf = array(
+    'server' => array(
+        'hostspec' => 'localhost',
+        'port'     => 389,
+        'basedn'   => 'ou=hordetest,dc=example,dc=com',
+        'binddn'  => 'cn=admin,dc=example,dc=com',
+        'bindpw'  => 'secret'),
+    'capability' => array(
+        'anonymous' => true,
+        'tls'       => true),
+);

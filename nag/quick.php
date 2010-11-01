@@ -1,18 +1,13 @@
 <?php
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('nag');
 
 if ($quickText = Horde_Util::getPost('quickText')) {
     $result = $registry->tasks->quickAdd($quickText);
-    if ($result) {
-        if (count($result) == 1) {
-            $notification->push(_("Added one task"), 'horde.success');
-        } else {
-            $notification->push(sprintf(_("Added %s tasks"), count($result)), 'horde.success');
-        }
-        header('Location: ' . Horde::applicationUrl('list.php', true));
-        exit(0);
-    } else {
-        Horde::fatal($result);
+    if (!$result) {
+        throw new Nag_Exception($result);
     }
+    $notification->push(sprintf(ngettext("Added %d task", "Added %d tasks", count($result)), count($result)), 'horde.success');
+    Horde::url('list.php', true)->redirect();
 }

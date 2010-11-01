@@ -6,8 +6,9 @@ body {
     font-size: 80%;
     padding: 8px;
 }
-#sidebar-frame body {
-    padding-right: 0;
+.body {
+    left: 8px;
+    right: 8px;
 }
 a {
     color: #66a;
@@ -36,9 +37,6 @@ a:hover {
 #menu .rightFloat {
     padding-right: 8px;
 }
-#sidebar-frame #menu {
-    display: none;
-}
 #menuBottom {
     margin-top: -16px;
     padding: 6px;
@@ -59,7 +57,6 @@ a:hover {
     text-decoration: underline;
 }
 #pageControls {
-    top: 53px !important;
     right: 8px !important;
     background: #063 !important;
     border: none !important;

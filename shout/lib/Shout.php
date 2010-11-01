@@ -9,11 +9,21 @@
  * http://www.opensource.org/licenses/bsd-license.php.
  *
  * @author  Ben Klang <ben@alkaloid.net>
- * @since   Shout 0.1
  * @package Shout
  */
 class Shout
 {
+    /**
+     * @var string default menu, used for creating initial menu
+     */
+    const MAIN_MENU = 'Main Menu';
+
+    /**
+     *
+     * @var string default recording, used for creating initial menu
+     */
+    const MAIN_RECORDING = 'main_menu';
+
     var $applist = array();
     var $_applist_curapp = '';
     var $_applist_curfield = '';
@@ -25,61 +35,25 @@ class Shout
      */
     static public function getMenu($returnType = 'object')
     {
-        global $conf, $context, $section, $action;
+        $mask = Horde_Menu::MASK_PROBLEM | Horde_Menu::MASK_LOGIN;
+        $menu = new Horde_Menu($mask);
 
-        require_once 'Horde/Menu.php';
+        $menu->add(Horde::url('dialplan.php'), _("Call Menus"), "dialplan.png");
+        $menu->add(Horde::url('recordings.php'), _("Recordings"), "recordings.png");
+        $menu->add(Horde::url('extensions.php'), _("Extensions"), "extension.png");
+        $menu->add(Horde::url('devices.php'), _("Devices"), "shout.png");
+        $menu->add(Horde::url('conferences.php'), _("Conferences"), "conference.png");
 
-        $menu = new Horde_Menu(HORDE_MENU_MASK_ALL);
-
-        $menu->add(Horde::applicationUrl('extensions.php'), _("Extensions"), "user.png");
-        $menu->add(Horde::applicationUrl('devices.php'), _("Devices"), "shout.png");
-        $menu->add(Horde::applicationUrl('routes.php'), _("Call Paths"));
-
+        /* Administration. */
+        if ($GLOBALS['registry']->isAdmin(array('permission' => 'shout:admin'))) {
+            $menu->add(Horde::url('admin.php'), _("_Admin"), 'admin.png');
+        }
 
         if ($returnType == 'object') {
             return $menu;
         } else {
             return $menu->render();
         }
-    }
-
-    /**
-     * Generate the tabs at the top of each Shout pages
-     *
-     * @param &$vars Reference to the passed in variables
-     *
-     * @return object Horde_UI_Tabs
-     */
-    static public function getTabs($context, &$vars)
-    {
-        global $shout;
-        $perms = &Horde_Perms::singleton();
-
-        $permprefix = 'shout:contexts:' . $context;
-
-        $tabs = new Horde_UI_Tabs('section', $vars);
-
-        if (Shout::checkRights($permprefix . ':extensions', null, 1)) {
-            $url = Horde::applicationUrl('extensions.php');
-            $tabs->addTab(_("_Extensions"), $url, 'extensions');
-        }
-
-        if (Shout::checkRights($permprefix . ':dialplan', null, 1)) {
-            $url = Horde::applicationUrl('dialplan.php');
-            $tabs->addTab(_("_Automated Attendant"), $url, 'dialplan');
-        }
-
-        if (Shout::checkRights($permprefix . ':conference', null, 1)) {
-            $url = Horde::applicationUrl('conference.php');
-            $tabs->addTab(_("_Conference Rooms"), $url, 'conference');
-        }
-
-       if (Shout::checkRights($permprefix . ':moh', null, 1)) {
-            $url = Horde::applicationUrl('moh.php');
-            $tabs->addTab(_("_Music on Hold"), $url, 'moh');
-        }
-
-        return $tabs;
     }
 
     /**
@@ -98,23 +72,25 @@ class Shout
      */
     static public function checkRights($permname, $permmask = null, $numparents = 0)
     {
-        if (Horde_Auth::isAdmin()) { return true; }
+        if ($GLOBALS['registry']->isAdmin()) {
+            return true;
+        }
 
-        $perms = &Horde_Perms::singleton();
         if ($permmask === null) {
-            $permmask = PERMS_SHOW|PERMS_READ;
+            $permmask = Horde_Perms::SHOW | Horde_Perms::READ;
         }
 
         # Default deny all permissions
         $user = 0;
         $superadmin = 0;
 
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
         $superadmin = $perms->hasPermission('shout:superadmin',
-            Horde_Auth::getAuth(), $permmask);
+            $GLOBALS['registry']->getAuth(), $permmask);
 
         while ($numparents >= 0) {
             $tmpuser = $perms->hasPermission($permname,
-                Horde_Auth::getAuth(), $permmask);
+                $GLOBALS['registry']->getAuth(), $permmask);
 
             $user = $user | $tmpuser;
             if ($numparents > 0) {
@@ -146,13 +122,13 @@ class Shout
      *    provisioning can be done automatically.  For these reasons, having
      *    user-friendly usernames and passswords is not terribly important.
      *
-     * @param string $context  Context for this credential pair
+     * @param string $account  Account for this credential pair
      *
      * @return array  Array of (string $deviceID, string $devicePassword)
      */
-    static public function genDeviceAuth($context)
+    static public function genDeviceAuth($account)
     {
-        $devid = $context . substr(uniqid(), 6);
+        $devid = $account . substr(uniqid(), 6);
 
         // This simple password generation algorithm inspired by Jon Haworth
         // http://www.laughing-buddha.net/jon/php/password/
@@ -176,4 +152,111 @@ class Shout
 
         return array($devid, $password);
     }
+
+    static public function getMenuActions()
+    {
+        $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
+        $account = $_SESSION['shout']['curaccount']['code'];
+
+        return array(
+            'jump' => array(
+                'description' => _("Jump to menu"),
+                'args' => array (
+                    'menuName' => array(
+                        'name' => _("Menu"),
+                        'type' => 'enum',
+                        'required' => true,
+                        'params' => array(self::getNames($shout->dialplan->getMenus($account)))
+                    )
+                )
+            ),
+            'ringexten' => array(
+                'description' => _("Ring extension"),
+                'args' => array(
+                    'exten' => array(
+                        'name' => _("Extension"),
+                        'type' => 'enum',
+                        'required' => true,
+                        'params' => array(self::getNames($shout->extensions->getExtensions($account)))
+                    )
+                )
+            ),
+            'leave_message' => array(
+                'description' => _("Go to voicemail"),
+                'args' => array(
+                    'exten' => array(
+                        'name' => _("Mailbox"),
+                        'type' => 'enum',
+                        'required' => true,
+                        'params' => array(self::getNames($shout->extensions->getExtensions($account)))
+                    )
+                )
+            ),
+            'conference' => array(
+                'description' => _("Enter conference"),
+                'args' => array(
+                    'roomno' => array(
+                        'name' => _("Room Number (optional)"),
+                        'type' => 'number',
+                        'required' => false
+                    )
+                )
+            ),
+            'directory' => array(
+                'description' => _("Company directory"),
+                'args' => array()
+            ),
+            'dial' => array(
+                'description' => _("Call out"),
+                'args' => array(
+                    'numbers' => array(
+                        'name' => _("Phone Number"),
+                        'type' => 'phone',
+                        'required' => true
+                    )
+                )
+            ),
+            'rewind' => array(
+                'description' => _("Restart menu"),
+                'args' => array()
+            ),
+            'admin_login' => array(
+                'description' => _("Login to Admin Functions"),
+                'args' => array()
+            ),
+            'none' => array(
+                'description' => _("No action"),
+                'args' => array()
+            )
+
+            // TODO: Actions to implement: Queue, VoicemailLogin
+        );
+    }
+
+    static public function getNames($array)
+    {
+        $res = array();
+        foreach ($array as $id => $info) {
+            $res[$id] = $info['name'];
+        }
+        return $res;
+    }
+
+    static public function getAdminTabs()
+    {
+        $tabname = Horde_Util::getFormData('view');
+        $tabs = new Horde_Core_Ui_Tabs('view', Horde_Variables::getDefaultVariables());
+        $tabs->addTab(_("Telephone Numbers"),
+                      Horde::url('admin/numbers.php'),
+                      array('view' => 'numbers', id => 'tabnumbers'));
+        $tabs->addTab(_("Accounts"),
+                      Horde::url('admin/accounts.php'),
+                      array('view' => 'accounts', id => 'tabaccounts'));
+        if ($view === null) {
+            $view = 'numbers';
+        }
+
+        echo $tabs->render($view);
+    }
+
 }

@@ -2,14 +2,23 @@
 v2.0-git
 --------
 
-
+[mms] Convert to use H4.
 
 
 ----------
-v1.1.2-cvs
+v1.1.3-cvs
 ----------
 
 
+
+
+------
+v1.1.2
+------
+
+[mms] SECURITY: Fix CSS vulnerability when viewing file data (found by
+      nightmare.lmw@anarchynet.org).
+[jan] Add Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
 
 
 ------
@@ -18,6 +27,7 @@ v1.1.1
 
 [jan] Add Croatian translation (Valentin Vidic <valentin.vidic@carnet.hr>).
 [mms] Upgrade prototype.js to v1.6.1.
+[mms] Fix create folder dialog in IE (Bug #8216).
 [jan] Don't redirect to browse view if viewing a file fails.
 
 

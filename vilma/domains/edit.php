@@ -8,14 +8,14 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-@define('VILMA_BASE', dirname(__FILE__) . '/..');
-require_once VILMA_BASE . '/lib/base.php';
-require_once 'Horde/Form.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+$vilma = Horde_Registry::appInit('vilma');
+
 require_once VILMA_BASE . '/lib/Forms/EditDomainForm.php';
 
 /* Only admin should be using this. */
 if (!Vilma::hasPermission($domain)) {
-    Horde_Auth::authenticateFailure('vilma', $e);
+    $registry->authenticateFailure('vilma', $e);
 }
 
 //$domain_id = Horde_Util::getFormData('domain_id');
@@ -25,26 +25,30 @@ $form = new EditDomainForm($vars);
 if ($form->validate($vars)) {
     $form->getInfo($vars, $info);
     $info['name'] = Horde_String::lower($info['name']);
-    $domain_id = $vilma_driver->saveDomain($info);
+    $domain_id = $vilma->driver->saveDomain($info);
     if (is_a($domain_id, 'PEAR_Error')) {
-        Horde::logMessage($domain_id, __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage($domain_id, 'ERR');
         $notification->push(sprintf(_("Error saving domain: %s."), $domain_id->getMessage()), 'horde.error');
     } else {
         $notification->push(_("Domain saved."), 'horde.success');
-        $url = Horde::applicationUrl('domains/index.php', true);
-        header('Location: ' . $url);
-        exit;
+        Horde::url('domains/index.php', true)->redirect();
     }
 }
 
 /* Render the form. */
 require_once 'Horde/Form/Renderer.php';
-$renderer = &new Horde_Form_Renderer();
-$main = Horde_Util::bufferOutput(array($form, 'renderActive'), $renderer, $vars, 'edit.php', 'post');
+$renderer = new Horde_Form_Renderer();
+
+Horde::startBuffer();
+$form->renderActive($renderer, $vars, 'edit.php', 'post');
+$main = Horde::endBuffer();
 
 $template->set('main', $main);
 $template->set('menu', Vilma::getMenu('string'));
-$template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$template->set('notify', Horde::endBuffer());
 
 require VILMA_TEMPLATES . '/common-header.inc';
 echo $template->fetch(VILMA_TEMPLATES . '/main/main.html');

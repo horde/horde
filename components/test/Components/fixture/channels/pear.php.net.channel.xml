@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<channel version="1.0" xmlns="http://pear.php.net/channel-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/channel-1.0
+http://pear.php.net/dtd/channel-1.0.xsd">
+ <name>pear.php.net</name>
+ <suggestedalias>pear</suggestedalias>
+ <summary>PHP Extension and Application Repository</summary>
+ <servers>
+  <primary>
+   <rest>
+    <baseurl type="REST1.0">http://pear.php.net/rest/</baseurl>
+    <baseurl type="REST1.1">http://pear.php.net/rest/</baseurl>
+    <baseurl type="REST1.2">http://pear.php.net/rest/</baseurl>
+    <baseurl type="REST1.3">http://pear.php.net/rest/</baseurl>
+   </rest>
+  </primary>
+  <mirror host="us.pear.php.net">
+   <rest>
+    <baseurl type="REST1.0">http://us.pear.php.net/rest/</baseurl>
+    <baseurl type="REST1.1">http://us.pear.php.net/rest/</baseurl>
+    <baseurl type="REST1.2">http://us.pear.php.net/rest/</baseurl>
+    <baseurl type="REST1.3">http://us.pear.php.net/rest/</baseurl>
+   </rest>
+  </mirror>
+  <mirror host="de.pear.php.net" ssl="yes" port="3452">
+   <rest>
+    <baseurl type="REST1.0">https://de.pear.php.net:3452/rest/</baseurl>
+    <baseurl type="REST1.1">https://de.pear.php.net:3452/rest/</baseurl>
+    <baseurl type="REST1.2">https://de.pear.php.net:3452/rest/</baseurl>
+    <baseurl type="REST1.3">https://de.pear.php.net:3452/rest/</baseurl>
+   </rest>
+  </mirror>
+ </servers>
+</channel>

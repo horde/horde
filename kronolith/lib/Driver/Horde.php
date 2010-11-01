@@ -46,13 +46,15 @@ class Kronolith_Driver_Horde extends Kronolith_Driver
      * @param boolean $hasAlarm          Only return events with alarms?
      * @param boolean $json              Store the results of the events'
      *                                   toJson() method?
+     * @param boolean $coverDates        Whether to add the events to all days
+     *                                   that they cover.
      *
      * @return array  Events in the given time range.
-     * @throws Horde_Exception
+     * @throws Kronolith_Exception
      */
     public function listEvents($startDate = null, $endDate = null,
                                $showRecurrence = false, $hasAlarm = false,
-                               $json = false)
+                               $json = false, $coverDates = true)
     {
         list($this->api, $category) = explode('/', $this->calendar, 2);
         if (!$this->_params['registry']->hasMethod($this->api . '/listTimeObjects')) {
@@ -70,13 +72,13 @@ class Kronolith_Driver_Horde extends Kronolith_Driver
                                             'year' => 9999));
         }
 
-        $eventsList = $this->_params['registry']->call($this->api . '/listTimeObjects', array(array($category), $startDate, $endDate));
-
         $startDate = clone $startDate;
         $startDate->hour = $startDate->min = $startDate->sec = 0;
         $endDate = clone $endDate;
         $endDate->hour = 23;
         $endDate->min = $endDate->sec = 59;
+
+        $eventsList = $this->_params['registry']->call($this->api . '/listTimeObjects', array(array($category), $startDate, $endDate));
 
         $results = array();
         foreach ($eventsList as $eventsListItem) {
@@ -98,14 +100,37 @@ class Kronolith_Driver_Horde extends Kronolith_Driver
             }
 
             Kronolith::addEvents($results, $event, $startDate,
-                                 $endDate, $showRecurrence, $json);
+                                 $endDate, $showRecurrence, $json, $coverDates);
         }
 
         return $results;
     }
 
     /**
+     * Updates an existing event in the backend.
+     *
+     * @param Kronolith_Event_Horde $event  The event to save.
+     *
+     * @return string  The event id.
+     * @throws Horde_Exception
+     * @throws Kronolith_Exception
+     */
+    protected function _updateEvent($event)
+    {
+        if (!isset($this->api)) {
+            list($this->api, $category) = explode('/', $this->calendar, 2);
+        }
+        $result = $this->_params['registry']->call($this->api . '/saveTimeObject', array($event->timeobject));
+        if ($result instanceof PEAR_Error) {
+            throw new Kronolith_Exception($result);
+        }
+        return $event->timeobject['id'];
+    }
+
+    /**
      * @todo: implement getTimeObject in timeobjects API.
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function getEvent($eventId = null, $start = null)
     {
@@ -123,7 +148,7 @@ class Kronolith_Driver_Horde extends Kronolith_Driver
             }
         }
 
-        return PEAR::raiseError(_("Event not found"));
+        throw new Horde_Exception_NotFound(_("Event not found"));
     }
 
 }

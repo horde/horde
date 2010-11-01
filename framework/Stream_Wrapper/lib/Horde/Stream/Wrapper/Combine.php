@@ -75,8 +75,8 @@ class Horde_Stream_Wrapper_Combine
     {
         $opts = stream_context_get_options($this->context);
         if (empty($opts['horde-combine']['data']) ||
-            !($opts['horde-combine']['data'] instanceof Horde_Support_CombineStream)) {
-            throw new Exception('A combined stream must be created using the Horde_Support_CombineStream class.');
+            !($opts['horde-combine']['data'] instanceof Horde_Stream_Wrapper_CombineStream)) {
+            throw new Exception('A combined stream must be created using the Horde_Stream_Wrapper_CombineStream interface.');
         }
 
         $data = $opts['horde-combine']['data']->getData();

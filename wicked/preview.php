@@ -8,14 +8,14 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-@define('WICKED_BASE', dirname(__FILE__));
-require_once WICKED_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('wicked');
 
 if (!($text = Horde_Util::getFormData('page_text'))) {
     exit;
 }
 
-$page = new Page();
+$page = new Wicked_Page();
 $wiki = &$page->getProcessor();
 $text = $wiki->transform($text);
 

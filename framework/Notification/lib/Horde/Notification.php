@@ -9,8 +9,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @package Horde_Notification
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Notification
  */
 class Horde_Notification
 {
@@ -22,31 +24,23 @@ class Horde_Notification
     static protected $_instances = array();
 
     /**
-     * Returns a reference to the global Notification handler, only
+     * Returns a reference to the global notification handler, only
      * creating it if it doesn't already exist.
      *
      * This method must be invoked as:
-     *   $notification = Horde_Notification::singleton()
+     *   $notification = Horde_Notification::singleton([$stack]);
      *
      * @param string $stack  The name of the message stack to use.
      *
-     * return Horde_Notification_Handler The Horde Notification handler.
+     * return Horde_Notification_Handler  The Horde Notification handler.
      */
     static public function singleton($stack = 'horde_notification_stacks')
     {
         if (!isset(self::$_instances[$stack])) {
-            $storage = new Horde_Notification_Storage_Session($stack);
-
-            $handler = new Horde_Notification_Handler_Base($storage);
-            $handler = new Horde_Notification_Handler_Decorator_Hordelog($handler);
-            if (!empty($GLOBALS['conf']['alarms']['driver'])) {
-                $handler = new Horde_Notification_Handler_Decorator_Alarm(
-                    $handler, Horde_Alarm::factory()
-                );
-            }
-            self::$_instances[$stack] = $handler;
+            self::$_instances[$stack] = new Horde_Notification_Handler(new Horde_Notification_Storage_Session($stack));
         }
 
         return self::$_instances[$stack];
     }
+
 }

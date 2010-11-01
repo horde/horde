@@ -11,34 +11,35 @@
  *
  *      http://pecl.php.net/package/PAM
  *
- * Optional parameters:
- * <pre>
- * 'service' - (string) The name of the PAM service to use when
- *             authenticating.
- *             DEFAULT: php
- * </pre>
- *
  * Copyright 2004-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
  *
- * @author  Jon Parise <jon@horde.org>
- * @package Horde_Auth
+ * @author   Jon Parise <jon@horde.org>
+ * @category Horde
+ * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
+ * @package  Auth
  */
 class Horde_Auth_Pam extends Horde_Auth_Base
 {
     /**
      * Constructor.
      *
-     * @param array $params  A hash containing connection parameters.
+     * @param array $params  Optional parameters:
+     * <pre>
+     * 'service' - (string) The name of the PAM service to use when
+     *             authenticating.
+     *             DEFAULT: php
+     * </pre>
      *
      * @throws Horde_Auth_Exception
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
-        if (!Horde_Util::extensionExists('pam_auth') && !Horde_Util::extensionExists('pam')) {
-            throw new Horde_Auth_Exception(_("PAM authentication is not available."));
+        if (!Horde_Util::extensionExists('pam_auth') &&
+            !Horde_Util::extensionExists('pam')) {
+            throw new Horde_Auth_Exception('PAM authentication is not available.');
         }
 
         if (!empty($params['service'])) {

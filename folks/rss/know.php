@@ -14,8 +14,8 @@
 $folks_authentication = 'none';
 require_once dirname(__FILE__) . '/../lib/base.php';
 
-$auth = Horde_Auth::singleton($conf['auth']['driver']);
-if (!Horde_Auth::getAuth() &&
+$auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
+if (!$GLOBALS['registry']->getAuth() &&
     (!isset($_SERVER['PHP_AUTH_USER']) ||
      !$auth->authenticate($_SERVER['PHP_AUTH_USER'], array('password' => isset($_SERVER['PHP_AUTH_PW']) ? $_SERVER['PHP_AUTH_PW'] : null)))) {
     header('WWW-Authenticate: Basic realm="Letter RSS Interface"');
@@ -43,7 +43,7 @@ foreach ($my_list as $friend) {
         continue;
     }
     foreach ($friend_friends as $friend_friend) {
-        if ($friend_friend == Horde_Auth::getAuth() ||
+        if ($friend_friend == $GLOBALS['registry']->getAuth() ||
             in_array($friend_friend, $my_list)) {
             continue;
         } elseif (isset($users[$friend_friend])) {
@@ -60,6 +60,6 @@ $users = array_keys($users);
 
 $title = _("People you might know");
 $link = Folks::getUrlFor('list', 'online', true);
-$rss_link = Horde::applicationUrl('rss/friends.php', true);
+$rss_link = Horde::url('rss/friends.php', true);
 
 require FOLKS_TEMPLATES . '/feed/feed.php';

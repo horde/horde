@@ -8,17 +8,15 @@
  *
  * @author  Ben Klang <ben@alkaloid.net>
  */
-require_once dirname(__FILE__) . '/lib/Application.php';
 
-$shout = new Shout_Application(array('init' => true));
-$context = $_SESSION['shout']['context'];
+require_once dirname(__FILE__) . '/lib/Application.php';
+$shout = Horde_Registry::appInit('shout');
 
 require_once SHOUT_BASE . '/lib/Forms/DeviceForm.php';
 
+$curaccount = $_SESSION['shout']['curaccount'];
 $action = Horde_Util::getFormData('action');
 $vars = Horde_Variables::getDefaultVariables();
-
-//$tabs = Shout::getTabs($context, $vars);
 
 $RENDERER = new Horde_Form_Renderer();
 
@@ -28,7 +26,7 @@ switch ($action) {
 case 'add':
 case 'edit':
     $vars = Horde_Variables::getDefaultVariables();
-    $vars->set('context', $context);
+    $vars->set('account', $curaccount['code']);
     $Form = new DeviceDetailsForm($vars);
 
     // Show the list if the save was successful, otherwise back to edit.
@@ -53,7 +51,7 @@ case 'edit':
 
     // Create a new add/edit form
     $devid = Horde_Util::getFormData('devid');
-    $devices = $shout->devices->getDevices($context);
+    $devices = $shout->devices->getDevices($curaccount['code']);
     $vars = new Horde_Variables($devices[$devid]);
 
     $vars->set('action', $action);
@@ -68,7 +66,7 @@ case 'delete':
     $devid = Horde_Util::getFormData('devid');
 
     $vars = Horde_Variables::getDefaultVariables();
-    $vars->set('context', $context);
+    $vars->set('account', $curaccount['code']);
     $Form = new DeviceDeleteForm($vars);
 
     $FormValid = $Form->validate($vars, true);
@@ -86,7 +84,7 @@ case 'delete':
     }
 
     $vars = Horde_Variables::getDefaultVariables(array());
-    $vars->set('context', $context);
+    $vars->set('account', $curaccount['code']);
     $Form = new DeviceDeleteForm($vars);
 
     break;
@@ -99,7 +97,7 @@ default:
 
 // Fetch the (possibly updated) list of extensions
 try {
-    $devices = $shout->devices->getDevices($context);
+    $devices = $shout->devices->getDevices($curaccount['code']);
 } catch (Exception $e) {
     $notification->push($e);
     $devices = array();
@@ -110,8 +108,6 @@ require SHOUT_TEMPLATES . '/common-header.inc';
 require SHOUT_TEMPLATES . '/menu.inc';
 
 $notification->notify();
-
-echo "<br>\n";
 
 require SHOUT_TEMPLATES . '/devices/' . $action . '.inc';
 

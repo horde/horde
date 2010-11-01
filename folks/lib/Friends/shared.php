@@ -42,11 +42,11 @@ class Folks_Friends_shared extends  Folks_Friends_sql {
      */
     public function getGroupOwner($group)
     {
-        $GLOBALS['folks_shares'] = Horde_Share::singleton('folks');
+        $GLOBALS['folks_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
 
-        $share = $GLOBALS['folks_shares']->getShareById($group);
-        if ($share instanceof PEAR_Error) {
-            return $share;
+        try {
+            $share = $GLOBALS['folks_shares']->getShareById($group);
+        } catch (Horde_Share_Exception $e) {
         }
 
         return $share->get('owner');
@@ -57,12 +57,8 @@ class Folks_Friends_shared extends  Folks_Friends_sql {
      */
     protected function _getGroups()
     {
-        $GLOBALS['folks_shares'] = Horde_Share::singleton('folks');
-
+        $GLOBALS['folks_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
         $groups = $GLOBALS['folks_shares']->listShares($this->_user, Horde_Perms::READ);
-        if ($groups instanceof PEAR_Error) {
-            return $groups;
-        }
 
         $list = array();
         foreach ($groups as $group) {
@@ -83,17 +79,13 @@ class Folks_Friends_shared extends  Folks_Friends_sql {
             return PEAR::raiseError(_("A group names cannot be empty"));
         }
 
-        $GLOBALS['folks_shares'] = Horde_Share::singleton('folks');
-
+        $GLOBALS['folks_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
         $share = $GLOBALS['folks_shares']->getShareById($group);
-        if ($share instanceof PEAR_Error) {
-            return $share;
-        }
 
         // Only owners of a group can delete them
-        if (!Horde_Auth::getAuth() ||
-            (Horde_Auth::getAuth() != $share->get('owner') &&
-             !Horde_Auth::isAdmin('folks:admin'))) {
+        if (!$GLOBALS['registry']->getAuth() ||
+            ($GLOBALS['registry']->getAuth() != $share->get('owner') &&
+             !$GLOBALS['registry']->isAdmin(array('permission' => 'folks:admin')))) {
             return PEAR::raiseError("You can rename only your own groups.");
         }
 
@@ -115,7 +107,7 @@ class Folks_Friends_shared extends  Folks_Friends_sql {
      */
     public function removeGroup($group)
     {
-        $GLOBALS['folks_shares'] = Horde_Share::singleton('folks');
+        $GLOBALS['folks_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
 
         $share = $GLOBALS['folks_shares']->getShareById($group);
         if ($share instanceof PEAR_Error) {
@@ -123,17 +115,17 @@ class Folks_Friends_shared extends  Folks_Friends_sql {
         }
 
         // Only owners of a group can delete them
-        if (!Horde_Auth::getAuth() ||
-            (Horde_Auth::getAuth() != $share->get('owner') &&
-             !Horde_Auth::isAdmin('folks:admin'))) {
+        if (!$GLOBALS['registry']->getAuth() ||
+            ($GLOBALS['registry']->getAuth() != $share->get('owner') &&
+             !$GLOBALS['registry']->isAdmin(array('permission' => 'folks:admin')))) {
             return PEAR::raiseError("You can delete only your own groups.");
         }
 
         $query = 'DELETE FROM ' . $this->_params['friends']
-                    . ' WHERE user_uid = ' . $share->_shareOb->_write_db->quote($this->_user)
-                    . ' AND group_id = ' . $share->_shareOb->_write_db->quote($share->getId());
+                    . ' WHERE user_uid = ' . $share->getShareOb()->getWriteDb()->quote($this->_user)
+                    . ' AND group_id = ' . $share->getShareOb()->getWriteDb()->quote($share->getId());
 
-        $result = $share->_shareOb->_write_db->exec($query);
+        $result = $share->getShareOb()->getWriteDb()->exec($query);
         if ($result instanceof PEAR_Error) {
             return $result;
         }
@@ -153,6 +145,7 @@ class Folks_Friends_shared extends  Folks_Friends_sql {
      * Add group
      *
      * @param string $group   Group name
+     * @throws Horde_Share_Exception
      */
     public function addGroup($name)
     {
@@ -165,18 +158,12 @@ class Folks_Friends_shared extends  Folks_Friends_sql {
             return PEAR::raiseError(sprintf(_("You already have a group named \"%s\"."), $name));
         }
 
-        $GLOBALS['folks_shares'] = Horde_Share::singleton('folks');
+        $GLOBALS['folks_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
 
-        $share = $GLOBALS['folks_shares']->newShare(hash('md5', microtime()));
-        if ($share instanceof PEAR_Error) {
-            return $share;
-        }
+        $share = $GLOBALS['folks_shares']->newShare(strval(new Horde_Support_Uuid()));
 
         $share->set('name', $name);
         $result = $GLOBALS['folks_shares']->addShare($share);
-        if ($result instanceof PEAR_Error) {
-            return $result;
-        }
 
         return $share->getId();
     }

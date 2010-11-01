@@ -46,14 +46,19 @@ $conf['server']['port'] = $_SERVER['SERVER_PORT'];
 // default.
 $conf['cookie']['domain'] = $_SERVER['SERVER_NAME'];
 
-// What path should we set cookies to? This should match where Horde
-// is on your webserver - if it is at /horde, then this should be
-// '/horde'. If Horde is installed as the document root, then this
+// What path should we set cookies to? For maximum security this should
+// match the URL where Horde is on your webserver.
+// If Horde is at /horde, then this should be '/horde'.
+// If Horde is installed as the document root, then this
 // needs to be '/' - NOT ''.
 // ** BUT, if IE will be used to access Horde modules, you should read
 //    this first (discussing issues with IE's Content Advisor):
 //    http://lists.horde.org/archives/imp/Week-of-Mon-20030113/029149.html
-$conf['cookie']['path'] = '/horde';
+$conf['cookie']['path'] = '/';
+
+// Disable the test script (horde/test.php)? For security reasons, this is
+// disabled by default.
+$conf['testdisable'] = true;
 
 // YOU SHOULDN'T CHANGE ANTHING BELOW THIS LINE.
 $conf['debug_level'] = E_ALL & ~E_NOTICE;

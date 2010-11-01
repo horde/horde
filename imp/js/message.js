@@ -1,11 +1,19 @@
 /**
  * Provides the javascript for the message.php script (standard view).
  *
+ * Copyright 2010 The Horde Project (http://www.horde.org/)
+ *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
+ * @author   Michael Slusarz <slusarz@curecanti.org>
+ * @category Horde
+ * @package  IMP
  */
 
 var ImpMessage = {
+
+    // Set in message.php: pop3delete, stripatc
 
     _arrowHandler: function(e)
     {
@@ -61,23 +69,34 @@ var ImpMessage = {
 
     _transfer: function(actID)
     {
-        var newFolder, tmbox = $('targetMbox');
-        tmbox.setValue($F('target1'));
+        var newFolder,
+            target = $F('target1'),
+            tmbox = $('targetMbox');
+
+        tmbox.setValue(target);
 
         // Check for a mailbox actually being selected.
-        if ($F(tmbox) == '*new*') {
+        if (target == "\0create") {
             newFolder = window.prompt(IMP.text.newfolder, '');
             if (newFolder != null && newFolder != '') {
                 $('newMbox').setValue(1);
                 tmbox.setValue(newFolder);
                 this.submit(actID);
             }
+        } else if (target.empty()) {
+            window.alert(IMP.text.target_mbox);
+        } else if (target.startsWith("\0notepad_") ||
+                   target.startsWith("\0tasklist_")) {
+            this.actIDconfirm = actID;
+            IMPDialog.display({
+                cancel_text: IMP.text.no,
+                form_id: 'RB_ImpMessageConfirm',
+                noinput: true,
+                ok_text: IMP.text.yes,
+                text: IMP.text.moveconfirm
+            });
         } else {
-            if (!$F(tmbox)) {
-                window.alert(IMP.text.target_mbox);
-            } else {
-                this.submit(actID);
-            }
+            this.submit(actID);
         }
     },
 
@@ -101,7 +120,7 @@ var ImpMessage = {
                 return;
             }
 
-            fixcopy = iefix.cloneNode(false);
+            fixcopy = iefix.clone(false);
             li.insert(fixcopy);
             fixcopy.clonePosition(ul);
 
@@ -161,6 +180,12 @@ var ImpMessage = {
 
         while (Object.isElement(elt)) {
             if (elt.match('.msgactions A.widget')) {
+                if (this.pop3delete && elt.hasClassName('deleteAction')) {
+                    if (!window.confirm(this.pop3delete)) {
+                        e.stop();
+                        return;
+                    }
+                }
                 if (elt.hasClassName('moveAction')) {
                     this._transfer('move_message');
                 } else if (elt.hasClassName('copyAction')) {
@@ -169,8 +194,11 @@ var ImpMessage = {
                     this.submit('spam_report');
                 } else if (elt.hasClassName('notspamAction')) {
                     this.submit('notspam_report');
-                } else if (elt.hasClassName('printAction')) {
-                    window.print();
+                } else if (elt.hasClassName('stripAllAtc')) {
+                    if (!window.confirm(this.stripatc)) {
+                        e.stop();
+                        return;
+                    }
                 }
             } else if (elt.hasClassName('unblockImageLink')) {
                 IMP.unblockImages(e);
@@ -189,3 +217,11 @@ var ImpMessage = {
 };
 
 document.observe('dom:loaded', ImpMessage.onDomLoad.bind(ImpMessage));
+
+document.observe('IMPDialog:onClick', function(e) {
+    switch (e.element().identify()) {
+    case 'RB_ImpMessageConfirm':
+        this.submit(this.actIDconfirm);
+        break;
+    }
+}.bindAsEventListener(ImpMessage));

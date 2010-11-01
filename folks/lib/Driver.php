@@ -61,18 +61,6 @@ class Folks_Driver {
     }
 
     /**
-     * Load VFS Backend
-     *
-     * @throws Horde_Exception
-     */
-    protected function _loadVFS()
-    {
-        $v_params = Horde::getVFSConfig('images');
-
-        return VFS::singleton($v_params['type'], $v_params['params']);
-    }
-
-    /**
      * Store image
      *
      * @param string $file   Image file
@@ -82,26 +70,15 @@ class Folks_Driver {
     {
         global $conf;
 
-        $vfs = $this->_loadVFS();
-        if ($vfs instanceof PEAR_Error) {
-            return $vfs;
-        }
-
+        $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images');
         $p = hash('md5', $user);
         $vfspath = Folks::VFS_PATH . '/' . substr(str_pad($p, 2, 0, STR_PAD_LEFT), -2) . '/';
         $vfs_name = $p . '.' . $conf['images']['image_type'];
-        $driver = empty($conf['image']['convert']) ? 'Gd' : 'Im';
-        $context = array('tmpdir' => Horde::getTempDir());
-        if (!empty($conf['image']['convert'])) {
-            $context['convert'] = $conf['image']['convert'];
-        }
-        $img = Horde_Image::factory($driver,
-                                    array('type' => $conf['images']['image_type'],
-                                          'context' => $context));
         try {
+            $img = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Image')->create(array('type' => $conf['images']['image_type']));
             $result = $img->loadFile($file);
-        } catch (Horde_Image_Exception $e) {
-            throw new Horde_Exception($e);
+        } catch (Horde_Exception $e) {
+            throw new Horde_Exception_Prior($e);
         }
         $dimensions = $img->getDimensions();
         if ($dimensions instanceof PEAR_Error) {
@@ -111,9 +88,10 @@ class Folks_Driver {
                         min($conf['images']['screen_height'], $dimensions['height']));
 
         // Store big image
-        $result = $vfs->writeData($vfspath . '/big/', $vfs_name, $img->raw(), true);
-        if ($result instanceof PEAR_Error) {
-            return $result;
+        try {
+            $vfs->writeData($vfspath . '/big/', $vfs_name, $img->raw(), true);
+        } catch (VFS_Exception $e) {
+            return PEAR::raiseError($result->getMessage());
         }
 
         // Resize thumbnail
@@ -132,23 +110,16 @@ class Folks_Driver {
      */
     public function deleteImage($user)
     {
-        $vfs = $this->_loadVFS();
-        if ($vfs instanceof PEAR_Error) {
-            return $vfs;
-        }
-
+        $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images');
         $p = hash('md5', $user);
         $vfspath = Folks::VFS_PATH . '/' . substr(str_pad($p, 2, 0, STR_PAD_LEFT), -2) . '/';
         $vfs_name = $p . '.' . $GLOBALS['conf']['images']['image_type'];
 
-        $result = $vfs->deleteFile($vfspath . '/big/', $vfs_name);
-        if ($result instanceof PEAR_Error) {
-            return $result;
-        }
-
-        $result = $vfs->deleteFile($vfspath . '/small/', $vfs_name);
-        if ($result instanceof PEAR_Error) {
-            return $result;
+        try {
+            $vfs->deleteFile($vfspath . '/big/', $vfs_name);
+            $vfs->deleteFile($vfspath . '/small/', $vfs_name);
+        } catch (VFS_Exception $e) {
+            return $e->getMessage();
         }
 
         // Delete cache
@@ -293,8 +264,8 @@ class Folks_Driver {
             $this->_updateOnlineStatus();
 
             // Update profile
-            if (Horde_Auth::isAuthenticated()) {
-                $this->_saveProfile(array('last_online_on' => $_SERVER['REQUEST_TIME']), Horde_Auth::getAuth());
+            if ($GLOBALS['registry']->isAuthenticated()) {
+                $this->_saveProfile(array('last_online_on' => $_SERVER['REQUEST_TIME']), $GLOBALS['registry']->getAuth());
             }
         }
 
@@ -323,7 +294,7 @@ class Folks_Driver {
         static $profiles;
 
         if ($user == null) {
-            $user = Horde_Auth::getAuth();
+            $user = $GLOBALS['registry']->getAuth();
         }
 
         if (empty($user)) {
@@ -335,12 +306,11 @@ class Folks_Driver {
         }
 
         $profile = $GLOBALS['cache']->get('folksProfile' . $user, $GLOBALS['conf']['cache']['default_lifetime']);
-        if ($profile || (Horde_Auth::isAdmin() && Horde_Util::getGet('debug'))) {
+        if ($profile || ($GLOBALS['registry']->isAdmin() && Horde_Util::getGet('debug'))) {
 
             $profile = unserialize($profile);
 
         } else {
-
             // Load profile
             $profile = $this->_getProfile($user);
             if ($profile instanceof PEAR_Error) {
@@ -359,7 +329,7 @@ class Folks_Driver {
                 $filters_params[0]['parselevel'] = Horde_Text_Filter_Text2html::NOHTML;
             }
 
-            $profile['user_description'] = Horde_Text_Filter::filter(trim($profile['user_description']), $filters, $filters_params);
+            $profile['user_description'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter(trim($profile['user_description']), $filters, $filters_params);
 
             // Get user last external data
             foreach ($profile as $key => $value) {
@@ -407,7 +377,7 @@ class Folks_Driver {
     public function changePassword($password, $user = null)
     {
         if ($user == null) {
-            $user = Horde_Auth::getAuth();
+            $user = $GLOBALS['registry']->getAuth();
         }
 
         $password = hash('md5', $password);
@@ -424,7 +394,7 @@ class Folks_Driver {
     public function saveProfile($data, $user = null)
     {
         if ($user == null) {
-            $user = Horde_Auth::getAuth();
+            $user = $GLOBALS['registry']->getAuth();
         }
 
         $GLOBALS['cache']->expire('folksProfile' . $user);
@@ -441,7 +411,7 @@ class Folks_Driver {
      */
     function logView($id)
     {
-        if (!Horde_Auth::isAuthenticated() || Horde_Auth::getAUth() == $id) {
+        if (!$GLOBALS['registry']->isAuthenticated() || Horde_Auth::getAUth() == $id) {
             return false;
         }
 
@@ -473,7 +443,7 @@ class Folks_Driver {
     */
     public function deleteUser($user)
     {
-        if  (!Horde_Auth::isAdmin()) {
+        if (!$GLOBALS['registry']->isAdmin()) {
             return false;
         }
 
@@ -485,8 +455,8 @@ class Folks_Driver {
 
         // Delete groups
         if ($GLOBALS['conf']['friends']) {
-            $shares = Horde_Share::singleton('folks');
-            $groups = $shares->listShares(Horde_Auth::getAuth(), Horde_Perms::SHOW, true);
+            $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
+            $groups = $shares->listShares($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW, true);
             foreach ($groups as $share) {
                 $result = $shares->removeShare($share);
                 if ($result instanceof PEAR_Error) {
@@ -521,7 +491,7 @@ class Folks_Driver {
     public function getAttributes($user = null, $group = null)
     {
         if ($user == null) {
-            $user = Horde_Auth::getAuth();
+            $user = $GLOBALS['registry']->getAuth();
         }
 
         $attributes = $GLOBALS['cache']->get('folksUserAttributes' . $user, $GLOBALS['conf']['cache']['default_lifetime']);
@@ -548,7 +518,7 @@ class Folks_Driver {
     public function saveAttributes($data, $group, $user = null)
     {
         if ($user == null) {
-            $user = Horde_Auth::getAuth();
+            $user = $GLOBALS['registry']->getAuth();
         }
 
         $GLOBALS['cache']->expire('folksAttributes' . $user);
@@ -623,7 +593,7 @@ class Folks_Driver {
     */
     public function saveSearch($criteria, $name)
     {
-        $GLOBALS['cache']->expire('folksearch' . Horde_Auth::getAuth());
+        $GLOBALS['cache']->expire('folksearch' . $GLOBALS['registry']->getAuth());
 
         return $this->_saveSearch($criteria, $name);
     }
@@ -635,7 +605,7 @@ class Folks_Driver {
     */
     public function getSavedSearch()
     {
-        $search = $GLOBALS['cache']->get('folksearch' . Horde_Auth::getAuth(), $GLOBALS['conf']['cache']['default_lifetime']);
+        $search = $GLOBALS['cache']->get('folksearch' . $GLOBALS['registry']->getAuth(), $GLOBALS['conf']['cache']['default_lifetime']);
         if ($search) {
             return unserialize($search);
         }
@@ -645,7 +615,7 @@ class Folks_Driver {
             return $search;
         }
 
-        $GLOBALS['cache']->set('folksearch' . Horde_Auth::getAuth(), serialize($search));
+        $GLOBALS['cache']->set('folksearch' . $GLOBALS['registry']->getAuth(), serialize($search));
 
         return $search;
     }
@@ -674,7 +644,7 @@ class Folks_Driver {
     */
     public function deleteSavedSearch($name)
     {
-        $GLOBALS['cache']->expire('folksearch' . Horde_Auth::getAuth());
+        $GLOBALS['cache']->expire('folksearch' . $GLOBALS['registry']->getAuth());
 
         return $this->_deleteSavedSearch($name);
     }
@@ -691,7 +661,7 @@ class Folks_Driver {
     public function logActivity($message, $scope = 'folks', $user = null)
     {
         if ($user == null) {
-            $user = Horde_Auth::getAuth();
+            $user = $GLOBALS['registry']->getAuth();
         }
 
         if (empty($message)) {
@@ -759,7 +729,7 @@ class Folks_Driver {
     */
     public function deleteActivity($scope, $date)
     {
-        $user = Horde_Auth::getAuth();
+        $user = $GLOBALS['registry']->getAuth();
         $GLOBALS['cache']->expire($user . '_activity');
         return $this->_deleteActivity($scope, $date, $user);
     }

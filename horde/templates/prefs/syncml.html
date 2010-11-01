@@ -1,0 +1,36 @@
+<div class="smallheader">
+ <gettext>Timestamps of successful synchronization sessions</gettext>
+</div>
+
+<if:devices>
+<input type="hidden" id="removedb" name="removedb" />
+<input type="hidden" id="removedevice" name="removedevice" />
+<table class="striped">
+ <tr>
+     <th><gettext>Device</gettext></th>
+     <th><gettext>Database</gettext></th>
+     <th><gettext>Server Time</gettext></th>
+     <th><gettext>Client Anchor</gettext></th>
+     <th><gettext>Delete</gettext></th>
+ </tr>
+<loop:devices>
+ <tr>
+  <td><tag:devices.device /></td>
+  <td><tag:devices.db /></td>
+  <td><tag:devices.time /></td>
+  <td><tag:devices.anchor /></td>
+  <td>
+      <input class="button" type="button" value="<gettext>Delete</gettext>" onclick="HordeSyncMLPrefs.removeAnchor('<tag:devices.deviceid />', '<tag:devices.rawdb />')" />
+  </td>
+ </tr>
+</loop:devices>
+</table>
+
+<p>
+ <input type="submit" class="button" name="deleteall" value="<gettext>Delete All SyncML Data</gettext>" />
+</p>
+<else:devices>
+<p>
+ <em><gettext>None</gettext></em>
+</p>
+</else:devices></if:devices>

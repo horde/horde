@@ -1,33 +1,31 @@
 <div id="listHeader" class="header">
  <span id="listCounts" class="rightFloat">
-   <?php if ($galleries_perpage < $num_galleries) printf(_("%d to %d of %d Galleries"), $start, $end, $num_galleries); else printf(ngettext("%d Gallery", "%d Galleries", $num_galleries), $num_galleries) ?>
+   <?php if ($this->_g_perPage < $this->_numGalleries) printf(_("%d to %d of %d Galleries"), $this->_start, $end, $this->_numGalleries); else printf(ngettext("%d Gallery", "%d Galleries", $this->_numGalleries), $this->_numGalleries) ?>
  </span>
- <?php if (empty($this->_params['api'])) echo Ansel::getBreadcrumbs() . ' ' . Horde::link(Horde::applicationUrl($refresh_link), _("Refresh List")) . Horde::img('reload.png', _("Refresh List"), null, $registry->getImageDir('horde')) . '</a>' ?>
+ <?php if (empty($this->_params['api'])) echo Ansel::getBreadcrumbs() . ' ' . Horde::url($refresh_link)->link(array('title' =>  _("Refresh List"))) . Horde::img('reload.png', _("Refresh List")) . '</a>' ?>
 </div>
 <?php if (empty($this->_params['api'])): ?>
 <div class="anselActions widget">
-  <?php if ($groupby == 'none'): ?>
+  <?php if ($this->_groupby == 'none'): ?>
   <div class="rightFloat">
     <?php echo _("Group by:") . ' '
-       . Horde::link(Ansel::getUrlFor('group', array('actionID' => 'groupby', 'groupby' => 'owner')))
-       . _("owner") . '</a> | '
-       . Horde::link(Ansel::getUrlFor('group', array('actionID' => 'groupby', 'groupby' => 'category'))) . _("category") . '</a>'; ?>
+       . Ansel::getUrlFor('group', array('actionID' => 'groupby', 'groupby' => 'owner'))->link() . _("owner") . '</a> | ' ?>
   </div>
   <?php endif; ?>
   <?php echo _("Sort by:") . ' '
-      . Horde::link(Horde::applicationUrl(Horde_Util::addParameter($refresh_link, 'sort', 'name')))
+      . $refresh_link->copy()->add('sort', 'name')->link()
       . _("Name") . '</a> | '
-      . Horde::link(Horde::applicationUrl(Horde_Util::addParameter($refresh_link, 'sort', 'last_modified')))
+      . $refresh_link->copy()->add('sort', 'last_modified')->link()
       . _("Date") . '</a> | '
-      . Horde::link(Horde::applicationUrl(Horde_Util::addParameter($refresh_link, 'sort', 'owner')))
+      . $refresh_link->copy()->add('sort', 'owner')->link()
       . _("Owner") . '</a>';
-  if ($sortdir) {
-      echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter($refresh_link, array('sort' => $sortby, 'sort_dir' => 0))))
-          . Horde::img('za.png', _("Ascending"), '', $registry->getImageDir('horde'))
+  if ($this->_sortDir) {
+      echo $refresh_link->copy()->add(array('sort' => $this->_sortBy, 'sort_dir' => 0))->link()
+          . Horde::img('za.png', _("Ascending"))
           . '</a>';
   } else {
-      echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter($refresh_link, array('sort' => $sortby, 'sort_dir' => 1))))
-          . Horde::img('az.png', _("Descending"), '', $registry->getImageDir('horde'))
+      echo $refresh_link->copy()->add(array('sort' => $this->_sortBy, 'sort_dir' => 1))->link()
+          . Horde::img('az.png', _("Descending"))
           . '</a>';
    }
  ?>
@@ -37,29 +35,27 @@
 <div style="float:right;width:25%;"><?php echo $this->renderWidgets() ?></div>
 <div style="float:right:width:73%;">
 <?php endif; ?>
-<?php echo $pager->render() ?>
-<table width="<?php echo ($this->countWidgets() ? 73 : 100) ?>%" style="background-color:<?php echo $style['background'] ?>;">
+<?php echo $this->_pager->render() ?>
+<table width="<?php echo ($this->countWidgets() ? 73 : 100) ?>%" style="background-color:<?php echo $style->background ?>;">
  <tr>
  <?php
- $tilesperrow = $prefs->getValue('tilesperrow');
  $cellwidth = round(100 / $tilesperrow);
  $count = 0;
- foreach ($gallerylist as $galleryId => $gallery) {
-     echo '<td width="' . $width . '%" class="ansel-tile">' . $gallery->getTile(null, $style['name'], false, $this->_params) . '</td>';
-     if (!(++$count % $prefs->getValue('tilesperrow'))) {
-         if ($count < $num_galleries) {
+ foreach ($this->_galleryList as $galleryId => $gallery) {
+     echo '<td width="' . $width . '%" class="ansel-tile">' . $gallery->getTile(null, $style, false, $this->_params) . '</td>';
+     if (!(++$count % $tilesperrow)) {
+         if ($count < $this->_numGalleries) {
              echo '</tr><tr>';
          }
      }
  }
- $tilesperrow = $prefs->getValue('tilesperrow');
  while ($count++ % $tilesperrow) {
      echo '<td width="' . $width . '%">&nbsp;</td>';
  } ?>
  </tr>
  <tr>
    <td align="center" colspan="<?php echo $tilesperrow?>">
-     <?php echo $pager->render() ?>
+     <?php echo $this->_pager->render() ?>
    </td>
  </tr>
 </table>

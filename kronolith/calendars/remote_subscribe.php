@@ -8,34 +8,41 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('kronolith');
+
+$vars = Horde_Variables::getDefaultVariables();
+$url = $vars->get('url');
+
+if (Kronolith::showAjaxView()) {
+    Horde::url('', true)->setAnchor('calendar:remote|' . rawurlencode($url))->redirect();
+}
+
 require_once KRONOLITH_BASE . '/lib/Forms/SubscribeRemoteCalendar.php';
 
 // Exit if this isn't an authenticated user or if the user can't
 // subscribe to remote calendars (remote_cals is locked).
-if (!Horde_Auth::getAuth() || $prefs->isLocked('remote_cals')) {
-    header('Location: ' . Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true));
-    exit;
+if (!$GLOBALS['registry']->getAuth() || $prefs->isLocked('remote_cals')) {
+    Horde::url($prefs->getValue('defaultview') . '.php', true)->redirect();
 }
 
-$vars = Horde_Variables::getDefaultVariables();
 $form = new Kronolith_SubscribeRemoteCalendarForm($vars);
 
 // Execute if the form is valid.
 if ($form->validate($vars)) {
-    $result = $form->execute();
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push($result, 'horde.error');
-    } else {
-        $notification->push(sprintf(_("You have been subscribed to \"%s\" (%s)."), $vars->get('name'), $vars->get('url')), 'horde.success');
+    try {
+        $form->execute();
+        $notification->push(sprintf(_("You have been subscribed to \"%s\" (%s)."), $vars->get('name'), $url), 'horde.success');
+    } catch (Exception $e) {
+        $notification->push($e, 'horde.error');
     }
-
-    header('Location: ' . Horde::applicationUrl('calendars/', true));
-    exit;
+    Horde::url('calendars/', true)->redirect();
 }
 
 $title = $form->getTitle();
+$menu = Horde::menu();
 require KRONOLITH_TEMPLATES . '/common-header.inc';
-require KRONOLITH_TEMPLATES . '/menu.inc';
+echo $menu;
+$notification->notify(array('listeners' => 'status'));
 echo $form->renderActive($form->getRenderer(), $vars, 'remote_subscribe.php', 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

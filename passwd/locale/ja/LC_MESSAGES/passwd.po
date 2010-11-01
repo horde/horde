@@ -1,0 +1,277 @@
+# Japanese translation for Passwd.
+# Copyright YEAR Horde Project
+# This file is distributed under the same license as the Passwd package.
+# Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Passwd 3.0\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2005-10-09 16:51+0200\n"
+"PO-Revision-Date: 2010-08-18 20:00+0200\n"
+"Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
+"Language-Team: Japanese <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lib/Driver/expect.php:34
+#, php-format
+msgid "%s does not exist or is not executable."
+msgstr "%s が存在しないか実行可能ではありません。"
+
+#: lib/Driver/composite.php:65
+#, php-format
+msgid "%s: unable to load driver: %s"
+msgstr "%s: ドライバーがロードできません: %s"
+
+#: lib/Driver/adsi.php:61
+#, php-format
+msgid "ADSI error %s."
+msgstr "ADSI エラー %s。"
+
+#: lib/Driver/pspasswd.php:105 lib/Driver/adsi.php:64
+msgid "Access Denied."
+msgstr "アクセスが拒否されました。"
+
+#: lib/Driver.php:85
+msgid "Backend not correctly implemented."
+msgstr "バックエンドの設定が正しくありません。"
+
+#: main.php:255 templates/main/main.inc:142
+msgid "Change Password"
+msgstr "パスワード変更"
+
+#: templates/main/main.inc:127
+msgid "Change password on:"
+msgstr "パスワード変更:"
+
+#: templates/main/main.inc:62
+msgid "Change your password"
+msgstr "パスワード変更"
+
+#: templates/main/main.inc:69
+#, php-format
+msgid "Changing password on %s"
+msgstr "%s のパスワードを変更します"
+
+#: templates/main/main.inc:114
+msgid "Confirm new password:"
+msgstr "新しいパスワードの確認："
+
+#: lib/Driver/ldap.php:95 lib/Driver/ldap.php:263 lib/Driver/kolab.php:54
+msgid "Could not bind to ldap server"
+msgstr "LDAP サーバにバインドできません"
+
+#: lib/Driver/ldap.php:70 lib/Driver/kolab.php:46
+msgid "Could not connect to ldap server"
+msgstr "LDAP サーバに接続できません"
+
+#: lib/Driver/smbpasswd.php:57
+msgid "Could not open pipe to smbpasswd."
+msgstr "smbpasswd にパイプで接続できません。"
+
+#: lib/Driver/smbpasswd.php:79
+msgid "Error sending data to smbpasswd."
+msgstr "smbpasswd へのデータ送信中エラーです。"
+
+#: lib/Driver/pspasswd.php:93
+msgid "Failed to verify old password."
+msgstr "古いパスワードが確認できません。"
+
+#: main.php:211 lib/Driver/composite.php:99
+#, php-format
+msgid "Failure in changing password on %s: %s"
+msgstr "%s のパスワード変更失敗: %s"
+
+#: lib/Driver.php:56 lib/Driver/ldap.php:264 lib/Driver/vmailmgr.php:42
+#: lib/Driver/kolab.php:78 lib/Driver/poppassd.php:114
+msgid "Incorrect Password"
+msgstr "不正なパスワードです"
+
+#: lib/Driver/ldap.php:255
+msgid "Minimum password age has not yet expired"
+msgstr "パスワードの有効期限は過ぎていません。"
+
+#: templates/main/main.inc:102
+msgid "New password:"
+msgstr "新しいパスワード："
+
+#: lib/Driver.php:112
+#, php-format
+msgid "No such backend \"%s\" found."
+msgstr "バックエンド \"%s\" が見付かりません。"
+
+#: templates/main/main.inc:90
+msgid "Old password:"
+msgstr "古いパスワード："
+
+#: lib/Driver/smbpasswd.php:47
+msgid "Passwd is not properly configured."
+msgstr "Passwd が正しく設定されていません。"
+
+#: main.php:203
+#, php-format
+msgid "Password changed on %s."
+msgstr "%s のパスワードを変更しました。"
+
+#: lib/Driver/pspasswd.php:75
+msgid "Password module can't find the supplied bin."
+msgstr "パスワードモジュールは指定されたパス（bin）を見つけられません。"
+
+#: lib/Driver/pspasswd.php:73
+msgid "Password module is missing required parameters."
+msgstr "パスワードモジュールは要求されたパラメータを見つけられません。"
+
+#: lib/Driver/adsi.php:51
+msgid "Password module is missing target parameter."
+msgstr "パスワードモジュールは目的のパラメータを見つけられません。"
+
+#: main.php:178 lib/Driver/servuftp.php:71
+msgid "Password module is not properly configured"
+msgstr "パスワードモジュールが正しく設定されていません"
+
+#: lib/Driver/servuftp.php:98
+msgid "Password module is not properly configured."
+msgstr "パスワードモジュールが正しく設定されていません。"
+
+#: templates/main/main.inc:11
+msgid "Please provide a new password"
+msgstr "新しいパスワードを入力して下さい"
+
+#: templates/main/main.inc:7
+msgid "Please provide your current password"
+msgstr "現在のパスワードを入力して下さい"
+
+#: templates/main/main.inc:15
+msgid "Please verify your new password"
+msgstr "新しいパスワードを確認して下さい"
+
+#: lib/Driver/composite.php:41
+msgid "Required 'drivers' is misconfigured in Composite configuration."
+msgstr "要求されたドライバーは正しく設定されていません。"
+
+#: lib/Driver/sql.php:46
+msgid "Required 'phptype' not specified in Passwd SQL configuration."
+msgstr "SQL 設定に必要な 'phptype' が指定されていません"
+
+#: lib/Driver/vpopmail.php:49
+msgid "Required 'phptype' not specified in SQL configuration."
+msgstr "SQL 設定に必要な 'phptype' が指定されていません"
+
+#: templates/main/main.inc:143
+msgid "Reset"
+msgstr "リセット"
+
+#: lib/Driver/sql.php:75 lib/Driver/vpopmail.php:83
+msgid "Unable to connect to SQL server."
+msgstr "SQL サーバに接続できません。"
+
+#: lib/Driver/sql.php:125 lib/Driver/poppassd.php:108
+#: lib/Driver/vpopmail.php:143
+msgid "User not found"
+msgstr "ユーザが見付かりません"
+
+#: lib/Driver/ldap.php:131 lib/Driver/kolab.php:70 lib/Driver/pine.php:231
+msgid "User not found."
+msgstr "ユーザが見付かりません"
+
+#: templates/main/main.inc:77
+msgid "Username:"
+msgstr "ユーザ名："
+
+#: main.php:47
+#, php-format
+msgid "You can't change password for user %s"
+msgstr "あなたはユーザ %s のパスワードは変更できません"
+
+#: main.php:55
+msgid "You must give your current password"
+msgstr "古いパスワードを指定して下さい"
+
+#: main.php:64
+msgid "You must give your new password"
+msgstr "新しいパスワードを指定して下さい"
+
+#: main.php:68
+msgid "You must verify your new password"
+msgstr "新しいパスワードを確認して下さい"
+
+#: main.php:88
+#, php-format
+msgid ""
+"Your new password is too long; passwords may not be more than %d characters "
+"long!"
+msgstr "新しいパスワードが長すぎます。%d 文字までにして下さい"
+
+#: main.php:167
+msgid "Your new password is too simple to guess!  Not changed!"
+msgstr "新しいパスワードは簡単すぎます！ 変更しません！"
+
+#: main.php:158
+msgid "Your new password is too simple to guess. Not changed!"
+msgstr "新しいパスワードは簡単すぎます！ 変更しません！"
+
+#: main.php:83
+#, php-format
+msgid "Your new password must be at least %d characters long!"
+msgstr "新しいパスワードは %d 文字以上にして下さい"
+
+#: main.php:76
+msgid "Your new password must be different from your current password"
+msgstr "新しいパスワードは古いパスワードとは違うものにして下さい"
+
+#: main.php:128
+#, php-format
+msgid "Your new password must contain at least %d alphabetic characters."
+msgstr "新しいパスワードに %d 個以上の英字を含めて下さい。"
+
+#: main.php:133
+#, php-format
+msgid "Your new password must contain at least %d alphanumeric characters."
+msgstr "新しいパスワードに %d 個以上の英数字を含めて下さい。"
+
+#: main.php:138
+#, php-format
+msgid ""
+"Your new password must contain at least %d different types of characters. "
+"The types are: lower, upper, numeric, and symbols."
+msgstr ""
+"新しいパスワードには少なくとも %d 個の異なる文字を含めて下さい。つまり、小文"
+"字、大文字、数字と記号です。"
+
+#: main.php:118
+#, php-format
+msgid "Your new password must contain at least %d lowercase characters."
+msgstr "新しいパスワードに %d 個以上の小文字を含めて下さい。"
+
+#: main.php:123
+#, php-format
+msgid "Your new password must contain at least %d numeric characters."
+msgstr "新しいパスワードに %d 個以上の数字を含めて下さい。"
+
+#: main.php:113
+#, php-format
+msgid "Your new password must contain at least %d uppercase characters."
+msgstr "新しいパスワードに %d 個以上の大文字を含めて下さい。"
+
+#: main.php:144
+#, php-format
+msgid "Your new password must contain less than %d whitespace characters."
+msgstr "新しいパスワードに %d 個以上の空白を含めて下さい。"
+
+#: main.php:146
+msgid "Your new password must not contain whitespace characters."
+msgstr "新しいパスワードに空白を入れないで下さい。"
+
+#: main.php:72
+msgid "Your new passwords didn't match"
+msgstr "新しいパスワードが一致しません"
+
+#: templates/main/main.inc:19
+msgid "Your passwords do not match"
+msgstr "パスワードが一致しません"
+
+#: lib/Driver/ldap.php:76
+msgid "ldap_start_tls failed"
+msgstr "ldap_start_tls に失敗しました"

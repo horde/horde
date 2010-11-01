@@ -1,6 +1,7 @@
 <?php
 /**
- * Horde_Imap_Client_Utils provides utility functions for the Horde IMAP client.
+ * Horde_Imap_Client_Utils provides utility functions for the Horde IMAP
+ * client.
  *
  * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
@@ -13,7 +14,8 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @package  Horde_Imap_Client
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Imap_Client
  */
 class Horde_Imap_Client_Utils
 {
@@ -44,9 +46,10 @@ class Horde_Imap_Client_Utils
 
         if (!empty($options['mailbox'])) {
             $str = '';
+            unset($options['mailbox']);
 
             foreach ($in as $mbox => $ids) {
-                $str .= '{' . strlen($mbox) . '}' . $mbox . $this->toSequenceString($ids, array('nosort' => !empty($options['nosort'])));
+                $str .= '{' . strlen($mbox) . '}' . $mbox . $this->toSequenceString($ids, $options);
             }
 
             return $str;
@@ -59,38 +62,35 @@ class Horde_Imap_Client_Utils
             sort($in, SORT_NUMERIC);
         }
 
-        $i = count($in);
         $first = $last = array_shift($in);
+        $i = count($in) - 1;
         $out = array();
 
-        if ($i == 1) {
-            return $first;
-        }
-
-        $i -= 2;
         reset($in);
         while (list($key, $val) = each($in)) {
-            if ((($last + 1) == $val) && ($i != $key)) {
+            if (($last + 1) == $val) {
                 $last = $val;
-            } else {
+            }
+
+            if (($i == $key) || ($last != $val)) {
                 if ($last == $first) {
                     $out[] = $first;
-                } elseif ($last == ($first + 1)) {
-                    $out[] = $first;
-                    $out[] = $last;
+                    if ($i == $key) {
+                        $out[] = $val;
+                    }
                 } else {
                     $out[] = $first . ':' . $last;
+                    if (($i == $key) && ($last != $val)) {
+                        $out[] = $val;
+                    }
                 }
-
-                if ($i == $key) {
-                    $out[] = $val;
-                } else {
-                    $first = $last = $val;
-                }
+                $first = $last = $val;
             }
         }
 
-        return implode(',', $out);
+        return empty($out)
+            ? $first
+            : implode(',', $out);
     }
 
     /**
@@ -114,53 +114,35 @@ class Horde_Imap_Client_Utils
         }
 
         if ($str[0] == '{') {
-            while ($str) {
-                if ($str[0] != '{') {
-                    break;
-                }
+            $i = strpos($str, '}');
+            $count = intval(substr($str, 1, $i - 1));
+            $mbox = substr($str, $i + 1, $count);
+            $i += $count + 1;
+            $end = strpos($str, '{', $i);
 
-                $i = strpos($str, '}');
-                $count = intval(substr($str, 1, $i - 1));
-                $mbox = substr($str, $i + 1, $count);
-                $i += $count + 1;
-                $end = strpos($str, '{', $i);
-
-                if ($end === false) {
-                    $uidstr = substr($str, $i);
-                    $str = '';
-                } else {
-                    $uidstr = substr($str, $i, $end - $i);
-                    $str = substr($str, $end);
-                }
-
-                $ids[$mbox] = $this->fromSequenceString($uidstr);
+            if ($end === false) {
+                $uidstr = substr($str, $i);
+            } else {
+                $uidstr = substr($str, $i, $end - $i);
+                $ids = $this->fromSequenceString(substr($str, $end));
             }
+
+            $ids[$mbox] = $this->fromSequenceString($uidstr);
 
             return $ids;
         }
 
         $idarray = explode(',', $str);
-        if (empty($idarray)) {
-            $idarray = array($str);
-        }
 
         reset($idarray);
         while (list(,$val) = each($idarray)) {
-            $pos = strpos($val, ':');
-            if ($pos === false) {
-                $ids[] = $val;
+            $range = explode(':', $val);
+            if (isset($range[1])) {
+                for ($i = min($range), $j = max($range); $i <= $j; ++$i) {
+                    $ids[] = $i;
+                }
             } else {
-                $low = substr($val, 0, $pos);
-                $high = substr($val, $pos + 1);
-                if ($low > $high) {
-                    $tmp = $low;
-                    $low = $high;
-                    $high = $tmp;
-                }
-
-                for (; $low <= $high; ++$low) {
-                    $ids[] = $low;
-                }
+                $ids[] = $val;
             }
         }
 
@@ -180,15 +162,39 @@ class Horde_Imap_Client_Utils
     }
 
     /**
-     * Escape IMAP output via a quoted string (see RFC 3501 [4.3]).
+     * Escape IMAP output via a quoted string (see RFC 3501 [4.3]). Note that
+     * IMAP quoted strings support 7-bit characters only and can not contain
+     * either CR or LF.
      *
-     * @param string $str  The unescaped string.
+     * @param string $str     The unescaped string.
+     * @param boolean $force  Always add quotes?
      *
      * @return string  The escaped string.
      */
-    public function escape($str)
+    public function escape($str, $force = false)
     {
-        return '"' . addcslashes($str, '"\\') . '"';
+        if (!strlen($str)) {
+            return '""';
+        }
+
+        $newstr = addcslashes($str, '"\\');
+        return (!$force && ($str == $newstr))
+            ? $str
+            : '"' . $newstr . '"';
+    }
+
+    /**
+     * Given a string, will strip out any characters that are not allowed in
+     * the IMAP 'atom' definition (RFC 3501 [9]).
+     *
+     * @param string $str  An ASCII string.
+     *
+     * @return string  The string with the disallowed atom characters stripped
+     *                 out.
+     */
+    public function stripNonAtomChars($str)
+    {
+        return str_replace(array('(', ')', '{', ' ', '%', '*', '"', '\\', ']'), '', preg_replace('/[\x00-\x1f\x7f]/', '', $str));
     }
 
     /**
@@ -209,7 +215,7 @@ class Horde_Imap_Client_Utils
         $str = Horde_Mime::decode($str, 'UTF-8');
 
         // Rule 1b: Remove superfluous whitespace.
-        $str = preg_replace("/\s{2,}/", '', $str);
+        $str = preg_replace("/\b\s+\b/", ' ', $str);
 
         if (!$str) {
             return '';
@@ -254,21 +260,22 @@ class Horde_Imap_Client_Utils
      * POP URLs take one of the following forms:
      * pop://<user>;auth=<auth>@<host>:<port>
      *
-     * @todo Support relative URLs
-     *
      * @param string $url  A URL string.
      *
-     * @return mixed  False if the URL is invalid.  If valid, a URL with the
-     *                following fields:
+     * @return mixed  False if the URL is invalid.  If valid, an array with
+     *                the following fields:
      * <pre>
      * 'auth' - (string) The authentication method to use.
-     * 'hostspec' - (string) The remote server.
+     * 'hostspec' - (string) The remote server. (Not present for relative
+     *              URLs).
      * 'mailbox' - (string) The IMAP mailbox.
      * 'partial' - (string) A byte range for use with IMAP FETCH.
-     * 'port' - (integer) The remote port.
+     * 'port' - (integer) The remote port. (Not present for relative URLs).
+     * 'relative' - (boolean) True if this is a relative URL.
      * 'search' - (string) A search query to be run with IMAP SEARCH.
      * 'section' - (string) A MIME part ID.
-     * 'type' - (string) Either 'imap' or 'pop'.
+     * 'type' - (string) Either 'imap' or 'pop'. (Not present for relative
+     *          URLs).
      * 'username' - (string) The username to use on the remote server.
      * 'uid' - (string) The IMAP UID.
      * 'uidvalidity' - (integer) The IMAP UIDVALIDITY for the given mailbox.
@@ -278,18 +285,22 @@ class Horde_Imap_Client_Utils
     public function parseUrl($url)
     {
         $data = parse_url(trim($url));
-        if (!isset($data['scheme'])) {
-            return false;
-        }
 
-        $type = strtolower($data['scheme']);
-        if (!in_array($type, array('imap', 'pop'))) {
-            return false;
+        if (isset($data['scheme'])) {
+            $type = strtolower($data['scheme']);
+            if (!in_array($type, array('imap', 'pop'))) {
+                return false;
+            }
+            $relative = false;
+        } else {
+            $type = null;
+            $relative = true;
         }
 
         $ret_array = array(
-            'hostspec' => $data['host'],
+            'hostspec' => isset($data['host']) ? $data['host'] : null,
             'port' => isset($data['port']) ? $data['port'] : 143,
+            'relative' => $relative,
             'type' => $type
         );
 
@@ -307,7 +318,7 @@ class Horde_Imap_Client_Utils
         }
 
         /* IMAP-only information. */
-        if ($type == 'imap') {
+        if (!$type || ($type == 'imap')) {
             if (isset($data['path'])) {
                 $data['path'] = ltrim($data['path'], '/');
                 $parts = explode('/;', $data['path']);
@@ -339,33 +350,36 @@ class Horde_Imap_Client_Utils
      *
      * @param array $data  The data used to create the URL. See the return
      *                     value from parseUrl() for the available fields.
-     *                     REQUIRED: 'type', 'hostspec'
      *
      * @return string  A URL string.
      */
     public function createUrl($data)
     {
-        $url = $data['type'] . '://';
+        $url = '';
 
-        if (isset($data['username'])) {
-            $url .= $data['username'];
-        }
+        if (isset($type)) {
+            $url = $data['type'] . '://';
 
-        if (isset($data['auth'])) {
-            $url .= ';AUTH=' . $data['auth'] . '@';
-        } elseif (isset($data['username'])) {
-            $url .= '@';
-        }
+            if (isset($data['username'])) {
+                $url .= $data['username'];
+            }
 
-        $url .= $data['hostspec'];
+            if (isset($data['auth'])) {
+                $url .= ';AUTH=' . $data['auth'] . '@';
+            } elseif (isset($data['username'])) {
+                $url .= '@';
+            }
 
-        if (isset($data['port']) && ($data['port'] != 143)) {
-            $url .= ':' . $data['port'];
+            $url .= $data['hostspec'];
+
+            if (isset($data['port']) && ($data['port'] != 143)) {
+                $url .= ':' . $data['port'];
+            }
         }
 
         $url .= '/';
 
-        if ($data['type'] == 'imap') {
+        if (!isset($data['type']) || ($data['type'] == 'imap')) {
             $url .= urlencode($data['mailbox']);
 
             if (!empty($data['uidvalidity'])) {

@@ -12,53 +12,90 @@
  */
 class Horde_Image_Imagick extends Horde_Image_Base
 {
+    /**
+     * The underlaying Imagick object
+     *
+     * @var Imagick
+     */
     protected $_imagick;
 
+    /**
+     * Flag for iterator, since calling nextImage on Imagick would result in a
+     * fatal error if there are no more images.
+     *
+     * @var boolean
+     */
+    private $_noMoreImages = false;
+
+    /**
+     * Capabilites of this driver.
+     *
+     * @var array
+     */
+    protected $_capabilities = array('resize',
+                                     'crop',
+                                     'rotate',
+                                     'grayscale',
+                                     'flip',
+                                     'mirror',
+                                     'sepia',
+                                     'canvas',
+                                     'multipage',
+                                     'pdf');
+    /**
+     * Const'r
+     *
+     * @see Horde_Image_Base::_construct
+     */
     public function __construct($params, $context = array())
     {
+        if (!Horde_Util::loadExtension('imagick')) {
+            throw new Horde_Image_Exception('Required PECL Imagick extension not found.');
+        }
         parent::__construct($params, $context);
-        if (Horde_Util::loadExtension('imagick')) {
-            ini_set('imagick.locale_fix', 1);
-            $this->_imagick = new Imagick();
-            if (!empty($params['filename'])) {
-                $this->loadFile($params['filename']);
-            } elseif(!empty($params['data'])) {
-                $this->loadString(md5($params['data']), $params['data']);
-            } else {
-                $this->_width = max(array($this->_width, 1));
-                $this->_height = max(array($this->_height, 1));
-                try {
-                    $this->_imagick->newImage($this->_width, $this->_height, $this->_background);
-                } catch (ImagickException $e) {
-                    throw new Horde_Image_Exception($e);
-                }
+        ini_set('imagick.locale_fix', 1);
+        $this->_imagick = new Imagick();
+        if (!empty($params['filename'])) {
+            $this->loadFile($params['filename']);
+        } elseif(!empty($params['data'])) {
+            $this->loadString($params['data']);
+        } else {
+            $this->_width = max(array($this->_width, 1));
+            $this->_height = max(array($this->_height, 1));
+            try {
+                $this->_imagick->newImage($this->_width, $this->_height, $this->_background);
+            } catch (ImagickException $e) {
+                throw new Horde_Image_Exception($e);
             }
+        }
 
+        try {
             $this->_imagick->setImageFormat($this->_type);
+        } catch (ImagickException $e) {
+            throw new Horde_Image_Exception($e);
         }
     }
 
     /**
      * Load image data from a string.
      *
-     * @TODO: iterator???
-     *
      * @param string $id
      * @param string $image_data
      *
      * @return void
      */
-    public function loadString($id, $image_data)
+    public function loadString($image_data)
     {
-        parent::loadString($id, $image_data);
+        parent::loadString($image_data);
         $this->_imagick->clear();
         try {
-            $this->_imagick->readImageBlob($image_data);
+            $this->_imagick->readImageBlob($this->_data);
+            $this->_imagick->setImageFormat($this->_type);
+            $this->_imagick->setIteratorIndex(0);
         } catch (ImagickException $e) {
             throw new Horde_Image_Exception($e);
         }
-        $this->_imagick->setFormat($this->_type);
-        $this->_imagick->setIteratorIndex(0);
+        unset($this->_data);
     }
 
     /**
@@ -77,12 +114,27 @@ class Horde_Image_Imagick extends Horde_Image_Base
         $this->_imagick->clear();
         try {
             $this->_imagick->readImageBlob($this->_data);
+            $this->_imagick->setImageFormat($this->_type);
+            $this->_imagick->setIteratorIndex(0);
         } catch (ImagickException $e) {
             throw new Horde_Image_Exception($e);
         }
-        $this->_imagick->setFormat($this->_type);
-        $this->_imagick->setIteratorIndex(0);
         unset($this->_data);
+    }
+
+    /**
+     * Set the image type
+     *
+     * @see Horde_Image_Base::setType()
+     */
+    public function setType($type)
+    {
+        parent::setType($type);
+        try {
+            $this->_imagick->setImageFormat($this->_type);
+        } catch (ImagickException $e) {
+            // Don't care about an empty wand here.
+        }
     }
 
     /*
@@ -105,6 +157,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
     {
         parent::reset();
         $this->_imagick->clear();
+        $this->_noMoreImages = false;
     }
 
     /**
@@ -141,7 +194,8 @@ class Horde_Image_Imagick extends Horde_Image_Base
             try {
                 $size = $this->_imagick->getImageGeometry();
             } catch (ImagickException $e) {
-                throw new Horde_Image_Exception($e);
+                return array('width' => 0, 'height' => 0);
+                //throw new Horde_Image_Exception($e);
             }
 
             $this->_height = $size['height'];
@@ -256,7 +310,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
      */
     public function text($string, $x, $y, $font = '', $color = 'black', $direction = 0, $fontsize = 'small')
     {
-        $fontsize = self::getFontSize($fontsize);
+        $fontsize = Horde_Image::getFontSize($fontsize);
         $pixel = new ImagickPixel($color);
         $draw = new ImagickDraw();
         $draw->setFillColor($pixel);
@@ -500,4 +554,98 @@ class Horde_Image_Imagick extends Horde_Image_Base
         $border->destroy();
     }
 
+    /**
+     * Reset the imagick iterator to the first image in the set.
+     *
+     * @return void
+     */
+    public function rewind()
+    {
+        $this->_logDebug('Horde_Image_Imagick#rewind');
+        $this->_imagick->setFirstIterator();
+        $this->_noMoreImages = false;
+    }
+
+    /**
+     * Return the current image from the internal iterator.
+     *
+     * @return Horde_Image_Imagick
+     */
+    public function current()
+    {
+        $this->_logDebug('Horde_Image_Imagick#current');
+        $params = array('data' => $this->raw());
+        $image = new Horde_Image_Imagick($params, $this->_context);
+
+        return $image;
+    }
+
+    /**
+     * Get the index of the internal iterator.
+     *
+     * @return integer
+     */
+    public function key()
+    {
+        $this->_logDebug('Horde_Image_Imagick#key: ' . $this->_imagick->getIteratorIndex());
+        return $this->_imagick->getIteratorIndex();
+    }
+
+    /**
+     * Advance the iterator
+     *
+     * @return Horde_Image_Imagick
+     */
+    public function next()
+    {
+        if ($this->_imagick->hasNextImage()) {
+            $this->_imagick->nextImage();
+            return $this->current();
+        } else {
+            $this->_noMoreImages = true;
+            return false;
+        }
+    }
+
+    /**
+     * Deterimines if the current iterator item is valid.
+     *
+     * @return boolean
+     */
+    public function valid()
+    {
+        $this->_logDebug('Horde_Image_Imagick#valid:' . print_r(!$this->_noMoreImages, true));
+        return !$this->_noMoreImages;
+    }
+
+    /**
+     * Request a specific image from the collection of images.
+     *
+     * @param integer $index  The index to return
+     *
+     * @return Horde_Image_Base
+     */
+    public function getImageAtIndex($index)
+    {
+        if ($index >= $this->_imagick->getNumberImages()) {
+            throw Horde_Image_Exception('Image index out of bounds.');
+        }
+
+        $currentIndex = $this->_imagick->getIteratorIndex();
+        $this->_imagick->setIteratorIndex($index);
+        $image = $this->current();
+        $this->_imagick->setIteratorIndex($currentIndex);
+
+        return $image;
+    }
+
+    /**
+     * Return the number of image pages available in the image object.
+     *
+     * @return integer
+     */
+    public function getImagePageCount()
+    {
+        return $this->_imagick->getNumberImages();
+    }
  }

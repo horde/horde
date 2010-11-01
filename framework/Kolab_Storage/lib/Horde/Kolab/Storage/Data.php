@@ -14,11 +14,6 @@
  */
 
 /**
- * The Autoloader allows us to omit "require/include" statements.
- */
-require_once 'Horde/Autoloader.php';
-
-/**
  * The Kolab_Data class represents a data type in a Kolab storage
  * folder on the Kolab server.
  *
@@ -116,17 +111,6 @@ class Horde_Kolab_Storage_Data
         } else {
             $this->_type_key = '';
         }
-        $this->__wakeup();
-    }
-
-    /**
-     * Initializes the object.
-     *
-     * @return NULL
-     */
-    public function __wakeup()
-    {
-        $this->_cache = &Horde_Kolab_Storage_Cache::singleton();
     }
 
     /**
@@ -145,14 +129,26 @@ class Horde_Kolab_Storage_Data
     /**
      * Set the folder handler for this data instance.
      *
+     * @param Kolab_Folder $folder The handler for the folder.
+     *
+     * @return NULL
+     */
+    public function setFolder($folder)
+    {
+        $this->_folder    = $folder;
+        $this->_cache_key = $this->getCacheKey();
+    }
+
+    /**
+     * Set the folder handler for this data instance.
+     *
      * @param Kolab_Folder &$folder The handler for the folder.
      *
      * @return NULL
      */
-    public function setFolder(&$folder)
+    public function setCache($cache)
     {
-        $this->_folder    = &$folder;
-        $this->_cache_key = $this->getCacheKey();
+        $this->_cache = $cache;
     }
 
     /**
@@ -178,7 +174,7 @@ class Horde_Kolab_Storage_Data
 
             $pos = strpos($this->_folder->name, $search_prefix);
             if ($pos !== false && $pos == 0) {
-                $key = 'user/' . Horde_Auth::getBareAuth() . '/'
+                $key = 'user/' . $GLOBALS['registry']->getAuth('bare') . '/'
                            . substr($this->_folder->name,
                                     strlen($search_prefix))
                            . $this->_type_key;
@@ -245,8 +241,7 @@ class Horde_Kolab_Storage_Data
         $result = $this->_folder->trigger();
         if (is_a($result, 'PEAR_Error')) {
             Horde::logMessage(sprintf('Failed triggering folder %s!',
-                                      $this->_folder->name),
-                              __FILE__, __LINE__, PEAR_LOG_ERR);
+                                      $this->_folder->name), 'ERR');
         }
 
         return true;
@@ -300,14 +295,14 @@ class Horde_Kolab_Storage_Data
         if ($old_object_id != null) {
             // check if object really exists
             if (!$this->objectUidExists($old_object_id)) {
-                throw new Horde_Kolab_Storage_Exception(sprintf(_("Old object %s does not exist."),
+                throw new Horde_Kolab_Storage_Exception(sprintf(Horde_Kolab_Storage_Translation::t("Old object %s does not exist."),
                                                                 $old_object_id));
             }
 
             // get the storage ID
             $id = $this->getStorageId($old_object_id);
             if ($id === false) {
-                throw new Horde_Kolab_Storage_Exception(sprintf(_("Old object %s does not map to a uid."),
+                throw new Horde_Kolab_Storage_Exception(sprintf(Horde_Kolab_Storage_Translation::t("Old object %s does not map to a uid."),
                                                                 $old_object_id));
             }
 
@@ -365,7 +360,7 @@ class Horde_Kolab_Storage_Data
                                                          false);
                     $text = $mime[0];
                 } catch (Horde_Kolab_Storage_Exception $e) {
-                    Horde::logMessage($mime, __FILE__, __LINE__, PEAR_LOG_WARNING);
+                    Horde::logMessage($mime, 'WARN');
                     $text = false;
                 }
 
@@ -374,8 +369,7 @@ class Horde_Kolab_Storage_Data
                     if (is_a($object, 'PEAR_Error')) {
                         $this->_cache->ignore($id);
                         $object->addUserInfo('STORAGE ID: ' . $id);
-                        Horde::logMessage($object, __FILE__, __LINE__,
-                                          PEAR_LOG_WARNING);
+                        Horde::logMessage($object, 'WARN');
                         continue;
                     }
                 } else {
@@ -400,8 +394,7 @@ class Horde_Kolab_Storage_Data
                             if (is_a($result, 'PEAR_Error')) {
                                 Horde::logMessage(sprintf('Failed storing attachment of object %s: %s',
                                                           $id,
-                                                          $result->getMessage()),
-                                                  __FILE__, __LINE__, PEAR_LOG_ERR);
+                                                          $result->getMessage()), 'ERR');
                                 $object = false;
                                 break;
                             }
@@ -478,11 +471,10 @@ class Horde_Kolab_Storage_Data
 
         /* Log the action on this item in the history log. */
         try {
-            $history = &Horde_History::singleton();
-
-            $history_id = $app . ':' . $this->_folder->getShareId() . ':' . $object_uid;
-            $history->log($history_id, array('action' => $action, 'ts' => $mod_ts),
-                          true);
+            $GLOBALS['injector']->getInstance('Horde_History')
+                ->log($app . ':' . $this->_folder->getShareId() . ':' . $object_uid,
+                      array('action' => $action, 'ts' => $mod_ts),
+                      true);
         } catch (Horde_Exception $e) {
         }
     }
@@ -618,7 +610,7 @@ class Horde_Kolab_Storage_Data
         $this->_cache->load($this->_cache_key, $this->_data_version);
 
         if (!isset($this->_cache->objects[$object_id])) {
-            throw new Horde_Kolab_Storage_Exception(sprintf(_("Kolab cache: Object uid %s does not exist in the cache!"), $object_id));
+            throw new Horde_Kolab_Storage_Exception(sprintf(Horde_Kolab_Storage_Translation::t("Kolab cache: Object uid %s does not exist in the cache!"), $object_id));
         }
         return $this->_cache->objects[$object_id];
     }

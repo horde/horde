@@ -1,0 +1,435 @@
+# Turkish translations for Horde_Crypt module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Crypt module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Crypt\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: lib/Horde/Crypt/Smime.php:614
+#, php-format
+msgid "%s Fingerprint"
+msgstr "%s Parmak İzi"
+
+#: lib/Horde/Crypt/Pgp.php:1240
+msgid "A passphrase is required to decrypt a message."
+msgstr "Bir mesajın şifresini açmak için geçiş tümceciği gerekmektedir."
+
+#: lib/Horde/Crypt/Pgp.php:1307
+msgid "A public PGP key is required to verify a signed message."
+msgstr "İmzalanmış iletiyi doğrulamak için PGP açık anahtarı gerekmektedir."
+
+#: lib/Horde/Crypt/Pgp.php:1164
+msgid ""
+"A public PGP key, private PGP key, and passphrase are required to sign a "
+"message."
+msgstr ""
+"İletiyi imzalamak için açık PGP anahtarı,özel PGP anahtarı ve geçiş "
+"tümceciği gerekmektedir."
+
+#: lib/Horde/Crypt/Smime.php:311
+msgid "A public S/MIME key is required to encrypt a message."
+msgstr "Bir mesajı şifrelemek için S/MIME açık anahtarı gereklidir."
+
+#: lib/Horde/Crypt/Smime.php:422
+msgid ""
+"A public S/MIME key, private S/MIME key, and passphrase are required to "
+"decrypt a message."
+msgstr ""
+"İletinin şifresini çözmek için açık S/MIME anahtarı, özel S/MIME anahtarı ve "
+"geçiş tümceciği gerekmektedir."
+
+#: lib/Horde/Crypt/Smime.php:360
+msgid ""
+"A public S/MIME key, private S/MIME key, and passphrase are required to sign "
+"a message."
+msgstr ""
+"İletiyi imzalamak için açık S/MIME anahtarı, özel S/MIME anahtarı ve geçiş "
+"tümceciği gerekmektedir."
+
+#: lib/Horde/Crypt/Smime.php:506
+msgid "CRL Distribution Points"
+msgstr "CRL Dağıtım Noktaları"
+
+#: lib/Horde/Crypt/Smime.php:609
+msgid "Certificate Details"
+msgstr "Onay Belgesi Ayrıntıları"
+
+#: lib/Horde/Crypt/Smime.php:520
+msgid "Certificate Owner"
+msgstr "Onay Belgesi Sahibi"
+
+#: lib/Horde/Crypt/Smime.php:505
+msgid "Certificate Policies"
+msgstr "Onay Belgesi Kuralları"
+
+#: lib/Horde/Crypt/Pgp.php:426
+msgid "Comment"
+msgstr "Açıklama"
+
+#: lib/Horde/Crypt/Smime.php:475
+msgid "Common Name"
+msgstr "Ortak Adı"
+
+#: lib/Horde/Crypt/Pgp.php:939
+msgid "Connection refused to the public keyserver."
+msgstr "Açık anahtar sunucusuna bağlantı reddedildi."
+
+#: lib/Horde/Crypt/Pgp.php:950
+#, php-format
+msgid "Connection refused to the public keyserver. Reason: %s (%s)"
+msgstr "Açık anahtar sunucusuna bağlantı reddedildi. Sebeb: %s (%s)"
+
+#: lib/Horde/Crypt/Pgp.php:1132
+msgid "Could not PGP encrypt message: "
+msgstr "İleti PGP ile şifrelenemedi: "
+
+#: lib/Horde/Crypt/Pgp.php:1201
+msgid "Could not PGP sign message: "
+msgstr "İleti PGP ile imzalanamadı: "
+
+#: lib/Horde/Crypt/Smime.php:330
+msgid "Could not S/MIME encrypt message."
+msgstr "İleti S/MIME ile sifrelenemedi."
+
+#: lib/Horde/Crypt/Smime.php:391
+msgid "Could not S/MIME sign message."
+msgstr "İleti S/MIME ile imzalanamadı."
+
+#: lib/Horde/Crypt/Pgp.php:1276
+msgid "Could not decrypt PGP data: "
+msgstr "PGP verisinin şifresi açılamadı: "
+
+#: lib/Horde/Crypt/Smime.php:440
+msgid "Could not decrypt S/MIME data."
+msgstr "S/MIME verisinin şifresi çözülemedi."
+
+#: lib/Horde/Crypt/Pgp.php:659
+msgid "Could not determine the recipient's e-mail address."
+msgstr "Alıcının elektronik posta adresi belirlenemedi."
+
+#: lib/Horde/Crypt/Pgp.php:759 lib/Horde/Crypt/Pgp.php:848
+msgid "Could not obtain public key from the keyserver."
+msgstr "Anahtar sunucusundan açık anahtar edinilemedi."
+
+#: lib/Horde/Crypt/Smime.php:478
+msgid "Country"
+msgstr "Ülke"
+
+#: lib/Horde/Crypt/Pgp.php:426
+msgid "E-Mail"
+msgstr "E-Posta"
+
+#: lib/Horde/Crypt/Smime.php:474
+msgid "Email Address"
+msgstr "Elektronik Posta Adresi"
+
+#: lib/Horde/Crypt/Pgp.php:1584 lib/Horde/Crypt/Pgp.php:1592
+msgid "Error while talking to pgp binary."
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:1251 lib/Horde/Crypt/Smime.php:1269
+#: lib/Horde/Crypt/Smime.php:1284
+msgid "Error while talking to smime binary."
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:425
+msgid "Expiration Date"
+msgstr "Geçerlilik Son Tarihi"
+
+#: lib/Horde/Crypt/Smime.php:586
+msgid "Exponent"
+msgstr "Üst"
+
+#: lib/Horde/Crypt/Smime.php:484
+msgid "Given Name"
+msgstr "Verilen Ad"
+
+#: lib/Horde/Crypt/Pgp.php:426
+msgid "Hash-Algorithm"
+msgstr "Hash Algoritması"
+
+#: lib/Horde/Crypt/Smime.php:534
+msgid "Issuer"
+msgstr "Çıkaran"
+
+#: lib/Horde/Crypt/Pgp.php:424
+msgid "Key Creation"
+msgstr "Anahtar Yarat"
+
+#: lib/Horde/Crypt/Pgp.php:427
+msgid "Key Fingerprint"
+msgstr "Anahtar Parmakizi"
+
+#: lib/Horde/Crypt/Pgp.php:427
+msgid "Key ID"
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:425
+msgid "Key Length"
+msgstr "Anahtar Uzunluğu"
+
+#: lib/Horde/Crypt/Pgp.php:424
+msgid "Key Type"
+msgstr "Anahtar Tipi"
+
+#: lib/Horde/Crypt/Smime.php:507
+msgid "Key Usage"
+msgstr "Anahtar Kullanımı"
+
+#: lib/Horde/Crypt/Pgp.php:782
+msgid "Key already exists on the public keyserver."
+msgstr "Açık anahtar sunucusunda anahtar zaten var."
+
+#: lib/Horde/Crypt/Smime.php:480
+msgid "Location"
+msgstr "Yer"
+
+#: lib/Horde/Crypt/Smime.php:189
+msgid ""
+"Message Verified Successfully but the signer's certificate could not be "
+"verified."
+msgstr ""
+"İleri başarıyla doğrulandı ama imzalayıcının onay belgesi doğrulanamadı."
+
+#: lib/Horde/Crypt/Smime.php:583
+msgid "Modulus"
+msgstr "Mod Tabanı"
+
+#: lib/Horde/Crypt/Pgp.php:424
+msgid "Name"
+msgstr "Ad"
+
+#: lib/Horde/Crypt/Smime.php:490
+msgid "Netscape Base URL"
+msgstr "Netscape Taban URL"
+
+#: lib/Horde/Crypt/Smime.php:492
+msgid "Netscape CA Revocation URL"
+msgstr "Netscape CA İptal URL"
+
+#: lib/Horde/Crypt/Smime.php:494
+msgid "Netscape CA policy URL"
+msgstr "Netscape CA kural URL"
+
+#: lib/Horde/Crypt/Smime.php:493
+msgid "Netscape Renewal URL"
+msgstr "Netscape Yenileme RL"
+
+#: lib/Horde/Crypt/Smime.php:491
+msgid "Netscape Revocation URL"
+msgstr "Netscape İptal URL"
+
+#: lib/Horde/Crypt/Smime.php:495
+msgid "Netscape SSL server name"
+msgstr "Netscape SSL sunucu adı"
+
+#: lib/Horde/Crypt/Smime.php:496
+msgid "Netscape certificate comment"
+msgstr "Netscape onay belgesi açıklaması"
+
+#: lib/Horde/Crypt/Smime.php:489
+msgid "Netscape certificate type"
+msgstr "Netscape onay belgesi türü"
+
+#: lib/Horde/Crypt/Pgp.php:449
+msgid "Never"
+msgstr "Asla"
+
+#: lib/Horde/Crypt/Smime.php:1217
+msgid ""
+"No path to the OpenSSL binary provided. The OpenSSL binary is necessary to "
+"work with PKCS 12 data."
+msgstr ""
+"OpenSSL ikilisine hiçbir yol bulunamadı.OpenSSL ikilisi PKCS 12 verisiyle "
+"calışmak için gerekli."
+
+#: lib/Horde/Crypt/Pgp.php:451 lib/Horde/Crypt/Pgp.php:452
+msgid "None"
+msgstr "Hiçbiri"
+
+#: lib/Horde/Crypt/Smime.php:549
+msgid "Not After"
+msgstr "Sonrasında Değil"
+
+#: lib/Horde/Crypt/Smime.php:548
+msgid "Not Before"
+msgstr "Öncesinde Değil"
+
+#: lib/Horde/Crypt/Smime.php:231
+msgid "OpenSSL error: Could not extract data from signed S/MIME part."
+msgstr "OpenSSL hatası:İmzalanmış S/MIME parçasından veri seçip çıkatılamadı."
+
+#: lib/Horde/Crypt/Smime.php:476
+msgid "Organisation"
+msgstr "Kuruluş"
+
+#: lib/Horde/Crypt/Smime.php:477
+msgid "Organisational Unit"
+msgstr "Kurumsal Birim"
+
+#: lib/Horde/Crypt/Pgp.php:1406
+msgid "PGP Digital Signature"
+msgstr "PGP Sayısal İmza"
+
+#: lib/Horde/Crypt/Pgp.php:1450
+msgid "PGP Encrypted Data"
+msgstr "PGP Şifrelenmiş Veri"
+
+#: lib/Horde/Crypt/Pgp.php:1511
+msgid "PGP Public Key"
+msgstr "PGP Açık Anahtarı"
+
+#: lib/Horde/Crypt/Pgp.php:1493
+msgid "PGP Signed/Encrypted Data"
+msgstr "PGP ile İmzalanmış/Şifrelenmiş Veri"
+
+#: lib/Horde/Crypt/Smime.php:1256
+msgid "Password incorrect"
+msgstr "Yanlış şifre"
+
+#: lib/Horde/Crypt/Pgp.php:447
+msgid "Private Key"
+msgstr "Özel Anahtar"
+
+#: lib/Horde/Crypt/Pgp.php:447
+msgid "Public Key"
+msgstr "Açık Anahtar"
+
+#: lib/Horde/Crypt/Smime.php:554
+msgid "Public Key Algorithm"
+msgstr "Açık Anahtar algoritması"
+
+#: lib/Horde/Crypt/Smime.php:553
+msgid "Public Key Info"
+msgstr "Açık Anahtar Bilgisi"
+
+#: lib/Horde/Crypt/Pgp.php:225
+msgid "Public/Private keypair not generated successfully."
+msgstr "Açık/Özel anahtar ikilisi başarıyla yaratılamadı."
+
+#: lib/Horde/Crypt/Smime.php:572
+#, php-format
+msgid "RSA Public Key (%d bit)"
+msgstr "RSA Açık Anahtarı (%d bit)"
+
+#: lib/Horde/Crypt/Pgp.php:227
+msgid "Returned error message:"
+msgstr "Dönen hata mesajı:"
+
+#: lib/Horde/Crypt/Pgp.php:1644
+msgid "Revocation key not generated successfully."
+msgstr "İptal anahtarı başarıyla oluşturulamadı."
+
+#: lib/Horde/Crypt/Smime.php:252
+msgid "S/MIME Cryptographic Signature"
+msgstr "S/MIME Şifreleme İmzası"
+
+#: lib/Horde/Crypt/Smime.php:283
+msgid "S/MIME Encrypted Message"
+msgstr "S/MIME ile Şifrelenmiş İleti"
+
+#: lib/Horde/Crypt/Smime.php:611
+msgid "Serial Number"
+msgstr "Seri Numarası"
+
+#: lib/Horde/Crypt/Smime.php:622
+msgid "Signature"
+msgstr "İmza"
+
+#: lib/Horde/Crypt/Smime.php:621
+msgid "Signature Algorithm"
+msgstr "İmza Algoritması"
+
+#: lib/Horde/Crypt/Smime.php:479
+msgid "State or Province"
+msgstr "Eyalet veya İl"
+
+#: lib/Horde/Crypt/Smime.php:481
+msgid "Street Address"
+msgstr "Sokak Adresi"
+
+#: lib/Horde/Crypt/Smime.php:483
+msgid "Surname"
+msgstr "Soyadı"
+
+#: lib/Horde/Crypt/Smime.php:482
+msgid "Telephone Number"
+msgstr "Telefon Numarası"
+
+#: lib/Horde/Crypt/Pgp.php:1311
+msgid ""
+"The detached PGP signature block is required to verify the signed message."
+msgstr ""
+"Çıkartılmış PGP imza öbeği imzalanmış iletinin doğruluğunun sağlanması için "
+"gerekmektedir."
+
+#: lib/Horde/Crypt/Smime.php:1146
+#, fuzzy
+msgid "The openssl module is required for the Horde_Crypt_Smime:: class."
+msgstr "Horde_Crypt_sime:: sınıfı openssl birimi için gerekmektedir."
+
+#: lib/Horde/Crypt/Smime.php:512
+msgid "Unable to extract certificate details"
+msgstr "Onay belgesi ayrıntıları çıkartılamıyor"
+
+#: lib/Horde/Crypt/Pgp.php:453 lib/Horde/Crypt/Pgp.php:454
+#: lib/Horde/Crypt/Pgp.php:455
+msgid "Unknown"
+msgstr "Bilinmeyen"
+
+#: lib/Horde/Crypt/Smime.php:596 lib/Horde/Crypt/Smime.php:844
+#: lib/Horde/Crypt/Smime.php:850
+msgid "Unsupported Extension"
+msgstr "Desteklenmeyen Uzantı"
+
+#: lib/Horde/Crypt/Smime.php:547
+msgid "Validity"
+msgstr "Geçerlilik"
+
+#: lib/Horde/Crypt/Smime.php:191
+#, fuzzy
+msgid "Verification failed - an unknown error has occurred."
+msgstr "Bilinmeyen bir hata oluştu."
+
+#: lib/Horde/Crypt/Smime.php:193
+msgid "Verification failed - this message may have been tampered with."
+msgstr "Doğrulama başarısız oldu - bu ileti kurcalanmış olabilir.  "
+
+#: lib/Horde/Crypt/Smime.php:610
+msgid "Version"
+msgstr "Sürüm"
+
+#: lib/Horde/Crypt/Smime.php:502
+msgid "X509v3 Basic Constraints"
+msgstr "X509v3 Temel Kısıtlamaları"
+
+#: lib/Horde/Crypt/Smime.php:501
+msgid "X509v3 Extended Key Usage"
+msgstr "X509v3 Genişletilmiş Anahtar Kullanımı"
+
+#: lib/Horde/Crypt/Smime.php:503
+msgid "X509v3 Subject Alternative Name"
+msgstr "X509v3 Öteki Konu Adı"
+
+#: lib/Horde/Crypt/Smime.php:504
+msgid "X509v3 Subject Key Identifier"
+msgstr "X509v3 Konu Anahtar Tanıtıcısı"
+
+#: lib/Horde/Crypt/Smime.php:592
+msgid "X509v3 extensions"
+msgstr "X509v3 uzantıları"
+
+#: lib/Horde/Crypt/Smime.php:1135
+msgid "not yet implemented"
+msgstr "henüz gerçekleştirilmedi"

@@ -6,6 +6,7 @@ Call Statistics Summary:<br />
 <li>Failed Calls: <?php echo $stats['failed']; ?></li>
 </ul>
 <br />
+<?php echo $pager->render(); ?>
 <table id="callDetails" class="striped">
 <tr>
 <?php

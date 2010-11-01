@@ -2,31 +2,6 @@
 /**
  * Nag storage implementation for PHP's PEAR database abstraction layer.
  *
- * Required parameters:<pre>
- *   'phptype'      The database type (e.g. 'pgsql', 'mysql', etc.).
- *   'charset'      The database's internal charset.</pre>
- *
- * Required by some database implementations:<pre>
- *   'hostspec'     The hostname of the database server.
- *   'protocol'     The communication protocol ('tcp', 'unix', etc.).
- *   'database'     The name of the database.
- *   'username'     The username with which to connect to the database.
- *   'password'     The password associated with 'username'.
- *   'options'      Additional options to pass to the database.
- *   'tty'          The TTY on which to connect to the database.
- *   'port'         The port on which to connect to the database.</pre>
- *
- * Optional values when using separate reading and writing servers, for example
- * in replication settings:<pre>
- *   'splitread'   Boolean, whether to implement the separation or not.
- *   'read'        Array containing the parameters which are different for
- *                 the read database connection, currently supported
- *                 only 'hostspec' and 'port' parameters.</pre>
- *
- * Optional parameters:<pre>
- *   'table'     The name of the tasks table in 'database'.  Default is
- *               'nag_tasks'.</pre>
- *
  * The table structure can be created by the scripts/sql/nag.sql script.
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -40,17 +15,9 @@ class Nag_Driver_Sql extends Nag_Driver {
     /**
      * Handle for the current database connection.
      *
-     * @var DB
+     * @var Horde_Db_Adapter
      */
     var $_db;
-
-    /**
-     * Handle for the current database connection, used for writing. Defaults
-     * to the same handle as $_db if a separate write database is not required.
-     *
-     * @var DB
-     */
-    var $_write_db;
 
     /**
      * Constructs a new SQL storage object.
@@ -74,27 +41,18 @@ class Nag_Driver_Sql extends Nag_Driver {
     function get($taskId)
     {
         /* Build the SQL query. */
-        $query = sprintf('SELECT * FROM %s WHERE task_owner = ? and task_id = ?',
+        $query = sprintf('SELECT * FROM %s WHERE task_id = ?',
                          $this->_params['table']);
-        $values = array($this->_tasklist, $taskId);
+        $values = array($taskId);
 
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Nag_Driver_Sql::get(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        /* Execute the query. */
-        $result = $this->_db->query($query, $values);
-
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+        try {
+            $row = $this->_db->selectOne($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            return PEAR::raiseError($e->getMessage());
         }
 
-        $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
-        if (is_a($row, 'PEAR_Error')) {
-            return $row;
-        }
-        if ($row === null) {
-            return PEAR::raiseError(_("Task ID not found"));
+        if (!$row) {
+            return PEAR::raiseError(_("Task not found"));
         }
 
         /* Decode and return the task. */
@@ -115,26 +73,19 @@ class Nag_Driver_Sql extends Nag_Driver {
                          $this->_params['table']);
         $values = array($uid);
 
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Nag_Driver_Sql::getByUID(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        /* Execute the query. */
-        $result = $this->_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+        try {
+            $row = $this->_db->selectOne($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            return PEAR::raiseError($e->getMessage());
         }
 
-        $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
-        if (is_a($row, 'PEAR_Error')) {
-            return $row;
-        }
-        if ($row === null) {
+        if (!$row) {
             return PEAR::raiseError(_("Task UID not found"));
         }
 
         /* Decode and return the task. */
         $this->_tasklist = $row['task_owner'];
+
         return new Nag_Task($this->_buildTask($row));
     }
 
@@ -164,9 +115,9 @@ class Nag_Driver_Sql extends Nag_Driver {
                   $methods = null, $uid = null, $parent = '', $private = false,
                   $owner = null, $assignee = null)
     {
-        $taskId = md5(uniqid(mt_rand(), true));
-        if ($uid === null) {
-            $uid = $this->generateUID();
+        $taskId = strval(new Horde_Support_Randomid());
+        if (is_null($uid)) {
+            $uid = strval(new Horde_Support_Guid());
         }
 
         $query = sprintf(
@@ -180,31 +131,24 @@ class Nag_Driver_Sql extends Nag_Driver {
                         $owner,
                         $assignee,
                         $taskId,
-                        Horde_String::convertCharset($name, Horde_Nls::getCharset(), $this->_params['charset']),
-                        Horde_String::convertCharset($uid, Horde_Nls::getCharset(), $this->_params['charset']),
-                        Horde_String::convertCharset($desc, Horde_Nls::getCharset(), $this->_params['charset']),
+                        Horde_String::convertCharset($name, 'UTF-8', $this->_params['charset']),
+                        Horde_String::convertCharset($uid, 'UTF-8', $this->_params['charset']),
+                        Horde_String::convertCharset($desc, 'UTF-8', $this->_params['charset']),
                         (int)$start,
                         (int)$due,
                         (int)$priority,
                         number_format($estimate, 2),
                         (int)$completed,
-                        Horde_String::convertCharset($category, Horde_Nls::getCharset(), $this->_params['charset']),
+                        Horde_String::convertCharset($category, 'UTF-8', $this->_params['charset']),
                         (int)$alarm,
-                        serialize(Horde_String::convertCharset($methods, Horde_Nls::getCharset(), $this->_params['charset'])),
+                        serialize(Horde_String::convertCharset($methods, 'UTF-8', $this->_params['charset'])),
                         (int)$private,
                         $parent);
 
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Nag_Driver_Sql::_add(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        /* Attempt the insertion query. */
-        $result = $this->_write_db->query($query, $values);
-
-        /* Return an error immediately if the query failed. */
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $result;
+        try {
+            $this->_db->insert($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            return PEAR::raiseError($e->getMessage());
         }
 
         return $taskId;
@@ -257,31 +201,26 @@ class Nag_Driver_Sql extends Nag_Driver {
                          $this->_params['table']);
         $values = array($owner,
                         $assignee,
-                        Horde_String::convertCharset($name, Horde_Nls::getCharset(), $this->_params['charset']),
-                        Horde_String::convertCharset($desc, Horde_Nls::getCharset(), $this->_params['charset']),
+                        Horde_String::convertCharset($name, 'UTF-8', $this->_params['charset']),
+                        Horde_String::convertCharset($desc, 'UTF-8', $this->_params['charset']),
                         (int)$start,
                         (int)$due,
                         (int)$priority,
                         number_format($estimate, 2),
                         (int)$completed,
                         (int)$completed_date,
-                        Horde_String::convertCharset($category, Horde_Nls::getCharset(), $this->_params['charset']),
+                        Horde_String::convertCharset($category, 'UTF-8', $this->_params['charset']),
                         (int)$alarm,
-                        serialize(Horde_String::convertCharset($methods, Horde_Nls::getCharset(), $this->_params['charset'])),
+                        serialize(Horde_String::convertCharset($methods, 'UTF-8', $this->_params['charset'])),
                         $parent,
                         (int)$private,
                         $this->_tasklist,
                         $taskId);
 
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Nag_Driver_Sql::modify(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        /* Attempt the update query. */
-        $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $result;
+        try {
+            $this->_db->update($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            return PEAR::raiseError($e->getMessage());
         }
 
         return true;
@@ -299,15 +238,10 @@ class Nag_Driver_Sql extends Nag_Driver {
                          $this->_params['table']);
         $values = array($newTasklist, $this->_tasklist, $taskId);
 
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Nag_Driver_Sql::move(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        /* Attempt the move query. */
-        $result = $this->_write_db->query($query, $values);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $result;
+        try {
+            $this->_db->update($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            return PEAR::raiseError($e->getMessage());
         }
 
         return true;
@@ -327,16 +261,10 @@ class Nag_Driver_Sql extends Nag_Driver {
                          $this->_params['table']);
         $values = array($this->_tasklist, $taskId);
 
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Nag_Driver_Sql::delete(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        /* Attempt the delete query. */
-        $result = $this->_write_db->query($query, $values);
-
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $result;
+        try {
+            $this->_db->delete($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            return PEAR::raiseError($e->getMessage());
         }
 
         return true;
@@ -353,14 +281,14 @@ class Nag_Driver_Sql extends Nag_Driver {
                          $this->_params['table']);
         $values = array($this->_tasklist);
 
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Nag_Driver_Sql::deleteAll(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
         /* Attempt the delete query. */
-        $result = $this->_write_db->query($query, $values);
+        try {
+            $this->_db->delete($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            return PEAR::raiseError($e->getMessage());
+        }
 
-        return is_a($result, 'PEAR_Error') ? $result : true;
+        return true;
     }
 
     /**
@@ -384,38 +312,32 @@ class Nag_Driver_Sql extends Nag_Driver {
             $query .= ' AND task_completed = 0 AND (task_start IS NULL OR task_start = 0 OR task_start < ?)';
             $values[] = time();
             break;
+
         case Nag::VIEW_COMPLETE:
             $query .= ' AND task_completed = 1';
             break;
+
         case Nag::VIEW_FUTURE:
             $query .= ' AND task_completed = 0 AND task_start > ?';
             $values[] = time();
             break;
+
         case Nag::VIEW_FUTURE_INCOMPLETE:
             $query .= ' AND task_completed = 0';
             break;
         }
 
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Nag_Driver_Sql::retrieve(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        /* Execute the query. */
-        $result = $this->_db->query($query, $values);
-
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
-        $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
-        if (is_a($row, 'PEAR_Error')) {
-            return $row;
+        try {
+            $result = $this->_db->selectAll($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            return PEAR::raiseError($e->getMessage());
         }
 
         /* Store the retrieved values in a fresh task list. */
         $this->tasks = new Nag_Task();
         $dict = array();
-        while ($row && !is_a($row, 'PEAR_Error')) {
+
+        foreach ($result as $row) {
             $task = new Nag_Task($this->_buildTask($row));
 
             /* Add task directly if it is a root task, otherwise store it in
@@ -425,11 +347,7 @@ class Nag_Driver_Sql extends Nag_Driver {
             } else {
                 $dict[$row['task_id']] = $task;
             }
-
-            /* Advance to the new row in the result set. */
-            $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
         }
-        $result->free();
 
         /* Build a tree from the subtasks. */
         foreach (array_keys($dict) as $key) {
@@ -460,37 +378,23 @@ class Nag_Driver_Sql extends Nag_Driver {
                          $this->_params['table']);
         $values = array($this->_tasklist, $parentId);
 
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('Nag_Driver_Sql::getChildren(): %s', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        /* Execute the query. */
-        $result = $this->_db->query($query, $values);
-
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
-        $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
-        if (is_a($row, 'PEAR_Error')) {
-            return $row;
+        try {
+            $result = $this->_db->selectAll($query, $values);
+        } catch (Horde_Db_Exception $e) {
+            return PEAR::raiseError($e->getMessage());
         }
 
         /* Store the retrieved values in a fresh task list. */
         $tasks = array();
-        while ($row && !is_a($row, 'PEAR_Error')) {
+        foreach ($result as $row) {
             $task = new Nag_Task($this->_buildTask($row));
             $children = $this->getChildren($task->id);
-            if (is_a($children, 'PEAR_Error')) {
+            if ($children instanceof PEAR_Error) {
                 return $children;
             }
             $task->mergeChildren($children);
             $tasks[] = $task;
-
-            /* Advance to the new row in the result set. */
-            $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
         }
-        $result->free();
 
         return $tasks;
     }
@@ -504,28 +408,24 @@ class Nag_Driver_Sql extends Nag_Driver {
      */
     function listAlarms($date)
     {
-        $q  = 'SELECT * FROM ' . $this->_params['table'];
-        $q .= ' WHERE task_owner = ?';
-        $q .= ' AND task_alarm > 0';
-        $q .= ' AND (task_due - (task_alarm * 60) <= ?)';
-        $q .= ' AND task_completed = 0';
+        $q = 'SELECT * FROM ' . $this->_params['table'] .
+            ' WHERE task_owner = ?' .
+            ' AND task_alarm > 0' .
+            ' AND (task_due - (task_alarm * 60) <= ?)' .
+            ' AND task_completed = 0';
         $values = array($this->_tasklist, $date);
 
-        /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL alarms list by %s: table = %s; query = "%s"',
-                                  Horde_Auth::getAuth(), $this->_params['table'], $q),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        /* Run the query. */
-        $qr = $this->_db->getAll($q, $values, DB_FETCHMODE_ASSOC);
-        if (is_a($qr, 'PEAR_Error')) {
-            return $qr;
+        try {
+            $result = $this->_db->selectAll($q, $values);
+        } catch (Horde_Db_Exception $e) {
+            return PEAR::raiseError($e->getMessage());
         }
 
         $tasks = array();
-        foreach ($qr as $row) {
+        foreach ($result as $row) {
             $tasks[$row['task_id']] = new Nag_Task($this->_buildTask($row));
         }
+
         return $tasks;
     }
 
@@ -535,38 +435,39 @@ class Nag_Driver_Sql extends Nag_Driver {
     {
         /* Make sure tasks always have a UID. */
         if (empty($row['task_uid'])) {
-            $row['task_uid'] = $this->generateUID();
+            $row['task_uid'] = strval(new Horde_Support_Guid());
 
             $query = 'UPDATE ' . $this->_params['table'] .
                 ' SET task_uid = ?' .
                 ' WHERE task_owner = ? AND task_id = ?';
             $values = array($row['task_uid'], $row['task_owner'], $row['task_id']);
 
-            /* Log the query at a DEBUG log level. */
-            Horde::logMessage(sprintf('Nag_Driver_Sql adding missing UID: %s', $query),
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
-            $this->_write_db->query($query, $values);
+            try {
+                $this->_db->update($query, $values);
+            } catch (Horde_Db_Exception $e) {}
         }
 
         /* Create a new task based on $row's values. */
-        return array('tasklist_id' => $row['task_owner'],
-                     'task_id' => $row['task_id'],
-                     'uid' => Horde_String::convertCharset($row['task_uid'], $this->_params['charset']),
-                     'parent' => $row['task_parent'],
-                     'owner' => $row['task_creator'],
-                     'assignee' => $row['task_assignee'],
-                     'name' => Horde_String::convertCharset($row['task_name'], $this->_params['charset']),
-                     'desc' => Horde_String::convertCharset($row['task_desc'], $this->_params['charset']),
-                     'category' => Horde_String::convertCharset($row['task_category'], $this->_params['charset']),
-                     'start' => $row['task_start'],
-                     'due' => $row['task_due'],
-                     'priority' => $row['task_priority'],
-                     'estimate' => (float)$row['task_estimate'],
-                     'completed' => $row['task_completed'],
-                     'completed_date' => isset($row['task_completed_date']) ? $row['task_completed_date'] : null,
-                     'alarm' => $row['task_alarm'],
-                     'methods' => Horde_String::convertCharset(@unserialize($row['task_alarm_methods']), $this->_params['charset']),
-                     'private' => $row['task_private']);
+        return array(
+            'tasklist_id' => $row['task_owner'],
+            'task_id' => $row['task_id'],
+            'uid' => Horde_String::convertCharset($row['task_uid'], $this->_params['charset'], 'UTF-8'),
+            'parent' => $row['task_parent'],
+            'owner' => $row['task_creator'],
+            'assignee' => $row['task_assignee'],
+            'name' => Horde_String::convertCharset($row['task_name'], $this->_params['charset'], 'UTF-8'),
+            'desc' => Horde_String::convertCharset($row['task_desc'], $this->_params['charset'], 'UTF-8'),
+            'category' => Horde_String::convertCharset($row['task_category'], $this->_params['charset'], 'UTF-8'),
+            'start' => $row['task_start'],
+            'due' => $row['task_due'],
+            'priority' => $row['task_priority'],
+            'estimate' => (float)$row['task_estimate'],
+            'completed' => $row['task_completed'],
+            'completed_date' => isset($row['task_completed_date']) ? $row['task_completed_date'] : null,
+            'alarm' => $row['task_alarm'],
+            'methods' => Horde_String::convertCharset(@unserialize($row['task_alarm_methods']), $this->_params['charset'], 'UTF-8'),
+            'private' => $row['task_private']
+        );
     }
 
     /**
@@ -576,63 +477,11 @@ class Nag_Driver_Sql extends Nag_Driver {
      */
     function initialize()
     {
-        Horde::assertDriverConfig($this->_params, 'storage',
-            array('phptype', 'charset'));
-
-        if (!isset($this->_params['database'])) {
-            $this->_params['database'] = '';
-        }
-        if (!isset($this->_params['username'])) {
-            $this->_params['username'] = '';
-        }
-        if (!isset($this->_params['hostspec'])) {
-            $this->_params['hostspec'] = '';
-        }
         if (!isset($this->_params['table'])) {
             $this->_params['table'] = 'nag_tasks';
         }
 
-        /* Connect to the SQL server using the supplied parameters. */
-        $this->_write_db = DB::connect($this->_params,
-                                       array('persistent' => !empty($this->_params['persistent']),
-                                             'ssl' => !empty($this->_params['ssl'])));
-        if (is_a($this->_write_db, 'PEAR_Error')) {
-            return $this->_write_db;
-        }
-
-        /* Set DB portability options. */
-        switch ($this->_write_db->phptype) {
-        case 'mssql':
-            $this->_write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-            break;
-        default:
-            $this->_write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-        }
-
-        /* Check if we need to set up the read DB connection
-         * seperately. */
-        if (!empty($this->_params['splitread'])) {
-            $params = array_merge($this->_params, $this->_params['read']);
-            $this->_db = DB::connect($params,
-                                     array('persistent' => !empty($params['persistent']),
-                                           'ssl' => !empty($params['ssl'])));
-            if (is_a($this->_db, 'PEAR_Error')) {
-                return $this->_db;
-            }
-
-            /* Set DB portability options. */
-            switch ($this->_db->phptype) {
-            case 'mssql':
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-                break;
-            default:
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-            }
-
-        } else {
-            /* Default to the same DB handle for the writer too. */
-            $this->_db =& $this->_write_db;
-        }
+        $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('nag', 'storage');
 
         return true;
     }

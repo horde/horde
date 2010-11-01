@@ -59,27 +59,32 @@ class Horde_Db_Adapter_MysqliSuite extends PHPUnit_Framework_TestSuite
 
     public function getConnection()
     {
-        if (!class_exists('CacheMock', false)) eval('class CacheMock { function get($key) { return $this->$key; } function set($key, $val) { $this->$key = $val; } } ?>');
-        $cache = new CacheMock;
+        $config = getenv('DB_ADAPTER_MYSQLI_TEST_CONFIG');
+        if ($config && !is_file($config)) {
+            $config = array_merge(array('host' => 'localhost', 'username' => '', 'password' => '', 'dbname' => 'test'), json_decode($config, true));
+        } else {
+            if (!$config) {
+                $config = dirname(__FILE__) . '/../conf.php';
+            }
+            if (file_exists($config)) {
+                require $config;
+            }
+            if (!isset($conf['db']['adapter']['mysqli']['test'])) {
+                throw new Exception('No configuration for mysqli test');
+            }
+            $config = $conf['db']['adapter']['mysqli']['test'];
+        }
 
-        $config = array(
-            'adapter' => 'mysqli',
-            'host' => 'localhost',
-            'username' => '',
-            'password' => '',
-            'dbname' => 'test',
-            'cache' => $cache,
-        );
-        if (isset($_ENV['HORDE_DB_TEST_DSN_MYSQLI']))
-            $config = array_merge($config, @json_decode($_ENV['HORDE_DB_TEST_DSN_MYSQLI'], true));
+        $conn = new Horde_Db_Adapter_Mysqli($config);
 
-        $conn = Horde_Db_Adapter::factory($config);
+        $cache = new Horde_Cache_Mock();
+        $conn->setCache($cache);
+
         return array($conn, $cache);
     }
 
     protected function setUp()
     {
-        $this->sharedFixture = $this;
+        Horde_Db_AllTests::$connFactory = $this;
     }
-
 }

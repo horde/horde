@@ -1,14 +1,12 @@
 <div class="header">
 <?php
 $right = '';
-$v = $this->versionCreated();
-if (!is_a($v, 'PEAR_Error')) {
+try {
+    $v = $this->versionCreated();
     $right .= sprintf(_("Last Modified %s by %s"), $this->formatVersionCreated(), $this->author());
-}
 
-$v = $this->version();
-if (!is_a($v, 'PEAR_Error') && $this->allows(WICKED_MODE_DIFF)) {
-    $diff_url = Horde_Util::addParameter(Horde::applicationUrl('diff.php'),
+    $v = $this->version();
+    $diff_url = Horde_Util::addParameter(Horde::url('diff.php'),
                                    array('page' => $this->pageName(),
                                          'v1' => '?',
                                          'v2' => $v));
@@ -17,7 +15,8 @@ if (!is_a($v, 'PEAR_Error') && $this->allows(WICKED_MODE_DIFF)) {
     $right .= '&nbsp;' .
         Horde::link($diff_url, $diff_alt) .
         Horde::img('diff.png', $diff_alt) . '</a>';
-}
+} catch (Wicked_Exception $e) {}
+
 if ($right) {
     echo '<div class="smallheader rightFloat">' . $right . '</div>';
 }
@@ -30,6 +29,6 @@ if ($this->referrer()) {
 
 echo htmlspecialchars($this->pageName()) . $referrerLink . ($this->isOld() ? ' (' . htmlspecialchars($v) . ')' : '') . ' ' .
  Horde::link($this->pageUrl(), _("Reload Page")) .
- Horde::img('reload.png', _("Reload Page"), '', $GLOBALS['registry']->getImageDir('horde')) ?></a>
+ Horde::img('reload.png', _("Reload Page")) ?></a>
  <?php if ($this->isLocked()) echo Horde::img('locked.png', _("Locked")) ?>
 </div>

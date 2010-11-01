@@ -30,8 +30,6 @@ class Ansel_View_EmbeddedRenderer_GalleryLink extends Ansel_View_Gallery
      */
     public function html()
     {
-        /* Read in parameters and set defaults */
-
         /* Required */
         $node = $this->_params['container'];
         if (empty($node)) {
@@ -60,30 +58,30 @@ class Ansel_View_EmbeddedRenderer_GalleryLink extends Ansel_View_Gallery
                     $gallery = $this->_getGallery($identifier);
                 }
             } catch (Horde_Exception $e) {
-                Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($e, 'ERR');
                 exit;
             }
-            if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+            if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
                 return '';
             }
 
-            /* Ideally, since gallery default images are unique in that each style
+            /* Ideally, since gallery key images are unique in that each style
              * needs it's own unique image_id, the thumbsize and style parameters
              * are mutually exclusive - specifying a specific gallery style is only
              * needed if requesting the prettythumb thumbsize value. Make sure that
              * both were not passed in.
              */
             if ($thumbsize == 'thumb') {
-                $images[] = $gallery->getDefaultImage('ansel_default');
+                $images[] = $gallery->getKeyImage(Ansel::getStyleDefinition('ansel_default'));
             } else {
                 // Default to gallery's defined style if not provided.
                 $gallery_style = empty($this->_params['style']) ?
                 $gallery->get('style') :
                 $this->_params['style'];
-                $images[] = $gallery->getDefaultImage($gallery_style);
+                $images[] = $gallery->getKeyImage($gallery_style);
             }
         }
-        $json = $GLOBALS['ansel_storage']->getImageJson($images, null, true, $thumbsize, true);
+        $json = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImageJson($images, null, true, $thumbsize, true);
 
         /* Some paths */
         $cssurl = Horde::url($GLOBALS['registry']->get('themesuri', 'ansel') . '/jsembed.css', true);

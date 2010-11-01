@@ -1,7 +1,4 @@
 <?php
-
-require_once WICKED_BASE . '/lib/Page/SyncPages.php';
-
 /**
  * Wicked SyncDiff class.
  *
@@ -13,57 +10,45 @@ require_once WICKED_BASE . '/lib/Page/SyncPages.php';
  * @author  Duck <duck@obala.net>
  * @package Wicked
  */
-class SyncDiff extends SyncPages {
+class Wicked_Page_SyncDiff extends Wicked_Page_SyncPages {
 
     /**
      * Display modes supported by this page.
      */
-    var $supportedModes = array(
-        WICKED_MODE_CONTENT => true,
-        WICKED_MODE_DISPLAY => true);
+    public $supportedModes = array(
+        Wicked::MODE_CONTENT => true,
+        Wicked::MODE_DISPLAY => true);
 
     /**
      * Sync driver
      */
-    var $_sync;
+    protected $_sync;
 
     /**
      * Working page
      */
-    var $_pageName;
+    protected $_pageName;
 
-    function SyncDiff()
+    public function __construct()
     {
-        parent::SyncPages();
-
+        parent::__construct();
         $this->_pageName = Horde_Util::getGet('sync_page');
     }
 
     /**
-     * Render this page in Content mode.
+     * Renders this page in content mode.
      *
-     * @return string  The page content, or PEAR_Error.
+     * @throws Wicked_Exception
      */
-    function content()
+    public function content()
     {
         if (!$this->_loadSyncDriver()) {
-            return PEAR::raiseError(_("Synchronization is disabled"));
+            throw new Wicked_Exception(_("Synchronization is disabled"));
         }
 
         $remote = $this->_sync->getPageSource($this->_pageName);
-        if (is_a($remote, 'PEAR_Error')) {
-            return $remote;
-        }
-
-        $page = Page::getPage($this->_pageName);
-        if (is_a($page, 'PEAR_Error')) {
-            return $page;
-        }
-
+        $page = Wicked_Page::getPage($this->_pageName);
         $local = $page->getText();
-        if (is_a($local, 'PEAR_Error')) {
-            return $local;
-        }
 
         $renderer = 'inline';
         $inverse = Horde_Util::getGet('inverse', 1);
@@ -95,26 +80,18 @@ class SyncDiff extends SyncPages {
     }
 
     /**
-     * Render this page in display or block mode.
-     *
-     * @return mixed  Returns page contents or PEAR_Error
+     * @return string  The page contents.
+     * @throws Wicked_Exception
      */
-    function displayContents($isBlock)
+    public function displayContents($isBlock)
     {
-        global $notification;
-
-        $content = $this->content();
-        if (is_a($content, 'PEAR_Error')) {
-            $notification->push($content);
-        }
-
-        return $content;
+        return $this->content();
     }
 
     /**
      * Page name
      */
-    function pageName()
+    public function pageName()
     {
         return 'SyncDiff';
     }
@@ -122,37 +99,24 @@ class SyncDiff extends SyncPages {
     /**
      * Page title
      */
-    function pageTitle()
+    public function pageTitle()
     {
-        return _("SyncDiff");
+        return _("Sync Diff");
     }
 
     /**
-     * Try to find out if any version's content is same on the local and remote
-     * servers.
+     * Tries to find out if any version's content is the same on the local and
+     * remote servers.
+     *
+     * @throws Wicked_Exception
      */
-    function _getSameVersion()
+    protected function _getSameVersion()
     {
         $local = $GLOBALS['wicked']->getHistory($this->_pageName);
-        if (is_a($local, 'PEAR_Error')) {
-            return $local;
-        }
-
         $info = $this->getLocalPageInfo($this->_pageName);
-        if (is_a($info, 'PEAR_Error')) {
-            return $info;
-        }
         $local[] = $info;
-
         $remote = $this->_sync->getPageHistory($this->_pageName);
-        if (is_a($remote, 'PEAR_Error')) {
-            return $remote;
-        }
-
         $info = $this->getRemotePageInfo($this->_pageName);
-        if (is_a($info, 'PEAR_Error')) {
-            return $info;
-        }
         $remote[] = $info;
 
         $checksums = array();

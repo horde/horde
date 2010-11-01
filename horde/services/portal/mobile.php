@@ -1,5 +1,7 @@
 <?php
 /**
+ * Mobile portal page.
+ *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -9,21 +11,23 @@
  */
 
 require_once dirname(__FILE__) . '/../../lib/Application.php';
-new Horde_Application();
+Horde_Registry::appInit('horde');
 
-$identity = Horde_Prefs_Identity::singleton();
+$identity = $injector->getInstance('Horde_Core_Factory_Identity')->create();
 $fullname = $identity->getValue('fullname');
 if (empty($fullname)) {
-    $fullname = Horde_Auth::getAuth();
+    $fullname = $registry->getAuth();
 }
 
-$m = new Horde_Mobile(_("Welcome"));
-$m->add(new Horde_Mobile_text(sprintf(_("Welcome, %s"), $fullname)));
-
+$links = array();
 foreach ($registry->listApps() as $app) {
     if ($registry->hasMobileView($app)) {
-        $m->add(new Horde_Mobile_link($registry->get('name', $app), Horde::url($registry->get('webroot', $app) . '/'), $registry->get('name', $app)));
+        $links[htmlspecialchars($registry->get('name', $app))] = Horde::url('/', false, array('app' => $app));
     }
 }
 
-$m->display();
+$title = _("Welcome");
+
+require HORDE_TEMPLATES . '/common-header.inc';
+require HORDE_TEMPLATES . '/portal/mobile.inc';
+require HORDE_TEMPLATES . '/common-footer.inc';

@@ -248,7 +248,7 @@ class Whups_Ticket {
         }
 
         if (is_null($user)) {
-            $user = Horde_Auth::getAuth();
+            $user = $GLOBALS['registry']->getAuth();
         }
         $author_email = isset($this->_changes['comment-email']['to'])
             ? $this->_changes['comment-email']['to']
@@ -427,17 +427,14 @@ class Whups_Ticket {
      */
     function addAttachment(&$attachment_name, $attachment_file)
     {
-        global $conf;
-
-        if (!isset($conf['vfs']['type'])) {
+        if (!isset($GLOBALS['conf']['vfs']['type'])) {
             return PEAR::raiseError(_("The VFS backend needs to be configured to enable attachment uploads."), 'horde.error');
         }
 
-        require_once 'VFS.php';
-        $vfs = &VFS::singleton($conf['vfs']['type'],
-                               Horde::getDriverConfig('vfs'));
-        if (is_a($vfs, 'PEAR_Error')) {
-            return $vfs;
+        try {
+            $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
+        } catch (VFS_Exception $e) {
+            return PEAR::raiseError($e->getMessage());
         }
 
         // Get existing attachment names.
@@ -463,7 +460,12 @@ class Whups_Ticket {
             }
         }
 
-        return $vfs->write($dir, $attachment_name, $attachment_file, true);
+        try {
+            $vfs->write($dir, $attachment_name, $attachment_file, true);
+            return true;
+        } catch (VFS_Exception $e) {
+            return PEAR::raiseError($e->getMessage());
+        }
     }
 
     /**
@@ -475,17 +477,14 @@ class Whups_Ticket {
      */
     function deleteAttachment($attachment_name)
     {
-        global $conf;
-
-        if (!isset($conf['vfs']['type'])) {
+        if (!isset($GLOBALS['conf']['vfs']['type'])) {
             return PEAR::raiseError(_("The VFS backend needs to be configured to enable attachment uploads."), 'horde.error');
         }
 
-        require_once 'VFS.php';
-        $vfs = &VFS::singleton($conf['vfs']['type'],
-                               Horde::getDriverConfig('vfs'));
-        if (is_a($vfs, 'PEAR_Error')) {
-            return $vfs;
+        try {
+            $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
+        } catch (VFS_Exception $e) {
+            return PEAR::raiseError($e->getMessage());
         }
 
         $dir = WHUPS_VFS_ATTACH_PATH . '/' . $this->_id;
@@ -495,7 +494,12 @@ class Whups_Ticket {
                                     'horde.error');
         }
 
-        return $vfs->deleteFile($dir, $attachment_name);
+        try {
+            $vfs->deleteFile($dir, $attachment_name);
+            return true;
+        } catch (VFS_Exception $e) {
+            return PEAR::raiseError($e->getMessage());
+        }
     }
 
     /**
@@ -525,8 +529,7 @@ class Whups_Ticket {
      */
     function show()
     {
-        header('Location: ' . Whups::urlFor('ticket', $this->_id, true));
-        exit;
+        Whups::urlFor('ticket', $this->_id, true)->redirect();
     }
 
     /**
@@ -538,10 +541,10 @@ class Whups_Ticket {
     function addCommentPerms($commentId, $group)
     {
         if (!empty($group)) {
-            $perm = &$GLOBALS['perms']->newPermission('whups:comments:'
-                                                      . $commentId);
+            $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+            $perm = $perms->newPermission('whups:comments:' . $commentId);
             $perm->addGroupPermission($group, Horde_Perms::READ, false);
-            return $GLOBALS['perms']->addPermission($perm);
+            return $perms->addPermission($perm);
         }
     }
 
@@ -722,10 +725,10 @@ class Whups_Ticket {
         }
 
         /* Build message template. */
-        $identity = &Horde_Prefs_Identity::singleton();
+        $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
         $name = $identity->getValue('fullname');
         if (empty($name)) {
-            $name = Horde_Auth::getBareAuth();
+            $name = $GLOBALS['registry']->getAuth('bare');
         }
 
         /* Get queue specific notification message text, if available. */
@@ -737,8 +740,6 @@ class Whups_Ticket {
         $message_file .= '.txt';
 
         /* Prepare message text. */
-        $message = Horde_String::convertCharset(file_get_contents($message_file),
-                                          'UTF-8');
         $message = str_replace(
             array('@@ticket_url@@',
                   '@@table@@',
@@ -748,7 +749,7 @@ class Whups_Ticket {
             array($url, $table, $dont_reply,
                   strftime($GLOBALS['prefs']->getValue('date_format')),
                   $name),
-            $message);
+            file_get_contents($message_file));
 
         /* Include Re: if the ticket isn't new for easy
          * filtering/eyeballing. */
@@ -888,7 +889,7 @@ class TicketDetailsForm extends Horde_Form {
             $grouped_hook = true;
         } catch (Horde_Exception_HookNotSet $e) {
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
         }
 
         foreach ($grouped_fields as $header => $fields) {
@@ -990,6 +991,9 @@ class TicketDetailsForm extends Horde_Form {
                     if (substr($field, 0, 10) == 'attribute_' &&
                         isset($attributes[substr($field, 10)])) {
                         $attribute = $attributes[substr($field, 10)];
+                        if (!$attribute['params']) {
+                            $attribute['params'] = array();
+                        }
                         $var = &$this->addVariable(
                             $attribute['human_name'],
                             'attribute_' . $attribute['id'],

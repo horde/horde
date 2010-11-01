@@ -1,0 +1,1679 @@
+# Romanian translations for Whups package.
+# Copyright 2003-2010 The Horde Project
+# This file is distributed under the same license as the Whups package.
+# Eugen Hoanca <eugenh@urban-grafx.ro>, 2003.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Whups 0.0.1\n"
+"POT-Creation-Date: 2003-03-04 13:46+0100\n"
+"PO-Revision-Date: 2003-03-27 10:54+0200\n"
+"Last-Translator: Eugen Hoanca <eugenh@urban-grafx.ro>\n"
+"Language-Team: Romanian <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: templates/reports/stats.inc:20
+msgid "%s days"
+msgstr "%s zile"
+
+#: admin.php:544
+msgid "'%s' added to those responsible for '%s'"
+msgstr "'%s' adaugat la responsabilii pentru '%s'"
+
+#: admin.php:583
+msgid "'%s' is no longer among those responsible for '%s'"
+msgstr "'%s' nu mai este responsabil pentru '%s'"
+
+#: templates/comment.inc:53
+msgid ", initial priority of '%s'."
+msgstr ", prioritate initiala a '%s'."
+
+#: templates/comment.inc:56
+msgid ", priority changed to '%s'."
+msgstr ", prioritate schimbata in '%s'."
+
+#: templates/comment.inc:59
+msgid ", priority is '%s'."
+msgstr ", prioritatea este '%s'."
+
+#: admin.php:110
+msgid "- Stage 1"
+msgstr "- Faza 1"
+
+#: admin.php:115
+msgid "- Stage 2"
+msgstr "- Faza 2"
+
+#: lib/Driver.php:89
+msgid "-Added By: %s\n"
+msgstr "-Adaugat de: %s\n"
+
+#: lib/Driver.php:108
+msgid "-Assigned By: %s"
+msgstr "-Atribuit de: %s"
+
+#: lib/Driver.php:107
+msgid "-Assigned To: %s"
+msgstr "-Atribuit lui: %s"
+
+#: lib/Driver.php:199
+msgid "-Comment by %s on %s:"
+msgstr "-Comentariu de %s la %s:"
+
+#: lib/Driver.php:74
+msgid "-Created By: %s\n"
+msgstr "-Creat de: %s\n"
+
+#: lib/Driver.php:106 lib/Driver.php:126 lib/Driver.php:144
+msgid "-Queue: %s"
+msgstr "-Modul: %s"
+
+#: lib/Driver.php:73 lib/Driver.php:88
+msgid "-Queue: %s\n"
+msgstr "-Modul: %s\n"
+
+#: lib/Driver.php:145
+msgid "-New Priority: %s"
+msgstr "-Prioritate noua: %s"
+
+#: lib/Driver.php:127
+msgid "-New State: %s"
+msgstr "-Stare noua: %s"
+
+#: lib/Driver.php:109
+msgid "-State: %s"
+msgstr "-Stare: %s"
+
+#: lib/Driver.php:75 lib/Driver.php:90 lib/Driver.php:110 lib/Driver.php:128
+#: lib/Driver.php:146
+msgid "-Summary:"
+msgstr "Cuprins:"
+
+#: lib/Driver.php:105 lib/Driver.php:125 lib/Driver.php:143
+msgid "-Ticket %s"
+msgstr "-Tichet %s"
+
+#: lib/Driver.php:72 lib/Driver.php:87
+msgid "-Ticket %s\n"
+msgstr "-Tichet %s\n"
+
+#: lib/api.php:148
+msgid "<i>No summary</i>"
+msgstr "<i>Fara cuprins</i>"
+
+#: lib/Admin.php:675
+msgid "Add Attribute"
+msgstr "Adaugare atribut"
+
+#: lib/Query.php:542
+msgid "Add Attribute Criterion"
+msgstr "Adaugare criteriu atribut"
+
+#: details.php:44
+msgid "Add Comment"
+msgstr "Adaugare comentariu"
+
+#: details.php:101
+msgid "Add Comment Succeeded"
+msgstr "Adaugare reusita de comentariu"
+
+#: query.php:191
+msgid "Add Criterion"
+msgstr "Adaugare criteriu"
+
+#: lib/Admin.php:99 lib/Admin.php:100
+msgid "Add Queue"
+msgstr "Adaugare modul"
+
+#: lib/Admin.php:501
+msgid "Add Priority"
+msgstr "Adaugare prioritate"
+
+#: lib/Query.php:487
+msgid "Add Property Criterion"
+msgstr "Adaugare criteriu de proprietate"
+
+#: lib/Admin.php:403
+msgid "Add State"
+msgstr "Adaugare stare"
+
+#: lib/Admin.php:14 lib/Admin.php:15
+msgid "Add Subject"
+msgstr "Adaugare subiect"
+
+#: lib/Query.php:443
+msgid "Add Text Criterion"
+msgstr "Adaugare criteriu text"
+
+#: lib/Admin.php:279 lib/Admin.php:280
+msgid "Add Type"
+msgstr "Adaugare tip"
+
+#: admin.php:110 admin.php:115
+msgid "Add Type %s"
+msgstr "Adaugare tip %s"
+
+#: lib/Query.php:391
+msgid "Add User Criterion"
+msgstr "Adaugare criteriu utilizator"
+
+#: lib/Admin.php:217
+msgid "Add Users"
+msgstr "Adaugare utilizatori"
+
+#: lib/Admin.php:588
+msgid "Add Version"
+msgstr "Adaugare versiune"
+
+#: create.php:151
+msgid "Adding your ticket failed: %s."
+msgstr "Adaugarea tichetului esuata: %s."
+
+#: lib/Search.php:177
+msgid "Additional Comment"
+msgstr "Comentariu aditional"
+
+#: lib/api.php:81 templates/menu/menu.inc:23
+msgid "Admin"
+msgstr "Admin"
+
+#: lib/Whups.php:24 lib/Whups.php:25 admin.php:81
+msgid "Administration"
+msgstr "Administrare"
+
+#: create.php:158
+msgid "An appropriate person has been notified of this request."
+msgstr "Persoana potrivita a fost notificata de aceasta cerere."
+
+#: lib/Query.php:343 templates/queryrenderer.inc:90
+msgid "And"
+msgstr "Si"
+
+#: lib/Query.php:490 lib/Query.php:491 lib/Search.php:26 lib/Search.php:54
+#: lib/Search.php:55 search.php:50 search.php:51 search.php:53 search.php:67
+msgid "Any"
+msgstr "Orice"
+
+#: lib/Search.php:124 lib/Search.php:170 lib/Search.php:245 lib/Search.php:287
+#: lib/Search.php:351
+msgid "Any Group"
+msgstr "Orice grup"
+
+#: config/prefs.php.dist:58
+msgid "Ascending"
+msgstr "Crescator"
+
+#: details.php:46
+msgid "Assign Ticket"
+msgstr "Atribuire tichet"
+
+#: details.php:144
+msgid "Assign Ticket Succeeded"
+msgstr "Atribuire tichet reusita"
+
+#: lib/Whups.php:313 lib/Search.php:96 lib/Driver.php:64
+#: config/prefs.php.dist:47
+msgid "Assigned"
+msgstr "Atribuit"
+
+#: lib/Driver/sql.php:235
+msgid "Assigned ticket to %s"
+msgstr "Tichet atribuit lui %s"
+
+#: lib/Create.php:128 lib/Search.php:175
+msgid "Assignee"
+msgstr "Atribuire"
+
+#: query.php:47
+msgid "Attribute Criteria"
+msgstr "Criteriu atribut"
+
+#: lib/Admin.php:679 lib/Admin.php:723 lib/Admin.php:748
+msgid "Attribute Description"
+msgstr "Descriere atribut"
+
+#: lib/Admin.php:678 lib/Admin.php:701 lib/Admin.php:720 lib/Admin.php:745
+msgid "Attribute Name"
+msgstr "Nume atribut"
+
+#: lib/Admin.php:348
+msgid "Attributes for this Type"
+msgstr "Atribute pentru acest Tip"
+
+#: config/prefs.php.dist:129
+msgid "Autolink to other tickets in comments"
+msgstr "Link automat pentru alte tichete in comentarii"
+
+#: reports.php:22
+msgid "Average time a ticket is unresolved"
+msgstr "Tim mediu in care un tichet nu er rezolvat"
+
+#: lib/Query.php:350
+msgid "Branch Type"
+msgstr "Tip ramura"
+
+#: lib/Query.php:44
+msgid "Case Insensitive Substring"
+msgstr "Subsir caz insenzitiv"
+
+#: lib/Query.php:45
+msgid "Case Sensitive Substring"
+msgstr "Subsir caz senzitiv"
+
+#: templates/queryrenderer.inc:25
+msgid "Change"
+msgstr "Schimba"
+
+#: lib/Query.php:361
+msgid "Change Ticket Type"
+msgstr "Shimba tip tichet"
+
+#: config/prefs.php.dist:14
+msgid ""
+"Change display options such as the color scheme and how search results are "
+"sorted."
+msgstr ""
+"Schimbare optiuni afisaj precum schema de culor si modul in care "
+"rezultatele  cautarii sunt sortate."
+
+#: config/prefs.php.dist:21
+msgid "Change options for email notifications of ticket activity."
+msgstr ""
+"Schimbare optiuni pentru notificari e-mail ale activitatzii tichetului."
+
+#: query.php:53
+msgid "Choose Action:"
+msgstr "Alegere actiune:"
+
+#: config/prefs.php.dist:139
+msgid "Chronological (oldest first)"
+msgstr "Cronologic (cele mai vechi primele)"
+
+#: config/templates.php.dist:59
+msgid "Comma Separated Values (CSV file)"
+msgstr "Valori separate prin virgula (fisier CSV)"
+
+#: lib/Search.php:132 lib/Search.php:255 lib/Search.php:297 lib/Search.php:330
+#: lib/Search.php:365 templates/queryrenderer.inc:104
+msgid "Comment"
+msgstr "Comentariu"
+
+#: templates/queryrenderer.inc:103
+msgid "Commentor"
+msgstr "Comentator"
+
+#: lib/Whups.php:18 lib/Whups.php:19 config/prefs.php.dist:71
+msgid "Create Ticket"
+msgstr "Creare Tichet"
+
+#: lib/Create.php:22
+msgid "Create Ticket - Stage 1"
+msgstr "Creare tichet - Faza 1"
+
+#: lib/Create.php:43
+msgid "Create Ticket - Stage 2"
+msgstr "Creare tichet - Faza 2"
+
+#: lib/Create.php:73
+msgid "Create Ticket - Stage 3"
+msgstr "Creare tichet - Faza 3"
+
+#: lib/Create.php:113
+msgid "Create Ticket - Stage 4"
+msgstr "Creare tichet - Faza 4"
+
+#: create.php:31
+msgid "Create Tickets"
+msgstr "Creare tichete"
+
+#: lib/Whups.php:312 lib/Search.php:95 config/prefs.php.dist:46
+msgid "Created"
+msgstr "Creat"
+
+#: query.php:182 query.php:197
+msgid "Current Query"
+msgstr "Chestionare curenta"
+
+#: lib/Query.php:366
+msgid "Current Type"
+msgstr "Tip curent"
+
+#: query.php:45
+msgid "Date Criteria"
+msgstr "Criteriu data"
+
+#: config/prefs.php.dist:102
+msgid "Date/Time format for search results"
+msgstr "Format Data/Timp pentru rezultate cautare"
+
+#: config/prefs.php.dist:49
+msgid "Default sorting criteria:"
+msgstr "Criteriu implicit de sortare:"
+
+#: config/prefs.php.dist:60
+msgid "Default sorting direction:"
+msgstr "Directie implicita de sortare:"
+
+#: query.php:54
+msgid "Delete"
+msgstr "Stergere"
+
+#: lib/Admin.php:691 admin.php:847
+msgid "Delete Attribute"
+msgstr "Stergere atribut"
+
+#: lib/Admin.php:735
+msgid "Delete Attribute Confirmation"
+msgstr "Confirmare stergere atribut"
+
+#: lib/Admin.php:115 admin.php:235
+msgid "Delete Queue"
+msgstr "Stergere modul"
+
+#: lib/Admin.php:191
+msgid "Delete Queue Confirmation"
+msgstr "Confirmare stergere modul"
+
+#: lib/Admin.php:517 admin.php:456
+msgid "Delete Priority"
+msgstr "Stergere prioritate"
+
+#: lib/Admin.php:561
+msgid "Delete Priority Confirmation"
+msgstr "Confirmare stergere prioritate"
+
+#: lib/Admin.php:423 admin.php:338
+msgid "Delete State"
+msgstr "Stergere stare"
+
+#: lib/Admin.php:473
+msgid "Delete State Confirmation"
+msgstr "Confirmare stergere stare"
+
+#: lib/Admin.php:29 admin.php:630
+msgid "Delete Subject"
+msgstr "Sterge subiect"
+
+#: lib/Admin.php:76
+msgid "Delete Subject Confirmation"
+msgstr "Confirmare stergere subiect"
+
+#: details.php:54
+msgid "Delete Ticket"
+msgstr "Stergere tichet"
+
+#: details.php:222
+msgid "Delete Ticket Succeeded"
+msgstr "Stergere tichet reusita"
+
+#: lib/Admin.php:295 admin.php:145
+msgid "Delete Type"
+msgstr "Stergere tip"
+
+#: lib/Admin.php:361
+msgid "Delete Type Confirmation"
+msgstr "Confirmare stergere tip"
+
+#: lib/Admin.php:604 admin.php:730
+msgid "Delete Version"
+msgstr "Stergere versiune"
+
+#: lib/Admin.php:648
+msgid "Delete Version Confirmation"
+msgstr "Confirmare stergere versiune"
+
+#: config/prefs.php.dist:59
+msgid "Descending"
+msgstr "Descrescator"
+
+#: lib/Create.php:102
+msgid "Description"
+msgstr "Descriere"
+
+#: config/prefs.php.dist:13
+msgid "Display Options"
+msgstr "Optiuni afisaj"
+
+#: query.php:55
+msgid "Edit"
+msgstr "Editare"
+
+#: lib/Admin.php:138 lib/Admin.php:318
+msgid "Edit %s"
+msgstr "Editare %s"
+
+#: lib/Admin.php:691 lib/Admin.php:712 admin.php:842
+msgid "Edit Attribute"
+msgstr "Editare atribut"
+
+#: lib/Admin.php:330 details.php:52
+msgid "Edit Attributes"
+msgstr "Editare atribute"
+
+#: lib/Admin.php:115 admin.php:229
+msgid "Edit Queue"
+msgstr "Editare modul"
+
+#: admin.php:57
+msgid "Edit Queues"
+msgstr "Editare module"
+
+#: lib/Admin.php:326 lib/Admin.php:374
+msgid "Edit Priorities"
+msgstr "Editare prioritati"
+
+#: lib/Admin.php:517 lib/Admin.php:538 admin.php:451
+msgid "Edit Priority"
+msgstr "Editare proritate"
+
+#: runquery.php:21
+msgid "Edit Query"
+msgstr "Editare chestionare"
+
+#: lib/Admin.php:423 lib/Admin.php:444 admin.php:333
+msgid "Edit State"
+msgstr "Editare stare"
+
+#: lib/Admin.php:322 lib/Admin.php:370
+msgid "Edit States"
+msgstr "Editare stari"
+
+#: lib/Admin.php:29 lib/Admin.php:49 admin.php:625
+msgid "Edit Subject"
+msgstr "Editare subiect"
+
+#: admin.php:59
+msgid "Edit Subjects"
+msgstr "Editare subiecte"
+
+#: lib/Admin.php:295 admin.php:139
+msgid "Edit Type"
+msgstr "Editare tip"
+
+#: admin.php:58
+msgid "Edit Types"
+msgstr "Editare tipuri"
+
+#: lib/Admin.php:604 lib/Admin.php:625 admin.php:725
+msgid "Edit Version"
+msgstr "Editare versiune"
+
+#: lib/Admin.php:690
+msgid "Edit or Delete Attributes"
+msgstr "Editare sau stergere atribute"
+
+#: lib/Admin.php:114
+msgid "Edit or Delete Queues"
+msgstr "Editare sau stergere module"
+
+#: lib/Admin.php:516
+msgid "Edit or Delete Priorities"
+msgstr "Editare sau stergere prioritati"
+
+#: lib/Admin.php:422
+msgid "Edit or Delete States"
+msgstr "Editare sau stergere stari"
+
+#: lib/Admin.php:28
+msgid "Edit or Delete Subjects"
+msgstr "Editare sau stergere subiecte"
+
+#: lib/Admin.php:294
+msgid "Edit or Delete Types"
+msgstr "Editare sau stergere tipuri"
+
+#: lib/Admin.php:603
+msgid "Edit or Delete Versions"
+msgstr "Editare sau stergere versiuni"
+
+#: lib/Admin.php:153
+msgid "Edit the permissions on this module"
+msgstr "Editare permisiuni pentru acest modul"
+
+#: lib/Admin.php:151
+msgid "Edit the users responsible for this module"
+msgstr "Editare utilizatori responsabili pentru acest modul"
+
+#: lib/Admin.php:152
+msgid "Edit the versions for this module"
+msgstr "Editare versiuni pentru modul"
+
+#: query.php:171
+msgid "Error: Unknown query form %s, defaulting to properties"
+msgstr "Eroare: chestionar necunoscut %s, intoarcere la proprietati"
+
+#: lib/Query.php:43
+msgid "Exact Match"
+msgstr "Potrivire exacta"
+
+#: runquery.php:68 runquery.php:84 query.php:37
+msgid "Execute Query"
+msgstr "Executa chestionare"
+
+#: lib/Admin.php:774
+msgid "For tickets from these modules"
+msgstr "Pentru tichete din aceste module"
+
+#: lib/Admin.php:776
+msgid "For tickets which are"
+msgstr "Pentru tichete care sunt"
+
+#: templates/menu/menu.inc:37
+msgid "Help"
+msgstr "Ajutor"
+
+#: lib/Search.php:65
+msgid "Hide Assigned"
+msgstr "Ascunde Atribuite"
+
+#: lib/Search.php:64
+msgid "Hide New"
+msgstr "Ascunde noi"
+
+#: lib/Search.php:66
+msgid "Hide Resolved"
+msgstr "Ascunde rezolvate"
+
+#: lib/Search.php:63
+msgid "Hide Unconfirmed"
+msgstr "Ascunde neconfirmate"
+
+#: query.php:57
+msgid "Hoist"
+msgstr "Ridicare"
+
+#: lib/Whups.php:305 lib/Query.php:493 templates/queryrenderer.inc:98
+#: config/prefs.php.dist:39
+msgid "Id"
+msgstr "Id"
+
+#: lib/Driver.php:159
+msgid "If you believe you have recieved this mail in error, please contact %s."
+msgstr "Daca ati primit acest mail din greseala, contactati %s."
+
+#: lib/Admin.php:779
+msgid ""
+"If you select any tickets that do not have an owner, who should we send "
+"email to?"
+msgstr "Daca selectati tichete fara proprietar, cui ar trebui trimis email ?"
+
+#: templates/comment.inc:43
+msgid "Initial state of '%s'"
+msgstr "Stare initiala de '%s'"
+
+#: query.php:58
+msgid "Insert And"
+msgstr "Inserare si"
+
+#: lib/Query.php:340
+msgid "Insert Branch"
+msgstr "Inserare ramura"
+
+#: query.php:60
+msgid "Insert Not"
+msgstr "Inserare nu"
+
+#: query.php:59
+msgid "Insert Or"
+msgstr "Inserare sau"
+
+#: query.php:61
+msgid "Insert Query"
+msgstr "Inserare chestionare"
+
+#: lib/Admin.php:166
+msgid "Keep a set of versions for this queue?"
+msgstr "Pastrare set de versiuni pentru acest modul?"
+
+#: config/prefs.php.dist:6
+msgid "Language"
+msgstr "Limba"
+
+#: lib/Query.php:621 runquery.php:23 query.php:38
+msgid "Load Query"
+msgstr "Incarcare chestionare"
+
+#: templates/menu/menu.inc:28
+msgid "Login"
+msgstr "Intrare"
+
+#: config/prefs.php.dist:100
+msgid "MM/DD/YY"
+msgstr "LL/ZZ/AA"
+
+#: config/prefs.php.dist:101
+msgid "MM/DD/YY HH:MM:SS"
+msgstr "LL/ZZ/AA OO:MM:SS"
+
+#: lib/Query.php:550
+msgid "Match"
+msgstr "Potrivire"
+
+#: lib/Query.php:396 lib/Query.php:448 lib/Query.php:551
+msgid "Match Operator"
+msgstr "Operator potrivire"
+
+#: lib/Query.php:47
+msgid "Match Pattern"
+msgstr "Potrivire sablon"
+
+#: lib/Query.php:46
+msgid "Match Word"
+msgstr "Potrivire cuvant"
+
+#: reports.php:23
+msgid "Maximum time a ticket is unresolved"
+msgstr "Timp maxim de nerezolvare a unui tichet"
+
+#: reports.php:24
+msgid "Minimum time a ticket is unresolved"
+msgstr "Timp minim de nerezolvare a unui tichet"
+
+#: lib/Whups.php:310 templates/queryrenderer.inc:99 config/prefs.php.dist:44
+msgid "Queue"
+msgstr "Modul"
+
+#: lib/Admin.php:103 lib/Admin.php:160 lib/Admin.php:203
+msgid "Queue Description"
+msgstr "Descriere modul"
+
+#: lib/Admin.php:102 lib/Admin.php:124 lib/Admin.php:157 lib/Admin.php:200
+#: lib/Create.php:26 lib/Create.php:31 lib/Search.php:39 lib/Search.php:80
+msgid "Queue Name"
+msgstr "Nume modul"
+
+#: lib/Create.php:61 lib/Search.php:83
+msgid "Queue Version"
+msgstr "Versiune modul"
+
+#: admin.php:60
+msgid "Queue/Type Matrix"
+msgstr "Modul/Tip Matrice"
+
+#: search.php:73
+msgid "Queue: %s, Ticket: %s, Category %s"
+msgstr "Modul: %s, Tichet: %s, Categorie %s"
+
+#: config/prefs.php.dist:140
+msgid "Most recent first"
+msgstr "Cele mai recente primele"
+
+#: query.php:56
+msgid "Move"
+msgstr "Mutare"
+
+#: mybugs.php:22 templates/menu/menu.inc:8
+msgid "My %s"
+msgstr "%s mea(mele)"
+
+#: mybugs.php:44
+msgid "My Assigned Tickets"
+msgstr "Tichetele atribuite mie"
+
+#: config/prefs.php.dist:69
+msgid "My Bugs"
+msgstr "Problemele mele"
+
+#: mybugs.php:61
+msgid "My Open Requests"
+msgstr "Cererile deschise ale mele"
+
+#: search.php:121
+msgid "My Searches"
+msgstr "Cautarile mele"
+
+#: lib/Query.php:600 lib/Query.php:635
+msgid "Name"
+msgstr "Nume"
+
+#: config/templates.php.dist:44
+msgid "Name, Email Report"
+msgstr "Nume, raport email"
+
+#: lib/Driver.php:63
+msgid "New"
+msgstr "Nou(a)"
+
+#: lib/Search.php:296 lib/Search.php:329
+msgid "New Priority"
+msgstr "Prioritate noua"
+
+#: query.php:36
+msgid "New Query"
+msgstr "Chestionare noua"
+
+#: lib/Search.php:176 lib/Search.php:254
+msgid "New State"
+msgstr "Stare noua"
+
+#: lib/Block/summary.php:41 lib/api.php:107 templates/menu/menu.inc:11
+msgid "New Ticket"
+msgstr "Tichet nou"
+
+#: lib/Driver.php:85
+msgid "New comment for ticket %s"
+msgstr "Comentariu nou pentru tichetul %s"
+
+#: lib/Driver.php:70
+msgid "New ticket (%s): %s"
+msgstr "Tichet nou (%s): %s"
+
+#: lib/Admin.php:81 lib/Admin.php:196 lib/Admin.php:366 lib/Admin.php:478
+#: lib/Admin.php:566 lib/Admin.php:653 lib/Admin.php:740 lib/Search.php:209
+msgid "No"
+msgstr "Nu"
+
+#: lib/Driver/sql.php:1303
+msgid "No configuration information specified for SQL Bugs."
+msgstr "Nici o configuratie specificata pentru problemele SQL."
+
+#: lib/Driver.php:56
+msgid "No such backend '%s' found"
+msgstr "Nici un suport '%s' gasit"
+
+#: details.php:34
+msgid "No such ticket."
+msgstr "Nici un asemenea tichet."
+
+#: lib/Whups.php:342
+msgid "No tickets matched your search criteria."
+msgstr "Nici un tichet nu s-a potrivit criteriului de cautare."
+
+#: lib/Block/summary.php:90
+msgid "No tickets to display"
+msgstr "Nici un tichet de afisat"
+
+#: lib/Reports.php:64
+msgid "None"
+msgstr "Nici unul"
+
+#: lib/Query.php:345 templates/queryrenderer.inc:92
+msgid "Not"
+msgstr "Nu"
+
+#: query.php:95
+msgid "Not yet implemented..."
+msgstr "Neimplementat inca..."
+
+#: config/prefs.php.dist:20
+msgid "Notification Options"
+msgstr "Optiuni notificari"
+
+#: config/prefs.php.dist:120
+msgid "Only notify me of ticket changes from other users"
+msgstr "Notificare numai la schimbari tichet de catre alti utilizatori"
+
+#: templates/menu/menu.inc:18
+msgid "Options"
+msgstr "Optiuni"
+
+#: lib/Query.php:344 templates/queryrenderer.inc:91
+msgid "Or"
+msgstr "Sau"
+
+#: config/prefs.php.dist:12 config/prefs.php.dist:19
+msgid "Other Options"
+msgstr "Alte optiuni"
+
+#: lib/Whups.php:314 lib/Search.php:91 templates/queryrenderer.inc:101
+msgid "Owner"
+msgstr "Proprietar"
+
+#: lib/Query.php:349
+msgid "Path"
+msgstr "Cale"
+
+#: lib/Search.php:186 lib/Search.php:222 lib/Search.php:264 lib/Search.php:306
+msgid "Permission Denied."
+msgstr "Permisiune neacordata."
+
+#: lib/Admin.php:344 lib/Admin.php:387
+msgid "Priorities for this Type"
+msgstr "Prioritati pentru acest tip"
+
+#: lib/Create.php:100 lib/Whups.php:309 lib/Query.php:495 lib/Search.php:60
+#: lib/Search.php:89 templates/queryrenderer.inc:114 config/prefs.php.dist:43
+msgid "Priority"
+msgstr "Prioritate"
+
+#: lib/Admin.php:505 lib/Admin.php:549 lib/Admin.php:574
+msgid "Priority Description"
+msgstr "Descriere Prioritate"
+
+#: lib/Admin.php:504 lib/Admin.php:527 lib/Admin.php:546 lib/Admin.php:571
+msgid "Priority Name"
+msgstr "Nume prioritate"
+
+#: templates/comment.inc:82
+msgid "Private"
+msgstr "Privat"
+
+#: query.php:43
+msgid "Property Criteria"
+msgstr "Criteriu proprietate"
+
+#: lib/Whups.php:12 lib/Whups.php:13 query.php:143 templates/menu/menu.inc:13
+msgid "Query Builder"
+msgstr "Creator chestionare"
+
+#: lib/Query.php:101
+msgid "Query Parameters"
+msgstr "Parametri chestionare"
+
+#: runquery.php:73
+msgid "Query Results"
+msgstr "Rezultate chestionare"
+
+#: runquery.php:22
+msgid "Re-execute Query"
+msgstr "Re-executare chestionare"
+
+#: lib/Admin.php:751
+msgid "Really delete this attribute? This may cause data problems!!"
+msgstr "Stergere sigura a acestui atribut? Poate cauza probleme datelor!!"
+
+#: lib/Admin.php:206
+msgid "Really delete this queue? This may cause data problems!!"
+msgstr "Stergere sigura a acestui modul? Poate cauza probleme datelor!!"
+
+#: lib/Admin.php:577
+msgid "Really delete this priority? This may cause data problems!!"
+msgstr "Stergere sigura a acestei prioritati? Poate cauza probleme datelor!!"
+
+#: lib/Admin.php:490
+msgid "Really delete this state? This may cause data problems!!"
+msgstr "Stergere sigura a acestei stari? Poate cauza probleme datelor!!"
+
+#: lib/Admin.php:88
+msgid "Really delete this subject? This may cause data problems!!"
+msgstr "Stergere sigura a acestui subiect? Poate cauza probleme datelor!!"
+
+#: lib/Search.php:216
+msgid ""
+"Really delete this ticket? It will NOT be archived, and will be gone forever."
+msgstr ""
+"Stergere sigura a acestui tichet? NU va fi arhivat, si va disparea definitiv."
+
+#: lib/Admin.php:390
+msgid "Really delete this type? This may cause data problems!!"
+msgstr "Stergere sigura a acestui tip? Poate cauza probleme datelor!!"
+
+#: lib/Admin.php:664
+msgid "Really delete this version? This may cause data problems!!"
+msgstr ""
+
+#: search.php:105
+msgid "Refine Search"
+msgstr "Redefinire cautare"
+
+#: search.php:103
+msgid "Refine search"
+msgstr "Redefinire cautare"
+
+#: admin.php:928
+msgid "Reminders were sent."
+msgstr "Aducerile aminte au fost trimise."
+
+#: lib/Admin.php:250
+msgid "Remove User"
+msgstr "Sterge utilizator"
+
+#: lib/Whups.php:30 lib/Whups.php:31 reports.php:26 templates/menu/menu.inc:14
+msgid "Reports"
+msgstr "Rapoarte"
+
+#: lib/Search.php:94 templates/queryrenderer.inc:102
+msgid "Requester"
+msgstr "Solicitator"
+
+#: lib/Driver/sql.php:1318
+msgid "Required 'database' not specified in bugs configuration."
+msgstr "'database' nespecificat in configuratia bugurilor."
+
+#: lib/Driver/sql.php:1309
+msgid "Required 'hostspec' not specified in bugs configuration."
+msgstr "'hostspec' nespecificat in configuratia bugurilor."
+
+#: lib/Driver/sql.php:1315
+msgid "Required 'password' not specified in bugs configuration."
+msgstr "'pasword' nespecificat in configuratia bugurilor."
+
+#: lib/Driver/sql.php:1306
+msgid "Required 'phptype' not specified in bugs configuration."
+msgstr "'phptype' nespecificat in configuratia bugurilor."
+
+#: lib/Driver/sql.php:1312
+msgid "Required 'username' not specified in bugs configuration."
+msgstr "'username' nespecificat in configuratia bugurilor."
+
+#: lib/Whups.php:315 lib/Search.php:97 lib/Driver.php:65
+#: config/prefs.php.dist:48
+msgid "Resolved"
+msgstr ""
+
+#: lib/Admin.php:252
+msgid "Responsible Users"
+msgstr "Utilizatori responsabili"
+
+#: lib/Admin.php:170
+msgid "Restrict ticket subjects to a specified list?"
+msgstr "Restrange subiectele tichetelor la o lista specificata?"
+
+#: templates/searchresults.inc:47
+msgid "Save"
+msgstr "Salvare"
+
+#: lib/Query.php:598 runquery.php:24 query.php:39
+msgid "Save Query"
+msgstr "Salvare chestionare"
+
+#: templates/searchresults.inc:41
+msgid "Save these results as: "
+msgstr "Salvare rezultate ca:"
+
+#: search.php:126 templates/menu/menu.inc:10
+msgid "Search"
+msgstr "Cautare"
+
+#: lib/Query.php:554
+msgid "Search %s Attribute"
+msgstr "Cautare atribut %s"
+
+#: lib/Query.php:397
+msgid "Search Assignee"
+msgstr "Cautare atribuit"
+
+#: lib/Query.php:558
+msgid "Search Attribute"
+msgstr "Cautare atribut"
+
+#: lib/Query.php:399 lib/Query.php:450
+msgid "Search Comments"
+msgstr "Cautare comentarii"
+
+#: lib/Query.php:398
+msgid "Search Requester"
+msgstr "Cautare solicitator"
+
+#: search.php:96
+msgid "Search Results"
+msgstr "Rezultate cautare"
+
+#: lib/Query.php:449
+msgid "Search Summary"
+msgstr "Cautare cuprins"
+
+#: lib/Whups.php:6 lib/Whups.php:7 search.php:27 search.php:124
+#: config/prefs.php.dist:70
+msgid "Search Tickets"
+msgstr "Cautare tichete"
+
+#: config/prefs.php.dist:72
+msgid "Select the view to display after login:"
+msgstr "Selectare tip vizualizare dupa intrare:"
+
+#: config/prefs.php.dist:30
+msgid "Select your preferred language:"
+msgstr "Selectare limba favorita:"
+
+#: lib/Admin.php:762 admin.php:61
+msgid "Send Reminders"
+msgstr "Trimite memorandum"
+
+#: lib/Admin.php:773
+msgid "Send only for this list of ticket ids"
+msgstr "Trimitere doar pentru aceasta lista de id-uri tichete"
+
+#: details.php:48 details.php:50
+msgid "Set Priority"
+msgstr "Setare prioritate"
+
+#: details.php:47
+msgid "Set State"
+msgstr "Setare stare"
+
+#: details.php:205
+msgid "Set Ticket Attributes"
+msgstr "Setare atribute tichet"
+
+#: details.php:124 details.php:184
+msgid "Set Ticket Priority"
+msgstr "Setare prioritate tichet"
+
+#: details.php:164
+msgid "Set Ticket State Succeeded"
+msgstr "Setare stare tichet reusita"
+
+#: config/prefs.php.dist:7
+msgid "Set your preferred display language."
+msgstr "Setare limba favorita."
+
+#: config/prefs.php.dist:111
+msgid "Show \"(X Days Ago)\" in Date field of search results?"
+msgstr "Afisare \"(Acum X zile)\" in campul Data al rezultatelor cautarii?"
+
+#: config/prefs.php.dist:138
+msgid "Show comments in chronological order, or most recent first?"
+msgstr "Afisare comentarii cronologic, sau cele mai recente primele?"
+
+#: config/prefs.php.dist:89
+msgid "Show ticket IDs in the summary view?"
+msgstr "Afisare ID-uri tichete in cuprins?"
+
+#: config/prefs.php.dist:81
+msgid "Show tickets you have requested in the summary view?"
+msgstr "Afisare tichete solicitate in cuprins?"
+
+#: config/templates.php.dist:16
+msgid "Simple HTML Report"
+msgstr "Raport HTML simplu"
+
+#: templates/index/notconfigured.inc:39
+msgid "Some of WHUPS's configuration files are missing:"
+msgstr "Anumite fisiere de configurare WHUPS lipsesc:"
+
+#: templates/searchresults.inc:71
+msgid "Sort Direction"
+msgstr "Directie sortare"
+
+#: templates/searchresults.inc:72 templates/searchresults.inc:76
+msgid "Sort by %s"
+msgstr "Sortare dupa %s"
+
+#: lib/Whups.php:307 lib/Query.php:494 templates/queryrenderer.inc:109
+#: config/prefs.php.dist:41
+msgid "State"
+msgstr "Stare"
+
+#: lib/Admin.php:411 lib/Admin.php:461
+msgid "State Category"
+msgstr "Categorie stare"
+
+#: lib/Admin.php:410 lib/Admin.php:458 lib/Admin.php:487
+msgid "State Description"
+msgstr "Descriere stare"
+
+#: lib/Admin.php:409 lib/Admin.php:433 lib/Admin.php:455 lib/Admin.php:484
+msgid "State Name"
+msgstr "Nume stare"
+
+#: templates/comment.inc:46
+msgid "State changed to '%s'"
+msgstr "Stare schimbata in '%s'"
+
+#: templates/comment.inc:49
+msgid "State is '%s'"
+msgstr "Starea este '%s'"
+
+#: lib/Admin.php:340 lib/Admin.php:384
+msgid "States for this Type"
+msgstr "Stare pentru acest tip"
+
+#: lib/Create.php:101 config/prefs.php.dist:40
+msgid "Subject"
+msgstr "Subiect"
+
+#: lib/Admin.php:17 lib/Admin.php:38 lib/Admin.php:61 lib/Admin.php:85
+msgid "Subject Name"
+msgstr "Nume subiect"
+
+#: lib/Admin.php:173
+msgid "Subjects associated with this Queue"
+msgstr "Subiecte asociate cu acest modul"
+
+#: create.php:101
+msgid "Submit"
+msgstr "Trimitere"
+
+#: lib/Whups.php:306 templates/queryrenderer.inc:105
+msgid "Summary"
+msgstr "Cuprins"
+
+#: lib/Query.php:447
+msgid "Text"
+msgstr "Text"
+
+#: query.php:46
+msgid "Text Criteria"
+msgstr "Criteriu text"
+
+#: admin.php:809
+msgid "The attribute '%s' has been added to %s."
+msgstr "Atributul '%s' a fost adaugat la '%s'."
+
+#: admin.php:897
+msgid "The attribute has been deleted."
+msgstr "Atributul a fost sters."
+
+#: admin.php:866
+msgid "The attribute has been modified."
+msgstr "Atributul a fost modificat."
+
+#: admin.php:902
+msgid "The attribute was not deleted."
+msgstr "Atributul nu a fost sters."
+
+#: admin.php:205
+msgid "The queue '%s' has been created."
+msgstr "Modulul '%s' a fost creat."
+
+#: admin.php:277
+msgid "The queue has been deleted."
+msgstr "Modulul a fost sters."
+
+#: admin.php:257
+msgid "The queue has been modified."
+msgstr "Modulul a fost modificat."
+
+#: admin.php:282
+msgid "The queue was not deleted."
+msgstr "Modulul nu a fost sters."
+
+#: admin.php:418
+msgid "The priority '%s' has been added to %s."
+msgstr "Prioritatea '%s' a fost adaugata la %s."
+
+#: admin.php:505
+msgid "The priority has been deleted."
+msgstr "Prioritatea a fost stearsa."
+
+#: admin.php:475
+msgid "The priority has been modified."
+msgstr "Prioritatea a fost modificata."
+
+#: admin.php:510
+msgid "The priority was not deleted."
+msgstr "Prioritatea nu a fost stearsa."
+
+#: data.php:24
+msgid "The requested template does not exist."
+msgstr "Modelul solicitat nu exista."
+
+#: admin.php:299
+msgid "The state '%s' has been added to %s."
+msgstr "Starea '%s' a fost adaugata la %s."
+
+#: admin.php:388
+msgid "The state has been deleted."
+msgstr "Starea a fost stearsa."
+
+#: admin.php:357
+msgid "The state has been modified."
+msgstr "Starea a fost modificata."
+
+#: admin.php:393
+msgid "The state was not deleted."
+msgstr "Starea nu a fost stearsa"
+
+#: admin.php:607
+msgid "The subject '%s' has been added."
+msgstr "Subiectul '%s' a fost adaugat."
+
+#: admin.php:669
+msgid "The subject has been deleted."
+msgstr "Subiectul a fost sters."
+
+#: admin.php:648
+msgid "The subject has been modified."
+msgstr "Subiectul a fost modificat."
+
+#: admin.php:674
+msgid "The subject was not deleted."
+msgstr "Subiectul nu a fost sters."
+
+#: admin.php:167
+msgid "The type '%s' has been modified."
+msgstr "Tipul '%s' a fost modificat."
+
+#: admin.php:185
+msgid "The type has been deleted."
+msgstr "Tipul a fost sters"
+
+#: admin.php:190
+msgid "The type was not deleted."
+msgstr "Tipul nu a fost sters."
+
+#: admin.php:691
+msgid "The version '%s' has been added to %s."
+msgstr "Versiunea '%s' a fost adaugata la %s."
+
+#: admin.php:779
+msgid "The version has been deleted."
+msgstr "Versiunea a fost stearsa."
+
+#: admin.php:749
+msgid "The version has been modified."
+msgstr "Versiunea a fost modificata."
+
+#: admin.php:784
+msgid "The version was not deleted."
+msgstr "Versiunea nu a fost stearsa."
+
+#: lib/Admin.php:697
+msgid "There are no attribute types to edit"
+msgstr "Nu exista tipuri de atribute de editat"
+
+#: lib/Query.php:557
+msgid "There are no attributes defined for the current type"
+msgstr "Nu exista atribute definite pentru tipul curent"
+
+#: lib/Admin.php:768
+msgid "There are no queues available."
+msgstr "Nu exista queue disponibile."
+
+#: lib/Admin.php:121
+msgid "There are no queues to edit"
+msgstr "Nu exista queue de editat"
+
+#: lib/Create.php:31
+msgid "There are no queues which you can create tickets in."
+msgstr "Nu exista queue in care sa se creeze tichete."
+
+#: lib/Search.php:30
+msgid "There are no queues which you can search."
+msgstr "Nu exista queue pe care sa se caute."
+
+#: lib/Admin.php:523
+msgid "There are no priorities to edit"
+msgstr "Nu exista prioritati editabile"
+
+#: lib/Admin.php:429
+msgid "There are no states to edit"
+msgstr "Nu exista stari editabile"
+
+#: lib/Admin.php:35
+msgid "There are no subjects to edit"
+msgstr "Nu exista subiecte editabile"
+
+#: lib/Create.php:48
+msgid ""
+"There are no ticket types associated with this module; until there are, you "
+"cannot create any tickets in this module."
+msgstr ""
+"Nu exista nici un tip de tichet asociat cu acest modul; pana vor exista, nu "
+"puteti crea nici un tichet in acest modul."
+
+#: lib/Admin.php:301
+msgid "There are no types to edit"
+msgstr "Nu exista tipuri editabile"
+
+#: lib/Admin.php:264
+msgid "There are no users responsible for this module."
+msgstr "Nu exista utilizatori responsabili pentru acest modul."
+
+#: lib/Create.php:125 lib/Search.php:164
+msgid "There are no users to which this ticket can be assigned."
+msgstr "Nu exista utilizatori caruia sa li se atribuie acest tichet."
+
+#: lib/Admin.php:610
+msgid "There are no versions to edit"
+msgstr "Nu exista versiuni editabile"
+
+#: lib/Reports.php:143
+msgid "There is no data for this report."
+msgstr "Nu exista date pentru acest raport."
+
+#: admin.php:546
+msgid "There was an error adding '%s' to the responsible list for '%s': %s"
+msgstr ""
+"S-a produs o eroare de adaugare '%s' in lista responsabili pentru '%s': %s"
+
+#: admin.php:609
+msgid "There was an error adding the subject: %s."
+msgstr "S-a produs o eroare in adaugarea subiectului: %s."
+
+#: admin.php:812
+msgid "There was an error creating the attribute: %s."
+msgstr "S-a produs o eroare in crearea atributului: %s"
+
+#: admin.php:213
+msgid "There was an error creating the module: %s."
+msgstr "S-a produs o eroare la crearea modulului: %s"
+
+#: admin.php:420
+msgid "There was an error creating the priority: %s."
+msgstr "S-a produs o eroare la crearea prioritatii: %s."
+
+#: admin.php:301
+msgid "There was an error creating the state: %s."
+msgstr "S-a produs o eroare la crearea starii: %s."
+
+#: admin.php:693
+msgid "There was an error creating the version: %s."
+msgstr "S-a produs o eroare la crearea versiunii: %s."
+
+#: admin.php:899
+msgid "There was an error deleting the attribute: %s."
+msgstr "S-a produs o eroare la stergerea atributului: %s"
+
+#: admin.php:279
+msgid "There was an error deleting the module: %s."
+msgstr "S-a produs o eroare la stergerea modulului: %s."
+
+#: admin.php:507
+msgid "There was an error deleting the priority: %s."
+msgstr "S-a produs o eroare la stergerea prioritatii: %s."
+
+#: admin.php:390
+msgid "There was an error deleting the state: %s."
+msgstr "S-a produs o eroare la stergerea starii: %s."
+
+#: admin.php:671
+msgid "There was an error deleting the subject: %s."
+msgstr "S-a produs o eroare la stergerea subiectului: %s."
+
+#: details.php:227
+msgid "There was an error deleting the ticket: %s"
+msgstr "S-a produs o eroare la stergerea tichetului: %s"
+
+#: admin.php:187
+msgid "There was an error deleting the type: %s."
+msgstr "S-a produs o eroare la stergerea tipului: %s."
+
+#: admin.php:781
+msgid "There was an error deleting the version: %s."
+msgstr "S-a produs o eroare la stergerea versiunii: %s."
+
+#: admin.php:873
+msgid "There was an error editing the attribute: %s."
+msgstr "S-a produs o eroare la editarea atributului: %s."
+
+#: admin.php:261
+msgid "There was an error editing the module: %s."
+msgstr "S-a produs o eroare la editarea modulului: %s."
+
+#: admin.php:480
+msgid "There was an error editing the priority: %s."
+msgstr "S-a produs o eroare la editarea prioritatii: %s."
+
+#: admin.php:362
+msgid "There was an error editing the state: %s."
+msgstr "S-a produs o eroare la editarea starii: %s."
+
+#: admin.php:653
+msgid "There was an error editing the subject: %s."
+msgstr "S-a produs o eroare la editarea subiectului: %s."
+
+#: admin.php:754
+msgid "There was an error editing the version: %s."
+msgstr "S-a produs o eroare la editarea versiunii: %s."
+
+#: mybugs.php:40
+msgid "There was an error listing your assigned tickets: %s"
+msgstr "S-a produs o eroare la listarea propriilor tichete: %s"
+
+#: mybugs.php:57
+msgid "There was an error listing your open requests: %s"
+msgstr "S-a produs o eroare la listarea propriilor cereri deschise: %s"
+
+#: admin.php:165
+msgid "There was an error modifying the type: %s."
+msgstr "S-a produs o eroare la modificarea tipului: %s."
+
+#: search.php:89
+msgid "There was an error performing your search: %s"
+msgstr "S-a produs o eroare la efectuarea cautarii: %s"
+
+#: admin.php:585
+msgid "There was an error removing '%s' from the responsible list for '%s': %s"
+msgstr ""
+"S-a produs o eroare la stergerea '%s' din lista responsabili pentru '%s': %s"
+
+#: templates/index/notconfigured.inc:58
+msgid ""
+"This file controls the default preferences for Whups, and also controls "
+"which preferences users can alter."
+msgstr ""
+"Acest fisier controleaza atat preferintele implicite pentru Whups, cat si "
+"alte preferinte pentru utilizatori."
+
+#: templates/index/notconfigured.inc:51
+msgid ""
+"This file controls the stylesheet that is used to set colors and fonts in "
+"addition to or overriding Horde defaults."
+msgstr ""
+"Acest fisier controleaza schemva de culori si fonturi diferite de cele "
+"implicite Horde."
+
+#: templates/index/notconfigured.inc:65
+msgid ""
+"This file defines the templates that various parts of Whups use to format "
+"data."
+msgstr ""
+"Acest fisier defineste modelele pe care diverse parti din Whups le "
+"utilizeaza pentru formatarea datelor."
+
+#: data.php:27
+msgid "This is not a search results template."
+msgstr "Acesta nu este un model de rezultate de cautare."
+
+#: lib/Admin.php:54
+msgid "This is not a valid subject."
+msgstr "Acesta nu este un subiect valid."
+
+#: templates/index/notconfigured.inc:44
+msgid ""
+"This is the main WHUPS configuration file. It contains paths and options for "
+"all WHUPS scripts."
+msgstr ""
+"Acesta este principalul fisier de configurare WHUPS. Contine caile si "
+"optiunile pentru toate scripturile WHUPS."
+
+#: lib/Driver.php:156
+msgid "This mail was automatically generated by %s"
+msgstr "Acest mail a fost generat automat de %s"
+
+#: lib/Create.php:57
+msgid ""
+"This queue requires that you specify a version, but there are no versions "
+"associated with it. Until versions are created for this module, you will not "
+"be able to create tickets."
+msgstr ""
+"Acest modul necesita specificare de versiune, dar nu exista versiuni "
+"asociate cu el. Pana versiunile vor fi create pentru acest modul, nu veti "
+"putea sa creati tichete."
+
+#: details.php:291
+msgid "Ticket %s Comments"
+msgstr "Comentarii tichet %s"
+
+#: details.php:284
+msgid "Ticket %s Details"
+msgstr "Detalii tichet %s"
+
+#: lib/Driver.php:103
+msgid "Ticket %s has been assigned"
+msgstr "Tichetul %s a fost atribuit"
+
+#: lib/Driver.php:141
+msgid "Ticket %s has changed priority"
+msgstr "Tichetul %s si-a schimbat prioritatea"
+
+#: lib/Driver.php:123
+msgid "Ticket %s has changed state"
+msgstr "Tichetul %s si-a schimbat starea"
+
+#: lib/Driver/sql.php:603
+msgid "Ticket %s was not found."
+msgstr "Tichetul %s nu a fost gasit."
+
+#: details.php:236
+msgid "Ticket Details"
+msgstr "Detalii tichet"
+
+#: lib/Search.php:38
+msgid "Ticket ID"
+msgstr "ID tichet"
+
+#: lib/Create.php:99 lib/Search.php:57 lib/Search.php:88
+msgid "Ticket State"
+msgstr "Stare tichet"
+
+#: templates/reports/stats.inc:4
+msgid "Ticket Stats"
+msgstr "Stare tichet"
+
+#: lib/Search.php:79 lib/Search.php:213 lib/api.php:69
+msgid "Ticket Summary"
+msgstr "Cuprins tichet"
+
+#: lib/Create.php:52 lib/Search.php:87
+msgid "Ticket Type"
+msgstr "Tip tichet"
+
+#: lib/Admin.php:163
+msgid "Ticket Types associated with this Queue"
+msgstr "Tipuri tichet asociate cu acest modul"
+
+#: lib/Block/summary.php:68 lib/api.php:117
+msgid "Tickets assigned to you"
+msgstr "Tickete atribuite tie"
+
+#: lib/Search.php:40
+msgid "Tickets which are"
+msgstr "Tichete care sunt"
+
+#: lib/Block/summary.php:84 lib/api.php:133
+msgid "Tickets you requested"
+msgstr "Tichete solicitate"
+
+#: lib/Whups.php:308 templates/queryrenderer.inc:100 config/prefs.php.dist:42
+msgid "Type"
+msgstr "Tip"
+
+#: lib/Admin.php:283 lib/Admin.php:337 lib/Admin.php:381
+msgid "Type Description"
+msgstr "Descriere tip"
+
+#: lib/Admin.php:282 lib/Admin.php:304 lib/Admin.php:334 lib/Admin.php:378
+msgid "Type Name"
+msgstr "Nume tip"
+
+#: lib/Search.php:92
+msgid "Unassigned"
+msgstr "Neatribuit"
+
+#: lib/Admin.php:779
+msgid "Unassigned tickets"
+msgstr "Tichete neatribuite"
+
+#: lib/Driver.php:62
+msgid "Unconfirmed"
+msgstr "Neconfirmat"
+
+#: templates/queryrenderer.inc:139
+msgid "Unknown node type %s"
+msgstr "Tip nod %s necunoscut"
+
+#: lib/Admin.php:236 lib/Admin.php:238
+msgid "User"
+msgstr "Utilizator"
+
+#: query.php:44
+msgid "User Criteria"
+msgstr "Criteriu utilizator"
+
+#: lib/Query.php:395
+msgid "User ID"
+msgstr "ID utilizator"
+
+#: prefs.php:34
+msgid "User Options"
+msgstr "Optiuni utilizator"
+
+#: lib/Admin.php:176
+msgid "Users responsible for this Queue"
+msgstr "Utilizatori responsabili pentru acest modul"
+
+#: lib/Admin.php:268
+msgid "Users responsible for this module"
+msgstr "Utilizatori responsabili pentru acest modul"
+
+#: lib/Whups.php:311 config/prefs.php.dist:45
+msgid "Version"
+msgstr "Versiune"
+
+#: lib/Admin.php:592 lib/Admin.php:636 lib/Admin.php:661
+msgid "Version Description"
+msgstr "Descriere versiune"
+
+#: lib/Admin.php:591 lib/Admin.php:614 lib/Admin.php:633 lib/Admin.php:658
+msgid "Version Name"
+msgstr "Nume versiune"
+
+#: lib/Search.php:135 lib/Search.php:179 lib/Search.php:257 lib/Search.php:299
+#: lib/Search.php:367
+msgid "Viewable only by members of"
+msgstr "Vizualizabil doar de membri ai"
+
+#: templates/index/notconfigured.inc:4
+msgid "WHUPS is not properly configured"
+msgstr "WHUPS nu este corect configurat"
+
+#: config/prefs.php.dist:98
+msgid "Weekday Day Month"
+msgstr "Zi_saptamana Zi Luna"
+
+#: config/prefs.php.dist:99
+msgid "Weekday Day Month HH:MM:SS TZ"
+msgstr "Zi_saptamana Zi Luna OO:MM:SS ZT"
+
+#: lib/Admin.php:81 lib/Admin.php:196 lib/Admin.php:366 lib/Admin.php:478
+#: lib/Admin.php:566 lib/Admin.php:653 lib/Admin.php:740 lib/Search.php:209
+msgid "Yes"
+msgstr "Da"
+
+#: lib/Driver/sql.php:606
+msgid "You do not have permission to access this ticket (%s)."
+msgstr "Nu aveti permisiunea de a accesa acest tichet (%s)."
+
+#: lib/Query.php:632
+msgid "You have no saved queries."
+msgstr "Nu aveti chestionari salvate."
+
+#: lib/Whups.php:336
+msgid "You must select at least one queue to send reminders for."
+msgstr ""
+"Trebuie sa selectati cel putin un modul pentru care se trimit memorandumuri."
+
+#: lib/Create.php:28 lib/Search.php:130 lib/Search.php:328
+msgid "Your Email Address"
+msgstr "Adresa ta de e-mail"
+
+#: config/prefs.php.dist:5
+msgid "Your Information"
+msgstr "Detalii personale"
+
+#: create.php:157
+msgid "Your ticket id is %s. "
+msgstr "Id-ul tichetului tau este %s."
+
+#: templates/queryrenderer.inc:129
+msgid "contains (case insensitive) substring"
+msgstr "contine (caz insenzitiv) subsirul"
+
+#: templates/queryrenderer.inc:130
+msgid "contains (case sensitive) substring"
+msgstr "contine (caz senzitiv) subsirul"
+
+#: templates/queryrenderer.inc:131
+msgid "contains the word"
+msgstr "contine cuvantul"
+
+#: templates/queryrenderer.inc:128
+msgid "is"
+msgstr "este"
+
+#: templates/queryrenderer.inc:126
+msgid "is greater than"
+msgstr "este mai mare ca"
+
+#: templates/queryrenderer.inc:127
+msgid "is less than"
+msgstr "este mai mic ca"
+
+#: templates/queryrenderer.inc:132
+msgid "matches the pattern"
+msgstr "se potriveste tiparului"

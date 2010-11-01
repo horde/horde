@@ -9,35 +9,35 @@
 class Kronolith_View_ExportEvent {
 
     /**
-     * @param Kronolith_Event &$event
+     * @param Kronolith_Event $event
      */
-    function Kronolith_View_ExportEvent(&$event)
+    function Kronolith_View_ExportEvent($event)
     {
-        if (!$event || $event instanceof PEAR_Error) {
+        if (!$event) {
             echo '<h3>' . _("Event not found") . '</h3>';
             exit;
         }
+        if (is_string($event)) {
+            echo '<h3>' . $event . '</h3>';
+            exit;
+        }
 
-        $iCal = new Horde_iCalendar('2.0');
+        $iCal = new Horde_Icalendar('2.0');
 
         if ($event->calendarType == 'internal') {
-            $share = &$GLOBALS['kronolith_shares']->getShare($event->calendar);
-            if (!is_a($share, 'PEAR_Error')) {
-                $iCal->setAttribute(
-                    'X-WR-CALNAME',
-                    Horde_String::convertCharset($share->get('name'),
-                                                 Horde_Nls::getCharset(),
-                                                 'utf-8'));
+            try {
+                $share = $GLOBALS['kronolith_shares']->getShare($event->calendar);
+                $iCal->setAttribute('X-WR-CALNAME', $share->get('name'));
+            } catch (Exception $e) {
             }
         }
 
-        $vEvent = &$event->toiCalendar($iCal);
-        $iCal->addComponent($vEvent);
+        $iCal->addComponent($event->toiCalendar($iCal));
         $content = $iCal->exportvCalendar();
 
         $GLOBALS['browser']->downloadHeaders(
             $event->getTitle() . '.ics',
-            'text/calendar; charset=' . Horde_Nls::getCharset(),
+            'text/calendar; charset=UTF-8',
             true, strlen($content));
         echo $content;
         exit;

@@ -7,8 +7,6 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * $Horde: incubator/hylax/lib/Image.php,v 1.14 2009/06/10 05:24:18 slusarz Exp $
- *
  * @author  Marko Djukic <marko@oblo.com>
  * @package Hylax
  */
@@ -38,20 +36,22 @@ class Hylax_Image {
     function getDimensions()
     {
         $tmp_file = Horde_Util::getTempFile('fax', true, '/tmp');
-        Horde::logMessage('Created temp file:' . Horde_Util::bufferOutput('var_dump', $tmp_file) . ':', __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::startBuffer();
+        var_dump($tmp_file);
+        Horde::logMessage('Created temp file:' . Horde::endBuffer() . ':', 'DEBUG');
         $fp = fopen($tmp_file, 'w');
         fwrite($fp, $this->_data);
         fclose($fp);
 
         /* Run a ImageMagick identify command on the file to get the details. */
         $command = sprintf('%s %s', $this->_cmd['identify'], $tmp_file);
-        Horde::logMessage('External command call by Hylax_Image::getDimensions(): :' . $command . ':', __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('External command call by Hylax_Image::getDimensions(): :' . $command . ':', 'DEBUG');
         exec($command, $output, $retval);
 
         $init = strlen($tmp_file);
 
         /* Figure out the dimensions from the output. */
-        Horde::logMessage('External command output by Hylax_Image::getDimensions(): ' . serialize($output), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('External command output by Hylax_Image::getDimensions(): ' . serialize($output), 'DEBUG');
         foreach ($output as $key => $line) {
             if (substr($line, 0, $init) != $tmp_file) {
                 continue;
@@ -91,7 +91,7 @@ class Hylax_Image {
                            $tmp_file,
                            $page,
                            $tmp_file_out);
-        Horde::logMessage('Executing command: ' . $command, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Executing command: ' . $command, 'DEBUG');
         exec($command);
         echo file_get_contents($tmp_file_out);
     }
@@ -105,7 +105,7 @@ class Hylax_Image {
 
         /* Convert the page from the postscript file to PDF. */
         $command = sprintf('%s %s -', $this->_cmd['ps2pdf'], $tmp_file);
-        Horde::logMessage('Executing command: ' . $command, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Executing command: ' . $command, 'DEBUG');
         passthru($command);
     }
 
@@ -119,6 +119,7 @@ class Hylax_Image {
      *
      * @return Hylax_Image  The newly created concrete Hylax_Image instance, or
      *                      false on an error.
+     * @throws Horde_Exception
      */
     function &factory($driver, $params = array())
     {
@@ -128,8 +129,9 @@ class Hylax_Image {
         if (class_exists($class)) {
             $image = &new $class($params);
             return $image;
-        } else {
-            Horde::fatal(PEAR::raiseError(sprintf(_("No such backend \"%s\" found"), $driver)), __FILE__, __LINE__);
+        }
+
+        throw new Horde_Exception(sprintf(_("No such backend \"%s\" found"), $driver));
         }
     }
 

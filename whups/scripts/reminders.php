@@ -9,25 +9,11 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-// Do CLI checks and environment setup first.
-require_once dirname(__FILE__) . '/../../lib/core.php';
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment - make sure there's no time limit, init
-// some variables, etc.
-Horde_Cli::init();
-
-// Include needed libraries.
-$whups_authentication = 'none';
-require_once dirname(__FILE__) . '/../lib/base.php';
-require_once WHUPS_BASE . '/lib/Scheduler/whups.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('whups', array('authentication' => 'none'));
 
 // Get an instance of the Whups scheduler.
-$reminder = Horde_Scheduler::unserialize('Horde_Scheduler_whups');
+$reminder = Horde_Scheduler::unserialize('Horde_Scheduler_Whups');
 
 // Check for and send reminders.
 $reminder->run();

@@ -12,7 +12,8 @@
  * @package Chora
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('chora');
 
 if ($atdir) {
     require CHORA_BASE . '/browsedir.php';
@@ -47,7 +48,7 @@ if ($VC->hasFeature('branches')) {
 }
 
 Horde::addScriptFile('tables.js', 'horde');
-Horde::addScriptFile('QuickFinder.js', 'horde');
+Horde::addScriptFile('quickfinder.js', 'horde');
 Horde::addScriptFile('revlog.js', 'chora');
 require CHORA_TEMPLATES . '/common-header.inc';
 require CHORA_TEMPLATES . '/menu.inc';

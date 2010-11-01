@@ -56,6 +56,10 @@ class Horde_Db_Adapter_Pdo_Mysql extends Horde_Db_Adapter_Pdo_Base
      */
     public function connect()
     {
+        if ($this->_active) {
+            return;
+        }
+
         parent::connect();
 
         // ? $this->_connection->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
@@ -87,7 +91,11 @@ class Horde_Db_Adapter_Pdo_Mysql extends Horde_Db_Adapter_Pdo_Base
 
         // collect options to build PDO Data Source Name (DSN) string
         $dsnOpts = $this->_config;
-        unset($dsnOpts['adapter'], $dsnOpts['username'], $dsnOpts['password']);
+        unset(
+            $dsnOpts['adapter'],
+            $dsnOpts['username'],
+            $dsnOpts['password']
+        );
         $dsnOpts = $this->_normalizeConfig($dsnOpts);
 
         if (isset($dsnOpts['port'])) {
@@ -96,8 +104,8 @@ class Horde_Db_Adapter_Pdo_Mysql extends Horde_Db_Adapter_Pdo_Base
                 throw new Horde_Db_Exception($msg);
             }
 
-            if (preg_match('/[^\d\.]/', $dsnOpts['host'])) {
-                $msg = 'pdo_mysql ignores port unless IP address is used for host';
+            if ($dsnOpts['host'] == 'localhost') {
+                $msg = 'pdo_mysql ignores port if using "localhost" for host';
                 throw new Horde_Db_Exception($msg);
             }
         }
@@ -108,5 +116,4 @@ class Horde_Db_Adapter_Pdo_Mysql extends Horde_Db_Adapter_Pdo_Base
             $this->_config['username'],
             $this->_config['password']);
     }
-
 }

@@ -21,8 +21,7 @@ HTML GUI editor
 IMP only supports the CKeditor javascript HTML rich text editor.  Xinha is no
 longer supported.
 
-Button configuration is now stored in the prefs value 'ckeditor_buttons'. The
-old 'fckeditor_buttons' setting is no longer used and can be safely removed.
+Button configuration is now stored in the prefs value 'ckeditor_buttons'.
 
 
 Server Options
@@ -42,52 +41,104 @@ spellchecking, and login redirection have been moved to Horde.
 The 'show_preview' option has been removed; enabling previews is now handled
 by the 'show_preview' preference.
 
-The 'max_from_chars' and 'max_subj_chars' configuration options for the
-minimal (mimp) display have been moved to preferences ('mimp_max_from_chars'
-and 'mimp_max_subj_chars').
+The 'allow_resume_all_in_drafts' option has been removed; all messages that
+appear in the configured Drafts mailbox always are now always allowed to be
+resumed.
 
-The 'limit_factor' configuration option has been removed.
+The 'css_files' configuration option for the dynamic (dimp) display has been
+removed.  Equivalent behavior can now be found in the Horde-wide 'cssfiles'
+hook.
+
+The 'max_from_chars' and 'max_subj_chars' configuration options for the
+minimal (mimp) display have been removed.
+
+The following configuration options have been removed:
+
+   append_trailer
+   cache_folders
+   limit_factor
+   prepend_header
+   show_account_colors
+   size_limit
+   sort_limit
 
 
 Preferences
 -----------
 
+The 'time_format' preference has been moved to Horde.
+
 The following preferences are no longer used and may be safely removed from
 your ``config/prefs.php`` file and your preferences backend::
 
-   'alternative_display'
-   'attachment_display'
-   'forward_default'
+   alternative_display
+   attachment_display
+   auto_delete_drafts
+   fckeditor_buttons
+   fetchmail_link
+   fetchmail_menu
+   filter_on_sidebar
+   forward_bodytext
+   nav_expanded_sidebar
+   use_vinbox
+   use_vtrash
+   vinbox_id
+   vtrash_id
 
 
 Hooks
 -----
 
 * hooks.php has changed
-* Hook: spam_bounce -> spam_email
+
+The following hooks have been renamed:
+  OLD: spam_bounce -> NEW: spam_email
+  OLD: postsent -> NEW: post_sent
+
 * imp_hook_vinfo has been removed - use preauth hook instead
 * msglist_format hook has been removed - instead:
 *  x-priority now handled in the core code
 *  old attachment icon handling see atc_flag pref
 *  msglist_flags hook now used to dynamically set flags on messages
+* The headers.php configuration file has been removed; setting custom headers
+  is now done via the 'pre_sent' hook.
+* Setting message trailers is now done entirely within the 'trailer' hook.
 
 
 Fetchmail
 ---------
 
-All code relating to fetchmail has been removed (TODO: prefs/config?).
+All code relating to fetchmail has been removed.
 
 
 Server configuration
 --------------------
 
-The format of servers.php has changed.
+The format of servers.php has changed and has been renamed to backends.php.
 
 
 Maintenance Tasks
 -----------------
 
 TODO
+
+
+Flags
+-----
+
+The list of available IMAP Flags/Keywords is now configurable via the
+'msgflags' preference.
+
+The \Answered, \Deleted, and \Draft IMAP flags are no longer user settable
+by default - these flags have special meanings and are automatically handled
+by the various message action functions instead.
+
+
+CSS
+---
+
+TODO
+
 
 
 Upgrading IMP From 4.1.x To 4.2.x

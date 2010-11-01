@@ -7,30 +7,31 @@
  * authentication and file servers (e.g. via NIS/NFS).  And last, it (as
  * written) requires the POSIX PHP extensions.
  *
- * You must configure this driver in horde/imp/config/servers.php.  The
- * driver supports the following parameters:
- *   'quota_path' => Path to the quota binary - REQUIRED
- *   'grep_path'  => Path to the grep binary - REQUIRED
- *   'partition'  => If all user mailboxes are on a single partition, the
- *                   partition label.  By default, quota will determine
- *                   quota information using the user's home directory value.
- *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Eric Rostetter <eric.rostetter@physics.utexas.edu>
- * @package IMP_Quota
+ * @author   Eric Rostetter <eric.rostetter@physics.utexas.edu>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
-class IMP_Quota_Command extends IMP_Quota
+class IMP_Quota_Command extends IMP_Quota_Base
 {
     /**
      * Constructor.
      *
-     * @param array $params  Hash containing connection parameters.
+     * @param array $params  Parameters:
+     * <pre>
+     * 'grep_path' - (string) [REQUIRED] Path to the grep binary.
+     * 'partition' - (string) If all user mailboxes are on a single partition,
+     *               the partition label.  By default, quota will determine
+     *               quota information using the user's home directory value.
+     * 'quota_path' - (string) [REQUIRED] Path to the quota binary.
+     * </pre>
      */
-    protected function __construct($params = array())
+    public function __construct(array $params = array())
     {
         $params = array_merge(array(
             'quota_path' => 'quota',
@@ -67,26 +68,28 @@ class IMP_Quota_Command extends IMP_Quota
      * @return array  An array with the following keys:
      *                'limit' = Maximum quota allowed
      *                'usage' = Currently used portion of quota (in bytes)
-     * @throws Horde_Exception
+     * @throws IMP_Exception
      */
     public function getQuota()
     {
         if (empty($this->_params['partition'])) {
-            $passwd_array = posix_getpwnam($_SESSION['imp']['user']);
+            $passwd_array = posix_getpwnam($this->_params['username']);
             list($junk, $search_string, $junk) = explode('/', $passwd_array['dir']);
         } else {
             $search_string = $this->_params['partition'];
         }
-        $cmdline = $this->_params['quota_path'] . ' -u ' . $_SESSION['imp']['user'] . ' | ' . $this->_params['grep_path'] . ' ' . $search_string;
+        $cmdline = $this->_params['quota_path'] . ' -u ' . escapeshellarg($this->_params['username']) . ' | ' . escapeshellcmd($this->_params['grep_path']) . ' ' . escapeshellarg($search_string);
         exec($cmdline, $quota_data, $return_code);
         if (($return_code == 0) && (count($quota_data) == 1)) {
             $quota = split("[[:blank:]]+", trim($quota_data[0]));
             $blocksize = $this->_blockSize();
-            return array('usage' => $quota[1] * $blocksize,
-                        'limit' => $quota[2] * $blocksize);
+            return array(
+                'limit' => $quota[2] * $blocksize,
+                'usage' => $quota[1] * $blocksize
+            );
         }
 
-        throw new Horde_Exception(_("Unable to retrieve quota"), 'horde.error');
+        throw new IMP_Exception(_("Unable to retrieve quota"));
     }
 
 }

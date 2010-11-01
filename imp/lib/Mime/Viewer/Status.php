@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_Status class handles multipart/report messages
+ * The IMP_Mime_Viewer_Status class handles multipart/report messages
  * that refer to mail system administrative messages (RFC 3464).
  *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
@@ -8,10 +8,12 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Mime
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
-class IMP_Horde_Mime_Viewer_Status extends Horde_Mime_Viewer_Driver
+class IMP_Mime_Viewer_Status extends Horde_Mime_Viewer_Base
 {
     /**
      * This driver's display capabilities.
@@ -39,14 +41,14 @@ class IMP_Horde_Mime_Viewer_Status extends Horde_Mime_Viewer_Driver
     /**
      * Return the rendered inline version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _renderInline()
     {
         /* If this is a straight message/disposition-notification part, just
          * output the text. */
         if ($this->_mimepart->getType() == 'message/delivery-status') {
-            return $this->_params['contents']->renderMIMEPart($this->_mimepart->getMIMEId(), IMP_Contents::RENDER_FULL, array('type' => 'text/plain', 'params' => $this->_params));
+            return $this->getConfigParam('imp_contents')->renderMIMEPart($this->_mimepart->getMIMEId(), IMP_Contents::RENDER_FULL, array('type' => 'text/plain'));
         }
 
         return $this->_renderInfo();
@@ -55,7 +57,7 @@ class IMP_Horde_Mime_Viewer_Status extends Horde_Mime_Viewer_Driver
     /**
      * Return the rendered information about the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _renderInfo()
     {
@@ -78,7 +80,7 @@ class IMP_Horde_Mime_Viewer_Status extends Horde_Mime_Viewer_Driver
 
         /* Get the action first - it appears in the second part. */
         $action = null;
-        $part2 = $this->_params['contents']->getMIMEPart($part2_id);
+        $part2 = $this->getConfigParam('imp_contents')->getMIMEPart($part2_id);
 
         foreach (explode("\n", $part2->getContents()) as $line) {
             if (stristr($line, 'Action:') !== false) {
@@ -100,10 +102,10 @@ class IMP_Horde_Mime_Viewer_Status extends Horde_Mime_Viewer_Driver
         case 'delayed':
             $status = array(
                 array(
-                    'icon' => Horde::img('alerts/error.png', _("Error"), null, $GLOBALS['registry']->getImageDir('horde')),
+                    'icon' => Horde::img('alerts/error.png', _("Error")),
                     'text' => array(
                         _("ERROR: Your message could not be delivered."),
-                        sprintf(_("Additional error message details can be viewed %s."), $this->_params['contents']->linkViewJS($part2, 'view_attach', _("HERE"), array('jstext' => _("Additional message details"), 'params' => array('mode' => IMP_Contents::RENDER_INLINE))))
+                        sprintf(_("Additional error message details can be viewed %s."), $this->getConfigParam('imp_contents')->linkViewJS($part2, 'view_attach', _("HERE"), array('jstext' => _("Additional message details"), 'params' => array('mode' => IMP_Contents::RENDER_INLINE))))
                     )
                 )
             );
@@ -116,10 +118,10 @@ class IMP_Horde_Mime_Viewer_Status extends Horde_Mime_Viewer_Driver
         case 'relayed':
             $status = array(
                 array(
-                    'icon' => Horde::img('alerts/success.png', _("Success"), null, $GLOBALS['registry']->getImageDir('horde')),
+                    'icon' => Horde::img('alerts/success.png', _("Success")),
                     'text' => array(
                         _("Your message was successfully delivered."),
-                        sprintf(_("Additional message details can be viewed %s."), $this->_params['contents']->linkViewJS($part2, 'view_attach', _("HERE"), array('jstext' => _("Additional message details"), 'params' => array('mode' => IMP_Contents::RENDER_INLINE))))
+                        sprintf(_("Additional message details can be viewed %s."), $this->getConfigParam('imp_contents')->linkViewJS($part2, 'view_attach', _("HERE"), array('jstext' => _("Additional message details"), 'params' => array('mode' => IMP_Contents::RENDER_INLINE))))
                     )
                 )
             );
@@ -129,12 +131,12 @@ class IMP_Horde_Mime_Viewer_Status extends Horde_Mime_Viewer_Driver
         }
 
         /* Print the human readable message. */
-        $first_part = $this->_params['contents']->renderMIMEPart($part1_id, IMP_Contents::RENDER_INLINE_AUTO, array('params' => $this->_params));
+        $first_part = $this->getConfigParam('imp_contents')->renderMIMEPart($part1_id, IMP_Contents::RENDER_INLINE_AUTO);
 
         /* Display a link to the returned message, if it exists. */
-        $part3 = $this->_params['contents']->getMIMEPart($part3_id);
+        $part3 = $this->getConfigParam('imp_contents')->getMIMEPart($part3_id);
         if ($part3) {
-            $status[0]['text'][] = sprintf($msg_link, $this->_params['contents']->linkViewJS($part3, 'view_attach', _("HERE"), array('jstext' => $msg_link_status, 'ctype' => 'message/rfc822')));
+            $status[0]['text'][] = sprintf($msg_link, $this->getConfigParam('imp_contents')->linkViewJS($part3, 'view_attach', _("HERE"), array('jstext' => $msg_link_status, 'ctype' => 'message/rfc822')));
         }
 
         if (empty($first_part)) {
@@ -150,7 +152,7 @@ class IMP_Horde_Mime_Viewer_Status extends Horde_Mime_Viewer_Driver
         $ret[$this->_mimepart->getMimeId()] = array(
             'data' => $data,
             'status' => $status,
-            'type' => 'text/html; charset=' . Horde_Nls::getCharset(),
+            'type' => 'text/html; charset=' . $this->getConfigParam('charset'),
             'wrap' => 'mimePartWrap'
         );
 

@@ -8,9 +8,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Jon Parise <jon@horde.org>
- * @package Core
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Jon Parise <jon@horde.org>
+ * @category Horde
+ * @package  Core
  */
 class Horde_Menu
 {
@@ -94,20 +95,19 @@ class Horde_Menu
     /**
      * Add an item to the menu array.
      *
-     * @param string $url        String containing the value for the hyperlink.
-     * @param string $text       String containing the label for this menu
-     *                           item.
-     * @param string $icon       String containing the filename of the image
-     *                           icon to display for this menu item.
-     * @param string $icon_path  If the icon lives in a non-default directory,
-     *                           where is it?
-     * @param string $target     If the link needs to open in another frame or
-     *                           window, what is its name?
-     * @param string $onclick    Onclick javascript, if desired.
-     * @param string $class      CSS class for the menu item.
+     * @param array $item  The item to add.  Valid keys:
+     * <pre>
+     * 'class' - (string) CSS classname.
+     * 'icon' - (string) Filename of the image icon.
+     * 'icon_path' - (string) Non-default directory path for icon.
+     * 'onclick' - (string) Onclick javascript.
+     * 'target' - (string) HREF target parameter.
+     * 'text' - (string) Label.
+     * 'url' - (string) Hyperlink.
+     * </pre>
      *
-     * @return integer  The id (NOT guaranteed to be an array index) of the item
-     *                  just added to the menu.
+     * @return integer  The id (NOT guaranteed to be an array index) of the
+     *                  item just added to the menu.
      */
     public function addArray($item)
     {
@@ -116,7 +116,15 @@ class Horde_Menu
             $pos = count($this->_menu);
         }
 
-        $this->_menu[$pos] = $item;
+        $this->_menu[$pos] = array_merge(array(
+            'class' => '',
+            'icon' => '',
+            'icon_path' => null,
+            'onclick' => null,
+            'target' => '',
+            'text' => '',
+            'url' => ''
+        ), $item);
 
         return $pos;
     }
@@ -148,7 +156,6 @@ class Horde_Menu
     {
         global $conf, $registry, $prefs;
 
-        $graphics = $registry->getImageDir('horde');
         $app = $registry->getApp();
 
         if ($this->_mask !== self::MASK_NONE) {
@@ -159,20 +166,26 @@ class Horde_Menu
             $this->addAppLinks();
         }
 
-        /* Add settings link. */
-        if ($this->_mask & self::MASK_PREFS && $url = Horde::getServiceLink('options', $app)) {
-            $this->add($url, _("_Options"), 'prefs.png', $graphics);
+        /* Add preferences link. */
+        if (($this->_mask & self::MASK_PREFS) &&
+            $this->showService('prefs') &&
+            ($url = Horde::getServiceLink('prefs', $app))) {
+            $this->add($url, Horde_Core_Translation::t("_Preferences"), 'prefs.png');
         }
 
         /* Add problem link. */
-        if ($this->_mask & self::MASK_PROBLEM && $problem_link = Horde::getServiceLink('problem', $app)) {
-            $this->add($problem_link, _("Problem"), 'problem.png', $graphics);
+        if (($this->_mask & self::MASK_PROBLEM) &&
+            $this->showService('problem') &&
+            ($problem_link = Horde::getServiceLink('problem', $app))) {
+            $this->add($problem_link, Horde_Core_Translation::t("Problem"), 'problem.png');
         }
 
         /* Add help link. */
-        if ($this->_mask & self::MASK_HELP && $help_link = Horde::getServiceLink('help', $app)) {
+        if (($this->_mask & self::MASK_HELP) &&
+            $this->showService('help') &&
+            ($help_link = Horde::getServiceLink('help', $app))) {
             Horde::
-            $this->add($help_link, _("Help"), 'help_index.png', $graphics, 'help', Horde::popupJs($help_link, array('urlencode' => true)) . 'return false;', 'helplink');
+            $this->add($help_link, Horde_Core_Translation::t("Help"), 'help_index.png', null, 'help', Horde::popupJs($help_link, array('urlencode' => true)) . 'return false;', 'helplink');
         }
 
         /* Login/Logout. */
@@ -185,13 +198,15 @@ class Horde_Menu
                 $auth_target = '_parent';
             }
 
-            if (Horde_Auth::getAuth()) {
-                if ($logout_link = Horde::getServiceLink('logout', $app, !$prefs->getValue('show_sidebar'))) {
-                    $this->add($logout_link, _("_Log out"), 'logout.png', $graphics, $auth_target, null, '__noselection');
+            if ($registry->getAuth()) {
+                if ((!$prefs->getValue('show_sidebar') || $this->showService('logout')) &&
+                    ($logout_link = Horde::getServiceLink('logout', $app))) {
+                    $this->add($logout_link, Horde_Core_Translation::t("_Log out"), 'logout.png', null, $auth_target, null, '__noselection');
                 }
             } else {
-                if ($login_link = Horde::getServiceLink('login', $app)) {
-                    $this->add(Horde_Util::addParameter($login_link, array('url' => Horde::selfUrl(true, true, true))), _("_Log in"), 'login.png', $graphics, $auth_target, null, '__noselection');
+                if ($this->showService('login') &&
+                    ($login_link = Horde::getServiceLink('login', $app))) {
+                    $this->add($login_link->add('url', Horde::selfUrl(true, true, true)), Horde_Core_Translation::t("_Log in"), 'login.png', null, $auth_target, null, '__noselection');
                 }
             }
         }
@@ -204,7 +219,7 @@ class Horde_Menu
 
         /* Sort to match explicitly set positions. */
         ksort($this->_menu);
-        if (!empty($GLOBALS['nls']['rtl'][$GLOBALS['language']])) {
+        if (!empty($registry->nlsconfig['rtl'][$GLOBALS['language']])) {
             $this->_menu = array_reverse($this->_menu);
         }
 
@@ -232,7 +247,7 @@ class Horde_Menu
             /* Icon. */
             $icon = '';
             if ($menu_view == 'icon' || $menu_view == 'both') {
-                if (!isset($m['icon_path'])) {
+                if (empty($m['icon_path'])) {
                     $m['icon_path'] = null;
                 }
                 $icon = Horde::img($m['icon'], Horde::stripAccessKey($m['text']), '', $m['icon_path']) . '<br />';
@@ -240,11 +255,12 @@ class Horde_Menu
 
             /* Link. */
             $accesskey = Horde::getAccessKey($m['text']);
-            $link = Horde::link($m['url'], ($menu_view == 'icon') ? Horde::stripAccessKey($m['text']) : '',
-                                isset($m['class']) ? $m['class'] : '',
-                                isset($m['target']) ? $m['target'] : '',
-                                isset($m['onclick']) ? $m['onclick'] : '',
-                                '', $accesskey);
+            $link = $m['url']->setRaw(false)->link(
+                array('title' => $menu_view == 'icon' ? Horde::stripAccessKey($m['text']) : '',
+                      'class' => isset($m['class']) ? $m['class'] : '',
+                      'target' => $m['target'],
+                      'onclick' => $m['onclick'],
+                      'accesskey' => $accesskey));
 
             $output .= sprintf("\n<li>%s%s%s</a></li>",
                                $link, $icon, ($menu_view != 'icon') ? Horde::highlightAccessKey($m['text'], $accesskey) : '');
@@ -320,6 +336,43 @@ class Horde_Menu
         }
 
         return false;
+    }
+
+    /**
+     * TODO
+     *
+     * @param string $type       The type of link.
+     * <pre>
+     * The following must be defined in Horde's menu config, or else they
+     * won't be displayed in the menu:
+     * 'help', 'problem', 'logout', 'login', 'prefs'
+     * </pre>
+     *
+     * @return boolean  True if the link is to be shown.
+     */
+    static public function showService($type)
+    {
+        global $conf;
+
+        if (!in_array($type, array('help', 'problem', 'logout', 'login', 'prefs'))) {
+            return true;
+        }
+
+        if (empty($conf['menu']['links'][$type])) {
+            return false;
+        }
+
+        switch ($conf['menu']['links'][$type]) {
+        case 'all':
+            return true;
+
+        case 'authenticated':
+            return (bool)$GLOBALS['registry']->getAuth();
+
+        default:
+        case 'never':
+            return false;
+        }
     }
 
 }

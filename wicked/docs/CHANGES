@@ -2,6 +2,8 @@
 v1.0-cvs
 --------
 
+[jan] Require delete permissions for merging/renaming pages.
+[jan] Don't use WikiWords in menus (Request #7021).
 [jan] Drop support for coWiki markup.
 [jan] Fix Oracle SQL scripts.
 [jan] Implement pessimistic locking based on Horde_Lock.

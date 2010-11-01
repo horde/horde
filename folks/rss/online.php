@@ -23,6 +23,6 @@ if ($users instanceof PEAR_Error) {
 
 $title = _("Online users");
 $link = Folks::getUrlFor('list', 'online', true);
-$rss_link = Horde::applicationUrl('rss/online.php', true);
+$rss_link = Horde::url('rss/online.php', true);
 
 require FOLKS_TEMPLATES . '/feed/feed.php';

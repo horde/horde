@@ -66,7 +66,6 @@ class Text_Diff {
      * returns the number of new (added) lines in a given diff.
      *
      * @since Text_Diff 1.1.0
-     * @since Horde 3.2
      *
      * @return integer The number of new lines
      */
@@ -86,7 +85,6 @@ class Text_Diff {
      * Returns the number of deleted (removed) lines in a given diff.
      *
      * @since Text_Diff 1.1.0
-     * @since Horde 3.2
      *
      * @return integer The number of deleted lines
      */
@@ -209,43 +207,6 @@ class Text_Diff {
     function trimNewlines(&$line, $key)
     {
         $line = str_replace(array("\n", "\r"), '', $line);
-    }
-
-    /**
-     * Determines the location of the system temporary directory.
-     *
-     * @static
-     *
-     * @access protected
-     *
-     * @return string  A directory name which can be used for temp files.
-     *                 Returns false if one could not be found.
-     */
-    function _getTempDir()
-    {
-        $tmp_locations = array('/tmp', '/var/tmp', 'c:\WUTemp', 'c:\temp',
-                               'c:\windows\temp', 'c:\winnt\temp');
-
-        /* Try PHP's upload_tmp_dir directive. */
-        $tmp = ini_get('upload_tmp_dir');
-
-        /* Otherwise, try to determine the TMPDIR environment variable. */
-        if (!strlen($tmp)) {
-            $tmp = getenv('TMPDIR');
-        }
-
-        /* If we still cannot determine a value, then cycle through a list of
-         * preset possibilities. */
-        while (!strlen($tmp) && count($tmp_locations)) {
-            $tmp_check = array_shift($tmp_locations);
-            if (@is_dir($tmp_check)) {
-                $tmp = $tmp_check;
-            }
-        }
-
-        /* If it is still empty, we have failed, so return false; otherwise
-         * return the directory determined. */
-        return strlen($tmp) ? $tmp : false;
     }
 
     /**

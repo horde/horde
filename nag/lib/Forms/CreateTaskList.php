@@ -30,7 +30,7 @@ class Nag_CreateTaskListForm extends Horde_Form {
         $this->addVariable(_("Name"), 'name', 'text', true);
         $this->addVariable(_("Color"), 'color', 'colorpicker', false);
         $this->addVariable(_("Description"), 'description', 'longtext', false, false, null, array(4, 60));
-        if (Horde_Auth::isAdmin()) {
+        if ($GLOBALS['registry']->isAdmin()) {
             $this->addVariable(_("System Task List"), 'system', 'boolean', false, false, _("System task lists don't have an owner. Only administrators can change the task list settings and permissions."));
         }
 

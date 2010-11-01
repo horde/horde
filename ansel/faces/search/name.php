@@ -34,7 +34,7 @@ if (!empty($name)) {
 }
 
 $vars = Horde_Variables::getDefaultVariables();
-$pager = new Horde_Ui_Pager(
+$pager = new Horde_Core_Ui_Pager(
     'page', $vars,
     array('num' => $count,
             'url' => 'faces/search/name.php',
@@ -42,8 +42,8 @@ $pager = new Horde_Ui_Pager(
 
 $title = _("Search by name");
 require ANSEL_TEMPLATES . '/common-header.inc';
-require ANSEL_TEMPLATES . '/menu.inc';
-
+echo Horde::menu();
+$notification->notify(array('listeners' => 'status'));
 include ANSEL_TEMPLATES . '/faces/faces.inc';
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';

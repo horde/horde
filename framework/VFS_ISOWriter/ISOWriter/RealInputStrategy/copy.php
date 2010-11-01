@@ -9,7 +9,6 @@
  *
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
  * @package VFS_ISO
- * @since   Horde 3.0
  */
 class VFS_ISOWriter_RealInputStrategy_copy extends VFS_ISOWriter_RealInputStrategy {
 
@@ -40,7 +39,7 @@ class VFS_ISOWriter_RealInputStrategy_copy extends VFS_ISOWriter_RealInputStrate
             }
 
             if (empty($tmp)) {
-                return PEAR::raiseError(_("Cannot find a temporary directory."));
+                return PEAR::raiseError(Horde_VFS_ISOWriter_Translation::t("Cannot find a temporary directory."));
             }
 
             $this->_tempPath = tempnam($tmp, 'isod');
@@ -64,7 +63,7 @@ class VFS_ISOWriter_RealInputStrategy_copy extends VFS_ISOWriter_RealInputStrate
     {
         $dh = @opendir($path);
         if (!is_resource($dh)) {
-            return PEAR::raiseError(sprintf(_("Could not open directory \"%s\"."),
+            return PEAR::raiseError(sprintf(Horde_VFS_ISOWriter_Translation::t("Could not open directory \"%s\"."),
                                             $path));
         }
         while (($ent = readdir($dh)) !== false) {
@@ -80,7 +79,7 @@ class VFS_ISOWriter_RealInputStrategy_copy extends VFS_ISOWriter_RealInputStrate
                 }
             } else {
                 if (!@unlink($full)) {
-                    return PEAR::raiseError(sprintf(_("Could not unlink \"%s\"."),
+                    return PEAR::raiseError(sprintf(Horde_VFS_ISOWriter_Translation::t("Could not unlink \"%s\"."),
                                                     $full));
                 }
             }
@@ -88,7 +87,7 @@ class VFS_ISOWriter_RealInputStrategy_copy extends VFS_ISOWriter_RealInputStrate
         closedir($dh);
 
         if (!@rmdir($path)) {
-            return PEAR::raiseError(sprintf(_("Could not rmdir \"%s\"."), $full));
+            return PEAR::raiseError(sprintf(Horde_VFS_ISOWriter_Translation::t("Could not rmdir \"%s\"."), $full));
         }
     }
 
@@ -104,7 +103,7 @@ class VFS_ISOWriter_RealInputStrategy_copy extends VFS_ISOWriter_RealInputStrate
                 $target = sprintf('%s/%s', $this->_tempPath, $dir);
             }
             if (!@mkdir($target)) {
-                return PEAR::raiseError(sprintf(_("Could not mkdir \"%s\"."), $target));
+                return PEAR::raiseError(sprintf(Horde_VFS_ISOWriter_Translation::t("Could not mkdir \"%s\"."), $target));
             }
 
             $sourcePath = $this->_sourceRoot;
@@ -133,10 +132,10 @@ class VFS_ISOWriter_RealInputStrategy_copy extends VFS_ISOWriter_RealInputStrate
                     $targetFile = sprintf('%s/%s', $target, $entry['name']);
                     $fh = @fopen($targetFile, 'w');
                     if (!is_resource($fh)) {
-                        return PEAR::raiseError(sprintf(_("Could not open \"%s\" for writing."), $targetFile));
+                        return PEAR::raiseError(sprintf(Horde_VFS_ISOWriter_Translation::t("Could not open \"%s\" for writing."), $targetFile));
                     }
                     if (fwrite($fh, $data) != strlen($data)) {
-                        return PEAR::raiseError(sprintf(_("Error writing \"%s\"."), $targetFile));
+                        return PEAR::raiseError(sprintf(Horde_VFS_ISOWriter_Translation::t("Error writing \"%s\"."), $targetFile));
                     }
                     fclose($fh);
                 }

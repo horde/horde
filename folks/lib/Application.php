@@ -12,11 +12,11 @@ class Folks_Application extends Horde_Registry_Application
     public $version = 'H4 (0.1-git)';
 
     /**
-     * Generate the menu to use on the prefs page.
+     * Add additional items to the menu.
      *
-     * @return Horde_Menu  A Horde_Menu object.
+     * @param Horde_Menu $menu  The menu object.
      */
-    public function prefsMenu()
+    public function menu($menu)
     {
         return Folks::getMenu();
     }
@@ -57,7 +57,7 @@ class Folks_Application extends Horde_Registry_Application
         require_once dirname(__FILE__) . '/base.php';
         $GLOBALS['folks_driver'] = Folks_Driver::factory();
         if ($_COOKIE['folks_login_code'] == $GLOBALS['folks_driver']->getCookie($_COOKIE['folks_login_user'])) {
-            Horde_Auth::setAuth($_COOKIE['folks_login_user'], array(), array('transparent' => true, 'nologin' => true));
+            $GLOBALS['registry']->setAuth($_COOKIE['folks_login_user']);
             $auth_ob->setCredential('userId', $_COOKIE['folks_login_user']);
             $GLOBALS['folks_driver']->resetOnlineUsers();
             return true;
@@ -111,7 +111,7 @@ class Folks_Application extends Horde_Registry_Application
 
         $result = $GLOBALS['folks_driver']->addUser($userId, $credentials);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
+            throw new Horde_Exception_Prior($result);
         }
     }
 

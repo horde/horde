@@ -41,9 +41,15 @@ class Horde_Http_Response_Fopen extends Horde_Http_Response_Base
      */
     public function getBody()
     {
+        $oldTrackErrors = ini_set('track_errors', 1);
         $content = @stream_get_contents($this->_stream);
+        ini_set('track_errors', $oldTrackErrors);
         if ($content === false) {
-            throw new Horde_Http_Exception('Problem reading data from ' . $this->uri . ': ' . $php_errormsg);
+            $msg = 'Problem reading data from ' . $this->uri;
+            if (isset($php_errormsg)) {
+                $msg .= ': ' . $php_errormsg;
+            }
+            throw new Horde_Http_Exception($msg);
         }
         return $content;
     }

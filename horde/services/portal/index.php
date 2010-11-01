@@ -9,20 +9,12 @@
  */
 
 require_once dirname(__FILE__) . '/../../lib/Application.php';
-new Horde_Application();
-
-// Get full name.
-$identity = Horde_Prefs_Identity::singleton();
-$fullname = $identity->getValue('fullname');
-if (empty($fullname)) {
-    $fullname = Horde_Auth::convertUsername(Horde_Auth::getAuth(), false);
-}
+Horde_Registry::appInit('horde');
 
 // Get refresh interval.
 if (($r_time = $prefs->getValue('summary_refresh_time'))
     && !$browser->hasFeature('xmlhttpreq')) {
-    $refresh_time = $r_time;
-    $refresh_url = Horde::applicationUrl('services/portal/');
+    Horde::metaRefresh($r_time, Horde::url('services/portal/'));
 }
 
 // Load layout from preferences.
@@ -37,7 +29,7 @@ if (!count($layout_pref)) {
 // If we're serving a request to the JS update client, just return the blocks
 // updated HTML content.
 if (Horde_Util::getFormData('httpclient')) {
-    header('Content-Type: text/html; charset=' . Horde_Nls::getCharset());
+    header('Content-Type: text/html; charset=UTF-8');
     $row = Horde_Util::getFormData('row');
     $col = Horde_Util::getFormData('col');
     if (!is_null($row) && !is_null($col) && !empty($layout_pref[$row][$col])) {
@@ -55,13 +47,13 @@ if (Horde_Util::getFormData('httpclient')) {
 // Render layout.
 $view = new Horde_Block_Layout_View(
     $layout_pref,
-    Horde::applicationUrl('services/portal/edit.php'),
-    Horde::applicationUrl('services/portal/index.php', true));
+    Horde::url('services/portal/edit.php'),
+    Horde::url('services/portal/index.php', true));
 $layout_html = $view->toHtml();
 
 $horde_css_stylesheets = array();
 foreach ($view->getApplications() as $app) {
-    $horde_css_stylesheets = array_merge($horde_css_stylesheets, Horde::getStylesheets('', array('app' => $app)));
+    $horde_css_stylesheets = array_merge($horde_css_stylesheets, Horde_Themes::getStylesheets('', array('app' => $app)));
 }
 
 $linkTags = $view->getLinkTags();
@@ -69,11 +61,11 @@ $linkTags = $view->getLinkTags();
 Horde::addScriptFile('prototype.js', 'horde');
 $title = _("My Portal");
 require HORDE_TEMPLATES . '/common-header.inc';
-require HORDE_TEMPLATES . '/menu/menu.inc';
+echo Horde::menu();
 echo '<div id="menuBottom">';
-echo htmlspecialchars($fullname);
+echo htmlspecialchars($injector->getInstance('Horde_Core_Factory_Identity')->create()->getName());
 if (!$prefs->isLocked('portal_layout')) {
-    echo ' | <a href="' . Horde::applicationUrl('services/portal/edit.php') . '">' . _("Add Content") . '</a>';
+    echo ' | <a href="' . Horde::url('services/portal/edit.php') . '">' . _("Add Content") . '</a>';
 }
 echo '</div><br class="clear" />';
 $notification->notify(array('listeners' => 'status'));

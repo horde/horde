@@ -6,8 +6,8 @@
  * <pre>
  * body_only - (boolean) Only return the body data?
  *             DEFAULT: Return the whole HTML document
- * charset - (string) The charset of the text.
- *           DEFAULT: US-ASCII
+ * charset - (string) Charset of the data.
+ *           DEFAULT: UTF-8
  * size - (integer) Only filter if data is below this size.
  *        DEFAULT: No default
  * </pre>
@@ -17,10 +17,12 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Slusarz <jan@horde.org>
- * @package Horde_Text
+ * @author   Michael Slusarz <jan@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Text_Filter
  */
-class Horde_Text_Filter_Cleanhtml extends Horde_Text_Filter
+class Horde_Text_Filter_Cleanhtml extends Horde_Text_Filter_Base
 {
     /**
      * Filter parameters.
@@ -29,7 +31,7 @@ class Horde_Text_Filter_Cleanhtml extends Horde_Text_Filter
      */
     protected $_params = array(
         'body_only' => false,
-        'charset' => 'us-ascii',
+        'charset' => 'UTF-8',
         'size' => false
     );
 

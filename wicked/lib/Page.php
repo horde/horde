@@ -10,47 +10,52 @@
  * @author  Tyler Colbert <tyler@colberts.us>
  * @package Wicked
  */
-class Page {
+class Wicked_Page
+{
+    const MATCH_LEFT = 1;
+    const MATCH_RIGHT = 2;
+    const MATCH_ENDS = 3;
+    const MATCH_ANY = 4;
 
     /**
      * Display modes supported by this page. Possible modes:
      *
-     *   WICKED_MODE_CONTENT
-     *   WICKED_MODE_DISPLAY
-     *   WICKED_MODE_EDIT
-     *   WICKED_MODE_REMOVE
-     *   WICKED_MODE_HISTORY
-     *   WICKED_MODE_DIFF
-     *   WICKED_MODE_LOCKING
-     *   WICKED_MODE_UNLOCKING
-     *   WICKED_MODE_CREATE
+     *   Wicked::MODE_CONTENT
+     *   Wicked::MODE_DISPLAY
+     *   Wicked::MODE_EDIT
+     *   Wicked::MODE_REMOVE
+     *   Wicked::MODE_HISTORY
+     *   Wicked::MODE_DIFF
+     *   Wicked::MODE_LOCKING
+     *   Wicked::MODE_UNLOCKING
+     *   Wicked::MODE_CREATE
      *
      * @var array
      */
-    var $supportedModes = array();
+    public $supportedModes = array();
 
     /**
      * Instance of a Text_Wiki processor.
      *
      * @var Text_Wiki
      */
-    var $_proc;
+    protected $_proc;
 
     /**
      * The loaded page info.
      *
      * @var array
      */
-    var $_page;
+    protected $_page;
 
     /**
      * Is this a validly loaded page?
      *
      * @return boolean  True if we've loaded data, false otherwise.
      */
-    function isValid()
+    public function isValid()
     {
-        return !empty($this->_page) && !is_a($this->_page, 'PEAR_Error');
+        return !empty($this->_page);
     }
 
     /**
@@ -60,9 +65,9 @@ class Page {
      *
      * @return integer  The permissions bitmask.
      */
-    function getPermissions($pageName = null)
+    public function getPermissions($pageName = null)
     {
-        global $perms, $wicked;
+        global $wicked;
 
         if (is_null($pageName)) {
             $pageName = $this->pageName();
@@ -70,12 +75,14 @@ class Page {
 
         $pageId = $wicked->getPageId($pageName);
         $permName = 'wicked:pages:' . $pageId;
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+
         if ($pageId !== false && $perms->exists($permName)) {
             return $perms->getPermissions($permName);
         } elseif ($perms->exists('wicked:pages')) {
             return $perms->getPermissions('wicked:pages');
         } else {
-            if (!Horde_Auth::getAuth()) {
+            if (!$GLOBALS['registry']->getAuth()) {
                 return Horde_Perms::SHOW | Horde_Perms::READ;
             } else {
                 return Horde_Perms::SHOW | Horde_Perms::READ | Horde_Perms::EDIT | Horde_Perms::DELETE;
@@ -93,58 +100,54 @@ class Page {
      *
      * @return boolean  True if the mode is allowed.
      */
-    function allows($mode)
+    public function allows($mode)
     {
         global $browser;
 
         $pagePerms = $this->getPermissions();
 
         switch ($mode) {
-        case WICKED_MODE_CREATE:
+        case Wicked::MODE_CREATE:
             // Special mode for pages that don't exist yet - generic
             // to all pages.
             if ($browser->isRobot()) {
                 return false;
             }
 
-            if (Horde_Auth::isAdmin()) {
+            if ($GLOBALS['registry']->isAdmin()) {
                 return true;
             }
 
-            global $perms;
             $permName = 'wicked:pages';
+            $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+
             if ($perms->exists($permName)) {
                 return $perms->getPermissions($permName) & Horde_Perms::EDIT;
             } else {
-                return Horde_Auth::getAuth();
+                return $GLOBALS['registry']->getAuth();
             }
             break;
 
-        case WICKED_MODE_EDIT:
+        case Wicked::MODE_EDIT:
             if ($browser->isRobot()) {
                 return false;
             }
 
-            if (Horde_Auth::isAdmin()) {
+            if ($GLOBALS['registry']->isAdmin()) {
                 return true;
             }
 
             if (($pagePerms & Horde_Perms::EDIT) == 0) {
                 return false;
             }
-
-            /* Locked page. */
-            if ($this->isLocked()) {
-                return false;
-            }
             break;
 
-        case WICKED_MODE_REMOVE:
+        case Wicked::MODE_REMOVE:
             if ($browser->isRobot()) {
                 return false;
             }
 
-            if (Horde_Auth::isAdmin()) {
+            if ($GLOBALS['registry']->isAdmin()) {
                 return true;
             }
 
@@ -153,30 +156,9 @@ class Page {
             }
             break;
 
-        case WICKED_MODE_LOCKING:
-            if ($browser->isRobot()) {
-                return false;
-            }
-
-            if (Horde_Auth::isAdmin()) {
-                return true;
-            }
-
-            if (($pagePerms & Horde_Perms::EDIT) == 0) {
-                return false;
-            }
-            break;
-
-        case WICKED_MODE_UNLOCKING:
-            if (Horde_Auth::isAdmin()) {
-                return true;
-            }
-
-            return false;
-
         // All other modes require READ permissions.
         default:
-            if (Horde_Auth::isAdmin()) {
+            if ($GLOBALS['registry']->isAdmin()) {
                 return true;
             }
 
@@ -197,29 +179,31 @@ class Page {
      *
      * @return boolean            True or false
      */
-    function supports($mode)
+    public function supports($mode)
     {
         return !empty($this->supportedModes[$mode]);
     }
 
     /**
-     * Get the page we are currently on.
+     * Returns the page we are currently on.
      *
-     * @return  Returns a Page or PEAR_Error.
+     * @return Wicked_Page  The current page.
+     * @throws Wicked_Exception
      */
-    function getCurrentPage()
+    public function getCurrentPage()
     {
-        return Page::getPage(preg_replace('|/$|', '', Horde_Util::getFormData('page')),
-                             Horde_Util::getFormData('version'),
-                             Horde_Util::getFormData('referrer'));
+        return Wicked_Page::getPage(rtrim(Horde_Util::getFormData('page'), '/'),
+                                    Horde_Util::getFormData('version'),
+                                    Horde_Util::getFormData('referrer'));
     }
 
     /**
-     * Get the page we are currently on.
+     * Returns the requested page.
      *
-     * @return mixed  Returns a Page or PEAR_Error.
+     * @return Wicked_Page  The requested page.
+     * @throws Wicked_Exception
      */
-    function getPage($pagename, $pagever = null, $referrer = null)
+    public function getPage($pagename, $pagever = null, $referrer = null)
     {
         global $conf, $notification, $wicked;
 
@@ -227,52 +211,46 @@ class Page {
             $pagename = 'WikiHome';
         }
 
-        $file = WICKED_BASE . '/lib/Page/' . basename($pagename) . '.php';
-        if ($pagename == basename($pagename) &&
-            file_exists($file)) {
-            require_once $file;
-            return new $pagename($referrer);
+        $classname = 'Wicked_Page_' . $pagename;
+        if ($pagename == basename($pagename) && class_exists($classname)) {
+            return new $classname($referrer);
         }
-
-        require_once WICKED_BASE . '/lib/Page/StandardPage.php';
 
         /* If we have a version, but it is actually the most recent version,
          * ignore it. */
         if (!empty($pagever)) {
-            $page = new StandardPage($pagename, false, null);
+            $page = new Wicked_Page_StandardPage($pagename, false, null);
             if ($page->isValid() && $page->version() == $pagever) {
                 return $page;
             }
-            require_once WICKED_BASE . '/lib/Page/StandardPage/StdHistoryPage.php';
-            return new StdHistoryPage($pagename, $pagever);
+            return new Wicked_Page_StandardHistoryPage($pagename, $pagever);
         }
 
-        $page = new StandardPage($pagename);
-        if ($page->isValid() || !$page->allows(WICKED_MODE_EDIT)) {
+        $page = new Wicked_Page_StandardPage($pagename);
+        if ($page->isValid() || !$page->allows(Wicked::MODE_EDIT)) {
             return $page;
         }
 
-        require_once WICKED_BASE . '/lib/Page/AddPage.php';
-        return new AddPage($pagename);
+        return new Wicked_Page_AddPage($pagename);
     }
 
-    function versionCreated()
+    public function versionCreated()
     {
-        return PEAR::raiseError(_("Unsupported"));
+        throw new Wicked_Exception(_("Unsupported"));
     }
 
-    function formatVersionCreated()
+    public function formatVersionCreated()
     {
-        global $prefs;
-        $v = $this->versionCreated();
-        if (is_a($v, 'PEAR_Error') || !$v) {
-            return _("Never");
-        } else {
-            return strftime($prefs->getValue('date_format'), $v);
-        }
+        try {
+            $v = $this->versionCreated();
+            if ($v) {
+                return strftime($GLOBALS['prefs']->getValue('date_format'), $v);
+            }
+        } catch (Wicked_Exception $e) {}
+        return _("Never");
     }
 
-    function author()
+    public function author()
     {
         if (isset($this->_page['change_author'])) {
             $modify = $this->_page['change_author'];
@@ -280,7 +258,7 @@ class Page {
             return _("Guest");
         }
 
-        $identity = &Horde_Prefs_Identity::singleton(null, $modify);
+        $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($modify);
         $name = $identity->getValue('fullname');
         if (!empty($name)) {
             $modify = $name;
@@ -289,35 +267,29 @@ class Page {
         return $modify;
     }
 
-    function hits()
+    public function hits()
     {
-        return PEAR::raiseError(_("Unsupported"));
+        throw new Wicked_Exception(_("Unsupported"));
     }
 
-    function version()
+    public function version()
     {
-        return PEAR::raiseError(_("Unsupported"));
+        throw new Wicked_Exception(_("Unsupported"));
     }
 
     /**
-     * Retrieve the previous version number for this page
+     * Returns the previous version number for this page.
      *
-     * @return mixed A string containing the previous version or null if this
-     *               is the first version.
+     * @return string  A string containing the previous version or null if this
+     *                 is the first version.
+     * @throws Wicked_Exception
      */
-    function previousVersion()
+    public function previousVersion()
     {
         global $wicked;
 
-        $res = $this->version();
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
-
+        $this->version();
         $history = $wicked->getHistory($this->pageName());
-        if (is_a($history, 'PEAR_Error')) {
-            return $history;
-        }
 
         if (count($history) == 0) {
             return null;
@@ -347,23 +319,22 @@ class Page {
                        $history[$i]['page_minorversion']);
     }
 
-    function isOld()
+    public function isOld()
     {
         return false;
     }
 
     /**
-     * Render this page in Display mode. You really must override this
-     * function if your page is to be anything like a real page.
+     * Renders this page in display mode.
      *
-     * @return mixed  Returns true or PEAR_Error.
+     * This must be overridden if the page is to be anything like a real page.
+     *
+     * @throws Wicked_Exception
      */
-    function display()
+    public function display()
     {
+        // Get content first, it might throw an exception.
         $inner = $this->displayContents(false);
-        if (is_a($inner, 'PEAR_Error')) {
-            return $inner;
-        }
         require WICKED_TEMPLATES . '/display/title.inc';
         echo $inner;
     }
@@ -378,57 +349,53 @@ class Page {
      * $param integer $mode    The page render mode.
      * $param array   $params  Any page parameters.
      */
-    function preDisplay($mode, $params)
+    public function preDisplay($mode, $params)
     {
     }
 
     /**
-     * Render this page for displaying in a block. You really must override
-     * this function if your page is to be anything like a real page.
+     * Renders this page for displaying in a block.
      *
-     * @return mixed  Returns true or PEAR_Error.
+     * This must be overridden if the page is to be anything like a real page.
+     *
+     * @return string  The content.
+     * @throws Wicked_Exception
      */
-    function block()
+    public function block()
     {
         return $this->displayContents(true);
     }
 
-    function displayContents($isBlock)
+    public function displayContents($isBlock)
     {
-        return PEAR::raiseError(_("Unsupported"));
+        throw new Wicked_Exception(_("Unsupported"));
     }
 
     /**
-     * Render this page in Remove mode.
-     *
-     * @return mixed  Returns true or PEAR_Error.
+     * Renders this page in remove mode.
      */
-    function remove()
+    public function remove()
     {
-        return PEAR::raiseError(_("Unsupported"));
+        throw new Wicked_Exception(_("Unsupported"));
     }
 
     /**
-     * Render this page in History mode.
-     *
-     * @return mixed  Returns true or PEAR_Error.
+     * Renders this page in history mode.
      */
-    function history()
+    public function history()
     {
-        return PEAR::raiseError(_("Unsupported"));
+        throw new Wicked_Exception(_("Unsupported"));
     }
 
     /**
-     * Render this page in Diff mode.
-     *
-     * @return mixed  Returns true or PEAR_Error.
+     * Renders this page in diff mode.
      */
-    function diff()
+    public function diff()
     {
-        return PEAR::raiseError(_("Unsupported"));
+        throw new Wicked_Exception(_("Unsupported"));
     }
 
-    function &getProcessor($output_format = 'Xhtml')
+    public function &getProcessor($output_format = 'Xhtml')
     {
         if (isset($this->_proc)) {
             return $this->_proc;
@@ -436,7 +403,9 @@ class Page {
 
         global $wicked, $conf;
 
-        $view_url = Horde_Util::addParameter(Wicked::url('%s'), 'referrer', $this->pageName(), false);
+        $view_url = Wicked::url('%s')
+            ->setRaw(true)
+            ->add('referrer', $this->pageName());
         $view_url = str_replace(array(urlencode('%s'), urlencode('/')), array('%s', '%' . urlencode('/')), $view_url);
 
         /* Make sure we have a valid wiki format */
@@ -475,15 +444,17 @@ class Page {
                 $this->_proc->deleteRule('Embed');
             }
 
-            $this->_proc->setFormatConf('Xhtml', 'charset', Horde_Nls::getCharset());
+            $this->_proc->setFormatConf('Xhtml', 'charset', 'UTF-8');
             $this->_proc->setFormatConf('Xhtml', 'translate', HTML_SPECIALCHARS);
-            $create = $this->allows(WICKED_MODE_CREATE) ? 1 : 0;
-            $linkConf = array('pages' => $wicked->getPages(),
-                              'view_url' => $view_url,
-                              'new_url' => $create ? $view_url : false,
-                              'new_text_pos' => false,
-                              'css_new' => 'newpage',
-                              'ext_chars' => true);
+            $create = $this->allows(Wicked::MODE_CREATE) ? 1 : 0;
+            $linkConf = array(
+                'pages' => $wicked->getPages(),
+                'view_url' => $view_url,
+                'new_url' => $create ? $view_url : false,
+                'new_text_pos' => false,
+                'css_new' => 'newpage',
+                'ext_chars' => true,
+            );
 
             $this->_proc->setRenderConf('Xhtml', 'Wikilink', $linkConf);
             $this->_proc->setRenderConf('Xhtml', 'Freelink', $linkConf);
@@ -496,76 +467,76 @@ class Page {
                                               'css_td' => 'table-cell',
                                               'css_th' => 'table-cell'));
 
-            Horde_Autoloader::addClassPattern('/^Text_Wiki_Render_Xhtml/', WICKED_BASE . '/lib/Text_Wiki/Render/Xhtml');
+            $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Text_Wiki_Render_Xhtml/', WICKED_BASE . '/lib/Text_Wiki/Render/Xhtml'));
         }
 
-        Horde_Autoloader::addClassPattern('/^Text_Wiki_Parse/', WICKED_BASE . '/lib/Text_Wiki/Parse/' . $format);
+        $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Text_Wiki_Parse/', WICKED_BASE . '/lib/Text_Wiki/Parse/' . $format));
 
         return $this->_proc;
     }
 
-    function render($mode, $params = null)
+    public function render($mode, $params = null)
     {
         switch ($mode) {
-        case WICKED_MODE_CONTENT:
+        case Wicked::MODE_CONTENT:
             return $this->content($params);
 
-        case WICKED_MODE_DISPLAY:
+        case Wicked::MODE_DISPLAY:
             return $this->display($params);
 
-        case WICKED_MODE_BLOCK:
+        case Wicked::MODE_BLOCK:
             return $this->block($params);
 
-        case WICKED_MODE_REMOVE:
+        case Wicked::MODE_REMOVE:
             return $this->remove();
 
-        case WICKED_MODE_HISTORY:
+        case Wicked::MODE_HISTORY:
             return $this->history();
 
-        case WICKED_MODE_DIFF:
+        case Wicked::MODE_DIFF:
             return $this->diff($params);
 
         default:
-            return PEAR::raiseError(_("Unsupported"));
+            throw new Wicked_Exception(_("Unsupported"));
         }
     }
 
-    function isLocked()
+    public function isLocked()
     {
         return false;
     }
 
-    function lock()
+    public function lock()
     {
-        return PEAR::raiseError(_("Unsupported"));
+        throw new Wicked_Exception(_("Unsupported"));
     }
 
-    function unlock()
+    public function unlock()
     {
-        return PEAR::raiseError(_("Unsupported"));
+        throw new Wicked_Exception(_("Unsupported"));
     }
 
-    function updateText($newtext, $changelog, $minorchange)
+    public function updateText($newtext, $changelog, $minorchange)
     {
-        return PEAR::raiseError(_("Unsupported"));
+        throw new Wicked_Exception(_("Unsupported"));
     }
 
-    function getText()
+    public function getText()
     {
-        return PEAR::raiseError(_("Unsupported"));
+        throw new Wicked_Exception(_("Unsupported"));
     }
 
-    function pageName()
-    {
-        return null;
-    }
-
-    function referrer()
+    public function pageName()
     {
         return null;
     }
 
-    function pageUrl($linkpage = null, $actionId = null)
+    public function referrer()
+    {
+        return null;
+    }
+
+    public function pageUrl($linkpage = null, $actionId = null)
     {
         $params = array('page' => $this->pageName());
         if ($this->referrer()) {
@@ -579,20 +550,20 @@ class Page {
             $url = Wicked::url($this->pageName());
             unset($params['page']);
         } else {
-            $url = Horde::applicationUrl($linkpage);
+            $url = Horde::url($linkpage);
         }
 
         return Horde_Util::addParameter($url, $params);
     }
 
-    function pageTitle()
+    public function pageTitle()
     {
         return $this->pageName();
     }
 
-    function handleAction()
+    public function handleAction()
     {
-        return PEAR::raiseError(_("Unsupported"));
+        throw new Wicked_Exception(_("Unsupported"));
     }
 
 }

@@ -7,8 +7,6 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * $Horde: agora/lib/Agora.php,v 1.121 2009-12-01 12:52:38 jan Exp $
- *
  * @author Marko Djukic <marko@oblo.com>
  * @package Agora
  */
@@ -190,7 +188,7 @@ class Agora {
                 $sort_img = ($sort_dir ? 'za.png' : 'az.png');
                 $sort_title = ($sort_dir ? _("Sort Ascending") : _("Sort Descending"));
                 $col_arrow = Horde::link(Horde_Util::addParameter($url, array($view . '_sortby' => $col_name, $view . '_sortdir' => $sort_dir ? 0 : 1)), $sort_title) .
-                    Horde::img($sort_img, $sort_title, null, $GLOBALS['registry']->getImageDir('horde')) . '</a> ';
+                    Horde::img($sort_img, $sort_title) . '</a> ';
                 $col_class = 'selected';
             } else {
                 /* Column not currently sorted, add link to sort by
@@ -228,49 +226,10 @@ class Agora {
             return PEAR::raiseError(_("The VFS backend needs to be configured to enable attachment uploads."));
         }
 
-        require_once 'VFS.php';
-        return VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs'));
-    }
-
-    function getMenu($returnType = 'object')
-    {
-        $menu = new Horde_Menu();
-        $img_dir = $GLOBALS['registry']->getImageDir();
-        $scope = Horde_Util::getGet('scope', 'agora');
-
-        /* Agora Home. */
-        $url = Horde_Util::addParameter(Horde::applicationUrl('forums.php'), 'scope', $scope);
-        $menu->add($url, _("_Forums"), 'forums.png', $img_dir, null, null,
-                   dirname($_SERVER['PHP_SELF']) == $GLOBALS['registry']->get('webroot') && basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
-
-        /* Thread list, if applicable. */
-        if (isset($GLOBALS['forum_id'])) {
-            $menu->add(Agora::setAgoraId($GLOBALS['forum_id'], null, Horde::applicationUrl('threads.php')), _("_Threads"), 'threads.png', $GLOBALS['registry']->getImageDir());
-            if ($scope == 'agora' && Horde_Auth::getAuth()) {
-                $menu->add(Agora::setAgoraId($GLOBALS['forum_id'], null, Horde::applicationUrl('messages/edit.php')), _("New Thread"), 'newmessage.png', $GLOBALS['registry']->getImageDir());
-            }
-        }
-
-        if ($scope == 'agora' && Agora_Messages::hasPermission(Horde_Perms::DELETE, 0, $scope)) {
-            $menu->add(Horde::applicationUrl('editforum.php'), _("_New Forum"), 'newforum.png', $img_dir, null, null, Horde_Util::getFormData('agora') ? '__noselection' : null);
-        }
-
-        if (Agora_Messages::hasPermission(Horde_Perms::DELETE, 0, $scope)) {
-            $url = Horde_Util::addParameter(Horde::applicationUrl('moderate.php'), 'scope', $scope);
-            $menu->add($url, _("_Moderate"), 'moderate.png', $img_dir);
-        }
-
-        if (Horde_Auth::isAdmin()) {
-            $menu->add(Horde::applicationUrl('moderators.php'), _("_Moderators"), 'hot.png', $img_dir);
-        }
-
-        $url = Horde_Util::addParameter(Horde::applicationUrl('search.php'), 'scope', $scope);
-        $menu->add($url, _("_Search"), 'search.png', $GLOBALS['registry']->getImageDir('horde'));
-
-        if ($returnType == 'object') {
-            return $menu;
-        } else {
-            return $menu->render();
+        try {
+            return $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
+        } catch (VFS_Exception $e) {
+            return PEAR::raiseError($e);
         }
     }
 
@@ -367,7 +326,7 @@ class Agora {
                 return PEAR::raiseError(_("Malformed database entry."));
             }
 
-            $avatar_path = Horde::applicationUrl('avatars/?id=' . urlencode($matches[4]) . ':' . $avatar_collection_id, true, $scopeend_sid);
+            $avatar_path = Horde::url('avatars/?id=' . urlencode($matches[4]) . ':' . $avatar_collection_id, true, $scopeend_sid);
             break;
         }
 
@@ -379,7 +338,7 @@ class Agora {
      *
      * @param int $message_id  Identifier of message to be distributed
      *
-     * @return mixed           Boolean true on success; PEAR_Error on failure
+     * @throws Horde_Mime_Exception
      */
     function distribute($message_id)
     {
@@ -390,15 +349,10 @@ class Agora {
         $forum = $storage->getForum($message['forum_id']);
 
         if (empty($forum['forum_distribution_address'])) {
-            return false;
+            return;
         }
 
-        require_once 'Mail.php';
-        require_once 'Horde/MIME.php';
-        require_once 'Horde/MIME/Headers.php';
-        require_once 'Horde/MIME/Message.php';
-
-        $msg_headers = new MIME_Headers();
+        $msg_headers = new Horde_Mime_Headers();
         $msg_headers->addMessageIdHeader();
         $msg_headers->addAgentHeader();
         $msg_headers->addHeader('Date', date('r'));
@@ -408,14 +362,11 @@ class Agora {
         $msg_headers->addHeader('From', $message['message_author']);
         $msg_headers->addHeader('Subject', '[' . $forum['forum_name'] . '] ' . $message['message_subject']);
 
-        $mime = new MIME_Message();
-        $body = new MIME_Part('text/plain', $message['body'],
-                              Horde_Nls::getCharset());
-        $mime->addPart($body);
-        $msg_headers->addMIMEHeaders($mime);
-        $result = $mime->send($forum['forum_distribution_address'], $msg_headers, $conf['mailer']['type'], $conf['mailer']['params']);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-        }
+        $body = new Horde_Mime_Part();
+        $body->setType('text/plain');
+        $body->setCharset('UTF-8');
+        $body->setContents($message['body']);
+
+        $body->send($forum['forum_distribution_address'], $msg_headers, $conf['mailer']['type'], $conf['mailer']['params']);
     }
 }

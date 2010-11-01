@@ -3,30 +3,28 @@
  * VFS implementation for an FTP server.
  *
  * Required values for $params:<pre>
- *      'username'       The username with which to connect to the ftp server.
- *      'password'       The password with which to connect to the ftp server.
- *      'hostspec'       The ftp server to connect to.</pre>
+ * username - (string) The username with which to connect to the ftp server.
+ * password - (string) The password with which to connect to the ftp server.
+ * hostspec - (string) The ftp server to connect to.</pre>
  *
  * Optional values for $params:<pre>
- *      'lsformat'       The return formatting from the 'ls' command).
+ * lsformat - (string) The return formatting from the 'ls' command).
  *                       Values: 'aix', 'standard' (default)
- *      'maplocalids'    If true and the POSIX extension is available, the
- *                       driver will map the user and group IDs returned from
- *                       the FTP server with the local IDs from the local
- *                       password file.  This is useful only if the FTP server
- *                       is running on localhost or if the local user/group
- *                       IDs are identical to the remote FTP server.
- *      'pasv'           If true, connection will be set to passive mode.
- *      'port'           The port used to connect to the ftp server if other
- *                       than 21.
- *      'ssl'            If true, and PHP had been compiled with OpenSSL
- *                       support, TLS transport-level encryption will be
- *                       negotiated with the server.
- *      'timeout'        If defined, use this value as the timeout for the
- *                       server.
- *      'type'           The type of the remote FTP server.
- *                       Possible values: 'unix', 'win', 'netware'
- *                       By default, we attempt to auto-detect type.</pre>
+ * maplocalids - (boolean) If true and the POSIX extension is available, the
+ *               driver will map the user and group IDs returned from the FTP
+ *               server with the local IDs from the local password file.  This
+ *               is useful only if the FTP server is running on localhost or
+ *               if the local user/group IDs are identical to the remote FTP
+ *               server.
+ * pasv - (boolean) If true, connection will be set to passive mode.
+ * port - (integer) The port used to connect to the ftp server if other than
+ *        21 (FTP default).
+ * ssl - (boolean) If true, and PHP had been compiled with OpenSSL support,
+ *        TLS transport-level encryption will be negotiated with the server.
+ * timeout -(integer) The timeout for the server.
+ * type - (string) The type of the remote FTP server.
+ *        Possible values: 'unix', 'win', 'netware'
+ *        By default, we attempt to auto-detect type.</pre>
  *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  * Copyright 2002-2007 Michael Varghese <mike.varghese@ascellatech.com>
@@ -38,70 +36,81 @@
  * @author  Michael Varghese <mike.varghese@ascellatech.com>
  * @package VFS
  */
-class VFS_ftp extends VFS {
-
+class VFS_ftp extends VFS
+{
     /**
      * List of additional credentials required for this VFS backend.
      *
      * @var array
      */
-    var $_credentials = array('username', 'password');
+    protected $_credentials = array('username', 'password');
 
     /**
      * List of permissions and if they can be changed in this VFS backend.
      *
      * @var array
      */
-    var $_permissions = array(
-        'owner' => array('read' => true, 'write' => true, 'execute' => true),
-        'group' => array('read' => true, 'write' => true, 'execute' => true),
-        'all'   => array('read' => true, 'write' => true, 'execute' => true));
+    protected $_permissions = array(
+        'owner' => array(
+            'read' => true,
+            'write' => true,
+            'execute' => true
+        ),
+        'group' => array(
+            'read' => true,
+            'write' => true,
+            'execute' => true
+        ),
+        'all' => array(
+            'read' => true,
+            'write' => true,
+            'execute' => true
+        )
+    );
 
     /**
      * Variable holding the connection to the ftp server.
      *
      * @var resource
      */
-    var $_stream = false;
+    protected $_stream = false;
 
     /**
      * Local cache array for user IDs.
      *
      * @var array
      */
-    var $_uids = array();
+    protected $_uids = array();
 
     /**
      * Local cache array for group IDs.
      *
      * @var array
      */
-    var $_gids = array();
+    protected $_gids = array();
 
     /**
+     * The FTP server type.
+     *
+     * @var string
      */
-    var $_type;
+    protected $_type;
 
     /**
      * Returns the size of a file.
      *
-     * @access public
-     *
      * @param string $path  The path of the file.
      * @param string $name  The filename.
      *
-     * @return integer  The size of the file in bytes or PEAR_Error on
-     *                  failure.
+     * @return integer  The size of the file in bytes.
+     * @throws VFS_Exception
      */
-    function size($path, $name)
+    public function size($path, $name)
     {
-        $conn = $this->_connect();
-        if (is_a($conn, 'PEAR_Error')) {
-            return $conn;
-        }
+        $this->_connect();
 
         if (($size = @ftp_size($this->_stream, $this->_getPath($path, $name))) === false) {
-            return PEAR::raiseError(sprintf(_("Unable to check file size of \"%s\"."), $this->_getPath($path, $name)));
+            throw new VFS_Exception(sprintf('Unable to check file size of "%s".', $this->_getPath($path, $name)));
         }
 
         return $size;
@@ -115,19 +124,14 @@ class VFS_ftp extends VFS {
      *
      * @return string  The file data.
      */
-    function read($path, $name)
+    public function read($path, $name)
     {
         $file = $this->readFile($path, $name);
-        if (is_a($file, 'PEAR_Error')) {
-            return $file;
-        }
-
         $size = filesize($file);
-        if ($size === 0) {
-            return '';
-        }
 
-        return file_get_contents($file);
+        return ($size === 0)
+            ? ''
+            : file_get_contents($file);
     }
 
     /**
@@ -140,20 +144,17 @@ class VFS_ftp extends VFS {
      * @param string $path  The pathname to the file.
      * @param string $name  The filename to retrieve.
      *
-     * @return string A local filename.
+     * @return string  A local filename.
+     * @throws VFS_Exception
      */
-    function readFile($path, $name)
+    public function readFile($path, $name)
     {
-        $conn = $this->_connect();
-        if (is_a($conn, 'PEAR_Error')) {
-            return $conn;
-        }
+        $this->_connect();
 
         // Create a temporary file and register it for deletion at the
         // end of this request.
-        $localFile = $this->_getTempFile();
-        if (!$localFile) {
-            return PEAR::raiseError(_("Unable to create temporary file."));
+        if (!($localFile = tempnam(null, 'vfs'))) {
+            throw new VFS_Exception('Unable to create temporary file.');
         }
         register_shutdown_function(create_function('', '@unlink(\'' . addslashes($localFile) . '\');'));
 
@@ -162,8 +163,9 @@ class VFS_ftp extends VFS {
             $localFile,
             $this->_getPath($path, $name),
             FTP_BINARY);
+
         if ($result === false) {
-            return PEAR::raiseError(sprintf(_("Unable to open VFS file \"%s\"."), $this->_getPath($path, $name)));
+            throw new VFS_Exception(sprintf('Unable to open VFS file "%s".', $this->_getPath($path, $name)));
         }
 
         return $localFile;
@@ -176,16 +178,11 @@ class VFS_ftp extends VFS {
      * @param string $name  The filename to retrieve.
      *
      * @return resource  The stream.
+     * @throws VFS_Exception
      */
-    function readStream($path, $name)
+    public function readStream($path, $name)
     {
-        $file = $this->readFile($path, $name);
-        if (is_a($file, 'PEAR_Error')) {
-            return $file;
-        }
-
-        $mode = OS_WINDOWS ? 'rb' : 'r';
-        return fopen($file, $mode);
+        return fopen($this->readFile($path, $name), OS_WINDOWS ? 'rb' : 'r');
     }
 
     /**
@@ -197,35 +194,23 @@ class VFS_ftp extends VFS {
      *                             be stored.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function write($path, $name, $tmpFile, $autocreate = false)
+    public function write($path, $name, $tmpFile, $autocreate = false)
     {
-        $conn = $this->_connect();
-        if (is_a($conn, 'PEAR_Error')) {
-            return $conn;
-        }
-
-        $res = $this->_checkQuotaWrite('file', $tmpFile);
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
+        $this->_connect();
+        $this->_checkQuotaWrite('file', $tmpFile);
 
         if (!@ftp_put($this->_stream, $this->_getPath($path, $name), $tmpFile, FTP_BINARY)) {
             if ($autocreate) {
-                $result = $this->autocreatePath($path);
-                if (is_a($result, 'PEAR_Error')) {
-                    return $result;
+                $this->autocreatePath($path);
+                if (@ftp_put($this->_stream, $this->_getPath($path, $name), $tmpFile, FTP_BINARY)) {
+                    return;
                 }
-                if (!@ftp_put($this->_stream, $this->_getPath($path, $name), $tmpFile, FTP_BINARY)) {
-                    return PEAR::raiseError(sprintf(_("Unable to write VFS file \"%s\"."), $this->_getPath($path, $name)));
-                }
-            } else {
-                return PEAR::raiseError(sprintf(_("Unable to write VFS file \"%s\"."), $this->_getPath($path, $name)));
             }
-        }
 
-        return true;
+            throw new VFS_Exception(sprintf('Unable to write VFS file "%s".', $this->_getPath($path, $name)));
+        }
     }
 
     /**
@@ -236,23 +221,20 @@ class VFS_ftp extends VFS {
      * @param string $data         The file data.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function writeData($path, $name, $data, $autocreate = false)
+    public function writeData($path, $name, $data, $autocreate = false)
     {
-        $res = $this->_checkQuotaWrite('string', $data);
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
+        $this->_checkQuotaWrite('string', $data);
+        $tmpFile = tempnam(null, 'vfs');
+        file_put_contents($tmpFile, $data);
+        try {
+            $this->write($path, $name, $tmpFile, $autocreate);
+            unlink($tmpFile);
+        } catch (VFS_Exception $e) {
+            unlink($tmpFile);
+            throw $e;
         }
-
-        $tmpFile = $this->_getTempFile();
-        $fp = fopen($tmpFile, 'wb');
-        fwrite($fp, $data);
-        fclose($fp);
-
-        $result = $this->write($path, $name, $tmpFile, $autocreate);
-        unlink($tmpFile);
-        return $result;
     }
 
     /**
@@ -261,25 +243,16 @@ class VFS_ftp extends VFS {
      * @param string $path  The path to delete the file from.
      * @param string $name  The filename to delete.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function deleteFile($path, $name)
+    public function deleteFile($path, $name)
     {
-        $res = $this->_checkQuotaDelete($path, $name);
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
-
-        $conn = $this->_connect();
-        if (is_a($conn, 'PEAR_Error')) {
-            return $conn;
-        }
+        $this->_connect();
+        $this->_checkQuotaDelete($path, $name);
 
         if (!@ftp_delete($this->_stream, $this->_getPath($path, $name))) {
-            return PEAR::raiseError(sprintf(_("Unable to delete VFS file \"%s\"."), $this->_getPath($path, $name)));
+            throw new VFS_Exception(sprintf('Unable to delete VFS file "%s".', $this->_getPath($path, $name)));
         }
-
-        return true;
     }
 
     /**
@@ -290,22 +263,20 @@ class VFS_ftp extends VFS {
      *
      * @return boolean  True if it is a folder, false otherwise.
      */
-    function isFolder($path, $name)
+    public function isFolder($path, $name)
     {
-        $conn = $this->_connect();
-        if (is_a($conn, 'PEAR_Error')) {
-            return $conn;
-        }
-
         $result = false;
-        $olddir = $this->getCurrentDirectory();
 
-        /* See if we can change to the given path. */
-        if (@ftp_chdir($this->_stream, $this->_getPath($path, $name))) {
-            $result = true;
-        }
+        try {
+            $this->_connect();
 
-        $this->_setPath($olddir);
+            $olddir = $this->getCurrentDirectory();
+
+            /* See if we can change to the given path. */
+            $result = @ftp_chdir($this->_stream, $this->_getPath($path, $name));
+
+            $this->_setPath($olddir);
+        } catch (VFS_Exception $e) {}
 
         return $result;
     }
@@ -317,18 +288,14 @@ class VFS_ftp extends VFS {
      * @param string $name        The name of the folder to delete.
      * @param boolean $recursive  Force a recursive delete?
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function deleteFolder($path, $name, $recursive = false)
+    public function deleteFolder($path, $name, $recursive = false)
     {
-        $conn = $this->_connect();
-        if (is_a($conn, 'PEAR_Error')) {
-            return $conn;
-        }
+        $this->_connect();
 
         $isDir = false;
-        $dirCheck = $this->listFolder($path);
-        foreach ($dirCheck as $file) {
+        foreach ($this->listFolder($path) as $file) {
             if ($file['name'] == $name && $file['type'] == '**dir') {
                 $isDir = true;
                 break;
@@ -337,36 +304,24 @@ class VFS_ftp extends VFS {
 
         if ($isDir) {
             $file_list = $this->listFolder($this->_getPath($path, $name));
-            if (is_a($file_list, 'PEAR_Error')) {
-                return $file_list;
-            }
-
             if (count($file_list) && !$recursive) {
-                return PEAR::raiseError(sprintf(_("Unable to delete \"%s\", the directory is not empty."),
-                                                $this->_getPath($path, $name)));
+                throw new VFS_Exception(sprintf('Unable to delete "%s", as the directory is not empty.', $this->_getPath($path, $name)));
             }
 
             foreach ($file_list as $file) {
                 if ($file['type'] == '**dir') {
-                    $result = $this->deleteFolder($this->_getPath($path, $name), $file['name'], $recursive);
+                    $this->deleteFolder($this->_getPath($path, $name), $file['name'], $recursive);
                 } else {
-                    $result = $this->deleteFile($this->_getPath($path, $name), $file['name']);
-                }
-                if (is_a($result, 'PEAR_Error')) {
-                    return $result;
+                    $this->deleteFile($this->_getPath($path, $name), $file['name']);
                 }
             }
 
             if (!@ftp_rmdir($this->_stream, $this->_getPath($path, $name))) {
-                return PEAR::raiseError(sprintf(_("Cannot remove directory \"%s\"."), $this->_getPath($path, $name)));
+                throw new VFS_Exception(sprintf('Cannot remove directory "%s".', $this->_getPath($path, $name)));
             }
-        } else {
-            if (!@ftp_delete($this->_stream, $this->_getPath($path, $name))) {
-                return PEAR::raiseError(sprintf(_("Cannot delete file \"%s\"."), $this->_getPath($path, $name)));
-            }
+        } elseif (!@ftp_delete($this->_stream, $this->_getPath($path, $name))) {
+            throw new VFS_Exception(sprintf('Cannot delete file "%s".', $this->_getPath($path, $name)));
         }
-
-        return true;
     }
 
     /**
@@ -377,23 +332,16 @@ class VFS_ftp extends VFS {
      * @param string $newpath  The new path of the file.
      * @param string $newname  The new filename.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function rename($oldpath, $oldname, $newpath, $newname)
+    public function rename($oldpath, $oldname, $newpath, $newname)
     {
-        if (is_a($conn = $this->_connect(), 'PEAR_Error')) {
-            return $conn;
-        }
-
-        if (is_a($result = $this->autocreatePath($newpath), 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_connect();
+        $this->autocreatePath($newpath);
 
         if (!@ftp_rename($this->_stream, $this->_getPath($oldpath, $oldname), $this->_getPath($newpath, $newname))) {
-            return PEAR::raiseError(sprintf(_("Unable to rename VFS file \"%s\"."), $this->_getPath($oldpath, $oldname)));
+            throw new VFS_Exception(sprintf('Unable to rename VFS file "%s".', $this->_getPath($oldpath, $oldname)));
         }
-
-        return true;
     }
 
     /**
@@ -402,20 +350,15 @@ class VFS_ftp extends VFS {
      * @param string $path  The parent folder.
      * @param string $name  The name of the new folder.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function createFolder($path, $name)
+    public function createFolder($path, $name)
     {
-        $conn = $this->_connect();
-        if (is_a($conn, 'PEAR_Error')) {
-            return $conn;
-        }
+        $this->_connect();
 
         if (!@ftp_mkdir($this->_stream, $this->_getPath($path, $name))) {
-            return PEAR::raiseError(sprintf(_("Unable to create VFS directory \"%s\"."), $this->_getPath($path, $name)));
+            throw new VFS_Exception(sprintf('Unable to create VFS directory "%s".', $this->_getPath($path, $name)));
         }
-
-        return true;
     }
 
     /**
@@ -425,20 +368,15 @@ class VFS_ftp extends VFS {
      * @param string $name        The name of the item.
      * @param string $permission  The permission to set.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function changePermissions($path, $name, $permission)
+    public function changePermissions($path, $name, $permission)
     {
-        $conn = $this->_connect();
-        if (is_a($conn, 'PEAR_Error')) {
-            return $conn;
-        }
+        $this->_connect();
 
         if (!@ftp_site($this->_stream, 'CHMOD ' . $permission . ' ' . $this->_getPath($path, $name))) {
-            return PEAR::raiseError(sprintf(_("Unable to change permission for VFS file \"%s\"."), $this->_getPath($path, $name)));
+            throw new VFS_Exception(sprintf('Unable to change permission for VFS file "%s".', $this->_getPath($path, $name)));
         }
-
-        return true;
     }
 
     /**
@@ -449,23 +387,19 @@ class VFS_ftp extends VFS {
      * @param boolean $dotfiles  Show dotfiles?
      * @param boolean $dironly   Show only directories?
      *
-     * @return array  File list on success or PEAR_Error on failure.
+     * @return array  File list.
+     * @throws VFS_Exception
      */
-    function _listFolder($path = '', $filter = null, $dotfiles = true,
-                         $dironly = false)
+    protected function _listFolder($path = '', $filter = null,
+                                   $dotfiles = true, $dironly = false)
     {
-        $conn = $this->_connect();
-        if (is_a($conn, 'PEAR_Error')) {
-            return $conn;
-        }
-
-        $files = array();
+        $this->_connect();
 
         if (empty($this->_type)) {
             if (!empty($this->_params['type'])) {
                 $this->_type = $this->_params['type'];
             } else {
-                $type = VFS::strtolower(@ftp_systype($this->_stream));
+                $type = self::strtolower(@ftp_systype($this->_stream));
                 if ($type == 'unknown') {
                     // Go with unix-style listings by default.
                     $type = 'unix';
@@ -481,10 +415,7 @@ class VFS_ftp extends VFS {
 
         $olddir = $this->getCurrentDirectory();
         if (strlen($path)) {
-            $res = $this->_setPath($path);
-            if (is_a($res, 'PEAR_Error')) {
-                return $res;
-            }
+            $this->_setPath($path);
         }
 
         if ($this->_type == 'unix') {
@@ -503,25 +434,20 @@ class VFS_ftp extends VFS {
 
         if (!is_array($list)) {
             if (isset($olddir)) {
-                $res = $this->_setPath($olddir);
-                if (is_a($res, 'PEAR_Error')) {
-                    return $res;
-                }
+                $this->_setPath($olddir);
             }
             return array();
         }
 
         /* If 'maplocalids' is set, check for the POSIX extension. */
-        $mapids = false;
-        if (!empty($this->_params['maplocalids']) &&
-            extension_loaded('posix')) {
-            $mapids = true;
-        }
+        $mapids = (!empty($this->_params['maplocalids']) && extension_loaded('posix'));
 
         $currtime = time();
+        $files = array();
 
         foreach ($list as $line) {
             $file = array();
+
             $item = preg_split('/\s+/', $line);
             if (($this->_type == 'unix') ||
                 (($this->_type == 'win') && !preg_match('|\d\d-\d\d-\d\d|', $item[0]))) {
@@ -570,16 +496,16 @@ class VFS_ftp extends VFS {
                     $file['type'] = '**sym';
 
                    if ($this->isFolder('', $file['link'])) {
-                              $file['linktype'] = '**dir';
-                                                    } else {
-                                                    $parts = explode('/', $file['link']);
-                                                    $name = explode('.', array_pop($parts));
-                                                    if (count($name) == 1 || ($name[0] === '' && count($name) == 2)) {
-                                                        $file['linktype'] = '**none';
-                                                        } else {
-                                                            $file['linktype'] = VFS::strtolower(array_pop($name));
-                                                            }
-                                                                   }
+                       $file['linktype'] = '**dir';
+                   } else {
+                       $parts = explode('/', $file['link']);
+                       $name = explode('.', array_pop($parts));
+                       if (count($name) == 1 || ($name[0] === '' && count($name) == 2)) {
+                           $file['linktype'] = '**none';
+                       } else {
+                           $file['linktype'] = VFS::strtolower(array_pop($name));
+                       }
+                   }
                 } elseif ($p1 === 'd') {
                     $file['type'] = '**dir';
                 } else {
@@ -587,7 +513,7 @@ class VFS_ftp extends VFS {
                     if (count($name) == 1 || (substr($file['name'], 0, 1) === '.' && count($name) == 2)) {
                         $file['type'] = '**none';
                     } else {
-                        $file['type'] = VFS::strtolower($name[count($name) - 1]);
+                        $file['type'] = self::strtolower($name[count($name) - 1]);
                     }
                 }
                 if ($file['type'] == '**dir') {
@@ -659,7 +585,7 @@ class VFS_ftp extends VFS {
                     if (count($name) == 1 || (substr($file['name'], 0, 1) === '.' && count($name) == 2)) {
                         $file['type'] = '**none';
                     } else {
-                        $file['type'] = VFS::strtolower($name[count($name) - 1]);
+                        $file['type'] = self::strtolower($name[count($name) - 1]);
                     }
                 }
             }
@@ -679,11 +605,9 @@ class VFS_ftp extends VFS {
         }
 
         if (isset($olddir)) {
-            $res = $this->_setPath($olddir);
-            if (is_a($res, 'PEAR_Error')) {
-                return $res;
-            }
+            $this->_setPath($olddir);
         }
+
         return $files;
     }
 
@@ -695,38 +619,31 @@ class VFS_ftp extends VFS {
      * @param mixed $filter        Hash of items to filter based on folderlist.
      * @param boolean $dotfolders  Include dotfolders?
      *
-     * @return mixed  Folder list on success or a PEAR_Error object on failure.
+     * @return array  Folder list.
+     * @throws VFS_Exception
      */
-    function listFolders($path = '', $filter = null, $dotfolders = true)
+    public function listFolders($path = '', $filter = null, $dotfolders = true)
     {
-        $conn = $this->_connect();
-        if (is_a($conn, 'PEAR_Error')) {
-            return $conn;
-        }
+        $this->_connect();
 
-        $folders = array();
-        $folder = array();
+        $folder = array(
+            'abbrev' => '..',
+            'label' => '..',
+            'val' => $this->_parentDir($path)
+        );
+        $folders = array($folder['val'] => $folder);
 
         $folderList = $this->listFolder($path, null, $dotfolders, true);
-        if (is_a($folderList, 'PEAR_Error')) {
-            return $folderList;
-        }
-
-        $folder['val'] = $this->_parentDir($path);
-        $folder['abbrev'] = '..';
-        $folder['label'] = '..';
-
-        $folders[$folder['val']] = $folder;
-
         foreach ($folderList as $files) {
-            $folder['val'] = $this->_getPath($path, $files['name']);
-            $folder['abbrev'] = $files['name'];
-            $folder['label'] = $folder['val'];
-
-            $folders[$folder['val']] = $folder;
+            $folders[$folder['val']] = array(
+                'abbrev' => $files['name'],
+                'label' => $folder['val'],
+                'val' => $this->_getPath($path, $files['name'])
+            );
         }
 
         ksort($folders);
+
         return $folders;
     }
 
@@ -738,63 +655,46 @@ class VFS_ftp extends VFS {
      * @param string $dest         The name of the destination directory.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function copy($path, $name, $dest, $autocreate = false)
+    public function copy($path, $name, $dest, $autocreate = false)
     {
         $orig = $this->_getPath($path, $name);
         if (preg_match('|^' . preg_quote($orig) . '/?$|', $dest)) {
-            return PEAR::raiseError(_("Cannot copy file(s) - source and destination are the same."));
+            throw new VFS_Exception('Cannot copy file(s) - source and destination are the same.');
         }
 
-        $conn = $this->_connect();
-        if (is_a($conn, 'PEAR_Error')) {
-            return $conn;
-        }
+        $this->_connect();
 
         if ($autocreate) {
-            $result = $this->autocreatePath($dest);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
+            $this->autocreatePath($dest);
         }
 
-        $fileCheck = $this->listFolder($dest, null, true);
-        if (is_a($fileCheck, 'PEAR_Error')) {
-            return $fileCheck;
-        }
-        foreach ($fileCheck as $file) {
+        foreach ($this->listFolder($dest, null, true) as $file) {
             if ($file['name'] == $name) {
-                return PEAR::raiseError(sprintf(_("%s already exists."), $this->_getPath($dest, $name)));
+                throw new VFS_Exception(sprintf('%s already exists.'), $this->_getPath($dest, $name));
             }
         }
 
         if ($this->isFolder($path, $name)) {
-            if (is_a($result = $this->_copyRecursive($path, $name, $dest), 'PEAR_Error')) {
-                return $result;
-            }
+            $this->_copyRecursive($path, $name, $dest);
         } else {
-            $tmpFile = $this->_getTempFile();
+            $tmpFile = tempnam(null, 'vfs');
             $fetch = @ftp_get($this->_stream, $tmpFile, $orig, FTP_BINARY);
             if (!$fetch) {
                 unlink($tmpFile);
-                return PEAR::raiseError(sprintf(_("Failed to copy from \"%s\"."), $orig));
+                throw new VFS_Exception(sprintf('Failed to copy from "%s".', $orig));
             }
 
-            $res = $this->_checkQuotaWrite('file', $tmpFile);
-            if (is_a($res, 'PEAR_Error')) {
-                return $res;
-            }
+            $this->_checkQuotaWrite('file', $tmpFile);
 
             if (!@ftp_put($this->_stream, $this->_getPath($dest, $name), $tmpFile, FTP_BINARY)) {
                 unlink($tmpFile);
-                return PEAR::raiseError(sprintf(_("Failed to copy to \"%s\"."), $this->_getPath($dest, $name)));
+                throw new VFS_Exception(sprintf('Failed to copy to "%s".', $this->_getPath($dest, $name)));
             }
 
             unlink($tmpFile);
         }
-
-        return true;
     }
 
     /**
@@ -805,90 +705,69 @@ class VFS_ftp extends VFS {
      * @param string $dest         The destination file name.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function move($path, $name, $dest, $autocreate = false)
+    public function move($path, $name, $dest, $autocreate = false)
     {
         $orig = $this->_getPath($path, $name);
         if (preg_match('|^' . preg_quote($orig) . '/?$|', $dest)) {
-            return PEAR::raiseError(_("Cannot move file(s) - destination is within source."));
+            throw new VFS_Exception('Cannot move file(s) - destination is within source.');
         }
 
-        $conn = $this->_connect();
-        if (is_a($conn, 'PEAR_Error')) {
-            return $conn;
-        }
+        $this->_connect();
 
         if ($autocreate) {
-            $result = $this->autocreatePath($dest);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
+            $this->autocreatePath($dest);
         }
 
-        $fileCheck = $this->listFolder($dest, null, true);
-        if (is_a($fileCheck, 'PEAR_Error')) {
-            return $fileCheck;
-        }
-        foreach ($fileCheck as $file) {
+        foreach ($this->listFolder($dest, null, true) as $file) {
             if ($file['name'] == $name) {
-                return PEAR::raiseError(sprintf(_("%s already exists."), $this->_getPath($dest, $name)));
+                throw new VFS_Exception(sprintf('%s already exists.', $this->_getPath($dest, $name)));
             }
         }
 
         if (!@ftp_rename($this->_stream, $orig, $this->_getPath($dest, $name))) {
-            return PEAR::raiseError(sprintf(_("Failed to move to \"%s\"."), $this->_getPath($dest, $name)));
+            throw new VFS_Exception(sprintf('Failed to move to "%s".', $this->_getPath($dest, $name)));
         }
-
-        return true;
     }
 
     /**
      * Returns the current working directory on the FTP server.
      *
      * @return string  The current working directory.
+     * @throws VFS_Exception
      */
-    function getCurrentDirectory()
+    public function getCurrentDirectory()
     {
-        if (is_a($connected = $this->_connect(), 'PEAR_Error')) {
-            return $connected;
-        }
+        $this->_connect();
         return @ftp_pwd($this->_stream);
     }
 
     /**
      * Changes the current directory on the server.
      *
-     * @access private
-     *
      * @param string $path  The path to change to.
      *
-     * @return mixed  True on success, or a PEAR_Error on failure.
+     * @throws VFS_Exception
      */
-    function _setPath($path)
+    protected function _setPath($path)
     {
         if (!@ftp_chdir($this->_stream, $path)) {
-            return PEAR::raiseError(sprintf(_("Unable to change to %s."), $path));
+            throw new VFS_Exception(sprintf('Unable to change to %s.', $path));
         }
-        return true;
     }
 
     /**
      * Returns the parent directory of the specified path.
      *
-     * @access private
-     *
      * @param string $path  The path to get the parent of.
      *
-     * @return string  The parent directory (string) on success or a PEAR_Error
-     *                 object on failure.
+     * @return string  The parent directory.
+     * @throws VFS_Exception
      */
-    function _parentDir($path)
+    protected function _parentDir($path)
     {
-        $conn = $this->_connect();
-        if (is_a($conn, 'PEAR_Error')) {
-            return $conn;
-        }
+        $this->_connect();
 
         $olddir = $this->getCurrentDirectory();
         @ftp_cdup($this->_stream);
@@ -897,7 +776,7 @@ class VFS_ftp extends VFS {
         $this->_setPath($olddir);
 
         if (!$parent) {
-            return PEAR::raiseError(_("Unable to determine current directory."));
+            throw new VFS_Exception('Unable to determine current directory.');
         }
 
         return $parent;
@@ -906,59 +785,57 @@ class VFS_ftp extends VFS {
     /**
      * Attempts to open a connection to the FTP server.
      *
-     * @access private
-     *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function _connect()
+    protected function _connect()
     {
-        if ($this->_stream === false) {
-            if (!extension_loaded('ftp')) {
-                return PEAR::raiseError(_("The FTP extension is not available."));
-            }
+        if ($this->_stream !== false) {
+            return;
+        }
 
-            if (!is_array($this->_params)) {
-                return PEAR::raiseError(_("No configuration information specified for FTP VFS."));
-            }
+        if (!extension_loaded('ftp')) {
+            throw new VFS_Exception('The FTP extension is not available.');
+        }
 
-            $required = array('hostspec', 'username', 'password');
-            foreach ($required as $val) {
-                if (!isset($this->_params[$val])) {
-                    return PEAR::raiseError(sprintf(_("Required \"%s\" not specified in VFS configuration."), $val));
-                }
-            }
+        if (!is_array($this->_params)) {
+            throw new VFS_Exception('No configuration information specified for FTP VFS.');
+        }
 
-            /* Connect to the ftp server using the supplied parameters. */
-            if (!empty($this->_params['ssl'])) {
-                if (function_exists('ftp_ssl_connect')) {
-                    $this->_stream = @ftp_ssl_connect($this->_params['hostspec'], $this->_params['port']);
-                } else {
-                    return PEAR::raiseError(_("Unable to connect with SSL."));
-                }
-            } else {
-                $this->_stream = @ftp_connect($this->_params['hostspec'], $this->_params['port']);
-            }
-            if (!$this->_stream) {
-                return PEAR::raiseError(_("Connection to FTP server failed."));
-            }
-
-            $connected = @ftp_login($this->_stream, $this->_params['username'], $this->_params['password']);
-            if (!$connected) {
-                @ftp_quit($this->_stream);
-                $this->_stream = false;
-                return PEAR::raiseError(_("Authentication to FTP server failed."));
-            }
-
-            if (!empty($this->_params['pasv'])) {
-                @ftp_pasv($this->_stream, true);
-            }
-
-            if (!empty($this->_params['timeout'])) {
-                ftp_set_option($this->_stream, FTP_TIMEOUT_SEC, $this->_params['timeout']);
+        $required = array('hostspec', 'username', 'password');
+        foreach ($required as $val) {
+            if (!isset($this->_params[$val])) {
+                throw new VFS_Exception(sprintf('Required "%s" not specified in VFS configuration.', $val));
             }
         }
 
-        return true;
+        /* Connect to the ftp server using the supplied parameters. */
+        if (!empty($this->_params['ssl'])) {
+            if (function_exists('ftp_ssl_connect')) {
+                $this->_stream = @ftp_ssl_connect($this->_params['hostspec'], $this->_params['port']);
+            } else {
+                throw new VFS_Exception('Unable to connect with SSL.');
+            }
+        } else {
+            $this->_stream = @ftp_connect($this->_params['hostspec'], $this->_params['port']);
+        }
+
+        if (!$this->_stream) {
+            throw new VFS_Exception('Connection to FTP server failed.');
+        }
+
+        if (!@ftp_login($this->_stream, $this->_params['username'], $this->_params['password'])) {
+            @ftp_quit($this->_stream);
+            $this->_stream = false;
+            throw new VFS_Exception('Authentication to FTP server failed.');
+        }
+
+        if (!empty($this->_params['pasv'])) {
+            @ftp_pasv($this->_stream, true);
+        }
+
+        if (!empty($this->_params['timeout'])) {
+            ftp_set_option($this->_stream, FTP_TIMEOUT_SEC, $this->_params['timeout']);
+        }
     }
 
 }

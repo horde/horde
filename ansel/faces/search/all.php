@@ -15,23 +15,26 @@ $title = _("All faces");
 $page = Horde_Util::getFormData('page', 0);
 $perpage = $prefs->getValue('facesperpage');
 
-$count = $faces->countAllFaces();
-if (is_a($count, 'PEAR_Error')) {
+try {
+    $count = $faces->countAllFaces();
+    $results = $faces->allFaces($page * $perpage, $perpage);
+} catch (Ansel_Exception $e) {
     $notification->push($count->getDebugInfo());
     $count = 0;
     $results = array();
-} else {
-    $results = $faces->allFaces($page * $perpage, $perpage);
 }
-
 $vars = Horde_Variables::getDefaultVariables();
-$pager = new Horde_Ui_Pager(
+$pager = new Horde_Core_Ui_Pager(
     'page', $vars,
-    array('num' => $count,
-          'url' => 'faces/search/all.php',
-          'perpage' => $perpage));
+    array(
+        'num' => $count,
+        'url' => 'faces/search/all.php',
+        'perpage' => $perpage
+    )
+);
 
 require ANSEL_TEMPLATES . '/common-header.inc';
-require ANSEL_TEMPLATES . '/menu.inc';
+echo Horde::menu();
+$notification->notify(array('listeners' => 'status'));
 include ANSEL_TEMPLATES . '/faces/faces.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

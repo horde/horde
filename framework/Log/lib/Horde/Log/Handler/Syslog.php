@@ -2,49 +2,54 @@
 /**
  * Horde Log package
  *
- * @category   Horde
- * @package    Horde_Log
- * @subpackage Handlers
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @category   Horde
  * @license    http://opensource.org/licenses/bsd-license.php BSD
+ * @package    Log
+ * @subpackage Handlers
  */
 
 /**
- * @category   Horde
- * @package    Horde_Log
- * @subpackage Handlers
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @category   Horde
  * @license    http://opensource.org/licenses/bsd-license.php BSD
+ * @package    Log
+ * @subpackage Handlers
  */
 class Horde_Log_Handler_Syslog extends Horde_Log_Handler_Base
 {
     /**
-     * Options to be set by setOption().  Sets openlog and syslog options.
+     * Options to be set by setOption().
+     * Sets openlog and syslog options.
+     *
      * @var array
      */
     protected $_options = array(
-        'ident'            => false,
-        'facility'         => LOG_USER,
-        'openlogOptions'   => false,
         'defaultPriority'  => LOG_ERR,
+        'facility'         => LOG_USER,
+        'ident'            => false,
+        'openlogOptions'   => false
     );
 
     /**
-     * Last ident set by a syslog-handler instance
+     * Last ident set by a syslog-handler instance.
+     *
      * @var string
      */
     protected static $_lastIdent;
 
     /**
-     * Last facility name set by a syslog-handler instance
+     * Last facility name set by a syslog-handler instance.
+     *
      * @var string
      */
     protected static $_lastFacility;
 
     /**
-     * Map of log levels to syslog priorities
+     * Map of log levels to syslog priorities.
+     *
      * @var array
      */
     protected $_priorities = array(
@@ -61,18 +66,20 @@ class Horde_Log_Handler_Syslog extends Horde_Log_Handler_Base
     /**
      * Write a message to the log.
      *
-     * @param  array    $event    Log event
-     * @return bool               Always True
+     * @param array $event  Log event.
+     *
+     * @return boolean  True.
+     * @throws Horde_Log_Exception
      */
     public function write($event)
     {
-        if ($this->_options['ident'] !== self::$_lastIdent ||
-            $this->_options['facility'] !== self::$_lastFacility) {
+        if (($this->_options['ident'] !== $this->_lastIdent) ||
+            ($this->_options['facility'] !== $this->_lastFacility)) {
             $this->_initializeSyslog();
         }
 
         $priority = $this->_toSyslog($event['level']);
-        if (! syslog($priority, $event['message'])) {
+        if (!syslog($priority, $event['message'])) {
             throw new Horde_Log_Exception('Unable to log message');
         }
 
@@ -82,30 +89,31 @@ class Horde_Log_Handler_Syslog extends Horde_Log_Handler_Base
     /**
      * Translate a log level to a syslog LOG_* priority.
      *
-     * @param integer $level
+     * @param integer $level  Log level.
      *
-     * @return integer A LOG_* constant
+     * @return integer  A LOG_* constant.
      */
     protected function _toSyslog($level)
     {
-        if (isset($this->_priorities[$level])) {
-            return $this->_priorities[$level];
-        }
-        return $this->_options['defaultPriority'];
+        return isset($this->_priorities[$level])
+            ? $this->_priorities[$level]
+            : $this->_options['defaultPriority'];
     }
 
     /**
-     * Initialize syslog / set ident and facility
+     * Initialize syslog / set ident and facility.
      *
-     * @param  string  $ident         ident
-     * @param  string  $facility      syslog facility
-     * @return void
+     * @param string $ident     Ident.
+     * @param string $facility  Syslog facility.
+     *
+     * @throws Horde_Log_Exception
      */
     protected function _initializeSyslog()
     {
-        self::$_lastIdent = $this->_options['ident'];
-        self::$_lastFacility = $this->_options['facility'];
-        if (! openlog($this->_options['ident'], $this->_options['openlogOptions'], $this->_options['facility'])) {
+        $this->_lastIdent = $this->_options['ident'];
+        $this->_lastFacility = $this->_options['facility'];
+
+        if (!openlog($this->_options['ident'], $this->_options['openlogOptions'], $this->_options['facility'])) {
             throw new Horde_Log_Exception('Unable to open syslog');
         }
     }

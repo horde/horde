@@ -2,14 +2,34 @@
 v2.0-git
 --------
 
+[jan] Rename 'driver' configuration and classes to 'transport' to avoid
+      confusion with script and storage drivers.
 [mms] Use IMP API for IMAP actions.
-[mms] Convert to Horde 5 standards.
+[mms] Convert to Horde 4 standards.
 
 
 ----------
-v1.2.4-cvs
+v1.2.6-cvs
 ----------
 
+
+
+
+------
+v1.2.5
+------
+
+[jan] Fix procmail vacation rule if no dates are set (Gaudenz Steinlin
+      <gaudenz@debian.org>, Bug #8982).
+[jan] Fix filtering only unseen message if rule should filter all messages in
+      IMAP driver (Jan Kuipers <jrkuipers@lauwerscollege.nl>, Bug #9077).
+
+
+------
+v1.2.4
+------
+
+[jan] Correctly escape addresses in procmail driver (Bug #8875).
 [jan] Fix procmail scripts when using composite headers (Bug #8804).
 [jan] Support some non-standard Date: headers in Sieve vacation rules
       (Request #8783).

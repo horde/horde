@@ -60,24 +60,11 @@
  * sender is blacklisted.
  */
 
-// Do CLI checks and environment setup first.
-require_once dirname(__FILE__) . '/../../lib/core.php';
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit(1);
-}
-
-// Load the CLI environment - make sure there's no time limit, init some
-// variables, etc.
-Horde_Cli::init();
-
-// Include needed libraries.
-$ingo_authentication = 'none';
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../../lib/Application.php';
+Horde_Registry::appInit('ingo', array('authentication' => 'none', 'cli' => true));
 
 // Initialize authentication manager.
-$auth = Horde_Auth::singleton($conf['auth']['driver']);
+$auth = $injector->getInstance('Horde_Auth')->getAuth();
 
 // Initialize storage backend.
 $rules_storage = Ingo_Storage::factory();
@@ -94,18 +81,18 @@ while (!feof(STDIN)) {
         $query[$key] = $value;
     } elseif ($line == "\n") {
         if (empty($query['request']) || $query['request'] != 'smtpd_access_policy') {
-            Horde::logMessage('Unrecognized request: ' . substr(var_export($query, true), 0, 200), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage('Unrecognized request: ' . substr(var_export($query, true), 0, 200), 'ERR');
             exit(1);
         }
 
-        Horde::logMessage(var_export($query, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(var_export($query, true), 'DEBUG');
         $action = smtpd_access_policy($query);
-        Horde::logMessage("Action: $action", __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage("Action: $action", 'DEBUG');
         echo "action=$action\n\n";
         @ob_flush();
         $query = array();
     } else {
-        Horde::logMessage('Ignoring garbage: ' . substr($line, 0, 100), __FILE__, __LINE__, PEAR_LOG_INFO);
+        Horde::logMessage('Ignoring garbage: ' . substr($line, 0, 100), 'INFO');
     }
 }
 
@@ -147,19 +134,20 @@ function smtpd_access_policy($query)
         // Retrieve the data.
         $GLOBALS['auth']->setAuth($user, array());
         $_SESSION['ingo']['current_share'] = ':' . $user;
-        $wl = $GLOBALS['rules_storage']->retrieve(Ingo_Storage::ACTION_WHITELIST, false);
-        $bl = $GLOBALS['rules_storage']->retrieve(Ingo_Storage::ACTION_BLACKLIST, false);
 
-        // Fill in data from saved rules.
-        if (!is_a($wl, 'PEAR_Error')) {
-            $whitelists[$user] = $wl->getWhitelist();
-        }
-        if (!is_a($bl, 'PEAR_Error') && !$bl->getBlacklistFolder()) {
-            // We will only reject email at delivery time if the user
-            // wants blacklisted mail deleted completely, not filed
-            // into a separate folder.
-            $blacklists[$user] = $bl->getBlacklist();
-        }
+        try {
+            $whitelists[$user] = $GLOBALS['rules_storage']->retrieve(Ingo_Storage::ACTION_WHITELIST, false)->getWhitelist();
+        } catch (Ingo_Exception $e) {}
+
+        try {
+            $bl = $GLOBALS['rules_storage']->retrieve(Ingo_Storage::ACTION_BLACKLIST, false);
+            if (!$bl->getBlacklistFolder()) {
+                // We will only reject email at delivery time if the user
+                // wants blacklisted mail deleted completely, not filed
+                // into a separate folder.
+                $blacklists[$user] = $bl->getBlacklist();
+            }
+        } catch (Ingo_Exception $e) {}
     }
 
     // Check whitelist rules first so that mistaken overlap doesn't

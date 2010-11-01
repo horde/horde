@@ -2,7 +2,30 @@
 v4.0-cvs
 --------
 
-[cjh] Cast Horde_Url objects to strings in Horde_Tree.
+[jan] Translations for the framework packages are now bundled with those
+      packages.
+[bak] Remove LDAP driver from Horde_SessionHandler
+[jan] Require mandatory UTF-8 support for both servers and clients.
+[jan] Renamed Setup to Configuration and Options to Preferences.
+[mms] Moved sidebar code out of block/portal code (Request #9160).
+[cjh] Remove fckeditor, standardizing on ckeditor.
+[jan] Move all translations from po/ to locale/ and use short locale
+      identifiers where possible.
+[jan] Remove frameset.
+[jan] Remove dhtmlHistory library.
+[mms] Removed support for krb5 authentication driver.
+[jan] Allow to specify the URL parameter name for the alternate login setting.
+[mms] Remove reliance on PEAR Mail library.
+[jan] Send alarm emails again if the alarm has changed (Bug #8717).
+[mms] Add advanced preferences options screen.
+[mms] Complete rewrite of preferences UI display.
+[mjr] Horde_Image can now act as an Iterator for multi-page images.
+[mms] Remove Horde_Cipher library.
+[mms] Add 'cssfiles' hook to add custom CSS files to a page.
+[jan] Add configuration to not automatically show all available shares.
+[jan] Add configuration to disallow world permissions for user shares.
+[jan] Store alarm dates in UTC (Bug #8381).
+[mms] Add abstracted AJAX interface (Request #4561).
 [mms] Update scriptaculous to v1.8.3.
 [mjr] Add Horde_Image_Exif (ported from Ansel) and add a exiftool driver.
 [mjr] Horde_Image now has a native Imagick driver (removed proxy code).
@@ -17,7 +40,6 @@ v4.0-cvs
 [mms] Use Gnumeric package to render MS Excel files.
 [mms] Use AbiWord package to render MS Word files.
 [cjh] Remove sapdb session handler backend.
-[mms] Update FCKeditor to v2.6.4.
 [jan] Add share locking (Alfonso Marín Marín <almarin@um.es>).
 [cjh] Remove javascript popup alarms.
 [cjh] Update the Auth_passwd driver's add/update/remove user
@@ -27,10 +49,65 @@ v4.0-cvs
 [jan] Use DateTime internally in Horde_Date.
 
 
-----------
-v3.3.7-cvs
-----------
+-----------
+v3.3.11-cvs
+-----------
 
+
+
+
+-------
+v3.3.10
+-------
+
+[jan] Fix searching DataTree elements (groups) if backend charset is different
+      from interface charset (Bug #9323).
+[mms] Fix accessing IMAP ACLs that contain non-alphanumeric characters
+      (Bug #9299).
+[jan] Avoid fatal errors when using DateTime with not properly configured
+      PHP 5.3+ (Bug #9312).
+[jan] Fix importing recurrence exceptions from vCalendar 1.0.
+[mms] Fix preferences management regression (Bug #9289).
+[jan] Fix conversion of all-day events and certain yearly recurring events for
+      Funambol clients.
+[mms] Fix memcache cache regression (Bug #9279).
+[jan] Fix SyncML page sometimes deleting more anchors than selected.
+
+
+------
+v3.3.9
+------
+
+[jan] SECURITY: Add token protection to preference forms.
+[mms] SECURITY: Fix XSS in util/icon_browser.php.
+[mms] Fix generating RFC 2231 parameters with charset information (Bug #9212).
+[mms] On invalid token during logout, redirect to initial page (Bug #7669).
+[mjr] Don't allow fixed blocks to be changed to another type (Bug #9141).
+[jan] Show future alarms in the alarm management screen too.
+[mjr] Fix bug in Horde_Cache that would prevent cache entries from being
+      expired in certain cases, and prevent cache key collisions.
+
+
+------
+v3.3.8
+------
+
+[jan] Fix framework include path.
+
+
+------
+v3.3.7
+------
+
+[mjr] Fix issue in Horde_Image that would cause generated images to lose
+      transparency in certain situations.
+[jan] Allow to update existing identities while requiring email confirmation
+      (Sebastian Rettenberger, Bug #8877).
+[jan] Fix casting errors when using SQL shares and groups on PostgreSQL
+      (Bug #8899).
+[gwr] Allow conf.d style directory configuration overriding (Request #8172).
+[jan] Fix sending alarms to multiple users (Bug #8821).
+[mms] Fix display of S/MIME certificate data (Bug #8826).
 [mjr] Fix bug in Horde_Image that caused polaroid effect to fail on really old
       ImageMagick versions (earlier then 6.3.2).
 [jan] Work around Funambol clients requiring a "configuration" database

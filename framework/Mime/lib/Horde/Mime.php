@@ -50,15 +50,24 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Michael Slusarz <slusarz@curecanti.org>
- * @package Horde_Mime
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Mime
  */
 class Horde_Mime
 {
     /**
+     * The RFC defined EOL string.
+     *
+     * @var string
+     */
+    const EOL = "\r\n";
+
+    /**
      * Attempt to work around non RFC 2231-compliant MUAs by generating both
-     * a RFC 2047-like parameter name and  also the correct RFC 2231
+     * a RFC 2047-like parameter name and also the correct RFC 2231
      * parameter.  See:
      * http://lists.horde.org/archives/dev/Week-of-Mon-20040426/014240.html
      *
@@ -77,6 +86,10 @@ class Horde_Mime
      */
     static public function is8bit($string, $charset = null)
     {
+        if (empty($charset)) {
+            $charset = 'us-ascii';
+        }
+
         /* ISO-2022-JP is a 7bit charset, but it is an 8bit representation so
          * it needs to be entirely encoded. */
         return is_string($string) &&
@@ -94,11 +107,8 @@ class Horde_Mime
      * @return string  The text, encoded only if it contains non-ASCII
      *                 characters.
      */
-    static public function encode($text, $charset = null)
+    static public function encode($text, $charset)
     {
-        if (is_null($charset)) {
-            $charset = Horde_Nls::getCharset();
-        }
         $charset = Horde_String::lower($charset);
 
         if (($charset == 'us-ascii') || !self::is8bit($text, $charset)) {
@@ -142,7 +152,7 @@ class Horde_Mime
         $c_size = strlen($charset) + 7;
 
         if ((strlen($encoded) + $c_size) > 75) {
-            $parts = explode("\r\n", rtrim(chunk_split($encoded, intval((75 - $c_size) / 4) * 4)));
+            $parts = explode(self::EOL, rtrim(chunk_split($encoded, intval((75 - $c_size) / 4) * 4)));
         } else {
             $parts[] = $encoded;
         }
@@ -156,7 +166,7 @@ class Horde_Mime
                 /* RFC 2047 [2]: no encoded word can be more than 75
                  * characters long. If longer, you must split the word with
                  * CRLF SPACE. */
-                $out .= "\r\n ";
+                $out .= self::EOL . ' ';
             }
         }
 
@@ -172,7 +182,8 @@ class Horde_Mime
      *
      * @return string  The quoted-printable encoded string.
      */
-    static public function quotedPrintableEncode($text, $eol, $wrap = 76)
+    static public function quotedPrintableEncode($text, $eol = self::EOL,
+                                                 $wrap = 76)
     {
         $line = $output = '';
         $curr_length = 0;
@@ -231,7 +242,7 @@ class Horde_Mime
      *                 characters.
      * @throws Horde_Mime_Exception
      */
-    static public function encodeAddress($addresses, $charset = null,
+    static public function encodeAddress($addresses, $charset,
                                          $defserver = null)
     {
         if (!is_array($addresses)) {
@@ -284,7 +295,7 @@ class Horde_Mime
      *
      * @return string  The decoded text.
      */
-    static public function decode($string, $to_charset = null)
+    static public function decode($string, $to_charset)
     {
         if (($pos = strpos($string, '=?')) === false) {
             return $string;
@@ -321,10 +332,6 @@ class Horde_Mime
         $encoded_text = substr($search, 0, $end);
         $rest = substr($string, (strlen($preceding . $charset . $encoding . $encoded_text) + 6));
 
-        if (is_null($to_charset)) {
-            $to_charset = Horde_Nls::getCharset();
-        }
-
         switch ($encoding) {
         case 'Q':
         case 'q':
@@ -353,7 +360,7 @@ class Horde_Mime
      *                            to.
      *
      * @return string  The decoded text.
-     * @throw Horde_Mime_Exception
+     * @throws Horde_Mime_Exception
      */
     static public function decodeAddrString($string, $to_charset = null)
     {
@@ -565,7 +572,7 @@ class Horde_Mime
          * it was doing. */
         if (empty($convert)) {
             foreach (array_diff(array_keys($ret['params']), array_keys($convert)) as $name) {
-                $ret['params'][$name] = self::decode($ret['params'][$name]);
+                $ret['params'][$name] = self::decode($ret['params'][$name], $charset);
             }
         }
 
@@ -580,18 +587,7 @@ class Horde_Mime
      */
     static public function generateMessageId()
     {
-        return '<' . date('YmdHis') . '.Horde.' . self::generateRandomId() . '@' . $_SERVER['SERVER_NAME'] . '>';
-    }
-
-    /**
-     * Generates a Random-ID string suitable for use with MIME features that
-     * require a random string.
-     *
-     * @return string  A random string.
-     */
-    static public function generateRandomId($length = 24)
-    {
-        return substr(base_convert(dechex(strtr(microtime(), array('0.' => '', ' ' => ''))) . strtr(uniqid(mt_rand(), true), array('.' => '')), 16, 36), 0, $length);
+        return '<' . strval(new Horde_Support_Guid(array('prefix' => 'Horde'))) . '>';
     }
 
     /**
@@ -678,8 +674,12 @@ class Horde_Mime
      */
     static public function isChild($base, $id)
     {
+        if (substr($base, -2) == '.0') {
+            $base = substr($base, 0, -1);
+        }
+
         return ((($base == 0) && ($id != 0)) ||
-                strpos(strval($id), strval($base)) === 0);
+                (strpos(strval($id), strval($base)) === 0));
     }
 
     /**

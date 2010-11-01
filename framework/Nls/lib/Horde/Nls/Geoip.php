@@ -19,8 +19,9 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_NLS
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @package  Nls
  */
 class Horde_Nls_Geoip
 {
@@ -28,13 +29,6 @@ class Horde_Nls_Geoip
     const GEOIP_COUNTRY_BEGIN = 16776960;
     const STRUCTURE_INFO_MAX_SIZE = 20;
     const STANDARD_RECORD_LENGTH = 3;
-
-    /**
-     * The singleton instance.
-     *
-     * @var Horde_Nls_Geoip
-     */
-    static protected $_instance;
 
     /**
      * Country list.
@@ -82,29 +76,9 @@ class Horde_Nls_Geoip
     protected $_fh;
 
     /**
-     * Returns a reference to the global Horde_Nls_GeoIP object, only creating
-     * it if it doesn't already exist.
-     *
-     * This method must be invoked as:
-     *   $geoip = Horde_Nls_Geoip::singleton($datafile);
-     *
-     * @param string $datafile  The location of the GeoIP database.
-     *
-     * @return object Horde_Nls_Geoip  The object instance.
-     */
-    static public function singleton($datafile)
-    {
-        if (!isset(self::$_instance)) {
-            self::$_instance = new self($datafile);
-        }
-
-        return self::$_instance;
-    }
-
-    /**
      * Constructor.
      *
-     * @param string $datafile  The location of the GeoIP database.
+     * @param string $datafile         The location of the GeoIP database.
      */
     public function __construct($datafile)
     {
@@ -347,11 +321,11 @@ class Horde_Nls_Geoip
         $code = Horde_String::upper($code);
 
         $geoip_codes = array(
-            'AP' => _("Asia/Pacific Region"),
-            'EU' => _("Europe"),
-            'A1' => _("Anonymous Proxy"),
-            'A2' => _("Satellite Provider"),
-            'O1' => _("Other")
+            'AP' => Horde_Nls_Translation::t("Asia/Pacific Region"),
+            'EU' => Horde_Nls_Translation::t("Europe"),
+            'A1' => Horde_Nls_Translation::t("Anonymous Proxy"),
+            'A2' => Horde_Nls_Translation::t("Satellite Provider"),
+            'O1' => Horde_Nls_Translation::t("Other")
         );
 
         return isset($geoip_codes[$code])

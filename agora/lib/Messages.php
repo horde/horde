@@ -3,8 +3,6 @@
  * Agora_Messages:: provides the functions to access both threads and
  * individual messages.
  *
- * $Horde: agora/lib/Messages.php,v 1.322 2009-12-10 19:24:08 mrubinsk Exp $
- *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -91,8 +89,7 @@ class Agora_Messages {
         $this->_connect();
 
         /* Initialize the Cache object. */
-        $this->_cache = &Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'],
-                                                Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+        $this->_cache = $GLOBALS['injector']->getInstance('Horde_Cache');
     }
 
     /**
@@ -183,7 +180,7 @@ class Agora_Messages {
                 . 'message_timestamp, message_modifystamp, ip) '
                 . ' VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?, ?, ?)';
 
-            $author = Horde_Auth::getAuth() ? Horde_Auth::getAuth() : $info['posted_by'];
+            $author = $GLOBALS['registry']->getAuth() ? $GLOBALS['registry']->getAuth() : $info['posted_by'];
             $info['message_id'] = $this->_write_db->nextId('agora_messages');
             $params = array($info['message_id'],
                             $this->_forum_id,
@@ -203,7 +200,7 @@ class Agora_Messages {
             $result = $statement->execute($params);
             $statement->free();
             if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
 
@@ -240,7 +237,7 @@ class Agora_Messages {
             $result = $statement->execute($params);
             $statement->free();
             if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
 
@@ -299,7 +296,7 @@ class Agora_Messages {
                 $result = $statement->execute($file_data);
                 $statement->free();
                 if ($result instanceof PEAR_Error) {
-                    Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                    Horde::logMessage($result, 'ERR');
                     return $result;
                 }
                 $attachments = 1;
@@ -309,7 +306,7 @@ class Agora_Messages {
                     . ' WHERE message_id = ' . (int)$info['message_id'];
             $result = $this->_write_db->query($sql);
             if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
         }
@@ -514,7 +511,7 @@ class Agora_Messages {
             . $this->_threads_table . ' WHERE message_id = ?';
         $message = $this->_db->getRow($sql, null, array($message_id));
         if ($message instanceof PEAR_Error) {
-            Horde::logMessage($message, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($message, 'ERR');
             return $message;
         }
 
@@ -569,7 +566,7 @@ class Agora_Messages {
                                    strftime($GLOBALS['prefs']->getValue('date_format'), $message['message_timestamp']))
             . "\n-------------------------------------------------------\n"
             . $message['body'];
-        $message['body'] = "\n> " . Horde_String::wrap($message['body'], 60, "\n> ", Horde_Nls::getCharset());
+        $message['body'] = "\n> " . Horde_String::wrap($message['body'], 60, "\n> ");
 
         return $message;
     }
@@ -592,7 +589,7 @@ class Agora_Messages {
         $thread_id = $this->_db->getOne($sql, null, array($message_id));
 
         if ($thread_id instanceof PEAR_Error) {
-            Horde::logMessage($thread_id, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($thread_id, 'ERR');
             return $thread_id;
         }
 
@@ -603,7 +600,7 @@ class Agora_Messages {
 
         $result = $this->_write_db->query($sql);
         if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -748,7 +745,7 @@ class Agora_Messages {
         }
 
         $sql .= ', message_modifystamp = ' . $_SERVER['REQUEST_TIME'] . '  WHERE message_id = ' . (int)$thread_id;
-        Horde::logMessage('Query by Agora_Messages::_sequence(): ' . $sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Query by Agora_Messages::_sequence(): ' . $sql, 'DEBUG');
         return $this->_write_db->query($sql);
     }
 
@@ -770,7 +767,7 @@ class Agora_Messages {
             $sql = 'DELETE FROM ' . $this->_threads_table . ' WHERE message_thread = ' . (int)$thread_id;
             $result = $this->_write_db->query($sql);
             if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
 
@@ -787,7 +784,7 @@ class Agora_Messages {
             $sql = 'DELETE FROM ' . $this->_threads_table . ' WHERE forum_id = ' . (int)$this->_forum_id;
             $result = $this->_write_db->query($sql);
             if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($result, 'ERR');
                 return $result;
             }
 
@@ -853,21 +850,21 @@ class Agora_Messages {
         }
 
         /* Set up the base urls for actions. */
-        $view_url = Horde::applicationUrl('messages/index.php');
+        $view_url = Horde::url('messages/index.php');
         if ($base_url) {
             $edit_url = $base_url;
             $del_url = Horde_Util::addParameter($base_url, 'delete', 'true');
         } else {
-            $edit_url = Horde::applicationUrl('messages/edit.php');
-            $del_url = Horde::applicationUrl('messages/delete.php');
+            $edit_url = Horde::url('messages/edit.php');
+            $del_url = Horde::url('messages/delete.php');
         }
 
         // Get needed prefs
         $per_page = $GLOBALS['prefs']->getValue('thread_per_page');
         $view_bodies = $GLOBALS['prefs']->getValue('thread_view_bodies');
-        $abuse_url = Horde::applicationUrl('messages/abuse.php');
+        $abuse_url = Horde::url('messages/abuse.php');
         $hot_img = Horde::img('hot.png', _("Hot thread"), array('title' => _("Hot thread")));
-        $new_img = Horde::img('required.png', _("New posts"), array('title' => _("New posts")), $GLOBALS['registry']->getImageDir('horde'));
+        $new_img = Horde::img('required.png', _("New posts"), array('title' => _("New posts")));
         $is_moderator = $this->hasPermission(Horde_Perms::DELETE);
 
         /* Loop through the threads and set up the array. */
@@ -955,23 +952,23 @@ class Agora_Messages {
                 $message['actions'][] = Horde::link($url, _("Delete"), '', '', '', _("Delete message")) . _("Delete") . '</a>';
 
                 /* Link to lock/unlock the message. */
-                $url = Agora::setAgoraId($this->_forum_id, $id, Horde::applicationUrl('messages/lock.php'), $this->_scope);
+                $url = Agora::setAgoraId($this->_forum_id, $id, Horde::url('messages/lock.php'), $this->_scope);
                 $label = ($message['locked']) ? _("Unlock") : _("Lock");
                 $message['actions'][] = Horde::link($url, $label, '', '', '', $label) . $label . '</a>';
 
                 /* Link to move thread to another forum. */
                 if ($this->_scope == 'agora') {
                     if ($message['message_thread'] == $id) {
-                        $url = Agora::setAgoraId($this->_forum_id, $id, Horde::applicationUrl('messages/move.php'), $this->_scope);
+                        $url = Agora::setAgoraId($this->_forum_id, $id, Horde::url('messages/move.php'), $this->_scope);
                         $message['actions'][] = Horde::link($url, _("Move"), '', '', '', _("Move")) . _("Move") . '</a>';
 
                         /* Link to merge a message thred with anoter thread. */
-                        $url = Agora::setAgoraId($this->_forum_id, $id, Horde::applicationUrl('messages/merge.php'), $this->_scope);
+                        $url = Agora::setAgoraId($this->_forum_id, $id, Horde::url('messages/merge.php'), $this->_scope);
                         $message['actions'][] = Horde::link($url, _("Merge"), '', '', '', _("Merge")) . _("Merge") . '</a>';
                     } elseif ($message['message_thread'] != 0) {
 
                         /* Link to split thread to two threads, from this message after. */
-                        $url = Agora::setAgoraId($this->_forum_id, $id, Horde::applicationUrl('messages/split.php'), $this->_scope);
+                        $url = Agora::setAgoraId($this->_forum_id, $id, Horde::url('messages/split.php'), $this->_scope);
                         $message['actions'][] = Horde::link($url, _("Split"), '', '', '', _("Split")) . _("Split") . '</a>';
                     }
                 }
@@ -996,7 +993,7 @@ class Agora_Messages {
         foreach ($messages as $id => &$message) {
             $message['message_id'] = $id;
             $message['message_author'] = htmlspecialchars($message['message_author']);
-            $message['message_subject'] = htmlspecialchars($this->convertFromDriver($message['message_subject']), ENT_COMPAT, Horde_Nls::getCharset());
+            $message['message_subject'] = htmlspecialchars($this->convertFromDriver($message['message_subject']));
             $message['message_date'] = $this->dateFormat($message['message_timestamp']);
             if ($format) {
                 $message['body'] = $this->formatBody($this->convertFromDriver($message['body']));
@@ -1066,7 +1063,7 @@ class Agora_Messages {
             $filters_params[0]['parselevel'] = Horde_Text_Filter_Text2html::NOHTML;
         }
 
-        return Horde_Text_Filter::filter($body, $filters, $filters_params);
+        return $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($body, $filters, $filters_params);
     }
 
     /**
@@ -1113,16 +1110,16 @@ class Agora_Messages {
         $params = array(1);
 
         /* Check permissions */
-        if (Horde_Auth::isAdmin('agora:admin') ||
-            ($GLOBALS['perms']->exists('agora:forums:' . $this->_scope) &&
-             $GLOBALS['perms']->hasPermission('agora:forums:' . $this->_scope, Horde_Auth::getAuth(), Horde_Perms::DELETE))) {
+        if ($GLOBALS['registry']->isAdmin(array('permission' => 'agora:admin')) ||
+            ($GLOBALS['injector']->getInstance('Horde_Perms')->exists('agora:forums:' . $this->_scope) &&
+             $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('agora:forums:' . $this->_scope, $GLOBALS['registry']->getAuth(), Horde_Perms::DELETE))) {
                 $sql .= ' AND scope = ? ';
                 $params[] = $this->_scope;
         } else {
             // Get only author forums
             $sql .= ' AND scope = ? AND author = ?';
             $params[] = $this->_scope;
-            $params[] = Horde_Auth::getAuth();
+            $params[] = $GLOBALS['registry']->getAuth();
         }
 
         /* Get moderate forums and their names */
@@ -1144,14 +1141,14 @@ class Agora_Messages {
         }
 
         /* Loop through the messages and set up the array. */
-        $approve_url = Horde_Util::addParameter(Horde::applicationUrl('moderate.php'), 'approve', true);
-        $del_url  = Horde::applicationUrl('messages/delete.php');
+        $approve_url = Horde_Util::addParameter(Horde::url('moderate.php'), 'approve', true);
+        $del_url  = Horde::url('messages/delete.php');
         foreach ($messages as $id => &$message) {
             $message['forum_name'] = $this->convertFromDriver($forums_list[$message['forum_id']]);
             $message['message_id'] = $id;
             $message['message_author'] = htmlspecialchars($message['message_author']);
-            $message['message_subject'] = htmlspecialchars($this->convertFromDriver($message['message_subject']), ENT_COMPAT, Horde_Nls::getCharset());
-            $message['message_body'] = Horde_Text_Filter::filter($this->convertFromDriver($message['body']), 'highlightquotes');
+            $message['message_subject'] = htmlspecialchars($this->convertFromDriver($message['message_subject']));
+            $message['message_body'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')filter($this->convertFromDriver($message['body']), 'highlightquotes');
             if ($message['attachments']) {
                 $message['message_attachment'] = $this->getAttachmentLink($id);
             }
@@ -1167,11 +1164,11 @@ class Agora_Messages {
     public function getBanned()
     {
         $perm_name = 'agora:forums:' . $this->_scope . ':' . $this->_forum_id;
-        if (!$GLOBALS['perms']->exists($perm_name)) {
+        if (!$GLOBALS['injector']->getInstance('Horde_Perms')->exists($perm_name)) {
             return array();
         }
 
-        $forum_perm = $GLOBALS['perms']->getPermission($perm_name);
+        $forum_perm = $GLOBALS['injector']->getInstance('Horde_Perms')->getPermission($perm_name);
         if (!($forum_perm instanceof Horde_Perms_Permission)) {
             return $forum_perm;
         }
@@ -1201,15 +1198,14 @@ class Agora_Messages {
      */
     public function updateBan($user, $forum_id = null, $action = 'add')
     {
-        global $perms;
-
         if ($forum_id == null) {
             $forum_id = $this->_forum_id;
         }
 
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
         $perm_name = 'agora:forums:' . $this->_scope . ':' . $forum_id;
         if (!$perms->exists($perm_name)) {
-            $forum_perm = &$perms->newPermission($perm_name);
+            $forum_perm = $perms->newPermission($perm_name);
             $perms->addPermission($forum_perm);
         } else {
             $forum_perm = $perms->getPermission($perm_name);
@@ -1239,8 +1235,6 @@ class Agora_Messages {
      */
     public function updateModerator($moderator, $forum_id = null, $action = 'add')
     {
-        global $perms;
-
         if ($forum_id == null) {
             $forum_id = $this->_forum_id;
         }
@@ -1268,8 +1262,9 @@ class Agora_Messages {
 
         /* Update permissions*/
         $perm_name = 'agora:forums:' . $this->_scope . ':' . $forum_id;
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
         if (!$perms->exists($perm_name)) {
-            $forum_perm = &$perms->newPermission($perm_name);
+            $forum_perm = $perms->newPermission($perm_name);
             $perms->addPermission($forum_perm);
         } else {
             $forum_perm = $perms->getPermission($perm_name);
@@ -1400,19 +1395,25 @@ class Agora_Messages {
         /* Render threaded lists with Horde_Tree. */
         $current = key($threads);
         if (!$template_file && isset($threads[$current]['indent'])) {
-            $tree = Horde_Tree::factory('threads', 'html');
-            $tree->setOption(array('multiline' => $bodies,
-                                   'lines' => !$bodies));
+            $tree = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Tree')->create('threads', 'Html', array(
+                'multiline' => $bodies,
+                'lines' => !$bodies
+            ));
+
             $tree->setHeader(array(
-                array('html' => '<strong>' . $col_headers['message_thread'] . '</strong>',
-                      'width' => '50%',
-                      'class' => $col_headers['message_thread_class_plain']),
-                array('html' => '<strong>' . $col_headers['message_author'] . '</strong>',
-                      'width' => '25%',
-                      'class' => $col_headers['message_author_class_plain']),
-                array('html' => '<strong>' . $col_headers['message_timestamp'] . '</strong>',
-                      'width' => '24%',
-                      'class' => $col_headers['message_timestamp_class_plain'])));
+                array(
+                    'class' => $col_headers['message_thread_class_plain'],
+                    'html' => '<strong>' . $col_headers['message_thread'] . '</strong>'
+                ),
+                array(
+                    'class' => $col_headers['message_author_class_plain'],
+                    'html' => '<strong>' . $col_headers['message_author'] . '</strong>'
+                ),
+                array(
+                    'class' => $col_headers['message_timestamp_class_plain'],
+                    'html' => '<strong>' . $col_headers['message_timestamp'] . '</strong>'
+                )
+            ));
 
             foreach ($threads as &$thread) {
                 if ($bodies) {
@@ -1432,15 +1433,20 @@ class Agora_Messages {
                     }
                 }
 
-                $tree->addNode($thread['message_id'],
-                               $thread['parent'],
-                               $text,
-                               $thread['indent'],
-                               true,
-                               array('icon' => '',
-                                     'class' => 'linedRow'),
-                               array($thread['message_author'],
-                                     $thread['message_date']));
+                $tree->addNode(
+                    $thread['message_id'],
+                    $thread['parent'],
+                    $text,
+                    $thread['indent'],
+                    true,
+                    array(
+                        'class' => 'linedRow',
+                    ),
+                    array(
+                        $thread['message_author'],
+                        $thread['message_date']
+                    )
+                );
             }
 
             return $tree->getTree(true);
@@ -1497,19 +1503,19 @@ class Agora_Messages {
         /* Actions. */
         $actions = array();
 
-        $url = Agora::setAgoraId($this->_forum_id, null, Horde::applicationUrl('messages/edit.php'));
+        $url = Agora::setAgoraId($this->_forum_id, null, Horde::url('messages/edit.php'));
         if ($this->hasPermission(Horde_Perms::EDIT)) {
             $actions[] = array('url' => $url, 'label' => _("Post message"));
         }
 
         if ($this->hasPermission(Horde_Perms::DELETE)) {
             if ($this->_scope == 'agora') {
-                $url = Agora::setAgoraId($this->_forum_id, null, Horde::applicationUrl('editforum.php'));
+                $url = Agora::setAgoraId($this->_forum_id, null, Horde::url('editforum.php'));
                 $actions[] = array('url' => $url, 'label' => _("Edit Forum"));
             }
-            $url = Agora::setAgoraId($this->_forum_id, null, Horde::applicationUrl('deleteforum.php'), $this->_scope);
+            $url = Agora::setAgoraId($this->_forum_id, null, Horde::url('deleteforum.php'), $this->_scope);
             $actions[] = array('url' => $url, 'label' => _("Delete Forum"));
-            $url = Agora::setAgoraId($this->_forum_id, null, Horde::applicationUrl('ban.php'), $this->_scope);
+            $url = Agora::setAgoraId($this->_forum_id, null, Horde::url('ban.php'), $this->_scope);
             $actions[] = array('url' => $url, 'label' => _("Ban"));
         }
 
@@ -1541,7 +1547,7 @@ class Agora_Messages {
         $form->addHidden('', 'message_id', 'int', false);
         $form->addHidden('', 'message_parent_id', 'int', false);
 
-        if (!Horde_Auth::getAuth()) {
+        if (!$GLOBALS['registry']->getAuth()) {
             $form->addVariable(_("From"), 'posted_by', 'text', true);
         }
 
@@ -1568,7 +1574,7 @@ class Agora_Messages {
             $form->addVariable(_("Attachment"), 'message_attachment', 'file', false);
         }
 
-        if (!empty($conf['forums']['captcha']) && !Horde_Auth::getAuth()) {
+        if (!empty($conf['forums']['captcha']) && !$GLOBALS['registry']->getAuth()) {
             $form->addVariable(_("Spam protection"), 'captcha', 'figlet', true, null, null, array(Agora::getCAPTCHA(!$form->isSubmitted()), $conf['forums']['figlet_font']));
         }
 
@@ -1642,26 +1648,15 @@ class Agora_Messages {
         $sql = 'SELECT file_id, file_name, file_size, file_type FROM agora_files WHERE message_id = ?';
         $files = $this->_db->getAssoc($sql, null, array($message_id));
         if ($files instanceof PEAR_Error || empty($files)) {
-            Horde::logMessage($files, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($files, 'ERR');
             return $files;
         }
 
-        global $mime_drivers, $mime_drivers_map;
-        $result = Horde::loadConfiguration('mime_drivers.php', array('mime_drivers', 'mime_drivers_map'), 'horde');
-        extract($result);
-        require_once 'Horde/MIME/Part.php';
-        require_once 'Horde/MIME/Viewer.php';
-        require_once 'Horde/MIME/Magic.php';
-        require_once 'Horde/MIME/Contents.php';
-
-        /* Make sure we have the tooltips javascript. */
-        Horde::addScriptFile('tooltips.js', 'horde', true);
-
         /* Constuct the link with a tooltip for further info on the download. */
         $html = '<br />';
-        $view_url = Horde::applicationUrl('view.php');
+        $view_url = Horde::url('view.php');
         foreach ($files as $file_id => $file) {
-            $mime_icon = MIME_Viewer::getIcon($file['file_type']);
+            $mime_icon = $GLOBALS['injector']->getInstance('Horde_Core_Factory_MimeViewer')->getIcon($file['file_type']);
             $title = _("download") . ': ' . $file['file_name'];
             $tooltip = $title . "\n" . sprintf(_("size: %s"), $this->formatSize($file['file_size'])) . "\n" . sprintf(_("type: %s"), $file['file_type']);
             $url = Horde_Util::addParameter($view_url, array('forum_id' => $this->_forum_id,
@@ -1789,10 +1784,10 @@ class Agora_Messages {
         }
 
         $moderate = array();
-        $user = Horde_Auth::getAuth();
-        $edit_url =  Horde::applicationUrl('messages/edit.php');
-        $editforum_url =  Horde::applicationUrl('editforum.php');
-        $delete_url = Horde::applicationUrl('deleteforum.php');
+        $user = $GLOBALS['registry']->getAuth();
+        $edit_url =  Horde::url('messages/edit.php');
+        $editforum_url =  Horde::url('editforum.php');
+        $delete_url = Horde::url('deleteforum.php');
 
         foreach ($forums as $forum_id => &$forum) {
             if (!$this->hasPermission(Horde_Perms::SHOW, $forum_id, $forum['scope'])) {
@@ -1806,13 +1801,13 @@ class Agora_Messages {
                 continue;
             }
 
-            $forum['url'] = Agora::setAgoraId($forum_id, null, Horde::applicationUrl('threads.php'), $forum['scope'], true);
+            $forum['url'] = Agora::setAgoraId($forum_id, null, Horde::url('threads.php'), $forum['scope'], true);
             $forum['message_count'] = number_format($forum['message_count']);
             $forum['thread_count'] = number_format($forum['thread_count']);
 
             if ($forum['last_message_id']) {
                 $forum['last_message_date'] = $this->dateFormat($forum['last_message_timestamp']);
-                $forum['last_message_url'] = Agora::setAgoraId($forum_id, $forum['last_message_id'], Horde::applicationUrl('messages/index.php'), $forum['scope'], true);
+                $forum['last_message_url'] = Agora::setAgoraId($forum_id, $forum['last_message_id'], Horde::url('messages/index.php'), $forum['scope'], true);
             }
 
             $forum['actions'] = array();
@@ -1824,14 +1819,14 @@ class Agora_Messages {
                 $url = Agora::setAgoraId($forum_id, null, $edit_url, $forum['scope'], true);
                 $forum['actions'][] = Horde::link($url, _("Post message")) . _("New Post") . '</a>';
 
-                if (Horde_Auth::isAdmin('agora:admin')) {
+                if ($GLOBALS['registry']->isAdmin(array('permission' => 'agora:admin'))) {
                     /* Edit forum button. */
                     $url = Agora::setAgoraId($forum_id, null, $editforum_url, $forum['scope'], true);
                     $forum['actions'][] = Horde::link($url, _("Edit forum")) . _("Edit") . '</a>';
                 }
             }
 
-            if (Horde_Auth::isAdmin('agora:admin')) {
+            if ($GLOBALS['registry']->isAdmin(array('permission' => 'agora:admin'))) {
                 /* Delete forum button. */
                 $url = Agora::setAgoraId($forum_id, null, $delete_url, $forum['scope'], true);
                 $forum['actions'][] = Horde::link($url, _("Delete forum")) . _("Delete") . '</a>';
@@ -1853,7 +1848,7 @@ class Agora_Messages {
                 return $unapproved;
             }
 
-            $url = Horde::link(Horde::applicationUrl('moderate.php', true), _("Moderate")) . _("Moderate") . '</a>';
+            $url = Horde::link(Horde::url('moderate.php', true), _("Moderate")) . _("Moderate") . '</a>';
             foreach ($unapproved as $forum_id => $count) {
                 $forum['actions'][] = $url . ' (' . $count . ')' ;
             }
@@ -1980,7 +1975,7 @@ class Agora_Messages {
     {
         if (empty($info['forum_id'])) {
             if (empty($info['author'])) {
-                $info['author'] = Horde_Auth::getAuth();
+                $info['author'] = $GLOBALS['registry']->getAuth();
             }
             $info['forum_id'] = $this->newForum($info['forum_name'], $info['author']);
             if ($info['forum_id'] instanceof PEAR_Error) {
@@ -2001,7 +1996,7 @@ class Agora_Messages {
                         isset($info['forum_distribution_address']) ? $info['forum_distribution_address'] : '',
                         $info['forum_id']);
 
-        Horde::logMessage('SQL Query by Agora_Message::saveForum(): ' . $sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by Agora_Message::saveForum(): ' . $sql, 'DEBUG');
         $statement = $this->_write_db->prepare($sql);
         if ($statement instanceof PEAR_Error) {
             return $statement;
@@ -2126,7 +2121,7 @@ class Agora_Messages {
         }
 
         if (!empty($filter['author'])) {
-            $sql .= ' AND message_author = ' . $this->_db->quote(Horde_String::lower($filter['author'], Horde_Nls::getCharset()));
+            $sql .= ' AND message_author = ' . $this->_db->quote(Horde_String::lower($filter['author']));
         }
 
         /* Sort by result column. */
@@ -2148,8 +2143,8 @@ class Agora_Messages {
         }
 
         $results = array();
-        $msg_url = Horde::applicationUrl('messages/index.php');
-        $forum_url = Horde::applicationUrl('threads.php');
+        $msg_url = Horde::url('messages/index.php');
+        $forum_url = Horde::url('threads.php');
         while ($message = $messages->fetchRow()) {
             if (!isset($results[$message['forum_id']])) {
                 $index = array('agora' => $message['forum_id'], 'scope' => $this->_scope);
@@ -2181,11 +2176,9 @@ class Agora_Messages {
      */
     public function hasPermission($perm = Horde_Perms::READ, $forum_id = null, $scope = null)
     {
-        global $perms;
-
         // Allow all admins
-        if (($forum_id === null && isset($this->_forum['author']) && $this->_forum['author'] == Horde_Auth::getAuth()) ||
-            Horde_Auth::isAdmin('agora:admin')) {
+        if (($forum_id === null && isset($this->_forum['author']) && $this->_forum['author'] == $GLOBALS['registry']->getAuth()) ||
+            $GLOBALS['registry']->isAdmin(array('permission' => 'agora:admin'))) {
             return true;
         }
 
@@ -2198,13 +2191,14 @@ class Agora_Messages {
             $scope = $this->_scope;
         }
 
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
         if (!$perms->exists('agora:forums:' . $scope) &&
             !$perms->exists('agora:forums:' . $scope . ':' . $forum_id)) {
             return ($perm & Horde_Perms::DELETE) ? false : true;
         }
 
-        return $perms->hasPermission('agora:forums:' . $scope, Horde_Auth::getAuth(), $perm) ||
-            $perms->hasPermission('agora:forums:' . $scope . ':' . $forum_id, Horde_Auth::getAuth(), $perm);
+        return $perms->hasPermission('agora:forums:' . $scope, $GLOBALS['registry']->getAuth(), $perm) ||
+            $perms->hasPermission('agora:forums:' . $scope . ':' . $forum_id, $GLOBALS['registry']->getAuth(), $perm);
     }
 
     /**
@@ -2216,7 +2210,7 @@ class Agora_Messages {
      */
     public function convertFromDriver($value)
     {
-        return Horde_String::convertCharset($value, $this->_params['charset']);
+        return Horde_String::convertCharset($value, $this->_params['charset'], 'UTF-8');
     }
 
     /**
@@ -2228,18 +2222,17 @@ class Agora_Messages {
      */
     public function convertToDriver($value)
     {
-        return Horde_String::convertCharset($value, Horde_Nls::getCharset(), $this->_params['charset']);
+        return Horde_String::convertCharset($value, 'UTF-8', $this->_params['charset']);
     }
 
     /**
      * Attempts to open a persistent connection to the SQL server.
      *
-     * @return boolean  True on success; exits (Horde::fatal()) on error.
+     * @return boolean  True on success.
+     * @throws Horde_Exception
      */
     private function _connect()
     {
-        require_once 'MDB2.php';
-
         $this->_params = Horde::getDriverConfig('storage', 'sql');
         Horde::assertDriverConfig($this->_params, 'storage',
                                   array('phptype', 'charset'));
@@ -2249,14 +2242,14 @@ class Agora_Messages {
 
         $this->_write_db = MDB2::factory($this->_params);
         if ($this->_write_db instanceof PEAR_Error) {
-            Horde::fatal($this->_write_db, __FILE__, __LINE__);
+            throw new Horde_Exception($this->_write_db);
         }
 
         if (!empty($params['splitread'])) {
             $params = array_merge($this->_params, $this->_params['read']);
             $this->_db = MDB2::factory($this->_params);
             if ($this->_db instanceof PEAR_Error) {
-                Horde::fatal($this->_db, __FILE__, __LINE__);
+                throw new Horde_Exception($this->_db);
             }
         } else {
             /* Default to the same DB handle for the writer too. */
@@ -2265,7 +2258,7 @@ class Agora_Messages {
 
         $this->_db->loadModule('Extended');
         if ($this->_db instanceof PEAR_Error) {
-            Horde::fatal($this->_db, __FILE__, __LINE__);
+            throw new Horde_Exception($this->_db);
         }
 
         $this->_db->setFetchMode(MDB2_FETCHMODE_ASSOC);

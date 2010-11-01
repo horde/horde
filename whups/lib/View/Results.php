@@ -16,12 +16,11 @@ class Whups_View_Results extends Whups_View {
     function Whups_View_Results($params)
     {
         parent::Whups_View($params);
-        $this->_id = md5(uniqid(mt_rand()));
+        $this->_id = uniqid(mt_rand());
     }
 
     function html()
     {
-        Horde::addScriptFile('prototype.js', 'horde', true);
         Horde::addScriptFile('tables.js', 'horde', true);
 
         global $prefs, $registry;

@@ -89,9 +89,14 @@ class GroupCriterionForm extends Horde_Form {
 
         $this->addHidden('', 'edit', 'boolean', false);
 
-        $groups = &Group::singleton();
-        $grouplist = $groups->listGroups();
-        if (is_a($grouplist, 'PEAR_Error') || !count($grouplist)) {
+        try {
+            $groups = $GLOBALS['injector']->getInstance('Horde_Group');
+            $grouplist = $groups->listGroups();
+        } catch (Horde_Group_Exception $e) {
+            $grouplist = array();
+        }
+
+        if (count($grouplist)) {
             $type_params = array(_("Could not find any groups."));
             $this->addVariable(_("Groups"), 'groups', 'invalid', false, false, null, $type_params);
         } else {
@@ -409,7 +414,7 @@ class ChooseQueryNameForLoadForm extends Horde_Form {
         parent::Horde_Form($vars, _("Load Query"));
 
         $qManager = new Whups_QueryManager();
-        $qParams = $qManager->listQueries(Horde_Auth::getAuth());
+        $qParams = $qManager->listQueries($GLOBALS['registry']->getAuth());
         if (count($qParams)) {
             $qType = 'enum';
         } else {
@@ -453,7 +458,7 @@ class DeleteQueryForm extends Horde_Form {
         global $notification;
 
         if ($vars->get('yesno')) {
-            if (!$GLOBALS['whups_query']->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
+            if (!$GLOBALS['whups_query']->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
                 $notifications->push(sprintf(_("Permission denied.")), 'horde.error');
             } else {
                 $result = $GLOBALS['whups_query']->delete();

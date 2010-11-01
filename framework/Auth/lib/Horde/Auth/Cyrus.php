@@ -4,73 +4,9 @@
  * administrating a Cyrus mail server authentications against another backend
  * that Horde can update (eg SQL or LDAP).
  *
- * Required parameters:
- * <pre>
- * 'backend'    The complete hash for the Auth_* driver that cyrus
- *              authenticates against (eg SQL, LDAP).
- * 'cyradmin'   The username of the cyrus administrator
- * 'cyrpass'    The password for the cyrus administrator
- * 'hostspec'        The hostname or IP address of the server.
- *                   DEFAULT: 'localhost'
- * 'port'            The server port to which we will connect.
- *                   IMAP is generally 143, while IMAP-SSL is generally 993.
- *                   DEFAULT: Encryption port default
- * 'secure'          The encryption to use.  Either 'none', 'ssl', or 'tls'.
- *                   DEFAULT: 'none'
- * </pre>
- *
  * Optional values:
  * <pre>
- * 'folders'    An array of folders to create under username.
- *              Doesn't create subfolders by default.
- * 'quota'      The quota (in kilobytes) to grant on the mailbox.
- *              Does not establish quota by default.
- * 'separator'  Hierarchy separator to use (e.g., is it user/mailbox or
- *              user.mailbox)
- * 'unixhier'   The value of imapd.conf's unixhierarchysep setting.
- *              Set this to 'true' if the value is true in imapd.conf
- * </pre>
  *
- * Example Usage:
- * <pre>
- * $conf['auth']['driver'] = 'composite';
- * $conf['auth']['params']['admin_driver'] = 'cyrus';
- * $conf['auth']['params']['drivers']['imp'] = array(
- *     'driver' => 'application',
- *     'params' => array('app' => 'imp')
- * );
- * $conf['auth']['params']['drivers']['cyrus'] = array(
- *    'driver' => 'cyrus',
- *    'params' => array(
- *        'cyradmin' => 'cyrus',
- *        'cyrpass' => 'password',
- *        'hostspec' => 'imap.example.com',
- *        'secure' => 'none'
- *        'separator' => '.'
- *    )
- * );
- * $conf['auth']['params']['drivers']['cyrus']['params']['backend'] = array(
- *     'driver' => 'sql',
- *     'params' => array(
- *         'phptype' => 'mysql',
- *         'hostspec' => 'database.example.com',
- *         'protocol' => 'tcp',
- *         'username' => 'username',
- *         'password' => 'password',
- *         'database' => 'mail',
- *         'table' => 'accountuser',
- *         'encryption' => 'md5-hex',
- *         'username_field' => 'username',
- *         'password_field' => 'password'
- *     )
- * );
- *
- * if (!function_exists('_horde_select_loginscreen')) {
- *     function _horde_select_loginscreen()
- *     {
- *         return 'imp';
- *     }
- * }
  * </pre>
  *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
@@ -78,9 +14,11 @@
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
  *
- * @author  Ilya Krel <mail@krel.org>
- * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @package Horde_Auth
+ * @author   Ilya Krel <mail@krel.org>
+ * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @category Horde
+ * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
+ * @package  Auth
  */
 class Horde_Auth_Cyrus extends Horde_Auth_Base
 {
@@ -89,7 +27,7 @@ class Horde_Auth_Cyrus extends Horde_Auth_Base
      *
      * @var Horde_Imap_Client_Base
      */
-    protected $_ob;
+    protected $_imap;
 
     /**
      * Pointer to another backend that Cyrus authenticates against.
@@ -113,31 +51,57 @@ class Horde_Auth_Cyrus extends Horde_Auth_Base
     /**
      * Constructor.
      *
-     * @param array $params  A hash containing connection parameters.
+     * @param array $params  Parameters:
+     * <pre>
+     * 'backend' - (Horde_Auth_Base) [REQUIRED] The backend object.
+     * 'charset' - (string) Default charset.
+     *             DEFAULT: NONE
+     * 'folders' - (array) An array of folders to create under username.
+     *             DEFAULT: NONE
+     * 'imap' - (Horde_Imap_Client_Base) [REQUIRED] An IMAP client object.
+     * 'quota' - (integer) The quota (in kilobytes) to grant on the mailbox.
+     *           DEFAULT: NONE
+     * 'separator' - (string) Hierarchy separator to use (e.g., is it
+     *               user/mailbox or user.mailbox)
+     *               DEFAULT: '.'
+     * 'unixhier' - (boolean) The value of imapd.conf's unixhierarchysep
+     *              setting. Set this to true if the value is true in
+     *              imapd.conf.
+     *              DEFAULT: false
+     * </pre>
      *
-     * @throws Horde_Exception
+     * @throws InvalidArgumentException
+     * @throws Horde_Auth_Exception
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
-        parent::__construct($params);
-
-        if (!isset($this->_params['separator'])) {
-            $this->_params['separator'] = '.';
+        foreach (array('backend', 'imap') as $val) {
+            if (!isset($params[$val])) {
+                throw new InvalidArgumentException('Missing ' . $val . ' parameter.');
+            }
         }
+
+        $this->_backend = $params['backend'];
+        $this->_ob = $params['imap'];
+        unset($params['backend']);
+
+        $params = array_merge(array(
+            'charset' => null,
+            'separator' => '.',
+        ), $params);
+
+        parent::__construct($params);
 
         if (isset($this->_params['unixhier']) &&
             $this->_params['unixhier'] == true) {
             $this->_params['separator'] = '/';
         }
 
-        // Create backend instance.
-        $this->_backend = Horde_Auth::singleton($this->_params['backend']['driver'], $this->_params['backend']['params']);
-
         // Check the capabilities of the backend.
         if (!$this->_backend->hasCapability('add') ||
             !$this->_backend->hasCapability('update') ||
             !$this->_backend->hasCapability('remove')) {
-            throw new Horde_Exception('Horde_Auth_Cyrus: Backend does not have required capabilites.');
+            throw new Horde_Auth_Exception(__CLASS__ . ': Backend does not have required capabilites.');
         }
 
         $this->_capabilities['list'] = $this->_backend->hasCapability('list');
@@ -155,14 +119,12 @@ class Horde_Auth_Cyrus extends Horde_Auth_Base
      */
     public function addUser($userId, $credentials)
     {
-        $this->_connect();
-
         $this->_backend->addUser($userId, $credentials);
 
-        $mailbox = Horde_String::convertCharset('user' . $this->_params['separator'] . $userId, Horde_Nls::getCharset(), 'utf7-imap');
+        $mailbox = Horde_String::convertCharset('user' . $this->_params['separator'] . $userId, $this->_params['charset'], 'utf7-imap');
 
         try {
-            $this->_ob->createMailbox($mailbox);
+            $this->_imap->createMailbox($mailbox);
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_Auth_Exception($e);
         }
@@ -171,7 +133,7 @@ class Horde_Auth_Cyrus extends Horde_Auth_Base
             is_array($this->_params['folders'])) {
             foreach ($this->_params['folders'] as $folder) {
                 try {
-                    $this->_ob->createMailbox($mailbox . Horde_String::convertCharset($this->_params['separator'] . $folder, Horde_Nls::getCharset(), 'utf7-imap'));
+                    $this->_imap->createMailbox($mailbox . Horde_String::convertCharset($this->_params['separator'] . $folder, $this->_params['charset'], 'utf7-imap'));
                 } catch (Horde_Imap_Client_Exception $e) {}
             }
         }
@@ -179,7 +141,7 @@ class Horde_Auth_Cyrus extends Horde_Auth_Base
         if (isset($this->_params['quota']) &&
             ($this->_params['quota'] >= 0)) {
             try {
-                $this->_ob->setQuota($mailbox, array('storage' => $this->_params['quota']));
+                $this->_imap->setQuota($mailbox, array('storage' => $this->_params['quota']));
             } catch (Horde_Imap_Client_Exception $e) {
                 throw new Horde_Auth_Exception($e);
             }
@@ -195,50 +157,21 @@ class Horde_Auth_Cyrus extends Horde_Auth_Base
      */
     public function removeUser($userId)
     {
-        $this->_connect();
-
         $this->_backend->removeUser($userId);
 
-        $mailbox = Horde_String::convertCharset('user' . $this->_params['separator'] . $userId, Horde_Nls::getCharset(), 'utf7-imap');
+        $mailbox = Horde_String::convertCharset('user' . $this->_params['separator'] . $userId, $this->_params['charset'], 'utf7-imap');
 
         /* Set ACL for mailbox deletion. */
         list($admin) = explode('@', $this->_params['cyradmin']);
 
         try {
-            $this->_ob->setACL($mailbox, $admin, array('rights' => 'lrswipcda'));
-            $this->_ob->deleteMailbox($mailbox);
+            $this->_imap->setACL($mailbox, $admin, array('rights' => 'lrswipcda'));
+            $this->_imap->deleteMailbox($mailbox);
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_Auth_Exception($e);
         }
 
         Horde_Auth::removeUserData($userId);
-    }
-
-    /**
-     * Attempts to open connections to the IMAP servers.
-     *
-     * @throws Horde_Auth_Exception
-     */
-    protected function _connect()
-    {
-        if ($this->_ob) {
-            return;
-        }
-
-        $imap_config = array(
-            'hostspec' => empty($this->_params['hostspec']) ? null : $this->_params['hostspec'],
-            'password' => $pass,
-            'port' => empty($this->_params['port']) ? null : $this->_params['port'],
-            'secure' => ($this->_params['secure'] == 'none') ? null : $this->_params['secure'],
-            'username' => $user
-        );
-
-        try {
-            $this->_ob = Horde_Imap_Client::factory('Socket', $imap_config);
-            $this->_ob->login();
-        } catch (Horde_Imap_Client_Exception $e) {
-            throw new Horde_Auth_Exception($e);
-        }
     }
 
     /**
@@ -290,7 +223,7 @@ class Horde_Auth_Cyrus extends Horde_Auth_Base
      */
     protected function _authenticate($userId, $credentials)
     {
-        throw new Horde_Auth_Exception('Not implemented!');
+        throw new Horde_Auth_Exception('Unsupported.');
     }
 
     /**
@@ -299,7 +232,7 @@ class Horde_Auth_Cyrus extends Horde_Auth_Base
      *
      * @return boolean  Whether or not the client is allowed.
      */
-    protected function _transparent()
+    public function transparent()
     {
         return $this->_backend->transparent();
     }

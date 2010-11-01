@@ -19,6 +19,11 @@ class Horde_Service_Twitter_Auth_Oauth extends Horde_Service_Twitter_Auth
      */
     protected $_token;
 
+    public function __construct(Horde_OAuth_Consumer $oauth)
+    {
+        $this->_config['oauth'] = $oauth;
+    }
+
     /**
      * Obtain the URL used to get an authorization token.
      *
@@ -53,7 +58,7 @@ class Horde_Service_Twitter_Auth_Oauth extends Horde_Service_Twitter_Auth
      *                                          the application.
      * @return Horde_Oauth_Token
      */
-    public function getAccessToken($request = null, $requestSecret = null)
+    public function getAccessToken(Horde_Controller_Request_Http $request, $requestSecret = null)
     {
         if (!empty($this->_token)) {
             return $this->_token;
@@ -61,7 +66,7 @@ class Horde_Service_Twitter_Auth_Oauth extends Horde_Service_Twitter_Auth
 
         //@TODO: Verify the existence of requestSecret...
 
-        $params = $request->getGetParams();
+        $params = $request->getGetVars();
         if (empty($params['oauth_token'])) {
             return false;
         }

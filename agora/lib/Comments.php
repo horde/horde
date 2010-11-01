@@ -2,8 +2,6 @@
 /**
  * Comments display script
  *
- * $Horde: agora/lib/Comments.php,v 1.16 2009-12-10 17:42:30 jan Exp $
- *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -53,7 +51,7 @@ class Agora_ViewComments {
         $sort_dir = Agora::getSortDir('comments');
         $html = '<div class="header">' . _("Comments") . ' (' . $messages->_forum['message_count'] . ')' . '&nbsp;&nbsp;';
         if (!$GLOBALS['prefs']->isLocked('comments_view_bodies')) {
-            $rss = Horde_Util::addParameter(Horde::applicationUrl('rss/threads.php', true, -1), array('scope' => $scope, 'forum_id' => $forum_id));
+            $rss = Horde_Util::addParameter(Horde::url('rss/threads.php', true, -1), array('scope' => $scope, 'forum_id' => $forum_id));
             $html .= '<span style="font-size: 0.8em;">';
             $html .= '<form action=' . urldecode($base_url) . ' method="post" name="sorter" style="display: inline;">';
             $html .= _("View") . ' <select name="bodies" onchange="document.sorter.submit()" >';
@@ -80,12 +78,14 @@ class Agora_ViewComments {
         }
         $html .= '</div>';
 
-        $col_headers = array('message_thread' => _("Subject"),
-                             'message_thread_class_plain' => '',
-                             'message_author' => _("Posted by"),
-                             'message_author_class_plain' => '',
-                             'message_timestamp' => _("Date"),
-                             'message_timestamp_class_plain' => '');
+        $col_headers = array(
+            'message_thread' => _("Subject"),
+            'message_thread_class_plain' => 'msgThreadPlain',
+            'message_author' => _("Posted by"),
+            'message_author_class_plain' => 'msgAuthorPlain',
+            'message_timestamp' => _("Date"),
+            'message_timestamp_class_plain' => 'msgTimestampPlain'
+        );
 
         if ($view_bodies == 1) {
             $threads = $messages->getThreads(0, true, 'message_thread', 0, true, '', $base_url);
@@ -101,7 +101,7 @@ class Agora_ViewComments {
 
             if ($messages->_forum['message_count'] > $thread_per_page && $view_bodies == 2) {
                 $vars = new Horde_Variables(array('comments_page' => $thread_page));
-                $pager_ob = new Horde_Ui_Pager('comments_page', $vars,
+                $pager_ob = new Horde_Core_Ui_Pager('comments_page', $vars,
                                                 array('num' => $messages->_forum['message_count'],
                                                       'url' => $base_url,
                                                       'perpage' => $thread_per_page));

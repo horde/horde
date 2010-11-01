@@ -92,18 +92,19 @@ class Kronolith_View_Month {
                                         'mday' => $this->_startOfView + $this->_daysInView));
 
         if ($prefs->getValue('show_shared_side_by_side')) {
-            $allCalendars = Kronolith::listCalendars();
+            $allCalendars = Kronolith::listInternalCalendars();
             $this->_currentCalendars = array();
             foreach ($GLOBALS['display_calendars'] as $id) {
-                $this->_currentCalendars[$id] = &$allCalendars[$id];
+                $this->_currentCalendars[$id] = $allCalendars[$id];
             }
         } else {
-            $this->_currentCalendars = array(true);
+            $this->_currentCalendars = array('internal_0' => true);
         }
 
-        $this->_events = Kronolith::listEvents($startDate, $endDate);
-        if (is_a($this->_events, 'PEAR_Error')) {
-            $GLOBALS['notification']->push($this->_events, 'horde.error');
+        try {
+            $this->_events = Kronolith::listEvents($startDate, $endDate);
+        } catch (Exception $e) {
+            $GLOBALS['notification']->push($e, 'horde.error');
             $this->_events = array();
         }
         if (!is_array($this->_events)) {
@@ -119,8 +120,8 @@ class Kronolith_View_Month {
         $twentyFour = $prefs->getValue('twentyFour');
         $addLinks = Kronolith::getDefaultCalendar(Horde_Perms::EDIT) &&
             (!empty($GLOBALS['conf']['hooks']['permsdenied']) ||
-             $GLOBALS['perms']->hasAppPermission('max_events') === true ||
-             $GLOBALS['perms']->hasAppPermission('max_events') > Kronolith::countEvents());
+             $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') === true ||
+             $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') > Kronolith::countEvents());
 
         if ($sidebyside) {
             require KRONOLITH_TEMPLATES . '/month/head_side_by_side.inc';
@@ -135,9 +136,9 @@ class Kronolith_View_Month {
 
         $showLocation = Kronolith::viewShowLocation();
         $showTime = Kronolith::viewShowTime();
-        $day_url = Horde::applicationUrl('day.php');
+        $day_url = Horde::url('day.php');
         $this_link = $this->link(0, true);
-        $new_url = Horde::applicationUrl('new.php')->add('url', $this_link);
+        $new_url = Horde::url('new.php')->add('url', $this_link);
         $new_img = Horde::img('new_small.png', '+');
 
         foreach ($this->_currentCalendars as $id => $cal) {
@@ -184,7 +185,7 @@ class Kronolith_View_Month {
                 }
 
                 if ($date->dayOfWeek() == Horde_Date::DATE_MONDAY) {
-                    $html .= Horde::applicationUrl('week.php')
+                    $html .= Horde::url('week.php')
                         ->add('date', $date->dateString())
                         ->link(array('class' => 'week'))
                         . sprintf(_("Week %d"), $week) . '</a>';
@@ -234,7 +235,7 @@ class Kronolith_View_Month {
     function link($offset = 0, $full = false)
     {
         $month = $this->getMonth($offset);
-        return Horde::applicationUrl('month.php', $full)
+        return Horde::url('month.php', $full)
             ->add('date', $month->dateString());
     }
 

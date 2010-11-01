@@ -35,8 +35,7 @@ class SyncML_Device {
 
         if (empty($driver) || $driver == 'none' || $driver == 'default') {
             $GLOBALS['backend']->logMessage(
-                'Using default device class',
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                'Using default device class', 'DEBUG');
             return new SyncML_Device();
         }
 
@@ -49,8 +48,7 @@ class SyncML_Device {
         }
 
         $device = new $class();
-        $GLOBALS['backend']->logMessage('Created device class ' . $class,
-                                        __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $GLOBALS['backend']->logMessage('Created device class ' . $class, 'DEBUG');
         return $device;
     }
 
@@ -272,8 +270,8 @@ class SyncML_Device {
     function convertUTC2LocalTime($utc)
     {
         $dateParts = explode('T', $utc[0]);
-        $date = Horde_iCalendar::_parseDate($dateParts[0]);
-        $time = Horde_iCalendar::_parseTime($dateParts[1]);
+        $date = Horde_Icalendar::_parseDate($dateParts[0]);
+        $time = Horde_Icalendar::_parseTime($dateParts[1]);
 
         // We don't know the timezone so assume local timezone.
         $ts = @gmmktime($time['hour'], $time['minute'], $time['second'],

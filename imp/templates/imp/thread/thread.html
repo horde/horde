@@ -1,0 +1,26 @@
+<h1 class="header">
+ <if:thread><gettext>Thread Display:</gettext><else:thread><gettext>Multiple Message View:</gettext></else:thread></if:thread> <tag:subject /> <tag:delete />
+</h1>
+
+<a id="display"></a>
+<div class="solidbox striped threadSummary">
+<loop:tree>
+ <div><tag:tree.subject /></div>
+</loop:tree>
+</div>
+
+<loop:messages>
+<a id="i<tag:messages.idx />"></a>
+<div class="solidbox threadBox">
+ <div class="item0">
+  <span class="threadlink"><tag:messages.link /></span>
+  <strong><if:messages.addr_to><gettext>To:</gettext><else:messages.addr_to><gettext>From:</gettext></else:messages.addr_to></if:messages.addr_to></strong>
+  <tag:messages.addr />
+  (<small><tag:messages.date /></small>)
+ </div>
+
+ <div class="messageBody">
+  <tag:messages.body />
+ </div>
+</div>
+</loop:messages>

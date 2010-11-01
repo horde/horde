@@ -1,12 +1,13 @@
 <?php
 /**
- * Copyright 2007-2008 Maintainable Software, LLC
- * Copyright 2008-2010 The Horde Project (http://www.horde.org)
+ * URL generation utility for controllers
  *
- * @author     Mike Naberezny <mike@maintainable.com>
- * @license    http://opensource.org/licenses/bsd-license.php BSD
- * @category   Horde
- * @package    Horde_Controller
+ * @category Horde
+ * @package  Horde_Controller
+ * @author   Mike Naberezny <mike@maintainable.com>
+ * @author   Derek DeVries <derek@maintainable.com>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @license  http://opensource.org/licenses/bsd-license.php BSD
  */
 class Horde_Controller_UrlWriter
 {
@@ -24,16 +25,13 @@ class Horde_Controller_UrlWriter
     /**
      * Class constructor
      *
-     * @param  array                   $defaults  Defaults to merge for urlFor()
-     * @param  null|Horde_Route_Utils  $utils     Route utilities
+     * @param  Horde_Routes_Utils  $utils     Route utilities
+     * @param  array               $defaults  Defaults to merge for urlFor()
      */
-    public function __construct($defaults = array(), $utils = null)
+    public function __construct(Horde_Routes_Utils $utils, $defaults = array())
     {
-        $this->_defaults = $defaults;
-        if ($utils === null) {
-            $utils = Horde_Controller_Dispatcher::singleton()->getRouteUtils();
-        }
         $this->_utils = $utils;
+        $this->_defaults = $defaults;
     }
 
     /**

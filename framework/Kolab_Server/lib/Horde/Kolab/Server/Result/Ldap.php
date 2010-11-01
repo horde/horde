@@ -31,16 +31,16 @@ implements Horde_Kolab_Server_Result_Interface
     /**
      * The search result.
      *
-     * @var Net_LDAP2_Search
+     * @var Horde_Ldap_Search
      */
     private $_search;
 
     /**
      * Constructor.
      *
-     * @param Net_LDAP2_Search $search The LDAP search result.
+     * @param Horde_Ldap_Search $search The LDAP search result.
      */
-    public function __construct(Net_LDAP2_Search $search)
+    public function __construct(Horde_Ldap_Search $search)
     {
         $this->_search = $search;
     }
@@ -72,6 +72,6 @@ implements Horde_Kolab_Server_Result_Interface
      */
     public function asArray()
     {
-        return $this->_search->as_struct();
+        return $this->_search->asArray();
     }
 }

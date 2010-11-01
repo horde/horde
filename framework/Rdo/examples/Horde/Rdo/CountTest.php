@@ -5,11 +5,11 @@
 
 require './Clotho.php';
 
-$im = new ItemMapper();
-$dm = new DependencyMapper();
-$cm = new CalendarMapper();
-$rm = new ResourceMapper();
-$ram = new ResourceAvailabilityMapper();
+$im = new ItemMapper($conf['adapter']);
+$dm = new DependencyMapper($conf['adapter']);
+$cm = new CalendarMapper($conf['adapter']);
+$rm = new ResourceMapper($conf['adapter']);
+$ram = new ResourceAvailabilityMapper($conf['adapter']);
 
 echo count($im) . "\n";
 echo count($dm) . "\n";

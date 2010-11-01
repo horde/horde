@@ -372,7 +372,7 @@ class Horde_Kolab_Format_Xml
         if (class_exists($class)) {
             $driver = new $class($params);
         } else {
-            throw new Horde_Kolab_Format_Exception(sprintf(_("Failed to load Kolab XML driver %s"),
+            throw new Horde_Kolab_Format_Exception(sprintf('Failed to load Kolab XML driver %s',
                                               $object_type));
         }
 
@@ -440,7 +440,7 @@ class Horde_Kolab_Format_Xml
             $this->_parseXml($xmltext);
         }
         if (!$this->_xmldoc->documentElement->hasChildNodes()) {
-            throw new Horde_Kolab_Format_Exception(_("No or unreadable content in Kolab XML object"));
+            throw new Horde_Kolab_Format_Exception(Horde_Kolab_Format_Translation::t("No or unreadable content in Kolab XML object"));
         }
 
         // fresh object data
@@ -455,7 +455,7 @@ class Horde_Kolab_Format_Xml
 
         // uid is vital
         if (!isset($object['uid'])) {
-            throw new Horde_Kolab_Format_Exception(_("UID not found in Kolab XML object"));
+            throw new Horde_Kolab_Format_Exception(Horde_Kolab_Format_Translation::t("UID not found in Kolab XML object"));
         }
 
         return $object;
@@ -546,7 +546,7 @@ class Horde_Kolab_Format_Xml
                 return null;
             } elseif ($params['value'] == self::VALUE_NOT_EMPTY) {
                 // May not be empty. Return an error
-                throw new Horde_Kolab_Format_Exception(sprintf(_("Data value for %s is empty in Kolab XML object!"),
+                throw new Horde_Kolab_Format_Exception(sprintf(Horde_Kolab_Format_Translation::t("Data value for %s is empty in Kolab XML object!"),
                                                   $name));
             } elseif ($params['value'] == self::VALUE_DEFAULT) {
                 // Return the default
@@ -595,7 +595,7 @@ class Horde_Kolab_Format_Xml
 
         @$this->_xmldoc->loadXML($xmltext);
         if (empty($this->_xmldoc->documentElement)) {
-            throw new Horde_Kolab_Format_Exception(_("No or unreadable content in Kolab XML object"));
+            throw new Horde_Kolab_Format_Exception(Horde_Kolab_Format_Translation::t("No or unreadable content in Kolab XML object"));
         }
 
     }
@@ -711,7 +711,7 @@ class Horde_Kolab_Format_Xml
                 $value = $params['default'];
             } elseif ($params['value'] == self::VALUE_NOT_EMPTY) {
                 // May not be empty. Return an error
-                throw new Horde_Kolab_Format_Exception(sprintf(_("Data value for %s is empty in Kolab XML object!"),
+                throw new Horde_Kolab_Format_Exception(sprintf(Horde_Kolab_Format_Translation::t("Data value for %s is empty in Kolab XML object!"),
                                                   $name));
             } elseif ($params['value'] == self::VALUE_MAYBE_MISSING) {
                 /**
@@ -775,11 +775,7 @@ class Horde_Kolab_Format_Xml
      */
     protected function _createTextNode($parent, $name, $value)
     {
-        $value = Horde_String::convertCharset($value, Horde_Nls::getCharset(),
-                                              'utf-8');
-
         $node = $this->_xmldoc->createElement($name);
-
         $node = $parent->appendChild($node);
 
         // content
@@ -847,7 +843,7 @@ class Horde_Kolab_Format_Xml
      */
     protected function _getNodeContent($node)
     {
-        return Horde_String::convertCharset($node->textContent, 'utf-8');
+        return $node->textContent;
     }
 
 
@@ -1006,17 +1002,6 @@ class Horde_Kolab_Format_Xml
             return;
         }
 
-        // Create horde category if needed
-        if ($this->_create_categories &&
-            class_exists('Horde_Prefs_CategoryManager') &&
-            isset($prefs) && $prefs instanceof Horde_Prefs) {
-            $cManager         = new Horde_Prefs_CategoryManager();
-            $horde_categories = $cManager->get();
-        } else {
-            $cManager         = null;
-            $horde_categories = null;
-        }
-
         $kolab_categories = explode(',', $object['categories']);
 
         $primary_category = '';
@@ -1024,14 +1009,6 @@ class Horde_Kolab_Format_Xml
             $kolab_category = trim($kolab_category);
 
             $valid_category = true;
-            if ($cManager &&
-                array_search($kolab_category, $horde_categories) === false) {
-                // Unknown category -> Add
-                if ($cManager->add($kolab_category) === false) {
-                    // categories might be locked
-                    $valid_category = false;
-                }
-            }
 
             // First valid category becomes primary category
             if ($valid_category && empty($primary_category)) {

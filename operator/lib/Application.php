@@ -2,7 +2,8 @@
 /**
  * Shout application interface.
  *
- * This file defines Shout's application interface.
+ * This file defines Horde's core API interface. Other core Horde libraries
+ * can interact with Operator through this API.
  *
  * Copyright 2006-2010 Alkaloid Networks (http://projects.alkaloid.net/)
  *
@@ -11,8 +12,9 @@
  * http://www.opensource.org/licenses/bsd-license.html.
  *
  * @author  Ben Klang <ben@alkaloid.net>
- * @package Shout
+ * @package Operator
  */
+
 if (!defined('OPERATOR_BASE')) {
     define('OPERATOR_BASE', dirname(__FILE__). '/..');
 }
@@ -33,69 +35,52 @@ require_once HORDE_BASE . '/lib/core.php';
 
 class Operator_Application extends Horde_Registry_Application
 {
+    /**
+     * The application's version.
+     *
+     * @var string
+     */
     public $version = 'H4 (1.0-git)';
+
+    /**
+     * TODO
+     */
     public $driver = null;
 
-    public function __construct($args = array())
+    /**
+     * Initialization function.
+     *
+     * Global variables defined:
+     *   $cache - TODO
+     */
+    protected function _init()
     {
-        if (!empty($args['init'])) {
+        // Operator backend.
+        $this->driver = Operator_Driver::factory();
 
-            // Registry.
-            $GLOBALS['registry'] = Horde_Registry::singleton();
-            $registry = &$GLOBALS['registry'];
-
-            try {
-                $registry->pushApp('operator');
-            } catch (Horde_Exception $e) {
-                if ($e->getCode() == 'permission_denied') {
-                    Horde::authenticationFailureRedirect();
-                }
-                Horde::fatal($e, __FILE__, __LINE__, false);
-            }
-            $conf = &$GLOBALS['conf'];
-            @define('OPERATOR_TEMPLATES', $registry->get('templates'));
-
-            // Notification system.
-            $GLOBALS['notification'] = &Horde_Notification::singleton();
-            $notification = &$GLOBALS['notification'];
-            $notification->attach('status');
-
-            // Define the base file path of Operator.
-            @define('OPERATOR_BASE', dirname(__FILE__) . '/..');
-
-            // Operator base library
-            require_once OPERATOR_BASE . '/lib/Operator.php';
-
-            // Operator backend.
-            require_once OPERATOR_BASE . '/lib/Driver.php';
-            $this->driver = Operator_Driver::factory();
-
-            // Caching system for storing DB results
-            $GLOBALS['cache'] = &Horde_Cache::singleton($conf['cache']['driver'],
-                                    Horde::getDriverConfig('cache', $conf['cache']['driver']));
-
-            // Start output compression.
-            Horde::compressOutput();
-        }
+        // Caching system for storing DB results
+        $GLOBALS['cache'] = $GLOBALS['injector']->getInstance('Horde_Cache');
     }
 
+    /**
+     * TODO
+     */
     public function perms()
     {
-        static $perms = array();
-
-        if (!empty($perms)) {
-            return $perms;
-        }
-
-        $perms['tree']['operator']['accountcodes'] = false;
-        $perms['title']['operator:accountcodes'] = _("Account Codes");
+        $perms = array(
+            'accountcodes' => array(
+                'title' => _("Account Codes")
+            )
+        );
 
         $accountcodes = Operator::getAccountCodes();
         foreach ($accountcodes as $accountcode) {
-            $perms['tree']['operator']['accountcodes'][$accountcode] = false;
-            $perms['title']['operator:accountcodes:' . $accountcode] = $accountcode;
+            $perms['accountcodes:' . $accountcode] = array(
+                'title' => $accountcode
+            );
         }
 
         return $perms;
     }
+
 }

@@ -1,0 +1,51 @@
+<form method="post" action="<tag:action />">
+<input type="hidden" name="search_basic_mbox" value="<tag:mbox />" />
+
+<h1 class="header">
+ <strong><tag:search_title /></strong>
+</h1>
+
+<table class="item">
+ <tr>
+  <td class="searchUILabel"><gettext>Search Criteria:</gettext></td>
+  <td>
+   <select name="search_criteria">
+    <option value=""><gettext>None</gettext></option>
+    <option value="" disabled="disabled">- - - - - - - - - -</option>
+    <option value="from"><gettext>From</gettext></option>
+    <option value="recip"><gettext>Recipients (To/Cc/Bcc)</gettext></option>
+    <option value="subject"><gettext>Subject</gettext></option>
+    <option value="body"><gettext>Message Body</gettext></option>
+    <option value="text"><gettext>Entire Message</gettext></option>
+   </select>
+   <input type="text" name="search_criteria_text" size="30" />
+   <input type="checkbox" class="checkbox" name="search_criteria_not" />
+   <label for="search_criteria_not"><gettext>Do NOT Match</gettext></label>
+  </td>
+ </tr>
+ <tr>
+  <td class="searchUILabel"><gettext>Search Flags:</gettext></td>
+  <td>
+   <select name="search_criteria_flag">
+    <option value=""><gettext>None</gettext></option>
+    <option value="" disabled="disabled">- - - - - - - - - -</option>
+<loop:flist>
+    <option value="<tag:flist.val />"><tag:flist.label /></option>
+</loop:flist>
+   </select>
+   <input type="checkbox" class="checkbox" name="search_criteria_flag_not" />
+   <label for="search_criteria_flag_not"><gettext>Do NOT Match</gettext></label>
+  </td>
+ </tr>
+<if:advsearch>
+<tr>
+  <td colspan="2"><tag:advsearch /><gettext>Go to Advanced Search Page...</gettext></td>
+ </tr>
+</if:advsearch>
+</table>
+
+<div>
+ <input type="submit" class="button basicSearchSubmit" value="<gettext>Submit</gettext>" />
+ <input type="reset" class="button basicSearchReset" value="<gettext>Reset</gettext>" />
+</div>
+</form>

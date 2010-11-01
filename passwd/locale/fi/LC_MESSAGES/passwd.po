@@ -1,0 +1,371 @@
+# Finnish translation for Passwd.
+# Copyright
+# Tero Matinlassi <tero.matinlassi@edu.vantaa.fi>, 2002.
+# Leena Heino <liinu@uta.fi>, 2002-2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Passwd 3.1-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2008-11-03 12:17+0200\n"
+"PO-Revision-Date: 2008-11-03 12:59+0200\n"
+"Last-Translator: Leena Heino <liinu@uta.fi>\n"
+"Language-Team: Finnish <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8-bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/Driver/expect.php:34
+#, php-format
+msgid "%s does not exist or is not executable."
+msgstr "%s ei ole olemassa tai ei ole ajettava ohjelma."
+
+#: lib/Driver/expectpecl.php:73
+#, php-format
+msgid "%s extension cannot be loaded!"
+msgstr "%s-laajennusta ei voitu ladata!"
+
+#: lib/Driver/composite.php:63
+#, php-format
+msgid "%s: unable to load driver: %s"
+msgstr "%s: ei voi ladata ajuria: %s"
+
+#: lib/Driver/adsi.php:61
+#, php-format
+msgid "ADSI error %s."
+msgstr "ADSI virhe %s."
+
+#: lib/Driver/adsi.php:64 lib/Driver/pspasswd.php:105
+msgid "Access Denied."
+msgstr "Käyttö kielletty."
+
+#: lib/Driver.php:101
+msgid "Backend not correctly implemented."
+msgstr "Taustajärjestelmä ei toiminut oikein."
+
+#: lib/Driver/poppassd.php:90
+msgid "Cannot send command to server."
+msgstr "Komento lähetettiin palvelimelle."
+
+#: main.php:268 templates/main/main.inc:141
+msgid "Change Password"
+msgstr "Vaihda salasanasi"
+
+#: templates/main/main.inc:126
+msgid "Change password for:"
+msgstr "Vaihda salasana:"
+
+#: templates/main/main.inc:67
+msgid "Change your password"
+msgstr "Vaihda salasanasi"
+
+#: templates/main/main.inc:65
+#, php-format
+msgid "Changing password for %s"
+msgstr "Vaihdetaan salasanaa %s:lle"
+
+#: templates/main/main.inc:113
+msgid "Confirm new password:"
+msgstr "Vahvista uusi salasana"
+
+#: lib/Driver/kolab.php:60 lib/Driver/ldap.php:114
+msgid "Could not bind to LDAP server"
+msgstr "LDAP-palvelinta ei voitu käyttää"
+
+#: lib/Driver/expectpecl.php:118
+msgid "Could not change password (bad old password?)"
+msgstr "Ei voitu vaihtaa salasanaa (väärä vanha salasana?)"
+
+#: lib/Driver/expectpecl.php:138
+msgid "Could not change password."
+msgstr "Ei voitu vaihtaa salasanaa."
+
+#: lib/Driver/kolab.php:46 lib/Driver/ldap.php:80
+msgid "Could not connect to LDAP server"
+msgstr "LDAP-palvelimeen ei saatu yhteyttä"
+
+#: lib/Driver/expectpecl.php:98
+msgid "Could not login to system (no password prompt)"
+msgstr "Ei voitu kirjautua järjestelmään (ei salasanakehoitetta)"
+
+#: lib/Driver/smbpasswd.php:57
+msgid "Could not open pipe to smbpasswd."
+msgstr "Ei voitu aukaista putkea smbpasswd-ohjelmalle."
+
+#: lib/Driver/ldap.php:86
+msgid "Could not start TLS connection to LDAP server"
+msgstr "LDAP-palvelimeen ei saatu TLS-suojattua yhteyttä"
+
+#: lib/Driver/expectpecl.php:108
+msgid "Could not start passwd program (no old password prompt)"
+msgstr ""
+"Ei voitu käynnistää passwd komentoa (ei kehoitetta vanhalle salasanalle)"
+
+#: lib/Driver/expectpecl.php:44
+msgid "End of file."
+msgstr "Tiedoston loppu."
+
+#: lib/Driver/smbpasswd.php:79
+msgid "Error sending data to smbpasswd."
+msgstr "Tapahtui virhe lähetettäessä tietoa smbpasswd-ohjelmalle."
+
+#: lib/Driver/pspasswd.php:93
+msgid "Failed to verify old password."
+msgstr "Vanha salasana on väärä."
+
+#: main.php:222 lib/Driver/composite.php:102
+#, php-format
+msgid "Failure in changing password for %s: %s"
+msgstr "Salasanan vaihto epäonnistui %s:lle: %s"
+
+#: lib/Driver/expectpecl.php:50
+msgid "Full buffer."
+msgstr "Bufferi on täynnä."
+
+#: lib/Driver.php:72 lib/Driver/http.php:72 lib/Driver/kolab.php:84
+#: lib/Driver/ldap.php:131 lib/Driver/poppassd.php:120
+#: lib/Driver/vmailmgr.php:42
+msgid "Incorrect old password."
+msgstr "Väärä vanha salasana"
+
+#: lib/Driver/ldap.php:190
+msgid "Minimum password age has not yet expired"
+msgstr "Salasanan vaihtamisenestoaika ei ole vielä kulunut umpeen"
+
+#: lib/Driver/expectpecl.php:128
+msgid "New password not valid (too short, bad password, too similar, ...)"
+msgstr ""
+"Uusi salasana ei kelpaa (liian lynyt, huono salasana, liian "
+"samankaltainen, ...)"
+
+#: templates/main/main.inc:101
+msgid "New password:"
+msgstr "Uusi salasana:"
+
+#: lib/Driver/poppassd.php:67
+msgid "No prompt returned from server."
+msgstr "Palvelin ei palauttanut kehoitetta."
+
+#: lib/Driver.php:128
+#, php-format
+msgid "No such backend \"%s\" found."
+msgstr "Taustajärjestelmää \"%s\" ei löytynyt."
+
+#: templates/main/main.inc:89
+msgid "Old password:"
+msgstr "Vanha salasana:"
+
+#: lib/Driver/smbpasswd.php:47
+msgid "Passwd is not properly configured."
+msgstr "Password-ohjelmisto ei ole asennettu oikein."
+
+#: main.php:214
+#, php-format
+msgid "Password changed on %s."
+msgstr "Salasana vaihdettu %s."
+
+#: lib/Driver/sql.php:127
+#, php-format
+msgid "Password column \"%s\" not found in password table."
+msgstr "Password saraketta \"%s\" ei löytynyt password taulusta."
+
+#: lib/Driver/pspasswd.php:75
+msgid "Password module can't find the supplied bin."
+msgstr "Password-moduuli ei löydä annettua komentoa."
+
+#: lib/Driver/pspasswd.php:73
+msgid "Password module is missing required parameters."
+msgstr "Password-moduulilta puuttuu tarvittavia parametrejä."
+
+#: lib/Driver/adsi.php:51
+msgid "Password module is missing target parameter."
+msgstr "Password-moduulille ei ole määritelty target parametria."
+
+#: main.php:188 lib/Driver/servuftp.php:71
+msgid "Password module is not properly configured"
+msgstr "Password-moduuli ei ole asennettu oikein"
+
+#: lib/Driver/servuftp.php:98
+msgid "Password module is not properly configured."
+msgstr "Password-moduuli ei ole asennettu oikein."
+
+#: templates/main/main.inc:11
+msgid "Please provide a new password"
+msgstr "Sinun täytyy antaa uusi salasanasi"
+
+#: templates/main/main.inc:7
+msgid "Please provide your current password"
+msgstr "Sinun täytyy antaa nykyinen salasanasi"
+
+#: templates/main/main.inc:15
+msgid "Please verify your new password"
+msgstr "Sinun täytyy vahvistaa uusi salasanasi"
+
+#: lib/Driver/composite.php:41
+msgid "Required 'drivers' is misconfigured in Composite configuration."
+msgstr ""
+"Tarvittavaa 'drivers'-asetusta ei ollut määritelty Composite-asetuksissa."
+
+#: lib/Driver/sql.php:46
+msgid "Required 'phptype' not specified in Passwd SQL configuration."
+msgstr ""
+"Tarvittavaa 'phptype'-asetusta ei ollut määritelty Passwd SQL-asetuksissa."
+
+#: lib/Driver/vpopmail.php:49
+msgid "Required 'phptype' not specified in SQL configuration."
+msgstr "Tarvittavaa 'phptype'-asetusta ei ollut määritelty SQL-asetuksissa."
+
+#: templates/main/main.inc:142
+msgid "Reset"
+msgstr "Tyhjennä"
+
+#: lib/Driver/http.php:65
+msgid "The requested website for changing user passwords could not be reached."
+msgstr "Salasananvaihtosivustolle ei saatu yhteyttä."
+
+#: lib/Driver/http.php:74
+msgid "The username could not be found."
+msgstr "Käyttäjätunnusta ei löytynyt."
+
+#: lib/Driver/expectpecl.php:47
+msgid "Time out."
+msgstr "Aika ylittyi."
+
+#: lib/Driver/sql.php:75 lib/Driver/vpopmail.php:83
+msgid "Unable to connect to SQL server."
+msgstr "SQL-palvelimeen ei saada yhteyttä."
+
+#: lib/Driver/expectpecl.php:93
+msgid "Unable to open expect stream!"
+msgstr "Expect vuota ei voitu aukaista!"
+
+#: lib/Driver/poppassd.php:114 lib/Driver/sql.php:135
+#: lib/Driver/vpopmail.php:150
+msgid "User not found"
+msgstr "Käyttäjää ei löytynyt"
+
+#: lib/Driver/kolab.php:76 lib/Driver/ldap.php:167 lib/Driver/ldap.php:249
+#: lib/Driver/pine.php:231 lib/Driver/smbldap.php:160
+msgid "User not found."
+msgstr "Käyttäjää ei löytynyt."
+
+#: templates/main/main.inc:76
+msgid "Username:"
+msgstr "Käyttäjätunnus:"
+
+#: main.php:52
+#, php-format
+msgid "You can't change password for user %s"
+msgstr "Et voi vaihtaa käyttäjän %s salasanaa"
+
+#: main.php:60
+msgid "You must give your current password"
+msgstr "Sinun täytyy antaa nykyinen salasanasi"
+
+#: main.php:69
+msgid "You must give your new password"
+msgstr "Sinun täytyy antaa haluamasi uusi salasana"
+
+#: main.php:73
+msgid "You must verify your new password"
+msgstr "Sinun täytyy vahvistaa uusi salasanasi"
+
+#: main.php:93
+#, php-format
+msgid ""
+"Your new password is too long; passwords may not be more than %d characters "
+"long!"
+msgstr ""
+"Uusi salasanasi on liian pitkä; salasanat eivät saa olla %d merkkiä pidempiä!"
+
+#: main.php:177
+msgid "Your new password is too simple to guess!  Not changed!"
+msgstr "Uusi salasanasi on liian helppo arvata. Salasanaa ei vaihdettu!"
+
+#: main.php:168
+msgid "Your new password is too simple to guess. Not changed!"
+msgstr "Uusi salasanasi on liian helppo arvata. Salasanaa ei vaihdettu!"
+
+#: main.php:88
+#, php-format
+msgid "Your new password must be at least %d characters long!"
+msgstr "Uuden salasanasi täytyy olla vähintään %d merkkiä pitkä!"
+
+#: main.php:81
+msgid "Your new password must be different from your current password"
+msgstr "Uusi salasana ei saa olla sama kuin nykyinen salasanasi"
+
+#: main.php:133
+#, php-format
+msgid "Your new password must contain at least %d alphabetic character."
+msgid_plural ""
+"Your new password must contain at least %d alphabetic characters."
+msgstr[0] "Uudessa salasanassa pitää olla vähintään %d kirjain"
+msgstr[1] "Uudessa salasanassa pitää olla vähintään %d kirjainta"
+
+#: main.php:138
+#, php-format
+msgid "Your new password must contain at least %d alphanumeric character."
+msgid_plural ""
+"Your new password must contain at least %d alphanumeric characters."
+msgstr[0] "Uudessa salasanassa pitää olla vähintään %d kirjain tai numero."
+msgstr[1] "Uudessa salasanassa pitää olla vähintään %d kirjainta tai numeroa."
+
+#: main.php:143
+#, php-format
+msgid ""
+"Your new password must contain at least %d different types of characters. "
+"The types are: lower, upper, numeric, and symbols."
+msgstr ""
+"Uuden salasanan pitää täyttää vähintään %d vaatimusta. Vaatimukset ovat: "
+"pieniä kirjaimia, isoja kirjaimia, numeroita ja symboleita."
+
+#: main.php:123
+#, php-format
+msgid "Your new password must contain at least %d lowercase character."
+msgid_plural "Your new password must contain at least %d lowercase characters."
+msgstr[0] "Uudessa salasanassa pitää olla vähintään %d pieni kirjain."
+msgstr[1] "Uudessa salasanassa pitää olla vähintään %d pientä kirjainta."
+
+#: main.php:128
+#, php-format
+msgid "Your new password must contain at least %d numeric character."
+msgid_plural "Your new password must contain at least %d numeric characters."
+msgstr[0] "Uudessa salasanassa pitää olla vähintään %d numero."
+msgstr[1] "Uudessa salasanassa pitää olla vähintään %d numeroa."
+
+#: main.php:157
+#, php-format
+msgid "Your new password must contain at least %d symbol character."
+msgid_plural "Your new password must contain at least %d symbol characters."
+msgstr[0] "Uudessa salasanassa pitää olla vähintään %d symbolimerkki."
+msgstr[1] "Uudessa salasanassa pitää olla vähintään %d symbolimerkkiä."
+
+#: main.php:118
+#, php-format
+msgid "Your new password must contain at least %d uppercase character."
+msgid_plural "Your new password must contain at least %d uppercase characters."
+msgstr[0] "Uudessa salasanassa pitää olla vähintään %d iso kirjain."
+msgstr[1] "Uudessa salasanassa pitää olla vähintään %d isoa kirjainta."
+
+#: main.php:149
+#, php-format
+msgid "Your new password must contain less than %d whitespace characters."
+msgstr "Uudessa salasanassa pitää olla vähintään %d välilyöntimerkkiä."
+
+#: main.php:151
+msgid "Your new password must not contain whitespace characters."
+msgstr "Uudessa salasanassa ei saa olla välilyöntimerkkejä."
+
+#: main.php:77
+msgid "Your new passwords didn't match"
+msgstr "Antamasi uudet salasanat eivät täsmää"
+
+#: lib/Driver/http.php:76
+msgid "Your password could not be changed."
+msgstr "Salasanaasii ei voitu vaihtaa."
+
+#: templates/main/main.inc:19
+msgid "Your passwords do not match"
+msgstr "Antamasi salasanat eivät täsmää"

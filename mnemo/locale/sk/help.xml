@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Horde: mnemo/locale/sk_SK/help.xml,v 1.3 2006/01/30 15:57:36 jan Exp $ -->
+<!-- (C) 2002, Ivan Noris, <vix@vazka.sk> -->
+<help>
+
+<entry id="Overview">
+    <title>Prehľad</title>
+    <heading>Úvod</heading>
+    <para>
+    Aplikácia <i>Poznámky</i> vám umožní vytvárať počítačové ekvivalenty papierových poznámok. Poznámky môžete vytvárať, upravovať, vymazávať a tlačiť. Okrem toho môžete v poznámkach vyhľadávať text a priraďovať poznámky do kategórií pre lepšiu organizáciu a prehľad.
+    </para>
+</entry>
+
+<entry id="list-actions">
+    <title>Zoznam poznámok: Akcie</title>
+    <heading>Akcie</heading>
+    <para>
+    Kliknutím na <i>Vymazať poznámku</i> vymažete vybranú poznámku.
+    </para>
+    <para>
+    Kliknutie na <i>Upraviť poznámku</i> vám umožní upraviť existujúcu poznámku.
+    </para>
+    <para>
+    Tlačidlom <i>Naspäť do zoznamu poznámok</i> sa dostanete naspäť do zoznamu poznámok.
+    </para>
+</entry>
+
+<entry id="menu-actions">
+    <title>Položky menu</title>
+    <heading>Položky menu</heading>
+    <para>
+    <i>Zoznam poznámok</i> zobrazí všetky poznámky.
+    </para>
+    <para>
+    <i>Pridať poznámku</i> vám umožní vytvoriť novú poznámku.
+    </para>
+    <para>
+    <i>Hľadať</i> vám umožní hľadať poznámku obsahujúcu zadaný text. Text môžete hľadať buď iba v popise poznámky alebo v celom texte poznámky.
+    </para>
+    <para>
+    <i>Tlačiť</i> vám umožní vytlačiť poznámku. Ikona <i>Tlačiť</i> sa zobrazuje v menu iba pri zobrazovaní poznámky.
+    </para>
+</entry>
+
+
+<entry id="sorting">
+    <title>Triedenie položiek</title>
+    <heading>Triedenie položiek</heading>
+    <para>
+    Počas zobrazovania zoznamu si môžete nechať položky zoradiť podľa ľubovoľného stĺpca jednoduchým kliknutím na jeho názov. Ak chcete zmeniť smer triedenia (vzostupne resp. zostupne), kliknite na ikonu šípky v mene stĺpca.
+    </para>
+</entry>
+</help>

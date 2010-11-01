@@ -7,8 +7,10 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_LoginTasks
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
 class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
 {
@@ -33,8 +35,8 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
     {
         $success = true;
 
-        $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
-        $imp_folder = IMP_Folder::singleton();
+        $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
+        $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
 
         foreach ($identity->getAllSentmailfolders() as $sent_folder) {
             /* Display a message to the user and rename the folder.
@@ -64,7 +66,7 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
      */
     public function describe()
     {
-        $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+        $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
 
         $new_folders = $old_folders = array();
         foreach ($identity->getAllSentmailfolders() as $folder) {
@@ -99,7 +101,7 @@ class IMP_LoginTasks_Task_RenameSentmailMonthly extends Horde_LoginTasks_Task
 
         $text = (substr($GLOBALS['language'], 0, 2) == 'en') ? strtolower(strftime('-%b-%Y', $last_maintenance)) : strftime('-%m-%Y', $last_maintenance);
 
-        return $folder . Horde_String::convertCharset($text, Horde_Nls::getExternalCharset(), 'UTF7-IMAP');
+        return $folder . Horde_String::convertCharset($text, 'UTF-8', 'UTF7-IMAP');
     }
 
 }

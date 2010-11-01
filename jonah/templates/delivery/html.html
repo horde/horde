@@ -1,0 +1,24 @@
+<tag:menu />
+<tag:notify />
+
+<table width="100%" cellspacing="0">
+  <tr>
+    <td class="item0">
+      <form action="<tag:url />" method="get">
+        <input type="hidden" name="channel_id" value="<tag:channel_id />" />
+        <tag:session />
+        <gettext>Select a format:</gettext>
+        <select onchange="form.submit()" name="format">
+        <loop:options>
+          <tag:options />
+        </loop:options>
+        </select>
+      </form>
+    </td>
+  </tr>
+  <tr>
+    <td class="item1">
+      <tag:stories />
+    </td>
+  </tr>
+</table>

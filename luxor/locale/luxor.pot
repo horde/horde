@@ -1,0 +1,159 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Horde Project
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-08-17 17:46+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: symbol.php:75
+#, php-format
+msgid "%s :: Symbol \"%s\""
+msgstr ""
+
+#: lib/Tagger.php:38 lib/Tagger.php:85
+#, php-format
+msgid "%s was already indexed."
+msgstr ""
+
+#: lib/Tagger.php:49 lib/Tagger.php:96
+#, php-format
+msgid "Can't create copy of file %s."
+msgstr ""
+
+#: lib/Files/plain.php:85
+#, php-format
+msgid "Can't open directory %s"
+msgstr ""
+
+#: lib/Lang/Generic.php:115
+#, php-format
+msgid "Can't open file %s."
+msgstr ""
+
+#: lib/Lang/Generic.php:73
+msgid "Can't run ectags."
+msgstr ""
+
+#: source.php:84
+#, php-format
+msgid "Could not markup file %s."
+msgstr ""
+
+#: templates/directory.html.php:6
+msgid "Date (GMT)"
+msgstr ""
+
+#: templates/symbol.html.php:8
+msgid "Declarations"
+msgstr ""
+
+#: search.php:53
+msgid "Declared as "
+msgstr ""
+
+#: symbol.php:39
+#, php-format
+msgid "Declared as a %s"
+msgstr ""
+
+#: templates/directory.html.php:7
+msgid "Description"
+msgstr ""
+
+#: source.php:131
+#, php-format
+msgid "Directory Listing :: %s"
+msgstr ""
+
+#: lib/Lang/Generic.php:63
+#, php-format
+msgid "Exuberant ctags version 5 or above required, found version %s"
+msgstr ""
+
+#: symbol.php:45 symbol.php:69
+#, php-format
+msgid "Line %s"
+msgstr ""
+
+#: templates/headerbar.inc:3
+msgid "Location:"
+msgstr ""
+
+#: source.php:134
+#, php-format
+msgid "Markup of %s"
+msgstr ""
+
+#: templates/directory.html.php:4
+msgid "Name"
+msgstr ""
+
+#: lib/Luxor.php:78
+msgid "Other Sources"
+msgstr ""
+
+#: lib/Luxor.php:152
+msgid "Parent Directory"
+msgstr ""
+
+#: templates/symbol.html.php:20
+msgid "Referenced in"
+msgstr ""
+
+#: templates/directory.html.php:5
+msgid "Size"
+msgstr ""
+
+#: templates/menu.inc:13
+msgid "Symbol Search"
+msgstr ""
+
+#: search.php:28
+#, php-format
+msgid "Symbol Search for \"%s\""
+msgstr ""
+
+#: symbol.php:22
+msgid "Symbol not found"
+msgstr ""
+
+#: source.php:78
+#, php-format
+msgid "The file %s can't be opened or doesn't exist."
+msgstr ""
+
+#: templates/headerbar.inc:10
+msgid "Tracking Branch"
+msgstr ""
+
+#: lib/Luxor.php:151
+msgid "Up to parent"
+msgstr ""
+
+#: source.php:36
+#, php-format
+msgid "You do not have permission to view %s."
+msgstr ""
+
+#: lib/Luxor.php:454
+msgid "_Browse"
+msgstr ""
+
+#: lib/Luxor.php:163
+msgid "bytes"
+msgstr ""
+
+#: lib/Luxor.php:165
+msgid "kbytes"
+msgstr ""

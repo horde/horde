@@ -21,20 +21,24 @@ function shorten_url($url, $separator = '...', $first_chunk_length = 35, $last_c
     return $url;
 }
 
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('kronolith');
 
-// Exit if this isn't an authenticated user.
-if (!Horde_Auth::getAuth()) {
-    header('Location: ' . Horde::applicationUrl($prefs->getValue('defaultview') . '.php'));
-    exit;
+if (Kronolith::showAjaxView()) {
+    Horde::url('', true)->redirect();
 }
 
-$edit_url_base = Horde::applicationUrl('calendars/edit.php');
-$remote_edit_url_base = Horde::applicationUrl('calendars/remote_edit.php');
-$delete_url_base = Horde::applicationUrl('calendars/delete.php');
-$remote_unsubscribe_url_base = Horde::applicationUrl('calendars/remote_unsubscribe.php');
-$perms_url_base = Horde::applicationUrl('perms.php', true);
-$display_url_base = Horde::applicationUrl('month.php', true, -1);
+// Exit if this isn't an authenticated user.
+if (!$GLOBALS['registry']->getAuth()) {
+    Horde::url($prefs->getValue('defaultview') . '.php')->redirect();
+}
+
+$edit_url_base = Horde::url('calendars/edit.php');
+$remote_edit_url_base = Horde::url('calendars/remote_edit.php');
+$delete_url_base = Horde::url('calendars/delete.php');
+$remote_unsubscribe_url_base = Horde::url('calendars/remote_unsubscribe.php');
+$perms_url_base = Horde::url('perms.php', true);
+$display_url_base = Horde::url('month.php', true, -1);
 $subscribe_url_base = $registry->get('webroot', 'horde');
 if (isset($conf['urls']['pretty']) && $conf['urls']['pretty'] == 'rewrite') {
     $subscribe_url_base .= '/rpc/kronolith/';
@@ -45,12 +49,12 @@ $subscribe_url_base = Horde::url($subscribe_url_base, true, -1);
 
 $calendars = array();
 $sorted_calendars = array();
-$my_calendars = Kronolith::listCalendars(true);
+$my_calendars = Kronolith::listInternalCalendars(true);
 foreach ($my_calendars as $calendar) {
     $calendars[$calendar->getName()] = $calendar;
     $sorted_calendars[$calendar->getName()] = $calendar->get('name');
 }
-if (Horde_Auth::isAdmin()) {
+if ($registry->isAdmin()) {
     $system_calendars = $kronolith_shares->listSystemShares();
     foreach ($system_calendars as $calendar) {
         $calendars[$calendar->getName()] = $calendar;
@@ -64,13 +68,15 @@ foreach ($remote_calendars as $calendar) {
 }
 asort($sorted_calendars);
 
-$edit_img = Horde::img('edit.png', _("Edit"), null, $registry->getImageDir('horde'));
-$perms_img = Horde::img('perms.png', _("Change Permissions"), null, $registry->getImageDir('horde'));
-$delete_img = Horde::img('delete.png', _("Delete"), null, $registry->getImageDir('horde'));
+$edit_img = Horde::img('edit.png', _("Edit"));
+$perms_img = Horde::img('perms.png', _("Change Permissions"));
+$delete_img = Horde::img('delete.png', _("Delete"));
 
 Horde::addScriptFile('tables.js', 'horde');
 $title = _("Manage Calendars");
+$menu = Horde::menu();
 require KRONOLITH_TEMPLATES . '/common-header.inc';
-require KRONOLITH_TEMPLATES . '/menu.inc';
+echo $menu;
+$notification->notify(array('listeners' => 'status'));
 require KRONOLITH_TEMPLATES . '/calendar_list.php';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

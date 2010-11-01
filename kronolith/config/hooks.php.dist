@@ -1,0 +1,70 @@
+<?php
+/**
+ * Kronolith Hooks configuration file.
+ *
+ * THE HOOKS PROVIDED IN THIS FILE ARE EXAMPLES ONLY.  DO NOT ENABLE THEM
+ * BLINDLY IF YOU DO NOT KNOW WHAT YOU ARE DOING.  YOU HAVE TO CUSTOMIZE THEM
+ * TO MATCH YOUR SPECIFIC NEEDS AND SYSTEM ENVIRONMENT.
+ *
+ * For more information please see the horde/config/hooks.php.dist file.
+ *
+ * $Id$
+ */
+
+class Kronolith_Hooks
+{
+    /**
+     * Adds user-defined AJAX action handlers.
+     *
+     * @param string $action         The AJAX action.
+     * @param Horde_Variables $vars  The URL parameters.
+     *
+     * @return mixed  The data to send to the browser (will be JSON encoded).
+     * @throws Horde_Exception
+     */
+//     public function ajaxaction($action, $vars)
+//     {
+//        switch ($action) {
+//        case 'Foo':
+//            return 'bar';
+//        }
+//
+//        throw new Horde_Exception('Unknown action');
+//     }
+
+    /**
+     * Generates the e-mail notification message when the share owner changes.
+     *
+     * @param string $user        The new owner.
+     * @param Horde_Share $share  A calendar or tasklist.
+     */
+//     public function shareOwnerNotification($user, Horde_Share $share)
+//     {
+//         return 'Some fancy text including the ' . $user . ' and the ' . $share->get('name');
+//     }
+
+    /**
+     * Generates the e-mail notification message when the share permissions
+     * change.
+     *
+     * @param string $user        A user who has been added to the permissions.
+     * @param Horde_Share $share  A calendar or tasklist.
+     */
+//     public function shareUserNotification($user, Horde_Share $share)
+//     {
+//         return 'Some fancy text including the ' . $user . ' and the ' . $share->get('name');
+//     }
+
+    /**
+     * Generates the e-mail notification message when the share permissions
+     * change.
+     *
+     * @param mixed $group        The id of a group that has been added to the
+     *                            permissions.
+     * @param Horde_Share $share  A calendar or tasklist.
+     */
+//     public function shareGroupNotification($group, Horde_Share $share)
+//     {
+//         return 'Some fancy text including the ' . $group . ' and the ' . $share->get('name');
+//     }
+}

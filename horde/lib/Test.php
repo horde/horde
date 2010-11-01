@@ -60,7 +60,8 @@ class Horde_Test
         ),
         'dom' => array(
             'descrip' => 'DOM XML Support',
-            'error' => 'DOM support is required for the configuration frontend and Kolab support.'
+            'error' => 'Horde will not run without the dom extension. Don\'t compile PHP with <code>--disable-all/--disable-dom</code>, or enable the dom extension individually before continuing.',
+            'fatal' => true
         ),
         'fileinfo' => array(
             'descrip' => 'MIME Magic Support (fileinfo)',
@@ -143,6 +144,10 @@ class Horde_Test
             'error' => 'Horde will not run without the pcre extension. Don\'t compile PHP with <code>--disable-all/--without-pcre-regex</code>, or enable the pcre extension individually before continuing.',
             'fatal' => true
         ),
+        'pdo' => array(
+            'descrip' => 'PDO',
+            'error' => 'The PDO extension is required if you plan on using a database backend other than mysqli with Horde_Db.',
+        ),
         'pgsql' => array(
             'descrip' => 'PostgreSQL Support',
             'error' => 'The PostgreSQL extension is only required if you want to use a PostgreSQL database server for data storage.'
@@ -151,13 +156,19 @@ class Horde_Test
             'descrip' => 'Session Support',
             'fatal' => true
         ),
+        'SimpleXML' => array(
+            'descrip' => 'SimpleXML support',
+            'error' => 'Horde will not run without the SimpleXML extension. Don\'t compile PHP with <code>--disable-all/--disbale-simplexml</code>, or enable the SimpleXML extension individually before continuing.',
+            'fatal' => true
+        ),
         'tidy' => array(
             'descrip' => 'Tidy support',
             'error' => 'The tidy PHP extension is used to sanitize HTML data.'
         ),
         'xml' => array(
-            'descrip' => 'XML Support',
-            'error' => 'XML support is required for the help system.'
+            'descrip' => 'XML Parser support',
+            'error' => 'Horde will not run without the xml extension. Don\'t compile PHP with <code>--disable-all/--without-xml</code>, or enable the xml extension individually before continuing.',
+            'fatal' => true
         ),
         'zlib' => array(
             'descrip' => 'Zlib Support',
@@ -171,6 +182,9 @@ class Horde_Test
      * KEY:   setting name
      * VALUE: An array with the following entries:
      *        'error' - (string) Error Message
+     *        'function' - (string) Reference to function to run. If function
+     *                     returns non-empty value, error message will be
+     *                     output.
      *        'setting' - (mixed) Either a boolean (whether setting should be
      *                    on or off) or 'value', which will simply output the
      *                    value of the setting.
@@ -179,13 +193,22 @@ class Horde_Test
      * @var array
      */
     protected $_settingsList = array(
+        'allow_url_include' => array(
+            'setting' => false,
+            'error' => 'This is a security hazard. Horde will attempt to disable automatically, but it is best to manually disable also.'
+        ),
         'magic_quotes_runtime' => array(
             'setting' => false,
-            'error' => 'magic_quotes_runtime may cause problems with database inserts, etc. Turn it off.'
+            'error' => 'magic_quotes_runtime may cause problems with database inserts, etc. Horde will attempt to disable automatically, but it is best to manually disable also.'
+        ),
+        'magic_quotes_sybase' => array(
+            'setting' => false,
+            'error' => 'magic_quotes_sybase may cause problems with database inserts, etc. Horde will attempt to disable automatically, but it is best to manually disable also.'
         ),
         'memory_limit' => array(
             'setting' => 'value',
-            'error' => 'If PHP\'s internal memory limit is not set high enough Horde will not be able to handle large data items. You should set the value of memory_limit in php.ini to a sufficiently high value - at least 64M is recommended.'
+            'error' => 'If PHP\'s internal memory limit is not set high enough Horde will not be able to handle large data items. You should set the value of memory_limit in php.ini to a sufficiently high value - at least 64M is recommended.',
+            'function' => '_checkMemoryLimit'
         ),
         'register_globals' => array(
             'setting' => false,
@@ -201,19 +224,29 @@ class Horde_Test
         ),
         'session.gc_divisor' => array(
             'setting' => 'value',
-            'error' => 'PHP automatically garbage collects old session information, as long as this setting (and session.gc_probability) are set to non-zero. It is recommended that this value be "10000" or higher (see docs/INSTALL).'
+            'error' => 'PHP automatically garbage collects old session information, as long as this setting (and session.gc_probability) are set to non-zero. It is recommended that this value be "10000" or higher (see docs/INSTALL).',
+            'function' => '_checkGcDivisor'
         ),
         'session.gc_probability' => array(
             'setting' => 'value',
-            'error' => 'PHP automatically garbage collects old session information, as long as this setting (and session.gc_divisor) are set to non-zero. It is recommended that this value be "1".'
+            'error' => 'PHP automatically garbage collects old session information, as long as this setting (and session.gc_divisor) are set to non-zero. It is recommended that this value be "1".',
+            'function' => '_checkGcProbability'
         ),
         'session.use_trans_sid' => array(
             'setting' => false,
             'error' => 'Horde will work with session.use_trans_sid turned on, but you may see double session-ids in your URLs, and if the session name in php.ini differs from the session name configured in Horde, you may get two session ids and see other odd behavior. The URL-rewriting that use_trans_sid does also tends to break XHTML compliance. In short, you should really disable this.'
         ),
+        'tidy.clean_output' => array(
+            'setting' => false,
+            'error' => 'This will break output of any dynamically created, non-HTML content. Horde will attempt to disable automatically, but it is best to manually disable also.'
+        ),
         'zend_accelerator.compress_all' => array(
             'setting' => false,
             'error' => 'You should not enable output compression unconditionally because some browsers and scripts don\'t work well with output compression. Enable compression in Horde\'s configuration instead, so that we have full control over the conditions where to enable and disable it.'
+        ),
+        'zend.ze1_compatibility_mode' => array(
+            'setting' => false,
+            'error' => 'Unneeded, deprecated PHP 4 compatibility option. Horde will attempt to disable automatically, but it is best to manually disable also.'
         ),
         'zlib.output_compression' => array(
             'setting' => false,
@@ -244,28 +277,19 @@ class Horde_Test
         'Cache' => array(
             'error' => 'Cache is used by the Services_Weather module on the weather applet/block on the portal page.'
         ),
+        'Crypt_Blowfish' => array(
+            'error' => 'Crypt_Blowfish is required to store authentication credentials securely within the session data.',
+            'required' => true
+        ),
         'Date' => array(
             'path' => 'Date/Calc.php',
             'error' => 'Horde requires the Date_Calc class for Kronolith to calculate dates.'
-        ),
-        'DB' => array(
-            'error' => 'You will need DB if you are using SQL.',
-            'function' => '_checkPearDbVersion'
         ),
         'HTTP_Request' => array(
             'error' => 'Parts of Horde (Jonah, the XML-RPC client/server) use the HTTP_Request library to retrieve URLs and do other HTTP requests.'
         ),
         'HTTP_WebDAV_Server' => array(
             'error' => 'The HTTP_WebDAV_Server is required if you want to use the WebDAV interface of Horde, e.g. to access calendars or tasklists with external clients.'
-        ),
-        'Log' => array(
-            'error' => 'Make sure you are using a version of PEAR which includes the Log classes, or that you have installed the Log package seperately. See the INSTALL file for instructions on installing Log.',
-            'function' => '_checkPearLogVersion',
-            'required' => true
-        ),
-        'Mail' => array(
-            'path' => 'Mail/RFC822.php',
-            'error' => 'You do not have the Mail package installed on your system. See the INSTALL file for instructions on how to install the package.'
         ),
         'MDB2' => array(
             'error' => 'You will need MDB2 if you are using the SQL driver for Shares.',
@@ -329,7 +353,7 @@ class Horde_Test
         error_reporting(E_ALL);
 
         /* Set character encoding. */
-        header('Content-type: text/html; charset=utf-8');
+        header('Content-type: text/html; charset=UTF-8');
         header('Vary: Accept-Language');
     }
 
@@ -485,13 +509,17 @@ class Horde_Test
                 $result = (ini_get($key) == $val['setting']);
                 $entry[] = $key . ' ' . (($val['setting'] === true) ? 'enabled' : 'disabled');
                 $entry[] = $this->_status($result);
-                if (!$result) {
+                if (!$result &&
+                    (!isset($val['function']) ||
+                     call_user_func(array($this, $val['function'])))) {
                     $entry[] = $val['error'];
                 }
             } elseif ($val['setting'] == 'value') {
                 $entry[] = $key . ' value';
                 $entry[] = ini_get($key);
-                if (!empty($val['error'])) {
+                if (!empty($val['error']) &&
+                    (!isset($val['function']) ||
+                     call_user_func(array($this, $val['function'])))) {
                     $entry[] = $val['error'];
                     $entry[] = 1;
                 }
@@ -526,16 +554,6 @@ class Horde_Test
             $output .= $this->_outputLine($entry);
             ini_restore('track_errors');
             return $output;
-        }
-        $output .= $this->_outputLine($entry);
-
-        /* Check for a recent PEAR version. */
-        $entry = array();
-        $newpear = $this->_isRecentPear();
-        $entry[] = 'Recent PEAR';
-        $entry[] = $this->_status($newpear);
-        if (!$newpear) {
-            $entry[] = 'This version of PEAR is not recent enough. See the <a href="http://www.horde.org/pear/">Horde PEAR page</a> for details.';
         }
         $output .= $this->_outputLine($entry);
 
@@ -586,27 +604,49 @@ class Horde_Test
     }
 
     /**
-     * Additional check for PEAR Log module for its version.
+     * Additional check for 'session.gc_divisor'.
      *
-     * @return string  Returns error string on error.
+     * @return boolean  Returns true if error string should be displayed.
      */
-    protected function _checkPearLogVersion()
+    protected function _checkMemoryLimit()
     {
-        if (!defined('PEAR_LOG_INFO')) {
-            return 'Your version of Log is not recent enough.';
+        $memlimit = trim(ini_get('memory_limit'));
+        switch (strtolower(substr($memlimit, -1))) {
+        case 'g':
+            $memlimit *= 1024;
+            // Fall-through
+
+        case 'm':
+            $memlimit *= 1024;
+            // Fall-through
+
+        case 'k':
+            $memlimit *= 1024;
+            // Fall-through
         }
+
+        return ($memlimit < 67108864);
     }
 
     /**
-     * Additional check for PEAR DB module for its version.
+     * Additional check for 'session.gc_divisor'.
      *
-     * @return string  Returns error string on error.
+     * @return boolean  Returns true if error string should be displayed.
      */
-    protected function _checkPearDbVersion()
+    protected function _checkGcDivisor()
     {
-        if (!defined('DB_PORTABILITY_LOWERCASE')) {
-            return 'Your version of DB is not recent enough.';
-        }
+        return (ini_get('session.gc_divisor') < 10000);
+    }
+
+    /**
+     * Additional check for 'session.gc_probability'.
+     *
+     * @return boolean  Returns true if error string should be displayed.
+     */
+    protected function _checkGcProbability()
+    {
+        return !(ini_get('session.gc_probability') &&
+                 ini_get('session.gc_divisor'));
     }
 
     /**
@@ -678,19 +718,6 @@ class Horde_Test
     }
 
     /**
-     * Is this a 'recent' version of PEAR?
-     *
-     * @param boolean  True if a recent version of PEAR.
-     */
-    protected function _isRecentPear()
-    {
-        $pear_methods = get_class_methods('PEAR');
-        return (is_array($pear_methods) &&
-                (in_array('registershutdownfunc', $pear_methods) ||
-                 in_array('registerShutdownFunc', $pear_methods)));
-    }
-
-    /**
      * Obtain information on the PHP version.
      *
      * @return object stdClass  TODO
@@ -698,12 +725,11 @@ class Horde_Test
     public function getPhpVersionInformation()
     {
         $output = new stdClass;
-        $url = urlencode($_SERVER['PHP_SELF']);
         $vers_check = true;
 
-        $testscript = 'test.php';
-        $output->phpinfo = $testscript . '?mode=phpinfo&amp;url=' . $url;
-        $output->extensions = $testscript . '?mode=extensions&amp;url=' . $url;
+        $testscript = Horde::selfUrl(true);
+        $output->phpinfo = $testscript->copy()->add('mode', 'phpinfo');
+        $output->extensions = $testscript->copy()->add('mode', 'extensions');
         $output->version = PHP_VERSION;
         $output->major = $this->_phpver['major'];
         if (isset($this->_phpver['minor'])) {
@@ -806,7 +832,7 @@ class Horde_Test
         $ret .= '<h1>Local File Permissions</h1><ul>' .
             '<li>Is <tt>' . htmlspecialchars(HORDE_BASE) . '/static</tt> writable by the web server user? ';
         $ret .= is_writable(HORDE_BASE . '/static')
-            ? 'Yes'
+            ? '<strong style="color:green">Yes</strong>'
             : "<strong style=\"color:red\">No</strong><br /><strong style=\"color:orange\">If caching javascript and CSS files by storing them in static files (HIGHLY RECOMMENDED), this directory must be writable as the user the web server runs as.</strong>";
         return $ret . '</li></ul>';
     }

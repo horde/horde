@@ -10,8 +10,6 @@ require_once HYLAX_BASE . '/lib/SQL/Attributes.php';
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * $Horde: incubator/hylax/lib/Storage/sql.php,v 1.21 2009/07/08 18:29:13 slusarz Exp $
- *
  * @author Marko Djukic <marko@oblo.com>
  * @package Hylax
  */
@@ -45,9 +43,9 @@ class Hylax_Storage_sql extends Hylax_Storage {
     {
         $id = $this->_db->nextId('hylax_faxes');
         if (is_a($id, 'PEAR_Error')) {
-            Horde::logMessage('Could not generate new fax id. %s' . $id->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage('Could not generate new fax id. %s' . $id->getMessage(), 'ERR');
         } else {
-            Horde::logMessage('Generated new fax id: ' . $id, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('Generated new fax id: ' . $id, 'DEBUG');
         }
         return $id;
     }
@@ -63,10 +61,10 @@ class Hylax_Storage_sql extends Hylax_Storage {
                        $info['fax_pages'],
                        $info['fax_created'],
                        $info['fax_folder']);
-        Horde::logMessage('SQL Query by Hylax_Storage_sql::_createFax(): ' . $sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by Hylax_Storage_sql::_createFax(): ' . $sql, 'DEBUG');
         $result = $this->_db->query($sql, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
         }
         return $result;
     }
@@ -141,10 +139,10 @@ class Hylax_Storage_sql extends Hylax_Storage {
     {
         /* Get the gateways. */
         $sql = 'SELECT * FROM swoosh_gateways';
-        Horde::logMessage('SQL Query by Hylax_Storage_sql::_getGateways(): ' . $sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by Hylax_Storage_sql::_getGateways(): ' . $sql, 'DEBUG');
         $result = $this->_db->getAll($sql, DB_FETCHMODE_ASSOC);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
         }
 
         return $result;
@@ -162,15 +160,14 @@ class Hylax_Storage_sql extends Hylax_Storage {
         /* Get the gateways. */
         $sql = 'SELECT * FROM swoosh_gateways WHERE gateway_id = ?';
         $values = array((int)$gateway_id);
-        Horde::logMessage('SQL Query by Hylax_Storage_sql::getGateway(): ' . $sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by Hylax_Storage_sql::getGateway(): ' . $sql, 'DEBUG');
         $gateway = $this->_db->getRow($sql, $values, DB_FETCHMODE_ASSOC);
         if (is_a($gateway, 'PEAR_Error')) {
-            Horde::logMessage($gateway, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($gateway, 'ERR');
             return $gateway;
         }
 
         /* Unserialize the gateway params. */
-        require_once 'Horde/Serialize.php';
         $gateway['gateway_params'] = Horde_Serialize::unserialize($gateway['gateway_params'], Horde_Serialize::UTF7_BASIC);
 
         /* Unserialize the gateway send params. */
@@ -193,7 +190,7 @@ class Hylax_Storage_sql extends Hylax_Storage {
             /* No existing gateway id, so new gateway and get next id. */
             $info['gateway_id'] = $this->_db->nextId('swoosh_gateways');
             if (is_a($info['gateway_id'], 'PEAR_Error')) {
-                Horde::logMessage($info['gateway_id'], __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($info['gateway_id'], 'ERR');
                 return $info['gateway_id'];
             }
             $sql = 'INSERT INTO swoosh_gateways (gateway_id, gateway_driver, gateway_name, gateway_params, gateway_sendparams) VALUES (?, ?, ?, ?, ?)';
@@ -205,7 +202,6 @@ class Hylax_Storage_sql extends Hylax_Storage {
         }
 
         /* Serialize the gateway params. */
-        require_once 'Horde/Serialize.php';
         if (!empty($info['gateway_params'])) {
             $info['gateway_params'] = Horde_Serialize::serialize($info['gateway_params'], Horde_Serialize::UTF7_BASIC);
         } else {
@@ -226,10 +222,10 @@ class Hylax_Storage_sql extends Hylax_Storage {
                       $info['gateway_name'],
                       $info['gateway_params'],
                       $info['gateway_sendparams']);
-        Horde::logMessage('SQL Query by Hylax_Storage_sql::saveGateway(): ' . $sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by Hylax_Storage_sql::saveGateway(): ' . $sql, 'DEBUG');
         $result = $this->_db->query($sql, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -247,10 +243,10 @@ class Hylax_Storage_sql extends Hylax_Storage {
     {
         $sql = 'DELETE FROM swoosh_gateways WHERE gateway_id = ?';
         $values = array((int)$gateway_id);
-        Horde::logMessage('SQL Query by Hylax_Storage_sql::deleteGateway(): ' . $sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by Hylax_Storage_sql::deleteGateway(): ' . $sql, 'DEBUG');
         $result = $this->_db->query($sql, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
         }
 
         return $result;
@@ -272,17 +268,16 @@ class Hylax_Storage_sql extends Hylax_Storage {
     {
         $message_id = $this->_db->nextId('swoosh_messages');
         if (is_a($message_id, 'PEAR_Error')) {
-            Horde::logMessage($message_id, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($message_id, 'ERR');
             return $message_id;
         }
 
         /* Serialize the message params. */
-        require_once 'Horde/Serialize.php';
         $message_params = Horde_Serialize::serialize($message_params, Horde_Serialize::UTF7_BASIC);
 
         $sql = 'INSERT INTO swoosh_messages (message_id, user_uid, gateway_id, message_batch_id, message_text, message_params, message_submitted) VALUES (?, ?, ?, ?, ?, ?, ?)';
         $values = array((int)$message_id,
-                        Horde_Auth::getAuth(),
+                        $GLOBALS['registry']->getAuth(),
                         (int)$gateway_id,
                         is_null($message_batch_id) ? 'NULL' : (int)$message_batch_id,
                         $message_text,
@@ -290,7 +285,7 @@ class Hylax_Storage_sql extends Hylax_Storage {
                         (int)time());
         $result = $this->_db->query($sql, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -312,7 +307,7 @@ class Hylax_Storage_sql extends Hylax_Storage {
     {
         $send_id = $this->_db->nextId('swoosh_sends');
         if (is_a($send_id, 'PEAR_Error')) {
-            Horde::logMessage($send_id, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($send_id, 'ERR');
             return $send_id;
         }
         $sql = 'INSERT INTO swoosh_sends (send_id, message_id, send_remote_id, send_recipient, send_status) VALUES (?, ?, ?, ?, ?)';
@@ -323,7 +318,7 @@ class Hylax_Storage_sql extends Hylax_Storage {
                         (is_null($error) ? 'NULL' : $error));
         $result = $this->_db->query($sql, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -340,11 +335,11 @@ class Hylax_Storage_sql extends Hylax_Storage {
     function _getMessages()
     {
         $sql = 'SELECT * FROM swoosh_messages WHERE user_uid = ?';
-        $values = array(Horde_Auth::getAuth());
-        Horde::logMessage('SQL Query by Hylax_Storage_sql::_getMessages(): ' . $sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $values = array($GLOBALS['registry']->getAuth());
+        Horde::logMessage('SQL Query by Hylax_Storage_sql::_getMessages(): ' . $sql, 'DEBUG');
         $result = $this->_db->getAssoc($sql, false, $values, DB_FETCHMODE_ASSOC);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
         }
 
         return $result;
@@ -367,10 +362,10 @@ class Hylax_Storage_sql extends Hylax_Storage {
         $sql = 'SELECT message_id, swoosh_sends.* FROM swoosh_sends' .
                ' WHERE message_id IN (' . str_repeat('?, ', count($message_ids) - 1) . '?)';
         $values = $message_ids;
-        Horde::logMessage('SQL Query by Hylax_Storage_sql::_getSends(): ' . $sql, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by Hylax_Storage_sql::_getSends(): ' . $sql, 'DEBUG');
         $result = $this->_db->getAssoc($sql, false, $values, DB_FETCHMODE_ASSOC, true);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
         }
 
         return $result;
@@ -378,37 +373,7 @@ class Hylax_Storage_sql extends Hylax_Storage {
 
     function initialise()
     {
-        global $registry;
-
-        Horde::assertDriverConfig($this->_params, 'sql',
-            array('phptype'));
-
-        if (!isset($this->_params['database'])) {
-            $this->_params['database'] = '';
-        }
-        if (!isset($this->_params['username'])) {
-            $this->_params['username'] = '';
-        }
-        if (!isset($this->_params['hostspec'])) {
-            $this->_params['hostspec'] = '';
-        }
-
-        /* Connect to the SQL server using the supplied parameters. */
-        require_once 'DB.php';
-        $this->_db = &DB::connect($this->_params,
-                                  array('persistent' => !empty($this->_params['persistent'])));
-        if (is_a($this->_db, 'PEAR_Error')) {
-            Horde::fatal($this->_db, __FILE__, __LINE__);
-        }
-
-        // Set DB portability options
-        switch ($this->_db->phptype) {
-        case 'mssql':
-            $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-            break;
-        default:
-            $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-        }
+        $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('rw', 'hylax', 'sql');
 
         return true;
     }

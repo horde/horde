@@ -96,7 +96,11 @@ implements Horde_Kolab_Server_Interface
     public function connectGuid($guid = null, $pass = null)
     {
         $this->_server->connectGuid($guid, $pass);
-        $this->_count['connectGuid']++;
+        if (!isset($this->_count['connectGuid'])) {
+            $this->_count['connectGuid'] = 1;
+        } else {
+            $this->_count['connectGuid']++;
+        }
     }
 
     /**
@@ -132,8 +136,12 @@ implements Horde_Kolab_Server_Interface
      */
     public function read($guid, array $attrs = array())
     {
+        if (!isset($this->_count['read'])) {
+            $this->_count['read'] = 1;
+        } else {
+            $this->_count['read']++;
+        }
         return $this->_server->read($guid);
-        $this->_count['read']++;
     }
 
     /**
@@ -150,8 +158,12 @@ implements Horde_Kolab_Server_Interface
      */
     public function readAttributes($guid, array $attrs)
     {
+        if (!isset($this->_count['readAttributes'])) {
+            $this->_count['readAttributes'] = 1;
+        } else {
+            $this->_count['readAttributes']++;
+        }
         return $this->_server->readAttributes($guid, $attrs);
-        $this->_count['readAttributes']++;
     }
 
     /**
@@ -166,8 +178,12 @@ implements Horde_Kolab_Server_Interface
      */
     public function find($query, array $params = array())
     {
+        if (!isset($this->_count['find'])) {
+            $this->_count['find'] = 1;
+        } else {
+            $this->_count['find']++;
+        }
         return $this->_server->find($query, $params);
-        $this->_count['find']++;
     }
 
     /**
@@ -183,8 +199,12 @@ implements Horde_Kolab_Server_Interface
      */
     public function findBelow($query, $parent, array $params = array())
     {
+        if (!isset($this->_count['findBelow'])) {
+            $this->_count['findBelow'] = 1;
+        } else {
+            $this->_count['findBelow']++;
+        }
         return $this->_server->findBelow($query, $parent, $params);
-        $this->_count['findBelow']++;
     }
 
     /**
@@ -203,7 +223,11 @@ implements Horde_Kolab_Server_Interface
         array $data
     ) {
         $this->_server->save($object, $data);
-        $this->_count['save']++;
+        if (!isset($this->_count['save'])) {
+            $this->_count['save'] = 1;
+        } else {
+            $this->_count['save']++;
+        }
     }
 
     /**
@@ -222,7 +246,11 @@ implements Horde_Kolab_Server_Interface
         array $data
     ) {
         $this->_server->add($object, $data);
-        $this->_count['add']++;
+        if (!isset($this->_count['add'])) {
+            $this->_count['add'] = 1;
+        } else {
+            $this->_count['add']++;
+        }
     }
 
     /**
@@ -237,7 +265,11 @@ implements Horde_Kolab_Server_Interface
     public function delete($guid)
     {
         $this->_server->delete($guid);
-        $this->_count['delete']++;
+        if (!isset($this->_count['delete'])) {
+            $this->_count['delete'] = 1;
+        } else {
+            $this->_count['delete']++;
+        }
     }
 
     /**
@@ -253,20 +285,28 @@ implements Horde_Kolab_Server_Interface
     public function rename($guid, $new)
     {
         $this->_server->rename($guid, $new);
-        $this->_count['rename']++;
+        if (!isset($this->_count['rename'])) {
+            $this->_count['rename'] = 1;
+        } else {
+            $this->_count['rename']++;
+        }
     }
 
     /**
      * Return the ldap schema.
      *
-     * @return Net_LDAP2_Schema The LDAP schema.
+     * @return Horde_Ldap_Schema The LDAP schema.
      *
      * @throws Horde_Kolab_Server_Exception If retrieval of the schema failed.
      */
     public function getSchema()
     {
         return $this->_server->getSchema();
-        $this->_count['getSchema']++;
+        if (!isset($this->_count['getSchema'])) {
+            $this->_count['getSchema'] = 1;
+        } else {
+            $this->_count['getSchema']++;
+        }
     }
 
     /**

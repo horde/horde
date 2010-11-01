@@ -1,0 +1,920 @@
+# translation of wicked.po to Slovene
+# Copyright 2007-2010 The Horde Project
+# This file is distributed under the same license as the Horde package.
+#
+# Marko Milost <marko.milost@obala.si>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: wicked\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2007-02-03 18:57+0100\n"
+"PO-Revision-Date: 2007-02-07 11:51+0100\n"
+"Last-Translator: Marko Milost <marko.milost@obala.si>\n"
+"Language-Team: Slovene <sl@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#: templates/edit/create.inc:13
+#, php-format
+msgid ""
+"%s does not exist, but maybe you were looking for one of the following pages?"
+msgstr "%s ne obstaja, si morda iskal eno od spodaj nanizanih strani?"
+
+#: templates/edit/create.inc:30
+#, php-format
+msgid ""
+"%s does not exist. Click on \"Create\" below if you want to create this page "
+"now and start editing."
+msgstr ""
+"%s ne obstaja. Klikni na \"Ustvari\", če želiš ustvariti novo stran in "
+"začeti z urejanjem le-te."
+
+#: templates/edit/create.inc:37
+msgid "(None)"
+msgstr "(Nič)"
+
+#: scripts/wicked.php:161
+msgid ""
+"-d, --debug                  Run in debug mode (displays extra information)"
+msgstr ""
+
+#: scripts/wicked.php:163
+msgid ""
+"-g, --get[=pagetitle]        Return all pages (unless pagetitle specified)"
+msgstr ""
+
+#: scripts/wicked.php:160
+msgid "-h, --help                   Show this help"
+msgstr ""
+
+#: scripts/wicked.php:162
+msgid "-l, --list-pages             List pages"
+msgstr ""
+
+#: scripts/wicked.php:164
+msgid "-o, --out[=type]             Output type for results (default:xml)"
+msgstr ""
+
+#: scripts/wicked.php:166
+msgid "-p, --password[=password]    Horde login password"
+msgstr ""
+
+#: scripts/wicked.php:165
+msgid "-u, --username[=username]    Horde login username"
+msgstr ""
+
+#: templates/display/MergeOrRename.html:31
+msgid "Add the text from this page"
+msgstr "Dodaj besedilo iz te strani"
+
+#: lib/Page/AddPage.php:93
+#, php-format
+msgid "AddPage: %s"
+msgstr "Dodaj stran: %s"
+
+#: lib/Page/AllPages.php:81
+msgid "AllPages"
+msgstr "VseStrani"
+
+#: lib/Page/DeletePage.php:77
+msgid ""
+"Are you sure you want to delete this page? All versions will be permanently "
+"removed."
+msgstr ""
+"Si prepričan, da želiš odstraniti to stran? Vse verzije bodo dokončno "
+"pobrisane."
+
+#: lib/Page/DeletePage.php:79
+#, php-format
+msgid "Are you sure you want to delete version %s of this page?"
+msgstr "Si prepričan, da želiš pobrisati verzijo %s te strani?"
+
+#: lib/Page/RevertPage.php:65
+#, php-format
+msgid "Are you sure you want to revert to version %s of this page?"
+msgstr "Si prepričan, da želiš nazadovati to stran na verzijo %s?"
+
+#: templates/display/AttachedFiles.html:88
+msgid "Attach File"
+msgstr "Dodaj priponko"
+
+#: templates/display/AttachedFiles.html:52
+msgid "Attach a New File"
+msgstr "Dodaj novo datoteko"
+
+#: templates/display/standard.inc:68
+msgid "AttachedFiles"
+msgstr "Priponke"
+
+#: lib/Page/AttachedFiles.php:158
+#, php-format
+msgid "AttachedFiles: %s"
+msgstr "Priponke: %s"
+
+#: templates/display/standard.inc:69
+msgid "Attached_Files"
+msgstr "Priponke"
+
+#: templates/display/AttachedFiles.html:7
+msgid "Attachment Name"
+msgstr "Ime priponke"
+
+#: templates/display/standard.inc:119
+msgid "Attachments"
+msgstr "Priponke"
+
+#: lib/Page/AttachedFiles.php:203
+msgid "Attachments with spaces can't be embedded into a page."
+msgstr "V to stran ne morete dodati priponk s presledki."
+
+#: templates/history/header.inc:23 templates/pagelist/header.inc:5
+#: templates/pagelist/pagesearch.inc:16 templates/pagelist/titlesearch.inc:16
+#: templates/edit/create.inc:19 templates/display/AttachedFiles.html:10
+msgid "Author"
+msgstr "Avtor"
+
+#: templates/display/standard.inc:106
+msgid "Ba_ck to"
+msgstr "Nazaj na"
+
+#: templates/display/standard.inc:106
+msgid "Back to"
+msgstr "Nazaj na"
+
+#: templates/display/standard.inc:60
+msgid "BackLinks"
+msgstr "PovezaveNazaj"
+
+#: lib/Page/BackLinks.php:74
+#, php-format
+msgid "BackLinks: %s"
+msgstr "PovezaveNazaj: %s"
+
+#: lib/Page/AttachedFiles.php:208
+msgid "Can't read uploaded file."
+msgstr "Ne morem prebrati naložene datoteke."
+
+#: lib/Page/RevertPage.php:113
+#, php-format
+msgid "Can't revert to an unknown version."
+msgstr "Ne morem preklopiti na neznano verzijo."
+
+#: lib/Page/AttachedFiles.php:243
+#, php-format
+msgid "Can't update \"%s\": no such attachment."
+msgstr "Ne morem osvežiti \"%s\": ni priponke."
+
+#: templates/edit/create.inc:47 templates/edit/standard.inc:33
+#: lib/Page/DeletePage.php:98 lib/Page/RevertPage.php:82
+#: lib/Page/MergeOrRename.php:135 templates/display/MergeOrRename.html:62
+msgid "Cancel"
+msgstr "Prekliči"
+
+#: templates/history/header.inc:29 templates/display/AttachedFiles.html:12
+msgid "Change Log"
+msgstr "Dnevnik sprememb"
+
+#: templates/edit/standard.inc:35
+msgid "Change log"
+msgstr "Dnevnik sprememb"
+
+#: templates/display/AttachedFiles.html:80
+#: templates/display/AttachedFiles.html:146
+msgid "Change log entry"
+msgstr "Vpis v dnevniki sprememb"
+
+#: config/prefs.php.dist:13
+msgid "Change menu preferences."
+msgstr "Spremeni nastavitve menija"
+
+#: templates/display/MergeOrRename.html:40
+msgid "Change references to this page from:"
+msgstr "Spremeni referenco na to stran iz:"
+
+#: lib/Page/MergeOrRename.php:248
+#, php-format
+msgid "Changed references from %s to %s"
+msgstr "Spremenjena referenca iz %s na %s"
+
+#: templates/edit/standard.inc:34
+msgid "Changelog is required"
+msgstr "Zahtevan je dnevnik sprememb"
+
+#: templates/edit/create.inc:26
+msgid ""
+"Click on \"Create\" below if you want to create this page now and start "
+"editing."
+msgstr ""
+"Če želiš ustvariti to stran in začeti z urejanjem klikni na \"Ustvari\"."
+
+#: scripts/wicked.php:42
+msgid "Couldn't read command-line options."
+msgstr ""
+
+#: templates/edit/create.inc:46
+msgid "Create"
+msgstr "Ustvari"
+
+#: lib/Page/NewPage.php:124
+#, php-format
+msgid "Create Failed: %s"
+msgstr "Napaka pri ustvarjanju: %s"
+
+#: templates/history/header.inc:24
+msgid "Created"
+msgstr "Ustvarjeno"
+
+#: templates/pagelist/header.inc:6 templates/pagelist/pagesearch.inc:17
+#: templates/pagelist/titlesearch.inc:17 templates/edit/create.inc:20
+msgid "Creation Date"
+msgstr "Datum stvaritve"
+
+#: templates/display/AttachedFiles.html:11
+msgid "Date"
+msgstr "Datum"
+
+#: templates/display/standard.inc:89
+msgid "Debug"
+msgstr "Debug"
+
+#: templates/display/standard.inc:88
+#, php-format
+msgid "Debug %s"
+msgstr "Debug %s"
+
+#: lib/Page/DeletePage.php:97
+msgid "Delete"
+msgstr "Briši"
+
+#: templates/display/standard.inc:47
+#, php-format
+msgid "Delete %s"
+msgstr "Zbriši %s"
+
+#: templates/history/header.inc:16
+msgid "Delete Version"
+msgstr "Zbriši verzijo"
+
+#: templates/history/summary.inc:6
+#, php-format
+msgid "Delete Version %s"
+msgstr "Zbriši verzijo %s"
+
+#: lib/Page/DeletePage.php:91 lib/Page/DeletePage.php:114
+msgid "DeletePage"
+msgstr "PobrišiStran"
+
+#: lib/Page/DeletePage.php:137
+#, php-format
+msgid "Deleted version %s of \"%s\"."
+msgstr "Pobriši verzijo %s od \"%s\"."
+
+#: templates/history/header.inc:26
+msgid "Diff From"
+msgstr "Razlika od"
+
+#: templates/history/header.inc:27
+msgid "Diff To"
+msgstr "Razlika do"
+
+#: diff.php:56 templates/diff/diff.inc:2
+#, php-format
+msgid "Diff for %s between %s and %s"
+msgstr "Razlika za %s med %s in %s"
+
+#: templates/pagelist/summary.inc:3
+#, php-format
+msgid "Display %s"
+msgstr "Prikaži %s"
+
+#: config/prefs.php.dist:11
+msgid "Display Options"
+msgstr "Možnosti prikaza"
+
+#: templates/history/summary.inc:2 templates/pagelist/summary.inc:6
+#, php-format
+msgid "Display Version %s"
+msgstr "Prikaz verzije %s"
+
+#: templates/display/AttachedFiles.html:13
+msgid "Downloads"
+msgstr "Downloads"
+
+#: preview.php:24 templates/display/standard.inc:23
+#, php-format
+msgid "Edit %s"
+msgstr "Uredi %s"
+
+#: templates/history/header.inc:18
+msgid "Edit Version"
+msgstr "Uredi verzijo"
+
+#: templates/history/summary.inc:16
+#, php-format
+msgid "Edit Version %s"
+msgstr "Uredi verzijo %s"
+
+#: templates/edit/standard.inc:22 lib/Page/EditPage.php:88
+msgid "EditPage"
+msgstr "UrediStran"
+
+#: templates/display/AttachedFiles.html:67
+msgid "Enter a name for this file (if blank, will use the file's current name)"
+msgstr "Vpiši ime za to datoteko (če pustiš prazno bo uporabljen naziv)"
+
+#: scripts/mail-filter.php:127
+#, php-format
+msgid "Error creating new page: %s"
+msgstr "Napaka pri stvaritvi strani: %s"
+
+#: lib/Page/MergeOrRename.php:197
+#, php-format
+msgid "Error deleting %s: %s"
+msgstr "Napaka pri brisanju %s: %s"
+
+#: scripts/mail-filter.php:42
+#, php-format
+msgid "Error parsing MIME message: %s\n"
+msgstr "Napaka pri prebiranju MIME sporočila: %s\n"
+
+#: lib/Page/MergeOrRename.php:212
+#, php-format
+msgid "Error renaming \"%s\": %s"
+msgstr "Napaka pri preimenovanju \"%s\": %s"
+
+#: lib/Page/MergeOrRename.php:242
+#, php-format
+msgid "Error retrieving %s: %s"
+msgstr "Napaka pri dostopanju %s: %s"
+
+#: lib/Page/AttachedFiles.php:101 lib/Page/AttachedFiles.php:226
+#, php-format
+msgid "Error retrieving attachments: %s"
+msgstr "Napaka pri dostopanju do priponke: %s"
+
+#: lib/Page/AddPage.php:53
+#, php-format
+msgid "Error retrieving templates: %s"
+msgstr "Napaka pri dostopanju do šablon: %s"
+
+#: lib/Page/MergeOrRename.php:189 lib/Page/MergeOrRename.php:269
+#, php-format
+msgid "Error updating %s: %s"
+msgstr "Napaka pri osveževanju %s: %s"
+
+#: lib/Page/MergeOrRename.php:159
+#, php-format
+msgid "Failed to retrieve \"%s\": %s"
+msgstr "Ni uspelo dobiti \"%s\": %s"
+
+#: templates/pagelist/titlesearch.inc:8
+msgid "Go"
+msgstr "Pojdi"
+
+#: lib/Page.php:278
+msgid "Guest"
+msgstr "Gost"
+
+#: templates/display/standard.inc:75
+msgid "Hi_story"
+msgstr "Zgodovina"
+
+#: templates/display/standard.inc:74
+#, php-format
+msgid "History of %s"
+msgstr "Zgodovina dokumenta %s"
+
+#: history.php:28 templates/history/header.inc:7
+#, php-format
+msgid "History: %s"
+msgstr "Zgodovina: %s"
+
+#: lib/Wicked.php:131
+msgid "HowTo_UseWiki"
+msgstr "KakoUporabimWiki"
+
+#: templates/display/MergeOrRename.html:26
+msgid "If a page with the new name already exists, then"
+msgstr "Če stran s tem imenom že obstaja, potem"
+
+#: templates/display/standard.inc:82
+msgid "Info"
+msgstr "Informacije"
+
+#: templates/display/standard.inc:81
+#, php-format
+msgid "Info about %s"
+msgstr "Info o %s"
+
+#: history.php:16 display.php:24
+msgid "Internal error viewing requested page"
+msgstr "Interna napaka pri pregledovanju zahtevane strani"
+
+#: diff.php:39
+#, php-format
+msgid "Internal error viewing requested page: %s"
+msgstr "Interna napaka pri pregledovanju zahtevane strani: %s"
+
+#: templates/display/AttachedFiles.html:133
+msgid "Is this a minor update?"
+msgstr "Je to manjša nadgradnja?"
+
+#: templates/display/standard.inc:64
+msgid "L_ikePages"
+msgstr "PodobneStrani"
+
+#: templates/display/title.inc:6 templates/edit/standard.inc:25
+#, php-format
+msgid "Last Modified %s by %s"
+msgstr "Zadje spremenjeno %s s strani %s"
+
+#: lib/Page/LeastPopular.php:86
+msgid "LeastPopular"
+msgstr "NajmanjPopularen"
+
+#: templates/display/standard.inc:64
+msgid "LikePages"
+msgstr "PodobneStrani"
+
+#: lib/Page/LikePages.php:76
+#, php-format
+msgid "LikePages: %s"
+msgstr "PodobneStrani: %s"
+
+#: templates/display/standard.inc:35
+#, php-format
+msgid "Lock %s"
+msgstr "Zakleni %s"
+
+#: templates/display/title.inc:34 templates/edit/standard.inc:22
+#: lib/Page/DeletePage.php:91 lib/Page/RevertPage.php:75
+msgid "Locked"
+msgstr "Zaklenjeno"
+
+#: scripts/wicked.php:104
+#, php-format
+msgid "Logged in successfully as \"%s\"."
+msgstr "Uspešno prijavljen kot \"%s\"."
+
+#: scripts/wicked.php:100
+msgid "Login is incorrect."
+msgstr "Napačna prijava."
+
+#: scripts/wicked.php:158
+msgid ""
+"Mandatory arguments to long options are mandatory for short options too."
+msgstr "Obvezna polja za dolge opcije so obvezna tudi za kratke opcije."
+
+#: config/prefs.php.dist:12
+msgid "Menu Preferences"
+msgstr "Nastavitve menija"
+
+#: templates/display/standard.inc:54
+msgid "MergeOrRename"
+msgstr "ZdružiAliPreimenuj"
+
+#: lib/Page/MergeOrRename.php:120
+#, php-format
+msgid "MergeOrRename: %s"
+msgstr "ZdružiAliPreimenuj: %s"
+
+#: lib/Page/MergeOrRename.php:202
+#, php-format
+msgid "Merged \"%s\" into \"%s\"."
+msgstr "Združen \"%s\" v \"%s\"."
+
+#: lib/Page/MergeOrRename.php:205
+#, php-format
+msgid "Merged \"%s\" into \"%s\". New page: %s\n"
+msgstr "Združen \"%s\" v \"%s\". Nova stran: %s\n"
+
+#: lib/Page/MergeOrRename.php:186
+#, php-format
+msgid "Merged from %s"
+msgstr "Združeno iz %s."
+
+#: templates/edit/standard.inc:36
+msgid "Minor Change"
+msgstr "Manjša sprememba"
+
+#: lib/Page/MostPopular.php:86
+msgid "MostPopular"
+msgstr "NajboljPopularno"
+
+#: lib/Block/page.php:41
+msgid "Name of wiki page to display"
+msgstr "Ime wiki strani za prikaz"
+
+#: lib/Page.php:267
+msgid "Never"
+msgstr "Nikoli"
+
+#: lib/Page/AttachedFiles.php:269
+#, php-format
+msgid "New attachment \"%s\" to page \"%s\"."
+msgstr "Nova priponka \"%s\" na stran \"%s\"."
+
+#: templates/display/MergeOrRename.html:15
+msgid "New name"
+msgstr "Novo ime"
+
+#: lib/Page/MergeOrRename.php:146
+msgid "New name is the same as old name."
+msgstr "Novo ime je enako kot staro"
+
+#: lib/Page/NewPage.php:101
+msgid "NewPage"
+msgstr "NovaStran"
+
+#: templates/edit/new.inc:22
+#, php-format
+msgid "NewPage: %s"
+msgstr "NovaStran: %s"
+
+#: lib/Page/EditPage.php:119
+msgid "No changes made"
+msgstr "Ni sprememb"
+
+#: lib/Driver.php:126
+msgid "Not implemented."
+msgstr "Ni implementirano."
+
+#: templates/pagelist/header.inc:3 templates/pagelist/pagesearch.inc:14
+#: templates/pagelist/titlesearch.inc:14 templates/edit/create.inc:17
+msgid "Page"
+msgstr "Stran"
+
+#: lib/Page/MergeOrRename.php:174
+#, php-format
+msgid "Page \"%s\" already exists."
+msgstr "Stran \"%s\" že obstaja."
+
+#: lib/Page/NewPage.php:127
+msgid "Page Created"
+msgstr "Stran ustvarjena"
+
+#: templates/menu.inc:15 config/prefs.php.dist:22
+msgid "Page Lookup"
+msgstr "Pogled strani"
+
+#: lib/Page/EditPage.php:126
+msgid "Page Saved"
+msgstr "Stran shranjena"
+
+#: templates/edit/create.inc:35
+msgid "Page Template:"
+msgstr "Šablona strani:"
+
+#: templates/pagelist/header.inc:8
+msgid "Page Views"
+msgstr "Pogledi strani"
+
+#: display.php:38
+#, php-format
+msgid "Page failed to lock: %s"
+msgstr "Stran ni bilo mogoče zakleniti: %s"
+
+#: display.php:53
+#, php-format
+msgid "Page failed to unlock: %s"
+msgstr "Strani ni bilo mogoče odkleniti: %s"
+
+#: display.php:41
+msgid "Page locked"
+msgstr "Stran zaklenjena"
+
+#: display.php:56
+msgid "Page unlocked"
+msgstr "Stran odklenjena"
+
+#: templates/menu.inc:9 lib/Page/PageSearch.php:130 config/prefs.php.dist:24
+msgid "PageSearch"
+msgstr "IskanjeStrani"
+
+#: lib/api.php:30 lib/api.php:33
+msgid "Pages"
+msgstr "Strani"
+
+#: lib/Page/NewPage.php:118
+msgid "Pages cannot be empty."
+msgstr "Strani ne morejo biti prazne."
+
+#: templates/display/standard.inc:102
+msgid "Permissio_ns"
+msgstr "Dovoljenja"
+
+#: templates/edit/new.inc:29 templates/edit/standard.inc:32
+msgid "Preview"
+msgstr "Predpregled"
+
+#: lib/Page/EditPage.php:107
+msgid "Random string did not match."
+msgstr "Naključni niz ni enakovreden"
+
+#: lib/Page/RecentChanges.php:108
+msgid "RecentChanges"
+msgstr "ZadnjeSpremembe"
+
+#: lib/Page/AttachedFiles.php:58
+#, php-format
+msgid "Referrer \"%s\" does not exist."
+msgstr "Ne obstaja referrer za \"%s\"."
+
+#: lib/Page/AttachedFiles.php:118
+#, php-format
+msgid "Reload \"%s\""
+msgstr "Osveži \"%s\""
+
+#: templates/history/header.inc:8
+msgid "Reload History"
+msgstr "Osveži zgodovino"
+
+#: templates/display/title.inc:32 templates/display/title.inc:33
+msgid "Reload Page"
+msgstr "Osveži stran"
+
+#: lib/Page/MergeOrRename.php:217
+#, php-format
+msgid "Renamed \"%s\" to \"%s\"."
+msgstr "Preimenovan \"%s\" v \"%s\"."
+
+#: lib/Page/MergeOrRename.php:220
+#, php-format
+msgid "Renamed \"%s\" to \"%s\". New page: %s\n"
+msgstr "Preimenovan \"%s\" v \"%s\". Nova stran: %s\n"
+
+#: lib/Driver/sql.php:658
+#, php-format
+msgid "Renamed page from %s"
+msgstr "Preimenovana stran iz %s"
+
+#: templates/history/header.inc:20
+msgid "Restore Version"
+msgstr "Povrni verzijo"
+
+#: lib/Page/RevertPage.php:81
+msgid "Revert"
+msgstr "Povrni"
+
+#: templates/history/summary.inc:26
+#, php-format
+msgid "Revert to version %s"
+msgstr "Povrni na verzijo %s"
+
+#: lib/Page/RevertPage.php:75 lib/Page/RevertPage.php:98
+msgid "RevertPage"
+msgstr "PovrniStran"
+
+#: lib/Page/RevertPage.php:121
+#, php-format
+msgid "Reverted to version %s of \"%s\"."
+msgstr "Povrnjeno na verzijo %s od \"%s\"."
+
+#: lib/Driver/sql.php:573
+msgid "Robots are not allowed to create pages."
+msgstr "Roboti ne morejo ustvariti strani."
+
+#: templates/edit/new.inc:28 templates/edit/standard.inc:31
+msgid "Save"
+msgstr "Shrani"
+
+#: lib/Page/EditPage.php:123
+#, php-format
+msgid "Save Failed: %s"
+msgstr "Shranjevanje \"%s\" ni uspelo."
+
+#: templates/pagelist/pagesearch.inc:8 lib/Block/TitleSearch.php:60
+msgid "Search"
+msgstr "Najdi"
+
+#: templates/display/AttachedFiles.html:58
+#: templates/display/AttachedFiles.html:110
+msgid "Select file to attach:"
+msgstr "Izberi datoteko za pripeti:"
+
+#: templates/display/AttachedFiles.html:119
+msgid "Select the file to update"
+msgstr "Izberi datoteko za osvežiti"
+
+#: templates/display/standard.inc:101
+#, php-format
+msgid "Set permissions for %s"
+msgstr "Nastavi pravice dostopa za %s"
+
+#: templates/display/title.inc:16 lib/Page/RecentChanges.php:51
+#, php-format
+msgid "Show changes for %s"
+msgstr "Prikaži spremembe za %s"
+
+#: lib/Page/RecentChanges.php:58
+#, php-format
+msgid "Show version %s"
+msgstr "Prikaži verzijo %s"
+
+#: templates/edit/standard.inc:49
+msgid "Spam Protection - Enter the letters below:"
+msgstr "Zaščita pred roboti - Vpišite spodnje znake:"
+
+#: templates/display/MergeOrRename.html:33
+msgid "Stop and don't do anything"
+msgstr "Ustavi se in ne počni ničesar"
+
+#: templates/display/MergeOrRename.html:61
+msgid "Submit"
+msgstr "Pošlji"
+
+#: lib/Page/DeletePage.php:131
+#, php-format
+msgid "Successfully deleted \"%s\"."
+msgstr "Uspešno pobrisan \"%s\"."
+
+#: lib/Page/AttachedFiles.php:193
+#, php-format
+msgid "Successfully deleted version %s of \"%s\" from \"%s\""
+msgstr "Uspešno pobrisana verzija %s od \"%s\" iz \"%s\""
+
+#: lib/Page.php:516
+msgid "Table of Contents"
+msgstr "Spisek vsebine"
+
+#: lib/Page/AttachedFiles.php:249
+#, php-format
+msgid "There is already an attachment named \"%s\"."
+msgstr "Že obstaja priponka z imenom \"%s\"."
+
+#: lib/Page/MergeOrRename.php:144 lib/Page/MergeOrRename.php:150
+msgid "This is a required field."
+msgstr "To je zahtevano polje."
+
+#: display.php:68
+msgid "This page does not have a history"
+msgstr "Ta stran nima zgodovine"
+
+#: lib/Page/MergeOrRename.php:95
+#, php-format
+msgid "This page is referenced from %d other page(s)."
+msgstr "Na to stran kaže %d drugih strani."
+
+#: templates/menu.inc:5 lib/Block/TitleSearch.php:3
+#: lib/Block/TitleSearch.php:25 lib/Page/TitleSearch.php:116
+#: config/prefs.php.dist:23
+msgid "TitleSearch"
+msgstr "IskanjeNaslova"
+
+#: config/prefs.php.dist:25
+msgid "Type of search for the quick search box:"
+msgstr "Tip iskanja v polju za hitro iskanje:"
+
+#: templates/display/standard.inc:32
+msgid "Un_lock"
+msgstr "Odkleni"
+
+#: lib/Page/StandardPage.php:74
+#, php-format
+msgid "Unable to create %s"
+msgstr "Ni možno ustvariti %s"
+
+#: lib/Page/StandardPage.php:82
+msgid "Unable to create WikiHome. The wiki is not configured."
+msgstr "Ni možno ustvariti WikiDom. Wiki ni nastavljen."
+
+#: templates/display/standard.inc:31
+#, php-format
+msgid "Unlock %s"
+msgstr "Odkleni %s"
+
+#: lib/Driver.php:80 lib/Driver.php:94 lib/Driver.php:106 lib/Driver.php:111
+#: lib/Driver.php:131 lib/Driver.php:136 lib/Driver.php:194 lib/Driver.php:199
+#: lib/Driver.php:204 lib/Driver.php:218 lib/Driver.php:232 lib/Driver.php:246
+#: lib/Driver.php:251 lib/Driver.php:256 lib/Driver.php:274 lib/Driver.php:394
+#: lib/Driver.php:420 lib/Driver.php:436 lib/Page.php:259 lib/Page.php:293
+#: lib/Page.php:298 lib/Page.php:397 lib/Page.php:407 lib/Page.php:417
+#: lib/Page.php:427 lib/Page.php:437 lib/Page.php:448 lib/Page.php:557
+#: lib/Page.php:568 lib/Page.php:573 lib/Page.php:578 lib/Page.php:583
+#: lib/Page.php:623
+msgid "Unsupported"
+msgstr "Ni podprto"
+
+#: templates/display/AttachedFiles.html:154
+msgid "Update File"
+msgstr "Osveži datoteko"
+
+#: templates/display/AttachedFiles.html:104
+msgid "Update an Attachment"
+msgstr "Osveži priponko"
+
+#: lib/Page/AttachedFiles.php:267
+#, php-format
+msgid "Updated attachment \"%s\" on page \"%s\"."
+msgstr "Osvežena priponka \"%s\" na strani \"%s\"."
+
+#: scripts/wicked.php:156
+#, php-format
+msgid "Usage: %s [OPTIONS]..."
+msgstr "Uporaba: %s [OPCIJE]..."
+
+#: templates/history/header.inc:13 templates/pagelist/header.inc:4
+#: templates/pagelist/pagesearch.inc:15 templates/pagelist/titlesearch.inc:15
+#: templates/edit/create.inc:18 templates/display/AttachedFiles.html:9
+msgid "Version"
+msgstr "Verzija"
+
+#: lib/Page/AttachedFiles.php:274
+msgid "View page: "
+msgstr "Poglej stran: "
+
+#: lib/Block/page.php:3
+msgid "Wiki page"
+msgstr "Wiki stran"
+
+#: display.php:32
+msgid "You are not allowed to lock this page"
+msgstr "Nimaš pravic za zaklep te strani"
+
+#: display.php:47
+msgid "You are not allowed to unlock this page"
+msgstr "Nimaš pravic za odklep te strani"
+
+#: lib/Page/AttachedFiles.php:183
+msgid "You do not have permission to delete attachments from this page."
+msgstr "Nimaš pravic za brisanje priponk s te strani."
+
+#: lib/Page/AttachedFiles.php:213 lib/Page/MergeOrRename.php:164
+#: lib/Page/MergeOrRename.php:179
+#, php-format
+msgid "You do not have permission to edit \"%s\""
+msgstr "Nimaš pravice za urejanje \"%s\""
+
+#: lib/Page/NewPage.php:114
+#, php-format
+msgid "You don't have permission to create \"%s\"."
+msgstr "Nimaš pravic za ustvariti \"%s\"."
+
+#: lib/Page/DeletePage.php:145
+#, php-format
+msgid "You don't have permission to delete \"%s\"."
+msgstr "Nimaš pravic za brisati \"%s\"."
+
+#: lib/Page/EditPage.php:102 lib/Page/RevertPage.php:127
+#, php-format
+msgid "You don't have permission to edit \"%s\"."
+msgstr "Nimaš pravic za urediti \"%s\"."
+
+#: display.php:80 display.php:83
+msgid "You don't have permission to view this page."
+msgstr "Nimaš pravic za pregled te strani."
+
+#: lib/Page/AttachedFiles.php:219
+msgid "You must enter a change description to attach this file."
+msgstr "Moraš vnesti drugi opis, da lahko pripnemo to datoteko."
+
+#: lib/Page/EditPage.php:113
+msgid "You must provide a change log."
+msgstr "Moraš dostaviti dnevnik sprememb."
+
+#: lib/Wicked.php:132
+msgid "_AllPages"
+msgstr "VseStrani"
+
+#: templates/display/standard.inc:60
+msgid "_BackLinks"
+msgstr "PovezaveNazaj"
+
+#: templates/display/standard.inc:48
+msgid "_Delete"
+msgstr "Briši"
+
+#: templates/display/standard.inc:24
+msgid "_EditPage"
+msgstr "UrediStran"
+
+#: templates/display/standard.inc:36
+msgid "_Lock"
+msgstr "Zakleni"
+
+#: templates/display/standard.inc:55
+msgid "_MergeOrRename"
+msgstr "ZdružiAliPreimenuj"
+
+#: lib/Wicked.php:132
+msgid "_PageSearch"
+msgstr "IskanjeStrani"
+
+#: lib/Wicked.php:131
+msgid "_RecentChanges"
+msgstr "ZadnjeSpremembe"
+
+#: lib/Wicked.php:132
+msgid "_TitleSearch"
+msgstr "IskanjeNaslovov"
+
+#: lib/Wicked.php:131
+msgid "_WikiHome"
+msgstr "WikiDom"
+
+#: scripts/wicked.php:123
+#, php-format
+msgid "page \"%s\" doesn't exist."
+msgstr "stran \"%s\" ne obstaja."

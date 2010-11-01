@@ -1,4 +1,4 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
 /**
  * Converts a user's filter rules from the preferences storage backend to the
@@ -18,22 +18,8 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-/* Do CLI checks and environment setup first. */
-require_once dirname(__FILE__) . '/../../../lib/core.php';
-
-/* Make sure no one runs this from the web. */
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-/* Load the CLI environment - make sure there's no time limit, init some
- * variables, etc. */
-Horde_Cli::init();
-$cli = Horde_Cli::singleton();
-
-/* Initialize the needed libraries. */
-$ingo_authentication = 'none';
-require_once dirname(__FILE__) . '/../../lib/base.php';
+require_once dirname(__FILE__) . '/../../../lib/Application.php';
+Horde_Registry::appInit('ingo', array('authentication' => 'none', 'cli' => true));
 
 /* Initialize storage backends. */
 if ($conf['storage']['driver'] != 'sql') {
@@ -70,7 +56,7 @@ while (!feof(STDIN)) {
     foreach ($rules as $rule) {
         $filter = $prefs_storage->retrieve($rule, false);
         if ($rule == Ingo_Storage::ACTION_FILTERS) {
-            $new_filter = &$sql_storage->retrieve(Ingo_Storage::ACTION_FILTERS, true, true);
+            $new_filter = $sql_storage->retrieve(Ingo_Storage::ACTION_FILTERS, true, true);
             foreach ($filter->getFilterList() as $rule) {
                 $new_filter->addRule($rule);
                 echo '.';

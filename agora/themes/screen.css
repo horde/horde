@@ -1,7 +1,3 @@
-/**
- * $Horde: agora/themes/screen.css,v 1.4 2007/05/07 18:58:35 chuck Exp $
- */
-
 .messageContainer {
     width: 100%;
     padding: 2px;
@@ -18,4 +14,14 @@
 }
 .messageBody p {
     padding: 1em;
+}
+
+.msgThreadPlain {
+    width: 50%;
+}
+.msgAuthorPlain {
+    width: 25%;
+}
+.msgTimestampPlain {
+    width: 24%;
 }

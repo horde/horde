@@ -1,25 +1,14 @@
-#!/usr/bin/php -q
+#!/usr/bin/env php
 <?php
 /**
  * A script to migrate permissions from the DataTree backend to the
  * new (Horde 3.2+) native SQL Perms backend.
  */
 
-// Do CLI checks and environment setup first.
-require_once dirname(__FILE__) . '/../../lib/core.php';
+require_once dirname(__FILE__) . '/../../lib/Application.php';
+Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true));
 
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment - make sure there's no time limit, init
-// some variables, etc.
-Horde_Cli::init();
-
-new Horde_Application(array('authentication' => 'none'));
-
-$p = Perms::factory('datatree');
+$p = Horde_Perms::factory('datatree');
 
 $query = '
 INSERT INTO
@@ -28,7 +17,7 @@ VALUES
     (?, ?, ?, ?)
 ';
 
-$db = DB::connect($conf['sql']);
+$db = $injector->getInstance('Horde_Core_Factory_DbPear')->create();
 
 foreach ($p->getTree() as $id => $row) {
     if ($id == -1) {

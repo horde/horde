@@ -1,0 +1,878 @@
+# Italian translations for trean package.
+# Copyright 2008-2009 The Horde Project
+# This file is distributed under the same license as the trean package.
+# Fabio Pedretti <fabio.pedretti@ing.unibs.it>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: trean v0.1\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2008-09-05 17:46+0200\n"
+"PO-Revision-Date: 2008-09-05 18:33+0200\n"
+"Last-Translator: Fabio Pedretti <fabio.pedretti@ing.unibs.it>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: edit.php:237
+#, php-format
+msgid "\"%s\" was not renamed: %s."
+msgstr "\"%s\" non è stato rinominato: %s."
+
+#: data.php:156
+#, php-format
+msgid "%d Folders and %d Bookmarks imported."
+msgstr "%d Cartelle e %d Preferiti importati."
+
+#: templates/star_rating_helper.php:21 templates/star_rating_helper.php:22
+#: templates/star_rating_helper.php:23 templates/star_rating_helper.php:24
+#, php-format
+msgid "%d stars out of 5"
+msgstr "%d stelle su 5"
+
+#: templates/reports.php:104
+#, php-format
+msgid "%s Bookmarks"
+msgstr "%s Preferiti"
+
+#: reports.php:25
+#, php-format
+msgid "%s Response Codes"
+msgstr "%s Codici di Risposta"
+
+#: lib/base.php:78
+#, php-format
+msgid "%s's Bookmarks"
+msgstr "%s Preferiti"
+
+#: lib/Block/bookmarks.php:63 lib/Block/highestrated.php:38
+#: lib/Block/mostclicked.php:38
+msgid "1 Line"
+msgstr "1 Riga"
+
+#: templates/star_rating_helper.php:20
+msgid "1 star out of 5"
+msgstr "1 stella su 5"
+
+#: lib/Block/bookmarks.php:55 lib/Block/highestrated.php:30
+#: lib/Block/mostclicked.php:30
+msgid "10 rows"
+msgstr "10 righe"
+
+#: lib/Block/bookmarks.php:56 lib/Block/highestrated.php:31
+#: lib/Block/mostclicked.php:31
+msgid "15 rows"
+msgstr "15 righe"
+
+#: templates/reports.php:36
+#, php-format
+msgid "1xx Response Codes (%s)"
+msgstr "1xx Codici di Risposta (%s)"
+
+#: lib/Block/bookmarks.php:62 lib/Block/highestrated.php:37
+#: lib/Block/mostclicked.php:37
+msgid "2 Line"
+msgstr "2 Righe"
+
+#: lib/Block/bookmarks.php:57 lib/Block/highestrated.php:32
+#: lib/Block/mostclicked.php:32
+msgid "25 rows"
+msgstr "25 righe"
+
+#: templates/reports.php:42
+#, php-format
+msgid "2xx Response Codes (%s)"
+msgstr "2xx Codici di Risposta (%s)"
+
+#: lib/Block/bookmarks.php:61 lib/Block/highestrated.php:36
+#: lib/Block/mostclicked.php:36
+msgid "3 Line"
+msgstr "3 Righe"
+
+#: templates/reports.php:53
+#, php-format
+msgid "3xx Response Codes (%s)"
+msgstr "3xx Codici di Risposta (%s)"
+
+#: templates/reports.php:64
+#, php-format
+msgid "4xx Response Codes (%s)"
+msgstr "4xx Codici di Risposta (%s)"
+
+#: templates/reports.php:86
+#, php-format
+msgid "5xx Response Codes (%s)"
+msgstr "5xx Codici di Risposta (%s)"
+
+#: lib/Forms/Search.php:24
+msgid "AND"
+msgstr "E"
+
+#: lib/Trean.php:176
+msgid "Accepted"
+msgstr "Accettato"
+
+#: templates/add.html.php:59 lib/Block/tree_menu.php:24
+msgid "Add"
+msgstr "Aggiungi"
+
+#: templates/add.html.php:82
+msgid "Add to Bookmarks"
+msgstr "Aggiungi ai Preferiti"
+
+#: templates/search.php:65
+msgid "All"
+msgstr "Tutti"
+
+#: data.php:39 perms.php:239 lib/Block/bookmarks.php:32
+#, php-format
+msgid "An error occured listing folders: %s"
+msgstr "Errore nell'elenco delle cartelle: %s"
+
+#: lib/Trean.php:49
+#, php-format
+msgid "An error occurred counting folders: %s"
+msgstr "Errore nel conteggio delle cartelle: %s"
+
+#: lib/Forms/Search.php:25
+msgid "Any Part of the field"
+msgstr "Qualunque parte del campo"
+
+#: templates/search.php:29
+msgid "Are you sure you want to delete the selected bookmarks?"
+msgstr "Sei sicuro di voler eliminare i preferiti selezionati?"
+
+#: config/prefs.php.dist:33
+msgid "Ascending (A to Z)"
+msgstr "Crescente (A a Z)"
+
+#: perms.php:44
+msgid "Attempt to edit a non-existent share."
+msgstr "Si è cercato di pubblicare una condivisione non esistente."
+
+#: lib/Trean.php:208
+msgid "Bad Gateway"
+msgstr "Gateway Errato"
+
+#: lib/Trean.php:188
+msgid "Bad Request"
+msgstr "Richiesta Errata"
+
+#: add.php:66
+msgid "Bookmark Added"
+msgstr "Preferito Aggiunto"
+
+#: data.php:18 lib/Block/bookmarks.php:3 lib/Block/bookmarks.php:81
+msgid "Bookmarks"
+msgstr "Preferiti"
+
+#: templates/common-header.inc:27
+msgid "Bookmarks Feed"
+msgstr "Feed Preferiti"
+
+#: browse.php:61
+msgid "Browse"
+msgstr "Passa in Rassegna"
+
+#: templates/add.html.php:60 templates/edit/footer.inc:2
+msgid "Cancel"
+msgstr "Cancella"
+
+#: templates/views/BookmarkList.php:28
+msgid "Clicks"
+msgstr "Premi qui"
+
+#: lib/api.php:438
+msgid "Close"
+msgstr "Chiudi"
+
+#: lib/Forms/Search.php:24
+msgid "Combine"
+msgstr "Continua"
+
+#: config/prefs.php.dist:63
+msgid "Completely collapsed"
+msgstr "Completo"
+
+#: config/prefs.php.dist:65
+msgid "Completely expanded"
+msgstr "Completo"
+
+#: edit.php:247
+msgid "Confirm Deletion"
+msgstr "Conferma Cancellazione"
+
+#: lib/Trean.php:197
+msgid "Conflict"
+msgstr "Conflitto"
+
+#: lib/Trean.php:172
+msgid "Continue"
+msgstr "Continua"
+
+#: templates/browse.php:109 templates/browse.php:110
+msgid "Control access to this folder"
+msgstr "Controlla accesso a questa cartella"
+
+#: edit.php:214
+msgid "Copied bookmark: "
+msgstr "Preferiti copiati: "
+
+#: templates/search.php:72
+msgid "Copy"
+msgstr "Copia"
+
+#: edit.php:222
+#, php-format
+msgid "Copying folders is not supported."
+msgstr "La copia delle cartelle non è supportata."
+
+#: lib/Trean.php:175
+msgid "Created"
+msgstr "Creato"
+
+#: templates/reports.php:96
+#, php-format
+msgid "DNS Failure or Other Error (%s)"
+msgstr "Errore DNS o altro Errore (%s)"
+
+#: templates/browse.php:93 templates/search.php:70
+msgid "Delete"
+msgstr "Elimina"
+
+#: templates/browse.php:170
+msgid "Delete Bookmark"
+msgstr "Elimina Preferito"
+
+#: templates/browse.php:94
+msgid "Delete this folder"
+msgstr "Elimina questa Cartella"
+
+#: edit.php:51 edit.php:110
+msgid "Deleted bookmark: "
+msgstr "Preferiti eliminato: "
+
+#: edit.php:123
+msgid "Deleted folder: "
+msgstr "Cartella eliminata: "
+
+#: edit.php:273
+#, php-format
+msgid "Deleted the folder \"%s\""
+msgstr "Cartella \"%s\" eliminata"
+
+#: config/prefs.php.dist:34
+msgid "Descending (9 to 1)"
+msgstr "Discendente (9 a 1)"
+
+#: templates/add.html.php:42 templates/edit/bookmark.inc:15
+#: lib/Forms/Search.php:22
+msgid "Description"
+msgstr "Descrizione"
+
+#: config/prefs.php.dist:10
+msgid "Display Options"
+msgstr "Opzioni di Visualizzazione"
+
+#: lib/Block/bookmarks.php:52
+msgid "Display Rows"
+msgstr "Mostra Righe"
+
+#: templates/data/export.inc:11
+msgid "Download Folder"
+msgstr "Scarica Cartella"
+
+#: templates/add.html.php:73
+msgid "Drag the \"Add to Bookmarks\" link below onto your \"Links\" Bar"
+msgstr ""
+"Trascina il link \"Aggiungi ai Preferiti\" sotto nella tua barra \"Link\""
+
+#: templates/add.html.php:71
+msgid ""
+"Drag the \"Add to Bookmarks\" link below onto your \"Personal Toolbar\"."
+msgstr ""
+"Trascina il link \"Aggiungi ai Preferiti\" sotto nella tua \"Barra Personale"
+"\"."
+
+#: templates/search.php:69
+msgid "Edit"
+msgstr "Modifica"
+
+#: edit.php:292
+msgid "Edit Bookmark"
+msgstr "Modifica Preferito"
+
+#: templates/browse.php:165
+msgid "Edit Bookmarks"
+msgstr "Modifica Preferiti"
+
+#: perms.php:235
+msgid "Edit Permissions"
+msgstr "Modifica Permessi"
+
+#: perms.php:242
+#, php-format
+msgid "Edit Permissions for %s"
+msgstr "Modifica Permessi per %s"
+
+#: lib/Trean.php:205
+msgid "Expectation Failed"
+msgstr "Autenticazione fallita"
+
+#: templates/data/export.inc:4
+msgid "Export Bookmarks"
+msgstr "Esporta Preferiti"
+
+#: templates/data/import.inc:9
+msgid "File to import:"
+msgstr "File da importare:"
+
+#: templates/add.html.php:70
+msgid "Firefox/Mozilla"
+msgstr "Firefox/Mozilla"
+
+#: config/prefs.php.dist:64
+msgid "First level shown"
+msgstr "Mostrato il primo livello"
+
+#: templates/add.html.php:47 templates/views/BookmarkList.php:26
+#: templates/edit/bookmark.inc:25 lib/Block/bookmarks.php:42
+msgid "Folder"
+msgstr "Cartella"
+
+#: templates/browse.php:73 templates/browse.php:74
+msgid "Folder Actions"
+msgstr "Azioni Cartella"
+
+#: lib/Bookmarks.php:354
+msgid "Folder names must be non-empty"
+msgstr "I nomi delle cartelle non devono essere vuoti"
+
+#: templates/data/import.inc:11
+msgid "Folder to import into:"
+msgstr "Cartella nella quale importare:"
+
+#: lib/Trean.php:191
+msgid "Forbidden"
+msgstr "Vietato"
+
+#: lib/Trean.php:183
+msgid "Found"
+msgstr "Trova"
+
+#: lib/Trean.php:210
+msgid "Gateway Time-out"
+msgstr "Gateway Time-out"
+
+#: lib/Trean.php:198
+msgid "Gone"
+msgstr "Fatto"
+
+#: reports.php:25 templates/reports.php:33
+msgid "HTTP Status"
+msgstr "Stato HTTP"
+
+#: lib/Trean.php:211
+msgid "HTTP Version not supported"
+msgstr "Versione HTTP non supportata"
+
+#: lib/Block/bookmarks.php:50 config/prefs.php.dist:22
+msgid "Highest Rated"
+msgstr "Più votati"
+
+#: lib/Block/highestrated.php:3 lib/Block/highestrated.php:49
+msgid "Highest-rated Bookmarks"
+msgstr "Preferiti più votati"
+
+#: templates/data/import.inc:16
+msgid "Import"
+msgstr "Importa"
+
+#: data.php:184 templates/data/import.inc:4
+msgid "Import Bookmarks"
+msgstr "Importa Preferiti"
+
+#: templates/data/export.inc:9
+msgid "Include Subfolders"
+msgstr "Includi le sotto cartelle"
+
+#: lib/Trean.php:206
+msgid "Internal Server Error"
+msgstr "Errore interno del Server"
+
+#: templates/add.html.php:72
+msgid "Internet Explorer"
+msgstr "Internet Explorer"
+
+#: templates/data/import.inc:7
+msgid ""
+"Internet Explorer users will need to export their current Favorites by going "
+"to the \"File\" menu and selecting \"Import and Export\"."
+msgstr ""
+"Gli utilizzatori di Internet Explorer possono esportare i loro Preferiti "
+"andando nel menu \"File\" e poi selezionare \"Importa e Esporta\"."
+
+#: lib/Trean.php:199
+msgid "Length Required"
+msgstr "Lunghezza Richiesta"
+
+#: lib/Forms/Search.php:25
+msgid "Match"
+msgstr "Combacia"
+
+#: lib/api.php:98
+msgid "Maximum Number of Bookmarks"
+msgstr "Numero Massimo dei Preferiti"
+
+#: lib/api.php:95
+msgid "Maximum Number of Folders"
+msgstr "Numero Massimo delle Cartelle"
+
+#: lib/Block/tree_menu.php:3
+msgid "Menu List"
+msgstr "Menu Lista"
+
+#: lib/Trean.php:193
+msgid "Method Not Allowed"
+msgstr "Metodo Non Permesso"
+
+#: lib/Block/bookmarks.php:51 config/prefs.php.dist:23
+msgid "Most Clicked"
+msgstr "Più Cliccati"
+
+#: lib/Block/mostclicked.php:3 lib/Block/mostclicked.php:49
+msgid "Most-clicked Bookmarks"
+msgstr "Preferiti più cliccati"
+
+#: templates/search.php:71
+msgid "Move"
+msgstr "Sposta"
+
+#: lib/Trean.php:182
+msgid "Moved Permanently"
+msgstr "Spostato Permanentemente"
+
+#: edit.php:161
+msgid "Moved bookmark: "
+msgstr "Preferito spostato: "
+
+#: edit.php:174
+msgid "Moved folder: "
+msgstr "Cartella spostata: "
+
+#: templates/data/import.inc:6
+msgid ""
+"Mozilla/Firefox users will need to export their current Bookmarks by going "
+"into \"Bookmark Manager\" and selecting \"Export\" from the \"Tools\" menu."
+msgstr ""
+"Gli utilizzatori di Netscape/Mozilla possono esportare i loro Preferiti "
+"andando in \"Gestione Preferiti\" e poi selezionare \"Esporta\" dal menu "
+"\"Strumenti\"."
+
+#: lib/Trean.php:181
+msgid "Multiple Choices"
+msgstr "Scelte Multiple"
+
+#: templates/edit/folder.inc:9
+msgid "Name"
+msgstr "Nome"
+
+#: add.php:113 templates/browse.php:160 templates/add.html.php:27
+msgid "New Bookmark"
+msgstr "Nuovo Preferito"
+
+#: lib/Trean.php:90
+msgid "New Folder"
+msgstr "Nuova cartella"
+
+#: templates/browse.php:83
+msgid "New folder"
+msgstr "Nuova cartella"
+
+#: templates/edit/delete_folder_confirmation.inc:15
+msgid "No"
+msgstr "No"
+
+#: templates/search.php:76
+msgid "No Bookmarks found"
+msgstr "Nessun Preferito trovato"
+
+#: lib/Trean.php:178
+msgid "No Content"
+msgstr "Nessun Contenuto"
+
+#: lib/Block/bookmarks.php:128 lib/Block/highestrated.php:73
+#: lib/Block/mostclicked.php:73
+msgid "No bookmarks to display"
+msgstr "Nessun preferito da visualizzare"
+
+#: lib/Trean.php:177
+msgid "Non-Authoritative Information"
+msgstr "Informazioni Non Autoritativa"
+
+#: templates/search.php:66
+msgid "None"
+msgstr "Nessuno"
+
+#: lib/Trean.php:194
+msgid "Not Acceptable"
+msgstr "Non Accettato"
+
+#: lib/Trean.php:192
+msgid "Not Found"
+msgstr "Non trovato"
+
+#: lib/Trean.php:207
+msgid "Not Implemented"
+msgstr "Non implementato"
+
+#: lib/Trean.php:185
+msgid "Not Modified"
+msgstr "Non Modificato"
+
+#: templates/add.html.php:76
+msgid "Note:"
+msgstr "Appunti:"
+
+#: edit.php:286
+msgid "Nothing to edit."
+msgstr "Nulla da modificare."
+
+#: lib/Block/highestrated.php:27 lib/Block/mostclicked.php:27
+msgid "Number of bookmarks to show"
+msgstr "Numero di preferiti da mostrare"
+
+#: lib/Trean.php:174
+msgid "OK"
+msgstr "OK"
+
+#: lib/Forms/Search.php:24
+msgid "OR"
+msgstr "O"
+
+#: templates/add.html.php:77
+#, php-format
+msgid ""
+"On newer versions of Internet Explorer, you may have to add %s://%s to your "
+"Trusted Zone for this to work."
+msgstr ""
+"Nelle nuove versioni di Internet Explorer, ti potrà essere richiesto di "
+"aggiungere  %s://%s alla tua Trusted Zone."
+
+#: perms.php:56
+msgid ""
+"Only the owner or system administrator may change ownership or owner "
+"permissions for a share"
+msgstr ""
+"Solo il proprietario o l'amministratore di sistema può cambiare la proprietà "
+"o i permessi per una condivisione"
+
+#: config/prefs.php.dist:54
+msgid "Open links in a new window?"
+msgstr "Aprire i collegamenti in nuova finestra?"
+
+#: config/prefs.php.dist:9
+msgid "Other Options"
+msgstr "Altre Opzioni"
+
+#: lib/Trean.php:180
+msgid "Partial Content"
+msgstr "Contenuto Parziale"
+
+#: lib/Trean.php:190
+msgid "Payment Required"
+msgstr "Pagamento Richiesto"
+
+#: templates/add.html.php:4
+msgid "Please enter a name for the new folder:"
+msgstr "Scrivi un nome per la nuova cartella:"
+
+#: lib/Trean.php:200
+msgid "Precondition Failed"
+msgstr "Autenticazione fallita"
+
+#: lib/Trean.php:195
+msgid "Proxy Authentication Required"
+msgstr "Autenticazione del Proxy Richiesta"
+
+#: templates/views/BookmarkList.php:27
+msgid "Rating"
+msgstr "Valutazione"
+
+#: templates/edit/delete_folder_confirmation.inc:3
+#, php-format
+msgid "Really delete \"%s\" and all of its bookmarks?"
+msgstr "Sei sicuro di voler eliminare \"%s\" e tutti i suoi preferiti?"
+
+#: templates/browse.php:102
+msgid "Rename this folder"
+msgstr "Rinomina questa Cartella"
+
+#: reports.php:18
+msgid "Reports"
+msgstr "Rapporti"
+
+#: lib/Trean.php:201
+msgid "Request Entity Too Large"
+msgstr "Entita richiesta troppo grande"
+
+#: lib/Trean.php:196
+msgid "Request Time-out"
+msgstr "Richiesta Scaduta"
+
+#: lib/Trean.php:202
+msgid "Request-URI Too Large"
+msgstr "URI-richiesto troppo grande"
+
+#: lib/Trean.php:204
+msgid "Requested range not satisfiable"
+msgstr "Il range richiesto non è realizzabile"
+
+#: lib/Trean.php:179
+msgid "Reset Content"
+msgstr "Azzera il contenuto"
+
+#: templates/edit/footer.inc:1
+msgid "Save"
+msgstr "Salva"
+
+#: search.php:23 lib/Forms/Search.php:20 lib/Block/tree_menu.php:33
+msgid "Search"
+msgstr "Ricerca"
+
+#: lib/Forms/Search.php:18
+msgid "Search Bookmarks"
+msgstr "Ricerca Preferiti"
+
+#: search.php:59
+#, php-format
+msgid "Search Results (%s)"
+msgstr "Risultati Ricerca (%s)"
+
+#: lib/Trean.php:184
+msgid "See Other"
+msgstr "Visualizza l'altro"
+
+#: templates/search.php:65
+msgid "Select All"
+msgstr "Seleziona Tutto"
+
+#: templates/views/BookmarkList.php:29
+msgid "Select All/Select None"
+msgstr "Seleziona Tutto/Deseleziona Tutto"
+
+#: templates/search.php:66
+msgid "Select None"
+msgstr "Nessuna selezionata"
+
+#: templates/search.php:64
+#, php-format
+msgid "Select: %s, %s"
+msgstr "Seleziona: %s, %s"
+
+#: lib/Trean.php:209
+msgid "Service Unavailable"
+msgstr "Servizio non disponibile"
+
+#: config/prefs.php.dist:11
+msgid "Set how to display bookmark listings and how to open links."
+msgstr ""
+"Imposta come visualizzare la lista dei preferiti e come aprire i "
+"collegamenti."
+
+#: config/prefs.php.dist:66
+msgid "Should your list of bookmark folders be open when you log in?"
+msgstr "La tua lista dei Preferiti dovrà essere aperta quando ti colleghi?"
+
+#: config/prefs.php.dist:45
+msgid "Show folder actions panel?"
+msgstr "Mostra pannello della cartella delle azioni?"
+
+#: config/prefs.php.dist:24
+msgid "Sort bookmarks by:"
+msgstr "Ordina preferiti per"
+
+#: lib/Block/bookmarks.php:46
+msgid "Sort by"
+msgstr "Ordina per"
+
+#: config/prefs.php.dist:35
+msgid "Sort direction:"
+msgstr "Ordina direzioni:"
+
+#: lib/Trean.php:173
+msgid "Switching Protocols"
+msgstr "Scegli Protocolli"
+
+#: lib/Block/bookmarks.php:58 lib/Block/highestrated.php:33
+#: lib/Block/mostclicked.php:33
+msgid "Template"
+msgstr "Modello"
+
+#: lib/Trean.php:187
+msgid "Temporary Redirect"
+msgstr "Redirezione temporanea"
+
+#: templates/browse.php:181
+msgid "There are no bookmarks in this folder"
+msgstr "Non ci sono preferiti in questa cartella."
+
+#: edit.php:216
+#, php-format
+msgid "There was a problem copying the bookmark: %s"
+msgstr "Si è verificato un errore copiando il preferito: %s"
+
+#: edit.php:53 edit.php:112
+#, php-format
+msgid "There was a problem deleting the bookmark: %s"
+msgstr "Si  verificato un errore eliminando il preferito: %s"
+
+#: edit.php:125
+#, php-format
+msgid "There was a problem deleting the folder: %s"
+msgstr "Si  verificato un errore durante la cancellazione della cartella: %s."
+
+#: edit.php:163
+#, php-format
+msgid "There was a problem moving the bookmark: %s"
+msgstr "Si e' verificato un errore nell'aggiunta del preferito: %s"
+
+#: edit.php:176
+#, php-format
+msgid "There was a problem moving the folder: %s"
+msgstr "Si è verificato un errore nello spostare la cartella: %s "
+
+#: add.php:61
+#, php-format
+msgid "There was an error adding the bookmark: %s"
+msgstr "Si e' verificato un errore nell'aggiunta del preferito: %s"
+
+#: add.php:45 add.php:102 edit.php:147 edit.php:201
+#, php-format
+msgid "There was an error adding the folder: %s"
+msgstr "Si è verificato un errore nell'aggiungere la cartella: %s"
+
+#: edit.php:74
+#, php-format
+msgid "There was an error saving the bookmark: %s"
+msgstr "Si è verificato un errore durante il salvataggio del preferito: %s"
+
+#: edit.php:87
+#, php-format
+msgid "There was an error saving the folder: %s"
+msgstr "Si è verificato un errore durante il salvataggio della cartella: %s"
+
+#: templates/add.html.php:37 templates/views/BookmarkList.php:25
+#: templates/edit/bookmark.inc:10 lib/Forms/Search.php:21
+#: lib/Block/bookmarks.php:49 config/prefs.php.dist:21
+msgid "Title"
+msgstr "Titolo"
+
+#: templates/add.html.php:69
+msgid "To be able to quickly add bookmarks from your web browser:"
+msgstr "Per poter aggiungere rapidamente i Preferiti dal tuo browser:"
+
+#: templates/reports.php:103
+msgid "Total"
+msgstr "Totale"
+
+#: templates/add.html.php:32 templates/edit/bookmark.inc:20
+#: lib/Forms/Search.php:23
+msgid "URL"
+msgstr "URL"
+
+#: lib/Trean.php:189
+msgid "Unauthorized"
+msgstr "Non autorizzato"
+
+#: templates/reports.php:100
+#, php-format
+msgid "Unknown (%s)"
+msgstr "Sconosciuto (%s)"
+
+#: lib/Trean.php:203
+msgid "Unsupported Media Type"
+msgstr "Media Type non supportato"
+
+#: perms.php:228
+#, php-format
+msgid "Updated %s."
+msgstr "Aggiornato %s."
+
+#: lib/Trean.php:186
+msgid "Use Proxy"
+msgstr "Usa il Proxy"
+
+#: templates/add.html.php:74
+msgid ""
+"While browsing you will be able to bookmark the current page by clicking "
+"your new \"Add to Bookmarks\" shortcut."
+msgstr ""
+"Durante la navigazione potrai aggiungere la pagina corrente cliccando  "
+"\"Aggiungi ai Preferiti\"."
+
+#: lib/Forms/Search.php:25
+msgid "Whole Field"
+msgstr "Campo Intero"
+
+#: templates/edit/delete_folder_confirmation.inc:9
+msgid "Yes"
+msgstr "Si"
+
+#: add.php:23 data.php:65 data.php:132
+#, php-format
+msgid "You are not allowed to create more than %d bookmarks."
+msgstr "Non hai il permesso di creare più di %d preferiti."
+
+#: add.php:86 data.php:56 data.php:107
+#, php-format
+msgid "You are not allowed to create more than %d folders."
+msgstr "Non ti è permesso creare più di %d cartelle."
+
+#: browse.php:45
+msgid "You do not have permission to view this folder."
+msgstr "Non hai il permesso per visualizzare questa cartella."
+
+#: templates/add.html.php:11
+msgid "You must select a target folder first"
+msgstr "Devi prima selezionare una cartella di destinazione."
+
+#: lib/Trean.php:149
+msgid "_Browse"
+msgstr "_Mostra"
+
+#: templates/browse.php:171
+msgid "_Delete Bookmarks"
+msgstr "_Elimina Preferiti"
+
+#: templates/browse.php:166
+msgid "_Edit Bookmarks"
+msgstr "_Modifica Preferiti"
+
+#: lib/Trean.php:155
+msgid "_Import/Export"
+msgstr "_Importa/Esporta"
+
+#: templates/browse.php:161
+msgid "_New Bookmark"
+msgstr "_Nuovo Preferito"
+
+#: lib/Trean.php:151
+msgid "_Reports"
+msgstr "R_apporti"
+
+#: lib/Trean.php:150
+msgid "_Search"
+msgstr "_Ricerca"
+
+#: templates/block/1line.inc:22 templates/block/2line.inc:26
+#: templates/block/standard.inc:24
+msgid "click"
+msgstr "premi qui"
+
+#: templates/block/1line.inc:22 templates/block/2line.inc:26
+#: templates/block/standard.inc:24
+msgid "clicks"
+msgstr "premi qui"

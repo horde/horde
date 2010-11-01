@@ -1,5 +1,5 @@
 <?php if (!empty($this->menu)): ?>
-    <div id="menu"><?php echo $this->menu; ?></div>
+<?php echo $this->menu; ?>
 <?php endif; ?>
 <?php echo $this->notify; ?>
 
@@ -32,7 +32,7 @@
  </tr>
 </thead>
 <tbody>
- <?php foreach ($this->messages as $k1 => $v1): ?> 
+ <?php foreach ($this->messages as $k1 => $v1): ?>
  <tr style="vertical-align:top">
   <td><input type="checkbox" class="checkbox" name="message_ids[]" value="<?php echo $v1['message_id']; ?>" /></td>
   <td class="nowrap"><?php echo $v1['forum_name']; ?></td>

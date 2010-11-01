@@ -1,11 +1,10 @@
 <?php if (count($branches) > 1): ?>
 <div class="options">
  <span>
-  <form method="get" action="browsedir.php">
+  <form method="get" action="<?php echo Chora::url('browsedir', Horde_Util::getFormData('f')) ?>">
    <?php echo _("View Branch:") ?>
-   <?php echo Chora::formInputs() ?>
-   <input type="hidden" name="f" value="<?php echo htmlspecialchars(Horde_Util::getFormData('f')) ?>" />
    <select name="onb" onchange="this.form.submit()">
+    <option value="0"<?php if (!isset($onb) || !$onb) echo ' selected="selected"' ?>><?php echo _("All Branches") ?></option>
 <?php foreach ($branches as $branch): ?>
     <option value="<?php echo htmlspecialchars($branch) ?>"<?php echo ($branch == $onb) ? ' selected="selected"' : '' ?>><?php echo htmlspecialchars($branch) ?></option>
 <?php endforeach; ?>

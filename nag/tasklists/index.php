@@ -21,18 +21,19 @@ function shorten_url($url, $separator = '...', $first_chunk_length = 35, $last_c
     return $url;
 }
 
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('nag');
 
 /* Exit if this isn't an authenticated user. */
-if (!Horde_Auth::getAuth()) {
+if (!$GLOBALS['registry']->getAuth()) {
     require NAG_BASE . '/list.php';
     exit;
 }
 
-$edit_url_base = Horde::applicationUrl('tasklists/edit.php');
-$perms_url_base = Horde::url($registry->get('webroot', 'horde') . '/services/shares/edit.php?app=nag', true);
-$delete_url_base = Horde::applicationUrl('tasklists/delete.php');
-$display_url_base = Horde::applicationUrl('list.php', true, -1);
+$edit_url_base = Horde::url('tasklists/edit.php');
+$perms_url_base = Horde::url($registry->get('webroot', 'horde') . '/services/shares/edit.php?app=nag');
+$delete_url_base = Horde::url('tasklists/delete.php');
+$display_url_base = Horde::url('list.php', true, -1);
 $subscribe_url_base = $registry->get('webroot', 'horde');
 if (isset($conf['urls']['pretty']) && $conf['urls']['pretty'] == 'rewrite') {
     $subscribe_url_base .= '/rpc/nag/';
@@ -46,7 +47,7 @@ $sorted_tasklists = array();
 foreach ($tasklists as $tasklist) {
     $sorted_tasklists[$tasklist->getName()] = $tasklist->get('name');
 }
-if (Horde_Auth::isAdmin()) {
+if ($registry->isAdmin()) {
     $system_tasklists = $nag_shares->listSystemShares();
     foreach ($system_tasklists as $tasklist) {
         $tasklists[$tasklist->getName()] = $tasklist;
@@ -55,13 +56,14 @@ if (Horde_Auth::isAdmin()) {
 }
 asort($sorted_tasklists);
 
-$edit_img = Horde::img('edit.png', _("Edit"), null, $registry->getImageDir('horde'));
-$perms_img = Horde::img('perms.png', _("Change Permissions"), null, $registry->getImageDir('horde'));
-$delete_img = Horde::img('delete.png', _("Delete"), null, $registry->getImageDir('horde'));
+$edit_img = Horde::img('edit.png', _("Edit"));
+$perms_img = Horde::img('perms.png', _("Change Permissions"));
+$delete_img = Horde::img('delete.png', _("Delete"));
 
 Horde::addScriptFile('tables.js', 'horde');
 $title = _("Manage Task Lists");
 require NAG_TEMPLATES . '/common-header.inc';
-require NAG_TEMPLATES . '/menu.inc';
+echo Horde::menu();
+Nag::status();
 require NAG_TEMPLATES . '/tasklist_list.php';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

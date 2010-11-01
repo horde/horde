@@ -39,6 +39,8 @@ typedef enum {
     NSString *rpcEndPoint;
     NSString *username;
     NSString *password;
+    NSString *version;
+
     NSMutableArray *galleryList;
     TURAnselState state;
     id delegate;
@@ -48,6 +50,7 @@ typedef enum {
 @property (readwrite, retain) NSString *rpcEndPoint;
 @property (readwrite, retain) NSString *username;
 @property (readwrite, retain) NSString *password;
+@property (readwrite, retain) NSString *version;
 
 - (id)initWithConnectionParameters: (NSDictionary *)params;
 - (void)connect;

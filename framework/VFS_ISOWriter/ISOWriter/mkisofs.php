@@ -9,7 +9,6 @@
  *
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
  * @package VFS_ISO
- * @since   Horde 3.0
  */
 class VFS_ISOWriter_mkisofs extends VFS_ISOWriter {
 
@@ -44,10 +43,10 @@ class VFS_ISOWriter_mkisofs extends VFS_ISOWriter {
         }
 
         if ($res === false) {
-            return PEAR::raiseError(_("Unable to run 'mkisofs'."));
+            return PEAR::raiseError(Horde_VFS_ISOWriter_Translation::t("Unable to run 'mkisofs'."));
         }
         if ($ec != 0) {
-            return PEAR::raiseError(sprintf(_("mkisofs error code %d while making ISO."), $ec));
+            return PEAR::raiseError(sprintf(Horde_VFS_ISOWriter_Translation::t("mkisofs error code %d while making ISO."), $ec));
         }
     }
 

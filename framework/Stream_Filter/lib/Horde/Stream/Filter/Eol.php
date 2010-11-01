@@ -22,12 +22,27 @@
  */
 class Horde_Stream_Filter_Eol extends php_user_filter
 {
+    /**
+     * Search array.
+     *
+     * @param mixed
+     */
     protected $_search;
+
+    /**
+     * Replacement data
+     *
+     * @param mixed
+     */
     protected $_replace;
 
+    /**
+     * @see stream_filter_register()
+     */
     public function onCreate()
     {
         $eol = isset($this->params['eol']) ? $this->params['eol'] : "\r\n";
+
         if (!strlen($eol)) {
             $this->_search = array("\r", "\n");
             $this->_replace = '';
@@ -42,6 +57,9 @@ class Horde_Stream_Filter_Eol extends php_user_filter
         return true;
     }
 
+    /**
+     * @see stream_filter_register()
+     */
     public function filter($in, $out, &$consumed, $closing)
     {
         while ($bucket = stream_bucket_make_writeable($in)) {

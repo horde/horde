@@ -22,9 +22,9 @@ class Ansel_Widget_Links extends Ansel_Widget_Base
         $feedurl = Horde::url('rss.php', true);
         $owner = $this->_view->gallery->get('owner');
         $html = $this->_htmlBegin();
-        $html .= Horde::link(Ansel::getUrlFor('rss_user', array('owner' => $owner))) . Horde::img('feed.png', '', '', $registry->getImageDir('horde')) . ' ' . ($owner ? sprintf(_("Recent photos by %s"), $owner) : _("Recent system photos")) . '</a>';
+        $html .= Ansel::getUrlFor('rss_user', array('owner' => $owner))->link() . Horde::img('feed.png') . ' ' . ($owner ? sprintf(_("Recent photos by %s"), $owner) : _("Recent system photos")) . '</a>';
         $slug = $this->_view->gallery->get('slug');
-        $html .= '<br />' . Horde::link(Ansel::getUrlFor('rss_gallery', array('gallery' => $this->_view->gallery->id, 'slug' => $slug))) . ' ' .  Horde::img('feed.png', '', '', $registry->getImageDir('horde')) . ' ' . sprintf(_("Recent photos in %s"), htmlspecialchars($this->_view->gallery->get('name'), ENT_COMPAT, Horde_Nls::getCharset())) . '</a>';
+        $html .= '<br />' . Ansel::getUrlFor('rss_gallery', array('gallery' => $this->_view->gallery->id, 'slug' => $slug))->link() . ' ' .  Horde::img('feed.png') . ' ' . sprintf(_("Recent photos in %s"), htmlspecialchars($this->_view->gallery->get('name'))) . '</a>';
 
         /* Embed html */
         if (empty($this->_view->_params['image_id'])) {

@@ -10,7 +10,7 @@
  *
  * @package Ansel
  */
-class Ansel_Ajax_Imple_Embed extends Horde_Ajax_Imple_Base
+class Ansel_Ajax_Imple_Embed extends Horde_Core_Ajax_Imple
 {
     // Noop since we don't attach this to any UI element.
     public function attach(){}
@@ -30,17 +30,18 @@ class Ansel_Ajax_Imple_Embed extends Horde_Ajax_Imple_Base
      */
     public function handle($args, $post)
     {
-        include_once dirname(__FILE__) . '/../../base.php';
-
         /* First, determine the type of view we are asking for */
         $view = empty($args['gallery_view']) ? 'Mini' : $args['gallery_view'];
         $class = 'Ansel_View_EmbeddedRenderer_' . basename($view);
         if (!class_exists($class)) {
             throw new Horde_Exception(sprintf("Class definition for %s not found.", $class));
         }
-        $view = new $class($args);
-        header('Content-Type: script/javascript');
-        return $view->html();
+
+        try {
+            $view = new $class($args);
+            header('Content-Type: script/javascript');
+            return $view->html();
+        } catch (Exception $e) {}
     }
 
 }

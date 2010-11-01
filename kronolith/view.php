@@ -8,7 +8,12 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('kronolith');
+
+if (Kronolith::showAjaxView()) {
+    Horde::url('', true)->redirect();
+}
 
 $view = Kronolith::getView(Horde_Util::getFormData('view'));
 if ($view) {

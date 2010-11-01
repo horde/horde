@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Horde: passwd/locale/hu_HU/help.xml,v 1.2.2.1 2008/10/09 17:12:13 jan Exp $ -->
+<help>
+  <entry id="passwd-username" md5="2be3ac45ed10bd409bbc31435c15261e" state="changed">
+    <title>FelhasznĂĄlĂłi nĂŠv</title>
+    <heading>Az Ăśn felhasznĂĄlĂłi neve</heading>
+    <para>
+    Ărja be ide a felhasznĂĄlĂłi nevĂŠt (ha mĂŠg nincs kitĂśltve)
+    </para>
+<!-- English entry:
+<entry id="passwd-username">
+    <title>Username</title>
+    <heading>Your Username</heading>
+    <para>
+    Enter your username here (if it is not already prefilled). Not all installations support this.
+    </para>
+</entry>--></entry>
+  <entry id="passwd-old-password" md5="08dcc84d98462ad590356ce6ed609c40" state="uptodate">
+    <title>RĂŠgi jelszĂł</title>
+    <heading>RĂŠgi jelszĂł</heading>
+    <para>
+    Ărja be ide a mostani, mĹąkĂśdĹ belĂŠpĂŠsi jelszavĂĄt. Helyesen kell megadnia ezt a jelszĂłt, mĂĄskĂźlĂśnben nem vĂĄltoztatjatja meg.
+    </para>
+</entry>
+  <entry id="passwd-new-password" md5="4f24def5684976fc4e2507d839369641" state="uptodate">
+    <title>Ăj jelszĂł</title>
+    <heading>Ăj jelszĂł</heading>
+    <para>
+    Ărja be ide az Ăşj jelszĂłt, amire vĂĄltoztatni akar. Az Ăşj jelszĂłnak meg kell felelni bizony minimĂĄlis elvĂĄrĂĄsoknak (megfelelĹ hossz, nem egyezhet meg a felhasznĂĄlĂłi nĂŠvvel, kell benne lenni betĹąnek ĂŠs mĂĄs karakternek is, satĂśbbi), kĂźlĂśnben hiba Ăźzenetet fog kapni!
+    </para>
+</entry>
+  <entry id="passwd-confirm-password" md5="546e1b91945400f7607fa4f13364885f" state="uptodate">
+    <title>ErĹsĂ­tse meg az Ăşj jelszĂłt</title>
+    <heading>ErĹsĂ­tse meg az Ăşj jelszĂłt</heading>
+    <para>
+    Ide az Ăşj jelszĂłt kell mĂŠgegyszer beirnia. Ezzel biztosĂ­tjuk, hogy egy gĂŠpelĂŠsi hiba vagy mĂĄs tĂŠvedĂŠs miatt nem zĂĄrja ki magĂĄt a rendszerbĹl.
+    </para>
+</entry>
+  <entry id="passwd-server" state="new">
+    <title>Change password on</title>
+    <heading>Change password on</heading>
+    <para>
+    Select the server or application in which you want to change the password. Not all installations support this.
+    </para>
+</entry>
+  <entry id="Change-your-password" md5="81c332b6ab3a13ed0d01d08f7804d2dc" state="uptodate">
+    <title>A jelszĂł megvĂĄltoztatĂĄsa</title>
+    <heading>A jelszĂł megvĂĄltoztatĂĄsa</heading>
+    <para>
+    A jelszĂłvĂĄltoztatĂĄsi kĂŠrelem elkĂźldĂŠsĂŠhez nyomja meg a "A jelszĂł megvĂĄltoztatĂĄsa" gombot alul. Ennek a gombnak a megnyomĂĄsa kĂŠrvĂŠnyezi a konkrĂŠt vĂĄltoztatĂĄst.
+    </para>
+</entry>
+  <entry id="reset" md5="298d62bb8ffcc656848f87cf6f3b5a26" state="uptodate">
+    <title>Reset</title>
+    <heading>Reset</heading>
+    <para>
+    A "Reset" gomb megnyomĂĄsa kitĂśrli az eddig beĂ­rt adatokat ĂŠs Ăşjrakezdi azok bekĂŠrĂŠsĂŠt.
+    </para>
+</entry>
+</help>

@@ -6,7 +6,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <name>Tree</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Tree API</summary>
- <description>The Horde_Tree:: class provides a tree view of hierarchical information. It allows for expanding/collapsing of branches and maintains their state. It can work together with javascript code to achieve this in DHTML on supported browsers.
+ <description>This package provides a tree view of hierarchical information. It allows for expanding/collapsing of branches and maintains their state.
  </description>
  <lead>
   <name>Chuck Hagenbuch</name>
@@ -20,6 +20,12 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
+ <lead>
+  <name>Michael Slusarz</name>
+  <user>slusarz</user>
+  <email>slusarz@horde.org</email>
+  <active>yes</active>
+ </lead>
  <date>2009-12-15</date>
  <version>
   <release>0.1.0</release>
@@ -30,16 +36,23 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/gpl.html">GPL</license>
- <notes>* Initial Horde 4 package.
+ <notes>* Split driver code from main class into Base class.
+ * Add simple HTML renderer.
+ * Remove dependency on horde/Core.
+ * Move javascript renderer to horde/Core.
+ * Add Horde_Tree_Exception::.
+ * Initial Horde 4 package.
  </notes>
  <contents>
   <dir name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Tree">
+      <file name="Base.php" role="php" />
+      <file name="Exception.php" role="php" />
       <file name="Html.php" role="php" />
-      <file name="Javascript.php" role="php" />
       <file name="Select.php" role="php" />
+      <file name="Simplehtml.php" role="php" />
      </dir> <!-- /lib/Horde/Tree -->
      <file name="Tree.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -55,6 +68,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.7.0</min>
    </pearinstaller>
    <package>
+    <name>Exception</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Util</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -67,9 +84,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="lib/Horde/Tree/Base.php" as="Horde/Tree/Base.php" />
+   <install name="lib/Horde/Tree/Exception.php" as="Horde/Tree/Exception.php" />
    <install name="lib/Horde/Tree/Html.php" as="Horde/Tree/Html.php" />
-   <install name="lib/Horde/Tree/Javascript.php" as="Horde/Tree/Javascript.php" />
    <install name="lib/Horde/Tree/Select.php" as="Horde/Tree/Select.php" />
+   <install name="lib/Horde/Tree/Simplehtml.php" as="Horde/Tree/Simplehtml.php" />
    <install name="lib/Horde/Tree.php" as="Horde/Tree.php" />
   </filelist>
  </phprelease>

@@ -20,12 +20,12 @@ class Operator {
         global $conf, $registry, $browser, $print_link;
 
         $menu = new Horde_Menu(Horde_Menu::MASK_ALL);
-        $menu->add(Horde::applicationUrl('viewgraph.php'), _("_View Graphs"), 'graphs.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
-        $menu->add(Horde::applicationUrl('search.php'), _("_Search"), 'search.png', $registry->getImageDir('horde'));
+        $menu->add(Horde::url('viewgraph.php'), _("_View Graphs"), 'graphs.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
+        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png', Horde_Themes::img(null, 'horde'));
 
         /* Export */
         if ($GLOBALS['conf']['menu']['export']) {
-            $menu->add(Horde::applicationUrl('export.php'), _("_Export"), 'data.png', $GLOBALS['registry']->getImageDir('horde'));
+            $menu->add(Horde::url('export.php'), _("_Export"), 'data.png', Horde_Themes::img(null, 'horde'));
         }
 
         if ($returnType == 'object') {
@@ -95,24 +95,22 @@ class Operator {
      */
     public static function getAccountCodes($permfilter = false)
     {
-        global $operator;
-        if (empty($operator) || empty($operator->driver)) {
-            $operator = new Operator_Application(array('init' => true));
-        }
+        $operator = $GLOBALS['registry']->getApiInstance('operator', 'application');;
 
         // Set up arrays for filtering
         $keys = $values = $operator->driver->getAccountCodes();
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 
-        if (Horde_Auth::isAdmin() ||
-            $GLOBALS['perms']->hasPermission('operator:accountcodes',
-                                             Horde_Auth::getAuth(),
+        if ($GLOBALS['registry']->isAdmin() ||
+            $perms->hasPermission('operator:accountcodes',
+                                             $GLOBALS['registry']->getAuth(),
                                              Horde_Perms::READ)) {
             $permfilter = false;
         }
 
         if (!$permfilter ||
-            $GLOBALS['perms']->hasPermission('operator:accountcodes:%',
-                                             Horde_Auth::getAuth(),
+            $perms->hasPermission('operator:accountcodes:%',
+                                             $GLOBALS['registry']->getAuth(),
                                              Horde_Perms::READ)) {
 
             // Add an option to select all accounts
@@ -136,10 +134,8 @@ class Operator {
                     $permitem = 'operator:accountcodes:' . $accountcode;
                 }
 
-                if (Horde_Auth::isAdmin() ||
-                    $GLOBALS['perms']->hasPermission($permitem,
-                                                     Horde_Auth::getAuth(),
-                                                     Horde_Perms::SHOW)) {
+                if ($GLOBALS['registry']->isAdmin() ||
+                    $perms->hasPermission($permitem, $GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)) {
                     $accountcodes[$accountcode] = $values[$index];
                 }
             }

@@ -1,11 +1,9 @@
 <?php
 
-$charset = Horde_Nls::getCharset();
-
 /* Variables used in core javascript files. */
 $var = array(
-    'empty_input' => intval($GLOBALS['browser']->hasQuirk('empty_file_input_value')),
-    'prefs_api' => Horde::getServiceLink('prefsapi', 'gollem')
+    'URI_AJAX' => Horde::getServiceLink('ajax', 'gollem')->url,
+    'empty_input' => intval($GLOBALS['browser']->hasQuirk('empty_file_input_value'))
 );
 
 /* Gettext strings used in core javascript files. */
@@ -29,6 +27,6 @@ $gettext = array_map('addslashes', array(
 
 ?>
 <script type="text/javascript">//<![CDATA[
-var GollemVar = <?php echo Horde_Serialize::encode($var, Horde_Serialize::SERIALIZE_JSON, $charset) ?>;
-var GollemText = <?php echo Horde_Serialize::encode($gettext, Horde_Serialize::SERIALIZE_JSON, $charset) ?>;
+var GollemVar = <?php echo Horde_Serialize::encode($var, Horde_Serialize::SERIALIZE_JSON) ?>;
+var GollemText = <?php echo Horde_Serialize::encode($gettext, Horde_Serialize::SERIALIZE_JSON) ?>;
 //]]></script>

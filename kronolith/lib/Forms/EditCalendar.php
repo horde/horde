@@ -8,29 +8,23 @@
  * @package Kronolith
  */
 
-/** Horde_Form */
-require_once 'Horde/Form.php';
-
-/** Horde_Form_Renderer */
-require_once 'Horde/Form/Renderer.php';
-
 /**
- * The Kronolith_EditCalendarForm class provides the form for
- * editing a calendar.
+ * The Kronolith_EditCalendarForm class provides the form for editing a
+ * calendar.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Kronolith
  */
-class Kronolith_EditCalendarForm extends Horde_Form {
-
+class Kronolith_EditCalendarForm extends Horde_Form
+{
     /**
-     * Calendar being edited
+     * Calendar being edited.
      */
-    var $_calendar;
+    protected $_calendar;
 
-    function Kronolith_EditCalendarForm(&$vars, &$calendar)
+    public function __construct($vars, $calendar)
     {
-        $this->_calendar = &$calendar;
+        $this->_calendar = $calendar;
         parent::Horde_Form($vars, sprintf(_("Edit %s"), $calendar->get('name')));
 
         $this->addHidden('', 'c', 'text', true);
@@ -38,14 +32,17 @@ class Kronolith_EditCalendarForm extends Horde_Form {
         $this->addVariable(_("Color"), 'color', 'colorpicker', false);
         $this->addVariable(_("Description"), 'description', 'longtext', false, false, null, array(4, 60));
         $this->addVariable(_("Tags"), 'tags', 'text', false);
-        if (Horde_Auth::isAdmin()) {
+        if ($GLOBALS['registry']->isAdmin()) {
             $this->addVariable(_("System Calendar"), 'system', 'boolean', false, false, _("System calendars don't have an owner. Only administrators can change the calendar settings and permissions."));
         }
 
         $this->setButtons(array(_("Save")));
     }
 
-    function execute()
+    /**
+     * @throws Kronolith_Exception
+     */
+    public function execute()
     {
         $info = array();
         foreach (array('name', 'color', 'description', 'tags', 'system') as $key) {

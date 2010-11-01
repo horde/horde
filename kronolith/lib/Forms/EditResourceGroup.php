@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_Form for editing resource calendars.
+ * Horde_Form for editing resource groups.
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
@@ -8,30 +8,31 @@
  * @package Kronolith
  */
 
-/** Horde_Form */
-require_once 'Horde/Form.php';
-
-/** Horde_Form_Renderer */
-require_once 'Horde/Form/Renderer.php';
-
 /**
- * The Kronolith_EditResourceForm class provides the form for
- * editing a calendar.
+ * The Kronolith_EditResourceGroupForm class provides the form for editing
+ * resource groups.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Kronolith
  */
-class Kronolith_EditResourceGroupForm extends Horde_Form {
+class Kronolith_EditResourceGroupForm extends Horde_Form
+{
+    /**
+     * Resource group being edited.
+     *
+     * @var Kronolith_Resource_Single
+     */
+    protected $_resource;
 
     /**
-     * Calendar being edited
+     * @throws Kronolith_Exception
      */
-    var $_resource;
-
-    function Kronolith_EditResourceGroupForm(&$vars, &$resource)
+    public function __construct($vars, $resource)
     {
-        $this->_resource = &$resource;
+        $this->_resource = $resource;
         parent::Horde_Form($vars, sprintf(_("Edit %s"), $resource->get('name')));
+
         $resources = Kronolith::getDriver('Resource')->listResources(Horde_Perms::READ, array('type' => Kronolith_Resource::TYPE_SINGLE));
         $enum = array();
         foreach ($resources as $r) {
@@ -42,31 +43,27 @@ class Kronolith_EditResourceGroupForm extends Horde_Form {
         $this->addVariable(_("Name"), 'name', 'text', true);
         $this->addVariable(_("Description"), 'description', 'longtext', false, false, null, array(4, 60));
         $this->addVariable(_("Resources"), 'members', 'multienum', false, false, null, array('enum' => $enum));
-
         $this->setButtons(array(_("Save")));
     }
 
-    function execute()
+    /**
+     * @throws Kronolith_Exception
+     */
+    public function execute()
     {
         $original_name = $this->_resource->get('name');
         $new_name = $this->_vars->get('name');
         $this->_resource->set('name', $new_name);
         $this->_resource->set('description', $this->_vars->get('description'));
         $this->_resource->set('members', $this->_vars->get('members'));
-        if ($original_name != $new_name) {
-            $result = Kronolith::getDriver()->rename($original_name, $new_name);
-            if (is_a($result, 'PEAR_Error')) {
-                return PEAR::raiseError(sprintf(_("Unable to rename \"%s\": %s"), $original_name, $result->getMessage()));
-            }
-        }
 
-        $result = $this->_resource->save();
-        if (is_a($result, 'PEAR_Error')) {
-            return PEAR::raiseError(sprintf(_("Unable to save resource \"%s\": %s"), $new_name, $result->getMessage()));
+        try {
+            $this->_resource->save();
+        } catch (Exception $e) {
+            throw new Kronolith_Exception(sprintf(_("Unable to save resource \"%s\": %s"), $new_name, $e->getMessage()));
         }
 
         return $this->_resource;
-
     }
 
 }

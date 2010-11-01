@@ -9,26 +9,26 @@ if (isset($GLOBALS['conf']['fortune']['exec_path']) &&
 /**
  * @package Horde_Block
  */
-class Horde_Block_Horde_fortune extends Horde_Block {
-
+class Horde_Block_Horde_fortune extends Horde_Block
+{
     /**
      * Whether this block has changing content.
      */
-    var $updateable = true;
+    public $updateable = true;
 
-    var $_app = 'horde';
+    protected $_app = 'horde';
 
     /**
      * The title to go in this block.
      *
      * @return string   The title text.
      */
-    function _title()
+    protected function _title()
     {
         return _("Fortune");
     }
 
-    function _params()
+    protected function _params()
     {
         global $conf;
 
@@ -113,7 +113,7 @@ class Horde_Block_Horde_fortune extends Horde_Block {
      *
      * @return string   The content
      */
-    function _content()
+    protected function _content()
     {
         global $conf;
 
@@ -123,9 +123,7 @@ class Horde_Block_Horde_fortune extends Horde_Block {
                 . $this->_params['offend']
                 . ' ' . implode(' ', $this->_params['fortune']);
             return '<span class="fixed"><small>'
-                . nl2br(Horde_Text_Filter::filter(shell_exec($cmdLine),
-                                            array('space2html'),
-                                            array(array('encode' => true))))
+                . nl2br($GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter(shell_exec($cmdLine), array('space2html'), array(array('encode' => true))))
                 . '</small></span>';
         } else {
             return '';

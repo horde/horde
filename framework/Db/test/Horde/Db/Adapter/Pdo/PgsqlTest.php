@@ -27,7 +27,7 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
     // @todo - add logger instance
     protected function setUp()
     {
-        list($this->_conn, $this->_cache) = $this->sharedFixture->getConnection();
+        list($this->_conn, $this->_cache) = Horde_Db_AllTests::$connFactory->getConnection();
 
         // clear out detritus from any previous test runs.
         $this->_dropTestTables();
@@ -925,14 +925,6 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
     {
         $name = $this->_conn->indexName('sports', array('name' => 'test'));
         $this->assertEquals('test', $name);
-    }
-
-    public function testInitializeSchemaInformation()
-    {
-        $this->_conn->initializeSchemaInformation();
-
-        $sql = "SELECT version FROM schema_info";
-        $this->assertEquals(0, $this->_conn->selectValue($sql));
     }
 
     public function testTypeToSqlTypePrimaryKey()

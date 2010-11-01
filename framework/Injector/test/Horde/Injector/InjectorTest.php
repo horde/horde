@@ -30,15 +30,15 @@ class Horde_Injector_InjectorTest extends PHPUnit_Framework_TestCase
         $this->assertType('Horde_Injector_Binder_Mock', $injector->bindMock('BOUND_INTERFACE'));
         $this->assertType('Horde_Injector_Binder_Mock', $injector->getBinder('BOUND_INTERFACE'));
     }
-    
+
     public function testShouldProvideMagicFactoryMethodForBinderAdditionWhereBinderHasDependencies()
     {
         $injector = new Horde_Injector(new Horde_Injector_TopLevel());
 
         // binds a Horde_Injector_Binder_Mock object
-        $this->assertType('Horde_Injector_Binder_MockWithDependencies', 
+        $this->assertType('Horde_Injector_Binder_MockWithDependencies',
             $injector->bindMockWithDependencies('BOUND_INTERFACE', 'PARAMETER1'));
-        $this->assertType('Horde_Injector_Binder_MockWithDependencies', 
+        $this->assertType('Horde_Injector_Binder_MockWithDependencies',
             $injector->getBinder('BOUND_INTERFACE'));
     }
 
@@ -49,6 +49,15 @@ class Horde_Injector_InjectorTest extends PHPUnit_Framework_TestCase
     {
         $injector = new Horde_Injector($this->_getTopLevelNeverCalledMock());
         $injector->bindMock();
+    }
+
+    /**
+     * @expectedException BadMethodCallException
+     */
+    public function testShouldThrowExceptionIfMethodNameIsInvalid()
+    {
+        $injector = new Horde_Injector($this->_getTopLevelNeverCalledMock());
+        $injector->invalid();
     }
 
     public function testShouldReturnItselfWhenInjectorRequested()
@@ -129,14 +138,15 @@ class Horde_Injector_InjectorTest extends PHPUnit_Framework_TestCase
     {
         // we need to set a class for an instance on the parent
         $injector = new Horde_Injector(new Horde_Injector_TopLevel());
-        $injector->addBinder('FooBarInterface', new Horde_Injector_Binder_Implementation('StdClass'));
+        $df = new Horde_Injector_DependencyFinder();
+        $injector->addBinder('FooBarInterface', new Horde_Injector_Binder_Implementation('StdClass', $df));
 
         // getInstance will save $returnedObject and return it again later when FooBarInterface is requested
         $returnedObject = $injector->getInstance('FooBarInterface');
 
         $childInjector = $injector->createChildInjector();
         // add same binding again to child
-        $childInjector->addBinder('FooBarInterface', new Horde_Injector_Binder_Implementation('StdClass'));
+        $childInjector->addBinder('FooBarInterface', new Horde_Injector_Binder_Implementation('StdClass', $df));
 
         $this->assertSame($returnedObject, $childInjector->getInstance('FooBarInterface'),
             "Child should have returned object reference from parent because added binder was identical to the parent binder");
@@ -237,7 +247,7 @@ class Horde_Injector_InjectorTest extends PHPUnit_Framework_TestCase
 }
 
 /**
- * Used by preceeding tests!!!
+ * Used by preceding tests
  */
 class Horde_Injector_Binder_Mock implements Horde_Injector_Binder
 {
@@ -256,9 +266,11 @@ class Horde_Injector_Binder_Mock implements Horde_Injector_Binder
 class Horde_Injector_Binder_MockWithDependencies implements Horde_Injector_Binder
 {
     private $_interface;
-    
-    public function __construct($parameter1) {}
-    
+
+    public function __construct($parameter1)
+    {
+    }
+
     public function create(Horde_Injector $injector)
     {
         return $injector;

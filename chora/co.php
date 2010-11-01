@@ -9,9 +9,10 @@
  * @package Chora
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('chora');
 
-/* If we know we're at a directory, just go to browse.php. */
+/* If we know we're at a directory, just go to browsedir.php. */
 if ($atdir) {
     require CHORA_BASE . '/browsedir.php';
     exit;

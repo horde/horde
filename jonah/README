@@ -1,0 +1,38 @@
+Jonah
+
+What is Jonah?
+--------------
+
+Jonah is a portal system for displaying news and other data from
+various sources, written in PHP and utilizing the Horde Application
+Framework.
+
+This software is OSI Certified Open Source Software.
+OSI Certified is a certification mark of the Open Source Initiative.
+
+
+Jonah Documentation
+-------------------
+
+LICENSE       - Jonah's license
+README        - This file
+docs/CHANGES  - A list of changes by release
+docs/CREDITS  - Who developed this
+docs/HELP     - How you can help
+docs/INSTALL  - Installation instructions and notes
+
+
+Now what?
+---------
+
+All installation documentation is located in the docs/ subdirectory
+
+You MUST have the Horde framework installed on your system before you
+install Jonah.
+
+Read the docs/INSTALL file. It contains everything you need to know in
+order to install Jonah on your system. (if it doesn't, it should, so yell at
+us!)
+
+Enjoy,
+The Jonah Team

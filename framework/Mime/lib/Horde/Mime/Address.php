@@ -8,12 +8,21 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Mime
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Mime
  */
 class Horde_Mime_Address
 {
+    /**
+     * RFC 822 parser instance.
+     *
+     * @var Horde_Mail_Rfc822
+     */
+    static protected $_rfc822;
+
     /**
      * Builds an RFC compliant email address.
      *
@@ -22,8 +31,7 @@ class Horde_Mime_Address
      * @param string $personal  Personal name phrase.
      * @param array $opts  Additional options:
      * <pre>
-     * 'idn' - (boolean) Convert IDN domain names (Punycode/RFC 3490) into
-     *         the local charset.
+     * 'idn' - (boolean) Decode IDN domain names (Punycode/RFC 3490).
      *         Requires the PECL idn module.
      *         DEFAULT: true
      * </pre>
@@ -43,8 +51,8 @@ class Horde_Mime_Address
         $host = ltrim($host, '@');
         if ((!isset($opts['idn']) || !$opts['idn']) &&
             (stripos($host, 'xn--') === 0) &&
-            Horde_Util::extensionExists('idn')) {
-            $host = Horde_String::convertCharset(idn_to_utf8($host), 'UTF-8');
+            function_exists('idn_to_utf8')) {
+            $host = idn_to_utf8($host);
         }
 
         $address .= self::encode($mailbox, 'address') . '@' . $host;
@@ -139,7 +147,7 @@ class Horde_Mime_Address
             $emails[] = substr($string, $pos, $i - $pos);
         }
 
-        return $emails;
+        return array_map('trim', $emails);
     }
 
     /**
@@ -156,6 +164,8 @@ class Horde_Mime_Address
      * @param array $ob    The address object to be turned into a string.
      * @param array $opts  Additional options:
      * <pre>
+     * 'charset' - (string) The local charset.
+     *             DEFAULT: NONE
      * 'filter' - (mixed) A user@example.com style bare address to ignore.
      *            Either single string or an array of strings. If the address
      *            matches $filter, an empty string will be returned.
@@ -170,9 +180,13 @@ class Horde_Mime_Address
      */
     static public function addrObject2String($ob, $opts = array())
     {
+        $opts = array_merge(array(
+            'charset' => null
+        ), $opts);
+
         /* If the personal name is set, decode it. */
         $ob['personal'] = isset($ob['personal'])
-            ? Horde_Mime::decode($ob['personal'])
+            ? Horde_Mime::decode($ob['personal'], $opts['charset'])
             : '';
 
         /* If both the mailbox and the host are empty, return an empty string.
@@ -215,6 +229,8 @@ class Horde_Mime_Address
      * @param array $addresses  The array of address objects.
      * @param array $opts       Additional options:
      * <pre>
+     * 'charset' - (string) The local charset.
+     *             DEFAULT: NONE
      * 'filter' - (mixed) A user@example.com style bare address to ignore.
      *            Either single string or an array of strings.
      *            DEFAULT: No filter
@@ -251,6 +267,8 @@ class Horde_Mime_Address
      * @param array $obs   An array of header objects.
      * @param array $opts  Additional options:
      * <pre>
+     * 'charset' - (string) The local charset.
+     *             DEFAULT: NONE
      * 'filter' - (mixed) A user@example.com style bare address to ignore.
      *            Either single string or an array of strings.
      *            DEFAULT: No filter
@@ -272,6 +290,10 @@ class Horde_Mime_Address
      */
     static public function getAddressesFromObject($obs, $opts = array())
     {
+        $opts = array_merge(array(
+            'charset' => null
+        ), $opts);
+
         $ret = array();
 
         if (!is_array($obs) || empty($obs)) {
@@ -281,7 +303,7 @@ class Horde_Mime_Address
         foreach ($obs as $ob) {
             if (isset($ob['groupname'])) {
                 $ret[] = array(
-                    'addresses' => self::getAddressesFromObject($ob['addresses']),
+                    'addresses' => self::getAddressesFromObject($ob['addresses'], $opts),
                     'groupname' => $ob['groupname']
                 );
                 continue;
@@ -295,7 +317,7 @@ class Horde_Mime_Address
 
             /* Ensure we're working with initialized values. */
             if (!empty($ob['personal'])) {
-                $ob['personal'] = trim(stripslashes(Horde_Mime::decode($ob['personal'])), '"');
+                $ob['personal'] = trim(stripslashes(Horde_Mime::decode($ob['personal'], $opts['charset'])), '"');
             }
 
             $inner = self::writeAddress($ob['mailbox'], $ob['host']);
@@ -374,20 +396,24 @@ class Horde_Mime_Address
             return array();
         }
 
+        if (!self::$_rfc822) {
+            self::$_rfc822 = new Horde_Mail_Rfc822();
+        }
+
         $options = array_merge(array(
             'defserver' => null,
             'nestgroups' => false,
             'validate' => false
         ), $options);
 
-        static $parser;
-        if (!isset($parser)) {
-            $parser = new Mail_RFC822();
-        }
-
-        $ret = $parser->parseAddressList($address, $options['defserver'], $options['nestgroups'], $options['validate']);
-        if (is_a($ret, 'PEAR_Error')) {
-            throw new Horde_Mime_Exception($ret);
+        try {
+            $ret = self::$_rfc822->parseAddressList($address, array(
+                'default_domain' => $options['defserver'],
+                'nest_groups' => $options['nestgroups'],
+                'validate' => $options['validate']
+            ));
+        } catch (Horde_Mail_Exception $e) {
+            throw new Horde_Mime_Exception($e);
         }
 
         /* Convert objects to arrays. */

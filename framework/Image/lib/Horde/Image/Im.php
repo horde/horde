@@ -26,7 +26,9 @@ class Horde_Image_Im extends Horde_Image_Base
                                      'flip',
                                      'mirror',
                                      'sepia',
-                                     'canvas');
+                                     'canvas',
+                                     'multipage',
+                                     'pdf');
 
     /**
      * Operations to be performed before the source filename is specified on the
@@ -61,7 +63,30 @@ class Horde_Image_Im extends Horde_Image_Base
     protected $_convert = '';
 
     /**
+     * Path to the identify binary
+     *
+     * @string
+     */
+    protected $_identify;
+
+    /**
+     * Cache the number of image pages
+     *
+     * @var integer
+     */
+    private $_pages;
+
+    /**
+     * Track current page for the iterator
+     *
+     * @var integer
+     */
+    private $_currentPage = 0;
+
+    /**
      * Constructor.
+     *
+     * @see Horde_Image_Base::_construct
      */
     public function __construct($params, $context = array())
     {
@@ -71,14 +96,29 @@ class Horde_Image_Im extends Horde_Image_Base
             throw new InvalidArgumentException('A path to the convert binary is required.');
         }
         $this->_convert = $context['convert'];
+
+        if (!empty($context['identify'])) {
+            $this->_identify = $context['identify'];
+        }
         if (!empty($params['filename'])) {
             $this->loadFile($params['filename']);
         } elseif (!empty($params['data'])) {
-            $this->loadString(md5($params['data']), $params['data']);
+            $this->loadString($params['data']);
         } else {
             $cmd = "-size {$this->_width}x{$this->_height} xc:{$this->_background} +profile \"*\" {$this->_type}:__FILEOUT__";
             $this->executeConvertCmd($cmd);
         }
+    }
+
+    /**
+     * Publically visible raw method. Hides the extra parameters from client
+     * code.
+     *
+     * @see self::_raw
+     */
+    public function raw($convert = false)
+    {
+        return $this->_raw($convert);
     }
 
     /**
@@ -92,7 +132,7 @@ class Horde_Image_Im extends Horde_Image_Base
      *
      * @return string  The raw image data.
      */
-    public function raw($convert = false)
+    private function _raw($convert = false, $index = 0, $preserve_data = false)
     {
         if (empty($this->_data) ||
             // If there are no operations, and we already have data, don't
@@ -109,13 +149,15 @@ class Horde_Image_Im extends Horde_Image_Base
         if (count($this->_operations) || count($this->_postSrcOperations) || $convert) {
             $tmpout = Horde_Util::getTempFile('img', false, $this->_tmpdir);
             $command = $this->_convert . ' ' . implode(' ', $this->_operations)
-                . ' "' . $tmpin . '"\'[0]\' '
+                . ' "' . $tmpin . '"\'[' . $index . ']\' '
                 . implode(' ', $this->_postSrcOperations)
                 . ' +profile "*" ' . $this->_type . ':"' . $tmpout . '" 2>&1';
             $this->_logDebug(sprintf("convert command executed by Horde_Image_im::raw(): %s", $command));
             exec($command, $output, $retval);
             if ($retval) {
-                $this->_logErr(sprintf("Error running command: %s", $command . "\n" . implode("\n", $output)));
+                $error = sprintf("Error running command: %s", $command . "\n" . implode("\n", $output));
+                $this->_logErr($error);
+                throw new Horde_Image_Exception($error);
             }
 
             /* Empty the operations queue */
@@ -123,12 +165,15 @@ class Horde_Image_Im extends Horde_Image_Base
             $this->_postSrcOperations = array();
 
             /* Load the result */
-            $this->_data = file_get_contents($tmpout);
+            $return = file_get_contents($tmpout);
+            if (!$preserve_data) {
+                $this->_data = $return;
+            }
         }
         @unlink($tmpin);
         @unlink($tmpout);
 
-        return $this->_data;
+        return $return;
     }
 
     /**
@@ -255,7 +300,7 @@ class Horde_Image_Im extends Horde_Image_Base
     public function text($string, $x, $y, $font = '', $color = 'black', $direction = 0, $fontsize = 'small')
     {
         $string = addslashes('"' . $string . '"');
-        $fontsize = self::getFontSize($fontsize);
+        $fontsize = Horde_Image::getFontSize($fontsize);
         $this->_postSrcOperations[] = "-fill $color " . (!empty($font) ? "-font $font" : '') . " -pointsize $fontsize -gravity northwest -draw \"text $x,$y $string\" -fill none";
     }
 
@@ -536,4 +581,110 @@ class Horde_Image_Im extends Horde_Image_Base
         return $this->_convert;
     }
 
+    /**
+     * Reset the imagick iterator to the first image in the set.
+     *
+     * @return void
+     */
+    public function rewind()
+    {
+        $this->_logDebug('Horde_Image_Im#rewind');
+        $this->_currentPage = 0;
+    }
+
+    /**
+     * Return the current image from the internal iterator.
+     *
+     * @return Horde_Image_Imagick
+     */
+    public function current()
+    {
+        $this->_logDebug('Horde_Image_Im#current');
+        return $this->getImageAtIndex($this->_currentPage);
+    }
+
+    /**
+     * Get the index of the internal iterator.
+     *
+     * @return integer
+     */
+    public function key()
+    {
+        $this->_logDebug('Horde_Image_Im#key');
+        return $this->_currentPage;
+    }
+
+    /**
+     * Advance the iterator
+     *
+     * @return Horde_Image_Im
+     */
+    public function next()
+    {
+        $this->_logDebug('Horde_Image_Im#next');
+        $this->_currentPage++;
+        if ($this->valid()) {
+            return $this->getImageAtIndex($this->_currentPage);
+        }
+    }
+
+    /**
+     * Deterimines if the current iterator item is valid.
+     *
+     * @return boolean
+     */
+    public function valid()
+    {
+        return $this->_currentPage < $this->getImagePageCount();
+    }
+
+    /**
+     * Request a specific image from the collection of images.
+     *
+     * @param integer $index  The index to return
+     *
+     * @return Horde_Image_Base
+     */
+    public function getImageAtIndex($index)
+    {
+        $this->_logDebug('Horde_Image_Im#getImageAtIndex: ' . $index);
+        if ($index >= $this->getImagePageCount()) {
+            throw new Horde_Image_Exception('Image index out of bounds.');
+        }
+        $rawImage = $this->_raw(true, $index, true);
+        $image = new Horde_Image_Im(array('data' => $rawImage), $this->_context);
+
+        return $image;
+    }
+
+    /**
+     * Return the number of image pages available in the image object.
+     *
+     * @return integer
+     */
+    public function getImagePageCount()
+    {
+        if (is_null($this->_pages)) {
+            $pages = $this->_getImagePages();
+            $this->_pages = array_pop($pages);
+        }
+        $this->_logDebug('Horde_Image_Im#getImagePageCount: ' . $this->_pages);
+
+        return $this->_pages;
+
+    }
+
+    private function _getImagePages()
+    {
+        $this->_logDebug('Horde_Image_Im#_getImagePages');
+        $filename = $this->toFile();
+        $cmd = $this->_identify . ' -format "%n" ' . $filename;
+        exec($cmd, $output, $retval);
+        if ($retval) {
+            $this->_logErr(sprintf("Error running command: %s", $cmd . "\n" . implode("\n", $output)));
+        }
+        unlink($filename);
+
+        return $output;
+    }
 }

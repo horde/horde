@@ -8,8 +8,6 @@ $block_name = _("Forums");
  * This file provides a list of Agora forums through the Horde_Blocks, by
  * extending the Horde_Blocks class.
  *
- * $Horde: agora/lib/Block/forums.php,v 1.47 2009/07/08 18:28:39 slusarz Exp $
- *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -19,16 +17,21 @@ $block_name = _("Forums");
  * @author  Jan Schneider <jan@horde.org>
  * @package Horde_Block
  */
-class Horde_Block_agora_forums extends Horde_Block {
+class Horde_Block_agora_forums extends Horde_Block
+{
 
-    var $_app = 'agora';
+    protected $_app = 'agora';
 
-    function _title()
+    protected function _title()
     {
-        return Horde::link(Horde::applicationUrl('forums.php', true)) . _("Forums") . '</a>';
+        return Horde::url('forums.php', true)->link() . _("Forums") . '</a>';
     }
 
-    function _params()
+    /**
+     *
+     * @return array
+     */
+    protected function _params()
     {
         /* Display the last X number of threads. */
         $forum_display = array();
@@ -40,15 +43,13 @@ class Horde_Block_agora_forums extends Horde_Block {
         return array('forum_display' => $forum_display);
     }
 
-    function _content()
+    protected function _content()
     {
         global $registry;
 
-        require_once dirname(__FILE__) . '/../base.php';
-
         /* Set up the forums object. */
         $forums = array(Agora_Messages::singleton());
-        if (Horde_Auth::isAdmin()) {
+        if ($GLOBALS['registry']->isAdmin()) {
             foreach ($registry->listApps(array('hidden', 'notoolbar', 'active')) as $scope) {
                 if ($registry->hasMethod('hasComments', $scope) &&
                     $registry->callByPackage($scope, 'hasComments') === true) {
@@ -93,4 +94,5 @@ class Horde_Block_agora_forums extends Horde_Block {
 
         return $view->render('block/forums.html.php');
     }
+
 }

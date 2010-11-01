@@ -1,0 +1,624 @@
+# Spanish translations for horde package
+# Traducciones al español para el paquete horde.
+# Copyright 2004-2010 The Horde Project
+# This file is distributed under the same license as the horde package.
+# Automatically generated, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gollem 1.0-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2006-02-02 12:09+0100\n"
+"PO-Revision-Date: 2007-02-01 17:03+0100\n"
+"Last-Translator: Jordi Giralt <projectek2@upcnet.es>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: manager.php:52
+#, php-format
+msgid "\"%s\" renamed to \"%s\""
+msgstr "\"%s\" s'ha renombrat com  \"%s\""
+
+#: quota.php:59
+#, php-format
+msgid "%.2fMB / %.2fMB  (%.2f%%)"
+msgstr "%.2fMB / %.2fMB  (%.2f%%)"
+
+#: manager.php:260
+#, php-format
+msgid "%d items"
+msgstr "%d elements"
+
+#: manager.php:414
+#, php-format
+msgid "%s Folders and %s Files (%s Kb)"
+msgstr "%s Carpetes i %s Arxius (%s Kb)"
+
+#: manager.php:412
+#, php-format
+msgid "%s Folders and 1 File (%s Kb)"
+msgstr "%s Carpetes i 1 arxiu (%s Kb)"
+
+#: login.php:143
+#, php-format
+msgid "%s Login"
+msgstr "Inici de %s"
+
+#: manager.php:159
+#, php-format
+msgid "%s was successfully pasted."
+msgstr "%s s'ha enganxat correctament."
+
+#: manager.php:409
+#, php-format
+msgid "1 Folder and %s Files (%s Kb)"
+msgstr "1 Carpeta i %s arxius (%s Kb)"
+
+#: manager.php:407
+#, php-format
+msgid "1 Folder and 1 File (%s Kb)"
+msgstr "1 Carpeta i 1 arxiu (%s Kb)"
+
+#: manager.php:260
+msgid "1 item"
+msgstr "1 element"
+
+#: view.php:31
+#, php-format
+msgid "Access denied to %s"
+msgstr "S'ha denegat l'accés a %s"
+
+#: lib/Gollem.php:116 lib/Gollem.php:390 lib/Gollem.php:452 lib/Gollem.php:473
+#: lib/Gollem.php:490
+#, php-format
+msgid "Access denied to folder \"%s\"."
+msgstr "S'ha denegat l'accés a la carpeta \"%s\"."
+
+#: templates/manager/manager.html:105
+msgid "Actions"
+msgstr "Accions"
+
+#: selectlist.php:100
+msgid "Add"
+msgstr "Afegir"
+
+#: templates/prefs/columnselect.inc:42
+msgid "Add column"
+msgstr "Afegir columna"
+
+#: templates/manager/manager.html:9
+msgid "All"
+msgstr "Tots"
+
+#: templates/manager/javascript.inc:202
+msgid "Are you sure you wish to continue?"
+msgstr "Està segur que vol continuar?"
+
+#: templates/manager/javascript.inc:198
+msgid "Are you sure?"
+msgstr "Està segur?"
+
+#: config/prefs.php.dist:69
+msgid "Ascending"
+msgstr "Ascendent"
+
+#: config/prefs.php.dist:93
+msgid "Ask"
+msgstr "Consultar"
+
+#: templates/manager/manager.html:3
+msgid "Attributes"
+msgstr "Atributs"
+
+#: templates/prefs/columnselect.html:20
+msgid "Available Columns:"
+msgstr "Columnes disponibles:"
+
+#: lib/api.php:46
+msgid "Backends"
+msgstr "Motors"
+
+#: templates/clipboard/clipboard.html:11
+msgid "Below is the current contents of your clipboard."
+msgstr "A continuació es mostra el contingut actual del portapapers."
+
+#: manager.php:254 selectlist.php:102 clipboard.php:37
+msgid "Cancel"
+msgstr "Cancel·lar"
+
+#: manager.php:72
+#, php-format
+msgid "Cannot chmod %s"
+msgstr "No es pot utilitzar chmod a %s"
+
+#: manager.php:133
+msgid "Cannot copy items onto clipboard."
+msgstr "No es poden copiar elements al portapapers."
+
+#: manager.php:192
+#, php-format
+msgid "Cannot create home directory: %s"
+msgstr "No es pot crear la carpeta principal: %s"
+
+#: manager.php:135
+msgid "Cannot cut items onto clipboard."
+msgstr "No es poden tallar elements al  portapapers."
+
+#: manager.php:80
+#, php-format
+msgid "Cannot delete \"%s\": %s"
+msgstr "No es pot eliminar \"%s\": %s"
+
+#: manager.php:157
+#, php-format
+msgid "Cannot paste \"%s\" (file cleared from clipboard): %s"
+msgstr "No es pot enganxar \"%s\" (el portapapers està buit): %s"
+
+#: lib/Gollem.php:777 templates/manager/manager.html:71
+msgid "Change Folder"
+msgstr "Obrir carpeta"
+
+#: selectlist.php:110 lib/Gollem.php:819
+msgid "Change Server"
+msgstr "Canviar servidor"
+
+#: config/prefs.php.dist:21
+msgid "Change file and folder handling settings."
+msgstr "Canviar opcions de manipulació d'arxius i  carpetes."
+
+#: config/prefs.php.dist:14
+msgid "Change your file sorting options."
+msgstr "Canviar opcions de classificació d'arxius."
+
+#: lib/Gollem.php:793
+msgid "Check Quota"
+msgstr "Verificar Quota"
+
+#: manager.php:492
+msgid "Check _All/None"
+msgstr "Marcar _tots/Cap"
+
+#: templates/manager/manager.html:113
+msgid "Chmod Items"
+msgstr "Canviar permisos d'elements"
+
+#: manager.php:70
+msgid "Chmod done: "
+msgstr "Ha finalitzat el canvi de permisos: "
+
+#: templates/prefs/columnselect.html:12
+msgid "Choose the columns to display in the file manager."
+msgstr "Trii les columnes mostrades en el gestor d'arxius. "
+
+#: clipboard.php:38
+msgid "Clear"
+msgstr "Netejar"
+
+#: clipboard.php:17 templates/clipboard/clipboard.html:7
+msgid "Clipboard"
+msgstr "Portapapers"
+
+#: quota.php:31
+msgid "Close"
+msgstr "Tancar"
+
+#: login.php:254
+#, php-format
+msgid "Connect to: %s"
+msgstr "Connectar a: %s"
+
+#: clipboard.php:41
+msgid "Copy"
+msgstr "Copiar"
+
+#: templates/manager/manager.html:116
+msgid "Copy Items"
+msgstr "Copiar elements"
+
+#: lib/Gollem.php:774 templates/manager/manager.html:57
+msgid "Create Folder"
+msgstr "Crear carpeta"
+
+#: permissions.php:47
+#, php-format
+msgid ""
+"Created empty permissions for \"%s\". You must explicitly grant access to "
+"this backend now."
+msgstr "Crear permisos buits per \"%s\". Ha d'especificar el nivell d'accés a"
+
+#: templates/clipboard/clipboard.html:17
+msgid "Current directory:"
+msgstr "Carpeta actual: %s"
+
+#: clipboard.php:40
+msgid "Cut"
+msgstr "Tallar"
+
+#: templates/manager/manager.html:115
+msgid "Cut Items"
+msgstr "Tallar elements"
+
+#: config/prefs.php.dist:59
+msgid "Default sorting criteria:"
+msgstr "Criteri de classificació por omissió:"
+
+#: config/prefs.php.dist:72
+msgid "Default sorting direction:"
+msgstr "Sentit de classificació per omissió"
+
+#: templates/manager/manager.html:110
+msgid "Delete Items"
+msgstr "Eliminar elements"
+
+#: config/prefs.php.dist:95
+msgid "Delete folders recursively?"
+msgstr "Eliminar carpetes de forma recursiva?"
+
+#: config/prefs.php.dist:70
+msgid "Descending"
+msgstr "Descendent"
+
+#: selectlist.php:101
+msgid "Done"
+msgstr "Finalitzat"
+
+#: manager.php:214
+msgid "Download"
+msgstr "Descarregar"
+
+#: manager.php:381
+#, php-format
+msgid "Download %s"
+msgstr "Descarregar %s"
+
+#: templates/quota/quota.html:7
+msgid "ERROR:"
+msgstr "ERROR:"
+
+#: config/credentials.php.dist:28
+msgid "Email"
+msgstr "Correu"
+
+#: templates/manager/manager.html:24
+msgid "Execute"
+msgstr "Execució"
+
+#: templates/manager/javascript.inc:485 templates/manager/manager.html:179
+msgid "File"
+msgstr "Arxiu"
+
+#: config/prefs.php.dist:13
+msgid "File Display"
+msgstr "Vista de l'arxiu"
+
+#: config/prefs.php.dist:56
+msgid "File Modification Time"
+msgstr "Hora de modificació de l'arxiu"
+
+#: config/prefs.php.dist:55
+msgid "File Name"
+msgstr "Nom de arxiu"
+
+#: config/prefs.php.dist:57
+msgid "File Size"
+msgstr "Mida de l'arxiu"
+
+#: config/prefs.php.dist:54
+msgid "File Type"
+msgstr "Tipus d'arxiu"
+
+#: manager.php:76
+msgid "File deleted: "
+msgstr "Arxiu eliminat:"
+
+#: manager.php:101
+#, php-format
+msgid "File received: %s"
+msgstr "Arcxiu recibut: %s"
+
+#: manager.php:78
+msgid "Folder removed: "
+msgstr "Carpeta eliminada: "
+
+#: templates/manager/manager.html:73
+msgid "Go to:"
+msgstr "Anar a:"
+
+#: permissions.php:21
+msgid "Gollem Backend Permissions Administration"
+msgstr "Administració de permisos del motor de Gollem"
+
+#: manager.php:471 templates/manager/manager.html:8
+msgid "Group"
+msgstr "Grup"
+
+#: lib/Gollem.php:770
+msgid "Home"
+msgstr "Inici"
+
+#: manager.php:56
+msgid "Incorrect number of items."
+msgstr "Número d'elements incorrecte."
+
+#: manager.php:126
+#, php-format
+msgid "Item copied to clipboard: %s"
+msgstr "S'ha copiat l'element al portapapers: %s"
+
+#: manager.php:128
+#, php-format
+msgid "Item cut to clipboard: %s"
+msgstr "S'ha tallat l'element al portapapers: %s"
+
+#: templates/login/login.html:67
+msgid "Language"
+msgstr "Idioma"
+
+#: config/prefs.php.dist:81
+msgid "List folders first?"
+msgstr "Llistar primer les carpetes?"
+
+#: login.php:303
+msgid "Login"
+msgstr "Iniciar sessió"
+
+#: quota.php:62
+msgid "MB free"
+msgstr "MB lliures"
+
+#: quota.php:62
+msgid "MB used"
+msgstr "MB utilitzats"
+
+#: lib/Block/tree_menu.php:3
+msgid "Menu List"
+msgstr "Llistat del menú"
+
+#: manager.php:445
+msgid "Modified"
+msgstr "Modific."
+
+#: templates/prefs/columnselect.inc:44
+msgid "Move left"
+msgstr "Desplaçar a l'esquerra "
+
+#: templates/prefs/columnselect.inc:45
+msgid "Move right"
+msgstr "Desplaçar a la dreta"
+
+#: manager.php:432
+msgid "Name"
+msgstr "Nom"
+
+#: templates/manager/manager.html:45 templates/manager/manager.html:59
+msgid "Name:"
+msgstr "Nom:"
+
+#: manager.php:35
+msgid "New folder created: "
+msgstr "Nova carpeta creada: "
+
+#: config/prefs.php.dist:91
+msgid "No"
+msgstr "No"
+
+#: templates/quota/quota.html:12
+msgid "No quota found."
+msgstr "No s''ha trobat la quota."
+
+#: manager.php:255
+msgid "OK"
+msgstr "Acceptar"
+
+#: manager.php:465 templates/manager/manager.html:7
+msgid "Owner"
+msgstr "Propietari"
+
+#: config/credentials.php.dist:23
+msgid "Password"
+msgstr "Contrasenya"
+
+#: clipboard.php:39
+msgid "Paste"
+msgstr "Enganxar"
+
+#: manager.php:459
+msgid "Permission"
+msgstr "Privilegis"
+
+#: selectlist.php:63
+#, php-format
+msgid "Permission denied to %s: %s"
+msgstr "Permís denegat a  %s: %s"
+
+#: manager.php:200
+#, php-format
+msgid "Permission denied to folder \"%s\": %s"
+msgstr "No disposa de permisos per a la carpeta \"%s\": %s"
+
+#: lib/Gollem.php:783
+msgid "Permissions"
+msgstr "Permisos"
+
+#: templates/login/javascript.inc:36
+msgid "Please provide your password."
+msgstr "Introdueixi la seva contrasenya. "
+
+#: templates/login/javascript.inc:31
+msgid "Please provide your username."
+msgstr "Introdueixi el seu nom d'usuari."
+
+#: templates/prefs/columnselect.html:5
+msgid "Please select a backend:"
+msgstr "Seleccioni un motor:"
+
+#: templates/manager/javascript.inc:132
+msgid "Please select an item before this action."
+msgstr "Seleccioni un element abans d'aquesta acció."
+
+#: templates/manager/javascript.inc:456
+msgid "Please specify at least one file to upload."
+msgstr "Indiqui almenys un arxiu a carregar. "
+
+#: quota.php:18 templates/quota/quota.html:2
+msgid "Quota Display"
+msgstr "Format de Quota"
+
+#: quota.php:61
+msgid "Quota Usage"
+msgstr "Quota disponible"
+
+#: templates/manager/manager.html:12
+msgid "Read"
+msgstr "Lectura"
+
+#: manager.php:262
+msgid "Refresh"
+msgstr "Actualitzar"
+
+#: templates/prefs/columnselect.inc:43
+msgid "Remove column"
+msgstr "Treure columna"
+
+#: templates/manager/manager.html:43
+msgid "Rename"
+msgstr "Renombrar "
+
+#: templates/manager/manager.html:107
+msgid "Rename Items"
+msgstr "Renombrar elements"
+
+#: lib/Gollem.php:734 lib/Gollem.php:739
+msgid "Root"
+msgstr "Root"
+
+#: manager.php:253
+msgid "Save"
+msgstr "Desar"
+
+#: templates/prefs/columnselect.html:30
+msgid "Selected Columns:"
+msgstr "Columnes seleccionades: "
+
+#: templates/login/login.html:31
+msgid "Server"
+msgstr "Servidor"
+
+#: config/prefs.php.dist:20
+msgid "Settings"
+msgstr "Opcions"
+
+#: config/prefs.php.dist:30
+msgid "Show dotfiles?"
+msgstr "Mostrar arxius el nom dels quals comenci per un punt? "
+
+#: manager.php:452
+msgid "Size"
+msgstr "Mida"
+
+#: manager.php:478
+msgid "Sort Direction"
+msgstr "Sentit de classificació"
+
+#: templates/manager/javascript.inc:202
+msgid "The following item(s) are folders: "
+msgstr "Els següents elements són carpetes:"
+
+#: templates/manager/javascript.inc:198
+msgid "The following items will be permanently deleted: "
+msgstr "S'eliminaran permanentment els següents elements: "
+
+#: templates/selectlist/javascript.inc:9
+msgid "The original opener window has been closed. Exiting."
+msgstr "S'ha tancat la finestra d'origen. Sortint. "
+
+#: login.php:150
+msgid "There are no backends available for the current user."
+msgstr "L'usuari actual no disposa de motors als quals connectar-se."
+
+#: selectlist.php:193 templates/manager/manager.html:128
+msgid "There are no files in this folder."
+msgstr "No hi ha arxius en aquesta carpeta."
+
+#: templates/clipboard/clipboard.html:15
+msgid ""
+"To clear items from the clipboard, check the box next to the filename and "
+"click on &quot;Clear&quot;."
+msgstr ""
+"Per a eliminar elements del portapapers, seleccioni la casella al costat del "
+"nom de l'arxiu i premi &quot;Netejar&quot;."
+
+#: templates/clipboard/clipboard.html:13
+msgid ""
+"To paste items from the clipboard to the current directory, check the box "
+"next to the filename and click on &quot;Paste&quot;."
+msgstr ""
+"Per a enganxar elements del portapapers a la carpeta actual, seleccioni la "
+"casella al costat del nom de l'arxiu i premi &quot;Enganxar&quot;."
+
+#: manager.php:425
+msgid "Type"
+msgstr "Tipus"
+
+#: permissions.php:42
+#, php-format
+msgid "Unable to create backend permission: %s"
+msgstr "No pot crear permisos anteriors: %s"
+
+#: lib/Gollem.php:739 lib/Gollem.php:749
+#, php-format
+msgid "Up to %s"
+msgstr "Pujar a %s"
+
+#: manager.php:274
+msgid "Upload File(s)"
+msgstr "Carregar arxiu(s)"
+
+#: config/prefs.php.dist:12 config/prefs.php.dist:19
+msgid "User Interface"
+msgstr "Interfície d'usuari "
+
+#: config/credentials.php.dist:18
+msgid "Username"
+msgstr "Usuari"
+
+#: manager.php:269
+msgid "View Clipboard"
+msgstr "Veure Portapapers"
+
+#: login.php:195
+#, php-format
+msgid "Welcome to %s"
+msgstr "Bevingut a %s"
+
+#: templates/manager/manager.html:18
+msgid "Write"
+msgstr "Escriptura"
+
+#: config/prefs.php.dist:92
+msgid "Yes"
+msgstr "Si"
+
+#: permissions.php:25
+msgid "You need at least one backend defined to set permissions."
+msgstr "Per a definir privilegis necessita almenys definir un motor. "
+
+#: lib/MIME/Viewer/images.php:35
+msgid "Your browser does not support inline display of this image type"
+msgstr ""
+"El seu navegador no admet la visualització en línia d'aquest tipus d'imatge. "
+
+#: lib/Gollem.php:817 lib/Gollem.php:820
+msgid "_Change Server"
+msgstr "_Canviar servidor"
+
+#: manager.php:215 selectlist.php:74
+msgid "folder"
+msgstr "carpeta"
+
+#: manager.php:216 selectlist.php:75
+msgid "symlink"
+msgstr "vincle simbòlic "

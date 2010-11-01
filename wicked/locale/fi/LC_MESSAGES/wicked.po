@@ -1,0 +1,733 @@
+# Finnish translation for Wicked.
+# Copyright
+# Leena Heino <liinu@uta.fi>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Wicked 0.1-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2005-03-14 11:02+0200\n"
+"PO-Revision-Date: 2004-12-10 12:59+0200\n"
+"Last-Translator: Leena Heino <liinu@uta.fi>\n"
+"Language-Team: Finnish <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+#: templates/edit/create.inc:13
+#, php-format
+msgid "%s does not exist. Create it?"
+msgstr "%s ei ole olemassa. Luodaanko se?"
+
+#: scripts/wicked.php:163
+msgid ""
+"-d, --debug                  Run in debug mode (displays extra information)"
+msgstr ""
+"-d, --debug                  Aja debug-tilassa (Tulostaa enemmän lisätietoja)"
+
+#: scripts/wicked.php:165
+msgid ""
+"-g, --get[=pagetitle]        Return all pages (unless pagetitle specified)"
+msgstr ""
+"-g, --get[=sivunotsikko]        Palauttaa kaikki sivut (ellei sivun otsikko "
+"ole määritelty)"
+
+#: scripts/wicked.php:162
+msgid "-h, --help                   Show this help"
+msgstr "-h, --help                   Näytä tämä ohje"
+
+#: scripts/wicked.php:164
+msgid "-l, --list-pages             List pages"
+msgstr "-l, --list-pages             Listaa sivut"
+
+#: scripts/wicked.php:166
+msgid "-o, --out[=type]             Output type for results (default:xml)"
+msgstr "-o, --out[=type]             Tulostetyyppi tuloksille (oletus:xml)"
+
+#: scripts/wicked.php:168
+msgid "-p, --password[=password]    Horde login password"
+msgstr "-p, --password[=salasana]    Horden salasana"
+
+#: scripts/wicked.php:167
+msgid "-u, --username[=username]    Horde login username"
+msgstr "-u, --username[=username]    Horden tunnus"
+
+#: templates/display/MergeOrRename.html:31
+msgid "Add the text from this page"
+msgstr "Lisää tekstiä tälle sivulle"
+
+#: lib/Page/AddPage.php:54
+#, php-format
+msgid "AddPage: %s"
+msgstr "Lisää sivu: %s"
+
+#: lib/Page/AllPages.php:75
+msgid "AllPages"
+msgstr "Kaikki sivut"
+
+#: templates/display/standard.inc:46
+msgid "Are you sure you want to delete this page? All versions will be lost."
+msgstr ""
+"Oletko aivan varma että haluat poistaa tämän sivun? Kaikki versiot "
+"poistetaan."
+
+#: templates/history/summary.inc:7 templates/display/standard.inc:48
+#, php-format
+msgid "Are you sure you want to delete version %s of this page?"
+msgstr "Oletko varma että haluat poistaa version %s tästä sivusta?"
+
+#: templates/history/summary.inc:29
+#, php-format
+msgid "Are you sure you want to restore version %s of this page?"
+msgstr "Oletko varma että haluat palauttaa version %s tästä sivusta?"
+
+#: templates/display/AttachedFiles.html:80
+msgid "Attach File"
+msgstr "Liitä tiedosto"
+
+#: templates/display/AttachedFiles.html:49
+msgid "Attach a New File"
+msgstr "Liitä uusi tiedosto"
+
+#: templates/display/standard.inc:82 templates/display/standard.inc:83
+msgid "AttachedFiles"
+msgstr "Liitetyt tiedostot"
+
+#: lib/Page/AttachedFiles.php:137
+#, php-format
+msgid "AttachedFiles: %s"
+msgstr "Liitetyt tiedostot: %s"
+
+#: templates/display/AttachedFiles.html:13
+msgid "Attachment Name"
+msgstr "Liitteen nimi"
+
+#: templates/pagelist/header.inc:7 templates/pagelist/pagesearch.inc:23
+#: templates/pagelist/titlesearch.inc:21 templates/history/header.inc:29
+#: templates/display/AttachedFiles.html:15
+msgid "Author"
+msgstr "Tekijä"
+
+#: templates/display/standard.inc:123
+msgid "Back to"
+msgstr "Palaa"
+
+#: templates/display/standard.inc:70 lib/Page/BackLinks.php:67
+msgid "BackLinks"
+msgstr "Paluulinkit"
+
+#: lib/Page/AttachedFiles.php:170
+msgid "Can't read uploaded file."
+msgstr "Ei voi lukea ladattua tiedostoa."
+
+#: lib/Page/AttachedFiles.php:178
+#, php-format
+msgid "Can't retrieve \"%s\": %s"
+msgstr "Hakeminen epäonnistui: \"%s\": %s"
+
+#: lib/Page/AttachedFiles.php:204
+#, php-format
+msgid "Can't update \"%s\": no such attachment."
+msgstr "Ei voi päivittää \"%s\": ei sellaista liitettä."
+
+#: templates/edit/create.inc:31 templates/edit/standard.inc:37
+#: templates/display/MergeOrRename.html:59
+msgid "Cancel"
+msgstr "Peru"
+
+#: lib/Page/AttachedFiles.php:217
+#, php-format
+msgid "Cannot find \"%s\": %s."
+msgstr "Ei löydy \"%s\": %s."
+
+#: templates/history/header.inc:35 templates/display/AttachedFiles.html:17
+msgid "Change Log"
+msgstr "Muutosloki"
+
+#: templates/edit/standard.inc:38
+msgid "Change log"
+msgstr "Muutosloki"
+
+#: templates/display/AttachedFiles.html:72
+#: templates/display/AttachedFiles.html:141
+msgid "Change log entry"
+msgstr "Muuta lokimerkintää"
+
+#: config/prefs.php.dist:13
+msgid "Change menu preferences."
+msgstr "Muuta valikon asetuksia."
+
+#: templates/display/MergeOrRename.html:39
+msgid "Change references to this page from:"
+msgstr "Muuta viitteitä tälle sivulle lähteestä:"
+
+#: lib/Page/MergeOrRename.php:236
+#, php-format
+msgid "Changed references from %s to %s"
+msgstr "Muuta viitteet %s:stä %s:ään"
+
+#: scripts/wicked.php:44
+msgid "Couldn't read command-line options."
+msgstr "Komentoriviparametreja ei voitu lukea."
+
+#: templates/pagelist/pagesearch.inc:14 templates/pagelist/titlesearch.inc:12
+#: templates/edit/create.inc:30
+msgid "Create"
+msgstr "Luo"
+
+#: templates/history/header.inc:30
+msgid "Created"
+msgstr "Luotu"
+
+#: lib/Driver.php:76
+#, php-format
+msgid "Created \"%s\". Edit this page to set up initial content."
+msgstr "Luotiin \"%s\". Muokkaa tätä sivua alustaaksesi sivun sisällön."
+
+#: templates/pagelist/header.inc:8 templates/pagelist/pagesearch.inc:25
+#: templates/pagelist/titlesearch.inc:23
+msgid "Creation Date"
+msgstr "Luontipäivämäärä"
+
+#: templates/display/AttachedFiles.html:16
+msgid "Date"
+msgstr "Päiväys"
+
+#: templates/display/standard.inc:103
+msgid "Debug"
+msgstr "Debug"
+
+#: templates/display/standard.inc:102
+#, php-format
+msgid "Debug %s"
+msgstr "Debug %s"
+
+#: templates/display/standard.inc:56
+msgid "Delete"
+msgstr "Poista"
+
+#: templates/display/standard.inc:53
+#, php-format
+msgid "Delete %s"
+msgstr "Poista %s"
+
+#: templates/history/header.inc:22
+msgid "Delete Version"
+msgstr "Poista versio"
+
+#: templates/history/summary.inc:6
+#, php-format
+msgid "Delete Version %s"
+msgstr "Poista versio %s"
+
+#: lib/Driver.php:376
+#, php-format
+msgid "Deleted \"%s\"."
+msgstr "Poistettiin \"%s\"."
+
+#: templates/history/header.inc:32
+msgid "Diff From"
+msgstr "Eroavaisuudet lähteeseen"
+
+#: templates/history/header.inc:33
+msgid "Diff To"
+msgstr "Erovaisuudet kohteeseen"
+
+#: diff.php:56 templates/diff/diff.inc:4
+#, php-format
+msgid "Diff for %s between %s and %s"
+msgstr "Eroavaisuudet %s välillä %s ja %s"
+
+#: templates/pagelist/summary.inc:3
+#, php-format
+msgid "Display %s"
+msgstr "Näytä %s"
+
+#: config/prefs.php.dist:11
+msgid "Display Options"
+msgstr "Näkymän asetukset"
+
+#: templates/pagelist/summary.inc:6 templates/history/summary.inc:2
+#, php-format
+msgid "Display Version %s"
+msgstr "Näytä versio %s"
+
+#: templates/display/AttachedFiles.html:18
+msgid "Downloads"
+msgstr "Tallennukset"
+
+#: preview.php:18 templates/display/standard.inc:25
+#, php-format
+msgid "Edit %s"
+msgstr "Muokkaa %s"
+
+#: templates/history/header.inc:24
+msgid "Edit Version"
+msgstr "Muokkaa versiota"
+
+#: templates/history/summary.inc:19
+#, php-format
+msgid "Edit Version %s"
+msgstr "Muokkaa versiota %s"
+
+#: templates/display/standard.inc:26 lib/Page/EditPage.php:75
+msgid "EditPage"
+msgstr "Muokkaa sivua"
+
+#: templates/display/AttachedFiles.html:63
+msgid "Enter a name for this file (if blank, will use the file's current name)"
+msgstr ""
+"Anna nimi tälle tiedostolle (Jos tyhjä, niin käytetään tiedoston nykyistä "
+"nimeä)"
+
+#: lib/Driver.php:72
+#, php-format
+msgid "Error creating \"%s\": %s."
+msgstr "Virhe luotaessa \"%s\": %s."
+
+#: scripts/mail-filter.php:127
+#, php-format
+msgid "Error creating new page: %s"
+msgstr "Virhe luotaessa sivua: %s"
+
+#: lib/Page/MergeOrRename.php:199
+#, php-format
+msgid "Error deleting %s: %s"
+msgstr "Virhe poistettaessa %s: %s"
+
+#: lib/Driver.php:55
+#, php-format
+msgid "Error loading page template: %s"
+msgstr "Virhe ladattaessa sivumallia: %s"
+
+#: scripts/mail-filter.php:42
+#, php-format
+msgid "Error parsing MIME message: %s\n"
+msgstr "Virhe tulkittaessa MIME-viestiä: %s\n"
+
+#: lib/Page/MergeOrRename.php:206
+#, php-format
+msgid "Error renaming %s: %s"
+msgstr "Virhe nimettäessä uudelleen %s: %s"
+
+#: lib/Page/MergeOrRename.php:230
+#, php-format
+msgid "Error retrieving %s: %s"
+msgstr "Virhe haettaessa %s: %s"
+
+#: lib/Page/AttachedFiles.php:96 lib/Page/AttachedFiles.php:187
+#, php-format
+msgid "Error retrieving attachments: %s"
+msgstr "Virhe haettaessa liitteitä: %s"
+
+#: lib/Page/AddPage.php:44
+#, php-format
+msgid "Error retrieving like pages: %s"
+msgstr "Virhe haettaessa samankaltaisia sivuja: %s"
+
+#: lib/Page/MergeOrRename.php:191 lib/Page/MergeOrRename.php:257
+#, php-format
+msgid "Error updating %s: %s"
+msgstr "Virhe päivittäessä %s: %s"
+
+#: lib/Page/MergeOrRename.php:171
+#, php-format
+msgid "Failed to retrieve '%s': %s"
+msgstr "Hakeminen epäonnistui: '%s': %s"
+
+#: templates/menu.inc:31 templates/pagelist/pagesearch.inc:13
+#: templates/pagelist/titlesearch.inc:11 lib/Block/TitleSearch.php:26
+msgid "Go"
+msgstr "Mene"
+
+#: lib/Page/StandardPage.php:219
+msgid "Guest"
+msgstr "Vieras"
+
+#: templates/display/standard.inc:89
+msgid "History"
+msgstr "Historia"
+
+#: history.php:48 templates/history/header.inc:10
+#: templates/display/standard.inc:88
+#, php-format
+msgid "History of %s"
+msgstr "%s:n Historia"
+
+#: templates/display/MergeOrRename.html:26
+msgid "If a page with the new name already exists, then"
+msgstr "Jos sivu uudella nimellä on jo olemassa, niin"
+
+#: templates/display/standard.inc:96
+msgid "Info"
+msgstr "Info"
+
+#: templates/display/standard.inc:95
+#, php-format
+msgid "Info about %s"
+msgstr "Infoa %s:stä"
+
+#: display.php:16 history.php:16
+msgid "Internal error viewing requested page"
+msgstr "Sisäinen virhe näytettäessä pyydettyä sivua"
+
+#: diff.php:37
+#, php-format
+msgid "Internal error viewing requested page: %s"
+msgstr "Sisäinen virhe näytettäessä pyydettyä sivua: %s"
+
+#: templates/display/AttachedFiles.html:132
+msgid "Is this a minor update?"
+msgstr "Onko tämä pieni päivitys?"
+
+#: templates/edit/standard.inc:29 templates/display/title.inc:16
+#, php-format
+msgid "Last Modified %s by %s"
+msgstr "Viimeksi muokannut %s, %s"
+
+#: lib/Page/LeastPopular.php:80
+msgid "LeastPopular"
+msgstr "Vähiten suosittu"
+
+#: templates/display/standard.inc:76
+msgid "LikePages"
+msgstr "Samankaltaisia sivuja"
+
+#: lib/Page/LikePages.php:69
+#, php-format
+msgid "LikePages: %s"
+msgstr "Samankaltaisia sivuja: %s"
+
+#: templates/display/standard.inc:38
+msgid "Lock"
+msgstr "Lukitse"
+
+#: templates/display/standard.inc:37
+#, php-format
+msgid "Lock %s"
+msgstr "Lukitse %s"
+
+#: templates/edit/standard.inc:26 templates/display/title.inc:10
+msgid "Locked"
+msgstr "Lukittu"
+
+#: scripts/wicked.php:106
+#, php-format
+msgid "Logged in successfully as '%s'."
+msgstr "Kirjauduttiin sisään käyttäjänä '%s'."
+
+#: scripts/wicked.php:102
+msgid "Login is incorrect."
+msgstr "Sisäänkirjautuminen epäonnistui."
+
+#: scripts/wicked.php:160
+msgid ""
+"Mandatory arguments to long options are mandatory for short options too."
+msgstr ""
+"Pakolliset optiot pitkille parametreille ovat pakollisia myös lyhyille "
+"parametreille."
+
+#: config/prefs.php.dist:12
+msgid "Menu Preferences"
+msgstr "Valikon asetukset"
+
+#: templates/display/standard.inc:63 templates/display/standard.inc:64
+msgid "MergeOrRename"
+msgstr "Yhdistä tai nimea uudelleen"
+
+#: lib/Page/MergeOrRename.php:130
+#, php-format
+msgid "MergeOrRename: %s"
+msgstr "Yhdistä tai nimea uudelleen: %s"
+
+#: lib/Page/MergeOrRename.php:188
+#, php-format
+msgid "Merged from %s"
+msgstr "Yhdistetty %s:stä"
+
+#: templates/edit/standard.inc:39
+msgid "Minor Change"
+msgstr "Pieni muutos"
+
+#: lib/Page/MostPopular.php:82
+msgid "MostPopular"
+msgstr "Suosituin"
+
+#: lib/Block/page.php:42
+msgid "Name of wiki page to display"
+msgstr "Näytettävän wiki-sivun nimi"
+
+#: lib/Page.php:258
+msgid "Never"
+msgstr "Ei koskaan"
+
+#: templates/display/MergeOrRename.html:16
+msgid "New name"
+msgstr "Uusi nimi"
+
+#: lib/Page/MergeOrRename.php:157
+msgid "New name is the same as old name."
+msgstr "Uusi nimi on sama kuin vanha nimi"
+
+#: lib/Page/EditPage.php:108
+msgid "No changes made"
+msgstr "Ei tehty muutoksia"
+
+#: attachment.php:43
+#, php-format
+msgid "No such attachment '%s'."
+msgstr "Ei sellaista liitettä kuin '%s'."
+
+#: lib/Driver.php:165
+msgid "Not implemented."
+msgstr "Ei ole toteutettu."
+
+#: templates/menu.inc:11 templates/pagelist/header.inc:5
+#: templates/pagelist/pagesearch.inc:22 templates/pagelist/titlesearch.inc:20
+#: config/prefs.php.dist:22
+msgid "Page"
+msgstr "Sivu"
+
+#: lib/Page/MergeOrRename.php:181
+#, php-format
+msgid "Page '%s' already exists."
+msgstr "Sivu '%s' on jo olemassa."
+
+#: lib/Page/EditPage.php:116
+msgid "Page Saved"
+msgstr "Sivu talletettu"
+
+#: templates/pagelist/header.inc:10
+msgid "Page Views"
+msgstr "Sivun katsomiskertoja"
+
+#: display.php:30
+#, php-format
+msgid "Page failed to lock: %s"
+msgstr "Sivua ei voitu lukita: %s"
+
+#: display.php:45
+#, php-format
+msgid "Page failed to unlock: %s"
+msgstr "Sivun lukitusta ei voitu poistaa: %s"
+
+#: display.php:33
+msgid "Page locked"
+msgstr "Sivu lukittu"
+
+#: display.php:48
+msgid "Page unlocked"
+msgstr "Sivu lukitus poistettu"
+
+#: templates/menu.inc:19 lib/Page/PageSearch.php:85 config/prefs.php.dist:24
+msgid "PageSearch"
+msgstr "Haku sivuista"
+
+#: lib/api.php:30
+msgid "Pages"
+msgstr "Sivut"
+
+#: templates/display/standard.inc:116
+msgid "Permissions"
+msgstr "Oikeudet"
+
+#: templates/edit/standard.inc:36
+msgid "Preview"
+msgstr "Esikatselu"
+
+#: lib/Page/RecentChanges.php:102
+msgid "RecentChanges"
+msgstr "Viimeisimmät muutokset"
+
+#: lib/Page/AttachedFiles.php:110 lib/Page/MergeOrRename.php:75
+#, php-format
+msgid "Reload %s"
+msgstr "Lataa uudestaan %s"
+
+#: templates/history/header.inc:11
+msgid "Reload History"
+msgstr "Lataa historia uudestaan"
+
+#: templates/display/title.inc:7 templates/display/title.inc:8
+msgid "Reload Page"
+msgstr "Lataa sivu uudestaan"
+
+#: lib/Driver/sql.php:479
+#, php-format
+msgid "Renamed page from %s"
+msgstr "Nimettiin sivu %s uudestaan"
+
+#: templates/history/header.inc:26
+msgid "Restore Version"
+msgstr "Palauta versio"
+
+#: templates/history/summary.inc:28
+#, php-format
+msgid "Restore Version %s"
+msgstr "Palauta versio %s"
+
+#: lib/Driver.php:46
+msgid "Robots are not allowed to create pages."
+msgstr "Robotit eivät voi luoda sivuja."
+
+#: templates/edit/standard.inc:35
+msgid "Save"
+msgstr "Talleta"
+
+#: lib/Page/EditPage.php:112
+#, php-format
+msgid "Save Failed: %s"
+msgstr "Tallennus epäonnistui: %s"
+
+#: templates/menu.inc:31
+msgid "Search"
+msgstr "Haku"
+
+#: templates/display/AttachedFiles.html:54
+#: templates/display/AttachedFiles.html:109
+msgid "Select file to attach:"
+msgstr "Valitse liitettävä tiedosto:"
+
+#: templates/display/AttachedFiles.html:118
+msgid "Select the file to update"
+msgstr "Valitse tiedosto päivitettäväksi"
+
+#: templates/display/standard.inc:115
+#, php-format
+msgid "Set permissions for %s"
+msgstr "Aseta oikeudet %s:lle"
+
+#: templates/display/title.inc:27 lib/Page/RecentChanges.php:51
+#, php-format
+msgid "Show changes for %s"
+msgstr "Talleta muutokset %s:lle"
+
+#: lib/Page/RecentChanges.php:58
+#, php-format
+msgid "Show version %s"
+msgstr "Näytä versio %s"
+
+#: templates/display/MergeOrRename.html:33
+msgid "Stop and don't do anything"
+msgstr "Stop ja älä tee mitään"
+
+#: templates/display/MergeOrRename.html:58
+msgid "Submit"
+msgstr "Lähetä"
+
+#: lib/Page/AttachedFiles.php:210
+#, php-format
+msgid "There is already an attachment named \"%s\"."
+msgstr "On jo olemassa liite nimeltään \"%s\"."
+
+#: lib/Page/MergeOrRename.php:155 lib/Page/MergeOrRename.php:161
+msgid "This is a required field."
+msgstr "Tämä on pakollinen kenttä"
+
+#: display.php:100
+msgid "This page cannot be deleted"
+msgstr "Tätä sivua ei voi poistaa"
+
+#: display.php:73
+msgid "This page does not have a history"
+msgstr "Tällä sivulla ei ole historiaa"
+
+#: lib/Page/MergeOrRename.php:111
+#, php-format
+msgid "This page is referenced from %d other page(s)."
+msgstr "Tälle sivulle on viittauksia %d sivulta."
+
+#: templates/menu.inc:15 lib/Page/TitleSearch.php:85
+#: lib/Block/TitleSearch.php:3 lib/Block/TitleSearch.php:26
+#: config/prefs.php.dist:23
+msgid "TitleSearch"
+msgstr "Hae otsikoista"
+
+#: config/prefs.php.dist:25
+msgid "Type of search for the quick search box:"
+msgstr "Haun tyyppi pikahakuun:"
+
+#: templates/display/standard.inc:34
+msgid "Unlock"
+msgstr "Poista lukitus"
+
+#: templates/display/standard.inc:33
+#, php-format
+msgid "Unlock %s"
+msgstr "Poista lukitus %s"
+
+#: lib/Page.php:250 lib/Page.php:266 lib/Page.php:271 lib/Page.php:276
+#: lib/Page.php:361 lib/Page.php:371 lib/Page.php:381 lib/Page.php:391
+#: lib/Page.php:401 lib/Page.php:412 lib/Page.php:520 lib/Page.php:531
+#: lib/Page.php:536 lib/Page.php:541 lib/Page.php:546 lib/Page.php:570
+#: lib/Page.php:575 lib/Page.php:580 lib/Driver.php:122 lib/Driver.php:135
+#: lib/Driver.php:147 lib/Driver.php:152 lib/Driver.php:170 lib/Driver.php:175
+#: lib/Driver.php:200 lib/Driver.php:205 lib/Driver.php:210 lib/Driver.php:223
+#: lib/Driver.php:236 lib/Driver.php:248 lib/Driver.php:253 lib/Driver.php:258
+#: lib/Driver.php:276 lib/Driver.php:339 lib/Driver.php:371 lib/Driver.php:401
+msgid "Unsupported"
+msgstr "Ei tuettu"
+
+#: templates/display/AttachedFiles.html:149
+msgid "Update File"
+msgstr "Päivitä tiedosto"
+
+#: templates/display/AttachedFiles.html:104
+msgid "Update an Attachment"
+msgstr "Päivitä liite"
+
+#: scripts/wicked.php:158
+#, php-format
+msgid "Usage: %s [OPTIONS]..."
+msgstr "Käyttö: %s [PARAMETRIT]..."
+
+#: templates/edit/create.inc:17
+msgid ""
+"Use this template (templates are pages which begin or end with \"Template\"):"
+msgstr ""
+"Käytä tätä mallia (mallit ovat sivuja, jotka loppuvat tai alkavat sanalla "
+"\"Template\"):"
+
+#: templates/pagelist/header.inc:6 templates/pagelist/pagesearch.inc:26
+#: templates/pagelist/titlesearch.inc:24 templates/history/header.inc:19
+#: templates/display/AttachedFiles.html:14
+msgid "Version"
+msgstr "Versio"
+
+#: lib/Block/page.php:3
+msgid "Wiki page"
+msgstr "Wiki-sivu"
+
+#: display.php:61 display.php:80
+msgid "You are not allowed to edit this page"
+msgstr "Sinulla ei ole oikeuksia muokata tätä sivua"
+
+#: display.php:24
+msgid "You are not allowed to lock this page"
+msgstr "Sinulla ei ole oikeuksia lukita tätä sivua"
+
+#: display.php:39
+msgid "You are not allowed to unlock this page"
+msgstr "Sinulla ei ole oikeuksia poista lukitusta tältä sivulta"
+
+#: lib/Page/EditPage.php:57 lib/Page/EditPage.php:98
+#, php-format
+msgid "You don't have permission to edit '%s'."
+msgstr "Sinulla ei ole oikeuksia muokata '%s'."
+
+#: display.php:112
+msgid "You don't have permission to view this page."
+msgstr "Sinulla ei ole oikeuksia nähdä tätä sivua."
+
+#: lib/Page/EditPage.php:103
+msgid "You must enter a change description to save the page."
+msgstr "Sinun pitää muuttaa kuvausta tallettaaksesi sivun."
+
+#: templates/display/MergeOrRename.html:9
+msgid "for"
+msgstr " "
+
+#: scripts/wicked.php:125
+#, php-format
+msgid "page '%s' doesn't exist."
+msgstr "sivua '%s' ei ole olemassa."

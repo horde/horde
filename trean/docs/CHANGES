@@ -1,0 +1,81 @@
+----
+v0.1
+----
+
+[jan] Enable output compression (horde@albasoft.com, Bug #8649).
+[cjh] Check folder name as well as id for the pre-selected folder
+      (Duck <duck@obala.net>, Bug #7627).
+[jan] Add Turkish translation (METU <horde-tr@metu.edu.tr>).
+[cjh] Add Latvian translation (Janis <je@ktf.rtu.lv>).
+[cjh] Support for Firefox plugin that shows Trean bookmarks in the browser
+      (joey@joeyhewitt.com, Request #2565).
+[jan] Add Polish translation (Piotr Adamcio <adamcios@o2.pl>).
+[cjh] Use YUI Grids CSS to lay out the browse grid, which wrangles IE into
+      honoring our layout even when the screen is narrow (Bug #5385).
+[cjh] Force folder deletion to be a POST request, and add a confirmation
+      dialog.
+[cjh] Fix adding bookmarks to a new folder (panni@fragstore.net,
+      Bug #5068).
+[cjh] Add RSS feed (Duck <duck@obala.net>, Request #1927).
+[cjh] Bookmark ratings can now be changed via a dynamic, CSS-based
+      star rater that saves new ratings but degrades to a real link
+      without JavaScript.
+[cjh] Add blocks for highest-rated and most-clicked bookmarks.
+[cjh] Add a preference for how to sort bookmarks (Request #2510).
+[cjh] Move bookmarks from DataTree storage to a SQL table.
+[cjh] Give Trean its own Share implementation for now as hierarchical
+      shares are being removed from the main Horde_Share class.
+[cjh] Implement iframe-based bookmarklet for bookmarking the current page
+      without a popup window.
+[jan] Add Slovenian translation (Duck <duck@obala.net>).
+[ben] Rename "categories" to "folders" to avoid confusion with Horde Categories.
+[ben] Add a selection box to jump to a categories (simular to IMP's
+      folder selection).
+[ben] New UI, moved away from the category tree.
+[jan] Add Dutch translation (Han Spruyt <han.spruyt@ijsselgroep.nl>).
+[ben] Allow creating a new category when adding/editing a bookmark.
+[jan] Add permissions to restrict number of categories and bookmarks.
+[ben] Extend Block to show most popular links in a share.
+[ben] Allow bookmark ranking.
+[ben] Use the standard search results interface for the reports drill-down
+      screens.
+[ben] Include standard editing controls in the search results screen.
+[ben] Show bookmark's parent category in the search results screen.
+[ben] cron script to check for broken links and retrieve favicons.
+[ben] Add Horde_Share support.
+[cjh] Fix links to click-tracking script when user has cookies disabled
+      (Bug #1675).
+[cjh] Fix bookmark export (Bug #1672).
+[jan] Add Norwegian Bokmaal translation (Odd Marthon Lende
+      <dreden@dreden.com>).
+[ben] Use datatree parent/child relationships.
+[cjh] Add a preference for how much of the category tree to expand
+      on initial view (Bug #566).
+[cjh] Use DataTree attributes (Ben Chavet <ben@chavet.net>).
+[jan] Add Spanish translation (Manuel Perez Ayala <mperaya@alcazaba.unex.es>).
+[cjh] Add a Horde_Block for showing bookmark categories
+      (Joel Vandal <joel@scopserv.com>).
+[jan] Add Finnish translation (Leena Heino <Leena.Heino@uta.fi>).
+[jan] Add French translation (Raphaël Jeudy <raphael.jeudy@fastorama.com>).
+[jan] Add German translation.
+[cjh] Bookmarks in search results are now editable/deletable.
+[cjh] Add deletion of bookmark categories
+      (Arne Gellhaus <arne@gellhaus.de>).
+[cjh] Don't show Add Bookmark links when there are no categories to add to
+      (Michal <michal@michal.no-ip.com>).
+[cjh] Add a preference for opening links in a new window
+      (Hubert Yeh <cwyeh@pest.yichi.org>).
+[cjh] Searching works again after new categories code.
+[cjh] Fully implement editing.
+[mac] Don't show My Bookmark category on the add screen (Chris Albertson
+      <alb@chrisalbertson.com>).
+[mac] Cleanup the note at the bottom of the add screen (Chris Albertson
+      <alb@chrisalbertson.com>).
+[mac] Don't show the New Bookmark link for the root category (Chris Albertson
+      <alb@chrisalbertson.com>).
+[jan] Add Traditional Chinese translation (Chih-Wei Yeh
+      <cwyeh@ccca.nctu.edu.tw>).
+[mac] Update for new categories code (Chris Albertson <alb@chrisalbertson.com>).
+[mac] Add Edit and Delete options.
+[jan] Add Swedish translation (Andreas Dahlén <andreas@dahlen.ws>).
+[mac] Initial Trean Version.

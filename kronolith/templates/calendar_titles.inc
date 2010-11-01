@@ -1,7 +1,7 @@
 <?php
 $calendar_names = array();
 foreach ($GLOBALS['display_calendars'] as $calendarId) {
-    $calendar_names[] = htmlspecialchars($GLOBALS['all_calendars'][$calendarId]->get('name'));
+    $calendar_names[] = htmlspecialchars($GLOBALS['all_calendars'][$calendarId]->name());
 }
 if (!empty($GLOBALS['display_resource_calendars'])) {
     $driver = Kronolith::getDriver('Resource');

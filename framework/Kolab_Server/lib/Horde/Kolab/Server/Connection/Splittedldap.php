@@ -31,26 +31,26 @@ implements Horde_Kolab_Server_Connection_Interface
     /**
      * LDAP read connection handle.
      *
-     * @var Net_LDAP2
+     * @var Horde_Ldap
      */
     private $_ldap_read;
 
     /**
      * LDAP write connection handle.
      *
-     * @var Net_LDAP2
+     * @var Horde_Ldap
      */
     private $_ldap_write;
 
     /**
      * Constructor
      *
-     * @param Net_LDAP2 $ldap_read  The ldap_read connection.
-     * @param Net_LDAP2 $ldap_write The ldap_write connection.
+     * @param Horde_Ldap $ldap_read  The ldap_read connection.
+     * @param Horde_Ldap $ldap_write The ldap_write connection.
      */
     public function __construct(
-        Net_LDAP2 $ldap_read,
-        Net_LDAP2 $ldap_write
+        Horde_Ldap $ldap_read,
+        Horde_Ldap $ldap_write
     ) {
         $this->_ldap_read = $ldap_read;
         $this->_ldap_write = $ldap_write;

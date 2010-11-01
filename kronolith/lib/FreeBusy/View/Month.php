@@ -17,8 +17,6 @@ class Kronolith_FreeBusy_View_Month extends Kronolith_FreeBusy_View {
 
     function _title()
     {
-        global $registry, $prefs;
-
         $end = new Horde_Date($this->_start);
         $end->mday += $this->_days - 1;
         $prev = new Horde_Date($this->_start);
@@ -26,11 +24,11 @@ class Kronolith_FreeBusy_View_Month extends Kronolith_FreeBusy_View {
         $next = new Horde_Date($this->_start);
         $next->month++;
         return Horde::url('#')->link(array('title' => _("Previous Month"), 'onclick' => 'return switchDate(' . $prev->dateString() . ');'))
-            . Horde::img('nav/left.png', '<', null, $registry->getImageDir('horde'))
+            . Horde::img('nav/left.png', '<')
             . '</a>'
             . $this->_start->strftime('%B %Y')
             . Horde::url('#')->link(array('title' => _("Next Month"), 'onclick' => 'return switchDate(' . $next->dateString() . ');'))
-            . Horde::img('nav/right.png', '>', null, $registry->getImageDir('horde'))
+            . Horde::img('nav/right.png', '>')
             . '</a>';
     }
 

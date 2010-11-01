@@ -78,6 +78,7 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
      *
      *
      * @return boolean
+     * @throws Kronolith_Exception
      */
     public function isFree($event)
     {
@@ -97,9 +98,6 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
             $conflict = false;
             $resource = $this->_driver->getResource($resource_id);
             $busy = Kronolith::listEvents($start, $end, array($resource->get('calendar')));
-            if ($busy instanceof PEAR_Error) {
-                throw new Horde_Exception($busy->getMessage());
-            }
 
             /* No events at all during time period for requested event */
             if (!count($busy)) {

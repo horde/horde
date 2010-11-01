@@ -1,7 +1,7 @@
 <script type="text/javascript">
 function doSearch(tagName)
 {
-    ajaxurl = '<?php echo Horde::applicationUrl('services/portal/cloud_search.php', true)?>';
+    ajaxurl = '<?php echo Horde::url('services/portal/cloud_search.php', true)?>';
     params = 'tag=' + tagName;
 
     $('cloudloadingimg').show();

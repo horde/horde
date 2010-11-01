@@ -9,16 +9,13 @@
  *
  * @author Duck <duck@obala.net>
  */
-require_once dirname(__FILE__) . '/../../lib/base.php';
 
-/* Face search is allowd only to  */
-if (!Horde_Auth::isauthenticated()) {
-    exit;
-}
+require_once dirname(__FILE__) . '/../../lib/Application.php';
+Horde_Registry::appInit('ansel');
 
 $thumb = Horde_Util::getGet('thumb');
 $tmp = Horde::getTempDir();
-$path = $tmp . '/search_face_' . ($thumb ? 'thumb_' : '') .  Horde_Auth::getAuth() . Ansel_Faces::getExtension();
+$path = $tmp . '/search_face_' . ($thumb ? 'thumb_' : '') .  $registry->getAuth() . Ansel_Faces::getExtension();
 
 header('Content-type: image/' . $conf['image']['type']);
 readfile($path);

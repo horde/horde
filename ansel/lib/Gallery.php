@@ -11,12 +11,12 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
+class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
 {
     /**
      * The gallery mode helper
      *
-     * @var Ansel_Gallery_Mode object
+     * @var Ansel_GalleryMode_* object
      */
     protected $_modeHelper;
 
@@ -28,35 +28,51 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
     public function __construct($attributes = array())
     {
         /* Pass on up the chain */
-        parent::Horde_Share_Object_sql_hierarchical($attributes);
-        $this->setShareOb($GLOBALS['ansel_storage']->shares);
+        parent::__construct($attributes);
+        $this->setShareOb($GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->shares);
         $mode = isset($attributes['attribute_view_mode']) ? $attributes['attribute_view_mode'] : 'Normal';
         $this->_setModeHelper($mode);
     }
 
+    /**
+     * Helper for accessing the gallery id
+     *
+     * @param string $property
+     *
+     * @return mixed
+     */
     public function __get($property)
     {
         switch ($property) {
         case 'id':
-            return $this->_getId();
+            return $this->getId();
         default:
             return null;
         }
     }
 
+    public function get($property)
+    {
+        $value = parent::get($property);
+        if ($property == 'style') {
+            $value = unserialize($value);
+        }
+
+        return $value;
+    }
+
     /**
      * Check for special capabilities of this gallery.
      *
+     * @return boolean
      */
     public function hasFeature($feature)
     {
-
         // First check for purely Ansel_Gallery features
         // Currently we have none of these.
 
         // Delegate to the modeHelper
         return $this->_modeHelper->hasFeature($feature);
-
     }
 
     /**
@@ -71,7 +87,6 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
         $type = basename($type);
         $class = 'Ansel_GalleryMode_' . $type;
         $this->_modeHelper = new $class($this);
-        $this->_modeHelper->init();
     }
 
     /**
@@ -81,9 +96,9 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
      */
     public function canDownload()
     {
-        if (Horde_Auth::getAuth() &&
-            (Horde_Auth::getAuth() == $this->data['share_owner'] ||
-             Horde_Auth::isAdmin('ansel:admin'))) {
+        if ($GLOBALS['registry']->getAuth() &&
+            ($GLOBALS['registry']->getAuth() == $this->data['share_owner'] ||
+             $GLOBALS['registry']->isAdmin(array('permission' => 'ansel:admin')))) {
             return true;
         }
 
@@ -92,10 +107,10 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
             return true;
 
         case 'authenticated':
-            return Horde_Auth::isAuthenticated();
+            return $GLOBALS['registry']->isAuthenticated();
 
         case 'edit':
-            return $this->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT);
+            return $this->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
 
         case 'hook':
             return Horde::callHook('_ansel_hook_can_download', array($this->id));
@@ -108,35 +123,31 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
     /**
      * Saves any changes to this object to the backend permanently.
      *
-     * @TODO: this needs to stay public b/c Horde_Share_Object (which this extends)
-     *        is not yet ported to PHP5. This will be fixed when we no longer
-     *        extend Horde_Share_Object here.
-     *
-     * @return mixed true || PEAR_Error on failure.
+     * @return boolean
      */
-    function _save()
+    protected function _save()
     {
         // Check for invalid characters in the slug.
         if (!empty($this->data['attribute_slug']) &&
             preg_match('/[^a-zA-Z0-9_@]/', $this->data['attribute_slug'])) {
 
-            // TODO: Need to keep the pear error here since Horde_Share still
-            // uses them.
-            return PEAR::raiseError(
+            throw new InvalidArgumentException(
                 sprintf(_("Could not save gallery, the slug, \"%s\", contains invalid characters."),
                         $this->data['attribute_slug']));
         }
 
         // Check for slug uniqueness
-        $slugGalleryId = $GLOBALS['ansel_storage']->slugExists($this->data['attribute_slug']);
+        $slugGalleryId = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->slugExists($this->data['attribute_slug']);
         if ($slugGalleryId > 0 && $slugGalleryId <> $this->id) {
-            return PEAR::raiseError(sprintf(_("Could not save gallery, the slug, \"%s\", already exists."),
-                                            $this->data['attribute_slug']));
+            throw InvalidArgumentException(
+                sprintf(_("Could not save gallery, the slug, \"%s\", already exists."),
+                        $this->data['attribute_slug']));
         }
 
         if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-            $GLOBALS['cache']->expire('Ansel_Gallery' . $this->id);
+            $GLOBALS['injector']->getInstance('Horde_Cache')->expire('Ansel_Gallery' . $this->id);
         }
+
         return parent::_save();
     }
 
@@ -144,44 +155,78 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
      * Update the gallery image count.
      *
      * @param integer $images      Number of images in action
-     * @param boolean $add         Action to take (add or remove)
-     * @param integer $gallery_id  Gallery id to update images for
+     * @param boolean $add         True if adding, false if removing
+     *
+     * @return boolean true on success
+     * @throws Ansel_Exception
      */
-    public function updateImageCount($images, $add = true, $gallery_id = null)
+    public function updateImageCount($images, $add = true)
     {
-        // We do the query directly here to avoid having to instantiate a
-        // gallery object just to increment/decrement one value in the table.
-        // TODO: Change this - should always use the appropriate object, not
-        // direct manipulation of the share table...
-        $sql = 'UPDATE ' . $this->_shareOb->_table
-            . ' SET attribute_images = attribute_images '
-            . ($add ? ' + ' : ' - ') . $images . ' WHERE share_id = '
-            . ($gallery_id ? $gallery_id : $this->id);
+        /* Updating self */
+        if ($add) {
+            $this->data['attribute_images'] += $images;
+        } else {
+            $this->data['attribute_images'] -= $images;
+        }
+        try {
+            $this->save();
+        } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($e->getMessage, 'ERR');
+            throw Ansel_Exception($e);
+        }
 
-        // Make sure to update the local value as well, so it doesn't get
-        // overwritten by any other updates from ->set() calls.
-        if (is_null($gallery_id) || $gallery_id === $this->id) {
-            if ($add) {
-                $this->data['attribute_images'] += $images;
-            } else {
-                $this->data['attribute_images'] -= $images;
-            }
+        /* Make sure we get rid of key image/stacks if no more images */
+        if (!$this->data['attribute_images']) {
+            $this->resetKeyImage();
         }
 
         /* Need to expire the cache for the gallery that was changed */
         if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-            $id = (is_null($gallery_id) ? $this->id : $gallery_id);
-            $GLOBALS['cache']->expire('Ansel_Gallery' . $id);
+            $GLOBALS['injector']->getInstance('Horde_Cache')->expire('Ansel_Gallery' . $this->id);
         }
 
-        return $this->_shareOb->_write_db->exec($sql);
+        return true;
+    }
 
+    /**
+     * Adds an Ansel_Image object to this gallery.
+     *
+     * @param Ansel_Image $image  The ansel image object to add
+     * @param boolean $default    Set this image as the gallery's key image.
+     *
+     * @return integer  The new image id
+     */
+    public function addImageObject(Ansel_Image $image, $default = false)
+    {
+        /* Make sure it's taken as a new image */
+        $image->id = null;
+        $image->gallery = $this->getId();
+        $image->sort = $this->countImages();
+        $image->save();
+        $this->updateImageCount(1);
+
+        /* Should this be the key image? */
+        if ($default) {
+            $this->data['attribute_default'] = $image->id;
+            $this->clearStacks();
+        }
+
+        /* Save all changes to the gallery */
+        $this->save();
+
+        return $image->id;
     }
 
     /**
      * Add an image to this gallery.
      *
-     * @param array $image_data  The image to add. Required keys include
+     * @param array $image_data  The image to add. Keys include:
+     *  <pre>
+     *    image_filename   - The filename of the image [REQUIRED].
+     *    data             - The binary image data [REQUIRED]
+     *    image_caption    - The caption/description. Defaults to filename.
+     *    image_type       - The MIME type of the image. Attempts to detect.
+     *  </pre>
      *                           'image_caption', and 'data'. Optional keys
      *                           include 'image_filename' and 'image_type'
      *
@@ -193,7 +238,6 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
     {
         global $conf;
 
-        //@TODO: Maybe addImage() gets moved to the modeHelper delegate?
         /* Normal is the only view mode that can accurately update gallery counts */
         $vMode = $this->get('view_mode');
         if ($vMode != 'Normal') {
@@ -201,14 +245,30 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
         }
 
         $resetStack = false;
-        if (!isset($image_data['image_filename'])) {
-            $image_data['image_filename'] = 'Untitled';
+        if (empty($image_data['image_caption'])) {
+            $image_data['image_caption'] = $image_data['image_filename'];
         }
         $image_data['gallery_id'] = $this->id;
         $image_data['image_sort'] = $this->countImages();
 
         /* Create the image object */
         $image = new Ansel_Image($image_data);
+
+        /* Check for a supported multi-page image */
+        if ($image->isMultiPage() === true) {
+            $params['name'] = $image->getImagePageCount() . ' page image: ' . $image->filename;
+            $mGallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->createGallery($params, $this->getPermission(), $this->getId());
+            $i = 1;
+            foreach ($image as $page) {
+                $page->caption = sprintf(_("Page %d"), $i++);
+                $mGallery->addImageObject($page);
+            }
+            $mGallery->save();
+
+            return $page->id;
+        }
+
+        /* If this was a single, normal image, continue */
         $result = $image->save();
         if (empty($image_data['image_id'])) {
             $this->updateImageCount(1);
@@ -217,7 +277,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
             }
         }
 
-        /* Should this be the default image? */
+        /* Should this be the key image? */
         if (!$default && $this->data['attribute_default_type'] == 'auto') {
             $this->data['attribute_default'] = $image->id;
             $resetStack = true;
@@ -226,7 +286,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
             $this->data['default_type'] = 'manual';
         }
 
-        /* Reset the gallery default image stacks if needed. */
+        /* Reset the gallery key image stacks if needed. */
         if ($resetStack) {
             $this->clearStacks();
         }
@@ -247,7 +307,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
     }
 
     /**
-     * Clear all of this gallery's default image stacks from the VFS and the
+     * Clear all of this gallery's key image stacks from the VFS and the
      * gallery's data store.
      *
      * @return void
@@ -295,6 +355,19 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
     }
 
     /**
+     * Reset the gallery's key image. This will force Ansel to attempt to fetch
+     * a new key image the next time one is requested.
+     *
+     */
+    public function resetKeyImage()
+    {
+        $this->clearStacks();
+        $this->set('default', 0);
+        $this->set('default_type', 'auto');
+        $this->save();
+    }
+
+    /**
      * Move images from this gallery to a new gallery.
      *
      * @param array $images          An array of image ids.
@@ -314,18 +387,17 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
      * @param Ansel_Gallery $gallery  The gallery to copy images to.
      *
      * @return integer The number of images copied
-     * @throws Horde_Exception
+     * @throws Ansel_Exception
      */
     public function copyImagesTo($images, $gallery)
     {
-        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
-            throw new Horde_Exception(sprintf(_("Access denied copying photos to \"%s\"."), $gallery->get('name')));
+        if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
+            throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied copying photos to \"%s\"."), $gallery->get('name')));
         }
 
-        $db = $this->_shareOb->_write_db;
         $imgCnt = 0;
         foreach ($images as $imageId) {
-            $img = &$this->getImage($imageId);
+            $img = $this->getImage($imageId);
             // Note that we don't pass the tags when adding the image..see below
             $newId = $gallery->addImage(array(
                                'image_caption' => $img->caption,
@@ -334,35 +406,22 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
                                'image_type' => $img->getType(),
                                'image_uploaded_date' => $img->uploaded));
             /* Copy any tags */
-            // Since we know that the tags already exist, no need to
-            // go through Ansel_Tags::writeTags() - this saves us a SELECT query
-            // for each tag - just write the data into the DB ourselves.
             $tags = $img->getTags();
-            $query = $this->_shareOb->_write_db->prepare('INSERT INTO ansel_images_tags (image_id, tag_id) VALUES(' . $newId . ',?);');
-            if (is_a($query, 'PEAR_Error')) {
-                throw new Horde_Exception($query->getMessage());
-            }
-            foreach ($tags as $tag_id => $tag_name) {
-                $result = $query->execute($tag_id);
-                if (is_a($result, 'PEAR_Error')) {
-                    throw new Horde_Exception($result->getMessge());
-                }
-            }
-            $query->free();
+            $GLOBALS['injector']->getInstance('Ansel_Tagger')->tag($newId, $tags, $gallery->get('owner'), 'image');
 
             /* exif data */
             // First check to see if the exif data was present in the raw data.
-            $count = $db->queryOne('SELECT COUNT(image_id) FROM ansel_image_attributes WHERE image_id = ' . (int) $newId . ';');
+            $count = $GLOBALS['ansel_db']->queryOne('SELECT COUNT(image_id) FROM ansel_image_attributes WHERE image_id = ' . (int) $newId . ';');
             if ($count == 0) {
-                $exif = $db->queryAll('SELECT attr_name, attr_value FROM ansel_image_attributes WHERE image_id = ' . (int) $imageId . ';',null, MDB2_FETCHMODE_ASSOC);
+                $exif = $GLOBALS['ansel_db']->queryAll('SELECT attr_name, attr_value FROM ansel_image_attributes WHERE image_id = ' . (int) $imageId . ';',null, MDB2_FETCHMODE_ASSOC);
                 if (is_array($exif) && count($exif) > 0) {
-                    $insert = $db->prepare('INSERT INTO ansel_image_attributes (image_id, attr_name, attr_value) VALUES (?, ?, ?)');
-                    if (is_a($insert, 'PEAR_Error')) {
+                    $insert = $GLOBALS['ansel_db']->prepare('INSERT INTO ansel_image_attributes (image_id, attr_name, attr_value) VALUES (?, ?, ?)');
+                    if ($insert instanceof PEAR_Error) {
                         throw new Horde_Exception($insert->getMessage());
                     }
                     foreach ($exif as $attr){
                         $result = $insert->execute(array($newId, $attr['attr_name'], $attr['attr_value']));
-                        if (is_a($result, 'PEAR_Error')) {
+                        if ($result instanceof PEAR_Error) {
                             throw new Horde_Exception($result->getMessage());
                         }
                     }
@@ -383,7 +442,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
      */
     public function setImageOrder($imageId, $pos)
     {
-        return $this->_shareOb->_write_db->exec('UPDATE ansel_images SET image_sort = ' . (int)$pos . ' WHERE image_id = ' . (int)$imageId);
+        return $GLOBALS['ansel_db']->exec('UPDATE ansel_images SET image_sort = ' . (int)$pos . ' WHERE image_id = ' . (int)$imageId);
     }
 
     /**
@@ -402,21 +461,18 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
     /**
      * Returns this share's owner's Identity object.
      *
-     * @TODO: Maybe rename this to getIdentity() to avoid confusion with
-     *        the share's owner attribute?
-     *
-     * @return Identity object for the owner of this gallery.
+     * @return Horde_Prefs_Identity object for the owner of this gallery.
      */
-    public function getOwner()
+    public function getIdentity()
     {
-        return Horde_Prefs_Identity::singleton('none', $this->data['share_owner']);
+        return $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($this->data['share_owner']);
     }
 
     /**
      * Output the HTML for this gallery's tile.
      *
      * @param Ansel_Gallery $parent  The parent Ansel_Gallery object
-     * @param string $style          A named gallery style to use.
+     * @param Ansel_Style $style     A style object to use.
      * @param boolean $mini          Force the use of a mini thumbnail?
      * @param array $params          Any additional parameters the Ansel_Tile
      *                               object may need.
@@ -426,12 +482,6 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
     {
         if (!is_null($parent) && is_null($style)) {
             $style = $parent->getStyle();
-        } else {
-            $style = Ansel::getStyleDefinition($style);
-        }
-
-        if (!empty($view_url)) {
-            $view_url = str_replace('%g', $this->id, $view_url);
         }
 
         return Ansel_Tile_Gallery::getTile($this, $style, $mini, $params);
@@ -452,7 +502,6 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
     {
         return $this->_modeHelper->getGalleryChildren($perm, $from, $to, $noauto);
     }
-
 
     /**
      * Return the count of this gallery's children
@@ -502,7 +551,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
      */
     public function getRecentImages($limit = 10)
     {
-        return $GLOBALS['ansel_storage']->getRecentImages(array($this->id),
+        return $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getRecentImages(array($this->id),
                                                           $limit);
     }
 
@@ -515,7 +564,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
      */
     public function &getImage($id)
     {
-        return $GLOBALS['ansel_storage']->getImage($id);
+        return $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($id);
     }
 
     /**
@@ -541,90 +590,68 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
     }
 
     /**
-     * Returns the default image for this gallery.
+     * Returns the key image for this gallery.
      *
-     * @TODO: Rename default images to 'key' images - they really are not
-     *        'default' in any sense.
+     * @param Ansel_Style $style  Force the use of this style, if it's available
+     *                            otherwise use whatever style is choosen for
+     *                            this gallery. If prettythumbs are not
+     *                            available then we always use ansel_default
+     *                            style.
      *
-     * @param string $style  Force the use of this style, if it's available
-     *                       otherwise use whatever style is choosen for this
-     *                       gallery. If prettythumbs are not available then
-     *                       we always use ansel_default style.
-     *
-     * @return mixed  The image_id of the default image or false.
+     * @return mixed  The image_id of the key image or false.
      */
-    public function getDefaultImage($style = null)
+    public function getKeyImage($style = null)
     {
-       // Check for explicitly requested style
-        if (!is_null($style)) {
-            $gal_style = Ansel::getStyleDefinition($style);
-        } else {
-            // Use gallery's default.
-            $gal_style = $this->getStyle();
-            if (!isset($GLOBALS['ansel_styles'][$gal_style['name']])) {
-                $gal_style = $GLOBALS['ansel_styles']['ansel_default'];
-            }
+        if (is_null($style)) {
+            $style = $this->getStyle();
         }
-        Horde::logMessage(sprintf("using gallery style: %s in Ansel::getDefaultImage()", $gal_style['name']), __FILE__, __LINE__, PEAR_LOG_DEBUG);
-        if (!empty($gal_style['default_galleryimage_type']) &&
-            $gal_style['default_galleryimage_type'] != 'plain') {
 
-            $thumbstyle = $gal_style['default_galleryimage_type'];
-            $styleHash = $this->getViewHash($thumbstyle, $gal_style['name']);
+        if ($style->keyimage_type != 'Thumb') {
+            $thumbstyle = $style->keyimage_type;
+            $styleHash = $style->getHash($thumbstyle);
 
-            // First check for the existence of a default image in the style
-            // we are looking for.
+            /* First check for the existence of a key image in the specified style */
             if (!empty($this->data['attribute_default_prettythumb'])) {
                 $thumbs = @unserialize($this->data['attribute_default_prettythumb']);
             }
             if (!isset($thumbs) || !is_array($thumbs)) {
                 $thumbs = array();
             }
-
             if (!empty($thumbs[$styleHash])) {
                 return $thumbs[$styleHash];
             }
 
-            // Don't already have one, must generate it.
-            $params = array('gallery' => $this, 'style' => $gal_style);
+            /* Don't already have one, must generate it. */
+            //@TODO: Look at passing style both in params and the property...
+            $params = array('gallery' => $this, 'style' => $style);
             try {
-                $iview = Ansel_ImageView::factory($gal_style['default_galleryimage_type'], $params);
+                $iview = Ansel_ImageGenerator::factory($style->keyimage_type, $params);
                 $img = $iview->create();
-                if ($img) {
-                    // Note the gallery_id is negative for generated stacks
-                    $iparams = array('image_filename' => $this->get('name'),
-                                     'image_caption' => $this->get('name'),
-                                     'data' => $img->raw(),
-                                     'image_sort' => 0,
-                                     'gallery_id' => -$this->id);
-                    $newImg = new Ansel_Image($iparams);
-                    $newImg->save();
-                    $prettyData = serialize(
-                        array_merge($thumbs,
-                                    array($styleHash => $newImg->id)));
 
-                    $this->set('default_prettythumb', $prettyData, true);
-                    return $newImg->id;
-                } else {
-                    Horde::logMessage($img, __FILE__, __LINE__, PEAR_LOG_ERR);
-                }
+                // Note the gallery_id is negative for generated stacks
+                $iparams = array('image_filename' => $this->get('name'),
+                                 'image_caption' => $this->get('name'),
+                                 'data' => $img->raw(),
+                                 'image_sort' => 0,
+                                 'gallery_id' => -$this->id);
+                $newImg = new Ansel_Image($iparams);
+                $newImg->save();
+                $prettyData = serialize(array_merge($thumbs, array($styleHash => $newImg->id)));
+                $this->set('default_prettythumb', $prettyData, true);
 
+                return $newImg->id;
             } catch (Horde_Exception $e) {
                 // Might not support the requested style...try ansel_default
                 // but protect against infinite recursion.
-                Horde::logMessage($iview, __FILE__, __LINE__, PEAR_LOG_DEBUG);
-                if ($style != 'ansel_default') {
-                    return $this->getDefaultImage('ansel_default');
+                Horde::logMessage($e->getMessage(), 'DEBUG');
+                if ($style->keyimage_type != 'plain') {
+                    return $this->getKeyImage(Ansel::getStyleDefinition('ansel_default'));
                 }
-                Horde::logMessage($iview, __FILE__, __LINE__, PEAR_LOG_ERR);
             }
-
         } else {
-            // We are just using an image thumbnail for the gallery default.
+            /* We are just using an image thumbnail. */
             if ($this->countImages()) {
-                if (!empty($this->data['attribute_default']) &&
-                    $this->data['attribute_default'] > 0) {
-
+                if (!empty($this->data['attribute_default'])) {
                     return $this->data['attribute_default'];
                 }
                 $keys = $this->listImages();
@@ -635,22 +662,25 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
             }
 
             if ($this->hasSubGalleries()) {
-                // Fall through to a default image of a sub gallery.
+                /* Fall through to a key image of a sub gallery. */
                 try {
-                    $galleries = $GLOBALS['ansel_storage']->listGalleries(Horde_Perms::SHOW, null, $this, false);
-                } catch (Horde_Exception $e) {
-                    return false;
-                }
-                if ($galleries) {
+                    $galleries = $GLOBALS['injector']
+                        ->getInstance('Ansel_Injector_Factory_Storage')
+                        ->create()
+                        ->listGalleries(array('parent' => $this, 'allLevels' => false));
+
                     foreach ($galleries as $galleryId => $gallery) {
-                        if ($default_img = $gallery->getDefaultImage($style)) {
+                        if ($default_img = $gallery->getKeyImage($style)) {
                             return $default_img;
                         }
                     }
+                } catch (Horde_Exception $e) {
+                    return false;
                 }
             }
         }
 
+        /* Could not find a key image */
         return false;
     }
 
@@ -661,8 +691,8 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
      * @throws Horde_Exception
      */
     public function getTags() {
-        if ($this->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
-            return Ansel_Tags::readTags($this->id, 'gallery');
+        if ($this->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
+            return $GLOBALS['injector']->getInstance('Ansel_Tagger')->getTags($this->id, 'gallery');
         } else {
             throw new Horde_Exception(_("Access denied viewing this gallery."));
         }
@@ -678,44 +708,60 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
      */
     public function setTags($tags)
     {
-        if ($this->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
-            return Ansel_Tags::writeTags($this->id, $tags, 'gallery');
+        if ($this->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
+            return $GLOBALS['injector']->getInstance('Ansel_Tagger')->tag($this->id, $tags, $this->get('owner'), 'gallery');
         } else {
             throw new Horde_Exception(_("Access denied adding tags to this gallery."));
         }
     }
 
     /**
-     * Return the style definition for this gallery. Returns the first available
-     * style in this order: Explicitly configured style if available, if
-     * configured style is not available, use ansel_default.  If nothing has
-     * been configured, the user's selected default is attempted.
+     * Return the style definition for this gallery.
      *
      * @return array  The style definition array.
      */
     public function getStyle()
     {
-        if (empty($this->data['attribute_style'])) {
-            $style = $GLOBALS['prefs']->getValue('default_gallerystyle');
-        } else {
-            $style = $this->data['attribute_style'];
+        // No styles allowed per admin.
+        if (!$GLOBALS['conf']['image']['prettythumbs']) {
+            return Ansel::getStyleDefinition('ansel_default');
         }
-        return Ansel::getStyleDefinition($style);
 
+        if (empty($this->data['attribute_style'])) {
+            // No style configured, use user's prefered default
+            $style = Ansel::getStyleDefinition($GLOBALS['prefs']->getValue('default_gallerystyle'));
+        } else {
+            // Explicitly defined style
+            $style = @unserialize($this->data['attribute_style']);
+            if (!$style) {
+                $style = Ansel::getStyleDefinition($GLOBALS['prefs']->getValue('default_gallerystyle'));
+            }
+        }
+
+        // Check browser requirements. If we require PNG support, and do not
+        // have it, revert to the basic ansel_default style.
+        if ($style->requiresPng() &&
+            ($GLOBALS['browser']->hasQuirk('png_transparency') ||
+             $GLOBALS['conf']['image']['type'] != 'png')) {
+
+            return Ansel::getStyleDefinition('ansel_default');
+        }
+
+        return $style;
     }
 
     /**
      * Return a hash key for the given view and style.
      *
-     * @param string $view   The view (thumb, prettythumb etc...)
-     * @param string $style  The named style.
+     * @param string $view         The view (thumb, prettythumb etc...)
+     * @param Ansel_Style $style   The style.
      *
      * @return string  A md5 hash suitable for use as a key.
      */
     public function getViewHash($view, $style = null)
     {
         if (empty($style)) {
-            $style = $this->data['attribute_style'];
+            $style = $this->getStyle();
         }
 
         return Ansel::getViewHash($view, $style);
@@ -733,14 +779,12 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
     public function hasPermission($userid, $permission, $creator = null)
     {
         if ($userid == $this->data['share_owner'] ||
-            Horde_Auth::isAdmin('ansel:admin')) {
+            $GLOBALS['registry']->isAdmin(array('permission' => 'ansel:admin'))) {
 
             return true;
         }
 
-
-        return $GLOBALS['perms']->hasPermission($this->getPermission(),
-                                                $userid, $permission, $creator);
+        return parent::hasPermission($userid, $permission, $creator);
     }
 
     /**
@@ -750,8 +794,8 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
      */
     public function isOldEnough()
     {
-        if ((Horde_Auth::getAuth() &&
-             $this->data['share_owner'] == Horde_Auth::getAuth()) ||
+        if (($GLOBALS['registry']->getAuth() &&
+             $this->data['share_owner'] == $GLOBALS['registry']->getAuth()) ||
             empty($GLOBALS['conf']['ages']['limits']) ||
             empty($this->data['attribute_age'])) {
 
@@ -766,7 +810,8 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
         }
 
         // Can we hook user's age?
-        if ($GLOBALS['conf']['ages']['hook'] && Horde_Auth::isAuthenticated()) {
+        if ($GLOBALS['conf']['ages']['hook'] &&
+            $GLOBALS['registry']->isAuthenticated()) {
             $result = Horde::callHook('_ansel_hook_user_age');
             if (is_int($result)) {
                 $_SESSION['ansel']['user_age'] = $result;
@@ -783,9 +828,9 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
      */
     public function hasPasswd()
     {
-        if (Horde_Auth::getAuth() &&
-            (Horde_Auth::getAuth() == $this->get('owner') ||
-             Horde_Auth::isAdmin('ansel:admin'))) {
+        if ($GLOBALS['registry']->getAuth() &&
+            ($GLOBALS['registry']->getAuth() == $this->get('owner') ||
+             $GLOBALS['registry']->isAdmin(array('permission' => 'ansel:admin')))) {
             return false;
         }
 
@@ -810,34 +855,39 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
     public function setParent($parent)
     {
         /* Make sure we have a gallery object */
-        if (!is_null($parent) && !is_a($parent, 'Ansel_Gallery')) {
-            $parent = $GLOBALS['ansel_storage']->getGallery($parent);
+        if (!is_null($parent) && !($parent instanceof Ansel_Gallery)) {
+            $parent = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($parent);
         }
 
         /* Check this now since we don't know if we are updating the DB or not */
         $old = $this->getParent();
         $reset_has_subgalleries = false;
         if (!is_null($old)) {
+            $vMode = $old->get('view_mode');
+            if ($vMode != 'Normal') {
+                $old->set('view_mode', 'Normal');
+            }
             $cnt = $old->countGalleryChildren(Horde_Perms::READ, true);
+            if ($vMode != 'Normal') {
+                $old->set('view_mode', $vMode);
+            }
             if ($cnt == 1) {
                 /* Count is 1, and we are about to delete it */
                 $reset_has_subgalleries = true;
+                if (!$old->countImages()) {
+                    $old->resetKeyImage();
+                }
             }
         }
 
         /* Call the parent class method */
-        $result = parent::setParent($parent);
-        if (is_a($result, 'PEAR_Error')) {
-            // Horde_Share still uses PEAR_Error
-            throw new Horde_Exception($result->getMessage());
-        }
+        parent::setParent($parent);
 
         /* Tell the parent the good news */
         if (!is_null($parent) && !$parent->get('has_subgalleries')) {
             return $parent->set('has_subgalleries', '1', true);
         }
-        Horde::logMessage('Ansel_Gallery parent successfully set', __FILE__,
-                          __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Ansel_Gallery parent successfully set', 'DEBUG');
 
        /* Gallery parent changed, safe to change the parent's attributes */
        if ($reset_has_subgalleries) {
@@ -874,20 +924,25 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
             $this->_setModeHelper($mode);
         }
 
+        /* Need to serialize the style object */
+        if ($driver_key == 'attribute_style') {
+            $value = serialize($value);
+        }
+
         $this->data[$driver_key] = $value;
 
         /* Update the backend, but only this current change */
         if ($update) {
-            $db = $this->_shareOb->_write_db;
+            $db = $this->getShareOb()->getWriteDb();
             // Manually convert the charset since we're not going through save()
-            $data = $this->_shareOb->_toDriverCharset(array($driver_key => $value));
-            $query = $db->prepare('UPDATE ' . $this->_shareOb->_table . ' SET ' . $driver_key . ' = ? WHERE share_id = ?', null, MDB2_PREPARE_MANIP);
+            $data = $this->getshareOb()->toDriverCharset(array($driver_key => $value));
+            $query = $db->prepare('UPDATE ' . $this->getShareOb()->getTable() . ' SET ' . $driver_key . ' = ? WHERE share_id = ?', null, MDB2_PREPARE_MANIP);
             if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-                $GLOBALS['cache']->expire('Ansel_Gallery' . $this->id);
+                $GLOBALS['injector']->getInstance('Horde_Cache')->expire('Ansel_Gallery' . $this->id);
             }
             $result = $query->execute(array($data[$driver_key], $this->id));
             $query->free();
-            if (is_a($result, 'PEAR_Error')) {
+            if ($result instanceof PEAR_Error) {
                 throw new Horde_Exception($result->getMessage());
             }
 
@@ -931,7 +986,7 @@ class Ansel_Gallery extends Horde_Share_Object_sql_hierarchical
 
     public function __wakeup()
     {
-        $this->setShareOb($GLOBALS['ansel_storage']->shares);
+        $this->setShareOb($GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->shares);
         $mode = $this->get('view_mode');
         $this->_setModeHelper($mode);
     }

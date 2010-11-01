@@ -32,15 +32,9 @@ class Content_Users_Manager
         'users' => 'rampage_users',
     );
 
-    public function __construct($context = array())
+    public function __construct(Horde_Db_Adapter $db)
     {
-        if (!empty($context['dbAdapter'])) {
-            $this->_db = $context['dbAdapter'];
-        }
-
-        if (!empty($context['tables'])) {
-            $this->_tables = array_merge($this->_tables, $context['tables']);
-        }
+        $this->_db = $db;
     }
 
     /**
@@ -71,17 +65,21 @@ class Content_Users_Manager
         }
 
         // Get the ids for any users that already exist.
-        if (count($userName)) {
-            foreach ($this->_db->selectAll('SELECT user_id, user_name FROM ' . $this->_t('users') . ' WHERE user_name IN ('.implode(',', array_map(array($this->_db, 'quote'), array_keys($userName))).')') as $row) {
-                $userIndex = $userName[$row['user_name']];
-                unset($userName[$row['user_name']]);
-                $userIds[$userIndex] = $row['user_id'];
+        try {
+            if (count($userName)) {
+                foreach ($this->_db->selectAll('SELECT user_id, user_name FROM ' . $this->_t('users') . ' WHERE user_name IN ('.implode(',', array_map(array($this->_db, 'quote'), array_keys($userName))).')') as $row) {
+                    $userIndex = $userName[$row['user_name']];
+                    unset($userName[$row['user_name']]);
+                    $userIds[$userIndex] = $row['user_id'];
+                }
             }
-        }
 
-        // Create any users that didn't already exist
-        foreach ($userName as $user => $userIndex) {
-            $userIds[$userIndex] = $this->_db->insert('INSERT INTO ' . $this->_t('users') . ' (user_name) VALUES (' . $this->_db->quote($user) . ')');
+            // Create any users that didn't already exist
+            foreach ($userName as $user => $userIndex) {
+                $userIds[$userIndex] = $this->_db->insert('INSERT INTO ' . $this->_t('users') . ' (user_name) VALUES (' . $this->_db->quote($user) . ')');
+            }
+        } catch (Horde_Db_Exception $e) {
+            throw new Content_Exception($e);
         }
 
         return $userIds;

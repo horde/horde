@@ -9,9 +9,9 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-new Horde_Application(array('authentication' => 'none'));
+Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
-$auth = Horde_Auth::singleton($conf['auth']['driver']);
+$auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 
 // Check for COOKIE auth.
 if (empty($_COOKIE['user']) ||

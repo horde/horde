@@ -12,7 +12,6 @@
  */
 class Horde_Service_Twitter
 {
-
     /* Constants */
     const REQUEST_TOKEN_URL = 'http://twitter.com/oauth/request_token';
     const USER_AUTHORIZE_URL = 'http://twitter.com/oauth/authorize';
@@ -32,42 +31,41 @@ class Horde_Service_Twitter
      */
     protected $_responseCache;
 
+    /**
+     * Default cache lifetime.
+     *
+     * @var integer
+     */
     protected $_cacheLifetime = 300;
 
-
     /**
+     * Optional logger.
      *
      * @var Horde_Log_Logger
      */
     protected $_logger;
 
     /**
-     * Configuration values
-     *
-     * @var array
-     */
-    protected $_config;
-
-    /**
-     * Type of authentication (Oauth, Basic)
-     *
-     * @var string
-     */
-    protected $_authType;
-
-    /**
      * Can't lazy load the auth or request class since we need to know early if
-     *  we are OAuth or Basic
+     * we are OAuth or Basic
      *
      * @var Horde_Service_Twitter_Auth
      */
     protected $_auth;
 
     /**
+     * The twitter request object.
      *
      * @var Horde_Service_Twitter_Request
      */
     protected $_request;
+
+    /**
+     * The http client.
+     *
+     * @var Horde_Http_Client
+     */
+     protected $_httpClient;
 
     /**
      * Const'r
@@ -79,39 +77,42 @@ class Horde_Service_Twitter
      *     'password' - if using Basic auth
      *   </pre>
      */
-    public function __construct($config)
+    public function __construct(Horde_Service_Twitter_Auth $auth, Horde_Service_Twitter_Request $request)
     {
-        // TODO: Check for req'd config
-        $this->_config = $config;
+        $this->_auth = $auth;
+        $this->_auth->setTwitter($this);
+        $this->_request = $request;
+        $this->_request->setTwitter($this);
+    }
 
-        if (!empty($config['cache'])) {
-            $this->_responseCache = $config['cache'];
-            if (!empty($config['cache_lifetime'])) {
-                $this->_cacheLifetime = $config['cache_lifetime'];
-            }
-        }
+    public function setCache(Horde_Cache $cache)
+    {
+        $this->_responseCache = $cache;
+    }
 
-        if (!empty($config['logger'])) {
-            $this->_logger = $config['logger'];
-        }
+    public function setLogger(Horde_Log_Logger $logger)
+    {
+        $this->_logger = $logger;
+    }
 
-        // Need to determine the type of authentication we will be using early..
-        if (!empty($config['oauth'])) {
-            // OAuth
-            $this->_authType = 'Oauth';
-            $params = array('oauth' => $config['oauth']);
-        } elseif (!empty($config['username']) && !empty($config['password'])) {
-            // Http_Basic
-            $this->_authType = 'Basic';
-            $params = array('username' => $config['username'],
-                            'password' => $config['password']);
-        }
+    /**
+     * Set the http client.
+     *
+     * @param Horde_Http_Client $client  The http client
+     */
+    public function setHttpClient(Horde_Http_Client $client)
+    {
+        $this->_httpClient = $client;
+    }
 
-        $aclass = 'Horde_Service_Twitter_Auth_' . $this->_authType;
-        $rclass = 'Horde_Service_Twitter_Request_' . $this->_authType;
-
-        $this->_auth = new $aclass($this, $params);
-        $this->_request = new $rclass($this);
+    /**
+     * Get the http client.
+     *
+     * @return Horde_Http_Client
+     */
+    public function getHttpClient()
+    {
+        return $this->_httpClient;
     }
 
     /**

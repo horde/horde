@@ -14,12 +14,11 @@
 require_once dirname(__FILE__) . '/lib/base.php';
 
 // Load profile
-$user = Horde_Util::getFormData('user', Horde_Auth::getAuth());
+$user = Horde_Util::getFormData('user', $GLOBALS['registry']->getAuth());
 $profile = $folks_driver->getProfile($user);
 if ($profile instanceof PEAR_Error) {
     $notification->push($profile);
-    header('Location: ' . Folks::getUrlFor('list', 'list'));
-    exit;
+    Folks::getUrlFor('list', 'list')->redirect();
 }
 
 // Load its friend list
@@ -31,7 +30,7 @@ $folks_driver->logView($user);
 
 // Get user activity
 if ($profile['activity_log'] == 'all' ||
-    Horde_Auth::isAuthenticated() && (
+    $registry->isAuthenticated() && (
         $profile['activity_log'] == 'authenticated' ||
         $profile['activity_log'] == 'friends' && $friends_driver->isFriend($user))
     ) {
@@ -45,7 +44,7 @@ if ($profile['activity_log'] == 'all' ||
 }
 
 // Prepare an process activity form
-if ($user == Horde_Auth::getAuth()) {
+if ($user == $GLOBALS['registry']->getAuth()) {
     require_once FOLKS_BASE . '/lib/Forms/Activity.php';
     $vars = Horde_Variables::getDefaultVariables();
     $form = new Folks_Activity_Form($vars, _("What are you doing right now?"), 'short');
@@ -55,8 +54,7 @@ if ($user == Horde_Auth::getAuth()) {
             $notification->push($result);
         } else {
             $notification->push(_("Activity successfully posted"), 'horde.success');
-            header('Location: ' . Horde::applicationUrl('user.php'));
-            exit;
+            Horde::url('user.php')->redirect();
         }
     }
 }
@@ -83,7 +81,7 @@ case 'private':
 break;
 
 case 'public_authenticated':
-    if (Horde_Auth::isAuthenticated()) {
+    if ($registry->isAuthenticated()) {
         require FOLKS_TEMPLATES . '/user/user.php';
     } else {
         require FOLKS_TEMPLATES . '/user/authenticated.php';

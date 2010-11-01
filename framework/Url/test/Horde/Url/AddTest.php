@@ -3,7 +3,7 @@
  * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @category   Horde
- * @package    Horde_Url
+ * @package    Url
  * @subpackage UnitTests
  */
 
@@ -20,6 +20,11 @@ class Horde_Url_AddTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('test?foo=1&amp;bar=2&amp;baz=3', (string)$url);
         $url->add('fez');
         $this->assertEquals('test?foo=1&amp;bar=2&amp;baz=3&amp;fez', (string)$url);
+
+        $url->setAnchor('boo');
+        $this->assertEquals('test?foo=1&amp;bar=2&amp;baz=3&amp;fez#boo', (string)$url);
+        $url->setAnchor('bee');
+        $this->assertEquals('test?foo=1&amp;bar=2&amp;baz=3&amp;fez#bee', (string)$url);
     }
 
     public function testAddArray()
@@ -84,4 +89,28 @@ class Horde_Url_AddTest extends PHPUnit_Framework_TestCase
             ->add('baz', 3);
         $this->assertEquals('test?foo=1&amp;bar=2&amp;baz=3', (string)$url);
     }
+
+    public function testAddOverwrite()
+    {
+        $url = new Horde_Url('test');
+        $url->add('foo', 1);
+        $this->assertEquals('test?foo=1', (string)$url);
+        $url->add('foo', 2);
+        $this->assertEquals('test?foo=2', (string)$url);
+    }
+
+    public function testParseUrlAnchor()
+    {
+        $url = new Horde_Url('test?foo=1#bar');
+        $url->setAnchor('baz');
+        $this->assertEquals('test?foo=1#baz', (string)$url);
+    }
+
+    public function testEncodeAnchor()
+    {
+        $url = new Horde_Url('test');
+        $url->setAnchor('a@b.com');
+        $this->assertEquals('test#a%40b.com', (string)$url);
+    }
+
 }

@@ -46,7 +46,7 @@ class EditTicketForm extends Horde_Form {
             $grouped_hook = true;
         } catch (Horde_Exception_HookNotSet $e) {
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
         }
 
         $this->addHidden('', 'id', 'int', true, true);
@@ -95,11 +95,11 @@ class EditTicketForm extends Horde_Form {
                 case 'owner':
                     if (Whups::hasPermission($vars->get('queue'), 'queue',
                                              'assign')) {
-                        $groups = &Group::singleton();
+                        $groups = $GLOBALS['injector']->getInstance('Horde_Group');
                         if ($GLOBALS['conf']['prefs']['assign_all_groups']) {
                             $mygroups = $groups->listGroups();
                         } else {
-                            $mygroups = $groups->getGroupMemberships(Horde_Auth::getAuth());
+                            $mygroups = $groups->getGroupMemberships($GLOBALS['registry']->getAuth());
                         }
 
                         $f_users = array();
@@ -122,7 +122,16 @@ class EditTicketForm extends Horde_Form {
                                                           'multienum',
                                                           false, false, null,
                                                           array($f_users));
-                            $owners->setDefault($whups_driver->getOwners($vars->get('id')));
+                            $ticketOwners = array();
+                            $ticketGroups = array();
+                            foreach($whups_driver->getOwners($vars->get('id')) as $owner) {
+                                if (strpos($owner, 'user:') !== false) {
+                                    $ticketOwners[] = $owner;
+                                } else {
+                                    $ticketGroups[] = $owner;
+                                }
+                            }
+                            $owners->setDefault($ticketOwners);
                         }
 
                         if (count($f_groups)) {
@@ -133,7 +142,7 @@ class EditTicketForm extends Horde_Form {
                                                                 false, false,
                                                                 null,
                                                                 array($f_groups));
-                            $group_owners->setDefault($whups_driver->getOwners($vars->get('id')));
+                            $group_owners->setDefault($ticketGroups);
                         }
                     }
                     break;
@@ -172,8 +181,8 @@ class EditTicketForm extends Horde_Form {
                     }
 
                     /* Comment permissions. */
-                    $groups = &Group::singleton();
-                    $mygroups = $groups->getGroupMemberships(Horde_Auth::getAuth());
+                    $groups = $GLOBALS['injector']->getInstance('Horde_Group');
+                    $mygroups = $groups->getGroupMemberships($GLOBALS['registry']->getAuth());
                     if ($mygroups) {
                         foreach (array_keys($mygroups) as $gid) {
                             $grouplist[$gid] = $groups->getGroupName($gid, true);
@@ -209,7 +218,7 @@ class EditTicketForm extends Horde_Form {
 
     function validate(&$vars)
     {
-        if (!Horde_Auth::getAuth()) {
+        if (!$GLOBALS['registry']->getAuth()) {
             $this->setError('_auth', _("Permission Denied."));
         }
 

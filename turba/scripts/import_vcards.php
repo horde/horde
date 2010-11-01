@@ -1,4 +1,4 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
 /**
  * This script imports VCARD data into turba address books.
@@ -14,18 +14,8 @@
  */
 
 // Do CLI checks and environment setup first.
-require_once dirname(__FILE__) . '/../lib/base.local.php';
-require_once HORDE_BASE . '/lib/core.php';
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment - make sure there's no time limit, init some
-// variables, etc.
-$cli = Horde_Cli::singleton();
-$cli->init();
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('turba', array('authentication' => 'none', 'cli' => true));
 
 // Read command line parameters.
 if (count($argv) != 3) {
@@ -35,6 +25,8 @@ if (count($argv) != 3) {
 $source = $argv[1];
 $user = $argv[2];
 
+Horde_Auth::setAuth($user, array());
+
 // Read standard input.
 $vcard = $cli->readStdin();
 if (empty($vcard)) {
@@ -42,18 +34,8 @@ if (empty($vcard)) {
     usage();
 }
 
-// Registry.
-$registry = Horde_Registry::singleton();
-
-// Set user.
-Horde_Auth::setAuth($user, array());
-
 // Import data.
-$result = $registry->call('contacts/import',
-                          array($vcard, 'text/x-vcard', $source));
-if (is_a($result, 'PEAR_Error')) {
-    $cli->fatal($result->toString());
-}
+$result = $registry->call('contacts/import', array($vcard, 'text/x-vcard', $source));
 
 $cli->message('Imported successfully ' . count($result) . ' contacts', 'cli.success');
 

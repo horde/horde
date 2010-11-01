@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<help>
+  <entry id="Overview" md5="6c904e7e17dea0fc75802e2c1a534b03" state="uptodate">
+    <title>Chora yleiskuva</title>
+    <para>
+      Chora on ohjelma selata l&#xE4;hdekoodinhallintaan kuuluvia koodivarastoja. K&#xE4;ytett&#xE4;viss&#xE4; on mm. n&#xE4;kym&#xE4;t hakemistoille (tiedostot), lokihistoria, kahden version erot, versiopuuhun ja muistiinpanot.
+    </para>
+  </entry>
+  <entry id="chora-button" md5="23ab7e475dc04b66c91b98f6b0f1d743" state="uptodate">
+    <title>Valikkopainikkeet: Selaa</title>
+    <para>
+      Selaa painike palauttaa sinut takaisin Chora oletusvaraston tiedostojen p&#xE4;&#xE4;n&#xE4;kym&#xE4;&#xE4;n.
+    </para>
+  </entry>
+  <entry id="prefs-button" md5="51f095602bb3e62703e72e7fe7fef996" state="uptodate">
+    <title>Valikkopainikkeet: Asetukset</title>
+    <para>
+      Napauttamalla Asetukset painiketta p&#xE4;&#xE4;set muuttamaan asetuksiasi.
+    </para>
+  </entry>
+  <entry id="help-button" md5="11b68a5e1f6cb8f5c2a885c2d65db322" state="uptodate">
+    <title>Valikkopainikkeet: Ohje</title>
+    <para>
+      Ohje painikkeesta tulee n&#xE4;kyville ohjen&#xE4;kym&#xE4;.
+    </para>
+  </entry>
+  <entry id="view-checkout" md5="b1f7c7b2eadf56b5266912badebb6bab" state="uptodate">
+    <title>Checkout View</title>
+    <para>
+      Checkout View n&#xE4;ytt&#xE4;&#xE4; tiedoston sis&#xE4;ll&#xF6;n revisiopisteess&#xE4; ja revisioon liittyv&#xE4;n lokitiedon.
+    </para>
+  </entry>
+  <entry id="view-annotate" md5="68239aff5736e5b667a52525a1c35866" state="uptodate">
+    <title>Selitysmerkint&#xE4;n&#xE4;kym&#xE4;</title>
+    <para>
+      Selitysmerkint&#xE4;n&#xE4;kym&#xE4; n&#xE4;ytt&#xE4;&#xE4; sinulle tiedoston varustettuna selitysmerkinn&#xF6;ill&#xE4;, joista selvi&#xE4;&#xE4; mm. kuka on vastuussa mist&#xE4;kin osasta tiedostoa. T&#xE4;t&#xE4; kutsutaan usein my&#xF6;s "syylliset" n&#xE4;kym&#xE4;ksi.
+    </para>
+  </entry>
+  <entry id="view-branch" md5="ddaf69ea0dc10b924e8c5905558b2484" state="uptodate">
+    <title>Haarautumisn&#xE4;kym&#xE4;</title>
+    <para>
+      Haarautumisn&#xE4;kym&#xE4; n&#xE4;ytt&#xE4;&#xE4; tiedoston versiohistorian, siten ett&#xE4; siit&#xE4; n&#xE4;kyy haarautumispisteet. T&#xE4;m&#xE4; auttaa sinua selvitt&#xE4;m&#xE4;&#xE4;n mit&#xE4; haarautumispisteit&#xE4; puuhun on tehty.
+    </para>
+  </entry>
+  <entry id="view-log" md5="3655e86abff5febed002d80ea29f4f87" state="uptodate">
+    <title>Log View</title>
+    <para>
+      Lokitieton&#xE4;kym&#xE4; n&#xE4;ytt&#xE4;&#xE4; tiedston historian ja checkin lokitiedot. T&#xE4;m&#xE4; auttaa sinua hahmottamaan tiedoston historiaa kun voit n&#xE4;hd&#xE4; checkin vaiheessa annetut lokitieto merkkinn&#xE4;t.
+    </para>
+  </entry>
+  <entry id="view-diff" md5="ff743f7a85bf7f0b7e9374d19f40a4fe" state="uptodate">
+    <title>Eron&#xE4;kym&#xE4;</title>
+    <para>
+      Eron&#xE4;kym&#xE4;ss&#xE4; n&#xE4;kyy tiedoston kahden eri revision v&#xE4;liset erot. T&#xE4;m&#xE4; auttaa sinua hahmottamaan mitk&#xE4; kohdat tiedostossa ovat muuttuneet. Voit tarkastella eroavaisuuksia eri muodoissa mm. eri revisiot v&#xE4;rikoodattuna vierekk&#xE4;in tai siten ett&#xE4; eroavaisuuden on merkkitty ed-editorin komentoina.
+    </para>
+  </entry>
+  <entry id="show-deleted-files" md5="96c17a1efe41cd0e1de5c4f37d1e68f2" state="uptodate">
+    <title>N&#xE4;yt&#xE4;/Piilota poistetut tiedostot</title>
+    <para>
+      Voit valita n&#xE4;ytet&#xE4;&#xE4;nk&#xF6; poistetut tiedostot (Ullakolta/Attic) vai piilotetaanko poistetut tiedostot. Jos valitset asetuksen ett&#xE4; poistetut tiedostot n&#xE4;ytet&#xE4;&#xE4;n, niin ne n&#xE4;kyv&#xE4;t himmennettyn&#xE4; ja niiden vieress&#xE4; on <i>roskakori</i> -ikoni.
+    </para>
+    <para>
+      Oletus on ett&#xE4; poistetut tiedostot ovat piilotettuna.
+    </para>
+  </entry>
+</help>

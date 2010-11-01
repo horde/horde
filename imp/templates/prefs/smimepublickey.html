@@ -1,0 +1,41 @@
+<div class="prefsSmimeContainer">
+ <div class="prefsSmimeHeader">
+   <h3><gettext>S/MIME Public Keyring</gettext> <tag:manage_pubkey-help /></h3>
+ </div>
+
+ <div>
+  <div>
+<if:pubkey_list>
+   <table>
+<loop:pubkey_list>
+    <tr>
+     <td><tag:pubkey_list.name /> (<tag:pubkey_list.email />)</td>
+     <td>[<tag:pubkey_list.view /><gettext>View</gettext></a>] [<tag:pubkey_list.info /><gettext>Details</gettext></a>] [<tag:pubkey_list.delete /><gettext>Delete</gettext></a>]</td>
+    </tr>
+</loop:pubkey_list>
+   </table>
+<else:pubkey_list>
+   <em><gettext>No Keys in Keyring</gettext></em>
+</else:pubkey_list></if:pubkey_list>
+  </div>
+
+<if:can_import>
+<if:no_source>
+  <div>
+   <em><gettext>Key import is not available. You have no address book defined to add your contacts.</gettext></em>
+  </div>
+<else:no_source>
+  <div>
+   <p>
+    <input type="submit" name="save" id="import_smime_public" class="button" value="<gettext>Import Public Key</gettext>" />
+   <tag:import_pubkey-help />
+   </p>
+  </div>
+ </else:no_source></if:no_source>
+<else:can_import>
+  <div>
+   <div class="prefsSmimeWarning"><gettext>Key import is not available. File upload is not enabled on this server.</gettext></div>
+  </div>
+</else:can_import></if:can_import>
+ </div>
+</div>

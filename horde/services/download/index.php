@@ -8,12 +8,13 @@
  * @author Michael Slusarz <slusarz@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../../lib/core.php';
-
-$registry = Horde_Registry::singleton(Horde_Registry::SESSION_READONLY);
+require_once dirname(__FILE__) . '/../../lib/Application.php';
+Horde_Registry::appInit('horde', array('session_control' => 'readonly', 'authentication' => 'none'));
 
 if (!($module = Horde_Util::getFormData('module')) ||
     !file_exists($registry->get('fileroot', $module))) {
     throw new Horde_Exception('Do not call this script directly.');
 }
+
+$registry->pushApp($module);
 include $registry->get('fileroot', $module) . '/view.php';

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Horde: trean/locale/lv_LV/help.xml,v 1.2 2008/11/11 10:14:49 jan Exp $ -->
+<help>
+
+<entry id="">
+    <title>Apskats</title>
+    <heading>Par aplikāciju</heading>
+    <para>
+Grāmatzīmju aplikācija ļauj Jums glabāt, kārtot un piekļūt tīmekļa grāmatzīmēm no jebkuras vietas pasaulē, izmantojot jebkuru grafisko tīmekļa pārlūku.
+    </para>
+    <para>
+Glabājot grāmatzīmes šeit, Jūs varat tām piekļūt no jebkuras vietas pasaulē un izmantot jebkuru grafisko tīmekļa pārlūku. Ja Jums ir nepieciešams mainīti pārlūku, testēt jaunu utml., Jums nav jāuztraucas par saglabāto grāmatzīmju likteni vai arī kā tās importēt jaunajā pārlūkā.
+    </para>
+</entry>
+
+</help>

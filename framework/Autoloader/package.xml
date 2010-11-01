@@ -31,7 +31,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Bug #7856: Allow underscores in pathname.
+ <notes>* Add ability to define callback to run when class is loaded.
+ * Bug #7856: Allow underscores in pathname.
  * Rename to Horde_Autoloader.
  </notes>
  <contents>
@@ -39,6 +40,15 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="lib">
     <dir name="Horde">
      <file name="Autoloader.php" role="php" />
+     <dir name="Autoloader">
+      <file name="ClassPathMapper.php" role="php" />
+      <dir name="ClassPathMapper">
+       <file name="Application.php" role="php" />
+       <file name="Default.php" role="php" />
+       <file name="Prefix.php" role="php" />
+      </dir> <!-- /lib/Horde/Autoloader/ClassPathMapper -->
+      <file name="Default.php" role="php" />
+     </dir> <!-- /lib/Horde/Autoloader -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
   </dir> <!-- / -->
@@ -51,14 +61,15 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <pearinstaller>
     <min>1.5.4</min>
    </pearinstaller>
-   <package>
-    <name>Util</name>
-    <channel>pear.horde.org</channel>
-   </package>
   </required>
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="lib/Horde/Autoloader/ClassPathMapper/Application.php" as="Horde/Autoloader/ClassPathMapper/Application.php" />
+   <install name="lib/Horde/Autoloader/ClassPathMapper/Default.php" as="Horde/Autoloader/ClassPathMapper/Default.php" />
+   <install name="lib/Horde/Autoloader/ClassPathMapper/Prefix.php" as="Horde/Autoloader/ClassPathMapper/Prefix.php" />
+   <install name="lib/Horde/Autoloader/ClassPathMapper.php" as="Horde/Autoloader/ClassPathMapper.php" />
+   <install name="lib/Horde/Autoloader/Default.php" as="Horde/Autoloader/Default.php" />
    <install name="lib/Horde/Autoloader.php" as="Horde/Autoloader.php" />
   </filelist>
  </phprelease>

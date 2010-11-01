@@ -1,0 +1,749 @@
+# Latviešu valodas tulkojums Horde Framework komponentei.
+# Kronolith - Kalendārs
+# Copyright 2004 Free Software Foundation, Inc.
+# Ivars Stivriņš <ivars@kraslava.lv>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2004-09-15 18:43+0300\n"
+"PO-Revision-Date: 2004-09-15 20:52+0200\n"
+"Last-Translator: Ivars Stivrins <ivars@kraslava.lv>\n"
+"Language-Team: Latvian <ivars@kraslava.lv>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+#, c-format
+msgid "%d hour"
+msgstr "%d stunda"
+
+#, c-format
+msgid "%d hour, %d minute"
+msgstr "%d stunda, %d minūte"
+
+#, c-format
+msgid "%d hour, %d minutes"
+msgstr "%d stunda, %d minūtes"
+
+#, c-format
+msgid "%d hours"
+msgstr "%d stundas"
+
+#, c-format
+msgid "%d hours, %d minute"
+msgstr "%d stundas, %d minūte"
+
+#, c-format
+msgid "%d hours, %d minutes"
+msgstr "%d stundas, %d minūtes"
+
+#, c-format
+msgid "%d minute"
+msgstr "%d minūte"
+
+#, c-format
+msgid "%d minutes"
+msgstr "%d minūtes"
+
+#, c-format
+msgid "%s Minutes before"
+msgstr "Pirms %s minūtēm"
+
+#, c-format
+msgid "%s file successfully imported"
+msgstr "%s datne sekmīgi ielādēta"
+
+#, c-format
+msgid "%s is in progress."
+msgstr "%s notiek pašreiz..."
+
+#, c-format
+msgid "%s is starting now."
+msgstr "%s jau sākas"
+
+#, c-format
+msgid "%s starts in %s"
+msgstr "%s sākas pēc %s"
+
+msgid "<b>Description</b> (optional)"
+msgstr "<b>Apraksts</b> (neobligāts)"
+
+msgid "<b>Description</b>"
+msgstr "<b>Apraksts</b>"
+
+msgid "<b>Keywords</b> (optional)"
+msgstr "<b>Atslēgvārdi</b> (neobligāti)"
+
+msgid "<b>Keywords</b>"
+msgstr "<b>Atslēgvārdi</b>"
+
+msgid "<b>Recurrence</b> (optional)"
+msgstr "<b>Atkārtošanās</b> (neobligāti)"
+
+msgid "<b>Recurrence</b>"
+msgstr "<b>Atkārtošanās</b>"
+
+msgid "Add Event"
+msgstr "Pievienot notikumu"
+
+msgid "Add a new event"
+msgstr "Pievienot jaunu notikumu"
+
+msgid "Add, remove, and edit categories."
+msgstr "Pievienot, dzēst un labot kategorijas"
+
+msgid "Alarm Date"
+msgstr "Atgādinājuma datums"
+
+msgid "Alarm Span (minutes)"
+msgstr "Atgādinājuma laika sprīdis (minūtēs)"
+
+msgid "Alarm Time"
+msgstr "Atgādinājuma laiks"
+
+msgid "Alarm"
+msgstr "Atgādinājums"
+
+msgid "All day event"
+msgstr "Visi dienas notikumi"
+
+msgid "All day"
+msgstr "Visi dienas"
+
+msgid "All events"
+msgstr "Visi notikumi"
+
+msgid "All"
+msgstr "Viss"
+
+#, c-format
+msgid "Any events in a category that is deleted will become %s."
+msgstr "Visi notikumi kategorijā, kas tiks dzēsta kļūs %s"
+
+msgid "April"
+msgstr "Aprīlis"
+
+msgid "At"
+msgstr "-"
+
+msgid "August"
+msgstr "Augusts"
+
+msgid "Birthday"
+msgstr "Dzimšanas diena"
+
+msgid "Cancel"
+msgstr "Atcelt"
+
+msgid "Category Management"
+msgstr "Kategoriju administrēšana"
+
+msgid "Category"
+msgstr "Kategorija"
+
+msgid "Change the way dates and times are formatted."
+msgstr "Mainīt datumu un laika atrādīšanas veidu"
+
+msgid "Choose Color"
+msgstr "Izvēlēties krāsu"
+
+msgid "Color Picker"
+msgstr "Krāsu palete"
+
+msgid "Confirm deletion of events?"
+msgstr "Apstiprināt notikumu dzēšanu"
+
+msgid "Create New Category"
+msgstr "Izveidot jaunu kategoriju"
+
+msgid "Create a New Event"
+msgstr "Izveidot jaunu notikumu"
+
+msgid "Current"
+msgstr "Pasreizējais"
+
+msgid "Daily: Recurs every"
+msgstr "Dienā: Atkārtoties katru"
+
+msgid "Date and Time Options"
+msgstr "DAtuma un laika opcijas"
+
+msgid "Day"
+msgstr "Diena"
+
+msgid "Day(s)"
+msgstr "Dienas"
+
+msgid "December"
+msgstr "Decembris"
+
+#, c-format
+msgid "Delete %s"
+msgstr "Datums %s"
+
+#, c-format
+msgid "Delete '%s'"
+msgstr "Dzēst '%s'"
+
+msgid "Delete Event"
+msgstr "Dzēst notikumu"
+
+msgid ""
+"Delete the current event only, this occurrence and all future occurences, or "
+"all occurences?"
+msgstr ""
+"Dzēst tikai esošo notikumu, šajā un visās nākamajās reizēs, vaivienmēr?"
+
+msgid "Delete"
+msgstr "Dzēst"
+
+msgid "Description"
+msgstr "Paskaidrojums"
+
+msgid "Display 24-hour times?"
+msgstr "Rādīt 24 stundu laiku"
+
+msgid "Display Options"
+msgstr "Displeja parametri"
+
+#, c-format
+msgid "Due: %s"
+msgstr "Sakarā ar: %s"
+
+msgid "Duration"
+msgstr "Ilgums"
+
+#, c-format
+msgid "Edit %s"
+msgstr "Labot %s"
+
+#, c-format
+msgid "Edit '%s'"
+msgstr "Labot '%s'"
+
+msgid "Edit"
+msgstr "Labot"
+
+msgid "End Date"
+msgstr "Baigu datums"
+
+msgid "End On"
+msgstr "Beidzas"
+
+msgid "End Time"
+msgstr "Beigu laiks"
+
+msgid "Export Calendar"
+msgstr "Eksportēt kalendāru"
+
+msgid "Export"
+msgstr "Eksportēt"
+
+msgid "February"
+msgstr "Februāris"
+
+msgid "Fr"
+msgstr "Pi"
+
+msgid "Friday"
+msgstr "Piektdiena"
+
+msgid "Future"
+msgstr "Nākotnē"
+
+msgid "Game"
+msgstr "Spēle"
+
+msgid "Goto"
+msgstr "Iet uz"
+
+msgid "Help"
+msgstr "Palīdzība"
+
+msgid "Hour(s)"
+msgstr "Stunda(s)"
+
+msgid "If importing CSV data: does the first row contain the field names?"
+msgstr "Ja ievelkam CSV datus: vai pirmā rinda satur lauku vārdus?"
+
+msgid "Illegal or malformed form data."
+msgstr "Nepieļaujami vai neveiksmīgi noformēti dati"
+
+msgid "Import Calendar"
+msgstr "Ievilkt kalendāru"
+
+msgid "Import"
+msgstr "Ievilkt"
+
+msgid "Import/Export Calendar"
+msgstr "Ievilkt/Eksportēt kalendāru"
+
+msgid "Import/Export"
+msgstr "Ievilkt/Eksportēt"
+
+msgid "Invalid category entered."
+msgstr "Nepareiza kategorija ievadīta"
+
+msgid "January"
+msgstr "Janvāris"
+
+msgid "July"
+msgstr "Jūlijs"
+
+msgid "June"
+msgstr "Jūnija"
+
+msgid "Keywords"
+msgstr "Atslēgvārdi"
+
+msgid "Kronolith is not properly configured"
+msgstr "Kronoltith nav pareizi nokonfigurēts"
+
+msgid "Language"
+msgstr "Valoda"
+
+msgid "Last Month"
+msgstr "Pēdējais mēnesis"
+
+msgid "Last week"
+msgstr "Pēdējā nedēļa"
+
+msgid "Lasts"
+msgstr "Pēdējās(-ie)"
+
+msgid "Limit the time span to export:"
+msgstr "Ierobežot laika grafiku datu eksportam"
+
+msgid "Location"
+msgstr "Atrašanās"
+
+msgid "March"
+msgstr "Marts"
+
+msgid "May"
+msgstr "Maijs"
+
+msgid "Meeting"
+msgstr "Tikšanās"
+
+msgid "Minute(s)"
+msgstr "Minūte(s)"
+
+msgid "Minutes"
+msgstr "Minūtes"
+
+msgid "Mo"
+msgstr "Pi"
+
+msgid "Monday"
+msgstr "Pirmdiena"
+
+msgid "Month"
+msgstr "Mēnesis"
+
+msgid "Monthly: Recurs every"
+msgstr "Mēnešos: Atkārtoties katru"
+
+msgid "New Category"
+msgstr "Jauna kategorija"
+
+msgid "New Event"
+msgstr "Jauns notikums"
+
+msgid "Next Month"
+msgstr "Nākošais mēnesis"
+
+msgid "Next day"
+msgstr "Nākošā diena"
+
+msgid "Next week"
+msgstr "Nākošā nedēļa"
+
+msgid "No configuration information specified for SQL Calendar."
+msgstr "Nav nekādas informācijas norādītas SQL kalendāram"
+
+msgid "No end date"
+msgstr "Nav beigu datuma"
+
+msgid "None"
+msgstr "Nav"
+
+msgid ""
+"Notice: Importing is not possible with this configuration due to a bug in "
+"the underlying calendar driver."
+msgstr ""
+"Piezīme: Ievilkšana nav iespējama sakarā ar konfigurācijas failujo ir kļūda "
+"kalendāra dzinī"
+
+msgid "November"
+msgstr "Novembris"
+
+msgid "October"
+msgstr "Oktobris"
+
+msgid "Options"
+msgstr "Parametri"
+
+msgid "Other Options"
+msgstr "Citi parametri"
+
+msgid "Pattern"
+msgstr "Veids"
+
+msgid "Permanently delete this event?"
+msgstr "Dzēst šo notikumu pilnībā"
+
+msgid "Please enter a name for the new category:"
+msgstr "Lūdzu ievadiet jaunās kategorijas nosaukumu"
+
+msgid "Please enter a new name for this category:"
+msgstr "Lūdzu ievadiet jaunu kategorijas nosaukumu"
+
+msgid "Previous day"
+msgstr "Iepriekšējā diena"
+
+msgid "Print"
+msgstr "Drukāt"
+
+msgid "Problem?"
+msgstr "Problēma"
+
+msgid "Recur Until"
+msgstr "Atkārtojas"
+
+msgid "Recurrence Data"
+msgstr "Atkārtošanās datums"
+
+msgid "Recurrence End Date"
+msgstr "Atkārtošanās iztecējuma (beigu) datums"
+
+msgid "Recurrence Interval"
+msgstr "Atkārtošanās intervāls"
+
+msgid "Recurrence Type"
+msgstr "Atkārtošanās laiks"
+
+msgid "Recurs daily"
+msgstr "Atkārtoties katru dienu"
+
+msgid "Recurs monthly"
+msgstr "Atkārtoties katru mēnesi"
+
+msgid "Recurs not"
+msgstr "Neatkārtoties "
+
+msgid "Recurs weekly"
+msgstr "Atkārtoties ik nedēļu"
+
+msgid "Recurs yearly"
+msgstr "Atkārtoties ik gadu"
+
+msgid "Rename"
+msgstr "Pārdēvēt"
+
+msgid "Required 'hostspec' not specified in calendar configuration."
+msgstr "Nepieciešamā 'hostspec' nav norādīta kalendāra konfigurācijā. "
+
+msgid "Required 'password' not specified in calendar configuration."
+msgstr "Nepieciešamā 'password' nav norādīta kalendāra konfigurācijā."
+
+msgid "Required 'phptype' not specified in calendar configuration."
+msgstr "Nepieciešamais 'phptype' nav norādīts kalendāra konfigurācijā."
+
+msgid "Required 'username' not specified in calendar configuration."
+msgstr "Nepieciešamais 'username' nav norādīts kalendāra konfigurācijā"
+
+msgid "Reset to Defaults"
+msgstr "Atiestatīt noklusējuma parametrus"
+
+msgid "Sa"
+msgstr "Se"
+
+msgid "Saturday"
+msgstr "Sestdiena"
+
+msgid "Save As New"
+msgstr "Saglabāt kā jaunu"
+
+msgid "Save Event"
+msgstr "Saglabāt notikumu"
+
+msgid ""
+"Select confirmation options, how to display the different views and choose "
+"default view."
+msgstr ""
+"Izvēlieties apstiprinājuma parametrus, izvēlīeties vienu no "
+"vairākiemapskates (attēlojuma) veidiem."
+
+msgid "Select how to display Dates:"
+msgstr "Izvēlieties kā atspoguļot datumus:"
+
+msgid "Select if to show due tasks in the calendar."
+msgstr "Izvēlieties ja rādīt kopā ar notikumiem kalendārā."
+
+msgid "Select the file to import:"
+msgstr "Izvēlieties datni ko ielasīt:"
+
+msgid "Select the first weekday:"
+msgstr "Izvēlieties nedēļas pirmo dienu."
+
+msgid "Select the format to export to:"
+msgstr "Izvēlieties formātu kādā eksportēt:"
+
+msgid "Select the source to import from:"
+msgstr "Izvēlieties no kurienes ielasīt:"
+
+msgid "Select the time span to show:"
+msgstr "Izvēlieties laika sprīdi cik ilgi rādīt:"
+
+msgid "Select the view to display after login:"
+msgstr "Izvēlieties skatu ko rādīt pēc autorizācijas sistēmā:"
+
+msgid "Select which events to show in the Horde summary."
+msgstr "Izvēlieties kādus notikumus rādīt kopskatā."
+
+msgid "September"
+msgstr "Septembris"
+
+msgid "Set the current time zone."
+msgstr "Izvēlieties laika joslu"
+
+msgid "Set the language that menu items, explanations, and help are in."
+msgstr "Izvēlieties valodu"
+
+msgid "Set your preferred display language."
+msgstr "Iestatīt noklusēto valodu"
+
+msgid "Show delete, alarm, and recurrence icons in calendar views?"
+msgstr "Rādīt "
+
+msgid "Show due tasks in the calendar?"
+msgstr "Rādīt ar notikumiem kalendārā?"
+
+msgid "Show half hour slots in day and week views?"
+msgstr "Rādīt ceturdaļkvadrātiņus dienu un nedēļu skatos?"
+
+msgid "Show only events that have an alarm set?"
+msgstr "Rādīt tikai notikumus ar atgādinājumu?"
+
+msgid "Some of Kronolith's configuration files are missing:"
+msgstr "Trūkst daži no Kronolith konfigurācijas failiem:"
+
+msgid "Start Date"
+msgstr "Sākuma datums"
+
+msgid "Start On"
+msgstr "Sāksies"
+
+msgid "Start Time"
+msgstr "Sākuma laiks"
+
+msgid "Su"
+msgstr "Sv"
+
+msgid "Summary"
+msgstr "Kopsavilkums"
+
+msgid "Sunday"
+msgstr "Svētdiena"
+
+msgid "Tasks"
+msgstr "Uzdevumi"
+
+msgid "Th"
+msgstr "Ce"
+
+msgid "The Options window has closed. Exiting."
+msgstr "Iestatījumu logs ticis aizvērts. Atteikšanās..."
+
+msgid "The data was lost."
+msgstr "Dati tikuši pazaudēti."
+
+msgid "The end date must be later than the start date."
+msgstr "Beigu datumam ir jābūt vēlāk kā sākuma."
+
+msgid "The file contained no data."
+msgstr "Datne nesatur nekādus datus"
+
+msgid ""
+"There was a problem with the file upload. The file may have been larger than "
+"the maximum allowed size."
+msgstr ""
+"Problēmas ar datnes augšupielādi. Iespējams , ka datne ir lielākakā to "
+"atļauj servera parametri."
+
+msgid "There was an error importing the data."
+msgstr "Kļūda ielasot datus"
+
+msgid "There was an error importing the uploaded file"
+msgstr "Kļūda ielasot augšupielādēto datni"
+
+msgid "There were no events to export."
+msgstr "Nav notikumu ko eksportēt"
+
+msgid "These changes can not be undone!"
+msgstr "Izmaiņas nevar atcelt!"
+
+msgid ""
+"This file controls the default preferences for Kronolith, and also controls "
+"which preferences users can alter."
+msgstr ""
+"Datne satur noklusētos parametrus un nosaka kādusparametrus lietotājs drīkst "
+"mainīt"
+
+msgid ""
+"This file controls the stylesheet that is used to set colors and fonts in "
+"addition to or overriding Horde defaults."
+msgstr "Datne satur stilus fontus un krāsas."
+
+msgid ""
+"This is the main Kronolith configuration file. It contains paths and options "
+"for all Kronolith scripts."
+msgstr "Galvenā konfigurācijas datneSatur ceļus un opcijas visiem kodiem"
+
+msgid "This window must be called from an Options window"
+msgstr "Šo logu var aizvērt no parametru loga"
+
+msgid "Thursday"
+msgstr "Ceturdiena"
+
+msgid "Time Zone"
+msgstr "Laika zina"
+
+msgid "Title"
+msgstr "Nosaukums"
+
+msgid "Today"
+msgstr "Šodiena"
+
+msgid "Tomorrow"
+msgstr "Rītdiena"
+
+msgid "Tu"
+msgstr "Ot"
+
+msgid "Tuesday"
+msgstr "Otrdiena"
+
+msgid "Type"
+msgstr "Tips"
+
+msgid "Unable to create calendar instance."
+msgstr "Navar izveidot kalendāra ierakstu"
+
+#, c-format
+msgid "Unable to delete %s."
+msgstr "Nevar neodzēst %s."
+
+#, c-format
+msgid "Unable to load the definition of %s."
+msgstr "Nevar ielādēt definīciju iekš %s."
+
+msgid "Unfiled"
+msgstr "Neaizpildīts"
+
+msgid "User Interface"
+msgstr "Lietotāja skats"
+
+msgid "User Options"
+msgstr "Lietotāja parametri"
+
+#, c-format
+msgid "View %s"
+msgstr "Skats %s"
+
+msgid "We"
+msgstr "Tr"
+
+msgid "Wednesday"
+msgstr "Trešdiena"
+
+#, c-format
+msgid "Week %d"
+msgstr "Nedēļas %d"
+
+msgid "Week"
+msgstr "Nedēļa"
+
+#, c-format
+msgid "Week&nbsp;%d"
+msgstr "Nedēļa&nbsp;%d"
+
+msgid "Week(s)"
+msgstr "Nedēļa(s)"
+
+msgid "Weekly: Recurs every"
+msgstr "Nedēļa: Atkārtoties katru"
+
+msgid ""
+"What time should day and week views end, when there are no later events?"
+msgstr "Kādā laikā dienai un nedēļai jābeidzas, ja nav citu ierakstu?"
+
+msgid ""
+"What time should day and week views start, when there are no earlier events?"
+msgstr "Kādā laikā dienai un nedēļai jāsākas, ja nav citu ierakstu?"
+
+msgid "Work Week"
+msgstr "Darba nedēļa"
+
+msgid "Yearly: Recurs every"
+msgstr "Ikgadus: Atkārtoties katru"
+
+msgid "You are creating a new category."
+msgstr "Jūs veidojat jaunu kategoriju."
+
+msgid "You must choose a category."
+msgstr "Jums ir jāizvēlas kategorija"
+
+msgid "Your Information"
+msgstr "Jūsu informācija"
+
+msgid ""
+"Your browser does not support this print option. Press Control/Option + P to "
+"print."
+msgstr ""
+"Jūsu pārlūkprogramma nesaprot kā var printēt automātiski, nospiediet Ctrl + "
+"Plai drukātu"
+
+msgid "Your current time zone:"
+msgstr "Jūsu laika josla ir:"
+
+msgid "[none]"
+msgstr "[nav]"
+
+msgid "day"
+msgstr "diena"
+
+msgid "day(s)"
+msgstr "diena(s)"
+
+msgid "days"
+msgstr "dienas"
+
+msgid "iCalendar file successfully imported"
+msgstr "i-kalendārs sekmīgi ierakstīts"
+
+msgid "month(s)"
+msgstr "mēnesis(-ši)"
+
+msgid "no time"
+msgstr "laika nav"
+
+msgid "on the same date"
+msgstr "tajā pašā datumā"
+
+msgid "on the same weekday"
+msgstr "tajā pašā nedēļas dienā"
+
+msgid "week"
+msgstr "nedēļa"
+
+msgid "week(s) on:"
+msgstr "nedēlā(-ās) :"
+
+msgid "weeks"
+msgstr "nedēļas"
+
+msgid "year(s)"
+msgstr "gads(-i)"

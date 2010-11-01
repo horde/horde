@@ -2,8 +2,6 @@
 /**
  * Test the audio listener class.
  *
- * PHP version 5
- *
  * @category Horde
  * @package  Notification
  * @author   Gunnar Wrobel <wrobel@pardus.de>
@@ -32,10 +30,10 @@ require_once dirname(__FILE__) . '/../../../Autoload.php';
  */
 class Horde_Notification_Class_Notification_Listener_AudioTest extends PHPUnit_Extensions_OutputTestCase
 {
-    public function testMethodHandleHasResultBooleanTrueForAudioMessages()
+    public function testMethodHandleHasEventClassForAudioMessages()
     {
         $listener = new Horde_Notification_Listener_Audio();
-        $this->assertTrue($listener->handles('audio'));
+        $this->assertEquals('Horde_Notification_Event', $listener->handles('audio'));
     }
 
     public function testMethodGetnameHasResultStringAudio()
@@ -48,12 +46,7 @@ class Horde_Notification_Class_Notification_Listener_AudioTest extends PHPUnit_E
     {
         $listener = new Horde_Notification_Listener_Audio();
         $event = new Horde_Notification_Event('test');
-        $messages = array(
-            array(
-                'class' => 'Horde_Notification_Event',
-                'event' => serialize($event)
-            )
-        );
+        $messages = array($event);
         $this->expectOutputString(
             '<embed src="test" width="0" height="0" autostart="true" />'
         );

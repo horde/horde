@@ -22,7 +22,7 @@ class Ingo_Hooks
      *
      * @return array  A list of vacation addresses.
      */
-//    function vacation_addresses($user = null)
+//    public function vacation_addresses($user = null)
 //    {
 //        // Example #1: User has 2 vacation addresses.
 //        return array($user . '@example.com', $user . '@foobar.com');

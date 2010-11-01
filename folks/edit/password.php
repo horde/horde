@@ -16,10 +16,10 @@ require_once 'tabs.php';
 
 /*
 // Make sure auth backend allows passwords to be updated.
-$auth = Horde_Auth::singleton($conf['auth']['driver']);
+$auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 if (!$auth->hasCapability('resetpassword')) {
     $notification->push(_("Cannot update password, contact your administrator."), 'horde.error');
-    Horde_Auth::authenticateFailure('folks');
+    $registry->authenticateFailure('folks');
 }
 */
 
@@ -150,7 +150,7 @@ do {
     }
 
     // try to chage it
-    $result = $folks_driver->changePassword($info['new'], Horde_Auth::getAuth());
+    $result = $folks_driver->changePassword($info['new'], $GLOBALS['registry']->getAuth());
     if ($result instanceof PEAR_Error) {
         $notification->push($result);
         break;
@@ -159,17 +159,9 @@ do {
     $notification->push(_("Password changed."), 'horde.success');
 
     // reset credentials so user is not forced to relogin
-    if (Horde_Auth::getCredential('password') == $info['old']) {
-        Horde_Auth::setCredential('password', $info['new']);
-        if (Horde_Auth::getProvider() == 'imp' || !empty($_SESSION['imp']['pass'])) {
-            $_SESSION['imp']['pass'] = Horde_Secret::write(Horde_Secret::getKey('imp'),
-                                                        $info['new']);
-        } elseif (Horde_Auth::getProvider() == 'mimp' || !empty($_SESSION['mimp']['pass'])) {
-            $_SESSION['mimp']['pass'] = Horde_Secret::write(Horde_Secret::getKey('mimp'),
-                                                        $info['new']);
-        }
+    if ($registry->getAuthCredential('password') == $info['old']) {
+        $registry->setAuthCredential('password', $info['new']);
     }
-
 } while (false);
 
 // update password reminder prefs

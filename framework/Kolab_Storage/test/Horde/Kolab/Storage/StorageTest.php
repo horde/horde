@@ -32,7 +32,7 @@ require_once 'Autoload.php';
  * @license    http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link       http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_StorageTest extends Horde_Kolab_Storage_Scenario
+class Horde_Kolab_Storage_StorageTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Test setup.
@@ -41,38 +41,35 @@ class Horde_Kolab_Storage_StorageTest extends Horde_Kolab_Storage_Scenario
      */
     public function setUp()
     {
-        // No 'auth' in world, so this won't work yet. Skip it.
-        $this->markTestSkipped();
+        /* $world = $this->prepareBasicSetup(); */
 
-        $world = $this->prepareBasicSetup();
+        /* /\** Prepare a Kolab test storage *\/ */
+        /* $params   = array('driver'   => 'Mock', */
+        /*                   'username' => 'wrobel@example.org', */
+        /*                   'password' => 'none'); */
+        /* $storage1 = Horde_Kolab_Storage::singleton('imap', $params); */
 
-        /** Prepare a Kolab test storage */
-        $params   = array('driver'   => 'Mock',
-                          'username' => 'wrobel@example.org',
-                          'password' => 'none');
-        $storage1 = Horde_Kolab_Storage::singleton('imap', $params);
+        /* $folder = $this->prepareNewFolder($storage1, 'Contacts', 'contact', true); */
+        /* $perms  = $folder->getPermission(); */
+        /* $perms->addUserPermission('test@example.org', Horde_Perms::SHOW); */
+        /* $perms->save(); */
 
-        $folder = $this->prepareNewFolder($storage1, 'Contacts', 'contact', true);
-        $perms  = $folder->getPermission();
-        $perms->addUserPermission('test@example.org', Horde_Perms::SHOW);
-        $perms->save();
+        /* $folder = $this->prepareNewFolder($storage1, 'Calendar', 'event', true); */
+        /* $perms  = $folder->getPermission(); */
+        /* $perms->addUserPermission('test@example.org', Horde_Perms::SHOW); */
+        /* $perms->save(); */
 
-        $folder = $this->prepareNewFolder($storage1, 'Calendar', 'event', true);
-        $perms  = $folder->getPermission();
-        $perms->addUserPermission('test@example.org', Horde_Perms::SHOW);
-        $perms->save();
+        /* /\** Prepare a Kolab test storage *\/ */
+        /* $storage2 = $this->authenticate($world['auth'], */
+        /*                                 'test@example.org', */
+        /*                                 'test'); */
 
-        /** Prepare a Kolab test storage */
-        $storage2 = $this->authenticate($world['auth'],
-                                        'test@example.org',
-                                        'test');
+        /* $this->prepareNewFolder($storage2, 'Contacts', 'contact', true); */
+        /* $this->prepareNewFolder($storage2, 'TestContacts', 'contact'); */
+        /* $this->prepareNewFolder($storage2, 'Calendar', 'event', true); */
+        /* $this->prepareNewFolder($storage2, 'TestCalendar', 'event'); */
 
-        $this->prepareNewFolder($storage2, 'Contacts', 'contact', true);
-        $this->prepareNewFolder($storage2, 'TestContacts', 'contact');
-        $this->prepareNewFolder($storage2, 'Calendar', 'event', true);
-        $this->prepareNewFolder($storage2, 'TestCalendar', 'event');
-
-        $this->storage = &$storage2;
+        /* $this->storage = &$storage2; */
     }
 
     /**
@@ -82,10 +79,10 @@ class Horde_Kolab_Storage_StorageTest extends Horde_Kolab_Storage_Scenario
      */
     public function tearDown()
     {
-        Horde_Imap_Client_Mock::clean();
-        if ($this->storage) {
-            $this->storage->clean();
-        }
+        /* Horde_Imap_Client_Mock::clean(); */
+        /* if ($this->storage) { */
+        /*     $this->storage->clean(); */
+        /* } */
     }
 
     /**
@@ -95,6 +92,8 @@ class Horde_Kolab_Storage_StorageTest extends Horde_Kolab_Storage_Scenario
      */
     public function testConstruct()
     {
+        $this->markTestSkipped();
+
         $this->assertTrue($this->storage instanceOf Horde_Kolab_Storage);
     }
 
@@ -105,6 +104,8 @@ class Horde_Kolab_Storage_StorageTest extends Horde_Kolab_Storage_Scenario
      */
     public function testListFolders()
     {
+        $this->markTestSkipped();
+
         $folders = $this->storage->listFolders();
         $this->assertContains('INBOX/Contacts', $folders);
     }
@@ -116,13 +117,39 @@ class Horde_Kolab_Storage_StorageTest extends Horde_Kolab_Storage_Scenario
      */
     public function testGetFolders()
     {
-        $folders = $this->storage->getFolders();
+        $this->markTestSkipped();
+
+        $storage = new Horde_Kolab_Storage(
+            'Imap',
+            array(
+                'username' => 'test',
+                'password' => 'test',
+            )  
+        );
+        $folders = $storage->getFolders();
         $this->assertEquals(6, count($folders));
         $folder_names = array();
         foreach ($folders as $folder) {
             $folder_names[] = $folder->name;
         }
         $this->assertContains('INBOX/Contacts', $folder_names);
+    }
+
+    public function testGetFolder()
+    {
+        $this->markTestSkipped();
+        
+        $GLOBALS['language'] = 'de_DE';
+        $storage = new Horde_Kolab_Storage(
+            new Horde_Kolab_Storage_Connection(),
+            'Imap',
+            array(
+                'username' => 'test',
+                'password' => 'test',
+            )  
+        );
+        $folder = $storage->getFolder('INBOX');
+        $this->assertEquals('INBOX', $folder->name);
     }
 
     /**
@@ -132,6 +159,8 @@ class Horde_Kolab_Storage_StorageTest extends Horde_Kolab_Storage_Scenario
      */
     public function testGetByShare()
     {
+        $this->markTestSkipped();
+
         $folder = $this->storage->getByShare('test@example.org', 'event');
         $this->assertEquals('INBOX/Calendar', $folder->name);
     }
@@ -143,6 +172,8 @@ class Horde_Kolab_Storage_StorageTest extends Horde_Kolab_Storage_Scenario
      */
     public function testGetByType()
     {
+        $this->markTestSkipped();
+
         $folders = $this->storage->getByType('event');
         $this->assertEquals(3, count($folders));
         $names = array();
@@ -160,6 +191,8 @@ class Horde_Kolab_Storage_StorageTest extends Horde_Kolab_Storage_Scenario
      */
     public function testGetDefault()
     {
+        $this->markTestSkipped();
+
         $folder = $this->storage->getDefault('event');
         $this->assertEquals('INBOX/Calendar', $folder->name);
         $folder = $this->storage->getDefault('contact');
@@ -173,6 +206,8 @@ class Horde_Kolab_Storage_StorageTest extends Horde_Kolab_Storage_Scenario
      */
     public function testGetForeignOwner()
     {
+        $this->markTestSkipped();
+
         $folder = $this->storage->getFolder('user/wrobel');
         $this->assertEquals('wrobel@example.org', $folder->getOwner());
     }
@@ -184,6 +219,8 @@ class Horde_Kolab_Storage_StorageTest extends Horde_Kolab_Storage_Scenario
      */
     public function testGetForeignDefault()
     {
+        $this->markTestSkipped();
+
         $folder = $this->storage->getForeignDefault('wrobel@example.org', 'event');
         $this->assertEquals('user/wrobel/Calendar', $folder->name);
         $this->assertEquals('user%2Fwrobel%2FCalendar', $folder->getShareId());
@@ -199,6 +236,8 @@ class Horde_Kolab_Storage_StorageTest extends Horde_Kolab_Storage_Scenario
      */
     public function testCreate()
     {
+        $this->markTestSkipped();
+
         $folder = $this->storage->getNewFolder();
         $folder->setName('Notes');
         $folder->save(array());
@@ -213,6 +252,8 @@ class Horde_Kolab_Storage_StorageTest extends Horde_Kolab_Storage_Scenario
      */
     public function testCacheAdd()
     {
+        $this->markTestSkipped();
+
         $params   = array('driver'   => 'Mock',
                           'username' => 'cacheadd@example.org',
                           'password' => 'none');
@@ -234,6 +275,8 @@ class Horde_Kolab_Storage_StorageTest extends Horde_Kolab_Storage_Scenario
      */
     public function testCacheDelete()
     {
+        $this->markTestSkipped();
+
         $params   = array('driver'   => 'Mock',
                           'username' => 'cachedel@example.org',
                           'password' => 'none');
@@ -257,6 +300,8 @@ class Horde_Kolab_Storage_StorageTest extends Horde_Kolab_Storage_Scenario
      */
     public function testRename()
     {
+        $this->markTestSkipped();
+
         $folder = &$this->storage->getFolder('INBOX/TestContacts');
         $folder->setName('TestNotes');
         $folder->save(array());
@@ -272,6 +317,8 @@ class Horde_Kolab_Storage_StorageTest extends Horde_Kolab_Storage_Scenario
      */
     public function testRemove()
     {
+        $this->markTestSkipped();
+
         $folder = &$this->storage->getFolder('INBOX/Calendar');
         $this->assertTrue($folder->exists());
         $this->assertTrue($folder->isDefault());
@@ -286,6 +333,8 @@ class Horde_Kolab_Storage_StorageTest extends Horde_Kolab_Storage_Scenario
      */
     public function testCaching()
     {
+        $this->markTestSkipped();
+
         $params   = array('driver'   => 'Mock',
                           'username' => 'cache@example.org',
                           'password' => 'none');

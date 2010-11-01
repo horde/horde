@@ -11,10 +11,10 @@
  */
 
 require_once dirname(__FILE__) . '/../../lib/Application.php';
-new Horde_Application();
+Horde_Registry::appInit('horde');
 
 // Instantiate the blocks objects.
-$blocks = Horde_Block_Collection::singleton('portal');
+$blocks = Horde_Block_Collection::singleton();
 $layout_pref = @unserialize($prefs->getValue('portal_layout'));
 if (!is_array($layout_pref)) {
     $layout_pref = array();
@@ -35,7 +35,7 @@ if ($layout->updated()) {
 
 $title = _("My Portal Layout");
 require HORDE_TEMPLATES . '/common-header.inc';
-require HORDE_TEMPLATES . '/menu/menu.inc';
+echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 require HORDE_TEMPLATES . '/portal/edit.inc';
 require HORDE_TEMPLATES . '/common-footer.inc';

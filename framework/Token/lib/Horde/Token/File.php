@@ -2,20 +2,16 @@
 /**
  * Token tracking implementation for local files.
  *
- * Optional parameters:<pre>
- *   'token_dir'  The directory where to keep token files.
- *   'timeout'    The period (in seconds) after which an id is purged.
- *                Defaults to 86400 (i.e. 24 hours).</pre>
- *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Max Kalika <max@horde.org>
- * @package Horde_Token
+ * @author   Max Kalika <max@horde.org>
+ * @category Horde
+ * @package  Token
  */
-class Horde_Token_File extends Horde_Token
+class Horde_Token_File extends Horde_Token_Base
 {
     /**
      * Handle for the open file descriptor.
@@ -32,23 +28,25 @@ class Horde_Token_File extends Horde_Token
     protected $_connected = false;
 
     /**
-     * Create a new file based token-tracking container.
+     * Constructor.
      *
-     * @param array $params  A hash containing storage parameters.
+     * @param array $params  Optional parameters:
+     * <pre>
+     * 'timeout' - (integer) The period (in seconds) after which an id is
+     *             purged.
+     *             DEFAULT: 86400 (24 hours)
+     * 'token_dir' - (string)  The directory where to keep token files.
+     *               DEFAULT: System temporary directory
+     * </pre>
      */
-    protected function __construct($params = array())
+    public function __construct($params = array())
     {
+        $params = array_merge(array(
+            'timeout' => 86400,
+            'token_dir' => Horde_Util::getTempDir()
+        ), $params);
+
         parent::__construct($params);
-
-        /* Choose the directory to save the stub files. */
-        if (!isset($this->_params['token_dir'])) {
-            $this->_params['token_dir'] = Horde_Util::getTempDir();
-        }
-
-        /* Set timeout to 24 hours if not specified. */
-        if (!isset($this->_params['timeout'])) {
-            $this->_params['timeout'] = 86400;
-        }
     }
 
     /**
@@ -56,32 +54,30 @@ class Horde_Token_File extends Horde_Token
      */
     public function __destruct()
     {
-        $this->_disconnect();
+        $this->_disconnect(false);
     }
 
     /**
-     * Deletes all expired connection id's from the SQL server.
+     * Delete all expired connection IDs.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Token_Exception
      */
     public function purge()
     {
         // Make sure we have no open file descriptors before unlinking
         // files.
-        if (!$this->_disconnect()) {
-            throw new Horde_Exception('Unable to close file descriptors');
-        }
+        $this->_disconnect();
 
         /* Build stub file list. */
         if (!($dir = opendir($this->_params['token_dir']))) {
-            throw new Horde_Exception('Unable to open token directory');
+            throw new Horde_Token_Exception('Unable to open token directory');
         }
 
         /* Find expired stub files */
         while (($dirEntry = readdir($dir)) != '') {
             if (preg_match('|^conn_\w{8}$|', $dirEntry) && (time() - filemtime($this->_params['token_dir'] . '/' . $dirEntry) >= $this->_params['timeout']) &&
                 !@unlink($this->_params['token_dir'] . '/' . $dirEntry)) {
-                throw new Horde_Exception('Unable to purge token file.');
+                throw new Horde_Token_Exception('Unable to purge token file.');
             }
         }
 
@@ -89,20 +85,21 @@ class Horde_Token_File extends Horde_Token
     }
 
     /**
-     * TODO
+     * Does the token exist?
      *
-     * @return boolean  TODO
-     * @throws Horde_Exception
+     * @param string $tokenID  Token ID.
+     *
+     * @return boolean  True if the token exists.
+     * @throws Horde_Token_Exception
      */
     public function exists($tokenID)
     {
-        $this->_connect($tokenID);
+        $this->_connect();
 
         /* Find already used IDs. */
-        $fileContents = file($this->_params['token_dir'] . '/conn_' . $this->encodeRemoteAddress());
+        $fileContents = file($this->_params['token_dir'] . '/conn_' . $this->_encodeRemoteAddress());
         if ($fileContents) {
-            $iMax = count($fileContents);
-            for ($i = 0; $i < $iMax; $i++) {
+            for ($i = 0, $iMax = count($fileContents); $i < $iMax; ++$i) {
                 if (chop($fileContents[$i]) == $tokenID) {
                     return true;
                 }
@@ -113,38 +110,37 @@ class Horde_Token_File extends Horde_Token
     }
 
     /**
-     * TODO
+     * Add a token ID.
      *
-     * @throws Horde_Exception
+     * @param string $tokenID  Token ID to add.
+     *
+     * @throws Horde_Token_Exception
      */
     public function add($tokenID)
     {
-        $this->_connect($tokenID);
+        $this->_connect();
 
         /* Write the entry. */
-        fwrite($this->_fd, "$tokenID\n");
+        fwrite($this->_fd, $tokenID . "\n");
 
-        /* Return an error if the update fails, too. */
-        if (!$this->_disconnect()) {
-            throw new Horde_Exception('Failed to close token file cleanly.');
-        }
+        $this->_disconnect();
     }
 
     /**
      * Opens a file descriptor to a new or existing file.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Token_Exception
      */
-    protected function _connect($tokenID)
+    protected function _connect()
     {
         if ($this->_connected) {
             return;
         }
 
         // Open a file descriptor to the token stub file.
-        $this->_fd = @fopen($this->_params['token_dir'] . '/conn_' . $this->encodeRemoteAddress(), 'a');
+        $this->_fd = @fopen($this->_params['token_dir'] . '/conn_' . $this->_encodeRemoteAddress(), 'a');
         if (!$this->_fd) {
-            throw new Horde_Exception('Failed to open token file.');
+            throw new Horde_Token_Exception('Failed to open token file.');
         }
 
         $this->_connected = true;
@@ -153,16 +149,18 @@ class Horde_Token_File extends Horde_Token
     /**
      * Closes the file descriptor.
      *
-     * @return boolean  True on success, false on failure.
+     * @param boolean $error  Throw exception on error?
+     *
+     * @throws Horde_Token_Exception
      */
-    protected function _disconnect()
+    protected function _disconnect($error = true)
     {
         if ($this->_connected) {
             $this->_connected = false;
-            return fclose($this->_fd);
+            if (!fclose($this->_fd) && $error) {
+                throw new Horde_Token_Exception('Unable to close file descriptors');
+            }
         }
-
-        return true;
     }
 
 }

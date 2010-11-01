@@ -17,7 +17,13 @@ $horde_git = rtrim(ltrim($horde_git), '/ ');
 $web_dir = rtrim(ltrim($web_dir), '/ ');
 
 print "EMPTYING old web directory " . $web_dir . "\n";
-$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($web_dir), RecursiveIteratorIterator::CHILD_FIRST);
+try {
+    $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($web_dir), RecursiveIteratorIterator::CHILD_FIRST);
+} catch (UnexpectedValueException $e) {
+    print "Old web directory not found. Creating it.";
+    mkdir($web_dir);
+    $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($web_dir), RecursiveIteratorIterator::CHILD_FIRST);
+}
 while ($it->valid()) {
     if (!$it->isDot()) {
         if ($it->isLink()) {
@@ -46,42 +52,59 @@ if (!empty($git)) {
 }
 
 print "\nLINKING horde\n";
+file_put_contents($horde_git . '/horde/config/horde.local.php', "<?php if (!defined('HORDE_BASE')) define('HORDE_BASE', '$web_dir'); ini_set('include_path', '{$web_dir}/libs' . PATH_SEPARATOR . ini_get('include_path'));");
 $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($horde_git . '/horde'), RecursiveIteratorIterator::SELF_FIRST);
 while ($it->valid()) {
     if (!$it->isDot()) {
         if ($it->isDir()) {
-            if ($debug) {
-                print "CREATING DIR: " . $web_dir . '/' . $it->getSubPathName() . "\n";
+            // Need to link this directory, since the files in it are created at
+            // runtime.
+            if (strpos($it->getPathName(), $horde_git . '/horde/static') !== false) {
+                if ($debug) {
+                    print "LINKING DIRECTORY: " . $web_dir . "/" . $it->getSubPathName() . "\n";
+                }
+                symlink($it->key(), $web_dir . '/' . $it->getSubPathName());
+            } else {
+                if ($debug) {
+                    print "CREATING DIR: " . $web_dir . '/' . $it->getSubPathName() . "\n";
+                }
+                mkdir($web_dir . '/' . $it->getSubPathName());
             }
-            mkdir($web_dir . '/' . $it->getSubPathName());
         } else {
             if ($debug) {
                 print "LINKING FILE: " . $web_dir . "/" . $it->getSubPathName() . "\n";
             }
-            symlink($it->key(), $web_dir . '/' . $it->getSubPathName());
+            @symlink($it->key(), $web_dir . '/' . $it->getSubPathName());
         }
     }
     $it->next();
 }
 
-if (!empty($static_group)) {
-    if ($debug) {
-        print "\nCHGRP/CHMOD static directory\n";
-    }
-    chgrp($web_dir . '/static', $static_group);
-    chmod($web_dir . '/static', $static_mode);
-}
+chmod($web_dir . '/static', $static_mode);
 
 print "\nLINKING framework\n";
 mkdir($web_dir . '/libs');
-file_put_contents($horde_git . '/horde/config/horde.local.php', "<?php ini_set('include_path', '{$web_dir}/libs' . PATH_SEPARATOR . ini_get('include_path'));");
-system(dirname(__FILE__) . '/install_framework --src ' . $horde_git . '/framework --dest ' . $web_dir . '/libs');
+system(dirname(__FILE__) . '/install_framework --src ' . escapeshellarg($horde_git) . '/framework --dest ' . escapeshellarg($web_dir . '/libs') . ' --horde ' . escapeshellarg($web_dir));
+
+function link_app($app)
+{
+    print "LINKING " . $app . "\n";
+    symlink($GLOBALS['horde_git'] . '/' . $app, $GLOBALS['web_dir'] . '/' . $app);
+    file_put_contents($GLOBALS['horde_git'] . '/' . $app . '/config/horde.local.php', '<?php define(\'HORDE_BASE\', \'' . $GLOBALS['web_dir'] . '\');');
+}
 
 print "\nLINKING applications to web directory " . $web_dir . "\n";
-foreach ($apps as $app) {
-    if (file_exists($horde_git . '/' . $app)) {
-        print "LINKING " . $app . "\n";
-        symlink($horde_git . '/' . $app, $web_dir . '/' . $app);
-        file_put_contents($horde_git . '/' . $app . '/config/horde.local.php', '<?php define(\'HORDE_BASE\', \'' . $web_dir . '\');');
+if ($apps) {
+    foreach ($apps as $app) {
+        if (file_exists($horde_git . '/' . $app)) {
+            link_app($app);
+        }
+    }
+} else {
+    foreach (new DirectoryIterator($horde_git) as $it) {
+        if (!$it->isDot() && $it->isDir() && $it != 'horde' &&
+            is_dir($it->getPathname() . '/config')) {
+            link_app($it);
+        }
     }
 }

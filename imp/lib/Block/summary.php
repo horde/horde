@@ -1,11 +1,16 @@
 <?php
 /**
+ * Block: show folder summary.
+ *
  * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @package Horde_Block
+ * @author   Michael Slusarz <slusarz@curecanti.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
 
 $block_name = _("Folder Summary");
@@ -33,98 +38,38 @@ class Horde_Block_imp_summary extends Horde_Block
 
     protected function _content()
     {
-        global $notification, $prefs, $registry;
-
-        try {
-            new IMP_Application(array('init' => array('authentication' => 'throw')));
-        } catch (Horde_Exception $e) {
-            return;
-        }
+        $imp_ui = new IMP_Ui_Block();
+        list($html_out, $newmsgs) = $imp_ui->folderSummary($GLOBALS['session']['imp:view']);
 
         $html = '<table cellspacing="0" width="100%">';
 
-        /* Filter on INBOX display, if requested. */
-        if ($prefs->getValue('filter_on_display')) {
-            $imp_filter = new IMP_Filter();
-            $imp_filter->filter('INBOX');
-        }
-
-        /* Get list of mailboxes to poll. */
-        $imaptree = IMP_Imap_Tree::singleton();
-        $folders = $imaptree->getPollList(true);
-
         /* Quota info, if available. */
-        $quota_msg = Horde_Util::bufferOutput(array('IMP', 'quota'));
+        Horde::startBuffer();
+        IMP::quota();
+        $quota_msg = Horde::endBuffer();
         if (!empty($quota_msg)) {
             $html .= '<tr><td colspan="3">' . $quota_msg . '</td></tr>';
         }
 
-        $anyUnseen = false;
-        $mbox_url = Horde::applicationUrl('mailbox.php', true);
-        $newmsgs = array();
-
-        foreach ($folders as $folder) {
-            if (($folder == 'INBOX') ||
-                ($_SESSION['imp']['protocol'] != 'pop')) {
-                $info = $imaptree->getElementInfo($folder);
-                if (!empty($info)) {
-                    if (empty($this->_params['show_unread']) ||
-                        !empty($info['unseen'])) {
-                        if (!empty($info['recent'])) {
-                            $newmsgs[$folder] = $info['recent'];
-                        }
-                        $url = $mbox_url->copy()->add(array('no_newmail_popup' => 1, 'mailbox' => $folder));
-                        $html .= '<tr style="cursor:pointer" class="text" onclick="self.location=\'' . $url . '\'"><td>';
-                        if (!empty($info['unseen'])) {
-                            $html .= '<strong>';
-                            $anyUnseen = true;
-                        }
-                        $html .= Horde::link($url) . IMP::displayFolder($folder) . '</a>';
-                        if (!empty($info['unseen'])) {
-                            $html .= '</strong>';
-                        }
-                        $html .= '</td><td>' .
-                            (!empty($info['unseen']) ? '<strong>' . $info['unseen'] . '</strong>' : '0') .
-                            (!empty($this->_params['show_total']) ? '</td><td>(' . $info['messages'] . ')' : '') .
-                            '</td></tr>';
-                    }
-                }
-            }
-        }
-
-        $html .= '</table>';
-
         /* Check to see if user wants new mail notification, but only
          * if the user is logged into IMP. */
-        if ($prefs->getValue('nav_popup')) {
-            // Always include these scripts so they'll be there if
-            // there's new mail in later dynamic updates.
+        if ($GLOBALS['prefs']->getValue('nav_popup')) {
+            /* Always include these scripts so they'll be there if there's
+             * new mail in later dynamic updates. */
             Horde::addScriptFile('effects.js', 'horde');
             Horde::addScriptFile('redbox.js', 'horde');
         }
 
-        if (!empty($newmsgs)) {
-            /* Open the mailbox R/W to ensure the 'recent' flags are cleared
-             * from the current mailbox. */
-            foreach ($newmsgs as $mbox => $nm) {
-                $GLOBALS['imp_imap']->ob()->openMailbox($mbox, Horde_Imap_Client::OPEN_READWRITE);
-            }
-
-            if ($prefs->getValue('nav_audio') || $prefs->getValue('nav_popup')) {
-                $html .= Horde_Util::bufferOutput(IMP::newmailAlerts($newmsgs)) .
-                    Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'audio'));
-            }
-        } elseif (!empty($this->_params['show_unread'])) {
-            if (count($folders) == 0) {
-                $html .= _("No folders are being checked for new mail.");
-            } elseif (!$anyUnseen) {
-                $html .= '<em>' . _("No folders with unseen messages") . '</em>';
-            } elseif ($prefs->getValue('nav_popup')) {
-                $html .= '<em>' . _("No folders with new messages") . '</em>';
-            }
+        if (!empty($newmsgs) &&
+            ($GLOBALS['prefs']->getValue('nav_audio') ||
+             $GLOBALS['prefs']->getValue('nav_popup'))) {
+            Horde::startBuffer();
+            IMP::newmailAlerts($newmsgs);
+            $GLOBALS['notification']->notify(array('listeners' => 'audio'));
+            $html .= Horde::endBuffer();
         }
 
-        return $html;
+        return $html . $html_out . '</table>';
     }
 
 }

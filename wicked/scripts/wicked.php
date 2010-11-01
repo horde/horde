@@ -1,4 +1,4 @@
-#!/usr/bin/php -q
+#!/usr/bin/env php
 <?php
 /**
 * This script interfaces with Wicked via the command-line
@@ -9,24 +9,9 @@
 * @author Vijay Mahrra <vijay.mahrra@es.easynet.net>
 */
 
-@define('AUTH_HANDLER', true);
-@define('HORDE_BASE', dirname(__FILE__) . '/../..');
-@define('WICKED_BASE', HORDE_BASE . '/wicked');
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('wicked', array('authentication' => 'none', 'cli' => true));
 
-// Do CLI checks and environment setup first.
-require_once WICKED_BASE . '/lib/base.php';
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment.
-require_once 'Console/Getopt.php';
-Horde_Cli::init();
-$cli = &Horde_Cli::singleton();
-$registry = Horde_Registry::singleton();
-$registry->pushApp('wicked', false);
 $debug = false;
 $out = 'screen';
 
@@ -37,7 +22,7 @@ $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'hu::p::ldg::o::',
 
 if (is_a($ret, 'PEAR_Error')) {
     $error = _("Couldn't read command-line options.");
-    Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+    Horde::logMessage($error, 'DEBUG');
     $cli->fatal($error);
 }
 
@@ -92,14 +77,14 @@ foreach ($opts as $opt) {
 
 // Login to horde if username & password are set.
 if (!empty($username) && !empty($password)) {
-    $auth = Horde_Auth::singleton($conf['auth']['driver']);
+    $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
     if (!$auth->authenticate($username, array('password' => $password))) {
         $error = _("Login is incorrect.");
-        Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage($error, 'ERR');
         $cli->message($msg, 'cli.error');
     } else {
         $msg = sprintf(_("Logged in successfully as \"%s\"."), $username);
-        Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($msg, 'DEBUG');
         $cli->message($msg, 'cli.success');
     }
 }

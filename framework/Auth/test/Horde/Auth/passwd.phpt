@@ -4,7 +4,7 @@ Horde_Auth_Passwd:: test
 <?php
 
 require_once dirname(__FILE__) . '/../../../lib/Horde/Auth.php';
-require_once dirname(__FILE__) . '/../../../lib/Horde/Auth/Driver.php';
+require_once dirname(__FILE__) . '/../../../lib/Horde/Auth/Base.php';
 require_once dirname(__FILE__) . '/../../../lib/Horde/Auth/Passwd.php';
 
 $auth = Horde_Auth::factory('passwd', array('filename' => dirname(__FILE__) . '/test.passwd'));
@@ -13,7 +13,7 @@ $auth = Horde_Auth::factory('passwd', array('filename' => dirname(__FILE__) . '/
 var_dump($auth->listUsers());
 
 // Authenticate
-var_dump($auth->authenticate('user', array('password' => 'password'), false));
+var_dump($auth->authenticate('user', array('password' => 'password')));
 
 ?>
 --EXPECT--

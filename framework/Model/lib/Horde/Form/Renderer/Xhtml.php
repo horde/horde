@@ -131,7 +131,7 @@ if (document.getElementById(%1$s)){
             }
         }
         echo '<input type="hidden" name="_formvars" value="'
-            . htmlspecialchars(serialize($vars), ENT_QUOTES, Horde_Nls::getCharset())
+            . htmlspecialchars(serialize($vars))
             . '" />';
     }
 
@@ -276,10 +276,10 @@ try {
     function submit($submit = null, $reset = false)
     {
         if (is_null($submit) || empty($submit)) {
-            $submit = _("Submit");
+            $submit = Horde_Model_Translation::t("Submit");
         }
         if ($reset === true) {
-            $reset = _("Reset");
+            $reset = Horde_Model_Translation::t("Reset");
         }
         $this->_renderSubmit($submit, $reset);
     }
@@ -295,7 +295,7 @@ try {
         }
         if ($this->_requiredLegend) {
             echo '<div class="form-error-example">' . $this->_requiredMarker
-                . ' &#61; ' . _("Required Field") . '</div>'."\n";
+                . ' &#61; ' . Horde_Model_Translation::t("Required Field") . '</div>'."\n";
         }
     }
 

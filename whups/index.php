@@ -7,5 +7,7 @@
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('whups');
+
 require basename($prefs->getValue('whups_default_view') . '.php');

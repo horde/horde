@@ -1,0 +1,80 @@
+# Polish translations for Horde_Argv module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Argv module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Argv\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+
+#: lib/Horde/Argv/Parser.php:507
+#, php-format
+msgid "%s option does not take a value"
+msgstr ""
+
+#: lib/Horde/Argv/Parser.php:497 lib/Horde/Argv/Parser.php:549
+#, php-format
+msgid "%s option requires %d arguments"
+msgstr ""
+
+#: lib/Horde/Argv/Parser.php:495 lib/Horde/Argv/Parser.php:547
+#, php-format
+msgid "%s option requires an argument"
+msgstr ""
+
+#: lib/Horde/Argv/Parser.php:672
+msgid "Options"
+msgstr "Opcje"
+
+#: lib/Horde/Argv/TitledHelpFormatter.php:29
+#, fuzzy
+msgid "Usage"
+msgstr "Wiadomość"
+
+#: lib/Horde/Argv/IndentedHelpFormatter.php:29
+#, fuzzy
+msgid "Usage:"
+msgstr "Wiadomość"
+
+#: lib/Horde/Argv/Parser.php:199
+#, fuzzy
+msgid "[options]"
+msgstr "Opcje"
+
+#: lib/Horde/Argv/Option.php:129
+#, php-format
+msgid "option %s: invalid choice: '%s' (choose from %s)"
+msgstr ""
+
+#: lib/Horde/Argv/Option.php:111
+#, php-format
+msgid "option %s: invalid floating-point value: '%s'"
+msgstr ""
+
+#: lib/Horde/Argv/Option.php:101
+#, php-format
+msgid "option %s: invalid integer value: '%s'"
+msgstr ""
+
+#: lib/Horde/Argv/Option.php:102
+#, php-format
+msgid "option %s: invalid long integer value: '%s'"
+msgstr ""
+
+#: lib/Horde/Argv/Parser.php:171
+msgid "show program's version number and exit"
+msgstr ""
+
+#: lib/Horde/Argv/Parser.php:165
+msgid "show this help message and exit"
+msgstr ""

@@ -7,12 +7,12 @@
 <input type="hidden" name="day" value="<?php echo (empty($date['day']) ? 0 : $date['day']) ?>" />
 
 <h1 class="header">
- <?php echo htmlspecialchars($title, ENT_COMPAT, Horde_Nls::getCharset()) ?>
+ <?php echo htmlspecialchars($title) ?>
 </h1>
 
 <?php if ($gallery->get('desc')): ?>
 <p class="box">
- <?php echo Horde_Text_Filter::filter($gallery->get('desc'), 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO)) ?>
+ <?php echo $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($gallery->get('desc'), 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO)) ?>
 </p>
 <?php endif; ?>
 
@@ -33,7 +33,7 @@ if ($gallery->countImages()) {
         echo '<td width="10%" align="right" valign="top">';
         echo '<img src="' . $thumb_url . '" alt="' . htmlspecialchars($image->filename) . '" />' .
             '</td><td width="40%" valign="top"><textarea name="img' . $image->id . '" rows="5" cols="25">' .
-            htmlspecialchars($image->caption, ENT_COMPAT, Horde_Nls::getCharset()) . '</textarea></td>';
+            htmlspecialchars($image->caption) . '</textarea></td>';
 
         $count++;
         if (($count % 2) == 0) {

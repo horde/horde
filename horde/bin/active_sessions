@@ -1,0 +1,44 @@
+#!/usr/bin/env php
+<?php
+/**
+ * This script counts the number of active authenticated user sessions.
+ *
+ * Command line options:
+ *   '-l'   List the username of active authenticated users
+ *   '-ll'  List the username and login time of active authenticated users
+ *
+ * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Horde
+ */
+
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('horde', array(
+    'authentication' => 'none',
+    'cli' => true
+));
+
+try {
+    $sessions = $session->sessionHandler->getSessionsInfo();
+} catch (Horde_SessionHandler_Exception $e) {
+    $cli->fatal('Session counting is not supported with the current session handler.');
+}
+
+if (($argc < 2) || (($argv[1] != '-l') && ($argv[1] != '-ll'))) {
+    $cli->writeln(count($sessions));
+} else {
+    foreach ($sessions as $data) {
+        if ($argv[1] == '-ll') {
+            $cli->writeln($data['userid'] . ' [' . date('r', $data['timestamp']) . ']');
+        } else {
+            $cli->writeln($data['userid']);
+        }
+    }
+    $cli->writeln($cli->green('Total Sessions: ' . count($sessions)));
+}

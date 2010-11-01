@@ -1,14 +1,15 @@
 <?php
-if ($group == Horde_Auth::getAuth()) {
+if ($group == $GLOBALS['registry']->getAuth()) {
     $owner_title = _("My Galleries");
     $custom = '';
 } elseif (!empty($GLOBALS['conf']['gallery']['customlabel'])) {
-    $uprefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
-                                'ansel',
-                                $group, '', null, false);
+    $uprefs = $injector->getInstance('Horde_Core_Factory_Prefs')->create('ansel', array(
+        'cache' => false,
+        'user' => $group
+    ));
     $custom = $uprefs->getValue('grouptitle');
-    $identity = &Identity::singleton('none', $group);
-    $fullname = $identity->getValue('fullname');
+    $identity = new Horde_Prefs_Identity(array('prefs' => $uprefs, 'user' => $group));
+    $fullname = $identity->getName();
     if (!$fullname) {
         $fullname = $group;
     }
@@ -21,29 +22,35 @@ if ($group == Horde_Auth::getAuth()) {
     $owner_title = sprintf(_("%s's Galleries"), $group);
 }
 
-$link = Horde::link(Ansel::getUrlFor('view', array('groupby' => $groupby,
-                                                   'owner' => $group,
-                                                   'view' => 'List')));
+$link = Ansel::getUrlFor('view', array('groupby' => $groupby,
+                                       'owner' => $group,
+                                       'view' => 'List'))->link();
 
-$num_galleries = $ansel_storage->countGalleries(Horde_Auth::getAuth(), Horde_Perms::SHOW,
-                                                $group, null, false);
+$num_galleries = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')
+    ->create()
+    ->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW, $group, null, false);
+
 if ($num_galleries < 5) {
-    $mini_galleries = $ansel_storage->listGalleries(Horde_Perms::SHOW,
-                                                    $group, null, false);
+    $mini_galleries = $GLOBALS['injector']->
+        getInstance('Ansel_Injector_Factory_Storage')->
+        create()->listGalleries(array('filter' => $group, 'allLevels' => false));
 } else {
-    $mini_galleries = $GLOBALS['ansel_storage']->listGalleries(
-        Horde_Perms::SHOW, $group, null, false, rand(0, $num_galleries - 4), 4);
+    $mini_galleries = $GLOBALS['injector']
+        ->getInstance('Ansel_Injector_Factory_Storage')
+        ->create()
+        ->listGalleries(array('filter' => $group,
+                              'from' => rand(0, $num_galleries - 4),
+                              'count' => 4));
 }
 $mini_galleries = array_values($mini_galleries);
 ?>
-
 <td class="galleryGroupsTile" width="<?php echo round(100 / $prefs->getValue('tilesperrow')) ?>%" valign="top">
  <table>
   <tr>
 <?php for ($i = 0; $i < count($mini_galleries); ++$i): ?>
    <td align="center">
     <?php if ($mini_galleries[$i]->isOldEnough() && !$mini_galleries[$i]->hasPasswd()): ?>
-     <?php echo $link ?><img src="<?php echo Ansel::getImageUrl($mini_galleries[$i]->getDefaultImage('ansel_default'), 'mini', false, 'ansel_default') ?>" alt="<?php echo $owner_title?>" /></a>
+     <?php echo $link ?><img src="<?php echo Ansel::getImageUrl($mini_galleries[$i]->getKeyImage(Ansel::getStyleDefinition('ansel_default')), 'mini', false) ?>" alt="<?php echo $owner_title?>" /></a>
     <?php else: ?>
       <?php echo $link . Horde::img('gallery-locked-mini.png') ?></a>
     <?php endif; ?>

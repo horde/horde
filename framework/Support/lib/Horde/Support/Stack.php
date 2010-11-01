@@ -44,5 +44,4 @@ class Horde_Support_Stack
             return null;
         }
     }
-
 }

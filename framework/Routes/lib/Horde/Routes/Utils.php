@@ -36,14 +36,13 @@ class Horde_Routes_Utils
      */
     public $redirect;
 
-
     /**
      * Constructor
      *
      * @param  Horde_Routes_Mapper  $mapper    Mapper for these utilities
      * @param  callback             $redirect  Redirect callback for redirectTo()
      */
-    public function __construct($mapper, $redirect = null)
+    public function __construct(Horde_Routes_Mapper $mapper, $redirect = null)
     {
         $this->mapper   = $mapper;
         $this->redirect = $redirect;
@@ -102,7 +101,7 @@ class Horde_Routes_Utils
             // urlFor('named_route')
             // urlFor('named_route', array('id' => 3, ...))
             // urlFor('static_path')
-            $routeName = $first;
+            $routeName = (string)$first;
             $kargs = $second;
         }
 
@@ -131,7 +130,6 @@ class Horde_Routes_Utils
         $url = '';
 
         if (isset($routeName)) {
-
             if (isset($kargs['format']) && isset($this->mapper->routeNames['formatted_' . $routeName])) {
                 $route = $this->mapper->routeNames['formatted_' . $routeName];
             } elseif (isset($this->mapper->routeNames[$routeName])) {
@@ -291,6 +289,10 @@ class Horde_Routes_Utils
                 if (preg_match('/^[^_]{1,1}.*\.php$/', basename($entry->getFilename())) != 0) {
                     // strip off base path: dirname/admin/users.php -> admin/users.php
                     $controller = preg_replace("/^$baseregexp(.*)\.php/", '\\1', $entry->getPathname());
+
+                    // PrepareController -> prepare_controller -> prepare
+                    $controller = strtolower(preg_replace('/([a-z])([A-Z])/', "\${1}_\${2}", $controller));
+                    $controller = substr($controller, 0, -(strlen('_controller')));
 
                     // add to controller list
                     $controllers[] = $prefix . $controller;

@@ -2,8 +2,6 @@
 /**
  * Thread display script
  *
- * $Horde: agora/messages/index.php,v 1.67 2009-12-10 17:42:30 jan Exp $
- *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -12,27 +10,22 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-define('AGORA_BASE', dirname(__FILE__) . '/..');
-require_once AGORA_BASE . '/lib/base.php';
-require_once AGORA_BASE . '/lib/Messages.php';
-require_once 'Horde/Identity.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('agora');
 
 /* Set up the messages object. */
 list($forum_id, $message_id, $scope) = Agora::getAgoraId();
 $messages = &Agora_Messages::singleton($scope, $forum_id);
 if ($messages instanceof PEAR_Error) {
     $notification->push($messages->getMessage(), 'horde.warning');
-    $url = Horde::applicationUrl('forums.php', true);
-    header('Location: ' . $url);
-    exit;
+    Horde::url('forums.php', true)->redirect();
 }
 
 /* Get requested message, if fail then back to forums list. */
 $message = $messages->getMessage($message_id);
 if ($message instanceof PEAR_Error) {
     $notification->push(sprintf(_("Could not open the message. %s"), $message->getMessage()), 'horde.warning');
-    header('Location: ' . Horde::applicationUrl('forums.php', true));
-    exit;
+    Horde::url('forums.php', true)->redirect();
 }
 
 /* Check if we must show bodies */
@@ -81,7 +74,7 @@ $view = new Agora_View();
 if (!$view_bodies) {
     /* Get the author's avatar. */
     if ($conf['avatar']['allow_avatars']) {
-        $identity = &Identity::singleton('none', $message['message_author']);
+        $identity = $injector->getInstance('Horde_Core_Factory_Identity')->create($message['message_author']);
         $avatar_path = $identity->getValue('avatar_path');
         $message_author_avatar = Agora::validateAvatar($avatar_path) ? Agora::getAvatarUrl($avatar_path) : false;
         $view->message_author_avatar = $message_author_avatar;
@@ -109,20 +102,20 @@ $actions = array();
 
 /* Check if the thread allows replies. */
 if (!$message['locked']) {
-    $url = Agora::setAgoraId($forum_id, null, Horde::applicationUrl('messages/edit.php'));
+    $url = Agora::setAgoraId($forum_id, null, Horde::url('messages/edit.php'));
     $url = Horde_Util::addParameter($url, 'message_parent_id', $message_id);
     $actions[] = Horde::link($url, _("Reply")) . _("Reply") . '</a>';
 }
 
 /* Add admin permissons */
 if ($messages->hasPermission(Horde_Perms::DELETE)) {
-    $url = Agora::setAgoraId($forum_id, $message_id, Horde::applicationUrl('messages/edit.php'));
+    $url = Agora::setAgoraId($forum_id, $message_id, Horde::url('messages/edit.php'));
     $actions[] = Horde::link($url, _("Edit")) . _("Edit") . '</a>';
 
-    $url = Agora::setAgoraId($forum_id, $message_id, Horde::applicationUrl('messages/delete.php'));
+    $url = Agora::setAgoraId($forum_id, $message_id, Horde::url('messages/delete.php'));
     $actions[] = Horde::link($url, _("Delete")) . _("Delete") . '</a>';
 
-    $url = Agora::setAgoraId($forum_id, $message_id, Horde::applicationUrl('messages/lock.php'));
+    $url = Agora::setAgoraId($forum_id, $message_id, Horde::url('messages/lock.php'));
     $label = ($message['locked']) ? _("Unlock thread") : _("Lock thread");
     $actions[] = Horde::link($url, $label) . $label . '</a>';
 }
@@ -131,14 +124,13 @@ if ($messages->hasPermission(Horde_Perms::DELETE)) {
 $threads_list = $messages->getThreads($message['message_thread'], true, $sort_by, $sort_dir, ($view_bodies ? 1 : 0), '', null, $thread_start, $thread_per_page);
 if ($threads_list instanceof PEAR_Error) {
     $notification->push($threads_list->getMessage(), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('forums.php', true));
-    exit;
+    Horde::url('forums.php', true)->redirect();
 }
 
 /* Set up pager. */
 if ($thread_count > $thread_per_page && $view_bodies == 2) {
     $vars = new Horde_Variables(array('thread_page' => $thread_page));
-    $pager_ob = new Horde_Ui_Pager('thread_page', $vars, array('num' => $thread_count, 'url' => 'messages/index.php', 'perpage' => $thread_per_page));
+    $pager_ob = new Horde_Core_Ui_Pager('thread_page', $vars, array('num' => $thread_count, 'url' => 'messages/index.php', 'perpage' => $thread_per_page));
     $pager_ob->preserve('agora', Horde_Util::getFormData('agora'));
     $view->pager_link = $pager_ob->render();
 }
@@ -148,7 +140,7 @@ $col_headers = array(array('message_thread' => _("Thread"), 'message_subject' =>
 $col_headers = Agora::formatColumnHeaders($col_headers, $sort_by, $sort_dir, 'thread');
 
 /* Actions. */
-$url = Agora::setAgoraId($forum_id, $message_id, Horde::applicationUrl('messages/index.php'));
+$url = Agora::setAgoraId($forum_id, $message_id, Horde::url('messages/index.php'));
 
 /* Get the thread table. */
 switch ($view_bodies) {
@@ -188,11 +180,15 @@ default:
 }
 
 /* Set up the main template tags. */
-$view->menu = Agora::getMenu('string');
-$view->notify = Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status'));
+$view->menu = Horde::menu();
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$view->notify = Horde::endBuffer();
+
 $view->actions = $actions;
 $view->threads = $threads;
-$view->rss = Horde_Util::addParameter(Horde::applicationUrl('rss/messages.php', true, -1), array('scope' => $scope, 'message_id' => $message_id, 'forum_id' => $forum_id));
+$view->rss = Horde_Util::addParameter(Horde::url('rss/messages.php', true, -1), array('scope' => $scope, 'message_id' => $message_id, 'forum_id' => $forum_id));
 
 /* Display an edit-dialogue if the thread is not locked and we can edit messages in them. */
 if (!$messages->hasPermission(Horde_Perms::EDIT)) {
@@ -211,7 +207,9 @@ if (!$messages->hasPermission(Horde_Perms::EDIT)) {
     $vars->set('message_subject', $reply['message_subject']);
     $vars->set('message_body_old', $reply['body']);
     $form = $messages->getForm($vars, sprintf(_("Post a Reply to \"%s\""), $reply['message_subject']));
-    $view->form = Horde_Util::bufferOutput(array($form, 'renderActive'), null, null, 'edit.php', 'post', null, false);
+    Horde::startBuffer();
+    $form->renderActive(null, null, 'edit.php', 'post', null, false);
+    $view->form = Horde::endBuffer();
 }
 
 Horde::addScriptFile('hideable.js', 'horde', true);

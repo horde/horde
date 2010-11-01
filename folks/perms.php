@@ -10,11 +10,10 @@
  */
 
 require_once dirname(__FILE__) . '/lib/base.php';
-require_once 'Horde/Group.php';
 
-$shares = &Horde_Share::singleton('folks');
-$groups = &Group::singleton();
-$auth = Horde_Auth::singleton($conf['auth']['driver']);
+$shares = $injector->getInstance('Horde_Core_Factory_Share')->create();
+$groups = $injector->getInstance('Horde_Group');
+$auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 
 $reload = false;
 $actionID = Horde_Util::getFormData('actionID', 'edit');
@@ -31,8 +30,8 @@ case 'edit':
     }
     if (is_a($share, 'PEAR_Error')) {
         $notification->push($share, 'horde.error');
-    } elseif (!Horde_Auth::getAuth() ||
-              (isset($share) && Horde_Auth::getAuth() != $share->get('owner'))) {
+    } elseif (!$GLOBALS['registry']->getAuth() ||
+              (isset($share) && $GLOBALS['registry']->getAuth() != $share->get('owner'))) {
         exit('permission denied');
     }
     break;
@@ -42,17 +41,17 @@ case 'editform':
     if (is_a($share, 'PEAR_Error')) {
         $notification->push(_("Attempt to edit a non-existent share."), 'horde.error');
     } else {
-        if (!Horde_Auth::getAuth() ||
-            Horde_Auth::getAuth() != $share->get('owner')) {
+        if (!$GLOBALS['registry']->getAuth() ||
+            $GLOBALS['registry']->getAuth() != $share->get('owner')) {
             exit('permission denied');
         }
         $perm = &$share->getPermission();
 
         // Process owner and owner permissions.
         $old_owner = $share->get('owner');
-        $new_owner = Horde_Auth::convertUsername(Horde_Util::getFormData('owner', $old_owner), true);
+        $new_owner = $registry->convertUsername(Horde_Util::getFormData('owner', $old_owner), true);
         if ($old_owner !== $new_owner && !empty($new_owner)) {
-            if ($old_owner != Horde_Auth::getAuth() && !Horde_Auth::isAdmin()) {
+            if ($old_owner != $GLOBALS['registry']->getAuth() && !$registry->isAdmin()) {
                 $notification->push(_("Only the owner or system administrator may change ownership or owner permissions for a share"), 'horde.error');
             } else {
                 $share->set('owner', $new_owner);
@@ -135,7 +134,7 @@ case 'editform':
 
         foreach ($u_names as $key => $user) {
             // Apply backend hooks
-            $user = Horde_Auth::convertUsername($user, true);
+            $user = $registry->convertUsername($user, true);
             // If the user is empty, or we've already set permissions
             // via the owner_ options, don't do anything here.
             if (empty($user) || $user == $new_owner) {
@@ -207,7 +206,7 @@ case 'editform':
                 $notification->push($result, 'horde.error');
             } else {
                 if (Horde_Util::getFormData('save_and_finish')) {
-                    Horde_Util::closeWindowJS();
+                    echo Horde::wrapInlineScript(array('window.close();'));
                     exit;
                 }
                 $notification->push(sprintf(_("Updated \"%s\"."), $share->get('name')), 'horde.success');
@@ -226,7 +225,7 @@ if (is_a($share, 'PEAR_Error')) {
 if ($auth->hasCapability('list')) {
     $userList = $auth->listUsers();
     if (is_a($userList, 'PEAR_Error')) {
-        Horde::logMessage($userList, __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage($userList, 'ERR');
         $userList = array();
     }
     sort($userList);
@@ -234,16 +233,15 @@ if ($auth->hasCapability('list')) {
     $userList = array();
 }
 
-if (!empty($conf['share']['any_group'])) {
-    $groupList = $groups->listGroups();
-} else {
-    $groupList = $groups->getGroupMemberships(Horde_Auth::getAuth(), true);
+$groupList = array();
+try {
+    $groupList = empty($conf['share']['any_group'])
+        ? $groups->getGroupMemberships($GLOBALS['registry']->getAuth(), true)
+        : $groups->listGroups();
+    asort($groupList);
+} catch (Horde_Group_Exception $e) {
+    Horde::logMessage($e, 'NOTICE');
 }
-if (is_a($groupList, 'PEAR_Error')) {
-    Horde::logMessage($groupList, __FILE__, __LINE__, PEAR_LOG_NOTICE);
-    $groupList = array();
-}
-asort($groupList);
 
 require FOLKS_TEMPLATES . '/common-header.inc';
 $notification->notify(array('listeners' => 'status'));

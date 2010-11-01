@@ -6,8 +6,8 @@
  */
 
 /** We require the iCalendar library to build the free/busy list */
-require_once 'Horde/iCalendar.php';
-require_once 'Horde/iCalendar/vfreebusy.php';
+require_once 'Horde/Icalendar.php';
+require_once 'Horde/Icalendar/Vfreebusy.php';
 
 /**
  * The Horde_Kolab_FreeBusy_Cache:: class provides functionality to store
@@ -73,9 +73,7 @@ class Horde_Kolab_FreeBusy_Cache {
                 }
             }
         } catch (Horde_Kolab_Server_Exception $e) {
-            Horde::logMessage(sprintf("Failed fetching the k=kolab configuration object. Error was: %s",
-                                      $e->getMessage()),
-                              __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage(sprintf("Failed fetching the k=kolab configuration object. Error was: %s", $e->getMessage()), 'ERR');
             if (isset($conf['kolab']['freebusy']['past'])) {
                 $fbpast = $conf['kolab']['freebusy']['past'];
             } else {
@@ -110,9 +108,7 @@ class Horde_Kolab_FreeBusy_Cache {
 
         /* missing data means delete the cache files */
         if (empty($vCal)) {
-            Horde::logMessage(sprintf("No events. Purging cache %s.",
-                                      $fbfilename),
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage(sprintf("No events. Purging cache %s.", $fbfilename), 'DEBUG');
 
             $result = $c_pvcal->purge();
             if (is_a($result, 'PEAR_Error')) {
@@ -181,9 +177,7 @@ class Horde_Kolab_FreeBusy_Cache {
                 $acl = null;
             }
 
-            Horde::logMessage(sprintf("Horde_Kolab_FreeBusy_Cache::store(file=%s, relevance=%s, acl=%s, xacl=%s)",
-                                      $fbfilename, $relevance, $acl, $xacl),
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage(sprintf("Horde_Kolab_FreeBusy_Cache::store(file=%s, relevance=%s, acl=%s, xacl=%s)", $fbfilename, $relevance, $acl, $xacl), 'DEBUG');
         }
         return true;
     }
@@ -197,7 +191,7 @@ class Horde_Kolab_FreeBusy_Cache {
      * @param boolean               $extended Should the data hold the extended
      *                                        free/busy information?
      *
-     * @return Horde_iCalendar|PEAR_Error The free/busy data of a
+     * @return Horde_Icalendar|PEAR_Error The free/busy data of a
      *                                    single calendar.
      */
     function &loadPartial(&$access, $extended)
@@ -235,8 +229,7 @@ class Horde_Kolab_FreeBusy_Cache {
     function _allowExtended($file, &$access)
     {
         if (!isset($access->user_object)) {
-            Horde::logMessage(sprintf("Extended attributes on folder %s disallowed for unknown user.",
-                                      $access->folder, $access->user), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage(sprintf("Extended attributes on folder %s disallowed for unknown user.", $access->folder, $access->user), 'DEBUG');
             return false;
         }
 
@@ -256,8 +249,7 @@ class Horde_Kolab_FreeBusy_Cache {
                 return true;
             }
         }
-        Horde::logMessage(sprintf("Extended attributes on folder %s disallowed for user %s.",
-                                  $access->folder, $access->user), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf("Extended attributes on folder %s disallowed for user %s.", $access->folder, $access->user), 'DEBUG');
         return false;
     }
 
@@ -287,7 +279,7 @@ class Horde_Kolab_FreeBusy_Cache {
      *                                        relevant access
      *                                        parameters.
      *
-     * @return Horde_iCalender The remote free/busy information.
+     * @return Horde_Icalender The remote free/busy information.
      */
     function &_fetchRemote($servers, $access)
     {
@@ -302,10 +294,10 @@ class Horde_Kolab_FreeBusy_Cache {
                 $message = sprintf("Unable to read free/busy information from %s",
                                    'https://' . urlencode($access->user) . ':XXX'
                                    . '@' . $server . $_SERVER['REQUEST_URI']);
-                Horde::logMessage($message, __FILE__, __LINE__, PEAR_LOG_INFO);
+                Horde::logMessage($message, 'INFO');
             }
 
-            $rvCal = new Horde_iCalendar();
+            $rvCal = new Horde_Icalendar();
             $result = $rvCal->parsevCalendar($remote);
 
             if (is_a($result, 'PEAR_Error')) {
@@ -313,7 +305,7 @@ class Horde_Kolab_FreeBusy_Cache {
                                    'https://' . urlencode($access->user) . ':XXX'
                                    . '@' . $server . $_SERVER['REQUEST_URI'],
                                    $result->getMessage());
-                Horde::logMessage($message, __FILE__, __LINE__, PEAR_LOG_INFO);
+                Horde::logMessage($message, 'INFO');
             }
 
             $rvFb = &$rvCal->findComponent('vfreebusy');
@@ -321,7 +313,7 @@ class Horde_Kolab_FreeBusy_Cache {
                 $message = sprintf("Unable to find free/busy information in data from %s.",
                                    'https://' . urlencode($access->user) . ':XXX'
                                    . '@' . $server . $_SERVER['REQUEST_URI']);
-                Horde::logMessage($message, __FILE__, __LINE__, PEAR_LOG_INFO);
+                Horde::logMessage($message, 'INFO');
             }
             if ($ets = $rvFb->getAttributeDefault('DTEND', false) !== false) {
                 // PENDING(steffen): Make value configurable
@@ -329,7 +321,7 @@ class Horde_Kolab_FreeBusy_Cache {
                     $message = sprintf("free/busy information from %s is too old.",
                                        'https://' . urlencode($access->user) . ':XXX'
                                        . '@' . $server . $_SERVER['REQUEST_URI']);
-                    Horde::logMessage($message, __FILE__, __LINE__, PEAR_LOG_INFO);
+                    Horde::logMessage($message, 'INFO');
                 }
             }
             if (!empty($vFb)) {
@@ -943,7 +935,7 @@ class Horde_Kolab_FreeBusy_Cache_File_pvcal extends Horde_Kolab_FreeBusy_Cache_F
     /**
      * Store partial free/busy infomation in the cache file.
      *
-     * @param Horde_iCalendar $pvcal A reference to the data object.
+     * @param Horde_Icalendar $pvcal A reference to the data object.
      *
      * @return boolean|PEAR_Error True if successful.
      */
@@ -957,7 +949,7 @@ class Horde_Kolab_FreeBusy_Cache_File_pvcal extends Horde_Kolab_FreeBusy_Cache_F
      *
      * @param boolean $extended Should the extended information be retrieved?
      *
-     * @return Horde_iCalendar|PEAR_Error The data retrieved from the cache file.
+     * @return Horde_Icalendar|PEAR_Error The data retrieved from the cache file.
      */
     function &loadPVcal($extended)
     {
@@ -1038,7 +1030,7 @@ class Horde_Kolab_FreeBusy_Cache_File_vcal extends Horde_Kolab_FreeBusy_Cache_Fi
     /**
      * Store free/busy infomation in the cache file.
      *
-     * @param Horde_iCalendar $vcal   A reference to the data object.
+     * @param Horde_Icalendar $vcal   A reference to the data object.
      * @param array           $mtimes A list of modification times for the
      *                                partial free/busy cache times.
      *
@@ -1054,7 +1046,7 @@ class Horde_Kolab_FreeBusy_Cache_File_vcal extends Horde_Kolab_FreeBusy_Cache_Fi
     /**
      * Load the free/busy information from the cache.
      *
-     * @return Horde_iCalendar|PEAR_Error The retrieved free/busy information.
+     * @return Horde_Icalendar|PEAR_Error The retrieved free/busy information.
      */
     function &loadVcal()
     {

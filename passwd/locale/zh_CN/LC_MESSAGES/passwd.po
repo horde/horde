@@ -1,0 +1,176 @@
+# Passwd module translations
+# Copyright 2002 Free Software Foundation, Inc.
+# Wenzhuo Zhang <wenzhuo@zhmail.com>, 2002.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: passwd\n"
+"POT-Creation-Date: 2002-12-05 22:56+0800\n"
+"PO-Revision-Date: 2002-12-12 12:23+0800\n"
+"Last-Translator: Wenzhuo Zhang <wenzhuo@zhmail.com>\n"
+"Language-Team: Simplified Chinese <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Change your password"
+msgstr "修改密码"
+
+msgid "Confirm new password:"
+msgstr "确认新密码"
+
+msgid "Could not bind to ldap server"
+msgstr "无法绑定到 ldap 服务器"
+
+msgid "Could not connect to ldap server"
+msgstr "无法连接到 ldap 服务器"
+
+msgid "Could not open pipe to smbpasswd."
+msgstr "无法打开到 smbpasswd 的管道。"
+
+msgid "Error closing pipe to smbpasswd"
+msgstr "关闭到 smbpasswd 的管道时发生错误"
+
+msgid "Error sending data to smbpasswd."
+msgstr "发送数据到 smbpasswd 时发生错误"
+
+msgid "Error"
+msgstr "错误"
+
+msgid "Failure in changing password : "
+msgstr "修改密码失败"
+
+msgid "Help"
+msgstr "帮助"
+
+msgid "Internal Error"
+msgstr "内部错误"
+
+msgid "Logout"
+msgstr "注销"
+
+msgid "Mdaemon path not found"
+msgstr "Mdaemon 路径未找到"
+
+msgid "Mdaemon userlist file not accessable or not found."
+msgstr "Mdaemon userlist 文件不可访问或未找到。"
+
+msgid "Message"
+msgstr "消息"
+
+msgid "New password:"
+msgstr "新密码："
+
+msgid "No configuration information specified for SQL authentication."
+msgstr "没有为 SQL 认证设定的配置信息。"
+
+msgid "Not able to create lock file"
+msgstr "无法创建 lock 文件"
+
+msgid "Not able to create semaphore file"
+msgstr "无法创建 semaphore 文件"
+
+msgid "Not able to retrieve current details."
+msgstr "无法获取当前的详细信息"
+
+msgid ""
+"Note: You will need to logout and back in after you change your password!"
+msgstr "注意：修改密码后必须退出重新登录!"
+
+msgid "Old password:"
+msgstr "旧密码："
+
+msgid "Password changed!"
+msgstr "密码已修改!"
+
+msgid "Password module is not properly configured MD5"
+msgstr "密码模块配置不正确 MD5"
+
+msgid "Password module is not properly configured!"
+msgstr "密码模块配置不正确!"
+
+msgid "Password module is not properly configured"
+msgstr "密码模块配置不正确"
+
+msgid "Password module is not properly configured."
+msgstr "密码模块配置不正确。"
+
+msgid "Problem?"
+msgstr "问题?"
+
+msgid "Required 'database' not specified in authentication configuration."
+msgstr "认证配置中未设定必需的 'database'。"
+
+msgid "Required 'hostspec' not specified in authentication configuration."
+msgstr "认证配置中未设定必需的 'hostspec'。"
+
+msgid "Required 'password' not specified in authentication configuration."
+msgstr "认证配置中未设定必需的 'password'。"
+
+msgid "Required 'phptype' not specified in authentication configuration."
+msgstr "认证配置中未设定必需的 'phptype'。"
+
+msgid "Required 'table' not specified in authentication configuration."
+msgstr "认证配置中未设定必需的 'table'。"
+
+msgid "Required 'username' not specified in authentication configuration."
+msgstr "认证配置中未设定必需的 'username'。"
+
+msgid "Reset"
+msgstr "重置"
+
+msgid "Some of Password module's configuration files are missing:"
+msgstr "密码模块的部分配置文件丢失："
+
+msgid "Success"
+msgstr "成功"
+
+msgid ""
+"This is the main Password module configuration file. It contains paths and "
+"options for all Password module scripts."
+msgstr "这是密码模块的主配置文件。它包含所有模块脚本的路径及选项。"
+
+msgid "Unable to connect to SQL server."
+msgstr "无法连接到 SQL 服务器。"
+
+#, c-format
+msgid "User %s@%s not found"
+msgstr "用户 %s@%s 未找到"
+
+msgid "Warning"
+msgstr "警告"
+
+#, c-format
+msgid "You can't change password for user %s"
+msgstr "你不能修改用户 %s 的密码"
+
+msgid "You must give your new password"
+msgstr "你必须输入新密码"
+
+msgid "You must give your old password"
+msgstr "你必须提供旧密码"
+
+msgid "You must verify your new password"
+msgstr "你必须确认新密码"
+
+#, c-format
+msgid ""
+"Your new password is too long; passwords may not be more than %d characters "
+"long!"
+msgstr "你的新密码太长; 密码长度不能超过 %d 个字符!"
+
+msgid "Your new password is too simple to guess!  Not changed!"
+msgstr "你的新密码太简单易猜! 未作修改!"
+
+#, c-format
+msgid "Your new password must be at least %d characters long!"
+msgstr "你的新密码必须至少 %d 个字符长!"
+
+msgid "Your new passwords didn't match"
+msgstr "你的新密码不一致"
+
+msgid "Your old password isn't correct"
+msgstr "你的旧密码不正确"
+
+msgid "tempnam() failed!"
+msgstr "tempname() 失败!"

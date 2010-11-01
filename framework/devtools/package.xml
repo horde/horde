@@ -34,9 +34,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </notes>
  <contents>
   <dir name="/">
-   <file name="horde-highlight.php" role="script">
-    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config"/>
-   </file>
    <file name="horde-merge.php" role="script">
     <tasks:replace from="@php_bin@" to="php_bin" type="pear-config"/>
    </file>
@@ -55,7 +52,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="horde-highlight.php" as="horde-highlight.php" />
    <install name="horde-merge.php" as="horde-merge.php" />
    <install name="horde-rev-cmp.sh" as="horde-rev-cmp.sh" />
   </filelist>

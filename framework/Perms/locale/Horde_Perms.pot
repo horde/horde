@@ -1,0 +1,37 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Horde Project
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lib/Horde/Perms.php:181
+msgid "All Permissions"
+msgstr ""
+
+#: lib/Horde/Perms.php:527
+msgid "Delete"
+msgstr ""
+
+#: lib/Horde/Perms.php:526
+msgid "Edit"
+msgstr ""
+
+#: lib/Horde/Perms.php:525
+msgid "Read"
+msgstr ""
+
+#: lib/Horde/Perms.php:524
+msgid "Show"
+msgstr ""

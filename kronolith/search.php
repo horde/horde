@@ -8,7 +8,12 @@
  * @author Meilof Veeningen <meilof@gmail.com>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('kronolith');
+
+if (Kronolith::showAjaxView()) {
+    Horde::url('', true)->redirect();
+}
 
 /* Get search parameters. */
 $search_mode = Horde_Util::getFormData('search_mode', 'basic');
@@ -64,41 +69,60 @@ if ($search_mode == 'basic') {
     }
 
     $optgroup = $GLOBALS['browser']->hasFeature('optgroup');
-    $current_user = Horde_Auth::getAuth();
+    $current_user = $GLOBALS['registry']->getAuth();
     $calendars = array();
-    foreach (Kronolith::listCalendars(false, Horde_Perms::READ) as $id => $cal) {
+    foreach (Kronolith::listInternalCalendars(false, Horde_Perms::READ) as $id => $cal) {
         if ($cal->get('owner') && $cal->get('owner') == $current_user) {
             $calendars[_("My Calendars:")]['|' . $id] = $cal->get('name');
         } else {
+            if (!empty($GLOBALS['conf']['share']['hidden']) &&
+                !in_array($cal->getName(), $GLOBALS['display_calendars'])) {
+                continue;
+            }
             $calendars[_("Shared Calendars:")]['|' . $id] = $cal->get('name');
         }
     }
-    foreach ($GLOBALS['all_external_calendars'] as $api => $categories) {
-        $app = $GLOBALS['registry']->get('name', $GLOBALS['registry']->hasInterface($api));
-        foreach ($categories as $id => $name) {
-            $calendars[$app . ':']['Horde|external_' . $api . '/' . $id] = $name;
+    foreach ($GLOBALS['all_external_calendars'] as $id => $cal) {
+        $app = $GLOBALS['registry']->get('name', $GLOBALS['registry']->hasInterface($cal->api()));
+        if (!empty($GLOBALS['conf']['share']['hidden']) &&
+            !in_array($id, $GLOBALS['display_external_calendars'])) {
+            continue;
         }
+        $calendars[$app . ':']['Horde|external_' . $id] = $cal->name();
     }
-    foreach ($GLOBALS['all_remote_calendars'] as $cal) {
-        $calendars[_("Remote Calendars:")]['Ical|' . $cal['url']] = $cal['name'];
+    foreach ($GLOBALS['all_remote_calendars'] as $id => $cal) {
+        $calendars[_("Remote Calendars:")]['Ical|' . $id] = $cal->name();
     }
-    foreach ($GLOBALS['all_holidays'] as $holiday) {
-        $calendars[_("Holidays:")]['Holidays|' . $holiday['id']] = $holiday['title'];
+    foreach ($GLOBALS['all_holidays'] as $id => $holiday) {
+        $calendars[_("Holidays:")]['Holidays|' . $id] = $holiday->name();
     }
 }
 
+if ($search_mode == 'basic') {
+    Horde::addInlineScript(array(
+        '$("pattern_title").focus()'
+    ), 'dom');
+} else {
+    Horde::addInlineScript(array(
+        '$("title").focus()'
+    ), 'dom');
+    Horde_Core_Ui_JsCalendar::init();
+    Horde::addScriptFile('edit.js', 'kronolith');
+}
+
+$menu = Horde::menu();
 $title = _("Search");
 Horde::addScriptFile('tooltips.js', 'horde');
 require KRONOLITH_TEMPLATES . '/common-header.inc';
-require KRONOLITH_TEMPLATES . '/menu.inc';
+echo $menu;
+$notification->notify(array('listeners' => 'status'));
 
 echo '<div id="page">';
+
 if ($search_mode == 'basic') {
     require KRONOLITH_TEMPLATES . '/search/search.inc';
-    $notification->push('document.eventform.pattern_title.focus()', 'javascript');
 } else {
     require KRONOLITH_TEMPLATES . '/search/search_advanced.inc';
-    $notification->push('document.eventform.title.focus()', 'javascript');
 }
 
 /* Display search results. */

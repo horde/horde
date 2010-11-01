@@ -69,7 +69,7 @@ interface Horde_Kolab_Server_Structure_Interface
      * @return NULL
      */
     public function setComposite(
-        Horde_Kolab_Server_Composite_Interface $composite
+        Horde_Kolab_Server_Composite $composite
     );
 
     /**

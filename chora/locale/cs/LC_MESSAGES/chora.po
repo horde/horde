@@ -1,0 +1,551 @@
+# Chora Czech Translation.
+# Copyright 2004-2010 The Horde Project
+# This file is distributed under the same license as the Horde package.
+# Pavel Chytil <pavel@chytil.tk>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Chora 2.0-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2004-11-25 09:19-0800\n"
+"PO-Revision-Date:  2004-11-21 14:56-0800\n"
+"Last-Translator: Pavel Chytil <pavel@chytil.tk>\n"
+"Language-Team: Czech <dev@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8-bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: templates/annotate/header.inc:4
+msgid "#"
+msgstr "číslo"
+
+#: templates/patchsets/ps.inc:12 templates/log/rev.inc:24
+#, php-format
+msgid "%s ago"
+msgstr "před %s"
+
+#: templates/diff/hr/footer.inc:19
+#, php-format
+msgid "Added in v.%s"
+msgstr "Přidáno v.%s"
+
+#: templates/log/request.inc:57
+msgid "All Branches"
+msgstr "Všechny větve"
+
+#: co.php:68 templates/log/rev.inc:8
+msgid "Annotate"
+msgstr "Komentovat"
+
+#: templates/stats/stats.inc:3 templates/directory/header.inc:18
+#: templates/annotate/header.inc:5
+msgid "Author"
+msgstr "Autor"
+
+#: templates/directory/back.inc:4
+msgid "Back"
+msgstr "Zpět"
+
+#: templates/log/rev.inc:29 templates/checkout/checkout.inc:27
+msgid "Branch Point for:"
+msgstr "Větvící bod pro:"
+
+#: templates/patchsets/ps.inc:14 templates/log/rev.inc:26
+#: templates/checkout/checkout.inc:11
+msgid "Branch:"
+msgstr "Větev"
+
+#: lib/Chora.php:467
+msgid "Branches"
+msgstr "Větve"
+
+#: templates/history/branch_cell.inc:2
+msgid "Branching to"
+msgstr "Větvící se do"
+
+#: templates/log/rev.inc:35 templates/checkout/checkout.inc:35
+#, php-format
+msgid "Changed since <b>%s</b>"
+msgstr "Změny od <b>%s</b>"
+
+#: templates/history/rev.inc:8
+#, php-format
+msgid "Changed: %s"
+msgstr "Změněn: %s"
+
+#: co.php:66
+#, php-format
+msgid "Checkout of %s (revision %s)"
+msgstr "Obdržení %s (revize %s)"
+
+#: templates/cvsgraph/cvsgraph.inc:11
+msgid ""
+"Click on the links in between revisions to get a diff between those "
+"revisions."
+msgstr "Pro obdržení diff, klikněte na linky mezi požadovanýma revizema."
+
+#: templates/cvsgraph/cvsgraph.inc:10
+msgid "Click on the revisions and branches to display the file."
+msgstr "Pro zobrazení souboru, klikněte na revize a větve."
+
+#: templates/log/rev.inc:40 templates/log/rev.inc:49
+msgid "Colored"
+msgstr "Zabarvení"
+
+#: templates/patchsets/ps.inc:17 templates/checkout/checkout.inc:19
+msgid "Commit Tags:"
+msgstr "Ukládající Značky:"
+
+#: templates/stats/stats.inc:4
+msgid "Commits"
+msgstr "Uložené změny"
+
+#: templates/log/request.inc:28
+msgid "Context"
+msgstr "Kontext"
+
+#: config/prefs.php.dist:11
+msgid "Customize tasks to run upon logging in to Chora."
+msgstr "Upravit úkoly, které se mají provést při přihlášení se do Chory."
+
+#: templates/directory/header.inc:23
+msgid "Da_te"
+msgstr "Da_tum"
+
+#: templates/directory/header.inc:23
+msgid "Date"
+msgstr "Datum"
+
+#: patchsets.php:66
+msgid "Deleted"
+msgstr "Smazáno"
+
+#: templates/directory/file.inc:6 templates/directory/file.inc:18
+msgid "Deleted File"
+msgstr "Smazané Soubory"
+
+#: templates/log/rev.inc:13
+msgid "Deselect"
+msgstr "Zrušit Výběr"
+
+#: patchsets.php:63
+msgid "Diff"
+msgstr "Diff"
+
+#: patchsets.php:46
+msgid "Diff All Files"
+msgstr "Diff Všech Souborů"
+
+#: diff.php:69
+#, php-format
+msgid "Diff for %s between version %s and %s"
+msgstr "Diff pro %s mezi verzemi %s a %s"
+
+#: templates/log/rev.inc:48
+#, php-format
+msgid "Diffs to <b>%s</b>"
+msgstr "Diff k <b>%s</b>"
+
+#: templates/log/rev.inc:39
+#, php-format
+msgid "Diffs to version %s"
+msgstr "Diffs do verze %s"
+
+#: templates/directory/dir.inc:5 templates/directory/dir.inc:7
+msgid "Directory"
+msgstr "Adresář"
+
+#: annotate.php:30 co.php:69 templates/log/rev.inc:10
+msgid "Download"
+msgstr "Download"
+
+#: templates/log/request.inc:30
+msgid "Ed Script"
+msgstr "Uprav Skript"
+
+#: templates/error_page.inc:4
+msgid "Error"
+msgstr "Chyba"
+
+#: templates/error_page.inc:7
+msgid "Error Encountered"
+msgstr "Vyskytla se Chyba"
+
+#: templates/directory/file.inc:8 templates/directory/file.inc:20
+#: templates/directory/header.inc:8
+msgid "File"
+msgstr "Soubor"
+
+#: templates/patchsets/ps.inc:21
+msgid "Files Changed:"
+msgstr "Změněné Soubory:"
+
+#: templates/log/request.inc:44
+msgid "Get Diffs"
+msgstr "Dostat Diffs"
+
+#: lib/Chora.php:470
+msgid "Graph"
+msgstr "Graf"
+
+#: cvsgraph.php:48
+#, php-format
+msgid "Graph for %s"
+msgstr "Graf pro %s"
+
+#: browse.php:40
+msgid "Hide Deleted Files"
+msgstr "Skrýt Smazané Soubory"
+
+#: browse.php:40
+msgid "Hide _Deleted Files"
+msgstr "Skrýt _Smazané Soubory"
+
+#: templates/log/request.inc:26
+msgid "Human Readable"
+msgstr "Čitelné Člověku"
+
+#: templates/directory/header.inc:25
+msgid "Last Log"
+msgstr "Poslední Záznam"
+
+#: templates/diff/hr/header.inc:5
+#, php-format
+msgid "Last Log Message for rev %s:"
+msgstr "Poslední Zaznamenaná Zpráva pro rev %s:"
+
+#: templates/diff/hr/footer.inc:5
+msgid "Legend:"
+msgstr "Legenda:"
+
+#: templates/annotate/header.inc:7
+msgid "Line"
+msgstr "Řádek"
+
+#: templates/diff/hr/row.inc:3 templates/diff/hr/row.inc:7
+#, php-format
+msgid "Line %s"
+msgstr "Řádek %s"
+
+#: templates/headerbar.inc:11
+msgid "Location:"
+msgstr "Místo:"
+
+#: templates/checkout/checkout.inc:42
+msgid "Log:"
+msgstr "Záznam:"
+
+#: config/prefs.php.dist:10
+msgid "Login Tasks"
+msgstr "Úkony Prováděné při Přihlášení"
+
+#: lib/Chora.php:461
+msgid "Logs"
+msgstr "Záznamy"
+
+#: templates/log/rev.inc:41 templates/log/rev.inc:50
+msgid "Long"
+msgstr "Dlouhý"
+
+#: diff.php:61
+msgid "Malformed Query"
+msgstr "Špantě Formulovaný Dotaz"
+
+#: patchsets.php:59
+msgid "New File"
+msgstr "Nový Soubor"
+
+#: templates/diff/hr/nochange.inc:6
+msgid "No Viewable Change"
+msgstr "Žádné Viditelné Změny"
+
+#: templates/log/rev.inc:42 templates/log/rev.inc:51
+msgid "NoWhitespaceChanges"
+msgstr "Žádné Změny Mezer či Prázdných Řádků"
+
+#: config/prefs.php.dist:9
+msgid "Other Options"
+msgstr "Další Možnosti"
+
+#: lib/Chora.php:369
+msgid "Other Repositories"
+msgstr "Další zdroje CVS"
+
+#: templates/directory/back.inc:4
+msgid "Parent Directory"
+msgstr "Adresář Původu"
+
+#: templates/patchsets/ps.inc:6
+#, php-format
+msgid "PatchSet %s</span> by %s"
+msgstr "PatchSet %s</span> provedl(a) %s"
+
+#: lib/Chora.php:464
+msgid "Patchsets"
+msgstr "Patchsets"
+
+#: patchsets.php:27
+#, php-format
+msgid "Patchsets for %s"
+msgstr "Patchsets pro %s"
+
+#: templates/error_page.inc:13
+msgid "Please contact"
+msgstr "Prosím kontaktujte"
+
+#: templates/diff/hr/footer.inc:11
+#, php-format
+msgid "Removed in v.%s"
+msgstr "Odstranit v v.%s"
+
+#: templates/log/request.inc:14
+msgid "Retrieve diffs between:"
+msgstr "Obdržet diffs mezi:"
+
+#: templates/directory/header.inc:13 templates/annotate/header.inc:6
+msgid "Rev"
+msgstr "Rev"
+
+#: co.php:73
+#, php-format
+msgid "Revision %s for file %s not found."
+msgstr "Nebyla nalezena revize %s pro soubor %s."
+
+#: templates/checkout/checkout.inc:4
+#, php-format
+msgid "Revision <b>%s</b>, <i>%s</i> (%s ago) by %s"
+msgstr "Revize <b>%s</b>, <i>%s</i> (před %s) provedl(a) %s"
+
+#: templates/log/rev.inc:15
+msgid "Select for Diff"
+msgstr "Vybráno pro Diff"
+
+#: browse.php:42
+msgid "Show Deleted Files"
+msgstr "Zobrazit Smazané Soubory"
+
+#: browse.php:42
+msgid "Show _Deleted Files"
+msgstr "Zobrazit _Smazané Soubory"
+
+#: templates/log/request.inc:29
+msgid "Side-by-Side"
+msgstr "Vedle Sebe"
+
+#: templates/directory/header.inc:7 templates/directory/header.inc:12
+#: templates/directory/header.inc:17 templates/directory/header.inc:22
+msgid "Sort Order"
+msgstr "Pořadí Uspořádání"
+
+#: annotate.php:27
+#, php-format
+msgid "Source Annotation of %s for version %s"
+msgstr "Zdrojový Komentář k %s pro verze %s"
+
+#: history.php:160
+#, php-format
+msgid "Source Branching View for %s"
+msgstr "Zdrojové Zobrazení Větvení pro %s"
+
+#: browse.php:32
+#, php-format
+msgid "Source Directory of /%s"
+msgstr "Zdrojový Adresář pro /%s"
+
+#: browse.php:126
+#, php-format
+msgid "Source Log for %s"
+msgstr "Zdrojový Záznam pro %s"
+
+#: lib/Chora.php:183
+msgid ""
+"SourceRoot not found! This could be a misconfiguration by the server "
+"administrator, or the server could be having temporary problems. Please try "
+"again later."
+msgstr ""
+"Kořenový adresář zdroje nebyl nalezen! Toto může být způsobeno špatnou "
+"konfigurací nebo server není dostupný. Prosím zkuste to později."
+
+#: lib/Chora.php:472
+msgid "Statistics"
+msgstr "Statistiky"
+
+#: stats.php:27
+#, php-format
+msgid "Statistics for %s"
+msgstr "Statistiky pro %s"
+
+#: templates/log/rev.inc:32
+msgid "Tags:"
+msgstr "Značky:"
+
+#: templates/log/request.inc:5
+msgid ""
+"This form allows you to request diffs between any two revisions of a file.  "
+"You may select a symbolic revision name using the selection box or you may "
+"type in a numeric name using the type-in text box."
+msgstr ""
+"Tato forma Vám umožní vypsaní diffs mezi dvěma revizemi souboru. Symbolické "
+"revizní jméno může být zvoleno z výběrového menu nebo zadáním numerického "
+"jména v textovém rámečku."
+
+#: templates/headerbar.inc:16
+msgid "Tracking Branch"
+msgstr "Sledování Větve"
+
+#: templates/log/request.inc:23
+msgid "Type:"
+msgstr "Typ:"
+
+#: templates/log/request.inc:27
+msgid "Unified"
+msgstr "Sjednocený"
+
+#: templates/log/request.inc:18 templates/log/request.inc:38
+msgid "Use Text Field"
+msgstr "Použít Textových Polí"
+
+#: config/prefs.php.dist:37
+msgid "Use last viewed file or directory at login time"
+msgstr "Použít poslední prohlídnutý soubor nebo adresář při přihlášení"
+
+#: annotate.php:29 templates/log/rev.inc:9
+msgid "View"
+msgstr "Zobrazit"
+
+#: templates/log/request.inc:60
+msgid "View Branch"
+msgstr "Zobrazit Větev"
+
+#: templates/log/request.inc:54
+msgid "View revisions on:"
+msgstr "Zobrazit revize z:"
+
+#: lib/Chora.php:474
+msgid "View:"
+msgstr "Zobrazit:"
+
+#: templates/directory/header.inc:18
+msgid "_Author"
+msgstr "_Autor"
+
+#: lib/Chora.php:467
+msgid "_Branches"
+msgstr "_Větve"
+
+#: lib/Chora.php:441
+msgid "_Browse"
+msgstr "_Prohlížet"
+
+#: templates/directory/header.inc:8
+msgid "_File"
+msgstr "_Soubor"
+
+#: lib/Chora.php:470
+msgid "_Graph"
+msgstr "_Graf"
+
+#: lib/Chora.php:461
+msgid "_Logs"
+msgstr "_Záznamy"
+
+#: lib/Chora.php:464
+msgid "_Patchsets"
+msgstr "_Patchsets"
+
+#: templates/directory/header.inc:13
+msgid "_Rev"
+msgstr "_Rev"
+
+#: lib/Chora.php:472
+msgid "_Statistics"
+msgstr "_Statistiky"
+
+#: templates/log/request.inc:35
+msgid "and:"
+msgstr "a:"
+
+#: templates/log/rev.inc:5 templates/history/rev.inc:4
+#, php-format
+msgid "by %s"
+msgstr "podle %s"
+
+#: templates/diff/hr/footer.inc:15
+msgid "changed lines"
+msgstr "změněné řádky"
+
+#: lib/Chora.php:32
+msgid "day"
+msgstr "den"
+
+#: lib/Chora.php:32
+msgid "days"
+msgstr "dnů"
+
+#: templates/error_page.inc:14
+msgid "for further information."
+msgstr "pro další informace."
+
+#: lib/Chora.php:31
+msgid "hour"
+msgstr "hodina"
+
+#: lib/Chora.php:31
+msgid "hours"
+msgstr "hodin"
+
+#: lib/Chora.php:30
+msgid "minute"
+msgstr "minuta"
+
+#: lib/Chora.php:30
+msgid "minutes"
+msgstr "minuty"
+
+#: lib/Chora.php:34
+msgid "month"
+msgstr "měsíc"
+
+#: lib/Chora.php:34
+msgid "months"
+msgstr "měsíců"
+
+#: templates/history/branch_cell.inc:6
+#, php-format
+msgid "revision %s"
+msgstr "revize %s"
+
+#: lib/Chora.php:29
+msgid "second"
+msgstr "sekunda"
+
+#: lib/Chora.php:29
+msgid "seconds"
+msgstr "sekundy"
+
+#: templates/diff/hr/header.inc:13 templates/diff/hr/header.inc:14
+#, php-format
+msgid "version %s"
+msgstr "verze %s"
+
+#: lib/Chora.php:43
+msgid "very little time"
+msgstr "před chvílí"
+
+#: lib/Chora.php:33
+msgid "week"
+msgstr "týden"
+
+#: lib/Chora.php:33
+msgid "weeks"
+msgstr "týdny"
+
+#: lib/Chora.php:35
+msgid "year"
+msgstr "rok"
+
+#: lib/Chora.php:35
+msgid "years"
+msgstr "roků"

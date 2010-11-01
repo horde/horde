@@ -1,0 +1,109 @@
+--------
+v1.0-git
+--------
+
+[bak/mjr/mms] Converted to H4.
+
+
+----
+v0.1
+----
+
+[jan] Enable output compression.
+[cjh] Remove the Jonah-specific portal (Bug #7584).
+[cjh] Add support for full-content feeds (Request #6400).
+[cjh] Remove delivery lists.
+[jan] Add Turkish translation (METU <horde-tr@metu.edu.tr>).
+[mjr] Add a media block for displaying feeds containing media namespace nodes.
+[mjr] Add support for parsing the media namespace extensions to RSS 2.0 feeds.
+[mjr] Add searchTag api support to allow other applications to list tags and
+      perform tag searches of Jonah resources.
+[mjr] Add tagging support for internal channels.
+[cjh] Allow the story and latest blocks to count story reads.
+[cjh] Add PDF generation of stories.
+[cjh] Detect charset information from XML prologue as well as the
+      Content-Type header (s_gatterbauer@idlm.net, Bug #4340).
+[jan] Add RSS 2.0 feed generator.
+[jan] Add permalink field for stories.
+[jan] Add URL field to channel configuration for paged story lists.
+[cjh] Deliver RSS feeds in a way that supports USM
+      (http://www.kbcafe.com/rss/usm.html, Request #2593).
+[cjh] Standardize the date fields for stories with an updated field that is
+      always the timestamp that the story was last modified, and a published
+      field which is controlled by the author and determines the release date.
+[ben] Better support for MS-SQL.
+[cjh] Use Horde_Block_Layout_View for the My News page.
+[cjh] Add jonah:admin permission (tevans@tachometry.com, Bug #2571).
+[cjh] Add internal template type for internal stories (tevans@tachometry.com,
+      Bug #2571).
+[cjh] Add a block for showing the latest story from an internal channel
+      (Roel Gloudemans <roel@gloudemans.info>).
+[cjh] Initial feeds script now uses Jonah objects to do feed
+      creation to avoid sequence problems.
+[jan] Add Dutch translation (Resan Sa-Ardnuam <horde@sa-ardnuam.nl>).
+[cjh] Initial Atom feed support (Bug #1581).
+[jan] Add support for release dates.
+[jan] Show links to internal channels in sidebar menu.
+[jan] Allow comments on stories.
+[jan] Add support for composite channels.
+[jan] Allow to specify an alternative story URL.
+[jan] Track how many times a story was read.
+[jan] Add support for aggregating channels.
+[jon] Add the ability to share stories with friends via email.
+[mdj] newsfeed.php is no longer used, now there is a /delivery/ directory
+      offering for now the RSS feed as before and an email delivery.
+[mdj] Added option for HTML composition of stories.
+[cjh] Stocks code has been moved to Juno.
+[cjh] Remove the last weather code from Jonah.
+[cjh] Remove METAR code in favor of the Horde-level METAR block.
+[jan] Add Romanian translation (Eugen Hoanca <eugenh@urban-grafx.ro>).
+[jan] Add Finnish translation (Leena Heino <Leena.Heino@uta.fi>).
+[cjh] Clean up Jonah_Headlines:: to require fewer special cases.
+[cjh] Move all channel HTML generation over to Horde_Template::
+[cjh] Add an RSS generation class.
+[cjh] Start adding news-authoring capabilities.
+[jan] Add German translation.
+[cjh] Add option of using a DB to store weather stations
+      (Ben Scott <bscott@chiark.greenend.org.uk>).
+[cjh] Add the option to update a channel by executing a script
+      (Mario Andres Yepes C <marioy@upb.edu.co>).
+[jan] Add Traditional Chinese translation (Chih-Wei Yeh
+      <cwyeh@ccca.nctu.edu.tw>).
+[cjh] Add a preference for using metric units
+      (Tim Gorter <email@teletechnics.com>).
+[cjh] Revamp headline management and subscriptions; add multiple sizes
+      for each channel, add weather and stock support, and many more
+      channels (Eric Rechlin <eric@hpcalc.org>).
+[cjh] Add a Block system and an experimental portal-like interface.
+[cjh] Add menu to all pages.
+[cjh] Add user preference for which channels to display.
+[cjh] License is the Horde BSD license.
+[cjh] Close a potential problem with register_globals On and $js_onLoad.
+[cjh] Don't redirect from backend.php to any login screen; either
+      authentication is there, or we exit().
+[cjh] Use JONAH_TEMPLATES constant for all template paths.
+[cjh] Use $registry->get() for all Registry information.
+[cjh] Update cli-backend.php so that it can actually be useful.
+[cjh] Use Horde admin settings.
+[max] Greatly modernize and update.
+[avsm] Replace $conf['paths'] with the $registry equivalents.
+[cjh] Get rid of package.HTMLDocument.php use.
+
+
+------
+v0.0.2
+------
+
+[cjh] Everything now works with call-time pass-by-reference disabled, and
+      with the current state of XML in php4.
+[cjh] Added a simple update.sh script that can be run from cron.
+[cjh] The backend can now be restricted with username/password or by IP.
+[cjh] Updated test.php to recognize php4 stable releases.
+
+
+------
+v0.0.1
+------
+
+[cjh] More or less complete documentation.
+[cjh] Supports RSS and My.Userland site summary files.

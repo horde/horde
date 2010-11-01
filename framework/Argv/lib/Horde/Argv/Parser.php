@@ -149,13 +149,13 @@ class Horde_Argv_Parser extends Horde_Argv_OptionContainer
     protected function _addHelpOption()
     {
         $this->addOption('-h', '--help', array('action' => 'help',
-                                               'help' => _("show this help message and exit")));
+                                               'help' => Horde_Argv_Translation::t("show this help message and exit")));
     }
 
     protected function _addVersionOption()
     {
         $this->addOption('--version', array('action' => 'version',
-                                            'help' => _("show program's version number and exit")));
+                                            'help' => Horde_Argv_Translation::t("show program's version number and exit")));
     }
 
     protected function _populateOptionList($optionList, $add_help = true)
@@ -183,7 +183,7 @@ class Horde_Argv_Parser extends Horde_Argv_OptionContainer
     public function setUsage($usage)
     {
         if (is_null($usage))
-            $this->_usage = '%prog ' . _("[options]");
+            $this->_usage = '%prog ' . Horde_Argv_Translation::t("[options]");
         elseif ($usage == Horde_Argv_Option::SUPPRESS_USAGE)
             $this->_usage = null;
         else
@@ -479,9 +479,9 @@ class Horde_Argv_Parser extends Horde_Argv_OptionContainer
             if (count($rargs) < $nargs) {
                 if (!$option->hasDefault()) {
                     if ($nargs == 1) {
-                        $this->parserError(sprintf(_("%s option requires an argument"), $opt));
+                        $this->parserError(sprintf(Horde_Argv_Translation::t("%s option requires an argument"), $opt));
                     } else {
-                        $this->parserError(sprintf(_("%s option requires %d arguments"), $opt, $nargs));
+                        $this->parserError(sprintf(Horde_Argv_Translation::t("%s option requires %d arguments"), $opt, $nargs));
                     }
                 }
             } elseif ($nargs == 1) {
@@ -491,7 +491,7 @@ class Horde_Argv_Parser extends Horde_Argv_OptionContainer
             }
 
         } elseif ($had_explicit_value) {
-            $this->parserError(sprintf(_("%s option does not take a value"), $opt));
+            $this->parserError(sprintf(Horde_Argv_Translation::t("%s option does not take a value"), $opt));
 
         } else {
             $value = null;
@@ -531,9 +531,9 @@ class Horde_Argv_Parser extends Horde_Argv_OptionContainer
                 if (count($rargs) < $nargs) {
                     if (!$option->hasDefault()) {
                         if ($nargs == 1) {
-                            $this->parserError(sprintf(_("%s option requires an argument"), $opt));
+                            $this->parserError(sprintf(Horde_Argv_Translation::t("%s option requires an argument"), $opt));
                         } else {
-                            $this->parserError(sprintf(_("%s option requires %d arguments"), $opt, $nargs));
+                            $this->parserError(sprintf(Horde_Argv_Translation::t("%s option requires %d arguments"), $opt, $nargs));
                         }
                     }
                 } elseif ($nargs == 1) {
@@ -656,7 +656,7 @@ class Horde_Argv_Parser extends Horde_Argv_OptionContainer
             $formatter = $this->formatter;
         $formatter->storeOptionStrings($this);
         $result = array();
-        $result[] = $formatter->formatHeading(_("Options"));
+        $result[] = $formatter->formatHeading(Horde_Argv_Translation::t("Options"));
         $formatter->indent();
         if ($this->optionList) {
             $result[] = parent::formatOptionHelp($formatter);

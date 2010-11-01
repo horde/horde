@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_Images class allows display of images attached
+ * The IMP_Mime_Viewer_Images class allows display of images attached
  * to a message.
  *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
@@ -8,10 +8,12 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Mime
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
-class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
+class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
 {
     /**
      * This driver's display capabilities.
@@ -22,7 +24,7 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
         'full' => true,
         'info' => true,
         'inline' => true,
-        'raw' => false
+        'raw' => true
     );
 
     /**
@@ -37,15 +39,11 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      *   'view_thumbnail' - TODO
      * </pre>
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _render()
     {
         $view = Horde_Util::getFormData('imp_img_view');
-        if (Horde_Util::getFormData('related_data') ||
-            !empty($this->_params['raw'])) {
-            $view = 'data';
-        }
 
         switch ($view) {
         case 'data':
@@ -76,7 +74,7 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
     /**
      * Return the rendered inline version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _renderInline()
     {
@@ -91,7 +89,7 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
                     $this->_mimepart->getMimeId() => array(
                         'data' => $this->_outputImgTag('data', $this->_mimepart->getName(true)),
                         'status' => array(),
-                        'type' => 'text/html; charset=' . Horde_Nls::getCharset()
+                        'type' => 'text/html; charset=' . $this->getConfigParam('charset')
                     )
                 );
             } else {
@@ -108,7 +106,7 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
             $img = $this->_getHordeImageOb(false);
             if ($img &&
                 $GLOBALS['browser']->isViewable($img->getContentType())) {
-                $convert_link = $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', _("HERE"), array('params' => array('imp_img_view' => 'load_convert')));
+                $convert_link = $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', _("HERE"), array('params' => array('imp_img_view' => 'load_convert')));
                 $status[] = sprintf(_("Click %s to convert the image file into a format your browser can attempt to view."), $convert_link);
             }
         }
@@ -121,7 +119,7 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
                         'text' => $status
                     )
                 ),
-                'type' => 'text/html; charset=' . Horde_Nls::getCharset()
+                'type' => 'text/html; charset=' . $this->getConfigParam('charset')
             )
         );
     }
@@ -129,7 +127,7 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
     /**
      * Return the rendered information about the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _renderInfo()
     {
@@ -145,9 +143,9 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
         $status = array(_("This is a thumbnail of an image attached to this message."));
 
         if ($GLOBALS['browser']->hasFeature('javascript')) {
-            $status[] = $this->_params['contents']->linkViewJS($this->_mimepart, 'view_attach', $this->_outputImgTag('view_thumbnail', _("View Attachment")), null, null, null);
+            $status[] = $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', $this->_outputImgTag('view_thumbnail', _("View Attachment")), null, null, null);
         } else {
-            $status[] = Horde::link($this->_params['contents']->urlView($this->_mimepart, 'view_attach')) . $this->_outputImgTag('view_thumbnail', _("View Attachment")) . '</a>';
+            $status[] = Horde::link($this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'view_attach')) . $this->_outputImgTag('view_thumbnail', _("View Attachment")) . '</a>';
         }
 
         return array(
@@ -155,13 +153,23 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
                 'data' => '',
                 'status' => array(
                     array(
-                        'icon' => Horde::img('mime/image.png', null, null, $GLOBALS['registry']->getImageDir('horde')),
+                        'icon' => Horde::img('mime/image.png'),
                         'text' => $status
                     )
                 ),
-                'type' => 'text/html; charset=' . Horde_Nls::getCharset()
+                'type' => 'text/html; charset=' . $this->getConfigParam('charset')
             )
         );
+    }
+
+    /**
+     * Return the full rendered version of the Horde_Mime_Part object.
+     *
+     * @return array  See parent::render().
+     */
+    protected function _renderRaw()
+    {
+        return parent::_render();
     }
 
     /**
@@ -172,7 +180,7 @@ class IMP_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
     protected function _popupImageWindow()
     {
         $loading = _("Loading...");
-        $self_url = IMP::selfUrl()->add(array('imp_img_view' => ((Horde_Util::getFormData('imp_img_view') == 'load_convert') ? 'view_convert' : 'data')));
+        $self_url = IMP::selfUrl()->add(array('actionID' => 'view_attach', 'imp_img_view' => ((Horde_Util::getFormData('imp_img_view') == 'load_convert') ? 'view_convert' : 'data')));
         $title = $this->_mimepart->getName(true);
 
         $str = <<<EOD
@@ -200,7 +208,7 @@ EOD;
             $this->_mimepart->getMimeId() => array(
                 'data' => $str,
                 'status' => array(),
-                'type' => 'text/html; charset=' . Horde_Nls::getCharset()
+                'type' => 'text/html; charset=' . $this->getConfigParam('charset')
             )
         );
     }
@@ -250,17 +258,15 @@ EOD;
      */
     protected function _getHordeImageOb($load)
     {
+        if (empty($GLOBALS['conf']['image']['driver'])) {
+            return false;
+        }
         $img = null;
         //@TODO: Pass in a Horde_Logger in $context if desired.
         $context = array('tmpdir' => Horde::getTempDir());
         try {
-            if (!empty($GLOBALS['conf']['image']['convert'])) {
-                $context['convert'] = $GLOBALS['conf']['image']['convert'];
-                $img = Horde_Image::factory('Im', array('context' => $context));
-            } elseif (Horde_Util::extensionExists('gd')) {
-                $img = Horde_Image::factory('Gd', array('context' => $context));
-            }
-        } catch (Horde_Image_Exception $e) {
+            $img = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Image')->create();
+        } catch (Horde_Exception $e) {
             return false;
         }
 
@@ -270,7 +276,7 @@ EOD;
 
         if ($load) {
             try {
-                $ret = $img->loadString(1, $this->_mimepart->getContents());
+                $ret = $img->loadString($this->_mimepart->getContents());
             } catch (Horde_Image_Exception $e) {
                 return false;
             }
@@ -289,7 +295,7 @@ EOD;
      */
     protected function _outputImgTag($type, $alt)
     {
-        return '<img src="' . $this->_params['contents']->urlView($this->_mimepart, 'view_attach', array('params' => array('imp_img_view' => $type))) . '" alt="' . htmlspecialchars($alt, ENT_COMPAT, Horde_Nls::getCharset()) . '" />';
+        return '<img src="' . $this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'view_attach', array('params' => array('imp_img_view' => $type))) . '" alt="' . htmlspecialchars($alt, ENT_COMPAT, $this->getConfigParam('charset')) . '" />';
     }
 
 }

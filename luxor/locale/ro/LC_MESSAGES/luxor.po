@@ -1,0 +1,215 @@
+# Romanian translations for luxor package.
+# Copyright 2003-2009 The Horde Project
+# This file is distributed under the same license as the luxor package.
+# Eugen Hoanca <eugenh@urban-grafx.ro>, 2003.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Luxor 0.1\n"
+"POT-Creation-Date: 2003-03-04 13:46+0100\n"
+"PO-Revision-Date: 2003-03-25 11:29+0200\n"
+"Last-Translator: Eugen Hoanca <eugenh@urban-grafx.ro>\n"
+"Language-Team: Romanian <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lib/Tagger.php:48 lib/Tagger.php:103
+msgid "%s was already indexed."
+msgstr "%s a fost deja indexat."
+
+#: lib/Tagger.php:31 lib/Tagger.php:86
+msgid "Can't build language class for file %s."
+msgstr "Imposibil de cladit o clasa de limba pentru fisierul %s."
+
+#: lib/Tagger.php:59 lib/Tagger.php:115
+msgid "Can't create copy of file %s."
+msgstr "Imposibil de creat copie a fisierului %s."
+
+#: lib/Files/plain.php:82
+msgid "Can't open directory %s"
+msgstr "Nu se poate deschide directorul %s"
+
+#: lib/Lang/Generic.php:125
+msgid "Can't open file %s."
+msgstr "Nu se poate deschite fisierul %s."
+
+#: lib/Lang/Generic.php:83
+msgid "Can't run ectags."
+msgstr "Nu se poate rula ectags."
+
+#: source.php:78
+msgid "Could not markup file %s."
+msgstr "Nu se poate marca fisierul %s."
+
+#: source.php:130
+msgid "Cross Reference"
+msgstr "Referinta in cruce"
+
+#: source.php:18
+msgid "Date (GMT)"
+msgstr "Data (GMT)"
+
+#: ident.php:49
+msgid "Declared as "
+msgstr "Declarat ca"
+
+#: source.php:19
+msgid "Description"
+msgstr "Descriere"
+
+#: lib/Lang/Generic.php:50
+msgid "Exuberant ctags version 5 or above required, found %s"
+msgstr "Ctags versiunea 5 sau mai mare necesara, s-a gasit %s"
+
+#: templates/menu/menu.inc:17
+msgid "Help"
+msgstr "Ajutor"
+
+#: templates/menu/menu.inc:6
+msgid "Home"
+msgstr "Acasa"
+
+#: ident.php:29
+msgid "Identifier"
+msgstr "Identificator"
+
+#: genxref.php:110
+msgid "Indexing %s"
+msgstr "Indexare %s"
+
+#: templates/genxref/genxref.inc:13
+msgid "Just build the symbol index"
+msgstr "Cladire index simboluri"
+
+#: templates/genxref/genxref.inc:14
+msgid "Just build the symbol references"
+msgstr "Cladire referinte simboluri"
+
+#: templates/headerbar.inc:26
+msgid "Location:"
+msgstr "Locatie:"
+
+#: templates/genxref/genxref.inc:4
+msgid "Luxor Backend"
+msgstr "Suport Luxor"
+
+#: templates/headerbar.inc:11
+msgid "Luxor Homepage"
+msgstr "Pagina Luxor"
+
+#: templates/index/notconfigured.inc:4
+msgid "Luxor is not properly configured"
+msgstr "Luxor nu este corect configurat"
+
+#: source.php:16
+msgid "Name"
+msgstr "Nume"
+
+#: lib/Driver/sql.php:477
+msgid "No configuration information specified for SQL Tasks."
+msgstr "Nici o configurare specificata pentru sarcinile SQL."
+
+#: lib/Luxor.php:85
+msgid "Other Sources"
+msgstr "Alte surse"
+
+#: lib/Luxor.php:156
+msgid "Parent Directory"
+msgstr "Director parinte"
+
+#: ident.php:57
+msgid "Referenced in"
+msgstr "Referinta in"
+
+#: genxref.php:128
+msgid "Referencing %s"
+msgstr "Referinta %s"
+
+#: lib/Driver/sql.php:495
+msgid "Required 'charset' not specified in tasks configuration."
+msgstr "'charset' nespecificat in configurarea taskurilor."
+
+#: lib/Driver/sql.php:492
+msgid "Required 'database' not specified in tasks configuration."
+msgstr "'database' nespecificat in configurarea taskurilor."
+
+#: lib/Driver/sql.php:483
+msgid "Required 'hostspec' not specified in tasks configuration."
+msgstr "'hostspec' nespecificat in configurarea taskurilor."
+
+#: lib/Driver/sql.php:489
+msgid "Required 'password' not specified in tasks configuration."
+msgstr "'password' nespecificat in configurarea taskurilor."
+
+#: lib/Driver/sql.php:480
+msgid "Required 'phptype' not specified in tasks configuration."
+msgstr "'phptype' nespecificat in configurarea taskurilor."
+
+#: lib/Driver/sql.php:486
+msgid "Required 'username' not specified in tasks configuration."
+msgstr "'username' nespecificat in configurarea taskurilor."
+
+#: source.php:17
+msgid "Size"
+msgstr "Marime"
+
+#: templates/index/notconfigured.inc:39
+msgid "Some of Luxor's configuration files are missing:"
+msgstr "Anumite fisiere de configurare Luxor lipsesc:"
+
+#: ident.php:36
+msgid "Source"
+msgstr "Sursa"
+
+#: source.php:55
+msgid "The file %s can't be opened or doesn't exist."
+msgstr "Fisierul %s nu poate fi deschis sau nu exista."
+
+#: templates/index/notconfigured.inc:51
+msgid "This file contains preferences for Luxor."
+msgstr "Acest fisier contine preferintele Luxor."
+
+#: templates/index/notconfigured.inc:58
+msgid ""
+"This file controls the stylesheet that is used to set colors and fonts in "
+"addition to or overriding Horde defaults."
+msgstr ""
+"Acest fisier controleaza schema de culori si fonturi diferite de cele "
+"implicite Horde."
+
+#: templates/index/notconfigured.inc:44
+msgid ""
+"This is the main Luxor configuration file. It contains options for all Luxor "
+"scripts."
+msgstr ""
+"Acesta este principalul fisier de configurare Luxor. Contine optiuni pentru "
+"toate scripturile Luxor."
+
+#: templates/headerbar.inc:30
+msgid "Tracking Branch"
+msgstr "Ramura de urmarire"
+
+#: lib/Luxor.php:145 lib/Luxor.php:155
+msgid "Up to parent"
+msgstr "Inapoi la parinte"
+
+#: templates/menu/menu.inc:9
+msgid "Update"
+msgstr "Improspatare"
+
+#: templates/genxref/genxref.inc:10
+msgid "Update the Cross Reference"
+msgstr "Improspatare referinta in cruce"
+
+#: source.php:49
+msgid "You do not have permission to view file %s."
+msgstr "Nu aveti permisiunea sa vizualizati fisierul %s."
+
+#: lib/Luxor.php:176
+msgid "bytes"
+msgstr "octeti"
+
+#: lib/Luxor.php:178
+msgid "kbytes"
+msgstr "kocteti"

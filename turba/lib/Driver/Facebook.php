@@ -4,25 +4,27 @@
  * application to be setup on Facebook and configured in horde/config/conf.php.
  * This driver based on the favourites driver.
  *
- * Of limited utility since email addresses are not retrievable via the Facebook
- * API, unless the user allows the Horde application to access it - and even
- * then, it's a proxied email address.
+ * Of limited utility since email addresses are not retrievable via the
+ * Facebook API, unless the user allows the Horde application to access it -
+ * and even then, it's a proxied email address.
  *
  * Copyright 2009-2010 The Horde Project (http://www.horde.org)
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
- * @author  Jan Schneider <jan@horde.org>
+ * See the enclosed file LICENSE for license information (ASL).  If you did
+ * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ *
+ * @author   Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/asl.php ASL
+ * @package  Turba
  */
 class Turba_Driver_Facebook extends Turba_Driver
 {
-    private $_facebook;
-
     /**
+     * TODO
      */
-    function _init()
-    {
-        return true;
-    }
+    private $_facebook;
 
     /**
      * Checks if the current user has the requested permissions on this
@@ -32,12 +34,15 @@ class Turba_Driver_Facebook extends Turba_Driver
      *
      * @return boolean  True if the user has permission, otherwise false.
      */
-     function hasPermission($perm)
+     public function hasPermission($perm)
      {
          switch ($perm) {
-             case Horde_Perms::EDIT: return false;
-             case Horde_Perms::DELETE: return false;
-             default: return true;
+         case Horde_Perms::DELETE:
+         case Horde_Perms::EDIT:
+             return false;
+
+         default:
+             return true;
          }
      }
 
@@ -50,14 +55,11 @@ class Turba_Driver_Facebook extends Turba_Driver
      * @param array $fields    List of fields to return.
      *
      * @return array  Hash containing the search results.
+     * @throws Turba_Exception
      */
-    function _search($criteria, $fields)
+    protected function _search($criteria, $fields)
     {
-        $results = array();
         $results = $this->_getAddressBook($fields);
-        if (is_a($results, 'PEAR_Error')) {
-            return $results;
-        }
 
         foreach ($results as $key => $contact) {
             $found = !isset($criteria['OR']);
@@ -94,6 +96,7 @@ class Turba_Driver_Facebook extends Turba_Driver
                 $results[$key] = $contact;
             }
         }
+
         return $results;
     }
 
@@ -105,83 +108,92 @@ class Turba_Driver_Facebook extends Turba_Driver
      * @param string $id       Data identifier.
      * @param array $fields    List of fields to return.
      *
-     * @return  Hash containing the search results.
+     * @return array  Hash containing the search results.
      */
-    function _read($criteria, $ids, $owner, $fields)
+    protected function _read($criteria, $ids, $owner, $fields)
     {
-        $results = $this->_getEntry($ids, $fields);
-        return $results;
+        return $this->_getEntry($ids, $fields);
     }
 
-    function _getEntry($keys, $fields)
+    /**
+     * TODO
+     */
+    protected function _getEntry($keys, $fields)
     {
-        if (!is_a($facebook = $this->_getFacebook(), 'PEAR_Error')) {
-            $fields = implode(', ', $fields);
-            $fql = 'SELECT ' . $fields . ' FROM user WHERE uid IN (' . implode(', ', $keys) . ')';
+        $facebook = $GLOBALS['injector']->getInstance('Horde_Service_Facebook');
+        $fields = implode(', ', $fields);
+        $fql = 'SELECT ' . $fields . ' FROM user WHERE uid IN (' . implode(', ', $keys) . ')';
 
-            try {
-                $results = $facebook->fql->run($fql);
-            } catch (Horde_Service_Facebook_Exception $e) {
-                $error = PEAR::raiseError($e->getMessage(), $e->getCode());
-                Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_ERR);
-
-                return $error;
-            }
-
-            return $results;
-        } else {
-
-            return $facebook;
+        try {
+            return $facebook->fql->run($fql);
+        } catch (Horde_Service_Facebook_Exception $e) {
+            Horde::logMessage($e, 'ERR');
+            throw new Turba_Exception($e);
         }
     }
 
-    function _getAddressBook($fields = array())
+    /**
+     * TODO
+     */
+    protected function _getAddressBook($fields = array())
     {
-        if (!is_a($facebook = $this->_getFacebook(), 'PEAR_Error')) {
-            $fields = implode(', ', $fields);
-            // For now, just try a fql query with name and email.
-            $fql = 'SELECT ' . $fields . ' FROM user WHERE uid IN ('
-                . 'SELECT uid2 FROM friend WHERE uid1=' . $facebook->auth->getUser() . ')';
+        $facebook = $GLOBALS['injector']->getInstance('Horde_Service_Facebook');
+        $fields = implode(', ', $fields);
+        // For now, just try a fql query with name and email.
+        $fql = 'SELECT ' . $fields . ' FROM user WHERE uid IN ('
+            . 'SELECT uid2 FROM friend WHERE uid1=' . $facebook->auth->getUser() . ')';
 
-            try {
-                $results = $facebook->fql->run($fql);
-            } catch (Horde_Service_Facebook_Exception $e) {
-                $error = PEAR::raiseError($e->getMessage(), $e->getCode());
-                Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_ERR);
-                return array();
-            }
-            $addressbook = array();
-            foreach ($results as $result) {
-                if (!empty($result['birthday'])) {
-                    // Make sure the birthdate is in a standard format that
-                    // listDateObjects will understand.
-                    $bday = new Horde_Date($result['birthday']);
-                    $result['birthday'] = $bday->format('Y-m-d');
-                }
-                $addressbook[$result['uid']] = $result;
-            }
-
-            return $addressbook;
-        } else {
-            return $facebook;
+        try {
+            $results = $facebook->fql->run($fql);
+        } catch (Horde_Service_Facebook_Exception $e) {
+            Horde::logMessage($e, 'ERR');
+            return array();
         }
+
+        $addressbook = array();
+        foreach ($results as $result) {
+            if (!empty($result['birthday'])) {
+                // Make sure the birthdate is in a standard format that
+                // listDateObjects will understand.
+                $bday = new Horde_Date($result['birthday']);
+                $result['birthday'] = $bday->format('Y-m-d');
+            }
+            $addressbook[$result['uid']] = $result;
+        }
+
+        return $addressbook;
     }
 
+    /**
+     * TODO
+     *
+     * @throws Turba_Exception
+     */
     function _getFacebook()
     {
         global $conf, $prefs;
+
         if (!$conf['facebook']['enabled']) {
-            return PEAR::raiseError(_("No Facebook integration exists."));
+            throw new Turba_Exception(_("No Facebook integration exists."));
         }
 
         if (empty($this->_facebook)) {
-            $context = array('http_client' => new Horde_Http_Client(),
-                             'http_request' => new Horde_Controller_Request_Http());
-            $this->_facebook = new Horde_Service_Facebook($conf['facebook']['key'],
-                                                   $conf['facebook']['secret'],
-                                                   $context);
+            $context = array(
+                'http_client' => new Horde_Http_Client(),
+                'http_request' => $GLOBALS['injector']->getInstance('Horde_Controller_Request')
+            );
+            $this->_facebook = new Horde_Service_Facebook(
+                $conf['facebook']['key'],
+                $conf['facebook']['secret'],
+                $context
+            );
 
             $session = unserialize($prefs->getValue('facebook'));
+            if (!$session ||
+                !isset($session['uid']) ||
+                !isset($session['sid'])) {
+                throw new Turba_Exception(_("You have to connect to Facebook in your address book preferences."));
+            }
             $this->_facebook->auth->setUser($session['uid'], $session['sid'], 0);
         }
 

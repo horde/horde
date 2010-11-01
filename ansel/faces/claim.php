@@ -9,15 +9,17 @@
  *
  * @author Duck <duck@obala.net>
  */
-require_once dirname(__FILE__) . '/../lib/base.php';
 
-$faces = Ansel_Faces::factory();
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('ansel');
+
+$faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
 $face_id = Horde_Util::getFormData('face');
 try {
     $face = $faces->getFaceById($face_id);
 } catch (Horde_Exception $e) {
     $notification->push($e->getMessage());
-    header('Location: ' . Horde::applicationUrl('faces/search/all.php'));
+    Horde::url('faces/search/all.php')->redirect();
     exit;
 }
 
@@ -32,15 +34,13 @@ if ($form->validate()) {
     if (Horde_Util::getFormData('submitbutton') == _("Cancel")) {
         $notification->push(_("Action was cancelled."), 'horde.warning');
     } else {
-        require ANSEL_BASE . '/lib/Report.php';
         $report = Ansel_Report::factory();
-        $gallery = $ansel_storage->getGallery($face['gallery_id']);
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($face['gallery_id']);
 
-        $face_link = Horde_Util::addParameter(
-            Horde::applicationUrl('faces/custom.php', true),
+        $face_link = Horde::url('faces/custom.php', true)->add(
             array('name' => $vars->get('person'),
                   'face' => $face_id,
-                  'image' => $face['image_id']), null, false);
+                  'image' => $face['image_id']))->setRaw(true);
 
         $title = _("I know who is on one of your photos");
         $body = _("Gallery Name") . ': ' . $gallery->get('name') . "\n"
@@ -50,22 +50,20 @@ if ($form->validate()) {
                 . _("Face") . ': ' . $face_link;
 
         $report->setTitle($title);
-        $result = $report->report($body, $gallery->get('owner'));
-        if (is_a($result, 'PEAR_Error')) {
-            $notification->push(_("Face name was not reported.") . ' ' .
-                                $result->getMessage(), 'horde.error');
-        } else {
+        try {
+            $result = $report->report($body, $gallery->get('owner'));
             $notification->push(_("The owner of the photo, who will delegate the face name, was notified."), 'horde.success');
+        } catch (Ansel_Exception $e) {
+            $notification->push(_("Face name was not reported.") . ' ' . $e->getMessage(), 'horde.error');
         }
     }
 
-    header('Location: ' . Ansel_Faces::getLink($face));
+    Ansel_Faces::getLink($face)->redirect();
     exit;
 }
 
 require ANSEL_TEMPLATES . '/common-header.inc';
-require ANSEL_TEMPLATES . '/menu.inc';
-
+echo Horde::menu();
+$notification->notify(array('listeners' => 'status'));
 $form->renderActive(null, null, null, 'post');
-
 require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -1,0 +1,416 @@
+# Hermes Traditional Chinese Translation
+# Copyright 2002 David Chang.張良文,台灣
+# David Chang <david@tmv.gov.tw>, 2002.
+msgid ""
+msgstr ""
+"Project-Id-Version: Hermes 0.1-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2004-11-22 16:41+0800\n"
+"PO-Revision-Date: 2003-01-08 10:53+0100\n"
+"Last-Translator: David Chang <david@thbuo.gov.tw>\n"
+"Language-Team: Traditional Chinese <david@thbuo.gov.tw>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lib/api.php:116
+#, php-format
+msgid "'%s' is not a defined table."
+msgstr "'%s' 不是一個已定義的表格."
+
+#: lib/Data/iif.php:67
+msgid "; Notes: "
+msgstr "; 備註: "
+
+#: lib/Driver/sql.php:130
+msgid "Access denied; user cannot modify this timeslice."
+msgstr "存取遭拒;使用者無法修改這個時段."
+
+#: admin.php:56 admin.php:217
+msgid "Add Job Type"
+msgstr "新增職業型態"
+
+#: lib/TimeForm.php:128 lib/TimeForm.php:211 lib/api.php:87
+msgid "Additional Notes"
+msgstr "加註"
+
+#: admin.php:33
+msgid "Administration"
+msgstr "管理"
+
+#: lib/Search.php:49 lib/TimeForm.php:47
+#, php-format
+msgid "An error occurred listing clients: %s"
+msgstr "列出客戶: %s 時發生一個錯誤"
+
+#: lib/Search.php:62 lib/TimeForm.php:34
+#, php-format
+msgid "An error occurred listing job types: %s"
+msgstr "列出職業型態: %s 時發生一個錯誤"
+
+#: lib/Hermes.php:162
+#, php-format
+msgid "An error occurred listing users: %s"
+msgstr "列出使用者: %s 時發生一個錯誤"
+
+#: lib/api.php:79
+msgid "Bill?"
+msgstr "支付?"
+
+#: lib/api.php:184
+msgid "Billable Hours"
+msgstr "可支付時數?"
+
+#: lib/TimeForm.php:124 lib/TimeForm.php:207
+msgid "Billable?"
+msgstr "支付?"
+
+#: lib/Admin.php:143 lib/TimeForm.php:114 lib/TimeForm.php:197 lib/api.php:67
+msgid "Client"
+msgstr "客戶"
+
+#: lib/Admin.php:119
+msgid "Client Name"
+msgstr "客戶名稱"
+
+#: lib/Search.php:23
+msgid "Clients"
+msgstr "客戶"
+
+#: lib/Search.php:132
+msgid "Comma-Separated Variable (.csv)"
+msgstr "逗點分隔值 (.csv)"
+
+#: search.php:76
+msgid "Could not retrieve timeslice: invalid id"
+msgstr "無法讀取時段: 無效的識別號碼(id)"
+
+#: lib/TimeForm.php:111 lib/TimeForm.php:193 lib/api.php:58
+msgid "Date"
+msgstr "日期"
+
+#: lib/api.php:155 lib/api.php:156
+msgid "Delete Entry"
+msgstr "刪除紀錄"
+
+#: admin.php:85 admin.php:216
+msgid "Delete Job Type"
+msgstr "刪除職業型態"
+
+#: admin.php:90 admin.php:204
+msgid "Delete Job Type: Confirmation"
+msgstr "刪除職業型態: 確認"
+
+#: scripts/purge.php:24
+#, php-format
+msgid "Deleting data that was exported/billed more than %s days ago.\n"
+msgstr "刪除 %s 天前所有已匯出/已支付的資料.\n"
+
+#: lib/TimeForm.php:127 lib/TimeForm.php:210 lib/api.php:85
+msgid "Description"
+msgstr "描述"
+
+#: lib/Search.php:32
+msgid "Do not include entries after"
+msgstr "不要包括之後的紀錄"
+
+#: lib/Search.php:30
+msgid "Do not include entries before"
+msgstr "不要包括之前的紀錄"
+
+#: admin.php:127 admin.php:218
+msgid "Edit Client Settings"
+msgstr "編輯客戶的設定"
+
+#: admin.php:119 admin.php:177
+msgid "Edit Client Settings, Step 2"
+msgstr "編輯客戶的設定, 步驟 2"
+
+#: lib/api.php:153 lib/api.php:154
+msgid "Edit Entry"
+msgstr "編輯紀錄"
+
+#: admin.php:72 admin.php:216
+msgid "Edit Job Type"
+msgstr "編輯職業型態"
+
+#: admin.php:77
+msgid "Edit Job Type, Step 2"
+msgstr "編輯職業型態, 步驟 2"
+
+#: admin.php:100
+msgid "Edit job type"
+msgstr "編輯職業型態"
+
+#: admin.php:152
+msgid "Edit job type, Step 2"
+msgstr "編輯職業型態, 步驟 2"
+
+#: lib/TimeForm.php:191 lib/api.php:63
+msgid "Employee"
+msgstr "員工"
+
+#: lib/Search.php:18
+msgid "Employees"
+msgstr "員工"
+
+#: entry.php:61 lib/TimeForm.php:82
+msgid "Enter Time"
+msgstr "輸入時間"
+
+#: lib/TimeForm.php:83
+msgid "Enter my time"
+msgstr "輸入我的時間"
+
+#: lib/Search.php:130
+msgid "Export Search Results"
+msgstr "匯出搜尋結果"
+
+#: lib/Search.php:41
+msgid "Exported?"
+msgstr "已匯出 ?"
+
+#: lib/TimeForm.php:120 lib/TimeForm.php:203 lib/api.php:73
+msgid "Hours"
+msgstr "時"
+
+#: lib/Admin.php:151
+msgid ""
+"ID for this client when exporting data, if different from the name displayed "
+"above."
+msgstr ""
+
+#: lib/Admin.php:19 lib/Admin.php:66 lib/Admin.php:91 lib/TimeForm.php:119
+#: lib/TimeForm.php:202 lib/api.php:71
+msgid "Job Type"
+msgstr "職業型態"
+
+#: lib/Search.php:27
+msgid "Job Types"
+msgstr "職業型態"
+
+#: lib/Admin.php:41
+msgid "JobType Name"
+msgstr "職業型態的名稱"
+
+#: lib/Search.php:143
+msgid "Mark the time as exported?"
+msgstr "將此時間標記成已匯出 ?"
+
+#: time.php:54
+msgid "My Time"
+msgstr "我的時間"
+
+#: time.php:75
+msgid "My Unsubmitted Time"
+msgstr "我尚未送出的時間"
+
+#: lib/Hermes.php:65
+msgid "My _Time"
+msgstr "我的時間"
+
+#: lib/Admin.php:87 lib/Search.php:37 lib/Search.php:142 lib/TimeForm.php:123
+#: lib/TimeForm.php:206 lib/api.php:46
+msgid "No"
+msgstr "否"
+
+#: time.php:36
+msgid "No timeslices were selected to submit."
+msgstr "送出時沒有選擇時段."
+
+#: lib/api.php:189
+msgid "Non-billable Hours"
+msgstr "未支付時數."
+
+#: lib/Search.php:134
+msgid "QuickBooks (.iif)"
+msgstr ""
+
+#: lib/Admin.php:94
+msgid "Really delete this job type? This may cause data problems!!"
+msgstr "確定要刪除此職業型態? 這麼作有可能造成資料上的問題!!"
+
+#: lib/Search.php:14
+msgid "Search For Time"
+msgstr "搜尋時間"
+
+#: search.php:104 lib/api.php:105
+msgid "Search Results"
+msgstr "搜尋結果"
+
+#: search.php:67
+msgid "Search for Time"
+msgstr "搜尋時間"
+
+#: lib/Admin.php:146 lib/TimeForm.php:93 lib/TimeForm.php:163
+msgid "See Attached Timesheet"
+msgstr "參閱附加的時間紀錄卡"
+
+#: lib/Search.php:136
+msgid "Select the export format"
+msgstr "選擇匯出格式"
+
+#: lib/Admin.php:146
+#, php-format
+msgid ""
+"Should users enter descriptions of their timeslices for this client? If not, "
+"the description will automatically be \"%s\"."
+msgstr ""
+"使用者是否應該為此客戶輸入他們的時段描述 ? 如果不是,描述將自動以\"%s\"代替."
+
+#: templates/time/form-footer.html:1
+msgid "Submit Selected Time"
+msgstr "送出所選擇的時間"
+
+#: lib/Search.php:38
+msgid "Submitted?"
+msgstr "已送出 ?"
+
+#: lib/Search.php:133
+msgid "Tab-Separated Variable (.tsv,.txt)"
+msgstr ""
+
+#: admin.php:171
+msgid "The client settings have been modified."
+msgstr "客戶的設定已修改."
+
+#: admin.php:48
+#, php-format
+msgid "The job type '%s' has been added."
+msgstr "職業型態 '%s' 已新增."
+
+#: admin.php:193
+msgid "The job type has been deleted."
+msgstr "職業型態 '%s' 已刪除."
+
+#: admin.php:144
+msgid "The job type has been modified."
+msgstr "職業型態已修改."
+
+#: admin.php:198
+msgid "The job type was not deleted."
+msgstr "職業型態未刪除."
+
+#: search.php:29 time.php:26
+msgid "The time entry was successfully deleted."
+msgstr "時間紀錄已刪除完成."
+
+#: search.php:48
+msgid "The timeslice was successfully updated."
+msgstr "時段已變更完成."
+
+#: lib/Admin.php:116
+msgid "There are no clients to edit"
+msgstr "沒有客戶可供編輯"
+
+#: lib/TimeForm.php:52
+msgid "There are no clients which you have access to."
+msgstr "你目前尚未存取任何客戶."
+
+#: lib/TimeForm.php:39
+msgid "There are no job types configured."
+msgstr "未設定任何的職業型態."
+
+#: lib/Admin.php:38
+msgid "There are no job types to edit"
+msgstr "未編輯任何的職業型態"
+
+#: admin.php:50
+#, php-format
+msgid "There was an error adding the job type: %s."
+msgstr "新增職業型態: %s 時發生一個錯誤."
+
+#: admin.php:195
+#, php-format
+msgid "There was an error deleting the job type: %s."
+msgstr "刪除職業型態: %s 時發生一個錯誤."
+
+#: search.php:27 time.php:24
+#, php-format
+msgid "There was an error deleting the time: %s"
+msgstr "刪除時間: %s 時發生一個錯誤."
+
+#: admin.php:169
+#, php-format
+msgid "There was an error editing the client settings: %s."
+msgstr "編輯客戶設定: %s 時發生一個錯誤."
+
+#: admin.php:146
+#, php-format
+msgid "There was an error editing the job type: %s."
+msgstr "編輯職業型態: %s 時發生一個錯誤."
+
+#: entry.php:33 search.php:46
+#, php-format
+msgid "There was an error storing your timesheet: %s"
+msgstr "儲存時間紀錄卡: %s 時發生一個錯誤"
+
+#: time.php:44
+#, php-format
+msgid "There was an error submitting your time: %s"
+msgstr "送出時間: %s 時發生一個錯誤"
+
+#: lib/Admin.php:136
+msgid "This is not a valid client."
+msgstr "這不是一個有效的客戶."
+
+#: lib/Admin.php:58
+msgid "This is not a valid job type."
+msgstr "這不是一個有效的職業型態."
+
+#: lib/api.php:29
+msgid "Time Review Screen"
+msgstr "時間回顧畫面"
+
+#: lib/api.php:193
+msgid "Total Hours"
+msgstr "總時數"
+
+#: lib/TimeForm.php:153
+msgid "Update Submitted Time"
+msgstr "變更送出的時間"
+
+#: lib/TimeForm.php:79
+msgid "Update Time"
+msgstr "變更時間"
+
+#: lib/TimeForm.php:80
+msgid "Update my time"
+msgstr "變更我的時間"
+
+#: lib/TimeForm.php:154
+msgid "Update time"
+msgstr "變更時間"
+
+#: lib/Admin.php:87 lib/Search.php:36 lib/Search.php:141 lib/TimeForm.php:123
+#: lib/TimeForm.php:206 lib/api.php:45
+msgid "Yes"
+msgstr "是"
+
+#: entry.php:28
+msgid "Your time was successfully entered."
+msgstr "你的時間已輸入完成."
+
+#: time.php:46
+msgid "Your time was successfully submitted."
+msgstr "你的時間已送出完成."
+
+#: entry.php:25
+msgid "Your time was successfully updated."
+msgstr "你的時間已變更完成."
+
+#: lib/Hermes.php:76
+msgid "_Admin"
+msgstr "管理_A"
+
+#: lib/Hermes.php:66
+msgid "_Enter Time"
+msgstr "輸入時間_E"
+
+#: lib/Hermes.php:71
+msgid "_Print"
+msgstr "列印_P"
+
+#: lib/Hermes.php:67
+msgid "_Search"
+msgstr "搜尋_S"

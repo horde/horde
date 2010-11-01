@@ -8,9 +8,8 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-@define('WHUPS_BASE', dirname(__FILE__));
-require_once WHUPS_BASE . '/lib/base.php';
-require_once WHUPS_BASE . '/lib/Reports.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('whups');
 
 /* Supported graph types. Unused at the moment. */
 $graphs = array('open|queue_name' => array('chart', _("Open Tickets by Queue")),

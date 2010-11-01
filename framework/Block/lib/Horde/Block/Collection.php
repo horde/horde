@@ -30,13 +30,6 @@ class Horde_Block_Collection
     static protected $_blocksCache = array();
 
     /**
-     * What kind of blocks are we collecting? Defaults to any.
-     *
-     * @var string
-     */
-    protected $_type = 'portal';
-
-    /**
      * A hash storing the information about all available blocks from
      * all applications.
      *
@@ -47,17 +40,17 @@ class Horde_Block_Collection
     /**
      * Returns a single instance of the Horde_Blocks class.
      *
-     * @param string $type  The kind of blocks to list.
-     * @param array $apps   The applications whose blocks to list.
+     * @param array $apps  The applications whose blocks to list.
      *
      * @return Horde_Block_Collection  The Horde_Block_Collection instance.
      */
-    static public function singleton($type = null, $apps = array())
+    static public function singleton($apps = array())
     {
         sort($apps);
-        $signature = serialize(array($type, $apps));
+        $signature = hash('md5', serialize($apps));
+
         if (!isset(self::$_instances[$signature])) {
-            self::$_instances[$signature] = new self($type, $apps);
+            self::$_instances[$signature] = new self($apps);
         }
 
         return self::$_instances[$signature];
@@ -66,18 +59,14 @@ class Horde_Block_Collection
     /**
      * Constructor.
      *
-     * @param string $type  The kind of blocks to list.
-     * @param array $apps   The applications whose blocks to list.
+     * @param array $apps              The applications whose blocks to list.
      */
-    public function __construct($type = null, $apps = array())
+    public function __construct($apps = array())
     {
-        if (!is_null($type)) {
-            $this->_type = $type;
-        }
+        global $session;
 
         $signature = serialize($apps);
-        if (isset($_SESSION['horde']['blocks'][$signature])) {
-            $this->_blocks = &$_SESSION['horde']['blocks'][$signature];
+        if ($this->_blocks = $session['horde:blocks/' . $signature]) {
             return;
         }
 
@@ -86,42 +75,40 @@ class Horde_Block_Collection
                 continue;
             }
 
-            try {
-                $pushed = $GLOBALS['registry']->pushApp($app);
-            } catch (Horde_Exception $e) {
-                continue;
-            }
-
             $blockdir = $GLOBALS['registry']->get('fileroot', $app) . '/lib/Block';
-            $dh = @opendir($blockdir);
-            if (is_resource($dh)) {
-                while (($file = readdir($dh)) !== false) {
-                    if (substr($file, -4) == '.php') {
-                        $block_name = null;
-                        $block_type = null;
-                        if (is_readable($blockdir . '/' . $file)) {
-                            include_once $blockdir . '/' . $file;
-                        }
-                        if (!is_null($block_type) && !is_null($this->_type) &&
-                            $block_type != $this->_type) {
-                            continue;
-                        }
-                        if (!empty($block_name)) {
-                            $this->_blocks[$app][substr($file, 0, -4)]['name'] = $block_name;
-                        }
+            if (file_exists($blockdir)) {
+                try {
+                    $pushed = $GLOBALS['registry']->pushApp($app);
+                } catch (Horde_Exception $e) {
+                    continue;
+                }
+
+                $d = dir($blockdir);
+                while (($file = $d->read()) !== false) {
+                    if (substr($file, -4) != '.php') {
+                        continue;
+                    }
+
+                    $block_name = null;
+
+                    if (is_readable($blockdir . '/' . $file)) {
+                        include_once $blockdir . '/' . $file;
+                    }
+
+                    if (!empty($block_name)) {
+                        $this->_blocks[$app][substr($file, 0, -4)]['name'] = $block_name;
                     }
                 }
-                closedir($dh);
-            }
+                $d->close();
 
-            // Don't pop an application if we didn't have to push one.
-            if ($pushed) {
-                $GLOBALS['registry']->popApp($app);
+                if ($pushed) {
+                    $GLOBALS['registry']->popApp($app);
+                }
             }
         }
 
         uksort($this->_blocks, array($this, 'sortBlockCollection'));
-        $_SESSION['horde']['blocks'][$signature] = &$this->_blocks;
+        $session['horde:blocks/' . $signature] = $this->_blocks;
     }
 
     /**
@@ -134,28 +121,35 @@ class Horde_Block_Collection
 
     /**
      * TODO
+     *
+     * @throws Horde_Exception
      */
     public function getBlock($app, $name, $params = null, $row = null,
                              $col = null)
     {
-        if ($GLOBALS['registry']->get('status', $app) == 'inactive' ||
-            ($GLOBALS['registry']->get('status', $app) == 'admin' &&
-             !Horde_Auth::isAdmin())) {
-            $error = PEAR::raiseError(sprintf(_("%s is not activated."), $GLOBALS['registry']->get('name', $app)));
-            return $error;
-        }
+        global $registry;
 
-        $path = $GLOBALS['registry']->get('fileroot', $app) . '/lib/Block/' . $name . '.php';
+        if (($registry->get('status', $app) == 'inactive') ||
+            (($registry->get('status', $app) == 'admin') &&
+             !$registry->isAdmin())) {
+            throw new Horde_Exception(sprintf('%s is not activated.', $GLOBALS['registry']->get('name', $app)));
+        }
+        $path = $registry->get('fileroot', $app) . '/lib/Block/' . $name . '.php';
         if (is_readable($path)) {
             include_once $path;
         }
         $class = 'Horde_Block_' . $app . '_' . $name;
         if (!class_exists($class)) {
-            $error = PEAR::raiseError(sprintf(_("%s not found."), $class));
-            return $error;
+            throw new Horde_Exception(sprintf('%s not found.', $class));
         }
 
-        return new $class($params, $row, $col);
+        $pushed = $registry->pushApp($app);
+        $ob = new $class($params, $row, $col);
+        if ($pushed) {
+            $registry->popApp($app);
+        }
+
+        return $ob;
     }
 
     /**
@@ -207,15 +201,20 @@ class Horde_Block_Collection
      *
      * @param string $cur_app    The block from this application gets selected.
      * @param string $cur_block  The block with this name gets selected.
+     * @param boolean $onchange  Include the onchange action
+     * @param boolean $readonly  Indicates if this block type is changeable.
      *
      * @return string  The select tag with all available blocks.
      */
     public function getBlocksWidget($cur_app = null, $cur_block = null,
-                                    $onchange = false)
+                                    $onchange = false, $readonly = false)
     {
         $widget = '<select name="app"';
         if ($onchange) {
             $widget .= ' onchange="document.blockform.action.value=\'save-resume\';document.blockform.submit()"';
+        }
+        if ($readonly) {
+            $widget .= ' disabled="disabled"';
         }
         $widget .= ">\n";
 
@@ -394,7 +393,7 @@ class Horde_Block_Collection
     {
         return isset($this->_blocks[$app][$block])
             ? $this->_blocks[$app][$block]['name']
-            : sprintf(_("Block \"%s\" of application \"%s\" not found."), $block, $app);
+            : sprintf(Horde_Block_Translation::t("Block \"%s\" of application \"%s\" not found."), $block, $app);
     }
 
     /**
@@ -407,11 +406,12 @@ class Horde_Block_Collection
      */
     public function getParams($app, $block)
     {
+        if (!isset($this->_blocks[$app][$block])) {
+            return array();
+        }
+
         if (!isset($this->_blocks[$app][$block]['params'])) {
             $blockOb = $this->getBlock($app, $block);
-            if ($blockOb instanceof PEAR_Error) {
-                return $blockOb;
-            }
             $this->_blocks[$app][$block]['params'] = $blockOb->getParams();
         }
 

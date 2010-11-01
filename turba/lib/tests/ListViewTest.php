@@ -7,16 +7,16 @@ require_once dirname(__FILE__) . '/TestBase.php';
  * @package Turba
  * @subpackage UnitTests
  */
-class Turba_ListViewTest extends Turba_TestBase {
+class Turba_ViewListTest extends Turba_TestBase {
 
     function setUp()
     {
         parent::setUp();
         $this->setUpDatabase();
-        require_once dirname(__FILE__) . '/../ListView.php';
+        require_once dirname(__FILE__) . '/../View/List.php';
     }
 
-    function callListView($method, &$numDisplayed, $param = null)
+    function callView_List($method, &$numDisplayed, $param = null)
     {
         $GLOBALS['source'] = '_test_sql';
         $GLOBALS['cfgSources'] = array('_test_sql' => $this->getDriverConfig());
@@ -24,7 +24,7 @@ class Turba_ListViewTest extends Turba_TestBase {
         $list = $this->getList();
         $sources = Turba::getColumns();
         $columns = isset($sources['_test_sql']) ? $sources['_test_sql'] : array();
-        $view = new Turba_ListView($list, null, $columns);
+        $view = new Turba_View_List($list, null, $columns);
         $this->_output = $view->$method($numDisplayed, $param);
         $this->assertOk($this->_output);
         $this->assertNoUnwantedPattern('/Fatal error/', $this->_output);
@@ -34,7 +34,7 @@ class Turba_ListViewTest extends Turba_TestBase {
 
     function test_getAddSources_returns_sources_sorted_by_name()
     {
-        $result = Turba_ListView::getAddSources();
+        $result = Turba_View_List::getAddSources();
         if (!$this->assertOk($result)) {
             return;
         }
@@ -56,7 +56,7 @@ class Turba_ListViewTest extends Turba_TestBase {
 
     function test_getPage_renders_all_list_items()
     {
-        $this->callListView('getPage', $numDisplayed);
+        $this->callView_List('getPage', $numDisplayed);
         foreach ($this->_sortedByLastname as $name) {
             $this->assertWantedPattern('/' . preg_quote($name, '/') . '/',
                                        $this->_output);
@@ -67,7 +67,7 @@ class Turba_ListViewTest extends Turba_TestBase {
 
     function test_getAlpha_renders_filtered_items()
     {
-        $this->callListView('getAlpha', $numDisplayed, 'j');
+        $this->callView_List('getAlpha', $numDisplayed, 'j');
         $count = 0;
         foreach ($this->_sortedByLastname as $name) {
             if (Horde_String::lower($name{0}) == 'j') {

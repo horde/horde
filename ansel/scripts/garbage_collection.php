@@ -1,4 +1,4 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
 /**
  * This script looks for images in the VFS that have no pointer in the
@@ -9,31 +9,17 @@
  * directory.
  */
 
-// Do CLI checks and environment setup first.
-require_once dirname(__FILE__) . '/../../lib/base.load.php';
-require_once HORDE_BASE . '/lib/core.php';
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment - make sure there's no time limit, init
-// some variables, etc.
-Horde_Cli::init();
-
-$ansel_authentication = 'none';
-require_once ANSEL_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/../../lib/Application.php';
+Horde_Registry::appInit('ansel', array('authentication' => 'none', 'cli' => true));
 
 // Default arguments.
-$move = false;
-$verbose = false;
+$move = $verbose = false;
 
 // Parse command-line arguments.
 $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'mv',
                               array('move', 'verbose'));
 
-if (is_a($ret, 'PEAR_Error')) {
+if ($ret instanceof PEAR_Error) {
     die("Couldn't read command-line options.\n");
 }
 list($opts, $args) = $ret;
@@ -50,7 +36,7 @@ foreach ($opts as $opt) {
     }
 }
 
-$vfs = VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs', $conf['vfs']['type']));
+$vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
 $vfspath = '.horde/ansel/';
 $garbagepath = $vfspath . 'garbage/';
 

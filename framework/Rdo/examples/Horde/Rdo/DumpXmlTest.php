@@ -5,11 +5,12 @@
 
 require_once './Clotho.php';
 
-class XmlItemMapper extends ItemMapper {
+class XmlItemMapper extends ItemMapper
+{
 }
 
-class XmlItem extends Item {
-
+class XmlItem extends Item
+{
     /**
      * Return an XML representation of this object. The default
      * implementation is unlikely to be useful in most cases and
@@ -31,10 +32,9 @@ class XmlItem extends Item {
 
         return $doc->saveXML();
     }
-
 }
 
-$im = new XmlItemMapper();
+$im = new XmlItemMapper($conf['adapter']);
 
-$i = $im->find(1);
+$i = $im->findOne(1);
 echo $i->toXml();

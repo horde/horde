@@ -1,46 +1,47 @@
 <a name="top"></a>
 <?php
-$accesskey = $prefs->getValue('widget_accesskey') ?
-    Horde::getAccessKey(_("Select _Context")) : '';
 $menu_view = $prefs->getValue('menu_view');
 ?>
 
 <div id="menu">
 
 <?php
-// Only show the context selector if there is more than one available context
-if (count($contexts) > 1) { ?>
+// Only show the account selector if there is more than one available account
+try {
+    $accounts = $shout->storage->getAccounts();
+} catch (Exception $e) {
+    $accounts = array();
+}
+if (count($accounts) > 1) { ?>
 <script language="JavaScript" type="text/javascript">
 <!--
 var loading;
-function contextSubmit(clear)
+function accountSubmit(clear)
 {
 
-    if (document.contextMenu.context[document.contextMenu.context.selectedIndex].name != '') {
+    if (document.accountMenu.account[document.accountMenu.account.selectedIndex].name != '') {
         if ((loading == null) || (clear != null)) {
             loading = true;
-            document.contextMenu.submit();
+            document.accountMenu.submit();
         }
     }
 }
 // -->
 </script>
- <form action="index.php" method="get" name="contextMenu">
+ <form action="" method="get" name="accountMenu">
   <span style="float:right">
    <?php Horde_Util::pformInput() ?>
-   <label for="context" accesskey="<?php echo $accesskey ?>">
-    <select id="context" name="context" onchange="contextSubmit()">
+    <select id="account" name="account" onchange="accountSubmit()">
      <?php
-        foreach ($contexts as $c) {
-            print "<option value=\"$c\"";
-            if ($c == $context) {
+        foreach ($accounts as $account => $info) {
+            print "<option value=\"$account\"";
+            if ($account == $curaccount['code']) {
                 print " selected";
             }
-            print ">$c</option>\n";
+            print ">${info['name']}</option>\n";
         }
      ?>
     </select>
-   </label>
    <?php
      if (isset($section)) {
          ?>
@@ -50,19 +51,8 @@ function contextSubmit(clear)
     ?>
   </span>
  </form>
-
- <div style="float:right">
-  <?php
-   $link = Horde::link('#', _("Select Context"), '', '', 'contextSubmit(true);
-    return false;');
-   printf('<ul><li>%s%s<br />%s</a></li></ul>',
-    $link, Horde::img('folders/folder_open.png'),
-    ($menu_view != 'icon') ?
-    Horde::highlightAccessKey(_("Select _Context"), $accesskey) : '');
-  ?>
- </div>
-
-<?php } // if (count(contexts) > 1) ?>
+<?php } // if (count(accounts) > 1) ?>
 
   <?php echo Shout::getMenu('string') ?>
 </div>
+<?php require HORDE_BASE . '/services/sidebar.php'; ?>

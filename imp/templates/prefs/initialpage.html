@@ -1,0 +1,16 @@
+<div>
+ <div>
+  <tag:label />
+ </div>
+ <div>
+  <select id="initial_page" name="initial_page">
+<if:nofolder>
+   <option value="INBOX" selected="selected"><gettext>Inbox</gettext></option>
+<else:nofolder>
+   <option value="<tag:folder_page />"<if:foldersel> selected="selected"</if:foldersel>><gettext>Folder Navigator</gettext></option>
+   <option value="" disabled="disabled">- - - - - - - -</option>
+   <tag:flist />
+</else:nofolder></if:nofolder>
+  </select>
+ </div>
+</div>

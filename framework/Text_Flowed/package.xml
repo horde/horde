@@ -33,7 +33,12 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="test">
     <dir name="Horde">
      <dir name="Text">
-      <file name="Flowed.phpt" role="test" />
+      <dir name="Flowed">
+       <file name="AllTests.php" role="test" />
+       <file name="Autoload.php" role="test" />
+       <file name="FlowedTest.php" role="test" />
+       <file name="phpunit.xml" role="test" />
+      </dir> <!-- /test/Horde/Text/Flowed -->
      </dir> <!-- /test/Horde/Text -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -63,6 +68,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <phprelease>
   <filelist>
    <install name="lib/Horde/Text/Flowed.php" as="Horde/Text/Flowed.php" />
+   <install name="test/Horde/Text/Flowed/AllTests.php" as="Horde/Text/Flowed/AllTests.php" />
+   <install name="test/Horde/Text/Flowed/Autoload.php" as="Horde/Text/Flowed/Autoload.php" />
+   <install name="test/Horde/Text/Flowed/FlowedTest.php" as="Horde/Text/Flowed/FlowedTest.php" />
+   <install name="test/Horde/Text/Flowed/phpunit.xml" as="Horde/Text/Flowed/phpunit.xml" />
   </filelist>
  </phprelease>
  <changelog>

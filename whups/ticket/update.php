@@ -7,17 +7,17 @@
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  */
 
-@define('WHUPS_BASE', dirname(__FILE__) . '/..');
-require_once WHUPS_BASE . '/lib/base.php';
-require_once WHUPS_BASE . '/lib/Ticket.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('whups');
+
 require_once WHUPS_BASE . '/lib/Forms/EditTicket.php';
 
 $ticket = Whups::getCurrentTicket();
 
 if (!Whups::hasPermission($ticket->get('queue'), 'queue', 'update')) {
     $notification->push(_("Permission Denied"), 'horde.error');
-    header('Location: ' . Horde::applicationUrl($prefs->getValue('whups_default_view') . '.php', true));
-    exit;
+    Horde::url($prefs->getValue('whups_default_view') . '.php', true)
+        ->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -34,7 +34,7 @@ if ($tid = $vars->get('transaction')) {
         // the reply.
         foreach ($history[$tid]['changes'] as $change) {
             if (!empty($change['private'])) {
-                $permission = $GLOBALS['perms']->getPermission('whups:comments:' . $change['value']);
+                $permission = $GLOBALS['injector']->getInstance('Horde_Perms')->getPermission('whups:comments:' . $change['value']);
                 if (!is_a($permission, 'PEAR_Error')) {
                     $group_id = array_shift(array_keys($permission->getGroupPermissions()));
                     $vars->set('group', $group_id);

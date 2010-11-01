@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Vcs</name>
  <channel>pear.horde.org</channel>
  <summary>Version Control API</summary>
  <description>The Horde_VC package provides a generalized API to multiple
- version control systems.
- </description>
+ version control systems.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -27,7 +23,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2008-12-20</date>
+ <date>2010-10-15</date>
+ <time>14:02:52</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -37,21 +34,43 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Initial Horde 4 package.</notes>
+ <notes>
+* Initial Horde 4 package.
+ </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Vcs">
+      <dir name="Directory">
+       <file name="Cvs.php" role="php" />
+       <file name="Git.php" role="php" />
+      </dir> <!-- //lib/Horde/Vcs/Directory -->
+      <dir name="File">
+       <file name="Cvs.php" role="php" />
+       <file name="Git.php" role="php" />
+      </dir> <!-- //lib/Horde/Vcs/File -->
+      <dir name="Log">
+       <file name="Cvs.php" role="php" />
+       <file name="Git.php" role="php" />
+      </dir> <!-- //lib/Horde/Vcs/Log -->
+      <dir name="Patchset">
+       <file name="Cvs.php" role="php" />
+       <file name="Git.php" role="php" />
+      </dir> <!-- //lib/Horde/Vcs/Patchset -->
       <file name="Cvs.php" role="php" />
+      <file name="Directory.php" role="php" />
       <file name="Exception.php" role="php" />
+      <file name="File.php" role="php" />
       <file name="Git.php" role="php" />
+      <file name="Log.php" role="php" />
+      <file name="Patchset.php" role="php" />
       <file name="Rcs.php" role="php" />
       <file name="Svn.php" role="php" />
-     </dir> <!-- /lib/Horde/VC -->
+     </dir> <!-- //lib/Horde/Vcs -->
      <file name="Vcs.php" role="php" />
-    </dir> <!-- /lib/Horde -->
-   </dir> <!-- /lib -->
+    </dir> <!-- //lib/Horde -->
+   </dir> <!-- //lib -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -79,31 +98,27 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Vcs/Cvs.php" as="Horde/Vcs/Cvs.php" />
-   <install name="lib/Horde/Vcs/Exception.php" as="Horde/Vcs/Exception.php" />
-   <install name="lib/Horde/Vcs/Git.php" as="Horde/Vcs/Git.php" />
-   <install name="lib/Horde/Vcs/Rcs.php" as="Horde/Vcs/Rcs.php" />
-   <install name="lib/Horde/Vcs/Svn.php" as="Horde/Vcs/Svn.php" />
-   <install name="lib/Horde/Vcs.php" as="Horde/Vcs.php" />
+   <install as="Horde/Vcs.php" name="lib/Horde/Vcs.php" />
+   <install as="Horde/Vcs/Cvs.php" name="lib/Horde/Vcs/Cvs.php" />
+   <install as="Horde/Vcs/Directory.php" name="lib/Horde/Vcs/Directory.php" />
+   <install as="Horde/Vcs/Exception.php" name="lib/Horde/Vcs/Exception.php" />
+   <install as="Horde/Vcs/File.php" name="lib/Horde/Vcs/File.php" />
+   <install as="Horde/Vcs/Git.php" name="lib/Horde/Vcs/Git.php" />
+   <install as="Horde/Vcs/Log.php" name="lib/Horde/Vcs/Log.php" />
+   <install as="Horde/Vcs/Patchset.php" name="lib/Horde/Vcs/Patchset.php" />
+   <install as="Horde/Vcs/Rcs.php" name="lib/Horde/Vcs/Rcs.php" />
+   <install as="Horde/Vcs/Svn.php" name="lib/Horde/Vcs/Svn.php" />
+   <install as="Horde/Vcs/Directory/Cvs.php" name="lib/Horde/Vcs/Directory/Cvs.php" />
+   <install as="Horde/Vcs/Directory/Git.php" name="lib/Horde/Vcs/Directory/Git.php" />
+   <install as="Horde/Vcs/File/Cvs.php" name="lib/Horde/Vcs/File/Cvs.php" />
+   <install as="Horde/Vcs/File/Git.php" name="lib/Horde/Vcs/File/Git.php" />
+   <install as="Horde/Vcs/Log/Cvs.php" name="lib/Horde/Vcs/Log/Cvs.php" />
+   <install as="Horde/Vcs/Log/Git.php" name="lib/Horde/Vcs/Log/Git.php" />
+   <install as="Horde/Vcs/Patchset/Cvs.php" name="lib/Horde/Vcs/Patchset/Cvs.php" />
+   <install as="Horde/Vcs/Patchset/Git.php" name="lib/Horde/Vcs/Patchset/Git.php" />
   </filelist>
  </phprelease>
  <changelog>
-  <release>
-   <version>
-    <release>0.0.4</release>
-    <api>0.0.4</api>
-   </version>
-   <stability>
-    <release>beta</release>
-    <api>beta</api>
-   </stability>
-   <date>2006-05-08</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>* Converted to package.xml 2.0 for pear.horde.org
-* Fix subversion diffs on files with spaces (helly@php.net, Bug #5244)
-* Pass username and password to the SVN client if set (duck@obala.net, Request #5958)
-   </notes>
-  </release>
   <release>
    <version>
     <release>0.0.3</release>
@@ -115,8 +130,41 @@ http://pear.php.net/dtd/package-2.0.xsd">
    </stability>
    <date>2004-01-01</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>- Fix caching of Patchset objects.
+   <notes>
+- Fix caching of Patchset objects.
 - Add a VC_Patchset parent class for common Patchset functionality.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.4</release>
+    <api>0.0.4</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-05-08</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Converted to package.xml 2.0 for pear.horde.org
+* Fix subversion diffs on files with spaces (helly@php.net, Bug #5244)
+* Pass username and password to the SVN client if set (duck@obala.net, Request #5958)
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2010-10-15</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Initial Horde 4 package.
    </notes>
   </release>
  </changelog>

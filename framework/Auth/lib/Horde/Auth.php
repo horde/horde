@@ -1,24 +1,8 @@
 <?php
 /**
- * The Horde_Auth:: class provides a common abstracted interface into the
- * various backends for the Horde authentication system.
- *
- * Horde authentication data is stored in the session in the 'horde_auth'
- * array key.  That key has the following structure:
- * <pre>
- * 'app' - (array) Application-specific authentication. Keys are the
- *         app names, values are an array containing credentials. If true,
- *         application does not require any specific credentials.
- * 'authId' - (string) The username used during the original authentication.
- * 'browser' - (string) The remote browser string.
- * 'change' - (boolean) Is a password change requested?
- * 'credentials' - (string) The 'app' entry that contains the Horde
- *                 credentials.
- * 'driver' - (string) The driver used for base horde auth.
- * 'remoteAddr' - (string) The remote IP address of the user.
- * 'timestamp' - (integer) The login time.
- * 'userId' - (string) The unique Horde username.
- * </pre>
+ * The Horde_Auth:: class provides a common abstracted interface for various
+ * authentication backends.  It also provides some useful
+ * authentication-related utilities.
  *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
@@ -28,44 +12,29 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @package  Horde_Auth
+ * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
+ * @package  Auth
  */
 class Horde_Auth
 {
     /**
-     * The parameter name for the logout reason.
-     */
-    const REASON_PARAM = 'logout_reason';
-
-    /**
-     * The parameter name for the logout message used with type
-     * REASON_MESSAGE.
-    */
-    const REASON_MSG_PARAM = 'logout_msg';
-
-    /**
-     * The 'badlogin' reason.
+     * Authentication failure reasons.
      *
-     * The following 'reasons' for the logout screen are recognized:
      * <pre>
      * REASON_BADLOGIN - Bad username and/or password
-     * REASON_BROWSER - A browser change was detected
      * REASON_FAILED - Login failed
      * REASON_EXPIRED - Password has expired
      * REASON_LOGOUT - Logout due to user request
-     * REASON_MESSAGE - Logout with custom message in REASON_MSG_PARAM
+     * REASON_MESSAGE - Logout with custom message
      * REASON_SESSION - Logout due to session expiration
-     * REASON_SESSIONIP - Logout due to change of IP address during session
      * </pre>
      */
     const REASON_BADLOGIN = 1;
-    const REASON_BROWSER = 2;
-    const REASON_FAILED = 3;
-    const REASON_EXPIRED = 4;
-    const REASON_LOGOUT = 5;
-    const REASON_MESSAGE = 6;
-    const REASON_SESSION = 7;
-    const REASON_SESSIONIP = 8;
+    const REASON_FAILED = 2;
+    const REASON_EXPIRED = 3;
+    const REASON_LOGOUT = 4;
+    const REASON_MESSAGE = 5;
+    const REASON_SESSION = 6;
 
     /**
      * 64 characters that are valid for APRMD5 passwords.
@@ -80,78 +49,32 @@ class Horde_Auth
     const NUMBERS = '0123456789';
 
     /**
-     * Singleton instances.
-     *
-     * @var array
-     */
-    static protected $_instances = array();
-
-    /**
-     * Cached Horde_Browser instance
-     *
-     * @var Horde_Browser
-     */
-    static protected $_browser = null;
-
-    /**
-     * The logout reason information.
-     *
-     * @var array
-     */
-    static protected $_reason = array();
-
-    /**
      * Attempts to return a concrete Horde_Auth_Base instance based on
      * $driver.
      *
-     * @param mixed $driver  The type of concrete Horde_Auth_Base subclass
-     *                       to return.
-     * @param array $params  A hash containing any additional configuration or
-     *                       parameters a subclass might need.
+     * @param string $driver  Either a driver name, or the full class name to
+     *                        use (class must extend Horde_Auth_Base).
+     * @param array $params   A hash containing any additional configuration
+     *                        or parameters a subclass might need.
      *
      * @return Horde_Auth_Base  The newly created concrete instance.
      * @throws Horde_Auth_Exception
      */
     static public function factory($driver, $params = null)
     {
-        $driver = str_replace(' ', '_' , ucwords(str_replace('_', ' ', basename($driver))));
-        if (empty($params)) {
-            $params = Horde::getDriverConfig('auth', $driver);
-        }
-
+        /* Base drivers (in Auth/ directory). */
         $class = __CLASS__ . '_' . $driver;
         if (class_exists($class)) {
             return new $class($params);
         }
 
-        throw new Horde_Auth_Exception('Class definition of ' . $class . ' not found.');
-    }
-
-    /**
-     * Attempts to return a reference to a concrete instance based on $driver.
-     * It will only create a new instance if no instance with the same
-     * parameters currently exists.
-     *
-     * This method must be invoked as: $var = Horde_Auth::singleton()
-     *
-     * @param mixed $driver  The type of concrete Horde_Auth_Base subclass
-     *                       to return.
-     * @param array $params  A hash containing any additional configuration or
-     *                       connection parameters a subclass might need.
-     *
-     * @return Horde_Auth_Base  The concrete reference.
-     * @throws Horde_Auth_Exception
-     */
-    static public function singleton($driver, $params = array())
-    {
-        ksort($params);
-        $signature = hash('md5', serialize(array($driver, $params)));
-
-        if (!isset(self::$_instances[$signature])) {
-            self::$_instances[$signature] = self::factory($driver, $params);
+        /* Explicit class name, */
+        $class = $driver;
+        if (class_exists($class)) {
+            return new $class($params);
         }
 
-        return self::$_instances[$signature];
+        throw new Horde_Auth_Exception(__CLASS__ . ': Class definition of ' . $driver . ' not found.');
     }
 
     /**
@@ -317,706 +240,6 @@ class Horde_Auth
     }
 
     /**
-     * Generates a random, hopefully pronounceable, password. This can be used
-     * when resetting automatically a user's password.
-     *
-     * @return string A random password
-     */
-    static public function genRandomPassword()
-    {
-        /* Alternate consonant and vowel random chars with two random numbers
-         * at the end. This should produce a fairly pronounceable password. */
-        return substr(self::CONSONANTS, mt_rand(0, strlen(self::CONSONANTS) - 1), 1) .
-            substr(self::VOWELS, mt_rand(0, strlen(self::VOWELS) - 1), 1) .
-            substr(self::CONSONANTS, mt_rand(0, strlen(self::CONSONANTS) - 1), 1) .
-            substr(self::VOWELS, mt_rand(0, strlen(self::VOWELS) - 1), 1) .
-            substr(self::CONSONANTS, mt_rand(0, strlen(self::CONSONANTS) - 1), 1) .
-            substr(self::NUMBERS, mt_rand(0, strlen(self::NUMBERS) - 1), 1) .
-            substr(self::NUMBERS, mt_rand(0, strlen(self::NUMBERS) - 1), 1);
-    }
-
-    /**
-     * Calls all applications' removeUser API methods.
-     *
-     * @param string $userId  The userId to delete.
-     *
-     * @throws Horde_Auth_Exception
-     */
-    static public function removeUserData($userId)
-    {
-        $errApps = array();
-        $registry = Horde_Registry::singleton();
-
-        foreach ($registry->listApps(array('notoolbar', 'hidden', 'active', 'admin')) as $app) {
-            try {
-                $registry->callByPackage($app, 'removeUserData', array($userId));
-            } catch (Horde_Auth_Exception $e) {
-                Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
-                $errApps[] = $app;
-            }
-        }
-
-        if (count($errApps)) {
-            throw new Horde_Auth_Exception(sprintf(_("The following applications encountered errors removing user data: %s"), implode(', ', $errApps)));
-        }
-    }
-
-    /**
-     * Checks if there is a session with valid auth information. If there
-     * isn't, but the configured Auth driver supports transparent
-     * authentication, then we try that.
-     *
-     * @params array $options  Additional options:
-     * <pre>
-     * 'app' - (string) Check authentication for this app.
-     *         DEFAULT: Checks horde-wide authentication.
-     * </pre>
-     *
-     * @return boolean  Whether or not the user is authenticated.
-     * @throws Horde_Auth_Exception
-     */
-    static public function isAuthenticated($options = array())
-    {
-        /* Check for cached authentication results. */
-        if (self::getAuth()) {
-            $driver = (empty($options['app']) || ($options['app'] == 'horde'))
-                ? $GLOBALS['conf']['auth']['driver']
-                : $options['app'];
-
-            if (($_SESSION['horde_auth']['driver'] == $driver) ||
-                isset($_SESSION['horde_auth']['app'][$driver])) {
-                return self::checkExistingAuth();
-            }
-        }
-
-        /* Try transparent authentication. */
-        $auth = (empty($options['app']) || ($options['app'] == 'horde'))
-            ? self::singleton($GLOBALS['conf']['auth']['driver'])
-            : self::singleton('application', array('app' => $options['app']));
-
-        return $auth->transparent();
-    }
-
-    /**
-     * Checks if an application requires additional authentication above and
-     * beyond Horde authentication.
-     *
-     * @params string $app  The application to check.
-     *
-     * @return boolean  Whether or not the application required additional
-     *                  authentication.
-     * @throws Horde_Auth_Exception
-     */
-    static public function requireAuth($app)
-    {
-        if ($app == 'horde') {
-            return false;
-        }
-
-        $app_auth = self::singleton('application', array('app' => $app));
-        return $app_auth->requireAuth();
-    }
-
-    /**
-     * Check existing auth for triggers that might invalidate it.
-     *
-     * @return boolean  Is existing auth valid?
-     */
-    static public function checkExistingAuth()
-    {
-        if (!empty($GLOBALS['conf']['auth']['checkip']) &&
-            !empty($_SESSION['horde_auth']['remoteAddr']) &&
-            ($_SESSION['horde_auth']['remoteAddr'] != $_SERVER['REMOTE_ADDR'])) {
-            self::setAuthError(self::REASON_SESSIONIP);
-            return false;
-        }
-
-        if (!empty($GLOBALS['conf']['auth']['checkbrowser'])) {
-            if ($_SESSION['horde_auth']['browser'] != self::_getBrowser()->getAgentString()) {
-                self::setAuthError(self::REASON_BROWSER);
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     * Returns the currently logged in user, if there is one. This is the
-     * unique Horde ID.
-     *
-     * @see self::getOriginalAuth()
-     *
-     * @return mixed  The userId of the current user, or false if no user is
-     *                logged in.
-     */
-    static public function getAuth()
-    {
-        return empty($_SESSION['horde_auth']['userId'])
-            ? false
-            : $_SESSION['horde_auth']['userId'];
-    }
-
-    /**
-     * Get the authentication username.  This is the username used to
-     * originally login to Horde.
-     *
-     * @see self::getAuth()
-     *
-     * @return mixed  The authentication backend's user name, or false if no
-     *                user is logged in.
-     */
-    static public function getOriginalAuth()
-    {
-        return empty($_SESSION['horde_auth']['authId'])
-            ? false
-            : $_SESSION['horde_auth']['authId'];
-    }
-
-    /**
-     * Handle authentication failures, redirecting to the login page
-     * when appropriate.
-     *
-     * @param string $app         The app which failed authentication.
-     * @param Horde_Exception $e  An exception thrown by
-     *                            Horde_Registry::pushApp().
-     *
-     * @throws Horde_Exception
-     */
-    static public function authenticateFailure($app = 'horde', $e = null)
-    {
-        if (Horde_Cli::runningFromCLI()) {
-            $cli = Horde_Cli::singleton();
-            $cli->fatal(_("You are not authenticated."));
-        }
-
-        if (is_null($e)) {
-            $params = array();
-        } else {
-            switch ($e->getCode()) {
-            case Horde_Registry::PERMISSION_DENIED:
-                $params = array('app' => $app, 'reason' => self::REASON_MESSAGE, 'msg' => $e->getMessage());
-                break;
-
-            case Horde_Registry::AUTH_FAILURE:
-                $params = array('app' => $app);
-                break;
-
-            default:
-                throw $e;
-            }
-        }
-
-        header('Location: ' . self::getLogoutUrl($params));
-        exit;
-    }
-
-    /**
-     * Return a URL to the login screen, adding the necessary logout
-     * parameters.
-     * If no reason/msg is passed in, use the current global authentication
-     * error message.
-     *
-     * @param array $options  Additional options:
-     * <pre>
-     * 'app' - (string) Authenticate to this application
-     *         DEFAULT: Horde
-     * 'msg' - (string) If reason is self::REASON_MESSAGE, the message
-     *         to display to the user.
-     *         DEFAULT: None
-     * 'params' - (array) Additional params to add to the URL (not allowed:
-     *            'app', 'horde_logout_token', 'msg', 'nosidebar', 'reason',
-     *            'url').
-     *            DEFAULT: None
-     * 'reason' - (integer) The reason for logout
-     *            DEFAULT: None
-     * </pre>
-     *
-     * @return string The formatted URL
-     */
-    static public function getLogoutUrl($options = array())
-    {
-        $registry = Horde_Registry::singleton();
-
-        if (!isset($options['reason'])) {
-            $options['reason'] = self::getAuthError();
-        }
-
-        if (empty($options['app']) ||
-            ($options['app'] == 'horde') ||
-            ($options['reason'] == self::REASON_LOGOUT)) {
-            $params = array(
-                'horde_logout_token' => Horde::getRequestToken('horde.logout'),
-                'nosidebar' => 1
-            );
-        } else {
-            $params = array(
-                'url' => Horde::selfUrl(true)
-            );
-        }
-
-        if (isset($options['app'])) {
-            $params['app'] = $options['app'];
-        }
-
-        if ($options['reason']) {
-            $params[self::REASON_PARAM] = $options['reason'];
-            if ($options['reason'] == self::REASON_MESSAGE) {
-                $params[self::REASON_MSG_PARAM] = empty($options['msg'])
-                    ? self::getAuthError(true)
-                    : $options['msg'];
-            }
-        }
-
-        return Horde_Util::addParameter(Horde::url($registry->get('webroot', 'horde') . '/login.php', true), $params, null, false);
-    }
-
-    /**
-     * Return whether the authentication backend requested a password change.
-     *
-     * @return boolean Whether the backend requested a password change.
-     */
-    static public function passwordChangeRequested()
-    {
-        return !empty($_SESSION['horde_auth']['change']);
-    }
-
-    /**
-     * Returns the curently logged-in user without any domain information
-     * (e.g., foo@example.com would be returned as 'foo').
-     *
-     * @return mixed  The user ID of the current user, or false if no user
-     *                is logged in.
-     */
-    static public function getBareAuth()
-    {
-        $user = self::getAuth();
-        return ($user && (($pos = strpos($user, '@')) !== false))
-            ? substr($user, 0, $pos)
-            : $user;
-    }
-
-    /**
-     * Returns the domain of currently logged-in user (e.g., foo@example.com
-     * would be returned as 'example.com').
-     *
-     * @return mixed  The domain suffix of the current user, or false.
-     */
-    static public function getAuthDomain()
-    {
-        $user = self::getAuth();
-        return ($user && (($pos = strpos($user, '@')) !== false))
-            ? substr($user, $pos + 1)
-            : false;
-    }
-
-    /**
-     * Returns the requested credential for the currently logged in user, if
-     * present.
-     *
-     * @param string $credential  The credential to retrieve.
-     * @param string $app         The app to query. Defaults to Horde.
-     *
-     * @return mixed  The requested credential, all credentials if $credential
-     *                is null, or false if no user is logged in.
-     */
-    static public function getCredential($credential = null, $app = null)
-    {
-        if (!self::getAuth()) {
-            return false;
-        }
-
-        $credentials = self::_getCredentials($app);
-
-        return is_null($credential)
-            ? $credentials
-            : ((is_array($credentials) && isset($credentials[$credential]))
-                   ? $credentials[$credential]
-                   : false);
-    }
-
-    /**
-     * Sets the requested credential for the currently logged in user.
-     *
-     * @param string $credential  The credential to set.
-     * @param string $value       The value to set the credential to.
-     * @param string $app         The app to update. Defaults to Horde.
-     */
-    static public function setCredential($credential, $value, $app = null)
-    {
-        if (self::getAuth()) {
-            $credentials = self::_getCredentials($app);
-
-            if ($credentials !== false) {
-                if (is_array($credentials)) {
-                    $credentials[$credential] = $value;
-                } else {
-                    $credentials = array($credential => $value);
-                }
-
-                $_SESSION['horde_auth']['app'][$app] = Horde_Secret::write(Horde_Secret::getKey('auth'), serialize($credentials));
-            }
-        }
-    }
-
-    /**
-     * Get the list of credentials for a given app.
-     *
-     * @param string $app  The application name.
-     *
-     * @return mixed  True, false, or the credential list.
-     */
-    static protected function _getCredentials($app)
-    {
-        if (is_null($app)) {
-            $app = $_SESSION['horde_auth']['credentials'];
-        }
-
-        return isset($_SESSION['horde_auth']['app'])
-            ? @unserialize(Horde_Secret::read(Horde_Secret::getKey('auth'), $_SESSION['horde_auth']['app'][$app]))
-            : false;
-    }
-
-    /**
-     * Sets a variable in the session saying that authorization has succeeded,
-     * note which userId was authorized, and note when the login took place.
-     *
-     * If a user name hook was defined in the configuration, it gets applied
-     * to the $userId at this point.
-     *
-     * @param string $authId      The userId that has been authorized.
-     * @param array $credentials  The credentials of the user.
-     * @param array $options      Additional options:
-     * <pre>
-     * 'app' - (string) The app to set authentication credentials for.
-     *         DEFAULT: Set horde authentication
-     * 'change' - (boolean) Whether to request that the user change their
-     *            password.
-     *            DEFAULT: No
-     * 'nologin' - (boolean) Don't do login tasks?
-     *             DEFAULT: Perform login tasks
-     * </pre>
-     *
-     * @return boolean  Whether authentication was successful.
-     */
-    static public function setAuth($authId, $credentials, $options = array())
-    {
-        $app = empty($options['app']) ? 'horde' : $options['app'];
-        $authId = $userId = trim($authId);
-        $is_auth = self::getAuth();
-
-        try {
-            if (!$is_auth) {
-                $userId = self::convertUserName($userId, true);
-            }
-            list(,$credentials) = self::runHook($userId, $credentials, $app, 'postauthenticate');
-        } catch (Horde_Auth_Exception $e) {
-            return false;
-        }
-
-        $app_array = $is_auth
-            ? $_SESSION['horde_auth']['app']
-            : array();
-        $app_array[$app] = Horde_Secret::write(Horde_Secret::getKey('auth'), serialize($credentials));
-
-        if ($is_auth) {
-            /* Store app credentials. */
-            $_SESSION['horde_auth']['app'] = $app_array;
-            return true;
-        }
-
-        /* Clear any existing info. */
-        self::clearAuth();
-
-        $_SESSION['horde_auth'] = array(
-            'app' => $app_array,
-            'authId' => $authId,
-            'browser' => self::_getBrowser()->getAgentString(),
-            'change' => !empty($options['change']),
-            'credentials' => $app,
-            'driver' => $GLOBALS['conf']['auth']['driver'],
-            'remoteAddr' => isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null,
-            'timestamp' => time(),
-            'userId' => $userId
-        );
-
-        /* Reload preferences for the new user. */
-        $registry = Horde_Registry::singleton();
-        $registry->loadPrefs();
-        Horde_Nls::setLang($GLOBALS['prefs']->getValue('language'));
-
-        if (!empty($options['nologin'])) {
-            return true;
-        }
-
-        /* Fetch the user's last login time. */
-        $old_login = @unserialize($GLOBALS['prefs']->getValue('last_login'));
-
-        /* Display it, if we have a notification object and the
-         * show_last_login preference is active. */
-        if (isset($GLOBALS['notification']) &&
-            $GLOBALS['prefs']->getValue('show_last_login')) {
-            if (empty($old_login['time'])) {
-                $GLOBALS['notification']->push(_("Last login: Never"), 'horde.message');
-            } else {
-                if (empty($old_login['host'])) {
-                    $GLOBALS['notification']->push(sprintf(_("Last login: %s"), strftime('%c', $old_login['time'])), 'horde.message');
-                } else {
-                    $GLOBALS['notification']->push(sprintf(_("Last login: %s from %s"), strftime('%c', $old_login['time']), $old_login['host']), 'horde.message');
-                }
-            }
-        }
-
-        /* Set the user's last_login information. */
-        $host = empty($_SERVER['HTTP_X_FORWARDED_FOR'])
-            ? $_SERVER['REMOTE_ADDR']
-            : $_SERVER['HTTP_X_FORWARDED_FOR'];
-
-        if (class_exists('Net_DNS')) {
-            $resolver = new Net_DNS_Resolver();
-            $resolver->retry = isset($GLOBALS['conf']['dns']['retry']) ? $GLOBALS['conf']['dns']['retry'] : 1;
-            $resolver->retrans = isset($GLOBALS['conf']['dns']['retrans']) ? $GLOBALS['conf']['dns']['retrans'] : 1;
-            $ptrdname = $host;
-            if ($response = $resolver->query($host, 'PTR')) {
-                foreach ($response->answer as $val) {
-                    if (isset($val->ptrdname)) {
-                        $ptrdname = $val->ptrdname;
-                        break;
-                    }
-                }
-            }
-        } else {
-            $ptrdname = @gethostbyaddr($host);
-        }
-
-        $last_login = array('time' => time(), 'host' => $ptrdname);
-        $GLOBALS['prefs']->setValue('last_login', serialize($last_login));
-
-        return true;
-    }
-
-    /**
-     * Clears any authentication tokens in the current session.
-     */
-    static public function clearAuth()
-    {
-        unset($_SESSION['horde_auth']);
-
-        /* Remove the user's cached preferences if they are present. */
-        $registry = Horde_Registry::singleton();
-        $registry->unloadPrefs();
-    }
-
-    /**
-     * Converts an authentication username to a unique Horde username.
-     *
-     * @param string $username  The username to convert.
-     * @param boolean $toHorde  If true, convert to a Horde username. If
-     *                          false, convert to the auth username.
-     *
-     * @return string  The converted username.
-     * @throws Horde_Exception
-     */
-    static public function convertUsername($userId, $toHorde)
-    {
-        try {
-            return Horde::callHook('authusername', array($userId, $toHorde));
-        } catch (Horde_Exception_HookNotSet $e) {
-            return $userId;
-        }
-    }
-
-    /**
-     * Is the current user an administrator?
-     *
-     * @param string $permission  Allow users with this permission admin access
-     *                            in the current context.
-     * @param integer $permlevel  The level of permissions to check for.
-     *                            Defaults to Horde_Perms::EDIT.
-     * @param string $user        The user to check. Defaults to
-     *                            self::getAuth().
-     *
-     * @return boolean  Whether or not this is an admin user.
-     */
-    static public function isAdmin($permission = null, $permlevel = null,
-                                   $user = null)
-    {
-        if (is_null($user)) {
-            $user = self::getAuth();
-        }
-
-        if ($user &&
-            @is_array($GLOBALS['conf']['auth']['admins']) &&
-            in_array($user, $GLOBALS['conf']['auth']['admins'])) {
-            return true;
-        }
-
-        if (!is_null($permission)) {
-            if (is_null($permlevel)) {
-                $permlevel = Horde_Perms::EDIT;
-            }
-            return $GLOBALS['perms']->hasPermission($permission, $user, $permlevel);
-        }
-
-        return false;
-    }
-
-    /**
-     * Runs the pre/post-authenticate hook and parses the result.
-     *
-     * @param string $userId      The userId who has been authorized.
-     * @param array $credentials  The credentials of the user.
-     * @param string $app         The app currently being authenticated.
-     * @param string $type        Either 'preauthenticate' or
-     *                            'postauthenticate'.
-     * @param string $method      The triggering method (preauthenticate only).
-     *                            Either 'authenticate', 'transparent', or
-     *                            'admin'
-     *
-     * @return array  Two element array, $userId and $credentials.
-     * @throws Horde_Auth_Exception
-     */
-    static public function runHook($userId, $credentials, $app, $type,
-                                   $method = null)
-    {
-        $ret_array = array($userId, $credentials);
-
-        if ($type == 'preauthenticate') {
-            $credentials['authMethod'] = $method;
-        }
-
-        try {
-            $result = Horde::callHook($type, array($userId, $credentials), $app);
-        } catch (Horde_Exception $e) {
-            throw new Horde_Auth_Exception($e->getMessage());
-        } catch (Horde_Exception_HookNotSet $e) {
-            return $ret_array;
-        }
-
-        unset($credentials['authMethod']);
-
-        if ($result === false) {
-            if (self::getAuthError() != self::REASON_MESSAGE) {
-                self::setAuthError(self::REASON_FAILED);
-            }
-            throw new Horde_Auth_Exception($type . ' hook failed');
-        }
-
-        if (is_array($result)) {
-            if ($type == 'postauthenticate') {
-                $ret_array[1] = $result;
-            } else {
-                if (isset($result['userId'])) {
-                    $ret_array[0] = $result['userId'];
-                }
-
-                if (isset($result['credentials'])) {
-                    $ret_array[1] = $result['credentials'];
-                }
-            }
-        }
-
-        return $ret_array;
-    }
-
-    /**
-     * Returns the name of the authentication provider.
-     *
-     * @return string  The name of the driver currently providing
-     *                 authentication, or false if not set.
-     */
-    static public function getProvider()
-    {
-        return empty($_SESSION['horde_auth']['driver'])
-            ? false
-            : $_SESSION['horde_auth']['driver'];
-    }
-
-    /**
-     * Reads session data to determine if it contains Horde authentication
-     * credentials.
-     *
-     * @param string $session_data  The session data.
-     * @param boolean $info         Return session information.  The following
-     *                              information is returned: userid,
-     *                              timestamp, remoteAddr, browser.
-     *
-     * @return array  An array of the user's sesion information if
-     *                authenticated or false.  The following information is
-     *                returned: userid, timestamp, remoteAddr, browser.
-     */
-    static public function readSessionData($session_data)
-    {
-        if (empty($session_data) ||
-            (($pos = strpos($session_data, 'horde_auth|')) === false)) {
-            return false;
-        }
-
-        $endpos = $pos + 7;
-
-        while ($endpos !== false) {
-            $endpos = strpos($session_data, '|', $endpos);
-            $data = @unserialize(substr($session_data, $pos + 7, $endpos));
-            if (is_array($data)) {
-                return empty($data)
-                    ? false
-                    : array(
-                        'browser' => $data['browser'],
-                        'remoteAddr' => $data['remoteAddr'],
-                        'timestamp' => $data['timestamp'],
-                        'userid' => $data['userId']
-                    );
-            }
-            ++$endpos;
-        }
-
-        return false;
-    }
-
-    /**
-     * Sets the error message for an invalid authentication.
-     *
-     * @param string $type  The type of error (self::REASON_* constant).
-     * @param string $msg   The error message/reason for invalid
-     *                      authentication.
-     */
-    static public function setAuthError($type, $msg = null)
-    {
-        self::$_reason = array(
-            'msg' => $msg,
-            'type' => $type
-        );
-    }
-
-    /**
-     * Returns the error type or message for an invalid authentication.
-     *
-     * @param boolean $msg  If true, returns the message string (if set).
-     *
-     * @return mixed  Error type, error message (if $msg is true) or false
-     *                if entry doesn't exist.
-     */
-    static public function getAuthError($msg = false)
-    {
-        return isset(self::$_reason['type'])
-            ? ($msg ? self::$_reason['msg'] : self::$_reason['type'])
-            : false;
-    }
-
-    /**
-     * Returns a cached Horde_Brower instance.
-     *
-     * @return Horde_Browser  A Horde_Browser instance.
-     */
-    static protected function _getBrowser()
-    {
-        if (!self::$_browser) {
-            self::$_browser = new Horde_Browser();
-        }
-        return self::$_browser;
-    }
-
-    /**
      * Converts to allowed 64 characters for APRMD5 passwords.
      *
      * @param string $value   TODO
@@ -1036,6 +259,25 @@ class Horde_Auth
         }
 
         return $aprmd5;
+    }
+
+    /**
+     * Generates a random, hopefully pronounceable, password. This can be used
+     * when resetting automatically a user's password.
+     *
+     * @return string A random password
+     */
+    static public function genRandomPassword()
+    {
+        /* Alternate consonant and vowel random chars with two random numbers
+         * at the end. This should produce a fairly pronounceable password. */
+        return substr(self::CONSONANTS, mt_rand(0, strlen(self::CONSONANTS) - 1), 1) .
+            substr(self::VOWELS, mt_rand(0, strlen(self::VOWELS) - 1), 1) .
+            substr(self::CONSONANTS, mt_rand(0, strlen(self::CONSONANTS) - 1), 1) .
+            substr(self::VOWELS, mt_rand(0, strlen(self::VOWELS) - 1), 1) .
+            substr(self::CONSONANTS, mt_rand(0, strlen(self::CONSONANTS) - 1), 1) .
+            substr(self::NUMBERS, mt_rand(0, strlen(self::NUMBERS) - 1), 1) .
+            substr(self::NUMBERS, mt_rand(0, strlen(self::NUMBERS) - 1), 1);
     }
 
 }

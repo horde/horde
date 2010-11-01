@@ -6,7 +6,8 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('nag');
 
 $search = Horde_Util::getGet('q');
 if (!$search) {
@@ -20,8 +21,8 @@ $tasks = Nag::listTasks(
     $prefs->getValue('altsortby'),
     null,
     1);
-if (is_a($tasks, 'PEAR_Error')) {
-    Horde::fatal($tasks);
+if ($tasks instanceof PEAR_Error) {
+    throw new Nag_Exception($tasks);
 }
 
 $search_pattern = '/^' . preg_quote($search, '/') . '/i';
@@ -36,8 +37,7 @@ while ($task = &$tasks->each()) {
 $search_results->reset();
 if ($search_results->count() == 1) {
     $task = $search_results->each();
-    header('Location: ' . Horde::url($task->view_link, true));
-    exit;
+    Horde::url($task->view_link, true)->redirect();
 }
 
 $tasks = $search_results;
@@ -46,10 +46,11 @@ $actionID = null;
 
 Horde::addScriptFile('tooltips.js', 'horde');
 Horde::addScriptFile('effects.js', 'horde');
-Horde::addScriptFile('QuickFinder.js', 'horde');
+Horde::addScriptFile('quickfinder.js', 'horde');
 
 require NAG_TEMPLATES . '/common-header.inc';
-require NAG_TEMPLATES . '/menu.inc';
+echo Horde::menu();
+Nag::status();
 echo '<div id="page">';
 require NAG_TEMPLATES . '/list.html.php';
 require NAG_TEMPLATES . '/panel.inc';

@@ -1,0 +1,232 @@
+======================
+|| INSTALLING Jonah ||
+======================
+
+This document contains instructions for installing the Jonah software
+on your system.
+
+For information on the capabilities and features of Jonah, see
+the file README in the top-level directory of the distribution.
+
+
+Obtaining Jonah
+~~~~~~~~~~~~~~~
+
+Jonah can be obtained from the Horde website and FTP server, at
+
+   http://www.horde.org/jonah/
+   ftp://ftp.horde.org/pub/jonah/
+
+Bleeding-edge development versions of Jonah are available via CVS; see
+the file docs/HACKING in the Horde distribution for information on
+accessing the Horde CVS repository.
+
+
+PREREQUISITES
+~~~~~~~~~~~~~
+
+To function properly, Jonah REQUIRES the following:
+
+  1. A working Horde installation.
+
+     Jonah runs within the Horde Application Framework, a set of
+     common tools for Web applications written in PHP. You must
+     install Horde before installing Jonah.
+
+     The Horde Framework can be obtained from the Horde website and
+     FTP server, at
+
+        http://www.horde.org/horde/
+        ftp://ftp.horde.org/pub/horde/
+
+     Many of Jonah's prerequisites are also Horde prerequisites.
+     Be sure to have completed all of the steps in the INSTALL
+     file for the Horde Framework before installing Jonah.
+
+  2. The following PHP capabilities:
+
+     For the released tarball versions, you will require
+     a working php 3 or 4 install with working XML support
+     and fopen-wrappers enabled.
+
+     For the CVS version, you will require a working php version
+     4.2.0 or better, with XML and fopen-wrappers enabled.
+
+
+Installing Jonah
+~~~~~~~~~~~~~~~~
+
+Jonah is written in PHP, and must be installed in a web-accessible
+directory. The precise location of this directory will differ from
+system to system. Conventionally, Jonah is installed directly underneath
+Horde in the web server's document tree.
+
+Since Jonah is written in PHP, there is no compilation necessary;
+simply expand the distribution where you want it to reside and rename
+the root directory of the distribution to whatever you wish to appear
+in the URL. For example, with the Apache web server's default document
+root of '/usr/local/apache/htdocs', you would type:
+
+   cd /usr/local/apache/htdocs/horde
+   tar zxvf /path/to/jonah-0.0.2.tar.gz
+   mv jonah-0.0.2 jonah
+
+and would then find Jonah at the URL
+
+   http://your-server/horde/jonah/
+
+At this point, you should probably point your browser at your Jonah's test
+page at http://your.server/horde/jonah/test.php. It will run some checks
+on the version of php you're running, whether or not you have XML support,
+miscellaneous php settings, and whether or not the config files are in the
+right places.
+
+Unless you've skipped ahead, it'll complain about not finding the config
+files.  If no other problems are reported, continue on to the next section
+on configuring Jonah.  If it finds other problems on the test page, you
+should correct them first before proceeding.
+
+
+CONFIGURING Jonah
+~~~~~~~~~~~~~~~~~
+
+1. Configuring Horde for Jonah
+
+   a. Register the application
+
+      You will first need to add a jonah stanza to your version of the
+      horde/config/registry.php file.  Edit this file, and add the
+      following stanza where appropriate (after the other entries like it
+      or between existing stanzas to position it in the menu where you
+      like):
+
+$this->applications['jonah'] = array(
+    'fileroot' => dirname(__FILE__) . '/../jonah',
+    'webroot' => $this->applications['horde']['webroot'] . '/jonah',
+    'icon' => $this->applications['horde']['webroot'] . '/jonah/graphics/jonah.png',
+    'name' => _("Jonah"),
+    'status' => 'active'
+);
+
+      If you have changed the location of Jonah relative to Horde,
+      either in the URL or in the file system or both, you must
+      update the 'fileroot' and/or 'webroot' settings to their correct
+      values.
+
+2. Configuring Jonah
+
+   To configure Jonah, change to the config/ directory of the
+   installed distribution, and make copies of all of the configuration
+   "dist" files without the "dist" suffix.  An example of how to copy
+   the files on a unix based system is:
+
+      cd config/
+      for foo in *.dist; do cp $foo `basename $foo .dist`; done
+
+   Documentation on the format and purpose of those files can be found in
+   each file.   You may edit these files if you wish to customize Jonah's
+   appearance and behavior.  The default values, while reasonable, may not
+   be appropriate for your site, so it is best to check them and make any
+   desired changes before proceeding.  Some important files and their
+   contents are:
+
+   You must then login to Horde as a Horde Administrator to finish the
+   configuration of Jonah.  Use the Horde "Administration" menu item to get
+   the the Administration page, and then on the click on the "Configuration"
+   icon to get the Configuration page.  Select "Headlines" from the selection
+   list of applications, and click on the "Configure" button.  Fill in or
+   change any configuration values as needed.  When done click on "Generate
+   Headlines Configuration" to generate the conf.php file.  If your web server
+   doesn't have write permissions to the Jonah configuration directory or
+   file, it will not be able to write the file.  In this case, cut and
+   paste the returned configuration information into the file
+   jonah/config/conf.php.
+
+   Note for international users:  Jonah uses GNU gettext to provide local
+   translations of text displayed by applications; the translations are
+   found in the po/ directory.  If a translation is not yet available
+   for your locale (and you wish to create one), or if you're having
+   trouble using a provided translation, please see the
+   horde/docs/TRANSLATIONS file for instructions.
+
+    (a). prefs.php
+
+        This file contains all the preferences and their default values.
+        Reasons you might edit this are to change default values or to
+        lock preferences so the user can't change them.
+
+    (b). templates.php
+
+        This file defines the formatting templates used to display the
+        channels for various layout styles.  You will probably not want
+        to modify this file.
+
+    (c). conf.php or conf.xml
+        This file contains the general configuration for Jonah, such as
+        sql settings, expiration settings, etc.
+
+        For CVS HEAD, You must login to Horde as a Horde Administrator to
+        finish the configuration of Jonah.  Use the Horde "Administration"
+        menu item to get to the Administration page, and then click on the
+        "Configuration" icon to get the Configuration page.  Select Jonah
+        from the selection list of applications, and click on the
+        "Configure" button.  Fill in or change any configuration values as
+        needed.  When done click on "Generate Jonah Configuration" to
+        generate the conf.php file.  If your web server doesn't have write
+        permissions to the jonah configuration directory or file, it will
+        not be able to write the file.  In this case, cut and paste the
+        returned configuration information in the file jonah/config/conf.php.
+
+
+OBTAINING SUPPORT
+-----------------
+
+If you encounter problems with Jonah, help is available!
+
+The Horde Frequently Asked Questions List (FAQ), available on the Web
+at
+
+  http://www.horde.org/faq/
+
+The Horde Project runs a number of mailing lists, for individual
+applications and for issues relating to the project as a whole.
+Information, archives, and subscription information can be found at
+
+  http://www.horde.org/mail/
+
+Lastly, Horde developers, contributors and users may also be found on IRC,
+on the channel #horde on the Freenode Network (irc.freenode.net).
+
+Please keep in mind that Jonah is free software written by volunteers.
+For information on reasonable support expectations, please read
+
+  http://www.horde.org/support.php
+
+Thanks for using Jonah!
+
+The Jonah team
+
+QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQU$QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ
+QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ2.)UQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ
+QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQXt  -QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ
+QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQt   )$WQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ
+QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ-  -. ]QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ
+QQQQQQQQQQWQQQQWQQQQWQQQQWQQQQWQQQQW@(  y.._wZQ#Kvv>*-??YY*?TYT$QQWQQQQWQQQQWQQ
+QQQQQQQWQQQQQWQQQQWQQQQWQQQQWQQQQ@?CmWIliimw;vI==n.::+W7?T#WWWmwg:+-~"T9QQWQQQQ
+QQQQQQQQQQWQQQQQQQQQQQQQQQQQ@TZ}^+==;==+|??+i=nt +:::::-    _._.XI---v +o$QQQQQ
+QQQQQQWQQQQQQQQQWQQQWQQWQ@?n`W =ii:--:-+|:.==---==:::wawyWWWWWWWmW##agggv<dQQQQ
+QQQQQQQQQWQQWQQWQQQQQQW?e>I=+:-:::::::::::::::::::::-n]WWWWW##ZZXnliisaxgQQQQQQ
+QQQQQQQWQQQQQQQQQQQWP\?|__X-:::::::::::::::::::::::::=]###XXS1xliiQxwqmQQQQQQQQ
+QQQQQQWQQQQQQQWQQQDmxw#ZZZmWp i::::::::::::: __ggggggaZXX11Ili>iiioqQQQQWQQQQQQ
+QQQQQQQQQQQWQQQQD(xZS1vuXZ#Zbc|yy#XXy=_awZmmm####Z#UXSvvvIMMiInqgQQQQQQQQQQQQQQ
+QQQQQQQQQQQQQQQUd3Sv+"oZZZXXXoSSnXSeS12n1on1onnvvlM""Qgap ::: ]dQQQQQQQWQQQQWQQ
+QQQQQQWQQWQQQWE^W   _xXS11vIvnvM!MvgsgaaawawwyQQQQQQQQF`  -::.]mQQQQQQQQQQWQQQQ
+QQQQQQQQQQQQW[': .jnvxnNY<wwwmQQQQQQQQQQQWWWQQQQQQQQQQf   -:-.jQQQQQQQQQQQQQQQQ
+QQQQQQQWQQQW[,++j%xi1amQQQQWQQQQQQQQQQQQQQQQQQWQQQQQQQf :-:::XdQQQQQQQWQQWQQQWQ
+QQQQQQWQQQQQ[v _liQgQQQQQQQQQQQQQQQQQQQQQQQQQQQQQWQQQQQL, -:.wQQQQQQQQQQQQQQWQQ
+QQQQQQQQQQWicI)isyQQQQQQQQQQQQQQQQQQQQQQQQQWQQWQQQQQQQQQQgawWQWQQQQQQQWQQWQQQQQ
+QQQQQQQQQQQl1qWwQQQQQQQQQQQQWQQWQQWQQQQQQQWQQQQQQQQWQQWQQQQWWQQQQQQQQWQQQQQQQQQ
+QQQQQQWQQ@CauqmQQQQQQQQQWQQWQQQQQQQQQWQQWQQQQQQQWQQQQQQQQQQQQQQQQQQQQQQQQQQQWQQ
+QQQQBVbaoX2v2dWQQQQQQQQQQQQQQQQQQWQQQQQQQQQQQQWQQQQWQQQQQQWQQQQQWQQWQQQQWQQWQQQ
+QP5###Z#XXoSZLJQQQQQQQQWQQWQQQWQQQQQWQQQWQQQWQQQQQQQQQWQWQQQQQWQQQQQQQWQQQQQQQQ
+===============================================================================

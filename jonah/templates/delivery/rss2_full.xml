@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="<tag:xsl />" type="text/xsl"?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+ <channel>
+  <title><tag:channel_name /></title>
+  <link><tag:channel_official /></link>
+  <atom:link rel="self" type="application/rss+xml" title="<tag:channel_name />" href="<tag:channel_rss2 />" xmlns:atom="http://www.w3.org/2005/Atom"><tag:channel_rss /></atom:link>
+  <description><tag:channel_desc /></description>
+  <pubDate><tag:channel_updated /></pubDate>
+  <generator><tag:jonah /></generator>
+  <loop:stories>
+  <item>
+     <title><tag:stories.title /></title>
+     <link><tag:stories.permalink /></link>
+     <description><tag:stories.description /></description>
+     <content:encoded><![CDATA[<tag:stories.body />
+]]></content:encoded>
+     <pubDate><tag:stories.published /></pubDate>
+     <guid isPermaLink="true"><tag:stories.permalink /></guid>
+  </item>
+  </loop:stories>
+ </channel>
+</rss>

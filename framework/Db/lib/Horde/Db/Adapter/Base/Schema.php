@@ -24,16 +24,6 @@
 abstract class Horde_Db_Adapter_Base_Schema
 {
     /**
-     * @var Cache object
-     */
-    protected $_cache = null;
-
-    /**
-     * @var Logger
-     */
-    protected $_logger = null;
-
-    /**
      * @var Horde_Db_Adapter_Base
      */
     protected $_adapter = null;
@@ -56,9 +46,53 @@ abstract class Horde_Db_Adapter_Base_Schema
     {
         $this->_adapter = $adapter;
         $this->_adapterMethods = array_flip(get_class_methods($adapter));
+    }
 
-        $this->_cache = isset($config['cache']) ? $config['cache'] : new Horde_Support_Stub;
-        $this->_logger = isset($config['logger']) ? $config['logger'] : new Horde_Support_Stub;
+
+    /*##########################################################################
+    # Object factories
+    ##########################################################################*/
+
+    /**
+     * Factory for Column objects
+     */
+    public function makeColumn($name, $default, $sqlType = null, $null = true)
+    {
+        return new Horde_Db_Adapter_Base_Column($name, $default, $sqlType, $null);
+    }
+
+    /**
+     * Factory for ColumnDefinition objects
+     */
+    public function makeColumnDefinition($base, $name, $type, $limit = null,
+        $precision = null, $scale = null, $unsigned = null,
+        $default = null, $null = null, $autoincrement = null)
+    {
+        return new Horde_Db_Adapter_Base_ColumnDefinition($base, $name, $type, $limit, $precision, $scale, $unsigned, $default, $null, $autoincrement);
+    }
+
+    /**
+     * Factory for Index objects
+     */
+    public function makeIndex($table, $name, $primary, $unique, $columns)
+    {
+        return new Horde_Db_Adapter_Base_Index($table, $name, $primary, $unique, $columns);
+    }
+
+    /**
+     * Factory for Table objects
+     */
+    public function makeTable($name, $primaryKey, $columns, $indexes)
+    {
+        return new Horde_Db_Adapter_Base_Table($name, $primaryKey, $columns, $indexes);
+    }
+
+    /**
+     * Factory for TableDefinition objects
+     */
+    public function makeTableDefinition($name, $base, $options = array())
+    {
+        return new Horde_Db_Adapter_Base_TableDefinition($name, $base, $options);
     }
 
 
@@ -71,6 +105,8 @@ abstract class Horde_Db_Adapter_Base_Schema
      *
      * @param  string  $method
      * @param  array   $args
+     *
+     * @return mixed
      */
     public function __call($method, $args)
     {
@@ -79,6 +115,21 @@ abstract class Horde_Db_Adapter_Base_Schema
         }
 
         throw new BadMethodCallException('Call to undeclared method "'.$method.'"');
+    }
+
+    /**
+     * Delegate access to $_cache and $_logger to the adapter object.
+     *
+     * @param  string  $key
+     *
+     * @return mixed
+     */
+    public function __get($key)
+    {
+        if ($key == '_cache' || $key == '_logger') {
+            $getter = 'get' . ucfirst(substr($key, 1));
+            return $this->_adapter->$getter();
+        }
     }
 
 
@@ -94,7 +145,7 @@ abstract class Horde_Db_Adapter_Base_Schema
      * @param   string  $column
      * @return  string
      */
-    public function quote($value, $column=null)
+    public function quote($value, $column = null)
     {
         if (is_object($value) && is_callable(array($value, 'quotedId'))) {
             return $value->quotedId();
@@ -110,14 +161,6 @@ abstract class Horde_Db_Adapter_Base_Schema
             return $type == 'integer' ? '0' : $this->quoteFalse();
         } elseif (is_int($value) || is_float($value)) {
             return $value;
-            /*@TODO
-          else
-            if value.acts_like?(:date) || value.acts_like?(:time)
-              "'#{quoted_date(value)}'"
-            else
-              "#{quoted_string_prefix}'#{quote_string(value.to_yaml)}'"
-            end
-            */
         } elseif ($value instanceof DateTime || $value instanceof Horde_Date) {
             return $this->_adapter->quoteString($type == 'integer'
                                                 ? $value->format('U')
@@ -258,12 +301,12 @@ abstract class Horde_Db_Adapter_Base_Schema
      */
     public function table($tableName, $name = null)
     {
-        return $this->componentFactory('Table', array(
+        return $this->makeTable(
             $tableName,
             $this->primaryKey($tableName),
             $this->columns($tableName, $name),
-            $this->indexes($tableName, $name),
-        ));
+            $this->indexes($tableName, $name)
+        );
     }
 
     /**
@@ -358,8 +401,7 @@ abstract class Horde_Db_Adapter_Base_Schema
      */
     public function createTable($name, $options=array())
     {
-        $tableDefinition =
-            $this->componentFactory('TableDefinition', array($name, $this, $options));
+        $tableDefinition = $this->makeTableDefinition($name, $this, $options);
 
         if (isset($options['primaryKey'])) {
             if ($options['primaryKey'] === false) {
@@ -420,6 +462,7 @@ abstract class Horde_Db_Adapter_Base_Schema
         $sql  = "CREATE $temp TABLE ".$this->quoteTableName($tableDefinition->getName())." (\n".
                   $tableDefinition->toSql()."\n".
                 ") $opts";
+
         return $this->execute($sql);
     }
 
@@ -628,15 +671,6 @@ abstract class Horde_Db_Adapter_Base_Schema
     }
 
     /**
-     * Returns a string of <tt>CREATE TABLE</tt> SQL statement(s) for recreating the
-     * entire structure of the database.
-     *
-     * @param   string  $table
-     * @return  string
-     */
-    abstract public function structureDump($table = null);
-
-    /**
      * Recreate the given db
      *
      * @param   string  $name
@@ -667,20 +701,6 @@ abstract class Horde_Db_Adapter_Base_Schema
      * @return  string
      */
     abstract public function currentDatabase();
-
-    /**
-     * Should not be called normally, but this operation is non-destructive.
-     * The migrations module handles this automatically.
-     */
-    public function initializeSchemaInformation()
-    {
-        try {
-            $this->execute("CREATE TABLE schema_info (".
-                           "  version ".$this->typeToSql('integer').
-                           ")");
-            return $this->execute("INSERT INTO schema_info (version) VALUES (0)");
-        } catch (Exception $e) {}
-    }
 
     /**
      * The sql for this column type
@@ -729,14 +749,19 @@ abstract class Horde_Db_Adapter_Base_Schema
      */
     public function addColumnOptions($sql, $options)
     {
+        /* 'autoincrement' is not handled here - it varies too much between
+         * DBs. Do autoincrement-specific handling in the driver. */
+
         if (isset($options['null']) && $options['null'] === false) {
             $sql .= ' NOT NULL';
         }
+
         if (isset($options['default'])) {
             $default = $options['default'];
             $column  = isset($options['column'])  ? $options['column']  : null;
             $sql .= ' DEFAULT '.$this->quote($default, $column);
         }
+
         return $sql;
     }
 
@@ -778,8 +803,7 @@ abstract class Horde_Db_Adapter_Base_Schema
      */
     protected function _clearTableCache($tableName)
     {
-        $this->_cache->set("tables/columns/$tableName", null);
-        $this->_cache->set("tables/indexes/$tableName", null);
+        $this->_cache->set("tables/columns/$tableName", '');
+        $this->_cache->set("tables/indexes/$tableName", '');
     }
-
 }

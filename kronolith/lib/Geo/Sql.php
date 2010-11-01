@@ -1,15 +1,16 @@
 <?php
 /**
- * General SQL implementation for storing/searching geo location data for events.
+ * General SQL implementation for storing/searching geo location data for
+ * events.
  *
  * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- *
- * @package Kronolith
+ * @author   Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @package  Kronolith
  */
 class Kronolith_Geo_Sql extends Kronolith_Geo
 {
@@ -17,124 +18,65 @@ class Kronolith_Geo_Sql extends Kronolith_Geo
     protected $_db;
 
     /**
-     * Still needs to return a PEAR_Error since Kronolith_Driver still expects it
-     *
-     * @return mixed boolean || PEAR_Error
+     * @throws Kronolith_Exception
      */
     public function initialize()
     {
-        Horde::assertDriverConfig($this->_params, 'calendar', array('phptype'));
-
-        if (!isset($this->_params['database'])) {
-            $this->_params['database'] = '';
-        }
-        if (!isset($this->_params['username'])) {
-            $this->_params['username'] = '';
-        }
-        if (!isset($this->_params['hostspec'])) {
-            $this->_params['hostspec'] = '';
-        }
-        if (!isset($this->_params['table'])) {
-            $this->_params['table'] = 'kronolith_events_geo';
-        }
-
-        /* Connect to the SQL server using the supplied parameters. */
-        $this->_write_db = DB::connect($this->_params,
-                                       array('persistent' => !empty($this->_params['persistent']),
-                                             'ssl' => !empty($this->_params['ssl'])));
-        if (is_a($this->_write_db, 'PEAR_Error')) {
-            return $this->_write_db;
-        }
-        $this->_initConn($this->_write_db);
-
-        /* Check if we need to set up the read DB connection
-         * seperately. */
-        if (!empty($this->_params['splitread'])) {
-            $params = array_merge($this->_params, $this->_params['read']);
-            $this->_db = DB::connect($params,
-                                     array('persistent' => !empty($params['persistent']),
-                                           'ssl' => !empty($params['ssl'])));
-            if (is_a($this->_db, 'PEAR_Error')) {
-                return $this->_db;
-            }
-            $this->_initConn($this->_db);
-        } else {
-            /* Default to the same DB handle for the writer too. */
-            $this->_db = $this->_write_db;
+        try {
+            $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('read', 'kronolith', 'calendar');
+            $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('rw', 'kronolith', 'calendar');
+        } catch (Horde_Exception $e) {
+            throw new Kronolith_Exception($e);
         }
 
         return true;
-    }
-
-    protected function _initConn(&$db)
-    {
-        // Set DB portability options.
-        switch ($db->phptype) {
-        case 'mssql':
-            $db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-            break;
-        default:
-            $db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-        }
-
-        /* Handle any database specific initialization code to run. */
-        switch ($db->dbsyntax) {
-        case 'oci8':
-            $query = "ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS'";
-
-            /* Log the query at a DEBUG log level. */
-            Horde::logMessage(sprintf('Kronolith_Driver_Sql::_initConn(): user = "%s"; query = "%s"',
-                                      Horde_Auth::getAuth(), $query),
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-            $db->query($query);
-            break;
-
-        case 'pgsql':
-            $query = "SET datestyle TO 'iso'";
-
-            /* Log the query at a DEBUG log level. */
-            Horde::logMessage(sprintf('Kronolith_Driver_Sql::_initConn(): user = "%s"; query = "%s"',
-                                      Horde_Auth::getAuth(), $query),
-                              __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-            $db->query($query);
-            break;
-        }
     }
 
     /**
      * Set the location of the specified event _id
      *
      * @see kronolith/lib/Driver/Kronolith_Driver_Geo#setLocation($event_id, $point)
+     * @throws Kronolith_Exception
      */
     public function setLocation($event_id, $point)
     {
         /* First make sure it doesn't already exist */
-        $sql = "SELECT COUNT(*) FROM kronolith_events_geo WHERE event_id = ('" . $event_id . "')";
-        $count = $this->_db->getOne($sql);
+        $sql = 'SELECT COUNT(*) FROM kronolith_events_geo WHERE event_id = ?';
+        Horde::logMessage(sprintf('Kronolith_Geo_Sql::setLocation(): user = "%s"; query = "%s"; values = "%s"',
+            $GLOBALS['registry']->getAuth(), $sql, $event_id), 'DEBUG');
+        $count = $this->_db->getOne($sql, array($event_id));
         if ($count instanceof PEAR_Error) {
-            throw new Horde_Exception($count->getMessage());
+            Horde::logMessage($count, 'ERR');
+            throw new Horde_Exception($count);
         }
 
-            /* Do we actually have data? */
+        /* Do we actually have data? If not, see if we are deleting an
+         * existing entry. */
         if ((empty($point['lat']) || empty($point['lon'])) && $count) {
             // Delete the record.
-            $sql = "DELETE FROM kronolith_events_geo WHERE event_id = '" . $event_id . "'";
+            $this->deleteLocation($event_id);
+            return;
         } elseif (empty($point['lat']) || empty($point['lon'])) {
             return;
         }
 
-        /* INSERT or UPDATE */
-        $params = array($point['lat'], $point['lng'], $event_id);
-        if ($count) {
-            $sql = 'UPDATE kronolith_events_geo SET event_lat = ?, event_lng = ? WHERE event_id = ?';
-        } else {
-            $sql = 'INSERT into kronolith_events_geo (event_lat, event_lng, event_id) VALUES(?, ?, ?)';
+        if (empty($point['zoom'])) {
+            $point['zoom'] = 0;
         }
+
+        /* INSERT or UPDATE */
+        $params = array($point['lat'], $point['lon'], $point['zoom'], $event_id);
+        if ($count) {
+            $sql = 'UPDATE kronolith_events_geo SET event_lat = ?, event_lon = ?, event_zoom = ? WHERE event_id = ?';
+        } else {
+            $sql = 'INSERT into kronolith_events_geo (event_lat, event_lon, event_zoom, event_id) VALUES(?, ?, ?, ?)';
+        }
+        Horde::logMessage(sprintf('Kronolith_Geo_Sql::setLocation(): user = "%s"; query = "%s"; values = "%s"',
+                    $GLOBALS['registry']->getAuth(), $sql, print_r($params, true)), 'DEBUG');
         $result = $this->_write_db->query($sql, $params);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result->getMessage());
+            Horde::logMessage($result, 'ERR');
+            throw new Horde_Exception($result);
         }
 
         return $result;
@@ -144,26 +86,41 @@ class Kronolith_Geo_Sql extends Kronolith_Geo
      * Get the location of the provided event_id.
      *
      * @see kronolith/lib/Driver/Kronolith_Driver_Geo#getLocation($event_id)
+     * @throws Kronolith_Exception
      */
     public function getLocation($event_id)
     {
-        $sql = 'SELECT event_lat as lat, event_lng as lng FROM kronolith_events_geo WHERE event_id = ?';
+        $sql = 'SELECT event_lat as lat, event_lon as lon, event_zoom as zoom FROM kronolith_events_geo WHERE event_id = ?';
+        Horde::logMessage(sprintf('Kronolith_Geo_Sql::getLocation(): user = "%s"; query = "%s"; values = "%s"',
+                    $GLOBALS['registry']->getAuth(), $sql, $event_id), 'DEBUG');
         $result = $this->_db->getRow($sql, array($event_id), DB_FETCHMODE_ASSOC);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result->getMessage());
+            Horde::logMessage($result, 'ERR');
+            throw new Horde_Exception($result);
         }
 
         return $result;
     }
 
     /**
+     * Deletes an entry from storage
      *
      * @see kronolith/lib/Driver/Kronolith_Driver_Geo#removeLocation($event_id)
+     *
+     * @param string $event_id
+     *
+     * @throws Kronolith_Exception
      */
-    public function removeLocation($event_id)
+    public function deleteLocation($event_id)
     {
         $sql = 'DELETE FROM kronolith_events_geo WHERE event_id = ?';
-        $this->_write_db->query($sql, array($event_id));
+        Horde::logMessage(sprintf('Kronolith_Geo_Sql::deleteLocation(): user = "%s"; query = "%s"; values = "%s"',
+                    $GLOBALS['registry']->getAuth(), $sql, $event_id), 'DEBUG');
+        $result = $this->_write_db->query($sql, array($event_id));
+        if ($result instanceof PEAR_Error) {
+            Horde::logMessage($result, 'ERR');
+            throw new Horde_Exception($result);
+        }
     }
 
     /**
@@ -177,6 +134,7 @@ class Kronolith_Geo_Sql extends Kronolith_Geo
      *       MBRs
      *
      * @see kronolith/lib/Driver/Kronolith_Driver_Geo#search($criteria)
+     * @throws Kronolith_Exception
      */
     public function search($criteria)
     {

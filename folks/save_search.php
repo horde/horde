@@ -25,8 +25,7 @@ if (Horde_Util::getFormData('submitbutton') == _("Close")) {
         $notification->push($result);
     } else {
         $notification->push(_("Search criteria saved successfuly"), 'horde.success');
-        header('Location: ' . Horde::applicationUrl('search.php'));
-        exit;
+        Horde::url('search.php')->redirect();
     }
 
 } elseif ((Horde_Util::getGet('delete') == 1) && Horde_Util::getGet('query')) {
@@ -36,8 +35,7 @@ if (Horde_Util::getFormData('submitbutton') == _("Close")) {
         $notification->push($result);
     } else {
         $notification->push(_("Search criteria deleted."), 'horde.success');
-        header('Location: ' . Horde::applicationUrl('search.php'));
-        exit;
+        Horde::url('search.php')->redirect();
     }
 }
 

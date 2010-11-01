@@ -5,12 +5,8 @@
  * @author  Robert E. Coyle <robertecoyle@hotmail.com>
  * @package Horde_Form
  */
-class Horde_Form_Type {
-
-    function Horde_Form_Type()
-    {
-    }
-
+class Horde_Form_Type
+{
     function getProperty($property)
     {
         $prop = '_' . $property;
@@ -76,7 +72,7 @@ class Horde_Form_Type_spacer extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => _("Spacer"));
+        return array('name' => Horde_Form_Translation::t("Spacer"));
     }
 
 }
@@ -93,7 +89,7 @@ class Horde_Form_Type_header extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => _("Header"));
+        return array('name' => Horde_Form_Translation::t("Header"));
     }
 
 }
@@ -110,7 +106,7 @@ class Horde_Form_Type_description extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => _("Description"));
+        return array('name' => Horde_Form_Translation::t("Description"));
     }
 
 }
@@ -130,7 +126,7 @@ class Horde_Form_Type_html extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => _("HTML"));
+        return array('name' => Horde_Form_Translation::t("HTML"));
     }
 
 }
@@ -147,7 +143,7 @@ class Horde_Form_Type_number extends Horde_Form_Type {
     function isValid(&$var, &$vars, $value, &$message)
     {
         if ($var->isRequired() && empty($value) && ((string)(double)$value !== $value)) {
-            $message = _("This field is required.");
+            $message = Horde_Form_Translation::t("This field is required.");
             return false;
         } elseif (empty($value)) {
             return true;
@@ -158,7 +154,7 @@ class Horde_Form_Type_number extends Horde_Form_Type {
             return true;
         }
 
-        $message = _("This field must be a valid number.");
+        $message = Horde_Form_Translation::t("This field must be a valid number.");
         return false;
     }
 
@@ -214,7 +210,7 @@ class Horde_Form_Type_number extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => _("Number"));
+        return array('name' => Horde_Form_Translation::t("Number"));
     }
 
 }
@@ -224,7 +220,7 @@ class Horde_Form_Type_int extends Horde_Form_Type {
     function isValid(&$var, &$vars, $value, &$message)
     {
         if ($var->isRequired() && empty($value) && ((string)(int)$value !== $value)) {
-            $message = _("This field is required.");
+            $message = Horde_Form_Translation::t("This field is required.");
             return false;
         }
 
@@ -232,7 +228,7 @@ class Horde_Form_Type_int extends Horde_Form_Type {
             return true;
         }
 
-        $message = _("This field may only contain integers.");
+        $message = Horde_Form_Translation::t("This field may only contain integers.");
         return false;
     }
 
@@ -241,7 +237,7 @@ class Horde_Form_Type_int extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => _("Integer"));
+        return array('name' => Horde_Form_Translation::t("Integer"));
     }
 
 }
@@ -251,7 +247,7 @@ class Horde_Form_Type_octal extends Horde_Form_Type {
     function isValid(&$var, &$vars, $value, &$message)
     {
         if ($var->isRequired() && empty($value) && ((string)(int)$value !== $value)) {
-            $message = _("This field is required.");
+            $message = Horde_Form_Translation::t("This field is required.");
             return false;
         }
 
@@ -259,7 +255,7 @@ class Horde_Form_Type_octal extends Horde_Form_Type {
             return true;
         }
 
-        $message = _("This field may only contain octal values.");
+        $message = Horde_Form_Translation::t("This field may only contain octal values.");
         return false;
     }
 
@@ -268,7 +264,7 @@ class Horde_Form_Type_octal extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => _("Octal"));
+        return array('name' => Horde_Form_Translation::t("Octal"));
     }
 
 }
@@ -278,7 +274,7 @@ class Horde_Form_Type_intlist extends Horde_Form_Type {
     function isValid(&$var, &$vars, $value, &$message)
     {
         if (empty($value) && $var->isRequired()) {
-            $message = _("This field is required.");
+            $message = Horde_Form_Translation::t("This field is required.");
             return false;
         }
 
@@ -286,7 +282,7 @@ class Horde_Form_Type_intlist extends Horde_Form_Type {
             return true;
         }
 
-        $message = _("This field must be a comma or space separated list of integers");
+        $message = Horde_Form_Translation::t("This field must be a comma or space separated list of integers");
         return false;
     }
 
@@ -295,7 +291,7 @@ class Horde_Form_Type_intlist extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => _("Integer list"));
+        return array('name' => Horde_Form_Translation::t("Integer list"));
     }
 
 }
@@ -338,18 +334,18 @@ class Horde_Form_Type_text extends Horde_Form_Type {
 
         if (!empty($this->_maxlength) && Horde_String::length($value) > $this->_maxlength) {
             $valid = false;
-            $message = sprintf(_("Value is over the maximum length of %d."), $this->_maxlength);
+            $message = sprintf(Horde_Form_Translation::t("Value is over the maximum length of %d."), $this->_maxlength);
         } elseif ($var->isRequired() && empty($this->_regex)) {
             $valid = strlen(trim($value)) > 0;
 
             if (!$valid) {
-                $message = _("This field is required.");
+                $message = Horde_Form_Translation::t("This field is required.");
             }
         } elseif (!empty($this->_regex)) {
             $valid = preg_match($this->_regex, $value);
 
             if (!$valid) {
-                $message = _("You must enter a valid value.");
+                $message = Horde_Form_Translation::t("You must enter a valid value.");
             }
         }
 
@@ -372,13 +368,13 @@ class Horde_Form_Type_text extends Horde_Form_Type {
     function about()
     {
         return array(
-            'name' => _("Text"),
+            'name' => Horde_Form_Translation::t("Text"),
             'params' => array(
-                'regex'     => array('label' => _("Regex"),
+                'regex'     => array('label' => Horde_Form_Translation::t("Regex"),
                                      'type'  => 'text'),
-                'size'      => array('label' => _("Size"),
+                'size'      => array('label' => Horde_Form_Translation::t("Size"),
                                      'type'  => 'int'),
-                'maxlength' => array('label' => _("Maximum length"),
+                'maxlength' => array('label' => Horde_Form_Translation::t("Maximum length"),
                                      'type'  => 'int')));
     }
 
@@ -392,22 +388,19 @@ class Horde_Form_Type_stringlist extends Horde_Form_Type_text {
     function about()
     {
         return array(
-            'name' => _("String list"),
+            'name' => Horde_Form_Translation::t("String list"),
             'params' => array(
-                'regex'     => array('label' => _("Regex"),
+                'regex'     => array('label' => Horde_Form_Translation::t("Regex"),
                                      'type'  => 'text'),
-                'size'      => array('label' => _("Size"),
+                'size'      => array('label' => Horde_Form_Translation::t("Size"),
                                      'type'  => 'int'),
-                'maxlength' => array('label' => _("Maximum length"),
+                'maxlength' => array('label' => Horde_Form_Translation::t("Maximum length"),
                                      'type'  => 'int')),
         );
     }
 
 }
 
-/**
- * @since Horde 3.3
- */
 class Horde_Form_Type_stringarray extends Horde_Form_Type_stringlist {
 
     function getInfo(&$vars, &$var, &$info)
@@ -421,33 +414,30 @@ class Horde_Form_Type_stringarray extends Horde_Form_Type_stringlist {
     function about()
     {
         return array(
-            'name' => _("String list returning an array"),
+            'name' => Horde_Form_Translation::t("String list returning an array"),
             'params' => array(
-                'regex'     => array('label' => _("Regex"),
+                'regex'     => array('label' => Horde_Form_Translation::t("Regex"),
                                      'type'  => 'text'),
-                'size'      => array('label' => _("Size"),
+                'size'      => array('label' => Horde_Form_Translation::t("Size"),
                                      'type'  => 'int'),
-                'maxlength' => array('label' => _("Maximum length"),
+                'maxlength' => array('label' => Horde_Form_Translation::t("Maximum length"),
                                      'type'  => 'int')),
         );
     }
 
 }
 
-/**
- * @since Horde 3.2
- */
 class Horde_Form_Type_phone extends Horde_Form_Type {
 
     function isValid(&$var, &$vars, $value, &$message)
     {
         if (!strlen(trim($value))) {
             if ($var->isRequired()) {
-                $message = _("This field is required.");
+                $message = Horde_Form_Translation::t("This field is required.");
                 return false;
             }
         } elseif (!preg_match('/^\+?[\d()\-\/. ]*$/', $value)) {
-            $message = _("You must enter a valid phone number, digits only with an optional '+' for the international dialing prefix.");
+            $message = Horde_Form_Translation::t("You must enter a valid phone number, digits only with an optional '+' for the international dialing prefix.");
             return false;
         }
 
@@ -459,7 +449,7 @@ class Horde_Form_Type_phone extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => _("Phone number"));
+        return array('name' => Horde_Form_Translation::t("Phone number"));
     }
 
 }
@@ -471,7 +461,7 @@ class Horde_Form_Type_cellphone extends Horde_Form_Type_phone {
      */
     function about()
     {
-        return array('name' => _("Mobile phone number"));
+        return array('name' => Horde_Form_Translation::t("Mobile phone number"));
     }
 
 }
@@ -497,11 +487,11 @@ class Horde_Form_Type_ipaddress extends Horde_Form_Type_text {
             }
 
             if (!$valid) {
-                $message = _("Please enter a valid IP address.");
+                $message = Horde_Form_Translation::t("Please enter a valid IP address.");
             }
         } elseif ($var->isRequired()) {
             $valid = false;
-            $message = _("This field is required.");
+            $message = Horde_Form_Translation::t("This field is required.");
         }
 
         return $valid;
@@ -512,7 +502,37 @@ class Horde_Form_Type_ipaddress extends Horde_Form_Type_text {
      */
     function about()
     {
-        return array('name' => _("IP address"));
+        return array('name' => Horde_Form_Translation::t("IP address"));
+    }
+
+}
+
+class Horde_Form_Type_ip6address extends Horde_Form_Type_text {
+
+    function isValid(&$var, &$vars, $value, &$message)
+    {
+        $valid = true;
+
+        if (strlen(trim($value)) > 0) {
+            $valid = @inet_pton($value);
+
+            if ($valid === false) {
+                $message = Horde_Form_Translation::t("Please enter a valid IP address.");
+            }
+        } elseif ($var->isRequired()) {
+            $valid = false;
+            $message = Horde_Form_Translation::t("This field is required.");
+        }
+
+        return true;
+    }
+
+    /**
+     * Return info about field type.
+     */
+    function about()
+    {
+        return array('name' => Horde_Form_Translation::t("IPv6 address"));
     }
 
 }
@@ -565,14 +585,14 @@ class Horde_Form_Type_longtext extends Horde_Form_Type_text {
     function about()
     {
         return array(
-            'name' => _("Long text"),
+            'name' => Horde_Form_Translation::t("Long text"),
             'params' => array(
-                'rows'   => array('label' => _("Number of rows"),
+                'rows'   => array('label' => Horde_Form_Translation::t("Number of rows"),
                                   'type'  => 'int'),
-                'cols'   => array('label' => _("Number of columns"),
+                'cols'   => array('label' => Horde_Form_Translation::t("Number of columns"),
                                   'type'  => 'int'),
-                'helper' => array('label' => _("Helpers"),
-                                  'type'  => 'array')));
+                'helper' => array('label' => Horde_Form_Translation::t("Helpers"),
+                                  'type'  => 'stringarray')));
     }
 
 }
@@ -595,11 +615,11 @@ class Horde_Form_Type_countedtext extends Horde_Form_Type_longtext {
 
         if ($var->isRequired() && $length <= 0) {
             $valid = false;
-            $message = _("This field is required.");
+            $message = Horde_Form_Translation::t("This field is required.");
         } elseif ($length > $this->_chars) {
             $valid = false;
-            $message = sprintf(ngettext("There are too many characters in this field. You have entered %d character; ", "There are too many characters in this field. You have entered %d characters; ", $length), $length)
-                . sprintf(_("you must enter less than %d."), $this->_chars);
+            $message = sprintf(Horde_Form_Translation::ngettext("There are too many characters in this field. You have entered %d character; ", "There are too many characters in this field. You have entered %d characters; ", $length), $length)
+                . sprintf(Horde_Form_Translation::t("you must enter less than %d."), $this->_chars);
         }
 
         return $valid;
@@ -616,13 +636,13 @@ class Horde_Form_Type_countedtext extends Horde_Form_Type_longtext {
     function about()
     {
         return array(
-            'name' => _("Counted text"),
+            'name' => Horde_Form_Translation::t("Counted text"),
             'params' => array(
-                'rows'  => array('label' => _("Number of rows"),
+                'rows'  => array('label' => Horde_Form_Translation::t("Number of rows"),
                                  'type'  => 'int'),
-                'cols'  => array('label' => _("Number of columns"),
+                'cols'  => array('label' => Horde_Form_Translation::t("Number of columns"),
                                  'type'  => 'int'),
-                'chars' => array('label' => _("Number of characters"),
+                'chars' => array('label' => Horde_Form_Translation::t("Number of characters"),
                                  'type'  => 'int')));
     }
 
@@ -693,14 +713,14 @@ class Horde_Form_Type_address extends Horde_Form_Type_longtext {
                 $info['street'] = $addressParts[1];
             }
             if (!empty($addressParts[2])) {
-                include 'Horde/NLS/carsigns.php';
+                include 'Horde/Nls/Carsigns.php';
                 $country = array_search(Horde_String::upper($addressParts[2]), $carsigns);
                 if ($country) {
                     $info['country'] = $country;
                 }
             }
             if (!empty($addressParts[5])) {
-                include 'Horde/NLS/countries.php';
+                include 'Horde/Nls/Countries.php';
                 $country = array_search($addressParts[5], $countries);
                 if ($country) {
                     $info['country'] = Horde_String::lower($country);
@@ -727,11 +747,11 @@ class Horde_Form_Type_address extends Horde_Form_Type_longtext {
     function about()
     {
         return array(
-            'name' => _("Address"),
+            'name' => Horde_Form_Translation::t("Address"),
             'params' => array(
-                'rows' => array('label' => _("Number of rows"),
+                'rows' => array('label' => Horde_Form_Translation::t("Number of rows"),
                                 'type'  => 'int'),
-                'cols' => array('label' => _("Number of columns"),
+                'cols' => array('label' => Horde_Form_Translation::t("Number of columns"),
                                 'type'  => 'int')));
     }
 
@@ -749,14 +769,11 @@ class Horde_Form_Type_addresslink extends Horde_Form_Type_address {
      */
     function about()
     {
-        return array('name' => _("Address Link"));
+        return array('name' => Horde_Form_Translation::t("Address Link"));
     }
 
 }
 
-/**
- * @since Horde 3.3
- */
 class Horde_Form_Type_pgp extends Horde_Form_Type_longtext {
 
     /**
@@ -796,23 +813,20 @@ class Horde_Form_Type_pgp extends Horde_Form_Type_longtext {
     function about()
     {
         return array(
-            'name' => _("PGP Key"),
+            'name' => Horde_Form_Translation::t("PGP Key"),
             'params' => array(
-                'gpg'      => array('label' => _("Path to the GnuPG binary"),
+                'gpg'      => array('label' => Horde_Form_Translation::t("Path to the GnuPG binary"),
                                     'type'  => 'string'),
-                'temp_dir' => array('label' => _("A temporary directory"),
+                'temp_dir' => array('label' => Horde_Form_Translation::t("A temporary directory"),
                                     'type'  => 'string'),
-                'rows'     => array('label' => _("Number of rows"),
+                'rows'     => array('label' => Horde_Form_Translation::t("Number of rows"),
                                     'type'  => 'int'),
-                'cols'     => array('label' => _("Number of columns"),
+                'cols'     => array('label' => Horde_Form_Translation::t("Number of columns"),
                                     'type'  => 'int')));
     }
 
 }
 
-/**
- * @since Horde 3.3
- */
 class Horde_Form_Type_smime extends Horde_Form_Type_longtext {
 
     /**
@@ -844,21 +858,18 @@ class Horde_Form_Type_smime extends Horde_Form_Type_longtext {
     function about()
     {
         return array(
-            'name' => _("S/MIME Key"),
+            'name' => Horde_Form_Translation::t("S/MIME Key"),
             'params' => array(
-                'temp_dir' => array('label' => _("A temporary directory"),
+                'temp_dir' => array('label' => Horde_Form_Translation::t("A temporary directory"),
                                     'type'  => 'string'),
-                'rows'     => array('label' => _("Number of rows"),
+                'rows'     => array('label' => Horde_Form_Translation::t("Number of rows"),
                                     'type'  => 'int'),
-                'cols'     => array('label' => _("Number of columns"),
+                'cols'     => array('label' => Horde_Form_Translation::t("Number of columns"),
                                     'type'  => 'int')));
     }
 
 }
 
-/**
- * @since Horde 3.2
- */
 class Horde_Form_Type_country extends Horde_Form_Type_enum {
 
     function init($prompt = null)
@@ -872,9 +883,9 @@ class Horde_Form_Type_country extends Horde_Form_Type_enum {
     function about()
     {
         return array(
-            'name' => _("Country drop down list"),
+            'name' => Horde_Form_Translation::t("Country drop down list"),
             'params' => array(
-                'prompt' => array('label' => _("Prompt text"),
+                'prompt' => array('label' => Horde_Form_Translation::t("Prompt text"),
                                   'type'  => 'text')));
     }
 
@@ -885,9 +896,10 @@ class Horde_Form_Type_file extends Horde_Form_Type {
     function isValid(&$var, &$vars, $value, &$message)
     {
         if ($var->isRequired()) {
-            $uploaded = Horde_Browser::wasFileUploaded($var->getVarName());
-            if (is_a($uploaded, 'PEAR_Error')) {
-                $message = $uploaded->getMessage();
+            try {
+                $GLOBALS['browser']->wasFileUploaded($var->getVarName());
+            } catch (Horde_Browser_Exception $e) {
+                $message = $e->getMessage();
                 return false;
             }
         }
@@ -898,15 +910,15 @@ class Horde_Form_Type_file extends Horde_Form_Type {
     function getInfo(&$vars, &$var, &$info)
     {
         $name = $var->getVarName();
-        $uploaded = Horde_Browser::wasFileUploaded($name);
-        if ($uploaded === true) {
+        try {
+            $GLOBALS['browser']->wasFileUploaded($name);
             $info['name'] = Horde_Util::dispelMagicQuotes($_FILES[$name]['name']);
             $info['type'] = $_FILES[$name]['type'];
             $info['tmp_name'] = $_FILES[$name]['tmp_name'];
             $info['file'] = $_FILES[$name]['tmp_name'];
             $info['error'] = $_FILES[$name]['error'];
             $info['size'] = $_FILES[$name]['size'];
-        }
+        } catch (Horde_Browser_Exception $e) {}
     }
 
     /**
@@ -914,7 +926,7 @@ class Horde_Form_Type_file extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => _("File upload"));
+        return array('name' => Horde_Form_Translation::t("File upload"));
     }
 
 }
@@ -979,7 +991,7 @@ class Horde_Form_Type_image extends Horde_Form_Type {
          * value of the form. */
         if ($vars->get('_do_' . $var->getVarName())) {
             $var->form->setSubmitted(false);
-            if (is_a($this->_uploaded, 'PEAR_Error')) {
+            if ($this->_uploaded instanceof Horde_Browser_Exception) {
                 $this->_img = array('hash' => $this->getRandomId(),
                                     'error' => $this->_uploaded->getMessage());
             }
@@ -993,7 +1005,7 @@ class Horde_Form_Type_image extends Horde_Form_Type {
         $field = $vars->get($var->getVarName());
 
         /* The upload generated a PEAR Error. */
-        if (is_a($this->_uploaded, 'PEAR_Error')) {
+        if ($this->_uploaded instanceof Horde_Browser_Exception) {
             /* Not required and no image upload attempted. */
             if (!$var->isRequired() && empty($field['hash']) &&
                 $this->_uploaded->getCode() == UPLOAD_ERR_NO_FILE) {
@@ -1003,7 +1015,7 @@ class Horde_Form_Type_image extends Horde_Form_Type {
             if (($this->_uploaded->getCode() == UPLOAD_ERR_NO_FILE) &&
                 empty($field['hash'])) {
                 /* Nothing uploaded and no older upload. */
-                $message = _("This field is required.");
+                $message = Horde_Form_Translation::t("This field is required.");
                 return false;
             } elseif (!empty($field['hash'])) {
                 if ($this->_img && isset($this->_img['error'])) {
@@ -1018,11 +1030,11 @@ class Horde_Form_Type_image extends Horde_Form_Type {
                 return false;
             }
         } elseif (empty($this->_img['img']['size'])) {
-            $message = _("The image file size could not be determined or it was 0 bytes. The upload may have been interrupted.");
+            $message = Horde_Form_Translation::t("The image file size could not be determined or it was 0 bytes. The upload may have been interrupted.");
             return false;
         } elseif ($this->_max_filesize &&
                   $this->_img['img']['size'] > $this->_max_filesize) {
-            $message = sprintf(_("The image file was larger than the maximum allowed size (%d bytes)."), $this->_max_filesize);
+            $message = sprintf(Horde_Form_Translation::t("The image file was larger than the maximum allowed size (%d bytes)."), $this->_max_filesize);
             return false;
         }
 
@@ -1045,7 +1057,7 @@ class Horde_Form_Type_image extends Horde_Form_Type {
             $info['keep_orig'] = !empty($value['keep_orig']);
         }
 
-        /* Set the uploaded value (either true or PEAR_Error). */
+        /* Set the uploaded value (either true or Horde_Browser_Exception). */
         $info['uploaded'] = &$this->_uploaded;
 
         /* If a modified file exists move it over the original. */
@@ -1086,9 +1098,11 @@ class Horde_Form_Type_image extends Horde_Form_Type {
 
         /* Check if file has been uploaded. */
         $varname = $var->getVarName();
-        $this->_uploaded = Horde_Browser::wasFileUploaded($varname . '[new]');
 
-        if ($this->_uploaded === true) {
+        try {
+            $GLOBALS['browser']->wasFileUploaded($varname . '[new]');
+            $this->_uploaded = true;
+
             /* A file has been uploaded on this submit. Save to temp dir for
              * preview work. */
             $this->_img['img']['type'] = $this->getUploadedFileType($varname . '[new]');
@@ -1127,7 +1141,9 @@ class Horde_Form_Type_image extends Horde_Form_Type {
             /* Move the browser created temp file to the new temp file. */
             move_uploaded_file($this->_img['img']['file'], $tmp_file);
             $this->_img['img']['file'] = basename($tmp_file);
-        } elseif ($this->_uploaded) {
+        } catch (Horde_Browser_Exception $e) {
+            $this->_uploaded = $e;
+
             /* File has not been uploaded. */
             $upload = $vars->get($var->getVarName());
             if ($this->_uploaded->getCode() == 4 &&
@@ -1250,13 +1266,13 @@ class Horde_Form_Type_image extends Horde_Form_Type {
     function about()
     {
         return array(
-            'name' => _("Image upload"),
+            'name' => Horde_Form_Translation::t("Image upload"),
             'params' => array(
-                'show_upload'   => array('label' => _("Show upload?"),
+                'show_upload'   => array('label' => Horde_Form_Translation::t("Show upload?"),
                                          'type'  => 'boolean'),
-                'show_keeporig' => array('label' => _("Show option to keep original?"),
+                'show_keeporig' => array('label' => Horde_Form_Translation::t("Show option to keep original?"),
                                          'type'  => 'boolean'),
-                'max_filesize'  => array('label' => _("Maximum file size in bytes"),
+                'max_filesize'  => array('label' => Horde_Form_Translation::t("Maximum file size in bytes"),
                                          'type'  => 'int')));
     }
 
@@ -1279,7 +1295,7 @@ class Horde_Form_Type_boolean extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => _("True or false"));
+        return array('name' => Horde_Form_Translation::t("True or false"));
     }
 
 }
@@ -1310,25 +1326,25 @@ class Horde_Form_Type_link extends Horde_Form_Type {
     function about()
     {
         return array(
-            'name' => _("Link"),
+            'name' => Horde_Form_Translation::t("Link"),
             'params' => array(
                 'url' => array(
-                    'label' => _("Link URL"),
+                    'label' => Horde_Form_Translation::t("Link URL"),
                     'type' => 'text'),
                 'text' => array(
-                    'label' => _("Link text"),
+                    'label' => Horde_Form_Translation::t("Link text"),
                     'type' => 'text'),
                 'target' => array(
-                    'label' => _("Link target"),
+                    'label' => Horde_Form_Translation::t("Link target"),
                     'type' => 'text'),
                 'onclick' => array(
-                    'label' => _("Onclick event"),
+                    'label' => Horde_Form_Translation::t("Onclick event"),
                     'type' => 'text'),
                 'title' => array(
-                    'label' => _("Link title attribute"),
+                    'label' => Horde_Form_Translation::t("Link title attribute"),
                     'type' => 'text'),
                 'accesskey' => array(
-                    'label' => _("Link access key"),
+                    'label' => Horde_Form_Translation::t("Link access key"),
                     'type' => 'text')));
     }
 
@@ -1407,7 +1423,7 @@ class Horde_Form_Type_email extends Horde_Form_Type {
 
         // Check for too many.
         if (!$this->_allow_multi && count($emails) > 1) {
-            $message = _("Only one email address is allowed.");
+            $message = Horde_Form_Translation::t("Only one email address is allowed.");
             return false;
         }
 
@@ -1418,7 +1434,7 @@ class Horde_Form_Type_email extends Horde_Form_Type {
                 continue;
             }
             if (!$this->validateEmailAddress($email)) {
-                $message = sprintf(_("\"%s\" is not a valid email address."), $email);
+                $message = sprintf(Horde_Form_Translation::t("\"%s\" is not a valid email address."), $email);
                 return false;
             }
             ++$nonEmpty;
@@ -1426,9 +1442,9 @@ class Horde_Form_Type_email extends Horde_Form_Type {
 
         if (!$nonEmpty && $var->isRequired()) {
             if ($this->_allow_multi) {
-                $message = _("You must enter at least one email address.");
+                $message = Horde_Form_Translation::t("You must enter at least one email address.");
             } else {
-                $message = _("You must enter an email address.");
+                $message = Horde_Form_Translation::t("You must enter an email address.");
             }
             return false;
         }
@@ -1504,41 +1520,13 @@ class Horde_Form_Type_email extends Horde_Form_Type {
     }
 
     /**
-     * RFC(2)822 Email Parser.
-     *
-     * By Cal Henderson <cal@iamcal.com>
-     * This code is licensed under a Creative Commons Attribution-ShareAlike 2.5 License
-     * http://creativecommons.org/licenses/by-sa/2.5/
-     *
-     * http://code.iamcal.com/php/rfc822/
-     *
-     * http://iamcal.com/publish/articles/php/parsing_email
-     *
-     * Revision 4
-     *
      * @param string $email An individual email address to validate.
      *
      * @return boolean
      */
     function validateEmailAddress($email)
     {
-        static $comment_regexp, $email_regexp;
-        if ($comment_regexp === null) {
-            $this->_defineValidationRegexps($comment_regexp, $email_regexp);
-        }
-
-        // We need to strip comments first (repeat until we can't find
-        // any more).
-        while (true) {
-            $new = preg_replace("!$comment_regexp!", '', $email);
-            if (strlen($new) == strlen($email)){
-                break;
-            }
-            $email = $new;
-        }
-
-        // Now match what's left.
-        $result = (bool)preg_match("!^$email_regexp$!", $email);
+        $result = $this->_isRfc3696ValidEmailAddress($email);
         if ($result && $this->_check_smtp) {
             $result = $this->validateEmailAddressSmtp($email);
         }
@@ -1603,174 +1591,395 @@ class Horde_Form_Type_email extends Horde_Form_Type {
     function about()
     {
         return array(
-            'name' => _("Email"),
+            'name' => Horde_Form_Translation::t("Email"),
             'params' => array(
                 'allow_multi' => array(
-                    'label' => _("Allow multiple addresses?"),
+                    'label' => Horde_Form_Translation::t("Allow multiple addresses?"),
                     'type'  => 'boolean'),
                 'strip_domain' => array(
-                    'label' => _("Protect address from spammers?"),
+                    'label' => Horde_Form_Translation::t("Protect address from spammers?"),
                     'type' => 'boolean'),
                 'link_compose' => array(
-                    'label' => _("Link the email address to the compose page when displaying?"),
+                    'label' => Horde_Form_Translation::t("Link the email address to the compose page when displaying?"),
                     'type' => 'boolean'),
                 'link_name' => array(
-                    'label' => _("The name to use when linking to the compose page"),
+                    'label' => Horde_Form_Translation::t("The name to use when linking to the compose page"),
                     'type' => 'text'),
                 'delimiters' => array(
-                    'label' => _("Character to split multiple addresses with"),
+                    'label' => Horde_Form_Translation::t("Character to split multiple addresses with"),
                     'type' => 'text'),
             ),
         );
     }
 
     /**
-     * RFC(2)822 Email Parser.
+     * RFC3696 Email Parser
      *
      * By Cal Henderson <cal@iamcal.com>
-     * This code is licensed under a Creative Commons Attribution-ShareAlike 2.5 License
-     * http://creativecommons.org/licenses/by-sa/2.5/
      *
-     * http://code.iamcal.com/php/rfc822/
-     *
-     * http://iamcal.com/publish/articles/php/parsing_email
-     *
-     * Revision 4
-     *
-     * @param string &$comment The regexp for comments.
-     * @param string &$addr_spec The regexp for email addresses.
+     * This code is dual licensed:
+     * CC Attribution-ShareAlike 2.5 - http://creativecommons.org/licenses/by-sa/2.5/
+     * GPLv3 - http://www.gnu.org/copyleft/gpl.html
      */
-    function _defineValidationRegexps(&$comment, &$addr_spec)
+    protected function _isRfc3696ValidEmailAddress($email)
     {
-        /**
-         * NO-WS-CTL       =       %d1-8 /         ; US-ASCII control characters
-         *                         %d11 /          ;  that do not include the
-         *                         %d12 /          ;  carriage return, line feed,
-         *                         %d14-31 /       ;  and white space characters
-         *                         %d127
-         * ALPHA          =  %x41-5A / %x61-7A   ; A-Z / a-z
-         * DIGIT          =  %x30-39
-         */
+        ####################################################################################
+        #
+        # NO-WS-CTL       =       %d1-8 /         ; US-ASCII control characters
+        #                         %d11 /          ;  that do not include the
+        #                         %d12 /          ;  carriage return, line feed,
+        #                         %d14-31 /       ;  and white space characters
+        #                         %d127
+        # ALPHA          =  %x41-5A / %x61-7A   ; A-Z / a-z
+        # DIGIT          =  %x30-39
+
         $no_ws_ctl  = "[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x7f]";
         $alpha      = "[\\x41-\\x5a\\x61-\\x7a]";
         $digit      = "[\\x30-\\x39]";
-        $cr         = "\\x0d";
-        $lf         = "\\x0a";
-        $crlf       = "($cr$lf)";
+        $cr     = "\\x0d";
+        $lf     = "\\x0a";
+        $crlf       = "(?:$cr$lf)";
 
-        /**
-         * obs-char        =       %d0-9 / %d11 /          ; %d0-127 except CR and
-         *                         %d12 / %d14-127         ;  LF
-         * obs-text        =       *LF *CR *(obs-char *LF *CR)
-         * text            =       %d1-9 /         ; Characters excluding CR and LF
-         *                         %d11 /
-         *                         %d12 /
-         *                         %d14-127 /
-         *                         obs-text
-         * obs-qp          =       "\" (%d0-127)
-         * quoted-pair     =       ("\" text) / obs-qp
-         */
-        $obs_char       = "[\\x00-\\x09\\x0b\\x0c\\x0e-\\x7f]";
-        $obs_text       = "($lf*$cr*($obs_char$lf*$cr*)*)";
-        $text           = "([\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f]|$obs_text)";
-        $obs_qp         = "(\\x5c[\\x00-\\x7f])";
-        $quoted_pair    = "(\\x5c$text|$obs_qp)";
 
-        /**
-         * obs-FWS         =       1*WSP *(CRLF 1*WSP)
-         * FWS             =       ([*WSP CRLF] 1*WSP) /   ; Folding white space
-         *                         obs-FWS
-         * ctext           =       NO-WS-CTL /     ; Non white space controls
-         *                         %d33-39 /       ; The rest of the US-ASCII
-         *                         %d42-91 /       ;  characters not including "(",
-         *                         %d93-126        ;  ")", or "\"
-         * ccontent        =       ctext / quoted-pair / comment
-         * comment         =       "(" *([FWS] ccontent) [FWS] ")"
-         * CFWS            =       *([FWS] comment) (([FWS] comment) / FWS)
-         *
-         * @note: We translate ccontent only partially to avoid an
-         * infinite loop. Instead, we'll recursively strip comments
-         * before processing the input.
-         */
+        ####################################################################################
+        #
+        # obs-char        =       %d0-9 / %d11 /          ; %d0-127 except CR and
+        #                         %d12 / %d14-127         ;  LF
+        # obs-text        =       *LF *CR *(obs-char *LF *CR)
+        # text            =       %d1-9 /         ; Characters excluding CR and LF
+        #                         %d11 /
+        #                         %d12 /
+        #                         %d14-127 /
+        #                         obs-text
+        # obs-qp          =       "\" (%d0-127)
+        # quoted-pair     =       ("\" text) / obs-qp
+
+        $obs_char   = "[\\x00-\\x09\\x0b\\x0c\\x0e-\\x7f]";
+        $obs_text   = "(?:$lf*$cr*(?:$obs_char$lf*$cr*)*)";
+        $text       = "(?:[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f]|$obs_text)";
+
+        #
+        # there's an issue with the definition of 'text', since 'obs_text' can
+        # be blank and that allows qp's with no character after the slash. we're
+        # treating that as bad, so this just checks we have at least one
+        # (non-CRLF) character
+        #
+
+        $text       = "(?:$lf*$cr*$obs_char$lf*$cr*)";
+        $obs_qp     = "(?:\\x5c[\\x00-\\x7f])";
+        $quoted_pair    = "(?:\\x5c$text|$obs_qp)";
+
+
+        ####################################################################################
+        #
+        # obs-FWS         =       1*WSP *(CRLF 1*WSP)
+        # FWS             =       ([*WSP CRLF] 1*WSP) /   ; Folding white space
+        #                         obs-FWS
+        # ctext           =       NO-WS-CTL /     ; Non white space controls
+        #                         %d33-39 /       ; The rest of the US-ASCII
+        #                         %d42-91 /       ;  characters not including "(",
+        #                         %d93-126        ;  ")", or "\"
+        # ccontent        =       ctext / quoted-pair / comment
+        # comment         =       "(" *([FWS] ccontent) [FWS] ")"
+        # CFWS            =       *([FWS] comment) (([FWS] comment) / FWS)
+
+        #
+        # note: we translate ccontent only partially to avoid an infinite loop
+        # instead, we'll recursively strip *nested* comments before processing
+        # the input. that will leave 'plain old comments' to be matched during
+        # the main parse.
+        #
+
         $wsp        = "[\\x20\\x09]";
-        $obs_fws    = "($wsp+($crlf$wsp+)*)";
-        $fws        = "((($wsp*$crlf)?$wsp+)|$obs_fws)";
-        $ctext      = "($no_ws_ctl|[\\x21-\\x27\\x2A-\\x5b\\x5d-\\x7e])";
-        $ccontent   = "($ctext|$quoted_pair)";
-        $comment    = "(\\x28($fws?$ccontent)*$fws?\\x29)";
-        $cfws       = "(($fws?$comment)*($fws?$comment|$fws))";
-        $cfws       = "$fws*";
+        $obs_fws    = "(?:$wsp+(?:$crlf$wsp+)*)";
+        $fws        = "(?:(?:(?:$wsp*$crlf)?$wsp+)|$obs_fws)";
+        $ctext      = "(?:$no_ws_ctl|[\\x21-\\x27\\x2A-\\x5b\\x5d-\\x7e])";
+        $ccontent   = "(?:$ctext|$quoted_pair)";
+        $comment    = "(?:\\x28(?:$fws?$ccontent)*$fws?\\x29)";
+        $cfws       = "(?:(?:$fws?$comment)*(?:$fws?$comment|$fws))";
 
-        /**
-         * atext           =       ALPHA / DIGIT / ; Any character except controls,
-         *                         "!" / "#" /     ;  SP, and specials.
-         *                         "$" / "%" /     ;  Used for atoms
-         *                         "&" / "'" /
-         *                         "*" / "+" /
-         *                         "-" / "/" /
-         *                         "=" / "?" /
-         *                         "^" / "_" /
-         *                         "`" / "{" /
-         *                         "|" / "}" /
-         *                         "~"
-         * atom            =       [CFWS] 1*atext [CFWS]
-         */
-        $atext      = "($alpha|$digit|[\\x21\\x23-\\x27\\x2a\\x2b\\x2d\\x2e\\x3d\\x3f\\x5e\\x5f\\x60\\x7b-\\x7e])";
-        $atom       = "($cfws?$atext+$cfws?)";
 
-        /**
-         * qtext           =       NO-WS-CTL /     ; Non white space controls
-         *                         %d33 /          ; The rest of the US-ASCII
-         *                         %d35-91 /       ;  characters not including "\"
-         *                         %d93-126        ;  or the quote character
-         * qcontent        =       qtext / quoted-pair
-         * quoted-string   =       [CFWS]
-         *                         DQUOTE *([FWS] qcontent) [FWS] DQUOTE
-         *                         [CFWS]
-         * word            =       atom / quoted-string
-         */
-        $qtext      = "($no_ws_ctl|[\\x21\\x23-\\x5b\\x5d-\\x7e])";
-        $qcontent   = "($qtext|$quoted_pair)";
-        $quoted_string  = "($cfws?\\x22($fws?$qcontent)*$fws?\\x22$cfws?)";
-        $word       = "($atom|$quoted_string)";
+        #
+        # these are the rules for removing *nested* comments. we'll just detect
+        # outer comment and replace it with an empty comment, and recurse until
+        # we stop.
+        #
 
-        /**
-         * obs-local-part  =       word *("." word)
-         * obs-domain      =       atom *("." atom)
-         */
-        $obs_local_part = "($word(\\x2e$word)*)";
-        $obs_domain = "($atom(\\x2e$atom)*)";
+        $outer_ccontent_dull    = "(?:$fws?$ctext|$quoted_pair)";
+        $outer_ccontent_nest    = "(?:$fws?$comment)";
+        $outer_comment      = "(?:\\x28$outer_ccontent_dull*(?:$outer_ccontent_nest$outer_ccontent_dull*)+$fws?\\x29)";
 
-        /**
-         * dot-atom-text   =       1*atext *("." 1*atext)
-         * dot-atom        =       [CFWS] dot-atom-text [CFWS]
-         */
-        $dot_atom_text  = "($atext+(\\x2e$atext+)*)";
-        $dot_atom   = "($cfws?$dot_atom_text$cfws?)";
 
-        /**
-         * domain-literal  =       [CFWS] "[" *([FWS] dcontent) [FWS] "]" [CFWS]
-         * dcontent        =       dtext / quoted-pair
-         * dtext           =       NO-WS-CTL /     ; Non white space controls
-         *
-         *                         %d33-90 /       ; The rest of the US-ASCII
-         *                         %d94-126        ;  characters not including "[",
-         *                                         ;  "]", or "\"
-         */
-        $dtext      = "($no_ws_ctl|[\\x21-\\x5a\\x5e-\\x7e])";
-        $dcontent   = "($dtext|$quoted_pair)";
-        $domain_literal = "($cfws?\\x5b($fws?$dcontent)*$fws?\\x5d$cfws?)";
+        ####################################################################################
+        #
+        # atext           =       ALPHA / DIGIT / ; Any character except controls,
+        #                         "!" / "#" /     ;  SP, and specials.
+        #                         "$" / "%" /     ;  Used for atoms
+        #                         "&" / "'" /
+        #                         "*" / "+" /
+        #                         "-" / "/" /
+        #                         "=" / "?" /
+        #                         "^" / "_" /
+        #                         "`" / "{" /
+        #                         "|" / "}" /
+        #                         "~"
+        # atom            =       [CFWS] 1*atext [CFWS]
 
-        /**
-         * local-part      =       dot-atom / quoted-string / obs-local-part
-         * domain          =       dot-atom / domain-literal / obs-domain
-         * addr-spec       =       local-part "@" domain
-         */
-        $local_part = "($dot_atom|$quoted_string|$obs_local_part)";
-        $domain     = "($dot_atom|$domain_literal|$obs_domain)";
-        $addr_spec  = "($local_part\\x40$domain)";
+        $atext      = "(?:$alpha|$digit|[\\x21\\x23-\\x27\\x2a\\x2b\\x2d\\x2f\\x3d\\x3f\\x5e\\x5f\\x60\\x7b-\\x7e])";
+        $atom       = "(?:$cfws?(?:$atext)+$cfws?)";
+
+
+        ####################################################################################
+        #
+        # qtext           =       NO-WS-CTL /     ; Non white space controls
+        #                         %d33 /          ; The rest of the US-ASCII
+        #                         %d35-91 /       ;  characters not including "\"
+        #                         %d93-126        ;  or the quote character
+        # qcontent        =       qtext / quoted-pair
+        # quoted-string   =       [CFWS]
+        #                         DQUOTE *([FWS] qcontent) [FWS] DQUOTE
+        #                         [CFWS]
+        # word            =       atom / quoted-string
+
+        $qtext      = "(?:$no_ws_ctl|[\\x21\\x23-\\x5b\\x5d-\\x7e])";
+        $qcontent   = "(?:$qtext|$quoted_pair)";
+        $quoted_string  = "(?:$cfws?\\x22(?:$fws?$qcontent)*$fws?\\x22$cfws?)";
+
+        #
+        # changed the '*' to a '+' to require that quoted strings are not empty
+        #
+
+        $quoted_string  = "(?:$cfws?\\x22(?:$fws?$qcontent)+$fws?\\x22$cfws?)";
+        $word       = "(?:$atom|$quoted_string)";
+
+
+        ####################################################################################
+        #
+        # obs-local-part  =       word *("." word)
+        # obs-domain      =       atom *("." atom)
+
+        $obs_local_part = "(?:$word(?:\\x2e$word)*)";
+        $obs_domain = "(?:$atom(?:\\x2e$atom)*)";
+
+
+        ####################################################################################
+        #
+        # dot-atom-text   =       1*atext *("." 1*atext)
+        # dot-atom        =       [CFWS] dot-atom-text [CFWS]
+
+        $dot_atom_text  = "(?:$atext+(?:\\x2e$atext+)*)";
+        $dot_atom   = "(?:$cfws?$dot_atom_text$cfws?)";
+
+
+        ####################################################################################
+        #
+        # domain-literal  =       [CFWS] "[" *([FWS] dcontent) [FWS] "]" [CFWS]
+        # dcontent        =       dtext / quoted-pair
+        # dtext           =       NO-WS-CTL /     ; Non white space controls
+        #
+        #                         %d33-90 /       ; The rest of the US-ASCII
+        #                         %d94-126        ;  characters not including "[",
+        #                                         ;  "]", or "\"
+
+        $dtext      = "(?:$no_ws_ctl|[\\x21-\\x5a\\x5e-\\x7e])";
+        $dcontent   = "(?:$dtext|$quoted_pair)";
+        $domain_literal = "(?:$cfws?\\x5b(?:$fws?$dcontent)*$fws?\\x5d$cfws?)";
+
+
+        ####################################################################################
+        #
+        # local-part      =       dot-atom / quoted-string / obs-local-part
+        # domain          =       dot-atom / domain-literal / obs-domain
+        # addr-spec       =       local-part "@" domain
+
+        $local_part = "(($dot_atom)|($quoted_string)|($obs_local_part))";
+        $domain     = "(($dot_atom)|($domain_literal)|($obs_domain))";
+        $addr_spec  = "$local_part\\x40$domain";
+
+
+
+        #
+        # see http://www.dominicsayers.com/isemail/ for details, but this should probably be 254
+        #
+
+        if (strlen($email) > 256) return 0;
+
+
+        #
+        # we need to strip nested comments first - we replace them with a simple comment
+        #
+
+        $email = $this->_rfc3696StripComments($outer_comment, $email, "(x)");
+
+
+        #
+        # now match what's left
+        #
+
+        if (!preg_match("!^$addr_spec$!", $email, $m)){
+
+            return 0;
+        }
+
+        $bits = array(
+            'local'         => isset($m[1]) ? $m[1] : '',
+            'local-atom'        => isset($m[2]) ? $m[2] : '',
+            'local-quoted'      => isset($m[3]) ? $m[3] : '',
+            'local-obs'     => isset($m[4]) ? $m[4] : '',
+            'domain'        => isset($m[5]) ? $m[5] : '',
+            'domain-atom'       => isset($m[6]) ? $m[6] : '',
+            'domain-literal'    => isset($m[7]) ? $m[7] : '',
+            'domain-obs'        => isset($m[8]) ? $m[8] : '',
+        );
+
+
+        #
+        # we need to now strip comments from $bits[local] and $bits[domain],
+        # since we know they're i the right place and we want them out of the
+        # way for checking IPs, label sizes, etc
+        #
+
+        $bits['local']  = $this->_rfc3696StripComments($comment, $bits['local']);
+        $bits['domain'] = $this->_rfc3696StripComments($comment, $bits['domain']);
+
+
+        #
+        # length limits on segments
+        #
+
+        if (strlen($bits['local']) > 64) return 0;
+        if (strlen($bits['domain']) > 255) return 0;
+
+
+        #
+        # restrictuions on domain-literals from RFC2821 section 4.1.3
+        #
+
+        if (strlen($bits['domain-literal'])){
+
+            $Snum           = "(\d{1,3})";
+            $IPv4_address_literal   = "$Snum\.$Snum\.$Snum\.$Snum";
+
+            $IPv6_hex       = "(?:[0-9a-fA-F]{1,4})";
+
+            $IPv6_full      = "IPv6\:$IPv6_hex(:?\:$IPv6_hex){7}";
+
+            $IPv6_comp_part     = "(?:$IPv6_hex(?:\:$IPv6_hex){0,5})?";
+            $IPv6_comp      = "IPv6\:($IPv6_comp_part\:\:$IPv6_comp_part)";
+
+            $IPv6v4_full        = "IPv6\:$IPv6_hex(?:\:$IPv6_hex){5}\:$IPv4_address_literal";
+
+            $IPv6v4_comp_part   = "$IPv6_hex(?:\:$IPv6_hex){0,3}";
+            $IPv6v4_comp        = "IPv6\:((?:$IPv6v4_comp_part)?\:\:(?:$IPv6v4_comp_part\:)?)$IPv4_address_literal";
+
+
+            #
+            # IPv4 is simple
+            #
+
+            if (preg_match("!^\[$IPv4_address_literal\]$!", $bits['domain'], $m)) {
+                if (intval($m[1]) > 255) return 0;
+                if (intval($m[2]) > 255) return 0;
+                if (intval($m[3]) > 255) return 0;
+                if (intval($m[4]) > 255) return 0;
+            } else {
+                #
+                # this should be IPv6 - a bunch of tests are needed here :)
+                #
+
+                while (1) {
+
+                    if (preg_match("!^\[$IPv6_full\]$!", $bits['domain'])){
+                        break;
+                    }
+
+                    if (preg_match("!^\[$IPv6_comp\]$!", $bits['domain'], $m)){
+                        list($a, $b) = explode('::', $m[1]);
+                        $folded = (strlen($a) && strlen($b)) ? "$a:$b" : "$a$b";
+                        $groups = explode(':', $folded);
+                        if (count($groups) > 6) return 0;
+                        break;
+                    }
+
+                    if (preg_match("!^\[$IPv6v4_full\]$!", $bits['domain'], $m)) {
+                        if (intval($m[1]) > 255) return 0;
+                        if (intval($m[2]) > 255) return 0;
+                        if (intval($m[3]) > 255) return 0;
+                        if (intval($m[4]) > 255) return 0;
+                        break;
+                    }
+
+                    if (preg_match("!^\[$IPv6v4_comp\]$!", $bits['domain'], $m)) {
+                        list($a, $b) = explode('::', $m[1]);
+                        $b = substr($b, 0, -1); # remove the trailing colon before the IPv4 address
+                        $folded = (strlen($a) && strlen($b)) ? "$a:$b" : "$a$b";
+                        $groups = explode(':', $folded);
+                        if (count($groups) > 4) return 0;
+                        break;
+                    }
+
+                    return 0;
+                }
+            }
+        } else {
+            #
+            # the domain is either dot-atom or obs-domain - either way, it's
+            # made up of simple labels and we split on dots
+            #
+
+            $labels = explode('.', $bits['domain']);
+
+
+            #
+            # this is allowed by both dot-atom and obs-domain, but is un-routeable on the
+            # public internet, so we'll fail it (e.g. user@localhost)
+            #
+
+            if (count($labels) == 1) return 0;
+
+
+            #
+            # checks on each label
+            #
+
+            foreach ($labels as $label) {
+                if (strlen($label) > 63) return 0;
+                if (substr($label, 0, 1) == '-') return 0;
+                if (substr($label, -1) == '-') return 0;
+            }
+
+
+            #
+            # last label can't be all numeric
+            #
+
+            if (preg_match('!^[0-9]+$!', array_pop($labels))) return 0;
+        }
+
+        return 1;
     }
 
+    /**
+     * RFC3696 Email Parser
+     *
+     * By Cal Henderson <cal@iamcal.com>
+     *
+     * This code is dual licensed:
+     * CC Attribution-ShareAlike 2.5 - http://creativecommons.org/licenses/by-sa/2.5/
+     * GPLv3 - http://www.gnu.org/copyleft/gpl.html
+     *
+     * $Revision: 5039 $
+     */
+    protected function _rfc3696StripComments($comment, $email, $replace = '')
+    {
+        while (1) {
+            $new = preg_replace("!$comment!", $replace, $email);
+            if (strlen($new) == strlen($email)) {
+                return $email;
+            }
+            $email = $new;
+        }
+    }
 }
 
 class Horde_Form_Type_matrix extends Horde_Form_Type {
@@ -1835,9 +2044,9 @@ class Horde_Form_Type_matrix extends Horde_Form_Type {
     function about()
     {
         return array(
-            'name' => _("Field matrix"),
+            'name' => Horde_Form_Translation::t("Field matrix"),
             'params' => array(
-                'cols' => array('label' => _("Column titles"),
+                'cols' => array('label' => Horde_Form_Translation::t("Column titles"),
                                 'type'  => 'stringarray')));
     }
 
@@ -1848,26 +2057,26 @@ class Horde_Form_Type_emailConfirm extends Horde_Form_Type {
     function isValid(&$var, &$vars, $value, &$message)
     {
         if ($var->isRequired() && empty($value['original'])) {
-            $message = _("This field is required.");
+            $message = Horde_Form_Translation::t("This field is required.");
             return false;
         }
 
         if ($value['original'] != $value['confirm']) {
-            $message = _("Email addresses must match.");
+            $message = Horde_Form_Translation::t("Email addresses must match.");
             return false;
         } else {
-            $parsed_email = Horde_Mime_Address::parseAddressList($value['original'],
-                                                                 array('validate' => true));
-            if (is_a($parsed_email, 'PEAR_Error')) {
-                $message = $parsed_email->getMessage();
+            try {
+                $parsed_email = Horde_Mime_Address::parseAddressList($value['original'], array('validate' => true));
+            } catch (Horde_Mime_Exception $e) {
+                $message = $e->getMessage();
                 return false;
             }
             if (count($parsed_email) > 1) {
-                $message = _("Only one email address allowed.");
+                $message = Horde_Form_Translation::t("Only one email address allowed.");
                 return false;
             }
             if (empty($parsed_email[0]->mailbox)) {
-                $message = _("You did not enter a valid email address.");
+                $message = Horde_Form_Translation::t("You did not enter a valid email address.");
                 return false;
             }
         }
@@ -1880,7 +2089,7 @@ class Horde_Form_Type_emailConfirm extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => _("Email with confirmation"));
+        return array('name' => Horde_Form_Translation::t("Email with confirmation"));
     }
 
 }
@@ -1895,7 +2104,7 @@ class Horde_Form_Type_password extends Horde_Form_Type {
             $valid = strlen(trim($value)) > 0;
 
             if (!$valid) {
-                $message = _("This field is required.");
+                $message = Horde_Form_Translation::t("This field is required.");
             }
         }
 
@@ -1907,7 +2116,7 @@ class Horde_Form_Type_password extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => _("Password"));
+        return array('name' => Horde_Form_Translation::t("Password"));
     }
 
 }
@@ -1917,12 +2126,12 @@ class Horde_Form_Type_passwordconfirm extends Horde_Form_Type {
     function isValid(&$var, &$vars, $value, &$message)
     {
         if ($var->isRequired() && empty($value['original'])) {
-            $message = _("This field is required.");
+            $message = Horde_Form_Translation::t("This field is required.");
             return false;
         }
 
         if ($value['original'] != $value['confirm']) {
-            $message = _("Passwords must match.");
+            $message = Horde_Form_Translation::t("Passwords must match.");
             return false;
         }
 
@@ -1940,7 +2149,7 @@ class Horde_Form_Type_passwordconfirm extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => _("Password with confirmation"));
+        return array('name' => Horde_Form_Translation::t("Password with confirmation"));
     }
 
 }
@@ -1955,7 +2164,7 @@ class Horde_Form_Type_enum extends Horde_Form_Type {
         $this->setValues($values);
 
         if ($prompt === true) {
-            $this->_prompt = _("-- select --");
+            $this->_prompt = Horde_Form_Translation::t("-- select --");
         } else {
             $this->_prompt = $prompt;
         }
@@ -1964,7 +2173,7 @@ class Horde_Form_Type_enum extends Horde_Form_Type {
     function isValid(&$var, &$vars, $value, &$message)
     {
         if ($var->isRequired() && $value == '' && !isset($this->_values[$value])) {
-            $message = _("This field is required.");
+            $message = Horde_Form_Translation::t("This field is required.");
             return false;
         }
 
@@ -1973,7 +2182,7 @@ class Horde_Form_Type_enum extends Horde_Form_Type {
             return true;
         }
 
-        $message = _("Invalid data submitted.");
+        $message = Horde_Form_Translation::t("Invalid data submitted.");
         return false;
     }
 
@@ -1982,9 +2191,6 @@ class Horde_Form_Type_enum extends Horde_Form_Type {
         return $this->_values;
     }
 
-    /**
-     * @since Horde 3.2
-     */
     function setValues($values)
     {
         $this->_values = $values;
@@ -2001,11 +2207,11 @@ class Horde_Form_Type_enum extends Horde_Form_Type {
     function about()
     {
         return array(
-            'name' => _("Drop down list"),
+            'name' => Horde_Form_Translation::t("Drop down list"),
             'params' => array(
-                'values' => array('label' => _("Values to select from"),
+                'values' => array('label' => Horde_Form_Translation::t("Values to select from"),
                                   'type'  => 'stringarray'),
-                'prompt' => array('label' => _("Prompt text"),
+                'prompt' => array('label' => Horde_Form_Translation::t("Prompt text"),
                                   'type'  => 'text')));
     }
 
@@ -2021,7 +2227,7 @@ class Horde_Form_Type_mlenum extends Horde_Form_Type {
         $this->_values = &$values;
 
         if ($prompts === true) {
-            $this->_prompts = array(_("-- select --"), _("-- select --"));
+            $this->_prompts = array(Horde_Form_Translation::t("-- select --"), Horde_Form_Translation::t("-- select --"));
         } elseif (!is_array($prompts)) {
             $this->_prompts = array($prompts, $prompts);
         } else {
@@ -2042,7 +2248,7 @@ class Horde_Form_Type_mlenum extends Horde_Form_Type {
     function isValid(&$var, &$vars, $value, &$message)
     {
         if ($var->isRequired() && (empty($value['1']) || empty($value['2']))) {
-            $message = _("This field is required.");
+            $message = Horde_Form_Translation::t("This field is required.");
             return false;
         }
 
@@ -2051,7 +2257,7 @@ class Horde_Form_Type_mlenum extends Horde_Form_Type {
             return true;
         }
 
-        $message = _("Invalid data submitted.");
+        $message = Horde_Form_Translation::t("Invalid data submitted.");
         return false;
     }
 
@@ -2077,11 +2283,11 @@ class Horde_Form_Type_mlenum extends Horde_Form_Type {
     function about()
     {
         return array(
-            'name' => _("Multi-level drop down lists"),
+            'name' => Horde_Form_Translation::t("Multi-level drop down lists"),
             'params' => array(
-                'values' => array('label' => _("Values to select from"),
+                'values' => array('label' => Horde_Form_Translation::t("Values to select from"),
                                   'type'  => 'stringarray'),
-                'prompt' => array('label' => _("Prompt text"),
+                'prompt' => array('label' => Horde_Form_Translation::t("Prompt text"),
                                   'type'  => 'text')));
     }
 
@@ -2113,7 +2319,7 @@ class Horde_Form_Type_multienum extends Horde_Form_Type_enum {
 
         if (empty($value) && ((string)(int)$value !== $value)) {
             if ($var->isRequired()) {
-                $message = _("This field is required.");
+                $message = Horde_Form_Translation::t("This field is required.");
                 return false;
             } else {
                 return true;
@@ -2124,7 +2330,7 @@ class Horde_Form_Type_multienum extends Horde_Form_Type_enum {
             return true;
         }
 
-        $message = _("Invalid data submitted.");
+        $message = Horde_Form_Translation::t("Invalid data submitted.");
         return false;
     }
 
@@ -2134,11 +2340,11 @@ class Horde_Form_Type_multienum extends Horde_Form_Type_enum {
     function about()
     {
         return array(
-            'name' => _("Multiple selection"),
+            'name' => Horde_Form_Translation::t("Multiple selection"),
             'params' => array(
-                'values' => array('label' => _("Values"),
+                'values' => array('label' => Horde_Form_Translation::t("Values"),
                                   'type'  => 'stringarray'),
-                'size'   => array('label' => _("Size"),
+                'size'   => array('label' => Horde_Form_Translation::t("Size"),
                                   'type'  => 'int'))
         );
     }
@@ -2169,9 +2375,9 @@ class Horde_Form_Type_radio extends Horde_Form_Type_enum {
     function about()
     {
         return array(
-            'name' => _("Radio selection"),
+            'name' => Horde_Form_Translation::t("Radio selection"),
             'params' => array(
-                'values' => array('label' => _("Values"),
+                'values' => array('label' => Horde_Form_Translation::t("Values"),
                                   'type'  => 'stringarray')));
     }
 
@@ -2203,7 +2409,7 @@ class Horde_Form_Type_set extends Horde_Form_Type {
             return true;
         }
 
-        $message = _("Invalid data submitted.");
+        $message = Horde_Form_Translation::t("Invalid data submitted.");
         return false;
     }
 
@@ -2218,9 +2424,9 @@ class Horde_Form_Type_set extends Horde_Form_Type {
     function about()
     {
         return array(
-            'name' => _("Set"),
+            'name' => Horde_Form_Translation::t("Set"),
             'params' => array(
-                'values' => array('label' => _("Values"),
+                'values' => array('label' => Horde_Form_Translation::t("Values"),
                                   'type'  => 'stringarray')));
     }
 
@@ -2243,7 +2449,7 @@ class Horde_Form_Type_date extends Horde_Form_Type {
             $valid = strlen(trim($value)) > 0;
 
             if (!$valid) {
-                $message = sprintf(_("%s is required"), $var->getHumanName());
+                $message = sprintf(Horde_Form_Translation::t("%s is required"), $var->getHumanName());
             }
         }
 
@@ -2288,15 +2494,15 @@ class Horde_Form_Type_date extends Horde_Form_Type {
                                                    date('j'), date('n'),
                                                    date('Y'));
         if ($ago < -1) {
-            return sprintf(_(" (%s days ago)"), $diffdays);
+            return sprintf(Horde_Form_Translation::t(" (%s days ago)"), $diffdays);
         } elseif ($ago == -1) {
-            return _(" (yesterday)");
+            return Horde_Form_Translation::t(" (yesterday)");
         } elseif ($ago == 0) {
-            return _(" (today)");
+            return Horde_Form_Translation::t(" (today)");
         } elseif ($ago == 1) {
-            return _(" (tomorrow)");
+            return Horde_Form_Translation::t(" (tomorrow)");
         } else {
-            return sprintf(_(" (in %s days)"), $diffdays);
+            return sprintf(Horde_Form_Translation::t(" (in %s days)"), $diffdays);
         }
     }
 
@@ -2317,7 +2523,7 @@ class Horde_Form_Type_date extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => _("Date"));
+        return array('name' => Horde_Form_Translation::t("Date"));
     }
 
 }
@@ -2327,7 +2533,7 @@ class Horde_Form_Type_time extends Horde_Form_Type {
     function isValid(&$var, &$vars, $value, &$message)
     {
         if ($var->isRequired() && empty($value) && ((string)(double)$value !== $value)) {
-            $message = _("This field is required.");
+            $message = Horde_Form_Translation::t("This field is required.");
             return false;
         }
 
@@ -2335,7 +2541,7 @@ class Horde_Form_Type_time extends Horde_Form_Type {
             return true;
         }
 
-        $message = _("This field may only contain numbers and the colon.");
+        $message = Horde_Form_Translation::t("This field may only contain numbers and the colon.");
         return false;
     }
 
@@ -2344,7 +2550,7 @@ class Horde_Form_Type_time extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => _("Time"));
+        return array('name' => Horde_Form_Translation::t("Time"));
     }
 
 }
@@ -2366,10 +2572,10 @@ class Horde_Form_Type_hourminutesecond extends Horde_Form_Type {
         }
 
         if (!$this->emptyTimeArray($time) && !$this->checktime($time['hour'], $time['minute'], $time['second'])) {
-            $message = _("Please enter a valid time.");
+            $message = Horde_Form_Translation::t("Please enter a valid time.");
             return false;
         } elseif ($this->emptyTimeArray($time) && $var->isRequired()) {
-            $message = _("This field is required.");
+            $message = Horde_Form_Translation::t("This field is required.");
             return false;
         }
 
@@ -2454,9 +2660,9 @@ class Horde_Form_Type_hourminutesecond extends Horde_Form_Type {
     function about()
     {
         return array(
-            'name' => _("Time selection"),
+            'name' => Horde_Form_Translation::t("Time selection"),
             'params' => array(
-                'seconds' => array('label' => _("Show seconds?"),
+                'seconds' => array('label' => Horde_Form_Translation::t("Show seconds?"),
                                    'type'  => 'boolean')));
     }
 
@@ -2488,7 +2694,7 @@ class Horde_Form_Type_monthyear extends Horde_Form_Type {
 
         if (!$vars->get($this->getMonthVar($var)) ||
             !$vars->get($this->getYearVar($var))) {
-            $message = _("Please enter a month and a year.");
+            $message = Horde_Form_Translation::t("Please enter a month and a year.");
             return false;
         }
 
@@ -2510,11 +2716,11 @@ class Horde_Form_Type_monthyear extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => _("Month and year"),
+        return array('name' => Horde_Form_Translation::t("Month and year"),
                      'params' => array(
-                         'start_year' => array('label' => _("Start year"),
+                         'start_year' => array('label' => Horde_Form_Translation::t("Start year"),
                                                'type'  => 'int'),
-                         'end_year'   => array('label' => _("End year"),
+                         'end_year'   => array('label' => Horde_Form_Translation::t("End year"),
                                                'type'  => 'int')));
     }
 
@@ -2563,15 +2769,15 @@ class Horde_Form_Type_monthdayyear extends Horde_Form_Type {
         $empty = $this->emptyDateArray($date);
 
         if ($empty == 1 && $var->isRequired()) {
-            $message = _("This field is required.");
+            $message = Horde_Form_Translation::t("This field is required.");
             return false;
         } elseif ($empty == 0 && !checkdate($date['month'],
                                             $date['day'],
                                             $date['year'])) {
-            $message = _("Please enter a valid date, check the number of days in the month.");
+            $message = Horde_Form_Translation::t("Please enter a valid date, check the number of days in the month.");
             return false;
         } elseif ($empty == -1) {
-            $message = _("Select all date components.");
+            $message = Horde_Form_Translation::t("Select all date components.");
             return false;
         }
 
@@ -2726,25 +2932,22 @@ class Horde_Form_Type_monthdayyear extends Horde_Form_Type {
     function about()
     {
         return array(
-            'name' => _("Date selection"),
+            'name' => Horde_Form_Translation::t("Date selection"),
             'params' => array(
-                'start_year' => array('label' => _("Start year"),
+                'start_year' => array('label' => Horde_Form_Translation::t("Start year"),
                                       'type'  => 'int'),
-                'end_year'   => array('label' => _("End year"),
+                'end_year'   => array('label' => Horde_Form_Translation::t("End year"),
                                       'type'  => 'int'),
-                'picker'     => array('label' => _("Show picker?"),
+                'picker'     => array('label' => Horde_Form_Translation::t("Show picker?"),
                                       'type'  => 'boolean'),
-                'format_in'  => array('label' => _("Storage format"),
+                'format_in'  => array('label' => Horde_Form_Translation::t("Storage format"),
                                       'type'  => 'text'),
-                'format_out' => array('label' => _("Display format"),
+                'format_out' => array('label' => Horde_Form_Translation::t("Display format"),
                                       'type'  => 'text')));
     }
 
 }
 
-/**
- * @since Horde 3.2
- */
 class Horde_Form_Type_datetime extends Horde_Form_Type {
 
     var $_mdy;
@@ -2797,9 +3000,9 @@ class Horde_Form_Type_datetime extends Horde_Form_Type {
 
             $valid = $mdy_valid && $hms_valid;
             if ($mdy_valid && !$hms_valid) {
-                $message = _("You must choose a time.");
+                $message = Horde_Form_Translation::t("You must choose a time.");
             } elseif ($hms_valid && !$mdy_valid) {
-                $message = _("You must choose a date.");
+                $message = Horde_Form_Translation::t("You must choose a date.");
             }
         }
 
@@ -2892,19 +3095,19 @@ class Horde_Form_Type_datetime extends Horde_Form_Type {
     function about()
     {
         return array(
-            'name' => _("Date and time selection"),
+            'name' => Horde_Form_Translation::t("Date and time selection"),
             'params' => array(
-                'start_year' => array('label' => _("Start year"),
+                'start_year' => array('label' => Horde_Form_Translation::t("Start year"),
                                       'type'  => 'int'),
-                'end_year'   => array('label' => _("End year"),
+                'end_year'   => array('label' => Horde_Form_Translation::t("End year"),
                                       'type'  => 'int'),
-                'picker'     => array('label' => _("Show picker?"),
+                'picker'     => array('label' => Horde_Form_Translation::t("Show picker?"),
                                       'type'  => 'boolean'),
-                'format_in'  => array('label' => _("Storage format"),
+                'format_in'  => array('label' => Horde_Form_Translation::t("Storage format"),
                                       'type'  => 'text'),
-                'format_out' => array('label' => _("Display format"),
+                'format_out' => array('label' => Horde_Form_Translation::t("Display format"),
                                       'type'  => 'text'),
-                'seconds'    => array('label' => _("Show seconds?"),
+                'seconds'    => array('label' => Horde_Form_Translation::t("Show seconds?"),
                                       'type'  => 'boolean')));
     }
 
@@ -2915,7 +3118,7 @@ class Horde_Form_Type_colorpicker extends Horde_Form_Type {
     function isValid(&$var, &$vars, $value, &$message)
     {
         if ($var->isRequired() && empty($value)) {
-            $message = _("This field is required.");
+            $message = Horde_Form_Translation::t("This field is required.");
             return false;
         }
 
@@ -2923,7 +3126,7 @@ class Horde_Form_Type_colorpicker extends Horde_Form_Type {
             return true;
         }
 
-        $message = _("This field must contain a color code in the RGB Hex format, for example '#1234af'.");
+        $message = Horde_Form_Translation::t("This field must contain a color code in the RGB Hex format, for example '#1234af'.");
         return false;
     }
 
@@ -2932,7 +3135,7 @@ class Horde_Form_Type_colorpicker extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => _("Colour selection"));
+        return array('name' => Horde_Form_Translation::t("Colour selection"));
     }
 
 }
@@ -2943,9 +3146,7 @@ class Horde_Form_Type_sound extends Horde_Form_Type {
 
     function init()
     {
-        foreach (glob($GLOBALS['registry']->get('themesfs', 'horde') . '/sounds/*.wav') as $sound) {
-            $this->_sounds[] = basename($sound);
-        }
+        $this->_sounds = array_keys(Horde_Themes::soundList());
     }
 
     function getSounds()
@@ -2956,7 +3157,7 @@ class Horde_Form_Type_sound extends Horde_Form_Type {
     function isValid(&$var, &$vars, $value, &$message)
     {
         if ($var->isRequired() && empty($value)) {
-            $message = _("This field is required.");
+            $message = Horde_Form_Translation::t("This field is required.");
             return false;
         }
 
@@ -2964,7 +3165,7 @@ class Horde_Form_Type_sound extends Horde_Form_Type {
             return true;
         }
 
-        $message = _("Please choose a sound.");
+        $message = Horde_Form_Translation::t("Please choose a sound.");
         return false;
     }
 
@@ -2973,7 +3174,7 @@ class Horde_Form_Type_sound extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => _("Sound selection"));
+        return array('name' => Horde_Form_Translation::t("Sound selection"));
     }
 
 }
@@ -3052,13 +3253,13 @@ class Horde_Form_Type_sorter extends Horde_Form_Type {
     function about()
     {
         return array(
-            'name' => _("Sort order selection"),
+            'name' => Horde_Form_Translation::t("Sort order selection"),
             'params' => array(
-                'values' => array('label' => _("Values"),
+                'values' => array('label' => Horde_Form_Translation::t("Values"),
                                   'type'  => 'stringarray'),
-                'size'   => array('label' => _("Size"),
+                'size'   => array('label' => Horde_Form_Translation::t("Size"),
                                   'type'  => 'int'),
-                'header' => array('label' => _("Header"),
+                'header' => array('label' => Horde_Form_Translation::t("Header"),
                                   'type'  => 'text')));
     }
 
@@ -3099,7 +3300,7 @@ class Horde_Form_Type_selectfiles extends Horde_Form_Type {
     {
         $this->_selectid = $selectid;
         if (is_null($link_text)) {
-            $link_text = _("Select Files");
+            $link_text = Horde_Form_Translation::t("Select Files");
         }
         $this->_link_text = $link_text;
         $this->_link_style = $link_style;
@@ -3120,15 +3321,15 @@ class Horde_Form_Type_selectfiles extends Horde_Form_Type {
     function about()
     {
         return array(
-            'name' => _("File selection"),
+            'name' => Horde_Form_Translation::t("File selection"),
             'params' => array(
-                'selectid'   => array('label' => _("Id"),
+                'selectid'   => array('label' => Horde_Form_Translation::t("Id"),
                                       'type' => 'text'),
-                'link_text'  => array('label' => _("Link text"),
+                'link_text'  => array('label' => Horde_Form_Translation::t("Link text"),
                                       'type' => 'text'),
-                'link_style' => array('label' => _("Link style"),
+                'link_style' => array('label' => Horde_Form_Translation::t("Link style"),
                                       'type' => 'text'),
-                'icon'       => array('label' => _("Show icon?"),
+                'icon'       => array('label' => Horde_Form_Translation::t("Show icon?"),
                                       'type' => 'boolean')));
     }
 
@@ -3246,19 +3447,19 @@ class Horde_Form_Type_assign extends Horde_Form_Type {
     function about()
     {
         return array(
-            'name' => _("Assignment columns"),
+            'name' => Horde_Form_Translation::t("Assignment columns"),
             'params' => array(
-                'leftValues'  => array('label' => _("Left values"),
+                'leftValues'  => array('label' => Horde_Form_Translation::t("Left values"),
                                        'type'  => 'stringarray'),
-                'rightValues' => array('label' => _("Right values"),
+                'rightValues' => array('label' => Horde_Form_Translation::t("Right values"),
                                        'type'  => 'stringarray'),
-                'leftHeader'  => array('label' => _("Left header"),
+                'leftHeader'  => array('label' => Horde_Form_Translation::t("Left header"),
                                        'type'  => 'text'),
-                'rightHeader' => array('label' => _("Right header"),
+                'rightHeader' => array('label' => Horde_Form_Translation::t("Right header"),
                                        'type'  => 'text'),
-                'size'        => array('label' => _("Size"),
+                'size'        => array('label' => Horde_Form_Translation::t("Size"),
                                        'type'  => 'int'),
-                'width'       => array('label' => _("Width in CSS units"),
+                'width'       => array('label' => Horde_Form_Translation::t("Width in CSS units"),
                                        'type'  => 'text')));
     }
 
@@ -3269,7 +3470,7 @@ class Horde_Form_Type_creditcard extends Horde_Form_Type {
     function isValid(&$var, &$vars, $value, &$message)
     {
         if (empty($value) && $var->isRequired()) {
-            $message = _("This field is required.");
+            $message = Horde_Form_Translation::t("This field is required.");
             return false;
         }
 
@@ -3277,7 +3478,7 @@ class Horde_Form_Type_creditcard extends Horde_Form_Type {
             /* getCardType() will also verify the checksum. */
             $type = $this->getCardType($value);
             if ($type === false || $type == 'unknown') {
-                $message = _("This does not seem to be a valid card number.");
+                $message = Horde_Form_Translation::t("This does not seem to be a valid card number.");
                 return false;
             }
         }
@@ -3361,7 +3562,7 @@ class Horde_Form_Type_creditcard extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => _("Credit card number"));
+        return array('name' => Horde_Form_Translation::t("Credit card number"));
     }
 
 }
@@ -3378,7 +3579,7 @@ class Horde_Form_Type_obrowser extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => _("Relationship browser"));
+        return array('name' => Horde_Form_Translation::t("Relationship browser"));
     }
 
 }
@@ -3387,21 +3588,21 @@ class Horde_Form_Type_dblookup extends Horde_Form_Type_enum {
 
     function init($dsn, $sql, $prompt = null)
     {
-        require_once 'DB.php';
         $values = array();
         $db = DB::connect($dsn);
-        if (!is_a($db, 'PEAR_Error')) {
+        if (!($db instanceof PEAR_Error)) {
             // Set DB portability options.
             switch ($db->phptype) {
             case 'mssql':
                 $db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
                 break;
+
             default:
                 $db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
             }
 
             $col = $db->getCol($sql);
-            if (!is_a($col, 'PEAR_Error')) {
+            if (!($col instanceof PEAR_Error)) {
                 $values = array_combine($col, $col);
             }
         }
@@ -3414,13 +3615,13 @@ class Horde_Form_Type_dblookup extends Horde_Form_Type_enum {
     function about()
     {
         return array(
-            'name' => _("Database lookup"),
+            'name' => Horde_Form_Translation::t("Database lookup"),
             'params' => array(
-                'dsn' => array('label' => _("DSN (see http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"),
+                'dsn' => array('label' => Horde_Form_Translation::t("DSN (see http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"),
                                'type'  => 'text'),
-                'sql' => array('label' => _("SQL statement for value lookups"),
+                'sql' => array('label' => Horde_Form_Translation::t("SQL statement for value lookups"),
                                'type'  => 'text'),
-                'prompt' => array('label' => _("Prompt text"),
+                'prompt' => array('label' => Horde_Form_Translation::t("Prompt text"),
                                   'type'  => 'text'))
             );
     }
@@ -3441,12 +3642,12 @@ class Horde_Form_Type_figlet extends Horde_Form_Type {
     function isValid(&$var, &$vars, $value, &$message)
     {
         if (empty($value) && $var->isRequired()) {
-            $message = _("This field is required.");
+            $message = Horde_Form_Translation::t("This field is required.");
             return false;
         }
 
         if (Horde_String::lower($value) != Horde_String::lower($this->_text)) {
-            $message = _("The text you entered did not match the text on the screen.");
+            $message = Horde_Form_Translation::t("The text you entered did not match the text on the screen.");
             return false;
         }
 
@@ -3469,11 +3670,11 @@ class Horde_Form_Type_figlet extends Horde_Form_Type {
     function about()
     {
         return array(
-            'name' => _("Figlet CAPTCHA"),
+            'name' => Horde_Form_Translation::t("Figlet CAPTCHA"),
             'params' => array(
-                'text' => array('label' => _("Text"),
+                'text' => array('label' => Horde_Form_Translation::t("Text"),
                                 'type'  => 'text'),
-                'font' => array('label' => _("Figlet font"),
+                'font' => array('label' => Horde_Form_Translation::t("Figlet font"),
                                 'type'  => 'text'))
             );
     }
@@ -3488,20 +3689,17 @@ class Horde_Form_Type_captcha extends Horde_Form_Type_figlet {
     function about()
     {
         return array(
-            'name' => _("Image CAPTCHA"),
+            'name' => Horde_Form_Translation::t("Image CAPTCHA"),
             'params' => array(
-                'text' => array('label' => _("Text"),
+                'text' => array('label' => Horde_Form_Translation::t("Text"),
                                 'type'  => 'text'),
-                'font' => array('label' => _("Font"),
+                'font' => array('label' => Horde_Form_Translation::t("Font"),
                                 'type'  => 'text'))
             );
     }
 
 }
 
-/**
- * @since Horde 3.2
- */
 class Horde_Form_Type_category extends Horde_Form_Type {
 
     function getInfo(&$vars, &$var, &$info)
@@ -3521,13 +3719,13 @@ class Horde_Form_Type_category extends Horde_Form_Type {
      */
     function about()
     {
-        return array('name' => _("Category"));
+        return array('name' => Horde_Form_Translation::t("Category"));
     }
 
     function isValid(&$var, &$vars, $value, &$message)
     {
         if (empty($value) && $var->isRequired()) {
-            $message = _("This field is required.");
+            $message = Horde_Form_Translation::t("This field is required.");
             return false;
         }
 

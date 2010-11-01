@@ -45,8 +45,8 @@ abstract class Horde_Form_Renderer {
      * Construct a new Horde_Form_Renderer::.
      *
      * @param array $params  This is a hash of renderer-specific parameters.
-     *                       Possible keys:<code>
-     *                       'encode_title': @see $_encodeTitle</code>
+     *                       Possible keys:
+     *                       - 'encode_title': @see $_encodeTitle
      */
     function __construct($params = array())
     {
@@ -63,14 +63,14 @@ abstract class Horde_Form_Renderer {
     {
         if ($submit === true || is_null($submit) || empty($submit)) {
             /* Default to 'Submit'. */
-            $submit = array(_("Submit"));
+            $submit = array(Horde_Model_Translation::t("Submit"));
         } elseif (!is_array($submit)) {
             /* Default to array if not passed. */
             $submit = array($submit);
         }
         /* Only if $reset is strictly true insert default 'Reset'. */
         if ($reset === true) {
-            $reset = _("Reset");
+            $reset = Horde_Model_Translation::t("Reset");
         }
 
         $this->_submit = $submit;

@@ -1,0 +1,1994 @@
+# Slovenian translations for Ansel packaga
+# Slovenski prevod Ansel paketa
+# Copyright 2006-2010 The Horde Project
+# This file is distributed under the same license as the horde package.
+# Automatically generated, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ansel\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2006-07-25 11:30+0200\n"
+"PO-Revision-Date: 2006-04-30 10:32+0100\n"
+"Last-Translator: duck@obala.net\n"
+"Language-Team: sl_SI <duck@obala.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: gallery.php:247
+#, php-format
+msgid ""
+"\"%s\" is an invalid unique name; it may already be taken. Please choose a "
+"different unique name."
+msgstr ""
+"'%s' je napačno edinstveno ime galerije; lahko da je ze zasedeno. Izberite "
+"si drugo."
+
+#: scripts/recursive_import.php:111
+#, php-format
+msgid "\"%s\" is not a directory."
+msgstr "%s ni direktorij"
+
+#: templates/group/owner.inc:46 templates/group/category.inc:51
+#, php-format
+msgid "%d Galleries"
+msgstr "%d Gallerij"
+
+#: lib/Exif.php:286
+#, php-format
+msgid "%d bytes"
+msgstr "%d bajtov"
+
+#: templates/list/header.inc:7
+#, php-format
+msgid "%d galleries"
+msgstr "%d gallerij"
+
+#: templates/list/images.inc:4
+#, fuzzy, php-format
+msgid "%d images"
+msgstr "%s slik"
+
+#: img/upload.php:97
+#, php-format
+msgid "%d images were successfully extracted and uploaded."
+msgstr "%d slik je bilo uspeno dodanih"
+
+#: lib/Exif.php:137 lib/Exif.php:143
+#, php-format
+msgid "%d pixels"
+msgstr "%d pik"
+
+#: lib/Exif.php:167 lib/Exif.php:182
+#, php-format
+msgid "%d sec"
+msgstr "%d sekund"
+
+#: templates/list/header.inc:7
+#, php-format
+msgid "%d to %d of %d galleries"
+msgstr "%d do %d od %d podgalerij"
+
+#: templates/view/subgallery_header.inc:3
+#, php-format
+msgid "%d to %d of %d subgalleries"
+msgstr "%d do %d od %d podgalerij"
+
+#: gallery/sort.php:45
+#, php-format
+msgid "%s :: Sort"
+msgstr "%s :: Razvrsti"
+
+#: list.php:46 templates/group/owner.inc:10 lib/Ansel.php:477
+#, php-format
+msgid "%s's Galleries"
+msgstr "Galerije uporabnika %s"
+
+#: lib/Gallery.php:1181
+#, php-format
+msgid "(c) %s %s"
+msgstr "(c) %s %s"
+
+#: templates/xppublish/new.inc:14
+msgid "(must be unique)"
+msgstr "(mora biti edinstveno)"
+
+#: scripts/ansel.php:296
+msgid "-a, --add[=filename]         Add local file to selected gallery"
+msgstr ""
+
+#: scripts/ansel.php:294
+msgid "-c, --create[=shortname/name/description]  Create gallery (and use it)"
+msgstr ""
+
+#: scripts/ansel.php:297
+msgid ""
+"-d, --dir[=directory]        Add all files from the directory to the "
+"selected\n"
+"                             gallery"
+msgstr ""
+
+#: scripts/recursive_import.php:190
+msgid ""
+"-d, --dir[=directory]        Recursively add all files from the directory, "
+"creating\n"
+"                             a gallery for each directory"
+msgstr ""
+
+#: scripts/ansel.php:295
+msgid "-g, --gallery[=shortname]    Select gallery to use"
+msgstr ""
+
+#: scripts/recursive_import.php:189 scripts/ansel.php:292
+msgid "-h, --help                   Show this help"
+msgstr ""
+
+#: scripts/ansel.php:293
+msgid ""
+"-l, --list                   List galleries or images (if combined with -g)"
+msgstr ""
+
+#: scripts/recursive_import.php:192 scripts/ansel.php:299
+msgid "-p, --password[=password]    Horde login password"
+msgstr ""
+
+#: scripts/recursive_import.php:191 scripts/ansel.php:298
+msgid "-u, --username[=username]    Horde login username"
+msgstr ""
+
+#: templates/group/owner.inc:46 templates/group/category.inc:51
+msgid "1 Gallery"
+msgstr "1 Galerija"
+
+#: templates/list/images.inc:4
+msgid "1 image"
+msgstr "1 slika"
+
+#: img/upload.php:95
+msgid "1 image was successfully extracted and uploaded."
+msgstr "1 slika je bila uspeno dodana"
+
+#: templates/slideshow/slideshow.inc:233
+msgid "1 minute"
+msgstr "1 monuta"
+
+#: templates/slideshow/slideshow.inc:224
+msgid "1 second"
+msgstr "1 sekunda"
+
+#: templates/slideshow/slideshow.inc:229
+msgid "10 seconds"
+msgstr "10 sekund"
+
+#: templates/slideshow/slideshow.inc:230
+msgid "15 seconds"
+msgstr "15 sekund"
+
+#: templates/slideshow/slideshow.inc:225
+msgid "2 seconds"
+msgstr "2 sekundi"
+
+#: templates/slideshow/slideshow.inc:226
+msgid "3 seconds"
+msgstr "3 skunde"
+
+#: templates/slideshow/slideshow.inc:231
+msgid "30 seconds"
+msgstr "30 sekund"
+
+#: templates/slideshow/slideshow.inc:227
+msgid "4 seconds"
+msgstr "4 sekunde"
+
+#: templates/slideshow/slideshow.inc:232
+msgid "45 seconds"
+msgstr "45 skeund"
+
+#: templates/slideshow/slideshow.inc:228
+msgid "5 seconds"
+msgstr "5 skund"
+
+#: lib/Exif.php:158
+#, php-format
+msgid "90 deg CCW"
+msgstr "90 stopinj CCW"
+
+#: lib/Exif.php:160
+#, php-format
+msgid "90 deg CCW Mirrored"
+msgstr "90 stopinj CCW preslikano"
+
+#: lib/Exif.php:162
+#, php-format
+msgid "90 deg CW"
+msgstr "90 stopinj CW"
+
+#: lib/Exif.php:156
+#, php-format
+msgid "90 deg CW Mirrored"
+msgstr "90 stopinj CW prelsikano"
+
+#: lib/Exif.php:129
+msgid "A-DEP"
+msgstr "A-DEP"
+
+#: gallery/delete.php:19 lib/api.php:269
+#, php-format
+msgid "Access denied deleting gallery %s."
+msgstr "Ogled galerije %s vam ni dovoljen."
+
+#: image.php:337 image.php:371
+#, php-format
+msgid "Access denied deleting image %s."
+msgstr "Ogled slike %s vam ni dovoljen."
+
+#: gallery.php:71
+#, php-format
+msgid "Access denied downloading %s."
+msgstr "Snemanje %s vam ni dovoljeno."
+
+#: gallery.php:128
+msgid "Access denied editing galleries."
+msgstr "Urejanje galerij vam ni dovoljeno."
+
+#: gallery.php:184
+#, php-format
+msgid "Access denied saving gallery %s."
+msgstr "Shranjevanje galerije %s vam ni dovoljeno."
+
+#: image.php:142 image.php:204
+#, php-format
+msgid "Access denied saving image to %s."
+msgstr "Shranjevanje slike %s vam ni dovoljeno."
+
+#: gallery/captions.php:29
+#, php-format
+msgid "Access denied setting captions for %s."
+msgstr "Nastavnjanje poisa za %s vam ni dovoljeno"
+
+#: img/upload.php:141
+msgid "Add Image"
+msgstr "Dodaj sliko"
+
+#: gallery.php:35 gallery.php:249 gallery.php:257
+msgid "Adding A New Gallery"
+msgstr "Dodaj novo galerijo"
+
+#: gallery.php:63
+#, php-format
+msgid "Adding A Subgallery to %s"
+msgstr "Dodaj podgalerijo v %s"
+
+#: scripts/recursive_import.php:171
+msgid "Adding subdirectories:"
+msgstr "Dodajanje podirektorijev"
+
+#: search.php:83
+msgid "After"
+msgstr "Potem"
+
+#: templates/view/navbar-gallery.inc:6
+msgid "All"
+msgstr "Vse"
+
+#: lib/Ansel.php:140
+#, php-format
+msgid "An error occurred counting galleries: %s"
+msgstr "Napaka pri štetju galerij: %s"
+
+#: lib/Ansel.php:81
+#, php-format
+msgid "An error occurred listing galleries: %s"
+msgstr "Napaka v odpiranju galerije: %s"
+
+#: lib/Exif.php:346
+msgid "Aperture"
+msgstr "Zaslonka"
+
+#: templates/gallery/gallery.inc:79
+msgid "Are you sure you want to delete all of the images in this gallery?"
+msgstr "Resnično mislite izbrisati vse slike v galeriji."
+
+#: templates/view/gallery.inc:38
+msgid "Are you sure you want to delete the selected images?"
+msgstr "Resnično mislite izbrisati izbrane slike."
+
+#: lib/Exif.php:359
+msgid "Artist"
+msgstr "Izvajalec"
+
+#: config/prefs.php.dist:48
+msgid "Ascending"
+msgstr "Naračajoče"
+
+#: perms.php:50
+msgid "Attempt to edit a non-existent share."
+msgstr "Ni galerije."
+
+#: lib/Exif.php:125
+msgid "Av-priority"
+msgstr "Av"
+
+#: lib/Exif.php:229
+msgid "Average"
+msgstr "Povprečje"
+
+#: search.php:84
+msgid "Before"
+msgstr "Pred"
+
+#: search.php:53
+msgid "Begins With"
+msgstr "Nadaljuje z"
+
+#: search.php:82
+msgid "Between"
+msgstr "Vmes"
+
+#: slideshow.php:35
+msgid "Blend"
+msgstr "Zaslonka"
+
+#: slideshow.php:36
+msgid "Blinds"
+msgstr "Zaslonka"
+
+#: image.php:68
+msgid "Bottom"
+msgstr "Dno"
+
+#: lib/Exif.php:330
+msgid "Camera Make"
+msgstr "Izdelovalec fotoaprata"
+
+#: lib/Exif.php:331
+msgid "Camera Model"
+msgstr "Model fotoaparata"
+
+#: lib/Exif.php:357
+msgid "Camera Orientation"
+msgstr "Orjentacija"
+
+#: lib/Ansel.php:330
+#, php-format
+msgid "Can't get unknown file type \"%s\"."
+msgstr "Neznan format slike '%s'"
+
+#: templates/gallery/delete_confirmation.inc:10
+msgid "Cancel"
+msgstr "Prekliči"
+
+#: templates/image/preview_image.inc:28
+msgid "Cancel Change"
+msgstr "Prekliči spremembo"
+
+#: image.php:36 lib/Forms/Upload.php:40 templates/search/search.html:9
+msgid "Caption"
+msgstr "Opis slike"
+
+#: gallery/captions.php:52
+msgid "Caption Editor"
+msgstr "Urejavalnik opisov"
+
+#: gallery/captions.php:47
+msgid "Captions Saved."
+msgstr "Nazivi spravljeni"
+
+#: config/prefs.php.dist:59
+msgid "Category"
+msgstr "kategorija"
+
+#: image.php:64
+msgid "Center"
+msgstr "Sredina"
+
+#: lib/Exif.php:230
+msgid "Center Weighted Average"
+msgstr ""
+
+#: templates/view/gallery.inc:109
+msgid "Change gallery properties"
+msgstr "Spremeni lastnosti galerije"
+
+#: config/prefs.php.dist:22
+msgid "Change your display options."
+msgstr "Spremite nastavitve prikazovanja"
+
+#: config/prefs.php.dist:15
+msgid "Change your gallery sorting options."
+msgstr "Spremeni način sortiranja galerij"
+
+#: slideshow.php:37
+msgid "Checkerboard"
+msgstr ""
+
+#: templates/view/gallery.inc:101
+msgid "Choose Action:"
+msgstr "Izberi vkaz:"
+
+#: templates/xppublish/list.inc:8
+msgid "Choose an existing gallery"
+msgstr "Izberi obstoječe galerijo"
+
+#: lib/Exif.php:243
+msgid "Cloudy"
+msgstr "Oblačno"
+
+#: lib/Exif.php:294
+msgid "Color Sequential Area Sensor"
+msgstr ""
+
+#: lib/Exif.php:296
+msgid "Color Sequential Linear Sensor"
+msgstr ""
+
+#: lib/Exif.php:354
+msgid "Color Space"
+msgstr "Barvna shema"
+
+#: ecard.php:42
+msgid "Comments:"
+msgstr "Komentarji:"
+
+#: lib/Exif.php:264
+msgid "Compulsory Flash"
+msgstr ""
+
+#: lib/Exif.php:266
+msgid "Compulsory Flash, Return light detected"
+msgstr ""
+
+#: lib/Exif.php:265
+msgid "Compulsory Flash, Return light not detected"
+msgstr ""
+
+#: search.php:55
+msgid "Contains"
+msgstr "Vsebuje"
+
+#: image.php:425
+#, php-format
+msgid "Copied %s to %s."
+msgstr "%s porvojena v %s"
+
+#: templates/view/navbar-gallery.inc:20
+msgid "Copy"
+msgstr "Kopiraj"
+
+#: lib/Exif.php:358
+msgid "Copyright"
+msgstr "Avtorstvo"
+
+#: scripts/ansel.php:162
+msgid "Couldn't list galleries."
+msgstr "Ne morem prebrati spiseka galerij"
+
+#: scripts/ansel.php:40
+msgid "Couldn't read command-line options."
+msgstr "Ne morem prebrati ukaznih parameterjev"
+
+#: templates/xppublish/list.inc:18
+msgid "Create"
+msgstr "Tvori"
+
+#: templates/view/gallery.inc:108
+msgid "Create a Subgallery"
+msgstr "Tvori novo podgalerijo"
+
+#: templates/xppublish/new.inc:8
+msgid "Create a new Gallery"
+msgstr "Tvori novo galerijo"
+
+#: templates/xppublish/list.inc:16
+msgid "Create a new gallery instead"
+msgstr "Tvori novo galerijo"
+
+#: templates/list/images.inc:20
+msgid "Created"
+msgstr "Tvorijeno"
+
+#: scripts/recursive_import.php:120
+#, php-format
+msgid "Creating gallery: \"%s\" (%s)"
+msgstr "Ustvarjanje nove galerije: %s (%s)"
+
+#: templates/image/edit_image.inc:22 templates/crop/crop.inc:46
+#: lib/Ansel.php:518
+msgid "Crop"
+msgstr "Obrei"
+
+#: img/crop.php:56
+msgid "Crop Image"
+msgstr "Obrei sliko"
+
+#: templates/crop/crop.inc:56
+msgid "Cropped"
+msgstr "Obrezano"
+
+#: lib/Exif.php:247
+msgid "Custom"
+msgstr "Poljubno"
+
+#: image.php:57
+msgid "Custom Watermark"
+msgstr ""
+
+#: config/prefs.php.dist:110
+msgid "Custom watermark to use for images"
+msgstr ""
+
+#: config/prefs.php.dist:37
+msgid "Date Created"
+msgstr "Datum slikanja"
+
+#: search.php:86
+msgid "Date Field"
+msgstr "Datum slikanja"
+
+#: search.php:61
+msgid "Date Fields"
+msgstr "Datumi slikanja"
+
+#: lib/Exif.php:337
+msgid "Date Image Digitized"
+msgstr "Datum digitalizacije slike"
+
+#: lib/Exif.php:335
+msgid "Date Image Modified"
+msgstr "Datum spremembe"
+
+#: lib/Exif.php:336
+msgid "Date Image Taken"
+msgstr "Datum slikanja"
+
+#: config/prefs.php.dist:38
+msgid "Date Modified"
+msgstr "Datum spremembe"
+
+#: search.php:87
+msgid "Date Operator"
+msgstr "Datum"
+
+#: search.php:36
+msgid "Date Uploaded"
+msgstr "Datum objave"
+
+#: config/prefs.php.dist:39
+msgid "Default sorting criteria:"
+msgstr "Privzet parameter razvrščanja"
+
+#: config/prefs.php.dist:50
+msgid "Default sorting direction:"
+msgstr "Privzet smer razvrščanja"
+
+#: templates/slideshow/slideshow.inc:222
+msgid "Delay"
+msgstr "Zaksnitev"
+
+#: templates/image/edit_image.inc:44 templates/view/navbar-image.inc:20
+#: templates/view/navbar-gallery.inc:12
+msgid "Delete"
+msgstr "Zbriši"
+
+#: templates/view/gallery.inc:117
+msgid "Delete this gallery"
+msgstr "Zbriši galerijo"
+
+#: image.php:341
+msgid "Deleted the image."
+msgstr "Zbriši sliko"
+
+#: config/prefs.php.dist:49
+msgid "Descending"
+msgstr "Padajoče"
+
+#: search.php:35 templates/list/gallery_headers.inc:17
+msgid "Description"
+msgstr "Opis"
+
+#: slideshow.php:38
+msgid "Diagonal"
+msgstr "Diagonalno"
+
+#: config/prefs.php.dist:21
+msgid "Display Options"
+msgstr "Nastavitve prikazovanja"
+
+#: templates/group/header.inc:3
+#, php-format
+msgid "Displaying from %s to %s of %s groups"
+msgstr "Prikazujem %s do %s od %s galerij"
+
+#: templates/view/gallery.inc:98
+#, php-format
+msgid "Displaying from %s to %s of %s images"
+msgstr "Prikazujem od %s do %s od %s galerij"
+
+#: templates/view/navbar-image.inc:20
+#, php-format
+msgid "Do you want to permanently delete %s?"
+msgstr "Resnično mislite zbriati %s"
+
+#: search.php:56
+msgid "Does Not Contain"
+msgstr "Ne vsebuje"
+
+#: gallery/sort.php:59
+msgid "Done"
+msgstr "Končaj"
+
+#: slideshow.php:39
+msgid "Doors"
+msgstr "Vrata"
+
+#: templates/view/navbar-image.inc:28
+msgid "Download Full Image"
+msgstr "Shrani veliko sliko"
+
+#: templates/view/gallery.inc:104
+msgid "Download as .zip"
+msgstr "Shrani kot .zip"
+
+#: gallery/sort.php:58
+msgid "Drag images to the desired sort position."
+msgstr "Z miko premikate slike v eljeni vrstni red."
+
+#: xppublish.php:210
+#, php-format
+msgid "ERROR: %s"
+msgstr "NAPAKA: %s"
+
+#: lib/Exif.php:119
+msgid "Easy shooting"
+msgstr "Enostavno slikanje"
+
+#: ecard.php:91
+msgid "Ecard - "
+msgstr "E-razglednica -"
+
+#: templates/view/gallery.inc:172 templates/view/navbar-image.inc:17
+#: lib/Ansel.php:513
+msgid "Edit"
+msgstr "Uredi"
+
+#: image.php:188
+#, php-format
+msgid "Edit %s :: %s"
+msgstr "Uredi %s :: %s"
+
+#: image.php:271
+msgid "Edit Image"
+msgstr "Uredi sliko"
+
+#: perms.php:241
+msgid "Edit Permissions"
+msgstr "Uredi privilegije"
+
+#: perms.php:244
+#, php-format
+msgid "Edit Permissions for %s"
+msgstr "Uredi privilegije za %s"
+
+#: image.php:153
+msgid "Edit an image"
+msgstr "Uredi sliko"
+
+#: image.php:117
+#, php-format
+msgid "Edit properties :: %s"
+msgstr "Uredi lastnosti :: %s"
+
+#: templates/gallery/gallery.inc:70
+msgid "Empty Gallery"
+msgstr "Prazna galerija"
+
+#: search.php:89
+msgid "End Date"
+msgstr "Končmi datum"
+
+#: search.php:54
+msgid "Ends With"
+msgstr "Konča z"
+
+#: gallery/captions.php:23
+#, php-format
+msgid "Error accessing %s: %s"
+msgstr "Napaka pri dsotpu %s: %s"
+
+#: lib/Exif.php:343
+msgid "Exposure"
+msgstr "Ekspozitura"
+
+#: lib/Exif.php:349
+msgid "Exposure Bias"
+msgstr "Ekspozitura"
+
+#: lib/Exif.php:350
+msgid "Exposure Mode"
+msgstr "Načn ekspoziture"
+
+#: lib/Exif.php:347
+msgid "F-Number"
+msgstr "F-tevilka"
+
+#: lib/Forms/Upload.php:46
+#, php-format
+msgid "File %s"
+msgstr "Datoteka %s"
+
+#: lib/Exif.php:334
+msgid "File Size"
+msgstr "Velikost datoteke"
+
+#: lib/Forms/Upload.php:36 lib/Forms/Upload.php:54
+msgid "File to upload"
+msgstr "Datoteka"
+
+#: search.php:37
+msgid "Filename"
+msgstr "Datoteka"
+
+#: lib/Exif.php:246 lib/Exif.php:261
+msgid "Flash"
+msgstr "Bliskavica"
+
+#: lib/Exif.php:352
+msgid "Flash Setting"
+msgstr "Nastavitve bliskavice"
+
+#: lib/Exif.php:269
+msgid "Flash, Auto-Mode"
+msgstr ""
+
+#: lib/Exif.php:271
+msgid "Flash, Auto-Mode, Return light detected"
+msgstr ""
+
+#: lib/Exif.php:270
+msgid "Flash, Auto-Mode, Return light not detected"
+msgstr ""
+
+#: lib/Exif.php:263
+msgid "Flash, strobe return light detected"
+msgstr ""
+
+#: lib/Exif.php:262
+msgid "Flash, strobe return light not detected"
+msgstr ""
+
+#: templates/image/edit_image.inc:30
+msgid "Flip"
+msgstr "Prezrcali"
+
+#: lib/Exif.php:245
+msgid "Fluorescent"
+msgstr ""
+
+#: lib/Exif.php:344
+msgid "Focal Length"
+msgstr "Goriča razdalja"
+
+#: lib/Exif.php:345
+msgid "Focal Length (35mm equiv)"
+msgstr "Goriča razdalja (335mm)"
+
+#: templates/slideshow/slideshow.inc:87
+msgid "Forward direction"
+msgstr "Naprej"
+
+#: lib/Ansel.php:482
+msgid "Galleries"
+msgstr "Gallerije"
+
+#: templates/group/header.inc:6
+#, php-format
+msgid "Galleries grouped by %s"
+msgstr "Podgalerije zdruene po %s"
+
+#: list.php:50 list.php:53
+#, php-format
+msgid "Galleries in category %s"
+msgstr "Podgalerije v kategoriji %s"
+
+#: lib/Block/gallery.php:3 lib/Block/gallery.php:31 lib/Block/gallery.php:46
+#: templates/search/search.html:8
+msgid "Gallery"
+msgstr "Galerija"
+
+#: templates/gallery/gallery.inc:16
+msgid "Gallery Category"
+msgstr "Kategorija galerije"
+
+#: templates/gallery/gallery.inc:31 config/prefs.php.dist:35
+msgid "Gallery Description"
+msgstr "Opis galerije"
+
+#: templates/gallery/gallery.inc:24
+msgid "Gallery Display Name"
+msgstr "Ime galerije"
+
+#: list.php:58 list.php:111
+msgid "Gallery List"
+msgstr "Spisek galerij"
+
+#: search.php:38 config/prefs.php.dist:34
+msgid "Gallery Name"
+msgstr "Ime galerije"
+
+#: config/prefs.php.dist:36
+msgid "Gallery Owner"
+msgstr "Lastnik galerije"
+
+#: templates/xppublish/new.inc:14
+msgid "Gallery Short Name"
+msgstr "Ime galerije"
+
+#: lib/Ansel.php:194
+#, php-format
+msgid "Gallery Unique name \"%s\" already exists."
+msgstr "Galerija z imenom '%s' e obstja"
+
+#: xppublish.php:121
+msgid "Gallery Unique name is already taken."
+msgstr "Glerija s tem imenom e obstja"
+
+#: lib/Gallery.php:39
+msgid "Gallery names must be non-empty"
+msgstr "Imena galerij ne smejo biti prazna"
+
+#: image.php:277
+msgid "Gallery not found."
+msgstr "Ne najdem galerije"
+
+#: gallery/sort.php:37
+msgid "Gallery sorted."
+msgstr "Gallerija razvrena."
+
+#: image.php:60
+msgid "Giant"
+msgstr "Natisni"
+
+#: slideshow.php:40
+msgid "Gradient"
+msgstr "Natisni"
+
+#: templates/image/edit_image.inc:36
+msgid "Grayscale"
+msgstr "256 sivin"
+
+#: config/prefs.php.dist:61
+msgid "Group galleries by"
+msgstr "Grupiranje galerij"
+
+#: lib/Exif.php:339
+msgid "Height"
+msgstr "Viina"
+
+#: image.php:65
+msgid "Horizontal Alignment"
+msgstr "Horizontalna poravnava"
+
+#: lib/Exif.php:348
+msgid "ISO Setting"
+msgstr "ISO občtljivost"
+
+#: templates/search/search.html:7
+msgid "Image"
+msgstr "Slika"
+
+#: lib/Exif.php:333
+msgid "Image Description"
+msgstr "Opis slike"
+
+#: view.php:41
+msgid "Image Details"
+msgstr "Podatki o sliki"
+
+#: lib/Exif.php:332
+msgid "Image Type"
+msgstr "Tip slike"
+
+#: lib/Gallery.php:59
+msgid "Image names must be non-empty"
+msgstr "Ime slike mora biti ne-polna"
+
+#: view.php:56
+msgid "Image not found."
+msgstr "Slike ne najde"
+
+#: scripts/ansel.php:130
+#, php-format
+msgid "Invalid gallery \"%s\" specified."
+msgstr "Napača galerija '%s'"
+
+#: xppublish.php:87 xppublish.php:180
+msgid "Invalid gallery specified."
+msgstr "Napača galerija"
+
+#: slideshow.php:41
+#, fuzzy
+msgid "Iris"
+msgstr "je"
+
+#: search.php:51
+msgid "Is"
+msgstr "je"
+
+#: search.php:52
+msgid "Is Not"
+msgstr "Ni"
+
+#: image.php:60
+msgid "Large"
+msgstr "irok"
+
+#: image.php:64
+msgid "Left"
+msgstr "Levo"
+
+#: templates/crop/crop.inc:24
+msgid "Left X"
+msgstr "Levo X"
+
+#: scripts/ansel.php:167
+msgid "Listing Gallery/Name"
+msgstr "Spisek gelerij/imen"
+
+#: scripts/ansel.php:151
+#, php-format
+msgid "Listing images in %s"
+msgstr "Prikazujem slike v %s"
+
+#: scripts/recursive_import.php:81 scripts/ansel.php:105
+#, php-format
+msgid "Logged in successfully as \"%s\"."
+msgstr "Uspeno prijavljan kot %s."
+
+#: scripts/ansel.php:101
+msgid "Login is incorrect."
+msgstr "Prijava je nepravilna"
+
+#: templates/xppublish/login.inc:2
+#, php-format
+msgid "Login to %s"
+msgstr "Prijava v %s"
+
+#: templates/slideshow/slideshow.inc:251
+msgid "Loop?"
+msgstr "Ponavljam?"
+
+#: templates/crop/crop.inc:53
+msgid "Lower Y"
+msgstr "Spodnji Y"
+
+#: image.php:35 lib/Forms/Upload.php:39
+msgid "Make this the default image for this gallery?"
+msgstr "Izberi sliko za okono galeirje"
+
+#: scripts/recursive_import.php:187 scripts/ansel.php:290
+msgid ""
+"Mandatory arguments to long options are mandatory for short options too."
+msgstr ""
+
+#: lib/Exif.php:127 lib/Exif.php:248
+msgid "Manual"
+msgstr "Ročo"
+
+#: search.php:171 search.php:238
+#, php-format
+msgid "Matched %s images"
+msgstr "Najdenih %s slik"
+
+#: search.php:171 search.php:238
+msgid "Matched 1 image"
+msgstr "Najdena 1 slika"
+
+#: image.php:60
+msgid "Medium"
+msgstr "Srednji"
+
+#: lib/Exif.php:351
+msgid "Metering Mode"
+msgstr ""
+
+#: image.php:68
+msgid "Middle"
+msgstr "Sredinski"
+
+#: templates/image/edit_image.inc:33
+msgid "Mirror"
+msgstr "Zrcalo"
+
+#: lib/Exif.php:150
+#, php-format
+msgid "Mirrored"
+msgstr "Prezrcaljeno"
+
+#: templates/list/images.inc:21
+msgid "Modified"
+msgstr "Spremenjene"
+
+#: gallery.php:117
+#, php-format
+msgid "Modifying: %s"
+msgstr "Spremenjeni: %s"
+
+#: templates/view/navbar-gallery.inc:14
+msgid "Move"
+msgstr "Premakni"
+
+#: image.php:389
+#, php-format
+msgid "Moved %s to %s."
+msgstr "%s premaknjena v %s"
+
+#: lib/Exif.php:233
+msgid "Multi-Segment"
+msgstr ""
+
+#: lib/Exif.php:232
+msgid "Multi-Spot"
+msgstr ""
+
+#: lib/Forms/Upload.php:42
+msgid "Multiple Images"
+msgstr "Več slik hkrati"
+
+#: list.php:38 templates/group/owner.inc:3 lib/Ansel.php:469
+msgid "My Galleries"
+msgstr "Moje gallerije"
+
+#: templates/list/gallery_headers.inc:7
+msgid "Name"
+msgstr "Ime"
+
+#: templates/xppublish/new.inc:33
+msgid "New Gallery Description"
+msgstr "Nov opis galerije"
+
+#: templates/xppublish/new.inc:24
+msgid "New Gallery Title"
+msgstr "Nov naslov galerije"
+
+#: templates/view/description-image.inc:62
+#: templates/view/description-image.inc:63
+msgid "Next"
+msgstr "Naprej"
+
+#: lib/Exif.php:260 lib/Exif.php:267 lib/Exif.php:268 lib/Exif.php:272
+msgid "No Flash"
+msgstr "Brez bliskavice"
+
+#: xppublish.php:123
+msgid "No Gallery Name Specified."
+msgstr "Ni izbrane galerije"
+
+#: xppublish.php:119
+msgid "No Gallery Unique Name Specified."
+msgstr "Ni izbrane galerije"
+
+#: xppublish.php:190
+msgid "No file specified"
+msgstr "Ni izbrane datoteke"
+
+#: templates/view/navbar-gallery.inc:7 config/prefs.php.dist:60
+msgid "None"
+msgstr "Nič"
+
+#: lib/Exif.php:148
+#, php-format
+msgid "Normal (O deg)"
+msgstr "Normalno (0 stopinj)"
+
+#: lib/Exif.php:290
+msgid "Not defined"
+msgstr "Nedefinirano"
+
+#: image.php:107 img/upload.php:20 img/crop.php:26
+msgid "Not found or error accessing gallery."
+msgstr "Ne najdem ali ne morem dostopati do galerije"
+
+#: config/prefs.php.dist:86
+msgid "Number of galleries per page"
+msgstr "tevilo slik na strans "
+
+#: config/prefs.php.dist:94
+msgid "Number of groups per page"
+msgstr "Število slik na strans "
+
+#: config/prefs.php.dist:78
+msgid "Number of images per page"
+msgstr "Število slik na stran"
+
+#: config/prefs.php.dist:70
+msgid "Number of images per row"
+msgstr "Število slik na vrstico"
+
+#: lib/Exif.php:291
+msgid "One Chip Color Area Sensor"
+msgstr ""
+
+#: perms.php:62
+msgid ""
+"Only the owner or system administrator may change ownership or owner "
+"permissions for a share"
+msgstr "Samo lastnik ali sistemski administrator lahko spremeni lastnitvo"
+
+#: templates/crop/crop.inc:29
+msgid "Original"
+msgstr "Izvirna"
+
+#: lib/Exif.php:235
+msgid "Other"
+msgstr "Ostalo"
+
+#: config/prefs.php.dist:13 config/prefs.php.dist:20
+msgid "Other Options"
+msgstr "Ostale funkcije"
+
+#: templates/list/images.inc:25 config/prefs.php.dist:58
+msgid "Owner"
+msgstr "Lastnik"
+
+#: lib/Exif.php:234
+msgid "Partial"
+msgstr "Delni"
+
+#: templates/xppublish/login.inc:14
+msgid "Password"
+msgstr "Geslo"
+
+#: templates/xppublish/javascript.inc:63
+msgid "Photo Upload"
+msgstr "Naloži sliko"
+
+#: slideshow.php:42
+msgid "Pinwheel"
+msgstr ""
+
+#: slideshow.php:43
+msgid "Pixelate"
+msgstr ""
+
+#: templates/slideshow/slideshow.inc:67
+msgid "Play"
+msgstr "Predvajaj"
+
+#: xppublish.php:54
+msgid "Please enter your Username and Password."
+msgstr "Prosim vpiite vae uporabniko ime in geslo"
+
+#: xppublish.php:99 xppublish.php:155
+msgid "Press the \"Back\" button and try again."
+msgstr "Pojdi nazaj in poskusi e enkrat"
+
+#: image.php:283
+#, php-format
+msgid "Preview changes for %s :: %s"
+msgstr "Pregled srpememb za %s :: %s"
+
+#: templates/view/description-image.inc:48
+#: templates/view/description-image.inc:49
+msgid "Previous"
+msgstr "Prejnji"
+
+#: lib/Ansel.php:428
+msgid "Print"
+msgstr "Natisni"
+
+#: templates/view/navbar-image.inc:27
+msgid "Print on Shutterfly"
+msgstr "Natisni na Shutterfly"
+
+#: lib/Exif.php:121
+msgid "Program"
+msgstr "Program"
+
+#: templates/view/gallery.inc:171 templates/view/navbar-image.inc:16
+msgid "Properties"
+msgstr "Nastavitve"
+
+#: xppublish.php:35
+#, php-format
+msgid "Publish to %s"
+msgstr "Objavi v %s"
+
+#: xppublish.php:23
+#, php-format
+msgid "Publish your photos to %s on %s."
+msgstr "Publiciraj vae slive v %s na %s."
+
+#: slideshow.php:44
+#, fuzzy
+msgid "Radial"
+msgstr "Delni"
+
+#: slideshow.php:45
+msgid "Rain"
+msgstr "De"
+
+#: slideshow.php:50
+msgid "Random"
+msgstr "Naključe"
+
+#: lib/Block/gallery.php:34 lib/Block/gallery.php:51
+msgid "Random Gallery"
+msgstr "Poljubna galerija"
+
+#: lib/Block/random_gallery.php:3 lib/Block/random_gallery.php:27
+msgid "Random gallery"
+msgstr "Poljubna galerija"
+
+#: lib/Block/random_photo.php:3 lib/Block/random_photo.php:28
+msgid "Random photo"
+msgstr "Naključa slika"
+
+#: templates/gallery/delete_confirmation.inc:9
+msgid "Really Delete"
+msgstr "Zbriši"
+
+#: templates/gallery/delete_confirmation.inc:2
+#, php-format
+msgid "Really delete %s?"
+msgstr "Resnično elite zbrisati %s?"
+
+#: templates/gallery/delete_confirmation.inc:5
+msgid ""
+"Really delete this gallery and all of the images in it? This action cannot "
+"be undone."
+msgstr "Resnično elite zbrisati to galerijo in vse slike v njej?"
+
+#: lib/Exif.php:273
+msgid "Red Eye"
+msgstr "Rdeč oč"
+
+#: lib/Exif.php:279
+msgid "Red Eye, Auto-Mode"
+msgstr ""
+
+#: lib/Exif.php:281
+msgid "Red Eye, Auto-Mode, Return light detected"
+msgstr ""
+
+#: lib/Exif.php:280
+msgid "Red Eye, Auto-Mode, Return light not detected"
+msgstr ""
+
+#: lib/Exif.php:276
+msgid "Red Eye, Compulsory Flash"
+msgstr ""
+
+#: lib/Exif.php:278
+msgid "Red Eye, Compulsory Flash, Return light detected"
+msgstr ""
+
+#: lib/Exif.php:277
+msgid "Red Eye, Compulsory Flash, Return light not detected"
+msgstr ""
+
+#: lib/Exif.php:275
+msgid "Red Eye, Return light detected"
+msgstr ""
+
+#: lib/Exif.php:274
+msgid "Red Eye, Return light not detected"
+msgstr ""
+
+#: templates/group/header.inc:7 templates/group/header.inc:8
+#: templates/list/header.inc:10 templates/list/header.inc:11
+msgid "Refresh List"
+msgstr "Osveži stran"
+
+#: templates/crop/crop.inc:5
+msgid "Resize selection"
+msgstr "Sprememba velikosti"
+
+#: templates/slideshow/slideshow.inc:90 templates/slideshow/slideshow.inc:221
+msgid "Reverse direction"
+msgstr "Obratna smer - za nazaj"
+
+#: image.php:64
+msgid "Right"
+msgstr "Desno"
+
+#: templates/crop/crop.inc:51
+msgid "Right X"
+msgstr "Desno X"
+
+#: templates/image/edit_image.inc:26
+msgid "Rotate 180"
+msgstr "Obrni 180"
+
+#: templates/image/edit_image.inc:25
+msgid "Rotate Left"
+msgstr "Obrni levo"
+
+#: templates/image/edit_image.inc:27
+msgid "Rotate Right"
+msgstr "Obrni desno"
+
+#: image.php:29 image.php:51 lib/Forms/Upload.php:29
+msgid "Save"
+msgstr "Shrani"
+
+#: templates/captions/captions.inc:46
+msgid "Save Captions"
+msgstr "Shrani naslove"
+
+#: templates/image/preview_image.inc:23
+msgid "Save Change"
+msgstr "Shrani Spremembe"
+
+#: templates/gallery/gallery.inc:68
+msgid "Save Gallery"
+msgstr "Shrani galerijo"
+
+#: image.php:139
+msgid "Save Image"
+msgstr "Shrani sliko"
+
+#: templates/gallery/gallery.inc:59
+msgid "Screen Image Height"
+msgstr "Viina velike slike"
+
+#: templates/gallery/gallery.inc:52
+msgid "Screen Image Width"
+msgstr "irina velike slike"
+
+#: search.php:28
+msgid "Search"
+msgstr "Ič"
+
+#: search.php:60
+msgid "Search Type"
+msgstr "Način iskanja"
+
+#: search.php:97 search.php:102
+#, php-format
+msgid "Search for Images"
+msgstr "Išči slike"
+
+#: templates/view/navbar-gallery.inc:6
+msgid "Select All"
+msgstr "Izberi vse"
+
+#: templates/view/navbar-gallery.inc:7
+msgid "Select None"
+msgstr "Odznač vse"
+
+#: templates/xppublish/list.inc:6
+msgid "Select the Gallery to publish images to"
+msgstr "Izberite galerije kamor objavim slike"
+
+#: templates/view/navbar-gallery.inc:5
+#, php-format
+msgid "Select: %s, %s"
+msgstr "Izberi %s, %s"
+
+#: templates/view/navbar-gallery.inc:21
+msgid "Selected images to"
+msgstr "Izbrane slike v"
+
+#: ecard.php:25
+msgid "Send"
+msgstr "Polji"
+
+#: ecard.php:136
+#, php-format
+msgid "Send Ecard :: %s"
+msgstr "Polji E-razglednico :: %s"
+
+#: templates/view/navbar-image.inc:25
+msgid "Send as Ecard"
+msgstr "Polji kot E-razglenico"
+
+#: ecard.php:41
+msgid "Send ecard to the following address:"
+msgstr "Polji E-razglednico na sledeč naslov:"
+
+#: lib/Exif.php:355
+msgid "Sensing Method"
+msgstr ""
+
+#: templates/view/gallery.inc:110
+msgid "Set Captions"
+msgstr "Nastavi opise"
+
+#: templates/view/gallery.inc:114
+msgid "Set Gallery Permissions"
+msgstr "Nastavi pravice upogleda"
+
+#: config/prefs.php.dist:102
+msgid "Show EXIF data"
+msgstr "Prikai EXIF podatke"
+
+#: lib/Exif.php:342
+msgid "Shutter Speed"
+msgstr "Hitrost zaslonke"
+
+#: lib/Forms/Upload.php:33
+msgid "Single Image"
+msgstr "Ena slika"
+
+#: slideshow.php:46
+msgid "Slide"
+msgstr "Samodejni ogled"
+
+#: lib/Ansel.php:414
+msgid "Slide Show"
+msgstr "Samodejni ogled"
+
+#: templates/list/gallery_summaries.inc:7
+msgid "Slide show"
+msgstr "Samodejni ogled"
+
+#: slideshow.php:52
+#, php-format
+msgid "Slide show for %s"
+msgstr "Samodejni ogled za %s"
+
+#: templates/slideshow/slideshow.inc:79
+msgid "Slide show is running"
+msgstr "Samodejni ogled v teku"
+
+#: image.php:60
+msgid "Small"
+msgstr "Majhen"
+
+#: slideshow.php:47
+msgid "Snow"
+msgstr "Sneg"
+
+#: templates/list/gallery_headers.inc:6 templates/list/gallery_headers.inc:16
+msgid "Sort Direction"
+msgstr "Smer razvrščanja"
+
+#: templates/view/gallery.inc:111
+msgid "Sort Images"
+msgstr "Razvrsti slike"
+
+#: config/prefs.php.dist:14
+msgid "Sort Options"
+msgstr "Nastvavitve vrstnega redu"
+
+#: templates/list/gallery_headers.inc:17
+msgid "Sort by Description"
+msgstr "Uredi po opisu"
+
+#: templates/list/gallery_headers.inc:7
+msgid "Sort by Name"
+msgstr "Razvrsti po imenu"
+
+#: gallery.php:176
+#, php-format
+msgid "Specified screen image height is too large, value has been set to %s"
+msgstr "Izbrana velikost irine velike slike je prevelika. Največe lahko %s."
+
+#: gallery.php:173
+#, php-format
+msgid "Specified screen image height is too small, value has been set to %s"
+msgstr "Izbrana velikost irine velike slike je prevelika. Največe lahko %s."
+
+#: gallery.php:167
+#, php-format
+msgid "Specified screen image width is too large, value has been set to %s"
+msgstr "Izbrana velikost irine velike slike je prevelika. Največe lahko %s."
+
+#: gallery.php:164
+#, php-format
+msgid "Specified screen image width is too small, value has been set to %s"
+msgstr "Izbrana velikost irine velike slike je prevelika. Največe lahko %s."
+
+#: gallery.php:158
+#, php-format
+msgid "Specified thumbnail height is too large, value has been set to %s"
+msgstr "Izbrana velikost irine velike slike je prevelika. Največe lahko %s."
+
+#: gallery.php:155
+#, php-format
+msgid "Specified thumbnail height is too small, value has been set to %s"
+msgstr "Izbrana velikost irine velike slike je prevelika. Največe lahko %s."
+
+#: gallery.php:149
+#, php-format
+msgid "Specified thumbnail width is too large, value has been set to %s"
+msgstr "Izbrana velikost irine velike slike je prevelika. Največe lahko %s."
+
+#: gallery.php:146
+#, php-format
+msgid "Specified thumbnail width is too small, value has been set to %s"
+msgstr "Izbrana velikost irine velike slike je prevelika. Največe lahko %s."
+
+#: slideshow.php:48
+msgid "Spiral"
+msgstr ""
+
+#: lib/Exif.php:231
+msgid "Spot"
+msgstr "port"
+
+#: search.php:88
+msgid "Start Date"
+msgstr "Začetni datum"
+
+#: templates/slideshow/slideshow.inc:76 templates/slideshow/slideshow.inc:221
+msgid "Stop"
+msgstr "Ustavi"
+
+#: scripts/recursive_import.php:156 scripts/ansel.php:187
+#: scripts/ansel.php:266
+#, php-format
+msgid "Storing image \"%s\"..."
+msgstr "Shranjujem sliko '%s'..."
+
+#: slideshow.php:49
+#, fuzzy
+msgid "Stretch"
+msgstr "Ič"
+
+#: templates/view/subgallery_header.inc:5
+#, php-format
+msgid "Subgalleries of %s"
+msgstr "Podgalerije %s"
+
+#: scripts/recursive_import.php:166 scripts/ansel.php:207
+#, fuzzy, php-format
+msgid "Successfully added %d image(s) (%s) to gallery \"%s\" from \"%s\"."
+msgstr "Uspeno dodano %s slik (%s) v galerijo  \"%s\" iz \"%s\"."
+
+#: scripts/ansel.php:194
+#, php-format
+msgid "Successfully added image \"%s\" to gallery \"%s\"."
+msgstr "Upeno dodana slike '%s' v galerijo '%s'."
+
+#: gallery/delete.php:33
+#, php-format
+msgid "Successfully deleted %s."
+msgstr "Uspešno izbrisana %s."
+
+#: lib/Exif.php:242
+msgid "Sunny"
+msgstr "Sonči"
+
+#: search.php:66
+msgid "Text Field"
+msgstr "Tekstovno polje"
+
+#: search.php:61
+msgid "Text Fields"
+msgstr "Tekstovna polja"
+
+#: search.php:67
+msgid "Text Operator"
+msgstr "Operator"
+
+#: search.php:68
+msgid "Text Value"
+msgstr "Vrednost besedila"
+
+#: scripts/ansel.php:233
+#, php-format
+msgid "The directory \"%s\" doesn't exist."
+msgstr "Mapa '%s' ne obstaja"
+
+#: scripts/ansel.php:212
+#, php-format
+msgid "The directory \"%s\" had no valid images."
+msgstr "Mapa '%s' ne vsebuje slik"
+
+#: scripts/ansel.php:250
+#, php-format
+msgid "The directory \"%s\" is empty."
+msgstr "Mapa '%s' je prazna"
+
+#: lib/Ansel.php:321
+#, php-format
+msgid "The file \"%s\" doesn't exist."
+msgstr "Datoteka \"%s\" ne obstaja"
+
+#: lib/api.php:167 img/upload.php:104
+msgid "The file you uploaded does not appear to be a valid image."
+msgstr "Naloena daoteka ni poznan tip slike"
+
+#: scripts/recursive_import.php:125
+#, php-format
+msgid "The gallery \"%s\" (%s) was created successfully."
+msgstr "Galerija \"%s\" (%s) je bila uspeno tvojena."
+
+#: lib/Ansel.php:221
+#, php-format
+msgid "The gallery \"%s\" could not be created: %s"
+msgstr "Ne morem tvoriti galerijo '%s': %s"
+
+#: gallery.php:273 xppublish.php:129 scripts/recursive_import.php:123
+#: scripts/ansel.php:117
+#, php-format
+msgid "The gallery \"%s\" couldn't be created: %s"
+msgstr "Ne morem tvoriti galerijo '%s': %s"
+
+#: gallery.php:278 xppublish.php:133 scripts/ansel.php:121
+#, php-format
+msgid "The gallery \"%s\" was created successfully."
+msgstr "Galerijo '%s' je bila uspeno tvojenja."
+
+#: gallery.php:220
+msgid "The gallery was saved."
+msgstr "Galerija je bila shranjena"
+
+#: img/upload.php:111
+msgid "The image was saved."
+msgstr "Slika je bila shranjena"
+
+#: templates/slideshow/slideshow.inc:70
+msgid "The slide show is stopped, click [Play] to resume."
+msgstr "Samodejni ogled je bil ustavljen. kliknite [Predvajaj] za nadaljevanje"
+
+#: image.php:367 image.php:416
+msgid "The target gallery was not found."
+msgstr "Namenska galerija ni bila najdena."
+
+#: img/upload.php:126
+msgid ""
+"The uploaded file appears to be empty. It may not exist on your computer."
+msgstr "Naloena slika je prazna."
+
+#: gallery.php:78
+#, php-format
+msgid "There are no images in %s to download."
+msgstr "Ni slik v %s za shraniti"
+
+#: slideshow.php:31
+msgid "There are no images in this gallery to show."
+msgstr "Ni slik v galeriji."
+
+#: templates/captions/captions.inc:48 templates/view/gallery.inc:133
+msgid "There are no images in this gallery."
+msgstr "Ni slik v galeriji"
+
+#: list.php:63 lib/Block/random_photo.php:38 lib/Block/random_gallery.php:37
+msgid "There are no photo galleries available."
+msgstr "Ni galerij."
+
+#: scripts/ansel.php:190 scripts/ansel.php:269
+#, php-format
+msgid "There was a problem adding the image \"%s\" to gallery \"%s\"."
+msgstr "Prilo je do napake pri dodajanju slike '%s' v galerijo '%s'"
+
+#: image.php:427
+#, php-format
+msgid "There was a problem copying \"%s\": %s"
+msgstr "Problem pri kopiranju slik '%s': %s"
+
+#: image.php:387
+#, php-format
+msgid "There was a problem deleting \"%s\": %s"
+msgstr "Prilo je do napake pri birsanju %s: %s"
+
+#: lib/api.php:282
+#, php-format
+msgid "There was a problem deleting %s: %s"
+msgstr "Prilo je do napake pri brisanju %s: %s"
+
+#: gallery/delete.php:31
+#, php-format
+msgid "There was a problem deleting %s: %s."
+msgstr "Prilo je do napake pri brisanju %s: %s"
+
+#: image.php:343
+#, php-format
+msgid "There was a problem deleting images: %s"
+msgstr "Problem brisanja slik: %s"
+
+#: image.php:383
+#, php-format
+msgid "There was a problem moving \"%s\": %s"
+msgstr "Prilo je do napke pri premikanju slike '%s': %s"
+
+#: img/upload.php:89 img/upload.php:117
+#, php-format
+msgid "There was a problem saving the image: %s"
+msgstr "Problem shranjevanja slike: %s"
+
+#: xppublish.php:199
+msgid "There was a problem uploading the image."
+msgstr "Problem nalaganja slike"
+
+#: img/upload.php:124
+#, php-format
+msgid "There was a problem uploading the image: %s"
+msgstr "Problem nalaganja slike: %s"
+
+#: img/upload.php:56 img/upload.php:76
+#, php-format
+msgid "There was an error processing the uploaded archive: %s"
+msgstr "Napaka pri nalaganju arhiva: %s"
+
+#: ecard.php:127
+#, php-format
+msgid "There was an error sending your message: %s"
+msgstr "Problem pri poiljanju slik: %s"
+
+#: lib/Exif.php:293
+msgid "Three Chip Color Area Sensor"
+msgstr ""
+
+#: search.php:164 search.php:231
+msgid "Thumbnail"
+msgstr "Ikona"
+
+#: templates/gallery/gallery.inc:45
+msgid "Thumbnail Height"
+msgstr "Viina ikone"
+
+#: templates/gallery/gallery.inc:38
+msgid "Thumbnail Width"
+msgstr "irina ikone"
+
+#: image.php:60
+msgid "Tiny"
+msgstr "Majhna"
+
+#: lib/Ansel.php:382
+msgid "Today"
+msgstr "Danes"
+
+#: image.php:68
+msgid "Top"
+msgstr "Zgornje"
+
+#: templates/crop/crop.inc:26
+msgid "Top Y"
+msgstr "Zgornji Y"
+
+#: templates/slideshow/slideshow.inc:245
+msgid "Transition"
+msgstr "Tranzicija"
+
+#: lib/Exif.php:295
+msgid "Trilinear Sensor"
+msgstr ""
+
+#: lib/Exif.php:244
+msgid "Tungsten"
+msgstr ""
+
+#: lib/Exif.php:123
+msgid "Tv-priority"
+msgstr "Av"
+
+#: lib/Exif.php:292
+msgid "Two Chip Color Area Sensor"
+msgstr ""
+
+#: lib/Exif.php:306
+msgid "Uncalibrated"
+msgstr "Brez nalova"
+
+#: templates/gallery/gallery.inc:69
+msgid "Undo Changes"
+msgstr "Povrni spremembe"
+
+#: list.php:50 templates/group/category.inc:8
+msgid "Unfiled"
+msgstr "Brez nalova"
+
+#: lib/Exif.php:228
+msgid "Unknown"
+msgstr "Neznan"
+
+#: gallery.php:119
+msgid "Unknown gallery"
+msgstr "Neznana galerija"
+
+#: lib/Ansel.php:209
+msgid "Unnamed"
+msgstr "Neimenovana"
+
+#: xppublish.php:141
+msgid "Untitled"
+msgstr "Brez nalova"
+
+#: perms.php:234
+#, php-format
+msgid "Updated %s."
+msgstr "Ažurirana %s."
+
+#: templates/view/gallery.inc:107
+msgid "Upload Images"
+msgstr "Naloži nove slike"
+
+#: templates/xppublish/javascript.inc:63
+#, php-format
+msgid "Upload Photos to %s"
+msgstr "Naloži slike v %s"
+
+#: img/upload.php:28
+msgid "Upload new images"
+msgstr "Naloži nove slike"
+
+#: lib/Exif.php:152
+#, php-format
+msgid "Upsidedown"
+msgstr ""
+
+#: lib/Exif.php:154
+#, php-format
+msgid "Upsidedown Mirrored"
+msgstr ""
+
+#: scripts/recursive_import.php:185 scripts/ansel.php:288
+#, php-format
+msgid "Usage: %s [OPTIONS]..."
+msgstr ""
+
+#: templates/xppublish/new.inc:17
+msgid "Use Default"
+msgstr "Uporabi prenastavljeno"
+
+#: ecard.php:32
+msgid "Use the following return address:"
+msgstr "Uporabi povratni nalslov:"
+
+#: lib/Exif.php:353
+msgid "User Comment"
+msgstr "Komentar"
+
+#: templates/xppublish/login.inc:11
+msgid "Username"
+msgstr "Uporabniko ime"
+
+#: xppublish.php:50
+msgid "Username and Password are incorrect."
+msgstr "Uporabniko ime in geslo sta nepravilna"
+
+#: scripts/recursive_import.php:79
+msgid "Username or password is incorrect."
+msgstr "Uporabniko ime ali geslo je nepravilno"
+
+#: image.php:69
+msgid "Vertical Alignment"
+msgstr "Vertikalna poravnava"
+
+#: templates/list/gallery_summaries.inc:2
+#: templates/list/gallery_summaries.inc:10 templates/list/images.inc:9
+#: templates/list/images.inc:12 lib/Block/gallery.php:71
+#: lib/Block/random_gallery.php:42
+#, php-format
+msgid "View %s"
+msgstr "Preglej %s"
+
+#: lib/Block/random_photo.php:58
+msgid "View Photo"
+msgstr "Pogelj sliko"
+
+#: image.php:241 image.php:247 templates/image/edit_image.inc:40
+msgid "Watermark"
+msgstr ""
+
+#: image.php:61
+msgid "Watermark Font"
+msgstr ""
+
+#: lib/Exif.php:356
+msgid "White Balance"
+msgstr ""
+
+#: lib/Exif.php:338
+msgid "Width"
+msgstr "irina"
+
+#: lib/Exif.php:340
+msgid "X Resolution"
+msgstr "X resolucija"
+
+#: lib/Exif.php:341
+msgid "Y Resolution"
+msgstr "Y resolucija"
+
+#: lib/Ansel.php:384
+msgid "Yesterday"
+msgstr "Včraj"
+
+#: image.php:178
+msgid "You are not allowed to edit this image."
+msgstr "Nimate dovoljen za ogled izbrane slike."
+
+#: xppublish.php:91 xppublish.php:184
+msgid "You cannot add photos in that gallery."
+msgstr "Ne more vstaviti slik v to galerijo"
+
+#: scripts/ansel.php:136
+#, php-format
+msgid "You cannot add photos to the gallery \"%s\"."
+msgstr "Ne more dodati slik v galerijo '%s'"
+
+#: gallery/delete.php:21
+#, php-format
+msgid "You cannot delete %s, it contains nested galleries."
+msgstr "Ne morete zbrisati %s, ker vsebuje podgalerije."
+
+#: gallery.php:48 gallery.php:235
+#, php-format
+msgid "You do not have permission to add children to %s."
+msgstr "Nimate privilegija a dodati podgalerijo v %s"
+
+#: gallery/sort.php:24
+msgid "You do not have permission to change this gallery."
+msgstr "Nimate privilegija za ogled galerije %s"
+
+#: gallery.php:322
+#, php-format
+msgid "You do not have permission to empty %s."
+msgstr "Nimate dovljenja za sprazniti galerijo %s"
+
+#: slideshow.php:24 view.php:27 lib/Block/gallery.php:101
+msgid "You do not have permission to view this gallery."
+msgstr "Nimate privilegija za ogled galerije %s"
+
+#: ecard.php:100
+msgid ""
+"You have been sent an Ecard. To view the Ecard, you must be able to view "
+"text/html messages in your mail reader. If you are viewing this message, "
+"then most likely your mail reader does not support viewing text/html "
+"messages."
+msgstr ""
+"Poslali ste E-razglednico. Za njen ogled morate imeti pregledovalnik "
+"elektronske pote ki zna prikazovati text/html sporočla. č vidite to "
+"sporočlo, vrjetno na pregledovalnik tega ni sposoben."
+
+#: templates/view/gallery.inc:48
+msgid "You must choose a gallery to copy images to."
+msgstr "Izberite glerijo v katero skopiramo slike."
+
+#: templates/view/gallery.inc:78
+msgid "You must choose a gallery to move images to."
+msgstr "Izbrati morate galerijo v katero gre premakniti slike."
+
+#: ecard.php:76
+msgid "You must enter an e-mail address to send the message to."
+msgstr "Vnesti morate va email naslov."
+
+#: ecard.php:71
+msgid "You must enter your e-mail address."
+msgstr "Vnesti morate va email naslov."
+
+#: gallery.php:255
+msgid "You must provide a display name for your new gallery."
+msgstr "Navesti morate ime galerije"
+
+#: scripts/recursive_import.php:88
+msgid "You must specify a valid directory."
+msgstr ""
+
+#: scripts/recursive_import.php:84
+msgid "You must specify a valid username and password."
+msgstr ""
+
+#: lib/Forms/Upload.php:51
+msgid "Zip File Upload"
+msgstr "Naloži zip datoteko"
+
+#: templates/crop/crop.inc:36
+msgid "Zoom"
+msgstr "Povečva"
+
+#: lib/Ansel.php:403
+msgid "_Galleries"
+msgstr "_Gallerije"
+
+#: lib/Ansel.php:405
+msgid "_My Galleries"
+msgstr "Moje gallerije"
+
+#: lib/Ansel.php:423
+msgid "_New Gallery"
+msgstr "Nova galerija"
+
+#: lib/Ansel.php:432
+msgid "_Search"
+msgstr "Najdi"
+
+#: lib/Exif.php:303
+msgid "sRGB"
+msgstr "sRGB"

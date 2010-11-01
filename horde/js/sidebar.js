@@ -6,60 +6,78 @@
  */
 
 var HordeSidebar = {
+    // Variables set in services/sidebar.php:
+    // domain, path, refresh, tree, url, width
 
-    getCookie: function(name, deflt)
+    toggleSidebar: function()
     {
-        var cookie = document.cookie.toQueryParams(';');
-        return cookie[name]
-            ? unescape(cookie[name])
-            : deflt;
-    },
+        var expanded = $('expandedSidebar').visible(),
+            expires = new Date();
 
-    toggleMenuFrame: function()
-    {
-        if (!parent || !parent.document.getElementById('hf')) {
-            return;
-        }
-
-        var cols,
-            expires = new Date(),
-            rtl = horde_sidebar_rtl;
-        if ($('expandedSidebar').visible()) {
-            cols = rtl ? '*,20' : '20,*';
-        } else {
-            cols = (rtl ? '*,' : '') + horde_sidebar_cols + (rtl ? '' : ',*');
-        }
-        parent.document.getElementById('hf').setAttribute('cols', cols);
         $('expandedSidebar', 'hiddenSidebar').invoke('toggle');
         if ($('themelogo')) {
             $('themelogo').toggle();
         }
 
+        this.setMargin(!expanded);
+
         // Expire in one year.
         expires.setTime(expires.getTime() + 31536000000);
-        document.cookie = 'horde_sidebar_expanded=' + $('expandedSidebar').visible() + ';DOMAIN=' + horde_sidebar_domain + ';PATH=' + horde_sidebar_path + ';expires=' + expires.toGMTString();
+        document.cookie = 'horde_sidebar_expanded=' + Number(!expanded) + ';DOMAIN=' + this.domain + ';PATH=' + this.path + ';expires=' + expires.toGMTString();
     },
 
     updateSidebar: function()
     {
-        new Ajax.PeriodicalUpdater(
-            'horde_menu',
-            horde_sidebar_url,
-            { parameters: { httpclient: 1 },
-              method: 'get',
-              evalScripts: true,
-              frequency: horde_sidebar_refresh }
-        );
+        new PeriodicalExecuter(function() {
+            new Ajax.Request(this.url, {
+                onComplete: this.onUpdateSidebar.bind(this)
+            });
+        }.bind(this), this.refresh);
+    },
+
+    onUpdateSidebar: function(response)
+    {
+        var layout, r;
+
+        if (response.responseJSON) {
+            $(HordeSidebar.tree.opts.target).update();
+
+            r = response.responseJSON.response;
+            this.tree.renderTree(r.nodes, r.root_nodes, r.is_static);
+        }
+    },
+
+    setMargin: function(expanded)
+    {
+        var hb = $('horde_body'),
+            margin = expanded
+            ? this.width
+            : $('hiddenSidebar').down().getWidth();
+
+        switch ($(document.body).getStyle('direction')) {
+        case 'ltr':
+            hb.setStyle({ marginLeft: margin + 'px' });
+            break;
+
+        case 'rtl':
+            hb.setStyle({ marginRight: margin + 'px' });
+            break;
+        }
+    },
+
+    onDomLoad: function()
+    {
+        if ($('hiddenSidebar').visible()) {
+            this.setMargin(false);
+        }
+
+        if (this.refresh) {
+            this.updateSidebar.bind(this).delay(this.refresh);
+        }
+
+        $('expandButton', 'hiddenSidebar').invoke('observe', 'click', this.toggleSidebar.bind(this));
     }
 
 };
 
-Event.observe(window, 'load', function() {
-    $('hiddenSidebar').hide();
-    if (HordeSidebar.getCookie('horde_sidebar_expanded', true).toString() != $('expandedSidebar').visible().toString()) {
-        HordeSidebar.toggleMenuFrame();
-    }
-    if (horde_sidebar_refresh) {
-        HordeSidebar.updateSidebar.delay(horde_sidebar_refresh);
-    }
-});
+document.observe('dom:loaded', HordeSidebar.onDomLoad.bind(HordeSidebar));

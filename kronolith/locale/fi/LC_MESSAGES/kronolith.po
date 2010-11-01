@@ -1,0 +1,2557 @@
+# Finnish translation for Kronolith.
+# Copyright
+# Leena Heino <liinu@uta.fi>, 2003-2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Kronolith 3.0-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2008-05-17 16:38+0300\n"
+"PO-Revision-Date: 2008-05-20 12:59+0200\n"
+"Last-Translator: Leena Heino <liinu@uta.fi>\n"
+"Language-Team: Finnish <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8-bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: templates/edit/edit.inc:211
+#, php-format
+msgid " until %s"
+msgstr " %s saakka"
+
+#: templates/edit/edit.inc:211
+msgid " without end"
+msgstr " ei loppuaikaa"
+
+#: templates/search/header.inc:4
+#, php-format
+msgid "%d events"
+msgstr "%d tapahtumaa"
+
+#: templates/view/view.inc:124
+#, php-format
+msgid "%d times"
+msgstr "%d kertaa"
+
+#: templates/edit/edit_timespan.inc:120
+#, php-format
+msgid "%s Day(s) %s Hour(s) %s Minutes"
+msgstr "%s Päivää %s Tuntia %s Minuuttia"
+
+#: lib/Driver.php:2267
+#, php-format
+msgid "%s attendees"
+msgstr "%s osallistujaa"
+
+#: data.php:310
+#, php-format
+msgid "%s file successfully imported"
+msgstr "%s tiedoston tuonti onnistui"
+
+#: lib/Kronolith.php:364 lib/Forms/DeleteCalendar.php:85
+#, php-format
+msgid "%s's Calendar"
+msgstr "%s:n kalenteri"
+
+#: templates/contacts/contacts.inc:177
+msgid "* Add these by clicking Add *"
+msgstr "* Lisää nämä napauttamalla Lisää-painiketta *"
+
+#: templates/contacts/contacts.inc:162
+msgid "* Please select address(es) *"
+msgstr "* Valitse osoitteet *"
+
+#: templates/edit/edit.inc:211
+#, php-format
+msgid ", %d times"
+msgstr ", %d kertaa"
+
+#: lib/Driver.php:2266
+msgid "1 attendee"
+msgstr "1 osallistuja"
+
+#: templates/search/header.inc:4
+msgid "1 event"
+msgstr "1 tapahtuma"
+
+#: config/prefs.php.dist:154
+msgid "1 hour"
+msgstr "1 tunti"
+
+#: config/prefs.php.dist:151
+msgid "15 minutes"
+msgstr "15 minuuttia"
+
+#: config/prefs.php.dist:152
+msgid "20 minutes"
+msgstr "20 minuuttia"
+
+#: config/prefs.php.dist:153
+msgid "30 minutes"
+msgstr "30 minuuttia"
+
+#: templates/data/export.inc:118 templates/data/export.inc:203
+msgid "AM"
+msgstr "AM"
+
+#: lib/Kronolith.php:1169
+msgid "Accepted"
+msgstr "Hyväksytty"
+
+#: templates/search/search.inc:10
+msgid "Ad_vanced Search"
+msgstr "Ta_rkempi haku"
+
+#: templates/contacts/contacts.inc:171
+msgid "Add"
+msgstr "Lisää"
+
+#: templates/edit/edit.inc:23
+msgid "Add Event"
+msgstr "Lisää tapahtuma"
+
+#: new.php:65
+msgid "Add a new event"
+msgstr "Lisää uusi tapahtuma"
+
+#: templates/attendees/attendees.inc:78
+msgid "Add attendees"
+msgstr "Lisää osallistujat"
+
+#: templates/prefs/sourceselect.inc:298
+msgid "Add source"
+msgstr "Lisää lähde"
+
+#: templates/contacts/contacts.inc:197
+msgid "Add to attendees"
+msgstr "Lisää osallistujiin"
+
+#: contacts.php:76 templates/contacts/contacts.inc:138
+#: templates/attendees/attendees.inc:85
+msgid "Address Book"
+msgstr "Osoitekirja"
+
+#: config/prefs.php.dist:69
+msgid "Address Books"
+msgstr "Osoitekirjat"
+
+#: templates/search/search_advanced.inc:11 templates/search/search.inc:10
+msgid "Advanced Search"
+msgstr "Tarkempi haku"
+
+#: templates/view/view.inc:47
+msgid "Alarm"
+msgstr "Hälytys"
+
+#: lib/Driver.php:2233
+#, php-format
+msgid "Alarm %d days before"
+msgstr "Hälytä %d päivää aikaisemmin"
+
+#: lib/Driver.php:2238
+#, php-format
+msgid "Alarm %d hours before"
+msgstr "Hälytä %d tuntia aikaisemmin"
+
+#: lib/Driver.php:2243
+#, php-format
+msgid "Alarm %d minutes before"
+msgstr "Hälytä %d minuutta aikaisemmin"
+
+#: lib/Driver.php:2228
+#, php-format
+msgid "Alarm %d weeks before"
+msgstr "Hälytä %d viikkoa aikaisemmin"
+
+#: lib/Driver.php:2232
+msgid "Alarm 1 day before"
+msgstr "Hälytä 1 päivä aikaisemmin"
+
+#: lib/Driver.php:2237
+msgid "Alarm 1 hour before"
+msgstr "Hälytä 1 tunti aikaisemmin"
+
+#: lib/Driver.php:2242
+msgid "Alarm 1 minute before"
+msgstr "Hälytä 1 minuuttia aikaisemmin"
+
+#: lib/Driver.php:2227
+msgid "Alarm 1 week before"
+msgstr "Hälytä 1 viikko aikaisemmin"
+
+#: data.php:61
+msgid "Alarm Date"
+msgstr "Hälytyspäivämäärä"
+
+#: data.php:60
+msgid "Alarm Span (minutes)"
+msgstr "Hälytyksen pituus (minuutteina)"
+
+#: data.php:62
+msgid "Alarm Time"
+msgstr "Hälytysaika"
+
+#: templates/prefs/default_alarm_management.inc:24 templates/edit/edit.inc:166
+msgid "Alarm Unit"
+msgstr "Hälytyksen tyyppi"
+
+#: templates/prefs/default_alarm_management.inc:22 templates/edit/edit.inc:164
+msgid "Alarm Value"
+msgstr "Hälytyksen arvo"
+
+#: templates/edit/edit.inc:159
+msgid "Alarm enabled"
+msgstr "Hälytys on päällä"
+
+#: templates/edit/edit.inc:39 templates/delete/delete.inc:27
+msgid "All"
+msgstr "Kaikki"
+
+#: lib/FBView.php:129 lib/FBView.php:132 lib/FBView.php:135
+msgid "All Attendees"
+msgstr "Kaikki osallistujat"
+
+#: templates/perms/perms.inc:51
+msgid "All Authenticated Users"
+msgstr "Kaikki autentikoituneet käyttäjät"
+
+#: lib/Block/month.php:42
+msgid "All Calendars"
+msgstr "Kaikki kalenterit"
+
+#: templates/search/search.inc:58
+msgid "All Future"
+msgstr "Kaikki tulevat"
+
+#: templates/search/search.inc:52
+msgid "All Past"
+msgstr "Kaikki menneet"
+
+#: lib/Block/summary.php:28 lib/Block/month.php:24
+#: lib/Block/prevmonthlist.php:27 lib/Block/monthlist.php:30
+msgid "All Visible"
+msgstr "Kaikki näkyvät"
+
+#: templates/edit/edit_timespan.inc:119 lib/Driver.php:2336
+#: lib/Views/Day.php:99 lib/Views/Day.php:102 lib/Views/Week.php:149
+#: lib/Views/Week.php:156
+msgid "All day"
+msgstr "Koko päivän"
+
+#: lib/Block/summary.php:166
+msgid "All day event"
+msgstr "Koko päivän tapahtuma"
+
+#: templates/data/export.inc:33
+msgid "All events"
+msgstr "Kaikki tapahtumat"
+
+#: lib/api.php:792 lib/api.php:803
+msgid "Already Exists"
+msgstr "On jo olemassa"
+
+#: templates/search/search_advanced.inc:44
+#: templates/search/search_advanced.inc:65 lib/Kronolith.php:1262
+msgid "Any"
+msgstr "Mikä tahansa"
+
+#: templates/javascript/goto.js:71
+msgid "April"
+msgstr "huhtikuu"
+
+#: templates/edit/edit_timespan.inc:36 templates/edit/edit_timespan.inc:90
+#: templates/data/export.inc:85 templates/data/export.inc:176
+msgid "At"
+msgstr "Kello"
+
+#: lib/Kronolith.php:1442
+msgid ""
+"Attached is an iCalendar file with more information about the event. If your "
+"mail client supports iTip requests you can use this file to easily update "
+"your local copy of the event."
+msgstr ""
+"Liitteena on iCalendar-tiedosto, jossa on lisätietoja tapahtumasta. Jos "
+"sähköpostiohjelmasti tukee iTip pyyntöjä, niin voit tämän tiedoston avulla "
+"päivittää tiedoto paikalliseen kopioon."
+
+#: perms.php:45
+msgid "Attempt to edit a non-existent share."
+msgstr "Yritit muokata olematonta jakoa."
+
+#: templates/view/view.inc:172 templates/attendees/attendees.inc:48
+#: templates/attendees/attendees.inc:60
+msgid "Attendance"
+msgstr "Osallistuminen"
+
+#: templates/view/view.inc:171 templates/attendees/attendees.inc:47
+msgid "Attendee"
+msgstr "Osallistuja"
+
+#: templates/view/view.inc:168 templates/edit/edit.inc:193
+msgid "Attendees"
+msgstr "Osallistujat"
+
+#: lib/Kronolith.php:1436
+#, php-format
+msgid "Attendees: %s"
+msgstr "Osallistujat: %s"
+
+#: templates/javascript/goto.js:75
+msgid "August"
+msgstr "elokuu"
+
+#: templates/prefs/sourceselect.inc:291 templates/prefs/sourceselect.inc:293
+msgid "Available Address books:"
+msgstr "Käytettävissä olevat Osoitekirjat:"
+
+#: templates/search/search_advanced.inc:9 templates/search/search.inc:12
+msgid "Basic Search"
+msgstr "Yksinkertainen haku"
+
+#: config/keywords.php.dist:17
+msgid "Birthday"
+msgstr "Syntymäpäivä"
+
+#: lib/FBView.php:90 lib/FBView.php:112 templates/fbview/legend.html:9
+msgid "Busy"
+msgstr "Varattu"
+
+#: templates/search/search_advanced.inc:37
+msgid "C_alendar"
+msgstr "_Kalenteri"
+
+#: templates/edit/edit.inc:67
+msgid "Cal_endar"
+msgstr "K_alenteri"
+
+#: templates/calendar_list.php:22 lib/Block/summary.php:22
+#: lib/Block/month.php:21 lib/Block/prevmonthlist.php:21
+#: lib/Block/monthlist.php:21
+msgid "Calendar"
+msgstr "Kalenteri"
+
+#: templates/panel.inc:6
+msgid "Calendar Information"
+msgstr "Kalenteritietoja"
+
+#: templates/calendar_list.php:19
+msgid "Calendar List"
+msgstr "Kalenterilista"
+
+#: lib/Block/summary.php:3
+msgid "Calendar Summary"
+msgstr "Kalenterin yhteenveto"
+
+#: data.php:254
+msgid "Calendar successfully purged."
+msgstr "Kalenterin poisto onnistui."
+
+#: templates/panel.inc:23 templates/panel.inc:24 config/prefs.php.dist:27
+#: config/prefs.php.dist:35 config/prefs.php.dist:60
+msgid "Calendars"
+msgstr "Kalenterit"
+
+#: templates/calendar_titles.inc:8
+msgid "Calendars Printed: "
+msgstr "Tulostetut kalenterit: "
+
+#: data.php:270
+msgid "Can't create a new event."
+msgstr "Ei voida luoda uutta tapahtumaan."
+
+#: templates/edit/edit.inc:51 templates/edit/edit.inc:382
+#: templates/delete/delete.inc:28 templates/delete/one.inc:25
+#: lib/Forms/DeleteCalendar.php:45 lib/Forms/DeleteCalendar.php:51
+#: lib/Forms/UnsubscribeRemoteCalendar.php:39
+#: lib/Forms/UnsubscribeRemoteCalendar.php:45
+msgid "Cancel"
+msgstr "Peru"
+
+#: lib/Kronolith.php:1145
+msgid "Cancelled"
+msgstr "Peruttu"
+
+#: lib/Kronolith.php:1403
+#, php-format
+msgid "Cancelled: %s"
+msgstr "Peruttu: %s"
+
+#: lib/Driver/kolab.php:1394
+#, php-format
+msgid "Cannot delete event: %s"
+msgstr "Ei voida poistaa tapahtumaa: %s"
+
+#: templates/search/search_advanced.inc:58 templates/edit/edit.inc:94
+msgid "Categor_y"
+msgstr "Kategori_a"
+
+#: data.php:64 templates/view/view.inc:6 templates/search/event_headers.inc:4
+msgid "Category"
+msgstr "Kategoria"
+
+#: templates/calendar_list.php:54 calendars/index.php:69
+msgid "Change Permissions"
+msgstr "Muuta oikeuksia"
+
+#: config/prefs.php.dist:52
+msgid ""
+"Choose how you want to be notified about event changes, event alarms and "
+"upcoming events."
+msgstr ""
+"Valitse miten haluat saada ilmoitukset tapahtumien muutoksista, tapahtumien "
+"hälytyksistä ja tulevista tapahtumista."
+
+#: config/prefs.php.dist:383
+msgid "Choose how you want to receive reminders for events with alarms:"
+msgstr ""
+"Valitse miten haluat saada muistutuksen tapahtumiin liitetyistä hälytyksistä:"
+
+#: config/prefs.php.dist:340
+msgid ""
+"Choose if you want to be notified of new, edited, and deleted events by "
+"email:"
+msgstr ""
+"Valitse haluatko saada ilmoituksia uusista, muokatuista tai poistetuista "
+"tapahtumista sähköpostitse:"
+
+#: config/prefs.php.dist:353
+msgid "Choose if you want to receive daily agenda email reminders:"
+msgstr "Valitse haluatko saada päivittäisiä muistutuksia tapahtumista:"
+
+#: config/prefs.php.dist:374
+msgid "Choose if you want to receive reminders for events with alarms:"
+msgstr ""
+"Valitse haluatko saada muistutuksen tapahtumiin liitetyistä hälytyksistä:"
+
+#: templates/prefs/fb_cals_select.inc:28
+msgid "Choose the calendars to include in the above Free/Busy URL:"
+msgstr ""
+"Valitse kalenterit, jotka liitetään yllä olevaan vapaa/varattu URL-"
+"osoitteeseen:"
+
+#: config/prefs.php.dist:440
+msgid "Choose the calendars to include when generating Free/Busy URLs:"
+msgstr ""
+"Valitse kalenterit, jotka huomioidaan tehtäessä vapaa/varattu URL-osoitteita:"
+
+#: templates/prefs/sourceselect.inc:287
+msgid "Choose the order of address books to search when expanding addresses."
+msgstr "Valitse osoitekirjat, joista etsitään laajennettavia osoitteita."
+
+#: config/prefs.php.dist:188
+msgid "Choose the views to show event locations in:"
+msgstr "Valitse mitkä näkymät näytetään tapahtumien paikkatiedot:"
+
+#: config/prefs.php.dist:176
+msgid "Choose the views to show event start and end times in:"
+msgstr "Valitse miten näytetään alku- ja loppuajat:"
+
+#: config/prefs.php.dist:37
+msgid "Choose which holidays to display"
+msgstr "Valitse näytettävät vapaapäivät"
+
+#: config/prefs.php.dist:29
+msgid "Choose your default calendar."
+msgstr "Voit valita oletuskalenterisi."
+
+#: templates/attendees/attendees.inc:95
+msgid "Clear all attendees"
+msgstr "Poista kaikki osallistujat"
+
+#: templates/prefs/sourceselect.inc:317
+msgid ""
+"Click on one of your selected address books and then select all fields to "
+"search."
+msgstr ""
+"Napsauta yhtä valitsemaasi osoitekirjaa ja tämän jälkeen valitse kaikki "
+"etsittävät kentät."
+
+#: templates/calendar_list.php:40 templates/calendar_list.php:41
+#: templates/calendar_list.php:50 templates/calendar_list.php:51
+msgid "Click or copy this URL to display this calendar"
+msgstr "Napsauta tai kopioi tämä URL nähdäksesi tämän tehtävälistan"
+
+#: templates/javascript_defs.php:17
+msgid "Close"
+msgstr "Sulje"
+
+#: templates/perms/perms.inc:9
+msgid "Close Window"
+msgstr "Sulje ikkuna"
+
+#: templates/contacts/contacts.inc:198
+msgid "Close window"
+msgstr "Sulje ikkuna"
+
+#: data.php:30 templates/data/import.inc:13
+msgid "Comma separated values"
+msgstr "Pilkuilla erotetut arvot"
+
+#: config/prefs.php.dist:81
+msgid "Confirm deletion of events?"
+msgstr "Varmista tapahtumien poisto."
+
+#: lib/Kronolith.php:1142
+msgid "Confirmed"
+msgstr "Varmistettu"
+
+#: templates/prefs/fb_cals_select.inc:6
+msgid "Copy this URL for use wherever you need your Free/Busy URL:"
+msgstr ""
+"Kopioi alla oleva URL sinne minne tarvitset vapaa/varattu URL-osoitetta:"
+
+#: lib/Kronolith.php:456
+#, php-format
+msgid "Could not open %s."
+msgstr "Ei voitu aukaista %s."
+
+#: lib/Forms/CreateCalendar.php:39
+msgid "Create"
+msgstr "Luo"
+
+#: lib/Forms/CreateCalendar.php:34
+msgid "Create Calendar"
+msgstr "Luo kalenteri"
+
+#: templates/week/head.inc:29 lib/Views/Day.php:99 lib/Views/Day.php:261
+#: lib/Views/Month.php:173
+msgid "Create a New Event"
+msgstr "Luo uusi tapahtuma"
+
+#: templates/calendar_list.php:10
+msgid "Create a new Local Calendar"
+msgstr "Luo uusi paikallinen kalenteri"
+
+#: templates/view/view.inc:74
+msgid "Created"
+msgstr "Luotu"
+
+#: templates/edit/edit.inc:37 templates/delete/delete.inc:25
+msgid "Current"
+msgstr "Nykyinen"
+
+#: lib/Recurrence.php:192
+msgid "Daily"
+msgstr "Päivittäin"
+
+#: templates/view/view.inc:96 templates/edit/edit.inc:226
+msgid "Daily: Recurs every"
+msgstr "Päivittäin: Toistuvuuden väli"
+
+#: attendees.php:196 lib/Kronolith.php:1748 lib/Block/tree_menu.php:21
+#: config/prefs.php.dist:90
+msgid "Day"
+msgstr "Päivä"
+
+#: templates/view/view.inc:56 templates/prefs/default_alarm_management.inc:28
+#: templates/edit/edit.inc:170
+msgid "Day(s)"
+msgstr "Päivää"
+
+#: lib/Kronolith.php:1798
+msgid "De_lete"
+msgstr "Po_ista"
+
+#: templates/javascript/goto.js:79
+msgid "December"
+msgstr "joulukuu"
+
+#: lib/Kronolith.php:1172
+msgid "Declined"
+msgstr "Kieltäytyi"
+
+#: templates/prefs/default_alarm_management.inc:21
+msgid "Default Alarm Setting:"
+msgstr "Oletusasetukset hälytyksille:"
+
+#: config/prefs.php.dist:28
+msgid "Default Calendar"
+msgstr "Oletuskalenteri"
+
+#: templates/perms/perms.inc:57 templates/perms/perms.inc:81
+#: templates/perms/perms.inc:98 templates/perms/perms.inc:122
+#: templates/perms/perms.inc:139 templates/perms/perms.inc:163
+#: templates/perms/perms.inc:180 templates/perms/perms.inc:204
+#: templates/perms/perms.inc:245 templates/perms/perms.inc:262
+#: templates/perms/perms.inc:286 templates/perms/perms.inc:320
+msgid "Delegate"
+msgstr "Delegoi"
+
+#: templates/calendar_list.php:56 templates/perms/perms.inc:56
+#: templates/perms/perms.inc:77 templates/perms/perms.inc:97
+#: templates/perms/perms.inc:118 templates/perms/perms.inc:138
+#: templates/perms/perms.inc:159 templates/perms/perms.inc:179
+#: templates/perms/perms.inc:200 templates/perms/perms.inc:241
+#: templates/perms/perms.inc:261 templates/perms/perms.inc:282
+#: templates/perms/perms.inc:316 templates/delete/one.inc:24
+#: lib/Driver.php:1329 lib/Driver.php:2295 lib/Forms/DeleteCalendar.php:45
+#: calendars/index.php:70
+msgid "Delete"
+msgstr "Poista"
+
+#: lib/Driver.php:2294 lib/Views/DeleteEvent.php:29
+#: lib/Forms/DeleteCalendar.php:40
+#, php-format
+msgid "Delete %s"
+msgstr "Poista %s"
+
+#: lib/Driver.php:1328
+#, php-format
+msgid "Delete exception on %s"
+msgstr "Poista poikkus kun %s"
+
+#: templates/search/search_advanced.inc:101 templates/search/search.inc:27
+#: templates/edit/edit.inc:180
+msgid "Descri_ption"
+msgstr "Ku_vaus"
+
+#: data.php:63 templates/view/view.inc:155 lib/Forms/CreateCalendar.php:37
+#: lib/Forms/EditCalendar.php:44
+msgid "Description"
+msgstr "Kuvaus"
+
+#: templates/contacts/contacts.inc:186
+msgid "Display"
+msgstr "Näytä"
+
+#: config/prefs.php.dist:9 config/prefs.php.dist:20
+msgid "Display Options"
+msgstr "Näkymän asetukset"
+
+#: templates/calendar_list.php:24
+msgid "Display URL"
+msgstr "Näytä URL"
+
+#: lib/Kronolith.php:1110
+msgid "Does not recur"
+msgstr "Ei toistu"
+
+#: config/prefs.php.dist:361
+msgid ""
+"Don't send me a notification if I've added, changed or deleted the event?"
+msgstr ""
+"Älä lähetä minulle ilmoitusta, jos olen lisännyt, muuttanut tai poistanut "
+"tapahtuman."
+
+#: lib/Kronolith.php:674
+#, php-format
+msgid "Due: %s"
+msgstr "Valmistuu: %s"
+
+#: templates/edit/edit_timespan.inc:112
+msgid "Duration"
+msgstr "Kesto"
+
+#: lib/Driver.php:2006
+msgid "Duration Day"
+msgstr "Kesto päivää"
+
+#: lib/Driver.php:2018
+msgid "Duration Hour"
+msgstr "Kesto tuntia"
+
+#: lib/Driver.php:2029
+msgid "Duration Minute"
+msgstr "Kesto minuuttia"
+
+#: templates/calendar_list.php:42 templates/calendar_list.php:52
+#: templates/perms/perms.inc:55 templates/perms/perms.inc:73
+#: templates/perms/perms.inc:96 templates/perms/perms.inc:114
+#: templates/perms/perms.inc:137 templates/perms/perms.inc:155
+#: templates/perms/perms.inc:178 templates/perms/perms.inc:196
+#: templates/perms/perms.inc:237 templates/perms/perms.inc:260
+#: templates/perms/perms.inc:278 templates/perms/perms.inc:312
+#: lib/Driver.php:2288 calendars/index.php:68
+msgid "Edit"
+msgstr "Muokkaa"
+
+#: templates/attendees/attendees.inc:57 lib/Driver.php:2287
+#: lib/Views/EditEvent.php:29 lib/Forms/EditCalendar.php:40
+#: lib/Forms/EditRemoteCalendar.php:34
+#, php-format
+msgid "Edit %s"
+msgstr "Muokkaa %s"
+
+#: templates/edit/edit.inc:202
+msgid "Edit Attendees"
+msgstr "Muokkaa osallistujia"
+
+#: perms.php:237
+msgid "Edit Permissions"
+msgstr "Muokkaa oikeuksia"
+
+#: perms.php:239
+#, php-format
+msgid "Edit Permissions for %s"
+msgstr "Muokkaa %s oikeuksia"
+
+#: templates/attendees/attendees.inc:78
+msgid "Edit attendee"
+msgstr "Muokkaa osallistujaa"
+
+#: attendees.php:267
+msgid "Edit attendees"
+msgstr "Muokkaa osallistujia"
+
+#: templates/category_legend.inc:20
+msgid "Edit categories and colors"
+msgstr "Muokkaa kategorioita ja värejä"
+
+#: templates/perms/perms.inc:11
+#, php-format
+msgid "Edit permissions for %s"
+msgstr "Muokkaa %s:n oikeuksia"
+
+#: templates/contacts/contacts.inc:189
+msgid "Email Address"
+msgstr "Sähköpostiosoite"
+
+#: templates/edit/edit_timespan.inc:57
+msgid "En_d"
+msgstr "Päätty_y"
+
+#: data.php:58
+msgid "End Date"
+msgstr "Päättymispäivämäärä"
+
+#: templates/data/export.inc:161 lib/Driver.php:1977
+msgid "End Day"
+msgstr "Päättymispäivä"
+
+#: templates/data/export.inc:178 lib/Driver.php:1990
+msgid "End Hour"
+msgstr "Päättymistunti"
+
+#: templates/data/export.inc:190 lib/Driver.php:2001
+msgid "End Minute"
+msgstr "Päättymisminuutti"
+
+#: templates/data/export.inc:148 lib/Driver.php:1968
+msgid "End Month"
+msgstr "Päättymiskuukausi"
+
+#: templates/view/view.inc:41 templates/search/event_headers.inc:8
+#: templates/data/export.inc:125
+msgid "End On"
+msgstr "Päättyy"
+
+#: data.php:59
+msgid "End Time"
+msgstr "Päättymisaika"
+
+#: templates/data/export.inc:134 lib/Driver.php:1957
+msgid "End Year"
+msgstr "Päättymisvuosi"
+
+#: attendees.php:246
+#, php-format
+msgid "Error retrieving free/busy information for %s: %s"
+msgstr "Tapahtui virhe tuotaessa vapaa/varattu-tietoja %s:lle: %s"
+
+#: attendees.php:223
+#, php-format
+msgid "Error retrieving your free/busy information: %s"
+msgstr "Tapahtui virhe haettaessa vapaa/varattu-tietojasi: %s"
+
+#: config/prefs.php.dist:44
+msgid "Event Defaults"
+msgstr "Tapahtumaoletukset"
+
+#: lib/Kronolith.php:1595
+msgid "Event added:"
+msgstr "Tapahtuma lisättiin:"
+
+#: lib/Kronolith.php:1605
+msgid "Event deleted:"
+msgstr "Tapahtuma poistettiin:"
+
+#: lib/Kronolith.php:1600
+msgid "Event edited:"
+msgstr "Tapahtumaa muokattiin:"
+
+#: lib/Driver.php:1456
+#, php-format
+msgid "Event from %s to %s"
+msgstr "Tapahtuma alkaen %s loppuen %s"
+
+#: lib/Driver/sql.php:390
+msgid "Event not found"
+msgstr "Tapahtumaa ei löytynyt"
+
+#: lib/Driver/kolab.php:453 lib/Driver/kolab.php:1189
+#: lib/Driver/kolab.php:1228 lib/Driver/kolab.php:1372
+#, php-format
+msgid "Event not found: %s"
+msgstr "Tapahtumaa ei löytynyt: %s"
+
+#: config/prefs.php.dist:43 config/prefs.php.dist:50
+msgid "Events"
+msgstr "Tapahtumat"
+
+#: lib/api.php:279
+#, php-format
+msgid "Events from %s"
+msgstr "Tapahtumat alkaen %s"
+
+#: lib/Driver.php:1060
+msgid "Events must have a start date."
+msgstr "Tapahtumilla pitää olla alkamisajankohta."
+
+#: lib/Driver.php:1022
+msgid "Events must have a title."
+msgstr "Tapahtumilla pitää olla otsikko"
+
+#: templates/view/view.inc:130 templates/edit/edit.inc:323
+msgid "Exceptions"
+msgstr "Poikkeukset"
+
+#: templates/data/export.inc:209 lib/Kronolith.php:1805
+msgid "Export"
+msgstr "Vie"
+
+#: templates/data/export.inc:8
+msgid "Export Calendar"
+msgstr "Vie kalenteri"
+
+#: templates/panel.inc:59
+msgid "External Events:"
+msgstr "Ulkoiset tapahtumat:"
+
+#: templates/javascript/goto.js:69
+msgid "February"
+msgstr "helmikuu"
+
+#: templates/prefs/sourceselect.inc:327
+msgid "Fields to search"
+msgstr "Etsittävät kentät"
+
+#: templates/contacts/contacts.inc:143
+msgid "Find"
+msgstr "Haku"
+
+#: templates/javascript/goto.js:63 templates/edit/edit.inc:239
+#: lib/Views/Year.php:81 lib/Block/month.php:107
+msgid "Fr"
+msgstr "pe"
+
+#: lib/Kronolith.php:1148
+msgid "Free"
+msgstr "Vapaa"
+
+#: config/prefs.php.dist:61
+msgid "Free/Busy Information"
+msgstr "Vapaa/varattu-tietoja"
+
+#: templates/view/view.inc:103 templates/month/head.inc:21
+#: templates/edit/javascript.inc:71
+msgid "Friday"
+msgstr "perjantai"
+
+#: templates/edit/edit.inc:38 templates/delete/delete.inc:26
+msgid "Future"
+msgstr "Tulevat"
+
+#: config/keywords.php.dist:17
+msgid "Game"
+msgstr "Peli"
+
+#: templates/search/search_advanced.inc:18
+msgid "General"
+msgstr "Yleinen"
+
+#: lib/Block/summary.php:153
+#, php-format
+msgid "Goto %s"
+msgstr "Mene %s"
+
+#: templates/perms/perms.inc:256
+msgid "Groups"
+msgstr "Ryhmät"
+
+#: templates/perms/perms.inc:92
+msgid "Guest Permissions"
+msgstr "Vieraan oikeudet"
+
+#: templates/edit/javascript.inc:256
+msgid "Hide"
+msgstr "Piilota"
+
+#: config/prefs.php.dist:36
+msgid "Holidays"
+msgstr "Lomat"
+
+#: templates/view/view.inc:59 templates/prefs/default_alarm_management.inc:27
+#: templates/edit/edit.inc:169
+msgid "Hour(s)"
+msgstr "Tuntia"
+
+#: config/prefs.php.dist:150
+msgid "How long should the time slots on the day and week views be?"
+msgstr "Kuinka pitkä on aikalokero päivä- ja viikkonäkymissä?"
+
+#: config/prefs.php.dist:392
+msgid "How many days of Free/Busy information should be generated?"
+msgstr "Monelleko tulevalle päivälle luodaan vapaa/varattu-tietoja?"
+
+#: lib/Kronolith.php:1446
+#, php-format
+msgid ""
+"If your email client doesn't support iTip requests you can use one of the "
+"following links to accept or decline the event.\n"
+"\n"
+"To accept the event:\n"
+"%s\n"
+"\n"
+"To accept the event tentatively:\n"
+"%s\n"
+"\n"
+"To decline the event:\n"
+"%s\n"
+msgstr ""
+"Jos sähköpostiohjelmasi ei tue iTip pyyntöjä, niin voi käyttää alla olevia "
+"linkkejä osallistuaksesi tai kieltäytyä osallistumasta tapahtumaan.\n"
+"\n"
+"Hyväksyä tapahtuman:\n"
+"%s\n"
+"\n"
+"Alustavasti hyväksyä tapahtuman:\n"
+"%s\n"
+"\n"
+"Kieltäytyäksesi tapahtumasta:\n"
+"%s\n"
+
+#: templates/data/import.inc:7
+#, php-format
+msgid "Import Calendar, Step %d"
+msgstr "Kalenterin tuonti, askel %d"
+
+#: data.php:316
+msgid "Import/Export Calendar"
+msgstr "Tuo/Vie kalenteri"
+
+#: templates/perms/perms.inc:174
+msgid "Individual Users"
+msgstr "Yksittäiset käyttäjät"
+
+#: templates/javascript/goto.js:68
+msgid "January"
+msgstr "tammikuu"
+
+#: templates/javascript/goto.js:74
+msgid "July"
+msgstr "heinäkuu"
+
+#: templates/javascript/goto.js:73
+msgid "June"
+msgstr "kesäkuu"
+
+#: data.php:66 templates/view/view.inc:138 templates/edit/edit.inc:336
+msgid "Keywords"
+msgstr "Avainsanat"
+
+#: templates/calendar_list.php:23
+msgid "Kind"
+msgstr "Tyyppi"
+
+#: templates/search/search.inc:54
+msgid "Last 24 hours"
+msgstr "Edelliset 24 tuntia"
+
+#: templates/view/view.inc:81
+msgid "Last Modified"
+msgstr "Muokattu viimeksi"
+
+#: templates/month/head.inc:5 templates/month/head_side_by_side.inc:5
+msgid "Last Month"
+msgstr "Edellinen kuukausi"
+
+#: templates/year/head.inc:3
+msgid "Last Year"
+msgstr "Edellinen vuosi"
+
+#: templates/week/head.inc:6 templates/search/search.inc:53
+msgid "Last week"
+msgstr "Edellinen viikko"
+
+#: templates/data/export.inc:29
+msgid "Limit the time span to export:"
+msgstr "Rajoita viennin aikaikkunaa:"
+
+#: config/prefs.php.dist:403
+msgid ""
+"List all contacts when loading the contacts screen? (if disabled, you will "
+"only see contacts that you search for explicitly)"
+msgstr ""
+"Listaa kaikki yhteystiedot yhteystietonäkymässä? (Jos tämä on pois päältä, "
+"niin näytetään vain hakemasi yhdystiedot)"
+
+#: templates/search/search_advanced.inc:81 templates/edit/edit.inc:101
+msgid "Lo_cation"
+msgstr "Pai_kka"
+
+#: templates/javascript_defs.php:16
+msgid "Loading ..."
+msgstr "Ladataan ..."
+
+#: templates/attendees/attendees.inc:81
+msgid "Loading..."
+msgstr "Ladataan..."
+
+#: templates/calendar_list.php:49
+msgid "Local"
+msgstr "Paikallinen"
+
+#: templates/calendar_info.php:18
+#, php-format
+msgid "Local calendar owned by %s."
+msgstr "Paikallinen kalenteri, omistaja %s."
+
+#: data.php:65 templates/view/view.inc:14 templates/search/event_headers.inc:5
+#: lib/Driver.php:2318
+msgid "Location"
+msgstr "Paikka"
+
+#: lib/Kronolith.php:1427
+#, php-format
+msgid "Location: %s"
+msgstr "Paikka: %s"
+
+#: templates/calendar_list.php:4 calendars/index.php:74
+msgid "Manage Calendars"
+msgstr "Hallinnoi kalentereita"
+
+#: templates/javascript/goto.js:70
+msgid "March"
+msgstr "maaliskuu"
+
+#: lib/api.php:138
+msgid "Maximum Number of Events"
+msgstr "Tapahtumien maksimimäärä"
+
+#: lib/Block/summary.php:25 lib/Block/monthlist.php:27
+msgid "Maximum number of events to display (0 = no limit)"
+msgstr "Näytettävien tapahtumien maksimimäärä (0 = näytetään kaikki)"
+
+#: templates/javascript/goto.js:72
+msgid "May"
+msgstr "toukokuu"
+
+#: lib/Driver.php:2314
+msgid "Me"
+msgstr "Ta"
+
+#: config/keywords.php.dist:17
+msgid "Meeting"
+msgstr "Tapaaminen"
+
+#: lib/Block/tree_alarms.php:3
+msgid "Menu Alarms"
+msgstr "Valikko hälytykset"
+
+#: lib/Block/tree_menu.php:3
+msgid "Menu List"
+msgstr "Valikko lista"
+
+#: templates/view/view.inc:62 templates/prefs/default_alarm_management.inc:26
+#: templates/edit/edit.inc:168
+msgid "Minute(s)"
+msgstr "Minuuttia"
+
+#: templates/javascript/goto.js:59 templates/edit/edit.inc:235
+#: lib/Views/Year.php:77 lib/Block/month.php:107
+msgid "Mo"
+msgstr "ma"
+
+#: templates/view/view.inc:99 templates/month/head.inc:17
+#: templates/edit/javascript.inc:67 config/prefs.php.dist:114
+msgid "Monday"
+msgstr "maanantai"
+
+#: attendees.php:199 lib/Kronolith.php:1754 lib/Block/tree_menu.php:24
+#: config/prefs.php.dist:93
+msgid "Month"
+msgstr "Kuukausi"
+
+#: config/prefs.php.dist:173 config/prefs.php.dist:185
+msgid "Month, Week, and Day Views"
+msgstr "Kuukausi-, viikko- ja päivänäkymät"
+
+#: lib/Recurrence.php:195
+msgid "Monthly"
+msgstr "Kuukausittain"
+
+#: templates/view/view.inc:108 templates/view/view.inc:110
+#: templates/edit/edit.inc:246 templates/edit/edit.inc:252
+msgid "Monthly: Recurs every"
+msgstr "Kuukausittain: Toistuvuuden väli"
+
+#: lib/Block/monthlist.php:24
+msgid "Months Ahead"
+msgstr "Tulevaa kuukautta"
+
+#: lib/Block/prevmonthlist.php:24
+msgid "Months Before"
+msgstr "Mennyttä kuukautta"
+
+#: templates/prefs/sourceselect.inc:312
+msgid "Move down"
+msgstr "Siirrä alas"
+
+#: templates/prefs/sourceselect.inc:310
+msgid "Move up"
+msgstr "Siirrä ulos"
+
+#: lib/api.php:1063
+msgid "Multiple iCalendar components found; only one vEvent is supported."
+msgstr "Löytyi useita iCalendar-komponentteja; Vain yksi vEvent on tuettu."
+
+#: templates/panel.inc:41
+msgid "My Calendars:"
+msgstr "Kalenterini:"
+
+#: templates/prefs/fb_cals_select.inc:2
+msgid "My Free/Busy URL"
+msgstr "Vapaa/varattu-URL:ini"
+
+#: templates/contacts/contacts.inc:188 lib/Forms/CreateCalendar.php:36
+#: lib/Forms/EditCalendar.php:43 lib/Forms/SubscribeRemoteCalendar.php:36
+#: lib/Forms/EditRemoteCalendar.php:36
+msgid "Name"
+msgstr "Nimi"
+
+#: lib/Block/tree_menu.php:20
+msgid "New Event"
+msgstr "Uusi tapahtuma"
+
+#: lib/Kronolith.php:398
+#, php-format
+msgid ""
+"New calendar created and automatically shared with the following group(s): %"
+"s."
+msgstr ""
+"Uusi kalenteri on luotu ja automaattisesti jaettu seuraaville ryhmille: %s."
+
+#: templates/data/import.inc:33
+msgid "Next"
+msgstr "Seuraava"
+
+#: templates/search/search.inc:56
+msgid "Next 24 hours"
+msgstr "Seuraavat 24 tuntia"
+
+#: lib/FBView/day.php:28
+msgid "Next Day"
+msgstr "Seuraava päivä"
+
+#: templates/month/head.inc:7 templates/month/head_side_by_side.inc:7
+#: lib/FBView/month.php:31
+msgid "Next Month"
+msgstr "Seuraava kuukausi"
+
+#: lib/FBView/week.php:31
+msgid "Next Week"
+msgstr "Seuraava viikko"
+
+#: templates/year/head.inc:5
+msgid "Next Year"
+msgstr "Seuraava vuosi"
+
+#: templates/day/head.inc:5
+msgid "Next day"
+msgstr "Seuraava päivä"
+
+#: templates/week/head.inc:8 templates/search/search.inc:57
+msgid "Next week"
+msgstr "Seuraava viikko"
+
+#: config/prefs.php.dist:336 config/prefs.php.dist:349
+#: config/prefs.php.dist:370
+msgid "No"
+msgstr "Ei"
+
+#: templates/fbview/legend.html:13
+msgid "No Information"
+msgstr "Ei tietoja"
+
+#: templates/view/view.inc:67 templates/edit/edit.inc:163
+msgid "No alarm"
+msgstr "Ei hälytys"
+
+#: templates/attendees/attendees.inc:54
+msgid "No attendees"
+msgstr "Ei osallistujat"
+
+#: lib/api.php:1201
+msgid ""
+"No attendees have been updated because none of the provided email addresses "
+"have been found in the event's attendees list."
+msgstr ""
+"Osallistujien tietoja ei ole päivitetty, koska annetut sähköpostiosoitteet "
+"eivät löyty tapahtuman osallistujalistalta."
+
+#: lib/Kronolith.php:1997
+msgid "No calendars are available to guests."
+msgstr "Vierailijoille ei ole tarjolla yhtään kalenteria."
+
+#: lib/Driver/sql.php:418
+msgid "No calendars to search"
+msgstr "Ei kalentereita etsittäväksi."
+
+#: templates/view/view.inc:124 templates/edit/edit.inc:284
+msgid "No end date"
+msgstr "Ei päättymispäivää"
+
+#: lib/Block/summary.php:205 lib/Block/prevmonthlist.php:166
+#: lib/Block/monthlist.php:175
+msgid "No events to display"
+msgstr "Ei tapahtumia näytettäväksi"
+
+#: lib/FreeBusy.php:225
+#, php-format
+msgid "No free/busy information found at the free/busy url of %s."
+msgstr "Vapaa/varattu-tietoja ei löytynyt vapaa/varattu %s url-osoitteesta."
+
+#: lib/Storage/kolab.php:67
+#, php-format
+msgid "No free/busy information is available for %s"
+msgstr "Vapaa/varattu-tietoja %s:lle ei ole olemassa"
+
+#: lib/FreeBusy.php:226
+#, php-format
+msgid "No free/busy url found for %s."
+msgstr "Vapaa/varattu url-osoitetta ei löytynyt %s:lle."
+
+#: lib/api.php:491 lib/api.php:778 lib/api.php:816 lib/api.php:1070
+msgid "No iCalendar data was found."
+msgstr "Ei löytynyt iCalendar-tietoja."
+
+#: templates/edit/edit.inc:221 lib/Driver.php:1313 lib/Recurrence.php:191
+msgid "No recurrence"
+msgstr "Ei toistuvuutta"
+
+#: lib/FreeBusy.php:168
+msgid "No valid email address found"
+msgstr "Ei löytynyt toimivaa sähköpostiosoitetta."
+
+#: templates/prefs/sourceselect.inc:35 lib/Kronolith.php:1179
+#: lib/Kronolith.php:1200
+msgid "None"
+msgstr "Ei mitään"
+
+#: lib/Views/Event.php:26 lib/Views/DeleteEvent.php:27
+#: lib/Views/EditEvent.php:27
+msgid "Not Found"
+msgstr "Ei löytynyt"
+
+#: lib/Storage/sql.php:155
+msgid "Not found"
+msgstr "Ei löytynyt"
+
+#: config/prefs.php.dist:51
+msgid "Notifications"
+msgstr "Ilmoitukset"
+
+#: templates/javascript/goto.js:78
+msgid "November"
+msgstr "marraskuu"
+
+#: templates/search/search.inc:55
+msgid "Now"
+msgstr "Nyt"
+
+#: templates/perms/perms.inc:133
+msgid "Object Creator"
+msgstr "Objektin luoja"
+
+#: templates/javascript/goto.js:77
+msgid "October"
+msgstr "lokakuu"
+
+#: templates/edit/edit_timespan.inc:13 templates/edit/edit_timespan.inc:62
+msgid "On"
+msgstr " - "
+
+#: config/prefs.php.dist:339 config/prefs.php.dist:352
+#: config/prefs.php.dist:373
+msgid "On all calendars I have read access to"
+msgstr "Kaikkiin kalentereihin, joihin minulla on lukuoikeus"
+
+#: config/prefs.php.dist:338 config/prefs.php.dist:351
+#: config/prefs.php.dist:372
+msgid "On all shown calendars"
+msgstr "Kaikilla näkyvillä oleviin kalentereihin"
+
+#: config/prefs.php.dist:337 config/prefs.php.dist:350
+#: config/prefs.php.dist:371
+msgid "On my calendars only"
+msgstr "Vain omalla kalenterillani"
+
+#: perms.php:57
+msgid ""
+"Only the owner or system administrator may change ownership or owner "
+"permissions for a share"
+msgstr ""
+"Vain omistaja tai järjestelmän ylläpitäjä voi vaihtaa omistajaa tai "
+"omistajan oikeuksia jakoon"
+
+#: lib/Kronolith.php:1197
+msgid "Optional"
+msgstr "Vapaaehtoinen"
+
+#: lib/FBView.php:120
+msgid "Optional Attendees"
+msgstr "Mahdollinen osallistuja"
+
+#: config/prefs.php.dist:68
+msgid "Other Options"
+msgstr "Muut asetukset"
+
+#: lib/FBView.php:155
+msgid "Overview"
+msgstr "Yleiskuva"
+
+#: templates/view/view.inc:28 templates/perms/perms.inc:22
+msgid "Owner"
+msgstr "Omistaja"
+
+#: templates/perms/perms.inc:28 templates/perms/perms.inc:39
+msgid "Owner:"
+msgstr "Omistaja:"
+
+#: lib/Driver.php:2313
+#, php-format
+msgid "Owner: %s"
+msgstr "Omistaja: %s"
+
+#: templates/data/export.inc:119 templates/data/export.inc:204
+msgid "PM"
+msgstr "PM"
+
+#: lib/Forms/SubscribeRemoteCalendar.php:39
+#: lib/Forms/EditRemoteCalendar.php:39
+msgid "Password"
+msgstr "Salasana"
+
+#: templates/view/view.inc:93 templates/edit/edit.inc:216
+msgid "Pattern"
+msgstr "Toistuvuus"
+
+#: templates/delete/one.inc:22
+msgid "Permanently delete this event?"
+msgstr "Poistetaanko tämä tapahtuma pysyvästi?"
+
+#: lib/Kronolith.php:1899 lib/Kronolith.php:1918 lib/Kronolith.php:1931
+#: lib/Kronolith.php:1952 lib/api.php:648 lib/api.php:692 lib/api.php:724
+#: lib/api.php:757 lib/api.php:855 lib/api.php:908 lib/api.php:1006
+#: lib/api.php:1040 lib/api.php:1131 lib/api.php:1191 lib/api.php:1256
+#: lib/api.php:1286 lib/Driver/sql.php:801
+msgid "Permission Denied"
+msgstr "Käyttö kielletty"
+
+#: lib/Forms/DeleteCalendar.php:56
+msgid "Permission denied"
+msgstr "Käyttö kielletty"
+
+#: lib/Imple/ContactAutoCompleter.php:227
+msgid "Please resolve ambiguous or invalid addresses."
+msgstr "Selvitä epämääräinen tai väärä osoite."
+
+#: config/prefs.php.dist:21
+msgid "Portal Options"
+msgstr "Portaalin asetukset"
+
+#: templates/fbview/legend.html:11
+msgid "Possible Meeting Time"
+msgstr "Mahdollinen tapaamisaika"
+
+#: lib/FBView/day.php:24
+msgid "Previous Day"
+msgstr "Edellinen päivä"
+
+#: lib/FBView/month.php:25
+msgid "Previous Month"
+msgstr "Edellinen kuukausi"
+
+#: lib/FBView/week.php:25
+msgid "Previous Week"
+msgstr "Edellinen viikko"
+
+#: templates/day/head.inc:3
+msgid "Previous day"
+msgstr "Edellinen päivä"
+
+#: config/prefs.php.dist:174 config/prefs.php.dist:186
+msgid "Print Views"
+msgstr "Tulosta näkymät"
+
+#: lib/Block/prevmonthlist.php:3 lib/Block/prevmonthlist.php:42
+msgid "Prior Events"
+msgstr "Aikaisemmat tapahtumat"
+
+#: lib/Driver.php:1452
+#, php-format
+msgid "Private Event from %s to %s"
+msgstr "Yksityinen tilaisuus alkaen %s loppuen %s"
+
+#: lib/Driver.php:2258 lib/Driver.php:2259
+msgid "Private event"
+msgstr "Yksityinen tapahtuma"
+
+#: templates/edit/edit.inc:120
+msgid "Private?"
+msgstr "Yksityinen?"
+
+#: templates/perms/perms.inc:54 templates/perms/perms.inc:69
+#: templates/perms/perms.inc:95 templates/perms/perms.inc:110
+#: templates/perms/perms.inc:136 templates/perms/perms.inc:151
+#: templates/perms/perms.inc:177 templates/perms/perms.inc:192
+#: templates/perms/perms.inc:233 templates/perms/perms.inc:259
+#: templates/perms/perms.inc:274 templates/perms/perms.inc:308
+msgid "Read"
+msgstr "Luku"
+
+#: lib/Forms/DeleteCalendar.php:43
+#, php-format
+msgid ""
+"Really delete the calendar \"%s\"? This cannot be undone and all data on "
+"this calendar will be permanently removed."
+msgstr ""
+"Haluatko poistaa kalenterin \"%s\"? Tämä operaatio on peruuttamaton ja "
+"kaikki tiedot tällä kalenterilla poistuvat lopullisesti."
+
+#: lib/Forms/UnsubscribeRemoteCalendar.php:37
+#, php-format
+msgid "Really unsubscribe from the calendar \"%s\" (%s)?"
+msgstr "Lopetetaanko kalenterin tilaus \"%s\" (%s)?"
+
+#: templates/view/view.inc:123 templates/edit/edit.inc:281
+msgid "Recur Until"
+msgstr "Toistuvuus päättyy"
+
+#: templates/view/view.inc:90 templates/edit/edit.inc:210
+msgid "Recurrence"
+msgstr "Toistuvuus"
+
+#: data.php:70
+msgid "Recurrence Data"
+msgstr "Toistuvuuden tiedot"
+
+#: data.php:68
+msgid "Recurrence End Date"
+msgstr "Toistuvuuden päättymispäivämäärä"
+
+#: lib/Driver.php:2072
+msgid "Recurrence End Day"
+msgstr "Toistuvuuden päättymispäivämäärä"
+
+#: lib/Driver.php:2057
+msgid "Recurrence End Month"
+msgstr "Toistuvuuden päättymiskuukaus"
+
+#: lib/Driver.php:2040
+msgid "Recurrence End Year"
+msgstr "Toistuvuuden päättymisvuosi"
+
+#: data.php:69
+msgid "Recurrence Interval"
+msgstr "Toistuvuuden väli"
+
+#: data.php:67
+msgid "Recurrence Type"
+msgstr "Toistuvuuden tyyppi"
+
+#: lib/Kronolith.php:1113
+msgid "Recurs daily"
+msgstr "Toistuu päivittäin"
+
+#: lib/Kronolith.php:1120
+msgid "Recurs monthly"
+msgstr "Toistuu kuukausittain"
+
+#: lib/Kronolith.php:1116
+msgid "Recurs weekly"
+msgstr "Toistuu viikoittain"
+
+#: lib/Kronolith.php:1125
+msgid "Recurs yearly"
+msgstr "Toistuu vuosittain"
+
+#: lib/Scheduler/kronolith.php:268
+#, php-format
+msgid "Reminder: %s"
+msgstr "Muistutus: %s"
+
+#: templates/calendar_list.php:39
+msgid "Remote"
+msgstr "Etä"
+
+#: templates/calendar_info.php:5
+msgid "Remote Calendar from: "
+msgstr "Etäkalenterit kohteesta:"
+
+#: templates/panel.inc:73
+msgid "Remote Calendars:"
+msgstr "Etäkalenterit:"
+
+#: templates/contacts/contacts.inc:172
+msgid "Remove"
+msgstr "Poista"
+
+#: templates/attendees/attendees.inc:57
+#, php-format
+msgid "Remove %s"
+msgstr "Poista %s"
+
+#: attendees.php:189
+msgid "Remove Attendee"
+msgstr "Poista osallistuja"
+
+#: templates/prefs/sourceselect.inc:300
+msgid "Remove source"
+msgstr "Poista lähde"
+
+#: lib/Driver.php:258
+msgid ""
+"Removing user data is not supported with the current calendar storage "
+"backend."
+msgstr ""
+"Käyttäjätietojen poistaminen ei ole tuettu nykyisessä kalenterin "
+"taustajärjestelmässä."
+
+#: templates/data/import.inc:31
+msgid ""
+"Replace existing calendar with the imported one? <strong>Warning: This "
+"deletes all entries in your current calendar.</strong>"
+msgstr ""
+"Korvaa olemassaolevat kalenterit tuodulla kalenterilla? <strong>Varoitus: "
+"Tämä poistaa kaikki tietueet tämänhetkisestä kalenteristasi.</strong>"
+
+#: lib/Kronolith.php:1204
+msgid "Required"
+msgstr "Pakollinen"
+
+#: lib/FBView.php:98 lib/FBView.php:140 lib/FBView.php:143 lib/FBView.php:146
+msgid "Required Attendees"
+msgstr "Pakollinen osallistuja"
+
+#: templates/edit/edit.inc:52 templates/edit/edit.inc:383
+msgid "Reset to Defaults"
+msgstr "Palauta oletukset"
+
+#: templates/view/view.inc:173 templates/attendees/attendees.inc:49
+msgid "Response"
+msgstr "Vastaus"
+
+#: config/prefs.php.dist:141
+msgid ""
+"Restrict day and week views to these time slots, even if there <strong>are</"
+"strong> earlier or later events?"
+msgstr ""
+"Rajoita päivä- ja viikkonäkymät näihin aikoihin, vaikka <strong>olisi</"
+"strong> tapahtumia, jotka alkaa aikaisemmin tai loppuu myöhemmin."
+
+#: templates/javascript/goto.js:64 templates/edit/edit.inc:240
+#: lib/Views/Year.php:82 lib/Block/month.php:107
+msgid "Sa"
+msgstr "la"
+
+#: templates/view/view.inc:104 templates/month/head.inc:22
+#: templates/edit/javascript.inc:72
+msgid "Saturday"
+msgstr "lauantai"
+
+#: templates/panel.inc:83 lib/Forms/EditCalendar.php:46
+#: lib/Forms/EditRemoteCalendar.php:41
+msgid "Save"
+msgstr "Talleta"
+
+#: templates/perms/perms.inc:331
+#, php-format
+msgid "Save %s"
+msgstr "Talleta %s"
+
+#: templates/edit/edit.inc:40 lib/Kronolith.php:1790
+#: lib/Views/EditEvent.php:79 lib/Views/EditEvent.php:89
+msgid "Save As New"
+msgstr "Talleta uutena"
+
+#: templates/attendees/attendees.inc:93
+msgid "Save Attendees"
+msgstr "Talleta osallistujat"
+
+#: new.php:56 lib/Views/EditEvent.php:82
+msgid "Save Event"
+msgstr "Talleta tapahtuma"
+
+#: templates/attendees/attendees.inc:94
+msgid "Save and Finish"
+msgstr "Talleta ja lopeta"
+
+#: search.php:91 templates/search/search_advanced.inc:113
+#: templates/search/search.inc:66 templates/contacts/contacts.inc:155
+#: lib/Block/tree_menu.php:26
+msgid "Search"
+msgstr "Haku"
+
+#: templates/search/header.inc:6
+msgid "Search Results"
+msgstr "Haun tulokset"
+
+#: templates/panel.inc:29
+msgid "Search for Calendars:"
+msgstr "Haku kalentereista:"
+
+#: templates/contacts/contacts.inc:160
+msgid "Search results"
+msgstr "Haun tulokset"
+
+#: lib/Storage.php:135
+msgid "Searching free/busy is not available."
+msgstr "Vapaa/varattu-tietoja %s:lle ei ole saatavilla."
+
+#: templates/edit/edit.inc:302 templates/edit/edit_timespan.inc:29
+#: templates/edit/edit_timespan.inc:79
+msgid "Select a date"
+msgstr "Valitse päivämäärä"
+
+#: templates/perms/perms.inc:296
+msgid "Select a group to add"
+msgstr "Valitse ryhmä muokattavaksi"
+
+#: templates/perms/perms.inc:294
+msgid "Select a group to add:"
+msgstr "Valitse ryhmä lisättäväksi:"
+
+#: templates/perms/perms.inc:30
+msgid "Select a new owner:"
+msgstr "Valitse uusi omistaja:"
+
+#: templates/perms/perms.inc:213 templates/perms/perms.inc:215
+msgid "Select a user to add:"
+msgstr "Valitse lisättävä käyttäjä:"
+
+#: config/prefs.php.dist:70
+msgid "Select address book sources for adding and searching for addresses."
+msgstr "Valitse osoitekirjat, joihin lisätään tai joista etsitään osoitteita."
+
+#: templates/prefs/sourceselect.inc:319
+msgid "Select all fields to search when expanding addresses."
+msgstr "Valitse kentät, joista etsitään laajennettavia osoitteita."
+
+#: config/prefs.php.dist:11
+msgid ""
+"Select confirmation options, how to display the different views and choose "
+"default view."
+msgstr ""
+"Voit muuttaa varmistukseen liittyviä asetuksia, miten erilaisia näkymiä "
+"näytetään ja mitä käytetään oletusnäkymänä."
+
+#: templates/data/import.inc:18
+msgid "Select the calendar to import to:"
+msgstr "Valitse kalenteri, johon tuodaan tietoja:"
+
+#: templates/data/export.inc:19
+msgid "Select the calendar(s) to export from"
+msgstr "Valitse kalenterit, joista viedään tietoja"
+
+#: templates/data/export.inc:12
+msgid "Select the export format:"
+msgstr "Valitse viennissä käytettävä muoto:"
+
+#: templates/data/import.inc:27
+msgid "Select the file to import:"
+msgstr "Valitse tiedosto, josta tuodaan tietoja:"
+
+#: config/prefs.php.dist:112
+msgid "Select the first weekday:"
+msgstr "Valitse ensimmäinen viikonpäivä:"
+
+#: templates/data/import.inc:11
+msgid "Select the format of the source file:"
+msgstr "Valitse lähdetiedoston muoto:"
+
+#: config/prefs.php.dist:236
+msgid "Select the time span to show:"
+msgstr "Valitse näytettävä aikajakso:"
+
+#: config/prefs.php.dist:94
+msgid "Select the view to display on startup:"
+msgstr "Valitse sisäänkirjautumisen jälkeen näytettävä näkymä:"
+
+#: config/prefs.php.dist:22
+msgid "Select which events to show in the portal."
+msgstr "Voit valita mitä tapahtumia näytetään portaalissa."
+
+#: templates/prefs/sourceselect.inc:303 templates/prefs/sourceselect.inc:305
+msgid "Selected Address books:"
+msgstr "Valitut Osoitekirjat:"
+
+#: templates/contacts/contacts.inc:175
+msgid "Selected addresses"
+msgstr "Valitut päivämäärät"
+
+#: templates/delete/delete.inc:21 templates/delete/one.inc:19
+msgid "Send a cancel notification to all attendees when deleting this event?"
+msgstr ""
+"Lähetä peruutusviesti kaikille osallistujille, kun tämä tapahtuma poistetaan"
+
+#: templates/view/view.inc:177
+#, php-format
+msgid "Send an email to %s"
+msgstr "Lähetä viesti osoitteeseen %s"
+
+#: templates/edit/edit.inc:375
+msgid "Send invitations to all attendees?"
+msgstr "Lähetä kutsut kaikille osallistujille?"
+
+#: templates/edit/edit.inc:375
+msgid "Send updates to all attendees?"
+msgstr "Lähetä päivitykset kaikille osallistujille?"
+
+#: templates/javascript/goto.js:76
+msgid "September"
+msgstr "syyskuu"
+
+#: config/prefs.php.dist:45
+msgid "Set default values for new events."
+msgstr "Aseta oletukset uusille tapahtumille."
+
+#: templates/edit/edit_timespan.inc:79
+msgid "Set end date"
+msgstr "Aseta päättymispäivä"
+
+#: templates/edit/edit.inc:302
+msgid "Set recurrence end date"
+msgstr "Aseta toistuvuuden päättymispäivämäärä"
+
+#: templates/edit/edit_timespan.inc:29
+msgid "Set start date"
+msgstr "Aseta alkamispäivämäärä"
+
+#: config/prefs.php.dist:62
+msgid ""
+"Set your Free/Busy calendars and your own and other users' Free/Busy options."
+msgstr ""
+"Aseta vapaa/varattu-kalenterisi sekä sinuun ja muihin liittyviä vapaa/"
+"varattu-asetuksia."
+
+#: templates/panel.inc:50
+msgid "Shared Calendars:"
+msgstr "Jaetut kalenterit:"
+
+#: templates/perms/perms.inc:53 templates/perms/perms.inc:65
+#: templates/perms/perms.inc:94 templates/perms/perms.inc:106
+#: templates/perms/perms.inc:135 templates/perms/perms.inc:147
+#: templates/perms/perms.inc:176 templates/perms/perms.inc:188
+#: templates/perms/perms.inc:229 templates/perms/perms.inc:258
+#: templates/perms/perms.inc:270 templates/perms/perms.inc:304
+#: templates/edit/javascript.inc:262
+msgid "Show"
+msgstr "Näytä"
+
+#: config/prefs.php.dist:218
+msgid "Show Free/Busy legend?"
+msgstr "Näytä vapaa/varattu-selite."
+
+#: config/prefs.php.dist:208
+msgid "Show calendar options panel?"
+msgstr "Näytä kalenteri asetuspaneelissa."
+
+#: config/prefs.php.dist:198
+msgid "Show category legend?"
+msgstr "Näytä kategorioiden selitykset."
+
+#: config/prefs.php.dist:164
+msgid "Show delete, alarm, and recurrence icons in calendar views?"
+msgstr "Näytä poista-, hälytys- ja toisto ikonit kalenterinäkymässä."
+
+#: config/prefs.php.dist:265
+msgid "Show external events using category colors?"
+msgstr "Näytä ulkoiset tapahtumat käyttäen kategorioiden värejä."
+
+#: config/prefs.php.dist:256
+msgid "Show only events that have an alarm set?"
+msgstr "Näytä vain ne tapahtumat, joihin liittyy hälytys."
+
+#: config/prefs.php.dist:227
+msgid "Show shared calendars side-by-side?"
+msgstr "Näytä jaetut kalenterit vierekkäin."
+
+#: config/prefs.php.dist:103
+msgid "Show time of day between each day in week views?"
+msgstr "Näytä kellonaika jokaisen päivän välissä viikkonäkymässä."
+
+#: templates/edit/edit_timespan.inc:11
+msgid "Sta_rt"
+msgstr "_Alkaa"
+
+#: data.php:56
+msgid "Start Date"
+msgstr "Alkamispäivämäärä"
+
+#: templates/data/export.inc:68 lib/Driver.php:1932
+msgid "Start Day"
+msgstr "Alkamispäivä"
+
+#: templates/data/export.inc:87 lib/Driver.php:1943
+msgid "Start Hour"
+msgstr "Alkamistunti"
+
+#: templates/data/export.inc:102 lib/Driver.php:1953
+msgid "Start Minute"
+msgstr "Alkamisminuutti"
+
+#: templates/data/export.inc:54 lib/Driver.php:1923
+msgid "Start Month"
+msgstr "Alkamiskuukausi"
+
+#: templates/view/view.inc:35 templates/search/event_headers.inc:7
+#: templates/data/export.inc:37
+msgid "Start On"
+msgstr "Alkaa"
+
+#: data.php:57
+msgid "Start Time"
+msgstr "Alkamisaika"
+
+#: templates/data/export.inc:39 lib/Driver.php:1912
+msgid "Start Year"
+msgstr "Alkamisvuosi"
+
+#: templates/search/search_advanced.inc:91 templates/edit/edit.inc:110
+msgid "Stat_us"
+msgstr "T_ila"
+
+#: templates/view/view.inc:21 templates/search/event_headers.inc:6
+msgid "Status"
+msgstr "Tila"
+
+#: lib/Storage.php:143
+msgid "Storing free/busy is not available."
+msgstr "Vapaa/varattu-tietoja talletus ei ole käytettävissä."
+
+#: templates/javascript/goto.js:65 templates/edit/edit.inc:241
+#: lib/Views/Year.php:75 lib/Views/Year.php:84 lib/Block/month.php:109
+#: lib/Block/month.php:111
+msgid "Su"
+msgstr "su"
+
+#: lib/Forms/SubscribeRemoteCalendar.php:41
+msgid "Subscribe"
+msgstr "Tilaa"
+
+#: templates/calendar_list.php:15 lib/Forms/SubscribeRemoteCalendar.php:34
+msgid "Subscribe to a Remote Calendar"
+msgstr "Tilaa uuteen etäkalenteriin"
+
+#: templates/calendar_list.php:25
+msgid "Subscription URL"
+msgstr "Tilauksen URL-osoite"
+
+#: templates/view/view.inc:105 templates/month/head.inc:15
+#: templates/month/head.inc:24 templates/edit/javascript.inc:66
+#: config/prefs.php.dist:113
+msgid "Sunday"
+msgstr "sunnuntai"
+
+#: lib/Kronolith.php:1152 lib/Kronolith.php:1175
+msgid "Tentative"
+msgstr "Ehdotettu"
+
+#: templates/javascript/goto.js:62 templates/edit/edit.inc:238
+#: lib/Views/Year.php:80 lib/Block/month.php:107
+msgid "Th"
+msgstr "to"
+
+#: data.php:244
+#, php-format
+msgid "The %s file didn't contain any events."
+msgstr "Tiedosto %s ei sisältänyt ainuttakaan tapahtumaa."
+
+#: lib/Driver.php:48
+msgid "The Calendar backend is not currently available."
+msgstr "Kalenterin taustajärjestelmä ei ole käytettävissä"
+
+#: lib/Driver.php:203
+#, php-format
+msgid "The Calendar backend is not currently available: %s"
+msgstr "Kalenterin taustajärjestelmä ei ole käytettävissä: %s"
+
+#: templates/contacts/contacts.inc:72
+msgid "The Edit Attendees screen is no longer present. Exiting."
+msgstr "Muokkaa osallistuja -näkymä ei ole enää näkyvissä. Poistutaan."
+
+#: lib/api.php:1210
+msgid ""
+"The attendee hasn't been updated because the update was not sent from the "
+"attendee."
+msgstr ""
+"Osallistujien tietoja ei ole päivitetty, koska vastausviesti ei tullut "
+"osallistujalta."
+
+#: calendars/create.php:33
+#, php-format
+msgid "The calendar \"%s\" has been created."
+msgstr "Kalenteri \"%s\" on luotu."
+
+#: calendars/delete.php:50
+#, php-format
+msgid "The calendar \"%s\" has been deleted."
+msgstr "Kalenteri \"%s\" on poistettu"
+
+#: calendars/edit.php:44
+#, php-format
+msgid "The calendar \"%s\" has been renamed to \"%s\"."
+msgstr "Kalenteri \"%s\" on nimetty uudelleen \"%s\":ksi."
+
+#: calendars/edit.php:46 calendars/remote_edit.php:49
+#, php-format
+msgid "The calendar \"%s\" has been saved."
+msgstr "Kalenteri \"%s\" on talletettu."
+
+#: data.php:252
+#, php-format
+msgid "The calendar could not be purged: %s"
+msgstr "Kalenteria ei voitu poistaa: %s"
+
+#: templates/edit/javascript.inc:156
+msgid "The end date must be later than the start date."
+msgstr "Päättymispäivämäärä pitää olla myöhempi kuin alkamispäivämäärä."
+
+#: lib/Kronolith.php:1596
+#, php-format
+msgid ""
+"The event \"%s\" has been added to \"%s\" calendar, which is on %s at %s."
+msgstr "Tapahtuma \"%s\" on lisätty kalenteriin \"%s\", joka on %s %s."
+
+#: lib/Kronolith.php:1606
+#, php-format
+msgid ""
+"The event \"%s\" has been deleted from \"%s\" calendar, which was on %s at %"
+"s."
+msgstr "Tapahtuma \"%s\" on poistettu kalenterista \"%s\", joka on %s %s."
+
+#: lib/Kronolith.php:1601
+#, php-format
+msgid ""
+"The event \"%s\" has been edited on \"%s\" calendar, which is on %s at %s."
+msgstr "Tapahtumaa \"%s\" on muokattu kalenterissa \"%s\", joka on %s %s."
+
+#: lib/Kronolith.php:1486
+#, php-format
+msgid "The event notification to %s was successfully sent."
+msgstr "Tapahtumailmoituksen lähettäminen %s onnistui."
+
+#: lib/Kronolith.php:1440
+msgid "The following is a more detailed description of the event:"
+msgstr "Tässä ovat tarkemmat tiedot tapahtumasta:"
+
+#: lib/FreeBusy.php:193
+#, php-format
+msgid "The free/busy url for %s cannot be retrieved."
+msgstr "Vapaa/varattu-url %s ei voida hakea."
+
+#: calendars/remote_edit.php:36 calendars/remote_unsubscribe.php:36
+msgid "The remote calendar was not found."
+msgstr "Etäkalenteria ei löytynyt."
+
+#: attend.php:43
+msgid ""
+"The request was incomplete. Some parameters that are necessary to accept or "
+"decline an event are missing."
+msgstr ""
+"Pyyntö oli epätäydellinen. Joitakin parametreja puuttuu, jotta tapahtuma "
+"olisi voitu hyväksyä tai hylätä."
+
+#: lib/Views/Event.php:41 lib/Views/DeleteEvent.php:40
+#: lib/Views/EditEvent.php:43
+msgid "The requested event was not found."
+msgstr "Pyydettyä tapahtumaa ei löytynyt"
+
+#: templates/search/empty.inc:3
+msgid "There are no events matching the current criteria."
+msgstr "Ei ole tapahtumia, jotka vastaisivat nykyisiä vaatimuksia."
+
+#: add.php:24 edit.php:46 edit.php:68
+#, php-format
+msgid "There was an error accessing the calendar: %s"
+msgstr "Tapahtui virhe käytettäessä kalenteria: %s"
+
+#: add.php:44
+#, php-format
+msgid "There was an error adding the event: %s"
+msgstr "Tapahtui virhe lisättäessä tapahtumaa: %s"
+
+#: edit.php:17
+#, php-format
+msgid "There was an error editing the event: %s"
+msgstr "Tapahtui virhe muokattaessa tapahtumaa: %s"
+
+#: lib/api.php:483 lib/api.php:770 lib/api.php:1055
+msgid "There was an error importing the iCalendar data."
+msgstr "iCalendar-tietojen tuonnissa tapahtui virhe."
+
+#: edit.php:145
+#, php-format
+msgid "There was an error moving the event: %s"
+msgstr "Tapahtumien tuonnissa tapahtui virhe: %s."
+
+#: lib/Kronolith.php:1491
+#, php-format
+msgid "There was an error sending an event notification to %s: %s"
+msgstr "Tapahtui virhe lähetettäessä tapahtumailmoitusta %s:lle: %s"
+
+#: data.php:109
+msgid "There were no events to export."
+msgstr "Ei ole tapahtumia. Tapahtumia ei voi viedä."
+
+#: lib/Block/month.php:3
+msgid "This Month"
+msgstr "Tämä kuukausi"
+
+#: calendars/delete.php:26
+msgid "This calendar cannot be deleted."
+msgstr "Tätä kalenteria ei voitu poistaa."
+
+#: data.php:200
+msgid "This file format is not supported."
+msgstr "Tämä tiedostomuoto ei ole tuettu."
+
+#: templates/delete/delete.inc:18
+msgid ""
+"This is a recurring event. Delete the current event only, this<br /"
+">occurrence and all future occurences, or all occurences?"
+msgstr ""
+"Tämä on toistuva tapahtuma. Poista vain tämä tapahtuma, tämä<br /> ja kaikki "
+"tulevat tapahtuma toisinnot. tai kaikki tulevat ja menneet toisinnot."
+
+#: templates/edit/edit.inc:36
+msgid ""
+"This is a recurring event. Edit the current event only, this occurrence<br /"
+">and all future occurences, all occurences, or save this event as new?"
+msgstr ""
+"Tämä on toistuva tapahtuma. Muokkaa vain tätä tapahtumaa, tätä<br /> ja "
+"kaikkien tulevien tapahtumien toisintoja, kaikkia esiintymiä vai "
+"tallennetaanko tapahtuma uutena?"
+
+#: data.php:272
+#, php-format
+msgid "This is what the server said: %s"
+msgstr "Palvelimen virheilmoitus oli: %s"
+
+#: templates/view/view.inc:102 templates/month/head.inc:20
+#: templates/edit/javascript.inc:70
+msgid "Thursday"
+msgstr "torstai"
+
+#: templates/search/search.inc:36
+msgid "Time Sp_an"
+msgstr "Aikaikkun_a:"
+
+#: templates/edit/edit_timespan.inc:4
+msgid "Time span"
+msgstr "Aikaikkuna"
+
+#: templates/search/search_advanced.inc:28 templates/edit/edit.inc:58
+msgid "Tit_le"
+msgstr "Otsi_kko"
+
+#: data.php:55 templates/search/event_headers.inc:3
+#: templates/search/search.inc:19
+msgid "Title"
+msgstr "Otsikko"
+
+#: templates/prefs/sourceselect.inc:322
+msgid ""
+"To select multiple fields, hold down the Control (PC) or Command (Mac) while "
+"clicking."
+msgstr ""
+"Valitaksesi useampi kenttiä, pidä pohjassa Control (PC) tai Command (Mac) "
+"samalla kun valitset"
+
+#: templates/calendar_info.php:19
+msgid ""
+"To subscribe to this calendar from another calendar program, use this URL: "
+msgstr ""
+"Tilataksesi tämän kalenterin toisesta ohjelmasta käytä tätä URL-osoitetta:"
+
+#: lib/Block/summary.php:140 lib/Block/prevmonthlist.php:125
+#: lib/Block/monthlist.php:132
+msgid "Today"
+msgstr "Tänään"
+
+#: lib/Block/summary.php:142 lib/Block/prevmonthlist.php:127
+#: lib/Block/monthlist.php:134
+msgid "Tomorrow"
+msgstr "Huomenna"
+
+#: templates/javascript/goto.js:60 templates/edit/edit.inc:236
+#: lib/Views/Year.php:78 lib/Block/month.php:107
+msgid "Tu"
+msgstr "ti"
+
+#: templates/view/view.inc:100 templates/month/head.inc:18
+#: templates/edit/javascript.inc:68
+msgid "Tuesday"
+msgstr "tiistai"
+
+#: config/keywords.php.dist:17
+msgid "Type"
+msgstr "Tyyppi"
+
+#: lib/Forms/SubscribeRemoteCalendar.php:37
+#: lib/Forms/EditRemoteCalendar.php:37
+msgid "URL"
+msgstr "URL"
+
+#: lib/Storage/sql.php:75
+msgid "Unable to connect to SQL server."
+msgstr "SQL-palvelimeen ei saada yhteyttä."
+
+#: lib/Forms/DeleteCalendar.php:62
+#, php-format
+msgid "Unable to delete \"%s\": %s"
+msgstr "Ei voida poistaa \"%s\": %s"
+
+#: lib/api.php:599
+#, php-format
+msgid "Unable to delete calendar \"%s\": %s"
+msgstr "Ei voida poistaa kalenteria \"%s\": %s"
+
+#: lib/Driver.php:206 lib/Storage.php:58
+#, php-format
+msgid "Unable to load the definition of %s."
+msgstr "Määrityksen %s lukeminen epäonnistui."
+
+#: attendees.php:68
+#, php-format
+msgid "Unable to recognize \"%s\" as an email address."
+msgstr "\"%s\" ei tunnisteta toimivaksi sähköpostiosoitteeksi."
+
+#: lib/Forms/EditCalendar.php:58
+#, php-format
+msgid "Unable to rename \"%s\": %s"
+msgstr "Ei voida nimetä uudelleen \"%s\": %s"
+
+#: lib/Storage/kolab.php:57
+#, php-format
+msgid "Unable to retrieve free/busy information for %s"
+msgstr "Ei voi hakea vapaa/varattu-tietoja %s:lle"
+
+#: lib/Forms/EditCalendar.php:64
+#, php-format
+msgid "Unable to save calendar \"%s\": %s"
+msgstr "Ei voida tallentaa kalenteria \"%s\": %s"
+
+#: templates/view/view.inc:8
+msgid "Unfiled"
+msgstr "Luokittelematon"
+
+#: lib/api.php:1356 lib/api.php:1392
+msgid "Unknown calendar protocol"
+msgstr "Tuntematon kalenteriprotokolla"
+
+#: templates/calendar_list.php:46 lib/Forms/UnsubscribeRemoteCalendar.php:39
+msgid "Unsubscribe"
+msgstr "Lopeta tilaus"
+
+#: lib/Forms/UnsubscribeRemoteCalendar.php:34
+#, php-format
+msgid "Unsubscribe from %s"
+msgstr "Lopeta %s tilaus"
+
+#: lib/api.php:550 lib/api.php:823 lib/api.php:879 lib/api.php:942
+#: lib/api.php:1075
+#, php-format
+msgid "Unsupported Content-Type: %s"
+msgstr "Ei tuettu Content-Type: %s"
+
+#: lib/Block/monthlist.php:3 lib/Block/monthlist.php:46
+msgid "Upcoming Events"
+msgstr "Tulevat tapahtumat"
+
+#: perms.php:231
+#, php-format
+msgid "Updated \"%s\"."
+msgstr "Päivitettiin: \"%s\"."
+
+#: lib/Kronolith.php:1417
+#, php-format
+msgid "Updated: %s."
+msgstr "Päivitettiin: '%s'."
+
+#: config/prefs.php.dist:10
+msgid "User Interface"
+msgstr "Käyttöliittymä"
+
+#: templates/perms/perms.inc:223
+msgid "User to add:"
+msgstr "Lisättävä käyttäjä:"
+
+#: lib/Forms/SubscribeRemoteCalendar.php:38
+#: lib/Forms/EditRemoteCalendar.php:38
+msgid "Username"
+msgstr "Käyttäjänimi"
+
+#: lib/Views/Year.php:156 lib/Views/Year.php:162 lib/Block/month.php:164
+#: lib/Block/month.php:167
+msgid "View Day"
+msgstr "Näytä päivä"
+
+#: templates/javascript/goto.js:61 templates/edit/edit.inc:237
+#: lib/Views/Year.php:79 lib/Block/month.php:107
+msgid "We"
+msgstr "ke"
+
+#: lib/Driver.php:1186 lib/Scheduler/kronolith.php:272
+#, php-format
+msgid ""
+"We would like to remind you of this upcoming event.\n"
+"\n"
+"%s\n"
+"\n"
+"Location: %s\n"
+"\n"
+"Date: %s\n"
+"Time: %s\n"
+"\n"
+"%s"
+msgstr ""
+"Haluaisimme muistuttaa tulevasta tapahtumasta.\n"
+"\n"
+"%s\n"
+"\n"
+"Paikka: %s\n"
+"\n"
+"Päivä: %s\n"
+"Aika: %s\n"
+"\n"
+"%s"
+
+#: templates/view/view.inc:101 templates/month/head.inc:19
+#: templates/edit/javascript.inc:69
+msgid "Wednesday"
+msgstr "keskiviikko"
+
+#: attendees.php:198 lib/Kronolith.php:1752 lib/Block/tree_menu.php:23
+#: config/prefs.php.dist:91
+msgid "Week"
+msgstr "Viikko"
+
+#: week.php:16 workweek.php:16 lib/Views/Month.php:186
+#, php-format
+msgid "Week %d"
+msgstr "Viikko %d"
+
+#: templates/view/view.inc:53 templates/prefs/default_alarm_management.inc:29
+#: templates/edit/edit.inc:171
+msgid "Week(s)"
+msgstr "Viikkoa"
+
+#: lib/Recurrence.php:193
+msgid "Weekly"
+msgstr "Viikottain"
+
+#: templates/view/view.inc:106 templates/edit/edit.inc:232
+msgid "Weekly: Recurs every"
+msgstr "Viikoittain: Toistuvuuden väli"
+
+#: config/prefs.php.dist:132
+msgid ""
+"What time should day and week views end, when there are no later events?"
+msgstr ""
+"Mihin aikaan päivä ja viikkonäkymät pitäisi päättyä, jos ei ole myöhäisempiä "
+"tapahtumia?"
+
+#: config/prefs.php.dist:123
+msgid ""
+"What time should day and week views start, when there are no earlier events?"
+msgstr ""
+"Mihin aikaan päivä ja viikkonäkymät pitäisi alkaa, jos ei ole aikaisempia "
+"tapahtumia?"
+
+#: config/prefs.php.dist:286
+msgid "Which kind of holidays do you want to get displayed?"
+msgstr "Mitkä vapaat haluat näyttää?"
+
+#: attendees.php:197 lib/Kronolith.php:1750 lib/Block/tree_menu.php:22
+#: config/prefs.php.dist:92
+msgid "Work Week"
+msgstr "Työviikko"
+
+#: lib/Kronolith.php:1756 lib/Block/tree_menu.php:25
+msgid "Year"
+msgstr "Vuosi"
+
+#: lib/Recurrence.php:198
+msgid "Yearly"
+msgstr "Vuosittain"
+
+#: templates/view/view.inc:112 templates/view/view.inc:114
+#: templates/view/view.inc:116 templates/edit/edit.inc:258
+#: templates/edit/edit.inc:264 templates/edit/edit.inc:270
+msgid "Yearly: Recurs every"
+msgstr "Vuosittain: Toistuvuuden väli"
+
+#: calendars/edit.php:30
+msgid "You are not allowed to change this calendar."
+msgstr "Sinulla ei ole oikeuksia muuttaa tätä kalenteria."
+
+#: data.php:41 data.php:261 edit.php:27 new.php:19
+#, php-format
+msgid "You are not allowed to create more than %d events."
+msgstr "Et voi tehdä enempää kuin %d tapahtumaa."
+
+#: calendars/delete.php:37
+msgid "You are not allowed to delete this calendar."
+msgstr "Sinulla ei ole oikeuksia poistaa tätä kalenteria."
+
+#: lib/api.php:154
+msgid "You are not allowed to remove user data."
+msgstr "Sinulla ei ole oikeuksia poistaa käyttäjätietoja."
+
+#: attend.php:51
+msgid "You are not an attendee of the specified event."
+msgstr "Et ole merkitty osallistujaksi annettuun tapahtumaan."
+
+#: templates/contacts/contacts.inc:78
+msgid "You can only use this form from the Edit Attendees screen."
+msgstr "Tätä lomaketta voi käyttää vain Muokkaa osallistuja -näkymästä."
+
+#: lib/Kronolith.php:1366
+#, php-format
+msgid ""
+"You do not have an email address configured in your Personal Information "
+"Options. You must set one %shere%s before event notifications can be sent."
+msgstr ""
+"Et ole määritellyt sähköpostiosoitettasi profiilisi asetuksissa. Sinun pitää "
+"määritellä sähköpostiosoite %stäällä%s, ennenkuin tapahtuma tietoja voidaan "
+"lähettää."
+
+#: add.php:30
+#, php-format
+msgid "You do not have permission to add events to %s."
+msgstr "Sinulla ei ole oikeuksia lisätä tapahtumia %s:ään."
+
+#: data.php:209
+msgid "You do not have permission to add events to the selected calendar."
+msgstr "Sinulla ei ole oikeuksia lisätä tapahtumia valittuun kalenteriin."
+
+#: add.php:27 edit.php:162
+#, php-format
+msgid "You do not have permission to delegate events to %s."
+msgstr "Sinulla ei ole oikeuksia delegoida tapahtumia %s:lle."
+
+#: delete.php:28
+msgid "You do not have permission to delete this event."
+msgstr "Sinulla ei ole oikeuksia poistaa tätä tapahtumaa."
+
+#: edit.php:165
+msgid "You do not have permission to edit this event."
+msgstr "Sinulla ei ole oikeuksia muokata tätä tapahtumaa."
+
+#: edit.php:159
+msgid "You do not have permission to move this event."
+msgstr "Sinulla ei ole oikeuksia siirtää tätä tapahtumaa."
+
+#: calendars/remote_subscribe.php:33
+#, php-format
+msgid "You have been subscribed to \"%s\" (%s)."
+msgstr "Olet tilannut \"%s\" (%s)."
+
+#: calendars/remote_unsubscribe.php:49
+#, php-format
+msgid "You have been unsubscribed from \"%s\" (%s)."
+msgstr "Olet lopettanut \"%s\" (%s) tilauksen."
+
+#: data.php:206
+msgid "You have specified an invalid calendar."
+msgstr "Olet määritellyt epäkelvon kalenterin."
+
+#: attend.php:23
+msgid "You have successfully accepted attendence to this event."
+msgstr "Olet onnistuneesti hyväksynyt osallistumisesi tähän tapahtumaan."
+
+#: attend.php:28
+msgid "You have successfully declined attendence to this event."
+msgstr "Olet onnistuneesti kieltäytynyt osallistumasta tähän tapahtumaan."
+
+#: attend.php:33
+msgid "You have tentatively accepted attendence to this event."
+msgstr ""
+"Olet onnistuneesti alustavasti myöntynyt osallistumaan tähän tapahtumaan."
+
+#: templates/contacts/contacts.inc:54
+msgid "You must select an address first."
+msgstr "Sinun pitää ensin valita osoite."
+
+#: lib/Kronolith.php:1596
+msgid "You requested to be notified when events are added to your calendars."
+msgstr ""
+"Olet valinnut haluavasi ilmoituksia kun tapahtumia liitetään kalentereihisi."
+
+#: lib/Kronolith.php:1606
+msgid ""
+"You requested to be notified when events are deleted from your calendars."
+msgstr ""
+"Olet valinnut haluavasi ilmoituksia kun tapahtumia poistetaan "
+"kalentereistasi."
+
+#: lib/Kronolith.php:1601
+msgid "You requested to be notified when events are edited in your calendars."
+msgstr ""
+"Olet valinnut haluavasi ilmoituksia kun tapahtumia muokataan kalentereissasi."
+
+#: lib/Scheduler/kronolith.php:411 lib/Scheduler/kronolith.php:413
+#, php-format
+msgid "Your daily agenda for %s"
+msgstr "Päivittäinen agendasi %s:lle"
+
+#: templates/prefs/shareselect.inc:10
+msgid "Your default calendar"
+msgstr "Oletuskalenterisi:"
+
+#: templates/panel.inc:36
+msgid "[Manage Calendars]"
+msgstr "[Hallinnoi kalentereita]"
+
+#: lib/Driver.php:1434 lib/Driver.php:1454
+msgid "[Unnamed event]"
+msgstr "[nimeämätön tapahtuma]"
+
+#: templates/edit/edit.inc:132
+msgid "_Alarm"
+msgstr "_Hälytys"
+
+#: templates/search/search_advanced.inc:9
+msgid "_Basic Search"
+msgstr "_Yksinkertainen Haku"
+
+#: lib/Kronolith.php:1790
+msgid "_Edit"
+msgstr "_Muokkaa"
+
+#: lib/Kronolith.php:2012
+msgid "_Goto"
+msgstr "_Mene"
+
+#: lib/Kronolith.php:2018
+msgid "_Import/Export"
+msgstr "_Tuo/Vie"
+
+#: lib/Kronolith.php:2008
+msgid "_New Event"
+msgstr "_Uusi tapahtuma"
+
+#: lib/Kronolith.php:2023
+msgid "_Print"
+msgstr "_Tulosta"
+
+#: lib/Kronolith.php:2014
+msgid "_Search"
+msgstr "_Haku"
+
+#: lib/Kronolith.php:2003
+msgid "_Today"
+msgstr "_Tänään"
+
+#: templates/edit/edit.inc:77
+#, php-format
+msgid "as %s"
+msgstr "%s:nä"
+
+#: templates/edit/edit.inc:173
+msgid "before the event starts"
+msgstr "ennen tapahtuman alkua"
+
+#: templates/prefs/default_alarm_management.inc:31
+msgid "before the event starts. A value of \"0\" means no default alarms."
+msgstr ""
+"ennenkuin tapahtuma alkaa. Arvo \"0\" tarkoittaa ettei ole oletushälytystä."
+
+#: lib/Views/Event.php:62 lib/Views/Event.php:71
+#, php-format
+msgid "by %s"
+msgstr "%s"
+
+#: lib/Views/Event.php:64 lib/Views/Event.php:73
+msgid "by me"
+msgstr "itse"
+
+#: config/prefs.php.dist:237
+msgid "day"
+msgstr "päivä"
+
+#: templates/view/view.inc:96 templates/edit/edit.inc:227
+msgid "day(s)"
+msgstr "päivää"
+
+#: config/prefs.php.dist:238 config/prefs.php.dist:239
+#: config/prefs.php.dist:240 config/prefs.php.dist:241
+#: config/prefs.php.dist:242
+msgid "days"
+msgstr "päivää"
+
+#: data.php:158 templates/data/export.inc:1
+msgid "events.csv"
+msgstr "events.csv"
+
+#: data.php:185
+msgid "events.ics"
+msgstr "events.ics"
+
+#: templates/contacts/contacts.inc:146
+msgid "in"
+msgstr " "
+
+#: templates/view/view.inc:108 templates/view/view.inc:110
+#: templates/edit/edit.inc:247 templates/edit/edit.inc:253
+msgid "month(s)"
+msgstr "kuukautta"
+
+#: lib/Kronolith.php:1423
+#, php-format
+msgid "on %s at %s"
+msgstr "alkaen %s %s"
+
+#: templates/view/view.inc:108 templates/edit/edit.inc:247
+msgid "on the same date"
+msgstr "samana päivänä"
+
+#: templates/view/view.inc:110 templates/edit/edit.inc:253
+msgid "on the same weekday"
+msgstr "samana viikonpäivänä"
+
+#: templates/edit/edit.inc:312
+msgid "recurrences"
+msgstr "toistuvuus"
+
+#: data.php:31 templates/data/import.inc:14
+msgid "vCalendar/iCalendar"
+msgstr "vCalendar/iCalendar"
+
+#: config/prefs.php.dist:243
+msgid "week"
+msgstr "viikko"
+
+#: templates/view/view.inc:106 templates/edit/edit.inc:234
+msgid "week(s) on:"
+msgstr "viikoilla:"
+
+#: config/prefs.php.dist:244 config/prefs.php.dist:245
+#: config/prefs.php.dist:246
+msgid "weeks"
+msgstr "viikkoa"
+
+#: templates/view/view.inc:112 templates/edit/edit.inc:259
+msgid "year(s) on the same date"
+msgstr "vuosittain samana päivänä"
+
+#: templates/view/view.inc:114 templates/edit/edit.inc:265
+msgid "year(s) on the same day of the year"
+msgstr "vuosittain samana päivänä vuodesta"
+
+#: templates/view/view.inc:116 templates/edit/edit.inc:271
+msgid "year(s) on the same weekday and month of the year"
+msgstr "vuosittain samana viikonpäivänä ja kuukautena vuodesta"

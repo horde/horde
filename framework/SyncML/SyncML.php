@@ -26,7 +26,6 @@
  *
  * @author  Karsten Fourmont <karsten@horde.org>
  * @author  Anthony Mills <amills@pyramid6.com>
- * @since   Horde 3.0
  * @package SyncML
  */
 
@@ -36,9 +35,6 @@ require_once 'SyncML/Command/SyncHdr.php';
 require_once 'SyncML/Sync.php';
 require_once 'SyncML/XMLOutput.php';
 require_once 'SyncML/Backend.php';
-
-/* PEAR_LOG_* constants */
-require_once 'Log.php';
 
 class SyncML_ContentHandler {
 
@@ -149,8 +145,7 @@ class SyncML_ContentHandler {
                 $s = sprintf('XML error: %s at line %d',
                              xml_error_string(xml_get_error_code($parser)),
                              xml_get_current_line_number($parser));
-                $GLOBALS['backend']->logMessage($s, __FILE__, __LINE__,
-                                                PEAR_LOG_ERR);
+                $GLOBALS['backend']->logMessage($s, 'ERR');
                 xml_parser_free($parser);
                 return new PEAR_Error($s);
             }
@@ -189,9 +184,7 @@ class SyncML_ContentHandler {
         $errorLogging = ob_get_clean();
 
         if (!empty($errorLogging)) {
-            $GLOBALS['backend']->logMessage('Caught output: ' . $errorLogging,
-                                            __FILE__, __LINE__,
-                                            PEAR_LOG_WARNING);
+            $GLOBALS['backend']->logMessage('Caught output: ' . $errorLogging, 'WARN');
         }
 
         return $output;
@@ -403,9 +396,7 @@ class SyncML_ContentHandler {
                 } else {
                     $statuscode = RESPONSE_INVALID_CREDENTIALS;
                 }
-                $GLOBALS['backend']->logMessage('Invalid authentication',
-                                                __FILE__, __LINE__,
-                                                PEAR_LOG_DEBUG);
+                $GLOBALS['backend']->logMessage('Invalid authentication', 'DEBUG');
             }
         } else {
             $statuscode = RESPONSE_OK;
@@ -436,7 +427,7 @@ class SyncML_ContentHandler {
             . '; charset: ' . $GLOBALS['backend']->getCharset()
             . '; wbxml: ' . ($state->wbxml ? 'yes' : 'no');
 
-        $GLOBALS['backend']->logMessage($str, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $GLOBALS['backend']->logMessage($str, 'DEBUG');
     }
 
     /**
@@ -482,8 +473,7 @@ class SyncML_ContentHandler {
             foreach ($p as $pendingSync) {
                 if (!$messageFull) {
                    $GLOBALS['backend']->logMessage(
-                       'Continuing sync for syncType ' . $pendingSync,
-                       __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                       'Continuing sync for syncType ' . $pendingSync, 'DEBUG');
                     $sync = &$state->getSync($pendingSync);
                     $sync->createSyncOutput($this->_xmlWriter);
                 }
@@ -505,9 +495,7 @@ class SyncML_ContentHandler {
                 !$state->hasPendingSyncs()) {
                 /* Create <Final></Final>. */
                 $this->_xmlWriter->outputFinal();
-                $GLOBALS['backend']->logMessage('Sending <Final> to client',
-                                                __FILE__, __LINE__,
-                                                PEAR_LOG_DEBUG);
+                $GLOBALS['backend']->logMessage('Sending <Final> to client', 'DEBUG');
                 $state->delayedFinal = false;
             } else {
                 $GLOBALS['message_expectresponse'] = true;
@@ -520,8 +508,7 @@ class SyncML_ContentHandler {
                 /* Create <Final></Final>. */
                 $this->_xmlWriter->outputFinal();
                 $GLOBALS['backend']->logMessage(
-                    'Sending delayed <Final> to client',
-                    __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    'Sending delayed <Final> to client', 'DEBUG');
                 $state->delayedFinal = false;
             } else {
                 $GLOBALS['message_expectresponse'] = true;
@@ -540,14 +527,12 @@ class SyncML_ContentHandler {
             foreach ($state->getSyncs() as $sync) {
                 $sync->closeSync();
             }
-            $GLOBALS['backend']->logMessage('Session completed and closed',
-                                            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            $GLOBALS['backend']->logMessage('Session completed and closed', 'DEBUG');
 
             /* Session can be closed here. */
             $GLOBALS['backend']->sessionClose();
         } else {
-            $GLOBALS['backend']->logMessage('Return message completed',
-                                            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            $GLOBALS['backend']->logMessage('Return message completed', 'DEBUG');
         }
     }
 

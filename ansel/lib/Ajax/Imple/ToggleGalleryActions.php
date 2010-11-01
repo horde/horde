@@ -8,7 +8,7 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_Ajax_Imple_ToggleGalleryActions extends Horde_Ajax_Imple_Base
+class Ansel_Ajax_Imple_ToggleGalleryActions extends Horde_Core_Ajax_Imple
 {
     public function attach()
     {
@@ -29,8 +29,7 @@ class Ansel_Ajax_Imple_ToggleGalleryActions extends Horde_Ajax_Imple_Base
          if (!isset($post['value'])) {
             return 0;
          }
-         $input = Horde_Util::getPost($post['value']);
-         $GLOBALS['prefs']->setValue('show_actions', $input);
+         $GLOBALS['prefs']->setValue('show_actions', $post['value']);
 
         return 1;
     }

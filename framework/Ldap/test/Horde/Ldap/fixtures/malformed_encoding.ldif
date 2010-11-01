@@ -1,0 +1,19 @@
+#
+# This is a LDIF file to test encoding failure
+#
+
+# unencoded DN
+version: 1
+dn: cn=testöäü,ou=example,dc=cno
+objectclass: oc1
+
+# unencoded attr value
+version: 1
+dn: cn=test2,ou=example,dc=cno
+objectclass: testöäü
+cn: test2
+
+# entry ok
+version: 1
+dn: cn=test,ou=example,dc=cno
+objectclass: oc1

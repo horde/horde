@@ -1,0 +1,734 @@
+# Turba Arabic Translation.
+# This file is distributed under the same license as the Turba package.
+# Copyright 2003 Platinum Inc. <pl@tinum.info>
+# Custom Web Applications <http://platinum-sy.com>
+# Platinum Development Team <devteam@platinum-sy.net>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Turba \n"
+"POT-Creation-Date: 2003-04-30 12:00+0200\n"
+"PO-Revision-Date: 2003-04-30 12:00+0200\n"
+"Last-Translator:  Platinum Development Team <devteam@platinum-sy.com>\n"
+"Language-Team: Arabic <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: config/prefs.php.dist:90
+msgid "\"Firstname Lastname\"  (ie. John Doe)"
+msgstr "\"الاسم ، اللقب\"  (مثال: محمد العربي)"
+
+#: config/prefs.php.dist:98
+msgid "\"Lastname, Firstname\" (ie. Doe, John)"
+msgstr "\"اللقب ، الاسم\"  (مثال: العربي محمد)"
+
+#: data.php:145 data.php:310
+#, c-format
+msgid "%s file successfully imported"
+msgstr "تم استيراد الملف %s بنجاح"
+
+#: templates/menu/menu.inc:11
+msgid "Add"
+msgstr "إضافة"
+
+#: templates/add/select.inc:12
+msgid "Add Contact ..."
+msgstr "إضافة اتصال..."
+
+#: templates/add/add.inc:10 addobject.php:19
+msgid "Add a new contact"
+msgstr "إضافة اتصال جديد"
+
+#: addobjectaction.php:44
+msgid "Add failed"
+msgstr "خطأ خلال الإضافة"
+
+#: templates/browse/actions.inc:16
+msgid "Add to"
+msgstr "إضافة إلى"
+
+#: browse.php:31 config/prefs.php.dist:87
+msgid "Address Book Listing"
+msgstr "قائمة دفتر العناوين"
+
+#: lib/api.php:25 lib/api.php:179 lib/api.php:259
+msgid "Address book is read-only."
+msgstr "دفتر العناوين للقراءة فقط"
+
+#: browse.php:202
+#, c-format
+msgid "Addresses in list: %s"
+msgstr "عدد العناوين في القائمة: %s"
+
+#: templates/menu/menu.inc:13 templates/advanced/head.inc:8 advanced.php:19
+msgid "Advanced Search"
+msgstr "بحث متقدم"
+
+#: config/attributes.php.dist:22
+msgid "Alias"
+msgstr "اسم بديل"
+
+#: templates/browse/actions.inc:8
+msgid "All"
+msgstr "الجميع"
+
+#: prefs.php:77
+msgid "An illegal value was specified."
+msgstr "تم تحديد قيمة غير مقبولة"
+
+#: config/prefs.php.dist:75
+msgid "Ascending"
+msgstr "تصاعدي"
+
+#: templates/prefs/columnselect.inc:235
+msgid "Available Columns:"
+msgstr "الأعمدة المتاحة:"
+
+#: templates/browse/actions.inc:44
+#, c-format
+msgid "Back to %s"
+msgstr "عودة إلى %s"
+
+#: templates/menu/menu.inc:10
+msgid "Browse"
+msgstr "تصفح"
+
+#: templates/edit/edit.inc:15 templates/edit/edit.inc:70
+msgid "Cancel"
+msgstr "إلغاء"
+
+#: templates/browse/column_headers.inc:7
+msgid "Checkbox"
+msgstr "مربع اختيار"
+
+#: templates/prefs/columnselect.inc:229
+msgid "Choose the order of the columns to display in the address list."
+msgstr "اختر توضع الأعمدة لإظهارها في قائمة العناوين"
+
+#: templates/search/head.inc:77 templates/advanced/results_head.inc:18
+#: templates/browse/actions.inc:46
+msgid "Clear Search"
+msgstr "مسح البحث"
+
+#: config/prefs.php.dist:12
+msgid "Column Options"
+msgstr "خيارات الأعمدة"
+
+#: templates/data/import.inc:16 templates/data/export.inc:16
+msgid "Comma separated values"
+msgstr "قيم مفصولة بفارزة"
+
+#: config/attributes.php.dist:34
+msgid "Company"
+msgstr "الشركة"
+
+#: browse.php:80
+msgid "Contact removed from list."
+msgstr "اتصال محذوف من القائمة."
+
+#: browse.php:225
+#, c-format
+msgid "Contents of %s"
+msgstr "محتويات %s"
+
+#: config/prefs.php.dist:18
+msgid "Default Display"
+msgstr "الإظهار الافتراضي"
+
+#: config/prefs.php.dist:77
+msgid "Default sorting direction:"
+msgstr "اتجاه الفرز الافتراضي:"
+
+#: templates/display/display.inc:20 templates/display/display.inc:86
+#: templates/browse/actions.inc:34
+msgid "Delete"
+msgstr "حذف"
+
+#: deleteobject.php:37
+msgid "Deletion failed"
+msgstr "خطأ خلال الحذف"
+
+#: config/prefs.php.dist:76
+msgid "Descending"
+msgstr "تنازلي"
+
+#: advanced.php:46
+msgid "Directory"
+msgstr "مجلد"
+
+#: config/prefs.php.dist:11 config/prefs.php.dist:17 config/prefs.php.dist:23
+msgid "Display Options"
+msgstr "خيارات الإظهار"
+
+#: templates/edit/edit.inc:10 templates/display/display.inc:19
+#: templates/display/display.inc:85
+msgid "Edit"
+msgstr "تحرير"
+
+#: templates/search/row.inc:48 templates/browse/contactrow.inc:55
+#: templates/browse/contactrow.inc:60
+#, c-format
+msgid "Edit '%s'"
+msgstr "تحرير « %s »"
+
+#: config/attributes.php.dist:26
+msgid "Email"
+msgstr "بريد إلكتروني"
+
+#: status.php:19
+msgid "Error"
+msgstr "خطأ"
+
+#: lib/api.php:265 lib/api.php:269
+msgid "Error while searching directory."
+msgstr "حصل خطأ خلال البحث في المجلدات"
+
+#: templates/miniwindow/menu.inc:1
+msgid "Exit Address Book"
+msgstr "خروج من دفتر العناوين"
+
+#: templates/data/export.inc:27
+msgid "Export"
+msgstr "تصدير"
+
+#: templates/data/export.inc:7
+msgid "Export Address Book"
+msgstr "تصدير دفتر العناوين"
+
+#: browse.php:59
+msgid "Failed to access the specified address book."
+msgstr "خطأ في فتح دفتر العناوين المطلوب."
+
+#: browse.php:206
+msgid "Failed to browse list"
+msgstr "خطأ في تصفح القائمة"
+
+#: browse.php:239
+msgid "Failed to browse the directory"
+msgstr "خطأ في تصفح المجلد"
+
+#: lib/api.php:82 lib/api.php:308 lib/api.php:356 lib/api.php:399
+#: advanced.php:63 data.php:96 data.php:230 data.php:324 data.php:378
+#: data.php:445 data.php:481 search.php:47 addobject.php:44
+msgid "Failed to connect to the specified directory."
+msgstr "خطأ في الاتصال بالمجلد المطلوب."
+
+#: advanced.php:85 data.php:449 data.php:485 search.php:63
+#, c-format
+msgid "Failed to search the directory: %s"
+msgstr "خطأ خلال البحث في المجلد: %s"
+
+#: lib/api.php:320 lib/api.php:367
+msgid "Failed to search the specified directory."
+msgstr "خطأ خلال البحث في المجلد المطلوب."
+
+#: config/attributes.php.dist:58
+msgid "Fax"
+msgstr "فاكس"
+
+#: templates/search/head.inc:37 templates/browse/search.inc:65
+msgid "Find"
+msgstr "أوجد"
+
+#: templates/search/head.inc:50 templates/browse/search.inc:78
+msgid "From"
+msgstr "من"
+
+#: templates/browse/contactrow.inc:70
+msgid "Group"
+msgstr "مجموعة"
+
+#: templates/menu/menu.inc:35
+msgid "Help"
+msgstr "المساعدة"
+
+#: config/attributes.php.dist:38
+msgid "Home Address"
+msgstr "عنوان المنزل"
+
+#: config/attributes.php.dist:46
+msgid "Home Phone"
+msgstr "هاتف المنزل"
+
+#: templates/data/import.inc:28
+msgid "If importing CSV data: does the first row contain the field names?"
+msgstr "خلال استيراد ملف 'CVS': هل يحتوي السطر الأول على اسماء الحقول؟"
+
+#: data.php:157
+msgid "Illegal or malformed form data."
+msgstr "تنسيق غير مقبول أو خطأ في البيانات."
+
+#: templates/data/import.inc:35
+msgid "Import"
+msgstr "استيراد"
+
+#: templates/data/import.inc:7
+msgid "Import Address Book"
+msgstr "استيراد دفتر عناوين"
+
+#: templates/menu/menu.inc:17
+msgid "Import/Export"
+msgstr "استيراد/تصدير"
+
+#: data.php:510
+msgid "Import/Export Addressbooks"
+msgstr "استيراد/تصدير دفاتر عناوين"
+
+#: lib/api.php:19 lib/api.php:165 lib/api.php:218 lib/api.php:241
+msgid "Invalid address book."
+msgstr "دفتر عناوين غير صحيح"
+
+#: lib/api.php:173 lib/api.php:245
+msgid "Invalid e-mail address."
+msgstr "عنوان بريد إلكتروني غير صحيح"
+
+#: lib/api.php:292 lib/api.php:384
+msgid "Invalid email."
+msgstr "بريد إلكتروني غير صحيح"
+
+#: lib/api.php:253
+msgid "Invalid entry."
+msgstr "خطأ في قيم الإدخال"
+
+#: lib/api.php:169 lib/api.php:249
+msgid "Invalid name."
+msgstr "خطأ في الاسم"
+
+#: config/prefs.php.dist:6
+msgid "Language"
+msgstr "اللغة"
+
+#: templates/search/head.inc:44 templates/browse/search.inc:72
+msgid "Matching"
+msgstr "مطابقة صحيحة"
+
+#: status.php:32
+msgid "Message"
+msgstr "رسالة"
+
+#: config/attributes.php.dist:54
+msgid "Mobile Phone"
+msgstr "الهاتف المحمول"
+
+#: lib/api.php:327 lib/api.php:404
+msgid "More than 1 entry returned."
+msgstr "تم إرجاع أكثر من قيمة"
+
+#: templates/data/import.inc:23
+msgid "Mulberry Address Book"
+msgstr "دفتر عناوين التوتي"
+
+#: data.php:364
+msgid "Mulberry addressbook sucessfully imported"
+msgstr "تم استيراد دفتر عناوين التوتي بنجاح"
+
+#: config/attributes.php.dist:18
+msgid "Name"
+msgstr "اسم"
+
+#: config/prefs.php.dist:24
+msgid "Name Format"
+msgstr "تنسيق الاسم"
+
+#: templates/browse/actions.inc:20
+msgid "New List"
+msgstr "قائمة جديدة"
+
+#: lib/api.php:329 lib/api.php:411
+#, c-format
+msgid "No %s entry found for %s."
+msgstr "لا توجد بيانات %s من أجل %s"
+
+#: templates/browse/actions.inc:9
+msgid "None"
+msgstr "لايوجد"
+
+#: templates/add/noadd.inc:9
+msgid ""
+"None of the available address books are configured to allow you to add new "
+"entries to them. If you believe this is an error, please contact your system "
+"administrator."
+msgstr ""
+"لايوجد دفتر عناوين معد لإدخال بيانات جديدة. إذا كنت تعتقد أنه خطأ ما، الرجاء "
+"إبلاغ مدير النظام."
+
+#: config/attributes.php.dist:62
+msgid "Notes"
+msgstr "ملاحظات"
+
+#: templates/menu/menu.inc:22
+msgid "Options"
+msgstr "خيارات"
+
+#: templates/data/import.inc:20
+msgid "Outlook"
+msgstr "أوتلوك"
+
+#: templates/data/import.inc:24
+msgid "Pine Address Book"
+msgstr "دفتر العناوين الصنوبري"
+
+#: data.php:418
+msgid "Pine addressbook sucessfully imported"
+msgstr "تم استيراد دفتر العناوين الصنوبري بنجاح"
+
+#: templates/add/select.inc:6
+msgid "Please choose an address book to add a contact to."
+msgstr "الرجاء اختيار دفتر عناوين لإضافة اتصال إليه."
+
+#: templates/browse/javascript.inc:18
+msgid "Please enter the name of the new list:"
+msgstr "الرجاء إدخال اسم القائمة الجديدة:"
+
+#: templates/prefs/columnselect.inc:220
+msgid "Please select a directory:"
+msgstr "الرجاء اختيار مجلد:"
+
+#: templates/menu/menu.inc:27
+msgid "Problem?"
+msgstr "مشكلة؟"
+
+#: templates/browse/actions.inc:34
+msgid "Remove from this list"
+msgstr "احذف من القائمة"
+
+#: templates/add/add.inc:14 templates/add/add.inc:69
+#: templates/edit/edit.inc:14 templates/edit/edit.inc:69
+#: templates/advanced/results_head.inc:5 templates/advanced/head.inc:15
+msgid "Reset"
+msgstr "إعادة تهيئة"
+
+#: templates/add/add.inc:13 templates/add/add.inc:68
+msgid "Save"
+msgstr "حفظ"
+
+#: templates/edit/edit.inc:13 templates/edit/edit.inc:68
+msgid "Save Changes"
+msgstr "حفظ التغييرات"
+
+#: templates/menu/menu.inc:12 templates/search/head.inc:31
+#: templates/browse/search.inc:59 search.php:18 config/prefs.php.dist:88
+msgid "Search"
+msgstr "بحث"
+
+#: templates/advanced/results_head.inc:15 browse.php:185
+msgid "Search Results"
+msgstr "نتائج البحث"
+
+#: templates/search/head.inc:74
+msgid "Search&nbsp;Results"
+msgstr "نتائج البحث"
+
+#: templates/browse/actions.inc:7
+msgid "Select"
+msgstr "اختيار"
+
+#: templates/browse/select.inc:8
+msgid "Select Address Book"
+msgstr "اختر دفتر عناوين"
+
+#: templates/browse/actions.inc:18
+msgid "Select List"
+msgstr "اختر قائمة"
+
+#: templates/data/import.inc:29
+msgid "Select the destination to import to:"
+msgstr "اختر الوجهة التي تريد الإستيراد إليها:"
+
+#: templates/data/import.inc:33
+msgid "Select the file to import:"
+msgstr "اختر ملف ليتم استيراده:"
+
+#: templates/data/export.inc:14
+msgid "Select the format to export to:"
+msgstr "اختر تنسيق التصدير:"
+
+#: templates/data/import.inc:14
+msgid "Select the format to import from:"
+msgstr "اختر تنسيق الاستيراد من:"
+
+#: config/prefs.php.dist:97
+msgid "Select the format used to display names:"
+msgstr "اختر تنسيق إظهار الأسماء:"
+
+#: templates/data/export.inc:23
+msgid "Select the source to export from:"
+msgstr "اختر المصدر للتصدير منه:"
+
+#: config/prefs.php.dist:19
+msgid "Select view to display by default."
+msgstr "اختر شكل الإظهار الافتراضي."
+
+#: config/prefs.php.dist:13
+msgid "Select which fields to display in the address lists."
+msgstr "اختر حقولاً ليتم إظهارها في قائمة العناوين."
+
+#: config/prefs.php.dist:25
+msgid "Select which format to display names."
+msgstr "اختر تنسيق إظهار الأسماء."
+
+#: config/prefs.php.dist:34
+msgid "Select your preferred language:"
+msgstr "اختر لغتك المفضلة:"
+
+#: templates/prefs/columnselect.inc:245
+msgid "Selected Columns:"
+msgstr "اختر أعمدة:"
+
+#: templates/display/display.inc:53
+#, c-format
+msgid "Send mail to %s"
+msgstr "أرسل رسالة إلى %s"
+
+#: config/prefs.php.dist:7
+msgid "Set your preferred display language."
+msgstr "اختر لغة الإظهار المفضلة."
+
+#: templates/browse/select.inc:13
+msgid "Show"
+msgstr "إظهار"
+
+#: templates/browse/actions.inc:42
+msgid "Show All"
+msgstr "إظهار الكل"
+
+#: templates/browse/actions.inc:41
+msgid "Show Contacts"
+msgstr "إظهار الاتصالات"
+
+#: templates/browse/actions.inc:40
+msgid "Show Lists"
+msgstr "إظهار القوائم"
+
+#: templates/index/notconfigured.inc:13
+msgid "Some of Turba's configuration files are missing:"
+msgstr "Certains fichiers de configuration de Turba sont absents :"
+
+#: templates/browse/column_headers.inc:9
+#: templates/browse/column_headers.inc:14
+msgid "Sort Direction"
+msgstr "اتجاه الفرز"
+
+#: status.php:23
+msgid "Success"
+msgstr "تم بنجاح"
+
+#: templates/data/import.inc:18 templates/data/export.inc:18
+msgid "Tab separated values"
+msgstr "قيم مفصولة بمساحة"
+
+#: data.php:77
+msgid "The data got lost"
+msgstr "البيانات مفقودة"
+
+#: data.php:37 data.php:331 data.php:385
+msgid "The data got lost."
+msgstr "تم فقدان البيانات"
+
+#: data.php:426
+msgid "The file contained no data."
+msgstr "الملف خال من البيانات."
+
+#: browse.php:55
+msgid "There are no browseable address books."
+msgstr "لايوجد دفتر عناوين قابل للتصفح."
+
+#: templates/add/noadd.inc:4
+msgid "There are no writeable address books."
+msgstr "لايوجد دفتر عناوين قابل للكتابة."
+
+#: data.php:154
+msgid ""
+"There was a problem with the file upload. The file may have been larger than "
+"the maximum allowed size."
+msgstr ""
+"توجد مشكلة في تحميل الملف. قد يكون حجم الملف أكبر من  الحجم الأقصى المسموح "
+"به."
+
+#: addobjectaction.php:42
+msgid ""
+"There was an error adding this object. Contact your system administrator for "
+"further help."
+msgstr "حصل خطأ خلال الإضافة. الرجاء سؤال مدير النظام لطلب المساعدة."
+
+#: browse.php:143
+msgid "There was an error creating a new list."
+msgstr "حصل خطأ خلال إنشاء قائمة جديدة."
+
+#: browse.php:87
+msgid "There was an error deleting this object."
+msgstr "حصل خطأ خلال الحذف."
+
+#: deleteobject.php:35
+msgid ""
+"There was an error deleting this object. Contact your system administrator "
+"for further help."
+msgstr "حصل خطأ خلال الحذف. الرجاء سؤال مدير النظام لطلب المساعدة."
+
+#: browse.php:220
+msgid "There was an error displaying the select List"
+msgstr "حصل خطأ خلال إظهار القائمة المختارة."
+
+#: data.php:131 data.php:308 data.php:362 data.php:416
+msgid "There was an error importing the data."
+msgstr "حصل خطأ خلال استيراد البيانات."
+
+#: data.php:176 data.php:204 data.php:321 data.php:375
+msgid "There was an error importing the uploaded file"
+msgstr "حصل خطأ خلال استيراد الملف المحمل."
+
+#: lib/api.php:30 lib/api.php:53
+msgid "There was an error importing the vCard data."
+msgstr "حصل خطأ خلال استيراد بيانات من vCard"
+
+#: browse.php:78
+msgid "There was an error removing this object."
+msgstr "حصل خطأ خلال الحذف."
+
+#: templates/index/notconfigured.inc:32
+msgid ""
+"This file controls the default preferences for Turba, and also controls "
+"which preferences users can alter."
+msgstr ""
+"يتحكم هذا الملف بالإعدادات الافتراضية لبريمجات توربا، كما يحدد الإعدادات "
+"التي يمكن للمستخدم تعديلها."
+
+#: templates/index/notconfigured.inc:25
+msgid ""
+"This file controls the stylesheet that is used to set colors and fonts in "
+"addition to or overriding Horde defaults."
+msgstr ""
+"يتحكم هذا الملف بلوائح الألوان والخطوط إضافة أو بدلاً من إعدادات هوردي "
+"'Horde'."
+
+#: templates/index/notconfigured.inc:46
+msgid ""
+"This file defines the Turba global attribute names and types - names, email "
+"addresses, etc."
+msgstr ""
+"يحتوي هذا الملف على التعريفات العامة لتوربا اسماء المكونات ونمطها، عناوين "
+"البريد ، ألخ."
+
+#: templates/index/notconfigured.inc:39
+msgid "This file defines the list of available sources for Turba."
+msgstr "يحتوي هذا الملف على قائمة المصادر المتاخة لتوربا."
+
+#: templates/index/notconfigured.inc:18
+msgid ""
+"This is the main Turba configuration file. It contains paths and options for "
+"the Turba scripts."
+msgstr ""
+"هذا ملف الإعدادات الرئيسي لتوربا ويحوي مسارات و خيارات جميع بيرمجات توربا"
+
+#: prefs.php:86
+msgid "This number must be at least one."
+msgstr "يجب أن يكون هذا الرقم أكبر من الصفر."
+
+#: lib/api.php:271
+#, c-format
+msgid "This person already has a %s entry in the address book."
+msgstr "يحتوي دفتر العناوين إدخالات عدد %s لهذا الشخص ."
+
+#: lib/api.php:41 lib/api.php:185
+msgid "This person is already in your address book."
+msgstr "هذا الشخص مدرج في دفتر العناوين"
+
+#: prefs.php:84
+msgid "This value must be a number."
+msgstr "يجب أن تكون هذه القيمة رقماً."
+
+#: config/attributes.php.dist:30
+msgid "Title"
+msgstr "اللقب"
+
+#: templates/index/notconfigured.inc:4
+msgid "Turba is not properly configured"
+msgstr "يوجد خطأ في إعدادات توربا"
+
+#: lib/Driver.php:44
+#, c-format
+msgid "Unable to load the definition of %s."
+msgstr "تعذر تحميل تعريف: %s."
+
+#: lib/api.php:46
+msgid "Unnamed Contact"
+msgstr "اتصال دون اسم"
+
+#: prefs.php:143
+msgid "User Options"
+msgstr "خيارات المستخدم"
+
+#: templates/display/display.inc:77
+msgid "View map"
+msgstr "إظهار الخريطة"
+
+#: config/prefs.php.dist:86
+msgid "View to display by default:"
+msgstr "شكل الإظهار الافتراضي:"
+
+#: status.php:27
+msgid "Warning"
+msgstr "تحذير"
+
+#: config/attributes.php.dist:42
+msgid "Work Address"
+msgstr "هاتف العمل"
+
+#: config/attributes.php.dist:50
+msgid "Work Phone"
+msgstr "هاتف العمل"
+
+#: templates/browse/javascript.inc:18
+msgid "You are creating a distribution list."
+msgstr "يت إنشاء قائمة توزيع."
+
+#: data.php:44
+msgid ""
+"You didn't map any fields from the imported file to the corresponding fields "
+"in Turba."
+msgstr ""
+"لم يتم تحديد دلالات الحقول من الملف المستورد لتدل على الحقول المطابقة في "
+"توربا."
+
+#: templates/browse/javascript.inc:33
+msgid "You must select at least one contact first."
+msgstr "يجب تحديد اتصال واحد على الأقل."
+
+#: config/prefs.php.dist:5
+msgid "Your Information"
+msgstr "البيانات الشخصية"
+
+#: prefs.php:128
+msgid "Your options have been updated."
+msgstr "تم تحديث الخيارات."
+
+#: templates/search/row.inc:48 templates/browse/contactrow.inc:43
+#: templates/browse/contactrow.inc:61
+msgid "[Edit]"
+msgstr "[تحرير]"
+
+#: templates/prefs/columnselect.inc:239
+msgid "add column"
+msgstr "إضافة عمود"
+
+#: config/prefs.php.dist:43
+msgid "from"
+msgstr "من"
+
+#: templates/prefs/columnselect.inc:249
+msgid "move left"
+msgstr "تحريك نحو اليسار"
+
+#: templates/prefs/columnselect.inc:251
+msgid "move right"
+msgstr "تحريك نحو اليمين"
+
+#: templates/prefs/columnselect.inc:241
+msgid "remove column"
+msgstr "حذف عمود"
+
+#: templates/data/import.inc:21 templates/data/export.inc:21
+msgid "vCard"
+msgstr "vCard"

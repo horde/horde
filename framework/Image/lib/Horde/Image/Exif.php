@@ -68,59 +68,67 @@ class Horde_Image_Exif
     {
         return array(
             'IPTC' => array(
-                'Keywords' => array('description' => _("Image keywords"), 'type' => 'array'),
-                'ObjectName' => array('description' => _("Image Title"), 'type' => 'text'),
-                'By-line' => array('description' => _("By"), 'type' => 'text'),
-                'CopyrightNotice' => array('description' => _("Copyright"), 'type' => 'text'),
-                'Caption-Abstract' => array('description' => _("Caption"), 'type' => 'text'),
+                'Keywords' => array('description' => Horde_Image_Translation::t("Image keywords"), 'type' => 'array'),
+                'ObjectName' => array('description' => Horde_Image_Translation::t("Image Title"), 'type' => 'text'),
+                'By-line' => array('description' => Horde_Image_Translation::t("By"), 'type' => 'text'),
+                'CopyrightNotice' => array('description' => Horde_Image_Translation::t("Copyright"), 'type' => 'text'),
+                'Caption-Abstract' => array('description' => Horde_Image_Translation::t("Caption"), 'type' => 'text'),
             ),
 
             'XMP' => array(
-                'Creator' => array('description' => _("Image Creator"), 'type' => 'text'),
-                'Rights' => array('description' => _("Rights"), 'type' => 'text'),
-                'UsageTerms' => array('description' => _("Usage Terms"), 'type' => 'type'),
+                'Creator' => array('description' => Horde_Image_Translation::t("Image Creator"), 'type' => 'text'),
+                'Rights' => array('description' => Horde_Image_Translation::t("Rights"), 'type' => 'text'),
+                'UsageTerms' => array('description' => Horde_Image_Translation::t("Usage Terms"), 'type' => 'type'),
             ),
 
             'EXIF' => array(
-                'DateTime' => array('description' => _("Date Photo Modified"), 'type' => 'date'),
-                'DateTimeOriginal' => array('description' => _("Date Photo Taken"), 'type' => 'date'),
-                'DateTimeDigitized' => array('description' => _("Date Photo Digitized"), 'type' => 'date'),
-                'GPSLatitude' => array('description' => _("Latitude"), 'type' => 'gps'),
-                'GPSLongitude' => array('description' => _("Longitude"), 'type' => 'gps'),
-                'Make' => array('description' => _("Camera Make"), 'type' => 'text'),
-                'Model' => array('description' => _("Camera Model"), 'type' => 'text'),
-                'Software' => array('description' => _("Software Version"), 'type' => 'text'),
-                'ImageType' => array('description' => _("Photo Type"), 'type' => 'text'),
-                'ImageDescription' => array('description' => _("Photo Description"), 'type' => 'text'),
-                'FileSize' => array('description' => _("File Size"), 'type' => 'number'),
-                'ExifImageWidth' => array('description' => _("Width"), 'type' => 'number'),
-                'ExifImageLength' => array('description' => _("Height"), 'type' => 'number'),
-                'XResolution' => array('description' => _("X Resolution"), 'type' => 'number'),
-                'YResolution' => array('description' => _("Y Resolution"), 'type' => 'number'),
-                'ResolutionUnit' => array('description' => _("Resolution Unit"), 'type' => 'text'),
-                'ShutterSpeedValue' => array('description' => _("Shutter Speed"), 'type' => 'number'),
-                'ExposureTime' => array('description' => _("Exposure"), 'type' => 'number'),
-                'FocalLength' => array('description' => _("Focal Length"), 'type' => 'number'),
-                'FocalLengthIn35mmFilm' => array('description' => _("Focal Length (35mm equiv)"), 'type' => 'number'),
-                'ApertureValue' => array('description' => _("Aperture"), 'type' => 'number'),
-                'FNumber' => array('description' => _("F-Number"), 'type' => 'number'),
-                'ISOSpeedRatings' => array('description' => _("ISO Setting"), 'type' => 'number'),
-                'ExposureBiasValue' => array('description' => _("Exposure Bias"), 'type' => 'number'),
-                'ExposureMode' => array('description' => _("Exposure Mode"), 'type' => 'number'),
-                'ExposureProgram' => array('description' => _("Exposure Program"), 'type' => 'number'),
-                'MeteringMode' => array('description' => _("Metering Mode"), 'type' => 'number'),
-                'Flash' => array('description' => _("Flash Setting"), 'type' => 'number'),
-                'UserComment' => array('description' => _("User Comment"), 'type' => 'text'),
-                'ColorSpace' => array('description' => _("Color Space"), 'type' => 'number'),
-                'SensingMethod' => array('description' => _("Sensing Method"), 'type' => 'number'),
-                'WhiteBalance' => array('description' => _("White Balance"), 'type' => 'number'),
-                'Orientation' => array('description' => _("Camera Orientation"), 'type' => 'number'),
-                'Copyright' => array('description' => _("Copyright"), 'type' => 'text'),
-                'Artist' => array('description' => _("Artist"), 'type' => 'text'),
-                'LightSource' => array('description' => _("Light source"), 'type' => 'number'),
-                'FileSource' => array('description' => _("File source"), 'type' => 'number'),
-                'ImageStabalization' => array('description' => _("Image Stabilization"), 'type' => 'text'),
+                'DateTime' => array('description' => Horde_Image_Translation::t("Date Photo Modified"), 'type' => 'date'),
+                'DateTimeOriginal' => array('description' => Horde_Image_Translation::t("Date Photo Taken"), 'type' => 'date'),
+                'DateTimeDigitized' => array('description' => Horde_Image_Translation::t("Date Photo Digitized"), 'type' => 'date'),
+                'GPSLatitude' => array('description' => Horde_Image_Translation::t("Latitude"), 'type' => 'gps'),
+                'GPSLongitude' => array('description' => Horde_Image_Translation::t("Longitude"), 'type' => 'gps'),
+                'Make' => array('description' => Horde_Image_Translation::t("Camera Make"), 'type' => 'text'),
+                'Model' => array('description' => Horde_Image_Translation::t("Camera Model"), 'type' => 'text'),
+                'Software' => array('description' => Horde_Image_Translation::t("Software Version"), 'type' => 'text'),
+                'ImageType' => array('description' => Horde_Image_Translation::t("Photo Type"), 'type' => 'text'),
+                'ImageDescription' => array('description' => Horde_Image_Translation::t("Photo Description"), 'type' => 'text'),
+                'FileSize' => array('description' => Horde_Image_Translation::t("File Size"), 'type' => 'number'),
+                'ExifImageWidth' => array('description' => Horde_Image_Translation::t("Width"), 'type' => 'number'),
+                'ExifImageLength' => array('description' => Horde_Image_Translation::t("Height"), 'type' => 'number'),
+                'XResolution' => array('description' => Horde_Image_Translation::t("X Resolution"), 'type' => 'number'),
+                'YResolution' => array('description' => Horde_Image_Translation::t("Y Resolution"), 'type' => 'number'),
+                'ResolutionUnit' => array('description' => Horde_Image_Translation::t("Resolution Unit"), 'type' => 'text'),
+                'ShutterSpeedValue' => array('description' => Horde_Image_Translation::t("Shutter Speed"), 'type' => 'number'),
+                'ExposureTime' => array('description' => Horde_Image_Translation::t("Exposure"), 'type' => 'number'),
+                'FocalLength' => array('description' => Horde_Image_Translation::t("Focal Length"), 'type' => 'number'),
+                'FocalLengthIn35mmFilm' => array('description' => Horde_Image_Translation::t("Focal Length (35mm equiv)"), 'type' => 'number'),
+                'ApertureValue' => array('description' => Horde_Image_Translation::t("Aperture"), 'type' => 'number'),
+                'FNumber' => array('description' => Horde_Image_Translation::t("F-Number"), 'type' => 'number'),
+                'ISOSpeedRatings' => array('description' => Horde_Image_Translation::t("ISO Setting"), 'type' => 'number'),
+                'ExposureBiasValue' => array('description' => Horde_Image_Translation::t("Exposure Bias"), 'type' => 'number'),
+                'ExposureMode' => array('description' => Horde_Image_Translation::t("Exposure Mode"), 'type' => 'number'),
+                'ExposureProgram' => array('description' => Horde_Image_Translation::t("Exposure Program"), 'type' => 'number'),
+                'MeteringMode' => array('description' => Horde_Image_Translation::t("Metering Mode"), 'type' => 'number'),
+                'Flash' => array('description' => Horde_Image_Translation::t("Flash Setting"), 'type' => 'number'),
+                'UserComment' => array('description' => Horde_Image_Translation::t("User Comment"), 'type' => 'text'),
+                'ColorSpace' => array('description' => Horde_Image_Translation::t("Color Space"), 'type' => 'number'),
+                'SensingMethod' => array('description' => Horde_Image_Translation::t("Sensing Method"), 'type' => 'number'),
+                'WhiteBalance' => array('description' => Horde_Image_Translation::t("White Balance"), 'type' => 'number'),
+                'Orientation' => array('description' => Horde_Image_Translation::t("Camera Orientation"), 'type' => 'number'),
+                'Copyright' => array('description' => Horde_Image_Translation::t("Copyright"), 'type' => 'text'),
+                'Artist' => array('description' => Horde_Image_Translation::t("Artist"), 'type' => 'text'),
+                'LightSource' => array('description' => Horde_Image_Translation::t("Light source"), 'type' => 'number'),
+                'ImageStabalization' => array('description' => Horde_Image_Translation::t("Image Stabilization"), 'type' => 'text'),
+                'SceneCaptureType' => array('description' => Horde_Image_Translation::t("Scene Type"), 'type' => 'number'),
+
             ),
+
+            'COMPOSITE' => array(
+                'LensID' => array('description' => Horde_Image_Translation::t("Lens"), 'type' => 'text'),
+                'Aperture' => array('description' => Horde_Image_Translation::t("Aperture"), 'type' => 'text'),
+                'DOF' => array('description' => Horde_Image_Translation::t("Depth of Field"), 'type' => 'text'),
+                'FOV' => array('description' => Horde_Image_Translation::t("Field of View"), 'type' => 'text')
+            )
         );
     }
 
@@ -139,7 +147,7 @@ class Horde_Image_Exif
         if ($driver instanceof Horde_Image_Exif_Base) {
             $supported = $driver->supportedCategories();
         } else {
-            $supported = array('XMP', 'IPTC', 'EXIF');
+            $supported = array('XMP', 'IPTC', 'EXIF'    );
         }
         $categories = self::getCategories();
         $flattened = array();
@@ -160,20 +168,21 @@ class Horde_Image_Exif
     /**
      * More human friendly exposure formatting.
      */
-    static protected function _formatExposure($data) {
+    static protected function _formatExposure($data)
+    {
         if ($data > 0) {
             if ($data > 1) {
-                return sprintf(_("%d sec"), round($data, 2));
+                return sprintf(Horde_Image_Translation::t("%d sec"), round($data, 2));
             } else {
                 $n = $d = 0;
                 self::_convertToFraction($data, $n, $d);
                 if ($n <> 1) {
-                    return sprintf(_("%4f sec"), $n / $d);
+                    return sprintf(Horde_Image_Translation::t("%4f sec"), $n / $d);
                 }
-                return sprintf(_("%s / %s sec"), $n, $d);
+                return sprintf(Horde_Image_Translation::t("%s / %s sec"), $n, $d);
             }
         } else {
-            return _("Bulb");
+            return Horde_Image_Translation::t("Bulb");
         }
     }
 
@@ -237,63 +246,63 @@ class Horde_Image_Exif
         switch ($field) {
         case 'ExposureMode':
             switch ($data) {
-            case 0: return _("Auto exposure");
-            case 1: return _("Manual exposure");
-            case 2: return _("Auto bracket");
-            default: return _("Unknown");
+            case 0: return Horde_Image_Translation::t("Auto exposure");
+            case 1: return Horde_Image_Translation::t("Manual exposure");
+            case 2: return Horde_Image_Translation::t("Auto bracket");
+            default: return Horde_Image_Translation::t("Unknown");
             }
 
         case 'ExposureProgram':
             switch ($data) {
-            case 1: return _("Manual");
-            case 2: return _("Normal Program");
-            case 3: return _("Aperture Priority");
-            case 4: return _("Shutter Priority");
-            case 5: return _("Creative");
-            case 6: return _("Action");
-            case 7: return _("Portrait");
-            case 8: return _("Landscape");
-            default: return _("Unknown");
+            case 1: return Horde_Image_Translation::t("Manual");
+            case 2: return Horde_Image_Translation::t("Normal Program");
+            case 3: return Horde_Image_Translation::t("Aperture Priority");
+            case 4: return Horde_Image_Translation::t("Shutter Priority");
+            case 5: return Horde_Image_Translation::t("Creative");
+            case 6: return Horde_Image_Translation::t("Action");
+            case 7: return Horde_Image_Translation::t("Portrait");
+            case 8: return Horde_Image_Translation::t("Landscape");
+            default: return Horde_Image_Translation::t("Unknown");
             }
 
         case 'XResolution':
         case 'YResolution':
             if (strpos($data, '/') !== false) {
                 list($n, $d) = explode('/', $data, 2);
-                return sprintf(_("%d dots per unit"), $n);
+                return sprintf(Horde_Image_Translation::t("%d dots per unit"), $n);
             }
-            return sprintf(_("%d per unit"), $data);
+            return sprintf(Horde_Image_Translation::t("%d per unit"), $data);
 
         case 'ResolutionUnit':
             switch ($data) {
-            case 1: return _("Pixels");
-            case 2: return _("Inch");
-            case 3: return _("Centimeter");
-            default: return _("Unknown");
+            case 1: return Horde_Image_Translation::t("Pixels");
+            case 2: return Horde_Image_Translation::t("Inch");
+            case 3: return Horde_Image_Translation::t("Centimeter");
+            default: return Horde_Image_Translation::t("Unknown");
             }
 
         case 'ExifImageWidth':
         case 'ExifImageLength':
-            return sprintf(_("%d pixels"), $data);
+            return sprintf(Horde_Image_Translation::t("%d pixels"), $data);
 
         case 'Orientation':
             switch ($data) {
             case 1:
-                return sprintf(_("Normal (O deg)"));
+                return sprintf(Horde_Image_Translation::t("Normal (O deg)"));
             case 2:
-                return sprintf(_("Mirrored"));
+                return sprintf(Horde_Image_Translation::t("Mirrored"));
             case 3:
-                return sprintf(_("Upsidedown"));
+                return sprintf(Horde_Image_Translation::t("Upsidedown"));
             case 4:
-                return sprintf(_("Upsidedown Mirrored"));
+                return sprintf(Horde_Image_Translation::t("Upsidedown Mirrored"));
             case 5:
-                return sprintf(_("90 deg CW Mirrored"));
+                return sprintf(Horde_Image_Translation::t("90 deg CW Mirrored"));
             case 6:
-                return sprintf(_("90 deg CCW"));
+                return sprintf(Horde_Image_Translation::t("90 deg CCW"));
             case 7:
-                return sprintf(_("90 deg CCW Mirrored"));
+                return sprintf(Horde_Image_Translation::t("90 deg CCW Mirrored"));
             case 8:
-                return sprintf(_("90 deg CW"));
+                return sprintf(Horde_Image_Translation::t("90 deg CW"));
             }
             break;
 
@@ -342,9 +351,9 @@ class Horde_Image_Exif
                 if ($d == 0) {
                     return;
                 }
-                return sprintf(_("%d mm"), round($n / $d));
+                return sprintf(Horde_Image_Translation::t("%d mm"), round($n / $d));
             }
-            return sprintf(_("%d mm"), $data);
+            return sprintf(Horde_Image_Translation::t("%d mm"), $data);
 
         case 'FNumber':
             if (strpos($data, '/') !== false) {
@@ -366,48 +375,48 @@ class Horde_Image_Exif
 
         case 'MeteringMode':
             switch ($data) {
-            case 0: return _("Unknown");
-            case 1: return _("Average");
-            case 2: return _("Center Weighted Average");
-            case 3: return _("Spot");
-            case 4: return _("Multi-Spot");
-            case 5: return _("Multi-Segment");
-            case 6: return _("Partial");
-            case 255: return _("Other");
-            default: return sprintf(_("Unknown: %s"), $data);
+            case 0: return Horde_Image_Translation::t("Unknown");
+            case 1: return Horde_Image_Translation::t("Average");
+            case 2: return Horde_Image_Translation::t("Center Weighted Average");
+            case 3: return Horde_Image_Translation::t("Spot");
+            case 4: return Horde_Image_Translation::t("Multi-Spot");
+            case 5: return Horde_Image_Translation::t("Multi-Segment");
+            case 6: return Horde_Image_Translation::t("Partial");
+            case 255: return Horde_Image_Translation::t("Other");
+            default: return sprintf(Horde_Image_Translation::t("Unknown: %s"), $data);
             }
             break;
 
         case 'LightSource':
             switch ($data) {;
-            case 1: return _("Daylight");
-            case 2: return _("Fluorescent");
-            case 3: return _("Tungsten");
-            case 4: return _("Flash");
-            case 9: return _("Fine weather");
-            case 10: return _("Cloudy weather");
-            case 11: return _("Shade");
-            case 12: return _("Daylight fluorescent");
-            case 13: return _("Day white fluorescent");
-            case 14: return _("Cool white fluorescent");
-            case 15: return _("White fluorescent");
-            case 17: return _("Standard light A");
-            case 18: return _("Standard light B");
-            case 19: return _("Standard light C");
+            case 1: return Horde_Image_Translation::t("Daylight");
+            case 2: return Horde_Image_Translation::t("Fluorescent");
+            case 3: return Horde_Image_Translation::t("Tungsten");
+            case 4: return Horde_Image_Translation::t("Flash");
+            case 9: return Horde_Image_Translation::t("Fine weather");
+            case 10: return Horde_Image_Translation::t("Cloudy weather");
+            case 11: return Horde_Image_Translation::t("Shade");
+            case 12: return Horde_Image_Translation::t("Daylight fluorescent");
+            case 13: return Horde_Image_Translation::t("Day white fluorescent");
+            case 14: return Horde_Image_Translation::t("Cool white fluorescent");
+            case 15: return Horde_Image_Translation::t("White fluorescent");
+            case 17: return Horde_Image_Translation::t("Standard light A");
+            case 18: return Horde_Image_Translation::t("Standard light B");
+            case 19: return Horde_Image_Translation::t("Standard light C");
             case 20: return 'D55';
             case 21: return 'D65';
             case 22: return 'D75';
             case 23: return 'D50';
-            case 24: return _("ISO studio tungsten");
-            case 255: return _("other light source");
-            default: return _("Unknown");
+            case 24: return Horde_Image_Translation::t("ISO studio tungsten");
+            case 255: return Horde_Image_Translation::t("other light source");
+            default: return Horde_Image_Translation::t("Unknown");
             }
 
         case 'WhiteBalance':
             switch ($data) {
-            case 0: return _("Auto");
-            case 1: return _("Manual");
-            default: _("Unknown");
+            case 0: return Horde_Image_Translation::t("Auto");
+            case 1: return Horde_Image_Translation::t("Manual");
+            default: Horde_Image_Translation::t("Unknown");
             }
             break;
 
@@ -416,28 +425,28 @@ class Horde_Image_Exif
 
         case 'Flash':
             switch ($data) {
-            case 0: return _("No Flash");
-            case 1: return _("Flash");
-            case 5: return _("Flash, strobe return light not detected");
-            case 7: return _("Flash, strobe return light detected");
-            case 9: return _("Compulsory Flash");
-            case 13: return _("Compulsory Flash, Return light not detected");
-            case 15: return _("Compulsory Flash, Return light detected");
-            case 16: return _("No Flash");
-            case 24: return _("No Flash");
-            case 25: return _("Flash, Auto-Mode");
-            case 29: return _("Flash, Auto-Mode, Return light not detected");
-            case 31: return _("Flash, Auto-Mode, Return light detected");
-            case 32: return _("No Flash");
-            case 65: return _("Red Eye");
-            case 69: return _("Red Eye, Return light not detected");
-            case 71: return _("Red Eye, Return light detected");
-            case 73: return _("Red Eye, Compulsory Flash");
-            case 77: return _("Red Eye, Compulsory Flash, Return light not detected");
-            case 79: return _("Red Eye, Compulsory Flash, Return light detected");
-            case 89: return _("Red Eye, Auto-Mode");
-            case 93: return _("Red Eye, Auto-Mode, Return light not detected");
-            case 95: return _("Red Eye, Auto-Mode, Return light detected");
+            case 0: return Horde_Image_Translation::t("No Flash");
+            case 1: return Horde_Image_Translation::t("Flash");
+            case 5: return Horde_Image_Translation::t("Flash, strobe return light not detected");
+            case 7: return Horde_Image_Translation::t("Flash, strobe return light detected");
+            case 9: return Horde_Image_Translation::t("Compulsory Flash");
+            case 13: return Horde_Image_Translation::t("Compulsory Flash, Return light not detected");
+            case 15: return Horde_Image_Translation::t("Compulsory Flash, Return light detected");
+            case 16: return Horde_Image_Translation::t("No Flash");
+            case 24: return Horde_Image_Translation::t("No Flash");
+            case 25: return Horde_Image_Translation::t("Flash, Auto-Mode");
+            case 29: return Horde_Image_Translation::t("Flash, Auto-Mode, Return light not detected");
+            case 31: return Horde_Image_Translation::t("Flash, Auto-Mode, Return light detected");
+            case 32: return Horde_Image_Translation::t("No Flash");
+            case 65: return Horde_Image_Translation::t("Red Eye");
+            case 69: return Horde_Image_Translation::t("Red Eye, Return light not detected");
+            case 71: return Horde_Image_Translation::t("Red Eye, Return light detected");
+            case 73: return Horde_Image_Translation::t("Red Eye, Compulsory Flash");
+            case 77: return Horde_Image_Translation::t("Red Eye, Compulsory Flash, Return light not detected");
+            case 79: return Horde_Image_Translation::t("Red Eye, Compulsory Flash, Return light detected");
+            case 89: return Horde_Image_Translation::t("Red Eye, Auto-Mode");
+            case 93: return Horde_Image_Translation::t("Red Eye, Auto-Mode, Return light not detected");
+            case 95: return Horde_Image_Translation::t("Red Eye, Auto-Mode, Return light detected");
             }
             break;
 
@@ -449,28 +458,31 @@ class Horde_Image_Exif
            $e = floor(log($data, 1024));
            return round($data/pow(1024, $e), 2) . ' ' . $s[$e];
 
-        case 'FileSource':
-            $data = bin2hex($data);
-            $data = str_replace('00', '', $data);
-            $data = str_replace('03', _("Digital Still Camera"), $data);
-            return $data;
-
         case 'SensingMethod':
             switch ($data) {
-            case 1: return _("Not defined");
-            case 2: return _("One Chip Color Area Sensor");
-            case 3: return _("Two Chip Color Area Sensor");
-            case 4: return _("Three Chip Color Area Sensor");
-            case 5: return _("Color Sequential Area Sensor");
-            case 7: return _("Trilinear Sensor");
-            case 8: return _("Color Sequential Linear Sensor");
-            default: return _("Unknown");
+            case 1: return Horde_Image_Translation::t("Not defined");
+            case 2: return Horde_Image_Translation::t("One Chip Color Area Sensor");
+            case 3: return Horde_Image_Translation::t("Two Chip Color Area Sensor");
+            case 4: return Horde_Image_Translation::t("Three Chip Color Area Sensor");
+            case 5: return Horde_Image_Translation::t("Color Sequential Area Sensor");
+            case 7: return Horde_Image_Translation::t("Trilinear Sensor");
+            case 8: return Horde_Image_Translation::t("Color Sequential Linear Sensor");
+            default: return Horde_Image_Translation::t("Unknown");
             }
 
         case 'ColorSpace':
             switch ($data) {
-            case 1: return _("sRGB");
-            default: return _("Uncalibrated");
+            case 1: return Horde_Image_Translation::t("sRGB");
+            default: return Horde_Image_Translation::t("Uncalibrated");
+            }
+
+        case 'SceneCaptureType':
+            switch ($data) {
+            case 0: return Horde_Image_Translation::t("Standard");
+            case 1: return Horde_Image_Translation::t("Landscape");
+            case 2: return Horde_Image_Translation::t("Portrait");
+            case 3: return Horde_Image_Translation::t("Night Scene");
+            default: return Horde_Image_Translation::t("Unknown");
             }
 
         case 'DateTime':

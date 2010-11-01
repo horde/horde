@@ -7,8 +7,6 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * $Horde: incubator/hylax/lib/Storage.php,v 1.16 2009/01/06 17:50:48 jan Exp $
- *
  * @author  Marko Djukic <marko@oblo.com>
  * @package Hylax
  */
@@ -30,21 +28,12 @@ class Hylax_Storage {
      * Constructor
      *
      * @param array $params  Any parameters needed for this storage driver.
+     * @throws Horde_Exception
      */
     function Hylax_Storage($params)
     {
-        global $conf;
-
         $this->_params = $params;
-
-        /* Set up the VFS storage. */
-        if (!isset($conf['vfs']['type'])) {
-            Horde::fatal(_("You must configure a VFS backend to use Hylax."), __FILE__, __LINE__);
-        }
-        $vfs_driver = $conf['vfs']['type'];
-        $vfs_params = Horde::getDriverConfig('vfs', $vfs_driver);
-        require_once 'VFS.php';
-        $this->_vfs = &VFS::singleton($vfs_driver, $vfs_params);
+        $this->_vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
     }
 
     function saveFaxData($data, $type = '.ps')
@@ -58,10 +47,11 @@ class Hylax_Storage {
         /* Save data to VFS backend. */
         $path = Hylax::getVFSPath($fax_id);
         $file = $fax_id . $type;
-        $saved = $this->_vfs->writeData($path, $file, $data, true);
-        if (is_a($saved, 'PEAR_Error')) {
-            Horde::logMessage('Could not save fax file to VFS: ' . $saved->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $saved;
+        try {
+            $this->_vfs->writeData($path, $file, $data, true);
+        } catch (VFS_Exception $e) {
+            Horde::logMessage('Could not save fax file to VFS: ' . $e->getMessage(), 'ERR');
+            throw $e;
         }
         return $fax_id;
     }
@@ -84,7 +74,7 @@ class Hylax_Storage {
 
         $data = $this->getFaxData($info['fax_id']);
         if (is_a($data, 'PEAR_Error')) {
-            Horde::logMessage('Could not get fax data: ' . $data->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage('Could not get fax data: ' . $data->getMessage(), 'ERR');
             return $data;
         }
 
@@ -113,11 +103,12 @@ class Hylax_Storage {
     {
         $path = Hylax::getVFSPath($fax_id);
         $file = $fax_id . '.ps';
-        $data = $this->_vfs->read($path, $file);
-        if (is_a($data, 'PEAR_Error')) {
-            Horde::logMessage(sprintf("%s '%s/%s'.", $data->getMessage(), $path, $file), __FILE__, __LINE__, PEAR_LOG_ERR);
+        try {
+            return $this->_vfs->read($path, $file);
+        } catch (VFS_Exception $e) {
+            Horde::logMessage(sprintf("%s '%s/%s'.", $e->getMessage(), $path, $file), 'ERR');
+            throw $e;
         }
-        return $data;
     }
 
     function listFaxes($folder)
@@ -148,6 +139,7 @@ class Hylax_Storage {
      *
      * @return Hylax_Storage  The newly created concrete Hylax_Storage
      *                        instance, or false on error.
+     * @throws Horde_Exception
      */
     function &factory($driver, $params = array())
     {
@@ -157,9 +149,9 @@ class Hylax_Storage {
         if (class_exists($class)) {
             $storage = new $class($params);
             return $storage;
-        } else {
-            Horde::fatal(PEAR::raiseError(sprintf(_("No such backend \"%s\" found"), $driver)), __FILE__, __LINE__);
         }
+
+        throw new Horde_Exception(sprintf(_("No such backend \"%s\" found"), $driver));
     }
 
     /**

@@ -1,0 +1,53 @@
+<input type="hidden" name="sources" id="sources" value="" />
+<div>
+ <p>
+  <tag:mainlabel />
+ </p>
+
+<if:source_select>
+ <div>
+  <select id="source_select" name="source_select">
+   <option value=""><tag:sourcelabel /></option>
+  </select>
+ </div>
+</if:source_select>
+
+ <table>
+  <tr>
+   <td>
+    <label for="unselected_sources" class="hidden"><tag:unselectlabel /></label>
+    <select id="unselected_sources" name="unselected_sources" multiple="multiple" size="5">
+     <option class="control" disabled="disabled" value=""><tag:unselectlabel /></option>
+<if:unselected>
+<loop:unselected>
+     <option value="<tag:unselected.v />"><tag:unselected.l /></option>
+</loop:unselected>
+</if:unselected>
+    </select>
+   </td>
+   <td>
+    <a href="#" id="addsource"><tag:addimg /></a>
+    <br />
+    <a href="#" id="removesource"><tag:removeimg /></a>
+   </td>
+   <td>
+    <label for="selected_sources" class="hidden"><tag:selectlabel /></label>
+    <select name="selected_sources" multiple="multiple" size="5" id="selected_sources">
+     <option class="control" disabled="disabled" value=""><tag:selectlabel /></option>
+<if:selected>
+<loop:selected>
+     <option value="<tag:selected.v />"><tag:selected.l /></option>
+</loop:selected>
+</if:selected>
+    </select>
+   </td>
+<if:upimg>
+   <td>
+    <a href="#" id="moveup"><tag:upimg /></a>
+    <br />
+    <a href="#" id="movedown"><tag:downimg /></a>
+   </td>
+</if:upimg>
+  </tr>
+ </table>
+</div>

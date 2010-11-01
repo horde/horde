@@ -2,8 +2,8 @@
 /**
  * @package Wicked
  */
-class Text_Wiki_Render_Xhtml_Attribute extends Text_Wiki_Render {
-
+class Text_Wiki_Render_Xhtml_Attribute extends Text_Wiki_Render
+{
     /**
      * Renders a token into text matching the requested format.
      *
@@ -12,7 +12,7 @@ class Text_Wiki_Render_Xhtml_Attribute extends Text_Wiki_Render {
      *
      * @return string  The text rendered from the token options.
      */
-    function token($options)
+    public function token($options)
     {
         $output = '<table width="100%" class="attributes"><tbody>';
 
@@ -24,7 +24,7 @@ class Text_Wiki_Render_Xhtml_Attribute extends Text_Wiki_Render {
 
             // We should do full wiki formatting, I guess, but there isn't
             // a convenient way to do it.
-            if (preg_match('/^(' . WICKED_REGEXP_WIKIWORD . ')$/',
+            if (preg_match('/^(' . Wicked::REGEXP_WIKIWORD . ')$/',
                            $attribute['value'], $matches)) {
                 $vlink = array('page' => $matches[1],
                                'anchor' => '',
@@ -50,5 +50,4 @@ class Text_Wiki_Render_Xhtml_Attribute extends Text_Wiki_Render {
 
         return $output;
     }
-
 }

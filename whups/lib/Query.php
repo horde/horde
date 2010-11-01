@@ -11,9 +11,6 @@
  * @package Whups
  */
 
-/** Horde_Share */
-require_once 'Horde/Share.php';
-
 /** Horde_Form_Action */
 require_once 'Horde/Form/Action.php';
 
@@ -206,11 +203,11 @@ class Whups_Query {
     function getTabs($vars)
     {
         // Create a few variables that are reused.
-        $queryurl = Horde::applicationUrl('query/index.php');
-        $edit = $this->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT);
-        $delete = $this->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE);
+        $queryurl = Horde::url('query/index.php');
+        $edit = $this->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
+        $delete = $this->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE);
 
-        $tabs = new Horde_Ui_Tabs('action', $vars);
+        $tabs = new Horde_Core_Ui_Tabs('action', $vars);
         $tabs->addTab(_("Ne_w Query"), $queryurl, 'new');
         if (!$this->id || $edit) {
             $tabs->addTab(_("_Edit Query"), $queryurl, 'edit');
@@ -225,9 +222,9 @@ class Whups_Query {
                                                                    'onclick' => 'popup(\'' . $permsurl . '\'); return false;',
                                                                    'target' => '_blank'));
         }
-        $tabs->addTab(_("E_xecute Query"), Horde::applicationUrl('query/run.php'), 'run');
+        $tabs->addTab(_("E_xecute Query"), Horde::url('query/run.php'), 'run');
         $tabs->addTab(_("_Load Query"), $queryurl, 'load');
-        if ((!$this->id && Horde_Auth::getAuth()) ||
+        if ((!$this->id && $GLOBALS['registry']->getAuth()) ||
             ($this->id && $edit)) {
             $tabs->addTab(_("Sa_ve Query"), $queryurl, 'save');
         }
@@ -879,7 +876,7 @@ class Whups_QueryManager {
      */
     function Whups_QueryManager()
     {
-        $this->_shareManager = &Horde_Share::singleton('whups');
+        $this->_shareManager = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
     }
 
     /**
@@ -888,14 +885,15 @@ class Whups_QueryManager {
      * @param integer $queryId  A query id.
      *
      * @return Whups_Query  The matching query or null if not found.
+     * @throws Whups_Exception
      */
     function getQuery($queryId)
     {
-        $share = $this->_shareManager->getShareById($queryId);
-        if (is_a($share, 'PEAR_Error')) {
-            return $share;
+        try {
+            $share = $this->_shareManager->getShareById($queryId);
+        } catch (Horde_Share_Exception $e) {
+            throw new Whups_Exception($e);
         }
-
         return $this->_getQuery($share);
     }
 
@@ -905,13 +903,15 @@ class Whups_QueryManager {
      * @param string $slug  A query slug.
      *
      * @return Whups_Query  The matching query or null if not found.
+     * @throws Whups_Exception
      */
     function getQueryBySlug($slug)
     {
-        $shares = $this->_shareManager->listShares(Horde_Auth::getAuth(), Horde_Perms::READ,
-                                                   array('slug' => $slug));
-        if (is_a($shares, 'PEAR_Error')) {
-            return $shares;
+        try {
+            $shares = $this->_shareManager->listShares($GLOBALS['registry']->getAuth(), Horde_Perms::READ,
+                                                       array('slug' => $slug));
+        } catch (Horde_Share_Exception $e) {
+            throw new Whups_Exception($e);
         }
         if (!count($shares)) {
             return;
@@ -930,7 +930,7 @@ class Whups_QueryManager {
     function _getQuery($share)
     {
         $queryDetails = $GLOBALS['whups_driver']->getQuery($share->getId());
-        if (is_a($queryDetails, 'PEAR_Error')) {
+        if ($queryDetails instanceof PEAR_Error) {
             return $queryDetails;
         }
 
@@ -953,8 +953,9 @@ class Whups_QueryManager {
      */
     function hasPermission($queryId, $userid, $permission, $creator = null)
     {
-        $share = $this->_shareManager->getShareById($queryId);
-        if (is_a($share, 'PEAR_Error')) {
+        try {
+            $share = $this->_shareManager->getShareById($queryId);
+        } catch (Horde_Share_Exception $e) {
             // If the share doesn't exist yet, then it has open perms.
             return true;
         }
@@ -966,9 +967,10 @@ class Whups_QueryManager {
      */
     function listQueries($user, $return_slugs = false)
     {
-        $shares = $this->_shareManager->listShares($user);
-        if (is_a($shares, 'PEAR_Error')) {
-            return $shares;
+        try {
+            $shares = $this->_shareManager->listShares($user);
+        } catch (Horde_Share_Exception $e) {
+            throw new Whups_Exception($e);
         }
 
         $queries = array();
@@ -991,17 +993,19 @@ class Whups_QueryManager {
 
     /**
      * @param Whups_Query $query The query to save.
+     * @throws Whups_Exception
      */
     function save($query)
     {
         if ($query->id) {
             // Query already exists; get its share and update the name
             // if necessary.
-            $share = $this->_shareManager->getShareById($query->id);
-            if (is_a($share, 'PEAR_Error')) {
+            try {
+                $share = $this->_shareManager->getShareById($query->id);
+            } catch (Horde_Share_Exception $e) {
                 // Share has an id but doesn't exist; just throw an
                 // error.
-                return $share;
+                throw new Whups_Exception($e);
             }
             if ($share->get('name') != $query->name ||
                 $share->get('slug') != $query->slug) {
@@ -1011,12 +1015,13 @@ class Whups_QueryManager {
             }
         } else {
             // Create a new share for the query.
-            $share = $this->_shareManager->newShare(md5(microtime()));
+            $share = $this->_shareManager->newShare((string)new Horde_Support_Uuid());
             $share->set('name', $query->name);
             $share->set('slug', $query->slug);
-            $result = $this->_shareManager->addShare($share);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
+            try {
+                $this->_shareManager->addShare($share);
+            } catch (Horde_Share_Exception $e) {
+                throw new Whups_Exception($e);
             }
             $query->id = $share->getId();
         }
@@ -1035,18 +1040,14 @@ class Whups_QueryManager {
             return;
         }
 
-        $share = $this->_shareManager->getShareById($query->id);
-        if (is_a($share, 'PEAR_Error')) {
-            return $share;
+        try {
+            $share = $this->_shareManager->getShareById($query->id);
+            $this->_shareManager->removeShare($share);
+        } catch (Horde_Share_Exception $e) {
+            throw new Whups_Exception($e);
         }
-
-        $result = $this->_shareManager->removeShare($share);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
         $result = $GLOBALS['whups_driver']->deleteQuery($query->id);
-        if (is_a($result, 'PEAR_Error')) {
+        if ($result instanceof PEAR_Error) {
             return $result;
         }
 

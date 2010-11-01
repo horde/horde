@@ -1,0 +1,37 @@
+<?xml version='1.0'?>
+<!-- $Horde: jonah/locale/en_US/help.xml,v 1.3 2006/01/07 19:41:26 chuck Exp $ -->
+<help>
+
+<entry id="Overview">
+    <title>Overview</title>
+    <heading>Introduction</heading>
+    <para>
+    This is an application for displaying news and other data from various sources.  You can subscribe to the information you are interested in, so you only see what you want to.
+    </para>
+</entry>
+
+<entry id="feed-type">
+    <title>Feed Types</title>
+    <heading>Internal Feeds</heading>
+    <para>
+    Feeds that are managed and provided by this system.
+    </para>
+
+    <heading>External Feeds</heading>
+    <para>
+    Feeds that are managed and provided by external systems, e.g. other
+    websites.
+    </para>
+
+    <heading>Aggregated Feeds</heading>
+    <para>
+    Feeds that get their content from multiple external feeds. Internal
+    feeds can also be integrated through the RSS delivery.
+    </para>
+
+    <heading>Composite Feeds</heading>
+    <para>
+    Feeds that get their content from multiple internal feeds.
+    </para>
+</entry>
+</help>

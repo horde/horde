@@ -9,7 +9,9 @@
  *
  * @author Duck <duck@obala.net>
  */
-require_once dirname(__FILE__) . '/../lib/base.php';
+
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('ansel');
 
 $image_id = (int)Horde_Util::getFormData('image_id');
 $gallery_id = (int)Horde_Util::getFormData('gallery_id');
@@ -17,19 +19,19 @@ $face_id = (int)Horde_Util::getFormData('face_id');
 $url = Horde_Util::getFormData('url');
 $page = Horde_Util::getFormData('page', 0);
 
-$back_url = empty($url) ?
-    Horde_Util::addParameter(Horde::applicationUrl('faces/gallery.php'),
-                             array('gallery' => $gallery_id,
-                                   'page' => $page), null, false) :
-    $url;
+$back_url = empty($url)
+    ? Horde::url('faces/gallery.php')->add(
+            array('gallery' => $gallery_id,
+                  'page' => $page))->setRaw(true)
+    : new Horde_Url($url);
 
 if (Horde_Util::getPost('submit') == _("Cancel")) {
     $notification->push(_("Changes cancelled."), 'horde.warning');
-    header('Location: ' . $back_url);
+    $back_url->redirect();
     exit;
 }
 try {
-    $faces = Ansel_Faces::factory();
+    $faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
     $result = $faces->saveCustomFace(
                            $face_id,
                            $image_id,
@@ -40,7 +42,7 @@ try {
                            Horde_Util::getFormData('name'));
 } catch (Horde_Exception $e) {
     $notification->push($e->getMessage());
-    header('Location: ' . $back_url);
+    $back_url->redirect();
     exit;
 }
 
@@ -50,5 +52,5 @@ if ($face_id == 0) {
     $notification->push(_("Face successfuly updated"), 'horde.success');
 }
 
-header('Location: ' . $back_url);
+$back_url->redirect();
 exit;

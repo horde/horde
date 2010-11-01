@@ -2,32 +2,52 @@
 /**
  * Implementation of the Quota API for MDaemon servers.
  *
- * Parameters required:
- * <pre>
- * 'app_location'  --  TODO
- * </pre>
- *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @package IMP_Quota
+ * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
-class IMP_Quota_Mdaemon extends IMP_Quota
+class IMP_Quota_Mdaemon extends IMP_Quota_Base
 {
+    /**
+     * Constructor.
+     *
+     * @param array $params  Parameters:
+     * <pre>
+     * 'app_location' - (string) [REQUIRED] Location of the application.
+     * </pre>
+     *
+     * @throws IMP_Exception
+     */
+    public function __construct(array $params = array())
+    {
+        if (!isset($params['app_location'])) {
+            throw new IMP_Exception('Missing app_location parameter in quota config.');
+        }
+
+        parent::__construct($params);
+    }
+
     /**
      * Get quota information (used/allocated), in bytes.
      *
      * @return array  An array with the following keys:
      *                'limit' = Maximum quota allowed
      *                'usage' = Currently used portion of quota (in bytes)
-     * @throws Horde_Exception
+     * @throws IMP_Exception
      */
     public function getQuota()
     {
-        $userDetails = $this->_getUserDetails($_SESSION['imp']['user'], $_SESSION['imp']['maildomain']);
+        $imap_ob = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
+        $userDetails = $this->_getUserDetails(
+            $this->_params['username'],
+            $GLOBALS['session']['imp:maildomain']
+        );
 
         if ($userDetails !== false) {
             $userHome = trim(substr($userDetails, 105, 90));
@@ -42,7 +62,7 @@ class IMP_Quota_Mdaemon extends IMP_Quota
             }
         }
 
-        throw new Horde_Exception(_("Unable to retrieve quota"), 'horde.error');
+        throw new IMP_Exception(_("Unable to retrieve quota"));
     }
 
     /**
@@ -69,15 +89,13 @@ class IMP_Quota_Mdaemon extends IMP_Quota
         }
 
         /* Recursivly check subfolders. */
-        $d = dir($path);
-        while (($entry = $d->read()) !== false) {
-            if (($entry != '.') &&
-                ($entry != '..') &&
-                (substr($entry, -5, 5) == '.IMAP')) {
-                $size += $this->_mailboxSize($path . $entry . '\\');
+        $di = new DirectoryIterator($path);
+        foreach ($di as $filename => $entry) {
+            if (!$di->isDot() &&
+                (substr($filename, -5) == '.IMAP')) {
+                $size += $this->_mailboxSize($entry->getPathname() . '\\');
             }
         }
-        $d->close();
 
         return $size;
     }

@@ -1,5 +1,7 @@
 <?php
 /**
+ * Delegates to the correct view.
+ *
  * Copyright 2001-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -8,7 +10,8 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('ansel');
 
 $viewname = basename(Horde_Util::getFormData('view', 'Gallery'));
 $view = 'Ansel_View_' . $viewname;
@@ -37,15 +40,17 @@ try {
     $view = new $view($params);
 } catch (Horde_Exception $e) {
     require ANSEL_TEMPLATES . '/common-header.inc';
-    require ANSEL_TEMPLATES . '/menu.inc';
+    echo Horde::menu();
+    $notification->notify(array('listeners' => 'status'));
     echo '<br /><em>' . htmlspecialchars($e->getMessage()) . '</em>';
     require $registry->get('templates', 'horde') . '/common-footer.inc';
     exit;
 }
 
 $title = $view->getTitle();
-$view_html = $view->html();
 require ANSEL_TEMPLATES . '/common-header.inc';
-require ANSEL_TEMPLATES . '/menu.inc';
+echo Horde::menu();
+$notification->notify(array('listeners' => 'status'));
+$view_html = $view->html();
 echo $view_html;
 require $registry->get('templates', 'horde') . '/common-footer.inc';

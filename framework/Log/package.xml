@@ -40,13 +40,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
      <dir name="Log">
       <dir name="Filter">
        <file name="Constraint.php" role="php" />
-       <file name="Interface.php" role="php" />
        <file name="Level.php" role="php" />
        <file name="Message.php" role="php" />
        <file name="Suppress.php" role="php" />
       </dir> <!-- /lib/Horde/Log/Filter -->
       <dir name="Formatter">
-       <file name="Interface.php" role="php" />
        <file name="Simple.php" role="php" />
        <file name="Xml.php" role="php" />
       </dir> <!-- /lib/Horde/Log/Formatter -->
@@ -56,10 +54,13 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Firebug.php" role="php" />
        <file name="Mock.php" role="php" />
        <file name="Null.php" role="php" />
+       <file name="Scribe.php" role="php" />
        <file name="Stream.php" role="php" />
        <file name="Syslog.php" role="php" />
       </dir> <!-- /lib/Horde/Log/Handler -->
       <file name="Exception.php" role="php" />
+      <file name="Filter.php" role="php" />
+      <file name="Formatter.php" role="php" />
       <file name="Logger.php" role="php" />
      </dir> <!-- /lib/Horde/Log -->
      <file name="Log.php" role="php" />
@@ -80,23 +81,30 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <channel>pear.horde.org</channel>
    </package>
   </required>
+  <optional>
+   <package>
+    <name>Scribe</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
    <install name="lib/Horde/Log/Exception.php" as="Horde/Log/Exception.php" />
    <install name="lib/Horde/Log/Filter/Constraint.php" as="Horde/Log/Filter/Constraint.php" />
-   <install name="lib/Horde/Log/Filter/Interface.php" as="Horde/Log/Filter/Interface.php" />
    <install name="lib/Horde/Log/Filter/Level.php" as="Horde/Log/Filter/Level.php" />
    <install name="lib/Horde/Log/Filter/Message.php" as="Horde/Log/Filter/Message.php" />
    <install name="lib/Horde/Log/Filter/Suppress.php" as="Horde/Log/Filter/Suppress.php" />
-   <install name="lib/Horde/Log/Formatter/Interface.php" as="Horde/Log/Formatter/Interface.php" />
+   <install name="lib/Horde/Log/Filter.php" as="Horde/Log/Filter.php" />
    <install name="lib/Horde/Log/Formatter/Simple.php" as="Horde/Log/Formatter/Simple.php" />
    <install name="lib/Horde/Log/Formatter/Xml.php" as="Horde/Log/Formatter/Xml.php" />
+   <install name="lib/Horde/Log/Formatter.php" as="Horde/Log/Formatter.php" />
    <install name="lib/Horde/Log/Handler/Base.php" as="Horde/Log/Handler/Base.php" />
    <install name="lib/Horde/Log/Handler/Db.php" as="Horde/Log/Handler/Db.php" />
    <install name="lib/Horde/Log/Handler/Firebug.php" as="Horde/Log/Handler/Firebug.php" />
    <install name="lib/Horde/Log/Handler/Mock.php" as="Horde/Log/Handler/Mock.php" />
    <install name="lib/Horde/Log/Handler/Null.php" as="Horde/Log/Handler/Null.php" />
+   <install name="lib/Horde/Log/Handler/Scribe.php" as="Horde/Log/Handler/Scribe.php" />
    <install name="lib/Horde/Log/Handler/Stream.php" as="Horde/Log/Handler/Stream.php" />
    <install name="lib/Horde/Log/Handler/Syslog.php" as="Horde/Log/Handler/Syslog.php" />
    <install name="lib/Horde/Log/Logger.php" as="Horde/Log/Logger.php" />

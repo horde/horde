@@ -8,22 +8,21 @@
  * @author Mike Cochrane <mike@graftonhall.co.nz>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('ingo');
 
 /* Redirect if script updating is not available. */
 if (!$_SESSION['ingo']['script_generate']) {
-    header('Location: ' . Horde::applicationUrl('filters.php', true));
-    exit;
+    Horde::url('filters.php', true)->redirect();
 }
 
 $script = '';
 
 /* Get the Ingo_Script:: backend. */
 $scriptor = Ingo::loadIngoScript();
-if ($scriptor) {
-    /* Generate the script. */
-    $script = $scriptor->generate();
-}
+
+/* Generate the script. */
+$script = $scriptor->generate();
 
 /* Activate/deactivate script if requested.
    activateScript() does its own $notification->push() on error. */
@@ -40,18 +39,20 @@ case 'action_deactivate':
     break;
 
 case 'show_active':
-    $script = Ingo::getScript();
-    if (is_a($script, 'PEAR_Error')) {
-        $notification->push($script, 'horde.error');
+    try {
+        $script = Ingo::getScript();
+    } catch (Ingo_Exception $e) {
+        $notification->push($e);
         $script = '';
     }
     break;
 }
 
 $title = _("Filter Script Display");
-Ingo::prepareMenu();
+$menu = Ingo::menu();
 require INGO_TEMPLATES . '/common-header.inc';
-require INGO_TEMPLATES . '/menu.inc';
+echo $menu;
+Ingo::status();
 require INGO_TEMPLATES . '/script/header.inc';
 if (!empty($script)) {
     require INGO_TEMPLATES . '/script/activate.inc';

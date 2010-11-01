@@ -1,0 +1,452 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright YEAR Horde Project
+# This file is distributed under the same license as the PACKAGE package.
+# liaobin <liaobin@jite.net>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: chora\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2004-02-14 13:49+0100\n"
+"PO-Revision-Date: 2003-09-24 20:30+0800\n"
+"Last-Translator: liaobin <liaobin@jite.net>\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: templates/annotate/header.inc:4
+msgid "#"
+msgstr "#"
+
+#: templates/patchsets/ps.inc:12 templates/log/rev.inc:24
+#, php-format
+msgid "%s ago"
+msgstr "%s 以前"
+
+#: templates/diff/hr/footer.inc:19
+#, php-format
+msgid "Added in v.%s"
+msgstr "已添加在v.%s"
+
+#: templates/log/request.inc:57
+msgid "All Branches"
+msgstr "所有分支"
+
+#: co.php:60 templates/log/rev.inc:8
+msgid "Annotate"
+msgstr "注释"
+
+#: templates/directory/header.inc:18 templates/stats/stats.inc:3
+#: templates/annotate/header.inc:5
+msgid "Author"
+msgstr "作者"
+
+#: templates/directory/back.inc:4
+msgid "Back"
+msgstr "返回"
+
+#: templates/checkout/checkout.inc:27 templates/log/rev.inc:29
+msgid "Branch Point for:"
+msgstr "分支点: "
+
+#: templates/checkout/checkout.inc:11 templates/patchsets/ps.inc:14
+#: templates/log/rev.inc:26
+msgid "Branch:"
+msgstr "分支："
+
+#: lib/Chora.php:395
+msgid "Branches"
+msgstr "所有分支"
+
+#: templates/history/branch_cell.inc:2
+msgid "Branching to"
+msgstr "分支到"
+
+#: cvsgraph.php:48
+#, php-format
+msgid "CVS Graph for %s"
+msgstr "%s 的CVS图"
+
+#: templates/checkout/checkout.inc:19 templates/patchsets/ps.inc:17
+msgid "CVS Tags:"
+msgstr "CVS 标签："
+
+#: templates/checkout/checkout.inc:35 templates/log/rev.inc:35
+#, php-format
+msgid "Changed since <b>%s</b>"
+msgstr "自<b>%s</b>的变更"
+
+#: templates/history/rev.inc:8
+#, php-format
+msgid "Changed: %s"
+msgstr "已变更：%s"
+
+#: co.php:58
+#, php-format
+msgid "Checkout of %s (revision %s)"
+msgstr "%s 的CVS取出(版本 %s)"
+
+#: templates/cvsgraph/cvsgraph.inc:11
+msgid ""
+"Click on the links in between revisions to get a diff between those "
+"revisions."
+msgstr "点击版本之间的查看获取版本间的不同。"
+
+#: templates/cvsgraph/cvsgraph.inc:10
+msgid "Click on the revisions and branches to display the file."
+msgstr "点击特定版本和分支显示文件。"
+
+#: templates/log/rev.inc:40 templates/log/rev.inc:49
+msgid "Colored"
+msgstr "使用颜色标记"
+
+#: templates/stats/stats.inc:4
+msgid "Commits"
+msgstr "提交"
+
+#: templates/log/request.inc:28
+msgid "Context"
+msgstr "上下文"
+
+#: config/prefs.php.dist:11
+msgid "Customize tasks to run upon logging in to Chora."
+msgstr "客户化任务以便在登录到chora后运行。"
+
+#: templates/directory/header.inc:23
+msgid "Date"
+msgstr "日期"
+
+#: patchsets.php:65
+msgid "Deleted"
+msgstr "已删除"
+
+#: templates/directory/file.inc:6 templates/directory/file.inc:18
+msgid "Deleted File"
+msgstr "已删除文件"
+
+#: templates/log/rev.inc:13
+msgid "Deselect"
+msgstr "取消选择"
+
+#: patchsets.php:62
+msgid "Diff"
+msgstr "版本比较"
+
+#: patchsets.php:45
+msgid "Diff All Files"
+msgstr "比较所有文件"
+
+#: diff.php:68
+#, php-format
+msgid "Diff for %s between version %s and %s"
+msgstr "对 %s 在版本 %s 和 %s 间比较"
+
+#: templates/log/rev.inc:48
+#, php-format
+msgid "Diffs to <b>%s</b>"
+msgstr "同<b>%s</b>比较"
+
+#: templates/log/rev.inc:39
+#, php-format
+msgid "Diffs to version %s"
+msgstr "同版本 %s 的比较"
+
+#: templates/directory/dir.inc:5 templates/directory/dir.inc:7
+msgid "Directory"
+msgstr "目录"
+
+#: annotate.php:29 co.php:61 templates/log/rev.inc:10
+msgid "Download"
+msgstr "下载"
+
+#: templates/log/request.inc:30
+msgid "Ed Script"
+msgstr "编辑脚本"
+
+#: templates/error_page.inc:4
+msgid "Error"
+msgstr "错误"
+
+#: templates/error_page.inc:7
+msgid "Error Encountered"
+msgstr "遇到一个错误"
+
+#: templates/directory/file.inc:8 templates/directory/file.inc:20
+#: templates/directory/header.inc:8
+msgid "File"
+msgstr "文件"
+
+#: templates/patchsets/ps.inc:21
+msgid "Files Changed:"
+msgstr "已变更的文件："
+
+#: templates/log/request.inc:44
+msgid "Get Diffs"
+msgstr "获取不同"
+
+#: lib/Chora.php:398
+msgid "Graph"
+msgstr "版本图"
+
+#: templates/menu/menu.inc:21
+msgid "Help"
+msgstr "帮助"
+
+#: cvs.php:40
+msgid "Hide Deleted Files"
+msgstr "隐藏删除的文件"
+
+#: templates/log/request.inc:26
+msgid "Human Readable"
+msgstr "人可阅读"
+
+#: templates/directory/header.inc:25
+msgid "Last Log"
+msgstr "最后日志"
+
+#: templates/diff/hr/header.inc:5
+#, php-format
+msgid "Last Log Message for rev %s:"
+msgstr "版本 %s 的最后日志信息："
+
+#: templates/diff/hr/footer.inc:5
+msgid "Legend:"
+msgstr "图例："
+
+#: templates/annotate/header.inc:7
+msgid "Line"
+msgstr "行"
+
+#: templates/diff/hr/row.inc:3 templates/diff/hr/row.inc:7
+#, php-format
+msgid "Line %s"
+msgstr "行 %s"
+
+#: templates/headerbar.inc:12
+msgid "Location:"
+msgstr "位置："
+
+#: templates/checkout/checkout.inc:42
+msgid "Log:"
+msgstr "日志："
+
+#: config/prefs.php.dist:10
+msgid "Login Tasks"
+msgstr "登录任务"
+
+#: lib/Chora.php:389
+msgid "Logs"
+msgstr "日志"
+
+#: templates/log/rev.inc:41 templates/log/rev.inc:50
+msgid "Long"
+msgstr "长格式"
+
+#: diff.php:60
+msgid "Malformed Query"
+msgstr "不完整的查询"
+
+#: patchsets.php:58
+msgid "New File"
+msgstr "文件文件"
+
+#: templates/diff/hr/nochange.inc:6
+msgid "No Viewable Change"
+msgstr "没有可以查看的更改"
+
+#: templates/log/rev.inc:42 templates/log/rev.inc:51
+msgid "NoWhitespaceChanges"
+msgstr "没有空格的更改"
+
+#: templates/menu/menu.inc:13
+msgid "Options"
+msgstr "选项"
+
+#: config/prefs.php.dist:9
+msgid "Other Options"
+msgstr "其他选项"
+
+#: lib/Chora.php:304
+msgid "Other Repositories"
+msgstr "其他仓库"
+
+#: templates/directory/back.inc:4
+msgid "Parent Directory"
+msgstr "上级目录"
+
+#: templates/patchsets/ps.inc:6
+#, php-format
+msgid "PatchSet %s</span> by %s"
+msgstr "补丁%s</span>由%s产生"
+
+#: lib/Chora.php:392
+msgid "Patchsets"
+msgstr "补丁"
+
+#: patchsets.php:26
+#, php-format
+msgid "Patchsets for %s"
+msgstr "%s的补丁"
+
+#: templates/error_page.inc:13
+msgid "Please contact"
+msgstr "请联系"
+
+#: templates/diff/hr/footer.inc:11
+#, php-format
+msgid "Removed in v.%s"
+msgstr "删除在 v.%s"
+
+#: templates/log/request.inc:14
+msgid "Retrieve diffs between:"
+msgstr "在版本之间恢复差别："
+
+#: templates/directory/header.inc:13 templates/annotate/header.inc:6
+msgid "Rev"
+msgstr "版本"
+
+#: co.php:65
+#, php-format
+msgid "Revision %s for file %s not found."
+msgstr "版本%s(文件%s)没有找到。"
+
+#: templates/checkout/checkout.inc:4
+#, php-format
+msgid "Revision <b>%s</b>, <i>%s</i> (%s ago) by %s"
+msgstr "版本 <b>%s</b>, <i>%s</i> (%s 以前) 被 %s 产生"
+
+#: templates/log/rev.inc:15
+msgid "Select for Diff"
+msgstr "选择后察看更改"
+
+#: cvs.php:42
+msgid "Show Deleted Files"
+msgstr "显示已经删除的文件"
+
+#: templates/log/request.inc:29
+msgid "Side-by-Side"
+msgstr "并肩显示"
+
+#: templates/directory/header.inc:7 templates/directory/header.inc:12
+#: templates/directory/header.inc:17 templates/directory/header.inc:22
+msgid "Sort Order"
+msgstr "排序顺序"
+
+#: annotate.php:26
+#, php-format
+msgid "Source Annotation of %s for version %s"
+msgstr "%s 的注释(版本 %s)"
+
+#: history.php:159
+#, php-format
+msgid "Source Branching View for %s"
+msgstr "%s 的版本分支图"
+
+#: cvs.php:32
+#, php-format
+msgid "Source Directory of /%s"
+msgstr "/%s 的目录"
+
+#: cvs.php:125
+#, php-format
+msgid "Source Log for %s"
+msgstr "%s 的日志"
+
+#: lib/Chora.php:125
+msgid ""
+"SourceRoot not found! This could be a misconfiguration by the server "
+"administrator, or the server could be having temporary problems. Please try "
+"again later."
+msgstr ""
+"源根目录没有找到！这可能是服务器管理员的错误配置或服务器零时问题造成的。请稍"
+"候再试。"
+
+#: lib/Chora.php:400
+msgid "Statistics"
+msgstr "统计"
+
+#: stats.php:26
+#, php-format
+msgid "Statistics for %s"
+msgstr "为%s统计"
+
+#: templates/log/rev.inc:32
+msgid "Tags:"
+msgstr "标签："
+
+#: templates/log/request.inc:5
+msgid ""
+"This form allows you to request diffs between any two revisions of a file.  "
+"You may select a symbolic revision name using the selection box or you may "
+"type in a numeric name using the type-in text box."
+msgstr ""
+"这个表格允许您查询一个文件的不同版本之间的差异。您可以使用选择框选择一个版本"
+"名称或您可以在文本框中输入一个版本号。"
+
+#: templates/headerbar.inc:17
+msgid "Tracking Branch"
+msgstr "跟踪分支"
+
+#: templates/log/request.inc:23
+msgid "Type:"
+msgstr "类型："
+
+#: templates/log/request.inc:27
+msgid "Unified"
+msgstr "统一的"
+
+#: templates/log/request.inc:18 templates/log/request.inc:38
+msgid "Use Text Field"
+msgstr "使用文本域"
+
+#: config/prefs.php.dist:37
+msgid "Use last viewed file or directory at login time"
+msgstr "在登录后使用最后查看的文件或目录"
+
+#: prefs.php:24
+msgid "User Options"
+msgstr "用户选项"
+
+#: annotate.php:28 templates/log/rev.inc:9
+msgid "View"
+msgstr "察看"
+
+#: templates/log/request.inc:60
+msgid "View Branch"
+msgstr "察看分支"
+
+#: templates/log/request.inc:54
+msgid "View revisions on:"
+msgstr "察看版本在："
+
+#: lib/Chora.php:402
+msgid "View:"
+msgstr "察看:"
+
+#: templates/log/request.inc:35
+msgid "and:"
+msgstr "和："
+
+#: templates/history/rev.inc:4 templates/log/rev.inc:5
+#, php-format
+msgid "by %s"
+msgstr "由 %s"
+
+#: templates/diff/hr/footer.inc:15
+msgid "changed lines"
+msgstr "更改的行数"
+
+#: templates/error_page.inc:14
+msgid "for further information."
+msgstr "为未来信息。"
+
+#: templates/history/branch_cell.inc:6
+#, php-format
+msgid "revision %s"
+msgstr "版本 %s"
+
+#: templates/diff/hr/header.inc:13 templates/diff/hr/header.inc:14
+#, php-format
+msgid "version %s"
+msgstr "版本 %s"

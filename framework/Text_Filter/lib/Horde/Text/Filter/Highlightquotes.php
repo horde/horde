@@ -4,18 +4,18 @@
  * levels.
  *
  * CSS class names called "quoted1" ... "quoted{$cssLevels}" must be present.
- * CSS class names "toggleQuoteHide" and "toggleQuoteShow" are used to style
- * toggle text.
  *
  * The text to be passed in must have already been passed through
  * htmlspecialchars().
  *
  * Parameters:
  * <pre>
- * 'citeblock'  -- Display cite blocks? (DEFAULT: true)
- * 'cssLevels'  -- Number of defined CSS class names. (DEFAULT: 5)
- * 'hideBlocks' -- Hide quoted text blocks by default? (DEFAULT: false)
- * 'outputJS'   -- Add necessary JS files? (DEFAULT: true)
+ * 'citeblock'  -- Display cite blocks?
+ *                 DEFAULT: true
+ * 'cssLevels'  -- Number of defined CSS class names.
+ *                 DEFAULT: 5
+ * 'hideBlocks' -- Hide large quoted text blocks by default?
+ *                 DEFAULT: false
  * </pre>
  *
  * Copyright 2004-2010 The Horde Project (http://www.horde.org/)
@@ -23,11 +23,13 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Slusarz <slusarz@curecanti.org>
- * @author  Jan Schneider <jan@horde.org>
- * @package Horde_Text
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Text_Filter
  */
-class Horde_Text_Filter_Highlightquotes extends Horde_Text_Filter
+class Horde_Text_Filter_Highlightquotes extends Horde_Text_Filter_Base
 {
     /**
      * Filter parameters.
@@ -37,9 +39,16 @@ class Horde_Text_Filter_Highlightquotes extends Horde_Text_Filter
     protected $_params = array(
         'citeblock' => true,
         'cssLevels' => 5,
-        'hideBlocks' => false,
-        'outputJS' => true
+        'hideBlocks' => false
     );
+
+    /**
+     * The number of quoted lines to exceed to trigger large block
+     * processing.
+     *
+     * @var integer
+     */
+    protected $_qlimit = 8;
 
     /**
      * Executes any code necessaray before applying the filter patterns.
@@ -142,29 +151,20 @@ class Horde_Text_Filter_Highlightquotes extends Horde_Text_Filter
     }
 
     /**
-     * TODO
+     * Process a batch of lines at the same quoted level.
      *
-     * @param array $lines     TODO
-     * @param integer $qcount  TODO
+     * @param array $lines     Lines.
+     * @param integer $qcount  Number of lines in quoted level.
      *
-     * @return string  TODO
+     * @return string  The rendered lines.
      */
     protected function _process($lines, $qcount)
     {
         $curr = reset($lines);
         $out = implode("\n", $this->_removeBr($curr['lines']));
 
-        if ($qcount > 8) {
-            if ($this->_params['outputJS']) {
-                Horde::addScriptFile('prototype.js', 'horde');
-            }
-
-            $out .= (($this->_params['citeblock']) ? '<br />' : '') .
-                '<div class="toggleQuoteParent">' .
-                '<span ' . ($this->_params['outputJS'] ? 'onclick="[ this, this.next(), this.next(1) ].invoke(\'toggle\')" ' : '') .
-                'class="widget toggleQuoteShow"' . ($this->_params['hideBlocks'] ? '' : ' style="display:none"') . '>' . htmlspecialchars(sprintf(_("[Show Quoted Text - %d lines]"), $qcount)) . '</span>' .
-                '<span ' . ($this->_params['outputJS'] ? 'onclick="[ this, this.previous(), this.next() ].invoke(\'toggle\')" ' : "") .
-                'class="widget toggleQuoteHide"' . ($this->_params['hideBlocks'] ? ' style="display:none"' : '') . '>' . htmlspecialchars(_("[Hide Quoted Text]")) . '</span>';
+        if ($qcount > $this->_qlimit) {
+            $out .= $this->_beginLargeBlock($lines, $qcount);
         }
 
         $level = 0;
@@ -180,7 +180,7 @@ class Horde_Text_Filter_Highlightquotes extends Horde_Text_Filter
                     /* Add quote block start tags for each cite level. */
                     $out .= ($this->_params['citeblock'] ? '<div class="citation ' : '<font class="') .
                         'quoted' . (($i % $this->_params['cssLevels']) + 1) . '"' .
-                        ((($i == 0) && ($qcount > 8) && $this->_params['hideBlocks']) ? ' style="display:none"' : '') .
+                        ((($i == 0) && ($qcount > $this->_qlimit) && $this->_params['hideBlocks']) ? ' style="display:none"' : '') .
                         '>';
                 }
             }
@@ -193,9 +193,37 @@ class Horde_Text_Filter_Highlightquotes extends Horde_Text_Filter
             $out .= $this->_params['citeblock'] ? '</div>' : '</font>';
         }
 
-        return ($qcount > 8)
-            ? $out . '</div>'
-            : $out;
+        if ($qcount > $this->_qlimit) {
+            $out .= $this->_endLargeBlock($lines, $qcount);
+        }
+
+        return $out;
+    }
+
+    /**
+     * Add HTML code at the beginning of a large block of quoted lines.
+     *
+     * @param array $lines     Lines.
+     * @param integer $qcount  Number of lines in quoted level.
+     *
+     * @return string  HTML code.
+     */
+    protected function _beginLargeBlock($lines, $qcount)
+    {
+        return '';
+    }
+
+    /**
+     * Add HTML code at the end of a large block of quoted lines.
+     *
+     * @param array $lines     Lines.
+     * @param integer $qcount  Number of lines in quoted level.
+     *
+     * @return string  HTML code.
+     */
+    protected function _endLargeBlock($lines, $qcount)
+    {
+        return '';
     }
 
     /**

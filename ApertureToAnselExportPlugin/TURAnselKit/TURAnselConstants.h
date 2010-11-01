@@ -2,14 +2,14 @@
  * TURAnselConstants
  *
  * Copyright 2009-2010 The Horde Project (http://www.horde.org)
- * 
+ *
  * @license http://opensource.org/licenses/bsd-license.php
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  */
 
 // Constants for the API parameter names.
 extern NSString * const kTURAnselAPIParamScope;
-extern NSString * const kTURAnselAPIParamGaleryParams;
+extern NSString * const kTURAnselAPIParamGalleryParams;
 extern NSString * const kTURAnselAPIParamPerms;
 extern NSString * const kTURAnselAPIParamParent;
 extern NSString * const kTURAnselAPIParamAllLevels;
@@ -23,6 +23,12 @@ extern NSString * const kTURAnselAPIParamFullPath;
 extern NSString * const kTURAnselAPIParamImageData;
 extern NSString * const kTURAnselAPIParamSetAsDefault;
 extern NSString * const kTURAnselAPIParamAdditionalData;
+extern NSString * const kTURAnselAPIParamEncoding;
+
+// Constants specific to Ansel version 2 API parameters.
+extern NSString * const kTURAnselAPIParamSingleParameter;
+extern NSString * const kTURAnselAPIParamView;
+extern NSString * const kTURAnselAPIParamFull;
 extern NSString * const kTURAnselAPIParamEncoding;
 
 // Constants for the dictionary keys used to describe/create TURAnselGallery

@@ -76,7 +76,7 @@ class Horde_Kolab_Format_Xml_Hprefs extends Horde_Kolab_Format_Xml
      *
      * @return array The data array representing the object.
      *
-     * @throws Horde_Exception If parsing the XML data failed.
+     * @throws Horde_Kolab_Format_Exception If parsing the XML data failed.
      */
     public function load(&$xmltext)
     {
@@ -87,7 +87,7 @@ class Horde_Kolab_Format_Xml_Hprefs extends Horde_Kolab_Format_Xml
                 $object['application'] = $object['categories'];
                 unset($object['categories']);
             } else {
-                throw new Horde_Exception('Preferences XML object is missing an application setting.');
+                throw new Horde_Kolab_Format_Exception('Preferences XML object is missing an application setting.');
             }
         }
 
@@ -101,7 +101,7 @@ class Horde_Kolab_Format_Xml_Hprefs extends Horde_Kolab_Format_Xml
      *
      * @return string The data as XML string.
      *
-     * @throws Horde_Exception If converting the data to XML failed.
+     * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
      */
     public function save($object)
     {
@@ -110,7 +110,7 @@ class Horde_Kolab_Format_Xml_Hprefs extends Horde_Kolab_Format_Xml
                 $object['application'] = $object['categories'];
                 unset($object['categories']);
             } else {
-                throw new Horde_Exception('Preferences XML object is missing an application setting.');
+                throw new Horde_Kolab_Format_Exception('Preferences XML object is missing an application setting.');
             }
         }
 

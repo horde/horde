@@ -136,10 +136,14 @@ class Folks_Notification_facebook extends Folks_Notification {
         }
 
         // Create FB Object
-        $this->_fb = new Horde_Service_Facebook($GLOBALS['conf']['facebook']['key'],
-                                                $GLOBALS['conf']['facebook']['secret'],
-                                                array('http_client' => new Horde_Http_Client(),
-                                                      'http_request' => new Horde_Controller_Request_Http()));
+        try {
+            $this->_fb = $GLOBALS['injector']->getInstance('Horde_Service_Facebook');
+        } catch (Horde_Exception $e) {
+            $error = PEAR::raiseError($e->getMessage(), $e->getCode());
+            Horde::logMessage($error, 'ERR');
+
+            return $error;
+        }
 
         // Set Auth user
         $this->_fb->auth->setUser($this->_fbp['uid'], $this->_fbp['sid'], 0);
@@ -158,6 +162,6 @@ class Folks_Notification_facebook extends Folks_Notification {
     private function _formatBody($subject, $body)
     {
         return '<b>' . $subject . ':</b> '
-                . Horde_Text_Filter::filter($body, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL));
+                . $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($body, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO_LINKURL));
     }
 }

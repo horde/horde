@@ -1,0 +1,648 @@
+# Ukrainian translations for Horde_Form module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Form module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Form\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: Form/Type.php:2520
+#, php-format
+msgid " (%s days ago)"
+msgstr " (%s днів тому)"
+
+#: Form/Type.php:2528
+#, php-format
+msgid " (in %s days)"
+msgstr " (за %s днів)"
+
+#: Form/Type.php:2524
+msgid " (today)"
+msgstr " (сьогодні)"
+
+#: Form/Type.php:2526
+msgid " (tomorrow)"
+msgstr " (завтра)"
+
+#: Form/Type.php:2522
+msgid " (yesterday)"
+msgstr " (вчора)"
+
+#: Form/Type.php:1460
+#, php-format
+msgid "\"%s\" is not a valid email address."
+msgstr "\"%s\" не є коректною адресою e-пошти."
+
+#: Form/Type.php:2475
+#, php-format
+msgid "%s is required"
+msgstr "%s необхідний"
+
+#: Form/Type.php:2190 Form/Type.php:2253
+msgid "-- select --"
+msgstr "-- вибір --"
+
+#: Form/Type.php:843 Form/Type.php:886
+msgid "A temporary directory"
+msgstr "Тимчасова папка"
+
+#: Form/Type.php:773
+msgid "Address"
+msgstr "Адреса"
+
+#: Form/Type.php:795
+#, fuzzy
+msgid "Address Link"
+msgstr "Адресник"
+
+#: Form/Type.php:1620
+msgid "Allow multiple addresses?"
+msgstr "Дозволити багато адрес?"
+
+#: Form/Type.php:3473
+msgid "Assignment columns"
+msgstr ""
+
+#: Form/Type.php:3745
+msgid "Category"
+msgstr "Категорія"
+
+#: Form/Type.php:1632
+msgid "Character to split multiple addresses with"
+msgstr "Символ для розмежування кількох адрес"
+
+#: Form/Type.php:3161
+msgid "Colour selection"
+msgstr "Вибір кольору"
+
+#: Form/Type.php:2072
+msgid "Column titles"
+msgstr "Заголовки колонок"
+
+#: Form/Type.php:662
+msgid "Counted text"
+msgstr "Підрахований текст"
+
+#: Form/Type.php:909
+msgid "Country drop down list"
+msgstr "Спадний список країн"
+
+#: Form/Type.php:3588
+msgid "Credit card number"
+msgstr "Номер кредитки"
+
+#: Form/Type.php:3643
+msgid ""
+"DSN (see http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
+msgstr ""
+"DSN (see http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
+
+#: Form/Type.php:3641
+#, fuzzy
+msgid "Database lookup"
+msgstr "База даних"
+
+#: Form/Type.php:2549
+msgid "Date"
+msgstr "Дата"
+
+#: Form/Type.php:3121
+msgid "Date and time selection"
+msgstr "Вибір часу і дати"
+
+#: Form/Type.php:2958
+msgid "Date selection"
+msgstr "Вибір дати"
+
+#: Form/Type.php:132
+msgid "Description"
+msgstr "Опис"
+
+#: Form/Type.php:2968 Form/Type.php:3131
+msgid "Display format"
+msgstr "Формат відображення"
+
+#: Form/Type.php:2233
+msgid "Drop down list"
+msgstr "Спадний список"
+
+#: Form/Type.php:1617
+msgid "Email"
+msgstr "Е-пошта"
+
+#: Form/Type.php:2088
+msgid "Email addresses must match."
+msgstr "Адреси е-пошти мусять співпадати."
+
+#: Form/Type.php:2115
+msgid "Email with confirmation"
+msgstr "Е-пошта з підтвердженням"
+
+#: Form/Type.php:2746 Form/Type.php:2962 Form/Type.php:3125
+msgid "End year"
+msgstr "Кінець року"
+
+#: Form/Type.php:2070
+msgid "Field matrix"
+msgstr ""
+
+#: Form/Type.php:3696
+msgid "Figlet CAPTCHA"
+msgstr ""
+
+#: Form/Type.php:3700
+msgid "Figlet font"
+msgstr ""
+
+#: Form/Type.php:3347
+msgid "File selection"
+msgstr "Вибір файлу"
+
+#: Form/Type.php:952
+msgid "File upload"
+msgstr "Закачування файлу"
+
+#: Form/Type.php:3719
+msgid "Font"
+msgstr "Шрифт"
+
+#: Form/Type.php:152
+msgid "HTML"
+msgstr "HTML"
+
+#: Form/Type.php:115 Form/Type.php:3285
+msgid "Header"
+msgstr "Заголовок"
+
+#: Form/Type/tableset.php:58
+msgid "Headers"
+msgstr "Заголовки"
+
+#: Form/Type.php:617
+#, fuzzy
+msgid "Helpers"
+msgstr "Довідка"
+
+#: Form/Type.php:528
+msgid "IP address"
+msgstr "IP адреса"
+
+#: Form/Type.php:558
+#, fuzzy
+msgid "IPv6 address"
+msgstr "IP адреса"
+
+#: Form/Type.php:3349
+msgid "Id"
+msgstr ""
+
+#: Form/Type.php:3715
+msgid "Image CAPTCHA"
+msgstr ""
+
+#: Form/Type.php:1292
+msgid "Image upload"
+msgstr "Закачування зображення"
+
+#: Form/Type.php:263
+msgid "Integer"
+msgstr "Ціле"
+
+#: Form/Type.php:317
+msgid "Integer list"
+msgstr "Список цілих"
+
+#: Form/Type.php:2208 Form/Type.php:2283 Form/Type.php:2356 Form/Type.php:2435
+#: Form/Type/tableset.php:34
+msgid "Invalid data submitted."
+msgstr "Подані неправильні дані."
+
+#: Form/Type.php:3479
+msgid "Left header"
+msgstr "Лівий заголовок"
+
+#: Form/Type.php:3475
+msgid "Left values"
+msgstr "Ліва величина"
+
+#: Form/Type.php:1352
+msgid "Link"
+msgstr ""
+
+#: Form/Type.php:1355
+msgid "Link URL"
+msgstr ""
+
+#: Form/Type.php:1370
+#, fuzzy
+msgid "Link access key"
+msgstr " (Гаряча клавіша %s)"
+
+#: Form/Type.php:3353
+msgid "Link style"
+msgstr ""
+
+#: Form/Type.php:1361
+msgid "Link target"
+msgstr ""
+
+#: Form/Type.php:1358 Form/Type.php:3351
+#, fuzzy
+msgid "Link text"
+msgstr "Довгий текст"
+
+#: Form/Type.php:1626
+msgid "Link the email address to the compose page when displaying?"
+msgstr ""
+
+#: Form/Type.php:1367
+msgid "Link title attribute"
+msgstr ""
+
+#: Form/Type.php:611
+msgid "Long text"
+msgstr "Довгий текст"
+
+#: Form/Type.php:1298
+msgid "Maximum file size in bytes"
+msgstr "Максимальний розмір файлу в байтах"
+
+#: Form/Type.php:400 Form/Type.php:420 Form/Type.php:446
+msgid "Maximum length"
+msgstr "Максимальна довжина"
+
+#: Form/Type.php:487
+msgid "Mobile phone number"
+msgstr "Номер мобільного телефону"
+
+#: Form/Type.php:2742
+msgid "Month and year"
+msgstr "Місяць і рік"
+
+#: Form/Type.php:2309
+msgid "Multi-level drop down lists"
+msgstr "Багаторівневі спадаючі списки"
+
+#: Form/Type.php:2366
+msgid "Multiple selection"
+msgstr "Множинний Вибір"
+
+#: Form/Type.php:236
+msgid "Number"
+msgstr "Номер"
+
+#: Form/Type.php:668
+msgid "Number of characters"
+msgstr "Кількість символів"
+
+#: Form/Type.php:615 Form/Type.php:666 Form/Type.php:777 Form/Type.php:847
+#: Form/Type.php:890
+msgid "Number of columns"
+msgstr "Кількість колонок"
+
+#: Form/Type.php:613 Form/Type.php:664 Form/Type.php:775 Form/Type.php:845
+#: Form/Type.php:888
+msgid "Number of rows"
+msgstr "Кількість рядків"
+
+#: Form/Type.php:290
+msgid "Octal"
+msgstr ""
+
+#: Form/Type.php:1364
+msgid "Onclick event"
+msgstr "Подія при натисканні"
+
+#: Form/Type.php:2098
+msgid "Only one email address allowed."
+msgstr "Дозволено тільки 1 поштову адресу."
+
+#: Form/Type.php:1449
+msgid "Only one email address is allowed."
+msgstr "Дозволена тільки одна поштова адреса."
+
+#: Form/Type.php:839
+msgid "PGP Key"
+msgstr "Ключ PGP"
+
+#: Form/Type.php:2142
+msgid "Password"
+msgstr "Пароль"
+
+#: Form/Type.php:2175
+msgid "Password with confirmation"
+msgstr "Пароль з підтвердженням"
+
+#: Form/Type.php:2157
+msgid "Passwords must match."
+msgstr "Пароль має співпадати."
+
+#: Form/Type.php:841
+msgid "Path to the GnuPG binary"
+msgstr ""
+
+#: Form/Type.php:475
+msgid "Phone number"
+msgstr "Номер телефону"
+
+#: Form/Type.php:3191
+msgid "Please choose a sound."
+msgstr ""
+
+#: Form/Type.php:2720
+msgid "Please enter a month and a year."
+msgstr "Прошу ввести місяць і рік."
+
+#: Form/Type.php:513 Form/Type.php:543
+msgid "Please enter a valid IP address."
+msgstr "Будь-ласка, введіть дійсну IP-адресу."
+
+#: Form/Type.php:2800
+msgid "Please enter a valid date, check the number of days in the month."
+msgstr "Будь-ласка, введіть дійсну дату, перевірте кількість днів в місяці."
+
+#: Form/Type.php:2598
+msgid "Please enter a valid time."
+msgstr "Введіть дійсний час."
+
+#: Form/Type.php:911 Form/Type.php:2237 Form/Type.php:2313 Form/Type.php:3647
+#, fuzzy
+msgid "Prompt text"
+msgstr "Текст дзвоника"
+
+#: Form/Type.php:1623
+msgid "Protect address from spammers?"
+msgstr "Захистити адресу від спамерів?"
+
+#: Form/Type.php:2401
+#, fuzzy
+msgid "Radio selection"
+msgstr "Вибір дати"
+
+#: Form/Type.php:396 Form/Type.php:416 Form/Type.php:442
+msgid "Regex"
+msgstr "Regex"
+
+#: Form/Type.php:3605
+msgid "Relationship browser"
+msgstr ""
+
+#: Form/Renderer.php:344
+msgid "Required Field"
+msgstr "Необхідне поле"
+
+#: Form.php:632
+msgid "Required secret is invalid - potentially malicious request."
+msgstr ""
+
+#: Form.php:368 Form/Renderer.php:329
+msgid "Reset"
+msgstr "Очистити"
+
+#: Form/Type.php:3481
+msgid "Right header"
+msgstr "Правий заголовок"
+
+#: Form/Type.php:3477
+msgid "Right values"
+msgstr "Права величина"
+
+#: Form/Type.php:884
+msgid "S/MIME Key"
+msgstr "Ключ S/MIME"
+
+#: Form/Type.php:3645
+msgid "SQL statement for value lookups"
+msgstr ""
+
+#: Form/Type.php:3326
+msgid "Select Files"
+msgstr "Вибрати файли"
+
+#: Form/Type.php:2803
+msgid "Select all date components."
+msgstr "Виберіть всі елементи дати."
+
+#: Form/Type.php:2450
+msgid "Set"
+msgstr "Встановити"
+
+#: Form/Type.php:3355
+msgid "Show icon?"
+msgstr "Показати іконку?"
+
+#: Form/Type.php:1296
+msgid "Show option to keep original?"
+msgstr "Показати опцію для збереження оригіналу?"
+
+#: Form/Type.php:2964 Form/Type.php:3127
+#, fuzzy
+msgid "Show picker?"
+msgstr "Показати іконку?"
+
+#: Form/Type.php:2688 Form/Type.php:3133
+msgid "Show seconds?"
+msgstr "Показати секунди?"
+
+#: Form/Type.php:1294
+msgid "Show upload?"
+msgstr "Показати підвантаження?"
+
+#: Form/Type.php:398 Form/Type.php:418 Form/Type.php:444 Form/Type.php:2370
+#: Form/Type.php:3283 Form/Type.php:3483
+msgid "Size"
+msgstr "Об'єм"
+
+#: Form/Type.php:3279
+msgid "Sort order selection"
+msgstr "Вибір напрямку сортування"
+
+#: Form/Type.php:3200
+msgid "Sound selection"
+msgstr "Вибір звуку"
+
+#: Form/Type.php:98
+msgid "Spacer"
+msgstr ""
+
+#: Form/Type.php:2744 Form/Type.php:2960 Form/Type.php:3123
+msgid "Start year"
+msgstr ""
+
+#: Form/Type.php:2966 Form/Type.php:3129
+#, fuzzy
+msgid "Storage format"
+msgstr "Формат часу"
+
+#: Form/Type.php:414
+#, fuzzy
+msgid "String list"
+msgstr "Список цілих"
+
+#: Form/Type.php:440
+msgid "String list returning an array"
+msgstr ""
+
+#: Form.php:361 Form/Renderer.php:326
+msgid "Submit"
+msgstr "Відіслати"
+
+#: Form/Type/tableset.php:54
+msgid "Table Set"
+msgstr ""
+
+#: Form/Type.php:394 Form/Type.php:3698 Form/Type.php:3717
+msgid "Text"
+msgstr "Текст"
+
+#: Form/Type.php:1056
+msgid ""
+"The image file size could not be determined or it was 0 bytes. The upload "
+"may have been interrupted."
+msgstr ""
+
+#: Form/Type.php:1060
+#, php-format
+msgid "The image file was larger than the maximum allowed size (%d bytes)."
+msgstr "Зображення перевищує максимально дозволений розмір (%d байт)."
+
+#: Form/Type.php:1629
+msgid "The name to use when linking to the compose page"
+msgstr "Назва для використанння при посиланні на сторінку створення."
+
+#: Form/Type.php:3673
+msgid "The text you entered did not match the text on the screen."
+msgstr "Текст, який Ви ввели, не співпадає з текстом на екрані."
+
+#: Form/Type.php:644
+#, php-format
+msgid ""
+"There are too many characters in this field. You have entered %d character; "
+msgid_plural ""
+"There are too many characters in this field. You have entered %d characters; "
+msgstr[0] "Забагато символів в цьому полі. Ви ввели %d символ; "
+msgstr[1] "Забагато символів в цьому полі. Ви ввели %d символи; "
+msgstr[2] "Забагато символів в цьому полі. Ви ввели %d символів; "
+
+#: Form/Type.php:3504
+msgid "This does not seem to be a valid card number."
+msgstr "Це не схоже на коректний номер картки."
+
+#: Form/Type.php:169 Form/Type.php:246 Form/Type.php:273 Form/Type.php:300
+#: Form/Type.php:365 Form/Type.php:459 Form/Type.php:517 Form/Type.php:547
+#: Form/Type.php:641 Form/Type.php:1041 Form/Type.php:2083 Form/Type.php:2130
+#: Form/Type.php:2152 Form/Type.php:2199 Form/Type.php:2274 Form/Type.php:2345
+#: Form/Type.php:2559 Form/Type.php:2601 Form/Type.php:2795 Form/Type.php:3144
+#: Form/Type.php:3183 Form/Type.php:3496 Form/Type.php:3668 Form/Type.php:3751
+#: Form/Variable.php:471 Form/Variable.php:479
+msgid "This field is required."
+msgstr "Це поле обов'язкове."
+
+#: Form/Type.php:254
+msgid "This field may only contain integers."
+msgstr "Це поле може містити тільки цілі."
+
+#: Form/Type.php:2567
+msgid "This field may only contain numbers and the colon."
+msgstr "Це поле може містити тільки номери та двокрапку"
+
+#: Form/Type.php:281
+msgid "This field may only contain octal values."
+msgstr "Це поле може містити тільки вісімкові величини."
+
+#: Form/Type.php:308
+msgid "This field must be a comma or space separated list of integers"
+msgstr "Це поле має бути списком цілих, розділених комою або пробілом"
+
+#: Form/Type.php:180
+msgid "This field must be a valid number."
+msgstr "Це поле має мати дійсний номер."
+
+#: Form/Type.php:3152
+msgid ""
+"This field must contain a color code in the RGB Hex format, for example "
+"'#1234af'."
+msgstr ""
+"Це поле має містити код кольору в форматі  HEX RGB, наприклад '#1234af'."
+
+#: Form.php:629
+msgid "This form has already been processed."
+msgstr "Ця форма вже оброблена."
+
+#: Form/Type.php:2576
+msgid "Time"
+msgstr "Час"
+
+#: Form/Type.php:2686
+msgid "Time selection"
+msgstr "Вибір часу"
+
+#: Form/Type.php:1321
+msgid "True or false"
+msgstr "Правда чи брехня"
+
+#: Form/Type.php:360
+#, php-format
+msgid "Value is over the maximum length of %d."
+msgstr "Значення перевищує максимальну довжину %d."
+
+#: Form/Type.php:2368 Form/Type.php:2403 Form/Type.php:2452 Form/Type.php:3281
+#: Form/Type/tableset.php:56
+msgid "Values"
+msgstr "Величини"
+
+#: Form/Type.php:2235 Form/Type.php:2311
+msgid "Values to select from"
+msgstr "Величини для вибору з"
+
+#: Form/Type.php:3485
+msgid "Width in CSS units"
+msgstr "Ширина в одиницях CSS"
+
+#: Form/Type.php:2102
+msgid "You did not enter a valid email address."
+msgstr "Ви не ввели коректну адресу e-пошти."
+
+#: Form/Type.php:3028
+msgid "You must choose a date."
+msgstr "Ви повинні вказати дату."
+
+#: Form/Type.php:3026
+msgid "You must choose a time."
+msgstr "Ви повинні вказати час."
+
+#: Form/Type.php:463
+msgid ""
+"You must enter a valid phone number, digits only with an optional '+' for "
+"the international dialing prefix."
+msgstr ""
+"Вам треба ввести дійсний номер телефону, тільки цифри і опціонально '+' для "
+"міжнародного набору."
+
+#: Form/Type.php:371
+msgid "You must enter a valid value."
+msgstr "Ви повинні ввести коректне значення."
+
+#: Form/Type.php:1470
+msgid "You must enter an email address."
+msgstr "Ви повинні ввести адресу e-пошти."
+
+#: Form/Type.php:1468
+msgid "You must enter at least one email address."
+msgstr "Ви повинні ввести хоча б одну адресу е-пошти."
+
+#: Form/Type.php:645
+#, php-format
+msgid "you must enter less than %d."
+msgstr "вам слід ввести менше ніж %d."

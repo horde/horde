@@ -7,8 +7,10 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_LoginTasks
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
 class IMP_LoginTasks_Task_DeleteSentmailMonthly extends Horde_LoginTasks_Task
 {
@@ -34,17 +36,19 @@ class IMP_LoginTasks_Task_DeleteSentmailMonthly extends Horde_LoginTasks_Task
         /* Get list of all folders, parse through and get the list of all
            old sent-mail folders. Then sort this array according to
            the date. */
-        $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
-        $imp_folder = IMP_Folder::singleton();
+        $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
+        $imp_folder = $GLOBALS['injector']->getInstance('IMP_Folder');
         $sent_mail_folders = $identity->getAllSentmailFolders();
 
-        $folder_array = array();
-        $old_folders = $imp_folder->flist();
+        $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
+        $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_NOCONTAINER);
 
-        foreach (array_keys($old_folders) as $k) {
+        $folder_array = array();
+
+        foreach ($imaptree as $k => $v) {
             foreach ($sent_mail_folders as $folder) {
                 if (preg_match('/^' . str_replace('/', '\/', $folder) . '-([^-]+)-([0-9]{4})$/i', $k, $regs)) {
-                    $folder_array[$k] = Horde_String::convertCharset((is_numeric($regs[1])) ? mktime(0, 0, 0, $regs[1], 1, $regs[2]) : strtotime("$regs[1] 1, $regs[2]"), Horde_Nls::getCharset(), 'UTF7-IMAP');
+                    $folder_array[$k] = Horde_String::convertCharset((is_numeric($regs[1])) ? mktime(0, 0, 0, $regs[1], 1, $regs[2]) : strtotime("$regs[1] 1, $regs[2]"), 'UTF-8', 'UTF7-IMAP');
                 }
             }
         }

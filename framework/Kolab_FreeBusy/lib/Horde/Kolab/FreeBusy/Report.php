@@ -29,20 +29,20 @@ class Horde_Kolab_FreeBusy_Report {
 
     function start()
     {
-        echo _("Starting to regenerate the free/busy cache...");
+        echo Horde_Kolab_FreeBusy_Translation::t("Starting to regenerate the free/busy cache...");
         $this->linebreak(2);
     }
 
     function success($calendar)
     {
-        echo sprintf(_("Successfully regenerated calendar \"%s\"!"),
+        echo sprintf(Horde_Kolab_FreeBusy_Translation::t("Successfully regenerated calendar \"%s\"!"),
                      $calendar);
         $this->linebreak(1);
     }
 
     function failure($calendar, $error)
     {
-        $this->_errors[] = sprintf(_("Failed regenerating calendar %s: %s"),
+        $this->_errors[] = sprintf(Horde_Kolab_FreeBusy_Translation::t("Failed regenerating calendar %s: %s"),
                                    $calendar, $error->getMessage());
     }
 
@@ -50,7 +50,7 @@ class Horde_Kolab_FreeBusy_Report {
     {
         if (!empty($this->_errors)) {
             $this->linebreak(1);
-            echo _("Errors:");
+            echo Horde_Kolab_FreeBusy_Translation::t("Errors:");
             $this->linebreak(1);
             foreach ($this->_errors as $error) {
                 echo $error;
@@ -58,7 +58,7 @@ class Horde_Kolab_FreeBusy_Report {
             return false;
         } else {
             $this->linebreak(1);
-            echo _("Successfully regenerated all calendar caches!");
+            echo Horde_Kolab_FreeBusy_Translation::t("Successfully regenerated all calendar caches!");
             $this->linebreak(1);
             return true;
         }

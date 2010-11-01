@@ -32,18 +32,25 @@ class Horde_Perms
     const ROOT = -1;
 
     /**
+     * Cache object.
+     *
+     * @var Horde_Cache
+     */
+    protected $_cache;
+
+    /**
+     * Logger.
+     *
+     * @var Horde_Log_Logger
+     */
+    protected $_logger;
+
+    /**
      * Caches information about application permissions.
      *
      * @var array
      */
     protected $_appPerms;
-
-    /**
-     * Singleton instance.
-     *
-     * @var array
-     */
-    static protected $_instance = null;
 
     /**
      * Cache for integerToArray().
@@ -53,61 +60,25 @@ class Horde_Perms
     static protected $_itaCache = array();
 
     /**
-     * Attempts to return a concrete instance based on $driver.
+     * Constructor.
      *
-     * @param string $driver  The type of the concrete subclass to return.
-     *                        The class name is based on the perms driver
-     *                        ($driver).  The code is dynamically included.
-     * @param array $params   A hash containing any additional configuration
-     *                        or connection parameters a subclass might need.
+     * @param array $params  Configuration parameters:
+     * <pre>
+     * 'cache' - (Horde_Cache) The object to use to cache perms.
+     * 'logger' - (Horde_Log_Logger) A logger object.
+     * </pre>
      *
-     * @return Horde_Perms  The newly created concrete instance.
      * @throws Horde_Perms_Exception
      */
-    static public function factory($driver = null, $params = null)
+    public function __construct($params = array())
     {
-        if (is_null($params)) {
-            $params = Horde::getDriverConfig('perms', $driver);
+        if (isset($params['cache'])) {
+            $this->_cache = $params['cache'];
         }
 
-        if (is_null($driver)) {
-            return new self($params);
+        if (isset($params['logger'])) {
+            $this->_logger = $params['logger'];
         }
-
-        $class = __CLASS__ . '_' . ucfirst(basename($driver));
-        if (!class_exists($class)) {
-            throw new Horde_Perms_Exception('Bad permissions class name: ' . $class);
-        }
-
-        return new $class($params);
-    }
-
-    /**
-     * Attempts to return a reference to a concrete instance.
-     * It will only create a new instance if no instance currently exists.
-     *
-     * This method must be invoked as: $var = Horde_Perms::singleton()
-     *
-     * @return Horde_Perms  The concrete reference.
-     * @throws Horde_Perms_Exception
-     */
-    static public function singleton()
-    {
-        if (is_null(self::$_instance)) {
-            $perm_driver = $perm_params = null;
-            if (empty($GLOBALS['conf']['perms']['driver'])) {
-                $perm_driver = empty($GLOBALS['conf']['datatree']['driver'])
-                    ? null
-                    : 'datatree';
-            } else {
-                $perm_driver = $GLOBALS['conf']['perms']['driver'];
-                $perm_params = Horde::getDriverConfig('perms', $perm_driver);
-            }
-
-            self::$_instance = self::factory($perm_driver, $perm_params);
-        }
-
-        return self::$_instance;
     }
 
     /**
@@ -195,14 +166,14 @@ class Horde_Perms
      * Given a permission name, returns the title for that permission by
      * looking it up in the applications's permission api.
      *
-     * @param string $name  The permissions's name.
+     * @param string $name             The permissions's name.
      *
      * @return string  The title for the permission.
      */
     public function getTitle($name)
     {
         if ($name === self::ROOT) {
-            return _("All Permissions");
+            return Horde_Perms_Translation::t("All Permissions");
         }
 
         $levels = explode(':', $name);
@@ -238,10 +209,32 @@ class Horde_Perms
     {
         if (!isset($this->_appPerms[$app])) {
             try {
-                $this->_appPerms[$app] = $GLOBALS['registry']->callAppMethod($app, 'perms');
+                $perms = array(
+                    'title' => array(),
+                    'tree' => array(
+                        $app => array()
+                    ),
+                    'type' => array()
+                );
+
+                foreach ($GLOBALS['registry']->callAppMethod($app, 'perms') as $key => $val) {
+                    $ptr = &$perms['tree'][$app];
+                    foreach (explode(':', $key) as $kval) {
+                        $ptr[$kval] = false;
+                        $ptr = &$perms['tree'][$app];
+                    }
+                    if (isset($val['title'])) {
+                        $perms['title'][$app . ':' . $key] = $val['title'];
+                    }
+                    if (isset($val['type'])) {
+                        $perms['type'][$app . ':' . $key] = $val['type'];
+                    }
+                }
             } catch (Horde_Exception $e) {
-                $this->_appPerms[$app] = array();
+                $perms = array();
             }
+
+            $this->_appPerms[$app] = $perms;
         }
 
         return $this->_appPerms[$app];
@@ -334,13 +327,15 @@ class Horde_Perms
             try {
                 $permission = $this->getPermission($permission);
             } catch (Horde_Perms_Exception $e) {
-                Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                if ($this->_logger) {
+                    $this->_logger->log($e, 'DEBUG');
+                }
                 return false;
             }
         }
 
         if (is_null($user)) {
-            $user = Horde_Auth::getAuth();
+            $user = $GLOBALS['registry']->getAuth();
         }
 
         // If this is a guest user, only check guest permissions.
@@ -368,8 +363,7 @@ class Horde_Perms
         if (isset($permission->data['groups']) &&
             is_array($permission->data['groups']) &&
             count($permission->data['groups'])) {
-            require_once 'Horde/Group.php';
-            $groups = Group::singleton();
+            $groups = $GLOBALS['injector']->getInstance('Horde_Group');
 
             $composite_perm = null;
             $type = $permission->get('type');
@@ -453,10 +447,16 @@ class Horde_Perms
             : $GLOBALS['registry']->getApp();
 
         if ($this->exists($app . ':' . $permission)) {
-            $args = array($this->getPermissions($app . ':' . $permission));
-            if (isset($opts['opts'])) {
-                $args[] = $opts['opts'];
+            $perms = $this->getPermissions($app . ':' . $permission);
+            if ($perms === false) {
+                return false;
             }
+
+            $args = array(
+                $permission,
+                $perms,
+                isset($opts['opts']) ? $opts['opts'] : array()
+            );
 
             try {
                 return $GLOBALS['registry']->callAppMethod($app, 'hasPermission', array('args' => $args));
@@ -509,10 +509,10 @@ class Horde_Perms
     static public function getPermsArray()
     {
         return array(
-            self::SHOW => _("Show"),
-            self::READ => _("Read"),
-            self::EDIT => _("Edit"),
-            self::DELETE => _("Delete")
+            self::SHOW => Horde_Perms_Translation::t("Show"),
+            self::READ => Horde_Perms_Translation::t("Read"),
+            self::EDIT => Horde_Perms_Translation::t("Edit"),
+            self::DELETE => Horde_Perms_Translation::t("Delete")
         );
     }
 

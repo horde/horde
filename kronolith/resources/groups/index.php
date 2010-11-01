@@ -3,25 +3,29 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
-require_once dirname(__FILE__) . '/../../lib/base.php';
 
+require_once dirname(__FILE__) . '/../../lib/Application.php';
+Horde_Registry::appInit('kronolith');
+
+// Exit if this isn't an authenticated user.
+if (!$GLOBALS['registry']->getAuth()) {
+    Horde::url($prefs->getValue('defaultview') . '.php')->redirect();
+}
+
+$menu = Horde::menu();
 $title = _("Resource Groups");
 
 require KRONOLITH_TEMPLATES . '/common-header.inc';
-require KRONOLITH_TEMPLATES . '/menu.inc';
+echo $menu;
+$notification->notify(array('listeners' => 'status'));
 
-// Exit if this isn't an authenticated user.
-if (!Horde_Auth::getAuth()) {
-    header('Location: ' . Horde::applicationUrl($prefs->getValue('defaultview') . '.php'));
-    exit;
-}
-$edit_url_base = Horde::applicationUrl('resources/groups/edit.php');
-$edit_img = Horde::img('edit.png', _("Edit"), null, $registry->getImageDir('horde'));
+$edit_url_base = Horde::url('resources/groups/edit.php');
+$edit_img = Horde::img('edit.png', _("Edit"));
 
 $resources = Kronolith::getDriver('Resource')->listResources(Horde_Perms::EDIT, array('type' => Kronolith_Resource::TYPE_GROUP));
-//$display_url_base = Horde::applicationUrl('month.php', true, -1);
-$delete_url_base = Horde::applicationUrl('resources/groups/delete.php');
-$delete_img = Horde::img('delete.png', _("Delete"), null, $registry->getImageDir('horde'));
+//$display_url_base = Horde::url('month.php', true, -1);
+$delete_url_base = Horde::url('resources/groups/delete.php');
+$delete_img = Horde::img('delete.png', _("Delete"));
 ?>
 <script type="text/javascript">
 function performAction(action, rid)
@@ -38,11 +42,11 @@ function performAction(action, rid)
 <h1 class="header">
  <?php echo _("Resources") ?>
 </h1>
-<?php if ($isAdmin = Horde_Auth::isAdmin()): ?>
+<?php if ($isAdmin = $registry->isAdmin()): ?>
  <form method="get" action="create.php">
   <?php echo Horde_Util::formInput() ?>
   <input type="submit" class="button" value="<?php echo _("Create a new Resource Group") ?>" />
-  <a class="button" href="<?php echo Horde::applicationUrl('resources')?>"><?php echo _("Return to Single Resources")?></a>
+  <a class="button" href="<?php echo Horde::url('resources')?>"><?php echo _("Return to Single Resources")?></a>
  </form>
 <?php endif ?>
 <table summary="<?php echo _("Resource Group List") ?>" cellspacing="0" id="calendar-list" class="striped sortable">

@@ -7,9 +7,8 @@
 
 var ImpCompose = {
     // Variables defined in compose.php:
-    //   cancel_url, spellcheck, cursor_pos, identities, last_msg,
-    //   max_attachments, popup, redirect, reloaded, rtemode, sc_submit,
-    //   smf_check, skip_spellcheck
+    //   cancel_url, spellcheck, cursor_pos, last_msg, max_attachments,
+    //   popup, redirect, reloaded, sc_submit, smf_check, skip_spellcheck
     display_unload_warning: true,
 
     confirmCancel: function(e)
@@ -30,118 +29,43 @@ var ImpCompose = {
         }
     },
 
-    /**
-     * Sets the cursor to the given position.
-     */
-    setCursorPosition: function(input, position)
-    {
-        if (input.setSelectionRange) {
-            /* This works in Mozilla */
-            Field.focus(input);
-            input.setSelectionRange(position, position);
-            if (position) {
-                (function() { input.scrollTop = input.scrollHeight - input.offsetHeight; }).defer();
-            }
-        } else if (input.createTextRange) {
-            /* This works in IE */
-            var range = input.createTextRange();
-            range.collapse(true);
-            range.moveStart('character', position);
-            range.moveEnd('character', 0);
-            Field.select(range);
-            range.scrollIntoView(true);
-        }
-    },
-
     changeIdentity: function(elt)
     {
         var id = $F(elt),
-            last = this.identities[$F('last_identity')],
-            next = this.identities[id],
-            i = 0,
+            last = IMP_Compose_Base.getIdentity($F('last_identity')),
+            next = IMP_Compose_Base.getIdentity(id),
             bcc = $('bcc'),
             save = $('ssm'),
             smf = $('sent_mail_folder'),
-            lastSignature, msg, nextSignature, pos, re;
+            re;
 
-        // If the rich text editor is on, we'll use a regexp to find the
-        // signature comment and replace its contents.
-        if (this.rtemode) {
-            msg = CKEDITOR.instances.composeMessage.getData().replace(/\r\n/g, '\n');
-
-            lastSignature = '<p><!--begin_signature--><!--end_signature--></p>';
-            nextSignature = '<p><!--begin_signature-->' + next[0].replace(/^ ?<br \/>\n/, '').replace(/ +/g, ' ') + '<!--end_signature--></p>';
-
-            // Dot-all functionality achieved with [\s\S], see:
-            // http://simonwillison.net/2004/Sep/20/newlines/
-            msg = msg.replace(/<p class="imp-signature">\s*<!--begin_signature-->[\s\S]*?<!--end_signature-->\s*<\/p>/, lastSignature);
-        } else {
-            msg = $F('composeMessage').replace(/\r\n/g, '\n');
-
-            lastSignature = last[0].replace(/^\n/, '');
-            nextSignature = next[0].replace(/^\n/, '');
-        }
-
-        pos = (last[1]) ? msg.indexOf(lastSignature) : msg.lastIndexOf(lastSignature);
-        if (pos != -1) {
-            if (next[1] == last[1]) {
-                msg = msg.substring(0, pos) + nextSignature + msg.substring(pos + lastSignature.length, msg.length);
-            } else if (next[1]) {
-                msg = nextSignature + msg.substring(0, pos) + msg.substring(pos + lastSignature.length, msg.length);
-            } else {
-                msg = msg.substring(0, pos) + msg.substring(pos + lastSignature.length, msg.length) + nextSignature;
-            }
-
-            msg = msg.replace(/\r\n/g, '\n').replace(/\n/g, '\r\n');
-
-            $('last_identity').setValue(id);
-            window.status = IMP.text.compose_sigreplace;
-        } else {
-            window.status = IMP.text.compose_signotreplace;
-        }
-
-        if (this.rtemode) {
-            CKEDITOR.instances.composeMessage.setData(msg);
-        } else {
-            $('composeMessage').setValue(msg);
-        }
-
+        IMP_Compose_Base.replaceSignature(id);
 
         if (this.smf_check) {
-            $A(smf.options).detect(function(f) {
-                if (f.value == next[2]) {
-                    smf.selectedIndex = i;
-                    return true;
-                }
-                ++i;
-            });
+            smf.setValue(next.id.smf_name);
         } else {
-            if (smf.firstChild) {
-                smf.replaceChild(document.createTextNode(next[2]), smf.firstChild);
-            } else {
-                smf.appendChild(document.createTextNode(next[2]));
-            }
+            smf.update(next.id.smf_display);
         }
 
         if (save) {
-            save.checked = next[3];
+            save.setValue(next.id.smf_save);
         }
         if (bcc) {
-            bccval = bcc.value;
+            bccval = $F(bcc);
 
-            if (last[4]) {
-                re = new RegExp(last[4] + ",? ?", 'gi');
+            if (last.id.bcc) {
+                re = new RegExp(last.id.bcc + ",? ?", 'gi');
                 bccval = bccval.replace(re, "");
                 if (bccval) {
                     bccval = bccval.replace(/, ?$/, "");
                 }
             }
 
-            if (next[4]) {
+            if (next.id.bcc) {
                 if (bccval) {
                     bccval += ', ';
                 }
-                bccval += next[4];
+                bccval += next.id.bcc;
             }
 
             bcc.setValue(bccval);
@@ -168,48 +92,48 @@ var ImpCompose = {
             break;
 
         case 'send_message':
+            if (!this.skip_spellcheck &&
+                this.spellcheck &&
+                IMP.SpellChecker &&
+                !IMP.SpellChecker.isActive()) {
+                this.sc_submit = { a: actionID, e: e };
+                IMP.SpellChecker.spellCheck();
+                return;
+            }
+
             if (($F('subject') == '') &&
                 !window.confirm(IMP.text.compose_nosubject)) {
                 return;
             }
 
-            if (!this.skip_spellcheck &&
-                this.spellcheck &&
-                IMP.SpellCheckerObject &&
-                !IMP.SpellCheckerObject.isActive()) {
-                this.sc_submit = { a: actionID, e: e };
-                IMP.SpellCheckerObject.spellCheck();
-                return;
-            }
-
             this.skip_spellcheck = false;
 
-            if (IMP.SpellCheckerObject) {
-                IMP.SpellCheckerObject.resume();
+            if (IMP.SpellChecker) {
+                IMP.SpellChecker.resume();
             }
 
             // fall through
 
         case 'add_attachment':
         case 'save_draft':
+        case 'change_stationery':
             form = $('compose');
             $('actionID').setValue(actionID);
             break;
 
         case 'auto_save_draft':
             // Move HTML text to textarea field for submission.
-            if (this.rtemode) {
+            if (IMP_Compose_Base.editor_on) {
                 CKEDITOR.instances.composeMessage.updateElement();
             }
 
-            cur_msg = $F('composeMessage').replace(/\r/g, '');
-            if (!cur_msg.empty() && this.last_msg != cur_msg) {
+            cur_msg = MD5.hash($('to', 'cc', 'bcc', 'subject').compact().invoke('getValue').join('\0') + $F('composeMessage'));
+            if (this.last_msg && curr_hash != this.last_msg) {
                 // Use an AJAX submit here so that the page doesn't reload.
                 $('actionID').setValue(actionID);
                 $('compose').request({ onComplete: this._autoSaveDraft.bind(this) });
-
-                this.last_msg = cur_msg;
             }
+            this.last_msg = cur_msg;
             return;
 
         case 'toggle_editor':
@@ -348,9 +272,7 @@ var ImpCompose = {
             }
         });
 
-        if (this.cursor_pos !== null && $('composeMessage')) {
-            this.setCursorPosition($('composeMessage'), this.cursor_pos);
-        }
+        IMP_Compose_Base.setCursorPosition('composeMessage', this.cursor_pos, IMP_Compose_Base.getIdentity($F('last_identity')).sig);
 
         if (this.redirect) {
             $('to').focus();
@@ -364,7 +286,7 @@ var ImpCompose = {
                 });
             }
 
-            if (this.rtemode) {
+            if (IMP_Compose_Base.editor_on) {
                 document.observe('SpellChecker:after', this._onAfterSpellCheck.bind(this));
                 document.observe('SpellChecker:before', this._onBeforeSpellCheck.bind(this));
             }
@@ -372,7 +294,7 @@ var ImpCompose = {
             if ($('to') && !$F('to')) {
                 $('to').focus();
             } else if (!$F('subject')) {
-                if (this.rtemode) {
+                if (IMP_Compose_Base.editor_on) {
                     $('subject').focus();
                 } else {
                     $('composeMessage').focus();
@@ -385,7 +307,8 @@ var ImpCompose = {
         document.observe('SpellChecker:noerror', this._onNoErrorSpellCheck.bind(this));
 
         if (this.auto_save) {
-            new PeriodicalExecuter(this.uniqSubmit.bind(this, 'auto_save_draft'), this.auto_save * 60);
+            /* Immediately execute to get MD5 hash of empty message. */
+            new PeriodicalExecuter(this.uniqSubmit.bind(this, 'auto_save_draft'), this.auto_save * 60).execute();
         }
 
         this.resize.bind(this).delay(0.25);
@@ -400,7 +323,7 @@ var ImpCompose = {
 
     _onBeforeSpellCheck: function()
     {
-        IMP.SpellCheckerObject.htmlAreaParent = 'composeMessageParent';
+        IMP.SpellChecker.htmlAreaParent = 'composeMessageParent';
         $('composeMessage').next().hide();
         CKEDITOR.instances.composeMessage.updateElement();
     },
@@ -410,7 +333,7 @@ var ImpCompose = {
         if (this.sc_submit) {
             this.skip_spellcheck = true;
             this.uniqSubmit(this.sc_submit.a, this.sc_submit.e);
-        } else if (this.rtemode) {
+        } else if (IMP_Compose_Base.editor_on) {
             this._onAfterSpellCheck();
         } else {
             this.sc_submit = null;
@@ -451,9 +374,9 @@ Event.observe(window, 'beforeunload', ImpCompose.onBeforeUnload.bind(ImpCompose)
 /* Catch dialog actions. */
 document.observe('IMPDialog:success', function(e) {
     switch (e.memo) {
-    case 'PGPPersonal':
-    case 'PGPSymmetric':
-    case 'SMIMEPersonal':
+    case 'pgpPersonal':
+    case 'pgpSymmetric':
+    case 'smimePersonal':
         IMPDialog.noreload = true;
         ImpCompose.uniqSubmit('send_message');
         break;

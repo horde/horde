@@ -9,15 +9,15 @@
  * @package Chora
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('chora');
 
 // TODO - This currently doesn't work.
 Chora::fatal('History display is currently broken', '500 Internal Server Error');
 
 /* Exit if it's not supported. */
 if (!$VC->hasFeature('branches')) {
-    header('Location: ' . Chora::url('browsefile', $where));
-    exit;
+    Chora::url('browsefile', $where)->redirect();
 }
 
 $colset = array('#ccdeff', '#ecf', '#fec', '#efc', '#cfd', '#dcdba0');
@@ -126,7 +126,7 @@ foreach ($grid as $cols) {
     $maxCol = max($val, $maxCol);
 }
 
-$title = sprintf(_("Source Branching View for %s"), Horde_Text_Filter::filter($where, 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true, 'encode_all' => true)));
+$title = sprintf(_("Source Branching View for %s"), $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($where, 'space2html', array('encode' => true, 'encode_all' => true)));
 $extraLink = Chora::getFileViews($where, 'history');
 
 require CHORA_TEMPLATES . '/common-header.inc';

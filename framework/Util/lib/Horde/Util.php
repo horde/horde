@@ -7,18 +7,14 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Jon Parise <jon@horde.org>
- * @package Horde_Util
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Jon Parise <jon@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Util
  */
 class Horde_Util
 {
-    /* Error code for a missing driver configuration. */
-    const HORDE_ERROR_DRIVER_CONFIG_MISSING = 1;
-
-    /* Error code for an incomplete driver configuration. */
-    const HORDE_ERROR_DRIVER_CONFIG = 2;
-
     /**
      * A list of random patterns to use for overwriting purposes.
      * See http://www.cs.auckland.ac.nz/~pgut001/pubs/secure_del.html.
@@ -35,28 +31,6 @@ class Horde_Util
     );
 
     /**
-     * TODO
-     *
-     * @var array
-     */
-    static public $dateSymbols = array(
-        'a', 'A', 'd', 'D', 'F', 'g', 'G', 'h', 'H', 'i', 'j', 'l', 'm', 'M',
-        'n', 'r', 's', 'T', 'w', 'W', 'y', 'Y', 'z', 'm/d/Y', 'M', "\n",
-        'g:i a', 'G:i', "\t", 'H:i:s', '%'
-    );
-
-    /**
-     * TODO
-     *
-     * @var array
-     */
-    static public $strftimeSymbols = array(
-        '%p', '%p', '%d', '%a', '%B', '%I', '%H', '%I', '%H', '%M', '%e',
-        '%A', '%m', '%b', '%m', '%a, %e %b %Y %T %Z', '%S', '%Z', '%w', '%V',
-        '%y', '%Y', '%j', '%D', '%h', '%n', '%r', '%R', '%t', '%T', '%%'
-    );
-
-    /**
      * Temp directory locations.
      *
      * @var array
@@ -65,13 +39,6 @@ class Horde_Util
         '/tmp', '/var/tmp', 'c:\WUTemp', 'c:\temp', 'c:\windows\temp',
         'c:\winnt\temp'
     );
-
-    /**
-     * Random number for nocacheUrl().
-     *
-     * @var integer.
-     */
-    static protected $_randnum = null;
 
     /**
      * TODO
@@ -120,7 +87,6 @@ class Horde_Util
             }
 
             $caller .= ' on line ' . $bt[0]['line'] . ' of ' . $bt[0]['file'];
-            Horde::logMessage('Horde_Util::cloneObject called on variable of type ' . gettype($obj) . ' by ' . $caller, __FILE__, __LINE__, PEAR_LOG_DEBUG);
 
             $ret = $obj;
             return $ret;
@@ -128,69 +94,6 @@ class Horde_Util
 
         $ret = clone($obj);
         return $ret;
-    }
-
-    /**
-     * Buffers the output from a function call, like readfile() or
-     * highlight_string(), that prints the output directly, so that instead it
-     * can be returned as a string and used.
-     *
-     * @param string $function  The function to run.
-     * @param mixed $arg1       First argument to $function().
-     * @param mixed $arg2       Second argument to $function().
-     * @param mixed $arg...     ...
-     * @param mixed $argN       Nth argument to $function().
-     *
-     * @return string  The output of the function.
-     */
-    static public function bufferOutput()
-    {
-        if (func_num_args() == 0) {
-            return false;
-        }
-
-        $include = false;
-        $args = func_get_args();
-        $function = array_shift($args);
-
-        if (is_array($function)) {
-            if (!is_callable($function)) {
-                return false;
-            }
-        } elseif (($function == 'include') ||
-                  ($function == 'include_once') ||
-                  ($function == 'require') ||
-                  ($function == 'require_once')) {
-            $include = true;
-        } elseif (!function_exists($function)) {
-            return false;
-        }
-
-        ob_start();
-        if ($include) {
-            $file = implode(',', $args);
-            switch ($function) {
-            case 'include':
-                include $file;
-                break;
-
-            case 'include_once':
-                include_once $file;
-                break;
-
-            case 'require':
-                require $file;
-                break;
-
-            case 'require_once':
-                require_once $file;
-                break;
-            }
-        } else {
-            call_user_func_array($function, $args);
-        }
-
-        return ob_get_clean();
     }
 
     /**
@@ -217,6 +120,8 @@ class Horde_Util
      * there are existing parameters and whether to use ?, & or &amp; as the
      * glue.  All data will be urlencoded.
      *
+     * @deprecated
+     *
      * @param Horde_Url|string $url  The URL to modify.
      * @param mixed $parameter       Either the name value -or- an array of
      *                               name/value pairs.
@@ -225,7 +130,7 @@ class Horde_Util
      *                               name).
      * @param boolean $encode        Encode the argument separator?
      *
-     * @return string  The modified URL.
+     * @return Horde_Url  The modified URL.
      */
     static public function addParameter($url, $parameter, $value = null,
                                         $encode = true)
@@ -252,11 +157,13 @@ class Horde_Util
     /**
      * Removes name=value pairs from a URL.
      *
+     * @deprecated
+     *
      * @param Horde_Url|string $url  The URL to modify.
      * @param mixed $remove          Either a single parameter to remove or an
      *                               array of parameters to remove.
      *
-     * @return string  The modified URL.
+     * @return Horde_Url  The modified URL.
      */
     static public function removeParameter($url, $remove)
     {
@@ -266,30 +173,6 @@ class Horde_Util
 
         $horde_url = new Horde_Url($url);
         return $horde_url->remove($remove);
-    }
-
-    /**
-     * Returns a url with the 'nocache' parameter added, if the browser is
-     * buggy and caches old URLs.
-     *
-     * @param Horde_Url|string $url  The URL to modify.
-     * @param boolean $encode        Encode the argument separator?
-     *
-     * @return string  The requested URL.
-     */
-    static public function nocacheUrl($url, $encode = true)
-    {
-        /* We may need to set a dummy parameter 'nocache' since some
-         * browsers do not always honor the 'no-cache' header. */
-        $browser = Horde_Browser::singleton();
-        if ($browser->hasQuirk('cache_same_url')) {
-            if (is_null(self::$_randnum)) {
-                self::$_randnum = base_convert(microtime(), 10, 36);
-            }
-            return self::addParameter($url, 'nocache', self::$_randnum, $encode);
-        }
-
-        return $url;
     }
 
     /**
@@ -333,7 +216,7 @@ class Horde_Util
             if (!is_array($var)) {
                 $var = stripslashes($var);
             } else {
-                array_walk($var, array('Horde_Util', 'dispelMagicQuotes'));
+                array_walk($var, array(__CLASS__, 'dispelMagicQuotes'));
             }
         }
 
@@ -401,27 +284,35 @@ class Horde_Util
      */
     static public function getTempDir()
     {
-        // First, try PHP's upload_tmp_dir directive.
-        $tmp = ini_get('upload_tmp_dir');
+        $tmp = false;
 
-        // Otherwise, try to determine the TMPDIR environment
-        // variable.
-        if (empty($tmp)) {
-            $tmp = getenv('TMPDIR');
+        // Try sys_get_temp_dir() - only available in PHP 5.2.1+.
+        if (function_exists('sys_get_temp_dir')) {
+            $tmp = sys_get_temp_dir();
         }
 
-        // If we still cannot determine a value, then cycle through a
-        // list of preset possibilities.
-        if (empty($tmp)) {
-            foreach (self::$tmpLocations as $tmp_check) {
-                if (@is_dir($tmp_check)) {
-                    $tmp = $tmp_check;
-                    break;
+        // First, try PHP's upload_tmp_dir directive.
+        if (!$tmp) {
+            $tmp = ini_get('upload_tmp_dir');
+
+            // Otherwise, try to determine the TMPDIR environment
+            // variable.
+            if (!$tmp) {
+                $tmp = getenv('TMPDIR');
+
+                // If we still cannot determine a value, then cycle through a
+                // list of preset possibilities.
+                if (!$tmp) {
+                    foreach (self::$tmpLocations as $tmp_check) {
+                        if (@is_dir($tmp_check)) {
+                            return $tmp_check;
+                        }
+                    }
                 }
             }
         }
 
-        return empty($tmp) ? false : $tmp;
+        return $tmp ? $tmp : false;
     }
 
     /**
@@ -432,22 +323,18 @@ class Horde_Util
      *                         recognizable.
      * @param boolean $delete  Delete the file at the end of the request?
      * @param string $dir      Directory to create the temporary file in.
-     * @param boolean $secureDelete  If deleting the file, should we securely delete the
-     *                               file by overwriting it with random data?
+     * @param boolean $secure  If deleting the file, should we securely delete
+     *                         the file by overwriting it with random data?
      *
      * @return string   Returns the full path-name to the temporary file.
      *                  Returns false if a temp file could not be created.
      */
     static public function getTempFile($prefix = '', $delete = true, $dir = '',
-                                       $secureDelete = false)
+                                       $secure = false)
     {
         $tempDir = (empty($dir) || !is_dir($dir))
-            ? self::getTempDir()
+            ? null
             : $dir;
-
-        if (empty($tempDir)) {
-            return false;
-        }
 
         $tempFile = tempnam($tempDir, $prefix);
 
@@ -457,8 +344,9 @@ class Horde_Util
         }
 
         if ($delete) {
-            self::deleteAtShutdown($tempFile, true, $secureDelete);
+            self::deleteAtShutdown($tempFile, true, $secure);
         }
+
         return $tempFile;
     }
 
@@ -467,19 +355,21 @@ class Horde_Util
      * of the script, and (optionally) registers it to be deleted at request
      * shutdown.
      *
-     * @param string $extension      The file extension to use.
-     * @param string $prefix         Prefix to make the temporary name more
-     *                               recognizable.
-     * @param boolean $delete        Delete the file at the end of the request?
-     * @param string $dir            Directory to create the temporary file in.
-     * @param boolean $secureDelete  If deleting file, should we securely delete the
-     *                               file by overwriting it with random data?
+     * @param string $extension  The file extension to use.
+     * @param string $prefix     Prefix to make the temporary name more
+     *                           recognizable.
+     * @param boolean $delete    Delete the file at the end of the request?
+     * @param string $dir        Directory to create the temporary file in.
+     * @param boolean $secure    If deleting file, should we securely delete
+     *                           the file by overwriting it with random data?
      *
      * @return string   Returns the full path-name to the temporary file.
      *                  Returns false if a temporary file could not be created.
      */
-    static public function getTempFileWithExtension($extension = '.tmp', $prefix = '', $delete = true, $dir = '',
-                                                    $secureDelete = false)
+    static public function getTempFileWithExtension($extension = '.tmp',
+                                                    $prefix = '',
+                                                    $delete = true, $dir = '',
+                                                    $secure = false)
     {
         $tempDir = (empty($dir) || !is_dir($dir))
             ? self::getTempDir()
@@ -514,15 +404,14 @@ class Horde_Util
                 }
 
                 if ($delete) {
-                    self::deleteAtShutdown($tmpFileName, true, $secureDelete);
+                    self::deleteAtShutdown($tmpFileName, true, $secure);
                 }
 
                 return $tmpFileName;
             }
 
             unlink($sysFileName);
-            $tries++;
-        } while ($tries <= 5);
+        } while (++$tries <= 5);
 
         return false;
     }
@@ -551,7 +440,7 @@ class Horde_Util
         /* Get the first 8 characters of a random string to use as a temporary
            directory name. */
         do {
-            $new_dir = $temp_dir . '/' . substr(base_convert(mt_rand() . microtime(), 10, 36), 0, 8);
+            $new_dir = $temp_dir . '/' . substr(base_convert(uniqid(mt_rand()), 10, 36), 0, 8);
         } while (file_exists($new_dir));
 
         $old_umask = umask(0000);
@@ -563,6 +452,57 @@ class Horde_Util
         umask($old_umask);
 
         return $new_dir;
+    }
+
+    /**
+     * Wrapper around fgetcsv().
+     *
+     * Empty lines will be skipped. If the 'length' parameter is provided, all
+     * rows are filled up with empty strings up to this length, or stripped
+     * down to this length.
+     *
+     * @param resource $file  A file pointer.
+     * @param array $params   Optional parameters. Possible values:
+     *                        - 'separator': The field delimiter.
+     *                        - 'quote': The quote character.
+     *                        - 'escape': The escape character.
+     *                        - 'length': The expected number of fields.
+     *
+     * @return array|boolean  A row from the CSV file or false on error or end
+     *                        of file.
+     */
+    static public function getCsv($file, $params = array())
+    {
+        $params += array('separator' => ',', 'quote' => '"', 'escape' => '\\');
+
+        // Detect Mac line endings.
+        $old = ini_get('auto_detect_line_endings');
+        ini_set('auto_detect_line_endings', 1);
+
+        do {
+            // fgetcsv() throws a warning if the quote character is empty.
+            if (!strlen($params['quote']) && $params['escape'] != '\\') {
+                $params['quote'] = '"';
+            }
+            if (!strlen($params['quote'])) {
+                $row = fgetcsv($file, 0, $params['separator']);
+            } else {
+                $row = fgetcsv($file, 0, $params['separator'], $params['quote'], $params['escape']);
+            }
+        } while ($row && $row[0] === null);
+
+        ini_set('auto_detect_line_endings', $old);
+
+        if ($row && !empty($params['length'])) {
+            $length = count($row);
+            if ($length < $params['length']) {
+                $row += array_fill($length, $params['length'] - $length, '');
+            } elseif ($length > $params['length']) {
+                array_splice($row, $params['length']);
+            }
+        }
+
+        return $row;
     }
 
     /**
@@ -637,7 +577,7 @@ class Horde_Util
     {
         /* Initialization of variables and shutdown functions. */
         if (!self::$_shutdownreg) {
-            register_shutdown_function(array('Horde_Util', 'shutdown'));
+            register_shutdown_function(array(__CLASS__, 'shutdown'));
             self::$_shutdownreg = true;
         }
 
@@ -707,19 +647,6 @@ class Horde_Util
     }
 
     /**
-     * Outputs javascript code to close the current window.
-     *
-     * @param string $code  Any additional javascript code to run before
-     *                      closing the window.
-     */
-    static public function closeWindowJS($code = '')
-    {
-        echo "<script type=\"text/javascript\">//<![CDATA[\n" .
-            $code .
-            "window.close();\n//]]></script>\n";
-    }
-
-    /**
      * Caches the result of extension_loaded() calls.
      *
      * @param string $ext  The extension name.
@@ -782,78 +709,6 @@ class Horde_Util
     }
 
     /**
-     * Checks if all necessary parameters for a driver's configuration are set
-     * and returns a PEAR_Error if something is missing.
-     *
-     * @param array $params   The configuration array with all parameters.
-     * @param array $fields   An array with mandatory parameter names for this
-     *                        driver.
-     * @param string $name    The clear text name of the driver. If not
-     *                        specified, the application name will be used.
-     * @param array $info     A hash containing detailed information about the
-     *                        driver. Will be passed as the userInfo to the
-     *                        PEAR_Error.
-     */
-    static public function assertDriverConfig($params, $fields, $name,
-                                              $info = array())
-    {
-        $info = array_merge($info, array(
-            'params' => $params,
-            'fields' => $fields,
-            'name' => $name
-        ));
-
-        if (!is_array($params) || !count($params)) {
-            return PEAR::throwError(sprintf(_("No configuration information specified for %s."), $name), self::HORDE_ERROR_DRIVER_CONFIG_MISSING, $info);
-        }
-
-        foreach ($fields as $field) {
-            if (!isset($params[$field])) {
-                return PEAR::throwError(sprintf(_("Required \"%s\" not specified in configuration."), $field, $name), self::HORDE_ERROR_DRIVER_CONFIG, $info);
-            }
-        }
-    }
-
-    /**
-     * Returns a format string to be used by strftime().
-     *
-     * @param string $format  A format string as used by date().
-     *
-     * @return string  A format string as similar as possible to $format.
-     */
-    static public function date2strftime($format)
-    {
-        $f_len = strlen($format);
-        $result = '';
-
-        for ($pos = 0; $pos < $f_len;) {
-            for ($symbol = 0, $symcount = count(self::$dateSymbols); $symbol < $symcount; ++$symbol) {
-                if (strpos($format, self::$dateSymbols[$symbol], $pos) === $pos) {
-                    $result .= self::$strftimeSymbols[$symbol];
-                    $pos += strlen(self::$dateSymbols[$symbol]);
-                    continue 2;
-                }
-            }
-            $result .= substr($format, $pos, 1);
-            ++$pos;
-        }
-
-        return $result;
-    }
-
-    /**
-     * Returns a format string to be used by date().
-     *
-     * @param string $format  A format string as used by strftime().
-     *
-     * @return string  A format string as similar as possible to $format.
-     */
-    static public function strftime2date($format)
-    {
-        return str_replace(self::$strftimeSymbols, self::$dateSymbols, $format);
-    }
-
-    /**
      * Utility function to obtain PATH_INFO information.
      *
      * @return string  The PATH_INFO string.
@@ -865,45 +720,19 @@ class Horde_Util
             return $_SERVER['PATH_INFO'];
         } elseif (isset($_SERVER['REQUEST_URI']) &&
                   isset($_SERVER['SCRIPT_NAME'])) {
-            $search = array((basename($_SERVER['SCRIPT_NAME']) == 'index.php') ? dirname($_SERVER['SCRIPT_NAME']) . '/' : $_SERVER['SCRIPT_NAME']);
-            $replace = array('');
+            if (basename($_SERVER['SCRIPT_NAME']) == 'index.php') {
+                $search = array(dirname($_SERVER['SCRIPT_NAME']) . '/',
+                                'index.php');
+            } else {
+                $search = array($_SERVER['SCRIPT_NAME']);
+            }
             if (!empty($_SERVER['QUERY_STRING'])) {
                 $search[] = '?' . $_SERVER['QUERY_STRING'];
-                $replace[] = '';
             }
-            return str_replace($search, $replace, $_SERVER['REQUEST_URI']);
+            return str_replace($search, '', $_SERVER['REQUEST_URI']);
         }
 
         return '';
-    }
-
-    /**
-     * URL-safe base64 encoding, with trimmed '='.
-     *
-     * @param string $string  String to encode.
-     *
-     * @return string  URL-safe, base64 encoded data.
-     */
-    static public function uriB64Encode($string)
-    {
-        return str_replace(array('+', '/', '='), array('-', '_', ''), base64_encode($string));
-    }
-
-    /**
-     * Decode URL-safe base64 data, dealing with missing '='.
-     *
-     * @param string $string  Encoded data
-     *
-     * @return string  Decoded data.
-     */
-    static public function uriB64Decode($string)
-    {
-        $data = str_replace(array('-', '_'), array('+', '/'), $string);
-        $mod4 = strlen($data) % 4;
-        if ($mod4) {
-            $data .= substr('====', $mod4);
-        }
-        return base64_decode($data);
     }
 
 }

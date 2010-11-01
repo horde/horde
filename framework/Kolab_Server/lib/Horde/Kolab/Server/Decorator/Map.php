@@ -256,7 +256,7 @@ implements Horde_Kolab_Server_Interface
     /**
      * Return the ldap schema.
      *
-     * @return Net_LDAP2_Schema The LDAP schema.
+     * @return Horde_Ldap_Schema The LDAP schema.
      *
      * @throws Horde_Kolab_Server_Exception If retrieval of the schema failed.
      */

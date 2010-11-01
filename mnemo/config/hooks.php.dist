@@ -1,0 +1,39 @@
+<?php
+/**
+ * Mnemo Hooks configuration file.
+ *
+ * THE HOOKS PROVIDED IN THIS FILE ARE EXAMPLES ONLY.  DO NOT ENABLE THEM
+ * BLINDLY IF YOU DO NOT KNOW WHAT YOU ARE DOING.  YOU HAVE TO CUSTOMIZE THEM
+ * TO MATCH YOUR SPECIFIC NEEDS AND SYSTEM ENVIRONMENT.
+ *
+ * For more information please see the horde/config/hooks.php.dist file.
+ *
+ * $Id$
+ */
+
+class Mnemo_Hooks
+{
+    /**
+     * TODO
+     */
+//    public function format_description($text)
+//    {
+//        $text = preg_replace('/#(\d+)/', '<a href="http://bugs.horde.org/ticket/\1">\0</a>', $text);
+//        $text = preg_replace('/(bug|ticket|request|enhancement|issue):\s*#?(\d+)/i', '<a href="http://bugs.horde.org/ticket/\1">\0</a>', $text);
+//
+//        $text = preg_replace_callback('/\[\[note: ?(.*)\]\]/i', create_function('$m', 'return \'<a href="/horde/mnemo/notes/?q=\' . urlencode($m[1]) . \'">\' . htmlspecialchars($m[0]) . \'</a>\';'), $text);
+//        $text = preg_replace_callback('/\[\[task: ?(.*)\]\]/i', create_function('$m', 'return \'<a href="/horde/nag/tasks/?q=\' . urlencode($m[1]) . \'">\' . htmlspecialchars($m[0]) . \'</a>\';'), $text);
+//
+//        return $text;
+//    }
+
+
+    /**
+     * TODO
+     */
+//    public function description_help()
+//    {
+//        return '<p>To create a link to a bug, use #123 where 123 is the bug number. To create a link to another task, use [[task: name]], where name is the beginning of the task name. To create a link to a note, use [[note: title]] where title is the beginning of the note title.</p>';
+//    }
+
+}

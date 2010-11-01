@@ -19,21 +19,50 @@
  * @author Michael Slusarz <slusarz@horde.org>
  */
 
+/* Function to output fatal error message. */
+function _hordeTestError($msg)
+{
+    exit('<html><head><title>ERROR</title></head><body><h3 style="color:red">' . htmlspecialchars($msg) . '</h3></body></html>');
+}
+
+/* If we can't find the Autoloader, then the framework is not setup. A user
+ * must at least correctly install the framework. */
+ini_set('include_path', dirname(__FILE__) . '/lib' . PATH_SEPARATOR . ini_get('include_path'));
+if (file_exists(dirname(__FILE__) . '/config/horde.local.php')) {
+    include dirname(__FILE__) . '/config/horde.local.php';
+}
+if (!@include_once 'Horde/Autoloader.php') {
+    _hordeTestError(sprintf('Could not find Horde\'s framework libraries in the following path(s): %s. Please read horde/docs/INSTALL for information on how to install these libraries.', get_include_path()));
+}
+
+/* Similarly, registry.php needs to exist. */
+if (!file_exists(dirname(__FILE__) . '/config/registry.php')) {
+    _hordeTestError('Could not find horde/config/registry.php. Please make sure this file exists. Read horde/docs/INSTALL for further information.');
+}
+
 require_once dirname(__FILE__) . '/lib/Application.php';
-$api = new Horde_Application(array('authentication' => 'none'));
+try {
+    Horde_Registry::appInit('horde', array('authentication' => 'none'));
+    $init_exception = null;
+} catch (Exception $e) {
+    define('HORDE_TEMPLATES', dirname(__FILE__) . '/templates');
+    $init_exception = $e;
+}
+
+if (!empty($conf['testdisable'])) {
+    _hordeTestError('Horde test scripts have been disabled in the local configuration. To enable, change the \'testdisable\' setting in horde/config/conf.php to false.');
+}
 
 /* We should have loaded the String class, from the Horde_Util package. If it
  * isn't defined, then we're not finding some critical libraries. */
 if (!class_exists('Horde_String')) {
-    echo '<br /><h2 style="color:red">Required Horde libraries were not found. If PHP\'s error_reporting setting is high enough and display_errors is on, there should be error messages printed above that may help you in debugging the problem. If you are simply missing these files, then you need to install the framework module.</h2>';
-    exit;
+    _hordeTestError('Required Horde libraries were not found. If PHP\'s error_reporting setting is high enough and display_errors is on, there should be error messages printed above that may help you in debugging the problem. If you are simply missing these files, then you need to install the framework module.');
 }
 
 /* Initialize the Horde_Test:: class. */
 if (!class_exists('Horde_Test')) {
     /* Try and provide enough information to debug the missing file. */
-    echo '<br /><h2 style="color:red">Unable to find the Horde_Test library. Your Horde installation may be missing critical files, or PHP may not have sufficient permissions to include files. There may be error messages printed above this message that will help you in debugging the problem.</h2>';
-    exit;
+    _hordeTestError('Unable to find the Horde_Test library. Your Horde installation may be missing critical files, or PHP may not have sufficient permissions to include files. There may be error messages printed above this message that will help you in debugging the problem.');
 }
 
 /* Load the application. */
@@ -48,8 +77,7 @@ if ($app != 'horde') {
 }
 $classname = ucfirst($app) . '_Test';
 if (!class_exists($classname)) {
-    echo '<h2 style="color:red">No tests found for ' . $app . ' [' . $app_name . '].</h2>';
-    exit;
+    _hordeTestError('No tests found for ' . ucfirst($app) . ' [' . $app_name . '].');
 }
 $test_ob = new $classname();
 
@@ -69,6 +97,7 @@ $self_url = $url->copy()->add('app', $app);
 switch (Horde_Util::getGet('mode')) {
 case 'extensions':
     echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">';
+    $ext_get = Horde_Util::getGet('ext');
     require $test_templates . '/extensions.inc';
     exit;
 
@@ -93,11 +122,8 @@ case 'unregister':
 }
 
 /* Get the status output now. */
-$module_output = $test_ob->phpModuleCheck();
-$setting_output = $test_ob->phpSettingCheck();
 $pear_output = $test_ob->pearModuleCheck();
-$config_output = $test_ob->requiredFileCheck();
-
+Horde::startBuffer();
 require $test_templates . '/header.inc';
 require $test_templates . '/version.inc';
 
@@ -106,24 +132,33 @@ if ($app == 'horde') {
 <h1>Horde Applications</h1>
 <ul>
 <?php
-
     /* Get Horde module version information. */
-    $app_list = $registry->listApps(null, true);
-    unset($app_list[$app]);
-    ksort($app_list);
-    foreach (array_keys($app_list) as $val) {
-        echo '<li>' . ucfirst($val) . ' [' . $registry->get('name', $val) . ']: ' . $registry->getVersion($val) .
-            ' (<a href="' . $url->copy()->add('app', $val) . "\">run tests</a>)</li>\n";
+    if (!$init_exception) {
+        try {
+            $app_list = $registry->listApps(null, true);
+            unset($app_list[$app]);
+            ksort($app_list);
+            foreach (array_keys($app_list) as $val) {
+                echo '<li>' . ucfirst($val) . ' [' . $registry->get('name', $val) . ']: ' . $registry->getVersion($val) .
+                    ' (<a href="' . $url->copy()->add('app', $val) . "\">run tests</a>)</li>\n";
+            }
+        } catch (Exception $e) {
+            $init_exception = $e;
+        }
     }
 
+    if ($init_exception) {
+        echo '<li style="color:red"><strong>Horde is not correctly configured so no application information can be displayed. Please follow the instructions in horde/docs/INSTALL and ensure horde/config/conf.php and horde/config/registry.php are correctly configured.</strong></li>' .
+            '<li><strong>Error:</strong> ' . $e->getMessage() . '</li>';
+    }
 ?>
 </ul>
 <?php
-} else {
+} elseif ($output = $test_ob->requiredAppCheck()) {
 ?>
 <h1>Other Horde Applications</h1>
 <ul>
- <?php echo $test_ob->requiredAppCheck(); ?>
+ <?php echo $output ?>
 </ul>
 <?php
 }
@@ -132,28 +167,42 @@ if ($app == 'horde') {
 $php_info = $test_ob->getPhpVersionInformation();
 require $test_templates . '/php_version.inc';
 
+if ($module_output = $test_ob->phpModuleCheck()) {
 ?>
-
 <h1>PHP Module Capabilities</h1>
 <ul>
  <?php echo $module_output ?>
 </ul>
+<?php
+}
 
+if ($setting_output = $test_ob->phpSettingCheck()) {
+?>
 <h1>Miscellaneous PHP Settings</h1>
 <ul>
  <?php echo $setting_output ?>
 </ul>
+<?php
+}
 
-<h1>Required Horde Configuration Files</h1>
+if ($config_output = $test_ob->requiredFileCheck()) {
+?>
+<h1>Required Configuration Files</h1>
 <ul>
     <?php echo $config_output ?>
 </ul>
+<?php
+}
+?>
 
 <h1>PHP Sessions</h1>
-<?php $_SESSION['horde_test_count']++; ?>
 <ul>
- <li>Session counter: <?php echo $_SESSION['horde_test_count'] ?> [refresh the page to increment the counter]</li>
+<?php if (!$init_exception): ?>
+ <li>Session counter: <?php echo ++$_SESSION['horde_test_count'] ?> [refresh the page to increment the counter]</li>
  <li>To unregister the session: <a href="<?php $self_url->copy()->add('mode', 'unregister') ?>">click here</a></li>
+<?php else: ?>
+ <li style="color:red"><strong>The PHP session test is disabled until Horde is correctly configured.</strong></li>
+<?php endif; ?>
 </ul>
 
 <h1>PEAR</h1>
@@ -167,3 +216,4 @@ require $test_templates . '/php_version.inc';
 echo $test_ob->appTests();
 
 require $test_templates . '/footer.inc';
+echo Horde::endBuffer();

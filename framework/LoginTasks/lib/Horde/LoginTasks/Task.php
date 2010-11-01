@@ -7,8 +7,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_LoginTasks
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  LoginTasks
  */
 abstract class Horde_LoginTasks_Task
 {
@@ -18,13 +20,6 @@ abstract class Horde_LoginTasks_Task
      * @var boolean
      */
     public $active = true;
-
-    /**
-     * The interval at which to run the task.
-     *
-     * @var integer
-     */
-    public $interval = Horde_LoginTasks::MONTHLY;
 
     /**
      * The style of the page output.
@@ -61,6 +56,13 @@ abstract class Horde_LoginTasks_Task
     public $display = Horde_LoginTasks::DISPLAY_CONFIRM_YES;
 
     /**
+     * The interval at which to run the task.
+     *
+     * @var integer
+     */
+    public $interval = Horde_LoginTasks::MONTHLY;
+
+    /**
      * The priority of the task.
      *
      * @var integer
@@ -69,8 +71,6 @@ abstract class Horde_LoginTasks_Task
 
     /**
      * Do login task (if it has been confirmed).
-     *
-     * @return boolean  Whether the login task was successful.
      */
     abstract public function execute();
 
@@ -83,6 +83,47 @@ abstract class Horde_LoginTasks_Task
     public function describe()
     {
         return '';
+    }
+
+    /**
+     * Does the task require to be displayed?
+     *
+     * @return boolean  True if the task should be displayed.
+     */
+    public function needsDisplay()
+    {
+        return $this->display != Horde_LoginTasks::DISPLAY_NONE;
+    }
+
+    /**
+     * Indicates if the display of the current task should be joined with the
+     * given previous task.
+     *
+     * @param Horde_Login_Task $previous  The previous task to display.
+     *
+     * @return boolean  True if both tasks should be displayed together.
+     */
+    public function joinDisplayWith(Horde_LoginTasks_Task $previous)
+    {
+        return (($this->display == $previous->display) ||
+                ($this->_isConfirmTask($this) &&
+                 $this->_isConfirmTask($previous)));
+    }
+
+    /**
+     * Is this a confirmation task?
+     *
+     * @param Horde_Login_Task $task  The task to analyze.
+     *
+     * @return boolean  True if this is a confirmation task.
+     */
+    private function _isConfirmTask($task)
+    {
+        return in_array(
+            $task->display,
+            array(Horde_LoginTasks::DISPLAY_CONFIRM_YES,
+                  Horde_LoginTasks::DISPLAY_CONFIRM_NO)
+        );
     }
 
 }

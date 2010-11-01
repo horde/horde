@@ -3,21 +3,18 @@
  * Horde_Imap_Client_Cache:: provides an interface to cache various data
  * retrieved from the IMAP server.
  *
- * Requires Horde_Cache and Horde_Serialize packages.
+ * Requires the horde/Cache package.
  *
+ * <pre>
  * REQUIRED Parameters:
  * ====================
- * 'driver' - (string) The Horde_Cache driver to use.
- * 'driver_params' - (string) The params to pass to the Horde_Cache driver.
+ * 'cacheob' - (Horde_Cache) The cache object to use.
  * 'hostspec' - (string) The IMAP hostspec.
  * 'port' - (string) The IMAP port.
  * 'username' - (string) The IMAP username.
  *
  * Optional Parameters:
  * ====================
- * 'compress' - (string) Compression to use on the cached data.
- *              Either false, 'gzip' or 'lzf'.
- *              DEFAULT: No compression
  * 'debug' - (resource) If set, will output debug information to the stream
  *           identified.
  *           DEFAULT: No debug output
@@ -25,6 +22,7 @@
  *              DEFAULT: 1 week (604800 secs)
  * 'slicesize' - (integer) The slicesize to use.
  *               DEFAULT: 50
+ * </pre>
  *
  * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
  *
@@ -33,7 +31,8 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @package  Horde_Imap_Client
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Imap_Client
  */
 class Horde_Imap_Client_Cache
 {
@@ -110,52 +109,32 @@ class Horde_Imap_Client_Cache
      *
      * @param array $params  The configuration parameters.
      *
-     * @throws Horde_Imap_Client_Exception
+     * @throws InvalidArgumentException
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
-        if (empty($params['driver']) ||
-            empty($params['driver_params']) ||
+        if (empty($params['cacheob']) ||
             empty($params['hostspec']) ||
             empty($params['port']) ||
             empty($params['username'])) {
-            throw new Horde_Imap_Client_Exception('Missing required parameters to Horde_Imap_Client_Cache.');
+            throw new InvalidArgumentException('Missing required parameters to Horde_Imap_Client_Cache.');
         }
 
-        /* Initialize the Cache object. */
-        $this->_cache = Horde_Cache::singleton($params['driver'], $params['driver_params']);
-        if (is_a($this->_cache, 'PEAR_Error')) {
-            throw new Horde_Imap_Client_Exception($this->_cache->getMessage());
-        }
+        // Default parameters.
+        $params = array_merge(array(
+            'debug' => false,
+            'lifetime' => 604800,
+            'slicesize' => 50
+        ), array_filter($params));
 
-        $compress = null;
-        if (!empty($params['compress'])) {
-            switch ($params['compress']) {
-            case 'gzip':
-                if (Horde_Serialize::hasCapability(Horde_Serialize::GZ_COMPRESS)) {
-                    $compress = Horde_Serialize::GZ_COMPRESS;
-                }
-                break;
-
-            case 'lzf':
-                if (Horde_Serialize::hasCapability(Horde_Serialize::LZF)) {
-                    $compress = Horde_Serialize::LZF;
-                }
-                break;
-            }
-
-            if (is_null($compress)) {
-                throw new Horde_Imap_Client_Exception('Horde_Cache does not support the compression type given.');
-            }
-        }
+        $this->_cache = $params['cacheob'];
 
         $this->_params = array(
-            'compress' => $compress,
-            'debug' => empty($params['debug']) ? false : $params['debug'],
+            'debug' => $params['debug'],
             'hostspec' => $params['hostspec'],
-            'lifetime' => empty($params['lifetime']) ? 604800 : intval($params['lifetime']),
+            'lifetime' => intval($params['lifetime']),
             'port' => $params['port'],
-            'slicesize' => empty($params['slicesize']) ? 50 : intval($params['slicesize']),
+            'slicesize' => intval($params['slicesize']),
             'username' => $params['username']
         );
     }
@@ -165,7 +144,6 @@ class Horde_Imap_Client_Cache
      */
     public function __destruct()
     {
-        $compress = $this->_params['compress'];
         $lifetime = $this->_params['lifetime'];
 
         foreach ($this->_save as $mbox => $uids) {
@@ -178,11 +156,8 @@ class Horde_Imap_Client_Cache
 
                 /* Get the list of IDs to save. */
                 foreach (array_keys($sptr['slice'], $slice) as $uid) {
-                    /* Compress individual UID entries. We will worry about
-                     * error checking when decompressing (cache data will
-                     * automatically be invalidated then). */
                     if (isset($dptr[$uid])) {
-                        $data[$uid] = ($compress && is_array($dptr[$uid])) ? Horde_Serialize::serialize($dptr[$uid], array(Horde_Serialize::BASIC, $compress)) : $dptr[$uid];
+                        $data[$uid] = $dptr[$uid];
                     }
                 }
 
@@ -191,12 +166,12 @@ class Horde_Imap_Client_Cache
                     // If empty, we can expire the cache.
                     $this->_cache->expire($cid);
                 } else {
-                    $this->_cache->set($cid, Horde_Serialize::serialize($data, Horde_Serialize::BASIC), $lifetime);
+                    $this->_cache->set($cid, serialize($data), $lifetime);
                 }
             }
 
             // Save the slicemap
-            $this->_cache->set($this->_getCID($mbox, 'slicemap'), Horde_Serialize::serialize($sptr, Horde_Serialize::BASIC), $lifetime);
+            $this->_cache->set($this->_getCID($mbox, 'slicemap'), serialize($sptr), $lifetime);
         }
     }
 
@@ -221,7 +196,8 @@ class Horde_Imap_Client_Cache
      * @param array $uids        The list of message UIDs to retrieve
      *                           information for. If empty, returns the list
      *                           of cached UIDs.
-     * @param array $fields      An array of fields to retrieve.
+     * @param array $fields      An array of fields to retrieve. If null,
+     *                           returns all cached fields.
      * @param integer $uidvalid  The IMAP uidvalidity value of the mailbox.
      *
      * @return array  An array of arrays with the UID of the message as the
@@ -242,12 +218,16 @@ class Horde_Imap_Client_Cache
 
         $this->_loadUIDs($mailbox, $uids, $uidvalid);
         if (!empty($this->_data[$mailbox])) {
-            $fields = array_flip($fields);
+            if (!is_null($fields)) {
+                $fields = array_flip($fields);
+            }
             $ptr = &$this->_data[$mailbox];
 
             foreach ($uids as $val) {
                 if (isset($ptr[$val])) {
-                    $ret_array[$val] = array_intersect_key($ptr[$val], $fields);
+                    $ret_array[$val] = is_null($fields)
+                        ? $ptr[$val]
+                        : array_intersect_key($ptr[$val], $fields);
                 }
             }
 
@@ -336,7 +316,7 @@ class Horde_Imap_Client_Cache
      *                           data. The following labels are reserved:
      *                           'uidvalid'.
      */
-    public function setMetaData($mailbox, $uidvalid, $data = array())
+    public function setMetaData($mailbox, $uidvalid, array $data = array())
     {
         if (!empty($data)) {
             unset($data['uidvalid']);
@@ -459,7 +439,7 @@ class Horde_Imap_Client_Cache
             return;
         }
 
-        $data = Horde_Serialize::unserialize($data, Horde_Serialize::BASIC);
+        $data = @unserialize($data);
         if (!is_array($data)) {
             return;
         }
@@ -548,23 +528,15 @@ class Horde_Imap_Client_Cache
             return;
         }
 
-        $compress = $this->_params['compress'];
         $ptr = &$this->_data[$mailbox]['data'];
         $todelete = array();
 
         foreach ($uids as $val) {
-            if (isset($ptr[$val]) && !is_array($ptr[$val])) {
-                $success = false;
-                if (!is_null($compress)) {
-                    $res = Horde_Serialize::unserialize($ptr[$val], array($compress, Horde_Serialize::BASIC));
-                    if (!is_a($res, 'PEAR_Error')) {
-                        $ptr[$val] = $res;
-                        $success = true;
-                    }
-                }
-                if (!$success) {
-                    $todelete[] = $val;
-                }
+            if (isset($ptr[$val]) &&
+                ($res = @unserialize($ptr[$val]))) {
+                $ptr[$val] = $res;
+            } else {
+                $todelete[] = $val;
             }
         }
 
@@ -585,7 +557,7 @@ class Horde_Imap_Client_Cache
     {
         if (!isset($this->_slicemap[$mailbox])) {
             if (($data = $this->_cache->get($this->_getCID($mailbox, 'slicemap'), $this->_params['lifetime'])) !== false) {
-                $slice = Horde_Serialize::unserialize($data, Horde_Serialize::BASIC);
+                $slice = @unserialize($data);
                 if (is_array($slice)) {
                     $this->_slicemap[$mailbox] = $slice;
                 }

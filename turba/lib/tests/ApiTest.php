@@ -15,7 +15,10 @@ class Turba_ApiTest extends Turba_TestBase {
         require_once TURBA_BASE . '/lib/api.php';
         $this->setUpDatabase();
     }
-
+    function testSomething()
+    {
+     echo 'fail';
+    }
     function test_search_api_should_return_results()
     {
         global $registry;
@@ -28,7 +31,6 @@ class Turba_ApiTest extends Turba_TestBase {
             return;
         }
 
-        require_once TURBA_BASE . '/lib/base.php';
         $GLOBALS['source'] = '_test_sql';
         $GLOBALS['cfgSources'] = array('_test_sql' => $this->getDriverConfig());
 

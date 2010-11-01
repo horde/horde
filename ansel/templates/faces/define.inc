@@ -1,6 +1,6 @@
 <?php echo $tabs->render('image'); ?>
 <h1 class="header"><?php echo $title ?></h1>
-<link href="<?php echo $registry->getImageDir() ?>/../cropper.css" rel="stylesheet" type="text/css" />
+<link href="<?php echo Horde_Themes::img() ?>/../cropper.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript">
 
@@ -29,9 +29,9 @@ window.observe('load', function() {
 
 </script>
 
-<div><img src="<?php echo Horde::applicationUrl('faces/search/img.php'); ?>" alt="[icon]" id="faceImage" /></div>
+<div><img src="<?php echo Horde::url('faces/search/img.php'); ?>" alt="[icon]" id="faceImage" /></div>
 
-<form method="post" action="<?php echo Horde::applicationUrl('faces/search/image_save.php'); ?>">
+<form method="post" action="<?php echo Horde::url('faces/search/image_save.php'); ?>">
 
 <div class="control" style="width: <?php echo $conf['screen']['height'] ?>px">
  <input type="submit" name="submit" id="submit" value="<?php echo _("Search") ?>" />

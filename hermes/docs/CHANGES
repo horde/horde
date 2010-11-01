@@ -1,0 +1,91 @@
+--------
+v2.0-cvs
+--------
+
+
+
+
+----------
+v1.0.2-cvs
+----------
+
+
+
+
+------
+v1.0.1
+------
+
+[jan] Fix client list in search form if client source has numeric IDs
+      (manilal@ejyothi.com, Bug #7966).
+
+
+----
+v1.0
+----
+
+[jan] Go back to search results after editing time slices from there
+      (mail@dunix-data.de, Request #7012).    
+[jan] Check permissions when displaying time slice forms (mail@dunix-data.de,
+      Bug #7027).
+[jan] Fix index for table hermes_deliverables (Bug #7001).
+
+
+--------
+v1.0-RC1
+--------
+
+[jan] Add start and end time of stop watch to entry description (Request #5585).
+[jan] Update time budget of cost objects after saving an entry.
+[bak] Add OS X widget for entering time
+[jan] Allow to mark job types billable (Vinay Kumar <vinay.kumar@ejyothi.com>,
+      Request #5207).
+[jan] Add configuration to only include billable time when summing up for
+      deliverables.
+[cjh] Add an initial interface for sending invoice data to Minerva
+      (Duck <duck@obala.net).
+[jan] Add hourly rates to job types (Duck <duck@obala.net>).
+[jan] Drop incomplete invoicing support.
+[jan] Add configuration for address book field used for the client listings.
+      (Request #3816).
+[jan] Add "Enter Time" item to sidebar menu.
+[ben] Better support for MS-SQL.
+[jan] Add subtotal tabs to the overview page.
+[jan] Save used stop watch name in "Notes" field (tevans@tachometry.com,
+      Request #2667).
+[cjh] Add subtotal tabs to the time search form
+      (tevans@tachometry.com, Bug #2632).
+[cjh] Add cost object filtering to the time search page
+      (tevans@tachometry.com, Bug #2631).
+[cjh] Print button for timesheets, and support for only showing some timesheet
+      elements when printing (Bug #2375).
+[jmf] Replace support tracking time to deliverables with support for tracking
+      time to more general cost objects which can be provided by other
+      applications.  Deliverables are now a type of cost object.
+[jan] Add stop watch to sidebar.
+[cjh] Use bind variables in SQL driver (selsky@columbia.edu, #1745).
+[cjh] Use client name instead of id in exports, and allow searching on
+      whether or not time is billable (Tom Evans <tevans@tachometry.com>).
+[jmf] Add ability to track time to deliverables, maintain deliverables.
+[jmf] Add ability to disable job types so they still exist but can no longer
+      be used for time entry (but can be used for searching and display).
+[jan] Add Spanish translation (Manuel Perez Ayala <mperaya@alcazaba.unex.es>).
+[jmf] Merge submit screen into time entry screen.
+[jmf] Make time entry form "float".
+[jmf] Remove concept of "current" week.
+[jan] Add Finnish translation (Petteri Karttunen <pkarttun@siba.fi>).
+[jan] Add Traditional Chinese translation (David Chang <david@thbuo.gov.tw>).
+[cjh] Add a print menu item.
+[cjh] Add a script to purge old data.
+[cjh] Fix adding of bogus data because of other form variables.
+[jan] Add German translation.
+[cjh] Add browsing to arbitrary weeks.
+[cjh] Only submitted time gets exported now.
+[cjh] Add submitting of time.
+[cjh] Add editing of time.
+[cjh] Exporting hours by date range works now.
+[cjh] Initial support for exporting hours to QuickBooks.
+[cjh] There is now an Options page.
+[cjh] Users can now edit time that hasn't yet been sucked into a timesheet.
+[cjh] Add an admin interface for Job Types.
+[cjh] Initial Hermes framework.

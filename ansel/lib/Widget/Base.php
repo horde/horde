@@ -75,7 +75,7 @@ abstract class Ansel_Widget_Base
     {
         $this->_view = $view;
         if (!empty($this->_params['style'])) {
-            $this->_style = Ansel::getStyleDefinition($this->_params['style']);
+            $this->_style = $this->_params['style'];
         } else {
             $this->_style = $view->gallery->getStyle();
         }
@@ -103,7 +103,7 @@ abstract class Ansel_Widget_Base
      */
     protected function _htmlBegin()
     {
-        $html = '<div class="anselWidget" style="background-color:' . $this->_style['background'] .   ';">';
+        $html = '<div class="anselWidget" style="background-color:' . $this->_style->background .   ';">';
         $html .= '<h2 class="header tagTitle">' . $this->_title . '</h2>';
         return $html;
     }
@@ -123,7 +123,6 @@ abstract class Ansel_Widget_Base
      * Determine if a particular view (Image, Gallery etc..) is supported
      * by this widget.
      *
-     * @TODO
      * @param string $view  The view to check
      *
      * @return boolean

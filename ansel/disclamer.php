@@ -8,18 +8,18 @@
  * @author Jan Zagar <jan.zagar@siol.net>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('ansel');
 
 $vars = Horde_Variables::getDefaultVariables();
-$gallery = $ansel_storage->getGallery($vars->get('gallery'));
-if (is_a($gallery, 'PEAR_Error')) {
+try {
+    $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($vars->get('gallery'));
+} catch (Ansel_Exception $e) {
     $notification->push($gallery->getMessage());
-    header('Location: ' . Horde::applicationUrl('view.php?view=List', true));
+    Horde::url('view.php?view=List', true)->redirect();
     exit;
 }
 $url = $vars->get('url');
-
-
 $form = new Horde_Form($vars, _("Content Disclaimer"), 'disclamer');
 $form->addVariable($gallery->get('name'), 'name', 'description', false);
 $form->addVariable($gallery->get('desc'), 'desc', 'description', false);
@@ -32,18 +32,17 @@ $form->setButtons(array(sprintf(_("Continue - I'm over %d"), $gallery->get('age'
 if ($form->isSubmitted()) {
     if (Horde_Util::getFormData('submitbutton') == _("Cancel")) {
         $notification->push("You are not authorised to view this photo.", 'horde.warning');
-        header('Location: ' . Horde::applicationUrl('view.php?view=List', true));
+        Horde::url('view.php?view=List', true)->redirect();
         exit;
     } else {
         $_SESSION['ansel']['user_age'] = (int)$gallery->get('age');
-        header('Location: ' . $url, true);
+        $url->redirect();
         exit;
     }
 }
 
 require ANSEL_TEMPLATES . '/common-header.inc';
-require ANSEL_TEMPLATES . '/menu.inc';
-
+echo Horde::menu();
+$notification->notify(array('listeners' => 'status'));
 $form->renderActive(null, null, null, 'post');
-
 require $registry->get('templates', 'horde') . '/common-footer.inc';

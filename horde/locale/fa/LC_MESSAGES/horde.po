@@ -1,0 +1,4466 @@
+# Horde Persian translations.
+# This file is distributed under the same license as the Horde package.
+#
+# Copyright 2004 High Concil of Informatics (www.shci.ir)
+# Provided by  Amirkabir Metanetworking Ltd, 2004 <persian-horde@metanetworking.com>
+# Mohsen Nader-Badr       <naderi@metanetworking.com>
+# Chackameh Mortezania    <mortezania@metanetworking.com>
+# Salman Niksefat         <niksefat@metanetworking.com>
+# Hamed Gheybi            <gheybi@metanetworking.com>
+# Vahid Ghafarpour        <ghafarpour@metanetworking.com>
+# Zahra Ahmadi            <ahmadi@metanetworking.com>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde 3 \n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 02:42+0200\n"
+"PO-Revision-Date: 2005-07-08 15:27+0200\n"
+"Last-Translator:Amirkabir Metanetworking ltd. <persian-horde@metanetworking."
+"com>\n"
+"Language-Team: Persian <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lib/Block/weatherdotcom.php:260 lib/Block/weatherdotcom.php:363
+#: lib/Block/weatherdotcom.php:409
+msgid " at "
+msgstr " در "
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/groups.php:50
+#, php-format
+msgid "\"%s\" was added to the groups system."
+msgstr "\"%s\" به گروه‌های سامانه اضافه شد"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/perms/addchild.php:43
+#, php-format
+msgid "\"%s\" was added to the permissions system."
+msgstr "\"%s\" به سامانه مجوز‌ها اضافه شد"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/groups.php:56 admin/perms/addchild.php:47
+#, php-format
+msgid "\"%s\" was not created: %s."
+msgstr "\"%s\" ایجاد نشده بود: %s."
+
+#
+#: lib/Block/account.php:83
+#, php-format
+msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
+msgstr "%.2fMB استفاده شده از %.2fMB مجاز (%.2fMB)"
+
+#: lib/Block/weatherdotcom.php:241
+#, php-format
+msgid "%d %s and %s"
+msgstr "%d %s و %s"
+
+#: lib/Block/account.php:708 lib/Block/account.php:720
+#, php-format
+msgid "%d days until your password expires."
+msgstr "اسم رمز شما %d روز دیگر معتبر است."
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: lib/Block/metar.php:281
+#, fuzzy, php-format
+msgid "%d minutes"
+msgstr "%s دقیقه"
+
+#: services/facebook.php:114
+#, php-format
+msgid "%d person likes this"
+msgid_plural "%d persons like this"
+msgstr[0] ""
+msgstr[1] ""
+
+#
+#: templates/admin/user/list.inc:4
+#, fuzzy, php-format
+msgid "%d to %d of %d"
+msgstr "%s به %s از %s"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: lib/Block/weatherdotcom.php:288
+#, php-format
+msgid "%d-day forecast"
+msgstr "پیش­بینی %d-روزه"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: services/logintasks.php:83
+#, php-format
+msgid "%s - Notice"
+msgstr "%s - توجه"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/config/config.php:21 admin/config/index.php:226
+#, fuzzy, php-format
+msgid "%s Configuration"
+msgstr "تولید پیکربندی %s"
+
+#: services/logintasks.php:64
+#, fuzzy, php-format
+msgid "%s Tasks - Confirmation"
+msgstr "اسم رمز  با تأیید"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: services/logintasks.php:74
+#, php-format
+msgid "%s Terms of Agreement"
+msgstr "شروط توافق %s"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: lib/Block/metar.php:154 lib/Block/metar.php:160 lib/Block/metar.php:234
+#: lib/Block/metar.php:340 lib/Block/metar.php:346
+#, php-format
+msgid "%s at %s %s"
+msgstr "%s در %s %s"
+
+#: services/logintasks.php:63
+#, fuzzy, php-format
+msgid ""
+"%s is ready to perform the tasks checked below. Check the box for any "
+"operation(s) you want to perform at this time."
+msgstr ""
+"%s آماده اجرای عملیات نگهداری انتخاب شده است. جعبه هر عملیاتی را که هم اکنون "
+"می‌خواهید اجرا کنید علامت بزنید"
+
+#: lib/Block/vatid.php:58
+#, php-format
+msgid "%s not found."
+msgstr "%s پیدا نشد"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: lib/Block/weatherdotcom.php:367 lib/Block/weatherdotcom.php:412
+msgid ", gusting "
+msgstr "، باد"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: lib/Block/metar.php:183 lib/Block/metar.php:188
+#, php-format
+msgid ", gusting %s %s"
+msgstr "، باد %s %s"
+
+#: lib/Block/metar.php:196
+#, php-format
+msgid ", variable from %s to %s"
+msgstr "، متغییر از %s به %s"
+
+#: lib/Block/time.php:26
+msgid "12 Hour Format"
+msgstr "قالب ۱۲ ساعتی"
+
+#: lib/Block/time.php:25
+msgid "24 Hour Format"
+msgstr "قالب ۲۴ ساعتی"
+
+#: templates/data/datetime.inc:109 templates/data/time.inc:28
+msgid "24 hours"
+msgstr "۲۴ ساعته"
+
+#: templates/prefs/facebook.html:15
+msgid ""
+"<tag:app_name /> can interact with your Facebook account, but you must login "
+"to Facebook manually each time."
+msgstr ""
+
+#: templates/prefs/facebook.html:38
+msgid "<tag:app_name /> cannot read your stream messages."
+msgstr ""
+
+#: templates/prefs/facebook.html:26
+msgid ""
+"<tag:app_name /> cannot set your status messages or publish other content to "
+"Facebook."
+msgstr ""
+
+#: templates/prefs/twitter.html:9
+msgid "<tag:appname /> can interact with your Twitter account"
+msgstr ""
+
+#: services/keyboard.php:46
+#, fuzzy
+msgid "A characters"
+msgstr "تعداد نویسه‌ها"
+
+#: lib/Block/metar.php:117
+msgid "A database backend is required for this block."
+msgstr "یک پشتیبان دادگان برای این بلاک مورد نیاز است"
+
+#: admin/activesync.php:35
+msgid ""
+"A device wipe has been requested. Device will be wiped on next "
+"syncronization attempt."
+msgstr ""
+
+#: admin/config/index.php:92 admin/config/index.php:124
+#, php-format
+msgid "A newer version (%s) exists."
+msgstr ""
+
+#: lib/Prefs/Ui.php:743
+#, php-format
+msgid ""
+"A remote wipe for device id %s has been initiated. The device will be wiped "
+"during the next synchronisation."
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:7
+#, fuzzy
+msgid "AM Clouds"
+msgstr "ابرها"
+
+#: lib/Block/weatherdotcom_strings.php:8
+#, fuzzy
+msgid "AM Drizzle"
+msgstr "نم‌نم باران"
+
+#: lib/Block/weatherdotcom_strings.php:9
+#, fuzzy
+msgid "AM Fog"
+msgstr "مه‌آلود"
+
+#: lib/Block/weatherdotcom_strings.php:10
+msgid "AM Light Rain"
+msgstr "باران سبک صبحگاهی"
+
+#: lib/Block/weatherdotcom_strings.php:11
+#, fuzzy
+msgid "AM Light Snow"
+msgstr "برف سبک"
+
+#: lib/Block/weatherdotcom_strings.php:12
+msgid "AM Rain"
+msgstr "باران صبحگاهی"
+
+#: lib/Block/weatherdotcom_strings.php:13
+msgid "AM Showers"
+msgstr "رگبار صبحگاهی"
+
+#: lib/Block/weatherdotcom_strings.php:14
+#, fuzzy
+msgid "AM Snow"
+msgstr "برف عصرگاهی"
+
+#: lib/Block/weatherdotcom_strings.php:15
+msgid "AM Snow Showers"
+msgstr "تگرگ صبحگاهی"
+
+#: lib/Block/weatherdotcom_strings.php:16
+#, fuzzy
+msgid "AM Sun"
+msgstr "باران صبحگاهی"
+
+#: lib/Block/weatherdotcom_strings.php:17
+#, fuzzy
+msgid "AM T-Showers"
+msgstr "رگبار صبحگاهی"
+
+#: lib/Block/weatherdotcom_strings.php:18
+#, fuzzy
+msgid "AM T-Storms"
+msgstr "T-Storms"
+
+#: templates/data/datetime.inc:110 templates/data/time.inc:29
+msgid "AM/PM"
+msgstr "صبح/عصر"
+
+#: lib/Block/account.php:3
+msgid "Account Information"
+msgstr "اطلاعات حساب"
+
+#: config/prefs.php.dist:276
+msgid "Account Password"
+msgstr "اسم رمز حساب"
+
+#: admin/activesync.php:126
+msgid "Actions"
+msgstr "عملیات"
+
+#: config/prefs.php.dist:676
+msgid "ActiveSync"
+msgstr ""
+
+#: admin/activesync.php:71
+#, fuzzy
+msgid "ActiveSync Device Administration"
+msgstr "سرپرستی کاربر"
+
+#: admin/activesync.php:199 lib/Api.php:80
+msgid "ActiveSync Devices"
+msgstr ""
+
+#: admin/activesync.php:20 lib/Prefs/Ui.php:376
+msgid "ActiveSync not activated."
+msgstr ""
+
+#: templates/admin/groups/addchild.inc:12 templates/portal/add.inc:14
+msgid "Add"
+msgstr "اضافه کردن"
+
+#: services/portal/index.php:68
+msgid "Add Content"
+msgstr ""
+
+#: templates/portal/add.inc:5
+msgid "Add Here:"
+msgstr "اینجا اضافه کن:"
+
+#: templates/admin/groups/edit.inc:49
+#, fuzzy
+msgid "Add Members"
+msgstr "اعضاء"
+
+#: admin/groups.php:253 templates/admin/groups/addchild.inc:7
+#, fuzzy, php-format
+msgid "Add a child group to \"%s\""
+msgstr "اضافه کردن یک گروه فرعی به '%s'"
+
+#: admin/groups.php:238
+#, fuzzy
+msgid "Add a new group"
+msgstr "اضافه کردن گروه جدید"
+
+#: admin/user.php:21
+msgid "Add a new user:"
+msgstr "اضافه کردن یک کاربر جدید:"
+
+#: admin/alarms.php:22
+#, fuzzy
+msgid "Add new alarm"
+msgstr "اضافه کردن یک کاربر جدید:"
+
+#: templates/data/csvmap.inc:92
+msgid "Add pair"
+msgstr "اضافه کردن زوج"
+
+#: admin/user.php:22
+msgid "Add user"
+msgstr "اضافه كردن کاربر"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/signup_confirm.php:80 admin/user.php:92
+#, fuzzy, php-format
+msgid ""
+"Added \"%s\" to the system, but could not add additional signup information: "
+"%s."
+msgstr ""
+"'%s' به سامانه اضافه شد، اما نمی‌توان اطلاعات دیگر افتتاح حساب را اضافه کرد"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: signup.php:44
+#, fuzzy, php-format
+msgid "Added \"%s\" to the system. You can log in now."
+msgstr "'%s' به سامانه اضافه شد. اکنون شما می‌توانید وارد شوید"
+
+#: templates/admin/user/noadd.inc:2
+msgid "Adding users is disabled."
+msgstr "اضافه کردن کاربران فعال نیست"
+
+#: lib/Block/vatid.php:101
+msgid "Address"
+msgstr "آدرس"
+
+#: config/registry.php.dist:142
+msgid "Address Book"
+msgstr "کتابچهٔ آدرس "
+
+#: admin/alarms.php:26
+msgid "Alarm end"
+msgstr ""
+
+#: admin/alarms.php:28
+msgid "Alarm methods"
+msgstr ""
+
+#: admin/alarms.php:25
+msgid "Alarm start"
+msgstr ""
+
+#: admin/alarms.php:27
+#, fuzzy
+msgid "Alarm text"
+msgstr "متن اعلان"
+
+#: admin/alarms.php:24
+#, fuzzy
+msgid "Alarm title"
+msgstr "عناوین ستونها"
+
+#: admin/alarms.php:133
+#, fuzzy
+msgid "Alarms"
+msgstr "معادل"
+
+#: lib/Block/fortune.php:94
+msgid "All"
+msgstr "همه"
+
+#: templates/shares/edit.inc:58
+msgid "All Authenticated Users"
+msgstr "تمامی کاربران تأیید صلاحیت شده"
+
+#: admin/groups.php:26 admin/groups.php:244
+msgid "All Groups"
+msgstr "همه گروه‌ها"
+
+#: admin/activesync.php:50
+msgid "All policy keys successfully reset."
+msgstr ""
+
+#: lib/Prefs/Ui.php:753
+msgid ""
+"All state removed for your devices. They will resynchronize next time they "
+"connect to the server."
+msgstr ""
+
+#: lib/Prefs/Ui.php:724
+msgid "All synchronization sessions deleted."
+msgstr ""
+
+#: config/prefs.php.dist:644
+msgid "Alternate IMSP Login"
+msgstr "ورود IMSP جایگزین"
+
+#: config/prefs.php.dist:658
+msgid "Alternate IMSP Password"
+msgstr "اسم رمز IMSP جایگزین"
+
+#: config/prefs.php.dist:652
+msgid "Alternate IMSP Username"
+msgstr "نام کاربری IMSP جایگزین"
+
+#: services/resetpassword.php:31
+msgid "Alternate email address"
+msgstr "آدرس پست الکترونیک جایگزین"
+
+#: lib/Block/weatherdotcom.php:170
+#, fuzzy
+msgid "An unknown error has occured."
+msgstr "یک خطای جدی رخ داده است"
+
+#: services/resetpassword.php:48
+msgid "Answer"
+msgstr "پاسخ"
+
+#: templates/data/csvmap.inc:112 templates/admin/config/index.html:11
+msgid "Application"
+msgstr "برنامهٔ‌ کاربردی"
+
+#: admin/phpshell.php:44
+#, fuzzy
+msgid "Application Context: "
+msgstr "فهرست برنامه‌های کاربردی"
+
+#: util/icon_browser.php:45
+msgid "Application List"
+msgstr "فهرست برنامه‌های کاربردی"
+
+#: admin/config/index.php:160
+msgid "Application is ready."
+msgstr "برنامه آماده است"
+
+#: admin/config/index.php:95 admin/config/index.php:127
+#, fuzzy
+msgid "Application is up-to-date."
+msgstr "برنامه آماده است"
+
+#: templates/admin/user/approve.inc:33
+msgid "Approve"
+msgstr "تصویب"
+
+#: config/nls.php:167
+msgid "Arabic (Windows-1256)"
+msgstr "Arabic (Windows-1256)"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/alarms.php:123
+#, fuzzy, php-format
+msgid "Are you sure you want to delete '%s'?"
+msgstr "آیا شما مطمئنید که می‌خواهید '%s' و تمام زیر گروه‌هایش را حذف کنید؟"
+
+#: templates/admin/user/removequeued.inc:10
+#, fuzzy, php-format
+msgid "Are you sure you want to remove the signup request for \"%s\"?"
+msgstr "آیا شما مطمئنید که می‌خواهید اطلاعات افتتاح حساب %s را پاک کنید؟"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: templates/admin/groups/delete.inc:7
+#, fuzzy, php-format
+msgid "Are you sure you wish to delete \"%s\" and any sub-groups?"
+msgstr "آیا شما مطمئنید که می‌خواهید '%s' و تمام زیر گروه‌هایش را حذف کنید؟"
+
+#: config/nls.php:168
+msgid "Armenian (ARMSCII-8)"
+msgstr "Armenian (ARMSCII-8)"
+
+#: lib/Block/fortune.php:35
+msgid "Art"
+msgstr "هنر"
+
+#: lib/Block/fortune.php:36
+msgid "Ascii Art"
+msgstr ""
+
+#: templates/problem/problem.inc:43
+msgid "Attachment"
+msgstr ""
+
+#: admin/groups.php:72
+msgid "Attempt to delete a non-existent group."
+msgstr "سعی در حذف گروهی شده است که موجود نیست"
+
+#: admin/perms/delete.php:24
+msgid "Attempt to delete a non-existent permission."
+msgstr "سعی در حذف مجوزی شده است که موجود نیست"
+
+#: admin/perms/edit.php:92
+msgid "Attempt to edit a non-existent permission."
+msgstr "سعی در ویرایش مجوزی شده است که موجود نیست"
+
+#: services/shares/edit.php:66
+msgid "Attempt to edit a non-existent share."
+msgstr "سعی در ویرایش اشتراکی شده است که موجود نیست"
+
+#: admin/sessions.php:40
+#, fuzzy
+msgid "Authenticated to:"
+msgstr "تمامی کاربران تأیید صلاحیت شده"
+
+#: templates/prefs/facebook.html:27
+msgid "Authorize Publish"
+msgstr ""
+
+#: templates/prefs/facebook.html:39
+msgid "Authorize Read:"
+msgstr ""
+
+#: templates/prefs/facebook.html:16
+msgid "Authorize an infinite session:"
+msgstr ""
+
+#: templates/data/csvmap.inc:70
+msgid "Available fields:"
+msgstr "فیلدهای قابل دسترسی:"
+
+#: themes/azur/info.php:6
+msgid "Azur"
+msgstr ""
+
+#: lib/Block/fortune.php:37
+msgid "BOFH Excuses"
+msgstr ""
+
+#: config/nls.php:169
+msgid "Baltic (ISO-8859-13)"
+msgstr "Baltic (ISO-8859-13)"
+
+#: themes/barbie/info.php:2
+#, fuzzy
+msgid "Barbie"
+msgstr "برهنه"
+
+#: util/icon_browser.php:34
+#, fuzzy, php-format
+msgid "Base graphics directory \"%s\" not found."
+msgstr "شاخه گرافیکی مبنای '%s' یافت نشد"
+
+#: templates/portal/layout.inc:90
+msgid "Block Settings"
+msgstr "تنظیمات بلوک"
+
+#: templates/portal/layout.inc:72
+msgid "Block Type"
+msgstr "نوع بلوک"
+
+#: themes/bluemoon/info.php:2
+#, fuzzy
+msgid "Blue Moon"
+msgstr "ماه نو"
+
+#: themes/bluewhite/info.php:2
+#, fuzzy
+msgid "Blue and White"
+msgstr "محلیّت و ساعت"
+
+#: config/registry.php.dist:226
+msgid "Bookmarks"
+msgstr "چوب الف"
+
+#: lib/Block/fortune.php:103
+msgid "Both"
+msgstr "هر دو"
+
+#: themes/brown/info.php:2
+msgid "Brown"
+msgstr ""
+
+#: admin/sessions.php:38
+#, fuzzy
+msgid "Browser:"
+msgstr "سطرها:"
+
+#: themes/burntorange/info.php:7
+msgid "Burnt Orange"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:166
+#, fuzzy
+msgid "Cache init was not completed."
+msgstr "فهرست توزیعی مشخص نشده است"
+
+#: config/registry.php.dist:157
+msgid "Calendar"
+msgstr "تقویم"
+
+#: lib/Block/weatherdotcom.php:250
+msgid "Calm"
+msgstr "آرام"
+
+#: themes/camouflage/info.php:2
+msgid "Camouflage"
+msgstr ""
+
+#: admin/user.php:115 admin/user.php:135 templates/admin/groups/delete.inc:11
+#: templates/admin/user/clear.inc:12 templates/admin/user/remove.inc:12
+msgid "Cancel"
+msgstr "انصراف"
+
+#: templates/problem/problem.inc:58
+msgid "Cancel Problem Report"
+msgstr "انصراف از ارسال گزارش"
+
+#: admin/activesync.php:183 templates/prefs/activesync.html:31
+#, fuzzy
+msgid "Cancel Wipe"
+msgstr "انصراف"
+
+#: services/resetpassword.php:17
+#, fuzzy
+msgid "Cannot reset password automatically, contact your administrator."
+msgstr ""
+"نمی‌توان اسم رمز را بطور خودکار دوباره بازنشاند، با سرپرست سامانه خود تماس "
+"بگیرید"
+
+#: config/prefs.php.dist:440
+msgid "Categories and Labels"
+msgstr "گروه‌ها و برچسبها"
+
+#: config/nls.php:170
+msgid "Celtic (ISO-8859-14)"
+msgstr "Celtic (ISO-8859-14)"
+
+#: config/nls.php:171
+msgid "Central European (ISO-8859-2)"
+msgstr "Central European (ISO-8859-2)"
+
+#: templates/prefs/rpc.html:33
+msgid "Change"
+msgstr "تغییر "
+
+#: services/changepassword.php:23
+msgid "Change Your Password"
+msgstr "اسم رمز خود را تغییر دهید"
+
+#: config/prefs.php.dist:214
+msgid ""
+"Change the name and address that people see when they read and reply to your "
+"emails."
+msgstr ""
+"تغییردادن نام و آدرسی که افراد هنگام خواندن و پاسخ دادن به نامهٔ شما خواهند "
+"دید "
+
+#: services/changepassword.php:17
+msgid ""
+"Changing your password is not supported with the current configuration.  "
+"Contact your administrator."
+msgstr ""
+"تغییردادن اسم رمز شما در پیکربندی فعلی پشتیبانی نمی‌شود. با سرپرست سامانه خود "
+"تماس بگیرید"
+
+#: lib/Block/vatid.php:45
+#, fuzzy
+msgid "Check"
+msgstr "‌"
+
+#: templates/admin/config/index.html:4
+msgid "Check for newer versions"
+msgstr ""
+
+#: lib/Block/vatid.php:47
+#, fuzzy
+msgid "Checking"
+msgstr "بررسی پیوند..."
+
+#: templates/admin/groups/addchild.inc:10
+#, fuzzy
+msgid "Child"
+msgstr "‌"
+
+#: config/nls.php:172
+msgid "Chinese Simplified (GB2312)"
+msgstr "Chinese Simplified (GB2312)"
+
+#: config/nls.php:173
+msgid "Chinese Traditional (Big5)"
+msgstr "Chinese Traditional (Big5)"
+
+#: services/obrowser/index.php:91
+#, fuzzy, php-format
+msgid "Choose %s"
+msgstr "دوره‌ها"
+
+#: config/prefs.php.dist:403
+#, fuzzy
+msgid "Choose how to display dates (abbreviated format):"
+msgstr "انتخاب چگونگی نمایش تاریخ:"
+
+#: config/prefs.php.dist:377
+#, fuzzy
+msgid "Choose how to display dates (full format):"
+msgstr "انتخاب چگونگی نمایش تاریخ:"
+
+#: config/prefs.php.dist:419
+#, fuzzy
+msgid "Choose how to display times:"
+msgstr "انتخاب چگونگی نمایش تاریخ:"
+
+#: lib/Block/weatherdotcom_strings.php:19
+msgid "Clear"
+msgstr "صاف"
+
+#: admin/sqlshell.php:109
+#, fuzzy
+msgid "Clear Query"
+msgstr "پاک کردن کاربر"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: templates/admin/user/clear.inc:5
+#, php-format
+msgid "Clear out user: %s"
+msgstr "پاک کردن کاربر : %s"
+
+#: templates/admin/user/clear.inc:11
+msgid "Clear user"
+msgstr "پاک کردن کاربر"
+
+#: templates/admin/user/list.inc:37
+msgid "Clear user data"
+msgstr "پاک کردن دادهٔ کاربر"
+
+#: lib/Block/weatherdotcom_strings.php:20
+#, fuzzy
+msgid "Clearing Early"
+msgstr "باران زودهنگام"
+
+#: lib/Block/weatherdotcom_strings.php:21
+#, fuzzy
+msgid "Clearing Late"
+msgstr "باران دیرهنگام"
+
+#: templates/prefs/addressbooks.html:3
+msgid ""
+"Click on one of your selected address books and then select all fields to "
+"search."
+msgstr ""
+
+#: templates/logintasks/logintasks.html:38
+msgid "Click to Continue"
+msgstr "برای ادامه، کلیک کنید"
+
+#: templates/prefs/syncml.html:13
+msgid "Client Anchor"
+msgstr ""
+
+#: services/keyboard.php:154 templates/shares/edit.inc:12
+msgid "Close Window"
+msgstr "بستن پنجره"
+
+#: lib/Block/metar.php:239
+msgid "Clouds"
+msgstr "ابرها"
+
+#: lib/Block/weatherdotcom_strings.php:22
+#, fuzzy
+msgid "Clouds Early"
+msgstr "ابرها"
+
+#: lib/Block/weatherdotcom_strings.php:23
+#, fuzzy
+msgid "Clouds Late"
+msgstr "ابرها"
+
+#: lib/Block/weatherdotcom_strings.php:24
+msgid "Cloudy"
+msgstr "ابری"
+
+#: admin/sessions.php:31
+#, fuzzy
+msgid "Collapse"
+msgstr "جمع شدن نوار کناری"
+
+#: templates/sidebar/sidebar.inc:3
+msgid "Collapse Sidebar"
+msgstr "جمع شدن نوار کناری"
+
+#: lib/Prefs/Ui.php:237
+msgid "Color Picker"
+msgstr "انتخاب کننده رنگ"
+
+#: admin/cmdshell.php:20 admin/cmdshell.php:42
+msgid "Command"
+msgstr "فرمان"
+
+#: admin/cmdshell.php:14
+msgid "Command Shell"
+msgstr "پوسته فرمان"
+
+#: services/facebook.php:101
+#, fuzzy, php-format
+msgid "Comments: %d"
+msgstr "توضیح"
+
+#: lib/Block/fortune.php:38
+msgid "Computers"
+msgstr "رایانه‌ها"
+
+#: lib/Block/weatherdotcom.php:300
+msgid "Condition"
+msgstr "شرط"
+
+#: lib/Block/metar.php:244
+msgid "Conditions"
+msgstr "شرایط"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/config/config.php:65 templates/admin/config/config.html:9
+#, fuzzy
+msgid "Configuration"
+msgstr "بازگرداندن پیکربندی"
+
+#: admin/config/diff.php:80
+msgid "Configuration Differences"
+msgstr "تفاوتهای پیکربندی"
+
+#: config/prefs.php.dist:665
+msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
+msgstr ""
+
+#: admin/config/index.php:155
+#, fuzzy
+msgid "Configuration is out of date."
+msgstr "پیکربندی به بروزرسانی نیاز دارد"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: templates/admin/config/index.html:61
+#, fuzzy
+msgid "Configuration upgrade scripts available"
+msgstr "دست ‌نویس  بروزرسانی راه‌اندازی در دسترس است"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/config/index.php:111
+#, php-format
+msgid "Configure %s"
+msgstr "پیکربندی %s"
+
+#: templates/admin/user/update.inc:28
+msgid "Confirm Password"
+msgstr "تأیید اسم رمز"
+
+#: services/changepassword.php:25 services/resetpassword.php:25
+msgid "Continue"
+msgstr "ادامه"
+
+#: lib/Block/fortune.php:39
+msgid "Cookie"
+msgstr "کوکی"
+
+#: themes/cornflower/info.php:2
+#, fuzzy
+msgid "Cornflower"
+msgstr "رنگ"
+
+#: lib/Block/account.php:484
+msgid "Could not bind to LDAP server."
+msgstr "نمی‌توان به کارساز LDAP پیوست "
+
+#: lib/Block/account.php:463
+#, fuzzy
+msgid "Could not connect to LDAP server."
+msgstr "نمی‌توان به کارساز ldap متصل شد"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/config/index.php:27
+#, fuzzy, php-format
+msgid "Could not connect to server \"%s\" using FTP: %s"
+msgstr "نمی‌توان با استفاده از FTP به کارساز '%s' وصل شد: %s"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/config/index.php:66
+#, fuzzy
+msgid "Could not contact server. Try again later."
+msgstr "نمی‌توان با استفاده از FTP به کارساز '%s' وصل شد: %s"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/config/scripts.php:35
+#, fuzzy, php-format
+msgid "Could not delete configuration upgrade script \"%s\"."
+msgstr "نمی‌توان اسکریپت بروزرسانی راه‌اندازی را حذف نمود '%s'."
+
+#: templates/prefs/twitter.html:14
+msgid ""
+"Could not find authorization for <tag:appname /> to interact with your "
+"Twitter account"
+msgstr ""
+
+#: services/resetpassword.php:92
+msgid ""
+"Could not reset the password for the requested user. Some or all of the "
+"details are not correct. Try again or contact your administrator if you need "
+"further help."
+msgstr ""
+"نمی‌توان اسم رمز را برای کاربر مورد نظر بازنشاند. بعضی یا همه جزئیات مربوط به "
+"آن نادرست می‌باشد. دوباره سعی کنید یا برای کمک بیشتر با سرپرست سامانه خود "
+"تماس بگیرید"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/config/config.php:43
+msgid "Could not revert configuration."
+msgstr "نمی‌توان پیکربندی را بازگرداند"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/config/index.php:41
+#, php-format
+msgid "Could not save a backup configuation: %s"
+msgstr "نمی‌توان پیکربندی پشتیبان را حفظ کرد: %s "
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/config/scripts.php:94
+#, fuzzy, php-format
+msgid "Could not save configuration upgrade script to: \"%s\"."
+msgstr "نمی‌توان اسکریپت بروزرسانی راه‌اندازی را حفظ نمود: '%s'."
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/config/config.php:53
+#, php-format
+msgid "Could not save the backup configuration file %s."
+msgstr "نمی‌توان پرونده پشتیبان پیکربندی %s را حفظ کرد"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/config/config.php:65
+#, php-format
+msgid ""
+"Could not save the configuration file %s. You can either use one of the "
+"options to save the code back on %s or copy manually the code below to %s."
+msgstr ""
+"نمی‌توان پرونده پیکربندی %s را حفظ نمود. شما می توانید از یکی از گزینه‌ها برای "
+"حفظ کد بر روی %s استفاده نمایید و یا اینکه از کد به صورت دستی در%s رونوشت "
+"تهیه نمایید"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/config/index.php:51
+#, fuzzy, php-format
+msgid "Could not write configuration for \"%s\": %s"
+msgstr "نمی‌توان پیکربندی را برای '%s' نوشت: %s"
+
+#: lib/Block/vatid.php:91
+msgid "Country"
+msgstr "کشور"
+
+#: templates/prefs/rpc.html:34
+msgid "Create"
+msgstr "ایجاد"
+
+#: templates/prefs/identityselect.html:22
+#, fuzzy
+msgid "Create New Identity"
+msgstr "هویّت پیش فرض"
+
+#: lib/Block/moon.php:24
+#, fuzzy
+msgid "Current 4 Phases"
+msgstr "فاز فعلی"
+
+#: templates/admin/alarms/list.html.php:2
+#, fuzzy
+msgid "Current Alarms"
+msgstr "فاز فعلی"
+
+#: admin/sessions.php:23
+#, fuzzy
+msgid "Current Sessions"
+msgstr "مجوزهای ایجاد کننده"
+
+#: lib/Block/time.php:3 lib/Block/time.php:36
+msgid "Current Time"
+msgstr "ساعت فعلی"
+
+#: lib/Block/metar.php:31
+msgid "Current Weather"
+msgstr "آب و هوای فعلی"
+
+#: lib/Block/weatherdotcom.php:279
+msgid "Current condition: "
+msgstr "شرایط فعلی: "
+
+#: config/nls.php:174
+msgid "Cyrillic (KOI8-R)"
+msgstr "Cyrillic (KOI8-R)"
+
+#: config/nls.php:175
+msgid "Cyrillic (Windows-1251)"
+msgstr "Cyrillic (Windows-1251)"
+
+#: config/nls.php:176
+msgid "Cyrillic/Ukrainian (KOI8-U)"
+msgstr "Cyrillic/Ukrainian (KOI8-U)"
+
+#: templates/data/date.inc:47 templates/data/date.inc:48
+#: templates/data/date.inc:49 templates/data/date.inc:50
+#: templates/data/datetime.inc:89 templates/data/datetime.inc:90
+#: templates/data/datetime.inc:91 templates/data/datetime.inc:92
+msgid "DD"
+msgstr "DD"
+
+#: templates/data/csvmap.inc:101
+msgid "Data"
+msgstr "داده"
+
+#: admin/datatree.php:62
+#, fuzzy
+msgid "DataTree"
+msgstr "درخت داده"
+
+#: admin/datatree.php:59
+msgid "DataTree Browser"
+msgstr "مرورگر درخت داده"
+
+#: templates/prefs/syncml.html:11
+#, fuzzy
+msgid "Database"
+msgstr "فهرست دادگانها‌"
+
+#: lib/Block/vatid.php:94
+msgid "Date"
+msgstr "تاریخ"
+
+#: templates/admin/user/approve.inc:23
+msgid "Date Received"
+msgstr "تاریخ دریافت شده"
+
+#: templates/data/datetime.inc:70 templates/data/datetime.inc:71
+#, php-format
+msgid "Date: %s; time: %s"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:295 lib/Block/weatherdotcom.php:324
+msgid "Day"
+msgstr "روز"
+
+#: lib/Prefs/Ui.php:69 lib/Prefs/Ui.php:74
+msgid "Default"
+msgstr "پیش فرض"
+
+#: lib/Prefs/Ui.php:252 lib/Prefs/Ui.php:282
+msgid "Default Color"
+msgstr "رنگ پیش فرض"
+
+#: lib/Block/account.php:78
+msgid "Default Shell"
+msgstr "پوستهٔ پیش فرض"
+
+#: lib/Block/fortune.php:40
+msgid "Definitions"
+msgstr "تعاریف"
+
+#: admin/groups.php:68 templates/admin/groups/delete.inc:10
+#: templates/admin/user/list.inc:34 templates/shares/edit.inc:63
+#: templates/shares/edit.inc:83 templates/shares/edit.inc:98
+#: templates/shares/edit.inc:118 templates/shares/edit.inc:134
+#: templates/shares/edit.inc:154 templates/shares/edit.inc:169
+#: templates/shares/edit.inc:193 templates/shares/edit.inc:228
+#: templates/shares/edit.inc:255 templates/shares/edit.inc:271
+#: templates/shares/edit.inc:291 templates/shares/edit.inc:320
+#: templates/prefs/identityselect.html:34 templates/prefs/rpc.html:35
+#: templates/prefs/syncml.html:14 templates/prefs/syncml.html:23
+msgid "Delete"
+msgstr "حذف"
+
+#: admin/alarms.php:122 admin/groups.php:254
+#, fuzzy, php-format
+msgid "Delete \"%s\""
+msgstr "حذف"
+
+#: templates/prefs/syncml.html:30
+msgid "Delete All SyncML Data"
+msgstr ""
+
+#: admin/groups.php:215
+msgid "Delete Group"
+msgstr "حذف گروه"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/config/scripts.php:33
+#, fuzzy, php-format
+msgid "Deleted configuration upgrade script \"%s\"."
+msgstr "اسکریپت حذف شدهٔ بروزرسانی تنظیمات '%s'."
+
+#: lib/Prefs/Ui.php:717
+#, php-format
+msgid "Deleted synchronization session for device \"%s\" and database \"%s\"."
+msgstr ""
+
+#: templates/problem/problem.inc:27
+msgid "Describe the Problem"
+msgstr "شرح مشکل"
+
+#: config/registry.php.dist:239
+msgid "Development"
+msgstr "گسترش"
+
+#: templates/prefs/activesync.html:20 templates/prefs/syncml.html:10
+#, fuzzy
+msgid "Device"
+msgstr "پیش‌نمایش"
+
+#: admin/activesync.php:119
+msgid "Device ID"
+msgstr ""
+
+#: templates/prefs/activesync.html:11
+#, fuzzy
+msgid "Device Management"
+msgstr "مدیر پرونده"
+
+#: lib/Prefs/Ui.php:432
+msgid "Device id:"
+msgstr ""
+
+#: admin/activesync.php:167 lib/Prefs/Ui.php:420
+msgid "Device is wiped"
+msgstr ""
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/activesync.php:45
+#, fuzzy
+msgid "Device successfully removed."
+msgstr "%s با موفّقیّت نوشته شد"
+
+#: admin/activesync.php:40
+msgid "Device wipe successfully canceled."
+msgstr ""
+
+#: lib/Block/metar.php:212
+msgid "Dew Point"
+msgstr "نقطه شبنم"
+
+#: lib/Block/metar.php:289
+msgid "Dew Point for last hour: "
+msgstr "نقطه شبنم برای ساعت گذشته: "
+
+#: lib/Block/weatherdotcom.php:231
+msgid "Dew point: "
+msgstr "نقطه شبنم: "
+
+#: templates/prefs/facebook.html:11 templates/prefs/facebook.html:22
+#: templates/prefs/facebook.html:34 templates/prefs/twitter.html:10
+#, fuzzy
+msgid "Disable"
+msgstr "فهرست جداول"
+
+#: config/prefs.php.dist:345
+msgid "Display 24-hour times?"
+msgstr "آیا زمان 24 ساعته نمایش داده شود؟"
+
+#: config/prefs.php.dist:468
+#, fuzzy
+msgid "Display Preferences"
+msgstr "نمایش جزئیات پیش­بینی"
+
+#: lib/Block/weatherdotcom.php:86
+msgid "Display detailed forecast"
+msgstr "نمایش جزئیات پیش­بینی"
+
+#: lib/Block/metar.php:84
+msgid "Display forecast (TAF)"
+msgstr "نمایش پیش­بینی"
+
+#: scripts/import_squirrelmail_prefs.php:77
+#, fuzzy
+msgid "Do not use Drafts"
+msgstr "حذف نشود"
+
+#: scripts/import_squirrelmail_prefs.php:44
+#: scripts/import_squirrelmail_prefs.php:145
+#, fuzzy
+msgid "Do not use Sent"
+msgstr "حذف نشود"
+
+#: scripts/import_squirrelmail_prefs.php:183
+msgid "Do not use Trash"
+msgstr ""
+
+#: templates/data/csvinfo.inc:12 templates/data/tsvinfo.inc:12
+msgid "Does the first row contain the field names? If yes, check this box:"
+msgstr ""
+"آیا سطر اول شامل فیلد نام می‌باشد؟ اگر چنین است، این جعبه را علامت بزنید:"
+
+#: templates/login/login.inc:72
+msgid "Don't have an account? Sign up."
+msgstr ""
+
+#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:61
+#, fuzzy
+msgid "Done"
+msgstr "هیچ‌کدام"
+
+#: admin/config/index.php:92 admin/config/index.php:124
+#, php-format
+msgid "Download %s"
+msgstr "استقرار %s"
+
+#: admin/config/index.php:179
+msgid "Download generated configuration as PHP script."
+msgstr "استقرار پیکربندی تولید شده بعنوان دست نویس PHP"
+
+#: lib/Block/weatherdotcom_strings.php:25
+#, fuzzy
+msgid "Drizzle"
+msgstr "نم‌نم باران"
+
+#: lib/Block/fortune.php:41
+msgid "Drugs"
+msgstr "داروها"
+
+#: services/keyboard.php:64
+#, fuzzy
+msgid "E characters"
+msgstr "تعداد نویسه‌ها"
+
+#: lib/Block/vatid.php:3
+msgid "EU VAT identification"
+msgstr ""
+
+#: templates/shares/edit.inc:62 templates/shares/edit.inc:79
+#: templates/shares/edit.inc:97 templates/shares/edit.inc:114
+#: templates/shares/edit.inc:133 templates/shares/edit.inc:150
+#: templates/shares/edit.inc:168 templates/shares/edit.inc:189
+#: templates/shares/edit.inc:224 templates/shares/edit.inc:251
+#: templates/shares/edit.inc:270 templates/shares/edit.inc:287
+#: templates/shares/edit.inc:316
+msgid "Edit"
+msgstr "ویرایش"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/alarms.php:89
+#, fuzzy, php-format
+msgid "Edit \"%s\""
+msgstr "\"%s\" بروزرسانی شد"
+
+#: admin/groups.php:214
+msgid "Edit Group"
+msgstr "ویرایش گروه"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: templates/prefs/app.html:7
+#, fuzzy
+msgid "Edit Preferences for"
+msgstr "ویرایش مجوزها برای %s"
+
+#: services/shares/edit.php:259
+#, fuzzy
+msgid "Edit permissions"
+msgstr "ویرایش مجوزها"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: services/shares/edit.php:260 templates/shares/edit.inc:14
+#, php-format
+msgid "Edit permissions for \"%s\""
+msgstr "ویرایش مجوز‌ها برای \"%s\""
+
+#: lib/Block/fortune.php:42
+msgid "Education"
+msgstr "تحصیلات"
+
+#: templates/admin/groups/edit.inc:11 templates/admin/user/update.inc:45
+msgid "Email Address"
+msgstr "آدرس نامهٔ الکترونیکی"
+
+#: lib/Prefs/Ui.php:225
+#, fuzzy
+msgid "Enter a name for the new category:"
+msgstr "لطفاً نامی برای دسته جدید وارد کنید:"
+
+#: config/prefs.php.dist:288
+msgid ""
+"Enter a security question which you will be asked if you need to reset your "
+"password, e.g. 'what is the name of your pet?':"
+msgstr ""
+"یک سئوال امنیتی برای پرسش از شما به هنگام بازنشاندن اسم رمز وارد کنید، مثلاْ "
+"'نام حیوان خانگی شما چیست؟'"
+
+#: lib/Block/metar.php:41 lib/Block/weatherdotcom.php:50
+msgid "Error"
+msgstr "خطا"
+
+#: lib/Prefs/Ui.php:577 services/twitter.php:128 services/twitter.php:151
+#, fuzzy, php-format
+msgid ""
+"Error connecting to Twitter: %s Details have been logged for the "
+"administrator."
+msgstr " جزئیات برای سرپرست سامانه ثبت شده است"
+
+#: lib/Prefs/Ui.php:715
+msgid "Error deleting synchronization session:"
+msgstr ""
+
+#: lib/Prefs/Ui.php:722
+msgid "Error deleting synchronization sessions:"
+msgstr ""
+
+#: services/changepassword.php:61
+#, php-format
+msgid "Error updating password: %s"
+msgstr "خطا در بروزرسانی اسم رمز : %s"
+
+#: lib/Block/fortune.php:43
+msgid "Ethnic"
+msgstr "عتیقه"
+
+#: services/facebook.php:69
+msgid "Event Invites:"
+msgstr ""
+
+#: templates/portal/layout.inc:101 config/prefs.php.dist:520
+msgid "Every 15 minutes"
+msgstr "هر پانزده دقیقه"
+
+#: config/prefs.php.dist:559
+msgid "Every 2 minutes"
+msgstr "هر دو دقیقه"
+
+#: templates/portal/layout.inc:98 config/prefs.php.dist:517
+#: config/prefs.php.dist:557
+msgid "Every 30 seconds"
+msgstr "هر سی دقیقه"
+
+#: templates/portal/layout.inc:100 config/prefs.php.dist:519
+#: config/prefs.php.dist:560
+msgid "Every 5 minutes"
+msgstr "هر پنج دقیقه"
+
+#: templates/portal/layout.inc:102 config/prefs.php.dist:521
+msgid "Every half hour"
+msgstr "هر نیم ساعت"
+
+#: templates/portal/layout.inc:103
+#, fuzzy
+msgid "Every hour"
+msgstr "هر نیم ساعت"
+
+#: templates/portal/layout.inc:99 config/prefs.php.dist:518
+#: config/prefs.php.dist:558
+msgid "Every minute"
+msgstr "هر دقیقه"
+
+#: templates/data/datemap.inc:24
+msgid "Example values:"
+msgstr "مقادیر مثال:"
+
+#: admin/cmdshell.php:48 admin/phpshell.php:55 admin/sqlshell.php:108
+msgid "Execute"
+msgstr "اجرا"
+
+#: admin/sessions.php:30
+msgid "Expand"
+msgstr "باز کردن"
+
+#: lib/Block/iframe.php:29
+#, fuzzy
+msgid "Extra Large"
+msgstr "صفحه بعدی"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: templates/admin/config/index.html:74
+#, fuzzy
+msgid "FTP upload of configuration"
+msgstr "پیکربندی %s حفظ شد"
+
+#: config/prefs.php.dist:604
+msgid "Facebook Integration"
+msgstr ""
+
+#: themes/fadetogreen/info.php:9
+msgid "Fade to Green"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:26
+msgid "Fair"
+msgstr "لطیف"
+
+#: lib/Block/feed.php:41
+msgid "Feed"
+msgstr ""
+
+#: lib/Block/feed.php:17
+#, fuzzy
+msgid "Feed Address"
+msgstr "آدرس خیابان"
+
+#: lib/Block/metar.php:215
+msgid "Feels Like"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:235
+msgid "Feels like: "
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:27
+msgid "Few Showers"
+msgstr "رگبار خفیف"
+
+#: lib/Block/weatherdotcom_strings.php:28
+msgid "Few Snow Showers"
+msgstr "کمی تگرگ"
+
+#: templates/prefs/addressbooks.html:17
+msgid "Fields to search"
+msgstr ""
+
+#: config/registry.php.dist:340
+msgid "File Manager"
+msgstr "مدیر پرونده"
+
+#: lib/Block/fb_stream.php:82
+#, fuzzy
+msgid "Filter"
+msgstr "فیلترها"
+
+#: config/registry.php.dist:93
+msgid "Filters"
+msgstr "فیلترها"
+
+#: lib/Block/moon.php:164
+msgid "First Half"
+msgstr "نیمه اول"
+
+#: lib/Block/moon.php:72 lib/Block/moon.php:74
+msgid "First Quarter"
+msgstr "ربع اول"
+
+#: lib/Block/weatherdotcom_strings.php:29
+msgid "Fog"
+msgstr "مه‌آلود"
+
+#: lib/Block/weatherdotcom_strings.php:30
+#, fuzzy
+msgid "Fog Early"
+msgstr "رگبار زودهنگام"
+
+#: lib/Block/weatherdotcom_strings.php:31
+#, fuzzy
+msgid "Fog Late"
+msgstr "اعشاری"
+
+#: lib/Block/weatherdotcom_strings.php:32
+#, fuzzy
+msgid "Foggy"
+msgstr "مه‌آلود"
+
+#: lib/Block/fortune.php:44
+msgid "Food"
+msgstr "غذا"
+
+#: lib/Block/metar.php:329
+msgid "Forecast (TAF)"
+msgstr "پیش­بینی"
+
+#: lib/Block/weatherdotcom.php:74
+msgid ""
+"Forecast Days (note that the returned forecast returns both day and night; a "
+"large number here could result in a wide block)"
+msgstr ""
+
+#: templates/login/login.inc:81
+msgid "Forgot your password?"
+msgstr "اسم رمز خود را فراموش کرده‌ا‌ید؟"
+
+#: lib/Block/fortune.php:28
+msgid "Fortune"
+msgstr "طالع"
+
+#: lib/Block/fortune.php:106
+msgid "Fortune type"
+msgstr "نوع طالع"
+
+#: lib/Block/fortune.php:45
+msgid "Fortunes"
+msgstr "طالعها"
+
+#: lib/Block/fortune.php:46
+msgid "Fortunes 2"
+msgstr "طالعها ۲"
+
+#: config/registry.php.dist:376
+msgid "Forums"
+msgstr "انجمنها"
+
+#: config/registry.php.dist:113
+msgid "Forwards"
+msgstr "ارجاعها"
+
+#: lib/Block/weatherdotcom_strings.php:33
+#, fuzzy
+msgid "Freezing Drizzle"
+msgstr "نم‌نم باران"
+
+#: services/facebook.php:68
+#, fuzzy
+msgid "Friend Requests:"
+msgstr "درخواست آزاد/مشغول"
+
+#: lib/Block/weatherdotcom.php:252 lib/Block/weatherdotcom.php:362
+#: lib/Block/weatherdotcom.php:408
+msgid "From the "
+msgstr "از "
+
+#: templates/problem/problem.inc:48
+msgid "Full Description"
+msgstr "شرح کامل"
+
+#: lib/Block/moon.php:79 lib/Block/moon.php:174
+msgid "Full Moon"
+msgstr "ماه کامل"
+
+#: lib/Block/account.php:68 templates/admin/user/update.inc:37
+msgid "Full Name"
+msgstr "نام کامل"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/config/config.php:31
+#, php-format
+msgid "Generate %s Configuration"
+msgstr "تولید پیکربندی %s"
+
+#: templates/admin/config/config.html:6
+msgid "Generated Code"
+msgstr "کد تولید شده"
+
+#: lib/Block/fb_stream.php:192 lib/Block/twitter_timeline.php:171
+msgid "Get More"
+msgstr ""
+
+#: templates/prefs/app.html:10
+msgid "Global Preferences"
+msgstr ""
+
+#: templates/prefs/app.html:17
+msgid "Go"
+msgstr "برو"
+
+#: lib/Block/fortune.php:47
+msgid "Goedel"
+msgstr ""
+
+#: lib/Block/google.php:3 lib/Block/google.php:19
+msgid "Google Search"
+msgstr "جسنجوی گوگل"
+
+#: lib/Block/google.php:30
+msgid "Google search is not enabled."
+msgstr ""
+
+#: config/nls.php:177
+msgid "Greek (ISO-8859-7)"
+msgstr "Greek (ISO-8859-7)"
+
+#: themes/green/info.php:2
+msgid "Green"
+msgstr ""
+
+#: themes/grey/info.php:2
+#, fuzzy
+msgid "Grey"
+msgstr "زیرپیراهنی"
+
+#: admin/groups.php:195
+msgid "Group Administration"
+msgstr "سرپرستی گروه"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/groups.php:44
+#, fuzzy, php-format
+msgid "Group was not created: %s."
+msgstr "\"%s\" ایجاد نشده بود: %s."
+
+#: admin/groups.php:268 templates/shares/edit.inc:266
+msgid "Groups"
+msgstr "گروه&#x200c;ها"
+
+#: templates/shares/edit.inc:93
+msgid "Guest Permissions"
+msgstr "مجوزهای مهمان"
+
+#: lib/Block/weatherdotcom_strings.php:34
+msgid "Haze"
+msgstr "مه‌آلود"
+
+#: lib/Block/weatherdotcom_strings.php:35
+msgid "Heavy Rain"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:36
+#, fuzzy
+msgid "Heavy T-Storm"
+msgstr "T-Storms"
+
+#: config/nls.php:178
+msgid "Hebrew (ISO-8859-8-I)"
+msgstr "Hebrew (ISO-8859-8-I)"
+
+#: lib/Block/iframe.php:24
+msgid "Height"
+msgstr "بلندی"
+
+#: lib/Block/fb_stream.php:92 lib/Block/twitter_timeline.php:87
+msgid "Height of map (width automatically adjusts to block)"
+msgstr ""
+
+#: services/help/index.php:17 templates/help/index.inc:4
+msgid "Help"
+msgstr "راهنما"
+
+#: services/help/index.php:70
+#, fuzzy
+msgid "Help _Topics"
+msgstr "فهرست عناوین راهنما"
+
+#: lib/Block/moon.php:27
+msgid "Hemisphere"
+msgstr "نیم‌کره"
+
+#: templates/data/csvinfo.inc:10 templates/data/tsvinfo.inc:10
+msgid "Here is the beginning of the file:"
+msgstr "اینجا ابتدای پرونده‌ می‌باشد:"
+
+#: themes/hi-contrast/info.php:3
+#, fuzzy
+msgid "Hi-Contrast"
+msgstr "نماسها"
+
+#: templates/prefs/app.html:23
+msgid "Hide Advanced Preferences"
+msgstr ""
+
+#: services/portal/cloud_search.php:33
+#, fuzzy
+msgid "Hide Results"
+msgstr "نتایج"
+
+#: lib/Block/weatherdotcom_strings.php:100
+msgid "High"
+msgstr "بالا"
+
+#: lib/Block/account.php:73
+msgid "Home Directory"
+msgstr "شاخهٔ اصلی"
+
+#: config/registry.php.dist:76
+msgid "Horde"
+msgstr "هورد"
+
+#: themes/hordeweb/info.php:2
+msgid "Horde Website"
+msgstr ""
+
+#: templates/data/csvinfo.inc:21
+msgid "How many fields (columns) are there?"
+msgstr "چند فیلد (ستون) وجود دارد؟"
+
+#: lib/Block/feed.php:21
+msgid "How many seconds before we check for new articles?"
+msgstr ""
+
+#: lib/Block/metar.php:225 lib/Block/weatherdotcom.php:303
+msgid "Humidity"
+msgstr "رطوبت"
+
+#: lib/Block/weatherdotcom.php:263
+msgid "Humidity: "
+msgstr "رطوبت: "
+
+#: lib/Block/fortune.php:48
+msgid "Humorists"
+msgstr ""
+
+#: services/keyboard.php:78
+#, fuzzy
+msgid "I characters"
+msgstr "تعداد نویسه‌ها"
+
+#: config/prefs.php.dist:545
+msgid "Icons Only"
+msgstr "فقط آیکونها"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: util/icon_browser.php:53
+#, php-format
+msgid "Icons for %s"
+msgstr "آیکونها برای %s"
+
+#: config/prefs.php.dist:546
+msgid "Icons with text"
+msgstr "آیکونها با متن"
+
+#: themes/ideas/info.php:2
+msgid "Ideas"
+msgstr ""
+
+#: config/prefs.php.dist:226
+msgid "Identity's name:"
+msgstr "نام هویّت:"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: templates/data/csvinfo.inc:7 templates/data/csvmap.inc:54
+#: templates/data/datemap.inc:7 templates/data/tsvinfo.inc:7
+#, php-format
+msgid "Import, Step %d"
+msgstr "درون‌برد، گام %d"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: templates/data/datemap.inc:15
+#, php-format
+msgid "Imported field: %s"
+msgstr "فیلد درون‌برد شده: %s"
+
+#: templates/data/csvmap.inc:59
+msgid "Imported fields:"
+msgstr "فیلد‌های درون‌برد شده:"
+
+#: lib/Block/twitter_timeline.php:136
+msgid "In reply to:"
+msgstr ""
+
+#: templates/data/csvmap.inc:57
+msgid ""
+"In the lists below select both, a field imported from the source file at the "
+"left, and the matching field available in your address book at the right. "
+"Then hit \"Add pair\" to mark them for the import. Once your are finished "
+"hit \"Next\"."
+msgstr ""
+
+#: services/resetpassword.php:50
+msgid ""
+"Incorrect username or alternate address. Try again or contact your "
+"administrator if you need further help."
+msgstr ""
+"نام کاربر یا آدرس جایگزین نادرست می‌باشد. لطفا مجدداْ سعی کنید و یا در صورت "
+"نیاز به کمک بیشتر با سرپرست سامانه تماس بگیرید"
+
+#: templates/shares/edit.inc:164
+msgid "Individual Users"
+msgstr "کاربران خاص"
+
+#: templates/prefs/facebook.html:10
+msgid "Infinite sessions enabled."
+msgstr ""
+
+#: config/registry.php.dist:281
+msgid "Information"
+msgstr "اطلاعات"
+
+#: lib/Block/weatherdotcom.php:332
+msgid "Information no longer available."
+msgstr "اطلاعات دیگر در دسترس نیست"
+
+#: templates/admin/groups/edit.inc:36
+msgid "Inherited Members"
+msgstr ""
+
+#: config/prefs.php.dist:304
+msgid "Insert an email address to which you can receive the new password:"
+msgstr "یک آدرس پست الکترونیک برای دریافت اسم رمز  جدید درج کنید "
+
+#: config/prefs.php.dist:296
+msgid "Insert the required answer to the security question:"
+msgstr "پاسخ مورد نیاز را برای سئوال امنیتی درج کنید:"
+
+#: lib/Block/vatid.php:52
+#, fuzzy
+msgid "Invalid VAT identification number format."
+msgstr "قالب پروندهٔ نامعتبر"
+
+#: admin/signup_confirm.php:43
+#, fuzzy, php-format
+msgid "Invalid action %s"
+msgstr "برنامهٔ کاربردی نامعتبر"
+
+#: admin/config/config.php:24
+msgid "Invalid application."
+msgstr "برنامهٔ کاربردی نامعتبر"
+
+#: admin/signup_confirm.php:33
+#, fuzzy
+msgid "Invalid hash."
+msgstr "دسته ID نامعتبر"
+
+#: lib/Block/weatherdotcom.php:180
+#, fuzzy
+msgid "Invalid license key."
+msgstr "برنامهٔ کاربردی نامعتبر"
+
+#: lib/Block/weatherdotcom.php:174
+#, fuzzy
+msgid "Invalid location provided."
+msgstr "برنامهٔ کاربردی نامعتبر"
+
+#: admin/perms/addchild.php:23
+msgid "Invalid parent permission."
+msgstr "مجوز پدر نامعتبر"
+
+#: lib/Block/weatherdotcom.php:176
+#, fuzzy
+msgid "Invalid partner id."
+msgstr "مجوز پدر نامعتبر"
+
+#: lib/Block/weatherdotcom.php:178
+#, fuzzy
+msgid "Invalid product code."
+msgstr "پروتکل نامعتبر"
+
+#: lib/Block/weatherdotcom_strings.php:37
+msgid "Isolated T-Storms"
+msgstr "T-Storms"
+
+#: config/nls.php:179
+msgid "Japanese (ISO-2022-JP)"
+msgstr "Japanese (ISO-2022-JP)"
+
+#: lib/Block/twitter_timeline.php:138
+msgid "Just now..."
+msgstr ""
+
+#: lib/Block/fortune.php:49
+msgid "Kernel Newbies"
+msgstr ""
+
+#: services/help/index.php:138
+msgid "Keyword"
+msgstr ""
+
+#: lib/Block/fortune.php:50
+msgid "Kids"
+msgstr "‌بچه‌ها"
+
+#: themes/kolab/info.php:7
+msgid "Kolab"
+msgstr ""
+
+#: config/nls.php:180
+msgid "Korean (EUC-KR)"
+msgstr "Korean (EUC-KR)"
+
+#: login.php:314 templates/login/login.inc:49
+msgid "Language"
+msgstr "زبان"
+
+#: lib/Block/iframe.php:28
+#, fuzzy
+msgid "Large"
+msgstr "برهنه"
+
+#: lib/Block/moon.php:167
+msgid "Last Half"
+msgstr "نیمهٔ آخر"
+
+#: lib/Block/account.php:91
+msgid "Last Password Change"
+msgstr "تغییر آخرین اسم رمز"
+
+#: lib/Block/moon.php:84 lib/Block/moon.php:86
+msgid "Last Quarter"
+msgstr "ربع آخر"
+
+#: admin/activesync.php:98 templates/prefs/activesync.html:21
+#, fuzzy
+msgid "Last Sync Time"
+msgstr "محلیّت و ساعت"
+
+#: lib/Block/metar.php:146
+msgid "Last Updated:"
+msgstr "آخرین بروزرسانی:"
+
+#: lib/LoginTasks/Task/LastLogin.php:46
+#, php-format
+msgid "Last login: %s"
+msgstr "آخرین ورود: %s"
+
+#
+#: lib/LoginTasks/Task/LastLogin.php:48
+#, php-format
+msgid "Last login: %s from %s"
+msgstr "آخرین ورود : %s از %s"
+
+#: lib/LoginTasks/Task/LastLogin.php:44
+msgid "Last login: Never"
+msgstr "آخرین ورود: هرگز"
+
+#: lib/Block/twitter_timeline.php:168
+#, fuzzy
+msgid "Latest"
+msgstr "تاریخ"
+
+#: themes/lavander/info.php:2
+#, fuzzy
+msgid "Lavender"
+msgstr "تقویم"
+
+#: lib/Block/fortune.php:51
+msgid "Law"
+msgstr "حقوق"
+
+#: themes/lightblue/info.php:2
+#, fuzzy
+msgid "Light Blue"
+msgstr "مقادیر راست"
+
+#: lib/Block/weatherdotcom_strings.php:38
+msgid "Light Drizzle"
+msgstr "نم‌نم باران"
+
+#: lib/Block/weatherdotcom_strings.php:39
+msgid "Light Rain"
+msgstr "بارندگی سبک"
+
+#: lib/Block/weatherdotcom_strings.php:40
+msgid "Light Rain Early"
+msgstr "بارندگی سبک زودهنگام"
+
+#: lib/Block/weatherdotcom_strings.php:41
+msgid "Light Rain Late"
+msgstr "بارندگی سبک دیرهنگام"
+
+#: lib/Block/weatherdotcom_strings.php:42
+msgid "Light Rain Shower"
+msgstr "بارندگی و رگبار سبک"
+
+#: lib/Block/weatherdotcom_strings.php:43
+msgid "Light Rain with Thunder"
+msgstr "باران سبک به همراه رعد"
+
+#: lib/Block/weatherdotcom_strings.php:44
+msgid "Light Snow"
+msgstr "برف سبک"
+
+#: lib/Block/weatherdotcom_strings.php:45
+#, fuzzy
+msgid "Light Snow Early"
+msgstr "بارندگی سبک زودهنگام"
+
+#: lib/Block/weatherdotcom_strings.php:46
+#, fuzzy
+msgid "Light Snow Late"
+msgstr "بارندگی سبک دیرهنگام"
+
+#: lib/Block/weatherdotcom_strings.php:47
+msgid "Light Snow Shower"
+msgstr "برف و رگبار سبک"
+
+#: services/facebook.php:105
+#, fuzzy
+msgid "Like"
+msgstr "پیوند"
+
+#: lib/Block/fortune.php:52
+msgid "Limerick"
+msgstr ""
+
+#: lib/Block/fortune.php:53
+msgid "Linux Cookie"
+msgstr "کوکی لینوکس"
+
+#: admin/sqlshell.php:113
+msgid "List Tables"
+msgstr "فهرست جداول"
+
+#: admin/alarms.php:130
+#, php-format
+msgid "Listing alarms failed: %s"
+msgstr ""
+
+#: admin/sessions.php:62
+#, fuzzy, php-format
+msgid "Listing sessions failed: %s"
+msgstr "فهرست کاربران فعال نمی‌باشد"
+
+#: templates/admin/user/nolist.inc:2
+msgid "Listing users is disabled."
+msgstr "فهرست کاربران فعال نمی‌باشد"
+
+#: lib/Block/fortune.php:54
+msgid "Literature"
+msgstr "ادبیات"
+
+#: lib/Block/weatherdotcom.php:215
+msgid "Local time: "
+msgstr "ساعت محلی: "
+
+#: config/prefs.php.dist:313
+msgid "Locale and Time"
+msgstr "محلیّت و ساعت"
+
+#: lib/Block/metar.php:64 lib/Block/sunrise.php:20
+#: lib/Block/weatherdotcom.php:59
+msgid "Location"
+msgstr "موقعیت"
+
+#: login.php:261 templates/login/login.inc:64
+msgid "Log in"
+msgstr "ورود"
+
+#: lib/Block/account.php:64
+msgid "Login"
+msgstr "ورود"
+
+#: login.php:286
+msgid "Login failed because your username or password was entered incorrectly."
+msgstr "ورود ناموفّق بود زیرا نام کاربر و یا اسم رمز وارد شده اشتباه بود "
+
+#: login.php:282
+msgid "Login failed."
+msgstr "ورود ناموفّق بود."
+
+#: templates/prefs/facebook.html:46
+msgid "Login to Facebook and authorize <tag:app_name />"
+msgstr ""
+
+#: templates/prefs/twitter.html:21
+msgid "Login to Twitter and authorize the <tag:appname /> application"
+msgstr ""
+
+#: lib/Block/fortune.php:55
+msgid "Love"
+msgstr "عشق"
+
+#: lib/Block/weatherdotcom_strings.php:98
+msgid "Low"
+msgstr "پایین"
+
+#: themes/luc/info.php:2
+msgid "Loyola"
+msgstr ""
+
+#: themes/lucblue/info.php:2
+msgid "Loyola Blue"
+msgstr ""
+
+#: templates/data/date.inc:47 templates/data/date.inc:48
+#: templates/data/date.inc:49 templates/data/date.inc:50
+#: templates/data/datetime.inc:89 templates/data/datetime.inc:90
+#: templates/data/datetime.inc:91 templates/data/datetime.inc:92
+msgid "MM"
+msgstr "MM"
+
+#: lib/Block/fortune.php:56
+msgid "Magic"
+msgstr "جادو"
+
+#: config/registry.php.dist:85
+msgid "Mail"
+msgstr "نامه الکترونیکی"
+
+#: config/registry.php.dist:403
+msgid "Mail Admin"
+msgstr "سرپرست نامه"
+
+#: config/prefs.php.dist:441
+msgid ""
+"Manage the list of categories you have to label items with, and colors "
+"associated with those categories."
+msgstr "مدیریت و تعیین رنگ دسته‌هایی که شما موارد را با آنها نام‌گذاری می‌کنید"
+
+#: config/prefs.php.dist:677
+msgid "Manage your ActiveSync devices."
+msgstr ""
+
+#: templates/data/csvmap.inc:96
+#, fuzzy
+msgid "Matching fields:"
+msgstr "فیلد‌های انطباق"
+
+#: lib/Block/metar.php:301
+msgid "Max temp last 24 hours: "
+msgstr "بیشینه دما در ۲۴ ساعت گذشته: "
+
+#: lib/Block/metar.php:293
+msgid "Max temp last 6 hours: "
+msgstr "بیشینه دما در ۶ ساعت گذشته: "
+
+#: lib/Application.php:38
+msgid "Maximum Number of Portal Blocks"
+msgstr ""
+
+#: lib/Block/fb_stream.php:86
+msgid "Maximum number of entries to display"
+msgstr ""
+
+#: lib/Block/fortune.php:57
+msgid "Medicine"
+msgstr "پزشکی"
+
+#: lib/Block/iframe.php:27
+msgid "Medium"
+msgstr ""
+
+#: templates/admin/groups/edit.inc:17
+msgid "Members"
+msgstr "اعضاء"
+
+#: config/prefs.php.dist:548
+msgid "Menu mode:"
+msgstr "مد گزینگانی:"
+
+#: lib/Block/metar.php:5
+msgid "Metar Weather"
+msgstr "آب و هوای Metar"
+
+#: lib/Block/metar.php:42
+msgid "Metar block not available."
+msgstr "بلوک Metar قابل دسترس نیست"
+
+#: lib/Block/metar.php:110
+msgid ""
+"Metar block not available. Details have been logged for the administrator."
+msgstr "بلوک Metar قابل دسترس نیست. جزئیات برای سرپرست سامانه ثبت شده است"
+
+#: lib/Block/weatherdotcom.php:168
+#, fuzzy
+msgid "MetarDB is not connected."
+msgstr "اسم رمز  قدیمی نادرست است"
+
+#: lib/Block/metar.php:74 lib/Block/weatherdotcom.php:69
+msgid "Metric"
+msgstr "اندازه‌ای"
+
+#: lib/Block/metar.php:305
+msgid "Min temp last 24 hours: "
+msgstr " کمینه دمای ۲۴ ساعت گذشته: "
+
+#: lib/Block/metar.php:297
+msgid "Min temp last 6 hours: "
+msgstr " کمینه دمای ۶ ساعت گذشته: "
+
+#: lib/Block/fortune.php:58
+msgid "Miscellaneous"
+msgstr "متفرقه"
+
+#: admin/config/index.php:135
+#, fuzzy
+msgid ""
+"Missing configuration. You must generate it before using this application."
+msgstr ""
+"پیکربندی موجود نیست. شما اگر می‌خواهید از این برنامهٔ کاربردی استفاده کنید "
+"باید آنرا تولید کنید"
+
+#: lib/Block/weatherdotcom_strings.php:48
+msgid "Mist"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:99
+msgid "Moderate"
+msgstr "معتدل کردن"
+
+#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:57
+#, php-format
+msgid "Modified sequence for %s"
+msgstr ""
+
+#: config/prefs.php.dist:430
+#, fuzzy
+msgid "Monday"
+msgstr "امروز"
+
+#: lib/Block/moon.php:3 lib/Block/moon.php:14
+msgid "Moon Phases"
+msgstr "فازهای ماه"
+
+#: lib/Block/weatherdotcom_strings.php:49
+msgid "Mostly Clear"
+msgstr "بیشتر صاف"
+
+#: lib/Block/weatherdotcom_strings.php:50
+msgid "Mostly Cloudy"
+msgstr "بیشتر ابری"
+
+#: lib/Block/weatherdotcom_strings.php:51
+#, fuzzy
+msgid "Mostly Cloudy and Windy"
+msgstr "بیشتر ابری"
+
+#: lib/Block/weatherdotcom_strings.php:52
+msgid "Mostly Sunny"
+msgstr "بیشتر آفتابی"
+
+#: themes/mozilla/info.php:2
+msgid "Mozilla"
+msgstr ""
+
+#: config/registry.php.dist:333
+msgid "My Account"
+msgstr "حساب من"
+
+#: lib/Block/account.php:27
+msgid "My Account Information"
+msgstr "اطلاعات حساب من"
+
+#: lib/Block/fb_stream.php:3 lib/Block/fb_stream.php:105
+msgid "My Facebook Stream"
+msgstr ""
+
+#: services/portal/index.php:62
+msgid "My Portal"
+msgstr "درگاه من"
+
+#: services/portal/edit.php:36
+msgid "My Portal Layout"
+msgstr "جانمایی درگاه من"
+
+#: templates/logintasks/logintasks.html:35
+msgid "NO, I Do NOT Agree"
+msgstr "نه، من موافق نیستم"
+
+#: lib/Block/vatid.php:98
+msgid "Name"
+msgstr "نام"
+
+#: themes/NeXTgrey/info.php:2
+msgid "NeXT"
+msgstr ""
+
+#: templates/portal/layout.inc:97 config/prefs.php.dist:516
+#: config/prefs.php.dist:556
+msgid "Never"
+msgstr "هرگز"
+
+#: templates/prefs/category.html:3
+msgid "New Category"
+msgstr "دسته جدید"
+
+#: services/facebook.php:65
+#, fuzzy
+msgid "New Messages:"
+msgstr "پیغام"
+
+#: lib/Block/moon.php:44 lib/Block/moon.php:66 lib/Block/moon.php:172
+msgid "New Moon"
+msgstr "ماه نو"
+
+#: templates/admin/user/update.inc:12
+msgid "New Username (optional)"
+msgstr "نام کاربری جدید (اختیاری)"
+
+#: services/changepassword.php:29
+msgid "New password"
+msgstr "اسم رمز جدید"
+
+#: services/changepassword.php:40
+msgid "New passwords don't match."
+msgstr "اسم رمزهای جدید تطابق ندارد"
+
+#: lib/Block/fortune.php:59 config/registry.php.dist:288
+msgid "News"
+msgstr "اخبار"
+
+#: templates/data/csvinfo.inc:25 templates/data/csvmap.inc:119
+#: templates/data/datemap.inc:41 templates/data/tsvinfo.inc:15
+msgid "Next"
+msgstr "بعدی"
+
+#: lib/Block/moon.php:25
+#, fuzzy
+msgid "Next 4 Phases"
+msgstr "فاز بعدی"
+
+#: lib/Block/weatherdotcom.php:382
+msgid "Night"
+msgstr "شب"
+
+#: templates/prefs/alarm.html:32
+#, fuzzy
+msgid "No Sound"
+msgstr "هیچ آیکونی‌ پیدا نشد"
+
+#: templates/admin/config/diff.html:9
+msgid "No available configuration data to show differences for."
+msgstr "داده پیکربندی در دسترسی برای نشان دادن تفاوتها وجود ندارد"
+
+#: admin/config/diff.php:39
+msgid "No change."
+msgstr "بدون تغییر"
+
+#: util/icon_browser.php:83
+msgid "No icons found."
+msgstr "هیچ آیکونی‌ پیدا نشد"
+
+#: lib/Block/metar.php:121 lib/Block/sunrise.php:38
+#: lib/Block/weatherdotcom.php:133
+msgid "No location is set."
+msgstr "هیچ مکانی تنظیم نشده"
+
+#: lib/Block/weatherdotcom.php:172
+#, fuzzy
+msgid "No location provided."
+msgstr "هیچ مکانی تنظیم نشده"
+
+#: lib/Block/fortune.php:101
+msgid "No offensive fortunes"
+msgstr "آینده نامطبوعی نیست"
+
+#: templates/admin/user/approve.inc:15
+msgid "No pending signups."
+msgstr "تقاضای ثبت نامی در انتظار تأیید نیست"
+
+#: admin/config/index.php:89 admin/config/index.php:121
+msgid "No stable version exists yet."
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:143
+msgid "No temporary directory available for cache."
+msgstr "شاخه موقتی برای کاشه موجود نیست"
+
+#: admin/signup_confirm.php:57
+#, fuzzy
+msgid "No username specified."
+msgstr "هیچ نامی مشخص نشد"
+
+#: admin/config/index.php:140
+msgid "No version found in original configuration. Regenerate configuration."
+msgstr "نسخه‌ در پیکربندی اصلی پیدا نشد. پیکربندی را دوباره تولید کنید"
+
+#: admin/config/index.php:148
+msgid "No version found in your configuration. Regenerate configuration."
+msgstr "نسخه‌ در پیکربندی شما پیدا نشده است. پیکربندی را دوباره تولید کنید"
+
+#: lib/Prefs/Ui.php:411 templates/prefs/activesync.html:43
+#: templates/prefs/identityselect.html:20 templates/prefs/syncml.html:34
+msgid "None"
+msgstr "هیچ‌کدام"
+
+#: config/nls.php:181
+msgid "Nordic (ISO-8859-10)"
+msgstr "Nordic (ISO-8859-10)"
+
+#: lib/Block/moon.php:30 lib/Block/moon.php:58
+msgid "Northern Hemisphere"
+msgstr "نیم کره شمالی"
+
+#: admin/activesync.php:171 lib/Prefs/Ui.php:426
+#, fuzzy
+msgid "Not Provisioned"
+msgstr "ویرایش مجوز"
+
+#: config/registry.php.dist:211
+msgid "Notes"
+msgstr "یادداشتها"
+
+#: services/obrowser/index.php:32
+msgid "Nothing to browse, go back."
+msgstr "چیزی برای مرور نیست، به عقب برگرد"
+
+#: lib/Block/feed.php:18
+#, fuzzy
+msgid "Number of articles to display"
+msgstr "تعداد نویسه‌ها"
+
+#: lib/Block/twitter_timeline.php:91
+msgid "Number of seconds to wait to refresh"
+msgstr ""
+
+#: services/keyboard.php:92
+#, fuzzy
+msgid "O characters"
+msgstr "تعداد نویسه‌ها"
+
+#: templates/shares/edit.inc:129
+msgid "Object Creator"
+msgstr "ایجاد کننده شیء"
+
+#: lib/Block/fortune.php:99
+msgid "Offense filter"
+msgstr "فیلتر بی‌حرمتی"
+
+#: config/registry.php.dist:301
+msgid "Office"
+msgstr "دفتر کار"
+
+#: services/changepassword.php:42
+msgid "Old and new passwords must be different."
+msgstr "اسم رمز جدید و اسم رمز فعلی باید متفاوت باشند"
+
+#: services/changepassword.php:28
+msgid "Old password"
+msgstr "اسم رمز قدیمی"
+
+#: services/changepassword.php:38
+msgid "Old password is not correct."
+msgstr "اسم رمز  قدیمی نادرست است"
+
+#: lib/Block/fortune.php:102
+msgid "Only offensive fortunes"
+msgstr "فقط آینده نامطبوع"
+
+#: services/shares/edit.php:83
+msgid ""
+"Only the owner or system administrator may change ownership or owner "
+"permissions for a share"
+msgstr ""
+"تنها مالک یا سرپرست سامانه می‌تواند مالکیت یا مجوزهای مالک را برای یک اشتراک "
+"تغییر دهد"
+
+#: lib/Block/fortune.php:60
+msgid "Operating System"
+msgstr "سیستم عامل"
+
+#: templates/shares/edit.inc:236
+#, fuzzy
+msgid "Or enter a user name:"
+msgstr "انتخاب یک نام کاربری"
+
+#: config/registry.php.dist:135
+msgid "Organizing"
+msgstr "سازماندهی"
+
+#: services/keyboard.php:124
+msgid "Other"
+msgstr "دیگر"
+
+#: config/prefs.php.dist:467 config/prefs.php.dist:582
+#: config/prefs.php.dist:603 config/prefs.php.dist:624
+#: config/prefs.php.dist:643 config/prefs.php.dist:663
+#: config/prefs.php.dist:675
+msgid "Other Information"
+msgstr "اطلاعات دیگر"
+
+#: services/keyboard.php:122
+#, fuzzy
+msgid "Other characters"
+msgstr "تعداد نویسه‌ها"
+
+#: templates/shares/edit.inc:30
+#, fuzzy
+msgid "Owner"
+msgstr "فهرست مالک"
+
+#: templates/shares/edit.inc:36 templates/shares/edit.inc:45
+#, fuzzy
+msgid "Owner:"
+msgstr "فهرست مالک"
+
+#: admin/phpshell.php:51
+msgid "PHP"
+msgstr ""
+
+#: admin/phpshell.php:71
+msgid "PHP Code"
+msgstr "کد PHP"
+
+#: admin/phpshell.php:32
+msgid "PHP Shell"
+msgstr "پوسته PHP"
+
+#: lib/Block/weatherdotcom_strings.php:54
+#, fuzzy
+msgid "PM Clouds"
+msgstr "ابرها"
+
+#: lib/Block/weatherdotcom_strings.php:55
+#, fuzzy
+msgid "PM Drizzle"
+msgstr "نم‌نم باران"
+
+#: lib/Block/weatherdotcom_strings.php:56
+#, fuzzy
+msgid "PM Fog"
+msgstr "مه‌آلود"
+
+#: lib/Block/weatherdotcom_strings.php:57
+msgid "PM Light Rain"
+msgstr "بارندگی سبک عصرگاهی"
+
+#: lib/Block/weatherdotcom_strings.php:58
+#, fuzzy
+msgid "PM Light Snow"
+msgstr "برف سبک"
+
+#: lib/Block/weatherdotcom_strings.php:59
+#, fuzzy
+msgid "PM Rain"
+msgstr "باران صبحگاهی"
+
+#: lib/Block/weatherdotcom_strings.php:60
+msgid "PM Showers"
+msgstr "رگبار عصرگاهی"
+
+#: lib/Block/weatherdotcom_strings.php:61
+msgid "PM Snow"
+msgstr "برف عصرگاهی"
+
+#: lib/Block/weatherdotcom_strings.php:62
+msgid "PM Snow Showers"
+msgstr "تگرگ عصرگاهی"
+
+#: lib/Block/weatherdotcom_strings.php:63
+#, fuzzy
+msgid "PM Sun"
+msgstr "برف عصرگاهی"
+
+#: lib/Block/weatherdotcom_strings.php:64
+#, fuzzy
+msgid "PM T-Showers"
+msgstr "رگبار عصرگاهی"
+
+#: lib/Block/weatherdotcom_strings.php:65
+msgid "PM T-Storms"
+msgstr "T-Storms"
+
+#: lib/Block/account.php:287
+msgid "POSIX extension is missing"
+msgstr "بسط POSIX از بین رفته ‌است"
+
+#: lib/Api.php:62
+msgid "P_HP Shell"
+msgstr "پوسته PHP"
+
+#: lib/Block/weatherdotcom_strings.php:53
+msgid "Partly Cloudy"
+msgstr "قسمتی ابری"
+
+#: admin/config/index.php:192 admin/user.php:35 admin/user.php:49 login.php:81
+#: templates/admin/user/update.inc:20 config/registry.php.dist:355
+msgid "Password"
+msgstr "اسم رمز "
+
+#: services/changepassword.php:52
+msgid "Password changed successfully."
+msgstr "اسم رمز با موفّقیّت تغییر یافت."
+
+#: lib/Prefs/Ui.php:326
+msgid "Password:"
+msgstr "اسم رمز :"
+
+#: admin/user.php:168 admin/user.php:220
+msgid "Passwords must match."
+msgstr "اسم رمز‌ها باید منطبق باشند"
+
+#: admin/sqlshell.php:100
+msgid "Paste"
+msgstr "چسباندن"
+
+#: templates/admin/user/approve.inc:9 templates/admin/user/removequeued.inc:7
+msgid "Pending Signups:"
+msgstr "ثبت نامهای نامعلوم"
+
+#: lib/Block/fortune.php:61
+msgid "People"
+msgstr "مردم"
+
+#: templates/logintasks/logintasks.html:30
+#, fuzzy
+msgid "Perform Login Tasks"
+msgstr "وظایف ورود"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/perms/delete.php:42
+#, php-format
+msgid "Permission \"%s\" not deleted."
+msgstr "مجوز  \"%s\" حذف نشد"
+
+#: admin/perms/index.php:23
+msgid "Permissions"
+msgstr "مجوزها"
+
+#: admin/perms/addchild.php:51 admin/perms/delete.php:46
+#: admin/perms/edit.php:110 admin/perms/index.php:17
+msgid "Permissions Administration"
+msgstr "سرپرستی مجوزها"
+
+#: config/prefs.php.dist:213
+msgid "Personal Information"
+msgstr "اطلاعات شخصی"
+
+#: lib/Block/fortune.php:62
+msgid "Pets"
+msgstr "حیوانات خانگی"
+
+#: config/registry.php.dist:385
+msgid "Photos"
+msgstr "عکسها"
+
+#: lib/Block/fortune.php:63
+msgid "Platitudes"
+msgstr ""
+
+#: login.php:87
+#, fuzzy
+msgid "Please enter a password."
+msgstr "لطفاً یک زمان معتبر وارد کنید"
+
+#: login.php:86
+#, fuzzy
+msgid "Please enter a username."
+msgstr "لطفاً یک زمان معتبر وارد کنید"
+
+#: templates/problem/problem.inc:7
+msgid "Please provide a summary of the problem."
+msgstr "لطفاً خلاصه‌ا‌یی از مشکل را بنویسید"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: services/logintasks.php:73
+msgid ""
+"Please read the following text. You MUST agree with the terms to use the "
+"system."
+msgstr ""
+"لطفاً متن زیر را بخوانید. شما برای استفاده از سامانه باید شروط را قبول کنید"
+
+#: services/facebook.php:67
+#, fuzzy
+msgid "Pokes:"
+msgstr "حیوانات خانگی"
+
+#: admin/activesync.php:105
+#, fuzzy
+msgid "Policy Key"
+msgstr "کلید عمومی"
+
+#: lib/Prefs/Ui.php:432
+#, fuzzy
+msgid "Policy Key:"
+msgstr "کلید عمومی"
+
+#: lib/Block/fortune.php:64
+msgid "Politics"
+msgstr "سیاستها"
+
+#: services/facebook.php:101
+#, php-format
+msgid "Posted %s"
+msgstr ""
+
+#: templates/block/twitter_tweet.html.php:26
+#, fuzzy, php-format
+msgid "Posted %s via %s"
+msgstr "%d %s و %s"
+
+#: themes/postnuke/info.php:2
+#, fuzzy
+msgid "Postnuke"
+msgstr "ادامه"
+
+#: lib/Block/metar.php:261 lib/Block/metar.php:266
+#, fuzzy, php-format
+msgid "Precipitation for last %d hour: "
+msgid_plural "Precipitation for last %d hours: "
+msgstr[0] "درصد رطوبت در %s ساعت قبل:"
+msgstr[1] "درصد رطوبت در %s ساعت قبل:"
+
+#: lib/Block/weatherdotcom.php:301
+msgid "Precipitation<br />chance"
+msgstr ""
+
+#: lib/Block/metar.php:220
+msgid "Pressure"
+msgstr "فشار"
+
+#: lib/Block/metar.php:254
+msgid "Pressure at sea level: "
+msgstr "فشار در سطح دریا: "
+
+#: lib/Block/weatherdotcom.php:239
+msgid "Pressure: "
+msgstr "فشار: "
+
+#: services/problem.php:145
+msgid "Problem Description"
+msgstr "توضیح مشکل"
+
+#: admin/activesync.php:171 lib/Prefs/Ui.php:425
+#, fuzzy
+msgid "Provisioned"
+msgstr "مجوز"
+
+#: templates/prefs/facebook.html:21
+msgid "Publish enabled."
+msgstr ""
+
+#: themes/purple/info.php:2
+msgid "Purple Horde"
+msgstr ""
+
+#: admin/sqlshell.php:50
+msgid "Query"
+msgstr "پرس‌وجو"
+
+#: lib/Block/account.php:83
+msgid "Quota"
+msgstr "سهمیه"
+
+#: lib/Block/weatherdotcom_strings.php:66
+msgid "Rain"
+msgstr "باران"
+
+#: lib/Block/weatherdotcom_strings.php:67
+msgid "Rain Early"
+msgstr "باران زودهنگام"
+
+#: lib/Block/weatherdotcom_strings.php:68
+msgid "Rain Late"
+msgstr "باران دیرهنگام"
+
+#: lib/Block/weatherdotcom_strings.php:69
+msgid "Rain Shower"
+msgstr "باران و رگبار"
+
+#: lib/Block/weatherdotcom_strings.php:70
+msgid "Rain and Snow"
+msgstr "باران و برف"
+
+#: lib/Block/weatherdotcom_strings.php:71
+msgid "Rain to Snow"
+msgstr "باران به برف"
+
+#: lib/Block/fortune.php:6
+msgid "Random Fortune"
+msgstr "طالع تصادفی"
+
+#: templates/shares/edit.inc:61 templates/shares/edit.inc:75
+#: templates/shares/edit.inc:96 templates/shares/edit.inc:110
+#: templates/shares/edit.inc:132 templates/shares/edit.inc:146
+#: templates/shares/edit.inc:167 templates/shares/edit.inc:185
+#: templates/shares/edit.inc:220 templates/shares/edit.inc:247
+#: templates/shares/edit.inc:269 templates/shares/edit.inc:283
+#: templates/shares/edit.inc:312
+msgid "Read"
+msgstr "خواندن"
+
+#: templates/prefs/facebook.html:33
+#, fuzzy
+msgid "Read enabled"
+msgstr "خواندن پیغامها "
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: templates/admin/user/remove.inc:8
+#, fuzzy, php-format
+msgid "Really delete \"%s\"? This operation cannot be undone."
+msgstr "واقعاْ %s حذف شود؟ این عمل قابل واگرد نیست"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: templates/admin/user/clear.inc:8
+#, fuzzy, php-format
+msgid ""
+"Really remove user data for user \"%s\"? This operation cannot be undone."
+msgstr "واقعاً دادهٔ کاربری برای کاربر %s حذف شود؟ این عمل قابل واگرد نیست"
+
+#: config/prefs.php.dist:562
+msgid "Refresh Dynamic Menu Elements:"
+msgstr "بازآوری عناصر گزینگان دینامیکی:"
+
+#: config/prefs.php.dist:523
+msgid "Refresh Portal View:"
+msgstr "بازآوری نمای درگاه:"
+
+#: templates/portal/layout.inc:94
+#, fuzzy
+msgid "Refresh rate:"
+msgstr "بازآوری نمای درگاه:"
+
+#: admin/activesync.php:134
+msgid "Registered User Devices"
+msgstr ""
+
+#: lib/Block/metar.php:321
+msgid "Remarks"
+msgstr "توضیحات"
+
+#: admin/sessions.php:39 admin/sessions.php:50
+#, fuzzy
+msgid "Remote Host:"
+msgstr "حذف"
+
+#: config/prefs.php.dist:583
+msgid "Remote Servers"
+msgstr "کارسازهای راه‌دور"
+
+#: lib/Prefs/Ui.php:324
+msgid "Remote URL (http://www.example.com/horde):"
+msgstr "URL"
+
+#: admin/activesync.php:185 templates/admin/groups/edit.inc:23
+#: templates/admin/user/approve.inc:40
+#: templates/admin/user/removequeued.inc:13 templates/prefs/activesync.html:33
+msgid "Remove"
+msgstr "حذف"
+
+#: templates/data/csvmap.inc:118
+msgid "Remove pair"
+msgstr "حذف زوج"
+
+#: admin/config/index.php:211
+msgid "Remove saved script from server's temporary directory."
+msgstr "حذف دست ‌نویسهای حفظ شده در شاخه موقت کارساز"
+
+#: templates/admin/user/remove.inc:11
+msgid "Remove user"
+msgstr "حذف کاربر"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: templates/admin/user/remove.inc:5
+#, php-format
+msgid "Remove user: %s"
+msgstr "حذف کاربر: %s"
+
+#: templates/block/twitter_tweet.html.php:34
+#, fuzzy
+msgid "Reply"
+msgstr "پاسخ: %s"
+
+#: admin/activesync.php:138
+msgid "Reprovision All Devices"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:160
+#, fuzzy
+msgid "Requested service could not be found."
+msgstr "پرونده ارسال شده نمی‌تواند حفظ شود"
+
+#: admin/user.php:22 templates/admin/user/update.inc:54
+#: templates/prefs/rpc.html:36
+msgid "Reset"
+msgstr "بازنشانی"
+
+#: services/resetpassword.php:45
+msgid "Reset Password"
+msgstr "بازنشانی اسم رمز"
+
+#: services/resetpassword.php:23
+msgid "Reset Your Password"
+msgstr "اسم رمز خود را بازنشانی کنید"
+
+#: templates/prefs/activesync.html:6
+msgid ""
+"Reset all device state. This will cause your devices to resyncronize all "
+"items."
+msgstr ""
+
+#: admin/sqlshell.php:111
+#, fuzzy
+msgid "Restore Last Query"
+msgstr "ربع آخر"
+
+#: admin/cmdshell.php:23 admin/phpshell.php:74 admin/sqlshell.php:53
+msgid "Results"
+msgstr "نتایج"
+
+#: services/portal/cloud_search.php:30
+#, fuzzy, php-format
+msgid "Results for %s"
+msgstr "نتایج"
+
+#: templates/prefs/end.html:7
+#, fuzzy
+msgid "Return to Main Screen"
+msgstr "بازگشت به گزینه‌ها"
+
+#: templates/block/twitter_tweet.html.php:35
+#, fuzzy
+msgid "Retweet"
+msgstr "بازنشانی"
+
+#: templates/block/twitter_tweet.html.php:30
+#, php-format
+msgid "Retweeted by %s"
+msgstr ""
+
+#: services/changepassword.php:30
+msgid "Retype new password"
+msgstr "تایپ دوباره اسم رمز  جدید "
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/config/config.php:33 admin/config/config.php:37
+msgid "Revert Configuration"
+msgstr "بازگرداندن پیکربندی"
+
+#: lib/Block/fortune.php:65
+msgid "Riddles"
+msgstr "معماها"
+
+#: admin/sqlshell.php:101
+msgid "Run"
+msgstr "اجرا"
+
+#: admin/sqlshell.php:14
+msgid "SQL Shell"
+msgstr "پوسته SQL"
+
+#: config/registry.php.dist:363
+msgid "SSH"
+msgstr "SSH"
+
+#: lib/Api.php:67
+msgid "S_QL Shell"
+msgstr "پوسته SQL"
+
+#: templates/portal/layout.inc:115 templates/prefs/end.html:3
+msgid "Save"
+msgstr "حفظ کردن"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: templates/admin/groups/edit.inc:63 templates/shares/edit.inc:330
+#, fuzzy, php-format
+msgid "Save \"%s\""
+msgstr "حفظ کردن %s"
+
+#: templates/shares/edit.inc:331
+msgid "Save and Finish"
+msgstr ""
+
+#: admin/config/index.php:183
+msgid ""
+"Save generated configuration as a PHP script to your server's temporary "
+"directory."
+msgstr "پیکربندی تولید شده بعنوان دست ‌نویس PHP در شاخهٔ موقت کارساز شما حفظ شود"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/config/scripts.php:92
+#, fuzzy, php-format
+msgid "Saved configuration upgrade script to: \"%s\"."
+msgstr "دست ‌نویس بروزرسانی راه‌اندازی حفظ شد در :'%s' ."
+
+#: lib/Block/weatherdotcom_strings.php:72
+#, fuzzy
+msgid "Scattered Showers"
+msgstr "رگبار خفیف"
+
+#: lib/Block/weatherdotcom_strings.php:73
+#, fuzzy
+msgid "Scattered T-Storms"
+msgstr "T-Storms"
+
+#: lib/Block/fortune.php:66
+msgid "Science"
+msgstr "علم"
+
+#: services/help/index.php:71
+#, fuzzy
+msgid "Sea_rch"
+msgstr "جست‌وجو"
+
+#: services/help/index.php:134 templates/admin/user/list.inc:16
+msgid "Search"
+msgstr "جست‌وجو"
+
+#: templates/admin/user/list.inc:14
+#, fuzzy
+msgid "Search:"
+msgstr "جست‌وجو"
+
+#: templates/shares/edit.inc:298 templates/shares/edit.inc:300
+#, fuzzy
+msgid "Select a group to add:"
+msgstr "انتخاب یک گروه برای اضافه کردن"
+
+#: templates/shares/edit.inc:38
+#, fuzzy
+msgid "Select a new owner:"
+msgstr "انتخاب یک مالک جدید"
+
+#: templates/prefs/rpc.html:4
+msgid "Select a server"
+msgstr "انتخاب یک کارساز"
+
+#: templates/shares/edit.inc:202 templates/shares/edit.inc:204
+#, fuzzy
+msgid "Select a user to add:"
+msgstr "انتخاب یک کاربر برای اضافه کردن"
+
+#: templates/prefs/addressbooks.html:5
+msgid "Select all fields to search when expanding addresses."
+msgstr ""
+
+#: services/keyboard.php:38
+msgid ""
+"Select the characters you need from the boxes below. You can then copy and "
+"paste them from the text area."
+msgstr ""
+"نویسه‌هایی که لازم دارید را از جعبه زیر انتخاب کنید. سپس شما می‌توانید از آنها "
+"در منطقه متن نسخه‌برداری کرده و در محل دیگر بچسبانید"
+
+#: templates/data/datetime.inc:57
+#, fuzzy
+msgid "Select the date and time format:"
+msgstr "انتخاب قالب تاریخ:"
+
+#: templates/data/date.inc:34 templates/data/datetime.inc:76
+msgid "Select the date delimiter:"
+msgstr "انتخاب محدوده تاریخ:"
+
+#: templates/data/date.inc:44 templates/data/datetime.inc:86
+msgid "Select the date format:"
+msgstr "انتخاب قالب تاریخ:"
+
+#: templates/data/datetime.inc:66
+#, fuzzy
+msgid "Select the day and time order:"
+msgstr "انتخاب قالب تاریخ:"
+
+#: templates/data/datetime.inc:97 templates/data/time.inc:16
+msgid "Select the time delimiter:"
+msgstr "انتخاب محدودهٔ زمان:"
+
+#: templates/data/datetime.inc:106 templates/data/time.inc:25
+msgid "Select the time format:"
+msgstr "انتخاب قالب زمان:"
+
+#: config/prefs.php.dist:509
+msgid "Select your color scheme."
+msgstr "انتخاب طرح رنگ شما"
+
+#: config/prefs.php.dist:328
+msgid "Select your preferred language:"
+msgstr "انتخاب زبان مورد نظر شما:"
+
+#: templates/problem/problem.inc:57
+msgid "Send Problem Report"
+msgstr "ارسال گزارش"
+
+#: lib/Block/metar.php:311
+msgid "Sensor: "
+msgstr "حسگر: "
+
+#: templates/prefs/syncml.html:12
+#, fuzzy
+msgid "Server Time"
+msgstr "زمان ارسال"
+
+#: lib/Block/weatherdotcom.php:164
+#, fuzzy
+msgid "Server data wrong or not available."
+msgstr "بلوک Metar قابل دسترس نیست"
+
+#: admin/sessions.php:14
+#, fuzzy
+msgid "Session Admin"
+msgstr "سرپرستی مجوزها"
+
+#: admin/sessions.php:37
+msgid "Session Timestamp:"
+msgstr ""
+
+#: lib/Api.php:57
+#, fuzzy
+msgid "Sessions"
+msgstr "مجوزها"
+
+#: config/prefs.php.dist:277
+#, fuzzy
+msgid ""
+"Set preferences to allow you to reset your password if you ever forget it."
+msgstr ""
+"تنظیم گزینه‌ها برای اجازه دادن به شما برای بازنشانی اسم رمز به هنگام فراموشی "
+"آن "
+
+#: config/prefs.php.dist:605
+msgid "Set up integration with your Facebook account."
+msgstr ""
+
+#: config/prefs.php.dist:626
+msgid "Set up integration with your Twitter account."
+msgstr ""
+
+#: config/prefs.php.dist:584
+msgid "Set up remote servers that you want to access from your portal."
+msgstr ""
+"تنظیم کارسازهای راه دوری که شما می‌خواهید از درگاه خود به آن دسترسی داشته "
+"باشید"
+
+#: config/prefs.php.dist:314
+#, fuzzy
+msgid "Set your preferred language, timezone and date preferences."
+msgstr "انتخاب زبان مورد نظر، ساعت و گزینه‌های تاریخ"
+
+#: config/prefs.php.dist:469
+#, fuzzy
+msgid ""
+"Set your startup application, color scheme, page refreshing, and other "
+"display preferences."
+msgstr "انتخاب برنامه زمان شروع، طرح رنگ، بازآوری صفحه و بقیه گزینه‌های نمایش"
+
+#: lib/Block/weatherdotcom.php:190
+msgid "Several locations possible with the parameter: "
+msgstr "چندین موقعیّت با پارامتر ممکن است:"
+
+#: templates/problem/problem.inc:38
+msgid "Short Summary"
+msgstr "خلاصه کوتاه"
+
+#: config/prefs.php.dist:570
+msgid "Should access keys be defined for most links?"
+msgstr "آیا کلیدهای دسترسی باید برای بیشتر پیوندها تعریف شوند؟"
+
+#: templates/shares/edit.inc:60 templates/shares/edit.inc:71
+#: templates/shares/edit.inc:95 templates/shares/edit.inc:106
+#: templates/shares/edit.inc:131 templates/shares/edit.inc:142
+#: templates/shares/edit.inc:166 templates/shares/edit.inc:181
+#: templates/shares/edit.inc:216 templates/shares/edit.inc:243
+#: templates/shares/edit.inc:268 templates/shares/edit.inc:279
+#: templates/shares/edit.inc:308
+msgid "Show"
+msgstr "نمایش"
+
+#: templates/prefs/app.html:21
+#, fuzzy
+msgid "Show Advanced Preferences"
+msgstr "نمایش تفاوتها"
+
+#: admin/config/index.php:173
+msgid ""
+"Show differences between currently saved and the newly generated "
+"configuration."
+msgstr " نمایش تفاوتهای میان پیکربندی حفظ شده فعلی و تولید شده جدید"
+
+#: lib/Block/feed.php:24
+msgid "Show extra detail?"
+msgstr ""
+
+#: config/prefs.php.dist:491
+msgid "Show last login time when logging in?"
+msgstr "آیا زمان آخرین ورود به هنگام ورود نشان داده شود؟"
+
+#: lib/Block/fb_stream.php:89
+#, fuzzy
+msgid "Show notifications"
+msgstr "حالت تذکر"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: config/prefs.php.dist:530
+#, php-format
+msgid "Show the %s Menu on the left?"
+msgstr "آیا گزینگان %s سمت راست نشان داده شود؟"
+
+#: lib/Block/weatherdotcom_strings.php:74
+msgid "Showers"
+msgstr "تگرگ"
+
+#: lib/Block/weatherdotcom_strings.php:75
+msgid "Showers Early"
+msgstr "رگبار زودهنگام"
+
+#: lib/Block/weatherdotcom_strings.php:76
+msgid "Showers Late"
+msgstr "رگبار دیرهنگام"
+
+#: lib/Block/weatherdotcom_strings.php:77
+msgid "Showers in the Vicinity"
+msgstr ""
+
+#: themes/simplex/info.php:2
+msgid "Simplex"
+msgstr ""
+
+#: templates/logintasks/logintasks.html:31
+#, fuzzy
+msgid "Skip Login Tasks"
+msgstr "وظایف ورود"
+
+#: lib/Block/iframe.php:26
+#, fuzzy
+msgid "Small"
+msgstr "نامه الکترونیکی"
+
+#: lib/Block/weatherdotcom_strings.php:78
+msgid "Snow"
+msgstr "برف"
+
+#: lib/Block/weatherdotcom_strings.php:79
+#, fuzzy
+msgid "Snow Early"
+msgstr "رگبار زودهنگام"
+
+#: lib/Block/weatherdotcom_strings.php:80
+#, fuzzy
+msgid "Snow Late"
+msgstr "رگبار دیرهنگام"
+
+#: lib/Block/weatherdotcom_strings.php:81
+msgid "Snow Shower"
+msgstr "تگرگ"
+
+#: lib/Block/weatherdotcom_strings.php:82
+msgid "Snow Showers"
+msgstr "تگرگ"
+
+#: lib/Block/weatherdotcom_strings.php:83
+msgid "Snow Showers Early"
+msgstr "رگبار زودهنگام"
+
+#: lib/Block/weatherdotcom_strings.php:84
+msgid "Snow Showers Late"
+msgstr "رگبار دیرهنگام"
+
+#: lib/Block/metar.php:273
+msgid "Snow depth: "
+msgstr "عمق برف: "
+
+#: lib/Block/metar.php:277
+msgid "Snow equivalent in water: "
+msgstr "معادل برف در آب: "
+
+#: lib/Block/fortune.php:67
+msgid "Songs & Poems"
+msgstr "شعرها و آوازها"
+
+#: config/nls.php:182
+msgid "South European (ISO-8859-3)"
+msgstr "South European (ISO-8859-3)"
+
+#: lib/Block/moon.php:31 lib/Block/moon.php:60
+msgid "Southern Hemisphere"
+msgstr "نیم کره جنوبی"
+
+#: config/registry.php.dist:102
+msgid "Spam"
+msgstr "هرزنامه"
+
+#: services/keyboard.php:14
+msgid "Special Character Input"
+msgstr "کاراکتر خاص وارد شد"
+
+#: lib/Block/fortune.php:68
+msgid "Sports"
+msgstr "ورزشی"
+
+#: lib/Block/metar.php:73 lib/Block/weatherdotcom.php:68
+msgid "Standard"
+msgstr "استاندارد"
+
+#: lib/Block/fortune.php:69
+msgid "Star Trek"
+msgstr "ستاره"
+
+#: templates/prefs/activesync.html:2
+msgid "State Management"
+msgstr ""
+
+#: admin/activesync.php:112 templates/admin/config/index.html:17
+#: templates/prefs/activesync.html:22
+msgid "Status"
+msgstr "وضعیت‌"
+
+#: services/facebook.php:144
+msgid "Status unable to be set."
+msgstr ""
+
+#: util/icon_browser.php:40
+#, fuzzy, php-format
+msgid "Subdirectory \"%s\" not found."
+msgstr " زیرشاخه '%s' پیدا نشد."
+
+#: signup.php:52
+#, fuzzy, php-format
+msgid ""
+"Submitted request to add \"%s\" to the system. You cannot log in until your "
+"request has been approved."
+msgstr ""
+"تقاضای اضافه شدن '%s' به سامانه ارائه شد. تا هنگامی که تقاضای شما تأیید "
+"نگردد نمی‌توانید به سامانه وارد شوید"
+
+#: services/facebook.php:38
+msgid "Succesfully connected your Facebook account."
+msgstr ""
+
+#: admin/sqlshell.php:88
+msgid "Success"
+msgstr "موفّقیّت"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/signup_confirm.php:85 admin/user.php:100
+#, fuzzy, php-format
+msgid "Successfully added \"%s\" to the system."
+msgstr "'%s' با موفّقیّت به سامانه اضافه شد"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/user.php:138
+#, fuzzy, php-format
+msgid "Successfully cleared data for user \"%s\" from the system."
+msgstr " دادهٔ کاربر '%s'با موفّقیّت از سامانه پاک شد"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/groups.php:78 admin/perms/delete.php:36
+#, php-format
+msgid "Successfully deleted \"%s\"."
+msgstr "\"%s\" با موفّقیّت حذف شد"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/user.php:118
+#, fuzzy, php-format
+msgid "Successfully removed \"%s\" from the system."
+msgstr "'%s' با موفّقیّت از سامانه پاک شد"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/config/config.php:40
+msgid "Successfully reverted configuration. Reload to see changes."
+msgstr ""
+"پیکربندی با موفّقیّت بازگردانده شد. برای مشاهده تغییرات مجدداْ آنرا بار نمایید"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/config/index.php:39
+msgid "Successfully saved backup configuration."
+msgstr "پیکربندی پشتیبان با موفّقیّت حفظ شد"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/config/config.php:51
+#, php-format
+msgid "Successfully saved the backup configuration file %s."
+msgstr "پرونده پشتیبان پیکربندی %s با موفّقیّت حفظ شد"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/user.php:184
+#, fuzzy, php-format
+msgid "Successfully updated \"%s\""
+msgstr "'%s' با موفّقیّت به روز شد"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/config/config.php:60 admin/config/index.php:47
+#, php-format
+msgid "Successfully wrote %s"
+msgstr "%s با موفّقیّت نوشته شد"
+
+#: lib/Block/sunrise.php:63
+msgid "Sun Rise"
+msgstr "طلوع آفتاب"
+
+#: lib/Block/sunrise.php:66
+msgid "Sun Set"
+msgstr "غروب آفتاب"
+
+#: config/prefs.php.dist:429
+#, fuzzy
+msgid "Sunday"
+msgstr "آفتابی"
+
+#: lib/Block/weatherdotcom_strings.php:85
+msgid "Sunny"
+msgstr "آفتابی"
+
+#: lib/Block/weatherdotcom.php:220
+msgid "Sunrise"
+msgstr "طلوع"
+
+#: lib/Block/sunrise.php:3 lib/Block/sunrise.php:14
+msgid "Sunrise/Sunset"
+msgstr "طلوع/غروب"
+
+#: lib/Block/weatherdotcom.php:219
+msgid "Sunrise: "
+msgstr "طلوع: "
+
+#: lib/Block/weatherdotcom.php:223
+msgid "Sunset"
+msgstr "غروب"
+
+#: lib/Block/weatherdotcom.php:222
+msgid "Sunset: "
+msgstr "غروب: "
+
+#: config/prefs.php.dist:664
+msgid "SyncML"
+msgstr ""
+
+#: lib/Block/feed.php:3
+msgid "Syndicated Feed"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:86
+#, fuzzy
+msgid "T-Showers"
+msgstr "تگرگ"
+
+#: lib/Block/weatherdotcom_strings.php:87
+#, fuzzy
+msgid "T-Showers Early"
+msgstr "رگبار زودهنگام"
+
+#: lib/Block/weatherdotcom_strings.php:88
+#, fuzzy
+msgid "T-Showers Late"
+msgstr "رگبار دیرهنگام"
+
+#: lib/Block/weatherdotcom_strings.php:89
+msgid "T-Storm"
+msgstr "T-Storms"
+
+#: lib/Block/weatherdotcom_strings.php:90
+msgid "T-Storm and Windy"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:91
+msgid "T-Storms"
+msgstr "T-Storms"
+
+#: lib/Block/weatherdotcom_strings.php:92
+#, fuzzy
+msgid "T-Storms Early"
+msgstr "رگبار زودهنگام"
+
+#: lib/Block/weatherdotcom_strings.php:93
+#, fuzzy
+msgid "T-Storms Late"
+msgstr "T-Storms"
+
+#: lib/Block/cloud.php:3 lib/Block/cloud.php:23
+#, fuzzy
+msgid "Tag Cloud"
+msgstr "ابرها"
+
+#: themes/tango-blue/info.php:24
+msgid "Tango Blue"
+msgstr ""
+
+#: config/registry.php.dist:184
+msgid "Tasks"
+msgstr "وظایف"
+
+#: themes/gennevilliers/info.php:12
+#, fuzzy
+msgid "Teal"
+msgstr "جدول"
+
+#: lib/Block/metar.php:285
+msgid "Temp for last hour: "
+msgstr "دمای ساعت اخیر: "
+
+#: lib/Block/metar.php:209
+msgid "Temperature"
+msgstr "درجه حرارت"
+
+#: lib/Block/weatherdotcom.php:227
+msgid "Temperature: "
+msgstr "درجه حرارت: "
+
+#: lib/Block/weatherdotcom.php:296
+#, fuzzy, php-format
+msgid "Temperature<br />(%sHi%s/%sLo%s) &deg;%s"
+msgstr " (%sHi%s/%sLo%s) &deg;%s دما"
+
+#: lib/Prefs/Ui.php:518 services/facebook.php:31
+msgid "Temporarily unable to connect with Facebook, Please try again."
+msgstr ""
+
+#
+#: lib/Block/twitter_timeline.php:122
+#, fuzzy
+msgid "Temporarily unable to contact Twitter. Please try again later."
+msgstr "خطایی در بروزرسانی جزئیات تماس رخ داده است. لطفاً دوباره سعی کنید"
+
+#: services/keyboard.php:148
+#, fuzzy
+msgid "Text Area"
+msgstr "تراز متن"
+
+#: config/prefs.php.dist:544
+msgid "Text Only"
+msgstr "فقط متن"
+
+#: config/nls.php:183
+msgid "Thai (TIS-620)"
+msgstr "Thai (TIS-620)"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: lib/Prefs/Ui.php:747
+#, fuzzy, php-format
+msgid "The Remote Wipe for device id %s has been cancelled."
+msgstr "کارساز \"%s\" حذف شده است"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/alarms.php:81
+#, fuzzy
+msgid "The alarm has been deleted."
+msgstr "کارساز \"%s\" حذف شده است"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/alarms.php:70
+#, fuzzy
+msgid "The alarm has been saved."
+msgstr "کارساز \"%s\" حفظ شده است"
+
+#: config/prefs.php.dist:246
+msgid "The default e-mail address to use with this identity:"
+msgstr ""
+
+#: lib/Block/vatid.php:76
+msgid ""
+"The member state service could not be reached in time. Try again later or "
+"with a different member state."
+msgstr ""
+
+#: lib/Block/vatid.php:73
+msgid ""
+"The member state service is currently not available. Try again later or with "
+"a different member state."
+msgstr ""
+
+#: lib/Block/vatid.php:67
+#, fuzzy
+msgid "The provided country code is invalid."
+msgstr "داده تقویم نامعتبر است"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: lib/Prefs/Ui.php:681
+#, php-format
+msgid "The server \"%s\" has been deleted."
+msgstr "کارساز \"%s\" حذف شده است"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: lib/Prefs/Ui.php:676
+#, php-format
+msgid "The server \"%s\" has been saved."
+msgstr "کارساز \"%s\" حفظ شده است"
+
+#: lib/Block/vatid.php:70
+msgid "The service is currently not available. Try again later."
+msgstr ""
+
+#: lib/Block/vatid.php:79
+msgid "The service is currently too busy. Try again later."
+msgstr ""
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/user.php:209
+#, fuzzy, php-format
+msgid "The signup request for \"%s\" has been removed."
+msgstr "درخواست افتتاح حساب برای %s حذف شده است"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/signup_confirm.php:39
+#, fuzzy, php-format
+msgid "The signup request for user \"%s\" has been removed."
+msgstr "درخواست افتتاح حساب برای %s حذف شده است"
+
+#: lib/LoginTasks/Task/TestScriptActive.php:38
+msgid ""
+"The test script is currently enabled. For security reasons, disable test "
+"scripts when you are done testing (see horde/docs/INSTALL)."
+msgstr ""
+
+#
+#: admin/signup_confirm.php:60 admin/user.php:72
+#, fuzzy, php-format
+msgid "The user \"%s\" already exists."
+msgstr "%s از قبل موجود است"
+
+#: services/shares/edit.php:85 services/shares/edit.php:177
+#, fuzzy, php-format
+msgid "The user \"%s\" does not exist."
+msgstr "پرونده موقتی  \"%s\"موجود نیست"
+
+#: lib/Block/weatherdotcom.php:51 lib/Block/weatherdotcom.php:106
+msgid "The weather.com block is not available."
+msgstr "بلوک weather.com قابل دسترس نیست"
+
+#: lib/Prefs/Ui.php:46
+#, fuzzy
+msgid "Theme directory can't be opened"
+msgstr "شاخه تم '%s' یافت نشد"
+
+#: util/icon_browser.php:28
+#, fuzzy, php-format
+msgid "Themes directory \"%s\" not found."
+msgstr "شاخه تم '%s' یافت نشد"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/signup_confirm.php:74 admin/user.php:84 signup.php:38 signup.php:59
+#, fuzzy, php-format
+msgid "There was a problem adding \"%s\" to the system: %s"
+msgstr "مشکلی در اضافه کردن '%s' به سامانه رخ داده است: %s"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/user.php:140
+#, fuzzy, php-format
+msgid "There was a problem clearing data for user \"%s\" from the system: "
+msgstr "مشکلی در پاک کردن دادهٔ کاربر '%s' از سامانه رخ داده است: "
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/user.php:120
+#, fuzzy, php-format
+msgid "There was a problem removing \"%s\" from the system: "
+msgstr "مشکلی در حذف '%s' از سامانه رخ داده است: "
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/user.php:173
+#, fuzzy, php-format
+msgid "There was a problem updating \"%s\": %s"
+msgstr "مشکلی در بروزرسانی '%s' رخ داده است: %s"
+
+#: lib/Block/twitter_timeline.php:110 lib/Block/twitter_timeline.php:126
+#, fuzzy, php-format
+msgid "There was an error contacting Twitter: %s"
+msgstr "خطایی در درون‌برد کردن وظیفه رخ داده است: %s."
+
+#: admin/config/config.php:70
+msgid ""
+"There was an error in the configuration form. Perhaps you left out a "
+"required field."
+msgstr ""
+"خطایی در پیکربندی فرم رخ داده است. شاید فیلد مورد نیازی را جا انداخته‌ا‌ید"
+
+#
+#: lib/Block/fb_stream.php:158 lib/Block/fb_stream.php:183
+#: services/facebook.php:54 services/facebook.php:71
+#, fuzzy, php-format
+msgid "There was an error making the request: %s"
+msgstr "خطایی در درون‌برد کردن رویداد رخ داده است: %s."
+
+#: lib/Api.php:284
+#, php-format
+msgid ""
+"There was an error removing global data for %s. Details have been logged."
+msgstr ""
+
+#: lib/Block/vatid.php:89
+msgid "This VAT identification number is invalid."
+msgstr ""
+
+#: lib/Block/vatid.php:86
+msgid "This VAT identification number is valid."
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:94
+msgid "Thunder"
+msgstr "رعد"
+
+#: config/registry.php.dist:260
+msgid "Tickets"
+msgstr "بلیطها"
+
+#: config/registry.php.dist:308
+msgid "Time Tracking"
+msgstr "ردیابی زمان"
+
+#: lib/Block/time.php:23
+msgid "Time format"
+msgstr "قالب زمان"
+
+#: templates/data/datetime.inc:60 templates/data/datetime.inc:69
+msgid "Timestamp or unknown"
+msgstr ""
+
+#: templates/prefs/syncml.html:2
+msgid "Timestamps of successful synchronization sessions"
+msgstr ""
+
+#: lib/Block/iframe.php:22
+msgid "Title"
+msgstr "عنوان"
+
+#: templates/data/csvmap.inc:95
+msgid ""
+"To exclude a particular field form the import or to correct a wrong match "
+"select a field in the lists below and hit \"Remove pair\"."
+msgstr ""
+
+#: templates/prefs/addressbooks.html:10
+#, fuzzy
+msgid ""
+"To select multiple fields, hold down the Control (PC) or Command (Mac) while "
+"clicking."
+msgstr ""
+"برای انتخاب چند فیلد، دکمه Ctrl روی (PC) یا Command روی (Mac) را در مدت کلیک "
+"کردن نگهدارید"
+
+#: lib/Block/weatherdotcom.php:313
+msgid "Today"
+msgstr "امروز"
+
+#: lib/Block/weatherdotcom.php:315
+msgid "Tomorrow"
+msgstr "فردا"
+
+#: lib/Block/fortune.php:70
+msgid "Translations"
+msgstr "ترجمه‌ها"
+
+#: config/nls.php:184
+msgid "Turkish (ISO-8859-9)"
+msgstr "Turkish (ISO-8859-9)"
+
+#: lib/Block/twitter_timeline.php:166
+#, fuzzy
+msgid "Tweet"
+msgstr "متن"
+
+#: config/prefs.php.dist:625
+#, fuzzy
+msgid "Twitter Integration"
+msgstr "اطلاعات دیگر"
+
+#: lib/Block/twitter_timeline.php:23 lib/Block/twitter_timeline.php:64
+#: lib/Block/twitter_timeline.php:74 lib/Block/twitter_timeline.php:78
+#, php-format
+msgid "Twitter Timeline"
+msgstr ""
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: lib/Block/twitter_timeline.php:70
+#, fuzzy, php-format
+msgid "Twitter Timeline for %s"
+msgstr "ویرایش مجوزها برای %s"
+
+#: services/keyboard.php:108
+#, fuzzy
+msgid "U characters"
+msgstr "تعداد نویسه‌ها"
+
+#: lib/Block/weatherdotcom.php:273
+msgid "U.V. index: "
+msgstr "شاخص U.V. : "
+
+#: lib/Block/iframe.php:19
+msgid "URL"
+msgstr "URL"
+
+#: services/twitter.php:64
+#, php-format
+msgid "Unable to contact Twitter. Please try again later. Error returned: %s"
+msgstr ""
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/groups.php:82 admin/perms/delete.php:39
+#, php-format
+msgid "Unable to delete \"%s\": %s."
+msgstr "نمی‌توان \"%s\" را حذف کرد: %s."
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:55
+#, fuzzy, php-format
+msgid "Unable to modify the sequence for %s: %s"
+msgstr "نمی‌توان \"%s\" را حذف کرد: %s."
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: services/facebook.php:175
+#, fuzzy
+msgid "Unable to set like."
+msgstr "نمی‌توان پرونده VFS را ایجاد نمود"
+
+#: templates/prefs/end.html:4
+msgid "Undo Changes"
+msgstr "واگرداندن تغییرات"
+
+#: lib/Prefs/Ui.php:266
+msgid "Unfiled"
+msgstr "غیر حوزه"
+
+#: config/nls.php:185
+msgid "Unicode (UTF-8)"
+msgstr "Unicode (UTF-8)"
+
+#: lib/Block/metar.php:70 lib/Block/weatherdotcom.php:64
+msgid "Units"
+msgstr "واحدها"
+
+#: lib/Block/weatherdotcom.php:162
+#, fuzzy
+msgid "Unknown location provided."
+msgstr "هیچ مکانی تنظیم نشده"
+
+#: lib/Block/fb_stream.php:179 templates/admin/user/list.inc:36
+msgid "Update"
+msgstr "بروزرسانی"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: templates/admin/user/update.inc:6
+#, php-format
+msgid "Update %s"
+msgstr "بروزرسانی %s"
+
+#: templates/admin/user/update.inc:53
+msgid "Update user"
+msgstr "بروزرسانی کاربر"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: admin/groups.php:144 admin/perms/edit.php:104 services/shares/edit.php:249
+#, php-format
+msgid "Updated \"%s\"."
+msgstr "\"%s\" بروزرسانی شد"
+
+#: admin/config/index.php:190
+msgid "Upload"
+msgstr "ارسال کردن"
+
+#: admin/config/index.php:198
+#, fuzzy
+msgid "Uploaded all application configuration files to the server."
+msgstr "تمام پرونده‌‌های تنظیم برنامه‌های کاربردی به کارساز ارسال شد"
+
+#: config/prefs.php.dist:645
+msgid "Use if name/password is different for IMSP server."
+msgstr "اگر نام/اسم رمز برای کارساز IMSP متفاوت است، استفاده کنید"
+
+#: templates/admin/groups/edit.inc:22 templates/admin/groups/edit.inc:60
+#, fuzzy
+msgid "User"
+msgstr "کاربران"
+
+#: admin/user.php:224
+msgid "User Administration"
+msgstr "سرپرستی کاربر"
+
+#: lib/Prefs/Ui.php:432
+#, fuzzy
+msgid "User Agent:"
+msgstr " استفاده فعلی: %s"
+
+#: signup.php:67
+msgid "User Registration"
+msgstr "ثبت نام کاربر"
+
+#: admin/signup_confirm.php:18 signup.php:19
+msgid "User Registration has been disabled for this site."
+msgstr "ثبت کاربر برای این پایگاه غیر فعال شده است"
+
+#: admin/signup_confirm.php:25 signup.php:27
+#, fuzzy
+msgid "User Registration is not properly configured for this site."
+msgstr "ثبت کاربر برای این پایگاه غیر فعال شده است"
+
+#: lib/Block/account.php:561
+msgid "User account not found"
+msgstr "حساب کاربر پیدا نشد"
+
+#: templates/shares/edit.inc:238
+#, fuzzy
+msgid "User to add:"
+msgstr "انتخاب یک کاربر برای اضافه کردن"
+
+#: admin/config/index.php:191 admin/user.php:32 admin/user.php:48 login.php:76
+#: services/resetpassword.php:29 templates/admin/user/approve.inc:22
+msgid "Username"
+msgstr "نام کاربر"
+
+#: lib/Prefs/Ui.php:325
+msgid "Username:"
+msgstr "نام کاربر:"
+
+#: templates/admin/groups/edit.inc:53
+#, fuzzy
+msgid "Users"
+msgstr "کاربران"
+
+#: templates/admin/user/list.inc:2
+msgid "Users in the system:"
+msgstr "کاربران سامانه:"
+
+#: lib/Block/vatid.php:19
+msgid "VAT id number verification"
+msgstr ""
+
+#: lib/Block/vatid.php:42
+msgid "VAT identification number:"
+msgstr ""
+
+#: lib/Block/vatid.php:93
+#, fuzzy
+msgid "VAT number"
+msgstr "عدد"
+
+#: config/registry.php.dist:122
+msgid "Vacation"
+msgstr "تعطیلات"
+
+#: lib/Block/weatherdotcom.php:248
+msgid "Variable"
+msgstr "متغییر"
+
+#: config/registry.php.dist:246
+msgid "Version Control"
+msgstr "کنترل نسخه"
+
+#: lib/Block/weatherdotcom_strings.php:101
+msgid "Very High"
+msgstr "خیلی بالا"
+
+#: config/nls.php:186
+msgid "Vietnamese (VISCII)"
+msgstr "Vietnamese (VISCII)"
+
+#: lib/Block/iframe.php:3
+msgid "View an external web page"
+msgstr "نمای یک صفحه وب خارجی"
+
+#: lib/Block/metar.php:204
+msgid "Visibility"
+msgstr "قابلیت مشاهده"
+
+#: lib/Block/weatherdotcom.php:267
+msgid "Visibility: "
+msgstr "قابلیت مشاهده: "
+
+#: lib/Block/account.php:98
+msgid "Warning"
+msgstr "اخطار: "
+
+#: lib/Block/weatherdotcom.php:32
+msgid "Weather Forecast"
+msgstr "پیش‌بینی هوا"
+
+#: lib/Block/weatherdotcom.php:429
+msgid "Weather data provided by"
+msgstr "داده آب و هوایی فراهم شده به وسیله"
+
+#: config/registry.php.dist:369
+msgid "Web Site"
+msgstr "وب‌گاه"
+
+#: services/portal/mobile.php:29
+msgid "Welcome"
+msgstr "خوش آمدید"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+# #-#-#-#-#  fa_IR.po (Horde 3)  #-#-#-#-#
+#
+#: templates/login/login.inc:5 templates/login/mobile.inc:1
+#, php-format
+msgid "Welcome to %s"
+msgstr "به %s خوش آمدید"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: templates/portal/mobile.inc:1
+#, php-format
+msgid "Welcome, %s"
+msgstr "%s، خوش آمدید"
+
+#: config/nls.php:187
+msgid "Western (ISO-8859-1)"
+msgstr "Western (ISO-8859-1)"
+
+#: config/nls.php:188
+msgid "Western (ISO-8859-15)"
+msgstr "Western (ISO-8859-15)"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: config/prefs.php.dist:483
+#, php-format
+msgid "What application should %s display after login?"
+msgstr "چه برنامهٔ کاربردی را %s باید بعد از ورود نشان دهد؟"
+
+#: lib/Block/twitter_timeline.php:131
+msgid "What are you working on now?"
+msgstr ""
+
+#: templates/data/csvinfo.inc:14
+msgid "What is the delimiter character?"
+msgstr "نویسهٔ‌ حائل چیست؟"
+
+#: templates/data/csvinfo.inc:17
+msgid "What is the quote character?"
+msgstr "نویسه‌ی نقل قول چیست؟"
+
+#: lib/Block/fb_stream.php:165
+msgid "What's on your mind?"
+msgstr ""
+
+#: config/prefs.php.dist:427
+msgid "Which day would you like to be displayed as the first day of the week?"
+msgstr ""
+
+#: lib/Block/moon.php:21
+msgid "Which phases"
+msgstr "کدام فاز"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: config/prefs.php.dist:536
+#, fuzzy, php-format
+msgid "Width of the %s menu on the left:"
+msgstr "آیا گزینگان %s سمت راست نشان داده شود؟"
+
+#: config/registry.php.dist:394
+msgid "Wiki"
+msgstr "Wiki"
+
+#: lib/Block/weatherdotcom.php:303 lib/Block/weatherdotcom_strings.php:95
+msgid "Wind"
+msgstr "باد:"
+
+#: lib/Block/weatherdotcom_strings.php:96
+msgid "Wind Early"
+msgstr "باد زودهنگام: "
+
+#: lib/Block/weatherdotcom_strings.php:97
+#, fuzzy
+msgid "Wind Late"
+msgstr "باران دیرهنگام"
+
+#: lib/Block/metar.php:79
+msgid "Wind speed in knots"
+msgstr "سرعت باد برحسب فوت بر ساعت"
+
+#: lib/Block/metar.php:151
+msgid "Wind:"
+msgstr "باد:"
+
+#: lib/Block/weatherdotcom.php:246
+msgid "Wind: "
+msgstr "باد: "
+
+#: lib/Block/account.php:634
+#, fuzzy
+msgid "Windows"
+msgstr "باد:"
+
+#: admin/activesync.php:181 templates/prefs/activesync.html:28
+#, fuzzy
+msgid "Wipe"
+msgstr "چهارشنبه"
+
+#: admin/activesync.php:162 lib/Prefs/Ui.php:415
+msgid "Wipe is pending"
+msgstr ""
+
+#: lib/Block/fortune.php:71
+msgid "Wisdom"
+msgstr "عقل"
+
+#: lib/Block/fortune.php:72
+msgid "Work"
+msgstr "کار"
+
+#: config/registry.php.dist:275
+msgid "X-Ref"
+msgstr ""
+
+#: templates/data/date.inc:47 templates/data/date.inc:48
+#: templates/data/date.inc:49 templates/data/date.inc:50
+#: templates/data/datetime.inc:89 templates/data/datetime.inc:90
+#: templates/data/datetime.inc:91 templates/data/datetime.inc:92
+msgid "YY"
+msgstr "‌YY"
+
+#: templates/logintasks/logintasks.html:34
+msgid "Yes, I Agree"
+msgstr "بله، موافقم"
+
+#: services/facebook.php:110 services/facebook.php:169
+#, php-format
+msgid "You and %d other person likes this"
+msgid_plural "You and %d other people like this"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/Api.php:301
+#, fuzzy
+msgid "You are not allowed to add groups."
+msgstr "شما تصدیق هویّت نشدید"
+
+#: lib/Api.php:476
+#, fuzzy
+msgid "You are not allowed to add shares."
+msgstr "شما تصدیق هویّت نشدید"
+
+#: lib/Api.php:350 lib/Api.php:373 lib/Api.php:399 lib/Api.php:422
+#, fuzzy
+msgid "You are not allowed to change groups."
+msgstr "شما تصدیق هویّت نشدید"
+
+#: lib/Api.php:561 lib/Api.php:598 lib/Api.php:640 lib/Api.php:667
+#, fuzzy
+msgid "You are not allowed to change shares."
+msgstr "شما تصدیق هویّت نشدید"
+
+#: lib/Api.php:327
+msgid "You are not allowed to delete groups."
+msgstr ""
+
+#: lib/Api.php:505
+#, fuzzy
+msgid "You are not allowed to delete shares."
+msgstr "شما تصدیق هویّت نشدید"
+
+#: lib/Api.php:820
+msgid "You are not allowed to list groups of shares."
+msgstr ""
+
+#: lib/Api.php:702 lib/Api.php:744
+#, fuzzy
+msgid "You are not allowed to list share permissions."
+msgstr "هیچ مجوز فرعی‌ای نمی‌تواند به این مجوز اضافه شود"
+
+#: lib/Api.php:532
+#, fuzzy
+msgid "You are not allowed to list shares."
+msgstr "شما تصدیق هویّت نشدید"
+
+#: lib/Api.php:448
+msgid "You are not allowed to list users of groups."
+msgstr ""
+
+#: lib/Api.php:786
+msgid "You are not allowed to list users of shares."
+msgstr ""
+
+#: lib/Api.php:216
+#, fuzzy
+msgid "You are not allowed to remove user data."
+msgstr "Auth_ldap:حذف کاربر %s ممکن نیست "
+
+#: lib/Block/fb_stream.php:159 lib/Block/fb_stream.php:184
+#: services/facebook.php:55 services/facebook.php:72
+#, php-format
+msgid "You can also check your Facebook settings in your %s."
+msgstr ""
+
+#: lib/LoginTasks/Task/TosAgreement.php:54
+msgid ""
+"You did not agree to the Terms of Service agreement, so you were not allowed "
+"to login."
+msgstr ""
+
+#: login.php:278
+msgid "You have been logged out."
+msgstr "شما خارج شدید"
+
+#: lib/Block/fb_stream.php:124
+#, php-format
+msgid ""
+"You have not properly connected your Facebook account with Horde. You should "
+"check your Facebook settings in your %s."
+msgstr ""
+
+#: lib/Block/twitter_timeline.php:182
+#, php-format
+msgid ""
+"You have not properly connected your Twitter account with Horde. You should "
+"check your Twitter settings in your %s."
+msgstr ""
+
+#: services/facebook.php:112 services/facebook.php:163
+#: services/facebook.php:171
+msgid "You like this"
+msgstr ""
+
+#: templates/problem/problem.inc:11
+msgid "You must describe the problem before you can send the problem report."
+msgstr "قبل از ارسال گزارش، باید مشکل را شرح دهید"
+
+#: lib/Prefs/Ui.php:679
+msgid "You must select an server to be deleted."
+msgstr "شما باید یک کارساز، برای حذف کردن انتخاب کنید"
+
+#: admin/user.php:134
+msgid "You must specify a username to clear out."
+msgstr "شما باید یک نام کاربر، برای حذف کردن مشخص کنید"
+
+#: admin/user.php:114
+msgid "You must specify a username to remove."
+msgstr "شما باید یک نام کاربر، برای حذف شدن مشخص کنید"
+
+#: admin/user.php:70
+msgid "You must specify the username to add."
+msgstr "شما باید یک نام کاربر، برای اضافه کردن مشخص کنید"
+
+#: admin/user.php:164
+msgid "You must specify the username to update."
+msgstr "شما باید یک شناسه کاربر، برای بروزرسانی انتخاب کنید"
+
+#: templates/problem/problem.inc:34
+msgid "Your Email Address"
+msgstr "آدرس الکترونیکی شما"
+
+#: config/prefs.php.dist:212 config/prefs.php.dist:275
+#: config/prefs.php.dist:312 config/prefs.php.dist:439
+msgid "Your Information"
+msgstr "اطلاعات شما"
+
+#: login.php:270
+#, fuzzy
+msgid ""
+"Your Internet Address has changed since the beginning of your session. To "
+"protect your security, you must login again."
+msgstr ""
+"آدرس اینترنتی شما نسبت به ابتدای نشست %s شما تغییر کرده است.برای رعایت مسائل "
+"امنیتی باید دوباره وارد شوید"
+
+#: templates/problem/problem.inc:30
+msgid "Your Name"
+msgstr "نام شما"
+
+#: templates/admin/user/noadd.inc:5
+#, fuzzy
+msgid ""
+"Your authentication backend does not support adding users. If you wish to "
+"use Horde to administer user accounts, you must use a different "
+"authentication backend."
+msgstr ""
+"سامانه پشتیبان تصدیق هویّت شما اضافه کردن کاربران را پشتیبانی نمی‌کند، یا شاید "
+"بنا به دلیل دیگری این کار انجام نمی‌شود"
+
+#: templates/admin/user/nolist.inc:5
+msgid ""
+"Your authentication backend does not support listing users, or the feature "
+"has been disabled for some other reason."
+msgstr ""
+"سامانه پشتیبان تصدیق هویّت شما فهرست کردن کاربران را پشتیبانی نمی‌کند، یا شاید "
+"بنا به دلیل دیگری این کار انجام نمی‌شود"
+
+#: login.php:274
+#, fuzzy
+msgid ""
+"Your browser appears to have changed since the beginning of your session. To "
+"protect your security, you must login again."
+msgstr ""
+"ظاهر مرورگر شما نسبت به ابتدای نشست %s شما تغییر کرده است.برای رعایت مسائل "
+"امنیتی باید دوباره وارد شوید"
+
+#: lib/Block/iframe.php:58
+msgid "Your browser does not support this feature."
+msgstr "مرورگر شما این مشخصه را پشتیبانی نمی‌کند."
+
+#: config/prefs.php.dist:337
+msgid "Your current time zone:"
+msgstr "زمان فعلی منطقه جغرافیایی شما:"
+
+#: config/prefs.php.dist:236
+msgid "Your full name:"
+msgstr "نام کامل شما:"
+
+#: login.php:290
+msgid "Your login has expired."
+msgstr "ورود شما منقضی شده است"
+
+#: services/resetpassword.php:74
+#, php-format
+msgid "Your new password for %s is: %s"
+msgstr "اسم رمز  جدید شما برای %s هست: %s"
+
+#: services/resetpassword.php:73
+msgid "Your password has been reset"
+msgstr "اسم رمز  شما بازنشانی شده است"
+
+#: services/resetpassword.php:87
+#, fuzzy
+msgid ""
+"Your password has been reset, but couldn't be sent to you. Please contact "
+"the administrator."
+msgstr ""
+"اسم رمز شما بازنشانی شده است، پست الکترونیک خود را چک کنید و با اسم رمز جدید "
+"خود وارد شوید"
+
+#: services/resetpassword.php:82
+msgid ""
+"Your password has been reset, check your email and log in with your new "
+"password."
+msgstr ""
+"اسم رمز شما بازنشانی شده است، پست الکترونیک خود را چک کنید و با اسم رمز جدید "
+"خود وارد شوید"
+
+#: lib/Block/account.php:689 lib/Block/account.php:704
+#, fuzzy
+msgid "Your password has expired"
+msgstr "اسم رمز  شما منقضی شده است"
+
+#: login.php:178
+msgid "Your password has expired."
+msgstr "اسم رمز  شما منقضی شده است"
+
+#: lib/Prefs/Ui.php:322
+msgid "Your remote servers:"
+msgstr "کارساز‌های راه‌دور شما:"
+
+#: login.php:266
+#, fuzzy
+msgid "Your session has expired. Please login again."
+msgstr "نشست %s شما منقضی شده است. لطفاً دوباره وارد شوید"
+
+#: lib/Block/fortune.php:73
+msgid "Zippy"
+msgstr ""
+
+#: services/problem.php:107
+msgid "[Problem Report]"
+msgstr "[گزارش مشکل] "
+
+#: admin/sessions.php:39
+#, fuzzy
+msgid "[Unknown]"
+msgstr "داده ناشناخته"
+
+#: lib/Api.php:47
+#, fuzzy
+msgid "_Alarms"
+msgstr "معادل"
+
+#: lib/Api.php:72
+msgid "_CLI"
+msgstr "CLI"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: lib/Api.php:27
+#, fuzzy
+msgid "_Configuration"
+msgstr "بازگرداندن پیکربندی"
+
+#: lib/Api.php:52
+msgid "_DataTree"
+msgstr "درخت داده"
+
+#: lib/Api.php:37
+msgid "_Groups"
+msgstr "گروه&#x200c;ها"
+
+#: lib/Api.php:42
+msgid "_Permissions"
+msgstr "مجوزها"
+
+#: lib/Api.php:32
+msgid "_Users"
+msgstr "کاربران"
+
+#: services/problem.php:56
+msgid "attachment"
+msgstr ""
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: lib/Block/metar.php:167 lib/Block/metar.php:353
+#, php-format
+msgid "calm"
+msgstr "آرام"
+
+#: lib/Block/weatherdotcom_strings.php:102
+msgid "falling"
+msgstr ""
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: lib/Block/metar.php:169 lib/Block/metar.php:355 lib/Block/metar.php:381
+#, php-format
+msgid "from the %s (%s) at %s %s"
+msgstr "از %s (%s) در %s %s"
+
+# #-#-#-#-#  compendium.po (Horde 3)  #-#-#-#-#
+#
+#: lib/Block/weatherdotcom.php:254
+msgid "gusting"
+msgstr "باد"
+
+#: admin/config/diff.php:51 admin/config/diff.php:63
+msgid "inline"
+msgstr "درخط"
+
+#: lib/Block/fb_stream.php:124 lib/Block/fb_stream.php:159
+#: lib/Block/fb_stream.php:184 lib/Block/twitter_timeline.php:182
+#: services/facebook.php:55 services/facebook.php:72
+msgid "preferences"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:104
+msgid "rising"
+msgstr "طلوع"
+
+#: admin/config/config.php:80
+msgid "show differences"
+msgstr "نمایش تفاوتها"
+
+#: lib/Block/weatherdotcom_strings.php:103
+msgid "steady"
+msgstr "پی‌درپی"
+
+#: admin/user.php:35 admin/user.php:49
+msgid "type the password twice to confirm"
+msgstr "اسم رمز را برای تأیید دوبار وارد کنید"
+
+#: admin/config/diff.php:51 admin/config/diff.php:63
+msgid "unified"
+msgstr "یگانه شده"
+
+#: lib/Block/weatherdotcom.php:6
+msgid "weather.com"
+msgstr "weather.com"

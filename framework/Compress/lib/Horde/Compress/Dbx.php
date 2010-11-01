@@ -125,7 +125,7 @@ class Horde_Compress_Dbx extends Horde_Compress
                     }
                     $msg_item = unpack('LFilePos/LUnknown/LItemSize/LNextItem/a512Content', $s);
                     if ($msg_item['FilePos'] != $position) {
-                        throw new Horde_Exception(_("Invalid file format"));
+                        throw new Horde_Exception(Horde_Compress_Translation::t("Invalid file format"));
                     }
                     $position += 528;
                     $msg .= substr($msg_item['Content'], 0, $msg_item['ItemSize']);
@@ -154,7 +154,7 @@ class Horde_Compress_Dbx extends Horde_Compress
         $message_info = array();
         $msg_header = unpack('Lposition/LDataLength/SHeaderLength/SFlagCount', substr($data, $position, 12));
         if ($msg_header['position'] != $position) {
-            throw new Horde_Exception(_("Invalid file format"));
+            throw new Horde_Exception(Horde_Compress_Translation::t("Invalid file format"));
         }
         $position += 12;
         $message_info['HeaderPosition'] = $msg_header['position'];
@@ -235,7 +235,7 @@ class Horde_Compress_Dbx extends Horde_Compress
     {
         $index_header = unpack('LFilePos/LUnknown1/LPrevIndex/LNextIndex/LCount/LUnknown', substr($data, $position, 24));
         if ($index_header['FilePos'] != $position) {
-            throw new Horde_Exception(_("Invalid file format"));
+            throw new Horde_Exception(Horde_Compress_Translation::t("Invalid file format"));
         }
 
         // Push it into list of processed items.

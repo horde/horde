@@ -1,0 +1,641 @@
+# Slovenian translations for Gollem packaga
+# Slovenski prevod Gollem paketa
+# Copyright 2006-2010 The Horde Project
+# This file is distributed under the same license as the horde package.
+# Automatically generated, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gollem\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2006-07-25 11:30+0200\n"
+"PO-Revision-Date: 2006-04-30 10:32+0100\n"
+"Last-Translator: duck@obala.net\n"
+"Language-Team: sl_SI <duck@obala.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: manager.php:52
+#, php-format
+msgid "\"%s\" renamed to \"%s\""
+msgstr "'%s' je bil preimenovan v '%s'"
+
+#: quota.php:59
+#, php-format
+msgid "%.2fMB / %.2fMB  (%.2f%%)"
+msgstr "%.2fMB / %.2fMB  (%.2f%%)"
+
+#: manager.php:267
+#, php-format
+msgid "%d items"
+msgstr "%d datotek"
+
+#: manager.php:429
+#, php-format
+msgid "%s Folders and %s Files (%s Kb)"
+msgstr "%s Imenikov in %s Datotek (%s Kb)"
+
+#: manager.php:427
+#, php-format
+msgid "%s Folders and 1 File (%s Kb)"
+msgstr "%s Imenikov in 1 Datoteka (%s Kb)"
+
+#: login.php:143
+#, php-format
+msgid "%s Login"
+msgstr "%s se Prijavlja"
+
+#: edit.php:33
+#, fuzzy, php-format
+msgid "%s successfully saved."
+msgstr "%s je bil uspeno prilepljen."
+
+#: manager.php:159
+#, php-format
+msgid "%s was successfully pasted."
+msgstr "%s je bil uspeno prilepljen."
+
+#: manager.php:424
+#, php-format
+msgid "1 Folder and %s Files (%s Kb)"
+msgstr "1 Imenik in %s Datotek (%s Kb)"
+
+#: manager.php:422
+#, php-format
+msgid "1 Folder and 1 File (%s Kb)"
+msgstr "1 Imenik in 1 Datoteka (%s Kb)"
+
+#: manager.php:267
+msgid "1 item"
+msgstr "1 datoteka"
+
+#: templates/javascript/src/popup.js:58
+msgid ""
+"A popup window could not be opened. Perhaps you have set your browser to "
+"block popup windows?"
+msgstr ""
+
+#: templates/javascript/popup.js:9
+msgid ""
+"A popup window could not be opened.Perhaps you have set your browser to "
+"block popup windows?"
+msgstr ""
+
+#: edit.php:31 edit.php:41 view.php:31
+#, php-format
+msgid "Access denied to %s"
+msgstr "Dostop do %s je bil zavrnjen"
+
+#: lib/Gollem.php:116 lib/Gollem.php:390 lib/Gollem.php:452 lib/Gollem.php:473
+#: lib/Gollem.php:490
+#, php-format
+msgid "Access denied to folder \"%s\"."
+msgstr "Dostop do %s je bil zavrnjen."
+
+#: templates/manager/manager.html:102
+msgid "Actions:"
+msgstr "Akcije:"
+
+#: selectlist.php:100
+msgid "Add"
+msgstr "Dodaj"
+
+#: templates/prefs/columnselect.inc:42
+msgid "Add column"
+msgstr "Dodaj stolpec"
+
+#: templates/manager/manager.html:11
+msgid "All"
+msgstr "Vse"
+
+#: templates/javascript/manager.js:39 templates/javascript/src/manager.js:209
+msgid "Are you sure you wish to continue?"
+msgstr "Ste sigurni?"
+
+#: templates/javascript/manager.js:39 templates/javascript/src/manager.js:205
+msgid "Are you sure?"
+msgstr "Ali ste preprieani?"
+
+#: config/prefs.php.dist:69
+msgid "Ascending"
+msgstr "Vzpenjajoe"
+
+#: config/prefs.php.dist:93
+msgid "Ask"
+msgstr "Vpraaj"
+
+#: templates/manager/manager.html:5
+msgid "Attributes"
+msgstr "Lastnosti"
+
+#: templates/prefs/columnselect.html:20
+msgid "Available Columns:"
+msgstr "Na razpolago so stolpci:"
+
+#: lib/api.php:46
+msgid "Backends"
+msgstr "Viri podatkov"
+
+#: templates/clipboard/clipboard.html:11
+msgid "Below is the current contents of your clipboard."
+msgstr "Spodaj je navedena vsebina vašega pomnilnika (clipboard)."
+
+#: manager.php:261 selectlist.php:102 clipboard.php:37
+#: templates/edit/edit.inc:13
+msgid "Cancel"
+msgstr "Razveljavi"
+
+#: manager.php:72
+#, php-format
+msgid "Cannot chmod %s"
+msgstr "Ne morem spremeniti dovoljenja za dostop v datoteko %s "
+
+#: manager.php:133
+msgid "Cannot copy items onto clipboard."
+msgstr "Ne morem kopirati datotek na tablico."
+
+#: manager.php:192
+#, php-format
+msgid "Cannot create home directory: %s"
+msgstr "Ne morem ustvariti imenika: %s"
+
+#: manager.php:135
+msgid "Cannot cut items onto clipboard."
+msgstr "Ne morem izrezati datotek na tablici."
+
+#: manager.php:80
+#, php-format
+msgid "Cannot delete \"%s\": %s"
+msgstr "Ne morem zbrisati '%s': %s"
+
+#: manager.php:157
+#, php-format
+msgid "Cannot paste \"%s\" (file cleared from clipboard): %s"
+msgstr "Ne morem prilepiti '%s' (pomnilnik je bil počiščen): %s"
+
+#: lib/Gollem.php:777 templates/manager/manager.html:70
+msgid "Change Folder"
+msgstr "Sprenenite imenik"
+
+#: selectlist.php:110 lib/Gollem.php:821
+msgid "Change Server"
+msgstr "Sprenenite strežnik"
+
+#: config/prefs.php.dist:21
+msgid "Change file and folder handling settings."
+msgstr "Spremite datotekine in mapine nastavitve."
+
+#: config/prefs.php.dist:14
+msgid "Change your file sorting options."
+msgstr "Spremenite vae monosti za zbiranje datotek."
+
+#: lib/Gollem.php:795
+msgid "Check Quota"
+msgstr "Prevezi zasedenost"
+
+#: manager.php:513
+msgid "Check _All/None"
+msgstr "Izberite Vse/Nobene"
+
+#: templates/manager/manager.html:104
+msgid "Chmod"
+msgstr "Dovljenja"
+
+#: manager.php:70
+msgid "Chmod done: "
+msgstr "Spremenjeno je dovoljenje za dostop v datoteko: "
+
+#: templates/prefs/columnselect.html:12
+msgid "Choose the columns to display in the file manager."
+msgstr "Izberite stolpec, ki elite, da se prikae v manager datoteki."
+
+#: clipboard.php:38
+msgid "Clear"
+msgstr "Počisti"
+
+#: clipboard.php:17 templates/clipboard/clipboard.html:7
+msgid "Clipboard"
+msgstr "Vmesni pomnilnik"
+
+#: quota.php:31
+msgid "Close"
+msgstr "Zapri"
+
+#: login.php:256
+#, php-format
+msgid "Connect to: %s"
+msgstr "Povei se na: %s "
+
+#: clipboard.php:41 templates/manager/manager.html:107
+msgid "Copy"
+msgstr "Kopiraj"
+
+#: lib/Gollem.php:774 templates/manager/manager.html:58
+msgid "Create Folder"
+msgstr "Ustvari Imenik"
+
+#: permissions.php:47
+#, php-format
+msgid ""
+"Created empty permissions for \"%s\". You must explicitly grant access to "
+"this backend now."
+msgstr ""
+"Tvorjenje pravice za \"%s\". Sedaj morate resnično dodeliti pravice dostop "
+"do tega podatkovnega vira."
+
+#: templates/clipboard/clipboard.html:17
+msgid "Current directory:"
+msgstr "Trenutni imenik: %s"
+
+#: clipboard.php:40 templates/manager/manager.html:108
+msgid "Cut"
+msgstr "Odreži"
+
+#: config/prefs.php.dist:59
+msgid "Default sorting criteria:"
+msgstr "Privzeta razvreevalna merila"
+
+#: config/prefs.php.dist:72
+msgid "Default sorting direction:"
+msgstr "Privzeta razvreevalna smer:"
+
+#: templates/manager/manager.html:111
+msgid "Delete"
+msgstr "Zbriši"
+
+#: config/prefs.php.dist:95
+msgid "Delete folders recursively?"
+msgstr "PObrišem imenik in njegovo vsebino?"
+
+#: config/prefs.php.dist:70
+msgid "Descending"
+msgstr "Padajoče"
+
+#: selectlist.php:101
+msgid "Done"
+msgstr "Končano"
+
+#: manager.php:217
+msgid "Download"
+msgstr "Nalagam"
+
+#: manager.php:396
+#, php-format
+msgid "Download %s"
+msgstr "Shrani %s"
+
+#: templates/quota/quota.html:7
+msgid "ERROR:"
+msgstr "NAPAKA:"
+
+#: manager.php:216
+msgid "Edit"
+msgstr ""
+
+#: templates/edit/edit.inc:8
+#, php-format
+msgid "Edit %s"
+msgstr ""
+
+#: config/credentials.php.dist:28
+msgid "Email"
+msgstr "Elektronski naslov"
+
+#: templates/manager/manager.html:26
+msgid "Execute"
+msgstr "Izvedi"
+
+#: templates/javascript/manager.js:96 templates/javascript/src/manager.js:492
+#: templates/manager/manager.html:179
+msgid "File"
+msgstr "Datoteke"
+
+#: config/prefs.php.dist:13
+msgid "File Display"
+msgstr "Prikazujem Ddtoteko"
+
+#: config/prefs.php.dist:56
+msgid "File Modification Time"
+msgstr "Datoteka Spreminjanje Easa"
+
+#: config/prefs.php.dist:55
+msgid "File Name"
+msgstr "Ime datoteke"
+
+#: config/prefs.php.dist:57
+msgid "File Size"
+msgstr "Velikost Datoteke"
+
+#: config/prefs.php.dist:54
+msgid "File Type"
+msgstr "Vrsta Datoteke"
+
+#: manager.php:76
+msgid "File deleted: "
+msgstr "Zbrisana Datoteka: "
+
+#: manager.php:101
+#, php-format
+msgid "File received: %s"
+msgstr "Sprejeta datoteka: %s"
+
+#: manager.php:78
+msgid "Folder removed: "
+msgstr "Imenik pobrisan: "
+
+#: templates/manager/manager.html:72
+msgid "Go to:"
+msgstr "Pojdi:"
+
+#: permissions.php:21
+msgid "Gollem Backend Permissions Administration"
+msgstr "Gollem Pravice dostopa do podatkovnega vira"
+
+#: manager.php:492 templates/manager/manager.html:10
+msgid "Group"
+msgstr "Skupina"
+
+#: lib/Gollem.php:770
+msgid "Home"
+msgstr "Domov"
+
+#: manager.php:56
+msgid "Incorrect number of items."
+msgstr "Nepravilno tevilo datotek."
+
+#: manager.php:126
+#, php-format
+msgid "Item copied to clipboard: %s"
+msgstr "Enota je bila kopirna na tablico: %s"
+
+#: manager.php:128
+#, php-format
+msgid "Item cut to clipboard: %s"
+msgstr "Enota je bila izrezana za tablico: %s"
+
+#: templates/login/login.html:67
+msgid "Language"
+msgstr "Jezik"
+
+#: config/prefs.php.dist:81
+msgid "List folders first?"
+msgstr "Izpiši najprej imenike?"
+
+#: login.php:305
+msgid "Login"
+msgstr "Prijavi se"
+
+#: quota.php:62
+msgid "MB free"
+msgstr "MB prosto   "
+
+#: quota.php:62
+msgid "MB used"
+msgstr "MB zasedeno"
+
+#: lib/Block/tree_menu.php:3
+msgid "Menu List"
+msgstr "Meni"
+
+#: manager.php:466
+msgid "Modified"
+msgstr "Spremenjen"
+
+#: templates/prefs/columnselect.inc:44
+msgid "Move left"
+msgstr "Premakni v levo"
+
+#: templates/prefs/columnselect.inc:45
+msgid "Move right"
+msgstr "Premakni v desno"
+
+#: manager.php:447
+msgid "Name"
+msgstr "Ime"
+
+#: templates/manager/manager.html:46 templates/manager/manager.html:60
+msgid "Name:"
+msgstr "Ime:"
+
+#: manager.php:35
+msgid "New folder created: "
+msgstr "Ustvarjen nov imenik: "
+
+#: config/prefs.php.dist:91
+msgid "No"
+msgstr "Ne"
+
+#: templates/quota/quota.html:12
+msgid "No quota found."
+msgstr "Ni omejitev prostora"
+
+#: manager.php:262
+msgid "OK"
+msgstr "OK"
+
+#: manager.php:486 templates/manager/manager.html:9
+msgid "Owner"
+msgstr "Lastnik"
+
+#: config/credentials.php.dist:23
+msgid "Password"
+msgstr "Geslo"
+
+#: clipboard.php:39
+msgid "Paste"
+msgstr "Prilepi"
+
+#: manager.php:480
+msgid "Permission"
+msgstr "Dovoljenje"
+
+#: selectlist.php:63
+#, php-format
+msgid "Permission denied to %s: %s"
+msgstr "Dovoljenje za %s: %s je bilo zavrnjeno."
+
+#: manager.php:200
+#, php-format
+msgid "Permission denied to folder \"%s\": %s"
+msgstr "Dovoljenje za %s je bilo zavrnjeno: %s."
+
+#: lib/Gollem.php:784
+msgid "Permissions"
+msgstr "Dovoljenja"
+
+#: templates/javascript/login.js:6 templates/javascript/src/login.js:43
+msgid "Please provide your password."
+msgstr "Prosim, izberite si vae geslo."
+
+#: templates/javascript/login.js:6 templates/javascript/src/login.js:38
+msgid "Please provide your username."
+msgstr "Prosim, izberite si vae uporabniko ime."
+
+#: templates/prefs/columnselect.html:5
+msgid "Please select a backend:"
+msgstr "Prosim, izberite backend:"
+
+#: templates/javascript/manager.js:28 templates/javascript/src/manager.js:139
+msgid "Please select an item before this action."
+msgstr "Prosim, izberite datoteko preden zaenete s tem dejanjem."
+
+#: templates/javascript/manager.js:93 templates/javascript/src/manager.js:463
+msgid "Please specify at least one file to upload."
+msgstr "Prosim, doloeite vsaj eno datoteko, ki jo elite posodobiti."
+
+#: quota.php:18 templates/quota/quota.html:2
+msgid "Quota Display"
+msgstr "Razpoložljiv prostor"
+
+#: quota.php:61
+msgid "Quota Usage"
+msgstr "Porabljen prostor"
+
+#: templates/manager/manager.html:14
+msgid "Read"
+msgstr "Breanje"
+
+#: manager.php:269
+msgid "Refresh"
+msgstr "Osveži"
+
+#: templates/prefs/columnselect.inc:43
+msgid "Remove column"
+msgstr "Odstrani stolpec"
+
+#: templates/manager/manager.html:44 templates/manager/manager.html:114
+msgid "Rename"
+msgstr "Preimenuj"
+
+#: templates/edit/edit.inc:12
+msgid "Reset"
+msgstr ""
+
+#: lib/Gollem.php:734 lib/Gollem.php:739
+msgid "Root"
+msgstr "Koren"
+
+#: manager.php:260 templates/edit/edit.inc:11
+msgid "Save"
+msgstr "Shrani"
+
+#: templates/prefs/columnselect.html:30
+msgid "Selected Columns:"
+msgstr "Izbrani stolpci:"
+
+#: templates/login/login.html:31
+msgid "Server"
+msgstr "Strenik"
+
+#: config/prefs.php.dist:20
+msgid "Settings"
+msgstr "Nastavitve"
+
+#: config/prefs.php.dist:30
+msgid "Show dotfiles?"
+msgstr "Ali pokaem dotdatoteke?"
+
+#: manager.php:473
+msgid "Size"
+msgstr "Velikost"
+
+#: manager.php:499
+msgid "Sort Direction"
+msgstr "Izberi Smer"
+
+#: templates/javascript/manager.js:39 templates/javascript/src/manager.js:209
+msgid "The following item(s) are folders: "
+msgstr "Sledeče datoteke so direktoriji: "
+
+#: templates/javascript/manager.js:39 templates/javascript/src/manager.js:205
+msgid "The following items will be permanently deleted: "
+msgstr "Naslednje datoteke bodo zbrisane za vedno: "
+
+#: templates/javascript/selectlist.js:2
+#: templates/javascript/src/selectlist.js:16
+msgid "The original opener window has been closed. Exiting."
+msgstr "Izvorno okno je bilo zaprto. Zapiram."
+
+#: login.php:150
+msgid "There are no backends available for the current user."
+msgstr "Ni podatkovnih virov za trenutnega uporabnika."
+
+#: selectlist.php:193 templates/manager/manager.html:125
+msgid "There are no files in this folder."
+msgstr "V tem imeniku ni datotek."
+
+#: templates/clipboard/clipboard.html:15
+msgid ""
+"To clear items from the clipboard, check the box next to the filename and "
+"click on &quot;Clear&quot;."
+msgstr "Za izbrisanje s pomnilika izberite daoteke in klinite 'Počisti'."
+
+#: templates/clipboard/clipboard.html:13
+msgid ""
+"To paste items from the clipboard to the current directory, check the box "
+"next to the filename and click on &quot;Paste&quot;."
+msgstr "Za prilepiti datoteke jih izberite in kliknite 'Prilepi'"
+
+#: manager.php:440
+msgid "Type"
+msgstr "Vrsta"
+
+#: permissions.php:42
+#, php-format
+msgid "Unable to create backend permission: %s"
+msgstr "Nimate priavice dostopa do podatkovnega vira: %s."
+
+#: lib/Gollem.php:739 lib/Gollem.php:749
+#, php-format
+msgid "Up to %s"
+msgstr "Nazaj na %s "
+
+#: manager.php:282
+msgid "Upload File(s)"
+msgstr "Naloži datoteke"
+
+#: config/prefs.php.dist:12 config/prefs.php.dist:19
+msgid "User Interface"
+msgstr "Uporabniki vmesnik"
+
+#: config/credentials.php.dist:18
+msgid "Username"
+msgstr "Uporabniko ime"
+
+#: manager.php:277
+msgid "View Clipboard"
+msgstr "Preglej predpomnilnik"
+
+#: login.php:195
+#, php-format
+msgid "Welcome to %s"
+msgstr "Pozdravleni v %s "
+
+#: templates/manager/manager.html:20
+msgid "Write"
+msgstr "Pisanje"
+
+#: config/prefs.php.dist:92
+msgid "Yes"
+msgstr "Da"
+
+#: permissions.php:25
+msgid "You need at least one backend defined to set permissions."
+msgstr "Morate navesti vsaj en podatkovni vir za spreminjat pravice dostpa."
+
+#: lib/MIME/Viewer/images.php:35
+msgid "Your browser does not support inline display of this image type"
+msgstr "Vaš brskalnik ne podpira prikaza te vrste slike."
+
+#: lib/Gollem.php:819 lib/Gollem.php:822
+msgid "_Change Server"
+msgstr "Sprenenite strenik"
+
+#: manager.php:218 selectlist.php:74
+msgid "folder"
+msgstr "imenik"
+
+#: manager.php:219 selectlist.php:75
+msgid "symlink"
+msgstr "blinica"

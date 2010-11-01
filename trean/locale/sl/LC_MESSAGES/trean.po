@@ -1,0 +1,904 @@
+# Slovenian translations for Trean packaga
+# Slovenski prevod Trean paketa
+# Copyright 2006-2009 The Horde Project
+# This file is distributed under the same license as the horde package.
+# Automatically generated, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: trean\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2006-07-25 11:30+0200\n"
+"PO-Revision-Date: 2006-04-30 10:32+0100\n"
+"Last-Translator: duck@obala.net\n"
+"Language-Team: sl_SI <duck@obala.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: edit.php:248
+#, php-format
+msgid "\"%s\" was not renamed: %s."
+msgstr "\"%s\" ni bil preimenovan: %s."
+
+#: data.php:153
+#, php-format
+msgid "%d Folders and %d Bookmarks imported."
+msgstr "Uvoženih je bilo %d map in %d priljebljenih."
+
+#: templates/reports/http-status.inc:127
+#, php-format
+msgid "%s Bookmarks"
+msgstr "%s priljubljene"
+
+#: templates/reports/clicks.inc:49
+#, php-format
+msgid "%s Clicks"
+msgstr "%s Klikov"
+
+#: reports.php:30
+#, php-format
+msgid "%s Response Codes"
+msgstr "%s Šifre odgovorov"
+
+#: scripts/upgrades/2005-03-15_move_to_horde_share.php:123 lib/base.php:69
+#, php-format
+msgid "%s's Bookmarks"
+msgstr "Priljublje %s"
+
+#: templates/reports/clicks.inc:47
+msgid "1 Click"
+msgstr "1 Klik"
+
+#: lib/Block/bookmarks.php:56
+msgid "1 Line"
+msgstr "1. vrstica"
+
+#: templates/reports/http-status.inc:59
+#, php-format
+msgid "1xx Response Codes (%s)"
+msgstr "1xx Šifra odgovora (%s)"
+
+#: lib/Block/bookmarks.php:55
+msgid "2 Line"
+msgstr "2. vrstica"
+
+#: templates/reports/http-status.inc:65
+#, php-format
+msgid "2xx Response Codes (%s)"
+msgstr "2xx Šifra odgovoa (%s)"
+
+#: lib/Block/bookmarks.php:54
+msgid "3 Line"
+msgstr "3. vrstica"
+
+#: templates/reports/http-status.inc:76
+#, php-format
+msgid "3xx Response Codes (%s)"
+msgstr "3xx Šifra odgovoa (%s)"
+
+#: templates/reports/http-status.inc:87
+#, php-format
+msgid "4xx Response Codes (%s)"
+msgstr "5xx Šifra odgovoa (%s)"
+
+#: templates/reports/http-status.inc:109
+#, php-format
+msgid "5xx Response Codes (%s)"
+msgstr "5xx Šifra odgovoa (%s)"
+
+#: lib/Trean.php:262
+msgid "Accepted"
+msgstr "Sprejeta"
+
+#: lib/Block/tree_menu.php:24
+msgid "Add"
+msgstr "Dodaj"
+
+#: add.php:111
+msgid "Add Bookmark"
+msgstr "Dodaj Priljubljeno povezavo"
+
+#: templates/add/add.inc:31
+msgid "Add a new bookmark"
+msgstr "Dodaj novo povezavo"
+
+#: templates/add/add.inc:86
+msgid "Add to Bookmarks"
+msgstr "Dodaj v Priljubljene"
+
+#: templates/search/results_header.inc:12 templates/browse/bookmarks.inc:30
+msgid "All"
+msgstr "Vse"
+
+#: lib/Block/bookmarks.php:48
+msgid "All Bookmarks"
+msgstr "Vsi Zaznamki"
+
+#: lib/Trean.php:32
+#, php-format
+msgid "An error occured listing categories: %s"
+msgstr "Prišlo je do napake pri prikazovanjzu kategorije: %s"
+
+#: lib/Trean.php:61
+#, php-format
+msgid "An error occurred counting categories: %s"
+msgstr "Prišlo je do napake pri štetju kategorije: %s"
+
+#: templates/search/search.inc:30
+msgid "And"
+msgstr "in"
+
+#: templates/search/search.inc:39
+msgid "Any Part of field"
+msgstr "Katerikoli del polja"
+
+#: templates/search/javascript.inc:29
+msgid "Are you sure you want to delete the selected bookmarks?"
+msgstr "Resnično želite izbrissatni izbrane povezave?"
+
+#: templates/browse/javascript.inc:114
+msgid "Are you sure you want to delete the selected items?"
+msgstr "Resnično želite izbrissatni izbrane povezave?"
+
+#: perms.php:50
+msgid "Attempt to edit a non-existent share."
+msgstr "Poskušali ste urediti neobstoječe deljene povezave."
+
+#: lib/Trean.php:294
+msgid "Bad Gateway"
+msgstr "Slab prehod"
+
+#: lib/Trean.php:274
+msgid "Bad Request"
+msgstr "Slab zahtevek"
+
+#: lib/Bookmarks.php:53
+msgid "Bookmark names must be non-empty"
+msgstr "Imena ne morejo biti prazna"
+
+#: data.php:17 templates/browse/bookmarks.inc:33 lib/Block/bookmarks.php:3
+#: lib/Block/bookmarks.php:45 lib/Block/bookmarks.php:74
+msgid "Bookmarks"
+msgstr "Priljubljene"
+
+#: browse.php:89
+msgid "Browse"
+msgstr "Prebrskaj"
+
+#: templates/edit/footer.inc:2
+msgid "Cancel"
+msgstr "Prekliči"
+
+#: templates/browse/bookmarks.inc:32
+msgid "Categories"
+msgstr "Kategorije"
+
+#: templates/edit/bookmark.inc:79 templates/add/add.inc:51
+#: lib/Block/bookmarks.php:41
+msgid "Category"
+msgstr "Kategorija"
+
+#: lib/Trean.php:83
+msgid "Category does not exist."
+msgstr "Kategorija ne obstaja"
+
+#: lib/Bookmarks.php:32
+msgid "Category names must be non-empty"
+msgstr "Imena kategorij ne morejo biti prazna"
+
+#: templates/data/import.inc:11
+msgid "Category to import into:"
+msgstr "Kategorija v katero bomo uvozili:"
+
+#: config/prefs.php.dist:11
+msgid "Change the number of columns to display in browse and search results."
+msgstr "Spremeni tevilo kolon, ki se bodo prikazale v brskanju in iskanju."
+
+#: templates/search/search.inc:26
+msgid "Combine"
+msgstr "Združi"
+
+#: config/prefs.php.dist:44
+msgid "Completely collapsed"
+msgstr "Popolnoma združeno"
+
+#: config/prefs.php.dist:46
+msgid "Completely expanded"
+msgstr "Popolnoma razširjeno"
+
+#: lib/Trean.php:283
+msgid "Conflict"
+msgstr "Nasprotje"
+
+#: lib/Trean.php:258
+msgid "Continue"
+msgstr "Nadaljuj"
+
+#: edit.php:222
+msgid "Copied bookmark: "
+msgstr "Podvojen zaznamek: "
+
+#: templates/search/results_header.inc:19 templates/browse/bookmarks.inc:52
+msgid "Copy"
+msgstr "Podvoji"
+
+#: edit.php:231
+#, php-format
+msgid "Copying categories is not supported."
+msgstr "Podvojevanje kategorij ni podpirto."
+
+#: lib/Trean.php:261
+msgid "Created"
+msgstr "Ustvarjeno"
+
+#: templates/reports/http-status.inc:119
+#, php-format
+msgid "DNS Failure or Other Error (%s)"
+msgstr "DNS pregled ali druga napaka (%s)"
+
+#: templates/search/results_header.inc:17 templates/browse/bookmarks.inc:43
+msgid "Delete"
+msgstr "Izbriši"
+
+#: templates/edit/bookmark.inc:72
+msgid "Delete Bookmark"
+msgstr "Izbriši zaznamek"
+
+#: templates/browse/javascript.inc:32
+msgid "Delete current category?"
+msgstr "Pobriem trenutno kategorijo?"
+
+#: templates/browse/bookmarks.inc:70 templates/browse/bookmarks.inc:174
+msgid "Delete this Category"
+msgstr "Pobriši to kategorijo"
+
+#: edit.php:34 edit.php:109
+msgid "Deleted bookmark: "
+msgstr "Izbrise povezave: "
+
+#: edit.php:123
+msgid "Deleted category: "
+msgstr "Izbrsana kategorija: "
+
+#: templates/search/search.inc:21 templates/edit/bookmark.inc:18
+#: templates/add/add.inc:46
+msgid "Description"
+msgstr "Opis"
+
+#: config/prefs.php.dist:10
+msgid "Display Options"
+msgstr "Nastavitve prikazovanja"
+
+#: config/prefs.php.dist:74
+msgid "Display bookmark rating in browse/search view?"
+msgstr "Prkažem ptetje med brskanjem in iskanjem?"
+
+#: config/prefs.php.dist:56
+msgid "Display edit buttons when displaying Bookmarks?"
+msgstr "Prikaži gumbe za urejanje v zaznamkih?"
+
+#: templates/data/export.inc:11
+msgid "Download Category"
+msgstr "Shrani Kategorijo"
+
+#: templates/add/add.inc:77
+msgid "Drag the \"Add to Bookmarks\" link below onto your \"Links\" Bar"
+msgstr ""
+"Povleci povezavo \"Dodaj v zaznamke\" v vrstico brskalnika, kjer piše "
+"\"Osebne povezave\""
+
+#: templates/add/add.inc:75
+msgid ""
+"Drag the \"Add to Bookmarks\" link below onto your \"Personal Toolbar\"."
+msgstr ""
+"Povleci povezavo \"Dodaj v zaznamke\" v vrstico brskalnika, kjer piše "
+"\"Osebni zaznamki\""
+
+#: templates/search/results_header.inc:16 templates/browse/bookmarks.inc:37
+msgid "Edit"
+msgstr "Uredi"
+
+#: edit.php:282
+msgid "Edit Bookmark"
+msgstr "Uredi zaznamek"
+
+#: perms.php:241
+msgid "Edit Permissions"
+msgstr "Uredi privilegije"
+
+#: perms.php:244
+#, php-format
+msgid "Edit Permissions for %s"
+msgstr "Uredi pravice za %s"
+
+#: lib/Trean.php:291
+msgid "Expectation Failed"
+msgstr "Neuspešno pričakovanje"
+
+#: templates/data/export.inc:4
+msgid "Export Bookmarks"
+msgstr "Izvozi priljubljene"
+
+#: templates/data/import.inc:9
+msgid "File to import:"
+msgstr "Datoteka za uvoz:"
+
+#: config/prefs.php.dist:45
+msgid "First level shown"
+msgstr "Prikazan prvi nivo"
+
+#: lib/Trean.php:277
+msgid "Forbidden"
+msgstr "Nedovoljeno"
+
+#: lib/Trean.php:269
+msgid "Found"
+msgstr "Najdeno"
+
+#: lib/Trean.php:296
+msgid "Gateway Time-out"
+msgstr "Vrata pretekla"
+
+#: lib/Trean.php:284
+msgid "Gone"
+msgstr "Šlo"
+
+#: reports.php:30 templates/reports/list.inc:7
+#: templates/reports/http-status.inc:56 templates/edit/bookmark.inc:60
+msgid "HTTP Status"
+msgstr "HTTP status"
+
+#: lib/Trean.php:297
+msgid "HTTP Version not supported"
+msgstr "HTTP verzija ni podporta"
+
+#: templates/data/import.inc:16
+msgid "Import"
+msgstr "Uvoz"
+
+#: data.php:181 templates/data/import.inc:4
+msgid "Import Bookmarks"
+msgstr "Uvozi priljubljene"
+
+#: templates/data/export.inc:9
+msgid "Include Subcategories"
+msgstr "Vključi podkategorije"
+
+#: lib/Trean.php:292
+msgid "Internal Server Error"
+msgstr "Interna napaka oddaljenega strežnika"
+
+#: templates/add/add.inc:76
+msgid "Internet Explorer"
+msgstr "Internet Exporer"
+
+#: templates/data/import.inc:7
+msgid ""
+"Internet Explorer users will need to export their current Favorites by going "
+"to the \"File\" menu and selecting \"Import and Export\"."
+msgstr ""
+"Uporabniki Internet Explorerja bodo morali izvoziti svoje Priljbubljene "
+"tako, da kliknete na \"Datoteka\" in izberete \"Uvozi in izvozi\""
+
+#: lib/Trean.php:285
+msgid "Length Required"
+msgstr "Dolžina je zahtevana"
+
+#: templates/search/search.inc:36
+msgid "Match"
+msgstr "Zadetek"
+
+#: lib/api.php:34
+msgid "Maximum Number of Bookmarks"
+msgstr "Največje število zaznamkov"
+
+#: lib/api.php:31
+msgid "Maximum Number of Categories"
+msgstr "Največje šteivlo kategorij"
+
+#: lib/Block/tree_menu.php:3
+msgid "Menu List"
+msgstr "Meni"
+
+#: lib/Trean.php:279
+msgid "Method Not Allowed"
+msgstr "Način ni dovoljen"
+
+#: templates/browse/bookmarks.inc:58
+msgid "More Actions"
+msgstr "Več ukazov"
+
+#: templates/search/results_header.inc:18 templates/browse/bookmarks.inc:45
+msgid "Move"
+msgstr "Premakni"
+
+#: lib/Trean.php:268
+msgid "Moved Permanently"
+msgstr "Premaknjeno za vedno"
+
+#: edit.php:166
+msgid "Moved bookmark: "
+msgstr "Premaknjene povezave: "
+
+#: edit.php:180
+msgid "Moved category: "
+msgstr "Premaknjena kategorija"
+
+#: templates/add/add.inc:74
+msgid "Mozilla"
+msgstr "Mozilla"
+
+#: templates/data/import.inc:6
+msgid ""
+"Mozilla/Firefox users will need to export their current Bookmarks by going "
+"into \"Bookmark Manager\" and selecting \"Export\" from the \"Tools\" menu."
+msgstr ""
+"Uporabniki Firefox/Mozilla in bodo morali izvoziti svoje priljubljene tako, "
+"da bodo odprli \"Bookmark Manager\" in izbrali \"Export\" iz \"Tools\" "
+"menija."
+
+#: lib/Trean.php:267
+msgid "Multiple Choices"
+msgstr "Več izbir"
+
+#: lib/Trean.php:87
+msgid "My Bookmarks"
+msgstr "Moji zaznamki"
+
+#: templates/edit/category.inc:13
+msgid "Name"
+msgstr "Ime"
+
+#: templates/browse/bookmarks.inc:60 templates/browse/bookmarks.inc:158
+#: lib/Block/bookmarks.php:81
+msgid "New Bookmark"
+msgstr "Nov zaznamek"
+
+#: lib/Trean.php:168
+msgid "New Category"
+msgstr "Nova kategorija"
+
+#: templates/browse/bookmarks.inc:67 templates/browse/bookmarks.inc:167
+msgid "New Subcategory"
+msgstr "Nova podkategorija"
+
+#: templates/search/results_none.inc:3
+msgid "No Bookmarks found"
+msgstr "Ni najdenih priljubljenih"
+
+#: lib/Trean.php:264
+msgid "No Content"
+msgstr "Ni vsebine"
+
+#: lib/Block/bookmarks.php:124
+msgid "No bookmarks to display"
+msgstr "Ni zaznamkov za prikaz"
+
+#: lib/Trean.php:263
+msgid "Non-Authoritative Information"
+msgstr "Ne-avtoritativna informacija"
+
+#: templates/search/results_header.inc:13 templates/browse/bookmarks.inc:31
+#: templates/reports/rating.inc:48
+msgid "None"
+msgstr "Noben"
+
+#: lib/Trean.php:280
+msgid "Not Acceptable"
+msgstr "Nedpoustno"
+
+#: lib/Trean.php:278
+msgid "Not Found"
+msgstr "Ne obstaja"
+
+#: lib/Trean.php:293
+msgid "Not Implemented"
+msgstr "Ni podprto"
+
+#: lib/Trean.php:271
+msgid "Not Modified"
+msgstr "Ni spremenjeno"
+
+#: templates/add/add.inc:80
+msgid "Note:"
+msgstr "Opomba:"
+
+#: edit.php:276
+msgid "Nothing to edit."
+msgstr "Nič za urediti."
+
+#: templates/reports/list.inc:13 templates/reports/clicks.inc:5
+msgid "Number of Clicks"
+msgstr "Število klikov"
+
+#: config/prefs.php.dist:22
+msgid ""
+"Number of columns to display in browse and search results (does not apply to "
+"tree view):"
+msgstr ""
+"Število kolon, ki jih prikažemo v izpisu (nima učinka na drevesno strukturo):"
+
+#: lib/Trean.php:260
+msgid "OK"
+msgstr "Da"
+
+#: templates/add/add.inc:81
+#, php-format
+msgid ""
+"On newer versions of Internet Explorer, you may have to add %s://%s to your "
+"Trusted Zone for this to work."
+msgstr ""
+"V novih verzijah  Internet Explorerja, boste morali dodati %s://%s med Varne "
+"točke da vam bo naposredna povezava delovala."
+
+#: perms.php:62
+msgid ""
+"Only the owner or system administrator may change ownership or owner "
+"permissions for a share"
+msgstr "Le lastnik ali sistemski administrator lahko spremeni lastništvo"
+
+#: templates/menu.inc:2 templates/menu.inc:5 lib/Trean.php:208
+#: lib/Trean.php:213
+msgid "Open Fo_lder"
+msgstr "Odpri mapo"
+
+#: config/prefs.php.dist:65
+msgid "Open links in a new window?"
+msgstr "Odpri povezave v novih oknih"
+
+#: templates/search/search.inc:29
+msgid "Or"
+msgstr "Ali"
+
+#: config/prefs.php.dist:9
+msgid "Other Options"
+msgstr "Druge nastavitve"
+
+#: lib/Trean.php:266
+msgid "Partial Content"
+msgstr "Delna vsebina"
+
+#: lib/Trean.php:276
+msgid "Payment Required"
+msgstr "Zahtevano plačilo"
+
+#: templates/browse/javascript.inc:133 templates/browse/javascript.inc:168
+#: templates/add/add.inc:5
+msgid "Please enter a name for the new category:"
+msgstr "Prosim vnesite ime od nove kategorije:"
+
+#: templates/browse/javascript.inc:25
+msgid "Please enter the name of the new category:"
+msgstr "Prosim vnesite ime od nove kategorije:"
+
+#: templates/browse/javascript.inc:39
+msgid "Please modify the name accordingly"
+msgstr "Prosim popravite ime"
+
+#: templates/browse/javascript.inc:97 templates/browse/javascript.inc:112
+#: templates/browse/javascript.inc:152 templates/browse/javascript.inc:187
+msgid "Please select an item first"
+msgstr "Najprej izberite povezavo"
+
+#: lib/Trean.php:286
+msgid "Precondition Failed"
+msgstr "Predpogoj neizpolnjen"
+
+#: lib/Trean.php:281
+msgid "Proxy Authentication Required"
+msgstr "Zahtevna je avtentikacija pri posredniku"
+
+#: templates/edit/bookmark.inc:28
+msgid "Rating"
+msgstr "Točkovanje"
+
+#: templates/reports/list.inc:19 templates/reports/rating.inc:5
+msgid "Ratings"
+msgstr "Točkovanja"
+
+#: templates/edit/bookmark.inc:67
+#, php-format
+msgid "Redirect to %s"
+msgstr "Preusmerjen na %s"
+
+#: templates/browse/bookmarks.inc:71 templates/browse/bookmarks.inc:175
+msgid "Rename this Category"
+msgstr "Preimenuj to kategorijo"
+
+#: reports.php:18
+msgid "Reports"
+msgstr "Poročila"
+
+#: lib/Trean.php:287
+msgid "Request Entity Too Large"
+msgstr "Zahtevek predolg"
+
+#: lib/Trean.php:282
+msgid "Request Time-out"
+msgstr "Čas čakanje se je iztekel"
+
+#: lib/Trean.php:288
+msgid "Request-URI Too Large"
+msgstr "Zahtevan URI je predolg"
+
+#: lib/Trean.php:290
+msgid "Requested range not satisfiable"
+msgstr "Zahtevana širina ni zadovoljujoča"
+
+#: templates/add/add.inc:64
+msgid "Reset"
+msgstr "Ponastavi"
+
+#: lib/Trean.php:265
+msgid "Reset Content"
+msgstr "Ponastavi vsebino"
+
+#: templates/edit/footer.inc:1 templates/add/add.inc:63
+msgid "Save"
+msgstr "Shrani"
+
+#: search.php:14 templates/search/search.inc:47 lib/Block/tree_menu.php:33
+msgid "Search"
+msgstr "Najdi"
+
+#: templates/search/search.inc:6
+msgid "Search Bookmarks"
+msgstr "Najdi v zaznamkih"
+
+#: templates/search/results_none.inc:2
+msgid "Search Results"
+msgstr "Rezultati iskanja"
+
+#: search.php:65
+#, php-format
+msgid "Search Results (%s)"
+msgstr "Rezultati iskanja (%s)"
+
+#: lib/Trean.php:270
+msgid "See Other"
+msgstr "Preglej ostale"
+
+#: templates/search/results_header.inc:12 templates/browse/bookmarks.inc:30
+msgid "Select All"
+msgstr "Najdi vse"
+
+#: templates/browse/bookmarks.inc:33
+msgid "Select All Bookmarks"
+msgstr "Najdi v vseh zaznamkih"
+
+#: templates/browse/bookmarks.inc:32
+msgid "Select All Categories"
+msgstr "Izberi vse kategorije"
+
+#: templates/search/results_header.inc:13 templates/browse/bookmarks.inc:31
+msgid "Select None"
+msgstr "Ne izberi nobene"
+
+#: templates/search/results_header.inc:11
+#, php-format
+msgid "Select: %s, %s"
+msgstr "Izberi: %s, %s"
+
+#: templates/browse/bookmarks.inc:29
+#, php-format
+msgid "Select: %s, %s, %s, %s"
+msgstr "Izberi: %s, %s, %s, %s"
+
+#: lib/Trean.php:295
+msgid "Service Unavailable"
+msgstr "Servis nedostopen"
+
+#: templates/browse/bookmarks.inc:74 templates/browse/bookmarks.inc:182
+msgid "Set Permissions"
+msgstr "Nastavi previce"
+
+#: config/prefs.php.dist:47
+msgid "Should your list of bookmark categories be open when you log in?"
+msgstr "Odprem spisek proljubljenih pri prijavi?"
+
+#: lib/Trean.php:259
+msgid "Switching Protocols"
+msgstr "Zamenjava protokolov"
+
+#: lib/Block/bookmarks.php:51
+msgid "Template"
+msgstr "Šablona"
+
+#: config/prefs.php.dist:35
+msgid "Template to use when displaying bookmarks:"
+msgstr "Šablono, ki jo bomo uporabili pri prikazu priljubljenih:"
+
+#: lib/Trean.php:273
+msgid "Temporary Redirect"
+msgstr "Začasno preusmerjen"
+
+#: templates/browse/bookmarks.inc:186
+msgid "There are no bookmarks in this category"
+msgstr "Ni priljubljenih v tej kategoriji"
+
+#: edit.php:224
+#, php-format
+msgid "There was a problem copying the bookmark: %s"
+msgstr "Prišlo je do napake pri podvajanju povezave: %s"
+
+#: edit.php:36 edit.php:111
+#, php-format
+msgid "There was a problem deleting the bookmark: %s"
+msgstr "Prišlo je do napake pri brisanju povezave: %s"
+
+#: edit.php:125
+#, php-format
+msgid "There was a problem deleting the category: %s"
+msgstr "Prišlo je do napake pri brisanju povezave: %s"
+
+#: edit.php:168
+#, php-format
+msgid "There was a problem moving the bookmark: %s"
+msgstr "Prišlo je do napake pri premikanju povezave: %s"
+
+#: edit.php:182
+#, php-format
+msgid "There was a problem moving the category: %s"
+msgstr "Prišlo je do napake pri premiku kategorije: %s"
+
+#: add.php:64
+#, php-format
+msgid "There was an error adding the bookmark: %s"
+msgstr "Prišlo je do napake pri dodajanju povezave: %s"
+
+#: edit.php:152 edit.php:208 add.php:43 add.php:100
+#, php-format
+msgid "There was an error adding the category: %s"
+msgstr "Prišlo je do napake pri dodajanju kategorije: %s"
+
+#: edit.php:65
+#, php-format
+msgid "There was an error saving the bookmark: %s"
+msgstr "Prišlo je do napake pri shranjevanju povezave: %s"
+
+#: edit.php:78
+#, php-format
+msgid "There was an error saving the category: %s"
+msgstr "Prišlo je do napake pri shranjevanju kategorije: %s"
+
+#: templates/search/search.inc:16 templates/edit/bookmark.inc:13
+#: templates/add/add.inc:41
+msgid "Title"
+msgstr "Naslov"
+
+#: config/prefs.php.dist:33
+msgid "Title Only"
+msgstr "Samo naslov"
+
+#: config/prefs.php.dist:32
+msgid "Title and Description"
+msgstr "Naslov in Opis"
+
+#: config/prefs.php.dist:31
+msgid "Title, URL, and Description"
+msgstr "Naslov, URL in opis"
+
+#: templates/add/add.inc:73
+msgid "To be able to quickly add bookmarks from your web browser:"
+msgstr "Da lahko hitro doda zaznamke iz svojega brskalnika:"
+
+#: lib/Block/bookmarks.php:49
+msgid "Top 10 Highest Rated"
+msgstr "10 najbolj točkovanih"
+
+#: lib/Block/bookmarks.php:50
+msgid "Top 10 Most Clicked"
+msgstr "10 najbolj klikanih"
+
+#: templates/reports/http-status.inc:126
+msgid "Total"
+msgstr "Skupaj"
+
+#: config/prefs.php.dist:34
+msgid "Tree View"
+msgstr "Drevesni pregled"
+
+#: templates/search/search.inc:11 templates/edit/bookmark.inc:23
+#: templates/add/add.inc:36
+msgid "URL"
+msgstr "URL"
+
+#: lib/Trean.php:275
+msgid "Unauthorized"
+msgstr "Neavtorizian"
+
+#: templates/reports/http-status.inc:123
+#, fuzzy, php-format
+msgid "Unknown (%s)"
+msgstr "Nezanan (%d)"
+
+#: lib/Trean.php:289
+msgid "Unsupported Media Type"
+msgstr "Nepodprt Media Type"
+
+#: perms.php:234
+#, php-format
+msgid "Updated %s."
+msgstr "Ažuriran %s."
+
+#: lib/Trean.php:272
+msgid "Use Proxy"
+msgstr "Uporabi posrednika"
+
+#: templates/reports/list.inc:1
+msgid "View Report"
+msgstr "Preglej poročilo"
+
+#: templates/add/add.inc:78
+msgid ""
+"While browsing you will be able to bookmark the current page by clicking "
+"your new \"Add to Bookmarks\" shortcut."
+msgstr ""
+"Med brskanjem, bo lahko dodal zaznamke s klikom na povezavo \"Dodaj k "
+"zaznamkom\"."
+
+#: templates/search/search.inc:40
+msgid "Whole Field"
+msgstr "Celotno polje"
+
+#: templates/browse/javascript.inc:25
+msgid "You are creating a category folder."
+msgstr "Ustvarja kategorijsko mapo"
+
+#: data.php:61 data.php:128 add.php:21
+#, php-format
+msgid "You are not allowed to create more than %d bookmarks."
+msgstr "Nimate pravice tvorjenje več kot %d povezav."
+
+#: data.php:52 data.php:103 add.php:84
+#, php-format
+msgid "You are not allowed to create more than %d categories."
+msgstr "Nimate pravice tvorjenja več kot %d kategorij."
+
+#: templates/browse/javascript.inc:39
+msgid "You are renaming the current category folder."
+msgstr "Preimenuje trenutno kategorijsko mapo."
+
+#: browse.php:26
+msgid "You do not have permission to view this category."
+msgstr "Nimate pravice ogleda te kategorije"
+
+#: templates/browse/javascript.inc:143 templates/browse/javascript.inc:178
+#: templates/add/add.inc:13
+msgid "You must select a target category first"
+msgstr "Najprej morete izbrati cljano kategoijo"
+
+#: lib/Trean.php:230
+msgid "_Browse"
+msgstr "Brskaj"
+
+#: lib/Trean.php:241
+msgid "_Import/Export"
+msgstr "Uvoz/Izvoz"
+
+#: lib/Trean.php:234
+msgid "_New Bookmark"
+msgstr "Nova povezava"
+
+#: lib/Trean.php:237
+msgid "_Reports"
+msgstr "Poročila"
+
+#: lib/Trean.php:236
+msgid "_Search"
+msgstr "Najdi"
+
+#: templates/bookmark/1line.inc:33 templates/bookmark/standard.inc:33
+#: templates/bookmark/2line.inc:37 templates/search/results.inc:57
+#: templates/block/1line.inc:28 templates/block/standard.inc:29
+#: templates/block/2line.inc:31
+msgid "click"
+msgstr "klik"
+
+#: templates/bookmark/1line.inc:33 templates/bookmark/standard.inc:33
+#: templates/bookmark/2line.inc:37 templates/search/results.inc:57
+#: templates/block/1line.inc:28 templates/block/standard.inc:29
+#: templates/block/2line.inc:31
+msgid "clicks"
+msgstr "klikov"

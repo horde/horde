@@ -1,0 +1,374 @@
+# Croatian translations for Passwd package.
+# Copyright (C) 2009 Horde Project
+# This file is distributed under the same license as the Passwd package.
+# Valentin Vidic <Valentin.Vidic@CARNet.hr>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Passwd H3 (3.1)\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2009-10-14 15:13+0200\n"
+"PO-Revision-Date: 2009-07-16 17:17+0200\n"
+"Last-Translator: Valentin Vidic <Valentin.Vidic@CARNet.hr>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: lib/Driver/expect.php:34
+#, php-format
+msgid "%s does not exist or is not executable."
+msgstr "%s ne postoji ili nemate dozvole za izvršavanje."
+
+#: lib/Driver/expectpecl.php:73
+#, php-format
+msgid "%s extension cannot be loaded!"
+msgstr "%s ekstenzija se ne može učitati!"
+
+#: lib/Driver/composite.php:63
+#, php-format
+msgid "%s: unable to load driver: %s"
+msgstr "%s: nije uspjelo učitavanje pokretačkog programa (driver): %s"
+
+#: lib/Driver/adsi.php:61
+#, php-format
+msgid "ADSI error %s."
+msgstr "ADSI greška %s."
+
+#: lib/Driver/pspasswd.php:105 lib/Driver/adsi.php:64
+msgid "Access Denied."
+msgstr "Pristup odbijen."
+
+#: lib/Driver.php:101
+msgid "Backend not correctly implemented."
+msgstr "Backend nije ispravno implementiran."
+
+#: lib/Driver/poppassd.php:90
+msgid "Cannot send command to server."
+msgstr "Nije uspjelo slanje naredbe na poslužitelj."
+
+#: main.php:281 templates/main/main.inc:141
+msgid "Change Password"
+msgstr "Promijeni lozinku"
+
+#: templates/main/main.inc:126
+msgid "Change password for:"
+msgstr "Promijenite lozinku za:"
+
+#: templates/main/main.inc:67
+msgid "Change your password"
+msgstr "Promijenite Vašu lozinku"
+
+#: templates/main/main.inc:65
+#, php-format
+msgid "Changing password for %s"
+msgstr "Promjena lozinke za %s"
+
+#: templates/main/main.inc:113
+msgid "Confirm new password:"
+msgstr "Potvrda nove lozinke:"
+
+#: lib/Driver/ldap.php:114 lib/Driver/kolab.php:60
+msgid "Could not bind to LDAP server"
+msgstr "Prijava na LDAP poslužitelj nije uspjela"
+
+#: lib/Driver/expectpecl.php:118
+msgid "Could not change password (bad old password?)"
+msgstr "Promjena lozinke nije uspjela (neispravna stara lozinka?)"
+
+#: lib/Driver/expectpecl.php:138
+msgid "Could not change password."
+msgstr "Promjena lozinke nije uspjela."
+
+#: lib/Driver/ldap.php:80 lib/Driver/kolab.php:46
+msgid "Could not connect to LDAP server"
+msgstr "Spajanje na LDAP poslužitelj nije uspjelo."
+
+#: lib/Driver/expectpecl.php:98
+msgid "Could not login to system (no password prompt)"
+msgstr "Prijava na sustav nije uspjela (nema upita lozinke)"
+
+#: lib/Driver/smbpasswd.php:57
+msgid "Could not open pipe to smbpasswd."
+msgstr "Spajanje na smbpasswd nije uspjelo."
+
+#: lib/Driver/ldap.php:86
+msgid "Could not start TLS connection to LDAP server"
+msgstr "Pokretanje TLS veze na LDAP poslužitelj nije uspjelo."
+
+#: lib/Driver/expectpecl.php:108
+msgid "Could not start passwd program (no old password prompt)"
+msgstr "Pokretanje passwd programa nije uspjelo (nema upita stare lozinke)"
+
+#: lib/Driver/expectpecl.php:44
+msgid "End of file."
+msgstr "Kraj datoteke."
+
+#: lib/Driver/smbpasswd.php:79
+msgid "Error sending data to smbpasswd."
+msgstr "Greška prilikom slanja podataka u smbpasswd."
+
+#: lib/Driver/pspasswd.php:93
+msgid "Failed to verify old password."
+msgstr "Provjera stare lozinke nije uspjela."
+
+#: main.php:235 lib/Driver/composite.php:102
+#, php-format
+msgid "Failure in changing password for %s: %s"
+msgstr "Promjena lozinke za %s nije uspjela: %s"
+
+#: lib/Driver/expectpecl.php:50
+msgid "Full buffer."
+msgstr "Pun međuspremnik."
+
+#: lib/Driver.php:72 lib/Driver/http.php:72 lib/Driver/vmailmgr.php:42
+#: lib/Driver/ldap.php:131 lib/Driver/poppassd.php:120 lib/Driver/kolab.php:84
+msgid "Incorrect old password."
+msgstr "Neispravna stara lozinka."
+
+#: lib/Driver/ldap.php:197
+msgid "Minimum password age has not yet expired"
+msgstr "Još nije prošao minimalni period između promjena lozinke"
+
+#: lib/Driver/expectpecl.php:128
+msgid "New password not valid (too short, bad password, too similar, ...)"
+msgstr ""
+"Nova lozinka nije ispravna (prekratka, neispravna stara lozinka, preslična "
+"staroj lozinki, ...)"
+
+#: templates/main/main.inc:101
+msgid "New password:"
+msgstr "Nova lozinka:"
+
+#: lib/Driver/poppassd.php:67
+msgid "No prompt returned from server."
+msgstr "Poslužitelj nije poslao upit."
+
+#: lib/Driver.php:128
+#, php-format
+msgid "No such backend \"%s\" found."
+msgstr "Backend \"%s\" nije pronađen."
+
+#: templates/main/main.inc:89
+msgid "Old password:"
+msgstr "Stara lozinka:"
+
+#: lib/Driver/smbpasswd.php:47
+msgid "Passwd is not properly configured."
+msgstr "Promjena lozinke nije ispravno konfigurirana."
+
+#: main.php:222
+#, php-format
+msgid "Password changed on %s."
+msgstr "Lozinka za %s je uspješno promijenjena."
+
+#: lib/Driver/sql.php:127
+#, php-format
+msgid "Password column \"%s\" not found in password table."
+msgstr "Stupac lozinke \"%s\" nije pronađen u tablici lozinki."
+
+#: lib/Driver/pspasswd.php:75
+msgid "Password module can't find the supplied bin."
+msgstr "Modul za promjenu lozinki ne može pronaći zadani program."
+
+#: lib/Driver/pspasswd.php:73
+msgid "Password module is missing required parameters."
+msgstr "Nedostaju obavezni parametri modula za promjenu lozinki."
+
+#: lib/Driver/adsi.php:51
+msgid "Password module is missing target parameter."
+msgstr "Nedostaje parametar odredišta modula za promjenu lozinki."
+
+#: main.php:196 lib/Driver/servuftp.php:71
+msgid "Password module is not properly configured"
+msgstr "Modul za promjenu lozinki nije ispravno konfiguriran"
+
+#: lib/Driver/servuftp.php:98
+msgid "Password module is not properly configured."
+msgstr "Modul za promjenu lozinki nije ispravno konfiguriran."
+
+#: templates/main/main.inc:11
+msgid "Please provide a new password"
+msgstr "Molimo unesite novu lozinku"
+
+#: templates/main/main.inc:7
+msgid "Please provide your current password"
+msgstr "Molimo unesite svoju trenutnu lozinku"
+
+#: templates/main/main.inc:15
+msgid "Please verify your new password"
+msgstr "Molimo unesite svoju lozinku."
+
+#: lib/Driver/composite.php:41
+msgid "Required 'drivers' is misconfigured in Composite configuration."
+msgstr "Parametar 'drivers' nije ispravan u Composite konfiguraciji."
+
+#: lib/Driver/sql.php:46
+msgid "Required 'phptype' not specified in Passwd SQL configuration."
+msgstr "Parametar 'phptype' nije postavljen u Passwd SQL konfiguraciji."
+
+#: lib/Driver/vpopmail.php:49
+msgid "Required 'phptype' not specified in SQL configuration."
+msgstr "Parametar 'phptype' nije postavljen u SQL konfiguraciji."
+
+#: templates/main/main.inc:142
+msgid "Reset"
+msgstr "Resetiraj"
+
+#: lib/Driver/http.php:65
+msgid "The requested website for changing user passwords could not be reached."
+msgstr "Web stranica za promjenu korisničkih lozinki nije dostupna."
+
+#: lib/Driver/http.php:74
+msgid "The username could not be found."
+msgstr "Korisničko ime nije pronađeno."
+
+#: lib/Driver/expectpecl.php:47
+msgid "Time out."
+msgstr "Vrijeme izvršavanje isteklo."
+
+#: lib/Driver/sql.php:75 lib/Driver/vpopmail.php:83
+msgid "Unable to connect to SQL server."
+msgstr "Nije uspjelo povezivanje na SQL poslužitelj."
+
+#: lib/Driver/expectpecl.php:93
+msgid "Unable to open expect stream!"
+msgstr "Nije uspjelo spajanje na expect."
+
+#: lib/Driver/sql.php:135 lib/Driver/poppassd.php:114
+#: lib/Driver/vpopmail.php:150
+msgid "User not found"
+msgstr "Korisnik nije pronađen"
+
+#: lib/Driver/smbldap.php:160 lib/Driver/pine.php:231 lib/Driver/ldap.php:174
+#: lib/Driver/ldap.php:249 lib/Driver/kolab.php:76
+msgid "User not found."
+msgstr "Korisnik nije pronađen."
+
+#: templates/main/main.inc:76
+msgid "Username:"
+msgstr "Korisničko ime:"
+
+#: main.php:60
+#, php-format
+msgid "You can't change password for user %s"
+msgstr "Ne možete promjeniti lozinku za korisnika %s"
+
+#: main.php:68
+msgid "You must give your current password"
+msgstr "Morate unijeti svoju trenutnu lozinku"
+
+#: main.php:77
+msgid "You must give your new password"
+msgstr "Morate unijeti novu lozinku"
+
+#: main.php:81
+msgid "You must verify your new password"
+msgstr "Morate potvrditi novu lozinku"
+
+#: main.php:101
+#, php-format
+msgid ""
+"Your new password is too long; passwords may not be more than %d characters "
+"long!"
+msgstr ""
+"Nova lozinka je preduga; lozinka ne smije sadržavati više od %d znakova "
+
+#: main.php:185
+msgid "Your new password is too simple to guess!  Not changed!"
+msgstr "Nova lozinka je prejednostavna za pogoditi! Lozinka nije promijenjena!"
+
+#: main.php:176
+msgid "Your new password is too simple to guess. Not changed!"
+msgstr "Nova lozinka je prejednostavna za pogoditi. Lozinka nije promijenjena!"
+
+#: main.php:96
+#, php-format
+msgid "Your new password must be at least %d characters long!"
+msgstr "Nova lozinka mora imati barem %d znakova!"
+
+#: main.php:89
+msgid "Your new password must be different from your current password"
+msgstr "Nova i stara lozinka ne smiju biti iste"
+
+#: main.php:141
+#, php-format
+msgid "Your new password must contain at least %d alphabetic character."
+msgid_plural ""
+"Your new password must contain at least %d alphabetic characters."
+msgstr[0] "Nova lozinka mora sadržavati barem %d slovo."
+msgstr[1] "Nova lozinka mora sadržavati barem %d slova."
+msgstr[2] "Nova lozinka mora sadržavati barem %d slova."
+
+#: main.php:146
+#, php-format
+msgid "Your new password must contain at least %d alphanumeric character."
+msgid_plural ""
+"Your new password must contain at least %d alphanumeric characters."
+msgstr[0] "Nova lozinka mora sadržavati barem %d slovo ili broj."
+msgstr[1] "Nova lozinka mora sadržavati barem %d slova ili broja."
+msgstr[2] "Nova lozinka mora sadržavati barem %d slova ili broja."
+
+#: main.php:151
+#, php-format
+msgid ""
+"Your new password must contain at least %d different types of characters. "
+"The types are: lower, upper, numeric, and symbols."
+msgstr ""
+"Nova lozinka mora sadržavati barem %d različitih tipova znakova. Tipovi "
+"znakova su: mala slova, velika slova, brojevi i simboli."
+
+#: main.php:131
+#, php-format
+msgid "Your new password must contain at least %d lowercase character."
+msgid_plural "Your new password must contain at least %d lowercase characters."
+msgstr[0] "Nova lozinka mora sadržavati barem %d malo slovo."
+msgstr[1] "Nova lozinka mora sadržavati barem %d mala slova."
+msgstr[2] "Nova lozinka mora sadržavati barem %d mala slova."
+
+#: main.php:136
+#, php-format
+msgid "Your new password must contain at least %d numeric character."
+msgid_plural "Your new password must contain at least %d numeric characters."
+msgstr[0] "Nova lozinka mora sadržavati barem %d broj."
+msgstr[1] "Nova lozinka mora sadržavati barem %d broja."
+msgstr[2] "Nova lozinka mora sadržavati barem %d broja."
+
+#: main.php:165
+#, php-format
+msgid "Your new password must contain at least %d symbol character."
+msgid_plural "Your new password must contain at least %d symbol characters."
+msgstr[0] "Nova lozinka mora sadržavati barem %d simbol."
+msgstr[1] "Nova lozinka mora sadržavati barem %d simbola."
+msgstr[2] "Nova lozinka mora sadržavati barem %d simbola."
+
+#: main.php:126
+#, php-format
+msgid "Your new password must contain at least %d uppercase character."
+msgid_plural "Your new password must contain at least %d uppercase characters."
+msgstr[0] "Nova lozinka mora sadržavati barem %d veliko slovo."
+msgstr[1] "Nova lozinka mora sadržavati barem %d velikih slova."
+msgstr[2] "Nova lozinka mora sadržavati barem %d velikih slova."
+
+#: main.php:157
+#, php-format
+msgid "Your new password must contain less than %d whitespace characters."
+msgstr "Nova lozinka mora imati manje od %d znakova razmaka."
+
+#: main.php:159
+msgid "Your new password must not contain whitespace characters."
+msgstr "Nova lozinka ne može sadržavati znakove razmaka."
+
+#: main.php:85
+msgid "Your new passwords didn't match"
+msgstr "Nove lozinke se ne podudaraju"
+
+#: lib/Driver/http.php:76
+msgid "Your password could not be changed."
+msgstr "Promjena lozinke nije uspjela."
+
+#: templates/main/main.inc:19
+msgid "Your passwords do not match"
+msgstr "Nove lozinke se ne podudaraju"

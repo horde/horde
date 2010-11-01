@@ -11,7 +11,7 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Slusarz <slusarz@curecanti.org>
+ * @author  Michael Slusarz <slusarz@horde.org>
  * @package Gollem
  */
 class Gollem_Auth
@@ -39,14 +39,13 @@ class Gollem_Auth
                 $ptr = &$GLOBALS['gollem_backends'][$backend_key];
                 if (!empty($ptr['hordeauth'])) {
                     $user = Gollem::getAutologinID($backend_key);
-                    $pass = Horde_Auth::getCredential('password');
+                    $pass = $GLOBALS['registry']->getAuthCredential('password');
 
                     if (Gollem_Session::createSession($backend_key, $user, $pass)) {
                         $entry = sprintf('Login success for %s [%s] to {%s}',
                                          $user, $_SERVER['REMOTE_ADDR'],
                                          $backend_key);
-                        Horde::logMessage($entry, __FILE__, __LINE__,
-                                          PEAR_LOG_NOTICE);
+                        Horde::logMessage($entry, 'NOTICE');
                         return true;
                     }
                 }
@@ -60,10 +59,11 @@ class Gollem_Auth
 
         if (empty($credentials) &&
             !empty($GLOBALS['gollem_be']['params']['password'])) {
-            $credentials = array('password' => Horde_Secret::read(Horde_Secret::getKey('gollem'), $GLOBALS['gollem_be']['params']['password']));
+            $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
+            $credentials = array('password' => $secret->read($secret->getKey('gollem'), $GLOBALS['gollem_be']['params']['password']));
         }
 
-        $login = ($login && (Horde_Auth::getProvider() == 'gollem'));
+        //$login = ($login && ($GLOBALS['registry']->getProvider() == 'gollem'));
 
         return parent::authenticate($userID, $credentials, $login);
     }
@@ -88,7 +88,7 @@ class Gollem_Auth
         // Allocate a global VFS object
         $GLOBALS['gollem_vfs'] = Gollem::getVFSOb($_SESSION['gollem']['backend_key']);
         if (is_a($GLOBALS['gollem_vfs'], 'PEAR_Error')) {
-            Horde::fatal($GLOBALS['gollem_vfs']);
+            throw new Horde_Exception($GLOBALS['gollem_vfs']);
         }
 
         $valid = $GLOBALS['gollem_vfs']->checkCredentials();
@@ -124,12 +124,9 @@ class Gollem_Auth
                 } else {
                     $url = Horde_Auth::addLogoutParameters(self::logoutUrl());
                 }
-                $url = Horde_Util::addParameter($url, 'url', Horde::selfUrl(true, true, true), false);
-                header('Location: ' . $url);
-                exit;
-            } else {
-                return false;
+                $url->add('url', Horde::selfUrl(true, true, true))->redirect();
             }
+            return false;
         }
 
         return true;
@@ -153,7 +150,7 @@ class Gollem_Auth
         }
 
         return (((count($auto_server) == 1) || $force) &&
-                Horde_Auth::getAuth() &&
+                $GLOBALS['registry']->getAuth() &&
                 empty($GLOBALS['gollem_backends'][$key]['loginparams']) &&
                 !empty($GLOBALS['gollem_backends'][$key]['hordeauth']));
     }
@@ -210,7 +207,7 @@ class Gollem_Auth
         require GOLLEM_BASE . '/config/backends.php';
         if (empty($backends[$key])) {
             $entry = sprintf('Invalid server key from client [%s]', $_SERVER['REMOTE_ADDR']);
-            Horde::logMessage($entry, __FILE__, __LINE__, PEAR_LOG_INFO);
+            Horde::logMessage($entry, 'INFO');
             return false;
         }
 
@@ -231,7 +228,7 @@ class Gollem_Auth
         /* Set username now. Don't set the current username if the backend
          * already has a username defined. */
         if (empty($ptr['params']['username'])) {
-            $ptr['params']['username'] = ($user === null) ? Horde_Auth::getBareAuth() : $user;
+            $ptr['params']['username'] = ($user === null) ? $GLOBALS['registry']->getAuth('bare') : $user;
         }
 
         /* Set password now. The password should always be encrypted within
@@ -242,7 +239,8 @@ class Gollem_Auth
         if ($pass === null) {
             $ptr['params']['password'] = null;
         } else {
-            $ptr['params']['password'] = Horde_Secret::write(Horde_Secret::getKey('gollem'), $pass);
+            $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
+            $ptr['params']['password'] = $secret->write($secret->getKey('gollem'), $pass);
         }
 
         /* Try to authenticate with the given information. */
@@ -279,7 +277,7 @@ class Gollem_Auth
         if (!Gollem::verifyDir($ptr['home'])) {
             $error_msg = 'Backend Configuration Error: Home directory not below root.';
             $auth_gollem->gollemSetAuthErrorMsg($error_msg);
-            Horde::logMessage(PEAR::raiseError($error_msg), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($error_msg, 'ERR');
             unset($_SESSION['gollem']['backends'][$key]);
             $_SESSION['gollem']['backend_key'] = null;
             return false;
@@ -295,7 +293,7 @@ class Gollem_Auth
                 if (is_a($res, 'PEAR_Error')) {
                     $error_msg = 'Backend Configuration Error: Could not create home directory ' . $ptr['home'] . '.';
                     $auth_gollem->gollemSetAuthErrorMsg($error_msg);
-                    Horde::logMessage(PEAR::raiseError($error_msg), __FILE__, __LINE__, PEAR_LOG_ERR);
+                    Horde::logMessage($error_msg, 'ERR');
                     unset($_SESSION['gollem']['backends'][$key]);
                     $_SESSION['gollem']['backend_key'] = null;
                     return false;

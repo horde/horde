@@ -132,7 +132,7 @@ window.onload = function() {
 
 //-->
 </script>
-<form method="post" name="contacts" onsubmit="passAddresses();" action="contacts.php?nocache=<?php echo hash('md5', mt_rand()) ?>">
+<form method="post" name="contacts" onsubmit="passAddresses();" action="<?php echo Horde::url('contacts.php')->unique() ?>">
 <input type="hidden" name="sa" />
 <?php Horde_Util::pformInput() ?>
 

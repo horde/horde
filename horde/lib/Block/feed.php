@@ -5,13 +5,13 @@ $block_name = _("Syndicated Feed");
 /**
  * @package Horde_Block
  */
-class Horde_Block_Horde_feed extends Horde_Block {
+class Horde_Block_Horde_feed extends Horde_Block
+{
+    protected $_app = 'horde';
 
-    var $_app = 'horde';
+    private $_feed = null;
 
-    var $_feed = null;
-
-    function _params()
+    protected function _params()
     {
         return array('uri' => array('type' => 'text',
                                     'name' => _("Feed Address")),
@@ -31,7 +31,7 @@ class Horde_Block_Horde_feed extends Horde_Block {
      *
      * @return string   The title text.
      */
-    function _title()
+    protected function _title()
     {
         $this->_read();
         if (is_a($this->_feed, 'Horde_Feed_Base')) {
@@ -46,14 +46,14 @@ class Horde_Block_Horde_feed extends Horde_Block {
      *
      * @return string   The content
      */
-    function _content()
+    protected function _content()
     {
         $this->_read();
         if (is_a($this->_feed, 'Horde_Feed_Base')) {
             $html = '';
             $count = 0;
             foreach ($this->_feed as $entry) {
-                if ($count++ > $this->_params['limit']) {
+                if (++$count > $this->_params['limit']) {
                     break;
                 }
                 $html .= '<a href="' . $entry->link. '"';
@@ -74,17 +74,29 @@ class Horde_Block_Horde_feed extends Horde_Block {
         }
     }
 
-    function _read()
+    private function _read()
     {
         if (empty($this->_params['uri'])) {
             return;
         }
 
-        require_once dirname(__FILE__) . '/feed/reader.php';
-        $this->_feed = Horde_Block_Horde_feed_reader::read(
-            $this->_params['uri'],
-            $this->_params['interval']
-        );
+        $key = md5($this->_params['uri']);
+        $cache = $GLOBALS['injector']->getInstance('Horde_Cache');
+        $feed = $cache->get($key, $this->_params['interval']);
+        if (!empty($feed)) {
+            $this->_feed = unserialize($feed);
+        }
+
+        try {
+            $client = $GLOBALS['injector']
+              ->getInstance('Horde_Core_Factory_HttpClient')
+              ->create();
+            $feed = Horde_Feed::readUri($this->_params['uri'], $client);
+            $cache->set($key, serialize($feed));
+            $this->_feed = $feed;
+        } catch (Exception $e) {
+            $this->_feed = $e->getMessage();
+        }
     }
 
 }

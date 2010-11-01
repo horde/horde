@@ -27,7 +27,7 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
     // @todo - add logger instance
     protected function setUp()
     {
-        list($this->_conn, $this->_cache) = $this->sharedFixture->getConnection();
+        list($this->_conn, $this->_cache) = Horde_Db_AllTests::$connFactory->getConnection();
 
         $table = $this->_conn->createTable('unit_tests');
           $table->column('integer_value',   'integer',  array('limit' => 11, 'default' => 0));
@@ -921,37 +921,6 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
     {
         $name = $this->_conn->indexName('sports', array('name' => 'test'));
         $this->assertEquals('test', $name);
-    }
-
-    public function testStructureDump()
-    {
-        $this->_createTestTable('sports');
-
-        // single table
-        $structure = $this->_conn->structureDump('sports');
-
-        $expected = "CREATE TABLE \"sports\" (\n".
-        "  \"id\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, \n".
-        "  \"name\" varchar(255), \n".
-        "  \"is_college\" boolean\n".
-        ")";
-
-        $this->assertContains($expected, $structure);
-
-        // entire structure
-        $structure = $this->_conn->structureDump();
-
-        // contains, but doesn't match only sports table
-        $this->assertContains($expected, $structure);
-        $this->assertNotEquals($expected, $structure);
-    }
-
-    public function testInitializeSchemaInformation()
-    {
-        $this->_conn->initializeSchemaInformation();
-
-        $sql = "SELECT version FROM schema_info";
-        $this->assertEquals(0, $this->_conn->selectValue($sql));
     }
 
     public function testTypeToSqlTypePrimaryKey()

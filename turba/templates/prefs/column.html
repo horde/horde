@@ -1,0 +1,37 @@
+<input type="hidden" name="columns" id="columns" value="<tag:columns />" />
+
+<if:col_list>
+
+<div id="turba-prefs-cols-container">
+ <div>
+  <gettext>Click an address book to sort its columns. Drag columns to re-arrange them. Check a column to enable it.</gettext>
+ </div>
+
+ <p>
+  <div id="turba-prefs-cols-list">
+   <ul>
+<loop:col_list>
+    <li<if:col_list.first> class="active"</if:col_list.first>><a href="#" sourcename="<tag:col_list.source />"><tag:col_list.title /></a></li>
+</loop:col_list>
+   </ul>
+  </div>
+
+  <div id="turba-prefs-cols-columns">
+<loop:cols>
+   <div class="turba-prefs-cols-panel" id="turba-prefs-cols-panel-<tag:cols.source />" style="display:<if:cols.first>block<else:cols.first>none</else:cols.first></if:cols.first>;">
+    <ol id="turba-prefs-<tag:cols.source />">
+ <loop:cols.inputs>
+     <li id="turba-prefs-cols-<tag:cols.source />_<tag:cols.inputs.i />">
+      <input name="turba-prefs-cols-<tag:cols.source />-<tag:cols.inputs.column />" id="turba-prefs-cols-<tag:cols.source />-<tag:cols.inputs.column />" type="checkbox" class="checkbox"<if:cols.inputs.checked> checked="checked"</if:cols.inputs.checked> /><tag:cols.inputs.label />
+     </li>
+</loop:cols.inputs>
+    </ol>
+   </div>
+</loop:cols>
+  </div>
+ </p>
+
+ <br class="clear" />
+
+</div>
+</if:col_list>

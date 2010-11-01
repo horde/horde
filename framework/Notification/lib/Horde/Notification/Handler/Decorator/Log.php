@@ -1,186 +1,51 @@
 <?php
 /**
- * The Horde_Notification_Handler_Logged logs error events once they are pushed
- * to the stack.
+ * The Log Decorator logs error events when they are pushed on the stack.
  *
  * Copyright 2001-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @package Horde_Notification
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Notification
  */
 class Horde_Notification_Handler_Decorator_Log
-implements Horde_Notification_Handler_Interface
+extends Horde_Notification_Handler_Decorator_Base
 {
-    /**
-     * The notification handler decorated by this instance.
-     *
-     * @var Horde_Notification_Handler
-     */
-    private $_handler;
-
     /**
      * The log handler.
      *
-     * @var mixed
+     * @var object
      */
     private $_logger;
 
     /**
-     * Initialize the notification system, set up any needed session
-     * variables, etc.
+     * Constructor.
      *
-     * @param Horde_Notification_Handler $handler The handler this instance
-     *                                            provides with logging.
-     *
-     * @param mixed                      $logger  The log handler. The provided
-     *                                            instance is required to
-     *                                            implement the debug() function.
-     *                                            You should be able to use a
-     *                                            common Logger here (PEAR Log,
-     *                                            Horde_Log_Logger, or Zend_Log).
+     * @param object $logger  The log handler. The provided instance is
+     *                        required to implement the debug() function. You
+     *                        should be able to use a common Logger here (PEAR
+     *                        Log, Horde_Log_Logger, or Zend_Log).
      */
-    public function __construct(
-        Horde_Notification_Handler_Interface $handler,
-        $logger
-    ) {
-        $this->_handler = $handler;
+    public function __construct($logger)
+    {
         $this->_logger  = $logger;
     }
 
     /**
-     * Registers a listener with the notification object and includes
-     * the necessary library file dynamically.
+     * Event is being added to the Horde message stack.
      *
-     * @param string $listener  The name of the listener to attach. These
-     *                          names must be unique; further listeners with
-     *                          the same name will be ignored.
-     * @param array $params     A hash containing any additional configuration
-     *                          or connection parameters a listener driver
-     *                          might need.
-     * @param string $class     The class name from which the driver was
-     *                          instantiated if not the default one. If given
-     *                          you have to include the library file
-     *                          containing this class yourself. This is useful
-     *                          if you want the listener driver to be
-     *                          overriden by an application's implementation.
-     *
-     * @return Horde_Notification_Listener  The listener object.
-     * @throws Horde_Exception
+     * @param Horde_Notification_Event $event  Event object.
+     * @param array $options                   Additional options (see
+     *                                         Horde_Notification_Handler for
+     *                                         details).
      */
-    public function attach($listener, $params = null, $class = null)
+    public function push(Horde_Notification_Event $event, $options)
     {
-        return $this->_handler->attach($listener, $params, $class);
+        $this->_logger->debug($event->message);
     }
 
-    /**
-     * Remove a listener from the notification list. This will discard any
-     * notifications in this listeners stack.
-     *
-     * @param string $listner  The name of the listener to detach.
-     *
-     * @throws Horde_Exception
-     */
-    public function detach($listener)
-    {
-        $this->_handler->detach($listener);
-    }
-
-    /**
-     * Replaces a listener in the notification list. This preserves all
-     * notifications in this listeners stack. If the listener does not exist,
-     * the new listener will be added automatically.
-     *
-     * @param string $listener  See attach().
-     * @param array $params     See attach().
-     * @param string $class     See attach().
-     *
-     * @return Horde_Notification_Listener  See attach()
-     * @throws Horde_Exception
-     */
-    public function replace($listener, array $params = array(), $class = null)
-    {
-        return $this->_handler->replace($listener, $params, $class);
-    }
-
-    /**
-     * Add an event to the Horde message stack.
-     *
-     * The event type parameter should begin with 'horde.' unless the
-     * application defines its own Horde_Notification_Listener subclass that
-     * handles additional codes.
-     *
-     * @param mixed $event   Horde_Notification_Event object or message string.
-     * @param integer $type  The type of message: 'horde.error',
-     *                       'horde.warning', 'horde.success', or
-     *                       'horde.message'.
-     * @param array $flags   Array of optional flags that will be passed to the
-     *                       registered listeners.
-     */
-    public function push($event, $type = null, array $flags = array())
-    {
-        if ($event instanceof PEAR_Error || $event instanceof Exception) {
-            /**
-             * Some loggers only accept string messages. As both PEAR_Error and
-             * Exception accept being casted into a string we can ensure that
-             * the logger receives a string here.
-             */
-            $this->_logger->debug((string) $event);
-        }
-        $this->_handler->push($event, $type, $flags);
-    }
-
-    /**
-     * Passes the message stack to all listeners and asks them to
-     * handle their messages.
-     *
-     * @param array $options  An array containing display options for the
-     *                        listeners.
-     */
-    public function notify(array $options = array())
-    {
-        $this->_handler->notify($options);
-    }
-
-    /**
-     * Convert the 'listeners' option into the format expected by the
-     * notification handler.
-     *
-     * @param array $options  An array containing display options for the
-     *                        listeners.
-     */
-    public function setNotificationListeners(array $options)
-    {
-        return $this->_handler->setNotificationListeners($options);
-    }
-
-    /**
-     * Passes the message stack to all listeners and asks them to
-     * handle their messages.
-     *
-     * @param array $options An array containing display options for the
-     *                       listeners. This array is required to contain the
-     *                       correct lowercased listener names as array in the
-     *                       entry 'listeners'.
-     */
-    public function notifyListeners(array $options)
-    {
-        $this->_handler->notifyListeners($options);
-    }
-
-    /**
-     * Return the number of notification messages in the stack.
-     *
-     * @author David Ulevitch <davidu@everydns.net>
-     *
-     * @param string $my_listener  The name of the listener.
-     *
-     * @return integer  The number of messages in the stack.
-     */
-    public function count($my_listener = null)
-    {
-        return $this->_handler->count($my_listener);
-    }
 }

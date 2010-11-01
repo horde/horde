@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Lock</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Resource Locking System</summary>
- <description>The Lock:: class provides the Horde resource locking system.
- </description>
+ <description>The Lock:: class provides the Horde resource locking system.</description>
  <lead>
   <name>Ben Klang</name>
   <user>bklang</user>
   <email>ben@alkaloid.net</email>
   <active>yes</active>
  </lead>
- <date>2008-05-05</date>
- <time>22:54:46</time>
+ <date>2010-10-02</date>
+ <time>21:09:53</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -25,31 +21,34 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Initial release
+ <notes>
+* Add Null driver.
+* Initial release
  </notes>
  <contents>
- <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Lock">
-      <file name="Sql.php" role="php" />
       <file name="Exception.php" role="php" />
-     </dir> <!-- /lib/Horde/Lock -->
+      <file name="Null.php" role="php" />
+      <file name="Sql.php" role="php" />
+     </dir> <!-- //lib/Horde/Lock -->
      <file name="Lock.php" role="php" />
-    </dir> <!-- /lib/Horde -->
-  </dir> <!-- /lib -->
- </dir> <!-- / -->
+    </dir> <!-- //lib/Horde -->
+   </dir> <!-- //lib -->
+  </dir> <!-- / -->
  </contents>
  <dependencies>
   <required>
    <php>
-    <min>4.0.0</min>
+    <min>5.2.0</min>
    </php>
    <pearinstaller>
-    <min>1.4.0b1</min>
+    <min>1.7.0</min>
    </pearinstaller>
    <package>
-    <name>Horde_Framework</name>
+    <name>Exception</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
@@ -66,16 +65,39 @@ http://pear.php.net/dtd/package-2.0.xsd">
   </required>
   <optional>
    <package>
-    <name>Horde_Tree</name>
+    <name>Db</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Log</name>
     <channel>pear.horde.org</channel>
    </package>
   </optional>
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Lock/Sql.php" as="Horde/Lock/Sql.php" />
-   <install name="lib/Horde/Lock/Exception.php" as="Horde/Lock/Exception.php" />
-   <install name="lib/Horde/Lock.php" as="Horde/Lock.php" />
+   <install as="Horde/Lock.php" name="lib/Horde/Lock.php" />
+   <install as="Horde/Lock/Exception.php" name="lib/Horde/Lock/Exception.php" />
+   <install as="Horde/Lock/Null.php" name="lib/Horde/Lock/Null.php" />
+   <install as="Horde/Lock/Sql.php" name="lib/Horde/Lock/Sql.php" />
   </filelist>
  </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2010-10-02</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Add Null driver.
+* Initial release
+   </notes>
+  </release>
+ </changelog>
 </package>

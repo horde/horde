@@ -1,29 +1,19 @@
 <div class="header">
-    <ul id="controls">
-        <?php
-        $addurl = Horde::applicationUrl('devices.php');
-        $addurl = Horde_Util::addParameter($addurl, 'action', 'add');
-        ?>
-        <li><a href="<?php echo $addurl; ?>">
-            <?php echo Horde::img('add-device.png'); ?>&nbsp;New Device
-            </a>
-        </li>
-    </ul>
-    Context: <?php echo $context; ?>
+    Account: <?php echo $_SESSION['shout']['curaccount']['name']; ?>
 </div>
 
 <div id="extensionList">
     <table width="100%" cellspacing="0" class="striped">
         <tr>
-            <td class="uheader">Device ID</td>
+            <td class="uheader">Name</td>
             <td class="uheader">Mailbox</td>
-            <td class="uheader">CallerID</td>
+            <td class="uheader">Device ID</td>
         </tr>
         <?php
             $line = 0;
             foreach ($devices as $devid => $info) {
 
-                $url = Horde::applicationUrl("devices.php");
+                $url = Horde::url("devices.php");
                 $url = Horde_Util::addParameter($url,
                     array(
                         'devid' => $devid,
@@ -33,14 +23,14 @@
                 $deleteurl = Horde_Util::addParameter($url, 'action', 'delete');
         ?>
         <tr class="item">
-            <td style="width: 20%">
-                <?php echo Horde::link($editurl); echo $devid; ?></a>
+            <td>
+                <?php echo Horde::link($editurl); echo $info['name']; ?></a>
             </td>
-            <td style="width: 35%;">
+            <td>
                 <?php echo $info['mailbox']; ?>
             </td>
-            <td style="width: 45%">
-                <?php echo $info['callerid']; ?>
+            <td>
+                <?php echo Horde::link($editurl); echo $devid; ?></a>
             </td>
         </tr>
         <?php
@@ -48,3 +38,13 @@
         ?>
     </table>
 </div>
+<ul id="controls">
+    <?php
+    $addurl = Horde::url('devices.php');
+    $addurl = Horde_Util::addParameter($addurl, 'action', 'add');
+    ?>
+    <li><a class="button" href="<?php echo $addurl; ?>">
+        <?php echo Horde::img('device-add.png'); ?>&nbsp;New Device
+        </a>
+    </li>
+</ul>

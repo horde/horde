@@ -7,11 +7,10 @@
 
 require_once 'Horde/String.php';
 require_once 'Horde/Util.php';
-require_once 'Horde/iCalendar.php';
+require_once 'Horde/Icalendar.php';
 require_once dirname(__FILE__) . '/../../../lib/Horde/Date.php';
 require_once dirname(__FILE__) . '/../../../lib/Horde/Date/Recurrence.php';
 require_once dirname(__FILE__) . '/../../../lib/Horde/Date/Utils.php';
-date_default_timezone_set('Europe/Berlin');
 
 /**
  * @category   Horde
@@ -22,8 +21,14 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {
-        Horde_String::setDefaultCharset('UTF-8');
-        $this->ical = new Horde_iCalendar();
+        $this->ical = new Horde_Icalendar();
+        $this->_oldTimezone = date_default_timezone_get();
+        date_default_timezone_set('Europe/Berlin');
+    }
+
+    public function tearDown()
+    {
+        date_default_timezone_set($this->_oldTimezone);
     }
 
     private function _getRecurrences($r)
@@ -267,6 +272,59 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
                                   '2009-12-13 06:00:00',
                                   '2009-12-27 06:00:00'),
                             $this->_getRecurrences($r));
+    }
+
+    public function testBug8799WeeklyISOWeek52()
+    {
+        // Friday, 2010-12-31 is in week 52, but the next recurrence is in
+        // the NEW year (2011).
+        $r = new Horde_Date_Recurrence('2010-06-04 10:00:00');
+        $r->setRecurType(Horde_Date_Recurrence::RECUR_WEEKLY);
+        $r->setRecurOnDay(Horde_Date::MASK_FRIDAY);
+        $r->setRecurInterval(1);
+
+        $after = new Horde_Date('12/21/2010');
+        for ($i = 0; $i <= 5; $i++) {
+            $after = $r->nextRecurrence($after);
+            $recurrences[] = (string)$after;
+            $after->mday++;
+        }
+        $this->assertEquals(array('2010-12-24 10:00:00',
+                                  '2010-12-31 10:00:00',
+                                  '2011-01-07 10:00:00',
+                                  '2011-01-14 10:00:00',
+                                  '2011-01-21 10:00:00',
+                                  '2011-01-28 10:00:00'),
+                            $recurrences);
+
+        // The entire first week of Jan, 2012 is ISO Week 52
+        $after = new Horde_Date('01/01/2012');
+        $recurrences = array();
+        for ($i = 0; $i <= 5; $i++) {
+            $after = $r->nextRecurrence($after);
+            $recurrences[] = (string)$after;
+            $after->mday++;
+        }
+        $this->assertEquals(array('2012-01-06 10:00:00',
+                                  '2012-01-13 10:00:00',
+                                  '2012-01-20 10:00:00',
+                                  '2012-01-27 10:00:00',
+                                  '2012-02-03 10:00:00',
+                                  '2012-02-10 10:00:00'),
+                            $recurrences);
+    }
+
+    public function testWeeklyISOWeek53()
+    {
+        $r = new Horde_Date_Recurrence('2009-06-09 10:00:00');
+        $r->setRecurType(Horde_Date_Recurrence::RECUR_WEEKLY);
+        $r->setRecurOnDay(Horde_Date::MASK_TUESDAY);
+        $r->setRecurInterval(1);
+
+        $recurrences = array();
+        $after = new Horde_Date('1/1/2010');
+        $after = (string)$r->nextRecurrence($after);
+        $this->assertEquals('2010-01-05 10:00:00', $after);
     }
 
     public function testMonthlyEnd()
@@ -541,6 +599,18 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(2, $r->getRecurInterval());
         $this->assertEquals(Horde_Date::MASK_THURSDAY, $r->getRecurOnDays());
         $this->assertEquals(4, $r->getRecurCount());
+    }
+
+    public function testParseWeeklyWithBrokenRule()
+    {
+        // Outlook (or the Funambol connector) create such rules with both,
+        // date limit and count limit.
+        $r = new Horde_Date_Recurrence('2010-10-13 08:00:00');
+        $r->fromRRule10('W1 WE 20101103T080000 #4');
+        $this->assertEquals(Horde_Date_Recurrence::RECUR_WEEKLY, $r->getRecurType());
+        $this->assertEquals(1, $r->getRecurInterval());
+        $this->assertEquals(Horde_Date::MASK_WEDNESDAY, $r->getRecurOnDays());
+        $this->assertEquals('2010-11-03 00:00:00', (string)$r->recurEnd);
     }
 
     public function testParseMonthlyDate()
@@ -863,14 +933,16 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
 
     public function testBug2813RecurrenceEndFromIcalendar()
     {
-        $iCal = new Horde_iCalendar();
+        require_once 'PEAR.php';
+
+        $iCal = new Horde_Icalendar();
         $iCal->parsevCalendar(file_get_contents(dirname(__FILE__) . '/fixtures/bug2813.ics'));
         $components = $iCal->getComponents();
 
         date_default_timezone_set('US/Eastern');
 
         foreach ($components as $content) {
-            if ($content instanceof Horde_iCalendar_vevent) {
+            if ($content instanceof Horde_Icalendar_Vevent) {
                 $start = new Horde_Date($content->getAttribute('DTSTART'));
                 $end = new Horde_Date($content->getAttribute('DTEND'));
                 $rrule = $content->getAttribute('RRULE');
@@ -898,8 +970,8 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
         $rrule->setRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY);
         $rrule->setRecurOnDay(Horde_Date::MASK_SATURDAY);
 
-        $this->assertEquals('MP1 1+ SA #0', $rrule->toRRule10(new Horde_iCalendar()));
-        $this->assertEquals('FREQ=MONTHLY;INTERVAL=1;BYDAY=1SA', $rrule->toRRule20(new Horde_iCalendar()));
+        $this->assertEquals('MP1 1+ SA #0', $rrule->toRRule10(new Horde_Icalendar()));
+        $this->assertEquals('FREQ=MONTHLY;INTERVAL=1;BYDAY=1SA', $rrule->toRRule20(new Horde_Icalendar()));
     }
 
 }

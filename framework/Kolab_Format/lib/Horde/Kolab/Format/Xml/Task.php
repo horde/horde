@@ -119,7 +119,7 @@ class Horde_Kolab_Format_Xml_Task extends Horde_Kolab_Format_Xml
      *
      * @return array Array with data.
      *
-     * @throws Horde_Exception If parsing the XML data failed.
+     * @throws Horde_Kolab_Format_Exception If parsing the XML data failed.
      */
     protected function _load(&$children)
     {
@@ -160,7 +160,7 @@ class Horde_Kolab_Format_Xml_Task extends Horde_Kolab_Format_Xml
             $object['parent'] = null;
         }
 
-        $object['completed'] = (bool) Kolab::percentageToBoolean($object['completed']);
+        $object['completed'] = (bool) $this->percentageToBoolean($object['completed']);
 
         if (isset($object['organizer'])
             && isset($object['organizer']['smtp-address'])) {
@@ -178,9 +178,9 @@ class Horde_Kolab_Format_Xml_Task extends Horde_Kolab_Format_Xml
      *
      * @return boolean True on success.
      *
-     * @throws Horde_Exception If converting the data to XML failed.
+     * @throws Horde_Kolab_Format_Exception If converting the data to XML failed.
      */
-    protected function _save($root, $object)
+    protected function _save(&$root, $object)
     {
         $object['summary'] = $object['name'];
         unset($object['name']);
@@ -193,8 +193,18 @@ class Horde_Kolab_Format_Xml_Task extends Horde_Kolab_Format_Xml
 
         $object['estimate'] = number_format($object['estimate'], 2);
 
-        $object['completed'] = Kolab::BooleanToPercentage($object['completed']);
+        $object['completed'] = $this->booleanToPercentage($object['completed']);
 
         return $this->_saveArray($root, $object, $this->_fields_specific);
+    }
+
+    function percentageToBoolean($percentage)
+    {
+        return $percentage == 100 ? '1' : '0';
+    }
+
+    function booleanToPercentage($boolean)
+    {
+        return $boolean ? '100' : '0';
     }
 }

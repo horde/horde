@@ -83,20 +83,6 @@ class Nag_Driver
     }
 
     /**
-     * Generate a universal / unique identifier for a task. This is
-     * NOT something that we expect to be able to parse into a
-     * tasklist and a taskId.
-     *
-     * @return string  A nice unique string (should be 255 chars or less).
-     */
-    function generateUID()
-    {
-        return date('YmdHis') . '.'
-            . substr(str_pad(base_convert(microtime(), 10, 36), 16, uniqid(mt_rand()), STR_PAD_LEFT), -16)
-            . '@' . $GLOBALS['conf']['server']['name'];
-    }
-
-    /**
      * Attempts to return a concrete Nag_Driver instance based on $driver.
      *
      * @param string    $tasklist   The name of the tasklist to load.
@@ -211,10 +197,10 @@ class Nag_Driver
                  $owner = null, $assignee = null)
     {
         if (is_null($uid)) {
-            $uid = $this->generateUID();
+            $uid = strval(new Horde_Support_Guid());
         }
         if (is_null($owner)) {
-            $owner = Horde_Auth::getAuth();
+            $owner = $GLOBALS['registry']->getAuth();
         }
 
         $taskId = $this->_add($name, $desc, $start, $due, $priority, $estimate,
@@ -226,28 +212,33 @@ class Nag_Driver
         $task = $this->get($taskId);
 
         /* Log the creation of this item in the history log. */
-        $history = Horde_History::singleton();
-        $history->log('nag:' . $this->_tasklist . ':' . $uid, array('action' => 'add'), true);
+        $history = $GLOBALS['injector']->getInstance('Horde_History');
+        try {
+            $history->log('nag:' . $this->_tasklist . ':' . $uid, array('action' => 'add'), true);
+        } catch (Exception $e) {
+            Horde::logMessage($e, 'ERR');
+        }
 
         /* Log completion status changes. */
         if ($completed) {
-            $history->log('nag:' . $this->_tasklist . ':' . $uid, array('action' => 'complete'), true);
+            try {
+                $history->log('nag:' . $this->_tasklist . ':' . $uid, array('action' => 'complete'), true);
+            } catch (Exception $e) {
+                Horde::logMessage($e, 'ERR');
+            }
         }
 
         /* Notify users about the new event. */
         $result = Nag::sendNotification('add', $task);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
         }
 
         /* Add an alarm if necessary. */
-        if (!empty($GLOBALS['conf']['alarms']['driver']) && !empty($alarm)) {
-            $alarm = $task->toAlarm();
-            if ($alarm) {
-                $alarm['start'] = new Horde_Date($alarm['start']);
-                $horde_alarm = Horde_Alarm::factory();
-                $horde_alarm->set($alarm);
-            }
+        if (!empty($alarm) &&
+            ($alarm = $task->toAlarm())) {
+            $alarm['start'] = new Horde_Date($alarm['start']);
+            $GLOBALS['injector']->getInstance('Horde_Alarm')->set($alarm);
         }
 
         return array($taskId, $uid);
@@ -300,46 +291,35 @@ class Nag_Driver
             return $modify;
         }
 
-        /* Update alarm if necessary. */
-        if (!empty($GLOBALS['conf']['alarms']['driver'])) {
-            $horde_alarm = Horde_Alarm::factory();
-            if (empty($alarm) || $completed) {
-                $horde_alarm->delete($task->uid);
-            } else {
-                $task = $this->get($taskId);
-                $alarm = $task->toAlarm();
-                if ($alarm) {
-                    $alarm['start'] = new Horde_Date($alarm['start']);
-                    $horde_alarm->set($alarm);
-                }
-            }
-        }
-
         $new_task = $this->get($task->id);
         $log_tasklist = $this->_tasklist;
         if (!is_null($tasklist) && $task->tasklist != $tasklist) {
             /* Moving the task to another tasklist. */
-            $share = $GLOBALS['nag_shares']->getShare($task->tasklist);
-            if (is_a($share, 'PEAR_Error')) {
-                return $share;
+            try {
+                $share = $GLOBALS['nag_shares']->getShare($task->tasklist);
+            } catch (Horde_Share_Exception $e) {
+                Horde::logMessage($e->getMessage(), 'ERR');
+                throw new Nag_Exception($e);
             }
 
-            if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
+            if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
                 $GLOBALS['notification']->push(sprintf(_("Access denied removing task from %s."), $share->get('name')), 'horde.error');
                 return false;
             }
 
-            $share = $GLOBALS['nag_shares']->getShare($tasklist);
-            if (is_a($share, 'PEAR_Error')) {
-                return $share;
+            try {
+                $share = $GLOBALS['nag_shares']->getShare($tasklist);
+            } catch (Horde_Share_Exception $e) {
+                Horde::logMessage($e->getMessage(), 'ERR');
+                throw new Nag_Exception($e);
             }
 
-            if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+            if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
                 $GLOBALS['notification']->push(sprintf(_("Access denied moving the task to %s."), $share->get('name')), 'horde.error');
             }
 
             $moved = $this->_move($task->id, $tasklist);
-            if (is_a($moved, 'PEAR_Error')) {
+            if ($moved instanceof PEAR_Error) {
                 return $moved;
             }
             $new_storage = Nag_Driver::singleton($tasklist);
@@ -347,33 +327,60 @@ class Nag_Driver
 
             /* Log the moving of this item in the history log. */
             if (!empty($task->uid)) {
-                $history = Horde_History::singleton();
-                $history->log('nag:' . $task->tasklist . ':' . $task->uid, array('action' => 'delete'), true);
-                $history->log('nag:' . $tasklist . ':' . $task->uid, array('action' => 'add'), true);
+                $history = $GLOBALS['injector']->getInstance('Horde_History');
+                try {
+                    $history->log('nag:' . $task->tasklist . ':' . $task->uid, array('action' => 'delete'), true);
+                } catch (Exception $e) {
+                    Horde::logMessage($e, 'ERR');
+                }
+                try {
+                    $history->log('nag:' . $tasklist . ':' . $task->uid, array('action' => 'add'), true);
+                } catch (Exception $e) {
+                    Horde::logMessage($e, 'ERR');
+                }
                 $log_tasklist = $tasklist;
+            }
+        }
+
+        /* Update alarm if necessary. */
+        $horde_alarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
+        if (empty($alarm) || $completed) {
+            $horde_alarm->delete($task->uid);
+        } else {
+            $task = $this->get($taskId);
+            $alarm = $task->toAlarm();
+            if ($alarm) {
+                $alarm['start'] = new Horde_Date($alarm['start']);
+                $horde_alarm->set($alarm);
             }
         }
 
         /* Log the modification of this item in the history log. */
         if (!empty($task->uid)) {
-            $history = Horde_History::singleton();
-            $history->log('nag:' . $log_tasklist . ':' . $task->uid, array('action' => 'modify'), true);
+            try {
+                $GLOBALS['injector']->getInstance('Horde_History')->log('nag:' . $log_tasklist . ':' . $task->uid, array('action' => 'modify'), true);
+            } catch (Exception $e) {
+                Horde::logMessage($e, 'ERR');
+            }
         }
 
         /* Log completion status changes. */
         if ($task->completed != $completed) {
-            $history = Horde_History::singleton();
             $attributes = array('action' => 'complete');
             if (!$completed) {
                 $attributes['ts'] = 0;
             }
-            $history->log('nag:' . $log_tasklist . ':' . $task->uid, $attributes, true);
+            try {
+                $GLOBALS['injector']->getInstance('Horde_History')->log('nag:' . $log_tasklist . ':' . $task->uid, $attributes, true);
+            } catch (Exception $e) {
+                Horde::logMessage($e, 'ERR');
+            }
         }
 
         /* Notify users about the changed event. */
         $result = Nag::sendNotification('edit', $new_task, $task);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
         }
 
         return true;
@@ -388,6 +395,9 @@ class Nag_Driver
     {
         /* Get the task's details for use later. */
         $task = $this->get($taskId);
+        if ($task instanceof PEAR_Error) {
+            return $task;
+        }
 
         $delete = $this->_delete($taskId);
         if (is_a($delete, 'PEAR_Error')) {
@@ -396,21 +406,22 @@ class Nag_Driver
 
         /* Log the deletion of this item in the history log. */
         if (!empty($task->uid)) {
-            $history = Horde_History::singleton();
-            $history->log('nag:' . $this->_tasklist . ':' . $task->uid, array('action' => 'delete'), true);
+            try {
+                $GLOBALS['injector']->getInstance('Horde_History')->log('nag:' . $this->_tasklist . ':' . $task->uid, array('action' => 'delete'), true);
+            } catch (Exception $e) {
+                Horde::logMessage($e, 'ERR');
+            }
         }
 
         /* Notify users about the deleted event. */
         $result = Nag::sendNotification('delete', $task);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
         }
 
         /* Delete alarm if necessary. */
-        if (!empty($GLOBALS['conf']['alarms']['driver']) &&
-            !empty($task->alarm)) {
-            $horde_alarm = Horde_Alarm::factory();
-            $horde_alarm->delete($task->uid);
+        if (!empty($task->alarm)) {
+            $GLOBALS['injector']->getInstance('Horde_Alarm')->delete($task->uid);
         }
 
         return true;

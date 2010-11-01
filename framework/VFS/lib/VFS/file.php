@@ -2,8 +2,10 @@
 /**
  * VFS implementation for a standard filesystem.
  *
- * Required parameters:<pre>
- *   'vfsroot'  The root path</pre>
+ * Required parameters:
+ * <pre>
+ * 'vfsroot' - (string) The root path.
+ * </pre>
  *
  * Note: The user that your webserver runs as (commonly 'nobody',
  * 'apache', or 'www-data') MUST have read/write permission to the
@@ -17,18 +19,29 @@
  * @author  Chuck Hagenbuch
  * @package VFS
  */
-class VFS_file extends VFS {
-
+class VFS_file extends VFS
+{
     /**
-     * List of permissions and if they can be changed in this VFS
-     * backend.
+     * List of permissions and if they can be changed in this VFS backend.
      *
      * @var array
      */
-    var $_permissions = array(
-        'owner' => array('read' => true, 'write' => true, 'execute' => true),
-        'group' => array('read' => true, 'write' => true, 'execute' => true),
-        'all'   => array('read' => true, 'write' => true, 'execute' => true)
+    protected $_permissions = array(
+        'owner' => array(
+            'read' => true,
+            'write' => true,
+            'execute' => true
+        ),
+        'group' => array(
+            'read' => true,
+            'write' => true,
+            'execute' => true
+        ),
+        'all' => array(
+            'read' => true,
+            'write' => true,
+            'execute' => true
+        )
     );
 
     /**
@@ -36,15 +49,14 @@ class VFS_file extends VFS {
      *
      * @param array $params  A hash containing connection parameters.
      */
-    function VFS_file($params = array())
+    public function __construct($params = array())
     {
-        parent::VFS($params);
+        parent::__construct($params);
 
-        if (!empty($this->_params['vfsroot'])) {
-            if (substr($this->_params['vfsroot'], -1) == '/' ||
-                substr($this->_params['vfsroot'], -1) == '\\') {
-                $this->_params['vfsroot'] = substr($this->_params['vfsroot'], 0, strlen($this->_params['vfsroot']) - 1);
-            }
+        if (!empty($this->_params['vfsroot']) &&
+            ((substr($this->_params['vfsroot'], -1) == '/') ||
+             (substr($this->_params['vfsroot'], -1) == '\\'))) {
+            $this->_params['vfsroot'] = substr($this->_params['vfsroot'], 0, strlen($this->_params['vfsroot']) - 1);
         }
     }
 
@@ -54,14 +66,15 @@ class VFS_file extends VFS {
      * @param string $path  The pathname to the file.
      * @param string $name  The filename to retrieve.
      *
-     * @return integer The file size.
+     * @return integer  The file size.
+     * @throws VFS_Exception
      */
-    function size($path, $name)
+    public function size($path, $name)
     {
-        $size = @filesize($this->_getNativePath($path, $name));
-        if ($size === false) {
-            return PEAR::raiseError(sprintf(_("Unable to check file size of \"%s/%s\"."), $path, $name));
+        if (($size = @filesize($this->_getNativePath($path, $name))) === false) {
+            throw new VFS_Exception(sprintf('Unable to check file size of "%s/%s".'), $path, $name);
         }
+
         return $size;
     }
 
@@ -72,12 +85,12 @@ class VFS_file extends VFS {
      * @param string $name  The filename to retrieve.
      *
      * @return string  The file data.
+     * @throws VFS_Exception
      */
-    function read($path, $name)
+    public function read($path, $name)
     {
-        $data = @file_get_contents($this->_getNativePath($path, $name));
-        if ($data === false) {
-            return PEAR::raiseError(_("Unable to open VFS file."));
+        if (($data = @file_get_contents($this->_getNativePath($path, $name))) === false) {
+            throw new VFS_Exception('Unable to open VFS file.');
         }
 
         return $data;
@@ -95,7 +108,7 @@ class VFS_file extends VFS {
      *
      * @return string A local filename.
      */
-    function readFile($path, $name)
+    public function readFile($path, $name)
     {
         return $this->_getNativePath($path, $name);
     }
@@ -107,13 +120,14 @@ class VFS_file extends VFS {
      * @param string $name  The filename to retrieve.
      *
      * @return resource  The stream.
+     * @throws VFS_Exception
      */
-    function readStream($path, $name)
+    public function readStream($path, $name)
     {
         $mode = OS_WINDOWS ? 'rb' : 'r';
         $stream = @fopen($this->_getNativePath($path, $name), $mode);
         if (!is_resource($stream)) {
-            return PEAR::raiseError(_("Unable to open VFS file."));
+            throw new VFS_Exception('Unable to open VFS file.');
         }
 
         return $stream;
@@ -123,8 +137,6 @@ class VFS_file extends VFS {
      * Retrieves a part of a file from the VFS. Particularly useful when
      * reading large files which would exceed the PHP memory limits if they
      * were stored in a string.
-     *
-     * @abstract
      *
      * @param string  $path       The pathname to the file.
      * @param string  $name       The filename to retrieve.
@@ -138,19 +150,21 @@ class VFS_file extends VFS {
      * @param integer $remaining  The bytes that are left, after the part that
      *                            is retrieved.
      *
-     * @return string The file data.
+     * @return string  The file data.
+     * @throws VFS_Exception
      */
-    function readByteRange($path, $name, &$offset, $length = -1, &$remaining)
+    public function readByteRange($path, $name, &$offset, $length = -1,
+                                  &$remaining)
     {
         if ($offset < 0) {
-            return PEAR::raiseError(sprintf(_("Wrong offset %d while reading a VFS file."), $offset));
+            throw new VFS_Exception(sprintf('Wrong offset %d while reading a VFS file.', $offset));
         }
 
         // Calculate how many bytes MUST be read, so the remainging
         // bytes and the new offset can be calculated correctly.
         $file = $this->_getNativePath($path, $name);
         $size = filesize ($file);
-        if ($length == -1 || (($length + $offset) > $size)) {
+        if (($length == -1) || (($length + $offset) > $size)) {
             $length = $size - $offset;
         }
         if ($remaining < 0) {
@@ -159,7 +173,7 @@ class VFS_file extends VFS {
 
         $fp = @fopen($file, 'rb');
         if (!$fp) {
-            return PEAR::raiseError(_("Unable to open VFS file."));
+            throw new VFS_Exception('Unable to open VFS file.');
         }
         fseek($fp, $offset);
         $data = fread($fp, $length);
@@ -181,34 +195,26 @@ class VFS_file extends VFS {
      *                             stored.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function write($path, $name, $tmpFile, $autocreate = true)
+    public function write($path, $name, $tmpFile, $autocreate = true)
     {
         if (!@is_dir($this->_getNativePath($path))) {
             if ($autocreate) {
-                $res = $this->autocreatePath($path);
-                if (is_a($res, 'PEAR_Error')) {
-                    return $res;
-                }
+                $this->autocreatePath($path);
             } else {
-                return PEAR::raiseError(_("VFS directory does not exist."));
+                throw new VFS_Exception('VFS directory does not exist.');
             }
         }
 
-        $res = $this->_checkQuotaWrite('file', $tmpFile);
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
+        $this->_checkQuotaWrite('file', $tmpFile);
 
         // Since we already have the data in a file, don't read it
         // into PHP's memory at all - just copy() it to the new
         // location. We leave it to the caller to clean up the
         // temporary file, so we don't use rename().
-        if (@copy($tmpFile, $this->_getNativePath($path, $name))) {
-            return true;
-        } else {
-            return PEAR::raiseError(_("Unable to write VFS file (copy() failed)."));
+        if (!@copy($tmpFile, $this->_getNativePath($path, $name))) {
+            throw new VFS_Exception('Unable to write VFS file (copy() failed).');
         }
     }
 
@@ -220,37 +226,28 @@ class VFS_file extends VFS {
      * @param string $dest         The destination of the file.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function move($path, $name, $dest, $autocreate = false)
+    public function move($path, $name, $dest, $autocreate = false)
     {
         $orig = $this->_getNativePath($path, $name);
         if (preg_match('|^' . preg_quote($orig) . '/?$|', $dest)) {
-            return PEAR::raiseError(_("Cannot move file(s) - destination is within source."));
+            throw new VFS_Exception('Cannot move file(s) - destination is within source.');
         }
 
         if ($autocreate) {
-            $result = $this->autocreatePath($dest);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
+            $this->autocreatePath($dest);
         }
 
-        $fileCheck = $this->listFolder($dest, false);
-        if (is_a($fileCheck, 'PEAR_Error')) {
-            return $fileCheck;
-        }
-        foreach ($fileCheck as $file) {
+        foreach ($this->listFolder($dest, false) as $file) {
             if ($file['name'] == $name) {
-                return PEAR::raiseError(_("Unable to move VFS file."));
+                throw new VFS_Exception('Unable to move VFS file.');
             }
         }
 
         if (!@rename($orig, $this->_getNativePath($dest, $name))) {
-            return PEAR::raiseError(_("Unable to move VFS file."));
+            throw new VFS_Exception('Unable to move VFS file.');
         }
-
-        return true;
     }
 
     /**
@@ -261,42 +258,30 @@ class VFS_file extends VFS {
      * @param string $dest         The destination of the file.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function copy($path, $name, $dest, $autocreate = false)
+    public function copy($path, $name, $dest, $autocreate = false)
     {
         $orig = $this->_getNativePath($path, $name);
         if (preg_match('|^' . preg_quote($orig) . '/?$|', $dest)) {
-            return PEAR::raiseError(_("Cannot copy file(s) - source and destination are the same."));
+            throw new VFS_Exception('Cannot copy file(s) - source and destination are the same.');
         }
 
         if ($autocreate) {
-            $result = $this->autocreatePath($dest);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
+            $this->autocreatePath($dest);
         }
 
-        $fileCheck = $this->listFolder($dest, false);
-        if (is_a($fileCheck, 'PEAR_Error')) {
-            return $fileCheck;
-        }
-        foreach ($fileCheck as $file) {
+        foreach ($this->listFolder($dest, false) as $file) {
             if ($file['name'] == $name) {
-                return PEAR::raiseError(_("Unable to copy VFS file."));
+                throw new VFS_Exception('Unable to copy VFS file.');
             }
         }
 
-        $res = $this->_checkQuotaWrite('file', $orig);
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
+        $this->_checkQuotaWrite('file', $orig);
 
         if (!@copy($orig, $this->_getNativePath($dest, $name))) {
-            return PEAR::raiseError(_("Unable to copy VFS file."));
+            throw new VFS_Exception('Unable to copy VFS file.');
         }
-
-        return true;
     }
 
     /**
@@ -307,18 +292,15 @@ class VFS_file extends VFS {
      * @param string $data         The file data.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function writeData($path, $name, $data, $autocreate = true)
+    public function writeData($path, $name, $data, $autocreate = true)
     {
         if (!@is_dir($this->_getNativePath($path))) {
             if ($autocreate) {
-                $res = $this->autocreatePath($path);
-                if (is_a($res, 'PEAR_Error')) {
-                    return $res;
-                }
+                $this->autocreatePath($path);
             } else {
-                return PEAR::raiseError(_("VFS directory does not exist."));
+                throw new VFS_Exception('VFS directory does not exist.');
             }
         }
 
@@ -326,34 +308,17 @@ class VFS_file extends VFS {
         // since otherwise the file will not be created at all.
         if (!strlen($data)) {
             if (@touch($this->_getNativePath($path, $name))) {
-                return true;
-            } else {
-                return PEAR::raiseError(_("Unable to create empty VFS file."));
+                return;
             }
+            throw new VFS_Exception('Unable to create empty VFS file.');
         }
 
-        $res = $this->_checkQuotaWrite('string', $data);
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
+        $this->_checkQuotaWrite('string', $data);
 
         // Otherwise we go ahead and try to write out the file.
-        if (function_exists('file_put_contents')) {
-            if (!@file_put_contents($this->_getNativePath($path, $name), $data)) {
-                return PEAR::raiseError(_("Unable to write VFS file data."));
-            }
-        } else {
-            $fp = @fopen($this->_getNativePath($path, $name), 'w');
-            if (!$fp) {
-                return PEAR::raiseError(_("Unable to open VFS file for writing."));
-            }
-
-            if (!@fwrite($fp, $data)) {
-                return PEAR::raiseError(_("Unable to write VFS file data."));
-            }
+        if (!@file_put_contents($this->_getNativePath($path, $name), $data)) {
+            throw new VFS_Exception('Unable to write VFS file data.');
         }
-
-        return true;
     }
 
     /**
@@ -362,20 +327,15 @@ class VFS_file extends VFS {
      * @param string $path  The path to store the file in.
      * @param string $name  The filename to use.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function deleteFile($path, $name)
+    public function deleteFile($path, $name)
     {
-        $res = $this->_checkQuotaDelete($path, $name);
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
+        $this->_checkQuotaDelete($path, $name);
 
         if (!@unlink($this->_getNativePath($path, $name))) {
-            return PEAR::raiseError(_("Unable to delete VFS file."));
+            throw new VFS_Exception('Unable to delete VFS file.');
         }
-
-        return true;
     }
 
     /**
@@ -385,31 +345,22 @@ class VFS_file extends VFS {
      * @param string $name        The foldername to use.
      * @param boolean $recursive  Force a recursive delete?
      *
-     * @return mixed True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function deleteFolder($path, $name, $recursive = false)
+    public function deleteFolder($path, $name, $recursive = false)
     {
         if ($recursive) {
-            $result = $this->emptyFolder($path . '/' . $name);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
+            $this->emptyFolder($path . '/' . $name);
         } else {
             $list = $this->listFolder($path . '/' . $name);
-            if (is_a($list, 'PEAR_Error')) {
-                return $list;
-            }
             if (count($list)) {
-                return PEAR::raiseError(sprintf(_("Unable to delete %s, the directory is not empty"),
-                                                $path . '/' . $name));
+                throw new VFS_Exception(sprintf('Unable to delete %s, the directory is not empty', $path . '/' . $name));
             }
         }
 
         if (!@rmdir($this->_getNativePath($path, $name))) {
-            return PEAR::raiseError(_("Unable to delete VFS directory."));
+            throw new VFS_Exception('Unable to delete VFS directory.');
         }
-
-        return true;
     }
 
     /**
@@ -418,15 +369,13 @@ class VFS_file extends VFS {
      * @param string $path  The path to create the folder in.
      * @param string $name  The foldername to use.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function createFolder($path, $name)
+    public function createFolder($path, $name)
     {
         if (!@mkdir($this->_getNativePath($path, $name))) {
-            return PEAR::raiseError(_("Unable to create VFS directory."));
+            throw new VFS_Exception('Unable to create VFS directory.');
         }
-
-        return true;
     }
 
     /**
@@ -437,7 +386,7 @@ class VFS_file extends VFS {
      *
      * @return boolean  True if it is a folder, false otherwise.
      */
-    function isFolder($path, $name)
+    public function isFolder($path, $name)
     {
         return @is_dir($this->_getNativePath($path, $name));
     }
@@ -449,15 +398,13 @@ class VFS_file extends VFS {
      * @param string $name         The name of the item.
      * @param integer $permission  The octal value of the new permission.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function changePermissions($path, $name, $permission)
+    public function changePermissions($path, $name, $permission)
     {
         if (!@chmod($this->_getNativePath($path, $name), $permission)) {
-            return PEAR::raiseError(sprintf(_("Unable to change permission for VFS file %s/%s."), $path, $name));
+            throw new VFS_Exception(sprintf('Unable to change permission for VFS file %s/%s.', $path, $name));
         }
-
-        return true;
     }
 
     /**
@@ -468,24 +415,25 @@ class VFS_file extends VFS {
      * @param boolean $dotfiles  Show dotfiles?
      * @param boolean $dironly   Show only directories?
      *
-     * @return array  File list on success, PEAR_Error on error.
+     * @return array  File list.
+     * @throws VFS_Exception
      */
-    function _listFolder($path, $filter = null, $dotfiles = true,
-                         $dironly = false)
+    protected function _listFolder($path, $filter = null, $dotfiles = true,
+                                   $dironly = false)
     {
         $files = array();
-        $path = isset($path) ? $this->_getNativePath($path) : $this->_getNativePath();
+        $path = $this->_getNativePath(isset($path) ? $path : '');
 
         if (!@is_dir($path)) {
-            return PEAR::raiseError(_("Not a directory"));
+            throw new VFS_Exception('Not a directory');
         }
 
         if (!@chdir($path)) {
-            return PEAR::raiseError(_("Unable to access VFS directory."));
+            throw new VFS_Exception('Unable to access VFS directory.');
         }
 
-        $handle = opendir($path);
-        while (($entry = readdir($handle)) !== false) {
+        $d = dir($path);
+        while (($entry = $d->read()) !== false) {
             // Filter out '.' and '..' entries.
             if ($entry == '.' || $entry == '..') {
                 continue;
@@ -511,11 +459,9 @@ class VFS_file extends VFS {
 
             // Group
             $file['group'] = filegroup($entry);
-            if (function_exists('posix_getgrgid')) {
-                if (PHP_VERSION != '5.2.1') {
-                    $group = posix_getgrgid($file['group']);
-                    $file['group'] = $group['name'];
-                }
+            if (function_exists('posix_getgrgid') && (PHP_VERSION != '5.2.1')) {
+                $group = posix_getgrgid($file['group']);
+                $file['group'] = $group['name'];
             }
 
             // Size
@@ -542,7 +488,7 @@ class VFS_file extends VFS {
                     } elseif (is_file($file['link'])) {
                         $ext = explode('.', $file['link']);
                         if (!(count($ext) == 1 || ($ext[0] === '' && count($ext) == 2))) {
-                            $file['linktype'] = VFS::strtolower($ext[count($ext) - 1]);
+                            $file['linktype'] = self::strtolower($ext[count($ext) - 1]);
                         }
                     }
                 } else {
@@ -555,7 +501,7 @@ class VFS_file extends VFS {
                 if (count($ext) == 1 || (substr($file['name'], 0, 1) === '.' && count($ext) == 2)) {
                     $file['type'] = '**none';
                 } else {
-                    $file['type'] = VFS::strtolower($ext[count($ext) - 1]);
+                    $file['type'] = self::strtolower($ext[count($ext) - 1]);
                 }
             } else {
                 $file['type'] = '**none';
@@ -586,6 +532,8 @@ class VFS_file extends VFS {
             unset($file);
         }
 
+        $d->close();
+
         return $files;
     }
 
@@ -597,29 +545,27 @@ class VFS_file extends VFS {
      * @param mixed $filter        Hash of items to filter based on folderlist.
      * @param boolean $dotfolders  Include dotfolders?
      *
-     * @return mixed  Folder list on success or a PEAR_Error object on failure.
+     * @return array  Folder list.
+     * @throws VFS_Exception
      */
     function listFolders($path = '', $filter = null, $dotfolders = true)
     {
-        $conn = $this->_connect();
-        if (is_a($conn, 'PEAR_Error')) {
-            return $conn;
-        }
+        $this->_connect();
 
         $folders = array();
-        $folders[dirname($path)] = array('val' => dirname($path),
-                                         'abbrev' => '..',
-                                         'label' => '..');
+        $folders[dirname($path)] = array(
+            'val' => dirname($path),
+            'abbrev' => '..',
+            'label' => '..'
+        );
 
         $folderList = $this->listFolder($path, null, $dotfolders, true);
-        if (is_a($folderList, 'PEAR_Error')) {
-            return $folderList;
-        }
-
         foreach ($folderList as $name => $files) {
-            $folders[$name] = array('val' => $path . '/' . $files['name'],
-                                    'abbrev' => $files['name'],
-                                    'label' => $path . '/' . $files['name']);
+            $folders[$name] = array(
+                'val' => $path . '/' . $files['name'],
+                'abbrev' => $files['name'],
+                'label' => $path . '/' . $files['name']
+            );
         }
 
         ksort($folders);
@@ -630,13 +576,11 @@ class VFS_file extends VFS {
     /**
      * Return Unix style perms.
      *
-     * @access private
-     *
      * @param integer $perms  The permissions to set.
      *
      * @return string  Unix style perms.
      */
-    function _getUnixPerms($perms)
+    protected function _getUnixPerms($perms)
     {
         // Determine permissions
         $owner['read']    = ($perms & 00400) ? 'r' : '-';
@@ -660,11 +604,9 @@ class VFS_file extends VFS {
             $world['execute'] = ($world['execute'] == 'x') ? 't' : 'T';
         }
 
-        $unixPerms = $owner['read'] . $owner['write'] . $owner['execute'] .
-                     $group['read'] . $group['write'] . $group['execute'] .
-                     $world['read'] . $world['write'] . $world['execute'];
-
-        return $unixPerms;
+        return $owner['read'] . $owner['write'] . $owner['execute'] .
+               $group['read'] . $group['write'] . $group['execute'] .
+               $world['read'] . $world['write'] . $world['execute'];
     }
 
     /**
@@ -675,22 +617,18 @@ class VFS_file extends VFS {
      * @param string $newpath  The new path of the file.
      * @param string $newname  The new filename.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function rename($oldpath, $oldname, $newpath, $newname)
+    public function rename($oldpath, $oldname, $newpath, $newname)
     {
         if (!@is_dir($this->_getNativePath($newpath))) {
-            if (is_a($res = $this->autocreatePath($newpath), 'PEAR_Error')) {
-                return $res;
-            }
+            $this->autocreatePath($newpath);
         }
 
         if (!@rename($this->_getNativePath($oldpath, $oldname),
                      $this->_getNativePath($newpath, $newname))) {
-            return PEAR::raiseError(sprintf(_("Unable to rename VFS file %s/%s."), $oldpath, $oldname));
+            throw new VFS_Exception(sprintf('Unable to rename VFS file %s/%s.', $oldpath, $oldname));
         }
-
-        return true;
     }
 
     /**
@@ -701,7 +639,7 @@ class VFS_file extends VFS {
      *
      * @return boolean  True if it exists, false otherwise.
      */
-    function exists($path, $name)
+    public function exists($path, $name)
     {
         return file_exists($this->_getNativePath($path, $name));
     }
@@ -710,18 +648,18 @@ class VFS_file extends VFS {
      * Return a full filename on the native filesystem, from a VFS
      * path and name.
      *
-     * @access private
-     *
      * @param string $path  The VFS file path.
      * @param string $name  The VFS filename.
      *
      * @return string  The full native filename.
      */
-    function _getNativePath($path = '', $name = '')
+    protected function _getNativePath($path = '', $name = '')
     {
         $name = basename($name);
         if (strlen($name)) {
-            $name = str_replace('..', '', $name);
+            if ($name == '..') {
+                $name = '';
+            }
             if (substr($name, 0, 1) != '/') {
                 $name = '/' . $name;
             }
@@ -739,27 +677,23 @@ class VFS_file extends VFS {
             } else {
                 return $this->_params['vfsroot'] . '/' . $path . $name;
             }
-        } else {
-            return $this->_params['vfsroot'] . $name;
         }
+
+        return $this->_params['vfsroot'] . $name;
     }
 
     /**
      * Stub to check if we have a valid connection. Makes sure that
      * the vfsroot is readable.
      *
-     * @access private
-     *
-     * @return mixed  True if vfsroot is readable, PEAR_Error if it isn't.
+     * @throws VFS_Exception
      */
-    function _connect()
+    protected function _connect()
     {
-        if ((@is_dir($this->_params['vfsroot']) &&
-             is_readable($this->_params['vfsroot'])) ||
-            @mkdir($this->_params['vfsroot'])) {
-            return true;
-        } else {
-            return PEAR::raiseError(_("Unable to read the vfsroot directory."));
+        if (!(@is_dir($this->_params['vfsroot']) &&
+              is_readable($this->_params['vfsroot'])) ||
+            !@mkdir($this->_params['vfsroot'])) {
+            throw new VFS_Exception('Unable to read the vfsroot directory.');
         }
     }
 

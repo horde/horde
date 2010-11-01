@@ -1,5 +1,5 @@
 <div style="margin:5px">
-<form id="folder" name="folder" method="post" action="<?php echo Horde::applicationUrl('xppublish.php', true) ?>">
+<form id="folder" name="folder" method="post" action="<?php echo Horde::url('xppublish.php', true) ?>">
 <input type="hidden" name="cmd" value="select" />
 <?php Horde_Util::pformInput() ?>
 
@@ -11,7 +11,7 @@
  <p>
   <label style="font-weight:bold" for="gallery"><?php echo _("Existing galleries:") ?></label><br />
   <select id="gallery" name="gallery">
-   <?php echo Ansel::selectGalleries(null, Horde_Perms::EDIT) ?>
+   <?php echo Ansel::selectGalleries(array('perms' => Horde_Perms::EDIT))?>
   </select>
  </p>
  <p>

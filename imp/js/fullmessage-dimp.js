@@ -13,20 +13,34 @@ var DimpFullmessage = {
         var func, ob = {};
         ob[this.mailbox] = [ this.uid ];
 
-        $('msgData').hide();
-        $('qreply').show();
-
         switch (type) {
         case 'reply':
         case 'reply_all':
+        case 'reply_auto':
         case 'reply_list':
-            func = 'GetReplyData';
+            $('compose').show();
+            $('redirect').hide();
+            func = 'getReplyData';
             break;
 
-        case 'forward':
-            func = 'GetForwardData';
+        case 'forward_auto':
+        case 'forward_attach':
+        case 'forward_body':
+        case 'forward_both':
+            $('compose').show();
+            $('redirect').hide();
+            func = 'getForwardData';
+            break;
+
+        case 'forward_redirect':
+            $('compose').hide();
+            $('redirect').show();
+            func = 'getRedirectData';
             break;
         }
+
+        $('msgData').hide();
+        $('qreply').show();
 
         DimpCore.doAction(func,
                           { imp_compose: $F('composeCache'),
@@ -41,27 +55,27 @@ var DimpFullmessage = {
             return;
         }
 
-        var r = result.response,
-            editor_on = ((r.format == 'html') && !DimpCompose.editor_on),
-            id = (r.identity === null) ? $F('identity') : r.identity,
-            i = DimpCompose.getIdentity(id, editor_on);
-
-        $('identity', 'last_identity').invoke('setValue', id);
-
-        DimpCompose.fillForm((i.id[2]) ? ("\n" + i.sig + r.body) : (r.body + "\n" + i.sig), r.header);
-
-        if (r.fwd_list && r.fwd_list.length) {
-            r.fwd_list.each(function(ptr) {
-                DimpCompose.addAttach(ptr.number, ptr.name, ptr.type, ptr.size);
-            });
-        }
-
-        if (editor_on) {
-            DimpCompose.toggleHtmlEditor(true);
-        }
+        var i, id,
+            r = result.response;
 
         if (r.imp_compose) {
             $('composeCache').setValue(r.imp_compose);
+        }
+
+
+        if (r.type != 'forward_redirect') {
+            if (!r.opts) {
+                r.opts = {};
+            }
+            r.opts.noupdate = true;
+            r.opts.show_editor = (r.format == 'html');
+
+            id = (r.identity === null) ? $F('identity') : r.identity;
+            i = IMP_Compose_Base.getIdentity(id, r.opts.show_editor);
+
+            $('identity', 'last_identity').invoke('setValue', id);
+
+            DimpCompose.fillForm((i.id[2]) ? ("\n" + i.sig + r.body) : (r.body + "\n" + i.sig), r.header, r.opts);
         }
     },
 
@@ -85,19 +99,19 @@ var DimpFullmessage = {
 
             case 'forward_link':
             case 'reply_link':
-                this.quickreply(id == 'reply_link' ? 'reply' : 'forward');
+                this.quickreply(id == 'reply_link' ? 'reply_auto' : 'forward_auto');
                 e.stop();
                 return;
 
             case 'button_deleted':
             case 'button_ham':
             case 'button_spam':
-                if (DIMP.baseWindow && DIMP.baseWindow.DimpBase) {
-                    DIMP.baseWindow.focus();
+                if (DimpCore.base) {
+                    DimpCore.base.focus();
                     if (id == 'button_deleted') {
-                        DIMP.baseWindow.DimpBase.deleteMsg({ uid: this.uid, mailbox: this.mailbox });
+                        DimpCore.base.DimpBase.deleteMsg({ uid: this.uid, mailbox: this.mailbox });
                     } else {
-                        DIMP.baseWindow.DimpBase.reportSpam(id == 'button_spam', { uid: this.uid, mailbox: this.mailbox });
+                        DimpCore.base.DimpBase.reportSpam(id == 'button_spam', { uid: this.uid, mailbox: this.mailbox });
                     }
                     window.close();
                 }
@@ -134,6 +148,23 @@ var DimpFullmessage = {
                     DimpCompose.confirmCancel();
                 }
                 break;
+
+            default:
+                if (elt.hasClassName('printAtc')) {
+                    DimpCore.popupWindow(DimpCore.addURLParam(DIMP.conf.URI_VIEW, { uid: this.uid, mailbox: this.mailbox, actionID: 'print_attach', id: elt.readAttribute('mimeid') }, true), this.uid + '|' + this.mailbox + '|print', IMP.printWindow);
+                    e.stop();
+                    return;
+                } else if (elt.hasClassName('stripAtc')) {
+                    DimpCore.reloadMessage({
+                        actionID: 'strip_attachment',
+                        mailbox: this.mailbox,
+                        id: elt.readAttribute('mimeid'),
+                        uid: this.uid
+                    });
+                    e.stop();
+                    return;
+                }
+                break;
             }
 
             elt = elt.up();
@@ -153,18 +184,17 @@ var DimpFullmessage = {
             this.quickreply(id.substring(10));
             break;
 
+        case 'ctx_forward_attach':
+        case 'ctx_forward_body':
+        case 'ctx_forward_both':
+        case 'ctx_forward_redirect':
+            this.quickreply(id.substring(4));
+            break;
+
         default:
             parentfunc(e);
             break;
         }
-    },
-
-    /* Add a popdown menu to a dimpactions button. */
-    addPopdown: function(bid, ctx)
-    {
-        var bidelt = $(bid);
-        bidelt.insert({ after: new Element('SPAN', { className: 'iconImg popdownImg popdown', id: bid + '_img' }) });
-        DimpCore.DMenu.addElement(bid + '_img', 'ctx_' + ctx, { offset: bidelt.up(), left: true });
     },
 
     resizeWindow: function()
@@ -182,14 +212,15 @@ var DimpFullmessage = {
         if (DIMP.conf.disable_compose) {
             tmp = $('reply_link', 'forward_link').compact().invoke('up', 'SPAN').concat([ $('ctx_contacts_new') ]).compact().invoke('remove');
         } else {
-            this.addPopdown('reply_link', 'replypopdown');
+            DimpCore.addPopdown('reply_link', 'replypopdown');
+            DimpCore.addPopdown('forward_link', 'forwardpopdown');
         }
 
         /* Set up address linking. */
         [ 'from', 'to', 'cc', 'bcc', 'replyTo' ].each(function(a) {
             if (this[a]) {
                 var elt = $('msgHeader' + a.charAt(0).toUpperCase() + a.substring(1)).down('TD', 1);
-                elt.replace(DimpCore.buildAddressLinks(this[a], elt.cloneNode(false)));
+                elt.replace(DimpCore.buildAddressLinks(this[a], elt.clone(false)));
             }
         }, this);
 
@@ -197,6 +228,10 @@ var DimpFullmessage = {
         if (this.log) {
             $('msgLogInfo').show();
             DimpCore.updateMsgLog(this.log);
+        }
+
+        if (this.strip && DimpCore.base) {
+            DimpCore.base.DimpBase.poll();
         }
 
         $('dimpLoading').hide();

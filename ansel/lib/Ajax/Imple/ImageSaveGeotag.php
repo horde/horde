@@ -11,7 +11,7 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_Ajax_Imple_ImageSaveGeotag extends Horde_Ajax_Imple_Base
+class Ansel_Ajax_Imple_ImageSaveGeotag extends Horde_Core_Ajax_Imple
 {
     // Noop since this isn't attached to any UI Element
     public function attach() {}
@@ -23,8 +23,6 @@ class Ansel_Ajax_Imple_ImageSaveGeotag extends Horde_Ajax_Imple_Base
 
     public function handle($args, $post)
     {
-        include_once dirname(__FILE__) . '/../../base.php';
-
         $type = $args['action'];
         $location = empty($post['location']) ? null : $post['location'];
         $lat = empty($post['lat']) ? null : $post['lat'];
@@ -40,16 +38,15 @@ class Ansel_Ajax_Imple_ImageSaveGeotag extends Horde_Ajax_Imple_Base
         }
 
         // Get the image and gallery to check perms
-        $image = $GLOBALS['ansel_storage']->getImage((int)$img);
-        if (is_a($image, 'PEAR_Error')) {
+        try {
+            $image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage((int)$img);
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($image->gallery);
+        } catch (Ansel_Exception $e) {
             return array('response' => 0);
         }
-        $gallery = $GLOBALS['ansel_storage']->getGallery($image->gallery);
-        if (is_a($gallery, 'PEAR_Error')) {
-            return array('response' => 0);
-        }
+
         // Bail out if no perms on the image.
-        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+        if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             return array('response' => 0);
         }
         switch ($type) {
@@ -65,9 +62,9 @@ class Ansel_Ajax_Imple_ImageSaveGeotag extends Horde_Ajax_Imple_Base
         case 'untag':
             $image->geotag('', '', '');
             // Now get the "add geotag" stuff
-            $addurl = Horde_Util::addParameter(Horde::applicationUrl('map_edit.php'), 'image', $img);
-            $addLink = Horde::link($addurl, '', '', '', Horde::popupJs(Horde::applicationUrl('map_edit.php'), array('params' => array('image' => $img), 'urlencode' => true, 'width' => '750', 'height' => '600')) . 'return false;');
-            $imgs = $GLOBALS['ansel_storage']->getRecentImagesGeodata(Horde_Auth::getAuth());
+            $addurl = Horde::url('map_edit.php')->add('image', $img);
+            $addLink = $addurl->link(array('onclick' => Horde::popupJs(Horde::url('map_edit.php'), array('params' => array('image' => $img), 'urlencode' => true, 'width' => '750', 'height' => '600')) . 'return false;'));
+            $imgs = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getRecentImagesGeodata($GLOBALS['registry']->getAuth());
             if (count($imgs) > 0) {
                 $imgsrc = '<div class="ansel_location_sameas">';
                 foreach ($imgs as $id => $data) {
@@ -76,7 +73,10 @@ class Ansel_Ajax_Imple_ImageSaveGeotag extends Horde_Ajax_Imple_Base
                     } else {
                         $title = $this->_point2Deg($data['image_latitude'], true) . ' ' . $this->_point2Deg($data['image_longitude']);
                     }
-                    $imgsrc .= Horde::link($addurl, $title, '', '', "Ansel.widgets.geotag.setLocation('" . $data['image_latitude'] . "', '" . $data['image_longitude'] . "');return false") . '<img src="' . Ansel::getImageUrl($id, 'mini', true) . '" alt="[image]" /></a>';
+                    $imgsrc .= $addurl->link(
+                            array('title' => $title,
+                                  'onclick' => "Ansel.widgets.geotag.setLocation('" . $data['image_latitude'] . "', '" . $data['image_longitude'] . "');return false"))
+                        . '<img src="' . Ansel::getImageUrl($id, 'mini', true) . '" alt="[image]" /></a>';
                 }
                 $imgsrc .= '</div>';
                 $content = sprintf(_("No location data present. Place using %smap%s or click on image to place at the same location."), $addLink, '</a>') . $imgsrc;

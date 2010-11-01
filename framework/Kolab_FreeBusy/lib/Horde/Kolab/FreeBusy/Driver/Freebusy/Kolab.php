@@ -79,7 +79,7 @@ class Horde_Kolab_FreeBusy_Driver_Freebusy_Kolab extends Horde_Kolab_FreeBusy_Dr
         $req_folder = Horde_String::convertCharset($req_folder, 'UTF-8', 'UTF7-IMAP');
         $folder = explode('/', $req_folder);
         if (count($folder) < 2) {
-            return PEAR::raiseError(sprintf(_("No such folder %s"), $req_folder));
+            return PEAR::raiseError(sprintf(Horde_Kolab_FreeBusy_Translation::t("No such folder %s"), $req_folder));
         }
 
         $folder[0] = strtolower($folder[0]);
@@ -101,7 +101,7 @@ class Horde_Kolab_FreeBusy_Driver_Freebusy_Kolab extends Horde_Kolab_FreeBusy_Dr
      *
      * @return boolean|PEAR_Error True if successful.
      */
-    private function _process() 
+    private function _process()
     {
         global $conf;
 
@@ -114,8 +114,8 @@ class Horde_Kolab_FreeBusy_Driver_Freebusy_Kolab extends Horde_Kolab_FreeBusy_Dr
             );
         } else {
             $params = array(
-                'user' => Horde_Auth::getAuth(),
-                'pass' => Horde_Auth::getCredential('password'),
+                'user' => $GLOBALS['registry']->getAuth(),
+                'pass' => $GLOBALS['registry']->getAuthCredential('password')
             );
         }
 
@@ -131,7 +131,7 @@ class Horde_Kolab_FreeBusy_Driver_Freebusy_Kolab extends Horde_Kolab_FreeBusy_Dr
                                  'Horde_Kolab_Server_Object_Kolab_Server');
             $this->server_object = $server;
         } catch (Horde_Kolab_Server_Exception $e) {
-            Horde::logMessage(sprintf("Failed fetching the k=kolab configuration object. Error was: %s", 
+            Horde::logMessage(sprintf("Failed fetching the k=kolab configuration object. Error was: %s",
                                       $e->getMessage()),
                               __FILE__, __LINE__, PEAR_LOG_ERR);
             $this->server_object = null;
@@ -169,7 +169,7 @@ class Horde_Kolab_FreeBusy_Driver_Freebusy_Kolab extends Horde_Kolab_FreeBusy_Dr
             $idx = strpos($this->user, '@');
             if($idx !== false) {
                 $domain = substr($this->user, $idx+1);
-                Horde::logMessage(sprintf("Trying to append %s to %s", 
+                Horde::logMessage(sprintf("Trying to append %s to %s",
                                           $domain, $this->owner),
                                   __FILE__, __LINE__, PEAR_LOG_DEBUG);
                 $odn = $odn = $db->uidForIdOrMail($this->owner . '@' . $domain);
@@ -194,7 +194,7 @@ class Horde_Kolab_FreeBusy_Driver_Freebusy_Kolab extends Horde_Kolab_FreeBusy_Dr
                 }
             }
         } else {
-            return PEAR::raiseError(_("Unable to determine owner of the free/busy data!"));
+            return PEAR::raiseError(Horde_Kolab_FreeBusy_Translation::t("Unable to determine owner of the free/busy data!"));
         }
 
         /* Mangle the folder request into an IMAP folder name */
@@ -209,7 +209,7 @@ class Horde_Kolab_FreeBusy_Driver_Freebusy_Kolab extends Horde_Kolab_FreeBusy_Dr
      *
      * @return string The IMAP folder we should access.
      */
-    function _getImapFolder() 
+    function _getImapFolder()
     {
         $userdom = false;
         $ownerdom = false;

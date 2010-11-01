@@ -4,8 +4,8 @@
  *
  * @package Wicked
  */
-class Text_Wiki_Render_Xhtml_Wickedblock extends Text_Wiki_Render {
-
+class Text_Wiki_Render_Xhtml_Wickedblock extends Text_Wiki_Render
+{
     /**
      * Renders a token into text matching the requested format.
      *
@@ -16,8 +16,7 @@ class Text_Wiki_Render_Xhtml_Wickedblock extends Text_Wiki_Render {
      *
      * @return string The text rendered from the token options.
      */
-    function token($options)
+    public function token($options)
     {
     }
-
 }

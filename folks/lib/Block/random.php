@@ -56,7 +56,7 @@ class Horde_Block_Folks_random extends Horde_Block {
 
         // Prepare actions
         $actions = array(
-            array('url' => Horde::applicationUrl('user.php'),
+            array('url' => Horde::url('user.php'),
                 'id' => 'user',
                 'name' => _("View profile")));
         if ($GLOBALS['registry']->hasInterface('letter')) {

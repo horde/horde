@@ -1,0 +1,4 @@
+<?php
+/* Defines the location of the Horde base directory, if it is not in its
+ * default location (TODO: where is default). */
+define('HORDE_BASE', '/path/to/horde');

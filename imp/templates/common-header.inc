@@ -1,21 +1,25 @@
 <?php
 
-$imp_view = Horde_Util::nonInputVar('imp_view');
+$imp_view = IMP::getViewMode();
 
 /* Do this include here so that the generated script can be added with any
  * other scripts already added. */
 switch ($imp_view) {
 case 'dimp':
-    include IMP_TEMPLATES . '/javascript_defs_dimp.php';
+    include IMP_TEMPLATES . '/dimp/javascript_defs_dimp.php';
+    break;
+
+case 'mimp':
+    // Nothing
     break;
 
 default:
-    include IMP_TEMPLATES . '/javascript_defs.php';
+    include IMP_TEMPLATES . '/imp/javascript_defs.php';
     break;
 }
 
 if (isset($GLOBALS['language'])) {
-    header('Content-type: text/html; charset=' . Horde_Nls::getCharset());
+    header('Content-type: text/html; charset=UTF-8');
     header('Vary: Accept-Language');
 }
 ?>
@@ -24,44 +28,49 @@ if (isset($GLOBALS['language'])) {
 echo (!empty($GLOBALS['language']) ? '<html lang="' . strtr($GLOBALS['language'], '_', '-') . '">' : '<html>') . '<head>';
 
 $page_title = $GLOBALS['registry']->get('name');
-
 if (!empty($title)) {
     $page_title .= ' :: ' . $title;
 }
 
-if (!empty($refresh_time) && !empty($refresh_url)) {
-    echo "<meta http-equiv=\"refresh\" content=\"$refresh_time;url=$refresh_url\" />\n";
-}
+Horde::outputMetaTags();
 
 switch ($imp_view) {
 case 'dimp':
-    $css = array();
-    if (!empty($GLOBALS['conf']['dimp']['css_files'])) {
-        foreach ($GLOBALS['conf']['css_files'] as $css_file) {
-            $css[] = array(
-                'u' => $GLOBALS['registry']->get('themesuri') . '/' . $css_file,
-                'f' => $GLOBALS['registry']->get('themesfs') .  '/' . $css_file
-            );
-        }
+    Horde_Themes::includeStylesheetFiles(array('sub' => 'dimp'));
+    if (!in_array(basename($_SERVER['PHP_SELF']), array('compose-dimp.php', 'index-dimp.php', 'message-dimp.php'))) {
+        Horde::includeScriptFiles();
+        Horde::outputInlineScript();
     }
-    Horde::includeStylesheetFiles(array('additional' => $css, 'sub' => 'dimp'));
+    break;
+
+case 'mimp':
+    Horde_Themes::includeStylesheetFiles(array(
+        'nohorde' => true,
+        'sub' => 'mimp',
+        'subonly' => true
+    ));
     break;
 
 default:
-    Horde::includeStylesheetFiles();
+    Horde_Themes::includeStylesheetFiles();
     Horde::includeScriptFiles();
+    Horde::outputInlineScript();
     break;
 }
 ?>
 <title><?php echo htmlspecialchars($page_title) ?></title>
-<link href="<?php echo $GLOBALS['registry']->getImageDir() ?>/favicon.ico" rel="SHORTCUT ICON" />
-<?php if ($imp_view == 'dimp'): ?>
+<?php if ($imp_view == 'mimp'): ?>
+</head>
+<body>
+<?php elseif ($imp_view == 'dimp'): ?>
+<link href="<?php echo Horde_Themes::img('favicon.ico', array('nohorde' => true)) ?>" rel="SHORTCUT ICON" />
 </head>
 <?php else: ?>
+<link href="<?php echo Horde_Themes::img('favicon.ico', array('nohorde' => true)) ?>" rel="SHORTCUT ICON" />
 <?php if ($mailbox_url = Horde_Util::nonInputVar('mailbox_url')): ?>
 <link href="<?php echo $mailbox_url ?>" rel="Up" />
 <?php elseif (!Horde_Util::nonInputVar('login_page')): ?>
-<link href="<?php echo Horde::applicationUrl('mailbox.php')->add('mailbox', 'INBOX') ?>" rel="Top" />
+<link href="<?php echo Horde::url('mailbox.php')->add('mailbox', 'INBOX') ?>" rel="Top" />
 <?php endif; ?>
 <?php if ($first_url = Horde_Util::nonInputVar('first_url')): ?>
 <link href="<?php echo $first_url ?>" rel="First" />
@@ -79,10 +88,9 @@ default:
 <link rel="alternate" type="application/rss+xml" href="<?php echo $rss_url ?>" />
 <?php endif; ?>
 <?php if (!Horde_Util::nonInputVar('login_page')): ?>
-<link href="<?php echo Horde::applicationUrl('search.php') ?>" rel="search" />
+<link href="<?php echo Horde::url('search.php') ?>" rel="search" />
 <?php endif ?>
-<?php Horde::outputInlineScript(); ?>
 </head>
 
-<body<?php if ($bc = Horde_Util::nonInputVar('bodyClass')) echo ' class="' . $bc . '"' ?><?php if ($bi = Horde_Util::nonInputVar('bodyId')) echo ' id="' . $bi . '"'; ?>>
+<body>
 <?php endif; ?>

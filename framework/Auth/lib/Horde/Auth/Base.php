@@ -8,9 +8,11 @@
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Michael Slusarz <slusarz@curecanti.org>
- * @package Horde_Auth
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
+ * @package  Auth
  */
 abstract class Horde_Auth_Base
 {
@@ -44,25 +46,46 @@ abstract class Horde_Auth_Base
      * @var array
      */
     protected $_credentials = array(
+        'change' => false,
         'credentials' => array(),
-        'params' => array('change' => false),
+        'expire' => null,
         'userId' => ''
     );
 
     /**
-     * Current application for authentication.
+     * Logger object.
      *
-     * @param string
+     * @var Horde_Log_Logger
      */
-    protected $_app = 'horde';
+    protected $_logger;
+
+    /**
+     * Authentication error information.
+     *
+     * @var array
+     */
+    protected $_error;
 
     /**
      * Constructor.
      *
-     * @param array $params  A hash containing parameters.
+     * @param array $params  Optional parameters:
+     * <pre>
+     * 'default_user' - (string) The default user.
+     * 'logger' - (Horde_Log_Logger) A logger object.
+     * </pre>
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
+        if (isset($params['logger'])) {
+            $this->_logger = $params['logger'];
+            unset($params['logger']);
+        }
+
+        $params = array_merge(array(
+            'default_user' => ''
+        ), $params);
+
         $this->_params = $params;
     }
 
@@ -80,42 +103,22 @@ abstract class Horde_Auth_Base
      */
     public function authenticate($userId, $credentials, $login = true)
     {
-        $auth = false;
         $userId = trim($userId);
 
         try {
-            list($userId, $credentials) = Horde_Auth::runHook($userId, $credentials, $this->_app, 'preauthenticate', 'authenticate');
-         } catch (Horde_Auth_Exception $e) {
+            $this->_authenticate($userId, $credentials);
+            $this->setCredential('userId', $userId);
+            $this->setCredential('credentials', $credentials);
+            return true;
+        } catch (Horde_Auth_Exception $e) {
+            if (($code = $e->getCode()) &&
+                $code != Horde_Auth::REASON_MESSAGE) {
+                $this->setError($code);
+            } else {
+                $this->setError(Horde_Auth::REASON_MESSAGE, $e->getMessage());
+            }
             return false;
         }
-
-        /* Store the credentials being checked so that subclasses can modify
-         * them if necessary. */
-        $this->_credentials['credentials'] = $credentials;
-        $this->_credentials['userId'] = $userId;
-        $this->_credentials['params']['app'] = $this->_app;
-
-        try {
-            $this->_authenticate($userId, $credentials);
-
-            if ($login) {
-                $auth = Horde_Auth::setAuth(
-                    $this->_credentials['userId'],
-                    $this->_credentials['credentials'],
-                    $this->_credentials['params']
-                );
-            } else {
-                $auth = Horde_Auth::checkExistingAuth();
-            }
-        } catch (Horde_Auth_Exception $e) {
-            if ($e->getCode()) {
-                Horde_Auth::setAuthError($e->getCode());
-            } else {
-                Horde_Auth::setAuthError(Horde_Auth::REASON_MESSAGE, $e->getMessage());
-            }
-        }
-
-        return $auth;
     }
 
     /**
@@ -133,6 +136,17 @@ abstract class Horde_Auth_Base
     abstract protected function _authenticate($userId, $credentials);
 
     /**
+     * Checks for triggers that may invalidate the current auth.
+     * These triggers are independent of the credentials.
+     *
+     * @return boolean  True if the results of authenticate() are still valid.
+     */
+    public function validateAuth()
+    {
+        return true;
+    }
+
+    /**
      * Adds a set of authentication credentials.
      *
      * @param string $userId      The userId to add.
@@ -142,7 +156,7 @@ abstract class Horde_Auth_Base
      */
     public function addUser($userId, $credentials)
     {
-        throw new Horde_Auth_Exception('unsupported');
+        throw new Horde_Auth_Exception('Unsupported.');
     }
 
     /**
@@ -156,7 +170,7 @@ abstract class Horde_Auth_Base
      */
     public function updateUser($oldID, $newID, $credentials)
     {
-        throw new Horde_Auth_Exception('unsupported');
+        throw new Horde_Auth_Exception('Unsupported.');
     }
 
     /**
@@ -168,7 +182,7 @@ abstract class Horde_Auth_Base
      */
     public function removeUser($userId)
     {
-        throw new Horde_Auth_Exception('unsupported');
+        throw new Horde_Auth_Exception('Unsupported.');
     }
 
     /**
@@ -179,7 +193,7 @@ abstract class Horde_Auth_Base
      */
     public function listUsers()
     {
-        throw new Horde_Auth_Exception('unsupported');
+        throw new Horde_Auth_Exception('Unsupported.');
     }
 
     /**
@@ -202,35 +216,6 @@ abstract class Horde_Auth_Base
     /**
      * Automatic authentication.
      *
-     * @return boolean  Whether or not the user is authenticated automatically.
-     * @throws Horde_Auth_Exception
-     */
-    public function transparent()
-    {
-        $userId = empty($this->_credentials['userId'])
-            ? Horde_Auth::getAuth()
-            : $this->_credentials['userId'];
-        $credentials = empty($this->_credentials['credentials'])
-            ? Horde_Auth::getCredential()
-            : $this->_credentials['credentials'];
-
-        list($this->_credentials['userId'], $this->_credentials['credentials']) = Horde_Auth::runHook($userId, $credentials, $this->_app, 'preauthenticate', 'transparent');
-        $this->_credentials['params']['app'] = $this->_app;
-
-        if ($this->_transparent()) {
-            return Horde_Auth::setAuth(
-                $this->_credentials['userId'],
-                $this->_credentials['credentials'],
-                $this->_credentials['params']
-            );
-        }
-
-        return false;
-    }
-
-    /**
-     * Transparent authentication stub.
-     *
      * Transparent authentication should set 'userId', 'credentials', or
      * 'params' in $this->_credentials as needed - these values will be used
      * to set the credentials in the session.
@@ -241,7 +226,7 @@ abstract class Horde_Auth_Base
      * @return boolean  Whether transparent login is supported.
      * @throws Horde_Auth_Exception
      */
-    protected function _transparent()
+    public function transparent()
     {
         return false;
     }
@@ -257,7 +242,7 @@ abstract class Horde_Auth_Base
      */
     public function resetPassword($userId)
     {
-        throw new Horde_Auth_Exception('unsupported');
+        throw new Horde_Auth_Exception('Unsupported.');
     }
 
     /**
@@ -288,26 +273,87 @@ abstract class Horde_Auth_Base
     }
 
     /**
-     * Returns information on what login parameters to display on the login
-     * screen. If not defined, will display the default (username, password).
+     * Retrieve internal credential value(s).
      *
-     * @return array  An array with the following elements:
+     * @param mixed $name  The credential value to get. If null, will return
+     *                     the entire credential list. Valid names:
      * <pre>
-     * 'js_code' - (array) A list of javascript code to output to the login
-     *              page.
-     * 'js_files' - (array) A list of javascript files to include in the login
-     *              page.
-     * 'params' - (array) TODO
+     * 'change' - (boolean) Do credentials need to be changed?
+     * 'credentials' - (array) The credentials needed to authenticate.
+     * 'expire' - (integer) UNIX timestamp of the credential expiration date.
+     * 'userId' - (string) The user ID.
      * </pre>
-     * @throws Horde_Exception
+     *
+     * @return mixed  Return the credential information, or null if the
+     *                credential doesn't exist.
      */
-    public function getLoginParams()
+    public function getCredential($name = null)
     {
-        return array(
-            'js_code' => array(),
-            'js_files' => array(),
-            'params' => array()
+        if (is_null($name)) {
+            return $this->_credentials;
+        }
+
+        return isset($this->_credentials[$name])
+            ? $this->_credentials[$name]
+            : null;
+    }
+
+    /**
+     * Set internal credential value.
+     *
+     * @param string $name  The credential name to set.
+     * @param mixed $value  The credential value to set. See getCredential()
+     *                      for the list of valid credentials/types.
+     */
+    public function setCredential($type, $value)
+    {
+        switch ($type) {
+        case 'change':
+            $this->_credentials['change'] = (bool)$value;
+            break;
+
+        case 'credentials':
+            $this->_credentials['credentials'] = array_filter(array_merge($this->_credentials['credentials'], $value));
+            break;
+
+        case 'expire':
+            $this->_credentials['expire'] = intval($value);
+            break;
+
+        case 'userId':
+            $this->_credentials['userId'] = strval($value);
+            break;
+        }
+    }
+
+    /**
+     * Sets the error message for an invalid authentication.
+     *
+     * @param string $type  The type of error (Horde_Auth::REASON_* constant).
+     * @param string $msg   The error message/reason for invalid
+     *                      authentication.
+     */
+    public function setError($type, $msg = null)
+    {
+        $this->_error = array(
+            'msg' => $msg,
+            'type' => $type
         );
+    }
+
+    /**
+     * Returns the error type or message for an invalid authentication.
+     *
+     * @param boolean $msg  If true, returns the message string (if set).
+     *
+     * @return mixed  Error type, error message (if $msg is true) or false
+     *                if entry doesn't exist.
+     */
+    public function getError($msg = false)
+    {
+        return isset($this->_error['type'])
+            ? ($msg ? $this->_error['msg'] : $this->_error['type'])
+            : false;
     }
 
 }

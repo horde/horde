@@ -141,7 +141,7 @@ class Horde_Routes_Mapper
 
     /**
      * Cache
-     * @var Horde_Cache_Base
+     * @var Horde_Cache
      */
     public $cache;
 
@@ -314,11 +314,11 @@ class Horde_Routes_Mapper
     }
 
     /**
-     * Set an optional Horde_Cache_Base object for the created rules.
+     * Set an optional Horde_Cache object for the created rules.
      *
-     * @param Horde_Cache_Base $cache Cache object
+     * @param Horde_Cache $cache Cache object
      */
-    public function setCache(Horde_Cache_Base $cache)
+    public function setCache(Horde_Cache $cache)
     {
         $this->cache = $cache;
     }
@@ -453,7 +453,7 @@ class Horde_Routes_Mapper
     {
         if (!$this->_createdRegs && !empty($this->controllerScan)) {
             $this->createRegs();
-        } else if (!$this->_createdRegs) {
+        } elseif (!$this->_createdRegs) {
             $msg = 'You must generate the regular expressions before matching.';
             throw new Horde_Routes_Exception($msg);
         }

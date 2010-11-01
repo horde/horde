@@ -28,7 +28,7 @@ class Horde_Image_Effect_Im_DropShadow extends Horde_Image_Effect
     /**
      * Apply the effect.
      *
-     * @return mixed true | PEAR_Error
+     * @return mixed true
      */
     public function apply()
     {

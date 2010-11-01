@@ -1,0 +1,915 @@
+# Japanese translations for Wicked package.
+# Copyright 2008-2010 The Horde Project
+# This file is distributed under the same license as the Wicked package.
+# Automatically generated, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Wicked 1.0-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2008-01-09 09:58+0900\n"
+"PO-Revision-Date: 2010-08-18 20:00+0200\n"
+"Last-Translator: Takeshi Taguchi <taguchi@iij.ad.jp>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lib/Page/Search.php:111
+#, php-format
+msgid "%s Does not exist. You can create it now."
+msgstr "%s は存在しません。これから作成できます。"
+
+#: templates/edit/create.inc:13
+#, php-format
+msgid ""
+"%s does not exist, but maybe you were looking for one of the following pages?"
+msgstr "%s は存在しません。が、以下のページがお探しのものかもしれません。"
+
+#: templates/edit/create.inc:30
+#, php-format
+msgid ""
+"%s does not exist. Click on \"Create\" below if you want to create this page "
+"now and start editing."
+msgstr ""
+"%s は存在しません。作成されたい場合は\"作成\"をクリックし、編集を開始してくだ"
+"さい。"
+
+#: templates/edit/create.inc:37
+msgid "(None)"
+msgstr "(なし)"
+
+#: scripts/wicked.php:161
+msgid ""
+"-d, --debug                  Run in debug mode (displays extra information)"
+msgstr ""
+"-d, --debug                  Run in debug mode (displays extra information)"
+
+#: scripts/wicked.php:163
+msgid ""
+"-g, --get[=pagetitle]        Return all pages (unless pagetitle specified)"
+msgstr ""
+"-g, --get[=pagetitle]        Return all pages (unless pagetitle specified)"
+
+#: scripts/wicked.php:160
+msgid "-h, --help                   Show this help"
+msgstr "-h, --help                   Show this help"
+
+#: scripts/wicked.php:162
+msgid "-l, --list-pages             List pages"
+msgstr "-l, --list-pages             List pages"
+
+#: scripts/wicked.php:164
+msgid "-o, --out[=type]             Output type for results (default:xml)"
+msgstr "-o, --out[=type]             Output type for results (default:xml)"
+
+#: scripts/wicked.php:166
+msgid "-p, --password[=password]    Horde login password"
+msgstr "-p, --password[=password]    Horde login password"
+
+#: scripts/wicked.php:165
+msgid "-u, --username[=username]    Horde login username"
+msgstr "-u, --username[=username]    Horde login username"
+
+#: templates/display/MergeOrRename.html:31
+msgid "Add the text from this page"
+msgstr "このページから本文を追加"
+
+#: lib/Page/AddPage.php:98
+#, php-format
+msgid "AddPage: %s"
+msgstr "追加ページ：%s"
+
+#: lib/Page/AllPages.php:90
+msgid "AllPages"
+msgstr "全てのページ"
+
+#: lib/Page/DeletePage.php:83
+msgid ""
+"Are you sure you want to delete this page? All versions will be permanently "
+"removed."
+msgstr "本当にこのページを削除しますか？全てのバージョンが完全に消去されます。"
+
+#: lib/Page/DeletePage.php:85
+#, php-format
+msgid "Are you sure you want to delete version %s of this page?"
+msgstr "本当にこのページのバージョン %s を削除しますか？"
+
+#: lib/Page/RevertPage.php:71
+#, php-format
+msgid "Are you sure you want to revert to version %s of this page?"
+msgstr "本当にこのページをバージョン %s に戻しますか？"
+
+#: templates/display/AttachedFiles.html:88
+msgid "Attach File"
+msgstr "添付ファイル"
+
+#: templates/display/AttachedFiles.html:52
+msgid "Attach a New File"
+msgstr "新規添付ファイル"
+
+#: templates/display/standard.inc:68
+msgid "AttachedFiles"
+msgstr "添付されたファイル"
+
+#: lib/Page/AttachedFiles.php:163
+#, php-format
+msgid "AttachedFiles: %s"
+msgstr "添付ファイル：%s"
+
+#: templates/display/standard.inc:69
+msgid "Attached_Files"
+msgstr "添付ファイル"
+
+#
+#: templates/display/AttachedFiles.html:7
+msgid "Attachment Name"
+msgstr "添付名"
+
+#: templates/display/standard.inc:105
+msgid "Attachments"
+msgstr "添付物"
+
+#: lib/Page/AttachedFiles.php:208
+msgid "Attachments with spaces can't be embedded into a page."
+msgstr "空白のついた添付はページに埋め込めません。"
+
+#: templates/pagelist/header.inc:7 templates/history/header.inc:23
+#: templates/edit/create.inc:19 lib/Page/Search.php:157
+#: templates/display/AttachedFiles.html:10
+msgid "Author"
+msgstr "作成者"
+
+#
+#: templates/display/standard.inc:92
+msgid "Ba_ck to"
+msgstr "_c戻る"
+
+#
+#: templates/display/standard.inc:92
+msgid "Back to"
+msgstr "戻る"
+
+#: templates/display/standard.inc:60
+msgid "BackLinks"
+msgstr "バックリンク"
+
+#: lib/Page/BackLinks.php:80
+#, php-format
+msgid "BackLinks: %s"
+msgstr "バックリンク: %s"
+
+#: lib/Page/AttachedFiles.php:213
+msgid "Can't read uploaded file."
+msgstr "アップロードファイルが開けません。"
+
+#: lib/Page/RevertPage.php:120
+#, php-format
+msgid "Can't revert to an unknown version."
+msgstr "未知のバージョンに復旧できません。"
+
+#: lib/Page/AttachedFiles.php:248
+#, php-format
+msgid "Can't update \"%s\": no such attachment."
+msgstr "\"%s\" を更新できません: その様な添付はありません。"
+
+#
+#: templates/edit/create.inc:47 templates/edit/standard.inc:27
+#: lib/Page/DeletePage.php:104 lib/Page/MergeOrRename.php:140
+#: lib/Page/RevertPage.php:88 templates/display/MergeOrRename.html:62
+msgid "Cancel"
+msgstr "キャンセル"
+
+#
+#: templates/history/header.inc:29 templates/display/AttachedFiles.html:12
+msgid "Change Log"
+msgstr "変更履歴"
+
+#
+#: templates/edit/standard.inc:29
+msgid "Change log"
+msgstr "変更履歴"
+
+#
+#: templates/display/AttachedFiles.html:80
+#: templates/display/AttachedFiles.html:146
+msgid "Change log entry"
+msgstr "履歴項目の変更"
+
+#: templates/display/MergeOrRename.html:40
+msgid "Change references to this page from:"
+msgstr "このページへの参照の変更"
+
+#: lib/Page/MergeOrRename.php:253
+#, php-format
+msgid "Changed references from %s to %s"
+msgstr "%s から %s への参照の変更"
+
+#
+#: templates/edit/standard.inc:28
+msgid "Changelog is required"
+msgstr "変更履歴が必要です"
+
+#: templates/edit/create.inc:26
+msgid ""
+"Click on \"Create\" below if you want to create this page now and start "
+"editing."
+msgstr ""
+"このページを作成されたい場合は\"Create\"をクリックし、編集を開始して下さい。"
+
+#
+#: scripts/wicked.php:42
+msgid "Couldn't read command-line options."
+msgstr "コマンドライン引数を読み込めません。"
+
+#: templates/edit/create.inc:46
+msgid "Create"
+msgstr "作成"
+
+#: lib/Page/NewPage.php:129
+#, php-format
+msgid "Create Failed: %s"
+msgstr "作成失敗: %s"
+
+#
+#: templates/history/header.inc:24
+msgid "Created"
+msgstr "作成済み"
+
+#
+#: templates/pagelist/header.inc:8 templates/edit/create.inc:20
+#: lib/Page/Search.php:158
+msgid "Creation Date"
+msgstr "作成日"
+
+#: templates/display/AttachedFiles.html:11
+msgid "Date"
+msgstr "日付"
+
+#: lib/Page/DeletePage.php:103
+msgid "Delete"
+msgstr "削除"
+
+#: templates/display/standard.inc:47
+#, php-format
+msgid "Delete %s"
+msgstr "%s を削除"
+
+#
+#: templates/history/header.inc:16
+msgid "Delete Version"
+msgstr "削除バージョン"
+
+#: templates/history/summary.inc:6
+#, php-format
+msgid "Delete Version %s"
+msgstr "バージョン%sを削除"
+
+#
+#: lib/Page/DeletePage.php:97 lib/Page/DeletePage.php:120
+msgid "DeletePage"
+msgstr "削除"
+
+#: lib/Page/DeletePage.php:142
+#, php-format
+msgid "Deleted version %s of \"%s\"."
+msgstr "\"%s\" のバージョン\"%s\"を削除"
+
+#
+#: templates/history/header.inc:26
+msgid "Diff From"
+msgstr "以下からの差分"
+
+#: templates/history/header.inc:27
+msgid "Diff To"
+msgstr "以下への差分"
+
+#: diff.php:56 templates/diff/diff.inc:2
+#, php-format
+msgid "Diff for %s between %s and %s"
+msgstr "%sにおける%sと%s間の差分"
+
+#: templates/pagelist/summary.inc:3
+#, php-format
+msgid "Display %s"
+msgstr "表示 %s"
+
+#: templates/pagelist/summary.inc:6 templates/history/summary.inc:2
+#, php-format
+msgid "Display Version %s"
+msgstr "表示バージョン %s"
+
+#
+#: templates/display/AttachedFiles.html:13
+msgid "Downloads"
+msgstr "ダウンロード"
+
+#: preview.php:24 templates/display/standard.inc:23
+#, php-format
+msgid "Edit %s"
+msgstr "編集 %s"
+
+#
+#: templates/history/header.inc:18
+msgid "Edit Version"
+msgstr "バージョンの編集"
+
+#: templates/history/summary.inc:16
+#, php-format
+msgid "Edit Version %s"
+msgstr "%s バージョンの編集"
+
+#
+#: templates/edit/standard.inc:21 lib/Page/EditPage.php:93
+msgid "EditPage"
+msgstr "編集ページ"
+
+#: templates/display/AttachedFiles.html:67
+msgid "Enter a name for this file (if blank, will use the file's current name)"
+msgstr ""
+"このファイルの名前を入力して下さい(空白ならば、現在のファイル名が用いられま"
+"す)。"
+
+#: scripts/mail-filter.php:127
+#, php-format
+msgid "Error creating new page: %s"
+msgstr "新規ページ作成エラー: %s"
+
+#: lib/Page/MergeOrRename.php:202
+#, php-format
+msgid "Error deleting %s: %s"
+msgstr "%sの削除エラー：%s"
+
+#: scripts/mail-filter.php:42
+#, php-format
+msgid "Error parsing MIME message: %s\n"
+msgstr "MIMEメッセージ解析エラー: %s\n"
+
+#: lib/Page/MergeOrRename.php:217
+#, php-format
+msgid "Error renaming \"%s\": %s"
+msgstr "\"%s\" の名前変更エラー: %s"
+
+#: lib/Page/MergeOrRename.php:247
+#, php-format
+msgid "Error retrieving %s: %s"
+msgstr "%s の受け取りエラー：%s"
+
+#: lib/Page/AttachedFiles.php:106 lib/Page/AttachedFiles.php:231
+#, php-format
+msgid "Error retrieving attachments: %s"
+msgstr "添付の受け取りエラー：%s"
+
+#: lib/Page/AddPage.php:58
+#, php-format
+msgid "Error retrieving templates: %s"
+msgstr "テンプレートの受け取りエラー：%s"
+
+#: lib/Page/MergeOrRename.php:194 lib/Page/MergeOrRename.php:274
+#, php-format
+msgid "Error updating %s: %s"
+msgstr "%sの更新エラー: %s"
+
+#: lib/Page/Search.php:164
+msgid "Exact Match"
+msgstr "完全に一致"
+
+#: lib/Page/MergeOrRename.php:164
+#, php-format
+msgid "Failed to retrieve \"%s\": %s"
+msgstr "\"%s\"の受け取りに失敗：%s"
+
+#
+#: lib/Page.php:274
+msgid "Guest"
+msgstr "ゲスト"
+
+#: templates/display/standard.inc:75
+msgid "Hi_story"
+msgstr "_i履歴"
+
+#: templates/display/standard.inc:74
+#, php-format
+msgid "History of %s"
+msgstr "%s の履歴"
+
+#: history.php:30 templates/history/header.inc:7
+#, php-format
+msgid "History: %s"
+msgstr "履歴：%s"
+
+#: lib/Wicked.php:130
+msgid "HowTo_UseWiki"
+msgstr "_UWikiの使い方"
+
+#: templates/display/MergeOrRename.html:26
+msgid "If a page with the new name already exists, then"
+msgstr "新しい名前をもつページが既に存在しているならば、"
+
+#
+#: display.php:26 history.php:18
+msgid "Internal error viewing requested page"
+msgstr "要求されたページの閲覧中に内部エラーが発生"
+
+#: diff.php:39
+#, php-format
+msgid "Internal error viewing requested page: %s"
+msgstr "要求されたページの閲覧中に内部エラーが発生: %s"
+
+#: templates/display/AttachedFiles.html:133
+msgid "Is this a minor update?"
+msgstr "これは小規模な変更ですか？"
+
+#: templates/display/standard.inc:64
+msgid "L_ikePages"
+msgstr "_i似たページ"
+
+#: templates/edit/standard.inc:20 templates/display/title.inc:6
+#, php-format
+msgid "Last Modified %s by %s"
+msgstr "最終更新日時 %s (更新者: %s)"
+
+#: lib/Page/LeastPopular.php:93
+msgid "LeastPopular"
+msgstr "最小人気"
+
+#: templates/display/standard.inc:64
+msgid "LikePages"
+msgstr "類似ページ"
+
+#: lib/Page/LikePages.php:82
+#, php-format
+msgid "LikePages: %s"
+msgstr "類似ページ: %s"
+
+#: templates/display/standard.inc:35
+#, php-format
+msgid "Lock %s"
+msgstr "ロック %s"
+
+#: templates/edit/standard.inc:21 templates/display/title.inc:34
+#: lib/Page/DeletePage.php:97 lib/Page/RevertPage.php:81
+msgid "Locked"
+msgstr "ロック済み"
+
+#: scripts/wicked.php:104
+#, php-format
+msgid "Logged in successfully as \"%s\"."
+msgstr "Logged in successfully as \"%s\"."
+
+#: scripts/wicked.php:100
+msgid "Login is incorrect."
+msgstr "Login is incorrect."
+
+#: scripts/wicked.php:158
+msgid ""
+"Mandatory arguments to long options are mandatory for short options too."
+msgstr ""
+"Mandatory arguments to long options are mandatory for short options too."
+
+#
+#: templates/display/standard.inc:54
+msgid "MergeOrRename"
+msgstr "統合または名前変更"
+
+#: lib/Page/MergeOrRename.php:125
+#, php-format
+msgid "MergeOrRename: %s"
+msgstr "統合または名前変更: %s"
+
+#: lib/Page/MergeOrRename.php:207
+#, php-format
+msgid "Merged \"%s\" into \"%s\"."
+msgstr "\"%s\"を\"%s\"に統合"
+
+#: lib/Page/MergeOrRename.php:210
+#, php-format
+msgid "Merged \"%s\" into \"%s\". New page: %s\n"
+msgstr "\"%s\"を\"%s\"に統合。新ページ: %s\n"
+
+#: lib/Page/MergeOrRename.php:191
+#, php-format
+msgid "Merged from %s"
+msgstr "%s からの統合"
+
+#
+#: templates/edit/standard.inc:30
+msgid "Minor Change"
+msgstr "小規模な変更"
+
+#
+#: lib/Page/MostPopular.php:93
+msgid "MostPopular"
+msgstr "最高人気"
+
+#
+#: lib/Block/page.php:41
+msgid "Name of wiki page to display"
+msgstr "表示するページ名"
+
+#: lib/Page.php:263
+msgid "Never"
+msgstr "なし"
+
+#: lib/Page/AttachedFiles.php:274
+#, php-format
+msgid "New attachment \"%s\" to page \"%s\"."
+msgstr "ページ\"%s\"への新規添付\"%s\""
+
+#: templates/display/MergeOrRename.html:15
+msgid "New name"
+msgstr "新しい名前"
+
+#: lib/Page/MergeOrRename.php:151
+msgid "New name is the same as old name."
+msgstr "新しい名前は古いものと同じです。"
+
+#
+#: lib/Page/NewPage.php:106
+msgid "NewPage"
+msgstr "新規ページ"
+
+#: templates/edit/new.inc:20
+#, php-format
+msgid "NewPage: %s"
+msgstr "新規ページ：%s"
+
+#
+#: lib/Page/EditPage.php:124
+msgid "No changes made"
+msgstr "変更なし。"
+
+#: lib/Driver.php:124
+msgid "Not implemented."
+msgstr "実装されていません。"
+
+#
+#: templates/pagelist/header.inc:5 templates/edit/create.inc:17
+#: lib/Page/Search.php:155
+msgid "Page"
+msgstr "ページ"
+
+#: lib/Page/MergeOrRename.php:179
+#, php-format
+msgid "Page \"%s\" already exists."
+msgstr "ページ \"%s\" は既にあります。"
+
+#
+#: lib/Page/NewPage.php:132
+msgid "Page Created"
+msgstr "ページは生成されました"
+
+#: lib/Page/EditPage.php:131
+msgid "Page Saved"
+msgstr "ページは保存されました"
+
+#: templates/edit/create.inc:35
+msgid "Page Template:"
+msgstr "ページ雛形:"
+
+#: lib/Page/Search.php:178
+msgid "Page Text Matches"
+msgstr "ページ本文にマッチ"
+
+#: lib/Page/Search.php:171
+msgid "Page Title Matches"
+msgstr "ページ題名にマッチ"
+
+#
+#: templates/pagelist/header.inc:10
+msgid "Page Views"
+msgstr "ページ表示"
+
+#: display.php:40
+#, php-format
+msgid "Page failed to lock: %s"
+msgstr "ページのロックに失敗: %s"
+
+#: display.php:55
+#, php-format
+msgid "Page failed to unlock: %s"
+msgstr "ページのロック解除に失敗: %s"
+
+#: display.php:43
+msgid "Page locked"
+msgstr "ページはロックされました"
+
+#
+#: display.php:58
+msgid "Page unlocked"
+msgstr "ページロック解除"
+
+#
+#: lib/api.php:35 lib/api.php:38
+msgid "Pages"
+msgstr "ページ"
+
+#
+#: lib/Page/NewPage.php:123
+msgid "Pages cannot be empty."
+msgstr "ページは空ではいけません"
+
+#: templates/display/standard.inc:88
+msgid "Permissio_ns"
+msgstr "_nアクセス権"
+
+#: templates/edit/new.inc:25 templates/edit/standard.inc:26
+msgid "Preview"
+msgstr "プレビュー"
+
+#: lib/Page/EditPage.php:112
+msgid "Random string did not match."
+msgstr "乱数文字列はマッチしません。"
+
+#: lib/Page/RecentChanges.php:113
+msgid "RecentChanges"
+msgstr "最後の変更"
+
+#: lib/Page/AttachedFiles.php:63
+#, php-format
+msgid "Referrer \"%s\" does not exist."
+msgstr "参照 \"%s\" がありません。"
+
+#: lib/Page/AttachedFiles.php:123
+#, php-format
+msgid "Reload \"%s\""
+msgstr "再読み込み \"%s\""
+
+#: templates/history/header.inc:8
+msgid "Reload History"
+msgstr "履歴を再読み込み"
+
+#: templates/display/title.inc:32 templates/display/title.inc:33
+msgid "Reload Page"
+msgstr "ページを再読み込み"
+
+#: lib/Page/MergeOrRename.php:222
+#, php-format
+msgid "Renamed \"%s\" to \"%s\"."
+msgstr "\"%s\"を\"%s\"に名前変更"
+
+#: lib/Page/MergeOrRename.php:225
+#, php-format
+msgid "Renamed \"%s\" to \"%s\". New page: %s\n"
+msgstr "\"%s\"を\"%s\"に名前変更。新ページ: %s\n"
+
+#: lib/Driver/sql.php:674
+#, php-format
+msgid "Renamed page from %s"
+msgstr "%s から名前変更されたページ"
+
+#: templates/history/header.inc:20
+msgid "Restore Version"
+msgstr "再格納バージョン"
+
+#
+#: lib/Page/RevertPage.php:87
+msgid "Revert"
+msgstr "復旧"
+
+#: templates/history/summary.inc:26
+#, php-format
+msgid "Revert to version %s"
+msgstr "バージョン%sに復旧"
+
+#: lib/Page/RevertPage.php:81 lib/Page/RevertPage.php:104
+msgid "RevertPage"
+msgstr "復旧ページ"
+
+#: lib/Page/RevertPage.php:127
+#, php-format
+msgid "Reverted to version %s of \"%s\"."
+msgstr "\"%s\"のバージョン%sへ復旧"
+
+#: lib/Driver/sql.php:589
+msgid "Robots are not allowed to create pages."
+msgstr "ロボットにはページ作成は許されません。"
+
+#: templates/edit/new.inc:24 templates/edit/standard.inc:25
+msgid "Save"
+msgstr "保存"
+
+#: lib/Page/EditPage.php:128
+#, php-format
+msgid "Save Failed: %s"
+msgstr "保存失敗: %s"
+
+#: templates/menu.inc:19 lib/Page/Search.php:203
+msgid "Search"
+msgstr "検索"
+
+#: templates/pagelist/search.inc:1
+msgid "Search Results"
+msgstr "検索結果"
+
+#: templates/display/AttachedFiles.html:58
+#: templates/display/AttachedFiles.html:110
+msgid "Select file to attach:"
+msgstr "添付するファイルを選択:"
+
+#: templates/display/AttachedFiles.html:119
+msgid "Select the file to update"
+msgstr "更新するファイルを選択"
+
+#: templates/display/standard.inc:87
+#, php-format
+msgid "Set permissions for %s"
+msgstr "%sのアクセス権を設定"
+
+#: templates/display/title.inc:16 lib/Page/RecentChanges.php:56
+#, php-format
+msgid "Show changes for %s"
+msgstr "%s の変更を表示"
+
+#: lib/Page/RecentChanges.php:63
+#, php-format
+msgid "Show version %s"
+msgstr "バージョン%s を表示"
+
+#: templates/edit/standard.inc:41
+msgid "Spam Protection - Enter the letters below:"
+msgstr "SPAM対策 - 以下の文字を入力して下さい:"
+
+#: templates/display/MergeOrRename.html:33
+msgid "Stop and don't do anything"
+msgstr "停止して何も行わないで下さい。"
+
+#: templates/display/MergeOrRename.html:61
+msgid "Submit"
+msgstr "実行"
+
+#: lib/Page/DeletePage.php:136
+#, php-format
+msgid "Successfully deleted \"%s\"."
+msgstr "\"%s\" が削除されました。"
+
+#: lib/Page/AttachedFiles.php:198
+#, php-format
+msgid "Successfully deleted version %s of \"%s\" from \"%s\""
+msgstr "\"%s\"から \"%s\" のバージョン%sが削除されました。"
+
+#: lib/Page.php:483
+msgid "Table of Contents"
+msgstr "目次"
+
+#: lib/Page/AttachedFiles.php:254
+#, php-format
+msgid "There is already an attachment named \"%s\"."
+msgstr "添付 \"%s\" は既に存在しています。"
+
+#: lib/Page/MergeOrRename.php:149 lib/Page/MergeOrRename.php:155
+msgid "This is a required field."
+msgstr "この項目は必須です。"
+
+#: display.php:70
+msgid "This page does not have a history"
+msgstr "このページには履歴がありません"
+
+#: lib/Page/MergeOrRename.php:100
+#, php-format
+msgid "This page is referenced from %d other page(s)."
+msgstr "このページは %d 枚のページから参照されています。"
+
+#: templates/display/standard.inc:32
+msgid "Un_lock"
+msgstr "_lロック解除"
+
+#: lib/Page/StandardPage.php:79
+#, php-format
+msgid "Unable to create %s"
+msgstr "%s を生成できません。"
+
+#: lib/Page/StandardPage.php:87
+msgid "Unable to create WikiHome. The wiki is not configured."
+msgstr "WikiHomeを生成できません。wikiの設定が完了していません。"
+
+#: templates/display/standard.inc:31
+#, php-format
+msgid "Unlock %s"
+msgstr "ロック解除 %s"
+
+#: lib/Driver.php:78 lib/Driver.php:92 lib/Driver.php:104 lib/Driver.php:109
+#: lib/Driver.php:129 lib/Driver.php:134 lib/Driver.php:192 lib/Driver.php:197
+#: lib/Driver.php:202 lib/Driver.php:216 lib/Driver.php:230 lib/Driver.php:244
+#: lib/Driver.php:249 lib/Driver.php:254 lib/Driver.php:272 lib/Driver.php:392
+#: lib/Driver.php:418 lib/Driver.php:434 lib/Page.php:255 lib/Page.php:289
+#: lib/Page.php:294 lib/Page.php:393 lib/Page.php:403 lib/Page.php:413
+#: lib/Page.php:423 lib/Page.php:518 lib/Page.php:529 lib/Page.php:534
+#: lib/Page.php:539 lib/Page.php:544 lib/Page.php:584
+msgid "Unsupported"
+msgstr "サポートされていません。"
+
+#: templates/display/AttachedFiles.html:154
+msgid "Update File"
+msgstr "ファイル更新"
+
+#
+#: templates/display/AttachedFiles.html:104
+msgid "Update an Attachment"
+msgstr "添付更新"
+
+#: lib/Page/AttachedFiles.php:272
+#, php-format
+msgid "Updated attachment \"%s\" on page \"%s\"."
+msgstr "ページ \"%s\"の添付 \"%s\" を更新しました。"
+
+#: scripts/wicked.php:156
+#, php-format
+msgid "Usage: %s [OPTIONS]..."
+msgstr "Usage: %s [OPTIONS]..."
+
+#: templates/pagelist/header.inc:6 templates/history/header.inc:13
+#: templates/edit/create.inc:18 lib/Page/Search.php:156
+#: templates/display/AttachedFiles.html:9
+msgid "Version"
+msgstr "バージョン"
+
+#: lib/Page/AttachedFiles.php:279
+msgid "View page: "
+msgstr "ページ表示:"
+
+#: lib/Block/page.php:3
+msgid "Wiki page"
+msgstr "Wikiページ"
+
+#: display.php:34
+msgid "You are not allowed to lock this page"
+msgstr "あなたはこのページをロックできません。"
+
+#: display.php:49
+msgid "You are not allowed to unlock this page"
+msgstr "あなたはこのページをロック解除できません。"
+
+#: lib/Page/AttachedFiles.php:188
+msgid "You do not have permission to delete attachments from this page."
+msgstr "あなたにはこのページから添付を削除する権限がありません。"
+
+#: lib/Page/AttachedFiles.php:218 lib/Page/MergeOrRename.php:169
+#: lib/Page/MergeOrRename.php:184
+#, php-format
+msgid "You do not have permission to edit \"%s\""
+msgstr "あなたには\"%s\"を編集する権限がありません。"
+
+#: lib/Page/NewPage.php:119
+#, php-format
+msgid "You don't have permission to create \"%s\"."
+msgstr "あなたには\"%s\"を作成する権限がありません。"
+
+#: lib/Page/DeletePage.php:150
+#, php-format
+msgid "You don't have permission to delete \"%s\"."
+msgstr "あなたには\"%s\"を削除する権限がありません。"
+
+#: lib/Page/EditPage.php:107 lib/Page/RevertPage.php:133
+#, php-format
+msgid "You don't have permission to edit \"%s\"."
+msgstr "あなたには\"%s\"を編集する権限がありません。"
+
+#: display.php:82 display.php:85
+msgid "You don't have permission to view this page."
+msgstr "あなたはこのページを見る権限がありません。"
+
+#: lib/Page/AttachedFiles.php:224
+msgid "You must enter a change description to attach this file."
+msgstr "このファイルを添付する変更の説明を入力しなければなりません。"
+
+#: lib/Page/EditPage.php:118
+msgid "You must provide a change log."
+msgstr "変更ログを提供しなければなりません。"
+
+#: lib/Wicked.php:130
+msgid "_AllPages"
+msgstr "_A全部のページ"
+
+#: templates/display/standard.inc:60
+msgid "_BackLinks"
+msgstr "_Bバックリンク"
+
+#: templates/display/standard.inc:48
+msgid "_Delete"
+msgstr "_D削除"
+
+#: templates/display/standard.inc:24
+msgid "_EditPage"
+msgstr "_E編集"
+
+#: templates/display/standard.inc:36
+msgid "_Lock"
+msgstr "_Lロック"
+
+#: templates/display/standard.inc:55
+msgid "_MergeOrRename"
+msgstr "_M統合または名前変更"
+
+#: lib/Wicked.php:130
+msgid "_RecentChanges"
+msgstr "_R最後の変更"
+
+#: lib/Wicked.php:130
+msgid "_WikiHome"
+msgstr "_Wホーム"
+
+#: scripts/wicked.php:123
+#, php-format
+msgid "page \"%s\" doesn't exist."
+msgstr "ページ \"%s\" は存在しません。"

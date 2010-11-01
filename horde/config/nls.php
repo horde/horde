@@ -1,9 +1,13 @@
 <?php
 /**
  * NLS (National Language Support) configuration file.
+ *
+ * Local overrides should be placed in config/nls.local.php.
+ *
+ * $Id$
  */
 
-Horde_Nls::$config = array(
+$horde_nls_config = array(
     /* Defaults */
     'defaults' => array(
         /* The language to fall back on if we cannot determine one any other
@@ -14,52 +18,52 @@ Horde_Nls::$config = array(
 
     /* Languages */
     'languages' => array(
-        'ar_OM' => '&#x202d;Arabic (Oman) &#x202e;(&#x0627;&#x0644;&#x0639;&#x0631;&#x0628;&#x064a;&#x0629;)',
-        'ar_SY' => '&#x202d;Arabic (Syria) &#x202e;(&#x0627;&#x0644;&#x0639;&#x0631;&#x0628;&#x064a;&#x0629;)',
+        'ar_OM' => '&#x202d;Arabic (Oman) &#x202e;(عربية)',
+        'ar_SY' => '&#x202d;Arabic (Syria) &#x202e;(عربية)',
         'id_ID' => 'Bahasa Indonesia',
         'bs_BA' => 'Bosanski',
-        'bg_BG' => '&#x202d;Bulgarian (&#x0411;&#x044a;&#x043b;&#x0433;&#x0430;&#x0440;&#x0441;&#x043a;&#x0438;)',
-        'ca_ES' => 'Catal&#xe0;',
-        'cs_CZ' => '&#x010c;esky',
-        'zh_CN' => '&#x202d;Chinese (Simplified) (&#x7b80;&#x4f53;&#x4e2d;&#x6587;)',
-        'zh_TW' => '&#x202d;Chinese (Traditional) (&#x6b63;&#x9ad4;&#x4e2d;&#x6587;)',
+        'bg_BG' => '&#x202d;Bulgarian (Български)',
+        'ca_ES' => 'Català',
+        'cs_CZ' => 'Český',
+        'zh_CN' => '&#x202d;Chinese (Simplified) (简体中文)',
+        'zh_TW' => '&#x202d;Chinese (Traditional) (正體中文)',
         'da_DK' => 'Dansk',
         'de_DE' => 'Deutsch',
         'en_US' => '&#x202d;English (American)',
         'en_GB' => '&#x202d;English (British)',
         'en_CA' => '&#x202d;English (Canadian)',
-        'es_ES' => 'Espa&#xf1;ol',
+        'es_ES' => 'Español',
         'et_EE' => 'Eesti',
         'eu_ES' => 'Euskara',
-        'fr_FR' => 'Fran&#xe7;ais',
+        'fa_IR' => '&#x202d;Farsi (Persian) &#x202e;(فارسی)',
+        'fr_FR' => 'Français',
         'gl_ES' => 'Galego',
-        'el_GR' => '&#x202d;Greek (&#x0395;&#x03bb;&#x03bb;&#x03b7;&#x03bd;&#x03b9;&#x03ba;&#x03ac;)',
-        'he_IL' => '&#x202d;Hebrew &#x202e;(&#x05e2;&#x05d1;&#x05e8;&#x05d9;&#x05ea;)',
+        'el_GR' => '&#x202d;Greek (Ελληνικά)',
+        'he_IL' => '&#x202d;Hebrew &#x202e;(עברית)',
         'hr_HR' => 'Hrvatski',
-        'is_IS' => '&#xcd;slenska',
+        'is_IS' => 'Íslenska',
         'it_IT' => 'Italiano',
-        'ja_JP' => '&#x202d;Japanese (&#x65e5;&#x672c;&#x8a9e;)',
-        'km_KH' => '&#x202d;Khmer (&#x1781;&#x17d2;&#x1798;&#x17c2;&#x179a;)',
-        'ko_KR' => '&#x202d;Korean (&#xd55c;&#xad6d;&#xc5b4;)',
-        'lv_LV' => 'Latvie&#x0161;u',
-        'lt_LT' => 'Lietuvi&#x0173;',
-        'mk_MK' => '&#x202d;Macedonian (&#x041c;&#x0430;&#x043a;&#x0435;&#x0434;&#x043e;&#x043d;&#x0441;&#x043a;&#x0438;)',
+        'ja_JP' => '&#x202d;Japanese (日本語)',
+        'km_KH' => '&#x202d;Khmer (ខមែរ)',
+        'ko_KR' => '&#x202d;Korean (한국어)',
+        'lv_LV' => 'Latviešu',
+        'lt_LT' => 'Lietuvių',
+        'mk_MK' => '&#x202d;Macedonian (Македонски)',
         'hu_HU' => 'Magyar',
         'nl_NL' => 'Nederlands',
-        'nb_NO' => 'Norsk bokm&#xe5;l',
-        'nn_NO' => 'Norsk nynorsk',
-        'fa_IR' => '&#x202d;Persian &#x202e;(&#x0641;&#x0627;&#x0631;&#x0633;&#x0649;)',
+        'nb_NO' => '&#x202d;Norsk (bokmål)',
+        'nn_NO' => '&#x202d;Norsk (nynorsk)',
         'pl_PL' => 'Polski',
-        'pt_PT' => 'Portugu&#xea;s',
-        'pt_BR' => 'Portugu&#xea;s Brasileiro',
-        'ro_RO' => 'Rom&#xe2;n&#xe4;',
-        'ru_RU' => '&#x202d;Russian (&#x0420;&#x0443;&#x0441;&#x0441;&#x043a;&#x0438;&#x0439;)',
-        'sk_SK' => 'Sloven&#x010d;ina',
-        'sl_SI' => 'Sloven&#x0161;&#x010d;ina',
+        'pt_PT' => 'Português',
+        'pt_BR' => 'Português do Brasil',
+        'ro_RO' => 'Română',
+        'ru_RU' => '&#x202d;Russian (Русский)',
+        'sk_SK' => 'Slovenský',
+        'sl_SI' => 'Slovensko',
         'fi_FI' => 'Suomi',
         'sv_SE' => 'Svenska',
-        'th_TH' => '&#x202d;Thai (&#x0e44;&#x0e17;&#x0e22;)',
-        'uk_UA' => '&#x202d;Ukrainian (&#x0423;&#x043a;&#x0440;&#x0430;&#x0457;&#x043d;&#x0441;&#x044c;&#x043a;&#x0430;)',
+        'th_TH' => '&#x202d;Thai (ภาษาไทย)',
+        'uk_UA' => '&#x202d;Ukrainian (Українська)',
     ),
 
     /* Aliases for languages with different browser and gettext codes */
@@ -113,7 +117,7 @@ Horde_Nls::$config = array(
         'bs_BA' => 'ISO-8859-2',
         'cs_CZ' => 'ISO-8859-2',
         'el_GR' => 'ISO-8859-7',
-        'eu_ES' => 'UTF-8',
+        'et_EE' => 'ISO-8859-13',
         'fa_IR' => 'UTF-8',
         'he_IL' => 'UTF-8',
         'hu_HU' => 'ISO-8859-2',
@@ -206,15 +210,13 @@ Horde_Nls::$config = array(
     )
 );
 
-/* Sort encodings. */
-asort(Horde_Nls::$config['encodings']);
-
 /* BSD charsets. */
 if (strpos(PHP_OS, 'BSD') !== false) {
-    Horde_Nls::$config['charsets'] = array_merge(Horde_Nls::$config['charsets'], array(
+    $horde_nls_config['charsets'] = array_merge($horde_nls_config['charsets'], array(
         'bs_BA' => 'ISO8859-2',
         'cs_CZ' => 'ISO8859-2',
         'el_GR' => 'ISO8859-7',
+        'et_EE' => 'ISO8859-13',
         'hu_HU' => 'ISO8859-2',
         'ja_JP' => 'SHIFT_JIS',
         'ko_KR' => 'EUC-KR',
@@ -228,12 +230,11 @@ if (strpos(PHP_OS, 'BSD') !== false) {
 }
 
 /* Turkish locales. */
-if (version_compare(PHP_VERSION, '5', 'lt') ||
-    version_compare(PHP_VERSION, '6', 'ge')) {
-    Horde_Nls::$config['aliases']['tr'] = 'tr_TR';
-    Horde_Nls::$config['charsets']['tr_TR'] = (strpos(PHP_OS, 'BSD') === false) ? 'ISO-8859-9' : 'ISO8859-9';
-    Horde_Nls::$config['languages']['tr_TR'] = 'T&#xfc;rk&#xe7;e';
-    Horde_Nls::$config['spelling']['tr_TR'] = '-d tr';
+if (version_compare(PHP_VERSION, '6', 'ge')) {
+    $horde_nls_config['aliases']['tr'] = 'tr_TR';
+    $horde_nls_config['charsets']['tr_TR'] = (strpos(PHP_OS, 'BSD') === false) ? 'ISO-8859-9' : 'ISO8859-9';
+    $horde_nls_config['languages']['tr_TR'] = 'T&#xfc;rk&#xe7;e';
+    $horde_nls_config['spelling']['tr_TR'] = '-d tr';
 }
 
 /* Local overrides. */

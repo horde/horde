@@ -1,0 +1,1 @@
+CKEDITOR.editorConfig=function(a){a.scayt_autoStartup=false;a.toolbar_Full.push(['Code'])};

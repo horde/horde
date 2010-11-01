@@ -24,7 +24,8 @@ class Horde_Service_Facebook_Request
      * @param Horde_Http_Client      $http_client
      * @param array                  $params
      */
-    public function __construct($facebook, $method, $http_client, $params = array())
+    public function __construct($facebook, $method, $http_client,
+                                $params = array())
     {
         $this->_facebook = $facebook;
         $this->_http = $http_client;
@@ -83,7 +84,7 @@ class Horde_Service_Facebook_Request
         } catch (Exception $e) {
             // Not much we can do about a client exception - rethrow it as
             // temporarily unavailable.
-            throw new Horde_Service_Facebook_Exception(_("Service is unavailable. Please try again later."));
+            throw new Horde_Service_Facebook_Exception(Horde_Service_Facebook_Translation::t("Service is unavailable. Please try again later."));
         }
         return $result->getBody();
     }

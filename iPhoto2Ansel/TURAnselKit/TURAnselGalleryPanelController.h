@@ -2,7 +2,7 @@
  * TURAnselGalleryPanelController
  *
  * Copyright 2009-2010 The Horde Project (http://www.horde.org)
- * 
+ *
  * @license http://opensource.org/licenses/bsd-license.php
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  */
@@ -19,7 +19,7 @@
     IBOutlet NSTextField *gallerySlugTextField;
     IBOutlet NSTextField *galleryDescTextField;
     IBOutlet NSPanel *newGallerySheet;
-    
+
     // Instance members
     TURAnsel *_anselController;
     NSWindow *_controllerWindow;

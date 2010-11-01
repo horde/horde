@@ -9,7 +9,7 @@ class Horde_Date_Repeater_MonthName extends Horde_Date_Repeater
         $this->type = $type;
     }
 
-    public function next($pointer)
+    public function next($pointer = 'future')
     {
         parent::next($pointer);
 

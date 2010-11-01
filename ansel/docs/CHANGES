@@ -2,16 +2,47 @@
 v2.0-git
 --------
 
+[mjr] Gallery style properties are now directly editable per-gallery by the
+      gallery owner (Request #6003).
+[mjr] Move tag handling to Content_Tagger.
+[mjr] Support for multipage images (Request #6022).
 [mjr] Exif code removed and placed in Horde_Image_Exif
 
 
 ----------
-v1.1.1-cvs
+v1.1.3-cvs
 ----------
 
-[mjr] Properly url encode and escape html when processing tags.
+
+
+
+------
+v1.1.2
+------
+
+[mjr] Fix issue where subgalleries would become invisible in certain conditions.
+[mjr] Fix parsing gps data in certain locales (Bug #9180).
+[mjr] Fix a bug that caused certain thumbnail types to be generated as jpeg
+      images instead of the requested png type.
+[jan] Add French translation (Maxime Chavagne <maxime@chavagne.net>).
+[mjr] Enforce the same allowed characters for tags as slugs (Bug #9005).
+[mjr] Fix clicking on image edit actions causes logout when not using cookies.
+[mjr] Fix adding a face name from the gallery faces view (Bug #9002).
+
+
+------
+v1.1.1
+------
+
+[mjr] Fix default value for image_faces value in the database schema
+      (Bug #8925).
+[mjr] Fix sending ecards when SMTP auth is set, but no global username/password
+      exists in the configuration (horde@albasoft@com, Bug #8924).
+[mjr] Fix escaping location query for PostgreSQL (Bug #8919).
+[mjr] Properly url-encode and escape html when processing tags.
 [mjr] Protect against divide-by-zero errors (Bug #8761).
 [jan] Fix invalid class name in block for recently geotagged images.
+
 
 ----
 v1.1
@@ -91,7 +122,7 @@ v1.0-RC1
       captions to the ansel.php CLI (dorm@dorm.org, Request #3986).
 [cjh] Implement drag-and-drop sorting of images.
 [mas] Fix undefined index warning if no galleries are defined (Bug #2172).
-[jan] Add Swedish translation (Andreas Dahlén <andreas@dahlen.ws>).
+[jan] Add Swedish translation (Andreas DahlÃ©n <andreas@dahlen.ws>).
 [jan] Add Finnish translation (Leena Heino <liinu@uta.fi>).
 [jan] Add Lithuanian translation (Vilius Sumskas <vilius@lnk.lt>).
 [cjh] Use new Horde_Menu CSS styled menu.

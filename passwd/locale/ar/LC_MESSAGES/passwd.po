@@ -1,0 +1,119 @@
+# Passwd module translations.
+# This file is distributed under the same license as the Passwd package.
+# Copyright 2003 Platinum Inc. <pl@tinum.info>
+# Custom Web Applications <http://platinum-sy.com>
+# Platinum Development Team <devteam@platinum-sy.net>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Passwd \n"
+"POT-Creation-Date: 2003-04-30 12:00+0200\n"
+"PO-Revision-Date: 2003-04-30 12:00+0200\n"
+"Last-Translator:  Platinum Development Team <devteam@platinum-sy.com>\n"
+"Language-Team: Arabic <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Change your password"
+msgstr "تغيير كلمة المرور"
+
+msgid "Confirm new password:"
+msgstr "تأكيد كلمة المرور الجديدة:"
+
+msgid "Error"
+msgstr "حصل خطأ"
+
+msgid "Failure in changing password : "
+msgstr "خطأ في تغيير كلمة المرور"
+
+msgid "Help"
+msgstr "المساعدة"
+
+msgid "Language"
+msgstr "اللغة"
+
+msgid "Logout"
+msgstr "خروج"
+
+msgid "Message"
+msgstr "رسالة"
+
+msgid "New password:"
+msgstr "كلمة المرور الجديدة:"
+
+msgid "Old password:"
+msgstr "كلمة المرور القديمة:"
+
+msgid "Password changed!"
+msgstr "تم تغيير كلمة المرور!"
+
+msgid "Password module is not properly configured"
+msgstr "خطأ في إعدادات بريمج كلمة المرور"
+
+msgid "Problem?"
+msgstr "مشكلة؟"
+
+msgid "Select your preferred language:"
+msgstr "اختر لغتك المفضلة:"
+
+msgid "Set the language that menu items, explanations, and help are in."
+msgstr "حدد لغة الأوامر، الشرح والمساعدة."
+
+msgid "Some of Password module's configuration files are missing:"
+msgstr "بعض ملفات إعدادات بريمجات كلمة المرور مفقودة"
+
+msgid "Success"
+msgstr "تم الأمر بنجاح"
+
+msgid ""
+"This file controls the default preferences for Password module, and also "
+"controls which preferences users can alter."
+msgstr ""
+"يتحكم هذا الملف بالإعدادات الافتراضية لبريمجات كلمة المرور، كما يحدد "
+"الإعدادات التي يمكن للمستخدم تعديلها."
+
+msgid ""
+"This file controls the stylesheet that is used to set colors and fonts in "
+"addition to or overriding Horde defaults."
+msgstr ""
+"يتحكم هذا الملف بلوائح الألوان والخطوط إضافة أو بدلاً من إعدادات هوردي "
+"'Horde'."
+
+msgid ""
+"This is the main Password module configuration file. It contains paths and "
+"options for all Password module scripts."
+msgstr ""
+"هذا ملف الإعدادات الرئيسي لكلمة المرور ويحوي مسارات و خيارات جميع بيرمجات "
+"كلمة المرور"
+
+msgid "Username:"
+msgstr "اسم المستخدم:"
+
+msgid "Warning"
+msgstr "تنبيه"
+
+msgid "You can not change passwd for other user"
+msgstr "لايمكن تغيير كلمة المرور لمستخدم لآخر."
+
+#, c-format
+msgid "You can't change password for user %s"
+msgstr "لايمكن تغيير كلمة المرور للمستخدم %s"
+
+msgid "You must give your new password"
+msgstr "يجب إدخال كلمة مرور جديدة"
+
+msgid "You must give your old password"
+msgstr "يجب إدخال كلمة المرور القديمة"
+
+msgid "You must give your userid"
+msgstr "يجب إدخال معرف المستخدم"
+
+msgid "You must verify your new password"
+msgstr "يجب تأكيد كلمة المرور الجديدة"
+
+msgid "Your Information"
+msgstr "المعلومات الشخصية"
+
+msgid "Your new passwords didn't match"
+msgstr "عدم تطابق في كلمة المرور الجديدة"

@@ -7,10 +7,12 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @author  Marko Djukic <marko@oblo.com>
- * @author  Jan Schneider <jan@horde.org>
- * @package Horde_Util
+ * @author   Marko Djukic <marko@oblo.com>
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Util
  */
 class Horde_Array_Sort_Helper
 {
@@ -29,7 +31,7 @@ class Horde_Array_Sort_Helper
      */
     public function compare($a, $b)
     {
-        return strcoll(Horde_String::lower($a[$this->key], true), Horde_String::lower($b[$this->key], true));
+        return strcoll(Horde_String::lower($a[$this->key], true, 'UTF-8'), Horde_String::lower($b[$this->key], true, 'UTF-8'));
     }
 
     /**
@@ -43,7 +45,7 @@ class Horde_Array_Sort_Helper
      */
     public function reverseCompare($a, $b)
     {
-        return strcoll(Horde_String::lower($b[$this->key], true), Horde_String::lower($a[$this->key], true));
+        return strcoll(Horde_String::lower($b[$this->key], true, 'UTF-8'), Horde_String::lower($a[$this->key], true, 'UTF-8'));
     }
 
     /**
@@ -56,7 +58,7 @@ class Horde_Array_Sort_Helper
      */
     public function compareKeys($a, $b)
     {
-        return strcoll(Horde_String::lower($a, true), Horde_String::lower($b, true));
+        return strcoll(Horde_String::lower($a, true, 'UTF-8'), Horde_String::lower($b, true, 'UTF-8'));
     }
 
     /**
@@ -69,6 +71,7 @@ class Horde_Array_Sort_Helper
      */
     public function reverseCompareKeys($a, $b)
     {
-        return strcoll(Horde_String::lower($b, true), Horde_String::lower($a, true));
+        return strcoll(Horde_String::lower($b, true, 'UTF-8'), Horde_String::lower($a, true, 'UTF-8'));
     }
+
 }

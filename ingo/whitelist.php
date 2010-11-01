@@ -12,25 +12,22 @@
  * @author Michael Slusarz <slusarz@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('ingo');
 
 /* Redirect if whitelist not available. */
 if (!in_array(Ingo_Storage::ACTION_WHITELIST, $_SESSION['ingo']['script_categories'])) {
     $notification->push(_("Whitelist is not supported in the current filtering driver."), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('filters.php', true));
-    exit;
+    Horde::url('filters.php', true)->redirect();
 }
 
-$whitelist = &$ingo_storage->retrieve(Ingo_Storage::ACTION_WHITELIST);
+$whitelist = $ingo_storage->retrieve(Ingo_Storage::ACTION_WHITELIST);
 
 /* Perform requested actions. */
-$actionID = Horde_Util::getFormData('actionID');
-switch ($actionID) {
+switch (Horde_Util::getFormData('actionID')) {
 case 'rule_update':
-    $ret = $whitelist->setWhitelist(Horde_Util::getFormData('whitelist'));
-    if (is_a($ret, 'PEAR_Error')) {
-        $notification->push($ret, $ret->getCode());
-    } else {
+    try {
+        $whitelist->setWhitelist(Horde_Util::getFormData('whitelist'));
         if (!$ingo_storage->store($whitelist)) {
             $notification->push("Error saving changes.", 'horde.error');
         } else {
@@ -44,18 +41,20 @@ case 'rule_update':
 
         /* Update the timestamp for the rules. */
         $_SESSION['ingo']['change'] = time();
+    } catch (Ingo_Exception $e) {
+        $notification->push($e);
     }
-
     break;
 }
 
 /* Get the whitelist rule. */
-$filters = &$ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
+$filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
 $wl_rule = $filters->findRule(Ingo_Storage::ACTION_WHITELIST);
 
 $title = _("Whitelist Edit");
-Ingo::prepareMenu();
+$menu = Ingo::menu();
 require INGO_TEMPLATES . '/common-header.inc';
-require INGO_TEMPLATES . '/menu.inc';
+echo $menu;
+Ingo::status();
 require INGO_TEMPLATES . '/whitelist/whitelist.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

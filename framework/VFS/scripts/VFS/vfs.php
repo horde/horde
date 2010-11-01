@@ -86,12 +86,13 @@ function ls($url, $argv, $filter)
     $params = url2params($url);
     $recursive = in_array('R', $argv);
 
-    $vfs = &vfs($params);
-    $list = $vfs->listFolder($params['path'],
-                             count($filter) ? $filter[0] : null,
-                             in_array('a', $argv));
-    if (is_a($list, 'PEAR_Error')) {
-        usage($list);
+    $vfs = vfs($params);
+    try {
+        $list = $vfs->listFolder($params['path'],
+                                 count($filter) ? $filter[0] : null,
+                                 in_array('a', $argv));
+    } catch (VFS_Exception $e) {
+        usage($e);
     }
     if (in_array('a', $argv)) {
         $list = array_merge(array('.' => array('name' => '.'),
@@ -151,8 +152,8 @@ function cp($source, $target, $argv, $filter)
         // TODO: Shortcut with VFS::copy()
     }
 
-    $source_vfs = &vfs($source_params);
-    $target_vfs = &vfs($target_params);
+    $source_vfs = vfs($source_params);
+    $target_vfs = vfs($target_params);
 
     _cp($source_vfs, $target_vfs, $source_path, $target_path, $argv, $filter);
 }
@@ -208,9 +209,10 @@ function _cp(&$source_vfs, &$target_vfs, $source_path, $target_path, $argv,
         return;
     }
 
-    $data = &$source_vfs->read($source_parent_path, $source_object);
-    if (is_a($data, 'PEAR_Error')) {
-        usage($data);
+    try {
+        $data = &$source_vfs->read($source_parent_path, $source_object);
+    } catch (VFS_Exception $e) {
+        usage($e);
     }
 
     if ($target_vfs->isFolder($target_parent_path, $target_object)) {
@@ -218,24 +220,25 @@ function _cp(&$source_vfs, &$target_vfs, $source_path, $target_path, $argv,
             echo '`' . $source_path . '\' -> `' . $target_path . '/' .
                 $source_object . "'\n";
         }
-        $result = $target_vfs->writeData($target_path, $source_object,
-                                         $data, true);
-        if (is_a($result, 'PEAR_Error')) {
-            usage($result);
+
+        try {
+            $target_vfs->writeData($target_path, $source_object, $data, true);
+        } catch (VFS_Exception $e) {
+            usage($e);
         }
     } elseif ($target_vfs->isFolder(dirname($target_parent_path),
                                     basename($target_parent_path))) {
         if (in_array('v', $argv)) {
             echo '`' . $source_path . '\' -> `' . $target_path . "'\n";
         }
-        $result = $target_vfs->writeData($target_parent_path, $target_object,
-                                         $data, true);
-        if (is_a($result, 'PEAR_Error')) {
-            usage($result);
+
+        try {
+            $target_vfs->writeData($target_parent_path, $target_object, $data, true);
+        } catch (VFS_Exception $e) {
+            usage($e);
         }
     } else {
-        usage(PEAR::raiseError('"' . $target_parent_path .
-                               '" does not exist or is not a folder.'));
+        usage(new VFS_Exception('"' . $target_parent_path . '" does not exist or is not a folder.'));
     }
 }
 
@@ -246,9 +249,8 @@ function _cp(&$source_vfs, &$target_vfs, $source_path, $target_path, $argv,
  */
 function usage($error = null)
 {
-    if (is_a($error, 'PEAR_Error')) {
+    if ($error instanceof VFS_Exception) {
         echo $error->getMessage() . "\n";
-        echo $error->getUserinfo() . "\n\n";
     } else {
         switch ($error) {
         case 'ls':
@@ -290,9 +292,9 @@ USAGE;
  *
  * @return VFS  An instance of the requested VFS backend.
  */
-function &vfs($params)
+function vfs($params)
 {
-    return VFS::singleton($params['driver'], $params);
+    return VFS::factory($params['driver'], $params);
 }
 
 /**

@@ -11,7 +11,7 @@ class Horde_Form_Type_Number extends Horde_Form_Type {
     public function isValid($var, $vars, $value, &$message)
     {
         if ($var->required && empty($value) && ((string)(double)$value !== $value)) {
-            $message = _("This field is required.");
+            $message = Horde_Model_Translation::t("This field is required.");
             return false;
         } elseif (empty($value)) {
             return true;
@@ -22,7 +22,7 @@ class Horde_Form_Type_Number extends Horde_Form_Type {
             return true;
         }
 
-        $message = _("This field must be a valid number.");
+        $message = Horde_Model_Translation::t("This field must be a valid number.");
         return false;
     }
 

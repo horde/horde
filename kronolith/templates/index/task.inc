@@ -4,41 +4,42 @@
 <input id="kronolithTaskOldList" type="hidden" name="old_tasklist" />
 
 <div>
-  <label for="kronolithTaskTitle"><?php echo _("Name") ?>:</label><br />
+  <label for="kronolithTaskTitle"><?php echo _("Task title") ?>:</label><br />
   <input type="text" name="task[name]" id="kronolithTaskTitle" class="kronolithLongField" />
 </div>
 
 <div>
-  <label><input type="checkbox" name="task[completed]" id="kronolithTaskCompleted" value="1" /> <?php echo _("completed") ?></label>
+  <label>
+    <?php echo _("Priority") ?>:
+    <select name="task[priority]" id="kronolithTaskPriority">
+      <?php foreach (array(1 => _("Highest"), 2 => _("High"), 3 => _("Normal"), 4 => _("Low"), 5 => _("Lowest")) as $prio => $label): ?>
+      <option value="<?php echo $prio ?>"><?php echo $label ?></option>
+      <?php endforeach; ?>
+    </select>
+  </label>
+  <span class="kronolithSeparator">|</span>
+  <label>
+    <?php echo _("Due date") ?>:
+    <input type="text" name="task[due_date]" id="kronolithTaskDueDate" size="10" />
+    <?php echo Horde::img('picker.png', _("Set due date"), 'id="kronolithTaskDuePicker" class="kronolithDatePicker"') ?>
+  </label>
+  <label>
+    <?php echo _("at") ?>
+    <input type="text" name="task[due_time]" id="kronolithTaskDueTime" size="8" />
+  </label>
+  <span class="kronolithSeparator">|</span>
+  <label>
+    <?php echo _("Add to") ?>
+    <select name="task[tasklist]" id="kronolithTaskList">
+    </select>
+  </label>
 </div>
 
-<table cellspacing="0" cellpadding="0" border="0"><tbody><tr>
-  <td>
-    <div>
-      <label for="kronolithTaskPriority"><?php echo _("Priority") ?>:</label><br />
-      <select name="task[priority]" id="kronolithTaskPriority">
-        <?php foreach (array(1 => '1 ' . _("(highest)"), 2 => 2, 3 => 3, 4 => 4, 5 => '5 ' . _("(lowest)")) as $prio => $label): ?>
-        <option value="<?php echo $prio ?>"><?php echo $label ?></option>
-        <?php endforeach; ?>
-      </select>
-    </div>
-  </td>
-  <td>
-    <div>
-      <label for="kronolithTaskList"><?php echo _("Task List") ?>:</label><br />
-      <select name="task[tasklist]" id="kronolithTaskList">
-      </select>
-    </div>
-  </td>
-  <td>
-    <div>
-      <label><?php echo _("Due date") ?>:</label><br />
-      <input type="text" name="task[due_date]" id="kronolithTaskDueDate" size="10" class="kronolithDatePicker" />
-      <?php echo _("at") ?>
-      <input type="text" name="task[due_time]" id="kronolithTaskDueTime" size="8" />
-    </div>
-  </td>
-</tr></tbody></table>
+<div>
+  <?php echo _("Mark task as") ?>
+  <input type="checkbox" name="task[completed]" id="kronolithTaskCompleted" value="1" />
+  <label for="kronolithTaskCompleted"><?php echo _("completed") ?></label>
+</div>
 
 <div class="tabset">
   <ul>
@@ -54,7 +55,8 @@
 </div>
 
 <div id="kronolithTaskTabReminder" class="kronolithTabsOption" style="display:none">
-  <?php printf(_("%s don't set %s or %s set %s before due date"),
+  <div class="kronolithDialogInfo"><?php printf(_("You can change the default settings in the %sNotification options%s"), '<a id="kronolithTaskAlarmPrefs" href="#">', '</a>') ?></div>
+  <?php printf(_("%s don't set %s or %s set %s before due date %s"),
   '<label><input type="radio" name="task[alarm][on]" id="kronolithTaskAlarmOff" value="0" checked="checked" />', '</label>',
   '<label><input type="radio" name="task[alarm][on]" id="kronolithTaskAlarmOn" value="1" />', '</label>
   <input type="text" name="task[alarm][value]" id="kronolithTaskAlarmValue" size="3" value="15" class="kronolithEventValue" />
@@ -63,7 +65,15 @@
     <option value="60">' . _("hours") . '</option>
     <option value="1440">' . _("days") . '</option>
     <option value="10080">' . _("weeks") . '</option>
-  </select>') ?>
+  </select>
+  <label for="kronolithTaskAlarmValue">',
+  '</label>') ?>
+  <br />
+  <?php printf(_("Alert me %s as default %s or %s using:"),
+  '<input type="radio" name="alarm_change_method" id="kronolithTaskAlarmDefaultOn" value="0" checked="checked" />
+  <label for="kronolithTaskAlarmDefaultOn">', '</label>',
+  '<input type="radio" name="alarm_change_method" id="kronolithTaskAlarmDefaultOff" value="1" style="display:none" />') ?>
+  <?php echo $taskAlarmMethods . $taskAlarmParams ?>
 </div>
 
 <div id="kronolithTaskTabUrl" class="kronolithTabsOption" style="display:none">
@@ -73,7 +83,7 @@
 <div class="kronolithFormActions">
   <input id="kronolithTaskSave" type="button" value="<?php echo _("Save") ?>" class="button ok" />
   <input id="kronolithTaskDelete" type="button" value="<?php echo _("Delete") ?>" class="button ko" />
-  <span class="kronolithSep"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
+  <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
 </div>
 
 </form>

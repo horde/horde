@@ -3,11 +3,9 @@ Kronolith_Event::toiCalendar() test.
 --FILE--
 <?php
 
-require 'Horde/Cli.php';
+require dirname(__FILE__) . '/../Application.php';
 Horde_Cli::init();
-$kronolith_authentication = 'none';
-require dirname(__FILE__) . '/../base.php';
-require 'Horde/iCalendar.php';
+Horde_Registry::appInit('kronolith', array('authentication' => 'none'));
 
 $driver = new Kronolith_Driver();
 $object = new Kronolith_Event_Sql($driver);
@@ -26,12 +24,12 @@ $object->recurrence->setRecurInterval(2);
 $object->recurrence->addException(2007, 3, 19);
 $object->initialized = true;
 
-$ical = new Horde_iCalendar('1.0');
+$ical = new Horde_Icalendar('1.0');
 $cal = $object->toiCalendar($ical);
 $ical->addComponent($cal);
 echo $ical->exportvCalendar() . "\n";
 
-$ical = new Horde_iCalendar('2.0');
+$ical = new Horde_Icalendar('2.0');
 $cal = $object->toiCalendar($ical);
 $ical->addComponent($cal);
 echo $ical->exportvCalendar() . "\n";
@@ -59,12 +57,12 @@ $object->attendees =
           array('attendance' => Kronolith::PART_NONE,
                 'response' => Kronolith::RESPONSE_TENTATIVE));
 
-$ical = new Horde_iCalendar('1.0');
+$ical = new Horde_Icalendar('1.0');
 $cal = $object->toiCalendar($ical);
 $ical->addComponent($cal);
 echo $ical->exportvCalendar() . "\n";
 
-$ical = new Horde_iCalendar('2.0');
+$ical = new Horde_Icalendar('2.0');
 $cal = $object->toiCalendar($ical);
 $ical->addComponent($cal);
 echo $ical->exportvCalendar() . "\n";
@@ -73,7 +71,7 @@ echo $ical->exportvCalendar() . "\n";
 --EXPECTF--
 BEGIN:VCALENDAR
 VERSION:1.0
-PRODID:-//The Horde Project//Horde_iCalendar Library//EN
+PRODID:-//The Horde Project//Horde iCalendar Library//EN
 METHOD:PUBLISH
 BEGIN:VEVENT
 DTSTART:20070315T121020Z
@@ -97,7 +95,7 @@ END:VCALENDAR
 
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//The Horde Project//Horde_iCalendar Library//EN
+PRODID:-//The Horde Project//Horde iCalendar Library//EN
 METHOD:PUBLISH
 BEGIN:VEVENT
 DTSTART:20070315T121020Z
@@ -123,7 +121,7 @@ END:VCALENDAR
 
 BEGIN:VCALENDAR
 VERSION:1.0
-PRODID:-//The Horde Project//Horde_iCalendar Library//EN
+PRODID:-//The Horde Project//Horde iCalendar Library//EN
 METHOD:PUBLISH
 BEGIN:VEVENT
 DTSTART:20070315T121020Z
@@ -147,7 +145,7 @@ END:VCALENDAR
 
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//The Horde Project//Horde_iCalendar Library//EN
+PRODID:-//The Horde Project//Horde iCalendar Library//EN
 METHOD:PUBLISH
 BEGIN:VEVENT
 DTSTART:20070315T121020Z

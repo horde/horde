@@ -18,24 +18,12 @@ class Content_Tags_TaggerTest extends PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {
-        $this->db = Horde_Db_Adapter::factory(array(
-            'adapter' => 'pdo_sqlite',
-            'dbname' => ':memory:',
-        ));
+        $injector = new Horde_Injector(new Horde_Injector_TopLevel());
 
-        $context = array('dbAdapter' => $this->db);
+        $db = new Horde_Db_Adapter_Pdo_Sqlite(array('dbname' => ':memory:'));
+        $injector->setInstance('Horde_Db_Adapter', $db);
 
-        $this->typeManager = new Content_Types_Manager($context);
-        $context['typeManager'] = $this->typeManager;
-
-        $this->userManager = new Content_Users_Manager($context);
-        $context['userManager'] = $this->userManager;
-
-        $this->objectManager = new Content_Objects_Manager($context);
-        $context['objectManager'] = $this->objectManager;
-
-        // Create tagger
-        $this->tagger = new Content_Tagger($context);
+        $this->tagger = $injector->getInstance('Content_Tagger');
 
         // Read sql schema file
         $statements = array();
@@ -58,7 +46,7 @@ class Content_Tags_TaggerTest extends PHPUnit_Framework_TestCase
 
         // Run statements
         foreach ($statements as $stmt) {
-            $this->db->execute($stmt);
+            $db->execute($stmt);
         }
     }
 

@@ -24,12 +24,22 @@
     padding: 2px 4px;
 }
 
-#quickAddInfoPanel textarea {
+/* Redbox styles. */
+#RB_window {
+    top: 50px !important;
+}
+.quickAddInfoPanel {
+    width: 30em;
+    padding: 1em;
+    border: 1px solid #ccc;
+    background: #ffc;
+}
+.quickAddInfoPanel textarea {
     width: 100%;
     height: 10em;
     margin-top: .5em;
 }
-#quickAddInfoPanel p {
+.quickAddInfoPanel p {
     margin-top: .5em;
     margin-bottom: .5em;
 }
@@ -125,7 +135,7 @@ body.rightPanel ul {
 
 #pageControls {
     position: absolute;
-    top: 52px;
+    top: -8px;
     right: 0;
     background: #eee;
     border: 1px solid #ccc;
@@ -196,6 +206,11 @@ table#tasklist-list th.sortdown {
     padding: 2px;
     font-size: 90%;
     word-wrap: break-word;
+}
+
+#dueimg, #startimg {
+    cursor: pointer;
+    padding-left: 3px;
 }
 
 @media print {

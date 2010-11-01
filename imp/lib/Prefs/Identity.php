@@ -11,50 +11,44 @@
  *
  * @author   Jan Schneider <jan@horde.org>
  * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
  * @package  IMP
  */
-class Imp_Prefs_Identity extends Horde_Prefs_Identity
+class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
 {
     /**
-     * Cached alias list.
+     * Cached data.
      *
      * @var array
      */
-    protected $_aliases = array();
-
-    /**
-     * Cached from address list.
-     *
-     * @var array
-     */
-    protected $_fromList = array();
-
-    /**
-     * Cached names list.
-     *
-     * @var array
-     */
-    protected $_names = array();
-
-    /**
-     * Cached signature list.
-     *
-     * @var array
-     */
-    protected $_signatures = array();
+    protected $_cached = array(
+        'aliases' => array(),
+        'fromList' => array(),
+        'froms' => array(),
+        'names' => array(),
+        // 'own_addresses'
+        'signatures' => array()
+        // 'tie_addresses'
+    );
 
     /**
      * Reads all the user's identities from the prefs object or builds
      * a new identity from the standard values given in prefs.php.
+     *
+     * @see __construct()
      */
-    public function __construct()
+    public function __construct($params)
     {
-        parent::__construct();
-        $this->_properties = array_merge(
-            $this->_properties,
-            array('replyto_addr', 'alias_addr', 'tieto_addr', 'bcc_addr',
-                  'signature', 'sig_first', 'sig_dashes', 'save_sent_mail',
-                  'sent_mail_folder')
+        parent::__construct($params);
+
+        $this->_prefnames['properties'] = array_merge(
+            $this->_prefnames['properties'],
+            array(
+                'replyto_addr', 'alias_addr', 'tieto_addr', 'bcc_addr',
+                'signature', 'signature_html', 'sig_first', 'sig_dashes',
+                'save_sent_mail', 'sent_mail_folder'
+            )
         );
     }
 
@@ -63,15 +57,11 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
      *
      * @param integer $identity  The identity to verify.
      *
-     * @return boolean|object  True if the properties are valid or a PEAR_Error
-     *                         with an error description otherwise.
+     * @throws Horde_Exception
      */
     public function verify($identity = null)
     {
-        $result = parent::verify($identity);
-        if ($result instanceof PEAR_Error) {
-            return $result;
-        }
+        parent::verify($identity);
 
         if (!isset($identity)) {
             $identity = $this->_default;
@@ -83,14 +73,9 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
         $vars = new Horde_Variables();
         $var = new Horde_Form_Variable('', 'replyto_addr', $email, false);
 
-        /* Verify From address. */
-        if (!$email->isValid($var, $vars, $this->getValue('from_addr', $identity), $error_message)) {
-            return PEAR::raiseError($error_message);
-        }
-
         /* Verify Reply-to address. */
         if (!$email->isValid($var, $vars, $this->getValue('replyto_addr', $identity), $error_message)) {
-            return PEAR::raiseError($error_message);
+            throw new Horde_Exception($error_message);
         }
 
         /* Clean up Alias, Tie-to, and BCC addresses. */
@@ -105,14 +90,12 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
             /* Validate addresses */
             foreach ($data as $address) {
                 if (!$email->isValid($var, $vars, $address, $error_message)) {
-                    return PEAR::raiseError($error_message);
+                    throw new Horde_Exception($error_message);
                 }
             }
 
             $this->setValue($val, $data, $identity);
         }
-
-        return true;
     }
 
     /**
@@ -130,25 +113,23 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
      */
     public function getFromLine($ident = null, $from_address = '')
     {
-        static $froms = array();
-
-        if (isset($froms[$ident])) {
-            return $froms[$ident];
+        if (isset($this->_cached['froms'][$ident])) {
+            return $this->_cached['froms'][$ident];
         }
 
         if (!isset($ident)) {
             $address = $from_address;
         }
 
-        if (empty($address) || $this->_prefs->isLocked('from_addr')) {
+        if (empty($address) || $this->_prefs->isLocked($this->_prefnames['from_addr'])) {
             $address = $this->getFromAddress($ident);
             $name = $this->getFullname($ident);
         }
 
         try {
-            $ob = Horde_Mime_Address::parseAddressList($address, array('defserver' => $_SESSION['imp']['maildomain']));
+            $ob = Horde_Mime_Address::parseAddressList($address, array('defserver' => $GLOBALS['session']['imp:maildomain']));
         } catch (Horde_Mime_Exception $e) {
-            throw new Horde_Exception (_("Your From address is not a valid email address. This can be fixed in your Personal Information options page."));
+            throw new Horde_Exception (_("Your From address is not a valid email address. This can be fixed in your Personal Information preferences page."));
         }
 
         if (empty($name)) {
@@ -161,7 +142,8 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
 
         $from = Horde_Mime_Address::writeAddress($ob[0]['mailbox'], $ob[0]['host'], $name);
 
-        $froms[$ident] = $from;
+        $this->_cached['froms'][$ident] = $from;
+
         return $from;
     }
 
@@ -186,7 +168,7 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
      */
     public function getSelectList()
     {
-        $ids = $this->getAll('id');
+        $ids = $this->getAll($this->_prefnames['id']);
         foreach ($ids as $key => $id) {
             $list[$key] = $this->getFromAddress($key) . ' (' . $id . ')';
         }
@@ -203,14 +185,8 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
      */
     public function hasAddress($address)
     {
-        static $list;
-
-        $address = Horde_String::lower($address);
-        if (!isset($list)) {
-            $list = $this->getAllFromAddresses(true);
-        }
-
-        return isset($list[$address]);
+        $list = $this->getAllFromAddresses(true);
+        return isset($list[Horde_String::lower($address)]);
     }
 
     /**
@@ -224,22 +200,20 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
      */
     public function getFromAddress($ident = null)
     {
-        if (!empty($this->_fromList[$ident])) {
-            return $this->_fromList[$ident];
+        if (!isset($this->_cached['fromList'][$ident])) {
+            $val = $this->getValue($this->_prefnames['from_addr'], $ident);
+            if (empty($val)) {
+                $val = $GLOBALS['registry']->getAuth('bare');
+            }
+
+            if (!strstr($val, '@')) {
+                $val .= '@' . $GLOBALS['session']['imp:maildomain'];
+            }
+
+            $this->_cached['fromList'][$ident] = $val;
         }
 
-        $val = $this->getValue('from_addr', $ident);
-        if (empty($val)) {
-            $val = Horde_Auth::getBareAuth();
-        }
-
-        if (!strstr($val, '@')) {
-            $val .= '@' . $_SESSION['imp']['maildomain'];
-        }
-
-        $this->_fromList[$ident] = $val;
-
-        return $val;
+        return $this->_cached['fromList'][$ident];
     }
 
     /**
@@ -251,12 +225,14 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
      */
     public function getAliasAddress($ident)
     {
-        if (empty($this->_aliases[$ident])) {
-            $this->_aliases[$ident] = @array_merge($this->getValue('alias_addr', $ident),
-                                                   array($this->getValue('replyto_addr', $ident)));
+        if (!isset($this->_cached['aliases'][$ident])) {
+            $this->_cached['aliases'][$ident] = @array_merge(
+                $this->getValue('alias_addr', $ident),
+                array($this->getValue('replyto_addr', $ident))
+            );
         }
 
-        return $this->_aliases[$ident];
+        return $this->_cached['aliases'][$ident];
     }
 
     /**
@@ -314,6 +290,21 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
     }
 
     /**
+     * Returns a list of all e-mail addresses from all identities, including
+     * both from addresses and tie addreses.
+     *
+     * @return array  A list of e-mail addresses.
+     */
+    public function getAllIdentityAddresses()
+    {
+        /* Combine the keys (which contain the e-mail addresses). */
+        return array_merge(
+            array_keys($this->getAllFromAddresses(true)),
+            array_keys($this->getAllTieAddresses())
+        );
+    }
+
+    /**
      * Returns the list of identities with the default identity positioned
      * last.
      *
@@ -356,22 +347,20 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
     /**
      * Returns the identity's id that matches the passed addresses.
      *
-     * @param mixed $addresses      Either an array or a single string or a
-     *                              comma-separated list of email addresses.
-     * @param boolean $search_ties  Search for a matching identity in tied
-     *                              addresses too?
+     * @param mixed $addresses     Either an array or a single string or a
+     *                             comma-separated list of email addresses.
+     * @param boolean $search_own  Search for a matching identity in own
+     *                             addresses also?
      *
      * @return integer  The id of the first identity that from or alias
      *                  addresses match (one of) the passed addresses or
      *                  null if none matches.
      */
-    public function getMatchingIdentity($addresses, $search_ties = true)
+    public function getMatchingIdentity($addresses, $search_own = true)
     {
-        static $tie_addresses, $own_addresses;
-
-        if (!isset($tie_addresses)) {
-            $tie_addresses = $this->getAllTieAddresses();
-            $own_addresses = $this->getAllFromAddresses(true);
+        if (!isset($this->_cached['tie_addresses'])) {
+            $this->_cached['tie_addresses'] = $this->getAllTieAddresses();
+            $this->_cached['own_addresses'] = $this->getAllFromAddresses(true);
         }
 
         /* Normalize address list. */
@@ -391,6 +380,7 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
             if (empty($address['mailbox'])) {
                 continue;
             }
+
             $find_address = $address['mailbox'];
             if (!empty($address['host'])) {
                 $find_address .= '@' . $address['host'];
@@ -399,23 +389,20 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
 
             /* Search 'tieto' addresses first. */
             /* Check for this address explicitly. */
-            if ($search_ties && isset($tie_addresses[$find_address])) {
-                return $tie_addresses[$find_address];
+            if (isset($this->_cached['tie_addresses'][$find_address])) {
+                return $this->_cached['tie_addresses'][$find_address];
             }
 
             /* If we didn't find the address, check for the domain. */
-            if (!empty($address['host'])) {
-                $host = '@' . $address['host'];
-                if ($search_ties &&
-                    isset($tie_addresses[$host]) &&
-                    ($host != '@')) {
-                    return $tie_addresses[$host];
-                }
+            if (!empty($address['host']) &&
+                isset($this->_cached['tie_addresses']['@' . $address['host']])) {
+                return $this->_cached['tie_addresses']['@' . $address['host']];
             }
 
             /* Next, search all from addresses. */
-            if (isset($own_addresses[$find_address])) {
-                return $own_addresses[$find_address];
+            if ($search_own &&
+                isset($this->_cached['own_addresses'][$find_address])) {
+                return $this->_cached['own_addresses'][$find_address];
             }
         }
 
@@ -431,50 +418,77 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
      */
     public function getFullname($ident = null)
     {
-        if (isset($this->_names[$ident])) {
-            return $this->_names[$ident];
+        if (isset($this->_cached['names'][$ident])) {
+            return $this->_cached['names'][$ident];
         }
 
-        $this->_names[$ident] = $this->getValue('fullname', $ident);
+        $this->_cached['names'][$ident] = $this->getValue($this->_prefnames['fullname'], $ident);
 
-        return $this->_names[$ident];
+        return $this->_cached['names'][$ident];
     }
 
     /**
      * Returns the full signature based on the current settings for the
      * signature itself, the dashes and the position.
      *
+     * @param string $type    Either 'text' or 'html'.
      * @param integer $ident  The identity to retrieve the signature from.
      *
      * @return string  The full signature.
      * @throws Horde_Exception
      */
-    public function getSignature($ident = null)
+    public function getSignature($type = 'text', $ident = null)
     {
-        if (isset($this->_signatures[$ident])) {
-            return $this->_signatures[$ident];
+        $convert = false;
+        $key = $ident . '|' . $type;
+        $val = null;
+
+        if (isset($this->_cached['signatures'][$key])) {
+            return $this->_cached['signatures'][$key];
         }
 
-        $val = $this->getValue('signature', $ident);
-        if (!empty($val)) {
-            $sig_first = $this->getValue('sig_first', $ident);
-            $sig_dashes = $this->getValue('sig_dashes', $ident);
-            $val = str_replace("\r\n", "\n", $val);
-            if ($sig_dashes) {
-                $val = "-- \n$val";
+        if ($type == 'html') {
+            $val = $this->getValue('signature_html', $ident);
+            if (!strlen($val)) {
+                $convert = true;
+                $val = null;
             }
-            if (isset($sig_first) && $sig_first) {
-                $val = "\n" . $val . "\n\n\n";
-            } else {
-                $val = "\n" . $val;
+        }
+
+        if (is_null($val)) {
+            $val = $this->getValue('signature', $ident);
+
+            if (!empty($val) && ($type == 'text')) {
+                $sig_first = $this->getValue('sig_first', $ident);
+                $sig_dashes = $this->getValue('sig_dashes', $ident);
+
+                $val = str_replace("\r\n", "\n", $val);
+
+                if ($sig_dashes) {
+                    $val = "-- \n" . $val . "\n";
+                } else {
+                    $val = "\n" . $val;
+                }
+
+                if ($sig_first) {
+                    $val .= "\n\n\n";
+                }
             }
+        }
+
+        if ($val && ($type == 'html')) {
+            if ($convert) {
+                $val = IMP_Compose::text2html(trim($val));
+            }
+
+            $val = '<div class="impComposeSignature">' . $val . '</div>';
         }
 
         try {
-            $val = Horde::callHook('prefs_hook_signature', array($val), 'imp');
+            $val = Horde::callHook('signature', array($val), 'imp');
         } catch (Horde_Exception_HookNotSet $e) {}
 
-        $this->_signatures[$ident] = $val;
+        $this->_cached['signatures'][$key] = $val;
 
         return $val;
     }
@@ -482,33 +496,43 @@ class Imp_Prefs_Identity extends Horde_Prefs_Identity
     /**
      * Returns an array with the signatures from all identities
      *
+     * @param string $type  Either 'text' or 'html'.
+     *
      * @return array  The array with all the signatures.
      */
-    public function getAllSignatures()
+    public function getAllSignatures($type = 'text')
     {
-        static $list;
-
-        if (isset($list)) {
-            return $list;
-        }
-
         foreach ($this->_identities as $key => $identity) {
-            $list[$key] = $this->getSignature($key);
+            $list[$key] = $this->getSignature($type, $key);
         }
 
         return $list;
     }
 
     /**
-     * @see Horde_Prefs_Identity::getValue()
+     * Returns a property from one of the identities.
+     *
+     * @see getValue()
      */
     public function getValue($key, $identity = null)
     {
+        $val = parent::getValue($key, $identity);
+        return (($key == 'sent_mail_folder') && strlen($val))
+            ? IMP::folderPref($val, true)
+            : $val;
+    }
+
+    /**
+     * Sets a property with a specified value.
+     *
+     * @see setValue()
+     */
+    public function setValue($key, $val, $identity = null)
+    {
         if ($key == 'sent_mail_folder') {
-            $folder = parent::getValue('sent_mail_folder', $identity);
-            return strlen($folder) ? IMP::folderPref($folder, true) : '';
+            $val = IMP::folderPref($val, false);
         }
-        return parent::getValue($key, $identity);
+        return parent::setValue($key, $val, $identity);
     }
 
     /**

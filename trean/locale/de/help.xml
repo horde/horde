@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Horde: trean/locale/en_US/help.xml,v 1.1 2002/10/08 16:33:06 ericr Exp $ -->
+<help>
+
+<entry id="overview">
+  <title>Übersicht</title>
+  <heading>Einführung</heading>
+    <para>
+      Die Lesezeichen-Anwendung ermöglicht Ihnen, Ihre Browser-Lesezeichen
+      zentral und vom jedem Ort zugreifbar zu speichern, organisieren und
+      verwalten.
+    </para>
+    <para>
+      Auf die Lesezeichen, die Sie hier speichern, können sie von überall und
+      mit jedem Browser zugreifen. Dadurch haben Sie Zugriff auf dieselben
+      Lesezeichen von unterschiedlichen Browsern, Rechnern, Orten usw. Sie
+      können Browser aktualisieren, austauschen und ausprobieren, ohne sich
+      über den Verlust oder den Import Ihrer Lesezeichen Gedanken machen zu
+      müssen.
+    </para>
+</entry>
+
+</help>

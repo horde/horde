@@ -9,78 +9,57 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @package Ansel
  */
-
-class Ansel_GalleryMode_Normal {
-
+class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
+{
     /**
-     * @var Ansel_Gallery
-     */
-    var $_gallery;
-
-    var $_features = array('subgalleries', 'stacks', 'sort_images',
-                           'image_captions', 'faces', 'slideshow',
-                           'zipdownload', 'upload');
-
-    /**
-     * Constructor
+     * The array of supported features
      *
-     * @param Ansel_Gallery $gallery  The gallery to bind to.
-     *
-     * @return Ansel_Gallery_ModeNormal
+     * @var array
      */
-    function Ansel_GalleryMode_Normal($gallery)
-    {
-        $this->_gallery = $gallery;
-    }
-
-    function init()
-    {
-        // noop
-        return true;
-    }
-
-    function hasFeature($feature)
-    {
-        return in_array($feature, $this->_features);
-    }
+    protected $_features = array('subgalleries', 'stacks', 'sort_images',
+                                 'image_captions', 'faces', 'slideshow',
+                                 'zipdownload', 'upload');
 
     /**
      * Get the children of this gallery.
      *
-     * @param integer $perm  The permissions to limit to.
-     * @param integer $from  The child to start at.
-     * @param integer $to    The child to end with.
+     * @param integer $perm   The permissions to limit to.
+     * @param integer $from   The child to start at.
+     * @param integer $count  The number of children to return.
      *
-     * @return A mixed array of Ansel_Gallery and Ansel_Image objects that are
-     *         children of this gallery.
+     * @return array  A mixed array of Ansel_Gallery and Ansel_Image objects
+     *                that are children of this gallery.
      */
-    function getGalleryChildren($perm = Horde_Perms::SHOW, $from = 0, $to = 0)
+    public function getGalleryChildren($perm = Horde_Perms::SHOW, $from = 0, $to = 0)
     {
         $galleries = array();
         $num_galleries = 0;
-
         if ($this->hasSubGalleries()) {
-
+            $storage = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create();
             /* Get the number of images and galleries */
             $numimages = $this->countImages();
-            $num_galleries = $GLOBALS['ansel_storage']->countGalleries(
-                Horde_Auth::getAuth(), Horde_Perms::SHOW, null, $this->_gallery, false);
+            $num_galleries = $storage->countGalleries($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW, null, $this->_gallery, false);
 
             /* Now fetch the subgalleries, but only if we need to */
             if ($num_galleries > $from) {
-                $galleries = $GLOBALS['ansel_storage']->listGalleries(
-                    Horde_Perms::SHOW, null, $this->_gallery, false, $from, $to);
+                $galleries = $storage->listGalleries(
+                        array('parent' => $this->_gallery,
+                              'allLevels' => false,
+                              'from' => $from,
+                              'count' => $to));
             }
         }
 
         /* Now grab any images if we still have room */
         if (($to - count($galleries) > 0) || ($from == 0 && $to == 0) &&
              $this->_gallery->data['attribute_images']) {
-            $images = $this->getImages(max(0, $from - $num_galleries), $to - count($galleries));
-            if (is_a($images, 'PEAR_Error')) {
-                Horde::logMessage($images->message, __FILE__, __LINE__,
-                                  PEAR_LOG_ERR);
+
+            try {
+                $images = $this->getImages(max(0, $from - $num_galleries), $to - count($galleries));
+            } catch (Ansel_Exception $e) {
+                Horde::logMessage($e->getMessage(), 'ERR');
                 $images = array();
             }
         } else {
@@ -96,7 +75,7 @@ class Ansel_GalleryMode_Normal {
      * @return  An array of 'title' and 'navdata' hashes with the [0] element
      *          being the deepest part.
      */
-    function getGalleryCrumbData()
+    public function getGalleryCrumbData()
     {
         $trail = array();
         $text = htmlspecialchars($this->_gallery->get('name'));
@@ -116,16 +95,6 @@ class Ansel_GalleryMode_Normal {
         return $trail;
     }
 
-    function setDate($date = array())
-    {
-        //noop
-    }
-
-    function getDate()
-    {
-        return array();
-    }
-
     /**
      * Return the count this gallery's children
      *
@@ -134,23 +103,27 @@ class Ansel_GalleryMode_Normal {
      *
      * @return integer The count of this gallery's children.
      */
-    function countGalleryChildren($perm = Horde_Perms::SHOW, $galleries_only = false)
+    public function countGalleryChildren($perm = Horde_Perms::SHOW, $galleries_only = false)
     {
         if (!$galleries_only && !$this->hasSubGalleries()) {
             return $this->_gallery->data['attribute_images'];
         }
 
-        $gCnt = $GLOBALS['ansel_storage']->countGalleries(Horde_Auth::getAuth(),
-                                                          $perm, null,
-                                                          $this->_gallery, false);
+        $gCnt = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')
+                ->create()
+                ->countGalleries($GLOBALS['registry']->getAuth(),
+                                 $perm, null,
+                                 $this->_gallery, false);
 
         if (!$galleries_only) {
             $iCnt = $this->countImages(false);
         } else {
             $iCnt = 0;
         }
+
         return $gCnt + $iCnt;
     }
+
     /**
      * Lists a slice of the image ids in this gallery.
      *
@@ -159,22 +132,32 @@ class Ansel_GalleryMode_Normal {
      *
      * @return mixed  An array of image_ids | PEAR_Error
      */
-    function listImages($from = 0, $count = 0)
+    public function listImages($from = 0, $count = 0)
     {
-        return $GLOBALS['ansel_storage']->listImages($this->_gallery->id, $from,
-                                                     $count);
+        return $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')
+            ->create()
+            ->listImages($this->_gallery->id, $from, $count);
     }
 
-
-    function moveImagesTo($images, $gallery)
+    /**
+     * Move images from this gallery to another.
+     *
+     * @param array $images           The image ids to move.
+     * @param Ansel_Gallery $gallery  The gallery to move images into.
+     *
+     * @return boolean
+     * @throws Ansel_Exception
+     * @throws Horde_Exception_PermissionDenied
+     */
+    public function moveImagesTo($images, $gallery)
     {
-        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
-            return PEAR::raiseError(sprintf(_("Access denied moving photos to \"%s\"."), $newGallery->get('name')));
-        } elseif (!$this->_gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE)) {
-            return PEAR::raiseError(sprintf(_("Access denied removing photos from \"%s\"."), $gallery->get('name')));
+        if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
+          throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied moving photos to \"%s\"."), $newGallery->get('name')));
+        } elseif (!$this->_gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
+            throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied removing photos from \"%s\"."), $gallery->get('name')));
         }
 
-        /* Sanitize image ids, and see if we're removing our default image. */
+        /* Sanitize image ids, and see if we're removing our key image. */
         $ids = array();
         foreach ($images as $imageId) {
             $ids[] = (int)$imageId;
@@ -183,40 +166,41 @@ class Ansel_GalleryMode_Normal {
             }
         }
 
-        $result = $this->_gallery->_shareOb->_write_db->exec('UPDATE ansel_images SET gallery_id = ' . $gallery->id . ' WHERE image_id IN (' . implode(',', $ids) . ')');
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
+        $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->setImagesGallery($ids, $gallery->id);
         $this->_gallery->updateImageCount(count($ids), false);
-        $this->_gallery->updateImageCount(count($ids), true, $gallery->id);
+        $gallery->updateImageCount(count($ids), true);
 
         /* Expire the cache since we have no reason to save() the gallery */
         if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-            $GLOBALS['cache']->expire('Ansel_Gallery' . $gallery->id);
-            $GLOBALS['cache']->expire('Ansel_Gallery' . $this->_gallery->id);
+            $GLOBALS['injector']->getInstance('Horde_Cache')->expire('Ansel_Gallery' . $gallery->id);
+            $GLOBALS['injector']->getInstance('Horde_Cache')->expire('Ansel_Gallery' . $this->_gallery->id);
         }
 
-        return true;
+        return count($ids);
     }
 
-    function removeImage($image, $isStack)
+    /**
+     * Remove an image from Ansel.
+     *
+     * @param integer | Ansel_Image $image  The image id or object
+     * @param boolean $isStack              This represents a stack image
+     *
+     * @return boolean
+     * @throws Horde_Exception_NotFound
+     */
+    public function removeImage($image, $isStack)
     {
         /* Make sure $image is an Ansel_Image; if not, try loading it. */
-        if (!is_a($image, 'Ansel_Image')) {
-            $img = &$this->_gallery->getImage($image);
-            if (is_a($img, 'PEAR_Error')) {
-                return $img;
-            }
-            $image = $img;
+        if (!($image instanceof Ansel_Image)) {
+            $image = $this->_gallery->getImage($image);
         } else {
             /* Make sure the image is in this gallery. */
             if ($image->gallery != $this->_gallery->id) {
-                return false;
+                throw new Horde_Exception_NotFound(_("Image not found in gallery."));
             }
         }
 
-        /* Change gallery info. */
+        /* Was this image the gallery's key image? */
         if ($this->_gallery->data['attribute_default'] == $image->id) {
             $this->_gallery->data['attribute_default'] = null;
             $this->_gallery->data['attribute_default_type'] = 'auto';
@@ -226,15 +210,12 @@ class Ansel_GalleryMode_Normal {
         $image->deleteCache();
 
         /* Delete original image from VFS. */
-        $GLOBALS['ansel_vfs']->deleteFile($image->getVFSPath('full'),
-                                          $image->getVFSName('full'));
+        try {
+            $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->deleteFile($image->getVFSPath('full'), $image->getVFSName('full'));
+        } catch (VFS_Exception $e) {}
 
-        /* Delete from SQL. */
-        $this->_gallery->_shareOb->_write_db->exec('DELETE FROM ansel_images WHERE image_id = ' . (int)$image->id);
-
-        /* Remove any attributes */
-        $this->_gallery->_shareOb->_write_db->exec('DELETE FROM ansel_image_attributes WHERE image_id = ' . (int)$image->id);
-
+        /* Delete from storage */
+        $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->removeImage($image->id);
         if (!$isStack) {
             $this->_gallery->updateImageCount(1, false);
         }
@@ -256,33 +237,36 @@ class Ansel_GalleryMode_Normal {
         }
 
         /* Clear any comments */
-        if (($GLOBALS['conf']['comments']['allow'] == 'all' || ($GLOBALS['conf']['comments']['allow'] == 'authenticated' && Horde_Auth::getAuth())) &&
+        if (($GLOBALS['conf']['comments']['allow'] == 'all' || ($GLOBALS['conf']['comments']['allow'] == 'authenticated' && $GLOBALS['registry']->getAuth())) &&
             $GLOBALS['registry']->hasMethod('forums/deleteForum')) {
 
             $result = $GLOBALS['registry']->call('forums/deleteForum',
                                                  array('ansel', $image->id));
 
-            if (is_a($result, 'PEAR_Error')) {
-                Horde::logMessage($result, __LINE__, __FILE__, PEAR_LOG_ERR);
+            if ($result instanceof PEAR_Error) {
+                Horde::logMessage($result, 'ERR');
                 return false;
             }
         }
 
         return true;
     }
+
     /**
      * Gets a slice of the images in this gallery.
      *
      * @param integer $from  The image to start fetching.
      * @param integer $count The numer of images to return.
      *
-     * @param mixed An array of Ansel_Image objects
+     * @param array An array of Ansel_Image objects
      */
-    function getImages($from = 0, $count = 0)
+    public function getImages($from = 0, $count = 0)
     {
-        $images = $GLOBALS['ansel_storage']->getImages(array('gallery_id' => $this->_gallery->id,
-                                                             'count' => $count,
-                                                             'from' => $from));
+        $images = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')
+            ->create()
+            ->getImages(array('gallery_id' => $this->_gallery->id,
+                              'count' => $count,
+                              'from' => $from));
 
         return array_values($images);
     }
@@ -292,7 +276,7 @@ class Ansel_GalleryMode_Normal {
      *
      * @return boolean
      */
-    function hasSubGalleries()
+    public function hasSubGalleries()
     {
         return $this->_gallery->get('has_subgalleries') == 1;
     }
@@ -306,14 +290,14 @@ class Ansel_GalleryMode_Normal {
      *
      * @return integer number of images in this gallery
      */
-    function countImages($subgalleries = false)
+    public function countImages($subgalleries = false)
     {
         if ($subgalleries && $this->hasSubGalleries()) {
             $count = $this->countImages(false);
-            $galleries = $GLOBALS['ansel_storage']->listGalleries(Horde_Perms::SHOW,
-                                                                  false,
-                                                                  $this->_gallery,
-                                                                  true);
+            $galleries = $GLOBALS['injector']
+                ->getInstance('Ansel_Injector_Factory_Storage')
+                ->create()
+                ->listGalleries(array('parent' => $this->_gallery));
 
             foreach ($galleries as $galleryId => $gallery) {
                 $count += $gallery->countImages();
@@ -324,6 +308,4 @@ class Ansel_GalleryMode_Normal {
 
         return $this->_gallery->data['attribute_images'];
     }
-
-
 }

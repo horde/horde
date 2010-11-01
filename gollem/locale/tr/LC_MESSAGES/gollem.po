@@ -1,0 +1,681 @@
+# Turkish translations for Gollem package
+# Dosya Yöneticisi paketi için Türkçe çeviriler.
+# Copyright 2008-2010 The Horde Project
+# This file is distributed under the same license as the Gollem package.
+# horde-tr at metu.edu.tr, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gollem H3 (1.1-cvs)\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2008-04-15 12:57+0300\n"
+"PO-Revision-Date: 2008-04-15 12:57+0300\n"
+"Last-Translator: Emre Sezginer\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: manager.php:54
+#, php-format
+msgid "\"%s\" renamed to \"%s\""
+msgstr "\"%s\", \"%s\" olarak yeniden isimlendirilmiştir"
+
+#: quota.php:56
+#, php-format
+msgid "%.2fMB / %.2fMB  (%.2f%%)"
+msgstr "%.2fMB / %.2fMB  (%.2f%%)"
+
+#: manager.php:273
+#, php-format
+msgid "%d items"
+msgstr "%d madde"
+
+#: manager.php:435
+#, php-format
+msgid "%s Folders and %s Files (%s Kb)"
+msgstr "%s Dizin ve %s Dosya (%s KB)"
+
+#: manager.php:433
+#, php-format
+msgid "%s Folders and 1 File (%s Kb)"
+msgstr "%s Dizin ve 1 Dosya (%s KB)"
+
+#: login.php:144
+#, php-format
+msgid "%s Login"
+msgstr "%s Giriş"
+
+#: edit.php:35
+#, php-format
+msgid "%s successfully saved."
+msgstr "%s başarılı olarak kaydedildi."
+
+#: manager.php:169
+#, php-format
+msgid "%s was successfully pasted."
+msgstr "%s başarılı olarak yapıştırıldı."
+
+#: manager.php:430
+#, php-format
+msgid "1 Folder and %s Files (%s Kb)"
+msgstr "1 Dizin ve %s Dosya (%s KB)"
+
+#: manager.php:428
+#, php-format
+msgid "1 Folder and 1 File (%s Kb)"
+msgstr "1 Dizin und 1 Dosya (%s KB)"
+
+#: manager.php:273
+msgid "1 item"
+msgstr "1 madde"
+
+#: templates/javascript_defs.php:14
+msgid ""
+"A popup window could not be opened. Perhaps you have set your browser to "
+"block popup windows?"
+msgstr ""
+"Pop-up pencere açılamadı. Tarayıcınızın pop-up pencere "
+"açılmasınıengellemediğinden emin olunuz."
+
+#: edit.php:33 edit.php:43 view.php:35 view.php:42
+#, php-format
+msgid "Access denied to %s"
+msgstr "%s için erişim engellendi"
+
+#: lib/Gollem.php:109 lib/Gollem.php:383 lib/Gollem.php:445 lib/Gollem.php:466
+#: lib/Gollem.php:483
+#, php-format
+msgid "Access denied to folder \"%s\"."
+msgstr "\"%s\" dizinine erişim engellendi."
+
+#: templates/manager/manager.html:124
+msgid "Actions:"
+msgstr "Eylemler:"
+
+#: selectlist.php:99
+msgid "Add"
+msgstr "Ekle"
+
+#: templates/prefs/columnselect.inc:43
+msgid "Add column"
+msgstr "Kolon ekle"
+
+#: templates/manager/manager.html:11
+msgid "All"
+msgstr "Tümü"
+
+#: templates/javascript_defs.php:25
+msgid "Are you sure you wish to continue?"
+msgstr "Devam etmek istediğinize emin misiniz?"
+
+#: templates/javascript_defs.php:23
+msgid "Are you sure?"
+msgstr "Emin misiniz?"
+
+#: config/prefs.php.dist:69
+msgid "Ascending"
+msgstr "Artan"
+
+#: config/prefs.php.dist:93
+msgid "Ask"
+msgstr "Sor"
+
+#: templates/manager/manager.html:5
+msgid "Attributes"
+msgstr "Özellikler"
+
+#: templates/prefs/columnselect.html:20
+msgid "Available Columns:"
+msgstr "Kullanılabilir Kolonlar:"
+
+#: lib/api.php:483
+msgid "Backends"
+msgstr "Arka Araçlar"
+
+#: templates/clipboard/clipboard.html:11
+msgid "Below is the current contents of your clipboard."
+msgstr "Unten sehen Sie den aktuellen Inhalt der Zwischenablage."
+
+#: manager.php:268 selectlist.php:101 clipboard.php:38
+#: templates/edit/edit.inc:13
+msgid "Cancel"
+msgstr "İptal"
+
+#: manager.php:74
+#, php-format
+msgid "Cannot chmod %s: %s"
+msgstr "%s için izin %s yapılamadı."
+
+#: manager.php:143
+msgid "Cannot copy items onto clipboard."
+msgstr "Maddeler, panoya kopyalanamadı."
+
+#: manager.php:202
+#, php-format
+msgid "Cannot create home directory: %s"
+msgstr "Ev dizini %s yaratılamadı."
+
+#: manager.php:145
+msgid "Cannot cut items onto clipboard."
+msgstr "Maddeler kesilip, panoya aktarilamadı."
+
+#: manager.php:167
+#, php-format
+msgid "Cannot paste \"%s\" (file cleared from clipboard): %s"
+msgstr "\"%s\" yapıştırılamadı (dosya panodan kaldırıldı): %s"
+
+#: templates/manager/manager.html:70
+msgid "Change Folder"
+msgstr "Dizini Değiştir"
+
+#: templates/manager/manager.html:126
+msgid "Change Permissions"
+msgstr "İzinleri Değiştir"
+
+#: selectlist.php:109 lib/Gollem.php:816
+msgid "Change Server"
+msgstr "Sunucu Değiştir"
+
+#: lib/Gollem.php:773
+msgid "Change _Folder"
+msgstr "_Dizin Değiştir"
+
+#: config/prefs.php.dist:21
+msgid "Change file and folder handling settings."
+msgstr "Dosya ve dizin kullama ayarlarını değiştir."
+
+#: config/prefs.php.dist:14
+msgid "Change your file sorting options."
+msgstr "Dosya sıralama seçeneklerini değiştir."
+
+#: lib/Gollem.php:791
+msgid "Check Quota"
+msgstr "Kotayı Kontrol Et"
+
+#: manager.php:526
+msgid "Check _All/None"
+msgstr "_Hepsini/Hiçbirini Seç"
+
+#: manager.php:72
+msgid "Chmod done: "
+msgstr "İzin değişimi yapıldı:"
+
+#: templates/prefs/columnselect.html:12
+msgid "Choose the columns to display in the file manager."
+msgstr "Dosya yöneticisinde görüntülenecek kolonları seçiniz."
+
+#: clipboard.php:39
+msgid "Clear"
+msgstr "Temizle"
+
+#: clipboard.php:18 templates/clipboard/clipboard.html:7
+msgid "Clipboard"
+msgstr "Pano"
+
+#: quota.php:32
+msgid "Close"
+msgstr "Kapat"
+
+#: login.php:258
+#, php-format
+msgid "Connect to: %s"
+msgstr "%s sunucusuna bağlan"
+
+#: clipboard.php:42 templates/manager/manager.html:129
+msgid "Copy"
+msgstr "Kopyala"
+
+#: lib/Template.php:234
+#, php-format
+msgid "Could not save the compiled template file '%s'."
+msgstr "Derlenen geçici dosya, '%s' saklanamadı."
+
+#: templates/manager/manager.html:58
+msgid "Create Folder"
+msgstr "Dizin Yarat"
+
+#: permissions.php:47
+#, php-format
+msgid ""
+"Created empty permissions for \"%s\". You must explicitly grant access to "
+"this backend now."
+msgstr ""
+"\"%s\" için boş izin yaratıldı. Şimdi bu arka araç için açıkca izin "
+"vermelisiniz."
+
+#: templates/clipboard/clipboard.html:17
+msgid "Current directory:"
+msgstr "Geçerli olan dizin:"
+
+#: clipboard.php:41 templates/manager/manager.html:130
+msgid "Cut"
+msgstr "Kes"
+
+#: config/prefs.php.dist:59
+msgid "Default sorting criteria:"
+msgstr "Varsayılan sıralama ölçütü:"
+
+#: config/prefs.php.dist:72
+msgid "Default sorting direction:"
+msgstr "Varsayılan sıralama yönü:"
+
+#: templates/manager/manager.html:133
+msgid "Delete"
+msgstr "Sil"
+
+#: config/prefs.php.dist:95
+msgid "Delete folders recursively?"
+msgstr "Dizinler özyineli olarak silinsin mi?"
+
+#: config/prefs.php.dist:70
+msgid "Descending"
+msgstr "Azalan"
+
+#: selectlist.php:100
+msgid "Done"
+msgstr "Tamam"
+
+#: manager.php:228
+msgid "Download"
+msgstr "İndir"
+
+#: manager.php:402
+#, php-format
+msgid "Download %s"
+msgstr "%s indir"
+
+#: templates/quota/quota.html:7
+msgid "ERROR:"
+msgstr "HATA:"
+
+#: manager.php:227
+msgid "Edit"
+msgstr "Düzenle"
+
+#: templates/edit/edit.inc:8
+#, php-format
+msgid "Edit %s"
+msgstr "Düzenle %s"
+
+#: config/credentials.php.dist:28
+msgid "Email"
+msgstr "Eposta"
+
+#: templates/manager/manager.html:26
+msgid "Execute"
+msgstr "Çalıştır"
+
+#: templates/javascript_defs.php:27 templates/manager/manager.html:203
+msgid "File"
+msgstr "Dosya"
+
+#: config/prefs.php.dist:13
+msgid "File Display"
+msgstr "Dosya Görüntüle"
+
+#: config/prefs.php.dist:56
+msgid "File Modification Time"
+msgstr "Dosya Değişim Saati"
+
+#: config/prefs.php.dist:55
+msgid "File Name"
+msgstr "Dosya Adı"
+
+#: config/prefs.php.dist:57
+msgid "File Size"
+msgstr "Dosya Boyutu"
+
+#: config/prefs.php.dist:54
+msgid "File Type"
+msgstr "Dosya Tipi"
+
+#: manager.php:89
+msgid "File deleted: "
+msgstr "Dosya silindi: "
+
+#: manager.php:111
+#, php-format
+msgid "File received: %s"
+msgstr "Dosya alındı: %s"
+
+#: lib/api.php:223
+msgid "Files must be written inside a VFS backend."
+msgstr ""
+"Dosyalar, bir VFS (sanal dosya sistemi) arka aracı içerisine yazılmalıdır."
+
+#: manager.php:82
+msgid "Folder removed: "
+msgstr "Dizin silindi: "
+
+#: lib/api.php:286 lib/api.php:292 lib/api.php:352
+msgid "Folders must be created inside a VFS backend."
+msgstr ""
+"Dizinler, bir VFS (sanal dosya sistemi) arka aracı içerisine yazılmalıdır."
+
+#: templates/manager/manager.html:72
+msgid "Go to:"
+msgstr "Git:"
+
+#: permissions.php:21
+msgid "Gollem Backend Permissions Administration"
+msgstr "Gollem Arka Araç İzin Yönetimi"
+
+#: manager.php:506 templates/manager/manager.html:10
+msgid "Group"
+msgstr "Grup"
+
+#: manager.php:58
+msgid "Incorrect number of items."
+msgstr "Yanlış sayıda madde."
+
+#: lib/api.php:117 lib/api.php:235 lib/api.php:299 lib/api.php:376
+#: lib/api.php:441
+#, php-format
+msgid "Invalid backend requested: %s"
+msgstr "Geçersiz arka araç istemi: %s"
+
+#: manager.php:136
+#, php-format
+msgid "Item copied to clipboard: %s"
+msgstr "Madde, panoya kopyalandı: %s"
+
+#: manager.php:138
+#, php-format
+msgid "Item cut to clipboard: %s"
+msgstr "Madde, kesildi ve panoya yerleştirildi: %s"
+
+#: templates/login/login.html:68
+msgid "Language"
+msgstr "Dil"
+
+#: config/prefs.php.dist:81
+msgid "List folders first?"
+msgstr "Dizinler önce listelensin mi?"
+
+#: login.php:307
+msgid "Login"
+msgstr "Giriş"
+
+#: lib/Block/tree_menu.php:3
+msgid "Menu List"
+msgstr "Menü Listesi"
+
+#: manager.php:476
+msgid "Modified"
+msgstr "Değiştirildi"
+
+#: templates/prefs/columnselect.inc:45
+msgid "Move left"
+msgstr "Sola taşı"
+
+#: templates/prefs/columnselect.inc:46
+msgid "Move right"
+msgstr "Sağa taşı"
+
+#: manager.php:454
+msgid "Name"
+msgstr "Ad"
+
+#: templates/manager/manager.html:46 templates/manager/manager.html:60
+msgid "Name:"
+msgstr "Ad:"
+
+#: manager.php:37
+msgid "New folder created: "
+msgstr "Yeni dizin yaratıldı: "
+
+#: config/prefs.php.dist:91
+msgid "No"
+msgstr "Hayır"
+
+#: templates/quota/quota.html:12
+msgid "No quota found."
+msgstr "Kota bulunamadı."
+
+#: manager.php:269
+msgid "OK"
+msgstr "Tamam"
+
+#: manager.php:499 templates/manager/manager.html:9
+msgid "Owner"
+msgstr "Sahip"
+
+#: config/credentials.php.dist:23
+msgid "Password"
+msgstr "Şifre"
+
+#: clipboard.php:40
+msgid "Paste"
+msgstr "Yapıştır"
+
+#: manager.php:492
+msgid "Permission"
+msgstr "İzin"
+
+#: selectlist.php:64
+#, php-format
+msgid "Permission denied to %s: %s"
+msgstr "%s için izin yok: %s"
+
+#: manager.php:210
+#, php-format
+msgid "Permission denied to folder \"%s\": %s"
+msgstr "\"%s\" dizini için izin yok: %s"
+
+#: lib/api.php:128 lib/api.php:246 lib/api.php:310 lib/api.php:387
+#: lib/api.php:452
+msgid "Permission denied to this backend."
+msgstr "Bu arka araç için izin yok."
+
+#: templates/javascript_defs.php:18
+msgid "Please provide your password."
+msgstr "Lütfen şifrenizi giriniz."
+
+#: templates/javascript_defs.php:17
+msgid "Please provide your username."
+msgstr "Lütfen kullanıcı adınızı giriniz."
+
+#: templates/prefs/columnselect.html:5
+msgid "Please select a backend:"
+msgstr "Lütfen bir arka araç seçiniz"
+
+#: templates/javascript_defs.php:21
+msgid "Please select an item before this action."
+msgstr "Lütfen bu eylem için bir madde seçiniz."
+
+#: templates/javascript_defs.php:26
+msgid "Please specify at least one file to upload."
+msgstr "Lütfen yüklemek için en az bir dosya belirtiniz."
+
+#: quota.php:19 templates/quota/quota.html:2
+msgid "Quota Display"
+msgstr "Kota Görüntüle"
+
+#: templates/manager/manager.html:14
+msgid "Read"
+msgstr "Okuma"
+
+#: manager.php:275
+msgid "Refresh"
+msgstr "Tazale"
+
+#: templates/prefs/columnselect.inc:44
+msgid "Remove column"
+msgstr "Kolonu kaldır"
+
+#: templates/manager/manager.html:44 templates/manager/manager.html:136
+msgid "Rename"
+msgstr "İsim değiştir"
+
+#: lib/api.php:370
+msgid "Renaming across backends is not supported."
+msgstr "Arka araçlar arası isim değişimi desteklenmemektedir."
+
+#: lib/api.php:358 lib/api.php:366
+msgid "Renaming of backends is not allowed."
+msgstr "Arka araçların isimleri değiştirilemez."
+
+#: templates/edit/edit.inc:12
+msgid "Reset"
+msgstr "Sıfırla"
+
+#: lib/Gollem.php:730 lib/Gollem.php:735
+msgid "Root"
+msgstr "Kök"
+
+#: manager.php:267 templates/edit/edit.inc:11
+msgid "Save"
+msgstr "Kaydet"
+
+#: templates/prefs/columnselect.html:30
+msgid "Selected Columns:"
+msgstr "Seçilen Kolonlar:"
+
+#: templates/login/login.html:32
+msgid "Server"
+msgstr "Sunucu"
+
+#: config/prefs.php.dist:20
+msgid "Settings"
+msgstr "Ayarlar"
+
+#: config/prefs.php.dist:30
+msgid "Show dotfiles?"
+msgstr "Nokta ile başlayan dosyalar görüntülensin mi?"
+
+#: manager.php:484
+msgid "Size"
+msgstr "Boyut"
+
+#: lib/api.php:429
+msgid "The application folder can not be deleted."
+msgstr "Uygulama dizini silinemez."
+
+#: templates/javascript_defs.php:24
+msgid "The following item(s) are folders:"
+msgstr "Bu maddeler dizindir:"
+
+#: templates/javascript_defs.php:22
+msgid "The following items will be permanently deleted:"
+msgstr "Bu maddeler kalıcı olarak silinecektir:"
+
+#: templates/javascript_defs.php:30
+msgid "The original opener window has been closed. Exiting."
+msgstr "Kaynak pencere kapatıldı. Çıkılıyor."
+
+#: login.php:151
+msgid "There are no backends available for the current user."
+msgstr "Bu kullanıcı için, hiç kullanılabilir arka araç yok."
+
+#: selectlist.php:199 templates/manager/manager.html:147
+msgid "There are no files in this folder."
+msgstr "Bu dizinde hiç dosya yok."
+
+#: templates/clipboard/clipboard.html:15
+msgid ""
+"To clear items from the clipboard, check the box next to the filename and "
+"click on &quot;Clear&quot;."
+msgstr ""
+"Panodan maddeleri silmek için, yanındaki kutucuğu işaretleyip, &quot;"
+"Temizle&quot; ye tıklayınız."
+
+#: templates/clipboard/clipboard.html:13
+msgid ""
+"To paste items from the clipboard to the current directory, check the box "
+"next to the filename and click on &quot;Paste&quot;."
+msgstr ""
+"Panodaki maddeleri geçerli dizine yapıştırmak için, yanındaki kutucuğu "
+"işaretleyip, &quot;Yapıştır&quot; a tıklayınız."
+
+#: manager.php:446
+msgid "Type"
+msgstr "Tip"
+
+#: lib/api.php:125 lib/api.php:243 lib/api.php:307 lib/api.php:384
+#: lib/api.php:449
+msgid "Unable to create Gollem session"
+msgstr "Gollem oturumu açılamadı"
+
+#: permissions.php:42
+#, php-format
+msgid "Unable to create backend permission: %s"
+msgstr "Arka araç izni yaratılamadı: %s"
+
+#: manager.php:87
+#, php-format
+msgid "Unable to delete file %s: %s"
+msgstr "\"%s\" dosyası silinemedi: %s"
+
+#: manager.php:80
+#, php-format
+msgid "Unable to delete folder %s: %s"
+msgstr "\"%s\" dizini silinemedi: %s"
+
+#: lib/Gollem.php:735 lib/Gollem.php:745
+#, php-format
+msgid "Up to %s"
+msgstr "%s e kadar"
+
+#: manager.php:288
+msgid "Upload File(s)"
+msgstr "Dosya Yükleme"
+
+#: config/prefs.php.dist:12 config/prefs.php.dist:19
+msgid "User Interface"
+msgstr "Kullanıcı Arayüzü"
+
+#: config/credentials.php.dist:18
+msgid "Username"
+msgstr "Kullanıcı Adı"
+
+#: manager.php:283
+msgid "View Clipboard"
+msgstr "Panoyu Göster"
+
+#: login.php:201
+#, php-format
+msgid "Welcome to %s"
+msgstr "%s Hoşgeldiniz"
+
+#: templates/manager/manager.html:20
+msgid "Write"
+msgstr "Yazma"
+
+#: config/prefs.php.dist:92
+msgid "Yes"
+msgstr "Evet"
+
+#: permissions.php:25
+msgid "You need at least one backend defined to set permissions."
+msgstr ""
+"İzinleri belirleyebilmek için en az bir arka araç tanımlanmış olmalıdır."
+
+#: lib/MIME/Viewer/images.php:35
+msgid "Your browser does not support inline display of this image type"
+msgstr "Tarayıcınızın, bu resim türünü içsel olarak görüntüleme desteği yok"
+
+#: lib/Gollem.php:814 lib/Gollem.php:817
+msgid "_Change Server"
+msgstr "_Sunucu Değiştir"
+
+#: lib/Gollem.php:770
+msgid "_Create Folder"
+msgstr "_Dizin Yarat"
+
+#: lib/Gollem.php:766
+msgid "_My Home"
+msgstr "_Evim"
+
+#: lib/Gollem.php:780
+msgid "_Permissions"
+msgstr "_Haklar"
+
+#: manager.php:229 selectlist.php:75
+msgid "folder"
+msgstr "dizin"
+
+#: manager.php:230 selectlist.php:76
+msgid "symlink"
+msgstr "symbolik bağ"

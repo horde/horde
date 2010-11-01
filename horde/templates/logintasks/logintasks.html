@@ -1,21 +1,8 @@
 <div id="menu"><h1><tag:header /></h1></div>
 
-<form method="post" action="<tag:logintasks_url />" name="logintasks_confirm">
+<form method="post" action="<tag:logintasks_url />" id="logintasks_confirm" name="logintasks_confirm">
 <input type="hidden" name="logintasks_page" value="1" />
 <tag:maint_postdata />
-
-<if:javascript>
-<script type="text/javascript">
-<!--
-function uncheckAll()
-{
-    for (var i = 0; i < document.logintasks_confirm.elements.length; i++) {
-        document.logintasks_confirm.elements[i].checked = false;
-    }
-}
-//-->
-</script>
-</if:javascript>
 
 <table width="100%" cellspacing="2">
  <tr>
@@ -41,9 +28,7 @@ function uncheckAll()
   <td>
 <if:confirm>
    <input name="ok" type="submit" class="button" value="<gettext>Perform Login Tasks</gettext>" />
-<if:javascript>
-   <input type="button" class="button" value="<gettext>Skip Login Tasks</gettext>" onclick="uncheckAll(); document.logintasks_confirm.submit();" />
-</if:javascript>
+   <input id="logintasks_skip" style="display:none" type="button" class="button" value="<gettext>Skip Login Tasks</gettext>" />
 </if:confirm>
 <if:agree>
    <input name="ok" type="submit" name="agree" class="button" value="<gettext>Yes, I Agree</gettext>" />

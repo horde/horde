@@ -37,7 +37,7 @@ class Nag_Driver_Kolab extends Nag_Driver
     public function __construct($tasklist, $params = array())
     {
         if (empty($tasklist)) {
-            $tasklist = Horde_Auth::getAuth();
+            $tasklist = $GLOBALS['registry']->getAuth();
         }
 
         $this->_tasklist = $tasklist;
@@ -312,7 +312,7 @@ class Nag_Driver_kolab_wrapper_old extends Nag_Driver_kolab_wrapper {
             'tasklist_id' => $this->_tasklist,
             'task_id' => $this->_kolab->getUID(),
             'uid' => $this->_kolab->getUID(),
-            'owner' => Horde_Auth::getAuth(),
+            'owner' => $GLOBALS['registry']->getAuth(),
             'name' => $this->_kolab->getStr('summary'),
             'desc' => $this->_kolab->getStr('body'),
             'category' => $this->_kolab->getStr('categories'),
@@ -436,7 +436,7 @@ class Nag_Driver_kolab_wrapper_old extends Nag_Driver_kolab_wrapper {
     {
         // Usually provided by the generic Driver class
         if ($uid !== null) {
-            $uid = $this->generateUID();
+            $uid = strval(new Horde_Support_Guid());
         }
 
         // Load the object into the kolab driver
@@ -695,7 +695,7 @@ class Nag_Driver_kolab_wrapper_new extends Nag_Driver_kolab_wrapper {
         if (count($split) == 2) {
             list($id, $tasklist) = $split;
         } else if (count($split) == 1) {
-            $tasklist = Horde_Auth::getAuth();
+            $tasklist = $GLOBALS['registry']->getAuth();
         }
         return array($id, $tasklist);
     }
@@ -711,7 +711,7 @@ class Nag_Driver_kolab_wrapper_new extends Nag_Driver_kolab_wrapper {
      */
     function _uniqueId($id)
     {
-        if ($this->_tasklist == Horde_Auth::getAuth()) {
+        if ($this->_tasklist == $GLOBALS['registry']->getAuth()) {
             return $id;
         }
         return $id . '@' . $this->_tasklist;
@@ -785,7 +785,7 @@ class Nag_Driver_kolab_wrapper_new extends Nag_Driver_kolab_wrapper {
                         $completed_date = null)
     {
         if (empty($uid)) {
-            $task_uid = $this->_store->generateUID();
+            $task_uid = strval(new Horde_Support_Guid());
             $old_uid = null;
         } else {
             list($task_uid, $tasklist) = $this->_splitId($uid);
@@ -1043,7 +1043,7 @@ class Nag_Driver_kolab_wrapper_new extends Nag_Driver_kolab_wrapper {
     function listAlarms($date)
     {
         $task_list = $this->_store->getObjects();
-        if (is_a($task_list, 'PEAR_Error')) {
+        if ($task_list instanceof PEAR_Error) {
             return $task_list;
         }
 

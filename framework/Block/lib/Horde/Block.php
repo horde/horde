@@ -97,7 +97,7 @@ class Horde_Block
         /* Switch application contexts, if necessary. Return an error
          * immediately if pushApp() fails. */
         try {
-            $app_pushed = $GLOBALS['registry']->pushApp($this->_app);
+            $app_pushed = $GLOBALS['registry']->pushApp($this->_app, array('check_perms' => true, 'logintasks' => false));
         } catch (Horde_Exception $e) {
             return $e->getMessage();
         }
@@ -127,13 +127,16 @@ class Horde_Block
         /* Switch application contexts, if necessary. Return an error
          * immediately if pushApp() fails. */
         try {
-            $app_pushed = $GLOBALS['registry']->pushApp($this->_app);
+            $app_pushed = $GLOBALS['registry']->pushApp($this->_app, array('check_perms' => true, 'logintasks' => false));
         } catch (Horde_Exception $e) {
             return $e->getMessage();
         }
 
-        $title = $this->_title();
-
+        try {
+            $title = $this->_title();
+        } catch (Horde_Block_Exception $e) {
+            $title = $e->getMessage();
+        }
         /* If we changed application context in the course of this
          * call, undo that change now. */
         if ($app_pushed) {
@@ -167,12 +170,16 @@ class Horde_Block
         /* Switch application contexts, if necessary. Return an error
          * immediately if pushApp() fails. */
         try {
-            $app_pushed = $GLOBALS['registry']->pushApp($this->_app);
+            $app_pushed = $GLOBALS['registry']->pushApp($this->_app, array('check_perms' => true, 'logintasks' => false));
         } catch (Horde_Exception $e) {
             return $e->getMessage();
         }
 
-        $content = $this->_content();
+        try {
+            $content = $this->_content();
+        } catch (Horde_Block_Exception $e) {
+            $content = $e->getMessage();
+        }
 
         /* If we changed application context in the course of this
          * call, undo that change now. */
@@ -181,28 +188,6 @@ class Horde_Block
         }
 
         return $content;
-    }
-
-    /**
-     * TODO
-     */
-    public function buildTree($tree, $indent = 0, $parent = null)
-    {
-        /* Switch application contexts, if necessary. Return an error
-         * immediately if pushApp() fails. */
-        try {
-            $app_pushed = $GLOBALS['registry']->pushApp($this->_app, array('logintasks' => false));
-        } catch (Horde_Exception $e) {
-            return $e->getMessage();
-        }
-
-        $this->_buildTree($tree, $indent, $parent);
-
-        /* If we changed application context in the course of this
-         * call, undo that change now. */
-        if ($app_pushed) {
-            $GLOBALS['registry']->popApp();
-        }
     }
 
     /**
@@ -233,13 +218,6 @@ class Horde_Block
     protected function _content()
     {
         return '';
-    }
-
-    /**
-     * Returns this block's content.
-     */
-    protected function _buildTree($tree, $indent = 0, $parent = null)
-    {
     }
 
 }

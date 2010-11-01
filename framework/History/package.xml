@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>History</name>
  <channel>pear.horde.org</channel>
  <summary>API for tracking the history of an object.</summary>
- <description>The Horde_History API provides a way to track changes on arbitrary pieces of data in Horde applications.
- </description>
+ <description>The Horde_History API provides a way to track changes on arbitrary pieces of data in Horde applications.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2009-06-10</date>
+ <date>2010-04-27</date>
+ <time>08:49:28</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -24,19 +21,21 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Initial Horde 4 package.
+ <notes>
+* Initial Horde 4 package.
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
-     <file name="History.php" role="php" />
-     <file name="HistoryObject.php" role="php" />
      <dir name="History">
+      <file name="Exception.php" role="php" />
       <file name="Factory.php" role="php" />
+      <file name="Log.php" role="php" />
       <file name="Mock.php" role="php" />
       <file name="Sql.php" role="php" />
-    </dir> <!-- /lib/Horde/History -->
+     </dir> <!-- /lib/Horde/History -->
+     <file name="History.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
    <dir name="test">
@@ -46,7 +45,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="InterfaceTest.php" role="test" />
      </dir> <!-- /test/Horde/History -->
     </dir> <!-- /test/Horde -->
-   </dir> <!-- /test/ -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -58,23 +57,47 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.5.4</min>
    </pearinstaller>
    <package>
-    <name>History</name>
+    <name>DB</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>Exception</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Injector</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/History.php" as="Horde/History.php" />
-   <install name="lib/Horde/HistoryObject.php" as="Horde/HistoryObject.php" />
-   <install name="lib/Horde/History/Factory.php" as="Horde/History/Factory.php" />
-   <install name="lib/Horde/History/Mock.php" as="Horde/History/Mock.php" />
-   <install name="lib/Horde/History/Sql.php" as="Horde/History/Sql.php" />
-   <install name="test/Horde/History/AllTests.php" as="Horde/History/AllTests.php" />
-   <install name="test/Horde/History/InterfaceTest.php" as="Horde/History/InterfaceTest.php" />
+   <install as="Horde/History.php" name="lib/Horde/History.php" />
+   <install as="Horde/History/Exception.php" name="lib/Horde/History/Exception.php" />
+   <install as="Horde/History/Factory.php" name="lib/Horde/History/Factory.php" />
+   <install as="Horde/History/Log.php" name="lib/Horde/History/Log.php" />
+   <install as="Horde/History/Mock.php" name="lib/Horde/History/Mock.php" />
+   <install as="Horde/History/Sql.php" name="lib/Horde/History/Sql.php" />
+   <install as="Horde/History/AllTests.php" name="test/Horde/History/AllTests.php" />
+   <install as="Horde/History/InterfaceTest.php" name="test/Horde/History/InterfaceTest.php" />
   </filelist>
  </phprelease>
  <changelog>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2004-01-25</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+Initial release as a PEAR package
+   </notes>
+  </release>
   <release>
    <date>2006-05-08</date>
    <time>21:54:00</time>
@@ -87,21 +110,23 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <api>alpha</api>
    </stability>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Converted to package.xml 2.0 for pear.horde.org
+   <notes>
+Converted to package.xml 2.0 for pear.horde.org
    </notes>
   </release>
   <release>
    <version>
-    <release>0.0.1</release>
-    <api>0.0.1</api>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
    </version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api>
+    <release>beta</release>
+    <api>beta</api>
    </stability>
-   <date>2004-01-25</date>
+   <date>2010-04-27</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Initial release as a PEAR package
+   <notes>
+* Initial Horde 4 package.
    </notes>
   </release>
  </changelog>

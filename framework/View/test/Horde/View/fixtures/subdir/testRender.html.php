@@ -1,1 +1,1 @@
-<div>subdir <?= $this->myVar ?></div>
+<div>subdir <?php echo $this->myVar ?></div>

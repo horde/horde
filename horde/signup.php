@@ -9,56 +9,58 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-new Horde_Application(array('authentication' => 'none'));
+Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
-$auth = Horde_Auth::singleton($conf['auth']['driver']);
+$auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 
 // Make sure signups are enabled before proceeding
 if ($conf['signup']['allow'] !== true ||
     !$auth->hasCapability('add')) {
     $notification->push(_("User Registration has been disabled for this site."), 'horde.error');
-    header('Location: ' . Horde_Auth::getLoginScreen());
-    exit;
+    Horde::getServiceLink('login')->redirect();
 }
 
-$signup = Horde_Auth_Signup::factory();
-if (is_a($signup, 'PEAR_Error')) {
-    Horde::logMessage($signup->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+try {
+    $signup = $injector->getInstance('Horde_Core_Auth_Signup');
+} catch (Horde_Exception $e) {
+    Horde::logMessage($e, 'ERR');
     $notification->push(_("User Registration is not properly configured for this site."), 'horde.error');
-    header('Location: ' . Horde_Auth::getLoginScreen());
-    exit;
+    Horde::getServiceLink('login')->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
-require_once 'Horde/Auth/Signup.php';
-$formsignup = new HordeSignupForm($vars);
+$formsignup = new Horde_Core_Auth_Signup_Form($vars);
 if ($formsignup->validate()) {
     $formsignup->getInfo($vars, $info);
-    $success_message = null;
+    $error = $success_message = null;
 
-    if (!$conf['signup']['approve']) {
-        /* User can sign up directly, no intervention necessary. */
-        $success = $signup->addSignup($info);
-        if (!is_a($success, 'PEAR_Error')) {
-            $success_message = sprintf(_("Added \"%s\" to the system. You can log in now."), $info['user_name']);
-        }
-    } elseif ($conf['signup']['approve']) {
-        /* Insert this user into a queue for admin approval. */
-        $success = $signup->queueSignup($info);
-        if (!is_a($success, 'PEAR_Error')) {
-            $success_message = sprintf(_("Submitted request to add \"%s\" to the system. You cannot log in until your request has been approved."), $info['user_name']);
-        }
-    }
-
-    if (is_a($info, 'PEAR_Error')) {
+    if ($info instanceof PEAR_Error) {
         $notification->push(sprintf(_("There was a problem adding \"%s\" to the system: %s"), $vars->get('user_name'), $info->getMessage()), 'horde.error');
-    } elseif (is_a($success, 'PEAR_Error')) {
-        $notification->push(sprintf(_("There was a problem adding \"%s\" to the system: %s"), $info['user_name'], $success->getMessage()), 'horde.error');
     } else {
-        $notification->push($success_message, 'horde.success');
-        $url = Horde_Auth::getLoginScreen('', $info['url']);
-        header('Location: ' . $url);
-        exit;
+        if (!$conf['signup']['approve']) {
+            /* User can sign up directly, no intervention necessary. */
+            try {
+                $signup->addSignup($info);
+                $success_message = sprintf(_("Added \"%s\" to the system. You can log in now."), $info['user_name']);
+            } catch (Horde_Exception $e) {
+                $error = $e;
+            }
+        } elseif ($conf['signup']['approve']) {
+            /* Insert this user into a queue for admin approval. */
+            try {
+                $signup->queueSignup($info);
+                $success_message = sprintf(_("Submitted request to add \"%s\" to the system. You cannot log in until your request has been approved."), $info['user_name']);
+            } catch (Horde_Exception $e) {
+                $error = $e;
+            }
+        }
+
+        if ($error) {
+            $notification->push(sprintf(_("There was a problem adding \"%s\" to the system: %s"), $info['user_name'], $e->getMessage()), 'horde.error');
+        } else {
+            $notification->push($success_message, 'horde.success');
+            Horde::getServiceLink('login')->add('url', $info['url'])->redirect();
+        }
     }
 }
 

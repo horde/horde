@@ -1,0 +1,33 @@
+<form name="appswitch" id="appswitch" action="<tag:action />">
+ <input type="hidden" name="ajaxui" value="<tag:ajaxui />" />
+ <tag:forminput />
+ <div class="header">
+  <span class="smallheader rightFloat">
+   <select id="app" name="app">
+    <option value=""><gettext>Edit Preferences for</gettext>:</option>
+    <option value="" disabled="disabled">- - - - - - - - -</option>
+<if:horde>
+    <option value="horde"><gettext>Global Preferences</gettext></option>
+    <option value="" disabled="disabled">- - - - - - - - -</option>
+</if:horde>
+<loop:apps>
+    <option value="<tag:apps.v />"><tag:apps.l /></option>
+</loop:apps>
+   </select>
+   <input class="button" type="submit" id="appsubmit" value="<gettext>Go</gettext>" />
+  </span>
+  <span class="rightFloat prefsAdvanced">
+<if:advanced>
+   [<a href="<tag:advanced />"><gettext>Show Advanced Preferences</gettext></a>]
+<else:advanced>
+   [<a href="<tag:basic />"><gettext>Hide Advanced Preferences</gettext></a>]
+</else:advanced></if:advanced>
+  </span>
+  <span>
+   <tag:header />
+  </span>
+  <br class="clear" />
+ </div>
+</form>
+
+<br class="spacer" />

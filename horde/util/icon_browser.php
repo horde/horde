@@ -1,5 +1,7 @@
 <?php
 /**
+ * Icon browser for Horde themes.
+ *
  * Copyright 2004-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -8,14 +10,16 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-$horde_authentication = 'none';
-require_once dirname(__FILE__) . '/../lib/core.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
-$registry = Horde_Registry::singleton();
 $apps = $registry->listApps(array('notoolbar', 'active', 'admin', 'inactive', 'hidden'), true);
 ksort($apps);
 
-if (($app = basename(Horde_Util::getFormData('app'))) && isset($apps[$app])) {
+$url = new Horde_Url('icon_browser.php');
+$vars = Horde_Variables::getDefaultVariables();
+
+if (($app = basename($vars->app)) && isset($apps[$app])) {
     // Provide a non-white background for eyeballing transparency.
     echo '<html><body bgcolor="#aaaaaa">';
 
@@ -30,7 +34,7 @@ if (($app = basename(Horde_Util::getFormData('app'))) && isset($apps[$app])) {
         exit(sprintf(_("Base graphics directory \"%s\" not found."), $dir));
     }
 
-    if (($subdir = basename(Horde_Util::getFormData('subdir')))) {
+    if (($subdir = basename(filter_var($vars->subdir, FILTER_SANITIZE_STRING)))) {
         $dir .= DIRECTORY_SEPARATOR . $subdir;
         if (!is_dir($dir)) {
             exit(sprintf(_("Subdirectory \"%s\" not found."), $dir));
@@ -38,33 +42,42 @@ if (($app = basename(Horde_Util::getFormData('app'))) && isset($apps[$app])) {
     }
 
     // Breadcrumbs.
-    echo Horde::link('icon_browser.php') . _("Application List") . '</a><br />';
+    echo Horde::link($url) . _("Application List") . '</a><br />';
     if (!empty($subdir)) {
-        echo Horde::link('icon_browser.php?app=' . $app) . $registry->get('name', $app) . '</a><br />';
+        echo Horde::link($url->copy()->add('app', $app)) . $registry->get('name', $app) . '</a><br />';
     }
+
     echo '<br />';
 
     // Show icons for app.
     echo '<h2>' . sprintf(_("Icons for %s"), $registry->get('name', $app)) . (!empty($subdir) ? '/' . $subdir : '') . '</h2>';
 
-
     // List subdirectories.
-    $subdirs = glob($dir . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR);
-    if ($subdirs && count($subdirs)) {
-        foreach ($subdirs as $subdir) {
-            if (basename($subdir) == 'CVS') {
-                continue;
+    $dirs = $imgs = array();
+    try {
+        $di = new DirectoryIterator($dir);
+        foreach ($di as $val) {
+            if ($val->isDir() && !$val->isDot()) {
+                $dirs[] = Horde::link($url->copy()->add(array(
+                    'subdir' => basename($val->getFilename()),
+                    'app' => $app
+                ))) . basename($val->getFilename()) . '</a>';
+            } elseif ($val->isFile() &&
+                      (substr($val->getFilename(), -4) == '.png')) {
+                $imgs[] = $val->getPathname();
             }
-            echo Horde::link(Horde_Util::addParameter('icon_browser.php', array('subdir' => basename($subdir),
-                                                                          'app' => $app))) . basename($subdir) . '</a><br />';
         }
-        echo '<br />';
+    } catch (UnexpectedValueException $e) {}
+
+    foreach ($dirs as $val) {
+        echo $val . '<br />';
     }
 
-    $images = glob($dir . DIRECTORY_SEPARATOR . '*.png');
-    if ($images && count($images)) {
-        foreach ($images as $png) {
-            echo Horde::img(str_replace($basedir . DIRECTORY_SEPARATOR, '', $png), $png, array('hspace' => 10, 'vspace' => 10), $registry->getImageDir($app));
+    echo '<br />';
+
+    if (count($imgs)) {
+        foreach ($imgs as $png) {
+            echo Horde::img(Horde_Themes::img(str_replace($basedir . DIRECTORY_SEPARATOR, '', $png), $app), $png, array('hspace' => 10, 'vspace' => 10));
         }
     } else {
         echo _("No icons found.");
@@ -74,6 +87,6 @@ if (($app = basename(Horde_Util::getFormData('app'))) && isset($apps[$app])) {
 } else {
     // List apps.
     foreach ($apps as $app) {
-        echo Horde::link(Horde_Util::addParameter('icon_browser.php', 'app', $app)) . $registry->get('name', $app) . '</a><br />';
+        echo Horde::link($url->add('app', $app)) . $registry->get('name', $app) . '</a><br />';
     }
 }

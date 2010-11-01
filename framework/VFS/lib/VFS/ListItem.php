@@ -10,80 +10,84 @@
  * @author  Jon Wood <jon@jellybob.co.uk>
  * @package VFS
  */
-class VFS_ListItem {
-
+class VFS_ListItem
+{
     /**
-     * VFS path
+     * VFS path.
      *
      * @var string
      */
-    var $_path;
+    protected $_path;
 
     /**
-     * Filename
+     * Filename.
      *
      * @var string
      */
-    var $_name;
+    protected $_name;
 
     /**
-     * File permissions (*nix format: drwxrwxrwx)
+     * File permissions (*nix format: drwxrwxrwx).
      *
      * @var string
      */
-    var $_perms;
+    protected $_perms;
 
     /**
-     * Owner user
+     * Owner user.
      *
      * @var string
      */
-    var $_owner;
+    protected $_owner;
 
     /**
-     * Owner group
+     * Owner group.
      *
      * @var string
      */
-    var $_group;
+    protected $_group;
 
     /**
      * Size.
      *
      * @var string
      */
-    var $_size;
+    protected $_size;
 
     /**
      * Last modified date.
      *
      * @var string
      */
-    var $_date;
+    protected $_date;
 
     /**
-     * Type
-     *   .*      --  File extension
-     *   **none  --  Unrecognized type
-     *   **sym   --  Symlink
-     *   **dir   --  Directory
+     * Type.
+     * <pre>
+     * .*     - File extension
+     * **none - Unrecognized type
+     * **sym  - Symlink
+     * **dir  - Directory
+     * </pre>
      *
      * @var string
      */
-    var $_type;
+    protected $_type;
 
     /**
      * Type of target if type is '**sym'.
      * NB. Not all backends are capable of distinguishing all of these.
-     *   .*        --  File extension
-     *   **none    --  Unrecognized type
-     *   **sym     --  Symlink to a symlink
-     *   **dir     --  Directory
-     *   **broken  --  Target not found - broken link
+     * <pre>
+     * .*       - File extension
+     * **none   - Unrecognized type
+     * **sym    - Symlink to a symlink
+     * **dir    - Directory
+     * **broken - Target not found - broken link
+     * </pre>
      *
      * @var string
      */
-    var $_linktype;
+    protected $_linktype;
 
     /**
      * Constructor
@@ -94,7 +98,7 @@ class VFS_ListItem {
      * @param string $path      The path to the file.
      * @param array $fileArray  An array of file properties.
      */
-    function VFS_ListItem($path, $fileArray)
+    public function __construct($path, $fileArray)
     {
         $this->_path = $path . '/' . $fileArray['name'];
         $this->_name = $fileArray['name'];

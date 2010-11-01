@@ -17,6 +17,13 @@
 class Horde_Perms_Permission_DataTreeObject extends DataTreeObject
 {
     /**
+     * Cache object.
+     *
+     * @var Horde_Cache
+     */
+    protected $_cache;
+
+    /**
      * Constructor. Just makes sure to call the parent constructor so that
      * the perm's name is set properly.
      *
@@ -33,6 +40,26 @@ class Horde_Perms_Permission_DataTreeObject extends DataTreeObject
         if (is_array($params)) {
             $this->data['params'] = $params;
         }
+    }
+
+    /**
+     * Don't store cache object on serialize().
+     *
+     * @return array  List of variables to serialize.
+     */
+    public function __sleep()
+    {
+        return array_diff(array_keys(get_class_vars(__CLASS__)), array('_cache'));
+    }
+
+    /**
+     * Sets the cache instance in the object.
+     *
+     * @param Horde_Cache $cache  The cache object.
+     */
+    public function setCacheOb(Horde_Cache $cache)
+    {
+        $this->_cache = $cache;
     }
 
     /**
@@ -554,9 +581,10 @@ class Horde_Perms_Permission_DataTreeObject extends DataTreeObject
 
         parent::save();
 
-        $cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
-        $cache->expire('perm_' . $name);
-        $cache->expire('perm_exists_' . $name);
+        if ($this->_cache) {
+            $this->_cache->expire('perm_' . $this->_cacheVersion . $name);
+            $this->_cache->expire('perm_exists_' . $this->_cacheVersion . $name);
+        }
     }
 
 }

@@ -23,15 +23,9 @@ $to_upgrade = array('ansel_shares' => 'share_id',
                     'whups_shares' => 'share_id');
 
 /* Set up the CLI environment */
-require_once dirname(__FILE__) . '/../../lib/core.php';
-if (!Horde_Cli::runningFromCli()) {
-    exit("Must be run from the command line\n");
-}
-$cli = Horde_Cli::singleton();
-$cli->init();
+require_once dirname(__FILE__) . '/../../lib/Application.php';
+Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true));
 
-/* Grab what we need to steal the DB config */
-require_once HORDE_BASE . '/config/conf.php';
 $config = $GLOBALS['conf']['sql'];
 unset($config['charset']);
 $schema = MDB2_Schema::factory($config, array('seqcol_name' => 'id'));

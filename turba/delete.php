@@ -7,35 +7,39 @@
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
  *
- * @author Chuck Hagenbuch <chuck@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/asl.php ASL
+ * @package  Turba
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('turba');
 
 $source = Horde_Util::getFormData('source');
 $key = Horde_Util::getFormData('key');
-$driver = Turba_Driver::singleton($source);
+$driver = $injector->getInstance('Turba_Driver')->getDriver($source);
 
 if ($conf['documents']['type'] != 'none') {
-    $object = $driver->getObject($key);
-    if (is_a($object, 'PEAR_Error')) {
-        $notification->push($object->getMessage(), 'horde.error');
-        header('Location: ' . Horde::applicationUrl($prefs->getValue('initial_page'), true));
-        exit;
-    }
-    if (is_a($deleted = $object->deleteFiles(), 'PEAR_Error')) {
-        $notification->push($deleted, 'horde.error');
-        header('Location: ' . Horde::applicationUrl($prefs->getValue('initial_page'), true));
-        exit;
+    try {
+        $object = $driver->getObject($key);
+        $object->deleteFiles();
+    } catch (Turba_Exception $e) {
+        $notification->push($e, 'horde.error');
+        Horde::url($prefs->getValue('initial_page'), true)->redirect();
     }
 }
 
-if (!is_a($result = $driver->delete($key), 'PEAR_Error')) {
-    header('Location: ' . Horde_Util::getFormData('url', Horde::url($prefs->getValue('initial_page'), true)));
-    exit;
+try {
+    $driver->delete($key);
+    $url = ($url = Horde_Util::getFormData('url'))
+        ? new Horde_Url($url)
+        : Horde::url($prefs->getValue('initial_page'), true);
+    $url->redirect();
+} catch (Turba_Exception $e) {
+    $notification->push(sprintf(_("There was an error deleting this contact: %s"), $e->getMessage()), 'horde.error');
 }
 
-$notification->push(sprintf(_("There was an error deleting this contact: %s"), $result->getMessage()), 'horde.error');
 $title = _("Deletion failed");
 require TURBA_TEMPLATES . '/common-header.inc';
 require TURBA_TEMPLATES . '/menu.inc';

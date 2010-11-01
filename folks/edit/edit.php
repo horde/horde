@@ -17,11 +17,10 @@ require_once 'tabs.php';
 
 $title = _("Edit my profile");
 
-$profile = $folks_driver->getRawProfile(Horde_Auth::getAuth());
+$profile = $folks_driver->getRawProfile($GLOBALS['registry']->getAuth());
 if ($profile instanceof PEAR_Error) {
     $notification->push($profile);
-    header('Location: ' . Folks::getUrlFor('list', 'list'));
-    exit;
+    Folks::getUrlFor('list', 'list')->redirect();
 }
 
 $form = new Horde_Form($vars, $title, 'editprofile');
@@ -35,7 +34,7 @@ $form->addVariable(_("Homepage"), 'user_url', 'text', false);
 
 if ($registry->hasMethod('video/listVideos')) {
     try {
-        $result = $registry->call('video/listVideos', array(array('author' => Horde_Auth::getAuth()), 0, 100));
+        $result = $registry->call('video/listVideos', array(array('author' => $GLOBALS['registry']->getAuth()), 0, 100));
         $videos = array();
         foreach ($result as $video_id => $video) {
             $videos[$video_id] = $video['video_title'] . ' - ' . Folks::format_date($video['video_created']);
@@ -69,13 +68,12 @@ if ($form->validate()) {
             } else {
                 $folks_driver->logActivity(_("Updated his/her profile picture."));
             }
-            header('Location: ' . Horde::applicationUrl('edit/edit.php'));
-            exit;
+            Horde::url('edit/edit.php')->redirect();
         }
     break;
 
     case _("Delete picture"):
-        $result = $folks_driver->deleteImage(Horde_Auth::getAuth());;
+        $result = $folks_driver->deleteImage($GLOBALS['registry']->getAuth());;
         if ($result instanceof PEAR_Error) {
             $notification->push($result);
         } else {

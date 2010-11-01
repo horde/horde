@@ -7,7 +7,10 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @package IMP
+ * @author   Michael Slusarz <slusarz@curecanti.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
 class IMP_Views_ShowMessage
 {
@@ -18,7 +21,6 @@ class IMP_Views_ShowMessage
      *                         Horde_Mime_Address::parseAddressList().
      *
      * @return array  Array with the following keys: inner, personal, raw.
-     * @throws Horde_Exception
      */
     private function _buildAddressList($addrlist)
     {
@@ -28,17 +30,17 @@ class IMP_Views_ShowMessage
 
         $addr_array = array();
 
-        foreach (Horde_Mime_Address::getAddressesFromObject($addrlist) as $ob) {
+        foreach (Horde_Mime_Address::getAddressesFromObject($addrlist, array('charset' => 'UTF-8')) as $ob) {
             if (!empty($ob['inner'])) {
                 try {
-                    $addr_array[] = array('raw' => Horde::callHook('dimp_addressformatting', array($ob), 'imp'));
+                    $tmp = array('raw' => Horde::callHook('dimp_addressformatting', array($ob), 'imp'));
                 } catch (Horde_Exception_HookNotSet $e) {
                     $tmp = array('inner' => $ob['inner']);
                     if (!empty($ob['personal'])) {
                         $tmp['personal'] = $ob['personal'];
                     }
-                    $addr_array[] = $tmp;
                 }
+                $addr_array[] = $tmp;
             }
         }
 
@@ -87,7 +89,6 @@ class IMP_Views_ShowMessage
      * 'save_as' - The save link
      * 'title' - The title of the page
      * </pre>
-     * @throws Horde_Exception
      */
     public function showMessage($args)
     {
@@ -103,12 +104,12 @@ class IMP_Views_ShowMessage
         );
 
         /* Set the current time zone. */
-        Horde_Nls::setTimeZone();
+        $GLOBALS['registry']->setTimeZone();
 
         /* Get envelope/header information. We don't use flags in this
          * view. */
         try {
-            $fetch_ret = $GLOBALS['imp_imap']->ob()->fetch($mailbox, array(
+            $fetch_ret = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->fetch($mailbox, array(
                 Horde_Imap_Client::FETCH_ENVELOPE => true,
                 Horde_Imap_Client::FETCH_HEADERTEXT => array(array('parse' => true, 'peek' => false))
             ), array('ids' => array($uid)));
@@ -118,10 +119,16 @@ class IMP_Views_ShowMessage
             return $result;
         }
 
+        if (!isset($fetch_ret[$uid]['headertext'])) {
+            $result['error'] = $error_msg;
+            $result['errortype'] = 'horde.error';
+            return $result;
+        }
+
         /* Parse MIME info and create the body of the message. */
         try {
-            $imp_contents = IMP_Contents::singleton($uid . IMP::IDX_SEP . $mailbox);
-        } catch (Horde_Exception $e) {
+            $imp_contents = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Contents')->create(new IMP_Indices($mailbox, $uid));
+        } catch (IMP_Exception $e) {
             $result['error'] = $error_msg;
             $result['errortype'] = 'horde.error';
             return $result;
@@ -142,7 +149,7 @@ class IMP_Views_ShowMessage
          * done to them. */
         $basic_headers = $imp_ui->basicHeaders();
         if (empty($args['headers'])) {
-            $args['headers'] = array('from', 'date', 'to', 'cc');
+            $args['headers'] = array('from', 'date', 'to', 'cc', 'bcc');
         }
 
         $headers_list = array_intersect_key($basic_headers, array_flip($args['headers']));
@@ -150,7 +157,7 @@ class IMP_Views_ShowMessage
         /* Build From/To/Cc/Bcc/Reply-To links. */
         foreach (array('from', 'to', 'cc', 'bcc', 'reply-to') as $val) {
             if (isset($headers_list[$val]) &&
-                (!$preview || !in_array($val, array('bcc', 'reply-to')))) {
+                (!$preview || ($val != 'reply-to'))) {
                 $tmp = $this->_buildAddressList($envelope[$val]);
                 if (!empty($tmp)) {
                     $result[$val] = $tmp;
@@ -251,18 +258,26 @@ class IMP_Views_ShowMessage
             IMP_Contents::SUMMARY_ICON |
             IMP_Contents::SUMMARY_DESCRIP_LINK |
             IMP_Contents::SUMMARY_DOWNLOAD |
-            IMP_Contents::SUMMARY_DOWNLOAD_ZIP;
+            IMP_Contents::SUMMARY_DOWNLOAD_ZIP |
+            IMP_Contents::SUMMARY_PRINT_STUB |
+            IMP_Contents::SUMMARY_STRIP_STUB;
 
         $part_info = $part_info_display = array('icon', 'description', 'size', 'download', 'download_zip');
+        $part_info_display[] = 'print';
+        $part_info_display[] = 'strip';
 
         /* Do MDN processing now. */
         if ($imp_ui->MDNCheck($mailbox, $uid, $mime_headers)) {
-            $result['msgtext'] .= $imp_ui->formatStatusMsg(array(array('text' => array(_("The sender of this message is requesting a Message Disposition Notification from you when you have read this message."), sprintf(_("Click %s to send the notification message."), Horde::link('', '', '', '', 'DimpCore.doAction(\'SendMDN\',{folder:\'' . $mailbox . '\',uid:' . $uid . '}); return false;', '', '') . _("HERE") . '</a>')))));
+            $result['msgtext'] .= $imp_ui->formatStatusMsg(array(array('text' => array(_("The sender of this message is requesting a Message Disposition Notification from you when you have read this message."), sprintf(_("Click %s to send the notification message."), Horde::link('', '', '', '', 'DimpCore.doAction(\'sendMDN\',{folder:\'' . $mailbox . '\',uid:' . $uid . '}); return false;', '', '') . _("HERE") . '</a>')))));
         }
 
         /* Build body text. This needs to be done before we build the
          * attachment list. */
-        $inlineout = $imp_ui->getInlineOutput($imp_contents, $contents_mask, $part_info_display, $show_parts);
+        $inlineout = $imp_ui->getInlineOutput($imp_contents, array(
+            'mask' => $contents_mask,
+            'part_info_display' => $part_info_display,
+            'show_parts' => $show_parts
+        ));
 
         $result['js'] = array_merge($result['js'], $inlineout['js_onload']);
         $result['msgtext'] .= $inlineout['msgtext'];
@@ -305,13 +320,18 @@ class IMP_Views_ShowMessage
                     $result['js'] = array_merge($result['js'], $res[1]);
                 }
             } catch (Horde_Exception_HookNotSet $e) {}
-        } elseif (!$preview) {
+
+            /* Need to grab cached inline scripts. */
+            Horde::startBuffer();
+            Horde::outputInlineScript(true);
+            if ($js_inline = Horde::endBuffer()) {
+                $result['js'][] = $js_inline;
+            }
+        } else {
             try {
                 $result = Horde::callHook('dimp_messageview', array($result), 'imp');
             } catch (Horde_Exception_HookNotSet $e) {}
-        }
 
-        if (!$preview) {
             $result['list_info'] = $imp_ui->getListInformation($mime_headers);
             $result['save_as'] = Horde::downloadUrl(htmlspecialchars_decode($result['subject']), array_merge(array('actionID' => 'save_message'), IMP::getIMPMboxParameters($mailbox, $uid, $mailbox)));
         }

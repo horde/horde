@@ -1,0 +1,319 @@
+# Nag 1.0 Arabic translation.
+# This file is distributed under the same license as the Nag package.
+# Copyright 2003 Platinum Inc. <pl@tinum.info>
+# Custom Web Applications <http://platinum-sy.com>
+# Platinum Development Team <devteam@platinum-sy.net>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Nag 1.0\n"
+"POT-Creation-Date: 2003-04-30 12:00+0200\n"
+"PO-Revision-Date: 2003-04-30 12:00+0200\n"
+"Last-Translator:  Platinum Development Team <devteam@platinum-sy.com>\n"
+"Language-Team: Arabic <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#, c-format
+msgid "%d tasks"
+msgstr "%d مهام"
+
+msgid "1 task"
+msgstr "1 مهمة"
+
+msgid "Adding A New Task"
+msgstr "إضافة مهمة جديدة"
+
+msgid "Are you sure you want to permanently delete these tasks?"
+msgstr "هل أنت متأكد من حذف هذه المهمات (غير قابل للتراجع)؟"
+
+msgid "Ascending"
+msgstr "تنازلي"
+
+msgid "Back to Task List"
+msgstr "عودة إلى قائمة المهمات"
+
+msgid "Category"
+msgstr "التصنيف"
+
+msgid "Change your task sorting and display options."
+msgstr "تغيير طريقة فرز المهمات وخيارات العرض"
+
+#, c-format
+msgid "Changed %d tasks to priority %d."
+msgstr "تغيير المهمات %d إلى الأولوية %d."
+
+#, c-format
+msgid "Changed 1 task to priority %d."
+msgstr "تغيير مهمة 1 إلى الأولوية %d."
+
+msgid "Choose Action:"
+msgstr "اختر عملية :"
+
+msgid "Clear Form"
+msgstr "مسح الإستمارة"
+
+msgid "Complete Task"
+msgstr "إنهاء المهمة"
+
+msgid "Complete Tasks"
+msgstr "إنهاء المهمات"
+
+msgid "Completed?"
+msgstr "هل تم الأمر؟"
+
+msgid "Completion Status"
+msgstr "وضع الإنجاز"
+
+msgid "Default sorting criteria:"
+msgstr "نومذج الفرز الإفتراضي:"
+
+msgid "Default sorting direction:"
+msgstr "اتجاه الفرز الافتراضي:"
+
+msgid "Delete Task"
+msgstr "مهمة محذوفة"
+
+msgid "Delete Tasks"
+msgstr "مهمات محذوفة"
+
+#, c-format
+msgid "Deleted %d tasks."
+msgstr "المهمات %d محذوفة."
+
+msgid "Deleted 1 task."
+msgstr "المهمة d% محذوفة."
+
+msgid "Descending"
+msgstr "تنازلي"
+
+msgid "Description"
+msgstr "الشرح"
+
+msgid "Display Options"
+msgstr "Options d'affichage"
+
+msgid "Due By"
+msgstr "تستحق"
+
+msgid "Due Date"
+msgstr "تاريخ الإستحقاق"
+
+msgid "Help"
+msgstr "مساعدة"
+
+msgid "Language"
+msgstr "اللغة"
+
+msgid "List Tasks"
+msgstr "قائمة المهمات"
+
+#, c-format
+msgid "Marked %d tasks as completed."
+msgstr "المهمات %d محددة كمهمات منجزة"
+
+msgid "Marked 1 task as completed."
+msgstr "المهمة محددة كمهمة منجزة"
+
+msgid "Modify Task"
+msgstr "تعديل المهمة"
+
+msgid "Modifying:"
+msgstr "التعديل :"
+
+msgid "Nag is not properly configured"
+msgstr "لم يتم إعداد Nagبشكل صحيح "
+
+msgid "Name"
+msgstr "الاسم"
+
+msgid "New Task"
+msgstr "مهمة جديدة"
+
+msgid "No configuration information specified for SQL Tasks."
+msgstr "Aucune information de configuration pour la base de données."
+
+msgid "No due date."
+msgstr "لايوجد تحديد لتاريخ الاستحقاق"
+
+msgid "No tasks were changed."
+msgstr "لم يتم تغيير أي من المهمات"
+
+msgid "No tasks were deleted."
+msgstr "لم يتم حذف أي من المهمات"
+
+msgid "No"
+msgstr "لا"
+
+msgid "None specified"
+msgstr "غير محدد (ة)"
+
+msgid "Options"
+msgstr "الخيارات"
+
+msgid "Other Options"
+msgstr "خيارات أخرى"
+
+msgid "Please enter the task priority (1-5):"
+msgstr "الرجاء تحديد أولوية المهمة (1-5)"
+
+msgid "Pri"
+msgstr "Pri"
+
+msgid "Priorities must be between 1 and 5. Please enter a valid priority:"
+msgstr "تحدد الأولويات بين 1 حتى 5. الرجاء تحديد أولوية صحيحة."
+
+msgid "Priority"
+msgstr "الأولوية"
+
+msgid "Problem?"
+msgstr "هل هناك مشكلة؟"
+
+msgid "Refresh List"
+msgstr "تحديث القائمة"
+
+msgid "Required 'database' not specified in tasks configuration."
+msgstr "لم يتم تحديد قاعدة البيانات في إعدادات المهمات"
+
+msgid "Required 'hostspec' not specified in tasks configuration."
+msgstr "لم يتم تحديد 'hostspec' في إعدادات المهمات"
+
+msgid "Required 'password' not specified in tasks configuration."
+msgstr "لم يتم تحديد كلمة المرور في إعدادات المهمات"
+
+msgid "Required 'phptype' not specified in tasks configuration."
+msgstr "لم يتم تحديد 'phptype' في إعدادات المهمات"
+
+msgid "Required 'table' not specified in tasks configuration."
+msgstr "لم يتم تحديد 'table' في إعدادات المهمات"
+
+msgid "Required 'username' not specified in tasks configuration."
+msgstr "لم يتم تحديد اسم المستخدم في إعدادات المهمات"
+
+msgid "Save Task"
+msgstr "حفظ المهمة"
+
+msgid "Search Results"
+msgstr "نتائج البحث"
+
+msgid "Search Scope"
+msgstr "مجال البحث"
+
+msgid "Search Text"
+msgstr "بحث في النص"
+
+msgid "Search"
+msgstr "بحث"
+
+msgid "Select your preferred language:"
+msgstr "اختر اللغة المفضلة"
+
+msgid "Selected?"
+msgstr "محدد؟"
+
+msgid "Set Task Priority"
+msgstr "اختر أولوية المهمة"
+
+msgid "Set the your preferred display language."
+msgstr "اختر لغة الإظهار المفضلة لديك"
+
+msgid "Show completed tasks in the task list?"
+msgstr "إظهار المهمات المنجزة في قائمة المهمات؟"
+
+msgid "Some of Nag's configuration files are missing:"
+msgstr "بعض ملفات إعدادات Nag مفقودة"
+
+msgid "Sort Direction"
+msgstr "اتجاه الفرز"
+
+msgid "Sort by Category"
+msgstr "فرز حسب التصنيف"
+
+msgid "Sort by Completion Status"
+msgstr "فرز حسب سنبة الإنجاز"
+
+msgid "Sort by Due Date"
+msgstr "فرز حسب تاريخ الاستحقاق"
+
+msgid "Sort by Name"
+msgstr "فرز حسب الاسم"
+
+msgid "Sort by Priority"
+msgstr "فرز حسب الأولوية"
+
+msgid "Task Details"
+msgstr "تفصيلات المهمة"
+
+msgid "Task List"
+msgstr "قائمة المهمات"
+
+msgid "Task Name"
+msgstr "اسم المهمة"
+
+msgid "Task Note"
+msgstr "ملاحظات حول المهمة"
+
+msgid "Task Note?"
+msgstr "ملاحظات حول المهمة؟"
+
+msgid "The requested task does not exist."
+msgstr "المهمة المطلوبة غير موجودة."
+
+msgid "There was a problem deleting tasks."
+msgstr "حصل خطأ خلال حذف المهمات."
+
+msgid "There was a problem setting task completion status."
+msgstr "حصل خطأ خلال إعداد نسبة إنجاز المهمة."
+
+msgid "There was a problem setting task priority."
+msgstr "حصل خطأ خلال إعداد أولوية المهمة."
+
+msgid "This file contains preferences for Nag."
+msgstr "يحتوي هذا الملف على إعدادات Nag."
+
+msgid ""
+"This file controls the stylesheet that is used to set colors and fonts in "
+"addition to or overriding Horde defaults."
+msgstr ""
+"يقوم هذا الملف بالتحكم بقوائم الألوان والخطوط إضافة إلى إعدادات Horde أو بلا "
+"منها"
+
+msgid ""
+"This is the main Nag configuration file. It contains options for all Nag "
+"scripts."
+msgstr ""
+"هذا الملف هو ملف إعدادات Nag الرئيسي. يحتوي جميع الخيارات لجميع بريمجات Nag."
+
+msgid "Undo Changes"
+msgstr "تراجع عن التغييرات"
+
+msgid "Unfiled"
+msgstr "غير متمم"
+
+msgid "Unknown task"
+msgstr "مهمة غير محددة"
+
+msgid "Unknown"
+msgstr "غير معروف"
+
+msgid "User Options"
+msgstr "خيارات المستخدم"
+
+msgid "View Task Details"
+msgstr "استعراض تفصيلات المهمة"
+
+msgid "Yes"
+msgstr "نعم"
+
+msgid "You must select at least one task first."
+msgstr "يجب تحديد مهمة واحدة على الأقل أولاً"
+
+msgid "Your Information"
+msgstr "المعلومات الشخصية"
+
+msgid "Your task list is empty."
+msgstr "قائمة المهمات فارغة"
+
+msgid "at"
+msgstr "في"

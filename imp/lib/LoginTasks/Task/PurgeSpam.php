@@ -8,8 +8,10 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Matt Selsky <selsky@columbia.edu>
- * @package Horde_LoginTasks
+ * @author   Matt Selsky <selsky@columbia.edu>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
 class IMP_LoginTasks_Task_PurgeSpam extends Horde_LoginTasks_Task
 {
@@ -35,14 +37,14 @@ class IMP_LoginTasks_Task_PurgeSpam extends Horde_LoginTasks_Task
     public function execute()
     {
         /* If there is no Spam folder set, just return. */
-        $spam_folder = IMP::folderPref($GLOBALS['prefs']->getValue('spam_folder'), true);
+        $spam_folder = $GLOBALS['prefs']->getValue('spam_folder');
         if (!$spam_folder) {
             return false;
         }
+        $spam_folder = IMP::folderPref($spam_folder, true);
 
         /* Make sure the Spam folder exists. */
-        $imp_folder = IMP_Folder::singleton();
-        if (!$imp_folder->exists($spam_folder)) {
+        if (!$GLOBALS['injector']->getInstance('IMP_Folder')->exists($spam_folder)) {
             return false;
         }
 
@@ -54,19 +56,16 @@ class IMP_LoginTasks_Task_PurgeSpam extends Horde_LoginTasks_Task
         /* Get the list of messages older than 'purge_spam_keep' days. */
         $query = new Horde_Imap_Client_Search_Query();
         $query->dateSearch($del_time, Horde_Imap_Client_Search_Query::DATE_BEFORE);
-        $msg_ids = $GLOBALS['imp_search']->runSearchQuery($query, $spam_folder);
-        if (empty($msg_ids)) {
-            return false;
-        }
+        $msg_ids = $GLOBALS['injector']->getInstance('IMP_Search')->runQuery($query, $spam_folder);
 
         /* Go through the message list and delete the messages. */
-        $imp_message = IMP_Message::singleton();
-        if ($imp_message->delete(array($spam_folder => $msg_ids), array('nuke' => true))) {
+        if ($GLOBALS['injector']->getInstance('IMP_Message')->delete($msg_ids, array('nuke' => true))) {
             $msgcount = count($msg_ids);
             $GLOBALS['notification']->push(sprintf(ngettext("Purging %d message from Spam folder.", "Purging %d messages from Spam folder.", $msgcount), $msgcount), 'horde.message');
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     /**

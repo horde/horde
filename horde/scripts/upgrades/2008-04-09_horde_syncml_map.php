@@ -1,24 +1,12 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
 /**
  * This is a script to migrate SyncML anchor information out of the datatree
  * tables and into its own database table.
  */
 
-// Do CLI checks and environment setup first.
-require_once dirname(__FILE__) . '/../../lib/core.php';
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment - make sure there's no time limit, init
-// some variables, etc.
-Horde_Cli::init();
-$cli = Horde_Cli::singleton();
-
-new Horde_Application(array('authentication' => 'none'));
+require_once dirname(__FILE__) . '/../../lib/Application.php';
+Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true));
 
 require_once 'Horde/DataTree.php';
 $datatree = DataTree::factory('sql',

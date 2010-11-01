@@ -2,10 +2,6 @@
  * CSS corrections for IE 6 and below.
  */
 
-#sidebar-frame {
-    overflow-x: hidden;
-}
-
 .treeRow {
     overflow: visible;
     height: 20px;
@@ -18,4 +14,10 @@
 
 .clear {
     clear: none;
+}
+
+/* Fixes broken inline-block. */
+.mimeHeaders {
+    zoom: 1;
+    *display: inline;
 }

@@ -9,11 +9,8 @@
  * http://www.opensource.org/licenses/bsd-license.php.
  *
  * @author  Ben Klang <ben@alkaloid.net>
- * @since   Shout 0.1
  * @package Shout
  */
-
-
 class Shout_Driver_Sql extends Shout_Driver
 {
     /**
@@ -41,22 +38,21 @@ class Shout_Driver_Sql extends Shout_Driver
     *
     * @param array  $params    A hash containing connection parameters.
     */
-    function __construct($params = array())
+    public function __construct($params = array())
     {
         parent::__construct($params);
         $this->_connect();
     }
 
-    public function getContexts()
+    public function getAccounts()
     {
         $this->_connect();
 
-        $sql = 'SELECT context FROM %s';
-        $sql = sprintf($sql, $this->_params['table']);
+        $sql = 'SELECT name, code, adminpin FROM accounts';
         $vars = array();
 
-        $msg = 'SQL query in Shout_Driver_Sql#getContexts(): ' . $sql;
-        Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $msg = 'SQL query in Shout_Driver_Sql#getAccounts(): ' . $sql;
+        Horde::logMessage($msg, 'DEBUG');
         $result = $this->_db->query($sql, $vars);
         if ($result instanceof PEAR_Error) {
             throw new Shout_Exception($result);
@@ -67,37 +63,242 @@ class Shout_Driver_Sql extends Shout_Driver
             throw new Shout_Exception($row);
         }
 
-        $contexts = array();
+        $accounts = array();
         while ($row && !($row instanceof PEAR_Error)) {
-            /* Add this new foo to the $_foo list. */
-            $contexts[] = $row['context'];
-
-            /* Advance to the new row in the result set. */
+            $accounts[$row['code']] = $row;
             $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
         }
 
          $result->free();
-         return $contexts;
+         return $accounts;
+    }
+
+    public function saveAccount($code, $name, $adminpin)
+    {
+        $this->_connect();
+
+        // FIXME: Enable editing of account details
+//        if (isset($details['oldname'])) {
+//            if (!isset($menus[$details['oldname']])) {
+//                throw new Shout_Exception(_("Old account not found.  Edit aborted."));
+//            } else {
+//                throw new Shout_Exception(_("Unsupported operation."));
+//                $sql = 'UPDATE accounts SET code = ?, name = ?, adminpin = ? ' .
+//                       'WHERE code = ?';
+//            }
+//        } else {
+        $sql = 'INSERT INTO accounts (code, name, adminpin) VALUES (?,?,?)';
+        $vars = array($code, $name, $adminpin);
+        $msg = 'SQL query in Shout_Driver_Sql#saveAccount(): ' . $sql;
+        Horde::logMessage($msg, 'DEBUG');
+        $result = $this->_db->query($sql, $vars);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+
+    }
+
+    public function getMenus($account)
+    {
+        $this->_connect();
+
+        $sql = 'SELECT accounts.code AS account, menus.name AS name, ' .
+               'menus.description AS description, recording_id ' .
+               'FROM menus INNER JOIN accounts ON menus.account_id = accounts.id ' .
+               'WHERE accounts.code = ?';
+        $values = array($account);
+
+        $msg = 'SQL query in Shout_Driver_Sql#getMenus(): ' . $sql;
+        Horde::logMessage($msg, 'DEBUG');
+        $result = $this->_db->query($sql, $values);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+
+        $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
+        if ($row instanceof PEAR_Error) {
+            throw new Shout_Exception($row);
+        }
+
+        $menus = array();
+        while ($row && !($row instanceof PEAR_Error)) {
+            $menu = $row['name'];
+            $menus[$menu] = array(
+                'name' => $menu,
+                'description' => $row['description'],
+                'recording_id' => $row['recording_id']
+            );
+            $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
+        }
+        $result->free();
+        return $menus;
+    }
+
+    public function saveMenuInfo($account, $details)
+    {
+        $menus = $this->getMenus($account);
+        if (isset($details['oldname'])) {
+            if (!isset($menus[$details['oldname']])) {
+                throw new Shout_Exception(_("Old menu not found.  Edit aborted."));
+            } else {
+                $sql = 'UPDATE menus SET name = ?, description = ?, ' .
+                       'recording_id = ? WHERE account_id = ' .
+                       '(SELECT id FROM accounts WHERE code = ?) AND name = ?';
+                $values = array($details['name'], $details['description'],
+                                $details['recording_id'], $account,
+                                $details['oldname']);
+            }
+        } else {
+            $sql = "INSERT INTO menus (account_id, name, description, recording_id) " .
+                   "VALUES ((SELECT id FROM accounts WHERE code = ?), ?, ?, ?)";
+            $values = array($account, $details['name'],
+                            $details['description'], $details['recording_id']);
+        }
+
+        $msg = 'SQL query in Shout_Driver_Sql#saveMenu(): ' . $sql;
+        Horde::logMessage($msg, 'DEBUG');
+        $result = $this->_write_db->query($sql, $values);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+
+        return true;
+    }
+
+    public function deleteMenu($account, $menu)
+    {
+        // Disassociate any numbers that were previously associated
+        $sql = 'UPDATE numbers SET menu_id = 1 WHERE ' .
+               '(SELECT id FROM menus WHERE name = ? AND account_id = ' .
+               '(SELECT id FROM accounts WHERE code = ?))';
+        $values = array($menu, $account);
+        $msg = 'SQL query in Shout_Driver_Sql#deleteMenu(): ' . $sql;
+        Horde::logMessage($msg, 'DEBUG');
+        $result = $this->_write_db->query($sql, $values);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+
+        // Remove any associated menu entries
+        $sql = 'DELETE FROM menu_entries WHERE menu_id = ' .
+               '(SELECT id FROM menus WHERE name = ? AND account_id = ' .
+               '(SELECT id FROM accounts WHERE code = ?))';
+        $values = array($menu, $account);
+        $msg = 'SQL query in Shout_Driver_Sql#deleteMenu(): ' . $sql;
+        Horde::logMessage($msg, 'DEBUG');
+        $result = $this->_write_db->query($sql, $values);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+
+        // Finally, remove the menu itself.
+        $sql = 'DELETE FROM menus WHERE name = ? AND account_id = ' .
+               '(SELECT id FROM accounts WHERE code = ?)';
+        $values = array($menu, $account);
+        $msg = 'SQL query in Shout_Driver_Sql#deleteMenu(): ' . $sql;
+        Horde::logMessage($msg, 'DEBUG');
+        $result = $this->_write_db->query($sql, $values);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+    }
+
+    public function getMenuActions($account, $menu)
+    {
+        static $menuActions;
+        if (!empty($menuActions[$menu])) {
+            return $menuActions[$menu];
+        }
+
+        $sql = "SELECT accounts.code AS account, menus.name AS description, " .
+               "actions.name AS action, menu_entries.digit AS digit, " .
+               "menu_entries.args AS args FROM menu_entries " .
+               "INNER JOIN menus ON menu_entries.menu_id = menus.id " .
+               "INNER JOIN actions ON menu_entries.action_id = actions.id " .
+               "INNER JOIN accounts ON menus.account_id = accounts.id " .
+               "WHERE accounts.code = ? AND menus.name = ?";
+        $values = array($account, $menu);
+
+        $msg = 'SQL query in Shout_Driver_Sql#getMenuActions(): ' . $sql;
+        Horde::logMessage($msg, 'DEBUG');
+        $result = $this->_db->query($sql, $values);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+
+        $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
+        if ($row instanceof PEAR_Error) {
+            throw new Shout_Exception($row);
+        }
+
+        $menuActions[$menu] = array();
+        while ($row && !($row instanceof PEAR_Error)) {
+            $menuActions[$menu][$row['digit']] = array(
+                'digit' => $row['digit'],
+                'action' => $row['action'],
+                'args' => Horde_Yaml::load($row['args'])
+            );
+            $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
+        }
+        $result->free();
+
+        return $menuActions[$menu];
+    }
+
+    public function deleteMenuAction($account, $menu, $digit)
+    {
+        // Remove any existing action
+        $sql = 'DELETE FROM menu_entries WHERE menu_id = ' .
+               '(SELECT id FROM menus WHERE account_id = ' .
+               '(SELECT id FROM accounts WHERE code = ?) AND name = ?) ' .
+               'AND digit = ?';
+        $values = array($account, $menu, $digit);
+        $msg = 'SQL query in Shout_Driver_Sql#saveMenuAction(): ' . $sql;
+        Horde::logMessage($msg, 'DEBUG');
+        $result = $this->_write_db->query($sql, $values);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+    }
+
+    public function saveMenuAction($account, $menu, $digit, $action, $args)
+    {
+        $this->deleteMenuAction($account, $menu, $digit);
+
+        $sql = 'INSERT INTO menu_entries (menu_id, digit, action_id, args) ' .
+               'VALUES((SELECT id FROM menus WHERE account_id = ' .
+               '(SELECT id FROM accounts WHERE code = ?) AND name = ?), ?, ' .
+               '(SELECT id FROM actions WHERE name = ?), ?)';
+        $yamlargs = Horde_Yaml::dump($args);
+        $values = array($account, $menu, $digit, $action, $yamlargs);
+        $msg = 'SQL query in Shout_Driver_Sql#saveMenuAction(): ' . $sql;
+        Horde::logMessage($msg, 'DEBUG');
+        $result = $this->_write_db->query($sql, $values);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+
+        return true;
     }
 
     /**
-     * Get a list of devices for a given context
+     * Get a list of devices for a given account
      *
-     * @param string $context    Context in which to search for devicess
+     * @param string $account    Account in which to search for devicess
      *
-     * @return array  Array of devices within this context with their information
+     * @return array  Array of devices within this account with their information
      *
      * @access private
      */
-    public function getDevices($context)
+    public function getDevices($account)
     {
         $sql = 'SELECT id, name, alias, callerid, context, mailbox, host, ' .
                'permit, nat, secret, disallow, allow ' .
                'FROM %s WHERE accountcode = ?';
         $sql = sprintf($sql, $this->_params['table']);
-        $args = array($context);
+        $args = array($account);
         $msg = 'SQL query in Shout_Driver_Sql#getDevices(): ' . $sql;
-        Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($msg, 'DEBUG');
         $sth = $this->_db->prepare($sql);
         $result = $this->_db->execute($sth, $args);
         if ($result instanceof PEAR_Error) {
@@ -142,69 +343,73 @@ class Shout_Driver_Sql extends Shout_Driver
     /**
      * Save a device (add or edit) to the backend.
      *
-     * @param string $context  The context in which this device is valid
+     * @param string $account  The account in which this device is valid
      * @param string $devid    Device ID to save
      * @param array $details      Array of device details
      */
-    public function saveDevice($context, $devid, &$details)
+    public function saveDevice($account, $devid, &$details)
     {
         // Check permissions and possibly update the authentication tokens
-        parent::saveDevice($context, $devid, $details);
+        parent::saveDevice($account, $devid, $details);
 
         // See getDevices() for an explanation of these conversions
         $details['alias'] = $details['name'];
         $details['name'] = $details['devid'];
         unset($details['devid']);
-        $details['mailbox'] .= '@' . $context;
+        $details['mailbox'] .= '@' . $account;
 
         // Prepare the SQL query and arguments
         $args = array(
             $details['name'],
-            $context,
+            $account,
             $details['callerid'],
             $details['mailbox'],
             $details['password'],
+            $account,
             $details['alias'],
         );
+
         if (!empty($devid)) {
             // This is an edit
             $details['name'] = $details['devid'];
             $sql = 'UPDATE %s SET name = ?, accountcode = ?, callerid = ?, ' .
-                   'mailbox = ?, secret = ?, alias = ?, canreinvite = "no", ' .
-                   'nat = "yes", type = "peer" WHERE name = ?';
+                   'mailbox = ?, secret = ?, context = ?, alias = ?, ' .
+                   'canreinvite = "no", nat = "yes", type = "peer", ' .
+                   'host = "dynamic" WHERE name = ?';
             $args[] = $devid;
         } else {
             // This is an add.  Generate a new unique ID and secret
             $sql = 'INSERT INTO %s (name, accountcode, callerid, mailbox, ' .
-                   'secret, alias, canreinvite, nat, type) ' .
-                   'VALUES (?, ?, ?, ?, ?, ?, "no", "yes", "peer")';
+                   'secret, context, alias, canreinvite, nat, type, host) ' .
+                   'VALUES (?, ?, ?, ?, ?, ?, ?, "no", "yes", "peer", ' .
+                   '"dynamic")';
 
         }
         $sql = sprintf($sql, $this->_params['table']);
 
         $msg = 'SQL query in Shout_Driver_Sql#saveDevice(): ' . $sql;
-        Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($msg, 'DEBUG');
         $sth = $this->_write_db->prepare($sql);
         $result = $this->_write_db->execute($sth, $args);
         if ($result instanceof PEAR_Error) {
             $msg = $result->getMessage() . ': ' . $result->getDebugInfo();
-            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($msg, 'ERR');
             throw new Shout_Exception(_("Internal database error.  Details have been logged for the administrator."));
         }
 
         return true;
     }
 
-    public function deleteDevice($context, $devid)
+    public function deleteDevice($account, $devid)
     {
-        parent::deleteDevice($context, $devid);
+        parent::deleteDevice($account, $devid);
 
         $sql = 'DELETE FROM %s WHERE devid = ?';
         $sql = sprintf($sql, $this->_params['table']);
         $values = array($devid);
 
         $msg = 'SQL query in Shout_Driver_Sql#deleteDevice(): ' . $sql;
-        Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($msg, 'DEBUG');
         $res = $this->_write_db->query($sql);
 
         if ($res instanceof PEAR_Error) {
@@ -215,13 +420,13 @@ class Shout_Driver_Sql extends Shout_Driver
     }
 
     /**
-     * Get a list of users valid for the contexts
+     * Get a list of users valid for the accounts
      *
-     * @param string $context Context on which to search
+     * @param string $account Account on which to search
      *
      * @return array User information indexed by voice mailbox number
      */
-    public function getExtensions($context)
+    public function getExtensions($account)
     {
         throw new Shout_Exception("Not implemented yet.");
     }
@@ -229,7 +434,7 @@ class Shout_Driver_Sql extends Shout_Driver
     /**
      * Save a user to the LDAP tree
      *
-     * @param string $context Context to which the user should be added
+     * @param string $account Account to which the user should be added
      *
      * @param string $extension Extension to be saved
      *
@@ -237,23 +442,273 @@ class Shout_Driver_Sql extends Shout_Driver
      *
      * @return TRUE on success, PEAR::Error object on error
      */
-    public function saveExtension($context, $extension, $userdetails)
+    public function saveExtension($account, $extension, $userdetails)
     {
-        parent::saveExtension($context, $extension, $details);
+        parent::saveExtension($account, $extension, $details);
         throw new Shout_Exception("Not implemented.");
     }
 
     /**
      * Deletes a user from the LDAP tree
      *
-     * @param string $context Context to delete the user from
+     * @param string $account Account to delete the user from
      * @param string $extension Extension of the user to be deleted
      *
      * @return boolean True on success, PEAR::Error object on error
      */
-    public function deleteExtension($context, $extension)
+    public function deleteExtension($account, $extension)
     {
         throw new Shout_Exception("Not implemented.");
+    }
+
+    public function getConferences($account)
+    {
+        $sql = 'SELECT id, room_number AS roomno, name, pin, options ' .
+               'FROM conferences ' .
+               'WHERE account_id = (SELECT id FROM accounts WHERE code = ?);';
+        $args = array($account);
+        $msg = 'SQL query in Shout_Driver_Sql#getConferences(): ' . $sql;
+        Horde::logMessage($msg, 'DEBUG');
+        $result = $this->_db->query($sql, $args);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+
+        $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
+        if ($row instanceof PEAR_Error) {
+            throw new Shout_Exception($row);
+        }
+
+        $conferences = array();
+        while ($row && !($row instanceof PEAR_Error)) {
+            $roomno = $row['roomno'];
+            $conferences[$roomno] = $row;
+
+            /* Advance to the new row in the result set. */
+            $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
+        }
+
+        $result->free();
+        return $conferences;
+    }
+
+    public function saveConference($account, $roomno, $details)
+    {
+        if (isset($details['oldroomno'])) {
+            // This is an edit
+            $sql = 'UPDATE conferences ' .
+                   'SET room_number = ?, name = ?, pin = ? ' .
+                   'WHERE room_number = ? AND account_id = ' .
+                   '(SELECT id FROM accounts WHERE code = ?)';
+            $args = array($roomno, $details['name'], $details['pin'],
+                          $details['oldroomno'], $account);
+        } else {
+            $sql = 'INSERT INTO conferences ' .
+                   '(room_number, name, pin, account_id) ' .
+                   'VALUES (?, ?, ?, (SELECT id FROM accounts WHERE code = ?))';
+            $args = array($roomno, $details['name'], $details['pin'], $account);
+        }
+
+        $msg = 'SQL query in Shout_Driver_Sql#saveConference(): ' . $sql;
+        Horde::logMessage($msg, 'DEBUG');
+        $result = $this->_write_db->query($sql, $args);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+
+        return true;
+    }
+
+    public function getRecordings($account)
+    {
+        $sql = 'SELECT id, filename FROM recordings ' .
+               'WHERE account_id = (SELECT id FROM accounts WHERE code = ?);';
+        $args = array($account);
+        $msg = 'SQL query in Shout_Driver_Sql#getRecordings(): ' . $sql;
+        Horde::logMessage($msg, 'DEBUG');
+        $result = $this->_db->query($sql, $args);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+
+        $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
+        if ($row instanceof PEAR_Error) {
+            throw new Shout_Exception($row);
+        }
+
+        $recordings = array();
+        while ($row && !($row instanceof PEAR_Error)) {
+            $id = $row['id'];
+            $recordings[$id] = $row;
+
+            /* Advance to the new row in the result set. */
+            $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
+        }
+
+        $result->free();
+        return $recordings;
+    }
+
+    public function getRecordingByName($account, $filename)
+    {
+        $sql = 'SELECT id, filename FROM recordings ' .
+               'WHERE account_id = (SELECT id FROM accounts WHERE code = ?) ' .
+               'AND filename = ?;';
+        $args = array($account, $filename);
+        $msg = 'SQL query in Shout_Driver_Sql#getRecordingByName(): ' . $sql;
+        Horde::logMessage($msg, 'DEBUG');
+        $result = $this->_db->query($sql, $args);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+
+        $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
+        if ($row instanceof PEAR_Error) {
+            throw new Shout_Exception($row);
+        }
+        if ($row === null) {
+            throw new Shout_Exception('No such recording found for this account.');
+        }
+        $result->free();
+        return $row;
+    }
+
+    public function addRecording($account, $name)
+    {
+        $sql = 'INSERT INTO recordings (filename, account_id) ' .
+               'VALUES (?,(SELECT id FROM accounts WHERE code = ?))';
+        $args = array($name, $account);
+
+        $msg = 'SQL query in Shout_Driver_Sql#addRecording(): ' . $sql;
+        Horde::logMessage($msg, 'DEBUG');
+        $result = $this->_write_db->query($sql, $args);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+
+        return true;
+    }
+
+    public function deleteRecording($account, $name)
+    {
+        $sql = 'DELETE FROM recordings WHERE filename = ? AND account_id = ' .
+               '(SELECT id FROM accounts WHERE code = ?)';
+        $vars = array($name, $account);
+
+        $msg = 'SQL query in Shout_Driver_Sql#deleteRecording(): ' . $sql;
+        Horde::logMessage($msg, 'DEBUG');
+        $result = $this->_write_db->query($sql, $args);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+
+        return true;
+    }
+
+    public function getNumbers($account = null)
+    {
+        if (!empty($account)) {
+            $sql = 'SELECT numbers.id AS id, numbers.did AS number, ' .
+                   'accounts.code AS accountcode, menus.name AS menuName ' .
+                   'FROM numbers ' .
+                   'INNER JOIN accounts ON numbers.account_id = accounts.id ' .
+                   'INNER JOIN menus ON numbers.menu_id = menus.id ' .
+                   'WHERE accounts.code = ?';
+            $values = array($account);
+
+        } else {
+            $sql = 'SELECT numbers.id AS id, numbers.did AS number, ' .
+                   'accounts.code AS accountcode, menus.name AS menuName ' .
+                   'FROM numbers ' .
+                   'INNER JOIN accounts ON numbers.account_id = accounts.id ' .
+                   'INNER JOIN menus ON numbers.menu_id = menus.id';
+            $values = array();
+        }
+        
+        $msg = 'SQL query in Shout_Driver_Sql#getNumbers(): ' . $sql;
+        Horde::logMessage($msg, 'DEBUG');
+        $result = $this->_db->query($sql, $values);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+
+        $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
+        if ($row instanceof PEAR_Error) {
+            throw new Shout_Exception($row);
+        }
+
+        $numbers = array();
+        while ($row && !($row instanceof PEAR_Error)) {
+            $id = $row['number'];
+            $numbers[$id] = $row;
+
+            /* Advance to the new row in the result set. */
+            $row = $result->fetchRow(DB_FETCHMODE_ASSOC);
+        }
+
+        $result->free();
+        return $numbers;
+    }
+
+    public function deleteNumber($number)
+    {
+        // Remove any existing action
+        $sql = 'DELETE FROM numbers WHERE did = ?';
+        $values = array($number);
+        $msg = 'SQL query in Shout_Driver_Sql#deleteNumber(): ' . $sql;
+        Horde::logMessage($msg, 'DEBUG');
+        $result = $this->_write_db->query($sql, $values);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+        return true;
+    }
+
+    public function saveNumber($number, $account, $menu)
+    {
+        $numbers = $this->getNumbers();
+        if (isset($numbers[$number])) {
+            // This is an edit
+            $sql = 'UPDATE numbers SET ' .
+                   'account_id = (SELECT id FROM accounts WHERE code = ?), ';
+            $values = array($account);
+            if ($menu == 'INACTIVE') {
+                // Special handling for the 'NONE' menu
+                $sql .= 'menu_id = 1 ';
+            } else {
+                $sql .= 'menu_id = (SELECT id FROM menus WHERE name = ? AND ' .
+                        'account_id = (SELECT id FROM accounts WHERE code = ?)) ';
+                $values[] = $menu;
+                $values[] = $account;
+            }
+            $sql .= 'WHERE did = ?';
+            $values[] = $number;
+        } else {
+            // This is an add
+            $sql = 'INSERT INTO numbers (account_id, menu_id, did) VALUES (' .
+                   '(SELECT id FROM accounts WHERE code = ?), ';
+            $values = array($account);
+            if ($menu == 'INACTIVE') {
+                // Special handling for the 'NONE' menu
+                $sql .= 'menu_id = 1, ';
+            } else {
+                $sql .= 'menu_id = (SELECT id FROM menus WHERE name = ? AND ' .
+                        'account_id = (SELECT id FROM accounts WHERE code = ?)), ';
+                $values[] = $menu;
+                $values[] = $account;
+            }
+            $sql .= '?)';
+            $values[] = $number;
+        }
+
+        $msg = 'SQL query in Shout_Driver_Sql#saveNumber(): ' . $sql;
+        Horde::logMessage($msg, 'DEBUG');
+        $result = $this->_write_db->query($sql, $values);
+        if ($result instanceof PEAR_Error) {
+            throw new Shout_Exception($result);
+        }
+
+        return true;
     }
 
     /**
@@ -263,65 +718,16 @@ class Shout_Driver_Sql extends Shout_Driver
      */
     protected function _connect()
     {
-        if ($this->_connected) {
-            return;
-        }
-
-        Horde::assertDriverConfig($this->_params, $this->_params['class'],
-                                  array('phptype', 'charset', 'table'));
-
-        if (!isset($this->_params['database'])) {
-            $this->_params['database'] = '';
-        }
-        if (!isset($this->_params['username'])) {
-            $this->_params['username'] = '';
-        }
-        if (!isset($this->_params['hostspec'])) {
-            $this->_params['hostspec'] = '';
-        }
-
-        /* Connect to the SQL server using the supplied parameters. */
-        $this->_write_db = DB::connect($this->_params,
-                                       array('persistent' => !empty($this->_params['persistent'])));
-        if ($this->_write_db instanceof PEAR_Error) {
-            throw Shout_Exception($this->_write_db);
-        }
-
-        // Set DB portability options.
-        switch ($this->_write_db->phptype) {
-        case 'mssql':
-            $this->_write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-            break;
-
-        default:
-            $this->_write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-        }
-
-        /* Check if we need to set up the read DB connection seperately. */
-        if (!empty($this->_params['splitread'])) {
-            $params = array_merge($this->_params, $this->_params['read']);
-            $this->_db = DB::connect($params,
-                                     array('persistent' => !empty($params['persistent'])));
-            if ($this->_db instanceof PEAR_Error) {
-                throw Shout_Exception($this->_db);
+        if (!$this->_connected) {
+            try {
+                $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('read', 'shout', $this->_params['class']);
+                $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('rw', 'shout', $this->_params['class']);
+            } catch (Horde_Exception $e) {
+                throw new Shout_Exception($e);
             }
 
-            // Set DB portability options.
-            switch ($this->_db->phptype) {
-            case 'mssql':
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-                break;
-
-            default:
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-            }
-
-        } else {
-            /* Default to the same DB handle for the writer too. */
-            $this->_db = $this->_write_db;
+            $this->_connected = true;
         }
-
-        $this->_connected = true;
     }
 
     /**

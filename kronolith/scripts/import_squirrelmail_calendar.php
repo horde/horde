@@ -1,4 +1,4 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
 /**
  * This script imports SquirrelMail database calendars into Kronolith.
@@ -15,17 +15,8 @@
  */
 
 // Do CLI checks and environment setup first.
-require_once dirname(__FILE__) . '/../../lib/core.php';
-
-// Makre sure no one runs this from the web.
-if (!Horde_Cli::runningFromCli()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment - make sure there's no time limit, init some
-// variables, etc.
-$cli = Horde_Cli::singleton();
-$cli->init();
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('kronolith', array('authentication' => 'none', 'cli' => true, 'user_admin' => true));
 
 // Read command line parameters.
 if ($argc != 2) {
@@ -36,21 +27,9 @@ if ($argc != 2) {
 $dsn = $argv[1];
 $default_tz = date_default_timezone_get();
 
-// Make sure we load Horde base to get the auth config
-$horde_authentication = 'none';
-require_once HORDE_BASE . '/lib/base.php';
-if ($conf['auth']['admins']) {
-    Horde_Auth::setAuth($conf['auth']['admins'][0], array());
-}
-
-// Now that we are authenticated, we can load Kronolith's base. Otherwise, the
-// share code breaks, causing a new, completely empty share to be created with
-// no owner.
-require_once dirname(__FILE__) . '/../lib/base.php';
-
 // Connect to database.
 $db = DB::connect($dsn);
-if (is_a($db, 'PEAR_Error')) {
+if ($db instanceof PEAR_Error) {
     $cli->fatal($db->toString());
 }
 
@@ -58,7 +37,7 @@ if (is_a($db, 'PEAR_Error')) {
 $read_stmt = $db->prepare('SELECT reader_name FROM calendar_readers WHERE calendar_id = ?');
 $write_stmt = $db->prepare('SELECT writer_name FROM calendar_writers WHERE calendar_id = ?');
 $handle = $db->query('SELECT id, name, owner_name FROM calendars, calendar_owners WHERE calendars.id = calendar_owners.calendar_id');
-if (is_a($handle, 'PEAR_Error')) {
+if ($handle instanceof PEAR_Error) {
     $cli->fatal($handle->toString());
 }
 while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
@@ -72,14 +51,14 @@ while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
     // Add permissions.
     $permissions = array();
     $result = $db->execute($read_stmt, array($row['id']));
-    if (is_a($result, 'PEAR_Error')) {
+    if ($result instanceof PEAR_Error) {
         $cli->fatal($result->toString());
     }
     while ($perm_row = $result->fetchRow()) {
         $permissions[$perm_row[0]] = Horde_Perms::READ | Horde_Perms::SHOW;
     }
     $result = $db->execute($write_stmt, array($row['id']));
-    if (is_a($result, 'PEAR_Error')) {
+    if ($result instanceof PEAR_Error) {
         $cli->fatal($result->toString());
     }
     while ($perm_row = $result->fetchRow()) {
@@ -101,10 +80,10 @@ while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
 }
 
 $handle = $db->query('SELECT event_id, calendar_id, ical_raw, owner_name, prefval FROM events, event_owners LEFT JOIN userprefs ON event_owners.owner_name = userprefs.user AND userprefs.prefkey = \'timezone\' WHERE events.id = event_owners.event_key ORDER BY calendar_id, userprefs.prefval, event_owners.owner_name');
-if (is_a($handle, 'PEAR_Error')) {
+if ($handle instanceof PEAR_Error) {
     $cli->fatal($handle->toString());
 }
-$ical = new Horde_iCalendar();
+$ical = new Horde_Icalendar();
 $tz = $calendar = $user = $count = null;
 while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
     // Open calendar.
@@ -128,9 +107,10 @@ while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
         Horde_Auth::setAuth($user, array());
     }
     // Parse event.
-    $parsed = $ical->parsevCalendar($row['ical_raw']);
-    if (is_a($parsed, 'PEAR_Error')) {
-        $cli->message('  ' . $parsed->getMessage(), 'cli.warning');
+    try {
+        $ical->parsevCalendar($row['ical_raw']);
+    } catch (Horde_Icalendar_Exception $e) {
+        $cli->message('  ' . $e->getMessage(), 'cli.warning');
         continue;
     }
     $components = $ical->getComponents();
@@ -140,11 +120,12 @@ while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
     }
 
     // Save event.
-    $event = &$kronolith_driver->getEvent();
+    $event = $kronolith_driver->getEvent();
     $event->fromiCalendar($components[0]);
-    $result = $event->save();
-    if (is_a($result, 'PEAR_Error')) {
-        $cli->message('  ' . $result->getMessage(), 'cli.error');
+    try {
+        $event->save();
+    } catch (Exception $e) {
+        $cli->message('  ' . $e->getMessage(), 'cli.error');
         continue;
     }
     $count++;

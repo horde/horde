@@ -175,6 +175,48 @@ CREATE TABLE horde_locks (
 )
 go
 
+CREATE TABLE horde_activesync_state (
+    sync_time          numeric(10, 0),
+    sync_key           varchar(255) NOT NULL,
+    sync_data          text,
+    sync_devid         varchar(255),
+    sync_folderid      varchar(255),
+    sync_user          varchar(255),
+--
+    PRIMARY KEY (sync_key)
+);
+go
+
+CREATE TABLE horde_activesync_map (
+    message_uid        varchar(255) NOT NULL,
+    sync_modtime       numeric(10, 0),
+    sync_key           varchar(255) NOT NULL,
+    sync_devid         varchar(255) NOT NULL,
+    sync_folderid      varchar(255) NOT NULL,
+    sync_user          varchar(255)
+);
+go
+
+CREATE TABLE horde_activesync_device (
+    device_id         varchar(255) NOT NULL,
+    device_type       varchar(255) NOT NULL,
+    device_agent      varchar(255) NOT NULL,
+    device_supported  text,
+    device_policykey  number(11, 0) DEFAULT 0,
+    device_rwstatus   number(10, 0),
+--
+    PRIMARY KEY (device_id)
+);
+go
+
+CREATE TABLE horde_activesync_device_users (
+    device_id         varchar(255) NOT NULL,
+    device_user       varchar(255) NOT NULL,
+    device_ping       text,
+    device_folders    text
+);
+go
+
 -- CREATE TABLE horde_datatree_seq (
 --   id numeric(10,0) IDENTITY NOT NULL,
 --   PRIMARY KEY (id)
@@ -279,6 +321,27 @@ CREATE INDEX alarm_dismissed_idx ON horde_alarms (alarm_dismissed)
 go
 
 CREATE INDEX session_lastmodified_idx ON horde_sessionhandler (session_lastmodified)
+go
+
+CREATE INDEX activesync_state_folder_idx ON horde_activesync_state (sync_folderid);
+go
+
+CREATE INDEX activesync_state_devid_idx ON horde_activesync_state (sync_devid);
+go
+
+CREATE INDEX activesync_map_devid_idx ON horde_activesync_map (sync_devid);
+go
+
+CREATE INDEX activesync_map_message_idx ON horde_activesync_map (message_uid);
+go
+
+CREATE INDEX activesync_device_user_idx ON horde_activesync_device (device_user);
+go
+
+CREATE INDEX activesync_device_users_idx ON horde_activesync_device_users (device_user);
+go
+
+CREATE INDEX activesync_map_user_idx ON horde_activesync_map (sync_user);
 go
 
 -- CREATE INDEX vfs_path_idx ON horde_vfs (vfs_path)

@@ -5,16 +5,16 @@ $block_name = _("Moon Phases");
 /**
  * @package Horde_Block
  */
-class Horde_Block_Horde_moon extends Horde_Block {
+class Horde_Block_Horde_moon extends Horde_Block
+{
+    protected $_app = 'horde';
 
-    var $_app = 'horde';
-
-    function _title()
+    protected function _title()
     {
         return _("Moon Phases");
     }
 
-    function _params()
+    protected function _params()
     {
         return array(
             'phase' => array(
@@ -32,7 +32,7 @@ class Horde_Block_Horde_moon extends Horde_Block {
             );
     }
 
-    function _content()
+    protected function _content()
     {
         $phases = $this->_calculateMoonPhases(date('Y'));
         $now = time();
@@ -106,7 +106,7 @@ class Horde_Block_Horde_moon extends Horde_Block {
      *
      * @return array    The moon phases.
      */
-    function _calculateMoonPhases($Y)
+    private function _calculateMoonPhases($Y)
     {
         $R1 = 3.14159265 / 180;
         $U  = false;
@@ -188,7 +188,7 @@ class Horde_Block_Horde_moon extends Horde_Block {
      *
      * @return string m/d/Y
      */
-    function _jdtogregorian($julian)
+    private function _jdtogregorian($julian)
     {
         if (function_exists('jdtogregorian')) {
             return jdtogregorian($julian);

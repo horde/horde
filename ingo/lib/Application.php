@@ -2,8 +2,39 @@
 /**
  * Ingo application API.
  *
+ * This file defines Horde's core API interface. Other core Horde libraries
+ * can interact with Ingo through this API.
+ *
+ * Copyright 2010 The Horde Project (http://www.horde.org/)
+ *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ *
+ * @package Ingo
+ */
+
+/* Determine the base directories. */
+if (!defined('INGO_BASE')) {
+    define('INGO_BASE', dirname(__FILE__) . '/..');
+}
+
+if (!defined('HORDE_BASE')) {
+    /* If Horde does not live directly under the app directory, the HORDE_BASE
+     * constant should be defined in config/horde.local.php. */
+    if (file_exists(INGO_BASE . '/config/horde.local.php')) {
+        include INGO_BASE . '/config/horde.local.php';
+    } else {
+        define('HORDE_BASE', INGO_BASE . '/..');
+    }
+}
+
+/* Load the Horde Framework core (needed to autoload
+ * Horde_Registry_Application::). */
+require_once HORDE_BASE . '/lib/core.php';
+
+/**
+ * Ingo application API.
+ *
  */
 class Ingo_Application extends Horde_Registry_Application
 {
@@ -15,6 +46,54 @@ class Ingo_Application extends Horde_Registry_Application
     public $version = 'H4 (2.0-git)';
 
     /**
+     * Initialization function.
+     *
+     * Global variables defined:
+     *   $all_rulesets - TODO
+     *   $ingo_shares - TODO
+     *   $ingo_storage - TODO
+     */
+    protected function _init()
+    {
+        // Load the Ingo_Storage driver.
+        $GLOBALS['ingo_storage'] = Ingo_Storage::factory();
+
+        // Create the ingo session.
+        Ingo::createSession();
+
+        // Create shares if necessary.
+        $transport = Ingo::getTransport();
+        if ($transport->supportShares()) {
+            $GLOBALS['ingo_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
+            $GLOBALS['all_rulesets'] = Ingo::listRulesets();
+
+            /* If personal share doesn't exist then create it. */
+            $signature = $_SESSION['ingo']['backend']['id'] . ':' . $GLOBALS['registry']->getAuth();
+            if (!$GLOBALS['ingo_shares']->exists($signature)) {
+                $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
+                $name = $identity->getValue('fullname');
+                if (trim($name) == '') {
+                    $name = $GLOBALS['registry']->getAuth('original');
+                }
+                $share = $GLOBALS['ingo_shares']->newShare($signature);
+                $share->set('name', $name);
+                $GLOBALS['ingo_shares']->addShare($share);
+                $GLOBALS['all_rulesets'][$signature] = $share;
+            }
+
+            /* Select current share. */
+            $_SESSION['ingo']['current_share'] = Horde_Util::getFormData('ruleset', @$_SESSION['ingo']['current_share']);
+            if (empty($_SESSION['ingo']['current_share']) ||
+                empty($GLOBALS['all_rulesets'][$_SESSION['ingo']['current_share']]) ||
+                !$GLOBALS['all_rulesets'][$_SESSION['ingo']['current_share']]->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
+                $_SESSION['ingo']['current_share'] = $signature;
+            }
+        } else {
+            $GLOBALS['ingo_shares'] = null;
+        }
+    }
+
+    /**
      * Returns a list of available permissions.
      *
      * @return array  An array describing all available permissions.
@@ -22,55 +101,77 @@ class Ingo_Application extends Horde_Registry_Application
     public function perms()
     {
         return array(
-            'title' => array(
-                'ingo:allow_rules' => _("Allow Rules"),
-                'ingo:max_rules' => _("Maximum Number of Rules")
+            'allow_rules' => array(
+                'title' => _("Allow Rules"),
+                'type' => 'boolean'
             ),
-            'tree' => array(
-                'ingo' => array(
-                    'allow_rules' => false,
-                    'max_rules' => false
-                )
-            ),
-            'type' => array(
-                'ingo:allow_rules' => 'boolean',
-                'ingo:max_rules' => 'int'
+            'max_rules' => array(
+                'title' => _("Maximum Number of Rules"),
+                'type' => 'int'
             )
         );
     }
 
     /**
-     * Returns the specified permission for the current user.
+     * Add additional items to the menu.
      *
-     * @param mixed $allowed  The allowed permissions.
-     *
-     * @return mixed  The value of the specified permission.
+     * @param Horde_Menu $menu  The menu object.
      */
-    public function hasPermission($allowed)
+    public function menu($menu)
     {
-        if (is_array($allowed)) {
-            switch ($permission) {
-            case 'allow_rules':
-                $allowed = (bool)count(array_filter($allowed));
-                break;
-
-            case 'max_rules':
-                $allowed = max($allowed);
-                break;
-            }
+        try {
+            $menu->add(Horde::url('filters.php'), _("Filter _Rules"), 'ingo.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
+            $menu->add(Horde::url($GLOBALS['injector']->getInstance('Horde_Registry')->link('mail/showWhitelist')), _("_Whitelist"), 'whitelist.png');
+            $menu->add(Horde::url($GLOBALS['injector']->getInstance('Horde_Registry')->link('mail/showBlacklist')), _("_Blacklist"), 'blacklist.png');
+        } catch (Horde_Exception $e) {
+            Horde::logMessage($e->getMessage(), 'ERR');
         }
 
-        return $allowed;
+        if (in_array(Ingo_Storage::ACTION_VACATION, $_SESSION['ingo']['script_categories'])) {
+            $menu->add(Horde::url('vacation.php'), _("_Vacation"), 'vacation.png');
+        }
+
+        if (in_array(Ingo_Storage::ACTION_FORWARD, $_SESSION['ingo']['script_categories'])) {
+            $menu->add(Horde::url('forward.php'), _("_Forward"), 'forward.png');
+        }
+
+        if (in_array(Ingo_Storage::ACTION_SPAM, $_SESSION['ingo']['script_categories'])) {
+            $menu->add(Horde::url('spam.php'), _("S_pam"), 'spam.png');
+        }
+
+        if ($_SESSION['ingo']['script_generate'] &&
+            (!$GLOBALS['prefs']->isLocked('auto_update') ||
+             !$GLOBALS['prefs']->getValue('auto_update'))) {
+            $menu->add(Horde::url('script.php'), _("_Script"), 'script.png');
+        }
+
+        if (!empty($GLOBALS['ingo_shares']) && empty($GLOBALS['conf']['share']['no_sharing'])) {
+            $menu->add('#', _("_Permissions"), 'perms.png', Horde_Themes::img(null, 'horde'), '', Horde::popupJs(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/shares/edit.php', true), array('params' => array('app' => 'ingo', 'share' => $_SESSION['ingo']['backend']['id'] . ':' . $GLOBALS['registry']->getAuth()), 'urlencode' => true)) . 'return false;');
+        }
     }
 
     /**
-     * Generate the menu to use on the prefs page.
+     * Returns the specified permission for the given app permission.
      *
-     * @return Horde_Menu  A Horde_Menu object.
+     * @param string $permission  The permission to check.
+     * @param mixed $allowed      The allowed permissions.
+     * @param array $opts         Additional options (NONE).
+     *
+     * @return mixed  The value of the specified permission.
      */
-    public function prefsMenu()
+    public function hasPermission($permission, $allowed, $opts = array())
     {
-        return Ingo::getMenu();
+        switch ($permission) {
+        case 'allow_rules':
+            $allowed = (bool)count(array_filter($allowed));
+            break;
+
+        case 'max_rules':
+            $allowed = max($allowed);
+            break;
+        }
+
+        return $allowed;
     }
 
     /**
@@ -78,61 +179,66 @@ class Ingo_Application extends Horde_Registry_Application
      *
      * @param string $user  Name of user to remove data for.
      *
-     * @return mixed  true on success | PEAR_Error on failure
+     * @throws Ingo_Exception.
      */
     public function removeUserData($user)
     {
-        if (!Horde_Auth::isAdmin() && $user != Horde_Auth::getAuth()) {
-            return PEAR::raiseError(_("You are not allowed to remove user data."));
-        }
-
-        require_once dirname(__FILE__) . '/../lib/base.php';
-
         /* Remove all filters/rules owned by the user. */
-        $result = $GLOBALS['ingo_storage']->removeUserData($user);
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $result;
+        try {
+            $GLOBALS['ingo_storage']->removeUserData($user);
+        } catch (Ingo_Exception $e) {
+            Horde::logMessage($e, 'ERR');
+            throw $e;
         }
 
         /* Now remove all shares owned by the user. */
         if (!empty($GLOBALS['ingo_shares'])) {
             /* Get the user's default share. */
-            $share = $GLOBALS['ingo_shares']->getShare($user);
-            if (is_a($share, 'PEAR_Error')) {
-                Horde::logMessage($share, __FILE__, __LINE__, PEAR_LOG_ERR);
-                return $share;
-            } else {
-                $result = $GLOBALS['ingo_shares']->removeShare($share);
-                if (is_a($result, 'PEAR_Error')) {
-                    Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-                    return $result;
-                }
+            try {
+                $share = $GLOBALS['ingo_shares']->getShare($user);
+                $GLOBALS['ingo_shares']->removeShare($share);
+            } catch (Horde_Share_Exception $e) {
+                Horde::logMessage($e, 'ERR');
+                throw new Ingo_Exception($e);
             }
 
             /* Get a list of all shares this user has perms to and remove the
              * perms. */
-            $shares = $GLOBALS['ingo_shares']->listShares($user);
-            if (is_a($shares, 'PEAR_Error')) {
-                Horde::logMessage($shares, __FILE__, __LINE__, PEAR_LOG_ERR);
-            }
-            foreach ($shares as $share) {
-                $share->removeUser($user);
+            try {
+                $shares = $GLOBALS['ingo_shares']->listShares($user);
+                foreach ($shares as $share) {
+                    $share->removeUser($user);
+                }
+            } catch (Horde_Share_Exception $e) {
+                Horde::logMessage($e, 'ERR');
             }
 
             /* Get a list of all shares this user owns and has perms to delete
              * and remove them. */
-            $shares = $GLOBALS['ingo_shares']->listShares($user, Horde_Perms::DELETE, $user);
-            if (is_a($shares, 'PEAR_Error')) {
-                Horde::logMessage($shares, __FILE__, __LINE__, PEAR_LOG_ERR);
-                return $shares;
+            try {
+                $shares = $GLOBALS['ingo_shares']->listShares($user, Horde_Perms::DELETE, $user);
+            } catch (Horde_Share_Exception $e) {
+                Horde::logMessage($e, 'ERR');
+                throw new Ingo_Exception($e);
             }
+
             foreach ($shares as $share) {
                 $GLOBALS['ingo_shares']->removeShare($share);
             }
         }
+    }
 
-        return true;
+    /**
+     * Code to run on init when viewing prefs for this application.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     */
+    public function prefsInit($ui)
+    {
+        if (!isset($GLOBALS['session']['ingo:script_generate']) ||
+            $GLOBALS['session']['ingo:script_generate']) {
+            $ui->suppressGroups[] = 'script';
+        }
     }
 
 }

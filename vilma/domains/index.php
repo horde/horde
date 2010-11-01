@@ -8,39 +8,42 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-@define('VILMA_BASE', dirname(__FILE__) . '/..');
-require_once VILMA_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+$vilma = Horde_Registry::appInit('vilma');
 
 /* Only admin should be using this. */
 if (!Vilma::hasPermission($domain)) {
-    Horde_Auth::authenticateFailure('vilma', $e);
+    $registry->authenticateFailure('vilma', $e);
 }
 
 // Having a current domain doesn't make sense on this page
 Vilma::setCurDomain(false);
 
-$domains = $vilma_driver->getDomains();
+$domains = $vilma->driver->getDomains();
 if (is_a($domains, 'PEAR_Error')) {
     $notification->push($domains, 'horde.error');
     $domains = array();
 }
 foreach ($domains as $id => $domain) {
-    $url = Horde::applicationUrl('domains/edit.php');
+    $url = Horde::url('domains/edit.php');
     $domains[$id]['edit_url'] = Horde_Util::addParameter($url, 'domain_id', $domain['domain_id']);
-    $url = Horde::applicationUrl('domains/delete.php');
+    $url = Horde::url('domains/delete.php');
     $domains[$id]['del_url'] = Horde_Util::addParameter($url, 'domain_id', $domain['domain_id']);
-    $url = Horde::applicationUrl('users/index.php');
+    $url = Horde::url('users/index.php');
     $domains[$id]['view_url'] = Horde_Util::addParameter($url, 'domain_id', $domain['domain_id']);
 }
 
 /* Set up the template fields. */
 $template->set('domains', $domains, true);
 $template->set('menu', Vilma::getMenu('string'));
-$template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$template->set('notify', Horde::endBuffer());
 
 /* Set up the field list. */
-$images = array('delete' => Horde::img('delete.png', _("Delete Domain"), '', $registry->getImageDir('horde')),
-                'edit' => Horde::img('edit.png', _("Edit Domain"), '', $registry->getImageDir('horde')));
+$images = array('delete' => Horde::img('delete.png', _("Delete Domain")),
+                'edit' => Horde::img('edit.png', _("Edit Domain")));
 $template->set('images', $images);
 
 /* Render the page. */

@@ -11,7 +11,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-new Horde_Application(array('authentication' => 'none', 'nologintasks' => true));
+Horde_Registry::appInit('horde', array('authentication' => 'none', 'nologintasks' => true));
 
 $main_page = Horde_Util::nonInputVar('horde_login_url', Horde_Util::getFormData('url'));
 
@@ -47,11 +47,13 @@ if (!empty($main_page)) {
     }
 }
 
-if (!$main_page) {
+if ($main_page) {
+    $main_page = new Horde_Url($main_page);
+} else {
     /* Always redirect to login page if there is no incoming URL and nobody
      * is authenticated. */
-    if (!Horde_Auth::getAuth()) {
-        $main_page = Horde::applicationUrl('login.php', true);
+    if (!$registry->getAuth()) {
+        $main_page = Horde::url('login.php', true);
     } else {
         /* Search for a user-specified initial application. */
         $initial_app = $prefs->getValue('initial_application');
@@ -65,31 +67,15 @@ if (!$main_page) {
              * loops. */
             if (!empty($registry->applications['horde']['initial_page']) &&
                 !in_array($registry->applications['horde']['initial_page'], array('index.php', 'login.php'))) {
-                $main_page = Horde::applicationUrl($registry->applications['horde']['initial_page'], true);
+                $main_page = Horde::url($registry->applications['horde']['initial_page'], true);
             } else {
                 /* Finally, fallback to the portal page. */
                 $main_page = $browser->isMobile()
-                    ? Horde::applicationUrl('services/portal/mobile.php', true)
-                    : Horde::applicationUrl('services/portal/', true);
+                    ? Horde::url('services/portal/mobile.php', true)
+                    : Horde::url('services/portal/', true);
             }
         }
     }
 }
 
-/* Sidebar display: only load sidebar if we are coming from login page and
- * 'horde_login_nosidebar' is set and not true; if this page is loaded,
- * there is no authenticated user, and conf->menu->always is true; or if
- * 'force_sidebar' GET parameter is set. */
-if ((Horde_Util::getFormData('force_sidebar') ||
-    !Horde_Util::nonInputVar('horde_login_nosidebar', Horde_Auth::getAuth())) &&
-    ($conf['menu']['always'] ||
-     (Horde_Auth::getAuth() && $prefs->getValue('show_sidebar')))) {
-    $scrollbar = $browser->hasQuirk('scrollbar_in_way') ? 'yes' : 'auto';
-    require HORDE_TEMPLATES . '/index/frames_index.inc';
-} else {
-    /* We always need to do a URL redirect here rather than directly
-     * including the file. This is to ensure that the next page has a chance
-     * to init a full Horde environment before anything else is done in the
-     * session (needed for things like Horde LoginTasks to be run). */
-    header('Location: ' . $main_page);
-}
+$main_page->redirect();

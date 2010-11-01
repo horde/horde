@@ -9,7 +9,6 @@
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Jan Schneider <jan@horde.org>
- * @since   Horde 2.2
  * @package Horde_SQL
  */
 class Horde_SQL {
@@ -24,19 +23,21 @@ class Horde_SQL {
      * @param string $rhs    The comparison value.
      * @param boolean $bind  If true, the method returns the query and a list
      *                       of values suitable for binding as an array.
-     * @param array $params  Any additional parameters for the operator. @since
-     *                       Horde 3.2
+     * @param array $params  Any additional parameters for the operator.
      *
      * @return mixed  The SQL test fragment, or an array containing the query
      *                and a list of values if $bind is true.
      */
-    function buildClause(&$dbh, $lhs, $op, $rhs, $bind = false, $params = array())
+    function buildClause($dbh, $lhs, $op, $rhs, $bind = false, $params = array())
     {
+        $type = $dbh instanceof Horde_Db_Adapter_Base ? Horde_String::lower($dbh->adapterName()) : $dbh->phptype;
+
         switch ($op) {
         case '|':
         case '&':
-            switch ($dbh->phptype) {
+            switch ($type) {
             case 'pgsql':
+            case 'pdo_postgresql':
                 // Only PgSQL 7.3+ understands SQL99 'SIMILAR TO'; use
                 // ~ for greater backwards compatibility.
                 $query = 'CASE WHEN CAST(%s AS VARCHAR) ~ \'^-?[0-9]+$\' THEN (CAST(%s AS INTEGER) %s %s) <> 0 ELSE FALSE END';
@@ -96,7 +97,7 @@ class Horde_SQL {
             }
 
         case '~':
-            if ($dbh->phptype == 'mysql') {
+            if ($type == 'mysql' || $type == 'mysqli' || $type == 'pdo_mysql') {
                 $op = 'REGEXP';
             }
             if ($bind) {
@@ -132,7 +133,7 @@ class Horde_SQL {
             }
 
         case 'LIKE':
-            if ($dbh->phptype == 'pgsql') {
+            if ($type == 'pgsql' || $type == 'pdo_pgsql') {
                 $query = '%s ILIKE %s';
             } else {
                 $query = 'LOWER(%s) LIKE LOWER(%s)';
@@ -187,7 +188,7 @@ class Horde_SQL {
         return preg_replace('/[?!&]/', '\\\\$0', $query);
     }
 
-    function readBlob(&$dbh, $table, $field, $criteria)
+    function readBlob($dbh, $table, $field, $criteria)
     {
         if (!count($criteria)) {
             return PEAR::raiseError('You must specify the fetch criteria');
@@ -241,7 +242,7 @@ class Horde_SQL {
         return $result;
     }
 
-    function insertBlob(&$dbh, $table, $field, $data, $attributes)
+    function insertBlob($dbh, $table, $field, $data, $attributes)
     {
         $fields = array();
         $values = array();
@@ -296,14 +297,13 @@ class Horde_SQL {
         }
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SQL::insertBlob(): query = "%s"', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('SQL Query by Horde_SQL::insertBlob(): query = "%s"', $query), 'DEBUG');
 
         /* Execute the query. */
         return $this->_db->query($query, $values);
     }
 
-    function updateBlob(&$dbh, $table, $field, $data, $where, $alsoupdate)
+    function updateBlob($dbh, $table, $field, $data, $where, $alsoupdate)
     {
         $fields = array();
         $values = array();
@@ -367,8 +367,7 @@ class Horde_SQL {
         }
 
         /* Log the query at a DEBUG log level. */
-        Horde::logMessage(sprintf('SQL Query by Horde_SQL::updateBlob(): query = "%s"', $query),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage(sprintf('SQL Query by Horde_SQL::updateBlob(): query = "%s"', $query), 'DEBUG');
 
         /* Execute the query. */
         return $dbh->query($query, $values);
@@ -393,7 +392,7 @@ class Horde_SQL {
      *
      * @return string  The SQL SET fragment.
      */
-    function updateValues(&$dbh, $values)
+    function updateValues($dbh, $values)
     {
         $ret = array();
         foreach ($values as $key => $value) {
@@ -421,7 +420,7 @@ class Horde_SQL {
      *
      * @return string  The SQL fragment.
      */
-    function insertValues(&$dbh, $values)
+    function insertValues($dbh, $values)
     {
         $columns = array();
         $vals = array();

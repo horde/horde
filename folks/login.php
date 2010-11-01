@@ -64,7 +64,7 @@ function _loginNotice($user)
 if (isset($_GET['logout_reason'])) {
     setcookie('folks_login_user', '', $_SERVER['REQUEST_TIME'] - 1000, $conf['cookie']['path'], $conf['cookie']['domain']);
     setcookie('folks_login_code', '', $_SERVER['REQUEST_TIME'] - 1000, $conf['cookie']['path'], $conf['cookie']['domain']);
-    $folks_driver->deleteOnlineUser(Horde_Auth::getAuth());
+    $folks_driver->deleteOnlineUser($GLOBALS['registry']->getAuth());
 
     @session_destroy();
     if (!empty($_GET['redirect'])) {
@@ -80,7 +80,7 @@ if (isset($_GET['logout_reason'])) {
  * Special login for apps (gollem, imp)?
  */
 if ($conf['login']['prelogin'] &&
-    Horde_Auth::getAuth() &&
+    $GLOBALS['registry']->getAuth() &&
    ($app = Horde_Util::getGet('app'))) {
     Horde::callHook('prelogin', array($app), 'folks');
 }
@@ -94,9 +94,9 @@ $login_url = Horde_Util::addParameter(Horde::getServiceLink('login', 'folks'), '
 /*
  * We are already logged in?
  */
-if (Horde_Auth::isAuthenticated()) {
+if ($registry->isAuthenticated()) {
     if (empty($url_param)) {
-        $url_param = Folks::getUrlFor('user', Horde_Auth::getAuth());
+        $url_param = Folks::getUrlFor('user', $GLOBALS['registry']->getAuth());
     }
     header('Location: ' . $url_param);
     exit;

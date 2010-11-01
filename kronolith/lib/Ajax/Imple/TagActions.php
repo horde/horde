@@ -8,7 +8,7 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Kronolith
  */
-class Kronolith_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
+class Kronolith_Ajax_Imple_TagActions extends Horde_Core_Ajax_Imple
 {
     /**
      */
@@ -34,34 +34,42 @@ class Kronolith_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
      * Handle the tag related action.
      *
      * If removing a tag, needs a 'resource' which is the local identifier of
-     * the kronolith object, a 'type' which should be the string reprentation of
-     * the type of object (event/calendar) and 'tags' should be the integer
+     * the kronolith object, a 'type' which should be the string reprentation
+     * of the type of object (event/calendar) and 'tags' should be the integer
      * tag_id of the tag to remove.
+     *
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function handle($args, $post)
     {
-        require_once dirname(__FILE__) . '/../../base.php';
-        global $ansel_storage;
-
         $request = $args['action'];
         $content = array('id' => $post['resource'], 'type' => $post['type']);
         $tags = rawurldecode($post['tags']);
 
-        // Check perms
-        if ($post['type'] == 'calendar') {
-            $cal = $GLOBALS['kronolith_shares']->getShare($post['resource']);
-            $perm = $cal->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT);
-        } elseif($post['type'] == 'event') {
+        // Check perms only calendar owners may tag a calendar, only event
+        // creator can tag an event.
+        $cal = $GLOBALS['kronolith_shares']->getShare($post['resource']);
+        $cal_owner = $cal->get('owner');
+        if($post['type'] == 'event') {
             $event = Kronolith::getDriver()->getByUID($post['resource']);
-            $perm = $event->hasPermission(Horde_Perms::EDIT, Horde_Auth::getAuth());
+            $event_owner = $event->creator;
         }
 
+        // $owner is null for system-owned shares, so an admin has perms,
+        // otherwise, make sure the resource owner is the current user
+        $perm = empty($owner)
+            ? $GLOBALS['registry']->isAdmin()
+            : $owner == $GLOBALS['registry']->getAuth();
+
         if ($perm) {
-            /* Get the resource owner */
             $tagger = Kronolith::getTagger();
             switch ($request) {
             case 'add':
-                $tagger->tag($post['resource'], $tags, $post['type']);
+                $tagger->tag($post['resource'], $tags, $cal_owner, $post['type']);
+                if (!empty($event_owner)) {
+                    $tagger->tag($post['resource'], $tags, $event_owner, $post['type']);
+                }
                 break;
             case 'remove':
                 $tagger->untag($post['resource'], (int)$tags, $post['type']);
@@ -82,6 +90,9 @@ class Kronolith_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
      * @param string $type              The type of resource (calendar/event)
      *
      * @return string  The HTML
+     *
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
      */
     private function _getTagHtml($tagger, $id, $type)
     {
@@ -91,14 +102,14 @@ class Kronolith_Ajax_Imple_TagActions extends Horde_Ajax_Imple_Base
 
         if ($type == 'calendar') {
             $cal = $GLOBALS['kronolith_shares']->getShare($id);
-            $hasEdit = $cal->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT);
+            $hasEdit = $cal->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
         } elseif ($type == 'event') {
             $event = Kronolith::getDriver()->getByUID($id);
-            $hasEdit = $event->hasPermission(Horde_Perms::EDIT, Horde_Auth::getAuth());
+            $hasEdit = $event->hasPermission(Horde_Perms::EDIT, $GLOBALS['registry']->getAuth());
         }
 
         foreach ($tags as $tag_id => $tag) {
-            $html .= '<li class="panel-tags">' . htmlspecialchars($tag) . ($hasEdit ? '<a href="#" onclick="removeTag(\'' . $id . '\', \'' . $type . '\', ' . $tag_id . ',\'' . $this->_getUrl('TagActions', 'kronolith') . '\'); Event.stop(event);" id="remove' . md5($id . $tag_id) . '">' . Horde::img('delete-small.png', _("Remove Tag"), '', $GLOBALS['registry']->getImageDir('horde')) . '</a>' : '') . '</li>';
+            $html .= '<li class="panel-tags">' . htmlspecialchars($tag) . ($hasEdit ? '<a href="#" onclick="removeTag(\'' . $id . '\', \'' . $type . '\', ' . $tag_id . ',\'' . $this->_getUrl('TagActions', 'kronolith') . '\'); Event.stop(event);" id="remove' . md5($id . $tag_id) . '">' . Horde::img('delete-small.png', _("Remove Tag")) . '</a>' : '') . '</li>';
         }
 
         return $html;

@@ -2,7 +2,7 @@
  * TURAnsel
  *
  * Copyright 2009-2010 The Horde Project (http://www.horde.org)
- * 
+ *
  * @license http://opensource.org/licenses/bsd-license.php
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  */
@@ -33,12 +33,14 @@ typedef enum {
 @interface TURAnsel : NSObject <NSComboBoxDataSource>
 #else
 @interface TURAnsel : NSObject
-#endif         
+#endif
 {
     NSString *userAgent;
     NSString *rpcEndPoint;
     NSString *username;
     NSString *password;
+    NSString *version;
+
     NSMutableArray *galleryList;
     TURAnselState state;
     id delegate;
@@ -48,6 +50,7 @@ typedef enum {
 @property (readwrite, retain) NSString *rpcEndPoint;
 @property (readwrite, retain) NSString *username;
 @property (readwrite, retain) NSString *password;
+@property (readwrite, retain) NSString *version;
 
 - (id)initWithConnectionParameters: (NSDictionary *)params;
 - (void)connect;
@@ -62,4 +65,7 @@ typedef enum {
 - (TURAnselState)state;
 - (id)delegate;
 - (void)setDelegate: (id)newDelegate;
+
+- (NSInteger)numberOfItemsInComboBox:(NSComboBox *)aComboBox;
+- (id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(NSInteger)index;
 @end

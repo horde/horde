@@ -54,7 +54,8 @@ abstract class Kronolith_Resource_Base
         $this->_params = array_merge(array('description' => '',
                                            'response_type' => Kronolith_Resource::RESPONSETYPE_MANUAL,
                                            'members' => '',
-                                           'calendar' => ''),
+                                           'calendar' => '',
+                                           'email' => ''),
                                      $params);
 
     }
@@ -92,11 +93,7 @@ abstract class Kronolith_Resource_Base
      */
     public function hasPermission($user, $permission = Horde_Perms::READ, $restrict = null)
     {
-        if (Horde_Auth::isAdmin()) {
-            return true;
-        }
-
-        return false;
+        return $GLOBALS['registry']->isAdmin();
     }
 
     /**
@@ -119,11 +116,13 @@ abstract class Kronolith_Resource_Base
 
     /**
      * Save resource to storage.
+     *
+     * @return Kronolith_Resource object
+     * @throws Kronolith_Exception
      */
     public function save()
     {
-        $d = $this->getDriver();
-        return $d->save($this);
+        return $this->getDriver()->save($this);
     }
 
     /**

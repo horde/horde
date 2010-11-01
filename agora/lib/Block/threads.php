@@ -8,8 +8,6 @@ $block_name = _("Threads");
  * This file provides an api to include an Agora forum's thread into any other
  * Horde app through the Horde_Blocks, by extending the Horde_Blocks class.
  *
- * $Horde: agora/lib/Block/threads.php,v 1.74 2009/07/08 18:28:39 slusarz Exp $
- *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -19,32 +17,30 @@ $block_name = _("Threads");
  * @author  Jan Schneider <jan@horde.org>
  * @package Horde_Block
  */
-class Horde_Block_agora_threads extends Horde_Block {
-
+class Horde_Block_agora_threads extends Horde_Block
+{
     /**
      * @var array
      */
-    var $_threads = array();
+    private $_threads = array();
 
     /**
      * @var string
      */
-    var $_app = 'agora';
+    protected $_app = 'agora';
 
     /**
      * @return array
      */
-    function _params()
+    protected function _params()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         $forums = Agora_Messages::singleton();
 
         /* Get the list of forums to display. */
         $forum_id = array(
             'name' => _("Forum"),
             'type' => 'enum',
-            'values' => $forums->getForums(0, false, 'forum_name', 0, !Horde_Auth::isAdmin()),
+            'values' => $forums->getForums(0, false, 'forum_name', 0, !$GLOBALS['registry']->isAdmin()),
         );
 
         /* Display the last X number of threads. */
@@ -62,10 +58,8 @@ class Horde_Block_agora_threads extends Horde_Block {
     /**
      * @return string
      */
-    function _title()
+    protected function _title()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         if (!isset($this->_params['forum_id'])) {
             return _("Threads");
         }
@@ -78,29 +72,29 @@ class Horde_Block_agora_threads extends Horde_Block {
         }
 
         $title = sprintf(_("Threads in \"%s\""), $this->_threads->_forum['forum_name']);
-        $url = Horde::applicationUrl('threads.php', true);
+        $url = Horde::url('threads.php', true);
         if (!empty($scope)) {
             $url = Horde_Util::addParameter($url, 'scope', $scope);
         }
+
         return Horde::link(Agora::setAgoraId($this->_params['forum_id'], null, $url))
             . $title . '</a>';
     }
 
     /**
      * @return string
+     * @throws Horde_Block_Exception
      */
-    function _content()
+    protected function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         if (!isset($this->_params['forum_id'])) {
-            return _("No forum selected");
+            throw new Horde_Block_Exception(_("No forum selected"));
         }
 
         if (empty($this->_threads)) {
             $this->_threads = &Agora_Messages::singleton('agora', $this->_params['forum_id']);
             if ($this->_threads instanceof PEAR_Error) {
-                return PEAR::raiseError(_("Unable to fetch threads for selected forum."));
+                throw new Horde_Block_Exception(_("Unable to fetch threads for selected forum."));
             }
         }
 
@@ -129,4 +123,5 @@ class Horde_Block_agora_threads extends Horde_Block {
 
         return $view->render('block/threads.html.php');
     }
+
 }

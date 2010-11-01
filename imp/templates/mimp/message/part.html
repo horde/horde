@@ -1,0 +1,15 @@
+<if:view_data>
+  <tag:view_data />
+<else:view_data>
+  <p>
+   <gettext>Download attachment</gettext>:
+   <a href="<tag:download />"><tag:descrip /></a>
+   [<tag:type />] <tag:size />
+  </p>
+</else:view_data></if:view_data>
+  <hr />
+  <p>
+   <a href="<tag:self_link />"><gettext>Return to message view</gettext></a>
+  </p>
+ </body>
+</html>

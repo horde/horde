@@ -17,7 +17,6 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Karsten Fourmont <karsten@horde.org>
- * @since   Horde 3.2
  * @package SyncML
  */
 

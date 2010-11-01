@@ -160,8 +160,8 @@ class Horde_Kolab_Server_Integration_PersonTest extends Horde_Kolab_Server_Integ
                 $this->assertNoError($result);
                 $cn_result = $server->uidForCn($this->objects[$add]['Cn']);
                 $this->assertNoError($cn_result);
-                $dn_parts = Net_LDAP2_Util::ldap_explode_dn($cn_result, array('casefold' => 'lower'));
-                $dnpart = Net_LDAP2_Util::unescape_dn_value($dn_parts[0]);
+                $dn_parts = Horde_Ldap_Util::explodeDN($cn_result, array('casefold' => 'lower'));
+                $dnpart = Horde_Ldap_Util::unescapeDNValue($dn_parts[0]);
                 /**
                  * @todo: I currently do not really understand why the forward slash
                  * is not correctly converted back but I lack the time to analyse it
@@ -238,8 +238,8 @@ class Horde_Kolab_Server_Integration_PersonTest extends Horde_Kolab_Server_Integ
 
             $cn_result = $server->uidForCn($this->objects[5]['Cn'][0]);
             $this->assertNoError($cn_result);
-            $dn_parts = Net_LDAP2_Util::ldap_explode_dn($cn_result, array('casefold' => 'lower'));
-            $dnpart = Net_LDAP2_Util::unescape_dn_value($dn_parts[0]);
+            $dn_parts = Horde_Ldap_Util::explodeDN($cn_result, array('casefold' => 'lower'));
+            $dnpart = Horde_Ldap_Util::unescapeDNValue($dn_parts[0]);
             $this->assertContains('Cn' . '=' . $this->objects[5]['Cn'][0],
                                   $dnpart[0]);
         }

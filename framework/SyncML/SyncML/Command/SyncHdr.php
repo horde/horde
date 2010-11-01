@@ -17,7 +17,6 @@ require_once 'SyncML/Command.php';
  *
  * @author  Karsten Fourmont <karsten@horde.org>
  * @author  Jan Schneider <jan@horde.org>
- * @since   Horde 3.2
  * @package SyncML
  */
 class SyncML_Command_SyncHdr extends SyncML_Command {
@@ -191,15 +190,13 @@ class SyncML_Command_SyncHdr extends SyncML_Command {
 
         if (!isset($_SESSION['SyncML.state'])) {
             $GLOBALS['backend']->logMessage(
-                'New session created: ' . session_id(),
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                'New session created: ' . session_id(), 'DEBUG');
             $_SESSION['SyncML.state'] = new SyncML_State($this->_sourceURI,
                                                          $this->user,
                                                          $this->_sessionID);
         } else {
             $GLOBALS['backend']->logMessage(
-                'Existing session continued: ' . session_id(),
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                'Existing session continued: ' . session_id(), 'DEBUG');
         }
 
         $state = &$_SESSION['SyncML.state'];

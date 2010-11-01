@@ -1,0 +1,258 @@
+# Jonah 3.1 French Translation.
+# Copyright 2002-2009 The Horde Project.
+# Eric Rostetter <eric.rostetter@physics.utexas.edu>, 2002.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Jonah 0.0.3-cvs\n"
+"POT-Creation-Date: 2002-09-09 23:48-0500\n"
+"PO-Revision-Date: 2002-09-09 23:48-0500\n"
+"Last-Translator: Eric Rostetter <eric.rostetter@physics.utexas.edu>\n"
+"Language-Team: French <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#, c-format
+msgid "%d Headlines Available"
+msgstr ""
+
+msgid "Admin Home"
+msgstr ""
+
+msgid "Ascending"
+msgstr "Croissant"
+
+msgid "Change the location for which weather is obtained."
+msgstr "Changez l'endroit pour lequel le temps est obtenu."
+
+msgid "Change your content display options."
+msgstr "Changer les préférences de son contenu."
+
+msgid "Change"
+msgstr "Modifier"
+
+msgid "Channel Listing"
+msgstr "Liste de canal"
+
+msgid "Channel Name"
+msgstr "Nom de canal"
+
+msgid "Channel Subscriptions"
+msgstr "Abonnements de canal"
+
+msgid "Channel display failed."
+msgstr "L'affichage de canal a échoué"
+
+msgid "Channel subscription editing failed."
+msgstr "L'édition de l'abonnement de canal a échoué."
+
+msgid "Channel subscription failed."
+msgstr "L'abonnement de canal a échoué"
+
+msgid "Channel unsubscription failed."
+msgstr "L'unsubscription de canal a échoué"
+
+msgid "Choose which news channels you are subscribed to."
+msgstr "Choisissez au lequel on souscrit des canaux vous."
+
+msgid "Default sorting direction:"
+msgstr "Ordre de tru par défaut"
+
+msgid "Descending"
+msgstr "Décroissant"
+
+msgid "Detail"
+msgstr "Détail"
+
+msgid "Display Options"
+msgstr "Options d'affichage"
+
+msgid "Edit Channel Subscriptions"
+msgstr "Éditez vos abonnements de canal"
+
+msgid "Edit Subscription Details"
+msgstr "Éditez vos détails d'abonnement de canal"
+
+msgid "Edit your news subscriptions"
+msgstr "Éditez vos abonnements de nouvelles"
+
+msgid "Edit"
+msgstr "Éditer"
+
+#, c-format
+msgid "Editing Channel %s"
+msgstr "Éditez le canal %s"
+
+msgid "Enter NASDAQ/AMEX/NYSE ticker symbols to watch, separated with commas:"
+msgstr ""
+"Écrivez les symboles de ticker de Nasdaq/AMEX/NYSE pour observer, séparé "
+"avec des virgules:"
+
+msgid "Headlines Update"
+msgstr "Mettez à jour les canaux"
+
+msgid "Help"
+msgstr "Aide"
+
+msgid "How many columns would you like to use to show headlines?"
+msgstr "Combien de colonnes aimez-vous employer pour montrer des canaux?"
+
+msgid "Jonah Backend"
+msgstr "Jonah Interface"
+
+msgid "Jonah is not properly configured"
+msgstr "Jonah n'est pas configuré correctement"
+
+msgid "Just Fetch latest RSS files"
+msgstr "Recherchez seulement les derniers fichiers de RSS."
+
+msgid "Just Generate HTML from RSS files"
+msgstr "Produisez seulement du HTML aux fichiers de RSS."
+
+msgid "Language"
+msgstr "Langue"
+
+msgid "Last Updated"
+msgstr "Mis à jour"
+
+msgid "Location for which to retrieve weather information."
+msgstr "L'endroit pour que lequel recherche l'information de temps."
+
+msgid "My Content"
+msgstr "Mon contenu"
+
+msgid "News"
+msgstr "Nouvelles"
+
+msgid "Options"
+msgstr "Options"
+
+msgid "Other Options"
+msgstr "Autres Options"
+
+msgid "Problem?"
+msgstr "Problème?"
+
+msgid "Radar"
+msgstr "Radar"
+
+msgid "Save Changes"
+msgstr "Enregistrer modifications"
+
+msgid "Select your preferred language:"
+msgstr "Définir votre langue préférée:"
+
+msgid "Set the your preferred display language."
+msgstr "Affecter la langue utilisée pour l'affichage."
+
+msgid "Set which stock ticker symbols to watch."
+msgstr "Indiquez quels symboles de ticker courant à observer."
+
+msgid "Show Dow Jones Industrial Average (INDU)?"
+msgstr "Montrez Dow Jones Industrial Average (INDU)?"
+
+msgid "Show S&amp;P 500 (SPX)?"
+msgstr "Montrez S&amp;P 500 (SPX)?"
+
+msgid "Show headlines in Horde summary?"
+msgstr "Montrez les canaux dans le sommaire de Horde?"
+
+msgid "Show headlines in channels display?"
+msgstr "Montrez les citations courantes dans l'affichage de canal?"
+
+msgid "Show stock quotes in Horde summary?"
+msgstr "Montrez les citations courantes dans le sommaire de Horde?"
+
+msgid "Show stock quotes in channels display?"
+msgstr "Montrez les citations courantes dans l'affichage de canal?"
+
+msgid "Show weather and stock quotes on same row in two columns?"
+msgstr ""
+"Montrez les citations de temps et des marché des actions sur la même ligne "
+"dans deux colonnes?"
+
+msgid "Show weather in Horde summary?"
+msgstr "Montrez le temps dans le sommaire de Horde?"
+
+msgid "Show weather in channels display?"
+msgstr "Montrez le temps dans l'affichage de canal?"
+
+msgid "Some of Jonah's configuration files are missing:"
+msgstr "Certains fichiers de configuration sont absents:"
+
+msgid "Sort Direction"
+msgstr "Sens du tri"
+
+msgid "Sort by Channel Name"
+msgstr "Sorte par le nom de canal"
+
+msgid "Sort by Subscription Status"
+msgstr "Sorte par statut d'abonnement"
+
+msgid "Sort by Update Date"
+msgstr "Sorte par la date de mise à jour"
+
+msgid "Stock Quote"
+msgstr ""
+
+msgid "Stocks"
+msgstr ""
+
+msgid "Subscribe"
+msgstr "Souscrivez"
+
+msgid "This file contains preferences for Jonah."
+msgstr "Ce fichier contrôle les préférences pour Jonah"
+
+msgid ""
+"This file defines all of the headline channels that you wish Jonah to "
+"display."
+msgstr ""
+"Ce fichier définit tous les canaux que vous souhaitez Jonah pour montrer."
+
+msgid ""
+"This is the main Jonah configuration file. It contains options for all Jonah "
+"scripts."
+msgstr ""
+"Ceci est le principal fichier de configuration. Il contient toutes lesles "
+"options des scripts."
+
+msgid "Undo Changes"
+msgstr "Défaites les changements."
+
+msgid "Unsubscribe"
+msgstr ""
+
+msgid "Update All Channels"
+msgstr "Mettez à jour tous les canaux."
+
+msgid "Update"
+msgstr "Mettez à jour"
+
+msgid "User Options"
+msgstr "Options personnelles"
+
+msgid "Weather Station"
+msgstr ""
+
+msgid "Weather station:"
+msgstr "Station météorologique."
+
+msgid "You have edited your subscription to the channel "
+msgstr "Vous avez édité votre abonnement au canal."
+
+msgid "You have subscribed to the channel "
+msgstr "Vous avez souscrit au canal."
+
+msgid "You have unsubscribed to the channel "
+msgstr ""
+
+msgid "Your Content"
+msgstr "Votre contenu"
+
+msgid "Your Information"
+msgstr "Vos données personnelles"
+
+msgid "no headlines available at this time"
+msgstr "aucuns canaux disponibles actuellement"

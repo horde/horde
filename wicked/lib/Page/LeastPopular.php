@@ -1,7 +1,4 @@
 <?php
-
-require_once WICKED_BASE . '/lib/Page/StandardPage.php';
-
 /**
  * Wicked LeastPopular class.
  *
@@ -13,51 +10,41 @@ require_once WICKED_BASE . '/lib/Page/StandardPage.php';
  * @author  Tyler Colbert <tyler@colberts.us>
  * @package Wicked
  */
-class LeastPopular extends Page {
+class Wicked_Page_LeastPopular extends Wicked_Page {
 
     /**
      * Display modes supported by this page.
      *
      * @var array
      */
-    var $supportedModes = array(
-        WICKED_MODE_CONTENT => true,
-        WICKED_MODE_DISPLAY => true);
+    public $supportedModes = array(
+        Wicked::MODE_CONTENT => true,
+        Wicked::MODE_DISPLAY => true);
 
     /**
-     * Render this page in Content mode.
+     * Renders this page in content mode.
      *
      * @param integer $numPages  How many (at most) pages should we return?
      *
-     * @return string  The page content, or PEAR_Error.
+     * @return string  The page contents.
      */
-    function content($numPages = 10)
+    public function content($numPages = 10)
     {
-        global $wicked;
-
-        return $wicked->leastPopular($numPages);
+        return $GLOBALS['wicked']->leastPopular($numPages);
     }
 
     /**
-     * Render this page in display or block mode.
+     * Renders this page in display or block mode.
      *
-     * @return mixed  Returns content or PEAR_Error.
+     * @return string  The content.
+     * @throws Wicked_Exception
      */
-    function displayContents($isBlock)
+    public function displayContents($isBlock)
     {
-        global $notification;
-
-        $summaries = $this->content(10);
-        if (is_a($summaries, 'PEAR_Error')) {
-            $notification->push('Error retrieving LeastPopular: ' . $summaries->getMessage(), 'horde.error');
-            return $summaries;
-        }
-
-        require_once 'Horde/Template.php';
-        $template = new Horde_Template();
+        $template = $GLOBALS['injector']->createInstance('Horde_Template');
         $pages = array();
-        foreach ($summaries as $page) {
-            $page = new StandardPage($page);
+        foreach ($this->content(10) as $page) {
+            $page = new Wicked_Page_StandardPage($page);
             $pages[] = array('author' => $page->author(),
                              'created' => $page->formatVersionCreated(),
                              'name' => $page->pageName(),
@@ -81,14 +68,14 @@ class LeastPopular extends Page {
         return $content;
     }
 
-    function pageName()
+    public function pageName()
     {
         return 'LeastPopular';
     }
 
-    function pageTitle()
+    public function pageTitle()
     {
-        return _("LeastPopular");
+        return _("Least Popular");
     }
 
 }

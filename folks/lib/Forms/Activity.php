@@ -48,7 +48,7 @@ class Folks_Activity_Form extends Horde_Form {
             $filters_params[0]['parselevel'] = Horde_Text_Filter_Text2html::NOHTML;
         }
 
-        $message = Horde_Text_Filter::filter(trim($message), $filters, $filters_params);
+        $message = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter(trim($message), $filters, $filters_params);
 
         $result = $GLOBALS['folks_driver']->logActivity($message, 'folks:custom');
         if ($result instanceof PEAR_Error) {
@@ -82,7 +82,7 @@ class Folks_Activity_Form extends Horde_Form {
 
         // Load FB
         $context = array('http_client' => new Horde_Http_Client(),
-                         'http_request' => new Horde_Controller_Request_Http());
+                         'http_request' => $GLOBALS['injector']->getInstance('Horde_Controller_Request'));
         $facebook = new Horde_Service_Facebook($conf['facebook']['key'],
                                                $conf['facebook']['secret'],
                                                $context);

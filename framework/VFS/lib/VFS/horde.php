@@ -15,84 +15,58 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Jan Schneider <jan@horde.org>
- * @since   Horde 3.2
  * @package VFS
  */
-class VFS_horde extends VFS {
-
+class VFS_horde extends VFS
+{
     /**
      * Reference to a Horde Registry instance.
      *
-     * @var Registry
+     * @var Horde_Registry
      */
-    var $_registry;
+    protected $_registry;
 
     /**
      * Constructor.
      *
      * @param array $params  A hash containing connection parameters.
+     * @throws VFS_Exception
      */
-    function VFS_horde($params = array())
+    public function __construct($params = array())
     {
-        parent::VFS($params);
+        parent::__construct($params);
+
         if (!isset($this->_params['horde_base'])) {
-            $this->_registry = PEAR::raiseError(sprintf(_("Required \"%s\" not specified in VFS configuration."), 'horde_base'));
-            return;
+            throw new VFS_Exception('Required "horde_base" not specified in VFS configuration.');
         }
 
-        // Define path to Horde.
-        @define('HORDE_BASE', $this->_params['horde_base']);
-
-        // Load the Horde Framework core, and set up inclusion paths.
-        require_once HORDE_BASE . '/lib/core.php';
+        require_once $this->_params['horde_base'] . '/lib/Application.php';
+        Horde_Registry::appInit('horde');
 
         // Create the Registry object.
-        $this->_registry = Horde_Registry::singleton();
-    }
-
-    function _connect()
-    {
-        if (!empty($this->_params['user']) &&
-            !empty($this->_params['password'])) {
-            Horde_Auth::setAuth($this->_params['user'],
-                           array('password' => $this->_params['password']));
-        }
+        $this->_registry = $GLOBALS['registry'];
     }
 
     /**
-     * Retrieves the size of a file from the VFS.
-     *
-     * @abstract
-     *
-     * @param string $path  The pathname to the file.
-     * @param string $name  The filename to retrieve.
-     *
-     * @return integer The file size.
      */
-    function size($path, $name)
+    protected function _connect()
     {
-        if (is_a($this->_registry, 'PEAR_Error')) {
-            return $this->_registry;
+        if (!empty($this->_params['user']) &&
+            !empty($this->_params['password'])) {
+            Horde_Auth::setAuth($this->_params['user'], array('password' => $this->_params['password']));
         }
-        return PEAR::raiseError(_("Not supported."));
     }
 
     /**
      * Retrieves a file from the VFS.
      *
-     * @abstract
-     *
      * @param string $path  The pathname to the file.
      * @param string $name  The filename to retrieve.
      *
-     * @return string The file data.
+     * @return string  The file data.
      */
-    function read($path, $name)
+    public function read($path, $name)
     {
-        if (is_a($this->_registry, 'PEAR_Error')) {
-            return $this->_registry;
-        }
-
         if (substr($path, 0, 1) == '/') {
             $path = substr($path, 1);
         }
@@ -108,146 +82,27 @@ class VFS_horde extends VFS {
     }
 
     /**
-     * Stores a file in the VFS.
-     *
-     * @abstract
-     *
-     * @param string $path         The path to store the file in.
-     * @param string $name         The filename to use.
-     * @param string $tmpFile      The temporary file containing the data to
-     *                             be stored.
-     * @param boolean $autocreate  Automatically create directories?
-     *
-     * @return mixed  True on success or a PEAR_Error object on failure.
-     */
-    function write($path, $name, $tmpFile, $autocreate = false)
-    {
-        if (is_a($this->_registry, 'PEAR_Error')) {
-            return $this->_registry;
-        }
-        return PEAR::raiseError(_("Not supported."));
-    }
-
-    /**
-     * Stores a file in the VFS from raw data.
-     *
-     * @abstract
-     *
-     * @param string $path         The path to store the file in.
-     * @param string $name         The filename to use.
-     * @param string $data         The file data.
-     * @param boolean $autocreate  Automatically create directories?
-     *
-     * @return mixed  True on success or a PEAR_Error object on failure.
-     */
-    function writeData($path, $name, $data, $autocreate = false)
-    {
-        if (is_a($this->_registry, 'PEAR_Error')) {
-            return $this->_registry;
-        }
-        return PEAR::raiseError(_("Not supported."));
-    }
-
-    /**
-     * Moves a file through the backend.
-     *
-     * @abstract
-     *
-     * @param string $path  The path of the original file.
-     * @param string $name  The name of the original file.
-     * @param string $dest  The destination file name.
-     *
-     * @return mixed  True on success or a PEAR_Error object on failure.
-     */
-    function move($path, $name, $dest)
-    {
-        if (is_a($this->_registry, 'PEAR_Error')) {
-            return $this->_registry;
-        }
-        return PEAR::raiseError(_("Not supported."));
-    }
-
-    /**
-     * Copies a file through the backend.
-     *
-     * @abstract
-     *
-     * @param string $path  The path of the original file.
-     * @param string $name  The name of the original file.
-     * @param string $dest  The name of the destination directory.
-     *
-     * @return mixed  True on success or a PEAR_Error object on failure.
-     */
-    function copy($path, $name, $dest)
-    {
-        if (is_a($this->_registry, 'PEAR_Error')) {
-            return $this->_registry;
-        }
-        return PEAR::raiseError(_("Not supported."));
-    }
-
-    /**
-     * Deletes a file from the VFS.
-     *
-     * @abstract
-     *
-     * @param string $path  The path to delete the file from.
-     * @param string $name  The filename to delete.
-     *
-     * @return mixed  True on success or a PEAR_Error object on failure.
-     */
-    function deleteFile($path, $name)
-    {
-        if (is_a($this->_registry, 'PEAR_Error')) {
-            return $this->_registry;
-        }
-        return PEAR::raiseError(_("Not supported."));
-    }
-
-    /**
-     * Renames a file in the VFS.
-     *
-     * @abstract
-     *
-     * @param string $oldpath  The old path to the file.
-     * @param string $oldname  The old filename.
-     * @param string $newpath  The new path of the file.
-     * @param string $newname  The new filename.
-     *
-     * @return mixed  True on success or a PEAR_Error object on failure.
-     */
-    function rename($oldpath, $oldname, $newpath, $newname)
-    {
-        if (is_a($this->_registry, 'PEAR_Error')) {
-            return $this->_registry;
-        }
-        return PEAR::raiseError(_("Not supported."));
-    }
-
-    /**
      * Returns an an unsorted file list of the specified directory.
-     *
-     * @abstract
      *
      * @param string $path       The path of the directory.
      * @param mixed $filter      String/hash to filter file/dirname on.
      * @param boolean $dotfiles  Show dotfiles?
      * @param boolean $dironly   Show only directories?
      *
-     * @return array  File list on success or PEAR_Error on failure.
+     * @return array  File list.
+     * @throws VFS_Exception
      */
-    function _listFolder($path, $filter = null, $dotfiles = true,
-                         $dironly = false)
+    protected function _listFolder($path, $filter = null, $dotfiles = true,
+                                   $dironly = false)
     {
-        if (is_a($this->_registry, 'PEAR_Error')) {
-            return $this->_registry;
-        }
         $list = array();
         if ($path == '/') {
-            $apps = $this->_registry->listApps(null, false, Horde_Perms::READ);
-            if (is_a($apps, 'PEAR_Error')) {
-                return $apps;
+            try {
+                $apps = $this->_registry->listApps(null, false, Horde_Perms::READ);
+            } catch (Horde_Exception $e) {
+                throw new VFS_Exception($e->getMessage());
             }
+
             foreach ($apps as $app) {
                 if ($this->_registry->hasMethod('browse', $app)) {
                     $file = array(
@@ -271,15 +126,16 @@ class VFS_horde extends VFS {
         try {
             $items = $this->_registry->callByPackage($pieces[0], 'browse', array('path' => $path, 'properties' => array('name', 'browseable', 'contenttype', 'contentlength', 'modified')));
         } catch (Horde_Exception $e) {
-            return PEAR::raiserError($e->getMessage(), $e->getCode());
+            throw new VFS_Exception($e->getMessage());
         }
 
         if (!is_array(reset($items))) {
             /* We return an object's content. */
-            return PEAR::raiseError(_("unknown error"));
+            throw new VFS_Exception('Unknown error');
         }
 
-        include_once 'Horde/MIME/Magic.php';
+        @include_once 'Horde/Mime/Magic.php';
+
         foreach ($items as $sub_path => $i) {
             if ($dironly && !$i['browseable']) {
                 continue;
@@ -290,12 +146,9 @@ class VFS_horde extends VFS {
                 continue;
             }
 
-            if (class_exists('MIME_Magic')) {
-                $type = empty($i['contenttype']) ? 'application/octet-stream' : $i['contenttype'];
-                $type = MIME_Magic::MIMEToExt($type);
-            } else {
-                $type = '**none';
-            }
+            $type = class_exists('Horde_Mime_Magic')
+                ? Horde_Mime_Magic::mimeToExt(empty($i['contenttype']) ? 'application/octet-stream' : $i['contenttype'])
+                : '**none';
 
             $file = array(
                 //'name' => $i['name'],
@@ -308,26 +161,6 @@ class VFS_horde extends VFS {
         }
 
         return $list;
-    }
-
-    /**
-     * Returns a sorted list of folders in the specified directory.
-     *
-     * @abstract
-     *
-     * @param string $path         The path of the directory to get the
-     *                             directory list for.
-     * @param mixed $filter        Hash of items to filter based on folderlist.
-     * @param boolean $dotfolders  Include dotfolders?
-     *
-     * @return mixed  Folder list on success or a PEAR_Error object on failure.
-     */
-    function listFolders($path = '', $filter = null, $dotfolders = true)
-    {
-        if (is_a($this->_registry, 'PEAR_Error')) {
-            return $this->_registry;
-        }
-        return PEAR::raiseError(_("Not supported."));
     }
 
 }

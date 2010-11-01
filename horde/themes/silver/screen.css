@@ -52,6 +52,9 @@ a.widget {
     background: #eee;
 }
 
+table.horde-table, table.horde-table td, table.horde-table th {
+    border-color: #999;
+}
 .sortup {
     background: #ccc url("graphics/za.png") center left no-repeat;
 }
@@ -252,4 +255,9 @@ table.lineNumbered {
 }
 #Growler div.horde-warning, #GrowlerLog li.horde-warning {
     background-image: url("graphics/alerts/warning.png");
+}
+
+/* Context Menus */
+.contextSubmenu {
+    background-image: url("graphics/popright.png");
 }

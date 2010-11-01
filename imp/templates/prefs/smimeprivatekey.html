@@ -1,0 +1,48 @@
+<div class="prefsSmimeContainer">
+ <div class="prefsSmimeHeader">
+  <h3><gettext>Your S/MIME Public/Private Certificate</gettext> <tag:personalkey-help /></h3>
+ </div>
+
+<if:notsecure>
+ <div>
+  <em class="prefsSmimeWarning"><gettext>S/MIME Personal Certificate support requires a secure web connection.</gettext></em>
+ </div>
+<else:notsecure>
+<if:has_key>
+ <div>
+  <table>
+   <tr>
+    <td>
+     <gettext>Your Public Certificate:</gettext>
+    </td>
+    <td>
+     [<tag:viewpublic /><gettext>View</gettext></a>] [<tag:infopublic /><gettext>Details</gettext></a>]
+    </td>
+   </tr>
+   <tr>
+    <td>
+     <gettext>Your Private Certificate:</gettext>
+    </td>
+    <td>
+     [<tag:passphrase /></a>] [<tag:viewprivate /><gettext>View</gettext></a>]
+    </td>
+   </tr>
+  </table>
+ </div>
+
+ <p>
+  <input type="submit" id="delete_smime_personal" name="delete_smime_personal" class="button" value="<gettext>Delete Personal Certificate</gettext>" />
+  <tag:personalkey-delete-help />
+ </p>
+<else:has_key>
+<if:import_url>
+ <div>
+  <p>
+   <input type="submit" name="save" class="button" id="import_smime_personal" value="<gettext>Import Personal Certificate</gettext>" />
+   <tag:import-cert-help />
+  </p>
+ </div>
+</if:import_url>
+</else:has_key></if:has_key>
+</else:notsecure></if:notsecure>
+</div>

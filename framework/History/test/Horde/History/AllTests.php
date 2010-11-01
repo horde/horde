@@ -31,6 +31,8 @@ class Horde_History_AllTests extends Horde_Test_AllTests
 {
 }
 
+Horde_History_AllTests::init('Horde_History', __FILE__);
+
 if (PHPUnit_MAIN_METHOD == 'Horde_History_AllTests::main') {
-    Horde_History_AllTests::main('Horde_History', __FILE__);
+    Horde_History_AllTests::main();
 }

@@ -1,0 +1,745 @@
+# Russian translations for Horde_Form module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Form module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Form\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: Form/Type.php:2520
+#, php-format
+msgid " (%s days ago)"
+msgstr " (%s дней назад)"
+
+#: Form/Type.php:2528
+#, php-format
+msgid " (in %s days)"
+msgstr " (за %s дней)"
+
+#: Form/Type.php:2524
+msgid " (today)"
+msgstr " (сегодня)"
+
+#: Form/Type.php:2526
+msgid " (tomorrow)"
+msgstr " (завтра)"
+
+#: Form/Type.php:2522
+msgid " (yesterday)"
+msgstr " (вчера)"
+
+#: Form/Type.php:1460
+#, fuzzy, php-format
+msgid "\"%s\" is not a valid email address."
+msgstr "\"%s\" не является правильным адресом электронной почты"
+
+#: Form/Type.php:2475
+#, php-format
+msgid "%s is required"
+msgstr "Требуется %s"
+
+#: Form/Type.php:2190 Form/Type.php:2253
+#, fuzzy
+msgid "-- select --"
+msgstr "- Выберите -"
+
+#: Form/Type.php:843 Form/Type.php:886
+msgid "A temporary directory"
+msgstr "Каталог временных файлов"
+
+#: Form/Type.php:773
+msgid "Address"
+msgstr "Адрес"
+
+#: Form/Type.php:795
+msgid "Address Link"
+msgstr "Ссылка на адрес"
+
+#: Form/Type.php:1620
+msgid "Allow multiple addresses?"
+msgstr "Разрешить многократные адреса?"
+
+#: Form/Type.php:3473
+msgid "Assignment columns"
+msgstr "добавить столбец"
+
+# fuzzy
+#: Form/Type.php:3745
+msgid "Category"
+msgstr "Категория"
+
+#: Form/Type.php:1632
+msgid "Character to split multiple addresses with"
+msgstr ""
+
+#: Form/Type.php:3161
+msgid "Colour selection"
+msgstr "Выбор цвета"
+
+# fuzzy
+#: Form/Type.php:2072
+#, fuzzy
+msgid "Column titles"
+msgstr "Столбцы"
+
+#: Form/Type.php:662
+msgid "Counted text"
+msgstr "Подсчитываемый текст"
+
+#: Form/Type.php:909
+msgid "Country drop down list"
+msgstr "Выпадающий список стран"
+
+#: Form/Type.php:3588
+msgid "Credit card number"
+msgstr "Номер кредитной карты"
+
+#: Form/Type.php:3643
+msgid ""
+"DSN (see http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
+msgstr ""
+
+#: Form/Type.php:3641
+msgid "Database lookup"
+msgstr "Поиск в базе данных"
+
+#: Form/Type.php:2549
+msgid "Date"
+msgstr "Дата"
+
+#: Form/Type.php:3121
+msgid "Date and time selection"
+msgstr "Выбор даны и времени"
+
+#: Form/Type.php:2958
+msgid "Date selection"
+msgstr "Выбор даты"
+
+#: Form/Type.php:132
+#, fuzzy
+msgid "Description"
+msgstr "Полное описание:"
+
+#: Form/Type.php:2968 Form/Type.php:3131
+msgid "Display format"
+msgstr "Формат отображения"
+
+#: Form/Type.php:2233
+msgid "Drop down list"
+msgstr "Выпадающий список"
+
+#: Form/Type.php:1617
+msgid "Email"
+msgstr "Email"
+
+#: Form/Type.php:2088
+msgid "Email addresses must match."
+msgstr "Адрес E-Mail должен совпадать."
+
+#: Form/Type.php:2115
+msgid "Email with confirmation"
+msgstr "E-Mail с подтверждением"
+
+#: Form/Type.php:2746 Form/Type.php:2962 Form/Type.php:3125
+msgid "End year"
+msgstr "Конец года"
+
+#: Form/Type.php:2070
+msgid "Field matrix"
+msgstr ""
+
+#: Form/Type.php:3696
+msgid "Figlet CAPTCHA"
+msgstr ""
+
+#: Form/Type.php:3700
+msgid "Figlet font"
+msgstr ""
+
+# fuzzy
+#: Form/Type.php:3347
+#, fuzzy
+msgid "File selection"
+msgstr "Полное описание проблемы:"
+
+#: Form/Type.php:952
+#, fuzzy
+msgid "File upload"
+msgstr "Имя"
+
+#: Form/Type.php:3719
+#, fuzzy
+msgid "Font"
+msgstr "Ежемесячно"
+
+#: Form/Type.php:152
+msgid "HTML"
+msgstr ""
+
+#: Form/Type.php:115 Form/Type.php:3285
+#, fuzzy
+msgid "Header"
+msgstr "Подсказка"
+
+#: Form/Type/tableset.php:58
+msgid "Headers"
+msgstr "Заголовки"
+
+#: Form/Type.php:617
+#, fuzzy
+msgid "Helpers"
+msgstr "Подсказка"
+
+#: Form/Type.php:528
+#, fuzzy
+msgid "IP address"
+msgstr "Адрес"
+
+#: Form/Type.php:558
+#, fuzzy
+msgid "IPv6 address"
+msgstr "Адрес"
+
+#: Form/Type.php:3349
+msgid "Id"
+msgstr ""
+
+#: Form/Type.php:3715
+msgid "Image CAPTCHA"
+msgstr ""
+
+#: Form/Type.php:1292
+#, fuzzy
+msgid "Image upload"
+msgstr "Имя"
+
+#: Form/Type.php:263
+#, fuzzy
+msgid "Integer"
+msgstr "Создать"
+
+#: Form/Type.php:317
+#, fuzzy
+msgid "Integer list"
+msgstr "Создать"
+
+#: Form/Type.php:2208 Form/Type.php:2283 Form/Type.php:2356 Form/Type.php:2435
+#: Form/Type/tableset.php:34
+#, fuzzy
+msgid "Invalid data submitted."
+msgstr "Настройки"
+
+#: Form/Type.php:3479
+#, fuzzy
+msgid "Left header"
+msgstr "Пример значений:"
+
+#: Form/Type.php:3475
+#, fuzzy
+msgid "Left values"
+msgstr "Пример значений:"
+
+#: Form/Type.php:1352
+#, fuzzy
+msgid "Link"
+msgstr "Вход"
+
+#: Form/Type.php:1355
+#, fuzzy
+msgid "Link URL"
+msgstr "Вход"
+
+#: Form/Type.php:1370
+#, fuzzy
+msgid "Link access key"
+msgstr "(Клавиша %s)"
+
+#: Form/Type.php:3353
+#, fuzzy
+msgid "Link style"
+msgstr "Вход"
+
+# fuzzy
+#: Form/Type.php:1361
+#, fuzzy
+msgid "Link target"
+msgstr "Отправлять вложения как ссылки"
+
+#: Form/Type.php:1358 Form/Type.php:3351
+#, fuzzy
+msgid "Link text"
+msgstr "Выход"
+
+#: Form/Type.php:1626
+msgid "Link the email address to the compose page when displaying?"
+msgstr ""
+
+#: Form/Type.php:1367
+#, fuzzy
+msgid "Link title attribute"
+msgstr "Редактировать аттрибут"
+
+#: Form/Type.php:611
+#, fuzzy
+msgid "Long text"
+msgstr "Выход"
+
+#: Form/Type.php:1298
+msgid "Maximum file size in bytes"
+msgstr ""
+
+#: Form/Type.php:400 Form/Type.php:420 Form/Type.php:446
+msgid "Maximum length"
+msgstr ""
+
+#: Form/Type.php:487
+#, fuzzy
+msgid "Mobile phone number"
+msgstr "Имя"
+
+#: Form/Type.php:2742
+#, fuzzy
+msgid "Month and year"
+msgstr ""
+"#-#-#-#-#  ru_RU.po (Horde v2.1)  #-#-#-#-#\n"
+"#-#-#-#-#  ru_RU.po (IMP v3.1)  #-#-#-#-#\n"
+"Развернуть все"
+
+#: Form/Type.php:2309
+#, fuzzy
+msgid "Multi-level drop down lists"
+msgstr "Выпадающий список стран"
+
+# fuzzy
+#: Form/Type.php:2366
+#, fuzzy
+msgid "Multiple selection"
+msgstr "Полное описание проблемы:"
+
+#: Form/Type.php:236
+#, fuzzy
+msgid "Number"
+msgstr "Имя"
+
+#: Form/Type.php:668
+#, fuzzy
+msgid "Number of characters"
+msgstr "Имя"
+
+#: Form/Type.php:615 Form/Type.php:666 Form/Type.php:777 Form/Type.php:847
+#: Form/Type.php:890
+#, fuzzy
+msgid "Number of columns"
+msgstr ""
+"#-#-#-#-#  ru_RU.po (Horde v2.1)  #-#-#-#-#\n"
+"#-#-#-#-#  ru_RU.po (Turba v1.1)  #-#-#-#-#\n"
+"убрать столбец"
+
+#: Form/Type.php:613 Form/Type.php:664 Form/Type.php:775 Form/Type.php:845
+#: Form/Type.php:888
+#, fuzzy
+msgid "Number of rows"
+msgstr "Имя"
+
+#: Form/Type.php:290
+#, fuzzy
+msgid "Octal"
+msgstr "Ежедневно"
+
+#: Form/Type.php:1364
+#, fuzzy
+msgid "Onclick event"
+msgstr "Все события"
+
+#: Form/Type.php:2098
+#, fuzzy
+msgid "Only one email address allowed."
+msgstr "Ваш Email:"
+
+#: Form/Type.php:1449
+#, fuzzy
+msgid "Only one email address is allowed."
+msgstr "Ваш Email:"
+
+#: Form/Type.php:839
+#, fuzzy
+msgid "PGP Key"
+msgstr "Публичный ключ PGP"
+
+#: Form/Type.php:2142
+msgid "Password"
+msgstr "Пароль"
+
+#: Form/Type.php:2175
+#, fuzzy
+msgid "Password with confirmation"
+msgstr "Прочая информация"
+
+#: Form/Type.php:2157
+#, fuzzy
+msgid "Passwords must match."
+msgstr "Ваш Email:"
+
+#: Form/Type.php:841
+msgid "Path to the GnuPG binary"
+msgstr ""
+
+#: Form/Type.php:475
+#, fuzzy
+msgid "Phone number"
+msgstr "Имя"
+
+# fuzzy
+#: Form/Type.php:3191
+#, fuzzy
+msgid "Please choose a sound."
+msgstr "Укажите хранилище:"
+
+#: Form/Type.php:2720
+#, fuzzy
+msgid "Please enter a month and a year."
+msgstr "Ваш Email:"
+
+#: Form/Type.php:513 Form/Type.php:543
+#, fuzzy
+msgid "Please enter a valid IP address."
+msgstr "Ваш Email:"
+
+#: Form/Type.php:2800
+msgid "Please enter a valid date, check the number of days in the month."
+msgstr ""
+
+#: Form/Type.php:2598
+#, fuzzy
+msgid "Please enter a valid time."
+msgstr "Ваш Email:"
+
+#: Form/Type.php:911 Form/Type.php:2237 Form/Type.php:2313 Form/Type.php:3647
+#, fuzzy
+msgid "Prompt text"
+msgstr "Выход"
+
+#: Form/Type.php:1623
+msgid "Protect address from spammers?"
+msgstr ""
+
+# fuzzy
+#: Form/Type.php:2401
+#, fuzzy
+msgid "Radio selection"
+msgstr "Полное описание проблемы:"
+
+#: Form/Type.php:396 Form/Type.php:416 Form/Type.php:442
+#, fuzzy
+msgid "Regex"
+msgstr "Сбросить"
+
+#: Form/Type.php:3605
+msgid "Relationship browser"
+msgstr ""
+
+#: Form/Renderer.php:344
+msgid "Required Field"
+msgstr ""
+
+#: Form.php:632
+msgid "Required secret is invalid - potentially malicious request."
+msgstr ""
+
+#: Form.php:368 Form/Renderer.php:329
+msgid "Reset"
+msgstr "Сбросить"
+
+#: Form/Type.php:3481
+#, fuzzy
+msgid "Right header"
+msgstr "Пример значений:"
+
+#: Form/Type.php:3477
+#, fuzzy
+msgid "Right values"
+msgstr "Пример значений:"
+
+# fuzzy
+#: Form/Type.php:884
+#, fuzzy
+msgid "S/MIME Key"
+msgstr "Настройки S/MIME"
+
+#: Form/Type.php:3645
+msgid "SQL statement for value lookups"
+msgstr ""
+
+#: Form/Type.php:3326
+#, fuzzy
+msgid "Select Files"
+msgstr "Выберите формат даты:"
+
+#: Form/Type.php:2803
+#, fuzzy
+msgid "Select all date components."
+msgstr "Выберите формат даты:"
+
+#: Form/Type.php:2450
+#, fuzzy
+msgid "Set"
+msgstr "Тема"
+
+# fuzzy
+#: Form/Type.php:3355
+#, fuzzy
+msgid "Show icon?"
+msgstr "Отображать"
+
+#: Form/Type.php:1296
+msgid "Show option to keep original?"
+msgstr ""
+
+#: Form/Type.php:2964 Form/Type.php:3127
+#, fuzzy
+msgid "Show picker?"
+msgstr "Импорт"
+
+# fuzzy
+#: Form/Type.php:2688 Form/Type.php:3133
+#, fuzzy
+msgid "Show seconds?"
+msgstr "Даты завершения"
+
+#: Form/Type.php:1294
+#, fuzzy
+msgid "Show upload?"
+msgstr "Имя"
+
+#: Form/Type.php:398 Form/Type.php:418 Form/Type.php:444 Form/Type.php:2370
+#: Form/Type.php:3283 Form/Type.php:3483
+msgid "Size"
+msgstr "Размер"
+
+#: Form/Type.php:3279
+#, fuzzy
+msgid "Sort order selection"
+msgstr ""
+"#-#-#-#-#  ru_RU.po (Horde v2.1)  #-#-#-#-#\n"
+"#-#-#-#-#  ru_RU.po (IMP v3.1)  #-#-#-#-#\n"
+"Действие:"
+
+#: Form/Type.php:3200
+#, fuzzy
+msgid "Sound selection"
+msgstr ""
+"#-#-#-#-#  ru_RU.po (Horde v2.1)  #-#-#-#-#\n"
+"#-#-#-#-#  ru_RU.po (IMP v3.1)  #-#-#-#-#\n"
+"Действие:"
+
+# #-#-#-#-#  ru_RU.po (IMP v3.1)  #-#-#-#-#
+# fuzzy
+#: Form/Type.php:98
+#, fuzzy
+msgid "Spacer"
+msgstr ""
+"#-#-#-#-#  ru_RU.po (IMP v3.1)  #-#-#-#-#\n"
+"Сохранить как\n"
+"#-#-#-#-#  ru_RU.po (Turba v1.1)  #-#-#-#-#\n"
+"Сохранить"
+
+#: Form/Type.php:2744 Form/Type.php:2960 Form/Type.php:3123
+#, fuzzy
+msgid "Start year"
+msgstr "Календарь"
+
+#: Form/Type.php:2966 Form/Type.php:3129
+#, fuzzy
+msgid "Storage format"
+msgstr "Ваша информация"
+
+#: Form/Type.php:414
+#, fuzzy
+msgid "String list"
+msgstr "Создать"
+
+#: Form/Type.php:440
+msgid "String list returning an array"
+msgstr ""
+
+# fuzzy
+#: Form.php:361 Form/Renderer.php:326
+msgid "Submit"
+msgstr "Искать"
+
+#: Form/Type/tableset.php:54
+#, fuzzy
+msgid "Table Set"
+msgstr "Заголовок"
+
+#: Form/Type.php:394 Form/Type.php:3698 Form/Type.php:3717
+#, fuzzy
+msgid "Text"
+msgstr "Далее"
+
+#: Form/Type.php:1056
+msgid ""
+"The image file size could not be determined or it was 0 bytes. The upload "
+"may have been interrupted."
+msgstr ""
+
+#: Form/Type.php:1060
+#, fuzzy, php-format
+msgid "The image file was larger than the maximum allowed size (%d bytes)."
+msgstr ""
+"Ошибка при загрузке файла. Возможно размер файла превышает максимально "
+"разрешенный."
+
+#: Form/Type.php:1629
+#, fuzzy
+msgid "The name to use when linking to the compose page"
+msgstr "Javascript редактор, используемый при составлении письма"
+
+#: Form/Type.php:3673
+msgid "The text you entered did not match the text on the screen."
+msgstr ""
+
+#: Form/Type.php:644
+#, php-format
+msgid ""
+"There are too many characters in this field. You have entered %d character; "
+msgid_plural ""
+"There are too many characters in this field. You have entered %d characters; "
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: Form/Type.php:3504
+#, fuzzy
+msgid "This does not seem to be a valid card number."
+msgstr "Это значение должно быть числом."
+
+#: Form/Type.php:169 Form/Type.php:246 Form/Type.php:273 Form/Type.php:300
+#: Form/Type.php:365 Form/Type.php:459 Form/Type.php:517 Form/Type.php:547
+#: Form/Type.php:641 Form/Type.php:1041 Form/Type.php:2083 Form/Type.php:2130
+#: Form/Type.php:2152 Form/Type.php:2199 Form/Type.php:2274 Form/Type.php:2345
+#: Form/Type.php:2559 Form/Type.php:2601 Form/Type.php:2795 Form/Type.php:3144
+#: Form/Type.php:3183 Form/Type.php:3496 Form/Type.php:3668 Form/Type.php:3751
+#: Form/Variable.php:471 Form/Variable.php:479
+#, fuzzy
+msgid "This field is required."
+msgstr "Требуется %s"
+
+#: Form/Type.php:254
+msgid "This field may only contain integers."
+msgstr ""
+
+#: Form/Type.php:2567
+msgid "This field may only contain numbers and the colon."
+msgstr ""
+
+#: Form/Type.php:281
+msgid "This field may only contain octal values."
+msgstr ""
+
+#: Form/Type.php:308
+msgid "This field must be a comma or space separated list of integers"
+msgstr ""
+
+#: Form/Type.php:180
+#, fuzzy
+msgid "This field must be a valid number."
+msgstr "Это значение должно быть числом."
+
+#: Form/Type.php:3152
+msgid ""
+"This field must contain a color code in the RGB Hex format, for example "
+"'#1234af'."
+msgstr ""
+
+#: Form.php:629
+#, fuzzy
+msgid "This form has already been processed."
+msgstr "Сервер %s был создан"
+
+#: Form/Type.php:2576
+#, fuzzy
+msgid "Time"
+msgstr "Заголовок"
+
+# fuzzy
+#: Form/Type.php:2686
+#, fuzzy
+msgid "Time selection"
+msgstr "Полное описание проблемы:"
+
+#: Form/Type.php:1321
+msgid "True or false"
+msgstr ""
+
+#: Form/Type.php:360
+#, php-format
+msgid "Value is over the maximum length of %d."
+msgstr ""
+
+#: Form/Type.php:2368 Form/Type.php:2403 Form/Type.php:2452 Form/Type.php:3281
+#: Form/Type/tableset.php:56
+#, fuzzy
+msgid "Values"
+msgstr "Заметки"
+
+#: Form/Type.php:2235 Form/Type.php:2311
+msgid "Values to select from"
+msgstr ""
+
+#: Form/Type.php:3485
+#, fuzzy
+msgid "Width in CSS units"
+msgstr "Внимание"
+
+#: Form/Type.php:2102
+#, fuzzy
+msgid "You did not enter a valid email address."
+msgstr "Ваш Email:"
+
+#: Form/Type.php:3028
+#, fuzzy
+msgid "You must choose a date."
+msgstr "Вы должны указать сначала в какую папку."
+
+#: Form/Type.php:3026
+#, fuzzy
+msgid "You must choose a time."
+msgstr "Вы должны указать получателя."
+
+#: Form/Type.php:463
+msgid ""
+"You must enter a valid phone number, digits only with an optional '+' for "
+"the international dialing prefix."
+msgstr ""
+
+#: Form/Type.php:371
+#, fuzzy
+msgid "You must enter a valid value."
+msgstr "Ваш Email:"
+
+#: Form/Type.php:1470
+#, fuzzy
+msgid "You must enter an email address."
+msgstr "Ваш Email:"
+
+#: Form/Type.php:1468
+#, fuzzy
+msgid "You must enter at least one email address."
+msgstr "Вы должны указать по крайней мере одного получателя."
+
+#: Form/Type.php:645
+#, fuzzy, php-format
+msgid "you must enter less than %d."
+msgstr "Вы должны указать по крайней мере одного получателя."

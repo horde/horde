@@ -5,7 +5,7 @@
  *
  *--------------------------------------------------------------------------*/
 
-if(typeof Prototype == 'undefined' || !Prototype.Version.match("1.6"))
+if(typeof Prototype == 'undefined' )
   throw("Prototype-UI library require Prototype library >= 1.6.0");
 
 if (Prototype.Browser.WebKit) {

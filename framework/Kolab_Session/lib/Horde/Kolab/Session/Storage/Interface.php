@@ -42,5 +42,5 @@ interface Horde_Kolab_Session_Storage_Interface
      *
      * @return NULL
      */
-    public function save(Horde_Kolab_Session_Interface $session);
+    public function save(Horde_Kolab_Session $session);
 }

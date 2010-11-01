@@ -118,7 +118,7 @@ class Net_IMSP_Auth {
             return new $class();
         }
 
-        throw new Horde_Exception(sprintf(_("Unable to load the definition of %s."), $class));
+        throw new Horde_Exception(sprintf(Horde_Net_IMSP_Translation::t("Unable to load the definition of %s."), $class));
     }
 
     /**

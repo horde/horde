@@ -4,10 +4,12 @@
  * for a image on the Ansel_View_Gallery view.
  *
  * @author Michael Rubinsky <mrubinsk@horde.org>
- * @package Ansel
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  Ansel
  */
-class Ansel_Tile_Image {
-
+class Ansel_Tile_Image
+{
     /**
      * Outputs the HTML for an image thumbnail 'tile'.
      *
@@ -15,18 +17,17 @@ class Ansel_Tile_Image {
      * @param Ansel_Gallery $parent  The parent Ansel_Gallery for this image.
      *                               If null, will create a new instance of
      *                               the Ansel_Gallery
-     * @param array $style           A sytle definiition array.
+     * @param Ansel_Style $style     A sytle definiition array.
      * @param boolean $mini          Force the use of a mini thumbnail?
      * @param string $params         Any other paramaters needed by this tile
      *
      * @return  Outputs the HTML for the image tile.
      */
-    function getTile($image, $style = null, $mini = false,
-                     $params = array())
+    public function getTile($image, $style = null, $mini = false, $params = array())
     {
         global $conf, $registry;
 
-        $parent = $GLOBALS['ansel_storage']->getGallery($image->gallery);
+        $parent = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($image->gallery);
         if (is_null($style)) {
             $style = $parent->getStyle();
         }
@@ -42,15 +43,16 @@ class Ansel_Tile_Image {
         }
 
         /* Override the thumbnail to mini or use style default? */
-        $thumbstyle = $mini ? 'mini' : $style['thumbstyle'];
+        $thumbstyle = $mini ? 'mini' : $style->thumbstyle;
 
         /* URL for image properties/actions etc... */
-        $image_url = Horde_Util::addParameter('image.php', array_merge(
-             array('gallery' => $image->gallery,
-                   'page' => $page,
-                   'image' => $image->id,
-                   'havesearch' => $haveSearch),
-             $date));
+        $image_url = Horde::url('image.php')->add(
+             array_merge(
+               array('gallery' => $image->gallery,
+                     'page' => $page,
+                     'image' => $image->id,
+                     'havesearch' => $haveSearch),
+               $date));
 
         /* URL to view the image. This is the link for the Tile.
          * $view_url is the link for the thumbnail and since this might not
@@ -69,14 +71,14 @@ class Ansel_Tile_Image {
         if (!empty($params['image_view_src'])) {
             $view_url = Ansel::getImageUrl($image->id, 'screen', true);
         } elseif (empty($params['image_view_url'])) {
-            $view_url = $img_view_url;
+            $view_url = new Horde_Url($img_view_url);
         } else {
-            $view_url = str_replace(array('%i', '%g', '%s'),
-                                    array($image->id, $image->gallery, $parent->get('slug')),
-                                    urldecode($params['image_view_url']));
+            $view_url = new Horde_Url(
+                str_replace(array('%i', '%g', '%s'),
+                            array($image->id, $image->gallery, $parent->get('slug')),
+                            urldecode($params['image_view_url'])));
 
-            // If we override the view_url, assume we want to override this
-            // as well.
+            // If we override the view_url, assume we want to override this also
             $img_view_url = $view_url;
         }
 
@@ -91,16 +93,17 @@ class Ansel_Tile_Image {
                 $date));
         }
 
-        $thumb_url = Ansel::getImageUrl($image->id, $thumbstyle, true, $style['name']);
-        $option_select = $parent->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE);
-        $option_edit = $parent->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT);
-        $imgAttributes = (!empty($params['image_view_attributes'])
-                         ? $params['image_view_attributes'] : array());
+        $thumb_url = Ansel::getImageUrl($image->id, $thumbstyle, true, $style);
+
+        $option_select = $parent->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE);
+        $option_edit = $parent->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
+        $imgAttributes = (!empty($params['image_view_attributes']) ? $params['image_view_attributes'] : array());
 
         $imgOnClick = (!empty($params['image_onclick'])
-                      ? str_replace('%i', $image->id, $params['image_onclick']) : '');
+                ? str_replace('%i', $image->id, $params['image_onclick'])
+                : '');
 
-        $imageCaption = Horde_Text_Filter::filter(
+        $imageCaption = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter(
             $image->caption, 'text2html',
             array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
 
@@ -111,17 +114,20 @@ class Ansel_Tile_Image {
             $title = $image->filename;
         }
 
-        ob_start();
+        Horde::startBuffer();
         // In-line caption editing if we have Horde_Perms::EDIT
         if ($option_edit) {
-            $imple = Horde_Ajax_Imple::factory(array('ansel', 'EditCaption'),
-                                               array('id' => $image->id,
-                                                     'domid' => $image->id . 'caption'));
-            $imple->attach();
+            // @TODO: passing thumbstyle here doesn't look right to me.
+            $geometry = $image->getDimensions($thumbstyle);
+            $GLOBALS['injector']->createInstance('Horde_Core_Factory_Imple')->create(
+                array('ansel', 'EditCaption'),
+                array('domid' => $image->id . 'caption',
+                      'id' => $image->id,
+                      'width' => $geometry['width']));
         }
-
         include ANSEL_BASE . '/templates/tile/image.inc';
-        return ob_get_clean();
+
+        return Horde::endBuffer();
     }
 
 }

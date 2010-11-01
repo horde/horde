@@ -1,0 +1,181 @@
+# Passwd Romanian Translation.
+# Copyright 2003-2009 The Horde Project
+# Eugen Hoanca <eugenh@urban-grafx.ro>, 2003.
+# Marius Dragulescu <mariusd@urban-grafx.ro>, 2003.
+msgid ""
+msgstr ""
+"Project-Id-Version: Passwd 2.2\n"
+"POT-Creation-Date: 2003-02-24 14:49+0200\n"
+"PO-Revision-Date: 2003-03-01 12:00+0200\n"
+"Last-Translator: Eugen Hoanca <eugenh@urban-grafx.ro>\n"
+"Language-Team: Romanian <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Backend not correctly implemented."
+msgstr "Backend incorect implementat."
+
+msgid "Change Password"
+msgstr "Schimba parola"
+
+msgid "Change your password"
+msgstr "Schimba parola ta"
+
+#, c-format
+msgid "Changing Password on %s"
+msgstr "Schimbare parola la %s"
+
+msgid "Confirm new password:"
+msgstr "Confirmare parola noua:"
+
+msgid "Could not bind to ldap server"
+msgstr "Conectare nereusita la serverul ldap"
+
+msgid "Could not connect to ldap server"
+msgstr "Conectare nereusita la serverul ldap"
+
+msgid "Could not open pipe to smbpasswd."
+msgstr "Legatura imposibila cu smbpasswd"
+
+msgid "Error sending data to smbpasswd."
+msgstr "Eroare la trimiterea datelor catre smbpasswd."
+
+msgid "Error"
+msgstr "Eroare"
+
+msgid "Failure in changing password : "
+msgstr "Eroare in schimbarea parolei : "
+
+msgid "Help"
+msgstr "Ajutor"
+
+msgid "Incorect Password"
+msgstr "Parola incorecta"
+
+msgid "Logout"
+msgstr "Iesire"
+
+msgid "Message"
+msgstr "Mesaj"
+
+msgid "New password:"
+msgstr "Parola noua:"
+
+msgid "Old password:"
+msgstr "Parola veche:"
+
+msgid "Password changed!"
+msgstr "Parola schimbata!"
+
+msgid "Password module is not properly configured"
+msgstr "Modulul de parole incorect configurat"
+
+msgid "Problem?"
+msgstr "Problema?"
+
+msgid "Required 'phptype' not specified in SQL configuration."
+msgstr "'phptype' nespecificat in configuratia SQL."
+
+msgid "Reset"
+msgstr "Resetare"
+
+msgid "Server"
+msgstr "Server"
+
+msgid "Some of Password module's configuration files are missing:"
+msgstr "Anumite fisiere de configurare Password lipsesc:"
+
+msgid "Success"
+msgstr "Succes"
+
+msgid ""
+"This file contains backend configuration information for the Password module "
+"scripts."
+msgstr ""
+"Acest fisier contine informatiile de configurare pentru modulul Password "
+
+msgid ""
+"This is the main Password module configuration file. It contains paths and "
+"options for all Password module scripts."
+msgstr ""
+"Acesta e fisierul principal de configurare Password. Contine caile si "
+"optiunile pentru scripturile Passwd. "
+
+msgid "Unable to connect to SQL server."
+msgstr "Conectare la serverul SQL esuata."
+
+msgid "User not found"
+msgstr "Utilizator negasit"
+
+msgid "User not found."
+msgstr "Utilizator negasit."
+
+msgid "Username:"
+msgstr "Utilizator:"
+
+msgid "Warning"
+msgstr "Avertisment"
+
+#, c-format
+msgid "You can't change password for user %s"
+msgstr "Nu poti schimba parola pentru utilizatorul %s"
+
+msgid "You must give your new password"
+msgstr "Trebuie introdusa o noua parola"
+
+msgid "You must give your old password"
+msgstr "Trebuie introdusa vechea parola"
+
+msgid "You must verify your new password"
+msgstr "Trebuie verificata noua parola"
+
+#, c-format
+msgid ""
+"Your new password is too long; passwords may not be more than %d characters "
+"long!"
+msgstr ""
+"Noua parola e prea lunga; parolele nu pot fi mai lungi de %d caractere!"
+
+msgid "Your new password is too simple to guess!  Not changed!"
+msgstr "Noua parola e prea simplu de ghicit! Neschimbata!"
+
+#, c-format
+msgid "Your new password must be at least %d characters long!"
+msgstr "Noua parola trebuie sa fie de minim %d caractere!"
+
+msgid "Your new password must be different from your current password"
+msgstr "Noua parola trebuie sa fie diferita de parola curenta"
+
+#, c-format
+msgid "Your new password must contain at least %d alphabetic characters."
+msgstr "Noua parola trebuie sa contina minim %d caractere alfabetice."
+
+#, c-format
+msgid "Your new password must contain at least %d alphanumeric characters."
+msgstr "Noua parola trebuie sa contina minim %d caractere alfanumerice."
+
+#, c-format
+msgid "Your new password must contain at least %d lowercase characters."
+msgstr "Noua parola trebuie sa contina minim %d caractere minuscule."
+
+#, c-format
+msgid "Your new password must contain at least %d numeric characters."
+msgstr "Noua parola trebuie sa contina cel putin %d caractere numerice."
+
+#, c-format
+msgid "Your new password must contain at least %d uppercase characters."
+msgstr "Noua parola trebuie sa contina minim %d caractere majuscule."
+
+#, c-format
+msgid "Your new password must contain at less than %d whitespace characters."
+msgstr "Noua parola trebuie sa contina mai putin de %d spatii."
+
+msgid "Your new password must not contain whitespace characters."
+msgstr "Noua parola nu trebuie sa contina spatii."
+
+msgid "Your new passwords didn't match"
+msgstr "Parolele noi nu se potrivesc"
+
+msgid "tempnam() failed!"
+msgstr "tempnam() esuata!"

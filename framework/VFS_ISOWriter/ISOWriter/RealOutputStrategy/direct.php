@@ -9,7 +9,6 @@
  *
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
  * @package VFS_ISO
- * @since   Horde 3.0
  */
 class VFS_ISOWriter_RealOutputStrategy_direct extends VFS_ISOWriter_RealOutputStrategy {
 
@@ -24,7 +23,7 @@ class VFS_ISOWriter_RealOutputStrategy_direct extends VFS_ISOWriter_RealOutputSt
         $dir = dirname($filename);
         while (!@is_dir($dir)) {
             if (!@mkdir($dir, 0755)) {
-                return PEAR::raiseError(sprintf(_("Could not mkdir \"%s\"."),
+                return PEAR::raiseError(sprintf(Horde_VFS_ISOWriter_Translation::t("Could not mkdir \"%s\"."),
                                                 $dir));
             }
             $dir = dirname($dir);

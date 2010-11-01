@@ -30,7 +30,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Initial Horde 4 package.
+ <notes>* Remove dependency on Horde_Core.
+ * Initial Horde 4 package.
  </notes>
  <contents>
   <dir name="/">
@@ -69,14 +70,12 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <pearinstaller>
     <min>1.5.4</min>
    </pearinstaller>
-<!--
-   <package>
-    <name>Horde</name>
-    <channel>pear.horde.org</channel>
-   </package>
--->
   </required>
   <optional>
+   <package>
+    <name>Cache</name>
+    <channel>pear.horde.org</channel>
+   </package>
    <extension>
     <name>gettext</name>
    </extension>

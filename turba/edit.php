@@ -10,8 +10,8 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
-require_once TURBA_BASE . '/lib/Forms/EditContact.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('turba');
 
 $listView = null;
 $vars = Horde_Variables::getDefaultVariables();
@@ -20,14 +20,13 @@ $original_source = $vars->get('original_source');
 $key = $vars->get('key');
 $groupedit = $vars->get('actionID') == 'groupedit';
 $objectkeys = $vars->get('objectkeys');
-$url = Horde_Util::getFormData('url', Horde::applicationUrl($prefs->getValue('initial_page'), true));
+$url = new Horde_Url(Horde_Util::getFormData('url', Horde::url($prefs->getValue('initial_page'), true)));
 
 /* Edit the first of a list of contacts? */
 if ($groupedit && (!$key || $key == '**search')) {
     if (!count($objectkeys)) {
         $notification->push(_("You must select at least one contact first."), 'horde.warning');
-        header('Location: ' . $url);
-        exit;
+        $url->redirect();
     }
     if ($key == '**search') {
         $original_source = $key;
@@ -43,51 +42,52 @@ if ($groupedit && (!$key || $key == '**search')) {
 
 if ($source === null || !isset($cfgSources[$source])) {
     $notification->push(_("Not found"), 'horde.error');
-    header('Location: ' . $url);
-    exit;
+    $url->redirect();
 }
 
-$driver = Turba_Driver::singleton($source);
+$driver = $injector->getInstance('Turba_Driver')->getDriver($source);
 
 /* Set the contact from the requested key. */
-$contact = $driver->getObject($key);
-if (is_a($contact, 'PEAR_Error')) {
-    $notification->push($contact, 'horde.error');
-    header('Location: ' . $url);
-    exit;
+try {
+    $contact = $driver->getObject($key);
+} catch (Turba_Exception $e) {
+    $notification->push($e, 'horde.error');
+    $url->redirect();
 }
 
 /* Check permissions on this contact. */
 if (!$contact->hasPermission(Horde_Perms::EDIT)) {
     if (!$contact->hasPermission(Horde_Perms::READ)) {
         $notification->push(_("You do not have permission to view this contact."), 'horde.error');
-        header('Location: ' . Horde::applicationUrl($prefs->getValue('initial_page'), true));
-        exit;
+        $url->redirect();
     } else {
         $notification->push(_("You only have permission to view this contact."), 'horde.error');
-        header('Location: ' . $contact->url('Contact', true));
-        exit;
+        $contact->url('Contact', true)->redirect();
     }
 }
 
 /* Create the edit form. */
 if ($groupedit) {
-    $form = new Turba_EditContactGroupForm($vars, $contact);
+    $form = new Turba_Form_EditContactGroup($vars, $contact);
 } else {
-    $form = new Turba_EditContactForm($vars, $contact);
+    $form = new Turba_Form_EditContact($vars, $contact);
 }
 
 /* Execute() checks validation first. */
 $edited = $form->execute();
-if (!is_a($edited, 'PEAR_Error')) {
+if (!($edited instanceof PEAR_Error)) {
     $url = Horde_Util::getFormData('url');
-    header('Location: ' . (empty($url) ? $contact->url('Contact', true) : $url));
-    exit;
+    if (empty($url)) {
+        $url = $contact->url('Contact', true);
+    } else {
+        $url = new Horde_Url($url, true);
+    }
+    $url->unique()->redirect();
 }
 
 $title = sprintf(_("Edit \"%s\""), $contact->getValue('name'));
 require TURBA_TEMPLATES . '/common-header.inc';
 require TURBA_TEMPLATES . '/menu.inc';
 $form->setTitle($title);
-$form->renderActive(new Horde_Form_Renderer(), $vars, 'edit.php', 'post');
+$form->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('edit.php'), 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

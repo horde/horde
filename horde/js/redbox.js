@@ -1,5 +1,5 @@
 /**
- * Redbox.js
+ * RedBox - display a non-modal dialog box.
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
@@ -8,6 +8,7 @@
 var RedBox = {
 
     overlay: true,
+    duration: 0.4,
     onDisplay: null,
 
     showInline: function(id)
@@ -25,19 +26,25 @@ var RedBox = {
     appearWindow: function()
     {
         var loading = $('RB_loading'),
-            opts = { duration: 0.4, queue: 'end' };
+            opts = { queue: 'end', duration: this.duration },
+            effects = [], effect;
 
         if (loading && loading.visible()) {
             loading.hide();
         } else {
-            this.showOverlay();
+            effect = this.showOverlay(true);
+            if (effect) {
+                effects.push(effect);
+            }
         }
 
         if (this.onDisplay) {
             opts.afterFinish = this.onDisplay;
         }
 
-        $('RB_window').appear(opts).scrollTo();
+        effects.push(new Effect.Appear($('RB_window'), { sync: true, duration: this.duration }));
+        new Effect.Parallel(effects, opts);
+        $('RB_window').scrollTo();
     },
 
     loading: function()
@@ -53,13 +60,13 @@ var RedBox = {
 
     close: function()
     {
-        $('RB_window').fade({ duration: 0.4 });
-        if (this.overlay) {
-            $('RB_overlay').fade({ duration: 0.4 });
+        $('RB_window').fade({ duration: this.duration });
+        if (this.overlay && this.overlayVisible()) {
+            $('RB_overlay').fade({ duration: this.duration });
         }
     },
 
-    showOverlay: function()
+    showOverlay: function(sync)
     {
         var rb = $('RB_redbox'), ov;
 
@@ -77,7 +84,7 @@ var RedBox = {
 
         if (this.overlay) {
             this.setOverlaySize();
-            $('RB_overlay').appear({ duration: 0.4, to: 0.6, queue: 'end' });
+            return new Effect.Appear($('RB_overlay'), { sync: sync, duration: this.duration, to: 0.6, queue: sync ? 'parallel' : 'end' });
         }
     },
 
@@ -109,7 +116,7 @@ var RedBox = {
 
     cloneWindowContents: function(id)
     {
-        $('RB_window').appendChild($($(id).cloneNode(true)).setStyle({ display: 'block' }));
+        $('RB_window').appendChild($($(id).clone(true)).setStyle({ display: 'block' }));
         this.setWindowPosition();
     },
 
@@ -117,6 +124,11 @@ var RedBox = {
     {
         $('RB_window').update(html);
         this.setWindowPosition();
+    },
+
+    getWindow: function()
+    {
+        return $('RB_window');
     },
 
     getWindowContents: function()
@@ -131,4 +143,4 @@ var RedBox = {
         return ov && ov.visible();
     }
 
-}
+};

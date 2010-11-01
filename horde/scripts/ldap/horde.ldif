@@ -1,0 +1,133 @@
+# Regenerate from horde.schema with:
+#
+# slapcat -f slapd.conf -F /some/empty/directory -n0 -s"cn={2}horde,cn=schema,cn=config" > horde.ldif
+#
+# with slapd.conf containing:
+#
+# include /etc/ldap/schema/core.schema
+# include /etc/ldap/schema/rfc2739.schema
+# include /etc/ldap/schema/horde.schema
+#
+# and remove the integer prefix from the cn and dn attributes and
+# everything at the bottom starting from:
+#
+# structuralObjectClass: olcSchemaConfig
+#
+dn: cn=horde,cn=schema,cn=config
+objectClass: olcSchemaConfig
+cn: horde
+olcAttributeTypes: {0}( 1.3.6.1.4.1.13040.2.1.1 NAME 'hordePrefs' DESC 'Horde
+ Preferences' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+ {1024} )
+olcAttributeTypes: {1}( 1.3.6.1.4.1.13040.3.1.1 NAME 'impPrefs' DESC 'IMP Pref
+ erences' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{102
+ 4} )
+olcAttributeTypes: {2}( 1.3.6.1.4.1.13040.4.1.1 NAME 'turbaPrefs' DESC 'Turba
+ Preferences' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+ {1024} )
+olcAttributeTypes: {3}( 1.3.6.1.4.1.13040.4.1.2 NAME 'turbaType' DESC 'Turba O
+ bject Type: Contact/List' EQUALITY caseIgnoreIA5Match SUBSTR caseIgnoreIA5Sub
+ stringsMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{8} )
+olcAttributeTypes: {4}( 1.3.6.1.4.1.13040.4.1.3 NAME 'turbaMembers' DESC 'Enco
+ ded members of a Turba list' SUP name )
+olcAttributeTypes: {5}( 1.3.6.1.4.1.13040.4.1.4 NAME 'turbaPGPPublicKey' DESC
+ 'PGP/GPG Public Key' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.
+ 121.1.26{4000} )
+olcAttributeTypes: {6}( 1.3.6.1.4.1.13040.5.1.1 NAME 'kronolithPrefs' DESC 'Kr
+ onolith Preferences' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.
+ 121.1.26{1024} )
+olcAttributeTypes: {7}( 1.3.6.1.4.1.13040.6.1.1 NAME 'nagPrefs' DESC 'Nag Pref
+ erences' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{102
+ 4} )
+olcAttributeTypes: {8}( 1.3.6.1.4.1.13040.7.1.1 NAME 'gollemPrefs' DESC 'Golle
+ m Preferences' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.
+ 26{1024} )
+olcAttributeTypes: {9}( 1.3.6.1.4.1.13040.8.1.1 NAME 'choraPrefs' DESC 'Chora
+ Preferences' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+ {1024} )
+olcAttributeTypes: {10}( 1.3.6.1.4.1.13040.9.1.1 NAME 'mnemoPrefs' DESC 'Mnemo
+  Preferences' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.2
+ 6{1024} )
+olcAttributeTypes: {11}( 1.3.6.1.4.1.13040.11.1.1 NAME 'klutzPrefs' DESC 'Klut
+ z Preferences' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.
+ 26{1024} )
+olcAttributeTypes: {12}( 1.3.6.1.4.1.13040.12.1.1 NAME 'jonahPrefs' DESC 'Jona
+ h Preferences' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.
+ 26{1024} )
+olcAttributeTypes: {13}( 1.3.6.1.4.1.13040.13.1.1 NAME 'hermesPrefs' DESC 'Her
+ mes Preferences' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.
+ 1.26{1024} )
+olcAttributeTypes: {14}( 1.3.6.1.4.1.13040.15.1.1 NAME 'treanPrefs' DESC 'Trea
+ n Preferences' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.
+ 26{1024} )
+olcAttributeTypes: {15}( 1.3.6.1.4.1.13040.16.1.1 NAME 'whupsPrefs' DESC 'Whup
+ s Preferences' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.
+ 26{1024} )
+olcAttributeTypes: {16}( 1.3.6.1.4.1.13040.17.1.1 NAME 'ingoPrefs' DESC 'Ingo
+ Preferences' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+ {1024} )
+olcAttributeTypes: {17}( 1.3.6.1.4.1.13040.18.1.1 NAME 'anselPrefs' DESC 'Anse
+ l Preferences' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.
+ 26{1024} )
+olcAttributeTypes: {18}( 1.3.6.1.4.1.13040.19.1.1 NAME 'geniePrefs' DESC 'Geni
+ e Preferences' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.
+ 26{1024} )
+olcAttributeTypes: {19}( 1.3.6.1.4.1.13040.20.1.1 NAME 'scryPrefs' DESC 'Scry
+ Preferences' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+ {1024} )
+olcAttributeTypes: {20}( 1.3.6.1.4.1.13040.21.1.1 NAME 'wickedPrefs' DESC 'Wic
+ ked Preferences' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.
+ 1.26{1024} )
+olcAttributeTypes: {21}( 1.3.6.1.4.1.13040.22.1.1 NAME 'agoraPrefs' DESC 'Agor
+ a Preferences' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.
+ 26{1024} )
+olcAttributeTypes: {22}( 1.3.6.1.4.1.13040.24.1.1 NAME 'goopsPrefs' DESC 'Goop
+ s Preferences' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.
+ 26{1024} )
+olcAttributeTypes: {23}( 1.3.6.1.4.1.13040.25.1.1 NAME 'merkPrefs' DESC 'Merk
+ Preferences' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+ {1024} )
+olcAttributeTypes: {24}( 1.3.6.1.4.1.13040.26.1.1 NAME 'mimpPrefs' DESC 'MIMP
+ Preferences' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+ {1024} )
+olcAttributeTypes: {25}( 1.3.6.1.4.1.13040.27.1.1 NAME 'mottlePrefs' DESC 'Mot
+ tle Preferences' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.
+ 1.26{1024} )
+olcAttributeTypes: {26}( 1.3.6.1.4.1.13040.28.1.1 NAME 'nicPrefs' DESC 'NIC Pr
+ eferences' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{1
+ 024} )
+olcAttributeTypes: {27}( 1.3.6.1.4.1.13040.29.1.1 NAME 'occamPrefs' DESC 'Occa
+ m Preferences' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.
+ 26{1024} )
+olcAttributeTypes: {28}( 1.3.6.1.4.1.13040.31.1.1 NAME 'rakimPrefs' DESC 'Raki
+ m Preferences' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.
+ 26{1024} )
+olcAttributeTypes: {29}( 1.3.6.1.4.1.13040.32.1.1 NAME 'seshaPrefs' DESC 'Sesh
+ a Preferences' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.
+ 26{1024} )
+olcAttributeTypes: {30}( 1.3.6.1.4.1.13040.33.1.1 NAME 'swooshPrefs' DESC 'Swo
+ osh Preferences' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.
+ 1.26{1024} )
+olcAttributeTypes: {31}( 1.3.6.1.4.1.13040.35.1.1 NAME 'ulaformPrefs' DESC 'Ul
+ aform Preferences' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.12
+ 1.1.26{1024} )
+olcAttributeTypes: {32}( 1.3.6.1.4.1.13040.36.1.1 NAME 'volosPrefs' DESC 'Volo
+ s Preferences' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.
+ 26{1024} )
+olcAttributeTypes: {33}( 1.3.6.1.4.1.13040.37.1.1 NAME 'jetaPrefs' DESC 'Jeta
+ Preferences' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+ {1024} )
+olcAttributeTypes: {34}( 1.3.6.1.4.1.13040.38.1.1 NAME 'dimpPrefs' DESC 'DIMP
+ Preferences' EQUALITY caseIgnoreIA5Match SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+ {1024} )
+olcObjectClasses: {0}( 1.3.6.1.4.1.13040.2.2.1 NAME 'hordePerson' DESC 'Horde
+ Preferences' SUP top AUXILIARY MAY ( mail $ hordePrefs $ impPrefs $ turbaPref
+ s $ gollemPrefs $ kronolithPrefs $ mnemoPrefs $ nagPrefs $ klutzPrefs $ jonah
+ Prefs $ hermesPrefs $ treanPrefs $ whupsPrefs $ ingoPrefs $ geniePrefs $ scry
+ Prefs $ anselPrefs $ wickedPrefs $ choraPrefs $ agoraPrefs $ goopsPrefs $ mer
+ kPrefs $ volosPrefs $ mimpPrefs $ mottlePrefs $ nicPrefs $ occamPrefs $ rakim
+ Prefs $ seshaPrefs $ swooshPrefs $ ulaformPrefs $ jetaPrefs $ dimpPrefs ) )
+olcObjectClasses: {1}( 1.3.6.1.4.1.13040.2.2.2 NAME 'hordeGroup' DESC 'Horde G
+ roup' SUP top AUXILIARY MAY mail )
+olcObjectClasses: {2}( 1.3.6.1.4.1.13040.4.2.1 NAME 'turbaContact' DESC 'Turba
+  Contact' SUP top AUXILIARY MAY ( turbaType $ turbaMembers $ calFBURL ) )

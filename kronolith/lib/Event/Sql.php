@@ -20,11 +20,6 @@ class Kronolith_Event_Sql extends Kronolith_Event
     public $calendarType = 'internal';
 
     /**
-     * @var array
-     */
-    private $_properties = array();
-
-    /**
      * Const'r
      *
      * @param Kronolith_Driver $driver  The backend driver that this event is
@@ -43,15 +38,17 @@ class Kronolith_Event_Sql extends Kronolith_Event
 
         if (!empty($this->calendar) &&
             isset($GLOBALS['all_calendars'][$this->calendar])) {
-            $share = $GLOBALS['all_calendars'][$this->calendar];
-            $backgroundColor = $share->get('color');
-            if (!empty($backgroundColor)) {
-                $this->_backgroundColor = $backgroundColor;
-                $this->_foregroundColor = Horde_Image::brightness($this->_backgroundColor) < 128 ? '#fff' : '#000';
-            }
+            $this->_backgroundColor = $GLOBALS['all_calendars'][$this->calendar]->background();
+            $this->_foregroundColor = $GLOBALS['all_calendars'][$this->calendar]->foreground();
         }
     }
 
+    /**
+     * Imports a backend specific event object.
+     *
+     * @param array $event  Backend specific event object that this object
+     *                      will represent.
+     */
     public function fromDriver($SQLEvent)
     {
         $driver = $this->getDriver();
@@ -137,30 +134,41 @@ class Kronolith_Event_Sql extends Kronolith_Event
         if (isset($SQLEvent['event_alarm_methods'])) {
             $this->methods = $driver->convertFromDriver(unserialize($SQLEvent['event_alarm_methods']));
         }
+        if (isset($SQLEvent['event_baseid'])) {
+            $this->baseid = $SQLEvent['event_baseid'];
+        }
+        if (isset($SQLEvent['event_exceptionoriginaldate'])) {
+            $this->exceptionoriginaldate = new Horde_Date($SQLEvent['event_exceptionoriginaldate']);
+        }
+
         $this->initialized = true;
         $this->stored = true;
     }
 
-    public function toDriver()
+    /**
+     * Prepares this event to be saved to the backend.
+     */
+    public function toProperties()
     {
         $driver = $this->getDriver();
+        $properties = array();
 
         /* Basic fields. */
-        $this->_properties['event_creator_id'] = $driver->convertToDriver($this->creator);
-        $this->_properties['event_title'] = $driver->convertToDriver($this->title);
-        $this->_properties['event_description'] = $driver->convertToDriver($this->description);
-        $this->_properties['event_location'] = $driver->convertToDriver($this->location);
-        $this->_properties['event_url'] = $this->url;
-        $this->_properties['event_private'] = (int)$this->private;
-        $this->_properties['event_status'] = $this->status;
-        $this->_properties['event_attendees'] = serialize($driver->convertToDriver($this->attendees));
-        $this->_properties['event_resources'] = serialize($driver->convertToDriver($this->getResources()));
-        $this->_properties['event_modified'] = $_SERVER['REQUEST_TIME'];
+        $properties['event_creator_id'] = $driver->convertToDriver($this->creator);
+        $properties['event_title'] = $driver->convertToDriver($this->title);
+        $properties['event_description'] = $driver->convertToDriver($this->description);
+        $properties['event_location'] = $driver->convertToDriver($this->location);
+        $properties['event_url'] = (string)$this->url;
+        $properties['event_private'] = (int)$this->private;
+        $properties['event_status'] = $this->status;
+        $properties['event_attendees'] = serialize($driver->convertToDriver($this->attendees));
+        $properties['event_resources'] = serialize($driver->convertToDriver($this->getResources()));
+        $properties['event_modified'] = $_SERVER['REQUEST_TIME'];
 
         if ($this->isAllDay()) {
-            $this->_properties['event_start'] = $this->start->strftime('%Y-%m-%d %H:%M:%S');
-            $this->_properties['event_end'] = $this->end->strftime('%Y-%m-%d %H:%M:%S');
-            $this->_properties['event_allday'] = 1;
+            $properties['event_start'] = $this->start->strftime('%Y-%m-%d %H:%M:%S');
+            $properties['event_end'] = $this->end->strftime('%Y-%m-%d %H:%M:%S');
+            $properties['event_allday'] = 1;
         } else {
             if ($driver->getParam('utc')) {
                 $start = clone $this->start;
@@ -171,20 +179,20 @@ class Kronolith_Event_Sql extends Kronolith_Event
                 $start = $this->start;
                 $end = $this->end;
             }
-            $this->_properties['event_start'] = $start->strftime('%Y-%m-%d %H:%M:%S');
-            $this->_properties['event_end'] = $end->strftime('%Y-%m-%d %H:%M:%S');
-            $this->_properties['event_allday'] = 0;
+            $properties['event_start'] = $start->strftime('%Y-%m-%d %H:%M:%S');
+            $properties['event_end'] = $end->strftime('%Y-%m-%d %H:%M:%S');
+            $properties['event_allday'] = 0;
         }
 
         /* Alarm. */
-        $this->_properties['event_alarm'] = (int)$this->alarm;
+        $properties['event_alarm'] = (int)$this->alarm;
 
         /* Alarm Notification Methods. */
-        $this->_properties['event_alarm_methods'] = serialize($driver->convertToDriver($this->methods));
+        $properties['event_alarm_methods'] = serialize($driver->convertToDriver($this->methods));
 
         /* Recurrence. */
         if (!$this->recurs()) {
-            $this->_properties['event_recurtype'] = 0;
+            $properties['event_recurtype'] = 0;
         } else {
             $recur = $this->recurrence->getRecurType();
             if ($this->recurrence->hasRecurEnd()) {
@@ -198,23 +206,26 @@ class Kronolith_Event_Sql extends Kronolith_Event
                 $recur_end = new Horde_Date(array('year' => 9999, 'month' => 12, 'mday' => 31, 'hour' => 23, 'min' => 59, 'sec' => 59));
             }
 
-            $this->_properties['event_recurtype'] = $recur;
-            $this->_properties['event_recurinterval'] = $this->recurrence->getRecurInterval();
-            $this->_properties['event_recurenddate'] = $recur_end->format('Y-m-d H:i:s');
-            $this->_properties['event_recurcount'] = $this->recurrence->getRecurCount();
+            $properties['event_recurtype'] = $recur;
+            $properties['event_recurinterval'] = $this->recurrence->getRecurInterval();
+            $properties['event_recurenddate'] = $recur_end->format('Y-m-d H:i:s');
+            $properties['event_recurcount'] = $this->recurrence->getRecurCount();
 
             switch ($recur) {
             case Horde_Date_Recurrence::RECUR_WEEKLY:
-                $this->_properties['event_recurdays'] = $this->recurrence->getRecurOnDays();
+                $properties['event_recurdays'] = $this->recurrence->getRecurOnDays();
                 break;
             }
-            $this->_properties['event_exceptions'] = implode(',', $this->recurrence->getExceptions());
+            $properties['event_exceptions'] = implode(',', $this->recurrence->getExceptions());
         }
-    }
 
-    public function getProperties()
-    {
-        return $this->_properties;
+        /* Exception information */
+        if (!empty($this->baseid)) {
+            $properties['event_baseid'] = $this->baseid;
+            $properties['event_exceptionoriginaldate'] = $this->exceptionoriginaldate;
+        }
+
+        return $properties;
     }
 
 }

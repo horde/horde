@@ -8,7 +8,7 @@
 require_once dirname(__FILE__) . '/../../../lib/Horde/Date.php';
 require_once dirname(__FILE__) . '/../../../lib/Horde/Date/Utils.php';
 require_once dirname(__FILE__) . '/../../../lib/Horde/Date/Span.php';
-date_default_timezone_set('Europe/Berlin');
+
 
 /**
  * @category   Horde
@@ -17,6 +17,17 @@ date_default_timezone_set('Europe/Berlin');
  */
 class Horde_Date_DateTest extends PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        $this->_oldTimezone = date_default_timezone_get();
+        date_default_timezone_set('Europe/Berlin');
+    }
+
+    public function tearDown()
+    {
+        date_default_timezone_set($this->_oldTimezone);
+    }
+
     public function testConstructor()
     {
         $date = new stdClass();

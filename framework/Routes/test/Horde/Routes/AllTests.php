@@ -32,6 +32,8 @@ class Horde_Routes_AllTests extends Horde_Test_AllTests
 {
 }
 
+Horde_Routes_AllTests::init('Horde_Routes', __FILE__);
+
 if (PHPUnit_MAIN_METHOD == 'Horde_Routes_AllTests::main') {
-    Horde_Routes_AllTests::main('Horde_Routes', __FILE__);
+    Horde_Routes_AllTests::main();
 }

@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: incubator/operator/search.php,v 1.11 2009/06/10 17:33:30 slusarz Exp $
- *
  * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -11,12 +9,11 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-
-$operator = new Operator_Application(array('init' => true));
-$cache = &$GLOBALS['cache'];
+$operator = Horde_Registry::appInit('operator');
 
 require_once OPERATOR_BASE . '/lib/Form/SearchCDR.php';
 
+$cache = $GLOBALS['cache'];
 $renderer = new Horde_Form_Renderer();
 $vars = Horde_Variables::getDefaultVariables();
 $data = array();
@@ -73,7 +70,7 @@ $page = Horde_Util::getGet('page', 0);
 $pager_vars = Horde_Variables::getDefaultVariables();
 $pager_vars->set('page', $page);
 $perpage = $prefs->getValue('rowsperpage');
-$pager = new Horde_Ui_Pager('page', $pager_vars,
+$pager = new Horde_Core_Ui_Pager('page', $pager_vars,
                             array('num' => count($data),
                                   'url' => 'search.php',
                                   'page_count' => 10,
@@ -94,7 +91,7 @@ Horde::addScriptFile('stripe.js', 'horde', true);
 require OPERATOR_TEMPLATES . '/common-header.inc';
 require OPERATOR_TEMPLATES . '/menu.inc';
 $notification->notify();
-$form->renderActive($renderer, $vars, Horde::applicationUrl('search.php'), 'post');
+$form->renderActive($renderer, $vars, Horde::url('search.php'), 'post');
 
 $columns = unserialize($prefs->getValue('columns'));
 if (!empty($data)) {

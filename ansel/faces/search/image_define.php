@@ -13,11 +13,11 @@ require_once 'tabs.php';
 
 /* check if image exists */
 $tmp = Horde::getTempDir();
-$path = $tmp . '/search_face_' . Horde_Auth::getAuth() . Ansel_Faces::getExtension();
+$path = $tmp . '/search_face_' . $registry->getAuth() . Ansel_Faces::getExtension();
 
 if (file_exists($path) !== true) {
     $notification->push(_("You must upload the search photo first"));
-    header('Location: ' . Horde::applicationUrl('faces/search/image.php'));
+    Horde::url('faces/search/image.php')->redirect();
 }
 
 $title = _("Create a new face");
@@ -27,8 +27,9 @@ $y1 = 0;
 $x2 = 0;
 $y2 = 0;
 
-$faces = $faces->getFaces($path);
-if (is_a($faces, 'PEAR_Error')) {
+try {
+    $faces = $faces->getFaces($path);
+} catch (Ansel_Exception $e) {
     exit;
 }
 
@@ -52,7 +53,8 @@ Horde::addScriptFile('cropper.js', 'ansel');
 Horde::addScriptFile('stripe.js', 'horde');
 
 require ANSEL_TEMPLATES . '/common-header.inc';
-require ANSEL_TEMPLATES . '/menu.inc';
+echo Horde::menu();
+$notification->notify(array('listeners' => 'status'));
 require ANSEL_TEMPLATES . '/faces/define.inc';
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';

@@ -9,8 +9,8 @@
  * @package Kronolith
  */
 
-$kronolith_authentication = 'none';
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('kronolith', array('authentication' => 'none'));
 
 $cal = Horde_Util::getFormData('c');
 $id = Horde_Util::getFormData('e');
@@ -43,26 +43,30 @@ if (((empty($cal) || empty($id)) && empty($uid)) || empty($user)) {
     $notification->push(_("The request was incomplete. Some parameters that are necessary to accept or decline an event are missing."), 'horde.error');
     $title = '';
 } else {
-    if (empty($uid)) {
-        $event = Kronolith::getDriver(null, $cal)->getEvent($id);
-    } else {
-        $event = Kronolith::getDriver()->getByUID($uid);
-    }
-    if (is_a($event, 'PEAR_Error')) {
-        $notification->push($event, 'horde.error');
-        $title = '';
-    } elseif (!$event->hasAttendee($user)) {
-        $notification->push(_("You are not an attendee of the specified event."), 'horde.error');
-        $title = $event->getTitle();
-    } else {
-        $event->addAttendee($user, Kronolith::PART_IGNORE, $action);
-        $result = $event->save();
-        if (is_a($result, 'PEAR_Error')) {
-            $notification->push($result, 'horde.error');
-        } elseif (!empty($msg)) {
-            $notification->push($msg, 'horde.success');
+    try {
+        if (empty($uid)) {
+            $event = Kronolith::getDriver(null, $cal)->getEvent($id);
+        } else {
+            $event = Kronolith::getDriver()->getByUID($uid);
         }
-        $title = $event->getTitle();
+        if (!$event->hasAttendee($user)) {
+            $notification->push(_("You are not an attendee of the specified event."), 'horde.error');
+            $title = $event->getTitle();
+        } else {
+            $event->addAttendee($user, Kronolith::PART_IGNORE, $action);
+            try {
+                $event->save();
+                if (!empty($msg)) {
+                    $notification->push($msg, 'horde.success');
+                }
+            } catch (Exception $e) {
+                $notification->push($e, 'horde.error');
+            }
+            $title = $event->getTitle();
+        }
+    } catch (Exception $e) {
+        $notification->push($e, 'horde.error');
+        $title = '';
     }
 }
 

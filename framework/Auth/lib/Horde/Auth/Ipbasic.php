@@ -5,18 +5,15 @@
  * for times when you want a block of IPs to be able to access a site,
  * and that access is simply on/off - no preferences, etc.
  *
- * Optional Parameters:
- * <pre>
- * 'blocks' - (array) CIDR masks which are allowed access.
- * </pre>
- *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_Auth
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
+ * @package  Auth
  */
 class Horde_Auth_Ipbasic extends Horde_Auth_Base
 {
@@ -33,9 +30,12 @@ class Horde_Auth_Ipbasic extends Horde_Auth_Base
     /**
      * Constructor.
      *
-     * @param array $params  A hash containing parameters.
+     * @param array $params  Optional Parameters:
+     * <pre>
+     * 'blocks' - (array) CIDR masks which are allowed access.
+     * </pre>
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         if (empty($params['blocks'])) {
             $params['blocks'] = array();
@@ -52,16 +52,14 @@ class Horde_Auth_Ipbasic extends Horde_Auth_Base
      *
      * @return boolean  Whether or not the client is allowed.
      */
-    protected function _transparent()
+    public function transparent()
     {
-        if (!isset($_SERVER['REMOTE_ADDR'])) {
-            return false;
-        }
-
-        foreach ($this->_params['blocks'] as $cidr) {
-            if ($this->_addressWithinCIDR($_SERVER['REMOTE_ADDR'], $cidr)) {
-                $this->_credentials['userId'] = $cidr;
-                return true;
+        if (isset($_SERVER['REMOTE_ADDR'])) {
+            foreach ($this->_params['blocks'] as $cidr) {
+                if ($this->_addressWithinCIDR($_SERVER['REMOTE_ADDR'], $cidr)) {
+                    $this->_credentials['userId'] = $cidr;
+                    return true;
+                }
             }
         }
 
@@ -82,7 +80,7 @@ class Horde_Auth_Ipbasic extends Horde_Auth_Base
      */
     protected function _authenticate($userId, $credentials)
     {
-        throw new Horde_Auth_Exception('Not implemented!');
+        throw new Horde_Auth_Exception('Unsupported.');
     }
 
     /**

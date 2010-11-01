@@ -11,7 +11,7 @@
  */
 
 require_once dirname(__FILE__) . '/../../lib/Application.php';
-new Horde_Application(array('nologintasks' => true));
+Horde_Registry::appInit('horde', array('nologintasks' => true));
 
 /* Get file info. The following parameters are available:
  *  'f' - the filename.
@@ -29,19 +29,20 @@ $action = strtolower(Horde_Util::getFormData('a'));
 switch ($source) {
 case 'vfs':
     /* Change app if needed to get the right VFS config. */
-    $changed_conf = $registry->pushApp($app_conf);
+    $pushed = $registry->pushApp($app_conf);
 
     /* Getting a file from Horde's VFS. */
-    $vfs = VFS::singleton($conf['vfs']['type'], Horde::getDriverConfig('vfs', $conf['vfs']['type']));
     $path = Horde_Util::getFormData('p');
-    $file_data = $vfs->read($path, $file);
-    if (is_a($file_data, 'PEAR_Error')) {
-        Horde::logMessage(sprintf('Error displaying image [%s]: %s', $path . '/' . $file, $file_data->getMessage()), __FILE__, __LINE__, PEAR_LOG_ERR);
+    try {
+        $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
+        $file_data = $vfs->read($path, $file);
+    } catch (VFS_Exception $e) {
+        Horde::logMessage(sprintf('Error displaying image [%s]: %s', $path . '/' . $file, $e->getMessage()), 'ERR');
         exit;
     }
 
     /* Return the original app if changed previously. */
-    if ($changed_conf) {
+    if ($pushed) {
         $registry->popApp($app_conf);
     }
     break;
@@ -59,7 +60,7 @@ case 'tmp':
         }
     }
     if (!file_exists($file_name)) {
-        Horde::logMessage(sprintf('Image not found [%s]', $file_name), __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage(sprintf('Image not found [%s]', $file_name), 'ERR');
         exit;
     }
     $file_data = file_get_contents($file_name);
@@ -67,14 +68,11 @@ case 'tmp':
 }
 
 /* Load the image object. */
-$context = array('tmpdir' => Horde::getTempDir());
-if (!empty($conf['image']['convert'])) {
-    $context['convert'] = $conf['image']['convert'];
-    $image = Horde_Image::factory('Im', array('context' => $context));
-} else {
-    $image = Horde_Image::factory('Gd', array('context' => $context));
-}
-$image->loadString($file, $file_data);
+$type = Horde_Mime_Magic::analyzeData($file_data);
+$image = $GLOBALS['injector']
+    ->getInstance('Horde_Core_Factory_Image')
+    ->create(array('type' => $type,
+                   'data' => $file_data));
 
 /* Check if no editing action required and send the image to browser. */
 if (empty($action)) {

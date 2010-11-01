@@ -22,11 +22,66 @@ class Ingo
      */
     const USER_HEADER = '++USER_HEADER++';
 
-    /* getMenu() cache. */
-    static private $_menuCache = null;
-
-    /* hasSharePermission() cache. */
+    /**
+     * hasSharePermission() cache.
+     *
+     * @var integer
+     */
     static private $_shareCache = null;
+
+    /**
+     * Create an ingo session.
+     *
+     * Creates the $ingo session variable with the following entries:
+     * 'backend' (array) - The backend configuration to use.
+     * 'change' (integer) - The timestamp of the last time the rules were
+     *                      altered.
+     * 'storage' (array) - Used by Ingo_Storage:: for caching data.
+     * 'script_categories' (array) - The list of available categories for the
+     *                               Ingo_Script driver in use.
+     * 'script_generate' (boolean) - Is the Ingo_Script::generate() call
+     *                               available?
+     *
+     * @throws Ingo_Exception
+     */
+    static public function createSession()
+    {
+        if (isset($_SESSION['ingo'])) {
+            return;
+        }
+
+        global $prefs;
+
+        $_SESSION['ingo'] = array(
+            'backend' => Ingo::getBackend(),
+            'change' => 0,
+            'storage' => array()
+        );
+
+        $ingo_script = Ingo::loadIngoScript();
+        $_SESSION['ingo']['script_generate'] = $ingo_script->generateAvailable();
+
+        /* Disable categories as specified in preferences */
+        $categories = array_merge($ingo_script->availableActions(), $ingo_script->availableCategories());
+        if ($prefs->isLocked('blacklist')) {
+            unset($categories[Ingo_Storage::ACTION_BLACKLIST]);
+        }
+        if ($prefs->isLocked('whitelist')) {
+            unset($categories[Ingo_Storage::ACTION_WHITELIST]);
+        }
+        if ($prefs->isLocked('vacation')) {
+            unset($categories[Ingo_Storage::ACTION_VACATION]);
+        }
+        if ($prefs->isLocked('forward')) {
+            unset($categories[Ingo_Storage::ACTION_FORWARD]);
+        }
+        if ($prefs->isLocked('spam')) {
+            unset($categories[Ingo_Storage::ACTION_SPAM]);
+        }
+
+        /* Set the list of categories this driver supports. */
+        $_SESSION['ingo']['script_categories'] = $categories;
+    }
 
     /**
      * Generates a folder widget.
@@ -64,8 +119,7 @@ class Ingo
                     }
                     $text .= '"';
                 }
-                $text .= ">\n";
-                $text .= '<option value="">' . _("Select target folder:") . "</option>\n";
+                $text .= "\n<option value=\"\">" . _("Select target folder:") . "</option>\n";
 
                 if ($registry->hasMethod('mail/createFolder')) {
                     $text .= '<option value="">' . _("Create new folder") . "</option>\n";
@@ -78,11 +132,10 @@ class Ingo
                     $label = $mbox['abbrev'];
                     $text .= sprintf('<option%s value="%s"%s>%s</option>%s',
                                      $disabled, $val, $sel,
-                                     Horde_Text_Filter::filter($label, 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)), "\n");
+                                     $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($label, 'space2html', array('encode' => true)), "\n");
                 }
 
-                $text .= '</select>';
-                return $text;
+                return $text . '</select>';
             } catch (Horde_Exception $e) {}
         }
 
@@ -94,13 +147,13 @@ class Ingo
      *
      * @param string $folder  The name of the folder to create.
      *
-     * @return boolean  True on success, false if not created. PEAR_Error on
+     * @return boolean  True on success, false if not created.
      * @throws Horde_Exception
      */
     static public function createFolder($folder)
     {
         return $GLOBALS['registry']->hasMethod('mail/createFolder')
-            ? $GLOBALS['registry']->call('mail/createFolder', array('folder' => Horde_String::convertCharset($folder, Horde_Nls::getCharset(), 'UTF7-IMAP')))
+            ? $GLOBALS['registry']->call('mail/createFolder', array('folder' => Horde_String::convertCharset($folder, 'UTF-8', 'UTF7-IMAP')))
             : false;
     }
 
@@ -114,11 +167,10 @@ class Ingo
     static public function getUser($full = true)
     {
         if (empty($GLOBALS['ingo_shares'])) {
-            $user = ($full ||
-                     (isset($_SESSION['ingo']['backend']['hordeauth']) &&
-                      $_SESSION['ingo']['backend']['hordeauth'] === 'full')) ?
-                Horde_Auth::getAuth() :
-                Horde_Auth::getBareAuth();
+            $baseuser = ($full ||
+                        (isset($_SESSION['ingo']['backend']['hordeauth']) &&
+                         $_SESSION['ingo']['backend']['hordeauth'] === 'full'));
+            $user = $GLOBALS['registry']->getAuth($baseuser ? null : 'bare');
         } else {
             list(, $user) = explode(':', $_SESSION['ingo']['current_share'], 2);
         }
@@ -153,25 +205,28 @@ class Ingo
      */
     static public function activateScript($script, $deactivate = false)
     {
-        global $notification;
+        $transport = self::getTransport();
 
-        $driver = self::getDriver();
-        $res = $driver->setScriptActive($script);
-        if (is_a($res, 'PEAR_Error')) {
+        try {
+            $res = $transport->setScriptActive($script);
+        } catch (Ingo_Exception $e) {
             $msg = ($deactivate)
               ? _("There was an error deactivating the script.")
               : _("There was an error activating the script.");
-            $notification->push($msg . ' ' . _("The driver said: ") . $res->getMessage(), 'horde.error');
+            $GLOBALS['notification']->push($msg . ' ' . _("The driver said: ") . $e->getMessage(), 'horde.error');
             return false;
-        } elseif ($res === true) {
-            $msg = ($deactivate)
-              ? _("Script successfully deactivated.")
-              : _("Script successfully activated.");
-            $notification->push($msg, 'horde.success');
-            return true;
         }
 
-        return false;
+        if ($res === false) {
+            return false;
+        }
+
+        $msg = ($deactivate)
+            ? _("Script successfully deactivated.")
+            : _("Script successfully activated.");
+        $GLOBALS['notification']->push($msg, 'horde.success');
+
+        return true;
     }
 
     /**
@@ -181,8 +236,7 @@ class Ingo
      */
     static public function getScript()
     {
-        $driver = self::getDriver();
-        return $driver->getScript();
+        return self::getTransport()->getScript();
     }
 
     /**
@@ -190,16 +244,15 @@ class Ingo
      */
     static public function updateScript()
     {
-        global $notification;
-
         if ($_SESSION['ingo']['script_generate']) {
-            $ingo_script = self::loadIngoScript();
-            if (!$ingo_script) {
-                $notification->push(_("Script not updated."), 'horde.error');
-            } else {
+            try {
+                $ingo_script = self::loadIngoScript();
+
                 /* Generate and activate the script. */
                 $script = $ingo_script->generate();
                 self::activateScript($script);
+            } catch (Ingo_Exception $e) {
+                $GLOBALS['notification']->push(_("Script not updated."), 'horde.error');
             }
         }
     }
@@ -213,7 +266,7 @@ class Ingo
      * single value or an array of multiple values.
      *
      * @return array  The backend entry.
-     * @throws Horde_Exception
+     * @throws Ingo_Exception
      */
     static public function getBackend()
     {
@@ -242,17 +295,17 @@ class Ingo
         }
 
         /* Check for valid backend configuration. */
-        if (!isset($backend)) {
-            throw new Horde_Exception(_("No backend configured for this host"));
+        if (is_null($backend)) {
+            throw new Ingo_Exception(_("No backend configured for this host"));
         }
 
         $backends[$backend]['id'] = $name;
         $backend = $backends[$backend];
 
         if (empty($backend['script'])) {
-            throw new Horde_Exception(sprintf(_("No \"%s\" element found in backend configuration."), 'script'));
-        } elseif (empty($backend['driver'])) {
-            throw new Horde_Exception(sprintf(_("No \"%s\" element found in backend configuration."), 'driver'));
+            throw new Ingo_Exception(sprintf(_("No \"%s\" element found in backend configuration."), 'script'));
+        } elseif (empty($backend['transport'])) {
+            throw new Ingo_Exception(sprintf(_("No \"%s\" element found in backend configuration."), 'transport'));
         }
 
         /* Make sure the 'params' entry exists. */
@@ -267,43 +320,38 @@ class Ingo
      * Loads a Ingo_Script:: backend and checks for errors.
      *
      * @return Ingo_Script  Script object on success.
-     * @throws Horde_Exception
+     * @throws Ingo_Exception
      */
     static public function loadIngoScript()
     {
-        $ingo_script = Ingo_Script::factory($_SESSION['ingo']['backend']['script'],
-                                            isset($_SESSION['ingo']['backend']['scriptparams']) ? $_SESSION['ingo']['backend']['scriptparams'] : array());
-        if (is_a($ingo_script, 'PEAR_Error')) {
-            throw new Horde_Exception($ingo_script);
-        }
-
-        return $ingo_script;
+        return Ingo_Script::factory($_SESSION['ingo']['backend']['script'],
+                                    isset($_SESSION['ingo']['backend']['scriptparams']) ? $_SESSION['ingo']['backend']['scriptparams'] : array());
     }
 
     /**
-     * Returns an instance of the configured driver.
+     * Returns an instance of the configured transport driver.
      *
-     * @return Ingo_Driver  The configured driver.
+     * @return Ingo_Transport  The configured driver.
+     * @throws Ingo_Exception
      */
-    static public function getDriver()
+    static public function getTransport()
     {
         $params = $_SESSION['ingo']['backend']['params'];
 
         // Set authentication parameters.
         if (!empty($_SESSION['ingo']['backend']['hordeauth'])) {
-            $params['username'] = ($_SESSION['ingo']['backend']['hordeauth'] === 'full')
-                        ? Horde_Auth::getAuth() : Horde_Auth::getBareAuth();
-            $params['password'] = Horde_Auth::getCredential('password');
+            $params['username'] = $GLOBALS['registry']->getAuth(($_SESSION['ingo']['backend']['hordeauth'] === 'full') ? null : 'bare');
+            $params['password'] = $GLOBALS['registry']->getAuthCredential('password');
         } elseif (isset($_SESSION['ingo']['backend']['params']['username']) &&
                   isset($_SESSION['ingo']['backend']['params']['password'])) {
             $params['username'] = $_SESSION['ingo']['backend']['params']['username'];
             $params['password'] = $_SESSION['ingo']['backend']['params']['password'];
         } else {
-            $params['username'] = Horde_Auth::getBareAuth();
-            $params['password'] = Horde_Auth::getCredential('password');
+            $params['username'] = $GLOBALS['registry']->getAuth('bare');
+            $params['password'] = $GLOBALS['registry']->getAuthCredential('password');
         }
 
-        return Ingo_Driver::factory($_SESSION['ingo']['backend']['driver'], $params);
+        return Ingo_Transport::factory($_SESSION['ingo']['backend']['transport'], $params);
     }
 
     /**
@@ -319,9 +367,10 @@ class Ingo
     static public function listRulesets($owneronly = false,
                                         $permission = Horde_Perms::SHOW)
     {
-        $rulesets = $GLOBALS['ingo_shares']->listShares(Horde_Auth::getAuth(), $permission, $owneronly ? Horde_Auth::getAuth() : null);
-        if (is_a($rulesets, 'PEAR_Error')) {
-            Horde::logMessage($rulesets, __FILE__, __LINE__, PEAR_LOG_ERR);
+        try {
+            $rulesets = $GLOBALS['ingo_shares']->listShares($GLOBALS['registry']->getAuth(), $permission, $owneronly ? $GLOBALS['registry']->getAuth() : null);
+        } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($e, 'ERR');
             return array();
         }
 
@@ -338,7 +387,7 @@ class Ingo
         }
 
         if (is_null(self::$_shareCache)) {
-            self::$_shareCache = $GLOBALS['ingo_shares']->getPermissions($_SESSION['ingo']['current_share'], Horde_Auth::getAuth());
+            self::$_shareCache = $GLOBALS['ingo_shares']->getPermissions($_SESSION['ingo']['current_share'], $GLOBALS['registry']->getAuth());
         }
 
         return self::$_shareCache & $mask;
@@ -359,51 +408,45 @@ class Ingo
     }
 
     /**
-     * Build Ingo's list of menu items.
-     */
-    static public function getMenu()
-    {
-        $menu = new Horde_Menu();
-        $menu->add(Horde::applicationUrl('filters.php'), _("Filter _Rules"), 'ingo.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
-        if (!is_a($whitelist_url = $GLOBALS['registry']->link('mail/showWhitelist'), 'PEAR_Error')) {
-            $menu->add(Horde::url($whitelist_url), _("_Whitelist"), 'whitelist.png');
-        }
-        if (!is_a($blacklist_url = $GLOBALS['registry']->link('mail/showBlacklist'), 'PEAR_Error')) {
-            $menu->add(Horde::url($blacklist_url), _("_Blacklist"), 'blacklist.png');
-        }
-        if (in_array(Ingo_Storage::ACTION_VACATION, $_SESSION['ingo']['script_categories'])) {
-            $menu->add(Horde::applicationUrl('vacation.php'), _("_Vacation"), 'vacation.png');
-        }
-        if (in_array(Ingo_Storage::ACTION_FORWARD, $_SESSION['ingo']['script_categories'])) {
-            $menu->add(Horde::applicationUrl('forward.php'), _("_Forward"), 'forward.png');
-        }
-        if (in_array(Ingo_Storage::ACTION_SPAM, $_SESSION['ingo']['script_categories'])) {
-            $menu->add(Horde::applicationUrl('spam.php'), _("S_pam"), 'spam.png');
-        }
-        if ($_SESSION['ingo']['script_generate'] &&
-            (!$GLOBALS['prefs']->isLocked('auto_update') ||
-             !$GLOBALS['prefs']->getValue('auto_update'))) {
-            $menu->add(Horde::applicationUrl('script.php'), _("_Script"), 'script.png');
-        }
-        if (!empty($GLOBALS['ingo_shares']) && empty($GLOBALS['conf']['share']['no_sharing'])) {
-            $menu->add('#', _("_Permissions"), 'perms.png', $GLOBALS['registry']->getImageDir('horde'), '', Horde::popupJs(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/shares/edit.php', true), array('params' => array('app' => 'ingo', 'share' => $_SESSION['ingo']['backend']['id'] . ':' . Horde_Auth::getAuth()), 'urlencode' => true)) . 'return false;');
-        }
-
-        return $menu;
-    }
-
-    /**
-     * Prepares and caches Ingo's list of menu items.
+     * Create ingo's menu.
      *
      * @return string  The menu text.
      */
-    static public function prepareMenu()
+    static public function menu()
     {
-        if (!self::$_menuCache) {
-            self::$_menuCache = self::getMenu()->render();
+        $t = $GLOBALS['injector']->createInstance('Horde_Template');
+        $t->set('forminput', Horde_Util::formInput());
+
+        if (!empty($GLOBALS['ingo_shares']) &&
+            (count($GLOBALS['all_rulesets']) > 1)) {
+            $options = array();
+            foreach (array_keys($GLOBALS['all_rulesets']) as $id) {
+                $options[] = array(
+                    'name' => htmlspecialchars($GLOBALS['all_rulesets'][$id]->get('name')),
+                    'selected' => ($_SESSION['ingo']['current_share'] == $id),
+                    'val' => htmlspecialchars($id)
+                );
+            }
+            $t->set('options', $options);
         }
 
-        return self::$_menuCache;
+        $t->set('menu_string', Horde::menu(array('menu_ob' => true))->render());
+
+        $menu = $t->fetch(INGO_TEMPLATES . '/menu/menu.html');
+
+        /* Need to buffer sidebar output here, because it may add things like
+         * cookies which need to be sent before output begins. */
+        Horde::startBuffer();
+        require HORDE_BASE . '/services/sidebar.php';
+        return $menu . Horde::endBuffer();
+    }
+
+    /**
+     * Outputs IMP's status/notification bar.
+     */
+    static public function status()
+    {
+        $GLOBALS['notification']->notify(array('listeners' => array('status', 'audio')));
     }
 
     /**
@@ -414,7 +457,7 @@ class Ingo
         if ($GLOBALS['registry']->hasMethod('mail/createFolder')) {
             Horde::addScriptFile('new_folder.js', 'ingo');
             Horde::addInlineScript(array(
-                'IngoNewFolder.folderprompt = ' . Horde_Serialize::serialize(_("Please enter the name of the new folder:"), Horde_Serialize::JSON, Horde_Nls::getCharset())
+                'IngoNewFolder.folderprompt = ' . Horde_Serialize::serialize(_("Please enter the name of the new folder:"), Horde_Serialize::JSON)
             ));
         }
     }

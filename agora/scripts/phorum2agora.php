@@ -1,4 +1,4 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
 /**
  * Move basic messsage from phorum5 to agora preserving message ids
@@ -13,56 +13,21 @@
  *  done
  *
  * TODO: Moderation, attachments, ID swaping
- *
- * $Horde: agora/scripts/phorum2agora.php,v 1.10 2009/06/10 19:57:51 slusarz Exp $
- *
  */
 
-// No need for auth.
-define('AUTH_HANDLER', true);
-
-// Find the base file paths.
-define('AGORA_BASE', dirname(dirname(__FILE__)));
-define('HORDE_BASE', dirname(AGORA_BASE));
-
-// Do CLI checks and environment setup first.
-require_once HORDE_BASE . '/lib/core.php';
-require_once 'Horde/CLI.php';
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment.
-Horde_Cli::init();
-$cli = &Horde_Cli::singleton();
-
-require_once 'DB.php';
-require_once HORDE_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('agora', array('authentication' => 'none', 'cli' => true));
 
 /* Open Agora database. */
-$db_agora = &DB::connect($conf['sql']);
-if ($db instanceof PEAR_Error) {
-    var_dump($db);
-    exit;
-}
-
-/* Open Phorum database. */
-$db_phorum = &DB::connect($conf['sql']);
-if ($db_phorum instanceof PEAR_Error) {
-    var_dump($db_phorum);
-    exit;
-}
+$db_agora = $db_phorum = $injector->getInstance('Horde_Core_Factory_DbPear')->create();
 
 // We accept the user name on the command-line.
-require_once 'Console/Getopt.php';
 $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'h:p:a:t:f:c:',
                               array('help', 'phorum_id=', 'agora_id=', 'phorum_table=', 'from=', 'count='));
 
 if ($ret instanceof PEAR_Error) {
     $error = _("Couldn't read command-line options.");
-    Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+    Horde::logMessage($error, 'DEBUG');
     $cli->fatal($error);
 }
 
@@ -154,8 +119,8 @@ foreach ($messages as $message) {
     $params[] = makeParents($message['thread'], $message['message_id']);
     $params[] = ($message['thread'] == $message['message_id']) ? 0 : $message['thread'];
     $params[] = $message['author'];
-    $params[] = Horde_String::convertCharset($message['subject'], $conf['sql']['charset']);
-    $params[] = Horde_String::convertCharset($message['body'], $conf['sql']['charset']);
+    $params[] = Horde_String::convertCharset($message['subject'], $conf['sql']['charset'], 'UTF-8');
+    $params[] = Horde_String::convertCharset($message['body'], $conf['sql']['charset'], 'UTF-8');
     $params[] = $message['datestamp'];
     $params[] = 0;
     $params[] = $message['ip'];

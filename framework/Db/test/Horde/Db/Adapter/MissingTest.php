@@ -28,5 +28,4 @@ class Horde_Db_Adapter_MissingTest extends PHPUnit_Framework_TestCase
     {
         $this->markTestSkipped('The ' . $this->adapter . ' adapter is not available');
     }
-
 }

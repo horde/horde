@@ -17,18 +17,6 @@
 class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
 {
     /**
-     * Map of HTTP methods to HTTP_METH_* constants
-     * @var array
-     */
-    protected $_httpMethods = array(
-        'GET' => HTTP_METH_GET,
-        'HEAD' => HTTP_METH_HEAD,
-        'POST' => HTTP_METH_POST,
-        'PUT' => HTTP_METH_PUT,
-        'DELETE' => HTTP_METH_DELETE,
-    );
-
-    /**
      * Map of HTTP authentication schemes from Horde_Http constants to HTTP_AUTH constants.
      * @var array
      */
@@ -62,7 +50,11 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
      */
     public function send()
     {
-        $httpRequest = new HttpRequest($this->uri, $this->_httpMethods[$this->method]);
+        if (!defined('HTTP_METH_' . $this->method)) {
+            throw new Horde_Http_Exception('Method ' . $this->method . ' not supported.'); 
+        }
+
+        $httpRequest = new HttpRequest($this->uri, constant('HTTP_METH_' . $this->method));
 
         $data = $this->data;
         if (is_array($data)) {
@@ -71,7 +63,7 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_Base
             $httpRequest->setRawPostData($data);
         }
 
-        $httpOptions = array();
+        $httpOptions = array('timeout' => $this->timeout);
 
         // Proxy settings
         if ($this->proxyServer) {

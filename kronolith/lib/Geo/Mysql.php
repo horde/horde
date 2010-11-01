@@ -14,40 +14,53 @@
  */
 class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
 {
-    // Rouughly 69 miles per distance unit
+    // Roughly 69 miles per distance unit
     private $_conversionFactor = 69;
 
     /**
      * Set the location of the specified event _id
      *
      * @see kronolith/lib/Driver/Kronolith_Driver_Geo#setLocation($event_id, $point)
+     * @throws Kronolith_Exception
      */
     public function setLocation($event_id, $point)
     {
         /* First make sure it doesn't already exist */
-        $sql = "SELECT COUNT(*) FROM kronolith_events_geo WHERE event_id = ('" . $event_id . "')";
-        $count = $this->_db->getOne($sql);
+        $sql = 'SELECT COUNT(*) FROM kronolith_events_geo WHERE event_id = ?';
+        Horde::logMessage(sprintf('Kronolith_Geo_Mysql::setLocation(): user = "%s"; query = "%s"; values = "%s"',
+            $GLOBALS['registry']->getAuth(), $sql, $event_id), 'DEBUG');
+        $count = $this->_db->getOne($sql, array($event_id));
         if ($count instanceof PEAR_Error) {
-            throw new Horde_Exception($count->getMessage());
+            Horde::logMessage($count, 'ERR');
+            throw new Horde_Exception($count);
         }
 
         /* Do we actually have data? */
         if ((empty($point['lat']) || empty($point['lon'])) && $count) {
             // Delete the record.
-            $sql = "DELETE FROM kronolith_events_geo WHERE event_id = '" . $event_id . "'";
+            $this->deleteLocation($event_id);
+            return;
         } elseif (empty($point['lat']) || empty($point['lon'])) {
             return;
         }
 
+        if (empty($point['zoom'])) {
+            $point['zoom'] = 0;
+        }
+
         /* INSERT or UPDATE */
         if ($count) {
-            $sql = "UPDATE kronolith_events_geo SET event_coordinates = GeomFromText('POINT(" . $point['lat'] . " " . $point['lon'] . ")') WHERE event_id = '" . $event_id . "'";
+            $sql = sprintf('UPDATE kronolith_events_geo SET event_coordinates = GeomFromText(\'POINT(%F %F)\'), event_zoom = ? WHERE event_id = ?', $point['lat'], $point['lon']);
         } else {
-            $sql = "INSERT into kronolith_events_geo (event_id, event_coordinates) VALUES('" . $event_id . "', GeomFromText('POINT(" . $point['lat'] . " " . $point['lon'] . ")'))";
+            $sql = sprintf('INSERT into kronolith_events_geo (event_id, event_coordinates, event_zoom) VALUES(?, GeomFromText(\'POINT(%F %F)\'), ?)', $point['lat'], $point['lon']);
         }
-        $result = $this->_write_db->query($sql);
+        $values = array($event_id, $point['zoom']);
+        Horde::logMessage(sprintf('Kronolith_Geo_Mysql::setLocation(): user = "%s"; query = "%s"; values = "%s"',
+                                  $GLOBALS['registry']->getAuth(), $sql, implode(',', $values)), 'DEBUG');
+        $result = $this->_write_db->query($sql, $values);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result->getMessage());
+            Horde::logMessage($result, 'ERR');
+            throw new Horde_Exception($result);
         }
 
         return $result;
@@ -57,13 +70,17 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
      * Get the location of the provided event_id.
      *
      * @see kronolith/lib/Driver/Kronolith_Driver_Geo#getLocation($event_id)
+     * @throws Kronolith_Exception
      */
     public function getLocation($event_id)
     {
-        $sql = "SELECT x(event_coordinates) as lat, y(event_coordinates) as lon FROM kronolith_events_geo WHERE event_id = '" . $event_id . "'";
-        $result = $this->_db->getRow($sql, null, DB_FETCHMODE_ASSOC);
+        $sql = 'SELECT x(event_coordinates) as lat, y(event_coordinates) as lon, event_zoom as zoom FROM kronolith_events_geo WHERE event_id = ?';
+        Horde::logMessage(sprintf('Kronolith_Geo_Mysql::getLocation(): user = "%s"; query = "%s"; values = "%s"',
+            $GLOBALS['registry']->getAuth(), $sql, $event_id), 'DEBUG');
+        $result = $this->_db->getRow($sql, array($event_id), DB_FETCHMODE_ASSOC);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result->getMessage());
+            Horde::logMessage($result, 'ERR');
+            throw new Horde_Exception($result);
         }
         return $result;
     }
@@ -79,6 +96,7 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
      *       MBRs
      *
      * @see kronolith/lib/Driver/Kronolith_Driver_Geo#search($criteria)
+     * @throws Kronolith_Exception
      */
     public function search($criteria)
     {
@@ -89,17 +107,20 @@ class Kronolith_Geo_Mysql extends Kronolith_Geo_Sql
         /* Allow overriding the default conversion factor */
         $factor = empty($criteria['factor']) ? $this->_conversionFactor : $criteria['factor'];
 
-        // ... if this works it will be a miracle ;)
+        $params = array($factor, $radius, $limit);
         $sql = "SELECT event_id, "
-               . "GLength(LINESTRINGFromWKB(LineString(event_coordinates, GeomFromText('POINT(" . $point['lat'] . " " . $point['lon'] . ")')))) * " . $factor . " as distance, "
-               . "x(event_coordinates) as lat, y(event_coordinates) as lon FROM kronolith_events_geo HAVING distance < " . $radius . " ORDER BY distance ASC LIMIT " . $limit;
+               . "GLength(LINESTRINGFromWKB(LineString(event_coordinates, GeomFromText('POINT(" . (float)$point['lat'] . " " . (float)$point['lon'] . ")')))) * ? as distance, "
+               . "x(event_coordinates) as lat, y(event_coordinates) as lon FROM kronolith_events_geo HAVING distance < ?  ORDER BY distance ASC LIMIT ?";
 
-        $results = $this->_db->getAssoc($sql, false, null, DB_FETCHMODE_ASSOC);
+        Horde::logMessage(sprintf('Kronolith_Geo_Mysql::search(): user = "%s"; query = "%s"; values = "%s"',
+            $GLOBALS['registry']->getAuth(), $sql, print_r($params, true)), 'DEBUG');
+
+        $results = $this->_db->getAssoc($sql, false, $params, DB_FETCHMODE_ASSOC);
         if ($results instanceof PEAR_Error) {
-            throw new Horde_Exception($results->getMessage());
+            Horde::logMessage($results, 'ERR');
+            throw new Horde_Exception($results);
         }
 
         return $results;
-
     }
 }

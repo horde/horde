@@ -35,131 +35,6 @@ class Chora
     static public $fdcache;
 
     /**
-     * Initialize global variables and objects.
-     */
-    static public function initialize()
-    {
-        global $acts, $defaultActs, $where, $atdir, $fullname, $sourceroot;
-
-        try {
-            $GLOBALS['sourceroots'] = Horde::loadConfiguration('sourceroots.php', 'sourceroots');
-        } catch (Horde_Exception $e) {
-            $GLOBALS['notification']->push($e);
-            $GLOBALS['sourceroots'] = array();
-        }
-        $sourceroots = self::sourceroots();
-
-        /**
-         * Variables we wish to propagate across web pages
-         *  sbt = Sort By Type (name, age, author, etc)
-         *  ha  = Hide Attic Files
-         *  ord = Sort order
-         *
-         * Obviously, defaults go into $defaultActs :)
-         * TODO: defaults of 1 will not get propagated correctly - avsm
-         * XXX: Rewrite this propagation code, since it sucks - avsm
-         */
-        $defaultActs = array(
-            'sbt' => constant($GLOBALS['conf']['options']['defaultsort']),
-            'sa'  => 0,
-            'ord' => Horde_Vcs::SORT_ASCENDING,
-            'ws'  => 1,
-            'onb' => 0,
-            'rev' => 0,
-        );
-
-        /* Use the last sourceroot used as the default value if the user has
-         * that preference. */
-        $last_sourceroot = $GLOBALS['prefs']->getValue('last_sourceroot')
-            ? $GLOBALS['prefs']->getValue('last_sourceroot')
-            : null;
-
-        if (!empty($last_sourceroot) &&
-            !empty($sourceroots[$last_sourceroot]) &&
-            is_array($sourceroots[$last_sourceroot])) {
-            $defaultActs['rt'] = $last_sourceroot;
-        } else {
-            foreach ($sourceroots as $key => $val) {
-                if (isset($val['default']) || !isset($defaultActs['rt'])) {
-                    $defaultActs['rt'] = $key;
-                }
-            }
-        }
-
-        $acts = array();
-        if (!isset($defaultActs['rt'])) {
-            self::fatal(_("No repositories found."));
-            return;
-        }
-
-        /* See if any have been passed as GET variables, and if so, assign
-         * them into the acts array. */
-        foreach ($defaultActs as $key => $default) {
-            $acts[$key] = Horde_Util::getFormData($key, $default);
-        }
-
-        if (!isset($sourceroots[$acts['rt']])) {
-            self::fatal(_("Malformed URL"), '400 Bad Request');
-        }
-
-        $sourcerootopts = $sourceroots[$acts['rt']];
-        $sourceroot = $acts['rt'];
-
-        // Cache.
-        if (empty($GLOBALS['conf']['caching'])) {
-            $cache = null;
-        } else {
-            $cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
-        }
-
-        $GLOBALS['conf']['paths']['temp'] = Horde::getTempDir();
-
-        try {
-            $GLOBALS['VC'] = Horde_Vcs::factory(Horde_String::ucfirst($sourcerootopts['type']),
-                array('cache' => $cache,
-                      'sourceroot' => $sourcerootopts['location'],
-                      'paths' => $GLOBALS['conf']['paths'],
-                      'username' => isset($sourcerootopts['username']) ? $sourcerootopts['username'] : '',
-                      'password' => isset($sourcerootopts['password']) ? $sourcerootopts['password'] : ''));
-        } catch (Horde_Vcs_Exception $e) {
-            self::fatal($e);
-        }
-
-        $GLOBALS['conf']['paths']['sourceroot'] = $sourcerootopts['location'];
-        $GLOBALS['conf']['paths']['cvsusers'] = $sourcerootopts['location'] . '/' . (isset($sourcerootopts['cvsusers']) ? $sourcerootopts['cvsusers'] : '');
-        $GLOBALS['conf']['paths']['introText'] = CHORA_BASE . '/config/' . (isset($sourcerootopts['intro']) ? $sourcerootopts['intro'] : '');
-        $GLOBALS['conf']['options']['introTitle'] = isset($sourcerootopts['title']) ? $sourcerootopts['title'] : '';
-        $GLOBALS['conf']['options']['sourceRootName'] = $sourcerootopts['name'];
-
-        $where = Horde_Util::getFormData('f', '/');
-
-        /* Location relative to the sourceroot. */
-        $where = preg_replace(array('|^/|', '|\.\.|'), '', $where);
-
-        /* Store last repository viewed */
-        $GLOBALS['prefs']->setValue('last_sourceroot', $acts['rt']);
-
-        $fullname = $sourcerootopts['location'] . (substr($sourcerootopts['location'], -1) == '/' ? '' : '/') . $where;
-
-        if ($sourcerootopts['type'] == 'cvs') {
-            $fullname = preg_replace('|/$|', '', $fullname);
-            $atdir = @is_dir($fullname);
-        } else {
-            $atdir = !$where || (substr($where, -1) == '/');
-        }
-        $where = preg_replace('|/$|', '', $where);
-
-        if (($sourcerootopts['type'] == 'cvs') &&
-            !@is_dir($sourcerootopts['location'])) {
-            self::fatal(_("Sourceroot not found. This could be a misconfiguration by the server administrator, or the server could be having temporary problems. Please try again later."), '500 Internal Server Error');
-        }
-
-        if (self::isRestricted($where)) {
-            self::fatal(sprintf(_("%s: Forbidden by server configuration"), $where), '403 Forbidden');
-        }
-    }
-
-    /**
      * Create the breadcrumb directory listing.
      *
      * @param string $where  The current filepath.
@@ -183,9 +58,9 @@ class Chora
             if (!empty($dir)) {
                 $url = self::url('browsedir', $path . ($i == $dir_count && !$GLOBALS['atdir'] ? '' : '/'));
                 if (!empty($onb)) {
-                    $url = Horde_Util::addParameter($url, array('onb' => $onb));
+                    $url = $url->add('onb', $onb);
                 }
-                $bar .= '/ <a href="' . $url . '">'. Horde_Text_Filter::filter($dir, 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true, 'encode_all' => true)) . '</a> ';
+                $bar .= '/ <a href="' . $url . '">' . $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($dir, 'space2html', array('encode' => true, 'encode_all' => true)) . '</a> ';
             }
         }
 
@@ -233,15 +108,20 @@ class Chora
     static public function url($script, $uri = '', $args = array(),
                                $anchor = '')
     {
-        $arglist = self::_getArgList($GLOBALS['acts'], $GLOBALS['defaultActs'], $args);
+        $arglist = self::_getArgList($GLOBALS['acts'],
+                                     $GLOBALS['defaultActs'],
+                                     $args);
         $script .= '.php';
 
         if ($GLOBALS['conf']['options']['urls'] == 'rewrite') {
-            if (in_array($script, array('browse.php', 'browsedir.php'))) {
-                $script = $uri;
-                if (substr($script, 0, 1) == '/') {
-                    $script = substr($script, 1);
+            if (in_array($script, array('browsefile.php', 'browsedir.php'))) {
+                if (substr($uri, 0, 1) == '/') {
+                    $script = "browse$uri";
+                } else {
+                    $script = "browse/$uri";
                 }
+                $script = urlencode(isset($args['rt']) ? $args['rt'] : $GLOBALS['acts']['rt']) . "/-/$script";
+                unset($arglist['rt']);
             } else {
                 $script .= '/' . $uri;
             }
@@ -249,9 +129,8 @@ class Chora
             $arglist['f'] = $uri;
         }
 
-        $url = Horde_Util::addParameter(Horde::applicationUrl($script), $arglist);
+        return Horde::url($script)->add($arglist)->setAnchor($anchor);
 
-        return empty($anchor) ? $url : ($url . '#' . $anchor);
     }
 
     /**
@@ -292,8 +171,8 @@ class Chora
      */
     static public function checkPerms($key)
     {
-        return (!$GLOBALS['perms']->exists('chora:sourceroots:' . $key) ||
-                $GLOBALS['perms']->hasPermission('chora:sourceroots:' . $key, Horde_Auth::getAuth(), Horde_Perms::READ | Horde_Perms::SHOW));
+        return (!$GLOBALS['injector']->getInstance('Horde_Perms')->exists('chora:sourceroots:' . $key) ||
+                $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('chora:sourceroots:' . $key, $GLOBALS['registry']->getAuth(), Horde_Perms::READ | Horde_Perms::SHOW));
     }
 
     /**
@@ -340,7 +219,7 @@ class Chora
         return '<form action="#" id="repository-picker">' .
             '<select onchange="location.href=this[this.selectedIndex].value">' .
             '<option value="">' . _("Change repositories:") . '</option>' .
-            implode(' , ', $arr) . '</select></form>';
+            implode('', $arr) . '</select></form>';
     }
 
     /**
@@ -364,7 +243,7 @@ class Chora
         $mime->setType($mime_type);
         $mime->setContents($lns);
 
-        return Horde_Mime_Viewer::factory($mime);
+        return $GLOBALS['injector']->getInstance('Horde_Core_Factory_MimeViewer')->create($mime);
     }
 
     /**
@@ -413,18 +292,6 @@ class Chora
     }
 
     /**
-     * Build Chora's list of menu items.
-     *
-     * @return string  The menu HTML code.
-     */
-    static public function getMenu()
-    {
-        $menu = new Horde_Menu();
-        $menu->add(self::url('browsedir'), _("_Browse"), 'chora.png');
-        return $menu;
-    }
-
-    /**
      * Generate the link used for various file-based views.
      *
      * @param string $where    The current file path.
@@ -446,7 +313,8 @@ class Chora
         }
 
         if ($GLOBALS['VC']->hasFeature('branches')) {
-            if (empty($GLOBALS['conf']['paths']['cvsgraph'])) {
+            if (empty($GLOBALS['conf']['paths']['cvsgraph']) ||
+                !($GLOBALS['VC'] instanceof Horde_Vcs_Cvs)) {
                 $views[] = ($current == 'history')
                     ? '<em class="widget">' . _("Branches") . '</em>'
                     : Horde::widget(self::url('history', $where), _("Branches"), 'widget', '', '', _("_Branches"));
@@ -477,7 +345,7 @@ class Chora
         $tags = array();
 
         foreach ($lg->querySymbolicBranches() as $symb => $bra) {
-            $tags[] = '<a href="' . self::url('browsefile', $where, array('onb' => $bra)) . '">'. htmlspecialchars($symb) . '</a>';
+            $tags[] = self::url('browsefile', $where, array('onb' => $bra))->link() . htmlspecialchars($symb) . '</a>';
         }
 
         foreach ($lg->queryTags() as $tag) {
@@ -592,7 +460,7 @@ class Chora
      */
     static public function formatLogMessage($log)
     {
-        $log = Horde_Text_Filter::filter($log, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'charset' => Horde_Nls::getCharset(), 'class' => ''));
+        $log = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($log, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
 
         return (empty($GLOBALS['conf']['tickets']['regexp']) || empty($GLOBALS['conf']['tickets']['replacement']))
             ? $log

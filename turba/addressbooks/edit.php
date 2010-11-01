@@ -8,36 +8,37 @@
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
  */
 
-require_once dirname(__FILE__) . '/../lib/base.php';
-require_once TURBA_BASE . '/lib/Forms/EditAddressBook.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('turba');
 
 // Exit if this isn't an authenticated user, or if there's no source
 // configured for shares.
-if (!Horde_Auth::getAuth() || empty($_SESSION['turba']['has_share'])) {
+if (!$GLOBALS['registry']->getAuth() || !$session['turba:has_share']) {
     require TURBA_BASE . '/'
         . ($browse_source_count ? basename($prefs->getValue('initial_page')) : 'search.php');
     exit;
 }
 
 $vars = Horde_Variables::getDefaultVariables();
-$addressbook = $turba_shares->getShare($vars->get('a'));
-if (is_a($addressbook, 'PEAR_Error')) {
-    $notification->push($addressbook, 'horde.error');
-    header('Location: ' . Horde::applicationUrl('addressbooks/', true));
-    exit;
-} elseif (!Horde_Auth::getAuth() ||
-          $addressbook->get('owner') != Horde_Auth::getAuth()) {
-    $notification->push(_("You are not allowed to change this addressbook."), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('addressbooks/', true));
-    exit;
+try {
+    $addressbook = $turba_shares->getShare($vars->get('a'));
+} catch (Horde_Share_Exception $e) {
+    $notification->push($e->getMessage(), 'horde.error');
+    Horde::url('addressbooks/', true)->redirect();
 }
-$form = new Turba_EditAddressBookForm($vars, $addressbook);
+if (!$GLOBALS['registry']->getAuth() ||
+    $addressbook->get('owner') != $GLOBALS['registry']->getAuth()) {
+
+    $notification->push(_("You are not allowed to change this addressbook."), 'horde.error');
+    Horde::url('addressbooks/', true)->redirect();
+}
+$form = new Turba_Form_EditAddressBook($vars, $addressbook);
 
 // Execute if the form is valid.
 if ($form->validate($vars)) {
     $original_name = $addressbook->get('name');
     $result = $form->execute();
-    if (is_a($result, 'PEAR_Error')) {
+    if ($result instanceof PEAR_Error) {
         $notification->push($result, 'horde.error');
     } else {
         if ($addressbook->get('name') != $original_name) {
@@ -47,8 +48,7 @@ if ($form->validate($vars)) {
         }
     }
 
-    header('Location: ' . Horde::applicationUrl('addressbooks/', true));
-    exit;
+    Horde::url('addressbooks/', true)->redirect();
 }
 
 $vars->set('name', $addressbook->get('name'));
@@ -56,5 +56,5 @@ $vars->set('description', $addressbook->get('desc'));
 $title = $form->getTitle();
 require TURBA_TEMPLATES . '/common-header.inc';
 require TURBA_TEMPLATES . '/menu.inc';
-echo $form->renderActive($form->getRenderer(), $vars, 'edit.php', 'post');
+echo $form->renderActive($form->getRenderer(), $vars, Horde::url('edit.php'), 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

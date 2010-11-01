@@ -22,10 +22,9 @@ class Ansel_View_Slideshow extends Ansel_View_Image
     {
         global $registry, $prefs;
         $imageIndex = $this->_revList[$this->resource->id];
-        ob_start();
+        Horde::startBuffer();
         require ANSEL_TEMPLATES . '/view/slideshow.inc';
-        return ob_get_clean();
-
+        return Horde::endBuffer();
     }
 
     public function viewType()

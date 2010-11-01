@@ -195,7 +195,7 @@ class FreeBusyController extends Horde_Controller_Base
             if ($access->user == 'manager') {
                 $imapc = &Horde_Kolab_IMAP::singleton($GLOBALS['conf']['kolab']['imap']['server'],
                                                       $GLOBALS['conf']['kolab']['imap']['port']);
-                $result = $imapc->connect($access->user, Horde_Auth::getCredential('password'));
+                $result = $imapc->connect($access->user, $GLOBALS['registry']->getAuthCredential('password'));
                 if (is_a($result, 'PEAR_Error')) {
                     $reporter->failure($calendar->name, $result->getMessage());
                     continue;

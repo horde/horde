@@ -1,0 +1,318 @@
+# Gollem Korean translation.
+# Copyright 2001 J.I Kim.
+# J.I Kim <aporie@netian.com>, 2001.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gollem 0.0.1-cvs\n"
+"POT-Creation-Date: 2001-12-31 13:59+0900\n"
+"PO-Revision-Date: 2001-11-09 16:29+0900\n"
+"Last-Translator: J.I Kim <aporie@netian.com>\n"
+"Language-Team: Korean <dev@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid " to: "
+msgstr "의 파일이름 변경:"
+
+#, c-format
+msgid "%d items in %s"
+msgstr "%d 항목 (%s)"
+
+#, c-format
+msgid "%s renamed to %s"
+msgstr "%s는 %s로 이름 변경되었습니다."
+
+msgid "<b>Note:</b> These settings won't take effect until your next login."
+msgstr "<b>참조:</b> 이 설정값은 다음 로그인시에 반영됩니다."
+
+msgid "An illegal value was specified."
+msgstr "잘못된 값입니다."
+
+msgid "Are you sure?"
+msgstr "확실합니까?"
+
+msgid "Ascending"
+msgstr "오름차순"
+
+#, c-format
+msgid "Cannot chmod %s"
+msgstr "%s의 접근설정을 변경할 수 없습니다."
+
+#, c-format
+msgid "Cannot delete %s"
+msgstr "%s를 삭제할 수 없습니다."
+
+msgid "Change your file sorting options."
+msgstr "파일 정렬 옵션 변경"
+
+msgid "Checkbox"
+msgstr "체크박스"
+
+msgid "Chmod Items"
+msgstr "접근설정값 변경"
+
+msgid "Chmod done: "
+msgstr "접근설정값 변경 완료: "
+
+msgid "Choose Action:"
+msgstr "명령어 선택:"
+
+msgid "Create Folder"
+msgstr "새로운 폴더 만들기"
+
+msgid "Default sorting criteria:"
+msgstr "기본 정렬 범주:"
+
+msgid "Default sorting direction:"
+msgstr "기본 정렬 방향:"
+
+msgid "Delete Items"
+msgstr "파일 삭제"
+
+msgid "Descending"
+msgstr "내림차순"
+
+msgid "Directory removed: "
+msgstr "디렉토리 삭제: "
+
+msgid "Display Options"
+msgstr "화면 출력 옵션"
+
+msgid ""
+"Either you have logged in incorrectly or your login has expired. Please "
+"login again."
+msgstr ""
+"정확하게 로그인하지 않았거나 로그인이 만료 되었습니다. 다시 로그인하세요."
+
+msgid "Error creating new folder: "
+msgstr "새로운 폴더 만들기 오류: "
+
+msgid "Error renaming: "
+msgstr "파일 이름 변경 오류: "
+
+msgid "Error uploading file: "
+msgstr "파일 업로드 오류: "
+
+msgid "Error"
+msgstr "오류"
+
+msgid "File Modification Time"
+msgstr "파일 변경 시간"
+
+msgid "File Name"
+msgstr "파일 이름"
+
+msgid "File Size"
+msgstr "파일 크기"
+
+msgid "File Type"
+msgstr "파일 유형"
+
+msgid "File deleted: "
+msgstr "파일 삭제: "
+
+msgid "File received: "
+msgstr "파일 올리기: "
+
+msgid "Gollem is not properly configured"
+msgstr "Gollem이 정상 설정되지 않았습니다."
+
+msgid "Group"
+msgstr "그룹"
+
+msgid "Help"
+msgstr "도움말"
+
+msgid "Home"
+msgstr "홈"
+
+msgid "Incorrect number of items."
+msgstr "잘못된 항목수"
+
+msgid "Language"
+msgstr "언어"
+
+msgid "Log in"
+msgstr "로그인"
+
+msgid ""
+"Login failed for some reason. Most likely your username or password was "
+"entered incorrectly."
+msgstr ""
+"어떤 이유로 로그인이 실패했습니다. 대부분의 경우 사용자이름 또는 비밀번호가 "
+"올바르지 않기 때문입니다."
+
+msgid "Logout"
+msgstr "종료"
+
+msgid "Message"
+msgstr "메세지"
+
+msgid "Modified"
+msgstr "변경일자"
+
+msgid "Name"
+msgstr "이름"
+
+msgid "New User Introduction"
+msgstr "새로운 사용자를 위한 도움말"
+
+msgid "New folder created: "
+msgstr "새로운 폴더 생성: "
+
+msgid "No such directory: "
+msgstr "디렉토리가 없습니다: "
+
+msgid "Options"
+msgstr "옵션"
+
+msgid "Other Options"
+msgstr "다른 옵션"
+
+msgid "Owner"
+msgstr "소유자"
+
+msgid "Password"
+msgstr "비밀 번호"
+
+msgid "Permission"
+msgstr "파일접근모드"
+
+msgid "Please enter the mode in numeric format:"
+msgstr "숫자형식으로 입력하세요:"
+
+msgid "Please enter the name of the new folder:"
+msgstr "새로운 폴더의 이름을 입력하세요:"
+
+msgid "Please provide your password."
+msgstr "비밀번호를 입력하세요."
+
+msgid "Please provide your username."
+msgstr "사용자이름을 입력하세요."
+
+msgid "Please select an item before this action."
+msgstr "실행할 항목을 선택하세요"
+
+msgid "Please specify a file to upload."
+msgstr "업로드할 파일을 선택하세요."
+
+msgid "Problem?"
+msgstr "문제?"
+
+msgid "Refresh"
+msgstr "다시 읽기"
+
+msgid "Rename "
+msgstr "이름 변경 "
+
+msgid "Rename Items"
+msgstr "파일 이름 변경"
+
+msgid "Select your preferred language:"
+msgstr "자주 사용하는 언어를 선택하세요:"
+
+msgid "Server"
+msgstr "서버"
+
+msgid "Set the language that menu items, explanations, and help are in."
+msgstr "메뉴, 설명, 도움말을 표시할 언어를 선택하세요."
+
+msgid "Size"
+msgstr "크기"
+
+msgid "Some of Gollem's configuration files are missing:"
+msgstr "일부 Gollem의 설정파일이 없습니다:"
+
+msgid "Sort Direction"
+msgstr "정렬 순서"
+
+msgid "Success"
+msgstr "완료"
+
+msgid "The following items will be permenantly deleted: "
+msgstr "다음의 항목이 영구 삭제될것입니다:"
+
+msgid "There are no files in this directory."
+msgstr "디렉토리에 파일이 없습니다."
+
+msgid ""
+"This file controls the default preferences for Gollem, and also controls "
+"which preferences users can alter."
+msgstr ""
+"이파일은 Gollem의 기본 환경설정과 사용자가 변경할 수 있는 환경 설정을 제어합"
+"니다."
+
+msgid ""
+"This file controls the default settings for Gollem, and also defines the "
+"list of available servers if you are using the server list."
+msgstr "이파일은 Gollem의 기본 설정값과 사용가능한 서버 목록을 명시합니다."
+
+msgid ""
+"This is the main Gollem configuration file. It contains paths and options "
+"for the Gollem scripts."
+msgstr ""
+"이파일은 기본 Gollem환경설정 파일입니다. Gollem 스크립트의 경로와 옵션을 갖"
+"고 있습니다."
+
+msgid "This number must be at least one."
+msgstr "최소한 1이상의 값이어야 합니다."
+
+msgid "This value must be a number."
+msgstr "숫자로 된 값이어야 합니다."
+
+msgid "Type"
+msgstr "종류"
+
+msgid "Up to parent"
+msgstr "상위로"
+
+msgid "Upload File"
+msgstr "파일 올리기"
+
+msgid "User Preferences"
+msgstr "사용자 환경설정"
+
+msgid "Username"
+msgstr "사용자 이름"
+
+msgid "Warning"
+msgstr "경고"
+
+#, c-format
+msgid "Warning: %s requires Javascript to perform certain functions."
+msgstr "경고: %s가 실행되기 위해서는 자바스크립트를 필요로 합니다."
+
+#, c-format
+msgid "Welcome to %s"
+msgstr "환영합니다. %s 입니다."
+
+msgid "Welcome"
+msgstr "환영합니다."
+
+#, c-format
+msgid ""
+"You have been logged out of %s. Thank you for using the system. If you wish "
+"to log in again, please use the form below."
+msgstr ""
+"%s에서 로그아웃하셨습니다. 이 시스템을 사용해주셔서 감사합니다. 다시 로그인하"
+"시려면, 아래의 폼을 사용하시기 바랍니다."
+
+msgid "Your Information"
+msgstr "사용자 정보"
+
+msgid "Your preferences have been updated."
+msgstr "환경설정이 저장되었습니다."
+
+msgid "Your preferred FTP server:"
+msgstr "자주 사용하는 FTP 서버:"
+
+msgid "[home]"
+msgstr "[홈]"
+
+msgid "folder"
+msgstr "폴더"
+
+msgid "symlink"
+msgstr "심볼 링크"

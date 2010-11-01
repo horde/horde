@@ -6,10 +6,11 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('kronolith');
 
 // Exit if this isn't an authenticated user.
-if (!Horde_Auth::getAuth()) {
+if (!$GLOBALS['registry']->getAuth()) {
     exit;
 }
 
@@ -29,8 +30,8 @@ if (strncmp($calendarId, 'remote_', 7) === 0) {
     $rewrite = isset($conf['urls']['pretty']) &&
         $conf['urls']['pretty'] == 'rewrite';
     $subscribe_url = Horde::url($registry->get('webroot', 'horde') . ($rewrite ? '/rpc/kronolith/' : '/rpc.php/kronolith/'), true, -1)
-        . ($calendar->get('owner') ? $calendar->get('owner') : '-system-')
-        . '/' . $calendar->getName() . '.ics';
+        . ($calendar->owner() ? $calendar->owner() : '-system-')
+        . '/' . $calendarId . '.ics';
 }
 
 if (is_null($calendar)) {

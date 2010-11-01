@@ -9,24 +9,14 @@
 * @author Michael J. Rubinsky <mrubinsk@horde.org>
 */
 
-// Do CLI checks and environment setup first.
-require_once dirname(__FILE__) . '/../../lib/base.load.php';
-require_once HORDE_BASE . '/lib/core.php';
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment.
-Horde_Cli::init();
-$cli = Horde_Cli::singleton();
+require_once dirname(__FILE__) . '/../../lib/Application.php';
+Horde_Registry::appInit('ansel', array('authentication' => 'none', 'cli' => true));
 
 /* Command line options */
 $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'hu:p:f:',
                               array('help', 'username=', 'password=', 'fields='));
 
-if (is_a($ret, 'PEAR_Error')) {
+if ($ret instanceof PEAR_Error) {
     $cli->fatal($ret->getMessage());
 }
 
@@ -62,12 +52,11 @@ foreach ($opts as $opt) {
     }
 }
 
-$ansel_authentication = 'none';
-require_once ANSEL_BASE . '/lib/base.php';
+Horde_Registry::appInit('ansel', array('authentication' => 'none'));
 
 // Login to horde if username & password are set.
 if (!empty($username) && !empty($password)) {
-    $auth = Horde_Auth::singleton($conf['auth']['driver']);
+    $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
     if (!$auth->authenticate($username, array('password' => $password))) {
         $cli->fatal(_("Username or password is incorrect."));
     } else {
@@ -77,29 +66,22 @@ if (!empty($username) && !empty($password)) {
     $cli->fatal(_("You must specify a valid username and password."));
 }
 
-if (!Horde_Auth::isAdmin()) {
+if (!$registry->isAdmin()) {
     $cli->fatal(_("You must login with an administrative account."));
 }
 
 // Get the list of image ids that have exif data.
 $sql = 'SELECT DISTINCT image_id from ansel_image_attributes;';
 $results = $GLOBALS['ansel_db']->query($sql);
-if (is_a($results, 'PEAR_Error')) {
+if ($results instanceof PEAR_Error) {
     $cli->fatal($results->getMessage());
 }
 $image_ids = $results->fetchAll(MDB2_FETCHMODE_ASSOC);
 $results->free();
 foreach (array_values($image_ids) as $image_id) {
-    $image = $ansel_storage->getImage($image_id['image_id']);
-    if (!is_a($image, 'PEAR_Error')) {
-        $results = $image->exifToTags($exif_fields);
-        if (is_a($results, 'PEAR_Error')) {
-            $cli->message(sprintf(_("Could not extract exif fields from %s: %s"), $image_id['image_id'], $results->getMessage()), 'cli.error');
-        }
-        $cli->message(sprintf(_("Extracted exif fields from %s"), $image->filename), 'cli.success');
-    } else {
-        $cli->message(sprintf(_("Could not extract exif fields from %s: %s"), $image_id['image_id'], $image->getMessage()), 'cli.error');
-    }
+    $image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($image_id['image_id']);
+    $results = $image->exifToTags($exif_fields);
+    $cli->message(sprintf(_("Extracted exif fields from %s"), $image->filename), 'cli.success');
 }
 $cli->message(_("Done"));
 exit;

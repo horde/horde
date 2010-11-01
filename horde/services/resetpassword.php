@@ -9,14 +9,13 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-new Horde_Application(array('authentication' => 'none'));
+Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 // Make sure auth backend allows passwords to be reset.
-$auth = Horde_Auth::singleton($conf['auth']['driver']);
+$auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 if (!$auth->hasCapability('resetpassword')) {
     $notification->push(_("Cannot reset password automatically, contact your administrator."), 'horde.error');
-    header('Location: ' . Horde_Auth::getLoginScreen('', Horde_Util::getFormData('url')));
-    exit;
+    Horde::getServiceLink('login')->add('url', Horde_Util::getFormData('url'))->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -35,8 +34,10 @@ $can_validate = false;
 /* If a username has been supplied try fetching the prefs stored info. */
 if ($username = $vars->get('username')) {
     $username = Horde_Auth::addHook($username);
-    $prefs = Horde_Prefs::singleton($conf['prefs']['driver'], 'horde', $username, '', null, false);
-    $prefs->retrieve();
+    $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')->create('horde', array(
+        'cache' => false,
+        'user' => $username
+    ));
     $email = $prefs->getValue('alternate_email');
     /* Does the alternate email stored in prefs match the one submitted? */
     if ($vars->get('email') == $email) {
@@ -75,14 +76,14 @@ if ($can_validate && $form->validate($vars)) {
                                                             $password),
                                           'to' => $email,
                                           'from' => $email,
-                                          'charset' => Horde_Nls::getCharset()));
+                                          'charset' => 'UTF-8'));
         try {
-            $mail->send(Horde::getMailerConfig());
+            $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
             $notification->push(_("Your password has been reset, check your email and log in with your new password."), 'horde.success');
-            header('Location: ' . Horde_Auth::getLoginScreen('', $info['url']));
+            Horde::getServiceLink('login')->add('url', $info['url'])->redirect();
             exit;
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             $notification->push(_("Your password has been reset, but couldn't be sent to you. Please contact the administrator."), 'horde.error');
         }
     } else {

@@ -11,7 +11,6 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @since Horde 3.2
  * @package Horde_Form
  */
 class Horde_Form_Action_setcursorpos extends Horde_Form_Action {

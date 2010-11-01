@@ -11,22 +11,8 @@
  * @package Folks
  */
 
-// Do CLI checks and environment setup first.
-require_once 'Horde/Cli.php';
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment.
-Horde_Cli::init();
-$cli = Horde_Cli::singleton();
-
-// Load Folks.
-$folks_authentication = 'none';
-$no_compress = true;
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('folks', array('authentication' => 'none', 'cli' => true, 'no_compress' => true));
 
 // We accept the user name on the command-line.
 $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'h:u:p:dt:f:c:',
@@ -34,7 +20,7 @@ $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'h:u:p:dt:f:c:',
 
 if ($ret instanceof PEAR_Error) {
     $error = _("Couldn't read command-line options.");
-    Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+    Horde::logMessage($error, 'DEBUG');
     $cli->fatal($error);
 }
 
@@ -76,26 +62,29 @@ foreach ($opts as $opt) {
 
 // Login to horde if username & password are set.
 if (!empty($username) && !empty($password)) {
-    $auth = Horde_Auth::singleton($conf['auth']['driver']);
+    $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
     if (!$auth->authenticate($username, array('password' => $password))) {
         $error = _("Login is incorrect.");
-        Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage($error, 'ERR');
         $cli->fatal($error);
     } else {
         $msg = sprintf(_("Logged in successfully as \"%s\"."), $username);
-        Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage($msg, 'DEBUG');
         $cli->message($msg, 'cli.success');
     }
 }
 
 // Only admins can run this operation
-if (!Horde_Auth::isAdmin('folks:admin')) {
+if (!$registry->isAdmin(array('permission' => 'folks:admin'))) {
     $cli->fatal('ADMIN ONLY');
 }
 
 // Connect to db
-$dbconf = Horde::getDriverConfig('storage', 'sql');
-$db = DB::connect($dbconf);
+try {
+    $db = $injector->getInstance('Horde_Core_Factory_DbPear')->create();
+} catch (Horde_Exception $e) {
+    $cli->fatal($e);
+}
 
 // Get new messages older time
 $query = 'SELECT user_uid, user_email FROM folks_users ORDER BY user_uid ASC';
@@ -121,7 +110,7 @@ while ($row =& $res->fetchRow()) {
     $body2 = sprintf($body, $row[0], $registry->get('name', 'horde'), Folks::getUrlFor('user', $row[0], true, -1));
 
     // Send mail
-    $mail = new MIME_Mail($subject, $body2, $row[1], $conf['support'], Horde_Nls::getCharset());
+    $mail = new MIME_Mail($subject, $body2, $row[1], $conf['support'], 'UTF-8');
     $mail->addHeader('User-Agent', 'Folks' . $registry->getVersion());
     $sent = $mail->send($conf['mailer']['type'], $conf['mailer']['params']);
     if ($sent instanceof PEAR_Error) {

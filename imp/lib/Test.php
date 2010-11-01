@@ -7,8 +7,10 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package IMP
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
 class IMP_Test extends Horde_Test
 {
@@ -51,7 +53,7 @@ class IMP_Test extends Horde_Test
         'config/conf.php' => 'The file <code>./config/conf.php</code> appears to be missing. You must generate this file as an administrator via Horde.  See horde/docs/INSTALL.',
         'config/mime_drivers.php' => null,
         'config/prefs.php' => null,
-        'config/servers.php' => null
+        'config/backends.php' => null
     );
 
     /**
@@ -93,7 +95,10 @@ class IMP_Test extends Horde_Test
 
         $self_url = Horde::selfUrl()->add('app', 'imp');
 
-        return $ret . Horde_Util::bufferOutput('require', IMP_TEMPLATES . '/test/mailserver.inc');
+        Horde::startBuffer();
+        require IMP_TEMPLATES . '/test/mailserver.inc';
+
+        return $ret . Horde::endBuffer();
     }
 
     /**

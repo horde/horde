@@ -93,7 +93,7 @@ class Horde_Kolab_FreeBusy_Imap {
     /**
      * Initialize the free/busy IMAP handler.
      */
-    public function __construct()
+    public function __construct($params = array())
     {
         //@todo: Make Kolab_FreeBusy session-less again and ensure we get the
         //driver information as well as the login credentials here.
@@ -125,14 +125,14 @@ class Horde_Kolab_FreeBusy_Imap {
             return $this->_data;
         }
         if (!$this->_folder->exists()) {
-            return PEAR::raiseError(sprintf(_("Folder %s does not exist!"), $folder));
+            return PEAR::raiseError(sprintf(Horde_Kolab_FreeBusy_Translation::t("Folder %s does not exist!"), $folder));
         }
         $type = $this->_folder->getType();
         if (is_a($type, 'PEAR_Error')) {
             return $type;
         }
         if ($type != 'event') {
-            return PEAR::raiseError(sprintf(_("Folder %s has type \"%s\" not \"event\"!"),
+            return PEAR::raiseError(sprintf(Horde_Kolab_FreeBusy_Translation::t("Folder %s has type \"%s\" not \"event\"!"),
                                             $folder, $type));
         }
     }
@@ -304,14 +304,14 @@ class Horde_Kolab_FreeBusy_Imap {
      * @param string  $user           Set organizer to this user.
      * @param string  $cn             Set the common name of this user.
      *
-     * @return Horde_iCalendar  The iCal object or a PEAR error.
+     * @return Horde_Icalendar  The iCal object or a PEAR error.
      */
     function &generate($startstamp = null, $endstamp = null,
                        $fbpast = 0, $fbfuture = 60,
                        $user = null, $cn = null)
     {
         /* Get the iCalendar library at this point */
-        require_once 'Horde/iCalendar.php';
+        require_once 'Horde/Icalendar.php';
 
         /* Default the start date to today. */
         if (is_null($startstamp)) {
@@ -347,12 +347,12 @@ class Horde_Kolab_FreeBusy_Imap {
         }
 
         /* Create the new iCalendar. */
-        $vCal = new Horde_iCalendar();
+        $vCal = new Horde_Icalendar();
         $vCal->setAttribute('PRODID', '-//kolab.org//NONSGML Kolab Server 2//EN');
         $vCal->setAttribute('METHOD', 'PUBLISH');
 
         /* Create new vFreebusy. */
-        $vFb = &Horde_iCalendar::newComponent('vfreebusy', $vCal);
+        $vFb = Horde_Icalendar::newComponent('vfreebusy', $vCal);
         $params = array();
         if ($cn) {
             $params['cn'] = $cn;
@@ -363,7 +363,7 @@ class Horde_Kolab_FreeBusy_Imap {
         $vFb->setAttribute('DTSTART', $startstamp);
         $vFb->setAttribute('DTEND', $endstamp);
         // URL is not required, so out it goes...
-        //$vFb->setAttribute('URL', Horde::applicationUrl('fb.php?u=' . $share->get('owner'), true, -1));
+        //$vFb->setAttribute('URL', Horde::url('fb.php?u=' . $share->get('owner'), true, -1));
 
         /* Add all the busy periods. */
         foreach ($events as $event) {

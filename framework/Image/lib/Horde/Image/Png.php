@@ -59,9 +59,9 @@ class Horde_Image_Png extends Horde_Image_Base {
     /**
      * PNG image constructor.
      */
-    function Horde_Image_png($params)
+    public function __construct($params, $context = array())
     {
-        parent::Horde_Image($params);
+        parent::__construct($params, $context);
 
         if (!empty($params['width'])) {
             $this->rectangle(0, 0, $params['width'], $params['height'], $this->_background, $this->_background);
@@ -115,9 +115,9 @@ class Horde_Image_Png extends Horde_Image_Base {
      */
     function rectangle($x, $y, $width, $height, $color = 'black', $fill = 'none')
     {
-        list($r, $g, $b) = $this->getRGB($color);
+        list($r, $g, $b) = Horde_Image::getRGB($color);
         if ($fill != 'none') {
-            list($fR, $fG, $fB) = $this->getRGB($fill);
+            list($fR, $fG, $fB) = Horde_Image::getRGB($fill);
         }
 
         $x2 = $x + $width;
@@ -235,6 +235,33 @@ class Horde_Image_Png extends Horde_Image_Base {
             $s2 = ($s2 + $s1) % 0xFFF1;
         }
         return pack('N', (($s2 << 16) | $s1));
+    }
+
+    /**
+     * Request a specific image from the collection of images.
+     *
+     * @param integer $index  The index to return
+     *
+     * @return Horde_Image_Base
+     * @throws Horde_Image_Exception
+     */
+    public function getImageAtIndex($index)
+    {
+        if ($index > 0) {
+            throw new Horde_Image_Exception('Image index out of bounds.');
+        }
+
+        return clone($this);
+    }
+
+    /**
+     * Return the number of image pages available in the image object.
+     *
+     * @return integer
+     */
+    public function getImagePageCount()
+    {
+        return 1;
     }
 
 }

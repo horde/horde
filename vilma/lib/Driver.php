@@ -95,7 +95,7 @@ class Vilma_Driver {
      */
     function getAddressInfo($address, $type = 'all')
     {
-        Horde::logMessage("Get Addresses Called for $domain with type $type and key $key", __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage("Get Addresses Called for $domain with type $type and key $key", 'DEBUG');
         $domain = Vilma::stripDomain($address);
         $addresses = $this->getAddresses($domain, $type);
         foreach($addresses as $addrinfo) {
@@ -130,7 +130,7 @@ class Vilma_Driver {
         if ($user['user_enabled'] !== 'active') {
             $no_error = false;
             $err_msg = _("User disabled.");
-            $status[] = Horde::img('alerts/error.png', $err_msg, 'align="middle"', $GLOBALS['registry']->getImageDir('horde')) . '&nbsp;' . $err_msg;
+            $status[] = Horde::img('alerts/error.png', $err_msg) . '&nbsp;' . $err_msg;
         }
 
         /* Check if mailbox exists. */
@@ -138,13 +138,13 @@ class Vilma_Driver {
         if (is_a($mailboxes, 'PEAR_Error')) {
             $no_error = false;
             $err_msg = $mailboxes->getMessage();
-            $status[] = Horde::img('alerts/warning.png', $err_msg, 'align="middle"', $GLOBALS['registry']->getImageDir('horde')) . '&nbsp;' . $err_msg;
+            $status[] = Horde::img('alerts/warning.png', $err_msg) . '&nbsp;' . $err_msg;
         }
         $result = $mailboxes->checkMailbox($user_name, $domain_name);
         if (is_a($result, 'PEAR_Error')) {
             $no_error = false;
             $err_msg = $result->getMessage();
-            $status[] = Horde::img('alerts/warning.png', $err_msg, 'align="middle"', $GLOBALS['registry']->getImageDir('horde')) . '&nbsp;' . $err_msg;
+            $status[] = Horde::img('alerts/warning.png', $err_msg) . '&nbsp;' . $err_msg;
         }
 
         /* TODO: Quota checking would be nice too. */
@@ -153,13 +153,13 @@ class Vilma_Driver {
          * user's status. */
         if ($no_error) {
             $msg = _("User ready.");
-            $status = array(Horde::img('alerts/success.png', $msg, 'align="middle"', $GLOBALS['registry']->getImageDir('horde')) . '&nbsp;' . $msg);
+            $status = array(Horde::img('alerts/success.png', $msg) . '&nbsp;' . $msg);
         }
         return $status;
     }
 
     /* Saves or creates alias records for a given user.
-     * 
+     *
      * @param array info The info used to store the information.
      *                   Required fields are:
      *                    'address' => The destination address (used for LDAP ID lookup)
@@ -168,17 +168,17 @@ class Vilma_Driver {
      */
     function saveAlias(&$info)
     {
-        Horde::logMessage("saveAlias called with info: " . print_r($info, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage("saveAlias called with info: " . print_r($info, true), 'DEBUG');
         $result = $this->_saveAlias($info);
         if (is_a($result, 'PEAR_Error')) {
           return $result;
         }
-        
+
         return true;
     }
-    
+
     /* Deletes alias records for a given user.
-     * 
+     *
      * @param array info The info used to store the information.
      *                   Required fields are:
      *                    'address' => The destination address (used for LDAP ID lookup)
@@ -186,17 +186,17 @@ class Vilma_Driver {
      */
     function deleteAlias(&$info)
     {
-        Horde::logMessage("deleteAlias called with info: " . print_r($info, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage("deleteAlias called with info: " . print_r($info, true), 'DEBUG');
         $result = $this->_deleteAlias($info);
         if (is_a($result, 'PEAR_Error')) {
           return $result;
         }
-        
+
         return true;
     }
-    
+
     /* Saves or creates forward records for a given user.
-     * 
+     *
      * @param array info The info used to store the information.
      *                   Required fields are:
      *                    'address' => The destination address (used for LDAP ID lookup)
@@ -205,17 +205,17 @@ class Vilma_Driver {
      */
     function saveForward(&$info)
     {
-        Horde::logMessage("saveForward called with info: " . print_r($info, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage("saveForward called with info: " . print_r($info, true), 'DEBUG');
         $result = $this->_saveForward($info);
         if (is_a($result, 'PEAR_Error')) {
           return $result;
         }
-        
+
         return true;
     }
-    
+
     /* Deletes forward records for a given user.
-     * 
+     *
      * @param array info The info used to store the information.
      *                   Required fields are:
      *                    'address' => The destination address (used for LDAP ID lookup)
@@ -223,15 +223,15 @@ class Vilma_Driver {
      */
     function deleteForward(&$info)
     {
-        Horde::logMessage("deleteForward called with info: " . print_r($info, true), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage("deleteForward called with info: " . print_r($info, true), 'DEBUG');
         $result = $this->_deleteForwrd($info);
         if (is_a($result, 'PEAR_Error')) {
           return $result;
         }
-        
+
         return true;
     }
-    
+
     function saveUser(&$info)
     {
         $create = false;
@@ -430,6 +430,7 @@ class Vilma_Driver {
      *
      * @return Vilma_Driver  The newly created concrete Vilma_Driver instance,
      *                       or false on error.
+     * @throws Vilma_Exception
      */
     function factory($driver = null, $params = null)
     {
@@ -446,9 +447,9 @@ class Vilma_Driver {
         $class = 'Vilma_Driver_' . $driver;
         if (class_exists($class)) {
             return new $class($params);
-        } else {
-            Horde::fatal(PEAR::raiseError(sprintf(_("No such backend \"%s\" found"), $driver)), __FILE__, __LINE__);
         }
+
+        throw new Vilma_Exception(sprintf(_("No such backend \"%s\" found"), $driver));
     }
 
     /**

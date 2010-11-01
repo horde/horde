@@ -8,14 +8,12 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-@define('VILMA_BASE', dirname(__FILE__) . '/..');
-require_once VILMA_BASE . '/lib/base.php';
-require_once 'Horde/Form.php';
-require_once 'Horde/Form/Action.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+$vilma = Horde_Registry::appInit('vilma');
 
 /* Only admin should be using this. */
-if (!Horde_Auth::isAdmin() && !Vilma::isDomainAdmin()) {
-    Horde_Auth::authenticateFailure('vilma', $e);
+if (!$registry->isAdmin() && !Vilma::isDomainAdmin()) {
+    $registry->authenticateFailure('vilma', $e);
 }
 
 $domain = Vilma::getDomain();
@@ -27,14 +25,14 @@ $formname = $vars->get('formname');
 /* Check if a form is being edited. */
 $editing = false;
 if ($virtual_id && !$formname) {
-    $vars = new Horde_Variables($vilma_driver->getVirtual($virtual_id));
+    $vars = new Horde_Variables($vilma->driver->getVirtual($virtual_id));
     $editing = true;
 }
 
 if (empty($domain)) {
     $domain = Vilma::stripDomain($vars->get('virtual_destination'));
 }
-$users = $vilma_driver->getUsers($domain);
+$users = $vilma->driver->getUsers($domain);
 $user_list = array();
 foreach ($users as $user) {
     $virtual_destination = substr($user['user_name'], 0, strpos($user['user_name'], '@'));
@@ -68,26 +66,32 @@ if ($form->validate($vars)) {
     if ($info['destination_type'] == 'remote') {
         $info['virtual_destination'] = Horde_String::lower($info['virtual_destination']);
     }
-    $virtual_id = $vilma_driver->saveVirtual($info, $domain);
+    $virtual_id = $vilma->driver->saveVirtual($info, $domain);
     if (is_a($virtual_id, 'PEAR_Error')) {
-        Horde::logMessage($virtual_id, __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage($virtual_id, 'ERR');
         $notification->push(sprintf(_("Error saving virtual email. %s."), $virtual_id->getMessage()), 'horde.error');
     } else {
         $notification->push(_("Virtual email saved."), 'horde.success');
-        $url = Horde::applicationUrl('virtuals/index.php', true);
-        header('Location: ' . Horde_Util::addParameter($url, 'user', $info['virtual_destination'], false));
-        exit;
+        Horde::url('virtuals/index.php')
+            ->add('user', $info['virtual_destination'])
+            ->redirect();
     }
 }
 
 /* Render the form. */
 require_once 'Horde/Form/Renderer.php';
 $renderer = new Horde_Form_Renderer();
-$main = Horde_Util::bufferOutput(array($form, 'renderActive'), $renderer, $vars, 'edit.php', 'post');
+
+Horde::startBuffer();
+$form->renderActive($renderer, $vars, 'edit.php', 'post');
+$main = Horde:endBuffer();
 
 $template->set('main', $main);
 $template->set('menu', Vilma::getMenu('string'));
-$template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$template->set('notify', Horde::endBuffer());
 
 require VILMA_TEMPLATES . '/common-header.inc';
 echo $template->fetch(VILMA_TEMPLATES . '/main/main.html');

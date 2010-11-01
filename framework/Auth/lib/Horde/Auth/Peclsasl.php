@@ -8,35 +8,35 @@
  * connection-based protocols.
  *
  * This driver relies on the PECL sasl package:
- *
- *      http://pecl.php.net/package/sasl
- *
- * Optional parameters:
- * <pre>
- * 'app'      The name of the authenticating application.
- *            DEFAULT: horde
- * 'service'  The name of the SASL service to use when authenticating.
- *            DEFAULT: php
- * </pre>
+ *   http://pecl.php.net/package/sasl
  *
  * Copyright 2004-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
  *
- * @author  Jon Parise <jon@horde.org>
- * @package Horde_Auth
+ * @author   Jon Parise <jon@horde.org>
+ * @category Horde
+ * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
+ * @package  Auth
  */
 class Horde_Auth_Peclsasl extends Horde_Auth_Base
 {
     /**
      * Constructor.
      *
-     * @param array $params  A hash containing connection parameters.
+     * @param array $params  Optional parameters:
+     * <pre>
+     * 'app' - (string) The name of the authenticating application.
+     *         DEFAULT: horde
+     * 'service' - (string) The name of the SASL service to use when
+     *             authenticating.
+     *             DEFAULT: php
+     * </pre>
      *
      * @throws Horde_Auth_Exception
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         if (!Horde_Util::extensionExists('sasl')) {
             throw new Horde_Auth_Exception('Horde_Auth_Peclsasl:: requires the sasl PECL extension to be loaded.');
@@ -68,7 +68,7 @@ class Horde_Auth_Peclsasl extends Horde_Auth_Base
 
         $conn = sasl_server_new($this->_params['service']);
         if (!is_resource($conn)) {
-            throw new Horde_Auth_Exception(_("Failed to create new SASL connection."));
+            throw new Horde_Auth_Exception('Failed to create new SASL connection.');
         }
 
         if (!sasl_checkpass($conn, $userId, $credentials['password'])) {

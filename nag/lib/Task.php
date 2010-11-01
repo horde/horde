@@ -423,7 +423,7 @@ class Nag_Task {
      */
     function getFormattedDescription()
     {
-        $desc = Horde_Text_Filter::filter($this->desc, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
+        $desc = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($this->desc, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
         try {
             return Horde::callHook('format_description', array($desc), 'nag');
         } catch (Horde_Exception_HookNotSet $e) {
@@ -511,12 +511,12 @@ class Nag_Task {
         }
 
         if (!isset($view_url_list[$this->tasklist])) {
-            $view_url_list[$this->tasklist] = Horde_Util::addParameter(Horde::applicationUrl('view.php'), 'tasklist', $this->tasklist);
-            $task_url_list[$this->tasklist] = Horde_Util::addParameter(Horde::applicationUrl('task.php'), 'tasklist', $this->tasklist);
+            $view_url_list[$this->tasklist] = Horde_Util::addParameter(Horde::url('view.php'), 'tasklist', $this->tasklist);
+            $task_url_list[$this->tasklist] = Horde_Util::addParameter(Horde::url('task.php'), 'tasklist', $this->tasklist);
         }
 
         /* Obscure private tasks. */
-        if ($this->private && $this->owner != Horde_Auth::getAuth()) {
+        if ($this->private && $this->owner != $GLOBALS['registry']->getAuth()) {
             $this->name = _("Private Task");
             $this->desc = '';
             $this->category = _("Private");
@@ -528,7 +528,7 @@ class Nag_Task {
         $task_url_task = Horde_Util::addParameter($task_url_list[$this->tasklist], 'task', $this->id);
         $this->complete_link = Horde_Util::addParameter($task_url_task, 'actionID', 'complete_task');
         $this->edit_link = Horde_Util::addParameter($task_url_task, 'actionID', 'modify_task');
-        $this->delete_link = Horde_Util::addParameter($task_url_task, 'actionID', 'delete_tasks');
+        $this->delete_link = Horde_Util::addParameter($task_url_task, 'actionID', 'delete_task');
     }
 
     /**
@@ -539,7 +539,7 @@ class Nag_Task {
      */
     function treeIcons()
     {
-        $treedir = $GLOBALS['registry']->getImageDir('horde');
+        $treedir = Horde_Themes::img(null, 'horde');
         $html = '';
 
         $parent = $this->parent;
@@ -553,9 +553,9 @@ class Nag_Task {
         }
         if ($this->indent) {
             if ($this->lastChild) {
-                $html .= Horde::img(empty($GLOBALS['nls']['rtl'][$GLOBALS['language']]) ? 'tree/joinbottom.png' : 'tree/rev-joinbottom.png', '\\', '', $treedir);
+                $html .= Horde::img(empty($GLOBALS['registry']->nlsconfig['rtl'][$GLOBALS['language']]) ? 'tree/joinbottom.png' : 'tree/rev-joinbottom.png', '\\', '', $treedir);
             } else {
-                $html .= Horde::img(empty($GLOBALS['nls']['rtl'][$GLOBALS['language']]) ? 'tree/join.png' : 'tree/rev-join.png', '+', '', $treedir);
+                $html .= Horde::img(empty($GLOBALS['registry']->nlsconfig['rtl'][$GLOBALS['language']]) ? 'tree/join.png' : 'tree/rev-join.png', '+', '', $treedir);
             }
         }
 
@@ -580,6 +580,7 @@ class Nag_Task {
             Nag::SORT_NAME => 'ByName',
             Nag::SORT_CATEGORY => 'ByCategory',
             Nag::SORT_DUE => 'ByDue',
+            Nag::SORT_START => 'ByStart',
             Nag::SORT_COMPLETION => 'ByCompletion',
             Nag::SORT_ASSIGNEE => 'ByAssignee',
             Nag::SORT_ESTIMATE => 'ByEstimate',
@@ -701,16 +702,18 @@ class Nag_Task {
                 $json->cd = $date->toJson();
             }
             */
-            $json->a = $this->alarm;
+            $json->a = (int)$this->alarm;
             $json->m = $this->methods;
             //$json->pv = (boolean)$this->private;
 
-            $share = $GLOBALS['nag_shares']->getShare($this->tasklist);
-            if (is_a($share, 'PEAR_Error')) {
-                return $share;
+            try {
+                $share = $GLOBALS['nag_shares']->getShare($this->tasklist);
+            } catch (Horde_Share_exception $e) {
+                Horde::logMessage($e->getMessage(), 'ERR');
+                throw new Nag_Exception($e);
             }
-            $json->pe = $share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT);
-            $json->pd = $share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE);
+            $json->pe = $share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
+            $json->pd = $share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE);
         }
 
         return $json;
@@ -731,7 +734,7 @@ class Nag_Task {
         }
 
         if (empty($user)) {
-            $user = Horde_Auth::getAuth();
+            $user = $GLOBALS['registry']->getAuth();
         }
         if (empty($prefs)) {
             $prefs = $GLOBALS['prefs'];
@@ -751,18 +754,12 @@ class Nag_Task {
             if (!empty($methods['notify']['sound'])) {
                 if ($methods['notify']['sound'] == 'on') {
                     // Handle boolean sound preferences;
-                    $methods['notify']['sound'] = $GLOBALS['registry']->get('themesuri') . '/sounds/theetone.wav';
+                    $methods['notify']['sound'] = (string)Horde_Themes::sound('theetone.wav');
                 } else {
                     // Else we know we have a sound name that can be
                     // served from Horde.
-                    $methods['notify']['sound'] = $GLOBALS['registry']->get('themesuri', 'horde') . '/sounds/' . $methods['notify']['sound'];
+                    $methods['notify']['sound'] = (string)Horde_Themes::sound($methods['notify']['sound']);
                 }
-            }
-        }
-        if (isset($methods['popup'])) {
-            $methods['popup']['message'] = $this->name;
-            if (!empty($this->desc)) {
-                $methods['popup']['message'] .= "\n\n" . $this->desc;
             }
         }
         if (isset($methods['mail'])) {
@@ -776,7 +773,7 @@ class Nag_Task {
         return array(
             'id' => $this->uid,
             'user' => $user,
-            'start' => $this->due - $this->alarm * 60,
+            'start' => new Horde_Date($this->due - $this->alarm * 60),
             'methods' => array_keys($methods),
             'params' => $methods,
             'title' => $this->name,
@@ -786,14 +783,14 @@ class Nag_Task {
     /**
      * Exports this task in iCalendar format.
      *
-     * @param Horde_iCalendar $calendar  A Horde_iCalendar object that acts as
+     * @param Horde_Icalendar $calendar  A Horde_Icalendar object that acts as
      *                                   the container.
      *
-     * @return Horde_iCalendar_vtodo  A vtodo component of this task.
+     * @return Horde_Icalendar_Vtodo  A vtodo component of this task.
      */
     function toiCalendar($calendar)
     {
-        $vTodo = Horde_iCalendar::newComponent('vtodo', $calendar);
+        $vTodo = Horde_Icalendar::newComponent('vtodo', $calendar);
         $v1 = $calendar->getAttribute('VERSION') == '1.0';
 
         $vTodo->setAttribute('UID', $this->uid);
@@ -803,11 +800,11 @@ class Nag_Task {
         }
 
         if (!empty($this->name)) {
-            $vTodo->setAttribute('SUMMARY', $v1 ? $this->name : Horde_String::convertCharset($this->name, Horde_Nls::getCharset(), 'utf-8'));
+            $vTodo->setAttribute('SUMMARY', $this->name);
         }
 
         if (!empty($this->desc)) {
-            $vTodo->setAttribute('DESCRIPTION', $v1 ? $this->desc : Horde_String::convertCharset($this->desc, Horde_Nls::getCharset(), 'utf-8'));
+            $vTodo->setAttribute('DESCRIPTION', $this->desc);
         }
 
         if (isset($this->priority)) {
@@ -833,7 +830,7 @@ class Nag_Task {
                 if ($v1) {
                     $vTodo->setAttribute('AALARM', $this->due - $this->alarm * 60);
                 } else {
-                    $vAlarm = Horde_iCalendar::newComponent('valarm', $vTodo);
+                    $vAlarm = Horde_Icalendar::newComponent('valarm', $vTodo);
                     $vAlarm->setAttribute('ACTION', 'DISPLAY');
                     $vAlarm->setAttribute('TRIGGER;VALUE=DURATION', '-PT' . $this->alarm . 'M');
                     $vTodo->addComponent($vAlarm);
@@ -853,14 +850,14 @@ class Nag_Task {
         }
 
         if (!empty($this->category)) {
-            $vTodo->setAttribute('CATEGORIES', $v1 ? $this->category : Horde_String::convertCharset($this->category, Horde_Nls::getCharset(), 'utf-8'));
+            $vTodo->setAttribute('CATEGORIES', $this->category);
         }
 
         /* Get the task's history. */
-        $history = Horde_History::singleton();
-        $log = $history->getHistory('nag:' . $this->tasklist . ':' . $this->uid);
-        if ($log && !is_a($log, 'PEAR_Error')) {
-            foreach ($log->getData() as $entry) {
+        $created = $modified = null;
+        try {
+            $log = $GLOBALS['injector']->getInstance('Horde_History')->getHistory('nag:' . $this->tasklist . ':' . $this->uid);
+            foreach ($log as $entry) {
                 switch ($entry['action']) {
                 case 'add':
                     $created = $entry['ts'];
@@ -871,7 +868,7 @@ class Nag_Task {
                     break;
                 }
             }
-        }
+        } catch (Exception $e) {}
         if (!empty($created)) {
             $vTodo->setAttribute($v1 ? 'DCREATED' : 'CREATED', $created);
             if (empty($modified)) {
@@ -886,9 +883,61 @@ class Nag_Task {
     }
 
     /**
-     * Creates a task from a Horde_iCalendar_vtodo object.
+     * Create an AS message from this task
      *
-     * @param Horde_iCalendar_vtodo $vTodo  The iCalendar data to update from.
+     */
+    function toASTask()
+    {
+        $message = new Horde_ActiveSync_Message_Task();
+
+        /* Notes and Title */
+        $message->setBody($this->desc);
+        $message->setSubject($this->name);
+
+        /* Completion */
+        if ($this->completed) {
+            $message->SetDateCompleted(new Horde_Date($this->completed_date));
+            $message->setComplete(Horde_ActiveSync_Message_Task::TASK_COMPLETE_TRUE);
+        } else {
+            $message->setComplete(Horde_ActiveSync_Message_Task::TASK_COMPLETE_FALSE);
+        }
+
+        /* Due Date */
+        $message->setDueDate(new Horde_Date($this->due));
+
+        /* Start Date */
+        $message->setStartDate(new Horde_Date($this->start));
+
+        /* Priority */
+        switch ($this->priority) {
+        case 5:
+            $priority = Horde_ActiveSync_Message_Task::IMPORTANCE_LOW;
+            break;
+        case 4:
+        case 3:
+        case 2:
+            $priority = Horde_ActiveSync_Message_Task::IMPORTANCE_NORMAL;
+            break;
+        case 1:
+            $priority = Horde_ActiveSync_Message_Task::IMPORTANCE_HIGH;
+            break;
+        default:
+            $priority = Horde_ActiveSync_Message_Task::IMPORTANCE_NORMAL;
+        }
+        $message->setImportance($priority);
+
+        /* Reminders */
+        if ($this->due && $this->alarm) {
+            $message->setReminder(new Horde_Date($this->due - $this->alarm));
+        }
+
+        return $message;
+    }
+
+    /**
+     * Creates a task from a Horde_Icalendar_Vtodo object.
+     *
+     * @param Horde_Icalendar_Vtodo $vTodo  The iCalendar data to update from.
      */
     function fromiCalendar($vTodo)
     {
@@ -985,6 +1034,54 @@ class Nag_Task {
             $class = Horde_String::upper($class);
             $this->private = $class == 'PRIVATE' || $class == 'CONFIDENTIAL';
         }
+    }
+
+    /**
+     * Create a nag Task object from an activesync message
+     *
+     */
+    function fromASTask(Horde_ActiveSync_Message_Task $message)
+    {
+        /* Notes and Title */
+        $this->desc = $message->getBody();
+        $this->name = $message->getSubject();
+
+        /* Completion */
+        if ($this->completed = $message->getComplete()) {
+            $dateCompleted = $message->getDateCompleted();
+            $this->completed_date = empty($dateCompleted) ? null : $dateCompleted;
+        }
+
+        /* Due Date */
+        if ($due = $message->getDueDate()) {
+            $this->due = $due->timestamp();
+        }
+
+        /* Start Date */
+        if ($start = $message->getStartDate()) {
+            $this->start = $start->timestamp();
+        }
+
+        /* Priority */
+        switch ($message->getImportance()) {
+        case Horde_ActiveSync_Message_Task::IMPORTANCE_LOW;
+            $this->priority = 5;
+            break;
+        case Horde_ActiveSync_Message_Task::IMPORTANCE_NORMAL;
+            $this->priority = 3;
+            break;
+        case Horde_ActiveSync_Message_Task::IMPORTANCE_HIGH;
+            $this->priority = 1;
+            break;
+        default:
+            $this->priority = 3;
+        }
+
+        if (($alarm = $message->getReminder()) && $this->due) {
+            $this->alarm = $this->due - $alarm->timestamp();
+        }
+
+        $this->tasklist = $GLOBALS['prefs']->getValue('default_tasklist');
     }
 
 }

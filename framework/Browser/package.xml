@@ -6,7 +6,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <name>Browser</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Browser API</summary>
- <description>The Horde_Browser:: class provides an API for getting information
+ <description>The Horde_Browser class provides an API for getting information
 about the current user&apos;s browser and its capabilities.
  </description>
  <lead>
@@ -25,13 +25,16 @@ about the current user&apos;s browser and its capabilities.
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Initial Horde 4 package.</notes>
+ <notes>* Remove PEAR and horde/Core dependencies.
+ * Remove Horde_Browser::escapeJSCode().
+ * Add Horde_Browser_Exception::.
+ * Initial Horde 4 package.</notes>
  <contents>
   <dir name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Browser">
-      <file name="Imode.php" role="php" />
+      <file name="Exception.php" role="php" />
      </dir> <!-- /lib/Horde/Browser -->
      <file name="Browser.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -47,20 +50,18 @@ about the current user&apos;s browser and its capabilities.
     <min>1.5.0</min>
    </pearinstaller>
    <package>
+    <name>Exception</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Util</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>
-  <optional>
-   <package>
-    <name>PEAR</name>
-    <channel>pear.php.net</channel>
-   </package>
-  </optional>
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Browser/Imode.php" as="Horde/Browser/Imode.php" />
+   <install name="lib/Horde/Browser/Exception.php" as="Horde/Browser/Exception.php" />
    <install name="lib/Horde/Browser.php" as="Horde/Browser.php" />
   </filelist>
  </phprelease>

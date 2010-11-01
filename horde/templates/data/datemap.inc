@@ -1,4 +1,4 @@
-<form method="post" name="dateform" action="<?php echo Horde::applicationUrl('data.php') ?>">
+<form method="post" name="dateform" action="<?php echo Horde::url('data.php') ?>">
 <input type="hidden" name="actionID" value="<?php echo (int)$next_step ?>" />
 <input type="hidden" name="import_format" value="<?php echo htmlspecialchars(Horde_Util::getFormData('import_format')) ?>" />
 <input type="hidden" name="import_step" value="<?php echo (int)$import_step ?>" />

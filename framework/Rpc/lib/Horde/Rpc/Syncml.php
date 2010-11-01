@@ -43,7 +43,7 @@ class Horde_Rpc_Syncml extends Horde_Rpc
             /* Log all (wb)xml packets received or sent to debug_dir. */
             'debug_files' => true,
             /* Log everything. */
-            'log_level' => PEAR_LOG_DEBUG);
+            'log_level' => 'DEBUG');
 
         /* Create the backend. */
         $GLOBALS['backend'] = SyncML_Backend::factory('Horde', $backendparms);

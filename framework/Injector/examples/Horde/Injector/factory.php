@@ -11,7 +11,7 @@
  * @link     http://pear.horde.org/index.php?package=Injector
  */
 
-require_once 'Horde/Autoloader.php';
+require 'Horde/Autoloader.php';
 
 class Greet
 {

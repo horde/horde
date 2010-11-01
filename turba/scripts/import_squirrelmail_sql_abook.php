@@ -1,4 +1,4 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
 /**
  * This script imports SquirrelMail database addressbooks into Turba.
@@ -16,18 +16,8 @@
  */
 
 // Do CLI checks and environment setup first.
-require_once dirname(__FILE__) . '/../lib/base.load.php';
-require_once HORDE_BASE . '/lib/core.php';
-
-// Makre sure no one runs this from the web.
-if (!Horde_Cli::runningFromCli()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment - make sure there's no time limit, init some
-// variables, etc.
-$cli = Horde_Cli::singleton();
-$cli->init();
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('turba', array('authentication' => 'none', 'cli' => true, 'user_admin' => true));
 
 // Read command line parameters.
 if ($argc != 2) {
@@ -37,32 +27,18 @@ if ($argc != 2) {
 }
 $dsn = $argv[1];
 
-// Make sure we load Horde base to get the auth config
-$horde_authentication = 'none';
-require_once HORDE_BASE . '/lib/base.php';
-if ($conf['auth']['admins']) {
-    Horde_Auth::setAuth($conf['auth']['admins'][0], array());
-}
-
-// Now that we are authenticated, we can load Turba's base. Otherwise, the
-// share code breaks, causing a new, completely empty share to be created on
-// the DataTree with no owner.
-require_once TURBA_BASE . '/lib/base.php';
-require_once TURBA_BASE . '/lib/Object/Group.php';
-require_once 'Horde/Mime/Address.php';
-
 // Connect to database.
 $db = DB::connect($dsn);
-if (is_a($db, 'PEAR_Error')) {
+if ($db instanceof PEAR_Error) {
     $cli->fatal($db->toString());
 }
 
 // Loop through SquirrelMail address books.
 $handle = $db->query('SELECT owner, nickname, firstname, lastname, email, label FROM address ORDER BY owner');
-if (is_a($handle, 'PEAR_Error')) {
+if ($handle instanceof PEAR_Error) {
     $cli->fatal($handle->toString());
 }
-$turba_shares = Horde_Share::singleton('turba');
+$turba_shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
 $user = null;
 $count = 0;
 while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
@@ -77,13 +53,15 @@ while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
         $cli->message('Importing ' . $user . '\'s address book');
 
         // Reset user prefs
-        unset($prefs);
-        $prefs = Horde_Prefs::factory($conf['prefs']['driver'], 'turba', $user, null, null, false);
+        $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')->create('turba', array(
+            'cache' => false,
+            'user' => $user
+        ));
 
         // Reset $cfgSources for current user.
         unset($cfgSources);
         $hasShares = false;
-        include TURBA_BASE . '/config/sources.php';
+        include TURBA_BASE . '/config/backends.php';
         foreach ($cfgSources as $key => $cfg) {
             if (!empty($cfg['use_shares'])) {
                 $has_share = true;
@@ -113,9 +91,10 @@ while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
         }
 
         // Initiate driver
-        $driver = &Turba_Driver::singleton($import_source);
-        if (is_a($driver, 'PEAR_Error')) {
-            $cli->message('  ' . sprintf(_("Connection failed: %s"), $driver->getMessage()), 'cli.error');
+        try {
+            $driver = $injector->getInstance('Turba_Driver')->getDriver($import_source);
+        } catch (Turba_Exception $e) {
+            $cli->message('  ' . sprintf(_("Connection failed: %s"), $e->getMessage()), 'cli.error');
             continue;
         }
     }
@@ -136,29 +115,30 @@ while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
         $group = new Turba_Object_Group($driver, array_merge($attributes, array('__key' => $gid)));
         $count++;
         foreach ($members as $member) {
-            $result = $driver->add(array('firstname' => $member, 'email' => $member));
-            if ($result && !is_a($result, 'PEAR_Error')) {
-                $added = $group->addMember($result, $import_source);
-                if (is_a($added, 'PEAR_Error')) {
-                    $cli->message('  ' . $added->getMessage(), 'cli.error');
-                } else {
-                    $count++;
-                }
+            try {
+                $result = $driver->add(array('firstname' => $member, 'email' => $member));
+                $group->addMember($result, $import_source);
+                ++$count;
+            } catch (Turba_Exception $e) {
+                $cli->message('  ' . $e->getMessage(), 'cli.error');
             }
         }
         $group->store();
     } else {
         // Entry only contains one contact, import it.
-        $contact = array('alias' => $row['nickname'],
-                         'firstname' => $row['firstname'],
-                         'lastname' => $row['lastname'],
-                         'email' => $row['email'],
-                         'notes' => $row['label']);
-        $added = $driver->add($contact);
-        if (is_a($added, 'PEAR_Error')) {
-            $cli->message('  ' . $added->getMessage(), 'cli.error');
-        } else {
-            $count++;
+        $contact = array(
+            'alias' => $row['nickname'],
+            'firstname' => $row['firstname'],
+            'lastname' => $row['lastname'],
+            'email' => $row['email'],
+            'notes' => $row['label']
+        );
+
+        try {
+            $driver->add($contact);
+            ++$count;
+        } catch (Turba_Exception $e) {
+            $cli->message('  ' . $e->getMessage(), 'cli.error');
         }
     }
 }

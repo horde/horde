@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Mime</name>
  <channel>pear.horde.org</channel>
  <summary>Horde MIME Library</summary>
- <description>The Horde_Mime:: class provides methods for dealing with MIME (RFC 2045) and related e-mail (RFC 822/2822/5322) standards.
- </description>
+ <description>Provides methods for dealing with MIME (RFC 2045) and related e-mail (RFC 822/2822/5322) standards.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -20,8 +16,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2008-10-29</date>
- <time>14:00:00</time>
+ <date>2010-10-22</date>
+ <time>19:02:57</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -31,116 +27,321 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Request #8556: Allow specifying a header charset for a part.
- * Add 'raw' render view to Horde_Mime_Viewer.
+ <notes>
+* Converted tests to PHPUnit.
+ * Moved viewer code to horde/Mime_Viewer package.
+ * Removed Webcpp and Enscript viewers. Source code highlighting is now
+ exclusively handled by the Srchighlight driver.
+ * No need to generate Content-Transfer-Encoding header if part data is 7bit.
+ * Default disposition should be empty by default, not inline (RFC 2183 [2]).
+ * Request #8556: Allow specifying a header charset for a part.
+ * Add &apos;raw&apos; render view to Horde_Mime_Viewer.
  * Horde_Mime_Part::parseMessage() correctly parses non-MIME parts.
- * Remove dependence on PEAR's Mail_mimeDecode::.
+ * Remove dependence on PEAR&apos;s Mail_mimeDecode::.
  * Added Horde_Mime::uudecode().
  * Remove support for deprecated mime_magic module.
  * Use Gnumeric to display MS Excel documents.
  * Use AbiWord to display MS Word documents (Request #8011).
  * Add support for decoding IDN (RFC 3490) names (Request #5836).
- * Initial package.</notes>
+ * Initial package.
+ </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Mime">
-      <dir name="Viewer">
-       <dir name="Ooo">
-        <file name="common.xsl" role="php" />
-        <file name="global_document.xsl" role="php" />
-        <file name="main_html.xsl" role="php" />
-        <file name="palm.xsl" role="php" />
-        <file name="style_header.xsl" role="php" />
-        <file name="style_inlined.xsl" role="php" />
-        <file name="style_mapping.xsl" role="php" />
-        <file name="table.xsl" role="php" />
-        <file name="table_cells.xsl" role="php" />
-        <file name="table_columns.xsl" role="php" />
-        <file name="table_rows.xsl" role="php" />
-       </dir> <!-- /lib/Horde/Mime/Viewer/Ooo -->
-       <file name="Audio.php" role="php" />
-       <file name="Css.php" role="php" />
-       <file name="Deb.php" role="php" />
-       <file name="Default.php" role="php" />
-       <file name="Driver.php" role="php" />
-       <file name="Enriched.php" role="php" />
-       <file name="Enscript.php" role="php" />
-       <file name="Html.php" role="php" />
-       <file name="Images.php" role="php" />
-       <file name="Msexcel.php" role="php" />
-       <file name="Mspowerpoint.php" role="php" />
-       <file name="Msword.php" role="php" />
-       <file name="Ooo.php" role="php" />
-       <file name="Pdf.php" role="php" />
-       <file name="Php.php" role="php" />
-       <file name="Plain.php" role="php" />
-       <file name="Rar.php" role="php" />
-       <file name="Report.php" role="php" />
-       <file name="Rfc822.php" role="php" />
-       <file name="Richtext.php" role="php" />
-       <file name="Rpm.php" role="php" />
-       <file name="Rtf.php" role="php" />
-       <file name="Security.php" role="php" />
-       <file name="Simple.php" role="php" />
-       <file name="Smil.php" role="php" />
-       <file name="Source.php" role="php" />
-       <file name="Srchighlite.php" role="php" />
-       <file name="Tgz.php" role="php" />
-       <file name="Tnef.php" role="php" />
-       <file name="Vcard.php" role="php" />
-       <file name="Webcpp.php" role="php" />
-       <file name="Wordperfect.php" role="php" />
-       <file name="Zip.php" role="php" />
-      </dir> <!-- /lib/Horde/Mime/Viewer -->
       <file name="Address.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Headers.php" role="php" />
       <file name="Magic.php" role="php" />
       <file name="Mail.php" role="php" />
       <file name="Mdn.php" role="php" />
-      <file name="Part.php" role="php" />
-      <file name="Viewer.php" role="php" />
       <file name="mime.mapping.php" role="php" />
+      <file name="Part.php" role="php" />
+      <file name="Translation.php" role="php">
+       <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+      </file>
      </dir> <!-- /lib/Horde/Mime -->
      <file name="Mime.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="ar">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/ar/LC_MESSAGES -->
+    </dir> <!-- /locale/ar -->
+    <dir name="bg">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/bg/LC_MESSAGES -->
+    </dir> <!-- /locale/bg -->
+    <dir name="bs">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/bs/LC_MESSAGES -->
+    </dir> <!-- /locale/bs -->
+    <dir name="ca">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/ca/LC_MESSAGES -->
+    </dir> <!-- /locale/ca -->
+    <dir name="cs">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/cs/LC_MESSAGES -->
+    </dir> <!-- /locale/cs -->
+    <dir name="da">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/da/LC_MESSAGES -->
+    </dir> <!-- /locale/da -->
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+    </dir> <!-- /locale/de -->
+    <dir name="el">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/el/LC_MESSAGES -->
+    </dir> <!-- /locale/el -->
+    <dir name="en">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/en/LC_MESSAGES -->
+    </dir> <!-- /locale/en -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+    </dir> <!-- /locale/es -->
+    <dir name="et">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/et/LC_MESSAGES -->
+    </dir> <!-- /locale/et -->
+    <dir name="eu">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/eu/LC_MESSAGES -->
+    </dir> <!-- /locale/eu -->
+    <dir name="fa">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/fa/LC_MESSAGES -->
+    </dir> <!-- /locale/fa -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+    </dir> <!-- /locale/fi -->
+    <dir name="fr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/fr/LC_MESSAGES -->
+    </dir> <!-- /locale/fr -->
+    <dir name="gl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/gl/LC_MESSAGES -->
+    </dir> <!-- /locale/gl -->
+    <dir name="he">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/he/LC_MESSAGES -->
+    </dir> <!-- /locale/he -->
+    <dir name="hr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/hr/LC_MESSAGES -->
+    </dir> <!-- /locale/hr -->
+    <dir name="hu">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/hu/LC_MESSAGES -->
+    </dir> <!-- /locale/hu -->
+    <dir name="id">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/id/LC_MESSAGES -->
+    </dir> <!-- /locale/id -->
+    <dir name="is">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/is/LC_MESSAGES -->
+    </dir> <!-- /locale/is -->
+    <dir name="it">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/it/LC_MESSAGES -->
+    </dir> <!-- /locale/it -->
+    <dir name="ja">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/ja/LC_MESSAGES -->
+    </dir> <!-- /locale/ja -->
+    <dir name="km">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/km/LC_MESSAGES -->
+    </dir> <!-- /locale/km -->
+    <dir name="ko">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/ko/LC_MESSAGES -->
+    </dir> <!-- /locale/ko -->
+    <dir name="lt">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/lt/LC_MESSAGES -->
+    </dir> <!-- /locale/lt -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+    </dir> <!-- /locale/lv -->
+    <dir name="mk">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/mk/LC_MESSAGES -->
+    </dir> <!-- /locale/mk -->
+    <dir name="nb">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/nb/LC_MESSAGES -->
+    </dir> <!-- /locale/nb -->
+    <dir name="nl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/nl/LC_MESSAGES -->
+    </dir> <!-- /locale/nl -->
+    <dir name="nn">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/nn/LC_MESSAGES -->
+    </dir> <!-- /locale/nn -->
+    <dir name="pl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/pl/LC_MESSAGES -->
+    </dir> <!-- /locale/pl -->
+    <dir name="pt">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/pt/LC_MESSAGES -->
+    </dir> <!-- /locale/pt -->
+    <dir name="pt_BR">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/pt_BR/LC_MESSAGES -->
+    </dir> <!-- /locale/pt_BR -->
+    <dir name="ro">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/ro/LC_MESSAGES -->
+    </dir> <!-- /locale/ro -->
+    <dir name="ru">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/ru/LC_MESSAGES -->
+    </dir> <!-- /locale/ru -->
+    <dir name="sk">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/sk/LC_MESSAGES -->
+    </dir> <!-- /locale/sk -->
+    <dir name="sl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/sl/LC_MESSAGES -->
+    </dir> <!-- /locale/sl -->
+    <dir name="sv">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/sv/LC_MESSAGES -->
+    </dir> <!-- /locale/sv -->
+    <dir name="tr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/tr/LC_MESSAGES -->
+    </dir> <!-- /locale/tr -->
+    <dir name="uk">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/uk/LC_MESSAGES -->
+    </dir> <!-- /locale/uk -->
+    <dir name="zh_CN">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/zh_CN/LC_MESSAGES -->
+    </dir> <!-- /locale/zh_CN -->
+    <dir name="zh_TW">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Mime.mo" role="data" />
+      <file name="Horde_Mime.po" role="data" />
+     </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
+    </dir> <!-- /locale/zh_TW -->
+    <file name="Horde_Mime.pot" role="data" />
+   </dir> <!-- /locale -->
    <dir name="test">
     <dir name="Horde">
      <dir name="Mime">
       <dir name="fixtures">
        <file name="attachment.bin" role="test" />
-       <file name="bug_325.txt" role="test" />
+       <file name="flowed_msg.txt" role="test" />
        <file name="sample_msg.txt" role="test" />
-       <file name="url1.html" role="test" />
-       <file name="url2.html" role="test" />
-       <file name="url3.html" role="test" />
-       <file name="url4.html" role="test" />
-       <file name="url5.html" role="test" />
-       <file name="url6.html" role="test" />
-       <file name="url7.html" role="test" />
+       <file name="uudecode.txt" role="test" />
       </dir> <!-- /test/Horde/Mime/fixtures -->
+      <file name="AddressTest.php" role="test" />
       <file name="AllTests.php" role="test" />
-      <file name="bug_325.phpt" role="test" />
-      <file name="bug_4834.phpt" role="test" />
-      <file name="bug_6896.phpt" role="test" />
-      <file name="mail_001.phpt" role="test" />
-      <file name="mail_002.phpt" role="test" />
-      <file name="mail_003.phpt" role="test" />
-      <file name="mail_004.phpt" role="test" />
-      <file name="mail_005.phpt" role="test" />
-      <file name="mail_006.phpt" role="test" />
-      <file name="mail_007.phpt" role="test" />
-      <file name="mail_008.phpt" role="test" />
-      <file name="mail_dummy.inc" role="test" />
-      <file name="parse_001.phpt" role="test" />
-      <file name="parse_002.phpt" role="test" />
-      <file name="parse_003.phpt" role="test" />
-      <file name="rfc2231.phpt" role="test" />
-      <file name="url.phpt" role="test" />
-      <file name="viewer_php.phpt" role="test" />
+      <file name="HeadersTest.php" role="test" />
+      <file name="MagicTest.php" role="test" />
+      <file name="MailTest.php" role="test" />
+      <file name="MimeTest.php" role="test" />
+      <file name="PartTest.php" role="test" />
      </dir> <!-- /test/Horde/Mime -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -155,11 +356,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.5.4</min>
    </pearinstaller>
    <package>
-    <name>Core</name>
+    <name>Exception</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Exception</name>
+    <name>Mail</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
@@ -167,12 +368,17 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Support</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Util</name>
     <channel>pear.horde.org</channel>
    </package>
-   <extension>
-    <name>gettext</name>
-   </extension>
+   <package>
+    <name>Translation</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </required>
   <optional>
    <package>
@@ -180,20 +386,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <channel>pecl.php.net</channel>
    </package>
    <package>
-    <name>Browser</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>Compress</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>iCalendar</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>Prefs</name>
-    <channel>pear.horde.org</channel>
+    <name>Net_SMTP</name>
+    <channel>pear.php.net</channel>
+    <min>1.3.0</min>
    </package>
    <package>
     <name>Text_Filter</name>
@@ -203,60 +398,146 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Mime/Viewer/Ooo/common.xsl" as="Horde/Mime/Viewer/Ooo/common.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Ooo/global_document.xsl" as="Horde/Mime/Viewer/Ooo/global_document.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Ooo/main_html.xsl" as="Horde/Mime/Viewer/Ooo/main_html.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Ooo/palm.xsl" as="Horde/Mime/Viewer/Ooo/palm.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Ooo/style_header.xsl" as="Horde/Mime/Viewer/Ooo/style_header.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Ooo/style_inlined.xsl" as="Horde/Mime/Viewer/Ooo/style_inlined.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Ooo/style_mapping.xsl" as="Horde/Mime/Viewer/Ooo/style_mapping.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Ooo/table.xsl" as="Horde/Mime/Viewer/Ooo/table.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Ooo/table_cells.xsl" as="Horde/Mime/Viewer/Ooo/table_cells.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Ooo/table_columns.xsl" as="Horde/Mime/Viewer/Ooo/table_columns.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Ooo/table_rows.xsl" as="Horde/Mime/Viewer/Ooo/table_rows.xsl" />
-   <install name="lib/Horde/Mime/Viewer/Audio.php" as="Horde/Mime/Viewer/Audio.php" />
-   <install name="lib/Horde/Mime/Viewer/Css.php" as="Horde/Mime/Viewer/Css.php" />
-   <install name="lib/Horde/Mime/Viewer/Deb.php" as="Horde/Mime/Viewer/Deb.php" />
-   <install name="lib/Horde/Mime/Viewer/Default.php" as="Horde/Mime/Viewer/Default.php" />
-   <install name="lib/Horde/Mime/Viewer/Driver.php" as="Horde/Mime/Viewer/Driver.php" />
-   <install name="lib/Horde/Mime/Viewer/Enriched.php" as="Horde/Mime/Viewer/Enriched.php" />
-   <install name="lib/Horde/Mime/Viewer/Enscript.php" as="Horde/Mime/Viewer/Enscript.php" />
-   <install name="lib/Horde/Mime/Viewer/Html.php" as="Horde/Mime/Viewer/Html.php" />
-   <install name="lib/Horde/Mime/Viewer/Images.php" as="Horde/Mime/Viewer/Images.php" />
-   <install name="lib/Horde/Mime/Viewer/Msexcel.php" as="Horde/Mime/Viewer/Msexcel.php" />
-   <install name="lib/Horde/Mime/Viewer/Mspowerpoint.php" as="Horde/Mime/Viewer/Mspowerpoint.php" />
-   <install name="lib/Horde/Mime/Viewer/Msword.php" as="Horde/Mime/Viewer/Msword.php" />
-   <install name="lib/Horde/Mime/Viewer/Ooo.php" as="Horde/Mime/Viewer/Ooo.php" />
-   <install name="lib/Horde/Mime/Viewer/Pdf.php" as="Horde/Mime/Viewer/Pdf.php" />
-   <install name="lib/Horde/Mime/Viewer/Php.php" as="Horde/Mime/Viewer/Php.php" />
-   <install name="lib/Horde/Mime/Viewer/Plain.php" as="Horde/Mime/Viewer/Plain.php" />
-   <install name="lib/Horde/Mime/Viewer/Rar.php" as="Horde/Mime/Viewer/Rar.php" />
-   <install name="lib/Horde/Mime/Viewer/Report.php" as="Horde/Mime/Viewer/Report.php" />
-   <install name="lib/Horde/Mime/Viewer/Rfc822.php" as="Horde/Mime/Viewer/Rfc822.php" />
-   <install name="lib/Horde/Mime/Viewer/Richtext.php" as="Horde/Mime/Viewer/Richtext.php" />
-   <install name="lib/Horde/Mime/Viewer/Rpm.php" as="Horde/Mime/Viewer/Rpm.php" />
-   <install name="lib/Horde/Mime/Viewer/Rtf.php" as="Horde/Mime/Viewer/Rtf.php" />
-   <install name="lib/Horde/Mime/Viewer/Security.php" as="Horde/Mime/Viewer/Security.php" />
-   <install name="lib/Horde/Mime/Viewer/Simple.php" as="Horde/Mime/Viewer/Simple.php" />
-   <install name="lib/Horde/Mime/Viewer/Smil.php" as="Horde/Mime/Viewer/Smil.php" />
-   <install name="lib/Horde/Mime/Viewer/Source.php" as="Horde/Mime/Viewer/Source.php" />
-   <install name="lib/Horde/Mime/Viewer/Srchighlite.php" as="Horde/Mime/Viewer/Srchighlite.php" />
-   <install name="lib/Horde/Mime/Viewer/Tgz.php" as="Horde/Mime/Viewer/Tgz.php" />
-   <install name="lib/Horde/Mime/Viewer/Tnef.php" as="Horde/Mime/Viewer/Tnef.php" />
-   <install name="lib/Horde/Mime/Viewer/Vcard.php" as="Horde/Mime/Viewer/Vcard.php" />
-   <install name="lib/Horde/Mime/Viewer/Webcpp.php" as="Horde/Mime/Viewer/Webcpp.php" />
-   <install name="lib/Horde/Mime/Viewer/Wordperfect.php" as="Horde/Mime/Viewer/Wordperfect.php" />
-   <install name="lib/Horde/Mime/Viewer/Zip.php" as="Horde/Mime/Viewer/Zip.php" />
-   <install name="lib/Horde/Mime/Address.php" as="Horde/Mime/Address.php" />
-   <install name="lib/Horde/Mime/Exception.php" as="Horde/Mime/Exception.php" />
-   <install name="lib/Horde/Mime/Headers.php" as="Horde/Mime/Headers.php" />
-   <install name="lib/Horde/Mime/Mdn.php" as="Horde/Mime/Mdn.php" />
-   <install name="lib/Horde/Mime/Magic.php" as="Horde/Mime/Magic.php" />
-   <install name="lib/Horde/Mime/Mail.php" as="Horde/Mime/Mail.php" />
-   <install name="lib/Horde/Mime/Part.php" as="Horde/Mime/Part.php" />
-   <install name="lib/Horde/Mime/Viewer.php" as="Horde/Mime/Viewer.php" />
-   <install name="lib/Horde/Mime/mime.mapping.php" as="Horde/Mime/mime.mapping.php" />
-   <install name="lib/Horde/Mime.php" as="Horde/Mime.php" />
+   <install as="Horde/Mime.php" name="lib/Horde/Mime.php" />
+   <install as="Horde/Mime/Address.php" name="lib/Horde/Mime/Address.php" />
+   <install as="Horde/Mime/Exception.php" name="lib/Horde/Mime/Exception.php" />
+   <install as="Horde/Mime/Headers.php" name="lib/Horde/Mime/Headers.php" />
+   <install as="Horde/Mime/Magic.php" name="lib/Horde/Mime/Magic.php" />
+   <install as="Horde/Mime/Mail.php" name="lib/Horde/Mime/Mail.php" />
+   <install as="Horde/Mime/Mdn.php" name="lib/Horde/Mime/Mdn.php" />
+   <install as="Horde/Mime/mime.mapping.php" name="lib/Horde/Mime/mime.mapping.php" />
+   <install as="Horde/Mime/Part.php" name="lib/Horde/Mime/Part.php" />
+   <install as="Horde/Mime/Translation.php" name="lib/Horde/Mime/Translation.php" />
+   <install as="locale/Horde_Mime.pot" name="locale/Horde_Mime.pot" />
+   <install as="locale/ar/LC_MESSAGES/Horde_Mime.mo" name="locale/ar/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/ar/LC_MESSAGES/Horde_Mime.po" name="locale/ar/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/bg/LC_MESSAGES/Horde_Mime.mo" name="locale/bg/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/bg/LC_MESSAGES/Horde_Mime.po" name="locale/bg/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/bs/LC_MESSAGES/Horde_Mime.mo" name="locale/bs/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/bs/LC_MESSAGES/Horde_Mime.po" name="locale/bs/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/ca/LC_MESSAGES/Horde_Mime.mo" name="locale/ca/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/ca/LC_MESSAGES/Horde_Mime.po" name="locale/ca/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/cs/LC_MESSAGES/Horde_Mime.mo" name="locale/cs/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/cs/LC_MESSAGES/Horde_Mime.po" name="locale/cs/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/da/LC_MESSAGES/Horde_Mime.mo" name="locale/da/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/da/LC_MESSAGES/Horde_Mime.po" name="locale/da/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/de/LC_MESSAGES/Horde_Mime.mo" name="locale/de/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/de/LC_MESSAGES/Horde_Mime.po" name="locale/de/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/el/LC_MESSAGES/Horde_Mime.mo" name="locale/el/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/el/LC_MESSAGES/Horde_Mime.po" name="locale/el/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/en/LC_MESSAGES/Horde_Mime.mo" name="locale/en/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/en/LC_MESSAGES/Horde_Mime.po" name="locale/en/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/es/LC_MESSAGES/Horde_Mime.mo" name="locale/es/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/es/LC_MESSAGES/Horde_Mime.po" name="locale/es/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/et/LC_MESSAGES/Horde_Mime.mo" name="locale/et/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/et/LC_MESSAGES/Horde_Mime.po" name="locale/et/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/eu/LC_MESSAGES/Horde_Mime.mo" name="locale/eu/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/eu/LC_MESSAGES/Horde_Mime.po" name="locale/eu/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/fa/LC_MESSAGES/Horde_Mime.mo" name="locale/fa/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/fa/LC_MESSAGES/Horde_Mime.po" name="locale/fa/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/fi/LC_MESSAGES/Horde_Mime.mo" name="locale/fi/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/fi/LC_MESSAGES/Horde_Mime.po" name="locale/fi/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/fr/LC_MESSAGES/Horde_Mime.mo" name="locale/fr/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/fr/LC_MESSAGES/Horde_Mime.po" name="locale/fr/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/gl/LC_MESSAGES/Horde_Mime.mo" name="locale/gl/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/gl/LC_MESSAGES/Horde_Mime.po" name="locale/gl/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/he/LC_MESSAGES/Horde_Mime.mo" name="locale/he/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/he/LC_MESSAGES/Horde_Mime.po" name="locale/he/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/hr/LC_MESSAGES/Horde_Mime.mo" name="locale/hr/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/hr/LC_MESSAGES/Horde_Mime.po" name="locale/hr/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/hu/LC_MESSAGES/Horde_Mime.mo" name="locale/hu/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/hu/LC_MESSAGES/Horde_Mime.po" name="locale/hu/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/id/LC_MESSAGES/Horde_Mime.mo" name="locale/id/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/id/LC_MESSAGES/Horde_Mime.po" name="locale/id/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/is/LC_MESSAGES/Horde_Mime.mo" name="locale/is/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/is/LC_MESSAGES/Horde_Mime.po" name="locale/is/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/it/LC_MESSAGES/Horde_Mime.mo" name="locale/it/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/it/LC_MESSAGES/Horde_Mime.po" name="locale/it/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/ja/LC_MESSAGES/Horde_Mime.mo" name="locale/ja/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/ja/LC_MESSAGES/Horde_Mime.po" name="locale/ja/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/km/LC_MESSAGES/Horde_Mime.mo" name="locale/km/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/km/LC_MESSAGES/Horde_Mime.po" name="locale/km/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/ko/LC_MESSAGES/Horde_Mime.mo" name="locale/ko/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/ko/LC_MESSAGES/Horde_Mime.po" name="locale/ko/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/lt/LC_MESSAGES/Horde_Mime.mo" name="locale/lt/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/lt/LC_MESSAGES/Horde_Mime.po" name="locale/lt/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/lv/LC_MESSAGES/Horde_Mime.mo" name="locale/lv/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/lv/LC_MESSAGES/Horde_Mime.po" name="locale/lv/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/mk/LC_MESSAGES/Horde_Mime.mo" name="locale/mk/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/mk/LC_MESSAGES/Horde_Mime.po" name="locale/mk/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/nb/LC_MESSAGES/Horde_Mime.mo" name="locale/nb/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/nb/LC_MESSAGES/Horde_Mime.po" name="locale/nb/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/nl/LC_MESSAGES/Horde_Mime.mo" name="locale/nl/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/nl/LC_MESSAGES/Horde_Mime.po" name="locale/nl/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/nn/LC_MESSAGES/Horde_Mime.mo" name="locale/nn/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/nn/LC_MESSAGES/Horde_Mime.po" name="locale/nn/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/pl/LC_MESSAGES/Horde_Mime.mo" name="locale/pl/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/pl/LC_MESSAGES/Horde_Mime.po" name="locale/pl/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/pt/LC_MESSAGES/Horde_Mime.mo" name="locale/pt/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/pt/LC_MESSAGES/Horde_Mime.po" name="locale/pt/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/pt_BR/LC_MESSAGES/Horde_Mime.mo" name="locale/pt_BR/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/pt_BR/LC_MESSAGES/Horde_Mime.po" name="locale/pt_BR/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/ro/LC_MESSAGES/Horde_Mime.mo" name="locale/ro/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/ro/LC_MESSAGES/Horde_Mime.po" name="locale/ro/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/ru/LC_MESSAGES/Horde_Mime.mo" name="locale/ru/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/ru/LC_MESSAGES/Horde_Mime.po" name="locale/ru/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/sk/LC_MESSAGES/Horde_Mime.mo" name="locale/sk/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/sk/LC_MESSAGES/Horde_Mime.po" name="locale/sk/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/sl/LC_MESSAGES/Horde_Mime.mo" name="locale/sl/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/sl/LC_MESSAGES/Horde_Mime.po" name="locale/sl/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/sv/LC_MESSAGES/Horde_Mime.mo" name="locale/sv/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/sv/LC_MESSAGES/Horde_Mime.po" name="locale/sv/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/tr/LC_MESSAGES/Horde_Mime.mo" name="locale/tr/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/tr/LC_MESSAGES/Horde_Mime.po" name="locale/tr/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/uk/LC_MESSAGES/Horde_Mime.mo" name="locale/uk/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/uk/LC_MESSAGES/Horde_Mime.po" name="locale/uk/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/zh_CN/LC_MESSAGES/Horde_Mime.mo" name="locale/zh_CN/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/zh_CN/LC_MESSAGES/Horde_Mime.po" name="locale/zh_CN/LC_MESSAGES/Horde_Mime.po" />
+   <install as="locale/zh_TW/LC_MESSAGES/Horde_Mime.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Mime.mo" />
+   <install as="locale/zh_TW/LC_MESSAGES/Horde_Mime.po" name="locale/zh_TW/LC_MESSAGES/Horde_Mime.po" />
+   <install as="Horde/Mime/AddressTest.php" name="test/Horde/Mime/AddressTest.php" />
+   <install as="Horde/Mime/AllTests.php" name="test/Horde/Mime/AllTests.php" />
+   <install as="Horde/Mime/HeadersTest.php" name="test/Horde/Mime/HeadersTest.php" />
+   <install as="Horde/Mime/MagicTest.php" name="test/Horde/Mime/MagicTest.php" />
+   <install as="Horde/Mime/MailTest.php" name="test/Horde/Mime/MailTest.php" />
+   <install as="Horde/Mime/MimeTest.php" name="test/Horde/Mime/MimeTest.php" />
+   <install as="Horde/Mime/PartTest.php" name="test/Horde/Mime/PartTest.php" />
+   <install as="Horde/Mime/fixtures/attachment.bin" name="test/Horde/Mime/fixtures/attachment.bin" />
+   <install as="Horde/Mime/fixtures/flowed_msg.txt" name="test/Horde/Mime/fixtures/flowed_msg.txt" />
+   <install as="Horde/Mime/fixtures/sample_msg.txt" name="test/Horde/Mime/fixtures/sample_msg.txt" />
+   <install as="Horde/Mime/fixtures/uudecode.txt" name="test/Horde/Mime/fixtures/uudecode.txt" />
   </filelist>
  </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2010-10-22</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Converted tests to PHPUnit.
+ * Moved viewer code to horde/Mime_Viewer package.
+ * Removed Webcpp and Enscript viewers. Source code highlighting is now
+ exclusively handled by the Srchighlight driver.
+ * No need to generate Content-Transfer-Encoding header if part data is 7bit.
+ * Default disposition should be empty by default, not inline (RFC 2183 [2]).
+ * Request #8556: Allow specifying a header charset for a part.
+ * Add &apos;raw&apos; render view to Horde_Mime_Viewer.
+ * Horde_Mime_Part::parseMessage() correctly parses non-MIME parts.
+ * Remove dependence on PEAR&apos;s Mail_mimeDecode::.
+ * Added Horde_Mime::uudecode().
+ * Remove support for deprecated mime_magic module.
+ * Use Gnumeric to display MS Excel documents.
+ * Use AbiWord to display MS Word documents (Request #8011).
+ * Add support for decoding IDN (RFC 3490) names (Request #5836).
+ * Initial package.
+   </notes>
+  </release>
+ </changelog>
 </package>

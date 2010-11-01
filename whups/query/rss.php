@@ -10,10 +10,11 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @author Jan Schneider <jan@horde.org>
  */
-@define('WHUPS_BASE', dirname(__FILE__) . '/..');
-require_once WHUPS_BASE . '/lib/base.php';
+
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('whups');
+
 require_once WHUPS_BASE . '/lib/Query.php';
-require_once 'Horde/Template.php';
 
 $qManager = new Whups_QueryManager();
 $vars = new Horde_Variables();
@@ -30,7 +31,7 @@ if ($slug) {
 if (!isset($whups_query) ||
     is_a($whups_query, 'PEAR_Error') ||
     $whups_query->parameters ||
-    !$whups_query->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+    !$whups_query->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
     exit;
 }
 
@@ -53,8 +54,7 @@ foreach (array_keys($tickets) as $i) {
     $items[$i]['pubDate'] = htmlspecialchars(date('r', $tickets[$i]['timestamp']));
 }
 
-$template = new Horde_Template();
-$template->set('charset', Horde_Nls::getCharset());
+$template = $injector->createInstance('Horde_Template');
 $template->set('xsl', $registry->get('themesuri') . '/feed-rss.xsl');
 $template->set('pubDate', htmlspecialchars(date('r')));
 $template->set('title', htmlspecialchars($whups_query->name ? $whups_query->name : _("Query Results")));

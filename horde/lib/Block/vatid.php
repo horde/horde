@@ -5,16 +5,16 @@ $block_name = _("EU VAT identification");
 /**
  * @package Horde_Block
  */
-class Horde_Block_Horde_vatid extends Horde_Block {
-
-    var $_app = 'horde';
+class Horde_Block_Horde_vatid extends Horde_Block
+{
+    protected $_app = 'horde';
 
     /**
      * The title to go in this block.
      *
      * @return string  The title text.
      */
-    function _title()
+    protected function _title()
     {
         return _("VAT id number verification");
     }
@@ -24,7 +24,7 @@ class Horde_Block_Horde_vatid extends Horde_Block {
      *
      * @return string  The content.
      */
-    function _content()
+    protected function _content()
     {
         $vatid = str_replace(' ', '', Horde_Util::getFormData('vatid', ''));
         $block_name = 'block_' . $this->_row . '_' . $this->_col;
@@ -54,7 +54,6 @@ class Horde_Block_Horde_vatid extends Horde_Block {
 
         if (!empty($matches)) {
             $html .= '<br />';
-            @include_once 'SOAP/Client.php';
             if (!class_exists('SOAP_Client')) {
                 $html .= $this->_error(sprintf(_("%s not found."), '<a href="http://pear.php.net/SOAP" target="_blank">SOAP</a>'));
             } else {
@@ -108,7 +107,7 @@ class Horde_Block_Horde_vatid extends Horde_Block {
         return $html;
     }
 
-    function _error($text)
+    private function _error($text)
     {
         return '<span style="color:red;font-weight:bold">' . $text . '</span>';
     }

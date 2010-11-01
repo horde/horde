@@ -8,7 +8,7 @@ function jump()
 }
 </script>
 
-<form name="wjump" method="get" action="<?php echo Horde::applicationurl('display.php') ?>">
+<form name="wjump" method="get" action="<?php echo Horde::url('display.php') ?>">
 <input type="hidden" name="page" value="Search" />
 <?php Horde_Util::pformInput() ?>
 <div id="menu">
@@ -20,4 +20,5 @@ function jump()
  <br class="clear" />
 </div>
 </form>
-<?php $notification->notify(array('listeners' => 'status'));
+<?php require HORDE_BASE . '/services/sidebar.php'; ?>
+<?php $GLOBALS['notification']->notify(array('listeners' => 'status'));

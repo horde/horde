@@ -201,7 +201,7 @@ Quick example function definition for Horde::
      * [Once again, insert 2 spaces after the datatype, and line up all
      *  subsequent lines, if any, with this character.]
      *
-     * @since Horde x.x [Only if necessary - use if function is added to the
+     * @since Horde x.x.x [Only if necessary - use if function is added to the
      * current release versions to indicate that the function has not been
      * available in previous versions. @since is only needed if the function
      * has been added after the last major point release - e.g. x.0.]
@@ -257,9 +257,10 @@ Example for `LGPL`_'ed Horde code::
      *
      * @author   Original Author <author@example.com>
      * @author   Your Name <you@example.com>
-     * @since    Horde 3.0 [only if needed]
      * @category Horde
-     * @package  Horde_Package
+     * @package  Package
+     * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+     * @since    Horde 4.0.1 [only if needed]
      */
 
 .. _LGPL: http://www.opensource.org/licenses/lgpl-license.php
@@ -270,8 +271,6 @@ Example for `GPL`_'ed application code::
      * The App_Bar class contains all functions related to handling
      * bars in App.
      *
-     * $Horde
-     *
      * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
      *
      * See the enclosed file COPYING for license information (GPL). If you
@@ -279,9 +278,10 @@ Example for `GPL`_'ed application code::
      *
      * @author   Original Author <author@example.com>
      * @author   Your Name <you@example.com>
-     * @since    App 1.0 [only if needed]
      * @category Horde
-     * @package  app
+     * @package  App
+     * @license  http://www.fsf.org/copyleft/gpl.html GPL
+     * @since    App 1.0.1 [only if needed]
      */
 
 
@@ -418,6 +418,10 @@ NUMERIC(p,s), VARCHAR(n), CHAR(n), FLOAT, and REAL. See
 http://home.fnal.gov/~dbox/SQL_API_Portability.html and
 http://articles.techrepublic.com.com/5100-10878_11-1045051.html for more
 information.
+
+Other portability guidlines: Always use the database abstraction layer's
+capabilities for result set pagination ('LIMIT' is not portable). Also, do not
+use the 'AS' keyword for table aliases.
 
 In SQL queries, keywords should be capitalized.
 
@@ -613,6 +617,10 @@ to a Horde_Exception before throwing.
 When throwing a Horde_Exception the error message provided should not be
 localized.
 
+Throwing exceptions is expensive, so use them carefully for logic flow. You
+should cache results of Horde::callHook() calls for example, if you expect them
+to not exist.
+
 
 Existence checking
 ==================
@@ -674,7 +682,7 @@ e. Use `array_key_exists()`_ when you want to check if an array key is defined
 
     // Make sure we have a charset parameter. Value could also be null.
     if (!array_key_exists('charset', $params)) {
-        Horde::fatal('Incomplete configuration.');
+        throw new Horde_Exception('Incomplete configuration');
     }
 
 Please note that `array_key_exists()`_ is a performance hit (25%-100%) and
@@ -709,10 +717,10 @@ Double Quotes:
   * Should be used in the gettext shortcut ``_("")`` format.
   * Use with care, as many correct looking strings are really invalid.
 
-The following are all incorrect::
+The following are incorrect::
 
     echo "Today is the $date['day'] of $date['month']"
-    $_SESSION[index] = $_SESSION["old_index"];
+    $foo[index] = $foo["old_index"];
 
 .. _sprintf: http://www.php.net/sprintf
 

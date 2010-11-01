@@ -8,8 +8,10 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package IMP
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
 class IMP_Spam
 {
@@ -17,29 +19,37 @@ class IMP_Spam
      * Reports a list of messages as spam, based on the local configuration
      * parameters.
      *
-     * @param mixed $indices  See IMP::parseIndicesList().
-     * @param string $action  Either 'spam' or 'notspam'.
+     * @param IMP_Indices $indices  An indices object.
+     * @param string $action        Either 'spam' or 'notspam'.
+     * @param array $opts           Additional options:
+     * <pre>
+     * 'mailboxob' - (IMP_Mailbox_List) Update this mailbox list object.
+     *               DEFAULT: No update.
+     * 'noaction' - (boolean) Don't perform any action after reporting?
+     *              DEFAULT: false
+     * </pre>
      *
      * @return integer  1 if messages have been deleted, 2 if messages have
      *                  been moved.
      */
-    static public function reportSpam($indices, $action)
+    static public function reportSpam($indices, $action, array $opts = array())
     {
         global $notification;
 
         /* Abort immediately if spam reporting has not been enabled, or if
          * there are no messages. */
         if (empty($GLOBALS['conf'][$action]['reporting']) ||
-            !($msgList = IMP::parseIndicesList($indices))) {
+            !count($indices)) {
             return 0;
         }
 
-        $report_count = 0;
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
+        $report_count = $result = 0;
 
-        foreach ($msgList as $mbox => $msgIndices) {
+        foreach ($indices->indices() as $mbox => $msgIndices) {
             try {
-                $GLOBALS['imp_imap']->checkUidvalidity($mbox);
-            } catch (Horde_Exception $e) {
+                $imp_imap->checkUidvalidity($mbox);
+            } catch (IMP_Exception $e) {
                 continue;
             }
 
@@ -47,8 +57,8 @@ class IMP_Spam
                 /* Fetch the raw message contents (headers and complete
                  * body). */
                 try {
-                    $imp_contents = IMP_Contents::singleton($idx . IMP::IDX_SEP . $mbox);
-                } catch (Horde_Exception $e) {
+                    $imp_contents = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Contents')->create(new IMP_Indices($mbox, $idx));
+                } catch (IMP_Exception $e) {
                     continue;
                 }
 
@@ -64,9 +74,9 @@ class IMP_Spam
                      * be secure. */
                     $prog = str_replace(array('%u','%l', '%d'),
                         array(
-                            escapeshellarg(Horde_Auth::getAuth()),
-                            escapeshellarg(Horde_Auth::getBareAuth()),
-                            escapeshellarg(Horde_Auth::getAuthDomain())
+                            escapeshellarg($GLOBALS['registry']->getAuth()),
+                            escapeshellarg($GLOBALS['registry']->getAuth('bare')),
+                            escapeshellarg($GLOBALS['registry']->getAuth('domain'))
                         ), $GLOBALS['conf'][$action]['program']);
                     $proc = proc_open($prog,
                         array(
@@ -75,7 +85,7 @@ class IMP_Spam
                             2 => array('pipe', 'w')
                         ), $pipes);
                     if (!is_resource($proc)) {
-                        Horde::logMessage('Cannot open process ' . $prog, __FILE__, __LINE__, PEAR_LOG_ERR);
+                        Horde::logMessage('Cannot open process ' . $prog, 'ERR');
                         return 0;
                     }
                     stream_copy_to_stream($raw_msg, $pipes[0]);
@@ -86,7 +96,7 @@ class IMP_Spam
                     }
                     fclose($pipes[2]);
                     if (!empty($stderr)) {
-                        Horde::logMessage('Error reporting spam: ' . $stderr, __FILE__, __LINE__, PEAR_LOG_ERR);
+                        Horde::logMessage('Error reporting spam: ' . $stderr, 'ERR');
                     }
                     proc_close($proc);
                     $report_flag = true;
@@ -109,10 +119,9 @@ class IMP_Spam
                     }
 
                     if (!isset($imp_compose)) {
-                        $imp_compose = IMP_Compose::singleton();
-                        $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+                        $imp_compose = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Compose')->create();
                         try {
-                            $from_line = $identity->getFromLine();
+                            $from_line = $GLOBALS['injector']->getInstance('IMP_Identity')->getFromLine();
                         } catch (Horde_Exception $e) {
                             $from_line = null;
                         }
@@ -134,14 +143,14 @@ class IMP_Spam
                     if (!is_null($from_line)) {
                         $spam_headers->addHeader('From', $from_line);
                     }
-                    $spam_headers->addHeader('Subject', sprintf(_("%s report from %s"), $action, Horde_Auth::getAuth()));
+                    $spam_headers->addHeader('Subject', sprintf(_("%s report from %s"), $action, $GLOBALS['registry']->getAuth()));
 
                     /* Send the message. */
                     try {
-                        $imp_compose->sendMessage($to, $spam_headers, $mime, Horde_Nls::getCharset());
+                        $imp_compose->sendMessage($to, $spam_headers, $mime, 'UTF-8');
                         $report_flag = true;
                     } catch (IMP_Compose_Exception $e) {
-                        Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+                        Horde::logMessage($e, 'ERR');
                     }
                 }
 
@@ -158,15 +167,25 @@ class IMP_Spam
         /* Report what we've done. */
         if ($report_count == 1) {
             $hdrs = $imp_contents->getHeaderOb();
-            $subject = Horde_String::truncate($hdrs->getValue('subject'));
+            if ($subject = $hdrs->getValue('subject')) {
+                $subject = Horde_String::truncate($subject, 30);
+            } elseif ($from = $hdrs->getValue('from')) {
+                $from = Horde_String::truncate($from, 30);
+            } else {
+                $subject = '[' . _("No Subject") . ']';
+            }
 
             switch ($action) {
             case 'spam':
-                $msg = sprintf(_("The message \"%s\" has been reported as spam."), $subject);
+                $msg = $subject
+                    ? sprintf(_("The message \"%s\" has been reported as spam."), $subject)
+                    : sprintf(_("The message from \"%s\" has been reported as spam."), $from);
                 break;
 
             case 'notspam':
-                $msg = sprintf(_("The message \"%s\" has been reported as innocent."), $subject);
+                $msg = $subject
+                    ? sprintf(_("The message \"%s\" has been reported as innocent."), $subject)
+                    : sprintf(_("The message from \"%s\" has been reported as innocent."), $from);
                 break;
             }
         } elseif ($action == 'spam') {
@@ -176,14 +195,20 @@ class IMP_Spam
         }
         $notification->push($msg, 'horde.message');
 
+        $mbox_args = array();
+        if (isset($opts['mailboxob'])) {
+            $mbox_args['mailboxob'] = $opts['mailboxob'];
+        }
+
         /* Delete/move message after report. */
         switch ($action) {
         case 'spam':
-            if ($result = $GLOBALS['prefs']->getValue('delete_spam_after_report')) {
-                $imp_message = IMP_Message::singleton();
+            if (empty($opts['noaction']) &&
+                ($result = $GLOBALS['prefs']->getValue('delete_spam_after_report'))) {
+                $imp_message = $GLOBALS['injector']->getInstance('IMP_Message');
                 switch ($result) {
                 case 1:
-                    $msg_count = $imp_message->delete($indices);
+                    $msg_count = $imp_message->delete($indices, $mbox_args);
                     if ($msg_count === false) {
                         $result = 0;
                     } else {
@@ -196,9 +221,9 @@ class IMP_Spam
                     break;
 
                 case 2:
-                    $targetMbox = IMP::folderPref($GLOBALS['prefs']->getValue('spam_folder'), true);
+                    $targetMbox = $GLOBALS['prefs']->getValue('spam_folder');
                     if ($targetMbox) {
-                        if (!$imp_message->copy($targetMbox, 'move', $indices, true)) {
+                        if (!$imp_message->copy(IMP::folderPref($targetMbox, true), 'move', $indices, array_merge($mbox_args, array('create' => true)))) {
                             $result = 0;
                         }
                     } else {
@@ -211,9 +236,10 @@ class IMP_Spam
             break;
 
         case 'notspam':
-            if ($result = $GLOBALS['prefs']->getValue('move_ham_after_report')) {
-                $imp_message = IMP_Message::singleton();
-                if (!$imp_message->copy('INBOX', 'move', $indices)) {
+            if (empty($opts['noaction']) &&
+                ($result = $GLOBALS['prefs']->getValue('move_ham_after_report'))) {
+                $imp_message = $GLOBALS['injector']->getInstance('IMP_Message');
+                if (!$imp_message->copy('INBOX', 'move', $indices, $mbox_args)) {
                     $result = 0;
                 }
             }

@@ -1,0 +1,311 @@
+# Gollem 0.0.1 Russian Translation.
+# Copyright 2001 Anton Nekhoroshih.
+# Anton Nekhoroshih <anton@valuehost.ru>, 2001
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gollem 0.0.1\n"
+"POT-Creation-Date: 2001-08-28 15:56\n"
+"PO-Revision-Date:  2001-08-28 15:56\n"
+"Last-Translator: Anton Nekhoroshih <anton@valuehost.ru>\n"
+"Language-Team: Czech <dev@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+msgid " renamed to "
+msgstr " переименовать в "
+
+msgid " to: "
+msgstr " в: "
+
+#, c-format
+msgid "%d items in %s"
+msgstr "%d элементов в %s"
+
+msgid "<b>Note:</b> These settings won't take effect until your next login."
+msgstr ""
+"<b> Обратить внимание: </b > Эти параметры настройки не будут вступать в "
+"силу до вашего следующего входа в систему."
+
+msgid "An illegal value was specified."
+msgstr "Указано не верное значение."
+
+msgid "Are you sure?"
+msgstr "Вы уверены?"
+
+msgid "Ascending"
+msgstr "По возрастанию"
+
+msgid "Cannot chmod "
+msgstr "Невозможно изменить атрибуты"
+
+msgid "Cannot delete "
+msgstr "Невозможнго удалить"
+
+msgid "Change your file sorting options."
+msgstr "Изменить Ваш порядок сортировки."
+
+msgid "Change your ftp server"
+msgstr "Изменить Ваш ftp сервер"
+
+msgid "Chmod Items"
+msgstr "Сменить атрибуты"
+
+msgid "Chmod done: "
+msgstr "Атрибуты изменены:"
+
+msgid "Choose Action:"
+msgstr "Выберите действите:"
+
+msgid "Create Folder"
+msgstr "Создать папку"
+
+msgid "Default sorting criteria:"
+msgstr "Критерий сортировки по умолчанию:"
+
+msgid "Default sorting direction:"
+msgstr "Направление сортировки по умолчанию:"
+
+msgid "Delete Items"
+msgstr "Удалить элемент"
+
+msgid "Descending"
+msgstr "По убыванию"
+
+msgid "Directory removed: "
+msgstr "Директоря перемещена:"
+
+msgid "Display Options"
+msgstr "Настройки экрана"
+
+msgid ""
+"Either you have logged in incorrectly or your login has expired. Please "
+"login again."
+msgstr ""
+"Или Вы вошли неправильно, или ваш вход в систему истек. Пожалуйста войдите "
+"снова. "
+
+msgid "Error creating new folder: "
+msgstr "Ошибка создания новой папки: "
+
+msgid "Error renaming: "
+msgstr "Ошибка преименования: "
+
+msgid "Error uploading file: "
+msgstr "Ошибка загрузки файла: "
+
+msgid "Error"
+msgstr "Ошибка"
+
+msgid "File Modification Time"
+msgstr "Время изменения файла"
+
+msgid "File Name"
+msgstr "Имя файла"
+
+msgid "File Size"
+msgstr "Размер файла"
+
+msgid "File Type"
+msgstr "Тип файла"
+
+msgid "File deleted: "
+msgstr "Файл удален: "
+
+msgid "File received: "
+msgstr "Файл принят: "
+
+msgid "Forwards"
+msgstr "Перенаправления"
+
+msgid "Gollem is not fully configured."
+msgstr "Gollem не отконфигурирован."
+
+msgid "Group"
+msgstr "Группа"
+
+msgid "Help"
+msgstr "Помощь"
+
+msgid "Home"
+msgstr "Домой"
+
+msgid "Incorrect number of items."
+msgstr "Не верное кол-во элементов."
+
+msgid "Language"
+msgstr "Язык"
+
+msgid "Log in"
+msgstr "Войти"
+
+msgid ""
+"Login failed for some reason. Most likely your username or password was "
+"entered incorrectly."
+msgstr ""
+"Вход в систему, неудавшийся по некоторым причинам. Наиболее вероятно ваше "
+"имя пользователя или пароль были введены неправильно."
+
+msgid "Logout"
+msgstr "Выйти"
+
+msgid "Mail Forwards"
+msgstr "Почтовая переадресация"
+
+msgid "Message"
+msgstr "Сообщение"
+
+msgid "Modified"
+msgstr "Изменен"
+
+msgid "Name"
+msgstr "Имя"
+
+msgid "New User Introduction"
+msgstr "Вступление для новеньких"
+
+msgid "New folder created: "
+msgstr "Новая папка создад: "
+
+msgid "No such directory: "
+msgstr "Несуществующая директория: "
+
+msgid "Options"
+msgstr "Параметры"
+
+msgid "Other Options"
+msgstr "Другие параметры"
+
+msgid "Owner"
+msgstr "Владелец"
+
+msgid "Password Change"
+msgstr "Смена пароля"
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "Permission"
+msgstr "Права"
+
+msgid "Please enter the mode in numeric format:"
+msgstr "Пажулайста введите атрибут в цифровом формате:"
+
+msgid "Please enter the name of the new folder:"
+msgstr "Пажулайста введите имя для новой папки:"
+
+msgid "Please provide your password."
+msgstr "Пожалуйста укажите свой пароль."
+
+msgid "Please provide your username."
+msgstr "Пожалуйста укажите свое Имя."
+
+msgid "Please select an item before this action."
+msgstr "Пожалуйста выбирете элемент перед действием."
+
+msgid "Please specify a file to upload."
+msgstr "Пажалуйста укажите имя файла для загрузки."
+
+msgid "Problem?"
+msgstr "Проблемы?"
+
+msgid "Refresh"
+msgstr "Обновить"
+
+msgid "Rename "
+msgstr "Переименовать"
+
+msgid "Rename Items"
+msgstr "Переименовать элементы"
+
+msgid "Server Information"
+msgstr "Информация о сервере"
+
+msgid "Server"
+msgstr "Сервер"
+
+msgid "Set the language that menu items, explanations, and help are in."
+msgstr "Установите язык на котором будут пункты меню, объяснения, справки."
+
+msgid "Size"
+msgstr "Размер"
+
+msgid "Some of Gollem's configuration files are missing:"
+msgstr "Некоторые из файлов конфигурации Gollem отсутствуют:"
+
+msgid "Sort Direction"
+msgstr "Направление сортировки"
+
+msgid "Success"
+msgstr "Успешно"
+
+msgid "The following items will be permenantly deleted: "
+msgstr "Следующие элементы будут удаленный: "
+
+msgid "There are no files in this directory."
+msgstr "Нет никаких файлов в этом каталоге."
+
+msgid "This file lists each FTP server that Gollem makes available."
+msgstr "Этот файл перечисляет FTP сервера, которые будут достпуны в Gollem."
+
+msgid ""
+"This file sets the default user options for Gollem, and controls which ones "
+"are user editable."
+msgstr ""
+"Этот файл устанавливает опции по умолчанию для пользователя Gollem, "
+"доступными для редактирования."
+
+msgid ""
+"This is the main Gollem configuration file. It contains paths and options "
+"for the Gollem scripts."
+msgstr ""
+"Это главный файл конфигурации Gollem. Он содержит пути и опции для сценариев "
+"Gollem."
+
+msgid "This number must be at least one."
+msgstr "Этот номер должен быть по крайней мере один."
+
+msgid "This value must be a number."
+msgstr "Значение должно быть цифрой."
+
+msgid "Type"
+msgstr "Тип "
+
+msgid "Upload File"
+msgstr "Загрузка файла"
+
+msgid "User Preferences"
+msgstr "Настройки пользователя"
+
+msgid "Username"
+msgstr "Пользователь"
+
+msgid "Warning"
+msgstr "Внимание"
+
+#, c-format
+msgid "Warning: %s requires Javascript to perform certain functions."
+msgstr "Внимание: %s нужен Javascript для выполнения функций."
+
+#, c-format
+msgid "Welcome to %s"
+msgstr "Добро пожаловать в %s"
+
+msgid "Welcome"
+msgstr "Добро пожаловать"
+
+#, c-format
+msgid ""
+"You have been logged out of %s. Thank you for using the system. If you wish "
+"to log in again, please use the form below."
+msgstr "Вы покинули систему %s. Спасибо за использование."
+
+msgid "Your Information"
+msgstr "Ваша информация"
+
+msgid "Your preferences have been updated."
+msgstr "Ваши настройки изменены."
+
+msgid "Your preferred FTP server:"
+msgstr "Ваш основной FTP сервер:"

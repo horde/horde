@@ -13,9 +13,9 @@
 class Ansel_Widget_ImageFaces extends Ansel_Widget_Base
 {
     /**
-     * @TODO
+     * The views this Widget may appear in
      *
-     * @var unknown_type
+     * @var array
      */
     private $_supported_views = array('Image');
 
@@ -53,7 +53,7 @@ class Ansel_Widget_ImageFaces extends Ansel_Widget_Base
      */
     protected function _getFaceNames()
     {
-        $faces = Ansel_Faces::factory();
+        $faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
 
         // Check for existing faces for this image.
         $html = '';
@@ -62,24 +62,25 @@ class Ansel_Widget_ImageFaces extends Ansel_Widget_Base
         // Generate the top ajax action links and attach the edit actions. Falls
         // back on going to the find all faces in gallery page if no js...
         // although, currently, *that* page requires js as well so...
-        // TODO: A way to 'close', or go back to, the normal widget view.
-        if ($this->_view->gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+        if ($this->_view->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             $link_text = (empty($images) ? _("Find faces") : _("Edit faces"));
-            $html .= '<a id="edit_faces" href="' . Horde_Util::addParameter(Horde::applicationUrl('faces/gallery.php'), 'gallery', $this->_view->gallery->id)
-                    . '" class="widget">' . $link_text . '</a> | '
-                    . Horde::link(Horde::applicationUrl(Horde_Util::addParameter('faces/custom.php', array('image' => $this->_view->resource->id, 'url' => $this->_params['selfUrl']))),'', 'widget')
+            $html .= Horde::url('faces/gallery.php')->add('gallery', $this->_view->gallery->id)->link(
+                    array('id' => 'edit_faces',
+                          'class' => 'widget'))
+                  . $link_text . '</a> | '
+                  . Horde::url('faces/custom.php')->add(
+                            array('image' => $this->_view->resource->id,
+                                  'url' => $this->_params['selfUrl']))->link(array('class' => 'widget'))
                     . _("Manual face selection") . '</a>';
 
             // Attach the ajax edit actions
-            ob_start();
-            $imple = Horde_Ajax_Imple::factory(
-                array('ansel', 'EditFaces'),
-                array('image_id' => $this->_view->resource->id,
-                      'domid' => 'edit_faces',
-                      'selfUrl' => $this->_params['selfUrl']));
-
-            $imple->attach();
-            $html .= ob_get_clean();
+            Horde::startBuffer();
+            $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('ansel', 'EditFaces'), array(
+                'domid' => 'edit_faces',
+                'image_id' => $this->_view->resource->id,
+                'selfUrl' => $this->_params['selfUrl']
+            ));
+            $html .= Horde::endBuffer();
         }
 
         // Build the main content area of the widget

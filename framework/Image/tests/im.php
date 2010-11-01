@@ -7,21 +7,59 @@
  *
  * @package Horde_Image
  */
-define('HORDE_BASE', '/var/www/html/horde');
-$horde_authentication = 'none';
-require_once HORDE_BASE . '/lib/base.php';
-$GLOBALS['conf']['sql']['adapter'] = $GLOBALS['conf']['sql']['phptype'] == 'mysqli' ? 'mysqli' : 'pdo_' . $GLOBALS['conf']['sql']['phptype'];
-$db = Horde_Db_Adapter::factory($GLOBALS['conf']['sql']);
+
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 // Putting these here so they don't interfere with timing/memory data when
 // profiling.
 $driver = Horde_Util::getFormData('driver', 'Im');
 $test = Horde_Util::getFormData('test');
+
+// Don't use horde config since we might be configured for Imagick only.
 $convert = trim(`which convert`);
+$identify = trim(`which identify`);
+
 $handler = new Horde_Log_Handler_Stream(fopen('/tmp/imagetest.log','a+'));
 $logger = new Horde_Log_Logger($handler);
 
 switch ($test) {
+case 'smart':
+    $time = xdebug_time_index();
+    $image = getImageObject(array('filename' => 'img4.jpg'));
+    $image->addEffect('SmartCrop', array('width' => 100, 'height' => 100));
+    $image->display();
+    $time = xdebug_time_index() - $time;
+    $memory = xdebug_peak_memory_usage();
+    logThis($test, $time, $memory);
+    exit;
+
+case 'liquid':
+    $time = xdebug_time_index();
+    $image = getImageObject(array('filename' => 'img4.jpg'));
+    $image->addEffect('LiquidResize', array('ratio' => true, 'width' => 612, 'height' => 340, 'delta_x' => 3, 'rigidity' => 0));
+    $image->display();
+    $time = xdebug_time_index() - $time;
+    $memory = xdebug_peak_memory_usage();
+    logThis($test, $time, $memory);
+    exit;
+
+case 'multipage':
+    $time = xdebug_time_index();
+    $image = getImageObject(array('filename' => 'two_page.tif.tiff'));
+
+    $first = true;
+    foreach ($image as $index => $imObject) {
+        if (!$first) {
+            $image->display();
+        } else {
+            $first = false;
+        }
+    }
+    $time = xdebug_time_index() - $time;
+    $memory = xdebug_peak_memory_usage();
+    logThis($test, $time, $memory);
+
 case 'testInitialState':
     // Solid blue background color - basically tests initial state of the
     // Horde_Image object.
@@ -39,6 +77,24 @@ case 'testInitialState':
 case 'testInitialStateAfterLoad':
     // Test loading an image from file directly.
     $image = getImageObject(array('filename' => 'img1.jpg'));
+    $image->display();
+    break;
+
+case 'testDefaultImageFormatDuringLoad':
+    // Tests image format during load
+    $image = getImageObject(array('filename' => 'img1.jpg'));
+    $image->display();
+    break;
+
+case 'testForceImageFormatDuringLoad':
+    // Tests forcing image format during load
+    $image = getImageObject(array('filename' => 'img1.jpg', 'type' => 'jpeg'));
+    $image->display();
+    break;
+case 'testChangeImageFormatAfterLoad':
+    // Tests changing image format after load
+    $image = getImageObject(array('filename' => 'img1.jpg')); // Loads as PNG
+    $image->setType('jpeg');
     $image->display();
     break;
 
@@ -90,7 +146,7 @@ case 'testTransparentBGWithBorder':
     $image->rectangle(30, 30, 100, 60, 'black', 'yellow');
     $image->roundedRectangle(30, 30, 100, 60, 15, 'black', 'red');
     $image->circle(30, 30, 30, 'black', 'blue');
-    $image->addEffect('border', array('bordercolor' => 'blue',
+    $image->addEffect('Border', array('bordercolor' => 'blue',
                                       'borderwidth' => 1));
     $image->display();
     $time = xdebug_time_index() - $time;
@@ -213,19 +269,32 @@ case 'testRoundCornersDropShadowYellowBG':
 case 'testBorderedDropShadowTransparentBG':
     $time = xdebug_time_index();
 
-    $image = getImageObject(array('filename' => 'img1.jpg',
-                                  'background' => 'none'));
-    $image->resize(150,150);
+    $image = getImageObject(array('filename' => 'img1.jpg'));
+    $image->resize(150,150, true);
     $image->addEffect('Border', array('bordercolor' => '#333', 'borderwidth' => 1));
     $image->addEffect('DropShadow',
                       array('background' => 'none',
-                            'padding' => 10,
-                            'distance' => '10',
-                            'fade' => 5));
+                            'padding' => 5,
+                            'distance' => 8,
+                            'fade' => 2));
     $image->display();
     $time = xdebug_time_index() - $time;
     $memory = xdebug_peak_memory_usage();
     logThis($test, $time, $memory);
+    break;
+
+case 'testBorderedDropShadowTransparentLoadString':
+    $image = getImageObject();
+    $data = file_get_contents('img1.jpg');
+    $image->loadString($data);
+    $image->resize(150,150, true);
+    $image->addEffect('Border', array('bordercolor' => '#333', 'borderwidth' => 1));
+    $image->addEffect('DropShadow',
+                      array('background' => 'none',
+                            'padding' => 5,
+                            'distance' => 8,
+                            'fade' => 2));
+    $image->display();
     break;
 
 case 'testBorderedDropShadowBlueBG':
@@ -406,17 +475,18 @@ case 'testPolaroidstackBlueBG':
  *
  * @param array $params  Any additional parameters
  *
- * @return Horde_Image object | PEAR_Error
+ * @return Horde_Image_Base The image object.
  */
 function getImageObject($params = array())
 {
     global $conf;
 
-    // Always pass the convert parameter to be consistent when profiling.
     $context = array('tmpdir' => Horde::getTempDir(),
-                     'convert' => $GLOBALS['convert']);
-    $params['context'] = $context;
-    return Horde_Image::factory($GLOBALS['driver'], $params);
+                     'convert' => $GLOBALS['convert'],
+                     'logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger'),
+                     'identify' => $GLOBALS['identify']);
+
+    return new Horde_Image_Im($params, $context);
 }
 
 function logThis($effect, $time, $memory)
@@ -425,7 +495,8 @@ function logThis($effect, $time, $memory)
 
     $logger->debug("$driver, $effect, $time, $memory");
 
-//    global $driver, $logger, $db;
+//    global $driver, $logger;
+//    $db = $GLOBALS['injector']->getInstance('Horde_Db_Base');
 //    $sql = "INSERT INTO image_tests (test, driver, peak_memory, execution_time) VALUES (?, ?, ?, ?);";
 //    $db->insert($sql, array('test' => $effect,
 //                                     'driver' => $driver,

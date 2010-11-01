@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Text_Filter</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Text Filter API</summary>
  <description>The Horde_Text_Filter:: class provides common methods for
- fitering and converting text.
- </description>
+ fitering and converting text.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -27,7 +23,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2009-06-10</date>
+ <date>2010-10-22</date>
+ <time>19:03:03</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -37,7 +34,16 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Add XSS filtering for data URLs in A HREF parameters (Bug #8715).
+ <notes>
+* Html2text filter will use horde/Text_Filter, if available, to wrap text.
+ * Add callback parameter to the Html2text filter.
+ * XSS filter now uses PHP DOM parser to process incoming text.
+ * Remove Horde/Core dependency.
+ * Add Horde_Text_Filter_Exception::.
+ * Html2text converter now uses XML parser to generate output.
+ * Add ability to define filters to use with preg_replace_callback().
+ * Add &apos;noprefetch&apos; parameter to XSS filter (Ticket #8836).
+ * Add XSS filtering for data URLs in A HREF parameters (Bug #8715).
  * Add support for Google Closure Compiler in javascript minfiy filter.
  * Fix dimming signatures when mixed with quoted text (Bug #4299).
  * Added javscript minify filter.
@@ -45,11 +51,15 @@ http://pear.php.net/dtd/package-2.0.xsd">
  * Initial Horde 4 package.
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Text">
       <dir name="Filter">
+       <dir name="JavascriptMinify">
+        <file name="JsMin.php" role="php" />
+       </dir> <!-- /lib/Horde/Text/Filter/JavascriptMinify -->
+       <file name="Base.php" role="php" />
        <file name="Bbcode.php" role="php" />
        <file name="Cleanascii.php" role="php" />
        <file name="Cleanhtml.php" role="php" />
@@ -57,17 +67,18 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Emails.php" role="php" />
        <file name="Emoticons.php" role="php" />
        <file name="Environment.php" role="php" />
+       <file name="Exception.php" role="php" />
        <file name="Highlightquotes.php" role="php" />
        <file name="Html2text.php" role="php" />
        <file name="JavascriptMinify.php" role="php" />
-       <dir name="JavascriptMinify">
-        <file name="JsMin.php" role="php" />
-       </dir> <!-- /lib/Horde/Text/Filter/JavascriptMinify -->
        <file name="Linkurls.php" role="php" />
        <file name="Simplemarkup.php" role="php" />
        <file name="Space2html.php" role="php" />
        <file name="Tabs2spaces.php" role="php" />
        <file name="Text2html.php" role="php" />
+       <file name="Translation.php" role="php">
+        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+       </file>
        <file name="Words.php" role="php" />
        <file name="Xss.php" role="php" />
       </dir> <!-- /lib/Horde/Text/Filter -->
@@ -75,111 +86,280 @@ http://pear.php.net/dtd/package-2.0.xsd">
      </dir> <!-- /lib/Horde/Text -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="ar">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/ar/LC_MESSAGES -->
+    </dir> <!-- /locale/ar -->
+    <dir name="bg">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/bg/LC_MESSAGES -->
+    </dir> <!-- /locale/bg -->
+    <dir name="bs">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/bs/LC_MESSAGES -->
+    </dir> <!-- /locale/bs -->
+    <dir name="ca">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/ca/LC_MESSAGES -->
+    </dir> <!-- /locale/ca -->
+    <dir name="cs">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/cs/LC_MESSAGES -->
+    </dir> <!-- /locale/cs -->
+    <dir name="da">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/da/LC_MESSAGES -->
+    </dir> <!-- /locale/da -->
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+    </dir> <!-- /locale/de -->
+    <dir name="el">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/el/LC_MESSAGES -->
+    </dir> <!-- /locale/el -->
+    <dir name="en">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/en/LC_MESSAGES -->
+    </dir> <!-- /locale/en -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+    </dir> <!-- /locale/es -->
+    <dir name="et">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/et/LC_MESSAGES -->
+    </dir> <!-- /locale/et -->
+    <dir name="eu">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/eu/LC_MESSAGES -->
+    </dir> <!-- /locale/eu -->
+    <dir name="fa">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/fa/LC_MESSAGES -->
+    </dir> <!-- /locale/fa -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+    </dir> <!-- /locale/fi -->
+    <dir name="fr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/fr/LC_MESSAGES -->
+    </dir> <!-- /locale/fr -->
+    <dir name="gl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/gl/LC_MESSAGES -->
+    </dir> <!-- /locale/gl -->
+    <dir name="he">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/he/LC_MESSAGES -->
+    </dir> <!-- /locale/he -->
+    <dir name="hr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/hr/LC_MESSAGES -->
+    </dir> <!-- /locale/hr -->
+    <dir name="hu">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/hu/LC_MESSAGES -->
+    </dir> <!-- /locale/hu -->
+    <dir name="id">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/id/LC_MESSAGES -->
+    </dir> <!-- /locale/id -->
+    <dir name="is">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/is/LC_MESSAGES -->
+    </dir> <!-- /locale/is -->
+    <dir name="it">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/it/LC_MESSAGES -->
+    </dir> <!-- /locale/it -->
+    <dir name="ja">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/ja/LC_MESSAGES -->
+    </dir> <!-- /locale/ja -->
+    <dir name="km">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/km/LC_MESSAGES -->
+    </dir> <!-- /locale/km -->
+    <dir name="ko">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/ko/LC_MESSAGES -->
+    </dir> <!-- /locale/ko -->
+    <dir name="lt">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/lt/LC_MESSAGES -->
+    </dir> <!-- /locale/lt -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+    </dir> <!-- /locale/lv -->
+    <dir name="mk">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/mk/LC_MESSAGES -->
+    </dir> <!-- /locale/mk -->
+    <dir name="nb">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/nb/LC_MESSAGES -->
+    </dir> <!-- /locale/nb -->
+    <dir name="nl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/nl/LC_MESSAGES -->
+    </dir> <!-- /locale/nl -->
+    <dir name="nn">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/nn/LC_MESSAGES -->
+    </dir> <!-- /locale/nn -->
+    <dir name="pl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/pl/LC_MESSAGES -->
+    </dir> <!-- /locale/pl -->
+    <dir name="pt">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/pt/LC_MESSAGES -->
+    </dir> <!-- /locale/pt -->
+    <dir name="pt_BR">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/pt_BR/LC_MESSAGES -->
+    </dir> <!-- /locale/pt_BR -->
+    <dir name="ro">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/ro/LC_MESSAGES -->
+    </dir> <!-- /locale/ro -->
+    <dir name="ru">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/ru/LC_MESSAGES -->
+    </dir> <!-- /locale/ru -->
+    <dir name="sk">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/sk/LC_MESSAGES -->
+    </dir> <!-- /locale/sk -->
+    <dir name="sl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/sl/LC_MESSAGES -->
+    </dir> <!-- /locale/sl -->
+    <dir name="sv">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/sv/LC_MESSAGES -->
+    </dir> <!-- /locale/sv -->
+    <dir name="tr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/tr/LC_MESSAGES -->
+    </dir> <!-- /locale/tr -->
+    <dir name="uk">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/uk/LC_MESSAGES -->
+    </dir> <!-- /locale/uk -->
+    <dir name="zh_CN">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/zh_CN/LC_MESSAGES -->
+    </dir> <!-- /locale/zh_CN -->
+    <dir name="zh_TW">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Text_Filter.mo" role="data" />
+      <file name="Horde_Text_Filter.po" role="data" />
+     </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
+    </dir> <!-- /locale/zh_TW -->
+    <file name="Horde_Text_Filter.pot" role="data" />
+   </dir> <!-- /locale -->
    <dir name="test">
     <dir name="Horde">
      <dir name="Text">
       <dir name="Filter">
-       <dir name="fixtures">
-        <file name="html2text.html" role="test" />
-        <file name="style_xss01.html" role="test" />
-        <file name="text2html.txt" role="test" />
-        <file name="xss01.html" role="test" />
-        <file name="xss02.html" role="test" />
-        <file name="xss03.html" role="test" />
-        <file name="xss04.html" role="test" />
-        <file name="xss05.html" role="test" />
-        <file name="xss06.html" role="test" />
-        <file name="xss07.html" role="test" />
-        <file name="xss08.html" role="test" />
-        <file name="xss09.html" role="test" />
-        <file name="xss10.html" role="test" />
-        <file name="xss11.html" role="test" />
-        <file name="xss12.html" role="test" />
-        <file name="xss13.html" role="test" />
-        <file name="xss14.html" role="test" />
-        <file name="xss15.html" role="test" />
-        <file name="xss16.html" role="test" />
-        <file name="xss17.html" role="test" />
-        <file name="xss18.html" role="test" />
-        <file name="xss19.html" role="test" />
-        <file name="xss20.html" role="test" />
-        <file name="xss21.html" role="test" />
-        <file name="xss22.html" role="test" />
-        <file name="xss23.html" role="test" />
-        <file name="xss24.html" role="test" />
-        <file name="xss25.html" role="test" />
-        <file name="xss26.html" role="test" />
-        <file name="xss27.html" role="test" />
-        <file name="xss28.html" role="test" />
-        <file name="xss29.html" role="test" />
-        <file name="xss30.html" role="test" />
-        <file name="xss31.html" role="test" />
-        <file name="xss32.html" role="test" />
-        <file name="xss33.html" role="test" />
-        <file name="xss34.html" role="test" />
-        <file name="xss35.html" role="test" />
-        <file name="xss36.html" role="test" />
-        <file name="xss37.html" role="test" />
-        <file name="xss38.html" role="test" />
-        <file name="xss39.html" role="test" />
-        <file name="xss40.html" role="test" />
-        <file name="xss41.html" role="test" />
-        <file name="xss42.html" role="test" />
-        <file name="xss43.html" role="test" />
-        <file name="xss44.html" role="test" />
-        <file name="xss45.html" role="test" />
-        <file name="xss46.html" role="test" />
-        <file name="xss47.html" role="test" />
-        <file name="xss48.html" role="test" />
-        <file name="xss49.html" role="test" />
-        <file name="xss50.html" role="test" />
-        <file name="xss51.html" role="test" />
-        <file name="xss52.html" role="test" />
-        <file name="xss53.html" role="test" />
-        <file name="xss54.html" role="test" />
-        <file name="xss55.html" role="test" />
-        <file name="xss56.html" role="test" />
-        <file name="xss57.html" role="test" />
-        <file name="xss58.html" role="test" />
-        <file name="xss59.html" role="test" />
-        <file name="xss60.html" role="test" />
-        <file name="xss61.html" role="test" />
-        <file name="xss62.html" role="test" />
-        <file name="xss63.html" role="test" />
-        <file name="xss64.html" role="test" />
-        <file name="xss65.html" role="test" />
-        <file name="xss66.html" role="test" />
-        <file name="xss67.html" role="test" />
-        <file name="xss68.html" role="test" />
-        <file name="xss69.html" role="test" />
-        <file name="xss70.html" role="test" />
-        <file name="xss71.html" role="test" />
-        <file name="xss72.html" role="test" />
-        <file name="xss73.html" role="test" />
-        <file name="xss74.html" role="test" />
-        <file name="xss75.html" role="test" />
-        <file name="xss76.html" role="test" />
-        <file name="xss77.html" role="test" />
-        <file name="xss78.html" role="test" />
-        <file name="xss79.html" role="test" />
-        <file name="xss80.html" role="test" />
-        <file name="xss81.html" role="test" />
-        <file name="xss82.html" role="test" />
-        <file name="xss83.html" role="test" />
-        <file name="xss84.html" role="test" />
-        <file name="xss85.html" role="test" />
-        <file name="xss97.html" role="test" />
-        <file name="xss98.html" role="test" />
-        <file name="xss99.html" role="test" />
-        <file name="xss100.html" role="test" />
-       </dir> <!-- /test/Horde/Text/Filter/fixtures -->
-       <file name="emails.phpt" role="test" />
-       <file name="environment.phpt" role="test" />
-       <file name="html2text.phpt" role="test" />
-       <file name="html2text2.phpt" role="test" />
-       <file name="space2html.phpt" role="test" />
-       <file name="text2html.phpt" role="test" />
-       <file name="xss.phpt" role="test" />
+       <file name="AllTests.php" role="test" />
+       <file name="Autoload.php" role="test" />
+       <file name="EmailsTest.php" role="test" />
+       <file name="EnvironmentTest.php" role="test" />
+       <file name="Html2textTest.php" role="test" />
+       <file name="phpunit.xml" role="test" />
+       <file name="Space2htmlTest.php" role="test" />
+       <file name="Text2htmlTest.php" role="test" />
+       <file name="XssTest.php" role="test" />
       </dir> <!-- /test/Horde/Text/Filter -->
      </dir> <!-- /test/Horde/Text -->
     </dir> <!-- /test/Horde -->
@@ -195,6 +375,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.5.4</min>
    </pearinstaller>
    <package>
+    <name>Exception</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Util</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -204,35 +388,157 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <name>Text_Filter_Csstidy</name>
     <channel>pear.horde.org</channel>
    </package>
+   <package>
+    <name>Text_Flowed</name>
+    <channel>pear.horde.org</channel>
+   </package>
    <extension>
-    <name>gettext</name>
+    <name>dom</name>
    </extension>
+   <package>
+    <name>Translation</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </optional>
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Text/Filter/Bbcode.php" as="Horde/Text/Filter/Bbcode.php" />
-   <install name="lib/Horde/Text/Filter/Cleanascii.php" as="Horde/Text/Filter/Cleanascii.php" />
-   <install name="lib/Horde/Text/Filter/Cleanhtml.php" as="Horde/Text/Filter/Cleanhtml.php" />
-   <install name="lib/Horde/Text/Filter/Dimsignature.php" as="Horde/Text/Filter/Dimsignature.php" />
-   <install name="lib/Horde/Text/Filter/Emails.php" as="Horde/Text/Filter/Emails.php" />
-   <install name="lib/Horde/Text/Filter/Emoticons.php" as="Horde/Text/Filter/Emoticons.php" />
-   <install name="lib/Horde/Text/Filter/Environment.php" as="Horde/Text/Filter/Environment.php" />
-   <install name="lib/Horde/Text/Filter/Highlightquotes.php" as="Horde/Text/Filter/Highlightquotes.php" />
-   <install name="lib/Horde/Text/Filter/Html2text.php" as="Horde/Text/Filter/Html2text.php" />
-   <install name="lib/Horde/Text/Filter/JavascriptMinify.php" as="Horde/Text/Filter/JavascriptMinify.php" />
-   <install name="lib/Horde/Text/Filter/JavascriptMinify/JsMin.php" as="Horde/Text/Filter/JavascriptMinify/JsMin.php" />
-   <install name="lib/Horde/Text/Filter/Linkurls.php" as="Horde/Text/Filter/Linkurls.php" />
-   <install name="lib/Horde/Text/Filter/Simplemarkup.php" as="Horde/Text/Filter/Simplemarkup.php" />
-   <install name="lib/Horde/Text/Filter/Space2html.php" as="Horde/Text/Filter/Space2html.php" />
-   <install name="lib/Horde/Text/Filter/Tabs2spaces.php" as="Horde/Text/Filter/Tabs2spaces.php" />
-   <install name="lib/Horde/Text/Filter/Text2html.php" as="Horde/Text/Filter/Text2html.php" />
-   <install name="lib/Horde/Text/Filter/Words.php" as="Horde/Text/Filter/Words.php" />
-   <install name="lib/Horde/Text/Filter/Xss.php" as="Horde/Text/Filter/Xss.php" />
-   <install name="lib/Horde/Text/Filter.php" as="Horde/Text/Filter.php" />
+   <install as="Horde/Text/Filter.php" name="lib/Horde/Text/Filter.php" />
+   <install as="Horde/Text/Filter/Base.php" name="lib/Horde/Text/Filter/Base.php" />
+   <install as="Horde/Text/Filter/Bbcode.php" name="lib/Horde/Text/Filter/Bbcode.php" />
+   <install as="Horde/Text/Filter/Cleanascii.php" name="lib/Horde/Text/Filter/Cleanascii.php" />
+   <install as="Horde/Text/Filter/Cleanhtml.php" name="lib/Horde/Text/Filter/Cleanhtml.php" />
+   <install as="Horde/Text/Filter/Dimsignature.php" name="lib/Horde/Text/Filter/Dimsignature.php" />
+   <install as="Horde/Text/Filter/Emails.php" name="lib/Horde/Text/Filter/Emails.php" />
+   <install as="Horde/Text/Filter/Emoticons.php" name="lib/Horde/Text/Filter/Emoticons.php" />
+   <install as="Horde/Text/Filter/Environment.php" name="lib/Horde/Text/Filter/Environment.php" />
+   <install as="Horde/Text/Filter/Exception.php" name="lib/Horde/Text/Filter/Exception.php" />
+   <install as="Horde/Text/Filter/Highlightquotes.php" name="lib/Horde/Text/Filter/Highlightquotes.php" />
+   <install as="Horde/Text/Filter/Html2text.php" name="lib/Horde/Text/Filter/Html2text.php" />
+   <install as="Horde/Text/Filter/JavascriptMinify.php" name="lib/Horde/Text/Filter/JavascriptMinify.php" />
+   <install as="Horde/Text/Filter/Linkurls.php" name="lib/Horde/Text/Filter/Linkurls.php" />
+   <install as="Horde/Text/Filter/Simplemarkup.php" name="lib/Horde/Text/Filter/Simplemarkup.php" />
+   <install as="Horde/Text/Filter/Space2html.php" name="lib/Horde/Text/Filter/Space2html.php" />
+   <install as="Horde/Text/Filter/Tabs2spaces.php" name="lib/Horde/Text/Filter/Tabs2spaces.php" />
+   <install as="Horde/Text/Filter/Text2html.php" name="lib/Horde/Text/Filter/Text2html.php" />
+   <install as="Horde/Text/Filter/Translation.php" name="lib/Horde/Text/Filter/Translation.php" />
+   <install as="Horde/Text/Filter/Words.php" name="lib/Horde/Text/Filter/Words.php" />
+   <install as="Horde/Text/Filter/Xss.php" name="lib/Horde/Text/Filter/Xss.php" />
+   <install as="Horde/Text/Filter/JavascriptMinify/JsMin.php" name="lib/Horde/Text/Filter/JavascriptMinify/JsMin.php" />
+   <install as="locale/Horde_Text_Filter.pot" name="locale/Horde_Text_Filter.pot" />
+   <install as="locale/ar/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/ar/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/ar/LC_MESSAGES/Horde_Text_Filter.po" name="locale/ar/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/bg/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/bg/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/bg/LC_MESSAGES/Horde_Text_Filter.po" name="locale/bg/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/bs/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/bs/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/bs/LC_MESSAGES/Horde_Text_Filter.po" name="locale/bs/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/ca/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/ca/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/ca/LC_MESSAGES/Horde_Text_Filter.po" name="locale/ca/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/cs/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/cs/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/cs/LC_MESSAGES/Horde_Text_Filter.po" name="locale/cs/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/da/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/da/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/da/LC_MESSAGES/Horde_Text_Filter.po" name="locale/da/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/de/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/de/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/de/LC_MESSAGES/Horde_Text_Filter.po" name="locale/de/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/el/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/el/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/el/LC_MESSAGES/Horde_Text_Filter.po" name="locale/el/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/en/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/en/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/en/LC_MESSAGES/Horde_Text_Filter.po" name="locale/en/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/es/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/es/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/es/LC_MESSAGES/Horde_Text_Filter.po" name="locale/es/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/et/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/et/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/et/LC_MESSAGES/Horde_Text_Filter.po" name="locale/et/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/eu/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/eu/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/eu/LC_MESSAGES/Horde_Text_Filter.po" name="locale/eu/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/fa/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/fa/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/fa/LC_MESSAGES/Horde_Text_Filter.po" name="locale/fa/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/fi/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/fi/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/fi/LC_MESSAGES/Horde_Text_Filter.po" name="locale/fi/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/fr/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/fr/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/fr/LC_MESSAGES/Horde_Text_Filter.po" name="locale/fr/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/gl/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/gl/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/gl/LC_MESSAGES/Horde_Text_Filter.po" name="locale/gl/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/he/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/he/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/he/LC_MESSAGES/Horde_Text_Filter.po" name="locale/he/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/hr/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/hr/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/hr/LC_MESSAGES/Horde_Text_Filter.po" name="locale/hr/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/hu/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/hu/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/hu/LC_MESSAGES/Horde_Text_Filter.po" name="locale/hu/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/id/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/id/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/id/LC_MESSAGES/Horde_Text_Filter.po" name="locale/id/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/is/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/is/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/is/LC_MESSAGES/Horde_Text_Filter.po" name="locale/is/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/it/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/it/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/it/LC_MESSAGES/Horde_Text_Filter.po" name="locale/it/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/ja/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/ja/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/ja/LC_MESSAGES/Horde_Text_Filter.po" name="locale/ja/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/km/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/km/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/km/LC_MESSAGES/Horde_Text_Filter.po" name="locale/km/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/ko/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/ko/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/ko/LC_MESSAGES/Horde_Text_Filter.po" name="locale/ko/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/lt/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/lt/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/lt/LC_MESSAGES/Horde_Text_Filter.po" name="locale/lt/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/lv/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/lv/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/lv/LC_MESSAGES/Horde_Text_Filter.po" name="locale/lv/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/mk/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/mk/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/mk/LC_MESSAGES/Horde_Text_Filter.po" name="locale/mk/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/nb/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/nb/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/nb/LC_MESSAGES/Horde_Text_Filter.po" name="locale/nb/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/nl/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/nl/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/nl/LC_MESSAGES/Horde_Text_Filter.po" name="locale/nl/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/nn/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/nn/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/nn/LC_MESSAGES/Horde_Text_Filter.po" name="locale/nn/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/pl/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/pl/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/pl/LC_MESSAGES/Horde_Text_Filter.po" name="locale/pl/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/pt/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/pt/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/pt/LC_MESSAGES/Horde_Text_Filter.po" name="locale/pt/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/pt_BR/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/pt_BR/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/pt_BR/LC_MESSAGES/Horde_Text_Filter.po" name="locale/pt_BR/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/ro/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/ro/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/ro/LC_MESSAGES/Horde_Text_Filter.po" name="locale/ro/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/ru/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/ru/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/ru/LC_MESSAGES/Horde_Text_Filter.po" name="locale/ru/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/sk/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/sk/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/sk/LC_MESSAGES/Horde_Text_Filter.po" name="locale/sk/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/sl/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/sl/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/sl/LC_MESSAGES/Horde_Text_Filter.po" name="locale/sl/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/sv/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/sv/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/sv/LC_MESSAGES/Horde_Text_Filter.po" name="locale/sv/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/tr/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/tr/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/tr/LC_MESSAGES/Horde_Text_Filter.po" name="locale/tr/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/uk/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/uk/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/uk/LC_MESSAGES/Horde_Text_Filter.po" name="locale/uk/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/zh_CN/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/zh_CN/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/zh_CN/LC_MESSAGES/Horde_Text_Filter.po" name="locale/zh_CN/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="locale/zh_TW/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Text_Filter.mo" />
+   <install as="locale/zh_TW/LC_MESSAGES/Horde_Text_Filter.po" name="locale/zh_TW/LC_MESSAGES/Horde_Text_Filter.po" />
+   <install as="Horde/Text/Filter/AllTests.php" name="test/Horde/Text/Filter/AllTests.php" />
+   <install as="Horde/Text/Filter/Autoload.php" name="test/Horde/Text/Filter/Autoload.php" />
+   <install as="Horde/Text/Filter/EmailsTest.php" name="test/Horde/Text/Filter/EmailsTest.php" />
+   <install as="Horde/Text/Filter/EnvironmentTest.php" name="test/Horde/Text/Filter/EnvironmentTest.php" />
+   <install as="Horde/Text/Filter/Html2textTest.php" name="test/Horde/Text/Filter/Html2textTest.php" />
+   <install as="Horde/Text/Filter/phpunit.xml" name="test/Horde/Text/Filter/phpunit.xml" />
+   <install as="Horde/Text/Filter/Space2htmlTest.php" name="test/Horde/Text/Filter/Space2htmlTest.php" />
+   <install as="Horde/Text/Filter/Text2htmlTest.php" name="test/Horde/Text/Filter/Text2htmlTest.php" />
+   <install as="Horde/Text/Filter/XssTest.php" name="test/Horde/Text/Filter/XssTest.php" />
   </filelist>
  </phprelease>
  <changelog>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2004-10-12</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+Initial release as a PEAR package
+   </notes>
+  </release>
   <release>
    <date>2006-05-08</date>
    <time>23:39:08</time>
@@ -245,26 +551,41 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <api>alpha</api>
    </stability>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>* Don't strip BASE tags when 'strip_styles' is false.
+   <notes>
+* Don&apos;t strip BASE tags when &apos;strip_styles&apos; is false.
    * Added ability to link &lt;test@example.com&gt; e-mail addresses in plain text.
    * Removed dependency on external javascript file when toggling quoted lines.
    * Converted to package.xml 2.0 for pear.horde.org
-   * Allow the bad words filter to leave the first character of a matching word and replace the rest with '*' (duck@obala.net).
+   * Allow the bad words filter to leave the first character of a matching word and replace the rest with &apos;*&apos; (duck@obala.net).
    * Improved efficiency of the linkurls filter when searching long lines
    </notes>
   </release>
   <release>
    <version>
-    <release>0.0.1</release>
-    <api>0.0.1</api>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
    </version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api>
+    <release>beta</release>
+    <api>beta</api>
    </stability>
-   <date>2004-10-12</date>
+   <date>2010-10-22</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Initial release as a PEAR package
+   <notes>
+* Html2text filter will use horde/Text_Filter, if available, to wrap text.
+ * Add callback parameter to the Html2text filter.
+ * XSS filter now uses PHP DOM parser to process incoming text.
+ * Remove Horde/Core dependency.
+ * Add Horde_Text_Filter_Exception::.
+ * Html2text converter now uses XML parser to generate output.
+ * Add ability to define filters to use with preg_replace_callback().
+ * Add &apos;noprefetch&apos; parameter to XSS filter (Ticket #8836).
+ * Add XSS filtering for data URLs in A HREF parameters (Bug #8715).
+ * Add support for Google Closure Compiler in javascript minfiy filter.
+ * Fix dimming signatures when mixed with quoted text (Bug #4299).
+ * Added javscript minify filter.
+ * Add support for using the tidy extension when filtering HTML data.
+ * Initial Horde 4 package.
    </notes>
   </release>
  </changelog>

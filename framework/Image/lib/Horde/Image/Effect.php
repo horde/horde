@@ -23,6 +23,8 @@ class Horde_Image_Effect
      */
     protected $_image = null;
 
+    protected $_logger;
+
     /**
      * Effect constructor.
      *
@@ -51,7 +53,12 @@ class Horde_Image_Effect
         $this->_image = &$image;
     }
 
-    public function factory($type, $driver, $params)
+    public function setLogger($logger)
+    {
+        $this->_logger = $logger;
+    }
+
+    static public function factory($type, $driver, $params)
     {
         if (is_array($type)) {
             list($app, $type) = $type;
@@ -79,10 +86,16 @@ class Horde_Image_Effect
                 @include_once $path;
             }
         }
+        
         if (class_exists($class)) {
             $effect = new $class($params);
         } else {
-            $effect = PEAR::raiseError(sprintf("Horde_Image_Effect %s for %s driver not found.", $type, $driver));
+            $params['logger']->err(sprintf("Horde_Image_Effect %s for %s driver not found.", $type, $driver));
+            throw new Horde_Image_Exception(sprintf("Horde_Image_Effect %s for %s driver not found.", $type, $driver));
+        }
+
+        if (!empty($params['logger'])) {
+            $effect->setLogger($params['logger']);
         }
 
         return $effect;

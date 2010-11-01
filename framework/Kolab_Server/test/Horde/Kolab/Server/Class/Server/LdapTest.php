@@ -34,10 +34,8 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
 {
     public function setUp()
     {
-        $this->skipIfNoLdap();
-
-        $this->ldap_read  = $this->getMock('Net_LDAP2');
-        $this->ldap_write = $this->getMock('Net_LDAP2');
+        $this->ldap_read  = $this->getMock('Horde_Ldap');
+        $this->ldap_write = $this->getMock('Horde_Ldap');
         $connection = new Horde_Kolab_Server_Connection_Splittedldap(
             $this->ldap_read,
             $this->ldap_write
@@ -52,10 +50,10 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
     private function getSearchResultMock()
     {
         $result = $this->getMock(
-            'Net_LDAP2_Search', array('as_struct', 'count'), array(), '', false
+            'Horde_Ldap_Search', array('asArray', 'count'), array(), '', false
         );
         $result->expects($this->any())
-            ->method('as_struct')
+            ->method('asArray')
             ->will($this->returnValue(array(array('dn' => 'test'))));
         $result->expects($this->any())
             ->method('count')
@@ -109,13 +107,13 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
     {
         $this->ldap_read->expects($this->exactly(1))
             ->method('bind')
-            ->will($this->returnValue(new PEAR_Error('Bind failed!')));
+            ->will($this->throwException(new Horde_Ldap_Exception('Bind failed!')));
         try {
             $this->server->connectGuid('test', 'test');
             $this->fail('No exception!');
         } catch (Exception $e) {
             $this->assertEquals('Bind failed!', $e->getMessage());
-            $this->assertEquals(Horde_Kolab_Server_Exception::BIND_FAILED, $e->getCode());
+            $this->assertEquals(Horde_Kolab_Server_Exception::SYSTEM, $e->getCode());
         }
     }
 
@@ -123,12 +121,12 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
     {
         $this->ldap_read->expects($this->exactly(1))
             ->method('bind')
-            ->will($this->returnValue(new PEAR_Error('Credentials invalid!', 49)));
+            ->will($this->throwException(new Horde_Ldap_Exception('Credentials invalid!', 49)));
         try {
             $this->server->connectGuid('test', 'test');
             $this->fail('No exception!');
         } catch (Horde_Kolab_Server_Exception_Bindfailed $e) {
-            $this->assertEquals('Credentials invalid!', $e->getMessage());
+            $this->assertEquals('Invalid username/password!', $e->getMessage());
         }
     }
 
@@ -164,7 +162,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
     public function testMethodReadThrowsExceptionIfTheObjectWasNotFound()
     {
         $result = $this->getMock(
-            'Net_LDAP2_Search', array('as_struct', 'count'), array(), '', false
+            'Horde_Ldap_Search', array('asArray', 'count'), array(), '', false
         );
         $result->expects($this->exactly(1))
             ->method('count')
@@ -211,7 +209,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
     public function testMethodReadAttributesThrowsExceptionIfTheObjectWasNotFound()
     {
         $result = $this->getMock(
-            'Net_LDAP2_Search', array('as_struct', 'count'), array(), '', false
+            'Horde_Ldap_Search', array('asArray', 'count'), array(), '', false
         );
         $result->expects($this->exactly(1))
             ->method('count')
@@ -263,7 +261,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
     {
         $this->ldap_read->expects($this->exactly(1))
             ->method('search')
-            ->will($this->returnValue(new PEAR_Error('Search failed!')));
+            ->will($this->throwException(new Horde_Ldap_Exception('Search failed!')));
         try {
             $this->assertEquals(array('dn' => 'test'), $this->server->find('(equals=equals)'));
             $this->fail('No exception!');
@@ -276,7 +274,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
     public function testMethodSaveHasParameterObjectTheObjectToModifyOnTheServer()
     {
         $entry = $this->getMock(
-            'Net_LDAP2_Entry', array(), array(), '', false
+            'Horde_Ldap_Entry', array(), array(), '', false
         );
         $object = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $this->ldap_write->expects($this->exactly(1))
@@ -284,7 +282,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
             ->will($this->returnValue($entry));
         $this->ldap_write->expects($this->exactly(1))
             ->method('modify')
-            ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Net_LDAP2_Entry'));
+            ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Horde_Ldap_Entry'));
         $object->expects($this->exactly(1))
             ->method('readInternal')
             ->will($this->returnValue(array()));
@@ -294,7 +292,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
     public function testMethodSaveHasParameterArrayData()
     {
         $entry = $this->getMock(
-            'Net_LDAP2_Entry', array(), array(), '', false
+            'Horde_Ldap_Entry', array(), array(), '', false
         );
         $object = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $this->ldap_write->expects($this->exactly(1))
@@ -302,7 +300,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
             ->will($this->returnValue($entry));
         $this->ldap_write->expects($this->exactly(1))
             ->method('modify')
-            ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Net_LDAP2_Entry'));
+            ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Horde_Ldap_Entry'));
         $object->expects($this->exactly(1))
             ->method('readInternal')
             ->will($this->returnValue(array()));
@@ -312,7 +310,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
     public function testMethodSaveHasPostconditionThatTheEntryWasModified()
     {
         $entry = $this->getMock(
-            'Net_LDAP2_Entry', array(), array(), '', false
+            'Horde_Ldap_Entry', array(), array(), '', false
         );
         $object = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $this->ldap_write->expects($this->exactly(1))
@@ -320,7 +318,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
             ->will($this->returnValue($entry));
         $this->ldap_write->expects($this->exactly(1))
             ->method('modify')
-            ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Net_LDAP2_Entry'));
+            ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Horde_Ldap_Entry'));
         $object->expects($this->exactly(1))
             ->method('readInternal')
             ->will($this->returnValue(array()));
@@ -332,7 +330,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
         $object = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $this->ldap_write->expects($this->exactly(1))
             ->method('modify')
-            ->will($this->returnValue(new PEAR_Error('Saving failed!')));
+            ->will($this->throwException(new Horde_Ldap_Exception('Saving failed!')));
         $object->expects($this->exactly(1))
             ->method('readInternal')
             ->will($this->returnValue(array()));
@@ -350,7 +348,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
         $object = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $this->ldap_write->expects($this->exactly(1))
             ->method('add')
-            ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Net_LDAP2_Entry'));
+            ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Horde_Ldap_Entry'));
         $this->server->add($object, array('attributes' => array('dn')));
     }
 
@@ -359,7 +357,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
         $object = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $this->ldap_write->expects($this->exactly(1))
             ->method('add')
-            ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Net_LDAP2_Entry'));
+            ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Horde_Ldap_Entry'));
         $this->server->add($object, array('dn' => 'test'));
     }
 
@@ -368,7 +366,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
         $object = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $this->ldap_write->expects($this->exactly(1))
             ->method('add')
-            ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Net_LDAP2_Entry'));
+            ->with(new PHPUnit_Framework_Constraint_IsInstanceOf('Horde_Ldap_Entry'));
         $this->server->add($object, array('dn' => 'test'));
     }
 
@@ -377,12 +375,12 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
         $object = $this->getMock('Horde_Kolab_Server_Object_Interface');
         $this->ldap_write->expects($this->exactly(1))
             ->method('add')
-            ->will($this->returnValue(new PEAR_Error('Saving failed!')));
+            ->will($this->throwException(new Horde_Ldap_Exception('Saving failed!')));
         try {
             $this->server->add($object, array('add' => array('dn' => 'test')));
             $this->fail('No exception!');
         } catch (Exception $e) {
-            $this->assertEquals('Saving failed!', $e->getMessage());
+            $this->assertEquals('Adding object failed!', $e->getMessage());
             $this->assertEquals(Horde_Kolab_Server_Exception::SYSTEM, $e->getCode());
         }
     }
@@ -407,12 +405,12 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
     {
         $this->ldap_write->expects($this->exactly(1))
             ->method('delete')
-            ->will($this->returnValue(new PEAR_Error('Deleting failed!')));
+            ->will($this->throwException(new Horde_Ldap_Exception('Deleting failed!')));
         try {
             $this->server->delete('test');
             $this->fail('No exception!');
         } catch (Exception $e) {
-            $this->assertEquals('Deleting failed!', $e->getMessage());
+            $this->assertEquals('Deleting object failed!', $e->getMessage());
             $this->assertEquals(Horde_Kolab_Server_Exception::SYSTEM, $e->getCode());
         }
     }
@@ -445,12 +443,12 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
     {
         $this->ldap_write->expects($this->exactly(1))
             ->method('move')
-            ->will($this->returnValue(new PEAR_Error('Renaming failed!')));
+            ->will($this->throwException(new Horde_Ldap_Exception('Renaming failed!')));
         try {
             $this->server->rename('test', 'new');
             $this->fail('No exception!');
         } catch (Exception $e) {
-            $this->assertEquals('Renaming failed!', $e->getMessage());
+            $this->assertEquals('Renaming object failed!', $e->getMessage());
             $this->assertEquals(Horde_Kolab_Server_Exception::SYSTEM, $e->getCode());
         }
     }
@@ -470,12 +468,12 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
     {
         $this->ldap_read->expects($this->exactly(1))
             ->method('schema')
-            ->will($this->returnValue(new PEAR_Error('Schema failed!')));
+            ->will($this->throwException(new Horde_Ldap_Exception('Schema failed!')));
         try {
             $this->server->getSchema();
             $this->fail('No exception!');
         } catch (Exception $e) {
-            $this->assertEquals('Schema failed!', $e->getMessage());
+            $this->assertEquals('Retrieving the schema failed!', $e->getMessage());
             $this->assertEquals(Horde_Kolab_Server_Exception::SYSTEM, $e->getCode());
         }
     }
@@ -489,7 +487,7 @@ class Horde_Kolab_Server_Class_Server_LdapTest extends Horde_Kolab_Server_LdapTe
 
 /*     public function testMethodSearchReturnsArrayMappedSearchResultIfMappingIsActivated() */
 /*     { */
-/*         $ldap = $this->getMock('Net_LDAP2', array('search')); */
+/*         $ldap = $this->getMock('Horde_Ldap', array('search')); */
 /*         $ldap->expects($this->exactly(1)) */
 /*             ->method('search') */
 /*             ->will($this->returnValue(new Search_Mock(array(array('dn2' => 'test'))))); */

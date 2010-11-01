@@ -11,22 +11,21 @@
 /* Send the browser back to the correct page. */
 function _returnToPage()
 {
-    $url = Horde_Util::getFormData('return_url', Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/login.php', true));
-    header('Location: ' . str_replace('&amp;', '&', $url));
-    exit;
+    $url = new Horde_Url(Horde_Util::getFormData('return_url', Horde::url('login.php', true, array('app' => 'horde'))));
+    $url->redirect();
 }
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-new Horde_Application(array('authentication' => 'none'));
+Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
-if (!Horde::showService('problem')) {
+if (!Horde_Menu::showService('problem')) {
     _returnToPage();
 }
 
-$identity = Horde_Prefs_Identity::singleton();
+$identity = $injector->getInstance('Horde_Core_Factory_Identity')->create();
 $email = $identity->getValue('from_addr');
 if (!$email) {
-    $email = Horde_Util::getFormData('email', Horde_Auth::getAuth());
+    $email = Horde_Util::getFormData('email', $registry->getAuth());
 }
 $message = Horde_Util::getFormData('message', '');
 $name = Horde_Util::getFormData('name', $identity->getValue('fullname'));
@@ -53,14 +52,14 @@ case 'send_problem_report':
         /* Check for attachments. */
         $attachment = null;
         if (!empty($conf['problems']['attachments'])) {
-            $result = Horde_Browser::wasFileUploaded('attachment', _("attachment"));
-            if (is_a($result, 'PEAR_Error')) {
-                if ($result->getCode() != UPLOAD_ERR_NO_FILE) {
-                    $notification->push($result, 'horde.error');
+            try {
+                $browser->wasFileUploaded('attachment', _("attachment"));
+                $attachment = $_FILES['attachment'];
+            } catch (Horde_Browser_Exception $e) {
+                if ($e->getCode() != UPLOAD_ERR_NO_FILE) {
+                    $notification->push($e, 'horde.error');
                     break;
                 }
-            } else {
-                $attachment = $_FILES['attachment'];
             }
         }
 
@@ -70,23 +69,31 @@ case 'send_problem_report':
                                 array('summary' => $subject,
                                       'comment' => $body,
                                       'user_email' => $email));
-            $result = $registry->call('tickets/addTicket', array($info));
-            if (is_a($result, 'PEAR_Error')) {
-                $notification->push($result);
-            } else {
-                if ($attachment &&
-                    $registry->hasMethod('tickets/addAttachment')) {
-                    $result = $registry->call(
-                        'tickets/addAttachment',
-                        array('ticket_id' => $result,
-                              'name' => $attachment['name'],
-                              'data' => file_get_contents($attachment['tmp_name'])));
-                    if (is_a($result, 'PEAR_Error')) {
-                        $notification->push($result);
-                    }
-                }
-                _returnToPage();
+
+            try {
+                $registry->call('tickets/addTicket', array($info));
+            } catch (Horde_Exception $e) {
+                $notification->push($e);
+                break;
             }
+
+            if ($attachment &&
+                $registry->hasMethod('tickets/addAttachment')) {
+                try {
+                    $registry->call(
+                        'tickets/addAttachment',
+                        array(
+                            'ticket_id' => $result,
+                            'name' => $attachment['name'],
+                            'data' => file_get_contents($attachment['tmp_name'])
+                        )
+                    );
+                } catch (Horde_Exception $e) {
+                    $notification->push($e);
+                }
+            }
+
+            _returnToPage();
         } else {
             /* Add user's name to the email address if provided. */
             if ($name) {
@@ -101,7 +108,7 @@ case 'send_problem_report':
                                               'body' => $body,
                                               'to' => $conf['problems']['email'],
                                               'from' => $email,
-                                              'charset' => Horde_Nls::getCharset()));
+                                              'charset' => 'UTF-8'));
             $mail->addHeader('Sender', 'horde-problem@' . $conf['problems']['maildomain']);
 
             /* Add attachment. */
@@ -112,7 +119,7 @@ case 'send_problem_report':
             }
 
             try {
-                $mail->send(Horde::getMailerConfig());
+                $mail->send($injector->getInstance('Horde_Mail'));
 
                 /* We succeeded. */
                 Horde::logMessage(
@@ -120,7 +127,7 @@ case 'send_problem_report':
                             $_SERVER['REMOTE_ADDR'],
                             preg_replace('/^.*<([^>]+)>.*$/', '$1', $conf['problems']['email']),
                             preg_replace('/^.*<([^>]+)>.*$/', '$1', $email)),
-                    __FILE__, __LINE__, PEAR_LOG_INFO);
+                    __FILE__, __LINE__, 'INFO');
 
                 /* Return to previous page and exit this script. */
                 _returnToPage();
@@ -137,7 +144,7 @@ case 'cancel_problem_report':
 
 $title = _("Problem Description");
 require HORDE_TEMPLATES . '/common-header.inc';
-require HORDE_TEMPLATES . '/menu/menu.inc';
+echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 require HORDE_TEMPLATES . '/problem/problem.inc';
 require HORDE_TEMPLATES . '/common-footer.inc';

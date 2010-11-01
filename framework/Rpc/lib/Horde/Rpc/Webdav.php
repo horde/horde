@@ -182,13 +182,6 @@ class Horde_Rpc_Webdav extends Horde_Rpc
     var $_http_status = "200 OK";
 
     /**
-     * encoding of property values passed in
-     *
-     * @var string
-     */
-    var $_prop_encoding = "utf-8";
-
-    /**
      * Copy of $_SERVER superglobal array
      *
      * Derived classes may extend the constructor to
@@ -216,7 +209,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
      *
      * @access private
      */
-    public function __construct()
+    public function __construct($request, $params = array())
     {
         // PHP messages destroy XML output -> switch them off
         ini_set('display_errors', 0);
@@ -225,7 +218,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         // so that derived classes can simply modify these
         $this->_SERVER = $_SERVER;
 
-        parent::__construct();
+        parent::__construct($request, $params);
     }
 
     /**
@@ -321,7 +314,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         try {
             $GLOBALS['registry']->callByPackage($pieces[0], 'put', array('path' => $path, 'content' => $content, 'type' => $options['content_type']));
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             if ($e->getCode()) {
                 return $this->_checkHTTPCode($e->getCode()) . ' ' . $result->getMessage();
             }
@@ -351,7 +344,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         $pieces = explode('/', trim($this->path, '/'), 2);
 
         if (count($pieces) != 2) {
-            Horde::logMessage(sprintf(_("Error deleting from path %s; must be [app]/[path]", $options['path'])), __FILE__, __LINE__, PEAR_LOG_INFO);
+            Horde::logMessage(sprintf(Horde_Rpc_Translation::t("Error deleting from path %s; must be [app]/[path]", $options['path'])), 'INFO');
             return '403 Must supply a resource within the application to delete.';
         }
 
@@ -364,7 +357,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         try {
             $GLOBALS['registry']->callByPackage($app, 'path_delete', array($path));
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_INFO);
+            Horde::logMessage($e, 'INFO');
             if ($e->getCode()) {
                 return $this->_checkHTTPCode($e->getCode()) . ' ' . $e->getMessage();
             }
@@ -412,7 +405,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         // Take the module name from the path
         $pieces = explode('/', $path, 2);
         if (count($pieces) != 2) {
-            Horde::logMessage(sprintf(_("Unable to create directory %s; must be [app]/[path]"), $path), __FILE__, __LINE__, PEAR_LOG_INFO);
+            Horde::logMessage(sprintf(Horde_Rpc_Translation::t("Unable to create directory %s; must be [app]/[path]"), $path), 'INFO');
             return '403 Must specify a resource within an application.  MKCOL disallowed at top level.';
         }
 
@@ -420,7 +413,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         try {
             $GLOBALS['registry']->callByPackage($pieces[0], 'mkcol', array('path' => $path));
         } catch (Horde_Exception $e) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             if ($e->getCode()) {
                 return $this->_checkHTTPCode($e->getCode()) . ' ' . $e->getMessage();
             }
@@ -447,7 +440,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         // Take the module name from the path
         $sourcePieces = explode('/', $path, 2);
         if (count($sourcePieces) != 2) {
-            Horde::logMessage(sprintf(_("Unable to rename %s; must be [app]/[path] and within the same application."), $path), __FILE__, __LINE__, PEAR_LOG_INFO);
+            Horde::logMessage(sprintf(Horde_Rpc_Translation::t("Unable to rename %s; must be [app]/[path] and within the same application."), $path), 'INFO');
             return '403 Must specify a resource within an application.  MOVE disallowed at top level.';
         }
 
@@ -460,7 +453,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         try {
             $GLOBALS['registry']->callByPackage($sourcePieces[0], 'move', array('path' => $path, 'dest' => $options['dest']));
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             if ($e->getCode()) {
                 return $this->_checkHTTPCode($e->getCode()) . ' ' . $e->getMessage();
             }
@@ -511,7 +504,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
 
             $apps = $registry->listApps(null, false, Horde_Perms::READ);
             if (is_a($apps, 'PEAR_Error')) {
-                Horde::logMessage($apps, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($apps, 'ERR');
                 return $apps;
             }
             foreach ($apps as $app) {
@@ -529,7 +522,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
             try {
                 $items = $registry->callByPackage($pieces[0], 'browse', array('path' => $path, 'properties' => array('name', 'browseable', 'contenttype', 'contentlength', 'created', 'modified')));
             } catch (Horde_Exception $e) {
-                Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($e, 'ERR');
                 return $e;
             }
 
@@ -588,7 +581,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
 
         // Handle certain standard properties specially
         if (in_array('displayname', $properties['DAV:'])) {
-            $props[] = $this->mkprop('displayname', Horde_String::convertCharset($item['name'], Horde_Nls::getCharset(), 'UTF-8'));
+            $props[] = $this->mkprop('displayname', $item['name']);
             unset($properties['DAV:']['displayname']);
         }
         if (in_array('getlastmodified', $properties['DAV:'])) {
@@ -668,7 +661,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         }
 
         if (empty($params['path'])) {
-            Horde::logMessage('Empty path supplied to LOCK()', __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage('Empty path supplied to LOCK()', 'ERR');
             return 403;
         }
         if ($params['path'] == '/') {
@@ -697,9 +690,9 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         }
 
         try {
-            $locks = Horde_Lock::singleton($GLOBALS['conf']['lock']['driver']);
+            $locks = $GLOBALS['injector']->getInstance('Horde_Lock');
         } catch (Horde_Lock_Exception $e) {
-            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             return 500;
         }
 
@@ -709,10 +702,10 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         }
 
         try {
-            $lockid = $locks->setLock(Horde_Auth::getAuth(), 'webdav', $params['path'],
+            $lockid = $locks->setLock($GLOBALS['registry']->getAuth(), 'webdav', $params['path'],
                                       $timeout, $locktype);
         } catch (Horde_Lock_Exception $e) {
-            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             return 500;
         }
         if ($lockid === false) {
@@ -721,7 +714,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         }
 
         $params['locktoken'] = $lockid;
-        $params['owner'] = Horde_Auth::getAuth();
+        $params['owner'] = $GLOBALS['registry']->getAuth();
         $params['timeout'] = $timeout;
 
         return "200";
@@ -744,20 +737,20 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         }
 
         try {
-            $locks = Horde_Lock::singleton($GLOBALS['conf']['lock']['driver']);
+            $locks = $GLOBALS['injector']->getInstance('Horde_Lock');
         } catch (Horde_Lock_Exception $e) {
-            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             return 500;
         }
 
         try {
             $res = $locks->clearLock($params['token']);
         } catch (Horde_Lock_Exception $e) {
-            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             return 500;
         }
         if ($res === false) {
-            Horde::logMessage('clearLock() returned false', __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage('clearLock() returned false', 'ERR');
             // Something else has failed:  424 (Method Failure)
             return 424;
         }
@@ -771,21 +764,21 @@ class Horde_Rpc_Webdav extends Horde_Rpc
     {
         if (!isset($GLOBALS['conf']['lock']['driver']) ||
             $GLOBALS['conf']['lock']['driver'] == 'none') {
-            Horde::logMessage('WebDAV locking failed because no lock driver has been configured.', __FILE__, __LINE__, PEAR_LOG_WARNING);
+            Horde::logMessage('WebDAV locking failed because no lock driver has been configured.', 'WARN');
             return false;
         }
 
         try {
-            $locks = Horde_Lock::singleton($GLOBALS['conf']['lock']['driver']);
+            $locks = $GLOBALS['injector']->getInstance('Horde_Lock');
         } catch (Horde_Lock_Exception $e) {
-            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             return false;
         }
 
         try {
             $res =  $locks->getLocks('webdav', $resource);
         } catch (Horde_Lock_Exception $e) {
-            Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             return false;
         }
 
@@ -825,7 +818,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
      */
     function check_auth($type, $username, $password)
     {
-        $auth = Horde_Auth::singleton($GLOBALS['conf']['auth']['driver']);
+        $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
         return $auth->authenticate($username, array('password' => $password));
     }
 
@@ -1535,7 +1528,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
                         default:
                             $propstats[$i]['D:prop']['D:'. $prop['name']] = $prop['val'];
                             #echo "     <D:$prop[name]>"
-                            #    . $this->_prop_encode(htmlspecialchars($prop['val']))
+                            #    . htmlspecialchars($prop['val'])
                             #    .     "</D:$prop[name]>\n";
                             break;
                         }
@@ -1636,7 +1629,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
 
             if ($responsedescr) {
                 echo "  <D:responsedescription>".
-                    $this->_prop_encode(htmlspecialchars($responsedescr)).
+                    htmlspecialchars($responsedescr).
                     "</D:responsedescription>\n";
             }
 
@@ -1844,7 +1837,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
 
                 // a little naive, this sequence *might* be part of the content
                 // but it's really not likely and rather expensive to check
-                $this->multipart_separator = "SEPARATOR_".md5(microtime());
+                $this->multipart_separator = "SEPARATOR_" . uniqid(mt_rand());
 
                 // generate HTTP header
                 header("Content-type: multipart/byteranges; boundary=".$this->multipart_separator);
@@ -2381,11 +2374,11 @@ class Horde_Rpc_Webdav extends Horde_Rpc
     {
         $args = func_get_args();
         if (count($args) == 3) {
-            return array("ns"   => $args[0], 
+            return array("ns"   => $args[0],
                          "name" => $args[1],
                          "val"  => $args[2]);
         } else {
-            return array("ns"   => "DAV:", 
+            return array("ns"   => "DAV:",
                          "name" => $args[0],
                          "val"  => $args[1]);
         }
@@ -2780,25 +2773,6 @@ class Horde_Rpc_Webdav extends Horde_Rpc
     function _urldecode($path)
     {
         return rawurldecode($path);
-    }
-
-    /**
-     * UTF-8 encode property values if not already done so
-     *
-     * @param  string  text to encode
-     * @return string  utf-8 encoded text
-     */
-    function _prop_encode($text)
-    {
-        switch (strtolower($this->_prop_encoding)) {
-        case "utf-8":
-            return $text;
-        case "iso-8859-1":
-        case "iso-8859-15":
-        case "latin-1":
-        default:
-            return utf8_encode($text);
-        }
     }
 
     /**

@@ -6,44 +6,57 @@
  */
 
 var ImpFolderPrefs = {
-    // Variables defined by other code: folders
 
-    newFolderName: function(f, fn, p1, p2)
+    // Variables defined by other code: folders, origtext, sentmail
+
+    newFolderName: function(e)
     {
-        f = $(f);
-        fn = $(fn);
+        var folder, tmp,
+            f = e.element(),
+            id = f.identify(),
+            txt = this.folders.get(id),
+            newfolder = $(id + '_new'),
+            sel = $(f[f.selectedIndex]);
 
-        if (f[f.selectedIndex].value == '') {
-            var folder = window.prompt(p1, fn.value ? fn.value : '');
-            if (folder != '') {
-                fn.value = folder;
-                f[1].text = p2 + ' [' + fn.value + ']';
+        if (sel.hasClassName('flistCreate') && !newfolder) {
+            folder = window.prompt(txt, '');
+            if (!folder.empty()) {
+                if (!newfolder) {
+                    newfolder = new Element('INPUT', { id: id + '_new', name: id + '_new', type: 'hidden' });
+                    f.insert({ after: newfolder });
+                }
+                newfolder.setValue(folder);
+                this.origtext = sel.text;
+                sel.update(sel.text + ' [' + folder + ']');
             }
         }
+    },
+
+    changeIdentity: function(e)
+    {
+        switch (e.memo.pref) {
+        case 'sentmailselect':
+            $('sent_mail_folder').setValue(this.sentmail[e.memo.i]);
+            if (this.origtext) {
+                $('sent_mail_folder_new').remove();
+                $('sent_mail_folder').down('.flistCreate').update(this.origtext);
+                this.origtext = null;
+            }
+            break;
+        }
+    },
+
+    onDomLoad: function()
+    {
+        this.folders = $H(this.folders);
+
+        this.folders.keys().each(function(f) {
+            $(f).observe('change', this.newFolderName.bindAsEventListener(this));
+        }, this);
+
+        document.observe('HordeIdentitySelect:change', this.changeIdentity.bindAsEventListener(this));
     }
 
 };
 
-document.observe('dom:loaded', function() {
-    var fp = ImpFolderPrefs;
-    fp.folders.each(function(f) {
-        $(f[0]).observe('change', fp.newFolderName.bind(fp, f[0], f[1], f[2], f[3]));
-    });
-});
-
-// Called by Horde identity pref code.
-function newChoice_sent_mail_folder(val)
-{
-    var field = $('sent_mail_folder');
-    if (val == "") {
-        field.selectedIndex = 0;
-        return;
-    }
-
-    for (var i = 0, l = field.options.length; i < l; i++) {
-        if (field.options[i].value == val) {
-            field.selectedIndex = i;
-            break;
-        }
-    }
-}
+document.observe('dom:loaded', ImpFolderPrefs.onDomLoad.bind(ImpFolderPrefs));

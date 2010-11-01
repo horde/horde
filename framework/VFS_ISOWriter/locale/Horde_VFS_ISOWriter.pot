@@ -1,0 +1,75 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Horde Project
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ISOWriter/RealInputStrategy/copy.php:42
+#: ISOWriter/RealOutputStrategy/copy.php:48
+msgid "Cannot find a temporary directory."
+msgstr ""
+
+#: ISOWriter.php:93
+msgid "Cannot proceed without 'targetFile' parameter."
+msgstr ""
+
+#: ISOWriter/RealInputStrategy.php:85 ISOWriter/RealOutputStrategy.php:80
+#, php-format
+msgid "Could not load strategy \"%s\"."
+msgstr ""
+
+#: ISOWriter/RealInputStrategy/copy.php:106
+#: ISOWriter/RealOutputStrategy/direct.php:26
+#, php-format
+msgid "Could not mkdir \"%s\"."
+msgstr ""
+
+#: ISOWriter/RealInputStrategy/copy.php:135
+#, php-format
+msgid "Could not open \"%s\" for writing."
+msgstr ""
+
+#: ISOWriter/RealInputStrategy/copy.php:66
+#, php-format
+msgid "Could not open directory \"%s\"."
+msgstr ""
+
+#: ISOWriter/RealInputStrategy/copy.php:90
+#, php-format
+msgid "Could not rmdir \"%s\"."
+msgstr ""
+
+#: ISOWriter/RealInputStrategy/copy.php:82
+#, php-format
+msgid "Could not unlink \"%s\"."
+msgstr ""
+
+#: ISOWriter/RealInputStrategy/copy.php:138
+#, php-format
+msgid "Error writing \"%s\"."
+msgstr ""
+
+#: ISOWriter.php:108
+msgid "No available strategy for making ISO images."
+msgstr ""
+
+#: ISOWriter/mkisofs.php:46
+msgid "Unable to run 'mkisofs'."
+msgstr ""
+
+#: ISOWriter/mkisofs.php:49
+#, php-format
+msgid "mkisofs error code %d while making ISO."
+msgstr ""

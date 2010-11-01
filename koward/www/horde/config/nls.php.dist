@@ -61,7 +61,7 @@ $nls['languages']['sl_SI'] = '&#x202d;Slovenian (Sloven&#x0161;&#x010d;ina)';
 $nls['languages']['fi_FI'] = 'Suomi';
 $nls['languages']['sv_SE'] = 'Svenska';
 $nls['languages']['th_TH'] = '&#x202d;Thai (&#x0e44;&#x0e17;&#x0e22;)';
-if (version_compare(PHP_VERSION, '5', 'lt') || version_compare(PHP_VERSION, '6', 'ge')) {
+if (version_compare(PHP_VERSION, '6', 'ge')) {
     $nls['languages']['tr_TR'] = 'T&#xfc;rk&#xe7;e';
 }
 $nls['languages']['uk_UA'] = '&#x202d;Ukrainian (&#x0423;&#x043a;&#x0440;&#x0430;&#x0457;&#x043d;&#x0441;&#x044c;&#x043a;&#x0430;)';
@@ -108,7 +108,7 @@ $nls['aliases']['sk'] = 'sk_SK';
 $nls['aliases']['sl'] = 'sl_SI';
 $nls['aliases']['sv'] = 'sv_SE';
 $nls['aliases']['th'] = 'th_TH';
-if (version_compare(PHP_VERSION, '5', 'lt') || version_compare(PHP_VERSION, '6', 'ge')) {
+if (version_compare(PHP_VERSION, '6', 'ge')) {
     $nls['aliases']['tr'] = 'tr_TR';
 }
 $nls['aliases']['uk'] = 'uk_UA';
@@ -125,7 +125,6 @@ $nls['charsets']['bg_BG'] = 'windows-1251';
 $nls['charsets']['bs_BA'] = 'ISO-8859-2';
 $nls['charsets']['cs_CZ'] = 'ISO-8859-2';
 $nls['charsets']['el_GR'] = 'ISO-8859-7';
-$nls['charsets']['eu_ES'] = 'UTF-8';
 $nls['charsets']['fa_IR'] = 'UTF-8';
 $nls['charsets']['he_IL'] = 'UTF-8';
 $nls['charsets']['hu_HU'] = 'ISO-8859-2';
@@ -141,7 +140,7 @@ $nls['charsets']['ru_RU.KOI8-R'] = 'KOI8-R';
 $nls['charsets']['sk_SK'] = 'ISO-8859-2';
 $nls['charsets']['sl_SI'] = 'ISO-8859-2';
 $nls['charsets']['th_TH'] = 'TIS-620';
-if (version_compare(PHP_VERSION, '5', 'lt') || version_compare(PHP_VERSION, '6', 'ge')) {
+if (version_compare(PHP_VERSION, '6', 'ge')) {
     $nls['charsets']['tr_TR'] = 'ISO-8859-9';
 }
 $nls['charsets']['uk_UA'] = 'windows-1251';
@@ -174,8 +173,7 @@ if (strpos(PHP_OS, 'BSD') !== false) {
     $nls['charsets']['sk_SK'] = 'ISO8859-2';
     $nls['charsets']['sl_SI'] = 'ISO8859-2';
     $nls['charsets']['th_TH'] = 'TIS-620';
-    if (version_compare(PHP_VERSION, '5', 'lt') ||
-        version_compare(PHP_VERSION, '6', 'ge')) {
+    if (version_compare(PHP_VERSION, '6', 'ge')) {
         $nls['charsets']['tr_TR'] = 'ISO-8859-9';
     }
     $nls['charsets']['uk_UA'] = 'windows-1251';

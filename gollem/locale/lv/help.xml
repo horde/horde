@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding="UTF-8"?>
+<help>
+
+<entry id="file-actions">
+    <title>Failu pārvaldnieks: Darbības</title>
+    <heading>Mapju izveidošana</heading>
+    <para>
+    Lai izveidotu mapi aktuālajā katalogā, uzklikšķiniet ikonai <b>Izveidot mapi</b> Failu pārvaldnieka rīkjoslā.
+    </para>
+    <heading>Failu dzēšana, izgriešana, kopēšana, ielīmēšana</heading>
+    <para>
+    Lai dzēstu, izgrieztu vai nokopētu failu(s), ir jāizvēlas vismaz viens fails, atzīmējot to(s) izvēles rūtiņā(s) pa kreisi no faila nosaukuma. Pēc tam, kad ir atzīmēti nepieciešami faili, no izkrītošās komandkartes <b>Darbības</b> izvēlieties nepieciešamo darbību. Ja izvēlējāties <b>Kopēt</b> vai <b>Izgriezt</b>, atzīmētie faili tiks nokopēti vai pārvietoti uz Starpliktuvi un lietotāja saskarnē parādīsies jauna ikona <b>Skatīt starpliktuvi</b>. No Starpliktuves Jums ir iespēja ielīmēt atbilstošos failus jebkurā Failu pārvaldnieka vietā. Pārejiet uz vietu direktoriju kokā, kurā nepieciešams novietot failu(s), atveriet Starpliktuvi, atzīmējiet nepieciešamo(s) failu(s) rūtiņā(s) pa kreisi no faila nosaukuma un uzklikšķiniet uz <b>Ielīmēt</b>. Pēc šīs darbības faili tiks ielīmēti aktuālajā katalogā un Starpliktuve – attīrīta.
+    </para>
+    <heading>Katalogu dzēšana, izgriešana, kopēšana, ielīmēšana</heading>
+    <para>
+Pēc noklusēšanas, izdzēst katalogu iespējams tikai gadījumā, ja tajā nav failu. Ja vēlaties dzēst katalogus ar visu to saturu, varat ieslēgt rekursīvu katalogu dzēšanu. Lai to ieslēgtu, uzklikšķiniet ikonai <b>Opcijas</b>, izvēlieties <b>Iestatījumi</b> un  no izkrītošajā komandkartē piedāvātajām iespējām - Jums vēlamo variantu.
+Ja mēģināsiet dzēst katalogu ar failiem, neieslēdzot minēto opciju, dzēšanas mēģinājums beigsies ar kļūdu.
+
+Lai dzēstu, izgrieztu vai nokopētu katalogu(s), ir jāizvēlas vismaz viens katalogs, atzīmējot to(s) izvēles rūtiņā(s) pa kreisi no kataloga nosaukuma. Pēc tam, kad ir atzīmēti nepieciešami katalogi, no izkrītošās komandkartes <b>Darbības</b> izvēlieties nepieciešamo darbību. Ja izvēlējāties <b>Kopēt</b> vai <b>Izgriezt</b>, atzīmētie katalogi tiks nokopēti vai pārvietoti uz Starpliktuvi un lietotāja saskarnē parādīsies jauna ikona <b>Skatīt starpliktuvi</b>. No Starpliktuves Jums ir iespēja ielīmēt atbilstošos katalogus jebkurā katalogu pārvaldnieka vietā. Pārejiet uz vietu direktoriju kokā, kurā nepieciešams novietot katalogu(s), atveriet Starpliktuvi, atzīmējiet nepieciešamo(s) katalogu(s) rūtiņā(s) pa kreisi no kataloga nosaukuma un uzklikšķiniet uz <b>Ielīmēt</b>. Pēc šīs darbības katalogi tiks ielīmēti aktuālajā katalogā un Starpliktuve – attīrīta.
+
+    </para>
+    <heading>Darbs ar starpliktuvi</heading>
+    <para>
+Ja Jūs kopējat vai izgreižat failu vai katalogu, tas tiek novietots starpliktuvē, kuras saturu varat apskatīt, uzklikšķinot ikonai <b>Starpliktuve</b>, kas atrodas virs failu un katalogu saraksta pa labio no <b>Atsvaidzināt skatu</b> ikonas.
+Šī ikona parādās lietotāja saskarnē tikai tad, kad starpliktuvē atrodas kāds objekts.Pēc tam, kad kāds fails vai katalogs ir nokopēts vai izgriezts, blakus tā tā nosaukumam Failu pārvaldnieka galvenajā logā vairs nebūs izvēles rūtiņa.
+</para>
+<para>
+Kad atvērsiet Starpliktuves pārlūku, redzēsiet uz starpliktuvi kopēto vai izgriezto objektu sarakstu, kur katram objektam blakus ir attēlota iepriekš veikto darbību atainojoša piktogramma. No šejienes Jūs varat ielīmēt objektus aktuālajā katalogā, kas parādīts virs objektu saraksta – atzīmējiet ielīmējamos failus un nospiediet pogu <b>Ielīmēt</b>, objekti tiks ievietoti aktuālajā katalogā un notīrīti no starpliktuves. Pēc objektu ielīmēšanas Failu pārvaldnieks atgriezīsies aktuālajā katalogā. Ja vēlaties vienkārši notīrīt kādu objektu no starpliktuves, atzīmējiet to un nospiediet pogu <b>Notīrīt</b>. Objekts(-i) tiks notīrīti no starpliktuves un Failu  pārvaldnieks atgriezīsies aktuālajā katalogā.
+</para>
+<para>
+Piezīme: ja objekts tika izgriezts uz starpliktuvi, pēc notīrīšanas no starpliktuves objekts paliek savā iepriekšējā vietā.
+    </para>
+</entry>
+
+<entry id="file-upload">
+    <title>Failu pārvaldnieks: Augšupielādēšana</title>
+    <heading>Failu augšupielādēšana</heading>
+    <para>
+Piezīme: failu augšupielādēšana darbojas tikai gadījumā, ja ir pareizi konfigurētas VFS palīgmoduļa pieejas tiesības. To var izdarīt tikai sistēmas administrators.
+    </para>
+    <para>
+     Lai augšupielādētu failus, pārejiet uz vietu katalogu kokā, kurā vēlaties tos novietot. Tas būs aktuālais katalogs. Kad esat atvēruši vajadzīgo katalogu, Failu pārvaldnieka loga apakšā nospiediet pogu <b>Browse...</b> (pārlūkot). Tas atvērs <b>File Upload</b> logu, kurā Jums jāsameklē augšupielādējamais fails, jāuzklikšķina tā nosaukumam un <b>OK</b> pogai.
+</para>
+<para>
+Vienlaikus ir iespējams augšupielādēt vairākus failus – Failu pārvaldnieks automātiski pievienos jaunu <b>Browse...</b> pogu pēc katra faila izvēles. Kad ir sameklēti visi faili, nospiediet pogu <b>Augšupielādēt failu(s)</b> un tie tiks augšupielādēti aktuālajā Failu pārvaldnieka katalogā.
+</para>
+</entry>
+
+<entry id="sorting">
+    <title>Šķirošana</title>
+    <heading>Šķirošana</heading>
+    <para>
+    Apskatot failu vai katalogu sarakstus, Jūs varat to sakārtot pēc jebkuras slejas. Lai to izdarītu, uzklikšķiniet atbilstošās slejas virsrakstam un saraksts tiks atsvaidzināts, sakārtojot objektus atbilstoši Jūsu izvēlētajai slejai. Lai mainītu kārtošanas secību no augošas uz dilstošu un otrādi, uzklikšķiniet slejas virsrakstam blakus esošajai bultiņai.
+    </para>
+</entry>
+</help>

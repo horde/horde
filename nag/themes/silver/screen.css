@@ -11,7 +11,7 @@ body #sbarHide {
     background-image: url("graphics/minus.png");
 }
 #pageControls {
-    top: 49px;
+    top: -9px;
     background: #d7d7d7;
     border-color: #999;
     border-width: 0 0 1px 1px;

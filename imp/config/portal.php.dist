@@ -34,12 +34,16 @@ $dimp_block_list[_("Folder Summary")] = array(
 
 // Show a contact search box.
 // Must include 'turba' in $conf['menu']['apps']
-$dimp_block_list[$collection->getName('turba', 'minisearch')] = array(
-    'ob' => $collection->getBlock('turba', 'minisearch', array())
-);
+try {
+    $dimp_block_list[$collection->getName('turba', 'minisearch')] = array(
+        'ob' => $collection->getBlock('turba', 'minisearch', array())
+    );
+} catch (Horde_Exception $e) {}
 
-// Display calendar events
-// Must include 'kronolith' in $conf['menu']['apps']
-$dimp_block_list[$collection->getName('kronolith', 'summary')] = array(
-    'ob' => $collection->getBlock('kronolith', 'summary', array())
-);
+try {
+    // Display calendar events
+    // Must include 'kronolith' in $conf['menu']['apps']
+    $dimp_block_list[$collection->getName('kronolith', 'summary')] = array(
+        'ob' => $collection->getBlock('kronolith', 'summary', array())
+    );
+} catch (Horde_Exception $e) {}

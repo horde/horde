@@ -4,22 +4,22 @@
  *
  * Required values for $params:
  * <pre>
- *   'username'  - The username with which to connect to the SMB server.
- *   'password'  - The password with which to connect to the SMB server.
- *   'hostspec'  - The SMB server to connect to.
- *   'port'      - The SMB port number to connect to.
- *   'share'     - The share to access on the SMB server.
- *   'smbclient' - The path to the 'smbclient' executable.
+ * username - (string)The username with which to connect to the SMB server.
+ * password - (string) The password with which to connect to the SMB server.
+ * hostspec - (string) The SMB server to connect to.
+ * port' - (integer) The SMB port number to connect to.
+ * share - (string) The share to access on the SMB server.
+ * smbclient - (string) The path to the 'smbclient' executable.
  * </pre>
  *
  * Optional values for $params:
  * <pre>
- *   'ipaddress' - The address of the server to connect to.
+ * ipaddress - (string) The address of the server to connect to.
  * </pre>
  *
  * Functions not implemented:
- *   - changePermissions(): The SMB permission style does not fit with the
- *                          module.
+ * - changePermissions(): The SMB permission style does not fit with the
+ *                        module.
  *
  * Codebase copyright 2002 Paul Gareau <paul@xhawk.net>.  Adapted with
  * permission by Patrice Levesque <wayne@ptaff.ca> from phpsmb-0.8 code, and
@@ -31,43 +31,29 @@
  *
  * @author  Paul Gareau <paul@xhawk.net>
  * @author  Patrice Levesque <wayne@ptaff.ca>
- * @since   Horde 3.1
  * @package VFS
  */
-class VFS_smb extends VFS {
-
+class VFS_smb extends VFS
+{
     /**
      * List of additional credentials required for this VFS backend.
      *
      * @var array
      */
-    var $_credentials = array('username', 'password');
-
-    /**
-     * List of permissions and if they can be changed in this VFS backend.
-     *
-     * @var array
-     */
-    var $_permissions = array(
-        'owner' => array('read' => false, 'write' => false, 'execute' => false),
-        'group' => array('read' => false, 'write' => false, 'execute' => false),
-        'all'   => array('read' => false, 'write' => false, 'execute' => false));
+    protected $_credentials = array('username', 'password');
 
     /**
      * Authenticates a user on the SMB server and share.
      *
-     * @access private
-     *
-     * @return boolean|PEAR_Error  True on success or a PEAR_Error on failure.
+     * @throws VFS_Exception
      */
-    function _connect()
+    protected function _connect()
     {
-        $cmd = array('quit');
-        $err = $this->_command('', $cmd);
-        if (is_a($err, 'PEAR_Error')) {
-            return PEAR::raiseError(_("Authentication to the SMB server failed."));
+        try {
+            $this->_command('', array('quit'));
+        } catch (VFS_Exception $e) {
+            throw new VFS_Exception('Authentication to the SMB server failed.');
         }
-        return true;
     }
 
     /**
@@ -78,19 +64,13 @@ class VFS_smb extends VFS {
      *
      * @return string  The file data.
      */
-    function read($path, $name)
+    public function read($path, $name)
     {
         $file = $this->readFile($path, $name);
-        if (is_a($file, 'PEAR_Error')) {
-            return $file;
-        }
-
         $size = filesize($file);
-        if ($size === 0) {
-            return '';
-        }
-
-        return file_get_contents($file);
+        return ($size === 0)
+            ? ''
+            : file_get_contents($file);
     }
 
     /**
@@ -103,26 +83,22 @@ class VFS_smb extends VFS {
      * @param string $path  The pathname to the file.
      * @param string $name  The filename to retrieve.
      *
-     * @return string A local filename.
+     * @return string  A local filename.
      */
-    function readFile($path, $name)
+    public function readFile($path, $name)
     {
         // Create a temporary file and register it for deletion at the
         // end of this request.
-        $localFile = $this->_getTempFile();
-        if (!$localFile) {
-            return PEAR::raiseError(_("Unable to create temporary file."));
+        if (!($localFile = tempnam(null, 'vfs'))) {
+            throw new VFS_Exception('Unable to create temporary file.');
         }
-        register_shutdown_function(create_function('', 'unlink(\'' . addslashes($localFile) . '\');'));
+        register_shutdown_function(create_function('', '@unlink(\'' . addslashes($localFile) . '\');'));
 
         list($path, $name) = $this->_escapeShellCommand($path, $name);
         $cmd = array('get \"' . $name . '\" ' . $localFile);
-        $result = $this->_command($path, $cmd);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_command($path, $cmd);
         if (!file_exists($localFile)) {
-            return PEAR::raiseError(sprintf(_("Unable to open VFS file \"%s\"."), $this->_getPath($path, $name)));
+            throw new VFS_Exception(sprintf('Unable to open VFS file "%s".', $this->_getPath($path, $name)));
         }
 
         return $localFile;
@@ -136,15 +112,9 @@ class VFS_smb extends VFS {
      *
      * @return resource  The stream.
      */
-    function readStream($path, $name)
+    public function readStream($path, $name)
     {
-        $file = $this->readFile($path, $name);
-        if (is_a($file, 'PEAR_Error')) {
-            return $file;
-        }
-
-        $mode = OS_WINDOWS ? 'rb' : 'r';
-        return fopen($file, $mode);
+        return fopen($this->readFile($path, $name),OS_WINDOWS ? 'rb' : 'r');
     }
 
     /**
@@ -156,9 +126,9 @@ class VFS_smb extends VFS {
      *                             stored.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @return boolean|PEAR_Error  True on success or a PEAR_Error on failure.
+     * @throws VFS_Exception
      */
-    function write($path, $name, $tmpFile, $autocreate = false)
+    public function write($path, $name, $tmpFile, $autocreate = false)
     {
         // Double quotes not allowed in SMB filename.
         $name = str_replace('"', "'", $name);
@@ -167,16 +137,10 @@ class VFS_smb extends VFS {
         $cmd = array('put \"' . $tmpFile . '\" \"' . $name . '\"');
         // do we need to first autocreate the directory?
         if ($autocreate) {
-            $result = $this->autocreatePath($path);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
+            $this->autocreatePath($path);
         }
-        $err = $this->_command($path, $cmd);
-        if (is_a($err, 'PEAR_Error')) {
-            return $err;
-        }
-        return true;
+
+        $this->_command($path, $cmd);
     }
 
     /**
@@ -187,17 +151,19 @@ class VFS_smb extends VFS {
      * @param string $data         The file data.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @return boolean|PEAR_Error  True on success or a PEAR_Error on failure.
+     * @throws VFS_Exception
      */
-    function writeData($path, $name, $data, $autocreate = false)
+    public function writeData($path, $name, $data, $autocreate = false)
     {
-        $tmpFile = $this->_getTempFile();
-        $fp = fopen($tmpFile, 'wb');
-        fwrite($fp, $data);
-        fclose($fp);
-        $result = $this->write($path, $name, $tmpFile, $autocreate);
-        unlink($tmpFile);
-        return $result;
+        $tmpFile = tempnam(null, 'vfs');
+        file_put_contents($tmpFile, $data);
+        try {
+            $this->write($path, $name, $tmpFile, $autocreate);
+            unlink($tmpFile);
+        } catch (VFS_Exception $e) {
+            unlink($tmpFile);
+            throw $e;
+        }
     }
 
     /**
@@ -206,9 +172,9 @@ class VFS_smb extends VFS {
      * @param string $path  The path to delete the file from.
      * @param string $name  The filename to use.
      *
-     * @return boolean|PEAR_Error  True on success or a PEAR_Error on failure.
+     * @throws VFS_Exception
      */
-    function deleteFile($path, $name)
+    public function deleteFile($path, $name)
     {
         // In some samba versions after samba-3.0.25-pre2, $path must
         // end in a trailing slash.
@@ -218,11 +184,7 @@ class VFS_smb extends VFS {
 
         list($path, $name) = $this->_escapeShellCommand($path, $name);
         $cmd = array('del \"' . $name . '\"');
-        $err = $this->_command($path, $cmd);
-        if (is_a($err, 'PEAR_Error')) {
-            return $err;
-        }
-        return true;
+        $this->_command($path, $cmd);
     }
 
     /**
@@ -233,15 +195,16 @@ class VFS_smb extends VFS {
      *
      * @return boolean  True if it is a folder, false otherwise.
      */
-    function isFolder($path, $name)
+    public function isFolder($path, $name)
     {
         list($path, $name) = $this->_escapeShellCommand($path, $name);
         $cmd = array('quit');
-        $err = $this->_command($this->_getPath($path, $name), $cmd);
-        if (is_a($err, 'PEAR_Error')) {
+        try {
+            $this->_command($this->_getPath($path, $name), array('quit'));
+            return true;
+        } catch (VFS_Exception $e) {
             return false;
         }
-        return true;
     }
 
     /**
@@ -251,9 +214,9 @@ class VFS_smb extends VFS {
      * @param string $name        The name of the folder to delete.
      * @param boolean $recursive  Force a recursive delete?
      *
-     * @return boolean|PEAR_Error  True on success or a PEAR_Error on failure.
+     * @throws VFS_Exception
      */
-    function deleteFolder($path, $name, $recursive = false)
+    public function deleteFolder($path, $name, $recursive = false)
     {
         // In some samba versions after samba-3.0.25-pre2, $path must
         // end in a trailing slash.
@@ -262,38 +225,31 @@ class VFS_smb extends VFS {
         }
 
         if (!$this->isFolder($path, $name)) {
-            return PEAR::raiseError(sprintf(_("\"%s\" is not a directory."), $path . '/' . $name));
+            throw new VFS_Exception(sprintf('"%s" is not a directory.', $path . '/' . $name));
         }
 
         $file_list = $this->listFolder($this->_getPath($path, $name));
-        if (is_a($file_list, 'PEAR_Error')) {
-            return $file_list;
-        }
 
         if ($file_list && !$recursive) {
-            return PEAR::raiseError(sprintf(_("Unable to delete \"%s\", the directory is not empty."),
-                                            $this->_getPath($path, $name)));
+            throw new VFS_Exception(sprintf('Unable to delete "%s", the directory is not empty.', $this->_getPath($path, $name)));
         }
 
         foreach ($file_list as $file) {
             if ($file['type'] == '**dir') {
-                $result = $this->deleteFolder($this->_getPath($path, $name), $file['name'], $recursive);
+                $this->deleteFolder($this->_getPath($path, $name), $file['name'], $recursive);
             } else {
-                $result = $this->deleteFile($this->_getPath($path, $name), $file['name']);
-            }
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
+                $this->deleteFile($this->_getPath($path, $name), $file['name']);
             }
         }
 
         // Really delete the folder.
         list($path, $name) = $this->_escapeShellCommand($path, $name);
         $cmd = array('rmdir \"' . $name . '\"');
-        $err = $this->_command($path, $cmd);
-        if (is_a($err, 'PEAR_Error')) {
-            return PEAR::raiseError(sprintf(_("Unable to delete VFS folder \"%s\"."), $this->_getPath($path, $name)));
-        } else {
-            return true;
+
+        try {
+            $this->_command($path, $cmd);
+        } catch (VFS_Exception $e) {
+            throw new VFS_Exception(sprintf('Unable to delete VFS folder "%s".', $this->_getPath($path, $name)));
         }
     }
 
@@ -305,13 +261,11 @@ class VFS_smb extends VFS {
      * @param string $newpath  The new path of the file.
      * @param string $newname  The new filename.
      *
-     * @return boolean|PEAR_Error  True on success or a PEAR_Error on failure.
+     * @throws VFS_Exception
      */
-    function rename($oldpath, $oldname, $newpath, $newname)
+    public function rename($oldpath, $oldname, $newpath, $newname)
     {
-        if (is_a($result = $this->autocreatePath($newpath), 'PEAR_Error')) {
-            return $result;
-        }
+        $this->autocreatePath($newpath);
 
         // Double quotes not allowed in SMB filename. The '/' character should
         // also be removed from the beginning/end of the names.
@@ -319,7 +273,7 @@ class VFS_smb extends VFS {
         $newname = str_replace('"', "'", trim($newname, '/'));
 
         if (empty($oldname)) {
-            return PEAR::raiseError(_("Unable to rename VFS file to same name."));
+            throw new VFS_Exception('Unable to rename VFS file to same name.');
         }
 
         /* If the path was not empty (i.e. the path is not the root path),
@@ -334,11 +288,12 @@ class VFS_smb extends VFS {
         list($file, $name) = $this->_escapeShellCommand($oldname, $newname);
         $cmd = array('rename \"' .  str_replace('/', '\\\\', $oldpath) . $file . '\" \"' .
                                     str_replace('/', '\\\\', $newpath) . $name . '\"');
-        if (is_a($err = $this->_command('', $cmd), 'PEAR_Error')) {
-            return PEAR::raiseError(sprintf(_("Unable to rename VFS file \"%s\"."), $this->_getPath($path, $name)));
-        }
 
-        return true;
+        try {
+            $this->_command('', $cmd);
+        } catch (VFS_Exception $e) {
+            throw new VFS_Exception(sprintf('Unable to rename VFS file "%s".', $this->_getPath($path, $name)));
+        }
     }
 
     /**
@@ -347,9 +302,9 @@ class VFS_smb extends VFS {
      * @param string $path  The path of directory to create folder.
      * @param string $name  The name of the new folder.
      *
-     * @return boolean|PEAR_Error  True on success or a PEAR_Error on failure.
+     * @throws VFS_Exception
      */
-    function createFolder($path, $name)
+    public function createFolder($path, $name)
     {
         // In some samba versions after samba-3.0.25-pre2, $path must
         // end in a trailing slash.
@@ -362,11 +317,12 @@ class VFS_smb extends VFS {
 
         list($dir, $mkdir) = $this->_escapeShellCommand($path, $name);
         $cmd = array('mkdir \"' . $mkdir . '\"');
-        $err = $this->_command($dir, $cmd);
-        if (is_a($err, 'PEAR_Error')) {
-            return PEAR::raiseError(sprintf(_("Unable to create VFS folder \"%s\"."), $this->_getPath($path, $name)));
+
+        try {
+            $this->_command($dir, $cmd);
+        } catch (VFS_Exception $e) {
+            throw new VFS_Exception(sprintf('Unable to create VFS folder "%s".', $this->_getPath($path, $name)));
         }
-        return true;
     }
 
     /**
@@ -379,66 +335,50 @@ class VFS_smb extends VFS {
      *                           smbclient.
      * @param boolean $dironly   Show directories only?
      *
-     * @return boolean|PEAR_Error  File list on success or a PEAR_Error on
-     *                             failure.
+     * @return array  File list.
+     * @throws VFS_Exception
      */
-    function listFolder($path = '', $filter = null, $dotfiles = true, $dironly = false)
+    public function listFolder($path = '', $filter = null, $dotfiles = true,
+                               $dironly = false)
     {
         list($path) = $this->_escapeShellCommand($path);
-        $cmd = array('ls');
-        $res = $this->_command($path, $cmd);
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
-        return $this->parseListing($res, $filter, $dotfiles, $dironly);
+        return $this->parseListing($this->_command($path, array('ls')), $filter, $dotfiles, $dironly);
     }
 
-    function parseListing($res, $filter, $dotfiles, $dironly)
+    /**
+     */
+    public function parseListing($res, $filter, $dotfiles, $dironly)
     {
         $num_lines = count($res);
         $files = array();
         for ($r = 0; $r < $num_lines; $r++) {
             // Match file listing.
-            if (!preg_match('/^(\s\s.+\s{6,})/', $res[$r])) {
+            if (!preg_match('/^  (.+?) +([A-Z]*) +(\d+)  (\w\w\w \w\w\w [ \d]\d \d\d:\d\d:\d\d \d\d\d\d)$/', $res[$r], $match)) {
                 continue;
             }
 
-            // Split into columns at every six spaces
-            $split1 = preg_split('/\s{6,}/', trim($res[$r]));
             // If the file name isn't . or ..
-            if ($split1[0] == '.' || $split1[0] == '..') {
+            if ($match[1] == '.' || $match[1] == '..') {
                 continue;
             }
 
-            if (isset($split1[2])) {
-                // If there is a small file size, inf could be split
-                // into 3 cols.
-                $split1[1] .= ' ' . $split1[2];
-            }
-            // Split file inf at every one or more spaces.
-            $split2 = preg_split('/\s+/', $split1[1]);
-            if (is_numeric($split2[0])) {
-                // If there is no file attr, shift cols over.
-                array_unshift($split2, '');
-            }
-            $my_name = $split1[0];
+            $my_name = $match[1];
 
             // Filter out dotfiles if they aren't wanted.
             if (!$dotfiles && substr($my_name, 0, 1) == '.') {
                 continue;
             }
 
-            $my_size = $split2[1];
+            $my_size = $match[3];
             $ext_name = explode('.', $my_name);
 
-            if ((strpos($split2[0], 'D') !== false)) {
+            if ((strpos($match[2], 'D') !== false)) {
                 $my_type = '**dir';
                 $my_size = -1;
             } else {
-                $my_type = VFS::strtolower($ext_name[count($ext_name) - 1]);
+                $my_type = self::strtolower($ext_name[count($ext_name) - 1]);
             }
-            $my_date = strtotime($split2[4] . ' ' . $split2[3] . ' ' .
-                                 $split2[6] . ' ' . $split2[5]);
+            $my_date = strtotime($match[4]);
             $filedata = array('owner' => '',
                               'group' => '',
                               'perms' => '',
@@ -458,6 +398,7 @@ class VFS_smb extends VFS {
 
             $files[$filedata['name']] = $filedata;
         }
+
         return $files;
     }
 
@@ -469,32 +410,26 @@ class VFS_smb extends VFS {
      * @param mixed $filter        Hash of items to filter based on folderlist.
      * @param boolean $dotfolders  Include dotfolders? Irrelevant for SMB.
      *
-     * @return boolean|PEAR_Error  Folder list on success or a PEAR_Error on
-     *                             failure.
+     * @return array  Folder list.
+     * @throws VFS_Exception
      */
-    function listFolders($path = '', $filter = null, $dotfolders = true)
+    public function listFolders($path = '', $filter = null, $dotfolders = true)
     {
-        $folders = array();
-        $folder = array();
+        // dirname will strip last component from path, even on a directory
+        $folder = array(
+            'val' => dirname($path),
+            'abbrev' => '..',
+            'label' => '..'
+        );
+        $folders = array($folder['val'] => $folder);
 
         $folderList = $this->listFolder($path, null, $dotfolders, true);
-        if (is_a($folderList, 'PEAR_Error')) {
-            return $folderList;
-        }
-
-        // dirname will strip last component from path, even on a directory
-        $folder['val'] = dirname($path);
-        $folder['abbrev'] = '..';
-        $folder['label'] = '..';
-
-        $folders[$folder['val']] = $folder;
-
         foreach ($folderList as $files) {
-            $folder['val'] = $this->_getPath($path, $files['name']);
-            $folder['abbrev'] = $files['name'];
-            $folder['label'] = $folder['val'];
-
-            $folders[$folder['val']] = $folder;
+            $folders[$folder['val']] = array(
+                'val' => $this->_getPath($path, $files['name']),
+                'abbrev' => $files['name'],
+                'label' => $folder['val']
+            );
         }
 
         ksort($folders);
@@ -509,51 +444,34 @@ class VFS_smb extends VFS {
      * @param string $dest         The destination of the file.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @return boolean|PEAR_Error  True on success or a PEAR_Error on failure.
+     * @throws VFS_Exception
      */
-    function copy($path, $name, $dest, $autocreate = false)
+    public function copy($path, $name, $dest, $autocreate = false)
     {
         $orig = $this->_getPath($path, $name);
         if (preg_match('|^' . preg_quote($orig) . '/?$|', $dest)) {
-            return PEAR::raiseError(_("Cannot copy file(s) - source and destination are the same."));
+            throw new VFS_Exception('Cannot copy file(s) - source and destination are the same.');
         }
 
         if ($autocreate) {
-            $result = $this->autocreatePath($dest);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
+            $this->autocreatePath($dest);
         }
 
-        $fileCheck = $this->listFolder($dest, null, true);
-        if (is_a($fileCheck, 'PEAR_Error')) {
-            return $fileCheck;
-        }
-        foreach ($fileCheck as $file) {
+        foreach ($this->listFolder($dest, null, true) as $file) {
             if ($file['name'] == $name) {
-                return PEAR::raiseError(sprintf(_("%s already exists."),
-                                                $this->_getPath($dest, $name)));
+                throw new VFS_Exception(sprintf('%s already exists.', $this->_getPath($dest, $name)));
             }
         }
 
         if ($this->isFolder($path, $name)) {
-            if (is_a($result = $this->_copyRecursive($path, $name, $dest), 'PEAR_Error')) {
-                return $result;
-            }
+            $this->_copyRecursive($path, $name, $dest);
         } else {
-            $tmpFile = $this->readFile($path, $name);
-            if (is_a($tmpFile, 'PEAR_Error')) {
-                return PEAR::raiseError(sprintf(_("Failed to retrieve: %s"), $orig));
-            }
-
-            $result = $this->write($dest, $name, $tmpFile);
-            if (is_a($result, 'PEAR_Error')) {
-                return PEAR::raiseError(sprintf(_("Copy failed: %s"),
-                                                $this->_getPath($dest, $name)));
+            try {
+                $this->write($dest, $name, $this->readFile($path, $name));
+            } catch (VFS_Exception $e) {
+                throw new VFS_Exception(sprintf('Copy failed: %s', $this->_getPath($dest, $name)));
             }
         }
-
-        return true;
     }
 
     /**
@@ -564,52 +482,41 @@ class VFS_smb extends VFS {
      * @param string $dest         The destination of the file.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @return boolean|PEAR_Error  True on success or a PEAR_Error on failure.
+     * @throws VFS_Exception
      */
-    function move($path, $name, $dest, $autocreate = false)
+    public function move($path, $name, $dest, $autocreate = false)
     {
         $orig = $this->_getPath($path, $name);
         if (preg_match('|^' . preg_quote($orig) . '/?$|', $dest)) {
-            return PEAR::raiseError(_("Cannot move file(s) - destination is within source."));
+            throw new VFS_Exception('Cannot copy file(s) - destination is within source.');
         }
 
         if ($autocreate) {
-            $result = $this->autocreatePath($dest);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
+            $this->autocreatePath($dest);
         }
 
-        $fileCheck = $this->listFolder($dest, null, true);
-        if (is_a($fileCheck, 'PEAR_Error')) {
-            return $fileCheck;
-        }
-        foreach ($fileCheck as $file) {
+        foreach ($this->listFolder($dest, null, true) as $file) {
             if ($file['name'] == $name) {
-                return PEAR::raiseError(sprintf(_("%s already exists."),
-                                                $this->_getPath($dest, $name)));
+                throw new VFS_Exception(sprintf('%s already exists.', $this->_getPath($dest, $name)));
             }
         }
 
-        $err = $this->rename($path, $name, $dest, $name);
-        if (is_a($err, 'PEAR_Error')) {
-            return PEAR::raiseError(sprintf(_("Failed to move to \"%s\"."),
-                                            $this->_getPath($dest, $name)));
+        try {
+            $this->rename($path, $name, $dest, $name);
+        } catch (VFS_Exception $e) {
+            throw new VFS_Exception(sprintf('Failed to move to "%s".', $this->_getPath($dest, $name)));
         }
-        return true;
     }
 
     /**
      * Replacement for escapeshellcmd(), variable length args, as we only want
      * certain characters escaped.
      *
-     * @access private
-     *
      * @param array $array  Strings to escape.
      *
-     * @return array
+     * @return array  TODO
      */
-    function _escapeShellCommand()
+    protected function _escapeShellCommand()
     {
         $ret = array();
         $args = func_get_args();
@@ -622,13 +529,12 @@ class VFS_smb extends VFS {
     /**
      * Executes a command and returns output lines in array.
      *
-     * @access private
+     * @param string $cmd  Command to be executed.
      *
-     * @param string $cmd  Command to be executed
-     *
-     * @return mixed  Array on success, false on failure.
+     * @return array  Array on success.
+     * @throws VFS_Exception
      */
-    function _execute($cmd)
+    protected function _execute($cmd)
     {
         $cmd = str_replace('"-U%"', '-N', $cmd);
         exec($cmd, $out, $ret);
@@ -655,7 +561,8 @@ class VFS_smb extends VFS {
             if (!$err) {
                 $err = $out ? $out[count($out) - 1] : $ret;
             }
-            return PEAR::raiseError($err);
+
+            throw new VFS_Exception($err);
         }
 
         // Check for errors even on success.
@@ -663,16 +570,16 @@ class VFS_smb extends VFS {
         foreach ($out as $line) {
             if (strpos($line, 'NT_STATUS_NO_SUCH_FILE') !== false ||
                 strpos($line, 'NT_STATUS_OBJECT_NAME_NOT_FOUND') !== false) {
-                $err = _("No such file");
+                $err = Horde_VFS_Translation::t("No such file");
                 break;
             } elseif (strpos($line, 'NT_STATUS_ACCESS_DENIED') !== false) {
-                $err = _("Permission Denied");
+                $err = Horde_VFS_Translation::t("Permission Denied");
                 break;
             }
         }
 
         if ($err) {
-            return PEAR::raiseError($err);
+            throw new VFS_Exception($err);
         }
 
         return $out;
@@ -682,14 +589,13 @@ class VFS_smb extends VFS {
      * Executes SMB commands - without authentication - and returns output
      * lines in array.
      *
-     * @access private
-     *
      * @param array $path  Base path for command.
      * @param array $cmd   Commands to be executed.
      *
-     * @return mixed  Array on success, false on failure.
+     * @return array  Array on success.
+     * @throws VFS_Exception
      */
-    function _command($path, $cmd)
+    protected function _command($path, $cmd)
     {
         list($share) = $this->_escapeShellCommand($this->_params['share']);
         putenv('PASSWD=' . $this->_params['password']);
@@ -705,6 +611,7 @@ class VFS_smb extends VFS {
             $fullcmd .= $c . ";";
         }
         $fullcmd .= '"';
+
         return $this->_execute($fullcmd);
     }
 

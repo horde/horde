@@ -60,7 +60,7 @@
 <label for="new_user" class="hidden"><?php echo _("User") ?></label>
 <input type="text" id="new_user" name="new_user" />
 <?php endif; ?>
-<input type="submit" class="button" value="<?php echo htmlspecialchars(sprintf(_("Save \"%s\""), $group->getShortName()), ENT_COMPAT, Horde_Nls::getCharset()) ?>" />
+<input type="submit" class="button" value="<?php echo htmlspecialchars(sprintf(_("Save \"%s\""), $group->getShortName())) ?>" />
 </p>
 <br />
 

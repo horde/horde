@@ -77,9 +77,11 @@ class Folks_Driver_sql extends Folks_Driver {
     {
         $sql = 'SELECT user_uid FROM ' . $this->_params['online']
             . ' WHERE user_uid <> "" AND user_uid <> "0" '
-            . ' ORDER BY time_last_click DESC LIMIT 0, ' . (int)$limit;
+            . ' ORDER BY time_last_click DESC';
 
-        return $this->_db->getCol($sql);
+        $result = $this->_db->limitQuery($sql, 0, $limit);
+        $value = $result->fetchRow(DB_FETCHMODE_ORDERED);
+        return $value[0];
     }
 
     /**
@@ -94,13 +96,15 @@ class Folks_Driver_sql extends Folks_Driver {
     {
         if ($online) {
             $sql = 'SELECT u.user_uid FROM ' . $this->_params['table'] . ' u, .' . $this->_params['online'] . ' o '
-                . ' WHERE u.user_picture = 1 AND o.user_uid = u.user_uid ORDER BY RAND() LIMIT 0, ' . (int)$limit;
+                . ' WHERE u.user_picture = 1 AND o.user_uid = u.user_uid ORDER BY RAND()';
         } else {
             $sql = 'SELECT user_uid FROM ' . $this->_params['table']
-                . ' WHERE user_picture = 1 ORDER BY RAND() LIMIT 0, ' . (int)$limit;
-        }
+                . ' WHERE user_picture = 1 ORDER BY RAND()';
+        
+        $result = $this->_db->limitQuery($sql, 0, $limit);
+        $value = $result->fetchRow(DB_FETCHMODE_ORDERED);
 
-        return $this->_db->getCol($sql);
+        return $value[0];
     }
 
     /**
@@ -109,7 +113,7 @@ class Folks_Driver_sql extends Folks_Driver {
     protected function _updateOnlineStatus()
     {
         $query = 'REPLACE INTO ' . $this->_params['online'] . ' (user_uid, ip_address, time_last_click) VALUES (?, ?, ?)';
-        return $this->_write_db->query($query, array(Horde_Auth::getAuth(), $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_TIME']));
+        return $this->_write_db->query($query, array($GLOBALS['registry']->getAuth(), $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_TIME']));
     }
 
     /**
@@ -375,7 +379,7 @@ class Folks_Driver_sql extends Folks_Driver {
     protected function _logView($id)
     {
         $query = 'REPLACE INTO ' . $this->_params['views'] . ' (view_uid, user_uid, view_time) VALUES (?, ?, ?)';
-        return $this->_write_db->query($query, array($id, Horde_Auth::getAuth(), $_SERVER['REQUEST_TIME']));
+        return $this->_write_db->query($query, array($id, $GLOBALS['registry']->getAuth(), $_SERVER['REQUEST_TIME']));
     }
 
     /**
@@ -386,7 +390,7 @@ class Folks_Driver_sql extends Folks_Driver {
     public function getViews()
     {
         $query = 'SELECT user_uid FROM ' . $this->_params['views'] . ' WHERE view_uid = ?';
-        return $this->_db->getCol($query, 0, array(Horde_Auth::getAuth()));
+        return $this->_db->getCol($query, 0, array($GLOBALS['registry']->getAuth()));
     }
 
    /**
@@ -466,7 +470,7 @@ class Folks_Driver_sql extends Folks_Driver {
     {
         $query = 'INSERT INTO ' . $this->_params['search'] . ' (user_uid, search_name, search_criteria) VALUES (?, ?, ?)';
 
-        return $this->_write_db->query($query, array(Horde_Auth::getAuth(), $name, $criteria));
+        return $this->_write_db->query($query, array($GLOBALS['registry']->getAuth(), $name, $criteria));
     }
 
    /**
@@ -478,7 +482,7 @@ class Folks_Driver_sql extends Folks_Driver {
     {
         $query = 'SELECT search_name FROM ' . $this->_params['search'] . ' WHERE user_uid = ?';
 
-        return $this->_db->getCol($query, 'search_name', Horde_Auth::getAuth());
+        return $this->_db->getCol($query, 'search_name', $GLOBALS['registry']->getAuth());
     }
 
    /**
@@ -492,7 +496,7 @@ class Folks_Driver_sql extends Folks_Driver {
     {
         $query = 'SELECT search_criteria FROM ' . $this->_params['search'] . ' WHERE user_uid = ? AND search_name = ?';
 
-        return $this->_db->getOne($query, array(Horde_Auth::getAuth(), $name));
+        return $this->_db->getOne($query, array($GLOBALS['registry']->getAuth(), $name));
     }
 
    /**
@@ -504,7 +508,7 @@ class Folks_Driver_sql extends Folks_Driver {
     {
         $query = 'DELETE FROM ' . $this->_params['search'] . ' WHERE user_uid = ? AND search_name = ?';
 
-        return $this->_write_db->query($query, array(Horde_Auth::getAuth(), $name));
+        return $this->_write_db->query($query, array($GLOBALS['registry']->getAuth(), $name));
     }
 
    /**
@@ -563,61 +567,12 @@ class Folks_Driver_sql extends Folks_Driver {
      * Attempts to open a persistent connection to the SQL server.
      *
      * @return boolean  True on success.
+     * @throws Horde_Exception
      */
     private function _connect()
     {
-        Horde::assertDriverConfig($this->_params, 'storage',
-                                  array('phptype', 'charset', 'table'));
-
-        if (!isset($this->_params['database'])) {
-            $this->_params['database'] = '';
-        }
-        if (!isset($this->_params['username'])) {
-            $this->_params['username'] = '';
-        }
-        if (!isset($this->_params['hostspec'])) {
-            $this->_params['hostspec'] = '';
-        }
-
-        /* Connect to the SQL server using the supplied parameters. */
-        require_once 'DB.php';
-        $this->_write_db = DB::connect($this->_params,
-                                        array('persistent' => !empty($this->_params['persistent'])));
-        if ($this->_write_db instanceof PEAR_Error) {
-            throw new Horde_Exception($this->_write_db);
-        }
-
-        // Set DB portability options.
-        switch ($this->_write_db->phptype) {
-        case 'mssql':
-            $this->_write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-            break;
-        default:
-            $this->_write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-        }
-
-        /* Check if we need to set up the read DB connection seperately. */
-        if (!empty($this->_params['splitread'])) {
-            $params = array_merge($this->_params, $this->_params['read']);
-            $this->_db = DB::connect($params,
-                                      array('persistent' => !empty($params['persistent'])));
-            if ($this->_db instanceof PEAR_Error) {
-                throw new Horde_Exception($this->_db);
-            }
-
-            // Set DB portability options.
-            switch ($this->_db->phptype) {
-            case 'mssql':
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-                break;
-            default:
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-            }
-
-        } else {
-            /* Default to the same DB handle for the writer too. */
-            $this->_db =& $this->_write_db;
-        }
+        $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('read', 'folks', 'storage');
+        $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('rw', 'folks', 'storage');
 
         return true;
     }

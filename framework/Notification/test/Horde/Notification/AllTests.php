@@ -2,8 +2,6 @@
 /**
  * All tests for the Horde_Notification package.
  *
- * PHP version 5
- *
  * @category Horde
  * @package  Notification
  * @author   Gunnar Wrobel <wrobel@pardus.de>
@@ -31,6 +29,8 @@ class Horde_Notification_AllTests extends Horde_Test_AllTests
 {
 }
 
+Horde_Notification_AllTests::init('Horde_Notification', __FILE__);
+
 if (PHPUnit_MAIN_METHOD == 'Horde_Notification_AllTests::main') {
-    Horde_Notification_AllTests::main('Horde_Notification', __FILE__);
+    Horde_Notification_AllTests::main();
 }

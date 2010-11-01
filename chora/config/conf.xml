@@ -86,7 +86,7 @@
 
   <configlist name="restrictions" required="false" desc="If you wish to protect
   a file pattern on a global basis (i.e. across all sourceroots defined in
-  sourceroots.php) list the perl-style regex file patterns in this array. For
+  backends.php) list the perl-style regex file patterns in this array. For
   example: &lt;code class=&quot;nowrap&quot;&gt;'^/?CVSROOT'&lt;/code&gt;"/>
 
   <configboolean name="hide_restricted" desc="If you wish to hide restricted

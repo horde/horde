@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Mail</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde Mail Library</summary>
+ <description>The Horde_Mail:: library is a fork of the PEAR Mail library that provides additional functionality, including (but not limited to):
+ * Allows a stream to be passed in.
+ * Allows raw headertext to be used in the outgoing messages (required for
+   things like message redirection pursuant to RFC 5322 [3.6.6]).
+ * Native PHP 5 code.
+ * PHPUnit test suite.
+ * Provides more comprehensive sendmail error messages.
+ * Uses Exceptions instead of PEAR_Errors.
+ </description>
+ <lead>
+  <name>Michael Slusarz</name>
+  <user>slusarz</user>
+  <email>slusarz@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2010-05-11</date>
+ <version>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+ <notes>* Initial Horde Release.
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Mail">
+      <dir name="Transport">
+       <file name="Mail.php" role="php" />
+       <file name="Mock.php" role="php" />
+       <file name="Null.php" role="php" />
+       <file name="Sendmail.php" role="php" />
+       <file name="Smtp.php" role="php" />
+       <file name="Smtpmx.php" role="php" />
+      </dir> <!-- /lib/Horde/Mail/Transport -->
+      <file name="Exception.php" role="php" />
+      <file name="Rfc822.php" role="php" />
+      <file name="Transport.php" role="php" />
+     </dir> <!-- /lib/Horde/Mail -->
+     <file name="Mail.php" role="php" />
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Mail">
+      <file name="AllTests.php" role="test" />
+      <file name="ParseTest.php" role="test" />
+     </dir> <!-- /test/Horde/Mail -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+   <package>
+    <name>Exception</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </required>
+  <optional>
+   <package>
+    <name>Net_SMTP</name>
+    <channel>pear.php.net</channel>
+    <min>1.4.0</min>
+   </package>
+  </optional>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install name="lib/Horde/Mail/Transport/Mail.php" as="Horde/Mail/Transport/Mail.php" />
+   <install name="lib/Horde/Mail/Transport/Mock.php" as="Horde/Mail/Transport/Mock.php" />
+   <install name="lib/Horde/Mail/Transport/Null.php" as="Horde/Mail/Transport/Null.php" />
+   <install name="lib/Horde/Mail/Transport/Sendmail.php" as="Horde/Mail/Transport/Sendmail.php" />
+   <install name="lib/Horde/Mail/Transport/Smtp.php" as="Horde/Mail/Transport/Smtp.php" />
+   <install name="lib/Horde/Mail/Transport/Smtpmx.php" as="Horde/Mail/Transport/Smtpmx.php" />
+   <install name="lib/Horde/Mail/Exception.php" as="Horde/Mail/Exception.php" />
+   <install name="lib/Horde/Mail/Rfc822.php" as="Horde/Mail/Rfc822.php" />
+   <install name="lib/Horde/Mail/Transport.php" as="Horde/Mail/Transport.php" />
+   <install name="lib/Horde/Mail.php" as="Horde/Mail.php" />
+  </filelist>
+ </phprelease>
+</package>

@@ -21,7 +21,7 @@ class Horde_Kolab_Filter_Transport_lda extends Horde_Kolab_Filter_Transport
      *
      * @return DovecotLDA The LDA handler.
      */
-    function &_createTransport()
+    function _createTransport()
     {
         require_once dirname(__FILE__) . '/DovecotLDA.php';
 

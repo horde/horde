@@ -1,0 +1,44 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Horde Project
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lib/Horde/Compress/Rar.php:54
+msgid "Invalid RAR data."
+msgstr ""
+
+#: lib/Horde/Compress/Zip.php:197 lib/Horde/Compress/Zip.php:224
+#: lib/Horde/Compress/Zip.php:244
+msgid "Invalid ZIP data"
+msgstr ""
+
+#: lib/Horde/Compress/Dbx.php:128 lib/Horde/Compress/Dbx.php:157
+#: lib/Horde/Compress/Dbx.php:238
+msgid "Invalid file format"
+msgstr ""
+
+#: lib/Horde/Compress/Zip.php:93
+msgid "This server can't compress zip files."
+msgstr ""
+
+#: lib/Horde/Compress/Gzip.php:42
+msgid "This server can't uncompress gzip files."
+msgstr ""
+
+#: lib/Horde/Compress/Gzip.php:49 lib/Horde/Compress/Gzip.php:79
+#: lib/Horde/Compress/Tar.php:74
+msgid "Unable to decompress data."
+msgstr ""

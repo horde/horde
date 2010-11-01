@@ -8,18 +8,23 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('kronolith');
+
+$vars = Horde_Variables::getDefaultVariables();
+$url = $vars->get('url');
+
+if (Kronolith::showAjaxView()) {
+    Horde::url('', true)->setAnchor('calendar:remote|' . rawurlencode($url))->redirect();
+}
+
 require_once KRONOLITH_BASE . '/lib/Forms/EditRemoteCalendar.php';
 
 // Exit if this isn't an authenticated user or if the user can't
 // subscribe to remote calendars (remote_cals is locked).
-if (!Horde_Auth::getAuth() || $prefs->isLocked('remote_cals')) {
-    header('Location: ' . Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true));
-    exit;
+if (!$GLOBALS['registry']->getAuth() || $prefs->isLocked('remote_cals')) {
+    Horde::url($prefs->getValue('defaultview') . '.php', true)->redirect();
 }
-
-$vars = Horde_Variables::getDefaultVariables();
-$url = $vars->get('url');
 
 $remote_calendar = null;
 $remote_calendars = unserialize($GLOBALS['prefs']->getValue('remote_cals'));
@@ -31,31 +36,29 @@ foreach ($remote_calendars as $key => $calendar) {
 }
 if (is_null($remote_calendar)) {
     $notification->push(_("The remote calendar was not found."), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('calendars/', true));
-    exit;
+    Horde::url('calendars/', true)->redirect();
 }
 
 $form = new Kronolith_EditRemoteCalendarForm($vars, $remote_calendar);
 
 // Execute if the form is valid.
 if ($form->validate($vars)) {
-    $result = $form->execute();
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push($result, 'horde.error');
-    } else {
+    try {
+        $form->execute();
         $notification->push(sprintf(_("The calendar \"%s\" has been saved."), $vars->get('name')), 'horde.success');
+    } catch (Exception $e) {
+        $notification->push($e, 'horde.error');
     }
-
-    header('Location: ' . Horde::applicationUrl('calendars/', true));
-    exit;
+    Horde::url('calendars/', true)->redirect();
 }
 
-$key = Horde_Auth::getCredential('password');
+$key = $registry->getAuthCredential('password');
 $username = $calendar['user'];
 $password = $calendar['password'];
 if ($key) {
-    $username = Horde_Secret::read($key, base64_decode($username));
-    $password = Horde_Secret::read($key, base64_decode($password));
+    $secret = $injector->getInstance('Horde_Secret');
+    $username = $secret->read($key, base64_decode($username));
+    $password = $secret->read($key, base64_decode($password));
 }
 
 $vars->set('name', $calendar['name']);
@@ -69,7 +72,9 @@ if (isset($calendar['color'])) {
 $vars->set('user', $username);
 $vars->set('password', $password);
 $title = $form->getTitle();
+$menu = Horde::menu();
 require KRONOLITH_TEMPLATES . '/common-header.inc';
-require KRONOLITH_TEMPLATES . '/menu.inc';
+echo $menu;
+$notification->notify(array('listeners' => 'status'));
 echo $form->renderActive($form->getRenderer(), $vars, 'remote_edit.php', 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

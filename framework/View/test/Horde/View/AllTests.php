@@ -31,6 +31,8 @@ class Horde_View_AllTests extends Horde_Test_AllTests
 {
 }
 
+Horde_View_AllTests::init('Horde_View', __FILE__);
+
 if (PHPUnit_MAIN_METHOD == 'Horde_View_AllTests::main') {
-    Horde_View_AllTests::main('Horde_View', __FILE__);
+    Horde_View_AllTests::main();
 }

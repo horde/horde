@@ -1,0 +1,50 @@
+  <div><tag:title /></div>
+  <hr />
+<if:checkbox>
+  <form action="<tag:checkbox />" method="post">
+  <input type="hidden" name="mt" value="<tag:mt />" />
+  <tag:forminput />
+</if:checkbox>
+<if:msgs>
+  <table>
+   <tr>
+<if:checkbox>
+    <th></th>
+</if:checkbox>
+    <th></th>
+    <th><tag:hdr_from /></th>
+    <th><tag:hdr_subject /><if:hdr_subject_minor> <small>[<tag:hdr_subject_minor />]</small></if:hdr_subject_minor></th>
+   </tr>
+<loop:msgs>
+   <tr>
+<if:checkbox>
+    <td><input type="checkbox" name="indices[]" value="<tag:msgs.uid />" /></td>
+</if:checkbox>
+    <td><tag:msgs.status /></td>
+    <td><tag:msgs.from /></td>
+    <td><tag:msgs.thread /> <a href="<tag:msgs.target />"><tag:msgs.subject /></a></td>
+   </tr>
+</loop:msgs>
+  </table>
+<else:msgs>
+<div><gettext>No messages.</gettext></div>
+</else:msgs></if:msgs>
+  <hr />
+<if:checkbox>
+  <div>
+   <select name="checkbox">
+    <option value="" selected="selected"><gettext>Action:</gettext></option>
+    <option value="d">&nbsp;<gettext>Delete</gettext></option>
+    <option value="u">&nbsp;<gettext>Undelete</gettext></option>
+    <option value="s">&nbsp;<gettext>Report As Spam</gettext></option>
+    <option value="i">&nbsp;<gettext>Report As Innocent</gettext></option>
+   </select>
+   <input type="submit" value="<gettext>Do Action</gettext>" />
+  </div>
+  </form>
+  <hr />
+</if:checkbox>
+  <div><gettext>Menu</gettext></div>
+  <tag:menu />
+ </body>
+</html>

@@ -1,0 +1,21 @@
+<p>
+<if:selected>
+ <gettext>Click on one of your selected address books and then select all fields to search.</gettext>
+<else:selected>
+ <gettext>Select all fields to search when expanding addresses.</gettext>
+</else:selected></if:selected>
+</p>
+
+<div>
+ <gettext>To select multiple fields, hold down the Control (PC) or Command (Mac) while clicking.</gettext>
+</div>
+
+<input type="hidden" name="search_fields" id="search_fields" />
+<table>
+ <tr>
+  <td>
+   <label for="search_fields_select" class="hidden"><gettext>Fields to search</gettext></label>
+   <select id="search_fields_select" name="search_fields_select" multiple="multiple" size="5"></select>
+  </td>
+ </tr>
+</table>

@@ -1,4 +1,4 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
 /**
  * Script to test the SyncML implementation.
@@ -15,7 +15,6 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Karsten Fourmont <karsten@horde.org>
- * @since   Horde 3.2
  * @package SyncML
  */
 
@@ -46,7 +45,7 @@ $syncml_backend_parms = array(
     /* log all (wb)xml packets received or sent to debug_dir: */
     'debug_files' => true,
     /* Log everything: */
-    'log_level' => PEAR_LOG_DEBUG);
+    'log_level' => 'DEBUG');
 
 /* Get any options. */
 if (!isset($argv)) {
@@ -87,19 +86,8 @@ require_once 'SyncML/Backend.php';
 
 /* Do Horde includes if test for horde backend: */
 if ($syncml_backend_driver == 'Horde') {
-    /* Syncml does its own session handling. */
-    $horde_authentication = 'none';
-    $horde_session_control = 'none';
-    require_once dirname(__FILE__) . '/../../../lib/core.php';
-
-    // Load the CLI environment - make sure there's no time limit, init
-    // some variables, etc.
-    $cli = Horde_Cli::singleton();
-    $cli->init();
-
-    require_once HORDE_BASE . '/lib/base.php';
-    Horde_String::setDefaultCharset('UTF-8');
-    Horde_Nls::setCharset('UTF-8');
+    require_once dirname(__FILE__) . '/../../../lib/Application.php';
+    Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true, 'session_control' => 'none'));
 }
 
 if (!empty($testsetuponly)) {
@@ -460,7 +448,7 @@ function testPre($name, $number)
             $result = $GLOBALS['testbackend']->addEntry($service, $data, $contentType);
             if (is_a($result, 'PEAR_Error')) {
                 echo "error importing data into $service:\n$data\n";
-                throw new Horde_Exception($result);
+                throw new Horde_Exception_Prior($result);
             }
 
             if ($debuglevel >= 2) {
@@ -532,7 +520,7 @@ function testPre($name, $number)
             $result = $GLOBALS['testbackend']->replaceEntry($service, $data, $contentType, $suid);
             if (is_a($result, 'PEAR_Error')) {
                 echo "Error replacing data $locuri suid=$suid!\n";
-                throw new Horde_Exception($result);
+                throw new Horde_Exception_Prior($result);
             }
 
             if ($debuglevel >= 2) {
@@ -571,7 +559,7 @@ function testPre($name, $number)
             // @TODO: simulate a delete by just faking some history data.
             if (is_a($result, 'PEAR_Error')) {
                 echo "Error deleting data $locuri!";
-                throw new Horde_Exception($result);
+                throw new Horde_Exception_Prior($result);
             }
             if ($debuglevel >= 2) {
                 echo "simulated $service delete of $suid!\n";

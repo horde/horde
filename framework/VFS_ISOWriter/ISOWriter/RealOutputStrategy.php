@@ -9,9 +9,8 @@
  *
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
  * @package VFS_ISO
- * @since   Horde 3.0
  */
-class VFS_ISOWriter_RealOutputStrategy {
+abstract class VFS_ISOWriter_RealOutputStrategy {
 
     /**
      * The VFS to which we will write the file.
@@ -63,7 +62,7 @@ class VFS_ISOWriter_RealOutputStrategy {
         if (class_exists($class)) {
             $strategy = new $class($targetVfs, $targetFile);
         } else {
-            $strategy = PEAR::raiseError(sprintf(_("Could not load strategy \"%s\"."),
+            $strategy = PEAR::raiseError(sprintf(Horde_VFS_ISOWriter_Translation::t("Could not load strategy \"%s\"."),
                                                  $method));
         }
 
@@ -73,23 +72,14 @@ class VFS_ISOWriter_RealOutputStrategy {
     /**
      * Get a real filesystem filename we can write to.
      *
-     * @abstract
      * @return string   The filename or PEAR_Error on failure.
      */
-    function getRealFilename()
-    {
-        return PEAR::raiseError(_("Not implemented."));
-    }
+    abstract public function getRealFilename();
 
     /**
      * Indicate that we're done writing to the real file.
      *
-     * @abstract
      * @return mixed    Null or PEAR_Error on failure.
      */
-    function finished()
-    {
-        return PEAR::raiseError(_("Not implemented."));
-    }
-
+    abstract public function finished();
 }

@@ -32,6 +32,11 @@ require_once 'Autoload.php';
  */
 class Horde_Kolab_Storage_CacheTest extends PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        $this->cache = new Horde_Cache_Mock();
+    }
+
     /**
      * Test cleaning the cache.
      *
@@ -39,7 +44,7 @@ class Horde_Kolab_Storage_CacheTest extends PHPUnit_Framework_TestCase
      */
     public function testReset()
     {
-        $cache = new Horde_Kolab_Storage_Cache();
+        $cache = new Horde_Kolab_Storage_Cache($this->cache);
         $cache->reset();
         $this->assertEquals(-1, $cache->validity);
         $this->assertEquals(-1, $cache->nextid);
@@ -54,7 +59,7 @@ class Horde_Kolab_Storage_CacheTest extends PHPUnit_Framework_TestCase
      */
     public function testStore()
     {
-        $cache = new Horde_Kolab_Storage_Cache();
+        $cache = new Horde_Kolab_Storage_Cache($this->cache);
         $cache->reset();
         $item = array(1);
         $cache->store(10, 1, $item);
@@ -71,7 +76,7 @@ class Horde_Kolab_Storage_CacheTest extends PHPUnit_Framework_TestCase
      */
     public function testIgnore()
     {
-        $cache = new Horde_Kolab_Storage_Cache();
+        $cache = new Horde_Kolab_Storage_Cache($this->cache);
         $cache->reset();
         $cache->ignore(11);
         $this->assertEquals(false, $cache->uids[11]);
@@ -84,7 +89,7 @@ class Horde_Kolab_Storage_CacheTest extends PHPUnit_Framework_TestCase
      */
     public function testAttachments()
     {
-        $cache = new Horde_Kolab_Storage_Cache();
+        $cache = new Horde_Kolab_Storage_Cache($this->cache);
         $cache->storeAttachment('a', 'attachment');
         $this->assertEquals('attachment', $cache->loadAttachment('a'));
         $cache->storeAttachment('b', 'b');
@@ -94,45 +99,13 @@ class Horde_Kolab_Storage_CacheTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test configration.
-     *
-     * @return NULL
-     */
-    public function testConfigruation()
-    {
-        $cache = new Horde_Kolab_Storage_Cache();
-
-        $GLOBALS['conf']['kolab']['storage']['cache']['data']['driver'] = 'file';
-
-        $cache2 = new Horde_Kolab_Storage_Cache();
-
-        $GLOBALS['conf']['kolab']['storage']['cache']['data']['params'] = array('prefix' => 'kolab_cache',
-                                                                                'dir' => Horde::getTempDir());
-
-        $cache3 = new Horde_Kolab_Storage_Cache();
-    }
-    /**
-     * Test creating the cache singleton.
-     *
-     * @return NULL
-     */
-    public function testSingleton()
-    {
-        $cache  = Horde_Kolab_Storage_Cache::singleton();
-        $cache2 = new Horde_Kolab_Storage_Cache();
-        $this->assertTrue($cache !== $cache2);
-        $cache3 = Horde_Kolab_Storage_Cache::singleton();
-        $this->assertTrue($cache === $cache3);
-    }
-
-    /**
      * Test loading/saving the cache.
      *
      * @return NULL
      */
     public function testLoadSave()
     {
-        $cache = new Horde_Kolab_Storage_Cache();
+        $cache = new Horde_Kolab_Storage_Cache($this->cache);
         $cache->load('test', 1);
         /**
          * Loading a second time should return immediately (see code

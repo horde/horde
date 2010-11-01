@@ -6,219 +6,208 @@
  * user logs out and logs in again.
  *
  * If you change these preferences in a production system, you will
- * need to delete any horde_prefs in your preferences database.
+ * need to delete these preference entries in your backend; entries in the
+ * backend have priority over the default entry.
  *
- * prefGroups array
- * ----------------
- * $prefGroups are for display purposes when you press the options button.
- * The options choice will appear when you set your preferences driver
- * in the horde/config/conf.php file.
+ * $prefGroups
+ * ===========
+ * $prefGroups defines the preferences page in which a preference value will
+ * appear in.
  *
- * $prefGroups array definition:
- *    column:  What column head this group will go under
- *     label:  Label for the group of settings
- *      desc:  Description that will show under label
- *   members:  List of preferences supported by this group
+ * Format:
+ * -------
+ * column - (string) Which column head this group will go under.
+ * desc - (string) Description shown under label.
+ * label - (string) Label for the group of settings.
+ * members - (array) List of displayable preferences contained in this group.
+ * type - (string) The prefGroup type.
+ *        VALUES:
+ *          'identities' - An identities screen. The identities screen will
+ *                         always show all the identities prefs from Horde
+ *                         along with the identity switching widget.
+ *                         Additionally, applications can define additional
+ *                         identity information in their prefs.php file that
+ *                         will be displayed after the Horde-wide settings.
+ *          Empty - The default preferences screen.
+ *        DEFAULT: The default preferences screen.
  *
- * _prefs array
- * ------------
- * The $_prefs array's are listed in the same order as listed in the
- * members element of $prefGroups.
+ * $_prefs
+ * =======
+ * $_prefs defines the preferences used within an application.  Each
+ * preference is contained within a separate array entry, with the key being
+ * the name of the preference.
  *
- *   value: This entry will hold the default preference value depending on the
- *          preference type:
- *            checkbox:  0 or false for unchecked, 1 or true for checked
- *                enum:  Preselected item from associated enumeration
- *            implicit:  See Preference type
- *                link:  Not used
- *              number:  Number value
- *            password:  Should be ''
- *              select:  Preselected item from associated selection list
- *             special:  Not used
- *                text:  Text value
- *            textarea:  Text value, lines separated with "\n"
+ * The following are OPTIONAL values for each entry:
  *
- *  locked: Allow preference to be changed from UI
- *             true:  Do not show this preference in the UI.
- *                    This has no effect on 'link' type preferences.
- *            false:  Show this preference in the UI and allow changing.
+ * advanced - (boolean) Mark pref as advanced - will only be displayed if user
+ *            switches to advanced preferences mode.
+ *            VALUES:
+ *              true: Advanced preference; hidden in basic preferences mode.
+ *              false: Basic preference; shown regardless of preferences mode.
+ *            DEFAULT: false
  *
- *  shared: Share with other horde apps
- *             true:  Share this pref with other Horde apps
- *            false:  Keep this pref local to the current app
+ * locked - (boolean) Allow preference to be changed from the preferences screen?
+ *          VALUES:
+ *            true: Do not show this preference in the UI and don't allow
+ *                  changing by any mechanism.
+ *            false: Show this preference in the UI and allow changing.
+ *          DEFAULT: false
  *
- *    type: Preference type
- *            checkbox:  Provides a checkbox.
- *                enum:  Provides a selection list in the UI, list is
- *                       specified in the associated 'enum' setting.
- *            implicit:  Provides storage for 'special' types.
- *                link:  Provides a link to another data entry form.
- *              number:  Provides a 3-character textbox to enter a natural
- *                       number; syntaxcheck is performed after data entry.
- *            password:  Provides a textbox for password entry.
- *              select:  Provides a selection list in the UI that is built in
- *                       lib/prefs.php.
- *             special:  Provides an UI widget.
- *                text:  Provides a single-line textbox.
- *            textarea:  Provides a multi-line textbox.
+ * help - (string) The help file identifier for this preference.
+ *        VALUES:
+ *          If present, a help icon will be displayed next to the preference.
+ *          Clicking on this icon will open the entry in the help viewer in
+ *          a popup window.
+ *        DEFAULT: No help icon is displayed
  *
- *    enum: Static list of elements for 'type' => 'enum'.
+ * The UI display for a preference is controlled by the 'type' key. This key
+ * controls how the preference is displayed on the preferences screen. If this
+ * key is not present, the preference is treated as type 'implict'. The
+ * following is the list of types, with a description of further keys used
+ * for each type.
  *
- * escaped: For an enum or a select, are the keys and values already
- *          html-escaped? Defaults to false if not present.
+ * 'checkbox'
+ * ----------
+ * Provides a checkbox (yes/no) entry.
  *
- *    hook: Call a hook function for the value of this preference
- *             true:  Will call the function prefs_hook_<prefname>
- *                    to fill in the value of this preference.
- *                    See hooks.php for more details.
- *            false:  Normal behaviour - no hook is called.
+ * ADDITIONAL KEYS:
+ *   'desc' - (string) The description text to use on the preferences page.
+ *   'value' - (integer) 0 (or false) for unchecked, 1 (or true) for checked.
+ *             DEFAULT: 0
+ *
+ * 'enum'
+ * ------
+ * Provides an enumeration (a/k/a selection) list in the UI.
+ *
+ * ADDITIONAL KEYS:
+ *   'desc' - (string) The description text to use on the preferences page.
+ *   'escaped' - (boolean) If true, values in 'enum' are already escaped.
+ *               DEFAULT: false
+ *   'enum' - (array) The enumeration list. Keys will be used as the
+ *            prefernce value; values are the text that will be displayed in
+ *            the selection list.
+ *   'value' - (mixed) The value of the preference. Will be used to
+ *             auto-select the entry in the selection list.
+ *
+ * 'implicit'
+ * ----------
+ * Preference used in an application but never directly shown to the viewer
+ * via the preferences screen.
+ *
+ * ADDITIONAL KEYS:
+ *   'value' - (mixed) The value of the preference. Will be used to
+ *             auto-select the entry in the selection list.
+ *
+ * 'link'
+ * ------
+ * Provides a clickable link.
+ *
+ * This pref is a UI placeholder only and will not be stored in the preference
+ * backend.
+ *
+ * ADDITIONAL KEYS:
+ *   'desc' - (string) The link text.
+ *   'img' - (string) An image file to display before the link.
+ *           DEFAULT: no image displayed
+ *   'url' - (string) The URL to link to (unescaped). Only specify one of
+ *           'url' or 'xurl'.
+ *   'xurl' - (string) The URL to link to (escaped). Only specify one of 'url'
+ *            or 'xurl'.
+ *
+ * 'multienum'
+ * -----------
+ * Provides an enumeration list in the UI that allows for multiple entries
+ * to be selected.
+ *
+ * ADDITIONAL KEYS:
+ *   'desc' - (string) The description text to use on the preferences page.
+ *   'escaped' - (boolean) If true, values in 'enum' are already escaped.
+ *               DEFAULT: false
+ *   'enum' - (array) The enumeration list. Keys will be used as the
+ *            prefernce value; values are the text that will be displayed in
+ *            the selection list.
+ *   'value' - (string) A serialized value containing the key(s) selected. All
+ *             keys will be auto-selected in the selection area.
+ *
+ * 'number'
+ * --------
+ * Provides a small textbox to enter a natural number. Values entered for this
+ * preference are automatically converted to a number value.
+ *
+ * ADDITIONAL KEYS:
+ *   'desc' - (string) The description text to use on the preferences page.
+ *   'value' - (number) The preference value.
+ *
+ * 'password'
+ * ----------
+ * Provides a textbox for password entry (input characters will not be
+ * displayed to the screen).
+ *
+ * ADDITIONAL KEYS:
+ *   'desc' - (string) The description text to use on the preferences page.
+ *   'value' - (string) The preference value.
+ *
+ * 'prefslink'
+ * -----------
+ * Create a link to another preferences page.
+ *
+ * This pref is a UI placeholder only and will not be stored in the preference
+ * backend.
+ *
+ * ADDITIONAL KEYS:
+ *   'app' - (string) The application to link to.
+ *           DEFAULT: current application.
+ *   'desc' - (string) The link text.
+ *   'group' - (string) The preferences group to link to.
+ *   'img' - (string) An image file to display before the link.
+ *           DEFAULT: no image displayed
+ *
+ * 'rawhtml'
+ * ---------
+ * Outputs the raw HTML string to the page.
+ *
+ * This pref is a UI placeholder only and will not be stored in the preference
+ * backend.
+ *
+ * ADDITIONAL KEYS:
+ *   'value' - (string) The raw (already escaped) HTML to output to the page.
+ *
+ * 'special'
+ * ---------
+ * Used as placeholder to indicate that the application will provide both the
+ * UI display code and the subsequent preferences storage.
+ *
+ * This pref is a UI placeholder only and will not be stored in the preference
+ * backend.
+ *
+ * 'text'
+ * ------
+ * Provides a single-line textbox.
+ *
+ * ADDITIONAL KEYS:
+ *   'desc' - (string) The description text to use on the preferences page.
+ *   'value' - (string) The preference value.
+ *
+ * 'textarea'
+ * ----------
+ * Provides a multi-line textbox.
+ *
+ * ADDITIONAL KEYS:
+ *   'desc' - (string) The description text to use on the preferences page.
+ *   'value' - (string) The preference value. Lines should be separated
+ *             with the "\n" character.
  *
  * $Id$
  */
+
+// *** Personal Information (Identities) Preferences ***
 
 $prefGroups['identities'] = array(
     'column' => _("Your Information"),
     'label' => _("Personal Information"),
     'desc' => _("Change the name and address that people see when they read and reply to your emails."),
-    'members' => array('default_identity', 'identityselect', 'deleteidentity',
-                       'id', 'fullname', 'from_addr')
-);
-
-$prefGroups['authentication'] = array(
-    'column' => _("Your Information"),
-    'label' => _("Authentication Credentials"),
-    'desc' => _("Set authentication credentials like user names and passwords for external servers."),
-    'members' => array('credentialsui'),
-);
-
-try {
-    $auth = Horde_Auth::singleton($GLOBALS['conf']['auth']['driver']);
-    if ($auth->hasCapability('update')) {
-        $prefGroups['forgotpass'] = array(
-            'column' => _("Your Information"),
-            'label' => _("Account Password"),
-            'desc' => _("Set options to allow you to reset your password if you ever forget it."),
-            'members' => array('security_question', 'security_answer', 'alternate_email')
-        );
-    }
-} catch (Horde_Exception $e) {}
-
-$prefGroups['language'] = array(
-    'column' => _("Your Information"),
-    'label' => _("Locale and Time"),
-    'desc' => _("Set your preferred language, timezone and date options."),
-    'members' => array('language', 'timezone', 'twentyFour', 'date_format', 'first_week_day')
-);
-
-$prefGroups['categories'] = array(
-    'column' => _("Your Information"),
-    'label' => _("Categories and Labels"),
-    'desc' => _("Manage the list of categories you have to label items with, and colors associated with those categories."),
-    'members' => array('categorymanagement')
-);
-
-$prefGroups['display'] = array(
-    'column' => _("Other Information"),
-    'label' => _("Display Options"),
-    'desc' => _("Set your startup application, color scheme, page refreshing, and other display options."),
-    'members' => array('initial_application', 'show_last_login', 'theme',
-                       'summary_refresh_time', 'show_sidebar', 'sidebar_width',
-                       'moz_sidebar', 'menu_view', 'menu_refresh_time',
-                       'widget_accesskey')
-);
-
-$prefGroups['remote'] = array(
-    'column' => _("Other Information"),
-    'label' => _("Remote Servers"),
-    'desc' => _("Set up remote servers that you want to access from your portal."),
-    'url' => 'services/portal/rpcsum.php'
-);
-
-if (!empty($GLOBALS['conf']['facebook']['key']) && !empty($GLOBALS['conf']['facebook']['secret'])) {
-    $prefGroups['facebook'] = array(
-        'column' => _("Other Information"),
-        'label' => _("Facebook Integration"),
-        'desc' => _("Set up integration with your Facebook account."),
-        'url' => 'services/facebook.php'
-    );
-}
-
-if (!empty($GLOBALS['conf']['twitter']['key']) && !empty($GLOBALS['conf']['twitter']['secret'])) {
-    $prefGroups['twitter'] = array(
-        'column' => _("Other Information"),
-        'label' => _("Twitter Integration"),
-        'desc' => _("Set up integration with your Twitter account."),
-        'url' => 'services/twitter.php'
-    );
-}
-
-
-// For alternate IMSP authentication.
-if (!empty($GLOBALS['conf']['imsp']['enabled'])) {
-    $prefGroups['imspauth'] = array(
-        'column' => _("Other Information"),
-        'label' => _("Alternate IMSP Login"),
-        'desc' => _("Use if name/password is different for IMSP server."),
-        'members' => array('imsp_auth_user', 'imsp_auth_pass')
-    );
-}
-
-// Determine functionality of richtext editor
-$prefGroups['richtext'] = array(
-    'column' => _("Other Information"),
-    'label' => _("Rich Text Editor Options"),
-    'desc' => _("Which plugins to enable for the Rich Text editor."),
-    'members' => array('editor_plugins'),
-);
-
-$prefGroups['syncml'] = array(
-    'column' => _("Other Information"),
-    'label' => _("SyncML"),
-    'desc' => _("Configuration for syncing with PDAs, Smartphones and Outlook."),
-    'url' => 'services/portal/syncml.php',
-    'members' => array()
-);
-
-// Personal Information preferences
-
-// default identity
-// Set locked to true if you don't want the users to have multiple identities.
-$_prefs['default_identity'] = array(
-    'value' => 0,
-    'locked' => false,
-    'shared' => true,
-    'type' => 'enum',
-    'enum' => (isset($GLOBALS['identity']) && is_object($GLOBALS['identity'])) ? $GLOBALS['identity']->getAll('id') : array(),
-    'desc' => _("Your default identity:"),
-);
-
-// identities array
-// Don't change anything here.
-$_prefs['identities'] = array(
-    'value' => 'a:0:{}',
-    'locked' => false,
-    'shared' => true,
-    'type' => 'implicit',
-);
-
-// identify email confirmation
-$_prefs['confirm_email'] = array(
-    'value' => 'a:0:{}',
-    'locked' => false,
-    'shared' => true,
-    'type' => 'implicit',
-);
-
-// identity selection widget
-$_prefs['identityselect'] = array(
-    'shared' => true,
-    'type' => 'special',
-);
-
-// delete button
-$_prefs['deleteidentity'] = array(
-    'type' => 'special',
-    'shared' => true,
+    'members' => array('id', 'fullname', 'from_addr'),
+    'type' => 'identities'
 );
 
 // identity name
@@ -226,8 +215,6 @@ $_prefs['deleteidentity'] = array(
 // horde/config/hooks.php.
 $_prefs['id'] = array(
     'value' => '',
-    'locked' => false,
-    'shared' => true,
     'type' => 'text',
     'desc' => _("Identity's name:")
 );
@@ -237,8 +224,6 @@ $_prefs['id'] = array(
 // horde/config/hooks.php.
 $_prefs['fullname'] = array(
     'value' => '',
-    'locked' => false,
-    'shared' => true,
     'type' => 'text',
     'desc' => _("Your full name:")
 );
@@ -248,33 +233,44 @@ $_prefs['fullname'] = array(
 // horde/config/hooks.php.
 $_prefs['from_addr'] = array(
     'value' => '',
-    'locked' => false,
-    'shared' => true,
     'type' => 'text',
-    'desc' =>  _("Your From: address:")
+    'desc' =>  _("The default e-mail address to use with this identity:")
 );
 
-// Authentication Options
-
-// credentials
-$_prefs['credentials'] = array(
-    'value' => 'a:0:{}',
-    'locked' => false,
-    'shared' => true,
-    'type' => 'implicit'
+// default identity
+// Set locked to true if you don't want the users to have multiple identities.
+$_prefs['default_identity'] = array(
+    'value' => 0
 );
 
-// credentials interface
-$_prefs['credentialsui'] = array(
-    'shared' => true,
-    'type' => 'special',
+// identities data
+$_prefs['identities'] = array(
+    // default value = serialize(array())
+    'value' => 'a:0:{}'
+);
+
+// identify email confirmation
+$_prefs['confirm_email'] = array(
+    // default value = serialize(array())
+    'value' => 'a:0:{}'
+);
+
+
+
+// *** Authentication Preferences ***
+
+$prefGroups['forgotpass'] = array(
+    'column' => _("Your Information"),
+    'label' => _("Account Password"),
+    'desc' => _("Set preferences to allow you to reset your password if you ever forget it."),
+    'members' => array(
+        'security_question', 'security_answer', 'alternate_email'
+    )
 );
 
 // user security question
 $_prefs['security_question'] = array(
     'value' => '',
-    'locked' => false,
-    'shared' => true,
     'type' => 'text',
     'desc' => _("Enter a security question which you will be asked if you need to reset your password, e.g. 'what is the name of your pet?':")
 );
@@ -282,8 +278,6 @@ $_prefs['security_question'] = array(
 // user security answer
 $_prefs['security_answer'] = array(
     'value' => '',
-    'locked' => false,
-    'shared' => true,
     'type' => 'text',
     'desc' => _("Insert the required answer to the security question:")
 );
@@ -291,36 +285,44 @@ $_prefs['security_answer'] = array(
 // user alternate email
 $_prefs['alternate_email'] = array(
     'value' => '',
-    'locked' => false,
-    'shared' => true,
     'type' => 'text',
     'desc' => _("Insert an email address to which you can receive the new password:")
 );
 
+
+
+// *** Locale/Time Preferences ***
+
+$prefGroups['language'] = array(
+    'column' => _("Your Information"),
+    'label' => _("Locale and Time"),
+    'desc' => _("Set your preferred language, timezone and date preferences."),
+    'members' => array(
+        'language', 'timezone', 'twentyFour', 'date_format',
+        'date_format_mini', 'time_format', 'first_week_day'
+    )
+);
+
 // user language
+// Language list is dynamically built when prefs screen is displayed
 $_prefs['language'] = array(
     'value' => '',
-    'locked' => false,
-    'shared' => true,
-    'type' => 'select',
+    'type' => 'enum',
     'escaped' => true,
     'desc' => _("Select your preferred language:")
 );
 
 // user time zone
+// Timezone list is dynamically built when prefs screen is displayed
 $_prefs['timezone'] = array(
     'value' => '',
-    'locked' => false,
-    'shared' => true,
-    'type' => 'select',
+    'type' => 'enum',
     'desc' => _("Your current time zone:")
 );
 
 // time format
 $_prefs['twentyFour'] = array(
     'value' => false,
-    'locked' => false,
-    'shared' => true,
     'type' => 'checkbox',
     'desc' => _("Display 24-hour times?")
 );
@@ -328,14 +330,12 @@ $_prefs['twentyFour'] = array(
 // date format
 $_prefs['date_format'] = array(
     'value' => '%x',
-    'locked' => false,
-    'shared' => true,
     'type' => 'enum',
     'enum' => array(
         '%x' => strftime('%x'),
         '%Y-%m-%d' => strftime('%Y-%m-%d'),
         '%d/%m/%Y' => strftime('%d/%m/%Y'),
-        '%A %B %d, %Y' => strftime('%A %B %d, %Y'),
+        '%A, %B %d, %Y' => strftime('%A, %B %d, %Y'),
         '%A, %d. %B %Y' => strftime('%A, %d. %B %Y'),
         '%A, %d %B %Y' => strftime('%A, %d %B %Y'),
         '%a, %b %e, %Y' => strftime('%a, %b %e, %Y'),
@@ -355,43 +355,70 @@ $_prefs['date_format'] = array(
         '%e. %B %y' => strftime('%e. %B %y'),
         '%B %e, %Y' => strftime('%B %e, %Y'),
     ),
-    'desc' => _("Choose how to display dates:"),
+    'desc' => _("Choose how to display dates (full format):"),
+);
+
+// date format (miniature)
+$_prefs['date_format_mini'] = array(
+    'value' => '%x',
+    'type' => 'enum',
+    'enum' => array(
+        '%x' => strftime('%x'),
+        '%Y-%m-%d' => strftime('%Y-%m-%d'),
+        '%d/%m/%Y' => strftime('%d/%m/%Y'),
+        '%a, %b %e, %Y' => strftime('%a, %b %e, %Y'),
+        '%a, %b %e, %y' => strftime('%a, %b %e, %y'),
+        '%a, %b %e' => strftime('%a, %b %e'),
+        '%a, %e %b %Y' => strftime('%a, %e %b %Y'),
+        '%a, %e %b %y' => strftime('%a, %e %b %y'),
+        '%a %d %b %Y' => strftime ('%a %d %b %Y'),
+        '%a %x' => strftime ('%a %x'),
+        '%a %Y-%m-%d' => strftime ('%a %Y-%m-%d'),
+        '%e %b %Y' => strftime('%e %b %Y'),
+        '%e. %b %Y' => strftime('%e. %b %Y'),
+        '%e. %m %Y' => strftime('%e %m %Y'),
+        '%e. %m.' => strftime('%e. %m.'),
+        '%b %e, %Y' => strftime('%b %e, %Y'),
+    ),
+    'desc' => _("Choose how to display dates (abbreviated format):"),
+);
+
+// Time format
+$_prefs['time_format'] = array(
+    'value' => '%X',
+    'type' => 'enum',
+    'enum' => array(
+        '%X' => strftime('%X'),
+        '%H:%M:%S' => strftime('%H:%M:%S'),
+        '%I:%M:%S %p' => strftime('%I:%M:%S %p'),
+        '%l:%M:%S %p' => strftime('%l:%M:%S %p'),
+        '%H:%M' => strftime('%H:%M'),
+        '%I:%M%p' => strftime('%I:%M%p'),
+        '%l:%M%p' => strftime('%l:%M%p'),
+    ),
+    'desc' => _("Choose how to display times:")
 );
 
 // what day should be displayed as the first day of the week?
 $_prefs['first_week_day'] = array(
     'value' => '0',
-    'locked' => false,
-    'shared' => true,
     'type' => 'enum',
     'desc' => _("Which day would you like to be displayed as the first day of the week?"),
-    'enum' => array('0' => _("Sunday"),
-                    '1' => _("Monday"))
+    'enum' => array(
+        '0' => _("Sunday"),
+        '1' => _("Monday")
+    )
 );
 
-// UI theme
-$_prefs['theme'] = array(
-    'value' => 'bluewhite',
-    'locked' => false,
-    'shared' => true,
-    'type' => 'select',
-    'desc' => _("Select your color scheme.")
-);
 
-// categories
-$_prefs['categories'] = array(
-    'value' => '',
-    'locked' => false,
-    'shared' => true,
-    'type' => 'implicit'
-);
 
-// category colors
-$_prefs['category_colors'] = array(
-    'value' => '',
-    'locked' => false,
-    'shared' => true,
-    'type' => 'implicit'
+// *** Categories/Labels Preferences ***
+
+$prefGroups['categories'] = array(
+    'column' => _("Your Information"),
+    'label' => _("Categories and Labels"),
+    'desc' => _("Manage the list of categories you have to label items with, and colors associated with those categories."),
+    'members' => array('categorymanagement')
 );
 
 // UI for category management.
@@ -399,177 +426,234 @@ $_prefs['categorymanagement'] = array(
     'type' => 'special'
 );
 
-$_prefs['summary_refresh_time'] = array(
-    'value' => 300,
-    'locked' => false,
-    'shared' => false,
-    'type' => 'enum',
-    'enum' => array(0 => _("Never"),
-                    30 => _("Every 30 seconds"),
-                    60 => _("Every minute"),
-                    300 => _("Every 5 minutes"),
-                    900 => _("Every 15 minutes"),
-                    1800 => _("Every half hour")),
-    'desc' => _("Refresh Portal View:")
+// categories
+$_prefs['categories'] = array(
+    'value' => ''
 );
 
-$_prefs['show_sidebar'] = array(
-    'value' => true,
-    'locked' => false,
-    'shared' => true,
-    'type' => 'checkbox',
-    'desc' => sprintf(_("Show the %s Menu on the left?"), $GLOBALS['registry']->get('name', 'horde'))
+// category colors
+$_prefs['category_colors'] = array(
+    'value' => ''
 );
 
-$_prefs['sidebar_width'] = array(
-    'value' => 150,
-    'locked' => false,
-    'shared' => false,
-    'type' => 'number',
-    'desc' => sprintf(_("Width of the %s menu on the left:"), $GLOBALS['registry']->get('name', 'horde'))
-);
 
-$_prefs['moz_sidebar'] = array(
-    'type' => 'link',
-    'xurl' => sprintf('javascript:if (window.sidebar && window.sidebar.addPanel) window.sidebar.addPanel(\'%s\', \'%s\', \'%s\'); else alert(\'%s\');',
-                      $GLOBALS['registry']->get('name', 'horde'),
-                      Horde_Util::addParameter(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/portal/sidebar.php', true, -1), 'mozbar', '1'),
-                      Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/prefs.php', true, -1),
-                      addslashes(_("Couldn't find the Mozilla Sidebar. Make sure the sidebar is open."))),
-    'desc' => sprintf(_("Add the %s Menu as a Mozilla Sidebar"), $GLOBALS['registry']->get('name', 'horde'))
-);
 
-$_prefs['menu_view'] = array(
-    'value' => 'both',
-    'locked' => false,
-    'shared' => true,
-    'type' => 'enum',
-    'enum' => array('text' => _("Text Only"),
-                    'icon' => _("Icons Only"),
-                    'both' => _("Icons with text")),
-    'desc' => _("Menu mode:")
-);
+// *** Display Preferences ***
 
-$_prefs['menu_refresh_time'] = array(
-    'value' => 300,
-    'locked' => false,
-    'shared' => true,
-    'type' => 'enum',
-    'enum' => array(0 => _("Never"),
-                    30 => _("Every 30 seconds"),
-                    60 => _("Every minute"),
-                    120 => _("Every 2 minutes"),
-                    300 => _("Every 5 minutes")),
-    'desc' => _("Refresh Dynamic Menu Elements:")
+$prefGroups['display'] = array(
+    'column' => _("Other Information"),
+    'label' => _("Display Preferences"),
+    'desc' => _("Set your startup application, color scheme, page refreshing, and other display preferences."),
+    'members' => array(
+        'initial_application', 'show_last_login', 'theme',
+        'summary_refresh_time', 'show_sidebar', 'sidebar_width',
+        'menu_view', 'menu_refresh_time', 'widget_accesskey'
+    )
 );
-
 
 // what application should we go to after login?
+// Application list is dynamically built when prefs screen is displayed
 $_prefs['initial_application'] = array(
     'value' => 'horde',
-    'locked' => false,
-    'shared' => true,
-    'type' => 'select',
+    'type' => 'enum',
     'desc' => sprintf(_("What application should %s display after login?"), $GLOBALS['registry']->get('name'))
 );
 
-// should we create access keys?
-$_prefs['widget_accesskey'] = array(
+// show the last login time of user
+$_prefs['show_last_login'] = array(
     'value' => true,
-    'locked' => false,
-    'shared' => true,
     'type' => 'checkbox',
-    'desc' => _("Should access keys be defined for most links?")
-);
-
-// the layout of the portal page.
-$_prefs['portal_layout'] = array(
-    'value' => 'a:0:{}',
-    'locked' => false,
-    'shared' => false,
-    'type' => 'implicit'
-);
-
-// the remote servers.
-$_prefs['remote_summaries'] = array(
-    'value' => 'a:0:{}',
-    'locked' => false,
-    'shared' => false,
-    'type' => 'implicit'
-);
-
-$_prefs['facebook'] = array(
-    'value' => 'a:0:{}',
-    'locked' => false,
-    'shared' => true,
-    'type' => 'implicit'
-);
-
-$_prefs['twitter'] = array(
-    'value' => 'a:0:{}',
-    'locked' => false,
-    'shared' => false,
-    'type' => 'implicit'
+    'desc' => _("Show last login time when logging in?")
 );
 
 // last login time of user
 // value is a serialized array of the UNIX timestamp of the last
 // login, and the host that the last login was from.
 $_prefs['last_login'] = array(
-    'value' => 'a:0:{}',
-    'locked' => false,
-    'shared' => true,
-    'type' => 'implicit'
+    // value = serialize(array())
+    'value' => 'a:0:{}'
 );
 
-// show the last login time of user
-$_prefs['show_last_login'] = array(
-    'value' => true,
-    'locked' => false,
-    'shared' => true,
-    'type' => 'checkbox',
-    'desc' => _("Show last login time when logging in?")
+// UI theme
+// Theme list is dynamically built when prefs screen is displayed
+$_prefs['theme'] = array(
+    'value' => 'silver',
+    'type' => 'enum',
+    'desc' => _("Select your color scheme.")
 );
 
-if (!empty($GLOBALS['conf']['imsp']['enabled'])) {
-    $_prefs['imsp_auth_user'] = array(
-        'value' => '',
-        'locked' => false,
-        'shared' => false,
-        'type' => 'text',
-        'desc' => _("Alternate IMSP Username")
-    );
-
-    $_prefs['imsp_auth_pass'] = array(
-        'value' => '',
-        'locked' => false,
-        'shared' => false,
-        'type' => 'password',
-        'desc' => _("Alternate IMSP Password")
-    );
-}
-
-// Rich Text Editor preferences.
-$_prefs['editor_plugins'] = array(
-    'value' => 'a:2:{i:0;s:8:"ListType";i:1;s:12:"CharacterMap";}',
-    'locked' => false,
-    'shared' => true,
-    'type' => 'multienum',
+$_prefs['summary_refresh_time'] = array(
+    'value' => 300,
+    'type' => 'enum',
     'enum' => array(
-        'ContextMenu' => _("Right click context menu"),
-        'TableOperations' => _("Table operations menu bar"),
-        'ListType' => _("Allow setting of ordered list type"),
-        'CharacterMap' => _("Special characters"),
-        'AnselImage' => _("Insertion of images from Photo Galleries in text")),
-    'desc' => _("Select editor plugins")
+        0 => _("Never"),
+        30 => _("Every 30 seconds"),
+        60 => _("Every minute"),
+        300 => _("Every 5 minutes"),
+        900 => _("Every 15 minutes"),
+        1800 => _("Every half hour")
+    ),
+    'desc' => _("Refresh Portal View:")
 );
-// End Rich Text Editor preferences.
 
+$_prefs['show_sidebar'] = array(
+    'value' => true,
+    'type' => 'checkbox',
+    'desc' => sprintf(_("Show the %s Menu on the left?"), $GLOBALS['registry']->get('name', 'horde'))
+);
+
+$_prefs['sidebar_width'] = array(
+    'value' => 150,
+    'type' => 'number',
+    'desc' => sprintf(_("Width of the %s menu on the left:"), $GLOBALS['registry']->get('name', 'horde'))
+);
+
+$_prefs['menu_view'] = array(
+    'value' => 'both',
+    'type' => 'enum',
+    'enum' => array(
+        'text' => _("Text Only"),
+        'icon' => _("Icons Only"),
+        'both' => _("Icons with text")
+    ),
+    'desc' => _("Menu mode:")
+);
+
+$_prefs['menu_refresh_time'] = array(
+    'value' => 300,
+    'type' => 'enum',
+    'enum' => array(
+        0 => _("Never"),
+        30 => _("Every 30 seconds"),
+        60 => _("Every minute"),
+        120 => _("Every 2 minutes"),
+        300 => _("Every 5 minutes")
+    ),
+    'desc' => _("Refresh Dynamic Menu Elements:")
+);
+
+// should we create access keys?
+$_prefs['widget_accesskey'] = array(
+    'value' => true,
+    'type' => 'checkbox',
+    'desc' => _("Should access keys be defined for most links?")
+);
+
+// the layout of the portal page.
+$_prefs['portal_layout'] = array(
+    // value = serialize(array())
+    'value' => 'a:0:{}'
+);
+
+// *** Remote Servers Preferences ***
+
+$prefGroups['remote'] = array(
+    'column' => _("Other Information"),
+    'label' => _("Remote Servers"),
+    'desc' => _("Set up remote servers that you want to access from your portal."),
+    'members' => array('remotemanagement')
+);
+
+$_prefs['remotemanagement'] = array(
+    'type' => 'special'
+);
+
+// the remote servers.
+$_prefs['remote_summaries'] = array(
+    // value = serialize(array())
+    'value' => 'a:0:{}'
+);
+
+
+
+// *** Facebook Integration Preferences ***
+
+$prefGroups['facebook'] = array(
+    'column' => _("Other Information"),
+    'label' => _("Facebook Integration"),
+    'desc' => _("Set up integration with your Facebook account."),
+    'members' => array('facebookmanagement')
+);
+
+$_prefs['facebookmanagement'] = array(
+    'type' => 'special'
+);
+
+$_prefs['facebook'] = array(
+    // value = serialize(array())
+    'value' => 'a:0:{}'
+);
+
+
+
+// *** Twitter Intergration Preferences ***
+
+$prefGroups['twitter'] = array(
+    'column' => _("Other Information"),
+    'label' => _("Twitter Integration"),
+    'desc' => _("Set up integration with your Twitter account."),
+    'members' => array('twittermanagement')
+);
+
+$_prefs['twittermanagement'] = array(
+    'type' => 'special'
+);
+
+$_prefs['twitter'] = array(
+    // value = serialize(array())
+    'value' => 'a:0:{}'
+);
+
+
+
+// *** IMSP Intergration Preferences ***
+$prefGroups['imspauth'] = array(
+    'column' => _("Other Information"),
+    'label' => _("Alternate IMSP Login"),
+    'desc' => _("Use if name/password is different for IMSP server."),
+    'members' => array('imsp_auth_user', 'imsp_auth_pass')
+);
+
+$_prefs['imsp_auth_user'] = array(
+    'value' => '',
+    'type' => 'text',
+    'desc' => _("Alternate IMSP Username")
+);
+
+$_prefs['imsp_auth_pass'] = array(
+    'value' => '',
+    'type' => 'password',
+    'desc' => _("Alternate IMSP Password")
+);
+
+// *** SyncML Preferences ***
+$prefGroups['syncml'] = array(
+    'column' => _("Other Information"),
+    'label' => _("SyncML"),
+    'desc' => _("Configuration for syncing with PDAs, Smartphones and Outlook."),
+    'members' => array('syncmlmanagement')
+);
+
+$_prefs['syncmlmanagement'] = array(
+    'type' => 'special'
+);
+
+// *** ActiveSync Preferences ***
+$prefGroups['activesync'] = array(
+    'column' => _("Other Information"),
+    'label' => _("ActiveSync"),
+    'desc' => _("Manage your ActiveSync devices."),
+    'members' => array('activesyncmanagement')
+);
+
+$_prefs['activesyncmanagement'] = array(
+    'type' => 'special'
+);
+
+// *** Internal Preferences ***
 
 // last time login tasks were run.
 $_prefs['last_logintasks'] = array(
-    'value' => 'a:0:{}',
-    'locked' => false,
-    'shared' => true,
-    'type' => 'implicit'
+    // value = serialize(array())
+    'value' => 'a:0:{}'
 );

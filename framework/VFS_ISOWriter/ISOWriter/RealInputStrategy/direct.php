@@ -9,7 +9,6 @@
  *
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
  * @package VFS_ISO
- * @since   Horde 3.0
  */
 class VFS_ISOWriter_RealInputStrategy_direct extends VFS_ISOWriter_RealInputStrategy {
 

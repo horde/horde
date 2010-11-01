@@ -8,8 +8,10 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package IMP
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
 class IMP_Maillog
 {
@@ -26,7 +28,7 @@ class IMP_Maillog
      */
     static public function log($type, $msg_ids, $data = null)
     {
-        $history = Horde_History::singleton();
+        $history = $GLOBALS['injector']->getInstance('Horde_History');
 
         if (!is_array($msg_ids)) {
             $msg_ids = array($msg_ids);
@@ -47,19 +49,21 @@ class IMP_Maillog
                 break;
 
             case 'reply':
-                $params = array('action' => 'reply');
+            case 'reply_all':
+            case 'reply_list':
+                $params = array('action' => $type);
                 break;
             }
 
-            $r = $history->log(self::_getUniqueHistoryId($val), $params);
-
-            /* On error, log the error message only since informing the user
-             * is just a waste of time and a potential point of confusion,
-             * especially since they most likely don't even know the message
-             * is being logged. */
-            if ($r instanceof PEAR_Error) {
-                $entry = sprintf('Could not log message details to Horde_History. Error returned: %s', $r->getMessage());
-                Horde::logMessage($entry, __FILE__, __LINE__, PEAR_LOG_ERR);
+            try {
+                $history->log(self::_getUniqueHistoryId($val), $params);
+            } catch (Exception $e) {
+                /* On error, log the error message only since informing the
+                 * user is just a waste of time and a potential point of
+                 * confusion, especially since they most likely don't even
+                 * know the message is being logged. */
+                $entry = sprintf('Could not log message details to Horde_History. Error returned: %s', $e->getMessage());
+                Horde::logMessage($entry, 'ERR');
             }
         }
     }
@@ -69,20 +73,12 @@ class IMP_Maillog
      *
      * @param string $msg_id  The Message-ID of the message.
      *
-     * @return DataTreeObject  The DataTreeObject object containing the log
-     *                         information.
+     * @return Horde_History_Log  The object containing the log information.
      * @throws Horde_Exception
      */
     static public function getLog($msg_id)
     {
-        $history = Horde_History::singleton();
-
-        $res = $history->getHistory(self::_getUniqueHistoryId($msg_id));
-        if ($res instanceof PEAR_Error) {
-            throw new Horde_Exception($res);
-        }
-
-        return $res;
+        return $GLOBALS['injector']->getInstance('Horde_History')->getHistory(self::_getUniqueHistoryId($msg_id));
     }
 
     /**
@@ -104,7 +100,7 @@ class IMP_Maillog
         }
 
         if ($msg_history) {
-            foreach ($msg_history->getData() as $entry) {
+            foreach ($msg_history as $entry) {
                 if (($entry['action'] == 'mdn') && ($entry['type'] == $type)) {
                     return true;
                 }
@@ -144,7 +140,7 @@ class IMP_Maillog
         $tf = $GLOBALS['prefs']->getValue('time_format');
         $ret = array();
 
-        foreach ($msg_history->getData() as $entry) {
+        foreach ($msg_history as $entry) {
             $msg = null;
 
             if (isset($entry['desc'])) {
@@ -165,6 +161,14 @@ class IMP_Maillog
 
                 case 'reply':
                     $msg = _("You replied to this message on %s.");
+                    break;
+
+                case 'reply_all':
+                    $msg = _("You replied to all recipients of this message on %s.");
+                    break;
+
+                case 'reply_list':
+                    $msg = _("You replied to this message via the mailing list on %s.");
                     break;
                 }
             }
@@ -193,8 +197,7 @@ class IMP_Maillog
         }
         $msg_ids = array_map(array('IMP_Maillog', '_getUniqueHistoryId'), $msg_ids);
 
-        $history = Horde_History::singleton();
-        return $history->removeByNames($msg_ids);
+        $GLOBALS['injector']->getInstance('Horde_History')->removeByNames($msg_ids);
     }
 
     /**
@@ -210,7 +213,7 @@ class IMP_Maillog
             return '';
         }
 
-        return implode('.', array('imp', str_replace('.', '*', Horde_Auth::getAuth()), $msgid));
+        return implode('.', array('imp', str_replace('.', '*', $GLOBALS['registry']->getAuth()), $msgid));
     }
 
 }

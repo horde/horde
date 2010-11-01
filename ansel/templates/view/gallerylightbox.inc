@@ -68,7 +68,7 @@ function copySelected()
 function editDates()
 {
     var haveImages = false;
-    var imageDateUrl = '<?php echo Horde::applicationUrl(Horde_Util::addParameter('edit_dates.php', array('gallery' => $this->galleryId))) ?>';
+    var imageDateUrl = '<?php echo Horde::url('edit_dates.php')->add(array('gallery' => $this->galleryId)) ?>';
     for (var i = 0; i< document.forms['gallery'].elements.length; ++i) {
        if (document.forms['gallery'].elements[i].checked == true &&
            document.forms['gallery'].elements[i].type == 'checkbox') {
@@ -122,18 +122,18 @@ function downloadSelected()
     <?php endif; ?>
 </script>
 <div class="header" id="galleryHeader">
- <?php echo ($this->numTiles ? '<span class="rightFloat">' . ($this->numTiles > $this->perpage ? sprintf(_("%d to %d of %d Items"), $this->pagestart, $this->pageend, $this->numTiles) : sprintf(ngettext("%d Item", "%d Items", $this->numTiles), $this->numTiles)) . '</span>' : '') . Ansel::getBreadCrumbs(); ?>
+ <?php echo ($this->numTiles ? '<span class="rightFloat">' . ($this->numTiles > $this->perpage ? sprintf(_("%d to %d of %d Items"), $this->pagestart, $this->pageend, $this->numTiles) : sprintf(ngettext("%d Item", "%d Items", $this->numTiles), $this->numTiles)) . '</span>' : '') . Ansel::getBreadCrumbs($this->view->gallery) ?>
 </div>
 <?php if ($this->view->gallery->get('desc')): ?>
 <div class="gallery-desc" id="galleryDescription">
-<?php echo Horde_Text_Filter::filter($this->view->gallery->get('desc'), 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO)) ?>
+<?php echo $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($this->view->gallery->get('desc'), 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO)) ?>
 </div>
 <?php endif;?>
 <table width="100%" cellspacing="0">
  <tr>
   <td style="vertical-align:top;width:<?php echo ($this->view->countWidgets() ? "75%" : "100%") ?>;">
     <?php if (empty($this->view->api) && $option_select && $this->numTiles): ?>
-    <form name="gallery" action="<?php echo Horde::applicationUrl('image.php', true)?>" method="get">
+    <form name="gallery" action="<?php echo Horde::url('image.php', true)?>" method="get">
     <?php echo Horde_Util::formInput() ?>
     <input type="hidden" name="actionID" value="" />
     <input type="hidden" name="gallery" value="<?php echo $this->galleryId ?>" />
@@ -144,39 +144,40 @@ function downloadSelected()
     <?php endif; ?>
     <?php if (!empty($option_select) && $this->numTiles): ?>
         <table class="anselActions" cellspacing="0" width="100%"><tr><td>
-        <?php printf(_("Select: %s, %s"),
-                       Horde::link('#', _("Select All"), '', '', 'selectAll(); return false;') . _("All") . '</a>',
-                       Horde::link('#', _("Select None"), '', '', 'selectNone(); return false;') . _("None") . '</a>');?>
+        <?php   $tempurl = new Horde_Url('#');
+                printf(_("Select: %s, %s"),
+                       $tempurl->link(array('title' => _("Select All"), 'onclick' => 'selectAll(); return false;')) . _("All") . '</a>',
+                       $tempurl->link(array('title' => _("Select None"), 'onclick' => 'selectNone(); return false;')) . _("None") . '</a>');?>
        </td><td align="right">
         <?php if ($option_delete || $option_move || $option_copy) echo _("Actions: ") ?>
           <?php if ($GLOBALS['conf']['gallery']['downloadzip']): ?>
-            <?php echo Horde::link('#', '', 'widget', '', 'downloadSelected(); return false;') . _("Download selected photos")?></a> |
+            <?php echo $tempurl->link(array('class' => 'widget', 'onclick' => 'downloadSelected(); return false;')) . _("Download selected photos")?></a> |
           <?php endif; ?>
           <?php if ($option_edit): ?>
-           <?php echo Horde::link('#', _("Edit Dates"), 'widget', '', 'editDates(); return false;') . _("Edit Dates"); ?></a> |
+           <?php echo $tempurl->link(array('title' => _("Edit Dates"), 'class' => 'widget', 'onclick' => 'editDates(); return false;')) . _("Edit Dates"); ?></a> |
           <?php endif; ?>
           <?php if ($option_delete): ?>
-            <?php echo Horde::link('#', _("Delete"), 'widget', '', 'deleteSelected(); return false;') . _("Delete"); ?></a>
+            <?php echo $tempurl->link(array('title' => _("Delete"), 'class' => 'widget', 'onclick' => 'deleteSelected(); return false;')) . _("Delete"); ?></a>
           <?php endif; ?>
           <?php if ($option_move): ?>
-          | <?php echo Horde::link('#', _("Move"), 'widget', '', 'moveSelected(); return false;') . _("Move"); ?></a>
+          | <?php echo $tempurl->link(array('title' => _("Move"), 'class' => 'widget', 'onclick' => 'moveSelected(); return false;')) . _("Move"); ?></a>
           <?php endif; ?>
           <?php if ($option_copy): ?>
-     |      <?php echo Horde::link('#', _("Copy"), 'widget', '', 'copySelected(); return false;') . _("Copy"); ?></a>
+     |      <?php echo $tempurl->link(array('title' => _("Copy"), 'class' => 'widget', 'onclick' => 'copySelected(); return false;')) . _("Copy"); ?></a>
           <?php endif; ?>
-          <select name="new_gallery"><option value="-1"><?php echo _("Selected photos to") ?></option><?php echo Ansel::selectGalleries($this->galleryId, Horde_Perms::EDIT) ?></select>
+          <select name="new_gallery"><option value="-1"><?php echo _("Selected photos to") ?></option><?php echo Ansel::selectGalleries(array('selected' => $this->galleryId, 'perm' => Horde_Perms::EDIT)) ?></select>
           </td></tr></table>
         <?php endif; ?>
      <?php if (!$this->numTiles): ?>
       <div class="text"><em><?php echo _("There are no photos in this gallery.") ?></em></div>
      <?php else: ?>
-      <table width="100%" style="background-color:<?php echo $this->style['background'] ?>;">
+      <table width="100%" style="background-color:<?php echo $this->style->background ?>;">
        <tr><td colspan="<?php echo $tilesperrow ?>"><?php echo $pager->render() ?></td></tr>
        <tr>
        <?php
        foreach ($this->children as $child) {
            echo '<td width="' . $cellwidth . '%" class="ansel-tile">'
-               . $child->getTile($this->view->gallery, $this->style['name'], false, $this->view->getParams()) . '</td>';
+               . $child->getTile($this->view->gallery, $this->style, false, $this->view->getParams()) . '</td>';
            if (!(++$count % $tilesperrow)) {
                 echo '</tr><tr>';
            }

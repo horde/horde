@@ -1,0 +1,106 @@
+.storySubtitle {
+    font-style: italic;
+    font-size: 90%;
+    color: #999;
+    margin: 5px 10px;
+    padding: 2px;
+    background: #fff;
+}
+
+.storyBody {
+    margin: 5px 10px;
+    padding: 2px;
+    color: #000;
+    background: #fff;
+}
+.storyBody ul, .storyBody ol {
+    margin: 1em 0;
+    -moz-padding-start: 40px;
+}
+
+.storyLinks, .storyTags {
+    margin: 5px 10px;
+    padding: 2px;
+    font-size: 90%;
+    background: #fff;
+}
+.storyLinks {
+    border-top: 1px solid #ccc;
+}
+
+.storyComments {
+    margin-top: 8px;
+}
+
+.tagSelector {
+   border: 1px solid #ccc;
+   margin: 4px;
+   padding: 5px;
+   background: #fff;
+   width: 150px;
+}
+
+a.earliest:link, a.earliest:visited, a.earliest:hover, a.earliest:active {
+    color: #ccc;
+}
+
+a.earlier:link, a.earlier:visited, a.earlier:hover, a.earlier:active {
+    color: #99c;
+}
+
+a.later:link, a.later:visited, a.later:hover, a.later:active {
+    color: #99f;
+}
+
+a.latest:link, a.latest:visited, a.latest:hover, a.latest:active {
+    color: #00f;
+}
+
+/* Tables. */
+table#feeds {
+    width: 99%;
+    margin: 0 0 8px 5px;
+    border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+}
+table#feeds th {
+    padding: 3px;
+    background: #e9e9e9;
+    border-right: 1px solid #ccc;
+    text-align: left;
+}
+table#feeds td {
+    padding: 3px;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+table#feeds th.sortup {
+    background: #bbcbff url("graphics/za.png") center left no-repeat;
+    padding-left: 10px;
+}
+table#feeds th.sortdown {
+    background: #bbcbff url("graphics/az.png") center left no-repeat;
+    padding-left: 10px;
+}
+
+/* QuickFinder */
+.QuickFinderNoMatch {
+    display: none;
+}
+#feeds-empty {
+    padding: 4px;
+    font-style: italic;
+}
+#quicksearch {
+    display: inline;
+}
+#quicksearch input {
+    background-image: url("graphics/search.png");
+    background-repeat: no-repeat;
+    background-position: 2px center;
+    padding: 1px 0 1px 20px;
+}
+#quicksearch a {
+    display: inline-block;
+    padding: 2px 4px;
+}

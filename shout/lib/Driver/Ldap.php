@@ -9,7 +9,6 @@
  * http://www.opensource.org/licenses/bsd-license.php.
  *
  * @author  Ben Klang <ben@alkaloid.net>
- * @since   Shout 0.1
  * @package Shout
  */
 
@@ -44,25 +43,28 @@ class Shout_Driver_Ldap extends Shout_Driver
     }
 
     /**
-     * Get a list of users valid for the contexts
+     * Get a list of users valid for the accounts
      *
-     * @param string $context  Context in which to search
+     * @param string $account  Account in which to search
      *
      * @return array User information indexed by voice mailbox number
      */
-    public function getExtensions($context)
+    public function getExtensions($account)
     {
-
+        if (empty($account)) {
+            throw new Shout_Exception('Must specify an account code');
+        }
         static $entries = array();
-        if (isset($entries[$context])) {
-            return $entries[$context];
+        if (isset($entries[$account])) {
+            return $entries[$account];
         }
 
         $this->_params['basedn'];
 
         $filter  = '(&';
         $filter .= '(objectClass=AsteriskVoiceMail)';
-        $filter .= '(AstContext='.$context.')';
+        $filter .= '(objectClass=AsteriskUser)';
+        $filter .= '(AstContext='.$account.')';
         $filter .= ')';
 
         $attributes = array(
@@ -73,7 +75,7 @@ class Shout_Driver_Ldap extends Shout_Driver
             'AstVoicemailOptions',
             'AstVoicemailPager',
             'telephoneNumber',
-            'AstExtension'
+            'AstUserChannel'
         );
 
         $search = ldap_search($this->_LDAP, $this->_params['basedn'], $filter, $attributes);
@@ -90,55 +92,55 @@ class Shout_Driver_Ldap extends Shout_Driver
 
         // ATTRIBUTES RETURNED FROM ldap_get_entries ARE ALL LOWER CASE!!
         // It's a PHP thing.
-        $entries[$context] = array();
+        $entries[$account] = array();
         $i = 0;
         while ($i < $res['count']) {
             list($extension) = explode('@', $res[$i]['astvoicemailmailbox'][0]);
-            $entries[$context][$extension] = array('extension' => $extension);
+            $entries[$account][$extension] = array('extension' => $extension);
 
             $j = 0;
-            $entries[$context][$extension]['mailboxopts'] = array();
+            $entries[$account][$extension]['mailboxopts'] = array();
             if (empty($res[$i]['astvoicemailoptions']['count'])) {
                 $res[$i]['astvoicemailoptions']['count'] = -1;
             }
             while ($j < $res[$i]['astvoicemailoptions']['count']) {
-                $entries[$context][$extension]['mailboxopts'][] =
+                $entries[$account][$extension]['mailboxopts'][] =
                     $res[$i]['astvoicemailoptions'][$j];
                 $j++;
             }
 
-            $entries[$context][$extension]['mailboxpin'] =
+            $entries[$account][$extension]['mailboxpin'] =
                 $res[$i]['astvoicemailpassword'][0];
 
-            $entries[$context][$extension]['name'] =
+            $entries[$account][$extension]['name'] =
                 $res[$i]['cn'][0];
 
-            $entries[$context][$extension]['email'] =
+            $entries[$account][$extension]['email'] =
                 $res[$i]['astvoicemailemail'][0];
 
-            $entries[$context][$extension]['pageremail'] =
+            $entries[$account][$extension]['pageremail'] =
                 $res[$i]['astvoicemailpager'][0];
 
             $j = 0;
-            $entries[$context][$extension]['numbers'] = array();
+            $entries[$account][$extension]['numbers'] = array();
             if (empty($res[$i]['telephonenumber']['count'])) {
                 $res[$i]['telephonenumber']['count'] = -1;
             }
             while ($j < $res[$i]['telephonenumber']['count']) {
-                $entries[$context][$extension]['numbers'][] =
+                $entries[$account][$extension]['numbers'][] =
                     $res[$i]['telephonenumber'][$j];
                 $j++;
             }
 
             $j = 0;
-            $entries[$context][$extension]['devices'] = array();
-            if (empty($res[$i]['astextension']['count'])) {
-                $res[$i]['astextension']['count'] = -1;
+            $entries[$account][$extension]['devices'] = array();
+            if (empty($res[$i]['astuserchannel']['count'])) {
+                $res[$i]['astuserchannel']['count'] = -1;
             }
-            while ($j < $res[$i]['astextension']['count']) {
+            while ($j < $res[$i]['astuserchannel']['count']) {
                 // Trim off the Asterisk channel type from the device string
-                $device = explode('/', $res[$i]['astextension'][$j], 2);
-                $entries[$context][$extension]['devices'][] = $device[1];
+                $device = explode('/', $res[$i]['astuserchannel'][$j], 2);
+                $entries[$account][$extension]['devices'][] = $device[1];
                 $j++;
             }
 
@@ -147,33 +149,33 @@ class Shout_Driver_Ldap extends Shout_Driver
 
         }
 
-        ksort($entries[$context]);
+        ksort($entries[$account]);
 
-        return($entries[$context]);
+        return($entries[$account]);
     }
 
     /**
      * Add a new destination valid for this extension.
      * A destination is either a telephone number or a VoIP device.
      *
-     * @param string $context      Context for the extension
+     * @param string $account      Account for the extension
      * @param string $extension    Extension for which to return destinations
      * @param string $type         Destination type ("device" or "number")
      * @param string $destination  The destination itself
      *
      * @return boolean  True on success.
      */
-    function addDestination($context, $extension, $type, $destination)
+    function addDestination($account, $extension, $type, $destination)
     {
         // FIXME: Permissions check
-        $dn = $this->_getExtensionDn($context, $extension);
+        $dn = $this->_getExtensionDn($account, $extension);
         $attr = $this->_getDestAttr($type, $destination);
 
         $res = ldap_mod_add($this->_LDAP, $dn, $attr);
         if ($res === false) {
             $msg = sprintf('Error while modifying the LDAP entry.  Code %s; Message "%s"',
                            ldap_errno($this->_LDAP), ldap_error($this->_LDAP));
-            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($msg, 'ERR');
             throw new Shout_Exception(_("Internal error modifing the directory.  Details have been logged for the administrator."));
         }
 
@@ -184,16 +186,16 @@ class Shout_Driver_Ldap extends Shout_Driver
      * Get a list of destinations valid for this extension.
      * A destination is either a telephone number or a VoIP device.
      *
-     * @param string $context    Context for the extension
+     * @param string $account    Account for the extension
      * @param string $extension  Extension for which to return destinations
      */
-    function getDestinations($context, $extension)
+    function getDestinations($account, $extension)
     {
         // FIXME: LDAP filter injection
         $filter = '(&(AstContext=%s)(AstVoicemailMailbox=%s))';
-        $filter = sprintf($filter, $context, $extension);
+        $filter = sprintf($filter, $account, $extension);
 
-        $attrs = array('telephoneNumber', 'AstExtensions');
+        $attrs = array('telephoneNumber', 'AstUserChannel');
 
         $res = ldap_search($this->_LDAP, $this->_params['basedn'],
                            $filter, $attrs);
@@ -201,7 +203,7 @@ class Shout_Driver_Ldap extends Shout_Driver
         if ($res === false) {
             $msg = sprintf('Error while searching LDAP.  Code %s; Message "%s"',
                            ldap_errno($this->_LDAP), ldap_error($this->_LDAP));
-            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($msg, 'ERR');
             throw new Shout_Exception(_("Internal error searching the directory."));
         }
 
@@ -210,31 +212,31 @@ class Shout_Driver_Ldap extends Shout_Driver
         if ($res === false) {
             $msg = sprintf('Error while searching LDAP.  Code %s; Message "%s"',
                            ldap_errno($this->_LDAP), ldap_error($this->_LDAP));
-            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($msg, 'ERR');
             throw new Shout_Exception(_("Internal error searching the directory."));
         }
 
         if ($res['count'] != 1) {
             $msg = sprintf('Error while searching LDAP.  Code %s; Message "%s"',
                            ldap_errno($this->_LDAP), ldap_error($this->_LDAP));
-            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($msg, 'ERR');
             throw new Shout_Exception(_("Wrong number of entries found for this search."));
         }
 
         return array('numbers' => $res['telephonenumbers'],
-                     'devices' => $res['astextensions']);
+                     'devices' => $res['astuserchannel']);
     }
 
-    function deleteDestination($context, $extension, $type, $destination)
+    function deleteDestination($account, $extension, $type, $destination)
     {
-        $dn = $this->_getExtensionDn($context, $extension);
+        $dn = $this->_getExtensionDn($account, $extension);
         $attr = $this->_getDestAttr($type, $destination);
 
         $res = ldap_mod_del($this->_LDAP, $dn, $attr);
         if ($res === false) {
             $msg = sprintf('Error while modifying the LDAP entry.  Code %s; Message "%s"',
                            ldap_errno($this->_LDAP), ldap_error($this->_LDAP));
-            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($msg, 'ERR');
             throw new Shout_Exception(_("Internal error modifing the directory.  Details have been logged for the administrator."));
         }
 
@@ -252,9 +254,9 @@ class Shout_Driver_Ldap extends Shout_Driver
 
         case 'device':
             // FIXME: Check that the device is valid and associated with this
-            // context.
+            // account.
             // FIXME: Allow for different device types
-            $attr = array('AstExtension' => "SIP/" . $destination);
+            $attr = array('AstUserChannel' => "SIP/" . $destination);
             break;
 
         default:
@@ -268,7 +270,7 @@ class Shout_Driver_Ldap extends Shout_Driver
     /**
      * Save an extension to the LDAP tree
      *
-     * @param string $context Context to which the user should be added
+     * @param string $account Account to which the user should be added
      *
      * @param string $extension Extension to be saved
      *
@@ -277,21 +279,21 @@ class Shout_Driver_Ldap extends Shout_Driver
      * @return TRUE on success, PEAR::Error object on error
      * @throws Shout_Exception
      */
-    public function saveExtension($context, $extension, $details)
+    public function saveExtension($account, $extension, $details)
     {
         // Check permissions
-        parent::saveExtension($context, $extension, $details);
+        parent::saveExtension($account, $extension, $details);
 
         // FIXME: Fix and uncomment the below
-//        // Check to ensure the extension is unique within this context
-//        $filter = "(&(objectClass=AstVoicemailMailbox)(context=$context))";
+//        // Check to ensure the extension is unique within this account
+//        $filter = "(&(objectClass=AstVoicemailMailbox)(context=$account))";
 //        $reqattrs = array('dn', $ldapKey);
 //        $res = @ldap_search($this->_LDAP, $this->_params['basedn'],
 //                            $filter, $reqattrs);
 //        if ($res === false) {
 //            $msg = sprintf('LDAP Error (%s): %s', ldap_errno($this->_LDAP),
 //                                                  ldap_error($this->_LDAP));
-//            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+//            Horde::logMessage($msg, 'ERR');
 //            throw new Shout_Exception(_("Error while searching the directory.  Details have been logged for the administrator."));
 //        }
 //        if (($res['count'] != 1) ||
@@ -300,15 +302,16 @@ class Shout_Driver_Ldap extends Shout_Driver
 //            throw new Shout_Exception(_("Duplicate extension found.  Not saving changes."));
 //        }
         // FIXME: Quote these strings
-        $uid = $extension . '@' . $context;
+        $uid = $extension . '@' . $account;
         $entry = array(
-            'objectClass' => array('top', 'account', 'AsteriskVoicemail'),
+            'objectClass' => array('top', 'account',
+                                   'AsteriskVoicemail', 'AsteriskUser'),
             'uid' => $uid,
             'cn' => $details['name'],
             'AstVoicemailEmail' => $details['email'],
             'AstVoicemailMailbox' => $extension,
             'AstVoicemailPassword' => $details['mailboxpin'],
-            'AstContext' => $context,
+            'AstContext' => $account,
         );
         $rdn = 'uid=' . $uid;
         $dn = $rdn . ',' . $this->_params['basedn'];
@@ -317,7 +320,7 @@ class Shout_Driver_Ldap extends Shout_Driver
             // This is a change to an existing extension
             // First, identify the DN to modify
             // FIXME: Quote these strings
-            $olddn = $this->_getExtensionDn($context, $extension);
+            $olddn = $this->_getExtensionDn($account, $extension);
 
             // If the extension has changed we need to perform an object rename
             if ($extension != $details['oldextension']) {
@@ -327,7 +330,7 @@ class Shout_Driver_Ldap extends Shout_Driver
                 if ($res === false) {
                     $msg = sprintf('LDAP Error (%s): %s', ldap_errno($this->_LDAP),
                                                       ldap_error($this->_LDAP));
-                    Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+                    Horde::logMessage($msg, 'ERR');
                     throw new Shout_Exception(_("Error while modifying the directory.  Details have been logged for the administrator."));
                 }
             }
@@ -339,7 +342,7 @@ class Shout_Driver_Ldap extends Shout_Driver
             if ($res === false) {
                 $msg = sprintf('LDAP Error (%s): %s', ldap_errno($this->_LDAP),
                                                       ldap_error($this->_LDAP));
-                Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($msg, 'ERR');
                 throw new Shout_Exception(_("Error while modifying the directory.  Details have been logged for the administrator."));
             }
 
@@ -350,7 +353,7 @@ class Shout_Driver_Ldap extends Shout_Driver
             if ($res === false) {
                 $msg = sprintf('LDAP Error (%s): %s', ldap_errno($this->_LDAP),
                                                       ldap_error($this->_LDAP));
-                Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($msg, 'ERR');
                 throw new Shout_Exception(_("Error while modifying the directory.  Details have been logged for the administrator."));
             }
             return true;
@@ -363,23 +366,23 @@ class Shout_Driver_Ldap extends Shout_Driver
     /**
      * Deletes an extension from the LDAP tree
      *
-     * @param string $context Context to delete the user from
+     * @param string $account Account to delete the user from
      * @param string $extension Extension of the user to be deleted
      *
      * @return boolean True on success, PEAR::Error object on error
      */
-    public function deleteExtension($context, $extension)
+    public function deleteExtension($account, $extension)
     {
         // Check permissions
-        parent::deleteExtension($context, $extension);
+        parent::deleteExtension($account, $extension);
 
-        $dn = $this->_getExtensionDn($context, $extension);
+        $dn = $this->_getExtensionDn($account, $extension);
 
         $res = @ldap_delete($this->_LDAP, $dn);
         if ($res === false) {
             $msg = sprintf('LDAP Error (%s): %s', ldap_errno($this->_LDAP),
                                                   ldap_error($this->_LDAP));
-            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($msg, 'ERR');
             throw new Horde_Exception(_("Error while deleting from the directory.  Details have been logged for the administrator."));
         }
 
@@ -388,14 +391,14 @@ class Shout_Driver_Ldap extends Shout_Driver
 
     /**
      *
-     * @param <type> $context
+     * @param <type> $account
      * @param <type> $extension
      */
-    protected function _getExtensionDn($context, $extension)
+    protected function _getExtensionDn($account, $extension)
     {
         // FIXME: Sanitize filter string against LDAP injection
         $filter = '(&(AstVoicemailMailbox=%s)(AstContext=%s))';
-        $filter = sprintf($filter, $extension, $context);
+        $filter = sprintf($filter, $extension, $account);
         $attributes = array('dn');
 
         $res = ldap_search($this->_LDAP, $this->_params['basedn'],
@@ -403,7 +406,7 @@ class Shout_Driver_Ldap extends Shout_Driver
         if ($res === false) {
             $msg = sprintf('LDAP Error (%s): %s', ldap_errno($this->_LDAP),
                                                   ldap_error($this->_LDAP));
-            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($msg, 'ERR');
             throw new Shout_Exception(_("Error while searching the directory.  Details have been logged for the administrator."));
         }
 
@@ -415,7 +418,7 @@ class Shout_Driver_Ldap extends Shout_Driver
         if ($res === false) {
             $msg = sprintf('LDAP Error (%s): %s', ldap_errno($this->_LDAP),
                                                   ldap_error($this->_LDAP));
-            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($msg, 'ERR');
             throw new Shout_Exception(_("Error while searching the directory.  Details have been logged for the administrator."));
         }
 
@@ -423,7 +426,7 @@ class Shout_Driver_Ldap extends Shout_Driver
         if ($dn === false) {
             $msg = sprintf('LDAP Error (%s): %s', ldap_errno($this->_LDAP),
                                                   ldap_error($this->_LDAP));
-            Horde::logMessage($msg, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($msg, 'ERR');
             throw new Shout_Exception(_("Internal LDAP error.  Details have been logged for the administrator."));
         }
 
@@ -433,7 +436,8 @@ class Shout_Driver_Ldap extends Shout_Driver
     /**
      * Attempts to open a connection to the LDAP server.
      *
-     * @return boolean    True on success; exits (Horde::fatal()) on error.
+     * @return boolean    True on success.
+     * @throws Shout_Exception
      *
      * @access private
      */
@@ -455,8 +459,7 @@ class Shout_Driver_Ldap extends Shout_Driver
         if (!$conn) {
              Horde::logMessage(
                 sprintf('Failed to open an LDAP connection to %s.',
-                        $this->_params['hostspec']),
-                __FILE__, __LINE__, PEAR_LOG_ERR);
+                        $this->_params['hostspec']), 'ERR');
             throw new Shout_Exception('Internal LDAP error. Details have been logged for the administrator.');
         }
 
@@ -469,8 +472,7 @@ class Shout_Driver_Ldap extends Shout_Driver
                     sprintf('Set LDAP protocol version to %d failed: [%d] %s',
                             $this->_params['version'],
                             ldap_errno($conn),
-                            ldap_error($conn)),
-                    __FILE__, __LINE__, PEAR_LOG_WARNING);
+                            ldap_error($conn)), 'WARN');
                 throw new Shout_Exception('Internal LDAP error. Details have been logged for the administrator.', ldap_errno($conn));
             }
         }
@@ -481,8 +483,7 @@ class Shout_Driver_Ldap extends Shout_Driver
                 Horde::logMessage(
                     sprintf('STARTTLS failed: [%d] %s',
                             @ldap_errno($this->_ds),
-                            @ldap_error($this->_ds)),
-                    __FILE__, __LINE__, PEAR_LOG_ERR);
+                            @ldap_error($this->_ds)), 'ERR');
             }
         }
 
@@ -498,8 +499,7 @@ class Shout_Driver_Ldap extends Shout_Driver
                             $this->_params['port'],
                             $this->_params['searchdn'],
                             @ldap_errno($conn),
-                            @ldap_error($conn)),
-                    __FILE__, __LINE__, PEAR_LOG_ERR);
+                            @ldap_error($conn)), 'ERR');
                 throw new Shout_Exception('Internal LDAP error. Details have been logged for the administrator.', ldap_errno($conn));
             }
         }

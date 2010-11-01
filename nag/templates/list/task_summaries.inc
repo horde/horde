@@ -1,8 +1,7 @@
 <tr class="<?php echo $style ?>">
   <td>
 <?php
-if (!is_a($share, 'PEAR_Error') &&
-    $share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
     if (!$task->completed) {
         if (!$task->childrenCompleted()) {
             $label = _("Incomplete sub tasks, complete them first");
@@ -33,11 +32,10 @@ if (!is_a($share, 'PEAR_Error') &&
 <?php endif; ?>
   <td>
     <?php
-    if (!is_a($share, 'PEAR_Error') &&
-        $share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT) &&
-        (!$task->private || $task->owner == Horde_Auth::getAuth())) {
+    if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT) &&
+        (!$task->private || $task->owner == $GLOBALS['registry']->getAuth())) {
         $label = sprintf(_("Edit \"%s\""), $task->name);
-        echo Horde::link($task->edit_link, $label) . Horde::img('edit.png', $label, null, $registry->getImageDir('horde')) . '</a>';
+        echo Horde::link($task->edit_link, $label) . Horde::img('edit.png', $label) . '</a>';
     }
     ?>
   </td>
@@ -47,8 +45,7 @@ if (!is_a($share, 'PEAR_Error') &&
     $task_name = strlen($task->name)
         ? htmlspecialchars($task->name)
         : _("[none]");
-    if (!is_a($share, 'PEAR_Error') &&
-        $share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+    if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
         echo Horde::link($task->view_link, '', '', '', '', $task->desc)
             . $task_name . '</a>';
     } else {
@@ -63,6 +60,10 @@ if (!is_a($share, 'PEAR_Error') &&
 <?php if (in_array('due', $columns)): ?>
   <td class="nowrap" sortval="<?php echo $task->due ? (int)$task->due : PHP_INT_MAX ?>">
     <?php echo $task->due ? strftime($dateFormat, $task->due) : '&nbsp;' ?>
+  </td>
+<?php endif; if (in_array('start', $columns)): ?>
+  <td class="nowrap" sortval="<?php echo $task->start ? (int)$task->start : PHP_INT_MAX ?>">
+    <?php echo $task->start ? strftime($dateFormat, $task->start) : '&nbsp;' ?>
   </td>
 <?php endif; if (in_array('estimate', $columns)): ?>
   <td class="nowrap" sortval="<?php echo htmlspecialchars($task->estimation()) ?>">

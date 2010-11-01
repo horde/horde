@@ -9,14 +9,14 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-new Horde_Application(array('nologintasks' => true));
+Horde_Registry::appInit('horde', array('nologintasks' => true));
 
 $cid = Horde_Util::getFormData('cid');
 if (empty($cid)) {
     exit;
 }
 
-$cache = Horde_Cache::singleton($conf['cache']['driver'], Horde::getDriverConfig('cache', $conf['cache']['driver']));
+$cache = $injector->getInstance('Horde_Cache');
 $cdata = @unserialize($cache->get($cid, $conf['cache']['default_lifetime']));
 if (!$cdata) {
     exit;

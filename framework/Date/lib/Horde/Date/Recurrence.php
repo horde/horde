@@ -208,14 +208,14 @@ class Horde_Date_Recurrence
     public function getRecurName()
     {
         switch ($this->getRecurType()) {
-        case self::RECUR_NONE: return _("No recurrence");
-        case self::RECUR_DAILY: return _("Daily");
-        case self::RECUR_WEEKLY: return _("Weekly");
+        case self::RECUR_NONE: return Horde_Date_Translation::t("No recurrence");
+        case self::RECUR_DAILY: return Horde_Date_Translation::t("Daily");
+        case self::RECUR_WEEKLY: return Horde_Date_Translation::t("Weekly");
         case self::RECUR_MONTHLY_DATE:
-        case self::RECUR_MONTHLY_WEEKDAY: return _("Monthly");
+        case self::RECUR_MONTHLY_WEEKDAY: return Horde_Date_Translation::t("Monthly");
         case self::RECUR_YEARLY_DATE:
         case self::RECUR_YEARLY_DAY:
-        case self::RECUR_YEARLY_WEEKDAY: return _("Yearly");
+        case self::RECUR_YEARLY_WEEKDAY: return Horde_Date_Translation::t("Yearly");
         }
     }
 
@@ -386,13 +386,17 @@ class Horde_Date_Recurrence
             $start_week->sec  = $this->start->sec;
 
             // Make sure we are not at the ISO-8601 first week of year while
-            // still in month 12...and adjust the year ahead if we are.
+            // still in month 12...OR in the ISO-8601 last week of year while
+            // in month 1 and adjust the year accordingly.
             $week = $after->format('W');
             if ($week == 1 && $after->month == 12) {
                 $theYear = $after->year + 1;
+            } elseif ($week >= 52 && $after->month == 1) {
+                $theYear = $after->year - 1;
             } else {
                 $theYear = $after->year;
             }
+
             $after_week = Horde_Date_Utils::firstDayOfWeek($week, $theYear);
             $after_week_end = clone $after_week;
             $after_week_end->mday += 7;
@@ -937,7 +941,7 @@ class Horde_Date_Recurrence
                $remainder = substr($remainder, 1);
         }
         if (!empty($remainder)) {
-            if (strpos($remainder, '#') !== false) {
+            if (strpos($remainder, '#') === 0) {
                 $this->setRecurCount(substr($remainder, 1));
             } else {
                 list($year, $month, $mday) = sscanf($remainder, '%04d%02d%02d');
@@ -954,7 +958,7 @@ class Horde_Date_Recurrence
      * @link http://www.imc.org/pdi/vcal-10.txt
      * @link http://www.shuchow.com/vCalAddendum.html
      *
-     * @param Horde_iCalendar $calendar  A Horde_iCalendar object instance.
+     * @param Horde_Icalendar $calendar  A Horde_Icalendar object instance.
      *
      * @return string  A vCalendar 1.0 conform RRULE value.
      */
@@ -1120,7 +1124,7 @@ class Horde_Date_Recurrence
      * @link http://rfc.net/rfc2445.html#s4.8.5
      * @link http://www.shuchow.com/vCalAddendum.html
      *
-     * @param Horde_iCalendar $calendar  A Horde_iCalendar object instance.
+     * @param Horde_Icalendar $calendar  A Horde_Icalendar object instance.
      *
      * @return string  An iCalendar 2.0 conform RRULE value.
      */

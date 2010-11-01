@@ -9,20 +9,30 @@
 
 var DimpCompose = {
     // Variables defaulting to empty/false:
-    //   auto_save_interval, compose_cursor, disabled, drafts_mbox, editor_on,
-    //   is_popup, knl_p, knl_sm, mp_padding, resizebcc, resizecc, resizeto,
-    //   row_height, rte, skip_spellcheck, spellcheck, sc_submit, uploading
-    last_msg: '',
+    //   auto_save_interval, compose_cursor, disabled, drafts_mbox,
+    //   editor_wait, is_popup, knl, md5_hdrs, md5_msg, md5_msgOrig,
+    //   old_action, old_identity, resizing, rte, rte_loaded, skip_spellcheck,
+    //   spellcheck, sc_submit, uploading
+
+    knl: {},
 
     confirmCancel: function()
     {
+        var cc,
+            sbd = $('send_button_redirect');
+
         if (window.confirm(DIMP.text_compose.cancel)) {
             if ((this.is_popup || DIMP.conf_compose.popup) &&
-                DIMP.baseWindow &&
-                DIMP.baseWindow.DimpBase) {
-                DIMP.baseWindow.focus();
+                DimpCore.base &&
+                !DIMP.conf_compose.qreply) {
+                DimpCore.base.focus();
             }
-            DimpCore.doAction(DIMP.conf_compose.auto_save_interval_val ? 'DeleteDraft' : 'CancelCompose', { imp_compose: $F('composeCache') }, { ajaxopts: { asynchronous: DIMP.conf_compose.qreply } });
+
+            cc = (sbd && sbd.visible())
+                ? $F('composeCacheRedirect')
+                : $F('composeCache');
+
+            DimpCore.doAction(DIMP.conf_compose.auto_save_interval_val ? 'deleteDraft' : 'cancelCompose', { imp_compose: cc }, { ajaxopts: { asynchronous: DIMP.conf_compose.qreply } });
             this.updateDraftsMailbox();
             return this.closeCompose();
         }
@@ -31,8 +41,9 @@ var DimpCompose = {
     updateDraftsMailbox: function()
     {
         if (this.is_popup &&
-            DIMP.baseWindow.DimpBase.folder == DIMP.conf_compose.drafts_mbox) {
-            DIMP.baseWindow.DimpBase.poll();
+            DimpCore.base &&
+            DimpCore.base.DimpBase.folder == DIMP.conf_compose.drafts_mbox) {
+            DimpCore.base.DimpBase.poll();
         }
     },
 
@@ -50,7 +61,7 @@ var DimpCompose = {
     closeQReply: function()
     {
         var al = $('attach_list').childElements();
-        this.last_msg = '';
+        this.md5_hdrs = this.md5_msg = this.md5_msgOrig = '';
 
         if (al.size()) {
             this.removeAttach(al);
@@ -59,7 +70,7 @@ var DimpCompose = {
         $('composeCache').clear();
         $('qreply', 'sendcc', 'sendbcc').invoke('hide');
         [ $('msgData'), $('togglecc'), $('togglebcc') ].invoke('show');
-        if (this.editor_on) {
+        if (IMP_Compose_Base.editor_on) {
             this.toggleHtmlEditor();
         }
         $('compose').reset();
@@ -72,52 +83,13 @@ var DimpCompose = {
 
     changeIdentity: function()
     {
-        var lastSignature, msg, nextSignature, pos,
-            id = $F('identity'),
-            last = this.getIdentity($F('last_identity')),
-            msgval = $('composeMessage'),
-            next = this.getIdentity(id);
+        var identity = IMP_Compose_Base.getIdentity($F('identity'));
 
-        this.setSentMailLabel(next.id[3], next.id[5], true);
-        $('bcc').setValue(next.id[6]);
-        this.setSaveSentMail(next.id[4]);
+        this.setPopdownLabel('sm', identity.id.smf_name, identity.id.smf_display);
+        $('bcc').setValue(identity.id.bcc);
+        this.setSaveSentMail(identity.id.smf_save);
 
-        // Finally try and replace the signature.
-        if (this.editor_on) {
-            msg = this.rte.getData().replace(/\r\n/g, '\n');
-            lastSignature = '<p><!--begin_signature--><!--end_signature--></p>';
-            nextSignature = '<p><!--begin_signature-->' + next.sig.replace(/^ ?<br \/>\n/, '').replace(/ +/g, ' ') + '<!--end_signature--></p>';
-
-            // Dot-all functionality achieved with [\s\S], see:
-            // http://simonwillison.net/2004/Sep/20/newlines/
-            msg = msg.replace(/<p>\s*<!--begin_signature-->[\s\S]*?<!--end_signature-->\s*<\/p>/, lastSignature);
-        } else {
-            msg = $F(msgval).replace(/\r\n/g, '\n');
-            lastSignature = last.sig;
-            nextSignature = next.sig;
-        }
-
-        pos = (last.id[2])
-            ? msg.indexOf(lastSignature)
-            : msg.lastIndexOf(lastSignature);
-
-        if (pos != -1) {
-            if (next.id[2] == last.id[2]) {
-                msg = msg.substring(0, pos) + nextSignature + msg.substring(pos + lastSignature.length, msg.length);
-            } else if (next.id[2]) {
-                msg = nextSignature + msg.substring(0, pos) + msg.substring(pos + lastSignature.length, msg.length);
-            } else {
-                msg = msg.substring(0, pos) + msg.substring(pos + lastSignature.length, msg.length) + nextSignature;
-            }
-
-            msg = msg.replace(/\r\n/g, '\n').replace(/\n/g, '\r\n');
-            if (this.editor_on) {
-                this.rte.setData(msg);
-            } else {
-                msgval.setValue(msg);
-            }
-            $('last_identity').setValue(id);
-        }
+        IMP_Compose_Base.replaceSignature($F('identity'));
     },
 
     setSaveSentMail: function(set)
@@ -134,80 +106,104 @@ var DimpCompose = {
         }
     },
 
-    setSentMailLabel: function(s, l, sel)
+    createPopdown: function(id, opts)
     {
-        var label = $('sent_mail_folder_label');
-
-        if (!label) {
-            return;
-        }
-
-        if (!l) {
-            l = DIMP.conf_compose.flist.find(function(f) {
-                return f.v == s;
-            });
-            l = l.f || l.v;
-        }
-
-        $('save_sent_mail_folder').setValue(s);
-        $('sent_mail_folder_label').writeAttribute('title', l.escapeHTML()).setText(l.truncate(15)).up(1).show();
-
-        if (DIMP.conf_compose.flist && sel) {
-            this.knl_sm.setSelected(s);
-        }
-    },
-
-    setPriorityLabel: function(s, l)
-    {
-        var label = $('priority_label');
-
-        if (!label) {
-            return;
-        }
-
-        if (!l) {
-            l = DIMP.conf_compose.priority.find(function(f) {
-                return f.v == s;
-            });
-        }
-
-        $('priority').setValue(s);
-        $('priority_label').setText(l.l);
-    },
-
-    getIdentity: function(id, editor_on)
-    {
-        editor_on = Object.isUndefined(editor_on) ? this.editor_on : editor_on;
-        return {
-            id: DIMP.conf_compose.identities[id],
-            sig: DIMP.conf_compose.identities[id][(editor_on ? 1 : 0)].replace(/^\n/, '')
+        this.knl[id] = {
+            knl: new KeyNavList(opts.base, {
+                esc: true,
+                list: opts.data,
+                onChoose: this.setPopdownLabel.bind(this, id)
+            }),
+            opts: opts
         };
+
+        $(opts.label).insert({ after: new Element('SPAN', { className: 'popdownImg' }).observe('click', function(e) { if (!this.disabled) { this.knl[id].knl.show(); this.knl[id].knl.ignoreClick(e); e.stop(); } }.bindAsEventListener(this)) });
+    },
+
+    setPopdownLabel: function(id, s, l)
+    {
+        var k = this.knl[id];
+
+        if (!k) {
+            return;
+        }
+
+        if (!l) {
+            l = k.opts.data.find(function(f) {
+                return f.v == s;
+            });
+
+            if (!l) {
+                return;
+            }
+
+            l = (id == 'sm')
+                ? (l.f || l.v)
+                : l.l;
+        }
+
+        /* Stationery switch. */
+        if (id == 's') {
+            DimpCore.doAction('stationery', {
+                html: Number(IMP_Compose_Base.editor_on),
+                id: s,
+                identity: $F('identity'),
+                text: (IMP_Compose_Base.editor_on ? this.rte.getData() : $F('composeMessage'))
+            }, {
+                ajaxopts: { asynchronous: false },
+                callback: function(r) {
+                    this.setBodyText(r.response.text);
+                }.bind(this)
+            });
+            return;
+        }
+
+        $(k.opts.input).setValue(s);
+        $(k.opts.label).writeAttribute('title', l.escapeHTML()).setText(l.truncate(15)).up(1).show();
+
+        if (id == 'sm') {
+            k.knl.setSelected(s);
+        }
+    },
+
+    retrySubmit: function(action)
+    {
+        if (this.old_action) {
+            this.uniqueSubmit(this.old_action);
+            this.old_action = null;
+        }
     },
 
     uniqueSubmit: function(action)
     {
-        var c = $('compose');
+        var c = (action == 'redirectMessage')
+            ? $('redirect')
+            : $('compose');
 
-        if (DIMP.SpellCheckerObject &&
-            DIMP.SpellCheckerObject.isActive()) {
-            DIMP.SpellCheckerObject.resume();
+        if (DIMP.SpellChecker &&
+            DIMP.SpellChecker.isActive()) {
+            DIMP.SpellChecker.resume();
             this.skip_spellcheck = true;
         }
 
-        if (action == 'send_message' || action == 'save_draft') {
+        if (this.editor_wait && IMP_Compose_Base.editor_on) {
+            return this.uniqueSubmit.bind(this, action).defer();
+        }
+
+        if (action == 'sendMessage' || action == 'saveDraft') {
             switch (action) {
-            case 'send_message':
-                if (($F('subject') == '') &&
-                    !window.confirm(DIMP.text_compose.nosubject)) {
+            case 'sendMessage':
+                if (!this.skip_spellcheck &&
+                    DIMP.conf_compose.spellcheck &&
+                    DIMP.SpellChecker &&
+                    !DIMP.SpellChecker.isActive()) {
+                    this.sc_submit = action;
+                    DIMP.SpellChecker.spellCheck();
                     return;
                 }
 
-                if (!this.skip_spellcheck &&
-                    DIMP.conf_compose.spellcheck &&
-                    DIMP.SpellCheckerObject &&
-                    !DIMP.SpellCheckerObject.isActive()) {
-                    this.sc_submit = action;
-                    DIMP.SpellCheckerObject.spellCheck();
+                if (($F('subject') == '') &&
+                    !window.confirm(DIMP.text_compose.nosubject)) {
                     return;
                 }
                 break;
@@ -220,28 +216,31 @@ var DimpCompose = {
             }
         }
 
-        c.setStyle({ cursor: 'wait' });
         this.skip_spellcheck = false;
-        $('action').setValue(action);
 
-        if (action == 'add_attachment') {
+        if (action == 'addAttachment') {
             // We need a submit action here because browser security models
             // won't let us access files on user's filesystem otherwise.
             this.uploading = true;
             c.submit();
         } else {
             // Move HTML text to textarea field for submission.
-            if (this.editor_on) {
+            if (IMP_Compose_Base.editor_on) {
                 this.rte.updateElement();
             }
 
             // Use an AJAX submit here so that we can do javascript-y stuff
             // before having to close the window on success.
-            DimpCore.doAction('*' + DIMP.conf.URI_COMPOSE, c.serialize(true), { callback: this.uniqueSubmitCallback.bind(this) });
+            DimpCore.doAction(action, c.serialize(true), {
+                ajaxopts: {
+                    onFailure: this.uniqueSubmitFailure.bind(this)
+                },
+                callback: this.uniqueSubmitCallback.bind(this)
+            });
 
             // Can't disable until we send the message - or else nothing
             // will get POST'ed.
-            if (action == 'send_message' || action == 'save_draft') {
+            if (action != 'autoSaveDraft') {
                 this.setDisabled(true);
             }
         }
@@ -249,8 +248,7 @@ var DimpCompose = {
 
     uniqueSubmitCallback: function(r)
     {
-        var elt,
-            d = r.response;
+        var d = r.response;
 
         if (!d) {
             return;
@@ -260,17 +258,17 @@ var DimpCompose = {
             $('composeCache').setValue(d.imp_compose);
         }
 
-        if (d.success || d.action == 'add_attachment') {
+        if (d.success || d.action == 'addAttachment') {
             switch (d.action) {
-            case 'auto_save_draft':
-            case 'save_draft':
-                this.setDisabled(false);
-
+            case 'autoSaveDraft':
+            case 'saveDraft':
                 this.updateDraftsMailbox();
 
-                if (d.action == 'save_draft') {
-                    if (this.is_popup && !DIMP.conf_compose.qreply) {
-                        DIMP.baseWindow.DimpCore.showNotifications(r.msgs);
+                if (d.action == 'saveDraft') {
+                    if (this.is_popup &&
+                        DimpCore.base &&
+                        !DIMP.conf_compose.qreply) {
+                        DimpCore.base.DimpCore.showNotifications(r.msgs);
                         r.msgs = [];
                     }
                     if (DIMP.conf_compose.close_draft) {
@@ -279,68 +277,107 @@ var DimpCompose = {
                 }
                 break;
 
-            case 'send_message':
-                if (this.is_popup) {
+            case 'sendMessage':
+                if (this.is_popup && DimpCore.base) {
                     if (d.reply_type) {
-                        DIMP.baseWindow.DimpBase.flag(d.reply_type == 'reply' ? '\\answered' : '$forwarded', true, { uid: d.uid, mailbox: d.reply_folder, noserver: true });
+                        DimpCore.base.DimpBase.flag(d.reply_type == 'forward' ? '$forwarded' : '\\answered', true, { uid: d.uid, mailbox: d.reply_folder, noserver: true });
                     }
 
-                    // @TODO: Needed?
-                    if (d.folder) {
-                        DIMP.baseWindow.DimpBase.createFolder(d.folder);
+                    if (d.mailbox) {
+                        DimpCore.base.DimpBase.mailboxCallback(r);
                     }
 
                     if (d.draft_delete) {
-                        DIMP.baseWindow.DimpBase.poll();
+                        DimpCore.base.DimpBase.poll();
                     }
 
                     if (d.log) {
-                        DIMP.baseWindow.DimpBase.updateMsgLog(d.log, { uid: d.uid, mailbox: d.reply_folder });
+                        DimpCore.base.DimpBase.updateMsgLog(d.log, { uid: d.uid, mailbox: d.reply_folder });
                     }
 
                     if (!DIMP.conf_compose.qreply) {
-                        DIMP.baseWindow.DimpCore.showNotifications(r.msgs);
+                        DimpCore.base.DimpCore.showNotifications(r.msgs);
                         r.msgs = [];
                     }
                 }
                 return this.closeCompose();
 
-            case 'add_attachment':
+            case 'redirectMessage':
+                if (this.is_popup && DimpCore.base) {
+                    if (d.log) {
+                        DimpCore.base.DimpBase.updateMsgLog(d.log, { uid: d.uid, mailbox: d.mbox });
+                    }
+
+                    if (!DIMP.conf_compose.qreply) {
+                        DimpCore.base.DimpCore.showNotifications(r.msgs);
+                        r.msgs = [];
+                    }
+                }
+                return this.closeCompose();
+
+            case 'addAttachment':
                 this.uploading = false;
                 if (d.success) {
-                    this.addAttach(d.info.number, d.info.name, d.info.type, d.info.size);
-                } else {
-                    this.setDisabled(false);
+                    this.addAttach({
+                        name: d.atc.name,
+                        num: d.atc.num,
+                        size: d.atc.size,
+                        type: d.atc.type
+                    });
                 }
-                if (DIMP.conf_compose.attach_limit != -1 &&
-                    $('attach_list').childElements().size() > DIMP.conf_compose.attach_limit) {
-                    $('upload').enable();
-                    elt = new Element('DIV', [ DIMP.text_compose.atc_limit ]);
-                } else {
-                    elt = new Element('INPUT', { type: 'file', name: 'file_1' });
-                }
-                $('upload_wait').next().show();
-                $('upload_wait').replace(elt.writeAttribute('id', 'upload'));
+
+                $('upload_wait').hide();
+                this.initAttachList();
                 this.resizeMsgArea();
                 break;
+            }
+        } else {
+            if (!Object.isUndefined(d.identity)) {
+                this.old_identity = $F('identity');
+                $('identity').setValue(d.identity);
+                this.changeIdentity();
+                $('noticerow', 'identitychecknotice').invoke('show');
+            }
+
+            if (!Object.isUndefined(d.encryptjs)) {
+                this.old_action = d.action;
+                eval(d.encryptjs.join(';'));
             }
         }
 
         this.setDisabled(false);
-        $('compose').setStyle({ cursor: null });
+    },
+
+    uniqueSubmitFailure: function(t, o)
+    {
+        if (this.disabled) {
+            this.setDisabled(false);
+            DimpCore.doActionOpts.onFailure(t, o);
+        }
     },
 
     setDisabled: function(disable)
     {
+        var redirect = $('redirect');
+
         this.disabled = disable;
-        DimpCore.loadingImg('sendingImg', 'composeMessageParent', disable);
-        DimpCore.toggleButtons($('compose').select('DIV.dimpActions A'), disable);
-        [ $('compose') ].invoke(disable ? 'disable' : 'enable');
-        if (DIMP.SpellCheckerObject) {
-            DIMP.SpellCheckerObject.disable(disable);
-        }
-        if (this.editor_on) {
-            this.RTELoading(disable ? 'show' : 'hide', true);
+
+        if (redirect.visible()) {
+            DimpCore.loadingImg('sendingImg', 'redirect', disable);
+            DimpCore.toggleButtons(redirect.select('DIV.dimpActions A'), disable);
+            redirect.setStyle({ cursor: disable ? null : 'wait' });
+        } else {
+            DimpCore.loadingImg('sendingImg', 'composeMessageParent', disable);
+            DimpCore.toggleButtons($('compose').select('DIV.dimpActions A'), disable);
+            [ $('compose') ].invoke(disable ? 'disable' : 'enable');
+            if (DIMP.SpellChecker) {
+                DIMP.SpellChecker.disable(disable);
+            }
+            if (IMP_Compose_Base.editor_on) {
+                this.RTELoading(disable ? 'show' : 'hide', true);
+            }
+
+            $('compose').setStyle({ cursor: disable ? null : 'wait' });
         }
     },
 
@@ -350,51 +387,60 @@ var DimpCompose = {
             return;
         }
         noupdate = noupdate || false;
-        if (DIMP.SpellCheckerObject) {
-            DIMP.SpellCheckerObject.resume();
+        if (DIMP.SpellChecker) {
+            DIMP.SpellChecker.resume();
         }
 
-        var config, text;
+        var changed, config, text;
 
-        if (this.editor_on) {
-            this.editor_on = false;
-
+        if (IMP_Compose_Base.editor_on) {
+            changed = (this.msgHash() != this.md5_msgOrig);
             text = this.rte.getData();
-            $('composeMessageParent').childElements().invoke('hide');
-            $('composeMessage').show().setStyle({ visibility: null }).focus();
+            this.rte.destroy();
+            this.rte_loaded = false;
+
             this.RTELoading('show');
-
-            DimpCore.doAction('Html2Text', { text: text }, { callback: this.setMessageText.bind(this), ajaxopts: { asynchronous: false } });
-
+            DimpCore.doAction('html2Text', {
+                changed: Number(changed),
+                identity: $F('identity'),
+                imp_compose: $F('composeCache'),
+                text: text
+            }, {
+                ajaxopts: { asynchronous: false },
+                callback: this.setMessageText.bind(this)
+            });
             this.RTELoading('hide');
         } else {
-            this.editor_on = true;
             if (!noupdate) {
-                DimpCore.doAction('Text2Html', { text: $F('composeMessage') }, { callback: this.setMessageText.bind(this), ajaxopts: { asynchronous: false } });
+                DimpCore.doAction('text2Html', {
+                    changed: Number(this.msgHash() != this.md5_msgOrig),
+                    identity: $F('identity'),
+                    imp_compose: $F('composeCache'),
+                    text: $F('composeMessage')
+                }, {
+                    ajaxopts: { asynchronous: false },
+                    callback: this.setMessageText.bind(this)
+                });
             }
 
-            // Try to reuse the old fckeditor instance.
-            try {
-                this.rte.setData($F('composeMessage'));
-                $('composeMessageParent').childElements().invoke('show');
-                $('composeMessage').hide();
-                this.resizeMsgArea();
-            } catch (e) {
-                config = Object.clone(IMP.ckeditor_config);
-                if (!config.on) {
-                    config.on = {};
-                }
-                config.on.instanceReady = function(evt) {
-                    this.resizeMsgArea();
-                    this.RTELoading('hide');
-                    this.rte.focus();
-                }.bind(this);
-                this.RTELoading('show');
-                this.rte = CKEDITOR.replace('composeMessage', config);
+            config = Object.clone(IMP.ckeditor_config);
+            if (!config.on) {
+                config.on = {};
             }
+            config.on.instanceReady = function(evt) {
+                this.resizeMsgArea();
+                this.RTELoading('hide');
+                this.rte.focus();
+                this.rte_loaded = true;
+            }.bind(this);
+            this.RTELoading('show');
+            this.rte = CKEDITOR.replace('composeMessage', config);
         }
-        $('htmlcheckbox').setValue(this.editor_on);
-        $('html').setValue(this.editor_on ? 1 : 0);
+
+        IMP_Compose_Base.editor_on = !IMP_Compose_Base.editor_on;
+
+        $('htmlcheckbox').setValue(IMP_Compose_Base.editor_on);
+        $('html').setValue(Number(IMP_Compose_Base.editor_on));
     },
 
     RTELoading: function(cmd, notxt)
@@ -416,19 +462,11 @@ var DimpCompose = {
         }
     },
 
-    getMsgAreaHeight: function()
-    {
-        if (!this.mp_padding) {
-            this.mp_padding = $('composeMessageParent').getHeight() - $('composeMessage').getHeight();
-        }
-
-        return document.viewport.getHeight() - $('composeMessageParent').cumulativeOffset()[1] - this.mp_padding;
-    },
-
     _onSpellCheckAfter: function()
     {
-        if (this.editor_on) {
-            this.rte.setData($F('composeMessage'));
+        if (IMP_Compose_Base.editor_on) {
+            this.editor_wait = true;
+            this.rte.setData($F('composeMessage'), function() { this.editor_wait = false; }.bind(this));
             $('composeMessage').next().show();
         }
         this.sc_submit = false;
@@ -436,11 +474,11 @@ var DimpCompose = {
 
     _onSpellCheckBefore: function()
     {
-        DIMP.SpellCheckerObject.htmlAreaParent = this.editor_on
+        DIMP.SpellChecker.htmlAreaParent = IMP_Compose_Base.editor_on
             ? 'composeMessageParent'
             : null;
 
-        if (this.editor_on) {
+        if (IMP_Compose_Base.editor_on) {
             this.rte.updateElement();
             $('composeMessage').next().hide();
         }
@@ -460,96 +498,191 @@ var DimpCompose = {
     setMessageText: function(r)
     {
         var ta = $('composeMessage');
+
         if (!ta) {
-            $('composeMessageParent').insert(new Element('TEXTAREA', { id: 'composeMessage', name: 'message', style: 'width:100%;' }).insert(r.response.text));
+            $('composeMessageParent').insert(new Element('TEXTAREA', { id: 'composeMessage', name: 'message', style: 'width:100%' }).insert(r.response.text));
         } else {
             ta.setValue(r.response.text);
         }
 
-        if (!this.editor_on) {
+        if (!IMP_Compose_Base.editor_on) {
             this.resizeMsgArea();
         }
     },
 
-    fillForm: function(msg, header, focus, noupdate)
+    // opts = auto, focus, fwd_list, noupdate, show_editor
+    fillForm: function(msg, header, opts)
     {
-        // On IE, this can get loaded before DOM:loaded. Check for an init
-        // value and don't load until it is available.
-        if (!this.resizeto) {
-            this.fillForm.bind(this, msg, header, focus, noupdate).defer();
+        if (!document.loaded) {
+            this.fillForm.bind(this, msg, header, opts).defer();
             return;
         }
 
         var bcc_add,
-            identity = this.getIdentity($F('last_identity')),
-            msgval = $('composeMessage');
+            identity = IMP_Compose_Base.getIdentity($F('last_identity'));
+        opts = opts || {};
 
-        if (!this.last_msg.empty() &&
-            this.last_msg != $F(msgval).replace(/\r/g, '') &&
-            !window.confirm(DIMP.text_compose.fillform)) {
+        $('to').setValue(header.to);
+        if (header.cc) {
+            $('cc').setValue(header.cc);
+        }
+        if (DIMP.conf_compose.cc || header.cc) {
+            this.toggleCC('cc', true);
+        }
+        this.setPopdownLabel('sm', identity.id.smf_name, identity.id.smf_display);
+        this.setSaveSentMail(identity.id.smf_save);
+        if (header.bcc) {
+            $('bcc').setValue(header.bcc);
+        }
+        if (identity.id.bcc) {
+            bcc_add = $F('bcc');
+            if (bcc_add) {
+                bcc_add += ', ';
+            }
+            $('bcc').setValue(bcc_add + identity.id.bcc);
+        }
+        if (DIMP.conf_compose.bcc || header.bcc) {
+            this.toggleCC('bcc', true);
+        }
+        $('subject').setValue(header.subject);
+
+        this.processFwdList(opts.fwd_list);
+
+        Field.focus(opts.focus || 'to');
+
+        switch (opts.auto) {
+        case 'forward_attach':
+            $('noticerow', 'fwdattachnotice').invoke('show');
+            $('composeMessage').stopObserving('keydown').observe('keydown', this.fadeNotice.bind(this, 'fwdattachnotice'));
+            break
+
+        case 'forward_body':
+            $('noticerow', 'fwdbodynotice').invoke('show');
+            break
+
+        case 'reply_all':
+            $('noticerow', 'replyallnotice').invoke('show');
+            break
+
+        case 'reply_list':
+            $('noticerow', 'replylistnotice').invoke('show');
+            break;
+        }
+
+        this.setBodyText(msg);
+        this.resizeMsgArea();
+
+        if (DIMP.conf_compose.show_editor || opts.show_editor) {
+            if (!IMP_Compose_Base.editor_on) {
+                this.toggleHtmlEditor(opts.noupdate);
+            }
+            if (opts.focus && (opts.focus == 'composeMessage')) {
+                this.focusEditor();
+            }
+        }
+
+        this.fillFormHash();
+    },
+
+    fillFormHash: function()
+    {
+        if (IMP_Compose_Base.editor_on && !this.rte_loaded) {
+            this.fillFormHash.bind(this).defer();
             return;
         }
+
+        // This value is used to determine if the text has changed when
+        // swapping compose modes.
+        this.md5_msgOrig = this.msgHash();
 
         // Set auto-save-drafts now if not already active.
         if (DIMP.conf_compose.auto_save_interval_val &&
             !this.auto_save_interval) {
             this.auto_save_interval = new PeriodicalExecuter(function() {
-                var cur_msg = this.editor_on
-                    ? this.rte.getData()
-                    : $F(msgval);
-                cur_msg = cur_msg.replace(/\r/g, '');
-                if (!cur_msg.empty() && this.last_msg != cur_msg) {
-                    this.uniqueSubmit('auto_save_draft');
-                    this.last_msg = cur_msg;
+                if ($('compose').visible()) {
+                    var hdrs = MD5.hash($('to', 'cc', 'bcc', 'subject').invoke('getValue').join('\0')), msg;
+                    if (this.md5_hdrs) {
+                        msg = this.msgHash();
+                        if (this.md5_hdrs != hdrs || this.md5_msg != msg) {
+                            this.uniqueSubmit('autoSaveDraft');
+                        }
+                    } else {
+                        msg = this.md5_msgOrig;
+                    }
+                    this.md5_hdrs = hdrs;
+                    this.md5_msg = msg;
                 }
             }.bind(this), DIMP.conf_compose.auto_save_interval_val * 60);
-        }
 
-        if (this.editor_on) {
-            this.rte.setData(msg);
-            this.last_msg = this.rte.getData().replace(/\r/g, '');
+            /* Immediately execute to get MD5 hash of headers. */
+            this.auto_save_interval.execute();
+        }
+    },
+
+    msgHash: function()
+    {
+        return MD5.hash(IMP_Compose_Base.editor_on ? this.rte.getData() : $F('composeMessage'));
+    },
+
+    fadeNotice: function(elt)
+    {
+        elt = $(elt);
+
+        elt.fade({
+            afterFinish: function() {
+                if (!elt.siblings().any(Element.visible)) {
+                    elt.up('TR').hide();
+                    this.resizeMsgArea();
+                }
+            }.bind(this),
+            duration: 0.4
+        });
+    },
+
+    setBodyText: function(msg)
+    {
+        if (IMP_Compose_Base.editor_on) {
+            this.editor_wait = true;
+            this.rte.setData(msg, function() { this.editor_wait = false; }.bind(this));
         } else {
-            msgval.setValue(msg);
-            this.setCursorPosition(msgval);
-            this.last_msg = $F(msgval).replace(/\r/g, '');
+            $('composeMessage').setValue(msg);
+            IMP_Compose_Base.setCursorPosition('composeMessage', DIMP.conf_compose.compose_cursor, IMP_Compose_Base.getIdentity($F('last_identity')).sig);
         }
+    },
 
-        $('to').setValue(header.to);
-        this.resizeto.resizeNeeded();
-        if (header.cc) {
-            $('cc').setValue(header.cc);
-            this.resizecc.resizeNeeded();
+    processFwdList: function(f)
+    {
+        if (f && f.size()) {
+            f.each(function(ptr) {
+                this.addAttach({
+                    name: ptr.name,
+                    num: ptr.num,
+                    size: ptr.size,
+                    type: ptr.type
+                });
+            }, this);
         }
-        if (DIMP.conf_compose.cc) {
-            this.toggleCC('cc', true);
-        }
-        this.setSentMailLabel(identity.id[3], identity.id[5], true);
-        this.setSaveSentMail(identity.id[4]);
-        if (header.bcc) {
-            $('bcc').setValue(header.bcc);
-            this.resizebcc.resizeNeeded();
-        }
-        if (identity.id[6]) {
-            bcc_add = $F('bcc');
-            if (bcc_add) {
-                bcc_add += ', ';
-            }
-            $('bcc').setValue(bcc_add + identity.id[6]);
-        }
-        if (DIMP.conf_compose.bcc) {
-            this.toggleCC('bcc', true);
-        }
-        $('subject').setValue(header.subject);
+    },
 
-        Field.focus(focus || 'to');
-        this.resizeMsgArea();
+    swapToAddressCallback: function(r)
+    {
+        if (r.response.header) {
+            $('to').setValue(r.response.header.to);
+        }
+        $('to_loading_img').hide();
+    },
 
-        if (DIMP.conf_compose.show_editor) {
-            if (!this.editor_on) {
-                this.toggleHtmlEditor(noupdate || false);
-            }
-            if (focus == 'composeMessage') {
-                this.focusEditor();
+    forwardAddCallback: function(r)
+    {
+        if (r.response.type) {
+            switch (r.response.type) {
+            case 'forward_attach':
+                this.processFwdList(r.response.opts.fwd_list);
+                break;
+
+            case 'forward_body':
+                this.setBodyText(r.response.body);
+                break;
             }
         }
     },
@@ -563,15 +696,20 @@ var DimpCompose = {
         }
     },
 
-    addAttach: function(atc_num, name, type, size)
+    // opts = (Object)
+    //   'name' - (string) Attachment name
+    //   'num' - (integer) Attachment number
+    //   'size' - (integer) Size, in KB
+    //   'type' - (string) MIME type
+    addAttach: function(opts)
     {
-        var span = new Element('SPAN').insert(name),
-            li = new Element('LI').insert(span).insert(' [' + type + '] (' + size + ' KB) '),
-            input = new Element('SPAN', { atc_id: atc_num, className: 'remove' }).insert(DIMP.text_compose.remove);
+        var span = new Element('SPAN').insert(opts.name),
+            li = new Element('LI').insert(span).insert(' [' + opts.type + '] (' + opts.size + ' KB) '),
+            input = new Element('SPAN', { atc_id: opts.num, className: 'remove' }).insert(DIMP.text_compose.remove);
         li.insert(input);
         $('attach_list').insert(li).show();
 
-        if (type != 'application/octet-stream') {
+        if (opts.type != 'application/octet-stream') {
             span.addClassName('attachName');
         }
 
@@ -587,6 +725,7 @@ var DimpCompose = {
             n.fade({
                 afterFinish: function() {
                     n.remove();
+                    this.initAttachList();
                     this.resizeMsgArea();
                 }.bind(this),
                 duration: 0.4
@@ -595,51 +734,94 @@ var DimpCompose = {
         if (!$('attach_list').childElements().size()) {
             $('attach_list').hide();
         }
-        DimpCore.doAction('DeleteAttach', { atc_indices: ids, imp_compose: $F('composeCache') });
+        DimpCore.doAction('deleteAttach', { atc_indices: ids, imp_compose: $F('composeCache') });
+    },
+
+    initAttachList: function()
+    {
+        var u = $('upload'),
+            u_parent = u.up();
+
+        if (DIMP.conf_compose.attach_limit != -1 &&
+            $('attach_list').childElements().size() >= DIMP.conf_compose.attach_limit) {
+            $('upload_limit').show();
+        } else if (!u_parent.visible()) {
+            $('upload_limit').hide();
+
+            if (Prototype.Browser.IE) {
+                // Trick to allow us to clear the file input on IE without
+                // creating a new node.  Need to re-add the event handler
+                // however, as it won't survive this assignment.
+                u.stopObserving();
+                u_parent.innerHTML = u_parent.innerHTML;
+                u = $('upload');
+                u.observe('change', this.changeHandler.bindAsEventListener(this));
+            }
+
+            u.clear().up().show().next().show();
+        }
     },
 
     resizeMsgArea: function()
     {
-        var m, rows,
+        var mah, rows,
+            cmp = $('composeMessageParent'),
             de = document.documentElement,
-            msg = $('composeMessage');
+            msg = $('composeMessage'),
+            pad = 0;
+
+        if (this.resizing) {
+            return;
+        }
 
         if (!document.loaded) {
             this.resizeMsgArea.bind(this).defer();
             return;
         }
 
-        if (this.editor_on) {
-            this.rte.resize('100%', this.getMsgAreaHeight(), false);
+        /* Needed because IE 8 will trigger resize events when we change
+         * the rows attribute, which will cause an infinite loop. */
+        this.resizing = true;
+
+        mah = document.viewport.getHeight() - cmp.offsetTop;
+
+        if (IMP_Compose_Base.editor_on) {
+            [ 'margin', 'padding', 'border' ].each(function(s) {
+                [ 'Top', 'Bottom' ].each(function(h) {
+                    var a = parseInt(cmp.getStyle(s + h), 10);
+                    if (!isNaN(a)) {
+                        pad += a;
+                    }
+                });
+            });
+
+            this.rte.resize('99%', mah - pad - 1, false);
+        } else {
+            /* Logic: Determine the size of a given textarea row, divide that
+             * size by the available height, round down to the lowest integer
+             * row, and resize the textarea. */
+            rows = parseInt(mah / (msg.clientHeight / msg.readAttribute('rows')), 10);
+            if (!isNaN(rows)) {
+                /* Due to the funky (broken) way some browsers (FF) count
+                 * rows, we need to overshoot row estimate and increment
+                 * downward until textarea size does not cause window
+                 * scrolling. */
+                ++rows;
+                do {
+                    msg.writeAttribute({ rows: rows--, disabled: false });
+                } while ((de.scrollHeight - de.clientHeight) > 0);
+            }
         }
 
-        if (!this.row_height) {
-            // Change the ID and name to not conflict with msg node.
-            m = $(msg.cloneNode(false)).writeAttribute({ id: null, name: null }).setStyle({ visibility: 'hidden' });
-            $(document.body).insert(m);
-            m.writeAttribute('rows', 1);
-            this.row_height = m.getHeight();
-            m.writeAttribute('rows', 2);
-            this.row_height = m.getHeight() - this.row_height;
-            m.remove();
-        }
-
-        /* Logic: Determine the size of a given textarea row, divide that size
-         * by the available height, round down to the lowest integer row, and
-         * resize the textarea. */
-        rows = parseInt(this.getMsgAreaHeight() / this.row_height);
-        msg.writeAttribute({ rows: rows, disabled: false });
-        if (de.scrollHeight - de.clientHeight) {
-            msg.writeAttribute({ rows: rows - 1 });
-        }
+        this.resizing = false;
     },
 
     uploadAttachment: function()
     {
         var u = $('upload');
-        this.uniqueSubmit('add_attachment');
-        u.next().hide();
-        u.replace(new Element('SPAN', { id: 'upload_wait' }).insert(DIMP.text_compose.uploading + ' (' + $F(u) + ')'));
+        this.uniqueSubmit('addAttachment');
+        u.up().hide().next().hide();
+        $('upload_wait').update(DIMP.text_compose.uploading + ' (' + $F(u) + ')').show();
     },
 
     attachmentComplete: function()
@@ -656,56 +838,25 @@ var DimpCompose = {
         $('send' + type).show();
         if (immediate) {
             t.hide();
+            this.resizeMsgArea();
         } else {
-            t.fade({ duration: 0.4 });
-        }
-    },
-
-    /* Sets the cursor to the given position. */
-    setCursorPosition: function(input)
-    {
-        var pos, range;
-
-        switch (DIMP.conf_compose.compose_cursor) {
-        case 'top':
-            pos = 0;
-            $('composeMessage').setValue('\n' + $F('composeMessage'));
-            break;
-
-        case 'bottom':
-            pos = $F('composeMessage').length;
-            break;
-
-        case 'sig':
-            pos = $F('composeMessage').replace(/\r\n/g, '\n').lastIndexOf(this.getIdentity($F('last_identity')).sig) - 1;
-            break;
-
-        default:
-            return;
-        }
-
-        if (input.setSelectionRange) {
-            /* This works in Mozilla */
-            Field.focus(input);
-            input.setSelectionRange(pos, pos);
-            if (pos) {
-                (function() { input.scrollTop = input.scrollHeight - input.offsetHeight; }).defer();
-            }
-        } else if (input.createTextRange) {
-            /* This works in IE */
-            range = input.createTextRange();
-            range.collapse(true);
-            range.moveStart('character', pos);
-            range.moveEnd('character', 0);
-            Field.select(range);
-            range.scrollIntoView(true);
+            t.fade({
+                afterFinish: this.resizeMsgArea.bind(this),
+                duration: 0.4
+            });
         }
     },
 
     /* Open the addressbook window. */
-    openAddressbook: function()
+    openAddressbook: function(params)
     {
-        window.open(DIMP.conf_compose.URI_ABOOK, 'contacts', 'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100');
+        var uri = DIMP.conf_compose.URI_ABOOK;
+
+        if (params) {
+            uri = DimpCore.addURLParam(uri, params);
+        }
+
+        window.open(uri, 'contacts', 'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100');
     },
 
     /* Click observe handler. */
@@ -715,7 +866,8 @@ var DimpCompose = {
             return;
         }
 
-        var elt = orig = e.element(),
+        var elt = e.element(),
+            orig = elt,
             atc_num, id;
 
         while (Object.isElement(elt)) {
@@ -733,17 +885,39 @@ var DimpCompose = {
                 break;
 
             case 'draft_button':
+                if (!this.disabled) {
+                    this.uniqueSubmit('saveDraft');
+                }
+                break;
+
             case 'send_button':
                 if (!this.disabled) {
-                    this.uniqueSubmit(id == 'send_button' ? 'send_message' : 'save_draft');
+                    this.uniqueSubmit('sendMessage');
+                }
+                break;
+
+            case 'send_button_redirect':
+                if (!this.disabled) {
+                    this.uniqueSubmit('redirectMessage');
                 }
                 break;
 
             case 'htmlcheckbox':
-                if (!this.editor_on || window.confirm(DIMP.text_compose.toggle_html)) {
+                if (!IMP_Compose_Base.editor_on ||
+                    window.confirm(DIMP.text_compose.toggle_html)) {
                     this.toggleHtmlEditor();
                 } else {
                     $('htmlcheckbox').setValue(true);
+                }
+                break;
+
+            case 'redirect_sendto':
+                if (orig.match('TD.label SPAN')) {
+                    this.openAddressbook({
+                        formfield: 'redirect_to',
+                        formname: 'redirect',
+                        to_only: 1
+                    });
                 }
                 break;
 
@@ -767,6 +941,27 @@ var DimpCompose = {
             case 'save_sent_mail':
                 this.setSaveSentMail($F(elt));
                 break;
+
+            case 'fwdattachnotice':
+            case 'fwdbodynotice':
+            case 'identitychecknotice':
+            case 'replyallnotice':
+            case 'replylistnotice':
+                this.fadeNotice(elt);
+                if (!orig.match('SPAN.closeImg')) {
+                    if (id.startsWith('reply')) {
+                        $('to_loading_img').show();
+                        DimpCore.doAction('getReplyData', { headeronly: 1, imp_compose: $F('composeCache'), type: 'reply' }, { callback: this.swapToAddressCallback.bind(this) });
+                    } else if (id.startsWith('fwd')) {
+                        DimpCore.doAction('GetForwardData', { dataonly: 1, imp_compose: $F('composeCache'), type: (id == 'fwdattachnotice' ? 'forward_body' : 'forward_attach') }, { callback: this.forwardAddCallback.bind(this) });
+                        $('composeMessage').stopObserving('keydown');
+                    } else if (id == 'identitychecknotice') {
+                        $('identity').setValue(this.old_identity);
+                        this.changeIdentity();
+                    }
+                }
+                e.stop();
+                return;
             }
 
             elt = elt.up();
@@ -793,20 +988,35 @@ var DimpCompose = {
 
     onDomLoad: function()
     {
-        var boundResize = this.resizeMsgArea.bind(this);
-
         DimpCore.growler_log = false;
         DimpCore.init();
 
-        this.is_popup = (DIMP.baseWindow && DIMP.baseWindow.DimpBase);
+        this.is_popup = DimpCore.base;
+
+        /* Initialize redirect elements (always needed). */
+        $('redirect').observe('submit', Event.stop);
+        new TextareaResize('redirect_to');
+        if (DIMP.conf_compose.URI_ABOOK) {
+            $('redirect_sendto').down('TD.label SPAN').addClassName('composeAddrbook');
+        }
+
+        /* Nothing more to do if this is strictly a redirect window. */
+        if (DIMP.conf_compose.redirect) {
+            $('dimpLoading').hide();
+            $('redirect', 'pageContainer').invoke('show');
+            return;
+        }
 
         /* Attach event handlers. */
-        document.observe('change', this.changeHandler.bindAsEventListener(this));
+        if (Prototype.Browser.IE) {
+            // IE doesn't bubble change events.
+            $('identity', 'upload').invoke('observe', 'change', this.changeHandler.bindAsEventListener(this));
+        } else {
+            document.observe('change', this.changeHandler.bindAsEventListener(this));
+        }
         Event.observe(window, 'resize', this.resizeMsgArea.bind(this));
         $('compose').observe('submit', Event.stop);
         $('submit_frame').observe('load', this.attachmentComplete.bind(this));
-
-        this.resizeMsgArea();
 
         // Initialize spell checker
         document.observe('SpellChecker:noerror', this._onSpellCheckNoError.bind(this));
@@ -815,97 +1025,83 @@ var DimpCompose = {
             document.observe('SpellChecker:before', this._onSpellCheckBefore.bind(this));
         }
 
-        // Automatically resize address fields.
-        this.resizeto = new ResizeTextArea('to', boundResize);
-        this.resizecc = new ResizeTextArea('cc', boundResize);
-        this.resizebcc = new ResizeTextArea('bcc', boundResize);
-
-        /* Add addressbook link formatting. */
-        if (DIMP.conf_compose.URI_ABOOK) {
-            $('sendto', 'sendcc', 'sendbcc').each(function(a) {
-                a.down('TD.label SPAN').addClassName('composeAddrbook');
-            });
-        }
-
-        /* Create folderlist. */
+        /* Create sent-mail list. */
         if (DIMP.conf_compose.flist) {
-            this.knl_sm = new KeyNavList('save_sent_mail', {
-                esc: true,
-                list: DIMP.conf_compose.flist,
-                onChoose: this.setSentMailLabel.bind(this)
+            this.createPopdown('sm', {
+                base: 'save_sent_mail',
+                data: DIMP.conf_compose.flist,
+                input: 'save_sent_mail_folder',
+                label: 'sent_mail_folder_label'
             });
-            this.knl_sm.setSelected(this.getIdentity($F('identity'))[3]);
-            $('sent_mail_folder_label').insert({ after: new Element('SPAN', { className: 'popdownImg' }).observe('click', function(e) { if (!this.disabled) { this.knl_sm.show(); this.knl_sm.ignoreClick(e); e.stop(); } }.bindAsEventListener(this)) });
+            this.setPopdownLabel('sm', IMP_Compose_Base.getIdentity($F('identity')).id.smf_name);
         }
 
         /* Create priority list. */
         if (DIMP.conf_compose.priority) {
-            this.knl_p = new KeyNavList('priority_label', {
-                esc: true,
-                list: DIMP.conf_compose.priority,
-                onChoose: this.setPriorityLabel.bind(this)
+            this.createPopdown('p', {
+                base: 'priority_label',
+                data: DIMP.conf_compose.priority,
+                input: 'priority',
+                label: 'priority_label'
             });
-            this.setPriorityLabel('normal');
-            $('priority_label').insert({ after: new Element('SPAN', { className: 'popdownImg' }).observe('click', function(e) { if (!this.disabled) { this.knl_p.show(); this.knl_p.ignoreClick(e); e.stop(); } }.bindAsEventListener(this)) });
+            this.setPopdownLabel('p', $F('priority'));
+        }
+
+        /* Create encryption list. */
+        if (DIMP.conf_compose.encrypt) {
+            this.createPopdown('e', {
+                base: $('encrypt_label').up(),
+                data: DIMP.conf_compose.encrypt,
+                input: 'encrypt',
+                label: 'encrypt_label'
+            });
+            this.setPopdownLabel('e', $F('encrypt'));
+        }
+
+        /* Create stationery list. */
+        if (DIMP.conf_compose.stationery) {
+            this.createPopdown('s', {
+                base: $('stationery_label').up(),
+                data: DIMP.conf_compose.stationery,
+                label: 'stationery_label'
+            });
+        }
+
+        // Automatically resize compose address fields.
+        new TextareaResize('to');
+        new TextareaResize('cc');
+        new TextareaResize('bcc');
+
+        /* Add addressbook link formatting. */
+        if (DIMP.conf_compose.URI_ABOOK) {
+            $('sendto', 'sendcc', 'sendbcc', 'redirect_sendto').each(function(a) {
+                a.down('TD.label SPAN').addClassName('composeAddrbook');
+            });
         }
 
         $('dimpLoading').hide();
         $('pageContainer').show();
 
-        // Safari requires a submit target iframe to be at least 1x1 size or
-        // else it will open content in a new window.  See:
-        //   http://blog.caboo.se/articles/2007/4/2/ajax-file-upload
-        if (Prototype.Browser.WebKit) {
-            $('submit_frame').writeAttribute({ position: 'absolute', width: '1px', height: '1px' }).setStyle({ left: '-999px' }).show();
-        }
+        this.resizeMsgArea();
     }
 
-},
-
-ResizeTextArea = Class.create({
-    // Variables defaulting to empty:
-    //   defaultRows, field, onResize
-    maxRows: 5,
-
-    initialize: function(field, onResize)
-    {
-        this.field = $(field);
-
-        this.defaultRows = Math.max(this.field.readAttribute('rows'), 1);
-        this.onResize = onResize;
-
-        var func = this.resizeNeeded.bindAsEventListener(this);
-        this.field.observe('mousedown', func).observe('keyup', func);
-
-        this.resizeNeeded();
-    },
-
-    resizeNeeded: function()
-    {
-        var lines = $F(this.field).split('\n'),
-            cols = this.field.readAttribute('cols'),
-            newRows = lines.size(),
-            oldRows = this.field.readAttribute('rows');
-
-        lines.each(function(line) {
-            if (line.length >= cols) {
-                newRows += Math.floor(line.length / cols);
-            }
-        });
-
-        if (newRows != oldRows) {
-            this.field.writeAttribute('rows', (newRows > oldRows) ? Math.min(newRows, this.maxRows) : Math.max(this.defaultRows, newRows));
-
-            if (this.onResize) {
-                this.onResize();
-            }
-        }
-    }
-
-});
+};
 
 /* Attach event handlers. */
 document.observe('dom:loaded', DimpCompose.onDomLoad.bind(DimpCompose));
+document.observe('TextareaResize:resize', DimpCompose.resizeMsgArea.bind(DimpCompose));
 
 /* Click handler. */
 DimpCore.clickHandler = DimpCore.clickHandler.wrap(DimpCompose.clickHandler.bind(DimpCompose));
+
+/* Catch dialog actions. */
+document.observe('IMPDialog:success', function(e) {
+    switch (e.memo) {
+    case 'pgpPersonal':
+    case 'pgpSymmetric':
+    case 'smimePersonal':
+        IMPDialog.noreload = true;
+        DimpCompose.retrySubmit();
+        break;
+    }
+});

@@ -1,6 +1,6 @@
 <?php
 /**
- * The Gollem_Horde_Mime_Viewer_Images class allows images to be displayed
+ * The Gollem_Mime_Viewer_Images class allows images to be displayed
  * inline from file data.
  *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
@@ -8,10 +8,12 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @package Horde_Mime
+ * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  Gollem
  */
-class Gollem_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
+class Gollem_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
 {
     /**
      * Can this driver render various views?
@@ -33,13 +35,13 @@ class Gollem_Horde_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      * TODO
      * </pre>
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _render()
     {
         $data = '';
         // TODO - set mimepart contents
-        //$url = Horde_Util::addParameter(Horde::applicationUrl('view.php'), array('actionID' => 'download_file', 'file' => $this->mime_part->getName(), 'dir' => Horde_Util::getFormData('dir'), 'driver' => Horde_Util::getFormData('driver')));
+        //$url = Horde_Util::addParameter(Horde::url('view.php'), array('actionID' => 'download_file', 'file' => $this->mime_part->getName(), 'dir' => Horde_Util::getFormData('dir'), 'driver' => Horde_Util::getFormData('driver')));
         return parent::_render();
     }
 

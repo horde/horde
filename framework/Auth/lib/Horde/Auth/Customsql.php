@@ -3,40 +3,18 @@
  * The Horde_Auth_Customsql class provides a sql implementation of the Horde
  * authentication system with the possibility to set custom-made queries.
  *
- * Required parameters: See Horde_Auth_Sql driver.
- * <pre>
- * Some special tokens can be used in the sql query. They are replaced
- * at the query stage:
- *
- *   - '\L' will be replaced by the user's login
- *   - '\P' will be replaced by the user's password.
- *   - '\O' will be replaced by the old user's login (required for update)
- *
- *   Eg: "SELECT * FROM users WHERE uid = \L
- *                            AND passwd = \P
- *                            AND billing = 'paid'
- *
- *   'query_auth'    Authenticate the user.       '\L' & '\P'
- *   'query_add'     Add user.                    '\L' & '\P'
- *   'query_getpw'   Get one user's password.     '\L'
- *   'query_update'  Update user.                 '\O', '\L' & '\P'
- *   'query_resetpassword'  Reset password.       '\L', & '\P'
- *   'query_remove'  Remove user.                 '\L'
- *   'query_list'    List user.
- *   'query_exists'  Check for existance of user. '\L'
- * </pre>
- *
- * Optional parameters: See Horde_Auth_Sql driver.
- *
  * Copyright 2002 Ronnie Garcia <ronnie@mk2.net>
+ * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
  *
- * @author  Ronnie Garcia <ronnie@mk2.net>
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Joel Vandal <joel@scopserv.com>
- * @package Horde_Auth
+ * @author   Ronnie Garcia <ronnie@mk2.net>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Joel Vandal <joel@scopserv.com>
+ * @category Horde
+ * @license  http://opensource.org/licenses/lgpl-2.1.php
+ * @package  Auth
  */
 class Horde_Auth_Customsql extends Horde_Auth_Sql
 {
@@ -58,13 +36,39 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
     /**
      * Constructor.
      *
-     * @param array $params  A hash containing connection parameters.
+     * Some special tokens can be used in the SQL query. They are replaced
+     * at the query stage:
+     *   '\L' will be replaced by the user's login
+     *   '\P' will be replaced by the user's password.
+     *   '\O' will be replaced by the old user's login (required for update)
+     *
+     * Eg: "SELECT * FROM users WHERE uid = \L
+     *                          AND passwd = \P
+     *                          AND billing = 'paid'
+     *
+     * @param array $params  Configuration parameters:
+     * <pre>
+     * 'query_auth' - (string) Authenticate the user. ('\L' & '\P')
+     * 'query_add' - (string) Add user. ('\L' & '\P')
+     * 'query_getpw' - (string) Get one user's password. ('\L')
+     * 'query_update' - (string) Update user. ('\O', '\L' & '\P')
+     * 'query_resetpassword' - (string) Reset password. ('\L', & '\P')
+     * 'query_remove' - (string) Remove user. ('\L')
+     * 'query_list' - (string) List user.
+     * 'query_exists' - (string) Check for existance of user. ('\L')
+     * </pre>
+     *
+     * @throws InvalidArgumentException
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
-        Horde::assertDriverConfig($params, 'auth',
-            array('query_auth'),
-            'authentication custom SQL');
+        foreach (array('query_auth', 'query_add', 'query_getpw',
+                       'query_update', 'query_resetpassword', 'query_remove',
+                       'query_list', 'query_exists') as $val) {
+            if (!isset($params[$val])) {
+                throw new InvalidArgumentException('Missing ' . $val . ' parameter.');
+            }
+        }
 
         parent::__construct($params);
     }
@@ -79,36 +83,24 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
      */
     protected function _authenticate($userId, $credentials)
     {
-        try {
-            $this->_connect();
-        } catch (Horde_Auth_Exception $e) {
-            throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
-        }
-
         /* Build a custom query, based on the config file. */
-        $query = $this->_params['query_auth'];
-        $query = str_replace('\L', $this->_db->quote($userId), $query);
-        $query = str_replace('\P', $this->_db->quote(Horde_Auth::getCryptedPassword(
-                                                         $credentials['password'],
-                                                         $this->_getPassword($userId),
-                                                         $this->_params['encryption'],
-                                                         $this->_params['show_encryption'])), $query);
+        $query = str_replace(
+            array('\L', '\P'),
+            array(
+                $this->_db->quote($userId),
+                $this->_db->quote(Horde_Auth::getCryptedPassword($credentials['password'], $this->_getPassword($userId), $this->_params['encryption'], $this->_params['show_encryption']))
+            ),
+            $this->_params['query_auth']
+        );
 
-        $result = $this->_db->query($query);
-        if ($result instanceof PEAR_Error) {
+        try {
+            if ($this->_db->selectValue($query)) {
+                return;
+            }
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
+        } catch (Horde_Db_Exception $e) {
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
         }
-
-        $row = $result->fetchRow(DB_GETMODE_ASSOC);
-
-        /* If we have at least one returned row, then the user is valid. */
-        if (is_array($row)) {
-            $result->free();
-            return;
-        }
-
-        $result->free();
-        throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
     }
 
     /**
@@ -121,19 +113,20 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
      */
     public function addUser($userId, $credentials)
     {
-        $this->_connect();
-
         /* Build a custom query, based on the config file. */
-        $query = $this->_params['query_add'];
-        $query = str_replace('\L', $this->_db->quote($userId), $query);
-        $query = str_replace('\P', $this->_db->quote(Horde_Auth::getCryptedPassword(
-                                                         $credentials['password'], '',
-                                                         $this->_params['encryption'],
-                                                         $this->_params['show_encryption'])), $query);
+        $query = str_replace(
+            array('\L', 'P'),
+            array(
+                $this->_db->quote($userId),
+                $this->_db->quote(Horde_Auth::getCryptedPassword($credentials['password'], '', $this->_params['encryption'], $this->_params['show_encryption']))
+            ),
+            $this->_params['query_add']
+        );
 
-        $result = $this->_db->query($query);
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Auth_Exception($result);
+        try {
+            $this->_db->insert($query);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Auth_Exception($e);
         }
     }
 
@@ -146,23 +139,23 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
      *
      * @throws Horde_Auth_Exception
      */
-    function updateUser($oldId, $newId, $credentials)
+    public function updateUser($oldId, $newId, $credentials)
     {
-        $this->_connect();
-
         /* Build a custom query, based on the config file. */
-        $query = $this->_params['query_update'];
-        $query = str_replace('\O', $this->_db->quote($oldId), $query);
-        $query = str_replace('\L', $this->_db->quote($newId), $query);
-        $query = str_replace('\P', $this->_db->quote(Horde_Auth::getCryptedPassword(
-                                                         $credentials['password'],
-                                                         $this->_getPassword($oldId),
-                                                         $this->_params['encryption'],
-                                                         $this->_params['show_encryption'])), $query);
+        $query = str_replace(
+            array('\O', '\L', '\P'),
+            array(
+                $this->_db->quote($oldId),
+                $this->_db->quote($newId),
+                $this->_db->quote(Horde_Auth::getCryptedPassword($credentials['password'], $this->_getPassword($oldId), $this->_params['encryption'], $this->_params['show_encryption']))
+            ),
+            $this->_params['query_update']
+        );
 
-        $result = $this->_db->query($query);
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Auth_Exception($result);
+        try {
+            $this->_db->update($query);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Auth_Exception($e);
         }
     }
 
@@ -177,22 +170,23 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
      */
     public function resetPassword($userId)
     {
-        $this->_connect();
-
         /* Get a new random password. */
         $password = Horde_Auth::genRandomPassword();
 
         /* Build the SQL query. */
-        $query = $this->_params['query_resetpassword'];
-        $query = str_replace('\L', $this->_db->quote($userId), $query);
-        $query = str_replace('\P', $this->_db->quote(Horde_Auth::getCryptedPassword($password,
-                                                                               '',
-                                                                               $this->_params['encryption'],
-                                                                               $this->_params['show_encryption'])), $query);
+        $query = str_replace(
+            array('\L', '\P'),
+            array(
+                $this->_db->quote($userId),
+                $this->_db->quote(Horde_Auth::getCryptedPassword($password, '', $this->_params['encryption'], $this->_params['show_encryption']))
+            ),
+            $this->_params['query_resetpassword']
+        );
 
-        $result = $this->_db->query($query);
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Auth_Exception($result);
+        try {
+            $this->_db->update($query);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Auth_Exception($e);
         }
 
         return $password;
@@ -207,18 +201,20 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
      */
     public function removeUser($userId)
     {
-        $this->_connect();
-
         /* Build a custom query, based on the config file. */
-        $query = $this->_params['query_remove'];
-        $query = str_replace('\L', $this->_db->quote($userId), $query);
+        $query = str_replace(
+            '\L',
+            $this->_db->quote($userId),
+            $this->_params['query_remove']
+        );
 
-        $result = $this->_db->query($query);
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Auth_Exception($result);
+        try {
+            $this->_db->delete($query);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Auth_Exception($e);
         }
 
-        $this->removeUserData($userId);
+        Horde_Auth::removeUserData($userId);
     }
 
     /**
@@ -229,15 +225,17 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
      */
     public function listUsers()
     {
-        $this->_connect();
-
         /* Build a custom query, based on the config file. */
-        $query = $this->_params['query_list'];
-        $query = str_replace('\L', $this->_db->quote(Horde_Auth::getAuth()), $query);
+        $query = str_replace(
+            '\L',
+            $this->_db->quote($this->_params['default_user']),
+            $this->_params['query_list']
+        );
 
-        $result = $this->_db->getAll($query, null, DB_FETCHMODE_ORDERED);
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Auth_Exception($result);
+        try {
+            $result = $this->_db->selectAll($query);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Auth_Exception($e);
         }
 
         /* Loop through and build return array. */
@@ -256,43 +254,42 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
      */
     public function exists($userId)
     {
+        /* Build a custom query, based on the config file. */
+        $query = str_replace(
+            '\L',
+            $this->_db->quote($userId),
+            $this->_params['query_exists']
+        );
+
         try {
-            $this->_connect();
-        } catch (Horde_Auth_Exception $e) {
+            return (bool)$this->_db->selectValue($query);
+        } catch (Horde_Db_Exception $e) {
             return false;
         }
-
-        /* Build a custom query, based on the config file. */
-        $query = $this->_params['query_exists'];
-        $query = str_replace('\L', $this->_db->quote($userId), $query);
-
-        $result = $this->_db->getOne($query);
-
-        return ($result instanceof PEAR_Error)
-            ? false
-            : (bool)$result;
     }
 
     /**
      * Fetch $userId's current password - needed for the salt with some
      * encryption schemes when doing authentication or updates.
      *
-     * @param string $userId  TODO
+     * @param string $userId  The userId to query.
      *
      * @return string  $userId's current password.
      */
     protected function _getPassword($userId)
     {
         /* Retrieve the old password in case we need the salt. */
-        $query = $this->_params['query_getpw'];
-        $query = str_replace('\L', $this->_db->quote($userId), $query);
-        $pw = $this->_db->getOne($query);
-        if ($pw instanceof PEAR_Error) {
-            Horde::logMessage($pw, __FILE__, __LINE__, PEAR_LOG_ERR);
-            return '';
-        }
+        $query = str_replace(
+            '\L',
+            $this->_db->quote($userId),
+            $this->_params['query_getpw']
+        );
 
-        return $pw;
+        try {
+            return $this->_db->selectValue($query);
+        } catch (Horde_Db_Exception $e) {
+            return null;
+        }
     }
 
 }

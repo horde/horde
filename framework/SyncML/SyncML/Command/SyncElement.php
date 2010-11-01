@@ -13,7 +13,6 @@
  *
  * @author  Karsten Fourmont <karsten@horde.org>
  * @author  Jan Schneider <jan@horde.org>
- * @since   Horde 3.0.5
  * @package SyncML
  */
 class SyncML_SyncElement {

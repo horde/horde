@@ -3,8 +3,6 @@
  * The Agora script to post a new message, edit an existing message, or reply
  * to a message.
  *
- * $Horde: agora/messages/edit.php,v 1.90 2009-12-01 12:52:38 jan Exp $
- *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -13,9 +11,8 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-define('AGORA_BASE', dirname(__FILE__) . '/..');
-require_once AGORA_BASE . '/lib/base.php';
-require_once AGORA_BASE . '/lib/Messages.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('agora');
 
 list($forum_id, $message_id, $scope) = Agora::getAgoraId();
 $message_parent_id = Horde_Util::getFormData('message_parent_id');
@@ -28,15 +25,13 @@ $formname = $vars->get('formname');
 $messages = &Agora_Messages::singleton($scope, $forum_id);
 if ($messages instanceof PEAR_Error) {
     $notification->push(_("Could not post the message: ") . $messages->getMessage(), 'horde.warning');
-    $url = Horde::applicationUrl('forums.php', true);
-    header('Location: ' . $url);
-    exit;
+    Horde::url('forums.php', true)->redirect();
 }
 
 /* Check edit permissions */
 if (!$messages->hasPermission(Horde_Perms::EDIT)) {
     $notification->push(sprintf(_("You don't have permission to post messages in forum %s."), $forum_id), 'horde.warning');
-    $url = Agora::setAgoraId($forum_id, $message_id, Horde::applicationUrl('messages/index.php', true), $scope);
+    $url = Agora::setAgoraId($forum_id, $message_id, Horde::url('messages/index.php', true), $scope);
     header('Location: ' . $url);
     exit;
 }
@@ -89,7 +84,7 @@ if ($form->validate($vars)) {
         if (!empty($info['url'])) {
             $url = Horde::url($info['url'], true);
         } else {
-            $url = Agora::setAgoraId($forum_id, $message_id, Horde::applicationUrl('messages/index.php', true), $scope);
+            $url = Agora::setAgoraId($forum_id, $message_id, Horde::url('messages/index.php', true), $scope);
         }
         header('Location: ' . $url);
         exit;
@@ -117,9 +112,15 @@ if ($message_parent_id) {
 }
 
 $view->replying = $message_parent_id;
-$view->menu = Agora::getMenu('string');
-$view->notify = Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status'));
-$view->formbox = Horde_Util::bufferOutput(array($form, 'renderActive'), null, $vars, 'edit.php', 'post');
+$view->menu = Horde::menu();
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$view->notify = Horde::endBuffer();
+
+Horde::startBuffer();
+$form->renderActive(null, $vars, 'edit.php', 'post');
+$view->formbox = Horde::endBuffer();
 
 require AGORA_TEMPLATES . '/common-header.inc';
 echo $view->render('messages/edit.html.php');

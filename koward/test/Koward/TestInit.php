@@ -14,12 +14,11 @@
 /**
  * The Autoloader allows us to omit "require/include" statements.
  */
-require_once 'Horde/Autoloader.php';
+require_once 'Horde/Autoloader/Default.php';
 
 if (!defined('KOWARD_BASE')) {
     define('KOWARD_BASE', dirname(__FILE__) . '/../');
 }
 
 /* Set up the application class and controller loading */
-Horde_Autoloader::addClassPattern('/^Koward_/', KOWARD_BASE . '/lib/');
-Horde_Autoloader::addClassPattern('/^Koward_/', KOWARD_BASE . '/app/controllers/');
+$__autoloader->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Koward_/', KOWARD_BASE . '/lib/'));

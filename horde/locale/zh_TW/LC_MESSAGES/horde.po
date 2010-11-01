@@ -1,0 +1,4124 @@
+# Horde Traditional Chinese Translation.
+# Copyright 2001 David Chang,TAIWAN. 張良文,台灣
+# David Chang <david@tmv.gov.tw>, 2001.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde 3.2\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 02:42+0200\n"
+"PO-Revision-Date: 2008-03-28 12:00+0800\n"
+"Last-Translator: David Chang <david@tmv.gov.tw>\n"
+"Language-Team: Traditional Chinese <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8-bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: lib/Block/weatherdotcom.php:260 lib/Block/weatherdotcom.php:363
+#: lib/Block/weatherdotcom.php:409
+msgid " at "
+msgstr "於"
+
+#: admin/groups.php:50
+#, php-format
+msgid "\"%s\" was added to the groups system."
+msgstr "\"%s\"已成功的加入到群組系統中."
+
+#: admin/perms/addchild.php:43
+#, php-format
+msgid "\"%s\" was added to the permissions system."
+msgstr "\"%s\"已加入權限系統."
+
+#: admin/groups.php:56 admin/perms/addchild.php:47
+#, php-format
+msgid "\"%s\" was not created: %s."
+msgstr "\"%s\"並未建立: %s."
+
+#: lib/Block/account.php:83
+#, php-format
+msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
+msgstr "已使用 %.2fMB ,容量 %.2fMB ,剩餘 (%.2f%%)"
+
+#: lib/Block/weatherdotcom.php:241
+#, php-format
+msgid "%d %s and %s"
+msgstr "%d %s 以及 %s"
+
+#: lib/Block/account.php:708 lib/Block/account.php:720
+#, php-format
+msgid "%d days until your password expires."
+msgstr "最近一次密碼變更於 %d 天前."
+
+#: lib/Block/metar.php:281
+#, php-format
+msgid "%d minutes"
+msgstr "%d 分"
+
+#: services/facebook.php:114
+#, php-format
+msgid "%d person likes this"
+msgid_plural "%d persons like this"
+msgstr[0] ""
+
+#: templates/admin/user/list.inc:4
+#, php-format
+msgid "%d to %d of %d"
+msgstr "%d 到 %d 共 %d"
+
+#: lib/Block/weatherdotcom.php:288
+#, php-format
+msgid "%d-day forecast"
+msgstr "最近 %d 天氣象預報"
+
+#: services/logintasks.php:83
+#, php-format
+msgid "%s - Notice"
+msgstr "%s - 備忘錄"
+
+#: admin/config/config.php:21 admin/config/index.php:226
+#, fuzzy, php-format
+msgid "%s Configuration"
+msgstr "設定"
+
+#: services/logintasks.php:64
+#, fuzzy, php-format
+msgid "%s Tasks - Confirmation"
+msgstr "密碼確認"
+
+#: services/logintasks.php:74
+#, php-format
+msgid "%s Terms of Agreement"
+msgstr "%s 同意項目"
+
+#: lib/Block/metar.php:154 lib/Block/metar.php:160 lib/Block/metar.php:234
+#: lib/Block/metar.php:340 lib/Block/metar.php:346
+#, php-format
+msgid "%s at %s %s"
+msgstr "%s 在 %s %s"
+
+#: services/logintasks.php:63
+#, fuzzy, php-format
+msgid ""
+"%s is ready to perform the tasks checked below. Check the box for any "
+"operation(s) you want to perform at this time."
+msgstr "%s 已就下列事項的維護操作就緒. 請於此時勾選你想要操作的項目."
+
+#: lib/Block/vatid.php:58
+#, php-format
+msgid "%s not found."
+msgstr "找不到 %s."
+
+#: lib/Block/weatherdotcom.php:367 lib/Block/weatherdotcom.php:412
+msgid ", gusting "
+msgstr ", 陣風 "
+
+#: lib/Block/metar.php:183 lib/Block/metar.php:188
+#, php-format
+msgid ", gusting %s %s"
+msgstr ", 陣風 %s %s"
+
+#: lib/Block/metar.php:196
+#, php-format
+msgid ", variable from %s to %s"
+msgstr ",變化量從 %s 到 %s"
+
+#: lib/Block/time.php:26
+msgid "12 Hour Format"
+msgstr "12 小時制"
+
+#: lib/Block/time.php:25
+msgid "24 Hour Format"
+msgstr "24 小時制"
+
+#: templates/data/datetime.inc:109 templates/data/time.inc:28
+msgid "24 hours"
+msgstr "24 小時"
+
+#: templates/prefs/facebook.html:15
+msgid ""
+"<tag:app_name /> can interact with your Facebook account, but you must login "
+"to Facebook manually each time."
+msgstr ""
+
+#: templates/prefs/facebook.html:38
+msgid "<tag:app_name /> cannot read your stream messages."
+msgstr ""
+
+#: templates/prefs/facebook.html:26
+msgid ""
+"<tag:app_name /> cannot set your status messages or publish other content to "
+"Facebook."
+msgstr ""
+
+#: templates/prefs/twitter.html:9
+msgid "<tag:appname /> can interact with your Twitter account"
+msgstr ""
+
+#: services/keyboard.php:46
+msgid "A characters"
+msgstr "A 系字元"
+
+#: lib/Block/metar.php:117
+msgid "A database backend is required for this block."
+msgstr "此區塊必須要指定資料庫伺服端."
+
+#: admin/activesync.php:35
+msgid ""
+"A device wipe has been requested. Device will be wiped on next "
+"syncronization attempt."
+msgstr ""
+
+#: admin/config/index.php:92 admin/config/index.php:124
+#, php-format
+msgid "A newer version (%s) exists."
+msgstr "有較新版本 (%s)."
+
+#: lib/Prefs/Ui.php:743
+#, php-format
+msgid ""
+"A remote wipe for device id %s has been initiated. The device will be wiped "
+"during the next synchronisation."
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:7
+msgid "AM Clouds"
+msgstr "午前有雲"
+
+#: lib/Block/weatherdotcom_strings.php:8
+#, fuzzy
+msgid "AM Drizzle"
+msgstr "午前毛毛雨"
+
+#: lib/Block/weatherdotcom_strings.php:9
+msgid "AM Fog"
+msgstr "午前有霧"
+
+#: lib/Block/weatherdotcom_strings.php:10
+msgid "AM Light Rain"
+msgstr "午前小雨"
+
+#: lib/Block/weatherdotcom_strings.php:11
+msgid "AM Light Snow"
+msgstr "午前小雪"
+
+#: lib/Block/weatherdotcom_strings.php:12
+msgid "AM Rain"
+msgstr "午前有雨"
+
+#: lib/Block/weatherdotcom_strings.php:13
+msgid "AM Showers"
+msgstr "午前陣雨"
+
+#: lib/Block/weatherdotcom_strings.php:14
+msgid "AM Snow"
+msgstr "午前有雪"
+
+#: lib/Block/weatherdotcom_strings.php:15
+msgid "AM Snow Showers"
+msgstr "午前陣雪"
+
+#: lib/Block/weatherdotcom_strings.php:16
+msgid "AM Sun"
+msgstr "午前晴"
+
+#: lib/Block/weatherdotcom_strings.php:17
+#, fuzzy
+msgid "AM T-Showers"
+msgstr "午前陣雨"
+
+#: lib/Block/weatherdotcom_strings.php:18
+msgid "AM T-Storms"
+msgstr "午前雷雨"
+
+#: templates/data/datetime.inc:110 templates/data/time.inc:29
+msgid "AM/PM"
+msgstr "午前/午後"
+
+#: lib/Block/account.php:3
+msgid "Account Information"
+msgstr "帳號資訊"
+
+#: config/prefs.php.dist:276
+msgid "Account Password"
+msgstr "帳號與密碼"
+
+#: admin/activesync.php:126
+#, fuzzy
+msgid "Actions"
+msgstr "選項"
+
+#: config/prefs.php.dist:676
+msgid "ActiveSync"
+msgstr ""
+
+#: admin/activesync.php:71
+#, fuzzy
+msgid "ActiveSync Device Administration"
+msgstr "使用者管理"
+
+#: admin/activesync.php:199 lib/Api.php:80
+msgid "ActiveSync Devices"
+msgstr ""
+
+#: admin/activesync.php:20 lib/Prefs/Ui.php:376
+msgid "ActiveSync not activated."
+msgstr ""
+
+#: templates/admin/groups/addchild.inc:12 templates/portal/add.inc:14
+msgid "Add"
+msgstr "新增"
+
+#: services/portal/index.php:68
+msgid "Add Content"
+msgstr "新增內容"
+
+#: templates/portal/add.inc:5
+msgid "Add Here:"
+msgstr "在此新增:"
+
+#: templates/admin/groups/edit.inc:49
+msgid "Add Members"
+msgstr "新增成員"
+
+#: admin/groups.php:253 templates/admin/groups/addchild.inc:7
+#, php-format
+msgid "Add a child group to \"%s\""
+msgstr "新增次群組到 \"%s\""
+
+#: admin/groups.php:238
+msgid "Add a new group"
+msgstr "新增一個群組"
+
+#: admin/user.php:21
+msgid "Add a new user:"
+msgstr "新增一個使用者:"
+
+#: admin/alarms.php:22
+msgid "Add new alarm"
+msgstr "新增一個警示"
+
+#: templates/data/csvmap.inc:92
+msgid "Add pair"
+msgstr "新增對"
+
+#: admin/user.php:22
+msgid "Add user"
+msgstr "新增使用者"
+
+#: admin/signup_confirm.php:80 admin/user.php:92
+#, php-format
+msgid ""
+"Added \"%s\" to the system, but could not add additional signup information: "
+"%s."
+msgstr "已新增 \"%s\" 到系統中. 但無法新增額外的註冊資訊: %s."
+
+#: signup.php:44
+#, php-format
+msgid "Added \"%s\" to the system. You can log in now."
+msgstr "已新增 \"%s\" 到系統中. 你現在可以進行登入了."
+
+#: templates/admin/user/noadd.inc:2
+msgid "Adding users is disabled."
+msgstr "新增使用者的功能目前被關閉."
+
+#: lib/Block/vatid.php:101
+msgid "Address"
+msgstr "地址"
+
+#: config/registry.php.dist:142
+msgid "Address Book"
+msgstr "通訊錄"
+
+#: admin/alarms.php:26
+msgid "Alarm end"
+msgstr "截止日"
+
+#: admin/alarms.php:28
+msgid "Alarm methods"
+msgstr "方式"
+
+#: admin/alarms.php:25
+msgid "Alarm start"
+msgstr "啟始日"
+
+#: admin/alarms.php:27
+msgid "Alarm text"
+msgstr "內容"
+
+#: admin/alarms.php:24
+msgid "Alarm title"
+msgstr "警示標題"
+
+#: admin/alarms.php:133
+msgid "Alarms"
+msgstr "警示"
+
+#: lib/Block/fortune.php:94
+msgid "All"
+msgstr "所有"
+
+#: templates/shares/edit.inc:58
+msgid "All Authenticated Users"
+msgstr "所有通過驗證的使用者"
+
+#: admin/groups.php:26 admin/groups.php:244
+msgid "All Groups"
+msgstr "所有群組"
+
+#: admin/activesync.php:50
+msgid "All policy keys successfully reset."
+msgstr ""
+
+#: lib/Prefs/Ui.php:753
+msgid ""
+"All state removed for your devices. They will resynchronize next time they "
+"connect to the server."
+msgstr ""
+
+#: lib/Prefs/Ui.php:724
+msgid "All synchronization sessions deleted."
+msgstr "已刪除所有同步會期."
+
+#: config/prefs.php.dist:644
+msgid "Alternate IMSP Login"
+msgstr "變更 IMSP 登入"
+
+#: config/prefs.php.dist:658
+msgid "Alternate IMSP Password"
+msgstr "變更 IMSP 密碼"
+
+#: config/prefs.php.dist:652
+msgid "Alternate IMSP Username"
+msgstr "變更 IMSP 使用者"
+
+#: services/resetpassword.php:31
+msgid "Alternate email address"
+msgstr "變更電子郵件住址"
+
+#: lib/Block/weatherdotcom.php:170
+msgid "An unknown error has occured."
+msgstr "發生了一個未知的錯誤."
+
+#: services/resetpassword.php:48
+msgid "Answer"
+msgstr "答案"
+
+#: templates/data/csvmap.inc:112 templates/admin/config/index.html:11
+msgid "Application"
+msgstr "應用程式"
+
+#: admin/phpshell.php:44
+msgid "Application Context: "
+msgstr "應用程式內容: "
+
+#: util/icon_browser.php:45
+msgid "Application List"
+msgstr "應用程式清單"
+
+#: admin/config/index.php:160
+msgid "Application is ready."
+msgstr "已就緒"
+
+#: admin/config/index.php:95 admin/config/index.php:127
+msgid "Application is up-to-date."
+msgstr "已是最新版本."
+
+#: templates/admin/user/approve.inc:33
+msgid "Approve"
+msgstr "批准"
+
+#: config/nls.php:167
+msgid "Arabic (Windows-1256)"
+msgstr "阿拉伯文 (Windows-1256)"
+
+#: admin/alarms.php:123
+#, php-format
+msgid "Are you sure you want to delete '%s'?"
+msgstr "你確定要刪除 '%s'?"
+
+#: templates/admin/user/removequeued.inc:10
+#, php-format
+msgid "Are you sure you want to remove the signup request for \"%s\"?"
+msgstr "你確定要刪除 \"%s\" 的註冊申請嗎?"
+
+#: templates/admin/groups/delete.inc:7
+#, php-format
+msgid "Are you sure you wish to delete \"%s\" and any sub-groups?"
+msgstr "你確定要刪除 \"%s\" 以及任何的次群組?"
+
+#: config/nls.php:168
+msgid "Armenian (ARMSCII-8)"
+msgstr "亞美尼亞文 (ARMSCII-8)"
+
+#: lib/Block/fortune.php:35
+msgid "Art"
+msgstr "藝術"
+
+#: lib/Block/fortune.php:36
+msgid "Ascii Art"
+msgstr "文字藝術"
+
+#: templates/problem/problem.inc:43
+msgid "Attachment"
+msgstr "附件"
+
+#: admin/groups.php:72
+msgid "Attempt to delete a non-existent group."
+msgstr "嚐試刪除一個不存在的群組."
+
+#: admin/perms/delete.php:24
+msgid "Attempt to delete a non-existent permission."
+msgstr "嚐試刪除一個不存在的權限."
+
+#: admin/perms/edit.php:92
+msgid "Attempt to edit a non-existent permission."
+msgstr "嚐試編輯一個不存在的群組."
+
+#: services/shares/edit.php:66
+msgid "Attempt to edit a non-existent share."
+msgstr "嚐試編輯一個不存在的共享."
+
+#: admin/sessions.php:40
+#, fuzzy
+msgid "Authenticated to:"
+msgstr "所有通過驗證的使用者"
+
+#: templates/prefs/facebook.html:27
+msgid "Authorize Publish"
+msgstr ""
+
+#: templates/prefs/facebook.html:39
+msgid "Authorize Read:"
+msgstr ""
+
+#: templates/prefs/facebook.html:16
+msgid "Authorize an infinite session:"
+msgstr ""
+
+#: templates/data/csvmap.inc:70
+msgid "Available fields:"
+msgstr "可用的欄位:"
+
+#: themes/azur/info.php:6
+msgid "Azur"
+msgstr "Azur"
+
+#: lib/Block/fortune.php:37
+msgid "BOFH Excuses"
+msgstr "BOFH 藉口"
+
+#: config/nls.php:169
+msgid "Baltic (ISO-8859-13)"
+msgstr "波羅的海文 (ISO-8859-13)"
+
+#: themes/barbie/info.php:2
+msgid "Barbie"
+msgstr "Barbie"
+
+#: util/icon_browser.php:34
+#, php-format
+msgid "Base graphics directory \"%s\" not found."
+msgstr "找不到圖示目錄 \"%s\"."
+
+#: templates/portal/layout.inc:90
+msgid "Block Settings"
+msgstr "區塊設定"
+
+#: templates/portal/layout.inc:72
+msgid "Block Type"
+msgstr "區塊型態"
+
+#: themes/bluemoon/info.php:2
+msgid "Blue Moon"
+msgstr "Blue Moon"
+
+#: themes/bluewhite/info.php:2
+msgid "Blue and White"
+msgstr "Blue and White"
+
+#: config/registry.php.dist:226
+msgid "Bookmarks"
+msgstr "書籤"
+
+#: lib/Block/fortune.php:103
+msgid "Both"
+msgstr "全部"
+
+#: themes/brown/info.php:2
+msgid "Brown"
+msgstr "Brown"
+
+#: admin/sessions.php:38
+msgid "Browser:"
+msgstr "瀏覽:"
+
+#: themes/burntorange/info.php:7
+msgid "Burnt Orange"
+msgstr "Burnt Orange"
+
+#: lib/Block/weatherdotcom.php:166
+msgid "Cache init was not completed."
+msgstr "快取初始化尚未完成."
+
+#: config/registry.php.dist:157
+msgid "Calendar"
+msgstr "行事曆"
+
+#: lib/Block/weatherdotcom.php:250
+msgid "Calm"
+msgstr "零級風"
+
+#: themes/camouflage/info.php:2
+msgid "Camouflage"
+msgstr "Camouflage"
+
+#: admin/user.php:115 admin/user.php:135 templates/admin/groups/delete.inc:11
+#: templates/admin/user/clear.inc:12 templates/admin/user/remove.inc:12
+msgid "Cancel"
+msgstr "取消"
+
+#: templates/problem/problem.inc:58
+msgid "Cancel Problem Report"
+msgstr "取消問題回報"
+
+#: admin/activesync.php:183 templates/prefs/activesync.html:31
+#, fuzzy
+msgid "Cancel Wipe"
+msgstr "取消"
+
+#: services/resetpassword.php:17
+msgid "Cannot reset password automatically, contact your administrator."
+msgstr "無法自動重設密碼,請聯絡你的系統管理員."
+
+#: config/prefs.php.dist:440
+msgid "Categories and Labels"
+msgstr "分類與標籤"
+
+#: config/nls.php:170
+msgid "Celtic (ISO-8859-14)"
+msgstr "塞爾特文 (ISO-8859-14)"
+
+#: config/nls.php:171
+msgid "Central European (ISO-8859-2)"
+msgstr "中歐 (ISO-8859-20"
+
+#: templates/prefs/rpc.html:33
+msgid "Change"
+msgstr "更改"
+
+#: services/changepassword.php:23
+msgid "Change Your Password"
+msgstr "更改你的密碼"
+
+#: config/prefs.php.dist:214
+msgid ""
+"Change the name and address that people see when they read and reply to your "
+"emails."
+msgstr "更改你的的全名以及回郵地址."
+
+#: services/changepassword.php:17
+msgid ""
+"Changing your password is not supported with the current configuration.  "
+"Contact your administrator."
+msgstr "目前的設定並未支援密碼變更. 請聯絡你的管理員."
+
+#: lib/Block/vatid.php:45
+msgid "Check"
+msgstr "檢查"
+
+#: templates/admin/config/index.html:4
+msgid "Check for newer versions"
+msgstr "檢查新版本"
+
+#: lib/Block/vatid.php:47
+msgid "Checking"
+msgstr "查驗中..."
+
+#: templates/admin/groups/addchild.inc:10
+msgid "Child"
+msgstr "子"
+
+#: config/nls.php:172
+msgid "Chinese Simplified (GB2312)"
+msgstr "簡體中文 (GB2312)"
+
+#: config/nls.php:173
+msgid "Chinese Traditional (Big5)"
+msgstr "正體中文 (Big5)"
+
+#: services/obrowser/index.php:91
+#, fuzzy, php-format
+msgid "Choose %s"
+msgstr "選擇密碼"
+
+#: config/prefs.php.dist:403
+#, fuzzy
+msgid "Choose how to display dates (abbreviated format):"
+msgstr "日期顯示方式:"
+
+#: config/prefs.php.dist:377
+#, fuzzy
+msgid "Choose how to display dates (full format):"
+msgstr "日期顯示方式:"
+
+#: config/prefs.php.dist:419
+#, fuzzy
+msgid "Choose how to display times:"
+msgstr "日期顯示方式:"
+
+#: lib/Block/weatherdotcom_strings.php:19
+msgid "Clear"
+msgstr "晴"
+
+#: admin/sqlshell.php:109
+msgid "Clear Query"
+msgstr "清除查詢"
+
+#: templates/admin/user/clear.inc:5
+#, php-format
+msgid "Clear out user: %s"
+msgstr "清除使用者: %s"
+
+#: templates/admin/user/clear.inc:11
+msgid "Clear user"
+msgstr "清除使用者"
+
+#: templates/admin/user/list.inc:37
+msgid "Clear user data"
+msgstr "清除使用者的資料"
+
+#: lib/Block/weatherdotcom_strings.php:20
+msgid "Clearing Early"
+msgstr "早轉晴"
+
+#: lib/Block/weatherdotcom_strings.php:21
+msgid "Clearing Late"
+msgstr "晚轉晴"
+
+#: templates/prefs/addressbooks.html:3
+msgid ""
+"Click on one of your selected address books and then select all fields to "
+"search."
+msgstr ""
+
+#: templates/logintasks/logintasks.html:38
+msgid "Click to Continue"
+msgstr "按滑鼠鍵以繼續"
+
+#: templates/prefs/syncml.html:13
+msgid "Client Anchor"
+msgstr "客戶端錨點"
+
+#: services/keyboard.php:154 templates/shares/edit.inc:12
+msgid "Close Window"
+msgstr "關閉視窗"
+
+#: lib/Block/metar.php:239
+msgid "Clouds"
+msgstr "雲量"
+
+#: lib/Block/weatherdotcom_strings.php:22
+msgid "Clouds Early"
+msgstr "早多雲"
+
+#: lib/Block/weatherdotcom_strings.php:23
+msgid "Clouds Late"
+msgstr "晚有雲"
+
+#: lib/Block/weatherdotcom_strings.php:24
+msgid "Cloudy"
+msgstr "陰"
+
+#: admin/sessions.php:31
+msgid "Collapse"
+msgstr "折疊"
+
+#: templates/sidebar/sidebar.inc:3
+msgid "Collapse Sidebar"
+msgstr "折疊資料夾"
+
+#: lib/Prefs/Ui.php:237
+msgid "Color Picker"
+msgstr "調色盤"
+
+#: admin/cmdshell.php:20 admin/cmdshell.php:42
+msgid "Command"
+msgstr "命令"
+
+#: admin/cmdshell.php:14
+msgid "Command Shell"
+msgstr "批次命令"
+
+#: services/facebook.php:101
+#, fuzzy, php-format
+msgid "Comments: %d"
+msgstr "評論"
+
+#: lib/Block/fortune.php:38
+msgid "Computers"
+msgstr "電腦"
+
+#: lib/Block/weatherdotcom.php:300
+msgid "Condition"
+msgstr "環境"
+
+#: lib/Block/metar.php:244
+msgid "Conditions"
+msgstr "條件"
+
+#: admin/config/config.php:65 templates/admin/config/config.html:9
+msgid "Configuration"
+msgstr "設定"
+
+#: admin/config/diff.php:80
+msgid "Configuration Differences"
+msgstr "差異"
+
+#: config/prefs.php.dist:665
+msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
+msgstr "與 PDA 掌上型電腦,智慧型手機以及 Outlook 的同步設定."
+
+#: admin/config/index.php:155
+msgid "Configuration is out of date."
+msgstr "設定資料過期."
+
+#: templates/admin/config/index.html:61
+#, fuzzy
+msgid "Configuration upgrade scripts available"
+msgstr "更新程式就緒"
+
+#: admin/config/index.php:111
+#, php-format
+msgid "Configure %s"
+msgstr "設定 %s"
+
+#: templates/admin/user/update.inc:28
+msgid "Confirm Password"
+msgstr "確認密碼"
+
+#: services/changepassword.php:25 services/resetpassword.php:25
+msgid "Continue"
+msgstr "繼續"
+
+#: lib/Block/fortune.php:39
+msgid "Cookie"
+msgstr "Cookie"
+
+#: themes/cornflower/info.php:2
+msgid "Cornflower"
+msgstr "Cornflower"
+
+#: lib/Block/account.php:484
+msgid "Could not bind to LDAP server."
+msgstr "無法繫結 LDAP 伺服器"
+
+#: lib/Block/account.php:463
+msgid "Could not connect to LDAP server."
+msgstr "無法連結至 LDAP 伺服器"
+
+#: admin/config/index.php:27
+#, php-format
+msgid "Could not connect to server \"%s\" using FTP: %s"
+msgstr "無法連結至伺服器 \"%s\" 使用 FTP: %s"
+
+#: admin/config/index.php:66
+#, fuzzy
+msgid "Could not contact server. Try again later."
+msgstr "伺服器傳回未預期的回應, 稍後在試."
+
+#: admin/config/scripts.php:35
+#, fuzzy, php-format
+msgid "Could not delete configuration upgrade script \"%s\"."
+msgstr "無法刪除更新程式 \"%s\"."
+
+#: templates/prefs/twitter.html:14
+msgid ""
+"Could not find authorization for <tag:appname /> to interact with your "
+"Twitter account"
+msgstr ""
+
+#: services/resetpassword.php:92
+msgid ""
+"Could not reset the password for the requested user. Some or all of the "
+"details are not correct. Try again or contact your administrator if you need "
+"further help."
+msgstr ""
+"無法重新設定使用者的密碼. 部分的細節不正確. 請聯絡你的系統管理員以協助處理."
+
+#: admin/config/config.php:43
+msgid "Could not revert configuration."
+msgstr "無法回復設定."
+
+#: admin/config/index.php:41
+#, php-format
+msgid "Could not save a backup configuation: %s"
+msgstr "無法儲存備份設定: %s."
+
+#: admin/config/scripts.php:94
+#, fuzzy, php-format
+msgid "Could not save configuration upgrade script to: \"%s\"."
+msgstr "無法儲存更新程式到: \"%s\"."
+
+#: admin/config/config.php:53
+#, php-format
+msgid "Could not save the backup configuration file %s."
+msgstr "無法儲存備份設定 %s."
+
+#: admin/config/config.php:65
+#, php-format
+msgid ""
+"Could not save the configuration file %s. You can either use one of the "
+"options to save the code back on %s or copy manually the code below to %s."
+msgstr ""
+"無法儲存設定檔 %s. 你可以使用 %s 中的其他功能儲存設定或手動複製下面程式碼到 %"
+"s."
+
+#: admin/config/index.php:51
+#, php-format
+msgid "Could not write configuration for \"%s\": %s"
+msgstr "無法覆寫 \"%s\": %s 的設定."
+
+#: lib/Block/vatid.php:91
+msgid "Country"
+msgstr "國家"
+
+#: templates/prefs/rpc.html:34
+msgid "Create"
+msgstr "建立"
+
+#: templates/prefs/identityselect.html:22
+#, fuzzy
+msgid "Create New Identity"
+msgstr "預設的身份識別"
+
+#: lib/Block/moon.php:24
+msgid "Current 4 Phases"
+msgstr "目前的 4 個月相"
+
+#: templates/admin/alarms/list.html.php:2
+msgid "Current Alarms"
+msgstr "目前警示"
+
+#: admin/sessions.php:23
+msgid "Current Sessions"
+msgstr "目前會期"
+
+#: lib/Block/time.php:3 lib/Block/time.php:36
+msgid "Current Time"
+msgstr "目前時間"
+
+#: lib/Block/metar.php:31
+msgid "Current Weather"
+msgstr "目前天氣"
+
+#: lib/Block/weatherdotcom.php:279
+msgid "Current condition: "
+msgstr "目前的狀況: "
+
+#: config/nls.php:174
+msgid "Cyrillic (KOI8-R)"
+msgstr "西里爾文 (KOI8-R)"
+
+#: config/nls.php:175
+msgid "Cyrillic (Windows-1251)"
+msgstr "西里爾文 (Windows-1251)"
+
+#: config/nls.php:176
+msgid "Cyrillic/Ukrainian (KOI8-U)"
+msgstr "西里爾文/烏克蘭文 (KOI8-U)"
+
+#: templates/data/date.inc:47 templates/data/date.inc:48
+#: templates/data/date.inc:49 templates/data/date.inc:50
+#: templates/data/datetime.inc:89 templates/data/datetime.inc:90
+#: templates/data/datetime.inc:91 templates/data/datetime.inc:92
+msgid "DD"
+msgstr "日"
+
+#: templates/data/csvmap.inc:101
+msgid "Data"
+msgstr "資料"
+
+#: admin/datatree.php:62
+msgid "DataTree"
+msgstr "樹狀資料"
+
+#: admin/datatree.php:59
+msgid "DataTree Browser"
+msgstr "樹狀資料瀏覽"
+
+#: templates/prefs/syncml.html:11
+msgid "Database"
+msgstr "資料庫"
+
+#: lib/Block/vatid.php:94
+msgid "Date"
+msgstr "日期"
+
+#: templates/admin/user/approve.inc:23
+msgid "Date Received"
+msgstr "收到日期"
+
+#: templates/data/datetime.inc:70 templates/data/datetime.inc:71
+#, php-format
+msgid "Date: %s; time: %s"
+msgstr "日期: %s; 時間: %s"
+
+#: lib/Block/weatherdotcom.php:295 lib/Block/weatherdotcom.php:324
+msgid "Day"
+msgstr "白天"
+
+#: lib/Prefs/Ui.php:69 lib/Prefs/Ui.php:74
+msgid "Default"
+msgstr "預設"
+
+#: lib/Prefs/Ui.php:252 lib/Prefs/Ui.php:282
+msgid "Default Color"
+msgstr "預設顏色"
+
+#: lib/Block/account.php:78
+msgid "Default Shell"
+msgstr "預設命令解析器(Shell)"
+
+#: lib/Block/fortune.php:40
+msgid "Definitions"
+msgstr "定義"
+
+#: admin/groups.php:68 templates/admin/groups/delete.inc:10
+#: templates/admin/user/list.inc:34 templates/shares/edit.inc:63
+#: templates/shares/edit.inc:83 templates/shares/edit.inc:98
+#: templates/shares/edit.inc:118 templates/shares/edit.inc:134
+#: templates/shares/edit.inc:154 templates/shares/edit.inc:169
+#: templates/shares/edit.inc:193 templates/shares/edit.inc:228
+#: templates/shares/edit.inc:255 templates/shares/edit.inc:271
+#: templates/shares/edit.inc:291 templates/shares/edit.inc:320
+#: templates/prefs/identityselect.html:34 templates/prefs/rpc.html:35
+#: templates/prefs/syncml.html:14 templates/prefs/syncml.html:23
+msgid "Delete"
+msgstr "刪除"
+
+#: admin/alarms.php:122 admin/groups.php:254
+#, php-format
+msgid "Delete \"%s\""
+msgstr "刪除 \"%s\""
+
+#: templates/prefs/syncml.html:30
+msgid "Delete All SyncML Data"
+msgstr "刪除所有 SyncML 資料"
+
+#: admin/groups.php:215
+msgid "Delete Group"
+msgstr "刪除群組"
+
+#: admin/config/scripts.php:33
+#, fuzzy, php-format
+msgid "Deleted configuration upgrade script \"%s\"."
+msgstr "更新程式 \"%s\" 已刪除."
+
+#: lib/Prefs/Ui.php:717
+#, php-format
+msgid "Deleted synchronization session for device \"%s\" and database \"%s\"."
+msgstr "已刪除裝置 \"%s\" 的同步會期以及資料庫 \"%s\"."
+
+#: templates/problem/problem.inc:27
+msgid "Describe the Problem"
+msgstr "問題描述"
+
+#: config/registry.php.dist:239
+msgid "Development"
+msgstr "研發"
+
+#: templates/prefs/activesync.html:20 templates/prefs/syncml.html:10
+msgid "Device"
+msgstr "裝置"
+
+#: admin/activesync.php:119
+#, fuzzy
+msgid "Device ID"
+msgstr "裝置"
+
+#: templates/prefs/activesync.html:11
+#, fuzzy
+msgid "Device Management"
+msgstr "檔案總管"
+
+#: lib/Prefs/Ui.php:432
+#, fuzzy
+msgid "Device id:"
+msgstr "裝置"
+
+#: admin/activesync.php:167 lib/Prefs/Ui.php:420
+msgid "Device is wiped"
+msgstr ""
+
+#: admin/activesync.php:45
+#, fuzzy
+msgid "Device successfully removed."
+msgstr "已成功的覆寫 %s"
+
+#: admin/activesync.php:40
+msgid "Device wipe successfully canceled."
+msgstr ""
+
+#: lib/Block/metar.php:212
+msgid "Dew Point"
+msgstr "露點溫度"
+
+#: lib/Block/metar.php:289
+msgid "Dew Point for last hour: "
+msgstr "最後一小時的露點溫度: "
+
+#: lib/Block/weatherdotcom.php:231
+msgid "Dew point: "
+msgstr "露點溫度: "
+
+#: templates/prefs/facebook.html:11 templates/prefs/facebook.html:22
+#: templates/prefs/facebook.html:34 templates/prefs/twitter.html:10
+#, fuzzy
+msgid "Disable"
+msgstr "列出表格"
+
+#: config/prefs.php.dist:345
+msgid "Display 24-hour times?"
+msgstr "以 24 小時制顯示?"
+
+#: config/prefs.php.dist:468
+#, fuzzy
+msgid "Display Preferences"
+msgstr "顯示詳細的預報"
+
+#: lib/Block/weatherdotcom.php:86
+msgid "Display detailed forecast"
+msgstr "顯示詳細的預報"
+
+#: lib/Block/metar.php:84
+msgid "Display forecast (TAF)"
+msgstr "顯示預報 (TAF)"
+
+#: scripts/import_squirrelmail_prefs.php:77
+#, fuzzy
+msgid "Do not use Drafts"
+msgstr "不刪除"
+
+#: scripts/import_squirrelmail_prefs.php:44
+#: scripts/import_squirrelmail_prefs.php:145
+#, fuzzy
+msgid "Do not use Sent"
+msgstr "不刪除"
+
+#: scripts/import_squirrelmail_prefs.php:183
+msgid "Do not use Trash"
+msgstr ""
+
+#: templates/data/csvinfo.inc:12 templates/data/tsvinfo.inc:12
+msgid "Does the first row contain the field names? If yes, check this box:"
+msgstr "第一筆記錄是否包含欄位名稱? 如果是請勾選."
+
+#: templates/login/login.inc:72
+msgid "Don't have an account? Sign up."
+msgstr "還沒有帳號嗎? 註冊."
+
+#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:61
+#, fuzzy
+msgid "Done"
+msgstr "無"
+
+#: admin/config/index.php:92 admin/config/index.php:124
+#, php-format
+msgid "Download %s"
+msgstr "下載 %s"
+
+#: admin/config/index.php:179
+msgid "Download generated configuration as PHP script."
+msgstr "下載設定檔案另存為 PHP 程式."
+
+#: lib/Block/weatherdotcom_strings.php:25
+#, fuzzy
+msgid "Drizzle"
+msgstr "午前毛毛雨"
+
+#: lib/Block/fortune.php:41
+msgid "Drugs"
+msgstr "藥品"
+
+#: services/keyboard.php:64
+msgid "E characters"
+msgstr "E 系字元"
+
+#: lib/Block/vatid.php:3
+msgid "EU VAT identification"
+msgstr "EU VAT 識別"
+
+#: templates/shares/edit.inc:62 templates/shares/edit.inc:79
+#: templates/shares/edit.inc:97 templates/shares/edit.inc:114
+#: templates/shares/edit.inc:133 templates/shares/edit.inc:150
+#: templates/shares/edit.inc:168 templates/shares/edit.inc:189
+#: templates/shares/edit.inc:224 templates/shares/edit.inc:251
+#: templates/shares/edit.inc:270 templates/shares/edit.inc:287
+#: templates/shares/edit.inc:316
+msgid "Edit"
+msgstr "編輯"
+
+#: admin/alarms.php:89
+#, php-format
+msgid "Edit \"%s\""
+msgstr "編輯 \"%s\""
+
+#: admin/groups.php:214
+msgid "Edit Group"
+msgstr "編輯群組"
+
+#: templates/prefs/app.html:7
+msgid "Edit Preferences for"
+msgstr ""
+
+#: services/shares/edit.php:259
+msgid "Edit permissions"
+msgstr "編輯權限"
+
+#: services/shares/edit.php:260 templates/shares/edit.inc:14
+#, php-format
+msgid "Edit permissions for \"%s\""
+msgstr "編輯\"%s\"的權限"
+
+#: lib/Block/fortune.php:42
+msgid "Education"
+msgstr "教育"
+
+#: templates/admin/groups/edit.inc:11 templates/admin/user/update.inc:45
+msgid "Email Address"
+msgstr "電子郵件住址"
+
+#: lib/Prefs/Ui.php:225
+#, fuzzy
+msgid "Enter a name for the new category:"
+msgstr "請輸入新增分類的名稱:"
+
+#: config/prefs.php.dist:288
+msgid ""
+"Enter a security question which you will be asked if you need to reset your "
+"password, e.g. 'what is the name of your pet?':"
+msgstr "如果你需要重設密碼,請輸入一個安全問句,例如 '你寵物的名稱?':"
+
+#: lib/Block/metar.php:41 lib/Block/weatherdotcom.php:50
+msgid "Error"
+msgstr "錯誤"
+
+#: lib/Prefs/Ui.php:577 services/twitter.php:128 services/twitter.php:151
+#, fuzzy, php-format
+msgid ""
+"Error connecting to Twitter: %s Details have been logged for the "
+"administrator."
+msgstr "內部 LDAP 錯誤: 細節請參考系統管理登錄."
+
+#: lib/Prefs/Ui.php:715
+msgid "Error deleting synchronization session:"
+msgstr "刪除同步會期時發生錯誤:"
+
+#: lib/Prefs/Ui.php:722
+msgid "Error deleting synchronization sessions:"
+msgstr "刪除同步會期時發生錯誤:"
+
+#: services/changepassword.php:61
+#, php-format
+msgid "Error updating password: %s"
+msgstr "更新密碼: %s 時發生錯誤"
+
+#: lib/Block/fortune.php:43
+msgid "Ethnic"
+msgstr "種族"
+
+#: services/facebook.php:69
+msgid "Event Invites:"
+msgstr ""
+
+#: templates/portal/layout.inc:101 config/prefs.php.dist:520
+msgid "Every 15 minutes"
+msgstr "每 15 分鐘"
+
+#: config/prefs.php.dist:559
+msgid "Every 2 minutes"
+msgstr "每 2 分鐘"
+
+#: templates/portal/layout.inc:98 config/prefs.php.dist:517
+#: config/prefs.php.dist:557
+msgid "Every 30 seconds"
+msgstr "每 30 秒鐘"
+
+#: templates/portal/layout.inc:100 config/prefs.php.dist:519
+#: config/prefs.php.dist:560
+msgid "Every 5 minutes"
+msgstr "每 5 分鐘"
+
+#: templates/portal/layout.inc:102 config/prefs.php.dist:521
+msgid "Every half hour"
+msgstr "每 30 分鐘"
+
+#: templates/portal/layout.inc:103
+msgid "Every hour"
+msgstr "每小時"
+
+#: templates/portal/layout.inc:99 config/prefs.php.dist:518
+#: config/prefs.php.dist:558
+msgid "Every minute"
+msgstr "每 1 分鐘"
+
+#: templates/data/datemap.inc:24
+msgid "Example values:"
+msgstr "範例值:"
+
+#: admin/cmdshell.php:48 admin/phpshell.php:55 admin/sqlshell.php:108
+msgid "Execute"
+msgstr "執行"
+
+#: admin/sessions.php:30
+msgid "Expand"
+msgstr "展開"
+
+#: lib/Block/iframe.php:29
+msgid "Extra Large"
+msgstr "特大"
+
+#: templates/admin/config/index.html:74
+#, fuzzy
+msgid "FTP upload of configuration"
+msgstr "設定 %s 已儲存."
+
+#: config/prefs.php.dist:604
+msgid "Facebook Integration"
+msgstr ""
+
+#: themes/fadetogreen/info.php:9
+msgid "Fade to Green"
+msgstr "Fade to Green"
+
+#: lib/Block/weatherdotcom_strings.php:26
+msgid "Fair"
+msgstr "普通"
+
+#: lib/Block/feed.php:41
+msgid "Feed"
+msgstr "資訊提供"
+
+#: lib/Block/feed.php:17
+msgid "Feed Address"
+msgstr "資訊位址"
+
+#: lib/Block/metar.php:215
+msgid "Feels Like"
+msgstr "感覺"
+
+#: lib/Block/weatherdotcom.php:235
+msgid "Feels like: "
+msgstr "感覺: "
+
+#: lib/Block/weatherdotcom_strings.php:27
+msgid "Few Showers"
+msgstr "毛毛雨"
+
+#: lib/Block/weatherdotcom_strings.php:28
+msgid "Few Snow Showers"
+msgstr "短暫陣雪"
+
+#: templates/prefs/addressbooks.html:17
+msgid "Fields to search"
+msgstr ""
+
+#: config/registry.php.dist:340
+msgid "File Manager"
+msgstr "檔案總管"
+
+#: lib/Block/fb_stream.php:82
+#, fuzzy
+msgid "Filter"
+msgstr "過濾器"
+
+#: config/registry.php.dist:93
+msgid "Filters"
+msgstr "過濾器"
+
+#: lib/Block/moon.php:164
+msgid "First Half"
+msgstr "上半月"
+
+#: lib/Block/moon.php:72 lib/Block/moon.php:74
+msgid "First Quarter"
+msgstr "上弦"
+
+#: lib/Block/weatherdotcom_strings.php:29
+msgid "Fog"
+msgstr "霧"
+
+#: lib/Block/weatherdotcom_strings.php:30
+msgid "Fog Early"
+msgstr "早多霧"
+
+#: lib/Block/weatherdotcom_strings.php:31
+msgid "Fog Late"
+msgstr "晚有霧"
+
+#: lib/Block/weatherdotcom_strings.php:32
+msgid "Foggy"
+msgstr "霧"
+
+#: lib/Block/fortune.php:44
+msgid "Food"
+msgstr "食物"
+
+#: lib/Block/metar.php:329
+msgid "Forecast (TAF)"
+msgstr "氣象預報 (TAF)"
+
+#: lib/Block/weatherdotcom.php:74
+msgid ""
+"Forecast Days (note that the returned forecast returns both day and night; a "
+"large number here could result in a wide block)"
+msgstr ""
+"預報天數 (預報天數包括白天以及夜間的資料;如果預報天數較長將佔用比較寬幅的版"
+"面)"
+
+#: templates/login/login.inc:81
+msgid "Forgot your password?"
+msgstr "忘記密碼?"
+
+#: lib/Block/fortune.php:28
+msgid "Fortune"
+msgstr "小語"
+
+#: lib/Block/fortune.php:106
+msgid "Fortune type"
+msgstr "小語類型"
+
+#: lib/Block/fortune.php:45
+msgid "Fortunes"
+msgstr "小語"
+
+#: lib/Block/fortune.php:46
+msgid "Fortunes 2"
+msgstr "小語 2"
+
+#: config/registry.php.dist:376
+msgid "Forums"
+msgstr "論壇"
+
+#: config/registry.php.dist:113
+msgid "Forwards"
+msgstr "自動轉信"
+
+#: lib/Block/weatherdotcom_strings.php:33
+msgid "Freezing Drizzle"
+msgstr "凍毛毛雨"
+
+#: services/facebook.php:68
+msgid "Friend Requests:"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:252 lib/Block/weatherdotcom.php:362
+#: lib/Block/weatherdotcom.php:408
+msgid "From the "
+msgstr "從"
+
+#: templates/problem/problem.inc:48
+msgid "Full Description"
+msgstr "完整描述"
+
+#: lib/Block/moon.php:79 lib/Block/moon.php:174
+msgid "Full Moon"
+msgstr "滿月"
+
+#: lib/Block/account.php:68 templates/admin/user/update.inc:37
+msgid "Full Name"
+msgstr "全名"
+
+#: admin/config/config.php:31
+#, php-format
+msgid "Generate %s Configuration"
+msgstr "產生 %s 個系統設定"
+
+#: templates/admin/config/config.html:6
+msgid "Generated Code"
+msgstr "已產生的設定資料"
+
+#: lib/Block/fb_stream.php:192 lib/Block/twitter_timeline.php:171
+msgid "Get More"
+msgstr ""
+
+#: templates/prefs/app.html:10
+msgid "Global Preferences"
+msgstr ""
+
+#: templates/prefs/app.html:17
+msgid "Go"
+msgstr "前往"
+
+#: lib/Block/fortune.php:47
+msgid "Goedel"
+msgstr "哥德爾"
+
+#: lib/Block/google.php:3 lib/Block/google.php:19
+msgid "Google Search"
+msgstr "Google 搜尋"
+
+#: lib/Block/google.php:30
+msgid "Google search is not enabled."
+msgstr "Google 搜尋尚未啟用."
+
+#: config/nls.php:177
+msgid "Greek (ISO-8859-7)"
+msgstr "希臘文 (ISO-8859-7)"
+
+#: themes/green/info.php:2
+msgid "Green"
+msgstr "Green"
+
+#: themes/grey/info.php:2
+msgid "Grey"
+msgstr "Grey"
+
+#: admin/groups.php:195
+msgid "Group Administration"
+msgstr "群組管理"
+
+#: admin/groups.php:44
+#, php-format
+msgid "Group was not created: %s."
+msgstr "群組未建立: %s."
+
+#: admin/groups.php:268 templates/shares/edit.inc:266
+msgid "Groups"
+msgstr "群組"
+
+#: templates/shares/edit.inc:93
+msgid "Guest Permissions"
+msgstr "來賓"
+
+#: lib/Block/weatherdotcom_strings.php:34
+msgid "Haze"
+msgstr "靄"
+
+#: lib/Block/weatherdotcom_strings.php:35
+msgid "Heavy Rain"
+msgstr "大雨"
+
+#: lib/Block/weatherdotcom_strings.php:36
+msgid "Heavy T-Storm"
+msgstr "大雷雨"
+
+#: config/nls.php:178
+msgid "Hebrew (ISO-8859-8-I)"
+msgstr "希伯來文 (ISO-8859-8-I)"
+
+#: lib/Block/iframe.php:24
+msgid "Height"
+msgstr "高度"
+
+#: lib/Block/fb_stream.php:92 lib/Block/twitter_timeline.php:87
+msgid "Height of map (width automatically adjusts to block)"
+msgstr ""
+
+#: services/help/index.php:17 templates/help/index.inc:4
+msgid "Help"
+msgstr "說明"
+
+#: services/help/index.php:70
+msgid "Help _Topics"
+msgstr "說明標題_T"
+
+#: lib/Block/moon.php:27
+msgid "Hemisphere"
+msgstr "半球"
+
+#: templates/data/csvinfo.inc:10 templates/data/tsvinfo.inc:10
+msgid "Here is the beginning of the file:"
+msgstr "這裡是檔案的開始:"
+
+#: themes/hi-contrast/info.php:3
+msgid "Hi-Contrast"
+msgstr "Hi-Contrast"
+
+#: templates/prefs/app.html:23
+msgid "Hide Advanced Preferences"
+msgstr ""
+
+#: services/portal/cloud_search.php:33
+msgid "Hide Results"
+msgstr "隱藏結果"
+
+#: lib/Block/weatherdotcom_strings.php:100
+msgid "High"
+msgstr "高"
+
+#: lib/Block/account.php:73
+msgid "Home Directory"
+msgstr "家目錄"
+
+#: config/registry.php.dist:76
+msgid "Horde"
+msgstr "Horde"
+
+#: themes/hordeweb/info.php:2
+msgid "Horde Website"
+msgstr "Horde Website"
+
+#: templates/data/csvinfo.inc:21
+msgid "How many fields (columns) are there?"
+msgstr "欄位數目共計?"
+
+#: lib/Block/feed.php:21
+msgid "How many seconds before we check for new articles?"
+msgstr "每幾秒檢查一次新文章?"
+
+#: lib/Block/metar.php:225 lib/Block/weatherdotcom.php:303
+msgid "Humidity"
+msgstr "溼度"
+
+#: lib/Block/weatherdotcom.php:263
+msgid "Humidity: "
+msgstr "溼度: "
+
+#: lib/Block/fortune.php:48
+msgid "Humorists"
+msgstr "滑稽大師"
+
+#: services/keyboard.php:78
+msgid "I characters"
+msgstr "I 系字元"
+
+#: config/prefs.php.dist:545
+msgid "Icons Only"
+msgstr "純圖示"
+
+#: util/icon_browser.php:53
+#, php-format
+msgid "Icons for %s"
+msgstr "%s的圖示"
+
+#: config/prefs.php.dist:546
+msgid "Icons with text"
+msgstr "圖示及文字"
+
+#: themes/ideas/info.php:2
+msgid "Ideas"
+msgstr "Ideas"
+
+#: config/prefs.php.dist:226
+msgid "Identity's name:"
+msgstr "身份識別的名稱:"
+
+#: templates/data/csvinfo.inc:7 templates/data/csvmap.inc:54
+#: templates/data/datemap.inc:7 templates/data/tsvinfo.inc:7
+#, php-format
+msgid "Import, Step %d"
+msgstr "匯入, 步驟 %d"
+
+#: templates/data/datemap.inc:15
+#, php-format
+msgid "Imported field: %s"
+msgstr "匯入欄位: %s"
+
+#: templates/data/csvmap.inc:59
+msgid "Imported fields:"
+msgstr "匯入欄位:"
+
+#: lib/Block/twitter_timeline.php:136
+msgid "In reply to:"
+msgstr ""
+
+#: templates/data/csvmap.inc:57
+msgid ""
+"In the lists below select both, a field imported from the source file at the "
+"left, and the matching field available in your address book at the right. "
+"Then hit \"Add pair\" to mark them for the import. Once your are finished "
+"hit \"Next\"."
+msgstr ""
+"由於系統無法自動判斷下方左邊欄位的中文名稱,請於下方選擇左右各一個欄位新增配"
+"對.左邊是匯入檔案的欄位,右邊是可供映照的欄位. 點選 \"新增對\" 以標示配對. 點"
+"選 \"下一步\" 開始進行匯入."
+
+#: services/resetpassword.php:50
+msgid ""
+"Incorrect username or alternate address. Try again or contact your "
+"administrator if you need further help."
+msgstr "使用者名稱不正確或者電子郵件住址已變更.請聯絡你的系統管理員以協助處理."
+
+#: templates/shares/edit.inc:164
+msgid "Individual Users"
+msgstr "個別使用者"
+
+#: templates/prefs/facebook.html:10
+#, fuzzy
+msgid "Infinite sessions enabled."
+msgstr "列出會期失敗: %s"
+
+#: config/registry.php.dist:281
+msgid "Information"
+msgstr "資訊"
+
+#: lib/Block/weatherdotcom.php:332
+msgid "Information no longer available."
+msgstr "無可用的資訊."
+
+#: templates/admin/groups/edit.inc:36
+msgid "Inherited Members"
+msgstr "已繼承的成員"
+
+#: config/prefs.php.dist:304
+msgid "Insert an email address to which you can receive the new password:"
+msgstr "新密碼將寄發到這個郵件地址:"
+
+#: config/prefs.php.dist:296
+msgid "Insert the required answer to the security question:"
+msgstr "安全問句的答案:"
+
+#: lib/Block/vatid.php:52
+msgid "Invalid VAT identification number format."
+msgstr "無效的 VAT 識別號碼格式."
+
+#: admin/signup_confirm.php:43
+#, fuzzy, php-format
+msgid "Invalid action %s"
+msgstr "無效的應用程式."
+
+#: admin/config/config.php:24
+msgid "Invalid application."
+msgstr "無效的應用程式."
+
+#: admin/signup_confirm.php:33
+#, fuzzy
+msgid "Invalid hash."
+msgstr "無效的批次號碼."
+
+#: lib/Block/weatherdotcom.php:180
+msgid "Invalid license key."
+msgstr "無效的授權碼."
+
+#: lib/Block/weatherdotcom.php:174
+msgid "Invalid location provided."
+msgstr "無效的地區."
+
+#: admin/perms/addchild.php:23
+msgid "Invalid parent permission."
+msgstr "無效的父權限."
+
+#: lib/Block/weatherdotcom.php:176
+msgid "Invalid partner id."
+msgstr "無效的夥伴識別碼."
+
+#: lib/Block/weatherdotcom.php:178
+msgid "Invalid product code."
+msgstr "無效的產品碼."
+
+#: lib/Block/weatherdotcom_strings.php:37
+msgid "Isolated T-Storms"
+msgstr "局部雷雨"
+
+#: config/nls.php:179
+msgid "Japanese (ISO-2022-JP)"
+msgstr "日文 (ISO-2022-JP)"
+
+#: lib/Block/twitter_timeline.php:138
+msgid "Just now..."
+msgstr ""
+
+#: lib/Block/fortune.php:49
+msgid "Kernel Newbies"
+msgstr "核心新手"
+
+#: services/help/index.php:138
+msgid "Keyword"
+msgstr "關鍵字"
+
+#: lib/Block/fortune.php:50
+msgid "Kids"
+msgstr "兒童"
+
+#: themes/kolab/info.php:7
+msgid "Kolab"
+msgstr "Kolab"
+
+#: config/nls.php:180
+msgid "Korean (EUC-KR)"
+msgstr "韓文 (EUC-KR)"
+
+#: login.php:314 templates/login/login.inc:49
+msgid "Language"
+msgstr "語言"
+
+#: lib/Block/iframe.php:28
+msgid "Large"
+msgstr "大"
+
+#: lib/Block/moon.php:167
+msgid "Last Half"
+msgstr "下半月"
+
+#: lib/Block/account.php:91
+msgid "Last Password Change"
+msgstr "最近一次密碼變更於"
+
+#: lib/Block/moon.php:84 lib/Block/moon.php:86
+msgid "Last Quarter"
+msgstr "下弦月"
+
+#: admin/activesync.php:98 templates/prefs/activesync.html:21
+#, fuzzy
+msgid "Last Sync Time"
+msgstr "地區與時間"
+
+#: lib/Block/metar.php:146
+msgid "Last Updated:"
+msgstr "上次更新:"
+
+#: lib/LoginTasks/Task/LastLogin.php:46
+#, php-format
+msgid "Last login: %s"
+msgstr "上一次登入: %s"
+
+#: lib/LoginTasks/Task/LastLogin.php:48
+#, php-format
+msgid "Last login: %s from %s"
+msgstr "上一次登入: %s 自 %s"
+
+#: lib/LoginTasks/Task/LastLogin.php:44
+msgid "Last login: Never"
+msgstr "上一次登入: 第一次登入"
+
+#: lib/Block/twitter_timeline.php:168
+#, fuzzy
+msgid "Latest"
+msgstr "Lesotho (賴索托)"
+
+#: themes/lavander/info.php:2
+msgid "Lavender"
+msgstr "Lavender"
+
+#: lib/Block/fortune.php:51
+msgid "Law"
+msgstr "法律"
+
+#: themes/lightblue/info.php:2
+msgid "Light Blue"
+msgstr "Light Blue"
+
+#: lib/Block/weatherdotcom_strings.php:38
+msgid "Light Drizzle"
+msgstr "微雨"
+
+#: lib/Block/weatherdotcom_strings.php:39
+msgid "Light Rain"
+msgstr "小雨"
+
+#: lib/Block/weatherdotcom_strings.php:40
+msgid "Light Rain Early"
+msgstr "早有小雨"
+
+#: lib/Block/weatherdotcom_strings.php:41
+msgid "Light Rain Late"
+msgstr "晚有小雨"
+
+#: lib/Block/weatherdotcom_strings.php:42
+msgid "Light Rain Shower"
+msgstr "小陣雨"
+
+#: lib/Block/weatherdotcom_strings.php:43
+msgid "Light Rain with Thunder"
+msgstr "小雨有雷"
+
+#: lib/Block/weatherdotcom_strings.php:44
+msgid "Light Snow"
+msgstr "小雪"
+
+#: lib/Block/weatherdotcom_strings.php:45
+#, fuzzy
+msgid "Light Snow Early"
+msgstr "早有小雨"
+
+#: lib/Block/weatherdotcom_strings.php:46
+#, fuzzy
+msgid "Light Snow Late"
+msgstr "晚有小雨"
+
+#: lib/Block/weatherdotcom_strings.php:47
+msgid "Light Snow Shower"
+msgstr "小陣雪"
+
+#: services/facebook.php:105
+#, fuzzy
+msgid "Like"
+msgstr "連結"
+
+#: lib/Block/fortune.php:52
+msgid "Limerick"
+msgstr "打油詩"
+
+#: lib/Block/fortune.php:53
+msgid "Linux Cookie"
+msgstr "Linux Cookie"
+
+#: admin/sqlshell.php:113
+msgid "List Tables"
+msgstr "列出表格"
+
+#: admin/alarms.php:130
+#, php-format
+msgid "Listing alarms failed: %s"
+msgstr "列出警示失敗: %s"
+
+#: admin/sessions.php:62
+#, php-format
+msgid "Listing sessions failed: %s"
+msgstr "列出會期失敗: %s"
+
+#: templates/admin/user/nolist.inc:2
+msgid "Listing users is disabled."
+msgstr "列出使用者的功能被關閉"
+
+#: lib/Block/fortune.php:54
+msgid "Literature"
+msgstr "文學"
+
+#: lib/Block/weatherdotcom.php:215
+msgid "Local time: "
+msgstr "當地時間: "
+
+#: config/prefs.php.dist:313
+msgid "Locale and Time"
+msgstr "地區與時間"
+
+#: lib/Block/metar.php:64 lib/Block/sunrise.php:20
+#: lib/Block/weatherdotcom.php:59
+msgid "Location"
+msgstr "地區"
+
+#: login.php:261 templates/login/login.inc:64
+msgid "Log in"
+msgstr "登入"
+
+#: lib/Block/account.php:64
+msgid "Login"
+msgstr "登入"
+
+#: login.php:286
+msgid "Login failed because your username or password was entered incorrectly."
+msgstr "登入失敗, 請檢查閣下的用戶名和密碼, 然後重試."
+
+#: login.php:282
+msgid "Login failed."
+msgstr "登入失敗."
+
+#: templates/prefs/facebook.html:46
+msgid "Login to Facebook and authorize <tag:app_name />"
+msgstr ""
+
+#: templates/prefs/twitter.html:21
+msgid "Login to Twitter and authorize the <tag:appname /> application"
+msgstr ""
+
+#: lib/Block/fortune.php:55
+msgid "Love"
+msgstr "愛情"
+
+#: lib/Block/weatherdotcom_strings.php:98
+msgid "Low"
+msgstr "低"
+
+#: themes/luc/info.php:2
+msgid "Loyola"
+msgstr "Loyola"
+
+#: themes/lucblue/info.php:2
+msgid "Loyola Blue"
+msgstr "Loyola Blue"
+
+#: templates/data/date.inc:47 templates/data/date.inc:48
+#: templates/data/date.inc:49 templates/data/date.inc:50
+#: templates/data/datetime.inc:89 templates/data/datetime.inc:90
+#: templates/data/datetime.inc:91 templates/data/datetime.inc:92
+msgid "MM"
+msgstr "月"
+
+#: lib/Block/fortune.php:56
+msgid "Magic"
+msgstr "魔術"
+
+#: config/registry.php.dist:85
+msgid "Mail"
+msgstr "郵件"
+
+#: config/registry.php.dist:403
+msgid "Mail Admin"
+msgstr "郵件管理"
+
+#: config/prefs.php.dist:441
+msgid ""
+"Manage the list of categories you have to label items with, and colors "
+"associated with those categories."
+msgstr "管理你的分類,並且為分類設定顏色."
+
+#: config/prefs.php.dist:677
+msgid "Manage your ActiveSync devices."
+msgstr ""
+
+#: templates/data/csvmap.inc:96
+msgid "Matching fields:"
+msgstr "匹配中的欄位:"
+
+#: lib/Block/metar.php:301
+msgid "Max temp last 24 hours: "
+msgstr "最近 24 小時的最高溫度: "
+
+#: lib/Block/metar.php:293
+msgid "Max temp last 6 hours: "
+msgstr "最近 6 小時的最高溫度: "
+
+#: lib/Application.php:38
+msgid "Maximum Number of Portal Blocks"
+msgstr "區塊上限數目"
+
+#: lib/Block/fb_stream.php:86
+#, fuzzy
+msgid "Maximum number of entries to display"
+msgstr "文章顯示數目"
+
+#: lib/Block/fortune.php:57
+msgid "Medicine"
+msgstr "醫學"
+
+#: lib/Block/iframe.php:27
+msgid "Medium"
+msgstr "中"
+
+#: templates/admin/groups/edit.inc:17
+msgid "Members"
+msgstr "成員"
+
+#: config/prefs.php.dist:548
+msgid "Menu mode:"
+msgstr "選單模式:"
+
+#: lib/Block/metar.php:5
+msgid "Metar Weather"
+msgstr "機場天氣報告"
+
+#: lib/Block/metar.php:42
+msgid "Metar block not available."
+msgstr "Metar 區塊無法使用."
+
+#: lib/Block/metar.php:110
+msgid ""
+"Metar block not available. Details have been logged for the administrator."
+msgstr "Metar 區塊無法使用. 細節請參考系統管理登錄."
+
+#: lib/Block/weatherdotcom.php:168
+msgid "MetarDB is not connected."
+msgstr "MetarDB 尚未連接."
+
+#: lib/Block/metar.php:74 lib/Block/weatherdotcom.php:69
+msgid "Metric"
+msgstr "公制"
+
+#: lib/Block/metar.php:305
+msgid "Min temp last 24 hours: "
+msgstr "最近 24 小時的最低溫度: "
+
+#: lib/Block/metar.php:297
+msgid "Min temp last 6 hours: "
+msgstr "最近 6 小時的最高溫度: "
+
+#: lib/Block/fortune.php:58
+msgid "Miscellaneous"
+msgstr "雜項"
+
+#: admin/config/index.php:135
+msgid ""
+"Missing configuration. You must generate it before using this application."
+msgstr "設定檔遺失. 如果要使用這個應用程式你必須現在就產生他."
+
+#: lib/Block/weatherdotcom_strings.php:48
+#, fuzzy
+msgid "Mist"
+msgstr "清單"
+
+#: lib/Block/weatherdotcom_strings.php:99
+msgid "Moderate"
+msgstr "溫和"
+
+#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:57
+#, php-format
+msgid "Modified sequence for %s"
+msgstr ""
+
+#: config/prefs.php.dist:430
+msgid "Monday"
+msgstr "星期一"
+
+#: lib/Block/moon.php:3 lib/Block/moon.php:14
+msgid "Moon Phases"
+msgstr "月相"
+
+#: lib/Block/weatherdotcom_strings.php:49
+msgid "Mostly Clear"
+msgstr "多雲時晴"
+
+#: lib/Block/weatherdotcom_strings.php:50
+msgid "Mostly Cloudy"
+msgstr "多雲時陰"
+
+#: lib/Block/weatherdotcom_strings.php:51
+msgid "Mostly Cloudy and Windy"
+msgstr "多雲時陰有風"
+
+#: lib/Block/weatherdotcom_strings.php:52
+msgid "Mostly Sunny"
+msgstr "晴時多雲"
+
+#: themes/mozilla/info.php:2
+msgid "Mozilla"
+msgstr "Mozilla"
+
+#: config/registry.php.dist:333
+msgid "My Account"
+msgstr "我的帳號"
+
+#: lib/Block/account.php:27
+msgid "My Account Information"
+msgstr "我的帳號資訊"
+
+#: lib/Block/fb_stream.php:3 lib/Block/fb_stream.php:105
+msgid "My Facebook Stream"
+msgstr ""
+
+#: services/portal/index.php:62
+msgid "My Portal"
+msgstr "個人站台"
+
+#: services/portal/edit.php:36
+msgid "My Portal Layout"
+msgstr "個人站台頁面配置"
+
+#: templates/logintasks/logintasks.html:35
+msgid "NO, I Do NOT Agree"
+msgstr "不,我不同意"
+
+#: lib/Block/vatid.php:98
+msgid "Name"
+msgstr "名稱"
+
+#: themes/NeXTgrey/info.php:2
+msgid "NeXT"
+msgstr "NeXT"
+
+#: templates/portal/layout.inc:97 config/prefs.php.dist:516
+#: config/prefs.php.dist:556
+msgid "Never"
+msgstr "從未"
+
+#: templates/prefs/category.html:3
+msgid "New Category"
+msgstr "新增分類"
+
+#: services/facebook.php:65
+#, fuzzy
+msgid "New Messages:"
+msgstr "寫信給 %s"
+
+#: lib/Block/moon.php:44 lib/Block/moon.php:66 lib/Block/moon.php:172
+msgid "New Moon"
+msgstr "新月"
+
+#: templates/admin/user/update.inc:12
+msgid "New Username (optional)"
+msgstr "新使用者名稱 (非必要)"
+
+#: services/changepassword.php:29
+msgid "New password"
+msgstr "新密碼"
+
+#: services/changepassword.php:40
+msgid "New passwords don't match."
+msgstr "新密碼不符合."
+
+#: lib/Block/fortune.php:59 config/registry.php.dist:288
+msgid "News"
+msgstr "新聞"
+
+#: templates/data/csvinfo.inc:25 templates/data/csvmap.inc:119
+#: templates/data/datemap.inc:41 templates/data/tsvinfo.inc:15
+msgid "Next"
+msgstr "下一步"
+
+#: lib/Block/moon.php:25
+msgid "Next 4 Phases"
+msgstr "下次 4 個月相"
+
+#: lib/Block/weatherdotcom.php:382
+msgid "Night"
+msgstr "晚上"
+
+#: templates/prefs/alarm.html:32
+msgid "No Sound"
+msgstr "靜音"
+
+#: templates/admin/config/diff.html:9
+msgid "No available configuration data to show differences for."
+msgstr "無可供顯示差異的設定資料."
+
+#: admin/config/diff.php:39
+msgid "No change."
+msgstr "沒有變更."
+
+#: util/icon_browser.php:83
+msgid "No icons found."
+msgstr "找不到圖示."
+
+#: lib/Block/metar.php:121 lib/Block/sunrise.php:38
+#: lib/Block/weatherdotcom.php:133
+msgid "No location is set."
+msgstr "位置資訊尚未設定"
+
+#: lib/Block/weatherdotcom.php:172
+msgid "No location provided."
+msgstr "尚未提供位置資訊."
+
+#: lib/Block/fortune.php:101
+msgid "No offensive fortunes"
+msgstr "無敏感小語"
+
+#: templates/admin/user/approve.inc:15
+msgid "No pending signups."
+msgstr "沒有待審的註冊申請."
+
+#: admin/config/index.php:89 admin/config/index.php:121
+msgid "No stable version exists yet."
+msgstr "尚未發行穩定版本."
+
+#: lib/Block/weatherdotcom.php:143
+msgid "No temporary directory available for cache."
+msgstr "無暫存目錄可供快取."
+
+#: admin/signup_confirm.php:57
+#, fuzzy
+msgid "No username specified."
+msgstr "未指定名稱."
+
+#: admin/config/index.php:140
+msgid "No version found in original configuration. Regenerate configuration."
+msgstr "原始設定檔中找不到版本資訊. 重新產生設定檔."
+
+#: admin/config/index.php:148
+msgid "No version found in your configuration. Regenerate configuration."
+msgstr "在你的設定檔中找不到版本資訊. 重新產生設定檔."
+
+#: lib/Prefs/Ui.php:411 templates/prefs/activesync.html:43
+#: templates/prefs/identityselect.html:20 templates/prefs/syncml.html:34
+msgid "None"
+msgstr "無"
+
+#: config/nls.php:181
+msgid "Nordic (ISO-8859-10)"
+msgstr "日耳曼文 (ISO-8859-10)"
+
+#: lib/Block/moon.php:30 lib/Block/moon.php:58
+msgid "Northern Hemisphere"
+msgstr "北半球"
+
+#: admin/activesync.php:171 lib/Prefs/Ui.php:426
+#, fuzzy
+msgid "Not Provisioned"
+msgstr "編輯權限"
+
+#: config/registry.php.dist:211
+msgid "Notes"
+msgstr "備忘錄"
+
+#: services/obrowser/index.php:32
+msgid "Nothing to browse, go back."
+msgstr "沒有可瀏覽的,回去."
+
+#: lib/Block/feed.php:18
+msgid "Number of articles to display"
+msgstr "文章顯示數目"
+
+#: lib/Block/twitter_timeline.php:91
+msgid "Number of seconds to wait to refresh"
+msgstr ""
+
+#: services/keyboard.php:92
+msgid "O characters"
+msgstr "O 系字元"
+
+#: templates/shares/edit.inc:129
+msgid "Object Creator"
+msgstr "物件建立者"
+
+#: lib/Block/fortune.php:99
+msgid "Offense filter"
+msgstr "敏感小語過濾器"
+
+#: config/registry.php.dist:301
+msgid "Office"
+msgstr "辦公室"
+
+#: services/changepassword.php:42
+msgid "Old and new passwords must be different."
+msgstr "新密碼必須與舊密碼不同."
+
+#: services/changepassword.php:28
+msgid "Old password"
+msgstr "舊密碼"
+
+#: services/changepassword.php:38
+msgid "Old password is not correct."
+msgstr "舊密碼不正確"
+
+#: lib/Block/fortune.php:102
+msgid "Only offensive fortunes"
+msgstr "僅限敏感小語"
+
+#: services/shares/edit.php:83
+msgid ""
+"Only the owner or system administrator may change ownership or owner "
+"permissions for a share"
+msgstr "只有擁有者與系統管理員可以變更共享權限"
+
+#: lib/Block/fortune.php:60
+msgid "Operating System"
+msgstr "作業系統"
+
+#: templates/shares/edit.inc:236
+#, fuzzy
+msgid "Or enter a user name:"
+msgstr "選擇一個使用者名稱"
+
+#: config/registry.php.dist:135
+msgid "Organizing"
+msgstr "組織"
+
+#: services/keyboard.php:124
+msgid "Other"
+msgstr "其他"
+
+#: config/prefs.php.dist:467 config/prefs.php.dist:582
+#: config/prefs.php.dist:603 config/prefs.php.dist:624
+#: config/prefs.php.dist:643 config/prefs.php.dist:663
+#: config/prefs.php.dist:675
+msgid "Other Information"
+msgstr "其他資訊"
+
+#: services/keyboard.php:122
+msgid "Other characters"
+msgstr "其他字元"
+
+#: templates/shares/edit.inc:30
+msgid "Owner"
+msgstr "擁有人"
+
+#: templates/shares/edit.inc:36 templates/shares/edit.inc:45
+msgid "Owner:"
+msgstr "擁有者:"
+
+#: admin/phpshell.php:51
+msgid "PHP"
+msgstr "PHP"
+
+#: admin/phpshell.php:71
+msgid "PHP Code"
+msgstr "PHP 程式碼"
+
+#: admin/phpshell.php:32
+msgid "PHP Shell"
+msgstr "PHP 草稿"
+
+#: lib/Block/weatherdotcom_strings.php:54
+msgid "PM Clouds"
+msgstr "午後有雲"
+
+#: lib/Block/weatherdotcom_strings.php:55
+#, fuzzy
+msgid "PM Drizzle"
+msgstr "午後毛毛雨"
+
+#: lib/Block/weatherdotcom_strings.php:56
+msgid "PM Fog"
+msgstr "午後有霧"
+
+#: lib/Block/weatherdotcom_strings.php:57
+msgid "PM Light Rain"
+msgstr "午後小雨"
+
+#: lib/Block/weatherdotcom_strings.php:58
+msgid "PM Light Snow"
+msgstr "午後小雪"
+
+#: lib/Block/weatherdotcom_strings.php:59
+msgid "PM Rain"
+msgstr "午後有雨"
+
+#: lib/Block/weatherdotcom_strings.php:60
+msgid "PM Showers"
+msgstr "午後陣雨"
+
+#: lib/Block/weatherdotcom_strings.php:61
+msgid "PM Snow"
+msgstr "午後有雪"
+
+#: lib/Block/weatherdotcom_strings.php:62
+msgid "PM Snow Showers"
+msgstr "午後陣雪"
+
+#: lib/Block/weatherdotcom_strings.php:63
+msgid "PM Sun"
+msgstr "午後晴"
+
+#: lib/Block/weatherdotcom_strings.php:64
+#, fuzzy
+msgid "PM T-Showers"
+msgstr "午後陣雨"
+
+#: lib/Block/weatherdotcom_strings.php:65
+msgid "PM T-Storms"
+msgstr "午後雷雨"
+
+#: lib/Block/account.php:287
+msgid "POSIX extension is missing"
+msgstr "POSIX extension 遺失"
+
+#: lib/Api.php:62
+msgid "P_HP Shell"
+msgstr "PHP 草稿_H"
+
+#: lib/Block/weatherdotcom_strings.php:53
+msgid "Partly Cloudy"
+msgstr "多雲"
+
+#: admin/config/index.php:192 admin/user.php:35 admin/user.php:49 login.php:81
+#: templates/admin/user/update.inc:20 config/registry.php.dist:355
+msgid "Password"
+msgstr "密碼"
+
+#: services/changepassword.php:52
+msgid "Password changed successfully."
+msgstr "密碼變更完成."
+
+#: lib/Prefs/Ui.php:326
+msgid "Password:"
+msgstr "密碼:"
+
+#: admin/user.php:168 admin/user.php:220
+msgid "Passwords must match."
+msgstr "密碼必須吻合."
+
+#: admin/sqlshell.php:100
+msgid "Paste"
+msgstr "貼上"
+
+#: templates/admin/user/approve.inc:9 templates/admin/user/removequeued.inc:7
+msgid "Pending Signups:"
+msgstr "待審登錄："
+
+#: lib/Block/fortune.php:61
+msgid "People"
+msgstr "成員"
+
+#: templates/logintasks/logintasks.html:30
+#, fuzzy
+msgid "Perform Login Tasks"
+msgstr "登入工作"
+
+#: admin/perms/delete.php:42
+#, php-format
+msgid "Permission \"%s\" not deleted."
+msgstr "\"%s\"的權限未被刪除."
+
+#: admin/perms/index.php:23
+msgid "Permissions"
+msgstr "權限"
+
+#: admin/perms/addchild.php:51 admin/perms/delete.php:46
+#: admin/perms/edit.php:110 admin/perms/index.php:17
+msgid "Permissions Administration"
+msgstr "權限管理"
+
+#: config/prefs.php.dist:213
+msgid "Personal Information"
+msgstr "我的"
+
+#: lib/Block/fortune.php:62
+msgid "Pets"
+msgstr "寵物"
+
+#: config/registry.php.dist:385
+msgid "Photos"
+msgstr "藝廊"
+
+#: lib/Block/fortune.php:63
+msgid "Platitudes"
+msgstr "Platitudes"
+
+#: login.php:87
+#, fuzzy
+msgid "Please enter a password."
+msgstr "請輸入一個有效的時間."
+
+#: login.php:86
+#, fuzzy
+msgid "Please enter a username."
+msgstr "請輸入一個有效的時間."
+
+#: templates/problem/problem.inc:7
+msgid "Please provide a summary of the problem."
+msgstr "請提供問題的摘要."
+
+#: services/logintasks.php:73
+msgid ""
+"Please read the following text. You MUST agree with the terms to use the "
+"system."
+msgstr "請閱讀下列內容.你必須同意這些事項才能使用系統."
+
+#: services/facebook.php:67
+#, fuzzy
+msgid "Pokes:"
+msgstr "寵物"
+
+#: admin/activesync.php:105
+#, fuzzy
+msgid "Policy Key"
+msgstr "公開金鑰"
+
+#: lib/Prefs/Ui.php:432
+#, fuzzy
+msgid "Policy Key:"
+msgstr "公開金鑰"
+
+#: lib/Block/fortune.php:64
+msgid "Politics"
+msgstr "政治"
+
+#: services/facebook.php:101
+#, fuzzy, php-format
+msgid "Posted %s"
+msgstr "發表"
+
+#: templates/block/twitter_tweet.html.php:26
+#, fuzzy, php-format
+msgid "Posted %s via %s"
+msgstr "%d %s 以及 %s"
+
+#: themes/postnuke/info.php:2
+msgid "Postnuke"
+msgstr "Postnuke"
+
+#: lib/Block/metar.php:261 lib/Block/metar.php:266
+#, php-format
+msgid "Precipitation for last %d hour: "
+msgid_plural "Precipitation for last %d hours: "
+msgstr[0] "最近 %d 小時的降雨量: "
+
+#: lib/Block/weatherdotcom.php:301
+msgid "Precipitation<br />chance"
+msgstr "降雨<br />機率"
+
+#: lib/Block/metar.php:220
+msgid "Pressure"
+msgstr "氣壓"
+
+#: lib/Block/metar.php:254
+msgid "Pressure at sea level: "
+msgstr "海平面氣壓: "
+
+#: lib/Block/weatherdotcom.php:239
+msgid "Pressure: "
+msgstr "氣壓: "
+
+#: services/problem.php:145
+msgid "Problem Description"
+msgstr "問題描述"
+
+#: admin/activesync.php:171 lib/Prefs/Ui.php:425
+#, fuzzy
+msgid "Provisioned"
+msgstr "權限"
+
+#: templates/prefs/facebook.html:21
+msgid "Publish enabled."
+msgstr ""
+
+#: themes/purple/info.php:2
+msgid "Purple Horde"
+msgstr "Purple Horde"
+
+#: admin/sqlshell.php:50
+msgid "Query"
+msgstr "查詢"
+
+#: lib/Block/account.php:83
+msgid "Quota"
+msgstr "磁碟配置"
+
+#: lib/Block/weatherdotcom_strings.php:66
+msgid "Rain"
+msgstr "雨"
+
+#: lib/Block/weatherdotcom_strings.php:67
+msgid "Rain Early"
+msgstr "早有雨"
+
+#: lib/Block/weatherdotcom_strings.php:68
+msgid "Rain Late"
+msgstr "晚有雨"
+
+#: lib/Block/weatherdotcom_strings.php:69
+msgid "Rain Shower"
+msgstr "陣雨"
+
+#: lib/Block/weatherdotcom_strings.php:70
+msgid "Rain and Snow"
+msgstr "雨有雪"
+
+#: lib/Block/weatherdotcom_strings.php:71
+msgid "Rain to Snow"
+msgstr "雨轉雪"
+
+#: lib/Block/fortune.php:6
+msgid "Random Fortune"
+msgstr "隨機小語"
+
+#: templates/shares/edit.inc:61 templates/shares/edit.inc:75
+#: templates/shares/edit.inc:96 templates/shares/edit.inc:110
+#: templates/shares/edit.inc:132 templates/shares/edit.inc:146
+#: templates/shares/edit.inc:167 templates/shares/edit.inc:185
+#: templates/shares/edit.inc:220 templates/shares/edit.inc:247
+#: templates/shares/edit.inc:269 templates/shares/edit.inc:283
+#: templates/shares/edit.inc:312
+msgid "Read"
+msgstr "讀取"
+
+#: templates/prefs/facebook.html:33
+#, fuzzy
+msgid "Read enabled"
+msgstr "讀取郵件"
+
+#: templates/admin/user/remove.inc:8
+#, php-format
+msgid "Really delete \"%s\"? This operation cannot be undone."
+msgstr "真的要刪除 \"%s\" 嗎? 這項操作將無法恢復."
+
+#: templates/admin/user/clear.inc:8
+#, php-format
+msgid ""
+"Really remove user data for user \"%s\"? This operation cannot be undone."
+msgstr "真的要清除使用者 \"%s\" 的資料嗎? 這項操作將無法恢復."
+
+#: config/prefs.php.dist:562
+msgid "Refresh Dynamic Menu Elements:"
+msgstr "重新整理動態目錄元件:"
+
+#: config/prefs.php.dist:523
+msgid "Refresh Portal View:"
+msgstr "重新整理個人站台內容:"
+
+#: templates/portal/layout.inc:94
+msgid "Refresh rate:"
+msgstr "重新整理個人站台內容:"
+
+#: admin/activesync.php:134
+msgid "Registered User Devices"
+msgstr ""
+
+#: lib/Block/metar.php:321
+msgid "Remarks"
+msgstr "評論"
+
+#: admin/sessions.php:39 admin/sessions.php:50
+msgid "Remote Host:"
+msgstr "遠端主機:"
+
+#: config/prefs.php.dist:583
+msgid "Remote Servers"
+msgstr "遠端伺服器"
+
+#: lib/Prefs/Ui.php:324
+msgid "Remote URL (http://www.example.com/horde):"
+msgstr "遠端網址 (http://www.example.com/horde):"
+
+#: admin/activesync.php:185 templates/admin/groups/edit.inc:23
+#: templates/admin/user/approve.inc:40
+#: templates/admin/user/removequeued.inc:13 templates/prefs/activesync.html:33
+msgid "Remove"
+msgstr "移除"
+
+#: templates/data/csvmap.inc:118
+msgid "Remove pair"
+msgstr "移除對"
+
+#: admin/config/index.php:211
+msgid "Remove saved script from server's temporary directory."
+msgstr "自伺服器暫存目錄中移除已儲存的設定程式."
+
+#: templates/admin/user/remove.inc:11
+msgid "Remove user"
+msgstr "移除使用者"
+
+#: templates/admin/user/remove.inc:5
+#, php-format
+msgid "Remove user: %s"
+msgstr "移除使用者: %s"
+
+#: templates/block/twitter_tweet.html.php:34
+#, fuzzy
+msgid "Reply"
+msgstr "回覆到"
+
+#: admin/activesync.php:138
+#, fuzzy
+msgid "Reprovision All Devices"
+msgstr "存取遭拒"
+
+#: lib/Block/weatherdotcom.php:160
+msgid "Requested service could not be found."
+msgstr "找不到所需的服務."
+
+#: admin/user.php:22 templates/admin/user/update.inc:54
+#: templates/prefs/rpc.html:36
+msgid "Reset"
+msgstr "重設"
+
+#: services/resetpassword.php:45
+msgid "Reset Password"
+msgstr "重設密碼"
+
+#: services/resetpassword.php:23
+msgid "Reset Your Password"
+msgstr "重設你的密碼:"
+
+#: templates/prefs/activesync.html:6
+msgid ""
+"Reset all device state. This will cause your devices to resyncronize all "
+"items."
+msgstr ""
+
+#: admin/sqlshell.php:111
+msgid "Restore Last Query"
+msgstr "回存最後一個查詢"
+
+#: admin/cmdshell.php:23 admin/phpshell.php:74 admin/sqlshell.php:53
+msgid "Results"
+msgstr "結果"
+
+#: services/portal/cloud_search.php:30
+#, php-format
+msgid "Results for %s"
+msgstr "%s 的結果"
+
+#: templates/prefs/end.html:7
+#, fuzzy
+msgid "Return to Main Screen"
+msgstr "返回選項"
+
+#: templates/block/twitter_tweet.html.php:35
+#, fuzzy
+msgid "Retweet"
+msgstr "重設"
+
+#: templates/block/twitter_tweet.html.php:30
+#, php-format
+msgid "Retweeted by %s"
+msgstr ""
+
+#: services/changepassword.php:30
+msgid "Retype new password"
+msgstr "再次輸入新密碼"
+
+#: admin/config/config.php:33 admin/config/config.php:37
+msgid "Revert Configuration"
+msgstr "回復設定"
+
+#: lib/Block/fortune.php:65
+msgid "Riddles"
+msgstr "謎語"
+
+#: admin/sqlshell.php:101
+msgid "Run"
+msgstr "執行"
+
+#: admin/sqlshell.php:14
+msgid "SQL Shell"
+msgstr "資料庫草稿"
+
+#: config/registry.php.dist:363
+msgid "SSH"
+msgstr "加密終端機"
+
+#: lib/Api.php:67
+msgid "S_QL Shell"
+msgstr "資料庫草稿_Q"
+
+#: templates/portal/layout.inc:115 templates/prefs/end.html:3
+msgid "Save"
+msgstr "儲存"
+
+#: templates/admin/groups/edit.inc:63 templates/shares/edit.inc:330
+#, php-format
+msgid "Save \"%s\""
+msgstr "儲存 \"%s\""
+
+#: templates/shares/edit.inc:331
+msgid "Save and Finish"
+msgstr "儲存並結束"
+
+#: admin/config/index.php:183
+msgid ""
+"Save generated configuration as a PHP script to your server's temporary "
+"directory."
+msgstr "將產生的設定檔以 PHP 語言格式儲存到你的伺服器暫存目錄中."
+
+#: admin/config/scripts.php:92
+#, fuzzy, php-format
+msgid "Saved configuration upgrade script to: \"%s\"."
+msgstr "更新程式已儲存到: \"%s\"."
+
+#: lib/Block/weatherdotcom_strings.php:72
+msgid "Scattered Showers"
+msgstr "零星陣雨"
+
+#: lib/Block/weatherdotcom_strings.php:73
+msgid "Scattered T-Storms"
+msgstr "零星雷雨"
+
+#: lib/Block/fortune.php:66
+msgid "Science"
+msgstr "科學"
+
+#: services/help/index.php:71
+msgid "Sea_rch"
+msgstr "搜尋_r"
+
+#: services/help/index.php:134 templates/admin/user/list.inc:16
+msgid "Search"
+msgstr "搜尋"
+
+#: templates/admin/user/list.inc:14
+msgid "Search:"
+msgstr "搜尋:"
+
+#: templates/shares/edit.inc:298 templates/shares/edit.inc:300
+msgid "Select a group to add:"
+msgstr "選擇一個群組以新增:"
+
+#: templates/shares/edit.inc:38
+msgid "Select a new owner:"
+msgstr "選擇一位新的擁有者:"
+
+#: templates/prefs/rpc.html:4
+msgid "Select a server"
+msgstr "選擇一部伺服器"
+
+#: templates/shares/edit.inc:202 templates/shares/edit.inc:204
+msgid "Select a user to add:"
+msgstr "選擇一位使用者以新增"
+
+#: templates/prefs/addressbooks.html:5
+msgid "Select all fields to search when expanding addresses."
+msgstr ""
+
+#: services/keyboard.php:38
+msgid ""
+"Select the characters you need from the boxes below. You can then copy and "
+"paste them from the text area."
+msgstr "於以下的視窗中選取你要的字元.以滑鼠複製所選文字,然後貼上文件編輯區."
+
+#: templates/data/datetime.inc:57
+msgid "Select the date and time format:"
+msgstr "選擇日期與時間格式:"
+
+#: templates/data/date.inc:34 templates/data/datetime.inc:76
+msgid "Select the date delimiter:"
+msgstr "選擇日期分隔:"
+
+#: templates/data/date.inc:44 templates/data/datetime.inc:86
+msgid "Select the date format:"
+msgstr "選擇日期日期格式:"
+
+#: templates/data/datetime.inc:66
+msgid "Select the day and time order:"
+msgstr "選擇日期與時間順序:"
+
+#: templates/data/datetime.inc:97 templates/data/time.inc:16
+msgid "Select the time delimiter:"
+msgstr "選擇時間分隔:"
+
+#: templates/data/datetime.inc:106 templates/data/time.inc:25
+msgid "Select the time format:"
+msgstr "選擇日期時間格式:"
+
+#: config/prefs.php.dist:509
+msgid "Select your color scheme."
+msgstr "選擇你的顏色配置"
+
+#: config/prefs.php.dist:328
+msgid "Select your preferred language:"
+msgstr "選擇偏好語言:"
+
+#: templates/problem/problem.inc:57
+msgid "Send Problem Report"
+msgstr "傳送問題反應"
+
+#: lib/Block/metar.php:311
+msgid "Sensor: "
+msgstr "感測器: "
+
+#: templates/prefs/syncml.html:12
+msgid "Server Time"
+msgstr "伺服器時間"
+
+#: lib/Block/weatherdotcom.php:164
+msgid "Server data wrong or not available."
+msgstr "伺服器資料錯誤或者無法使用."
+
+#: admin/sessions.php:14
+msgid "Session Admin"
+msgstr "會期管理"
+
+#: admin/sessions.php:37
+msgid "Session Timestamp:"
+msgstr "會期時戳:"
+
+#: lib/Api.php:57
+msgid "Sessions"
+msgstr "會期"
+
+#: config/prefs.php.dist:277
+#, fuzzy
+msgid ""
+"Set preferences to allow you to reset your password if you ever forget it."
+msgstr "允許你於忘記密碼的時候,可以自行重設密碼."
+
+#: config/prefs.php.dist:605
+msgid "Set up integration with your Facebook account."
+msgstr ""
+
+#: config/prefs.php.dist:626
+msgid "Set up integration with your Twitter account."
+msgstr ""
+
+#: config/prefs.php.dist:584
+msgid "Set up remote servers that you want to access from your portal."
+msgstr "設定遠端伺服器上屬於你的個人站台."
+
+#: config/prefs.php.dist:314
+#, fuzzy
+msgid "Set your preferred language, timezone and date preferences."
+msgstr "設定你的偏好語言, 時區以及日期格式."
+
+#: config/prefs.php.dist:469
+#, fuzzy
+msgid ""
+"Set your startup application, color scheme, page refreshing, and other "
+"display preferences."
+msgstr "設定你的啟始應用程式,顏色配置,頁面更新頻率,及其他顯示選項."
+
+#: lib/Block/weatherdotcom.php:190
+msgid "Several locations possible with the parameter: "
+msgstr "有好幾個地點和這個參數有關: "
+
+#: templates/problem/problem.inc:38
+msgid "Short Summary"
+msgstr "簡短摘要"
+
+#: config/prefs.php.dist:570
+msgid "Should access keys be defined for most links?"
+msgstr "是否為大部份的連結定義快捷功能鍵?"
+
+#: templates/shares/edit.inc:60 templates/shares/edit.inc:71
+#: templates/shares/edit.inc:95 templates/shares/edit.inc:106
+#: templates/shares/edit.inc:131 templates/shares/edit.inc:142
+#: templates/shares/edit.inc:166 templates/shares/edit.inc:181
+#: templates/shares/edit.inc:216 templates/shares/edit.inc:243
+#: templates/shares/edit.inc:268 templates/shares/edit.inc:279
+#: templates/shares/edit.inc:308
+msgid "Show"
+msgstr "顯示"
+
+#: templates/prefs/app.html:21
+#, fuzzy
+msgid "Show Advanced Preferences"
+msgstr "顯示差異"
+
+#: admin/config/index.php:173
+msgid ""
+"Show differences between currently saved and the newly generated "
+"configuration."
+msgstr "顯示新產生與原儲存設定檔的差異."
+
+#: lib/Block/feed.php:24
+msgid "Show extra detail?"
+msgstr "顯示更多資料?"
+
+#: config/prefs.php.dist:491
+msgid "Show last login time when logging in?"
+msgstr "每次登入後顯示上一次的登入時間?"
+
+#: lib/Block/fb_stream.php:89
+#, fuzzy
+msgid "Show notifications"
+msgstr "蹦談通知"
+
+#: config/prefs.php.dist:530
+#, php-format
+msgid "Show the %s Menu on the left?"
+msgstr "於左邊顯示 %s 功能表?"
+
+#: lib/Block/weatherdotcom_strings.php:74
+msgid "Showers"
+msgstr "持續陣雨"
+
+#: lib/Block/weatherdotcom_strings.php:75
+msgid "Showers Early"
+msgstr "早有陣雨"
+
+#: lib/Block/weatherdotcom_strings.php:76
+msgid "Showers Late"
+msgstr "晚有陣雨"
+
+#: lib/Block/weatherdotcom_strings.php:77
+msgid "Showers in the Vicinity"
+msgstr "遠方有陣雨"
+
+#: themes/simplex/info.php:2
+msgid "Simplex"
+msgstr "Simplex"
+
+#: templates/logintasks/logintasks.html:31
+#, fuzzy
+msgid "Skip Login Tasks"
+msgstr "登入工作"
+
+#: lib/Block/iframe.php:26
+msgid "Small"
+msgstr "小"
+
+#: lib/Block/weatherdotcom_strings.php:78
+msgid "Snow"
+msgstr "雪"
+
+#: lib/Block/weatherdotcom_strings.php:79
+#, fuzzy
+msgid "Snow Early"
+msgstr "早有陣雨"
+
+#: lib/Block/weatherdotcom_strings.php:80
+#, fuzzy
+msgid "Snow Late"
+msgstr "晚有陣雨"
+
+#: lib/Block/weatherdotcom_strings.php:81
+msgid "Snow Shower"
+msgstr "陣雪"
+
+#: lib/Block/weatherdotcom_strings.php:82
+msgid "Snow Showers"
+msgstr "陣雪"
+
+#: lib/Block/weatherdotcom_strings.php:83
+msgid "Snow Showers Early"
+msgstr "早有陣雪"
+
+#: lib/Block/weatherdotcom_strings.php:84
+msgid "Snow Showers Late"
+msgstr "晚有陣雪"
+
+#: lib/Block/metar.php:273
+msgid "Snow depth: "
+msgstr "積雪深度: "
+
+#: lib/Block/metar.php:277
+msgid "Snow equivalent in water: "
+msgstr "雪水當量: "
+
+#: lib/Block/fortune.php:67
+msgid "Songs & Poems"
+msgstr "歌與詩"
+
+#: config/nls.php:182
+msgid "South European (ISO-8859-3)"
+msgstr "南歐 (ISO-8859-3)"
+
+#: lib/Block/moon.php:31 lib/Block/moon.php:60
+msgid "Southern Hemisphere"
+msgstr "南半球"
+
+#: config/registry.php.dist:102
+msgid "Spam"
+msgstr "垃圾郵件"
+
+#: services/keyboard.php:14
+msgid "Special Character Input"
+msgstr "特殊字元輸入"
+
+#: lib/Block/fortune.php:68
+msgid "Sports"
+msgstr "運動"
+
+#: lib/Block/metar.php:73 lib/Block/weatherdotcom.php:68
+msgid "Standard"
+msgstr "標準"
+
+#: lib/Block/fortune.php:69
+msgid "Star Trek"
+msgstr "星際爭霸戰"
+
+#: templates/prefs/activesync.html:2
+msgid "State Management"
+msgstr ""
+
+#: admin/activesync.php:112 templates/admin/config/index.html:17
+#: templates/prefs/activesync.html:22
+msgid "Status"
+msgstr "狀態"
+
+#: services/facebook.php:144
+msgid "Status unable to be set."
+msgstr ""
+
+#: util/icon_browser.php:40
+#, php-format
+msgid "Subdirectory \"%s\" not found."
+msgstr "找不到次目錄 \"%s\""
+
+#: signup.php:52
+#, php-format
+msgid ""
+"Submitted request to add \"%s\" to the system. You cannot log in until your "
+"request has been approved."
+msgstr "增加 \"%s\" 到系統的申請已送出. 你必須等到該申請被核准後才能登入."
+
+#: services/facebook.php:38
+msgid "Succesfully connected your Facebook account."
+msgstr ""
+
+#: admin/sqlshell.php:88
+msgid "Success"
+msgstr "成功"
+
+#: admin/signup_confirm.php:85 admin/user.php:100
+#, php-format
+msgid "Successfully added \"%s\" to the system."
+msgstr "成功的加入 \"%s\" 到系統中."
+
+#: admin/user.php:138
+#, php-format
+msgid "Successfully cleared data for user \"%s\" from the system."
+msgstr "成功的自系統中清除使用者 \"%s\" 的資料."
+
+#: admin/groups.php:78 admin/perms/delete.php:36
+#, php-format
+msgid "Successfully deleted \"%s\"."
+msgstr "\"%s\"已刪除完成."
+
+#: admin/user.php:118
+#, php-format
+msgid "Successfully removed \"%s\" from the system."
+msgstr "成功的自系統中移除 \"%s\"."
+
+#: admin/config/config.php:40
+msgid "Successfully reverted configuration. Reload to see changes."
+msgstr "已成功的回復設定. 請重新載入檢視差異."
+
+#: admin/config/index.php:39
+msgid "Successfully saved backup configuration."
+msgstr "已成功的備份設定資料."
+
+#: admin/config/config.php:51
+#, php-format
+msgid "Successfully saved the backup configuration file %s."
+msgstr "已成功的備份設定資料 %s."
+
+#: admin/user.php:184
+#, php-format
+msgid "Successfully updated \"%s\""
+msgstr "成功的更新 \"%s\""
+
+#: admin/config/config.php:60 admin/config/index.php:47
+#, php-format
+msgid "Successfully wrote %s"
+msgstr "已成功的覆寫 %s"
+
+#: lib/Block/sunrise.php:63
+msgid "Sun Rise"
+msgstr "日出"
+
+#: lib/Block/sunrise.php:66
+msgid "Sun Set"
+msgstr "日落"
+
+#: config/prefs.php.dist:429
+msgid "Sunday"
+msgstr "星期天"
+
+#: lib/Block/weatherdotcom_strings.php:85
+msgid "Sunny"
+msgstr "晴"
+
+#: lib/Block/weatherdotcom.php:220
+msgid "Sunrise"
+msgstr "日出"
+
+#: lib/Block/sunrise.php:3 lib/Block/sunrise.php:14
+msgid "Sunrise/Sunset"
+msgstr "日出/日落"
+
+#: lib/Block/weatherdotcom.php:219
+msgid "Sunrise: "
+msgstr "日出: "
+
+#: lib/Block/weatherdotcom.php:223
+msgid "Sunset"
+msgstr "日落"
+
+#: lib/Block/weatherdotcom.php:222
+msgid "Sunset: "
+msgstr "日落: "
+
+#: config/prefs.php.dist:664
+msgid "SyncML"
+msgstr "同步行動裝置"
+
+#: lib/Block/feed.php:3
+msgid "Syndicated Feed"
+msgstr "聯合資訊提供"
+
+#: lib/Block/weatherdotcom_strings.php:86
+#, fuzzy
+msgid "T-Showers"
+msgstr "持續陣雨"
+
+#: lib/Block/weatherdotcom_strings.php:87
+#, fuzzy
+msgid "T-Showers Early"
+msgstr "早有陣雨"
+
+#: lib/Block/weatherdotcom_strings.php:88
+#, fuzzy
+msgid "T-Showers Late"
+msgstr "晚有陣雨"
+
+#: lib/Block/weatherdotcom_strings.php:89
+msgid "T-Storm"
+msgstr "雷雨"
+
+#: lib/Block/weatherdotcom_strings.php:90
+msgid "T-Storm and Windy"
+msgstr "雷雨有風"
+
+#: lib/Block/weatherdotcom_strings.php:91
+msgid "T-Storms"
+msgstr "雷雨"
+
+#: lib/Block/weatherdotcom_strings.php:92
+msgid "T-Storms Early"
+msgstr "早有持續雷雨"
+
+#: lib/Block/weatherdotcom_strings.php:93
+msgid "T-Storms Late"
+msgstr "晚有持續雷雨"
+
+#: lib/Block/cloud.php:3 lib/Block/cloud.php:23
+msgid "Tag Cloud"
+msgstr "所有標籤"
+
+#: themes/tango-blue/info.php:24
+msgid "Tango Blue"
+msgstr "Tango Blue"
+
+#: config/registry.php.dist:184
+msgid "Tasks"
+msgstr "待辦事項"
+
+#: themes/gennevilliers/info.php:12
+msgid "Teal"
+msgstr "Teal"
+
+#: lib/Block/metar.php:285
+msgid "Temp for last hour: "
+msgstr "最近一小時的溫度: "
+
+#: lib/Block/metar.php:209
+msgid "Temperature"
+msgstr "溫度"
+
+#: lib/Block/weatherdotcom.php:227
+msgid "Temperature: "
+msgstr "溫度: "
+
+#: lib/Block/weatherdotcom.php:296
+#, php-format
+msgid "Temperature<br />(%sHi%s/%sLo%s) &deg;%s"
+msgstr "溫度<br />(%s高%s/%s低%s) &deg;%s"
+
+#: lib/Prefs/Ui.php:518 services/facebook.php:31
+msgid "Temporarily unable to connect with Facebook, Please try again."
+msgstr ""
+
+#: lib/Block/twitter_timeline.php:122
+#, fuzzy
+msgid "Temporarily unable to contact Twitter. Please try again later."
+msgstr "更新聯絡人資料時發生了一個錯誤. 請稍後再試."
+
+#: services/keyboard.php:148
+msgid "Text Area"
+msgstr "本文區"
+
+#: config/prefs.php.dist:544
+msgid "Text Only"
+msgstr "純文字"
+
+#: config/nls.php:183
+msgid "Thai (TIS-620)"
+msgstr "泰文 (TIS-620)"
+
+#: lib/Prefs/Ui.php:747
+#, fuzzy, php-format
+msgid "The Remote Wipe for device id %s has been cancelled."
+msgstr "此伺服器 \"%s\" 已被刪除."
+
+#: admin/alarms.php:81
+msgid "The alarm has been deleted."
+msgstr "警示已被刪除."
+
+#: admin/alarms.php:70
+msgid "The alarm has been saved."
+msgstr "警示已儲存."
+
+#: config/prefs.php.dist:246
+msgid "The default e-mail address to use with this identity:"
+msgstr ""
+
+#: lib/Block/vatid.php:76
+msgid ""
+"The member state service could not be reached in time. Try again later or "
+"with a different member state."
+msgstr "成員身份服務無法及時連線. 請稍後再試或使用其他成員身份."
+
+#: lib/Block/vatid.php:73
+msgid ""
+"The member state service is currently not available. Try again later or with "
+"a different member state."
+msgstr "成員身份服務無法及時連線. 請稍後再試或使用其他成員身份"
+
+#: lib/Block/vatid.php:67
+msgid "The provided country code is invalid."
+msgstr "所提供的國碼不正確."
+
+#: lib/Prefs/Ui.php:681
+#, php-format
+msgid "The server \"%s\" has been deleted."
+msgstr "此伺服器 \"%s\" 已被刪除."
+
+#: lib/Prefs/Ui.php:676
+#, php-format
+msgid "The server \"%s\" has been saved."
+msgstr "此伺服器 \"%s\" 已被儲存."
+
+#: lib/Block/vatid.php:70
+msgid "The service is currently not available. Try again later."
+msgstr "此服務目前無法使用. 稍後再試."
+
+#: lib/Block/vatid.php:79
+msgid "The service is currently too busy. Try again later."
+msgstr "此服務目前忙碌中. 稍後再試."
+
+#: admin/user.php:209
+#, php-format
+msgid "The signup request for \"%s\" has been removed."
+msgstr "\"%s\" 的註冊請求已被移除."
+
+#: admin/signup_confirm.php:39
+#, fuzzy, php-format
+msgid "The signup request for user \"%s\" has been removed."
+msgstr "\"%s\" 的註冊請求已被移除."
+
+#: lib/LoginTasks/Task/TestScriptActive.php:38
+msgid ""
+"The test script is currently enabled. For security reasons, disable test "
+"scripts when you are done testing (see horde/docs/INSTALL)."
+msgstr ""
+
+#: admin/signup_confirm.php:60 admin/user.php:72
+#, php-format
+msgid "The user \"%s\" already exists."
+msgstr "使用者 \"%s\" 已存在."
+
+#: services/shares/edit.php:85 services/shares/edit.php:177
+#, fuzzy, php-format
+msgid "The user \"%s\" does not exist."
+msgstr "共享 \"%s\" 並不存在."
+
+#: lib/Block/weatherdotcom.php:51 lib/Block/weatherdotcom.php:106
+msgid "The weather.com block is not available."
+msgstr "weather.com 區塊無法使用."
+
+#: lib/Prefs/Ui.php:46
+#, fuzzy
+msgid "Theme directory can't be opened"
+msgstr "找不到樣式配置目錄 \"%s\"."
+
+#: util/icon_browser.php:28
+#, php-format
+msgid "Themes directory \"%s\" not found."
+msgstr "找不到樣式配置目錄 \"%s\"."
+
+#: admin/signup_confirm.php:74 admin/user.php:84 signup.php:38 signup.php:59
+#, php-format
+msgid "There was a problem adding \"%s\" to the system: %s"
+msgstr "新增 \"%s\" 到系統: %s 時發生一個問題."
+
+#: admin/user.php:140
+#, php-format
+msgid "There was a problem clearing data for user \"%s\" from the system: "
+msgstr "自系統清除 \"%s\" 的資料時發生一個問題:"
+
+#: admin/user.php:120
+#, php-format
+msgid "There was a problem removing \"%s\" from the system: "
+msgstr "自系統移除 \"%s\" 時發生一個問題:"
+
+#: admin/user.php:173
+#, php-format
+msgid "There was a problem updating \"%s\": %s"
+msgstr "更新 \"%s\": %s 時發生一個問題"
+
+#: lib/Block/twitter_timeline.php:110 lib/Block/twitter_timeline.php:126
+#, fuzzy, php-format
+msgid "There was an error contacting Twitter: %s"
+msgstr "匯入聯絡人資料時發生錯誤:"
+
+#: admin/config/config.php:70
+msgid ""
+"There was an error in the configuration form. Perhaps you left out a "
+"required field."
+msgstr "在設定表單中發生了一個錯誤.有可能你遺漏了必須填寫的欄位."
+
+#: lib/Block/fb_stream.php:158 lib/Block/fb_stream.php:183
+#: services/facebook.php:54 services/facebook.php:71
+#, fuzzy, php-format
+msgid "There was an error making the request: %s"
+msgstr "讀取聯絡人資料時發生錯誤."
+
+#: lib/Api.php:284
+#, php-format
+msgid ""
+"There was an error removing global data for %s. Details have been logged."
+msgstr ""
+
+#: lib/Block/vatid.php:89
+msgid "This VAT identification number is invalid."
+msgstr "此 VAT 識別號碼無效."
+
+#: lib/Block/vatid.php:86
+msgid "This VAT identification number is valid."
+msgstr "此 VAT 識別號碼有效."
+
+#: lib/Block/weatherdotcom_strings.php:94
+msgid "Thunder"
+msgstr "雷"
+
+#: config/registry.php.dist:260
+msgid "Tickets"
+msgstr "問題追蹤"
+
+#: config/registry.php.dist:308
+msgid "Time Tracking"
+msgstr "時間指南"
+
+#: lib/Block/time.php:23
+msgid "Time format"
+msgstr "時間格式"
+
+#: templates/data/datetime.inc:60 templates/data/datetime.inc:69
+msgid "Timestamp or unknown"
+msgstr "時間戳記或未知"
+
+#: templates/prefs/syncml.html:2
+#, fuzzy
+msgid "Timestamps of successful synchronization sessions"
+msgstr "刪除同步會期時發生錯誤:"
+
+#: lib/Block/iframe.php:22
+msgid "Title"
+msgstr "標題"
+
+#: templates/data/csvmap.inc:95
+msgid ""
+"To exclude a particular field form the import or to correct a wrong match "
+"select a field in the lists below and hit \"Remove pair\"."
+msgstr "欲排除配對請點選下方欄位後再點選 \"移除對\"."
+
+#: templates/prefs/addressbooks.html:10
+#, fuzzy
+msgid ""
+"To select multiple fields, hold down the Control (PC) or Command (Mac) while "
+"clicking."
+msgstr ""
+"如果要複選,請在點選滑鼠的同時按 Control鍵(個人電腦) 或 Command鍵(蘋果電腦)."
+
+#: lib/Block/weatherdotcom.php:313
+msgid "Today"
+msgstr "今天"
+
+#: lib/Block/weatherdotcom.php:315
+msgid "Tomorrow"
+msgstr "明天"
+
+#: lib/Block/fortune.php:70
+msgid "Translations"
+msgstr "變化"
+
+#: config/nls.php:184
+msgid "Turkish (ISO-8859-9)"
+msgstr "土耳其文 (ISO-8859-9)"
+
+#: lib/Block/twitter_timeline.php:166
+#, fuzzy
+msgid "Tweet"
+msgstr "內容"
+
+#: config/prefs.php.dist:625
+#, fuzzy
+msgid "Twitter Integration"
+msgstr "其他資訊"
+
+#: lib/Block/twitter_timeline.php:23 lib/Block/twitter_timeline.php:64
+#: lib/Block/twitter_timeline.php:74 lib/Block/twitter_timeline.php:78
+#, php-format
+msgid "Twitter Timeline"
+msgstr ""
+
+#: lib/Block/twitter_timeline.php:70
+#, php-format
+msgid "Twitter Timeline for %s"
+msgstr ""
+
+#: services/keyboard.php:108
+msgid "U characters"
+msgstr "U 系字元"
+
+#: lib/Block/weatherdotcom.php:273
+msgid "U.V. index: "
+msgstr "紫外線指數: "
+
+#: lib/Block/iframe.php:19
+msgid "URL"
+msgstr "網址"
+
+#: services/twitter.php:64
+#, php-format
+msgid "Unable to contact Twitter. Please try again later. Error returned: %s"
+msgstr ""
+
+#: admin/groups.php:82 admin/perms/delete.php:39
+#, php-format
+msgid "Unable to delete \"%s\": %s."
+msgstr "無法刪除 \"%s\": %s"
+
+#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:55
+#, fuzzy, php-format
+msgid "Unable to modify the sequence for %s: %s"
+msgstr "無法刪除 \"%s\": %s"
+
+#: services/facebook.php:175
+#, fuzzy
+msgid "Unable to set like."
+msgstr "無法執行 smbclient."
+
+#: templates/prefs/end.html:4
+msgid "Undo Changes"
+msgstr "取消更改"
+
+#: lib/Prefs/Ui.php:266
+msgid "Unfiled"
+msgstr "未分類"
+
+#: config/nls.php:185
+msgid "Unicode (UTF-8)"
+msgstr "萬國碼 (UTF-8)"
+
+#: lib/Block/metar.php:70 lib/Block/weatherdotcom.php:64
+msgid "Units"
+msgstr "單位"
+
+#: lib/Block/weatherdotcom.php:162
+msgid "Unknown location provided."
+msgstr "未知的位置資訊."
+
+#: lib/Block/fb_stream.php:179 templates/admin/user/list.inc:36
+msgid "Update"
+msgstr "變更"
+
+#: templates/admin/user/update.inc:6
+#, php-format
+msgid "Update %s"
+msgstr "更新 %s"
+
+#: templates/admin/user/update.inc:53
+msgid "Update user"
+msgstr "更新使用者"
+
+#: admin/groups.php:144 admin/perms/edit.php:104 services/shares/edit.php:249
+#, php-format
+msgid "Updated \"%s\"."
+msgstr "\"%s\"已更新."
+
+#: admin/config/index.php:190
+msgid "Upload"
+msgstr "上傳"
+
+#: admin/config/index.php:198
+#, fuzzy
+msgid "Uploaded all application configuration files to the server."
+msgstr "已上傳所有應用程式的設定檔到伺服器."
+
+#: config/prefs.php.dist:645
+msgid "Use if name/password is different for IMSP server."
+msgstr "如果你的使用者名稱/密碼與 IMSP 伺服器不同,可在此設定."
+
+#: templates/admin/groups/edit.inc:22 templates/admin/groups/edit.inc:60
+msgid "User"
+msgstr "使用者"
+
+#: admin/user.php:224
+msgid "User Administration"
+msgstr "使用者管理"
+
+#: lib/Prefs/Ui.php:432
+#, fuzzy
+msgid "User Agent:"
+msgstr "使用目前的: %s"
+
+#: signup.php:67
+msgid "User Registration"
+msgstr "使用者註冊"
+
+#: admin/signup_confirm.php:18 signup.php:19
+msgid "User Registration has been disabled for this site."
+msgstr "此站台的使用者註冊系統已停用."
+
+#: admin/signup_confirm.php:25 signup.php:27
+#, fuzzy
+msgid "User Registration is not properly configured for this site."
+msgstr "此站台的使用者註冊系統已停用."
+
+#: lib/Block/account.php:561
+msgid "User account not found"
+msgstr "找不到使用者帳號"
+
+#: templates/shares/edit.inc:238
+msgid "User to add:"
+msgstr "欲新增的使用者:"
+
+#: admin/config/index.php:191 admin/user.php:32 admin/user.php:48 login.php:76
+#: services/resetpassword.php:29 templates/admin/user/approve.inc:22
+msgid "Username"
+msgstr "使用者名稱"
+
+#: lib/Prefs/Ui.php:325
+msgid "Username:"
+msgstr "使用者名稱:"
+
+#: templates/admin/groups/edit.inc:53
+msgid "Users"
+msgstr "使用者"
+
+#: templates/admin/user/list.inc:2
+msgid "Users in the system:"
+msgstr "系統中的使用者:"
+
+#: lib/Block/vatid.php:19
+msgid "VAT id number verification"
+msgstr "VAT 識別號碼驗證"
+
+#: lib/Block/vatid.php:42
+msgid "VAT identification number:"
+msgstr "VAT 識別號碼:"
+
+#: lib/Block/vatid.php:93
+msgid "VAT number"
+msgstr "VAT 號碼"
+
+#: config/registry.php.dist:122
+msgid "Vacation"
+msgstr "假期"
+
+#: lib/Block/weatherdotcom.php:248
+msgid "Variable"
+msgstr "變化"
+
+#: config/registry.php.dist:246
+msgid "Version Control"
+msgstr "版本控制"
+
+#: lib/Block/weatherdotcom_strings.php:101
+msgid "Very High"
+msgstr "非常高"
+
+#: config/nls.php:186
+msgid "Vietnamese (VISCII)"
+msgstr "越南文 (VISCII)"
+
+#: lib/Block/iframe.php:3
+msgid "View an external web page"
+msgstr "在新視窗開啟"
+
+#: lib/Block/metar.php:204
+msgid "Visibility"
+msgstr "能見度"
+
+#: lib/Block/weatherdotcom.php:267
+msgid "Visibility: "
+msgstr "能見度: "
+
+#: lib/Block/account.php:98
+msgid "Warning"
+msgstr "警告"
+
+#: lib/Block/weatherdotcom.php:32
+msgid "Weather Forecast"
+msgstr "天氣預測"
+
+#: lib/Block/weatherdotcom.php:429
+msgid "Weather data provided by"
+msgstr "氣象資料提供"
+
+#: config/registry.php.dist:369
+msgid "Web Site"
+msgstr "網站"
+
+#: services/portal/mobile.php:29
+msgid "Welcome"
+msgstr "歡迎"
+
+#: templates/login/login.inc:5 templates/login/mobile.inc:1
+#, php-format
+msgid "Welcome to %s"
+msgstr "歡迎到 %s"
+
+#: templates/portal/mobile.inc:1
+#, php-format
+msgid "Welcome, %s"
+msgstr "歡迎, %s"
+
+#: config/nls.php:187
+msgid "Western (ISO-8859-1)"
+msgstr "西歐 (ISO-8859-1)"
+
+#: config/nls.php:188
+msgid "Western (ISO-8859-15)"
+msgstr "西歐 (ISO-8859-15)"
+
+#: config/prefs.php.dist:483
+#, php-format
+msgid "What application should %s display after login?"
+msgstr "登入後應該先顯示 %s 哪一個應用程式?"
+
+#: lib/Block/twitter_timeline.php:131
+msgid "What are you working on now?"
+msgstr ""
+
+#: templates/data/csvinfo.inc:14
+msgid "What is the delimiter character?"
+msgstr "欄位的分隔字元?"
+
+#: templates/data/csvinfo.inc:17
+msgid "What is the quote character?"
+msgstr "引述的前置字元?"
+
+#: lib/Block/fb_stream.php:165
+msgid "What's on your mind?"
+msgstr ""
+
+#: config/prefs.php.dist:427
+msgid "Which day would you like to be displayed as the first day of the week?"
+msgstr "每週的第一天?"
+
+#: lib/Block/moon.php:21
+msgid "Which phases"
+msgstr "哪個月相"
+
+#: config/prefs.php.dist:536
+#, fuzzy, php-format
+msgid "Width of the %s menu on the left:"
+msgstr "於左邊顯示 %s 功能表?"
+
+#: config/registry.php.dist:394
+msgid "Wiki"
+msgstr "集體創作"
+
+#: lib/Block/weatherdotcom.php:303 lib/Block/weatherdotcom_strings.php:95
+msgid "Wind"
+msgstr "風"
+
+#: lib/Block/weatherdotcom_strings.php:96
+msgid "Wind Early"
+msgstr "早有風"
+
+#: lib/Block/weatherdotcom_strings.php:97
+msgid "Wind Late"
+msgstr "晚有風"
+
+#: lib/Block/metar.php:79
+msgid "Wind speed in knots"
+msgstr "風速(節)"
+
+#: lib/Block/metar.php:151
+msgid "Wind:"
+msgstr "風速:"
+
+#: lib/Block/weatherdotcom.php:246
+msgid "Wind: "
+msgstr "風速: "
+
+#: lib/Block/account.php:634
+msgid "Windows"
+msgstr "Windows"
+
+#: admin/activesync.php:181 templates/prefs/activesync.html:28
+#, fuzzy
+msgid "Wipe"
+msgstr "星期三"
+
+#: admin/activesync.php:162 lib/Prefs/Ui.php:415
+msgid "Wipe is pending"
+msgstr ""
+
+#: lib/Block/fortune.php:71
+msgid "Wisdom"
+msgstr "智慧"
+
+#: lib/Block/fortune.php:72
+msgid "Work"
+msgstr "工作"
+
+#: config/registry.php.dist:275
+msgid "X-Ref"
+msgstr "交互參考"
+
+#: templates/data/date.inc:47 templates/data/date.inc:48
+#: templates/data/date.inc:49 templates/data/date.inc:50
+#: templates/data/datetime.inc:89 templates/data/datetime.inc:90
+#: templates/data/datetime.inc:91 templates/data/datetime.inc:92
+msgid "YY"
+msgstr "年"
+
+#: templates/logintasks/logintasks.html:34
+msgid "Yes, I Agree"
+msgstr "是的,我同意"
+
+#: services/facebook.php:110 services/facebook.php:169
+#, php-format
+msgid "You and %d other person likes this"
+msgid_plural "You and %d other people like this"
+msgstr[0] ""
+
+#: lib/Api.php:301
+msgid "You are not allowed to add groups."
+msgstr "你沒有建立群組的權限."
+
+#: lib/Api.php:476
+msgid "You are not allowed to add shares."
+msgstr "你沒有建立共享的權限."
+
+#: lib/Api.php:350 lib/Api.php:373 lib/Api.php:399 lib/Api.php:422
+msgid "You are not allowed to change groups."
+msgstr "你沒有變更群組的權限."
+
+#: lib/Api.php:561 lib/Api.php:598 lib/Api.php:640 lib/Api.php:667
+msgid "You are not allowed to change shares."
+msgstr "你沒有變更共享的權限."
+
+#: lib/Api.php:327
+msgid "You are not allowed to delete groups."
+msgstr "你沒有刪除群組的權限."
+
+#: lib/Api.php:505
+msgid "You are not allowed to delete shares."
+msgstr "你沒有刪除共享的權限."
+
+#: lib/Api.php:820
+msgid "You are not allowed to list groups of shares."
+msgstr "你沒有列出共享群組的權限."
+
+#: lib/Api.php:702 lib/Api.php:744
+msgid "You are not allowed to list share permissions."
+msgstr "你沒有列出共享的權限."
+
+#: lib/Api.php:532
+msgid "You are not allowed to list shares."
+msgstr "你沒有列出共享的權限."
+
+#: lib/Api.php:448
+msgid "You are not allowed to list users of groups."
+msgstr "你沒有列出群組用戶的權限."
+
+#: lib/Api.php:786
+msgid "You are not allowed to list users of shares."
+msgstr "你沒有列出共享用戶的權限."
+
+#: lib/Api.php:216
+msgid "You are not allowed to remove user data."
+msgstr "你沒有移除用戶資料的權限."
+
+#: lib/Block/fb_stream.php:159 lib/Block/fb_stream.php:184
+#: services/facebook.php:55 services/facebook.php:72
+#, php-format
+msgid "You can also check your Facebook settings in your %s."
+msgstr ""
+
+#: lib/LoginTasks/Task/TosAgreement.php:54
+msgid ""
+"You did not agree to the Terms of Service agreement, so you were not allowed "
+"to login."
+msgstr ""
+
+#: login.php:278
+msgid "You have been logged out."
+msgstr "你已經登出."
+
+#: lib/Block/fb_stream.php:124
+#, php-format
+msgid ""
+"You have not properly connected your Facebook account with Horde. You should "
+"check your Facebook settings in your %s."
+msgstr ""
+
+#: lib/Block/twitter_timeline.php:182
+#, php-format
+msgid ""
+"You have not properly connected your Twitter account with Horde. You should "
+"check your Twitter settings in your %s."
+msgstr ""
+
+#: services/facebook.php:112 services/facebook.php:163
+#: services/facebook.php:171
+msgid "You like this"
+msgstr ""
+
+#: templates/problem/problem.inc:11
+msgid "You must describe the problem before you can send the problem report."
+msgstr "請描述問題,在你傳送問題報告之前."
+
+#: lib/Prefs/Ui.php:679
+msgid "You must select an server to be deleted."
+msgstr "請指定要刪除的伺服器."
+
+#: admin/user.php:134
+msgid "You must specify a username to clear out."
+msgstr "請指定要清除的使用者."
+
+#: admin/user.php:114
+msgid "You must specify a username to remove."
+msgstr "請指定要移除的使用者."
+
+#: admin/user.php:70
+msgid "You must specify the username to add."
+msgstr "請指定要新增的使用者."
+
+#: admin/user.php:164
+msgid "You must specify the username to update."
+msgstr "請指定要更新的使用者."
+
+#: templates/problem/problem.inc:34
+msgid "Your Email Address"
+msgstr "你的電子郵件住址"
+
+#: config/prefs.php.dist:212 config/prefs.php.dist:275
+#: config/prefs.php.dist:312 config/prefs.php.dist:439
+msgid "Your Information"
+msgstr "你的資訊"
+
+#: login.php:270
+#, fuzzy
+msgid ""
+"Your Internet Address has changed since the beginning of your session. To "
+"protect your security, you must login again."
+msgstr ""
+"自從你的 %s 會期開始以來你的網際網路位址已變更. 為保護你的安全起見,你必須重新"
+"登入."
+
+#: templates/problem/problem.inc:30
+msgid "Your Name"
+msgstr "你的名稱"
+
+#: templates/admin/user/noadd.inc:5
+msgid ""
+"Your authentication backend does not support adding users. If you wish to "
+"use Horde to administer user accounts, you must use a different "
+"authentication backend."
+msgstr ""
+"你的驗證伺服端並不支援新增使用者. 如果你希望管理使用者帳號,你必須另選其他的驗"
+"證伺服端."
+
+#: templates/admin/user/nolist.inc:5
+msgid ""
+"Your authentication backend does not support listing users, or the feature "
+"has been disabled for some other reason."
+msgstr "你的驗證端並未支援列出使用者或該功能已被關閉."
+
+#: login.php:274
+#, fuzzy
+msgid ""
+"Your browser appears to have changed since the beginning of your session. To "
+"protect your security, you must login again."
+msgstr ""
+"自從你的 %s 會期開始以來你的瀏覽器似乎已變更. 為保護你的安全起見,你必須重新登"
+"入."
+
+#: lib/Block/iframe.php:58
+msgid "Your browser does not support this feature."
+msgstr "你的瀏覽器並未支援這個功能."
+
+#: config/prefs.php.dist:337
+msgid "Your current time zone:"
+msgstr "你目前所設定的時區:"
+
+#: config/prefs.php.dist:236
+msgid "Your full name:"
+msgstr "你的全名:"
+
+#: login.php:290
+msgid "Your login has expired."
+msgstr "你的登入已到期."
+
+#: services/resetpassword.php:74
+#, php-format
+msgid "Your new password for %s is: %s"
+msgstr "你在 %s 中的新密碼是: %s"
+
+#: services/resetpassword.php:73
+msgid "Your password has been reset"
+msgstr "你的密碼已重新設定"
+
+#: services/resetpassword.php:87
+#, fuzzy
+msgid ""
+"Your password has been reset, but couldn't be sent to you. Please contact "
+"the administrator."
+msgstr "密碼已被重新設定,新的密碼已透過電子郵件寄發請以該密碼登入."
+
+#: services/resetpassword.php:82
+msgid ""
+"Your password has been reset, check your email and log in with your new "
+"password."
+msgstr "密碼已被重新設定,新的密碼已透過電子郵件寄發請以該密碼登入."
+
+#: lib/Block/account.php:689 lib/Block/account.php:704
+msgid "Your password has expired"
+msgstr "你的密碼已到期"
+
+#: login.php:178
+msgid "Your password has expired."
+msgstr "你的密碼已到期."
+
+#: lib/Prefs/Ui.php:322
+msgid "Your remote servers:"
+msgstr "你的遠端伺服器:"
+
+#: login.php:266
+#, fuzzy
+msgid "Your session has expired. Please login again."
+msgstr "你的 %s 會期已過時.請重新登入."
+
+#: lib/Block/fortune.php:73
+msgid "Zippy"
+msgstr "Zippy"
+
+#: services/problem.php:107
+msgid "[Problem Report]"
+msgstr "[問題反映]"
+
+#: admin/sessions.php:39
+msgid "[Unknown]"
+msgstr "[未知的]"
+
+#: lib/Api.php:47
+msgid "_Alarms"
+msgstr "警示_A"
+
+#: lib/Api.php:72
+msgid "_CLI"
+msgstr "命令列_C"
+
+#: lib/Api.php:27
+#, fuzzy
+msgid "_Configuration"
+msgstr "設定"
+
+#: lib/Api.php:52
+msgid "_DataTree"
+msgstr "樹狀資料_D"
+
+#: lib/Api.php:37
+msgid "_Groups"
+msgstr "群組_G"
+
+#: lib/Api.php:42
+msgid "_Permissions"
+msgstr "權限_P"
+
+#: lib/Api.php:32
+msgid "_Users"
+msgstr "使用者_U"
+
+#: services/problem.php:56
+msgid "attachment"
+msgstr "附件"
+
+#: lib/Block/metar.php:167 lib/Block/metar.php:353
+#, php-format
+msgid "calm"
+msgstr "無風"
+
+#: lib/Block/weatherdotcom_strings.php:102
+msgid "falling"
+msgstr "落下"
+
+#: lib/Block/metar.php:169 lib/Block/metar.php:355 lib/Block/metar.php:381
+#, php-format
+msgid "from the %s (%s) at %s %s"
+msgstr "從 %s (%s) 於 %s %s"
+
+#: lib/Block/weatherdotcom.php:254
+msgid "gusting"
+msgstr "陣風"
+
+#: admin/config/diff.php:51 admin/config/diff.php:63
+msgid "inline"
+msgstr "直接顯示於本文區"
+
+#: lib/Block/fb_stream.php:124 lib/Block/fb_stream.php:159
+#: lib/Block/fb_stream.php:184 lib/Block/twitter_timeline.php:182
+#: services/facebook.php:55 services/facebook.php:72
+msgid "preferences"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:104
+msgid "rising"
+msgstr "上升"
+
+#: admin/config/config.php:80
+msgid "show differences"
+msgstr "顯示差異"
+
+#: lib/Block/weatherdotcom_strings.php:103
+msgid "steady"
+msgstr "穩定"
+
+#: admin/user.php:35 admin/user.php:49
+msgid "type the password twice to confirm"
+msgstr "再次輸入你的密碼以確認無誤"
+
+#: admin/config/diff.php:51 admin/config/diff.php:63
+msgid "unified"
+msgstr "整合"
+
+#: lib/Block/weatherdotcom.php:6
+msgid "weather.com"
+msgstr "weather.com 網站"

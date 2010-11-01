@@ -8,25 +8,23 @@
  * @author Tyler Colbert <tyler@colberts.us>
  */
 
-@define('WICKED_BASE', dirname(__FILE__));
-require_once WICKED_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('wicked');
 
-$page = Page::getCurrentPage();
-if (is_a($page, 'PEAR_Error')) {
+try {
+    $page = Wicked_Page::getCurrentPage();
+} catch (Wicked_Exception $e) {
     $notification->push(_("Internal error viewing requested page"), 'horde.error');
-    header('Location: ' . Wicked::url('WikiHome', true));
-    exit;
+    Wicked::url('WikiHome', true)->redirect();
 }
 
-if (!$page->allows(WICKED_MODE_HISTORY)) {
+if (!$page->allows(Wicked::MODE_HISTORY)) {
     /* Redirect to display page and force it to display an error. */
-    $url = Horde_Util::addParameter(Wicked::url($page->pageName(), true), 'actionID', 'history');
-    header('Location: ' . $url);
-    exit;
+    Wicked::url($page->pageName(), true)->add('actionID', 'history')->redirect();
 }
 
 $title = sprintf(_("History: %s"), $page->pageName());
 require WICKED_TEMPLATES . '/common-header.inc';
 require WICKED_TEMPLATES . '/menu.inc';
-$page->render(WICKED_MODE_HISTORY);
+$page->render(Wicked::MODE_HISTORY);
 require $registry->get('templates', 'horde') . '/common-footer.inc';

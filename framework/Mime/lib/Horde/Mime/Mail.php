@@ -8,8 +8,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @package Horde_Mime
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Mime
  */
 class Horde_Mime_Mail
 {
@@ -68,7 +70,7 @@ class Horde_Mime_Mail
      *
      * @var string
      */
-    protected $_charset;
+    protected $_charset = 'ISO-8859-1';
 
     /**
      * The Mail driver parameters.
@@ -81,13 +83,10 @@ class Horde_Mime_Mail
     /**
      * Constructor.
      *
-     * @param array $params  A hash with basic message information. The
-     *                       following values are supported:
-     *                       - subject: The message subject.
-     *                       - body:    The message body.
-     *                       - to:      The message recipient(s).
-     *                       - from:    The message sender.
-     *                       - charset: The character set of the message.
+     * @param array $params  A hash with basic message information. 'charset'
+     *                       is the character set of the message.  'body' is
+     *                       the message body. All other parameters are
+     *                       assumed to be message headers.
      *
      * @throws Horde_Mime_Exception
      */
@@ -99,20 +98,18 @@ class Horde_Mime_Mail
         }
 
         $this->_headers = new Horde_Mime_Headers();
-        $this->_charset = isset($params['charset']) ? $params['charset'] : 'iso-8859-1';
 
-        if (isset($params['subject'])) {
-            $this->addHeader('Subject', $params['subject'], $this->_charset);
+        if (isset($params['charset'])) {
+            $this->_charset = $params['charset'];
+            unset($params['charset']);
         }
-        if (isset($params['to'])) {
-            $this->addHeader('To', $params['to'], $this->_charset);
-        }
-        if (isset($params['from'])) {
-            $this->addHeader('From', $params['from'], $this->_charset);
-        }
+
         if (isset($params['body'])) {
             $this->setBody($params['body'], $this->_charset);
+            unset($params['body']);
         }
+
+        $this->addHeaders($params, $this->_charset);
     }
 
     /**
@@ -208,7 +205,7 @@ class Horde_Mime_Mail
     public function setBody($body, $charset = 'iso-8859-1', $wrap = false)
     {
         if ($wrap) {
-            $body = Horde_String::wrap($body, $wrap === true ? 76 : $wrap, "\n");
+            $body = Horde_String::wrap($body, $wrap === true ? 76 : $wrap);
         }
         $this->_body = new Horde_Mime_Part();
         $this->_body->setType('text/plain');
@@ -226,7 +223,7 @@ class Horde_Mime_Mail
      *                              generated automatically. If false, a
      *                              text/html message is generated.
      */
-    public function setHTMLBody($body, $charset = 'iso-8859-1',
+    public function setHtmlBody($body, $charset = 'iso-8859-1',
                                 $alternative = true)
     {
         $this->_htmlBody = new Horde_Mime_Part();
@@ -234,7 +231,7 @@ class Horde_Mime_Mail
         $this->_htmlBody->setCharset($charset);
         $this->_htmlBody->setContents($body);
         if ($alternative) {
-            $this->setBody(Horde_Text_Filter::filter($body, 'html2text', array('wrap' => false)), $charset);
+            $this->setBody(Horde_Text_Filter::filter($body, 'Html2text', array('charset' => $charset, 'wrap' => false)), $charset);
         }
     }
 
@@ -391,7 +388,7 @@ class Horde_Mime_Mail
 
         foreach (Horde_Mime_Address::bareAddress(implode(', ', $addrlist), null, true) as $val) {
             if (Horde_Mime::is8bit($val)) {
-                throw new Horde_Mime_Exception(sprintf(_("Invalid character in e-mail address: %s."), $val));
+                throw new Horde_Mime_Exception(sprintf(Horde_Mime_Translation::t("Invalid character in e-mail address: %s."), $val));
             }
         }
 
@@ -401,20 +398,14 @@ class Horde_Mime_Mail
     /**
      * Sends this message.
      *
-     * For the possible Mail drivers and parameters see the PEAR Mail
-     * documentation.
-     * @link http://pear.php.net/Mail
-     *
-     * @param array $config    A hash with the Mail driver to use in 'type' and
-     *                         any parameters necessary for the Mail driver in
-     *                         'params'.
+     * @param Mail $mailer     A Mail object.
      * @param boolean $resend  If true, the message id and date are re-used;
      *                         If false, they will be updated.
      * @param boolean $flowed  Send message in flowed text format.
      *
      * @throws Horde_Mime_Exception
      */
-    public function send($config, $resend = false, $flowed = true)
+    public function send($mailer, $resend = false, $flowed = true)
     {
         /* Add mandatory headers if missing. */
         $has_header = $this->_headers->getValue('Message-ID');
@@ -448,13 +439,12 @@ class Horde_Mime_Mail
             }
 
             /* Build mime message. */
-            $body = null;
+            $body = new Horde_Mime_Part();
             if (!empty($this->_body) && !empty($this->_htmlBody)) {
-                $body = new Horde_Mime_Part();
                 $body->setType('multipart/alternative');
-                $this->_body->setDescription(_("Plaintext Version of Message"));
+                $this->_body->setDescription(Horde_Mime_Translation::t("Plaintext Version of Message"));
                 $body->addPart($this->_body);
-                $this->_htmlBody->setDescription(_("HTML Version of Message"));
+                $this->_htmlBody->setDescription(Horde_Mime_Translation::t("HTML Version of Message"));
                 $body->addPart($this->_htmlBody);
             } elseif (!empty($this->_htmlBody)) {
                 $body = $this->_htmlBody;
@@ -475,85 +465,9 @@ class Horde_Mime_Mail
             }
         }
 
-        /* Check mailer configuration. */
-        if (!empty($config['type'])) {
-            $this->_mailer_driver = $config['type'];
-        }
-        if (!empty($config['params'])) {
-            $this->_mailer_params = $config['params'];
-        }
-
         /* Send message. */
-        $res = $basepart->send(implode(', ', $this->_recipients),
-                               $this->_headers, $this->_mailer_driver,
-                               $this->_mailer_params);
-        if (is_a($res, 'PEAR_Error')) {
-            throw new Horde_Mime_Exception($res);
-        }
-
-        return $res;
+        return $basepart->send(implode(', ', $this->_recipients),
+                               $this->_headers, $mailer);
     }
 
-    /**
-     * Return error string corresponding to a sendmail error code.
-     *
-     * @param integer $code  The error code.
-     *
-     * @return string  The error string, or null if the code is unknown.
-     */
-    static public function sendmailError($code)
-    {
-        switch ($code) {
-        case 64: // EX_USAGE
-            return 'sendmail: ' . _("command line usage error") . ' (64)';
-
-        case 65: // EX_DATAERR
-            return 'sendmail: ' . _("data format error") . ' (65)';
-
-        case 66: // EX_NOINPUT
-            return 'sendmail: ' . _("cannot open input") . ' (66)';
-
-        case 67: // EX_NOUSER
-            return 'sendmail: ' . _("addressee unknown") . ' (67)';
-
-        case 68: // EX_NOHOST
-            return 'sendmail: ' . _("host name unknown") . ' (68)';
-
-        case 69: // EX_UNAVAILABLE
-            return 'sendmail: ' . _("service unavailable") . ' (69)';
-
-        case 70: // EX_SOFTWARE
-            return 'sendmail: ' . _("internal software error") . ' (70)';
-
-        case 71: // EX_OSERR
-            return 'sendmail: ' . _("system error") . ' (71)';
-
-        case 72: // EX_OSFILE
-            return 'sendmail: ' . _("critical system file missing") . ' (72)';
-
-        case 73: // EX_CANTCREAT
-            return 'sendmail: ' . _("cannot create output file") . ' (73)';
-
-        case 74: // EX_IOERR
-            return 'sendmail: ' . _("input/output error") . ' (74)';
-
-        case 75: // EX_TEMPFAIL
-            return 'sendmail: ' . _("temporary failure") . ' (75)';
-
-        case 76: // EX_PROTOCOL
-            return 'sendmail: ' . _("remote error in protocol") . ' (76)';
-
-        case 77: // EX_NOPERM
-            return 'sendmail: ' . _("permission denied") . ' (77)';
-
-        case 78: // EX_CONFIG
-            return 'sendmail: ' . _("configuration error") . ' (78)';
-
-        case 79: // EX_NOTFOUND
-            return 'sendmail: ' . _("entry not found") . ' (79)';
-
-        default:
-            return null;
-        }
-    }
 }

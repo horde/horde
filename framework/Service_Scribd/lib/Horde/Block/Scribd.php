@@ -6,10 +6,6 @@ class Horde_Block_Horde_Scribd extends Horde_Block {
 
     var $_app = 'horde';
 
-    function _params()
-    {
-    }
-
     /**
      * The title to go in this block.
      *
@@ -17,7 +13,7 @@ class Horde_Block_Horde_Scribd extends Horde_Block {
      */
     function _title()
     {
-        return _("Scribd Documents");
+        return Horde_Service_Scribd_Translation::t("Scribd Documents");
     }
 
     /**

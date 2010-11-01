@@ -65,13 +65,13 @@ HordeMap.Map.Horde = Class.create({
 
         // Set the language to use
         OpenLayers.Lang.setCode(HordeMap.conf.language);
-        this.map = new OpenLayers.Map(this.opts.elt, options);
+        this.map = new OpenLayers.Map((this.opts.delayed ? null : this.opts.elt), options);
 
         // Create the vector layer for markers if requested.
         if (HordeMap.conf.useMarkerLayer) {
             styleMap = new OpenLayers.StyleMap({
-                externalGraphic: HordeMap.conf['URI_IMG_HORDE'] + 'map/marker.png',
-                backgroundGraphic: HordeMap.conf['URI_IMG_HORDE'] + 'map/marker-shadow.png',
+                externalGraphic: HordeMap.conf.markerImage,
+                backgroundGraphic: HordeMap.conf.markerBackground,
                 backgroundXOffset: 0,
                 backgroundYOffset: -7,
                 graphicZIndex: 11,
@@ -106,6 +106,11 @@ HordeMap.Map.Horde = Class.create({
         // Used for converting between internal and display projections.
         this._proj = new OpenLayers.Projection("EPSG:4326");
         this.map.zoomToMaxExtent();
+    },
+
+    getZoom: function()
+    {
+        return this.map.getZoom();
     },
 
     display: function(n)
@@ -200,28 +205,32 @@ HordeMap.Map.Horde = Class.create({
 
 });
 
-// Extension to OpenLayers to allow better abstraction:
-OpenLayers.Feature.Vector.prototype.getLonLat = function() {
-    var ll = new OpenLayers.LonLat(this.geometry.x, this.geometry.y);
-    ll.transform(new OpenLayers.Projection("EPSG:900913"), new OpenLayers.Projection("EPSG:4326"));
-    return ll;
-};
 
-// Custom OL click handler - doesn't propagate a click event when performing
-// a double click
-OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
-    defaultHandlerOptions: {
-        'single': true,
-        'double': false,
-        'pixelTolerance': 0,
-        'stopSingle': false,
-        'stopDouble': false
-    },
+    // Extension to OpenLayers to allow better abstraction:
+    OpenLayers.Feature.Vector.prototype.getLonLat = function() {
+        var ll = new OpenLayers.LonLat(this.geometry.x, this.geometry.y);
+        ll.transform(new OpenLayers.Projection("EPSG:900913"), new OpenLayers.Projection("EPSG:4326"));
+        return ll;
+    };
 
-    initialize: function(options) {
-        this.handlerOptions = OpenLayers.Util.extend({}, this.defaultHandlerOptions);
-        OpenLayers.Control.prototype.initialize.apply(this, arguments);
-        this.handler = new OpenLayers.Handler.Click(
-            this, { 'click': options.onClick }, this.handlerOptions);
-    }
-});
+    // Custom OL click handler - doesn't propagate a click event when performing
+    // a double click
+    OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
+        defaultHandlerOptions: {
+            'single': true,
+            'double': false,
+            'pixelTolerance': 0,
+            'stopSingle': false,
+            'stopDouble': false
+        },
+
+        initialize: function(options) {
+            this.handlerOptions = OpenLayers.Util.extend({}, this.defaultHandlerOptions);
+            OpenLayers.Control.prototype.initialize.apply(this, arguments);
+            this.handler = new OpenLayers.Handler.Click(
+                this, { 'click': options.onClick }, this.handlerOptions);
+        }
+    });
+
+
+HordeMap.Geocoder.Horde = Class.create({});

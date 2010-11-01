@@ -26,13 +26,18 @@ class Nag_TaskForm extends Horde_Form {
         $tasklists = Nag::listTasklists(false, Horde_Perms::EDIT);
         $tasklist_enums = array();
         foreach ($tasklists as $tl_id => $tl) {
+            if ($tl->get('owner') != $GLOBALS['registry']->getAuth() &&
+                !empty($GLOBALS['conf']['share']['hidden']) &&
+                !in_array($tl->getName(), $GLOBALS['display_tasklists'])) {
+                continue;
+            }
             $tasklist_enums[$tl_id] = $tl->get('name');
         }
 
         $tasklist = $vars->get('tasklist_id');
         if (empty($tasklist)) {
-            reset($tasklists);
-            $tasklist = key($tasklists);
+            reset($tasklist_enums);
+            $tasklist = key($tasklist_enums);
         }
         $tasks = Nag::listTasks(null, null, null, array($tasklist), Nag::VIEW_FUTURE_INCOMPLETE);
         $task_enums = array('' => _("No parent task"));
@@ -41,26 +46,24 @@ class Nag_TaskForm extends Horde_Form {
             if ($vars->get('task_id') == $task->id) {
                 continue;
             }
-            $task_enums[htmlspecialchars($task->id)] = str_repeat('&nbsp;', $task->indent * 4) . htmlentities($task->name, ENT_COMPAT, Horde_Nls::getCharset());
+            $task_enums[htmlspecialchars($task->id)] = str_repeat('&nbsp;', $task->indent * 4) . htmlentities($task->name);
         }
         $users = array();
-        $share = &$GLOBALS['nag_shares']->getShare($tasklist);
-        if (!is_a($share, 'PEAR_Error')) {
-            $users = $share->listUsers(Horde_Perms::READ);
-            $groups = $share->listGroups(Horde_Perms::READ);
-            if (count($groups)) {
-                require_once 'Horde/Group.php';
-                $horde_group = Group::singleton();
-                foreach ($groups as $group) {
-                    $users = array_merge($users,
-                                         $horde_group->listAllUsers($group));
-                }
+        $share = $GLOBALS['nag_shares']->getShare($tasklist);
+        $users = $share->listUsers(Horde_Perms::READ);
+        $groups = $share->listGroups(Horde_Perms::READ);
+        if (count($groups)) {
+            $horde_group = $GLOBALS['injector']->getInstance('Horde_Group');
+            foreach ($groups as $group) {
+                $users = array_merge($users,
+                                     $horde_group->listAllUsers($group));
             }
-            $users = array_flip($users);
         }
+        $users = array_flip($users);
+
         if (count($users)) {
             foreach (array_keys($users) as $user) {
-                $identity = Horde_Prefs_Identity::singleton('none', $user);
+                $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($user);
                 $fullname = $identity->getValue('fullname');
                 $users[$user] = strlen($fullname) ? $fullname : $user;
             }
@@ -71,10 +74,11 @@ class Nag_TaskForm extends Horde_Form {
         $this->addHidden('', 'actionID', 'text', true);
         $this->addHidden('', 'task_id', 'text', false);
         $this->addHidden('', 'old_tasklist', 'text', false);
+        $this->addHidden('', 'url', 'text', false);
 
         $this->addVariable(_("Name"), 'name', 'text', true);
         if (!$GLOBALS['prefs']->isLocked('default_tasklist') &&
-            count($tasklists) > 1) {
+            count($tasklist_enums) > 1) {
             $v = &$this->addVariable(_("Task List"), 'tasklist_id', 'enum', true, false, false, array($tasklist_enums));
             $v->setAction(Horde_Form_Action::factory('reload'));
         }
@@ -210,8 +214,14 @@ class Horde_Form_Type_nag_alarm extends Horde_Form_Type {
         $info = $var->getValue($vars);
         if (!$info['on']) {
             $info = 0;
+        } else {
+            $value = $info['value'];
+            $unit = $info['unit'];
+            if ($value == 0) {
+                $value = $unit = 1;
+            }
+            $info = $value * $unit;
         }
-        $info = $info['value'] * $info['unit'];
     }
 
     function isValid(&$var, &$vars, $value, &$message)
@@ -219,10 +229,6 @@ class Horde_Form_Type_nag_alarm extends Horde_Form_Type {
         if ($value['on']) {
             if ($vars->get('due_type') == 'none') {
                 $message = _("A due date must be set to enable alarms.");
-                return false;
-            }
-            if (empty($value['value'])) {
-                $message = _("The alarm value must not be empty.");
                 return false;
             }
         }

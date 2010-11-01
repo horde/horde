@@ -6,18 +6,19 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-define('BEATNIK_BASE', dirname(__FILE__));
-require_once BEATNIK_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+$beatnik = Horde_Registry::appInit('beatnik');
+
 require_once BEATNIK_BASE . '/lib/Forms/EditRecord.php';
 
 $domains = array();
 if (Horde_Util::getGet('domain') == 'current') {
-    $url = Horde::applicationUrl('viewzone.php');
+    $url = Horde::url('viewzone.php');
     $domains[] = $_SESSION['beatnik']['curdomain'];
 } elseif (Horde_Util::getGet('domain') == 'all') {
-    $url = Horde::applicationUrl('listzones.php');
+    $url = Horde::url('listzones.php');
     foreach (Beatnik::needCommit() as $domain) {
-        $domains[] = $beatnik_driver->getDomain($domain);
+        $domains[] = $beatnik->driver->getDomain($domain);
     }
 }
 
@@ -38,7 +39,7 @@ foreach ($domains as $domain) {
         $form->getInfo($vars, $info);
 
         try {
-            $result = $beatnik_driver->saveRecord($info);
+            $result = $beatnik->driver->saveRecord($info);
         } catch (Exception $e) {
             $notification->push($e->getMessage(), 'horde.error');
         }
@@ -48,5 +49,4 @@ foreach ($domains as $domain) {
     }
 }
 
-header('Location: ' . $url);
-exit;
+$url->redirect();

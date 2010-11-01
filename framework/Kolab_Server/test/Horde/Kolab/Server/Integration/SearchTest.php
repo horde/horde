@@ -208,7 +208,7 @@ class Search_Mock
         $this->result = $result;
         $this->limit  = $limit;
     }
-    public function as_struct()
+    public function asArray()
     {
         return $this->result;
     }

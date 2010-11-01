@@ -61,6 +61,8 @@ class Horde_Db_Adapter_Sqlite_Column extends Horde_Db_Adapter_Base_Column
     {
         if ($value == '"t"' || $value == "'t'") {
             return true;
+        } elseif ($value == '""' || $value == "''") {
+            return null;
         } else {
             return parent::valueToBoolean($value);
         }

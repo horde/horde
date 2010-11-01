@@ -35,6 +35,13 @@ class Horde_Template
     protected $_cache;
 
     /**
+     * Logger.
+     *
+     * @var Horde_Log_Logger
+     */
+    protected $_logger;
+
+    /**
      * Option values.
      *
      * @var array
@@ -100,17 +107,26 @@ class Horde_Template
     /**
      * Constructor.
      *
-     * @param string $basepath  The directory where templates are read from.
+     * @param array $params  The following configuration options:
+     * <pre>
+     * 'basepath' - (string) The directory where templates are read from.
+     * 'cacheob' - (Horde_Cache) A caching object used to cache the output.
+     * 'logger' - (Horde_Log_Logger) A logger object.
+     * </pre>
      */
-    public function __construct($basepath = null)
+    public function __construct($params = array())
     {
-        if (!is_null($basepath)) {
-            $this->_basepath = $basepath;
+        if (isset($params['basepath'])) {
+            $this->_basepath = $params['basepath'];
         }
 
-        try {
-            $this->_cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
-        } catch (Horde_Exception $e) {}
+        if (isset($params['cacheob'])) {
+            $this->_cache = $params['cacheob'];
+        }
+
+        if (isset($params['logger'])) {
+            $this->_logger = $params['logger'];
+        }
     }
 
     /**
@@ -224,10 +240,11 @@ class Horde_Template
         if ($force || is_null($this->_template)) {
             $this->_template = str_replace("\n", " \n", file_get_contents($file));
             $this->_parse();
-            if ($this->_cache &&
-                isset($cacheid) &&
-                !$this->_cache->set($cacheid, $this->_template)) {
-                Horde::logMessage(sprintf(_("Could not save the compiled template file '%s'."), $file), __FILE__, __LINE__, PEAR_LOG_ERR);
+            if ($this->_cache && isset($cacheid)) {
+                $this->_cache->set($cacheid, $this->_template);
+                if ($this->_logger) {
+                    $this->_logger->log(sprintf('Saved compiled template file for "%s".', $file), 'DEBUG');
+                }
             }
         }
 
@@ -291,14 +308,21 @@ class Horde_Template
 
     /**
      * Parses gettext tags.
+     *
+     * @todo Convert to use Horde_Translation.
      */
     protected function _parseGettext()
     {
         if (preg_match_all("/<gettext>(.+?)<\/gettext>/s", $this->_template, $matches, PREG_SET_ORDER)) {
             $replace = array();
             foreach ($matches as $val) {
-                $replace[$val[0]] = '<?php echo _(\'' . str_replace("'", "\\'", $val[1]) . '\'); ?>';
+                // eval gettext independently so we can embed tempate tags
+                $code = 'echo _(\'' . str_replace("'", "\\'", $val[1]) . '\');';
+                ob_start();
+                eval($code);
+                $replace[$val[0]] = ob_get_clean();
             }
+
             $this->_doReplace($replace);
         }
     }

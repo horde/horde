@@ -18,7 +18,6 @@ class Horde_Form_Action_reload extends Horde_Form_Action {
 
     function getActionScript($form, $renderer, $varname)
     {
-        Horde::addScriptFile('prototype.js', 'horde');
         Horde::addScriptFile('effects.js', 'horde');
         Horde::addScriptFile('redbox.js', 'horde');
         return 'if (this.value) { document.' . $form->getName() . '.formname.value=\'\'; RedBox.loading(); document.' . $form->getName() . '.submit() }';

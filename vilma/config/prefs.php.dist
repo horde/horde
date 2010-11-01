@@ -13,6 +13,5 @@ $prefGroups['display'] = array(
 $_prefs['addresses_perpage'] = array(
      'value' => 20,
      'locked' => false,
-     'shared' => false,
      'type' => 'number',
      'desc' => _("How many domain to display per page."));

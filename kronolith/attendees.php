@@ -7,19 +7,17 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('kronolith');
+
+if (Kronolith::showAjaxView()) {
+    Horde::url('', true)->redirect();
+}
 
 // Get the current attendees array from the session cache.
-$attendees = (isset($_SESSION['kronolith']['attendees']) &&
-              is_array($_SESSION['kronolith']['attendees']))
-    ? $_SESSION['kronolith']['attendees']
-    : array();
+$attendees = $session['kronolith:attendees;array'];
+$resources = $session['kronolith:resources;array'];
 $editAttendee = null;
-
-$resources = (isset($_SESSION['kronolith']['resources']) &&
-              is_array($_SESSION['kronolith']['resources']))
-    ? $_SESSION['kronolith']['resources']
-    : array();
 
 // Get the action ID and value. This specifies what action the user initiated.
 $actionID = Horde_Util::getFormData('actionID');
@@ -38,7 +36,7 @@ case 'add':
 
     $newAttendees = Kronolith::parseAttendees($newAttendees);
     if ($newAttendees) {
-        $_SESSION['kronolith']['attendees'] = $attendees + $newAttendees;
+        $session['kronolith:attendees'] = $attendees + $newAttendees;
     }
 
     // Any new resources?
@@ -57,11 +55,11 @@ case 'add':
             'name'       => $resource->get('name'),
         );
 
-        $_SESSION['kronolith']['resources'] = $resources;
+        $session['kronolith:resources'] = $resources;
     }
 
     if (Horde_Util::getFormData('addNewClose')) {
-        Horde_Util::closeWindowJS();
+        echo Horde::wrapInlineScript(array('window.close();'));
         exit;
     }
     break;
@@ -80,7 +78,7 @@ case 'edit':
                    : ' <' . $actionValue . '>'));
         }
         unset($attendees[$actionValue]);
-        $_SESSION['kronolith']['attendees'] = $attendees;
+        $session['kronolith:attendees'] = $attendees;
     }
     break;
 
@@ -89,7 +87,7 @@ case 'remove':
     $actionValue = Horde_String::lower($actionValue);
     if (isset($attendees[$actionValue])) {
         unset($attendees[$actionValue]);
-        $_SESSION['kronolith']['attendees'] = $attendees;
+        $session['kronolith:attendees'] = $attendees;
     }
     break;
 
@@ -97,7 +95,7 @@ case 'removeResource':
     // Remove the specified resource
     if (isset($resources[$actionValue])) {
         unset($resources[$actionValue]);
-        $_SESSION['kronolith']['resources'] = $resources;
+        $session['kronolith:resources'] = $resources;
     }
     break;
 
@@ -106,7 +104,7 @@ case 'changeResourceResp':
     list($partval, $partname) = explode(' ', $actionValue, 2);
     if (isset($resources[$partname])) {
         $resources[$partname]['response'] = $partval;
-        $_SESSION['kronolith']['resources'] = $resources;
+        $session['kronolith:resources'] = $resources;
     }
     break;
 
@@ -116,7 +114,7 @@ case 'changeatt':
     $partname = Horde_String::lower($partname);
     if (isset($attendees[$partname])) {
         $attendees[$partname]['attendance'] = $partval;
-        $_SESSION['kronolith']['attendees'] = $attendees;
+        $session['kronolith:attendees'] = $attendees;
     }
     break;
 
@@ -126,7 +124,7 @@ case 'changeResourceAtt':
     $partname = Horde_String::lower($partname);
     if (isset($resources[$partname])) {
         $resources[$partname]['attendance'] = $partval;
-        $_SESSION['kronolith']['resources'] = $resources;
+        $session['kronolith:resources'] = $resources;
     }
     break;
 
@@ -136,14 +134,14 @@ case 'changeresp':
     $partname = Horde_String::lower($partname);
     if (isset($attendees[$partname])) {
         $attendees[$partname]['response'] = $partval;
-        $_SESSION['kronolith']['attendees'] = $attendees;
+        $session['kronolith:attendees'] = $attendees;
     }
     break;
 
 case 'dismiss':
     // Close the attendee window.
     if ($browser->hasFeature('javascript')) {
-        Horde_Util::closeWindowJS();
+        echo Horde::wrapInlineScript(array('window.close();'));
         exit;
     }
 
@@ -152,17 +150,16 @@ case 'dismiss':
         $url = new Horde_Url($url, true);
     } else {
         $date = new Horde_Date(Horde_Util::getFormData('date'));
-        $url = Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true)
+        $url = Horde::url($prefs->getValue('defaultview') . '.php', true)
             ->add('date', $date->dateString());
     }
 
     // Make sure URL is unique.
-    header('Location: ' . $url->add('unique', hash('md5', microtime())));
-    exit;
+    $url->unique()->redirect();
 
 case 'clear':
     // Remove all the attendees and resources.
-    $_SESSION['kronolith']['attendees'] = $_SESSION['kronolith']['resources'] = array();
+    unset($session['kronolith:attendees'], $session['kronolith:resources']);
     break;
 }
 
@@ -176,13 +173,12 @@ foreach (array_keys($resources) as $id) {
 $view = Horde_Util::getFormData('view', 'Day');
 
 // Pre-format our delete image/link.
-$delimg = Horde::img('delete.png', _("Remove Attendee"), null,
-                     $registry->getImageDir('horde'));
+$delimg = Horde::img('delete.png', _("Remove Attendee"));
 
-$ident = Horde_Prefs_Identity::singleton();
+$ident = $injector->getInstance('Horde_Core_Factory_Identity')->create();
 $identities = $ident->getAll('id');
 $vars = Horde_Variables::getDefaultVariables();
-$tabs = new Horde_Ui_Tabs(null, $vars);
+$tabs = new Horde_Core_Ui_Tabs(null, $vars);
 $tabs->addTab(_("Day"), new Horde_Url('javascript:switchView(\'Day\')'), 'Day');
 $tabs->addTab(_("Work Week"), new Horde_Url('javascript:switchView(\'Workweek\')'), 'Workweek');
 $tabs->addTab(_("Week"), new Horde_Url('javascript:switchView(\'Week\')'), 'Week');
@@ -201,26 +197,24 @@ if (!is_array($cal)) {
 if (!$cal) {
     $cal = $prefs->getValue('default_share');
     if (!$cal) {
-        $cal = Horde_Auth::getAuth();
+        $cal = $GLOBALS['registry']->getAuth();
     }
     $cal = array($cal);
 }
-$vfb = Kronolith_FreeBusy::generate($cal, null, null, true, Horde_Auth::getAuth());
-if (!is_a($vfb, 'PEAR_Error')) {
+try {
+    $vfb = Kronolith_FreeBusy::generate($cal, null, null, true, $GLOBALS['registry']->getAuth());
     $attendee_view->addRequiredMember($vfb);
-} else {
-    $notification->push(
-        sprintf(_("Error retrieving your free/busy information: %s"),
-                $vfb->getMessage()));
+} catch (Exception $e) {
+    $notification->push(sprintf(_("Error retrieving your free/busy information: %s"), $e->getMessage()));
 }
 
 // Add the Free/Busy information for each attendee.
-foreach ($attendees as $email => $status) {
+foreach ($session['kronolith:attendees;array'] as $email => $status) {
     if (strpos($email, '@') !== false &&
         ($status['attendance'] == Kronolith::PART_REQUIRED ||
          $status['attendance'] == Kronolith::PART_OPTIONAL)) {
-        $vfb = Kronolith_Freebusy::get($email);
-        if (!is_a($vfb, 'PEAR_Error')) {
+        try {
+            $vfb = Kronolith_Freebusy::get($email);
             $organizer = $vfb->getAttribute('ORGANIZER');
             if (empty($organizer)) {
                 $vfb->setAttribute('ORGANIZER', 'mailto:' . $email, array(),
@@ -231,10 +225,10 @@ foreach ($attendees as $email => $status) {
             } else {
                 $attendee_view->addOptionalMember($vfb);
             }
-        } else {
+        } catch (Exception $e) {
             $notification->push(
                 sprintf(_("Error retrieving free/busy information for %s: %s"),
-                        $email, $vfb->getMessage()));
+                        $email, $e->getMessage()));
         }
     }
 }
@@ -243,8 +237,8 @@ foreach ($attendees as $email => $status) {
 if (count($resources)) {
     $driver = Kronolith::getDriver('Resource');
     foreach ($resources as $r_id => $resource) {
+        $r = $driver->getResource($r_id);
         try {
-            $r = $driver->getResource($r_id);
             $vfb = $r->getFreeBusy(null, null, true);
             if ($resource['attendance'] == Kronolith::PART_REQUIRED) {
                 $attendee_view->addRequiredResourceMember($vfb);
@@ -265,8 +259,9 @@ $end =  new Horde_Date(Horde_Util::getFormData('enddate', date('Ymd') . '000000'
 $vfb_html = $attendee_view->render($date);
 
 // Add the ContactAutoCompleter
-$cac = Horde_Ajax_Imple::factory(array('kronolith', 'ContactAutoCompleter'), array('triggerId' => 'newAttendees'));
-$cac->attach();
+$injector->getInstance('Horde_Core_Factory_Imple')->create(array('kronolith', 'ContactAutoCompleter'), array(
+    'triggerId' => 'newAttendees'
+));
 
 $title = _("Edit attendees");
 require KRONOLITH_TEMPLATES . '/common-header.inc';

@@ -2,8 +2,6 @@
 /**
  * The Agora script to display a list of forums.
  *
- * $Horde: agora/owner.php,v 1.7 2009/09/29 13:43:15 duck Exp $
- *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -12,17 +10,12 @@
  * @author Duck  <duck@oabla.net>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
-
-/* Only authenticated users should be using this. */
-if (!Horde_Auth::isAuthenticated()) {
-    $notification->push(_("You are not authorised for this action."), 'horde.warning');
-    Horde_Auth::authenticateFailure('agora');
-}
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('agora');
 
 /* Default to agora and current user if is not an admin. */
 $scope = Horde_Util::getGet('scope', 'agora');
-$owner = Horde_Auth::isAdmin() ? Horde_Util::getGet('owner', Horde_Auth::getAuth()) : Horde_Auth::getAuth();
+$owner = $registry->isAdmin() ? Horde_Util::getGet('owner', $registry->getAuth()) : $registry->getAuth();
 
 /* Get the sorting. */
 $sort_by = Agora::getSortBy('threads');
@@ -30,7 +23,7 @@ $sort_dir = Agora::getSortDir('threads');
 
 require AGORA_TEMPLATES . '/common-header.inc';
 
-echo '<div id="menu">' . Agora::getMenu('string') . '</div>';
+echo Horde::menu();
 $notification->notify(array('listeners' => 'status'));
 echo '<h1>' . sprintf(_("Last posts in forums owned by %s"), $owner) . '</h1>';
 
@@ -48,7 +41,7 @@ foreach ($registry->listApps() as $scope) {
             echo _("No threads");
         } else {
             $link_back = $registry->hasMethod('show', $scope);
-            $url = Horde::applicationUrl('agora/messages/index.php');
+            $url = Horde::url('agora/messages/index.php');
 
             /* link threads if possible */
             foreach ($threads as &$thread) {

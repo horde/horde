@@ -12,12 +12,17 @@ window.Horde = window.Horde || {};
 /**
  * Open a popup window.
  *
- * @param object $opts   The following params:
+ * Parameters:
  * 'height' - The height of the popup window. (Default: 650 px)
  * 'menu' - Show the browser menu in the popup? (Default: no)
+ * 'name' - The name for the window. (Default: none)
+ * 'noalert' - Don't show alert if window could not open. (Default: false)
+ * 'onload' - A function to call when the window is loaded. (Default: none)
  * 'params' - Any additional params to pass to the script. (Default: no args)
  * 'width' - The width of the popup window. (Default: 700 px)
  * 'url' - The URL to open in the popup window.
+ *
+ * Returns true if window was opened, false otherwise.
  */
 Horde.popup = function(opts)
 {
@@ -25,11 +30,11 @@ Horde.popup = function(opts)
         opts = decodeURIComponent(opts).evalJSON(true);
     }
 
-    var q, win,
+    var name, q, win,
         height = Math.min(screen.height - 75, opts.height || 650),
         menu = (opts.menu ? 'yes' : 'no'),
-        name = new Date().getTime(),
         params = $H(),
+        uniq = new Date().getTime(),
         url = opts.url,
         width = Math.min(screen.width - 75, opts.width || 700);
 
@@ -44,18 +49,31 @@ Horde.popup = function(opts)
             params.set(a.key, unescape(a.value));
         });
     }
-    params.set('uniq', name);
+    params.set('uniq', uniq);
 
-    win = window.open(url + '?' + params.toQueryString(), name, 'menubar=' + menu + ',toolbar=no,location=no,status=yes,scrollbars=yes,resizable=yes,width=' + width + ',height=' + height + ',left=0,top=0');
+    win = window.open(url + '?' + params.toQueryString(), opts.name || uniq, 'menubar=' + menu + ',toolbar=no,location=no,status=yes,scrollbars=yes,resizable=yes,width=' + width + ',height=' + height + ',left=0,top=0');
+
     if (!win) {
-        alert(Horde.popup_block_text);
-    } else {
-        if (Object.isUndefined(win.name)) {
-            win.name = name;
+        if (!opts.noalert) {
+            alert(Horde.popup_block_text);
         }
-        if (Object.isUndefined(win.opener)) {
-            win.opener = self;
-        }
-        win.focus();
+        return false;
     }
-};
+
+    if (opts.onload) {
+        opts.onload = eval(opts.onload);
+        win.onload = opts.onload.curry(win);
+    }
+
+    if (Object.isUndefined(win.name)) {
+        win.name = name;
+    }
+
+    if (Object.isUndefined(win.opener)) {
+        win.opener = self;
+    }
+
+    win.focus();
+
+    return true;
+}

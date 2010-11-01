@@ -3,61 +3,59 @@
  * The Horde_Auth_Imap:: class provides an IMAP implementation of the Horde
  * authentication system.
  *
- * Optional parameters:
- * <pre>
- * 'admin_password'  The password of the adminstrator.
- *                   DEFAULT: null
- * 'admin_user'      The name of a user with admin privileges.
- *                   DEFAULT: null
- * 'hostspec'        The hostname or IP address of the server.
- *                   DEFAULT: 'localhost'
- * 'port'            The server port to which we will connect.
- *                   IMAP is generally 143, while IMAP-SSL is generally 993.
- *                   DEFAULT: Encryption port default
- * 'secure'          The encryption to use.  Either 'none', 'ssl', or 'tls'.
- *                   DEFAULT: 'none'
- * 'userhierarchy'   The hierarchy where user mailboxes are stored.
- *                   DEFAULT: 'user.'
- * </pre>
- *
- * If setting up as Horde auth handler in conf.php, this is a sample entry:
- * <pre>
- * $conf['auth']['params']['hostspec'] = 'imap.example.com';
- * $conf['auth']['params']['port'] = 143;
- * $conf['auth']['params']['secure'] = 'none';
- * </pre>
- *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Gaudenz Steinlin <gaudenz@soziologie.ch>
- * @author  Jan Schneider <jan@horde.org>
- * @package Horde_Auth
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Gaudenz Steinlin <gaudenz@soziologie.ch>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
+ * @package  Auth
  */
 class Horde_Auth_Imap extends Horde_Auth_Base
 {
     /**
-     * Cached Horde_Imap_Client_Base object.
+     * Imap client objects.
      *
-     * @var Horde_Imap_Client_Base
+     * @var array()
      */
-    protected $_ob;
+    protected $_imap = array();
 
     /**
      * Constructor.
      *
-     * @param array $params  A hash containing connection parameters.
+     * @param array $params  Optional parameters:
+     * <pre>
+     * 'admin_password' - (string) The password of the adminstrator.
+     *                    DEFAULT: null
+     * 'admin_user' - (string) The name of a user with admin privileges.
+     *                DEFAULT: null
+     * 'charset' - (string) Default charset.
+     *             DEFAULT: NONE
+     * 'hostspec' - (string) The hostname or IP address of the server.
+     *              DEFAULT: 'localhost'
+     * 'port' - (integer) The server port to which we will connect.
+     *          IMAP is generally 143, while IMAP-SSL is generally 993.
+     *          DEFAULT: Encryption port default
+     * 'secure' - (string) The encryption to use.  Either 'none', 'ssl', or
+     *            'tls'.
+     *            DEFAULT: 'none'
+     * 'userhierarchy' - (string) The hierarchy where user mailboxes are
+     *                   stored.
+     *                   DEFAULT: 'user.'
+     * </pre>
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         $params = array_merge(array(
             'admin_password' => null,
             'admin_user' => null,
+            'charset' => null,
             'hostspec' => '',
-            'port' => '',
+            'port' => null,
             'secure' => 'none',
             'userhierarchy' => 'user.'
         ), $params);
@@ -65,9 +63,11 @@ class Horde_Auth_Imap extends Horde_Auth_Base
         parent::__construct($params);
 
         if (!empty($this->_params['admin_user'])) {
-            $this->_capabilities['add'] = true;
-            $this->_capabilities['remove'] = true;
-            $this->_capabilities['list'] = true;
+            $this->_capabilities = array_merge($this->_capabilities, array(
+                'add' => true,
+                'list' => true,
+                'remove' => true
+            ));
         }
     }
 
@@ -102,7 +102,7 @@ class Horde_Auth_Imap extends Horde_Auth_Base
     {
         try {
             $ob = $this->_getOb($this->_params['admin_user'], $this->_params['admin_password']);
-            $mailbox = Horde_String::convertCharset($this->_params['userhierarchy'] . $userId, Horde_Nls::getCharset(), 'utf7-imap');
+            $mailbox = Horde_String::convertCharset($this->_params['userhierarchy'] . $userId, $this->_params['charset'], 'utf7-imap');
             $ob->createMailbox($mailbox);
             $ob->setACL($mailbox, $this->_params['admin_user'], 'lrswipcda');
         } catch (Horde_Imap_Client_Exception $e) {
@@ -122,7 +122,7 @@ class Horde_Auth_Imap extends Horde_Auth_Base
         try {
             $ob = $this->_getOb($this->_params['admin_user'], $this->_params['admin_password']);
             $ob->setACL($mailbox, $this->_params['admin_user'], 'lrswipcda');
-            $ob->deleteMailbox(Horde_String::convertCharset($this->_params['userhierarchy'] . $userId, Horde_Nls::getCharset(), 'utf7-imap'));
+            $ob->deleteMailbox(Horde_String::convertCharset($this->_params['userhierarchy'] . $userId, $this->_params['charset'], 'utf7-imap'));
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_Auth_Exception($e);
         }
@@ -153,12 +153,17 @@ class Horde_Auth_Imap extends Horde_Auth_Base
     /**
      * Get Horde_Imap_Client object.
      *
+     * @param string $user  Username.
+     * @param string $pass  Password.
+     *
      * @return Horde_Imap_Client_Base  IMAP client object.
      * @throws Horde_Exception
      */
     protected function _getOb($user, $pass)
     {
-        if (!$this->_ob) {
+        $sig = hash('md5', serialize(array($user, $pass)));
+
+        if (!isset($this->_ob[$sig])) {
             $imap_config = array(
                 'hostspec' => empty($this->_params['hostspec']) ? null : $this->_params['hostspec'],
                 'password' => $pass,
@@ -167,10 +172,10 @@ class Horde_Auth_Imap extends Horde_Auth_Base
                 'username' => $user
             );
 
-            $this->_ob = Horde_Imap_Client::factory('Socket', $imap_config);
+            $this->_ob[$sig] = Horde_Imap_Client::factory('Socket', $imap_config);
         }
 
-        return $this->_ob;
+        return $this->_ob[$sig];
     }
 
 }

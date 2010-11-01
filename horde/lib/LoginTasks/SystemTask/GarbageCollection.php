@@ -73,7 +73,7 @@ class Horde_LoginTasks_SystemTask_GarbageCollection extends Horde_LoginTasks_Sys
             }
         }
 
-        Horde::logMessage('Cleaned out static files for ' . $type, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Cleaned out static files for ' . $type, 'DEBUG');
     }
 
 }

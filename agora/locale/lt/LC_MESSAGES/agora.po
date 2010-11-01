@@ -1,0 +1,966 @@
+# Lithuanian translations for Agora package.
+# Copyright 2007-2010 The Horde Project
+# This file is distributed under the same license as the Agora package.
+# Vilius Sumskas <vilius@lnk.lt>, 2004, 2007.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Agora 1.0-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2007-11-23 14:52+0200\n"
+"PO-Revision-Date: 2007-11-23 14:56+0200\n"
+"Last-Translator: Vilius Sumskas <vilius@lnk.lt>\n"
+"Language-Team: Lithuanian <vilius@lnk.lt>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
+"100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: moderate.php:51
+#, php-format
+msgid "%d messages was approved."
+msgstr "Patvirtintos(a) %d žinutės(ių)."
+
+#: moderate.php:57
+#, php-format
+msgid "%d messages was deleted."
+msgstr "Ištrintos(a) %d žinutės(ių)."
+
+#: lib/api.php:813
+msgid "Add a comment"
+msgstr "Pridėti komentarą"
+
+#: lib/api.php:147
+msgid "Admin"
+msgstr "Valdymas"
+
+#: messages/merge.php:69
+msgid "After Message: "
+msgstr "Po žinutės: "
+
+#: forums.php:74
+msgid "All Forums"
+msgstr "Visi forumai"
+
+#: lib/Forms/Forum.php:44
+msgid "Allow attachments in this forum?"
+msgstr "Leisti prikabinti failus šiame forume?"
+
+#: messages/lock.php:53
+msgid "Allow replies in this thread"
+msgstr "Leiti atsakinėti šioje temoje"
+
+#: moderate.php:48 moderate.php:69
+msgid "Approve"
+msgstr "Patvirtinti"
+
+#: lib/Comments.php:71 config/prefs.php.dist:103 config/prefs.php.dist:138
+#: config/prefs.php.dist:179 config/prefs.php.dist:267
+msgid "Ascending"
+msgstr "Didėjimo tvarka"
+
+#: lib/Messages.php:1552
+msgid "Attachment"
+msgstr "Prikabintas failas"
+
+#: lib/Comments.php:66 lib/Forms/Search.php:58
+msgid "Author"
+msgstr "Autorius"
+
+#: config/prefs.php.dist:11
+msgid "Avatar"
+msgstr "Avataras"
+
+#: config/prefs.php.dist:67
+#, php-format
+msgid ""
+"Avatars must be smaller than %s by %s pixels and less than %sKb in size."
+msgstr "Avatarai turi būti mažesni nei %s ir %s pikselių ir mažesni nei %sKb."
+
+#: ban.php:58 lib/Messages.php:1497
+msgid "Ban"
+msgstr "Blokuoti"
+
+#: templates/forums/ban.php:10
+msgid "Banned"
+msgstr "Blokuotas"
+
+#: moderate.php:62
+msgid "Body"
+msgstr "Turinys"
+
+#: deleteforum.php:47 lib/api.php:734 messages/move.php:49
+#: messages/delete.php:52 messages/split.php:49 messages/merge.php:50
+#: messages/abuse.php:50 messages/abuse.php:58
+msgid "Cancel"
+msgstr "Atšaukti"
+
+#: lib/Messages.php:1964
+msgid "Cannot create a forum with an empty name."
+msgstr "Nepavyko sukurti forumo be pavadinimo."
+
+#: templates/prefs/avatarselect.inc:8
+msgid "Choose from a gallery of avatars: "
+msgstr "Pasirinkite iš avatarų galerijos: "
+
+#: lib/Comments.php:77 lib/api.php:440
+msgid "Comments"
+msgstr "Komentarai"
+
+#: config/prefs.php.dist:51
+msgid "Comments view"
+msgstr "Komentarų vaizdavimas"
+
+#: editforum.php:44
+#, php-format
+msgid "Could not create the forum. %s"
+msgstr "Nepavyko sukurti forumo. %s"
+
+#: deleteforum.php:68
+#, php-format
+msgid "Could not delete the forum. %s"
+msgstr "Nepavyko ištrinti forumo. %s"
+
+#: lib/api.php:717 lib/api.php:728 lib/api.php:742 messages/delete.php:66
+#, php-format
+msgid "Could not delete the message. %s"
+msgstr "Nepavyko ištrinti žinutės. %s"
+
+#: threads.php:33
+#, php-format
+msgid "Could not list threads. %s"
+msgstr "Nepavyko parodyti temos. %s"
+
+#: messages/lock.php:62
+#, php-format
+msgid "Could not lock the thread. %s"
+msgstr "Nepavyko užrakinti temos. %s"
+
+#: messages/move.php:33 messages/index.php:36 messages/delete.php:36
+#: messages/lock.php:35 messages/split.php:33 messages/merge.php:34
+#: messages/abuse.php:33
+#, php-format
+msgid "Could not open the message. %s"
+msgstr "Nepavyko parodyti žinutės. %s"
+
+#: lib/api.php:581 lib/api.php:634 messages/edit.php:33 messages/edit.php:85
+msgid "Could not post the message: "
+msgstr "Nepavyko įrašyti žinutės: "
+
+#: lib/Forms/Forum.php:30
+msgid "Create"
+msgstr "Sukurti"
+
+#: lib/Messages.php:1548
+msgid "Current attachment"
+msgstr "Jau prikabinti failai"
+
+#: moderate.php:62 forums.php:57 lib/Comments.php:65 lib/Comments.php:84
+#: lib/Comments.php:99 lib/api.php:429 lib/Block/threads.php:125
+#: lib/Block/thread.php:84 lib/Block/forums.php:87 messages/index.php:148
+#: config/prefs.php.dist:94 config/prefs.php.dist:128
+#: config/prefs.php.dist:170 config/prefs.php.dist:258
+msgid "Date"
+msgstr "Data"
+
+#: config/prefs.php.dist:259
+msgid "Default comments view sort:"
+msgstr "Standartinis komentarų rūšiavimas:"
+
+#: config/prefs.php.dist:95
+msgid "Default forums view sort:"
+msgstr "Standartinis forumų rūšiavimas:"
+
+#: config/prefs.php.dist:105 config/prefs.php.dist:140
+#: config/prefs.php.dist:181 config/prefs.php.dist:269
+msgid "Default sorting direction:"
+msgstr "Standartinė rūšiavimo kryptis:"
+
+#: config/prefs.php.dist:171
+msgid "Default thread view sort:"
+msgstr "Standartinis vienos temos rūšiavimas:"
+
+#: config/prefs.php.dist:130
+msgid "Default threads view sort:"
+msgstr "Standartinis temų rūšiavimas:"
+
+#: ban.php:55 moderate.php:54 moderate.php:69 moderators.php:67
+#: deleteforum.php:47 deleteforum.php:65 lib/api.php:734 lib/api.php:739
+#: lib/Messages.php:918 lib/Messages.php:1799 messages/index.php:124
+#: messages/delete.php:52 messages/delete.php:57
+msgid "Delete"
+msgstr "Ištrinti"
+
+#: lib/api.php:733 messages/delete.php:51
+#, php-format
+msgid "Delete \"%s\" and all replies?"
+msgstr "Ištrinti \"%s\" ir visus atsakymus?"
+
+#: deleteforum.php:45 lib/Messages.php:1495
+msgid "Delete Forum"
+msgstr "Ištrinti forumą"
+
+#: lib/Messages.php:1799
+msgid "Delete forum"
+msgstr "Ištrinti forumą"
+
+#: lib/Messages.php:918
+msgid "Delete message"
+msgstr "Ištrinti žinutę"
+
+#: lib/Messages.php:1547
+msgid "Delete the existing attachment?"
+msgstr "Ištrinti egzistuojantį prikabintą failą?"
+
+#: lib/Comments.php:72 config/prefs.php.dist:104 config/prefs.php.dist:139
+#: config/prefs.php.dist:180 config/prefs.php.dist:268
+msgid "Descending"
+msgstr "Mažėjimo tvarka"
+
+#: forums.php:57
+msgid "Description"
+msgstr "Aprašymas"
+
+#: config/prefs.php.dist:21 config/prefs.php.dist:28 config/prefs.php.dist:35
+#: config/prefs.php.dist:43 config/prefs.php.dist:50
+msgid "Display Options"
+msgstr "Vaizdavimo nustatymai"
+
+#: config/prefs.php.dist:248
+msgid "Display full message bodies in the comments view?"
+msgstr "Rodyti pilną žinutės tekstą komentarų sąraše?"
+
+#: config/prefs.php.dist:192
+msgid "Display full message bodies in the thread list view?"
+msgstr "Rodyti pilną žinutę temos žinučių sąraše?"
+
+#: config/prefs.php.dist:211
+msgid "Display graphical emoticons?"
+msgstr "Rodyti grafines šypsenėles?"
+
+#: lib/Messages.php:914 lib/Messages.php:1793 messages/index.php:121
+msgid "Edit"
+msgstr "Redaguoti"
+
+#: editforum.php:25 lib/Messages.php:1492
+msgid "Edit Forum"
+msgstr "Forumo redagavimas"
+
+#: lib/api.php:609
+msgid "Edit Message"
+msgstr "Žinutės redagavimas"
+
+#: messages/edit.php:72
+#, php-format
+msgid "Edit Message in \"%s\""
+msgstr "Žinutės redagavimas forume \"%s\""
+
+#: lib/api.php:811
+msgid "Edit a comment"
+msgstr "Redaguoti komentarą"
+
+#: lib/Messages.php:1793
+msgid "Edit forum"
+msgstr "Redaguoti forumą"
+
+#: lib/Messages.php:914
+msgid "Edit message"
+msgstr "Redaguoti žinutę"
+
+#: lib/Forms/Forum.php:41
+msgid "Enter a brief description of this forum"
+msgstr "Įrašykite trumpą forumo aprašymą"
+
+#: lib/Comments.php:58 messages/index.php:170 config/prefs.php.dist:246
+msgid "Flat"
+msgstr "Plokščias"
+
+#: moderate.php:62 moderators.php:79 moderators.php:82 forums.php:57
+#: lib/Block/threads.php:46 lib/Block/forums.php:87
+#: templates/moderators/moderators.php:8 messages/move.php:54
+#: config/prefs.php.dist:90
+msgid "Forum"
+msgstr "Forumas"
+
+#: lib/api.php:711 lib/Messages.php:1711
+#, php-format
+msgid "Forum %s does not exist."
+msgstr "Forumas %s neegzistuoja."
+
+#: editforum.php:47
+msgid "Forum Modified"
+msgstr "Forumas keistas"
+
+#: editforum.php:47
+msgid "Forum created."
+msgstr "Forumas sukurtas."
+
+#: deleteforum.php:70
+msgid "Forum deleted."
+msgstr "Forumas ištrintas."
+
+#: deleteforum.php:51 lib/Forms/Forum.php:33
+#: templates/moderators/moderators.php:9
+msgid "Forum name"
+msgstr "Forumo pavadinimas"
+
+#: deleteforum.php:73
+msgid "Forum not deleted."
+msgstr "Forumas neištrintas."
+
+#: lib/api.php:148 lib/Block/forums.php:3 lib/Block/forums.php:28
+#: templates/forums/forums.php:9
+msgid "Forums"
+msgstr "Forumai"
+
+#: config/prefs.php.dist:22
+msgid "Forums View"
+msgstr "Forumo rodymas"
+
+#: lib/Messages.php:1529
+msgid "From"
+msgstr "Nuo"
+
+#: templates/threads/threads.php:43
+msgid "Goto page:"
+msgstr "Eiti į puslapį:"
+
+#: messages/index.php:160 messages/index.php:169
+msgid "Hide bodies"
+msgstr "Paslėpti žinučių tekstą"
+
+#: lib/Messages.php:832
+msgid "Hot thread"
+msgstr "Dažna tema"
+
+#: lib/Forms/Forum.php:44
+msgid "If selected users will be able to attach files to their messages."
+msgstr ""
+"Jeigu pasirinksite, vartotojai galės prikabinti failus prie savo žinučių."
+
+#: messages/edit.php:114
+msgid ""
+"Invalid parent message, you will be posting this message as a new thread."
+msgstr "Neteisinga tėviškoji žinutė, ši žinutė bus paskelbta kaip nauja tema."
+
+#: lib/Forms/Forum.php:42
+msgid "Is this a moderated forum?"
+msgstr "Ar tai moderuojamas forumas?"
+
+#: lib/Forms/Search.php:46
+msgid "Keywords"
+msgstr "Žodžiai"
+
+#: config/prefs.php.dist:92
+msgid "Last Message"
+msgstr "Paskutinė žinutė"
+
+#: forums.php:57 lib/Block/forums.php:87
+msgid "Last Post"
+msgstr "Paskutinė žinutė"
+
+#: threads.php:62 config/prefs.php.dist:129
+msgid "Last post"
+msgstr "Paskutinė žinutė"
+
+#: lib/Messages.php:922
+msgid "Lock"
+msgstr "Užrakinti"
+
+#: messages/index.php:127
+msgid "Lock thread"
+msgstr "Užrakinti temą"
+
+#: messages/lock.php:50
+#, php-format
+msgid "Locking thread \"%s\""
+msgstr "Temos \"%s\" rakinimas"
+
+#: lib/Agora.php:361
+msgid "Malformed avatar."
+msgstr "Neteisingas avataras."
+
+#: lib/Agora.php:384
+msgid "Malformed database entry."
+msgstr "Neteisingas duomenų bazės įrašas."
+
+#: lib/Messages.php:933 messages/merge.php:50 messages/merge.php:76
+msgid "Merge"
+msgstr "Sujungti"
+
+#: messages/merge.php:49
+#, php-format
+msgid "Merge \"%s\" with another thread"
+msgstr "Sujungti \"%s\" su kita tema"
+
+#: lib/Messages.php:1542
+msgid "Message"
+msgstr "Žinutė"
+
+#: messages/abuse.php:80
+#, php-format
+msgid "Message %s reported as abuse"
+msgstr "Žinutė %s paskelbta kaip nepageidaujama."
+
+#: lib/Messages.php:500
+#, php-format
+msgid "Message ID \"%d\" not found"
+msgstr "Žinutė, kurios ID \"%d\", nėrasta"
+
+#: config/prefs.php.dist:44
+msgid "Message View"
+msgstr "Žinutės rodymas"
+
+#: lib/api.php:744 messages/delete.php:68
+msgid "Message deleted."
+msgstr "Žinutė ištrinta."
+
+#: lib/api.php:749 messages/delete.php:58
+msgid "Message not deleted."
+msgstr "Žinutė neištrinta."
+
+#: lib/api.php:636 messages/edit.php:87
+msgid "Message posted."
+msgstr "Žinutė įrašyta."
+
+#: config/prefs.php.dist:91
+msgid "Messages"
+msgstr "Žinutės"
+
+#: moderate.php:81 templates/moderate/moderate.php:9
+msgid "Messages Awaiting Moderation"
+msgstr "Žinutės laukiančios patvirtinimo"
+
+#: lib/Messages.php:1818
+msgid "Moderate"
+msgstr "Moderuoti"
+
+#: moderators.php:77 lib/Tree/flat.php:117
+#: templates/messages/flat_thread.php:10 templates/messages/flat.php:25
+#: templates/messages/message.php:21
+msgid "Moderator"
+msgstr "Moderatorius"
+
+#: moderators.php:71 templates/moderators/moderators.php:4
+#: templates/moderators/moderators.php:10 templates/forums/forums.php:39
+msgid "Moderators"
+msgstr "Moderatoriai"
+
+#: lib/Messages.php:929 messages/move.php:49 messages/move.php:61
+msgid "Move"
+msgstr "Perkelti"
+
+#: messages/move.php:48
+#, php-format
+msgid "Move \"%s\" to another forum"
+msgstr "Perkelti \"%s\" į kitą forumą"
+
+#: config/prefs.php.dist:10
+msgid "My Information"
+msgstr "Mano informacija"
+
+#: editforum.php:25
+msgid "New Forum"
+msgstr "Naujas forumas"
+
+#: lib/Messages.php:1788
+msgid "New Post"
+msgstr "Nauja žinutė"
+
+#: lib/Agora.php:267
+msgid "New Thread"
+msgstr "Nauja tema"
+
+#: lib/Messages.php:833
+msgid "New posts"
+msgstr "Naujos žinutės"
+
+#: config/prefs.php.dist:189
+msgid "No"
+msgstr "Ne"
+
+#: lib/Block/threads.php:121
+msgid "No available threads."
+msgstr "Temų nėra."
+
+#: lib/Block/threads.php:100
+msgid "No forum selected"
+msgstr "Nepasirinktas forumas"
+
+#: templates/forums/forums.php:64
+msgid "No forums have been created."
+msgstr "Forumų nėra."
+
+#: config/prefs.php.dist:209
+msgid "No graphical emoticons"
+msgstr "Nerodyti grafinių šypsenėlių"
+
+#: moderate.php:40
+msgid "No messages are waiting for moderation."
+msgstr "Žinučių laukiančių moderavimo nėra."
+
+#: messages/abuse.php:41
+msgid "No moderators are associated with this forum."
+msgstr "Šiam forumui nepaskirtas joks moderatorius."
+
+#: templates/moderators/moderators.php:27
+msgid "No moderators have been created."
+msgstr "Moderatorių nėra."
+
+#: templates/block/threads.php:32
+msgid "No threads"
+msgstr "Temų nėra"
+
+#: messages/lock.php:53
+msgid "No, do not allow replies"
+msgstr "Ne, neleisti atsakinėti"
+
+#: config/prefs.php.dist:114
+msgid "Number of forums to display on each page"
+msgstr "Forumų skaičius viename puslapyje"
+
+#: config/prefs.php.dist:201
+msgid "Number of message to display on each page"
+msgstr "Žinučių skaičius viename puslapyje"
+
+#: config/prefs.php.dist:157 config/prefs.php.dist:278
+msgid "Number of messages to display on each page"
+msgstr "Žinučių skaičius viename puslapyje"
+
+#: config/prefs.php.dist:148
+msgid "Number of views in 24hrs to trigger a 'hot-thread':"
+msgstr "Parodymų skaičius per 24 val., kad tema būtų paskelbta kaip 'dažna':"
+
+#: lib/Block/forums.php:35
+msgid "Only display this many forums (0 to display all forums)"
+msgstr "Rodyti tik tiek forumų (0 rodo visus)"
+
+#: lib/Block/threads.php:53
+msgid "Only display this many threads (0 to display all threads)"
+msgstr "Rodyti tik tiek temų (0 rodo visas)"
+
+#: templates/forums/forums.php:34
+msgid "Options"
+msgstr "Nustatymai"
+
+#: lib/Messages.php:880
+#, php-format
+msgid "Page %d"
+msgstr "%d puslapis"
+
+#: lib/Forms/Forum.php:36
+msgid "Parent forum"
+msgstr "Tėviškasis forumas"
+
+#: lib/Messages.php:1511
+msgid "Post"
+msgstr "Įrašyti"
+
+#: lib/api.php:609
+msgid "Post a New Message"
+msgstr "Sukurti naują žinutę"
+
+#: messages/edit.php:73
+#, php-format
+msgid "Post a New Message to \"%s\""
+msgstr "Naujos žinutės rašymas forume \"%s\""
+
+#: messages/index.php:215 messages/edit.php:71
+#, php-format
+msgid "Post a Reply to \"%s\""
+msgstr "Atsakymo rašymas į \"%s\""
+
+#: lib/Messages.php:1487 lib/Messages.php:1788
+msgid "Post message"
+msgstr "Sukurti žinutę"
+
+#: moderate.php:62 forums.php:57 lib/Comments.php:82 lib/Comments.php:98
+#: lib/api.php:427 lib/Block/threads.php:125 lib/Block/thread.php:84
+#: lib/Block/forums.php:87 lib/Tree/flat.php:112
+#: templates/messages/flat_thread.php:7 templates/messages/flat.php:21
+#: messages/index.php:148 config/prefs.php.dist:93 config/prefs.php.dist:126
+#: config/prefs.php.dist:169 config/prefs.php.dist:257
+msgid "Posted by"
+msgstr "Autorius"
+
+#: lib/Messages.php:545 messages/index.php:89
+#, php-format
+msgid "Posted by %s on %s"
+msgstr "Autorius %s %s"
+
+#: threads.php:62 forums.php:57 lib/Block/forums.php:87
+#: config/prefs.php.dist:127
+msgid "Posts"
+msgstr "Žinutės"
+
+#: lib/Messages.php:1534
+msgid "Quote"
+msgstr "Cituoti"
+
+#: lib/Messages.php:902 messages/index.php:115
+msgid "Reply"
+msgstr "Atsakyti"
+
+#: lib/Messages.php:902
+msgid "Reply to message"
+msgstr "Atsakyti į žinutę"
+
+#: lib/Messages.php:908 messages/abuse.php:49 messages/abuse.php:50
+msgid "Report as abuse"
+msgstr "Paskelbti kaip nepageidaujamą"
+
+#: lib/Forms/Search.php:47
+msgid "Require all keywords?"
+msgstr "Reikalauti visų raktinių žodžių?"
+
+#: lib/Messages.php:1511
+msgid "Save"
+msgstr "Išsaugoti"
+
+#: lib/Forms/Search.php:60
+msgid "Search"
+msgstr "Ieškoti"
+
+#: search.php:71 lib/Forms/Search.php:36
+msgid "Search Forums"
+msgstr "Paieška forumuose"
+
+#: templates/search/search.php:5
+msgid "Search Results"
+msgstr "Paieškos rezultatai"
+
+#: lib/Forms/Search.php:55
+msgid "Search in message contents?"
+msgstr "Ieškoti žinutės tekste?"
+
+#: lib/Forms/Search.php:51
+msgid "Search in subjects?"
+msgstr "Ieškoti pavadinimuose?"
+
+#: lib/Forms/Search.php:40
+msgid "Search in these forums"
+msgstr "Ieškoti šiuose forumuose"
+
+#: config/prefs.php.dist:12
+msgid "Set the avatar image that is shown with your posts."
+msgstr "Avataro paveiksliuko, kuris rodomas jūsų žinutėse, nustatymas."
+
+#: lib/Forms/Forum.php:42
+msgid ""
+"Set this if you want all messages to be checked by a moderator before they "
+"are posted."
+msgstr ""
+"Pažymėkite tai, jeigu norite, kad visos žinutės prieš patekdamos į forumą, "
+"būtų patikrinamos moderatorių."
+
+#: config/prefs.php.dist:23
+msgid "Set your options for the forums view."
+msgstr "Forumų vaizdavimo nustatymų keitimas."
+
+#: config/prefs.php.dist:45
+msgid "Set your options for the message view."
+msgstr "Žinutės vaizdavimo nustatymų keitimas."
+
+#: config/prefs.php.dist:37 config/prefs.php.dist:52
+msgid "Set your options for the single thread view."
+msgstr "Vienos temos vaizdavimo nustatymų keitimas."
+
+#: config/prefs.php.dist:30
+msgid "Set your options for the threads view."
+msgstr "Temų vaizdavimo nustatymų keitimas."
+
+#: config/prefs.php.dist:210
+msgid "Show graphical emoticons"
+msgstr "Rodyti grafines šypsenėles"
+
+#: lib/Block/thread.php:3 lib/Block/thread.php:53
+msgid "Single Thread"
+msgstr "Viena tema"
+
+#: config/prefs.php.dist:36
+msgid "Single Thread View"
+msgstr "Vienos temos rodymas"
+
+#: lib/Agora.php:206
+msgid "Sort Ascending"
+msgstr "Surūšiuoti didėjančia tvarka"
+
+#: lib/Agora.php:206
+msgid "Sort Descending"
+msgstr "Surūšiuoti mažėjančia tvarka"
+
+#: lib/Comments.php:63
+msgid "Sort by"
+msgstr "Rūšiuoti pagal"
+
+#: lib/Agora.php:214 lib/Agora.php:221
+#, php-format
+msgid "Sort by %s"
+msgstr "Rūšiuoti pagal %s"
+
+#: lib/Comments.php:69
+msgid "Sort direction"
+msgstr "Rūšiavimo kryptis"
+
+#: lib/Messages.php:1556 lib/Forms/Message.php:26
+msgid "Spam protection"
+msgstr "Apsauga nuo šiukšlių"
+
+#: lib/Messages.php:938 messages/split.php:49 messages/split.php:57
+msgid "Split"
+msgstr "Išskirti"
+
+#: messages/split.php:48
+#, php-format
+msgid "Split \"%s\""
+msgstr "Išskirti \"%s\""
+
+#: threads.php:62
+msgid "Started"
+msgstr "Autorius"
+
+#: deleteforum.php:59
+msgid "Subforums"
+msgstr "Subforumai"
+
+#: moderate.php:62 threads.php:62 lib/Comments.php:67 lib/Comments.php:80
+#: lib/Comments.php:97 lib/api.php:425 lib/Messages.php:1536
+#: lib/Messages.php:1539 lib/Block/threads.php:125 lib/Block/thread.php:84
+#: messages/index.php:148 config/prefs.php.dist:125 config/prefs.php.dist:168
+#: config/prefs.php.dist:256
+msgid "Subject"
+msgstr "Tema"
+
+#: lib/Agora.php:243
+msgid "The VFS backend needs to be configured to enable attachment uploads."
+msgstr "Prikabintų failų galimybei turi būti įjungta VFS posistemė."
+
+#: config/prefs.php.dist:64
+msgid "The location of your avatar image."
+msgstr "Jūsų avataro paveiksliuko vieta."
+
+#: lib/Block/forums.php:78
+msgid "There are no forums."
+msgstr "Forumų nėra."
+
+#: templates/threads/threads.php:72
+msgid "There are no threads in this forum."
+msgstr "Šiame forume temų nėra."
+
+#: lib/Messages.php:166
+msgid "This thread has been locked."
+msgstr "Ši tema yra užrakinta."
+
+#: deleteforum.php:50
+msgid "This will delete the forum, any subforums and all relative messages."
+msgstr ""
+"Tai ištrins šį forumą, bet kokius gilesnius forumus ir visas susijusias "
+"žinutes."
+
+#: lib/Comments.php:59 lib/Comments.php:96 lib/Block/thread.php:33
+#: lib/Block/thread.php:84 messages/index.php:148 messages/index.php:161
+#: config/prefs.php.dist:124 config/prefs.php.dist:167
+#: config/prefs.php.dist:247
+msgid "Thread"
+msgstr "Temų grupės"
+
+#: messages/merge.php:81
+#, php-format
+msgid "Thread %s merged with thread %s after message %s."
+msgstr "Tema %s sujungta su tema %s po žinutės %s."
+
+#: messages/move.php:66
+#, php-format
+msgid "Thread %s moved to from forum %s to %s."
+msgstr "Tema %s perkelta iš forumo %s į %s."
+
+#: lib/Block/thread.php:91 templates/messages/index.php:9
+msgid "Thread List"
+msgstr "Žinučių sąrašas"
+
+#: templates/messages/message.php:34
+msgid "Thread Summary"
+msgstr "Temos santrumpa"
+
+#: messages/delete.php:73
+msgid "Thread deleted."
+msgstr "Tema ištrinta."
+
+#: messages/index.php:207 messages/lock.php:65
+msgid "Thread locked."
+msgstr "Tema užrakinta."
+
+#: messages/split.php:62
+#, php-format
+msgid "Thread splitted by message %s."
+msgstr "Tema išskirta žinute %s."
+
+#: messages/lock.php:67
+msgid "Thread unlocked."
+msgstr "Tema atrakinta."
+
+#: forums.php:57 lib/Block/threads.php:3 lib/Block/threads.php:72
+#: lib/Block/threads.php:78
+msgid "Threads"
+msgstr "Temos"
+
+#: config/prefs.php.dist:29
+msgid "Threads View"
+msgstr "Temų rodymas"
+
+#: lib/Block/threads.php:82
+#, php-format
+msgid "Threads in \"%s\""
+msgstr "\"%s\" temos"
+
+#: threads.php:69 threads.php:81
+#, php-format
+msgid "Threads in %s"
+msgstr "%s temos"
+
+#: lib/Block/thread.php:72
+msgid "Unable to fetch selected thread."
+msgstr "Nepavyko parodyti pasirinktos temos."
+
+#: lib/Block/threads.php:106
+msgid "Unable to fetch threads for selected forum."
+msgstr "Nepavyko parodyti temų pasirinktame forume."
+
+#: lib/Messages.php:922
+msgid "Unlock"
+msgstr "Atrakinti"
+
+#: messages/index.php:127
+msgid "Unlock thread"
+msgstr "Atrakinti temą"
+
+#: lib/Forms/Forum.php:30 messages/lock.php:51
+msgid "Update"
+msgstr "Atnaujinti"
+
+#: config/prefs.php.dist:79
+msgid "Upload your own avatar image."
+msgstr "Įkelkite savo avataro paveiksliuką."
+
+#: ban.php:65
+msgid "User"
+msgstr "Vartotojas"
+
+#: lib/Comments.php:57
+msgid "View"
+msgstr "Rodyti"
+
+#: messages/index.php:187
+msgid "View bodies"
+msgstr "Rodyti žinučių turinį"
+
+#: threads.php:62
+msgid "Views"
+msgstr "Rodymas"
+
+#: messages/merge.php:60
+msgid "With Thread: "
+msgstr "Su tema: "
+
+#: config/prefs.php.dist:190
+msgid "Yes"
+msgstr "Taip"
+
+#: messages/lock.php:53
+msgid "Yes, allow replies"
+msgstr "Taip, leisti atsakinėti"
+
+#: config/prefs.php.dist:191
+msgid "Yes, and don't thread them"
+msgstr "Taip, ir nerodo sąryšių"
+
+#: lib/Messages.php:1696
+#, php-format
+msgid "You don't have permission to access messages in forum %s."
+msgstr "Jūs neturite teisių peržiūrėti žinutes forume %s."
+
+#: lib/api.php:722 lib/Messages.php:566 lib/Messages.php:730
+#: messages/move.php:40 messages/delete.php:43 messages/lock.php:42
+#: messages/split.php:40 messages/merge.php:41
+#, php-format
+msgid "You don't have permission to delete messages in forum %s."
+msgstr "Jūs neturite teisių ištrinti žinutes iš forumo %s."
+
+#: lib/api.php:587 lib/Messages.php:171 messages/index.php:201
+#: messages/edit.php:41
+#, php-format
+msgid "You don't have permission to post messages in forum %s."
+msgstr "Jūs neturite teisių rašyti žinučių į forumą %s."
+
+#: lib/Messages.php:804
+#, php-format
+msgid "You don't have permission to read messages in forum %s."
+msgstr "Jūs neturite teisių skaityti žinutes forume %s."
+
+#: ban.php:30
+#, php-format
+msgid "You don't have permissions to ban users from forum %s."
+msgstr "Jūs neturite teisių blokuoti vartotojų forume %s."
+
+#: editforum.php:35
+#, php-format
+msgid "You don't have permissions to create a new forum in %s"
+msgstr "Jūs neturite teisių kurti naujų forumų forume %s"
+
+#: deleteforum.php:29
+#, php-format
+msgid "You don't have permissions to delete forums in %s"
+msgstr "Jūs neturite teisių trinti forumų iš forumo %s"
+
+#: editforum.php:31
+#, php-format
+msgid "You don't have permissions to edit forum %s"
+msgstr "Jūs neturite teisių keisti forumo %s"
+
+#: lib/Agora.php:260
+msgid "_Forums"
+msgstr "Forumai"
+
+#: lib/Agora.php:277
+msgid "_Moderate"
+msgstr "Moderuoti"
+
+#: lib/Agora.php:281
+msgid "_Moderators"
+msgstr "Moderatoriai"
+
+#: lib/Agora.php:272
+msgid "_New Forum"
+msgstr "Naujas forumas"
+
+#: lib/Agora.php:285
+msgid "_Search"
+msgstr "Ieškoti"
+
+#: lib/Agora.php:265
+msgid "_Threads"
+msgstr "Temos"
+
+#: templates/threads/threads.php:59 templates/forums/forums.php:51
+msgid "by"
+msgstr " "
+
+#: lib/Messages.php:1645
+msgid "download"
+msgstr "atsisiųsti"
+
+#: lib/Tree/flat.php:113 templates/messages/flat_thread.php:8
+#: templates/messages/flat.php:22
+msgid "on: "
+msgstr ": "
+
+#: lib/Messages.php:1646
+#, php-format
+msgid "size: %s"
+msgstr "dydis: %s"
+
+#: lib/Messages.php:1646
+#, php-format
+msgid "type: %s"
+msgstr "tipas: %s"

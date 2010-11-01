@@ -1,26 +1,14 @@
-#!/usr/bin/php -q
+#!/usr/bin/env php
 <?php
 /**
  * A script to migrate groups from the DataTree backend to the new
  * (Horde 3.2+) native SQL Group backend.
  */
 
-// Do CLI checks and environment setup first.
-require_once dirname(__FILE__) . '/../../lib/core.php';
+require_once dirname(__FILE__) . '/../../lib/Application.php';
+Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true));
 
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment - make sure there's no time limit, init
-// some variables, etc.
-Horde_Cli::init();
-
-new Horde_Application(array('authentication' => 'none'));
-
-require_once 'Horde/Group.php';
-$g = Group::factory();
+$g = Horde_Group::factory();
 
 $group_query = '
 INSERT INTO
@@ -36,7 +24,7 @@ VALUES
     (?, ?)
 ';
 
-$db = DB::connect($conf['sql']);
+$db = $injector->getInstance('Horde_Core_Factory_DbPear')->create();
 
 foreach ($g->listGroups(true) as $id => $name) {
     if ($id == -1) {
@@ -52,9 +40,9 @@ foreach ($g->listGroups(true) as $id => $name) {
     $parents = implode(':', array_keys($parents));
 
     $params = array($id,
-                    Horde_String::convertCharset($object->name, Horde_Nls::getCharset(), $conf['sql']['charset']),
-                    Horde_String::convertCharset($parents, Horde_Nls::getCharset(), $conf['sql']['charset']),
-                    Horde_String::convertCharset($object->get('email'), Horde_Nls::getCharset(), $conf['sql']['charset']),
+                    Horde_String::convertCharset($object->name, 'UTF-8', $conf['sql']['charset']),
+                    Horde_String::convertCharset($parents, 'UTF-8', $conf['sql']['charset']),
+                    Horde_String::convertCharset($object->get('email'), 'UTF-8', $conf['sql']['charset']),
     );
     $result = $db->query($group_query, $params);
     if (is_a($result, 'PEAR_Error')) {

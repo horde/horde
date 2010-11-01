@@ -8,32 +8,32 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-@define('VILMA_BASE', dirname(__FILE__) . '/..');
-require_once VILMA_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+$vilma = Horde_Registry::appInit('vilma');
 
 /* Only admin should be using this. */
-if (!Horde_Auth::isAdmin() && !Vilma::isDomainAdmin()) {
-    Horde_Auth::authenticateFailure('vilma', $e);
+if (!$registry->isAdmin() && !Vilma::isDomainAdmin()) {
+    $registry->authenticateFailure('vilma', $e);
 }
 
 $user = Horde_Util::getFormData('user');
 if (!empty($user)) {
-    $virtuals = $vilma_driver->getVirtuals($user);
+    $virtuals = $vilma->driver->getVirtuals($user);
     $domain = Vilma::stripDomain($user);
 } else {
     $domain = Vilma::getDomain();
-    $virtuals = $vilma_driver->getVirtuals($domain);
+    $virtuals = $vilma->driver->getVirtuals($domain);
 }
 
 if (is_a($virtuals, 'PEAR_Error')) {
     $notification->push($virtuals);
-    header('Location: ' . Horde::applicationUrl('index.php'));
+    Horde::url('index.php')->redirect();
 }
 
 foreach ($virtuals as $id => $virtual) {
-    $url = Horde::applicationUrl('virtuals/edit.php');
+    $url = Horde::url('virtuals/edit.php');
     $virtuals[$id]['edit_url'] = Horde_Util::addParameter($url, 'virtual_id', $virtual['virtual_id']);
-    $url = Horde::applicationUrl('virtuals/delete.php');
+    $url = Horde::url('virtuals/delete.php');
     $virtuals[$id]['del_url'] = Horde_Util::addParameter($url, 'virtual_id', $virtual['virtual_id']);
 }
 
@@ -41,21 +41,24 @@ $template->set('virtuals', $virtuals, true);
 
 /* Set up the template action links. */
 $actions = array();
-$url = Horde::applicationUrl('virtuals/edit.php');
+$url = Horde::url('virtuals/edit.php');
 $actions['new_url'] = (Vilma::isDomainAdmin() ? $url : Horde_Util::addParameter($url, 'domain', $domain));
 $actions['new_text'] = _("New Virtual Email");
-$url = Horde::applicationUrl('users/index.php');
+$url = Horde::url('users/index.php');
 $actions['users_url'] = (Vilma::isDomainAdmin() ? $url : Horde_Util::addParameter($url, 'domain', $domain));
 $actions['users_text'] = _("Users");
 $template->set('actions', $actions);
 
 /* Set up the field list. */
-$images = array('delete' => Horde::img('delete.png', _("Delete User"), '', $registry->getImageDir('horde')),
-                'edit' => Horde::img('edit.png', _("Edit User"), '', $registry->getImageDir('horde')));
+$images = array('delete' => Horde::img('delete.png', _("Delete User")),
+                'edit' => Horde::img('edit.png', _("Edit User")));
 $template->set('images', $images);
 
 $template->set('menu', Vilma::getMenu('string'));
-$template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$template->set('notify', Horde::endBuffer());
 
 /* Render the page. */
 require VILMA_TEMPLATES . '/common-header.inc';

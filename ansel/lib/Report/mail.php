@@ -37,6 +37,6 @@ class Ansel_Report_mail extends Ansel_Report {
         //FIXME: This address should be configurable
         $mail->addHeader('Sender',
                          'horde-problem@' . $conf['report_content']['maildomain']);
-        return $mail->send(Horde::getMailerConfig());
+        return $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
     }
 }

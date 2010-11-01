@@ -12,26 +12,9 @@
 class Ansel_Faces
 {
     /**
-     * Create instance
-     */
-    static function factory($driver = null, $params = array())
-    {
-        if ($driver === null) {
-            $driver = $GLOBALS['conf']['faces']['driver'];
-        }
-
-        if (empty($params)) {
-            $params = $GLOBALS['conf']['faces'];
-        }
-
-        $class_name = 'Ansel_Faces_' . $driver;
-        $parser = new $class_name($params);
-
-        return $parser;
-    }
-
-    /**
      * Delete faces from VFS and DB storage.
+     *
+     * @TODO: Move SQL queries to Ansel_Storage::
      *
      * @param Ansel_Image $image Image object to delete faces for
      * @param integer $face  Face id
@@ -50,18 +33,20 @@ class Ansel_Faces
             $sql = 'SELECT face_id FROM ansel_faces WHERE image_id = ' . $image->id;
             $face = $GLOBALS['ansel_db']->queryCol($sql);
             if ($face instanceof PEAR_Error) {
-                throw new Horde_Exception($face);
+                throw new Horde_Exception_Prior($face);
             }
-
-            foreach ($face as $id) {
-                $GLOBALS['ansel_vfs']->deleteFile($path, $id . $ext);
-            }
-
+            try {
+                foreach ($face as $id) {
+                    $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->deleteFile($path, $id . $ext);
+                }
+            } catch (VFS_Exception $e) {}
             $GLOBALS['ansel_db']->exec('DELETE FROM ansel_faces WHERE image_id = ' . $image->id);
             $GLOBALS['ansel_db']->exec('UPDATE ansel_images SET image_faces = 0 WHERE image_id = ' . $image->id . ' AND image_faces > 0 ');
             $GLOBALS['ansel_db']->exec('UPDATE ansel_shares SET attribute_faces = attribute_faces - ' . count($face) . ' WHERE gallery_id = ' . $image->gallery . ' AND attribute_faces > 0 ');
         } else {
-            $GLOBALS['ansel_vfs']->deleteFile($path, (int)$face . $ext);
+            try {
+                $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->deleteFile($path, (int)$face . $ext);
+            } catch (VFS_Exception $e) {}
             $GLOBALS['ansel_db']->exec('DELETE FROM ansel_faces WHERE face_id = ' . (int)$face);
             $GLOBALS['ansel_db']->exec('UPDATE ansel_images SET image_faces = image_faces - 1 WHERE image_id = ' . $image->id . ' AND image_faces > 0 ');
             $GLOBALS['ansel_db']->exec('UPDATE ansel_shares SET attribute_faces = attribute_faces - 1 WHERE gallery_id = ' . $image->gallery . ' AND attribute_faces > 0 ');
@@ -114,14 +99,11 @@ class Ansel_Faces
      */
     static public function getFaceTile($face)
     {
-        $faces = Ansel_Faces::factory();
+        $faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
         if (!is_array($face)) {
             $face = $faces->getFaceById($face, true);
         }
-
         $face_id = $face['face_id'];
-        $claim_url = Horde::applicationUrl('faces/claim.php');
-        $search_url = Horde::applicationUrl('faces/search/image_search.php');
 
         // The HTML to display the face image.
         $imghtml = sprintf("<img src=\"%s\" class=\"bordered-facethumb\" id=\"%s\" alt=\"%s\" />",
@@ -136,22 +118,20 @@ class Ansel_Faces
                   'havesearch' => false));
 
         // Build the actual html
-        $html = '<div id="face' . $face_id . '"><table><tr><td>'
-                . ' <a href="' . $img_view_url . '">' . $imghtml . '</a></td><td>';
+        $html = '<div id="face' . $face_id . '"><table><tr><td>' . $img_view_url->link() . $imghtml . '</a></td><td>';
         if (!empty($face['face_name'])) {
-            $html .= Horde::link(Horde_Util::addParameter(Horde::applicationUrl('faces/face.php'), 'face', $face['face_id'], false)) . $face['face_name'] . '</a><br />';
+            $html .= Horde::url('faces/face.php')->add('face', $face['face_id'])->link() . $face['face_name'] . '</a><br />';
         }
 
         // Display the face name or a link to claim the face.
         if (empty($face['face_name']) && $GLOBALS['conf']['report_content']['driver']) {
-            $html .= ' <a href="' . Horde_Util::addParameter($claim_url, 'face', $face_id)
-                . '" title="' . _("Do you know someone in this photo?") . '">'
-                . _("Claim") . '</a>';
+            $html .= Horde::url('faces/claim.php')->add('face', $face_id)->link(array('title' => _("Do you know someone in this photo?"))) . _("Claim") . '</a>';
         }
 
         // Link for searching for similar faces.
-        $html .= ' <a href="' . Horde_Util::addParameter($search_url, 'face_id', $face_id)
-            . '">' . _("Find similar") . '</a>';
+        if (Horde_Util::loadExtension('libpuzzle') !== false) {
+            $html .= Horde::url('faces/search/image_search.php')->add('face_id', $face_id)->link() . _("Find similar") . '</a>';
+        }
         $html .= '</div></td></tr></table>';
 
         return $html;

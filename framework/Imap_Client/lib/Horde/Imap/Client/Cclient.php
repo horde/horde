@@ -6,18 +6,21 @@
  * PHP IMAP module: http://www.php.net/imap
  *
  * Optional Parameters:
- *   retries - (integer) Connection retries.
- *             DEFAULT: 3
- *   timeout - (array) Timeout value (in seconds) for various actions. Unlinke
- *             the base Horde_Imap_Client class, this driver supports an
- *             array of timeout entries as follows:
- *               'open', 'read', 'write', 'close'
- *             If timeout is a string, the same timeout will be used for all
- *             values.
- *             DEFAULT: C-client default values
- *   validate_cert - (boolean)  If using tls or ssl connections, validate the
- *                   certificate?
- *                   DEFAULT: Don't validate
+ * --------------------
+ * <pre>
+ * retries - (integer) Connection retries.
+ *           DEFAULT: 3
+ * timeout - (array) Timeout value (in seconds) for various actions. Unlinke
+ *           the base Horde_Imap_Client class, this driver supports an
+ *           array of timeout entries as follows:
+ *             'open', 'read', 'write', 'close'
+ *           If timeout is a string, the same timeout will be used for all
+ *           values.
+ *           DEFAULT: C-client default values
+ * validate_cert - (boolean)  If using tls or ssl connections, validate the
+ *                 certificate?
+ *                 DEFAULT: Don't validate
+ * </pre>
  *
  * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
@@ -26,7 +29,8 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @package  Horde_Imap_Client
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Imap_Client
  */
 class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
 {
@@ -103,23 +107,16 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
      *
      * @param array $params  A hash containing configuration parameters.
      */
-    public function __construct($params)
+    public function __construct(array $params = array())
     {
         if (!isset($params['retries'])) {
             $params['retries'] = 3;
         }
-        parent::__construct($params);
-    }
 
-    /**
-     * Do cleanup prior to serialization and provide a list of variables
-     * to serialize.
-     */
-    public function __sleep()
-    {
-        $this->logout();
-        parent::__sleep();
-        return array_diff(array_keys(get_class_vars(__CLASS__)), array('encryptKey'));
+        $this->_store[] = '_cstring';
+        $this->_store[] = '_service';
+
+        parent::__construct($params);
     }
 
     /**
@@ -154,7 +151,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
         error_reporting($old_error);
 
         if ($res === false) {
-            throw new Horde_Imap_Client_Exception('Received error from IMAP server when sending a NOOP command: ' . imap_last_error());
+            $this->_exception('Received error from IMAP server when sending a NOOP command: ' . imap_last_error());
         }
     }
 
@@ -192,14 +189,14 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
         $res = false;
 
         if (!empty($this->_params['secure']) && !extension_loaded('openssl')) {
-            throw new Horde_Imap_Client_Exception('Secure connections require the PHP openssl extension: http://php.net/openssl.');
+            $this->_exception('Secure connections require the PHP openssl extension: http://php.net/openssl.');
         }
 
         $mask = ($this->_service == 'pop3') ? 0 : OP_HALFOPEN;
 
         $old_error = error_reporting(0);
         if (version_compare(PHP_VERSION, '5.2.1') != -1) {
-            $res = imap_open($this->_connString(), $this->_params['username'], $this->_params['password'], $mask, $this->_params['retries']);
+            $res = imap_open($this->_connString(), $this->_params['username'], $this->getParam('password'), $mask, $this->_params['retries']);
         } else {
             while (($res === false) &&
                    !strstr(strtolower(imap_last_error()), 'login failure') &&
@@ -207,13 +204,13 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 if ($i != 0) {
                     sleep(1);
                 }
-                $res = imap_open($this->_connString(), $this->_params['username'], $this->_params['password'], $mask);
+                $res = imap_open($this->_connString(), $this->_params['username'], $this->getParam('password'), $mask);
             }
         }
         error_reporting($old_error);
 
         if ($res === false) {
-            throw new Horde_Imap_Client_Exception('Could not authenticate to IMAP server: ' . imap_last_error());
+            $this->_exception('Could not authenticate to IMAP server: ' . imap_last_error());
         }
 
         $this->_stream = $res;
@@ -328,7 +325,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
         error_reporting($old_error);
 
         if ($res === false) {
-            throw new Horde_Imap_Client_Exception('Could not open mailbox "' . $mailbox . '": ' . imap_last_error());
+            $this->_exception('Could not open mailbox "' . $mailbox . '": ' . imap_last_error());
         }
     }
 
@@ -336,11 +333,17 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
      * Create a mailbox.
      *
      * @param string $mailbox  The mailbox to create (UTF7-IMAP).
+     * @param array $opts      Additional options. See self::createMailbox().
      *
      * @throws Horde_Imap_Client_Exception
      */
-    protected function _createMailbox($mailbox)
+    protected function _createMailbox($mailbox, $opts)
     {
+        if (isset($opts['special_use'])) {
+            $this->_getSocket()->createMailbox($mailbox, $opts);
+            return;
+        }
+
         $this->login();
 
         $old_error = error_reporting(0);
@@ -348,7 +351,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
         error_reporting($old_error);
 
         if ($res === false) {
-            throw new Horde_Imap_Client_Exception('Could not create mailbox "' . $mailbox . '": ' . imap_last_error());
+            $this->_exception('Could not create mailbox "' . $mailbox . '": ' . imap_last_error());
         }
     }
 
@@ -368,7 +371,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
         error_reporting($old_error);
 
         if ($res === false) {
-            throw new Horde_Imap_Client_Exception('Could not delete mailbox "' . $mailbox . '": ' . imap_last_error());
+            $this->_exception('Could not delete mailbox "' . $mailbox . '": ' . imap_last_error());
         }
     }
 
@@ -389,7 +392,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
         error_reporting($old_error);
 
         if ($res === false) {
-            throw new Horde_Imap_Client_Exception('Could not rename mailbox "' . $old . '": ' . imap_last_error());
+            $this->_exception('Could not rename mailbox "' . $old . '": ' . imap_last_error());
         }
     }
 
@@ -414,7 +417,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
         error_reporting($old_error);
 
         if ($res === false) {
-            throw new Horde_Imap_Client_Exception('Could not ' . ($subscribe ? 'subscribe' : 'unsubscribe') . ' to mailbox "' . $mailbox . '": ' . imap_last_error());
+            $this->_exception('Could not ' . ($subscribe ? 'subscribe' : 'unsubscribe') . ' to mailbox "' . $mailbox . '": ' . imap_last_error());
         }
     }
 
@@ -542,7 +545,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
             $res = array();
             foreach ($pattern as $val) {
                 if (strlen($val)) {
-                    $res = array_merge($res, $this->_getMailboxList($val, $mode);
+                    $res = array_merge($res, $this->_getMailboxList($val, $mode));
                 }
             }
             return array_unique($res);
@@ -571,7 +574,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
      * Obtain status information for a mailbox.
      *
      * @param string $mailbox  The mailbox to query (UTF7-IMAP).
-     * @param string $flags    A bitmask of information requested from the
+     * @param integer $flags   A bitmask of information requested from the
      *                         server.
      *
      * @return array  See Horde_Imap_Client_Base::status().
@@ -671,7 +674,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                     unset($options['create']);
                     return $this->_append($mailbox, $data, $options);
                 }
-                throw new Horde_Imap_Client_Exception('Could not append message to IMAP server: ' . imap_last_error());
+                $this->_exception('Could not append message to IMAP server: ' . imap_last_error());
             }
         }
 
@@ -692,7 +695,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
         error_reporting($old_error);
 
         if ($res === false) {
-            throw new Horde_Imap_Client_Exception('Received error from IMAP server when sending a CHECK command: ' . imap_last_error());
+            $this->_exception('Received error from IMAP server when sending a CHECK command: ' . imap_last_error());
         }
     }
 
@@ -761,7 +764,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 }
 
                 if (!empty($expunged)) {
-                    $this->_cache->deleteMsgs($this->_selected, $expunged);
+                    $this->cache->deleteMsgs($this->_selected, $expunged);
                 }
             }
         }
@@ -804,9 +807,15 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
             return $this->_getSocket()->search($this->_selected, $query, $options);
         }
 
-        $old_error = error_reporting(0);
-        if (empty($options['sort'])) {
-            $res = imap_search($this->_stream, $options['_query']['query'], empty($options['sequence']) ? SE_UID : 0, $options['_query']['charset']);
+        $sort = empty($options['sort'])
+            ? null
+            : reset($options['sort']);
+
+        if (!$sort || ($sort == Horde_Imap_Client::SORT_SEQUENCE)) {
+            $res = @imap_search($this->_stream, $options['_query']['query'], empty($options['sequence']) ? SE_UID : 0, $options['_query']['charset']);
+            if ($sort && ($res !== false)) {
+                sort($res, SORT_NUMERIC);
+            }
         } else {
             $sort_criteria = array(
                 Horde_Imap_Client::SORT_ARRIVAL => SORTARRIVAL,
@@ -818,10 +827,9 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 Horde_Imap_Client::SORT_TO => SORTTO
             );
 
-            $res = imap_sort($this->_stream, $sort_criteria[reset($options['sort'])], 0, empty($options['sequence']) ? SE_UID : 0, $options['_query']['query'], $options['_query']['charset']);
+            $res = @imap_sort($this->_stream, $sort_criteria[$sort], 0, empty($options['sequence']) ? SE_UID : 0, $options['_query']['query'], $options['_query']['charset']);
         }
         $res = ($res === false) ? array() : $res;
-        error_reporting($old_error);
 
         $ret = array();
         foreach ($options['results'] as $val) {
@@ -831,7 +839,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 break;
 
             case Horde_Imap_Client::SORT_RESULTS_MATCH:
-                $ret[empty($options['sort']) ? 'match' : 'sort'] = $res;
+                $ret[$sort ? 'sort' : 'match'] = $res;
                 break;
 
             case Horde_Imap_Client::SORT_RESULTS_MAX:
@@ -1058,7 +1066,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                     } else {
                         $label = 'bodypart';
                         if (empty($val['id'])) {
-                            throw new Horde_Imap_Client_Exception('Need a MIME ID when retrieving a MIME body part.');
+                            $this->_exception('Need a MIME ID when retrieving a MIME body part.');
                         }
                         $body_key = $val['id'];
                     }
@@ -1298,7 +1306,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
         error_reporting($old_error);
 
         if ($err) {
-            throw new Horde_Imap_Client_Exception('Error when fetching messages: ' . imap_last_error());
+            $this->_exception('Error when fetching messages: ' . imap_last_error());
         }
 
         return $ret;
@@ -1416,7 +1424,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
         error_reporting($old_error);
 
         if ($res === false) {
-            throw new Horde_Imap_Client_Exception('Error when flagging messages: ' . imap_last_error());
+            $this->_exception('Error when flagging messages: ' . imap_last_error());
         }
 
         return array();
@@ -1463,7 +1471,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
                 unset($options['create']);
                 return $this->copy($dest, $options);
             }
-            throw new Horde_Imap_Client_Exception('Error when copying/moving messages: ' . imap_last_error());
+            $this->_exception('Error when copying/moving messages: ' . imap_last_error());
         }
 
         return true;
@@ -1492,7 +1500,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
         error_reporting($old_error);
 
         if ($res === false) {
-            throw new Horde_Imap_Client_Exception('Error when setting quota: ' . imap_last_error());
+            $this->_exception('Error when setting quota: ' . imap_last_error());
         }
     }
 
@@ -1515,7 +1523,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
         error_reporting($old_error);
 
         if ($res === false) {
-            throw new Horde_Imap_Client_Exception('Error when retrieving quota: ' . imap_last_error());
+            $this->_exception('Error when retrieving quota: ' . imap_last_error());
         }
     }
 
@@ -1539,7 +1547,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
         error_reporting($old_error);
 
         if ($res === false) {
-            throw new Horde_Imap_Client_Exception('Error when retrieving quotaroot: ' . imap_last_error());
+            $this->_exception('Error when retrieving quotaroot: ' . imap_last_error());
         }
 
         return array($mailbox => $ret);
@@ -1576,7 +1584,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
         error_reporting($old_error);
 
         if ($res === false) {
-            throw new Horde_Imap_Client_Exception('Error when setting ACL: ' . imap_last_error());
+            $this->_exception('Error when setting ACL: ' . imap_last_error());
         }
     }
 
@@ -1600,7 +1608,7 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
         error_reporting($old_error);
 
         if ($res === false) {
-            throw new Horde_Imap_Client_Exception('Error when retrieving ACLs: ' . imap_last_error());
+            $this->_exception('Error when retrieving ACLs: ' . imap_last_error());
         }
 
         foreach ($res as $id => $rights) {
@@ -1624,9 +1632,12 @@ class Horde_Imap_Client_Cclient extends Horde_Imap_Client_Base
      */
     protected function _listACLRights($mailbox, $identifier)
     {
+        $retval = array('optional' => array(), 'required' => array());
         $acl = $this->getACL($mailbox);
-        // @todo - Does this return 'optional' information?
-        return isset($acl[$identifier]) ? $acl[$identifier] : array();
+        if (isset($acl[$identifier])) {
+            $retval['optional'] = $acl[$identifier];
+        }
+        return $retval;
     }
 
     /**

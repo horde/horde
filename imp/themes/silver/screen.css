@@ -6,7 +6,13 @@ div.composebody {
     border-top: 1px solid #999;
 }
 #quota .control {
-    border-bottom: 0;
+    border-bottom-width: 0;
+}
+.headerbox #quota {
+    border-top-width: 0;
+}
+#quota .control {
+    border-bottom-width: 1px;
 }
 
 #newmail {
@@ -87,4 +93,8 @@ span.trashImg {
 }
 .reloadImg {
     background-image: url("graphics/reload.png");
+}
+
+.printAtc {
+    background-image: url("graphics/print.png");
 }

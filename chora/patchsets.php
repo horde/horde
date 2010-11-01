@@ -13,12 +13,12 @@
  * @package Chora
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('chora');
 
 // Exit if patchset feature is not available.
 if (!$GLOBALS['VC']->hasFeature('patchsets')) {
-    header('Location: ' . Chora::url('browsefile', $where));
-    exit;
+    Chora::url('browsefile', $where)->redirect();
 }
 
 $ps_opts = array();
@@ -51,18 +51,14 @@ Horde::addScriptFile('tables.js', 'horde');
 
 // JS search not needed if showing a single patchset
 if ($ps_id) {
-    Horde::addScriptFile('QuickFinder.js', 'horde');
+    Horde::addScriptFile('quickfinder.js', 'horde');
 }
 
 require CHORA_TEMPLATES . '/common-header.inc';
 require CHORA_TEMPLATES . '/menu.inc';
-
-
-if ($ps_id) {
-    require CHORA_TEMPLATES . '/patchsets/header.inc';
-} else {
-    require CHORA_TEMPLATES . '/headerbar.inc';
-    require CHORA_TEMPLATES . '/patchsets/header.inc';
+require CHORA_TEMPLATES . '/headerbar.inc';
+require CHORA_TEMPLATES . '/patchsets/header.inc';
+if (!$ps_id) {
     require CHORA_TEMPLATES . '/patchsets/header_table.inc';
 }
 
@@ -70,28 +66,37 @@ $diff_img = Horde::img('diff.png', _("Diff"));
 
 reset($patchsets);
 while (list($id, $patchset) = each($patchsets)) {
-    $patchset_link = Horde::link(Chora::url('patchsets', $where, array('ps' => $id)), sprintf("Patchset for %s", $id)) . htmlspecialchars($VC->abbrev($id)) . '</a>';
+    $patchset_link = Chora::url('patchsets', $where, array('ps' => $id))
+        ->link(array('title' => sprintf("Patchset for %s", $id)))
+        . htmlspecialchars($VC->abbrev($id)) . '</a>';
 
     $files = $tags = array();
 
     foreach ($patchset['members'] as $member) {
         $file = array();
 
-        $file['file'] = Horde::link(Chora::url('co', $member['file'])) . htmlspecialchars($member['file']) . '</a>';
+        $file['file'] = Chora::url('co', $member['file'])->link()
+            . htmlspecialchars($member['file']) . '</a>';
 
         if ($member['status'] == Horde_Vcs_Patchset::ADDED) {
             $file['from'] = '<ins>' . _("New File") . '</ins>';
             $file['diff'] = '';
         } else {
-            $file['from'] = Horde::link(Chora::url('co', $member['file'], array('r' => $member['from'])), $member['from']) . htmlspecialchars($VC->abbrev($member['from'])) . '</a>';
-            $file['diff'] = Horde::link(Chora::url('diff', $member['file'], array('r1' => $member['from'], 'r2' => $member['to'])), _("Diff")) . ' ' . $diff_img . '</a>';
+            $file['from'] = Chora::url('co', $member['file'], array('r' => $member['from']))
+                ->link(array('title' => $member['from']))
+                . htmlspecialchars($VC->abbrev($member['from'])) . '</a>';
+            $file['diff'] = Chora::url('diff', $member['file'], array('r1' => $member['from'], 'r2' => $member['to']))
+                ->link(array('title' => _("Diff")))
+                . ' ' . $diff_img . '</a>';
         }
 
         if ($member['status'] == Horde_Vcs_Patchset::DELETED) {
             $file['to'] = '<del>' . _("Deleted") . '</del>';
             $file['diff'] = '';
         } else {
-            $file['to'] = Horde::link(Chora::url('co', $member['file'], array('r' => $member['to'])), $member['to']) . htmlspecialchars($VC->abbrev($member['to'])) . '</a>';
+            $file['to'] = Chora::url('co', $member['file'], array('r' => $member['to']))
+                ->link(array('title' => $member['to']))
+                . htmlspecialchars($VC->abbrev($member['to'])) . '</a>';
         }
 
         if (isset($member['added'])) {

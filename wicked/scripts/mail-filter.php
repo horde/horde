@@ -1,4 +1,4 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
 /*
  * This script accepts a MIME message on standard input and creates a new
@@ -6,37 +6,35 @@
  * page.
  */
 
-@define('AUTH_HANDLER', true);
-@define('HORDE_BASE', dirname(__FILE__) . '/../..');
-
-// Do CLI checks and environment setup first.
-require_once HORDE_BASE . '/lib/core.php';
-
-$keepHeaders = array('From', 'To', 'Subject', 'Cc', 'Date');
-$dateFormat = "F j, Y";
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
+function headerValue($headers, $name)
+{
+    $val = null;
+    foreach ($headers as $headerName => $headerVal) {
+        if (!strcasecmp($name, $headerName)) {
+            if (is_array($headerVal)) {
+                $thisVal = join(', ', $headerVal);
+            } else {
+                $thisVal = $headerVal;
+            }
+            if (is_null($val)) {
+                $val = $thisVal;
+            } else {
+                $val .= ", " . $thisVal;
+            }
+        }
+    }
+    return $val;
 }
 
-// Load the CLI environment - make sure there's no time limit, init
-// some variables, etc.
-Horde_Cli::init();
-$cli = Horde_Cli::singleton();
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('wicked', array('authentication' => 'none', 'cli' => true));
 
-@define('WICKED_BASE', HORDE_BASE . '/wicked');
-require_once WICKED_BASE . '/lib/base.php';
+$dateFormat = "F j, Y";
+$keepHeaders = array('From', 'To', 'Subject', 'Cc', 'Date');
 
 $text = '';
 while (!feof(STDIN)) {
     $text .= fgets(STDIN, 512);
-}
-
-$message = Horde_Mime_Part::parseMessage($text);
-if (is_a($message, 'PEAR_Error')) {
-    $cli->fatal(sprintf(_("Error parsing MIME message: %s\n"),
-                        $message->getMessage()));
 }
 
 if (preg_match("/^(.*?)\r?\n\r?\n/s", $text, $matches)) {
@@ -44,6 +42,7 @@ if (preg_match("/^(.*?)\r?\n\r?\n/s", $text, $matches)) {
 } else {
     $hdrText = $text;
 }
+$message = Horde_Mime_Part::parseMessage($text);
 $headers = Horde_Mime_Headers::parseHeaders($hdrText);
 
 // Format the message into a pageBody.
@@ -115,32 +114,9 @@ if ($message->getType() == 'text/plain') {
 $pageBody .= "\n";
 
 if (is_null($pageName)) {
-    $pageName = "EmailMessage" . ucfirst(md5(uniqid('wicked', true)));
+    $pageName = "EmailMessage" . ucfirst(md5(uniqid('wicked')));
 }
 
-$res = $wicked->newPage($pageName, $pageBody);
-if (is_a($res, 'PEAR_Error')) {
-    $cli->fatal(sprintf(_("Error creating new page: %s"), $res->getMessage()));
-}
+$wicked->newPage($pageName, $pageBody);
 
 exit(0);
-
-function headerValue($headers, $name)
-{
-    $val = null;
-    foreach ($headers as $headerName => $headerVal) {
-        if (!strcasecmp($name, $headerName)) {
-            if (is_array($headerVal)) {
-                $thisVal = join(', ', $headerVal);
-            } else {
-                $thisVal = $headerVal;
-            }
-            if (is_null($val)) {
-                $val = $thisVal;
-            } else {
-                $val .= ", " . $thisVal;
-            }
-        }
-    }
-    return $val;
-}

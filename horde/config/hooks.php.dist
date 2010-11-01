@@ -22,18 +22,18 @@
  *
  * On change
  * ---------
- * A hook named prefs_change_hook_<prefname> will be called after that
- * preference is altered. It does not receive any parameters and does not
- * expect a return value.
- *
- * See the prefs_change_hook_theme declaration below for an example.
+ * A hook named prefs_change will be called after a preference is altered.
+ * It is passed the preference name that has changed and does not expect a
+ * return value.
  *
  * Setting value
  * -------------
- * If 'hook' => true in a preference attribute, a hook named
- * prefs_hook_<prefname> will be run on login. It receives the username as
- * the only parameter and the return value from the function will be used as
- * the preference value.
+ * If
+ *   'hook' => true
+ * exists for a preference (config/prefs.php), the prefs_init hook will be run
+ * on login to allow alteration of the default value. This hook receives the
+ * preference name and the username as parameters and uses the return value
+ * from the hook as the new preference value.
  *
  * This hook is ONLY executed on login and preferences are cached during a
  * users' session.
@@ -45,8 +45,6 @@
  * 2) The next time they login and load their preferences, the hook will NOT
  *    be called. However, if the preference is locked, the result of the hook
  *    will never be saved.
- *
- * See the prefs_hook_theme declaration below for an example.
  *
  * Authentication/Login Hooks
  * ==========================
@@ -115,6 +113,43 @@
  * This hook is used to do any local processing necessary to initialize an
  * application. It is passed no parameters and expects no return value.
  *
+ *
+ * AJAX Hooks
+ * ==========
+ * These are hooks that are available in any application that has an AJAX
+ * interface configured.
+ *
+ * ajaxaction
+ * ----------
+ * This hook is used to add user-defined AJAX action handlers to an
+ * application.
+ *
+ * Parameters in:
+ *   $action (string): The AJAX action.
+ *   $vars (Horde_Variables): The URL parameters.
+ *
+ * The return value from this hook is as follows:
+ *   [throw Horde_Exception] - Fatal error.
+ *   [mixed] - The data to send to the browser (will be JSON encoded).
+ *
+ *
+ * CSS Hooks
+ * =========
+ *
+ * cssfiles
+ * --------
+ * This hook allows additional CSS stylesheets to be added to the page
+ * output.
+ *
+ * Parameters in:
+ *   $theme (string): The current theme.
+ *
+ * The return value from this hook is as follows:
+ *   [throw Horde_Exception] - Fatal error.
+ *   [array] - An array of CSS files to add. Keys are the filesystem location,
+ *             values are the URI location.
+ *
+ *
  * TODO: groupldap, share_add, share_modify, share_remove
  *
  * $Id$
@@ -122,163 +157,170 @@
 
 class Horde_Hooks
 {
-//    // Example theme hook function. This shows how you can access things
-//    // like the currently logged in user, global variables, server config,
-//    // etc. It isn't, however, something you probably want to actually use
-//    // in production, by virtue of demonstrating all those. :)
-//    function prefs_hook_theme($username = null)
+//    // PREFERENCES INIT: See above for documentation.
+//    public function prefs_init($pref, $username = null)
 //    {
-//        if (Horde_Auth::getAuth() != 'chuck') {
-//            return 'mozilla';
-//        }
+//        switch ($pref) {
+//        case 'from_addr':
+//            // Example from_addr init. THIS FUNCTION ASSUMES THAT YOU ARE
+//            // USING A LDAP SERVER and that your /etc/ldap.conf is correctly
+//            // set to a valid host.
+//            //
+//            // You are responsible for bringing in to the local scope any
+//            // information you need. You can "global" anything else you
+//            // need.
+//            //
+//            // Returns an address: either just the user@ side or a full
+//            // address.
 //
-//        switch ($GLOBALS['registry']->getApp()) {
-//        case 'imp':
-//            return 'brown';
+//            // Example #1
+//            if (is_null($name)) {
+//                $name = $GLOBALS['registry']->getAuth();
+//            }
 //
-//        case 'turba':
-//            return 'orange';
+//            if (!empty($name)) {
+//                $base_context = 'o=myorg';
+//                $scope = 'sub';
 //
-//        case 'kronolith':
-//            return 'green';
+//                // You will probably need to replace cd= with uid=; this
+//                // syntax is for Netware 5.1 nldap.
+//                $cmd = '/usr/bin/ldapsearch -b ' . $base_context . ' -s ' . $scope . ' cn=' .
+//                       escapeShellCmd($GLOBALS['registry']->getAuth()) .
+//                       ' | /usr/bin/grep mail | /usr/bin/awk \'{print $2}\'';
+//                $mails = `$cmd`;
+//                $mail_array = explode("\n", $mails);
 //
-//        default:
+//                // Send back the first email found, not the whole list.
+//                $mail = $mail_array['0'];
+//
+//                // If no email address is found, then the login name will
+//                // be used.
+//                return (empty($mail) ? '' : $mail);
+//            }
+//
 //            return '';
-//        }
-//    }
-
-
-//    // Example preferences change hook.
-//    function prefs_change_hook_theme()
-//    {
-//        $GLOBALS['notification']->push('You changed your theme to ' . $GLOBALS['prefs']->getValue('theme') . '!');
-//    }
-
-
-//    // Example from_addr hook function. THIS FUNCTION ASSUMES THAT YOU ARE
-//    // USING A LDAP SERVER and that your /etc/ldap.conf is correctly set to
-//    // a valid host.
-//    //
-//    // You get passed NOTHING; you are responsible for bringing in to scope
-//    // any information you need. You can "global" anything else you need.
-//    // Return an address - either just the user@ side or a full address -
-//    // and it will be used.
-//    function prefs_hook_from_addr($name = null)
-//    {
-//        // Example #1
-//        if (is_null($name)) {
-//            $name = Horde_Auth::getAuth();
-//        }
 //
-//        if (!empty($name)) {
-//            $base_context = 'o=myorg';
-//            $scope = 'sub';
 //
-//            // You will probably need to replace cd= with uid=; this syntax
+//            // Example #2
+//            $ldapServer = '172.31.0.236';
+//            $ldapPort = '389';
+//            $searchBase = 'o=myorg';
+//
+//            $ds = @ldap_connect($ldapServer, $ldapPort);
+//
+//            if (is_null($name)) {
+//                $name = $GLOBALS['registry']->getAuth();
+//                if ($name === false) {
+//                    return '';
+//                }
+//            }
+//
+//            // You will probably need to replace cn= with uid=; this syntax
 //            // is for Netware 5.1 nldap.
-//            $cmd  = '/usr/bin/ldapsearch -b ' . $base_context . ' -s ' . $scope . ' cn=' .
-//                escapeShellCmd(Horde_Auth::getAuth()) .
-//                ' | /usr/bin/grep mail | /usr/bin/awk \'{print $2}\'';
-//            $mails = `$cmd`;
-//            $mail_array = explode("\n", $mails);
+//            $searchResult = @ldap_search($ds, $searchBase, 'cn=' . $name);
+//            $information = @ldap_get_entries($ds, $searchResult);
+//            if (($information === false) || ($information['count'] == 0)) {
+//               $user = '';
+//            } else {
+//                $user = ($information[0]['mail'][0] != '')
+//                    ? $information[0]['mail'][0]
+//                    : $information[0]['cn'][0];
+//            }
 //
-//            // Send back the first email found, not the whole list.
-//            $mail = $mail_array['0'];
+//            ldap_close($ds);
 //
-//            // If no email address is found, then the login name will
-//            // be used.
-//            return (empty($mail) ? '' : $mail);
-//        }
-//
-//        return '';
+//            return empty($user) ? $name : $user;
 //
 //
-//        // Example #2
-//        $ldapServer = '172.31.0.236';
-//        $ldapPort = '389';
-//        $searchBase = 'o=myorg';
+//        case 'fullname':
+//            // Examples on how to set the fullname.
 //
-//        $ds = @ldap_connect($ldapServer, $ldapPort);
+//            // Example #1: Set the fullname from the GECOS information in
+//            // the passwd file.
+//            if (is_null($user)) {
+//                $user = $GLOBALS['registry']->getAuth('bare');
+//                if ($user === false) {
+//                    return '';
+//                }
+//            }
 //
-//        if (is_null($name)) {
-//            $name = Horde_Auth::getAuth();
-//            if ($name === false) {
+//            $array = posix_getpwnam($user);
+//            $gecos_array = explode(',', $array['gecos']);
+//            return empty($gecos_array) ? $user : $gecos_array[0];
+//
+//
+//            // Example #2: Set the fullname from LDAP information. In this
+//            // example we look if a Spanish name exists and return this or
+//            // the standard 'cn' entry if not.
+//            $ldapServer = 'ldap.example.com';
+//            $ldapPort = '389';
+//            $searchBase = 'ou=people,o=example.com';
+//
+//            $ds = @ldap_connect($ldapServer, $ldapPort);
+//
+//            if (is_null($user)) {
+//                $user = $GLOBALS['registry']->getAuth();
+//                if ($user === false) {
+//                    return '';
+//                }
+//            }
+//
+//            $searchResult = @ldap_search($ds, $searchBase, 'uid=' . $user);
+//            $information = @ldap_get_entries($ds, $searchResult);
+//            if (($information === false) || ($information['count'] == 0)) {
+//                $name = '';
+//            } else {
+//                $name = ($information[0]['cn;lang-es'][0] != '')
+//                    ? $information[0]['cn;lang-es'][0]
+//                    : $information[0]['cn'][0];
+//            }
+//
+//            ldap_close($ds);
+//
+//            return empty($name) ? $user : $name;
+//
+//
+//        case 'theme':
+//            // Example theme init. This shows how you can access things
+//            // like the currently logged in user, global variables, server
+//            // config, etc. It isn't, however, something you probably want
+//            // to actually use in production, by virtue of demonstrating all
+//            // those. :)
+//            if ($GLOBALS['registry']->getAuth() != 'foo') {
+//                return 'mozilla';
+//            }
+//
+//            switch ($GLOBALS['registry']->getApp()) {
+//            case 'imp':
+//                return 'brown';
+//
+//            case 'kronolith':
+//                return 'green';
+//
+//            case 'turba':
+//                return 'orange';
+//
+//            default:
 //                return '';
 //            }
+//            break;
 //        }
-//
-//        // You will probably need to replace cn= with uid=; this syntax
-//        // is for Netware 5.1 nldap.
-//        $searchResult = @ldap_search($ds, $searchBase, 'cn=' . $name);
-//        $information = @ldap_get_entries($ds, $searchResult);
-//        if (($information === false) || ($information['count'] == 0)) {
-//             $user = '';
-//        } else {
-//            $user = ($information[0]['mail'][0] != '')
-//                ? $information[0]['mail'][0]
-//                : $information[0]['cn'][0];
-//        }
-//
-//        ldap_close($ds);
-//
-//        return empty($user) ? $name : $user;
-//     }
+//    }
 
 
-//    // Examples on how to set the fullname.
-//    function prefs_hook_fullname($user = null)
+//    // PREFERENCES CHANGE: See above for documentation.
+//    public function prefs_change($pref)
 //    {
-//        // Example #1: Set the fullname from the GECOS information in the
-//        // passwd file.
-//        if (is_null($user)) {
-//            $user = Horde_Auth::getBareAuth();
-//            if ($user === false) {
-//                return '';
-//            }
+//        switch ($pref) {
+//        case 'theme':
+//            $GLOBALS['notification']->push('You changed your theme to ' . $GLOBALS['prefs']->getValue('theme') . '.');
+//            break;
 //        }
-//
-//        $array = posix_getpwnam($user);
-//        $gecos_array = explode(',', $array['gecos']);
-//        return empty($gecos_array) ? $user : $gecos_array[0];
-//
-//
-//        // Example #2: Set the fullname from LDAP information. In this
-//        // example we look if a Spanish name exists and return this or the
-//        // standard 'cn' entry if not.
-//        $ldapServer = 'ldap.example.com';
-//        $ldapPort = '389';
-//        $searchBase = 'ou=people,o=example.com';
-//        $ldapcharset = 'utf-8';
-//        $outputcharset = Horde_Nls::getCharset();
-//
-//        $ds = @ldap_connect($ldapServer, $ldapPort);
-//
-//        if (is_null($user)) {
-//            $user = Horde_Auth::getAuth();
-//            if ($user === false) {
-//                return '';
-//            }
-//        }
-//
-//        $searchResult = @ldap_search($ds, $searchBase, 'uid=' . $user);
-//        $information = @ldap_get_entries($ds, $searchResult);
-//        if (($information === false) || ($information['count'] == 0)) {
-//            $name = '';
-//        } else {
-//            $name = ($information[0]['cn;lang-es'][0] != '')
-//                ? $information[0]['cn;lang-es'][0]
-//                : $information[0]['cn'][0];
-//        }
-//
-//        ldap_close($ds);
-//
-//        $name = Horde_String::convertCharset($name, $ldapcharset, $outputcharset);
-//        return empty($name) ? $user : $name;
 //    }
 
 
 //    // Preauthenticate hook. See above for description of format.
-//    function preauthenticate($userId, $credentials)
+//    public function preauthenticate($userId, $credentials)
 //    {
 //        // Example #1: Make Horde respect the Unix convention of not
 //        // allowing login when a file named /etc/nologin exist.
@@ -304,7 +346,7 @@ class Horde_Hooks
 //             : $userId;
 //        $entry['sn'] = $userId;
 //        $entry['objectclass'][0] = 'top';
-//        $entry['objectclass'][1] = 'person';
+//        $   $y['objectclass'][1] = 'person';
 //        $entry['objectclass'][2] = 'qmailuser';
 //        $entry['objectclass'][3] = 'CourierMailACcount';
 //        $entry['mailhost'] = 'mail.example.com';
@@ -332,7 +374,7 @@ class Horde_Hooks
 
 
 //    // Postauthenticate hook. See above for description of format.
-//    function postauthenticate($userId, $credentials)
+//    public function postauthenticate($userId, $credentials)
 //    {
 //        // Example #1: Validating the user's right to login to Horde by
 //        // by consulting group membership in an LDAP directory.  That
@@ -368,7 +410,7 @@ class Horde_Hooks
 //            $searchResult = @ldap_search($ds, $searchBase, $userAttr . '=' . $userId, array($groupAttr), 0, 1, 5);
 //            if ($information = @ldap_get_entries($ds, $searchResult)) {
 //                // Make pattern case-insensitive
-//                $pattern = '/' . $groupdn . '/i';
+//                $pattern = '/' . $$roupdn . '/i';
 //                foreach ($information[0][$groupAttr] as $group) {
 //                    if (preg_match($pattern, $group)) {
 //                        $ret = true;
@@ -385,7 +427,7 @@ class Horde_Hooks
 
 
     // Username conversion hook. See above for description of format.
-//    function authusername($userId, $toHorde)
+//    public function authusername($userId, $toHorde)
 //    {
 //        // Example #1: Append the virtual domain to the username.
 //        // ex. $HTTP_HOST = 'mail.mydomain.com', $userId = 'myname' returns:
@@ -414,9 +456,17 @@ class Horde_Hooks
 
 
     // Post-push hook. See above for format.
-//    function pushapp()
+//    public function pushapp()
 //    {
 //        // Code to run if the app is switched to horde
+//    }
+
+    // Add CSS files hook. See above for description of format.
+//    public function cssfiles($theme)
+//    {
+//        return array(
+//            '/file/path/to/css' => 'uri/to/css'
+//        );
 //    }
 
     /**
@@ -427,7 +477,7 @@ class Horde_Hooks
      *
      * @return array  TODO
      */
-//    function signup_preprocess($info)
+//    public function signup_preprocess($info)
 //    {
 //         $info['user_name'] = Horde_String::lower($info['user_name']);
 //         return $info;
@@ -440,11 +490,11 @@ class Horde_Hooks
      * @param string $userId  The username.
      * @param array $data     TODO
      */
-//    function signup_queued($userId, $data)
+//    public function signup_queued($userId, $data)
 //    {
 //        // Example #1: Send a notification message to the web server
 //        // administrator's e-mail address.
-//        $headers = array(
+//        $ $aders = array(
 //            'To'      => $_SERVER['SERVER_ADMIN'],
 //            'From'    => $_SERVER['SERVER_ADMIN'],
 //            'Subject' => 'New ' . $GLOBALS['registry']->get('name', 'horde') . ' Signup'
@@ -459,14 +509,13 @@ class Horde_Hooks
 //            "\n\n" .
 //            $this->_signup_queued_walkdata($extraFields, $data) .
 //            "\n" .
-//            sprintf(_("You can approve this signup at %s"), Horde::applicationUrl('admin/user.php', true, -1));
+//            sprintf(_("You can approve this signup at %s"), Horde::url('admin/user.php', true, array('append_session' => -1)));
 //
-//        $mailer = Mail::factory($GLOBALS['conf']['mailer']['type'], $GLOBALS['conf']['mailer']['params']);
-//        $mailer->send($_SERVER['SERVER_ADMIN'], $headers, $msg);
+//        $GLOBALS['injector']->getInstance('Horde_Mail')->send($_SERVER['SERVER_ADMIN'], $headers, $msg);
 //    }
 //
 //    // Helper function for signup_queued Example #1
-//    function _signup_queued_walkdata($fields, $data)
+//    private function _signup_queued_walkdata($fields, $data)
 //    {
 //        $msg = '';
 //        foreach ($data as $field => $value) {
@@ -502,7 +551,7 @@ class Horde_Hooks
      * type     - Any allowed Horde_Form field type
      * </pre>
      */
-//    function signup_getextra()
+//    public function signup_getextra()
 //    {
 //        // Example #1: A hypothetical case where we would want to store
 //        // extra information about a user into a turba sql address book. All
@@ -521,7 +570,7 @@ class Horde_Hooks
      *                          the signup_getextra hook.
      * @param string $password  The password.
      */
-//    function signup_addextra($userId, $extra, $password)
+//    public function signup_addextra($userId, $extra, $password)
 //    {
 //        // Example #1: Continuation of Example #1 from signup_getextra().
 //        // Here we connect to the database using the sql parameters
@@ -531,12 +580,12 @@ class Horde_Hooks
 //        store this in whichever backend you require.
 //        // NOTE: You NEED Turba to be correctly installed before you can use
 //        // this example. It also assumes you are using an SQL backend.
-//        $db = DB::connect($GLOBALS['conf']['sql'], true);
+//        $db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb();
 //
 //        $fields = $values = array();
 //        foreach ($extra as $field => $value) {
 //            $fields[] = 'object_' . Horde_String::lower($field);
-//            $values[] = $db->quote(Horde_String::convertCharset($value, Horde_Nls::getCharset(), $GLOBALS['conf']['sql']['charset']));
+//            $values[] = $db->quote(Horde_String::convertCharset($value, 'UTF-8', $GLOBALS['conf']['sql']['charset']));
 //        }
 //        $fields[] = 'object_id';
 //        $values[] = $db->quote($userId);
@@ -546,7 +595,7 @@ class Horde_Hooks
 //        $result = $db->query($query);
 //
 //        if ($result instanceof PEAR_Error) {
-//            throw new Horde_Exception($result);
+//            throw new Horde_Exception_Prior($result);
 //        }
 //    }
 
@@ -561,7 +610,7 @@ class Horde_Hooks
      *
      * @return array  The altered share list.
      */
-//    function share_list($userId, $perm, $owner, $share_list)
+//    public function share_list($userId, $perm, $owner, $share_list)
 //    {
 //        return $share_list;
 //    }
@@ -578,10 +627,10 @@ class Horde_Hooks
      *
      * @return string  An error message.
      */
-//    function perms_denied($permission)
+//    public function perms_denied($permission)
 //    {
 //        // Example #1: Provide link to upgrade script.
-//        $app = (($pos = strpos($permission, ':')) === false)
+//        $app = (($pos = strpos($? $mission, ':')) === false)
 //            ? $permission
 //            : substr($permission, 0, $pos);
 //
@@ -600,7 +649,7 @@ class Horde_Hooks
      *
      * @return TODO
      */
-//    function group_driver($groupName, $userName)
+//    public function group_driver($groupName, $userName)
 //    {
 //        // Example #1: Look up whether or not this user is part of the
 //        // "IT_department" group using an external database.
@@ -609,7 +658,7 @@ class Horde_Hooks
 //        switch ($groupName) {
 //        case 'IT_department':
 //            $dept = 'IT';
-//            $db = DB::connect($conf['sql'], true);
+//            $db = $GLOBALS['injector']->getInstance('Horde_Db_Pear')->getDb();
 //            $query = 'SELECT COUNT(*) FROM departments WHERE user_name = ? AND department = ?';
 //            $values = array($userName, $dept);
 //            $result = $db->getOne($query, $values);
@@ -627,20 +676,22 @@ class Horde_Hooks
      * @param TODO $share_obj TODO
      * @param string $app TODO
      */
-//    function share_init($share_obj, $app)
+//    public function share_init($share_obj, $app)
 //    {
+//        global $cfgSources, $prefs, $session;
+//
 //        // TODO: Move to turba?
 //        if (($app == 'turba') &&
-//            (!empty($GLOBALS['cfgSources']['imsp']['use_shares']))) {
+//            (!empty($cfgSources['imsp']['use_shares']))) {
 //            // Only do this once per session or when this session variable
 //            // is purposely unset.
-//            if (!empty($_SESSION['imsp_synched'])) {
+//            if ($session['horde:imsp_synched']) {
 //                return;
 //            }
 //
-//            $results = Net_IMSP_Utils::synchShares($share_obj, $GLOBALS['cfgSources']['imsp']);
+//            $results = Net_IMSP_Utils::synchShares($share_obj, $cfgSources['imsp']);
 //            if (!$results instanceof PEAR_Error) {
-//                $_SESSION['imsp_synched'] = true;
+//                $session['horde:imsp_synched'] = true;
 //
 //                // Now deal with adding or removing address books from prefs.
 //                // FIXME: Updating prefs seems to hang the server. Narrowed
@@ -648,10 +699,10 @@ class Horde_Hooks
 //                // call a hook. (Commenting out the callHook call fixes). Can
 //                // anyone verify this on their install?
 //                $dirty = false;
-//                $abooks = $GLOBALS['prefs']->getValue('addressbooks');
+//                $abooks = $prefs->getValue('addressbooks');
 //                $abooks = empty($abooks)
 //                    ? array()
-//                    : explode("\n", $GLOBALS['prefs']->getValue('addressbooks'));
+//                    : explode("\n", $prefs->getValue('addressbooks'));
 //
 //                if (count($results['removed'] > 0)) {
 //                    foreach ($results['removed'] as $sharename) {
@@ -673,13 +724,13 @@ class Horde_Hooks
 //                }
 //
 //                if ($dirty) {
-//                    $result = $GLOBALS['prefs']->setValue('addressbooks', implode("\n", $abooks));
+//                    $result = $prefs->setValue('addressbooks', implode("\n", $abooks));
 //                }
 //
 //                // We have to save the connection info for the imsp server
 //                // since the share_modify hook will not occur from within
 //                // turba's context.
-//                $_SESSION['imsp_config'] = $GLOBALS['cfgSources']['imsp']['params'];
+//                $session['horde:imsp_config'] = $cfgSources['imsp']['params'];
 //            }
 //        }
 //    }
@@ -690,27 +741,28 @@ class Horde_Hooks
      *
      * @param TODO $share TODO
      */
-//    function share_modify($share)
+//    public function share_modify($share)
 //    {
+//        global $injector, $session, $share;
+//
 //        $params = unserialize($share->get('params'));
-//        if (is_array($params) && !empty($params['source']) &&
-//            $params['source'] = 'imsp' &&
-//            !empty($_SESSION['imsp_config'])) {
+//        if (is_array($params) &&
+//            !empty($params['source']) &&
+//            ($params['source'] == 'imsp') &&
+//            $session['horde:imsp_config']) {
 //            // Ensure we don't try to change ownership.
 //            $params = @unserialize($share->get('params'));
 //            $bookName = $params['name'];
 //            if (strpos($bookName, $share->get('owner')) !== 0) {
-//                $err = new Horde_Exception('Changing ownership of IMSP address books is not supported.');
-//                $GLOBALS['notification']->push($err);
-//                throw $err;
+//                throw new Horde_Exception('Changing ownership of IMSP address books is not supported.');
 //            }
-
+//
 //            // Update the ACLS
 //            $perms = $share->getPermission();
-//            $users = $perms->getUserPermissions();
+//            $users = $injector->getInstance('Horde_Perms')->getUserPermissions();
 //            foreach ($users as $user => $perm) {
 //                $acl = Net_IMSP_Utils::permsToACL($perm);
-//                $result = Net_IMSP_Utils::setACL($_SESSION['imsp_config'], $bookName, $user, $acl);
+//                $result = Net_IMSP_Utils::setACL($session['horde:imsp_config'], $bookName, $user, $acl);
 //            }
 //        }
 //    }

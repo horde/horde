@@ -74,10 +74,16 @@ class Horde_Db_Adapter_Pdo_Sqlite extends Horde_Db_Adapter_Pdo_Base
     ##########################################################################*/
 
     /**
-     * Connect to the db
+     * Connect to the db.
+     *
+     * @throws Horde_Db_Exception
      */
     public function connect()
     {
+        if ($this->_active) {
+            return;
+        }
+
         parent::connect();
 
         $this->_connection->setAttribute(PDO::ATTR_EMULATE_PREPARES, true);
@@ -142,7 +148,7 @@ class Horde_Db_Adapter_Pdo_Sqlite extends Horde_Db_Adapter_Pdo_Base
     /**
      * SELECT ... FOR UPDATE is redundant since the table is locked.
      */
-    public function addLock(&$sql, $options = array())
+    public function addLock(&$sql, array $options = array())
     {
     }
 

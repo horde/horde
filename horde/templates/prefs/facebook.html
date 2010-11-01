@@ -1,0 +1,49 @@
+<link href="<tag:css_link />" rel="stylesheet" type="text/css" />
+<input type="hidden" name="fbactionID" id="fbactionID" />
+<if:have_session>
+    <div class="fbbluebox" style="float:left">
+    <span><img src="<tag:user_pic_url />" /></span>
+    <span><tag:user_name /></span>
+    </div>
+    <div class="clear">&nbsp;</div>
+    <if:have_offline>
+     <div class="fbbluebox"><gettext>Infinite sessions enabled.</gettext>
+      <div class="fbaction"><input type="submit" class="fbbutton" value="<gettext>Disable</gettext>" onclick="document.prefs.fbactionID.value='revokeInfinite'; return true" /></div>
+     </div>
+    <else:have_offline>
+     <div class="fbbluebox">
+      <gettext><tag:app_name /> can interact with your Facebook account, but you must login to Facebook manually each time.</gettext>
+      <div class="fbaction"><gettext>Authorize an infinite session:</gettext><a class="fbbutton" href="<tag:authUrl />">Facebook</a></div>
+     </div>
+    </else:have_offline>
+    </if:have_offline>
+    <if:have_publish>
+     <div class="fbbluebox"><gettext>Publish enabled.</gettext>
+      <div class="fbaction"><input type="submit" class="fbbutton" value="<gettext>Disable</gettext>" onclick="document.prefs.fbactionID.value='revokePublish'; return true" /></div>
+     </div>
+    <else:have_publish>
+     <div class="fbbluebox">
+      <gettext><tag:app_name /> cannot set your status messages or publish other content to Facebook.</gettext>
+      <div class="fbaction"><gettext>Authorize Publish</gettext><a class="fbbutton" href="<tag:publish_url />">Facebook</a></div>
+     </div>
+    </else:have_publish>
+    </if:have_publish>
+    <if:have_read>
+     <div class="fbbluebox">
+      <gettext>Read enabled</gettext>
+      <div class="fbaction"><input type="submit" class="fbbutton" value="<gettext>Disable</gettext>" onclick="document.prefs.actionID.value='revokeRead'; return true" /></div>
+     </div>
+    <else:have_read>
+     <div class="fbbluebox">
+      <gettext><tag:app_name /> cannot read your stream messages.</gettext>
+      <div class="fbaction"><gettext>Authorize Read:</gettext><a class="fbbutton" href="<tag:read_url />">Facebook</a></div>
+     </div>
+    </else:have_read>
+    </if:have_read>
+<else:have_session>
+    <div class="notice">Could not find authorization for <tag:user_name /> to interact with your Facebook account.</div>
+    <br />
+    <gettext>Login to Facebook and authorize <tag:app_name /></gettext>
+    <a href="<tag:authUrl />" class="fbbutton">Facebook</a>
+</else:have_session>
+</if:have_session>

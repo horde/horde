@@ -22,53 +22,7 @@ class Ansel_View_Gallery extends Ansel_View_Base
     /**
      * Const'r
      *
-     * @param array $params  Any parameters that the view might need.
-     * <pre>
-     * gallery_id              The gallery id this view is for. If omitted, it
-     *                         looks for a query parameter called 'gallery'
-     *
-     * gallery_slug            Same as above, but a slug
-     *
-     * gallery_view_url        If set, this is used as the link to a gallery
-     *                         view. %g is replaced by the gallery_id and %s is
-     *                         replaced by the gallery_slug.
-     *
-     * gallery_view            The specific Renderer to use, if needed.
-     *                         (GalleryLightbox, Gallery etc...).
-     *
-     * image_view_url          If this is set, the image tiles will use this url
-     *                         for the image view link. %i and %g will be
-     *                         replaced by image_id and gallery_id respectively.
-     *                         %s will be replaced by the gallery_slug
-     *
-     * image_view_src          If this is set to true, the image view link will go
-     *                         directly to the actual image. This overrides any
-     *                         setting of image_view_url.
-     *
-     * image_view_attributes   An optional array of attribute => value pairs
-     *                         that are used as attributes of the image view
-     *                         link.
-     *
-     * image_view_title        Specifies which property of the image object
-     *                         to use as the image caption.
-     *
-     * image_onclick           Specifies a onclick handler for the image tile
-     *                         links.
-     *
-     * style                   Force the use of this named style.
-     *
-     * api                     If set, we are being called from the external api
-     *
-     * page                    The gallery page number to display if not the
-     *                         default value of the first page (page = 0)
-     *
-     * day, month, year        Numeric date part values to describe the gallery
-     *                         date grouping to view in date mode.
-     *
-     * force_date_grouping     Do not auto navigate to the first date grouping
-     *                         with more then one resource. Used from the api
-     *                         when clicking on breadcrumb links, for example.
-     * </pre>
+     * @see Ansel_View_Base::__construct
      */
     public function __construct($params = array())
     {
@@ -101,7 +55,7 @@ class Ansel_View_Gallery extends Ansel_View_Base
                                    true);
 
             $params = array('gallery' => $this->gallery->id, 'url' => $galleryurl);
-            header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('disclamer.php'), $params, null, false));
+            Horde::url('disclamer.php')->add($params)->setRaw(true)->redirect();
             exit;
         }
 
@@ -115,26 +69,26 @@ class Ansel_View_Gallery extends Ansel_View_Base
                       'day' => isset($this->_params['day']) ? $this->_params['day'] : 0));
 
                 $galleryurl = Ansel::getUrlFor('view', array_merge(
-                                   array('gallery' => $this->gallery->id,
-                                         'slug' => empty($params['slug']) ? '' : $params['slug'],
-                                         'page' => empty($params['page']) ? 0 : $params['page'],
-                                         'view' => 'Gallery'),
-                                   $date),
-                                   true);
+                    array('gallery' => $this->gallery->id,
+                          'slug' => empty($params['slug']) ? '' : $params['slug'],
+                          'page' => empty($params['page']) ? 0 : $params['page'],
+                          'view' => 'Gallery'),
+                    $date),
+                    true);
 
             $params = array('gallery' => $this->gallery->id, 'url' => $galleryurl);
-            header('Location: ' . Horde_Util::addParameter(Horde::applicationUrl('protect.php'), $params, null, false));
+            Horde::url('protect.php')->add($params)->setRaw(true)->redirect();
             exit;
         }
 
-        if (!$this->gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+        if (!$this->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
             throw new Horde_Exception('Access denied viewing this gallery.');
         }
 
         // Since this is a gallery view, the resource is just a reference to the
         // gallery. We keep both instance variables becuase both gallery and
         // image views are assumed to have a gallery object.
-        $this->resource = &$this->gallery;
+        $this->resource = $this->gallery;
 
         /* Do we have an explicit style set? If not, use the gallery's */
         if (!empty($this->_params['style'])) {
@@ -146,8 +100,9 @@ class Ansel_View_Gallery extends Ansel_View_Base
         if (!empty($this->_params['gallery_view'])) {
             $renderer = $this->_params['gallery_view'];
         } else {
-            $renderer = (!empty($style['gallery_view'])) ? $style['gallery_view'] : 'Gallery';
+            $renderer = (!empty($style->gallery_view)) ? $style->gallery_view : 'Gallery';
         }
+
         /* Load the helper */
         $classname = 'Ansel_View_GalleryRenderer_' . basename($renderer);
         $this->_renderer = new $classname($this);
@@ -184,5 +139,4 @@ class Ansel_View_Gallery extends Ansel_View_Base
     {
         return 'Gallery';
     }
-
 }

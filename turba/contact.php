@@ -10,39 +10,41 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('turba');
 
 $vars = Horde_Variables::getDefaultVariables();
 $source = $vars->get('source');
 if (!isset($GLOBALS['cfgSources'][$source])) {
     $notification->push(_("The contact you requested does not exist."));
-    header('Location: ' . Horde::applicationUrl($prefs->getValue('initial_page'), true));
-    exit;
+    Horde::url($prefs->getValue('initial_page'), true)->redirect();
 }
 
 /* Set the contact from the key requested. */
-$driver = Turba_Driver::singleton($source);
-if ($driver instanceof PEAR_Error) {
-    $notification->push($driver->getMessage(), 'horde.error');
-    header('Location: ' . Horde::applicationUrl($prefs->getValue('initial_page'), true));
-    exit;
+try {
+    $driver = $injector->getInstance('Turba_Driver')->getDriver($source);
+} catch (Turba_Exception $e) {
+    $notification->push($e, 'horde.error');
+    Horde::url($prefs->getValue('initial_page'), true)->redirect();
 }
 
 $contact = null;
 $uid = $vars->get('uid');
 if (!empty($uid)) {
-    $search = $driver->search(array('__uid' => $uid));
-    if (!($search instanceof PEAR_Error) && $search->count()) {
-        $contact = $search->next();
-        $vars->set('key', $contact->getValue('__key'));
-    }
+    try {
+        $search = $driver->search(array('__uid' => $uid));
+        if (count($search)) {
+            $contact = $search->next();
+            $vars->set('key', $contact->getValue('__key'));
+        }
+    } catch (Turba_Exception $e) {}
 }
-if (!$contact || ($contact instanceof PEAR_Error)) {
-    $contact = $driver->getObject($vars->get('key'));
-    if ($contact instanceof PEAR_Error) {
-        $notification->push($contact->getMessage(), 'horde.error');
-        header('Location: ' . Horde::applicationUrl($prefs->getValue('initial_page'), true));
-        exit;
+if (!$contact) {
+    try {
+        $contact = $driver->getObject($vars->get('key'));
+    } catch (Turba_Exception $e) {
+        $notification->push($e, 'horde.error');
+        Horde::url($prefs->getValue('initial_page'), true)->redirect();
     }
 }
 
@@ -73,7 +75,7 @@ case 'DeleteContact':
 
 // Get tabs.
 $url = $contact->url();
-$tabs = new Horde_Ui_Tabs('view', $vars);
+$tabs = new Horde_Core_Ui_Tabs('view', $vars);
 $tabs->addTab(_("_View"), $url,
               array('tabname' => 'Contact', 'id' => 'tabContact', 'onclick' => 'return ShowTab(\'Contact\');'));
 if ($contact->hasPermission(Horde_Perms::EDIT)) {
@@ -88,13 +90,12 @@ if ($contact->hasPermission(Horde_Perms::DELETE)) {
 @list($own_source, $own_id) = explode(';', $prefs->getValue('own_contact'));
 if ($own_source == $source && $own_id == $contact->getValue('__key')) {
     $own_icon = ' ' . Horde::img('user.png', _("Your own contact"),
-                                 array('title' => _("Your own contact")),
-                                 $registry->getImageDir('horde'));
+                                 array('title' => _("Your own contact")));
     $own_link = '';
 } else {
     $own_icon = '';
     $own_link = '<span class="smallheader rightFloat">'
-        . Horde::link(Horde_Util::addParameter($url, array('action' => 'mark_own')))
+        . $url->copy()->add('action', 'mark_own')->link()
         . _("Mark this as your own contact") . '</a></span>';
 }
 

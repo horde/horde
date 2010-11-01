@@ -1,0 +1,32 @@
+<?xml version='1.0'?>
+<!-- $Horde: passwd/locale/es_ES/help.xml,v 1.1.2.2 2008/10/09 17:12:09 jan Exp $ -->
+<help>
+  <entry id="passwd-username">
+    <title>Nombre de usuario</title>
+    <para>Introduzca aquí su nombre de usuario (si no estaba ya relleno). No todas las instalaciones permiten ésto.</para>
+  </entry>
+  <entry id="passwd-old-password">
+    <title>Antigua contraseña</title>
+    <para>Introduzca aquí su contraseña de inicio funcional actual. Tiene que introducir correctamente la contraseña de inicio actual o no podrá cambiarla.</para>
+  </entry>
+  <entry id="passwd-new-password">
+    <title>Nueva contraseña</title>
+    <para>Introduzca la nueva contraseña a la que quiera cambiar. Observe que la contraseña introducida tiene que cumplir unos estándares mínimos (longitud suficiente, distinta del nombre de usuario, disponer de una combinación de letrar y otros caracteres, etc.) o se producirá un error.</para>
+  </entry>
+  <entry id="passwd-confirm-password">
+    <title>Confirmar la nueva contraseña</title>
+    <para>Introduzca la nueva contraseña una segunda vez en el campo Confirmar la nueva contraseña. Ésto evitará la introdución de un error de escritura o de cualquier otro tipo con el consiguiente bloqueo de su cuenta.</para>
+  </entry>
+  <entry id="passwd-server">
+    <title>Cambiar contraseña en</title>
+    <para>Seleccione el servidor o aplicación en el que quiera cambiar la contraseña. No todas las instalaciones permiten ésto.</para>
+  </entry>
+  <entry id="Change-your-password">
+    <title>Cambiar la contraseña</title>
+    <para>Pulse el botón "Cambiar la contraseña" de la parte inferior del formulario para enviar la solicitud de cambio de contraseña al sistema. Este botón indica al sistema que cambie la contraseña.</para>
+  </entry>
+  <entry id="reset">
+    <title>Limpiar</title>
+    <para>Utilice el botón Limpiar de la parte inferior del formulario para eliminar cualquier dato introducido y empezar de nuevo.</para>
+  </entry>
+</help>

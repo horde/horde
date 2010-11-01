@@ -3,39 +3,44 @@
  * The Turba_List:: class provides an interface for dealing with a
  * list of Turba_Objects.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Jon Parise <jon@csh.rit.edu>
- * @package Turba
+ * Copyright 2000-2010 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (ASL).  If you did
+ * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ *
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Jon Parise <jon@csh.rit.edu>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/asl.php ASL
+ * @package  Turba
  */
-class Turba_List {
-
+class Turba_List implements Countable
+{
     /**
      * The array containing the Turba_Objects represented in this list.
      *
      * @var array
      */
-    var $objects = array();
+    public $objects = array();
 
     /**
      * The field to compare objects by.
      *
      * @var string
      */
-    var $_usortCriteria;
+    protected $_usortCriteria;
 
     /**
      * Constructor.
      */
-    function Turba_List($ids = array())
+    public function __construct($ids = array())
     {
-        if ($ids) {
-            foreach ($ids as $value) {
-                list($source, $key) = explode(':', $value);
-                $driver = Turba_Driver::singleton($source);
-                if (is_a($driver, 'Turba_Driver')) {
-                    $this->insert($driver->getObject($key));
-                }
-            }
+        foreach ($ids as $value) {
+            list($source, $key) = explode(':', $value);
+            try {
+                $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($source);
+                $this->insert($driver->getObject($key));
+            } catch (Turba_Exception $e) {}
         }
     }
 
@@ -44,9 +49,9 @@ class Turba_List {
      *
      * @param Turba_Object $object  The object to insert.
      */
-    function insert($object)
+    public function insert($object)
     {
-        if (is_a($object, 'Turba_Object')) {
+        if ($object instanceof Turba_Object) {
             $key = $object->getSource() . ':' . $object->getValue('__key');
             if (!isset($this->objects[$key])) {
                 $this->objects[$key] = $object;
@@ -60,7 +65,7 @@ class Turba_List {
      *
      * @return Turba_Object  The next object in the list.
      */
-    function reset()
+    public function reset()
     {
         return reset($this->objects);
     }
@@ -71,67 +76,94 @@ class Turba_List {
      *
      * @return Turba_Object  The next object in the list.
      */
-    function next()
+    public function next()
     {
         list(,$tmp) = each($this->objects);
         return $tmp;
     }
 
     /**
-     * Returns the number of Turba_Objects that are in the list. Use this to
-     * hide internal implementation details from client objects.
-     *
-     * @return integer  The number of objects in the list.
-     */
-    function count()
-    {
-        return count($this->objects);
-    }
-
-    /**
      * Filters/Sorts the list based on the specified sort routine.
      * The default sort order is by last name, ascending.
      *
-     * @param $order  Array of hashes describing sort fields.  Each hash has
-     *                the following fields:
-     *                'field'      =>  String sort field
-     *                'ascending'  =>  Boolean indicating sort direction
+     * @param array $order  Array of hashes describing sort fields.  Each
+     *                      hash has the following fields:
+     * <pre>
+     * ascending - (boolean) Sort direction.
+     * field - (string) Sort field.
+     * </pre>
      */
-    function sort($order = null)
+    public function sort($order = null)
     {
         if (!$order) {
-            $order = array(array('field' => 'lastname', 'ascending' => true));
+            $order = array(
+                array(
+                    'ascending' => true,
+                    'field' => 'lastname'
+                )
+            );
         }
 
-        $need_lastname = false;
-        $last_first = $GLOBALS['prefs']->getValue('name_format') == 'last_first';
-        foreach (array_keys($order) as $key) {
-            if ($last_first && $order[$key]['field'] == 'name') {
-                $order[$key]['field'] = 'lastname';
+        $need_lastname = $need_firstname = false;
+        $name_format = $GLOBALS['prefs']->getValue('name_format');
+        $name_sort = $GLOBALS['prefs']->getValue('name_sort');
+        foreach ($order as &$field) {
+            if ($field['field'] == 'name') {
+                if ($name_sort == 'last_first') {
+                    $field['field'] = 'lastname';
+                } elseif ($name_sort == 'first_last') {
+                    $field['field'] = 'firstname';
+                }
             }
-            if ($order[$key]['field'] == 'lastname') {
-                $order[$key]['field'] = '__lastname';
+
+            if ($field['field'] == 'lastname') {
+                $field['field'] = '__lastname';
                 $need_lastname = true;
+                break;
+            }
+            if ($field['field'] == 'firstname') {
+                $field['field'] = '__firstname';
+                $need_firstname = true;
                 break;
             }
         }
 
-        if (!$need_lastname) {
-            $sorted_objects = $this->objects;
-        } else {
+        if ($need_firstname || $need_lastname) {
             $sorted_objects = array();
             foreach ($this->objects as $key => $object) {
+                $name = $object->getValue('name');
+                $firstname = $object->getValue('firstname');
                 $lastname = $object->getValue('lastname');
                 if (!$lastname) {
-                    $lastname = Turba::guessLastname($object->getValue('name'));
+                    $lastname = Turba::guessLastname($name);
+                }
+                if (!$firstname) {
+                    switch ($name_format) {
+                    case 'last_first':
+                        $firstname = preg_replace('/' . preg_quote($lastname, '/') . ',\s*/', '', $name);
+                        break;
+                    case 'first_last':
+                        $firstname = preg_replace('/\s+' . preg_quote($lastname, '/') . '/', '', $name);
+                        break;
+                    default:
+                        $firstname = preg_replace('/\s*' . preg_quote($lastname, '/') . '(,\s*)?/', '', $name);
+                        break;
+                    }
                 }
                 $object->setValue('__lastname', $lastname);
+                $object->setValue('__firstname', $firstname);
                 $sorted_objects[$key] = $object;
             }
+        } else {
+            $sorted_objects = $this->objects;
         }
 
         $this->_usortCriteria = $order;
-        usort($sorted_objects, array($this, 'cmp'));
+
+        /* Exceptions thrown inside a sort incorrectly cause an error. See
+         * Bug #9202. */
+        @usort($sorted_objects, array($this, '_cmp'));
+
         $this->objects = $sorted_objects;
     }
 
@@ -147,25 +179,41 @@ class Turba_List {
      *
      * @return integer  Comparison of the two field values.
      */
-    function cmp($a, $b)
+    protected function _cmp($a, $b)
     {
         foreach ($this->_usortCriteria as $field) {
             // Set the comparison type based on the type of attribute we're
             // sorting by.
-            $usortType = 'text';
-            if (isset($attributes[$field['field']])) {
-                if (!empty($attributes[$field['field']]['cmptype'])) {
-                    $usortType = $attributes[$field['field']]['cmptype'];
-                } elseif ($attributes[$field['field']]['type'] == 'int' ||
-                          $attributes[$field['field']]['type'] == 'intlist'||
-                          $attributes[$field['field']]['type'] == 'number') {
-                    $usortType = 'int';
+            $sortmethod = 'text';
+            if (isset($GLOBALS['attributes'][$field['field']])) {
+                $f = $GLOBALS['attributes'][$field['field']];
+
+                if (!empty($f['cmptype'])) {
+                    $sortmethod = $f['cmptype'];
+                } elseif (in_array($f['type'], array('int', 'intlist', 'number'))) {
+                    $sortmethod = 'int';
                 }
             }
 
-            $method = 'cmp_' . $usortType;
-            $result = $this->$method($a->getValue($field['field']),
-                                     $b->getValue($field['field']));
+            $field = $field['field'];
+            switch ($sortmethod) {
+            case 'int':
+                $result = ($a->getValue($field) > $b->getValue($field)) ? 1 : -1;
+                break;
+
+            case 'text':
+                if (!isset($a->sortValue[$field])) {
+                    $a->sortValue[$field] = Horde_String::lower($a->getValue($field), true, 'UTF-8');
+                }
+                if (!isset($b->sortValue[$field])) {
+                    $b->sortValue[$field] = Horde_String::lower($b->getValue($field), true, 'UTF-8');
+                }
+
+                // Use strcoll for locale-safe comparisons.
+                $result = strcoll($a->sortValue[$field], $b->sortValue[$field]);
+                break;
+            }
+
             if (!$field['ascending']) {
                 $result = -$result;
             }
@@ -173,21 +221,15 @@ class Turba_List {
                 return $result;
             }
         }
+
         return 0;
     }
 
-    function cmp_text($a, $b)
-    {
-        $acmp = Horde_String::lower($a, true);
-        $bcmp = Horde_String::lower($b, true);
+    /* Countable methods. */
 
-        // Use strcoll for locale-safe comparisons.
-        return strcoll($acmp, $bcmp);
-    }
-
-    function cmp_int($a, $b)
+    public function count()
     {
-        return ($a > $b) ? 1 : -1;
+        return count($this->objects);
     }
 
 }

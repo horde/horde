@@ -25,8 +25,6 @@ class Timeobjects_Api extends Horde_Registry_Api
      */
     public function listTimeObjectCategories()
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         // @TODO: Probably want to iterate the driver directory
         //        and dynamically build this list and/or maybe provide
         //        a $conf[] setting to explicitly disable certain drivers?
@@ -56,8 +54,6 @@ class Timeobjects_Api extends Horde_Registry_Api
      */
     public function listTimeObjects($time_categories, $start, $end)
     {
-        require_once dirname(__FILE__) . '/base.php';
-
         $return = array();
         foreach ($time_categories as $category) {
             $drv = TimeObjects_Driver::factory($category);

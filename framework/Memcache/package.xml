@@ -25,18 +25,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Initial Horde 4 package.</notes>
+ <notes>* Remove Horde_Core dependency.
+ * Initial Horde 4 package.</notes>
  <contents>
   <dir name="/">
-   <dir name="scripts">
-    <dir name="Horde">
-     <dir name="Memcache">
-      <file name="stats.php" role="script">
-       <tasks:replace from="@php_bin@" to="php_bin" type="pear-config"/>
-      </file>
-     </dir> <!-- /scripts/Horde/Memcache -->
-    </dir> <!-- /scripts/Horde -->
-   </dir> <!-- /scripts -->
    <dir name="lib">
     <dir name="Horde">
      <file name="Memcache.php" role="php" />
@@ -53,10 +45,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.5.0</min>
    </pearinstaller>
    <package>
-    <name>Core</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
     <name>Exception</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -68,7 +56,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <phprelease>
   <filelist>
    <install name="lib/Horde/Memcache.php" as="Horde/Memcache.php" />
-   <install name="scripts/Horde/Memcache/stats.php" as="horde-memcache-stats" />
   </filelist>
  </phprelease>
  <changelog>

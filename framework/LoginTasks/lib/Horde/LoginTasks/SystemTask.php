@@ -8,8 +8,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_LoginTasks
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  LoginTasks
  */
 abstract class Horde_LoginTasks_SystemTask
 {
@@ -29,9 +31,18 @@ abstract class Horde_LoginTasks_SystemTask
 
     /**
      * Do login task (if it has been confirmed).
-     *
-     * @return boolean  Whether the login task was successful.
      */
     abstract public function execute();
+
+    /**
+     * Skip the current task?  If true, will not run on this access but
+     * will attempt to run on the next access.
+     *
+     * @return boolean  Skip the current task?
+     */
+    public function skip()
+    {
+        return false;
+    }
 
 }

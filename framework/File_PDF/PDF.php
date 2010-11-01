@@ -17,23 +17,6 @@
  * @package  File_PDF
  * @category Fileformats
  */
-
-/**
- * This hack works around Horde bug #4094
- * (http://bugs.horde.org/ticket/?id=4094)
- *
- * Once this package does not need to support PHP < 4.3.10 anymore the
- * following definiton can be removed and the ugly code can be removed
- * using
- *
- * sed -i -e 's/\' \. FILE_PDF_FLOAT \. \'/F/g' PDF.php
- */
-if (version_compare(PHP_VERSION, '4.3.10', '>=')) {
-    define('FILE_PDF_FLOAT', 'F');
-} else {
-    define('FILE_PDF_FLOAT', 'f');
-}
-
 class File_PDF {
 
     /**
@@ -606,7 +589,6 @@ class File_PDF {
      */
     function raiseError($error)
     {
-        require_once 'PEAR.php';
         return PEAR::raiseError($error);
     }
 
@@ -685,7 +667,6 @@ class File_PDF {
      * Returns the actual page width.
      *
      * @since File_PDF 0.2.0
-     * @since Horde 3.2
      *
      * @return float  The page width.
      */
@@ -698,7 +679,6 @@ class File_PDF {
      * Returns the actual page height.
      *
      * @since File_PDF 0.2.0
-     * @since Horde 3.2
      *
      * @return float  The page height.
      */
@@ -950,7 +930,7 @@ class File_PDF {
         $this->_out('2 J');
         /* Set line width. */
         $this->_line_width = $lw;
-        $this->_out(sprintf('%.2' . FILE_PDF_FLOAT . ' w', $lw * $this->_scale));
+        $this->_out(sprintf('%.2F w', $lw * $this->_scale));
 
         /* Force the setting of the font. Each new page requires a new
          * call. */
@@ -979,7 +959,7 @@ class File_PDF {
         /* Restore styles. */
         if ($this->_line_width != $lw) {
             $this->_line_width = $lw;
-            $this->_out(sprintf('%.2' . FILE_PDF_FLOAT . ' w', $lw * $this->_scale));
+            $this->_out(sprintf('%.2F w', $lw * $this->_scale));
         }
         $result = $this->setFont($font_family, $font_style, $font_size);
         if (is_a($result, 'PEAR_Error')) {
@@ -1100,11 +1080,11 @@ class File_PDF {
     {
         $cs = strtolower($cs);
         if ($cs == 'rgb') {
-            $this->_fill_color = sprintf('%.3' . FILE_PDF_FLOAT . ' %.3' . FILE_PDF_FLOAT . ' %.3' . FILE_PDF_FLOAT . ' rg', $c1, $c2, $c3);
+            $this->_fill_color = sprintf('%.3F %.3F %.3F rg', $c1, $c2, $c3);
         } elseif ($cs == 'cmyk') {
-            $this->_fill_color = sprintf('%.3' . FILE_PDF_FLOAT . ' %.3' . FILE_PDF_FLOAT . ' %.3' . FILE_PDF_FLOAT . ' %.3' . FILE_PDF_FLOAT . ' k', $c1, $c2, $c3, $c4);
+            $this->_fill_color = sprintf('%.3F %.3F %.3F %.3F k', $c1, $c2, $c3, $c4);
         } else {
-            $this->_fill_color = sprintf('%.3' . FILE_PDF_FLOAT . ' g', $c1);
+            $this->_fill_color = sprintf('%.3F g', $c1);
         }
         if ($this->_page > 0) {
             $this->_out($this->_fill_color);
@@ -1132,7 +1112,6 @@ class File_PDF {
      *                    between 0 and 1. Required for cmyk.
      *
      * @since File_PDF 0.2.0
-     * @since Horde 3.2
      * @see setFillColor()
      * @see setDrawColor()
      * @see rect()
@@ -1143,11 +1122,11 @@ class File_PDF {
     {
         $cs = strtolower($cs);
         if ($cs == 'rgb') {
-            $this->_text_color = sprintf('%.3' . FILE_PDF_FLOAT . ' %.3' . FILE_PDF_FLOAT . ' %.3' . FILE_PDF_FLOAT . ' rg', $c1, $c2, $c3);
+            $this->_text_color = sprintf('%.3F %.3F %.3F rg', $c1, $c2, $c3);
         } elseif ($cs == 'cmyk') {
-            $this->_text_color = sprintf('%.3' . FILE_PDF_FLOAT . ' %.3' . FILE_PDF_FLOAT . ' %.3' . FILE_PDF_FLOAT . ' %.3' . FILE_PDF_FLOAT . ' k', $c1, $c2, $c3, $c4);
+            $this->_text_color = sprintf('%.3F %.3F %.3F %.3F k', $c1, $c2, $c3, $c4);
         } else {
-            $this->_text_color = sprintf('%.3' . FILE_PDF_FLOAT . ' g', $c1);
+            $this->_text_color = sprintf('%.3F g', $c1);
         }
         $this->_color_flag = $this->_fill_color != $this->_text_color;
     }
@@ -1181,11 +1160,11 @@ class File_PDF {
     {
         $cs = strtolower($cs);
         if ($cs == 'rgb') {
-            $this->_draw_color = sprintf('%.3' . FILE_PDF_FLOAT . ' %.3' . FILE_PDF_FLOAT . ' %.3' . FILE_PDF_FLOAT . ' RG', $c1, $c2, $c3);
+            $this->_draw_color = sprintf('%.3F %.3F %.3F RG', $c1, $c2, $c3);
         } elseif ($cs == 'cmyk') {
-            $this->_draw_color = sprintf('%.3' . FILE_PDF_FLOAT . ' %.3' . FILE_PDF_FLOAT . ' %.3' . FILE_PDF_FLOAT . ' %.3' . FILE_PDF_FLOAT . ' K', $c1, $c2, $c3, $c4);
+            $this->_draw_color = sprintf('%.3F %.3F %.3F %.3F K', $c1, $c2, $c3, $c4);
         } else {
-            $this->_draw_color = sprintf('%.3' . FILE_PDF_FLOAT . ' G', $c1);
+            $this->_draw_color = sprintf('%.3F G', $c1);
         }
         if ($this->_page > 0) {
             $this->_out($this->_draw_color);
@@ -1237,7 +1216,7 @@ class File_PDF {
     {
         $this->_line_width = $width;
         if ($this->_page > 0) {
-            $this->_out(sprintf('%.2' . FILE_PDF_FLOAT . ' w', $width * $this->_scale));
+            $this->_out(sprintf('%.2F w', $width * $this->_scale));
         }
     }
 
@@ -1270,7 +1249,7 @@ class File_PDF {
             $y2 += $this->h;
         }
 
-        $this->_out(sprintf('%.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' m %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' l S', $x1 * $this->_scale, ($this->h - $y1) * $this->_scale, $x2 * $this->_scale, ($this->h - $y2) * $this->_scale));
+        $this->_out(sprintf('%.2F %.2F m %.2F %.2F l S', $x1 * $this->_scale, ($this->h - $y1) * $this->_scale, $x2 * $this->_scale, ($this->h - $y2) * $this->_scale));
     }
 
     /**
@@ -1317,7 +1296,7 @@ class File_PDF {
         $width  = $this->_toPt($width);
         $height = $this->_toPt($height);
 
-        $this->_out(sprintf('%.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' re %s', $x, $this->hPt - $y, $width, -$height, $op));
+        $this->_out(sprintf('%.2F %.2F %.2F %.2F re %s', $x, $this->hPt - $y, $width, -$height, $op));
     }
 
     /**
@@ -1364,10 +1343,10 @@ class File_PDF {
 
         /* Move from the given origin and set the current point
          * to the start of the first Bezier curve. */
-        $c = sprintf('%.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' m', $x - $r, $y);
+        $c = sprintf('%.2F %.2F m', $x - $r, $y);
         $x = $x - $r;
         /* First circle quarter. */
-        $c .= sprintf(' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' c',
+        $c .= sprintf(' %.2F %.2F %.2F %.2F %.2F %.2F c',
                       $x, $y + $b,           // First control point.
                       $x + $r - $b, $y + $r, // Second control point.
                       $x + $r, $y + $r);     // Final point.
@@ -1375,7 +1354,7 @@ class File_PDF {
         $x = $x + $r;
         $y = $y + $r;
         /* Second circle quarter. */
-        $c .= sprintf(' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' c',
+        $c .= sprintf(' %.2F %.2F %.2F %.2F %.2F %.2F c',
                       $x + $b, $y,
                       $x + $r, $y - $r + $b,
                       $x + $r, $y - $r);
@@ -1383,7 +1362,7 @@ class File_PDF {
         $x = $x + $r;
         $y = $y - $r;
         /* Third circle quarter. */
-        $c .= sprintf(' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' c',
+        $c .= sprintf(' %.2F %.2F %.2F %.2F %.2F %.2F c',
                       $x, $y - $b,
                       $x - $r + $b, $y - $r,
                       $x - $r, $y - $r);
@@ -1391,7 +1370,7 @@ class File_PDF {
         $x = $x - $r;
         $y = $y - $r;
         /* Fourth circle quarter. */
-        $c .= sprintf(' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' c %s',
+        $c .= sprintf(' %.2F %.2F %.2F %.2F %.2F %.2F c %s',
                       $x - $b, $y,
                       $x - $r, $y + $r - $b,
                       $x - $r, $y + $r,
@@ -1596,7 +1575,7 @@ class File_PDF {
 
         /* Output font information if at least one page has been defined. */
         if ($this->_page > 0) {
-            $this->_out(sprintf('BT /F%d %.2' . FILE_PDF_FLOAT . ' Tf ET', $this->_current_font['i'], $this->_font_size_pt));
+            $this->_out(sprintf('BT /F%d %.2F Tf ET', $this->_current_font['i'], $this->_font_size_pt));
         }
     }
 
@@ -1620,7 +1599,7 @@ class File_PDF {
 
         /* Output font information if at least one page has been defined. */
         if ($this->_page > 0) {
-            $this->_out(sprintf('BT /F%d %.2' . FILE_PDF_FLOAT . ' Tf ET', $this->_current_font['i'], $this->_font_size_pt));
+            $this->_out(sprintf('BT /F%d %.2F Tf ET', $this->_current_font['i'], $this->_font_size_pt));
         }
     }
 
@@ -1630,7 +1609,6 @@ class File_PDF {
      * @param string $style  The font style.
      *
      * @since File_PDF 0.2.0
-     * @since Horde 3.2
      * @see setFont()
      */
     function setFontStyle($style)
@@ -1762,7 +1740,7 @@ class File_PDF {
         /* Escape any potentially harmful characters. */
         $text = $this->_escape($text);
 
-        $out = sprintf('BT %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' Td (%s) Tj ET', $x, $y, $text);
+        $out = sprintf('BT %.2F %.2F Td (%s) Tj ET', $x, $y, $text);
         if ($this->_underline && $text != '') {
             $out .= ' ' . $this->_doUnderline($x, $y, $text);
         }
@@ -1860,7 +1838,7 @@ class File_PDF {
             $this->x = $x;
             if ($ws > 0) {
                 $this->_word_spacing = $ws;
-                $this->_out(sprintf('%.3' . FILE_PDF_FLOAT . ' Tw', $ws * $k));
+                $this->_out(sprintf('%.3F Tw', $ws * $k));
             }
         }
         if ($width == 0) {
@@ -1873,20 +1851,20 @@ class File_PDF {
             } else {
                 $op = 'S';
             }
-            $s = sprintf('%.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' re %s ', $this->x * $k, ($this->h - $this->y) * $k, $width * $k, -$height * $k, $op);
+            $s = sprintf('%.2F %.2F %.2F %.2F re %s ', $this->x * $k, ($this->h - $this->y) * $k, $width * $k, -$height * $k, $op);
         }
         if (is_string($border)) {
             if (strpos($border, 'L') !== false) {
-                $s .= sprintf('%.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' m %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' l S ', $this->x * $k, ($this->h - $this->y) * $k, $this->x * $k, ($this->h - ($this->y + $height)) * $k);
+                $s .= sprintf('%.2F %.2F m %.2F %.2F l S ', $this->x * $k, ($this->h - $this->y) * $k, $this->x * $k, ($this->h - ($this->y + $height)) * $k);
             }
             if (strpos($border, 'T') !== false) {
-                $s .= sprintf('%.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' m %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' l S ', $this->x * $k, ($this->h - $this->y) * $k, ($this->x + $width) * $k, ($this->h - $this->y) * $k);
+                $s .= sprintf('%.2F %.2F m %.2F %.2F l S ', $this->x * $k, ($this->h - $this->y) * $k, ($this->x + $width) * $k, ($this->h - $this->y) * $k);
             }
             if (strpos($border, 'R') !== false) {
-                $s .= sprintf('%.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' m %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' l S ', ($this->x + $width) * $k, ($this->h - $this->y) * $k, ($this->x + $width) * $k, ($this->h - ($this->y + $height)) * $k);
+                $s .= sprintf('%.2F %.2F m %.2F %.2F l S ', ($this->x + $width) * $k, ($this->h - $this->y) * $k, ($this->x + $width) * $k, ($this->h - ($this->y + $height)) * $k);
             }
             if (strpos($border, 'B') !== false) {
-                $s .= sprintf('%.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' m %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' l S ', $this->x * $k, ($this->h - ($this->y + $height)) * $k, ($this->x + $width) * $k, ($this->h - ($this->y + $height)) * $k);
+                $s .= sprintf('%.2F %.2F m %.2F %.2F l S ', $this->x * $k, ($this->h - ($this->y + $height)) * $k, ($this->x + $width) * $k, ($this->h - ($this->y + $height)) * $k);
             }
         }
         if ($text != '') {
@@ -1905,7 +1883,7 @@ class File_PDF {
             $test1 = $this->fhPt - (($this->y + $test2) * $k);
             $x = ($this->x + $dx) * $k;
             $y = ($this->h - ($this->y + .5 * $height + .3 * $this->_font_size)) * $k;
-            $s .= sprintf('BT %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' Td (%s) Tj ET', $x, $y, $text);
+            $s .= sprintf('BT %.2F %.2F Td (%s) Tj ET', $x, $y, $text);
             if ($this->_underline) {
                 $s .= ' ' . $this->_doUnderline($x, $y, $text);
             }
@@ -2059,7 +2037,7 @@ class File_PDF {
                         $this->_word_spacing = ($ns>1)
                             ? ($wmax - $ls) / 1000 * $this->_font_size / ($ns - 1)
                             : 0;
-                        $this->_out(sprintf('%.3' . FILE_PDF_FLOAT . ' Tw',
+                        $this->_out(sprintf('%.3F Tw',
                                             $this->_word_spacing * $this->_scale));
                     }
                     $result = $this->cell($width, $height,
@@ -2255,7 +2233,7 @@ class File_PDF {
         $font_dx = cos($font_angle);
         $font_dy = sin($font_angle);
 
-        $s= sprintf('BT %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' Tm (%s) Tj ET',
+        $s= sprintf('BT %.2F %.2F %.2F %.2F %.2F %.2F Tm (%s) Tj ET',
                     $text_dx, $text_dy, $font_dx, $font_dy,
                     $x * $this->_scale, ($this->h-$y) * $this->_scale, $text);
 
@@ -2369,7 +2347,7 @@ class File_PDF {
             $height = $width * $info['h'] / $info['w'];
         }
 
-        $this->_out(sprintf('q %.2' . FILE_PDF_FLOAT . ' 0 0 %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' cm /I%d Do Q', $width, $height, $x, $y - $height, $info['i']));
+        $this->_out(sprintf('q %.2F 0 0 %.2F %.2F %.2F cm /I%d Do Q', $width, $height, $x, $y - $height, $info['i']));
 
         /* Set any link if requested. */
         if ($link) {
@@ -2501,7 +2479,6 @@ class File_PDF {
      * memory usage during the call.
      *
      * @since File_PDF 0.2.0
-     * @since Horde 3.2
      * @see getOutput()
      */
     function flush()
@@ -2666,21 +2643,21 @@ class File_PDF {
             $this->_out('<</Type /Page');
             $this->_out('/Parent 1 0 R');
             if (isset($this->_orientation_changes[$n])) {
-                $this->_out(sprintf('/MediaBox [0 0 %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ']', $hPt, $wPt));
+                $this->_out(sprintf('/MediaBox [0 0 %.2F %.2F]', $hPt, $wPt));
             }
             $this->_out('/Resources 2 0 R');
             if (isset($this->_page_links[$n])) {
                 /* Links */
                 $annots = '/Annots [';
                 foreach ($this->_page_links[$n] as $pl) {
-                    $rect = sprintf('%.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . '', $pl[0], $pl[1], $pl[0] + $pl[2], $pl[1] - $pl[3]);
+                    $rect = sprintf('%.2F %.2F %.2F %.2F', $pl[0], $pl[1], $pl[0] + $pl[2], $pl[1] - $pl[3]);
                     $annots .= '<</Type /Annot /Subtype /Link /Rect [' . $rect . '] /Border [0 0 0] ';
                     if (is_string($pl[4])) {
                         $annots .= '/A <</S /URI /URI ' . $this->_textString($pl[4]) . '>>>>';
                     } else {
                         $l = $this->_links[$pl[4]];
                         $height = isset($this->_orientation_changes[$l[0]]) ? $wPt : $hPt;
-                        $annots .= sprintf('/Dest [%d 0 R /XYZ 0 %.2' . FILE_PDF_FLOAT . ' null]>>', 1 + 2 * $l[0], $height - $l[1] * $this->_scale);
+                        $annots .= sprintf('/Dest [%d 0 R /XYZ 0 %.2F null]>>', 1 + 2 * $l[0], $height - $l[1] * $this->_scale);
                     }
                 }
                 $this->_out($annots . ']');
@@ -2704,7 +2681,7 @@ class File_PDF {
         }
         $this->_out($kids . ']');
         $this->_out('/Count ' . $nb);
-        $this->_out(sprintf('/MediaBox [0 0 %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ']', $wPt, $hPt));
+        $this->_out(sprintf('/MediaBox [0 0 %.2F %.2F]', $wPt, $hPt));
         $this->_out('>>');
         $this->_out('endobj');
     }
@@ -3013,7 +2990,7 @@ class File_PDF {
         $y = $y + ($this->_current_font['up'] * $this->_font_size_pt / 1000);
         $height = -$this->_current_font['ut'] * $this->_font_size_pt / 1000;
 
-        return sprintf('%.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' %.2' . FILE_PDF_FLOAT . ' re f', $x, $y, $width, $height);
+        return sprintf('%.2F %.2F %.2F %.2F re f', $x, $y, $width, $height);
     }
 
     function _parseJPG($file)

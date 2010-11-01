@@ -1,4 +1,4 @@
-<form method="post" name="filters" action="<?php echo Horde::applicationUrl('blacklist.php') ?>">
+<form method="post" name="filters" action="<?php echo Horde::url('blacklist.php') ?>">
 <?php Horde_Util::pformInput() ?>
 <input type="hidden" name="actionID" value="rule_update" />
 <input type="hidden" name="new_folder_name" value="" />
@@ -39,7 +39,7 @@
   <tr>
     <td class="control" colspan="2">
       <input class="button" type="submit" value="&nbsp;<?php echo _("Save") ?>&nbsp;" />
-      <input class="button" type="button" onclick="document.location.href='<?php echo Horde::applicationUrl('filters.php', true) ?>'" value="<?php echo _("Return to Rules List") ?>" />
+      <input class="button" type="button" onclick="document.location.href='<?php echo Horde::url('filters.php', true) ?>'" value="<?php echo _("Return to Rules List") ?>" />
     </td>
   </tr>
 </table>

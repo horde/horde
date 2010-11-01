@@ -1,0 +1,125 @@
+<div class="prefsPgpContainer">
+ <div class="prefsPgpHeader">
+  <h3><gettext>Your PGP Public/Private Keys</gettext> <tag:personalkey-help /></h3>
+ </div>
+
+<if:notsecure>
+ <div>
+  <em class="prefsPgpWarning"><gettext>PGP Personal Keypair support requires a secure web connection.</gettext></em>
+ </div>
+<else:notsecure>
+<if:has_key>
+ <div>
+  <table>
+   <tr>
+    <td>
+     <gettext>Your Public Key:</gettext>
+    </td>
+    <td>
+     [<tag:viewpublic /><gettext>View</gettext></a>] [<tag:infopublic /><gettext>Details</gettext></a>] [<tag:sendkey /><gettext>Send Key to Public Keyserver</gettext></a>]
+    </td>
+    <td>
+     <tag:personalkey-public-help />
+    </td>
+   </tr>
+   <tr>
+    <td>
+     <gettext>Your Private Key:</gettext>
+    </td>
+    <td>
+     [<tag:passphrase /></a>] [<tag:viewprivate /><gettext>View</gettext></a>] [<tag:infoprivate /><gettext>Details</gettext></a>]
+    </td>
+    <td>
+     <tag:personalkey-private-help />
+    </td>
+   </tr>
+  </table>
+ </div>
+
+ <p>
+  <input type="submit" id="delete_pgp_privkey" name="delete_pgp_privkey" class="button" value="<gettext>Delete Current Keys</gettext>" />
+  <tag:personalkey-delete-help />
+ </p>
+<else:has_key>
+ <div>
+  <table>
+   <tr>
+    <td>
+     <label for="generate_realname"><gettext>Your Name:</gettext></label>
+    </td>
+    <td>
+     <input type="text" id="generate_realname" name="generate_realname" size="30" maxlength="60" value="<tag:fullname />"/>
+    </td>
+    <td>
+     <tag:personalkey-create-name-help />
+    </td>
+   </tr>
+   <tr>
+    <td>
+     <label for="generate_comment"><gettext>Comment:</gettext></label>
+    </td>
+    <td>
+     <input type="text" id="generate_comment" name="generate_comment" size="30" maxlength="60" />
+    </td>
+    <td>
+     <tag:personalkey-create-comment-help />
+    </td>
+   </tr>
+   <tr>
+    <td>
+     <label for="generate_email"><gettext>E-mail Address:</gettext></label>
+    </td>
+    <td>
+     <input type="text" id="generate_email" name="generate_email" size="30" maxlength="60" value="<tag:fromaddr />"/>
+    </td>
+    <td>
+     <tag:personalkey-create-email-help />
+    </td>
+   </tr>
+   <tr>
+    <td>
+     <label for="generate_keylength"><gettext>Key Length:</gettext></label>
+    </td>
+    <td>
+     <select id="generate_keylength" name="generate_keylength">
+      <option value="1024">1024</option>
+      <option value="2048">2048</option>
+     </select>
+    </td>
+    <td>
+     <tag:personalkey-create-keylength-help />
+    </td>
+   </tr>
+   <tr>
+    <td>
+     <label for="generate_passphrase1"><gettext>Passphrase:</gettext></label>
+    </td>
+    <td>
+     <input type="password" id="generate_passphrase1" name="generate_passphrase1" size="30" maxlength="60" />
+    </td>
+    <td>
+     <tag:personalkey-create-passphrase-help />
+    </td>
+   </tr>
+   <tr>
+    <td>
+     <label for="generate_passphrase2"><gettext>Passphrase (Again):</gettext></label>
+    </td>
+    <td>
+     <input type="password" id="generate_passphrase2" name="generate_passphrase2" size="30" maxlength="60" />
+    </td>
+    <td></td>
+   </tr>
+  </table>
+
+  <p>
+   <input type="submit" id="create_pgp_key" name="create_pgp_key" class="button" value="<gettext>Create Keys</gettext>" />
+<if:import_url>
+   <input type="submit" name="save" class="button" id="import_pgp_personal" value="<gettext>Import Keypair</gettext>" />
+</if:import_url>
+   <tag:personalkey-create-actions-help />
+  </p>
+ </div>
+</else:has_key></if:has_key>
+</else:notsecure></if:notsecure>
+</div>

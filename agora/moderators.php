@@ -4,8 +4,6 @@
  *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
- * $Horde: agora/moderators.php,v 1.17 2009/07/08 18:28:38 slusarz Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
@@ -13,12 +11,11 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-define('AGORA_BASE', dirname(__FILE__));
-require_once AGORA_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('agora');
 
-if (!Horde_Auth::isAdmin()) {
-    header('Location: ' . Horde::applicationUrl('forums.php'));
-    exit;
+if (!$registry->isAdmin()) {
+    Horde::url('forums.php', true)->redirect();
 }
 
 /* Set up the messages object. */
@@ -26,9 +23,7 @@ $scope = Horde_Util::getFormData('scope', 'agora');
 $messages = &Agora_Messages::singleton($scope);
 if ($messages instanceof PEAR_Error) {
     $notification->push($messages->getMessage(), 'horde.warning');
-    $url = Horde::applicationUrl('forums.php', true);
-    header('Location: ' . $url);
-    exit;
+    Horde::url('forums.php', true)->redirect();
 }
 
 /* Moderator action */
@@ -41,20 +36,18 @@ if ($action) {
         $notification->push($result->getMessage(), 'horde.error');
     }
 
-    header('Location: ' . Horde::applicationUrl('moderators.php', true));
-    exit;
+    Horde::url('moderators.php', true)->redirect();
 }
 
 /* Get the list of forums. */
 $forums_list = $messages->getForums(0, true, 'forum_name');
 if ($forums_list instanceof PEAR_Error) {
     $notification->push($forums_list->getMessage(), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('forums.php', true));
-    exit;
+    Horde::url('forums.php', true)->redirect();
 }
 
 /* Add delete links to moderators */
-$url = Horde_Util::addParameter(Horde::applicationUrl('moderators.php'), 'action', 'delete');
+$url = Horde_Util::addParameter(Horde::url('moderators.php'), 'action', 'delete');
 foreach ($forums_list as $forum_id => $forum) {
     if (!isset($forum['moderators'])) {
         unset($forums_list[$forum_id]);
@@ -76,15 +69,22 @@ $form->addVariable(_("Moderator"), 'moderator', 'text', true);
 if ($messages->countForums() > 50) {
     $form->addVariable(_("Forum"), 'forum_id', 'int', true);
 } else {
-    $forums_enum = $messages->getForums(0, false, 'forum_name', 0, !Horde_Auth::isAdmin());
+    $forums_enum = $messages->getForums(0, false, 'forum_name', 0, !$registry->isAdmin());
     $form->addVariable(_("Forum"), 'forum_id', 'enum', true, false, false, array($forums_enum));
 }
 
 /* Set up template data. */
 $view = new Agora_View();
-$view->menu = Agora::getMenu('string');
-$view->formbox = Horde_Util::bufferOutput(array($form, 'renderActive'), null, null, 'moderators.php', 'post');
-$view->notify = Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status'));
+$view->menu = Horde::menu();
+
+Horde::startBuffer();
+$form->renderActive(null, null, 'moderators.php', 'post');
+$view->formbox = Horde::endBuffer();
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$view->notify = Horde::endBuffer();
+
 $view->forums = $forums_list;
 
 Horde::addScriptFile('stripe.js', 'horde', true);

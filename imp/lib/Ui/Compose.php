@@ -8,11 +8,20 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package IMP
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
 class IMP_Ui_Compose
 {
+    /**
+     * Was the HTML signature replaced in the Html2text callback?
+     *
+     * @var boolean
+     */
+    protected $_replaced;
+
     /**
      * Expand addresses in a string. Only the last address in the string will
      * be expanded.
@@ -63,98 +72,48 @@ class IMP_Ui_Compose
     }
 
     /**
-     * @throws Horde_Exception
-     */
-    public function redirectMessage($to, $imp_compose, $contents)
-    {
-        try {
-            $recip = $imp_compose->recipientList(array('to' => $to));
-        } catch (IMP_Compose_Exception $e) {
-            throw new Horde_Exception($recip);
-        }
-        $recipients = implode(', ', $recip['list']);
-
-        $identity = Horde_Preffs_Identity::singleton(array('imp', 'imp'));
-        $from_addr = $identity->getFromAddress();
-
-        $headers = $contents->getHeaderOb();
-        $headers->addResentHeaders($from_addr, $recip['header']['to']);
-
-        $mime_message = $contents->getMIMEMessage();
-        $charset = $mime_message->getCharset();
-
-        /* We need to set the Return-Path header to the current user - see
-           RFC 2821 [4.4]. */
-        $headers->removeHeader('return-path');
-        $headers->addHeader('Return-Path', $from_addr);
-
-        /* Store history information. */
-        if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
-            IMP_Maillog::log('redirect', $headers->getValue('message-id'), $recipients);
-        }
-
-        try {
-            $imp_compose->sendMessage($recipients, $headers, $mime_message, $charset);
-        } catch (IMP_Compose_Exception $e) {
-            throw new Horde_Exception($e);
-        }
-
-        $entry = sprintf("%s Redirected message sent to %s from %s",
-                         $_SERVER['REMOTE_ADDR'], $recipients, Horde_Auth::getAuth());
-        Horde::logMessage($entry, __FILE__, __LINE__, PEAR_LOG_INFO);
-
-        if ($GLOBALS['conf']['sentmail']['driver'] != 'none') {
-            $sentmail = IMP_Sentmail::factory();
-            $sentmail->log('redirect', $headers->getValue('message-id'), $recipients);
-        }
-    }
-
-    /**
-     */
-    public function getForwardData(&$imp_compose, &$imp_contents, $index)
-    {
-        $fwd_msg = $imp_compose->forwardMessage($imp_contents);
-        $subject_header = $imp_compose->attachIMAPMessage(array($index), $fwd_msg['headers']);
-        if ($subject_header !== false) {
-            $fwd_msg['headers']['subject'] = $subject_header;
-        }
-
-        return $fwd_msg;
-    }
-
-    /**
+     * Attach the auto-completer to the current compose form.
+     *
+     * @param array $fields  The list of DOM IDs to attach the autocompleter
+     *                       to.
      */
     public function attachAutoCompleter($fields)
     {
         /* Attach autocompleters to the compose form elements. */
         foreach ($fields as $val) {
-            $imple = Horde_Ajax_Imple::factory(array('imp', 'ContactAutoCompleter'), array('triggerId' => $val));
-            $imple->attach();
+            $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('imp', 'ContactAutoCompleter'), array('triggerId' => $val));
         }
     }
 
     /**
+     * Attach the spellchecker to the current compose form.
      */
-    public function attachSpellChecker($mode, $add_br = false)
+    public function attachSpellChecker()
     {
         $menu_view = $GLOBALS['prefs']->getValue('menu_view');
-        $show_text = ($menu_view == 'text' || $menu_view == 'both');
-        $br = ($add_br) ? '<br />' : '';
         $spell_img = Horde::img('spellcheck.png');
+
+        if (IMP::getViewMode() == 'imp') {
+            $br = '<br />';
+            $id = 'IMP';
+        } else {
+            $br = '';
+            $id = 'DIMP';
+        }
+
         $args = array(
-            'id' => ($mode == 'dimp' ? 'DIMP.' : 'IMP.') . 'SpellCheckerObject',
+            'id' => $id . '.SpellChecker',
             'targetId' => 'composeMessage',
             'triggerId' => 'spellcheck',
             'states' => array(
-                'CheckSpelling' => $spell_img . ($show_text ? $br . _("Check Spelling") : ''),
-                'Checking' => $spell_img . $br . _("Checking ..."),
+                'CheckSpelling' => $spell_img . (($menu_view == 'text' || $menu_view == 'both') ? $br . _("Check Spelling") : ''),
+                'Checking' => $spell_img . $br . _("Checking..."),
                 'ResumeEdit' => $spell_img . $br . _("Resume Editing"),
                 'Error' => $spell_img . $br . _("Spell Check Failed")
             )
         );
 
-        $imple = Horde_Ajax_Imple::factory('SpellChecker', $args);
-        $imple->attach();
+        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('SpellChecker', $args);
     }
 
     /**
@@ -195,7 +154,19 @@ class IMP_Ui_Compose
      */
     public function initRTE($basic = false)
     {
-        $editor = Horde_Editor::singleton('Ckeditor', array('basic' => $basic));
+        $GLOBALS['injector']->getInstance('Horde_Editor')->initialize(array('basic' => $basic));
+
+        $font_family = $GLOBALS['prefs']->getValue('compose_html_font_family');
+        if (!$font_family) {
+            $font_family = 'Arial';
+        }
+
+        $font_size = intval($GLOBALS['prefs']->getValue('compose_html_font_size'));
+        $font_size = $font_size
+            /* Font size should be between 8 and 24 pixels. Or else recipients
+             * will hate us. Default to 14px. */
+            ? min(24, max(8, $font_size)) . 'px'
+            : '14px';
 
         $config = array(
             /* To more closely match "normal" textarea behavior, send <BR> on
@@ -211,8 +182,20 @@ class IMP_Ui_Compose
             /* Disable resize of the textarea. */
             'resize_enabled: false',
 
-            /* Use the old skin for now. */
-            'skin: "v2"'
+            /* Disable spell check as you type. */
+            'scayt_autoStartup: false',
+
+            /* Convert HTML entities. */
+            'entities: false',
+
+            /* Set language to Horde language. */
+            'language: "' . Horde_String::lower($GLOBALS['language']) . '"',
+
+            /* Default display font. This is NOT the font used to send
+             * the message, however. */
+            'contentsCss: "body { font-family: ' . $font_family . '; font-size: ' . $font_size . '; }"',
+            'font_defaultLabel: "' . $font_family . '"',
+            'fontSize_defaultLabel: "' . $font_size . '"'
         );
 
         $buttons = $GLOBALS['prefs']->getValue('ckeditor_buttons');
@@ -221,30 +204,225 @@ class IMP_Ui_Compose
         }
 
         Horde::addInlineScript(array(
-            'if (!window.IMP) { window.IMP = {}; }',
+            'window.IMP = window.IMP || {}',
             'IMP.ckeditor_config = {' . implode(',', $config) . '}'
         ));
     }
 
     /**
-     * Get the IMP_Contents:: object for a Mailbox -> UID combo.
+     * Create the IMP_Contents objects needed to create a message.
      *
-     * @param integer $uid     Message UID.
-     * @param string $mailbox  Message mailbox.
+     * @param Horde_Variables $vars  The variables object.
      *
-     * @return boolean|IMP_Contents  The contents object, or false on error.
+     * @return IMP_Contents  The IMP_Contents object.
+     * @throws IMP_Exception
      */
-    public function getIMPContents($uid, $mailbox)
+    public function getContents($vars = null)
     {
-        if (!empty($uid)) {
+        $indices = $ob = null;
+
+        if (is_null($vars)) {
+            /* IMP: compose.php */
+            $indices = new IMP_Indices(IMP::$thismailbox, IMP::$uid);
+        } elseif ($vars->folder && $vars->uid) {
+            /* DIMP: compose-dimp.php */
+            $indices = new IMP_Indices($vars->folder, $vars->uid);
+        } elseif ($vars->uids) {
+            $indices = new IMP_Indices($vars->uids);
+        }
+
+        if (!is_null($indices)) {
             try {
-                return IMP_Contents::singleton($uid . IMP::IDX_SEP . $mailbox);
-            } catch (Horde_Exception $e) {
-                $GLOBALS['notification']->push(_("Could not retrieve the message from the mail server."), 'horde.error');
+                $ob = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Contents')->create($indices);
+            } catch (Horde_Exception $e) {}
+        }
+
+        if (is_null($ob)) {
+            if (!is_null($vars)) {
+                $vars->folder = $vars->uid = null;
+                $vars->type = 'new';
+            }
+
+            throw new IMP_Exception(_("Could not retrieve message data from the mail server."));
+        }
+
+        return $ob;
+    }
+
+    /**
+     * Generate mailbox return URL.
+     *
+     * @param string $url  The URL to use instead of the default.
+     *
+     * @return string  The mailbox return URL.
+     */
+    public function mailboxReturnUrl($url = null)
+    {
+        if (!$url) {
+            $url = Horde::url('mailbox.php');
+        }
+
+        foreach (array('start', 'page', 'mailbox', 'thismailbox') as $key) {
+            if (($param = Horde_Util::getFormData($key))) {
+                $url->add($key, $param);
             }
         }
 
-        return false;
+        return $url;
+    }
+
+    /**
+     * Generate a compose message popup success window (compose.php).
+     */
+    public function popupSuccess()
+    {
+        $menu = new Horde_Menu(Horde_Menu::MASK_NONE);
+        $menu->add(Horde::url('compose.php'), _("New Message"), 'compose.png');
+        $menu->add(new Horde_Url(''), _("Close this window"), 'close.png', null, null, 'window.close();');
+        require IMP_TEMPLATES . '/common-header.inc';
+        $success_template = $GLOBALS['injector']->createInstance('Horde_Template');
+        $success_template->set('menu', $menu->render());
+        echo $success_template->fetch(IMP_TEMPLATES . '/imp/compose/success.html');
+        IMP::status();
+        require $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc';
+    }
+
+    /**
+     * Outputs the script necessary to generate the passphrase dialog box.
+     *
+     * @param string $type     Either 'pgp', 'pgp_symm', or 'smime'.
+     * @param string $cacheid  Compose cache ID (only needed for 'pgp_symm').
+     */
+    public function passphraseDialog($type, $cacheid = null)
+    {
+        $params = array('onload' => true);
+
+        switch ($type) {
+        case 'pgp':
+            $type = 'pgpPersonal';
+            break;
+
+        case 'pgp_symm':
+            $params = array('symmetricid' => 'imp_compose_' . $cacheid);
+            $type = 'pgpSymmetric';
+            break;
+
+        case 'smime':
+            $type = 'smimePersonal';
+            break;
+        }
+
+        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('imp', 'PassphraseDialog'), array(
+            'onload' => true,
+            'params' => $params,
+            'type' => $type
+        ));
+    }
+
+    /**
+     * @return array  See Horde::addInlineJsVars().
+     */
+    public function identityJs()
+    {
+        $identities = array();
+        $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
+
+        $html_sigs = $identity->getAllSignatures('html');
+
+        foreach ($identity->getAllSignatures() as $ident => $sig) {
+            $identities[] = array(
+                // Plain text signature
+                'sig' => $sig,
+                // HTML signature
+                'sig_html' => $html_sigs[$ident],
+                // Signature location
+                'sig_loc' => (bool)$identity->getValue('sig_first', $ident),
+                // Sent mail folder name
+                'smf_name' => $identity->getValue('sent_mail_folder', $ident),
+                // Save in sent mail folder by default?
+                'smf_save' => (bool)$identity->saveSentmail($ident),
+                // Sent mail display name
+                'smf_display' => IMP::displayFolder($identity->getValue('sent_mail_folder', $ident)),
+                // Bcc addresses to add
+                'bcc' => Horde_Mime_Address::addrArray2String($identity->getBccAddresses($ident), array('charset' => 'UTF-8'))
+            );
+        }
+
+        return Horde::addInlineJsVars(array(
+            'IMP_Compose_Base.identities' => $identities
+        ), true);
+    }
+
+    /**
+     * Convert compose data to/from text/HTML.
+     *
+     * @param string $data       The message text.
+     * @param string $to         Either 'text' or 'html'.
+     * @param integer $identity  The current identity.
+     *
+     * @return string  The converted text
+     */
+    public function convertComposeText($data, $to, $identity)
+    {
+        $imp_identity = $GLOBALS['injector']->getInstance('IMP_Identity');
+        $this->_replaced = false;
+
+        $html_sig = $imp_identity->getSignature('html', $identity);
+        $txt_sig = $imp_identity->getSignature('text', $identity);
+
+        /* Try to find the signature, replace it with a placeholder, convert
+         * the message, and then re-add the signature in the new format. */
+        switch ($to) {
+        case 'html':
+            if ($txt_sig) {
+                $data = preg_replace('/' . preg_replace('/(?<!^)\s+/', '\\s+', preg_quote($txt_sig, '/')) . '/', '###IMP_SIGNATURE###', $data, 1, $this->_replaced);
+            }
+            $data = IMP_Compose::text2html($data);
+            $sig = $html_sig;
+            break;
+
+        case 'text':
+            $callback = $html_sig
+                ? array($this, 'htmlSigCallback')
+                : null;
+
+            $data = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($data, 'Html2text', array(
+                'callback' => $callback,
+                'wrap' => false
+            ));
+
+            $sig = $txt_sig;
+            break;
+        }
+
+        if ($this->_replaced) {
+            return str_replace('###IMP_SIGNATURE###', $sig, $data);
+        } elseif ($imp_identity->getValue('sig_first', $identity)) {
+            return $sig . $data;
+        }
+
+        return $data . "\n" . $sig;
+    }
+
+    /**
+     * Process DOM node (callback).
+     *
+     * @param DOMDocument $doc  Document node.
+     * @param DOMNode $node     Node.
+     *
+     * @return mixed  The text to replace the node with. Returns null if
+     *                regular node processing should continue.
+     */
+    public function htmlSigCallback($doc, $node)
+    {
+        if ($node instanceof DOMElement &&
+            (strtolower($node->tagName) == 'div') &&
+            ($node->getAttribute('class') == 'impComposeSignature')) {
+            $this->_replaced = true;
+            return '###IMP_SIGNATURE###';
+        }
+
+        return null;
     }
 
 }

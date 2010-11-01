@@ -1,0 +1,581 @@
+<div id="toc"><h2>Table of Contents</h2><ol><li><a href="#toc0"> Introduction</a></li><li><a href="#toc1"> Horde_Injector</a><ol><li><a href="#toc2"> Making classes amenable to dependency injection</a></li><li><a href="#toc3"> Using Horde_Injector</a><ol><li><a href="#toc4"> Default Binders</a></ol></li><li><a href="#toc5"> Preparing a class for Horde_Injector</a><ol><li><a href="#toc6"> Getting rid of singletons?</a></ol></li><li><a href="#toc7"> Dependency Injection Container FAQ</a><ol><li><a href="#toc8"> Where can <tt>Horde_Injector</tt> be used?</a></li><li><a href="#toc9"> How do I provide <tt>Horde_Config</tt> values to my business models?</a></li><li><a href="#toc10"> I have an <tt>array</tt>-typed parameter in my constructor, do I have to use a factory to provide the array of values?</a></ol></li><li><a href="#toc11"> Dependency Injection Container Spec</a><ol><li><a href="#toc12"> Terms</a></li><li><a href="#toc13"> Requirements</a></li><li><a href="#toc14"> Functional Spec</a><ol><li><a href="#toc15"> Goals</a></li><li><a href="#toc16"> Features</a></ol></li><li><a href="#toc17"> Technical Spec</a></li><li><a href="#toc18"> Binders</a><ol><ol><li><a href="#toc19"> Factory binders</a></li><li><a href="#toc20"> Implementation binders</a></li><li><a href="#toc21"> Choosing a binder</a></ol></li><li><a href="#toc22"> Instances</a></li><li><a href="#toc23"> Getting objects</a><ol><li><a href="#toc24"> Creating a new instance</a></li><li><a href="#toc25"> Getting an instance</a></ol></li><li><a href="#toc26"> Scoping with child injectors</a></ol></ol></ol>
+</li></ol></div>
+
+
+<h1 id="toc0"> Introduction</h1>
+<p>The dependency injection pattern (<a href="http://en.wikipedia.org/wiki/Dependency_injection" class="external" target="_blank" title="http://en.wikipedia.org/wiki/Dependency_injection">http://en.wikipedia.org/wiki/Dependency_injection</a>) is a useful approach that can help to avoid using global variables or state. If a class depends on a connection to a database then this connection is often pulled into the class using a singleton pattern or by using a global variable.</p>
+
+<p>Instead of providing the class with knowledge about the global state it is often preferable to &quot;inject&quot; the dependency into the class from the outside. This usually happens within the class constructor. To get hold of a database connection a class constructor could for example require an object that implements a database interface instead of using a singleton pattern.</p>
+
+<p>This way the dependencies of a class are immediately visible in the constructor. It is not necessary to search the code of the class for references to the global scope. This usually also helps to decouple<br />
+dependencies between different code modules. Another major benefit of dependency injection is the fact that it facilitates unit testing of complex systems.</p>
+
+
+<h1 id="toc1"> Horde_Injector</h1>
+<p>Horde_Injector provides a &quot;Dependency Injection&quot; framework.  For PHP there exist several dependency injection frameworks (e.g. <a href="http://stubbles.net" class="external" target="_blank" title="http://stubbles.net">http://stubbles.net</a>, <a href="http://components.symfony-project.org/dependency-injection" class="external" target="_blank" title="http://components.symfony-project.org/dependency-injection">http://components.symfony-project.org/dependency-injection</a>) with extensive feature lists. So there is hardly any need for another framework with similar capabilities.</p>
+
+<p>The essential part of dependency injection is the structure of classes with dependencies. They need to be amenable for an external management of their dependencies. If that is the case for a given class then most dependency injection frameworks should have no problem handling this class within the framework. The choice of the actual framework should not matter anymore.</p>
+
+<p>Horde_Injector provides only a minimal version of dependency injection.  It is somewhere in between the frameworks mentioned above and Twittee (<a href="http://twittee.org/" class="external" target="_blank" title="http://twittee.org/">http://twittee.org/</a>). The primary goal is to drive refactoring of classes with complex dependencies so that their dependencies can be uncoupled and they can be used with a dependency injection framework.</p>
+
+
+<h2 id="toc2"> Making classes amenable to dependency injection</h2>
+<p>As trivial as it may sound: a class can be managed by a dependency injection framework if the class allows the framework to inject its dependencies from the outside. That means that the class may <strong>not</strong></p>
+
+<ul>
+    <li>pull in a dependency using global state via the singleton pattern:</li>
+</ul>
+
+<p>
+<pre><code><span style="color:#0000BB">External_Class</span><span style="color: #007700">::</span><span style="color: #0000BB">singleton</span><span style="color: #007700">();
+</span></span></code></pre>
+
+</p>
+
+<ul>
+    <li>create new objects with dependencies:</li>
+</ul>
+
+<p>
+<pre><code><span style="color:#0000BB">$db </span><span style="color: #007700">= new </span><span style="color: #0000BB">DB</span><span style="color: #007700">();
+</span><span style="color: #0000BB">$b </span><span style="color: #007700">= new </span><span style="color: #0000BB">User</span><span style="color: #007700">(</span><span style="color: #0000BB">$db</span><span style="color: #007700">);
+</span></span></code></pre>
+
+</p>
+
+<ul>
+    <li>use global variables:</li>
+</ul>
+
+<p>
+<pre><code><span style="color:#0000BB"></span><span style="color: #007700">global </span><span style="color: #0000BB">$conf</span><span style="color: #007700">;
+</span><span style="color: #0000BB">$db </span><span style="color: #007700">= new </span><span style="color: #0000BB">DB</span><span style="color: #007700">(</span><span style="color: #0000BB">$conf</span><span style="color: #007700">[</span><span style="color: #DD0000">'sql'</span><span style="color: #007700">);
+</span></span></code></pre>
+
+</p>
+
+<p>In most cases the class should receive dependencies and required parameters within the constructor.</p>
+
+
+<h2 id="toc3"> Using Horde_Injector</h2>
+<p>The Horde_Injector class is a simple container that allows you to fill it with a number of elements that can be retrieved later:</p>
+
+<p>
+<pre><code><span style="color:#0000BB">$a </span><span style="color: #007700">= new </span><span style="color: #0000BB">Horde_Injector</span><span style="color: #007700">(new </span><span style="color: #0000BB">Horde_Injector_TopLevel</span><span style="color: #007700">());
+</span><span style="color: #0000BB">$a</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setInstance</span><span style="color: #007700">(</span><span style="color: #DD0000">'a'</span><span style="color: #007700">, </span><span style="color: #DD0000">'a'</span><span style="color: #007700">);
+echo </span><span style="color: #0000BB">$a</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getInstance</span><span style="color: #007700">(</span><span style="color: #DD0000">'a'</span><span style="color: #007700">);
+</span></span></code></pre>
+
+<br />
+
+<pre><code>string(1) &quot;a&quot;</span></code></pre>
+
+</p>
+
+<p>Here we assigned a concrete instance to the injector. In fact not even an instance but a simple type: a string. Usually you would register an object.</p>
+
+<p>But there might be situations - and in fact these are what dependency injection is about - where you do not want to register a concrete instance. You might not already have all the dependencies for creating an instance in place. So all you want to do is to register the required build instruction for generating an instance.</p>
+
+<p>This is something that you can do by registering a wrapper object that implements the Horde_Injector_Binder interface. This wrapper object needs to be capable of creating the concrete instance:</p>
+
+<p>
+<pre><code><span style="color:#0000BB"></span><span style="color: #007700">class </span><span style="color: #0000BB">Binder </span><span style="color: #007700">implements </span><span style="color: #0000BB">Horde_Injector_Binder
+</span><span style="color: #007700">{
+    public function </span><span style="color: #0000BB">create</span><span style="color: #007700">(</span><span style="color: #0000BB">Horde_Injector $injector</span><span style="color: #007700">)
+    {
+        return </span><span style="color: #DD0000">'constructed'</span><span style="color: #007700">;
+    }
+    public function </span><span style="color: #0000BB">equals</span><span style="color: #007700">(</span><span style="color: #0000BB">Horde_Injector_Binder $binder</span><span style="color: #007700">)
+    {
+        return </span><span style="color: #0000BB">false</span><span style="color: #007700">;
+    }
+}
+
+</span><span style="color: #0000BB">$a </span><span style="color: #007700">= new </span><span style="color: #0000BB">Horde_Injector</span><span style="color: #007700">(new </span><span style="color: #0000BB">Horde_Injector_TopLevel</span><span style="color: #007700">());
+</span><span style="color: #0000BB">$a</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addBinder</span><span style="color: #007700">(</span><span style="color: #DD0000">'constructed'</span><span style="color: #007700">, new </span><span style="color: #0000BB">Binder</span><span style="color: #007700">());
+</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$a</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getInstance</span><span style="color: #007700">(</span><span style="color: #DD0000">'constructed'</span><span style="color: #007700">));
+</span></span></code></pre>
+
+<br />
+
+<pre><code>string(11) &quot;constructed&quot;</span></code></pre>
+
+</p>
+
+<p>The example above demonstrates this approach by using the dummy Binder class which implements Horde_Injector_Binder. Once getInstance('constructed') is called on the injector object it will<br />
+determine that there is no concrete instance for 'constructed' yet. It then looks for any binders that might be capable of creating 'constructed' and calls the create() function of such a binder.</p>
+
+<p>Here the binder is simple again and does not even return an object but a simple string. It also makes no use of the Horde_Injector instance delivered as argument to the create() function. Usually the provided injector will be used to retrieve any missing dependencies for the instance to be created.</p>
+
+
+<h3 id="toc4"> Default Binders</h3>
+<p>Horde_Injector comes with two default Binder implementations so that you don't have to define your own binders.</p>
+
+<p>Lets look at the factory binder first:</p>
+
+<p>
+<pre><code><span style="color:#0000BB"></span><span style="color: #007700">class </span><span style="color: #0000BB">Greet
+</span><span style="color: #007700">{
+    public function </span><span style="color: #0000BB">__construct</span><span style="color: #007700">(</span><span style="color: #0000BB">$somebody</span><span style="color: #007700">)
+    {
+        </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">somebody </span><span style="color: #007700">= </span><span style="color: #0000BB">$somebody</span><span style="color: #007700">;
+    }
+
+    public function </span><span style="color: #0000BB">greet</span><span style="color: #007700">()
+    {
+        print </span><span style="color: #DD0000">'Hello ' </span><span style="color: #007700">. </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">somebody</span><span style="color: #007700">;
+    }
+}
+
+class </span><span style="color: #0000BB">Factory
+</span><span style="color: #007700">{
+    static public function </span><span style="color: #0000BB">getGreeter</span><span style="color: #007700">(</span><span style="color: #0000BB">Horde_Injector $injector</span><span style="color: #007700">)
+    {
+        return new </span><span style="color: #0000BB">Greet</span><span style="color: #007700">(</span><span style="color: #0000BB">$injector</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getInstance</span><span style="color: #007700">(</span><span style="color: #DD0000">'Person'</span><span style="color: #007700">));
+    }
+}
+ 
+</span><span style="color: #0000BB">$a </span><span style="color: #007700">= new </span><span style="color: #0000BB">Horde_Injector</span><span style="color: #007700">(new </span><span style="color: #0000BB">Horde_Injector_TopLevel</span><span style="color: #007700">());
+</span><span style="color: #0000BB">$a</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setInstance</span><span style="color: #007700">(</span><span style="color: #DD0000">'Person'</span><span style="color: #007700">, </span><span style="color: #DD0000">'Bob'</span><span style="color: #007700">);
+</span><span style="color: #0000BB">$a</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindFactory</span><span style="color: #007700">(</span><span style="color: #DD0000">'Greet'</span><span style="color: #007700">, </span><span style="color: #DD0000">'Factory'</span><span style="color: #007700">, </span><span style="color: #DD0000">'getGreeter'</span><span style="color: #007700">);
+</span><span style="color: #0000BB">$a</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getInstance</span><span style="color: #007700">(</span><span style="color: #DD0000">'Greet'</span><span style="color: #007700">)-&gt;</span><span style="color: #0000BB">greet</span><span style="color: #007700">();
+</span></span></code></pre>
+
+<br />
+
+<pre><code>Hello Bob</span></code></pre>
+
+</p>
+
+<p>This time the Factory in the example above really pulls a dependency: a person. We explicitly registered the string &quot;Bob&quot; with the injector and associated it with the interface name &quot;Person&quot;.</p>
+
+<p>The Horde_Injector_Binder_Factory binder can be registered with the injector using the &quot;bindFactory()&quot; shortcut. It takes the interface name (here it is &quot;Greet&quot;) and requires a class and a method name. This is assumed to be the factory creating the concrete instance.</p>
+
+<p>Once getInstance('Greet') is called the injector refers to the binder (as no concrete instance has been created yet). The binder delegates to the factory to actually create the object.</p>
+
+<p>The whole thing is also possible with a little bit more magic. The second approach implemented by Horde_Injector_Binder_Implementation requires type hinting to work:</p>
+
+<p>
+<pre><code><span style="color:#0000BB"></span><span style="color: #007700">interface </span><span style="color: #0000BB">Person
+</span><span style="color: #007700">{
+    public function </span><span style="color: #0000BB">__toString</span><span style="color: #007700">();
+}
+
+class </span><span style="color: #0000BB">World </span><span style="color: #007700">implements </span><span style="color: #0000BB">Person
+</span><span style="color: #007700">{
+    public function </span><span style="color: #0000BB">__toString</span><span style="color: #007700">()
+    {
+        return </span><span style="color: #DD0000">'World'</span><span style="color: #007700">;
+    }
+}
+
+interface </span><span style="color: #0000BB">Greeter
+</span><span style="color: #007700">{
+    public function </span><span style="color: #0000BB">greet</span><span style="color: #007700">();
+}
+
+class </span><span style="color: #0000BB">Hello </span><span style="color: #007700">implements </span><span style="color: #0000BB">Greeter
+</span><span style="color: #007700">{
+    public function </span><span style="color: #0000BB">__construct</span><span style="color: #007700">(</span><span style="color: #0000BB">Person $somebody</span><span style="color: #007700">)
+    {
+        </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">somebody </span><span style="color: #007700">= </span><span style="color: #0000BB">$somebody</span><span style="color: #007700">;
+    }
+
+    public function </span><span style="color: #0000BB">greet</span><span style="color: #007700">()
+    {
+        print </span><span style="color: #DD0000">'Hello ' </span><span style="color: #007700">. </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">somebody</span><span style="color: #007700">;
+    }
+}
+
+</span><span style="color: #0000BB">$a </span><span style="color: #007700">= new </span><span style="color: #0000BB">Horde_Injector</span><span style="color: #007700">(new </span><span style="color: #0000BB">Horde_Injector_TopLevel</span><span style="color: #007700">());
+</span><span style="color: #0000BB">$a</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindImplementation</span><span style="color: #007700">(</span><span style="color: #DD0000">'Person'</span><span style="color: #007700">, </span><span style="color: #DD0000">'World'</span><span style="color: #007700">);
+</span><span style="color: #0000BB">$a</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindImplementation</span><span style="color: #007700">(</span><span style="color: #DD0000">'Greeter'</span><span style="color: #007700">, </span><span style="color: #DD0000">'Hello'</span><span style="color: #007700">);
+</span><span style="color: #0000BB">$a</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getInstance</span><span style="color: #007700">(</span><span style="color: #DD0000">'Greeter'</span><span style="color: #007700">)-&gt;</span><span style="color: #0000BB">greet</span><span style="color: #007700">();
+</span></span></code></pre>
+
+<br />
+
+<pre><code>Hello World</span></code></pre>
+
+</p>
+
+<p>The crucial part here is that the &quot;Hello&quot; class indicates in its constructor that it requires an object implementing the interface &quot;Person&quot;. Horde_Injector is capable of detecting this via reflection. It will automatically search for the dependency and try to create an instance implementing this interface.</p>
+
+<p>In order for this to work we bind two classes to two interfaces: &quot;World&quot; to &quot;Person&quot; and &quot;Hello&quot; to &quot;Greeter&quot;. Once the injector tries to create the &quot;Greeter&quot;-instance it will be able to fetch the required &quot;Person&quot; dependency by creating a &quot;World&quot; object.</p>
+
+<p>In case you remember that printing the little resulting string can be slightly easier while even using far less code: Dependency injection is meant for complex situations.</p>
+
+<p>Nevertheless the example hopefully demonstrates how to handle different implementation options using dependency injection: You may have different drivers that all fulfill a given interface. The Horde_Injector gives you an easy method to define which drivers you actually want to use without actually instantiating them. The concrete setup will only be build once you really need a concrete instance.</p>
+
+
+<h2 id="toc5"> Preparing a class for Horde_Injector</h2>
+<p>Assume you have the following simple class that represents a common structure found in many of the Horde packages:</p>
+
+<p>
+<pre><code><span style="color:#0000BB"></span><span style="color: #007700">class </span><span style="color: #0000BB">Horde_X
+</span><span style="color: #007700">{
+    </span><span style="color: #FF8000">/**
+     * Instance object.
+     *
+     * @var Horde_X
+     */
+    </span><span style="color: #007700">static protected </span><span style="color: #0000BB">$_instance</span><span style="color: #007700">;
+
+    </span><span style="color: #FF8000">/**
+     * Pointer to a DB instance.
+     *
+     * @var DB
+     */
+    </span><span style="color: #007700">protected </span><span style="color: #0000BB">$_db</span><span style="color: #007700">;
+
+    </span><span style="color: #FF8000">/**
+     * Attempts to return a reference to a concrete Horde_X instance.
+     *
+     * @return Horde_X  The concrete Horde_X reference.
+     * @throws Horde_Exception
+     */
+    </span><span style="color: #007700">static public function </span><span style="color: #0000BB">singleton</span><span style="color: #007700">()
+    {
+        if (!isset(</span><span style="color: #0000BB">self</span><span style="color: #007700">::</span><span style="color: #0000BB">$_instance</span><span style="color: #007700">)) {
+            </span><span style="color: #0000BB">self</span><span style="color: #007700">::</span><span style="color: #0000BB">$_instance </span><span style="color: #007700">= new </span><span style="color: #0000BB">Horde_X</span><span style="color: #007700">();
+        }
+
+        return </span><span style="color: #0000BB">self</span><span style="color: #007700">::</span><span style="color: #0000BB">$_instance</span><span style="color: #007700">;
+    }
+
+    </span><span style="color: #FF8000">/**
+     * Constructor.
+     */
+    </span><span style="color: #007700">public function </span><span style="color: #0000BB">__construct</span><span style="color: #007700">()
+    {
+        global </span><span style="color: #0000BB">$conf</span><span style="color: #007700">;
+
+        </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">_db </span><span style="color: #007700">= </span><span style="color: #0000BB">DB</span><span style="color: #007700">::</span><span style="color: #0000BB">connect</span><span style="color: #007700">(</span><span style="color: #0000BB">$conf</span><span style="color: #007700">[</span><span style="color: #DD0000">'sql'</span><span style="color: #007700">]);
+    }
+}
+</span></span></code></pre>
+
+</p>
+
+<p>The class obviously depends on a database connection. The constructor above does not allow for dependency injection as it constructs the database connection itself. It uses the global variable $conf in order to get the settings for this connection. A constructor allowing dependency injection would look like this:</p>
+
+<p>
+<pre><code>    /**
+     * Constructor.
+     *
+     * @param DB $db A database connection.
+     */
+    public function __construct(DB $db)
+    {
+        $this-&gt;_db = $db;
+    }</span></code></pre>
+
+</p>
+
+<p>Of course this connection must be provided from somewhere. The application using Horde_X might simply provide it when creating the Horde_X instance. If the application is however using a dependency injection framework then this framework would be required to provide the required database connection.</p>
+
+
+<h3 id="toc6"> Getting rid of singletons?</h3>
+<p>From the viewpoint of dependency injection Horde_X can be used now as it allows external injection of its dependencies. We could throw away the singleton now. However there might be some reasons why we would like to keep the singleton() method. One of the reasons might be backward compatibility as some other classes or applications are bound to use the method. Another reason might be that we want to clarify how to get a functional instance of the class to somebody just looking at the Horde_X class.</p>
+
+<p>We could keep the following singleton method:</p>
+
+<p>
+<pre><code><span style="color:#0000BB">    </span><span style="color: #007700">static public function </span><span style="color: #0000BB">singleton</span><span style="color: #007700">()
+    {
+        if (!isset(</span><span style="color: #0000BB">self</span><span style="color: #007700">::</span><span style="color: #0000BB">$_instance</span><span style="color: #007700">)) {
+            global </span><span style="color: #0000BB">$conf</span><span style="color: #007700">;
+
+            </span><span style="color: #0000BB">$db </span><span style="color: #007700">= </span><span style="color: #0000BB">DB</span><span style="color: #007700">::</span><span style="color: #0000BB">connect</span><span style="color: #007700">(</span><span style="color: #0000BB">$conf</span><span style="color: #007700">[</span><span style="color: #DD0000">'sql'</span><span style="color: #007700">]);
+            </span><span style="color: #0000BB">self</span><span style="color: #007700">::</span><span style="color: #0000BB">$_instance </span><span style="color: #007700">= </span><span style="color: #0000BB">Horde_X</span><span style="color: #007700">(</span><span style="color: #0000BB">$db</span><span style="color: #007700">);
+        }
+
+        return </span><span style="color: #0000BB">self</span><span style="color: #007700">::</span><span style="color: #0000BB">$_instance</span><span style="color: #007700">;
+    }
+</span></span></code></pre>
+
+</p>
+
+<p>The final result that can be used with a dependency injection framework and still provides a backward compatible singleton method:</p>
+
+<p>
+<pre><code><span style="color:#0000BB"></span><span style="color: #007700">class </span><span style="color: #0000BB">Horde_X
+</span><span style="color: #007700">{
+    </span><span style="color: #FF8000">/**
+     * Instance object.
+     *
+     * @var Horde_X
+     */
+    </span><span style="color: #007700">static protected </span><span style="color: #0000BB">$_instance</span><span style="color: #007700">;
+
+    </span><span style="color: #FF8000">/**
+     * Pointer to a DB instance.
+     *
+     * @var DB
+     */
+    </span><span style="color: #007700">protected </span><span style="color: #0000BB">$_db</span><span style="color: #007700">;
+
+    </span><span style="color: #FF8000">/**
+     * Attempts to return a reference to a concrete Horde_X instance.
+     *
+     * @return Horde_X  The concrete Horde_X reference.
+     */
+    </span><span style="color: #007700">static public function </span><span style="color: #0000BB">singleton</span><span style="color: #007700">()
+    {
+        if (!isset(</span><span style="color: #0000BB">self</span><span style="color: #007700">::</span><span style="color: #0000BB">$_instance</span><span style="color: #007700">)) {
+            global </span><span style="color: #0000BB">$conf</span><span style="color: #007700">;
+
+            </span><span style="color: #0000BB">$db </span><span style="color: #007700">= </span><span style="color: #0000BB">DB</span><span style="color: #007700">::</span><span style="color: #0000BB">connect</span><span style="color: #007700">(</span><span style="color: #0000BB">$conf</span><span style="color: #007700">[</span><span style="color: #DD0000">'sql'</span><span style="color: #007700">]);
+            </span><span style="color: #0000BB">self</span><span style="color: #007700">::</span><span style="color: #0000BB">$_instance </span><span style="color: #007700">= </span><span style="color: #0000BB">Horde_X</span><span style="color: #007700">(</span><span style="color: #0000BB">$db</span><span style="color: #007700">);
+        }
+
+        return </span><span style="color: #0000BB">self</span><span style="color: #007700">::</span><span style="color: #0000BB">$_instance</span><span style="color: #007700">;
+    }
+
+    </span><span style="color: #FF8000">/**
+     * Constructor.
+     *
+     * @param DB $db A database connection.
+     */
+    </span><span style="color: #007700">public function </span><span style="color: #0000BB">__construct</span><span style="color: #007700">(</span><span style="color: #0000BB">DB $db</span><span style="color: #007700">)
+    {
+        </span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">_db </span><span style="color: #007700">= </span><span style="color: #0000BB">$db</span><span style="color: #007700">;
+    }
+}
+</span></span></code></pre>
+
+</p>
+
+
+<h2 id="toc7"> Dependency Injection Container FAQ</h2>
+
+<h3 id="toc8"> Where can <tt>Horde_Injector</tt> be used?</h3>
+<p>In the application layer only. If you use this in your business models I will find you and beat you to death with a shoe.</p>
+
+
+<h3 id="toc9"> How do I provide <tt>Horde_Config</tt> values to my business models?</h3>
+<p>Factories.</p>
+
+<p>
+<pre><code><span style="color:#0000BB">$injector</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindFactory</span><span style="color: #007700">(</span><span style="color: #DD0000">'InterfaceX'</span><span style="color: #007700">, </span><span style="color: #DD0000">'FactoryX'</span><span style="color: #007700">, </span><span style="color: #DD0000">'create'</span><span style="color: #007700">);
+
+class </span><span style="color: #0000BB">FactoryX </span><span style="color: #007700">{
+    public function </span><span style="color: #0000BB">create</span><span style="color: #007700">(</span><span style="color: #0000BB">Horde_Injector $injector</span><span style="color: #007700">) {
+        </span><span style="color: #0000BB">$setting </span><span style="color: #007700">= </span><span style="color: #0000BB">$injector</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getInstance</span><span style="color: #007700">(</span><span style="color: #DD0000">'Horde_Config'</span><span style="color: #007700">)-&gt;</span><span style="color: #0000BB">get</span><span style="color: #007700">(</span><span style="color: #DD0000">'main'</span><span style="color: #007700">, </span><span style="color: #DD0000">'setting'</span><span style="color: #007700">);
+        return new </span><span style="color: #0000BB">X</span><span style="color: #007700">(</span><span style="color: #0000BB">$setting</span><span style="color: #007700">);
+    }
+}
+</span></span></code></pre>
+
+</p>
+
+
+<h3 id="toc10"> I have an <tt>array</tt>-typed parameter in my constructor, do I have to use a factory to provide the array of values?</h3>
+<p>Maybe. It depends on which you believe is easier. Consider this example where a more specific <a class="newpage" href="/ArrayObject?referrer=Doc%2FDev%2FInjector">ArrayObject</a> is used. Does this array get reused? If so it may be worth creating a special extension of <a class="newpage" href="/ArrayObject?referrer=Doc%2FDev%2FInjector">ArrayObject</a>.</p>
+
+<p>
+<pre><code><span style="color:#0000BB">$injector</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindFactory</span><span style="color: #007700">(</span><span style="color: #DD0000">'Dictionary_Sources'</span><span style="color: #007700">, </span><span style="color: #DD0000">'Dictionary_Sources_Factory'</span><span style="color: #007700">);
+</span><span style="color: #0000BB">$dictionary </span><span style="color: #007700">= </span><span style="color: #0000BB">$injector</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">createInstance</span><span style="color: #007700">(</span><span style="color: #DD0000">'Dictionary'</span><span style="color: #007700">);
+
+class </span><span style="color: #0000BB">Dictionary </span><span style="color: #007700">{
+    public function </span><span style="color: #0000BB">__construct</span><span style="color: #007700">(</span><span style="color: #0000BB">Dictionary_Sources $sources</span><span style="color: #007700">) {
+        ...
+    }
+}
+
+class </span><span style="color: #0000BB">Dictionary_Sources </span><span style="color: #007700">extends </span><span style="color: #0000BB">ArrayObject</span><span style="color: #007700">{}
+
+class </span><span style="color: #0000BB">Dictionary_Sources_Factory </span><span style="color: #007700">{
+    public function </span><span style="color: #0000BB">create</span><span style="color: #007700">(</span><span style="color: #0000BB">Horde_Injector $injector</span><span style="color: #007700">) {
+        return new </span><span style="color: #0000BB">Dictionary_Sources</span><span style="color: #007700">(array(
+            </span><span style="color: #0000BB">$injector</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getInstance</span><span style="color: #007700">(</span><span style="color: #DD0000">'Dictionary_Source_Cache'</span><span style="color: #007700">),
+            </span><span style="color: #0000BB">$injector</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getInstance</span><span style="color: #007700">(</span><span style="color: #DD0000">'Dictionary_Source_Db'</span><span style="color: #007700">),
+            </span><span style="color: #0000BB">$injector</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getInstance</span><span style="color: #007700">(</span><span style="color: #DD0000">'Dictionary_Source_Json'</span><span style="color: #007700">)
+        ));
+    }
+}
+</span></span></code></pre>
+
+</p>
+
+<p>You're probably thinking that you could just create a factory to build your Dictionary object since you need to write a factory anyways. The real benefit is when you decide that Dictionary needs a new collaborator, say a <tt>Logger</tt>. If you have defined a factory for your <tt>Dictionary</tt> object, then you must edit that factory and create a <tt>Logger</tt> and pass it to your <tt>Dictionary</tt>. With the method above, you would simply need to edit your constructor, and the <tt>Logger</tt> will be provided for you. This gives you much greater flexibility, especially if you have objects that can operate on the same array of objects, but need slightly different configuration.</p>
+
+
+<h2 id="toc11"> Dependency Injection Container Spec</h2>
+<hr />
+
+<h3 id="toc12"> Terms</h3>
+<ul>
+    <li>Dependency Injection - DI</li>
+    <li>Dependency Injection Container - DIC</li>
+</ul>
+
+<hr />
+
+<h3 id="toc13"> Requirements</h3>
+<p>Switching business layer implementations across an application is expensive.</p>
+
+<p>DI decouples our business layer classes from other business layer classes but doesn't solve the problem of decoupling our application layer classes from our business layer classes. Without functionality to tackle this issue, business layer class configuration is duplicated throughout the application.</p>
+
+<p>As expense is the primary concern, any solution to the problem must not simply move the expense to initial application layer implementation.</p>
+
+<hr />
+
+<h3 id="toc14"> Functional Spec</h3>
+
+<h4 id="toc15"> Goals</h4>
+<ul>
+    <li>Decouple application layer (controller) from business layer (model)</li>
+    <li>Allow easy use of models which are decoupled from their dependencies using DI</li>
+    <li>Favor code over configuration</li>
+    <li>Simple, testable design</li>
+</ul>
+
+
+<h4 id="toc16"> Features</h4>
+<p>A DIC allows you to make typically difficult configuration changes, like changing an entire application from using one service implementation to another, with simple modifications in one localized place.</p>
+
+<p>A DIC manages the way your objects are wired together. It makes the wiring entirely configurable per-application, per-module, and all the way down to per single object instantiation. Needing configuration to make lots of individual objects is inefficient and hard to maintain which is why its reserved for only special cases. In reality most classes rely on only a few service objects (configuration, database connection, cache, etc.) and these object most often will have identical configurations in the entire application with a few per-module exceptions.</p>
+
+<p>DICs don't require configuration for every object you want them to create. In most cases class dependencies will be detectable and the DIC will be able to provide those dependencies automatically.</p>
+
+<p>Using a DIC for all application-level object creation makes your application unit-testable. Dependencies can easily be swapped out with mock objects because all dependencies are provided to the application using a DIC.</p>
+
+<hr />
+
+<h3 id="toc17"> Technical Spec</h3>
+<p>The name of our DIC implementation is <tt>Horde_Injector</tt>. <tt>Horde_Injector</tt> can be told how to create objects using factories or it can try to create them itself using reflection. It can also be told to return an already-instantiated object when an interface is requested. Finally, if the requested interface has not been bound to a factory, implementation, or instance the injector will attempt to create the object using an implementation binder. For this to be successful the interface must actually be a concrete class.</p>
+
+
+<h3 id="toc18"> Binders</h3>
+<p>The way we tell <tt>Horde_Injector</tt> how to create objects is using &quot;binders&quot; (which implement <tt>Horde_Injector_Binder</tt>). <tt>Horde_Injector</tt> maintains references to binders. References can be added in two ways:</p>
+
+<p>
+<pre><code><span style="color:#0000BB">$binder </span><span style="color: #007700">= new </span><span style="color: #0000BB">Horde_Injector_Binder_X</span><span style="color: #007700">(</span><span style="color: #0000BB">$param1</span><span style="color: #007700">);
+</span><span style="color: #0000BB">$injector</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addBinder</span><span style="color: #007700">(</span><span style="color: #0000BB">$interface</span><span style="color: #007700">, </span><span style="color: #0000BB">$binder</span><span style="color: #007700">)
+</span></span></code></pre>
+
+</p>
+
+<p>
+<pre><code><span style="color:#0000BB">$injector</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindX</span><span style="color: #007700">(</span><span style="color: #0000BB">$interface</span><span style="color: #007700">, </span><span style="color: #0000BB">$param1</span><span style="color: #007700">);
+</span></span></code></pre>
+
+</p>
+
+
+<h5 id="toc19"> Factory binders</h5>
+<p>[Factories|<a href="http://en.wikipedia.org/wiki/Factory_method_pattern" class="external" target="_blank" title="http://en.wikipedia.org/wiki/Factory_method_pattern">http://en.wikipedia.org/wiki/Factory_method_pattern</a>] are classes with methods which instantiate and return objects. In the following example an interface is bound to a factory. If <tt><a class="newpage" href="/DataSourceX?referrer=Doc%2FDev%2FInjector">DataSourceX</a></tt> had dependencies it could instantiate them itself or ask <tt>$injector</tt> for those dependencies.</p>
+
+<p>
+<pre><code><span style="color:#0000BB">$injector</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindFactory</span><span style="color: #007700">(</span><span style="color: #DD0000">'DataSourceInteface'</span><span style="color: #007700">, </span><span style="color: #DD0000">'DataSourceFactory'</span><span style="color: #007700">, </span><span style="color: #DD0000">'create'</span><span style="color: #007700">);
+
+class </span><span style="color: #0000BB">DataSourceFactory </span><span style="color: #007700">{
+    public function </span><span style="color: #0000BB">create</span><span style="color: #007700">(</span><span style="color: #0000BB">Horde_Injector $injector</span><span style="color: #007700">) {
+        return new </span><span style="color: #0000BB">DataSourceX</span><span style="color: #007700">();
+    }
+}
+</span></span></code></pre>
+
+</p>
+
+<p><em>Factory method names can be whatever you want but they must only require one parameter and it must be a <tt>Horde_Injector</tt> object.</em></p>
+
+
+<h5 id="toc20"> Implementation binders</h5>
+<p>Reflection allows us to programmatically inspect the structure of the class that is to be instantiated. By reading the interface types of the class constructor's parameters and then asking the injector to create those objects as well we try to provide the requested class's constructor with all its dependencies.</p>
+
+<p>
+<pre><code><span style="color:#0000BB">$injector</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindImplementation</span><span style="color: #007700">(</span><span style="color: #DD0000">'DataSourceInteface'</span><span style="color: #007700">, </span><span style="color: #DD0000">'DataSourceX'</span><span style="color: #007700">);
+
+class </span><span style="color: #0000BB">DataSourceX </span><span style="color: #007700">{
+    public function </span><span style="color: #0000BB">__construct</span><span style="color: #007700">(</span><span style="color: #0000BB">DependencyY $dependencyY</span><span style="color: #007700">) {
+        ...
+    }
+}
+</span></span></code></pre>
+
+</p>
+
+
+<h5 id="toc21"> Choosing a binder</h5>
+<p>Use a factory binder if:</p>
+
+<ul>
+    <li>The class you are instantiating has any untyped parameters</li>
+    <li>You wish to create an instance of a class, that needs to have 2 objects of the same interface, but configured differently. [See FAQ|Dependency Injection Container FAQ]</li>
+</ul>
+
+<p>Use an implementation binder if:</p>
+
+<ul>
+    <li>The class you are instantiating has only typed parameters</li>
+</ul>
+
+
+<h4 id="toc22"> Instances</h4>
+<p><tt>Horde_Injector</tt> maintains an array of object instances which are bound to interfaces. Instance binding happens two different ways: setting the instance binding manually, or by asking the injector to give you an instance (if it doesn't have one, then one is created and a reference to the internal instances array is added.)</p>
+
+<p>
+<pre><code><span style="color:#0000BB">$instance </span><span style="color: #007700">= new </span><span style="color: #0000BB">X</span><span style="color: #007700">();
+</span><span style="color: #0000BB">$injector</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setInstance</span><span style="color: #007700">(</span><span style="color: #DD0000">'X'</span><span style="color: #007700">, </span><span style="color: #0000BB">$instance</span><span style="color: #007700">);
+</span></span></code></pre>
+
+</p>
+
+
+<h4 id="toc23"> Getting objects</h4>
+<p>For requested objects to be returned the injector must already have all the information present it needs to create the object.</p>
+
+
+<h5 id="toc24"> Creating a new instance</h5>
+<p>To get a guaranteed new object use createInstance. References to instances retrieved in this manner are not stored. They will not be available to other objects unless you use <tt>setInstance</tt> to store the instance on the Injector.</p>
+
+<p>
+<pre><code><span style="color:#0000BB">$injector</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">createInstance</span><span style="color: #007700">(</span><span style="color: #DD0000">'X'</span><span style="color: #007700">);
+</span></span></code></pre>
+
+</p>
+
+<p><em>Although the returned object will be new, its dependencies may not be. The injector will search its internal instances array for an instance matching the dependency's interface and if a match if found it will be used. If for some reason you need to guarantee that all dependencies are new, then you should consider using a factory binder.</em></p>
+
+
+<h5 id="toc25"> Getting an instance</h5>
+<p>As previously mentioned instances are pooled by the injector, so getInstance() gives developers the opportunity to reuse objects. If an instance exists for the requested interface it will be returned, otherwise it will be created, added to the injectors internal instances array, and returned.</p>
+
+<p>
+<pre><code><span style="color:#0000BB">$injector</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getInstance</span><span style="color: #007700">(</span><span style="color: #DD0000">'X'</span><span style="color: #007700">);
+</span></span></code></pre>
+
+</p>
+
+
+<h4 id="toc26"> Scoping with child injectors</h4>
+<p><tt>Horde_Injector</tt> implements the [Chain of Responsibility|<a href="http://en.wikipedia.org/wiki/Chain-of-responsibility_pattern" class="external" target="_blank" title="http://en.wikipedia.org/wiki/Chain-of-responsibility_pattern">http://en.wikipedia.org/wiki/Chain-of-responsibility_pattern</a>] design pattern with bindings and instances. What this means is that injectors will try to give you a binder or instance but if it doesn't have it it will ask its parent injector for them and try returning that to you.</p>
+
+<p>
+<pre><code><span style="color:#0000BB">$injector</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindFactory</span><span style="color: #007700">(</span><span style="color: #DD0000">'InterfaceX'</span><span style="color: #007700">, </span><span style="color: #DD0000">'FactoryX'</span><span style="color: #007700">, </span><span style="color: #DD0000">'create'</span><span style="color: #007700">);
+</span><span style="color: #0000BB">$childInjector </span><span style="color: #007700">= </span><span style="color: #0000BB">$injector</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">createChildInjector</span><span style="color: #007700">();
+</span><span style="color: #0000BB">$x </span><span style="color: #007700">= </span><span style="color: #0000BB">$childInjector</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">createInstance</span><span style="color: #007700">(</span><span style="color: #DD0000">'InterfaceX'</span><span style="color: #007700">); </span><span style="color: #FF8000">// success!!!
+</span></span></code></pre>
+
+</p>
+
+<p>
+<pre><code><span style="color:#0000BB">$childInjector </span><span style="color: #007700">= </span><span style="color: #0000BB">$injector</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">createChildInjector</span><span style="color: #007700">();
+</span><span style="color: #0000BB">$childInjector</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bindFactory</span><span style="color: #007700">(</span><span style="color: #DD0000">'InterfaceY'</span><span style="color: #007700">, </span><span style="color: #DD0000">'FactoryY'</span><span style="color: #007700">, </span><span style="color: #DD0000">'create'</span><span style="color: #007700">);
+</span><span style="color: #0000BB">$y </span><span style="color: #007700">= </span><span style="color: #0000BB">$injector</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">createInstance</span><span style="color: #007700">(</span><span style="color: #DD0000">'InterfaceY'</span><span style="color: #007700">); </span><span style="color: #FF8000">// failure!!!
+</span></span></code></pre>
+
+</p>
+
+<p>
+<pre><code><span style="color:#0000BB">$x </span><span style="color: #007700">= </span><span style="color: #0000BB">$injector</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getInstance</span><span style="color: #007700">(</span><span style="color: #DD0000">'X'</span><span style="color: #007700">);
+</span><span style="color: #0000BB">$childInjector </span><span style="color: #007700">= </span><span style="color: #0000BB">$injector</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">createChildInjector</span><span style="color: #007700">();
+</span><span style="color: #0000BB">$x </span><span style="color: #007700">=== </span><span style="color: #0000BB">$childInjector</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getInstance</span><span style="color: #007700">(</span><span style="color: #DD0000">'X'</span><span style="color: #007700">); </span><span style="color: #FF8000">// true
+</span></span></code></pre>
+
+</p>
+
+<p>Child Injectors allow you to configure sub-modules of code differently, without leaking any state into the global scope.</p>
+

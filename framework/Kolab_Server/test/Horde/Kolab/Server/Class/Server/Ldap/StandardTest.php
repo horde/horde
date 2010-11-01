@@ -36,8 +36,8 @@ class Horde_Kolab_Server_Class_Server_Ldap_StandardTest extends Horde_Kolab_Serv
     {
         $this->skipIfNoLdap();
 
-        $this->ldap_read  = $this->getMock('Net_LDAP2');
-        $this->ldap_write = $this->getMock('Net_LDAP2');
+        $this->ldap_read  = $this->getMock('Horde_Ldap');
+        $this->ldap_write = $this->getMock('Horde_Ldap');
         $connection = new Horde_Kolab_Server_Connection_Splittedldap(
             $this->ldap_read,
             $this->ldap_write
@@ -52,10 +52,10 @@ class Horde_Kolab_Server_Class_Server_Ldap_StandardTest extends Horde_Kolab_Serv
     private function getSearchResultMock()
     {
         $result = $this->getMock(
-            'Net_LDAP2_Search', array('as_struct', 'count'), array(), '', false
+            'Horde_Ldap_Search', array('asArray', 'count'), array(), '', false
         );
         $result->expects($this->any())
-            ->method('as_struct')
+            ->method('asArray')
             ->will($this->returnValue(array(array('dn' => 'test'))));
         $result->expects($this->any())
             ->method('count')
@@ -106,7 +106,7 @@ class Horde_Kolab_Server_Class_Server_Ldap_StandardTest extends Horde_Kolab_Serv
     {
         $this->ldap_read->expects($this->exactly(1))
             ->method('search')
-            ->will($this->returnValue(new PEAR_Error('Search failed!')));
+            ->will($this->throwException(new Horde_Ldap_Exception('Search failed!')));
         try {
             $this->assertEquals(array('dn' => 'test'), $this->server->findBelow('(equals=equals)', ''));
             $this->fail('No exception!');

@@ -10,7 +10,9 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('turba');
+
 require TURBA_BASE . '/' . ($browse_source_count
                             ? basename($prefs->getValue('initial_page'))
                             : 'search.php');

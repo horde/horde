@@ -36,20 +36,22 @@ require_once 'Horde/Autoloader.php';
 class Horde_History_Factory
 {
     /**
-     * Create a concrete Horde_History instance.
+     * Creates a concrete Horde_History instance.
      *
-     * @param Horde_Injector $injector The environment for creating the instance.
+     * @param Horde_Injector $injector  The environment for creating the
+     *                                  instance.
      *
      * @return Horde_History The new Horde_History instance.
      *
-     * @throws Horde_Exception If the injector provides no configuration.
+     * @throws Horde_History_Exception If the injector provides no
+     *                                 configuration.
      */
     static public function getHistory(Horde_Injector $injector)
     {
         try {
             $config = $injector->getInstance('Horde_History_Config');
         } catch (ReflectionException $e) {
-            throw new Horde_Exception(
+            throw new Horde_History_Exception(
                 sprintf(
                     'The configuration for the History driver is missing: %s',
                     $e->getMessage()
@@ -63,37 +65,39 @@ class Horde_History_Factory
         case 'Mock':
             return Horde_History_Factory::getHistoryMock($config->params);
         default:
-            throw new Horde_Exception(sprintf("Driver %s not supported!", $config->driver));
+            throw new Horde_History_Exception(sprintf("Driver %s not supported!", $config->driver));
         }
     }
 
     /**
-     * Create a concrete Horde_History_Sql instance.
+     * Creates a concrete Horde_History_Sql instance.
      *
-     * @param Horde_Injector $injector The environment for creating the instance.
-     * @param array          $params   The db connection parameters if the
-     *                                 environment does not already provide a 
-     *                                 connection.
+     * @param Horde_Injector $injector  The environment for creating the
+     *                                  instance.
+     * @param array $params             The db connection parameters if the
+     *                                  environment does not already provide a
+     *                                  connection.
      *
      * @return Horde_History_Sql The new Horde_History_Sql instance.
      *
-     * @throws Horde_Exception If the injector provides no configuration or
-     *                         creating the database connection failed.
+     * @throws Horde_History_Exception If the injector provides no
+     *                                 configuration or creating the database
+     *                                 connection failed.
      */
     static protected function getHistorySql(Horde_Injector $injector, array $params)
     {
         try {
-            /** See if there is a specific write db instance available */
+            /* See if there is a specific write db instance available */
             $write_db = $injector->getInstance('DB_common_write');
             $history = new Horde_History_Sql($write_db);
             try {
-                /** See if there is a specific read db instance available */
+                /* See if there is a specific read db instance available */
                 $read_db = $injector->getInstance('DB_common_read');
                 $history->setReadDb($read_db);
             } catch (ReflectionException $e) {
             }
         } catch (ReflectionException $e) {
-            /** No DB instances. Use the configuration. */
+            /* No DB instances. Use the configuration. */
             $write_db = Horde_History_Factory::getDb($params);
 
             $history = new Horde_History_Sql($write_db);
@@ -110,17 +114,19 @@ class Horde_History_Factory
     }
 
     /**
-     * Create a concrete Horde_History_Mock instance.
+     * Creates a concrete Horde_History_Mock instance.
      *
-     * @param Horde_Injector $injector The environment for creating the instance.
-     * @param array          $params   The db connection parameters if the
-     *                                 environment does not already provide a 
-     *                                 connection.
+     * @param Horde_Injector $injector  The environment for creating the
+     *                                  instance.
+     * @param array $params             The db connection parameters if the
+     *                                  environment does not already provide a
+     *                                  connection.
      *
      * @return Horde_History_Mock The new Horde_History_Mock instance.
      *
-     * @throws Horde_Exception If the injector provides no configuration or
-     *                         creating the database connection failed.
+     * @throws Horde_History_Exception If the injector provides no
+     *                                 configuration or creating the database
+     *                                 connection failed.
      */
     static protected function getHistoryMock(array $params)
     {
@@ -128,13 +134,13 @@ class Horde_History_Factory
     }
 
     /**
-     * Create a database connection.
+     * Creates a database connection.
      *
      * @param array $params The database connection parameters.
      *
      * @return DB_common
      *
-     * @throws Horde_Exception In case the database connection failed.
+     * @throws Horde_History_Exception In case the database connection failed.
      */
     static protected function getDb(array $params)
     {

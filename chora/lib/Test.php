@@ -42,7 +42,7 @@ class Chora_Test extends Horde_Test
         'config/conf.php' => null,
         'config/mime_drivers.php' => null,
         'config/prefs.php' => null,
-        'config/sourceroots.php' => null
+        'config/backends.php' => null
     );
 
     /**

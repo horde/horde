@@ -81,8 +81,7 @@ class Koward_Cli extends Horde_Controller_Request_Base
 
         /* Authenticate the user if possible. */
         if ($this->_argv->user) {
-            require_once 'Horde/Auth.php';
-            $auth = Horde_Auth::singleton($conf['auth']['driver']);
+            $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
             if (!$auth->authenticate($this->_argv->user,
                                      array('password' => $this->_argv->pass))) {
                 throw new InvalidArgumentException('Failed to log in!');
@@ -95,8 +94,8 @@ class Koward_Cli extends Horde_Controller_Request_Base
                                || $this->auth_handler != $this->params[':action']);
         } catch (Horde_Exception $e) {
             if ($e->getCode() == 'permission_denied') {
-                header('Location: ' . $this->urlFor(array('controller' => 'index', 'action' => 'login')));
-                exit;
+                $this->urlFor(array('controller' => 'index', 'action' => 'login'))
+                    ->redirect();
             }
         }
 
@@ -136,8 +135,7 @@ class Koward_Cli extends Horde_Controller_Request_Base
                  * to use the standard form mechanisms via CLI. Think of some
                  * alternatives here.
                  */
-                $koward = &Koward::singleton();
-                $token = $koward->getRequestToken('cli');
+                $token = Horde::getRequestToken('cli');
                 $this->_cmd_argv['koward_form_object_formToken'] = $token;
 
                 /**
@@ -197,8 +195,7 @@ class Koward_Cli extends Horde_Controller_Request_Base
             /**
              * Provide a token for immediate deletion.
              */
-            $koward = &Koward::singleton();
-            $this->_cmd_argv['token'] = $koward->getRequestToken('object.delete');
+            $this->_cmd_argv['token'] = Horde::getRequestToken('object.delete');
 
             break;
         }

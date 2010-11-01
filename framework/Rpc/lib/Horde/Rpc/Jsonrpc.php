@@ -26,18 +26,6 @@
 class Horde_Rpc_Jsonrpc extends Horde_Rpc
 {
     /**
-     * Constructor.
-     *
-     * @param array $config  A hash containing any additional configuration or
-     *                       connection parameters this class might need.
-     */
-    function __construct($params = array())
-    {
-        parent::__construct($params);
-        Horde_Nls::setCharsetEnvironment('UTF-8');
-    }
-
-    /**
      * Returns the Content-Type of the response.
      *
      * @return string  The MIME Content-Type of the RPC response.
@@ -136,27 +124,27 @@ class Horde_Rpc_Jsonrpc extends Horde_Rpc
      *
      * This statically called method is actually the JSON-RPC client.
      *
-     * @param string $url     The path to the JSON-RPC server on the called
-     *                         host.
-     * @param string $method  The method to call.
-     * @param array $params   A hash containing any necessary parameters for
-     *                        the method call.
+     * @param string|Horde_Url $url  The path to the JSON-RPC server on the
+     *                               called host.
+     * @param string $method         The method to call.
+     * @param array $params          A hash containing any necessary parameters
+     *                               for the method call.
      * @param $options        Optional associative array of parameters which
      *                        can be:
-     *                        - user           - Basic Auth username
-     *                        - pass           - Basic Auth password
-     *                        - proxy_host     - Proxy server host
-     *                        - proxy_port     - Proxy server port
-     *                        - proxy_user     - Proxy auth username
-     *                        - proxy_pass     - Proxy auth password
-     *                        - timeout        - Connection timeout in seconds.
-     *                        - allowRedirects - Whether to follow redirects or
-     *                                           not
-     *                        - maxRedirects   - Max number of redirects to
-     *                                           follow
+     *                        - user:           Basic Auth username
+     *                        - pass:           Basic Auth password
+     *                        - proxy_host:     Proxy server host
+     *                        - proxy_port:     Proxy server port
+     *                        - proxy_user:     Proxy auth username
+     *                        - proxy_pass:     Proxy auth password
+     *                        - timeout:        Connection timeout in seconds.
+     *                        - allowRedirects: Whether to follow redirects or
+     *                                          not
+     *                        - maxRedirects:   Max number of redirects to
+     *                                          follow
      *
-     * @return mixed  The returned result from the method or a PEAR_Error on
-     *                failure.
+     * @return mixed  The returned result from the method.
+     * @throws Horde_Rpc_Exception
      */
     public static function request($url, $method, $params = null, $options = array())
     {
@@ -177,7 +165,7 @@ class Horde_Rpc_Jsonrpc extends Horde_Rpc
         }
 
         /*@TODO Use Horde_Http_Request */
-        $http = new HTTP_Request($url, $options);
+        $http = new HTTP_Request((string)$url, $options);
         if (!empty($language)) {
             $http->addHeader('Accept-Language', $language);
         }
@@ -193,7 +181,7 @@ class Horde_Rpc_Jsonrpc extends Horde_Rpc
 
         $result = $http->sendRequest();
         if (is_a($result, 'PEAR_Error')) {
-            return $result;
+            throw new Horde_Rpc_Exception($result);
         } elseif ($http->getResponseCode() == 500) {
             $response = Horde_Serialize::unserialize($http->getResponseBody(), Horde_Serialize::JSON);
             if (is_a($response, 'stdClass') &&
@@ -201,14 +189,17 @@ class Horde_Rpc_Jsonrpc extends Horde_Rpc
                 is_a($response->error, 'stdClass') &&
                 isset($response->error->name) &&
                 $response->error->name == 'JSONRPCError') {
+                throw new Horde_Rpc_Exception($response->error->message);
+                /* @todo: Include more information if we have an Exception that can handle this.
                 return PEAR::raiseError($response->error->message,
                                         $response->error->code,
                                         null, null,
                                         isset($response->error->error) ? $response->error->error : null);
+                */
             }
-            return PEAR::raiseError($http->getResponseBody());
+            throw new Horde_Rpc_Exception($http->getResponseBody());
         } elseif ($http->getResponseCode() != 200) {
-            return PEAR::raiseError('Request couldn\'t be answered. Returned errorcode: "' . $http->getResponseCode(), 'horde.error');
+            throw new Horde_Rpc_Exception('Request couldn\'t be answered. Returned errorcode: "' . $http->getResponseCode());
         }
 
         return Horde_Serialize::unserialize($http->getResponseBody(), Horde_Serialize::JSON);

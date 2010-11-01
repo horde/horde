@@ -21,6 +21,7 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
      *
      *
      * @return boolean
+     * @throws Kronolith_Exception
      */
     public function isFree($event)
     {
@@ -34,9 +35,6 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
 
         /* Fetch events. */
         $busy = Kronolith::listEvents($start, $end, array($this->get('calendar')));
-        if ($busy instanceof PEAR_Error) {
-            throw new Horde_Exception($busy->getMessage());
-        }
 
         /* No events at all during time period for requested event */
         if (!count($busy)) {
@@ -76,7 +74,7 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
      *
      * @param $event
      *
-     * @return void
+     * @throws Kronolith_Exception
      */
     public function addEvent($event)
     {
@@ -85,22 +83,16 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
 
         /* Make sure it's not already attached. */
         $uid = $event->uid;
-        $existing = $driver->getByUID($uid, array($this->get('calendar')));
-        if (!($existing instanceof PEAR_Error)) {
+        try {
+            $existing = $driver->getByUID($uid, array($this->get('calendar')));
             /* Already attached, just update */
             $this->_copyEvent($event, $existing);
             $result = $existing->save();
-            if (is_a($result, 'PEAR_Error')) {
-                throw new Kronolith_Exception($result->getMessage());
-            }
-        } else {
+        } catch (Horde_Exception_NotFound $ex) {
             /* Create a new event */
             $e = $driver->getEvent();
             $this->_copyEvent($event, $e);
             $result = $e->save();
-            if (is_a($result, 'PEAR_Error')) {
-                throw new Kronolith_Exception($result->getMessage());
-            }
         }
     }
 
@@ -108,17 +100,15 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
      * Remove this event from resource's calendar
      *
      * @param $event
-     * @return unknown_type
+     *
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function removeEvent($event)
     {
         $driver = Kronolith::getDriver('Resource', $this->get('calendar'));
         $re = $driver->getByUID($event->uid, array($this->get('calendar')));
-        // Event will only be in the calendar if it's been accepted. This error
-        // should never happen, but put it here as a safeguard for now.
-        if (!($re instanceof PEAR_Error)) {
-            $driver->deleteEvent($re->id);
-        }
+        $driver->deleteEvent($re->id);
     }
 
     /**
@@ -166,8 +156,8 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
         $to->status = $from->status;
         $to->description = $from->description;
         $to->url = $from->url;
-        $to->tags = $from->tags;
-        $to->geoLocation = $from->geoLocation;
+        $to->setTags($from->tags);
+        $to->setGeoLocation($from->geoLocation);
         $to->first = $from ->first;
         $to->last = $from->last;
         $to->start = $from->start;

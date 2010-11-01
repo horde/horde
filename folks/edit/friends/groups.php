@@ -41,8 +41,7 @@ case 'delete':
         $notification->push(sprintf(_("Group \"%s\" has been deleted."), $groups[$g]), 'horde.success');
     }
 
-    header('Location: ' . Horde::applicationUrl('edit/groups.php'));
-    exit;
+    Horde::url('edit/groups.php')->redirect();
 
 break;
 
@@ -60,8 +59,7 @@ case 'edit':
 
     if (Horde_Util::getFormData('submitbutton') == _("Cancel")) {
         $notification->push(sprintf(_("Group \"%s\" has not been renamed."), $groups[$g]), 'horde.warning');
-        header('Location: ' . Horde::applicationUrl('edit/groups.php'));
-        exit;
+        Horde::url('edit/groups.php')->redirect();
     } elseif (Horde_Util::getFormData('submitbutton') == _("Rename")) {
         $new_name = Horde_Util::getFormData('new_name');
         $result = $friends->renameGroup($g, $new_name);
@@ -69,8 +67,7 @@ case 'edit':
             $notification->push($result);
         } else {
             $notification->push(sprintf(_("Group \"%s\" has been renamed to \"%s\"."), $groups[$g], $new_name), 'horde.success');
-            header('Location: ' . Horde::applicationUrl('edit/groups.php'));
-            exit;
+            Horde::url('edit/groups.php')->redirect();
         }
     }
 
@@ -101,22 +98,21 @@ default:
                 $name = $translated[$info['translated_name']];
             }
             $notification->push(sprintf(_("Group \"%s\" was success added."), $name), 'horde.success');
-            header('Location: ' . Horde::applicationUrl('edit/groups.php'));
-            exit;
+            Horde::url('edit/groups.php')->redirect();
         }
     }
 
 break;
 }
 
-$remove_url = Horde_Util::addParameter(Horde::applicationUrl('edit/friends/groups.php'), 'action', 'delete');
-$remove_img = Horde::img('delete.png', '', '', $registry->getImageDir('horde'));
-$edit_url = Horde_Util::addParameter(Horde::applicationUrl('edit/friends/groups.php'), 'action', 'edit');
-$edit_img = Horde::img('edit.png', '', '', $registry->getImageDir('horde'));
-$perms_url = Horde::applicationUrl('perms.php');
-$perms_img = Horde::img('perms.png', '', '', $registry->getImageDir('horde'));
-$members_url = Horde::applicationUrl('edit/friends/friends.php');
-$members_img = Horde::img('group.png', '', '', $registry->getImageDir('horde'));
+$remove_url = Horde_Util::addParameter(Horde::url('edit/friends/groups.php'), 'action', 'delete');
+$remove_img = Horde::img('delete.png');
+$edit_url = Horde_Util::addParameter(Horde::url('edit/friends/groups.php'), 'action', 'edit');
+$edit_img = Horde::img('edit.png');
+$perms_url = Horde::url('perms.php');
+$perms_img = Horde::img('perms.png');
+$members_url = Horde::url('edit/friends/friends.php');
+$members_img = Horde::img('group.png');
 
 require FOLKS_TEMPLATES . '/common-header.inc';
 require FOLKS_TEMPLATES . '/menu.inc';

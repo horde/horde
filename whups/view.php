@@ -8,8 +8,8 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-define('WHUPS_BASE', dirname(__FILE__));
-require_once WHUPS_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('whups');
 
 $actionID = Horde_Util::getFormData('actionID');
 $id = Horde_Util::getFormData('ticket');
@@ -21,36 +21,32 @@ if (empty($id)) {
     exit;
 }
 $details = $whups_driver->getTicketDetails($id);
-if (is_a($details, 'PEAR_Error')) {
+if ($details instanceof PEAR_Error) {
     if ($details->code === 0) {
         // No permissions to this ticket.
-        $url = Horde::url($registry->get('webroot', 'horde') . '/login.php', true);
-        $url = Horde_Util::addParameter($url, 'url', Horde::selfUrl(true));
-        header('Location: ' . $url);
-        exit;
+        Horde::url($registry->get('webroot', 'horde') . '/login.php', true)
+            ->add('url', Horde::selfUrl(true))
+            ->redirect();
     } else {
-        Horde::fatal($details->getMessage(), __FILE__, __LINE__);
+        throw new Horde_Exception($details);
     }
 }
 
 // Check permissions on this ticket.
 if (!count(Whups::permissionsFilter($whups_driver->getHistory($id), 'comment', Horde_Perms::READ))) {
-    Horde::fatal(sprintf(_("You are not allowed to view ticket %d."), $id), __FILE__, __LINE__);
+    throw new Horde_Exception(sprintf(_("You are not allowed to view ticket %d."), $id));
 }
 
-if (empty($conf['vfs']['type'])) {
-    Horde::fatal(_("The VFS backend needs to be configured to enable attachment uploads."), __FILE__, __LINE__);
+try {
+    $vfs = $injector->getInstance('Horde_Core_Factory_Vfs')->create();
+} catch (Horde_Exception $e) {
+    throw new Horde_Exception(_("The VFS backend needs to be configured to enable attachment uploads."));
 }
 
-require_once 'VFS.php';
-$vfs = VFS::factory($conf['vfs']['type'], Horde::getDriverConfig('vfs'));
-if (is_a($vfs, 'PEAR_Error')) {
-    Horde::fatal($vfs, __FILE__, __LINE__);
-} else {
+try {
     $data = $vfs->read(WHUPS_VFS_ATTACH_PATH . '/' . $id, $filename);
-}
-if (is_a($data, 'PEAR_Error')) {
-    Horde::fatal(sprintf(_("Access denied to %s"), $filename), __FILE__, __LINE__);
+} catch (VFS_Exception $e) {
+    throw Horde_Exception(sprintf(_("Access denied to %s"), $filename));
 }
 
 /* Run through action handlers */
@@ -66,9 +62,7 @@ case 'view_file':
     $mime_part->setContents($data);
     $mime_part->setName($filename);
 
-    $viewer = Horde_Mime_Viewer::factory($mime_part);
-
-    $ret = $viewer->render('full');
+    $ret = $injector->getInstance('Horde_Core_Factory_MimeViewer')->create($mime_part)->render('full');
     reset($ret);
     $key = key($ret);
 

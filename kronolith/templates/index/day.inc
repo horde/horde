@@ -5,9 +5,10 @@
   <caption>
     <span>&nbsp;</span>
     <span class="kronolithNavigation">
-      <a class="kronolithGotoToday"><?php echo Horde::highlightAccessKey(_("_Today"), $todayAccessKey) ?></a>
       <a class="kronolithPrev" title="<?php echo _("Previous") ?>">&lt;</a>
+      <a class="kronolithGotoToday"><?php echo Horde::highlightAccessKey(_("_Today"), $todayAccessKey) ?></a>
       <a class="kronolithNext" title="<?php echo _("Next") ?>">&gt;</a>
+      <a class="kronolithPrint" onclick="print()" title="<?php echo _("Print") ?>"><span><?php echo _("Print") ?></span></a>
     </span>
   </caption>
 </table>
@@ -31,17 +32,21 @@
 </div>
 
 <div class="kronolithViewBody">
+<div class="kronolithViewBodyContainer">
+
 <table class="kronolithView kronolithViewDay">
   <tbody id="kronolithViewDayBody">
     <?php for ($i = 0; $i < 24; $i++): ?>
     <tr<?php if ($i < 9 || $i > 19) echo ' class="kronolithNight"' ?>>
       <td class="kronolithFirstCol"><span><?php echo $i ?>:00</span></td>
-      <td></td>
+      <td>&nbsp;</td>
     </tr>
     <?php endfor; ?>
   </tbody>
 </table>
 <div id="kronolithEventsDay"></div>
+
+</div>
 </div>
 
 </div>

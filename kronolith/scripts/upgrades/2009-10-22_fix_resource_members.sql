@@ -1,1 +1,0 @@
-ALTER TABLE kronolith_resources CHANGE resource_members resource_members TEXT

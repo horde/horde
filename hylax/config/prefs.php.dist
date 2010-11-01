@@ -1,14 +1,14 @@
 <?php
 /**
- * $Horde: incubator/hylax/config/prefs.php.dist,v 1.1 2005/07/09 20:56:18 jvandal Exp $
- *
  * See horde/config/prefs.php for documentation on the structure of this file.
+ *
+ * $Id$
  */
 
 $prefGroups['display'] = array(
-    'column' => _("Other Options"),
-    'label' => _("Display Options"),
-    'desc' => _("Change display options such as how search results are sorted."),
+    'column' => _("Other Preferences"),
+    'label' => _("Display Preferences"),
+    'desc' => _("Change display preferences such as how search results are sorted."),
     'members' => array('hylax_default_view')
 );
 
@@ -16,7 +16,6 @@ $prefGroups['display'] = array(
 $_prefs['hylax_default_view'] = array(
     'value' => 'summary',
     'locked' => false,
-    'shared' => false,
     'type' => 'enum',
     'enum' => array('summmary' => _("Summary"),
                     'folder' => _("Folders"),

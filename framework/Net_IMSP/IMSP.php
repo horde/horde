@@ -74,11 +74,9 @@ class Net_IMSP {
         if (is_array($params) && !empty($params['server'])) {
             $this->imsp_server = $params['server'];
         }
-
         if (is_array($params) && !empty($params['port'])) {
             $this->imsp_port = $params['port'];
         }
-
     }
 
     /**
@@ -445,7 +443,7 @@ class Net_IMSP {
             return new $class($params);
         }
 
-         throw new Horde_Exception(sprintf(_("Unable to load the definition of %s."), $class));
+         throw new Horde_Exception(sprintf(Horde_Net_IMSP_Translation::t("Unable to load the definition of %s."), $class));
     }
 
     /**

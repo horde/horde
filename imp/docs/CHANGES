@@ -2,6 +2,82 @@
 v5.0-git
 --------
 
+[mms] Implement stationery support in DIMP.
+[mms] Add preference to control displayed content for multipart/alternative
+      parts (Request #6711).
+[mms] Allow multiple messages to be forwarded in a single outgoing message
+      (DIMP) (Request #9132).
+[mms] Add personal recipient message filter (Request #8659).
+[mms] Add mailing list message filter (Request #8659).
+[mms] Add ability to define search criteria to be applied to any mailbox
+      (Request #8659).
+[mms] Use recipient search (To/Cc/Bcc) by default instead of To search.
+[mms] Virtual folders now editable via a preferences group.
+[mms] Search code has been entirely rewritten.
+[jan] Rename servers.php to backends.php.
+[mms] Use alternate text part to generate reply/forward text when switching
+      compose modes if user has not altered message text (DIMP).
+[mms] Improved login error reporting/logging in IMP (Request #9211).
+[mms] Add hook to skip MDN prompt based on content of message headers.
+[mms] Allow expand/collapse of folders in MIMP.
+[mms] Use single, unified mailbox cache.
+[mms] Add support for setting/retrieving special-use mailboxes from IMAP
+      server.
+[mms] Add preference to control if we check for recipient PGP public keys
+      when replying (Request #7962).
+[mms] Add preference to allow for automatic spam reporting when explicitly
+      moving messages to the Spam mailbox (Request #6455).
+[mms] Automatically determine view based on browser and 'dynamic_view'
+      preference (Request #9159).
+[mms] Add preference to define default font family/size for the HTML compose
+      editor.
+[mms] Honor nav_expanded preference (DIMP).
+[mms] Allow admin to define list of safe e-mail addresses that will not
+      experience HTML image blocking (Request #9129).
+[mms] HTML compose editor uses Horde language for UI (Request #9084;
+      leandro.damascena@gmail.com).
+[mms] Add config option to disable multipart/related conversions
+      (Request #9099).
+[mms] Sentmail SQL driver now supports split read/write operation.
+[mms] Pass compose message data to mailer backend via stream; much more
+      efficient, especially with larger messages (Request #8909).
+[mms] Add strip attachments support in DIMP.
+[mms] Add PGP & S/MIME compose support to DIMP.
+[mms] Check for incorrect identity on compose if a single recipient address
+      is tied to a different identity than the sending identity.
+[mms] Use CATENATE (RFC 4469), if available, to strip MIME parts (Request
+      #8092).
+[mms] Add preference to show flags created by other MUAs (Request #8882).
+[mms] Added HTML signature support (Request #1406).
+[mms] Simplified date sorting display (Ticket #8936).
+[mms] Properly redirect messages pursuant to RFC 5322 [3.6.6].
+[mms] Add redirect message capability to DIMP.
+[mms] Add ability to add attachments to composed messages for advanced mobile
+      browsers - disabled by default (MIMP).
+[mms] Add checkbox interface to mailbox page for advanced mobile browsers -
+      disabled by default (MIMP).
+[mms] Add preference to allow viewing of all inline parts by default (MIMP).
+[mms] Add hook to alter composed message details before sending.
+[mms] DIMP now honors the 'allow_resume_all' configuration option.
+[mms] Remove 'sort_limit' configuration option.
+[mms] Mobile view no longer supports WML output.
+[jan] Implement iTip viewer actions in DIMP (Request #8061).
+[mms] Display alarm notifications in DIMP (Request #6232).
+[mms] Auto-determine charset for text attachments (Bug #8858).
+[mms] Remove IE 6 (and below) and Safari 2 (and below) support for DIMP.
+[mms] Add chance to switch between forward options on compose page when using
+      auto-forward (DIMP).
+[mms] Add chance to switch reply type to single recipient on compose page when
+      using auto-reply (DIMP).
+[mms] Fix printing multipage HTML messages in Mozilla browsers (Bug #8708).
+[mms] Provide command line script to obtain IMAP caching statistics.
+[mms] Catch flag changes from other IMAP clients when refreshing if CONDSTORE
+      is available on the IMAP server (DIMP).
+[mms] Improved forwarding options.
+[mms] Add support for LIST-STATUS IMAP extension; provides more efficient
+      mailbox polling.
+[mms] Add hook to allow determination of compose attachments MIME type.
+[mms] Move AJAX processing framework to Horde (Request #4561).
 [mms] If selected message(s) disappear from mailbox, gracefully handle in the
       user interface (DIMP).
 [mms] Only update search mailbox on explicit user action (Request #7297)
@@ -75,12 +151,11 @@ v5.0-git
 [mms] Implement spellcheck on send in DIMP.
 [mms] Sanity check - don't do message operations reliant on UID list if
       UIDVALIDITY of mailbox has changed.
-[mms] Simplify forwarding - always attach entire message.
 [mms] Remember splitbar position on login/refresh (DIMP).
 [mms] Disable advanced functions if using POP3 driver (caching, on-demand
       filtering, searching, sorting) because it is too resource intensive.
 [mms] Use native PHP code for POP3 driver (c-client no longer required).
-[mms] All native IMP code now uses exceptions instead of PEAR_Errors.
+[mms] IMP code now uses Exceptions instead of PEAR_Errors.
 [mms] Fix wrong charset on filenames when stripping attachments (Bug #7220).
 [mms] Use effects queue to prevent issues with users clicking on effects
       elements too quickly.
@@ -128,11 +203,42 @@ v5.0-git
 [mms] Add preference to delete draft on resume & send.
 
 
-----------
-v4.3.7-cvs
-----------
+-----------
+v4.3.10-cvs
+-----------
 
 
+
+
+------
+v4.3.9
+------
+
+[mms] Fix error if user's account only contains an INBOX (Bug #9273).
+
+
+------
+v4.3.8
+------
+
+[jan] SECURITY: Properly escape user input in Fetchmail configuration.
+[mms] Fix updating POP3 indices when using mailbox caching (Bug #8035).
+[jan] Include "anyone" user when listing users in the ACL screen (Bug #9135).
+[mms] Turn DNS prefetching off when displaying untrusted message content
+      (Ticket #8836).
+
+
+------
+v4.3.7
+------
+
+[mms] Fix spellcheck-on-send when using fckeditor and no errors exist
+      (Bug #8833).
+[mms] Fix authenticate API call and synchronization when using realms
+      (robin.west@dal.ca, Bugs #6749, #8872).
+[mms] Optimize folder tree initialization (Request #8805).
+[mms] Add command line fetchmail script (tjacyno@galasoft.net, Request #8812).
+[jan] Workaround broken PHP number formatting with some locales (Bug #8780).
 
 
 ------
@@ -2389,9 +2495,38 @@ Updated lynx pages so lynx works again with IMP
 OLD DIMP CHANGELOG
 ==================
 
+----------
+v1.1.7-cvs
+----------
+
+
+
+
+------
+v1.1.6
+------
+
+[jan] Fix redirecting to login screen if session times out (Bug #9281).
+
+
+------
+v1.1.5
+------
+
+[mms] SECURITY: XSS - Make sure mailbox name displayed on mailbox page is
+      properly encoded (Bug #9240).
+[jan] Fix notices with certain output buffer configurations
+      (Valentin.Vidic@CARNet.hr, Bug #7851).
+[mms] Turn DNS prefetching off when displaying untrusted message content
+      (Ticket #8836).
+
+
 ------
 v1.1.4
 ------
+
+[jan] Add Basque translation (Euskal Herriko Unibertsitatea <webmaster@ehu.es>).
+[jan] Add Croatian translation (Matej Vela <matej.vela@carnet.hr>).
 [mms] Fix sizing fckeditor compose editor frame in IE (Bug #8616).
 
 
@@ -2609,6 +2744,13 @@ v1.0-ALPHA
 ==================
 OLD MIMP CHANGELOG
 ==================
+
+------
+v1.1.3
+------
+
+[jan] Add Croatian translation (Matej Vela <matej.vela@carnet.hr>).
+
 
 ------
 v1.1.2

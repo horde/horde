@@ -2,15 +2,12 @@
 /**
  * This class provides attributes methods for any existing SQL class.
  *
- * $Horde: incubator/hylax/lib/SQL/Attributes.php,v 1.5 2009/01/06 17:50:49 jan Exp $
- *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @since   Horde 2.2
  * @package Hylax
  */
 class Hylax_SQL_Attributes {
@@ -68,7 +65,7 @@ class Hylax_SQL_Attributes {
                              $this->_params['attribute_table'],
                              implode(', ', $id));
 
-            Horde::logMessage('SQL Query by Hylax_SQL_Attributes::getAttributes(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('SQL Query by Hylax_SQL_Attributes::getAttributes(): ' . $query, 'DEBUG');
             $rows = $this->_db->getAll($query, DB_FETCHMODE_ASSOC);
             if (is_a($rows, 'PEAR_Error')) {
                 return $rows;
@@ -90,7 +87,7 @@ class Hylax_SQL_Attributes {
                              $this->_params['id_column'],
                              $this->_params['attribute_table'],
                              (int)$id);
-            Horde::logMessage('SQL Query by Hylax_SQL_Attributes::getAttributes(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('SQL Query by Hylax_SQL_Attributes::getAttributes(): ' . $query, 'DEBUG');
             return $this->_db->getAll($query, DB_FETCHMODE_ASSOC);
         }
     }
@@ -148,7 +145,7 @@ class Hylax_SQL_Attributes {
                          $query,
                          $pairs);
 
-        Horde::logMessage('SQL Query by Hylax_SQL_Attributes::getByAttributes(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by Hylax_SQL_Attributes::getByAttributes(): ' . $query, 'DEBUG');
 
         return $this->_db->getCol($query);
     }
@@ -173,7 +170,7 @@ class Hylax_SQL_Attributes {
                             $attr['key'],
                             $attr['value']);
 
-            Horde::logMessage('SQL Query by Hylax_SQL_Attributes::insertAttributes(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            Horde::logMessage('SQL Query by Hylax_SQL_Attributes::insertAttributes(): ' . $query, 'DEBUG');
 
             $result = $this->_db->query($query, $values);
             if (is_a($result, 'PEAR_Error')) {
@@ -203,7 +200,7 @@ class Hylax_SQL_Attributes {
                          $this->_params['id_column'],
                          (int)$id);
 
-        Horde::logMessage('SQL Query by Hylax_SQL_Attributes::deleteAttributes(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('SQL Query by Hylax_SQL_Attributes::deleteAttributes(): ' . $query, 'DEBUG');
         $result = $this->_db->query($query);
         if (is_a($result, 'PEAR_Error')) {
             return $result;

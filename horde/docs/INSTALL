@@ -75,19 +75,20 @@ below at Prerequisites_.
 
      cd php-x.x.x/
      ./configure --with-apxs=/usr/sbin/apxs \
-                 --with-gettext --with-mcrypt --enable-mbstring \
-                 --with-gd --with-png-dir=/usr --with-jpeg-dir=/usr \
-                 --with-mime-magic=/user/share/misc/magic.mime \
+                 --with-gettext --enable-mbstring --with-gd \
+                 --with-png-dir=/usr --with-jpeg-dir=/usr \
                  [--with-mysql|--with-pgsql|--with-oci8|--with-ldap]
+                 [--with-mcrypt] [--with-tidy]
      make
      make install
 
 2. Restart Apache.
 
-3. Install PEAR packages::
+3. Install PEAR/PECL packages::
 
-     pear install -o Log Mail DB Date File
-     pear -d preferred_state=beta install -a Services_Weather
+     pear install -o Crypt_Blowfish Date DB File Net_DNS Services_Weather
+     pear -d preferred_state=beta install -a HTTP_WebDAV_Server
+     pecl install -o fileinfo idn lzf [memcache]
 
 4. Extract tarball::
 
@@ -108,13 +109,16 @@ below at Prerequisites_.
 
 7. Test Horde::
 
+     [edit horde/config/conf.php and set 'testdisable' to false]
      http://your-server/horde/test.php
+     [SECURITY: edit horde/config/conf.php and set 'testdisable' to true]
 
 8. Finish configuration::
 
      http://your-server/horde/
 
-   Go to Adminstration => Setup => Horde
+   Go to Administration => Configuration => Horde
+   (Or navigate to http://your-server/horde/admin/config)
 
 
 Prerequisites
@@ -124,13 +128,11 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
 
 1. A webserver that supports PHP.
 
-   Horde and its applications are developed under the Apache webserver, which
-   we recommend. Apache is available from
+   Horde is primarily developed under the Apache and Lighttpd webservers,
+   which we recommend.  These servers are available from:
 
       http://httpd.apache.org/
-
-   Horde has also been reportedly used successfully under Microsoft IIS, among
-   others.
+      http://www.lighttpd.net/
 
 2. PHP 5.2.0 or above.
 
@@ -167,8 +169,8 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
    b. XML and DOM support.
 
       XML and DOM support are enabled in PHP 5 by default. You only have to
-      make sure that you do **not** use ``--disable-dom`` or
-      ``--disable-xml``.
+      make sure that you do **not** use ``--disable-dom``,
+      ``--disable-simplexml``, or ``--disable-xml``.
 
    The following PHP options are **RECOMMENDED** to enable advanced features in
    Horde:
@@ -228,22 +230,10 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
       will be configurable via Horde's web interface - the default values
       stored in each applications ``config/prefs.php`` file will be used.
 
-   c. Mcrypt support ``--with-mcrypt``
+   c. UTF-8 support ``--enable-mbstring``
 
-      Mcrypt is a general-purpose cryptography library which is broader and
-      significantly more efficient (FASTER!) than PHP's own cryptographic
-      code. You can obtain mcrypt from
-
-         http://mcrypt.sourceforge.net/
-
-      Building PHP without mcrypt support will not stop Horde from working,
-      but will force it to use weaker (and much slower) encryption.
-
-   d. UTF-8 support ``--enable-mbstring``
-
-      If these extensions are enabled, Horde can support multibyte character
-      sets like UTF-8 (meaning that content with any charset can be viewed
-      with any translation).
+      If these extensions are enabled, Horde can better support
+      multibyte character sets like UTF-8.
 
       For iconv support you should use the GNU libiconv library, which is more
       stable and supports more charsets, compared to other iconv
@@ -252,7 +242,7 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
       Iconv support is enabled by default in PHP 5. You only have to make sure
       that you do **not** use ``--without-iconv``
 
-   e. GD support ``--with-gd``
+   d. GD support ``--with-gd``
 
       Horde will use the GD extension to perform manipulations on image data
       through the Horde_Image library.
@@ -266,21 +256,34 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
       it needs to compile.
 
       You can also use the ImageMagick_ package to do these manipulations
-      instead.  See the ``Image Manipulation`` tab of the Horde setup for more
-      details.
+      instead.  See the ``Image Manipulation`` tab of the Horde configuration
+      for more details.
 
       .. _ImageMagick: http://www.imagemagick.org
 
-   f. tidy ``--with-tidy``
+   e. tidy ``--with-tidy``
 
       The tidy PHP extension is required to sanitize HTML data.
+
+   The following PHP options are **OPTIONAL** to enable advanced features in
+   Horde:
+
+   a. Mcrypt support ``--with-mcrypt``
+
+      Mcrypt is a general-purpose cryptography library which is more efficient
+      than using native PHP-based encryption.  If available, mcrypt is used to
+      encrypt/decrypt the authentication credentials stored within the
+      session.  Mcrypt can be obtained from:
+
+         http://mcrypt.sourceforge.net/
 
    .. Important:: Additionally, individual Horde applications may **REQUIRE**
                   or **RECOMMEND** other options to be built into PHP
                   also. Please check ``docs/INSTALL`` for all applications you
                   wish to use to see if other PHP options are needed.
 
-3. Additional PEAR Modules
+
+3. PEAR Modules
 
    PEAR is short for "PHP Extension and Application Repository".  The goal of
    PEAR is to provide a means of distributing reusable code.
@@ -301,7 +304,7 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
 
    You will see something like::
 
-     PEAR directory                 php_dir         /usr/share/php
+     PEAR directory   php_dir   /usr/share/php
 
    Now open the php.ini file of your system, for example ``/etc/php.ini``,
    find the ``include_path`` and make sure that ``/usr/share/php`` is part of
@@ -311,37 +314,54 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
    These PEAR modules are **REQUIRED** to be installed for complete Horde
    functionality:
 
-   a. Log
-   b. Mail
+   a. Crypt_Blowfish (>= 1.0.1)
 
       To install, enter the following at the command prompt::
 
-        pear install Log Mail
+        pear install Crypt_Blowfish
 
    These PEAR modules are **RECOMMENDED** to be installed:
 
-   a. DB (>= 1.7.8)
-
-      **REQUIRED** as soon as you want or need to store anything in a database.
-      To install, enter the following at the command prompt::
-
-        pear install DB
-
-   b. File
-
-      **REQUIRED** only if you wish to import CSV files.
-      To install, enter the following at the command prompt::
-
-        pear install File
-
-   c. Date
+   a. Date
 
       **REQUIRED** only if you are dealing with calendar data.
       To install, enter the following at the command prompt::
 
         pear install Date
 
-   d. Services_Weather (>= 1.3.1)
+   b. DB (>= 1.7.8)
+
+      **REQUIRED** as soon as you want or need to store anything in a database.
+      To install, enter the following at the command prompt::
+
+        pear install DB
+
+   c. File
+
+      **REQUIRED** only if you wish to import CSV files.
+      To install, enter the following at the command prompt::
+
+        pear install File
+
+   d. HTTP_WebDAV_Server
+
+      **REQUIRED** only if you want to use Horde's WebDAV interface, for
+      example to access calendars, tasklists or files with an external client.
+      To install, enter the following at the command prompt::
+
+        pear install HTTP_WebDAV_Server-beta
+
+   e. Net_DNS
+
+      If installed, it will be used instead of the built-in PHP function
+      gethostbyaddr() for host name lookups. This has the advantage that
+      Net_DNS has configurable timeouts and retries. Net_DNS requires the
+      ``mhash`` PHP extension.
+      To install, enter the following at the command prompt::
+
+        pear install Net_DNS
+
+   f. Services_Weather (>= 1.3.1)
 
       **REQUIRED** only if you wish to use the weather.com block on the portal
       page.
@@ -353,47 +373,23 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
       the portal page. See the file ``data/Services_Weather/buildMetarDB.php``
       in your PEAR directory for details.
 
-   e. HTTP_WebDAV_Server
+   g. File_Fstab
 
-      **REQUIRED** only if you want to use Horde's WebDAV interface, for
-      example to access calendars, tasklists or files with an external client.
-      To install, enter the following at the command prompt::
+     Required only if you use the localhost driver for the Accounts block.
+     To install, enter the following at the command prompt::
 
-        pear install HTTP_WebDAV_Server-beta
-
-   f. Net_DNS
-
-      If installed, it will be used instead of the built-in PHP function
-      gethostbyaddr() for host name lookups. This has the advantage that
-      Net_DNS has configurable timeouts and retries. Net_DNS requires the
-      ``mhash`` PHP extension.
-      To install, enter the following at the command prompt::
-
-        pear install Net_DNS
+       pear install File_Fstab
 
    This method of installing PEAR modules requires that you have a PHP version
-   that has been compiled as a static binary.  All versions of PHP 4.3.0+
-   build both a SAPI module (Apache, CGI, etc.) and a command-line (CLI)
-   binary at the same time.  Check if you have a php binary in
-   ``/usr/local/bin`` (``/usr/bin`` if if you installed from an operating
-   system package) before recompiling.
-
-   If you receive the error ``Could not read cmd args`` you should run the pear
-   script this way::
-
-     php -d register_argc_argv=1 _PEAR_ install _MODULE_
-
-   _PEAR_ is the complete path of the pear script installed by PHP during
-   installation (e.g. ``/usr/local/bin/pear``).  Make sure the ``pear`` script
-   appears in your path. The default installation path for pear is
-   ``/usr/local/bin/pear``.
-
-   _MODULE_ is the PEAR module, listed above, which you wish to install.
+   that has been compiled as a static binary.  All versions of PHP build both
+   both a SAPI module (Apache, CGI, etc.) and a command-line (CLI) binary.
+   Check if you have a php binary in ``/usr/local/bin`` (``/usr/bin`` if you
+   installed from an operating system package) before recompiling.
 
    For more detailed directions on installing PEAR modules, see the PEAR
    documentation at http://pear.php.net/manual/
 
-4. Additional PECL Modules
+4. PECL Modules
 
    PECL is short for "PHP Extension Community Library".  The goal of PECL is
    to provide a means of easily distributing PHP extensions.
@@ -432,8 +428,7 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
 
    b. memcache
 
-      If using the memcached SessionHandler, the memcache PECL extension must
-      be installed.
+      If using memcache, the memcache PECL extension must be installed.
 
       To install, enter the following at the command prompt::
 
@@ -441,7 +436,7 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
 
    c. lzf
 
-      If the lzf module is available, Horde can compress some cached data in
+      If the lzf module is available, Horde can compress cached data within
       the current session, thus reducing the size of the current session.
 
       To install, enter the following at the command prompt::
@@ -469,8 +464,7 @@ if you use a specific Horde application (as noted in [brackets]):
    Horde uses sendmail, or a program that implements the ``sendmail(8)`` API
    (as included with postfix, qmail, and exim, among others). If your system
    does not already have a full mail transport with a sendmail interface, you
-   can configure Horde to speak directly with a remote SMTP server, but this
-   may incur a performance penalty.
+   can configure Horde to speak directly with a remote SMTP server.
 
 2. aspell - Spelling Checker
 
@@ -517,7 +511,7 @@ Skip the next paragraph if you installed Horde from a release tarball.
 Installing from Git
 ~~~~~~~~~~~~~~~~~~~
 
-TODO. See::
+See::
 
    http://horde.org/source/git.php
 
@@ -602,7 +596,7 @@ Configuring Horde
 4. Setting up alarm emails
 
    If you want your users to be able to receive emails from the Horde_Alarm
-   system, you must set up a cron entry for ``horde/scripts/alarms.php``, you
+   system, you must set up a cron entry for ``horde/bin/alarms.php``, you
    must have at least one administrator specified in the Horde configuration,
    and you must have the PHP CLI installed (a CGI binary is not supported -
    ``php -v`` will report what kind of PHP binary you have).
@@ -610,7 +604,7 @@ Configuring Horde
    Running the job every 5 minutes is recommended::
 
       # Horde Alarms
-      */5 * * * * /usr/bin/php /var/www/horde/scripts/alarms.php
+      */5 * * * * /usr/bin/php /var/www/horde/bin/alarms.php
 
    (replace ``/usr/bin/php`` with the path to your PHP CLI and
    ``/var/www/horde/`` with the path to your Horde installation)
@@ -623,6 +617,10 @@ Configuring Horde
    URL to the test page would be::
 
       http://your-server/horde/test.php
+
+   The test script is disabled by default for security reasons. To enable
+   set the 'testdisable' configuration option to false. After testing is
+   completed, the testdisable option should be reset to true.
 
    Check that your PHP and PEAR versions are acceptably recent, that all
    required module capabilities are present, and that ``magic_quotes_runtime``
@@ -643,7 +641,7 @@ Configuring Horde
                   backend will be administrator accounts.  Horde does
                   **NOT** have a default administrator account - all
                   users, including administrators, must exist in the
-                  actual authentication backend.  Click on ``Setup``
+                  actual authentication backend.  Click on ``Configuration``
                   in the ``Administration`` menu and configure Horde.
                   Start in the ``Authentication`` tab.
 
@@ -666,29 +664,19 @@ Configuring Horde
 
       - IP name/number of the IMAP server
       - For a secure connection, select port 993.
-      - Select the protocol; for a secure connection either ``imap/ssl`` or
-        ``imap/ssl/novalidate-cert`` (for self-signed certificates).
+      - Select the secure connection protocol to use, if desired.
 
-   Continue to configure Horde through all the tabs of the setup interface and
-   click on ``Generate Horde Configuration``. Important items that you
-   probably want to configure are the ``Preference System`` that lets users
-   save their personal options, and the ``DataTree System`` that is required
-   for some applications to work at all.
+   Continue to configure Horde through all the tabs of the configuration
+   interface and click on ``Generate Horde Configuration``. An important item
+   that you probably want to configure is the ``Database Settings``, which
+   defines the database configuration that is used, by default, for several
+   different Horde sub-systems.
 
    Configuration of applications in ``registry.php`` is documented in the
    ``INSTALL`` file of each application.  Most applications require you to
    configure them with a "Horde administrator" account.  A Horde administrator
-   account is any normal Horde account that has been added to the
-   administrator list in the ``Authentication`` tab of the Horde setup.
-
-   .. Note:: If using a version of Horde obtained via Git, the compressed
-             javascript files in the ``js/`` directory will not exist. You
-             must configure Horde to use the files contained in the ``js/src``
-             directory instead. This can be done via the ``jsuri`` or
-             ``jspath`` parameters in ``config/registry.php``. If desired, the
-             javascript files can be compressed with the
-             ``horde-js-compress.php`` script contained in the horde-support
-             Git repository.
+   account is any normal Horde account that has been added to the administrator
+   list in the ``Authentication`` tab of the Horde configuration.
 
    The other files in that directory need only be modified if you wish to
    customize Horde's appearance or behaviour -- the defaults will work at most
@@ -728,15 +716,10 @@ Configuring Horde
 
       Additionally, you can change the session handler of PHP to use any
       storage backend requested (e.g. SQL database) via the ``Custom Session
-      Handler`` tab in the Horde setup.
+      Handler`` tab in the Horde configuration.
 
    For more information about securing your webserver, PHP and Horde, see the
    `docs/SECURITY`_ file.
-
-8. Entering the survey
-
-   If you like, go to http://www.horde.org/survey/ and enter the details of
-   your system.
 
 
 Configuring Applications
@@ -754,10 +737,10 @@ Temporary Files
 ===============
 
 Various Horde applications will generate temporary files in PHP's temporary
-directory (see the ``General`` tab in the Horde setup).  For various reasons,
-some of these files may not be removed when the user's session ends. To
-reclaim this disk space, it may be necessary to periodically delete these old
-temporary files.
+directory (see the ``General`` tab in the Horde configuration).  For various
+reasons, some of these files may not be removed when the user's session
+ends. To reclaim this disk space, it may be necessary to periodically delete
+these old temporary files.
 
 An example cron-based solution can be found at ``scripts/temp-cleanup.cron``.
 Another possible solution is to use Red Hat's ``tmpwatch`` utility or anything

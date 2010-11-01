@@ -40,10 +40,11 @@ function _getSearchUrl($vars)
     return substr($qUrl, 1);
 }
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('whups');
+
 require_once WHUPS_BASE . '/lib/Query.php';
 require_once WHUPS_BASE . '/lib/Forms/Search.php';
-require_once WHUPS_BASE . '/lib/View.php';
 
 $renderer = new Horde_Form_Renderer();
 $beendone = false;
@@ -129,8 +130,9 @@ if (($vars->get('formname') || $vars->get('summary') || $vars->get('states') ||
             }
         }
         $_SESSION['whups']['query'] = serialize($whups_query);
-        header('Location: ' . Horde::applicationUrl(Horde_Util::addParameter('query/index.php', 'action', 'save'), true));
-        exit;
+        Horde::url('query/index.php', true)
+            ->add('action', 'save')
+            ->redirect();
     }
     $tickets = $whups_driver->getTicketsByProperties($info);
     if (is_a($tickets, 'PEAR_Error')) {
@@ -138,7 +140,7 @@ if (($vars->get('formname') || $vars->get('summary') || $vars->get('states') ||
     } else {
         Whups::sortTickets($tickets);
 
-        $_SESSION['whups']['last_search'] = Horde::applicationUrl('search.php?' . _getSearchUrl($vars));
+        $_SESSION['whups']['last_search'] = Horde::url('search.php?' . _getSearchUrl($vars));
         $results = Whups_View::factory(
             'Results',
             array('title' => _("Search Results"),
@@ -172,8 +174,8 @@ if (!$beendone) {
 $qManager = new Whups_QueryManager();
 $myqueries = Whups_View::factory(
     'SavedQueries',
-    array('title' => Horde_Auth::getAuth() ? _("My Queries") : _("Public Queries"),
-          'results' => $qManager->listQueries(Horde_Auth::getAuth(), true)));
+    array('title' => $GLOBALS['registry']->getAuth() ? _("My Queries") : _("Public Queries"),
+          'results' => $qManager->listQueries($GLOBALS['registry']->getAuth(), true)));
 $myqueries->html();
 
 require $registry->get('templates', 'horde') . '/common-footer.inc';

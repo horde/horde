@@ -5,15 +5,15 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author Jan Schneider <jan@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Horde
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-new Horde_Application(array('nologintasks' => true));
+Horde_Registry::appInit('horde', array('nologintasks' => true));
 
-$identity = Horde_Prefs_Identity::singleton();
-list($message, $type) = $identity->confirmIdentity(Horde_Util::getFormData('h'));
-$notification->push($message, $type);
+$identity = $injector->getInstance('Horde_Core_Factory_Identity')->create()->confirmIdentity(Horde_Util::getFormData('h'));
 
-$url = Horde_Util::addParameter(Horde::url('services/prefs.php', true), array('app' => 'horde', 'group' => 'identities'), null, false);
-header('Location: ' . $url);
+Horde::getServiceLink('prefs')->add('group', 'identities')->redirect();

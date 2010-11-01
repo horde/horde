@@ -1,6 +1,10 @@
 #!/usr/bin/env php
 <?php
 /**
+ * Database migration script.
+ *
+ * Usage: ./db_migrate application [up | down | version]
+ *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -9,25 +13,11 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-// Do CLI checks and environment setup first.
-require_once dirname(__FILE__) . '/../lib/core.php';
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment - make sure there's no time limit, init some
-// variables, etc.
-Horde_Cli::init();
-$cli = Horde_Cli::singleton();
-
-// Include needed libraries.
-new Horde_Application(array('authentication' => 'none'));
-
-// Get a database connection
-$GLOBALS['conf']['sql']['adapter'] = $GLOBALS['conf']['sql']['phptype'] == 'mysqli' ? 'mysqli' : 'pdo_' . $GLOBALS['conf']['sql']['phptype'];
-$db = Horde_Db_Adapter::factory($GLOBALS['conf']['sql']);
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('horde', array(
+    'authentication' => 'none',
+    'cli' => true
+));
 
 // Parse command line arguments
 array_shift($_SERVER['argv']);
@@ -35,10 +25,12 @@ $args = $_SERVER['argv'];
 if (empty($args[0])) {
     $cli->fatal("An application argument is required");
 }
+
 $app = $args[0];
-if (!in_array($app, $GLOBALS['registry']->listApps())) {
+if (!in_array($app, $registry->listApps(array('inactive', 'hidden', 'notoolbar', 'admin', 'active'), false, null))) {
     $cli->fatal("$app is not a configured Horde application");
 }
+
 $action = 'up';
 if (!empty($args[1])) {
     switch ($args[1]) {
@@ -50,27 +42,39 @@ if (!empty($args[1])) {
     default:
         $action = 'migrate';
         $targetVersion = $args[1];
+        break;
     }
 }
 
 // Run
-$dir = $GLOBALS['registry']->get('fileroot', $app) . '/migrations/';
-$migrator = new Horde_Db_Migration_Migrator($db, $dir);
+$dir = $registry->get('fileroot', $app) . '/migration/';
+
+$db = $injector->getInstance('Horde_Db_Adapter');
+$logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream(STDOUT));
+$migrator = new Horde_Db_Migration_Migrator($db, $logger, array('migrationsPath' => $dir, 'schemaTableName' => $app . '_schema_info'));
+
+$cli->message('Current schema version: ' . $migrator->getCurrentVersion());
+
 try {
     switch ($action) {
     case 'up':
+        $cli->message('Migrating DB up.');
         $migrator->up();
         break;
 
     case 'down':
+        $cli->message('Migrating DB down.');
         $migrator->down();
         break;
 
     case 'migrate':
+        $cli->message('Migrating DB to schema version ' . $targetVersion . '.');
         $migrator->migrate($targetVersion);
         break;
     }
 } catch (Exception $e) {
-    echo $e->getMessage();
+    echo $e->getMessage() . "\n";
     exit(1);
 }
+
+$cli->message('Ending schema version: ' . $migrator->getCurrentVersion());

@@ -58,8 +58,8 @@ class Horde_Http_Client
      *                    - request.authenticationScheme
      *                    - request.proxyServer
      *                    - request.proxyPort
-     *                    - request.proxyUser
-     *                    - request.proxyPass
+     *                    - request.proxyUsername
+     *                    - request.proxyPassword
      *                    - request.proxyAuthenticationScheme
      *                    - request.timeout
      */

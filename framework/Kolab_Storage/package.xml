@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Kolab_Storage</name>
  <channel>pear.horde.org</channel>
  <summary>A package for handling Kolab data stored on an IMAP server.</summary>
  <description>Storing user data in an IMAP account belonging to the
  user is one of the Kolab server core concepts. This package provides
  all the necessary means to deal with this type of data storage
- effectively.
- </description>
+ effectively.</description>
  <lead>
   <name>Gunnar Wrobel</name>
   <user>wrobel</user>
@@ -35,7 +31,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2009-02-24</date>
+ <date>2010-10-22</date>
+ <time>19:03:03</time>
  <version>
   <release>0.4.0</release>
   <api>0.1.0</api>
@@ -46,12 +43,14 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-  * Fixed list driver to prevent overwriting folder data when
-    authenticating twice (relevant for testing).
-  * Allow to supress triggering (relevant for testing).
+* Added namespace support (Bug #6691).
+* Converted the package to Horde 4 / PHP 5.
+* Fixed list driver to prevent overwriting folder data when
+  authenticating twice (relevant for testing).
+* Allow to supress triggering (relevant for testing).
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="doc">
     <dir name="Horde">
      <dir name="Kolab">
@@ -73,37 +72,376 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Kolab">
-      <file name="Storage.php" role="php" />
       <dir name="Storage">
+       <dir name="Driver">
+        <dir name="Decorator">
+         <file name="Base.php" role="php" />
+         <file name="Log.php" role="php" />
+        </dir> <!-- /lib/Horde/Kolab/Storage/Driver/Decorator -->
+        <dir name="Namespace">
+         <dir name="Element">
+          <file name="Other.php" role="php" />
+          <file name="Personal.php" role="php" />
+          <file name="Shared.php" role="php" />
+          <file name="SharedWithPrefix.php" role="php" />
+         </dir> <!-- /lib/Horde/Kolab/Storage/Driver/Namespace/Element -->
+         <file name="Config.php" role="php" />
+         <file name="Element.php" role="php" />
+         <file name="Fixed.php" role="php" />
+         <file name="Imap.php" role="php" />
+        </dir> <!-- /lib/Horde/Kolab/Storage/Driver/Namespace -->
+        <file name="Base.php" role="php" />
+        <file name="Cclient.php" role="php" />
+        <file name="Imap.php" role="php" />
+        <file name="Mock.php" role="php" />
+        <file name="Namespace.php" role="php" />
+        <file name="Pear.php" role="php" />
+       </dir> <!-- /lib/Horde/Kolab/Storage/Driver -->
+       <dir name="Folder">
+        <dir name="Decorator">
+         <file name="Base.php" role="php" />
+         <file name="Trigger.php" role="php" />
+        </dir> <!-- /lib/Horde/Kolab/Storage/Folder/Decorator -->
+        <dir name="Permission">
+         <dir name="Acl">
+          <file name="Anonymous.php" role="php" />
+          <file name="Anyone.php" role="php" />
+          <file name="Creator.php" role="php" />
+          <file name="Group.php" role="php" />
+          <file name="User.php" role="php" />
+         </dir> <!-- /lib/Horde/Kolab/Storage/Folder/Permission/Acl -->
+         <dir name="Element">
+          <file name="Creator.php" role="php" />
+          <file name="Default.php" role="php" />
+          <file name="Group.php" role="php" />
+          <file name="Guest.php" role="php" />
+          <file name="User.php" role="php" />
+         </dir> <!-- /lib/Horde/Kolab/Storage/Folder/Permission/Element -->
+         <file name="Acl.php" role="php" />
+         <file name="AclIterator.php" role="php" />
+         <file name="Element.php" role="php" />
+         <file name="ElementIterator.php" role="php" />
+        </dir> <!-- /lib/Horde/Kolab/Storage/Folder/Permission -->
+        <file name="Base.php" role="php" />
+        <file name="Permission.php" role="php" />
+       </dir> <!-- /lib/Horde/Kolab/Storage/Folder -->
        <file name="Cache.php" role="php" />
        <file name="Data.php" role="php" />
        <file name="Driver.php" role="php" />
-       <dir name="Driver">
-	 <file name="Imap.php" role="php" />
-       </dir> <!-- /lib/Horde/Kolab/Storage/Driver -->
        <file name="Exception.php" role="php" />
        <file name="Folder.php" role="php" />
-       <file name="Permission.php" role="php" />
+       <file name="Translation.php" role="php">
+        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+       </file>
       </dir> <!-- /lib/Horde/Kolab/Storage -->
+      <file name="Storage.php" role="php" />
      </dir> <!-- /lib/Horde/Kolab -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="ar">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/ar/LC_MESSAGES -->
+    </dir> <!-- /locale/ar -->
+    <dir name="bg">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/bg/LC_MESSAGES -->
+    </dir> <!-- /locale/bg -->
+    <dir name="bs">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/bs/LC_MESSAGES -->
+    </dir> <!-- /locale/bs -->
+    <dir name="ca">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/ca/LC_MESSAGES -->
+    </dir> <!-- /locale/ca -->
+    <dir name="cs">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/cs/LC_MESSAGES -->
+    </dir> <!-- /locale/cs -->
+    <dir name="da">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/da/LC_MESSAGES -->
+    </dir> <!-- /locale/da -->
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+    </dir> <!-- /locale/de -->
+    <dir name="el">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/el/LC_MESSAGES -->
+    </dir> <!-- /locale/el -->
+    <dir name="en">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/en/LC_MESSAGES -->
+    </dir> <!-- /locale/en -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+    </dir> <!-- /locale/es -->
+    <dir name="et">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/et/LC_MESSAGES -->
+    </dir> <!-- /locale/et -->
+    <dir name="eu">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/eu/LC_MESSAGES -->
+    </dir> <!-- /locale/eu -->
+    <dir name="fa">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/fa/LC_MESSAGES -->
+    </dir> <!-- /locale/fa -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+    </dir> <!-- /locale/fi -->
+    <dir name="fr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/fr/LC_MESSAGES -->
+    </dir> <!-- /locale/fr -->
+    <dir name="gl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/gl/LC_MESSAGES -->
+    </dir> <!-- /locale/gl -->
+    <dir name="he">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/he/LC_MESSAGES -->
+    </dir> <!-- /locale/he -->
+    <dir name="hr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/hr/LC_MESSAGES -->
+    </dir> <!-- /locale/hr -->
+    <dir name="hu">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/hu/LC_MESSAGES -->
+    </dir> <!-- /locale/hu -->
+    <dir name="id">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/id/LC_MESSAGES -->
+    </dir> <!-- /locale/id -->
+    <dir name="is">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/is/LC_MESSAGES -->
+    </dir> <!-- /locale/is -->
+    <dir name="it">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/it/LC_MESSAGES -->
+    </dir> <!-- /locale/it -->
+    <dir name="ja">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/ja/LC_MESSAGES -->
+    </dir> <!-- /locale/ja -->
+    <dir name="km">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/km/LC_MESSAGES -->
+    </dir> <!-- /locale/km -->
+    <dir name="ko">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/ko/LC_MESSAGES -->
+    </dir> <!-- /locale/ko -->
+    <dir name="lt">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/lt/LC_MESSAGES -->
+    </dir> <!-- /locale/lt -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+    </dir> <!-- /locale/lv -->
+    <dir name="mk">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/mk/LC_MESSAGES -->
+    </dir> <!-- /locale/mk -->
+    <dir name="nb">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/nb/LC_MESSAGES -->
+    </dir> <!-- /locale/nb -->
+    <dir name="nl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/nl/LC_MESSAGES -->
+    </dir> <!-- /locale/nl -->
+    <dir name="nn">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/nn/LC_MESSAGES -->
+    </dir> <!-- /locale/nn -->
+    <dir name="pl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/pl/LC_MESSAGES -->
+    </dir> <!-- /locale/pl -->
+    <dir name="pt">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/pt/LC_MESSAGES -->
+    </dir> <!-- /locale/pt -->
+    <dir name="pt_BR">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/pt_BR/LC_MESSAGES -->
+    </dir> <!-- /locale/pt_BR -->
+    <dir name="ro">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/ro/LC_MESSAGES -->
+    </dir> <!-- /locale/ro -->
+    <dir name="ru">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/ru/LC_MESSAGES -->
+    </dir> <!-- /locale/ru -->
+    <dir name="sk">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/sk/LC_MESSAGES -->
+    </dir> <!-- /locale/sk -->
+    <dir name="sl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/sl/LC_MESSAGES -->
+    </dir> <!-- /locale/sl -->
+    <dir name="sv">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/sv/LC_MESSAGES -->
+    </dir> <!-- /locale/sv -->
+    <dir name="tr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/tr/LC_MESSAGES -->
+    </dir> <!-- /locale/tr -->
+    <dir name="uk">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/uk/LC_MESSAGES -->
+    </dir> <!-- /locale/uk -->
+    <dir name="zh_CN">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/zh_CN/LC_MESSAGES -->
+    </dir> <!-- /locale/zh_CN -->
+    <dir name="zh_TW">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Kolab_Storage.mo" role="data" />
+      <file name="Horde_Kolab_Storage.po" role="data" />
+     </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
+    </dir> <!-- /locale/zh_TW -->
+    <file name="Horde_Kolab_Storage.pot" role="data" />
+   </dir> <!-- /locale -->
+   <dir name="script">
+    <dir name="Horde">
+     <dir name="Kolab">
+      <dir name="Storage">
+       <file name="test_drivers.php" role="script" />
+      </dir> <!-- /script/Horde/Kolab/Storage -->
+     </dir> <!-- /script/Horde/Kolab -->
+    </dir> <!-- /script/Horde -->
+   </dir> <!-- /script -->
    <dir name="test">
     <dir name="Horde">
      <dir name="Kolab">
       <dir name="Storage">
+       <dir name="Class">
+        <dir name="Driver">
+         <file name="CclientTest.php" role="test" />
+         <file name="ImapTest.php" role="test" />
+         <file name="MockTest.php" role="test" />
+         <file name="PearTest.php" role="test" />
+        </dir> <!-- /test/Horde/Kolab/Storage/Class/Driver -->
+       </dir> <!-- /test/Horde/Kolab/Storage/Class -->
+       <dir name="Server">
+        <file name="DriverTest.php" role="test" />
+       </dir> <!-- /test/Horde/Kolab/Storage/Server -->
+       <file name="AclTest.php" role="test" />
        <file name="AllTests.php" role="test" />
-       <file name="Autoload.php" role="php" />
+       <file name="AttachmentTest.php" role="test" />
+       <file name="Autoload.php" role="test" />
        <file name="CacheTest.php" role="test" />
+       <file name="conf.php.dist" role="test" />
        <file name="DataTest.php" role="test" />
        <file name="FolderTest.php" role="test" />
-       <file name="Scenario.php" role="php" />
-       <file name="StorageTest.php" role="test" />
+       <file name="NamespaceTest.php" role="test" />
        <file name="PermissionTest.php" role="test" />
+       <file name="phpunit.xml" role="test" />
+       <file name="Scenario.php" role="test" />
+       <file name="StorageTest.php" role="test" />
+       <file name="TriggerTest.php" role="test" />
       </dir> <!-- /test/Horde/Kolab/Storage -->
      </dir> <!-- /test/Horde/Kolab -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
+   <file name="TODO" role="data" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -141,7 +479,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>0.1.1</min>
    </package>
    <package>
-    <name>Horde_Cache</name>
+    <name>Cache</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
@@ -149,11 +487,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Horde_History</name>
+    <name>History</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Horde_LDAP</name>
+    <name>Ldap</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
@@ -162,15 +500,15 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>0.1.0</min>
    </package>
    <package>
-    <name>Horde_SessionObjects</name>
+    <name>Mime</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Horde_MIME</name>
+    <name>Nls</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Horde_NLS</name>
+    <name>Translation</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
@@ -181,45 +519,171 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="doc/Horde/Kolab/Storage/usage.txt" as="Horde/Kolab/Storage/usage.txt" />
-   <install name="examples/Horde/Kolab/Storage/list.php" as="Horde/Kolab/Storage/list.php" />
-   <install name="lib/Horde/Kolab/Storage.php" as="Horde/Kolab/Storage.php" />
-   <install name="lib/Horde/Kolab/Storage/Cache.php" as="Horde/Kolab/Storage/Cache.php" />
-   <install name="lib/Horde/Kolab/Storage/Data.php" as="Horde/Kolab/Storage/Data.php" />
-   <install name="lib/Horde/Kolab/Storage/Driver.php" as="Horde/Kolab/Storage/Driver.php" />
-   <install name="lib/Horde/Kolab/Storage/Driver/Imap.php" as="Horde/Kolab/Storage/Driver/Imap.php" />
-   <install name="lib/Horde/Kolab/Storage/Exception.php" as="Horde/Kolab/Storage/Exception.php" />
-   <install name="lib/Horde/Kolab/Storage/Folder.php" as="Horde/Kolab/Storage/Folder.php" />
-   <install name="lib/Horde/Kolab/Storage/Permission.php" as="Horde/Kolab/Storage/Permission.php" />
-   <install name="test/Horde/Kolab/Storage/AllTests.php" as="Horde/Kolab/Storage/AllTests.php" />
-   <install name="test/Horde/Kolab/Storage/Autoload.php" as="Horde/Kolab/Storage/Autoload.php" />
-   <install name="test/Horde/Kolab/Storage/CacheTest.php" as="Horde/Kolab/Storage/CacheTest.php" />
-   <install name="test/Horde/Kolab/Storage/DataTest.php" as="Horde/Kolab/Storage/DataTest.php" />
-   <install name="test/Horde/Kolab/Storage/FolderTest.php" as="Horde/Kolab/Storage/FolderTest.php" />
-   <install name="test/Horde/Kolab/Storage/Scenario.php" as="Horde/Kolab/Storage/Scenario.php" />
-   <install name="test/Horde/Kolab/Storage/StorageTest.php" as="Horde/Kolab/Storage/StorageTest.php" />
-   <install name="test/Horde/Kolab/Storage/PermissionTest.php" as="Horde/Kolab/Storage/PermissionTest.php" />
+   <install as="Horde/Kolab/Storage/usage.txt" name="doc/Horde/Kolab/Storage/usage.txt" />
+   <install as="Horde/Kolab/Storage.php" name="lib/Horde/Kolab/Storage.php" />
+   <install as="Horde/Kolab/Storage/Cache.php" name="lib/Horde/Kolab/Storage/Cache.php" />
+   <install as="Horde/Kolab/Storage/Data.php" name="lib/Horde/Kolab/Storage/Data.php" />
+   <install as="Horde/Kolab/Storage/Driver.php" name="lib/Horde/Kolab/Storage/Driver.php" />
+   <install as="Horde/Kolab/Storage/Exception.php" name="lib/Horde/Kolab/Storage/Exception.php" />
+   <install as="Horde/Kolab/Storage/Folder.php" name="lib/Horde/Kolab/Storage/Folder.php" />
+   <install as="Horde/Kolab/Storage/Translation.php" name="lib/Horde/Kolab/Storage/Translation.php" />
+   <install as="Horde/Kolab/Storage/Driver/Base.php" name="lib/Horde/Kolab/Storage/Driver/Base.php" />
+   <install as="Horde/Kolab/Storage/Driver/Cclient.php" name="lib/Horde/Kolab/Storage/Driver/Cclient.php" />
+   <install as="Horde/Kolab/Storage/Driver/Imap.php" name="lib/Horde/Kolab/Storage/Driver/Imap.php" />
+   <install as="Horde/Kolab/Storage/Driver/Mock.php" name="lib/Horde/Kolab/Storage/Driver/Mock.php" />
+   <install as="Horde/Kolab/Storage/Driver/Namespace.php" name="lib/Horde/Kolab/Storage/Driver/Namespace.php" />
+   <install as="Horde/Kolab/Storage/Driver/Pear.php" name="lib/Horde/Kolab/Storage/Driver/Pear.php" />
+   <install as="Horde/Kolab/Storage/Driver/Decorator/Base.php" name="lib/Horde/Kolab/Storage/Driver/Decorator/Base.php" />
+   <install as="Horde/Kolab/Storage/Driver/Decorator/Log.php" name="lib/Horde/Kolab/Storage/Driver/Decorator/Log.php" />
+   <install as="Horde/Kolab/Storage/Driver/Namespace/Config.php" name="lib/Horde/Kolab/Storage/Driver/Namespace/Config.php" />
+   <install as="Horde/Kolab/Storage/Driver/Namespace/Element.php" name="lib/Horde/Kolab/Storage/Driver/Namespace/Element.php" />
+   <install as="Horde/Kolab/Storage/Driver/Namespace/Fixed.php" name="lib/Horde/Kolab/Storage/Driver/Namespace/Fixed.php" />
+   <install as="Horde/Kolab/Storage/Driver/Namespace/Imap.php" name="lib/Horde/Kolab/Storage/Driver/Namespace/Imap.php" />
+   <install as="Horde/Kolab/Storage/Driver/Namespace/Element/Other.php" name="lib/Horde/Kolab/Storage/Driver/Namespace/Element/Other.php" />
+   <install as="Horde/Kolab/Storage/Driver/Namespace/Element/Personal.php" name="lib/Horde/Kolab/Storage/Driver/Namespace/Element/Personal.php" />
+   <install as="Horde/Kolab/Storage/Driver/Namespace/Element/Shared.php" name="lib/Horde/Kolab/Storage/Driver/Namespace/Element/Shared.php" />
+   <install as="Horde/Kolab/Storage/Driver/Namespace/Element/SharedWithPrefix.php" name="lib/Horde/Kolab/Storage/Driver/Namespace/Element/SharedWithPrefix.php" />
+   <install as="Horde/Kolab/Storage/Folder/Base.php" name="lib/Horde/Kolab/Storage/Folder/Base.php" />
+   <install as="Horde/Kolab/Storage/Folder/Permission.php" name="lib/Horde/Kolab/Storage/Folder/Permission.php" />
+   <install as="Horde/Kolab/Storage/Folder/Decorator/Base.php" name="lib/Horde/Kolab/Storage/Folder/Decorator/Base.php" />
+   <install as="Horde/Kolab/Storage/Folder/Decorator/Trigger.php" name="lib/Horde/Kolab/Storage/Folder/Decorator/Trigger.php" />
+   <install as="Horde/Kolab/Storage/Folder/Permission/Acl.php" name="lib/Horde/Kolab/Storage/Folder/Permission/Acl.php" />
+   <install as="Horde/Kolab/Storage/Folder/Permission/AclIterator.php" name="lib/Horde/Kolab/Storage/Folder/Permission/AclIterator.php" />
+   <install as="Horde/Kolab/Storage/Folder/Permission/Element.php" name="lib/Horde/Kolab/Storage/Folder/Permission/Element.php" />
+   <install as="Horde/Kolab/Storage/Folder/Permission/ElementIterator.php" name="lib/Horde/Kolab/Storage/Folder/Permission/ElementIterator.php" />
+   <install as="Horde/Kolab/Storage/Folder/Permission/Acl/Anonymous.php" name="lib/Horde/Kolab/Storage/Folder/Permission/Acl/Anonymous.php" />
+   <install as="Horde/Kolab/Storage/Folder/Permission/Acl/Anyone.php" name="lib/Horde/Kolab/Storage/Folder/Permission/Acl/Anyone.php" />
+   <install as="Horde/Kolab/Storage/Folder/Permission/Acl/Creator.php" name="lib/Horde/Kolab/Storage/Folder/Permission/Acl/Creator.php" />
+   <install as="Horde/Kolab/Storage/Folder/Permission/Acl/Group.php" name="lib/Horde/Kolab/Storage/Folder/Permission/Acl/Group.php" />
+   <install as="Horde/Kolab/Storage/Folder/Permission/Acl/User.php" name="lib/Horde/Kolab/Storage/Folder/Permission/Acl/User.php" />
+   <install as="Horde/Kolab/Storage/Folder/Permission/Element/Creator.php" name="lib/Horde/Kolab/Storage/Folder/Permission/Element/Creator.php" />
+   <install as="Horde/Kolab/Storage/Folder/Permission/Element/Default.php" name="lib/Horde/Kolab/Storage/Folder/Permission/Element/Default.php" />
+   <install as="Horde/Kolab/Storage/Folder/Permission/Element/Group.php" name="lib/Horde/Kolab/Storage/Folder/Permission/Element/Group.php" />
+   <install as="Horde/Kolab/Storage/Folder/Permission/Element/Guest.php" name="lib/Horde/Kolab/Storage/Folder/Permission/Element/Guest.php" />
+   <install as="Horde/Kolab/Storage/Folder/Permission/Element/User.php" name="lib/Horde/Kolab/Storage/Folder/Permission/Element/User.php" />
+   <install as="locale/Horde_Kolab_Storage.pot" name="locale/Horde_Kolab_Storage.pot" />
+   <install as="locale/ar/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/ar/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/ar/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/ar/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/bg/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/bg/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/bg/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/bg/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/bs/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/bs/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/bs/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/bs/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/ca/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/ca/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/ca/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/ca/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/cs/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/cs/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/cs/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/cs/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/da/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/da/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/da/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/da/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/de/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/de/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/de/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/de/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/el/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/el/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/el/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/el/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/en/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/en/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/en/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/en/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/es/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/es/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/es/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/es/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/et/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/et/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/et/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/et/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/eu/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/eu/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/eu/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/eu/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/fa/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/fa/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/fa/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/fa/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/fi/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/fi/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/fi/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/fi/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/fr/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/fr/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/fr/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/fr/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/gl/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/gl/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/gl/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/gl/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/he/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/he/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/he/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/he/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/hr/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/hr/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/hr/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/hr/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/hu/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/hu/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/hu/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/hu/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/id/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/id/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/id/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/id/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/is/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/is/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/is/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/is/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/it/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/it/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/it/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/it/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/ja/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/ja/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/ja/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/ja/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/km/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/km/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/km/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/km/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/ko/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/ko/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/ko/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/ko/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/lt/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/lt/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/lt/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/lt/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/lv/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/lv/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/lv/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/lv/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/mk/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/mk/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/mk/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/mk/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/nb/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/nb/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/nb/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/nb/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/nl/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/nl/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/nl/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/nl/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/nn/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/nn/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/nn/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/nn/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/pl/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/pl/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/pl/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/pl/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/pt/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/pt/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/pt/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/pt/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/pt_BR/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/pt_BR/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/pt_BR/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/pt_BR/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/ro/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/ro/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/ro/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/ro/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/ru/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/ru/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/ru/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/ru/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/sk/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/sk/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/sk/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/sk/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/sl/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/sl/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/sl/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/sl/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/sv/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/sv/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/sv/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/sv/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/tr/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/tr/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/tr/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/tr/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/uk/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/uk/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/uk/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/uk/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/zh_CN/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/zh_CN/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/zh_CN/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/zh_CN/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="locale/zh_TW/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Kolab_Storage.mo" />
+   <install as="locale/zh_TW/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/zh_TW/LC_MESSAGES/Horde_Kolab_Storage.po" />
+   <install as="test_drivers" name="script/Horde/Kolab/Storage/test_drivers.php" />
+   <install as="Horde/Kolab/Storage/AclTest.php" name="test/Horde/Kolab/Storage/AclTest.php" />
+   <install as="Horde/Kolab/Storage/AllTests.php" name="test/Horde/Kolab/Storage/AllTests.php" />
+   <install as="Horde/Kolab/Storage/AttachmentTest.php" name="test/Horde/Kolab/Storage/AttachmentTest.php" />
+   <install as="Horde/Kolab/Storage/Autoload.php" name="test/Horde/Kolab/Storage/Autoload.php" />
+   <install as="Horde/Kolab/Storage/CacheTest.php" name="test/Horde/Kolab/Storage/CacheTest.php" />
+   <install as="Horde/Kolab/Storage/conf.php.dist" name="test/Horde/Kolab/Storage/conf.php.dist" />
+   <install as="Horde/Kolab/Storage/DataTest.php" name="test/Horde/Kolab/Storage/DataTest.php" />
+   <install as="Horde/Kolab/Storage/FolderTest.php" name="test/Horde/Kolab/Storage/FolderTest.php" />
+   <install as="Horde/Kolab/Storage/NamespaceTest.php" name="test/Horde/Kolab/Storage/NamespaceTest.php" />
+   <install as="Horde/Kolab/Storage/PermissionTest.php" name="test/Horde/Kolab/Storage/PermissionTest.php" />
+   <install as="Horde/Kolab/Storage/phpunit.xml" name="test/Horde/Kolab/Storage/phpunit.xml" />
+   <install as="Horde/Kolab/Storage/Scenario.php" name="test/Horde/Kolab/Storage/Scenario.php" />
+   <install as="Horde/Kolab/Storage/StorageTest.php" name="test/Horde/Kolab/Storage/StorageTest.php" />
+   <install as="Horde/Kolab/Storage/TriggerTest.php" name="test/Horde/Kolab/Storage/TriggerTest.php" />
+   <install as="Horde/Kolab/Storage/Class/Driver/CclientTest.php" name="test/Horde/Kolab/Storage/Class/Driver/CclientTest.php" />
+   <install as="Horde/Kolab/Storage/Class/Driver/ImapTest.php" name="test/Horde/Kolab/Storage/Class/Driver/ImapTest.php" />
+   <install as="Horde/Kolab/Storage/Class/Driver/MockTest.php" name="test/Horde/Kolab/Storage/Class/Driver/MockTest.php" />
+   <install as="Horde/Kolab/Storage/Class/Driver/PearTest.php" name="test/Horde/Kolab/Storage/Class/Driver/PearTest.php" />
+   <install as="Horde/Kolab/Storage/Server/DriverTest.php" name="test/Horde/Kolab/Storage/Server/DriverTest.php" />
   </filelist>
  </phprelease>
  <changelog>
   <release>
-   <date>2008-12-05</date>
    <version>
-    <release>0.3.0</release>
+    <release>0.1.0</release>
     <api>0.1.0</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
+   <date>2008-09-11</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-    * Added attachment support.
-    * Fixed triggering folders.
-    * Fixed renaming default folders.
-    * Implemented extended free/busy access concept.
-    * kolab/issue3292 (Sharing default groupware resources does not work
-      in the web client)
+* Initial release.
    </notes>
   </release>
   <release>
@@ -233,7 +697,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <api>alpha</api>
    </stability>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>* Fixed the Kolab_Storage::getFolder() function.
+   <notes>
+* Fixed the Kolab_Storage::getFolder() function.
   * Added Kolab_List::getForeignDefault() to retrieve the default folders of other
     users. Also fixes issues with overlapping default folders.
   * Fixed retrieval of general Kolab annotations.
@@ -245,18 +710,42 @@ http://pear.php.net/dtd/package-2.0.xsd">
    </notes>
   </release>
   <release>
+   <date>2008-12-05</date>
    <version>
-    <release>0.1.0</release>
+    <release>0.3.0</release>
     <api>0.1.0</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2008-09-11</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
-     * Initial release.
+* Added attachment support.
+* Fixed triggering folders.
+* Fixed renaming default folders.
+* Implemented extended free/busy access concept.
+* kolab/issue3292 (Sharing default groupware resources does not work
+  in the web client)
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.4.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2010-10-22</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Added namespace support (Bug #6691).
+* Converted the package to Horde 4 / PHP 5.
+* Fixed list driver to prevent overwriting folder data when
+  authenticating twice (relevant for testing).
+* Allow to supress triggering (relevant for testing).
    </notes>
   </release>
  </changelog>

@@ -1,10 +1,11 @@
-//
-//  AnselExportController.h
-//  iPhoto2Ansel
-//
-//  Created by Michael Rubinsky on 10/23/08.
-//  Copyright 2008 __MyCompanyName__. All rights reserved.
-//
+/**
+ * iPhoto2Ansel
+ *
+ * Copyright 2008-2010 The Horde Project (http://www.horde.org)
+ *
+ * @license http://opensource.org/licenses/bsd-license.php
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ */
 
 #import <Cocoa/Cocoa.h>
 #import <Quartz/Quartz.h>
@@ -35,6 +36,8 @@
     IBOutlet NSButton *mNewGalleryButton;
     IBOutlet NSPopUpButton *mServersPopUp;
     IBOutlet NSTextField *mImageCountLabel;
+    IBOutlet NSPopUpButton *mAnselVersion;
+    IBOutlet NSTextField *mVersionLabel;
     
     // Gallery View
     IBOutlet NSButton *viewGallery;
@@ -49,7 +52,6 @@
     IBOutlet NSTextField *mServerSheetUsername;    
     IBOutlet NSSecureTextField *mServerSheetPassword;
     IBOutlet NSTextField *mServerSheetServerNickName;
-    IBOutlet NSButton *mMakeNewServerDefault;
     
     // Server list
     IBOutlet NSPanel *serverListPanel;

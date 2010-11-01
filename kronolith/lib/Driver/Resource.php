@@ -30,14 +30,13 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
      * it is attached to. Not sure if there is a better way to do this...
      *
      * @see lib/Driver/Kronolith_Driver_Sql#deleteEvent($eventId, $silent)
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function deleteEvent($event, $silent = false)
     {
-        /* Since this is the Kronolith_Resource's version of the event, if we
-         * delete it, we must also make sure to remove it from the event that
-         * it is attached to. Not sure if there is a better way to do this...
-         */
         $delete_event = $this->getEvent($event);
+
         $uid = $delete_event->uid;
         $driver = Kronolith::getDriver();
         $events = $driver->getByUID($uid, null, true);
@@ -50,7 +49,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
                 $e->save();
             }
         }
-
+        $this->open($delete_event->calendar);
         parent::deleteEvent($event, $silent);
     }
 
@@ -60,29 +59,29 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
      * @param Kronolith_Resource $resource
      *
      * @return Kronolith_Resource object
-     * @throws Horde_Exception
+     * @throws Kronolith_Exception
      */
     public function save($resource)
     {
         if ($resource->getId()) {
-            $query = 'UPDATE kronolith_resources SET resource_name = ?, resource_calendar = ? , resource_description = ?, resource_response_type = ?, resource_type = ?, resource_members = ? WHERE resource_id = ?';
-            $values = array($this->convertToDriver($resource->get('name')), $resource->get('calendar'), $this->convertToDriver($resource->get('description')), $resource->get('response_type'), $resource->get('type'), serialize($resource->get('members')), $resource->getId());
+            $query = 'UPDATE kronolith_resources SET resource_name = ?, resource_calendar = ? , resource_description = ?, resource_response_type = ?, resource_type = ?, resource_members = ?, resource_email = ? WHERE resource_id = ?';
+            $values = array($this->convertToDriver($resource->get('name')), $resource->get('calendar'), $this->convertToDriver($resource->get('description')), $resource->get('response_type'), $resource->get('type'), serialize($resource->get('members')), $resource->get('email'), $resource->getId());
             $result = $this->_write_db->query($query, $values);
-            if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-                throw new Horde_Exception($result);
-            }
+            $this->handleError($result);
         } else {
-            $query = 'INSERT INTO kronolith_resources (resource_id, resource_name, resource_calendar, resource_description, resource_response_type, resource_type, resource_members)';
-            $cols_values = ' VALUES (?, ?, ?, ?, ?, ?, ?)';
+            $query = 'INSERT INTO kronolith_resources (resource_id, resource_name, resource_calendar, resource_description, resource_response_type, resource_type, resource_members, resource_email)';
+            $cols_values = ' VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
             $id = $this->_db->nextId('kronolith_resources');
-            $values = array($id, $this->convertToDriver($resource->get('name')), $resource->get('calendar'), $this->convertToDriver($resource->get('description')), $resource->get('response_type'), $resource->get('type'), serialize($resource->get('members')));
+            $values = array($id,
+                            $this->convertToDriver($resource->get('name')),
+                            $resource->get('calendar'),
+                            $this->convertToDriver($resource->get('description')),
+                            $resource->get('response_type'),
+                            $resource->get('type'),
+                            serialize($resource->get('members')),
+                            $resource->get('email'));
             $result = $this->_write_db->query($query . $cols_values, $values);
-            if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-                throw new Horde_Exception($result);
-            }
-
+            $this->handleError($result);
             $resource->setId($id);
         }
 
@@ -95,29 +94,20 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
      *
      * @param Kronolith_Resource $resource  The kronolith resource to remove
      *
-     * @return boolean
-     * @throws Horde_Exception
+     * @throws Kronolith_Exception
      */
     public function delete($resource)
     {
         if (!($resource instanceof Kronolith_Resource_Base) || !$resource->getId()) {
-            throw new Horde_Exception(_("Resource not valid."));
+            throw new Kronolith_Exception(_("Resource not valid."));
         }
 
         $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE calendar_id = ?';
         $result = $this->_write_db->query($query, array($resource->get('calendar')));
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Exception($result);
-        }
+        $this->handleError($result);
         $query = 'DELETE FROM kronolith_resources WHERE resource_id = ?';
         $result = $this->_write_db->query($query, array($resource->getId()));
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Exception($result);
-        }
-
-        return true;
+        $this->handleError($result);
     }
 
     /**
@@ -125,24 +115,21 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
      *
      * @param int $id  The key for the Kronolith_Resource
      *
-     * @return Kronolith_Resource_Single || Kronolith_Resource_Group
-     * @throws Horde_Exception
+     * @return Kronolith_Resource_Single|Kronolith_Resource_Group
+     * @throws Kronolith_Exception
      */
     public function getResource($id)
     {
-        $query = 'SELECT resource_id, resource_name, resource_calendar, resource_description, resource_response_type, resource_type, resource_members FROM kronolith_resources WHERE resource_id = ?';
+        $query = 'SELECT resource_id, resource_name, resource_calendar, resource_description, resource_response_type, resource_type, resource_members, resource_email FROM kronolith_resources WHERE resource_id = ?';
         $results = $this->_db->getRow($query, array($id), DB_FETCHMODE_ASSOC);
-        if ($results instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Exception($results);
-        }
+        $this->handleError($results);
         if (empty($results)) {
-            throw new Horde_Exception('Resource not found');
+            throw new Kronolith_Exception('Resource not found');
         }
 
         $class = 'Kronolith_Resource_' . $results['resource_type'];
         if (!class_exists($class)) {
-            throw new Horde_Exception('Could not load the class definition for ' . $class);
+            throw new Kronolith_Exception('Could not load the class definition for ' . $class);
         }
 
         return new $class($this->_fromDriver($results));
@@ -151,24 +138,21 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
     /**
      * Obtain the resource id associated with the given calendar uid.
      *
-     * @param string $calendar  The calendar's uid
+     * @param string $calendar  The calendar's uid.
      *
-     * @return int  The Kronolith_Resource id
-     * @throws Horde_Exception
+     * @return integer  The Kronolith_Resource id.
+     * @throws Kronolith_Exception
      */
     public function getResourceIdByCalendar($calendar)
     {
         $query = 'SELECT resource_id FROM kronolith_resources WHERE resource_calendar = ?';
-        $results = $this->_db->getOne($query, array($calendar));
-        if ($results instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Exception($results);
-        }
-        if (empty($results)) {
-            throw new Horde_Exception('Resource not found');
+        $result = $this->_db->getOne($query, array($calendar));
+        $this->handleError($result);
+        if (empty($result)) {
+            throw new Kronolith_Exception('Resource not found');
         }
 
-        return $results;
+        return $result;
     }
 
     /**
@@ -177,18 +161,20 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
      * Right now, all users have Horde_Perms::READ, but only system admins have
      * Horde_Perms::EDIT | Horde_Perms::DELETE
      *
-     * @param int $perms     A Horde_Perms::* constant.
-     * @param array $filter  A hash of field/values to filter on.
+     * @param integer $perms  A Horde_Perms::* constant.
+     * @param array $filter   A hash of field/values to filter on.
      *
      * @return an array of Kronolith_Resource objects.
+     * @throws Kronolith_Exception
      */
     public function listResources($perms = Horde_Perms::READ, $filter = array())
     {
-        if (($perms & (Horde_Perms::EDIT | Horde_Perms::DELETE)) && !Horde_Auth::isAdmin()) {
+        if (($perms & (Horde_Perms::EDIT | Horde_Perms::DELETE)) &&
+            !$GLOBALS['registry']->isAdmin()) {
             return array();
         }
 
-        $query = 'SELECT resource_id, resource_name, resource_calendar, resource_description, resource_response_type, resource_type, resource_members FROM kronolith_resources';
+        $query = 'SELECT resource_id, resource_name, resource_calendar, resource_description, resource_response_type, resource_type, resource_members, resource_email FROM kronolith_resources';
         if (count($filter)) {
             $clause = ' WHERE ';
             $i = 0;
@@ -200,10 +186,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
         }
 
         $results = $this->_db->getAssoc($query, true, $filter, DB_FETCHMODE_ASSOC, false);
-        if ($results instanceof PEAR_Error) {
-            Horde::logMessage($results, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Exception($results);
-        }
+        $this->handleError($results);
 
         $return = array();
         foreach ($results as $key => $result) {
@@ -220,6 +203,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
      * @param integer $resource_id  The resource id to check for.
      *
      * @return array of group ids.
+     * @throws Kronolith_Exception
      */
     public function getGroupMemberships($resource_id)
     {
@@ -259,17 +243,28 @@ class Kronolith_Driver_Resource extends Kronolith_Driver_Sql
     }
 
     /**
-     * Remove all events owned by the specified user in all calendars.
+     * Helper function to update an existing event's tags to tagger storage.
      *
-     * @todo Refactor: move to Kronolith::
-     *
-     * @param string $user  The user name to delete events for.
-     *
-     * @param mixed  True | PEAR_Error
+     * @param Kronolith_Event $event  The event to update
      */
-    public function removeUserData($user)
+    protected function _updateTags($event)
     {
-        return PEAR::raiseError(_("Removing user data is not supported with the current calendar storage backend."));
+        // noop
+    }
+
+    /**
+     * Helper function to add tags from a newly creted event to the tagger.
+     *
+     * @param Kronolith_Event $event  The event to save tags to storage for.
+     */
+    protected function _addTags($event)
+    {
+        // noop
+    }
+
+    protected function _handleNotifications($event, $action)
+    {
+        // noop
     }
 
 }

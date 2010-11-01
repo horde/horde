@@ -29,16 +29,15 @@ function _getCAPTCHA($new = false)
 }
 
 // We are already logged
-if (Horde_Auth::isAuthenticated()) {
-    header('Location: ' . Folks::getUrlFor('user', Horde_Auth::getAuth()));
-    exit;
+if ($registry->isAuthenticated()) {
+    Folks::getUrlFor('user', $GLOBALS['registry']->getAuth())->redirect();
 }
 
 // Make sure auth backend allows passwords to be reset.
-$auth = Horde_Auth::singleton($conf['auth']['driver']);
+$auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 if (!$auth->hasCapability('resetpassword')) {
     $notification->push(_("Cannot reset password automatically, contact your administrator."), 'horde.error');
-    Horde_Auth::authenticateFailure('folks');
+    $registry->authenticateFailure('folks');
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -50,8 +49,10 @@ $form->setButtons(_("Continue"));
 // Get user security pass
 $user = Horde_Util::getFormData('username');
 if ($user) {
-    $u_prefs = Horde_Prefs::singleton($conf['prefs']['driver'], 'horde', Horde_Auth::convertUsername($user, true), '', null, false);
-    $u_prefs->retrieve();
+    $u_prefs = $injector->getInstance('Horde_Prefs')->getPrefs('horde', array(
+        'cache' => false,
+        'user' => $registry->convertUsername($user, true)
+    ));
     $answer = $u_prefs->getValue('security_answer');
     $question = $u_prefs->getValue('security_question');
 } else {
@@ -81,7 +82,7 @@ if ($form->validate()) {
     $email = Folks::getUserEmail($info['username']);
     if ($email instanceof PEAR_Error) {
         $notification->push($email);
-        Horde_Auth::authenticateFailure('folks');
+        $registry->authenticateFailure('folks');
     }
 
     /* Check the given values with the prefs stored ones. */
@@ -92,7 +93,7 @@ if ($form->validate()) {
         $password = $auth->resetPassword($info['username']);
         if ($password instanceof PEAR_Error) {
             $notification->push($password);
-            Horde_Auth::authenticateFailure('folks');
+            $registry->authenticateFailure('folks');
         }
 
         $body = sprintf(_("Your new password for %s is: %s. \n\n It was requested by %s on %s"),
@@ -104,7 +105,7 @@ if ($form->validate()) {
         Folks::sendMail($email, _("Your password has been reset"), $body);
 
         $notification->push(sprintf(_("Your password has been reset, check your email (%s) and log in with your new password."), $email), 'horde.success');
-        Horde_Auth::authenticateFailure('folks');
+        $registry->authenticateFailure('folks');
     } else {
         /* Info submitted does not match what is in prefs, redirect user back
          * to login. */

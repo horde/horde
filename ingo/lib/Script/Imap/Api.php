@@ -1,19 +1,23 @@
 <?php
 /**
- * The Ingo_Script_Imap_Api:: is the base driver class for Ingo_Script_Imap::.
+ * This file defines the base driver class for Ingo_Script_Imap::.
  *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Ingo
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/asl.php ASL
+ * @package  Ingo
  */
-class Ingo_Script_Imap_Api
+abstract class Ingo_Script_Imap_Api
 {
     /**
-     * TODO
+     * Configuration parameters.
+     *
+     * @var array
      */
     protected $_params;
 
@@ -36,51 +40,39 @@ class Ingo_Script_Imap_Api
 
     /**
      * TODO
+     *
+     * @return mixed
      */
-    public function deleteMessages($indices)
-    {
-        return PEAR::raiseError('Not implemented.');
-    }
+    abstract public function deleteMessages($indices);
+
+    /**
+     * TODO
+     *
+     * @return boolean
+     */
+    abstract public function moveMessages($indices, $folder);
+
+    /**
+     * TODO
+     *
+     * @return boolean
+     */
+    abstract public function copyMessages($indices, $folder);
 
     /**
      * TODO
      */
-    public function moveMessages($indices, $folder)
-    {
-        return PEAR::raiseError('Not implemented.');
-    }
+    abstract public function setMessageFlags($indices, $flags);
 
     /**
      * TODO
      */
-    public function copyMessages($indices, $folder)
-    {
-        return PEAR::raiseError('Not implemented.');
-    }
+    abstract public function fetchEnvelope($indices);
 
     /**
      * TODO
      */
-    public function setMessageFlags($indices, $flags)
-    {
-        return PEAR::raiseError('Not implemented.');
-    }
-
-    /**
-     * TODO
-     */
-    public function fetchEnvelope($indices)
-    {
-        return PEAR::raiseError('Not implemented.');
-    }
-
-    /**
-     * TODO
-     */
-    public function search($query)
-    {
-        return PEAR::raiseError('Not implemented.');
-    }
+    abstract public function search($query);
 
     /**
      * TODO

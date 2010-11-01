@@ -46,7 +46,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
      <dir name="Stream">
       <dir name="Wrapper">
        <file name="Combine.php" role="php" />
+       <file name="CombineStream.php" role="php" />
        <file name="String.php" role="php" />
+       <file name="StringStream.php" role="php" />
       </dir> <!-- /lib/Horde/Stream/Wrapper -->
      </dir> <!-- /lib/Horde/Stream -->
     </dir> <!-- /lib/Horde -->
@@ -61,17 +63,14 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <pearinstaller>
     <min>1.7.0</min>
    </pearinstaller>
-   <package>
-    <name>Support</name>
-    <channel>pear.horde.org</channel>
-   </package>
   </required>
-  <optional/>
  </dependencies>
  <phprelease>
   <filelist>
    <install name="lib/Horde/Stream/Wrapper/Combine.php" as="Horde/Stream/Wrapper/Combine.php" />
+   <install name="lib/Horde/Stream/Wrapper/CombineStream.php" as="Horde/Stream/Wrapper/CombineStream.php" />
    <install name="lib/Horde/Stream/Wrapper/String.php" as="Horde/Stream/Wrapper/String.php" />
+   <install name="lib/Horde/Stream/Wrapper/StringStream.php" as="Horde/Stream/Wrapper/StringStream.php" />
   </filelist>
  </phprelease>
 </package>

@@ -1,6 +1,7 @@
 <?php
 /**
- * @package Horde_Crypt
+ * @category Horde
+ * @package  Crypt
  */
 
 if (!is_executable('/usr/bin/gpg')) {

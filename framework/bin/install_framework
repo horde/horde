@@ -2,13 +2,7 @@
 <?php
 /**
  * This script creates softlinks to the library files you retrieved from
- * the CVS "framework" module. This script also works on a framework
- * installation retrieved from git.
- *
- * It creates the same directory structure the packages would have if they
- * were installed with "pear install package.xml".
- * For creating this structure it uses the information given in the
- * package.xml files inside each package directory.
+ * the framework module.
  *
  * Copyright 2002 Wolfram Kriesing <wolfram@kriesing.de>
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
@@ -16,15 +10,16 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @category Horde
- * @package  tools
  * @author   Wolfram Kriesing <wolfram@kriesing.de>
  * @author   Jan Schneider <jan@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  framework
  */
 
-// Default values for srcDir and destDir are empty.
-$srcDir = null;
-$destDir = null;
+$destDir = $hordeDir = $srcDir = null;
+$debug = $dryrun = false;
 
 // Default to copying if this is run on Windows.
 $copy = strncasecmp(PHP_OS, 'WIN', 3) ? false : true;
@@ -32,20 +27,37 @@ $copy = strncasecmp(PHP_OS, 'WIN', 3) ? false : true;
 // All packages by default.
 $pkg = null;
 
-for ($i = 1; $i < count($argv); $i++) {
+for ($i = 1; $i < count($argv); ++$i) {
     switch ($argv[$i]) {
     case '--copy':
         $copy = true;
         break;
 
+    case '--debug':
+        $debug = true;
+        break;
+
+    case '--dryrun':
+        $dryrun = true;
+        break;
+
     case '--help':
         print_usage();
+
+    case '--horde':
+        if (isset($argv[$i + 1])) {
+            if (is_dir($argv[$i + 1])) {
+                $hordeDir = $argv[++$i];
+            } else {
+                exit($argv[$i + 1] . " is not a directory");
+            }
+        }
+        break;
 
     case '--src':
         if (isset($argv[$i + 1])) {
             if (is_dir($argv[$i + 1])) {
-                $srcDir = $argv[$i + 1];
-                $i++;
+                $srcDir = $argv[++$i];
             } else {
                 exit($argv[$i + 1] . " is not a directory");
             }
@@ -55,8 +67,7 @@ for ($i = 1; $i < count($argv); $i++) {
     case '--dest':
         if (isset($argv[$i + 1])) {
             if (is_dir($argv[$i + 1])) {
-                $destDir = $argv[$i + 1];
-                $i++;
+                $destDir = $argv[++$i];
             } else {
                 exit($argv[$i + 1] . " is not a directory");
             }
@@ -64,12 +75,11 @@ for ($i = 1; $i < count($argv); $i++) {
         break;
 
     case '--pkg':
-        $pkg = $argv[$i + 1];
+        $pkg = $argv[++$i];
         if (!is_dir($pkg) || !file_exists($pkg . '/package.xml')) {
             exit("$pkg is not a valid package directory.\n");
         }
-        $pkg = preg_replace('|/+$|', '', $pkg);
-        $i++;
+        $pkg = preg_replace('|/+$|', '', $pkg) . '/package.xml';
         break;
 
     default:
@@ -77,29 +87,45 @@ for ($i = 1; $i < count($argv); $i++) {
     }
 }
 
+if (is_null($hordeDir)) {
+    print_usage('Missing the horde installation directory.');
+}
+
 // Try to auto-detect the source and dest dirs.
 $cwd = getcwd();
-if ($srcDir === null && is_dir($cwd . DIRECTORY_SEPARATOR . 'framework')) {
-    $srcDir = $cwd . DIRECTORY_SEPARATOR . 'framework';
+if (is_null($srcDir) && is_null($pkg)) {
+    $srcDir = is_dir($cwd . '/framework')
+        ? $cwd . DIRECTORY_SEPARATOR . 'framework'
+        : dirname(__FILE__) . '/..';
 }
-if ($destDir === null && is_dir($cwd . DIRECTORY_SEPARATOR . 'lib')) {
+if (is_null($destDir) && is_dir($cwd . '/lib')) {
     $destDir = $cwd . DIRECTORY_SEPARATOR . 'lib';
 }
 
-if ($srcDir === null || $destDir === null) {
+if ((is_null($srcDir) && is_null($pkg)) || is_null($destDir)) {
     print_usage('Failed to auto-detect source and destination directories,');
 }
 
+// Make $hordeDir an absolute path.
+if (($hordeDir[0] != '/') &&
+    !preg_match('/[A-Za-z]:/', $hordeDir) &&
+    ($cwd = getcwd())) {
+    $hordeDir = $cwd . '/' . $hordeDir;
+}
+$hordeDir = rtrim($hordeDir, '/');
+
 // Make $srcDir an absolute path.
-if (($srcDir[0] != '/' && !preg_match('/[A-Za-z]:/', $srcDir)) &&
-    $cwd = getcwd()) {
+if (($srcDir[0] != '/') &&
+    !preg_match('/[A-Za-z]:/', $srcDir) &&
+    ($cwd = getcwd())) {
     $srcDir = $cwd . '/' . $srcDir;
 }
 $srcDir = rtrim($srcDir, '/');
 
 // Make $destDir an absolute path.
-if (($destDir[0] != '/' && !preg_match('/[A-Za-z]:/', $destDir)) &&
-    $cwd = getcwd()) {
+if (($destDir[0] != '/') &&
+    !preg_match('/[A-Za-z]:/', $destDir) &&
+    ($cwd = getcwd())) {
     $destDir = $cwd . '/' . $destDir;
 }
 $destDir = rtrim($destDir, '/');
@@ -110,12 +136,11 @@ if (strpos(ini_get('include_path'), $destDir) === false) {
 }
 
 // Do CLI checks and environment setup first.
-if (!@include_once 'Horde/Cli.php') {
-    if (!@include_once $srcDir . '/Cli/lib/Horde/Cli.php') {
-        if (!@include_once $cwd . DIRECTORY_SEPARATOR . '../Cli/lib/Horde/Cli.php') {
-            print_usage('Horde_Cli library is not in the include_path or in the src directory.');
-        }
-    }
+if ((!@include_once dirname(__FILE__) . '/../Cli/lib/Horde/Cli.php') &&
+    (!@include_once 'Horde/Cli.php')  &&
+    (!@include_once $srcDir . '/Cli/lib/Horde/Cli.php') &&
+    (!@include_once $cwd . '/../Cli/lib/Horde/Cli.php')) {
+    print_usage('Horde_Cli library is not in the include_path or in the src directory.');
 }
 
 // Make sure no one runs this from the web.
@@ -125,410 +150,117 @@ if (!Horde_Cli::runningFromCLI()) {
 
 // Load the CLI environment - make sure there's no time limit, init
 // some variables, etc.
-Horde_Cli::init();
+$cli = Horde_Cli::init();
 
-if (!class_exists('SimpleXMLElement', false)) {
-    include_once 'Tree/Tree.php';
-    if (!class_exists('Tree')) {
-        print_usage('You need the PEAR "Tree" package installed');
-    }
+$cli->message('Source directory: ' . $srcDir);
+$cli->message('Framework destination directory: ' . $destDir);
+$cli->message('Horde directory: ' . $hordeDir);
+$cli->message('Create symbolic links: ' . ($copy ? 'NO' : 'Yes'));
+
+// Create the local PEAR config.
+if (!(@include_once 'PEAR/Config.php') ||
+    !(@include_once 'PEAR/PackageFile.php')) {
+    print_usage('PEAR libraries are not in the PHP include_path.');
 }
+if (defined('E_DEPRECATED')) {
+   error_reporting(E_ALL & ~E_DEPRECATED);
+}
+$pear_config = PEAR_Config::singleton();
+$pear_pkg = new PEAR_PackageFile($pear_config);
 
-// Tree throws some irrelevant reference; silence them.
-error_reporting(E_ALL & ~E_NOTICE);
-
-$linker = new Linker($copy);
 if ($pkg) {
-    $linker->process(getcwd() . DIRECTORY_SEPARATOR . $pkg, $destDir);
-} elseif ($handle = opendir($srcDir)) {
-    while ($file = readdir($handle)) {
-        if ($file != '.' &&
-            $file != '..' &&
-            $file != 'CVS' &&
-            is_dir($srcDir . '/' . $file)) {
-            $linker->process($srcDir . '/' . $file, $destDir);
+    $pkgs = array($pkg);
+} else {
+    $di = new DirectoryIterator($srcDir);
+    $pkgs = array();
+    foreach ($di as $val) {
+        $pathname = $val->getPathname();
+        if ($val->isDir() &&
+            !$di->isDot() &&
+            file_exists($pathname . '/package.xml')) {
+            $pkgs[basename($val)] = $pathname;
         }
     }
-    closedir($handle);
- }
+    asort($pkgs);
+}
 
-echo "\n";
+$cli->writeLn();
+$cli->message('Package(s) to install: ' . ($pkg ? $pkg : 'ALL (' . count($pkgs) . ' packages)'));
+
+foreach ($pkgs as $key => $val) {
+    if ($debug) {
+        $cli->writeLn();
+    }
+    $cli->message('Installing package ' . $key);
+
+    $pkg_ob = $pear_pkg->fromPackageFile($val . '/package.xml', 0);
+    if ($pkg_ob instanceof PEAR_Error) {
+        $cli->message('Could not install package ' . $key . ': ' . $pkg_ob->getMessage(), 'cli.error');
+        continue;
+    }
+    foreach ($pkg_ob->getInstallationFilelist() as $file) {
+        $orig = realpath($val . '/' . $file['attribs']['name']);
+        if (empty($orig)) {
+            $cli->message('Install file does not seem to exist: ' . $val . '/' . $file['attribs']['name'], 'cli.error');
+            continue;
+        }
+
+        switch ($file['attribs']['role']) {
+        case 'horde':
+            if (isset($file['attribs']['install-as'])) {
+                $dest = $hordeDir . '/' . $file['attribs']['install-as'];
+            } else {
+                $cli->message('Could not determine install directory (role "horde") for ' . $hordeDir, 'cli.error');
+                continue;
+            }
+            break;
+
+        case 'php':
+            if (isset($file['attribs']['install-as'])) {
+                $dest = $destDir . '/' . $file['attribs']['install-as'];
+            } elseif (isset($file['attribs']['baseinstalldir'])) {
+                $dest = $destDir . $file['attribs']['baseinstalldir'] . '/' . $file['attribs']['name'];
+            } else {
+                $dest = $destDir . '/' . $file['attribs']['name'];
+            }
+            break;
+
+        default:
+            $dest = null;
+            break;
+        }
+
+        if (!is_null($dest)) {
+            if (!$dryrun && file_exists($dest)) {
+                @unlink($dest);
+            } elseif (!$dryrun && !file_exists(dirname($dest))) {
+                @mkdir(dirname($dest), 0777, true);
+            }
+
+            if ($copy) {
+                if ($debug) {
+                    print 'COPY: ' . $orig . ' -> ' . $dest . "\n";
+                }
+                if (!$dryrun && !copy($orig, $dest)) {
+                    $cli->message('Could not link ' . $orig . '.', 'cli.error');
+                }
+            } else {
+                if ($debug) {
+                    print 'SYMLINK: ' . $orig . ' -> ' . $dest . "\n";
+                }
+                if (!$dryrun && !symlink($orig, $dest)) {
+                    $cli->message('Could not link ' . $orig . '.', 'cli.error');
+                }
+            }
+        }
+    }
+}
 
 /**
+ * Usage message.
  */
-class Linker {
-
-    var $_srcDir;
-
-    /**
-     * The base directory for the complete package.
-     *
-     * @string
-     */
-    var $_baseDir;
-
-    /**
-     * The base installation directories of the current directory or file
-     * relative to $_baseDir. The current base directory is always at array
-     * position 0.
-     *
-     * @array
-     */
-    var $_baseInstallDir = array('');
-
-    var $_fileroles = array('php');
-
-    var $_role;
-
-    var $_copy;
-
-    var $_tree;
-
-    var $_contents;
-
-    function Linker($copy = false)
-    {
-        $this->_copy = $copy;
-    }
-
-    function process($srcDir, $destDir)
-    {
-        $this->_srcDir = $srcDir;
-        $packageFile = $this->_srcDir . '/package.xml';
-        $cli = &Horde_Cli::singleton();
-
-        if (!is_file($packageFile)) {
-            $cli->message('No package.xml in ' . $this->_srcDir, 'cli.warning');
-            return false;
-        }
-
-        $this->_tree = $this->getXmlTree($packageFile);
-
-        // Read package name.
-        $packageName = trim($this->_tree->getElementContent('/package/name', 'cdata'));
-        $cli->writeln("Processing package $packageName.");
-
-        // First, look for '/package/phprelease/filelist', which
-        // overrides '/package/contents'.
-        if (($filelist = $this->_tree->getElementByPath('/package/phprelease/filelist'))) {
-            // Do this better, make the tree class work case insensitive.
-            $this->_baseDir = preg_replace('|/+|', '/', $destDir);
-            if (!is_dir($this->_baseDir)) {
-                require_once 'System.php';
-                System::mkdir('-p ' . $this->_baseDir);
-            }
-
-            $this->_handleFilelistTag($filelist);
-
-        // Look for contents in '/package/contents'.
-        } elseif (($this->_contents = $this->_tree->getElementByPath('/package/contents'))) {
-            // Do this better, make the tree class work case insensitive.
-            $this->_baseDir = preg_replace('|/+|', '/', $destDir);
-            if (!is_dir($this->_baseDir)) {
-                require_once 'System.php';
-                System::mkdir('-p ' . $this->_baseDir);
-            }
-
-            $this->_handleContentsTag($this->_contents);
-
-        // Didn't find either.
-        } else {
-            $cli->message('No filelist or contents tags found inside: ' . $packageFile, 'cli.warning');
-        }
-
-        unset($this->_tree);
-        unset($this->_contents);
-    }
-
-    function _handleFilelistTag($element, $curDir = '')
-    {
-        if (isset($element['children'])) {
-            foreach ($element['children'] as $child) {
-                switch ($child['name']) {
-                case 'install':
-                    // <install name="lib/Horde/Log/Exception.php" as="Horde/Log.php" />
-                    $this->_handleInstallTag($child, $curDir);
-                    break;
-
-                default:
-                    $cli = &Horde_Cli::singleton();
-                    $cli->message('No handler for tag: ' . $child['name'], 'cli-warning');
-                    break;
-                }
-            }
-        }
-    }
-
-    function _handleContentsTag($element, $curDir = '')
-    {
-        if (isset($element['children'])) {
-            foreach ($element['children'] as $child) {
-                switch ($child['name']) {
-                case 'file':
-                    $this->_handleFileTag($child, $curDir);
-                    break;
-
-                case 'dir':
-                    $this->_handleDirTag($child, $curDir);
-                    break;
-
-                default:
-                    $cli = &Horde_Cli::singleton();
-                    $cli->message('No handler for tag: ' . $child['name'], 'cli-warning');
-                    break;
-                }
-            }
-        }
-    }
-
-    function _handleDirTag($element, $curDir)
-    {
-        if ($element['attributes']['name'] != '/') {
-            if (substr($curDir, -1) != DIRECTORY_SEPARATOR) {
-                $curDir .= DIRECTORY_SEPARATOR;
-            }
-            $curDir .= $element['attributes']['name'];
-        }
-
-        if (!empty($element['attributes']['baseinstalldir'])) {
-            array_unshift($this->_baseInstallDir, $element['attributes']['baseinstalldir']);
-        }
-        $this->_handleContentsTag($element, $curDir);
-        if (!empty($element['attributes']['baseinstalldir'])) {
-            array_shift($this->_baseInstallDir);
-        }
-    }
-
-    function _handleFileTag($element, $curDir)
-    {
-        if (!empty($element['attributes']['role'])) {
-            $this->_role = $element['attributes']['role'];
-        }
-
-        if (!in_array($this->_role, $this->_fileroles)) {
-            return;
-        }
-
-        if (!empty($element['attributes']['name'])) {
-            $filename = $element['attributes']['name'];
-        } else {
-            $filename = $element['cdata'];
-        }
-        $filename = trim($filename);
-
-        if (!empty($element['attributes']['baseinstalldir'])) {
-            $dir = $element['attributes']['baseinstalldir'];
-        } else {
-            $dir = $this->_baseInstallDir[0];
-        }
-        if (substr($dir, -1) == '/') {
-            $dir = substr($dir, 0, -1);
-        }
-        $dir .= $curDir;
-        if (substr($dir, -1) == '/') {
-            $dir = substr($dir, 0, -1);
-        }
-
-        if (!is_dir($this->_baseDir . $dir)) {
-            require_once 'System.php';
-            System::mkdir('-p ' . $this->_baseDir . $dir);
-        }
-
-        if ($this->_copy) {
-            $cmd = "cp {$this->_srcDir}$curDir/$filename {$this->_baseDir}$dir/$filename";
-        } else {
-            $parent = $this->_findCommonParent($this->_srcDir . $curDir,
-                                               $this->_baseDir . $dir);
-            $dirs = substr_count(substr($this->_baseDir . $dir,
-                                        strlen($parent)),
-                                 '/');
-            $src = str_repeat('../', $dirs) .
-                substr($this->_srcDir . $curDir, strlen($parent) + 1);
-            $cmd = "ln -sf $src/$filename {$this->_baseDir}$dir/$filename";
-        }
-
-        exec($cmd);
-    }
-
-    function _handleInstallTag($element, $curDir)
-    {
-        if (empty($element['attributes']['name'])) {
-            // Warning?
-            return;
-        }
-        $src = trim($element['attributes']['name']);
-        $srcDir = dirname($src);
-
-        if (empty($element['attributes']['as'])) {
-            // Warning?
-            return;
-        }
-        $as = trim($element['attributes']['as']);
-        $asDir = dirname($as);
-
-        $role = $this->_findRole($src);
-        if (!in_array($role, $this->_fileroles)) {
-            return;
-        }
-
-        if (!is_dir($this->_baseDir . '/' . $asDir)) {
-            require_once 'System.php';
-            System::mkdir('-p ' . $this->_baseDir . '/' . $asDir);
-        }
-
-        if ($this->_copy) {
-            $cmd = "cp {$this->_srcDir}$curDir/$src {$this->_baseDir}/$as";
-        } else {
-            $parent = $this->_findCommonParent($this->_srcDir . $curDir,
-                                               $this->_baseDir . $asDir);
-            $dirs = substr_count(substr($this->_baseDir . $srcDir, strlen($parent)),
-                                 '/');
-            $src = str_repeat('../', $dirs) . substr($this->_srcDir . $curDir, strlen($parent) + 1) . '/' . $src;
-            $cmd = "ln -sf $src {$this->_baseDir}/$as";
-        }
-
-        exec($cmd);
-    }
-
-    function _findRole($filename)
-    {
-        if (!$this->_contents) {
-            $this->_contents = $this->_tree->getElementByPath('/package/contents');
-            if (!$this->_contents) {
-                return false;
-            }
-        }
-
-        if (!isset($this->_contents['children'])) {
-            return false;
-        }
-
-        $pieces = explode('/', $filename);
-        if (!count($pieces)) {
-            return false;
-        }
-
-        $element = $this->_contents;
-        while (true) {
-            $continue = false;
-            foreach ($element['children'] as $child) {
-                if (!in_array($child['name'], array('file', 'dir'))) {
-                    continue;
-                }
-
-                if ($child['attributes']['name'] == '/') {
-                    $continue = true;
-                    break;
-                }
-
-                if ($child['attributes']['name'] == $pieces[0]) {
-                    if (count($pieces) == 1) {
-                        if (isset($child['attributes']['role'])) {
-                            return $child['attributes']['role'];
-                        } else {
-                            return false;
-                        }
-                    }
-
-                    array_shift($pieces);
-                    if (!count($pieces)) {
-                        return false;
-                    }
-
-                    $continue = true;
-                    break;
-                }
-            }
-
-            if (!$continue) {
-                return false;
-            }
-
-            if (!isset($child['children'])) {
-                return false;
-            }
-            $element = $child;
-        }
-
-        return false;
-    }
-
-    function _findCommonParent($a, $b)
-    {
-        for ($common = '', $lastpos = 0, $pos = strpos($a, '/', 1);
-             $pos !== false && strpos($b, substr($a, 0, $pos)) === 0;
-             $pos = strpos($a, '/', $pos + 1)) {
-            $common .= substr($a, $lastpos, $pos - $lastpos);
-            $lastpos = $pos;
-        }
-        return $common;
-    }
-
-    function getXmlTree($packageFile)
-    {
-        if (class_exists('SimpleXMLElement', false)) {
-            return new Linker_Xml_Tree($packageFile);
-        } else {
-            $tree = Tree::setupMemory('XML', $packageFile);
-            $tree->setup();
-            return $tree;
-        }
-    }
-
-}
-
-class Linker_Xml_Tree
-{
-    var $_sxml;
-
-    function __construct($packageFile)
-    {
-        $this->_sxml = simplexml_load_file($packageFile);
-    }
-
-    function getElementContent($path, $field)
-    {
-        $elt = $this->getElementByPath($path);
-        return $elt[$field];
-    }
-
-    function getElementByPath($path)
-    {
-        $path = str_replace('/package', '', $path);
-
-        $node = $this->_sxml;
-        $path = preg_split('|/|', $path, -1, PREG_SPLIT_NO_EMPTY);
-        while ($path) {
-            $ptr = array_shift($path);
-            if (!$node->$ptr) return null;
-            $node = $node->$ptr;
-        }
-
-        return $this->_asArray($node);
-    }
-
-    function _asArray($sxml)
-    {
-        $element = array();
-        $element['name'] = $sxml->getName();
-        $element['cdata'] = (string)$sxml;
-        $element['attributes'] = array();
-        foreach ($sxml->attributes() as $k => $v) {
-            $element['attributes'][$k] = (string)$v;
-        }
-        $element['children'] = array();
-        foreach ($sxml->children() as $node) {
-            $element['children'][] = $this->_asArray($node);
-        }
-
-        return $element;
-    }
-
-}
-
 function print_usage($message = '')
 {
-
     if (!empty($message)) {
         echo "install_framework: $message\n\n";
     }
@@ -536,12 +268,17 @@ function print_usage($message = '')
     echo <<<USAGE
 Usage: install_framework [OPTION]
 
-Possible options:
+Required options:
+  --dest DIR    The destination directory for the framework libraries.
+  --horde DIR   The horde application installation directory.
+
+Optional options:
   --copy        Do not create symbolic links, but actually copy the libraries
                 (this is done automatically on Windows).
-  --src DIR     The source directory for the framework libraries.
-  --dest DIR    The destination directory for the framework libraries.
+  --debug       Output debug indormation.
+  --dryrun      Perform a dry run (don't copy/link any files).
   --pkg DIR     Path to a single package to install.
+  --src DIR     The source directory for the framework libraries.
 
 USAGE;
     exit;

@@ -12,21 +12,14 @@
 * @author Michael J. Rubinsky <mrubinsk@horde.org>
 */
 
-require_once dirname(__FILE__) . '/../lib/base.load.php';
-require_once HORDE_BASE . '/lib/core.php';
-
-/* Horde_CLI */
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-Horde_Cli::init();
-$cli = Horde_Cli::singleton();
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('ansel', array('authentication' => 'none', 'cli' => true));
 
 /* Command line options */
 $ret = Console_Getopt::getopt(Console_Getopt::readPHPArgv(), 'hu:p:g:s:d:kr:zl',
                               array('help', 'username=', 'password=', 'gallery=', 'slug=', 'dir=', 'keep', 'remotehost=', 'gzip', 'lzf'));
 
-if (is_a($ret, 'PEAR_Error')) {
+if ($ret instanceof PEAR_Error) {
     $cli->fatal($ret->getMessage());
 }
 
@@ -121,20 +114,23 @@ processDirectory($dir, null, $gallery_id, $gallery_slug, $useCompression);
 function emptyGalleryCheck($gallery)
 {
     if ($gallery->hasSubGalleries()) {
-        $children = $GLOBALS['ansel_storage']->listGalleries(Horde_Perms::SHOW, null, $gallery, false);
+        $children = $GLOBALS['injector']
+            ->getInstance('Ansel_Injector_Factory_Storage')
+            ->create()
+            ->listGalleries(array('parent' => $gallery));
         foreach ($children as $child) {
             // First check all children to see if they are empty...
             emptyGalleryCheck($child);
             if (!$child->countImages() && !$child->hasSubGalleries()) {
-                $result = $GLOBALS['ansel_storage']->removeGallery($child);
+                $result = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->removeGallery($child);
                 $GLOBALS['cli']->message(sprintf(_("Deleting empty gallery, \"%s\""), $child->get('name')), 'cli.success');
             }
 
             // Refresh the gallery values since we mucked around a bit with it
-            $gallery = $GLOBALS['ansel_storage']->getGallery($gallery->getId());
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($gallery->getId());
             // Now that any empty children are removed, see if we are empty
             if (!$gallery->countImages() && !$gallery->hasSubGalleries()) {
-                $result = $GLOBALS['ansel_storage']->removeGallery($gallery);
+                $result = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->removeGallery($gallery);
                 $GLOBALS['cli']->message(sprintf(_("Deleting empty gallery, \"%s\""), $gallery->get('name')), 'cli.success');
             }
         }
@@ -155,6 +151,7 @@ function processDirectory($dir, $parent = null, $gallery_id = null, $slug = null
 {
     global $cli, $rpc_auth, $rpc_endpoint;
 
+    $dir = Horde_Util::realPath($dir);
     if (!is_dir($dir)) {
         $cli->fatal(sprintf(_("\"%s\" is not a directory."), $dir));
     }
@@ -168,14 +165,8 @@ function processDirectory($dir, $parent = null, $gallery_id = null, $slug = null
             null,
             is_null($slug) ? null : array($slug),
         );
-        $result = Horde_RPC::request('jsonrpc', $rpc_endpoint, $method, $params, $rpc_auth);
-        if (is_a($result, 'PEAR_Error')) {
-            $cli->fatal($result->getMessage());
-        }
+        $result = Horde_Rpc::request('jsonrpc', $rpc_endpoint, $method, $params, $rpc_auth);
         $result = $result->result;
-        if (is_a($result, 'PEAR_Error')) {
-            $cli->fatal($result->getMessage());
-        }
         if (empty($result)) {
             $cli->fatal(sprintf(_("Gallery %s not found."), (empty($slug) ? $gallery_id : $slug)));
         }
@@ -194,16 +185,9 @@ function processDirectory($dir, $parent = null, $gallery_id = null, $slug = null
         $cli->message(sprintf(_("Creating gallery: \"%s\""), $name), 'cli.message');
         $method = 'images.createGallery';
         $params = array(null, array('name' => $name), null, $parent);
-        $result = Horde_RPC::request('jsonrpc', $rpc_endpoint, $method, $params, $rpc_auth);
-        if (is_a($result, 'PEAR_Error')) {
-            $cli->fatal($result->getMessage());
-        }
+        $result = Horde_Rpc::request('jsonrpc', $rpc_endpoint, $method, $params, $rpc_auth);
         $gallery_id = $result->result;
-        if (is_a($gallery_id, 'PEAR_Error')) {
-            $cli->fatal(sprintf(_("The gallery \"%s\" couldn't be created: %s"), $name, $gallery_id->getMessage()));
-        } else {
-            $cli->message(sprintf(_("The gallery \"%s\" was created successfully."), $name), 'cli.success');
-        }
+        $cli->message(sprintf(_("The gallery \"%s\" was created successfully."), $name), 'cli.success');
     }
 
     /* Get the files and directories */
@@ -236,28 +220,14 @@ function processDirectory($dir, $parent = null, $gallery_id = null, $slug = null
         $added_images = array();
         foreach ($files as $file) {
             $image = getImageFromFile($dir . '/' . $file, $compress);
-            if (is_a($image, 'PEAR_Error')) {
-                $cli->message($image->getMessage(), 'cli.error');
-                continue;
-            }
-
             $cli->message(sprintf(_("Storing photo \"%s\"..."), $file), 'cli.message');
             $method = 'images.saveImage';
             $params = array(null, $gallery_id, $image, false, null, 'binhex', $slug, $compress);
-            $result = Horde_RPC::request('jsonrpc', $rpc_endpoint, $method, $params, $rpc_auth);
-            if (is_a($result, 'PEAR_Error')) {
-                $cli->fatal($result->getMessage());
-            }
-
-            if (!is_a($result, 'stdClass')) {
+            $result = Horde_Rpc::request('jsonrpc', $rpc_endpoint, $method, $params, $rpc_auth);
+            if (!($result instanceof stdClass)) {
                 $cli->fatal(sprintf(_("There was an unspecified error. The server returned: %s"), print_r($result, true)));
             }
             $image_id = $result->result;
-            if (is_a($image_id, 'PEAR_Error')) {
-                $cli->message($image_id->getMessage(), 'cli.error');
-                continue;
-            }
-
             $added_images[] = $file;
         }
 
@@ -277,8 +247,6 @@ function processDirectory($dir, $parent = null, $gallery_id = null, $slug = null
 
 /**
  * Read an image from the filesystem.
- *
- * @TODO: pass in location of magic_db?
  *
  * @param string $file     The filename of the image.
  *

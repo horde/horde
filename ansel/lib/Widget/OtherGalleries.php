@@ -15,13 +15,12 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
      * Override the parent class' attach method and set the owner in the
      * title string.
      *
-     * @param Ansel_View $view  The view we are attaching to
+     * @param Ansel_View_Base $view  The view we are attaching to
      */
-    public function attach($view)
+    public function attach(Ansel_View_Base $view)
     {
         parent::attach($view);
-
-        $owner = $this->_view->gallery->getOwner();
+        $owner = $this->_view->gallery->getIdentity();
         $name = $owner->getValue('fullname');
         if (!$name) {
             $name = $this->_view->gallery->get('owner');
@@ -38,24 +37,25 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
      */
     public function html()
     {
-        if ($GLOBALS['conf']['ansel_cache']['usecache'] &&
-            ($widget = $GLOBALS['cache']->get('Ansel_OtherGalleries' . $this->_view->gallery->get('owner'))) !== false) {
-            return $widget;
-        }
+        // The cache breaks this block for some reason, disable until figured
+        // out.
+//        if ($GLOBALS['conf']['ansel_cache']['usecache']) {
+//            $widget = $GLOBALS['injector']->getInstance('Horde_Cache')->get('Ansel_OtherGalleries' . $this->_view->gallery->get('owner'));
+//            if ($widget !== false) {
+//                return $widget;
+//            }
+//        }
 
         $widget = $this->_htmlBegin() . $this->_getOtherGalleries() . $this->_htmlEnd();
-        if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-            $GLOBALS['cache']->set('Ansel_OtherGalleries' . $this->_view->gallery->get('owner'), $widget);
-        }
+//        if ($GLOBALS['conf']['ansel_cache']['usecache']) {
+//            $GLOBALS['injector']->getInstance('Horde_Cache')->set('Ansel_OtherGalleries' . $this->_view->gallery->get('owner'), $widget);
+//        }
 
         return $widget;
     }
 
     /**
      * Build the HTML for the other galleries widget content.
-     *
-     * @TODO Allow the sort order and maybe the count of galleries returned
-     *       to be configurable via the params array.
      *
      * @return string  The HTML
      */
@@ -64,26 +64,24 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
         $owner = $this->_view->gallery->get('owner');
 
         /* Set up the tree */
-        $tree = Horde_Tree::singleton('otherAnselGalleries_' . md5($owner), 'Javascript');
-        $tree->setOption(array('class' => 'anselWidgets'));
-        $gals = $GLOBALS['ansel_storage']->listGalleries(Horde_Perms::SHOW, $owner,
-                                                         null, true, 0, 0,
-                                                         'name', 0);
+        $tree = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Tree')->create('otherAnselGalleries_' . md5($owner), 'Javascript', array('class' => 'anselWidgets'));
+
+        try {
+            $galleries = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')
+                    ->create()
+                    ->listGalleries(array('filter' => $owner));
+        } catch (Ansel_Exception $e) {
+            Horde::logMessage($e, 'ERR');
+            return '';
+        }
 
         $html = '<div style="display:'
             . (($GLOBALS['prefs']->getValue('show_othergalleries')) ? 'block' : 'none')
-            . ';background:' . $this->_style['background']
+            . ';background:' . $this->_style->background
             . ';width:100%;max-height:300px;overflow:auto;" id="othergalleries" >';
 
-        //@TODO - for now, Horde_Share will still return PEAR_Error,
-        //        this will be fixed when Ansel_Gallery is refactored.
-        foreach($gals as $gal) {
-            if (is_a($gal, 'PEAR_Error')) {
-                Horde::logMessage($gal, __FILE__, __LINE__, PEAR_LOG_ERR);
-                return '';
-            }
-
-            $parents = $gal->get('parents');
+        foreach ($galleries as $gallery) {
+            $parents = $gallery->get('parents');
             if (empty($parents)) {
                 $parent = null;
             } else {
@@ -91,35 +89,34 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
                 $parent = array_pop($parents);
             }
 
-            $img = (string)Ansel::getImageUrl($gal->getDefaultImage('ansel_default'), 'mini', true);
-            $link = Ansel::getUrlFor('view', array('gallery' => $gal->id,
-                                                   'slug' => $gal->get('slug'),
+            $img = (string)Ansel::getImageUrl($gallery->getKeyImage(Ansel::getStyleDefinition('ansel_default')), 'mini', true);
+            $link = Ansel::getUrlFor('view', array('gallery' => $gallery->id,
+                                                   'slug' => $gallery->get('slug'),
                                                    'view' => 'Gallery'),
                                      true);
 
-            $tree->addNode($gal->id, $parent, $gal->get('name'), null,
-                           ($gal->id == $this->_view->gallery->id),
-                           array('icon' => $img, 'icondir' => '', 'url' => $link));
+            $tree->addNode($gallery->id, $parent, $gallery->get('name'), null,
+                           ($gallery->id == $this->_view->gallery->id),
+                           array('icon' => $img, 'url' => $link));
         }
-        ob_start();
-        $imple = Horde_Ajax_Imple::factory(array('ansel', 'ToggleOtherGalleries'), array('bindTo' => 'othergalleries'));
-        $imple->attach();
+
+        Horde::startBuffer();
+        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('ansel', 'ToggleOtherGalleries'), array(
+            'bindTo' => 'othergalleries'
+        ));
 
         $tree->sort('label');
         $tree->renderTree();
-        $html .= ob_get_clean();
+        $html .= Horde::endBuffer();
         $html .= '</div>';
         $selfurl = Horde::selfUrl(true, true);
-        $html .=  '<div class="control"><a href="'
-                 . Horde_Util::addParameter($selfurl, 'actionID',
-                                     'show_actions')
-                 . '" id="othergalleries-toggle" class="'
-                 . (($GLOBALS['prefs']->getValue('show_othergalleries'))
-                 ? 'hide'
-                 : 'show') . '">&nbsp;</a></div>' . "\n";
-
-
+        $html .= '<div class="control">'
+              . $selfurl->add('actionID', 'show_actions')->link(
+                        array('id' => 'othergalleries-toggle',
+                              'class' => ($GLOBALS['prefs']->getValue('show_othergalleries') ? 'hide' : 'show')))
+              . '&nbsp;</a></div>';
 
         return $html;
     }
+
 }

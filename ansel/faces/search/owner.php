@@ -13,35 +13,37 @@ require_once 'tabs.php';
 
 $page = Horde_Util::getFormData('page', 0);
 $perpage = $prefs->getValue('facesperpage');
-$owner = Horde_Util::getGet('owner', Horde_Auth::getAuth());
+$owner = Horde_Util::getGet('owner', $GLOBALS['registry']->getAuth());
 if (!$owner) {
     $title = _("From system galleries");
-} elseif ($owner == Horde_Auth::getAuth()) {
+} elseif ($owner == $GLOBALS['registry']->getAuth()) {
     $title = _("From my galleries");
 } else {
     $title = sprintf(_("From galleries of %s"), $owner);
 }
 
-$count = $faces->countOwnerFaces($owner);
-if (is_a($count, 'PEAR_Error')) {
-    $notification->push($count);
+try {
+    $count = $faces->countOwnerFaces($owner);
+    $results = $faces->ownerFaces($owner, $page * $perpage, $perpage);
+} catch (Ansel_Exception $e) {
+    $notification->push($e->getMessage(), 'horde.err');
     $results = array();
     $count = 0;
-} else {
-    $results = $faces->ownerFaces($owner, $page * $perpage, $perpage);
 }
 
 $vars = Horde_Variables::getDefaultVariables();
-$pager = new Horde_Ui_Pager(
-    'page', $vars,
-    array('num' => $count,
-            'url' => 'faces/search/owner.php',
-            'perpage' => $perpage));
+$pager = new Horde_Core_Ui_Pager(
+    'page',
+    $vars,
+    array(
+        'num' => $count,
+        'url' => 'faces/search/owner.php',
+        'perpage' => $perpage
+    )
+);
 $pager->preserve('owner', $owner);
-
 require ANSEL_TEMPLATES . '/common-header.inc';
-require ANSEL_TEMPLATES . '/menu.inc';
-
+echo Horde::menu();
+$notification->notify(array('listeners' => 'status'));
 include ANSEL_TEMPLATES . '/faces/faces.inc';
-
 require $registry->get('templates', 'horde') . '/common-footer.inc';

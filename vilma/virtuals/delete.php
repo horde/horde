@@ -8,22 +8,21 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-@define('VILMA_BASE', dirname(__FILE__) . '/..');
-require_once VILMA_BASE . '/lib/base.php';
-require_once 'Horde/Form.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+$vilma = Horde_Registry::appInit('vilma');
 
 /* Only admin should be using this. */
-if (!Horde_Auth::isAdmin()) {
-    Horde_Auth::authenticateFailure('vilma', $e);
+if (!$registry->isAdmin()) {
+    $registry->authenticateFailure('vilma', $e);
 }
 
 $vars = Horde_Variables::getDefaultVariables();
 $virtual_id = $vars->get('virtual_id');
 $formname = $vars->get('formname');
 
-$virtual = $vilma_driver->getVirtual($virtual_id);
+$virtual = $vilma->driver->getVirtual($virtual_id);
 $domain = Vilma::stripDomain($virtual['virtual_email']);
-$domain = $vilma_driver->getDomainByName($domain);
+$domain = $vilma->driver->getDomainByName($domain);
 
 $form = new Horde_Form($vars, _("Delete Virtual Email Address"));
 
@@ -35,32 +34,38 @@ $form->addVariable(sprintf(_("Delete the virtual email address \"%s\" => \"%s\"?
 if ($vars->get('submitbutton') == _("Delete")) {
     if ($form->validate($vars)) {
         $form->getInfo($vars, $info);
-        $delete = $vilma_driver->deleteVirtual($info['virtual_id']);
+        $delete = $vilma->driver->deleteVirtual($info['virtual_id']);
         if (is_a($delete, 'PEAR_Error')) {
-            Horde::logMessage($delete, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($delete, 'ERR');
             $notification->push(sprintf(_("Error deleting virtual email. %s."), $delete->getMessage()), 'horde.error');
         } else {
             $notification->push(_("Virtual email deleted."), 'horde.success');
-            $url = Horde_Util::addParameter(Horde::applicationUrl('virtuals/index.php'), 'domain_id', $domain['domain_id'], false);
-            header('Location: ' . $url);
-            exit;
+            Horde::url('virtuals/index.php')
+                ->add('domain_id', $domain['domain_id'])
+                ->redirect();
         }
     }
 } elseif ($vars->get('submitbutton') == _("Do not delete")) {
     $notification->push(_("Virtual email not deleted."), 'horde.message');
-    $url = Horde_Util::addParameter(Horde::applicationUrl('virtuals/index.php'), 'domain_id', $domain['domain_id'], false);
-    header('Location: ' . $url);
-    exit;
+    Horde::url('virtuals/index.php')
+        ->add('domain_id', $domain['domain_id'])
+        ->redirect();
 }
 
 /* Render the form. */
 require_once 'Horde/Form/Renderer.php';
 $renderer = &new Horde_Form_Renderer();
-$main = Horde_Util::bufferOutput(array($form, 'renderActive'), $renderer, $vars, 'delete.php', 'post');
+
+Horde::startBuffer();
+$form->renderActive($renderer, $vars, 'delete.php', 'post');
+$main = Horde::endBuffer();
 
 $template->set('main', $main);
 $template->set('menu', Vilma::getMenu('string'));
-$template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$template->set('notify', Horde::endBuffer());
 
 require VILMA_TEMPLATES . '/common-header.inc';
 echo $template->fetch(VILMA_TEMPLATES . '/main/main.html');

@@ -9,9 +9,9 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-new Horde_Application();
+Horde_Registry::appInit('horde');
 
-$auth = Horde_Auth::singleton($conf['auth']['driver']);
+$auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 
 // Check for HTTP auth.
 if (empty($_SERVER['PHP_AUTH_USER']) ||
@@ -25,7 +25,9 @@ if (empty($_SERVER['PHP_AUTH_USER']) ||
 }
 
 if ($url = Horde_Util::getFormData('url')) {
-    header('Location: ' . $url);
+    $url = new Horde_Url($url);
 } else {
-    header('Location: ' . Horde::applicationUrl('login.php'));
+    $url = Horde::url('login.php');
 }
+
+$url->redirect();

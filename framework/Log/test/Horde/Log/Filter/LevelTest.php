@@ -6,21 +6,21 @@
  * (http://framework.zend.com).  Both that package and this
  * one were written by Mike Naberezny and Chuck Hagenbuch.
  *
- * @category Horde
- * @package  Horde_Log
+ * @author     Mike Naberezny <mike@maintainable.com>
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @category   Horde
+ * @license    http://opensource.org/licenses/bsd-license.php BSD
+ * @package    Log
  * @subpackage UnitTests
- * @author   Mike Naberezny <mike@maintainable.com>
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
  */
 
 /**
- * @category Horde
- * @package  Horde_Log
+ * @author     Mike Naberezny <mike@maintainable.com>
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @category   Horde
+ * @license    http://opensource.org/licenses/bsd-license.php BSD
+ * @package    Log
  * @subpackage UnitTests
- * @author   Mike Naberezny <mike@maintainable.com>
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
  */
 class Horde_Log_Filter_LevelTest extends PHPUnit_Framework_TestCase
 {
@@ -48,7 +48,7 @@ class Horde_Log_Filter_LevelTest extends PHPUnit_Framework_TestCase
             new Horde_Log_Filter_Level('foo');
             $this->fail();
         } catch (Exception $e) {
-            $this->assertType('Horde_Log_Exception', $e);
+            $this->assertType('InvalidArgumentException', $e);
             $this->assertRegExp('/must be an integer/i', $e->getMessage());
         }
     }

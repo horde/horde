@@ -141,7 +141,6 @@ class Net_IMSP_Utils {
      *                                the current user.
      *
      * @return mixed  Array describing any shares added or removed  | PEAR_Error.
-     * @since Horde 3.2
      */
     function synchShares(&$share_obj, $serverInfo)
     {
@@ -168,7 +167,7 @@ class Net_IMSP_Utils {
             }
         }
 
-        $shares = &$share_obj->listShares(Horde_Auth::getAuth());
+        $shares = &$share_obj->listShares($GLOBALS['registry']->getAuth());
         // A share for each IMSP adress book we can see.
         foreach ($abooks as $abook_uid) {
             $found = false;
@@ -196,7 +195,7 @@ class Net_IMSP_Utils {
                 if (Net_IMSP_Utils::_isOwner($abook_uid,
                                              $serverInfo['params']['username'],
                                              $params['acl'])) {
-                    $params['owner'] = Horde_Auth::getAuth();
+                    $params['owner'] = $GLOBALS['registry']->getAuth();
                 } else {
                     // TODO: What to do for the owner when it's not current user?
                     //       We'd have to try to match the owner per IMSP
@@ -216,7 +215,7 @@ class Net_IMSP_Utils {
         }
 
         // Now prune any shares that no longer exist on the IMSP server.
-        $existing = $share_obj->listShares(Horde_Auth::getAuth(), Horde_Perms::READ);
+        $existing = $share_obj->listShares($GLOBALS['registry']->getAuth(), Horde_Perms::READ);
         foreach ($existing as $key => $share) {
             $temp = unserialize($share->get('params'));
             if (is_array($temp)) {
@@ -243,7 +242,6 @@ class Net_IMSP_Utils {
      * @param array        Parameters for the share
      *
      * @return mixed  True | PEAR_Error
-     * @since Horde 3.2
      */
     function _createShare(&$share_obj, $params, $shareparams)
     {
@@ -266,7 +264,6 @@ class Net_IMSP_Utils {
      * @param array $params  Parameters to check for ownership.
      *
      * @return boolean  True if $user is owner, otherwise false.
-     * @since Horde 3.2
      */
     function _isOwner($bookName, $username, $acl)
     {
@@ -283,7 +280,6 @@ class Net_IMSP_Utils {
      *
      * @param Datatree_Object_Share $share  The share to assign perms to
      * @param string $acl                   The IMSP acl string.
-     * @since Horde 3.2
      */
     function _setPerms(&$share, $acl)
     {
@@ -300,7 +296,7 @@ class Net_IMSP_Utils {
          if (strpos($acl, 'l') !== false) {
              $hPerms |= Horde_Perms::SHOW;
          }
-        $share->addUserPermission(Horde_Auth::getAuth(), $hPerms);
+        $share->addUserPermission($GLOBALS['registry']->getAuth(), $hPerms);
     }
 
     /**
@@ -309,7 +305,6 @@ class Net_IMSP_Utils {
      * @param integer $perms   Horde_Perms style permission bitmask.
      *
      * @return string   An IMSP acl string
-     * @since Horde 3.2
      */
     function permsToACL($perms)
     {
@@ -338,7 +333,6 @@ class Net_IMSP_Utils {
      * @param string $acl   The acl string to set.
      *
      * @return mixed  True | Pear_Error
-     * @since Horde 3.2
      */
     function setACL($params, $book, $name, $acl)
     {

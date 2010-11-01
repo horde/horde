@@ -1,0 +1,986 @@
+# Kronolith 1.1 Arabic translation
+# This file is distributed under the same license as the Kronolith package.
+# Copyright 2003 Platinum Inc. <pl@tinum.info>
+# Custom Web Applications <http://platinum-sy.com>
+# Platinum Development Team <devteam@platinum-sy.com> 2003
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Kronolith 1.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-04-30 12:00+0200\n"
+"PO-Revision-Date: 2003-04-30 12:00+0200\n"
+"Last-Translator:  Platinum Development Team <devteam@platinum-sy.com>\n"
+"Language-Team: Arabic <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: lib/Kronolith.php:354
+#, c-format
+msgid "%d hour"
+msgstr "%d ساعة"
+
+#: lib/Kronolith.php:356
+#, c-format
+msgid "%d hour, %d minute"
+msgstr "%d ساعة, %d دقيقة"
+
+#: lib/Kronolith.php:358
+#, c-format
+msgid "%d hour, %d minutes"
+msgstr "%d ساعة, %d دقائق"
+
+#: lib/Kronolith.php:346
+#, c-format
+msgid "%d hours"
+msgstr "%d ساعات"
+
+#: lib/Kronolith.php:348
+#, c-format
+msgid "%d hours, %d minute"
+msgstr "%d ساعات, %d دقائق"
+
+#: lib/Kronolith.php:350
+#, c-format
+msgid "%d hours, %d minutes"
+msgstr "%d ساعات, %d ساعات"
+
+#: lib/Kronolith.php:364
+#, c-format
+msgid "%d minute"
+msgstr "%d دقيقة"
+
+#: lib/Kronolith.php:366
+#, c-format
+msgid "%d minutes"
+msgstr "%d دقائق"
+
+#: lib/Event.php:1063
+#, c-format
+msgid "%s Minutes before"
+msgstr "%s دقائق قبل"
+
+#: data.php:171
+#, c-format
+msgid "%s file successfully imported"
+msgstr "%s تم استيراد الملف بنجاح"
+
+#: status.php:27
+#, c-format
+msgid "%s is in progress."
+msgstr "%s جاري العمل"
+
+#: status.php:25
+#, c-format
+msgid "%s is starting now."
+msgstr "%s يبدأ العمل"
+
+#: status.php:29
+#, c-format
+msgid "%s starts in %s"
+msgstr "%s سيبدأ العمل خلال %s"
+
+#: templates/view/view.inc:85
+msgid "<b>Description</b>"
+msgstr "<b>الوصف</b>"
+
+#: templates/edit/edit.inc:232
+msgid "<b>Description</b> (optional)"
+msgstr "<b>الوصف</b> (اختياري)"
+
+#: templates/view/view.inc:137
+msgid "<b>Keywords</b>"
+msgstr "<b>الكلمات المفتاحية</b>"
+
+#: templates/edit/edit.inc:318
+msgid "<b>Keywords</b> (optional)"
+msgstr "<b>الكلمات المفتاحية</b> (اختياري)"
+
+#: templates/view/view.inc:97
+msgid "<b>Recurrence</b>"
+msgstr "<b>التكرار</b>"
+
+#: templates/edit/edit.inc:244
+msgid "<b>Recurrence</b> (optional)"
+msgstr "<b>التكرار</b>  (اختياري)"
+
+#: templates/edit/edit.inc:47
+msgid "Add Event"
+msgstr "إضافة حدث"
+
+#: addevent.php:31
+msgid "Add a new event"
+msgstr "إضافة حدث جديد"
+
+#: config/prefs.php.dist:37
+msgid "Add, remove, and edit categories."
+msgstr "إضافة ، حذف أو تحرير تصنيف"
+
+#: templates/edit/edit.inc:194 templates/view/view.inc:57
+msgid "Alarm"
+msgstr "تنبيه"
+
+#: data.php:210
+msgid "Alarm Date"
+msgstr "تاريخ التنبيه"
+
+#: data.php:209
+msgid "Alarm Span (minutes)"
+msgstr "مدة التنبيه (بالدقائق)"
+
+#: data.php:211
+msgid "Alarm Time"
+msgstr "زمن التنبيه"
+
+#: templates/delete/delete.inc:33
+msgid "All"
+msgstr "الجميع"
+
+#: lib/DayView.php:71 lib/DayView.php:73 lib/WeekView.php:100
+#: templates/edit/edit.inc:188
+msgid "All day"
+msgstr "كل اليوم"
+
+#: lib/api.php:98
+msgid "All day event"
+msgstr "جميع أحداث اليوم"
+
+#: templates/data/export.inc:24
+msgid "All events"
+msgstr "جميع الأحداث"
+
+#: templates/prefs/category_management.inc:41
+#, c-format
+msgid "Any events in a category that is deleted will become %s."
+msgstr "أي حدث ضمن التصنيف سيصبح « %s » إذا تم حذفه."
+
+#: templates/javascript/goto.inc:74
+msgid "April"
+msgstr "نيسان"
+
+#: templates/edit/edit.inc:110 templates/edit/edit.inc:159
+#: templates/data/export.inc:72 templates/data/export.inc:159
+msgid "At"
+msgstr "في"
+
+#: templates/javascript/goto.inc:78
+msgid "August"
+msgstr "آب"
+
+#: config/keywords.php.dist:17
+msgid "Birthday"
+msgstr "عيد ميلاد"
+
+#: templates/edit/edit.inc:57 templates/edit/edit.inc:354
+#: templates/delete/one.inc:32 templates/delete/delete.inc:34
+msgid "Cancel"
+msgstr "إلغاء"
+
+#: templates/edit/edit.inc:74 templates/view/view.inc:30 data.php:213
+msgid "Category"
+msgstr "تصنيف"
+
+#: config/prefs.php.dist:36 config/prefs.php.dist:194
+msgid "Category Management"
+msgstr "إدارة التصنيفات"
+
+#: config/prefs.php.dist:19
+msgid "Change the way dates and times are formatted."
+msgstr "تعديل نظام التاريخ والوقت"
+
+#: config/prefs.php.dist:186
+msgid "Choose Color"
+msgstr "اختيار اللون"
+
+#: templates/prefs/category_management.inc:64 util/colorpicker.php:14
+msgid "Color Picker"
+msgstr "لوحة الألوان"
+
+#: config/prefs.php.dist:155
+msgid "Confirm deletion of events?"
+msgstr "تأكيد حذف الأحداث؟"
+
+#: templates/prefs/category_management.inc:47
+msgid "Create New Category"
+msgstr "إنشاء تصنيف جديد"
+
+#: lib/DayView.php:71 lib/DayView.php:166 templates/week/head.inc:22
+#: month.php:118
+msgid "Create a New Event"
+msgstr "إنشاء حدث جديد"
+
+#: templates/delete/delete.inc:31
+msgid "Current"
+msgstr "الحالي"
+
+#: templates/edit/edit.inc:258 templates/view/view.inc:103
+msgid "Daily: Recurs every"
+msgstr "يومياً: تكرار كل"
+
+#: config/prefs.php.dist:18
+msgid "Date and Time Options"
+msgstr "خيارات التاريخ والوقت"
+
+#: templates/menu/menu.inc:20 config/prefs.php.dist:91
+msgid "Day"
+msgstr "يوم"
+
+#: templates/edit/edit.inc:188 templates/edit/edit.inc:224
+#: templates/view/view.inc:66
+msgid "Day(s)"
+msgstr "يوم (أيام)"
+
+#: templates/javascript/goto.inc:82
+msgid "December"
+msgstr "كانون الأول"
+
+#: templates/view/view.inc:20 templates/view/view.inc:155
+#: templates/prefs/category_management.inc:61
+msgid "Delete"
+msgstr "حذف"
+
+#: lib/Event.php:1071 templates/delete/delete.inc:20
+#: templates/delete/one.inc:20 delevent.php:33
+#, c-format
+msgid "Delete %s"
+msgstr "حذف %s"
+
+#: templates/view/view.inc:20 templates/view/view.inc:155
+#, c-format
+msgid "Delete '%s'"
+msgstr "حذف '%s'"
+
+#: templates/edit/edit.inc:55 templates/edit/edit.inc:352
+msgid "Delete Event"
+msgstr "حذف الحدث"
+
+#: templates/delete/delete.inc:25
+msgid ""
+"Delete the current event only, this occurrence and all future occurences, or "
+"all occurences?"
+msgstr ""
+"حذف الحدث الحالي  فقط ، هذه المرة والمرات القادمة أوأو جميع المرات التالية؟"
+
+#: data.php:212
+msgid "Description"
+msgstr "الشرح"
+
+#: config/prefs.php.dist:83
+msgid "Display 24-hour times?"
+msgstr "إظهار 24 ساعة؟"
+
+#: config/prefs.php.dist:17 config/prefs.php.dist:23 config/prefs.php.dist:29
+#: config/prefs.php.dist:42
+msgid "Display Options"
+msgstr "إظهار الخيارات"
+
+#: lib/Kronolith.php:300
+#, c-format
+msgid "Due: %s"
+msgstr "استحقاق: %s"
+
+#: templates/edit/edit.inc:133
+msgid "Duration"
+msgstr "الفترة"
+
+#: templates/view/view.inc:21 templates/view/view.inc:156
+msgid "Edit"
+msgstr "ةditer"
+
+#: templates/edit/edit.inc:47 editevent.php:26
+#, c-format
+msgid "Edit %s"
+msgstr "تحرير %s"
+
+#: templates/view/view.inc:21 templates/view/view.inc:156
+#, c-format
+msgid "Edit '%s'"
+msgstr "تحرير « %s »"
+
+#: data.php:207
+msgid "End Date"
+msgstr "تاريخ الإنتهاء"
+
+#: templates/edit/edit.inc:137 templates/view/view.inc:51
+#: templates/data/export.inc:112
+msgid "End On"
+msgstr "تنتهي بتاريح"
+
+#: data.php:208
+msgid "End Time"
+msgstr "توقيت الإنتهاء"
+
+#: templates/data/export.inc:192
+msgid "Export"
+msgstr "تصدير"
+
+#: templates/data/export.inc:7
+msgid "Export Calendar"
+msgstr "تصدير الأجندة"
+
+#: templates/javascript/goto.inc:72
+msgid "February"
+msgstr "شباط"
+
+#: templates/edit/edit.inc:271
+msgid "Fr"
+msgstr "الجمعة"
+
+#: templates/view/view.inc:111 templates/month/head.inc:29
+msgid "Friday"
+msgstr "الجمعة"
+
+#: templates/delete/delete.inc:32
+msgid "Future"
+msgstr "مستقبلاً"
+
+#: config/keywords.php.dist:17
+msgid "Game"
+msgstr "لعبة"
+
+#: templates/menu/menu.inc:18
+msgid "Goto"
+msgstr "إذهب إلى"
+
+#: templates/menu/menu.inc:49
+msgid "Help"
+msgstr "مساعدة"
+
+#: templates/edit/edit.inc:188 templates/edit/edit.inc:223
+#: templates/view/view.inc:69
+msgid "Hour(s)"
+msgstr "ساعة (ساع"
+
+#: templates/data/import.inc:25
+msgid "If importing CSV data: does the first row contain the field names?"
+msgstr "في حال استيراد ملف CVS ، هل يحتوي الصف الأول على تسميات الحقول؟"
+
+#: data.php:182
+msgid "Illegal or malformed form data."
+msgstr "خطأ في البيانات أو في"
+
+#: templates/data/import.inc:28
+msgid "Import"
+msgstr "استيراد"
+
+#: templates/data/import.inc:7
+msgid "Import Calendar"
+msgstr "استيراد بيانات الأجندة"
+
+#: templates/menu/menu.inc:31
+msgid "Import/Export"
+msgstr "استيراد/تصدير"
+
+#: data.php:294
+msgid "Import/Export Calendar"
+msgstr "استيراد/تصدير بيانات الأجندة"
+
+#: templates/javascript/goto.inc:71
+msgid "January"
+msgstr "كانون الثاني"
+
+#: templates/javascript/goto.inc:77
+msgid "July"
+msgstr "حزيران"
+
+#: templates/javascript/goto.inc:76
+msgid "June"
+msgstr "تموز"
+
+#: data.php:215
+msgid "Keywords"
+msgstr "الكلمات المفتاحية"
+
+#: templates/index/notconfigured.inc:4
+msgid "Kronolith is not properly configured"
+msgstr "يوجد خطأ في إعدادات الكورنوليث"
+
+#: config/prefs.php.dist:6
+msgid "Language"
+msgstr "اللغة"
+
+#: templates/month/head.inc:13
+msgid "Last month"
+msgstr "الشهر الأخير"
+
+#: templates/week/head.inc:4
+msgid "Last week"
+msgstr "الأسبوع الأخير"
+
+#: templates/edit/edit.inc:185
+msgid "Lasts"
+msgstr "الأخيرة"
+
+#: templates/data/export.inc:20
+msgid "Limit the time span to export:"
+msgstr "تحديد الفترة الزمنية لتصديرها"
+
+#: templates/edit/edit.inc:83 templates/view/view.inc:39 data.php:214
+msgid "Location"
+msgstr "المكان"
+
+#: templates/javascript/goto.inc:73
+msgid "March"
+msgstr "آذار"
+
+#: templates/javascript/goto.inc:75
+msgid "May"
+msgstr "أيار"
+
+#: config/keywords.php.dist:17
+msgid "Meeting"
+msgstr "اجتماع"
+
+#: templates/edit/edit.inc:222 templates/view/view.inc:72
+msgid "Minute(s)"
+msgstr "دقيقة (دقائق)"
+
+#: templates/edit/edit.inc:188
+msgid "Minutes"
+msgstr "دقائق"
+
+#: templates/edit/edit.inc:267
+msgid "Mo"
+msgstr "الإثنين"
+
+#: templates/view/view.inc:107 templates/month/head.inc:25
+#: config/prefs.php.dist:113
+msgid "Monday"
+msgstr "الإثنين"
+
+#: templates/menu/menu.inc:23 config/prefs.php.dist:94
+msgid "Month"
+msgstr "الشهر"
+
+#: templates/edit/edit.inc:278 templates/edit/edit.inc:284
+#: templates/view/view.inc:117 templates/view/view.inc:119
+msgid "Monthly: Recurs every"
+msgstr "شهرياً: تكرار كل"
+
+#: lib/Kronolith.php:710
+msgid "New Category"
+msgstr "تصنيف جديد"
+
+#: templates/month/head.inc:15
+msgid "Next Month"
+msgstr "الشهر التالي"
+
+#: templates/day/head.inc:6
+msgid "Next day"
+msgstr "اليوم التالي"
+
+#: templates/week/head.inc:6
+msgid "Next week"
+msgstr "الأسبوع القائم"
+
+#: lib/Driver/sql.php:393
+msgid "No configuration information specified for SQL Calendar."
+msgstr "Aucune information de configuration fournie pour le calendrier SQL."
+
+#: templates/edit/edit.inc:302 templates/view/view.inc:129
+msgid "No end date"
+msgstr "لايوجد تاريخ انتهاء"
+
+#: templates/edit/edit.inc:218 templates/edit/edit.inc:253
+#: templates/view/view.inc:77
+msgid "None"
+msgstr "لايوجد"
+
+#: templates/data/import.inc:15
+msgid ""
+"Notice: Importing is not possible with this configuration due to a bug in "
+"the underlying calendar driver."
+msgstr ""
+"ملاحظة: التصدير غير ممكن بالإعدادات الحالية وذلك بسبب خطأفي برنامج قيادة "
+"الأجندة"
+
+#: templates/javascript/goto.inc:81
+msgid "November"
+msgstr "تشرين الثاني"
+
+#: templates/javascript/goto.inc:80
+msgid "October"
+msgstr "تشرين الأول"
+
+#: templates/menu/menu.inc:26
+msgid "Options"
+msgstr "الخيارات"
+
+#: config/prefs.php.dist:35
+msgid "Other Options"
+msgstr "الخيارات الأخرى"
+
+#: templates/edit/edit.inc:247 templates/view/view.inc:100
+msgid "Pattern"
+msgstr "نموذج"
+
+#: templates/delete/one.inc:25
+msgid "Permanently delete this event?"
+msgstr "حذف هذا الحدث بشكل نهائي؟"
+
+#: templates/prefs/category_management.inc:24
+msgid "Please enter a name for the new category:"
+msgstr "الرجاء إدخال اسم للتصنيف الجديد:"
+
+#: templates/prefs/category_management.inc:12
+msgid "Please enter a new name for this category:"
+msgstr "الرجاء إدخال اسم جديد لهذا التصنيف"
+
+#: templates/day/head.inc:4
+msgid "Previous day"
+msgstr "اليوم السابق"
+
+#: templates/menu/menu.inc:36
+msgid "Print"
+msgstr "اطبع"
+
+#: templates/menu/menu.inc:41
+msgid "Problem?"
+msgstr "مشكلة؟"
+
+#: templates/edit/edit.inc:300 templates/view/view.inc:128
+msgid "Recur Until"
+msgstr "تكرار حتى"
+
+#: data.php:219
+msgid "Recurrence Data"
+msgstr "بيانات التكرار"
+
+#: data.php:217
+msgid "Recurrence End Date"
+msgstr "تاريخ انتهاء التكرار"
+
+#: data.php:218
+msgid "Recurrence Interval"
+msgstr "الفاصل الزمني"
+
+#: data.php:216
+msgid "Recurrence Type"
+msgstr "نوع التكرار"
+
+#: lib/Kronolith.php:378
+msgid "Recurs daily"
+msgstr "تكرار يومي"
+
+#: lib/Kronolith.php:383
+msgid "Recurs monthly"
+msgstr "تكرار شهري"
+
+#: lib/Kronolith.php:376
+msgid "Recurs not"
+msgstr "دون تكرار"
+
+#: lib/Kronolith.php:380
+msgid "Recurs weekly"
+msgstr "تكرار اسبوعي"
+
+#: lib/Kronolith.php:385
+msgid "Recurs yearly"
+msgstr "تكرار سنوي"
+
+#: templates/prefs/category_management.inc:62
+msgid "Rename"
+msgstr "إعادة تسمية"
+
+#: lib/Driver/sql.php:59
+msgid "Required 'database' not specified in calendar configuration."
+msgstr "قواعد البيانات الضرورية للأجندة غير موجودة في الإعدادات"
+
+#: lib/Driver/sql.php:399
+msgid "Required 'hostspec' not specified in calendar configuration."
+msgstr "الميزة 'hotspec' غير معرفة في إعدادات الأجندة"
+
+#: lib/Driver/sql.php:405
+msgid "Required 'password' not specified in calendar configuration."
+msgstr "الخاصة 'password' غير معرفة في إعدادات الأجندة"
+
+#: lib/Driver/sql.php:396
+msgid "Required 'phptype' not specified in calendar configuration."
+msgstr "الخاصة 'phptype'  غير معرفة في إعدادات الأجندة"
+
+#: lib/Driver/sql.php:402
+msgid "Required 'username' not specified in calendar configuration."
+msgstr "الخاصة 'username'  غير معرفة في إعدادات الأجندة"
+
+#: templates/edit/edit.inc:58 templates/edit/edit.inc:355
+msgid "Reset to Defaults"
+msgstr "الإعدادات الافتراضية"
+
+#: templates/edit/edit.inc:272
+msgid "Sa"
+msgstr "الأحد"
+
+#: templates/view/view.inc:112 templates/month/head.inc:30
+msgid "Saturday"
+msgstr "الأحد"
+
+#: templates/edit/edit.inc:54 templates/edit/edit.inc:351
+msgid "Save As New"
+msgstr "حفظ كجديد"
+
+#: templates/edit/edit.inc:52 templates/edit/edit.inc:349
+msgid "Save Event"
+msgstr "حفظ الحدث"
+
+#: config/prefs.php.dist:25
+msgid ""
+"Select confirmation options, how to display the different views and choose "
+"default view."
+msgstr "اختر إعدادات التأكيد ، كيف يتم الإظهار واختر الإظهار الافتراضي"
+
+#: config/prefs.php.dist:75
+msgid "Select how to display Dates:"
+msgstr "اختر طريقة إظهار التواريخ"
+
+#: config/prefs.php.dist:44
+msgid "Select if to show due tasks in the calendar."
+msgstr "اختر إذا ما يجب إظهار المهمات المستحقة في الأجندة"
+
+#: templates/data/import.inc:26
+msgid "Select the file to import:"
+msgstr "اختر ملف ليتم استيراده:"
+
+#: config/prefs.php.dist:111
+msgid "Select the first weekday:"
+msgstr "اختر يوم بداية الأسبوع"
+
+#: templates/data/export.inc:14
+msgid "Select the format to export to:"
+msgstr "اختر التنسيق ليتم التصدير إلى:"
+
+#: templates/data/import.inc:17
+msgid "Select the source to import from:"
+msgstr "اختر المصدر للإستيراد من:"
+
+#: config/prefs.php.dist:121
+msgid "Select the time span to show:"
+msgstr "اختر الفترة الزمنية لإظهارها:"
+
+#: config/prefs.php.dist:95
+msgid "Select the view to display after login:"
+msgstr "اختر شكل إظهار الشاشة بعد الدخول:"
+
+#: config/prefs.php.dist:31
+msgid "Select which events to show in the Horde summary."
+msgstr "اختر أية أحداث لتظهر في الملخص."
+
+#: templates/javascript/goto.inc:79
+msgid "September"
+msgstr "إيلول"
+
+#: config/prefs.php.dist:13
+msgid "Set the current time zone."
+msgstr "اختر المنطقة الزمنية"
+
+#: config/prefs.php.dist:55
+msgid "Set the language that menu items, explanations, and help are in."
+msgstr "احتر لغة الأوامر ، الشرح والمساعدة."
+
+#: config/prefs.php.dist:7
+msgid "Set your preferred display language."
+msgstr "اختر لغة الشاشة المفضلة"
+
+#: config/prefs.php.dist:202
+msgid "Show delete, alarm, and recurrence icons in calendar views?"
+msgstr "إظهار أيقونات الحذف ، التنبيه والتكرار في الإجندة؟"
+
+#: config/prefs.php.dist:147
+msgid "Show due tasks in the calendar?"
+msgstr "إظهار الأحداث المستحقة في الأجندة؟"
+
+#: config/prefs.php.dist:103
+msgid "Show half hour slots in day and week views?"
+msgstr "إظهار الفراغات النصف-ساعية في اليوم في الاستعراض الأسبوعي؟"
+
+#: config/prefs.php.dist:139
+msgid "Show only events that have an alarm set?"
+msgstr "إظهار الأحداث التي تم إعدادها مع تنبيه"
+
+#: templates/index/notconfigured.inc:13
+msgid "Some of Kronolith's configuration files are missing:"
+msgstr "بعض الإعدادات غير موجودة"
+
+#: data.php:205
+msgid "Start Date"
+msgstr "تاريخ البداية"
+
+#: templates/edit/edit.inc:91 templates/view/view.inc:45
+#: templates/data/export.inc:28
+msgid "Start On"
+msgstr "يبدأ في"
+
+#: data.php:206
+msgid "Start Time"
+msgstr "زمن البداية"
+
+#: templates/edit/edit.inc:273
+msgid "Su"
+msgstr "الأحد"
+
+#: config/prefs.php.dist:30
+msgid "Summary"
+msgstr "التلخيص"
+
+#: templates/view/view.inc:113 templates/month/head.inc:23
+#: templates/month/head.inc:32 config/prefs.php.dist:112
+msgid "Sunday"
+msgstr "الأحد"
+
+#: config/prefs.php.dist:43
+msgid "Tasks"
+msgstr "المهمات"
+
+#: templates/edit/edit.inc:270
+msgid "Th"
+msgstr "الخميس"
+
+#: util/colorpicker.php:29
+msgid "The Options window has closed. Exiting."
+msgstr "تم إغلاق نافذة الخيارات. سيتم الخروج"
+
+#: data.php:33 data.php:82
+msgid "The data was lost."
+msgstr "تم فقدان البيانات"
+
+#: templates/edit/javascript.inc:146
+msgid "The end date must be later than the start date."
+msgstr "يجب أن يكون تاريخ النهاية متأخراً عن تاريخ البداية"
+
+#: data.php:234
+msgid "The file contained no data."
+msgstr "لاتوجد بيانات ضمن الملف."
+
+#: data.php:179
+msgid ""
+"There was a problem with the file upload. The file may have been larger than "
+"the maximum allowed size."
+msgstr ""
+"حصل خطأ خلال تحميل الملف. قد يكون الملف أكبرمن الحجم الأعظمي المسموح به"
+
+#: data.php:157
+msgid "There was an error importing the data."
+msgstr "حصل خطأ خلال استيراد البيانات."
+
+#: data.php:199
+msgid "There was an error importing the uploaded file"
+msgstr "حصل خطا في استيراد الملف الذي تم تحميله."
+
+#: data.php:257
+msgid "There were no events to export."
+msgstr "لاتوجد مهمات لتصديرها."
+
+#: templates/prefs/category_management.inc:71
+msgid "These changes can not be undone!"
+msgstr "هذه التغيرات غير قابلة للتراجع!"
+
+#: templates/index/notconfigured.inc:32
+msgid ""
+"This file controls the default preferences for Kronolith, and also controls "
+"which preferences users can alter."
+msgstr ""
+"يحتوي هذا الملف على الإعدادت الافتراضية للمستخدموإعدادات المستخدم التي "
+"يختارها بنفسه فيما بعد"
+
+#: templates/index/notconfigured.inc:25
+msgid ""
+"This file controls the stylesheet that is used to set colors and fonts in "
+"addition to or overriding Horde defaults."
+msgstr ""
+"يحتوي هذا الملف على إعدادات الألوان والخطوط إضافة لإعدادات هوردي أو بدلها"
+
+#: templates/index/notconfigured.inc:18
+msgid ""
+"This is the main Kronolith configuration file. It contains paths and options "
+"for all Kronolith scripts."
+msgstr ""
+"هذا ملف الإعدادات الرئيسي للكرونوليث. وهو يحتوي على المسارات والخيارات لجميع "
+"البريمجات"
+
+#: util/colorpicker.php:35
+msgid "This window must be called from an Options window"
+msgstr "يجب استدعاء هذه النافذة من نافذة الخيارات"
+
+#: templates/view/view.inc:110 templates/month/head.inc:28
+msgid "Thursday"
+msgstr "الخميس"
+
+#: config/prefs.php.dist:12
+msgid "Time Zone"
+msgstr "المنطقة الزمنية"
+
+#: templates/edit/edit.inc:65 data.php:204
+msgid "Title"
+msgstr "العنوان"
+
+#: lib/api.php:64 templates/menu/menu.inc:16
+msgid "Today"
+msgstr "اليوم الحالي"
+
+#: lib/api.php:66
+msgid "Tomorrow"
+msgstr "غداً"
+
+#: templates/edit/edit.inc:268
+msgid "Tu"
+msgstr "الثلاثاء"
+
+#: config/keywords.php.dist:17
+msgid "Type"
+msgstr "نوع"
+
+#: lib/base.php:74
+msgid "Unable to create calendar instance."
+msgstr "Impossible de créer une instance du calendrier."
+
+#: lib/Driver/mcal.php:53
+#, c-format
+msgid "Unable to delete %s."
+msgstr "لايمكن حذف %s."
+
+#: lib/Driver.php:73
+#, c-format
+msgid "Unable to load the definition of %s."
+msgstr "لايمكن تحميل التعريف لـ  %s."
+
+#: lib/Kronolith.php:737 templates/prefs/category_management.inc:41
+msgid "Unfiled"
+msgstr "غير معرف"
+
+#: config/prefs.php.dist:24
+msgid "User Interface"
+msgstr "واجهة المستخدم"
+
+#: prefs.php:82
+msgid "User Options"
+msgstr "خيارات المستخدم"
+
+#: viewevent.php:54
+#, c-format
+msgid "View %s"
+msgstr "إظهار %s"
+
+#: templates/edit/edit.inc:269
+msgid "We"
+msgstr "الأربعاء"
+
+#: templates/view/view.inc:109 templates/month/head.inc:27
+msgid "Wednesday"
+msgstr "الأربعاء"
+
+#: templates/menu/menu.inc:22 config/prefs.php.dist:92
+msgid "Week"
+msgstr "الاسبوع"
+
+#: week.php:27 workweek.php:23 month.php:110
+#, c-format
+msgid "Week %d"
+msgstr "الاسبوع %d"
+
+#: month.php:110
+#, c-format
+msgid "Week&nbsp;%d"
+msgstr "الأسبوع&nbsp;%d"
+
+#: templates/edit/edit.inc:225 templates/view/view.inc:63
+msgid "Week(s)"
+msgstr "الأسبوع (أسابيع)"
+
+#: templates/edit/edit.inc:264 templates/view/view.inc:115
+msgid "Weekly: Recurs every"
+msgstr "أسبوعياً: تكرار كل"
+
+#: config/prefs.php.dist:171
+msgid ""
+"What time should day and week views end, when there are no later events?"
+msgstr ""
+"ماهو آخر وقت يتم إظهاره حين لا توجد أحداث بعده في وضع إظهار اليوم والأسبوع؟"
+
+#: config/prefs.php.dist:163
+msgid ""
+"What time should day and week views start, when there are no earlier events?"
+msgstr ""
+"ماهو أول وقت يتم إظهاره حين لا توجد أحداث قبلهفي وضع إظهار اليوم والأسبوع؟"
+
+#: config/prefs.php.dist:93
+msgid "Work Week"
+msgstr "اسبوع العمل"
+
+#: templates/menu/menu.inc:21
+msgid "Work&nbsp;Week"
+msgstr "اسبوع&nbsp;العمل"
+
+#: templates/edit/edit.inc:290 templates/view/view.inc:121
+msgid "Yearly: Recurs every"
+msgstr "سنوياً: تكرار كل"
+
+#: config/prefs.php.dist:5 config/prefs.php.dist:11
+msgid "Your Information"
+msgstr "البيانات الشخصية"
+
+#: templates/javascript/print.inc:27
+msgid ""
+"Your browser does not support this print option. Press Control/Option + P to "
+"print."
+msgstr "لا يدعم متصفحكم تقنية الطباعة هذه. إضغط (Control/Option +P)للطباعة"
+
+#: config/prefs.php.dist:63
+msgid "Your current time zone:"
+msgstr "المنطقة الزمنية:"
+
+#: lib/Event.php:438 lib/Event.php:445
+msgid "[none]"
+msgstr "[لاشيء]"
+
+#: config/prefs.php.dist:122
+msgid "day"
+msgstr "اليوم"
+
+#: templates/edit/edit.inc:259 templates/view/view.inc:103
+msgid "day(s)"
+msgstr "اليوم (الأيام)"
+
+#: config/prefs.php.dist:123 config/prefs.php.dist:124
+#: config/prefs.php.dist:125 config/prefs.php.dist:126
+#: config/prefs.php.dist:127
+msgid "days"
+msgstr "الأيام"
+
+#: data.php:230
+msgid "iCalendar file successfully imported"
+msgstr "تم استيراد الملف بنجاح"
+
+#: templates/edit/edit.inc:279 templates/edit/edit.inc:285
+#: templates/view/view.inc:117 templates/view/view.inc:119
+msgid "month(s)"
+msgstr "شهر (أشهر)"
+
+#: lib/Kronolith.php:362
+msgid "no time"
+msgstr "لايوجد وقت"
+
+#: templates/edit/edit.inc:279 templates/view/view.inc:117
+msgid "on the same date"
+msgstr "à la même date"
+
+#: templates/edit/edit.inc:285 templates/view/view.inc:119
+msgid "on the same weekday"
+msgstr "نفس اليوم في الاسبوع"
+
+#: config/prefs.php.dist:128
+msgid "week"
+msgstr "اسبوع"
+
+#: templates/edit/edit.inc:266 templates/view/view.inc:115
+msgid "week(s) on:"
+msgstr "الأسبوع (أسابيع) في:"
+
+#: config/prefs.php.dist:129 config/prefs.php.dist:130
+#: config/prefs.php.dist:131
+msgid "weeks"
+msgstr "الأسابيع"
+
+#: templates/edit/edit.inc:291 templates/view/view.inc:121
+msgid "year(s)"
+msgstr "سنة (سنوات)"

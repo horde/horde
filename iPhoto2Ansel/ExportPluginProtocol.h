@@ -1,16 +1,16 @@
 /*
      File:       ExportPluginProtocol.h
- 
+
      Contains:   iPhoto Plug-ins interfaces: Export plugin expected format and methods
- 
+
      Version:    Technology: iPhoto
                  Release:    1.0
- 
+
      Copyright:  © 2002-2007 by Apple Inc. All rights reserved.
- 
+
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
- 
+
                      http://developer.apple.com/bugreporter/
 */
 
@@ -88,7 +88,7 @@ typedef struct
 
 	// This selector may be called from within a separate NSThread.
 	// Perform the export with the current settings to <path>.
-	// It will periodically send the <callback> selector a 
+	// It will periodically send the <callback> selector a
 	// progress message in the form of a pointer to a ExportPluginProgress structure.
 - (void)performExport:(NSString *)path;
 

@@ -1,0 +1,1226 @@
+# Chinese translations for Jonah package.
+# Copyright 2003-2009 The Horde Project
+# This file is distributed under the same license as the Jonah package.
+# Automatically generated, 2003.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Jonah 0.0.3-cvs\n"
+"POT-Creation-Date: 2003-06-15 11:23+0800\n"
+"PO-Revision-Date: 2003-06-15 11:23+0800\n"
+"Last-Translator: <cwyeh@ccca.nctu.edu.tw>\n"
+"Language-Team: Traditional Chinese <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lib/Jonah.php:217
+#, c-format
+msgid " and the UV index is a %s. "
+msgstr " 同時紫外線指數是 %s."
+
+#: lib/Block/metar.php:105
+#, c-format
+msgid " at %s %s"
+msgstr ""
+
+#: lib/Jonah.php:201
+msgid " km"
+msgstr "公里"
+
+#: lib/Jonah.php:176
+msgid " km/h"
+msgstr "公里/小時"
+
+#: lib/Jonah.php:202
+msgid " miles"
+msgstr "英哩"
+
+#: lib/Jonah.php:156
+#, c-format
+msgid "%s at %s"
+msgstr ""
+
+#: newsfeed.php:41
+#, c-format
+msgid "'%s' stories in XML"
+msgstr "%s XML 格式文章"
+
+#: lib/News.php:216
+msgid "1 hour"
+msgstr "1 小時"
+
+#: lib/News.php:220
+msgid "12 hours"
+msgstr "12 小時"
+
+#: lib/News.php:217
+msgid "2 hours"
+msgstr "2 小時"
+
+#: lib/News.php:221
+msgid "24 hours"
+msgstr "24 小時"
+
+#: lib/News.php:215
+msgid "30 mins"
+msgstr "30 分鐘"
+
+#: lib/News.php:218
+msgid "4 hours"
+msgstr "4 小時"
+
+#: lib/Jonah.php:223
+msgid "5-Day Forecast"
+msgstr "5 天預報"
+
+#: stockquote.php:93
+msgid "52-week high"
+msgstr "52 週高點"
+
+#: stockquote.php:97
+msgid "52-week low"
+msgstr "52 週低點"
+
+#: lib/News.php:219
+msgid "8 hours"
+msgstr "8 小時"
+
+#: lib/Form/EditChannel.php:33
+msgid "Add New Channel"
+msgstr "新增頻道"
+
+#: lib/Form/EditStory.php:31
+msgid "Add New Story"
+msgstr "新增文章"
+
+#: lib/Form/DeleteChannel.php:37
+msgid "All stories created in this channel will be lost!"
+msgstr "所有本頻道中的文章將會流失!"
+
+#: news/index.php:40
+#, c-format
+msgid "An error occurred fetching channels: %s"
+msgstr "抓取頻道內容時發生錯誤: %s"
+
+#: lib/Form/DeleteChannel.php:39
+msgid "Any cached stories for this channel will be lost!"
+msgstr "所有本頻道的暫存文章將會流失!"
+
+#: news/index.php:85
+msgid "Available Channels"
+msgstr "可選擇的頻道"
+
+#: newsfeed.php:28
+#, c-format
+msgid "Available Channels from %s (%s)"
+msgstr "來自 %s 的頻道 (%s)"
+
+#: lib/Jonah.php:190
+#, c-format
+msgid "Barometer shows %s. "
+msgstr "氣壓是 %s. "
+
+#: lib/Form/EditChannel.php:58
+msgid "Caching"
+msgstr "快取"
+
+#: stockquote.php:57 templates/channels/column_headers.inc:13
+#: lib/Jonah.php:303
+msgid "Change"
+msgstr "修改"
+
+#: stockquote.php:71
+msgid "Change %"
+msgstr "漲跌幅 %"
+
+#: config/prefs.php.dist:19
+msgid "Change the location for which weather is obtained."
+msgstr "修改取得氣象資料的位址"
+
+#: config/prefs.php.dist:31
+msgid "Change your content display options."
+msgstr "修改你的內容顯示方式"
+
+#: news/stories.php:103
+#, c-format
+msgid "Channel '%s'"
+msgstr "頻道 '%s'"
+
+#: lib/News.php:88
+#, c-format
+msgid "Channel '%s' is not an internally authored channel."
+msgstr "頻道 '%s' 並不是內部許可的頻道."
+
+#: content.php:15
+msgid "Channel Listing"
+msgstr "頻道列表"
+
+#: templates/channels/column_headers.inc:7 lib/Form/EditChannel.php:43
+msgid "Channel Name"
+msgstr "頻道名稱"
+
+#: channels.php:132
+msgid "Channel Subscriptions"
+msgstr "訂閱頻道"
+
+#: channels.php:125
+msgid "Channel display failed."
+msgstr "頻道顯示失敗."
+
+#: news/deletechannel.php:68
+msgid "Channel has not been deleted."
+msgstr "頻道並未被刪除."
+
+#: lib/News/sql.php:165
+#, c-format
+msgid "Channel id '%s' not found."
+msgstr "找不到頻道代號 '%s'"
+
+#: news/stories.php:56
+msgid "Channel refreshed."
+msgstr "頻道內容已更新."
+
+#: channels.php:85
+msgid "Channel subscription editing failed."
+msgstr "訂閱頻道編輯失敗."
+
+#: channels.php:41
+msgid "Channel subscription failed."
+msgstr "訂閱頻道失敗."
+
+#: news/editchannel.php:59
+msgid "Channel type changed."
+msgstr "頻道型態已改變."
+
+#: channels.php:72
+msgid "Channel unsubscription failed."
+msgstr "取消訂閱頻道失敗."
+
+#: lib/Jonah.php:303
+msgid "Chart"
+msgstr "走勢圖"
+
+#: config/prefs.php.dist:13
+msgid "Choose which news channels you are subscribed to."
+msgstr "選擇你要新訂閱的頻道."
+
+#: lib/Block/metar.php:103
+#, c-format
+msgid "Clouds: %s"
+msgstr ""
+
+#: config/templates.php.dist:36
+msgid "Compact"
+msgstr "簡潔"
+
+#: lib/Weather/intercept.php:95
+msgid "Could not find XML parser handle."
+msgstr "無法找到可以處理的 XML 解析器."
+
+#: lib/Stocks/nasdaq.php:98
+msgid "Could not find xml parser handle."
+msgstr "無法找到可以處理的 XML 解析器."
+
+#: lib/Jonah.php:72
+#, c-format
+msgid "Could not open %s."
+msgstr "無法開啟 %s."
+
+#: lib/api.php:57
+msgid "Current Phase"
+msgstr "目前盈虧"
+
+#: lib/api.php:68 lib/Block/metar.php:25
+msgid "Current Weather"
+msgstr "目前天氣"
+
+#: lib/Block/metar.php:47 lib/Block/metar.php:49
+#, c-format
+msgid "Current Weather for: %s"
+msgstr "目前天氣在: %s"
+
+#: news/deletechannel.php:52 news/deletestory.php:53
+#: lib/Form/DeleteChannel.php:32 lib/Form/DeleteStory.php:32
+msgid "Delete"
+msgstr "刪除"
+
+#: lib/Form/DeleteChannel.php:29
+#, c-format
+msgid "Delete News Channel '%s'?"
+msgstr "刪除新聞頻道 '%s'?"
+
+#: lib/Form/DeleteStory.php:29
+#, c-format
+msgid "Delete News Story '%s'?"
+msgstr "刪除新聞文章 '%s'?"
+
+#: news/stories.php:82
+msgid "Delete story"
+msgstr "刪除文章"
+
+#: lib/Form/EditChannel.php:54
+msgid "Description"
+msgstr "描述"
+
+#: config/templates.php.dist:9
+msgid "Detailed"
+msgstr "細節"
+
+#: config/prefs.php.dist:30
+msgid "Display Options"
+msgstr "顯示選項"
+
+#: lib/Form/DeleteChannel.php:32 lib/Form/DeleteStory.php:32
+msgid "Do not delete"
+msgstr "取消刪除"
+
+#: stockquote.php:117
+msgid "Earnings"
+msgstr "盈餘"
+
+#: templates/channels/column_headers.inc:15
+#: templates/channels/subscribe.inc:56
+msgid "Edit"
+msgstr "編輯"
+
+#: lib/Form/EditChannel.php:33
+msgid "Edit Channel"
+msgstr "編輯頻道"
+
+#: templates/channels/header.inc:3
+msgid "Edit Channel Subscriptions"
+msgstr "編輯頻道訂閱設定"
+
+#: stockquote.php:149
+msgid "Edit My Portfolio"
+msgstr "編輯我的投資組合"
+
+#: lib/Form/EditStory.php:31
+msgid "Edit Story"
+msgstr "編輯文章"
+
+#: templates/channels/subscribe.inc:56
+msgid "Edit Subscription Details"
+msgstr "編輯訂閱資料細節"
+
+#: newsfeed.php:35
+#, c-format
+msgid "Edit channel '%s'"
+msgstr "編輯頻道 '%s'"
+
+#: news/stories.php:77
+msgid "Edit story"
+msgstr "編輯文章"
+
+#: templates/channels/edit.inc:5
+#, c-format
+msgid "Editing Channel %s"
+msgstr "編輯頻道 %s"
+
+#: lib/Jonah.php:130
+msgid ""
+"Either no weather data is available for the location you have selected, or "
+"you have not selected a valid location."
+msgstr "可能目前沒有你所選擇位置的天氣資料, 或是你還沒選取有效的位置."
+
+#: templates/prefs/portfolio_select.inc:1
+msgid ""
+"Enter NASDAQ/AMEX/NYSE ticker symbols to watch, and the number of shares you "
+"own, if any:"
+msgstr "輸入要查看的 NASDAQ/AMEX/NYSE 股票代號, 以及你所擁有的股票張數:"
+
+#: lib/News.php:281
+#, c-format
+msgid "Error fetching channel. %s"
+msgstr "抓取頻道發生錯誤. %s"
+
+#: newsfeed.php:58
+#, c-format
+msgid "Error fetching story: %s"
+msgstr "抓取文章發生錯誤: %s"
+
+#: lib/Jonah.php:383
+msgid "External"
+msgstr "外部的"
+
+#: lib/Form/EditChannel.php:44
+msgid "Extra information for this channel type"
+msgstr "此類頻道型態的額外資訊"
+
+#: lib/Block/moon.php:143
+msgid "First Half"
+msgstr "上半月"
+
+#: lib/Block/moon.php:53 lib/Block/moon.php:55
+msgid "First Quater"
+msgstr "上弦月"
+
+#: lib/Jonah.php:133
+msgid "Friday"
+msgstr "週五"
+
+#: lib/Block/moon.php:61
+msgid "Full Moon"
+msgstr "滿月"
+
+#: lib/Form/EditStory.php:39
+msgid "Full Story Text"
+msgstr "全部文章內容"
+
+#: lib/Block/moon.php:153
+msgid "Full moon"
+msgstr "滿月"
+
+#: content.php:69 lib/api.php:83
+msgid "Headlines"
+msgstr "頭條消息"
+
+#: templates/menu/menu.inc:24
+msgid "Help"
+msgstr "求助"
+
+#: lib/api.php:59
+msgid "Hemisphere:"
+msgstr "南北半球:"
+
+#: config/prefs.php.dist:54
+msgid "How many columns would you like to use to show headlines?"
+msgstr "你要使用幾欄來顯示頭條新聞?"
+
+#: lib/Form/EditChannel.php:62
+msgid "Image"
+msgstr "圖示"
+
+#: lib/Jonah.php:380
+msgid "Internal"
+msgstr "內部的"
+
+#: news/stories.php:46
+#, c-format
+msgid "Invalid channel requested. %s"
+msgstr "要求的頻道是無效的. %s"
+
+#: lib/Jonah.php:184
+#, c-format
+msgid "It feels like %s. "
+msgstr "感覺像是 %s."
+
+#: templates/index/notconfigured.inc:4
+msgid "Jonah is not properly configured"
+msgstr "Jonah 尚未設定"
+
+#: config/prefs.php.dist:6
+msgid "Language"
+msgstr "語言"
+
+#: lib/Block/moon.php:146
+msgid "Last Half"
+msgstr "下半月"
+
+#: lib/Block/moon.php:67 lib/Block/moon.php:69
+msgid "Last Quater"
+msgstr "下弦月"
+
+#: newsfeed.php:46 news/index.php:86
+msgid "Last Update"
+msgstr "上次更新"
+
+#: templates/channels/column_headers.inc:10
+msgid "Last Updated"
+msgstr "上次更新"
+
+#: lib/Block/metar.php:54
+#, c-format
+msgid "Last Updated: %s"
+msgstr "上次更新: %s"
+
+#: stockquote.php:121
+msgid "Last dividend"
+msgstr "上次除權"
+
+#: stockquote.php:126
+msgid "Last dividend date"
+msgstr "上次除權日期"
+
+#: stockquote.php:53
+msgid "Last price"
+msgstr "最近成交價"
+
+#: stockquote.php:18
+#, c-format
+msgid "Latest Data for %s"
+msgstr "%s 最新的資料"
+
+#: lib/api.php:41
+msgid "Latitude"
+msgstr "緯度"
+
+#: lib/Form/EditChannel.php:61
+msgid "Link"
+msgstr "連結"
+
+#: templates/index/notconfigured.inc:51
+msgid "List of METAR weather stations."
+msgstr "氣象站列表"
+
+#: lib/api.php:69
+msgid "Location"
+msgstr "位置"
+
+#: stockquote.php:49
+msgid "Market Center"
+msgstr ""
+
+#: stockquote.php:139
+msgid "Market cap"
+msgstr "資本額"
+
+#: lib/News.php:52
+msgid "Missing channel id."
+msgstr "遺失頻道代號."
+
+#: lib/Jonah.php:133
+msgid "Monday"
+msgstr "週一"
+
+#: lib/api.php:52 lib/Block/moon.php:19
+msgid "Moon Phases"
+msgstr "月亮盈虧"
+
+#: templates/menu/menu.inc:6
+msgid "My Content"
+msgstr "我的新聞內容"
+
+#: stockquote.php:18 stockquote.php:149
+msgid "My Portfolio"
+msgstr "我的投資組合"
+
+#: newsfeed.php:46 stockquote.php:37 news/index.php:86 lib/Jonah.php:303
+msgid "Name"
+msgstr "名稱"
+
+#: lib/Block/moon.php:47
+msgid "New Moon"
+msgstr "新月"
+
+#: news/index.php:81
+msgid "New channel"
+msgstr "新頻道"
+
+#: lib/Block/moon.php:31 lib/Block/moon.php:151
+msgid "New moon"
+msgstr "新月"
+
+#: lib/Block/news.php:43 config/prefs.php.dist:12
+msgid "News"
+msgstr "新聞"
+
+#: templates/menu/menu.inc:15
+msgid "News Admin"
+msgstr "新聞管理"
+
+#: templates/menu/menu.inc:12
+msgid "News Feed"
+msgstr "新聞來源"
+
+#: news/index.php:28
+msgid "News is not enabled."
+msgstr "新聞功能並未開啟."
+
+#: lib/api.php:58
+msgid "Next Phase"
+msgstr ""
+
+#: newsfeed.php:43 news/index.php:75
+msgid "No Data"
+msgstr "沒有資料"
+
+#: news/index.php:38
+msgid "No available channels."
+msgstr "沒有頻道."
+
+#: news/stories.php:53
+msgid "No available stories."
+msgstr "沒有文章."
+
+#: news/stories.php:31
+msgid "No channel requested."
+msgstr "沒有要求的頻道."
+
+#: lib/Block/news.php:53
+msgid "No channel specified."
+msgstr "沒有指定的頻道."
+
+#: lib/News/sql.php:319
+msgid "No configuration information specified for SQL News Stories."
+msgstr "沒有 SQL 新聞文章的設定資料."
+
+#: lib/Weather/sql.php:201
+msgid "No configuration information specified for SQL Preferences."
+msgstr "沒有 SQL 偏好的設定資料."
+
+#: lib/Block/sunrise.php:29
+msgid "No location is set."
+msgstr "位置資訊尚未設定"
+
+#: lib/News.php:285
+msgid "No stories currently available."
+msgstr "目前沒有文章."
+
+#: lib/News.php:326 lib/Stocks.php:137
+#, c-format
+msgid "No such backend '%s' found"
+msgstr "沒有此後端平台 '%s'"
+
+#: news/deletechannel.php:39
+msgid "No valid channel requested for deletion."
+msgstr "沒有正確的頻道可供刪除."
+
+#: news/deletestory.php:40
+msgid "No valid story requested for deletion."
+msgstr "沒有正確的文章可供刪除."
+
+#: lib/api.php:62
+msgid "Northern Hemisphere"
+msgstr "北半球"
+
+#: templates/menu/menu.inc:19
+msgid "Options"
+msgstr "選項"
+
+#: config/prefs.php.dist:29
+msgid "Other Options"
+msgstr "其他選項"
+
+#: stockquote.php:109
+msgid "P-E ratio"
+msgstr "本益比"
+
+#: templates/prefs/setlocation.inc:27
+msgid "Please select a Country/State..."
+msgstr "請選擇國家/省份..."
+
+#: templates/prefs/setlocation.inc:40
+msgid "Please select a station..."
+msgstr "請選擇一個氣象站..."
+
+#: templates/menu/menu.inc:8
+msgid "Portfolio"
+msgstr "投資組合"
+
+#: lib/Block/metar.php:94
+#, c-format
+msgid "Pressure: %s%s"
+msgstr "氣壓: %s%s"
+
+#: stockquote.php:101
+msgid "Previous close"
+msgstr "昨收"
+
+#: lib/Jonah.php:303
+msgid "Price"
+msgstr "股價"
+
+#: stockquote.php:135
+msgid "Quote date"
+msgstr "報價日期"
+
+#: lib/Jonah.php:122 lib/Jonah.php:125
+msgid "Radar"
+msgstr "衛星雲圖"
+
+#: lib/Form/DeleteChannel.php:35
+msgid "Really delete this News Channel?"
+msgstr "確定刪除此新聞頻道?"
+
+#: lib/Form/DeleteStory.php:35
+msgid "Really delete this News Story?"
+msgstr "確定刪除此新聞文章?"
+
+#: lib/News/sql.php:337
+msgid "Required 'charset' not specified in news stories configuration."
+msgstr "必填欄位 'charset' 並未在新聞文章設定中指定."
+
+#: lib/News/sql.php:334
+msgid "Required 'database' not specified in news stories configuration."
+msgstr "必填欄位 'database' 並未在新聞文章設定中指定."
+
+#: lib/Weather/sql.php:216
+msgid "Required 'database' not specified in preferences configuration."
+msgstr "必填欄位 '資料庫' 並未在偏好設定中指定."
+
+#: lib/News/sql.php:325
+msgid "Required 'hostspec' not specified in news stories configuration."
+msgstr "必填欄位 'hostspec' 並未在新聞文章設定中指定."
+
+#: lib/Weather/sql.php:207
+msgid "Required 'hostspec' not specified in preferences configuration."
+msgstr "必填欄位 'hostspec' 並未在偏好設定中指定."
+
+#: lib/News/sql.php:331
+msgid "Required 'password' not specified in news stories configuration."
+msgstr "必填欄位 'password' 並未在新聞文章設定中指定."
+
+#: lib/Weather/sql.php:213
+msgid "Required 'password' not specified in preferences configuration."
+msgstr "必填欄位 'password' 並未在偏好設定中指定."
+
+#: lib/News/sql.php:322
+msgid "Required 'phptype' not specified in news stories configuration."
+msgstr "必填欄位 'phptype' 並未在新聞文章設定中指定."
+
+#: lib/Weather/sql.php:204
+msgid "Required 'phptype' not specified in preferences configuration."
+msgstr "必填欄位 'phptype' 並未在偏好設定中指定."
+
+#: lib/News/sql.php:328
+msgid "Required 'username' not specified in news stories configuration."
+msgstr "必填欄位 'username' 並未在新聞文章設定中指定."
+
+#: lib/Weather/sql.php:210
+msgid "Required 'username' not specified in preferences configuration."
+msgstr "必填欄位 'username' 並未在新聞文章設定中指定."
+
+#: stockquote.php:131
+msgid "S&amp;P 500 beta"
+msgstr ""
+
+#: lib/Jonah.php:133
+msgid "Saturday"
+msgstr "週六"
+
+#: lib/Form/EditStory.php:33
+msgid "Save"
+msgstr "儲存"
+
+#: config/prefs.php.dist:40
+msgid "Select your preferred language:"
+msgstr "選擇你的偏好語言: "
+
+#: config/prefs.php.dist:7
+msgid "Set the your preferred display language."
+msgstr "選擇偏好顯示語系."
+
+#: config/prefs.php.dist:25
+msgid "Set which stock ticker symbols to watch."
+msgstr "設定要追蹤的股票代碼."
+
+#: templates/prefs/portfolio_select.inc:6
+msgid "Shares"
+msgstr "股數"
+
+#: lib/Form/EditStory.php:37
+msgid "Short Description"
+msgstr "簡短描述"
+
+#: config/prefs.php.dist:83
+msgid "Should measurements be shown in metric values?"
+msgstr "要用十進位制來顯示資料嗎?"
+
+#: config/prefs.php.dist:117
+msgid "Show Dow Jones Industrial Average?"
+msgstr "顯示道瓊工業指數?"
+
+#: config/prefs.php.dist:133
+msgid "Show Nasdaq Composite Index?"
+msgstr "顯示 Nasdaq 指數?"
+
+#: config/prefs.php.dist:125
+msgid "Show S&amp;P 500?"
+msgstr "顯示 S&amp;P 500 指數?"
+
+#: config/prefs.php.dist:69
+msgid "Show headlines in main content display?"
+msgstr "在主要內容中顯示頭條消息?"
+
+#: config/prefs.php.dist:76
+msgid "Show stock quotes in main content display?"
+msgstr "在主要內容中顯示股市行情?"
+
+#: config/prefs.php.dist:62
+msgid "Show weather in main content display?"
+msgstr "在主要內容中顯示天氣資訊?"
+
+#: templates/index/notconfigured.inc:39
+msgid "Some of Jonah's configuration files are missing:"
+msgstr "部分的 Jonah 設定檔案遺失:"
+
+#: lib/api.php:84
+msgid "Source"
+msgstr "消息來源"
+
+#: lib/Form/EditChannel.php:60
+msgid "Source url"
+msgstr "消息來源 url"
+
+#: lib/api.php:63
+msgid "Southern Hemisphere"
+msgstr "南半球"
+
+#: config/templates.php.dist:24
+msgid "Standard"
+msgstr "標準"
+
+#: content.php:30 lib/api.php:102 lib/Block/stocks.php:23
+msgid "Stock Quotes"
+msgstr "股價"
+
+#: config/prefs.php.dist:24
+msgid "Stocks"
+msgstr "股票"
+
+#: news/stories.php:104
+msgid "Story"
+msgstr "文章"
+
+#: lib/Form/EditStory.php:36
+msgid "Story Title (Headline)"
+msgstr "文章標題 (頭條)"
+
+#: lib/Form/EditStory.php:40
+msgid "Story URL"
+msgstr "文章網址"
+
+#: news/editstory.php:40
+#, c-format
+msgid "Story editing failed. %s"
+msgstr "編輯文章失敗. %s"
+
+#: news/deletestory.php:69
+msgid "Story has not been deleted."
+msgstr "文章尚未被刪除."
+
+#: lib/News/sql.php:286
+#, c-format
+msgid "Story id '%s' not found."
+msgstr "找不到文章編號 '%s'"
+
+#: channels.php:120 templates/channels/subscribe.inc:47
+msgid "Subscribe"
+msgstr "訂閱"
+
+#: content.php:88
+#, c-format
+msgid ""
+"Subscribed channel '%s' is no longer available, it will be removed from your "
+"subscriptions."
+msgstr "訂閱的頻道 '%s' 已不再存在, 並將從你的訂閱資料中移除."
+
+#: lib/Block/sunrise.php:42
+msgid "Sun Rise"
+msgstr "日出"
+
+#: lib/api.php:40
+msgid "Sun Rise / Set"
+msgstr "日出/落"
+
+#: lib/Block/sunrise.php:23
+msgid "Sun Rise and Set"
+msgstr "日出與日落"
+
+#: lib/Block/sunrise.php:47
+msgid "Sun Set"
+msgstr "日落"
+
+#: lib/Jonah.php:133
+msgid "Sunday"
+msgstr "週日"
+
+#: templates/prefs/portfolio_select.inc:5 lib/Jonah.php:303
+msgid "Symbol"
+msgstr "股票代號"
+
+#: lib/Block/metar.php:86
+#, c-format
+msgid "Temperature: %s; Dewpoint: %s"
+msgstr "溫度: %s; 濕度: %s"
+
+#: lib/Jonah.php:217
+#, c-format
+msgid "The UV index is a %s. "
+msgstr "紫外線指數是 %s."
+
+#: news/editchannel.php:75
+#, c-format
+msgid "The channel '%s' has been saved."
+msgstr "頻道 '%s' 已經儲存."
+
+#: news/deletechannel.php:61
+msgid "The channel has been deleted."
+msgstr "頻道 '%s' 已經刪除."
+
+#: lib/Form/EditChannel.php:58
+msgid ""
+"The interval before stories in this channel are rechecked for updates. If "
+"none, then stories will always be refetched from the source."
+msgstr ""
+
+#: news/editstory.php:68
+#, c-format
+msgid "The story '%s' has been saved."
+msgstr "文章 '%s' 已經儲存."
+
+#: news/deletestory.php:62
+msgid "The story has been deleted."
+msgstr "文章已經刪除."
+
+#: lib/Jonah.php:160
+#, c-format
+msgid "The temperature is <b>%s</b>, "
+msgstr "溫度是 <b>%s</b>,"
+
+#: lib/Form/EditChannel.php:60
+msgid ""
+"The url to use to fetch the stories, for example 'http://www.example.com/"
+"stories.rss'"
+msgstr "用來抓取文章的網址, 例如 'http://www.example.com/stories.rss'"
+
+#: news/deletechannel.php:59
+#, c-format
+msgid "There was an error deleting the channel. %s"
+msgstr "刪除頻道時發生錯誤: %s"
+
+#: news/deletestory.php:60
+#, c-format
+msgid "There was an error deleting the story. %s"
+msgstr "刪除文章時發生錯誤. %s"
+
+#: news/editchannel.php:73
+#, c-format
+msgid "There was an error saving the channel. %s"
+msgstr "儲存頻道時發生錯誤. %s"
+
+#: news/editstory.php:66
+#, c-format
+msgid "There was an error saving the story. %s"
+msgstr "儲存文章時發生錯誤. %s"
+
+#: templates/index/notconfigured.inc:65
+msgid "This file contains preferences for Jonah."
+msgstr "此檔案包含 Jonah 的偏好設定."
+
+#: templates/index/notconfigured.inc:58
+msgid ""
+"This file defines the HTML (or other) templates that are used to generate "
+"different views of the news channels that Jonah provides."
+msgstr ""
+
+#: templates/index/notconfigured.inc:44
+msgid ""
+"This is the main Jonah configuration file. It contains options for all Jonah "
+"scripts."
+msgstr ""
+
+#: lib/Jonah.php:133
+msgid "Thursday"
+msgstr "週四"
+
+#: stockquote.php:85
+msgid "Today's high"
+msgstr "本日最高"
+
+#: stockquote.php:89
+msgid "Today's low"
+msgstr "本日最低"
+
+#: lib/Jonah.php:133
+msgid "Tuesday"
+msgstr "週二"
+
+#: news/index.php:86 lib/Form/EditChannel.php:38
+msgid "Type"
+msgstr "型態"
+
+#: config/templates.php.dist:48
+msgid "Ultracompact"
+msgstr "極簡潔"
+
+#: channels.php:116 templates/channels/subscribe.inc:43
+msgid "Unsubscribe"
+msgstr "取消訂閱"
+
+#: news/stories.php:104
+msgid "Updated"
+msgstr "已更新"
+
+#: prefs.php:74
+msgid "User Options"
+msgstr "使用者選項"
+
+#: lib/Jonah.php:303
+msgid "Value"
+msgstr ""
+
+#: templates/channels/edit.inc:9 lib/api.php:93
+msgid "View"
+msgstr "檢視"
+
+#: lib/Jonah.php:323 lib/Jonah.php:326
+msgid "View Chart"
+msgstr "檢視走勢圖"
+
+#: lib/Jonah.php:330
+msgid "View Quote Details"
+msgstr "檢視股價細節"
+
+#: lib/Jonah.php:197
+#, c-format
+msgid "Visibility is %s"
+msgstr "能見度是 %s"
+
+#: lib/Block/metar.php:78
+#, c-format
+msgid "Visibility: %s%s"
+msgstr "能見度: %s%s"
+
+#: stockquote.php:105
+msgid "Volume"
+msgstr "成交量"
+
+#: content.php:27
+msgid "Weather"
+msgstr "天氣"
+
+#: lib/api.php:106 lib/Block/weather.php:23
+msgid "Weather Forecast"
+msgstr "天氣預測"
+
+#: config/prefs.php.dist:18
+msgid "Weather Station"
+msgstr "氣象站"
+
+#: templates/prefs/setlocation.inc:4 templates/prefs/setlocation.inc:60
+msgid "Weather station:"
+msgstr "氣象站:"
+
+#: lib/Block/metar.php:115
+msgid "Weather:"
+msgstr "天氣:"
+
+#: lib/Jonah.php:133
+msgid "Wednesday"
+msgstr "週三"
+
+#: lib/api.php:54
+msgid "Which phases?"
+msgstr ""
+
+#: lib/Block/metar.php:61
+#, c-format
+msgid "Wind: %s%s from %s, gusting to %s%s."
+msgstr "風力: %s%s 來自 %s, 陣風 %s%s."
+
+#: lib/Block/metar.php:68
+#, c-format
+msgid "Wind: %s%s from %s."
+msgstr "風力: %s%s 來自 %s."
+
+#: lib/Weather/intercept.php:102 lib/Stocks/nasdaq.php:102
+#, c-format
+msgid "XML error: %s at line %d"
+msgstr ""
+
+#: stockquote.php:113
+msgid "Yield %"
+msgstr ""
+
+#: lib/Form/EditStory.php:47
+msgid "You MUST enter either a URL or a full story."
+msgstr "你必須輸入一個網址或是完整的文章."
+
+#: news/deletechannel.php:25 news/deletestory.php:25 news/editchannel.php:25
+#: news/editstory.php:25 news/index.php:22 news/stories.php:22
+msgid "You are not authorised for this action."
+msgstr "未被授權執行此動作."
+
+#: channels.php:83
+#, c-format
+msgid "You have edited your subscription to the channel %s."
+msgstr "你已經編輯頻道 %s 的訂閱資料."
+
+#: content.php:77
+msgid "You have no news subscriptions."
+msgstr "你尚未訂閱任何新聞."
+
+#: lib/Block/stocks.php:30
+msgid "You have no ticker symbols in your portfolio at this time."
+msgstr "你目前的投資組合中沒有股票代碼."
+
+#: content.php:44 stockquote.php:146
+msgid "You have no ticker symbols in your portfolio."
+msgstr "你的投資組合中沒有股票代碼."
+
+#: channels.php:39
+#, c-format
+msgid "You have subscribed to the channel '%s'."
+msgstr "你已訂閱頻道 '%s'."
+
+#: channels.php:61
+#, c-format
+msgid "You have unsubscribed from the channel '%s'."
+msgstr "你已取消訂閱頻道 '%s'"
+
+#: lib/Form/EditStory.php:38
+msgid "You must enter either a URL or a full story."
+msgstr "你必須輸入網址或是完整的文章."
+
+#: config/prefs.php.dist:11 config/prefs.php.dist:17 config/prefs.php.dist:23
+msgid "Your Content"
+msgstr "內容"
+
+#: config/prefs.php.dist:5
+msgid "Your Information"
+msgstr "個人資訊"
+
+#: lib/Jonah.php:173
+#, c-format
+msgid "and the wind is %s at %s. "
+msgstr "同時風力是 %s at %s."
+
+#: lib/Jonah.php:179
+#, c-format
+msgid "and the wind is %s. "
+msgstr "同時風力是 %s."
+
+#: lib/Jonah.php:170
+msgid "and there is no wind measured. "
+msgstr "同時目前沒有風力資訊."
+
+#: news/stories.php:94
+msgid "channels"
+msgstr "頻道"
+
+#: lib/Jonah.php:137
+msgid "cloudy"
+msgstr "多雲"
+
+#: lib/Jonah.php:137
+msgid "cold"
+msgstr "寒冷"
+
+#: lib/Jonah.php:136
+msgid "dust"
+msgstr "塵"
+
+#: lib/News.php:248
+msgid "external"
+msgstr "外部的"
+
+#: lib/Jonah.php:136
+msgid "flurries"
+msgstr "陣雨"
+
+#: lib/Jonah.php:136
+msgid "fog"
+msgstr "有霧"
+
+#: lib/Jonah.php:137
+msgid "haze"
+msgstr "煙霧迷漫"
+
+#: lib/Jonah.php:135
+msgid "heavy rain"
+msgstr "豪雨"
+
+#: lib/Jonah.php:213
+#, c-format
+msgid "high %s. Use sunscreen"
+msgstr "高量級 %s. 請注意防曬"
+
+#: lib/Jonah.php:138
+msgid "hot"
+msgstr "炎熱"
+
+#: lib/Jonah.php:166
+#, c-format
+msgid "humidity is at %s"
+msgstr "溼度是 %s"
+
+#: lib/Jonah.php:199
+msgid "infinite"
+msgstr "無阻礙的"
+
+#: lib/News.php:251
+msgid "internal"
+msgstr "內部的"
+
+#: lib/Jonah.php:135
+msgid "light flurries"
+msgstr "偶陣雨"
+
+#: lib/Jonah.php:209
+#, c-format
+msgid "low %s"
+msgstr "低 %s"
+
+#: lib/Jonah.php:207
+#, c-format
+msgid "minimal %s"
+msgstr "低量級 %s"
+
+#: lib/Jonah.php:211
+#, c-format
+msgid "moderate %s"
+msgstr "適量級 %s"
+
+#: lib/Jonah.php:137
+msgid "mostly cloudy"
+msgstr "時陰"
+
+#: lib/Jonah.php:138
+msgid "mostly sunny"
+msgstr "時晴"
+
+#: lib/Jonah.php:177
+msgid "mph"
+msgstr ""
+
+#: news/stories.php:98
+msgid "new story"
+msgstr "新文章"
+
+#: lib/News.php:214
+msgid "none"
+msgstr ""
+
+#: lib/Jonah.php:138
+msgid "partly cloudy"
+msgstr "多雲"
+
+#: lib/Jonah.php:134
+msgid "rain"
+msgstr "雨"
+
+#: lib/Jonah.php:135
+msgid "sleet"
+msgstr "冰雹"
+
+#: lib/Jonah.php:137
+msgid "smoke"
+msgstr "煙霧"
+
+#: lib/Jonah.php:134
+msgid "snow"
+msgstr "有雪"
+
+#: lib/Jonah.php:136
+msgid "snow and wind"
+msgstr "風雪"
+
+#: lib/Jonah.php:138
+msgid "sunny"
+msgstr "晴朗"
+
+#: lib/Jonah.php:134
+msgid "thunder storms"
+msgstr "暴風雪"
+
+#: lib/Jonah.php:215
+#, c-format
+msgid "very high %s. Stay indoors"
+msgstr "極高 %s. 避免出門"
+
+#: lib/Jonah.php:134
+msgid "windy"
+msgstr "強風"

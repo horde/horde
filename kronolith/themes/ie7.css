@@ -3,7 +3,7 @@
 }
 #kronolithViewMonth {
     width: 100%;
-    height: expression(document.body.clientHeight-53+'px');
+    height: expression(kronolithBody.offsetHeight+'px');
 }
 #kronolithViewMonthContainer {
     top: 45px;
@@ -25,6 +25,9 @@ table.kronolithView td.kronolithFirstCol {
 #kronolithViewWeek .kronolithViewHead,
 #kronolithViewDay .kronolithViewHead {
     margin: 0;
+}
+.kronolithEventsWeek {
+    height: expression(kronolithEventsWeek.offsetHeight+'px');
 }
 .kronolithViewBody {
     top: 133px;

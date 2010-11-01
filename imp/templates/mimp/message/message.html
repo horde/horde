@@ -1,0 +1,35 @@
+  <p>
+   <div><tag:title /></div>
+  </p>
+  <p>
+<loop:hdrs>
+   <div><em><tag:hdrs.label />:</em> <tag:hdrs.val /><if:hdrs.all_to> [<a href="<tag:hdrs.all_to />"><gettext>Show All</gettext></a>]</if:hdrs.all_to></div>
+</loop:hdrs>
+<loop:atc>
+   <div>
+    <em><gettext>Attachment</gettext>:</em> <tag:atc.descrip /> (<tag:atc.type />) <tag:atc.size />
+<if:atc.view>
+    [<a href="<tag:atc.view />">View</a>]
+</if:atc.view>
+<if:atc.download>
+    [<a href="<tag:atc.download />">Download</a>]
+</if:atc.download>
+   </div>
+</loop:atc>
+  </p>
+  <p>
+   <hr />
+  </p>
+  <p class="fixed">
+   <tag:msg />
+  </p>
+<if:fullmsg_link>
+  <p>
+   <a href="<tag:fullmsg_link />"><gettext>View Full Message</gettext></a>
+  </p>
+</if:fullmsg_link>
+  <hr />
+  <div><gettext>Menu</gettext></div>
+  <tag:menu />
+ </body>
+</html>

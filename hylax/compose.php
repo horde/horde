@@ -2,8 +2,6 @@
 /**
  * The Hylax script to compose a new fax.
  *
- * $Horde: incubator/hylax/compose.php,v 1.12 2009/06/10 17:33:26 slusarz Exp $
- *
  * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -13,7 +11,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-$hylax = new Hylax_Application(array('init' => true));
+$hylax = Horde_Registry::appInit('hylax');
 
 /* Load Cover Page templates */
 require HYLAX_BASE . '/config/covers.php';
@@ -26,7 +24,7 @@ foreach ($_covers as $id => $cover) {
 
 $tpl = Horde_Util::getFormData('template', 'default');
 if (empty($_covers[$tpl])) {
-    Horde::fatal(_("The requested Cover Page does not exist."), __FILE__, __LINE__);
+    throw new Horde_Exception(_("The requested Cover Page does not exist."));
 }
 
 /* Load Form Actions */
@@ -48,10 +46,13 @@ $form->addVariable(_("Subject"), 'subject', 'text', false, false, null, array(fa
 $form->addVariable(_("Comment"), 'comment', 'longtext', false, false, null, array(4, 80));
 
 /* Set up template. */
-$template = new Horde_Template();
+$template = $injector->createInstance('Horde_Template');
 $template->set('form', '');
 $template->set('menu', Hylax::getMenu('string'));
-$template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$template->set('notify', Horde::endBuffer());
 
 require HYLAX_TEMPLATES . '/common-header.inc';
 echo $template->fetch(HYLAX_TEMPLATES . '/compose/compose.html');

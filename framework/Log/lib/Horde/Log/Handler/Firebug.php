@@ -2,47 +2,51 @@
 /**
  * Horde Log package
  *
- * @category Horde
- * @package  Horde_Log
+ * @author     Mike Naberezny <mike@maintainable.com>
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @category   Horde
+ * @license    http://opensource.org/licenses/bsd-license.php BSD
+ * @package    Log
  * @subpackage Handlers
- * @author   Mike Naberezny <mike@maintainable.com>
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
  */
 
 /**
- * @category Horde
- * @package  Horde_Log
+ * @author     Mike Naberezny <mike@maintainable.com>
+ * @author     Chuck Hagenbuch <chuck@horde.org>
+ * @category   Horde
+ * @license    http://opensource.org/licenses/bsd-license.php BSD
+ * @package    Log
  * @subpackage Handlers
- * @author   Mike Naberezny <mike@maintainable.com>
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://opensource.org/licenses/bsd-license.php BSD
  */
 class Horde_Log_Handler_Firebug extends Horde_Log_Handler_Base
 {
     /**
      * Formats the log message before writing.
-     * @var Horde_Log_Formatter_Interface
+     *
+     * @var Horde_Log_Formatter
      */
     protected $_formatter;
 
     /**
-     * Options to be set by setOption().  Sets the field names in the database table.
+     * Options to be set by setOption().
      *
      * @var array
      */
-    protected $_options = array('buffering' => false);
+    protected $_options = array(
+        'buffering' => false
+    );
 
     /**
      * Array of buffered output.
+     *
      * @var string
      */
     protected $_buffer = array();
 
     /**
      * Mapping of log priorities to Firebug methods.
+     *
      * @var array
-     * @access private
      */
     protected static $_methods = array(
         Horde_Log::EMERG   => 'error',
@@ -58,25 +62,25 @@ class Horde_Log_Handler_Firebug extends Horde_Log_Handler_Base
     /**
      * Class Constructor
      *
-     * @param Horde_Log_Formatter_Interface $formatter  Log formatter
+     * @param Horde_Log_Formatter $formatter  Log formatter.
      */
-    public function __construct($formatter = null)
+    public function __construct(Horde_Log_Formatter $formatter = null)
     {
-        if (is_null($formatter)) {
-            $formatter = new Horde_Log_Formatter_Simple();
-        }
-        $this->_formatter = $formatter;
+        $this->_formatter = is_null($formatter)
+            ? new Horde_Log_Formatter_Simple()
+            : $formatter;
     }
 
     /**
-     * Write a message to the firebug console.  This function really just writes
-     * the message to the buffer.  If buffering is enabled, the
+     * Write a message to the firebug console.  This function really just
+     * writes the message to the buffer.  If buffering is enabled, the
      * message won't be output until the buffer is flushed. If
      * buffering is not enabled, the buffer will be flushed
      * immediately.
      *
-     * @param  array    $event    Log event
-     * @return bool               Always True
+     * @param array $event  Log event.
+     *
+     * @return boolean  True.
      */
     public function write($event)
     {
@@ -90,6 +94,7 @@ class Horde_Log_Handler_Firebug extends Horde_Log_Handler_Base
     }
 
     /**
+     * Flush the buffer.
      */
     public function flush()
     {
@@ -101,17 +106,19 @@ class Horde_Log_Handler_Firebug extends Horde_Log_Handler_Base
         foreach ($this->_buffer as $event) {
             $line = trim($this->_formatter->format($event));
 
-            // normalize line breaks
+            // Normalize line breaks.
             $line = str_replace("\r\n", "\n", $line);
 
-            // escape line breaks
+            // Escape line breaks
             $line = str_replace("\n", "\\n\\\n", $line);
 
-            // escape quotes
+            // Escape quotes.
             $line = str_replace('"', '\\"', $line);
 
-            // firebug call
-            $method = isset(self::$_methods[$event['level']]) ? self::$_methods[$event['level']] : 'log';
+            // Firebug call.
+            $method = isset(self::$_methods[$event['level']])
+                ? self::$_methods[$event['level']]
+                : 'log';
             $output[] = 'console.' . $method . '("' . $line . '");';
         }
 

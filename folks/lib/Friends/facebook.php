@@ -79,13 +79,14 @@ class Folks_Friends_facebook extends Folks_Friends {
             return false;
         }
 
-        $context = array('http_client' => new Horde_Http_Client(),
-                         'http_request' => new Horde_Controller_Request_Http());
+        try {
+            $facebook = $GLOBALS['injector']->getInstance('Horde_Service_Facebook');
+        } catch (Horde_Exception $e) {
+            $error = PEAR::raiseError($e->getMessage(), $e->getCode());
+            Horde::logMessage($error, 'ERR');
 
-        $this->_fb = new Horde_Service_Facebook($conf['facebook']['key'],
-                                               $conf['facebook']['secret'],
-                                               $context);
-
+            return $error;
+        }
         $this->_fb->auth->setUser($fbp['uid'], $fbp['sid'], 0);
 
         return true;

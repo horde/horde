@@ -5,34 +5,6 @@
  * is the same as for the SQL class; only what is different overrides the
  * parent class implementations.
  *
- * Required parameters: See Horde_Auth_Sql driver.
- * <pre>
- * 'cyradmin'  The username of the cyrus administrator.
- * 'cyrpass'   The password for the cyrus administrator.
- * 'hostspec'        The hostname or IP address of the server.
- *                   DEFAULT: 'localhost'
- * 'port'            The server port to which we will connect.
- *                   IMAP is generally 143, while IMAP-SSL is generally 993.
- *                   DEFAULT: Encryption port default
- * 'secure'          The encryption to use.  Either 'none', 'ssl', or 'tls'.
- *                   DEFAULT: 'none'
- * </pre>
- *
- * Optional parameters: See Horde_Auth_Sql driver.
- * <pre>
- * 'domain_field'    If set to anything other than 'none' this is used as
- *                   field name where domain is stored.
- *                   DEFAULT: 'domain_name'
- * 'hidden_accounts' An array of system accounts to hide from the user
- *                   interface.
- * 'folders'         An array of folders to create under username.
- *                   DEFAULT: NONE
- * 'quota'           The quota (in kilobytes) to grant on the mailbox.
- *                   DEFAULT: NONE
- * 'unixhier'        The value of imapd.conf's unixhierarchysep setting.
- *                   Set this to true if the value is true in imapd.conf.
- * </pre>
- *
  * The table structure for the auth system is as follows:
  * <pre>
  * CREATE TABLE accountuser (
@@ -110,9 +82,11 @@
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
  *
- * @author  Ilya Krel <mail@krel.org>
- * @author  Jan Schneider <jan@horde.org>
- * @package Horde_Auth
+ * @author   Ilya Krel <mail@krel.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
+ * @package  Auth
  */
 class Horde_Auth_Cyrsql extends Horde_Auth_Sql
 {
@@ -121,7 +95,7 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
      *
      * @var Horde_Imap_Client_Base
      */
-    protected $_ob;
+    protected $_imap;
 
     /**
      * Hierarchy separator to use (e.g., is it user/mailbox or user.mailbox)
@@ -133,23 +107,50 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
     /**
      * Constructor.
      *
-     * @param array $params  A hash containing connection parameters.
+     * @param array $params  Parameters:
+     * <pre>
+     * 'charset' - (string) Default charset.
+     *             DEFAULT: NONE
+     * 'domain_field' - (string) If set to anything other than 'none' this is
+     *                  used as field name where domain is stored.
+     *                  DEFAULT: 'domain_name'
+     * 'folders' - (array) An array of folders to create under username.
+     *             DEFAULT: NONE
+     * 'hidden_accounts' - (array) An array of system accounts to hide from
+     *                     the user interface.
+     *                     DEFAULT: None.
+     * 'imap' - (Horde_Imap_Client_Base) [REQUIRED] An IMAP client object.
+     * 'quota' - (integer) The quota (in kilobytes) to grant on the mailbox.
+     *           DEFAULT: NONE
+     * 'unixhier' - (boolean) The value of imapd.conf's unixhierarchysep
+     *              setting. Set this to true if the value is true in
+     *              imapd.conf.
+     *              DEFAULT: false
+     * </pre>
+     *
+     * @throws InvalidArgumentException
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
+        if (!isset($params['imap']) ||
+            !($params['imap'] instanceof Horde_Imap_Client_Base)) {
+            throw new InvalidArgumentException('Missing imap parameter.');
+        }
+        $this->_imap = $params['imap'];
+        unset($params['imap']);
+
+        $params = array_merge(array(
+            'charset' => null,
+            'domain_field' => 'domain_name',
+            'folders' => array(),
+            'hidden_accounts' => array('cyrus'),
+            'quota' => null
+        ), $params);
+
         parent::__construct($params);
 
-        $admin_params = array(
-            'admin_user' => $params['cyradmin'],
-            'admin_password' => $params['cyrpass'],
-            'dsn' => $params['imap_dsn']
-        );
-
         if (!empty($this->_params['unixhier'])) {
-            $admin_params['userhierarchy'] = 'user/';
-        }
-
-        if (!empty($this->_params['unixhier'])) {
+            $this->_params['userhierarchy'] = 'user/';
             $this->_separator = '/';
         }
     }
@@ -164,13 +165,6 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
      */
     protected function _authenticate($userId, $credentials)
     {
-        try {
-            $this->_connect();
-        } catch (Horde_Auth_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
-            throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
-        }
-
         if (!empty($this->_params['domain_field']) &&
             ($this->_params['domain_field'] != 'none')) {
             /* Build the SQL query with domain. */
@@ -187,23 +181,14 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
             $values = array($userId);
         }
 
-        Horde::logMessage('SQL Query by Horde_Auth_Cyrsql::_authenticate(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        $result = $this->_db->query($query, $values);
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+        try {
+            $row = $this->_db->selectOne($query, $values);
+        } catch (Horde_Db_Exception $e) {
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
         }
 
-        $row = $result->fetchRow(DB_GETMODE_ASSOC);
-        if (is_array($row)) {
-            $result->free();
-        } else {
-            throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
-        }
-
-        if (!$this->_comparePasswords($row[$this->_params['password_field']],
-                                      $credentials['password'])) {
+        if (!$row ||
+            !$this->_comparePasswords($row[$this->_params['password_field']], $credentials['password'])) {
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
 
@@ -217,7 +202,7 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
         if (!empty($this->_params['soft_expiration_field']) &&
             !empty($row[$this->_params['soft_expiration_field']]) &&
             ($now > $row[$this->_params['soft_expiration_field']])) {
-            $this->_credentials['params']['change'] = true;
+            $this->setCredential('change', true);
         }
     }
 
@@ -231,44 +216,41 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
      */
     public function addUser($userId, $credentials)
     {
-        $this->_connect();
-
         if (!empty($this->_params['domain_field']) &&
             ($this->_params['domain_field'] != 'none')) {
             list($name, $domain) = explode('@', $userId);
-            /* Build the SQL query. */
+
             $query = sprintf('INSERT INTO %s (%s, %s, %s) VALUES (?, ?, ?)',
                              $this->_params['table'],
                              $this->_params['username_field'],
                              $this->_params['domain_field'],
                              $this->_params['password_field']);
-            $values = array($name,
-                            $domain,
-                            Horde_Auth::getCryptedPassword($credentials['password'],
-                                                      '',
-                                                      $this->_params['encryption'],
-                                                      $this->_params['show_encryption']));
+            $values = array(
+                $name,
+                $domain,
+                Horde_Auth::getCryptedPassword($credentials['password'],
+                                               '',
+                                               $this->_params['encryption'],
+                                               $this->_params['show_encryption'])
+            );
 
-            Horde::logMessage('SQL Query by Horde_Auth_Cyrsql::addUser(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            $query2 = 'INSERT INTO virtual (alias, dest, username, status) VALUES (?, ?, ?, 1)';
+            $values2 = array($userId, $userId, $name);
 
-            $dbresult = $this->_db->query($query, $values);
-            $query = 'INSERT INTO virtual (alias, dest, username, status) VALUES (?, ?, ?, 1)';
-            $values = array($userId, $userId, $name);
-
-            Horde::logMessage('SQL Query by Horde_Auth_Cyrsql::addUser(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-            $dbresult2 = $this->_db->query($query, $values);
-            if ($dbresult2 instanceof PEAR_Error) {
-                throw new Horde_Auth_Exception($dbresult2);
+            try {
+                $this->_db->insert($query, $values);
+                $this->_db->insert($query2, $values2);
+            } catch (Horde_Db_Exception $e) {
+                throw new Horde_Auth_Exception($e);
             }
         } else {
             parent::addUser($userId, $credentials);
         }
 
         try {
-            $mailbox = Horde_String::convertCharset($this->_params['userhierarchy'] . $userId, Horde_Nls::getCharset(), 'utf7-imap');
-            $ob->createMailbox($mailbox);
-            $ob->setACL($mailbox, $this->_params['cyradm'], 'lrswipcda');
+            $mailbox = Horde_String::convertCharset($this->_params['userhierarchy'] . $userId, $this->_params['charset'], 'utf7-imap');
+            $this->_imap->createMailbox($mailbox);
+            $this->_imap->setACL($mailbox, $this->_params['cyradm'], 'lrswipcda');
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_Auth_Exception($e);
         }
@@ -278,29 +260,23 @@ class Horde_Auth_Cyrsql extends Horde_Auth_Sql
                 ($this->_params['domain_field'] != 'none')) {
                 list($userName, $domain) = explode('@', $userName);
                 $tmp = $userName . $this->_separator . $value . '@' . $domain;
-Horde_String::convertCharset($userName . $this->_separator . $value . '@' . $domain, Horde_Nls::getCharset(), 'utf7-imap');
+Horde_String::convertCharset($userName . $this->_separator . $value . '@' . $domain, $this->_params['charset'], 'utf7-imap');
             } else {
                 $tmp = $userName . $this->_separator . $value;
             }
 
-            $tmp = Horde_String::convertCharset($tmp, Horde_Nls::getCharset(), 'utf7-imap');
-            $ob->createMailbox($tmp);
-            $ob->setACL($tmp, $this->_params['cyradm'], 'lrswipcda');
+            $tmp = Horde_String::convertCharset($tmp, $this->_params['charset'], 'utf7-imap');
+            $this->_imap->createMailbox($tmp);
+            $this->_oimap>setACL($tmp, $this->_params['cyradm'], 'lrswipcda');
         }
 
         if (isset($this->_params['quota']) &&
             ($this->_params['quota'] >= 0)) {
             try {
-                $this->_ob->setQuota($mailbox, array('storage' => $this->_params['quota']));
+                $this->_imap->setQuota($mailbox, array('storage' => $this->_params['quota']));
             } catch (Horde_Imap_Client_Exception $e) {
                 throw new Horde_Auth_Exception($e);
             }
-        }
-
-        if (isset($this->_params['quota']) &&
-            ($this->_params['quota'] >= 0) &&
-            !@imap_set_quota($this->_imapStream, 'user' . $this->_separator . $userId, $this->_params['quota'])) {
-            throw new Horde_Auth_Exception(sprintf(_("IMAP mailbox quota creation failed: %s"), imap_last_error()));
         }
     }
 
@@ -311,13 +287,12 @@ Horde_String::convertCharset($userName . $this->_separator . $value . '@' . $dom
      *
      * @throws Horde_Auth_Exception
      */
-    function removeUser($userId)
+    public function removeUser($userId)
     {
-        $this->_connect();
-
         if (!empty($this->_params['domain_field']) &&
             ($this->_params['domain_field'] != 'none')) {
             list($name, $domain) = explode('@', $userId);
+
             /* Build the SQL query. */
             $query = sprintf('DELETE FROM %s WHERE %s = ? and %s = ?',
                              $this->_params['table'],
@@ -325,17 +300,14 @@ Horde_String::convertCharset($userName . $this->_separator . $value . '@' . $dom
                              $this->_params['domain_field']);
             $values = array($name, $domain);
 
-            Horde::logMessage('SQL Query by Horde_Auth_Cyrsql::removeUser(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            $query2 = 'DELETE FROM virtual WHERE dest = ?';
+            $values2 = array($userId);
 
-            $dbresult = $this->_db->query($query, $values);
-            $query = 'DELETE FROM virtual WHERE dest = ?';
-            $values = array($userId);
-
-            Horde::logMessage('SQL Query by Horde_Auth_Cyrsql::removeUser(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-            $dbresult2 = $this->_db->query($query, $values);
-            if ($dbresult2 instanceof PEAR_Error) {
-                return $dbresult2;
+            try {
+                $this->_db->delete($query, $values);
+                $this->_db->delete($query2, $values2);
+            } catch (Horde_Db_Exception $e) {
+                throw new Horde_Auth_Exception($e);
             }
         } else {
             parent::removeUser($userId);
@@ -345,8 +317,8 @@ Horde_String::convertCharset($userName . $this->_separator . $value . '@' . $dom
         list($admin) = explode('@', $this->_params['cyradmin']);
 
         try {
-            $this->_ob->setACL($mailbox, $admin, array('rights' => 'lrswipcda'));
-            $this->_ob->deleteMailbox($mailbox);
+            $this->_imap->setACL($mailbox, $admin, array('rights' => 'lrswipcda'));
+            $this->_imap->deleteMailbox($mailbox);
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_Auth_Exception($e);
         }
@@ -362,8 +334,6 @@ Horde_String::convertCharset($userName . $this->_separator . $value . '@' . $dom
      */
     public function listUsers()
     {
-        $this->_connect();
-
         if (!empty($this->_params['domain_field']) &&
             ($this->_params['domain_field'] != 'none')) {
             /* Build the SQL query with domain. */
@@ -380,17 +350,16 @@ Horde_String::convertCharset($userName . $this->_separator . $value . '@' . $dom
                              $this->_params['username_field']);
         }
 
-        Horde::logMessage('SQL Query by Horde_Auth_Cyrsql::listUsers(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        $result = $this->_db->getAll($query, null, DB_FETCHMODE_ORDERED);
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Auth_Exception($result);
+        try {
+            $result = $this->_db->selectAll($query);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Auth_Exception($e);
         }
 
         /* Loop through and build return array. */
         $users = array();
-        if (!empty($this->_params['domain_field'])
-            && ($this->_params['domain_field'] != 'none')) {
+        if (!empty($this->_params['domain_field']) &&
+            ($this->_params['domain_field'] != 'none')) {
             foreach ($result as $ar) {
                 if (!in_array($ar[0], $this->_params['hidden_accounts'])) {
                     $users[] = $ar[0] . '@' . $ar[1];
@@ -418,8 +387,6 @@ Horde_String::convertCharset($userName . $this->_separator . $value . '@' . $dom
      */
     public function updateUser($oldID, $newID, $credentials)
     {
-        $this->_connect();
-
         if (!empty($this->_params['domain_field']) &&
             ($this->_params['domain_field'] != 'none')) {
             list($name, $domain) = explode('@', $oldID);
@@ -447,51 +414,11 @@ Horde_String::convertCharset($userName . $this->_separator . $value . '@' . $dom
                             $oldID);
         }
 
-        Horde::logMessage('SQL Query by Horde_Auth_Cyrsql::updateUser(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
-
-        $res = $this->_db->query($query, $values);
-        if ($res instanceof PEAR_Error) {
-            throw new Horde_Auth_Exception($res);
-        }
-    }
-
-    /**
-     * Attempts to open connections to the SQL and IMAP servers.
-     *
-     * @throws Horde_Auth_Exception
-     */
-    public function _connect()
-    {
-        if ($this->_connected) {
-            return;
-        }
-
-        parent::_connect();
-
-        if (!isset($this->_params['hidden_accounts'])) {
-            $this->_params['hidden_accounts'] = array('cyrus');
-        }
-
-        // Reset the $_connected flag; we haven't yet successfully
-        // opened everything.
-        $this->_connected = false;
-
-        $imap_config = array(
-            'hostspec' => empty($this->_params['hostspec']) ? null : $this->_params['hostspec'],
-            'password' => $this->_params['cyrpass'],
-            'port' => empty($this->_params['port']) ? null : $this->_params['port'],
-            'secure' => ($this->_params['secure'] == 'none') ? null : $this->_params['secure'],
-            'username' => $this->_params['cyradmin']
-        );
-
         try {
-            $this->_ob = Horde_Imap_Client::factory('Socket', $imap_config);
-            $this->_ob->login();
-        } catch (Horde_Imap_Client_Exception $e) {
+            $this->_db->update($query, $values);
+        } catch (Horde_Db_Exception $e) {
             throw new Horde_Auth_Exception($e);
         }
-
-        $this->_connected = true;
     }
 
 }

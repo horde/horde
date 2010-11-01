@@ -7,8 +7,10 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_LoginTasks
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
 class IMP_LoginTasks_SystemTask_GarbageCollection extends Horde_LoginTasks_SystemTask
 {
@@ -25,29 +27,31 @@ class IMP_LoginTasks_SystemTask_GarbageCollection extends Horde_LoginTasks_Syste
     public function execute()
     {
         /* Purge non-existent nav_poll entries. */
-        $imaptree = IMP_Imap_Tree::singleton();
-        $imaptree->getPollList(true, true);
+        $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->getPollList(true, true);
 
         /* Do garbage collection on sentmail entries. */
-        $sentmail = IMP_Sentmail::factory();
-        $sentmail->gc();
+        $GLOBALS['injector']->getInstance('IMP_Sentmail')->gc();
 
         /* Do garbage collection on compose VFS data. */
         if ($GLOBALS['conf']['compose']['use_vfs']) {
-            $vfs = VFS::singleton($GLOBALS['conf']['vfs']['type'], Horde::getDriverConfig('vfs', $GLOBALS['conf']['vfs']['type']));
-            VFS_GC::gc($vfs, IMP_Compose::VFS_ATTACH_PATH, 86400);
+            try {
+                $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
+                VFS_GC::gc($vfs, IMP_Compose::VFS_ATTACH_PATH, 86400);
+            } catch (VFS_Exception $e) {}
         }
 
         /* Purge non-existent search sorts. */
+        $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
         $update = false;
         $sortpref = @unserialize($GLOBALS['prefs']->getValue('sortpref'));
+
         foreach (array_keys($sortpref) as $key) {
-            if ($GLOBALS['imp_search']->isSearchMbox($key) &&
-                !$GLOBALS['imp_search']->isEditableVFolder($key)) {
+            if ($imp_search->isSearchMbox($key) && !$imp_search[$key]) {
                 unset($sortpref[$key]);
                 $update = true;
             }
         }
+
         if ($update) {
             $GLOBALS['prefs']->setValue('sortpref', serialize($sortpref));
         }

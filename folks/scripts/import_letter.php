@@ -13,12 +13,17 @@
  * @package Folks
  */
 
+// Disabled by default
 exit;
 
-$folks_authentication = 'none';
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('folks', array('authentication' => 'none', 'cli' => true));
 
-$db = DB::connect($conf['sql']);
+try {
+    $db = $injector->getInstance('Horde_Core_Factory_DbPear')->create();
+} catch (Horde_Exception $e) {
+    $cli->fatal($e);
+}
 
 $sql = 'SELECT pref_uid, pref_value, pref_name FROM horde_prefs WHERE '
         . ' pref_scope = ? AND (pref_name = ? OR pref_name = ?)'

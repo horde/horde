@@ -5,7 +5,7 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Horde_LoginTasks
  */
-class Turba_LoginTasks_SystemTask_UpgradeList extends Horde_LoginTasks_SystemTask
+class Turba_LoginTasks_SystemTask_UpgradeLists extends Horde_LoginTasks_SystemTask
 {
     /**
      * The interval at which to run the task.
@@ -31,21 +31,22 @@ class Turba_LoginTasks_SystemTask_UpgradeList extends Horde_LoginTasks_SystemTas
     /**
      * Perform all functions for this task.
      *
-     * @return mixed True | PEAR_Error
+     * @return boolean  Success.
      */
     public function execute()
     {
-        if (!empty($_SESSION['turba']['has_share'])) {
+        if ($GLOBALS['session']['turba:has_share']) {
             $criteria = array('__type' => 'Group');
             $sources = array_keys($GLOBALS['cfgSources']);
             foreach ($sources as $sourcekey) {
-                $driver = Turba_Driver::singleton($sourcekey);
-                $lists = $driver->search($criteria);
-                if (is_a($lists, 'PEAR_Error')) {
-                    return $lists;
+                try {
+                    $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($sourcekey);
+                    $lists = $driver->search($criteria);
+                } catch (Turba_Exception $e) {
+                    return false;
                 }
-                $cnt = $lists->count();
-                for ($j = 0; $j < $cnt; ++$j) {
+
+                for ($j = 0, $cnt = count($lists); $j < $cnt; ++$j) {
                     $list = $lists->next();
                     $attributes = $list->getAttributes();
                     $members = @unserialize($attributes['__members']);

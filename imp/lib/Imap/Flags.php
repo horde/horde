@@ -8,21 +8,13 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package IMP
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
 class IMP_Imap_Flags
 {
-    /* IMAP flag prefix for IMP-specific flags/keywords. */
-    const PREFIX = 'impflag';
-
-    /**
-     * Singleton instance.
-     *
-     * @var IMP_Imap_Flags
-     */
-    static protected $_instance;
-
     /**
      * The cached list of flags.
      *
@@ -31,26 +23,36 @@ class IMP_Imap_Flags
     protected $_flags = null;
 
     /**
-     * Attempts to return a reference to a concrete object instance.
-     * It will only create a new instance if no instance currently exists.
+     * The 'msgflags_user' preference value.
      *
-     * @return IMP_Imap_Flags  The created concrete instance.
+     * @var array
      */
-    static public function singleton()
-    {
-        if (!isset(self::$_instance)) {
-            self::$_instance = new self();
-        }
+    protected $_userflags = null;
 
-        return self::$_instance;
-    }
+    /**
+     * Temporary flags (i.e. flags created by other MUAs).
+     *
+     * @var array
+     */
+    protected $_tempflags = array();
 
     /**
      * Save the flag list to the prefs backend.
+     *
+     * @param boolean $user  If true, update the user flag list. Otherwise,
+     *                       update the system flag list.
      */
-    protected function _save()
+    protected function _save($user = true)
     {
-        $GLOBALS['prefs']->setValue('msgflags', json_encode($this->_flags));
+        global $prefs;
+
+        if ($user) {
+            if (!$prefs->isLocked('msgflags_user')) {
+                $prefs->setValue('msgflags_user', json_encode($this->_userflags));
+            }
+        } elseif (!$prefs->isLocked('msgflags')) {
+            $prefs->setValue('msgflags', json_encode(array_diff_key($this->_flags, $this->_userflags)));
+        }
     }
 
     /**
@@ -93,26 +95,45 @@ class IMP_Imap_Flags
          * from the PERMANENTFLAGS IMAP response. */
         if (!empty($options['mailbox'])) {
             try {
-                $status = $GLOBALS['imp_imap']->ob()->status($options['mailbox'], Horde_Imap_Client::STATUS_PERMFLAGS);
-                if (!in_array('\\*', $status['permflags'])) {
-                    $avail_flags = array_intersect($avail_flags, $status['permflags']);
+                /* Make sure we are in R/W mailbox mode (SELECT). No flags are
+                 * allowed in EXAMINE mode. */
+                $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
+                $imp_imap->openMailbox($options['mailbox'], Horde_Imap_Client::OPEN_READWRITE);
+                $status = $imp_imap->status($options['mailbox'], Horde_Imap_Client::STATUS_PERMFLAGS);
+
+                if (($pos = array_search('\\*', $status['permflags'])) !== false) {
+                    if ($GLOBALS['prefs']->getValue('show_all_flags')) {
+                        unset($status['permflags'][$pos]);
+                        $avail_flags = array_keys(array_flip(array_merge($avail_flags, $status['permflags'])));
+                    }
+                } else {
+                    $avail_flags = $GLOBALS['prefs']->getValue('show_all_flags')
+                        ? $status['permflags']
+                        : array_filter(array_diff($status['permflags'], $avail_flags));
                 }
             } catch (Horde_Imap_Client_Exception $e) {}
         }
 
         foreach ($avail_flags as $key) {
-            $ret[$key] = $this->_flags[$key];
-            $ret[$key]['flag'] = $key;
-
-            if (!empty($options['fgcolor'])) {
-                $ret[$key] = $this->_getColor($key, $ret[$key]);
-            }
-
-            if (!empty($options['imap']) &&
-                !in_array($ret[$key]['t'], $types)) {
-                unset($ret[$key]);
-            } elseif (!empty($options['div']) && isset($ret[$key]['c'])) {
-                $ret[$key]['div'] = $this->_getDiv($ret[$key]['c'], $ret[$key]['l']);
+            if (!isset($this->_flags[$key])) {
+                /* Keywords might be UTF7-IMAP encoded. */
+              $ret[$key] = $this->_createEntry(Horde_String::convertCharset($key, 'UTF7-IMAP', 'UTF-8'));
+                $ret[$key]['flag'] = $key;
+                $this->_tempflags[$key] = $ret[$key];
+            } else {
+                $ret[$key] = $this->_flags[$key];
+                if (!empty($options['imap']) &&
+                    !in_array($ret[$key]['t'], $types)) {
+                    unset($ret[$key]);
+                } else {
+                    $ret[$key]['flag'] = $key;
+                    if (!empty($options['fgcolor'])) {
+                        $ret[$key] = $this->_getColor($key, $ret[$key]);
+                    }
+                    if (!empty($options['div']) && isset($ret[$key]['c'])) {
+                        $ret[$key]['div'] = $this->_getDiv($ret[$key]['c'], $ret[$key]['l']);
+                    }
+                }
             }
         }
 
@@ -128,7 +149,11 @@ class IMP_Imap_Flags
             return;
         }
 
-        $this->_flags = json_decode($GLOBALS['prefs']->getValue('msgflags'), true);
+        $this->_userflags = json_decode($GLOBALS['prefs']->getValue('msgflags_user'), true);
+        $this->_flags = array_merge(
+            $this->_userflags,
+            json_decode($GLOBALS['prefs']->getValue('msgflags'), true)
+        );
 
         /* Sanity checking. */
         if (is_array($this->_flags)) {
@@ -154,25 +179,38 @@ class IMP_Imap_Flags
 
         $this->_loadList();
 
-        /* Flags are named PREFIX{$i}. Keep incrementing until we find the
-         * next available flag. */
-        for ($i = 0;; ++$i) {
-            $curr = self::PREFIX . $i;
-            if (!isset($this->_flags[$curr])) {
-                $this->_flags[$curr] = array(
-                    // 'a' => These flags are not shown in mimp
-                    // TODO: Generate random background
-                    'b' => '#ffffff',
-                    'c' => 'flagUser',
-                    'd' => true,
-                    'l' => $label,
-                    't' => 'imapp'
-                );
+        /* IMAP keywords must conform to RFC 3501 [9] (flag-keyword). Convert
+         * whitespace to underscore. */
+        $key = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->getUtils()->stripNonAtomChars(Horde_String::convertCharset(strtr($label, ' ', '_'), 'UTF-8', 'UTF7-IMAP'));
+        if (!isset($this->_flags[$key])) {
+            $entry = $this->_createEntry($label);
 
-                $this->_save();
-                return $curr;
-            }
+            $this->_flags[$key] = $entry;
+            $this->_userflags[$key] = $entry;
+
+            $this->_save();
         }
+
+        return $key;
+    }
+
+    /**
+     * Creates a flag entry data object.
+     *
+     * @param string $label  The label to use for the flag.
+     *
+     * @return array  Flag data object.
+     */
+    protected function _createEntry($label)
+    {
+        return array(
+            // 'a' => These flags are not shown in mimp
+            'b' => $GLOBALS['prefs']->getValue('msgflags_color'),
+            'c' => 'flagUser',
+            'd' => true,
+            'l' => $label,
+            't' => 'imapp'
+        );
     }
 
     /**
@@ -190,7 +228,7 @@ class IMP_Imap_Flags
                 $this->_flags[$label][$key] = $val;
             }
 
-            $this->_save();
+            $this->_save(isset($this->_updateflags[$label]));
         }
     }
 
@@ -208,7 +246,7 @@ class IMP_Imap_Flags
         if (isset($this->_flags[$label]) &&
             $this->_flags[$label]['l'] &&
             !empty($this->_flags[$label]['d'])) {
-            unset($this->_flags[$label]);
+            unset($this->_flags[$label], $this->_userflags[$label]);
             $this->_save();
             return true;
         }
@@ -232,7 +270,7 @@ class IMP_Imap_Flags
      * 'personal' - (mixed) Personal message info. Either an array of to
      *              addresses as returned by
      *              Horde_Mime_Address::getAddressesFromObject(), or the
-     *              identity that matched the address list..
+     *              identity that matched the address list.
      * 'priority' - (Horde_Mime_Headers) Determines priority information from
      *              a headers object.
      * </pre>
@@ -259,7 +297,7 @@ class IMP_Imap_Flags
 
         if (isset($options['personal'])) {
             if (is_array($options['personal'])) {
-                $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+                $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
                 foreach ($options['personal'] as $val) {
                     if ($identity->hasAddress($val['inner'])) {
                         $process['personal'] = $f['personal'];
@@ -291,20 +329,16 @@ class IMP_Imap_Flags
             }
         }
 
-        if (($_SESSION['imp']['protocol'] == 'imap') &&
-            isset($options['flags'])) {
-            if (!empty($options['flags'])) {
-                $options['flags'] = array_map('strtolower', $options['flags']);
-            }
+        if ($GLOBALS['session']['imp:protocol'] == 'imap') {
+            $flaglist = empty($options['flags'])
+                ? array()
+                : array_map('strtolower', $options['flags']);
 
-            foreach ($f as $k => $v) {
+            foreach (array_merge($f, $this->_tempflags) as $k => $v) {
                 if (in_array($v['t'], array('imap', 'imapp', 'imapu', 'imp'))) {
-                    if (empty($v['n'])) {
-                        $match = in_array($k, $options['flags']);
-                    } elseif (empty($options['flags'])) {
-                        $match = true;
-                    } else {
-                        $match = !in_array($k, $options['flags']);
+                    $match = in_array($k, $flaglist);
+                    if (!empty($v['n'])) {
+                        $match = !$match;
                     }
 
                     if ($match) {
@@ -404,6 +438,31 @@ class IMP_Imap_Flags
     }
 
     /**
+     * Given a flag/set combo, returns the text label.
+     *
+     * @param string $name  Flag name.
+     * @param boolean $set  Search for set flag?
+     *
+     * @return string  The text label.
+     */
+    public function getLabel($name, $set)
+    {
+        $flist = $this->getList();
+
+        if (!isset($flist[$name])) {
+            return '';
+        }
+
+        if (!empty($flist[$name]['n'])) {
+            $set = !$set;
+        }
+
+        return $set
+            ? $flist[$name]['l']
+            : sprintf(_("Not %s"), $flist[$name]['l']);
+    }
+
+    /**
      * Determines the colors for an entry.
      *
      * @param string $key  The flag key.
@@ -414,9 +473,10 @@ class IMP_Imap_Flags
     protected function _getColor($key, $in)
     {
         $in['f'] = '#000';
+
         if (!isset($in['b'])) {
-            $in['b'] = $GLOBALS['prefs']->getValue('msgflags_color');
-        } elseif (Horde_Image::brightness($this->_flags[$key]['b']) < 128) {
+            $in['b'] = '#fff';
+        } elseif (Horde_Image::brightness($in['b']) < 128) {
             $in['f'] = '#f6f6f6';
         }
 

@@ -1,0 +1,207 @@
+<if:compose_link>
+<form id="compose" name="compose" enctype="multipart/form-data" action="<tag:compose_link />" method="post" target="submit_frame">
+ <tag:forminput />
+ <input type="hidden" id="last_identity" name="last_identity" value="<tag:selected_identity />" />
+ <input type="hidden" id="html" name="html" value="<if:rte><if:compose_html>1</if:compose_html></if:rte>" />
+ <input type="hidden" id="composeCache" name="composeCache" value="<tag:composeCache />" />
+
+ <div class="dimpActions dimpActionsCompose">
+<if:compose_enable>
+  <div>
+   <tag:send_button />
+  </div>
+</if:compose_enable>
+  <div>
+   <tag:spell_button />
+  </div>
+  <div>
+   <tag:draft_button />
+  </div>
+ </div>
+
+ <div id="writemsg">
+  <div class="msgwrite">
+   <div class="dimpOptions">
+    <div id="togglecc">
+     <label>
+      <input name="togglecc" type="checkbox" class="checkbox" /><gettext>Show Cc</gettext>
+     </label>
+    </div>
+    <div id="togglebcc">
+     <label>
+      <input name="togglebcc" type="checkbox" class="checkbox" /><gettext>Show Bcc</gettext>
+     </label>
+    </div>
+<if:rte>
+    <div>
+     <label>
+      <input id="htmlcheckbox" type="checkbox" class="checkbox"<if:compose_html> checked="checked"</if:compose_html> /><gettext>HTML composition</gettext>
+     </label>
+    </div>
+</if:rte>
+<if:read_receipt>
+    <div>
+     <label>
+      <input name="request_read_receipt" type="checkbox" class="checkbox"<if:read_receipt_set> checked="checked"</if:read_receipt_set> /><gettext>Read Receipt</gettext>
+     </label>
+    </div>
+</if:read_receipt>
+<if:save_sent_mail>
+    <div style="display:none">
+     <label>
+      <input id="save_sent_mail" name="save_sent_mail" type="checkbox" class="checkbox" /><gettext>Save in</gettext>
+      <span id="sent_mail_folder_label"></span>
+     </label>
+     <input id="save_sent_mail_folder" name="save_sent_mail_folder" type="hidden" />
+    </div>
+</if:save_sent_mail>
+<if:priority>
+    <div>
+     <gettext>Priority:</gettext><span id="priority_label"></span>
+     <input id="priority" name="priority" type="hidden" value="normal" />
+    </div>
+</if:priority>
+<if:encrypt>
+    <div>
+     <gettext>Encryption:</gettext><span id="encrypt_label"></span>
+     <input id="encrypt" name="encrypt" type="hidden" value="<tag:encrypt />" />
+    </div>
+</if:encrypt>
+<if:stationery>
+    <div>
+     <gettext>Stationery</gettext><span id="stationery_label"></span>
+    </div>
+</if:stationery>
+   </div>
+
+   <table>
+    <tr>
+     <td class="label">
+      <gettext>From:</gettext>
+     </td>
+     <td>
+      <select id="identity" name="identity">
+<loop:select_list>
+       <option value="<tag:select_list.val />"<if:select_list.sel> selected="selected"</if:select_list.sel>><tag:select_list.label /></option>
+</loop:select_list>
+      </select>
+     </td>
+    </tr>
+    <tr id="sendto">
+     <td class="label">
+      <span><gettext>To:</gettext></span>
+     </td>
+     <td>
+      <textarea id="to" name="to" rows="1" cols="75"></textarea>
+      <span id="to_loading_img" class="loadingImg" style="display:none"></span>
+     </td>
+    </tr>
+    <tr id="sendcc" style="display:none">
+     <td class="label">
+      <span><gettext>Cc:</gettext></span>
+     </td>
+     <td>
+      <textarea id="cc" name="cc" rows="1" cols="75"></textarea>
+      <span id="cc_loading_img" class="loadingImg" style="display:none"></span>
+     </td>
+    </tr>
+    <tr id="sendbcc" style="display:none">
+     <td class="label">
+      <span><gettext>Bcc:</gettext></span>
+     </td>
+     <td>
+      <textarea id="bcc" name="bcc" rows="1" cols="75"></textarea>
+      <span id="bcc_loading_img" class="loadingImg" style="display:none"></span>
+     </td>
+    </tr>
+    <tr>
+     <td class="label">
+      <gettext>Subject:</gettext>
+     </td>
+     <td class="subject">
+      <input type="text" id="subject" name="subject" />
+     </td>
+    </tr>
+    <tr class="atcrow">
+     <td class="label">
+      <span class="iconImg attachmentImg"></span>:
+     </td>
+     <td id="attach_cell">
+      <span id="upload_limit" style="display:none"><gettext>The attachment limit has been reached.</gettext></span>
+      <span id="upload_wait" style="display:none"></span>
+      <span>
+       <input type="file" id="upload" name="file_1" />
+      </span>
+<if:save_attach>
+      <label style="display:none">
+       <input type="checkbox" class="checkbox" name="save_attachments_select"<if:save_attach_set> checked="checked"</if:save_attach_set> /><gettext>Save Attachments in sent folder</gettext>
+      </label>
+      <br />
+</if:save_attach>
+      <ul id="attach_list" style="display:none"></ul>
+     </td>
+    </tr>
+    <tr id="noticerow" style="display:none">
+     <td colspan="2">
+      <ul class="notices">
+       <li id="replyallnotice" style="display:none">
+        <span class="iconImg closeImg"></span>
+        <gettext>You are currently replying to ALL recipients. Click here to reply to the original sender instead.</gettext>
+       </li>
+       <li id="replylistnotice" style="display:none">
+        <span class="iconImg closeImg"></span>
+        <gettext>You are currently replying to the mailing list. Click here to reply to the original sender instead.</gettext>
+       </li>
+       <li id="fwdattachnotice" style="display:none">
+        <span class="iconImg closeImg"></span>
+        <gettext>Click here to add the original message text to the body.</gettext>
+       </li>
+       <li id="fwdbodynotice" style="display:none">
+        <span class="iconImg closeImg"></span>
+        <gettext>Click here to add the original message as an attachment.</gettext>
+       </li>
+       <li id="identitychecknotice" style="display:none">
+        <span class="iconImg closeImg"></span>
+        <gettext>Your identity has been switched to the identity associated with the current recipient address. Click here to revert to the original identity. The identity will not be checked again during this compose action.</gettext>
+       </li>
+      </ul>
+     </td>
+    </tr>
+   </table>
+  </div>
+
+  <div id="composeMessageParent">
+   <textarea name="message" rows="20" id="composeMessage" class="fixed"></textarea>
+  </div>
+ </div>
+</form>
+</if:compose_link>
+
+<if:compose_enable>
+<form id="redirect" name="redirect" style="display:none">
+ <input type="hidden" id="composeCacheRedirect" name="composeCache" value="<tag:composeCache />" />
+ <tag:forminput />
+ <div class="msgwrite">
+  <div class="dimpActions dimpActionsCompose">
+   <div>
+    <tag:redirect_button />
+   </div>
+  </div>
+  <table>
+   <tr id="redirect_sendto">
+    <td class="label">
+     <span><gettext>To:</gettext></span>
+    </td>
+    <td>
+     <textarea id="redirect_to" name="redirect_to" rows="1" cols="75"></textarea>
+     <span id="redirect_to_loading_img" class="loadingImg" style="display:none"></span>
+    </td>
+   </tr>
+  </table>
+ </div>
+</form>
+</if:compose_enable>
+
+<span id="sendingImg" class="loadingImg" style="display:none"></span>
+
+<iframe name="submit_frame" id="submit_frame" style="display:none" src="javascript:false;"></iframe>

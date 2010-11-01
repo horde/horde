@@ -1,0 +1,970 @@
+# Romanian translations for Jonah package.
+# Copyright 2003-2009 The Horde Project
+# This file is distributed under the same license as the Jonah package.
+# Eugen Hoanca <eugenh@urban-grafx.ro>, 2003.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Jonah 0.0.3\n"
+"POT-Creation-Date: 2003-03-04 13:46+0100\n"
+"PO-Revision-Date: 2003-03-28 11:01+0200\n"
+"Last-Translator: Eugen Hoanca <eugenh@urban-grafx.ro>\n"
+"Language-Team: Romanian <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lib/NewsAdmin.php:41
+msgid " (id=%d, %d stories)"
+msgstr "(id=%d, %d articole)"
+
+#: lib/Jonah.php:405
+msgid " and the UV index is a %s. "
+msgstr " si indexul UV este %s. "
+
+#: lib/Block/metar.php:103
+msgid " at %s %s"
+msgstr " la %s %s"
+
+#: lib/Jonah.php:389
+msgid " km"
+msgstr " km"
+
+#: lib/Jonah.php:365
+msgid " km/h"
+msgstr " km/h"
+
+#: lib/Jonah.php:390
+msgid " miles"
+msgstr " mile"
+
+#: templates/content/header.inc:4
+msgid "%d Headlines Available"
+msgstr " %d titluri disponibile"
+
+#: lib/Jonah.php:346
+msgid "%s at %s"
+msgstr "%s la %s"
+
+#: lib/NewsAdmin.php:17
+msgid "Add News Source"
+msgstr "Adaugare sursa stiri"
+
+#: lib/NewsAdmin.php:31 newsadmin.php:84
+msgid "Add Story"
+msgstr "Adaugare articol"
+
+#: lib/NewsAdmin.php:115
+msgid "Add a News Story for '%s'"
+msgstr "Adaugare stire pentru '%s'"
+
+#: lib/Jonah.php:378
+msgid "Barometer shows %s. "
+msgstr "Barometrul arata %s. "
+
+#: templates/channels/column_headers.inc:13
+msgid "Change"
+msgstr "Schimba"
+
+#: config/prefs.php.dist:22
+msgid "Change the location for which weather is obtained."
+msgstr "Schimbare locatie pentru care se obtine timp probabil."
+
+#: config/prefs.php.dist:34
+msgid "Change your content display options."
+msgstr "Schimbare optiuni afisare continut."
+
+#: content.php:15
+msgid "Channel Listing"
+msgstr "Listare canale"
+
+#: templates/channels/column_headers.inc:7
+msgid "Channel Name"
+msgstr "Nume canal"
+
+#: channels.php:180
+msgid "Channel Subscriptions"
+msgstr "Abonamente canal"
+
+#: channels.php:173
+msgid "Channel display failed."
+msgstr "Afisare canal esuata"
+
+#: channels.php:130
+msgid "Channel subscription editing failed."
+msgstr "Editarea abonarii la canal esuata."
+
+#: channels.php:73
+msgid "Channel subscription failed."
+msgstr "Abonare la canal esuata."
+
+#: channels.php:111
+msgid "Channel unsubscription failed."
+msgstr "Dezabonarea de la canal esuata."
+
+#: config/prefs.php.dist:16
+msgid "Choose which news channels you are subscribed to."
+msgstr "Alegere canale de stiri la care sunteti abonat."
+
+#: lib/Block/metar.php:101
+msgid "Clouds: %s"
+msgstr "Nori: %s"
+
+#: config/templates.php.dist:41
+msgid "Compact"
+msgstr "Compact"
+
+#: lib/api.php:63
+msgid "Current Phase"
+msgstr "Faza curenta a lunii"
+
+#: lib/Block/metar.php:25 lib/api.php:74
+msgid "Current Weather"
+msgstr "Timp probabil curent"
+
+#: lib/Block/metar.php:45 lib/Block/metar.php:47
+msgid "Current Weather for: %s"
+msgstr "Timp probabil curent pentru: %s"
+
+#: lib/NewsAdmin.php:90
+msgid "Delete News Source"
+msgstr "Stergere surse stiri"
+
+#: lib/NewsAdmin.php:216
+msgid "Delete News Story"
+msgstr "Stergere stire"
+
+#: lib/NewsAdmin.php:34 newsadmin.php:99
+msgid "Delete Source"
+msgstr "Stergere sursa"
+
+#: lib/NewsAdmin.php:144 newsadmin.php:165
+msgid "Delete Story"
+msgstr "Stergere articol"
+
+#: config/templates.php.dist:9
+msgid "Detailed"
+msgstr "Detaliat"
+
+#: config/prefs.php.dist:33
+msgid "Display Options"
+msgstr "Optiuni afisaj"
+
+#: templates/channels/subscribe.inc:56
+#: templates/channels/column_headers.inc:15
+msgid "Edit"
+msgstr "Editare"
+
+#: templates/channels/header.inc:3
+msgid "Edit Channel Subscriptions"
+msgstr "Editare abonamente canale"
+
+#: lib/NewsAdmin.php:59
+msgid "Edit News Source"
+msgstr "Editare sursa stiri"
+
+#: lib/NewsAdmin.php:171
+msgid "Edit News Story"
+msgstr "Editare stire"
+
+#: lib/NewsAdmin.php:33 newsadmin.php:94
+msgid "Edit Source"
+msgstr "Editare sursa"
+
+#: lib/NewsAdmin.php:32 newsadmin.php:89
+msgid "Edit Stories"
+msgstr "Editare articole"
+
+#: lib/NewsAdmin.php:143 newsadmin.php:160
+msgid "Edit Story"
+msgstr "Editare articol"
+
+#: templates/channels/subscribe.inc:55
+msgid "Edit Subscription Details"
+msgstr "Editare detalii abonare"
+
+#: templates/channels/edit.inc:5
+msgid "Editing Channel %s"
+msgstr "Editare canal %s"
+
+#: lib/Jonah.php:59
+msgid ""
+"Either no weather data is available for the location you have selected, or "
+"you have not selected a valid location."
+msgstr ""
+"Ori datele despre vreme nu sunt disponibile pentru locatia selectata, ori nu "
+"ati selectat o locatie valida."
+
+#: config/prefs.php.dist:128
+msgid "Enter NASDAQ/AMEX/NYSE ticker symbols to watch, separated with commas:"
+msgstr "Introduceti simbolurile NASDAQ/AMEX/NYSE, separate cu virgule:"
+
+#: lib/Jonah.php:490
+msgid "Error: could not open weather cache file for writing."
+msgstr "Eroare: deschidere fisier de cache al vremii pentru scriere esuata."
+
+#: lib/Jonah.php:483
+msgid "Error: could not update weather."
+msgstr "Eroare: nu s-a putut reinnoi informatia despre vreme."
+
+#: lib/Jonah.php:495
+msgid "Error: write to weather cache file failed."
+msgstr "Eroare: scrierea in fisierul cache al vremii esuata."
+
+#: lib/Block/moon.php:143
+msgid "First Half"
+msgstr "Prima jumatate"
+
+#: lib/Block/moon.php:53 lib/Block/moon.php:55
+msgid "First Quater"
+msgstr "Primul patrar"
+
+#: lib/Jonah.php:410
+msgid "Forecast: "
+msgstr "Prognoza: "
+
+#: lib/Jonah.php:325
+msgid "Friday"
+msgstr "Vineri"
+
+#: lib/Block/moon.php:61
+msgid "Full Moon"
+msgstr "Luna plina"
+
+#: lib/NewsAdmin.php:121 lib/NewsAdmin.php:191
+msgid "Full Story Text"
+msgstr "Text integral articol"
+
+#: lib/Block/moon.php:153
+msgid "Full moon"
+msgstr "Luna plina"
+
+#: lib/api.php:86
+msgid "Headlines"
+msgstr "Titluri"
+
+#: templates/menu/menu.inc:18
+msgid "Help"
+msgstr "Ajutor"
+
+#: lib/api.php:65
+msgid "Hemisphere:"
+msgstr "Emisfera:"
+
+#: config/prefs.php.dist:57
+msgid "How many columns would you like to use to show headlines?"
+msgstr "Cate coloane doriti pentru afisare titluri?"
+
+#: lib/Jonah.php:372
+msgid "It feels like %s. "
+msgstr "Se pare ca %s. "
+
+#: templates/backend/backend.inc:5
+msgid "Jonah Backend"
+msgstr "Suport Jonah"
+
+#: templates/index/notconfigured.inc:4
+msgid "Jonah is not properly configured"
+msgstr "Jonah nu este corect configurat"
+
+#: templates/backend/backend.inc:14
+msgid "Just Fetch latest RSS files"
+msgstr "Aducere ultimele fisiere RSS"
+
+#: templates/backend/backend.inc:15
+msgid "Just Generate HTML from RSS files"
+msgstr "Generare HTML din fisiere RSS"
+
+#: config/prefs.php.dist:9
+msgid "Language"
+msgstr "Limba"
+
+#: lib/Block/moon.php:146
+msgid "Last Half"
+msgstr "Ultima jumatate"
+
+#: lib/Block/moon.php:67 lib/Block/moon.php:69
+msgid "Last Quater"
+msgstr "Ultimul patrar"
+
+#: templates/channels/column_headers.inc:10
+msgid "Last Updated"
+msgstr "Ultima data innoit"
+
+#: lib/Block/metar.php:52
+msgid "Last Updated: %s"
+msgstr "Ultima data innoit: %s"
+
+#: lib/api.php:47
+msgid "Latitude"
+msgstr "Latitudine"
+
+#: templates/index/notconfigured.inc:58
+msgid "List of METAR weather stations."
+msgstr "Lista statii meteo METAR"
+
+#: lib/api.php:75
+msgid "Location"
+msgstr "Locatie"
+
+#: lib/NewsAdmin.php:36
+msgid "Manage News Sources"
+msgstr "Administrare surse stiri"
+
+#: lib/NewsAdmin.php:146
+msgid "Manage News Stories"
+msgstr "Administrare stiri"
+
+#: lib/Jonah.php:325
+msgid "Monday"
+msgstr "Luni"
+
+#: lib/Block/moon.php:19 lib/api.php:58
+msgid "Moon Phases"
+msgstr "Fazele lunii"
+
+#: templates/menu/menu.inc:6
+msgid "My Content"
+msgstr "Cuprinsul meu"
+
+#: lib/Block/moon.php:47
+msgid "New Moon"
+msgstr "Luna noua"
+
+#: lib/Block/moon.php:31 lib/Block/moon.php:151
+msgid "New moon"
+msgstr "Luna noua"
+
+#: lib/Block/news.php:37 config/prefs.php.dist:15
+msgid "News"
+msgstr "Stire(i)"
+
+#: newsadmin.php:47 templates/menu/menu.inc:13
+msgid "News Admin"
+msgstr "Administrator stire(i)"
+
+#: lib/NewsAdmin.php:48
+msgid "News Source"
+msgstr "Sursa stire(i)"
+
+#: lib/api.php:64
+msgid "Next Phase"
+msgstr "Faza urmatoare"
+
+#: lib/NewsAdmin.php:95 lib/NewsAdmin.php:220
+msgid "No"
+msgstr "Nu"
+
+#: lib/News/sql.php:310
+msgid "No configuration information specified for SQL News Stories."
+msgstr "Nici o configuratie specificata pentru stirile SQL."
+
+#: lib/Weather/sql.php:201
+msgid "No configuration information specified for SQL Preferences."
+msgstr "Nici o configuratie specificata pentru preferintele SQL."
+
+#: lib/Block/sunrise.php:29
+msgid "No location is set."
+msgstr "Nu e setata nici o locatie."
+
+#: lib/api.php:68
+msgid "Northern Hemisphere"
+msgstr "Emisfera nordica"
+
+#: templates/menu/menu.inc:8
+msgid "Options"
+msgstr "Optiuni"
+
+#: config/prefs.php.dist:32
+msgid "Other Options"
+msgstr "Alte optiuni"
+
+#: templates/prefs/setlocation.inc:27
+msgid "Please select a Country/State..."
+msgstr "Selectati un judet/o tara..."
+
+#: templates/prefs/setlocation.inc:40
+msgid "Please select a station..."
+msgstr "Selectati o statie..."
+
+#: lib/Block/metar.php:92
+msgid "Pressure: %s%s"
+msgstr "Presiune atmosferica: %s%s"
+
+#: lib/Jonah.php:51 lib/Jonah.php:54
+msgid "Radar"
+msgstr "Radar"
+
+#: lib/NewsAdmin.php:102
+msgid "Really delete this News Source?"
+msgstr "Sigur stergeti sursa de stiri?"
+
+#: lib/NewsAdmin.php:228
+msgid "Really delete this News Story?"
+msgstr "Sigur stergeti stirea?"
+
+#: lib/News/sql.php:328
+msgid "Required 'charset' not specified in news stories configuration."
+msgstr "'charset' nespecificat in configurarea stirilor."
+
+#: lib/News/sql.php:325
+msgid "Required 'database' not specified in news stories configuration."
+msgstr "'database' nespecificat in configurarea stirilor."
+
+#: lib/Weather/sql.php:216
+msgid "Required 'database' not specified in preferences configuration."
+msgstr "'database' nespecificat in configurarea preferintelor."
+
+#: lib/News/sql.php:316
+msgid "Required 'hostspec' not specified in news stories configuration."
+msgstr "'hostspec' nespecificat in configuratia stirilor."
+
+#: lib/Weather/sql.php:207
+msgid "Required 'hostspec' not specified in preferences configuration."
+msgstr "'hostspec' nespecificat in configurarea preferintelor."
+
+#: lib/News/sql.php:322
+msgid "Required 'password' not specified in news stories configuration."
+msgstr "'password' nespecificat in configurarea stirilor."
+
+#: lib/Weather/sql.php:213
+msgid "Required 'password' not specified in preferences configuration."
+msgstr "'password' nespecificat in configurarea preferintelor."
+
+#: lib/News/sql.php:313
+msgid "Required 'phptype' not specified in news stories configuration."
+msgstr "'phptype' nespecificat in configurarea stirilor."
+
+#: lib/Weather/sql.php:204
+msgid "Required 'phptype' not specified in preferences configuration."
+msgstr "'phptype' nespecificat in configurarea preferintelor."
+
+#: lib/News/sql.php:319
+msgid "Required 'username' not specified in news stories configuration."
+msgstr "'username' nespecificat in configurarea stirilor."
+
+#: lib/Weather/sql.php:210
+msgid "Required 'username' not specified in preferences configuration."
+msgstr "'username' nespecificat in configurarea preferintelor."
+
+#: lib/Jonah.php:325
+msgid "Saturday"
+msgstr "Sambata"
+
+#: templates/channels/edit.inc:19
+msgid "Save Changes"
+msgstr "Salveaza modificari"
+
+#: config/prefs.php.dist:44
+msgid "Select your preferred language:"
+msgstr "Selectare limba favorita:"
+
+#: config/prefs.php.dist:10
+msgid "Set the your preferred display language."
+msgstr "Setare limba favorita."
+
+#: config/prefs.php.dist:28
+msgid "Set which stock ticker symbols to watch."
+msgstr "Setati ce simboluri doriti sa urmariti."
+
+#: lib/NewsAdmin.php:119 lib/NewsAdmin.php:186
+msgid "Short Description"
+msgstr "Descriere scurta"
+
+#: config/prefs.php.dist:106
+msgid "Should measurements be shown in metric values?"
+msgstr "Afisare masuri in sistem metric?"
+
+#: config/prefs.php.dist:135
+msgid "Show Dow Jones Industrial Average (INDU)?"
+msgstr "Afisare medie industriala Dow Jones (INDU)?"
+
+#: config/prefs.php.dist:142
+msgid "Show S&amp;P 500 (SPX)?"
+msgstr "Afisare S&amp; P500 (SPX)?"
+
+#: config/prefs.php.dist:71
+msgid "Show headlines in %s summary?"
+msgstr "Afisare titluri in cuprinsul %s?"
+
+#: config/prefs.php.dist:92
+msgid "Show headlines in main content display?"
+msgstr "Afisare titluri in fereastra principala?"
+
+#: config/prefs.php.dist:78
+msgid "Show stock quotes in %s summary?"
+msgstr "Afisare cotatii bursa in cuprinsul %s?"
+
+#: config/prefs.php.dist:99
+msgid "Show stock quotes in main content display?"
+msgstr "Afisare cotatii bursa in fereastra principala?"
+
+#: config/prefs.php.dist:64
+msgid "Show weather in %s summary?"
+msgstr "Afisare timp probabil in cuprinsul %s?"
+
+#: config/prefs.php.dist:85
+msgid "Show weather in main content display?"
+msgstr "Afisare timp probabil in fereastra principala?"
+
+#: templates/index/notconfigured.inc:39
+msgid "Some of Jonah's configuration files are missing:"
+msgstr "Anumite fisiere de configurare Jonah lipsesc:"
+
+#: lib/Block/news.php:56
+msgid "Something went wrong!"
+msgstr "Ceva nu a mers bine!"
+
+#: lib/NewsAdmin.php:99 lib/api.php:87
+msgid "Source"
+msgstr "Sursa"
+
+#: lib/NewsAdmin.php:20 lib/NewsAdmin.php:76
+msgid "Source Description"
+msgstr "Descriere sursa"
+
+#: lib/NewsAdmin.php:19 lib/NewsAdmin.php:71
+msgid "Source Name"
+msgstr "Nume sursa"
+
+#: lib/api.php:69
+msgid "Southern Hemisphere"
+msgstr "Emisfera sudica"
+
+#: config/templates.php.dist:27
+msgid "Standard"
+msgstr "Standard"
+
+#: stockquote.php:17
+msgid "Stock Quote"
+msgstr "Cotatie bursa"
+
+#: lib/Block/stocks.php:23 lib/api.php:105 content.php:30
+msgid "Stock Quotes"
+msgstr "Cotatii bursa"
+
+#: config/prefs.php.dist:27
+msgid "Stocks"
+msgstr "Burse"
+
+#: lib/NewsAdmin.php:160 lib/NewsAdmin.php:225
+msgid "Story"
+msgstr "Articol"
+
+#: lib/NewsAdmin.php:118 lib/NewsAdmin.php:183
+msgid "Story Title (Headline)"
+msgstr "Titlu Articol"
+
+#: lib/NewsAdmin.php:122 lib/NewsAdmin.php:194
+msgid "Story URL"
+msgstr "URL Articol"
+
+#: lib/News/sql.php:214
+msgid "Story not found."
+msgstr "Articol negasit."
+
+#: channels.php:168 templates/channels/subscribe.inc:45
+#: templates/channels/subscribe.inc:46
+msgid "Subscribe"
+msgstr "Abonare"
+
+#: lib/Block/sunrise.php:42
+msgid "Sun Rise"
+msgstr "Soarele rasare"
+
+#: lib/api.php:46
+msgid "Sun Rise / Set"
+msgstr "Soarele Rasare / Apune"
+
+#: lib/Block/sunrise.php:23
+msgid "Sun Rise and Set"
+msgstr "Soarele rasare si apune"
+
+#: lib/Block/sunrise.php:47
+msgid "Sun Set"
+msgstr "Soarele apune"
+
+#: lib/Jonah.php:325
+msgid "Sunday"
+msgstr "Duminica"
+
+#: lib/Block/metar.php:84
+msgid "Temperature: %s; Dewpoint: %s"
+msgstr "Temperatura: %s; Umiditate: %s"
+
+#: newsadmin.php:186
+msgid "The News Story '%s' has been added."
+msgstr "Stirea '%s' a fost adaugata."
+
+#: newsadmin.php:205
+msgid "The Story has been modified."
+msgstr "Articolul a fost modificat."
+
+#: lib/Jonah.php:405
+msgid "The UV index is a %s. "
+msgstr "Indexul de UV este %s."
+
+#: newsadmin.php:65
+msgid "The source '%s' has been added."
+msgstr "Sursa '%s' a fost adaugata."
+
+#: newsadmin.php:136
+msgid "The source has been deleted."
+msgstr "Sursa a fost stearsa."
+
+#: newsadmin.php:117
+msgid "The source has been modified."
+msgstr "Sursa a fost modificata."
+
+#: newsadmin.php:141
+msgid "The source was not deleted."
+msgstr "Sursa nu a fost stearsa."
+
+#: newsadmin.php:221
+msgid "The story has been deleted."
+msgstr "Articolul a fost sters."
+
+#: newsadmin.php:226
+msgid "The story was not deleted."
+msgstr "Articolul nu a fost sters"
+
+#: lib/Jonah.php:350
+msgid "The temperature is <b>%s</b>, "
+msgstr "Temperatura este <b>%s</b>, "
+
+#: lib/NewsAdmin.php:45
+msgid "There are no News Sources."
+msgstr "Nu exista surse de stiri."
+
+#: lib/NewsAdmin.php:156
+msgid "There are no News Stories."
+msgstr "Nu exista stiri."
+
+#: newsadmin.php:184
+msgid "There was an error adding the News Story: %s."
+msgstr "S-a produs o eroare la adaugarea stirii: %s."
+
+#: newsadmin.php:68
+msgid "There was an error adding the source: %s."
+msgstr "S-a produs o eroare la adaugarea sursei: %s."
+
+#: newsadmin.php:138
+msgid "There was an error deleting the source: %s."
+msgstr "S-a produs o eroare la stergerea sursei: %s."
+
+#: newsadmin.php:223
+msgid "There was an error deleting the story: %s."
+msgstr "S-a produs o eroare la stergerea articolului: %s."
+
+#: newsadmin.php:203
+msgid "There was an error editing the Story: %s."
+msgstr "S-a produs o eroare la editarea articolului: %s"
+
+#: newsadmin.php:120
+msgid "There was an error editing the source: %s."
+msgstr "S-a produs o eroare la editarea sursei: %s."
+
+#: templates/index/notconfigured.inc:72
+msgid "This file contains preferences for Jonah."
+msgstr "Acest fisier contine preferintele pentru Jonah."
+
+#: templates/index/notconfigured.inc:51
+msgid ""
+"This file defines all of the headline channels that you wish Jonah to "
+"display."
+msgstr ""
+"Acest fisier defineste toate titlurile canalelor pe care doriti sa le "
+"afiseze Jonah."
+
+#: templates/index/notconfigured.inc:65
+msgid ""
+"This file defines the HTML (or other) templates that are used to generate "
+"different views of the news channels that Jonah provides."
+msgstr ""
+"Acest fisier defineste modelele HTML (sau altele) care vor fi utilizate "
+"pentru a genera vizualizari diferite ale canalelor de stiri ale Jonah."
+
+#: lib/NewsAdmin.php:64
+msgid "This is not a valid News Source."
+msgstr "Aceasta nu este o sursa de stiri valida."
+
+#: lib/NewsAdmin.php:175
+msgid "This is not a valid News Story."
+msgstr "Aceasta nu este o stire valida."
+
+#: templates/index/notconfigured.inc:44
+msgid ""
+"This is the main Jonah configuration file. It contains options for all Jonah "
+"scripts."
+msgstr ""
+"Acesta este principalul fisier de configurare Jonah. Contine optiuni pentru "
+"toate scripturile Jonah."
+
+#: lib/Jonah.php:325
+msgid "Thursday"
+msgstr "Joi"
+
+#: lib/Jonah.php:325
+msgid "Tuesday"
+msgstr "Marti"
+
+#: config/templates.php.dist:54
+msgid "Ultracompact"
+msgstr "Ultracompact"
+
+#: templates/channels/edit.inc:20
+msgid "Undo Changes"
+msgstr "Anuleaza schimbari"
+
+#: channels.php:164 templates/channels/subscribe.inc:40
+#: templates/channels/subscribe.inc:41
+msgid "Unsubscribe"
+msgstr "Dezabonare"
+
+#: lib/api.php:119 templates/menu/menu.inc:12
+msgid "Update"
+msgstr "Innoire"
+
+#: templates/backend/backend.inc:11
+msgid "Update All Channels"
+msgstr "Innoire toate canalele"
+
+#: prefs.php:54
+msgid "User Options"
+msgstr "Optiuni utilizator"
+
+#: lib/api.php:96 templates/channels/edit.inc:9
+msgid "View"
+msgstr "Vizualizare"
+
+#: lib/Jonah.php:556
+msgid "View Quote Details"
+msgstr "Vizualizare detalii cotatie"
+
+#: lib/Jonah.php:385
+msgid "Visibility is %s"
+msgstr "Vizibilitatea este %s"
+
+#: lib/Block/metar.php:76
+msgid "Visibility: %s%s"
+msgstr "Vizibilitate: %s%s"
+
+#: content.php:27
+msgid "Weather"
+msgstr "Timp probabil"
+
+#: lib/Block/weather.php:23 lib/api.php:109
+msgid "Weather Forecast"
+msgstr "Prognoza vreme"
+
+#: config/prefs.php.dist:21
+msgid "Weather Station"
+msgstr "Statie meteo"
+
+#: templates/prefs/setlocation.inc:4 templates/prefs/setlocation.inc:60
+msgid "Weather station:"
+msgstr "Statie meteo:"
+
+#: lib/Block/metar.php:113
+msgid "Weather:"
+msgstr "Timp probabil:"
+
+#: lib/Jonah.php:325
+msgid "Wednesday"
+msgstr "Miercuri"
+
+#: lib/api.php:60
+msgid "Which phases?"
+msgstr "Care faze?"
+
+#: lib/Block/metar.php:59
+msgid "Wind: %s%s from %s, gusting to %s%s."
+msgstr "Vant: %s%s dinspre %s, inspre %s%s."
+
+#: lib/Block/metar.php:66
+msgid "Wind: %s%s from %s."
+msgstr "Vant: %s%s dinspre %s."
+
+#: lib/NewsAdmin.php:95 lib/NewsAdmin.php:220
+msgid "Yes"
+msgstr "Da"
+
+#: lib/NewsAdmin.php:129 lib/NewsAdmin.php:202
+msgid "You MUST enter either a URL or a full story."
+msgstr "TREBUIE introdus ori un URL ori un articol complet."
+
+#: channels.php:122
+msgid "You have edited your subscription to the channel %s."
+msgstr "Ati editat abonamentul la canalul %s."
+
+#: content.php:70
+msgid "You have no news subscriptions."
+msgstr "Nu aveti nici un abonament de stiri."
+
+#: lib/Block/stocks.php:30
+msgid "You have no ticker symbols in your portfolio at this time."
+msgstr "Nu aveti nici un simbol in portofoliu in acest moment."
+
+#: content.php:44
+msgid "You have no ticker symbols listed at this time."
+msgstr "Nu aveti nici un simbol listat in acest moment."
+
+#: channels.php:65
+msgid "You have subscribed to the channel %s."
+msgstr "Ati fost inscris la canalul %s."
+
+#: channels.php:100
+msgid "You have unsubscribed from the channel %s."
+msgstr "Ati fost dezabonat de la canalul %s."
+
+#: lib/NewsAdmin.php:120 lib/NewsAdmin.php:189
+msgid "You must enter either a URL or a full story."
+msgstr "Trebuie introdus ori un URL ori un articol integral."
+
+#: config/prefs.php.dist:14 config/prefs.php.dist:20 config/prefs.php.dist:26
+msgid "Your Content"
+msgstr "Cuprinsul vostru"
+
+#: config/prefs.php.dist:8
+msgid "Your Information"
+msgstr "Informatii personale"
+
+#: lib/Jonah.php:362
+msgid "and the wind is %s at %s. "
+msgstr "si vantul este %s la %s. "
+
+#: lib/Jonah.php:368
+msgid "and the wind is %s. "
+msgstr "si vantul este %s. "
+
+#: lib/Jonah.php:359
+msgid "and there is no wind measured. "
+msgstr "si nu este nici un vant masurat. "
+
+#: lib/Jonah.php:329
+msgid "cloudy"
+msgstr "noros"
+
+#: lib/Jonah.php:329
+msgid "cold"
+msgstr "rece"
+
+#: lib/Jonah.php:328
+msgid "dust"
+msgstr "praf"
+
+#: lib/Jonah.php:302
+msgid "error: could not open quote %s cache file for writing."
+msgstr "eroare: nu s-a putut deschide fisierul de cotatii pentru scriere."
+
+#: lib/Jonah.php:297
+msgid "error: could not update quote %s."
+msgstr "eroare: nu s-a putut reinnoi cotatia %s."
+
+#: lib/Jonah.php:307
+msgid "error: write to quote %s cache file failed."
+msgstr "eroare: scriere in fisierul de cotatii esuata."
+
+#: lib/Jonah.php:328
+msgid "flurries"
+msgstr "rafale"
+
+#: lib/Jonah.php:328
+msgid "fog"
+msgstr "ceata"
+
+#: lib/Jonah.php:329
+msgid "haze"
+msgstr "ceata"
+
+#: lib/Jonah.php:327
+msgid "heavy rain"
+msgstr "ploaie torentiala"
+
+#: lib/Jonah.php:401
+msgid "high %s. Use sunscreen"
+msgstr "%s inalta(e). Utilizati protectie contra soarelui."
+
+#: lib/Jonah.php:330
+msgid "hot"
+msgstr "fierbinte"
+
+#: lib/Jonah.php:356
+msgid "humidity is at %s"
+msgstr "umiditate este %s"
+
+#: lib/Jonah.php:387
+msgid "infinite"
+msgstr "infinit"
+
+#: lib/Jonah.php:327
+msgid "light flurries"
+msgstr "rafale usoare"
+
+#: lib/Jonah.php:397
+msgid "low %s"
+msgstr "%s scazuta(e)"
+
+#: lib/Jonah.php:395
+msgid "minimal %s"
+msgstr "%s minim(e)"
+
+#: lib/Jonah.php:399
+msgid "moderate %s"
+msgstr "%s moderat(e)"
+
+#: lib/Jonah.php:329
+msgid "mostly cloudy"
+msgstr "mai mult noros"
+
+#: lib/Jonah.php:330
+msgid "mostly sunny"
+msgstr "mai mult insorit"
+
+#: lib/Jonah.php:366
+msgid "mph"
+msgstr "mph"
+
+#: templates/content/header.inc:6
+msgid "no headlines available at this time"
+msgstr "nici un titlu disponibil in acest moment"
+
+#: lib/Jonah.php:330
+msgid "partly cloudy"
+msgstr "partial noros"
+
+#: lib/Jonah.php:326
+msgid "rain"
+msgstr "ploaie"
+
+#: lib/Jonah.php:327
+msgid "sleet"
+msgstr "lapovita"
+
+#: lib/Jonah.php:329
+msgid "smoke"
+msgstr "fum"
+
+#: lib/Jonah.php:326
+msgid "snow"
+msgstr "zapada"
+
+#: lib/Jonah.php:328
+msgid "snow and wind"
+msgstr "viscol"
+
+#: lib/Jonah.php:330
+msgid "sunny"
+msgstr "insorit(a)"
+
+#: lib/Jonah.php:326
+msgid "thunder storms"
+msgstr "furtuna de fulgere"
+
+#: lib/Jonah.php:403
+msgid "very high %s. Stay indoors"
+msgstr "%s foarte ridicata(e). Ramaneti inauntru"
+
+#: lib/Jonah.php:326
+msgid "windy"
+msgstr "vantos(asa)"

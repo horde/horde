@@ -17,12 +17,11 @@ require_once 'Horde/Kolab/Filter/Content.php';
 require_once 'Horde/Kolab/Filter/Response.php';
 
 /* Parse the mail */
-$parser = &new Horde_Kolab_Filter_Content();
-$response = &new Horde_Kolab_Filter_Response();
+$parser = new Horde_Kolab_Filter_Content();
+$response = new Horde_Kolab_Filter_Response();
 
 $result = $parser->parse();
 if (is_a($result, 'PEAR_Error')) {
     $response->handle($result);
 }
 exit(0);
-?>

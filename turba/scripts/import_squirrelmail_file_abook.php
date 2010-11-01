@@ -1,4 +1,4 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
 /**
  * This script imports SquirrelMail file-based addressbooks into Turba.
@@ -17,18 +17,8 @@
  */
 
 // Do CLI checks and environment setup first.
-require_once dirname(__FILE__) . '/../lib/base.load.php';
-require_once HORDE_BASE . '/lib/core.php';
-
-// Makre sure no one runs this from the web.
-if (!Horde_Cli::runningFromCli()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment - make sure there's no time limit, init some
-// variables, etc.
-$cli = Horde_Cli::singleton();
-$cli->init();
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('turba', array('authentication' => 'none', 'cli' => true, 'user_admin' => true));
 
 // Read command line parameters.
 if ($argc != 2) {
@@ -37,19 +27,6 @@ if ($argc != 2) {
     exit;
 }
 $data = $argv[1];
-
-// Make sure we load Horde base to get the auth config
-$horde_authentication = 'none';
-require_once HORDE_BASE . '/lib/base.php';
-if ($conf['auth']['admins']) {
-    Horde_Auth::setAuth($conf['auth']['admins'][0], array());
-}
-
-// Now that we are authenticated, we can load Turba's base. Otherwise, the
-// share code breaks, causing a new, completely empty share to be created on
-// the DataTree with no owner.
-require_once TURBA_BASE . '/lib/base.php';
-require_once TURBA_BASE . '/lib/Object/Group.php';
 
 // Get list of SquirrelMail address book files
 if (is_dir($data)) {
@@ -80,11 +57,14 @@ foreach($files as $file) {
 
     // Reset user prefs
     unset($prefs);
-    $prefs = Horde_Prefs::factory($conf['prefs']['driver'], 'turba', $user, null, null, false);
+    $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')->create('turba', array(
+        'cache' => false,
+        'user' => $user
+    ));
 
     // Reset $cfgSources for current user.
     unset($cfgSources);
-    include TURBA_BASE . '/config/sources.php';
+    include TURBA_BASE . '/config/backends.php';
     $cfgSources = Turba::getConfigFromShares($cfgSources);
     $cfgSources = Turba::permissionsFilter($cfgSources);
 
@@ -102,9 +82,10 @@ foreach($files as $file) {
     }
 
     // Initiate driver
-    $driver = &Turba_Driver::singleton($import_source);
-    if (is_a($driver, 'PEAR_Error')) {
-        PEAR::raiseError(sprintf(_("Connection failed: %s"), $driver->getMessage()), 'horde.error', null, null, $import_source);
+    try {
+        $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($import_source);
+    } catch (Turba_Exception $e) {
+        PEAR::raiseError(sprintf(_("Connection failed: %s"), $e->getMessage()), 'horde.error', null, null, $import_source);
         continue;
     }
 
@@ -128,29 +109,30 @@ foreach($files as $file) {
             $gid = $driver->add($attributes);
             $group = new Turba_Object_Group($driver, array_merge($attributes, array('__key' => $gid)));
             foreach ($members as $member) {
-                $result = $driver->add(array('firstname' => $member, 'email' => $member));
-                if ($result && !is_a($result, 'PEAR_Error')) {
-                    $added = $group->addMember($result, $import_source);
-                    if (is_a($added, 'PEAR_Error')) {
-                        $cli->message('  ' . $added->getMessage(), 'cli.error');
-                    } else {
-                        $cli->message('  Added ' . $member, 'cli.success');
-                    }
+                try {
+                    $result = $driver->add(array('firstname' => $member, 'email' => $member));
+                    $group->addMember($result, $import_source);
+                    $cli->message('  Added ' . $member, 'cli.success');
+                } catch (Turba_Exception $e) {
+                    $cli->message('  ' . $e->getMessage(), 'cli.error');
                 }
             }
             $group->store();
         } else {
             // entry only contains one contact, import it
-            $contact = array('alias' => $entry[0],
-                             'firstname' => $entry[1],
-                             'lastname' => $entry[2],
-                             'email' => $entry[3],
-                             'notes' => $entry[4]);
-            $added = $driver->add($contact);
-            if (is_a($added, 'PEAR_Error')) {
-                $cli->message('  ' . $added->getMessage(), 'cli.error');
-            } else {
+            $contact = array(
+                'alias' => $entry[0],
+                'firstname' => $entry[1],
+                'lastname' => $entry[2],
+                'email' => $entry[3],
+                'notes' => $entry[4]
+            );
+
+            try {
+                $driver->add($contact);
                 $cli->message('  Added ' . $entry[3], 'cli.success');
+            } catch (Turba_Exception $e) {
+                $cli->message('  ' . $e->getMessage(), 'cli.error');
             }
         }
     }

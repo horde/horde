@@ -5,8 +5,9 @@
  *
  * Parameters:
  * <pre>
- * entities -- If true before replacing bbcode with HTML tags, any HTML
- *             entities will be replaced.
+ * entities - (boolean) Before replacing bbcode with HTML tags, replace HTML
+ *            entities?
+ *            DEFAULT: false
  * </pre>
  *
  * Supported bbcode:
@@ -54,10 +55,12 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Carlos Pedrinaci <cpedrinaci@yahoo.es>
- * @package Horde_Text_Filter
+ * @author   Carlos Pedrinaci <cpedrinaci@yahoo.es>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Text_Filter
  */
-class Horde_Text_Filter_Bbcode extends Horde_Text_Filter
+class Horde_Text_Filter_Bbcode extends Horde_Text_Filter_Base
 {
     /**
      * Filter parameters.
@@ -102,7 +105,8 @@ class Horde_Text_Filter_Bbcode extends Horde_Text_Filter
             '[quote]' => '<blockquote>', '[/quote]' => '</blockquote>',
             '[list]' => '<ul>', '[/list]' => '</ul>',
             '[numlist]' => '<ol>', '[/numlist]' => '</ol>',
-            '[*]' => '<li>');
+            '[*]' => '<li>'
+        );
 
         /* When checking URLs we validate part of them, but it is up
          * to the user to write them correctly (in particular the
@@ -110,36 +114,42 @@ class Horde_Text_Filter_Bbcode extends Horde_Text_Filter
          * expression in Mail_RFC822's isValidInetAddress() function,
          * slightly modified. */
         $regexp = array(
-            "#\[url\]((http|https)://([a-zA-Z\d][\w-]*)(\.[a-zA-Z\d][\w-]*)+(:(\d+))?(/([^<>]+))*)\[/url\]#U" =>
-            Horde::link("$1", "$1") . "$1</a>",
+            "#\[url\]((http|https)://([a-zA-Z\d][\w-]*)(\.[a-zA-Z\d][\w-]*)+(:(\d+))?(/([^<>]+))*)\[/url\]#U" => $this->_link("$1", "$1") . "$1</a>",
 
-            "#\[url\=((http|https)://([a-zA-Z\d][\w-]*)(\.[a-zA-Z\d][\w-]*)+(:(\d+))?(/([^<>]+))*)\]([^<>]+)\[/url\]#U" =>
-            Horde::link("$1", "$1") . "$9</a>",
+            "#\[url\=((http|https)://([a-zA-Z\d][\w-]*)(\.[a-zA-Z\d][\w-]*)+(:(\d+))?(/([^<>]+))*)\]([^<>]+)\[/url\]#U" => $this->_link("$1", "$1") . "$9</a>",
 
-            "#\[url\](([a-zA-Z\d][\w-]*)(\.[a-zA-Z\d][\w-]*)+(:(\d+))?(/([^<>]+))*)\[/url\]#U" =>
-            Horde::link("http://$1", "http://$1") . "$1</a>",
+            "#\[url\](([a-zA-Z\d][\w-]*)(\.[a-zA-Z\d][\w-]*)+(:(\d+))?(/([^<>]+))*)\[/url\]#U" => $this->_link("http://$1", "http://$1") . "$1</a>",
 
-            "#\[url\=(([a-zA-Z\d][\w-]*)(\.[a-zA-Z\d][\w-]*)+(:(\d+))?(/([^<>]+))*)\]([^<>]+)\[/url\]#U" =>
-            Horde::link("http://$1", "http://$1") . "$8</a>",
+            "#\[url\=(([a-zA-Z\d][\w-]*)(\.[a-zA-Z\d][\w-]*)+(:(\d+))?(/([^<>]+))*)\]([^<>]+)\[/url\]#U" => $this->_link("http://$1", "http://$1") . "$8</a>",
 
-            "#\[email\](([*+!.&\#$|\'\\%\/0-9a-zA-Z^_`{}=?~:-]+)@(([0-9a-zA-Z-]+\.)+[0-9a-zA-Z]{2,4}))\[/email\]#U" =>
-            Horde::link("mailto:$1", "mailto:$1") . "$1</a>",
+            "#\[email\](([*+!.&\#$|\'\\%\/0-9a-zA-Z^_`{}=?~:-]+)@(([0-9a-zA-Z-]+\.)+[0-9a-zA-Z]{2,4}))\[/email\]#U" => $this->_link("mailto:$1", "mailto:$1") . "$1</a>",
 
-            "#\[email\=(([*+!.&\#$|\'\\%\/0-9a-zA-Z^_`{}=?~:-]+)@(([0-9a-zA-Z-]+\.)+[0-9a-zA-Z]{2,4}))\]([^<>]+)\[/email\]#U" =>
-            Horde::link("mailto:$1", "mailto:$1") . "$5</a>",
+            "#\[email\=(([*+!.&\#$|\'\\%\/0-9a-zA-Z^_`{}=?~:-]+)@(([0-9a-zA-Z-]+\.)+[0-9a-zA-Z]{2,4}))\]([^<>]+)\[/email\]#U" => $this->_link("mailto:$1", "mailto:$1") . "$5</a>",
 
-            "#\[img\](.*)\[/img\]#U" =>
-            "<img src=\"$1\" alt=\"$1\" />",
+            "#\[img\](.*)\[/img\]#U" => "<img src=\"$1\" alt=\"$1\" />",
 
-            "#\[img\=(.*)\](.*)\[/img\]#U" =>
-            "<img src=\"$1\" alt=\"$2\" title=\"$2\" />",
+            "#\[img\=(.*)\](.*)\[/img\]#U" => "<img src=\"$1\" alt=\"$2\" title=\"$2\" />",
 
-            "#\[color\=(.*)\](.*)\[/color\]#U" =>
-            "<span style=\"color: $1;\">$2</span>"
-
+            "#\[color\=(.*)\](.*)\[/color\]#U" => "<span style=\"color: $1;\">$2</span>"
         );
 
-        return array('replace' => $replace, 'regexp' => $regexp);
+        return array(
+            'regexp' => $regexp,
+            'replace' => $replace
+        );
+    }
+
+    /**
+     * Return link for use in getPatterns() regexp.
+     *
+     * @var string $url    The URL.
+     * @var string $title  The link title.
+     *
+     * @return string  The opening <a> tag.
+     */
+    protected function _link($url, $title)
+    {
+        return '<a href="' . $url . '" title="' . $title . '">';
     }
 
 }

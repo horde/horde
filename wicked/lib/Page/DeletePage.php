@@ -9,33 +9,28 @@
  */
 
 /**
- * Page
- */
-require_once WICKED_BASE . '/lib/Page.php';
-
-/**
  * Wicked DeletePage class (for confirming deletion).
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Wicked
  */
-class DeletePage extends Page {
+class Wicked_Page_DeletePage extends Wicked_Page {
 
     /**
      * Display modes supported by this page.
      *
      * @var array
      */
-    var $supportedModes = array(WICKED_MODE_DISPLAY => true);
+    public $supportedModes = array(Wicked::MODE_DISPLAY => true);
 
     /**
      * The page that we're confirming deletion for.
      *
      * @var string
      */
-    var $_referrer = null;
+    protected $_referrer = null;
 
-    function DeletePage($referrer)
+    public function __construct($referrer)
     {
         $this->_referrer = $referrer;
     }
@@ -45,7 +40,7 @@ class DeletePage extends Page {
      *
      * @return integer  The permissions bitmask.
      */
-    function getPermissions()
+    public function getPermissions()
     {
         return parent::getPermissions($this->referrer());
     }
@@ -54,27 +49,25 @@ class DeletePage extends Page {
      * Send them back whence they came if they aren't allowed to
      * delete this page.
      */
-    function preDisplay()
+    public function preDisplay()
     {
-        $page = Page::getPage($this->referrer());
-        if (!$page->allows(WICKED_MODE_REMOVE)) {
-            header('Location: ' . Wicked::url($this->referrer(), true));
-            exit;
+        $page = Wicked_Page::getPage($this->referrer());
+        if (!$page->allows(Wicked::MODE_REMOVE)) {
+            Wicked::url($this->referrer(), true)->redirect();
         }
     }
 
     /**
      * Render this page in Display mode.
      *
-     * @return mixed True or PEAR_Error.
+     * @throws Wicked_Exception
      */
-    function display()
+    public function display()
     {
         $version = Horde_Util::getFormData('version');
-        $page = Page::getPage($this->referrer(), $version);
+        $page = Wicked_Page::getPage($this->referrer(), $version);
         if (!$page->isValid()) {
-            header('Location: ' . Wicked::url('WikiHome', true));
-            exit;
+            Wicked::url('WikiHome', true)->redirect();
         }
 
         if (empty($version)) {
@@ -92,7 +85,7 @@ class DeletePage extends Page {
 <input type="hidden" name="referrer" value="<?php echo htmlspecialchars($page->pageName()) ?>" />
 
 <h1 class="header">
- <?php echo _("DeletePage") . ': ' . Horde::link($page->pageUrl()) . htmlspecialchars($page->pageName()) . '</a>'; if ($page->isLocked()) echo Horde::img('locked.png', _("Locked")) ?>
+ <?php echo _("Delete Page") . ': ' . Horde::link($page->pageUrl()) . htmlspecialchars($page->pageName()) . '</a>'; if ($page->isLocked()) echo Horde::img('locked.png', _("Locked")) ?>
 </h1>
 
 <div class="headerbox" style="padding:4px">
@@ -105,49 +98,45 @@ class DeletePage extends Page {
 
 </form>
 <?php
-        return true;
     }
 
-    function pageName()
+    public function pageName()
     {
         return 'DeletePage';
     }
 
-    function pageTitle()
+    public function pageTitle()
     {
-        return _("DeletePage");
+        return _("Delete Page");
     }
 
-    function referrer()
+    public function referrer()
     {
         return $this->_referrer;
     }
 
-    function handleAction()
+    public function handleAction()
     {
         $pagename = $this->referrer();
-        $page = Page::getPage($pagename);
-        if ($page->allows(WICKED_MODE_REMOVE)) {
+        $page = Wicked_Page::getPage($pagename);
+        if ($page->allows(Wicked::MODE_REMOVE)) {
             $version = Horde_Util::getFormData('version');
             if (empty($version)) {
                 $GLOBALS['wicked']->removeAllVersions($pagename);
                 $GLOBALS['notification']->push(sprintf(_("Successfully deleted \"%s\"."), $pagename), 'horde.success');
                 Wicked::mail("Deleted page: $pagename\n",
                              array('Subject' => '[' . $GLOBALS['registry']->get('name') . '] deleted: ' . $pagename));
-                header('Location: ' . Wicked::url('WikiHome', true));
-            } else {
-                $GLOBALS['wicked']->removeVersion($pagename, $version);
-                $GLOBALS['notification']->push(sprintf(_("Deleted version %s of \"%s\"."), $version, $pagename), 'horde.success');
-                Wicked::mail("Deleted version: $version of $pagename\n",
-                             array('Subject' => '[' . $GLOBALS['registry']->get('name') . '] deleted: ' . $pagename . ' [' . $version . ']'));
-                header('Location: ' . Wicked::url($pagename, true));
+                Wicked::url('WikiHome', true)->redirect();
             }
-            exit;
+            $GLOBALS['wicked']->removeVersion($pagename, $version);
+            $GLOBALS['notification']->push(sprintf(_("Deleted version %s of \"%s\"."), $version, $pagename), 'horde.success');
+            Wicked::mail("Deleted version: $version of $pagename\n",
+                         array('Subject' => '[' . $GLOBALS['registry']->get('name') . '] deleted: ' . $pagename . ' [' . $version . ']'));
+            Wicked::url($pagename, true)->redirect();
         }
 
         $GLOBALS['notification']->push(sprintf(_("You don't have permission to delete \"%s\"."), $pagename), 'horde.warning');
-        header('Location: ' . Wicked::url($this->referrer(), true));
-        exit;
+        Wicked::url($this->referrer(), true)->redirect();
     }
 
 }

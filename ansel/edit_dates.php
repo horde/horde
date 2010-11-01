@@ -7,7 +7,9 @@
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
-require_once dirname(__FILE__) . '/lib/base.php';
+
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('ansel');
 
 $images = Horde_Util::getFormData('image', array());
 $actionID = Horde_Util::getFormData('actionID');
@@ -16,21 +18,24 @@ $page = Horde_Util::getFormData('page', 0);
 
 /* If we have a single gallery, check perms now */
 if (!empty($gallery_id)) {
-    $gallery = $ansel_storage->getGallery($gallery_id);
-    if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+    $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($gallery_id);
+    if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
         $notification->push(_("You are not allowed to edit these photos."), 'horde.error');
-        Horde_Util::closeWindowJS('window.opener.location.href = window.opener.location.href; window.close();');
+        echo Horde::wrapInlineScript(array(
+            'window.opener.location.href = window.opener.location.href;',
+            'window.close();'
+        ));
         exit;
     }
-} else {
-    // TODO - right now we should *always* have a gallery_id. If we get here
-    //        from a results view, we may not, but that's not implemented yet.
 }
 
 /* Make sure we have at least one image */
 if (!count($images)) {
     echo $notification->push(_("You must select at least on photo to edit."), 'horde.error');
-    Horde_Util::closeWindowJS('window.opener.location.href = window.opener.location.href; window.close();');
+    echo Horde::wrapInlineScript(array(
+        'window.opener.location.href = window.opener.location.href;',
+        'window.close();'
+    ));
     exit;
 }
 
@@ -41,13 +46,12 @@ $form = new Ansel_Form_ImageDate($vars, _("Edit Dates"));
 if ($actionID == 'edit_dates') {
     $count = 0;
     foreach (array_keys($images) as $image_id) {
-        $image = $ansel_storage->getImage($image_id);
-        if (!is_a($image, 'PEAR_Error')) {
+        try {
+            $image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($image_id);
             if (empty($gallery_id)) {
                 // Images might be from different galleries
-                $gallery = $ansel_storage->getGallery($image->gallery);
-                if (is_a($gallery, 'PEAR_Error') ||
-                    !$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+                $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($image->gallery);
+                if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
                     continue;
                 }
             }
@@ -55,16 +59,21 @@ if ($actionID == 'edit_dates') {
             $image->originalDate = (int)$newDate->timestamp();
             $image->save();
             ++$count;
-        } else {
-           $notification->push(sprintf(_("There was an error editing the dates: %s"), $image->getMessage()), 'horde.error');
-           Horde_Util::closeWindowJS('window.opener.location.href = window.opener.location.href; window.close();');
+        } catch (Ansel_Exception $e) {
+           $notification->push(sprintf(_("There was an error editing the dates: %s"), $e->getMessage()), 'horde.error');
+            echo Horde::wrapInlineScript(array(
+                'window.opener.location.href = window.opener.location.href;',
+                'window.close();'
+            ));
            exit;
         }
-
     }
 
     $notification->push(sprintf(_("Successfully modified the date on %d photos."), $count), 'horde.success');
-    Horde_Util::closeWindowJS('window.opener.location.href = window.opener.location.href; window.close();');
+    echo Horde::wrapInlineScript(array(
+        'window.opener.location.href = window.opener.location.href;',
+        'window.close();'
+    ));
     exit;
 }
 
@@ -73,7 +82,7 @@ $html = '';
 foreach ($keys as $key) {
     $html .= '<img src="' . Ansel::getImageUrl($key, 'mini', false) . '" style="margin:2px;" alt="[thumbnail]" />';
 }
-$image = $ansel_storage->getImage(array_pop($keys));
+$image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage(array_pop($keys));
 /* Display the form */
 $vars->set('image', $images);
 $vars->set('gallery', $gallery_id);

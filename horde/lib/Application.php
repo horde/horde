@@ -5,6 +5,8 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Horde through this API.
  *
+ * Copyright 2010 The Horde Project (http://www.horde.org/)
+ *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
@@ -25,281 +27,94 @@ class Horde_Application extends Horde_Registry_Application
     public $version = '4.0-git';
 
     /**
-     * Constructor.
-     *
-     * Global variables defined:
-     *   $notification - Notification object
-     *   $registry     - Registry object
-     *
-     * Global constants defined:
-     *   HORDE_TEMPLATES - (string) Location of template files.
-     *
-     * @param array $args  Optional arguments:
-     * <pre>
-     * 'admin' - (boolean) Require authenticated user to be and admin?
-     * 'authentication' - (string) The type of authentication to use:
-     *   'none'  - Do not authenticate
-     *   'throw' - Authenticate; on no auth, throw a Horde_Exception
-     *   [DEFAULT] - Authenticate; on no auth redirect to login screen
-     * 'nocompress' - (boolean) Controls whether the page should be
-     *                compressed.
-     * 'nologintasks' - (boolean) If set, don't perform logintasks (never
-     *                  performed if authentication is 'none').
-     * 'session_control' - (string) Sets special session control limitations:
-     *   'none' - Do not start a session
-     *   'readonly' - Start session readonly
-     *   [DEFAULT] - Start read/write session
-     * </pre>
-     */
-    public function __construct($args = array())
-    {
-        $args = array_merge(array(
-            'admin' => false,
-            'authentication' => null,
-            'nocompress' => false,
-            'nologintasks' => false,
-            'session_control' => null
-        ), $args);
-
-        // Registry.
-        $s_ctrl = 0;
-        switch ($args['session_control']) {
-        case 'none':
-            $s_ctrl = Horde_Registry::SESSION_NONE;
-            break;
-
-        case 'readonly':
-            $s_ctrl = Horde_Registry::SESSION_READONLY;
-            break;
-        }
-        $GLOBALS['registry'] = Horde_Registry::singleton($s_ctrl);
-
-        try {
-            $GLOBALS['registry']->pushApp('horde', array('check_perms' => ($args['authentication'] != 'none'), 'logintasks' => !$args['nologintasks']));
-
-            if ($args['admin'] && !Horde_Auth::isAdmin()) {
-                throw new Horde_Exception('Not an admin');
-            }
-        } catch (Horde_Exception $e) {
-            if ($args['authentication'] == 'throw') {
-                throw $e;
-            }
-
-            Horde_Auth::authenticateFailure('horde', $e);
-        }
-
-        if (!defined('HORDE_TEMPLATES')) {
-            define('HORDE_TEMPLATES', $GLOBALS['registry']->get('templates'));
-        }
-
-        $GLOBALS['notification'] = Horde_Notification::singleton();
-        $GLOBALS['notification']->attach('status');
-
-        // Start compression.
-        if (!$args['nocompress']) {
-            Horde::compressOutput();
-        }
-    }
-
-    /**
      * Returns a list of available permissions.
+     *
+     * @return array  TODO
      */
     public function perms()
     {
-        $perms = array();
-
-        $perms['tree']['horde']['max_blocks'] = false;
-        $perms['title']['horde:max_blocks'] = _("Maximum Number of Portal Blocks");
-        $perms['type']['horde:max_blocks'] = 'int';
-
-        return $perms;
+        return array(
+            'max_blocks' => array(
+                'title' => _("Maximum Number of Portal Blocks"),
+                'type' => 'int'
+            )
+        );
     }
 
     /**
-     * Code to run when viewing prefs for this application.
+     * Returns the specified permission for the given app permission.
      *
-     * @param string $group  The prefGroup name.
+     * @param string $permission  The permission to check.
+     * @param mixed $allowed      The allowed permissions.
+     * @param array $opts         Additional options (NONE).
+     *
+     * @return mixed  The value of the specified permission.
      */
-    public function prefsInit($group)
+    public function hasPermission($permission, $allowed, $opts = array())
     {
-        $out = array();
-
-        /* Assign variables for select lists. */
-        if (!$GLOBALS['prefs']->isLocked('timezone')) {
-            $out['timezone_options'] = Horde_Nls::getTimezones();
-            array_unshift($out['timezone_options'], _("Default"));
+        switch ($permission) {
+        case 'max_blocks':
+            $allowed = max($allowed);
+            break;
         }
 
-        if (!$GLOBALS['prefs']->isLocked('initial_application')) {
-            $out['initial_application_options'] = array();
-            $apps = $GLOBALS['registry']->listApps(array('active'));
-            foreach ($apps as $a) {
-                if (file_exists($GLOBALS['registry']->get('fileroot', $a)) &&
-                    (($GLOBALS['perms']->exists($a) && ($GLOBALS['perms']->hasPermission($a, Horde_Auth::getAuth(), Horde_Perms::READ) || Horde_Auth::isAdmin())) ||
-                     !$GLOBALS['perms']->exists($a))) {
-                    $out['initial_application_options'][$a] = $GLOBALS['registry']->get('name', $a);
-                }
-            }
-            asort($out['initial_application_options']);
-        }
+        return $allowed;
+    }
 
-        if (!$GLOBALS['prefs']->isLocked('theme')) {
-            $out['theme_options'] = array();
-            $theme_base = $GLOBALS['registry']->get('themesfs', 'horde');
-            $dh = @opendir($theme_base);
-            if (!$dh) {
-                $GLOBALS['notification']->push("Theme directory can't be opened", 'horde.error');
-            } else {
-                while (($dir = readdir($dh)) !== false) {
-                    if ($dir == '.' || $dir == '..') {
-                        continue;
-                    }
+    /**
+     * Populate dynamically-generated preference values.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     */
+    public function prefsEnum($ui)
+    {
+        $GLOBALS['injector']->getInstance('Horde_Prefs_Ui')->prefsEnum($ui);
+    }
 
-                    $theme_name = null;
-                    @include $theme_base . '/' . $dir . '/info.php';
-                    if (!empty($theme_name)) {
-                        $out['theme_options'][$dir] = $theme_name;
-                    }
-                }
-            }
+    /**
+     * Code to run on init when viewing prefs for this application.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     */
+    public function prefsInit($ui)
+    {
+        $GLOBALS['injector']->getInstance('Horde_Prefs_Ui')->prefsInit($ui);
+    }
 
-            asort($out['theme_options']);
-        }
-
-        return $out;
+    /**
+     * Generate code used to display a special preference.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     * @param string $item             The preference name.
+     *
+     * @return string  The HTML code to display on the options page.
+     */
+    public function prefsSpecial($ui, $item)
+    {
+        return $GLOBALS['injector']->getInstance('Horde_Prefs_Ui')->prefsSpecial($ui, $item);
     }
 
     /**
      * Special preferences handling on update.
      *
-     * @param string $item      The preference name.
-     * @param boolean $updated  Set to true if preference was updated.
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     * @param string $item             The preference name.
      *
      * @return boolean  True if preference was updated.
      */
-    public function prefsHandle($item, $updated)
+    public function prefsSpecialUpdate($ui, $item)
     {
-        switch ($item) {
-        case 'showsummaryselect':
-            $show_summaries = Horde_Util::getFormData('show_summaries');
-            if (!is_null($show_summaries)) {
-                $GLOBALS['prefs']->setValue('show_summaries', $show_summaries);
-                return true;
-            }
-            break;
-
-        case 'themeselect':
-            $theme = Horde_Util::getFormData('theme');
-            if (!is_null($theme)) {
-                $GLOBALS['prefs']->setValue('theme', $theme);
-                return true;
-            }
-            break;
-
-        case 'categorymanagement':
-            $cManager = new Horde_Prefs_CategoryManager();
-
-            /* Always save colors of all categories. */
-            $colors = array();
-            $categories = $cManager->get();
-            foreach ($categories as $category) {
-                if ($color = Horde_Util::getFormData('color_' . md5($category))) {
-                    $colors[$category] = $color;
-                }
-            }
-            if ($color = Horde_Util::getFormData('color_' . md5('_default_'))) {
-                $colors['_default_'] = $color;
-            }
-            if ($color = Horde_Util::getFormData('color_' . md5('_unfiled_'))) {
-                $colors['_unfiled_'] = $color;
-            }
-            $cManager->setColors($colors);
-
-            $action = Horde_Util::getFormData('cAction');
-            $category = Horde_Util::getFormData('category');
-
-            switch ($action) {
-            case 'add':
-                $cManager->add($category);
-                break;
-
-            case 'remove':
-                $cManager->remove($category);
-                break;
-
-            default:
-                /* Save button. */
-                $updated = true;
-                Horde::addInlineScript(
-                    'if (window.opener && window.name) window.close();', 'javascript'
-                );
-            }
-            break;
-
-        case 'credentialsui':
-            $credentials = Horde_Util::getFormData('credentials');
-            if (!is_null($credentials)) {
-                $GLOBALS['prefs']->setValue('credentials', serialize($credentials));
-                return true;
-            }
-            break;
-        }
-
-        return $updated;
+        return $GLOBALS['injector']->getInstance('Horde_Prefs_Ui')->prefsSpecialUpdate($ui, $item);
     }
 
     /**
-     * Do anything that we need to do as a result of certain preferences
-     * changing.
+     * Called when preferences are changed.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
-    public function prefsCallback()
+    public function prefsCallback($ui)
     {
-        $need_reload = false;
-        $old_sidebar = $GLOBALS['prefs']->getValue('show_sidebar');
-
-        if ($GLOBALS['prefs']->isDirty('language')) {
-            if ($GLOBALS['prefs']->isDirty('language')) {
-                Horde_Nls::setLanguageEnvironment($GLOBALS['prefs']->getValue('language'));
-                foreach ($GLOBALS['registry']->listAPIs() as $api) {
-                    if ($GLOBALS['registry']->hasMethod($api . '/changeLanguage')) {
-                        $GLOBALS['registry']->call($api . '/changeLanguage');
-                    }
-                }
-            }
-
-            $need_reload = true;
-        } else {
-            /* Do reload on change of any of these variables. */
-            $need_reload = (
-                $GLOBALS['prefs']->isDirty('sidebar_width') ||
-                $GLOBALS['prefs']->isDirty('theme') ||
-                $GLOBALS['prefs']->isDirty('menu_view') ||
-                $GLOBALS['prefs']->isDirty('menu_refresh_time'));
-        }
-
-        if ($GLOBALS['prefs']->isDirty('show_sidebar')) {
-            $need_reload = true;
-            $old_sidebar = !$old_sidebar;
-        }
-
-        if ($need_reload) {
-            $url = $GLOBALS['registry']->get('webroot', 'horde');
-            if (substr($url, -1) != '/') {
-                $url .= '/';
-            }
-
-            $url = str_replace('&amp;', '&', Horde::url(Horde_Util::addParameter($url . 'index.php', array('force_sidebar' => true, 'url' => Horde::selfUrl(true, false, true)), null, false)));
-
-            /* If the old view was with sidebar, need to reload the entire
-             * frame. */
-            if ($old_sidebar) {
-                Horde::addInlineScript(
-                    'window.parent.frames.location = ' . Horde_Serialize::serialize($url, Horde_Serialize::JSON, Horde_Nls::getCharset()) . ';'
-                );
-            } else {
-                Horde::redirect($url);
-            }
-        }
+        $GLOBALS['injector']->getInstance('Horde_Prefs_Ui')->prefsCallback($ui);
     }
 
 }

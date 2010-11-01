@@ -405,7 +405,7 @@ class Horde_View_Helper_Url extends Horde_View_Helper_Base
             if ($this->controller) {
                 // @todo prepending "/" is a hack, need to fix request object
                 $request = $this->controller->getRequest();
-                $requestUri = '/' . ltrim($request->getUri(), '/');
+                $requestUri = '/' . ltrim($request->getPath(), '/');
             } else {
                 // @todo accessing $_REQUEST directly is a hack
                 $requestUri = $_SERVER['REQUEST_URI'];

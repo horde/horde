@@ -8,22 +8,16 @@
  * @package Kronolith
  */
 
-/** Horde_Form */
-require_once 'Horde/Form.php';
-
-/** Horde_Form_Renderer */
-require_once 'Horde/Form/Renderer.php';
-
 /**
- * The Kronolith_EditRemoteCalendarForm class provides the form for
- * editing a remote calendar.
+ * The Kronolith_EditRemoteCalendarForm class provides the form for editing a
+ * remote calendar.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Kronolith
  */
-class Kronolith_EditRemoteCalendarForm extends Horde_Form {
-
-    function Kronolith_EditRemoteCalendarForm(&$vars, $remote_calendar)
+class Kronolith_EditRemoteCalendarForm extends Horde_Form
+{
+    public function __construct($vars, $remote_calendar)
     {
         parent::Horde_Form($vars, sprintf(_("Edit %s"), $remote_calendar['name']));
 
@@ -39,35 +33,16 @@ class Kronolith_EditRemoteCalendarForm extends Horde_Form {
         $this->setButtons(array(_("Save")));
     }
 
-    function execute()
+    /**
+     * @throws Kronolith_Exception
+     */
+    public function execute()
     {
         $info = array();
         foreach (array('name', 'new_url', 'user', 'password', 'color', 'desc') as $key) {
             $info[$key == 'new_url' ? 'url' : $key] = $this->_vars->get($key);
         }
-        $url = trim($this->_vars->get('url'));
-
-        if (!strlen($info['name']) || !strlen($url)) {
-            return false;
-        }
-
-        if (strlen($info['username']) || strlen($info['password'])) {
-            $key = Horde_Auth::getCredential('password');
-            if ($key) {
-                $info['username'] = base64_encode(Horde_Secret::write($key, $info['username']));
-                $info['password'] = base64_encode(Horde_Secret::write($key, $info['password']));
-            }
-        }
-
-        $remote_calendars = unserialize($GLOBALS['prefs']->getValue('remote_cals'));
-        foreach ($remote_calendars as $key => $calendar) {
-            if ($calendar['url'] == $url) {
-                $remote_calendars[$key] = $info;
-                break;
-            }
-        }
-
-        $GLOBALS['prefs']->setValue('remote_cals', serialize($remote_calendars));
+        Kronolith::subscribeRemoteCalendar($info, trim($this->_vars->get('url')));
     }
 
 }

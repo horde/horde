@@ -91,6 +91,16 @@ class Kronolith_Driver
     }
 
     /**
+     * Sets all configuration parameters for this driver.
+     *
+     * @param string $params  A parameters hash.
+     */
+    public function setParams($params)
+    {
+        $this->_params = $params;
+    }
+
+    /**
      * Selects a calendar as the currently opened calendar.
      *
      * @param string $calendar  A calendar identifier.
@@ -122,25 +132,13 @@ class Kronolith_Driver
     }
 
     /**
-     * Renames a calendar.
-     *
-     * @param string $from  The current name of the calendar.
-     * @param string $to    The new name of the calendar.
-     *
-     * @return mixed  True or a PEAR_Error on failure.
-     */
-    public function rename($from, $to)
-    {
-        return true;
-    }
-
-    /**
      * Searches a calendar.
      *
      * @param object $query  An object with the criteria to search for.
      * @param boolean $json  Store the results of the events' toJson() method?
      *
-     * @return mixed  An array of Kronolith_Events or a PEAR_Error.
+     * @return mixed  An array of Kronolith_Events.
+     * @throws Kronolith_Exception
      */
     public function search($query, $json = false)
     {
@@ -151,10 +149,6 @@ class Kronolith_Driver
         $results = array();
 
         $events = $this->listEvents($query->start, $query->end);
-        if (is_a($events, 'PEAR_Error')) {
-            return $events;
-        }
-
         foreach ($events as $day => $day_events) {
             foreach ($day_events as $event) {
                 if ((((!isset($query->start) ||
@@ -190,14 +184,12 @@ class Kronolith_Driver
      *
      * @return Horde_Date|boolean  The date of the next recurrence or false if
      *                             the event does not recur after $afterDate.
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function nextRecurrence($eventId, $afterDate)
     {
         $event = $this->getEvent($eventId);
-        if (is_a($event, 'PEAR_Error')) {
-            return $event;
-        }
-
         return $event->recurs() ? $event->recurrence->nextRecurrence($afterDate) : false;
     }
 
@@ -205,6 +197,7 @@ class Kronolith_Driver
      * Returns the number of events in the current calendar.
      *
      * @return integer  The number of events.
+     * @throws Kronolith_Exception
      */
     public function countEvents()
     {
@@ -226,7 +219,7 @@ class Kronolith_Driver
      *                        connection parameters a subclass might need.
      *
      * @return Kronolith_Driver  The newly created concrete Kronolith_Driver
-     *                           instance, or a PEAR_Error on error.
+     *                           instance.
      */
     public function factory($driver = null, $params = null)
     {
@@ -235,9 +228,10 @@ class Kronolith_Driver
 
         if (class_exists($class)) {
             $driver = new $class($params);
-            $result = $driver->initialize();
-            if (is_a($result, 'PEAR_Error')) {
-                $driver = new Kronolith_Driver($params, sprintf(_("The Calendar backend is not currently available: %s"), $result->getMessage()));
+            try {
+                $driver->initialize();
+            } catch (Exception $e) {
+                $driver = new Kronolith_Driver($params, sprintf(_("The Calendar backend is not currently available: %s"), $e->getMessage()));
             }
         } else {
             $driver = new Kronolith_Driver($params, sprintf(_("Unable to load the definition of %s."), $class));
@@ -248,6 +242,8 @@ class Kronolith_Driver
 
     /**
      * Stub to initiate a driver.
+     *
+     * @throws Kronolith_Exception
      */
     public function initialize()
     {
@@ -256,66 +252,139 @@ class Kronolith_Driver
 
     /**
      * Stub to be overridden in the child class.
+     *
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function getEvent()
     {
-        return PEAR::raiseError($this->_errormsg);
+        throw new Kronolith_Exception($this->_errormsg);
     }
 
     /**
      * Stub to be overridden in the child class.
+     *
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function getByUID($uid, $calendars = null, $getAll = false)
     {
-        return PEAR::raiseError($this->_errormsg);
+        throw new Kronolith_Exception($this->_errormsg);
     }
 
     /**
      * Stub to be overridden in the child class.
+     *
+     * @throws Kronolith_Exception
      */
     public function listAlarms($date, $fullevent = false)
     {
-        return PEAR::raiseError($this->_errormsg);
+        throw new Kronolith_Exception($this->_errormsg);
     }
 
     /**
      * Stub to be overridden in the child class.
+     *
+     * @throws Kronolith_Exception
      */
     public function listEvents()
     {
-        return PEAR::raiseError($this->_errormsg);
+        throw new Kronolith_Exception($this->_errormsg);
+    }
+
+    /**
+     * Saves an event in the backend.
+     *
+     * If it is a new event, it is added, otherwise the event is updated.
+     *
+     * @param Kronolith_Event $event  The event to save.
+     *
+     * @return string  The event id.
+     * @throws Horde_Mime_Exception
+     * @throws Kronolith_Exception
+     */
+    public function saveEvent($event)
+    {
+        if ($event->stored || $event->exists()) {
+            return $this->_updateEvent($event);
+        }
+        return $this->_addEvent($event);
     }
 
     /**
      * Stub to be overridden in the child class.
+     *
+     * @throws Kronolith_Exception
      */
-    public function saveEvent()
+    protected function _addEvent()
     {
-        return PEAR::raiseError($this->_errormsg);
+        throw new Kronolith_Exception($this->_errormsg);
+    }
+
+    /**
+     * Stub to be overridden in the child class.
+     *
+     * @throws Kronolith_Exception
+     */
+    protected function _updateEvent()
+    {
+        throw new Kronolith_Exception($this->_errormsg);
     }
 
     /**
      * Stub for child class to override if it can implement.
+     *
+     * @throws Kronolith_Exception
      */
     public function exists()
     {
-        return PEAR::raiseError('Not supported');
+        throw new Kronolith_Exception('Not supported');
     }
 
     /**
-     * Stub to be overridden in the child class.
+     * Moves an event to a new calendar.
+     *
+     * @param string $eventId      The event to move.
+     * @param string $newCalendar  The new calendar.
+     *
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function move($eventId, $newCalendar)
     {
-        return PEAR::raiseError('Not supported');
+        $event = $this->_move($eventId, $newCalendar);
+
+        /* Log the moving of this item in the history log. */
+        $uid = $event->uid;
+        if ($uid) {
+            $history = $GLOBALS['injector']->getInstance('Horde_History');
+            try {
+                $history->log('kronolith:' . $event->calendar . ':' . $uid, array('action' => 'delete'), true);
+                $history->log('kronolith:' . $newCalendar . ':' . $uid, array('action' => 'add'), true);
+            } catch (Exception $e) {
+                Horde::logMessage($e, 'ERR');
+            }
+        }
     }
 
     /**
      * Stub to be overridden in the child class.
+     *
+     * @throws Kronolith_Exception
+     */
+    protected function _move($eventId, $newCalendar)
+    {
+        throw new Kronolith_Exception('Not supported');
+    }
+
+    /**
+     * Stub to be overridden in the child class.
+     *
+     * @throws Kronolith_Exception
      */
     public function delete($calendar)
     {
-        return PEAR::raiseError('Not supported');
+        throw new Kronolith_Exception('Not supported');
     }
 
     /**
@@ -323,22 +392,25 @@ class Kronolith_Driver
      */
     public function deleteEvent($eventId)
     {
-
-    }
-
-    /**
-     * Stub for child class to override if it can implement.
-     */
-    public function removeUserData($user)
-    {
-        return PEAR::raiseError(_("Removing user data is not supported with the current calendar storage backend."));
     }
 
     /**
      * Stub to be overridden in the child class if it can implement.
+     *
+     * @throws Kronolith_Exception
      */
     public function filterEventsByCalendar($uids, $calendar)
     {
-        return PEAR::raiseError('Not supported');
+        throw new Kronolith_Exception('Not supported');
+    }
+
+    /**
+     * Stub for child class to override if it can implement.
+     *
+     * @throws Kronolith_Exception
+     */
+    public function removeUserData($user)
+    {
+        throw new Kronolith_Exception(_("Removing user data is not supported with the current calendar storage backend."));
     }
 }

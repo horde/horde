@@ -87,12 +87,12 @@ class Horde_Kolab_FreeBusy_Driver_Freebusy_Base extends Horde_Kolab_FreeBusy_Dri
         }
 
         // Create the new iCalendar.
-        $vCal = new Horde_iCalendar();
+        $vCal = new Horde_Icalendar();
         $vCal->setAttribute('PRODID', '-//kolab.org//NONSGML Kolab Server 2//EN');
         $vCal->setAttribute('METHOD', 'PUBLISH');
 
         // Create new vFreebusy.
-        $vFb = &Horde_iCalendar::newComponent('vfreebusy', $vCal);
+        $vFb = Horde_Icalendar::newComponent('vfreebusy', $vCal);
         $params = array();
 
         $cn = $access->owner_object->get(Horde_Kolab_Server_Object_Kolab_User::ATTRIBUTE_CN);
@@ -215,7 +215,7 @@ class Horde_Kolab_FreeBusy_Driver_Freebusy_Base extends Horde_Kolab_FreeBusy_Dri
             }
 
             if (empty($access->owner)) {
-                $message = sprintf(_("No such account %s!"),
+                $message = sprintf(Horde_Kolab_FreeBusy_Translation::t("No such account %s!"),
                                    htmlentities($access->req_owner));
                 $error = array('type' => FREEBUSY_ERROR_NOTFOUND,
                                'error' => PEAR::raiseError($message));
@@ -289,10 +289,10 @@ class Horde_Kolab_FreeBusy_Driver_Freebusy_Base extends Horde_Kolab_FreeBusy_Dri
                 header("Location: $redirect");
             } else {
                 header("X-Redirect-To: $redirect");
-                $redirect = 'https://' . urlencode($this->user) . ':' . urlencode(Horde_Auth::getCredential('password'))
+                $redirect = 'https://' . urlencode($this->user) . ':' . urlencode($GLOBALS['registry']->getAuthCredential('password'))
                     . '@' . $this->freebusyserver . $path;
                 if (!@readfile($redirect)) {
-                    $message = sprintf(_("Unable to read free/busy information from %s"),
+                    $message = sprintf(Horde_Kolab_FreeBusy_Translation::t("Unable to read free/busy information from %s"),
                                        'https://' . urlencode($this->user) . ':XXX'
                                        . '@' . $this->freebusyserver . $_SERVER['REQUEST_URI']);
                     return PEAR::raiseError($message);

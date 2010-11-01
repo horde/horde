@@ -8,24 +8,15 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package IMP
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
 class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
 {
     /* Name of PGP public key field in addressbook. */
     const PUBKEY_FIELD = 'pgpPublicKey';
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        parent::__construct(array(
-            'program' => $GLOBALS['conf']['gnupg']['path'],
-            'temp' => Horde::getTempDir()
-        ));
-    }
 
     /**
      * Generate the personal Public/Private keypair and store in prefs.
@@ -36,7 +27,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      * @param string $comment     See Horde_Crypt_Pgp::
      * @param string $keylength   See Horde_Crypt_Pgp::
      *
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function generatePersonalKeys($name, $email, $passphrase,
                                          $comment = '', $keylength = 1024)
@@ -107,6 +98,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      * @param string $public_key  An PGP public key.
      *
      * @return array  See Horde_Crypt_Pgp::pgpPacketInformation()
+     * @throws Horde_Crypt_Exception
      * @throws Horde_Exception
      */
     public function addPublicKey($public_key)
@@ -114,7 +106,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         /* Make sure the key is valid. */
         $key_info = $this->pgpPacketInformation($public_key);
         if (!isset($key_info['signature'])) {
-            throw new Horde_Exception(_("Not a valid public key."));
+            throw new Horde_Crypt_Exception(_("Not a valid public key."));
         }
 
         /* Remove the '_SIGNATURE' entry. */
@@ -131,7 +123,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
                     unset($key_info['signature'][$id]);
                     continue;
                 }
-            } catch (Horde_Exception $e) {}
+            } catch (Horde_Crypt_Exception $e) {}
 
             /* Add key to the user's address book. */
             $GLOBALS['registry']->call('contacts/addField', array($sig['email'], $sig['name'], self::PUBKEY_FIELD, $public_key, $GLOBALS['prefs']->getValue('add_source')));
@@ -161,7 +153,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      * </pre>
      *
      * @return string  The PGP public key requested.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function getPublicKey($address, $options = array())
     {
@@ -171,10 +163,10 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
 
         /* If there is a cache driver configured, try to get the public key
          * from the cache. */
-        if (empty($options['nocache']) && ($cache = IMP::getCache())) {
+        if (empty($options['nocache']) && ($cache = $GLOBALS['injector']->getInstance('Horde_Cache'))) {
             $result = $cache->get("PGPpublicKey_" . $address . $keyid, 3600);
             if ($result) {
-                Horde::logMessage('PGPpublicKey: ' . serialize($result), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                Horde::logMessage('PGPpublicKey: ' . serialize($result), 'DEBUG');
                 return $result;
             }
         }
@@ -184,18 +176,20 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
             if ($key) {
                 return $key;
             }
-        } catch (Horde_Exception_HookNotSet $e) {
-        }
+        } catch (Horde_Exception_HookNotSet $e) {}
 
         /* Try retrieving by e-mail only first. */
-        $params = IMP_Compose::getAddressSearchParams();
+        $params = IMP::getAddressbookSearchParams();
+        $result = null;
         try {
             $result = $GLOBALS['registry']->call('contacts/getField', array($address, self::PUBKEY_FIELD, $params['sources'], false, true));
-        } catch (Horde_Exception $e) {
+        } catch (Horde_Exception $e) {}
+
+        if (is_null($result)) {
             /* TODO: Retrieve by ID. */
 
             /* See if the address points to the user's public key. */
-            $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+            $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
             $personal_pubkey = $this->getPersonalPublicKey();
             if (!empty($personal_pubkey) && $identity->hasAddress($address)) {
                 $result = $personal_pubkey;
@@ -209,10 +203,10 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
                     if (is_object($cache)) {
                         $cache->set("PGPpublicKey_" . $address . $keyid, $result, 3600);
                     }
-                } catch (Horde_Exception $e) {
+                } catch (Horde_Crypt_Exception $e) {
                     /* Return now, if no public key found at all. */
-                    Horde::logMessage('PGPpublicKey: ' . $e->getMessage(), __FILE__, __LINE__, PEAR_LOG_DEBUG);
-                    throw new Horde_Exception(sprintf(_("Could not retrieve public key for %s."), $address));
+                    Horde::logMessage('PGPpublicKey: ' . $e->getMessage(), 'DEBUG');
+                    throw new Horde_Crypt_Exception(sprintf(_("Could not retrieve public key for %s."), $address));
                 }
             } else {
                 $result = '';
@@ -233,11 +227,11 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      * Retrieves all public keys from a user's address book(s).
      *
      * @return array  All PGP public keys available.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function listPublicKeys()
     {
-        $params = IMP_Compose::getAddressSearchParams();
+        $params = IMP::getAddressbookSearchParams();
         if (empty($params['sources'])) {
             return array();
         }
@@ -250,11 +244,11 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      *
      * @param string $email  The e-mail address to delete.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function deletePublicKey($email)
     {
-        $params = IMP_Compose::getAddressSearchParams();
+        $params = IMP::getAddressbookSearchParams();
         return $GLOBALS['registry']->call('contacts/deleteField', array($email, self::PUBKEY_FIELD, $params['sources']));
     }
 
@@ -265,7 +259,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      * @param string $address  The email address of the requested key.
      *
      * @return string  See Horde_Crypt_Pgp::getPublicKeyserver()
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function getFromPublicKeyserver($keyid, $address = null)
     {
@@ -278,7 +272,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      * @param string $pubkey  The PGP public key.
      *
      * @return string  See Horde_Crypt_Pgp::putPublicKeyserver()
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function sendToPublicKeyserver($pubkey)
     {
@@ -294,14 +288,14 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      *
      * @return string  See Horde_Crypt_Pgp::getPublicKeyserver() -or-
      *                     Horde_Crypt_Pgp::putPublicKeyserver().
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     protected function _keyserverConnect($data, $method, $additional = null)
     {
         global $conf;
 
         if (empty($conf['gnupg']['keyserver'])) {
-            throw new Horde_Exception(_("Public PGP keyserver support has been disabled."));
+            throw new Horde_Crypt_Exception(_("Public PGP keyserver support has been disabled."));
         }
 
         $timeout = empty($conf['gnupg']['timeout'])
@@ -315,9 +309,9 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         foreach ($conf['gnupg']['keyserver'] as $server) {
             try {
                 return $this->getPublicKeyserver($data, $server, $timeout, $additional);
-            } catch (Horde_Exception $e) {}
+            } catch (Horde_Crypt_Exception $e) {}
         }
-        throw new Horde_Exception(_("Could not connect to public PGP keyserver"));
+        throw new Horde_Crypt_Exception(_("Could not connect to public PGP keyserver"));
     }
 
     /**
@@ -328,7 +322,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      * @param string $signature  A PGP signature block.
      *
      * @return stdClass  See Horde_Crypt_Pgp::decrypt().
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function verifySignature($text, $address, $signature = '')
     {
@@ -366,7 +360,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      *                             the passphrase to use.
      *
      * @return stdClass  See Horde_Crypt_Pgp::decrypt().
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function decryptMessage($text, $type, $passphrase = null)
     {
@@ -400,9 +394,13 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
             $id = 'personal';
         }
 
-        return isset($_SESSION['imp']['cache']['pgp'][$type][$id])
-            ? Horde_Secret::read(Horde_Secret::getKey('imp'), $_SESSION['imp']['cache']['pgp'][$type][$id])
-            : null;
+        if (!($cache = $GLOBALS['session']['imp:pgp']) ||
+            !isset($cache[$type][$id])) {
+            return null;
+        }
+
+        $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
+        return $secret->read($secret->getKey('imp'), $cache[$type][$id]);
     }
 
     /**
@@ -416,7 +414,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      *
      * @return boolean  Returns true if correct passphrase, false if incorrect.
      */
-    public function storePassphrase($type, $passphrase, $id)
+    public function storePassphrase($type, $passphrase, $id = null)
     {
         if ($type == 'personal') {
             if ($this->verifyPassphrase($this->getPersonalPublicKey(), $this->getPersonalPrivateKey(), $passphrase) === false) {
@@ -425,7 +423,12 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
             $id = 'personal';
         }
 
-        $_SESSION['imp']['cache']['pgp'][$type][$id] = Horde_Secret::write(Horde_Secret::getKey('imp'), $passphrase);
+        $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
+
+        $cache = $GLOBALS['session']['imp:pgp;array'];
+        $cache[$type][$id] = $secret->write($secret->getKey('imp'), $passphrase);
+        $GLOBALS['session']['imp:pgp'] = $cache;
+
         return true;
     }
 
@@ -440,10 +443,13 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function unsetPassphrase($type, $id = null)
     {
-        if (($type == 'symmetric') && !is_null($id)) {
-            unset($_SESSION['imp']['cache']['pgp']['symmetric'][$id]);
-        } else {
-            unset($_SESSION['imp']['cache']['pgp'][$type]);
+        if ($cache = $GLOBALS['session']['imp:pgp']) {
+            if (($type == 'symmetric') && !is_null($id)) {
+                unset($cache['symmetric'][$id]);
+            } else {
+                unset($cache[$type]);
+            }
+            $GLOBALS['session']['imp:pgp'] = $cache;
         }
     }
 
@@ -478,7 +484,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
             'uid' => $uid,
             'mime_id' => $id
         );
-        return Horde::popupJs(Horde::applicationUrl('pgp.php'), array('params' => $params, 'height' => 200, 'width' => 450));
+        return Horde::popupJs(Horde::url('pgp.php'), array('params' => $params, 'height' => 200, 'width' => 450));
     }
 
     /**
@@ -504,7 +510,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      *                           encrypting. If null, uses the personal key.
      *
      * @return array  The list of parameters needed by encrypt().
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     protected function _encryptParameters($addresses, $symmetric)
     {
@@ -518,7 +524,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         $addr_list = array();
 
         foreach ($addresses as $val) {
-            $addrOb = Horde_Mime_Address::bareAddress($val, $_SESSION['imp']['maildomain'], true);
+            $addrOb = Horde_Mime_Address::bareAddress($val, $GLOBALS['session']['imp:maildomain'], true);
             $key_addr = array_pop($addrOb);
 
             /* Get the public key for the address. */
@@ -534,7 +540,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      * @param Horde_Mime_Part $mime_part  The object to sign.
      *
      * @return Horde_Mime_Part  See Horde_Crypt_Pgp::signMIMEPart().
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function impSignMimePart($mime_part)
     {
@@ -552,7 +558,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      *                                    the personal key.
      *
      * @return Horde_Mime_Part  See Horde_Crypt_Pgp::encryptMimePart().
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function impEncryptMimePart($mime_part, $addresses,
                                        $symmetric = null)
@@ -572,7 +578,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      *                                    the personal key.
      *
      * @return Horde_Mime_Part  See Horde_Crypt_Pgp::signAndencryptMimePart().
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function impSignAndEncryptMimePart($mime_part, $addresses,
                                               $symmetric = null)
@@ -589,6 +595,98 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
     public function publicKeyMimePart()
     {
         return parent::publicKeyMimePart($this->getPersonalPublicKey());
+    }
+
+    /* UI related functions. */
+
+    /**
+     * Print PGP Key information.
+     *
+     * @param string $key  The PGP key.
+     */
+    public function printKeyInfo($key = '')
+    {
+        try {
+            $key_info = $this->pgpPrettyKey($key);
+        } catch (Horde_Crypt_Exception $e) {
+            Horde::logMessage($e, 'INFO');
+            $key_info = $e->getMessage();
+        }
+
+        $this->textWindowOutput('PGP Key Information', $key_info);
+    }
+
+    /**
+     * Output text in a window.
+     *
+     * @param string $name  The window name.
+     * @param string $msg   The text contents.
+     */
+    public function textWindowOutput($name, $msg)
+    {
+        $GLOBALS['browser']->downloadHeaders($name, 'text/plain; charset=' . 'UTF-8', true, strlen($msg));
+        echo $msg;
+    }
+
+    /**
+     * Generate import key dialog.
+     *
+     * @param string $target  Action ID for the UI screen.
+     * @param string $reload  The reload cache value.
+     */
+    public function importKeyDialog($target, $reload)
+    {
+        $title = _("Import PGP Key");
+        require IMP_TEMPLATES . '/common-header.inc';
+        IMP::status();
+
+        $t = $GLOBALS['injector']->createInstance('Horde_Template');
+        $t->setOption('gettext', true);
+        $t->set('selfurl', Horde::url('pgp.php'));
+        $t->set('broken_mp_form', $GLOBALS['browser']->hasQuirk('broken_multipart_form'));
+        $t->set('reload', htmlspecialchars($reload));
+        $t->set('target', $target);
+        $t->set('forminput', Horde_Util::formInput());
+        $t->set('import_public_key', $target == 'process_import_public_key');
+        $t->set('import_personal_public_key', $target == 'process_import_personal_public_key');
+        $t->set('import_personal_private_key', $target == 'process_import_personal_private_key');
+        echo $t->fetch(IMP_TEMPLATES . '/pgp/import_key.html');
+    }
+
+    /**
+     * Attempt to import a key from form/uploaded data.
+     *
+     * @param string $key  Key string.
+     *
+     * @return string  The key contents.
+     * @throws Horde_Browser_Exception
+     */
+    public function getImportKey($key)
+    {
+        if (!empty($key)) {
+            return $key;
+        }
+
+        $GLOBALS['browser']->wasFileUploaded('upload_key', _("key"));
+        return file_get_contents($_FILES['upload_key']['tmp_name']);
+    }
+
+    /**
+     * Reload the window.
+     *
+     * @param string $reload  The reload cache value.
+     */
+    public function reloadWindow($reload)
+    {
+        global $session;
+
+        $href = $session[$reload];
+        unset($session[$reload]);
+        echo Horde::wrapInlineScript(array(
+            'opener.focus();'.
+            'opener.location.href="' . $href . '";',
+            'window.close();'
+        ));
     }
 
 }

@@ -14,12 +14,12 @@ class Ansel_Hooks
      * when he/she tries to view an age limited content. This function must
      * return an integer value of user age
      */
-//    function user_age()
+//    public function user_age()
 //     {
-//         $query  = 'SELECT age FROM user WHERE user_uid = ' . $GLOBALS['ansel_db']->quote(Horde_Auth::getAuth());
+//         $query  = 'SELECT age FROM user WHERE user_uid = ' . $GLOBALS['ansel_db']->quote($GLOBALS['registry']->getAuth());
 //         $result = $GLOBALS['ansel_db']->queryOne($query);
 //         if (is_a($result, 'PEAR_Error')) {
-//               throw new Horde_Exception($result);
+//               throw new Horde_Exception_Prior($result);
 //         }
 //
 //         return (int)$result;
@@ -31,7 +31,7 @@ class Ansel_Hooks
      * uploads images to Ansel. This will likely go away, being replaced by
      * by an remote image import/export functionality.
      */
-//   function postupload($image_ids)
+//   public function postupload($image_ids)
 //   {
 //       $context = array('http_client' => new Horde_Http_Client(),
 //                        'http_request' => new Horde_Controller_Request_Http(),);
@@ -62,7 +62,7 @@ class Ansel_Hooks
 //                 $g = $GLOBALS['ansel_storage']->getGallery($image->gallery);
 //                 $pwd = $g->get('passwd');
 //                 $no_agelimit = empty($GLOBALS['conf']['ages']['limits']) || $g->get('age') == 0;
-//                 if (Horde_Auth::getAuth() && $g->get('owner') == Horde_Auth::getAuth() && empty($pwd) && $no_agelimit) {
+//                 if ($GLOBALS['registry']->getAuth() && $g->get('owner') == $GLOBALS['registry']->getAuth() && empty($pwd) && $no_agelimit) {
 //                     $perms[$image->gallery] = true;
 //                 } else {
 //                     $perms[$image->gallery] = false;
@@ -84,7 +84,7 @@ class Ansel_Hooks
 //         } catch (Horde_Service_Facebook_Exception $e) {
 //             // For now, just pass back as a pear error...needs to be cleaned up
 //             $GLOBALS['notification']->push('Horde_Service_Facebook: ' . $e->getMessage(), 'horde.err');
-//             throw new Horde_Exception($e);
+//             throw new Horde_Exception_Prior($e);
 //         }
 //         if (!empty($GLOBALS['notification'])) {
 //             $GLOBALS['notification']->push('Notification published to Facebook.', 'horde.success');

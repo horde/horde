@@ -18,20 +18,20 @@ function preview()
 
 <h1 class="header">
  <span class="smallheader rightFloat"><?php printf(_("Last Modified %s by %s"), $page->formatVersionCreated(), $page->author()) ?></span>
- <?php echo _("EditPage") . ': ' . Horde::link($page->pageUrl()) . htmlspecialchars($page->pageName()) . '</a>'; if ($page->isLocked()) echo Horde::img('locked.png', _("Locked")) ?>
+ <?php echo _("Edit Page") . ': ' . Horde::link($page->pageUrl()) . htmlspecialchars($page->pageName()) . '</a>'; if ($page->isLocked()) echo Horde::img('locked.png', _("Locked")) ?>
 </h1>
 
 <div class="control">
  <input type="submit" value="<?php echo _("Save") ?>" class="button" />
  <input type="button" value="<?php echo _("Preview") ?>" class="button" onclick="preview()" />
- <a class="button" href="<?php echo $page->pageUrl() ?>"><?php echo _("Cancel") ?></a>
- <?php if (!empty($GLOBALS['conf']['wicked']['require_change_log'])) echo Horde::img('required.png', _("Changelog is required"), '', $GLOBALS['registry']->getImageDir('horde')) ?>
+ <a class="button" href="<?php echo $page->pageUrl()->add('actionID', 'unlock') ?>"><?php echo _("Cancel") ?></a>
+ <?php if (!empty($GLOBALS['conf']['wicked']['require_change_log'])) echo Horde::img('required.png', _("Changelog is required")) ?>
  <strong><?php echo _("Change log") . ': ' ?></strong><input type="text" name="changelog" size="50" />
  <input type="checkbox" name="minor" id="minor" checked="checked" /><label for="minor"> <?php echo _("Minor Change") ?></label>
 </div>
 
 <?php
-if (!empty($GLOBALS['conf']['wicked']['captcha']) && !Horde_Auth::getAuth()):
+if (!empty($GLOBALS['conf']['wicked']['captcha']) && !$GLOBALS['registry']->getAuth()):
     require_once 'Text/Figlet.php';
     $figlet = new Text_Figlet();
     $result = $figlet->loadFont($GLOBALS['conf']['wicked']['figlet_font']);
@@ -45,7 +45,7 @@ if (!empty($GLOBALS['conf']['wicked']['captcha']) && !Horde_Auth::getAuth()):
 <?php endif; endif; ?>
 
 <div style="padding:8px">
- <textarea class="fixed" style="width:100%" name="page_text" rows="29" cols="100"><?php echo @htmlspecialchars($page_text, ENT_COMPAT, Horde_Nls::getCharset()) ?></textarea>
+ <textarea class="fixed" style="width:100%" name="page_text" rows="29" cols="100"><?php echo htmlspecialchars($page_text) ?></textarea>
 </div>
 
 </form>

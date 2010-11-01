@@ -1,9 +1,0 @@
-http://www.horde.org/foo/
-https://jan:secret@www.horde.org/foo/
-mailto:jan@example.com
-svn+ssh://jan@svn.example.com/path/
-<tag>foo</tag>
-<http://css.maxdesign.com.au/listamatic/>
-http://www.horde.org/?foo=bar&baz=qux
-http://www.<alert>.horde.org/
-http://www.&#x32;.horde.org/

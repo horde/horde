@@ -8,9 +8,11 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Anil Madhavapeddy <anil@recoil.org>
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Mime
+ * @author   Anil Madhavapeddy <anil@recoil.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Mime
  */
 class Horde_Mime_Magic
 {
@@ -20,13 +22,6 @@ class Horde_Mime_Magic
      * @var array
      */
     static protected $_map = null;
-
-    /**
-     * The MIME magic file.
-     *
-     * @var array
-     */
-    static protected $_magic = null;
 
     /**
      * Returns a copy of the MIME extension map.
@@ -95,11 +90,11 @@ class Horde_Mime_Magic
 
         $map = self::_getMimeExtensionMap();
         for ($i = 0; $i <= $map['__MAXPERIOD__']; ++$i) {
-            $pos = strrpos(substr($filename, 0, $pos - 1), '.');
-            if ($pos === false) {
+            $npos = strrpos(substr($filename, 0, $pos - 1), '.');
+            if ($npos === false) {
                 break;
             }
-            ++$pos;
+            $pos = $npos + 1;
         }
 
         $type = ($pos === false) ? '' : self::extToMime(substr($filename, $pos));
@@ -140,34 +135,44 @@ class Horde_Mime_Magic
     }
 
     /**
-     * Uses variants of the UNIX "file" command to attempt to determine the
-     * MIME type of an unknown file.
+     * Attempt to determine the MIME type of an unknown file.
      *
      * @param string $path      The path to the file to analyze.
      * @param string $magic_db  Path to the mime magic database.
+     * @param array $opts       Additional options:
+     * <pre>
+     * 'nostrip' - (boolean) Don't strip parameter information from MIME
+     *             type string.
+     *             DEFAULT: false
+     * </pre>
      *
-     * @return string  The MIME type of the file.  Returns false if the file
-     *                 type isn't recognized or an error happened.
+     * @return mixed  The MIME type of the file. Returns false if the file
+     *                type can not be determined.
      */
-    static public function analyzeFile($path, $magic_db = null)
+    static public function analyzeFile($path, $magic_db = null,
+                                       $opts = array())
     {
         if (Horde_Util::extensionExists('fileinfo')) {
             $res = empty($magic_db)
-                ? @finfo_open(FILEINFO_MIME)
-                : @finfo_open(FILEINFO_MIME, $magic_db);
+                ? finfo_open(FILEINFO_MIME)
+                : finfo_open(FILEINFO_MIME, $magic_db);
 
             if ($res) {
-                $type = finfo_file($res, $path);
+                $type = trim(finfo_file($res, $path));
                 finfo_close($res);
 
                 /* Remove any additional information. */
-                foreach (array(';', ',', '\\0') as $separator) {
-                    if (($pos = strpos($type, $separator)) !== false) {
-                        $type = rtrim(substr($type, 0, $pos));
+                if (empty($opts['nostrip'])) {
+                    foreach (array(';', ',', '\\0') as $separator) {
+                        if (($pos = strpos($type, $separator)) !== false) {
+                            $type = rtrim(substr($type, 0, $pos));
+                        }
                     }
-                }
 
-                if (preg_match('|^[a-z0-9]+/[.-a-z0-9]+$|i', $type)) {
+                    if (preg_match('|^[a-z0-9]+/[.-a-z0-9]+$|i', $type)) {
+                        return $type;
+                    }
+                } else {
                     return $type;
                 }
             }
@@ -177,16 +182,22 @@ class Horde_Mime_Magic
     }
 
     /**
-     * Uses variants of the UNIX "file" command to attempt to determine the
-     * MIME type of an unknown byte stream.
+     * Attempt to determine the MIME type of an unknown byte stream.
      *
      * @param string $data      The file data to analyze.
      * @param string $magic_db  Path to the mime magic database.
+     * @param array $opts       Additional options:
+     * <pre>
+     * 'nostrip' - (boolean) Don't strip parameter information from MIME
+     *             type string.
+     *             DEFAULT: false
+     * </pre>
      *
-     * @return string  The MIME type of the file.  Returns false if the file
-     *                 type isn't recognized or an error happened.
+     * @return mixed  The MIME type of the file. Returns false if the file
+     *                type can not be determined.
      */
-    static public function analyzeData($data, $magic_db = null)
+    static public function analyzeData($data, $magic_db = null,
+                                       $opts = array())
     {
         /* If the PHP Mimetype extension is available, use that. */
         if (Horde_Util::extensionExists('fileinfo')) {
@@ -198,16 +209,18 @@ class Horde_Mime_Magic
                 return false;
             }
 
-            $type = finfo_buffer($res, $data);
+            $type = trim(finfo_buffer($res, $data));
             finfo_close($res);
 
             /* Remove any additional information. */
-            if (($pos = strpos($type, ';')) !== false) {
-                $type = rtrim(substr($type, 0, $pos));
-            }
+            if (empty($opts['nostrip'])) {
+                if (($pos = strpos($type, ';')) !== false) {
+                    $type = rtrim(substr($type, 0, $pos));
+                }
 
-            if (($pos = strpos($type, ',')) !== false) {
-                $type = rtrim(substr($type, 0, $pos));
+                if (($pos = strpos($type, ',')) !== false) {
+                    $type = rtrim(substr($type, 0, $pos));
+                }
             }
 
             return $type;
@@ -215,4 +228,5 @@ class Horde_Mime_Magic
 
         return false;
     }
+
 }

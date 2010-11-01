@@ -5,10 +5,15 @@
  * This file defines IMP's external API interface. Other applications
  * can interact with IMP through this API.
  *
+ * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
+ *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @package IMP
+ * @author   Michael Slusarz <slusarz@curecanti.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
 class IMP_Api extends Horde_Registry_Api
 {
@@ -32,7 +37,7 @@ class IMP_Api extends Horde_Registry_Api
      * @param array $extra        Hash of extra, non-standard arguments to
      *                            pass to compose.php.
      *
-     * @return string  The link to the message composition screen.
+     * @return Horde_Url  The link to the message composition screen.
      */
     public function compose($args = array(), $extra = array())
     {
@@ -51,7 +56,8 @@ class IMP_Api extends Horde_Registry_Api
      * @param array $extra        List of hashes of extra, non-standard
      *                            arguments to pass to compose.php.
      *
-     * @return string  The list of links to the message composition screen.
+     * @return array  The list of Horde_Url objects with links to the message
+     *                composition screen.
      */
     public function batchCompose($args = array(), $extra = array())
     {
@@ -69,8 +75,7 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function folderlist()
     {
-        $imp_folder = IMP_Folder::singleton();
-        return $imp_folder->flist();
+        return iterator_to_array(array_keys($GLOBALS['injector']->getInstance('IMP_Imap_Tree')));
     }
 
     /**
@@ -79,13 +84,12 @@ class IMP_Api extends Horde_Registry_Api
      * @param string $folder  The name of the folder to create (UTF7-IMAP).
      *
      * @return string  The full folder name created or false on failure.
-     * @throws Horde_Exception
+     * @throws IMP_Exception
      */
     public function createFolder($folder)
     {
-        $imp_folder = IMP_Folder::singleton();
-        $fname = $GLOBALS['imp_imap']->appendNamespace($folder);
-        return $imp_folder->create($fname, $GLOBALS['prefs']->getValue('subscribe'))
+        $fname = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->appendNamespace($folder);
+        return $GLOBALS['injector']->getInstance('IMP_Folder')->create($fname, $GLOBALS['prefs']->getValue('subscribe'))
             ? $fname
             : false;
     }
@@ -101,8 +105,7 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function deleteMessages($mailbox, $indices)
     {
-        $imp_message = IMP_Message::singleton();
-        return $imp_message->delete(array($mailbox => $indices), array('nuke' => true));
+        return $GLOBALS['injector']->getInstance('IMP_Message')->delete(array($mailbox => $indices), array('nuke' => true));
     }
 
     /**
@@ -116,8 +119,7 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function copyMessages($mailbox, $indices, $target)
     {
-        $imp_message = IMP_Message::singleton();
-        return $imp_message->copy($target, 'copy', array($mailbox => $indices), true);
+        return $GLOBALS['injector']->getInstance('IMP_Message')->copy($target, 'copy', new IMP_Indices($mailbox, $indices), array('create' => true));
     }
 
     /**
@@ -131,8 +133,7 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function moveMessages($mailbox, $indices, $target)
     {
-        $imp_message = IMP_Message::singleton();
-        return $imp_message->copy($target, 'move', array($mailbox => $indices), true);
+        return $GLOBALS['injector']->getInstance('IMP_Message')->copy($target, 'move', new IMP_Indices($mailbox, $indices), array('create' => true));
     }
 
     /**
@@ -147,8 +148,7 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function flagMessages($mailbox, $indices, $flags, $set)
     {
-        $imp_message = IMP_Message::singleton();
-        return $imp_message->flag($flags, array($mailbox => $indices), $set);
+        return $GLOBALS['injector']->getInstance('IMP_Message')->flag($flags, array($mailbox => $indices), $set);
     }
 
     /**
@@ -162,7 +162,10 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function searchMailbox($mailbox, $query)
     {
-        return $GLOBALS['imp_search']->runSearchQuery($query, $mailbox);
+        $results = $GLOBALS['injector']->getInstance('IMP_Search')->runQuery($query, $mailbox)->indices();
+        return isset($results[$mailbox])
+            ? $results[$mailbox]
+            : array();
     }
 
     /**
@@ -178,12 +181,13 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function server()
     {
-        $imap_obj = unserialize($_SESSION['imp']['imap_ob'][$_SESSION['imp']['server_key']]);
+        $imap_ob = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
+
         return array(
-            'hostspec' => $imap_obj->getParam('hostspec'),
-            'port' => $imap_obj->getParam('port'),
-            'protocol' => $_SESSION['imp']['protocol'],
-            'secure' => $imap_obj->getParam('secure')
+            'hostspec' => $imap_ob->ob->getParam('hostspec'),
+            'port' => $imap_ob->ob->getParam('port'),
+            'protocol' => $GLOBALS['session']['imp:protocol'],
+            'secure' => $imap_ob->ob->getParam('secure')
         );
     }
 
@@ -195,12 +199,12 @@ class IMP_Api extends Horde_Registry_Api
      *                        A value of null returns all message types.
      *
      * @return array  A list with the $limit most favourite recipients.
+     * @throws IMP_Exception
      */
     public function favouriteRecipients($limit,
                                         $filter = array('new', 'forward', 'reply', 'redirect'))
     {
-        $sentmail = IMP_Sentmail::factory();
-        return $sentmail->favouriteRecipients($limit, $filter);
+        return $GLOBALS['injector']->getInstance('IMP_Sentmail')->favouriteRecipients($limit, $filter);
     }
 
     /**
@@ -208,9 +212,9 @@ class IMP_Api extends Horde_Registry_Api
      *
      * @return Horde_Imap_Client_Base  The imap object.
      */
-    public function imapOb($mailbox, $indices)
+    public function imapOb()
     {
-        return $GLOBALS['imp_imap']->ob();
+        return $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->ob;
     }
 
     /**
@@ -224,7 +228,7 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function flagList($mailbox = null)
     {
-        if ($_SESSION['imp']['protocol'] == 'pop') {
+        if ($GLOBALS['session']['imp:protocol'] == 'pop') {
             return array();
         }
 
@@ -237,8 +241,7 @@ class IMP_Api extends Horde_Registry_Api
             $opts['mailbox'] = $mailbox;
         }
 
-        $imp_flags = IMP_Imap_Flags::singleton();
-        return $imp_flags->getList($opts);
+        return $GLOBALS['injector']->getInstance('IMP_Imap_Flags')->getList($opts);
     }
 
 }

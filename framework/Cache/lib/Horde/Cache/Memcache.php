@@ -12,12 +12,12 @@
  * @author   Duck <duck@obala.net>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @package  Horde_Cache
+ * @package  Cache
  */
-class Horde_Cache_Memcache extends Horde_Cache_Base
+class Horde_Cache_Memcache extends Horde_Cache
 {
     /**
-     * Horde_memcache object.
+     * Memcache object.
      *
      * @var Horde_Memcache
      */
@@ -32,26 +32,38 @@ class Horde_Cache_Memcache extends Horde_Cache_Base
     /**
      * Construct a new Horde_Cache_Memcache object.
      *
-     * @param array $params  Parameter array.
+     * @param array $params  Parameter array:
+     * <pre>
+     * 'memcache' - (Horde_Memcache) A Horde_Memcache object.
+     * </pre>
+     *
+     * @throws InvalidArgumentException
      */
     public function __construct($params = array())
     {
-        $this->_memcache = Horde_Memcache::singleton();
+        if (!isset($params['memcache'])) {
+            throw new InvalidArgumentException('Missing memcache object');
+        }
+
+        $this->_memcache = $params['memcache'];
 
         parent::__construct($params);
     }
 
     /**
-     * Attempts to retrieve cached data from the memcache and return it to
-     * the caller.
-     *
-     * @param string $key        Cache key to fetch.
-     * @param integer $lifetime  Lifetime of the data in seconds.
-     *
-     * @return mixed  Cached data, or false if none was found.
+     * Do cleanup prior to serialization and provide a list of variables
+     * to serialize.
      */
-    public function get($key, $lifetime = 1)
+    public function __sleep()
     {
+        return array('_memcache');
+    }
+
+    /**
+     */
+    protected function _get($key, $lifetime)
+    {
+        $key = $this->_params['prefix'] . $key;
         if (isset($this->_expirecache[$key])) {
             return $this->_expirecache[$key];
         }
@@ -80,20 +92,15 @@ class Horde_Cache_Memcache extends Horde_Cache_Base
     }
 
     /**
-     * Attempts to store data to the memcache.
-     *
-     * @param string $key        Cache key.
-     * @param mixed $data        Data to store in the cache.
-     * @param integer $lifetime  Data lifetime.
-     *
-     * @return boolean  True on success, false on failure.
      */
-    public function set($key, $data, $lifetime = null)
+    protected function _set($key, $data, $lifetime)
     {
+        $key = $this->_params['prefix'] . $key;
         $lifetime = $this->_getLifetime($lifetime);
-        return ($this->_memcache->set($key . '_e', time(), $lifetime) === false)
-            ? false
-            : $this->_memcache->set($key, $data, $lifetime);
+
+        if ($this->_memcache->set($key . '_e', time(), $lifetime) !== false) {
+            $this->_memcache->set($key, $data, $lifetime);
+        }
     }
 
     /**
@@ -106,6 +113,8 @@ class Horde_Cache_Memcache extends Horde_Cache_Base
      */
     public function exists($key, $lifetime = 1)
     {
+        $key = $this->_params['prefix'] . $key;
+
         return ($this->get($key, $lifetime) !== false);
     }
 
@@ -118,8 +127,10 @@ class Horde_Cache_Memcache extends Horde_Cache_Base
      */
     public function expire($key)
     {
+        $key = $this->_params['prefix'] . $key;
         unset($this->_expirecache[$key]);
         $this->_memcache->delete($key . '_e');
+
         return $this->_memcache->delete($key);
     }
 

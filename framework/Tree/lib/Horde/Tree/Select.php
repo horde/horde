@@ -1,7 +1,6 @@
 <?php
 /**
- * The Horde_Tree_Select:: class extends the Horde_Tree class to provide
- * <option> tag rendering.
+ * The Horde_Tree_Select:: class provides <option> tag rendering.
  *
  * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
  *
@@ -10,35 +9,37 @@
  *
  * @author   Ben Chavet <ben@horde.org>
  * @category Horde
- * @package  Horde_Tree
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Tree
  */
-class Horde_Tree_Select extends Horde_Tree
+class Horde_Tree_Select extends Horde_Tree_Base
 {
     /**
-     * TODO
+     * Allowed parameters for nodes.
      *
      * @var array
      */
-    protected $_nodes = array();
+    protected $_allowed = array(
+        'selected'
+    );
 
     /**
-     * Constructor.
+     * Should the tree be rendered statically?
      *
-     * @param string $name   @see Horde_Tree::__construct().
-     * @param array $params  @see Horde_Tree::__construct().
+     * @var boolean
      */
-    public function __construct($tree_name, $params = array())
-    {
-        parent::__construct($tree_name, $params);
-        $this->_static = true;
-    }
+    protected $_static = true;
 
     /**
      * Returns the tree.
      *
+     * @param boolean $static  If true the tree nodes can't be expanded and
+     *                         collapsed and the tree gets rendered expanded.
+     *                         This option has no effect in this driver.
+     *
      * @return string  The HTML code of the rendered tree.
      */
-    public function getTree()
+    public function getTree($static = false)
     {
         $this->_buildIndents($this->_root_nodes);
 
@@ -54,25 +55,14 @@ class Horde_Tree_Select extends Horde_Tree
      * Adds additional parameters to a node.
      *
      * @param string $id     The unique node id.
-     * @param array $params  Any other parameters to set.
+     * @param array $params  Parameters to set (key/value pairs).
      * <pre>
      * selected - (boolean) Whether this node is selected.
      * </pre>
      */
     public function addNodeParams($id, $params = array())
     {
-        if (!is_array($params)) {
-            $params = array($params);
-        }
-
-        $allowed = array('selected');
-
-        foreach ($params as $param_id => $param_val) {
-            /* Set only allowed and non-null params. */
-            if (in_array($param_id, $allowed) && !is_null($param_val)) {
-                $this->_nodes[$id][$param_id] = $param_val;
-            }
-        }
+        parent::addNodeParams($id, $params);
     }
 
     /**
@@ -84,18 +74,18 @@ class Horde_Tree_Select extends Horde_Tree
      */
     protected function _buildTree($node_id)
     {
-        $selected = $this->_nodes[$node_id]['selected'] ? ' selected="selected"' : '';
+        $node = $this->_nodes[$node_id];
 
-        $output = '<option value="' . htmlspecialchars($node_id) . '"' . $selected . '>' .
-            str_repeat('&nbsp;&nbsp;', (int)$this->_nodes[$node_id]['indent']) . htmlspecialchars($this->_nodes[$node_id]['label']) .
+        $output = '<option value="' . htmlspecialchars($node_id) . '"' .
+            (empty($node['selected']) ? '' : ' selected="selected"') .
+            '>' .
+            str_repeat('&nbsp;', intval($node['indent']) * 2) .
+            htmlspecialchars($node['label']) .
             '</option>';
 
-        if (isset($this->_nodes[$node_id]['children']) &&
-            $this->_nodes[$node_id]['expanded']) {
-            $num_subnodes = count($this->_nodes[$node_id]['children']);
-            for ($c = 0; $c < $num_subnodes; $c++) {
-                $child_node_id = $this->_nodes[$node_id]['children'][$c];
-                $output .= $this->_buildTree($child_node_id);
+        if (isset($node['children']) && $node['expanded']) {
+            foreach ($node['children'] as $val) {
+                $output .= $this->_buildTree($val);
             }
         }
 

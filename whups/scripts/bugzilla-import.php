@@ -1,4 +1,4 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
 /**
  * Bugzilla Import Script.
@@ -16,38 +16,10 @@ $BUGZILLA_DSN = 'mysql://root:password@localhost/bugzilla';
 $BUGZILLA_STATES = array('NEW', 'ASSIGNED', 'RESOLVED', 'REOPENED', 'CLOSED');
 $BUGZILLA_BUG_TYPE = array('Bug', 'Imported Bugzilla Bug');
 $BUGZILLA_PRIORITIES = array('P1', 'P2', 'P3', 'P4', 'P5');
+/* END CONFIGURATION */
 
-
-@define('HORDE_BASE', dirname(__FILE__) . '/../..');
-@define('WHUPS_BASE', dirname(__FILE__) . '/..');
-
-/* Do CLI checks and environment setup first. */
-require_once HORDE_BASE . '/lib/core.php';
-
-/* Make sure no one runs this from the web. */
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-/* Load the command line environment. */
-Horde_Cli::init();
-$cli =& Horde_Cli::singleton();
-
-/* Load the Whups libraries. */
-require_once HORDE_BASE . '/lib/core.php';
-
-$registry = Horde_Registry::singleton();
-$registry->pushApp('whups', false);
-$conf = &$GLOBALS['conf'];
-
-require_once WHUPS_BASE . '/lib/Whups.php';
-require_once WHUPS_BASE . '/lib/Driver.php';
-
-$GLOBALS['whups_driver'] = Whups_Driver::factory();
-$GLOBALS['whups_driver']->initialise();
-
-/* Load the PEAR DB library.  We'll use it to read the Bugzilla database. */
-require_once 'DB.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('whups', array('authentication' => 'none', 'cli' => true));
 
 function sectionHeader($text)
 {
@@ -81,7 +53,7 @@ function info($text)
 
 /* Connect to the Bugzilla database. */
 $bugzilla = DB::connect($BUGZILLA_DSN);
-if (is_a($bugzilla, 'PEAR_Error')) {
+if ($bugzilla instanceof PEAR_Error) {
     error('Failed to connect to Bugzilla database', $bugzilla);
     exit;
 }

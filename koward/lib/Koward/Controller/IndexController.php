@@ -17,15 +17,15 @@ class IndexController extends Koward_Controller_Application
 
     public function login()
     {
-        $auth = Horde_Auth::getAuth();
+        $auth = $GLOBALS['registry']->getAuth();
         if (!empty($auth)) {
-            header('Location: ' . $this->urlFor(array('controller' => 'index', 'action' => 'index')));
-            exit;
+            $this->urlFor(array('controller' => 'index', 'action' => 'index'))
+                ->redirect();
         }
 
         $this->title = _("Login");
 
-        $this->post = $this->urlFor(array('controller' => 'index', 
+        $this->post = $this->urlFor(array('controller' => 'index',
                                           'action' => 'login'));
 
         if (isset($_POST['horde_user']) && isset($_POST['horde_pass'])) {
@@ -35,8 +35,8 @@ class IndexController extends Koward_Controller_Application
             if ($this->koward->auth->authenticate(Horde_Util::getPost('horde_user'),
                                                   array('password' => Horde_Util::getPost('horde_pass')))) {
                 $entry = sprintf('Login success for %s [%s] to Horde',
-                                 Horde_Auth::getAuth(), $_SERVER['REMOTE_ADDR']);
-                Horde::logMessage($entry, __FILE__, __LINE__, PEAR_LOG_NOTICE);
+                                 $GLOBALS['registry']->getAuth(), $_SERVER['REMOTE_ADDR']);
+                Horde::logMessage($entry, 'NOTICE');
 
                 $type = $this->koward->getType();
                 if (!empty($type) && isset($this->koward->objects[$type]['default_view'])) {
@@ -46,13 +46,11 @@ class IndexController extends Koward_Controller_Application
                 } else {
                     $url = $this->urlFor(array('controller' => 'index', 'action' => 'index'));
                 }
-                header('Location: ' . $url);
-                exit;
-            } else {
-                $entry = sprintf('FAILED LOGIN for %s [%s] to Horde',
-                                 Horde_Util::getFormData('horde_user'), $_SERVER['REMOTE_ADDR']);
-                Horde::logMessage($entry, __FILE__, __LINE__, PEAR_LOG_ERR);
+                $url->redirect();
             }
+            $entry = sprintf('FAILED LOGIN for %s [%s] to Horde',
+                             Horde_Util::getFormData('horde_user'), $_SERVER['REMOTE_ADDR']);
+            Horde::logMessage($entry, 'ERR');
         }
 
         if ($reason = $this->koward->auth->getLogoutReasonString()) {
@@ -64,12 +62,11 @@ class IndexController extends Koward_Controller_Application
     public function logout()
     {
         $entry = sprintf('User %s [%s] logged out of Horde',
-                         Horde_Auth::getAuth(), $_SERVER['REMOTE_ADDR']);
-        Horde::logMessage($entry, __FILE__, __LINE__, PEAR_LOG_NOTICE);
-        Horde_Auth::clearAuth();
-        @session_destroy();
+                         $GLOBALS['registry']->getAuth(), $_SERVER['REMOTE_ADDR']);
+        Horde::logMessage($entry, 'NOTICE');
+        $GLOBALS['registry']->clearAuth();
 
-        header('Location: ' . $this->urlFor(array('controller' => 'index', 'action' => 'login')));
-        exit;
+        $this->urlFor(array('controller' => 'index', 'action' => 'login'))
+            ->redirect();
     }
 }

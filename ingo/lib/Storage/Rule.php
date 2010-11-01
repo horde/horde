@@ -74,11 +74,9 @@ class Ingo_Storage_Rule
             $output = (empty($data)) ? array() : preg_split("/\s+/", $data);
         }
 
-        if ($sort) {
-            $output = Horde_Array::prepareAddressList($output);
-        }
-
-        return $output;
+        return $sort
+            ? Horde_Array::prepareAddressList($output)
+            : $output;
     }
 
 }

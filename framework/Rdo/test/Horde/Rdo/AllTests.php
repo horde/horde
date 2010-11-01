@@ -24,6 +24,8 @@ class Horde_Rdo_AllTests extends Horde_Test_AllTests
 {
 }
 
+Horde_Rdo_AllTests::init('Horde_Rdo', __FILE__);
+
 if (PHPUnit_MAIN_METHOD == 'Horde_Rdo_AllTests::main') {
-    Horde_Rdo_AllTests::main('Horde_Rdo', __FILE__);
+    Horde_Rdo_AllTests::main();
 }

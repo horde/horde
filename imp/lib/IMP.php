@@ -7,10 +7,12 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Jon Parise <jon@horde.org>
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package IMP
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Jon Parise <jon@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
 class IMP
 {
@@ -31,24 +33,54 @@ class IMP
     const MAILBOX_START_FIRSTPAGE = 3;
     const MAILBOX_START_LASTPAGE = 4;
 
-    /* IMP internal string used to separate indexes. */
-    const IDX_SEP = '\0';
+    /* Folder list actions. */
+    const NOTEPAD_EDIT = "notepad\0";
+    const TASKLIST_EDIT = "tasklist\0";
 
-    /* Preferences constants. */
-    const PREF_NO_FOLDER = 'nofolder\0';
-    const PREF_VTRASH = 'vtrash\0';
+    /* Sorting constants. */
+    const IMAP_SORT_DATE = 100;
 
-    /* Storage place for an altered version of the current URL. */
+    /**
+     * Storage place for an altered version of the current URL.
+     *
+     * @var string
+     */
     static public $newUrl = null;
 
-    /* displayFolder() cache. */
+    /**
+     * The current active mailbox (may be search mailbox).
+     *
+     * @var string
+     */
+    static public $mailbox = '';
+
+    /**
+     * The real IMAP mailbox of the current index.
+     *
+     * @var string
+     */
+    static public $thismailbox = '';
+
+    /**
+     * The IMAP UID.
+     *
+     * @var integer
+     */
+    static public $uid = '';
+
+    /**
+     * displayFolder() cache.
+     *
+     * @var array
+     */
     static private $_displaycache = array();
 
-    /* hideDeletedMsgs() cache. */
+    /**
+     * hideDeletedMsgs() cache.
+     *
+     * @var array
+     */
     static private $_delhide = null;
-
-    /* prepareMenu() cache. */
-    static private $_menuTemplate = null;
 
     /**
      * Returns the current view mode for IMP.
@@ -57,8 +89,8 @@ class IMP
      */
     static public function getViewMode()
     {
-        return isset($_SESSION['imp']['view'])
-            ? $_SESSION['imp']['view']
+        return ($view = $GLOBALS['session']['imp:view'])
+            ? $view
             : 'imp';
     }
 
@@ -74,8 +106,10 @@ class IMP
      */
     static public function getLabel($mbox)
     {
-        $label = IMP_Search::isSearchMbox($mbox)
-            ? $GLOBALS['imp_search']->getLabel($mbox)
+        $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
+
+        $label = ($ob = $imp_search[$mbox])
+            ? $ob->label
             : self::displayFolder($mbox);
 
         try {
@@ -104,22 +138,20 @@ class IMP
 
         $result = $registry->call('contacts/import', array(array('name' => $newName, 'email' => $newAddress), 'array', $prefs->getValue('add_source')));
 
-        $contact_link = $registry->link('contacts/show', array('uid' => $result, 'source' => $prefs->getValue('add_source')));
+        $escapeName = @htmlspecialchars($newName, ENT_COMPAT, 'UTF-8');
 
-        $old_error = error_reporting(0);
-        $escapeName = htmlspecialchars($newName, ENT_COMPAT, Horde_Nls::getCharset());
-        error_reporting($old_error);
+        try {
+            if ($contact_link = $registry->link('contacts/show', array('uid' => $result, 'source' => $prefs->getValue('add_source')))) {
+                return Horde::link(Horde::url($contact_link), sprintf(_("Go to address book entry of \"%s\""), $newName)) . $escapeName . '</a>';
+            }
+        } catch (Horde_Exception $e) {}
 
-        return (!empty($contact_link) && !($contact_link instanceof PEAR_Error))
-            ? Horde::link(Horde::url($contact_link), sprintf(_("Go to address book entry of \"%s\""), $newName)) . $escapeName . '</a>'
-            : $escapeName;
+        return $escapeName;
     }
 
     /**
-     * Wrapper around IMP_Folder::flist() which generates the body of a
-     * &lt;select&gt; form input from the generated folder list. The
-     * &lt;select&gt; and &lt;/select&gt; tags are NOT included in the output
-     * of this function.
+     * Generates a select form input from a folder list. The &lt;select&gt;
+     * and &lt;/select&gt; tags are NOT included in the output.
      *
      * @param array $options  Optional parameters:
      * <pre>
@@ -148,104 +180,24 @@ class IMP
      */
     static public function flistSelect($options = array())
     {
-        $imp_folder = IMP_Folder::singleton();
-
-        /* Don't filter here - since we are going to parse through every
-         * member of the folder list below anyway, we can filter at that time.
-         * This allows us the have a single cached value for the folder list
-         * rather than a cached value for each different mailbox we may
-         * visit. */
-        $mailboxes = $imp_folder->flist();
-        $text = '';
-
-        if (!empty($options['heading']) &&
-            (strlen($options['heading']) > 0)) {
-            $text .= '<option value="">' . $options['heading'] . "</option>\n";
+        $imaptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
+        $imaptree->setIteratorFilter();
+        $tree = $imaptree->createTree(strval(new Horde_Support_Randomid()), array(
+            'render_type' => 'IMP_Tree_Flist'
+        ));
+        if (!empty($options['selected'])) {
+            $tree->addNodeParams($options['selected'], array('selected' => true));
         }
+        $tree->setOption($options);
 
-        if (!empty($options['new_folder']) &&
-            (!empty($GLOBALS['conf']['hooks']['permsdenied']) ||
-             ($GLOBALS['perms']->hasAppPermission('create_folders') &&
-              $GLOBALS['perms']->hasAppPermission('max_folders')))) {
-            $text .= "<option value=\"\" disabled=\"disabled\">- - - - - - - -</option>\n" .
-                '<option value="*new*">' . _("New Folder") . "</option>\n" .
-                "<option value=\"\" disabled=\"disabled\">- - - - - - - -</option>\n";
-        }
-
-        /* Add the list of mailboxes to the lists. */
-        $filter = empty($options['filter']) ? array() : array_flip($options['filter']);
-        foreach ($mailboxes as $mbox) {
-            if (isset($filter[$mbox['val']])) {
-                continue;
-            }
-
-            $val = isset($filter[$mbox['val']]) ? '' : htmlspecialchars($mbox['val']);
-            $sel = ($mbox['val'] && !empty($options['selected']) && ($mbox['val'] === $options['selected'])) ? ' selected="selected"' : '';
-            $label = empty($options['abbrev']) ? $mbox['label'] : $mbox['abbrev'];
-            $text .= sprintf('<option value="%s"%s>%s</option>%s', $val, $sel, Horde_Text_Filter::filter($label, 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)), "\n");
-        }
-
-        /* Add the list of virtual folders to the list. */
-        if (!empty($options['inc_vfolder'])) {
-            $vfolders = $GLOBALS['imp_search']->listQueries(IMP_Search::LIST_VFOLDER);
-            if (!empty($vfolders)) {
-                $vfolder_sel = $GLOBALS['imp_search']->searchMboxID();
-                $text .= '<option value="" disabled="disabled">- - - - - - - - -</option>' . "\n";
-                foreach ($vfolders as $id => $val) {
-                    $text .= sprintf('<option value="%s"%s>%s</option>%s', $GLOBALS['imp_search']->createSearchID($id), ($vfolder_sel == $id) ? ' selected="selected"' : '', Horde_Text_Filter::filter($val, 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)), "\n");
-                }
-            }
-        }
-
-        /* Add the list of editable tasklists to the list. */
-        if (!empty($options['inc_tasklists']) &&
-            !empty($_SESSION['imp']['tasklistavail'])) {
-            try {
-                $tasklists = $GLOBALS['registry']->call('tasks/listTasklists', array(false, Horde_Perms::EDIT));
-
-                if (count($tasklists)) {
-                    $text .= '<option value="" disabled="disabled">&nbsp;</option><option value="" disabled="disabled">- - ' . _("Task Lists") . ' - -</option>' . "\n";
-
-                    foreach ($tasklists as $id => $tasklist) {
-                        $text .= sprintf('<option value="%s">%s</option>%s',
-                                         '_tasklist_' . $id,
-                                         Horde_Text_Filter::filter($tasklist->get('name'), 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)),
-                                         "\n");
-                    }
-                }
-            } catch (Horde_Exception $e) {}
-        }
-
-        /* Add the list of editable notepads to the list. */
-        if (!empty($options['inc_notepads']) &&
-            !empty($_SESSION['imp']['notepadavail'])) {
-            try {
-                $notepads = $GLOBALS['registry']->call('notes/listNotepads', array(false, Horde_Perms::EDIT));
-                if (count($notepads)) {
-                    $text .= '<option value="" disabled="disabled">&nbsp;</option><option value="" disabled="disabled">- - ' . _("Notepads") . " - -</option>\n";
-
-                    foreach ($notepads as $id => $notepad) {
-                        $text .= sprintf('<option value="%s">%s</option>%s',
-                                         '_notepad_' . $id,
-                                         Horde_Text_Filter::filter($notepad->get('name'), 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)),
-                                         "\n");
-                    }
-                }
-            } catch (Horde_Exception $e) {}
-        }
-
-        return $text;
+        return $tree->getTree();
     }
 
     /**
      * Checks for To:, Subject:, Cc:, and other compose window arguments and
-     * pass back either a URI fragment or an associative array with any of
-     * them which are present.
+     * pass back an associative array of those that are present.
      *
-     * @param string $format  Either 'uri' or 'array'.
-     *
-     * @return string  A URI fragment or an associative array with any compose
-     *                 arguments present.
+     * @return string  An associative array with compose arguments.
      */
     static public function getComposeArgs()
     {
@@ -258,7 +210,18 @@ class IMP
             }
         }
 
-        /* Decode mailto: URLs. */
+        return self::_decodeMailto($args);
+    }
+
+    /**
+     * Checks for mailto: prefix in the To field.
+     *
+     * @param array $args  A list of compose arguments.
+     *
+     * @return array  The array with the To: argument stripped of mailto:.
+     */
+    static protected function _decodeMailto($args)
+    {
         if (isset($args['to']) && (strpos($args['to'], 'mailto:') === 0)) {
             $mailto = @parse_url($args['to']);
             if (is_array($mailto)) {
@@ -275,22 +238,6 @@ class IMP
         }
 
         return $args;
-    }
-
-    /**
-     * Open an (IMP) compose window.
-     *
-     * @return boolean  True if window was opened.
-     */
-    static public function openComposeWin($options = array())
-    {
-        if ($GLOBALS['prefs']->getValue('compose_popup')) {
-            return false;
-        }
-
-        $options += self::getComposeArgs();
-        header('Location: ' . Horde::applicationUrl('compose.php', true)->setRaw(true)->add($options));
-        return true;
     }
 
     /**
@@ -318,6 +265,8 @@ class IMP
             }
         }
 
+        $args = self::_decodeMailto($args);
+
         /* Merge the two argument arrays. */
         return (is_array($extra) && !empty($extra))
             ? array_merge($args, $extra)
@@ -325,50 +274,65 @@ class IMP
     }
 
     /**
-     * Returns the appropriate link to call the message composition screen.
+     * Returns the appropriate link to call the message composition script.
      *
-     * @param mixed $args   List of arguments to pass to compose.php. If this
-     *                      is passed in as a string, it will be parsed as a
-     *                      toaddress?subject=foo&cc=ccaddress (mailto-style)
-     *                      string.
-     * @param array $extra  Hash of extra, non-standard arguments to pass to
-     *                      compose.php.
-     * @param string $view  The IMP view to create a link for.
+     * @param mixed $args       List of arguments to pass to compose script.
+     *                          If this is passed in as a string, it will be
+     *                          parsed as a toaddress?subject=foo&cc=ccaddress
+     *                          (mailto-style) string.
+     * @param array $extra      Hash of extra, non-standard arguments to pass
+     *                          to compose script.
+     * @param string $simplejs  Use simple JS (instead of Horde.popup() JS
+     *                          function)?
      *
-     * @return string|Horde_Url  The link to the message composition screen.
+     * @return Horde_Url  The link to the message composition script.
      */
     static public function composeLink($args = array(), $extra = array(),
-                                       $view = null)
+                                       $simplejs = false)
     {
         $args = self::composeLinkArgs($args, $extra);
+        $view = self::getViewMode();
 
-        if (is_null($view)) {
-            $view = self::getViewMode();
+        if ($simplejs || ($view == 'dimp')) {
+            $args['popup'] = 1;
+
+            $url = Horde::url(($view == 'dimp') ? 'compose-dimp.php' : 'compose.php')->setRaw(true)->add($args);
+            $url->toStringCallback = array(__CLASS__, 'composeLinkSimpleCallback');
+        } elseif (($view != 'mimp') &&
+                  $GLOBALS['prefs']->getValue('compose_popup') &&
+                  $GLOBALS['browser']->hasFeature('javascript')) {
+            $url = Horde::url('compose.php')->add($args);
+            $url->toStringCallback = array(__CLASS__, 'composeLinkJsCallback');
+        } else {
+            $url = Horde::url(($view == 'mimp') ? 'compose-mimp.php' : 'compose.php')->add($args);
         }
 
-        if ($view == 'dimp') {
-            // IE 6 & 7 handles window.open() URL param strings differently if
-            // triggered via an href or an onclick.  Since we have no hint
-            // at this point where this link will be used, we have to always
-            // encode the params and explicitly call rawurlencode() in
-            // compose.php.
-            $encode_args = array('popup' => 1);
-            foreach ($args as $k => $v) {
-                $encode_args[$k] = rawurlencode($v);
-            }
-            return 'javascript:void(window.open(\'' . Horde::applicationUrl('compose-dimp.php')->setRaw(true)->add($encode_args) . '\', \'\', \'width=820,height=610,status=1,scrollbars=yes,resizable=yes\'));';
-        }
+        return $url;
+    }
 
-        if (($view != 'mimp') &&
-            $GLOBALS['prefs']->getValue('compose_popup') &&
-            $GLOBALS['browser']->hasFeature('javascript')) {
-            if (isset($args['to'])) {
-                $args['to'] = addcslashes($args['to'], '\\"');
-            }
-            return "javascript:" . Horde::popupJs(Horde::applicationUrl('compose.php'), array('params' => $args, 'urlencode' => true));
-        }
+    /**
+     * Callback for Horde_Url when generating "simple" compose links. Simple
+     * links don't require exterior javascript libraries.
+     *
+     * @param Horde_Url $url  URL object.
+     *
+     * @return string  URL string representation.
+     */
+    static public function composeLinkSimpleCallback($url)
+    {
+        return "javascript:void(window.open('" . strval($url) . "', '', 'width=820,height=610,status=1,scrollbars=yes,resizable=yes'));";
+    }
 
-        return Horde::applicationUrl(($view == 'mimp') ? 'compose-mimp.php' : 'compose.php')->add($args);
+    /**
+     * Callback for Horde_Url when generating javascript compose links.
+     *
+     * @param Horde_Url $url  URL object.
+     *
+     * @return string  URL string representation.
+     */
+    static public function composeLinkJsCallback($url)
+    {
+        return 'javascript:' . Horde::popupJs(strval($url), array('urlencode' => true));
     }
 
     /**
@@ -392,7 +356,7 @@ class IMP
             return $cache[$folder];
         }
 
-        $ns_info = $GLOBALS['imp_imap']->getNamespace($folder);
+        $ns_info = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->getNamespace($folder);
         $delimiter = is_null($ns_info) ? '' : $ns_info['delimiter'];
 
         /* Substitute any translated prefix text. */
@@ -412,23 +376,24 @@ class IMP
             $out = substr($folder, strlen($ns_info['name']));
         } else {
             $out = $folder;
-        };
+        }
 
         if ($notranslate) {
             return $out;
         }
 
         foreach ($sub_array as $key => $val) {
-            if (stripos($out, $key) === 0) {
+            if ((($key != 'INBOX') || ($folder == $out)) &&
+                stripos($out, $key) === 0) {
                 $len = strlen($key);
                 if ((strlen($out) == $len) || ($out[$len] == $delimiter)) {
-                    $out = substr_replace($out, Horde_String::convertCharset($val, Horde_Nls::getCharset(), 'UTF7-IMAP'), 0, $len);
+                    $out = substr_replace($out, Horde_String::convertCharset($val, 'UTF-8', 'UTF7-IMAP'), 0, $len);
                     break;
                 }
             }
         }
 
-        $cache[$folder] = Horde_String::convertCharset($out, 'UTF7-IMAP');
+        $cache[$folder] = Horde_String::convertCharset($out, 'UTF7-IMAP', 'UTF-8');
 
         return $cache[$folder];
     }
@@ -443,87 +408,25 @@ class IMP
     static public function filterText($text)
     {
         if ($GLOBALS['prefs']->getValue('filtering') && strlen($text)) {
-            return Horde_Text_Filter::filter($text, 'words', array('words_file' => $GLOBALS['conf']['msgsettings']['filtering']['words'], 'replacement' => $GLOBALS['conf']['msgsettings']['filtering']['replacement']));
+            return $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($text, 'words', array(
+                'replacement' => $GLOBALS['conf']['msgsettings']['filtering']['replacement'],
+                'words_file' => $GLOBALS['conf']['msgsettings']['filtering']['words']
+            ));
         }
 
         return $text;
     }
 
     /**
-     * Build IMP's list of menu items.
+     * Build IMP's menu.
      *
-     * @return Horde_Menu  A Horde_Menu object.
+     * @return string  The menu output.
      */
-    static public function getMenu()
+    static public function menu()
     {
-        global $conf, $prefs, $registry;
-
-        $menu_search_url = Horde::applicationUrl('search.php');
-        $menu_mailbox_url = Horde::applicationUrl('mailbox.php');
-
-        $spam_folder = self::folderPref($prefs->getValue('spam_folder'), true);
-
-        $menu = new Horde_Menu();
-
-        $menu->add(self::generateIMPUrl($menu_mailbox_url, 'INBOX'), _("_Inbox"), 'folders/inbox.png');
-
-        if ($_SESSION['imp']['protocol'] != 'pop') {
-            if ($prefs->getValue('use_trash') &&
-                $prefs->getValue('empty_trash_menu')) {
-                $mailbox = null;
-                if ($prefs->getValue('use_vtrash')) {
-                    $mailbox = $GLOBALS['imp_search']->createSearchID($prefs->getValue('vtrash_id'));
-                } else {
-                    $trash_folder = self::folderPref($prefs->getValue('trash_folder'), true);
-                    if (!is_null($trash_folder)) {
-                        $mailbox = $trash_folder;
-                    }
-                }
-
-                if (!empty($mailbox) && !$GLOBALS['imp_imap']->isReadOnly($mailbox)) {
-                    $menu_trash_url = self::generateIMPUrl($menu_mailbox_url, $mailbox)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => Horde::getRequestToken('imp.mailbox')));
-                    $menu->add($menu_trash_url, _("Empty _Trash"), 'empty_trash.png', null, null, "return window.confirm('" . addslashes(_("Are you sure you wish to empty your trash folder?")) . "');", '__noselection');
-                }
-            }
-
-            if (!empty($spam_folder) &&
-                $prefs->getValue('empty_spam_menu')) {
-                $menu_spam_url = self::generateIMPUrl($menu_mailbox_url, $spam_folder)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => Horde::getRequestToken('imp.mailbox')));
-                $menu->add($menu_spam_url, _("Empty _Spam"), 'empty_spam.png', null, null, "return window.confirm('" . addslashes(_("Are you sure you wish to empty your spam folder?")) . "');", '__noselection');
-            }
-        }
-
-        if (self::canCompose()) {
-            $menu->add(self::composeLink(array('mailbox' => $GLOBALS['imp_mbox']['mailbox'])), _("_New Message"), 'compose.png');
-        }
-
-        if ($conf['user']['allow_folders']) {
-            $menu->add(Horde_Util::nocacheUrl(Horde::applicationUrl('folders.php')), _("_Folders"), 'folders/folder.png');
-        }
-
-        if ($_SESSION['imp']['protocol'] != 'pop') {
-            $menu->add($menu_search_url, _("_Search"), 'search.png');
-        }
-
-        if ($prefs->getValue('filter_menuitem')) {
-            $menu->add(Horde::applicationUrl('filterprefs.php'), _("Fi_lters"), 'filters.png');
-        }
-
-        return $menu;
-    }
-
-    /**
-     * Build IMP's list of menu items.
-     */
-    static public function prepareMenu()
-    {
-        if (isset(self::$_menuTemplate)) {
-            return;
-        }
-
-        $t = new Horde_Template();
+        $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->set('forminput', Horde_Util::formInput());
-        $t->set('use_folders', ($_SESSION['imp']['protocol'] != 'pop') && $GLOBALS['conf']['user']['allow_folders'], true);
+        $t->set('use_folders', ($GLOBALS['session']['imp:protocol'] != 'pop') && $GLOBALS['conf']['user']['allow_folders'], true);
         if ($t->get('use_folders')) {
             Horde::addScriptFile('imp.js', 'imp');
             $menu_view = $GLOBALS['prefs']->getValue('menu_view');
@@ -532,21 +435,18 @@ class IMP
                 : '';
 
             $t->set('ak', $ak);
-            $t->set('flist', self::flistSelect(array('selected' => $GLOBALS['imp_mbox']['mailbox'], 'inc_vfolder' => true)));
+            $t->set('flist', self::flistSelect(array('selected' => self::$mailbox, 'inc_vfolder' => true)));
             $t->set('flink', sprintf('%s%s<br />%s</a>', Horde::link('#'), ($menu_view != 'text') ? Horde::img('folders/open.png', _("Open Folder"), ($menu_view == 'icon') ? array('title' => _("Open Folder")) : array()) : '', ($menu_view != 'icon') ? Horde::highlightAccessKey(_("Open Fo_lder"), $ak) : ''));
         }
-        $t->set('menu_string', self::getMenu()->render());
+        $t->set('menu_string', Horde::menu(array('app' => 'imp', 'menu_ob' => true))->render());
 
-        self::$_menuTemplate = $t;
-    }
+        $menu = $t->fetch(IMP_TEMPLATES . '/imp/menu/menu.html');
 
-    /**
-     * Outputs IMP's menu to the current output stream.
-     */
-    static public function menu()
-    {
-        self::prepareMenu();
-        echo self::$_menuTemplate->fetch(IMP_TEMPLATES . '/menu.html');
+        /* Need to buffer sidebar output here, because it may add things like
+         * cookies which need to be sent before output begins. */
+        Horde::startBuffer();
+        require HORDE_BASE . '/services/sidebar.php';
+        return $menu . Horde::endBuffer();
     }
 
     /**
@@ -554,8 +454,7 @@ class IMP
      */
     static public function status()
     {
-        $notification = Horde_Notification::singleton();
-        $notification->notify(array('listeners' => array('status', 'audio')));
+        $GLOBALS['notification']->notify(array('listeners' => array('status', 'audio')));
     }
 
     /**
@@ -565,7 +464,7 @@ class IMP
     {
         $quotadata = self::quotaData(true);
         if (!empty($quotadata)) {
-            $t = new Horde_Template();
+            $t = $GLOBALS['injector']->createInstance('Horde_Template');
             $t->set('class', $quotadata['class']);
             $t->set('message', $quotadata['message']);
             echo $t->fetch(IMP_TEMPLATES . '/quota/quota.html');
@@ -581,16 +480,19 @@ class IMP
      */
     static public function quotaData($long = true)
     {
-        if (!isset($_SESSION['imp']['quota']) ||
-            !is_array($_SESSION['imp']['quota'])) {
+        if (!$GLOBALS['session']['imp:imap_quota']) {
             return false;
         }
 
         try {
-            $quotaDriver = IMP_Quota::singleton($_SESSION['imp']['quota']['driver'], $_SESSION['imp']['quota']['params']);
+            $quotaDriver = $GLOBALS['injector']->getInstance('IMP_Quota');
             $quota = $quotaDriver->getQuota();
-        } catch (Horde_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+        } catch (IMP_Exception $e) {
+            Horde::logMessage($e, 'ERR');
+            return false;
+        }
+
+        if (empty($quota)) {
             return false;
         }
 
@@ -616,7 +518,7 @@ class IMP
             $ret['percent'] = sprintf("%.2f", $ret['percent']);
         } else {
             // Hide unlimited quota message?
-            if (!empty($_SESSION['imp']['quota']['hide_when_unlimited'])) {
+            if ($GLOBALS['session']['imp:quota_hide_when_unlimited']) {
                 return false;
             }
 
@@ -638,60 +540,6 @@ class IMP
     }
 
     /**
-     * Get message indices list.
-     *
-     * @param mixed $indices  The following inputs are allowed:
-     * <pre>
-     * 1. An array of messages indices in the following format:
-     *    msg_id IMP::IDX_SEP msg_mbox
-     *      msg_id      = Message index of the message
-     *      IMP::IDX_SEP = IMP constant used to separate index/mailbox
-     *      msg_folder  = The full mailbox name containing the message index
-     * 2. An array with the full folder name as keys and an array of message
-     *    indices as the values.
-     * </pre>
-     *
-     * @return mixed  Returns an array with the folder as key and an array
-     *                of message indices as the value (See #2 above).
-     *                Else, returns false.
-     */
-    static public function parseIndicesList($indices)
-    {
-        if (!is_array($indices) || empty($indices)) {
-            return array();
-        }
-
-        $msgList = array();
-
-        reset($indices);
-        if (!is_array(current($indices))) {
-            /* Build the list of indices/mailboxes if input is format #1. */
-            while (list(,$msgIndex) = each($indices)) {
-                if (strpos($msgIndex, self::IDX_SEP) === false) {
-                    return false;
-                } else {
-                    list($val, $key) = explode(self::IDX_SEP, $msgIndex);
-                    $msgList[$key][] = $val;
-                }
-            }
-        } else {
-            /* We are dealing with format #2. */
-            while (list($key, $val) = each($indices)) {
-                if ($GLOBALS['imp_search']->isSearchMbox($key)) {
-                    $msgList += self::parseIndicesList($val);
-                } else {
-                    /* Make sure we don't have any duplicate keys. */
-                    $msgList[$key] = is_array($val)
-                        ? array_keys(array_flip($val))
-                        : array($val);
-                }
-            }
-        }
-
-        return $msgList;
-    }
-
-    /**
      * Convert a preference value to/from the value stored in the preferences.
      *
      * To allow folders from the personal namespace to be stored without this
@@ -707,8 +555,9 @@ class IMP
      */
     static public function folderPref($folder, $append)
     {
-        $def_ns = $GLOBALS['imp_imap']->defaultNamespace();
-        $empty_ns = $GLOBALS['imp_imap']->getNamespace('');
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
+        $def_ns = $imp_imap->defaultNamespace();
+        $empty_ns = $imp_imap->getNamespace('');
 
         if ($append) {
             /* Converting from preference value. */
@@ -716,11 +565,11 @@ class IMP
                 strpos($folder, $empty_ns['delimiter']) === 0) {
                 /* Prefixed with delimiter => from empty namespace. */
                 $folder = substr($folder, strlen($empty_ns['delimiter']));
-            } elseif (($ns = $GLOBALS['imp_imap']->getNamespace($folder)) == null) {
+            } elseif (($ns = $imp_imap->getNamespace($folder, true)) == null) {
                 /* No namespace prefix => from personal namespace. */
                 $folder = $def_ns['name'] . $folder;
             }
-        } elseif (!$append && (($ns = $GLOBALS['imp_imap']->getNamespace($folder)) !== null)) {
+        } elseif (($ns = $imp_imap->getNamespace($folder)) !== null) {
             /* Converting to preference value. */
             if ($ns['name'] == $def_ns['name']) {
                 /* From personal namespace => strip namespace. */
@@ -752,7 +601,7 @@ class IMP
     {
         $url = ($page instanceof Horde_Url)
             ? clone $page
-            : Horde::applicationUrl($page);
+            : Horde::url($page);
 
         return $url->add(self::getIMPMboxParameters($mailbox, $uid, $tmailbox))->setRaw(!$encode);
     }
@@ -794,16 +643,22 @@ class IMP
      */
     static public function hideDeletedMsgs($mbox, $force = false)
     {
+        global $injector, $prefs;
+
         $delhide = &self::$_delhide;
 
         if (is_null($delhide) || $force) {
-            if ($GLOBALS['prefs']->getValue('use_vtrash')) {
-                $delhide = !$GLOBALS['imp_search']->isVTrashFolder();
+            $imp_search = $injector->getInstance('IMP_Search');
+            $use_trash = $prefs->getValue('use_trash');
+
+            if ($use_trash &&
+                $imp_search->isVTrash($prefs->getValue('trash_folder'))) {
+                $delhide = !$imp_search->isVTrash($mbox);
             } else {
                 $sortpref = self::getSort();
-                $delhide = ($GLOBALS['prefs']->getValue('delhide') &&
-                            !$GLOBALS['prefs']->getValue('use_trash') &&
-                            ($GLOBALS['imp_search']->isSearchMbox($mbox) ||
+                $delhide = ($prefs->getValue('delhide') &&
+                            !$use_trash &&
+                            ($injector->getInstance('IMP_Search')->isSearchMbox($mbox) ||
                              ($sortpref['by'] != Horde_Imap_Client::SORT_THREAD)));
             }
         }
@@ -826,7 +681,7 @@ class IMP
             $default = $GLOBALS['prefs']->getValue('default_encrypt');
         }
 
-        $enc_opts = array(self::ENCRYPT_NONE => _("No Encryption"));
+        $enc_opts = array(self::ENCRYPT_NONE => _("None"));
         $output = '';
 
         if (!empty($GLOBALS['conf']['gnupg']['path']) &&
@@ -861,73 +716,81 @@ class IMP
     /**
      * Return the sorting preference for the current mailbox.
      *
-     * @param string $mbox  The mailbox to use (defaults to current mailbox
-     *                      in the session).
+     * @param string $mbox      The mailbox to use (defaults to current
+     *                          mailbox in the session).
+     * @param boolean $convert  Convert 'by' to a Horde_Imap_Client constant?
      *
      * @return array  An array with the following keys:
-     *                'by'  - Sort type (Horde_Imap_Client constant)
-     *                'dir' - Sort direction
-     *                'limit' - Was the sort limit reached?
+     * <pre>
+     * 'by'  - (integer) Sort type.
+     * 'dir' - (integer) Sort direction.
+     * </pre>
      */
-    static public function getSort($mbox = null)
+    static public function getSort($mbox = null, $convert = false)
     {
+        global $prefs;
+
         if (is_null($mbox)) {
-            $mbox = $GLOBALS['imp_mbox']['mailbox'];
+            $mbox = self::$mailbox;
         }
 
-        $search_mbox = $GLOBALS['imp_search']->isSearchMbox($mbox);
-        $prefmbox = $search_mbox ? $mbox : self::folderPref($mbox, false);
+        $search_mbox = $GLOBALS['injector']->getInstance('IMP_Search')->isSearchMbox($mbox);
+        $prefmbox = $search_mbox
+            ? $mbox
+            : self::folderPref($mbox, false);
 
-        $sortpref = @unserialize($GLOBALS['prefs']->getValue('sortpref'));
-        $entry = (isset($sortpref[$prefmbox])) ? $sortpref[$prefmbox] : array();
+        $sortpref = @unserialize($prefs->getValue('sortpref'));
+        $entry = isset($sortpref[$prefmbox])
+            ? $sortpref[$prefmbox]
+            : array();
 
         if (!isset($entry['b'])) {
-            $sortby = $GLOBALS['prefs']->getValue('sortby');
+            $sortby = $prefs->getValue('sortby');
         }
 
         $ob = array(
             'by' => isset($entry['b']) ? $entry['b'] : $sortby,
-            'dir' => isset($entry['d']) ? $entry['d'] : $GLOBALS['prefs']->getValue('sortdir'),
-            'limit' => false
+            'dir' => isset($entry['d']) ? $entry['d'] : $prefs->getValue('sortdir'),
         );
 
-        /* Restrict POP3 sorting to arrival only.  Although possible to
+        /* Restrict POP3 sorting to sequence only.  Although possible to
          * abstract other sorting methods, all other methods require a
          * download of all messages, which is too much overhead.*/
-        if ($_SESSION['imp']['protocol'] == 'pop') {
-            $ob['by'] = Horde_Imap_Client::SORT_ARRIVAL;
-            $ob['limit'] = true;
+        if ($GLOBALS['session']['imp:protocol'] == 'pop') {
+            $ob['by'] = Horde_Imap_Client::SORT_SEQUENCE;
             return $ob;
         }
 
-        /* Can't do threaded searches in search mailboxes. */
-        if (!self::threadSortAvailable($mbox) &&
-            ($ob['by'] == Horde_Imap_Client::SORT_THREAD)) {
-            $ob['by'] = Horde_Imap_Client::SORT_DATE;
-        }
+        switch ($ob['by']) {
+        case Horde_Imap_Client::SORT_THREAD:
+            /* Can't do threaded searches in search mailboxes. */
+            if (!self::threadSortAvailable($mbox)) {
+                $ob['by'] = self::IMAP_SORT_DATE;
+            }
+            break;
 
-        if (!$search_mbox &&
-            !empty($GLOBALS['conf']['server']['sort_limit'])) {
-            try {
-                $status = $GLOBALS['imp_imap']->ob()->status($mbox, Horde_Imap_Client::STATUS_MESSAGES);
-                if (isset($status['messages']) &&
-                    ($status['messages'] > $GLOBALS['conf']['server']['sort_limit'])) {
-                    $ob['limit'] = true;
-                    $ob['by'] = Horde_Imap_Client::SORT_ARRIVAL;
-                }
-            } catch (Horde_Imap_Client_Exception $e) {}
-        }
-
-        if (!$ob['limit']) {
+        case Horde_Imap_Client::SORT_FROM:
+            /* If the preference is to sort by From Address, when we are
+             * in the Drafts or Sent folders, sort by To Address. */
             if (self::isSpecialFolder($mbox)) {
-                /* If the preference is to sort by From Address, when we are
-                 * in the Drafts or Sent folders, sort by To Address. */
-                if ($ob['by'] == Horde_Imap_Client::SORT_FROM) {
-                    $ob['by'] = Horde_Imap_Client::SORT_TO;
-                }
-            } elseif ($ob['by'] == Horde_Imap_Client::SORT_TO) {
+                $ob['by'] = Horde_Imap_Client::SORT_TO;
+            }
+            break;
+
+        case Horde_Imap_Client::SORT_TO:
+            if (!self::isSpecialFolder($mbox)) {
                 $ob['by'] = Horde_Imap_Client::SORT_FROM;
             }
+            break;
+        }
+
+        if ($convert && ($ob['by'] == self::IMAP_SORT_DATE)) {
+            $ob['by'] = $prefs->getValue('sortdate');
+        }
+
+        /* Sanity check: make sure we have some sort of sort value. */
+        if (!$ob['by']) {
+            $ob['by'] = Horde_Imap_Client::SORT_ARRIVAL;
         }
 
         return $ob;
@@ -946,11 +809,8 @@ class IMP
          * Horde_Imap_Client_Socket has a built-in ORDEREDSUBJECT
          * implementation. We will always prefer REFERENCES, but will fallback
          * to ORDEREDSUBJECT if the server doesn't support THREAD sorting. */
-        return ($_SESSION['imp']['protocol'] == 'imap') &&
-               !$GLOBALS['imp_search']->isSearchMbox($mbox) &&
-               (!$GLOBALS['prefs']->getValue('use_trash') ||
-                !$GLOBALS['prefs']->getValue('use_vtrash') ||
-                $GLOBALS['imp_search']->isVTrashFolder($mbox));
+        return (($GLOBALS['session']['imp:protocol'] == 'imap') &&
+                !$GLOBALS['injector']->getInstance('IMP_Search')->isSearchMbox($mbox));
     }
 
     /**
@@ -969,10 +829,10 @@ class IMP
         $sortpref = @unserialize($GLOBALS['prefs']->getValue('sortpref'));
 
         if (is_null($mbox)) {
-            $mbox = $GLOBALS['imp_mbox']['mailbox'];
+            $mbox = self::$mailbox;
         }
 
-        $prefmbox = $GLOBALS['imp_search']->isSearchMbox($mbox)
+        $prefmbox = $GLOBALS['injector']->getInstance('IMP_Search')->isSearchMbox($mbox)
             ? $mbox
             : self::folderPref($mbox, false);
 
@@ -1008,22 +868,14 @@ class IMP
     static public function isSpecialFolder($mbox)
     {
         /* Get the identities. */
-        $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+        $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
 
         return (($mbox == self::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true)) || in_array($mbox, $identity->getAllSentmailFolders()));
     }
 
     /**
-     * Sets mailbox/index information for current page load.
-     * Sets the global $imp_search object.
-     *
-     * The global $imp_mbox objects will contain an array with the following
-     * elements:
-     * <pre>
-     * 'mailbox' - (string) The current active mailbox (may be search mailbox).
-     * 'thismailbox' -(string) The real IMAP mailbox of the current index.
-     * 'uid' - (integer) The IMAP UID.
-     * </pre>
+     * Sets mailbox/index information for current page load. This information
+     * is accessible via IMP::$mailbox, IMP::$thismailbox, and IMP::$uid.
      *
      * @param boolean $mbox  Use this mailbox, instead of form data.
      */
@@ -1031,83 +883,14 @@ class IMP
     {
         if (is_null($mbox)) {
             $mbox = Horde_Util::getFormData('mailbox');
-            $GLOBALS['imp_mbox'] = array(
-                'mailbox' => empty($mbox) ? 'INBOX' : $mbox,
-                'thismailbox' => Horde_Util::getFormData('thismailbox', $mbox),
-                'uid' => Horde_Util::getFormData('uid')
-            );
+            self::$mailbox = empty($mbox) ? 'INBOX' : self::formMbox($mbox, false);
+            self::$thismailbox = self::formMbox(Horde_Util::getFormData('thismailbox', $mbox), false);
+            self::$uid = Horde_Util::getFormData('uid');
         } else {
-            $GLOBALS['imp_mbox'] = array(
-                'mailbox' => $mbox,
-                'thismailbox' => $mbox,
-                'uid' => null
-            );
+            self::$mailbox = $mbox;
+            self::$thismailbox = $mbox;
+            self::$uid = null;
         }
-
-        // Initialize IMP_Search object.
-        $GLOBALS['imp_search'] = new IMP_Search(array('id' => (isset($_SESSION['imp']) && IMP_Search::isSearchMbox($GLOBALS['imp_mbox']['mailbox'])) ? $GLOBALS['imp_mbox']['mailbox'] : null));
-    }
-
-    /**
-     * Returns a Horde_Cache object (if configured) and handles any errors
-     * associated with creating the object.
-     *
-     * @return mixed  A Horde_Cache object or null.
-     * @throws Horde_Exception
-     */
-    public static function getCache()
-    {
-        $cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
-        return ($cache instanceof Horde_Cache_Null)
-            ? null
-            : $cache;
-    }
-
-    /**
-     * Generate the JS code necessary to open a passphrase dialog. Adds the
-     * necessary JS files to open the dialog.
-     *
-     * @param string $type   The dialog type.
-     * @param array $params  Any additional parameters to pass.
-     *
-     * @return string  The generated JS code.
-     */
-    static public function passphraseDialogJS($type, $params = array())
-    {
-        Horde::addScriptFile('effects.js', 'horde');
-        Horde::addScriptFile('redbox.js', 'horde');
-        Horde::addScriptFile('dialog.js', 'imp');
-
-        switch ($type) {
-        case 'PGPPersonal':
-            $text = _("Enter your personal PGP passphrase.");
-            break;
-
-        case 'PGPSymmetric':
-            $text = _("Enter the passphrase used to encrypt this message.");
-            break;
-
-        case 'SMIMEPersonal':
-            $text = _("Enter your personal S/MIME passphrase.");
-            break;
-        }
-
-        if (defined('SID')) {
-            parse_str(SID, $sid);
-            $params = array_merge($params, $sid);
-        }
-
-        $js_params = array(
-            'cancel_text' => _("Cancel"),
-            'ok_text' => _("OK"),
-            'params' => $params,
-            'password' => true,
-            'text' => $text,
-            'type' => $type,
-            'uri' => Horde::applicationUrl('ajax.php', true, -1) . '/' . $type
-        );
-
-        return 'IMPDialog.display(' . Horde::escapeJson($js_params, array('urlencode' => true)) . ')';
     }
 
     /**
@@ -1158,7 +941,7 @@ class IMP
         }
 
         if ($sound = $GLOBALS['prefs']->getValue('nav_audio')) {
-            $GLOBALS['notification']->push($GLOBALS['registry']->getImageDir() . '/audio/' . $sound, 'audio');
+            $GLOBALS['notification']->push(Horde_Themes::img('audio/' . $sound), 'audio');
         }
     }
 
@@ -1172,7 +955,7 @@ class IMP
      */
     static protected function _getNewMessagePopup($var)
     {
-        $t = new Horde_Template();
+        $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
         if (is_array($var)) {
             if (empty($var)) {
@@ -1181,17 +964,18 @@ class IMP
             $folders = array();
             foreach ($var as $mb => $nm) {
                 $folders[] = array(
-                    'url' => self::generateIMPUrl('mailbox.php', $mb)->add('no_newmail_popup', 1),
                     'name' => htmlspecialchars(self::displayFolder($mb)),
-                    'new' => (int)$nm,
+                    'new' => intval($nm),
+                    'url' => self::generateIMPUrl('mailbox.php', $mb),
                 );
             }
             $t->set('folders', $folders);
 
-            if (($_SESSION['imp']['protocol'] != 'pop') &&
-                $GLOBALS['prefs']->getValue('use_vinbox') &&
-                ($vinbox_id = $GLOBALS['prefs']->getValue('vinbox_id'))) {
-                $t->set('vinbox', Horde::link(self::generateIMPUrl('mailbox.php', $GLOBALS['imp_search']->createSearchID($vinbox_id))->add('no_newmail_popup', 1)));
+            $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
+            if (($GLOBALS['session']['imp:protocol'] != 'pop') &&
+                ($vinbox = $imp_search['vinbox']) &&
+                $vinbox->enabled) {
+                $t->set('vinbox', self::generateIMPUrl('mailbox.php', strval($vinbox))->link());
             }
         } else {
             $t->set('msg', ($var == 1) ? _("You have 1 new message.") : sprintf(_("You have %s new messages."), $var));
@@ -1200,8 +984,49 @@ class IMP
 
         Horde::addScriptFile('effects.js', 'horde');
         Horde::addScriptFile('redbox.js', 'horde');
+
         return 'RedBox.overlay = false; RedBox.showHtml(\'' . addcslashes($t_html, "'/") . '\');';
     }
 
+    /**
+     * Determines parameters needed to do an address search
+     *
+     * @return array  An array with two keys: 'fields' and 'sources'.
+     */
+    static public function getAddressbookSearchParams()
+    {
+        $src = json_decode($GLOBALS['prefs']->getValue('search_sources'));
+        if (empty($src)) {
+            $src = array();
+        }
+
+        $fields = json_decode($GLOBALS['prefs']->getValue('search_fields'), true);
+        if (empty($fields)) {
+            $fields = array();
+        }
+
+        return array(
+            'fields' => $fields,
+            'sources' => $src
+        );
+    }
+
+    /**
+     * Converts a mailbox to/from a valid representation that can be used
+     * in a form element.  Needed because null characters (used for various
+     * internal non-IMAP mailbox representations) will not work in form
+     * elements.
+     *
+     * @param string $mbox  The mailbox name.
+     * @param boolean $to   Convert to the form representation?
+     *
+     * @return string  The converted mailbox.
+     */
+    static public function formMbox($mbox, $to)
+    {
+        return $to
+            ? htmlspecialchars(rawurlencode($mbox), ENT_COMPAT, 'UTF-8')
+            : rawurldecode($mbox);
+    }
 
 }

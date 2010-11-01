@@ -10,8 +10,8 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
-require_once TURBA_BASE . '/lib/Forms/AddContact.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('turba');
 
 /* Setup some variables. */
 $contact = null;
@@ -27,32 +27,34 @@ if (!$addSources) {
     $notification->push(_("There are no writeable address books. None of the available address books are configured to allow you to add new entries to them. If you believe this is an error, please contact your system administrator."), 'horde.error');
     $url = $url
         ? Horde::url($url, true)
-        : Horde::applicationUrl('index.php', true);
-    header('Location: ' . $url);
-    exit;
+        : Horde::url('index.php', true);
+    $url->redirect();
 }
 
 /* A source has been selected, connect and set up the fields. */
 if ($source) {
-    $driver = Turba_Driver::singleton($source);
-    if ($driver instanceof PEAR_Error) {
-        $notification->push(sprintf(_("Failed to access the address book: %s"), $driver->getMessage()), 'horde.error');
-    } else {
+    try {
+        $driver = $injector->getInstance('Turba_Driver')->getDriver($source);
+    } catch (Turba_Exception $e) {
+        $notification->push($e, 'horde.error');
+        $driver = null;
+    }
+
+    if (!is_null($driver)) {
         /* Check permissions. */
         $max_contacts = Turba::getExtendedPermission($driver, 'max_contacts');
         if ($max_contacts !== true &&
-            $max_contacts <= $driver->count()) {
+            $max_contacts <= count($driver)) {
             try {
                 $message = Horde::callHook('perms_denied', array('turba:max_contacts'));
             } catch (Horde_Exception_HookNotSet $e) {
-                $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d contacts in \"%s\"."), $max_contacts, $cfgSources[$source]['title']), ENT_COMPAT, Horde_Nls::getCharset());
+                $message = htmlspecialchars(sprintf(_("You are not allowed to create more than %d contacts in \"%s\"."), $max_contacts, $cfgSources[$source]['title']));
             }
             $notification->push($message, 'horde.error', array('content.raw'));
             $url = $url
                 ? Horde::url($url, true)
-                : Horde::applicationUrl('index.php', true);
-            header('Location: ' . $url);
-            exit;
+                : Horde::url('index.php', true);
+            $url->redirect();
         }
 
         $contact = new Turba_Object($driver);
@@ -60,7 +62,7 @@ if ($source) {
 }
 
 /* Set up the form. */
-$form = new Turba_AddContactForm($vars, $contact);
+$form = new Turba_Form_AddContact($vars, $contact);
 
 /* Validate the form. */
 if ($form->validate()) {
@@ -70,5 +72,5 @@ if ($form->validate()) {
 $title = _("New Contact");
 require TURBA_TEMPLATES . '/common-header.inc';
 require TURBA_TEMPLATES . '/menu.inc';
-$form->renderActive(new Horde_Form_Renderer(), $vars, 'add.php', 'post');
+$form->renderActive(new Horde_Form_Renderer(), $vars, Horde::url('add.php'), 'post');
 require $registry->get('templates', 'horde') . '/common-footer.inc';

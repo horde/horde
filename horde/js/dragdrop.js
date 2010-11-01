@@ -331,7 +331,7 @@ var Draggable = Class.create({
     }
 
     if(this.options.ghosting) {
-      this._clone = this.element.cloneNode(true);
+      this._clone = this.element.clone(true);
       this._originallyAbsolute = (this.element.getStyle('position') == 'absolute');
       if (!this._originallyAbsolute)
         Position.absolutize(this.element);

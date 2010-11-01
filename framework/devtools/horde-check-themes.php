@@ -14,13 +14,8 @@
  * @author   Marko Djukic <marko@oblo.com>
  */
 
-/* CLI checks and environment setup first. */
-require_once 'Horde/Cli.php';
-
-/* Make sure no one runs this from the web. */
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true));
 
 /* Get any options. */
 $simple = false;
@@ -47,13 +42,6 @@ if (isset($argv)) {
 if ($horde_base === null) {
     print_usage("You must specify the base path to Horde.");
 }
-
-/* Set up CLI. */
-$cli = Horde_Cli::singleton();
-$cli->init();
-
-$horde_authentication = 'none';
-require_once $horde_base . '/lib/base.php';
 
 /* Get the apps and start doing checks. */
 $apps = $registry->listApps(array('hidden', 'notoolbar', 'active', 'admin'));

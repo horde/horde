@@ -9,9 +9,9 @@
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
-@define('WHUPS_BASE', dirname(__FILE__) . '/..');
-require_once WHUPS_BASE . '/lib/base.php';
-require_once 'Horde/Template.php';
+
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('whups');
 
 // See if we were passed a slug or id. Slug is tried first.
 $slug = Horde_Util::getFormData('slug');
@@ -31,7 +31,6 @@ if ($slug) {
 // open tickets.
 $state_category = Horde_Util::getFormData('state');
 if ($state_category) {
-    require_once 'Horde/String.php';
     $state_display = Horde_String::ucFirst($state_category);
     // When specifying an explicit state, limit the feed to 10.
     $limit = 10;
@@ -86,8 +85,7 @@ foreach (array_keys($tickets) as $i) {
     $items[$i]['pubDate'] = htmlspecialchars(date('r', $tickets[$i]['timestamp']));
 }
 
-$template = new Horde_Template();
-$template->set('charset', Horde_Nls::getCharset());
+$template = $injector->createInstance('Horde_Template');
 $template->set('xsl', $registry->get('themesuri') . '/feed-rss.xsl');
 $template->set('pubDate', htmlspecialchars(date('r')));
 if (isset($type) && isset($queue['name'])) {
@@ -108,10 +106,10 @@ if (isset($type) && isset($queue['name'])) {
 $template->set('title', htmlspecialchars($rss_title));
 $template->set('items', $items, true);
 $template->set('url',
-               Horde_Util::addParameter(Horde::applicationUrl('queue/', true, -1),
+               Horde_Util::addParameter(Horde::url('queue/', true, -1),
                                   'id', $id));
 $template->set('rss_url',
-               Horde_Util::addParameter(Horde::applicationUrl('rss.php', true, -1),
+               Horde_Util::addParameter(Horde::url('rss.php', true, -1),
                                   'id',  $id));
 if (isset($queue['name'])) {
     $description = sprintf(_("Open tickets in %s"), $queue['name']);

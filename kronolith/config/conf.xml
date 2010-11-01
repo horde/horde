@@ -60,17 +60,23 @@
  </configsection>
 
  <configsection name="autoshare">
-   <configheader>Calendar Auto-Sharing</configheader>
-     <configenum name="shareperms" desc="When a new user is created, his
-     default calendar can be automatically shared with his group(s). Which
-     permissions should the group have?">
-       <values>
-         <value desc="None (no sharing)">none</value>
-         <value desc="Read-only">read</value>
-         <value desc="Read and write">edit</value>
-         <value desc="Read, write and delete">full</value>
-       </values>
-     </configenum>
+  <configheader>Share Settings</configheader>
+  <configenum name="shareperms" desc="When a new user is created, his
+   default calendar can be automatically shared with his group(s). Which
+   permissions should the group have?">
+   <values>
+    <value desc="None (no sharing)">none</value>
+    <value desc="Read-only">read</value>
+    <value desc="Read and write">edit</value>
+    <value desc="Read, write and delete">full</value>
+   </values>
+  </configenum>
+ </configsection>
+
+ <configsection name="share">
+  <configboolean name="notify" desc="Notify users and groups per e-mail if
+  they have been granted access to a shared calendar (or tasklist), or are the
+  new owner of the share?">false</configboolean>
  </configsection>
 
  <configsection name="holidays">
@@ -93,10 +99,12 @@
 
  <configsection name="maps">
   <configheader>Maps</configheader>
-  <configswitch name="driver" desc="Which driver should we use for inline maps?">
+  <configswitch name="driver" desc="Which driver should we use for inline
+   maps?">
    <case name="false" desc="No inline map support" />
    <case name="Horde" desc="Horde driver (support for various map providers)">
-    <configmultienum name="providers" desc="Which layers should we add to the map?">
+    <configmultienum name="providers" desc="Which layers should we add to the
+    map?">
      <values>
       <value desc="Google">Google</value>
       <value desc="Yahoo">Yahoo</value>
@@ -109,35 +117,13 @@
     <configenum default="false" name="geocoder" desc="Which Geocoder service
     should we use?">
      <values>
-      <value desc="None" default="true">false</value>
+      <value desc="None" default="true">Null</value>
       <value desc="Google">Google</value>
       <value desc="Virtual Earth/Bing">Ve</value>
       <value desc="Yahoo">Yahoo</value>
      </values> 
     </configenum>
     
-    <configenum default="false" name="geodriver" desc="Which driver should we  use
-    for storing geolocation information?">
-     <values>
-      <value desc="None" default="true">false</value>
-      <value desc="MySql spatial extensions">Mysql</value>
-      <value desc="General SQL (no spatial index support)">Sql</value>
-     </values>
-    </configenum> 
-   </case>
-   
-   <case name="SAPO" desc="Driver for SAPO Mapas API">
-    <configenum default="false" name="geocoder" desc="Which Geocoder service
-    should we use?">
-     <values>
-      <value desc="None">false</value>
-      <value desc="SAPO" default="true">SAPO</value>
-      <value desc="Google">Google</value>
-      <value desc="Virtual Earth/Bing">Ve</value>
-      <value desc="Yahoo">Yahoo</value>
-     </values> 
-    </configenum>
-
     <configenum default="false" name="geodriver" desc="Which driver should we
     use for storing geolocation information?">
      <values>
@@ -145,7 +131,7 @@
       <value desc="MySql spatial extensions">Mysql</value>
       <value desc="General SQL (no spatial index support)">Sql</value>
      </values>
-    </configenum>
+    </configenum> 
    </case>
   </configswitch>
  </configsection>

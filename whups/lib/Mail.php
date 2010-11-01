@@ -28,7 +28,7 @@ class Whups_Mail {
      * @param string $auth_user  This will be the Horde user that creates the
      *                           ticket. If null, we will try to deduce from
      *                           the message's From: header. We do NOT default
-     *                           to Horde_Auth::getAuth().
+     *                           to $GLOBALS['registry']->getAuth().
      *
      * @return Whups_Ticket | PEAR_Error  Ticket or Error object.
      */
@@ -76,7 +76,7 @@ class Whups_Mail {
         $body_id = $message->findBody();
         if ($body_id) {
             $part = $message->getPart($body_id);
-            $comment .= Horde_String::convertCharset($part->transferDecode(), $part->getCharset());
+            $comment .= Horde_String::convertCharset($part->transferDecode(), $part->getCharset(), 'UTF-8');
         } else {
             $comment .= _("[ Could not render body of message. ]");
         }
@@ -104,7 +104,7 @@ class Whups_Mail {
         }
 
         // Authenticate as the correct Horde user.
-        if (!empty($auth_user) && $auth_user != Horde_Auth::getAuth()) {
+        if (!empty($auth_user) && $auth_user != $GLOBALS['registry']->getAuth()) {
             Horde_Auth::setAuth($auth_user, array());
         }
 
@@ -153,8 +153,7 @@ class Whups_Mail {
                 $fp = @fopen($tmp_name, 'wb');
                 if (!$fp) {
                     Horde::logMessage(sprintf('Cannot open file %s for writing.',
-                                              $tmp_name),
-                                      __FILE__, __LINE__, PEAR_LOG_ERR);
+                                              $tmp_name), 'ERR');
                     return $ticket;
                 }
                 fwrite($fp, $part->getContents());
@@ -209,15 +208,11 @@ class Whups_Mail {
      */
     static protected function _findAuthUser($from)
     {
-        global $conf;
+        $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
 
-        require_once 'Horde/Identity.php';
-
-        $params = Horde::getDriverConfig('auth', $conf['auth']['driver']);
-        $auth = Horde_Auth::singleton($conf['auth']['driver'], $params);
         if ($auth->hasCapability('list')) {
             foreach ($auth->listUsers() as $user) {
-                $identity = &Identity::singleton('none', $user);
+                $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($user);
                 $addrs = $identity->getAll('from_addr');
                 foreach ($addrs as $addr) {
                     if (strcasecmp($from, $addr) == 0) {

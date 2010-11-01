@@ -40,10 +40,10 @@ class Horde_Block_Folks_know extends Horde_Block {
 
         // Prepare actions
         $actions = array(
-            array('url' => Horde::applicationUrl('edit/friends/add.php'),
+            array('url' => Horde::url('edit/friends/add.php'),
                 'id' => 'user',
                 'name' => _("Add friend")),
-            array('url' => Horde::applicationUrl('user.php'),
+            array('url' => Horde::url('user.php'),
                 'id' => 'user',
                 'name' => _("View profile")));
         if ($GLOBALS['registry']->hasInterface('letter')) {

@@ -33,7 +33,12 @@ Performance Suite&apos;s content cache), memcached, or an SQL table.
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Initial Horde 4 package.</notes>
+ <notes>* Add option to transparently compress cache data using lzf.
+ * Added Horde_Cache_Session::.
+ * Horde_Cache::set() no longer returns a boolean result.
+ * Added Horde_Cache_Exception::.
+ * Removed dependency on Horde Core.
+ * Initial Horde 4 package.</notes>
  <contents>
   <dir name="/">
    <dir name="data">
@@ -43,14 +48,16 @@ Performance Suite&apos;s content cache), memcached, or an SQL table.
     <dir name="Horde">
      <dir name="Cache">
       <file name="Apc.php" role="php" />
-      <file name="Base.php" role="php" />
       <file name="Eaccelerator.php" role="php" />
+      <file name="Exception.php" role="php" />
       <file name="File.php" role="php" />
       <file name="Memcache.php" role="php" />
+      <file name="Mock.php" role="php" />
       <file name="Null.php" role="php" />
+      <file name="Session.php" role="php" />
       <file name="Sql.php" role="php" />
+      <file name="Stack.php" role="php" />
       <file name="Xcache.php" role="php" />
-      <file name="Zps4.php" role="php" />
      </dir> <!-- /lib/Horde/Cache -->
      <file name="Cache.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -63,36 +70,56 @@ Performance Suite&apos;s content cache), memcached, or an SQL table.
     <min>5.2.0</min>
    </php>
    <pearinstaller>
-    <min>1.5.0</min>
+    <min>1.7.0</min>
    </pearinstaller>
+   <package>
+    <name>Exception</name>
+    <channel>pear.horde.org</channel>
+   </package>
    <package>
     <name>Util</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>
   <optional>
+   <package>
+    <name>Db</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Log</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Memcache</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>lzf</name>
+    <channel>pecl.php.net</channel>
+    <recommended>1.5.2</recommended>
+   </package>
    <extension>
     <name>apc</name>
    </extension>
    <extension>
     <name>eaccelerator</name>
    </extension>
-   <extension>
-    <name>memcache</name>
-   </extension>
   </optional>
  </dependencies>
  <phprelease>
   <filelist>
    <install name="lib/Horde/Cache/Apc.php" as="Horde/Cache/Apc.php" />
-   <install name="lib/Horde/Cache/Base.php" as="Horde/Cache/Base.php" />
    <install name="lib/Horde/Cache/Eaccelerator.php" as="Horde/Cache/Eaccelerator.php" />
+   <install name="lib/Horde/Cache/Exception.php" as="Horde/Cache/Exception.php" />
    <install name="lib/Horde/Cache/File.php" as="Horde/Cache/File.php" />
    <install name="lib/Horde/Cache/Memcache.php" as="Horde/Cache/Memcache.php" />
+   <install name="lib/Horde/Cache/Mock.php" as="Horde/Cache/Mock.php" />
    <install name="lib/Horde/Cache/Null.php" as="Horde/Cache/Null.php" />
+   <install name="lib/Horde/Cache/Session.php" as="Horde/Cache/Session.php" />
    <install name="lib/Horde/Cache/Sql.php" as="Horde/Cache/Sql.php" />
+   <install name="lib/Horde/Cache/Stack.php" as="Horde/Cache/Stack.php" />
    <install name="lib/Horde/Cache/Xcache.php" as="Horde/Cache/Xcache.php" />
-   <install name="lib/Horde/Cache/Zps4.php" as="Horde/Cache/Zps4.php" />
    <install name="lib/Horde/Cache.php" as="Horde/Cache.php" />
   </filelist>
  </phprelease>

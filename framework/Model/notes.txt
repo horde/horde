@@ -1,0 +1,29 @@
+form tweaks:
+Thanks for moving this to a public port, Lowell. Based on Chuck's request,
+I do have a couple suggestions for making the form more easily
+customizable. While it may seem like overkill, I find the best bet is to
+follow this pattern:
+<div>
+<div><label></label></div>
+<div><input /></div>
+</div>
+
+The reason I prefer to do this is that it negates the need for <br> tags
+since divs are block-level elements (using the br tag is technically
+considered a non-semantic tag, and therefore bad practice). It also allows
+you, through a stylesheet, to control whether or not the labels are above
+the fields or to the side, just by adding classnames to the containing
+divs.
+
+A couple of other suggestions: the label tags should have a "for"
+attribute that matches the id value of the input they're referring to. This
+is for accessibility reasons, and helps aid in tab indexing for
+keyboard-oriented users. While we're talking about labels, it might be a
+good idea to remove the colon after each label. It's better to group
+related fields with white-space, and actually makes the form look less
+complicated, believe it or not.
+
+Also, since the HTML 4.01 and XHTML 1.0 spec, the "name" attribute has
+been replaced by the "id" attribute. You can safely remove the "name"
+attribute from your form inputs and use "id" instead, which will allow for
+compatibility with either doctype in any A-Grade browsers.

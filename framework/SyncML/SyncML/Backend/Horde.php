@@ -26,42 +26,11 @@ class SyncML_Backend_Horde extends SyncML_Backend {
      *
      * @param array $params  Any parameters the backend might need.
      */
-    function SyncML_Backend_Horde($params)
+    function __construct($params)
     {
-        parent::SyncML_Backend($params);
+        parent::__construct($params);
 
-        $this->_db = DB::connect($GLOBALS['conf']['sql']);
-
-        if (is_a($this->_db, 'PEAR_Error')) {
-            Horde::logMessage($this->_db, __FILE__, __LINE__, PEAR_LOG_ERR);
-        }
-
-        /* Set DB portability options. */
-        if (is_a($this->_db, 'DB_common')) {
-            switch ($this->_db->phptype) {
-            case 'mssql':
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-                break;
-            default:
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-            }
-        }
-    }
-
-    /**
-     * Sets the charset.
-     *
-     * All data passed to the backend uses this charset and data returned from
-     * the backend must use this charset, too.
-     *
-     * @param string $charset  A valid charset.
-     */
-    function setCharset($charset)
-    {
-        parent::setCharset($charset);
-
-        Horde_Nls::setCharset($this->getCharset());
-        Horde_String::setDefaultCharset($this->getCharset());
+        $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create();
     }
 
     /**
@@ -96,7 +65,8 @@ class SyncML_Backend_Horde extends SyncML_Backend {
         /* Only the server needs to start a session. */
         if ($this->_backendMode == SYNCML_BACKENDMODE_SERVER) {
             /* Reload the Horde SessionHandler if necessary. */
-            $GLOBALS['registry']->setupSessionHandler();
+            $GLOBALS['session'] = new Horde_Session();
+            $GLOBALS['session']->setup(false);
         }
 
         parent::sessionStart($syncDeviceID, $sessionId, $backendMode);
@@ -129,45 +99,36 @@ class SyncML_Backend_Horde extends SyncML_Backend {
         $slowsync = $from_ts == 0;
 
         // Handle additions:
-        if ($slowsync) {
-            // Return all db entries directly rather than bother history. But
-            // first check if we only want to sync data from a given start
-            // date:
-            $start = trim(SyncML_Backend::getParameter($databaseURI, 'start'));
-            if (!empty($start)) {
-                if (strlen($start) == 4) {
-                    $start .= '0101000000';
-                } elseif (strlen($start) == 6) {
-                    $start .= '01000000';
-                } elseif (strlen($start) == 8) {
-                    $start .= '000000';
+        try {
+            if ($slowsync) {
+                // Return all db entries directly rather than bother history. But
+                // first check if we only want to sync data from a given start
+                // date:
+                $start = trim(SyncML_Backend::getParameter($databaseURI, 'start'));
+                if (!empty($start)) {
+                    if (strlen($start) == 4) {
+                        $start .= '0101000000';
+                    } elseif (strlen($start) == 6) {
+                        $start .= '01000000';
+                    } elseif (strlen($start) == 8) {
+                        $start .= '000000';
+                    }
+                    $start = new Horde_Date($start);
+                    $this->logMessage('Slow-syncing all events starting from ' . (string)$start, 'DEBUG');
+                    $data = $registry->{$database}->listUids(
+                                SyncML_Backend::getParameter($databaseURI, 'source'), $start);
+                } else {
+                    $data = $registry->{$database}->listUids(
+                                SyncML_Backend::getParameter($databaseURI, 'source'));
                 }
-                $start = new Horde_Date($start);
-                $this->logMessage('Slow-syncing all events starting from ' . (string)$start,
-                                  __FILE__, __LINE__, PEAR_LOG_DEBUG);
-                $data = $registry->call(
-                    $database . '/list',
-                    array(SyncML_Backend::getParameter($databaseURI, 'source'),
-                          $start));
             } else {
-                $data = $registry->call(
-                    $database . '/list',
-                    array(SyncML_Backend::getParameter($databaseURI, 'source')));
+                $data = $registry->{$database}->listBy(
+                    'add', $from_ts, SyncML_Backend::getParameter($databaseURI, 'source'), $to_ts);
             }
-        } else {
-            $data = $registry->call(
-                $database . '/listBy',
-                array('action' => 'add',
-                      'timestamp' => $from_ts,
-                      'source' => SyncML_Backend::getParameter($databaseURI,
-                                                               'source')));
-        }
-
-        if (is_a($data, 'PEAR_Error')) {
+        } catch (Horde_Exception $e) {
             $this->logMessage("$database/list or $database/listBy failed while retrieving server additions:"
-                              . $data->getMessage(),
-                              __FILE__, __LINE__, PEAR_LOG_ERR);
-            return $data;
+                              . $e->getMessage(), 'ERR');
+            return;
         }
 
         $add_ts = array();
@@ -184,24 +145,27 @@ class SyncML_Backend_Horde extends SyncML_Backend {
                 $cuid = $this->_getCuid($database, $suid);
                 if ($cuid) {
                     $this->logMessage(
-                        "Added to server from client during SlowSync: $suid ignored",
-                        __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                        "Added to server from client during SlowSync: $suid ignored", 'DEBUG');
                     continue;
                 }
             }
-            $add_ts[$suid] = $registry->call($database . '/getActionTimestamp',
-                                             array($suid, 'add', SyncML_Backend::getParameter($databaseURI, 'source')));
+            try {
+                $add_ts[$suid] = $registry->{$database}->getActionTimestamp(
+                    $suid, 'add', SyncML_Backend::getParameter($databaseURI, 'source'));
+            } catch (Horde_Exception $e) {
+                $this->logMessage($e->getMessage(), 'ERR');
+                return;
+            }
+
             $sync_ts = $this->_getChangeTS($database, $suid);
             if ($sync_ts && $sync_ts >= $add_ts[$suid]) {
                 // Change was done by us upon request of client.  Don't mirror
                 // that back to the client.
-                $this->logMessage("Added to server from client: $suid ignored",
-                                  __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                $this->logMessage("Added to server from client: $suid ignored", 'DEBUG');
                 continue;
             }
             $this->logMessage(
-                "Adding to client from db $database, server id $suid",
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                "Adding to client from db $database, server id $suid", 'DEBUG');
 
             $adds[$suid] = 0;
         }
@@ -213,17 +177,14 @@ class SyncML_Backend_Horde extends SyncML_Backend {
         }
 
         // Handle changes:
-        $data = $registry->call(
-            $database. '/listBy',
-            array('action' => 'modify',
-                  'timestamp' => $from_ts,
-                  'source' => SyncML_Backend::getParameter($databaseURI,'source')));
-        if (is_a($data, 'PEAR_Error')) {
+        try {
+            $data = $registry->$database->listBy(
+               'modify', $from_ts, SyncML_Backend::getParameter($databaseURI,'source'), $to_ts);
+        } catch (Horde_Exception $e) {
             $this->logMessage(
                 "$database/listBy failed while retrieving server modifications:"
-                . $data->getMessage(),
-                __FILE__, __LINE__, PEAR_LOG_WARNING);
-            return $data;
+                . $e->getMessage(), 'WARN');
+            return;
         }
 
         $mod_ts = array();
@@ -236,21 +197,19 @@ class SyncML_Backend_Horde extends SyncML_Backend {
             // Only server needs to check for client sent entries and update
             // map.
             if ($this->_backendMode == SYNCML_BACKENDMODE_SERVER) {
-                $mod_ts[$suid] = $registry->call($database . '/getActionTimestamp',
-                                                 array($suid, 'modify', SyncML_Backend::getParameter($databaseURI,'source')));
+                $mod_ts[$suid] = $registry->$database->getActionTimestamp(
+                                     $suid, 'modify', SyncML_Backend::getParameter($databaseURI,'source'));
                 $sync_ts = $this->_getChangeTS($database, $suid);
                 if ($sync_ts && $sync_ts >= $mod_ts[$suid]) {
                     // Change was done by us upon request of client.  Don't
                     // mirror that back to the client.
-                    $this->logMessage("Changed on server after sent from client: $suid ignored",
-                                      __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $this->logMessage("Changed on server after sent from client: $suid ignored", 'DEBUG');
                     continue;
                 }
                 $cuid = $this->_getCuid($database, $suid);
                 if (!$cuid) {
                     $this->logMessage(
-                        "Unable to create change for server id $suid: client id not found in map, adding instead.",
-                        __FILE__, __LINE__, PEAR_LOG_WARNING);
+                        "Unable to create change for server id $suid: client id not found in map, adding instead.", 'WARN');
                     $adds[$suid] = 0;
                     continue;
                 } else {
@@ -260,33 +219,25 @@ class SyncML_Backend_Horde extends SyncML_Backend {
                 $mods[$suid] = $suid;
             }
             $this->logMessage(
-                "Modifying on client from db $database, client id $cuid -> server id $suid",
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                "Modifying on client from db $database, client id $cuid -> server id $suid", 'DEBUG');
         }
 
         // Handle deletions.
-        $data = $registry->call(
-            $database . '/listBy',
-            array('action' => 'delete',
-                  'timestamp' => $from_ts,
-                  'source' => SyncML_Backend::getParameter($databaseURI, 'source')));
-
-        if (is_a($data, 'PEAR_Error')) {
+        try {
+            $data = $registry->$database->listBy(
+                        'delete', $from_ts, SyncML_Backend::getParameter($databaseURI, 'source'), $to_ts);
+        } catch (Horde_Exception $e) {
             $this->logMessage(
                 "$database/listBy failed while retrieving server deletions:"
-                . $data->getMessage(),
-                __FILE__, __LINE__, PEAR_LOG_WARNING);
-            return $data;
+                . $e->getMessage(), 'WARN');
+            return;
         }
 
         foreach ($data as $suid) {
             // Only server needs to check for client sent entries.
             if ($this->_backendMode == SYNCML_BACKENDMODE_SERVER) {
-                $suid_ts = $registry->call(
-                    $database . '/getActionTimestamp',
-                    array($suid,
-                          'delete',
-                          SyncML_Backend::getParameter($databaseURI,'source')));
+                $suid_ts = $registry->$database->getActionTimestamp(
+                    $suid, 'delete', SyncML_Backend::getParameter($databaseURI,'source'));
 
                 // Check if the entry has been added or modified after the
                 // last sync.
@@ -302,15 +253,13 @@ class SyncML_Backend_Horde extends SyncML_Backend {
                 if ($sync_ts && $sync_ts >= $suid_ts) {
                     // Change was done by us upon request of client.  Don't
                     // mirror that back to the client.
-                    $this->logMessage("Deleted on server after request from client: $suid ignored",
-                                      __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                    $this->logMessage("Deleted on server after request from client: $suid ignored", 'DEBUG');
                     continue;
                 }
                 $cuid = $this->_getCuid($database, $suid);
                 if (!$cuid) {
                     $this->logMessage(
-                        "Unable to create delete for server id $suid: client id not found in map",
-                        __FILE__, __LINE__, PEAR_LOG_WARNING);
+                        "Unable to create delete for server id $suid: client id not found in map", 'WARN');
                     continue;
                 }
                 $dels[$suid] = $cuid;
@@ -318,8 +267,7 @@ class SyncML_Backend_Horde extends SyncML_Backend {
                 $dels[$suid] = $suid;
             }
             $this->logMessage(
-                "Deleting on client from db $database, client id $cuid -> server id $suid",
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                "Deleting on client from db $database, client id $cuid -> server id $suid", 'DEBUG');
         }
 
         return true;
@@ -375,8 +323,7 @@ class SyncML_Backend_Horde extends SyncML_Backend {
 
         if (!is_a($suid, 'PEAR_Error')) {
             $this->logMessage(
-                "Added to server db $database client id $cuid -> server id $suid",
-                __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                "Added to server db $database client id $cuid -> server id $suid", 'DEBUG');
             $ts = $registry->call(
                 $database . '/getActionTimestamp',
                 array($suid,
@@ -384,8 +331,7 @@ class SyncML_Backend_Horde extends SyncML_Backend {
                       SyncML_Backend::getParameter($databaseURI, 'source')));
             if (!$ts) {
                 $this->logMessage(
-                    "Unable to find addition timestamp for server id $suid at $ts"
-                    , __FILE__, __LINE__, PEAR_LOG_ERR);
+                    "Unable to find addition timestamp for server id $suid at $ts", 'ERR');
             }
             // Only server needs to do a cuid<->suid map
             if ($this->_backendMode == SYNCML_BACKENDMODE_SERVER) {
@@ -397,8 +343,7 @@ class SyncML_Backend_Horde extends SyncML_Backend {
             if ($suid->getDebugInfo()) {
                 $suid = $suid->getDebugInfo();
                 $this->logMessage(
-                    'Adding client entry to server: already exists with server id ' . $suid,
-                    __FILE__, __LINE__, PEAR_LOG_NOTICE);
+                    'Adding client entry to server: already exists with server id ' . $suid, 'NOTICE');
                 if ($this->_backendMode == SYNCML_BACKENDMODE_SERVER) {
                     $this->createUidMap($database, $cuid, $suid, 0);
                 }
@@ -446,8 +391,7 @@ class SyncML_Backend_Horde extends SyncML_Backend {
             return $ok;
         }
         $this->logMessage(
-            "Replaced in server db $database client id $cuid -> server id $suid",
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            "Replaced in server db $database client id $cuid -> server id $suid", 'DEBUG');
         $ts = $registry->call(
             $database . '/getActionTimestamp',
             array($suid,
@@ -494,8 +438,7 @@ class SyncML_Backend_Horde extends SyncML_Backend {
         }
 
         $this->logMessage(
-            "Deleted in server db $database client id $cuid -> server id $suid",
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            "Deleted in server db $database client id $cuid -> server id $suid", 'DEBUG');
         $ts = $registry->call($database . '/getActionTimestamp',
                               array($suid, 'delete'));
         // We can't remove the mapping entry as we need to keep the timestamp
@@ -519,9 +462,9 @@ class SyncML_Backend_Horde extends SyncML_Backend {
      */
     function _checkAuthentication($username, $password)
     {
-        $auth = Horde_Auth::singleton($GLOBALS['conf']['auth']['driver']);
+        $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
         return $auth->authenticate($username, array('password' => $password))
-            ? Horde_Auth::getAuth()
+            ? $GLOBALS['registry']->getAuth()
             : false;
     }
 
@@ -539,7 +482,7 @@ class SyncML_Backend_Horde extends SyncML_Backend {
     function setAuthenticated($username, $credData)
     {
         Horde_Auth::setAuth($username, $credData);
-        return Horde_Auth::getAuth();
+        return $GLOBALS['registry']->getAuth();
     }
 
     /**
@@ -580,8 +523,7 @@ class SyncML_Backend_Horde extends SyncML_Backend {
 
         $this->logMessage(
             'SQL Query by SyncML_Backend_Horde::writeSyncAnchors(): '
-            . $query . ', values: ' . implode(', ', $values),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            . $query . ', values: ' . implode(', ', $values), 'DEBUG');
 
         return $this->_db->query($query, $values);
     }
@@ -610,11 +552,10 @@ class SyncML_Backend_Horde extends SyncML_Backend {
 
         $this->logMessage(
             'SQL Query by SyncML_Backend_Horde::readSyncAnchors(): '
-            . $query . ', values: ' . implode(', ', $values),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            . $query . ', values: ' . implode(', ', $values), 'DEBUG');
         $result = $this->_db->getRow($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            $this->logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            $this->logMessage($result, 'ERR');
         }
 
         return $result;
@@ -637,12 +578,11 @@ class SyncML_Backend_Horde extends SyncML_Backend {
 
         $this->logMessage(
             'SQL Query by SyncML_Backend_Horde::getUserAnchors(): '
-            . $query . ', values: ' . implode(', ', $values),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            . $query . ', values: ' . implode(', ', $values), 'DEBUG');
         $result = $this->_db->getAssoc($query, false, $values,
                                        DB_FETCHMODE_ASSOC, true);
         if (is_a($result, 'PEAR_Error')) {
-            $this->logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            $this->logMessage($result, 'ERR');
         }
 
         return $result;
@@ -677,11 +617,10 @@ class SyncML_Backend_Horde extends SyncML_Backend {
 
         $this->logMessage(
             'SQL Query by SyncML_Backend_Horde::removeAnchor(): '
-            . $query . ', values: ' . implode(', ', $values),
-            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+            . $query . ', values: ' . implode(', ', $values), 'DEBUG');
         $result = $this->_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            $this->logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            $this->logMessage($result, 'ERR');
         }
 
         return $result;
@@ -726,11 +665,10 @@ class SyncML_Backend_Horde extends SyncML_Backend {
                         $database, $this->_user, $cuid);
 
         $this->logMessage('SQL Query by SyncML_Backend_Horde::createUidMap(): '
-                          . $query . ', values: ' . implode(', ', $values),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                          . $query . ', values: ' . implode(', ', $values), 'DEBUG');
         $result = $this->_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            $this->logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            $this->logMessage($result, 'ERR');
             return $result;
         }
 
@@ -758,11 +696,10 @@ class SyncML_Backend_Horde extends SyncML_Backend {
         $values = array($this->_syncDeviceID, $database, $this->_user, $cuid);
 
         $this->logMessage('SQL Query by SyncML_Backend_Horde::_getSuid(): '
-                          . $query . ', values: ' . implode(', ', $values),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                          . $query . ', values: ' . implode(', ', $values), 'DEBUG');
         $result = $this->_db->getOne($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            $this->logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            $this->logMessage($result, 'ERR');
         }
 
         return $result;
@@ -789,11 +726,10 @@ class SyncML_Backend_Horde extends SyncML_Backend {
         $values = array($this->_syncDeviceID, $database, $this->_user, $suid);
 
         $this->logMessage('SQL Query by SyncML_Backend_Horde::_getCuid(): '
-                          . $query . ', values: ' . implode(', ', $values),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                          . $query . ', values: ' . implode(', ', $values), 'DEBUG');
         $result = $this->_db->getOne($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            $this->logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            $this->logMessage($result, 'ERR');
         }
 
         return $result;
@@ -830,11 +766,10 @@ class SyncML_Backend_Horde extends SyncML_Backend {
         $values = array($this->_syncDeviceID, $database, $this->_user, $suid);
 
         $this->logMessage('SQL Query by SyncML_Backend_Horde::_getChangeTS(): '
-                          . $query . ', values: ' . implode(', ', $values),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                          . $query . ', values: ' . implode(', ', $values), 'DEBUG');
         $result = $this->_db->getOne($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            $this->logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            $this->logMessage($result, 'ERR');
         }
 
         return $result;
@@ -861,11 +796,10 @@ class SyncML_Backend_Horde extends SyncML_Backend {
         $values = array($this->_syncDeviceID, $database, $this->_user);
 
         $this->logMessage('SQL Query by SyncML_Backend_Horde::eraseMap(): '
-                          . $query . ', values: ' . implode(', ', $values),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                          . $query . ', values: ' . implode(', ', $values), 'DEBUG');
         $result = $this->_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            $this->logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            $this->logMessage($result, 'ERR');
         }
 
         return $result;
@@ -874,28 +808,27 @@ class SyncML_Backend_Horde extends SyncML_Backend {
     /**
      * Logs a message in the backend.
      *
-     * @param mixed $message     Either a string or a PEAR_Error object.
-     * @param string $file       What file was the log function called from
-     *                           (e.g. __FILE__)?
-     * @param integer $line      What line was the log function called from
-     *                           (e.g. __LINE__)?
-     * @param integer $priority  The priority of the message. One of:
-     *                           - PEAR_LOG_EMERG
-     *                           - PEAR_LOG_ALERT
-     *                           - PEAR_LOG_CRIT
-     *                           - PEAR_LOG_ERR
-     *                           - PEAR_LOG_WARNING
-     *                           - PEAR_LOG_NOTICE
-     *                           - PEAR_LOG_INFO
-     *                           - PEAR_LOG_DEBUG
+     * @param mixed $message    Either a string or a PEAR_Error object.
+     * @param string $priority  The priority of the message. One of:
+     *                           - EMERG
+     *                           - ALERT
+     *                           - CRIT
+     *                           - ERR
+     *                           - WARN
+     *                           - NOTICE
+     *                           - INFO
+     *                           - DEBUG
      */
-    function logMessage($message, $file, $line, $priority = PEAR_LOG_INFO)
+    function logMessage($message, $priority = 'INFO')
     {
+        $trace = debug_backtrace();
+        $trace = $trace[1];
+
         // Internal logging to $this->_logtext.
-        parent::logMessage($message, $file, $line, $priority);
+        parent::logMessage($message, $priority);
 
         // Logging to Horde log:
-        Horde::logMessage($message, $file, $line, $priority);
+        Horde::logMessage($message, $priority, array('file' => $trace['file'], 'line' => $trace['line']));
     }
 
     /**
@@ -917,7 +850,7 @@ class SyncML_Backend_Horde extends SyncML_Backend {
         }
 
         /* Get an Auth object. */
-        $auth = Horde_Auth::singleton($GLOBALS['conf']['auth']['driver']);
+        $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
 
         /* Make this user an admin for the time beeing to allow deletion of
          * user data. */
@@ -964,7 +897,7 @@ class SyncML_Backend_Horde extends SyncML_Backend {
     {
         /* Get an Auth object. */
         try {
-            $auth = Horde_Auth::singleton($GLOBALS['conf']['auth']['driver']);
+            $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
         } catch (Horde_Exception $e) {
             // TODO
         }

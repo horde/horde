@@ -1,5 +1,5 @@
 <h1 class="header">
- <?php $gallery = $ansel_storage->getGallery($galleryId);
+ <?php $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($galleryId);
        printf($actionID == 'delete' ? _("Really delete %s and all of its subgalleries?") : _("Really empty %s?"), htmlspecialchars($gallery->get('name')))
  ?>
 </h1>

@@ -8,8 +8,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_LoginTasks
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  LoginTasks
  */
 class Horde_LoginTasks_Tasklist
 {
@@ -41,11 +43,13 @@ class Horde_LoginTasks_Tasklist
     protected $_tasks = array();
 
     /**
-     * Internal flag for addTask().
+     * THe list of system tasks to run during this login.
      *
-     * @var boolean
+     * @see $_tasks
+     *
+     * @var array
      */
-    protected $_addFlag = false;
+    protected $_stasks = array();
 
     /**
      * Current task location pointer.
@@ -61,29 +65,18 @@ class Horde_LoginTasks_Tasklist
      */
     public function addTask($task)
     {
-        $tmp = array(
-            'display' => false,
-            'task' => $task
-        );
+        if ($task instanceof Horde_LoginTasks_SystemTask) {
+            $this->_stasks[] = $task;
+        } else {
+            switch ($task->priority) {
+            case Horde_LoginTasks::PRIORITY_HIGH:
+                array_unshift($this->_tasks, $task);
+                break;
 
-        if (($task->display == Horde_LoginTasks::DISPLAY_AGREE) ||
-            ($task->display == Horde_LoginTasks::DISPLAY_NOTICE)) {
-            $tmp['display'] = true;
-            $this->_addFlag = true;
-        } elseif (($task->display != Horde_LoginTasks::DISPLAY_NONE) &&
-                  !$this->_addFlag) {
-            $tmp['display'] = true;
-            $this->_addFlag = false;
-        }
-
-        switch ($task->priority) {
-        case Horde_LoginTasks::PRIORITY_HIGH:
-            array_unshift($this->_tasks, $tmp);
-            break;
-
-        case Horde_LoginTasks::PRIORITY_NORMAL:
-            $this->_tasks[] = $tmp;
-            break;
+            case Horde_LoginTasks::PRIORITY_NORMAL:
+                $this->_tasks[] = $task;
+                break;
+            }
         }
     }
 
@@ -98,16 +91,24 @@ class Horde_LoginTasks_Tasklist
     {
         $tmp = array();
 
+        /* Always loop through system tasks first. */
+        foreach ($this->_stasks as $key => $val) {
+            if (!$val->skip()) {
+                $tmp[] = $val;
+                unset($this->_stasks[$key]);
+            }
+        }
+
         reset($this->_tasks);
         while (list($k, $v) = each($this->_tasks)) {
-            if ($v['display'] && ($k >= $this->_ptr)) {
+            if ($v->needsDisplay() && ($k >= $this->_ptr)) {
                 break;
             }
-            $tmp[] = $v['task'];
+            $tmp[] = $v;
         }
 
         if ($advance) {
-            $this->_tasks = array_slice($this->_tasks, count($tmp) + $this->_ptr);
+            $this->_tasks = array_slice($this->_tasks, count($tmp));
             $this->_ptr = 0;
         }
 
@@ -124,16 +125,16 @@ class Horde_LoginTasks_Tasklist
     public function needDisplay($advance = false)
     {
         $tmp = array();
-        $display = null;
+        $previous = null;
 
         reset($this->_tasks);
         while (list($k, $v) = each($this->_tasks)) {
-            if (!$v['display'] ||
-                (!is_null($display) && ($v['task']->display != $display))) {
+            if (!$v->needsDisplay() ||
+                (!is_null($previous) && !$v->joinDisplayWith($previous))) {
                 break;
             }
-            $tmp[] = $v['task'];
-            $display = $v['task']->display;
+            $tmp[] = $v;
+            $previous = $v;
         }
 
         if ($advance) {
@@ -150,7 +151,8 @@ class Horde_LoginTasks_Tasklist
      */
     public function isDone()
     {
-        return ($this->_ptr == count($this->_tasks));
+        return (empty($this->_stasks) &&
+                ($this->_ptr == count($this->_tasks)));
     }
 
 }

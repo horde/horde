@@ -1,6 +1,6 @@
 <?php
 /**
- * Test script for the Horde_Imap_Client:: library.
+ * Test script for the Horde/Imap_Client package.
  *
  * Usage:
  *   test_client.php [[username] [[password] [[IMAP URL] [driver]]]]
@@ -19,7 +19,8 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @package  Horde_Imap_Client
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Imap_Client
  */
 
 /** Configuration **/
@@ -98,6 +99,10 @@ set_exception_handler('exception_handler');
 if (@include_once 'Benchmark/Timer.php') {
     $timer = new Benchmark_Timer();
     $timer->start();
+}
+
+if (require_once 'Horde/Secret.php') {
+    $params['encryptKey'] = uniqid();
 }
 
 // Add an ID field to send to server (ID extension)
@@ -860,17 +865,10 @@ Horde_Imap_Client_Sort::sortMailboxes($test_sort, array('delimiter' => '.', 'inb
 print_r($test_sort);
 
 print "Testing serialization of object. Will automatically logout.\n";
-$old_error = error_reporting(0);
-if (require_once 'Horde/Secret.php') {
-    Horde_Imap_Client::$encryptKey = uniqid();
-}
-error_reporting($old_error);
 $serialized_data = serialize($imap_client);
 print "\nSerialized object:\n";
 print_r($serialized_data);
 
-// Unset $encryptKey so password is not output in cleartext
-Horde_Imap_Client::$encryptKey = null;
 $unserialized_data = unserialize($serialized_data);
 print "\n\nUnserialized object:\n";
 print_r($unserialized_data);

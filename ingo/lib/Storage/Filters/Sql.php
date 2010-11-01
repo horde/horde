@@ -60,7 +60,7 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters {
         $query = sprintf('SELECT * FROM %s WHERE rule_owner = ? ORDER BY rule_order',
                          $this->_params['table_rules']);
         $values = array(Ingo::getUser());
-        Horde::logMessage('Ingo_Storage_Filters_Sql(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Ingo_Storage_Filters_Sql(): ' . $query, 'DEBUG');
         $result = $this->_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
             return $result;
@@ -69,11 +69,11 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters {
         while ($row = $result->fetchRow(DB_FETCHMODE_ASSOC)) {
             $data[$row['rule_order']] = array(
                 'id' => (int)$row['rule_id'],
-                'name' => Horde_String::convertCharset($row['rule_name'], $this->_params['charset']),
+                'name' => Horde_String::convertCharset($row['rule_name'], $this->_params['charset'], 'UTF-8'),
                 'action' => (int)$row['rule_action'],
-                'action-value' => Horde_String::convertCharset($row['rule_value'], $this->_params['charset']),
+                'action-value' => Horde_String::convertCharset($row['rule_value'], $this->_params['charset'], 'UTF-8'),
                 'flags' => (int)$row['rule_flags'],
-                'conditions' => empty($row['rule_conditions']) ? null : Horde_String::convertCharset(unserialize($row['rule_conditions']), $this->_params['charset']),
+                'conditions' => empty($row['rule_conditions']) ? null : Horde_String::convertCharset(unserialize($row['rule_conditions']), $this->_params['charset'], 'UTF-8'),
                 'combine' => (int)$row['rule_combine'],
                 'stop' => (bool)$row['rule_stop'],
                 'disable' => !(bool)$row['rule_active']);
@@ -123,11 +123,11 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters {
      */
     protected function _ruleToBackend($rule)
     {
-        return array(Horde_String::convertCharset($rule['name'], Horde_Nls::getCharset(), $this->_params['charset']),
+        return array(Horde_String::convertCharset($rule['name'], 'UTF-8', $this->_params['charset']),
                      (int)$rule['action'],
-                     isset($rule['action-value']) ? Horde_String::convertCharset($rule['action-value'], Horde_Nls::getCharset(), $this->_params['charset']) : null,
+                     isset($rule['action-value']) ? Horde_String::convertCharset($rule['action-value'], 'UTF-8', $this->_params['charset']) : null,
                      isset($rule['flags']) ? (int)$rule['flags'] : null,
-                     isset($rule['conditions']) ? serialize(Horde_String::convertCharset($rule['conditions'], Horde_Nls::getCharset(), $this->_params['charset'])) : null,
+                     isset($rule['conditions']) ? serialize(Horde_String::convertCharset($rule['conditions'], 'UTF-8', $this->_params['charset'])) : null,
                      isset($rule['combine']) ? (int)$rule['combine'] : null,
                      isset($rule['stop']) ? (int)$rule['stop'] : null,
                      isset($rule['disable']) ? (int)(!$rule['disable']) : 1);
@@ -156,10 +156,10 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters {
         $values = array_merge(array($id, Ingo::getUser()),
                               $this->_ruleToBackend($rule),
                               array($order));
-        Horde::logMessage('Ingo_Storage_Filters_Sql::addRule(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Ingo_Storage_Filters_Sql::addRule(): ' . $query, 'DEBUG');
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -179,10 +179,10 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters {
                          $this->_params['table_rules']);
         $values = array_merge($this->_ruleToBackend($rule),
                               array($id, $rule['id'], Ingo::getUser()));
-        Horde::logMessage('Ingo_Storage_Filters_Sql::updateRule(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Ingo_Storage_Filters_Sql::updateRule(): ' . $query, 'DEBUG');
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -205,10 +205,10 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters {
         $query = sprintf('DELETE FROM %s WHERE rule_id = ? AND rule_owner = ?',
                          $this->_params['table_rules']);
         $values = array($this->_filters[$id]['id'], Ingo::getUser());
-        Horde::logMessage('Ingo_Storage_Filters_Sql::deleteRule(): ' . $query, __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Ingo_Storage_Filters_Sql::deleteRule(): ' . $query, 'DEBUG');
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
         unset($this->_filters[$id]);
@@ -216,11 +216,10 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters {
         $query = sprintf('UPDATE %s SET rule_order = rule_order - 1 WHERE rule_owner = ? AND rule_order > ?',
                          $this->_params['table_rules']);
         $values = array(Ingo::getUser(), $id);
-        Horde::logMessage('Ingo_Storage_Filters_Sql::deleteRule(): ' . $query,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Ingo_Storage_Filters_Sql::deleteRule(): ' . $query, 'DEBUG');
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 
@@ -294,11 +293,10 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters {
             $values[] = (int)$id;
             $values[] = (int)($id + $steps);
         }
-        Horde::logMessage('Ingo_Storage_Filters_Sql::ruleUp(): ' . $query,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Ingo_Storage_Filters_Sql::ruleUp(): ' . $query, 'DEBUG');
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
         $query = sprintf('UPDATE %s SET rule_order = ? WHERE rule_owner = ? AND rule_id = ?',
@@ -306,11 +304,10 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters {
         $values = array((int)($id + $steps),
                         Ingo::getUser(),
                         $this->_filters[$id]['id']);
-        Horde::logMessage('Ingo_Storage_Filters_Sql::ruleUp(): ' . $query,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        Horde::logMessage('Ingo_Storage_Filters_Sql::ruleUp(): ' . $query, 'DEBUG');
         $result = $this->_write_db->query($query, $values);
         if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($result, 'ERR');
             return $result;
         }
 

@@ -1,0 +1,876 @@
+# Trean Traditional Chinese Translation.
+# Copyright 2002 Chih-Wei Yeh
+# Chih-Wei Yeh <cwyeh@ccca.nctu.edu.tw>
+# David Chang <david@tmv.gov.tw>, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Trean 1.0-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2007-01-25 15:09+0800\n"
+"PO-Revision-Date: 2003-07-07 16:22+0800\n"
+"Last-Translator: David Chang <david@tmv.gov.tw>\n"
+"Language-Team: Traditional Chinese <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: edit.php:216
+#, php-format
+msgid "\"%s\" was not renamed: %s."
+msgstr "'\"%s\" 並未更名: %s."
+
+#: data.php:155
+#, php-format
+msgid "%d Folders and %d Bookmarks imported."
+msgstr "已匯入 %d 個資料夾和 %d 筆書籤"
+
+#: templates/reports.php:104
+#, php-format
+msgid "%s Bookmarks"
+msgstr "%s 個書籤"
+
+#: reports.php:24
+#, php-format
+msgid "%s Response Codes"
+msgstr "%s 回應碼"
+
+#: lib/base.php:74
+#, php-format
+msgid "%s's Bookmarks"
+msgstr "%s的書籤"
+
+#: lib/Block/bookmarks.php:63 lib/Block/highestrated.php:38
+#: lib/Block/mostclicked.php:38
+msgid "1 Line"
+msgstr "1 行"
+
+#: templates/star_rating_helper.php:20
+msgid "1 star out of 5"
+msgstr "一星評鑑"
+
+#: lib/Block/bookmarks.php:55 lib/Block/highestrated.php:30
+#: lib/Block/mostclicked.php:30
+msgid "10 rows"
+msgstr "10 行"
+
+#: lib/Block/bookmarks.php:56 lib/Block/highestrated.php:31
+#: lib/Block/mostclicked.php:31
+msgid "15 rows"
+msgstr "15 行"
+
+#: templates/reports.php:36
+#, php-format
+msgid "1xx Response Codes (%s)"
+msgstr "1xx 回應碼 (%s)"
+
+#: lib/Block/bookmarks.php:62 lib/Block/highestrated.php:37
+#: lib/Block/mostclicked.php:37
+msgid "2 Line"
+msgstr "2 行"
+
+#: templates/star_rating_helper.php:21
+msgid "2 stars out of 5"
+msgstr "二星評鑑"
+
+#: lib/Block/bookmarks.php:57 lib/Block/highestrated.php:32
+#: lib/Block/mostclicked.php:32
+msgid "25 rows"
+msgstr "25 行"
+
+#: templates/reports.php:42
+#, php-format
+msgid "2xx Response Codes (%s)"
+msgstr "2xx 回應碼 (%s)"
+
+#: lib/Block/bookmarks.php:61 lib/Block/highestrated.php:36
+#: lib/Block/mostclicked.php:36
+msgid "3 Line"
+msgstr "3 行"
+
+#: templates/star_rating_helper.php:22
+msgid "3 stars out of 5"
+msgstr "三星評鑑"
+
+#: templates/reports.php:53
+#, php-format
+msgid "3xx Response Codes (%s)"
+msgstr "3xx 回應碼 (%s)"
+
+#: templates/star_rating_helper.php:23
+msgid "4 stars out of 5"
+msgstr "四星評鑑"
+
+#: templates/reports.php:64
+#, php-format
+msgid "4xx Response Codes (%s)"
+msgstr "4xx 回應碼 (%s)"
+
+#: templates/star_rating_helper.php:24
+msgid "5 stars out of 5"
+msgstr "五星評鑑"
+
+#: templates/reports.php:86
+#, php-format
+msgid "5xx Response Codes (%s)"
+msgstr "5xx 回應碼 (%s)"
+
+#: lib/Trean.php:176
+msgid "Accepted"
+msgstr "已接受"
+
+#: templates/add/add.inc:64 lib/Block/tree_menu.php:24
+msgid "Add"
+msgstr "新增"
+
+#: templates/add/add.inc:91
+msgid "Add to Bookmarks"
+msgstr "加入書籤"
+
+#: templates/browse.php:220 templates/search.php:65
+msgid "All"
+msgstr "所有"
+
+#: browse.php:31 data.php:38 perms.php:239 lib/Block/bookmarks.php:32
+#, php-format
+msgid "An error occured listing folders: %s"
+msgstr "在列出資料夾: %s 時發生一個錯誤"
+
+#: lib/Trean.php:49
+#, php-format
+msgid "An error occurred counting folders: %s"
+msgstr "在計算資料夾: %s 時發生一個錯誤"
+
+#: search.php:31
+msgid "Any Part of the field"
+msgstr "欄位任一部份"
+
+#: templates/search.php:29
+msgid "Are you sure you want to delete the selected bookmarks?"
+msgstr "你確定要刪除所選擇的書籤嗎?"
+
+#: templates/browse.php:115
+msgid "Are you sure you want to delete the selected items?"
+msgstr "你確定要刪除所選擇的項目嗎?"
+
+#: perms.php:44
+msgid "Attempt to edit a non-existent share."
+msgstr "嚐試編輯一個不存在的共享."
+
+#: lib/Trean.php:208
+msgid "Bad Gateway"
+msgstr "Web 伺服器在作為閘道或代理伺服器 Proxy 時收到無效的回應"
+
+#: lib/Trean.php:188
+msgid "Bad Request"
+msgstr "錯誤的要求"
+
+#: add.php:64
+msgid "Bookmark Added"
+msgstr "書籤已增加"
+
+#: data.php:17 templates/browse.php:223 lib/Block/bookmarks.php:3
+#: lib/Block/bookmarks.php:81
+msgid "Bookmarks"
+msgstr "書籤"
+
+#: browse.php:35
+msgid "Browse"
+msgstr "瀏覽"
+
+#: templates/edit/footer.inc:2
+msgid "Cancel"
+msgstr "取消"
+
+#: config/prefs.php.dist:11
+msgid "Change the number of columns to display in browse and search results."
+msgstr "修改瀏覽或搜尋時呈現畫面的欄數."
+
+#: templates/add/add.inc:86
+msgid "Close"
+msgstr "關閉"
+
+#: search.php:30
+msgid "Combine"
+msgstr "邏輯"
+
+#: config/prefs.php.dist:46
+msgid "Completely collapsed"
+msgstr "完全折疊"
+
+#: config/prefs.php.dist:48
+msgid "Completely expanded"
+msgstr "完全展開"
+
+#: lib/Trean.php:197
+msgid "Conflict"
+msgstr "與其他請求發生衝突"
+
+#: lib/Trean.php:172
+msgid "Continue"
+msgstr "繼續"
+
+#: edit.php:192
+msgid "Copied bookmark: "
+msgstr "書籤複製完成: "
+
+#: templates/browse.php:242 templates/search.php:72
+msgid "Copy"
+msgstr "複製"
+
+#: edit.php:201
+#, php-format
+msgid "Copying folders is not supported."
+msgstr "不支援資料夾複製."
+
+#: lib/Trean.php:175
+msgid "Created"
+msgstr "已建立"
+
+#: templates/reports.php:96
+#, php-format
+msgid "DNS Failure or Other Error (%s)"
+msgstr "DNS 名稱解析或其他錯誤 (%s)"
+
+#: templates/browse.php:233 templates/search.php:70
+msgid "Delete"
+msgstr "刪除"
+
+#: templates/browse.php:33
+msgid "Delete current folder?"
+msgstr "刪除目前的資料夾?"
+
+#: templates/browse.php:260 templates/browse.php:360
+msgid "Delete this Folder"
+msgstr "刪除這個資料夾"
+
+#: edit.php:32 edit.php:84
+msgid "Deleted bookmark: "
+msgstr "書籤刪除完成: "
+
+#: edit.php:98
+msgid "Deleted folder: "
+msgstr "資料夾刪除完成:"
+
+#: search.php:28 templates/edit/bookmark.inc:15 templates/add/add.inc:47
+msgid "Description"
+msgstr "描述"
+
+#: config/prefs.php.dist:10
+msgid "Display Options"
+msgstr "顯示選項"
+
+#: lib/Block/bookmarks.php:52
+msgid "Display Rows"
+msgstr "顯示行"
+
+#: config/prefs.php.dist:76
+msgid "Display bookmark rating in browse/search view?"
+msgstr "在瀏覽/搜尋的畫面中顯示書籤被點選的次數?"
+
+#: config/prefs.php.dist:58
+msgid "Display edit buttons when displaying Bookmarks?"
+msgstr "當顯示書籤時也顯示編輯圖示?"
+
+#: templates/data/export.inc:11
+msgid "Download Folder"
+msgstr "下載資料夾"
+
+#: templates/add/add.inc:77
+msgid "Drag the \"Add to Bookmarks\" link below onto your \"Links\" Bar"
+msgstr "將下方的\"加入書籤\"連結拉到你的\"連結\"工具列"
+
+#: templates/add/add.inc:75
+msgid ""
+"Drag the \"Add to Bookmarks\" link below onto your \"Personal Toolbar\"."
+msgstr "將下方的\"加入書籤\"連結拉到你的\"個人工具列\"."
+
+#: templates/browse.php:227 templates/search.php:69
+msgid "Edit"
+msgstr "編輯"
+
+#: edit.php:245
+msgid "Edit Bookmark"
+msgstr "編輯書籤"
+
+#: perms.php:235
+msgid "Edit Permissions"
+msgstr "編輯權限"
+
+#: perms.php:242
+#, php-format
+msgid "Edit Permissions for %s"
+msgstr "編輯 %s 的權限"
+
+#: lib/Trean.php:205
+msgid "Expectation Failed"
+msgstr "執行失敗"
+
+#: templates/data/export.inc:4
+msgid "Export Bookmarks"
+msgstr "匯出書籤"
+
+#: templates/data/import.inc:9
+msgid "File to import:"
+msgstr "選擇檔案以匯入:"
+
+#: config/prefs.php.dist:47
+msgid "First level shown"
+msgstr "顯示第一層"
+
+#: templates/edit/bookmark.inc:25 templates/add/add.inc:52
+#: lib/Block/bookmarks.php:42
+msgid "Folder"
+msgstr "資料夾"
+
+#: lib/Bookmarks.php:353
+msgid "Folder names must be non-empty"
+msgstr "資料夾名稱不可空白"
+
+#: templates/data/import.inc:11
+msgid "Folder to import into:"
+msgstr "匯入到資料夾:"
+
+#: templates/browse.php:222
+msgid "Folders"
+msgstr "資料夾"
+
+#: lib/Trean.php:191
+msgid "Forbidden"
+msgstr "禁止使用"
+
+#: lib/Trean.php:183
+msgid "Found"
+msgstr "物件已移動"
+
+#: lib/Trean.php:210
+msgid "Gateway Time-out"
+msgstr "閘道逾時"
+
+#: lib/Trean.php:198
+msgid "Gone"
+msgstr "請求的資源已不存在於伺服器中"
+
+#: reports.php:24 templates/reports.php:33
+msgid "HTTP Status"
+msgstr "HTTP 狀態"
+
+#: lib/Trean.php:211
+msgid "HTTP Version not supported"
+msgstr "不支援的 HTTP 版本"
+
+#: lib/Block/bookmarks.php:50 config/prefs.php.dist:35
+msgid "Highest Rated"
+msgstr "最受歡迎"
+
+#: lib/Block/highestrated.php:3 lib/Block/highestrated.php:49
+msgid "Highest-rated Bookmarks"
+msgstr "最受歡迎的書籤"
+
+#: templates/data/import.inc:16
+msgid "Import"
+msgstr "匯入"
+
+#: data.php:183 templates/data/import.inc:4
+msgid "Import Bookmarks"
+msgstr "匯入書籤"
+
+#: templates/data/export.inc:9
+msgid "Include Subfolders"
+msgstr "包含次資料夾"
+
+#: lib/Trean.php:206
+msgid "Internal Server Error"
+msgstr "內部伺服器錯誤"
+
+#: templates/add/add.inc:76
+msgid "Internet Explorer"
+msgstr "Internet Explorer"
+
+#: templates/data/import.inc:7
+msgid ""
+"Internet Explorer users will need to export their current Favorites by going "
+"to the \"File\" menu and selecting \"Import and Export\"."
+msgstr ""
+"Internet Explorer 使用者要輸出我的最愛必須到\"檔案\"選單並選擇\"匯入和匯出\"."
+
+#: lib/Trean.php:199
+msgid "Length Required"
+msgstr "必須在請求中提供 Content-Length 表頭"
+
+#: search.php:31
+msgid "Match"
+msgstr "吻合"
+
+#: lib/api.php:30
+msgid "Maximum Number of Bookmarks"
+msgstr "書籤上限數目"
+
+#: lib/api.php:27
+msgid "Maximum Number of Folders"
+msgstr "資料夾上限數目"
+
+#: lib/Block/tree_menu.php:3
+msgid "Menu List"
+msgstr "功能表"
+
+#: lib/Trean.php:193
+msgid "Method Not Allowed"
+msgstr "不接受客戶端的請求方法"
+
+#: templates/browse.php:248
+msgid "More Actions"
+msgstr "其他作用方式"
+
+#: lib/Block/bookmarks.php:51 config/prefs.php.dist:36
+msgid "Most Clicked"
+msgstr "最多點選"
+
+#: lib/Block/mostclicked.php:3 lib/Block/mostclicked.php:49
+msgid "Most-clicked Bookmarks"
+msgstr "最多點選的書籤"
+
+#: templates/browse.php:235 templates/search.php:71
+msgid "Move"
+msgstr "搬移"
+
+#: lib/Trean.php:182
+msgid "Moved Permanently"
+msgstr "請求的資源已不存在"
+
+#: edit.php:137
+msgid "Moved bookmark: "
+msgstr "書籤搬移完成: "
+
+#: edit.php:151
+msgid "Moved folder: "
+msgstr "資料夾搬移完成: "
+
+#: templates/add/add.inc:74
+msgid "Mozilla"
+msgstr "Mozilla"
+
+#: templates/data/import.inc:6
+msgid ""
+"Mozilla/Firefox users will need to export their current Bookmarks by going "
+"into \"Bookmark Manager\" and selecting \"Export\" from the \"Tools\" menu."
+msgstr ""
+"Mozilla/Firefox 使用者要匯出目前的書籤設定必須到\"書籤管理者\"並從\"工具\"選"
+"單選擇\"匯出\"."
+
+#: lib/Trean.php:181
+msgid "Multiple Choices"
+msgstr "請求中的資源指向一群文件"
+
+#: templates/edit/folder.inc:9
+msgid "Name"
+msgstr "名稱"
+
+#: add.php:111 templates/browse.php:250 templates/browse.php:344
+#: templates/add/add.inc:32
+msgid "New Bookmark"
+msgstr "新增書籤"
+
+#: lib/Trean.php:85
+msgid "New Folder"
+msgstr "新增資料夾"
+
+#: templates/browse.php:257 templates/browse.php:353
+msgid "New Subfolder"
+msgstr "新增次資料夾"
+
+#: templates/search.php:76
+msgid "No Bookmarks found"
+msgstr "找不到書籤"
+
+#: lib/Trean.php:178
+msgid "No Content"
+msgstr "無內容"
+
+#: lib/Block/bookmarks.php:128 lib/Block/highestrated.php:73
+#: lib/Block/mostclicked.php:73
+msgid "No bookmarks to display"
+msgstr "無書籤可顯示"
+
+#: lib/Trean.php:177
+msgid "Non-Authoritative Information"
+msgstr "非授權資訊"
+
+#: templates/browse.php:221 templates/search.php:66
+msgid "None"
+msgstr "無"
+
+#: lib/Trean.php:194
+msgid "Not Acceptable"
+msgstr "用戶端瀏覽器不接受要求頁面的 MIME 類型"
+
+#: lib/Trean.php:192
+msgid "Not Found"
+msgstr "請求的文件不存在"
+
+#: lib/Trean.php:207
+msgid "Not Implemented"
+msgstr "伺服器無法支援請求中的功能"
+
+#: lib/Trean.php:185
+msgid "Not Modified"
+msgstr "未修改"
+
+#: templates/add/add.inc:80
+msgid "Note:"
+msgstr "備註:"
+
+#: edit.php:239
+msgid "Nothing to edit."
+msgstr "什麼也不編輯"
+
+#: lib/Block/highestrated.php:27 lib/Block/mostclicked.php:27
+msgid "Number of bookmarks to show"
+msgstr "書籤顯示數目"
+
+#: lib/Trean.php:174
+msgid "OK"
+msgstr "確認"
+
+#: templates/add/add.inc:81
+#, php-format
+msgid ""
+"On newer versions of Internet Explorer, you may have to add %s://%s to your "
+"Trusted Zone for this to work."
+msgstr ""
+"在比較新版的 I.E 瀏覽器, 你可能需要將 %s://%s 加入到信任的網站中才能生效.(方"
+"法：點選I.E 瀏覽器 -&gt 工具 -&gt 網際網路選項 -&gt 安全性 -&gt 信任的網站 -"
+"&gt 網站)"
+
+#: perms.php:56
+msgid ""
+"Only the owner or system administrator may change ownership or owner "
+"permissions for a share"
+msgstr "只有擁有者與系統管理員可以變更共享權限"
+
+#: templates/menu.inc:2 templates/menu.inc:5
+msgid "Open Fo_lder"
+msgstr "開啟資料夾_l"
+
+#: config/prefs.php.dist:67
+msgid "Open links in a new window?"
+msgstr "在新的視窗開啟連結"
+
+#: config/prefs.php.dist:9
+msgid "Other Options"
+msgstr "其他選項"
+
+#: lib/Trean.php:180
+msgid "Partial Content"
+msgstr "部分內容"
+
+#: lib/Trean.php:190
+msgid "Payment Required"
+msgstr "保留"
+
+#: templates/browse.php:134 templates/browse.php:169 templates/add/add.inc:5
+msgid "Please enter a name for the new folder:"
+msgstr "請輸入一個新資料夾的名稱:"
+
+#: templates/browse.php:26
+msgid "Please enter the name of the new folder:"
+msgstr "請輸入新資料夾的名稱:"
+
+#: templates/browse.php:40
+msgid "Please modify the name accordingly"
+msgstr "請斟酌修改名稱"
+
+#: templates/browse.php:98 templates/browse.php:113 templates/browse.php:153
+#: templates/browse.php:188
+msgid "Please select an item first"
+msgstr "請先選擇一個項目"
+
+#: lib/Trean.php:200
+msgid "Precondition Failed"
+msgstr "指定條件失敗"
+
+#: lib/Trean.php:195
+msgid "Proxy Authentication Required"
+msgstr "需要代理伺服器 Proxy 驗證"
+
+#: templates/browse.php:261 templates/browse.php:361
+msgid "Rename this Folder"
+msgstr "更名這個資料夾"
+
+#: reports.php:17
+msgid "Reports"
+msgstr "報表"
+
+#: lib/Trean.php:201
+msgid "Request Entity Too Large"
+msgstr "請求的訊息主體過於龐大"
+
+#: lib/Trean.php:196
+msgid "Request Time-out"
+msgstr "客戶端無法於有效時限內完成作業"
+
+#: lib/Trean.php:202
+msgid "Request-URI Too Large"
+msgstr "請求的 URI 太長"
+
+#: lib/Trean.php:204
+msgid "Requested range not satisfiable"
+msgstr "無法滿足要求的範圍"
+
+#: lib/Trean.php:179
+msgid "Reset Content"
+msgstr "重設內容"
+
+#: templates/edit/footer.inc:1
+msgid "Save"
+msgstr "儲存"
+
+#: search.php:19 search.php:26 lib/Block/tree_menu.php:33
+msgid "Search"
+msgstr "搜尋"
+
+#: search.php:25
+msgid "Search Bookmarks"
+msgstr "搜尋書籤"
+
+#: search.php:61
+#, php-format
+msgid "Search Results (%s)"
+msgstr "搜尋結果 (%s)"
+
+#: lib/Trean.php:184
+msgid "See Other"
+msgstr "請求的資源可以在別的位置找到"
+
+#: templates/browse.php:220 templates/search.php:65
+msgid "Select All"
+msgstr "全選"
+
+#: templates/browse.php:223
+msgid "Select All Bookmarks"
+msgstr "選擇所有書籤"
+
+#: templates/browse.php:222
+msgid "Select All Folders"
+msgstr "選擇所有資料夾"
+
+#: templates/browse.php:221 templates/search.php:66
+msgid "Select None"
+msgstr "不選"
+
+#: templates/search.php:64
+#, php-format
+msgid "Select: %s, %s"
+msgstr "選擇: %s, %s"
+
+#: templates/browse.php:219
+#, php-format
+msgid "Select: %s, %s, %s, %s"
+msgstr "選擇: %s, %s, %s, %s"
+
+#: lib/Trean.php:209
+msgid "Service Unavailable"
+msgstr "服務無法使用"
+
+#: templates/browse.php:264 templates/browse.php:368
+msgid "Set Permissions"
+msgstr "設定權限"
+
+#: config/prefs.php.dist:49
+msgid "Should your list of bookmark folders be open when you log in?"
+msgstr "登入後顯示所有資料夾中的書籤?"
+
+#: config/prefs.php.dist:37
+msgid "Sort bookmarks by:"
+msgstr "排序書籤依:"
+
+#: lib/Block/bookmarks.php:46
+msgid "Sort by"
+msgstr "排列依"
+
+#: lib/Trean.php:173
+msgid "Switching Protocols"
+msgstr "切換通訊協定"
+
+#: lib/Block/bookmarks.php:58 lib/Block/highestrated.php:33
+#: lib/Block/mostclicked.php:33
+msgid "Template"
+msgstr "樣板"
+
+#: config/prefs.php.dist:25
+msgid "Template to use when displaying bookmarks:"
+msgstr "顯示書籤時所用的樣板:"
+
+#: lib/Trean.php:187
+msgid "Temporary Redirect"
+msgstr "暫時重新導向"
+
+#: templates/browse.php:372
+msgid "There are no bookmarks in this folder"
+msgstr "此資料夾中沒有任何書籤"
+
+#: edit.php:194
+#, php-format
+msgid "There was a problem copying the bookmark: %s"
+msgstr "複製書籤: %s 時發生一個錯誤"
+
+#: edit.php:34 edit.php:86
+#, php-format
+msgid "There was a problem deleting the bookmark: %s"
+msgstr "刪除書籤: %s 時發生一個錯誤"
+
+#: edit.php:100
+#, php-format
+msgid "There was a problem deleting the folder: %s"
+msgstr "刪除資料夾: %s 時發生一個錯誤"
+
+#: edit.php:139
+#, php-format
+msgid "There was a problem moving the bookmark: %s"
+msgstr "搬移書籤: %s 時發生一個錯誤"
+
+#: edit.php:153
+#, php-format
+msgid "There was a problem moving the folder: %s"
+msgstr "搬移資料夾: %s 時發生一個錯誤"
+
+#: add.php:59
+#, php-format
+msgid "There was an error adding the bookmark: %s"
+msgstr "新增書籤: %s 時發生一個錯誤"
+
+#: add.php:43 add.php:100 edit.php:122 edit.php:178
+#, php-format
+msgid "There was an error adding the folder: %s"
+msgstr "新增資料夾: %s 時發生一個錯誤."
+
+#: edit.php:55
+#, php-format
+msgid "There was an error saving the bookmark: %s"
+msgstr "儲存書籤: %s 時發生一個錯誤"
+
+#: edit.php:68
+#, php-format
+msgid "There was an error saving the folder: %s"
+msgstr "儲存資料夾: %s 時發生一個錯誤."
+
+#: search.php:27 templates/edit/bookmark.inc:10 templates/add/add.inc:42
+#: lib/Block/bookmarks.php:49 config/prefs.php.dist:34
+msgid "Title"
+msgstr "標題"
+
+#: config/prefs.php.dist:24
+msgid "Title Only"
+msgstr "僅限標題"
+
+#: config/prefs.php.dist:23
+msgid "Title and Description"
+msgstr "標題與描述"
+
+#: config/prefs.php.dist:22
+msgid "Title, URL, and Description"
+msgstr "標題,網址與描述"
+
+#: templates/add/add.inc:73
+msgid "To be able to quickly add bookmarks from your web browser:"
+msgstr "為了能夠快速的從你的瀏覽器新增書籤:"
+
+#: templates/reports.php:103
+msgid "Total"
+msgstr "總計"
+
+#: search.php:29 templates/edit/bookmark.inc:20 templates/add/add.inc:37
+msgid "URL"
+msgstr "網址"
+
+#: lib/Trean.php:189
+msgid "Unauthorized"
+msgstr "拒絕存取"
+
+#: templates/reports.php:100
+#, php-format
+msgid "Unknown (%s)"
+msgstr "未知的 (%s)"
+
+#: lib/Trean.php:203
+msgid "Unsupported Media Type"
+msgstr "不支援的媒體類型"
+
+#: perms.php:228
+#, php-format
+msgid "Updated %s."
+msgstr "%s 已更新."
+
+#: lib/Trean.php:186
+msgid "Use Proxy"
+msgstr "使用代理伺服器 Proxy"
+
+#: templates/add/add.inc:78
+msgid ""
+"While browsing you will be able to bookmark the current page by clicking "
+"your new \"Add to Bookmarks\" shortcut."
+msgstr "當你在瀏覽網頁時,你可以點選\"加入書籤\"的捷徑以新增書籤"
+
+#: search.php:31
+msgid "Whole Field"
+msgstr "完全符合"
+
+#: templates/browse.php:26
+msgid "You are creating a new folder."
+msgstr "你正在建立一個新的資料夾."
+
+#: add.php:21 data.php:64 data.php:131
+#, php-format
+msgid "You are not allowed to create more than %d bookmarks."
+msgstr "你沒有建立超過 %d 個書籤的權限."
+
+#: add.php:84 data.php:55 data.php:106
+#, php-format
+msgid "You are not allowed to create more than %d folders."
+msgstr "不允許你建立 %d 個以上的資料夾."
+
+#: templates/browse.php:40
+msgid "You are renaming the current folder."
+msgstr "你正在為目前的資料夾更新名稱."
+
+#: browse.php:21
+msgid "You do not have permission to view this folder."
+msgstr "你沒有檢視此資料夾的權限."
+
+#: templates/browse.php:144 templates/browse.php:179 templates/add/add.inc:13
+msgid "You must select a target folder first"
+msgstr "請先選擇一個目標資料夾"
+
+#: lib/Trean.php:144
+msgid "_Browse"
+msgstr "瀏覽_B"
+
+#: lib/Trean.php:155
+msgid "_Import/Export"
+msgstr "匯入/匯出_I"
+
+#: lib/Trean.php:148
+msgid "_New Bookmark"
+msgstr "新增書籤_N"
+
+#: lib/Trean.php:151
+msgid "_Reports"
+msgstr "報表_R"
+
+#: lib/Trean.php:150
+msgid "_Search"
+msgstr "搜尋_S"
+
+#: templates/search.php:111 templates/bookmark/1line.inc:27
+#: templates/bookmark/2line.inc:38 templates/bookmark/standard.inc:42
+#: templates/block/1line.inc:22 templates/block/2line.inc:26
+#: templates/block/standard.inc:24
+msgid "click"
+msgstr "點選"
+
+#: templates/search.php:111 templates/bookmark/1line.inc:27
+#: templates/bookmark/2line.inc:38 templates/bookmark/standard.inc:42
+#: templates/block/1line.inc:22 templates/block/2line.inc:26
+#: templates/block/standard.inc:24
+msgid "clicks"
+msgstr "點選"

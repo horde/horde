@@ -22,20 +22,19 @@ if ($form->validate()) {
     $form->getInfo(null, $info);
 
     $tmp = Horde::getTempDir();
-    $driver = empty($conf['image']['convert']) ? 'gd' : 'im';
     $img = Ansel::getImageObject();
     try {
         $img->loadFile($info['image']['file']);
         $dimensions = $img->getDimensions();
     } catch (Horde_Image_Exception $e) {
         $notification->push($e->getMessage());
-        header('Location: ' . Horde::applicationUrl('faces/search/image.php'));
+        Horde::url('faces/search/image.php')->redirect();
         exit;
     }
 
     if ($dimensions['width'] < 50 || $dimensions['height'] < 50) {
         $notification->push(_("Photo is too small. Search photo must be at least 50x50 pixels."));
-        header('Location: ' . Horde::applicationUrl('faces/search/image.php'));
+        Horde::url('faces/search/image.php')->redirect();
         exit;
     }
 
@@ -44,16 +43,16 @@ if ($form->validate()) {
                      min($conf['screen']['height'], $dimensions['height']));
     } catch (Horde_Image_Exception $e) {
         $notification->push($e->getMessage());
-        header('Location: ' . Horde::applicationUrl('faces/search/image.php'));
+        Horde::url('faces/search/image.php')->redirect();
         exit;
     }
 
-    $path = $tmp . '/search_face_' . Horde_Auth::getAuth() . Ansel_Faces::getExtension();
+    $path = $tmp . '/search_face_' . $registry->getAuth() . Ansel_Faces::getExtension();
     if (file_put_contents($path, $img->raw())) {
-        header('Location: ' . Horde::applicationUrl('faces/search/image_define.php'));
+        Horde::url('faces/search/image_define.php')->redirect();
     } else {
         $notification->push(_("Cannot store search photo"));
-        header('Location: ' . Horde::applicationUrl('faces/search/image.php'));
+        Horde::url('faces/search/image.php')->redirect();
     }
     exit;
 
@@ -61,8 +60,8 @@ if ($form->validate()) {
 
 $title = _("Upload face photo");
 require ANSEL_TEMPLATES . '/common-header.inc';
-require ANSEL_TEMPLATES . '/menu.inc';
-
+echo Horde::menu();
+$notification->notify(array('listeners' => 'status'));
 echo $tabs->render(Horde_Util::getGet('search_faces', 'image'));
 $form->renderActive(null, null, null, 'post');
 

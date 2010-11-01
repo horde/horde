@@ -1,0 +1,84 @@
+# Romanian translations for Horde_Block module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Block module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Block\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2;\n"
+
+#: lib/Horde/Block/Ui.php:97
+msgid "Application"
+msgstr ""
+
+#: lib/Horde/Block/Collection.php:410
+#, fuzzy, php-format
+msgid "Block \"%s\" of application \"%s\" not found."
+msgstr "Notification listener %s not found. - de tradus"
+
+#: lib/Horde/Block/Layout.php:130 lib/Horde/Block/Layout.php:131
+msgid "Edit"
+msgstr ""
+
+#: lib/Horde/Block/Ui.php:89
+msgid "Edit Block"
+msgstr ""
+
+#: lib/Horde/Block/Layout/View.php:98
+msgid "Error"
+msgstr "Eroare"
+
+#: lib/Horde/Block/Layout/Manager.php:576
+msgid "Expand"
+msgstr ""
+
+#: lib/Horde/Block/Layout/Manager.php:610
+msgid "Move Down"
+msgstr ""
+
+#: lib/Horde/Block/Layout/Manager.php:614
+msgid "Move Left"
+msgstr ""
+
+#: lib/Horde/Block/Layout/Manager.php:618
+msgid "Move Right"
+msgstr ""
+
+#: lib/Horde/Block/Layout/Manager.php:606
+msgid "Move Up"
+msgstr ""
+
+#: lib/Horde/Block/Layout/Manager.php:121
+msgid "No block exists at the requested position"
+msgstr ""
+
+#: lib/Horde/Block/Layout.php:139
+msgid "Really delete this block?"
+msgstr ""
+
+#: lib/Horde/Block/Layout.php:136 lib/Horde/Block/Layout.php:140
+#, fuzzy
+msgid "Remove"
+msgstr "Sterge perechea"
+
+#: lib/Horde/Block/Layout/Manager.php:581
+msgid "Shrink"
+msgstr ""
+
+#: lib/Horde/Block/Layout/Manager.php:245
+#, php-format
+msgid "You are not allowed to create more than %d block."
+msgid_plural "You are not allowed to create more than %d blocks."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""

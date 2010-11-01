@@ -9,33 +9,45 @@
  * @package Kronolith
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('kronolith');
+
+if (Kronolith::showAjaxView()) {
+    Horde::url('', true)->redirect();
+}
 
 if (Kronolith_Resource::isResourceCalendar($c = Horde_Util::getFormData('calendar'))) {
     $driver = 'Resource';
 } else {
-    $driver = null;
+    $driver = Horde_Util::getFormData('type');
 }
 
 $kronolith_driver = Kronolith::getDriver($driver, $c);
 if ($eventID = Horde_Util::getFormData('eventID')) {
-    $event = $kronolith_driver->getEvent($eventID);
-    if (is_a($event, 'PEAR_Error')) {
+    try {
+        $event = $kronolith_driver->getEvent($eventID);
+    } catch(Exception $e) {
         if (($url = Horde_Util::getFormData('url')) === null) {
-            $url = Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true);
+            $url = Horde::url($prefs->getValue('defaultview') . '.php', true);
+        } else {
+            $url = new Horde_Url($url);
         }
-        header('Location: ' . $url);
-        exit;
+        $url->redirect();
     }
     if ($driver != 'Resource') {
-        $share = &$kronolith_shares->getShare($event->calendar);
-        if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::DELETE, $event->creator)) {
-            $notification->push(_("You do not have permission to delete this event."), 'horde.warning');
-        } else {
+        if ($driver == 'remote') {
+            /* The remote server is doing the permission checks for us. */
             $have_perms = true;
+        } else {
+            $share = $kronolith_shares->getShare($event->calendar);
+            if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE, $event->creator)) {
+                $notification->push(_("You do not have permission to delete this event."), 'horde.warning');
+            } else {
+                $have_perms = true;
+            }
         }
     } else {
-        if (!Horde_Auth::isAdmin()) {
+        if (!$registry->isAdmin()) {
             $notification->push(_("You do not have permission to delete this event."), 'horde.warning');
         } else {
             $have_perms = true;
@@ -51,9 +63,10 @@ if ($eventID = Horde_Util::getFormData('eventID')) {
                                              'mday' => Horde_Util::getFormData('mday', date('j')) - 1,
                                              'year' => Horde_Util::getFormData('year', date('Y'))));
             if ($event->end->compareDate($recurEnd) > 0) {
-                $result = $kronolith_driver->deleteEvent($event->id);
-                if (is_a($result, 'PEAR_Error')) {
-                    $notification->push($result, 'horde.error');
+                try {
+                    $kronolith_driver->deleteEvent($event->id);
+                } catch (Exception $e) {
+                    $notification->push($e, 'horde.error');
                 }
             } else {
                 $event->recurrence->setRecurEnd($recurEnd);
@@ -73,9 +86,10 @@ if ($eventID = Horde_Util::getFormData('eventID')) {
         if (!$event->recurs() ||
             Horde_Util::getFormData('all') ||
             !$event->recurrence->hasActiveRecurrence()) {
-            $result = $kronolith_driver->deleteEvent($event->id);
-            if (is_a($result, 'PEAR_Error')) {
-                $notification->push($result, 'horde.error');
+            try {
+                $kronolith_driver->deleteEvent($event->id);
+            } catch (Exception $e) {
+                $notification->push($e, 'horde.error');
             }
         }
 
@@ -90,9 +104,9 @@ if (!empty($url)) {
     $url = new Horde_Url($url, true);
 } else {
     $date = new Horde_Date(Horde_Util::getFormData('date'));
-    $url = Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true)
+    $url = Horde::url($prefs->getValue('defaultview') . '.php', true)
         ->add('date', Horde_Util::getFormData('date', date('Ymd')));
 }
 
 // Make sure URL is unique.
-header('Location: ' . $url->add('unique', hash('md5', microtime())));
+$url->unique()->redirect();

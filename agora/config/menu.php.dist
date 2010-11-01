@@ -1,7 +1,5 @@
 <?php
 /**
- * $Horde: agora/config/menu.php.dist,v 1.3 2004/11/06 18:47:14 jan Exp $
- *
  * This file lets you extend Agora's menu with your own items.
  *
  * To add a new menu item, simply add a new entry to the $_menu array.
@@ -20,7 +18,7 @@
  *
  * Here's an example entry:
  *
- *  $_menu[] = array(   
+ *  $_menu[] = array(
  *      'url' =>        'http://www.example.com/',
  *      'text' =>       'Example, Inc.',
  *      'icon' =>       'example.png',
@@ -34,6 +32,8 @@
  * 'separator'.  It should look like this:
  *
  *  $_menu[] = 'separator';
+ *
+ * $Id$
  */
 
 $_menu = array();

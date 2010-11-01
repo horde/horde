@@ -1,7 +1,4 @@
 <?php
-/** Turba_EditContactForm */
-require_once TURBA_BASE . '/lib/Forms/EditContact.php';
-
 /**
  * The Turba_View_EditContact:: class provides an API for viewing events.
  *
@@ -22,7 +19,7 @@ class Turba_View_EditContact {
 
     function getTitle()
     {
-        if (!$this->contact || is_a($this->contact, 'PEAR_Error')) {
+        if (!$this->contact) {
             return _("Not Found");
         }
         return sprintf(_("Edit %s"), $this->contact->getValue('name'));
@@ -32,7 +29,7 @@ class Turba_View_EditContact {
     {
         global $conf, $prefs, $vars;
 
-        if (!$this->contact || is_a($this->contact, 'PEAR_Error')) {
+        if (!$this->contact) {
             echo '<h3>' . _("The requested contact was not found.") . '</h3>';
             return;
         }
@@ -48,8 +45,8 @@ class Turba_View_EditContact {
         }
 
         echo '<div id="EditContact"' . ($active ? '' : ' style="display:none"') . '>';
-        $form = &new Turba_EditContactForm($vars, $this->contact);
-        $form->renderActive(new Horde_Form_Renderer, $vars, 'edit.php', 'post');
+        $form = &new Turba_Form_EditContact($vars, $this->contact);
+        $form->renderActive(new Horde_Form_Renderer, $vars, Horde::url('edit.php'), 'post');
         echo '</div>';
 
         if ($active && $GLOBALS['browser']->hasFeature('dom')) {

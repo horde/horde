@@ -8,8 +8,10 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_LoginTasks
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  Horde
  */
 class Horde_LoginTasks_Task_TosAgreement extends Horde_LoginTasks_Task
 {
@@ -39,7 +41,17 @@ class Horde_LoginTasks_Task_TosAgreement extends Horde_LoginTasks_Task
      */
     public function __construct()
     {
-        $this->active = !empty($GLOBALS['conf']['tos']['file']);
+        global $conf;
+
+        $this->active = false;
+
+        if (!empty($conf['tos']['file'])) {
+            if (file_exists($conf['tos']['file'])) {
+                $this->active = true;
+            } else {
+                Horde::logMessage('Terms of Service Agreement file was not found: ' . $conf['tos']['file'], 'ERR');
+            }
+        }
     }
 
     /**
@@ -50,7 +62,7 @@ class Horde_LoginTasks_Task_TosAgreement extends Horde_LoginTasks_Task
     {
         if (Horde_Util::getFormData('not_agree')) {
             Horde_Auth::setAuthError(Horde_Auth::REASON_MESSAGE, _("You did not agree to the Terms of Service agreement, so you were not allowed to login."));
-            Horde_Auth::authenticateFailure('horde');
+            $GLOBALS['registry']->authenticateFailure('horde');
         }
     }
 

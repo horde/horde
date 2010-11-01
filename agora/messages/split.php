@@ -6,36 +6,30 @@
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
- *
- * $Horde: agora/messages/split.php,v 1.20 2009-12-01 12:52:38 jan Exp $
  */
 
-define('AGORA_BASE', dirname(__FILE__) . '/..');
-require_once AGORA_BASE . '/lib/base.php';
-require_once AGORA_BASE . '/lib/Messages.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('agora');
 
 /* Set up the messages object. */
 list($forum_id, $message_id, $scope) = Agora::getAgoraId();
 $messages = &Agora_Messages::singleton($scope, $forum_id);
 if ($messages instanceof PEAR_Error) {
     $notification->push($messages->getMessage(), 'horde.warning');
-    $url = Horde::applicationUrl('forums.php', true);
-    header('Location: ' . $url);
-    exit;
+    Horde::url('forums.php', true)->redirect();
 }
 
 /* Get requested message, if fail then back to forums list. */
 $message = $messages->getMessage($message_id);
 if ($message instanceof PEAR_Error) {
     $notification->push(sprintf(_("Could not open the message. %s"), $message->getMessage()), 'horde.warning');
-    header('Location: ' . Horde::applicationUrl('forums.php', true));
-    exit;
+    Horde::url('forums.php', true)->redirect();
 }
 
 /* Check delete permissions */
 if (!$messages->hasPermission(Horde_Perms::DELETE)) {
     $notification->push(sprintf(_("You don't have permission to delete messages in forum %s."), $forum_id), 'horde.warning');
-    $url = Agora::setAgoraId($forum_id, $message_id, Horde::applicationUrl('messages/index.php', true), $scope);
+    $url = Agora::setAgoraId($forum_id, $message_id, Horde::url('messages/index.php', true), $scope);
     header('Location: ' . $url);
     exit;
 }
@@ -57,7 +51,7 @@ if ($form->validate()) {
             $notification->push($split->getMessage(), 'horde.error');
         } else {
             $notification->push(sprintf(_("Thread splitted by message %s."), $message_id), 'horde.error');
-            header('Location: ' . Agora::setAgoraId($forum_id, $message_id, Horde::applicationUrl('messages/index.php', true), $scope));
+            header('Location: ' . Agora::setAgoraId($forum_id, $message_id, Horde::url('messages/index.php', true), $scope));
             exit;
         }
     }
@@ -65,8 +59,12 @@ if ($form->validate()) {
 
 /* Template object. */
 $view = new Agora_View();
-$view->menu = Agora::getMenu('string');
-$view->formbox = Horde_Util::bufferOutput(array($form, 'renderActive'), null, $vars, 'split.php', 'post');
+$view->menu = Horde::menu();
+
+Horde::startBuffer();
+$form->renderActive(null, $vars, 'split.php', 'post');
+$view->formbox = Horde::endBuffer();
+
 $view->message_subject = $message['message_subject'];
 $view->message_author = $message['message_author'];
 $view->message_body = Agora_Messages::formatBody($message['body']);

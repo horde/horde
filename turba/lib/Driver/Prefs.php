@@ -3,18 +3,18 @@
  * Turba directory driver implementation for Horde Preferences - very simple,
  * lightweight container.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Turba
+ * Copyright 2010 The Horde Project (http://www.horde.org)
+ *
+ * See the enclosed file LICENSE for license information (ASL).  If you did
+ * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ *
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/asl.php ASL
+ * @package  Turba
  */
 class Turba_Driver_Prefs extends Turba_Driver
 {
-    /**
-     */
-    function _init()
-    {
-        return true;
-    }
-
     /**
      * Returns all entries - searching isn't implemented here for now. The
      * parameters are simply ignored.
@@ -24,7 +24,7 @@ class Turba_Driver_Prefs extends Turba_Driver
      *
      * @return array  Hash containing the search results.
      */
-    function _search($criteria, $fields)
+    protected function _search($criteria, $fields)
     {
         return array_values($this->_getAddressBook());
     }
@@ -39,7 +39,7 @@ class Turba_Driver_Prefs extends Turba_Driver
      *
      * @return  Hash containing the search results.
      */
-    function _read($criteria, $ids, $fields)
+    protected function _read($criteria, $ids, $fields)
     {
         $book = $this->_getAddressBook();
         $results = array();
@@ -57,35 +57,41 @@ class Turba_Driver_Prefs extends Turba_Driver
 
     /**
      * Adds the specified object to the preferences.
+     *
+     * @param array $attributes  TODO
      */
-    function _add($attributes)
+    protected function _add($attributes)
     {
         $book = $this->_getAddressBook();
         $book[$attributes['id']] = $attributes;
         $this->_setAddressbook($book);
-
-        return true;
     }
 
-    public function _canAdd()
+    /**
+     * TODO
+     */
+    protected function _canAdd()
     {
         return true;
     }
 
     /**
      * Deletes the specified object from the preferences.
+     *
+     * @param $object_key TODO
+     * @param $object_id  TODO
      */
-    function _delete($object_key, $object_id)
+    protected function _delete($object_key, $object_id)
     {
         $book = $this->_getAddressBook();
         unset($book[$object_id]);
         $this->_setAddressbook($book);
-
-        return true;
     }
 
     /**
      * Saves the specified object in the preferences.
+     *
+     * @param $object TODO
      */
     function _save($object)
     {
@@ -97,7 +103,12 @@ class Turba_Driver_Prefs extends Turba_Driver
         $this->_setAddressBook($book);
     }
 
-    function _getAddressBook()
+    /**
+     * TODO
+     *
+     * @return TODO
+     */
+    protected function _getAddressBook()
     {
         global $prefs;
 
@@ -105,21 +116,26 @@ class Turba_Driver_Prefs extends Turba_Driver
         if (!empty($val)) {
             $prefbooks = unserialize($val);
             return $prefbooks[$this->_params['name']];
-        } else {
-            return array();
         }
+
+        return array();
     }
 
-    function _setAddressBook($addressbook)
+    /**
+     * TODO
+     *
+     * @param $addressbook TODO
+     *
+     * @return TODO
+     */
+    protected function _setAddressBook($addressbook)
     {
         global $prefs;
 
         $val = $prefs->getValue('prefbooks');
-        if (!empty($val)) {
-            $prefbooks = unserialize($val);
-        } else {
-            $prefbooks = array();
-        }
+        $prefbooks = empty($val)
+            ? array()
+            : unserialize($val);
 
         $prefbooks[$this->_params['name']] = $addressbook;
         $prefs->setValue('prefbooks', serialize($prefbooks));

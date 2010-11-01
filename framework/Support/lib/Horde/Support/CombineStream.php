@@ -16,7 +16,7 @@
  * @category Horde
  * @package  Horde_Support
  */
-class Horde_Support_CombineStream
+class Horde_Support_CombineStream implements Horde_Stream_Wrapper_CombineStream
 {
     /**
      * Data.

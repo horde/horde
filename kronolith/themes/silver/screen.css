@@ -5,7 +5,7 @@ body #sbarHide {
     background-image: url("graphics/minus.png");
 }
 #pageControls {
-    top: 49px;
+    top: -9px;
     background: #d7d7d7;
     border-color: #999;
     border-width: 0 0 1px 1px;
@@ -18,4 +18,22 @@ table.monthgrid {
 }
 table.kronolithView td.button {
     border-color: #999;
+}
+#kronolithNotifications {
+    background-image: url("graphics/alerts/message.png");
+}
+#kronolithNotifications.horde-error {
+    background-image: url("graphics/alerts/error.png")
+}
+#kronolithNotifications.horde-success {
+    background-image: url("graphics/alerts/success.png")
+}
+#kronolithNotifications.horde-warning {
+    background-image: url("graphics/alerts/warning.png")
+}
+#kronolithNotifications.kronolithClose {
+    background-image: url("graphics/close.png")
+}
+.kronolithPrint span {
+    background-image: url('graphics/print.png');
 }

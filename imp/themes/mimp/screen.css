@@ -1,0 +1,19 @@
+/**
+ * MIMP core CSS
+ */
+
+body {
+    font-family: sans-serif;
+    font-size: 90%;
+}
+
+.fixed {
+    font-family: monospace;
+}
+
+.notices img {
+    display: none;
+}
+.notices {
+    border: 1px solid black;
+}

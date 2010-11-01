@@ -10,16 +10,19 @@
  * @package    Horde_VFS
  * @subpackage UnitTests
  */
-class Horde_VFS_SmbTest extends PHPUnit_Framework_TestCase
+class VFS_SmbTest extends PHPUnit_Framework_TestCase
 {
     public function testParseListing()
     {
+        if (!class_exists('Log')) {
+            $this->markTestSkipped('The PEAR-Log package is not installed!');
+        }
+
         $vfs = new VFS_smb();
 
         $listing = $vfs->parseListing(file(dirname(__FILE__) . '/fixtures/samba1.txt'), null, true, false);
         $this->assertType('array', $listing);
         $this->assertEquals(7, count($listing));
-        var_export($listing);
         $this->assertEquals(
             array (
                 'SystemHiddenReadonlyArchive' =>
@@ -62,12 +65,12 @@ class Horde_VFS_SmbTest extends PHPUnit_Framework_TestCase
                     'date' => 1243426505,
                     'size' => -1,
                     ),
-                'Datei mit SOnderzeichen ¿ Ã§ µ ° juhuuu.txt' =>
+                'Datei mit SOnderzeichen ¿ € § µ ° juhuuu.txt' =>
                 array (
                     'owner' => '',
                     'group' => '',
                     'perms' => '',
-                    'name' => 'Datei mit SOnderzeichen ¿ Ã§ µ ° juhuuu.txt',
+                    'name' => 'Datei mit SOnderzeichen ¿ € § µ ° juhuuu.txt',
                     'type' => 'txt',
                     'date' => 1243426538,
                     'size' => '0',

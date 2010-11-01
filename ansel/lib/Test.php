@@ -21,7 +21,7 @@ class Ansel_Test extends Horde_Test
         'facedetect' => array(
             'descrip' => 'Facedetect Face Detection Library',
             'required' => false,
-            'error' => 'Ansel can make use of the Facedetect PHP extension for automatically detecting human faces in images.  You need either OpenCV (above) or Facedetect to detect human faces.'
+            'error' => 'Ansel can make use of the Facedetect PHP extension for automatically detecting human faces in images.'
         ),
         'gd' => array(
             'descrip' => 'GD Support',
@@ -36,11 +36,6 @@ class Ansel_Test extends Horde_Test
             'descrip' => 'Puzzle Library',
             'required' => false,
             'error' => 'Ansel can make use of the libpuzzle PHP extension for finding similar images based on image content.'
-        ),
-        'opencv' => array(
-            'descrip' => 'OpenCV Library',
-            'required' => false,
-            'error' => 'Ansel can make use of the OpenCV PHP extension for automatically detecting human faces in images. You need either this library or the one immediately below to detect human faces.'
         ),
         'zip' => array(
             'descrip' => 'Zip Support',

@@ -27,8 +27,9 @@ interface Horde_Injector_Binder
     /**
      * Create an instance.
      *
-     * @param Horde_Injector $injector The injector should provide all required
-     *                                 dependencies for creating the instance.
+     * @param Horde_Injector $injector  The injector should provide all
+     *                                  required dependencies for creating the
+     *                                  instance.
      *
      * @return mixed The concrete instance.
      */
@@ -37,9 +38,11 @@ interface Horde_Injector_Binder
     /**
      * Determine if one binder equals another binder
      *
-     * @param Horde_Injector_Binder $binder The binder to compare against $this
+     * @param Horde_Injector_Binder $binder  The binder to compare against
+     *                                       $this.
      *
-     * @return bool true if they are equal, or false if they are not equal
+     * @return boolean  True if equal, false if not equal.
      */
     public function equals(Horde_Injector_Binder $binder);
+
 }

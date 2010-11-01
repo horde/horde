@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_Plain class renders out text/plain MIME parts
+ * The IMP_Mime_Viewer_Plain class renders out text/plain MIME parts
  * with URLs made into hyperlinks.
  *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
@@ -8,11 +8,13 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Anil Madhavapeddy <anil@recoil.org>
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Mime_Viewer
+ * @author   Anil Madhavapeddy <anil@recoil.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
-class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
+class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
 {
     /**
      * Cached data.
@@ -22,36 +24,64 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
     static protected $_cache = array();
 
     /**
+     * Return the full rendered version of the Horde_Mime_Part object.
+     *
+     * @return array  See parent::render().
+     */
+    protected function _render()
+    {
+        $data = $this->_impRender(false);
+        $item = reset($data);
+        $item['data'] = '<html><head>' . Horde_Themes::includeStylesheetFiles() . '</head><body><tt>' . $item['data'] . '</tt></body></html>';
+        return $data;
+    }
+
+    /**
      * Return the rendered inline version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _renderInline()
+    {
+        return $this->_impRender(true);
+    }
+
+    /**
+     * Render the object.
+     *
+     * @param boolean $inline  Viewing inline?
+     *
+     * @return array  See parent::render().
+     */
+    protected function _impRender($inline)
     {
         global $conf, $prefs;
 
         $mime_id = $this->_mimepart->getMimeId();
 
         if (isset(self::$_cache[$mime_id])) {
-            return null;
+            return array($mime_id => null);
         }
 
-        $type = 'text/html; charset=' . Horde_Nls::getCharset();
-
         // Trim extra whitespace in the text.
+        $charset = $this->_mimepart->getCharset();
         $text = trim($this->_mimepart->getContents());
         if ($text == '') {
             return array(
                 $mime_id => array(
                     'data' => '',
                     'status' => array(),
-                    'type' => $type
+                    'type' => 'text/html; charset=' . $charset
                 )
             );
         }
 
         // Convert to the local charset.
-        $text = Horde_String::convertCharset($text, $this->_mimepart->getCharset());
+        if ($inline) {
+            $text = Horde_String::convertCharset($text, $charset, 'UTF-8');
+            $charset = $this->getConfigParam('charset');
+        }
+        $type = 'text/html; charset=' . $charset;
 
         // Check for 'flowed' text data.
         if ($this->_mimepart->getContentTypeParameter('format') == 'flowed') {
@@ -68,7 +98,7 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         $text = IMP::filterText($text);
 
         /* Done processing if in mimp mode. */
-        if ($_SESSION['imp']['view'] == 'mimp') {
+        if ($GLOBALS['session']['imp:view'] == 'mimp') {
             return array(
                 $mime_id => array(
                     'data' => $text,
@@ -81,8 +111,8 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         // Build filter stack. Starts with HTML markup and tab expansion.
         $filters = array(
             'text2html' => array(
-                'parselevel' => Horde_Text_Filter_Text2html::MICRO,
-                'charset' => Horde_Nls::getCharset()
+                'charset' => $charset,
+                'parselevel' => $inline ? Horde_Text_Filter_Text2html::MICRO : Horde_Text_Filter_Text2html::MICRO_LINKURL
             ),
             'tabs2spaces' => array(),
         );
@@ -90,15 +120,16 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         // Highlight quoted parts of an email.
         if ($prefs->getValue('highlight_text')) {
             $show = $prefs->getValue('show_quoteblocks');
-            $hideBlocks = ($show == 'hidden') ||
-                (($show == 'thread') && (basename(Horde::selfUrl()) == 'thread.php'));
+            $hideBlocks = $inline &&
+                (($show == 'hidden') ||
+                 (($show == 'thread') && (basename(Horde::selfUrl()) == 'thread.php')));
             if (!$hideBlocks && in_array($show, array('list', 'listthread'))) {
-                $header = $this->_params['contents']->getHeaderOb();
+                $header = $this->getConfigParam('imp_contents')->getHeaderOb();
                 $imp_ui = new IMP_Ui_Message();
                 $list_info = $imp_ui->getListInformation($header);
                 $hideBlocks = $list_info['exists'];
             }
-            $filters['highlightquotes'] = array('hideBlocks' => $hideBlocks, 'outputJS' => false);
+            $filters['highlightquotes'] = array('hideBlocks' => $hideBlocks, 'noJS' => !$inline, 'outputJS' => false);
         }
 
         // Highlight simple markup of an email.
@@ -116,7 +147,7 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         }
 
         // Run filters.
-        $text = Horde_Text_Filter::filter($text, array_keys($filters), array_values($filters));
+        $text = $this->_textFilter($text, array_keys($filters), array_values($filters));
 
         // Wordwrap.
         $text = str_replace(array('  ', "\n "), array(' &nbsp;', "\n&nbsp;"), $text);
@@ -176,8 +207,7 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
     protected function _parsePGP()
     {
         /* Avoid infinite loop. */
-        $imp_pgp = Horde_Crypt::singleton(array('IMP', 'Pgp'));
-        $parts = $imp_pgp->parsePGPData($this->_mimepart->getContents());
+        $parts = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp')->parsePGPData($this->_mimepart->getContents());
         if (empty($parts) ||
             ((count($parts) == 1) &&
              ($parts[0]['type'] == Horde_Crypt_Pgp::ARMOR_TEXT))) {
@@ -244,7 +274,7 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
 
                     $part2 = new Horde_Mime_Part();
                     $part2->setType('application/pgp-signature');
-                    $part2->setContents(Horde_String::convertCharset(implode("\n", $val['data']) . "\n" . implode("\n", $sig['data']), $charset));
+                    $part2->setContents(Horde_String::convertCharset(implode("\n", $val['data']) . "\n" . implode("\n", $sig['data']), $charset, 'UTF-8'));
                     // A true pgp-signature part would only contain the
                     // detached signature. However, we need to carry around
                     // the entire armored text to verify correctly. Use a
@@ -274,7 +304,7 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
      */
     protected function _parseUUencode()
     {
-        $text = Horde_String::convertCharset($this->_mimepart->getContents(), $this->_mimepart->getCharset());
+        $text = Horde_String::convertCharset($this->_mimepart->getContents(), $this->_mimepart->getCharset(), 'UTF-8');
 
         $files = Horde_Mime::uudecode($text);
         if (empty($files)) {
@@ -287,7 +317,7 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
 
         $text_part = new Horde_Mime_Part();
         $text_part->setType('text/plain');
-        $text_part->setCharset(Horde_Nls::getCharset());
+        $text_part->setCharset($this->getConfigParam('charset'));
         $text_part->setContents(preg_replace("/begin [0-7]{3} .+\r?\n.+\r?\nend/Us", "\n", $text));
         $new_part->addPart($text_part);
 
@@ -317,14 +347,13 @@ class IMP_Horde_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         // Escape text
         $filters = array(
             'text2html' => array(
-                'parselevel' => Horde_Text_Filter_Text2html::MICRO,
-                'charset' => Horde_Nls::getCharset()
+                'parselevel' => Horde_Text_Filter_Text2html::MICRO
             ),
             'tabs2spaces' => array(),
         );
 
         return '<div class="fixed">' .
-            Horde_Text_Filter::filter(Horde_String::convertCharset(fread($stream, 1024), $this->_mimepart->getCharset()), array_keys($filters), array_values($filters)) .
+            $this->_textFilter(Horde_String::convertCharset(fread($stream, 1024), $this->_mimepart->getCharset(), 'UTF-8'), array_keys($filters), array_values($filters)) .
             ' [...]</div>';
     }
 

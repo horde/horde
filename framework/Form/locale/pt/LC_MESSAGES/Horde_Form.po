@@ -1,0 +1,678 @@
+# Portuguese translations for Horde_Form module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Form module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Form\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: Form/Type.php:2520
+#, php-format
+msgid " (%s days ago)"
+msgstr " (%s dias atrás)"
+
+#: Form/Type.php:2528
+#, php-format
+msgid " (in %s days)"
+msgstr " (dentro de %s dias)"
+
+#: Form/Type.php:2524
+msgid " (today)"
+msgstr " (hoje)"
+
+#: Form/Type.php:2526
+msgid " (tomorrow)"
+msgstr " (amanhã)"
+
+#: Form/Type.php:2522
+msgid " (yesterday)"
+msgstr " (ontem)"
+
+#: Form/Type.php:1460
+#, fuzzy, php-format
+msgid "\"%s\" is not a valid email address."
+msgstr "Não introduziu um endereço de correio electrónico válido."
+
+#: Form/Type.php:2475
+#, php-format
+msgid "%s is required"
+msgstr "%s é obrigatório"
+
+#: Form/Type.php:2190 Form/Type.php:2253
+msgid "-- select --"
+msgstr "-- escolha --"
+
+#: Form/Type.php:843 Form/Type.php:886
+#, fuzzy
+msgid "A temporary directory"
+msgstr "Não consigo encontrar um directório temporário."
+
+#: Form/Type.php:773
+msgid "Address"
+msgstr "Endereço"
+
+#: Form/Type.php:795
+#, fuzzy
+msgid "Address Link"
+msgstr "Contactos"
+
+#: Form/Type.php:1620
+#, fuzzy
+msgid "Allow multiple addresses?"
+msgstr "Permitir múltiplos endereços"
+
+#: Form/Type.php:3473
+msgid "Assignment columns"
+msgstr "Colunas de atribuição"
+
+#: Form/Type.php:3745
+#, fuzzy
+msgid "Category"
+msgstr "Nova Categoria"
+
+#: Form/Type.php:1632
+#, fuzzy
+msgid "Character to split multiple addresses with"
+msgstr "Permitir múltiplos endereços"
+
+#: Form/Type.php:3161
+msgid "Colour selection"
+msgstr "Selecção de corer"
+
+#: Form/Type.php:2072
+msgid "Column titles"
+msgstr "Títulos das colunas"
+
+#: Form/Type.php:662
+msgid "Counted text"
+msgstr "Texto Contado"
+
+#: Form/Type.php:909
+#, fuzzy
+msgid "Country drop down list"
+msgstr "Lista de desenrolar"
+
+#: Form/Type.php:3588
+msgid "Credit card number"
+msgstr "Número do cartão de crédito"
+
+#: Form/Type.php:3643
+msgid ""
+"DSN (see http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
+msgstr ""
+"DSN (veja http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
+
+#: Form/Type.php:3641
+#, fuzzy
+msgid "Database lookup"
+msgstr "Procura em Base de Dados"
+
+#: Form/Type.php:2549
+msgid "Date"
+msgstr "Data"
+
+#: Form/Type.php:3121
+#, fuzzy
+msgid "Date and time selection"
+msgstr "Selecção de data"
+
+#: Form/Type.php:2958
+msgid "Date selection"
+msgstr "Selecção de data"
+
+#: Form/Type.php:132
+msgid "Description"
+msgstr "Descrição"
+
+#: Form/Type.php:2968 Form/Type.php:3131
+msgid "Display format"
+msgstr "Formato de visualização"
+
+#: Form/Type.php:2233
+msgid "Drop down list"
+msgstr "Lista de desenrolar"
+
+#: Form/Type.php:1617
+msgid "Email"
+msgstr "Correio Electrónico"
+
+#: Form/Type.php:2088
+msgid "Email addresses must match."
+msgstr "Os endereços têm que coincidir."
+
+#: Form/Type.php:2115
+msgid "Email with confirmation"
+msgstr "Mensagem com confirmação"
+
+#: Form/Type.php:2746 Form/Type.php:2962 Form/Type.php:3125
+msgid "End year"
+msgstr "Ano de fim"
+
+#: Form/Type.php:2070
+msgid "Field matrix"
+msgstr "Matriz de campos"
+
+#: Form/Type.php:3696
+msgid "Figlet CAPTCHA"
+msgstr "Figlet CAPTCHA"
+
+#: Form/Type.php:3700
+msgid "Figlet font"
+msgstr "Fonte tipográfica para o Figlet"
+
+#: Form/Type.php:3347
+msgid "File selection"
+msgstr "Selecção do arquivo"
+
+#: Form/Type.php:952
+msgid "File upload"
+msgstr "Carregamento de arquivo"
+
+#: Form/Type.php:3719
+msgid "Font"
+msgstr ""
+
+#: Form/Type.php:152
+msgid "HTML"
+msgstr "HTML"
+
+#: Form/Type.php:115 Form/Type.php:3285
+msgid "Header"
+msgstr "Cabeçalho"
+
+#: Form/Type/tableset.php:58
+msgid "Headers"
+msgstr "Cabeçalhos"
+
+#: Form/Type.php:617
+#, fuzzy
+msgid "Helpers"
+msgstr "Ajuda"
+
+#: Form/Type.php:528
+#, fuzzy
+msgid "IP address"
+msgstr "Endereço IP"
+
+#: Form/Type.php:558
+#, fuzzy
+msgid "IPv6 address"
+msgstr "Endereço IP"
+
+#: Form/Type.php:3349
+msgid "Id"
+msgstr ""
+
+#: Form/Type.php:3715
+#, fuzzy
+msgid "Image CAPTCHA"
+msgstr "Figlet CAPTCHA"
+
+#: Form/Type.php:1292
+msgid "Image upload"
+msgstr "Carregamento da imagem"
+
+#: Form/Type.php:263
+msgid "Integer"
+msgstr "Inteiro"
+
+#: Form/Type.php:317
+msgid "Integer list"
+msgstr "Lista de inteiros"
+
+#: Form/Type.php:2208 Form/Type.php:2283 Form/Type.php:2356 Form/Type.php:2435
+#: Form/Type/tableset.php:34
+msgid "Invalid data submitted."
+msgstr "Os dados submetidos são inválidos."
+
+#: Form/Type.php:3479
+msgid "Left header"
+msgstr "Cabeçalho da esquerda"
+
+#: Form/Type.php:3475
+msgid "Left values"
+msgstr "Valores à esquerda"
+
+#: Form/Type.php:1352
+msgid "Link"
+msgstr "Ligação"
+
+#: Form/Type.php:1355
+msgid "Link URL"
+msgstr "URL da Ligação"
+
+#: Form/Type.php:1370
+msgid "Link access key"
+msgstr "Chave de acesso à ligação"
+
+#: Form/Type.php:3353
+#, fuzzy
+msgid "Link style"
+msgstr "Texto da Ligação"
+
+#: Form/Type.php:1361
+msgid "Link target"
+msgstr "Alvo da Ligação"
+
+#: Form/Type.php:1358 Form/Type.php:3351
+msgid "Link text"
+msgstr "Texto da Ligação"
+
+#: Form/Type.php:1626
+#, fuzzy
+msgid "Link the email address to the compose page when displaying?"
+msgstr ""
+"Ligar o endereço de correio electrónico à página de composição ao mostrar"
+
+#: Form/Type.php:1367
+msgid "Link title attribute"
+msgstr "Atributo de título de ligação"
+
+#: Form/Type.php:611
+msgid "Long text"
+msgstr "Texto longo"
+
+#: Form/Type.php:1298
+#, fuzzy
+msgid "Maximum file size in bytes"
+msgstr "Comprimento máximo"
+
+#: Form/Type.php:400 Form/Type.php:420 Form/Type.php:446
+msgid "Maximum length"
+msgstr "Comprimento máximo"
+
+#: Form/Type.php:487
+#, fuzzy
+msgid "Mobile phone number"
+msgstr "Número de Telefone"
+
+#: Form/Type.php:2742
+msgid "Month and year"
+msgstr "Mês e ano"
+
+#: Form/Type.php:2309
+msgid "Multi-level drop down lists"
+msgstr "Listas de desenrolar multi-nível"
+
+#: Form/Type.php:2366
+msgid "Multiple selection"
+msgstr "Selecção múltipla"
+
+#: Form/Type.php:236
+msgid "Number"
+msgstr "Número"
+
+#: Form/Type.php:668
+msgid "Number of characters"
+msgstr "Número de caracteres"
+
+#: Form/Type.php:615 Form/Type.php:666 Form/Type.php:777 Form/Type.php:847
+#: Form/Type.php:890
+msgid "Number of columns"
+msgstr "Número de colunas"
+
+#: Form/Type.php:613 Form/Type.php:664 Form/Type.php:775 Form/Type.php:845
+#: Form/Type.php:888
+msgid "Number of rows"
+msgstr "Número de linhas"
+
+#: Form/Type.php:290
+msgid "Octal"
+msgstr "Octal"
+
+#: Form/Type.php:1364
+msgid "Onclick event"
+msgstr "Chuva à Tarde"
+
+#: Form/Type.php:2098
+msgid "Only one email address allowed."
+msgstr "Só é permitido um endereço de correio electrónico."
+
+#: Form/Type.php:1449
+#, fuzzy
+msgid "Only one email address is allowed."
+msgstr "Só é permitido um endereço de correio electrónico."
+
+#: Form/Type.php:839
+#, fuzzy
+msgid "PGP Key"
+msgstr "Chave Pública PGP"
+
+#: Form/Type.php:2142
+msgid "Password"
+msgstr "Palavra-Passe"
+
+#: Form/Type.php:2175
+msgid "Password with confirmation"
+msgstr "Palavra-Passe com confirmação"
+
+#: Form/Type.php:2157
+msgid "Passwords must match."
+msgstr "As palavras-passe têm de ser iguais."
+
+#: Form/Type.php:841
+msgid "Path to the GnuPG binary"
+msgstr ""
+
+#: Form/Type.php:475
+#, fuzzy
+msgid "Phone number"
+msgstr "Número de Telefone"
+
+#: Form/Type.php:3191
+msgid "Please choose a sound."
+msgstr ""
+
+#: Form/Type.php:2720
+msgid "Please enter a month and a year."
+msgstr "Por favor introduza um mês e um ano."
+
+#: Form/Type.php:513 Form/Type.php:543
+msgid "Please enter a valid IP address."
+msgstr "Por favor introduza um endereço IP válido."
+
+#: Form/Type.php:2800
+msgid "Please enter a valid date, check the number of days in the month."
+msgstr ""
+"Por favor introduza uma data válida; verifique o número de dias do mês."
+
+#: Form/Type.php:2598
+msgid "Please enter a valid time."
+msgstr "Por favor introduza uma hora válida."
+
+#: Form/Type.php:911 Form/Type.php:2237 Form/Type.php:2313 Form/Type.php:3647
+msgid "Prompt text"
+msgstr "Mensagem-pronto"
+
+#: Form/Type.php:1623
+msgid "Protect address from spammers?"
+msgstr ""
+
+#: Form/Type.php:2401
+msgid "Radio selection"
+msgstr "Selecção \"rádio\""
+
+#: Form/Type.php:396 Form/Type.php:416 Form/Type.php:442
+msgid "Regex"
+msgstr "Expressão Regular"
+
+#: Form/Type.php:3605
+#, fuzzy
+msgid "Relationship browser"
+msgstr "Navegador de Relações"
+
+#: Form/Renderer.php:344
+msgid "Required Field"
+msgstr "Campo Obrigatório"
+
+#: Form.php:632
+msgid "Required secret is invalid - potentially malicious request."
+msgstr ""
+
+#: Form.php:368 Form/Renderer.php:329
+msgid "Reset"
+msgstr "Limpar"
+
+#: Form/Type.php:3481
+msgid "Right header"
+msgstr "Cabeçalho da direita"
+
+#: Form/Type.php:3477
+msgid "Right values"
+msgstr "Valores à direita"
+
+#: Form/Type.php:884
+msgid "S/MIME Key"
+msgstr ""
+
+#: Form/Type.php:3645
+msgid "SQL statement for value lookups"
+msgstr "Instrução SQL para procura de valores"
+
+#: Form/Type.php:3326
+msgid "Select Files"
+msgstr "Seleccionar Arquivos"
+
+#: Form/Type.php:2803
+msgid "Select all date components."
+msgstr "Seleccione todos os componentes da data."
+
+#: Form/Type.php:2450
+msgid "Set"
+msgstr "Atribuir"
+
+#: Form/Type.php:3355
+#, fuzzy
+msgid "Show icon?"
+msgstr "Mostrar palete"
+
+#: Form/Type.php:1296
+#, fuzzy
+msgid "Show option to keep original?"
+msgstr "Mostrar opção para preservar o original"
+
+#: Form/Type.php:2964 Form/Type.php:3127
+#, fuzzy
+msgid "Show picker?"
+msgstr "Mostrar palete"
+
+#: Form/Type.php:2688 Form/Type.php:3133
+#, fuzzy
+msgid "Show seconds?"
+msgstr "Aguaceiros"
+
+#: Form/Type.php:1294
+#, fuzzy
+msgid "Show upload?"
+msgstr "Mostrar carregamento"
+
+#: Form/Type.php:398 Form/Type.php:418 Form/Type.php:444 Form/Type.php:2370
+#: Form/Type.php:3283 Form/Type.php:3483
+msgid "Size"
+msgstr "Tamanho"
+
+#: Form/Type.php:3279
+msgid "Sort order selection"
+msgstr "Selecção do sentido da ordenação"
+
+#: Form/Type.php:3200
+#, fuzzy
+msgid "Sound selection"
+msgstr "Cortar a selecção"
+
+#: Form/Type.php:98
+msgid "Spacer"
+msgstr "Espaçador"
+
+#: Form/Type.php:2744 Form/Type.php:2960 Form/Type.php:3123
+msgid "Start year"
+msgstr "Ano de início"
+
+#: Form/Type.php:2966 Form/Type.php:3129
+msgid "Storage format"
+msgstr "Formato de armazenamento"
+
+#: Form/Type.php:414
+msgid "String list"
+msgstr "Lista de cadeias de caracteres"
+
+#: Form/Type.php:440
+msgid "String list returning an array"
+msgstr ""
+
+#: Form.php:361 Form/Renderer.php:326
+msgid "Submit"
+msgstr "Submeter"
+
+#: Form/Type/tableset.php:54
+msgid "Table Set"
+msgstr "Conjunto Tabela"
+
+#: Form/Type.php:394 Form/Type.php:3698 Form/Type.php:3717
+msgid "Text"
+msgstr "Texto"
+
+#: Form/Type.php:1056
+msgid ""
+"The image file size could not be determined or it was 0 bytes. The upload "
+"may have been interrupted."
+msgstr ""
+
+#: Form/Type.php:1060
+#, fuzzy, php-format
+msgid "The image file was larger than the maximum allowed size (%d bytes)."
+msgstr ""
+"Ocorreu um problema com o carregamento do arquivo: O %s excede o tamanho "
+"máximo permitido (%d bytes)."
+
+#: Form/Type.php:1629
+msgid "The name to use when linking to the compose page"
+msgstr "O nome a usar quando ligando à página de composição"
+
+#: Form/Type.php:3673
+msgid "The text you entered did not match the text on the screen."
+msgstr "O texto que introduziu não corresponde ao texto no ecrã."
+
+#: Form/Type.php:644
+#, fuzzy, php-format
+msgid ""
+"There are too many characters in this field. You have entered %d character; "
+msgid_plural ""
+"There are too many characters in this field. You have entered %d characters; "
+msgstr[0] ""
+"Há demasiados caracteres neste campo. Introduziu %s caracteres; tem de "
+"introduzir menos do que %s."
+msgstr[1] ""
+"Há demasiados caracteres neste campo. Introduziu %s caracteres; tem de "
+"introduzir menos do que %s."
+
+#: Form/Type.php:3504
+msgid "This does not seem to be a valid card number."
+msgstr "Não parece ser uma número de cartão válido."
+
+#: Form/Type.php:169 Form/Type.php:246 Form/Type.php:273 Form/Type.php:300
+#: Form/Type.php:365 Form/Type.php:459 Form/Type.php:517 Form/Type.php:547
+#: Form/Type.php:641 Form/Type.php:1041 Form/Type.php:2083 Form/Type.php:2130
+#: Form/Type.php:2152 Form/Type.php:2199 Form/Type.php:2274 Form/Type.php:2345
+#: Form/Type.php:2559 Form/Type.php:2601 Form/Type.php:2795 Form/Type.php:3144
+#: Form/Type.php:3183 Form/Type.php:3496 Form/Type.php:3668 Form/Type.php:3751
+#: Form/Variable.php:471 Form/Variable.php:479
+msgid "This field is required."
+msgstr "Este campo é obrigatório."
+
+#: Form/Type.php:254
+msgid "This field may only contain integers."
+msgstr "Este campo pode conter apenas inteiros."
+
+#: Form/Type.php:2567
+msgid "This field may only contain numbers and the colon."
+msgstr "Este campo pode apenas conter números e o símbolo dois-pontos."
+
+#: Form/Type.php:281
+msgid "This field may only contain octal values."
+msgstr "Este campo pode conter apenas valores octais."
+
+#: Form/Type.php:308
+msgid "This field must be a comma or space separated list of integers"
+msgstr ""
+"Este campo tem de conter uma lista de inteiros separados por espaços ou "
+"vírgulas."
+
+#: Form/Type.php:180
+msgid "This field must be a valid number."
+msgstr "Este campo tem de ser um número válido."
+
+#: Form/Type.php:3152
+msgid ""
+"This field must contain a color code in the RGB Hex format, for example "
+"'#1234af'."
+msgstr ""
+"Este campo tem de conter um código de cor no formato RGB hexadecimal, por "
+"exemplo '#1234af'."
+
+#: Form.php:629
+msgid "This form has already been processed."
+msgstr "Este modelo já foi processado."
+
+#: Form/Type.php:2576
+msgid "Time"
+msgstr "Data/Hora"
+
+#: Form/Type.php:2686
+msgid "Time selection"
+msgstr "Selecção data/hora"
+
+#: Form/Type.php:1321
+msgid "True or false"
+msgstr "Verdadeiro ou falso"
+
+#: Form/Type.php:360
+#, fuzzy, php-format
+msgid "Value is over the maximum length of %d."
+msgstr "Valor excede o comprimento máximo de %s."
+
+#: Form/Type.php:2368 Form/Type.php:2403 Form/Type.php:2452 Form/Type.php:3281
+#: Form/Type/tableset.php:56
+msgid "Values"
+msgstr "Valores"
+
+#: Form/Type.php:2235 Form/Type.php:2311
+msgid "Values to select from"
+msgstr "Possível valores a escolher"
+
+#: Form/Type.php:3485
+msgid "Width in CSS units"
+msgstr "Largura em unidades CSS"
+
+#: Form/Type.php:2102
+msgid "You did not enter a valid email address."
+msgstr "Não introduziu um endereço de correio electrónico válido."
+
+#: Form/Type.php:3028
+#, fuzzy
+msgid "You must choose a date."
+msgstr "Tem de configurar um mecanismo base para o VFS."
+
+#: Form/Type.php:3026
+#, fuzzy
+msgid "You must choose a time."
+msgstr "Tem de configurar um mecanismo base para o VFS."
+
+#: Form/Type.php:463
+#, fuzzy
+msgid ""
+"You must enter a valid phone number, digits only with an optional '+' for "
+"the international dialing prefix."
+msgstr ""
+"Tem de introduzir um número de telemóvel válido, só com dígitos, mas com um "
+"'+' opcional para o prefixo internacional."
+
+#: Form/Type.php:371
+#, fuzzy
+msgid "You must enter a valid value."
+msgstr "Tem de introduzir um valor válido."
+
+#: Form/Type.php:1470
+#, fuzzy
+msgid "You must enter an email address."
+msgstr "Não introduziu um endereço de correio electrónico válido."
+
+#: Form/Type.php:1468
+#, fuzzy
+msgid "You must enter at least one email address."
+msgstr "Não introduziu um endereço de correio electrónico válido."
+
+#: Form/Type.php:645
+#, php-format
+msgid "you must enter less than %d."
+msgstr ""

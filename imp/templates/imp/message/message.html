@@ -1,0 +1,18 @@
+<div id="msgheaders">
+ <table>
+<loop:headers>
+  <tr<if:headers.class> class="<tag:headers.class />"</if:headers.class>>
+   <td class="item<tag:headers.i /> rightAlign nowrap">
+    <strong><tag:headers.name />:</strong>
+   </td>
+   <td class="item<tag:headers.i /> msgheader">
+    <tag:headers.val />
+   </td>
+  </tr>
+</loop:headers>
+ </table>
+</div>
+
+<div id="messageBody" class="messageBody">
+ <tag:msgtext />
+</div>

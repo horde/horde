@@ -26,7 +26,8 @@ class Horde_Service_Facebook_UploadRequest extends Horde_Service_Facebook_Reques
      * @param string                 $file
      * @param array                  $params
      */
-    public function __construct($facebook, $method, $http_client, $file, $params = array())
+    public function __construct($facebook, $method, $http_client, $file,
+                                $params = array())
     {
         parent::__construct($facebook, $method, $http_client, $params);
         $this->_filename = $file;
@@ -88,7 +89,7 @@ class Horde_Service_Facebook_UploadRequest extends Horde_Service_Facebook_Reques
                                             array('Content-Type' => $content_type,
                                                   'Content-Length' => strlen($content)));
         } catch (Exception $e) {
-            throw new Horde_Service_Facebook_Exception(sprintf(_("Upload failed: %s"), $e->getMessage()));
+            throw new Horde_Service_Facebook_Exception(sprintf(Horde_Service_Facebook_Translation::t("Upload failed: %s"), $e->getMessage()));
         }
 
         return $result->getBody();

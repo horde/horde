@@ -21,24 +21,24 @@ function _no_access($status, $reason, $body)
     exit;
 }
 
-$kronolith_authentication = 'none';
-$kronolith_session_control = 'readonly';
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('kronolith', array('authentication' => 'none', 'session_control' => 'readonly'));
 
 $calendar = Horde_Util::getFormData('c');
-$share = $kronolith_shares->getShare($calendar);
-if (is_a($share, 'PEAR_Error')) {
+try {
+    $share = $kronolith_shares->getShare($calendar);
+} catch (Exception $e) {
     _no_access(404, 'Not Found',
                sprintf(_("The requested feed (%s) was not found on this server."),
                        htmlspecialchars($calendar)));
 }
-if (!$share->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
-    if (Horde_Auth::getAuth()) {
+if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
+    if ($GLOBALS['registry']->getAuth()) {
         _no_access(403, 'Forbidden',
                    sprintf(_("Permission denied for the requested feed (%s)."),
                            htmlspecialchars($calendar)));
     } else {
-        $auth = Horde_Auth::singleton($conf['auth']['driver']);
+        $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
         if (isset($_SERVER['PHP_AUTH_USER'])) {
             $user = $_SERVER['PHP_AUTH_USER'];
             $pass = $_SERVER['PHP_AUTH_PW'];
@@ -69,38 +69,38 @@ if (empty($feed_type)) {
 $startDate = new Horde_Date(array('year' => date('Y'),
                                   'month' => date('n'),
                                   'mday' => date('j')));
-$events = Kronolith::listEvents($startDate,
-                                new Horde_Date($startDate),
-                                array($calendar));
-if (is_a($events, 'PEAR_Error')) {
-    Horde::logMessage($events, __FILE__, __LINE__, PEAR_LOG_ERR);
+try {
+    $events = Kronolith::listEvents($startDate,
+                                    new Horde_Date($startDate),
+                                    array($calendar));
+} catch (Exception $e) {
+    Horde::logMessage($e, 'ERR');
     $events = array();
 }
 
 if (isset($conf['urls']['pretty']) && $conf['urls']['pretty'] == 'rewrite') {
-    $self_url = Horde::applicationUrl('feed/' . $calendar, true, -1);
+    $self_url = Horde::url('feed/' . $calendar, true, -1);
 } else {
-    $self_url = Horde::applicationUrl('feed/index.php', true, -1)
+    $self_url = Horde::url('feed/index.php', true, -1)
         ->add('c', $calendar);
 }
 
 $owner = $share->get('owner');
-$identity = Horde_Prefs_Identity::factory('none', $owner);
-$history = Horde_History::singleton();
+$identity = $injectory->getInstance('Horde_Core_Factory_Identity')->create($owner);
+$history = $injector->getInstance('Horde_History');
 $now = new Horde_Date(time());
 
-$template = new Horde_Template();
-$template->set('charset', Horde_Nls::getCharset());
+$template = $injector->createInstance('Horde_Template');
 $template->set('updated', $now->format(DATE_ATOM));
 $template->set('kronolith_name', 'Kronolith');
 $template->set('kronolith_version', $registry->getVersion());
 $template->set('kronolith_uri', 'http://www.horde.org/kronolith/');
-$template->set('kronolith_icon', Horde::url($registry->getImageDir() . '/kronolith.png', true, -1));
+$template->set('kronolith_icon', Horde::url(Horde_Themes::img('kronolith.png'), true, -1));
 $template->set('xsl', $registry->get('themesuri') . '/feed-rss.xsl');
-$template->set('calendar_name', @htmlspecialchars($share->get('name'), ENT_COMPAT, Horde_Nls::getCharset()));
-$template->set('calendar_desc', @htmlspecialchars($share->get('desc'), ENT_COMPAT, Horde_Nls::getCharset()), true);
-$template->set('calendar_owner', @htmlspecialchars($identity->getValue('fullname'), ENT_COMPAT, Horde_Nls::getCharset()));
-$template->set('calendar_email', @htmlspecialchars($identity->getValue('from_addr'), ENT_COMPAT, Horde_Nls::getCharset()), true);
+$template->set('calendar_name', htmlspecialchars($share->get('name')));
+$template->set('calendar_desc', htmlspecialchars($share->get('desc')), true);
+$template->set('calendar_owner', htmlspecialchars($identity->getValue('fullname')));
+$template->set('calendar_email', htmlspecialchars($identity->getValue('from_addr')), true);
 $template->set('self_url', $self_url);
 
 $twentyFour = $prefs->getValue('twentyFor');
@@ -116,7 +116,7 @@ foreach ($events as $day_events) {
         }
         $modified = new Horde_Date($modified);
         /* Description. */
-        $desc = @htmlspecialchars($event->description, ENT_COMPAT, Horde_Nls::getCharset());
+        $desc = htmlspecialchars($event->description);
         if (strlen($desc)) {
             $desc .= '<br /><br />';
         }
@@ -133,15 +133,15 @@ foreach ($events as $day_events) {
             $attendees[] = empty($status['name']) ? $attendee : Horde_Mime_Address::trimAddress($status['name'] . (strpos($attendee, '@') === false ? '' : ' <' . $attendee . '>'));
         }
         if (count($attendees)) {
-            $desc .= '<br />' . _("Who:") . ' ' . @htmlspecialchars(implode(', ', $attendees), ENT_COMPAT, Horde_Nls::getCharset());
+            $desc .= '<br />' . _("Who:") . ' ' . htmlspecialchars(implode(', ', $attendees));
         }
         if (strlen($event->location)) {
-            $desc .= '<br />' . _("Where:") . ' ' . @htmlspecialchars($event->location, ENT_COMPAT, Horde_Nls::getCharset());
+            $desc .= '<br />' . _("Where:") . ' ' . htmlspecialchars($event->location);
         }
         $desc .= '<br />' . _("Event Status:") . ' ' . Kronolith::statusToString($event->status);
 
-        $entries[$id]['title'] = @htmlspecialchars($event->getTitle(), ENT_COMPAT, Horde_Nls::getCharset());
-        $entries[$id]['desc'] = @htmlspecialchars($desc, ENT_COMPAT, Horde_Nls::getCharset());
+        $entries[$id]['title'] = htmlspecialchars($event->getTitle());
+        $entries[$id]['desc'] = htmlspecialchars($desc);
         $entries[$id]['url'] = htmlspecialchars(Horde::url($event->getViewUrl(), true, -1));
         $entries[$id]['modified'] = $modified->format(DATE_ATOM);
     }

@@ -1,0 +1,69 @@
+<?xml version='1.0'?>
+<help>
+
+<entry id="file-actions">
+    <title>File Manager: Actions</title>
+    <heading>Creating Folders</heading>
+    <para>
+    To create a folder in the current directory, simply choose Create Folder from the Actions drop down box.
+    </para>
+    <heading>Delete, cut, copy and paste files</heading>
+    <para>
+    In order to delete, cut or copy a file or files, you need to select at least one file.
+    After you select one or more files using the checkboxes to the left of the item, select either Cut Items, Copy Items or
+    Delete Items from the Actions drop down box.  If you selected Cut Items or Copy Items, you now have the option to
+    paste those files elsewhere in the File Manager.  Navigate to the location that you wish to paste the items, then select
+    Paste Items from the Actions drop down box.  The items will now be either moved (Cut Items) or copied (Copy Items) to
+    the location that you chose.
+    </para>
+    <heading>Delete, cut, copy and paste directories</heading>
+    <para>
+    By default, you can only delete directories that are empty, however you can enable the deletion of non-empty directories
+    (recursive delete).  If you try to delete a non-empty directory without enabling this feature, deletion will fail with
+    an error.  To enable the deleting non-empty directories, click on Preferences, File Actions and choose Yes from the drop down box
+    for the Delete Folders Recursively preference.  This will enable the recursive delete preference.
+
+    In order to delete, cut or copy a directory or directories, you need to select at least one directory.
+    After you select one or more directories using the checkboxes to the left of the item, select either Cut Items, Copy Items
+    or Delete Items from the Actions drop down box.  If you selected Cut Items or Copy Items, you now have the option to
+    paste those directories elsewhere in the File Manager.  Navigate to the location that you wish to paste the items, then
+    select Paste Items from the Actions drop down box.  The items will now either be moved (Cut Items) or copied (Copy Items)
+    to the location that you chose.
+    </para>
+    <heading>Working with the Clipboard</heading>
+    <para>
+    Once you copy or cut a file or directory, it is placed in the clipboard.  You can view the contents of the clipboard by clicking
+    on the clipboard icon, which is located above the directory/folder listing and to the right of the refresh icon.  This icon is not
+    present unless there are items in the clipboard.  Items that are cut or copied will not have a checkbox to the left of them, which
+    means they are in the clipboard.  Once you click on the clipboard viewer, you will see a list of items that you have copied or cut.
+    From the clipboard viewer, you can paste these items to the current directory, which is displayed above the list of items.
+    Simply check the items that you want to paste, then click paste.  These items will be pasted into the current directory and be removed
+    from the clipboard.  You will be returned to the current directory after the paste is complete.  If you would like to remove an item
+    from the clipboard, simply check the items and click clear.  These items will then be removed from the clipboard and you will be returned
+    to the current directory.
+    </para>
+</entry>
+
+<entry id="file-upload">
+    <title>File Manager: Uploading</title>
+    <heading>Uploading Files</heading>
+    <para>
+    To upload a file or files, navigate to the directory on the File Manager that you wish to upload the files to.  This is
+    known as your current directory.  Once you are in the proper directory on the File Manager, click on the Browse button.
+    This will display a File Upload window.  Once this window is open, navigate to the file which you wish to upload, select
+    it and click OK.  You can upload multiple files at once.  The File Manager will automatically add another
+    Browse button after each file you select.  Once you have selected all of the files that you wish to upload, click the
+    Upload File(s) button and the file or files that you selected will be uploaded to your current directory on the File Manager.
+</para>
+</entry>
+
+<entry id="sorting">
+    <title>Sorting Entries</title>
+    <heading>Sorting Entries</heading>
+    <para>
+    When viewing a list of files or directories, you can sort them by any column.  To do this, click on the appropriate
+    column heading that you wish to sort by, and the list will refreshed, sorted by the column you selected.  To switch
+    columns between ascending and descending order, click on the arrow icon in the column heading.
+    </para>
+</entry>
+</help>

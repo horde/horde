@@ -8,8 +8,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_LoginTasks
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  LoginTasks
  */
 class Horde_LoginTasks
 {
@@ -41,11 +43,12 @@ class Horde_LoginTasks
     const PRIORITY_NORMAL = 2;
 
     /**
-     * Singleton instance.
+     * The Horde_LoginTasks_Backend object provides all utilities we need for
+     * handling the login tasks.
      *
-     * @var array
+     * @var Horde_LoginTasks_Backend
      */
-    static protected $_instances = array();
+    private $_backend;
 
     /**
      * The Horde_LoginTasks_Tasklist object for this login.
@@ -55,43 +58,16 @@ class Horde_LoginTasks
     protected $_tasklist;
 
     /**
-     * Attempts to return a reference to a concrete Horde_LoginTasks
-     * instance based on $app. It will only create a new instance
-     * if no instance with the same parameters currently exists.
-     *
-     * This method must be invoked as:
-     *   $var = Horde_LoginTasks::singleton($app[, $params]);
-     *
-     * @param string $app  See self::__construct().
-     *
-     * @return Horde_LoginTasks  The singleton instance.
-     */
-    static public function singleton($app)
-    {
-        if (empty(self::$_instances[$app])) {
-            self::$_instances[$app] = new self($app);
-        }
-
-        return self::$_instances[$app];
-    }
-
-    /**
      * Constructor.
      *
-     * @param string $app  The name of the Horde application.
+     * @param Horde_LoginTasks_Backend $backend  The backend to use.
      */
-    protected function __construct($app)
+    public function __construct(Horde_LoginTasks_Backend $backend)
     {
-        $this->_app = $app;
-
-        if (!Horde_Auth::getAuth()) {
-            return;
-        }
+        $this->_backend = $backend;
 
         /* Retrieves a cached tasklist or make sure one is created. */
-        if (isset($_SESSION['horde_logintasks'][$app])) {
-            $this->_tasklist = @unserialize($_SESSION['horde_logintasks'][$app]);
-        }
+        $this->_tasklist = $this->_backend->getTasklistFromCache();
 
         if (empty($this->_tasklist)) {
             $this->_createTaskList();
@@ -106,7 +82,7 @@ class Horde_LoginTasks
     public function shutdown()
     {
         if (isset($this->_tasklist)) {
-            $_SESSION['horde_logintasks'][$this->_app] = serialize($this->_tasklist);
+            $this->_backend->storeTasklistInCache($this->_tasklist);
         }
     }
 
@@ -122,45 +98,13 @@ class Horde_LoginTasks
         /* Get last task run date(s). Array keys are app names, values are
          * last run timestamps. Special key '_once' contains list of
          * ONCE tasks previously run. */
-        $lasttask_pref = @unserialize($GLOBALS['prefs']->getValue('last_logintasks'));
-        if (!is_array($lasttask_pref)) {
-            $lasttask_pref = array();
-        }
-
-        /* Add Horde tasks here if not yet run. */
-        $app_list = array($this->_app);
-        if (($this->_app != 'horde') &&
-            !isset($_SESSION['horde_logintasks']['horde'])) {
-            array_unshift($app_list, 'horde');
-        }
-
-        $tasks = array();
-
-        foreach ($app_list as $app) {
-            $fileroot = $GLOBALS['registry']->get('fileroot', $app);
-            if (!is_null($fileroot)) {
-                foreach (array('SystemTask', 'Task') as $val) {
-                    if (is_dir($fileroot . '/lib/LoginTasks/' . $val)) {
-                        foreach (scandir($fileroot . '/lib/LoginTasks/' . $val) as $file) {
-                            $classname = $app . '_LoginTasks_' . $val . '_' . basename($file, '.php');
-                            if (class_exists($classname)) {
-                                $tasks[$classname] = $app;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        if (empty($tasks)) {
-            return;
-        }
+        $lasttask_pref = $this->_backend->getLastRun();
 
         /* Create time objects for today's date and last task run date. */
         $cur_date = getdate();
 
-        foreach ($tasks as $classname => $app) {
-            $ob = new $classname();
+        foreach ($this->_backend->getTasks() as $classname => $app) {
+            $ob = new $classname($this->_backend);
 
             /* If marked inactive, skip the task. */
             if (!$ob->active) {
@@ -184,7 +128,7 @@ class Horde_LoginTasks
                     break;
 
                 case self::WEEKLY:
-                    $addtask = (($cur_date['wday'] < $lastrun['wday']) || ((time() - 604800) > $lastrun['wday']));
+                    $addtask = (($cur_date['wday'] < $lastrun['wday']) || ($cur_date['yday'] >= $lastrun['yday'] + 7));
                     break;
 
                 case self::DAILY:
@@ -200,18 +144,14 @@ class Horde_LoginTasks
                         !in_array($classname, $lasttask_pref['_once'])) {
                         $addtask = true;
                         $lasttask_pref['_once'][] = $classname;
-                        $GLOBALS['prefs']->setValue('last_logintasks', serialize($lasttask_pref));
+                        $this->_backend->setLastRun($lasttask_pref);
                     }
                     break;
                 }
             }
 
             if ($addtask) {
-                if ($ob instanceof Horde_LoginTasks_SystemTask) {
-                    $ob->execute();
-                } else {
-                    $this->_tasklist->addTask($ob);
-                }
+                $this->_tasklist->addTask($ob);
             }
         }
 
@@ -228,61 +168,66 @@ class Horde_LoginTasks
      * login and will redirect to the login tasks page if necessary.  This is
      * the function that should be called from the application upon login.
      *
-     * @param boolean $confirmed  If true, indicates that any pending actions
-     *                            have been confirmed by the user.
-     * @param string $url         The URL to redirect to when finished.
+     * @param array $opts  Options:
+     * <pre>
+     * confirmed - (array) The list of confirmed tasks.
+     * url - (string) The URL to redirect to when finished.
+     * user_confirmed - (boolean) If true, indicates that any pending actions
+     *                  have been confirmed by the user.
+     * </pre>
      */
-    public function runTasks($confirmed = false, $url = null)
+    public function runTasks(array $opts = array())
     {
         if (!isset($this->_tasklist) ||
             ($this->_tasklist === true)) {
             return;
         }
 
+        $opts = array_merge(array(
+            'confirmed' => array(),
+            'url' => null,
+            'user_confirmed' => false
+        ), $opts);
+
+        if (empty($this->_tasklist->target)) {
+            $this->_tasklist->target = $opts['url'];
+        }
+
         /* Perform ready tasks now. */
-        foreach ($this->_tasklist->ready(!$this->_tasklist->processed || $confirmed) as $key => $val) {
-            if (in_array($val->display, array(self::DISPLAY_AGREE, self::DISPLAY_NOTICE, self::DISPLAY_NONE)) ||
-                Horde_Util::getFormData('logintasks_confirm_' . $key)) {
+        foreach ($this->_tasklist->ready(!$this->_tasklist->processed || $opts['user_confirmed']) as $key => $val) {
+            if (($val instanceof Horde_LoginTasks_SystemTask) ||
+                in_array($val->display, array(self::DISPLAY_AGREE, self::DISPLAY_NOTICE, self::DISPLAY_NONE)) ||
+                in_array($key, $opts['confirmed'])) {
                 $val->execute();
             }
         }
 
-        $need_display = $this->_tasklist->needDisplay();
-        $tasklist_target = $this->_tasklist->target;
         $processed = $this->_tasklist->processed;
         $this->_tasklist->processed = true;
 
         /* If we've successfully completed every task in the list (or skipped
          * it), record now as the last time login tasks was run. */
         if ($this->_tasklist->isDone()) {
-            $lasttasks = unserialize($GLOBALS['prefs']->getValue('last_logintasks'));
-            $lasttasks[$this->_app] = time();
-            if (($this->_app != 'horde') &&
-                !isset($_SESSION['horde_logintasks']['horde'])) {
-                $lasttasks['horde'] = time();
-                $_SESSION['horde_logintasks']['horde'] = true;
-            }
-            $GLOBALS['prefs']->setValue('last_logintasks', serialize($lasttasks));
+            $this->_backend->markLastRun();
+
+            $url = $this->_tasklist->target;
 
             /* This will prevent us from having to store the entire tasklist
              * object in the session, while still indicating we have
              * completed the login tasks for this application. */
             $this->_tasklist = true;
+
+            return $this->_backend->redirect($url);
         }
 
-        if (!$processed && $need_display) {
-            $this->_tasklist->target = $url;
-            header('Location: ' . $this->getLoginTasksUrl());
-            exit;
-        } elseif ($processed && !$need_display) {
-            header('Location: ' . $tasklist_target);
-            exit;
+        if ((!$processed || $opts['user_confirmed']) &&
+            $this->_tasklist->needDisplay()) {
+            return $this->_backend->redirect($this->getLoginTasksUrl());
         }
     }
 
     /**
      * Generate the list of tasks that need to be displayed.
-     *
      * This is the function called from the login tasks page every time it
      * is loaded.
      *
@@ -294,13 +239,13 @@ class Horde_LoginTasks
     }
 
     /**
-     * Generated the login tasks URL.
+     * Generate the login tasks URL.
      *
      * @return string  The login tasks URL.
      */
     public function getLoginTasksUrl()
     {
-        return Horde::url(Horde_Util::addParameter($GLOBALS['registry']->get('webroot', 'horde') . '/services/logintasks.php', array('app' => $this->_app)), true);
+        return $this->_backend->getLoginTasksUrl();
     }
 
     /**
@@ -311,11 +256,11 @@ class Horde_LoginTasks
     static public function getLabels()
     {
         return array(
-            self::YEARLY => _("Yearly"),
-            self::MONTHLY => _("Monthly"),
-            self::WEEKLY => _("Weekly"),
-            self::DAILY => _("Daily"),
-            self::EVERY => _("Every Login")
+            self::YEARLY => Horde_LoginTasks_Translation::t("Yearly"),
+            self::MONTHLY => Horde_LoginTasks_Translation::t("Monthly"),
+            self::WEEKLY => Horde_LoginTasks_Translation::t("Weekly"),
+            self::DAILY => Horde_LoginTasks_Translation::t("Daily"),
+            self::EVERY => Horde_LoginTasks_Translation::t("Every Login")
         );
     }
 

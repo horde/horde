@@ -7,30 +7,46 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author Chuck Hagenbuch <chuck@horde.org>
- * @author Michael Slusarz <slusarz@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Horde
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-new Horde_Application(array('nologintasks' => true));
+Horde_Registry::appInit('horde', array('nologintasks' => true));
+
+$vars = Horde_Variables::getDefaultVariables();
 
 /* If no 'module' parameter passed in, die with an error. */
-if (!($app = basename(Horde_Util::getFormData('app')))) {
-    throw new Horde_Exception("Do not directly access logintasks.php");
+if (!($app = basename($vars->app))) {
+    throw new Horde_Exception('Do not directly access logintasks.php.');
 }
 
 $registry->pushApp($app, array('logintasks' => false));
 
-if (!($tasks = Horde_LoginTasks::singleton($app))) {
-    throw new Horde_Exception("The Horde_LoginTasks:: class did not load successfully");
+if (!($tasks = $injector->getInstance('Horde_Core_Factory_LoginTasks')->create($app))) {
+    throw new Horde_Exception('The Horde_LoginTasks:: class did not load successfully.');
 }
 
 /* If we are through with tasks, this call will redirect to application. */
-$tasks->runTasks(Horde_Util::getPost('logintasks_page'));
+$confirmed = array();
+if ($vars->logintasks_page) {
+    foreach ($vars as $key => $val) {
+        if ($val && (strpos($key, 'logintasks_confirm_') === 0)) {
+            $confirmed[] = $key;
+        }
+    }
+}
+
+$tasks->runTasks(array(
+    'confirmed' => $confirmed,
+    'user_confirmed' => $vars->logintasks_page
+));
 
 /* Create the Horde_Template item. */
-$template = new Horde_Template();
-$template->set('javascript', $browser->hasFeature('javascript'), true);
+$template = $injector->createInstance('Horde_Template');
 
 /* Have the maintenance module do all necessary processing. */
 $tasklist = $tasks->displayTasks();
@@ -80,8 +96,13 @@ foreach ($tasklist as $key => $ob) {
 
 $template->setOption('gettext', true);
 $template->set('tasks', $display_tasks, true);
-$template->set('logintasks_url', htmlspecialchars($tasks->getLoginTasksUrl()));
-$template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+$template->set('logintasks_url', $tasks->getLoginTasksUrl());
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$template->set('notify', Horde::endBuffer());
+
+Horde::addScriptFile('logintasks.js', 'horde');
 
 $bodyId = 'services_logintasks';
 require HORDE_TEMPLATES . '/common-header.inc';

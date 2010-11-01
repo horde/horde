@@ -2,7 +2,7 @@
  Horde Security Notes
 ======================
 
-:Contact:       horde@lists.horde.org
+:Contact: horde@lists.horde.org
 
 .. contents:: Contents
 .. section-numbering::
@@ -32,8 +32,8 @@ secure your cookies. You should even force session cookie usage in the Horde
 configuration, which is the default setting in all Horde versions now.
 
 If you want to use HTTPS connections, consider forcing users to HTTPS in the
-Horde setup. This will force cookies to be sent over secure connections only
-and helps to prevent sidejacking.
+Horde configuration. This will force cookies to be sent over secure connections
+only and helps to prevent sidejacking.
 
 If PHP sessions are set to use the ``files`` save_handler, then these files
 should be secured properly. Sites can increase security by setting the PHP
@@ -44,9 +44,7 @@ Sites with a large user base should consider setting the
 ``session.entropy_file`` and ``session.entropy_length`` to appropriate values.
 
 Horde will encrypt the user credentials before storing them in the session.
-However, this encryption can be improved if you have and enable the PHP
-extension "mcrypt" which allows for stronger encryption than is otherwise
-provided by Horde.
+Thus, a compromised sessions will not reveal the user's stored credentials.
 
 
 Default database passwords
@@ -101,17 +99,17 @@ etc. that may be in use on your server.
 .. _INSTALL: ?f=INSTALL.html
 
 
-Restricting test.php files
-==========================
+Restricting the test script
+===========================
 
-The ``test.php`` files provide a wealth of information that can be used
-against the site by attackers.  One you have confirmed that everything is
-working, you should disable access to the test.php files.  You can do this via
-the web server, or via system file permissions.  On a unix system, you might
-issue a command such as::
+The test script (``horde/test.php``) provides a wealth of information that can
+be used against the site by attackers.  This script is disabled by default for
+this reason.
 
-$ chmod a-rwx /home/httpd/html/horde/test.php
-$ chmod a-rwx /home/httpd/html/horde/*/test.php
+This script is configured via the 'testdisable' configuration option.
+
+After manually enabling the script, and once you have confirmed that
+everything is working, you should disable access to the test script.
 
 
 Preventing Apache from serving configuration and source files

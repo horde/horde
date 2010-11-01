@@ -1,4 +1,4 @@
-<form name="tjump" method="get" action="<?php echo Horde::applicationUrl('ticket/', false, -1) ?>">
+<form name="tjump" method="get" action="<?php echo Horde::url('ticket/', false, -1) ?>">
 <?php echo Horde_Util::formInput() ?>
 <div id="menu">
  <span class="rightFloat">
@@ -8,4 +8,6 @@
  <br class="clear" />
 </div>
 </form>
-<?php echo Horde_Util::nonInputVar('menuBottom'); $GLOBALS['notification']->notify(array('listeners' => 'status')) ?>
+<?php require HORDE_BASE . '/services/sidebar.php'; ?>
+<?php echo Horde_Util::nonInputVar('menuBottom'); ?>
+<?php $GLOBALS['notification']->notify(array('listeners' => 'status')) ?>

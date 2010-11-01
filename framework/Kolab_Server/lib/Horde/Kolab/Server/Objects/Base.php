@@ -45,7 +45,7 @@ implements Horde_Kolab_Server_Objects_Interface
      * @return NULL
      */
     public function setComposite(
-        Horde_Kolab_Server_Composite_Interface $composite
+        Horde_Kolab_Server_Composite $composite
     ) {
         $this->_composite = $composite;
     }

@@ -1,6 +1,6 @@
 <?php
 /**
- * A library for accessing the Kolab user database.
+ * This class provides the standard error class for the Kolab_Filter package.
  *
  * PHP version 5
  *
@@ -12,9 +12,9 @@
  */
 
 /**
- * This class provides the standard error class for Kolab Filter exceptions.
+ * This class provides the standard error class for the Kolab_Filter package.
  *
- * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
+ * Copyright 2010 Klarälvdalens Datakonsult AB
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
@@ -25,48 +25,52 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Filter
  */
-class Horde_Kolab_Filter_Exception extends Horde_Exception
+class Horde_Kolab_Filter_Exception
+extends Horde_Exception
 {
     /**
-     * Constants to define the error type.
-     */
-    const SYSTEM      = 1;
-    const NO_FREEBUSY = 2;
-
-    /**
-     * The array of available error messages. These are connected to the error
-     * codes used above and might be used to differentiate between what we show
-     * the user in the frontend and what we actually log in the backend.
+     * Failure constants from postfix src/global/sys_exits.h
      *
-     * @var array
+     * These are required as exit codes for our communication with postfix.
      */
-    protected $messages;
 
+    /* command line usage error */
+    const EX_USAGE = 64;
+    /* data format error */
+    const EX_DATAERR = 65;
+    /* cannot open input */
+    const EX_NOINPUT = 66;
+    /* user unknown */
+    const EX_NOUSER = 67;
+    /* host name unknown */
+    const EX_NOHOST = 68;
+    /* service unavailable */
+    const EX_UNAVAILABLE = 69;
+    /* internal software error */
+    const EX_SOFTWARE = 70;
+    /* system resource error */
+    const EX_OSERR = 71;
+    /* critical OS file missing */
+    const EX_OSFILE = 72;
+    /* can't create user output file */
+    const EX_CANTCREAT = 73;
+    /* input/output error */
+    const EX_IOERR = 74;
+    /* temporary failure */
+    const EX_TEMPFAIL = 75;
+    /* remote error in protocol */
+    const EX_PROTOCOL = 76;
+    /* permission denied */
+    const EX_NOPERM = 77;
+    /* local configuration error */
+    const EX_CONFIG = 78;
+    
     /**
-     * Exception constructor
+     * Some output constants.
      *
-     * @param mixed $message The exception message, a PEAR_Error object, or an
-     *                       Exception object.
-     * @param mixed $code    A numeric error code, or
-     *                       an array from error_get_last().
+     * These indicate to the view how an exception should be handled.
      */
-    public function __construct($message = null, $code = null)
-    {
-        $this->setMessages();
-
-        parent::__construct($message, $code);
-    }
-
-    /**
-     * Initialize the messages handled by this exception.
-     *
-     * @return NULL
-     */
-    protected function setMessages()
-    {
-        $this->messages = array(
-            self::SYSTEM      => _("An internal error occured."),
-            self::NO_FREEBUSY => _("There is no free/busy data available."),
-        );
-    }
+    
+    const OUT_STDOUT = 128;
+    const OUT_LOG = 256;
 }

@@ -3,7 +3,7 @@
 <div style="float: right">
 <form>
 <input name="name" type="text" value="<?php echo $name ?>" />
-<input type="image" name="submit" src="<?php echo $registry->getImageDir('horde'); ?>/search.png" />
+<input type="image" name="submit" src="<?php echo Horde_Themes::img('search.png') ?>" />
 </form>
 </div>
 <?php echo $title ?>

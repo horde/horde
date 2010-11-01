@@ -1,4 +1,4 @@
-<form method="post" name="contacts" id="contacts" action="browse.php">
+<form method="post" name="contacts" id="contacts" action="<?php echo Horde::url('browse.php') ?>">
 <input type="hidden" name="source" value="<?php echo htmlspecialchars($GLOBALS['default_source']) ?>" />
 <?php echo Horde_Util::formInput() ?>
 <table cellspacing="0" width="100%" class="linedRow">
@@ -8,10 +8,10 @@
   <th class="item leftAlign" width="1%" style="cursor:pointer" onclick="document.contacts.checkAll.checked = !document.contacts.checkAll.checked; SelectAll();" nowrap="nowrap"><label for="checkAll" class="hidden"><?php echo _("Check All/None") ?></label><input type="checkbox" id="checkAll" name="checkAll" onclick="document.contacts.checkAll.checked = !document.contacts.checkAll.checked; SelectAll();" <?php echo Horde::getAccessKeyAndTitle(_("Check _All/None")) ?> /></th>
 <?php endif; ?>
 <?php if ($this->showEdit): $col_count++; ?>
-  <th class="item" width="1%"><?php echo Horde::img('edit.png', _("Edit"), '', $GLOBALS['registry']->getImageDir('horde')) ?></th>
+  <th class="item" width="1%"><?php echo Horde::img('edit.png', _("Edit")) ?></th>
 <?php endif; ?>
 <?php if ($this->showVcard): $col_count++; ?>
-  <th class="item" width="1%"><?php echo Horde::img('mime/vcard.png', _("vCard"), '', $GLOBALS['registry']->getImageDir('horde')) ?></th>
+  <th class="item" width="1%"><?php echo Horde::img('mime/vcard.png', _("vCard")) ?></th>
 <?php endif; ?>
 <?php if ($this->showGroup): $col_count++; ?>
   <th class="item" width="1%"><?php echo Horde::img('group.png', _("List")) ?></th>
@@ -23,13 +23,13 @@
    <?php if ($this->isSortColumn($i)): ?>
       <?php $sortdir = $this->getColumnSortDirection($i); ?>
       <?php $changetitle = sprintf(_("Change %s sort to %s"), $columnlabel, $sortdir == 0 ? _("descending") : _("ascending")) ?>
-      <a class="widget" title="<?php echo $changetitle ?>" href="<?php echo Horde_Util::addParameter($s_url, array('sortadd' => 1, 'sortby' => $i, 'sortdir' => abs(1 - $sortdir))) ?>"><?php echo $this->getColumnSortImage($i) ?></a>
+      <a class="widget" title="<?php echo $changetitle ?>" href="<?php echo $s_url->copy()->add(array('sortadd' => 1, 'sortby' => $i, 'sortdir' => abs(1 - $sortdir))) ?>"><?php echo $this->getColumnSortImage($i) ?></a>
       <?php $changetitle = sprintf(_("Sort by %s only"), $columnlabel) ?>
-      <a class="widget" title="<?php echo $changetitle ?>" href="<?php echo Horde_Util::addParameter($s_url, array('sortby' => $i, 'sortdir' => abs(1 - $sortdir))) ?>">
+      <a class="widget" title="<?php echo $changetitle ?>" href="<?php echo $s_url->copy()->add(array('sortby' => $i, 'sortdir' => abs(1 - $sortdir))) ?>">
    <?php else: ?>
       <?php $sorttitle = sprintf(_("Sort by %s, then by %s"), $this->getSortOrderDescription(), $columnlabel) ?>
-      <a class="widget" title="<?php echo $sorttitle ?>" href="<?php echo Horde_Util::addParameter($s_url, array('sortadd' => 1, 'sortby' => $i, 'sortdir' => 0)) ?>"><?php echo $this->getColumnSortImage($i, $sorttitle) ?></a>
-      <a class="widget" title="<?php echo sprintf(_("Sort by %s"), $columnlabel) ?>" href="<?php echo Horde_Util::addParameter($s_url, array('sortby' => $i, 'sortdir' => 0)) ?>">
+      <a class="widget" title="<?php echo $sorttitle ?>" href="<?php echo $s_url->copy()->add(array('sortadd' => 1, 'sortby' => $i, 'sortdir' => 0)) ?>"><?php echo $this->getColumnSortImage($i, $sorttitle) ?></a>
+      <a class="widget" title="<?php echo sprintf(_("Sort by %s"), $columnlabel) ?>" href="<?php echo $s_url->copy()->add(array('sortby' => $i, 'sortdir' => 0)) ?>">
    <?php endif; ?>
 <?php endif; ?>
    <?php echo $columnlabel ?>

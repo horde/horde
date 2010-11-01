@@ -7,10 +7,12 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @author  Marko Djukic <marko@oblo.com>
- * @author  Jan Schneider <jan@horde.org>
- * @package Horde_Util
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @author   Marko Djukic <marko@oblo.com>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Util
  */
 class Horde_Array
 {
@@ -31,14 +33,13 @@ class Horde_Array
         $addr = array_keys(array_flip($addr));
 
         /* Sort the list. */
-        usort($addr, array('Horde_Array', 'sortAddressList'));
+        usort($addr, array(__CLASS__, 'sortAddressList'));
 
         return $addr;
     }
 
     /**
      * Function used by usort() to sort an address list.
-     *   e.g. usort($foo, array('Horde_Array', 'sortAddressList'));
      *
      * @param string $a  Address #1.
      * @param string $b  Address #2.
@@ -94,8 +95,8 @@ class Horde_Array
         /* If no key to sort by is specified, use the first key of the
          * first element. */
         if (is_null($key)) {
-            reset($array);
-            $key = array_shift(array_keys(current($array)));
+            $keys = array_keys(reset($array));
+            $key = array_shift($keys);
         }
 
         /* Call the appropriate sort function. */
@@ -197,9 +198,7 @@ class Horde_Array
         if (!$array) {
             return array();
         }
-
-        $values = array_values($array);
-        return array_combine($values, $values);
+        return array_combine($array, $array);
     }
 
     /**

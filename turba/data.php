@@ -10,10 +10,9 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-function _cleanup()
+function _cleanupData()
 {
-    global $import_step;
-    $import_step = 1;
+    $GLOBALS['import_step'] = 1;
     return Horde_Data::IMPORT_FILE;
 }
 
@@ -54,10 +53,7 @@ function _getBareEmail($address, $allow_multi = false)
         return $address;
     }
 
-    static $rfc822;
-    if (is_null($rfc822)) {
-        $rfc822 = new Mail_RFC822();
-    }
+    $rfc822 = new Horde_Mail_Rfc822();
 
     // Split multiple email addresses
     if ($allow_multi) {
@@ -78,7 +74,8 @@ function _getBareEmail($address, $allow_multi = false)
     return implode(', ', $result);
 }
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('turba');
 
 if (!$conf['menu']['import_export']) {
     require TURBA_BASE . '/index.php';
@@ -234,7 +231,7 @@ case 'export':
     }
 
     $exportType = Horde_Util::getFormData('exportID');
-    $vcard = $exportType == EXPORT_VCARD ||
+    $vcard = $exportType == Horde_Data::EXPORT_VCARD ||
         $exportType == 'vcard30';
     if ($vcard) {
         $version = $exportType == 'vcard30' ? '3.0' : '2.1';
@@ -244,24 +241,21 @@ case 'export':
     $all_fields = array();
     foreach ($sources as $source => $objectkeys) {
         /* Create a Turba storage instance. */
-        $driver = Turba_Driver::singleton($source);
-        if ($driver instanceof PEAR_Error) {
-            $notification->push(sprintf(_("Failed to access the address book: %s"), $driver->getMessage()), 'horde.error');
+        try {
+            $driver = $injector->getInstance('Turba_Driver')->getDriver($source);
+        } catch (Turba_Exception $e) {
+            $notification->push($e, 'horde.error');
             $error = true;
             break;
         }
 
         /* Get the full, sorted contact list. */
-        if (count($objectkeys)) {
-            $results = &$driver->getObjects($objectkeys);
-        } else {
-            $results = $driver->search(array());
-            if ($results instanceof Turba_List) {
-                $results = $results->objects;
-            }
-        }
-        if ($results instanceof PEAR_Error) {
-            $notification->push(sprintf(_("Failed to search the directory: %s"), $results->getMessage()), 'horde.error');
+        try {
+            $results = count($objectkeys)
+                ? $driver->getObjects($objectkeys)
+                : $driver->search(array())->objects;
+        } catch (Turba_Exception $e) {
+            $notification->push(sprintf(_("Failed to search the directory: %s"), $e->getMessage()), 'horde.error');
             $error = true;
             break;
         }
@@ -284,7 +278,7 @@ case 'export':
                         } elseif ($attributes[$field]['type'] == 'datetime') {
                             $row[$field] = strftime('%Y-%m-%d %R', $attribute);
                         } else {
-                        $row[$field] = Horde_String::convertCharset($attribute, Horde_Nls::getCharset(), $params['charset']);
+                        $row[$field] = Horde_String::convertCharset($attribute, 'UTF-8', $params['charset']);
                         }
                     }
                 }
@@ -312,28 +306,27 @@ case 'export':
 
     switch ($exportType) {
     case Horde_Data::EXPORT_CSV:
-        $csv = Horde_Data::singleton('csv');
-        $csv->exportFile(_("contacts.csv"), $data, true);
+        $injector->getInstance('Horde_Core_Factory_Data')->create('Csv', array('cleanup' => '_cleanupData'))->exportFile(_("contacts.csv"), $data, true);
         exit;
 
     case Horde_Data::EXPORT_OUTLOOKCSV:
-        $csv = Horde_Data::singleton('outlookcsv');
-        $csv->exportFile(_("contacts.csv"), $data, true, array_flip($outlook_mapping));
+        $injector->getInstance('Horde_Core_Factory_Data')->create('Outlookcsv', array('cleanup' => '_cleanupData'))->exportFile(_("contacts.csv"), $data, true, array_flip($outlook_mapping));
         exit;
 
     case Horde_Data::EXPORT_TSV:
-        $tsv = Horde_Data::singleton('tsv');
-        $tsv->exportFile(_("contacts.tsv"), $data, true);
+        $injector->getInstance('Horde_Core_Factory_Data')->create('Tsv', array('cleanup' => '_cleanupData'))->exportFile(_("contacts.tsv"), $data, true);
         exit;
 
     case Horde_Data::EXPORT_VCARD:
     case 'vcard30':
-        $vcard = Horde_Data::singleton('vcard');
-        $vcard->exportFile(_("contacts.vcf"), $data, true);
+        $injector->getInstance('Horde_Core_Factory_Data')->create('Vcard', array('cleanup' => '_cleanupData'))->exportFile(_("contacts.vcf"), $data, true);
         exit;
 
     case 'ldif':
-        $ldif = Horde_Data::singleton(array('turba', 'ldif'));
+        $ldif = new Turba_Data_Ldif(
+            array('browser' => $this->_injector->getInstance('Horde_Browser'),
+                  'vars' => Horde_Variables::getDefaultVariables(),
+                  'cleanup' => '_cleanupData'));
         $ldif->exportFile(_("contacts.ldif"), $data, true);
         exit;
     }
@@ -341,9 +334,10 @@ case 'export':
 
 case Horde_Data::IMPORT_FILE:
     $dest = Horde_Util::getFormData('dest');
-    $driver = Turba_Driver::singleton($dest);
-    if ($driver instanceof PEAR_Error) {
-        $notification->push(sprintf(_("Failed to access the address book: %s"), $driver->getMessage()), 'horde.error');
+    try {
+        $driver = $injector->getInstance('Turba_Driver')->getDriver($source);
+    } catch (Turba_Exception $e) {
+        $notification->push($e, 'horde.error');
         $error = true;
         break;
     }
@@ -351,11 +345,11 @@ case Horde_Data::IMPORT_FILE:
     /* Check permissions. */
     $max_contacts = Turba::getExtendedPermission($driver, 'max_contacts');
     if ($max_contacts !== true &&
-        $max_contacts <= $driver->count()) {
+        $max_contacts <= count($driver)) {
         try {
             $message = Horde::callHook('perms_denied', array('turba:max_contacts'));
         } catch (Horde_Exception_HookNotSet $e) {
-            $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d contacts in \"%s\"."), $max_contacts, $driver->title), ENT_COMPAT, Horde_Nls::getCharset());
+            $message = htmlspecialchars(sprintf(_("You are not allowed to create more than %d contacts in \"%s\"."), $max_contacts, $driver->title));
         }
         $notification->push($message, 'horde.error', array('content.raw'));
         $error = true;
@@ -383,20 +377,27 @@ case Horde_Data::IMPORT_DATETIME:
 }
 
 if (!$error && !empty($import_format)) {
-    if ($import_format == 'ldif') {
-        $data = Horde_Data::singleton(array('turba', $import_format));
-    } else {
-        $data = Horde_Data::singleton($import_format);
-    }
-    if ($data instanceof PEAR_Error) {
-        $notification->push(_("This file format is not supported."), 'horde.error');
-        $next_step = Horde_Data::IMPORT_FILE;
-    } else {
-        $next_step = $data->nextStep($actionID, $param);
-        if ($next_step instanceof PEAR_Error) {
-            $notification->push($next_step->getMessage(), 'horde.error');
-            $next_step = $data->cleanup();
+    // TODO
+    try {
+        if ($import_format == 'ldif') {
+            $data = new Turba_Data_Ldif(array(
+                'browser' => $this->_injector->getInstance('Horde_Browser'),
+                'vars' => Horde_Variables::getDefaultVariables(),
+                'cleanup' => '_cleanupData'
+            ));
         } else {
+            $data = $injector->getInstance('Horde_Core_Factory_Data')->create($import_format, array('cleanup' => '_cleanupData'));
+        }
+    } catch (Turba_Exception $e) {
+        $notification->push(_("This file format is not supported."), 'horde.error');
+        $data = null;
+        $next_step = Horde_Data::IMPORT_FILE;
+    }
+
+    if ($data) {
+        try {
+            $next_step = $data->nextStep($actionID, $param);
+
             /* Raise warnings if some exist. */
             if (method_exists($data, 'warnings')) {
                 $warnings = $data->warnings();
@@ -407,6 +408,9 @@ if (!$error && !empty($import_format)) {
                     $notification->push(_("The import can be finished despite the warnings."), 'horde.message');
                 }
             }
+        } catch (Turba_Exception $e) {
+            $notification->push($e, 'horde.error');
+            $next_step = $data->cleanup();
         }
     }
 }
@@ -419,37 +423,43 @@ if (is_array($next_step)) {
 
     /* Create a Turba storage instance. */
     $dest = $_SESSION['import_data']['target'];
-    $driver = Turba_Driver::singleton($dest);
-    if ($driver instanceof PEAR_Error) {
-        $notification->push(sprintf(_("Failed to access the address book: %s"), $driver->getMessage()), 'horde.error');
-    } elseif (!count($next_step)) {
+    try {
+        $driver = $injector->getInstance('Turba_Driver')->getDriver($source);
+    } catch (Turba_Exception $e) {
+        $notification->push($e, 'horde.error');
+        $driver = null;
+    }
+
+    if (!count($next_step)) {
         $notification->push(sprintf(_("The %s file didn't contain any contacts."),
                                     $file_types[$_SESSION['import_data']['format']]), 'horde.error');
-    } else {
+    } elseif ($driver) {
         /* Purge old address book if requested. */
         if ($_SESSION['import_data']['purge']) {
-            $result = $driver->deleteAll();
-            if ($result instanceof PEAR_Error) {
-                $notification->push(sprintf(_("The address book could not be purged: %s"), $result->getMessage()), 'horde.error');
-            } else {
+            try {
+                $driver->deleteAll();
                 $notification->push(_("Address book successfully purged."), 'horde.success');
+            } catch (Turba_Exception $e) {
+                $notification->push(sprintf(_("The address book could not be purged: %s"), $e->getMessage()), 'horde.error');
             }
         }
 
         $error = false;
         foreach ($next_step as $row) {
-            if ($row instanceof Horde_iCalendar_vcard) {
+            if ($row instanceof Horde_Icalendar_Vcard) {
                 $row = $driver->toHash($row);
             }
 
             /* Don't search for empty attributes. */
-            $row = array_filter($row, '_emptyAttributeFilter');
-            $result = $driver->search($row);
-            if ($result instanceof PEAR_Error) {
-                $notification->push($result, 'horde.error');
+            try {
+                $result = $driver->search(array_filter($row, '_emptyAttributeFilter'));
+            } catch (Turba_Exception $e) {
+                $notification->push($e, 'horde.error');
                 $error = true;
                 break;
-            } elseif ($result->count()) {
+            }
+
+            if (count($result)) {
                 $result->reset();
                 $object = $result->next();
                 $notification->push(sprintf(_("\"%s\" already exists and was not imported."),
@@ -464,10 +474,11 @@ if (is_array($next_step)) {
                     }
                 }
                 $row['__owner'] = $driver->getContactOwner();
-                $result = $driver->add($row);
-                if (is_a($result, 'PEAR_Error')) {
-                    $notification->push(sprintf(_("There was an error importing the data: %s"),
-                                                $result->getMessage()), 'horde.error');
+
+                try {
+                    $driver->add($row);
+                } catch (Turba_Exception $e) {
+                    $notification->push(sprintf(_("There was an error importing the data: %s"), $e->getMessage()), 'horde.error');
                     $error = true;
                     break;
                 }
@@ -532,15 +543,16 @@ if ($next_step == Horde_Data::IMPORT_FILE) {
     }
 
     /* Build the charset options. */
-    $charsets = Horde_Nls::$config['encodings'];
-    $all_charsets = Horde_Nls::$config['charsets'];
+    $charsets = $registry->nlsconfig['encodings'];
+    asort($charsets);
+    $all_charsets = $registry->nlsconfig['charsets'];
     natcasesort($all_charsets);
     foreach ($all_charsets as $charset) {
         if (!isset($charsets[$charset])) {
             $charsets[$charset] = $charset;
         }
     }
-    $my_charset = Horde_Nls::getCharset(true);
+    $my_charset = $GLOBALS['registry']->getLanguageCharset();
 }
 
 foreach ($templates[$next_step] as $template) {

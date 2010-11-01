@@ -4,7 +4,7 @@ Turba_Driver::toHash() test.
 <?php
 
 require_once 'PEAR.php';
-require_once 'Horde/iCalendar.php';
+require_once 'Horde/Icalendar.php';
 require dirname(__FILE__) . '/../Object.php';
 require dirname(__FILE__) . '/../Driver.php';
 
@@ -193,7 +193,7 @@ END:VCARD
 ';
 
 $driver = new Turba_Driver(array());
-$iCal = new Horde_iCalendar();
+$iCal = new Horde_Icalendar();
 
 $iCal->parsevCalendar($vcard1);
 var_export($driver->toHash($iCal->getComponent(0)));
@@ -283,7 +283,7 @@ Dänemark',
   'workStreet' => 'Hübschestr. 19',
   'workCity' => 'Köln',
   'workProvince' => 'Allgäu',
-  'workCountry' => 'DK',
+  'workCountry' => 'Dänemark',
   'timezone' => 'Europe/Berlin',
   'latitude' => 52.516276,
   'longitude' => 13.377778,
@@ -321,7 +321,7 @@ Dänemark',
   'workStreet' => 'Hübschestr. 19',
   'workCity' => 'Köln',
   'workProvince' => 'Allgäu',
-  'workCountry' => 'DK',
+  'workCountry' => 'Dänemark',
   'timezone' => 'Europe/Berlin',
   'latitude' => 52.516276,
   'longitude' => 13.377778,
@@ -362,15 +362,19 @@ array (
   'lastname' => 'Lastname',
   'firstname' => 'Firstname',
   'name' => 'Lastname, Firstname',
+  'title' => '',
   'company' => 'Company Name',
   'department' => '',
+  'birthday' => '',
   'homePhone' => '(xxx) xxx-xxxx',
   'workPhone' => '(xxx) xxx-xxxx',
   'cellPhone' => '(xxx) xxx-xxxx',
   'email' => 'email@domain.com',
   'emails' => 'email@domain.com',
+  'website' => '',
   'category' => 'Friends',
   'businessCategory' => 'Friends',
+  'notes' => '',
   'homeAddress' => 'Street address
 City, St 12345
 USA',
@@ -402,6 +406,7 @@ array (
   'lastname' => 'Blow',
   'firstname' => 'Joe',
   'name' => 'Blow, Joe',
+  'title' => '',
   'company' => '',
   'department' => '',
   'birthday' => '1970-03-27',
@@ -409,8 +414,10 @@ array (
   'cellPhone' => '302 521 9999',
   'email' => 'Blow@somwhere.net',
   'emails' => 'Blow@somwhere.net',
+  'website' => '',
   'category' => 'Personal',
   'businessCategory' => 'Personal',
+  'notes' => '',
   'homeAddress' => '',
 )
 136

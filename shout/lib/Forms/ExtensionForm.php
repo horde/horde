@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * Copyright 2005-2009 Alkaloid Networks LLC (http://projects.alkaloid.net)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
@@ -23,9 +21,6 @@ class ExtensionDetailsForm extends Horde_Form {
      */
     function __construct(&$vars)
     {
-        global $shout;
-
-        $context = $_SESSION['shout']['context'];
         $action = $vars->get('action');
         if ($action == 'edit') {
             $formtitle = "Edit User";
@@ -33,7 +28,10 @@ class ExtensionDetailsForm extends Horde_Form {
             $formtitle = "Add User";
         }
 
-        parent::__construct($vars, _("$formtitle - Context: $context"));
+        $accountname = $_SESSION['shout']['curaccount']['name'];
+        $title = sprintf(_("$formtitle - Account: %s"), $accountname);
+        parent::__construct($vars, $title);
+
 
         $extension = $vars->get('extension');
 
@@ -51,15 +49,15 @@ class ExtensionDetailsForm extends Horde_Form {
     /**
      * Process this form, saving its information to the backend.
      *
-     * @param string $context  Context in which to execute this save
-     * FIXME: is there a better way to get the $context and $shout->extensions?
+     * @param string $account  Account in which to execute this save
+     * FIXME: is there a better way to get the $account and $shout->extensions?
      */
     function execute()
     {
-        global $shout;
+        $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
 
         $extension = $this->_vars->get('extension');
-        $context = $this->_vars->get('context');
+        $account = $this->_vars->get('account');
 
         // FIXME: Input Validation (Text::??)
         $details = array(
@@ -70,7 +68,7 @@ class ExtensionDetailsForm extends Horde_Form {
             'mailboxpin' => $this->_vars->get('mailboxpin'),
             );
 
-        $shout->extensions->saveExtension($context, $extension, $details);
+        $shout->extensions->saveExtension($account, $extension, $details);
     }
 
 }
@@ -80,13 +78,13 @@ class ExtensionDeleteForm extends Horde_Form
     function __construct(&$vars)
     {
         $extension = $vars->get('extension');
-        $context = $vars->get('context');
+        $account = $vars->get('account');
 
-        $title = _("Delete Extension %s - Context: %s");
-        $title = sprintf($title, $extension, $context);
+        $title = _("Delete Extension %s - Account: %s");
+        $title = sprintf($title, $extension, $_SESSION['shout']['curaccount']['name']);
         parent::__construct($vars, $title);
 
-        $this->addHidden('', 'context', 'text', true);
+        $this->addHidden('', 'account', 'text', true);
         $this->addHidden('', 'extension', 'int', true);
         $this->addHidden('', 'action', 'text', true);
         $this->setButtons(array(_("Delete"), _("Cancel")));
@@ -94,9 +92,9 @@ class ExtensionDeleteForm extends Horde_Form
 
     function execute()
     {
-        global $shout;
-        $context = $this->_vars->get('context');
+        $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
+        $account = $this->_vars->get('account');
         $extension = $this->_vars->get('extension');
-        $shout->extensions->deleteExtension($context, $extension);
+        $shout->extensions->deleteExtension($account, $extension);
     }
 }

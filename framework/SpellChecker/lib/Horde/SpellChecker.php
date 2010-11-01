@@ -33,11 +33,6 @@ abstract class Horde_SpellChecker
     protected $_locale = 'en';
 
     /**
-     * @var string
-     */
-    protected $_encoding = 'utf-8';
-
-    /**
      * @var boolean
      */
     protected $_html = false;
@@ -129,7 +124,7 @@ abstract class Horde_SpellChecker
     {
         return (empty($this->_localDict))
             ? false
-            : in_array(Horde_String::lower($word, true), $this->_localDict);
+            : in_array(Horde_String::lower($word, true, 'UTF-8'), $this->_localDict);
     }
 
 }

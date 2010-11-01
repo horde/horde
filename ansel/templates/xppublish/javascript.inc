@@ -8,7 +8,7 @@ function publish()
 
     for (i = 0; i < files.length; i++) {
         var postTag = xml.createNode(1, 'post', '');
-        postTag.setAttribute('href', '<?php echo Horde::applicationUrl('xppublish.php?1=1', true) ?>&gallery=' + folder.gallery.value);
+        postTag.setAttribute('href', '<?php echo Horde::url('xppublish.php?1=1', true) ?>&gallery=' + folder.gallery.value);
         postTag.setAttribute('name', 'imagefile');
 
         var dataTag = xml.createNode(1, 'formdata', '');
@@ -31,7 +31,7 @@ function publish()
 
     var uploadTag = xml.createNode(1, 'uploadinfo', '');
     var htmluiTag = xml.createNode(1, 'htmlui', '');
-    htmluiTag.text = '<?php echo Horde::applicationUrl('view.php?view=Gallery', true) ?>&gallery=' + folder.gallery.value;
+    htmluiTag.text = '<?php echo Horde::url('view.php?view=Gallery', true) ?>&gallery=' + folder.gallery.value;
     uploadTag.appendChild(htmluiTag);
 
     xml.documentElement.appendChild(uploadTag);

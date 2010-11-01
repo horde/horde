@@ -74,7 +74,7 @@ class Horde_Form_Type_Email extends Horde_Form_Type {
 
         // Check for too many.
         if (!$this->_allow_multi && count($emails) > 1) {
-            $message = _("Only one email address is allowed.");
+            $message = Horde_Model_Translation::t("Only one email address is allowed.");
             return false;
         }
 
@@ -85,7 +85,7 @@ class Horde_Form_Type_Email extends Horde_Form_Type {
                 continue;
             }
             if (!$this->validateEmailAddress($email)) {
-                $message = sprintf(_("\"%s\" is not a valid email address."), $email);
+                $message = sprintf(Horde_Model_Translation::t("\"%s\" is not a valid email address."), $email);
                 return false;
             }
             ++$nonEmpty;
@@ -93,9 +93,9 @@ class Horde_Form_Type_Email extends Horde_Form_Type {
 
         if (!$nonEmpty && $var->required) {
             if ($this->_allow_multi) {
-                $message = _("You must enter at least one email address.");
+                $message = Horde_Model_Translation::t("You must enter at least one email address.");
             } else {
-                $message = _("You must enter an email address.");
+                $message = Horde_Model_Translation::t("You must enter an email address.");
             }
             return false;
         }
@@ -421,27 +421,28 @@ class Horde_Form_Type_EmailConfirm extends Horde_Form_Type {
     public function isValid($var, $vars, $value, &$message)
     {
         if ($var->required && empty($value['original'])) {
-            $message = _("This field is required.");
+            $message = Horde_Model_Translation::t("This field is required.");
             return false;
         }
 
         if ($value['original'] != $value['confirm']) {
-            $message = _("Email addresses must match.");
+            $message = Horde_Model_Translation::t("Email addresses must match.");
             return false;
         } else {
-            require_once 'Horde/MIME.php';
-            $parsed_email = MIME::parseAddressList($value['original'], false,
-                                                   true);
-            if (is_a($parsed_email, 'PEAR_Error')) {
-                $message = $parsed_email->getMessage();
+            try {
+                $parsed_email = Horde_Mime_Address::parseAddressList($value['original'], array(
+                    'validate' => true
+                ));
+            } catch (Horde_Mime_Exception $e) {
+                $message = $e->getMessage();
                 return false;
             }
             if (count($parsed_email) > 1) {
-                $message = _("Only one email address allowed.");
+                $message = Horde_Model_Translation::t("Only one email address allowed.");
                 return false;
             }
             if (empty($parsed_email[0]->mailbox)) {
-                $message = _("You did not enter a valid email address.");
+                $message = Horde_Model_Translation::t("You did not enter a valid email address.");
                 return false;
             }
         }

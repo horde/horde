@@ -8,7 +8,8 @@
  * @author Michael Slusarz <slusarz@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('ansel');
 
 /* Abort if ecard sending is disabled. */
 if (empty($conf['ecard']['enable'])) {
@@ -16,14 +17,8 @@ if (empty($conf['ecard']['enable'])) {
 }
 
 /* Get the gallery and the image, and abort if either fails. */
-$gallery = $ansel_storage->getGallery(Horde_Util::getFormData('gallery'));
-if (is_a($gallery, 'PEAR_Error')) {
-    exit;
-}
-$image = &$gallery->getImage(Horde_Util::getFormData('image'));
-if (is_a($image, 'PEAR_Error')) {
-    exit;
-}
+$gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery(Horde_Util::getFormData('gallery'));
+$image = $gallery->getImage(Horde_Util::getFormData('image'));
 
 /* Run through the action handlers. */
 switch (Horde_Util::getFormData('actionID')) {
@@ -40,12 +35,10 @@ case 'send':
         break;
     }
 
-    $charset = Horde_Nls::getCharset();
-
     /* Create the text part. */
     $textpart = new Horde_Mime_Part();
     $textpart->setType('text/plain');
-    $textpart->setCharset($charset);
+    $textpart->setCharset('UTF-8');
     $textpart->setContents(_("You have been sent an Ecard. To view the Ecard, you must be able to view text/html messages in your mail reader. If you are viewing this message, then most likely your mail reader does not support viewing text/html messages."));
 
     /* Create the multipart/related part. */
@@ -55,7 +48,7 @@ case 'send':
     /* Create the HTML part. */
     $htmlpart = new Horde_Mime_Part();
     $htmlpart->setType('text/html');
-    $htmlpart->setCharset($charset);
+    $htmlpart->setCharset('UTF-8');
 
     /* The image part */
     $imgpart = new Horde_Mime_Part();
@@ -64,7 +57,7 @@ case 'send':
     $img_tag = '<img src="cid:' . $imgpart->setContentID() . '" /><p />';
     $comments = $htmlpart->replaceEOL(Horde_Util::getFormData('ecard_comments'));
     if (!Horde_Util::getFormData('rtemode')) {
-        $comments = '<pre>' . htmlspecialchars($comments, ENT_COMPAT, Horde_Nls::getCharset()) . '</pre>';
+        $comments = '<pre>' . htmlspecialchars($comments, ENT_COMPAT, 'UTF-8') . '</pre>';
     }
     $htmlpart->setContents('<html>' . $img_tag . $comments . '</html>');
     $related->setContentTypeParameter('start', $htmlpart->setContentID());
@@ -78,17 +71,17 @@ case 'send':
     $alternative->addPart($related);
 
     /* Add them to the mail message */
-    $alt = new Horde_Mime_Mail(array('subject' => _("Ecard - ") . Horde_Util::getFormData('image_desc'), 'to' => $to, 'from' => $from, 'charset' => $charset));
+    $alt = new Horde_Mime_Mail(array('subject' => _("Ecard - ") . Horde_Util::getFormData('image_desc'), 'to' => $to, 'from' => $from, 'charset' => 'UTF-8'));
     $alt->setBasePart($alternative);
 
     /* Send. */
-    $result = $alt->send(Horde::getMailerConfig());
-    if (is_a($result, 'PEAR_Error')) {
-        $notification->push(sprintf(_("There was an error sending your message: %s"), $result->getMessage()), 'horde.error');
-    } else {
-        Horde_Util::closeWindowJS();
-        exit;
+    try {
+        $result = $alt->send($injector->getInstance('Horde_Mail'));
+    } catch (Horde_Mime_Exception $e) {
+        $notification->push(sprintf(_("There was an error sending your message: %s"), $e->getMessage()), 'horde.error');
     }
+    echo Horde::wrapInlineScript(array('window.close();'));
+    exit;
 }
 
 $title = sprintf(_("Send Ecard :: %s"), $image->filename);
@@ -100,8 +93,8 @@ $vars->set('image_desc', strlen($image->caption) ? $image->caption : $image->fil
 $form = new Ansel_Form_Ecard($vars, $title);
 $renderer = new Horde_Form_Renderer();
 
-if ($browser->hasFeature('rte')) {
-    $editor = Horde_Editor::singleton('ckeditor', array('id' => 'ecard_comments'));
+$editor = $injector->getInstance('Horde_Editor')->initialize(array('id' => 'ecard_comments'));
+if ($editor->supportedByBrowser()) {
     $vars->set('rtemode', 1);
     $form->addHidden('', 'rtemode', 'text', false);
 }

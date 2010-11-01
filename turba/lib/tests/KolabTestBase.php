@@ -143,31 +143,32 @@ class Turba_KolabTestBase extends Horde_Kolab_Test_Storage
         $GLOBALS['registry']->pushApp('turba', array('check_perms' => false));
 
         // Turba base libraries.
-        require_once dirname(__FILE__) . '/../../lib/base.load.php';
         require_once TURBA_BASE . '/lib/Turba.php';
         require_once TURBA_BASE . '/lib/Driver.php';
         require_once TURBA_BASE . '/lib/Object.php';
 
         // Turba source and attribute configuration.
         include TURBA_BASE . '/config/attributes.php';
-        include TURBA_BASE . '/config/sources.php';
+        include TURBA_BASE . '/config/backends.php';
         unset($cfgSources['kolab_global']);
 
         $this->prepareNewFolder($world['storage'], 'Contacts', 'contact', true);
         $this->prepareNewFolder($world['storage'], 'test2', 'contact');
 
         $_SESSION['turba']['has_share'] =  true;
-        $GLOBALS['turba_shares'] = &Horde_Share::singleton('turba');
+        $GLOBALS['turba_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
 
         $GLOBALS['cfgSources'] = Turba::getConfigFromShares($cfgSources);
     }
 
-    function provideServerName() {
+    function provideServerName()
+    {
         return 'localhost.localdomain';
     }
 
-    function provideHordeBase() {
-        require_once dirname(__FILE__) . '/../../lib/base.load.php';
+    function provideHordeBase()
+    {
+        require_once dirname(__FILE__) . '/../Application.php';
         return HORDE_BASE;
     }
 }

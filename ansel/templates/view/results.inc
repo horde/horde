@@ -53,7 +53,7 @@ function copySelected()
 }
 </script>
 <?php if ($numimages): ?>
-<form name="gallery" action="<?php Horde::applicationUrl('view.php', true)?>" method="get">
+<form name="gallery" action="<?php Horde::url('view.php', true)?>" method="get">
 <?php echo Horde_Util::formInput() ?>
 <input type="hidden" name="actionID" value="" />
 <input type="hidden" name="view" value="Results" />
@@ -62,31 +62,32 @@ function copySelected()
 <div class="header">
 <?php
 /* Build link, if needed, for browsing all users' results */
-$allLink = (!empty($this->_owner)) ? Horde::link(Horde_Util::addParameter(Horde::selfUrl(), array('view' => 'Results')), _("View Results from All Users")) . ' (' . _("View All Results") . ')</a>' : '';
+$allLink = (!empty($this->_owner)) ? Horde::selfUrl()->add(array('view' => 'Results'))->link(array('title' => _("View Results from All Users"))) . ' (' . _("View All Results") . ')</a>' : '';
 if ($total) {
-    echo '<span class="rightFloat">' . ($total > $perpage ? sprintf(_("%d to %d of %d Items"), $pagestart, $pageend, $total) : sprintf(ngettext("%d Item", "%d Items", $total), $total)) . '<small>' . $allLink . '</small></span>';
+    echo '<span class="rightFloat">' . ($total > $this->_perPage ? sprintf(_("%d to %d of %d Items"), $this->_pagestart, $this->_pageend, $total) : sprintf(ngettext("%d Item", "%d Items", $total), $total)) . '<small>' . $allLink . '</small></span>';
 }
-echo htmlspecialchars($this->getTitle(), ENT_COMPAT, Horde_Nls::getCharset()) . $this->_search->getTagTrail();
+echo htmlspecialchars($this->getTitle()) . $this->_search->getTagTrail();
 ?>
 </div>
 
 <table class="control" width="100%" cellspacing="0">
  <tr>
   <td>
-    <?php printf(_("Select: %s, %s"),
-                   Horde::link('#', _("Select All"), '', '', 'selectAll(); return false;') . _("All") . '</a>',
-                   Horde::link('#', _("Select None"), '', '', 'selectNone(); return false;') . _("None") . '</a>');?>
+    <?php   $tempurl = new Horde_Url('#');
+            printf(_("Select: %s, %s"),
+                   $tempurl->link(array('title' => _("Select All"), 'onclick' => 'selectAll(); return false;')) . _("All") . '</a>',
+                   $tempurl->link(array('title' => _("Select None"), 'onclick' => 'selectNone(); return false;')) . _("None") . '</a>');?>
   </td>
   <td class="rightAlign">
 <?php echo _("Actions: ") ?>
-    <?php echo Horde::link('#', _("Delete"), 'widget', '', 'deleteSelected(); return false;') . _("Delete"); ?></a>
+    <?php echo $tempurl->link(array('title' => _("Delete"), 'class' => 'widget', 'onclick' => 'deleteSelected(); return false;')) . _("Delete"); ?></a>
 <?php if ($option_move): ?>
- |  <?php echo Horde::link('#', _("Move"), 'widget', '', 'moveSelected(); return false;') . _("Move"); ?></a>
+ |  <?php echo $tempurl->link(array('title' => _("Move"), 'class' => 'widget', 'onclick' => 'moveSelected(); return false;')) . _("Move"); ?></a>
 <?php endif; ?>
 <?php if ($option_copy): ?>
- |  <?php echo Horde::link('#', _("Copy"), 'widget', '', 'copySelected(); return false;') . _("Copy"); ?></a>
+ |  <?php echo $tempurl->link(array('title' => _("Copy"), 'class' => 'widget', 'onclick' => 'copySelected(); return false;')) . _("Copy"); ?></a>
 <?php endif; ?>
-    <select name="new_gallery"><option value="-1"><?php echo _("Selected photos to") ?></option><?php echo Ansel::selectGalleries(null, Horde_Perms::EDIT) ?></select>
+    <select name="new_gallery"><option value="-1"><?php echo _("Selected photos to") ?></option><?php echo Ansel::selectGalleries(array('perms' => Horde_Perms::EDIT))?></select>
   </td>
  </tr>
 </table>
@@ -98,10 +99,9 @@ echo htmlspecialchars($this->getTitle(), ENT_COMPAT, Horde_Nls::getCharset()) . 
     <?php if (!$total): ?>
      <div class="text"><em><?php echo _("There are no photos in this gallery.") ?></em></div>
     <?php else: ?>
-     <?php echo $pager->render() ?>
-     <table width="100%" style="background-color:<?php echo $styleDef['background'] ?>;"><tr>
+     <?php echo $this->_pager->render() ?>
+     <table width="100%" style="background-color:<?php echo $style->background ?>;"><tr>
       <?php
-        $tilesperrow = $prefs->getValue('tilesperrow');
         $cellwidth = round(100 / $tilesperrow);
         $count = 0;
         foreach ($results as $result) {
@@ -118,13 +118,13 @@ echo htmlspecialchars($this->getTitle(), ENT_COMPAT, Horde_Nls::getCharset()) . 
         } ?>
       </tr>
      </table>
-     <?php echo $pager->render() ?>
+     <?php echo $this->_pager->render() ?>
     <?php endif; ?>
    </td>
    <td width="20%" valign="top">
     <div id="anselWidgets">
-     <?php /* Tags if we are using related */ if ($conf['tags']['relatedtags']): ?>
-      <div style="background-color:<?php echo $styleDef['background'] ?>;">
+     <?php if ($conf['tags']['relatedtags']): ?>
+      <div style="background-color:<?php echo $style->background ?>;">
        <h2 class="header tagTitle"><?php echo _("Related Tags") ?></h2>
        <div id="tags"><?php echo $rtaghtml ?></div>
       </div>

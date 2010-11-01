@@ -10,13 +10,9 @@
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- *
  * @package Horde_Image
- *
- * @TODO: - Can we depend on the Horde_Util:: class or some other solution needed?
- *        - Exceptions
  */
-class Horde_Image_Base
+abstract class Horde_Image_Base extends EmptyIterator
 {
     /**
      * Background color.
@@ -32,12 +28,6 @@ class Horde_Image_Base
      */
     protected $_observers = array();
 
-    /**
-     * Capabilites of this driver.
-     *
-     * @var array
-     */
-    protected $_capabilities = array();
 
     /**
      * The current image data.
@@ -45,16 +35,6 @@ class Horde_Image_Base
      * @var string
      */
     protected $_data = '';
-
-    /**
-     * The current image id.
-     *
-     * @TODO: Do we *really* need an image id...and if so, we can make the
-     *        parameter optional in the methods that take one?
-     *
-     * @var string
-     */
-    protected $_id = '';
 
     /**
      * Logger
@@ -97,12 +77,35 @@ class Horde_Image_Base
     protected $_type = 'png';
 
     /**
+     * Cache the context
+     *
+     * @param array
+     */
+     protected $_context;
+
+    /**
      * Constructor.
      *
-     * @param string $rgb  The base color for generated pixels/images.
+     * @param array $params   The image object parameters. Values include:
+     *<pre>
+     *   (optional)width  - The desired image width
+     *   (optional)height - The desired image height
+     *   (optional)type   - The image type (png, jpeg etc...) If not provided,
+     *                      or set by the setType method, any image output will
+     *                      be converted to the default image type of png.
+     *   (optional)data   - The image binary data.
+     *</pre>
+     * @param array $context  The object context - configuration, injected objects
+     *<pre>
+     *   (required)tmpdir - Temporary directory
+     *   (optional)logger - The logger
+     *</pre>
+     * @throws InvalidArgumentException
      */
     protected function __construct($params, $context = array())
     {
+        $this->_params = $params;
+        $this->_context = $context;
 
         if (empty($context['tmpdir'])) {
             throw new InvalidArgumentException('A path to a temporary directory is required.');
@@ -116,6 +119,10 @@ class Horde_Image_Base
             $this->_height = $params['height'];
         }
         if (!empty($params['type'])) {
+            // We only want the extension, not the full mimetype.
+            if (strpos($params['type'], 'image/') !== false) {
+                $params['type'] = substr($params['type'], 6);
+            }
             $this->_type = $params['type'];
         }
 
@@ -177,6 +184,22 @@ class Horde_Image_Base
     }
 
     /**
+     * Setter for the image type.
+     *
+     * @param string $type  The simple type for the imag (png, jpg, etc...)
+     *
+     * @return void
+     */
+    public function setType($type)
+    {
+        // We only want the extension, not the full mimetype.
+        if (strpos($type, 'image/') !== false) {
+            $type = substr($type, 6);
+        }
+        $this->_type = $type;
+    }
+
+    /**
      * Draw a shaped point at the specified (x,y) point. Useful for
      * scatter diagrams, debug points, etc. Draws squares, circles,
      * diamonds, and triangles.
@@ -221,7 +244,6 @@ class Horde_Image_Base
     public function reset()
     {
         $this->_data = '';
-        $this->_id = '';
         $this->_width = null;
         $this->_height = null;
         $this->_background = 'white';
@@ -253,13 +275,10 @@ class Horde_Image_Base
      * @param string $id          An arbitrary id for the image.
      * @param string $image_data  The data to use for the image.
      */
-    public function loadString($id, $image_data)
+    public function loadString($image_data)
     {
-        if ($id != $this->_id) {
-            $this->reset();
-            $this->_data = $image_data;
-            $this->_id = $id;
-        }
+        $this->reset();
+        $this->_data = $image_data;
     }
 
     /**
@@ -275,16 +294,12 @@ class Horde_Image_Base
      */
     public function loadFile($filename)
     {
-        if ($filename != $this->_id) {
-            $this->reset();
-            if (!file_exists($filename)) {
-                throw new Horde_Image_Exception(sprintf("The image file, %s, does not exist.", $filename));
-            }
-            if ($this->_data = file_get_contents($filename)) {
-                $this->_id = $filename;
-            } else {
-                throw new Horde_Image_Exception(sprintf("Could not load the image file %s", $filename));
-            }
+        $this->reset();
+        if (!file_exists($filename)) {
+            throw new Horde_Image_Exception(sprintf("The image file, %s, does not exist.", $filename));
+        }
+        if (!$this->_data = file_get_contents($filename)) {
+            throw new Horde_Image_Exception(sprintf("Could not load the image file %s", $filename));
         }
 
         return true;
@@ -315,7 +330,7 @@ class Horde_Image_Base
     public function display()
     {
         $this->headers();
-        echo $this->raw();
+        echo $this->raw(true);
     }
 
     /**
@@ -333,17 +348,17 @@ class Horde_Image_Base
     }
 
     /**
-     * Attempts to apply requested effect to this image.  If the
-     * effect cannot be found a PEAR_Error is returned.
+     * Attempts to apply requested effect to this image.
      *
      * @param string $type    The type of effect to apply.
      * @param array $params   Any parameters for the effect.
      *
-     * @return mixed  true on success | PEAR_Error on failure.
+     * @return boolean
      */
     public function addEffect($type, $params)
     {
         $class = str_replace('Horde_Image_', '', get_class($this));
+        $params['logger'] = $this->_logger;
         $effect = Horde_Image_Effect::factory($type, $class, $params);
         $effect->setImageObject($this);
         return $effect->apply();
@@ -423,5 +438,21 @@ class Horde_Image_Base
             $this->_logger->err($message);
         }
     }
+
+    /**
+     * Request a specific image from the collection of images.
+     *
+     * @param integer $index  The index to return
+     *
+     * @return Horde_Image_Base
+     */
+    abstract function getImageAtIndex($index);
+
+    /**
+     * Return the number of image pages available in the image object.
+     *
+     * @return integer
+     */
+    abstract function getImagePageCount();
 
 }

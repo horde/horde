@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="<tag:xsl />" type="text/xsl"?>
+<!DOCTYPE rss PUBLIC "-//Netscape Communications//DTD RSS 0.91//EN" "http://my.netscape.com/publish/formats/rss-0.91.dtd">
+<rss version="0.91">
+ <channel>
+  <title><tag:channel_name /></title>
+  <description><tag:channel_desc /></description>
+  <link><tag:channel_official /></link>
+  <atom:link rel="self" type="application/rss+xml" title="<tag:channel_name />" href="<tag:channel_rss />" xmlns:atom="http://www.w3.org/2005/Atom"><tag:channel_rss /></atom:link>
+  <pubDate><tag:channel_updated /></pubDate>
+  <loop:stories>
+  <item>
+   <title><tag:stories.title /></title>
+   <description><tag:stories.description /></description>
+   <link><tag:stories.permalink /></link>
+  </item>
+  </loop:stories>
+ </channel>
+</rss>

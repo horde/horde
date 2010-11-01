@@ -23,35 +23,37 @@
  */
 class Horde_Db_Adapter_Base_ColumnDefinition
 {
-    protected $_base      = null;
-    protected $_name      = null;
-    protected $_type      = null;
-    protected $_limit     = null;
-    protected $_precision = null;
-    protected $_scale     = null;
-    protected $_unsigned  = null;
-    protected $_default   = null;
-    protected $_null      = null;
+    protected $_base;
+    protected $_name;
+    protected $_type;
+    protected $_limit;
+    protected $_precision;
+    protected $_scale;
+    protected $_unsigned;
+    protected $_default;
+    protected $_null;
+    protected $_autoincrement;
 
     /**
      * Construct
      */
     public function __construct($base, $name, $type, $limit = null,
         $precision = null, $scale = null, $unsigned = null,
-        $default = null, $null = null)
+        $default = null, $null = null, $autoincrement = null)
     {
         // protected
         $this->_base      = $base;
 
         // public
-        $this->_name      = $name;
-        $this->_type      = $type;
-        $this->_limit     = $limit;
-        $this->_precision = $precision;
-        $this->_scale     = $scale;
-        $this->_unsigned  = $unsigned;
-        $this->_default   = $default;
-        $this->_null      = $null;
+        $this->_name          = $name;
+        $this->_type          = $type;
+        $this->_limit         = $limit;
+        $this->_precision     = $precision;
+        $this->_scale         = $scale;
+        $this->_unsigned      = $unsigned;
+        $this->_default       = $default;
+        $this->_null          = $null;
+        $this->_autoincrement = $autoincrement;
     }
 
 
@@ -159,6 +161,14 @@ class Horde_Db_Adapter_Base_ColumnDefinition
     }
 
     /**
+     * @return  boolean
+     */
+    public function isAutoIncrement()
+    {
+        return $this->_autoincrement;
+    }
+
+    /**
      * @param   string
      */
     public function setName($name)
@@ -222,6 +232,14 @@ class Horde_Db_Adapter_Base_ColumnDefinition
         $this->_null = $null;
     }
 
+    /**
+     * @param  boolean
+     */
+    public function setAutoIncrement($autoincrement)
+    {
+        $this->_autoincrement = $autoincrement;
+    }
+
 
     /*##########################################################################
     # Schema Statements
@@ -237,5 +255,4 @@ class Horde_Db_Adapter_Base_ColumnDefinition
             array_merge($options, array('column' => $this))
         );
     }
-
 }

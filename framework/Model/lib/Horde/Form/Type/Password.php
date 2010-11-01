@@ -12,7 +12,7 @@ class Horde_Form_Type_Password extends Horde_Form_Type {
             $valid = strlen(trim($value)) > 0;
 
             if (!$valid) {
-                $message = _("This field is required.");
+                $message = Horde_Model_Translation::t("This field is required.");
             }
         }
 
@@ -30,12 +30,12 @@ class Horde_Form_Type_passwordConfirm extends Horde_Form_Type {
     public function isValid($var, $vars, $value, &$message)
     {
         if ($var->required && empty($value['original'])) {
-            $message = _("This field is required.");
+            $message = Horde_Model_Translation::t("This field is required.");
             return false;
         }
 
         if ($value['original'] != $value['confirm']) {
-            $message = _("Passwords must match.");
+            $message = Horde_Model_Translation::t("Passwords must match.");
             return false;
         }
 

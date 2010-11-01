@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!-- $Id$ -->
+<configuration>
+
+ <configsection name="news">
+  <configheader>Feed Settings</configheader>
+  <configmultienum name="enable" desc="Select which types of feeds to allow:">external
+   <values>
+    <value desc="Remote Feed">external</value>
+    <value desc="Local Feed">internal</value>
+    <value desc="Aggregated Feed">aggregated</value>
+    <value desc="Composite Feed">composite</value>
+   </values>
+  </configmultienum>
+
+  <configsection name="storage">
+   <configswitch name="driver" desc="What driver should we use for local feeds?">sql
+    <case name="sql" desc="SQL">
+     <configsection name="params">
+      <configsql switchname="driverconfig"/>
+     </configsection>
+    </case>
+   </configswitch>
+  </configsection>
+
+  <configmultienum name="story_types" desc="Which type of body types do you wish to enable for story creation? If none are selected the system will default to text.">
+   <values>
+    <value desc="text">text</value>
+    <value desc="rich text">richtext</value>
+    <value desc="URL links to external pages">links</value>
+   </values>
+  </configmultienum>
+ </configsection>
+
+ <configsection name="sharing">
+  <configheader>Story Sharing</configheader>
+  <configboolean name="allow" desc="Can users share stories with their friends?">true</configboolean>
+ </configsection>
+
+ <configsection name="comments">
+  <configheader>Story Comments</configheader>
+  <configboolean name="allow" desc="Can users comment on stories?">true</configboolean>
+ </configsection>
+
+ <configsection name="menu">
+  <configheader>Menu Settings</configheader>
+  <configmultienum name="apps" desc="Select any applications that should be linked in Jonah's menu">
+   <values>
+    <configspecial name="list-horde-apps" />
+   </values>
+  </configmultienum>
+ </configsection>
+
+</configuration>

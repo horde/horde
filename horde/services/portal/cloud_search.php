@@ -15,7 +15,7 @@
  */
 
 require_once dirname(__FILE__) . '/../../lib/Application.php';
-new Horde_Application(array('nologintaks' => true));
+Horde_Registry::appInit('horde', array('nologintaks' => true));
 
 // If/when more apps support the searchTags api calls, we should probably
 // find a better solution to putting the apps hardcoded like this.
@@ -34,7 +34,7 @@ echo '<div class="control"><strong>'
 
 foreach ($results as $result) {
     echo '<li class="linedRow">' .
-         Horde::img($result['app'] . '.png', '', '', $registry->getImageDir($result['app'])) .
+         Horde::img(Horde_Themes::img($result['app'] . '.png', $result['app'])) .
          Horde::link($result['view_url'], '', '', '', '', '', '', array('style' => 'margin:4px')) .
          $result['title'] .
          '</a><span style="font-style:italic;"><div style="margin-left:10px;font-style:italic">' . $result['desc'] . '</div></li>';

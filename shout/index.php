@@ -8,9 +8,17 @@
  *
  * @author  Ben Klang <ben@alkaloid.net>
  */
-// Will redirect to login page if not authenticated.
 require_once dirname(__FILE__) . '/lib/Application.php';
-new Shout_Application();
+$shout = Horde_Registry::appInit('shout');
 
-// Load initial page as defined by view mode & preferences.
-require 'extensions.php';
+if (empty($_SESSION['shout']['curaccount'])) {
+    die("Permission denied.");
+}
+
+$curaccount = $_SESSION['shout']['curaccount'];
+$menus = $shout->storage->getMenus($curaccount['code']);
+
+if (empty($menus)) {
+    Horde::url('wizard.php', true)->redirect();
+}
+Horde::url('dialplan.php', true)->redirect();

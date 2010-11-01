@@ -1,46 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title><?php echo $title ?></title>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a1/jquery.mobile-1.0a1.min.css">
+    <script src="http://code.jquery.com/jquery-1.4.3.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.0a1/jquery.mobile-1.0a1.min.js"></script>
+</head>
+<body>
+
+<div data-role="page">
+
+<div data-role="header" data-nobackbtn="true"><h1><?php echo $title ?></h1></div>
+
+<div data-role="content">
+
+<form action="login.php" method="post">
+ <input type="hidden" name="anchor_string" value="<?php echo htmlspecialchars(strval($vars->anchor_string)) ?>">
+ <input type="hidden" name="app" value="<?php echo htmlspecialchars($vars->app) ?>">
+ <input type="hidden" name="url" value="<?php echo htmlspecialchars($vars->url) ?>">
+
 <?php
-
-$m = new Horde_Mobile($title);
-$m->add(new Horde_Mobile_text(sprintf(_("Welcome to %s"), $registry->get('name'))));
-
-$f = new Horde_Mobile_form('login.php');
-$f->add(new Horde_Mobile_hidden('app', $app));
-$f->add(new Horde_Mobile_hidden('url', Horde_Util::getFormData('url', '')));
-$f->add(new Horde_Mobile_hidden('anchor_string', Horde_Util::getFormData('anchor_string', '')));
-
 foreach ($loginparams as $key => $val) {
+    if ($key == 'imp_select_view' || $key == 'new_lang') { continue; }
     switch ($val['type']) {
     case 'hidden':
-        $f->add(new Horde_Mobile_hidden($key, isset($val['value']) ? $val['value'] : ''));
+        echo '<input type="hidden" name="' . $key . '" value="' . (isset($val['value']) ? $val['value'] : '') . '">';
         break;
 
     case 'text':
-        $f->add(new Horde_Mobile_input($key, isset($val['value']) ? $val['value'] : '', $val['label']));
-        break;
-
     case 'password':
-        $p = $f->add(new Horde_Mobile_input($key, isset($val['value']) ? $val['value'] : '', $val['label']));
-        $p->set('type', 'password');
-        break;
-
     case 'select':
-        $s = $f->add(new Horde_Mobile_select($key, 'popup', $val['label']));
-        foreach ($val['value'] as $k2 => $v2) {
-            // Doesn't account for 'hidden' values
-            $s->add($v2['name'], $k2, !empty($v2['selected']));
+        echo '<div data-role="fieldcontain"><label for="' . $key . '">' . $val['label'] . '</label>';
+        if ($val['type'] == 'select') {
+            echo '<select id="' . $key . '" name="' . $key . '">';
+            foreach ($val['value'] as $k2 => $v2) {
+                echo '<option value="' . $k2 . '"' . (empty($v2['selected']) ? '' : ' selected="selected"') . '>' . $v2['name'] . '</option>';
+            }
+            echo '</select>';
+        } else {
+            echo '<input id="' . $key . '" name="' . $key . '" ' . (($val['type'] == 'password') ? 'type="password" ' : '') . 'value="' . (isset($val['value']) ? $val['value'] : '') . '">';
         }
+        echo '</div>';
+        break;
     }
 }
+?>
+<div data-role="fieldcontain">
+ <input type="submit" data-theme="a" name="login_button" value="<?php echo htmlspecialchars($title) ?>">
+</div>
 
-if (!empty($lang_select)) {
-    $f->add($lang_select);
-}
+</form>
 
-// Submit button.
-$f->add(new Horde_Mobile_submit($title, 'login_button'));
+</div>
 
-// Add the form to the page.
-$m->add($f);
+<div data-role="footer"></div>
 
-// Display everything.
-$m->display();
+</div>
+
+</body>
+</html>

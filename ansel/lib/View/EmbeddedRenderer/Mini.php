@@ -50,14 +50,14 @@ class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Gallery
         } else {
             try {
                 $this->gallery = $this->_getGallery($gallery_id, $gallery_slug);
-            } catch (Horde_Exception $e) {
-                Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            } catch (Exception $e) {
+                Horde::logMessage($e, 'ERR');
                 exit;
             }
 
             // We don't allow age restricted or password locked galleries to be
             // viewed via the mini embedded view since it shows *all* the images
-            if (!$this->gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ) ||
+            if (!$this->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ) ||
                 !$this->gallery->isOldEnough() ||
                 $this->gallery->hasPasswd()) {
 
@@ -76,8 +76,8 @@ class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Gallery
                                            'count' => $count,
                                            'view_links' => true));
         } else {
-            $json = $GLOBALS['ansel_storage']->getImageJson($images, null, true, $thumbsize, true);
-            $json_full = $GLOBALS['ansel_storage']->getImageJson($images, null, true, 'screen', true);
+            $json = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImageJson($images, null, true, $thumbsize, true);
+            $json_full = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImageJson($images, null, true, 'screen', true);
         }
 
         /* Some paths */
@@ -130,7 +130,7 @@ class Ansel_View_EmbeddedRenderer_Mini extends Ansel_View_Gallery
 EOT;
             /* Special requirements for lightbox */
             if (!empty($lbjsurl)) {
-                $graphic_dir = Horde::applicationUrl($GLOBALS['registry']->getImageDir(), true, -1);
+                $graphic_dir = Horde::url(Horde_Themes::img(), true, -1);
                 $imageText = _("Photo");
                 $labelOf = _("of");
                 $html .= <<<EOT

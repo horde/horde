@@ -7,25 +7,27 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package IMP
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-new IMP_Application(array('init' => true));
+Horde_Registry::appInit('imp', array('impmode' => 'dimp'));
 
 $scripts = array(
-    array('ContextSensitive.js', 'imp'),
-    array('DimpBase.js', 'imp'),
-    array('DimpSlider.js', 'imp'),
-    array('ViewPort.js', 'imp'),
+    array('dimpbase.js', 'imp'),
+    array('viewport.js', 'imp'),
     array('dialog.js', 'imp'),
-    array('dragdrop2.js', 'horde'),
-    array('imp.js', 'imp'),
     array('mailbox-dimp.js', 'imp'),
+    array('imp.js', 'imp'),
+    array('contextsensitive.js', 'horde'),
+    array('dragdrop2.js', 'horde'),
     array('popup.js', 'horde'),
-    array('redbox.js', 'horde')
+    array('redbox.js', 'horde'),
+    array('slider2.js', 'horde')
 );
 
 /* Get site specific menu items. */
@@ -46,23 +48,11 @@ if (!empty($site_menu)) {
 }
 
 Horde::addInlineScript($js_code, 'load');
+Horde::noDnsPrefetch();
 IMP_Dimp::header('', $scripts);
 
-/* Get application folders list. */
-$application_folders = array();
-foreach (IMP_Dimp::menuList() as $app) {
-    if ($registry->get('status', $app) != 'inactive' &&
-        $registry->hasPermission($app, Horde_Perms::SHOW)) {
-        $application_folders[] = array(
-            'name' => htmlspecialchars($registry->get('name', $app)),
-            'icon' => $registry->get('icon', $app),
-            'app' => rawurlencode($app)
-        );
-    }
-}
-
 echo "<body>\n";
-require IMP_TEMPLATES . '/index/index-dimp.inc';
+require IMP_TEMPLATES . '/dimp/index.inc';
 Horde::includeScriptFiles();
 Horde::outputInlineScript();
 echo "</body>\n</html>";

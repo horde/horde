@@ -7,9 +7,8 @@
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  */
 
-@define('WHUPS_BASE', dirname(__FILE__) . '/..');
-require_once WHUPS_BASE . '/lib/base.php';
-require_once 'Horde/Template.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('whups');
 
 $ticket = Horde_Util::getFormData('id');
 $ticket = preg_replace('|\D|', '', $ticket);
@@ -42,8 +41,7 @@ foreach (array_keys($history) as $i) {
     $items[$i]['url'] = $self . '#t' . $i;
 }
 
-$template = new Horde_Template();
-$template->set('charset', Horde_Nls::getCharset());
+$template = $injector->createInstance('Horde_Template');
 $template->set('xsl', $registry->get('themesuri') . '/feed-rss.xsl');
 $template->set('pubDate', htmlspecialchars(date('r')));
 $template->set('title', htmlspecialchars($details['summary']));

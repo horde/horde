@@ -8,11 +8,11 @@ $block_name = _("Calendar Summary");
  *
  * @package Horde_Block
  */
-class Horde_Block_Kronolith_summary extends Horde_Block {
+class Horde_Block_Kronolith_summary extends Horde_Block
+{
+    protected $_app = 'kronolith';
 
-    var $_app = 'kronolith';
-
-    function __construct($params = array(), $row = null, $col = null)
+    public function __construct($params = array(), $row = null, $col = null)
     {
         parent::__construct($params, $row, $col);
         if (!isset($this->_params['days'])) {
@@ -20,12 +20,8 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
         }
     }
 
-    function _params()
+    protected function _params()
     {
-        @define('KRONOLITH_BASE', dirname(__FILE__) . '/../..');
-
-        require_once KRONOLITH_BASE . '/lib/base.php';
-
         $params = array('calendar' => array('name' => _("Calendar"),
                                             'type' => 'enum',
                                             'default' => '__all'),
@@ -49,8 +45,8 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
                                           'type' => 'checkbox',
                                           'default' => 0));
         $params['calendar']['values']['__all'] = _("All Visible");
-        foreach (Kronolith::listCalendars() as $id => $cal) {
-            $params['calendar']['values'][$id] = $cal->get('name');
+        foreach (Kronolith::listCalendars(Horde_Perms::SHOW, true) as $id => $cal) {
+            $params['calendar']['values'][$id] = $cal->name();
         }
 
         return $params;
@@ -61,7 +57,7 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
      *
      * @return string   The title text.
      */
-    function _title()
+    protected function _title()
     {
         $url = Horde::url($GLOBALS['registry']->getInitialPage(), true);
         if (isset($this->_params['calendar']) &&
@@ -79,8 +75,6 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
      */
     function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
-
         Horde::addScriptFile('tooltips.js', 'horde');
 
         $now = new Horde_Date($_SERVER['REQUEST_TIME']);
@@ -89,25 +83,25 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
         $startDate = new Horde_Date(array('year' => date('Y'), 'month' => date('n'), 'mday' => date('j')));
         $endDate = new Horde_Date(array('year' => date('Y'), 'month' => date('n'), 'mday' => date('j') + $this->_params['days']));
 
-        if (isset($this->_params['calendar']) &&
-            $this->_params['calendar'] != '__all') {
-
-            $calendar = $GLOBALS['kronolith_shares']->getShare($this->_params['calendar']);
-            if (!is_a($calendar, 'PEAR_Error') && !$calendar->hasPermission(Horde_Auth::getAuth(), Horde_Perms::SHOW)) {
-                return _("Permission Denied");
+        try {
+            if (isset($this->_params['calendar']) &&
+                $this->_params['calendar'] != '__all') {
+                $calendars = Kronolith::listCalendars();
+                if (!isset($calendars[$this->_params['calendar']])) {
+                    return _("Calendar not found");
+                }
+                if (!$calendars[$this->_params['calendar']]->hasPermission(Horde_Perms::READ)) {
+                    return _("Permission Denied");
+                }
+                list($type, $calendar) = explode('_', $this->_params['calendar'], 2);
+                $driver = Kronolith::getDriver($type, $calendar);
+                $all_events = $driver->listEvents($startDate, $endDate, true);
+            } else {
+                $all_events = Kronolith::listEvents($startDate, $endDate,
+                                                    $GLOBALS['display_calendars']);
             }
-
-            $all_events = Kronolith::listEvents($startDate,
-                                                $endDate,
-                                                array($this->_params['calendar']),
-                                                true, false, false);
-        } else {
-            $all_events = Kronolith::listEvents($startDate,
-                                                $endDate,
-                                                $GLOBALS['display_calendars']);
-        }
-        if (is_a($all_events, 'PEAR_Error')) {
-            return '<em>' . $all_events->getMessage() . '</em>';
+        } catch (Exception $e) {
+            return '<em>' . $e->getMessage() . '</em>';
         }
 
         $html = '';
@@ -159,7 +153,8 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
                     } else {
                         $dayname = $day->strftime($GLOBALS['prefs']->getValue('date_format'));
                     }
-                    $url = Horde::applicationUrl('day.php', true)
+                    $url = Horde::url('day.php', true)
+                        ->setRaw(false)
                         ->add('date', $day->dateString());
                     if (isset($this->_params['calendar']) &&
                         $this->_params['calendar'] != '__all') {
@@ -190,7 +185,7 @@ class Horde_Block_Kronolith_summary extends Horde_Block {
                 if ($event_active) {
                     $html .= '<strong>';
                 }
-                $html .= ' ' . $event->getLink(null, true, null, true);
+                $html .= ' ' . $event->getLink(null, true, null, true, true);
                 if ($event_active) {
                     $html .= '</strong>';
                 }

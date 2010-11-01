@@ -1,0 +1,1016 @@
+# Hungarian translations for Agora.
+# Copyright 2006-2010 The Horde Project
+# This file is distributed under the same license as the Agora package.
+#
+# George Hron <hron@hronszoft.dyndns.biz>, 2007.
+# Garami Gabor <hrgyster@gmail.com>, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: hu_HU\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2008-01-02 12:27+0100\n"
+"PO-Revision-Date: 2008-02-15 21:17+0100\n"
+"Last-Translator: Garami Gabor <hrgyster@gmail.com>\n"
+"Language-Team:  <hu@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#: moderate.php:36
+#, php-format
+msgid "%d messages was approved."
+msgstr "%d üzenet jóbváhagyva."
+
+#: moderate.php:42
+#, php-format
+msgid "%d messages was deleted."
+msgstr "%d üzenet törölve."
+
+#: scripts/phorum2agora.php:218
+msgid "-a, --agora_id[=aid]         Agora forum id to save message to"
+msgstr ""
+"-a, --agora_id[=aid]         Agora fórum id, ahova az üzeneteket mentsük"
+
+#: scripts/phorum2agora.php:221
+msgid "-c, --count[=messages]       Number of messages to move at once"
+msgstr "-c, --count[=messages]       Az egyszerre mozgatandó üzenetek száma"
+
+#: scripts/phorum2agora.php:220
+msgid ""
+"-f, --from[=offset]          Offset from where to start to read messages"
+msgstr "-f, --from[=offset]          Ahonnan az üzenetek olvasását kezdjük"
+
+#: scripts/phorum2agora.php:216
+msgid "-h, --help                   Show this help"
+msgstr "-h, --help                   Ez a szöveg"
+
+#: scripts/phorum2agora.php:217
+msgid "-p, --phorum_id[=pid]        Phorum forum id to read message from"
+msgstr ""
+"-p, --phorum_id[=pid]        Phorum fórum id, ahonnan az üzeneteket olvassuk"
+
+#: scripts/phorum2agora.php:219
+msgid "-t, --phorum_table[=table]   Phorum messages tablename"
+msgstr "-t, --phorum_table[=table]   A Phorum üzenetek táblája"
+
+#: lib/api.php:816
+msgid "Add a comment"
+msgstr "Megjegyzés küldése"
+
+#: lib/api.php:153
+msgid "Admin"
+msgstr "Adminisztrálás"
+
+#: messages/merge.php:66
+msgid "After Message: "
+msgstr "Ez után: "
+
+#: forums.php:73
+msgid "All Forums"
+msgstr "Minden fórum"
+
+#: lib/Forms/Forum.php:40
+msgid "Allow attachments in this forum?"
+msgstr "Engedélyezi a csatolásokat ebben a fórumban?"
+
+#: messages/lock.php:51
+msgid "Allow replies in this thread"
+msgstr "Válaszok engedélyezése ebben a szálban"
+
+#: moderate.php:33 moderate.php:69
+msgid "Approve"
+msgstr "Jóváhagy"
+
+#: lib/Comments.php:73 config/prefs.php.dist:103 config/prefs.php.dist:138
+#: config/prefs.php.dist:179 config/prefs.php.dist:267
+msgid "Ascending"
+msgstr "Növekvő"
+
+#: lib/Messages.php:1513
+msgid "Attachment"
+msgstr "Csatolmány"
+
+#: lib/Comments.php:68 lib/Forms/Search.php:55
+msgid "Author"
+msgstr "Szerző"
+
+#: config/prefs.php.dist:11
+msgid "Avatar"
+msgstr "Avatár"
+
+#: config/prefs.php.dist:67
+#, php-format
+msgid ""
+"Avatars must be smaller than %s by %s pixels and less than %sKb in size."
+msgstr ""
+"Az avatár nem lehet nagyobb, mint %sx%s pixel, és kissebnek kell lennie, "
+"mint %sKb."
+
+#: ban.php:58 lib/Messages.php:1458
+msgid "Ban"
+msgstr "Tilt"
+
+#: templates/forums/ban.php:10
+msgid "Banned"
+msgstr "Tiltva"
+
+#: moderate.php:62
+msgid "Body"
+msgstr "Törzs"
+
+#: deleteforum.php:45 messages/abuse.php:48 messages/abuse.php:56
+#: messages/merge.php:47 messages/move.php:47 messages/delete.php:49
+#: messages/split.php:47 lib/api.php:737
+msgid "Cancel"
+msgstr "Mégsem"
+
+#: lib/Messages.php:1871
+msgid "Cannot create a forum with an empty name."
+msgstr "Névtelen fórum nem hozható létre"
+
+#: templates/prefs/avatarselect.inc:8
+msgid "Choose from a gallery of avatars: "
+msgstr "Avatás kiválasztása galériából"
+
+#: lib/Comments.php:81 lib/api.php:445
+msgid "Comments"
+msgstr "Megjegyzések"
+
+#: rss/threads.php:54
+#, php-format
+msgid "Comments on %s"
+msgstr "Megjegyzések itt: %s"
+
+#: config/prefs.php.dist:51
+msgid "Comments view"
+msgstr "Megjegyzések"
+
+#: editforum.php:44
+#, php-format
+msgid "Could not create the forum. %s"
+msgstr "Nem lehet a fórumot létrehozni. %s"
+
+#: deleteforum.php:66
+#, php-format
+msgid "Could not delete the forum. %s"
+msgstr "Nem lehet a fórumot  törölni. %s"
+
+#: messages/delete.php:63 lib/api.php:720 lib/api.php:731 lib/api.php:745
+#, php-format
+msgid "Could not delete the message. %s"
+msgstr "Nem lehet az üzenetet törölni. %s"
+
+#: threads.php:32
+#, php-format
+msgid "Could not list threads. %s"
+msgstr "Nem lehet listázni a szálat. %s"
+
+#: messages/lock.php:60
+#, php-format
+msgid "Could not lock the thread. %s"
+msgstr "Nem lehez zárolni a szálat. %s"
+
+#: messages/abuse.php:31 messages/merge.php:31 messages/move.php:31
+#: messages/index.php:34 messages/lock.php:33 messages/delete.php:33
+#: messages/split.php:31
+#, php-format
+msgid "Could not open the message. %s"
+msgstr "Nem lehet az üzenetet megnyitni:%s"
+
+#: messages/edit.php:31 messages/edit.php:83 lib/api.php:585 lib/api.php:638
+msgid "Could not post the message: "
+msgstr "Nem lehet az üzenetet elküldeni:"
+
+#: scripts/phorum2agora.php:65
+msgid "Couldn't read command-line options."
+msgstr "Nem lehet olvasni a paracssori opciókat."
+
+#: lib/Forms/Forum.php:26
+msgid "Create"
+msgstr "Létrehoz"
+
+#: lib/Messages.php:1509
+msgid "Current attachment"
+msgstr "Aktív csatolmány"
+
+#: forums.php:56 moderate.php:62 messages/index.php:146 lib/Comments.php:67
+#: lib/Comments.php:87 lib/api.php:435 lib/Block/threads.php:125
+#: lib/Block/forums.php:87 lib/Block/thread.php:84 config/prefs.php.dist:94
+#: config/prefs.php.dist:128 config/prefs.php.dist:170
+#: config/prefs.php.dist:258
+msgid "Date"
+msgstr "Dátum"
+
+#: config/prefs.php.dist:259
+msgid "Default comments view sort:"
+msgstr "Alapértelmezett fórumrendezési irány:"
+
+#: config/prefs.php.dist:95
+msgid "Default forums view sort:"
+msgstr "Alapértelmezett fórumrendezési irány:"
+
+#: config/prefs.php.dist:105 config/prefs.php.dist:140
+#: config/prefs.php.dist:181 config/prefs.php.dist:269
+msgid "Default sorting direction:"
+msgstr "Alapértelmezett rendezési irány:"
+
+#: config/prefs.php.dist:171
+msgid "Default thread view sort:"
+msgstr "Alapértelmezett szálrendezési irány:"
+
+#: config/prefs.php.dist:130
+msgid "Default threads view sort:"
+msgstr "Alapértelmezett szálrendezési:"
+
+#: deleteforum.php:45 deleteforum.php:63 ban.php:55 moderators.php:66
+#: moderate.php:39 moderate.php:69 messages/index.php:122
+#: messages/delete.php:49 messages/delete.php:54 lib/Messages.php:927
+#: lib/Messages.php:1764 lib/api.php:737 lib/api.php:742
+msgid "Delete"
+msgstr "Törlés"
+
+#: messages/delete.php:48 lib/api.php:736
+#, php-format
+msgid "Delete \"%s\" and all replies?"
+msgstr "Törli \"%s\"-t és minden rá adott választ?"
+
+#: deleteforum.php:43 lib/Messages.php:1456
+msgid "Delete Forum"
+msgstr "Fórum Törlése"
+
+#: lib/Messages.php:1764
+msgid "Delete forum"
+msgstr "Fórum törlése"
+
+#: lib/Messages.php:927
+msgid "Delete message"
+msgstr "Üzenet törlése"
+
+#: lib/Messages.php:1508
+msgid "Delete the existing attachment?"
+msgstr "Törli a csatolmányokat is?"
+
+#: lib/Comments.php:74 config/prefs.php.dist:104 config/prefs.php.dist:139
+#: config/prefs.php.dist:180 config/prefs.php.dist:268
+msgid "Descending"
+msgstr "Csökkenő"
+
+#: forums.php:56
+msgid "Description"
+msgstr "Leírás"
+
+#: config/prefs.php.dist:21 config/prefs.php.dist:28 config/prefs.php.dist:35
+#: config/prefs.php.dist:43 config/prefs.php.dist:50
+msgid "Display Options"
+msgstr "Megjelenítés beállítása"
+
+#: config/prefs.php.dist:248
+msgid "Display full message bodies in the comments view?"
+msgstr "Az üzenet törzsének teljes megjelenítése szál nézetben?"
+
+#: config/prefs.php.dist:192
+msgid "Display full message bodies in the thread list view?"
+msgstr "Az üzenet törzsének teljes megjelenítése szál nézetben?"
+
+#: config/prefs.php.dist:211
+msgid "Display graphical emoticons?"
+msgstr "Smiley-k megjelenítése?"
+
+#: messages/index.php:119 lib/Messages.php:923 lib/Messages.php:1758
+msgid "Edit"
+msgstr "Szerkesztés"
+
+#: editforum.php:25 lib/Messages.php:1453
+msgid "Edit Forum"
+msgstr "Fórum szerkesztése"
+
+#: lib/api.php:613
+msgid "Edit Message"
+msgstr "Üzenet szerkesztése"
+
+#: messages/edit.php:70
+#, php-format
+msgid "Edit Message in \"%s\""
+msgstr "Üzenet szerkesztése ebben: \"%s\""
+
+#: lib/api.php:814
+msgid "Edit a comment"
+msgstr "Megjegyzés szerkesztése"
+
+#: lib/Messages.php:1758
+msgid "Edit forum"
+msgstr "Fórum szerkesztése"
+
+#: lib/Messages.php:923
+msgid "Edit message"
+msgstr "Üzenet szerkesztése"
+
+#: lib/Forms/Forum.php:37
+msgid "Enter a brief description of this forum"
+msgstr "Rövid leírás ehhez a fórumhoz"
+
+#: messages/index.php:168 lib/Comments.php:60 config/prefs.php.dist:246
+msgid "Flat"
+msgstr "Lapos"
+
+#: moderators.php:78 moderators.php:81 forums.php:56 moderate.php:62
+#: templates/moderators/moderators.php:8 messages/move.php:52
+#: lib/Block/threads.php:46 lib/Block/forums.php:87 config/prefs.php.dist:90
+msgid "Forum"
+msgstr "Fórum"
+
+#: lib/Messages.php:1676 lib/api.php:714
+#, php-format
+msgid "Forum %s does not exist."
+msgstr "A(z) %s fórum nem létezik"
+
+#: editforum.php:47
+msgid "Forum Modified"
+msgstr "Fórum módosult"
+
+#: editforum.php:47
+msgid "Forum created."
+msgstr "Fórum létrejött."
+
+#: deleteforum.php:68
+msgid "Forum deleted."
+msgstr "Fórum törölve."
+
+#: deleteforum.php:49 templates/moderators/moderators.php:9
+#: lib/Forms/Forum.php:29
+msgid "Forum name"
+msgstr "Fórum neve"
+
+#: deleteforum.php:71
+msgid "Forum not deleted."
+msgstr "Fórum megtartva."
+
+#: templates/common-header.inc:27 templates/forums/forums.php:9
+#: lib/api.php:154 lib/Block/forums.php:3 lib/Block/forums.php:28
+msgid "Forums"
+msgstr "Fórumok"
+
+#: config/prefs.php.dist:22
+msgid "Forums View"
+msgstr "Fórum nézet"
+
+#: rss/index.php:28
+#, php-format
+msgid "Forums in %s"
+msgstr "Fórum nézet itt: %s"
+
+#: lib/Messages.php:1490
+msgid "From"
+msgstr "Küldte: "
+
+#: templates/threads/threads.php:44
+msgid "Goto page:"
+msgstr "Ugrás ide:"
+
+#: messages/index.php:158 messages/index.php:167
+msgid "Hide bodies"
+msgstr "Szöveg elrejtése"
+
+#: lib/Messages.php:841
+msgid "Hot thread"
+msgstr "Friss szál"
+
+#: lib/Forms/Forum.php:40
+msgid "If selected users will be able to attach files to their messages."
+msgstr "A kiválasztott felhasználók csatolhatnak fájlokat az üzeneteikhez."
+
+#: messages/edit.php:112
+msgid ""
+"Invalid parent message, you will be posting this message as a new thread."
+msgstr "Érvénytelen eredeti üzenet. Új szálon indul az üzeneted."
+
+#: lib/Forms/Forum.php:38
+msgid "Is this a moderated forum?"
+msgstr "Moderált fórum?"
+
+#: lib/Forms/Search.php:43
+msgid "Keywords"
+msgstr "Kulcsszavak"
+
+#: config/prefs.php.dist:92
+msgid "Last Message"
+msgstr "Legutolsó üzenet"
+
+#: forums.php:56 lib/Block/forums.php:87
+msgid "Last Post"
+msgstr "Legutolsó Bejegyzés"
+
+#: threads.php:61 config/prefs.php.dist:129
+msgid "Last post"
+msgstr "Legutolsó bejegyzés"
+
+#: lib/Messages.php:931
+msgid "Lock"
+msgstr "Zárolás"
+
+#: messages/index.php:125
+msgid "Lock thread"
+msgstr "Szál zárolása"
+
+#: messages/lock.php:48
+#, php-format
+msgid "Locking thread \"%s\""
+msgstr "\"%s\" szál zárolása"
+
+#: lib/Agora.php:347
+msgid "Malformed avatar."
+msgstr "Hibás avatár"
+
+#: lib/Agora.php:370
+msgid "Malformed database entry."
+msgstr "Hibás adatbázis-bejegyzés"
+
+#: scripts/phorum2agora.php:214
+msgid ""
+"Mandatory arguments to long options are mandatory for short options too."
+msgstr "A kötelező hosszú opciók rövid alakja is kötelező."
+
+#: messages/merge.php:47 messages/merge.php:73 lib/Messages.php:942
+msgid "Merge"
+msgstr "Összefésül"
+
+#: messages/merge.php:46
+#, php-format
+msgid "Merge \"%s\" with another thread"
+msgstr "A(z) \"%s\" szál összefűzése másik szállal"
+
+#: lib/Messages.php:1503
+msgid "Message"
+msgstr "Üzenet"
+
+#: messages/abuse.php:79
+#, php-format
+msgid "Message %s reported as abuse"
+msgstr "A(z) %s üzenet megjelölve helytelennek."
+
+#: lib/Messages.php:503
+#, php-format
+msgid "Message ID \"%d\" not found"
+msgstr "\"%d\" azonosítójú üzenet nincs"
+
+#: config/prefs.php.dist:44
+msgid "Message View"
+msgstr "Üzenet nézet"
+
+#: messages/delete.php:65 lib/api.php:747
+msgid "Message deleted."
+msgstr "Üzenet törölve."
+
+#: messages/delete.php:55 lib/api.php:752
+msgid "Message not deleted."
+msgstr "Üzenet nem törlődött"
+
+#: messages/edit.php:85 lib/api.php:640
+msgid "Message posted."
+msgstr "Üzenet elküldve"
+
+#: templates/messages/index.php:1 config/prefs.php.dist:91
+msgid "Messages"
+msgstr "Üzenetek"
+
+#: moderate.php:82 templates/moderate/moderate.php:11
+msgid "Messages Awaiting Moderation"
+msgstr "Üzenetek várnak moderálásra"
+
+#: lib/Messages.php:1783
+msgid "Moderate"
+msgstr "Moderálás"
+
+#: moderators.php:76 templates/messages/message.php:21
+#: templates/messages/flat.php:26 templates/messages/flat_thread.php:10
+#: lib/Tree/flat.php:117
+msgid "Moderator"
+msgstr "Moderátor"
+
+#: moderators.php:70 templates/moderators/moderators.php:4
+#: templates/moderators/moderators.php:10 templates/forums/forums.php:39
+msgid "Moderators"
+msgstr "Moderátorok"
+
+#: messages/move.php:47 messages/move.php:59 lib/Messages.php:938
+msgid "Move"
+msgstr "Mozgat"
+
+#: messages/move.php:46
+#, php-format
+msgid "Move \"%s\" to another forum"
+msgstr "A(z) \"%s\" mozgatása másik fórumba"
+
+#: config/prefs.php.dist:10
+msgid "My Information"
+msgstr "Adataim"
+
+#: editforum.php:25
+msgid "New Forum"
+msgstr "Új fórum"
+
+#: lib/Messages.php:1753
+msgid "New Post"
+msgstr "Új bejegyzés"
+
+#: lib/Agora.php:253
+msgid "New Thread"
+msgstr "Új szál"
+
+#: lib/Messages.php:842
+msgid "New posts"
+msgstr "Új bejegyzések"
+
+#: config/prefs.php.dist:189
+msgid "No"
+msgstr "Nem"
+
+#: lib/Block/threads.php:121
+msgid "No available threads."
+msgstr "Nincs elérhető szál"
+
+#: lib/Block/threads.php:100
+msgid "No forum selected"
+msgstr "Nincs fórum kiválasztva."
+
+#: templates/forums/forums.php:60
+msgid "No forums have been created."
+msgstr "Nem készült el a fórum."
+
+#: config/prefs.php.dist:209
+msgid "No graphical emoticons"
+msgstr "Nincsenek smiley-k"
+
+#: moderate.php:54
+msgid "No messages are waiting for moderation."
+msgstr "Nem vár üzenet moderálásra"
+
+#: messages/abuse.php:39
+msgid "No moderators are associated with this forum."
+msgstr "Nincs moderátor rendelve ehhez a fórumhoz."
+
+#: templates/moderators/moderators.php:27
+msgid "No moderators have been created."
+msgstr "Nincsenek moderátorok."
+
+#: templates/block/threads.php:32
+msgid "No threads"
+msgstr "Nincsenek szálak."
+
+#: messages/lock.php:51
+msgid "No, do not allow replies"
+msgstr "Nem, nem engedélyezem a válaszokat"
+
+#: config/prefs.php.dist:114
+msgid "Number of forums to display on each page"
+msgstr "Az egy lapon megjelenített fórumok száma:"
+
+#: config/prefs.php.dist:201
+msgid "Number of message to display on each page"
+msgstr "Az egy lapon megjelenített üzenetek száma:"
+
+#: config/prefs.php.dist:157 config/prefs.php.dist:278
+msgid "Number of messages to display on each page"
+msgstr "Az egy lapon megjelenített üzenetek száma:"
+
+#: config/prefs.php.dist:148
+msgid "Number of views in 24hrs to trigger a 'hot-thread':"
+msgstr "24 órán belöli ránézések száma a 'forró szál' bekapcsolásához:"
+
+#: lib/Block/forums.php:35
+msgid "Only display this many forums (0 to display all forums)"
+msgstr "Csak bizonyos fórumokon jelenjen meg (0 esetén minden fórumon látható)"
+
+#: lib/Block/threads.php:53
+msgid "Only display this many threads (0 to display all threads)"
+msgstr "Csak bizonyos szálakban jelenjen meg (0 esetén minden szálban látható)"
+
+#: templates/forums/forums.php:34
+msgid "Options"
+msgstr "Beállítások"
+
+#: lib/Messages.php:889
+#, php-format
+msgid "Page %d"
+msgstr "%d. oldal"
+
+#: lib/Forms/Forum.php:32
+msgid "Parent forum"
+msgstr "Előző fórum"
+
+#: lib/Messages.php:1472
+msgid "Post"
+msgstr "Küld"
+
+#: lib/api.php:613
+msgid "Post a New Message"
+msgstr "Új üzenet küldése"
+
+#: messages/edit.php:71
+#, php-format
+msgid "Post a New Message to \"%s\""
+msgstr "Új üzenet %s részére"
+
+#: messages/edit.php:69 messages/index.php:213
+#, php-format
+msgid "Post a Reply to \"%s\""
+msgstr "Válasz \"%s\"-nek"
+
+#: lib/Messages.php:1448 lib/Messages.php:1753
+msgid "Post message"
+msgstr "Üzenet küldése"
+
+#: forums.php:56 moderate.php:62 templates/messages/flat.php:22
+#: templates/messages/flat_thread.php:7 messages/index.php:146
+#: lib/Comments.php:85 lib/api.php:433 lib/Block/threads.php:125
+#: lib/Block/forums.php:87 lib/Block/thread.php:84 lib/Tree/flat.php:112
+#: config/prefs.php.dist:93 config/prefs.php.dist:126
+#: config/prefs.php.dist:169 config/prefs.php.dist:257
+msgid "Posted by"
+msgstr "Beküldte:"
+
+#: messages/index.php:87 lib/Messages.php:548
+#, php-format
+msgid "Posted by %s on %s"
+msgstr "Beküldte: %s, ekkor: %s"
+
+#: threads.php:61 forums.php:56 lib/Block/forums.php:87
+#: config/prefs.php.dist:127
+msgid "Posts"
+msgstr "Bejegyzések"
+
+#: lib/Messages.php:1495
+msgid "Quote"
+msgstr "Idéz"
+
+#: messages/index.php:113 lib/Messages.php:911
+msgid "Reply"
+msgstr "Válasz"
+
+#: lib/Messages.php:911
+msgid "Reply to message"
+msgstr "Válasz az üzenetre"
+
+#: messages/abuse.php:47 messages/abuse.php:48 lib/Messages.php:917
+msgid "Report as abuse"
+msgstr "Helytelennek jelöl"
+
+#: lib/Forms/Search.php:44
+msgid "Require all keywords?"
+msgstr "Mindegyik kulcsszó kell?"
+
+#: lib/Messages.php:1472
+msgid "Save"
+msgstr "Mentés"
+
+#: lib/Forms/Search.php:57
+msgid "Search"
+msgstr "Keresés"
+
+#: search.php:70 lib/Forms/Search.php:33
+msgid "Search Forums"
+msgstr "Fórum keresése"
+
+#: templates/search/search.php:5
+msgid "Search Results"
+msgstr "Keresés eredménye"
+
+#: lib/Forms/Search.php:52
+msgid "Search in message contents?"
+msgstr "Keressen az üzenet tartalmában?"
+
+#: lib/Forms/Search.php:48
+msgid "Search in subjects?"
+msgstr "Keresés a tárgyban is?"
+
+#: lib/Forms/Search.php:37
+msgid "Search in these forums"
+msgstr "Keresés ezekben a fórumokban"
+
+#: config/prefs.php.dist:12
+msgid "Set the avatar image that is shown with your posts."
+msgstr "Válasszon egy avatárt ami a bejegyzései mellett fog megjelenni."
+
+#: lib/Forms/Forum.php:38
+msgid ""
+"Set this if you want all messages to be checked by a moderator before they "
+"are posted."
+msgstr ""
+"Akkor állítsa ezt be, ha szeretné, hogy minden üzenet moderálva legyen "
+"beküldés előtt."
+
+#: config/prefs.php.dist:23
+msgid "Set your options for the forums view."
+msgstr "Beállítások fórum nézethez"
+
+#: config/prefs.php.dist:45
+msgid "Set your options for the message view."
+msgstr "Beállítások üzenet nézethez"
+
+#: config/prefs.php.dist:37 config/prefs.php.dist:52
+msgid "Set your options for the single thread view."
+msgstr "Az egyszálas nézet beállítása."
+
+#: config/prefs.php.dist:30
+msgid "Set your options for the threads view."
+msgstr "A szálak nézetének beállítása."
+
+#: config/prefs.php.dist:210
+msgid "Show graphical emoticons"
+msgstr "Smiley-k megjelenítése"
+
+#: lib/Block/thread.php:3 lib/Block/thread.php:53
+msgid "Single Thread"
+msgstr "Szimpla szál"
+
+#: config/prefs.php.dist:36
+msgid "Single Thread View"
+msgstr "Szimpla szál nézet"
+
+#: lib/Agora.php:192
+msgid "Sort Ascending"
+msgstr "Növekvő sorrend"
+
+#: lib/Agora.php:192
+msgid "Sort Descending"
+msgstr "Csökkenő sorrend"
+
+#: lib/Comments.php:65
+msgid "Sort by"
+msgstr "Rendezés eszerint:"
+
+#: lib/Agora.php:200 lib/Agora.php:207
+#, php-format
+msgid "Sort by %s"
+msgstr "Rendezés %s szerint"
+
+#: lib/Comments.php:71
+msgid "Sort direction"
+msgstr "Alapértelmezett rendezési irány:"
+
+#: lib/Messages.php:1517 lib/Forms/Message.php:24
+msgid "Spam protection"
+msgstr "Spam védelem"
+
+#: messages/split.php:47 messages/split.php:55 lib/Messages.php:947
+msgid "Split"
+msgstr "Kettévág"
+
+#: messages/split.php:46
+#, php-format
+msgid "Split \"%s\""
+msgstr "Vágd el: \"%s\""
+
+#: threads.php:61
+msgid "Started"
+msgstr "Elindítva"
+
+#: deleteforum.php:57
+msgid "Subforums"
+msgstr "Alfórumok"
+
+#: threads.php:61 moderate.php:62 messages/index.php:146 lib/Comments.php:69
+#: lib/Comments.php:83 lib/Messages.php:1497 lib/Messages.php:1500
+#: lib/api.php:431 lib/Block/threads.php:125 lib/Block/thread.php:84
+#: config/prefs.php.dist:125 config/prefs.php.dist:168
+#: config/prefs.php.dist:256
+msgid "Subject"
+msgstr "Tárgy"
+
+#: lib/Agora.php:229
+msgid "The VFS backend needs to be configured to enable attachment uploads."
+msgstr "A VFS backendet konfigurálni kell a csatolások egedélyezéséhez."
+
+#: config/prefs.php.dist:64
+msgid "The location of your avatar image."
+msgstr "Az ön avatárjának a helye"
+
+#: lib/Block/forums.php:78
+msgid "There are no forums."
+msgstr "Nincsenek fórumok"
+
+#: templates/threads/threads.php:69
+msgid "There are no threads in this forum."
+msgstr "Nincsenek szálak ebben a fórumban"
+
+#: lib/Messages.php:162
+msgid "This thread has been locked."
+msgstr "Szál zárolva"
+
+#: deleteforum.php:48
+msgid "This will delete the forum, any subforums and all relative messages."
+msgstr ""
+"Ez törli a fórumot annak összes alfórumával és minden üzenetével együtt."
+
+#: messages/index.php:146 messages/index.php:159 lib/Comments.php:61
+#: lib/Block/thread.php:33 lib/Block/thread.php:84 config/prefs.php.dist:124
+#: config/prefs.php.dist:167 config/prefs.php.dist:247
+msgid "Thread"
+msgstr "Szál"
+
+#: messages/merge.php:78
+#, php-format
+msgid "Thread %s merged with thread %s after message %s."
+msgstr "AZz) %s szál össze lett fésülve a(z) %s szállal a(z) %s. üzenet után"
+
+#: messages/move.php:64
+#, php-format
+msgid "Thread %s moved to from forum %s to %s."
+msgstr "A(z) %s szál átkerült a(z) %s fórumból a(z) %s fórumba."
+
+#: templates/messages/index.php:10 lib/Block/thread.php:91
+msgid "Thread List"
+msgstr "Szálak listája"
+
+#: templates/messages/message.php:34
+msgid "Thread Summary"
+msgstr "Szál összegzése"
+
+#: messages/delete.php:70
+msgid "Thread deleted."
+msgstr "Szál zárolva."
+
+#: messages/index.php:205 messages/lock.php:63
+msgid "Thread locked."
+msgstr "Szál zárolva."
+
+#: messages/split.php:60
+#, php-format
+msgid "Thread splitted by message %s."
+msgstr "A szál elvágva a(z) %s üzenet mentén."
+
+#: messages/lock.php:65
+msgid "Thread unlocked."
+msgstr "Szál feloldva"
+
+#: forums.php:56 templates/threads/threads.php:1 lib/Comments.php:77
+#: lib/Block/threads.php:3 lib/Block/threads.php:72 lib/Block/threads.php:78
+msgid "Threads"
+msgstr "Szálak"
+
+#: config/prefs.php.dist:29
+msgid "Threads View"
+msgstr "Szál nézet"
+
+#: lib/Block/threads.php:82
+#, php-format
+msgid "Threads in \"%s\""
+msgstr "Szálak \"%s\"-ban"
+
+#: threads.php:68 threads.php:81 rss/threads.php:48
+#, php-format
+msgid "Threads in %s"
+msgstr "Szálak %s-ban"
+
+#: lib/Block/thread.php:72
+msgid "Unable to fetch selected thread."
+msgstr "Nem lehet a kért szálat megnyitni"
+
+#: lib/Block/threads.php:106
+msgid "Unable to fetch threads for selected forum."
+msgstr "Nem lehet a kért fórumot megnyitni"
+
+#: lib/Messages.php:931
+msgid "Unlock"
+msgstr "Szál feloldása"
+
+#: messages/index.php:125
+msgid "Unlock thread"
+msgstr "Szál feloldása"
+
+#: messages/lock.php:49 lib/Forms/Forum.php:26
+msgid "Update"
+msgstr "Frissít"
+
+#: config/prefs.php.dist:79
+msgid "Upload your own avatar image."
+msgstr "Saját avatár feltöltése"
+
+#: scripts/phorum2agora.php:212
+#, php-format
+msgid "Usage: %s [OPTIONS]..."
+msgstr "Használat: %s [OPCIÓK]..."
+
+#: ban.php:65
+msgid "User"
+msgstr "Felhasználó"
+
+#: lib/Comments.php:59
+msgid "View"
+msgstr "Nézetek"
+
+#: messages/index.php:184
+msgid "View bodies"
+msgstr "Szöveg megjelenítése"
+
+#: threads.php:61
+msgid "Views"
+msgstr "Nézetek"
+
+#: messages/merge.php:57
+msgid "With Thread: "
+msgstr "Ezzel a szállal: "
+
+#: config/prefs.php.dist:190
+msgid "Yes"
+msgstr "Igen"
+
+#: messages/lock.php:51
+msgid "Yes, allow replies"
+msgstr "Igen, engedélyezem a válaszokat"
+
+#: config/prefs.php.dist:191
+msgid "Yes, and don't thread them"
+msgstr "Igen, de ne kerüljenek szálba."
+
+#: lib/Messages.php:1661
+#, php-format
+msgid "You don't have permission to access messages in forum %s."
+msgstr "Nincs jogod az üzenetek eléréséhez a(z) %s fórumban."
+
+#: messages/merge.php:38 messages/move.php:38 messages/lock.php:40
+#: messages/delete.php:40 messages/split.php:38 lib/Messages.php:569
+#: lib/Messages.php:738 lib/api.php:725
+#, php-format
+msgid "You don't have permission to delete messages in forum %s."
+msgstr "Nincs jogod az üzenetek törléséhez a(z) %s fórumban."
+
+#: messages/edit.php:39 messages/index.php:199 lib/Messages.php:167
+#: lib/api.php:591
+#, php-format
+msgid "You don't have permission to post messages in forum %s."
+msgstr "Nincs jogod az üzenetek küldéséhez a(z) %s fórumba."
+
+#: lib/Messages.php:813
+#, php-format
+msgid "You don't have permission to read messages in forum %s."
+msgstr "Nincs jogod az üzenetek olvasásához a(z) %s fórumban."
+
+#: ban.php:30
+#, php-format
+msgid "You don't have permissions to ban users from forum %s."
+msgstr "Nincs jogod a felhasználók tiltásához a(z) %s fórumban."
+
+#: editforum.php:35
+#, php-format
+msgid "You don't have permissions to create a new forum in %s"
+msgstr "Nincs jogod fórum kreálásához itt: %s."
+
+#: deleteforum.php:27
+#, php-format
+msgid "You don't have permissions to delete forums in %s"
+msgstr "Nincs jogod fórum törléséhez itt: %s."
+
+#: editforum.php:31
+#, php-format
+msgid "You don't have permissions to edit forum %s"
+msgstr "Nincs jogod a(z) %s fórum szerkesztéséhez."
+
+#: lib/Agora.php:246
+msgid "_Forums"
+msgstr "_Fórumok"
+
+#: lib/Agora.php:263
+msgid "_Moderate"
+msgstr "_Moderálás"
+
+#: lib/Agora.php:267
+msgid "_Moderators"
+msgstr "_Moderátorok"
+
+#: lib/Agora.php:258
+msgid "_New Forum"
+msgstr "Ú_J fórum"
+
+#: lib/Agora.php:271
+msgid "_Search"
+msgstr "_Keresés"
+
+#: lib/Agora.php:251
+msgid "_Threads"
+msgstr "_Szálak"
+
+#: templates/forums/forums.php:51 templates/threads/threads.php:60
+msgid "by"
+msgstr "by"
+
+#: lib/Messages.php:1610
+msgid "download"
+msgstr "letölt"
+
+#: templates/messages/flat.php:23 templates/messages/flat_thread.php:8
+#: lib/Tree/flat.php:113
+msgid "on: "
+msgstr "itt: "
+
+#: lib/Messages.php:1611
+#, php-format
+msgid "size: %s"
+msgstr "méret: %s"
+
+#: lib/Messages.php:1611
+#, php-format
+msgid "type: %s"
+msgstr "típus: %s"

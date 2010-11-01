@@ -1,0 +1,74 @@
+# Catalan translations for Horde_VFS_ISOWriter module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_VFS_ISOWriter module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_VFS_ISOWriter\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ISOWriter/RealInputStrategy/copy.php:42
+#: ISOWriter/RealOutputStrategy/copy.php:48
+msgid "Cannot find a temporary directory."
+msgstr "No es pot trobar un directori temporal."
+
+#: ISOWriter.php:93
+msgid "Cannot proceed without 'targetFile' parameter."
+msgstr "No es pot continuar sense el paràmetre 'targetFile'."
+
+#: ISOWriter/RealInputStrategy.php:85 ISOWriter/RealOutputStrategy.php:80
+#, fuzzy, php-format
+msgid "Could not load strategy \"%s\"."
+msgstr "No s'ha pogut carregar la bústia"
+
+#: ISOWriter/RealInputStrategy/copy.php:106
+#: ISOWriter/RealOutputStrategy/direct.php:26
+#, fuzzy, php-format
+msgid "Could not mkdir \"%s\"."
+msgstr "No s'ha pogut suprimir «%s»."
+
+#: ISOWriter/RealInputStrategy/copy.php:135
+#, fuzzy, php-format
+msgid "Could not open \"%s\" for writing."
+msgstr "No s'ha pogut obrir '%s' per escritura: %s"
+
+#: ISOWriter/RealInputStrategy/copy.php:66
+#, fuzzy, php-format
+msgid "Could not open directory \"%s\"."
+msgstr "No s'ha pogut obrir el directori de memòria cau: %s"
+
+#: ISOWriter/RealInputStrategy/copy.php:90
+#, fuzzy, php-format
+msgid "Could not rmdir \"%s\"."
+msgstr "No s'ha pogut suprimir «%s»."
+
+#: ISOWriter/RealInputStrategy/copy.php:82
+#, fuzzy, php-format
+msgid "Could not unlink \"%s\"."
+msgstr "No s'ha pogut suprimir «%s»."
+
+#: ISOWriter/RealInputStrategy/copy.php:138
+#, php-format
+msgid "Error writing \"%s\"."
+msgstr "S'ha produït un error en escriure el fitxer  \"%s\""
+
+#: ISOWriter.php:108
+msgid "No available strategy for making ISO images."
+msgstr "No es disposa d'una estratègia per crear imatges ISO."
+
+#: ISOWriter/mkisofs.php:46
+msgid "Unable to run 'mkisofs'."
+msgstr "No s'ha pogut executar 'mkisofs'."
+
+#: ISOWriter/mkisofs.php:49
+#, php-format
+msgid "mkisofs error code %d while making ISO."
+msgstr "S'ha produït un codi d'error %d del mkisofs en crear ISO."

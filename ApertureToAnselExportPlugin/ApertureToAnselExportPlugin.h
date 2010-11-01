@@ -1,11 +1,12 @@
-//
-//	ApertureToAnselExportPlugin.h
-//	ApertureToAnselExportPlugin
-//
-//	Created by Michael Rubinsky on 8/29/09.
-//	Copyright __MyCompanyName__ 2009. All rights reserved.
-//
-
+/**
+ *	ApertureToAnselExportPlugin.h
+ *	ApertureToAnselExportPlugin
+ *
+ * Copyright 2009-2010 The Horde Project (http://www.horde.org)
+ *
+ * @license http://opensource.org/licenses/bsd-license.php
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ */
 #import <Cocoa/Cocoa.h>
 #import <Quartz/Quartz.h>
 
@@ -20,45 +21,47 @@
 #endif
 {
 	// The cached API Manager object, as passed to the -initWithAPIManager: method.
-	id _apiManager; 
-	
+	id _apiManager;
+
 	// The cached Aperture Export Manager object - you should fetch this from the API Manager during -initWithAPIManager:
-	NSObject<ApertureExportManager, PROAPIObject> *_exportManager; 
-	
+	NSObject<ApertureExportManager, PROAPIObject> *_exportManager;
+
 	// The lock used to protect all access to the ApertureExportProgress structure
 	NSLock *_progressLock;
-	
+
 	// Top-level objects in the nib are automatically retained - this array
 	// tracks those, and releases them
 	NSArray *_topLevelNibObjects;
-	
+
 	// The structure used to pass all progress information back to Aperture
 	ApertureExportProgress exportProgress;
 
     // TURAnsel objects
     TURAnselGallery *_currentGallery;
     TURAnsel *_anselController;
-    
+
 	// Outlets to your plug-ins user interface
 	IBOutlet NSView *settingsView;
 	IBOutlet NSView *firstView;
 	IBOutlet NSView *lastView;
-    
+
     IBOutlet NSComboBox *galleryCombo;
     IBOutlet NSTextField *statusLabel;
     IBOutlet NSProgressIndicator *spinner;
     IBOutlet NSImageView *defaultImageView;
     IBOutlet NSButton *mNewGalleryButton;
     IBOutlet NSPopUpButton *mServersPopUp;
-    
+    IBOutlet NSTextField *mVersionString;
+
     // New Server sheet
     IBOutlet NSWindow *newServerSheet;
     IBOutlet NSTextField *mServerSheetHostURL;
-    IBOutlet NSTextField *mServerSheetUsername;    
+    IBOutlet NSTextField *mServerSheetUsername;
     IBOutlet NSSecureTextField *mServerSheetPassword;
     IBOutlet NSTextField *mServerSheetServerNickName;
     IBOutlet NSButton *mMakeNewServerDefault;
-    
+    IBOutlet NSPopUpButton *mAnselVersion;
+
     // Server list
     IBOutlet NSPanel *serverListPanel;
     IBOutlet NSTableView *serverTable;
@@ -73,17 +76,15 @@
     IBOutlet NSButton *closeGalleryView;
     IBOutlet IKImageBrowserView *browserView;
     NSMutableArray *_browserData;
-    
+
     // Flags, counters etc...
     BOOL cancelExport;
     int _currentImageCount;
-    
+
     BOOL isExporting;
 }
 
 - (IBAction) showNewGallery: (id)sender;
-- (IBAction) doAddServer: (id)sender;
-- (IBAction) doCancelAddServer: (id)sender;
 - (IBAction) clickServer: (id)sender;
 - (IBAction) clickViewGallery: (id)sender;
 - (IBAction) closeGalleryView: (id)sender;
@@ -92,4 +93,8 @@
 - (IBAction) closeServerList: (id)sender;
 - (IBAction) removeServer: (id)sender;
 - (NSWindow *)window;
+
+// New Server View
+- (IBAction) doAddServer: (id)sender;
+- (IBAction) doCancelAddServer: (id)sender;
 @end

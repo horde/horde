@@ -4,13 +4,13 @@
  * This module requires the SSH2 (version 0.10+) PECL package.
  *
  * Required values for $params:<pre>
- *      'username'       The username with which to connect to the ssh2 server.
- *      'password'       The password with which to connect to the ssh2 server.
- *      'hostspec'       The ssh2 server to connect to.</pre>
+ * username - (string) The username with which to connect to the ssh2 server.
+ * password - (string) The password with which to connect to the ssh2 server.
+ * hostspec - (string) The ssh2 server to connect to.</pre>
  *
  * Optional values for $params:<pre>
- *      'port'           The port used to connect to the ssh2 server if other
- *                       than 22.</pre>
+ * port - (integer) The port used to connect to the ssh2 server if other than
+ *        22.</pre>
  *
  * Copyright 2006-2010 The Horde Project (http://www.horde.org/)
  *
@@ -18,17 +18,16 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @editor  Cliff Green <green@umdnj.edu>
- * @since   Horde 3.2
  * @package VFS
  */
-class VFS_ssh2 extends VFS {
-
+class VFS_ssh2 extends VFS
+{
     /**
      * List of additional credentials required for this VFS backend.
      *
      * @var array
      */
-    var $_credentials = array('username', 'password');
+    protected $_credentials = array('username', 'password');
 
     /**
      * List of permissions and if they can be changed in this VFS backend.
@@ -36,66 +35,74 @@ class VFS_ssh2 extends VFS {
      * @var array
      */
     var $_permissions = array(
-        'owner' => array('read' => true, 'write' => true, 'execute' => true),
-        'group' => array('read' => true, 'write' => true, 'execute' => true),
-        'all'   => array('read' => true, 'write' => true, 'execute' => true));
+        'owner' => array(
+            'read' => true,
+            'write' => true,
+            'execute' => true
+        ),
+        'group' => array(
+            'read' => true,
+            'write' => true,
+            'execute' => true
+        ),
+        'all' => array(
+            'read' => true,
+            'write' => true,
+            'execute' => true
+        )
+    );
 
     /**
      * Variable holding the connection to the ssh2 server.
      *
      * @var resource
      */
-    var $_stream = false;
+    protected $_stream = false;
 
     /**
      * The SFTP resource stream.
      *
      * @var resource
      */
-    var $_sftp;
+    protected $_sftp;
 
     /**
      * The current working directory.
      *
      * @var string
      */
-    var $_cwd;
+    protected $_cwd;
 
     /**
      * Local cache array for user IDs.
      *
      * @var array
      */
-    var $_uids = array();
+    protected $_uids = array();
 
     /**
      * Local cache array for group IDs.
      *
      * @var array
      */
-    var $_gids = array();
+    protected $_gids = array();
 
     /**
      * Returns the size of a file.
      *
-     * @access public
-     *
      * @param string $path  The path of the file.
      * @param string $name  The filename.
      *
-     * @return integer  The size of the file in bytes or PEAR_Error on
-     *                  failure.
+     * @return integer  The size of the file in bytes.
+     * @throws VFS_Exception
      */
-    function size($path, $name)
+    public function size($path, $name)
     {
-        $conn = $this->_connect();
-        if (is_a($conn, 'PEAR_Error')) {
-            return $conn;
-        }
+        $this->_connect();
 
         $statinfo = @ssh2_sftp_stat($this->_sftp, $this->_getPath($path, $name));
         if (($size = $statinfo['size']) === false) {
-            return PEAR::raiseError(sprintf(_("Unable to check file size of \"%s\"."), $this->_getPath($path, $name)));
+            throw new VFS_Exception(sprintf('Unable to check file size of "%s".', $this->_getPath($path, $name)));
         }
 
         return $size;
@@ -108,21 +115,16 @@ class VFS_ssh2 extends VFS {
      * @param string $name  The filename to retrieve.
      *
      * @return string  The file data.
+     * @throws VFS_Exception
      */
-    function read($path, $name)
+    public function read($path, $name)
     {
         $file = $this->readFile($path, $name);
-        if (is_a($file, 'PEAR_Error')) {
-            return $file;
-        }
-
         clearstatcache();
-        $size = filesize($file);
-        if ($size === 0) {
-            return '';
-        }
 
-        return file_get_contents($file);
+        return (filesize($file) === 0)
+            ? ''
+            : file_get_contents($file);
     }
 
     /**
@@ -135,25 +137,22 @@ class VFS_ssh2 extends VFS {
      * @param string $path  The pathname to the file.
      * @param string $name  The filename to retrieve.
      *
-     * @return string A local filename.
+     * @return string  A local filename.
+     * @throws VFS_Exception
      */
-    function readFile($path, $name)
+    public function readFile($path, $name)
     {
-        $result = $this->_connect();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_connect();
 
         // Create a temporary file and register it for deletion at the
         // end of this request.
-        $localFile = $this->_getTempFile();
-        if (!$localFile) {
-            return PEAR::raiseError(_("Unable to create temporary file."));
+        if (!($localFile = tempnam(null, 'vfs'))) {
+            throw new VFS_Exception('Unable to create temporary file.');
         }
-        register_shutdown_function(create_function('', 'unlink(\'' . addslashes($localFile) . '\');'));
+        register_shutdown_function(create_function('', '@unlink(\'' . addslashes($localFile) . '\');'));
 
         if (!$this->_recv($this->_getPath($path, $name), $localFile)) {
-            return PEAR::raiseError(sprintf(_("Unable to open VFS file \"%s\"."), $this->_getPath($path, $name)));
+            throw new VFS_Exception(sprintf('Unable to open VFS file "%s".', $this->_getPath($path, $name)));
         }
 
         return $localFile;
@@ -166,16 +165,11 @@ class VFS_ssh2 extends VFS {
      * @param string $name  The filename to retrieve.
      *
      * @return resource  The stream.
+     * @throws VFS_Exception
      */
-    function readStream($path, $name)
+    public function readStream($path, $name)
     {
-        $file = $this->readFile($path, $name);
-        if (is_a($file, 'PEAR_Error')) {
-            return $file;
-        }
-
-        $mode = OS_WINDOWS ? 'rb' : 'r';
-        return fopen($file, $mode);
+        return fopen($this->readFile($path, $name), OS_WINDOWS ? 'rb' : 'r');
     }
 
     /**
@@ -187,35 +181,23 @@ class VFS_ssh2 extends VFS {
      *                             be stored.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function write($path, $name, $tmpFile, $autocreate = false)
+    public function write($path, $name, $tmpFile, $autocreate = false)
     {
-        $conn = $this->_connect();
-        if (is_a($conn, 'PEAR_Error')) {
-            return $conn;
-        }
-
-        $res = $this->_checkQuotaWrite('file', $tmpFile);
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
+        $this->_connect();
+        $this->_checkQuotaWrite('file', $tmpFile);
 
         if (!$this->_send($tmpFile, $this->_getPath($path, $name)))  {
             if ($autocreate) {
-                $result = $this->autocreatePath($path);
-                if (is_a($result, 'PEAR_Error')) {
-                    return $result;
+                $this->autocreatePath($path);
+                if ($this->_send($tmpFile, $this->_getPath($path, $name))) {
+                    return;
                 }
-                if (!$this->_send($tmpFile, $this->_getPath($path, $name))) {
-                    return PEAR::raiseError(sprintf(_("Unable to write VFS file \"%s\"."), $this->_getPath($path, $name)));
-                }
-            } else {
-                return PEAR::raiseError(sprintf(_("Unable to write VFS file \"%s\"."), $this->_getPath($path, $name)));
             }
-        }
 
-        return true;
+            throw new VFS_Exception(sprintf('Unable to write VFS file "%s".', $this->_getPath($path, $name)));
+        }
     }
 
     /**
@@ -226,27 +208,22 @@ class VFS_ssh2 extends VFS {
      * @param string $data         The file data.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function writeData($path, $name, $data, $autocreate = false)
+    public function writeData($path, $name, $data, $autocreate = false)
     {
-        $res = $this->_checkQuotaWrite('string', $data);
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
+        $this->_checkQuotaWrite('string', $data);
 
-        $tmpFile = $this->_getTempFile();
-        if (function_exists('file_put_contents')) {
-            file_put_contents($tmpFile, $data);
-        } else {
-            $fp = fopen($tmpFile, 'wb');
-            fwrite($fp, $data);
-            fclose($fp);
-        }
+        $tmpFile = tempnam(null, 'vfs');
+        file_put_contents($tmpFile, $data);
 
-        $result = $this->write($path, $name, $tmpFile, $autocreate);
-        unlink($tmpFile);
-        return $result;
+        try {
+            $this->write($path, $name, $tmpFile, $autocreate);
+            unlink($tmpFile);
+        } catch (VFS_Exception $e) {
+            unlink($tmpFile);
+            throw $e;
+        }
     }
 
     /**
@@ -255,25 +232,16 @@ class VFS_ssh2 extends VFS {
      * @param string $path  The path to delete the file from.
      * @param string $name  The filename to delete.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function deleteFile($path, $name)
+    public function deleteFile($path, $name)
     {
-        $res = $this->_checkQuotaDelete($path, $name);
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
-
-        $conn = $this->_connect();
-        if (is_a($conn, 'PEAR_Error')) {
-            return $conn;
-        }
+        $this->_checkQuotaDelete($path, $name);
+        $this->_connect();
 
         if (!@ssh2_sftp_unlink($this->_sftp, $this->_getPath($path, $name))) {
-            return PEAR::raiseError(sprintf(_("Unable to delete VFS file \"%s\"."), $this->_getPath($path, $name)));
+            throw new VFS_Exception(sprintf('Unable to delete VFS file "%s".', $this->_getPath($path, $name)));
         }
-
-        return true;
     }
 
     /**
@@ -284,11 +252,12 @@ class VFS_ssh2 extends VFS {
      *
      * @return boolean  True if it is a folder, false otherwise.
      */
-    function isFolder($path, $name)
+    public function isFolder($path, $name)
     {
-        $conn = $this->_connect();
-        if (is_a($conn, 'PEAR_Error')) {
-            return $conn;
+        try {
+            $this->_connect();
+        } catch (VFS_Exception $e) {
+            return false;
         }
 
         /* See if we can stat the remote filename. ANDed with 040000 is true
@@ -304,18 +273,14 @@ class VFS_ssh2 extends VFS {
      * @param string $name        The name of the folder to delete.
      * @param boolean $recursive  Force a recursive delete?
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function deleteFolder($path, $name, $recursive = false)
+    public function deleteFolder($path, $name, $recursive = false)
     {
-        $conn = $this->_connect();
-        if (is_a($conn, 'PEAR_Error')) {
-            return $conn;
-        }
+        $this->_connect();
 
         $isDir = false;
-        $dirCheck = $this->listFolder($path);
-        foreach ($dirCheck as $file) {
+        foreach ($this->listFolder($path) as $file) {
             if ($file['name'] == $name && $file['type'] == '**dir') {
                 $isDir = true;
                 break;
@@ -324,35 +289,25 @@ class VFS_ssh2 extends VFS {
 
         if ($isDir) {
             $file_list = $this->listFolder($this->_getPath($path, $name));
-            if (is_a($file_list, 'PEAR_Error')) {
-                return $file_list;
-            }
-
             if (count($file_list) && !$recursive) {
-                return PEAR::raiseError(sprintf(_("Unable to delete \"%s\", the directory is not empty."),
-                                                $this->_getPath($path, $name)));
+                throw new VFS_Exception(sprintf('Unable to delete "%s", the directory is not empty.', $this->_getPath($path, $name)));
             }
             foreach ($file_list as $file) {
                 if ($file['type'] == '**dir') {
-                    $result = $this->deleteFolder($this->_getPath($path, $name), $file['name'], $recursive);
+                    $this->deleteFolder($this->_getPath($path, $name), $file['name'], $recursive);
                 } else {
-                    $result = $this->deleteFile($this->_getPath($path, $name), $file['name']);
-                }
-                if (is_a($result, 'PEAR_Error')) {
-                    return $result;
+                    $this->deleteFile($this->_getPath($path, $name), $file['name']);
                 }
             }
 
             if (!@ssh2_sftp_rmdir($this->_sftp, $this->_getPath($path, $name))) {
-                return PEAR::raiseError(sprintf(_("Cannot remove directory \"%s\"."), $this->_getPath($path, $name)));
+                throw new VFS_Exception(sprintf('Cannot remove directory "%s".', $this->_getPath($path, $name)));
             }
         } else {
             if (!@ssh2_sftp_unlink($this->_sftp, $this->_getPath($path, $name))) {
-                return PEAR::raiseError(sprintf(_("Cannot delete file \"%s\"."), $this->_getPath($path, $name)));
+                throw new VFS_Exception(sprintf('Cannot delete file "%s".', $this->_getPath($path, $name)));
             }
         }
-
-        return true;
     }
 
     /**
@@ -363,24 +318,16 @@ class VFS_ssh2 extends VFS {
      * @param string $newpath  The new path of the file.
      * @param string $newname  The new filename.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function rename($oldpath, $oldname, $newpath, $newname)
+    public function rename($oldpath, $oldname, $newpath, $newname)
     {
-        $conn = $this->_connect();
-        if (is_a($conn, 'PEAR_Error')) {
-            return $conn;
-        }
-
-        if (is_a($res = $this->autocreatePath($newpath), 'PEAR_Error')) {
-            return $res;
-        }
+        $this->_connect();
+        $this->autocreatePath($newpath);
 
         if (!@ssh2_sftp_rename($this->_sftp, $this->_getPath($oldpath, $oldname), $this->_getPath($newpath, $newname))) {
-            return PEAR::raiseError(sprintf(_("Unable to rename VFS file \"%s\"."), $this->_getPath($oldpath, $oldname)));
+            throw new VFS_Exception(sprintf('Unable to rename VFS file "%s".', $this->_getPath($oldpath, $oldname)));
         }
-
-        return true;
     }
 
     /**
@@ -389,20 +336,15 @@ class VFS_ssh2 extends VFS {
      * @param string $path  The parent folder.
      * @param string $name  The name of the new folder.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function createFolder($path, $name)
+    public function createFolder($path, $name)
     {
-        $conn = $this->_connect();
-        if (is_a($conn, 'PEAR_Error')) {
-            return $conn;
-        }
+        $this->_connect();
 
         if (!@ssh2_sftp_mkdir($this->_sftp, $this->_getPath($path, $name))) {
-            return PEAR::raiseError(sprintf(_("Unable to create VFS directory \"%s\"."), $this->_getPath($path, $name)));
+            throw new VFS_Exception(sprintf('Unable to create VFS directory "%s".', $this->_getPath($path, $name)));
         }
-
-        return true;
     }
 
     /**
@@ -412,20 +354,15 @@ class VFS_ssh2 extends VFS {
      * @param string $name        The name of the item.
      * @param string $permission  The permission to set.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function changePermissions($path, $name, $permission)
+    public function changePermissions($path, $name, $permission)
     {
-        $conn = $this->_connect();
-        if (is_a($conn, 'PEAR_Error')) {
-            return $conn;
-        }
+        $this->_connect();
 
         if (!@ssh2_exec($this->_stream, 'chmod ' . escapeshellarg($permission) . ' ' . escapeshellarg($this->_getPath($path, $name)))) {
-            return PEAR::raiseError(sprintf(_("Unable to change permission for VFS file \"%s\"."), $this->_getPath($path, $name)));
+            throw new VFS_Exception(sprintf('Unable to change permission for VFS file "%s".', $this->_getPath($path, $name)));
         }
-
-        return true;
     }
 
     /**
@@ -436,24 +373,18 @@ class VFS_ssh2 extends VFS {
      * @param boolean $dotfiles  Show dotfiles?
      * @param boolean $dironly   Show only directories?
      *
-     * @return array  File list on success or PEAR_Error on failure.
+     * @return array  File list.
+     * @throws VFS_Exception
      */
-    function _listFolder($path = '', $filter = null, $dotfiles = true,
-                         $dironly = false)
+    protected function _listFolder($path = '', $filter = null,
+                                   $dotfiles = true, $dironly = false)
     {
-        $conn = $this->_connect();
-        if (is_a($conn, 'PEAR_Error')) {
-            return $conn;
-        }
+        $this->_connect();
 
         $files = array();
 
         /* If 'maplocalids' is set, check for the POSIX extension. */
-        $mapids = false;
-        if (!empty($this->_params['maplocalids']) &&
-            extension_loaded('posix')) {
-            $mapids = true;
-        }
+        $mapids = (!empty($this->_params['maplocalids']) && extension_loaded('posix'));
 
         // THIS IS A PROBLEM....  there is no builtin systype() fn for SSH2.
         // Go with unix-style listings for now...
@@ -461,10 +392,7 @@ class VFS_ssh2 extends VFS {
 
         $olddir = $this->getCurrentDirectory();
         if (strlen($path)) {
-            $res = $this->_setPath($path);
-            if (is_a($res, 'PEAR_Error')) {
-                return $res;
-            }
+            $this->_setPath($path);
         }
 
         if ($type == 'unix') {
@@ -502,10 +430,7 @@ class VFS_ssh2 extends VFS {
 
         if (!is_array($list)) {
             if (isset($olddir)) {
-                $res = $this->_setPath($olddir);
-                if (is_a($res, 'PEAR_Error')) {
-                    return $res;
-                }
+                $this->_setPath($olddir);
             }
             return array();
         }
@@ -565,7 +490,7 @@ class VFS_ssh2 extends VFS {
                            (($name[0] === '') && (count($name) == 2))) {
                            $file['linktype'] = '**none';
                        } else {
-                           $file['linktype'] = VFS::strtolower(array_pop($name));
+                           $file['linktype'] = self::strtolower(array_pop($name));
                        }
                    }
                 } elseif ($p1 === 'd') {
@@ -577,7 +502,7 @@ class VFS_ssh2 extends VFS {
                          (count($name) == 2))) {
                         $file['type'] = '**none';
                     } else {
-                        $file['type'] = VFS::strtolower($name[count($name) - 1]);
+                        $file['type'] = self::strtolower($name[count($name) - 1]);
                     }
                 }
                 if ($file['type'] == '**dir') {
@@ -639,7 +564,7 @@ class VFS_ssh2 extends VFS {
                          (count($name) == 2))) {
                         $file['type'] = '**none';
                     } else {
-                        $file['type'] = VFS::strtolower($name[count($name) - 1]);
+                        $file['type'] = self::strtolower($name[count($name) - 1]);
                     }
                 }
             }
@@ -676,34 +601,27 @@ class VFS_ssh2 extends VFS {
      * @param mixed $filter        Hash of items to filter based on folderlist.
      * @param boolean $dotfolders  Include dotfolders?
      *
-     * @return mixed  Folder list on success or a PEAR_Error object on failure.
+     * @return array  Folder list.
+     * @throws VFS_Exception
      */
-    function listFolders($path = '', $filter = null, $dotfolders = true)
+    public function listFolders($path = '', $filter = null, $dotfolders = true)
     {
-        $conn = $this->_connect();
-        if (is_a($conn, 'PEAR_Error')) {
-            return $conn;
-        }
+        $this->_connect();
 
-        $folders = array();
-        $folder = array();
-
-        $folderList = $this->listFolder($path, null, $dotfolders, true);
-        if (is_a($folderList, 'PEAR_Error')) {
-            return $folderList;
-        }
-
-        $folder['val'] = $this->_parentDir($path);
-        $folder['abbrev'] = $folder['label'] = '..';
-
+        $folder = array(
+            'abbrev' => '..',
+            'val' => $this->_parentDir($path),
+            'label' => '..'
+        );
         $folders[$folder['val']] = $folder;
 
+        $folderList = $this->listFolder($path, null, $dotfolders, true);
         foreach ($folderList as $files) {
-            $folder['val'] = $this->_getPath($path, $files['name']);
-            $folder['abbrev'] = $files['name'];
-            $folder['label'] = $folder['val'];
-
-            $folders[$folder['val']] = $folder;
+            $folders[$folder['val']] = array(
+                'val' => $this->_getPath($path, $files['name']),
+                'abbrev' => $files['name'],
+                'label' => $folder['val']
+            );
         }
 
         ksort($folders);
@@ -719,64 +637,45 @@ class VFS_ssh2 extends VFS {
      * @param boolean $autocreate  Auto-create the directory if it doesn't
      *                             exist?
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function copy($path, $name, $dest, $autocreate = false)
+    public function copy($path, $name, $dest, $autocreate = false)
     {
         $orig = $this->_getPath($path, $name);
         if (preg_match('|^' . preg_quote($orig) . '/?$|', $dest)) {
-            return PEAR::raiseError(_("Cannot copy file(s) - source and destination are the same."));
+            throw new VFS_Exception('Cannot copy file(s) - source and destination are the same.');
         }
 
-        $conn = $this->_connect();
-        if (is_a($conn, 'PEAR_Error')) {
-            return $conn;
-        }
+        $this->_connect();
 
         if ($autocreate) {
-            $res = $this->autocreatePath($dest);
-            if (is_a($res, 'PEAR_Error')) {
-                return $res;
-            }
-        }
-        $fileCheck = $this->listFolder($dest, null, true);
-        if (is_a($fileCheck, 'PEAR_Error')) {
-            return $fileCheck;
+            $this->autocreatePath($dest);
         }
 
-        foreach ($fileCheck as $file) {
+        foreach ($this->listFolder($dest, null, true) as $file) {
             if ($file['name'] == $name) {
-                return PEAR::raiseError(sprintf(_("%s already exists."), $this->_getPath($dest, $name)));
+                throw new VFS_Exception(sprintf('%s already exists.', $this->_getPath($dest, $name)));
             }
         }
 
         if ($this->isFolder($path, $name)) {
-            $result = $this->_copyRecursive($path, $name, $dest);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
+            $this->_copyRecursive($path, $name, $dest);
         } else {
-            $tmpFile = $this->_getTempFile();
-            $fetch = $this->_recv($orig, $tmpFile);
-            if (!$fetch) {
+            $tmpFile = tempnam(null, 'vfs');
+            if (!$this->_recv($orig, $tmpFile)) {
                 unlink($tmpFile);
-                return PEAR::raiseError(sprintf(_("Failed to copy from \"%s\"."), $orig));
+                throw new VFS_Exception(sprintf('Failed to copy from "%s".', $orig));
             }
 
-            $res = $this->_checkQuotaWrite('file', $tmpFile);
-            if (is_a($res, 'PEAR_Error')) {
-                return $res;
-            }
+            $this->_checkQuotaWrite('file', $tmpFile);
 
             if (!$this->_send($tmpFile, $this->_getPath($dest, $name))) {
                 unlink($tmpFile);
-                return PEAR::raiseError(sprintf(_("Failed to copy to \"%s\"."), $this->_getPath($dest, $name)));
+                throw new VFS_Exception(sprintf('Failed to copy to "%s".', $this->_getPath($dest, $name)));
             }
 
             unlink($tmpFile);
         }
-
-        return true;
     }
 
     /**
@@ -788,88 +687,71 @@ class VFS_ssh2 extends VFS {
      * @param boolean $autocreate  Auto-create the directory if it doesn't
      *                             exist?
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function move($path, $name, $dest, $autocreate = false)
+    public function move($path, $name, $dest, $autocreate = false)
     {
         $orig = $this->_getPath($path, $name);
         if (preg_match('|^' . preg_quote($orig) . '/?$|', $dest)) {
-            return PEAR::raiseError(_("Cannot move file(s) - destination is within source."));
+            throw new VFS_Exception('Cannot move file(s) - destination is within source.');
         }
 
-        $conn = $this->_connect();
-        if (is_a($conn, 'PEAR_Error')) {
-            return $conn;
-        }
+        $this->_connect();
 
         if ($autocreate) {
-            $res = $this->autocreatePath($dest);
-            if (is_a($res, 'PEAR_Error')) {
-                return $res;
-            }
+            $this->autocreatePath($dest);
         }
 
-        $fileCheck = $this->listFolder($dest, null, true);
-        if (is_a($fileCheck, 'PEAR_Error')) {
-            return $fileCheck;
-        }
-
-        foreach ($fileCheck as $file) {
+        foreach ($this->listFolder($dest, null, true) as $file) {
             if ($file['name'] == $name) {
-                return PEAR::raiseError(sprintf(_("%s already exists."), $this->_getPath($dest, $name)));
+                throw new VFS_Exception(sprintf('%s already exists.', $this->_getPath($dest, $name)));
             }
         }
 
         if (!@ssh2_sftp_rename($this->_sftp, $orig, $this->_getPath($dest, $name))) {
-            return PEAR::raiseError(sprintf(_("Failed to move to \"%s\"."), $this->_getPath($dest, $name)));
+            throw new VFS_Exception(sprintf('Failed to move to "%s".', $this->_getPath($dest, $name)));
         }
-
-        return true;
     }
 
     /**
      * Returns the current working directory on the SSH2 server.
      *
      * @return string  The current working directory.
+     * @throws VFS_Exception
      */
-    function getCurrentDirectory()
+    public function getCurrentDirectory()
     {
-        if (is_a($res = $this->_connect(), 'PEAR_Error')) {
-            return $res;
-        }
+        $this->_connect();
+
         if (!strlen($this->_cwd)) {
             $stream = @ssh2_exec($this->_stream, 'pwd');
             stream_set_blocking($stream, true);
             $this->_cwd = trim(fgets($stream));
         }
+
         return $this->_cwd;
     }
 
     /**
      * Changes the current directory on the server.
      *
-     * @access private
-     *
      * @param string $path  The path to change to.
      *
-     * @return boolean  True on success, or a PEAR_Error on failure.
+     * @throws VFS_Exception
      */
-    function _setPath($path)
+    protected function _setPath($path)
     {
-        if ($stream = @ssh2_exec($this->_stream, 'cd ' . escapeshellarg($path) . '; pwd')) {
-            stream_set_blocking($stream, true);
-            $this->_cwd = trim(fgets($stream));
-            fclose($stream);
-            return true;
-        } else {
-            return PEAR::raiseError(sprintf(_("Unable to change to %s."), $path));
+        if (!($stream = @ssh2_exec($this->_stream, 'cd ' . escapeshellarg($path) . '; pwd'))) {
+            throw new VFS_Exception(sprintf('Unable to change to %s.', $path));
         }
+
+        stream_set_blocking($stream, true);
+        $this->_cwd = trim(fgets($stream));
+        fclose($stream);
     }
 
     /**
      * Returns the full path of an item.
-     *
-     * @access private
      *
      * @param string $path  The directory of the item.
      * @param string $name  The name of the item.
@@ -877,111 +759,102 @@ class VFS_ssh2 extends VFS {
      * @return mixed  Full path to the file when $path is not empty and just
      *                $name when not set.
      */
-    function _getPath($path, $name)
+    protected function _getPath($path, $name)
     {
-        if ($path !== '') {
-            return ($path . '/' . $name);
-        }
-        return $name;
+        return ($path !== '')
+            ? ($path . '/' . $name)
+            : $name;
     }
 
     /**
      * Returns the parent directory of the specified path.
      *
-     * @access private
-     *
      * @param string $path  The path to get the parent of.
      *
-     * @return string  The parent directory (string) on success or a PEAR_Error
-     *                 object on failure.
+     * @return string  The parent directory.
+     * @throws VFS_Exception
      */
-    function _parentDir($path)
+    protected function _parentDir($path)
     {
-        $conn = $this->_connect();
-        if (is_a($conn, 'PEAR_Error')) {
-            return $conn;
-        }
-
+        $this->_connect();
         $this->_setPath('cd ' . $path . '/..');
+
         return $this->getCurrentDirectory();
     }
 
     /**
      * Attempts to open a connection to the SSH2 server.
      *
-     * @access private
-     *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function _connect()
+    protected function _connect()
     {
-        if ($this->_stream === false) {
-            if (!extension_loaded('ssh2')) {
-                return PEAR::raiseError(_("The SSH2 PECL extension is not available."));
-            }
-
-            if (!is_array($this->_params)) {
-                return PEAR::raiseError(_("No configuration information specified for SSH2 VFS."));
-            }
-
-            $required = array('hostspec', 'username', 'password');
-            foreach ($required as $val) {
-                if (!isset($this->_params[$val])) {
-                    return PEAR::raiseError(sprintf(_("Required \"%s\" not specified in VFS configuration."), $val));
-                }
-            }
-
-            /* Connect to the ssh2 server using the supplied parameters. */
-            if (empty($this->_params['port'])) {
-                $this->_stream = @ssh2_connect($this->_params['hostspec']);
-            } else {
-                $this->_stream = @ssh2_connect($this->_params['hostspec'], $this->_params['port']);
-            }
-            if (!$this->_stream) {
-                return PEAR::raiseError(_("Connection to SSH2 server failed."));
-            }
-
-            $connected = @ssh2_auth_password($this->_stream, $this->_params['username'], $this->_params['password']);
-            if (!$connected) {
-                $this->_stream = false;
-                return PEAR::raiseError(_("Authentication to SSH2 server failed."));
-            }
-
-            /* Create sftp resource. */
-            $this->_sftp = @ssh2_sftp($this->_stream);
+        if ($this->_stream !== false) {
+            return;
         }
 
-        return true;
+        if (!extension_loaded('ssh2')) {
+            throw new VFS_Exception('The SSH2 PECL extension is not available.');
+        }
+
+        if (!is_array($this->_params)) {
+            throw new VFS_Exception('No configuration information specified for SSH2 VFS.');
+        }
+
+        $required = array('hostspec', 'username', 'password');
+        foreach ($required as $val) {
+            if (!isset($this->_params[$val])) {
+                throw new VFS_Exception(sprintf('Required "%s" not specified in VFS configuration.', $val));
+            }
+        }
+
+        /* Connect to the ssh2 server using the supplied parameters. */
+        if (empty($this->_params['port'])) {
+            $this->_stream = @ssh2_connect($this->_params['hostspec']);
+        } else {
+            $this->_stream = @ssh2_connect($this->_params['hostspec'], $this->_params['port']);
+        }
+
+        if (!$this->_stream) {
+            $this->_stream = false;
+            throw new VFS_Exception('Connection to SSH2 server failed.');
+        }
+
+        if (!@ssh2_auth_password($this->_stream, $this->_params['username'], $this->_params['password'])) {
+            $this->_stream = false;
+            throw new VFS_Exception('Authentication to SSH2 server failed.');
+        }
+
+        /* Create sftp resource. */
+        $this->_sftp = @ssh2_sftp($this->_stream);
     }
 
     /**
      * Sends local file to remote host.
-     * This function exists because the php_scp_* functions doesn't seem to work on some hosts.
-     *
-     * @access private
+     * This function exists because the php_scp_* functions doesn't seem to
+     * work on some hosts.
      *
      * @param string $local   Full path to the local file.
      * @param string $remote  Full path to the remote location.
      *
-     * @return boolean TRUE on success, FALSE on failure.
+     * @return boolean  Success.
      */
-    function _send($local, $remote)
+    protected function _send($local, $remote)
     {
         return @copy($local, $this->_wrap($remote));
     }
 
     /**
      * Receives file from remote host.
-     * This function exists because the php_scp_* functions doesn't seem to work on some hosts.
+     * This function exists because the php_scp_* functions doesn't seem to
+     * work on some hosts.
      *
-     * @access private
+     * @param string $local   Full path to the local file.
+     * @param string $remote  Full path to the remote location.
      *
-     * @param string $local  Full path to the local file.
-     * @param string $remote Full path to the remote location.
-     *
-     * @return boolean TRUE on success, FALSE on failure.
+     * @return boolean  Success.
      */
-    function _recv($remote, $local)
+    protected function _recv($remote, $local)
     {
         return @copy($this->_wrap($remote), $local);
     }
@@ -989,16 +862,15 @@ class VFS_ssh2 extends VFS {
     /**
      * Generate a stream wrapper file spec for a remote file path
      *
-     * @access private
-     *
      * @param string $remote  Full path to the remote location
      *
      * @return string  A full stream wrapper path to the remote location
      */
-    function _wrap($remote)
+    protected function _wrap($remote)
     {
-        return 'ssh2.sftp://' . $this->_params['username'] . ':' . $this->_params['password']
-            . '@' . $this->_params['hostspec'] . ':' . $this->_params['port'] . $remote;
+        return 'ssh2.sftp://' . $this->_params['username'] . ':' .
+            $this->_params['password'] . '@' . $this->_params['hostspec'] .
+            ':' . $this->_params['port'] . $remote;
     }
 
 }

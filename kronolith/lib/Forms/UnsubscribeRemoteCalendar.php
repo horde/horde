@@ -8,22 +8,16 @@
  * @package Kronolith
  */
 
-/** Horde_Form */
-require_once 'Horde/Form.php';
-
-/** Horde_Form_Renderer */
-require_once 'Horde/Form/Renderer.php';
-
 /**
  * The Kronolith_UnsubscribeRemoteCalendarForm class provides the form for
- * deleting a calendar.
+ * unsubscribing from remote calendars.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Kronolith
  */
-class Kronolith_UnsubscribeRemoteCalendarForm extends Horde_Form {
-
-    function Kronolith_UnsubscribeRemoteCalendarForm(&$vars, $calendar)
+class Kronolith_UnsubscribeRemoteCalendarForm extends Horde_Form
+{
+    public function __construct($vars, $calendar)
     {
         parent::Horde_Form($vars, sprintf(_("Unsubscribe from %s"), $calendar['name']));
 
@@ -33,14 +27,16 @@ class Kronolith_UnsubscribeRemoteCalendarForm extends Horde_Form {
         $this->setButtons(array(_("Unsubscribe"), _("Cancel")));
     }
 
-    function execute()
+    /**
+     * @throws Kronolith_Exception
+     */
+    public function execute()
     {
         // If cancel was clicked, return false.
         if ($this->_vars->get('submitbutton') == _("Cancel")) {
             return false;
         }
-
-        return Kronolit::unsubscribeRemoteCalendar($this->_vars->get('url'));
+        return Kronolith::unsubscribeRemoteCalendar($this->_vars->get('url'));
     }
 
 }

@@ -1,4 +1,4 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
 /**
  * This script imports SquirrelMail file-based preferences into Horde.
@@ -16,18 +16,8 @@
  * @author Ben Chavet <ben@horde.org>
  */
 
-// Do CLI checks and environment setup first.
-require_once dirname(__FILE__) . '/../lib/core.php';
-
-// Makre sure no one runs this from the web.
-if (!Horde_Cli::runningFromCli()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment - make sure there's no time limit, init some
-// variables, etc.
-$cli = Horde_Cli::singleton();
-$cli->init();
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true));
 
 // Read command line parameters.
 if ($argc != 2) {
@@ -36,10 +26,6 @@ if ($argc != 2) {
     exit;
 }
 $data = $argv[1];
-
-// Make sure we load Horde base to get the auth config
-require_once dirname(__FILE__) . '/../lib/Application.php';
-new Horde_Application(array('authentication' => 'none'));
 
 require_once dirname(__FILE__) . '/import_squirrelmail_prefs.php';
 
@@ -67,13 +53,14 @@ foreach($files as $file) {
 
     // Set current user
     $user = substr(basename($file), 0, -5);
-    Horde_Auth::setAuth($user, array());
+    $registry->setAuth($user, array());
     $cli->message('Importing ' . $user . '\'s preferences');
 
     // Reset user prefs
-    unset($prefs);
-    $prefs = Horde_Prefs::factory($conf['prefs']['driver'], 'horde', $user, null, null, false);
-    unset($prefs_cache);
+    $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')->create('horde', array(
+        'cache' => false,
+        'user' => $user
+    ));
     $prefs_cache = array();
 
     // Read pref file, one line at a time
@@ -93,8 +80,7 @@ foreach($files as $file) {
             $value = substr($pref, $equalsAt + 1);
             /* this is to 'rescue' old-style highlighting rules. */
             if (substr($key, 0, 9) == 'highlight') {
-                $key = 'highlight' . $highlight_num;
-                $highlight_num ++;
+                $key = 'highlight' . $highlight_num++;
             }
 
             if ($value != '') {

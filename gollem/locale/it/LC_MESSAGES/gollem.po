@@ -1,0 +1,680 @@
+# Gollem Italian translation.
+# Copyright 2006-2010 The Horde Project
+# This file is distributed under the same license as the Gollem package.
+# Fabio Pedretti <fabio.pedretti@ing.unibs.it>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gollem 1.1-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2008-06-24 11:07+0200\n"
+"PO-Revision-Date: 2008-06-24 14:57+0200\n"
+"Last-Translator: Fabio Pedretti <fabio.pedretti@ing.unibs.it>\n"
+"Language-Team: Horde i18n <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: manager.php:53
+#, php-format
+msgid "\"%s\" renamed to \"%s\""
+msgstr "\"%s\" rinominato in \"%s\""
+
+#: quota.php:56
+#, php-format
+msgid "%.2fMB / %.2fMB  (%.2f%%)"
+msgstr "%.2fMB / %.2fMB  (%.2f%%)"
+
+#: manager.php:272
+#, php-format
+msgid "%d items"
+msgstr "%d voci"
+
+#: manager.php:434
+#, php-format
+msgid "%s Folders and %s Files (%s Kb)"
+msgstr "%s Cartelle e %s File (%s Kb)"
+
+#: manager.php:432
+#, php-format
+msgid "%s Folders and 1 File (%s Kb)"
+msgstr "%s Cartelle e 1 File (%s Kb)"
+
+#: login.php:144
+#, php-format
+msgid "%s Login"
+msgstr "%s Login"
+
+#: edit.php:35
+#, php-format
+msgid "%s successfully saved."
+msgstr "%s salvato con successo."
+
+#: manager.php:168
+#, php-format
+msgid "%s was successfully pasted."
+msgstr "%s è stato incollato con successo."
+
+#: manager.php:429
+#, php-format
+msgid "1 Folder and %s Files (%s Kb)"
+msgstr "1 Cartella e %s File (%s Kb)"
+
+#: manager.php:427
+#, php-format
+msgid "1 Folder and 1 File (%s Kb)"
+msgstr "1 Cartella e 1 File (%s Kb)"
+
+#: manager.php:272
+msgid "1 item"
+msgstr "1 oggetto"
+
+#: templates/javascript_defs.php:14
+msgid ""
+"A popup window could not be opened. Perhaps you have set your browser to "
+"block popup windows?"
+msgstr ""
+"La finestra di composizione non può essere aperta. Probabilmente il tuo "
+"browser è impostato per bloccare i popup"
+
+#: edit.php:33 edit.php:43 view.php:35 view.php:42
+#, php-format
+msgid "Access denied to %s"
+msgstr "Accesso negato a %s"
+
+#: lib/Gollem.php:109 lib/Gollem.php:383 lib/Gollem.php:445 lib/Gollem.php:466
+#: lib/Gollem.php:483
+#, php-format
+msgid "Access denied to folder \"%s\"."
+msgstr "Accesso negato alla cartella \"%s\"."
+
+#: templates/manager/manager.html:124
+msgid "Actions:"
+msgstr "Azioni:"
+
+#: selectlist.php:99
+msgid "Add"
+msgstr "Aggiungi"
+
+#: templates/prefs/columnselect.inc:43
+msgid "Add column"
+msgstr "Aggiungi colonna"
+
+#: templates/manager/manager.html:11
+msgid "All"
+msgstr "Tutti"
+
+#: templates/javascript_defs.php:25
+msgid "Are you sure you wish to continue?"
+msgstr "Sei sicuro di voler continuare?"
+
+#: templates/javascript_defs.php:23
+msgid "Are you sure?"
+msgstr "Sei sicuro?"
+
+#: config/prefs.php.dist:69
+msgid "Ascending"
+msgstr "Crescente"
+
+#: config/prefs.php.dist:93
+msgid "Ask"
+msgstr "Chiedi"
+
+#: templates/manager/manager.html:5
+msgid "Attributes"
+msgstr "Attributi"
+
+#: templates/prefs/columnselect.html:20
+msgid "Available Columns:"
+msgstr "Colonne disponibili:"
+
+#: lib/api.php:483
+msgid "Backends"
+msgstr "Backend"
+
+#: templates/clipboard/clipboard.html:11
+msgid "Below is the current contents of your clipboard."
+msgstr "Qui sotto c'è il contenuto degli appunti."
+
+#: clipboard.php:38 manager.php:267 selectlist.php:101
+#: templates/edit/edit.inc:13
+msgid "Cancel"
+msgstr "Annulla"
+
+#: manager.php:73
+#, php-format
+msgid "Cannot chmod %s: %s"
+msgstr "Impossibile cambiare i permessi di %s: %s"
+
+#: manager.php:142
+msgid "Cannot copy items onto clipboard."
+msgstr "Impossibile copiare gli oggetti negli appunti."
+
+#: manager.php:201
+#, php-format
+msgid "Cannot create home directory: %s"
+msgstr "Impossibile creare la cartella principale: %s"
+
+#: manager.php:144
+msgid "Cannot cut items onto clipboard."
+msgstr "Impossibile tagliare gli oggetti negli appunti."
+
+#: manager.php:166
+#, php-format
+msgid "Cannot paste \"%s\" (file cleared from clipboard): %s"
+msgstr "Impossibile incollare \"%s\" (file rimosso dagli appunti): %s"
+
+#: templates/manager/manager.html:70
+msgid "Change Folder"
+msgstr "Cambia Cartella"
+
+#: templates/manager/manager.html:126
+msgid "Change Permissions"
+msgstr "Cambia Permessi"
+
+#: selectlist.php:109 lib/Gollem.php:816
+msgid "Change Server"
+msgstr "Cambia Server"
+
+#: lib/Gollem.php:773
+msgid "Change _Folder"
+msgstr "Cambia _Cartella"
+
+#: config/prefs.php.dist:21
+msgid "Change file and folder handling settings."
+msgstr "Modifica le impostazioni di file e cartelle."
+
+#: config/prefs.php.dist:14
+msgid "Change your file sorting options."
+msgstr "Cambia le opzioni di ordinamento dei file."
+
+#: lib/Gollem.php:791
+msgid "Check Quota"
+msgstr "Spazio Disponibile"
+
+#: manager.php:525
+msgid "Check _All/None"
+msgstr "Seleziona _Tutti/Nessuno"
+
+#: manager.php:71
+msgid "Chmod done: "
+msgstr "Chmod fatto: "
+
+#: templates/prefs/columnselect.html:12
+msgid "Choose the columns to display in the file manager."
+msgstr "Scegli le colonne da visualizzare nella gestione file."
+
+#: clipboard.php:39
+msgid "Clear"
+msgstr "Azzera"
+
+#: clipboard.php:18 templates/clipboard/clipboard.html:7
+msgid "Clipboard"
+msgstr "Appunti"
+
+#: quota.php:32
+msgid "Close"
+msgstr "Chiudi"
+
+#: login.php:258
+#, php-format
+msgid "Connect to: %s"
+msgstr "Connetti a: %s"
+
+#: clipboard.php:42 templates/manager/manager.html:129
+msgid "Copy"
+msgstr "Copia"
+
+#: lib/Template.php:234
+#, php-format
+msgid "Could not save the compiled template file '%s'."
+msgstr "Impossibile salvare teplate file '%s'."
+
+#: templates/manager/manager.html:58
+msgid "Create Folder"
+msgstr "Crea Cartella"
+
+#: permissions.php:47
+#, php-format
+msgid ""
+"Created empty permissions for \"%s\". You must explicitly grant access to "
+"this backend now."
+msgstr ""
+"Permessi vuoti creati per \"%s\". Ora devi esplicitamente assegnare "
+"l'accesso a questo backend."
+
+#: templates/clipboard/clipboard.html:17
+msgid "Current directory:"
+msgstr "Cartella corrente:"
+
+#: clipboard.php:41 templates/manager/manager.html:130
+msgid "Cut"
+msgstr "Taglia"
+
+#: config/prefs.php.dist:59
+msgid "Default sorting criteria:"
+msgstr "Criterio predefinito di ordinamento:"
+
+#: config/prefs.php.dist:72
+msgid "Default sorting direction:"
+msgstr "Direzione di ordinamento predefinita:"
+
+#: templates/manager/manager.html:133
+msgid "Delete"
+msgstr "Elimina"
+
+#: config/prefs.php.dist:95
+msgid "Delete folders recursively?"
+msgstr "Cancellare tutte le sottocartelle?"
+
+#: config/prefs.php.dist:70
+msgid "Descending"
+msgstr "Decrescente"
+
+#: selectlist.php:100
+msgid "Done"
+msgstr "Fatto"
+
+#: manager.php:227
+msgid "Download"
+msgstr "Scarica"
+
+#: manager.php:401
+#, php-format
+msgid "Download %s"
+msgstr "Scarica %s"
+
+#: templates/quota/quota.html:7
+msgid "ERROR:"
+msgstr "ERRORE:"
+
+#: manager.php:226
+msgid "Edit"
+msgstr "Modifica"
+
+#: templates/edit/edit.inc:8
+#, php-format
+msgid "Edit %s"
+msgstr "Modifica %s"
+
+#: config/credentials.php.dist:28
+msgid "Email"
+msgstr "Posta"
+
+#: templates/manager/manager.html:26
+msgid "Execute"
+msgstr "Esegui"
+
+#: templates/javascript_defs.php:27 templates/manager/manager.html:203
+msgid "File"
+msgstr "File"
+
+#: config/prefs.php.dist:13
+msgid "File Display"
+msgstr "Visualizzazione File"
+
+#: config/prefs.php.dist:56
+msgid "File Modification Time"
+msgstr "Ora di modifica del file"
+
+#: config/prefs.php.dist:55
+msgid "File Name"
+msgstr "Nome File"
+
+#: config/prefs.php.dist:57
+msgid "File Size"
+msgstr "Dimensione File"
+
+#: config/prefs.php.dist:54
+msgid "File Type"
+msgstr "Tipo File"
+
+#: manager.php:88
+msgid "File deleted: "
+msgstr "File eliminato: "
+
+#: manager.php:110
+#, php-format
+msgid "File received: %s"
+msgstr "File ricevuto: %s"
+
+#: lib/api.php:223
+msgid "Files must be written inside a VFS backend."
+msgstr "I file devono essere scritti all'interno di un backend VFS."
+
+#: manager.php:81
+msgid "Folder removed: "
+msgstr "Cartella eliminata: "
+
+#: lib/api.php:286 lib/api.php:292 lib/api.php:352
+msgid "Folders must be created inside a VFS backend."
+msgstr "Le cartelle devono essere create all'interno di un backend VFS."
+
+#: templates/manager/manager.html:72
+msgid "Go to:"
+msgstr "Vai a:"
+
+#: permissions.php:21
+msgid "Gollem Backend Permissions Administration"
+msgstr "Amministrazione Permessi di Gollem"
+
+#: manager.php:505 templates/manager/manager.html:10
+msgid "Group"
+msgstr "Gruppo"
+
+#: manager.php:57
+msgid "Incorrect number of items."
+msgstr "Numero di elementi errato."
+
+#: lib/api.php:117 lib/api.php:235 lib/api.php:299 lib/api.php:376
+#: lib/api.php:441
+#, php-format
+msgid "Invalid backend requested: %s"
+msgstr "Richiesto un backend invalido: %s"
+
+#: manager.php:135
+#, php-format
+msgid "Item copied to clipboard: %s"
+msgstr "Oggetto copiato negli appunti: %s"
+
+#: manager.php:137
+#, php-format
+msgid "Item cut to clipboard: %s"
+msgstr "Oggetto tagliato negli appunti: %s"
+
+#: templates/login/login.html:68
+msgid "Language"
+msgstr "Lingua"
+
+#: config/prefs.php.dist:81
+msgid "List folders first?"
+msgstr "Elenca prima le cartelle?"
+
+#: login.php:307
+msgid "Login"
+msgstr "Entra"
+
+#: lib/Block/tree_menu.php:3
+msgid "Menu List"
+msgstr "Lista Menu"
+
+#: manager.php:475
+msgid "Modified"
+msgstr "Modificato"
+
+#: templates/prefs/columnselect.inc:45
+msgid "Move left"
+msgstr "Sposta a sinistra"
+
+#: templates/prefs/columnselect.inc:46
+msgid "Move right"
+msgstr "Sposta a destra"
+
+#: manager.php:453
+msgid "Name"
+msgstr "Nome"
+
+#: templates/manager/manager.html:46 templates/manager/manager.html:60
+msgid "Name:"
+msgstr "Nome:"
+
+#: manager.php:36
+msgid "New folder created: "
+msgstr "Nuova cartella creata: "
+
+#: config/prefs.php.dist:91
+msgid "No"
+msgstr "No"
+
+#: templates/quota/quota.html:12
+msgid "No quota found."
+msgstr "Limiti allo spazio disponibile non impostati."
+
+#: manager.php:268
+msgid "OK"
+msgstr "OK"
+
+#: manager.php:498 templates/manager/manager.html:9
+msgid "Owner"
+msgstr "Proprietario"
+
+#: config/credentials.php.dist:23
+msgid "Password"
+msgstr "Password"
+
+#: clipboard.php:40
+msgid "Paste"
+msgstr "Incolla"
+
+#: manager.php:491
+msgid "Permission"
+msgstr "Permessi"
+
+#: selectlist.php:64
+#, php-format
+msgid "Permission denied to %s: %s"
+msgstr "Permesso negato a %s: %s"
+
+#: manager.php:209
+#, php-format
+msgid "Permission denied to folder \"%s\": %s"
+msgstr "Permesso negato alla cartella \"%s\": %s"
+
+#: lib/api.php:128 lib/api.php:246 lib/api.php:310 lib/api.php:387
+#: lib/api.php:452
+msgid "Permission denied to this backend."
+msgstr "Permesso negato a questo backend."
+
+#: templates/javascript_defs.php:18
+msgid "Please provide your password."
+msgstr "Si prega di inserire la propria password."
+
+#: templates/javascript_defs.php:17
+msgid "Please provide your username."
+msgstr "Si prega di inserire il proprio nome utente."
+
+#: templates/prefs/columnselect.html:5
+msgid "Please select a backend:"
+msgstr "Si prega di selezionare un backend:"
+
+#: templates/javascript_defs.php:21
+msgid "Please select an item before this action."
+msgstr "Si prega di selezionare una voce prima di questa azione."
+
+#: templates/javascript_defs.php:26
+msgid "Please specify at least one file to upload."
+msgstr "Si prega di specificare almeno un file da caricare."
+
+#: quota.php:19 templates/quota/quota.html:2
+msgid "Quota Display"
+msgstr "Visualizza Spazio Disponibile"
+
+#: templates/manager/manager.html:14
+msgid "Read"
+msgstr "Leggi"
+
+#: manager.php:274
+msgid "Refresh"
+msgstr "Aggiorna"
+
+#: templates/prefs/columnselect.inc:44
+msgid "Remove column"
+msgstr "Rimuovi colonna"
+
+#: templates/manager/manager.html:44 templates/manager/manager.html:136
+msgid "Rename"
+msgstr "Rinomina"
+
+#: lib/api.php:370
+msgid "Renaming across backends is not supported."
+msgstr "Rinominare tra backend non è supportato."
+
+#: lib/api.php:358 lib/api.php:366
+msgid "Renaming of backends is not allowed."
+msgstr "Rinominare i backend non è supportato."
+
+#: templates/edit/edit.inc:12
+msgid "Reset"
+msgstr "Resetta"
+
+#: lib/Gollem.php:730 lib/Gollem.php:735
+msgid "Root"
+msgstr "Root"
+
+#: manager.php:266 templates/edit/edit.inc:11
+msgid "Save"
+msgstr "Salva"
+
+#: templates/prefs/columnselect.html:30
+msgid "Selected Columns:"
+msgstr "Colonne Selezionate:"
+
+#: templates/login/login.html:32
+msgid "Server"
+msgstr "Server"
+
+#: config/prefs.php.dist:20
+msgid "Settings"
+msgstr "Impostazioni"
+
+#: config/prefs.php.dist:30
+msgid "Show dotfiles?"
+msgstr "Mostra file preceduti dal punto?"
+
+#: manager.php:483
+msgid "Size"
+msgstr "Dimensione"
+
+#: lib/api.php:429
+msgid "The application folder can not be deleted."
+msgstr "La cartella applicazioni non può essere eliminata."
+
+#: templates/javascript_defs.php:24
+msgid "The following item(s) are folders:"
+msgstr "I seguenti oggetti sono cartelle:"
+
+#: templates/javascript_defs.php:22
+msgid "The following items will be permanently deleted:"
+msgstr "I seguenti oggetti saranno definitivamente eliminati:"
+
+#: templates/javascript_defs.php:30
+msgid "The original opener window has been closed. Exiting."
+msgstr "La finestra originale è stata chiusa. Uscire."
+
+#: login.php:151
+msgid "There are no backends available for the current user."
+msgstr "Non ci sono backend disponibili per l'utente corrente."
+
+#: selectlist.php:199 templates/manager/manager.html:147
+msgid "There are no files in this folder."
+msgstr "Non ci sono file in questa cartella."
+
+#: templates/clipboard/clipboard.html:15
+msgid ""
+"To clear items from the clipboard, check the box next to the filename and "
+"click on &quot;Clear&quot;."
+msgstr ""
+"Per rimuovere oggetti dagli appunti, seleziona la casella accanto al nome "
+"del file e clicca su &quot;Rimuovi&quot;."
+
+#: templates/clipboard/clipboard.html:13
+msgid ""
+"To paste items from the clipboard to the current directory, check the box "
+"next to the filename and click on &quot;Paste&quot;."
+msgstr ""
+"Per incollare oggetti dagli appunti alla cartella corrente, seleziona la "
+"casella accanto al nome del file e clicca su &quot;Incolla&quot;."
+
+#: manager.php:445
+msgid "Type"
+msgstr "Tipo"
+
+#: lib/api.php:125 lib/api.php:243 lib/api.php:307 lib/api.php:384
+#: lib/api.php:449
+msgid "Unable to create Gollem session"
+msgstr "Impossibile creare la sessione Gollem"
+
+#: permissions.php:42
+#, php-format
+msgid "Unable to create backend permission: %s"
+msgstr "Impossibile creare permessi del backend: %s"
+
+#: manager.php:86
+#, php-format
+msgid "Unable to delete file %s: %s"
+msgstr "Impossibile eliminare il file %s: %s"
+
+#: manager.php:79
+#, php-format
+msgid "Unable to delete folder %s: %s"
+msgstr "Impossibile eliminare la cartella %s: %s"
+
+#: lib/Gollem.php:735 lib/Gollem.php:745
+#, php-format
+msgid "Up to %s"
+msgstr "Fino a %s"
+
+#: manager.php:287
+msgid "Upload File(s)"
+msgstr "Carica file"
+
+#: config/prefs.php.dist:12 config/prefs.php.dist:19
+msgid "User Interface"
+msgstr "Interfaccia Utente"
+
+#: config/credentials.php.dist:18
+msgid "Username"
+msgstr "Nome Utente"
+
+#: manager.php:282
+msgid "View Clipboard"
+msgstr "Visualizza Appunti"
+
+#: login.php:201
+#, php-format
+msgid "Welcome to %s"
+msgstr "Benvenuto a %s"
+
+#: templates/manager/manager.html:20
+msgid "Write"
+msgstr "Scrivi"
+
+#: config/prefs.php.dist:92
+msgid "Yes"
+msgstr "Si"
+
+#: permissions.php:25
+msgid "You need at least one backend defined to set permissions."
+msgstr ""
+"E' necessario aver definito almeno un backend per impostare i permessi."
+
+#: lib/MIME/Viewer/images.php:35
+msgid "Your browser does not support inline display of this image type"
+msgstr ""
+"Il tuo browser non supporta la visualizzazione in linea di questo tipo di "
+"immagine"
+
+#: lib/Gollem.php:814 lib/Gollem.php:817
+msgid "_Change Server"
+msgstr "_Cambia Server"
+
+#: lib/Gollem.php:770
+msgid "_Create Folder"
+msgstr "C_rea Cartella"
+
+#: lib/Gollem.php:766
+msgid "_My Home"
+msgstr "Cartella _Iniziale"
+
+#: lib/Gollem.php:780
+msgid "_Permissions"
+msgstr "_Permessi"
+
+#: manager.php:228 selectlist.php:75
+msgid "folder"
+msgstr "cartella"
+
+#: manager.php:229 selectlist.php:76
+msgid "symlink"
+msgstr "collegamento simbolico"

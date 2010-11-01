@@ -10,7 +10,7 @@
  */
 
 require_once dirname(__FILE__) . '/../../lib/Application.php';
-new Horde_Application(array('admin' => true));
+Horde_Registry::appInit('horde', array('admin' => true));
 
 $perm_id = Horde_Util::getFormData('perm_id');
 
@@ -18,8 +18,9 @@ $title = _("Permissions Administration");
 require HORDE_TEMPLATES . '/common-header.inc';
 require HORDE_TEMPLATES . '/admin/menu.inc';
 
-$ui = new Horde_Perms_Ui($perms);
-$notification->notify();
+$ui = new Horde_Core_Perms_Ui($injector->getInstance('Horde_Perms'));
+
+echo '<h1 class="header">' . Horde::img('perms.png') . ' ' . _("Permissions") . '</h1>';
 $ui->renderTree($perm_id);
 
 require HORDE_TEMPLATES . '/common-footer.inc';

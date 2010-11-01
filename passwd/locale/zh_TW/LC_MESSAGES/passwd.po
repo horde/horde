@@ -1,0 +1,346 @@
+# Passwd module translations
+# Copyright 2002 David Chang. 張良文,台灣
+# David Chang <david@tmv.gov.tw>, 2002.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: passwd H3 (3.1-cvs)\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2007-01-25 15:10+0800\n"
+"PO-Revision-Date: 2002-02-19 10:23-0600\n"
+"Last-Translator: David Chang <david@tmv.gov.tw>\n"
+"Language-Team: Traditional Chinese <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lib/Driver/expect.php:34
+#, php-format
+msgid "%s does not exist or is not executable."
+msgstr "%s 不存在或無法執行."
+
+#: lib/Driver/expectpecl.php:73
+#, php-format
+msgid "%s extension cannot be loaded!"
+msgstr "%s 延伸無法被載入!"
+
+#: lib/Driver/composite.php:63
+#, php-format
+msgid "%s: unable to load driver: %s"
+msgstr "%s: 無法載入驅動程式: %s"
+
+#: lib/Driver/adsi.php:61
+#, php-format
+msgid "ADSI error %s."
+msgstr "ADSI 錯誤 %s."
+
+#: lib/Driver/adsi.php:64 lib/Driver/pspasswd.php:105
+msgid "Access Denied."
+msgstr "存取遭拒."
+
+#: lib/Driver.php:89
+msgid "Backend not correctly implemented."
+msgstr "後端伺服器尚未正確完成."
+
+#: lib/Driver/poppassd.php:90
+msgid "Cannot send command to server."
+msgstr "無法傳送命令到伺服器."
+
+#: main.php:255 templates/main/main.inc:141
+msgid "Change Password"
+msgstr "更改密碼"
+
+#: templates/main/main.inc:126
+msgid "Change password on:"
+msgstr "更改密碼於:"
+
+#: templates/main/main.inc:67
+msgid "Change your password"
+msgstr "更改密碼"
+
+#: templates/main/main.inc:65
+#, php-format
+msgid "Changing password on %s"
+msgstr "變更在 %s 的密碼中"
+
+#: templates/main/main.inc:113
+msgid "Confirm new password:"
+msgstr "確認新密碼:"
+
+#: lib/Driver/kolab.php:60 lib/Driver/ldap.php:99 lib/Driver/ldap.php:189
+msgid "Could not bind to LDAP server"
+msgstr "無法繫結 LDAP 伺服器"
+
+#: lib/Driver/expectpecl.php:118
+msgid "Could not change password (bad old password?)"
+msgstr "無法變更密碼 (舊密碼錯誤?)"
+
+#: lib/Driver/expectpecl.php:138
+msgid "Could not change password."
+msgstr "無法變更密碼."
+
+#: lib/Driver/kolab.php:46 lib/Driver/ldap.php:74
+msgid "Could not connect to LDAP server"
+msgstr "無法連結 LDAP 伺服器"
+
+#: lib/Driver/expectpecl.php:98
+msgid "Could not login to system (no password prompt)"
+msgstr "無法登入到系統 (沒有密碼提示)"
+
+#: lib/Driver/smbpasswd.php:57
+msgid "Could not open pipe to smbpasswd."
+msgstr "無法開啟到 smbpasswd 的管線."
+
+#: lib/Driver/ldap.php:80
+msgid "Could not start TLS connection to LDAP server"
+msgstr "無法啟動 TLS 連結 LDAP 伺服器"
+
+#: lib/Driver/expectpecl.php:108
+msgid "Could not start passwd program (no old password prompt)"
+msgstr "無法啟動 passwd 程式 (沒有舊密碼提示)"
+
+#: lib/Driver/expectpecl.php:44
+msgid "End of file."
+msgstr "檔案結束."
+
+#: lib/Driver/smbpasswd.php:79
+msgid "Error sending data to smbpasswd."
+msgstr "傳送資料到 smbpasswd 時發生錯誤."
+
+#: lib/Driver/pspasswd.php:93
+msgid "Failed to verify old password."
+msgstr "舊密碼確認失敗."
+
+#: main.php:211 lib/Driver/composite.php:102
+#, php-format
+msgid "Failure in changing password on %s: %s"
+msgstr "變更 %s 密碼失敗: %s"
+
+#: lib/Driver/expectpecl.php:50
+msgid "Full buffer."
+msgstr "緩衝區滿載(Full buffer)."
+
+#: lib/Driver.php:60 lib/Driver/kolab.php:84 lib/Driver/ldap.php:190
+#: lib/Driver/poppassd.php:120 lib/Driver/vmailmgr.php:42
+msgid "Incorrect Password"
+msgstr "不正確的密碼"
+
+#: lib/Driver/ldap.php:166
+msgid "Minimum password age has not yet expired"
+msgstr "舊密碼未達一定使用時間"
+
+#: lib/Driver/expectpecl.php:128
+msgid "New password not valid (too short, bad password, too similar, ...)"
+msgstr "無效的新密碼 (太短, 太相似, 太簡單, ...)"
+
+#: templates/main/main.inc:101
+msgid "New password:"
+msgstr "新密碼:"
+
+#: lib/Driver/poppassd.php:67
+msgid "No prompt returned from server."
+msgstr "伺服器沒有傳回提示."
+
+#: lib/Driver.php:116
+msgid "No such backend \"%s\" found."
+msgstr "找不到伺服端 \"%s\"."
+
+#: lib/Driver/http.php:72
+msgid "Old password is incorrect."
+msgstr "舊密碼不正確."
+
+#: templates/main/main.inc:89
+msgid "Old password:"
+msgstr "舊密碼:"
+
+#: lib/Driver/smbpasswd.php:47
+msgid "Passwd is not properly configured."
+msgstr "Passwd 模組尚未完整規劃."
+
+#: main.php:203
+#, php-format
+msgid "Password changed on %s."
+msgstr "%s 的密碼已變更."
+
+#: lib/Driver/sql.php:127
+#, php-format
+msgid "Password column \"%s\" not found in password table."
+msgstr "在密碼表格(password table)中找不到 Password 欄位 \"%s\""
+
+#: lib/Driver/pspasswd.php:75
+msgid "Password module can't find the supplied bin."
+msgstr "Password 模組找不到支援的程式."
+
+#: lib/Driver/pspasswd.php:73
+msgid "Password module is missing required parameters."
+msgstr "Password 模組找不到必要的參數."
+
+#: lib/Driver/adsi.php:51
+msgid "Password module is missing target parameter."
+msgstr "Password 模組找不到目標參數."
+
+#: main.php:178 lib/Driver/servuftp.php:71
+msgid "Password module is not properly configured"
+msgstr "Password 模組尚未完整規劃"
+
+#: lib/Driver/servuftp.php:98
+msgid "Password module is not properly configured."
+msgstr "Password 模組尚未完整規劃."
+
+#: templates/main/main.inc:11
+msgid "Please provide a new password"
+msgstr "請輸入一組新密碼"
+
+#: templates/main/main.inc:7
+msgid "Please provide your current password"
+msgstr "請輸入你目前的密碼"
+
+#: templates/main/main.inc:15
+msgid "Please verify your new password"
+msgstr "請確認你的新密碼"
+
+#: lib/Driver/composite.php:41
+msgid "Required 'drivers' is misconfigured in Composite configuration."
+msgstr "綜合設定檔中,找不到關於 'drivers'設定資料."
+
+#: lib/Driver/sql.php:46
+msgid "Required 'phptype' not specified in Passwd SQL configuration."
+msgstr "Passwd 的 SQL 設定必須指定 'phptype'"
+
+#: lib/Driver/vpopmail.php:49
+msgid "Required 'phptype' not specified in SQL configuration."
+msgstr "SQL 設定必須指定 'phptype'"
+
+#: templates/main/main.inc:142
+msgid "Reset"
+msgstr "重設"
+
+#: lib/Driver/http.php:65
+msgid "The requested website for changing user passwords could not be reached."
+msgstr "無法連接上,變更密碼的網站."
+
+#: lib/Driver/http.php:74
+msgid "The username could not be found."
+msgstr "找不到這個使用者名稱."
+
+#: lib/Driver/expectpecl.php:47
+msgid "Time out."
+msgstr "時間到."
+
+#: lib/Driver/sql.php:75 lib/Driver/vpopmail.php:83
+msgid "Unable to connect to SQL server."
+msgstr "無法連結 SQL 伺服器."
+
+#: lib/Driver/expectpecl.php:93
+msgid "Unable to open expect stream!"
+msgstr "無法開啟 expect stream!"
+
+#: lib/Driver/poppassd.php:114 lib/Driver/sql.php:135
+#: lib/Driver/vpopmail.php:150
+msgid "User not found"
+msgstr "找不到使用者"
+
+#: lib/Driver/kolab.php:76 lib/Driver/ldap.php:133 lib/Driver/pine.php:231
+#: lib/Driver/smbldap.php:140
+msgid "User not found."
+msgstr "找不到使用者."
+
+#: templates/main/main.inc:76
+msgid "Username:"
+msgstr "使用者名稱:"
+
+#: main.php:47
+#, php-format
+msgid "You can't change password for user %s"
+msgstr "你不能變更使用者 %s 的密碼"
+
+#: main.php:55
+msgid "You must give your current password"
+msgstr "你必須輸入目前的密碼"
+
+#: main.php:64
+msgid "You must give your new password"
+msgstr "你必須輸入新密碼"
+
+#: main.php:68
+msgid "You must verify your new password"
+msgstr "你必須確定你的新密碼"
+
+#: main.php:88
+#, php-format
+msgid ""
+"Your new password is too long; passwords may not be more than %d characters "
+"long!"
+msgstr "你的新密碼太長;最多不能超過 %d 個字!"
+
+#: main.php:167
+msgid "Your new password is too simple to guess!  Not changed!"
+msgstr "你的新密碼太過簡單有被猜到的可能! 無法變更!"
+
+#: main.php:158
+msgid "Your new password is too simple to guess. Not changed!"
+msgstr "你的新密碼太過簡單有被猜到的可能! 無法變更!"
+
+#: main.php:83
+#, php-format
+msgid "Your new password must be at least %d characters long!"
+msgstr "你的新密碼至少要有 %d 個字!"
+
+#: main.php:76
+msgid "Your new password must be different from your current password"
+msgstr "你的新密碼必須與目前的密碼有所不同"
+
+#: main.php:128
+#, php-format
+msgid "Your new password must contain at least %d alphabetic characters."
+msgstr "你的新密碼至少要包含 %d 個以上的英文字."
+
+#: main.php:133
+#, php-format
+msgid "Your new password must contain at least %d alphanumeric characters."
+msgstr "你的新密碼至少要包含 %d 個以上的英文字與數字."
+
+#: main.php:138
+#, php-format
+msgid ""
+"Your new password must contain at least %d different types of characters. "
+"The types are: lower, upper, numeric, and symbols."
+msgstr ""
+"你的新密碼至少要包含 %d 種不同型態的文字.這些型態包括:小寫英文字,大寫英文字,"
+"數字以及符號."
+
+#: main.php:118
+#, php-format
+msgid "Your new password must contain at least %d lowercase characters."
+msgstr "你的新密碼至少要包含 %d 個以上的小寫英文字."
+
+#: main.php:123
+#, php-format
+msgid "Your new password must contain at least %d numeric characters."
+msgstr "你的新密碼至少要包含 %d 個以上的數字."
+
+#: main.php:113
+#, php-format
+msgid "Your new password must contain at least %d uppercase characters."
+msgstr "你的新密碼至少要包含 %d 個以上的大寫英文字."
+
+#: main.php:144
+#, php-format
+msgid "Your new password must contain less than %d whitespace characters."
+msgstr "你的新密碼不得包含 %d 個以上的空白字."
+
+#: main.php:146
+msgid "Your new password must not contain whitespace characters."
+msgstr "你的新密碼不得包含空白字."
+
+#: main.php:72
+msgid "Your new passwords didn't match"
+msgstr "你的新密碼不符合"
+
+#: lib/Driver/http.php:76
+msgid "Your password could not be changed."
+msgstr "你的密碼無法被變更."
+
+#: templates/main/main.inc:19
+msgid "Your passwords do not match"
+msgstr "你的密碼不符合"

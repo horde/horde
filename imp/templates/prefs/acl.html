@@ -1,0 +1,62 @@
+<input type="hidden" name="acl_folder" value="<tag:folder />" />
+
+<if:hasacl>
+<div>
+ <h3><tag:current /></h3>
+</div>
+
+<table class="prefsAclTable">
+<tr>
+ <th class="item" width="<tag:width />">
+  <h4><strong><gettext>User</gettext></strong></h4>
+ </th>
+<loop:rights>
+ <th class="item" width="<tag:width />">
+  <h4><strong><span title="<tag:rights.desc />"><tag:rights.title /></span></strong></h4>
+ </th>
+</loop:rights>
+</tr>
+<loop:curr_acl>
+<tr>
+ <td class="item"><tag:curr_acl.index /><input id="<tag:curr_acl.index />" type="hidden" name="acl[<tag:curr_acl.index />][]" value="" /></td>
+<loop:curr_acl.rule>
+ <td class="item" align="center">
+  <label class="hidden" for="<tag:curr_acl.index />:<tag:curr_acl.rule.val />">Rule <tag:curr_acl.rule.val /> for user <tag:curr_acl.index /></label>
+  <input type="checkbox" class="checkbox" id="<tag:curr_acl.index />:<tag:curr_acl.rule.val />"
+  <if:curr_acl.disabled> disabled="disabled"<else:curr_acl.disabled><if:canedit> name="acl[<tag:curr_acl.index />][]" value="<tag:curr_acl.rule.val />"<else:canedit> disabled="disabled"</else:canedit></if:canedit></else:curr_acl.disabled></if:curr_acl.disabled><if:curr_acl.rule.enabled> checked="checked"</if:curr_acl.rule.enabled> />
+ </td>
+</loop:curr_acl.rule>
+</tr>
+</loop:curr_acl>
+
+<if:canedit>
+<tr>
+ <td class="item">
+   <label for="new_user" class="hidden">New User</label>
+<if:noadmin>
+   <input id="new_user" type="text" name="new_user" />
+<else:noadmin>
+   <select id="new_user" name="new_user">
+<loop:new_user>
+    <option><tag:new_user /></option>
+</loop:new_user>
+   </select>
+</else:noadmin></if:noadmin>
+ </td>
+<loop:rights>
+ <td class="item" align="center">
+  <label class="hidden" for="new_user:<tag:rights.right />">Rule <tag:rights.right /> for the new user</label><input id="new_user:<tag:rights.right />" type="checkbox" name="new_acl[]" value="<tag:rights.right />" class="checkbox" />
+ </td>
+</loop:rights>
+</tr>
+</if:canedit>
+</table>
+</if:hasacl>
+
+<div>
+ <span class="folderImg"></span>
+ <select id="aclfolder" name="folder">
+  <tag:options />
+ </select>
+ <input type="submit" name="change_acl_folder" class="button" value="<gettext>Change Folder</gettext>" />
+</div>

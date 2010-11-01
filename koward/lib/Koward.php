@@ -35,7 +35,7 @@ class Koward {
         $this->registry     = &$registry;
         $this->notification = &$notification;
 
-        $this->auth = Horde_Auth::singleton($conf['auth']['driver']);
+        $this->auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
 
         $this->conf       = Horde::loadConfiguration('conf.php', 'conf');
         $this->objects    = Horde::loadConfiguration('objects.php', 'objects');
@@ -51,18 +51,6 @@ class Koward {
                                     $webroot = null)
     {
         global $registry, $notification, $browser;
-
-        $registry = Horde_Registry::singleton();
-
-        $notification = Horde_Notification::singleton();
-        $notification->attach('status');
-
-        /* Browser detection object. */
-        if (class_exists('Horde_Browser')) {
-            $browser = Horde_Browser::singleton();
-        } else if (class_exists('Browser')) {
-            $browser = Browser::singleton();
-        }
 
         if ($webroot === null) {
             $webroot = $registry->get('webroot', 'koward');
@@ -99,44 +87,11 @@ class Koward {
     public function getServer()
     {
         if (!isset(self::$server)) {
-            self::$server = Horde_Kolab_Server::singleton(array('user' => Horde_Auth::getAuth(),
-                                                                'pass' => Horde_Auth::getCredential('password')));
+            self::$server = Horde_Kolab_Server::singleton(array('user' => $GLOBALS['registry']->getAuth(),
+                                                                'pass' => $GLOBALS['registry']->getAuthCredential('password')));
         }
 
         return self::$server;
-    }
-
-    /**
-     * Get a token for protecting a form.
-     *
-     * @param string $seed  TODO
-     *
-     * @return  TODO
-     */
-    static public function getRequestToken($seed)
-    {
-        $token = Horde_Token::generateId($seed);
-        $_SESSION['horde_form_secrets'][$token] = time();
-        return $token;
-    }
-
-    /**
-     * Check if a token for a form is valid.
-     *
-     * @param string $seed   TODO
-     * @param string $token  TODO
-     *
-     * @throws Horde_Exception
-     */
-    static public function checkRequestToken($seed, $token)
-    {
-        if (empty($_SESSION['horde_form_secrets'][$token])) {
-            throw new Horde_Exception(_("We cannot verify that this request was really sent by you. It could be a malicious request. If you intended to perform this action, you can retry it now."));
-        }
-
-        if ($_SESSION['horde_form_secrets'][$token] + $GLOBALS['conf']['server']['token_lifetime'] < time()) {
-            throw new Horde_Exception(sprintf(_("This request cannot be completed because the link you followed or the form you submitted was only valid for %d minutes. Please try again now."), round($GLOBALS['conf']['server']['token_lifetime'] / 60)));
-        }
     }
 
     public function getObject($uid)
@@ -205,7 +160,7 @@ class Koward {
                     }
                 }
             } catch (Exception $e) {
-                Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                Horde::logMessage($e, 'DEBUG');
             }
         }
         return $global;

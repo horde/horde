@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_Enriched class renders out plain text from
+ * The IMP_Mime_Viewer_Enriched class renders out plain text from
  * enriched content tags, ala RFC 1896
  *
  * Copyright 2001-2010 The Horde Project (http://www.horde.org/)
@@ -8,15 +8,17 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Eric Rostetter <eric.rostetter@physics.utexas.edu>
- * @package Horde_Mime
+ * @author   Eric Rostetter <eric.rostetter@physics.utexas.edu>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
-class IMP_Horde_Mime_Viewer_Enriched extends Horde_Mime_Viewer_Enriched
+class IMP_Mime_Viewer_Enriched extends Horde_Mime_Viewer_Enriched
 {
     /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _render()
     {
@@ -31,7 +33,7 @@ class IMP_Horde_Mime_Viewer_Enriched extends Horde_Mime_Viewer_Enriched
     /**
      * Return the rendered inline version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _renderInline()
     {
@@ -76,4 +78,5 @@ class IMP_Horde_Mime_Viewer_Enriched extends Horde_Mime_Viewer_Enriched
         // Filter bad language.
         return IMP::filterText($text);
     }
+
 }

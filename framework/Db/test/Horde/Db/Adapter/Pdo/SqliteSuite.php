@@ -59,21 +59,18 @@ class Horde_Db_Adapter_Pdo_SqliteSuite extends PHPUnit_Framework_TestSuite
 
     public function getConnection()
     {
-        if (!class_exists('CacheMock', false)) eval('class CacheMock { function get($key) { return $this->$key; } function set($key, $val) { $this->$key = $val; } } ?>');
-        $cache = new CacheMock;
-
-        $conn = Horde_Db_Adapter::factory(array(
-            'adapter' => 'pdo_sqlite',
+        $conn = new Horde_Db_Adapter_Pdo_Sqlite(array(
             'dbname' => ':memory:',
-            'cache' => $cache,
         ));
+
+        $cache = new Horde_Cache_Mock();
+        $conn->setCache($cache);
 
         return array($conn, $cache);
     }
 
     protected function setUp()
     {
-        $this->sharedFixture = $this;
+        Horde_Db_AllTests::$connFactory = $this;
     }
-
 }

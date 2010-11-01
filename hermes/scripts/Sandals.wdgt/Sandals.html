@@ -1,0 +1,436 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Sandals copyright 2007-2008, Alkaloid Networks LLC. -->
+<!-- Sandals is released under the terms of the GNU Public License v2 -->
+<!-- Sandals is a part of the Hermes module for the Horde framework. -->
+<!-- Horde Project: http://www.horde.org/ | Hermes: http://www.horde.org/hermes/ -->
+<!-- Horde Licenses: http://www.horde.org/licenses/ -->
+
+<html lang="en-US" xmlns="http://www.w3.org/1999/xhtml" xml:lang=
+"en-US">
+<head>
+  <title>Sandals: Horde Timetracking</title>
+<!-- Widget Libraries -->
+<script type='text/javascript' 
+  src='/System/Library/WidgetResources/AppleClasses/AppleInfoButton.js' 
+  charset='utf-8' /> 
+<script type='text/javascript' 
+  src='/System/Library/WidgetResources/AppleClasses/AppleAnimator.js' 
+  charset='utf-8' /> 
+<script type='text/javascript' 
+  src='/System/Library/WidgetResources/AppleClasses/AppleButton.js' 
+  charset='utf-8' /> 
+<!-- End Widget Libs -->
+<script type="text/javascript" src="lib/vcXMLRPC.js" charset=
+"utf-8">
+</script>
+<script type="text/javascript" src="lib/horde.js">
+</script>
+<script type="text/javascript" src="lib/Sandals.js" charset=
+"utf-8">
+</script>
+  <link href="themes/screen.css" rel="stylesheet" type=
+  "text/css" />
+  <link href="themes/bluewhite-screen.css" rel="stylesheet" type=
+  "text/css" />
+  <link href="themes/hermes-screen.css" rel="stylesheet" type=
+  "text/css" />
+  <link href="themes/sandals-screen.css" rel="stylesheet" type=
+  "text/css" />
+</head>
+
+<body onload="setup();" background="Default.png">
+  <div id="front">
+    <div id="notificationBox"></div>
+    <div id='NewTime'>
+      <!-- form action="#" name="timeentryform" id="timeentryform" -->
+        <div class="form" id="timeentryform_active">
+          <div class="header">
+            Horde Time Entry
+          </div>
+          <script type="text/javascript" src="lib/stripe.js"></script>
+          <ul id='msgBox' class='notices'></ul>
+
+          <div id="timeentryform_section___base" style=
+          "display:block;">
+            <table class="striped" cellspacing="0">
+              <tr valign="top">
+                <td width="15%" align="right"><span class=
+                "form-error"><img src=
+                "themes/graphics/required.png" alt="*" title=
+                "" /></span>&nbsp;Date</td>
+
+                <td>
+                  <script type="text/javascript" src=
+                  "lib/open_calendar.js">
+</script> <select name="date_month" id="date_month">
+                  <option value="">
+                      MM
+                    </option>
+
+                    <option value="1">
+                      January
+                    </option>
+
+                    <option value="2">
+                      February
+                    </option>
+
+                    <option value="3">
+                      March
+                    </option>
+
+                    <option value="4">
+                      April
+                    </option>
+
+                    <option value="5">
+                      May
+                    </option>
+
+                    <option value="6">
+                      June
+                    </option>
+                    <!-- FIXME: Use JS to pre-populate the current date -->
+                    <option value="7" selected="selected">
+                      July
+                    </option>
+
+                    <option value="8">
+                      August
+                    </option>
+
+                    <option value="9">
+                      September
+                    </option>
+
+                    <option value="10">
+                      October
+                    </option>
+
+                    <option value="11">
+                      November
+                    </option>
+
+                    <option value="12">
+                      December
+                    </option>
+                  </select><select name="date_day" id="date_day">
+                    <option value="">
+                      DD
+                    </option>
+
+                    <option value="1">
+                      1
+                    </option>
+
+                    <option value="2" selected="selected">
+                      2
+                    </option>
+
+                    <option value="3">
+                      3
+                    </option>
+
+                    <option value="4">
+                      4
+                    </option>
+
+                    <option value="5">
+                      5
+                    </option>
+
+                    <option value="6">
+                      6
+                    </option>
+
+                    <option value="7">
+                      7
+                    </option>
+
+                    <option value="8">
+                      8
+                    </option>
+
+                    <option value="9">
+                      9
+                    </option>
+
+                    <option value="10">
+                      10
+                    </option>
+
+                    <option value="11">
+                      11
+                    </option>
+
+                    <option value="12">
+                      12
+                    </option>
+
+                    <option value="13">
+                      13
+                    </option>
+
+                    <option value="14">
+                      14
+                    </option>
+
+                    <option value="15">
+                      15
+                    </option>
+
+                    <option value="16">
+                      16
+                    </option>
+
+                    <option value="17">
+                      17
+                    </option>
+
+                    <option value="18">
+                      18
+                    </option>
+
+                    <option value="19">
+                      19
+                    </option>
+
+                    <option value="20">
+                      20
+                    </option>
+
+                    <option value="21">
+                      21
+                    </option>
+
+                    <option value="22">
+                      22
+                    </option>
+
+                    <option value="23">
+                      23
+                    </option>
+
+                    <option value="24">
+                      24
+                    </option>
+
+                    <option value="25">
+                      25
+                    </option>
+
+                    <option value="26">
+                      26
+                    </option>
+
+                    <option value="27">
+                      27
+                    </option>
+
+                    <option value="28">
+                      28
+                    </option>
+
+                    <option value="29">
+                      29
+                    </option>
+
+                    <option value="30">
+                      30
+                    </option>
+
+                    <option value="31">
+                      31
+                    </option>
+                  </select><select name="date_year" id="date_year">
+                    <option value="">
+                      YYYY
+                    </option>
+
+                    <option value="2006">
+                      2006
+                    </option>
+
+                    <option value="2007" selected="selected">
+                      2007
+                    </option>
+
+                    <option value="2008">
+                      2008
+                    </option>
+
+                    <option value="2009">
+                      2009
+                    </option>
+
+                    <option value="2010">
+                      2010
+                    </option>
+
+                    <option value="2011">
+                      2011
+                    </option>
+
+                    <option value="2012">
+                      2012
+                    </option>
+
+                    <option value="2013">
+                      2013
+                    </option>
+
+                    <option value="2014">
+                      2014
+                    </option>
+
+                    <option value="2015">
+                      2015
+                    </option>
+
+                    <option value="2016">
+                      2016
+                    </option>
+
+                    <option value="2017">
+                      2017
+                    </option>
+                  </select>
+
+                  <div id="goto" style="display:none">
+                  </div><a href="#" onclick=
+                  "openCalendar('dategoto', 'date'); return false;"
+                  title="Select a date"><img src=
+                  "themes/graphics/calendar.png" alt="Calendar"
+                  title="" id="dategoto" name="dategoto" /></a>
+                </td>
+              </tr>
+
+              <tr valign="top">
+                <td width="15%" align="right"><span class=
+                "form-error"><img src=
+                "themes/graphics/required.png"
+                alt="*" title="" /></span>&nbsp;Client</td>
+
+                <td>
+                  <span id='noClients' class="form-error">There are no clients
+                    which you have access to.</span>
+                  <select name="client" id="client" style='display:none' />
+                </td>
+              </tr>
+
+              <tr valign="top">
+                <td width="15%" align="right"><span class=
+                "form-error"><img src=
+                "themes/graphics/required.png"
+                alt="*" title="" /></span>&nbsp;Job Type</td>
+
+                <td>
+                  <span id='noJobTypes' class="form-error">There are no job
+                    types configured.</span>
+                  <select name="jobType" id="jobType" style='display:none' />
+                </td>
+              </tr>
+
+              <tr valign="top">
+                <td width="15%" align="right"><span class=
+                "form-error"><img src=
+                "themes/graphics/required.png"
+                alt="*" title="" /></span>&nbsp;Cost Object</td>
+
+                <td><select name="costObject" id="costObject">
+                  <option value="" selected="selected">
+                    --- No Cost Object ---
+                  </option>
+                </select>
+                </td>
+              </tr>
+
+              <tr valign="top">
+                <td width="15%" align="right"><span class=
+                "form-error"><img src=
+                "themes/graphics/required.png"
+                alt="*" title="" /></span>&nbsp;Hours</td>
+
+                <td><input type="text" size="5" name="hours" id=
+                "hours" value="" /></td>
+              </tr>
+
+              <tr valign="top">
+                <td width="15%" align="right"><span class=
+                "form-error"><img src=
+                "themes/graphics/required.png"
+                alt="*" title="" /></span>&nbsp;Billable?</td>
+
+                <td><select name="billable" id="billable">
+                  <option value="1">
+                    Yes
+                  </option>
+
+                  <option value="0">
+                    No
+                  </option>
+                </select></td>
+              </tr>
+
+              <tr valign="top">
+                <td width="15%" align="right"><span class=
+                "form-error"><img src=
+                "themes/graphics/required.png"
+                alt="*" title="" /></span>&nbsp;Description</td>
+
+                <td>
+                <textarea id="description" name="description" cols=
+                "40" rows="2">
+</textarea></td>
+              </tr>
+
+              <tr valign="top">
+                <td width="15%" align="right">Additional Notes</td>
+
+                <td>
+                <textarea id="note" name="note" cols="40" rows="2">
+</textarea></td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="control">
+            <input class="button" name="submitbutton" type="submit"
+                onclick="javascript:recordTime()" value="Save" />
+            <input class="button" name="resetbutton" type="reset"
+                onclick="javascript:resetTimeForm()" value="Reset Form" />
+            <input class="button" name="resyncbutton" type="submit"
+                onclick="javascript:forceRefresh()" value="Refresh Server Data" />
+          <img id="spinner-front" src="themes/graphics/spinner-transparent.gif" />
+          </div>
+        </div>
+      <!-- /form -->
+    </div>
+    <div id='infoButton' style='position: absolute; top: 5px; left:400px'></div>
+    <br />
+  </div>
+
+  <div id="back" style='display: none'>
+    <!-- All of the Apple widgets seem to break with W3C standard by not making
+      -  form elements part of an active form.  This has the side-effect of 
+      -  preventing most enter-key presses from submitting the form to a
+      -  non-existant target (which breaks the JS "magic").  Not my ideal way
+      -  to do this, but I guess it works, at least for now.
+      -  2007-11-10 bklang
+      -->
+    <!-- form id='configuration_form' -->
+      URL to Horde's rpc.php (for XML-RPC):
+      <input type="text" name="horde_url" id='horde_url' /><br />
+      Horde Username:
+      <input type="text" name="horde_username" id='horde_username' /><br />
+      Horde Password:
+      <input type="password" name="horde_password" id='horde_password' /><br />
+      <ul id="prefMsgBox" class="notices"></ul>
+      <div id="doneButton"></div>
+      <input type='submit' value='Refresh Server Data' onClick='javascript:forceRefresh();' />
+      <img id="spinner-back" src="themes/graphics/spinner-transparent.gif" />
+    <!-- /form -->
+  </div>
+</body>
+</html>

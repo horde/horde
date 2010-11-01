@@ -1,0 +1,43 @@
+#
+# This is a LDIF file to test reading capabilitys
+# It was created using options: sort=1, wrap=50
+#
+version: 1
+dn: cn=test1,ou=example,dc=cno
+objectclass: oc1
+attr1: 12345
+attr2: 1234
+attr2: baz
+attr3: foo
+attr3: bar
+attr4: brrrzztt
+cn: test1
+
+dn: cn=test blabla,ou=example,dc=cno
+objectclass: oc2
+attr1: 12345
+attr2: 1234
+attr2: baz
+attr3: foo
+attr3: bar
+attr4:: YmxhYmxh9uT8
+cn: test blabla
+verylong: fhu08rhvt7b478vt5hv78h45nfgt45h78t34hhhhhhhhhv5bg8
+ h6ttttttttt3489t57nhvgh4788trhg8999vnhtgthgui65hgb
+ 5789thvngwr789cghm738
+
+dn:: Y249dGVzdCD25Pwsb3U9ZXhhbXBsZSxkYz1jbm8=
+objectclass: oc3
+attr1: 12345
+attr2: 1234
+attr2: baz
+attr3: foo
+attr3: bar
+attr4:: YmxhYmxh9uT8
+attr5:: ZW5kc3BhY2Ug
+attr6:: OmJhZGluaXRjaGFy
+cn:: dGVzdCD25Pw=
+
+dn:: OmNuPWVuZHNwYWNlLGRjPWNubyA=
+cn: endspace
+

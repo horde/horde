@@ -39,10 +39,7 @@ class Horde_Kolab_Session_Integration_AnonymousTest extends Horde_Kolab_Session_
         $user = $this->getMock(
             'Horde_Kolab_Server_Object_Hash', array(), array(), '', false, false
         );
-        $user->expects($this->exactly(4))
-            ->method('getExternal')
-            ->will($this->returnValue(array('anonymous@example.org')));
-        $user->expects($this->exactly(1))
+        $user->expects($this->exactly(5))
             ->method('getSingle')
             ->will($this->returnValue('anonymous@example.org'));
         $composite = $this->_getMockedComposite();
@@ -50,7 +47,7 @@ class Horde_Kolab_Session_Integration_AnonymousTest extends Horde_Kolab_Session_
             ->method('fetch')
             ->will($this->returnValue($user));
         $session = new Horde_Kolab_Session_Base(
-            '', $composite, array()
+            $composite, array()
         );
         $anonymous = new Horde_Kolab_Session_Decorator_Anonymous(
             $session, 'anonymous', 'pass'

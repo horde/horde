@@ -1,41 +1,20 @@
 <?php
-
-/**
- * File value for vfs_type column.
- */
-define('VFS_FILE', 1);
-
-/**
- * Folder value for vfs_type column.
- */
-define('VFS_FOLDER', 2);
-
 /**
  * VFS implementation for PHP's PEAR database abstraction layer.
  *
  * Required values for $params:<pre>
- *   'phptype'      The database type (ie. 'pgsql', 'mysql', etc.).</pre>
+ * db - (DB) A DB object.
+ * </pre>
  *
  * Optional values:<pre>
- *   'table'          The name of the vfs table in 'database'. Defaults to
- *                    'horde_vfs'.</pre>
- *
- * Required by some database implementations:<pre>
- *   'hostspec'     The hostname of the database server.
- *   'protocol'     The communication protocol ('tcp', 'unix', etc.).
- *   'database'     The name of the database.
- *   'username'     The username with which to connect to the database.
- *   'password'     The password associated with 'username'.
- *   'options'      Additional options to pass to the database.
- *   'tty'          The TTY on which to connect to the database.
- *   'port'         The port on which to connect to the database.</pre>
+ * table - (string) The name of the vfs table in 'database'. Defaults to
+ *         'horde_vfs'.
+ * </pre>
  *
  * Optional values when using separate reading and writing servers, for example
  * in replication settings:<pre>
- *   'splitread'   Boolean, whether to implement the separation or not.
- *   'read'        Array containing the parameters which are different for
- *                 the read database connection, currently supported
- *                 only 'hostspec' and 'port' parameters.</pre>
+ * writedb - (DB) A writable DB object
+ * </pre>
  *
  * The table structure for the VFS can be found in data/vfs.sql.
  *
@@ -57,17 +36,25 @@ define('VFS_FOLDER', 2);
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package VFS
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  VFS
  */
-class VFS_sql extends VFS {
+class VFS_sql extends VFS
+{
+    /* File value for vfs_type column. */
+    const FILE = 1;
+
+    /* Folder value for vfs_type column. */
+    const FOLDER = 2;
 
     /**
      * Handle for the current database connection.
      *
      * @var DB
      */
-    var $_db = false;
+    protected $_db = false;
 
     /**
      * Handle for the current database connection, used for writing. Defaults
@@ -75,7 +62,7 @@ class VFS_sql extends VFS {
      *
      * @var DB
      */
-    var $_write_db;
+    protected $_write_db;
 
     /**
      * Boolean indicating whether or not we're connected to the SQL
@@ -83,7 +70,7 @@ class VFS_sql extends VFS {
      *
      * @var boolean
      */
-    var $_connected = false;
+    protected $_connected = false;
 
     /**
      * Retrieves the filesize from the VFS.
@@ -91,14 +78,12 @@ class VFS_sql extends VFS {
      * @param string $path  The pathname to the file.
      * @param string $name  The filename to retrieve.
      *
-     * @return int The file size.
+     * @return integer  The file size.
+     * @throws VFS_Exception
      */
-    function size($path, $name)
+    public function size($path, $name)
     {
-        $result = $this->_connect();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_connect();
 
         $length_op = $this->_getFileSizeOp();
         $sql = sprintf(
@@ -111,7 +96,7 @@ class VFS_sql extends VFS {
         $size = $this->_db->getOne($sql, $values);
 
         if (is_null($size)) {
-            return PEAR::raiseError(sprintf(_("Unable to check file size of \"%s/%s\"."), $path, $name));
+            throw new VFS_Exception(sprintf('Unable to check file size of "%s/%s".', $path, $name));
         }
 
         return $size;
@@ -120,22 +105,19 @@ class VFS_sql extends VFS {
     /**
      * Returns the size of a file.
      *
-     * @access public
-     *
      * @param string $path  The path of the file.
      * @param string $name  The filename.
      *
-     * @return integer  The size of the folder in bytes or PEAR_Error on
-     *                  failure.
+     * @return integer  The size of the folder in bytes.
+     * @throws VFS_Exception
      */
-    function getFolderSize($path = null, $name = null)
+    public function getFolderSize($path = null, $name = null)
     {
-        $result = $this->_connect();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_connect();
 
-        $where = (is_null($path)) ? null : sprintf('WHERE vfs_path LIKE %s', ((!strlen($path)) ? '""' : $this->_db->quote($this->_convertPath($path) . '%')));
+        $where = is_null($path)
+            ? null
+            : sprintf('WHERE vfs_path LIKE %s', ((!strlen($path)) ? '""' : $this->_db->quote($this->_convertPath($path) . '%')));
         $length_op = $this->_getFileSizeOp();
         $sql = sprintf(
             'SELECT SUM(%s(vfs_data)) FROM %s %s',
@@ -146,7 +128,7 @@ class VFS_sql extends VFS {
         $this->log($sql, PEAR_LOG_DEBUG);
         $size = $this->_db->getOne($sql);
 
-        return $size !== null ? $size : 0;
+        return is_null($size) ? $size : 0;
     }
 
     /**
@@ -156,17 +138,15 @@ class VFS_sql extends VFS {
      * @param string $name  The filename to retrieve.
      *
      * @return string  The file data.
+     * @throws VFS_Exception
      */
-    function read($path, $name)
+    public function read($path, $name)
     {
-        $result = $this->_connect();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
-        return $this->_readBlob($this->_params['table'], 'vfs_data',
-                                array('vfs_path' => $this->_convertPath($path),
-                                      'vfs_name' => $name));
+        $this->_connect();
+        return $this->_readBlob($this->_params['table'], 'vfs_data', array(
+            'vfs_path' => $this->_convertPath($path),
+            'vfs_name' => $name
+        ));
     }
 
     /**
@@ -176,27 +156,28 @@ class VFS_sql extends VFS {
      *
      * @param string  $path       The pathname to the file.
      * @param string  $name       The filename to retrieve.
-     * @param integer $offset     The offset of the part. (The new offset will be
-     *                            stored in here).
-     * @param integer $length     The length of the part. If the length = -1, the
-     *                            whole part after the offset is retrieved. If
-     *                            more bytes are given as exists after the given
-     *                            offset. Only the available bytes are read.
-     * @param integer $remaining  The bytes that are left, after the part that is
-     *                            retrieved.
+     * @param integer $offset     The offset of the part. (The new offset will
+     *                            be stored in here).
+     * @param integer $length     The length of the part. If the length = -1,
+     *                            the whole part after the offset is
+     *                            retrieved. If more bytes are given as exists
+     *                            after the given offset. Only the available
+     *                            bytes are read.
+     * @param integer $remaining  The bytes that are left, after the part that
+     *                            is retrieved.
      *
-     * @return string The file data.
+     * @return string  The file data.
+     * @throws VFS_Exception
      */
-    function readByteRange($path, $name, &$offset, $length = -1, &$remaining)
+    public function readByteRange($path, $name, &$offset, $length = -1,
+                                  &$remaining)
     {
-        $result = $this->_connect();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_connect();
 
-        $data = $this->_readBlob($this->_params['table'], 'vfs_data',
-                                 array('vfs_path' => $this->_convertPath($path),
-                                       'vfs_name' => $name));
+        $data = $this->_readBlob($this->_params['table'], 'vfs_data', array(
+            'vfs_path' => $this->_convertPath($path),
+            'vfs_name' => $name
+        ));
 
         // Calculate how many bytes MUST be read, so the remainging
         // bytes and the new offset can be calculated correctly.
@@ -224,9 +205,9 @@ class VFS_sql extends VFS {
      *                             be stored.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function write($path, $name, $tmpFile, $autocreate = false)
+    public function write($path, $name, $tmpFile, $autocreate = false)
     {
         /* Don't need to check quota here since it will be checked when
          * writeData() is called. */
@@ -244,19 +225,12 @@ class VFS_sql extends VFS {
      * @param string $data         The file data.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function writeData($path, $name, $data, $autocreate = false)
+    public function writeData($path, $name, $data, $autocreate = false)
     {
-        $result = $this->_checkQuotaWrite('string', $data);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
-        $result = $this->_connect();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_checkQuotaWrite('string', $data);
+        $this->_connect();
 
         $path = $this->_convertPath($path);
 
@@ -268,9 +242,9 @@ class VFS_sql extends VFS {
         $this->log($sql, PEAR_LOG_DEBUG);
         $id = $this->_db->getOne($sql, $values);
 
-        if (is_a($id, 'PEAR_Error')) {
+        if ($id instanceof PEAR_Error) {
             $this->log($id, PEAR_LOG_ERR);
-            return $id;
+            throw new VFS_Exception($id->getMessage());
         }
 
         if (!is_null($id)) {
@@ -284,28 +258,26 @@ class VFS_sql extends VFS {
             $parent = implode('/', $dirs);
             if (!$this->isFolder($parent, $path_name)) {
                 if (!$autocreate) {
-                    return PEAR::raiseError(sprintf(_("Folder \"%s\" does not exist"), $path), 'horde.error');
-                } else {
-                    $result = $this->autocreatePath($path);
-                    if (is_a($result, 'PEAR_Error')) {
-                        return $result;
-                    }
+                    throw new VFS_Exception(sprintf('Folder "%s" does not exist', $path));
                 }
+
+                $this->autocreatePath($path);
             }
 
             $id = $this->_write_db->nextId($this->_params['table']);
-            if (is_a($id, 'PEAR_Error')) {
+            if ($id instanceof PEAR_Error) {
                 $this->log($id, PEAR_LOG_ERR);
-                return $id;
+                throw new VFS_Exception($id->getMessage());
             }
 
-            return $this->_insertBlob($this->_params['table'], 'vfs_data',
-                                      $data, array('vfs_id' => $id,
-                                                   'vfs_type' => VFS_FILE,
-                                                   'vfs_path' => $path,
-                                                   'vfs_name' => $name,
-                                                   'vfs_modified' => time(),
-                                                   'vfs_owner' => $this->_params['user']));
+            return $this->_insertBlob($this->_params['table'], 'vfs_data', $data, array(
+                'vfs_id' => $id,
+                'vfs_type' => self::FILE,
+                'vfs_path' => $path,
+                'vfs_name' => $name,
+                'vfs_modified' => time(),
+                'vfs_owner' => $this->_params['user']
+            ));
         }
     }
 
@@ -315,31 +287,24 @@ class VFS_sql extends VFS {
      * @param string $path  The path to store the file in.
      * @param string $name  The filename to use.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function deleteFile($path, $name)
+    public function deleteFile($path, $name)
     {
-        $result = $this->_checkQuotaDelete($path, $name);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
-        $result = $this->_connect();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_checkQuotaDelete($path, $name);
+        $this->_connect();
 
         $path = $this->_convertPath($path);
 
         $sql = sprintf('DELETE FROM %s WHERE vfs_type = ? AND vfs_path %s AND vfs_name = ?',
                        $this->_params['table'],
                        (!strlen($path) && $this->_db->dbsyntax == 'oci8') ? ' IS NULL' : ' = ' . $this->_db->quote($path));
-        $values = array(VFS_FILE, $name);
+        $values = array(self::FILE, $name);
         $this->log($sql, PEAR_LOG_DEBUG);
         $result = $this->_db->query($sql, $values);
 
         if ($this->_db->affectedRows() == 0) {
-            return PEAR::raiseError(_("Unable to delete VFS file."));
+            throw new VFS_Exception('Unable to delete VFS file.');
         }
 
         return $result;
@@ -353,14 +318,11 @@ class VFS_sql extends VFS {
      * @param string $newpath  The new path of the file.
      * @param string $newname  The new filename.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function rename($oldpath, $oldname, $newpath, $newname)
+    public function rename($oldpath, $oldname, $newpath, $newname)
     {
-        $result = $this->_connect();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_connect();
 
         if (strpos($newpath, '/') === false) {
             $parent = '';
@@ -368,10 +330,9 @@ class VFS_sql extends VFS {
         } else {
             list($parent, $path) = explode('/', $newpath, 2);
         }
+
         if (!$this->isFolder($parent, $path)) {
-            if (is_a($result = $this->autocreatePath($newpath), 'PEAR_Error')) {
-                return $result;
-            }
+            $this->autocreatePath($newpath);
         }
 
         $oldpath = $this->_convertPath($oldpath);
@@ -386,13 +347,13 @@ class VFS_sql extends VFS {
         $result = $this->_write_db->query($sql, $values);
 
         if ($this->_write_db->affectedRows() == 0) {
-            return PEAR::raiseError(_("Unable to rename VFS file."));
+            throw new VFS_Exception('Unable to rename VFS file.');
         }
 
         $rename = $this->_recursiveRename($oldpath, $oldname, $newpath, $newname);
-        if (is_a($rename, 'PEAR_Error')) {
+        if ($rename instanceof PEAR_Error) {
             $this->log($rename, PEAR_LOG_ERR);
-            return PEAR::raiseError(sprintf(_("Unable to rename VFS directory: %s."), $rename->getMessage()));
+            throw new VFS_Exception(sprintf('Unable to rename VFS directory: %s.', $rename->getMessage()));
         }
 
         return $result;
@@ -404,26 +365,23 @@ class VFS_sql extends VFS {
      * @param string $path  Holds the path of directory to create folder.
      * @param string $name  Holds the name of the new folder.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function createFolder($path, $name)
+    public function createFolder($path, $name)
     {
-        $result = $this->_connect();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_connect();
 
         $id = $this->_write_db->nextId($this->_params['table']);
-        if (is_a($id, 'PEAR_Error')) {
+        if ($id instanceof PEAR_Error) {
             $this->log($id, PEAR_LOG_ERR);
-            return $id;
+            throw new VFS_Exception($id->getMessage());
         }
 
-        $sql  = 'INSERT INTO ' . $this->_params['table'];
-        $sql .= ' (vfs_id, vfs_type, vfs_path, vfs_name, vfs_modified, vfs_owner) VALUES (?, ?, ?, ?, ?, ?)';
+        $sql = 'INSERT INTO ' . $this->_params['table'] .
+               ' (vfs_id, vfs_type, vfs_path, vfs_name, vfs_modified, vfs_owner) VALUES (?, ?, ?, ?, ?, ?)';
         $this->log($sql, PEAR_LOG_DEBUG);
 
-        $values = array($id, VFS_FOLDER, $this->_convertPath($path), $name, time(), $this->_params['user']);
+        $values = array($id, self::FOLDER, $this->_convertPath($path), $name, time(), $this->_params['user']);
 
         return $this->_db->query($sql, $values);
     }
@@ -435,28 +393,20 @@ class VFS_sql extends VFS {
      * @param string $name        The folder name to use.
      * @param boolean $recursive  Force a recursive delete?
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function deleteFolder($path, $name, $recursive = false)
+    public function deleteFolder($path, $name, $recursive = false)
     {
-        $result = $this->_connect();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_connect();
 
         $path = $this->_convertPath($path);
-
         $folderPath = $this->_getNativePath($path, $name);
 
         /* Check if not recursive and fail if directory not empty */
         if (!$recursive) {
             $folderList = $this->listFolder($folderPath, null, true);
-            if (is_a($folderList, 'PEAR_Error')) {
-                $this->log($folderList, PEAR_LOG_ERR);
-                return $folderList;
-            } elseif (!empty($folderList)) {
-                return PEAR::raiseError(sprintf(_("Unable to delete %s, the directory is not empty"),
-                                                $path . '/' . $name));
+            if (!empty($folderList)) {
+                throw new VFS_Exception(sprintf('Unable to delete %s, the directory is not empty', $path . '/' . $name));
             }
         }
 
@@ -467,9 +417,9 @@ class VFS_sql extends VFS {
                        (!strlen($folderPath) && $this->_write_db->dbsyntax == 'oci8') ? ' IS NULL' : ' LIKE ' . $this->_write_db->quote($this->_getNativePath($folderPath, '%')));
         $this->log($sql, PEAR_LOG_DEBUG);
         $deleteContents = $this->_write_db->query($sql);
-        if (is_a($deleteContents, 'PEAR_Error')) {
+        if ($deleteContents instanceof PEAR_Error) {
             $this->log($deleteContents, PEAR_LOG_ERR);
-            return PEAR::raiseError(sprintf(_("Unable to delete VFS recursively: %s."), $deleteContents->getMessage()));
+            throw new VFS_Exception(sprintf('Unable to delete VFS recursively: %s.', $deleteContents->getMessage()));
         }
 
         /* Now delete everything inside the folder. */
@@ -478,9 +428,9 @@ class VFS_sql extends VFS {
                        (!strlen($path) && $this->_write_db->dbsyntax == 'oci8') ? ' IS NULL' : ' = ' . $this->_write_db->quote($folderPath));
         $this->log($sql, PEAR_LOG_DEBUG);
         $delete = $this->_write_db->query($sql);
-        if (is_a($delete, 'PEAR_Error')) {
+        if ($delete instanceof PEAR_Error) {
             $this->log($delete, PEAR_LOG_ERR);
-            return PEAR::raiseError(sprintf(_("Unable to delete VFS directory: %s."), $delete->getMessage()));
+            throw new VFS_Exception(sprintf('Unable to delete VFS directory: %s.', $delete->getMessage()));
         }
 
         /* All ok now delete the actual folder */
@@ -490,12 +440,10 @@ class VFS_sql extends VFS {
         $values = array($name);
         $this->log($sql, PEAR_LOG_DEBUG);
         $delete = $this->_write_db->query($sql, $values);
-        if (is_a($delete, 'PEAR_Error')) {
+        if ($delete instanceof PEAR_Error) {
             $this->log($delete, PEAR_LOG_ERR);
-            return PEAR::raiseError(sprintf(_("Unable to delete VFS directory: %s."), $delete->getMessage()));
+            throw new VFS_Exception(sprintf('Unable to delete VFS directory: %s.', $delete->getMessage()));
         }
-
-        return $delete;
     }
 
     /**
@@ -507,15 +455,13 @@ class VFS_sql extends VFS {
      * @param boolean $dotfiles  Show dotfiles?
      * @param boolean $dironly   Show directories only?
      *
-     * @return mixed  File list on success or false on failure.
+     * @return array  File list.
+     * @throws VFS_Exception
      */
-    function _listFolder($path, $filter = null, $dotfiles = true,
-                         $dironly = false)
+    protected function _listFolder($path, $filter = null, $dotfiles = true,
+                                   $dironly = false)
     {
-        $result = $this->_connect();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_connect();
 
         $path = $this->_convertPath($path);
 
@@ -533,8 +479,8 @@ class VFS_sql extends VFS {
                        $where);
         $this->log($sql, PEAR_LOG_DEBUG);
         $fileList = $this->_db->getAll($sql);
-        if (is_a($fileList, 'PEAR_Error')) {
-            return $fileList;
+        if ($fileList instanceof PEAR_Error) {
+            throw new VFS_Exception($fileList->getMessage());
         }
 
         $files = array();
@@ -546,17 +492,17 @@ class VFS_sql extends VFS {
 
             $file['name'] = $line[0];
 
-            if ($line[1] == VFS_FILE) {
+            if ($line[1] == self::FILE) {
                 $name = explode('.', $line[0]);
 
                 if (count($name) == 1) {
                     $file['type'] = '**none';
                 } else {
-                    $file['type'] = VFS::strtolower($name[count($name) - 1]);
+                    $file['type'] = self::strtolower($name[count($name) - 1]);
                 }
 
                 $file['size'] = $line[2];
-            } elseif ($line[1] == VFS_FOLDER) {
+            } elseif ($line[1] == self::FOLDER) {
                 $file['type'] = '**dir';
                 $file['size'] = -1;
             }
@@ -592,14 +538,13 @@ class VFS_sql extends VFS {
      *                             folderlist.
      * @param boolean $dotfolders  Include dotfolders?
      *
-     * @return mixed  Folder list on success or PEAR_Error object on failure.
+     * @return array  Folder list.
+     * @throws VFS_Exception
      */
-    function listFolders($path = '', $filter = array(), $dotfolders = true)
+    public function listFolders($path = '', $filter = array(),
+                                $dotfolders = true)
     {
-        $result = $this->_connect();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_connect();
 
         $path = $this->_convertPath($path);
 
@@ -607,11 +552,11 @@ class VFS_sql extends VFS {
         $sql .= ' WHERE vfs_path = ? AND vfs_type = ?';
         $this->log($sql, PEAR_LOG_DEBUG);
 
-        $values = array($path, VFS_FOLDER);
+        $values = array($path, self::FOLDER);
 
         $folderList = $this->_db->getAll($sql, $values);
-        if (is_a($folderList, 'PEAR_Error')) {
-            return $folderList;
+        if ($folderList instanceof PEAR_Error) {
+            throw new VFS_Exception($folderList->getMessage());
         }
 
         $folders = array();
@@ -663,37 +608,36 @@ class VFS_sql extends VFS {
      * @param string $path   The VFS path to clean.
      * @param integer $secs  The minimum amount of time (in seconds) required
      *                       before a file is removed.
+     *
+     * @throws VFS_Exception
      */
-    function gc($path, $secs = 345600)
+    public function gc($path, $secs = 345600)
     {
-        $result = $this->_connect();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_connect();
 
         $sql = 'DELETE FROM ' . $this->_params['table']
             . ' WHERE vfs_type = ? AND vfs_modified < ? AND (vfs_path = ? OR vfs_path LIKE ?)';
         $this->log($sql, PEAR_LOG_DEBUG);
 
-        $values = array(VFS_FILE,
-                        time() - $secs,
-                        $this->_convertPath($path),
-                        $this->_convertPath($path) . '/%');
+        $values = array(
+            self::FILE,
+            time() - $secs,
+            $this->_convertPath($path),
+            $this->_convertPath($path) . '/%'
+        );
 
-        return $this->_write_db->query($sql, $values);
+        $this->_write_db->query($sql, $values);
     }
 
     /**
      * Renames all child paths.
      *
-     * @access private
-     *
      * @param string $path  The path of the folder to rename.
      * @param string $name  The foldername to use.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function _recursiveRename($oldpath, $oldname, $newpath, $newname)
+    protected function _recursiveRename($oldpath, $oldname, $newpath, $newname)
     {
         $oldpath = $this->_convertPath($oldpath);
         $newpath = $this->_convertPath($newpath);
@@ -702,7 +646,7 @@ class VFS_sql extends VFS {
         $sql .= ' WHERE vfs_type = ? AND vfs_path = ?';
         $this->log($sql, PEAR_LOG_DEBUG);
 
-        $values = array(VFS_FOLDER, $this->_getNativePath($oldpath, $oldname));
+        $values = array(self::FOLDER, $this->_getNativePath($oldpath, $oldname));
 
         $folderList = $this->_db->getCol($sql, 0, $values);
 
@@ -715,21 +659,19 @@ class VFS_sql extends VFS {
 
         $values = array($this->_getNativePath($newpath, $newname), $this->_getNativePath($oldpath, $oldname));
 
-        return $this->_write_db->query($sql, $values);
+        $this->_write_db->query($sql, $values);
     }
 
     /**
      * Return a full filename on the native filesystem, from a VFS
      * path and name.
      *
-     * @access private
-     *
      * @param string $path  The VFS file path.
      * @param string $name  The VFS filename.
      *
      * @return string  The full native filename.
      */
-    function _getNativePath($path, $name)
+    protected function _getNativePath($path, $name)
     {
         if (!strlen($path)) {
             return $name;
@@ -746,105 +688,44 @@ class VFS_sql extends VFS {
     /**
      * Attempts to open a persistent connection to the SQL server.
      *
-     * @access private
-     *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function _connect()
+    protected function _connect()
     {
         if ($this->_connected) {
-            return true;
+            return;
         }
 
-        if (!is_array($this->_params)) {
-            return PEAR::raiseError(_("No configuration information specified for SQL VFS."));
+        if (!isset($this->_params['db'])) {
+            throw new VFS_Exception('Required "db" not specified in VFS configuration.');
         }
 
-        $required = array('phptype');
-        foreach ($required as $val) {
-            if (!isset($this->_params[$val])) {
-                return PEAR::raiseError(sprintf(_("Required \"%s\" not specified in VFS configuration."), $val));
-            }
-        }
+        $this->_params = array_merge(array(
+            'table' => 'horde_vfs'
+        ), $this->_params);
 
-        if (!isset($this->_params['database'])) {
-            $this->_params['database'] = '';
-        }
-        if (!isset($this->_params['username'])) {
-            $this->_params['username'] = '';
-        }
-        if (!isset($this->_params['hostspec'])) {
-            $this->_params['hostspec'] = '';
-        }
-        if (!isset($this->_params['table'])) {
-            $this->_params['table'] = 'horde_vfs';
-        }
-
-        /* Connect to the SQL server using the supplied parameters. */
-        require_once 'DB.php';
-        $this->_write_db = &DB::connect($this->_params,
-                                        array('persistent' => !empty($this->_params['persistent']),
-                                              'ssl' => !empty($this->_params['ssl'])));
-        if (is_a($this->_write_db, 'PEAR_Error')) {
-            $this->log($this->_write_db, PEAR_LOG_ERR);
-            $error = $this->_write_db;
-            $this->_write_db = false;
-            return $error;
-        }
-
-        // Set DB portability options.
-        switch ($this->_write_db->phptype) {
-        case 'mssql':
-            $this->_write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-            break;
-        default:
-            $this->_write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-        }
-
-        /* Check if we need to set up the read DB connection
-         * seperately. */
-        if (!empty($this->_params['splitread'])) {
-            $params = array_merge($this->_params, $this->_params['read']);
-            $this->_db = &DB::connect($params,
-                                      array('persistent' => !empty($params['persistent']),
-                                            'ssl' => !empty($params['ssl'])));
-            if (is_a($this->_db, 'PEAR_Error')) {
-                return $this->_db;
-            }
-
-            // Set DB portability options.
-            switch ($this->_db->phptype) {
-            case 'mssql':
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-                break;
-            default:
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-            }
-
-        } else {
-            /* Default to the same DB handle for reads. */
-            $this->_db =& $this->_write_db;
-        }
+        $this->_db = $this->_params['db'];
+        $this->_write_db = isset($this->_params['writedb'])
+            ? $this->_params['writedb']
+            : $this->_params['db'];
 
         $this->_connected = true;
-        return true;
     }
 
     /**
      * Read file data from the SQL VFS backend.
-     *
-     * @access private
      *
      * @param string $table    The VFS table name.
      * @param string $field    TODO
      * @param array $criteria  TODO
      *
      * @return mixed  TODO
+     * @throws VFS_Exception
      */
-    function _readBlob($table, $field, $criteria)
+    protected function _readBlob($table, $field, $criteria)
     {
         if (!count($criteria)) {
-            return PEAR::raiseError('You must specify the fetch criteria');
+            throw new VFS_Exception('You must specify the fetch criteria');
         }
 
         $where = '';
@@ -869,10 +750,11 @@ class VFS_sql extends VFS {
             if (OCIFetchInto($statement, $lob)) {
                 $result = $lob[0]->load();
                 if (is_null($result)) {
-                    $result = PEAR::raiseError('Unable to load SQL data.');
+                    throw new VFS_Exception('Unable to load SQL data.');
                 }
             } else {
-                $result = PEAR::raiseError('Unable to load SQL data.');
+                OCIFreeStatement($statement);
+                throw new VFS_Exception('Unable to load SQL data.');
             }
             OCIFreeStatement($statement);
             break;
@@ -891,7 +773,7 @@ class VFS_sql extends VFS {
             $result = $this->_db->getOne($sql);
 
             if (is_null($result)) {
-                $result = PEAR::raiseError('Unable to load SQL data.');
+                throw new VFS_Exception('Unable to load SQL data.');
             } else {
                 switch ($this->_db->dbsyntax) {
                 case 'pgsql':
@@ -907,19 +789,17 @@ class VFS_sql extends VFS {
     /**
      * TODO
      *
-     * @access private
-     *
      * @param string $table       TODO
      * @param string $field       TODO
      * @param string $data        TODO
      * @param string $attributes  TODO
      *
      * @return mixed  TODO
+     * @throws VFS_Exception
      */
-    function _insertBlob($table, $field, $data, $attributes)
+    protected function _insertBlob($table, $field, $data, $attributes)
     {
-        $fields = array();
-        $values = array();
+        $fields = $values = array();
 
         switch ($this->_write_db->dbsyntax) {
         case 'oci8':
@@ -944,7 +824,10 @@ class VFS_sql extends VFS {
             $result = OCICommit($this->_write_db->connection);
             $lob->free();
             OCIFreeStatement($statement);
-            return $result ? true : PEAR::raiseError('Unknown Error');
+            if ($result) {
+                return true;
+            }
+            throw new VFS_Exception('Unknown Error');
 
         default:
             foreach ($attributes as $key => $value) {
@@ -978,8 +861,6 @@ class VFS_sql extends VFS {
     /**
      * TODO
      *
-     * @access private
-     *
      * @param string $table      TODO
      * @param string $field      TODO
      * @param string $data       TODO
@@ -987,11 +868,11 @@ class VFS_sql extends VFS {
      * @param array $alsoupdate  TODO
      *
      * @return mixed  TODO
+     * @throws VFS_Exception
      */
-    function _updateBlob($table, $field, $data, $where, $alsoupdate)
+    protected function _updateBlob($table, $field, $data, $where, $alsoupdate)
     {
-        $fields = array();
-        $values = array();
+        $fields = $values = array();
 
         switch ($this->_write_db->dbsyntax) {
         case 'oci8':
@@ -1015,7 +896,10 @@ class VFS_sql extends VFS {
             $result = OCICommit($this->_write_db->connection);
             $lob[0]->free();
             OCIFreeStatement($statement);
-            return $result ? true : PEAR::raiseError('Unknown Error');
+            if ($result) {
+                return true;
+            }
+            throw new VFS_Exception('Unknown Error');
 
         default:
             $updatestring = '';
@@ -1063,21 +947,21 @@ class VFS_sql extends VFS {
      * Namely, we will treat '/' as a base directory as this is pretty much
      * the standard way to access base directories over most filesystems.
      *
-     * @access private
-     *
      * @param string $path  A VFS path.
      *
      * @return string  The path with any surrouding slashes stripped off.
      */
-    function _convertPath($path)
+    protected function _convertPath($path)
     {
         return trim($path, '/');
     }
 
     /**
      * TODO
+     *
+     * @return string  TODO
      */
-    function _getFileSizeOp()
+    protected function _getFileSizeOp()
     {
         switch ($this->_db->dbsyntax) {
         case 'mysql':
@@ -1102,15 +986,14 @@ class VFS_sql extends VFS {
      * @param string $path  Path to possible folder
      * @param string $name  Name of possible folder
      *
-     * @return boolean        True if $path/$name is a folder
+     * @return boolean  True if $path/$name is a folder
      */
-    function isFolder($path, $name)
+    public function isFolder($path, $name)
     {
-        if ($path == '' && $name == '') {
+        return (($path == '') && ($name == ''))
             // The root of VFS is always a folder.
-            return true;
-        }
-        return parent::isFolder($path, $name);
+            ? true
+            : parent::isFolder($path, $name);
     }
 
 }

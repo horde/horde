@@ -11,22 +11,23 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-new Horde_Application();
+Horde_Registry::appInit('horde');
 
 /* Set the language. */
-$_SESSION['horde_language'] = Horde_Nls::select();
-$prefs->setValue('language', $_SESSION['horde_language']);
+$session['horde:language'] = $registry->preferredLanguage(Horde_Util::getForm('new_lang'));
+$prefs->setValue('language', $sessoin['horde:language']);
 
 /* Update apps language */
-foreach ($registry->listAPIs() as $api) {
-    if ($registry->hasAppMethod($api, 'changeLanguage')) {
-        $registry->callAppMethod($api, 'changeLanguage');
+foreach ($registry->listApps() as $app) {
+    if ($registry->hasAppMethod($app, 'changeLanguage')) {
+        $registry->callAppMethod($app, 'changeLanguage');
     }
 }
 
 /* Redirect to the url or login page if none given. */
 $url = Horde_Util::getFormData('url');
-if (empty($url)) {
-    $url = Horde::applicationUrl('index.php', true);
-}
-header('Location: ' . $url);
+$url = empty($url)
+    ? Horde::url('index.php', true)
+    : $url;
+
+$url->redirect();

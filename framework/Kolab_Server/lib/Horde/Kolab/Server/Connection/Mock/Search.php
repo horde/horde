@@ -26,7 +26,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Server
  */
 class Horde_Kolab_Server_Connection_Mock_Search
-extends Net_LDAP2_Search
+extends Horde_Ldap_Search
 {
     /**
      * The search result.
@@ -70,7 +70,7 @@ extends Net_LDAP2_Search
      *
      * @return array The resulting array.
      */
-    public function as_struct()
+    public function asArray()
     {
         return $this->_result;
     }

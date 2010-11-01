@@ -2,8 +2,6 @@
 /**
  * The Agora script to delete a forum.
  *
- * $Horde: agora/deleteforum.php,v 1.49 2009-12-01 12:52:38 jan Exp $
- *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -13,19 +11,17 @@
  * @author Marko Djukic <marko@oblo.com>
  */
 
-define('AGORA_BASE', dirname(__FILE__));
-require_once AGORA_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('agora');
 
 /* Set up the forums object. */
 $scope = Horde_Util::getFormData('scope', 'agora');
 $forums = &Agora_Messages::singleton($scope);
-$url = Horde::applicationUrl('forums.php');
 
 /* Check permissions */
 if (!$forums->hasPermission(Horde_Perms::DELETE)) {
     $notification->push(sprintf(_("You don't have permissions to delete forums in %s"), $registry->get('name', $scope)), 'horde.warning');
-    header('Location: ' . $url);
-    exit;
+    Horde::url('forums.php', true)->redirect();
 }
 
 /* Get forum. */
@@ -33,8 +29,7 @@ list($forum_id) = Agora::getAgoraId();
 $forum = $forums->getForum($forum_id);
 if ($forum instanceof PEAR_Error) {
     $notification->push($forum->message, 'horde.error');
-    header('Location: ' . $url);
-    exit;
+    Horde::url('forums.php', true)->redirect();
 }
 
 /* Prepare forum. */
@@ -69,15 +64,20 @@ if ($form->validate()) {
     } else {
         $notification->push(_("Forum not deleted."), 'horde.message');
     }
-    header('Location: ' . $url);
-    exit;
+    Horde::url('forums.php', true)->redirect();
 }
 
 /* Set up template variables. */
 $view = new Agora_View();
-$view->menu = Agora::getMenu('string');
-$view->main = Horde_Util::bufferOutput(array($form, 'renderActive'), null, $vars, 'deleteforum.php', 'post');
-$view->notify = Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status'));
+$view->menu = Horde::menu();
+
+Horde::startBuffer()
+$form->renderActive(null, $vars, 'deleteforum.php', 'post');
+$view->main = Horde::endBuffer();
+
+Horde::startBuffer()
+$notification->notify(array('listeners' => 'status'));
+$view->notify = Horde::endBuffer();
 
 require AGORA_TEMPLATES . '/common-header.inc';
 echo $view->render('main.html.php');

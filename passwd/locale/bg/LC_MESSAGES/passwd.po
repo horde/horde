@@ -1,0 +1,189 @@
+# Bulgarian translations for Passwd package.
+# Copyright 2002-2009 The Horde Project
+# This file is distributed under the same license as the Passwd package.
+# Miroslav Pendev <miro@cybershade.us>, 2002.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Passwd 2.0.1-cvs\n"
+"POT-Creation-Date: 2002-09-14 00:38-0400\n"
+"PO-Revision-Date: 2002-11-19 20:44-0500\n"
+"Last-Translator: Miroslav Pendev <miro@cybershade.us>\n"
+"Language-Team: BG i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Backend not correctly implemented."
+msgstr "Все още не е добре разработено..."
+
+msgid "Change Password"
+msgstr "Смяна на паролата"
+
+msgid "Change your password"
+msgstr "Смяна на паролата Ви"
+
+#, c-format
+msgid "Changing Password on %s"
+msgstr "Проблем при смяна на паролата на %s"
+
+msgid "Confirm New password:"
+msgstr "Потвърдете новата парола:"
+
+msgid "Could not bind to ldap server"
+msgstr "Невъзможност за връзка с LDAP сървъра"
+
+msgid "Could not connect to ldap server"
+msgstr "Невъзможност за връзка с LDAP сървър"
+
+msgid "Could not open pipe to smbpasswd."
+msgstr "Невъзможност да се отвори канал до smbpasswd."
+
+msgid "Error sending data to smbpasswd."
+msgstr "Грешка при изпращане на данни до smbpasswd."
+
+msgid "Failure in changing password: "
+msgstr "Проблем при смяна на паролата :"
+
+msgid "Help"
+msgstr "Помощ"
+
+msgid "Incorect Password"
+msgstr "Некоректна парола"
+
+msgid "Logout"
+msgstr "Изход"
+
+msgid "Mdaemon path not found"
+msgstr "Пътят до Mdaemon не е намерен"
+
+msgid "Mdaemon userlist file not accessable or not found."
+msgstr "Mdaemon файл с потребители не е достъпен или не беше намерен."
+
+msgid "New password:"
+msgstr "Нова парола:"
+
+msgid "Not able to create lock file"
+msgstr "Невъзможност да се създаде заключващ (lock) файл"
+
+msgid "Not able to create semaphore file"
+msgstr "Невъзможност да се създаде семафорен файл"
+
+msgid "Not able to retrieve current details."
+msgstr "Невъзможност да се изтеглят текущите детайли."
+
+msgid ""
+"Note: You will need to logout and back in after you change your password!"
+msgstr ""
+"Необходимо е да излезете и влезете отново с новата парола, след смяната й!"
+
+msgid "Old password:"
+msgstr "Стара парола:"
+
+msgid "Password changed."
+msgstr "Паролата беше сменена!"
+
+msgid "Password is not properly configured"
+msgstr "Password не е конфигуриран правилно"
+
+msgid "Password module is not properly configured"
+msgstr "Модулът за пароли не е конфигуриран правилно"
+
+msgid "Password module is not properly configured."
+msgstr "Модулът за пароли не е конфигуриран правилно."
+
+msgid "Required 'phptype' not specified in SQL configuration."
+msgstr "Необходимия 'phptype' не е зададен във SQL конфигурацията."
+
+msgid "Server"
+msgstr "Сървър"
+
+msgid "Some of Password's configuration files are missing:"
+msgstr "Някои от конфигурационните файлове на Password липсват:"
+
+msgid ""
+"This is the main Password configuration file. It contains options for all "
+"Password scripts."
+msgstr ""
+"Това е главния конфигурационен файл на Password. Той съдържа пътища и опции "
+"за скриптовете на Password."
+
+msgid "Unable to connect to SQL server."
+msgstr "Невъзможност за връзка с SQL сървър."
+
+#, c-format
+msgid "User %s@%s not found"
+msgstr "Потребител %s@%s не беше намерен"
+
+msgid "User not found"
+msgstr "Няма такъв потребител"
+
+msgid "User not found."
+msgstr "Няма такъв потребител."
+
+msgid "Username:"
+msgstr "Име:"
+
+#, c-format
+msgid "You can't change password for user %s"
+msgstr "Не можете да смените паролата на потребител %s"
+
+msgid "You must give your current password"
+msgstr "Трябва да въведете текущата Ви парола"
+
+msgid "You must give your new password"
+msgstr "Трябва да въведете новата Ви парола"
+
+msgid "You must verify your new password"
+msgstr "Трябва да потвърдите Вашата нова парола"
+
+#, c-format
+msgid ""
+"Your new password is too long; passwords may not be more than %d characters "
+"long!"
+msgstr ""
+"Новата Ви парола е твърде дълга; паролите не могат да са по-дълги от %d "
+"символа!"
+
+msgid "Your new password is too simple to guess!  Not changed!"
+msgstr "Новата Ви парола е прекалено лесна за отгатване! Няма да бъде сменена!"
+
+#, c-format
+msgid "Your new password must be at least %d characters long!"
+msgstr "Новата Ви парола трябва да е дълга поне %d символа!"
+
+msgid "Your new password must be different from your current password"
+msgstr "Новата Ви парола трябва да е различна от текущата"
+
+#, c-format
+msgid "Your new password must contain at least %d alphabetic characters."
+msgstr "Новата Ви парола трябва да съдържа поне %d символа!"
+
+#, c-format
+msgid "Your new password must contain at least %d alphanumeric characters."
+msgstr "Новата Ви парола трябва да съдържа поне %d символа (букви и цифри)."
+
+#, c-format
+msgid "Your new password must contain at least %d lowercase characters."
+msgstr "Новата Ви парола трябва да съдържа поне %d символа (малки букви)."
+
+#, c-format
+msgid "Your new password must contain at least %d numeric characters."
+msgstr "Новата Ви парола трябва да съдържа поне %d символа (цифри)."
+
+#, c-format
+msgid "Your new password must contain at least %d uppercase characters."
+msgstr "Новата Ви парола трябва да съдържа поне %d символа (големи букви)."
+
+#, c-format
+msgid "Your new password must contain at less than %d whitespace characters."
+msgstr "Новата Ви парола трябва да съдържа поне %d символа (интервала)."
+
+msgid "Your new password must not contain whitespace characters."
+msgstr "Новата Ви парола трябва да не съдържа интервали."
+
+msgid "Your new passwords didn't match"
+msgstr "Новата Ви парола не беше повторена коректно!"
+
+msgid "tempnam() failed!"
+msgstr "грешка при tempnam()!"

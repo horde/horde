@@ -1,8 +1,4 @@
 <?php
-
-require_once 'Horde/iCalendar.php';
-require_once 'Horde/Kolab.php';
-
 /**
  * Horde Kronolith free/busy driver for the Kolab IMAP Server.
  * Copyright 2004-2010 The Horde Project (http://www.horde.org/)
@@ -13,28 +9,26 @@ require_once 'Horde/Kolab.php';
  * @author  Stuart Binge <omicron@mighty.co.za>
  * @package Kronolith
  */
-class Kronolith_Storage_kolab extends Kronolith_Storage {
+class Kronolith_Storage_kolab extends Kronolith_Storage
+{
+    protected $_params = array();
 
-    var $_params = array();
-
-    function Kronolith_Storage_kolab($user, $params = array())
+    function __construct($user, $params = array())
     {
         $this->_user = $user;
         $this->_params = $params;
     }
 
-    function search($email, $private_only = false)
+    /**
+     * @throws Kronolith_Exception
+     */
+    public function search($email, $private_only = false)
     {
         global $conf;
 
         if (class_exists('Horde_Kolab_Session')) {
-            $session = &Horde_Kolab_Session::singleton();
+            $session = Horde_Kolab_Session::singleton();
             $server = $session->freebusy_server;
-        } else if (!is_callable('Kolab', 'getServer')) {
-            $server = sprintf('%s://%s:%d/freebusy/',
-                              $conf['storage']['freebusy']['protocol'],
-                              $conf['kolab']['imap']['server'],
-                              $conf['storage']['freebusy']['port']);
         } else {
             $server = sprintf('%s://%s:%d/freebusy/',
                               $conf['storage']['freebusy']['protocol'],
@@ -52,33 +46,29 @@ class Kronolith_Storage_kolab extends Kronolith_Storage {
             $options = array_merge($options, $GLOBALS['conf']['http']['proxy']);
         }
 
-        require_once 'HTTP/Request.php';
         $http = new HTTP_Request($fb_url, $options);
-        $http->setBasicAuth(Horde_Auth::getAuth(), Horde_Auth::getCredential('password'));
+        $http->setBasicAuth($GLOBALS['registry']->getAuth(), $GLOBALS['registry']->getAuthCredential('password'));
         @$http->sendRequest();
         if ($http->getResponseCode() != 200) {
-            return PEAR::raiseError(sprintf(_("Unable to retrieve free/busy information for %s"),
-                                            $email), Kronolith::ERROR_FB_NOT_FOUND);
+            throw new Horde_Exception_NotFound();
         }
         $vfb_text = $http->getResponseBody();
 
-        $iCal = new Horde_iCalendar;
+        $iCal = new Horde_Icalendar;
         $iCal->parsevCalendar($vfb_text);
 
-        $vfb = &$iCal->findComponent('VFREEBUSY');
+        $vfb = $iCal->findComponent('VFREEBUSY');
         if ($vfb === false) {
-            return PEAR::raiseError(sprintf(_("No free/busy information is available for %s"),
-                                    $email), Kronolith::ERROR_FB_NOT_FOUND);
+            throw new Horde_Exception_NotFound();
         }
 
         return $vfb;
     }
 
-    function store($email, $vfb, $public = false)
+    public function store($email, $vfb, $public = false)
     {
         // We don't care about storing FB info at the moment; we rather let
         // Kolab's freebusy.php script auto-generate it for us.
-        return true;
     }
 
 }

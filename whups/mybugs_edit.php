@@ -10,14 +10,12 @@
  * @author Mike Cochrane <mike@graftonhall.co.nz>
  */
 
-@define('WHUPS_BASE', dirname(__FILE__));
-require_once WHUPS_BASE . '/lib/base.php';
-require_once 'Horde/Block/Collection.php';
-require_once 'Horde/Block/Layout/Manager.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('whups');
 
 // Instantiate the blocks objects.
-$blocks = &Horde_Block_Collection::singleton('mybugs', array('whups'));
-$layout = &Horde_Block_Layout_Manager::singleton('mybugs', $blocks, @unserialize($prefs->getValue('mybugs_layout')));
+$blocks = Horde_Block_Collection::singleton(array('whups'));
+$layout = Horde_Block_Layout_Manager::singleton('mybugs', $blocks, @unserialize($prefs->getValue('mybugs_layout')));
 
 // Handle requested actions.
 $layout->handle(Horde_Util::getFormData('action'),

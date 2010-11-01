@@ -15,54 +15,59 @@ $fieldsList = array(
     'delete' => 3
 );
 
-require_once dirname(__FILE__) . '/lib/base.php';
-require_once 'Horde/Group.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('ansel');
 
-$groups = Group::singleton();
-$auth = Horde_Auth::singleton($conf['auth']['driver']);
+$groups = $injector->getInstance('Horde_Group');
+$auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 
 $form = null;
 $reload = false;
 $actionID = Horde_Util::getFormData('actionID', 'edit');
 switch ($actionID) {
 case 'edit':
-    $share = &$ansel_storage->getGallery(Horde_Util::getFormData('cid'));
-    if (!is_a($share, 'PEAR_Error')) {
+    try {
+        $share = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery(Horde_Util::getFormData('cid'));
         $form = 'edit.inc';
         $perm = &$share->getPermission();
-    } elseif (($share_name = Horde_Util::getFormData('share')) !== null) {
-        $share = &$ansel_storage->shares->getShare($share_name);
-        if (!is_a($share, 'PEAR_Error')) {
-            $form = 'edit.inc';
-            $perm = &$share->getPermission();
+    } catch (Horde_Share_Exception $e) {
+        if (($share_name = Horde_Util::getFormData('share')) !== null) {
+            try {
+                $share = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->shares->getShare($share_name);
+                $form = 'edit.inc';
+                $perm = $share->getPermission();
+            } catch (Horde_Share_Exception $e) {
+                $notification->push($e->getMessage(), 'horde.error');
+            }
         }
     }
 
-    if (is_a($share, 'PEAR_Error')) {
-        $notification->push($share, 'horde.error');
-    } elseif (!Horde_Auth::getAuth() ||
-              (isset($share) && Horde_Auth::getAuth() != $share->get('owner'))) {
+    if (!$GLOBALS['registry']->getAuth() ||
+        (isset($share) && $GLOBALS['registry']->getAuth() != $share->get('owner'))) {
         exit('permission denied');
     }
     break;
 
 case 'editform':
 case 'editforminherit':
-    $share = &$ansel_storage->getGallery(Horde_Util::getFormData('cid'));
-    if (is_a($share, 'PEAR_Error')) {
+    try {
+        $share = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery(Horde_Util::getFormData('cid'));
+    } catch (Horde_Share_Exception $e) {
         $notification->push(_("Attempt to edit a non-existent share."), 'horde.error');
-    } else {
-        if (!Horde_Auth::getAuth() ||
-            Horde_Auth::getAuth() != $share->get('owner')) {
+    }
+
+    if (!empty($share)) {
+        if (!$GLOBALS['registry']->getAuth() ||
+            $GLOBALS['registry']->getAuth() != $share->get('owner')) {
             exit('permission denied');
         }
-        $perm = &$share->getPermission();
+        $perm = $share->getPermission();
 
         // Process owner and owner permissions.
         $old_owner = $share->get('owner');
         $new_owner = Horde_Util::getFormData('owner', $old_owner);
         if ($old_owner !== $new_owner && !empty($new_owner)) {
-            if ($old_owner != Horde_Auth::getAuth() && !Horde_Auth::isAdmin()) {
+            if ($old_owner != $GLOBALS['registry']->getAuth() && !$registry->isAdmin()) {
                 $notification->push(_("Only the owner or system administrator may change ownership or owner permissions for a share"), 'horde.error');
             } else {
                 $share->set('owner', $new_owner);
@@ -242,11 +247,14 @@ case 'editforminherit':
     break;
 }
 
-if (is_a($share, 'PEAR_Error')) {
+if (empty($share)) {
     $title = _("Edit Permissions");
 } else {
-    $children = $GLOBALS['ansel_storage']->listGalleries(Horde_Perms::READ, false,
-                                                         $share);
+    $children = $GLOBALS['injector']
+        ->getInstance('Ansel_Injector_Factory_Storage')
+        ->create()
+        ->listGalleries(array('perm' => Horde_Perms::READ,
+                              'parent' => $share));
     $title = sprintf(_("Edit Permissions for %s"), $share->get('name'));
 }
 
@@ -257,11 +265,12 @@ if ($auth->hasCapability('list')) {
     $userList = array();
 }
 
-$groupList = $groups->listGroups();
-asort($groupList);
-if (is_a($groupList, 'PEAR_Error')) {
-    Horde::logMessage($groupList, __FILE__, __LINE__, PEAR_LOG_NOTICE);
-    $groupList = array();
+$groupList = array();
+try {
+    $groupList = $groups->listGroups();
+    asort($groupList);
+} catch (Horde_Group_Exception $e) {
+    Horde::logMessage($e, 'NOTICE');
 }
 
 require $registry->get('templates', 'horde') . '/common-header.inc';

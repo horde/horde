@@ -979,4 +979,39 @@ class csstidy {
         return (isset($all_properties[$property]) && strpos($all_properties[$property],strtoupper($this->get_cfg('css_level'))) !== false );
     }
 
+    /**
+     * Filters CSS by a list of simple selectors and returns a string suitable
+     * for use in a HTML style attribute.
+     *
+     * @param array $input  The list of selectors to filter by.
+     *
+     * @return string  The CSS string.
+     */
+    function filterBySelector($input)
+    {
+        if (empty($input)) {
+            return '';
+        }
+
+        $cssarray = empty($this->css)
+            ? array()
+            : reset($this->css);
+        $style = '';
+
+        foreach (array_keys($cssarray) as $val) {
+            foreach (array_map('trim', explode(',', $val)) as $entry) {
+                if (in_array($entry, $input)) {
+                    foreach ($cssarray[$val] as $key2 => $val2) {
+                        foreach ($val2['p'] as $val3) {
+                            $style .= $key2 . ':' . $val3 . ';';
+                        }
+                    }
+                    continue;
+                }
+            }
+        }
+
+        return $style;
+    }
+
 }

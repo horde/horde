@@ -1,0 +1,492 @@
+# Russian translations for Horde_Crypt module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Crypt module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Crypt\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: lib/Horde/Crypt/Smime.php:614
+#, php-format
+msgid "%s Fingerprint"
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:1240
+msgid "A passphrase is required to decrypt a message."
+msgstr "Для расшифровки сообщения требуется пароль"
+
+#: lib/Horde/Crypt/Pgp.php:1307
+msgid "A public PGP key is required to verify a signed message."
+msgstr "Для проверки подписанного сообщения требуется публичный ключ PGP"
+
+#: lib/Horde/Crypt/Pgp.php:1164
+msgid ""
+"A public PGP key, private PGP key, and passphrase are required to sign a "
+"message."
+msgstr ""
+"Для подписи сообщения требуется публичный ключ PGP, приватный ключ PGP и "
+"пароль"
+
+#: lib/Horde/Crypt/Smime.php:311
+#, fuzzy
+msgid "A public S/MIME key is required to encrypt a message."
+msgstr "Для шифрования сообщения требуется публичный ключ S/MIME"
+
+#: lib/Horde/Crypt/Smime.php:422
+msgid ""
+"A public S/MIME key, private S/MIME key, and passphrase are required to "
+"decrypt a message."
+msgstr ""
+"Для расшифровки сообщения требуется публичный ключ S/MIME, приватный ключ S/"
+"MIME и пароль"
+
+#: lib/Horde/Crypt/Smime.php:360
+msgid ""
+"A public S/MIME key, private S/MIME key, and passphrase are required to sign "
+"a message."
+msgstr ""
+"Для подписи сообщения требуется публичный ключ S/MIME, приватный ключ S/MIME "
+"и пароль"
+
+#: lib/Horde/Crypt/Smime.php:506
+msgid "CRL Distribution Points"
+msgstr "Точки Распространения СRL"
+
+# fuzzy, php-format
+# fuzzy
+#: lib/Horde/Crypt/Smime.php:609
+msgid "Certificate Details"
+msgstr "Подробности Сертификата"
+
+# fuzzy, php-format
+# fuzzy
+#: lib/Horde/Crypt/Smime.php:520
+msgid "Certificate Owner"
+msgstr "Владелец Сертификата"
+
+# fuzzy, php-format
+# fuzzy
+#: lib/Horde/Crypt/Smime.php:505
+msgid "Certificate Policies"
+msgstr "Политики Сертификата"
+
+#: lib/Horde/Crypt/Pgp.php:426
+msgid "Comment"
+msgstr "Комментарий"
+
+# fuzzy
+#: lib/Horde/Crypt/Smime.php:475
+#, fuzzy
+msgid "Common Name"
+msgstr "Ваше имя:"
+
+#: lib/Horde/Crypt/Pgp.php:939
+msgid "Connection refused to the public keyserver."
+msgstr "Публичный сервер ключей отказал в соединении"
+
+#: lib/Horde/Crypt/Pgp.php:950
+#, php-format
+msgid "Connection refused to the public keyserver. Reason: %s (%s)"
+msgstr "Публичный сервер ключей отказал в соединении. Причина: %s (%s)"
+
+#: lib/Horde/Crypt/Pgp.php:1132
+msgid "Could not PGP encrypt message: "
+msgstr "PGP-шифрование данного сообщения невозможно:"
+
+#: lib/Horde/Crypt/Pgp.php:1201
+msgid "Could not PGP sign message: "
+msgstr "PGP-подпись данного сообщения невозможна:"
+
+#: lib/Horde/Crypt/Smime.php:330
+msgid "Could not S/MIME encrypt message."
+msgstr "S/MIME шифрование данного сообщения невозможно."
+
+#: lib/Horde/Crypt/Smime.php:391
+msgid "Could not S/MIME sign message."
+msgstr "S/MIME подпись данного сообщения невозможна."
+
+#: lib/Horde/Crypt/Pgp.php:1276
+msgid "Could not decrypt PGP data: "
+msgstr "Невозможно расшифровать данные PGP:"
+
+#: lib/Horde/Crypt/Smime.php:440
+msgid "Could not decrypt S/MIME data."
+msgstr "Невозможно расшифровать данные S/MIME."
+
+#: lib/Horde/Crypt/Pgp.php:659
+msgid "Could not determine the recipient's e-mail address."
+msgstr "Невозможно определить E-Mail получателя."
+
+#: lib/Horde/Crypt/Pgp.php:759 lib/Horde/Crypt/Pgp.php:848
+msgid "Could not obtain public key from the keyserver."
+msgstr "Невозможно получить публичный ключ с сервера ключей"
+
+#: lib/Horde/Crypt/Smime.php:478
+msgid "Country"
+msgstr "Страна"
+
+# fuzzy
+#: lib/Horde/Crypt/Pgp.php:426
+#, fuzzy
+msgid "E-Mail"
+msgstr "Почта"
+
+#: lib/Horde/Crypt/Smime.php:474
+#, fuzzy
+msgid "Email Address"
+msgstr "Ваш Email:"
+
+#: lib/Horde/Crypt/Pgp.php:1584 lib/Horde/Crypt/Pgp.php:1592
+msgid "Error while talking to pgp binary."
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:1251 lib/Horde/Crypt/Smime.php:1269
+#: lib/Horde/Crypt/Smime.php:1284
+msgid "Error while talking to smime binary."
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:425
+msgid "Expiration Date"
+msgstr "Дата окончания срока годности"
+
+#: lib/Horde/Crypt/Smime.php:586
+msgid "Exponent"
+msgstr "Экспонента"
+
+#: lib/Horde/Crypt/Smime.php:484
+#, fuzzy
+msgid "Given Name"
+msgstr "Имя"
+
+#: lib/Horde/Crypt/Pgp.php:426
+msgid "Hash-Algorithm"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:534
+#, fuzzy
+msgid "Issuer"
+msgstr "Инвертировать"
+
+#: lib/Horde/Crypt/Pgp.php:424
+#, fuzzy
+msgid "Key Creation"
+msgstr "Настройки"
+
+#: lib/Horde/Crypt/Pgp.php:427
+msgid "Key Fingerprint"
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:427
+msgid "Key ID"
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:425
+msgid "Key Length"
+msgstr "Длина ключа"
+
+#: lib/Horde/Crypt/Pgp.php:424
+#, fuzzy
+msgid "Key Type"
+msgstr "Тип"
+
+#: lib/Horde/Crypt/Smime.php:507
+#, fuzzy
+msgid "Key Usage"
+msgstr "Сообщение"
+
+#: lib/Horde/Crypt/Pgp.php:782
+#, fuzzy
+msgid "Key already exists on the public keyserver."
+msgstr "Ключ успешно послан на публичный сервер"
+
+#: lib/Horde/Crypt/Smime.php:480
+msgid "Location"
+msgstr "Расположение"
+
+#: lib/Horde/Crypt/Smime.php:189
+msgid ""
+"Message Verified Successfully but the signer's certificate could not be "
+"verified."
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:583
+#, fuzzy
+msgid "Modulus"
+msgstr "Сценарий"
+
+#: lib/Horde/Crypt/Pgp.php:424
+msgid "Name"
+msgstr "Имя"
+
+#: lib/Horde/Crypt/Smime.php:490
+msgid "Netscape Base URL"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:492
+msgid "Netscape CA Revocation URL"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:494
+msgid "Netscape CA policy URL"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:493
+msgid "Netscape Renewal URL"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:491
+msgid "Netscape Revocation URL"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:495
+msgid "Netscape SSL server name"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:496
+#, fuzzy
+msgid "Netscape certificate comment"
+msgstr "Нет персональных сертификатов"
+
+# fuzzy, php-format
+# fuzzy
+#: lib/Horde/Crypt/Smime.php:489
+#, fuzzy
+msgid "Netscape certificate type"
+msgstr "Искать в Ответственных"
+
+#: lib/Horde/Crypt/Pgp.php:449
+msgid "Never"
+msgstr "Никогда"
+
+#: lib/Horde/Crypt/Smime.php:1217
+msgid ""
+"No path to the OpenSSL binary provided. The OpenSSL binary is necessary to "
+"work with PKCS 12 data."
+msgstr ""
+
+# fuzzy
+#: lib/Horde/Crypt/Pgp.php:451 lib/Horde/Crypt/Pgp.php:452
+msgid "None"
+msgstr "-не выбран-"
+
+#: lib/Horde/Crypt/Smime.php:549
+#, fuzzy
+msgid "Not After"
+msgstr "Заметки"
+
+#: lib/Horde/Crypt/Smime.php:548
+#, fuzzy
+msgid "Not Before"
+msgstr "Заметки"
+
+#: lib/Horde/Crypt/Smime.php:231
+msgid "OpenSSL error: Could not extract data from signed S/MIME part."
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:476
+#, fuzzy
+msgid "Organisation"
+msgstr "Настройки пользователя"
+
+#: lib/Horde/Crypt/Smime.php:477
+#, fuzzy
+msgid "Organisational Unit"
+msgstr "Настройки пользователя"
+
+#: lib/Horde/Crypt/Pgp.php:1406
+#, fuzzy
+msgid "PGP Digital Signature"
+msgstr "Оттенять подписи?"
+
+# fuzzy
+#: lib/Horde/Crypt/Pgp.php:1450
+#, fuzzy
+msgid "PGP Encrypted Data"
+msgstr "Шифрованние PGP"
+
+#: lib/Horde/Crypt/Pgp.php:1511
+msgid "PGP Public Key"
+msgstr "Публичный ключ PGP"
+
+# fuzzy
+#: lib/Horde/Crypt/Pgp.php:1493
+#, fuzzy
+msgid "PGP Signed/Encrypted Data"
+msgstr "Подпись и шифрование PGP"
+
+#: lib/Horde/Crypt/Smime.php:1256
+#, fuzzy
+msgid "Password incorrect"
+msgstr "Пароль"
+
+# fuzzy
+#: lib/Horde/Crypt/Pgp.php:447
+#, fuzzy
+msgid "Private Key"
+msgstr "Ваш секретный ключ:"
+
+#: lib/Horde/Crypt/Pgp.php:447
+#, fuzzy
+msgid "Public Key"
+msgstr "Публичный ключ PGP"
+
+#: lib/Horde/Crypt/Smime.php:554
+#, fuzzy
+msgid "Public Key Algorithm"
+msgstr "Ваше полное имя:"
+
+#: lib/Horde/Crypt/Smime.php:553
+#, fuzzy
+msgid "Public Key Info"
+msgstr "Ваше полное имя:"
+
+# fuzzy
+#: lib/Horde/Crypt/Pgp.php:225
+#, fuzzy
+msgid "Public/Private keypair not generated successfully."
+msgstr "Персональная пара PGP ключей была успешно сгенерирована."
+
+# fuzzy
+#: lib/Horde/Crypt/Smime.php:572
+#, fuzzy, php-format
+msgid "RSA Public Key (%d bit)"
+msgstr "Публичных ключей не найдено"
+
+#: lib/Horde/Crypt/Pgp.php:227
+#, fuzzy
+msgid "Returned error message:"
+msgstr "Удаленные сообщения"
+
+# fuzzy
+#: lib/Horde/Crypt/Pgp.php:1644
+#, fuzzy
+msgid "Revocation key not generated successfully."
+msgstr "Персональная пара PGP ключей была успешно сгенерирована."
+
+#: lib/Horde/Crypt/Smime.php:252
+msgid "S/MIME Cryptographic Signature"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:283
+#, fuzzy
+msgid "S/MIME Encrypted Message"
+msgstr "Не могу открыть модуль Maintenance_Task %s"
+
+#: lib/Horde/Crypt/Smime.php:611
+#, fuzzy
+msgid "Serial Number"
+msgstr "Имя"
+
+#: lib/Horde/Crypt/Smime.php:622
+#, fuzzy
+msgid "Signature"
+msgstr "Перед подписью"
+
+#: lib/Horde/Crypt/Smime.php:621
+#, fuzzy
+msgid "Signature Algorithm"
+msgstr "Перед подписью"
+
+#: lib/Horde/Crypt/Smime.php:479
+msgid "State or Province"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:481
+#, fuzzy
+msgid "Street Address"
+msgstr "Рабочий адрес"
+
+#: lib/Horde/Crypt/Smime.php:483
+#, fuzzy
+msgid "Surname"
+msgstr "Имя пользователя"
+
+#: lib/Horde/Crypt/Smime.php:482
+#, fuzzy
+msgid "Telephone Number"
+msgstr "Имя"
+
+#: lib/Horde/Crypt/Pgp.php:1311
+#, fuzzy
+msgid ""
+"The detached PGP signature block is required to verify the signed message."
+msgstr "Для проверки подписанного сообщения требуется публичный ключ PGP"
+
+#: lib/Horde/Crypt/Smime.php:1146
+msgid "The openssl module is required for the Horde_Crypt_Smime:: class."
+msgstr ""
+
+# fuzzy, php-format
+# fuzzy
+#: lib/Horde/Crypt/Smime.php:512
+#, fuzzy
+msgid "Unable to extract certificate details"
+msgstr "Подробности Сертификата"
+
+#: lib/Horde/Crypt/Pgp.php:453 lib/Horde/Crypt/Pgp.php:454
+#: lib/Horde/Crypt/Pgp.php:455
+msgid "Unknown"
+msgstr "Неизвесно"
+
+#: lib/Horde/Crypt/Smime.php:596 lib/Horde/Crypt/Smime.php:844
+#: lib/Horde/Crypt/Smime.php:850
+#, fuzzy
+msgid "Unsupported Extension"
+msgstr "Некорректное имя."
+
+#: lib/Horde/Crypt/Smime.php:547
+msgid "Validity"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:191
+#, fuzzy
+msgid "Verification failed - an unknown error has occurred."
+msgstr "<b>Произошла критическая ошибка:</b>"
+
+#: lib/Horde/Crypt/Smime.php:193
+msgid "Verification failed - this message may have been tampered with."
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:610
+#, fuzzy
+msgid "Version"
+msgstr "Внимание"
+
+#: lib/Horde/Crypt/Smime.php:502
+msgid "X509v3 Basic Constraints"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:501
+msgid "X509v3 Extended Key Usage"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:503
+msgid "X509v3 Subject Alternative Name"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:504
+msgid "X509v3 Subject Key Identifier"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:592
+msgid "X509v3 extensions"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:1135
+#, fuzzy
+msgid "not yet implemented"
+msgstr ""
+"#-#-#-#-#  ru_RU.po (Horde v2.1)  #-#-#-#-#\n"
+"#-#-#-#-#  ru_RU.po (IMP v3.1)  #-#-#-#-#\n"
+"Новое сообщение"

@@ -2,11 +2,76 @@
 /**
  * Kronolith application API.
  *
+ * This file defines Horde's core API interface. Other core Horde libraries
+ * can interact with Kronolith through this API.
+ *
+ * Copyright 2010 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ *
  * @package Kronolith
  */
+
+/* Determine the base directories. */
+if (!defined('KRONOLITH_BASE')) {
+    define('KRONOLITH_BASE', dirname(__FILE__) . '/..');
+}
+
+if (!defined('HORDE_BASE')) {
+    /* If Horde does not live directly under the app directory, the HORDE_BASE
+     * constant should be defined in config/horde.local.php. */
+    if (file_exists(KRONOLITH_BASE . '/config/horde.local.php')) {
+        include KRONOLITH_BASE . '/config/horde.local.php';
+    } else {
+        define('HORDE_BASE', KRONOLITH_BASE . '/..');
+    }
+}
+
+/* Load the Horde Framework core (needed to autoload
+ * Horde_Registry_Application::). */
+require_once HORDE_BASE . '/lib/core.php';
+
 class Kronolith_Application extends Horde_Registry_Application
 {
+    /**
+     * Does this application support an ajax view?
+     *
+     * @var boolean
+     */
+    public $ajaxView = true;
+
+    /**
+     * The application's version.
+     *
+     * @var string
+     */
     public $version = 'H4 (3.0-git)';
+
+    /**
+     * Initialization function.
+     *
+     * Global variables defined:
+     *   $kronolith_shares - TODO
+     */
+    protected function _init()
+    {
+        /* For now, autoloading the Content_* classes depend on there being a
+         * registry entry for the 'content' application that contains at least
+         * the fileroot entry. */
+        $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Content_/', $GLOBALS['registry']->get('fileroot', 'content') . '/lib/'));
+        if (!class_exists('Content_Tagger')) {
+            throw new Horde_Exception('The Content_Tagger class could not be found. Make sure the registry entry for the Content system is present.');
+        }
+
+        /* Set the timezone variable, if available. */
+        $GLOBALS['registry']->setTimeZone();
+
+        /* Create a share instance. */
+        $GLOBALS['kronolith_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
+
+        Kronolith::initialize();
+    }
 
     /**
      * Returns a list of available permissions.
@@ -15,133 +80,318 @@ class Kronolith_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        $perms = array();
-        $perms['tree']['kronolith']['max_events'] = false;
-        $perms['title']['kronolith:max_events'] = _("Maximum Number of Events");
-        $perms['type']['kronolith:max_events'] = 'int';
-
-        return $perms;
+        return array(
+            'max_events' => array(
+                'title' => _("Maximum Number of Events"),
+                'type' => 'int'
+            )
+        );
     }
 
     /**
-     * Returns the specified permission for the current user.
+     * Add additional items to the menu.
      *
-     * @param mixed $allowed  The allowed permissions.
+     * @param Horde_Menu $menu  The menu object.
+     */
+    public function menu($menu)
+    {
+        global $browser, $conf, $injector, $notification, $prefs, $registry;
+
+        /* Check here for guest calendars so that we don't get multiple
+         * messages after redirects, etc. */
+        if (!$registry->getAuth() && !count(Kronolith::listCalendars())) {
+            $notification->push(_("No calendars are available to guests."));
+        }
+
+        $menu->add(Horde::url($prefs->getValue('defaultview') . '.php'), _("_Today"), 'today.png', null, null, null, '__noselection');
+        if (Kronolith::getDefaultCalendar(Horde_Perms::EDIT) &&
+            (!empty($conf['hooks']['permsdenied']) ||
+             $injector->getInstance('Horde_Perms')->hasAppPermission('max_events') === true ||
+             $injector->getInstance('Horde_Perms')->hasAppPermission('max_events') > self::countEvents())) {
+            $menu->add(Horde::url('new.php')->add('url', Horde::selfUrl(true, false, true)), _("_New Event"), 'new.png');
+        }
+
+        if ($browser->hasFeature('dom')) {
+            Horde_Core_Ui_JsCalendar::init(array(
+                'click_month' => true,
+                'click_week' => true,
+                'click_year' => true,
+                'full_weekdays' => true
+            ));
+            Horde::addScriptFile('goto.js', 'kronolith');
+            Horde::addInlineJsVars(array(
+                'KronolithGoto.dayurl' => strval(Horde::url('day.php')),
+                'KronolithGoto.monthurl' => strval(Horde::url('month.php')),
+                'KronolithGoto.weekurl' => strval(Horde::url('week.php')),
+                'KronolithGoto.yearurl' => strval(Horde::url('year.php'))
+            ));
+            $menu->add(new Horde_Url(''), _("_Goto"), 'goto.png', null, '', null, 'kgotomenu');
+        }
+        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png', Horde_Themes::img(null, 'horde'));
+
+        /* Import/Export. */
+        if ($conf['menu']['import_export']) {
+            $menu->add(Horde::url('data.php'), _("_Import/Export"), 'data.png', Horde_Themes::img(null, 'horde'));
+        }
+    }
+
+    /**
+     * Returns the specified permission for the given app permission.
+     *
+     * @param string $permission  The permission to check.
+     * @param mixed $allowed      The allowed permissions.
+     * @param array $opts         Additional options (NONE).
      *
      * @return mixed  The value of the specified permission.
      */
-    public function hasPermission($allowed)
+    public function hasPermission($permission, $allowed, $opts = array())
     {
-        if (is_array($allowed)) {
-            switch ($permission) {
-            case 'max_events':
-                $allowed = max($allowed);
-                break;
-            }
+        switch ($permission) {
+        case 'max_events':
+            $allowed = max($allowed);
+            break;
         }
 
         return $allowed;
     }
 
     /**
-     * Code to run when viewing prefs for this application.
+     * Populate dynamically-generated preference values.
      *
-     * @param string $group  The prefGroup name.
-     *
-     * @return array  A list of variables to export to the prefs display page.
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
-    public function prefsInit($group)
+    public function prefsEnum($ui)
     {
-        $out = array();
+        global $conf, $prefs, $registry;
 
-        if (!$GLOBALS['prefs']->isLocked('day_hour_start') ||
-            !$GLOBALS['prefs']->isLocked('day_hour_end')) {
-            $out['day_hour_start_options'] = array();
-            for ($i = 0; $i <= 48; ++$i) {
-                $out['day_hour_start_options'][$i] = date(($GLOBALS['prefs']->getValue('twentyFour')) ? 'G:i' : 'g:ia', mktime(0, $i * 30, 0));
+        switch ($ui->group) {
+        case 'freebusy':
+            if (!$prefs->isLocked('fb_cals')) {
+                $fb_list = array();
+                foreach (Kronolith::listCalendars() as $fb_cal => $cal) {
+                    $fb_list[htmlspecialchars($fb_cal)] = htmlspecialchars($cal->name());
+                }
+                $ui->override['fb_cals'] = $fb_list;
             }
-            $out['day_hour_end_options'] = $out['day_hour_start_options'];
+            break;
+
+       case 'share':
+            if (!$prefs->isLocked('default_share')) {
+                $all_shares = Kronolith::listInternalCalendars();
+                $sharelist = array();
+
+                foreach ($all_shares as $id => $share) {
+                    if (!empty($conf['share']['hidden']) &&
+                        ($share->get('owner') != $GLOBALS['registry']->getAuth()) &&
+                        !in_array($share->getName(), $GLOBALS['display_calendars'])) {
+                        continue;
+                    }
+                    $sharelist[$id] = $share;
+                }
+
+                $vals = array();
+                foreach ($sharelist as $id => $share) {
+                    $vals[htmlspecialchars($id)] = htmlspecialchars($share->get('name'));
+                }
+                $ui->override['default_share'] = $vals;
+            }
+            break;
+
+        case 'view':
+            if (!$prefs->isLocked('day_hour_start') ||
+                !$prefs->isLocked('day_hour_end')) {
+                $out = array();
+                $tf = $GLOBALS['prefs']->getValue('twentyFour') ? 'G:i' : 'g:ia';
+                for ($i = 0; $i <= 48; ++$i) {
+                    $out[$i] = date($tf, mktime(0, $i * 30, 0));
+                }
+                $ui->override['day_hour_end'] = $out;
+                $ui->override['day_hour_start'] = $out;
+            }
+            break;
+        }
+    }
+
+    /**
+     * Code to run on init when viewing prefs for this application.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     */
+    public function prefsInit($ui)
+    {
+        global $conf, $prefs, $registry;
+
+        switch ($ui->group) {
+        case 'addressbooks':
+            if (!$prefs->isLocked('sourceselect')) {
+                Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
+            }
+            break;
+
+        case 'notification':
+            if (empty($conf['alarms']['driver']) ||
+                $prefs->isLocked('event_alarms') ||
+                $prefs->isLocked('event_alarms_select')) {
+                $ui->suppress[]= 'event_alarms';
+            } else {
+                Horde_Core_Prefs_Ui_Widgets::alarminit();
+            }
+            break;
         }
 
-        return $out;
+        /* Suppress prefGroups display. */
+        if (!$registry->hasMethod('contacts/sources')) {
+            $ui->suppressGroups[] = 'addressbooks';
+        }
+
+        if ($prefs->isLocked('default_alarm')) {
+            $ui->suppressGroups[] = 'event_options';
+        }
+    }
+
+   /**
+     * Generate code used to display a special preference.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     * @param string $item             The preference name.
+     *
+     * @return string  The HTML code to display on the prefs page.
+     */
+    public function prefsSpecial($ui, $item)
+    {
+        switch ($item) {
+        case 'default_alarm_management':
+            return $this->_defaultAlarmManagement($ui);
+
+        case 'event_alarms_select':
+            return Horde_Core_Prefs_Ui_Widgets::alarm(array(
+                'label' => _("Choose how you want to receive reminders for events with alarms:"),
+                'pref' => 'event_alarms'
+            ));
+
+        case 'sourceselect':
+            $search = Kronolith::getAddressbookSearchParams();
+            return Horde_Core_Prefs_Ui_Widgets::addressbooks(array(
+                'fields' => $search['fields'],
+                'sources' => $search['sources']
+            ));
+        }
+
+        return '';
     }
 
     /**
      * Special preferences handling on update.
      *
-     * @param string $item      The preference name.
-     * @param boolean $updated  Set to true if preference was updated.
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     * @param string $item             The preference name.
      *
      * @return boolean  True if preference was updated.
      */
-    public function prefsSpecial($item, $updated)
+    public function prefsSpecialUpdate($ui, $item)
     {
         switch ($item) {
-        case 'remote_cal_management':
-            return $this->_prefsRemoteCalManagement($updated);
+        case 'default_alarm_management':
+            $GLOBALS['prefs']->setValue('default_alarm', (int)$ui->vars->alarm_value * (int)$ui->vars->alarm_unit);
+            return true;
 
-        case 'shareselect':
-            return $this->_prefsShareSelect($updated);
+        case 'event_alarms_select':
+            $data = Horde_Core_Prefs_Ui_Widgets::alarmUpdate($ui, array('pref' => 'event_alarms'));
+            if (!is_null($data)) {
+                $GLOBALS['prefs']->setValue('event_alarms', serialize($data));
+                return true;
+            }
+            break;
+
+        case 'remote_cal_management':
+            return $this->_prefsRemoteCalManagement($ui);
 
         case 'sourceselect':
-            return $this->_prefsSourceSelect($updated);
-
-        case 'fb_cals_select':
-            $this->_prefsFbCalsSelect($updated);
-            return true;
-
-        case 'default_alarm_management':
-            $GLOBALS['prefs']->setValue('default_alarm', (int)Horde_Util::getFormData('alarm_value') * (int)Horde_Util::getFormData('alarm_unit'));
-            return true;
+            return $this->_prefsSourceselect($ui);
         }
+
+        return false;
     }
 
     /**
-     * Do anything that we need to do as a result of certain preferences
-     * changing.
+     * Called when preferences are changed.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
-    public function prefsCallback()
+    public function prefsCallback($ui)
     {
         if ($GLOBALS['prefs']->isDirty('event_alarms')) {
-            $alarms = $GLOBALS['registry']->callByPackage('kronolith', 'listAlarms', array($_SERVER['REQUEST_TIME']));
-            if (!is_a($alarms, 'PEAR_Error') && !empty($alarms)) {
-                $horde_alarm = Horde_Alarm::factory();
-                foreach ($alarms as $alarm) {
-                    $alarm['start'] = new Horde_Date($alarm['start']);
-                    $alarm['end'] = new Horde_Date($alarm['end']);
-                    $horde_alarm->set($alarm);
+            try {
+                $alarms = $GLOBALS['registry']->callByPackage('kronolith', 'listAlarms', array($_SERVER['REQUEST_TIME']));
+                if (!empty($alarms)) {
+                    $horde_alarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
+                    foreach ($alarms as $alarm) {
+                        $alarm['start'] = new Horde_Date($alarm['start']);
+                        $alarm['end'] = new Horde_Date($alarm['end']);
+                        $horde_alarm->set($alarm);
+                    }
                 }
-            }
+            } catch (Exception $e) {}
         }
     }
 
     /**
-     * Generate the menu to use on the prefs page.
+     * Create code for default alarm management.
      *
-     * @return Horde_Menu  A Horde_Menu object.
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     *
+     * @return string  HTML UI code.
      */
-    public function prefsMenu()
+    protected function _defaultAlarmManagement($ui)
     {
-        return Kronolith::getMenu();
+        $t = $GLOBALS['injector']->createInstance('Horde_Template');
+        $t->setOption('gettext', true);
+
+        if ($alarm_value = $GLOBALS['prefs']->getValue('default_alarm')) {
+            if ($alarm_value % 10080 == 0) {
+                $alarm_value /= 10080;
+                $t->set('week', true);
+            } elseif ($alarm_value % 1440 == 0) {
+                $alarm_value /= 1440;
+                $t->set('day', true);
+            } elseif ($alarm_value % 60 == 0) {
+                $alarm_value /= 60;
+                $t->set('hour', true);
+            } else {
+                $t->set('minute', true);
+            }
+        } else {
+            $t->set('minute', true);
+        }
+
+        $t->set('alarm_value', intval($alarm_value));
+
+        return $t->fetch(KRONOLITH_TEMPLATES . '/prefs/defaultalarm.html');
     }
 
     /**
-     * TODO
+     * Create code for remote calendar management.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     *
+     * @return string  HTML UI code.
      */
-    protected function _prefsRemoteCalManagement($updated)
+    protected function _prefsRemoteCalManagement($ui)
     {
-        $calName = Horde_Util::getFormData('remote_name');
-        $calUrl  = trim(Horde_Util::getFormData('remote_url'));
-        $calUser = trim(Horde_Util::getFormData('remote_user'));
-        $calPasswd = trim(Horde_Util::getFormData('remote_password'));
+        $calName = $ui->vars->remote_name;
+        $calUrl  = trim($ui->vars->remote_url);
+        $calUser = trim($ui->vars->remote_user);
+        $calPasswd = trim($ui->vars->remote_password);
 
-        $key = Horde_Auth::getCredential('password');
+        $key = $GLOBALS['registry']->getAuthCredential('password');
         if ($key) {
             $calUser = base64_encode(Secret::write($key, $calUser));
             $calPasswd = base64_encode(Secret::write($key, $calPasswd));
         }
 
-        $calActionID = Horde_Util::getFormData('remote_action', 'add');
+        $calActionID = isset($ui->vars->remote_action)
+            ? $ui->vars->remote_action
+            : 'add';
 
         if ($calActionID == 'add') {
             if (!empty($calName) && !empty($calUrl)) {
@@ -151,7 +401,6 @@ class Kronolith_Application extends Horde_Registry_Application
                     'user' => $calUser,
                     'password' => $calPasswd);
                 $GLOBALS['prefs']->setValue('remote_cals', serialize($cals));
-                return $updated;
             }
         } elseif ($calActionID == 'delete') {
             $cals = unserialize($GLOBALS['prefs']->getValue('remote_cals'));
@@ -162,7 +411,6 @@ class Kronolith_Application extends Horde_Registry_Application
                 }
             }
             $GLOBALS['prefs']->setValue('remote_cals', serialize($cals));
-            return $updated;
         } elseif ($calActionID == 'edit') {
             $cals = unserialize($GLOBALS['prefs']->getValue('remote_cals'));
             foreach ($cals as $key => $cal) {
@@ -175,66 +423,34 @@ class Kronolith_Application extends Horde_Registry_Application
                 }
             }
             $GLOBALS['prefs']->setValue('remote_cals', serialize($cals));
-            return $updated;
         }
-
-        return false;
     }
 
     /**
-     * TODO
+     * Update address book related preferences.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     *
+     * @return boolean  True if preferences were updated.
      */
-    protected function _prefsShareSelect($updated)
+    protected function _prefsSourceselect($ui)
     {
-        $default_share = Horde_Util::getFormData('default_share');
-        if (!is_null($default_share)) {
-            $sharelist = Kronolith::listCalendars();
-            if ((is_array($sharelist)) > 0 &&
-                isset($sharelist[$default_share])) {
-                $GLOBALS['prefs']->setValue('default_share', $default_share);
-                return true;
-            }
-        }
+        global $prefs;
 
-        return $updated;
-    }
+        $data = Horde_Core_Prefs_Ui_Widgets::addressbooksUpdate($ui);
+        $updated = false;
 
-    /**
-     * TODO
-     */
-    protected function _prefsSourceSelect($updated)
-    {
-        $search_sources = Horde_Util::getFormData('search_sources');
-        if (!is_null($search_sources)) {
-            $GLOBALS['prefs']->setValue('search_sources', $search_sources);
+        if (isset($data['sources'])) {
+            $prefs->setValue('search_sources', $data['sources']);
             $updated = true;
         }
 
-        $search_fields_string = Horde_Util::getFormData('search_fields_string');
-        if (!is_null($search_fields_string)) {
-            $GLOBALS['prefs']->setValue('search_fields', $search_fields_string);
+        if (isset($data['fields'])) {
+            $prefs->setValue('search_fields', $data['fields']);
             $updated = true;
         }
 
         return $updated;
-    }
-
-    /**
-     * TODO
-     */
-    protected function _prefsFbCalsSelect()
-    {
-        $fb_calsSelected = Horde_Util::getFormData('fb_cals');
-        $fb_cals = Kronolith::listCalendars();
-        $fb_calsFiltered = array();
-
-        if (isset($fb_calsSelected) && is_array($fb_calsSelected)) {
-            foreach ($fb_calsSelected as $fb_cal) {
-                $fb_calsFiltered[] = $fb_cal;
-            }
-        }
-
-        $GLOBALS['prefs']->setValue('fb_cals', serialize($fb_calsFiltered));
     }
 
     /**
@@ -242,63 +458,135 @@ class Kronolith_Application extends Horde_Registry_Application
      *
      * @param string $user  Name of user to remove data for.
      *
-     * @return mixed  true on success | PEAR_Error on failure
+     * @throws Kronolith_Exception
+     * @throws Horde_History_Exception
+     * @throws InvalidArgumentException
      */
     public function removeUserData($user)
     {
-        if (!Horde_Auth::isAdmin() && $user != Horde_Auth::getAuth()) {
-            return PEAR::raiseError(_("You are not allowed to remove user data."));
-        }
-
-        $no_maint = true;
-        require_once dirname(__FILE__) . '/base.php';
-
         /* Remove all events owned by the user in all calendars. */
         $result = Kronolith::getDriver()->removeUserData($user);
 
-        /* Now delete history as well. */
-        $history = Horde_History::singleton();
-        if (method_exists($history, 'removeByParent')) {
-            $histories = $history->removeByParent('kronolith:' . $user);
-        } else {
-            /* Remove entries 100 at a time. */
-            $all = $history->getByTimestamp('>', 0, array(), 'kronolith:' . $user);
-            if (is_a($all, 'PEAR_Error')) {
-                Horde::logMessage($all, __FILE__, __LINE__, PEAR_LOG_ERR);
-            } else {
-                $all = array_keys($all);
-                while (count($d = array_splice($all, 0, 100)) > 0) {
-                    $history->removebyNames($d);
+        /* Get the user's default share */
+        try {
+            $share = $GLOBALS['kronolith_shares']->getShare($user);
+            $result = $GLOBALS['kronolith_shares']->removeShare($share);
+        } catch (Exception $e) {
+            Horde::logMessage($e, 'ERR');
+            throw $e;
+        }
+
+        /* Get a list of all shares this user has perms to and remove the
+         * perms */
+        try {
+            $shares = $GLOBALS['kronolith_shares']->listShares($user);
+            foreach ($shares as $share) {
+                $share->removeUser($user);
+            }
+        } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($e, 'ERR');
+            throw $e;
+        }
+    }
+
+    /* Sidebar method. */
+
+    /**
+     * Add node(s) to the sidebar tree.
+     *
+     * @param Horde_Tree_Base $tree  Tree object.
+     * @param string $parent         The current parent element.
+     * @param array $params          Additional parameters.
+     *
+     * @throws Horde_Exception
+     */
+    public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
+                                  array $params = array())
+    {
+        switch ($params['id']) {
+        case 'alarms':
+            try {
+                $alarms = Kronolith::listAlarms(new Horde_Date($_SERVER['REQUEST_TIME']), $GLOBALS['display_calendars'], true);
+            } catch (Kronolith_Exception $e) {
+                return;
+            }
+
+            $alarmCount = 0;
+            $horde_alarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
+
+            foreach ($alarms as $calId => $calAlarms) {
+                foreach ($calAlarms as $event) {
+                    if ($horde_alarm->isSnoozed($event->uid, $GLOBALS['registry']->getAuth())) {
+                        continue;
+                    }
+                    ++$alarmCount;
+                    $tree->addNode(
+                        $parent . $calId . $event->id,
+                        $parent,
+                        htmlspecialchars($event->getTitle()),
+                        1,
+                        false,
+                        array(
+                            'icon' => Horde_Themes::img('alarm.png'),
+                            'url' => $event->getViewUrl()
+                        )
+                    );
                 }
             }
-        }
 
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
-        /* Get the user's default share */
-        $share = $GLOBALS['kronolith_shares']->getShare($user);
-        if (is_a($share, 'PEAR_Error')) {
-            Horde::logMessage($share, __FILE__, __LINE__, PEAR_LOG_ERR);
-        } else {
-            $result = $GLOBALS['kronolith_shares']->removeShare($share);
-            if (is_a($result, 'PEAR_Error')) {
-                $hasError = true;
-                Horde::logMessage($result->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+            if ($GLOBALS['registry']->get('url', $parent)) {
+                $purl = $GLOBALS['registry']->get('url', $parent);
+            } elseif ($GLOBALS['registry']->get('status', $parent) == 'heading' ||
+                      !$GLOBALS['registry']->get('webroot')) {
+                $purl = null;
+            } else {
+                $purl = Horde::url($GLOBALS['registry']->getInitialPage($parent));
             }
-        }
 
-        /* Get a list of all shares this user has perms to and remove the perms */
-        $shares = $GLOBALS['kronolith_shares']->listShares($user);
-        if (is_a($shares, 'PEAR_Error')) {
-            Horde::logMessage($shares, __FILE__, __LINE__, PEAR_LOG_ERR);
-        }
-        foreach ($shares as $share) {
-            $share->removeUser($user);
-        }
+            $pnode_name = $GLOBALS['registry']->get('name', $parent);
+            if ($alarmCount) {
+                $pnode_name = '<strong>' . $pnode_name . '</strong>';
+            }
 
-        return true;
+            $tree->addNode(
+                $parent,
+                $GLOBALS['registry']->get('menu_parent', $parent),
+                $pnode_name,
+                0,
+                false,
+                array(
+                    'icon' => $GLOBALS['registry']->get('icon', $parent),
+                    'url' => $purl,
+                )
+            );
+            break;
+
+        case 'menu':
+            $menus = array(
+                array('new', _("New Event"), 'new.png', Horde::url('new.php')),
+                array('day', _("Day"), 'dayview.png', Horde::url('day.php')),
+                array('work', _("Work Week"), 'workweekview.png', Horde::url('workweek.php')),
+                array('week', _("Week"), 'weekview.png', Horde::url('week.php')),
+                array('month', _("Month"), 'monthview.png', Horde::url('month.php')),
+                array('year', _("Year"), 'yearview.png', Horde::url('year.php')),
+                array('search', _("Search"), 'search.png', Horde::url('search.php'))
+            );
+
+            foreach ($menus as $menu) {
+                $tree->addNode(
+                    $parent . $menu[0],
+                    $parent,
+                    $menu[1],
+                    1,
+                    false,
+                    array(
+                        'icon' => Horde_Themes::img($menu[2]),
+                        'url' => $menu[3]
+                    )
+                );
+            }
+            break;
+        }
     }
 
 }

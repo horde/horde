@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_Partial class allows message/partial messages
+ * The IMP_Mime_Viewer_Partial class allows message/partial messages
  * to be displayed (RFC 2046 [5.2.2]).
  *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
@@ -8,10 +8,12 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Mime
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
-class IMP_Horde_Mime_Viewer_Partial extends Horde_Mime_Viewer_Driver
+class IMP_Mime_Viewer_Partial extends Horde_Mime_Viewer_Base
 {
     /**
      * This driver's display capabilities.
@@ -46,7 +48,7 @@ class IMP_Horde_Mime_Viewer_Partial extends Horde_Mime_Viewer_Driver
     /**
      * Return the rendered information about the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _renderInfo()
     {
@@ -57,7 +59,7 @@ class IMP_Horde_Mime_Viewer_Partial extends Horde_Mime_Viewer_Driver
                 $id => array(
                     'data' => null,
                     'status' => array(self::$_statuscache[$id]),
-                    'type' => 'text/plain; charset=' . Horde_Nls::getCharset()
+                    'type' => 'text/plain; charset=' . $this->getConfigParam('charset')
                 )
             );
         } else {
@@ -82,20 +84,19 @@ class IMP_Horde_Mime_Viewer_Partial extends Horde_Mime_Viewer_Driver
             return null;
         }
 
-        $mbox = $this->_params['contents']->getMailbox();
-
         /* Perform the search to find the other parts of the message. */
         $query = new Horde_Imap_Client_Search_Query();
         $query->headerText('Content-Type', $id);
-        $indices = $GLOBALS['imp_search']->runSearchQuery($query, $mbox);
+        $indices = $GLOBALS['injector']->getInstance('IMP_Search')->runQuery($query, $this->getConfigParam('imp_contents')->getMailbox());
 
         /* If not able to find the other parts of the message, prepare a
          * status message. */
-        if (count($indices) != $total) {
+        $msg_count = count($indices);
+        if ($msg_count != $total) {
             self::$_statuscache[$this->_mimepart->getMimeId()] = array(
-                'icon' => Horde::img('alerts/error.png', _("Error"), null, $GLOBALS['registry']->getImageDir('horde')),
+                'icon' => Horde::img('alerts/error.png', _("Error")),
                 'text' => array(
-                    sprintf(_("Cannot display message - found only %s of %s parts of this message in the current mailbox."), count($indices), $total)
+                    sprintf(_("Cannot display message - found only %s of %s parts of this message in the current mailbox."), $msg_count, $total)
                 )
             );
             return null;
@@ -103,12 +104,12 @@ class IMP_Horde_Mime_Viewer_Partial extends Horde_Mime_Viewer_Driver
 
         /* Get the contents of each of the parts. */
         $parts = array();
-        foreach ($indices as $val) {
+        foreach ($indices as $mbox => $val) {
             /* No need to fetch the current part again. */
             if ($val == $number) {
                 $parts[$number] = $this->_mimepart->getContents();
             } else {
-                $ic = IMP_Contents::singleton($val . IMP::IDX_SEP . $mbox);
+                $ic = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Contents')->create(new IMP_Indices($mbox, $val));
                 $parts[$ic->getMIMEMessage()->getContentTypeParameter('number')] = $ic->getBody();
             }
         }

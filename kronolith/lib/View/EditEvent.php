@@ -11,17 +11,20 @@ class Kronolith_View_EditEvent {
     var $event;
 
     /**
-     * @param Kronolith_Event &$event
+     * @param Kronolith_Event $event
      */
-    function Kronolith_View_EditEvent(&$event)
+    function Kronolith_View_EditEvent($event)
     {
-        $this->event = &$event;
+        $this->event = $event;
     }
 
     function getTitle()
     {
-        if (!$this->event || is_a($this->event, 'PEAR_Error')) {
+        if (!$this->event) {
             return _("Not Found");
+        }
+        if (is_string($this->event)) {
+            return $this->event;
         }
         return sprintf(_("Edit %s"), $this->event->getTitle());
     }
@@ -33,24 +36,30 @@ class Kronolith_View_EditEvent {
 
     function html($active = true)
     {
-        $identity = Horde_Prefs_Identity::singleton();
-
-        if (!$this->event || is_a($this->event, 'PEAR_Error')) {
-            echo '<h3>' . _("The requested event was not found.") . '</h3>';
-            return;
+        if (!$this->event) {
+            echo '<h3>' . _("Event not found") . '</h3>';
+            exit;
         }
+        if (is_string($this->event)) {
+            echo '<h3>' . $this->event . '</h3>';
+            exit;
+        }
+
+        $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
 
         if ($this->event->hasPermission(Horde_Perms::EDIT)) {
-            $calendar_id = $this->event->calendar;
+            $calendar_id = $this->event->calendarType . '_' . $this->event->calendar;
         } else {
-            $calendar_id = Kronolith::getDefaultCalendar(Horde_Perms::EDIT);
+            $calendar_id = 'internal_' . Kronolith::getDefaultCalendar(Horde_Perms::EDIT);
         }
-        if (!$this->event->hasPermission(Horde_Perms::EDIT) &&
-            !is_a($share = &$this->event->getShare(), 'PEAR_Error')) {
-            $calendar_id .= ':' . $share->get('owner');
+        if (!$this->event->hasPermission(Horde_Perms::EDIT)) {
+            try {
+                $calendar_id .= ':' . $this->event->getShare()->get('owner');
+            } catch (Exception $e) {
+            }
         }
-        $_SESSION['kronolith']['attendees'] = $this->event->attendees;
-        $_SESSION['kronolith']['resources'] = $this->event->getResources();
+        $GLOBALS['session']['kronolith:attendees'] = $this->event->attendees;
+        $GLOBALS['session']['kronolith:resources'] = $this->event->getResources();
         if ($datetime = Horde_Util::getFormData('datetime')) {
             $datetime = new Horde_Date($datetime);
             $month = $datetime->month;
@@ -62,16 +71,16 @@ class Kronolith_View_EditEvent {
 
         $url = Horde_Util::getFormData('url');
         $perms = Horde_Perms::EDIT;
-        if ($this->event->creator == Horde_Auth::getAuth()) {
+        if ($this->event->creator == $GLOBALS['registry']->getAuth()) {
             $perms |= Kronolith::PERMS_DELEGATE;
         }
-        $calendars = Kronolith::listCalendars(false, $perms);
+        $calendars = Kronolith::listCalendars($perms, true);
 
         $buttons = array();
         if (!$this->event->hasPermission(Horde_Perms::EDIT) &&
             (!empty($GLOBALS['conf']['hooks']['permsdenied']) ||
-             $GLOBALS['perms']->hasAppPermission('max_events') === true ||
-             $GLOBALS['perms']->hasAppPermission('max_events') > Kronolith::countEvents())) {
+             $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') === true ||
+             $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') > Kronolith::countEvents())) {
             $buttons[] = '<input type="submit" class="button" name="saveAsNew" value="' . _("Save As New") . '" />';
         } else {
             if ($this->event->hasPermission(Horde_Perms::EDIT)) {
@@ -80,8 +89,8 @@ class Kronolith_View_EditEvent {
             if ($this->event->initialized) {
                 if (!$this->event->recurs() &&
                     (!empty($conf['hooks']['permsdenied']) ||
-                     $GLOBALS['perms']->hasAppPermission('max_events') === true ||
-                     $GLOBALS['perms']->hasAppPermission('max_events') > Kronolith::countEvents())) {
+                     $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') === true ||
+                     $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') > Kronolith::countEvents())) {
                     $buttons[] = '<input type="submit" class="button" name="saveAsNew" value="' . _("Save As New") . '" />';
                 }
             }
@@ -90,7 +99,7 @@ class Kronolith_View_EditEvent {
         if (isset($url)) {
             $cancelurl = new Horde_Url($url);
         } else {
-            $cancelurl = Horde::applicationUrl('month.php', true)
+            $cancelurl = Horde::url('month.php', true)
                 ->add(array('month' => $month, 'year' => $year));
         }
 
@@ -101,9 +110,14 @@ class Kronolith_View_EditEvent {
         $tags = $tagger->getTags($event->uid, 'event');
         $tags = implode(',', array_values($tags));
 
-        echo '<div id="EditEvent"' . ($active ? '' : ' style="display:none"') . '>';
+        Horde_Core_Ui_JsCalendar::init(array(
+            'full_weekdays' => true
+        ));
+
+        Horde::addScriptFile('edit.js', 'kronolith');
         Horde::addScriptFile('popup.js', 'horde');
-        require KRONOLITH_TEMPLATES . '/edit/javascript.inc';
+
+        echo '<div id="EditEvent"' . ($active ? '' : ' style="display:none"') . '>';
         require KRONOLITH_TEMPLATES . '/edit/edit.inc';
         echo '</div>';
 

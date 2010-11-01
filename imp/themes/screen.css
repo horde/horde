@@ -1,7 +1,38 @@
-/* Mailbox header styling. */
+/* Mailbox page styling. */
 .mboxheader {
     font-size: 110%;
     text-align: left;
+}
+.mboxheader .pageCount {
+    padding-right: 10px;
+}
+
+table.mboxactions {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#checkheader {
+    width: 8%;
+}
+#checkheader input {
+    float: left;
+}
+
+#mboxdate {
+    width: 14%;
+}
+
+#mboxto, #mboxfrom {
+    width: 20%;
+}
+
+#mboxthread, #mboxsubject {
+    width: 52%;
+}
+
+#mboxsize {
+    width: 6%;
 }
 
 /* Message list table styles. */
@@ -17,14 +48,15 @@
     height: 20px;
 }
 .messageList th {
-    border: 1px solid #eee;
+    border-top: 1px solid #999;
+    border-left: 1px solid #ddd;
     cursor: pointer;
     overflow: hidden;
-    padding: 0 0 1px 1px;
+    padding: 0 0 1px 2px;
     text-align: left;
     white-space: nowrap;
 }
-.messageList th .subjectToggle {
+.messageList th .toggleSort {
     font-size: 90%;
 }
 .messageList td {
@@ -37,9 +69,6 @@
     overflow: hidden;
     border: 1px solid #ddd;
     vertical-align: middle;
-}
-.messageList td label {
-    padding-right: 2px;
 }
 .messageList td label input {
     vertical-align: middle;
@@ -58,11 +87,6 @@
     margin-left: 3px;
 }
 
-/* Message view styling. */
-#msgheaders tr.printedby {
-    display: none;
-}
-
 /* Newmail alerts. */
 #newmail {
     padding: 1em;
@@ -75,6 +99,10 @@
 }
 
 /* Navbar action styling. */
+table.navbaractions {
+    border-collapse: collapse;
+    width: 100%;
+}
 ul.msgactions, ul.msgactions ul {
     list-style: none;
 }
@@ -103,8 +131,7 @@ ul.msgactions, ul.msgactions ul {
     background: #f4f4f4;
     border: 1px solid #d4d4d4;
     display: none;
-    left: -1px;
-    padding: 2px;
+    padding: 1px;
     position: absolute;
     z-index: 99;
 }
@@ -140,9 +167,6 @@ ul.msgactions, ul.msgactions ul {
     padding-bottom: 0;
     padding-top: 0;
 }
-.bottombordercollapse {
-    border-bottom: 2px solid #999;
-}
 .topborder {
     border-top: 1px solid #999;
 }
@@ -153,6 +177,11 @@ table.msgActionTable, #fmanager table {
 }
 div.msgActions, #fmanager div.folderActions {
     padding-left: 15px;
+}
+
+/* Message headers styling. */
+#msgheaders table {
+    border-collapse: collapse;
 }
 
 /* Message body styling. */
@@ -170,16 +199,43 @@ div.msgActions, #fmanager div.folderActions {
 #search_form div.item {
     padding: 1px 0 1px 0;
 }
-#search_form .checkbox {
-    vertical-align: middle;
-    margin-right: 2px;
+
+.searchCriteriaElement {
+    display: -moz-inline-stack;
+    display: inline-block;
+    padding: 3px;
 }
-#search_form .foldersImg {
-    vertical-align: middle;
+#search_criteria .searchCriteriaElement {
+    background-color: lightblue;
+    border: 1px solid gray;
+    margin: 2px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
 }
-#search_form em.join {
+#search_criteria em.join {
     font-style: normal;
     font-weight: bold;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+#search_criteria em.joinOr {
+    display: inline-block;
+    padding: 5px;
+}
+#search_criteria span.notMatch {
+    padding-left: 3px;
+    padding-right: 3px;
+}
+#search_criteria input.checkbox {
+    margin-right: 2px;
+}
+#search_criteria .searchuiDelete {
+    padding-left: 6px;
+    vertical-align: middle;
+}
+
+#search_folders_tree input.checkbox {
+    vertical-align: middle;
 }
 
 .searchuiCalendar {
@@ -197,12 +253,14 @@ div.msgActions, #fmanager div.folderActions {
 }
 
 /* Folder view. */
-#checkAll0, #checkAll1, #fmanager input.checkbox, #fmanager span.folderImg {
+#checkAll0, #checkAll1, #fmanager input.checkbox {
     vertical-align: middle;
 }
+
 #fmanager div.folderChoose {
     padding-left: 5px;
 }
+
 span.folderImg {
     background-image: url("graphics/folders/folder.png");
 }
@@ -223,6 +281,11 @@ span.spamImg {
 }
 span.trashImg {
     background-image: url("graphics/folders/trash.png");
+}
+
+.folderunsub {
+    background: #bbb;
+    font-style: italic;
 }
 
 /* Style for div that fixes KHTML browsers. */
@@ -339,39 +402,68 @@ div.msgflags.flagDeleted, span.contextImg.flagDeleted {
     background-image: url("graphics/mail_deleted.png");
 }
 
-/* Accounts/flag management (prefs) styles. */
-table.accountsmanagement, table.flagmanagement {
+/* Prefs management styles. */
+table.accountsmanagement, table.flagmanagement, table.searchesmanagement {
     padding-bottom: 10px;
 }
-table.accountsmanagement td, table.flagmanagement td {
+table.accountsmanagement td, table.flagmanagement td, table.searchesmanagement td {
     padding-right: 12px;
 }
-table.accountsmanagement thead td, table.flagmanagement thead td {
+table.accountsmanagement thead td, table.flagmanagement thead td, table.searchesmanagement thead td {
     font-weight: bold;
     text-decoration: underline;
 }
+
 table.accountsmanagement td.required, .accountsNotSecure {
     color: red;
-}
-.accountsSecure {
-    color: green;
-}
-table.flagmanagement tbody td.flagicon {
-    text-align: center;
 }
 table.accountsmanagement td.noneconfigured {
     font-style: italic;
 }
+.accountsSecure {
+    color: green;
+}
 
-/* PGP & S/MIME prefs styles. */
-.redText {
+table.flagmanagement div.flagUser {
+    border: 1px solid gray;
+    margin-right: 2px;
+}
+table.flagmanagement tbody td.flagicon {
+    text-align: center;
+}
+
+table.searchesmanagement td.searchdescription {
+    background-color: #ffa;
+    width: 500px;
+}
+table.searchesmanagement .vfolderenabled {
+    color: blue;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* Prefs styles. */
+.prefsPgpContainer, .prefsSmimeContainer {
+    border: 1px solid black;
+    margin: 5px 0;
+    padding: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+.prefsPgpHeader, .prefsSmimeHeader {
+    margin-bottom: 5px;
+}
+.prefsPgpWarning, .prefsSmimeWarning {
     color: red;
+    padding: 5px 10px;
 }
 
-.folderunsub {
-    background: #bbb;
-    font-style: italic;
+.prefsAclTable {
+    padding-bottom: 8px;
+    width: 100%;
 }
+
+/* Quota styles. */
 .quotawarn {
     color: #000;
     background: yellow;
@@ -381,17 +473,13 @@ table.accountsmanagement td.noneconfigured {
     background: #f00;
 }
 
+/* Pad the addressbook icon in header compose links. */
 td.msgheader {
     width: 100%;
 }
-table.multipleMsgs td.msgheader {
-    width: auto;
-}
-
-/* Pad the addressbook icon in header compose links. */
 .msgheader img {
-    vertical-align: middle;
-    padding: 1px 1px 1px 2px;
+    padding: 0 1px 0 2px;
+    vertical-align: bottom;
 }
 
 /* Contacts styles. */
@@ -437,82 +525,34 @@ span.spellcheckPopdownImg:hover {
     text-decoration: underline;
 }
 
-/* Thread/folder images */
-span.treeImg {
-    height: 20px;
-    width: 20px;
-    display: -moz-inline-stack;
-    display: inline-block;
-    vertical-align: middle;
+/* Thread page */
+.threadSummary {
+    margin: 5px 3px;
 }
-
-span.treeImg1 {
-    background-image: url("graphics/tree/line.png");
+.threadSummary div {
+    height: 16px;
 }
-span.treeImg2 {
-    background-image: url("graphics/tree/join.png");
+.threadBox {
+    margin: 3px;
 }
-span.treeImg3 {
-    background-image: url("graphics/tree/joinbottom-down.png");
+.threadBox div.item0 {
+    padding: 1px 2px;
 }
-span.treeImg4 {
-    background-image: url("graphics/tree/joinbottom.png");
+.threadBox span.threadlink {
+    float: right;
 }
-span.treeImg5 {
-    background-image: url("graphics/tree/rev-line.png");
-}
-span.treeImg6 {
-    background-image: url("graphics/tree/rev-join.png");
-}
-span.treeImg7 {
-    background-image: url("graphics/tree/rev-joinbottom-down.png");
-}
-span.treeImg8 {
-    background-image: url("graphics/tree/rev-joinbottom.png");
-}
-span.treeImg9 {
-    background-image: url("graphics/tree/minustop.png");
-}
-span.treeImg10 {
-    background-image: url("graphics/tree/minus.png");
-}
-span.treeImg11 {
-    background-image: url("graphics/tree/minusbottom.png");
-}
-span.treeImg12 {
-    background-image: url("graphics/tree/rev-minustop.png");
-}
-span.treeImg13 {
-    background-image: url("graphics/tree/rev-minus.png");
-}
-span.treeImg14 {
-    background-image: url("graphics/tree/rev-minusbottom.png");
-}
-span.treeImg15 {
-    background-image: url("graphics/tree/plustop.png");
-}
-span.treeImg16 {
-    background-image: url("graphics/tree/plus.png");
-}
-span.treeImg17 {
-    background-image: url("graphics/tree/plusbottom.png");
-}
-span.treeImg18 {
-    background-image: url("graphics/tree/rev-plustop.png");
-}
-span.treeImg19 {
-    background-image: url("graphics/tree/rev-plus.png");
-}
-span.treeImg20 {
-    background-image: url("graphics/tree/rev-plusbottom.png");
+.threadBox .messageBody {
+    border-bottom: 0;
 }
 
 /* Expand/Collapse graphic. */
 span.arrowCollapsed {
     background-image: url("graphics/arrow_collapsed.png");
+    cursor: pointer;
 }
 span.arrowExpanded {
     background-image: url("graphics/arrow_expanded.png");
+    cursor: pointer;
 }
 
 /* Loading graphic */
@@ -530,8 +570,8 @@ td.addressTr span.loadingImg {
     padding: 0 0 0 16px;
 }
 
-/* MIME styles. */
-.mimeStatusMessageTable, .mimeHeaders {
+/* Inline display (Horde_Mime_Viewer) styles. */
+.mimeStatusMessageTable {
     margin-bottom: 3px;
     font-size: 90%;
 }
@@ -548,13 +588,6 @@ td.addressTr span.loadingImg {
 }
 .mimeStatusIcon {
     width: 22px;
-}
-.mimeHeaders {
-    border: 1px solid #ccc;
-    background: #f9f9f9;
-    display: -moz-inline-stack;
-    display: inline-block;
-    padding: 5px;
 }
 div.mimeStatusMessage, div.mimePartInfo {
     margin-bottom: 5px;
@@ -604,7 +637,13 @@ div.mimeStatusMessage, div.mimePartInfo {
     border-color: #ffd0af;
 }
 
-.downloadAtc, .downloadZipAtc, .saveImgAtc, .closeImg, .deleteImg, .foldersImg, .searchuiImg, .reloadImg {
+.mimeHeadersPrint {
+    /* Must be pixel size to properly work with Mozilla on print page. */
+    font-size: 12px;
+}
+
+/* Other images. */
+.downloadAtc, .downloadZipAtc, .saveImgAtc, .printAtc, .closeImg, .deleteImg, .folderImg, .foldersImg, .searchuiImg, .reloadImg, .editImg {
     display: -moz-inline-stack;
     display: inline-block;
     height: 16px;
@@ -623,6 +662,9 @@ div.mimeStatusMessage, div.mimePartInfo {
 .downloadZipAtc {
     background-image: url("graphics/mime/compressed.png");
 }
+.printAtc {
+    background-image: url("graphics/print.png");
+}
 .saveImgAtc {
     background-image: url("graphics/gallery.png");
 }
@@ -635,7 +677,14 @@ div.mimeStatusMessage, div.mimePartInfo {
 .reloadImg {
     background-image: url("graphics/reload.png");
 }
+.editImg {
+    background-image: url("graphics/edit.png");
+}
 
+/* iTip styles. */
+#itipconflicts {
+    border-spacing: 0;
+}
 #itipconflicts tr.itipcollision {
     background-color: #f00;
     color: #fff;
@@ -645,28 +694,12 @@ div.mimeStatusMessage, div.mimePartInfo {
     background-color: #ee0;
 }
 
-
-/* Print CSS rules. */
-@media print {
-    body {
-        background: #fff;
-    }
-
-    a, a:visited {
-        color: #000;
-    }
-
-    #msgheaders tr.printedby {
-        display: table-row !important;
-    }
-
-    .label {
-        min-width: 60px;
-        text-align: right;
-        font-weight: bold;
-    }
-
-    #msgHeadersColl, .context, .address img, .mimeStatusMessage, .largeaddrlist, #msgAtc, table.msgActionTable, #messages h1.header, table.navbaractions, td.msgheader img, tr.msgheaderParts, .downloadAtc, .downloadZipAtc {
-        display: none !important;
-    }
+/* Quota syles. */
+#quota {
+    border-collapse: collapse;
+    width: 100%;
+}
+#quota td {
+    padding: 3px;
+    vertical-align: middle;
 }

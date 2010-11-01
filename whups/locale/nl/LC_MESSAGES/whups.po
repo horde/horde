@@ -1,0 +1,2029 @@
+# Dutch translation for Whups
+# Copyright 2004-2010 The Horde Project
+# This file is distributed under the same license as the Whups package.
+# Stefan de Konink <skinkie@utelisys.com>, 2004. (Initial Version)
+# Updated Han Spruyt, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Whups-0.0.1-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2005-11-28 15:02+0100\n"
+"PO-Revision-Date: 2004-01-16 00:30+0100\n"
+"Last-Translator: Stefan de Konink <skinkie@utelisys.com>\n"
+"Language-Team: Dutch <dev@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: admin.php:603
+#, php-format
+msgid "\"%s\" is no longer among those responsible for \"%s\""
+msgstr "\"%s\" is niet langer verantwoordelijk voor '%s'"
+
+#: templates/menu.inc:5
+msgid "#Id"
+msgstr "#Id"
+
+#: lib/Driver.php:278
+#, php-format
+msgid "%s (%s) wrote:"
+msgstr "%s (%s) schreef:"
+
+#: admin.php:567
+#, php-format
+msgid "%s added to those responsible for \"%s\""
+msgstr "%s toegevoegd aan de verantwoordelijken voor \"%s\""
+
+#: templates/reports/stats.inc:17
+#, php-format
+msgid "%s days"
+msgstr "%s dagen"
+
+#: ticket/watch.php:58
+#, php-format
+msgid "%s will be notified when this ticket is updated."
+msgstr "%s krijgt een melding dat deze ticket is bijgewerkt."
+
+#: ticket/watch.php:70
+#, php-format
+msgid "%s will no longer receive updates for this ticket."
+msgstr "%s krijgt niet langer meldingen over bewerking van deze ticket."
+
+#: admin.php:81
+msgid "- Stage 1"
+msgstr "- Stap 1"
+
+#: admin.php:86
+msgid "- Stage 2"
+msgstr "- Stap 2"
+
+#: scripts/mail-filter.php:158
+msgid "--priority or --priority-id must specify a valid Priority."
+msgstr "--prioriteit of --prioriteit-id moet een geldigen Prioriteit zijn."
+
+#: scripts/mail-filter.php:152
+msgid "--queue or --queue-id must specify a valid Queue."
+msgstr "--queue of --queue-id moet een geldige Queue zijn."
+
+#: scripts/mail-filter.php:161
+msgid "--state or --state-id must specify a valid State."
+msgstr "--status of --status-id moet een geldige Status zijn."
+
+#: scripts/mail-filter.php:155
+msgid "--type or --type-id must specify a valid Type."
+msgstr "--type of --type-id moet een geldig Type zijn."
+
+#: templates/prevnext.inc:12
+msgid "<<First"
+msgstr "<<Eerste"
+
+#: templates/prevnext.inc:13
+msgid "<Prev"
+msgstr "<Vorige"
+
+#: lib/Block/summary.php:89
+msgid "<em>No summary</em>"
+msgstr "<em>Geen samenvatting</em>"
+
+#: view.php:55
+#, php-format
+msgid "Access denied to %s"
+msgstr "Toegang geweigerd voor %s"
+
+#: lib/Admin.php:709
+msgid "Add Attribute"
+msgstr "Voeg adtribuut toe"
+
+#: lib/Query.php:764
+msgid "Add Attribute Criterion"
+msgstr "Voeg Attribuut Criterium toe"
+
+#: query.php:199
+msgid "Add Criterion"
+msgstr "Voeg Criterium toe"
+
+#: lib/Query.php:590
+msgid "Add Group Criterion"
+msgstr "Voeg Groepscriterium toe"
+
+#: lib/Admin.php:533
+msgid "Add Priority"
+msgstr "Voeg Prioriteit toe"
+
+#: lib/Query.php:669
+msgid "Add Property Criterion"
+msgstr "Voeg Eigenschapscriterium toe"
+
+#: lib/Admin.php:102 lib/Admin.php:103
+msgid "Add Queue"
+msgstr "Voeg Queue toe"
+
+#: lib/Admin.php:441
+msgid "Add State"
+msgstr "Voeg Status toe"
+
+#: lib/Admin.php:14 lib/Admin.php:15
+msgid "Add Subject"
+msgstr "Voeg Onderwerp toe"
+
+#: lib/Query.php:625
+msgid "Add Text Criterion"
+msgstr "Voeg Tekst Criterium toe"
+
+#: lib/Admin.php:298 lib/Admin.php:299
+msgid "Add Type"
+msgstr "Voeg Type toe"
+
+#: admin.php:81 admin.php:86
+#, php-format
+msgid "Add Type %s"
+msgstr "Voeg Type %s toe"
+
+#: lib/Query.php:537
+msgid "Add User Criterion"
+msgstr "Voeg Gebruiker Criterium toe"
+
+#: lib/Admin.php:229
+msgid "Add Users"
+msgstr "Voeg Gebruikers toe"
+
+#: lib/Admin.php:621
+msgid "Add Version"
+msgstr "Voeg Versie toe"
+
+#: ticket/watch.php:47
+msgid "Add Watcher"
+msgstr "Voeg 'Kijker' toe"
+
+#: ticket/create.php:154
+#, php-format
+msgid "Adding your ticket failed: %s."
+msgstr "Toevoegen van incident mislukt: %s."
+
+#: admin.php:54 lib/api.php:687
+msgid "Administration"
+msgstr "Administratie"
+
+#: templates/queryrenderer.inc:90 lib/Query.php:518
+msgid "And"
+msgstr "En"
+
+#: search.php:39 search.php:99 search.php:101 search.php:116 search.php:132
+#: lib/Query.php:675 lib/Query.php:683 lib/Query.php:688 lib/Query.php:695
+#: lib/Query.php:700
+msgid "Any"
+msgstr "Elke"
+
+#: ticket/update.php:75 ticket/people.php:81 ticket/type.php:45
+#: ticket/comment.php:41 ticket/queue.php:50
+msgid "Any Group"
+msgstr "Elke Groep"
+
+#: config/prefs.php.dist:47
+msgid "Ascending"
+msgstr "Oplopend"
+
+#: lib/api.php:702
+msgid "Assign"
+msgstr "Toewijzen"
+
+#: ticket/people.php:119
+msgid "Assign Ticket Succeeded"
+msgstr "Incident Toegewezen"
+
+#: lib/Whups.php:464 lib/Ticket.php:600 lib/Driver.php:142
+#: config/prefs.php.dist:36
+msgid "Assigned"
+msgstr "Toegewezen"
+
+#: templates/comment.inc:62
+#, php-format
+msgid "Assigned to %s"
+msgstr "Toegewezen aan: %s"
+
+#: admin.php:953
+msgid "Associations updated successfully."
+msgstr "Koppelingen succesvol bijgewerkt."
+
+#: ticket/update.php:64 ticket/comment.php:29 lib/Create.php:124
+msgid "Attachment"
+msgstr "Bijlage"
+
+#: ticket/deleteAttachment.php:29
+#, php-format
+msgid "Attachment %s deleted."
+msgstr "Bijlage %s is verwijderd."
+
+#: lib/Ticket.php:387
+#, php-format
+msgid "Attachment %s not found."
+msgstr "Bijlage %s niet gevonden."
+
+#: lib/Ticket.php:602
+msgid "Attachments"
+msgstr "Bijlagen"
+
+#: query.php:133
+msgid "Attribute Criteria"
+msgstr "Attribuut Criterium"
+
+#: lib/Admin.php:713 lib/Admin.php:759 lib/Admin.php:782
+msgid "Attribute Description"
+msgstr "Attribuut Omschrijving"
+
+#: lib/Admin.php:712 lib/Admin.php:737 lib/Admin.php:756 lib/Admin.php:779
+msgid "Attribute Name"
+msgstr "Attribuut naam"
+
+#: lib/Admin.php:370
+msgid "Attributes for this Type"
+msgstr "Attributen voor dit Type"
+
+#: config/prefs.php.dist:118
+msgid "Autolink to other tickets in comments?"
+msgstr "Autolink naar andere incidenten in reacties?"
+
+#: lib/Reports.php:12
+msgid "Average days to close by Owner"
+msgstr "Gemiddeld aantal dagen om door een Eigenaar te sluiten"
+
+#: lib/Reports.php:14
+msgid "Average days to close by Queue"
+msgstr "Gemiddeld aantal dagen om door een Queue te sluiten"
+
+#: lib/Reports.php:13
+msgid "Average days to close by Requester"
+msgstr "Gemiddeld aantal dagen om door Melder te sluiten"
+
+#: lib/Reports.php:19
+msgid "Average time a ticket is unresolved"
+msgstr "Gemiddelde behandel tijd voor een onopgesost incident"
+
+#: lib/Query.php:523
+msgid "Branch Type"
+msgstr "Type Onderdeel"
+
+#: lib/Query.php:56
+msgid "Case Insensitive Substring"
+msgstr "Niet Hoofdlettergevoelig Deelwoord"
+
+#: templates/queryrenderer.inc:27
+msgid "Change"
+msgstr "Verander"
+
+#: config/prefs.php.dist:11
+msgid "Change display options such as how search results are sorted."
+msgstr ""
+"Verander weergave instellingen zoals hoe zoekresultaten zijn gesorteerd."
+
+#: config/prefs.php.dist:18
+msgid "Change options for email notifications of ticket activity."
+msgstr "Verander opties voor e-mail meldingen bij incident activiteit."
+
+#: query.php:136
+msgid "Choose Action:"
+msgstr "Kies Actie:"
+
+#: lib/Query.php:161
+msgid "Choose New Query instead of deleting the root node."
+msgstr "Selecteer Nieuwe Query in plaats van verwijderen van de root ingang"
+
+#: lib/Create.php:33 lib/Create.php:67
+msgid "Choose:"
+msgstr "Selecteer:"
+
+#: config/prefs.php.dist:128
+msgid "Chronological (oldest first)"
+msgstr "Chronologisch (oudste eerst)"
+
+#: templates/savedsearches.inc:27
+msgid "Clear All Searches"
+msgstr "Wis alle Zoekopdrachten"
+
+#: lib/Admin.php:421
+msgid "Clone"
+msgstr "Dubbel"
+
+#: lib/Admin.php:427
+msgid "Clone Description"
+msgstr "Dubbele Beschrijving"
+
+#: admin.php:120 lib/Admin.php:313
+msgid "Clone Type"
+msgstr "Dubbel Type"
+
+#: config/templates.php.dist:43
+msgid "Comma Separated Values (CSV file)"
+msgstr "Komma Gescheiden Waarden (CSV bestand)"
+
+#: templates/queryrenderer.inc:101 templates/comment.inc:86
+#: templates/comment.inc:117 ticket/update.php:65 ticket/people.php:72
+#: ticket/type.php:35 ticket/comment.php:28 ticket/queue.php:38
+#: lib/Whups.php:193
+msgid "Comment"
+msgstr "Reactie"
+
+#: ticket/comment.php:94
+msgid "Comment added"
+msgstr "Reactie toegevoegd"
+
+#: ticket/comment.php:100
+#, php-format
+msgid "Comment on %s"
+msgstr "Reactie op %s"
+
+#: templates/queryrenderer.inc:100
+msgid "Commentor"
+msgstr "Uitlegger"
+
+#: lib/Admin.php:425
+#, php-format
+msgid "Copy of %s"
+msgstr "Kopie van %s"
+
+#: lib/MIME/Viewer/zip.php:54
+msgid "Could not extract the requested file from the Zip archive."
+msgstr "Kon het gewenste bestand niet uit het zip-bestand halen."
+
+#: lib/Query.php:595
+msgid "Could not find any groups."
+msgstr "Kon geen groepen vinden."
+
+#: lib/Mail.php:86
+#, php-format
+msgid "Could not find ticket \"%s\"."
+msgstr "Kon incident \"%s\" niet vinden."
+
+#: lib/Admin.php:364
+msgid "Create Default Priorities"
+msgstr "Maak Standaard Prioriteitet"
+
+#: lib/Admin.php:354
+msgid "Create Default States"
+msgstr "Maak Standaard Staten"
+
+#: config/prefs.php.dist:60
+msgid "Create Ticket"
+msgstr "Maak Incident"
+
+#: lib/Create.php:23
+msgid "Create Ticket - Step 1"
+msgstr "Maak Incident - Stap 1"
+
+#: lib/Create.php:58
+msgid "Create Ticket - Step 2"
+msgstr "Maak Incident - Stap 2"
+
+#: lib/Create.php:98
+msgid "Create Ticket - Step 3"
+msgstr "Maak Incident - Stap 3"
+
+#: lib/Create.php:142
+msgid "Create Ticket - Step 4"
+msgstr "Maak Incident - Stap 4"
+
+#: lib/Whups.php:463 lib/Ticket.php:599 config/prefs.php.dist:35
+msgid "Created"
+msgstr "Aangemaakt"
+
+#: lib/Ticket.php:470 lib/Ticket.php:485
+msgid "Created By"
+msgstr "Gemaakt Door"
+
+#: query.php:189 query.php:206
+msgid "Current Query"
+msgstr "Huidige Zoekopdracht"
+
+#: templates/queryrenderer.inc:25
+msgid "Current Ticket Type"
+msgstr "Huidig Incident Type"
+
+#: lib/Ticket.php:530
+msgid "DO NOT REPLY TO THIS MESSAGE. THIS EMAIL ADDRESS IS NOT MONITORED."
+msgstr "BEANTWOORD DIT BERICHT NIET. HET RETOURADRES IS NIET GELDIG"
+
+#: config/prefs.php.dist:91
+msgid "Date/Time format for search results"
+msgstr "Datum/Tijd formaat voor zoek resultaten"
+
+#: config/prefs.php.dist:38
+msgid "Default sorting criteria:"
+msgstr "Standaard sorteer criteria:"
+
+#: config/prefs.php.dist:49
+msgid "Default sorting direction:"
+msgstr "Standaard sorteer richting:"
+
+#: query.php:137 lib/Whups.php:204
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: lib/Whups.php:632 lib/Whups.php:633
+#, php-format
+msgid "Delete %s"
+msgstr "Verwijder %s"
+
+#: ticket/delete.php:58
+#, php-format
+msgid "Delete %s?"
+msgstr "Verwijder %s?"
+
+#: admin.php:847 lib/Admin.php:725
+msgid "Delete Attribute"
+msgstr "Verwijder Attribuut"
+
+#: lib/Admin.php:771
+msgid "Delete Attribute Confirmation"
+msgstr "Verwijder Attribuut Bevestiging"
+
+#: admin.php:485 lib/Admin.php:549
+msgid "Delete Priority"
+msgstr "Verwijder Prioriteit"
+
+#: lib/Admin.php:595
+msgid "Delete Priority Confirmation"
+msgstr "Verwijder Prioriteit Bevestiging"
+
+#: lib/Query.php:145
+msgid "Delete Query"
+msgstr "Verwijder Query"
+
+#: lib/Query.php:882
+msgid "Delete Query?"
+msgstr "Verwijder Query?"
+
+#: admin.php:268 lib/Admin.php:119
+msgid "Delete Queue"
+msgstr "Verwijder Queue"
+
+#: lib/Admin.php:204
+msgid "Delete Queue Confirmation"
+msgstr "Verwijder Queue Bevestiging"
+
+#: templates/savedsearches.inc:45 templates/savedsearches.inc:46
+msgid "Delete Search"
+msgstr "Verwijder Zoekopdracht"
+
+#: admin.php:375 lib/Admin.php:458
+msgid "Delete State"
+msgstr "Verwijder Status"
+
+#: lib/Admin.php:507
+msgid "Delete State Confirmation"
+msgstr "Verwijder Status Bevestiging"
+
+#: admin.php:646 lib/Admin.php:29
+msgid "Delete Subject"
+msgstr "Verwijder Onderwerp"
+
+#: lib/Admin.php:80
+msgid "Delete Subject Confirmation"
+msgstr "Verwijder Onderwerp Bevestiging"
+
+#: admin.php:114 lib/Admin.php:313
+msgid "Delete Type"
+msgstr "Verwijder Type"
+
+#: lib/Admin.php:384
+msgid "Delete Type Confirmation"
+msgstr "Verwijder Type Bevestiging"
+
+#: admin.php:738 lib/Admin.php:637
+msgid "Delete Version"
+msgstr "Verwijder Versie"
+
+#: lib/Admin.php:683
+msgid "Delete Version Confirmation"
+msgstr "Verwijder Versie Bevestiging"
+
+#: lib/Ticket.php:475 lib/Ticket.php:521
+msgid "Deleted Attachment"
+msgstr "Bijlage verwijderd"
+
+#: templates/comment.inc:58
+#, php-format
+msgid "Deleted Attachment: %s"
+msgstr "Bijlage \"%s\" is verwijderd."
+
+#: config/prefs.php.dist:48
+msgid "Descending"
+msgstr "Aflopend"
+
+#: lib/Create.php:125
+msgid "Description"
+msgstr "Omschrijving"
+
+#: config/prefs.php.dist:10
+msgid "Display Options"
+msgstr "Weergave Opties"
+
+#: lib/Whups.php:624
+msgid "Download"
+msgstr "Download"
+
+#: query.php:138
+msgid "Edit"
+msgstr "Bewerk"
+
+#: lib/Admin.php:148 lib/Admin.php:338
+#, php-format
+msgid "Edit %s"
+msgstr "Bewerk %s"
+
+#: admin.php:842 lib/Admin.php:725 lib/Admin.php:748
+msgid "Edit Attribute"
+msgstr "Bewerk Attribuut"
+
+#: lib/Admin.php:372
+msgid "Edit Attributes"
+msgstr "Bewerk Attributen"
+
+#: lib/Query.php:134
+msgid "Edit Permissions"
+msgstr "Rechten bewerken"
+
+#: lib/Admin.php:362
+msgid "Edit Priorities"
+msgstr "Bewerk Prioriteiten"
+
+#: admin.php:480 lib/Admin.php:549 lib/Admin.php:572
+msgid "Edit Priority"
+msgstr "Bewerk Prioriteit"
+
+#: lib/Query.php:126
+msgid "Edit Query"
+msgstr "Bewerk Zoekopdracht"
+
+#: admin.php:262 lib/Admin.php:119 lib/Admin.php:122
+msgid "Edit Queue"
+msgstr "Bewerk Queue"
+
+#: admin.php:32 lib/Admin.php:121
+msgid "Edit Queues"
+msgstr "Bewerk Queues"
+
+#: admin.php:370 lib/Admin.php:458 lib/Admin.php:481
+msgid "Edit State"
+msgstr "Bewerk Status"
+
+#: lib/Admin.php:352
+msgid "Edit States"
+msgstr "Bewerk Statussen"
+
+#: admin.php:641 lib/Admin.php:29 lib/Admin.php:51
+msgid "Edit Subject"
+msgstr "Bewerk Onderwerp"
+
+#: admin.php:34
+msgid "Edit Subjects"
+msgstr "Bewerk Onderwerpen"
+
+#: admin.php:108 lib/Admin.php:313
+msgid "Edit Type"
+msgstr "Bewerk Type"
+
+#: admin.php:33
+msgid "Edit Types"
+msgstr "Bewerk Types"
+
+#: admin.php:733 lib/Admin.php:637 lib/Admin.php:660
+msgid "Edit Version"
+msgstr "Bewerk Versie"
+
+#: lib/Admin.php:724
+msgid "Edit or Delete Attributes"
+msgstr "Bewerk of Verwijder Attributen"
+
+#: lib/Admin.php:548
+msgid "Edit or Delete Priorities"
+msgstr "Bewerk of Verwijder Prioriteiten"
+
+#: lib/Admin.php:118
+msgid "Edit or Delete Queues"
+msgstr "Bewerk of Verwijder Queues"
+
+#: lib/Admin.php:457
+msgid "Edit or Delete States"
+msgstr "Bewerk of Verwijder Statussen"
+
+#: lib/Admin.php:28
+msgid "Edit or Delete Subjects"
+msgstr "Bewerk of Verwijder Onderwerpen"
+
+#: lib/Admin.php:312
+msgid "Edit or Delete Types"
+msgstr "Bewerk of Verwijder Types"
+
+#: lib/Admin.php:636
+msgid "Edit or Delete Versions"
+msgstr "Bewerk of Verwijder Versies"
+
+#: lib/Admin.php:191
+msgid "Edit the permissions on this queue"
+msgstr "Bewerk de recheten op deze queue"
+
+#: lib/Admin.php:186
+msgid "Edit the users responsible for this queue"
+msgstr "Bewerk de gebruikers die verantwoordelijk zijn voor deze queue"
+
+#: lib/Admin.php:165
+msgid "Edit the versions for this queue"
+msgstr "Bewerk de versies voor deze queue"
+
+#: ticket/watch.php:23
+msgid "Email address to notify"
+msgstr "E-mailadres voor melding"
+
+#: ticket/watch.php:35
+msgid "Email address to remove"
+msgstr "Te verwijderen E-mailadres"
+
+#: query.php:165
+#, php-format
+msgid "Error: Unknown query form %s, defaulting to properties"
+msgstr ""
+"Fout: Onbekende zoek formulier %s, standaard eigenschappen worden gebruikt"
+
+#: lib/Query.php:55
+msgid "Exact Match"
+msgstr "Exacte Overeenkomst"
+
+#: runquery.php:69 runquery.php:83 lib/Query.php:138
+msgid "Execute Query"
+msgstr "Uitvoeren Zoekopdracht"
+
+#: lib/Admin.php:809
+msgid "For tickets from these queues"
+msgstr "Voor incidenten van deze queues"
+
+#: lib/Admin.php:813
+msgid "For tickets which are"
+msgstr "Voor incidenten die zijn"
+
+#: templates/menu.inc:5 lib/Block/summary.php:29
+msgid "Go"
+msgstr "Start"
+
+#: query.php:130
+msgid "Group Criteria"
+msgstr "Criteria Eigenschap"
+
+#: ticket/people.php:60 lib/Create.php:169
+msgid "Group Owners"
+msgstr "Groep Eigenaren"
+
+#: templates/queryrenderer.inc:98 lib/Query.php:596 lib/Query.php:598
+msgid "Groups"
+msgstr "Groepen"
+
+#: lib/api.php:690
+msgid "Hidden Comments"
+msgstr "Verborgen reacties"
+
+#: ticket/index.php:43 lib/Whups.php:189
+msgid "History"
+msgstr "Geschiedenis"
+
+#: query.php:139
+msgid "Hoist"
+msgstr "Omhoog Halen"
+
+#: templates/queryrenderer.inc:96 lib/Whups.php:455 lib/Query.php:671
+#: config/prefs.php.dist:28
+msgid "Id"
+msgstr "Nummer"
+
+#: search.php:52
+msgid ""
+"If you don't select any categories, no filtering will be done on ticket "
+"category."
+msgstr ""
+"Wanneer U geen categorien selecteerd, zullen geen filters worden geplaatst "
+"op het incident."
+
+#: search.php:55
+msgid ""
+"If you don't select any types, no filtering will be done on ticket type."
+msgstr ""
+"Wanneer U geen types selecteerd, zullen geen filters worden geplaatst op het "
+"incident type."
+
+#: lib/Admin.php:816
+msgid ""
+"If you select any tickets that do not have an owner, who should we send "
+"email to?"
+msgstr ""
+"Wie moet een mail ontvangen als u incidenten selecteert zonder eigenaar."
+
+#: query.php:140
+msgid "Insert And"
+msgstr "Invoegen en"
+
+#: lib/Query.php:515
+msgid "Insert Branch"
+msgstr "Onderdeel Invoegen"
+
+#: query.php:142
+msgid "Insert Not"
+msgstr "Niet invoegen"
+
+#: query.php:141
+msgid "Insert Or"
+msgstr "Invoegen of"
+
+#: lib/Whups.php:160
+msgid "Invalid Ticket Id"
+msgstr "Ongeldig Incident Id"
+
+#: lib/Admin.php:162
+msgid "Keep a set of versions for this queue?"
+msgstr "Houd versies bij voor deze Queue"
+
+#: templates/prevnext.inc:17
+msgid "Last>>"
+msgstr "Laatste>>"
+
+#: lib/Query.php:139 lib/Query.php:842
+msgid "Load Query"
+msgstr "Laad Zoekopdracht"
+
+#: config/prefs.php.dist:89
+msgid "MM/DD/YY"
+msgstr "MM/DD/YY"
+
+#: config/prefs.php.dist:90
+msgid "MM/DD/YY HH:MM:SS"
+msgstr "MM/DD/YY HH:MM:SS"
+
+#: lib/Admin.php:419
+#, php-format
+msgid "Make a clone of %s"
+msgstr "Maak een dubbele van %s"
+
+#: lib/Query.php:770
+msgid "Match"
+msgstr "Overeenkomst"
+
+#: lib/Query.php:540 lib/Query.php:628 lib/Query.php:771
+msgid "Match Operator"
+msgstr "Gelijkheids Teken"
+
+#: lib/Query.php:59
+msgid "Match Pattern"
+msgstr "Overeenkomstig Patroon"
+
+#: lib/Query.php:58
+msgid "Match Word"
+msgstr "Overeenkomstig Woord"
+
+#: lib/Reports.php:20
+msgid "Maximum time a ticket is unresolved"
+msgstr "Maximale tijd dat een incident niet is opgelost"
+
+#: lib/Reports.php:21
+msgid "Minimum time a ticket is unresolved"
+msgstr "Minimum tijd totdat een incident wordt opgelost"
+
+#: config/prefs.php.dist:129
+msgid "Most recent first"
+msgstr "Meest recente eerst"
+
+#: ticket/queue.php:173
+#, php-format
+msgid "Moved ticket %d to \"%s\""
+msgstr "Incident %d verplaatst naar \"%s\""
+
+#: mybugs.php:65
+#, php-format
+msgid "My %s"
+msgstr "Mijn %s"
+
+#: mybugs.php:44
+msgid "My Assigned Tickets"
+msgstr "Mijn Toegewezen Incidenten"
+
+#: mybugs.php:60
+msgid "My Open Requests"
+msgstr "Mijn Open Opmerkingen"
+
+#: mybugs.php:83 search.php:186 lib/Block/myqueries.php:3
+#: lib/Block/myqueries.php:26
+msgid "My Queries"
+msgstr "Mijn Zoekopdrachten"
+
+#: mybugs.php:79 search.php:182 lib/Block/mysearches.php:3
+#: lib/Block/mysearches.php:24
+msgid "My QuickSearches"
+msgstr "Mijn Snelzoekopdrachten"
+
+#: config/prefs.php.dist:58
+msgid "My Tickets"
+msgstr "Mijn Incidenten"
+
+#: lib/Ticket.php:536
+#, php-format
+msgid "NEW: %s"
+msgstr "NIEUW: %s"
+
+#: lib/Query.php:819 lib/Query.php:857
+msgid "Name"
+msgstr "Naam"
+
+#: lib/Admin.php:424
+msgid "Name of the cloned copy"
+msgstr "Naam of de dubbele kopie"
+
+#: lib/Driver.php:141
+msgid "New"
+msgstr "Nieuw"
+
+#: lib/Ticket.php:474 lib/Ticket.php:516
+msgid "New Attachment"
+msgstr "Nieuwe Bijlage"
+
+#: templates/comment.inc:51 templates/comment.inc:53
+#, php-format
+msgid "New Attachment: %s"
+msgstr "Nieuwe Bijlage: %s"
+
+#: lib/Query.php:124 lib/Block/myqueries.php:27 lib/Block/myqueries.php:28
+msgid "New Query"
+msgstr "Nieuwe Zoekopdracht"
+
+#: ticket/queue.php:37
+msgid "New Queue"
+msgstr "Nieuwe Queue"
+
+#: ticket/people.php:69
+msgid "New State"
+msgstr "Nieuwe Status"
+
+#: ticket/create.php:27 lib/Block/summary.php:28
+msgid "New Ticket"
+msgstr "Nieuwe Ticket"
+
+#: ticket/type.php:34
+msgid "New Type"
+msgstr "Nieuw Type"
+
+#: templates/prevnext.inc:16
+msgid "Next>"
+msgstr "Volgende>"
+
+#: ticket/delete.php:37 lib/Admin.php:90 lib/Admin.php:217 lib/Admin.php:405
+#: lib/Admin.php:521 lib/Admin.php:609 lib/Admin.php:697 lib/Admin.php:785
+#: lib/Query.php:884
+msgid "No"
+msgstr "Nee"
+
+#: clearsearch.php:34
+msgid "No searches cleared."
+msgstr "Geen zoekopdrachen verwijderd."
+
+#: reports.php:17
+msgid "No stats available."
+msgstr "Geen statussen beschikbaar."
+
+#: lib/Driver.php:319
+#, php-format
+msgid "No such backend \"%s\" found"
+msgstr "Geen backend \"%s\" gevonden"
+
+#: lib/Whups.php:495
+msgid "No tickets matched your search criteria."
+msgstr "Geen incidenten kwamen overeen met Uw zoekopdracht."
+
+#: lib/Block/summary.php:75
+msgid "No tickets to display"
+msgstr "Geen incidenten om weer te geven"
+
+#: lib/Reports.php:88
+msgid "None"
+msgstr "Geen"
+
+#: templates/queryrenderer.inc:92 lib/Query.php:520
+msgid "Not"
+msgstr "Niet"
+
+#: query.php:71
+msgid "Not yet implemented."
+msgstr "Nog niet geïmplementeerd"
+
+#: config/prefs.php.dist:17
+msgid "Notification Options"
+msgstr "Meldings Opties"
+
+#: config/prefs.php.dist:109
+msgid "Only notify me of ticket changes from other users"
+msgstr "Stel me op de hoogte als incidenten van andere gebruikers veranderen"
+
+#: lib/Reports.php:11
+msgid "Open Tickets by Owner"
+msgstr "Open Incidenten per Eigenaar"
+
+#: lib/Reports.php:9
+msgid "Open Tickets by Priority"
+msgstr "Open Incidenten per Prioriteit"
+
+#: lib/Reports.php:6
+msgid "Open Tickets by Queue"
+msgstr "Open Incidenten per Queue"
+
+#: lib/Reports.php:10
+msgid "Open Tickets by Requester"
+msgstr "Open Incidenten per Aanvrager"
+
+#: lib/Reports.php:7
+msgid "Open Tickets by State"
+msgstr "Open Incidenten per Status"
+
+#: lib/Reports.php:8
+msgid "Open Tickets by Type"
+msgstr "Open Incidenten per Type"
+
+#: templates/queryrenderer.inc:91 lib/Query.php:519
+msgid "Or"
+msgstr "Of"
+
+#: config/prefs.php.dist:9 config/prefs.php.dist:16
+msgid "Other Options"
+msgstr "Andere Opties"
+
+#: templates/queryrenderer.inc:97 ticket/people.php:54 ticket/people.php:66
+#: lib/Create.php:163 lib/Create.php:175 lib/Whups.php:462 lib/Ticket.php:473
+#: lib/Ticket.php:508 lib/Ticket.php:509 lib/Ticket.php:511 lib/Ticket.php:595
+msgid "Owners"
+msgstr "Eigenaars"
+
+#: lib/Whups.php:196
+msgid "People"
+msgstr "Mensen"
+
+#: lib/Whups.php:632
+#, php-format
+msgid "Permanently delete %s?"
+msgstr "%s definitief verwijderen?"
+
+#: ticket/update.php:22 ticket/people.php:21 ticket/type.php:17
+#: ticket/delete.php:17 ticket/queue.php:17 ticket/deleteAttachment.php:17
+msgid "Permission Denied"
+msgstr "Toegang geweigerd"
+
+#: ticket/update.php:83 ticket/delete.php:44
+msgid "Permission Denied."
+msgstr "Toegang Geweigerd."
+
+#: runquery.php:35 query.php:29 lib/Query.php:894
+#, php-format
+msgid "Permission denied."
+msgstr "Toegang geweigerd"
+
+#: lib/Admin.php:360 lib/Admin.php:402
+msgid "Priorities for this Type"
+msgstr "Prioriteiten voor dit Type"
+
+#: templates/queryrenderer.inc:132 ticket/update.php:52 ticket/type.php:69
+#: ticket/queue.php:116 lib/Create.php:122 lib/Whups.php:459
+#: lib/Ticket.php:465 lib/Ticket.php:593 lib/Query.php:699
+#: config/prefs.php.dist:32
+msgid "Priority"
+msgstr "Prioriteit"
+
+#: templates/comment.inc:95
+#, php-format
+msgid "Priority &rArr; %s"
+msgstr "Prioriteit &rArr; %s"
+
+#: lib/Admin.php:537 lib/Admin.php:583 lib/Admin.php:606
+msgid "Priority Description"
+msgstr "Prioriteit Beschrijving"
+
+#: lib/Admin.php:536 lib/Admin.php:561 lib/Admin.php:580 lib/Admin.php:603
+msgid "Priority Name"
+msgstr "Prioriteit Naam"
+
+#: query.php:128
+msgid "Property Criteria"
+msgstr "Criteria Eigenschap"
+
+#: query.php:146
+msgid "Query Builder"
+msgstr "Zoekopdracht Bouwer"
+
+#: lib/Query.php:95
+msgid "Query Parameters"
+msgstr "Zoekopdracht Parameters"
+
+#: runquery.php:77
+msgid "Query Results"
+msgstr "Zoekopdracht Resultaten"
+
+#: search.php:48 templates/queryrenderer.inc:105 lib/Whups.php:460
+#: lib/Ticket.php:462 lib/Ticket.php:574 lib/Ticket.php:578 lib/Query.php:682
+#: config/prefs.php.dist:33
+msgid "Queue"
+msgstr "Queue"
+
+#: templates/comment.inc:103
+#, php-format
+msgid "Queue &rArr; %s"
+msgstr "Queue &rArr; %s"
+
+#: lib/Admin.php:106 lib/Admin.php:155 lib/Admin.php:214
+msgid "Queue Description"
+msgstr "Queue Beschrijving"
+
+#: lib/Admin.php:105 lib/Admin.php:134 lib/Admin.php:152 lib/Admin.php:211
+#: lib/Create.php:33 lib/Create.php:41
+msgid "Queue Name"
+msgstr "Queue Naam"
+
+#: ticket/queue.php:85 lib/Create.php:80 lib/Ticket.php:583 lib/Ticket.php:587
+msgid "Queue Version"
+msgstr "Queue Versie"
+
+#: admin.php:35 templates/admin/mtmatrix.inc:6
+msgid "Queue/Type Matrix"
+msgstr "Queue/Type Matrix"
+
+#: search.php:134
+#, php-format
+msgid "Queue: %s, Ticket: %s, Category: %s, Type: %s"
+msgstr "Queue: %s, Incident: %s, Categorie: %s, Type: %s"
+
+#: lib/api.php:152 lib/api.php:693
+msgid "Queues"
+msgstr "Queues"
+
+#: lib/Ticket.php:538
+#, php-format
+msgid "RESOLVED: %s"
+msgstr "OPGELOST: %s"
+
+#: lib/Admin.php:786
+msgid "Really delete this attribute? This may cause data problems!"
+msgstr ""
+"Wilt u dit attribuut echt verwijderen? Dit kan dataproblemen opleveren!!"
+
+#: lib/Admin.php:610
+msgid "Really delete this priority? This may cause data problems!"
+msgstr ""
+"Wilt u deze prioriteit echt verwijderen? Dit kan dataproblemen opleveren!!"
+
+#: lib/Query.php:885
+msgid "Really delete this query? This operation is not undoable."
+msgstr ""
+"Zoekopdracht echt verwijderen? Deze bewerking kan niet ongedaan gemaakt "
+"worden."
+
+#: lib/Admin.php:218
+msgid "Really delete this queue? This may cause data problems!"
+msgstr "Wilt u deze queue echt verwijderen? Dit kan dataproblemen opleveren!!"
+
+#: lib/Admin.php:522
+msgid "Really delete this state? This may cause data problems!"
+msgstr "Wilt u deze status echt wissen? Dit kan dataproblemen opleveren!!"
+
+#: lib/Admin.php:91
+msgid "Really delete this subject? This may cause data problems!"
+msgstr "Wilt u dit onderwerp echt wissen? Dit kan dataproblemen opleveren!!"
+
+#: ticket/delete.php:38
+msgid ""
+"Really delete this ticket? It will NOT be archived, and will be gone forever."
+msgstr ""
+"Wilt u dit incident echt wissen? Het zal NIET worden gearchiveerd, en zal "
+"permanent verdwijnen."
+
+#: lib/Admin.php:406
+msgid "Really delete this type? This may cause data problems!"
+msgstr "Wilt u dit type echt wissen? Dit kan dataproblemen opleveren!!"
+
+#: lib/Admin.php:698
+msgid "Really delete this version? This may cause data problems!"
+msgstr "Wilt u deze versie echt verwijderen? Dit kan dataproblemen opleveren!!"
+
+#: search.php:164
+msgid "Refine Search"
+msgstr "Verfijn Zoekopdracht"
+
+#: admin.php:922
+msgid "Reminders were sent."
+msgstr "Herinneringen zijn verzonden."
+
+#: lib/Admin.php:267
+msgid "Remove User"
+msgstr "Verwijder Gebruiker"
+
+#: ticket/watch.php:48
+msgid "Remove Watcher"
+msgstr "Verwijder 'Kijker'"
+
+#: reports.php:22
+msgid "Reports"
+msgstr "Rapportages"
+
+#: templates/queryrenderer.inc:99 lib/Ticket.php:598
+msgid "Requester"
+msgstr "Aanvrager"
+
+#: lib/Whups.php:465 lib/Ticket.php:601 lib/Driver.php:143
+#: config/prefs.php.dist:37
+msgid "Resolved"
+msgstr "Opgelost"
+
+#: lib/Admin.php:269
+msgid "Responsible Users"
+msgstr "Verantwoordelijke Gebruikers"
+
+#: ticket/update.php:76
+msgid "Restrict Comment to:"
+msgstr "Beperk Reactie tot:"
+
+#: lib/Admin.php:170
+msgid "Restrict ticket subjects to a specified list?"
+msgstr "Begrens incident onderwerpen tot een specifieke lijst?"
+
+#: templates/prevnext.inc:25
+msgid "Return to Search Results"
+msgstr "Terug naar Zoekresultaten"
+
+#: templates/searchresults.inc:54
+msgid "Save"
+msgstr "Opslaan"
+
+#: lib/Query.php:142 lib/Query.php:817
+msgid "Save Query"
+msgstr "Sla zoekopdracht op"
+
+#: templates/searchresults.inc:48
+msgid "Save these results as: "
+msgstr "Sla deze resultaten op als:"
+
+#: lib/Query.php:774
+#, php-format
+msgid "Search %s Attribute"
+msgstr "Zoek %s Attribuut"
+
+#: lib/Query.php:777
+msgid "Search Attribute"
+msgstr "Zoek Attribuut"
+
+#: lib/Query.php:543 lib/Query.php:630
+msgid "Search Comments"
+msgstr "Zoek Reacties"
+
+#: lib/Query.php:541
+msgid "Search Owners"
+msgstr "Zoek Eigenaars"
+
+#: lib/Query.php:542
+msgid "Search Requester"
+msgstr "Zoek Aanvrager"
+
+#: search.php:159
+msgid "Search Results"
+msgstr "Zoek Resultaten"
+
+#: templates/prevnext.inc:21
+#, php-format
+msgid "Search Results: %s of %s"
+msgstr "Zoekresultaten: %s van %s"
+
+#: lib/Query.php:629
+msgid "Search Summary"
+msgstr "Zoek Samenvatting"
+
+#: search.php:64 search.php:175 config/prefs.php.dist:59
+msgid "Search Tickets"
+msgstr "Zoek Insidenten"
+
+#: clearsearch.php:27
+msgid "Search cleared."
+msgstr "Zoekopdracht verwijderd"
+
+#: clearsearch.php:30
+msgid "Searches cleared."
+msgstr "Zoekopdrachten verwijderd."
+
+#: config/prefs.php.dist:61
+msgid "Select the view to display after login:"
+msgstr "Selecteer het beeld dat moet weergeven worden na het inloggen:"
+
+#: admin.php:36 lib/Admin.php:797
+msgid "Send Reminders"
+msgstr "Zend Herinneringen"
+
+#: lib/Admin.php:808
+msgid "Send only for this list of ticket ids"
+msgstr "Zend alleen voor deze lijst van incident nummers"
+
+#: lib/Whups.php:200
+msgid "Set Queue"
+msgstr "Zet Queue"
+
+#: ticket/queue.php:194 ticket/queue.php:203 ticket/queue.php:215
+msgid "Set Queue - Step 1"
+msgstr "Zet Queue - Stap 1"
+
+#: ticket/queue.php:195 ticket/queue.php:204
+msgid "Set Queue - Step 2"
+msgstr "Zet Queue - Stap 2"
+
+#: ticket/queue.php:205
+msgid "Set Queue - Step 3"
+msgstr "Zet Queue - Stap 3"
+
+#: ticket/queue.php:181
+#, php-format
+msgid "Set Queue for %s"
+msgstr "Zet Queue voor %s"
+
+#: lib/Whups.php:203
+msgid "Set Type"
+msgstr "Zet Type"
+
+#: ticket/type.php:137 ticket/type.php:146
+msgid "Set Type - Step 1"
+msgstr "Zet Type - Stap 1"
+
+#: ticket/type.php:138
+msgid "Set Type - Step 2"
+msgstr "Zet Type - Stap 2"
+
+#: ticket/type.php:124
+#, php-format
+msgid "Set Type for %s"
+msgstr "Zet Type voor %s"
+
+#: config/prefs.php.dist:100
+msgid "Show \"(X Days Ago)\" in Date field of search results?"
+msgstr ""
+"Laat \"(X Dagen Geleden)\" zien in het Datum veld van de zoekresultaten?"
+
+#: config/prefs.php.dist:127
+msgid "Show comments in chronological order, or most recent first?"
+msgstr ""
+"Moeten de reacties in chronologische volgorde worden weergeven, of moet de "
+"recentste eerst?"
+
+#: config/prefs.php.dist:78
+msgid "Show ticket IDs in the summary view?"
+msgstr "Laat incident nummers in samenvattings weergave zien?"
+
+#: config/prefs.php.dist:70
+msgid "Show tickets you have requested in the summary view?"
+msgstr "Laat incidenten die U heeft opgevraagd zien in samenvattings weergave?"
+
+#: config/templates.php.dist:16
+msgid "Simple HTML Report"
+msgstr "Simpel HTML Rapport"
+
+#: templates/searchresults.inc:75
+msgid "Sort Direction"
+msgstr "Sorteer Richting"
+
+#: templates/searchresults.inc:76 templates/searchresults.inc:80
+#, php-format
+msgid "Sort by %s"
+msgstr "Sorteer op %s"
+
+#: templates/queryrenderer.inc:125 ticket/update.php:49 ticket/type.php:68
+#: ticket/queue.php:115 lib/Whups.php:457 lib/Ticket.php:464
+#: lib/Ticket.php:592 lib/Query.php:694 config/prefs.php.dist:30
+msgid "State"
+msgstr "Status"
+
+#: templates/comment.inc:91
+#, php-format
+msgid "State &rArr; %s"
+msgstr "Status &rArr; %s"
+
+#: lib/Admin.php:446 lib/Admin.php:495
+msgid "State Category"
+msgstr "Status Categorie"
+
+#: lib/Admin.php:445 lib/Admin.php:492 lib/Admin.php:518
+msgid "State Description"
+msgstr "Status Omschrijving"
+
+#: lib/Admin.php:444 lib/Admin.php:470 lib/Admin.php:489 lib/Admin.php:515
+msgid "State Name"
+msgstr "Status Naam"
+
+#: lib/Admin.php:350 lib/Admin.php:398
+msgid "States for this Type"
+msgstr "Status voor dit Type"
+
+#: lib/Create.php:123 config/prefs.php.dist:29
+msgid "Subject"
+msgstr "Onderwerp"
+
+#: lib/Admin.php:17 lib/Admin.php:40 lib/Admin.php:65 lib/Admin.php:87
+msgid "Subject Name"
+msgstr "Onderwerp Naam"
+
+#: lib/Admin.php:174
+msgid "Subjects associated with this Queue"
+msgstr "Onderwerp gekoppeld aan deze Queue"
+
+#: ticket/create.php:102
+msgid "Submit"
+msgstr "Toevoegen"
+
+#: admin.php:161
+#, php-format
+msgid "Successfully Cloned %s to %s."
+msgstr "Succesvol %s gekopieerd naar %s."
+
+#: ticket/type.php:115
+msgid "Successfully changed ticket type."
+msgstr "Incidenttype gewijzigd."
+
+#: templates/queryrenderer.inc:102 ticket/update.php:46 ticket/delete.php:34
+#: lib/Whups.php:456 lib/Ticket.php:472 lib/Ticket.php:487 lib/Ticket.php:488
+#: lib/Ticket.php:490 lib/Ticket.php:572
+msgid "Summary"
+msgstr "Samenvatting"
+
+#: templates/comment.inc:45
+#, php-format
+msgid "Summary &rArr; %s"
+msgstr "Samenvatting &rArr; %s"
+
+#: search.php:50
+msgid "Summary like"
+msgstr "Samengevat als"
+
+#: templates/comment.inc:67
+#, php-format
+msgid "Taken from %s"
+msgstr "Overgenomen van %s"
+
+#: lib/Query.php:627
+msgid "Text"
+msgstr "Tekst"
+
+#: query.php:132
+msgid "Text Criteria"
+msgstr "Tekst Criteria"
+
+#: view.php:44 lib/Ticket.php:338 lib/Ticket.php:376
+msgid "The VFS backend needs to be configured to enable attachment uploads."
+msgstr ""
+"De VFS backend heeft een configuratie nodig om uploaden van bijlagen te "
+"gebruiken."
+
+#: admin.php:811
+#, php-format
+msgid "The attribute \"%s\" has been added to %s."
+msgstr "Het attribuut \"%s\" is toegevoegd aan %s."
+
+#: admin.php:893
+msgid "The attribute has been deleted."
+msgstr "Het attribuut is verwijderd."
+
+#: admin.php:864
+msgid "The attribute has been modified."
+msgstr "Het attribuut is veranderd."
+
+#: admin.php:898
+msgid "The attribute was not deleted."
+msgstr "Het attribuut is niet verwijderd."
+
+#: admin.php:449
+#, php-format
+msgid "The priority \"%s\" has been added to %s."
+msgstr "Prioriteit \"%s\" is toegevoegd aan %s."
+
+#: admin.php:530
+msgid "The priority has been deleted."
+msgstr "De prioriteit is gewist."
+
+#: admin.php:502
+msgid "The priority has been modified."
+msgstr "De prioriteit is veranderd."
+
+#: admin.php:535
+msgid "The priority was not deleted."
+msgstr "De prioriteit is niet verwijderd."
+
+#: lib/Query.php:898
+#, php-format
+msgid "The query \"%s\" couldn't be deleted: %s"
+msgstr "Zoekopdracht \"%s\" kon niet worden verwijderd: %s"
+
+#: lib/Query.php:900
+#, php-format
+msgid "The query \"%s\" has been deleted."
+msgstr "Zoekopdracht \"%s\" is verwijderd."
+
+#: lib/Query.php:865
+#, php-format
+msgid "The query couldn't be loaded:"
+msgstr "Zoekopdracht kon niet worden geladen."
+
+#: admin.php:240
+#, php-format
+msgid "The queue \"%s\" has been created."
+msgstr "De queue \"%s\" is gemaakt."
+
+#: admin.php:318
+msgid "The queue has been deleted."
+msgstr "De queue is verwijderd."
+
+#: admin.php:290
+msgid "The queue has been modified."
+msgstr "De queue is veranderd."
+
+#: admin.php:323
+msgid "The queue was not deleted."
+msgstr "De queue is niet verwijderd."
+
+#: lib/MIME/Viewer/zip.php:60
+msgid "The requested file does not exist in the Zip attachment."
+msgstr "Het gevraagde bestand bestaat niet in de Zip bijlage."
+
+#: data.php:24
+msgid "The requested template does not exist."
+msgstr "Het opgevraagde sjabloon bestaat niet."
+
+#: admin.php:338
+#, php-format
+msgid "The state \"%s\" has been added to %s."
+msgstr "Status \"%s\" is toegevoegd aan %s.'"
+
+#: admin.php:421
+msgid "The state has been deleted."
+msgstr "De status is verwijderd."
+
+#: admin.php:392
+msgid "The state has been modified."
+msgstr "De status is gewijzigd."
+
+#: admin.php:426
+msgid "The state was not deleted."
+msgstr "De status was niet verwijderd."
+
+#: admin.php:625
+#, php-format
+msgid "The subject \"%s\" has been added."
+msgstr "Onderwerp \"%s\" is toegevoegd."
+
+#: admin.php:681
+msgid "The subject has been deleted."
+msgstr "Het onderwerp is verwijderd."
+
+#: admin.php:662
+msgid "The subject has been modified."
+msgstr "Het onderwerp is veranderd."
+
+#: admin.php:686
+msgid "The subject was not deleted."
+msgstr "Het onderwerp is niet verwijderd."
+
+#: ticket/delete.php:75
+msgid "The ticket was not deleted."
+msgstr "Het incident is niet verwijderd."
+
+#: admin.php:179
+#, php-format
+msgid "The type \"%s\" has been modified."
+msgstr "Het type \"%s\" is veranderd."
+
+#: admin.php:221
+msgid "The type has been deleted."
+msgstr "Het type is verwijderd."
+
+#: admin.php:226
+msgid "The type was not deleted."
+msgstr "Het type is niet verwijderd."
+
+#: admin.php:701
+#, php-format
+msgid "The version \"%s\" has been added to %s."
+msgstr "Versie \"%s\" is toegevoegd aan %s."
+
+#: admin.php:783
+msgid "The version has been deleted."
+msgstr "De versie is verwijderd."
+
+#: admin.php:755
+msgid "The version has been modified."
+msgstr "De versie is veranderd."
+
+#: admin.php:788
+msgid "The version was not deleted."
+msgstr "De versie is niet verwijderd."
+
+#: lib/Admin.php:733
+msgid "There are no attribute types to edit"
+msgstr "Er zijn geen attribuut typen om te bewerken"
+
+#: lib/Query.php:777
+msgid "There are no attributes defined for the current type"
+msgstr "Er zijn geen attributen gedefineerd voor het huidige type"
+
+#: lib/Admin.php:557
+msgid "There are no priorities to edit"
+msgstr "Er zijn geen prioriteiten om te bewerken"
+
+#: lib/Admin.php:805
+msgid "There are no queues available."
+msgstr "Er zijn geen queues beschikbaar."
+
+#: lib/Admin.php:131
+msgid "There are no queues to edit"
+msgstr "Er zijn geen queues om te bewerken"
+
+#: lib/Create.php:41
+msgid "There are no queues which you can create tickets in."
+msgstr "Er zijn geen queues waar U incidenten kunt melden."
+
+#: search.php:42
+msgid "There are no queues which you can search."
+msgstr "Er zijn geen queues die U kunt zoeken."
+
+#: lib/Admin.php:466
+msgid "There are no states to edit"
+msgstr "Er zijn geen statussen om te bewerken"
+
+#: lib/Admin.php:37
+msgid "There are no subjects to edit"
+msgstr "Er zijn geen onderwerpen om te bewerken"
+
+#: lib/Create.php:64
+msgid ""
+"There are no ticket types associated with this queue; until there are, you "
+"cannot create any tickets in this queue."
+msgstr ""
+"Er zijn geen incidenttypen gekoppeld aan deze queue; daarom kunt U geen "
+"incidenten in deze queue zetten."
+
+#: lib/Admin.php:321
+msgid "There are no types to edit"
+msgstr "Er zijn geen types om te bewerken"
+
+#: lib/Admin.php:283
+msgid "There are no users responsible for this queue."
+msgstr "Er zijn geen gebruikers verantwoordelijk voor deze queue."
+
+#: ticket/people.php:65 lib/Create.php:174
+msgid "There are no users to which this ticket can be assigned."
+msgstr "Er zijn geen gebruikers aan wie dit incident kan worden toegewezen."
+
+#: lib/Admin.php:645
+msgid "There are no versions to edit"
+msgstr "Er zijn geen versies om te bewerken"
+
+#: graph.php:30
+msgid "There is no data for this graph."
+msgstr "Er is geen data voor deze grafiek."
+
+#: lib/Reports.php:161
+msgid "There is no data for this report."
+msgstr "Er is geen data voor die rapport."
+
+#: admin.php:569
+#, php-format
+msgid "There was an error adding \"%s\" to the responsible list for \"%s\": %s"
+msgstr ""
+"Er was een fout bij het toevoegen van '%s' aan de lijst van "
+"verantwoordelijken voor '%s': %s"
+
+#: admin.php:627
+#, php-format
+msgid "There was an error adding the subject: %s."
+msgstr "Er was een fout tijdens het toevoegen van het onderwerp: %s."
+
+#: admin.php:814
+#, php-format
+msgid "There was an error creating the attribute: %s."
+msgstr "Er was een fout tijdens het toevoegen van het attribuut: %s."
+
+#: admin.php:451
+#, php-format
+msgid "There was an error creating the priority: %s."
+msgstr "Er was een fout tijdens het toevoegen van de prioriteit: %s."
+
+#: admin.php:248
+#, php-format
+msgid "There was an error creating the queue: %s."
+msgstr "Fout bij het aanmaken van queue: %s."
+
+#: admin.php:340
+#, php-format
+msgid "There was an error creating the state: %s."
+msgstr "Fout bij het maken van status: %s."
+
+#: admin.php:703
+#, php-format
+msgid "There was an error creating the version: %s."
+msgstr "Fout bij het maken van versie: %s."
+
+#: admin.php:895
+#, php-format
+msgid "There was an error deleting the attribute: %s."
+msgstr "Fout bij het verwijderen van attribuut: %s."
+
+#: admin.php:532
+#, php-format
+msgid "There was an error deleting the priority: %s."
+msgstr "Fout bij het verwijderen van prioriteit: %s."
+
+#: admin.php:320
+#, php-format
+msgid "There was an error deleting the queue: %s."
+msgstr "Fout bij het verwijderen van queue: %s."
+
+#: admin.php:423
+#, php-format
+msgid "There was an error deleting the state: %s."
+msgstr "Er was een fout tijdens het verwijderen van de status: %s."
+
+#: admin.php:683
+#, php-format
+msgid "There was an error deleting the subject: %s."
+msgstr "Fout bij het verwijderen van onderwerp: %s."
+
+#: ticket/delete.php:72
+#, php-format
+msgid "There was an error deleting the ticket: %s"
+msgstr "Fout bij het verwijderen van incident: %s."
+
+#: admin.php:223
+#, php-format
+msgid "There was an error deleting the type: %s."
+msgstr "Fout bij het verwijderen van type: %s."
+
+#: admin.php:785
+#, php-format
+msgid "There was an error deleting the version: %s."
+msgstr "Fout bij het verwijderen van  versie: %s."
+
+#: admin.php:871
+#, php-format
+msgid "There was an error editing the attribute: %s."
+msgstr "Fout bij het bewerken van attribuut: %s."
+
+#: admin.php:507
+#, php-format
+msgid "There was an error editing the priority: %s."
+msgstr "Fout bij het bewerken van priority: %s."
+
+#: admin.php:304
+#, php-format
+msgid "There was an error editing the queue: %s."
+msgstr "Fout bij bet bewerken van queue: %s."
+
+#: admin.php:397
+#, php-format
+msgid "There was an error editing the state: %s."
+msgstr "Fout bij het bewerken van status: %s."
+
+#: admin.php:667
+#, php-format
+msgid "There was an error editing the subject: %s."
+msgstr "Fout bij het bewerken van onderwerp: %s."
+
+#: admin.php:760
+#, php-format
+msgid "There was an error editing the version: %s."
+msgstr "Fout bij het bewerken van versie: %s."
+
+#: lib/Admin.php:243
+#, php-format
+msgid "There was an error listing users: %s; %s"
+msgstr "Fout bij het weergeven van gebruikers: %s; %s"
+
+#: mybugs.php:39
+#, php-format
+msgid "There was an error listing your assigned tickets: %s"
+msgstr "Fout bij het weergeven van uw toegewezen tickets: %s"
+
+#: mybugs.php:55
+#, php-format
+msgid "There was an error listing your open requests: %s"
+msgstr "Fout bij het weergeven van uw open aanvragen: %s"
+
+#: admin.php:177
+#, php-format
+msgid "There was an error modifying the type: %s."
+msgstr "Fout bij het veranderen van type: %s"
+
+#: search.php:153
+#, php-format
+msgid "There was an error performing your search: %s"
+msgstr "Fout bij het uitvoeren van zoekopdracht: %s"
+
+#: admin.php:605
+#, php-format
+msgid ""
+"There was an error removing \"%s\" from the responsible list for \"%s\": %s"
+msgstr ""
+"Fout bij het verwijderen van \"%s\" uit de lijst van verantwoordelijken voor "
+"'%s': %s"
+
+#: data.php:27
+msgid "This is not a search results template."
+msgstr "Dit is geen zoek resultaat sjabloon."
+
+#: lib/Admin.php:57
+msgid "This is not a valid subject."
+msgstr "Dit is geen geldig onderwerp."
+
+#: ticket/queue.php:80 lib/Create.php:75
+msgid ""
+"This queue requires that you specify a version, but there are no versions "
+"associated with it. Until versions are created for this queue, you will not "
+"be able to create tickets."
+msgstr ""
+"Deze queue vereist dat U een versie opgeeft, maar er zijn geen versies "
+"gekoppeld. Totdat er versies zijn aangelegd voor deze queue, kunt u geen "
+"tickets maken."
+
+#: lib/Ticket.php:484
+msgid "Ticket"
+msgstr "Incidenten"
+
+#: ticket/delete.php:68
+#, php-format
+msgid "Ticket %d has been deleted."
+msgstr "Incident %d is verwijderd."
+
+#: lib/api.php:739
+#, php-format
+msgid "Ticket %s - %s"
+msgstr "Incident %s - %s"
+
+#: lib/Driver/sql.php:871
+#, php-format
+msgid "Ticket %s was not found."
+msgstr "Incident %s is niet gevonden."
+
+#: search.php:49
+msgid "Ticket ID"
+msgstr "Incident Nummer"
+
+#: lib/Create.php:121
+msgid "Ticket State"
+msgstr "Incident Status"
+
+#: templates/reports/stats.inc:3
+msgid "Ticket Stats"
+msgstr "Incident Statussen"
+
+#: lib/Block/summary.php:3
+msgid "Ticket Summary"
+msgstr "Incident Samenvatting"
+
+#: lib/Create.php:69
+msgid "Ticket Type"
+msgstr "Incident Type"
+
+#: lib/Admin.php:158
+msgid "Ticket Types associated with this Queue"
+msgstr "Incident Type gekoppeld met deze Queue"
+
+#: lib/Ticket.php:480
+#, php-format
+msgid "Ticket URL: %s\n"
+msgstr "Incident URL: %s\n"
+
+#: ticket/update.php:137
+msgid "Ticket Updated"
+msgstr "Incident Gewijzigd"
+
+#: lib/api.php:760
+msgid "Tickets"
+msgstr "Tickets"
+
+#: lib/Block/summary.php:52
+msgid "Tickets assigned to you"
+msgstr "Incidenten toegewezen aan u"
+
+#: search.php:52
+msgid "Tickets which are"
+msgstr "Incidenten welke zijn"
+
+#: lib/Block/summary.php:69
+msgid "Tickets you requested"
+msgstr "Incidenten die u heeft opgevraagd"
+
+#: templates/queryrenderer.inc:117 ticket/queue.php:88 lib/Whups.php:458
+#: lib/Ticket.php:466 lib/Ticket.php:591 lib/Query.php:674
+#: config/prefs.php.dist:31
+msgid "Type"
+msgstr "Type"
+
+#: templates/comment.inc:99
+#, php-format
+msgid "Type &rArr; %s"
+msgstr "Type &rArr; %s"
+
+#: lib/Admin.php:301 lib/Admin.php:345 lib/Admin.php:394
+msgid "Type Description"
+msgstr "Type Omschrijving"
+
+#: lib/Admin.php:300 lib/Admin.php:324 lib/Admin.php:342 lib/Admin.php:391
+msgid "Type Name"
+msgstr "Type Naam"
+
+#: search.php:55
+msgid "Types"
+msgstr "Types"
+
+#: lib/Ticket.php:596
+msgid "Unassigned"
+msgstr "Niet toegewezen"
+
+#: lib/Admin.php:816
+msgid "Unassigned tickets"
+msgstr "Niet toegewezen incidenten"
+
+#: lib/Driver.php:140
+msgid "Unconfirmed"
+msgstr "Niet bevestigd"
+
+#: templates/queryrenderer.inc:171
+#, php-format
+msgid "Unknown node type %s"
+msgstr "Onbekende node type %s"
+
+#: templates/comment.inc:80 lib/Whups.php:191 lib/api.php:707
+msgid "Update"
+msgstr "Bijwerken"
+
+#: ticket/update.php:153
+#, php-format
+msgid "Update %s"
+msgstr "%s bijwerken"
+
+#: templates/admin/mtmatrix.inc:29
+msgid "Update Associations"
+msgstr "Werk koppelingen bij"
+
+#: ticket/people.php:125
+#, php-format
+msgid "Update People for %s"
+msgstr "Bijwerken van Verantwoordelijken voor %s."
+
+#: lib/Ticket.php:471 lib/Ticket.php:485
+msgid "Updated By"
+msgstr "Bijgewerkt door"
+
+#: lib/Admin.php:242 lib/Admin.php:252 lib/Admin.php:255
+msgid "User"
+msgstr "Gebruiker"
+
+#: query.php:129
+msgid "User Criteria"
+msgstr "Gebruiker Criteria"
+
+#: lib/Query.php:539
+msgid "User ID"
+msgstr "Gebruikers nummer"
+
+#: lib/Admin.php:184
+msgid "Users responsible for this Queue"
+msgstr "Gebruikers verantwoordelijk voor deze Queue"
+
+#: lib/Admin.php:287
+msgid "Users responsible for this queue"
+msgstr "Gebruikers, verantwoordelijk voor deze Queue"
+
+#: templates/queryrenderer.inc:111 lib/Whups.php:461 lib/Ticket.php:463
+#: lib/Query.php:686 config/prefs.php.dist:34
+msgid "Version"
+msgstr "Versie"
+
+#: lib/Admin.php:625 lib/Admin.php:671 lib/Admin.php:694
+msgid "Version Description"
+msgstr "Versie Beschrijving"
+
+#: lib/Admin.php:624 lib/Admin.php:649 lib/Admin.php:668 lib/Admin.php:691
+msgid "Version Name"
+msgstr "Versie Naam"
+
+#: templates/reports/graphs.inc:13
+msgid "View Graphs"
+msgstr "Bekijk Grafieken"
+
+#: ticket/people.php:82 ticket/type.php:46 ticket/comment.php:42
+#: ticket/queue.php:51
+msgid "Viewable only by members of"
+msgstr "Alleen zichtbaar door een lid van"
+
+#: lib/Whups.php:194
+msgid "Watch"
+msgstr "Bewaak"
+
+#: ticket/watch.php:76
+#, php-format
+msgid "Watchers for %s"
+msgstr "'Bewakers' voor %s"
+
+#: config/prefs.php.dist:87
+msgid "Weekday Day Month"
+msgstr "Weekdag Dag Maand"
+
+#: config/prefs.php.dist:88
+msgid "Weekday Day Month HH:MM:SS TZ"
+msgstr "Weekdag Dag Maand HH:MM:SS TZ"
+
+#: ticket/delete.php:37 lib/Admin.php:90 lib/Admin.php:217 lib/Admin.php:405
+#: lib/Admin.php:521 lib/Admin.php:609 lib/Admin.php:697 lib/Admin.php:785
+#: lib/Query.php:884
+msgid "Yes"
+msgstr "Ja"
+
+#: view.php:40
+msgid "You are not allowed to view this ticket."
+msgstr "U mag dit incident niet te bekijken."
+
+#: lib/Driver/sql.php:874
+#, php-format
+msgid "You do not have permission to access this ticket (%s)."
+msgstr "U heeft geen permissie om dit incident te bekijken (%s)."
+
+#: lib/Query.php:854
+msgid "You have no saved queries."
+msgstr "U heeft geen opgeslagen zoekopdrachten."
+
+#: lib/Whups.php:489
+msgid "You must select at least one queue to send reminders for."
+msgstr "U moet minimaal een queue selectere om een herinnering voor te zenden."
+
+#: ticket/comment.php:26 lib/Create.php:35
+msgid "Your Email Address"
+msgstr "Uw E-Mail adres"
+
+#: ticket/create.php:157
+#, php-format
+msgid ""
+"Your ticket ID is %s. An appropriate person has been notified of this "
+"request."
+msgstr "Uw incident ID is %s. Een melding is naar juiste persoon gestuurd."
+
+#: lib/Whups.php:554
+msgid "_Admin"
+msgstr "Beheer"
+
+#: lib/Whups.php:543
+#, php-format
+msgid "_My %s"
+msgstr "_Mijn %s"
+
+#: lib/Whups.php:546
+msgid "_New Ticket"
+msgstr "_Nieuw Incident"
+
+#: lib/Whups.php:548
+msgid "_Query Builder"
+msgstr "_Zoekopdracht Bouwer"
+
+#: lib/Whups.php:550
+msgid "_Reports"
+msgstr "_Rapportages"
+
+#: lib/Whups.php:545
+msgid "_Search"
+msgstr "_Zoeken"
+
+#: templates/queryrenderer.inc:154
+msgid "contains (case insensitive) substring"
+msgstr "bevat een (niet-hoofdletter gevoelig) deelwoord"
+
+#: templates/queryrenderer.inc:157
+msgid "contains (case sensitive) substring"
+msgstr "bevat een (hoofdletter gevoelige) deelwoord"
+
+#: templates/queryrenderer.inc:160
+msgid "contains the word"
+msgstr "bevat het woord"
+
+#: scripts/mail-filter.php:173
+#, php-format
+msgid "error processing message: %s"
+msgstr "Fout bij verwerken van bericht: %s"
+
+#: lib/api.php:748
+msgid "estimated time"
+msgstr "geschatte tijd"
+
+#: templates/queryrenderer.inc:151
+msgid "is"
+msgstr "is gelijk aan"
+
+#: templates/queryrenderer.inc:145
+msgid "is greater than"
+msgstr "is groter dan"
+
+#: templates/queryrenderer.inc:148
+msgid "is less than"
+msgstr "is kleiner dan"
+
+#: templates/queryrenderer.inc:163
+msgid "matches the pattern"
+msgstr "voldoet aan het zoekpatroon "

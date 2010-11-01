@@ -21,7 +21,7 @@ class Horde_Kolab_Filter_Transport_drop extends Horde_Kolab_Filter_Transport
      *
      * @return DropWrapper Provides a null class as transport.
      */
-    function &_createTransport()
+    function _createTransport()
     {
         $transport = new DropWrapper();
         return $transport;

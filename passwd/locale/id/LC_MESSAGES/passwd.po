@@ -1,0 +1,184 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Passwd v2.1\n"
+"POT-Creation-Date: 2004-01-09 09:37+0700\n"
+"PO-Revision-Date: 2004-01-09 13:56+0700\n"
+"Last-Translator: Slamin <slamin@unej.ac.id>\n"
+"Language-Team: UPT TI UNEJ <uptti@unej.ac.id>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Backend not correctly implemented."
+msgstr "Backend tidak diimplementasikan dengan benar."
+
+msgid "Change Password"
+msgstr "Ubah Password"
+
+msgid "Change your password"
+msgstr "Ubah password anda"
+
+#, c-format
+msgid "Changing Password on %s"
+msgstr "Mengubah Password pada %s"
+
+msgid "Confirm new password:"
+msgstr "Konfirmasi password baru:"
+
+msgid "Could not bind to ldap server"
+msgstr "Tidak bisa dikirim ke server ldap"
+
+msgid "Could not connect to ldap server"
+msgstr "Tidak bisa koneksi ke server ldap"
+
+msgid "Could not open pipe to smbpasswd."
+msgstr "Tidak bisa membuka pipe ke smbpasswd."
+
+msgid "Error sending data to smbpasswd."
+msgstr "Kesalahan mengirim data ke smbpasswd."
+
+msgid "Error"
+msgstr "Kesalahan"
+
+msgid "Failure in changing password : "
+msgstr "Gagal mengubah password : "
+
+msgid "Help"
+msgstr "Bantuan"
+
+msgid "Incorect Password"
+msgstr "Password Salah"
+
+msgid "Logout"
+msgstr "Keluar"
+
+msgid "Message"
+msgstr "Pesan"
+
+msgid "New password:"
+msgstr "Password baru:"
+
+msgid "Old password:"
+msgstr "Password lama:"
+
+msgid "Password changed!"
+msgstr "Password berubah!"
+
+msgid "Password module is not properly configured"
+msgstr "Modul password tidak dikonfigurasi dengan sempurna"
+
+msgid "Problem?"
+msgstr "Masalah?"
+
+msgid "Required 'phptype' not specified in SQL configuration."
+msgstr "'phptype' yang diperlukan tidak dispesifikasi pada konfigurasi SQL."
+
+msgid "Reset"
+msgstr "Reset"
+
+msgid "Server"
+msgstr "Server"
+
+msgid "Some of Password module's configuration files are missing:"
+msgstr "Beberapa file konfigurasi modul Password hilang:"
+
+msgid "Success"
+msgstr "Sukses"
+
+msgid ""
+"This file contains backend configuration information for the Password module "
+"scripts."
+msgstr ""
+"File ini berisi informasi konfigurasi backend untuk script modul Password."
+
+msgid ""
+"This is the main Password module configuration file. It contains paths and "
+"options for all Password module scripts."
+msgstr ""
+"Ini adalah file utama konfigurasi modul Password. File ini berisi path dan "
+"pilihan untuk semua script modul Password."
+
+msgid "Unable to connect to SQL server."
+msgstr "Tidak bisa koneksi ke server SQL."
+
+msgid "User not found"
+msgstr "Pemakai tidak ditemukan"
+
+msgid "User not found."
+msgstr "Pemakai tidak ditemukan."
+
+msgid "Username:"
+msgstr "Username:"
+
+msgid "Warning"
+msgstr "Peringatan"
+
+#, c-format
+msgid "You can't change password for user %s"
+msgstr "Anda tidak bisa mengubah password untuk user %s"
+
+msgid "You must give your new password"
+msgstr "Anda harus memberi password baru anda"
+
+msgid "You must give your old password"
+msgstr "Anda harus memberi password lama anda"
+
+msgid "You must verify your new password"
+msgstr "Anda harus verifikasi password baru anda"
+
+#, c-format
+msgid ""
+"Your new password is too long; passwords may not be more than %d characters "
+"long!"
+msgstr ""
+"Password baru anda terlalu panjang; password mungkin tidak lebih panjang "
+"dari %d karakter!"
+
+msgid "Your new password is too simple to guess!  Not changed!"
+msgstr "Password baru anda terlalu simpel untuk ditebak! Tidak berubah!"
+
+#, c-format
+msgid "Your new password must be at least %d characters long!"
+msgstr "Password baru anda harus paling sedikit sepanjang %d karakter"
+
+msgid "Your new password must be different from your current password"
+msgstr "Password baru anda harus berbeda dengan password anda saat ini"
+
+#, c-format
+msgid "Your new password must contain at least %d alphabetic characters."
+msgstr "Password baru anda harus berisi paling sedikit %d karakter alfabet."
+
+#, c-format
+msgid "Your new password must contain at least %d alphanumeric characters."
+msgstr ""
+"Password baru anda harus berisi paling sedikit %d karakter alfanumerik."
+
+#, c-format
+msgid "Your new password must contain at least %d lowercase characters."
+msgstr "Password baru anda harus berisi paling sedikit %d huruf kecil."
+
+#, c-format
+msgid "Your new password must contain at least %d numeric characters."
+msgstr "Password baru anda harus berisi paling sedikit %d karakter numerik."
+
+#, c-format
+msgid "Your new password must contain at least %d uppercase characters."
+msgstr "Password baru anda harus berisi paling sedikit %d huruf besar."
+
+#, c-format
+msgid "Your new password must contain at less than %d whitespace characters."
+msgstr "Password baru anda harus berisi kurang dari %d karakter spasi."
+
+msgid "Your new password must not contain whitespace characters."
+msgstr "Password baru anda tidak boleh berisi karakter spasi."
+
+msgid "Your new passwords didn't match"
+msgstr "Password baru anda tidak cocok"
+
+msgid "tempnam() failed!"
+msgstr "tempnam() gagal!"

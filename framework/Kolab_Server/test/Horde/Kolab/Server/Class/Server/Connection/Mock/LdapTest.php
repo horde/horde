@@ -168,7 +168,7 @@ extends Horde_Kolab_Server_LdapTestCase
                     'dn' => 'cn=d',
                 ),
             ),
-            $a->as_struct()
+            $a->asArray()
         );
 
         $a = $conn->search(null, '(c=3)');
@@ -181,7 +181,7 @@ extends Horde_Kolab_Server_LdapTestCase
                     'dn' => 'cn=c',
                 ),
             ),
-            $a->as_struct()
+            $a->asArray()
         );
 
         $a = $conn->search(null, '(c=3)', array('attributes' => array('a')));
@@ -192,7 +192,7 @@ extends Horde_Kolab_Server_LdapTestCase
                     'dn' => 'cn=c',
                 ),
             ),
-            $a->as_struct()
+            $a->asArray()
         );
 
         $a = $conn->search(null, '(&(a=1)(b=2))', array('attributes' => array('a', 'b')));
@@ -209,7 +209,7 @@ extends Horde_Kolab_Server_LdapTestCase
                     'dn' => 'cn=c',
                 ),
             ),
-            $a->as_struct()
+            $a->asArray()
         );
 
         $a = $conn->search(null, '(|(a=1)(b=2))', array('attributes' => array('a', 'b')));
@@ -236,7 +236,7 @@ extends Horde_Kolab_Server_LdapTestCase
                     'dn' => 'cn=d',
                 )
             ),
-            $a->as_struct()
+            $a->asArray()
         );
 
         $a = $conn->search(null, '(&(b=2))', array('attributes' => array('b')));
@@ -255,7 +255,7 @@ extends Horde_Kolab_Server_LdapTestCase
                     'dn' => 'cn=d',
                 ),
             ),
-            $a->as_struct()
+            $a->asArray()
         );
 
         $a = $conn->search(null, '(!(b=2))', array('attributes' => array('a', 'b')));
@@ -267,7 +267,7 @@ extends Horde_Kolab_Server_LdapTestCase
                     'dn' => 'cn=a',
                 ),
             ),
-            $a->as_struct()
+            $a->asArray()
         );
 
         $a = $conn->search(null, '(&(!(x=2))(b=1))', array('attributes' => array('b')));
@@ -278,13 +278,13 @@ extends Horde_Kolab_Server_LdapTestCase
                     'dn' => 'cn=a',
                 ),
             ),
-            $a->as_struct()
+            $a->asArray()
         );
 
         $a = $conn->search(null, '(c=t)', array('attributes' => array('a')));
         $this->assertEquals(
             array(),
-            $a->as_struct()
+            $a->asArray()
         );
 
         try {
@@ -394,7 +394,7 @@ extends Horde_Kolab_Server_LdapTestCase
                       'dn' => 'test'
                   )
             ),
-            $result->as_struct()
+            $result->asArray()
         );
     }
 
@@ -408,7 +408,7 @@ extends Horde_Kolab_Server_LdapTestCase
         $result = $conn->search('test', null, array('scope' => 'base'));
         $this->assertEquals(
             array(),
-            $result->as_struct()
+            $result->asArray()
         );
     }
 
@@ -440,7 +440,7 @@ extends Horde_Kolab_Server_LdapTestCase
                       'dn' => 'test'
                   )
             ),
-            $result->as_struct()
+            $result->asArray()
         );
     }
 
@@ -475,7 +475,7 @@ extends Horde_Kolab_Server_LdapTestCase
         $result = $conn->search('test');
         $this->assertEquals(
             array('test', 'yestest'),
-            array_keys($result->as_struct())
+            array_keys($result->asArray())
         );
     }
 
@@ -522,7 +522,7 @@ extends Horde_Kolab_Server_LdapTestCase
                     'dn' => 'yestest'
                 ),
             ),
-            $result->as_struct()
+            $result->asArray()
         );
     }
 

@@ -107,7 +107,7 @@ class Horde_Kolab_Server_Connection_Mock_Ldap
     * @param string $dn   DN of the entry that should be fetched
     * @param array  $attr Array of Attributes to select. If ommitted, all attributes are fetched.
     *
-    * @return Net_LDAP2_Entry|Net_LDAP2_Error    Reference to a Net_LDAP2_Entry object or Net_LDAP2_Error object
+    * @return Horde_Ldap_Entry|Horde_Ldap_Error    Reference to a Horde_Ldap_Entry object or Horde_Ldap_Error object
     * @todo Maybe check against the shema should be done to be sure the attribute type exists
     */
     public function getEntry($dn, $attr = array())
@@ -257,7 +257,7 @@ class Horde_Kolab_Server_Connection_Mock_Ldap
                     } else {
                         $result['att'] = $filter_parts[0];
                         $result['log'] = $filter_parts[1];
-                        $val = Net_LDAP2_Util::unescape_filter_value($filter_parts[2]);
+                        $val = Horde_Ldap_Util::unescapeFilterValue($filter_parts[2]);
                         $result['val'] = $val[0];
                         return $result;
                     }
@@ -421,9 +421,9 @@ class Horde_Kolab_Server_Connection_Mock_Ldap
     /**
     * Add a new entryobject to a directory.
     *
-    * @param Net_LDAP2_Entry $entry Net_LDAP2_Entry
+    * @param Horde_Ldap_Entry $entry Horde_Ldap_Entry
     *
-    * @return Net_LDAP2_Error|true Net_LDAP2_Error object or true
+    * @return Horde_Ldap_Error|true Horde_Ldap_Error object or true
     */
     public function add($entry)
     {
@@ -443,11 +443,11 @@ class Horde_Kolab_Server_Connection_Mock_Ldap
     /**
     * Modify an ldapentry directly on the server
     *
-    * @param string|Net_LDAP2_Entry &$entry DN-string or Net_LDAP2_Entry
+    * @param string|Horde_Ldap_Entry &$entry DN-string or Horde_Ldap_Entry
     * @param array                 $parms  Array of changes
     *
     * @access public
-    * @return Net_LDAP2_Error|true Net_LDAP2_Error object or true
+    * @return Horde_Ldap_Error|true Horde_Ldap_Error object or true
     */
     public function modify($entry, $data = array())
     {

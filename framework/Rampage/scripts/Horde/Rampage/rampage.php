@@ -15,9 +15,8 @@
 
 @define('ZOMBIE_BASE', dirname(__FILE__) . '/..');
 
-/* We need horde only to get the sql driver config from conf.php. */
-require_once dirname(__FILE__) . '/lib/core.php';
-require_once HORDE_BASE . '/config/conf.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 /* List of files that are parsed, converted and copied to output
  * directory.  for all these files default zitem->parameter string
@@ -43,7 +42,7 @@ $files = array('COPYING',
                'lib/base.php',
                'lib/Driver.php',
                'lib/Driver/sql.php',
-               'locale/en_US/help.xml',
+               'locale/en/help.xml',
                'templates/common-header.inc',
                'templates/edit/edit.inc',
                'templates/list/empty.inc',
@@ -568,8 +567,8 @@ function t_templates_list_list_headers($c)
         $n = $i['name']; // shortcut
         if ($i['list']) {
             $s .= "<th class=\"<?php echo (\$sortby == ZOMBIE_SORT_$n) ? 'selected' : 'item' ?>\" width=\"2%\">
-                <?php if (\$sortby == ZOMBIE_SORT_$n) echo Horde::link(Horde::applicationUrl(Horde_Util::addParameter(\$sortbyurl, 'sortby', ZOMBIE_SORT_$n)), _(\"Change sort direction\"), 'widget') . Horde::img(\$sortdir ? 'za.gif' :  'az.gif', _(\"Change sort direction\"), null, \$registry->get('graphics', 'horde')) ?></a>
-                <?php echo Horde::widget(Horde::applicationUrl(Horde_Util::addParameter('list.php', 'sortby', ZOMBIE_SORT_$n)), _(\"Sort by User Name\"), 'widget', '', '', _(\"" . $i['desc'] . "\")) ?></a>&nbsp;</th>\n";
+                <?php if (\$sortby == ZOMBIE_SORT_$n) echo Horde::link(Horde::url(Horde_Util::addParameter(\$sortbyurl, 'sortby', ZOMBIE_SORT_$n)), _(\"Change sort direction\"), 'widget') . Horde::img(\$sortdir ? 'za.gif' :  'az.gif', _(\"Change sort direction\"), null, \$registry->get('graphics', 'horde')) ?></a>
+                <?php echo Horde::widget(Horde::url(Horde_Util::addParameter('list.php', 'sortby', ZOMBIE_SORT_$n)), _(\"Sort by User Name\"), 'widget', '', '', _(\"" . $i['desc'] . "\")) ?></a>&nbsp;</th>\n";
         }
     }
 
@@ -851,7 +850,7 @@ function render_field($field)
     case 'mediumtext':
     case 'longblob':
     case 'longtext':
-        return "nl2br(Horde_Text::linkUrls(Horde_Text_Filter::filter(\$zitem['$n'], 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true)), false, 'text'))";
+        return "nl2br(Horde_Text::linkUrls(\$GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter(\$zitem['$n'], 'space2html', array('encode' => true)), false, 'text'))";
 
     case 'bool':
     case 'boolean':
@@ -947,24 +946,14 @@ function render_edit($field)
     // Date/Time Types
     case 'date':
     case 'unixdate':
-        return "<?php echo Zombie::buildDateWidget('$n',\$zitem['$n']) ?>
-                                        <?php if (\$GLOBALS['browser']->hasFeature('javascript')) {
-                                                  Horde::addScriptFile('open_calendar.js', 'horde', array('direct' => false));
-                                                  echo '<div id=\"goto\" class=\"control\" style=\"position:absolute;visibility:hidden;padding:1px\"></div>';
-                                                  echo Horde::link('#', _(\"Select a date\"), '', '', 'openCalendar(\'${n}img\', \'$n\', \'\'); return false;') . Horde::img('calendar.gif', _(\"Calendar\"), 'align=\"top\" id=\"${n}img\"', \$GLOBALS['registry']->get('graphics', 'horde')) . '</a>';
-                                              } ?>";
+        return "<?php echo Zombie::buildDateWidget('$n',\$zitem['$n']) ?>";
 
     case 'datetime':
     case 'timestamp':
     case 'unixepoch':
         return "<?php echo Zombie::buildDateWidget('$n',\$zitem['$n']) ?>
-                                        <?php if (\$GLOBALS['browser']->hasFeature('javascript')) {
-                                                  Horde::addScriptFile('open_calendar.js', 'horde', array('direct' => false));
-                                                  echo '<div id=\"goto\" class=\"control\" style=\"position:absolute;visibility:hidden;padding:1px\"></div>';
-                                                  echo Horde::link('#', _(\"Select a date\"), '', '', 'openCalendar(\'${n}img\', \'$n\', \'\'); return false;') . Horde::img('calendar.gif', _(\"Calendar\"), 'align=\"top\" id=\"${n}img\"', \$GLOBALS['registry']->get('graphics', 'horde')) . '</a>';
-                                              } ?>
-                                              <p>
-                                              <?php echo Zombie::buildTimeWidget('$n',\$zitem['$n']) ?>";
+                <p>
+                <?php echo Zombie::buildTimeWidget('$n',\$zitem['$n']) ?>";
 
     case 'time':
     case 'unixtime':
@@ -1107,7 +1096,7 @@ function field_sql2php($field)
     case 'mediumtext':
     case 'longblob':
     case 'longtext':
-        return "Horde_String::convertCharset(\$row['".$field["name"]."'], \$this->_params['charset'])";
+        return "Horde_String::convertCharset(\$row['".$field["name"]."'], \$this->_params['charset'], 'UTF-8')";
 
     // Integer types
     case 'bit':
@@ -1225,7 +1214,7 @@ function field_get_quoted($field)
     case 'mediumtext':
     case 'longblob':
     case 'longtext':
-        return "Horde_String::convertCharset(\$this->_db->quote(\$zitem['$n']), Horde_Nls::getCharset(), \$this->_params['charset'])";
+        return "Horde_String::convertCharset(\$this->_db->quote(\$zitem['$n']), 'UTF-8', \$this->_params['charset'])";
 
     // Integer types
     case 'bit':

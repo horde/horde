@@ -8,14 +8,15 @@
  * http://www.opensource.org/licenses/bsd-license.php.
  *
  * @author  Ben Klang <ben@alkaloid.net>
- * @since   Shout 0.1
  * @package Shout
  */
 
-
-
 table {
     width: 100%;
+}
+
+.attention {
+    font-weight: bold;
 }
 
 .header {
@@ -31,6 +32,11 @@ table {
     border: 1px solid #000;
 }
 
+#destinationsCol
+{
+    width: 66%;
+}
+
 .uheader{
     background: #fff;
     color: #a22;
@@ -42,12 +48,11 @@ table {
 
 .extensionDestinations
 {
-    /*display: none;*/
     position: relative;
-    left: 20px;
+    left: 25px;
 }
 
-a.addDest
+a#addDest
 {
     font-style: italic;
 }
@@ -58,13 +63,187 @@ span.device:hover
     cursor: pointer;
 }
 
-ul {
+.controls {
+    margin-left: auto;
+    margin-right: auto;
     list-style: none;
-    display: inline;
 }
 
-#controls {
+.controls li {
     float: left;
 }
 
+.informational {
+    font-style: italic;
+}
 
+#menuInfo {
+    float: left;
+    width: 340px;
+    position: relative;
+}
+
+.menuStatName {
+    font-weight: bold;
+}
+
+#dialplan {
+    width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#digitpad {
+    width: 300px;
+    height: 400px;
+    float: right;
+    position: relative;
+}
+
+.digit {
+    width: 84px;
+    height: 84px;
+    float: left;
+    border-top: 4px solid #aaa;
+    border-left: 4px solid #aaa;
+    border-right: 4px solid #444;
+    border-bottom: 4px solid #444;
+    padding: 3px;
+    margin: 1px;
+    background-image: url('graphics/digit-bg.png');
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    cursor: pointer;
+}
+
+#defaultAction {
+    width: 284px;
+    height: 38px;
+    border-top: 4px solid #aaa;
+    border-left: 4px solid #aaa;
+    border-right: 4px solid #444;
+    border-bottom: 4px solid #444;
+    padding: 3px;
+    margin: 1px;
+    background-image: url('graphics/digit-bg.png');
+    background-repeat: no-repeat;
+    background-color: #999;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+
+.digitLabel {
+    font-style: italic;
+    font-family: Sans-serif;
+    font-weight: bold;
+    font-size: 1.5em;
+    color: #666;
+    float: left;
+}
+
+#editActionOverlay {
+    width: 290px;
+    height: 389px;
+    padding: 5px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-image: url('graphics/transparency.png');
+}
+
+#editActionArgs
+{
+    padding-left: 45px;
+}
+
+#editMenu
+{
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+#digitGraphic {
+    float: left;
+    margin: 0px 5px 5px 5px;
+}
+
+#actionPrompt {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#editAction {
+    margin: 5px;
+}
+
+.button {
+    margin: 3px;
+    cursor: pointer;
+    padding: 2px 8px;
+}
+
+.buttonActionLabel
+{
+    text-align: right;
+    font-style: italic;
+}
+
+.buttonDetail
+{
+    text-align: center;
+}
+
+.working
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    filter:alpha('opacity=50');
+    -moz-opacity:0.5;
+    -khtml-opacity: 0.5;
+    opacity: 0.5;
+    background: url('graphics/redbox_spinner.gif') no-repeat center #000;
+    z-index: 5;
+}
+
+div#wizard
+{
+    border: 2px solid #c00;
+    padding: 5px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    width: 500px;
+    background-color: #fcc;
+}
+
+div#wizard .step
+{
+    background-color: #fff;
+    border: 2px solid #c00;
+    margin: 5px;
+    padding: 5px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+div#wizard h3
+{
+    cursor: pointer;
+    padding: 5px;
+    display: block;
+}
+
+div#wizard ol, div#wizard ul {
+    margin-left: 30px;
+}
+
+
+.form {
+    position: relative;
+}

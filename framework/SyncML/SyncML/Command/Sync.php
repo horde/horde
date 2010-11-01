@@ -26,7 +26,6 @@ require_once 'SyncML/Command/SyncElement.php';
  *
  * @author  Karsten Fourmont <karsten@horde.org>
  * @author  Jan Schneider <jan@horde.org>
- * @since   Horde 3.0
  * @package SyncML
  */
 class SyncML_Command_Sync extends SyncML_Command {
@@ -290,8 +289,7 @@ class SyncML_Command_Sync extends SyncML_Command {
 
             if (!is_object($sync)) {
                 $GLOBALS['backend']->logMessage(
-                    'No sync object found for URI ' . $this->_targetURI,
-                    __FILE__, __LINE__, PEAR_LOG_ERR);
+                    'No sync object found for URI ' . $this->_targetURI, 'ERR');
                 // @todo: create meaningful status code here.
             }
         }

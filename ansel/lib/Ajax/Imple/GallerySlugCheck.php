@@ -8,7 +8,7 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_Ajax_Imple_GallerySlugCheck extends Horde_Ajax_Imple_Base
+class Ansel_Ajax_Imple_GallerySlugCheck extends Horde_Core_Ajax_Imple
 {
     public function attach()
     {
@@ -26,7 +26,6 @@ class Ansel_Ajax_Imple_GallerySlugCheck extends Horde_Ajax_Imple_Base
 
     public function handle($args, $post)
     {
-        include_once dirname(__FILE__) . '/../../base.php';
         if (empty($args['input'])) {
             return array('response' => '1');
          }
@@ -39,7 +38,7 @@ class Ansel_Ajax_Imple_GallerySlugCheck extends Horde_Ajax_Imple_Base
             return array('response' => '0');
         }
 
-        $exists = $GLOBALS['ansel_storage']->slugExists($slug) ? 0 : 1;
+        $exists = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->slugExists($slug) ? 0 : 1;
         return array('response' => $exists);
     }
 

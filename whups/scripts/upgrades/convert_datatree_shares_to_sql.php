@@ -15,8 +15,7 @@ require_once HORDE_BASE . '/lib/core.php';
 if (!Horde_Cli::runningFromCli()) {
     exit("Must be run from the command line\n");
 }
-$cli = &Horde_Cli::singleton();
-$cli->init();
+$cli = Horde_Cli::init();
 
 /* Grab what we need to steal the DB config */
 require_once HORDE_BASE . '/config/conf.php';

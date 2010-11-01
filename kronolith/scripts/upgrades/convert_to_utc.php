@@ -1,25 +1,16 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
 /**
  * This script converts all dates from the user's timezone to UTC.
  */
 
 /* Set up the CLI environment. */
-require_once dirname(__FILE__) . '/../../lib/base.load.php';
-require_once HORDE_BASE . '/lib/core.php';
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-$cli = Horde_Cli::singleton();
-$cli->init();
-
-/* Load required libraries. */
-$kronolith_authentication = 'none';
-require_once KRONOLITH_BASE . '/../../lib/base.php';
+require_once dirname(__FILE__) . '/../../lib/Application.php';
+Horde_Registry::appInit('kronolith', array('authentication' => 'none', 'cli' => true));
 
 /* Prepare DB stuff. */
-PEAR::staticPushErrorHandling(PEAR_ERROR_DIE);
-$db = DB::connect($conf['sql']);
+PEAR::pushErrorHandling(PEAR_ERROR_CALLBACK, create_function('$e', 'echo $e->toString()."\n";exit;'));
+$db = $injector->getInstance('Horde_Core_Factory_DbPear')->create();
 $result = $db->query('SELECT event_title, event_id, event_creator_id, event_start, event_end, event_allday, event_recurenddate FROM ' . $conf['calendar']['params']['table'] . ' ORDER BY event_creator_id');
 $stmt = $db->prepare('UPDATE kronolith_events SET event_start = ?, event_end = ?, event_recurenddate = ? WHERE event_id = ?');
 
@@ -43,8 +34,11 @@ while ($row = $result->fetchRow(DB_FETCHMODE_ASSOC)) {
         if (!is_null($creator)) {
             echo "$count\n";
         }
-        $prefs = Horde_Prefs::factory($conf['prefs']['driver'], 'horde',
-                                      $row['event_creator_id']);
+        $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')->create('horde', array(
+            'cache' => false,
+            'user' => $row['event_creator_id']
+        ));
+
         $timezone = $prefs->getValue('timezone');
         if (empty($timezone)) {
             $timezone = date_default_timezone_get();

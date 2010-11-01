@@ -89,7 +89,7 @@ implements Horde_Kolab_Server_Structure_Interface
      * @return NULL
      */
     public function setComposite(
-        Horde_Kolab_Server_Composite_Interface $composite
+        Horde_Kolab_Server_Composite $composite
     ) {
         $this->_composite = $composite;
     }
@@ -157,8 +157,9 @@ implements Horde_Kolab_Server_Structure_Interface
 
     public function getInternalAttributes($class)
     {
-        $external = $this->getExternalAttributes($class);
-        return $this->mapExternalToInternalAttributes($external);
+        return $this->mapExternalToInternalAttributes(
+            $this->getExternalAttributes($class)
+        );
     }
 
     public function getInternalAttributesForExternal($class, $external)

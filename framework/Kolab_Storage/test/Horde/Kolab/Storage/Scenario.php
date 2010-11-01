@@ -88,7 +88,7 @@ class Horde_Kolab_Storage_Scenario extends Horde_Kolab_Server_Integration_Scenar
             $folder->setACL($arguments[0], 'alrid');
             break;
         case 'retrieving the list of shares for the application':
-            $shares = Horde_Share::singleton($arguments[0], 'kolab');
+            $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create($arguments[0], 'kolab');
 
             $world['list'] = $shares->listShares(Auth::getAuth());
             break;
@@ -180,7 +180,7 @@ class Horde_Kolab_Storage_Scenario extends Horde_Kolab_Server_Integration_Scenar
 \$conf['portal']['fixed_blocks'] = array();
 \$conf['imsp']['enabled'] = false;
 
-/** Additional config variables required for a clean Horde setup */
+/** Additional config variables required for a clean Horde configuration */
 \$conf['session']['use_only_cookies'] = false;
 \$conf['session']['timeout'] = 0;
 \$conf['cookie']['path'] = '/';
@@ -312,13 +312,8 @@ EOD;
         $this->prepareRegistry();
         $this->prepareNotification();
 
-        if (!isset($GLOBALS['perms'])) {
-            $GLOBALS['perms'] = Horde_Perms::singleton();
-        }
-
         /** Provide the horde registry */
-        $GLOBALS['registry'] = Horde_Registry::singleton();
-        $GLOBALS['notification'] = Horde_Notification::singleton();
+        $GLOBALS['registry'] = new Horde_Registry();
 
         $this->prepareFixedConfiguration();
 

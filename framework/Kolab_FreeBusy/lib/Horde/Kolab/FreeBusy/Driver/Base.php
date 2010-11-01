@@ -58,7 +58,8 @@ class Horde_Kolab_FreeBusy_Driver_Base
      *
      * @param array       $params        Any additional options
      */
-    public function __construct($callee = null, $callee_part = null, $logger = null)
+    public function __construct($callee = null, $callee_part = null,
+                                $logger = null)
     {
         list($this->user, $this->pass) = $this->getCredentials();
 
@@ -105,11 +106,11 @@ class Horde_Kolab_FreeBusy_Driver_Base
         //@todo: Fix!
         // This part allows you to use the PHP scripts with CGI rather than as
         // an apache module. This will of course slow down things but on the
-        // other hand it allows you to reduce the memory footprint of the 
-        // apache server. The default is to use PHP as a module and the CGI 
+        // other hand it allows you to reduce the memory footprint of the
+        // apache server. The default is to use PHP as a module and the CGI
         // version requires specific Apache configuration.
         //
-        // The line you need to add to your configuration of the /freebusy 
+        // The line you need to add to your configuration of the /freebusy
         // location of your server looks like this:
         //
         //    RewriteRule .* - [E=REMOTE_USER:%{HTTP:Authorization}]
@@ -160,7 +161,7 @@ class Horde_Kolab_FreeBusy_Driver_Base
                     'timestamp' => time(),
                     'remote_addr' => isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null,
                 );
-                Auth::setCredential('password', $pass);
+                $GLOBALS['registry']->setAuthCredential('password', $pass);
             }
     }
 
@@ -175,11 +176,11 @@ class Horde_Kolab_FreeBusy_Driver_Base
 
         if (empty($this->user)) {
             header('WWW-Authenticate: Basic realm="Kolab Freebusy"');
-            return PEAR::raiseError(_("Please authenticate!"));
+            return PEAR::raiseError(Horde_Kolab_FreeBusy_Translation::t("Please authenticate!"));
         }
 
         if (!$this->_authenticated) {
-            return PEAR::raiseError(sprintf(_("Invalid authentication for user %s!"), 
+            return PEAR::raiseError(sprintf(Horde_Kolab_FreeBusy_Translation::t("Invalid authentication for user %s!"),
                                             $this->user));
         }
         return true;

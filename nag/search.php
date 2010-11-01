@@ -6,13 +6,17 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('nag');
+
+Horde::addInlineScript(array(
+    '$("search_pattern")'
+), 'dom');
 
 $title = _("Search");
-$notification->push('document.search.search_pattern.focus()', 'javascript');
-Horde::addScriptFile('prototype.js', 'horde');
 require NAG_TEMPLATES . '/common-header.inc';
-require NAG_TEMPLATES . '/menu.inc';
+echo Horde::menu();
+Nag::status();
 require NAG_TEMPLATES . '/search/search.inc';
 require NAG_TEMPLATES . '/panel.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

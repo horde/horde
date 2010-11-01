@@ -51,11 +51,11 @@
 class Horde_Kolab_Storage
 {
     /**
-     * Singleton instance.
+     * The master Kolab storage system.
      *
-     * @var Horde_Kolab_Storage
+     * @var Horde_Kolab_Storage_Driver
      */
-    static protected $instances = array();
+    private $_master;
 
     /**
      * An array of Horde_Kolab_Storage_Driver connections to Kolab
@@ -64,13 +64,6 @@ class Horde_Kolab_Storage
      * @var array
      */
     protected $connections = array();
-
-    /**
-     * The driver type for the base connection.
-     *
-     * @var string
-     */
-    private $_driver;
 
     /**
      * The parameters for the base connection.
@@ -117,18 +110,24 @@ class Horde_Kolab_Storage
     /**
      * Constructor.
      *
+     * @param Horde_Kolab_Storage_Driver $master The primary connection driver.
      * @param string $driver The driver used for the primary storage connection.
      * @param array  $params Additional connection parameters.
      */
-    public function __construct($driver, $params = array())
-    {
-        $this->_driver = $driver;
+    public function __construct(
+        Horde_Kolab_Storage_Driver $master,
+        Horde_Cache $cache,
+        $params = array()
+    ) {
+        $this->_master = $master;
+        $this->_cache  = new Horde_Kolab_Storage_Cache($cache);
+
         $this->_params = $params;
 
         if (isset($this->_params['owner'])) {
             $this->_owner = $this->_params['owner'];
         } else if (class_exists('Horde_Auth')) {
-            $this->_owner = Horde_Auth::getAuth();
+            $this->_owner = $GLOBALS['registry']->getAuth();
         } else {
             $this->_owner = '';
         }
@@ -149,13 +148,12 @@ class Horde_Kolab_Storage
         if (!empty($GLOBALS['conf']['kolab']['storage']['cache']['folders'])) {
             $signature = hash('md5', serialize(array($driver, $params))) . '|list';
 
-            $this->_cache = &Horde_Cache::singleton($GLOBALS['conf']['kolab']['storage']['cache']['folders']['driver'],
-                                                    $GLOBALS['conf']['kolab']['storage']['cache']['folders']['params']);
+            $this->_cache = $GLOBALS['injector']->getInstance('Horde_Cache');
 
             $data = $this->_cache->get($signature,
                                        $GLOBALS['conf']['kolab']['storage']['cache']['folders']['lifetime']);
             if ($data) {
-                $list = @unserialize($data);
+                $list = @unserialize($data);;
                 if ($list instanceOf Horde_Kolab_Storage) {
                     register_shutdown_function(array($list, 'shutdown'));
                     return $list;
@@ -167,33 +165,6 @@ class Horde_Kolab_Storage
             register_shutdown_function(array($list, 'shutdown'));
         }
         return $list;
-    }
-
-    /**
-     * Attempts to return a reference to a concrete Horde_Kolab_Storage_List
-     * instance based on $driver and $params. It will only create a new instance
-     * if no Horde_Kolab_Storage_List instance with the same parameters currently
-     * exists.
-     *
-     * This method must be invoked as:
-     *   $var = &Horde_Kolab_Storage_List::singleton()
-     *
-     * @param string $driver The driver used for the primary storage connection.
-     * @param array  $params Additional connection parameters.
-     *
-     * @return Horde_Kolab_Storage_List  The concrete Horde_Kolab_Storage reference.
-     */
-    static public function singleton($driver, $params = array())
-    {
-        ksort($params);
-        $signature = hash('md5', serialize(array($driver, $params)));
-
-        if (!isset(self::$instances[$signature])) {
-            self::$instances[$signature] = Horde_Kolab_Storage::factory($driver,
-                                                                        $params);
-        }
-
-        return self::$instances[$signature];
     }
 
     /**
@@ -237,7 +208,6 @@ class Horde_Kolab_Storage
             $result = $this->getConnection($key);
             $folder->restore($this, $result->connection);
         }
-        $this->connect();
     }
 
     /**
@@ -248,8 +218,18 @@ class Horde_Kolab_Storage
     protected function shutdown()
     {
         $data = @serialize($this);
-        return $this->_cache->set($signature, $data,
-                                  $GLOBALS['conf']['kolab']['storage']['cache']['folders']['lifetime']);
+        $this->_cache->set($signature, $data,
+                           $GLOBALS['conf']['kolab']['storage']['cache']['folders']['lifetime']);
+    }
+
+    /**
+     * Return the data cache associated with this storage instance.
+     *
+     * @return Horde_Kolab_Storage_Cache The cache object
+     */
+    public function getDataCache()
+    {
+        return $this->_cache;
     }
 
     /**
@@ -273,22 +253,11 @@ class Horde_Kolab_Storage
         }
 
         if (empty($connection) || !isset($this->connections[$connection])) {
-            $result->connection = &$this->connections['BASE'];
+            $result->connection = $this->_master;
         } else {
-            $result->connection = &$this->connections[$connection];
+            $result->connection = $this->connections[$connection];
         }
         return $result;
-    }
-
-    /**
-     * Initializes the connection to the Kolab Storage system.
-     *
-     * @return NULL
-     */
-    protected function connect()
-    {
-        $this->connections['BASE'] = &Horde_Kolab_Storage_Driver::factory($this->_driver,
-                                                                          $this->_params);
     }
 
     /**
@@ -337,7 +306,7 @@ class Horde_Kolab_Storage
         if (!isset($this->_folders[$folder])) {
             $result = $this->getConnection($folder);
 
-            $kf = new Horde_Kolab_Storage_Folder($result->name);
+            $kf = new Horde_Kolab_Storage_Folder_Base($result->name);
             $kf->restore($this, $result->connection);
             $this->_folders[$folder] = &$kf;
         }
@@ -354,11 +323,11 @@ class Horde_Kolab_Storage
     public function getNewFolder($connection = null)
     {
         if (empty($connection) || !isset($this->connections[$connection])) {
-            $connection = &$this->connections['BASE'];
+            $connection = &$this->_master;
         } else {
             $connection = &$this->connections[$connection];
         }
-        $folder = new Horde_Kolab_Storage_Folder(null);
+        $folder = new Horde_Kolab_Storage_Folder_Base(null);
         $folder->restore($this, $connection);
         return $folder;
     }
@@ -441,7 +410,7 @@ class Horde_Kolab_Storage
     {
         // Handle default shares
         if (class_exists('Horde_Auth')
-            && $share == Horde_Auth::getAuth()) {
+            && $share == $GLOBALS['registry']->getAuth()) {
             $result = $this->getDefault($type);
             if (!empty($result)) {
                 return $result->name;
@@ -465,15 +434,11 @@ class Horde_Kolab_Storage
         $this->_types    = array();
         $this->_defaults = array();
 
+        $folders = array_merge($this->_list, $this->_master->getMailboxes());
         foreach ($this->connections as $key => $connection) {
-            if ($key == 'BASE') {
-                // Obtain a list of all folders the current user has access to
-                $folders = array_merge($this->_list, $connection->getMailboxes());
-            } else {
-                $list = $connection->getMailboxes();
-                foreach ($list as $item) {
-                    $folders[] = $key . '@' . $item;
-                }
+            $list = $connection->getMailboxes();
+            foreach ($list as $item) {
+                $folders[] = $key . '@' . $item;
             }
         }
 
@@ -501,7 +466,7 @@ class Horde_Kolab_Storage
      *
      * @return NULL
      */
-    public function addToCache(&$folder)
+    public function addToCache($folder)
     {
         $this->_initiateCache();
 
@@ -511,7 +476,7 @@ class Horde_Kolab_Storage
             $owner   = $folder->getOwner();
         } catch (Exception $e) {
             Horde::logMessage(sprintf("Error while updating the Kolab folder list cache: %s.",
-                                      $e->getMessage()), __FILE__, __LINE__, PEAR_LOG_ERR);
+                                      $e->getMessage()), 'ERR');
             return;
         }
 
@@ -531,7 +496,7 @@ class Horde_Kolab_Storage
      *
      * @return NULL
      */
-    public function removeFromCache(&$folder)
+    public function removeFromCache($folder)
     {
         $this->_initiateCache();
 
@@ -563,7 +528,7 @@ class Horde_Kolab_Storage
      * @return Horde_Kolab_Folder The folder object representing
      *                            the share.
      */
-    public function &getShare($share, $type)
+    public function getShare($share, $type)
     {
         $share = $this->getByShare($share, $type);
         return $share;
@@ -582,7 +547,7 @@ class Horde_Kolab_Storage
      *
      * @return Horde_Kolab_Data The data object.
      */
-    public function &getData(Horde_Kolab_Storage_Folder &$folder,
+    public function getData(Horde_Kolab_Storage_Folder $folder,
                              $data_type = null, $data_format = 1)
     {
         if (empty($data_type)) {
@@ -605,7 +570,7 @@ class Horde_Kolab_Storage
      *
      * @return Horde_Kolab_Data The data object.
      */
-    public function &getShareData($share, $type, $data_type = null, $data_format = 1)
+    public function getShareData($share, $type, $data_type = null, $data_format = 1)
     {
         $folder = $this->getShare($share, $type);
         $data   = $this->getData($folder, $data_type, $data_format);
@@ -624,7 +589,7 @@ class Horde_Kolab_Storage
      *
      * @return Horde_Kolab_Data The data object.
      */
-    public function &getFolderData($folder, $data_type = null, $data_format = 1)
+    public function getFolderData($folder, $data_type = null, $data_format = 1)
     {
         $folder = $this->getFolder($folder);
         $data   = $this->getData($folder, $data_type, $data_format);

@@ -8,11 +8,16 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package IMP
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
 class IMP_Ui_Mailbox
 {
+     const DATE_FORCE = 1;
+     const DATE_FULL = 2;
+
     /**
      * The current mailbox.
      *
@@ -71,22 +76,21 @@ class IMP_Ui_Mailbox
             $this->_cache['drafts_sm_folder'] = IMP::isSpecialFolder($this->_mailbox);
         }
 
-        $from = Horde_Mime_Address::getAddressesFromObject($ob['from']);
+        $from = Horde_Mime_Address::getAddressesFromObject($ob['from'], array('charset' => 'UTF-8'));
         $from = reset($from);
 
         if (empty($from)) {
             $ret['from'] = _("Invalid Address");
             $ret['error'] = true;
         } else {
-            $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
-            if ($identity->hasAddress($from['inner'])) {
+            if ($GLOBALS['injector']->getInstance('IMP_Identity')->hasAddress($from['inner'])) {
                 /* This message was sent by one of the user's identity
                  * addresses - show To: information instead. */
                 if (empty($ob['to'])) {
                     $ret['from'] = _("Undisclosed Recipients");
                     $ret['error'] = true;
                 } else {
-                    $to = Horde_Mime_Address::getAddressesFromObject($ob['to']);
+                    $to = Horde_Mime_Address::getAddressesFromObject($ob['to'], array('charset' => 'UTF-8'));
                     $first_to = reset($to);
                     if (empty($first_to)) {
                         $ret['from'] = _("Undisclosed Recipients");
@@ -143,10 +147,6 @@ class IMP_Ui_Mailbox
      */
     public function getSize($size)
     {
-        if ($size < 1024) {
-            return $size;
-        }
-
         if (!isset($this->_cache['localeinfo'])) {
             $this->_cache['localeinfo'] = Horde_Nls::getLocaleInfo();
         }
@@ -193,15 +193,27 @@ class IMP_Ui_Mailbox
     /**
      * Formats the date header.
      *
-     * @param integer $date  The UNIX timestamp.
+     * @param integer $date    The UNIX timestamp.
+     * @param integer $format  Mask of formatting options:
+     * <pre>
+     * IMP_Mailbox_Ui::DATE_FORCE - Force use of date formatting, instead of
+     *                              time formatting, for all dates.
+     * IMP_Mailbox_Ui::DATE_FULL - Use full representation of date, including
+     *                             time information.
+     * </pre>
      *
      * @return string  The formatted date header.
      */
-    public function getDate($date)
+    public function getDate($date, $format = 0)
     {
-        if (!isset($this->_cache['today_start'])) {
-            $this->_cache['today_start'] = strtotime('today');
-            $this->_cache['today_end'] = strtotime('today + 1 day');
+        if (empty($date)) {
+            return _("Unknown Date");
+        }
+
+        if (!($format & self::DATE_FORCE) &&
+            !isset($this->_cache['today_start'])) {
+            $this->_cache['today_start'] = new DateTime('today');
+            $this->_cache['today_end'] = new DateTime('today + 1 day');
         }
 
         try {
@@ -219,10 +231,16 @@ class IMP_Ui_Mailbox
         }
         $udate = $d->format('U');
 
-        if (($udate < $this->_cache['today_start']) ||
-            ($udate > $this->_cache['today_end'])) {
+        if (($format & self::DATE_FORCE) ||
+            ($udate < $this->_cache['today_start']->format('U')) ||
+            ($udate > $this->_cache['today_end']->format('U'))) {
             /* Not today, use the date. */
-            return strftime($GLOBALS['prefs']->getValue('date_format'), $udate);
+            if ($format & self::DATE_FULL) {
+                return strftime($GLOBALS['prefs']->getValue('date_format'), $udate) .
+                    ' [' . strftime($GLOBALS['prefs']->getValue('time_format'), $udate) . ']';
+            }
+
+            return strftime($GLOBALS['prefs']->getValue('date_format_mini'), $udate);
         }
 
         /* Else, it's today, use the time. */
@@ -239,7 +257,7 @@ class IMP_Ui_Mailbox
      */
     public function getSubject($subject, $htmlspaces = false)
     {
-        $subject = Horde_Mime::decode($subject);
+        $subject = Horde_Mime::decode($subject, 'UTF-8');
         if (empty($subject)) {
             return _("[No Subject]");
         }
@@ -247,13 +265,27 @@ class IMP_Ui_Mailbox
         $new_subject = $subject = IMP::filterText(preg_replace("/\s+/", ' ', $subject));
 
         if ($htmlspaces) {
-            $new_subject = Horde_Text_Filter::filter($subject, 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true));
+            $new_subject = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($subject, 'space2html', array('encode' => true));
             if (empty($new_subject)) {
                 $new_subject = htmlspecialchars($subject);
             }
         }
 
         return empty($new_subject) ? $subject : $new_subject;
+    }
+
+    /**
+     * Determines if a message is a draft and can be resumed.
+     *
+     * @param array $flags  The list of IMAP flags.
+     *
+     * @return boolean  True if the message is a draft.
+     */
+    public function isDraft($flags = array())
+    {
+        return in_array('\\draft', $flags) ||
+               !empty($GLOBALS['conf']['user']['allow_resume_all']) ||
+               ($this->_mailbox == IMP::folderPref($GLOBALS['prefs']->getValue('drafts_folder'), true));
     }
 
 }

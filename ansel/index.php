@@ -8,5 +8,6 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
-header('Location: ' . Ansel::getUrlFor('default_view', array()));
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('ansel');
+Ansel::getUrlFor('default_view', array())->redirect();

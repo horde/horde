@@ -8,11 +8,16 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Mime
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Mime
  */
-class Horde_Mime_Headers
+class Horde_Mime_Headers implements Serializable
 {
+    /* Serialized version. */
+    const VERSION = 1;
+
     /* Constants for getValue(). */
     const VALUE_STRING = 1;
     const VALUE_BASE = 2;
@@ -28,6 +33,14 @@ class Horde_Mime_Headers
 
     /**
      * The internal headers array.
+     *
+     * Keys are the lowercase header name.
+     * Values are:
+     * <pre>
+     * 'h' - The case-sensitive header name.
+     * 'p' - Parameters for this header.
+     * 'v' - The value of the header.
+     * </pre>
      *
      * @var array
      */
@@ -69,12 +82,12 @@ class Horde_Mime_Headers
     public function toArray($options = array())
     {
         $charset = empty($options['charset']) ? null : $options['charset'];
-        $address_keys = $charset ? array() : $this->addressFields();
+        $address_keys = $this->addressFields();
         $mime = $this->mimeParamFields();
         $ret = array();
 
         foreach ($this->_headers as $header => $ob) {
-            $val = is_array($ob['value']) ? $ob['value'] : array($ob['value']);
+            $val = is_array($ob['v']) ? $ob['v'] : array($ob['v']);
 
             foreach (array_keys($val) as $key) {
                 if (in_array($header, $address_keys) ) {
@@ -84,10 +97,10 @@ class Horde_Mime_Headers
                     } catch (Horde_Mime_Exception $e) {
                         $text = $val[$key];
                     }
-                } elseif (in_array($header, $mime) && !empty($ob['params'])) {
+                } elseif (in_array($header, $mime) && !empty($ob['p'])) {
                     /* MIME encoded headers (RFC 2231). */
                     $text = $val[$key];
-                    foreach ($ob['params'] as $name => $param) {
+                    foreach ($ob['p'] as $name => $param) {
                         foreach (Horde_Mime::encodeParam($name, $param, $charset, array('escape' => true)) as $name2 => $param2) {
                             $text .= '; ' . $name2 . '=' . $param2;
                         }
@@ -100,14 +113,14 @@ class Horde_Mime_Headers
 
                 if (empty($options['nowrap'])) {
                     /* Remove any existing linebreaks and wrap the line. */
-                    $header_text = $ob['header'] . ': ';
-                    $text = substr(wordwrap($header_text . strtr(trim($text), array("\r" => '', "\n" => '')), 76, $this->_eol . ' '), strlen($header_text));
+                    $header_text = $ob['h'] . ': ';
+                    $text = ltrim(substr(wordwrap($header_text . strtr(trim($text), array("\r" => '', "\n" => '')), 76, $this->_eol . ' '), strlen($header_text)));
                 }
 
                 $val[$key] = $text;
             }
 
-            $ret[$ob['header']] = (count($val) == 1) ? reset($val) : $val;
+            $ret[$ob['h']] = (count($val) == 1) ? reset($val) : $val;
         }
 
         return $ret;
@@ -147,24 +160,26 @@ class Horde_Mime_Headers
     /**
      * Generate the 'Received' header for the Web browser->Horde hop
      * (attempts to conform to guidelines in RFC 5321 [4.4]).
+     *
+     * @param array $options  Additional options:
+     * <pre>
+     * 'dns' - (Net_DNS_Resolver) Use the DNS resolver object to lookup
+     *         hostnames.
+     *         DEFAULT: Use gethostbyaddr() function.
+     * 'server' - (string) Use this server name.
+     *            DEFAULT: Auto-detect using current PHP values.
+     * </pre>
      */
-    public function addReceivedHeader()
+    public function addReceivedHeader($options = array())
     {
-        $have_netdns = @include_once 'Net/DNS.php';
-        if ($have_netdns) {
-            $resolver = new Net_DNS_Resolver();
-            $resolver->retry = isset($GLOBALS['conf']['dns']['retry']) ? $GLOBALS['conf']['dns']['retry'] : 1;
-            $resolver->retrans = isset($GLOBALS['conf']['dns']['retrans']) ? $GLOBALS['conf']['dns']['retrans'] : 1;
-        }
-
         $old_error = error_reporting(0);
         if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
             /* This indicates the user is connecting through a proxy. */
             $remote_path = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
             $remote_addr = $remote_path[0];
-            if ($have_netdns) {
+            if (!empty($options['dns'])) {
                 $remote = $remote_addr;
-                if ($response = $resolver->query($remote_addr, 'PTR')) {
+                if ($response = $options['dns']->query($remote_addr, 'PTR')) {
                     foreach ($response->answer as $val) {
                         if (isset($val->ptrdname)) {
                             $remote = $val->ptrdname;
@@ -178,9 +193,9 @@ class Horde_Mime_Headers
         } else {
             $remote_addr = $_SERVER['REMOTE_ADDR'];
             if (empty($_SERVER['REMOTE_HOST'])) {
-                if ($have_netdns) {
+                if (!empty($options['dns'])) {
                     $remote = $remote_addr;
-                    if ($response = $resolver->query($remote_addr, 'PTR')) {
+                    if ($response = $options['dns']->query($remote_addr, 'PTR')) {
                         foreach ($response->answer as $val) {
                             if (isset($val->ptrdname)) {
                                 $remote = $val->ptrdname;
@@ -205,8 +220,8 @@ class Horde_Mime_Headers
             $remote_ident = '';
         }
 
-        if (!empty($GLOBALS['conf']['server']['name'])) {
-            $server_name = $GLOBALS['conf']['server']['name'];
+        if (!empty($options['server'])) {
+            $server_name = $options['server'];
         } elseif (!empty($_SERVER['SERVER_NAME'])) {
             $server_name = $_SERVER['SERVER_NAME'];
         } elseif (!empty($_SERVER['HTTP_HOST'])) {
@@ -232,22 +247,6 @@ class Horde_Mime_Headers
     }
 
     /**
-     * Generate the 'Resent' headers (conforms to guidelines in
-     * RFC 2822 [3.6.6]).
-     *
-     * @param string $from  The address to use for 'Resent-From'.
-     * @param string $to    The address to use for 'Resent-To'.
-     */
-    public function addResentHeaders($from, $to)
-    {
-        /* We don't set Resent-Sender, Resent-Cc, or Resent-Bcc. */
-        $this->addHeader('Resent-Date', date('r'));
-        $this->addHeader('Resent-From', $from);
-        $this->addHeader('Resent-To', $to);
-        $this->addHeader('Resent-Message-ID', Horde_Mime::generateMessageId());
-    }
-
-    /**
      * Generate the user agent description header.
      */
     public function addUserAgentHeader()
@@ -263,7 +262,7 @@ class Horde_Mime_Headers
     public function getUserAgent()
     {
         if (is_null($this->_agent)) {
-            $this->_agent = 'Horde Application Framework 4.0';
+            $this->_agent = 'Horde Application Framework 4';
         }
         return $this->_agent;
     }
@@ -296,8 +295,9 @@ class Horde_Mime_Headers
         $lcHeader = Horde_String::lower($header);
 
         if (!isset($this->_headers[$lcHeader])) {
-            $this->_headers[$lcHeader] = array();
-            $this->_headers[$lcHeader]['header'] = $header;
+            $this->_headers[$lcHeader] = array(
+                'h' => $header
+            );
         }
         $ptr = &$this->_headers[$lcHeader];
 
@@ -310,21 +310,21 @@ class Horde_Mime_Headers
                     $value = '';
                 }
             } else {
-                $value = Horde_Mime::decode($value);
+                $value = Horde_Mime::decode($value, null);
             }
         }
 
-        if (isset($ptr['value'])) {
-            if (!is_array($ptr['value'])) {
-                $ptr['value'] = array($ptr['value']);
+        if (isset($ptr['v'])) {
+            if (!is_array($ptr['v'])) {
+                $ptr['v'] = array($ptr['v']);
             }
-            $ptr['value'][] = $value;
+            $ptr['v'][] = $value;
         } else {
-            $ptr['value'] = $value;
+            $ptr['v'] = $value;
         }
 
         if (!empty($options['params'])) {
-            $ptr['params'] = $options['params'];
+            $ptr['p'] = $options['params'];
         }
     }
 
@@ -392,7 +392,7 @@ class Horde_Mime_Headers
     {
         $lcHeader = Horde_String::lower($header);
         return (isset($this->_headers[$lcHeader]))
-            ? $this->_headers[$lcHeader]['header']
+            ? $this->_headers[$lcHeader]['h']
             : null;
     }
 
@@ -411,7 +411,7 @@ class Horde_Mime_Headers
      * VALUE_STRING - Returns a string representation of the entire header.
      * VALUE_BASE - Returns a string representation of the base value of the
      *              header. If this is not a header that allows parameters,
-     *              this will be equivalent to VALUE_BASE.
+     *              this will be equivalent to VALUE_STRING.
      * VALUE_PARAMS - Returns the list of parameters for this header. If this
      *                is not a header that allows parameters, this will be
      *                an empty array.
@@ -429,10 +429,10 @@ class Horde_Mime_Headers
         }
 
         $ptr = &$this->_headers[$header];
-        $base = (is_array($ptr['value']) && in_array($header, $this->singleFields(true)))
-            ? $ptr['value'][0]
-            : $ptr['value'];
-        $params = isset($ptr['params']) ? $ptr['params'] : array();
+        $base = (is_array($ptr['v']) && in_array($header, $this->singleFields(true)))
+            ? $ptr['v'][0]
+            : $ptr['v'];
+        $params = isset($ptr['p']) ? $ptr['p'] : array();
 
         switch ($type) {
         case self::VALUE_BASE:
@@ -505,14 +505,14 @@ class Horde_Mime_Headers
     {
         return array(
             /* RFC 2369 */
-            'list-help'         =>  _("List-Help"),
-            'list-unsubscribe'  =>  _("List-Unsubscribe"),
-            'list-subscribe'    =>  _("List-Subscribe"),
-            'list-owner'        =>  _("List-Owner"),
-            'list-post'         =>  _("List-Post"),
-            'list-archive'      =>  _("List-Archive"),
+            'list-help'         =>  Horde_Mime_Translation::t("List-Help"),
+            'list-unsubscribe'  =>  Horde_Mime_Translation::t("List-Unsubscribe"),
+            'list-subscribe'    =>  Horde_Mime_Translation::t("List-Subscribe"),
+            'list-owner'        =>  Horde_Mime_Translation::t("List-Owner"),
+            'list-post'         =>  Horde_Mime_Translation::t("List-Post"),
+            'list-archive'      =>  Horde_Mime_Translation::t("List-Archive"),
             /* RFC 2919 */
-            'list-id'           =>  _("List-Id")
+            'list-id'           =>  Horde_Mime_Translation::t("List-Id")
         );
     }
 
@@ -552,6 +552,7 @@ class Horde_Mime_Headers
      * @param string $field  The header to return as an object.
      *
      * @return array  The object for the field requested.
+     * @see Horde_Mime_Address::parseAddressList()
      */
     public function getOb($field)
     {
@@ -612,7 +613,7 @@ class Horde_Mime_Headers
                 continue;
             }
             if ($eightbit_check && Horde_Mime::is8bit($val[1])) {
-                $val[1] = Horde_String::convertCharset($val[1], self::$defaultCharset);
+                $val[1] = Horde_String::convertCharset($val[1], self::$defaultCharset, 'UTF-8');
             }
 
             if (in_array(Horde_String::lower($val[0]), $mime)) {
@@ -624,6 +625,52 @@ class Horde_Mime_Headers
         }
 
         return $headers;
+    }
+
+    /* Serializable methods. */
+
+    /**
+     * Serialization.
+     *
+     * @return string  Serialized data.
+     */
+    public function serialize()
+    {
+        $data = array(
+            // Serialized data ID.
+            self::VERSION,
+            $this->_headers,
+            $this->_eol
+        );
+
+        if (!is_null($this->_agent)) {
+            $data[] = $this->_agent;
+        }
+
+        return serialize($data);
+    }
+
+    /**
+     * Unserialization.
+     *
+     * @param string $data  Serialized data.
+     *
+     * @throws Exception
+     */
+    public function unserialize($data)
+    {
+        $data = @unserialize($data);
+        if (!is_array($data) ||
+            !isset($data[0]) ||
+            ($data[0] != self::VERSION)) {
+            throw new Exception('Cache version change');
+        }
+
+        $this->_headers = $data[1];
+        $this->_eol = $data[2];
+        if (isset($data[3])) {
+            $this->_agent = $data[3];
+        }
     }
 
 }

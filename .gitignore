@@ -5,8 +5,10 @@
 .settings
 *~
 .#*
+*.bak
 *.orig
 *.rej
+*.swp
 
 # Ignore testing files
 run-tests.log
@@ -15,14 +17,38 @@ framework/*/tests/*.exp
 framework/*/tests/*.log
 framework/*/tests/*.out
 framework/*/tests/*.php
+framework/*/test/*/*/*.diff
+framework/*/test/*/*/*.exp
+framework/*/test/*/*/*.log
+framework/*/test/*/*/*.out
+framework/*/test/*/*/*/*.diff
+framework/*/test/*/*/*/*.exp
+framework/*/test/*/*/*/*.log
+framework/*/test/*/*/*/*.out
+!framework/File_CSV/tests/common.php
+!framework/Image/tests/swf.php
+!framework/Image/tests/gd.php
+!framework/Image/tests/im.php
+!framework/Image/tests/runtest.php
+!framework/Image/tests/svg.php
+!framework/SyncML/tests/testpacket.php
+!framework/SyncML/tests/testsync.php
+!framework/XML_WBXML/tests/decode.php
+framework/Alarm/test/Horde/Alarm/conf.php
+framework/Db/test/Horde/Db/Adapter/conf.php
+framework/Kolab_Storage/test/Horde/Kolab/Storage/conf.php
+framework/Ldap/test/Horde/Ldap/conf.php
 
 # Dynamically generated content that may live in the repo directories
-lib/
-libs/
-horde/libs/
-horde/static/*.*
+/lib/
+/libs/
+/horde/libs/
+/horde/static/*.*
+/horde/static/gc_*
+/horde/locale/compendium.po
 
 # Ignore locally defined config
+*/config/*.old
 */config/*.php
 */config/*.txt
 framework/bin/*.conf

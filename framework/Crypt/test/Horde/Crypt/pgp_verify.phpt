@@ -5,17 +5,8 @@ Horde_Crypt_pgp::decrypt() signature.
 --FILE--
 <?php
 
-// Fake preferences class to set the timezone to a consistent value.
-class mock_prefs {
-    function getValue($key)
-    {
-        return 'GMT';
-    }
-}
-$GLOBALS['prefs'] = new mock_prefs();
+date_default_timezone_set('GMT');
 
-require_once 'Horde/Nls.php';
-Horde_Nls::setTimezone();
 require 'pgp.inc';
 
 echo $pgp->decrypt(file_get_contents(dirname(__FILE__) . '/fixtures/clear.txt'),

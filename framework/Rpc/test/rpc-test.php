@@ -1,15 +1,14 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
 /**
- * @package Horde_RPC
+ * @package Horde_Rpc
  */
 
-define('HORDE_BASE', dirname(dirname(dirname(dirname(__FILE__)))));
-define('AUTH_HANDLER', true);
-$_SERVER['SERVER_NAME'] = 'localhost';
-$_SERVER['SERVER_PORT'] = 80;
-require_once HORDE_BASE . '/lib/base.php';
-require_once 'Horde/RPC.php';
+require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/horde/lib/Application.php';
+Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true));
+
+$conf['server']['name'] = 'localhost';
+$conf['server']['port'] = 80;
 
 if (!isset($argv) || count($argv) < 2) {
     die("Can't read arguments.\n");
@@ -22,76 +21,55 @@ $pass   = @array_shift($argv);
 
 switch ($testno) {
 case 0:
-    $response = Horde_RPC::request('xmlrpc', Horde::url('rpc.php', true, -1),
-                                   'system.listMethods', null,
-                                   array('user' => $user, 'pass' => $pass));
+    $response = Horde_Rpc_Xmlrpc::request(Horde::url('rpc.php', true, -1),
+                                          'system.listMethods', null,
+                                          array('user' => $user, 'pass' => $pass));
     break;
 
 case 1:
-    $response = Horde_RPC::request('xmlrpc', Horde::url('rpc.php', true, -1),
-                                   'system.describeMethods', array('tasks.list'),
-                                   array('user' => $user, 'pass' => $pass));
+    $response = Horde_Rpc_Xmlrpc::request(Horde::url('rpc.php', true, -1),
+                                          'system.describeMethods', array('tasks.list'),
+                                          array('user' => $user, 'pass' => $pass));
     break;
 
 case 2:
-    $response = Horde_RPC::request('xmlrpc', Horde::url('rpc.php', true, -1),
-                                   'tasks.list', array(0),
-                                   array('user' => $user, 'pass' => $pass));
+    $response = Horde_Rpc_Xmlrpc::request(Horde::url('rpc.php', true, -1),
+                                          'tasks.listTasks', array(0),
+                                          array('user' => $user, 'pass' => $pass));
     break;
 
 case 3:
-    $response = Horde_RPC::request('xmlrpc', 'http://dev.horde.org/horde/rpc.php',
-                                   'system.listMethods', null,
-                                   array('user' => $user, 'pass' => $pass));
+    $response = Horde_Rpc_Xmlrpc::request('http://dev.horde.org/horde/rpc.php',
+                                          'system.listMethods', null,
+                                          array('user' => $user, 'pass' => $pass));
     break;
 
 case 4:
-    $response = Horde_RPC::request('xmlrpc', 'http://pear.php.net/xmlrpc.php',
-                                   'package.listAll');
+    $response = Horde_Rpc_Soap::request(Horde::url('rpc.php', true, -1),
+                                        'tasks.listTasks', array(),
+                                        array('namespace' => 'urn:horde',
+                                              'user' => $user,
+                                              'pass' => $pass));
     break;
 
 case 5:
-    $response = Horde_RPC::request('soap', 'http://api.google.com/search/beta2',
-                                   'doGoogleSearch',
-                                   array('key' => '5a/mF/FQFHKTD4vgNxfFeODwtLdifPPq',
-                                         'q' => 'Horde IMP',
-                                         'start' => 0,
-                                         'maxResults' => 10,
-                                         'filter' => true,
-                                         'restrict' => '',
-                                         'safeSearch' => false,
-                                         'lr' => '',
-                                         'ie' => 'iso-8859-1',
-                                         'oe' => 'iso-8859-1'),
-                                   array('namespace' => 'urn:GoogleSearch'));
+    $response = Horde_Rpc_Soap::request(Horde::url('rpc.php', true, -1),
+                                        array_shift($argv), $argv,
+                                        array('namespace' => 'urn:horde',
+                                              'user' => $user,
+                                              'pass' => $pass));
     break;
 
 case 6:
-    $response = Horde_RPC::request('soap', Horde::url('rpc.php', true, -1),
-                                   'tasks.list', array(),
-                                   array('namespace' => 'urn:horde',
-                                         'user' => $user,
-                                         'pass' => $pass));
+    $response = Horde_Rpc_Xmlrpc::request(Horde::url('rpc.php', true, -1),
+                                          array_shift($argv), $argv,
+                                          array('user' => $user, 'pass' => $pass));
     break;
 
 case 7:
-    $response = Horde_RPC::request('soap', Horde::url('rpc.php', true, -1),
-                                   array_shift($argv), $argv,
-                                   array('namespace' => 'urn:horde',
-                                         'user' => $user,
-                                         'pass' => $pass));
-    break;
-
-case 8:
-    $response = Horde_RPC::request('xmlrpc', Horde::url('rpc.php', true, -1),
-                                   array_shift($argv), $argv,
-                                   array('user' => $user, 'pass' => $pass));
-    break;
-
-case 9:
-    $response = Horde_RPC::request('jsonrpc', Horde::url('rpc.php', true, -1),
-                                   array_shift($argv), $argv,
-                                   array('user' => $user, 'pass' => $pass));
+    $response = Horde_Rpc_Jsonrpc::request(Horde::url('rpc.php', true, -1),
+                                           array_shift($argv), $argv,
+                                           array('user' => $user, 'pass' => $pass));
     break;
 
 }

@@ -26,7 +26,7 @@ class Horde_Argv_TitledHelpFormatter extends Horde_Argv_HelpFormatter
 
     public function formatUsage($usage)
     {
-        return sprintf("%s  %s\n", $this->formatHeading(_("Usage")), $usage);
+        return sprintf("%s  %s\n", $this->formatHeading(Horde_Argv_Translation::t("Usage")), $usage);
     }
 
     public function formatHeading($heading)

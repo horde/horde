@@ -8,8 +8,11 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @package Horde_Crypt
+ * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Crypt
  */
 class Horde_Crypt_Smime extends Horde_Crypt
 {
@@ -62,17 +65,6 @@ class Horde_Crypt_Smime extends Horde_Crypt
     );
 
     /**
-     * Constructor.
-     *
-     * @param array $params  Parameter array.
-     *                       'temp' => Location of temporary directory.
-     */
-    protected function __construct($params)
-    {
-        $this->_tempdir = $params['temp'];
-    }
-
-    /**
      * Verify a passphrase for a given private key.
      *
      * @param string $private_key  The user's private key.
@@ -99,7 +91,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
      *                       the parameter requirements.
      *
      * @return string  The encrypted message.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function encrypt($text, $params = array())
     {
@@ -124,7 +116,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
      *                       the parameter requirements.
      *
      * @return string  The decrypted message.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function decrypt($text, $params = array())
     {
@@ -152,7 +144,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
      *                   'cert' -> The certificate of the signer stored
      *                             in the message (in PEM format).
      *                   'email' -> The email of the signing person.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function verify($text, $certs)
     {
@@ -194,11 +186,11 @@ class Horde_Crypt_Smime extends Horde_Crypt
         $result = openssl_pkcs7_verify($input, PKCS7_NOVERIFY, $output);
 
         if ($result === true) {
-            throw new Horde_Exception(_("Message Verified Successfully but the signer's certificate could not be verified."), 'horde.warning');
+            throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Message Verified Successfully but the signer's certificate could not be verified."));
         } elseif ($result == -1) {
-            throw new Horde_Exception(_("Verification failed - an unknown error has occurred."), 'horde.error');
+            throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Verification failed - an unknown error has occurred."));
         } else {
-            throw new Horde_Exception(_("Verification failed - this message may have been tampered with."), 'horde.error');
+            throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Verification failed - this message may have been tampered with."));
         }
 
         $ob->cert = file_get_contents($output);
@@ -214,7 +206,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
      * @param string $sslpath  The path to the OpenSSL binary.
      *
      * @return string  The contents embedded in the signed data.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function extractSignedContents($data, $sslpath)
     {
@@ -236,7 +228,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
             return $ret;
         }
 
-        throw new Horde_Exception(_("OpenSSL error: Could not extract data from signed S/MIME part."), 'horde.error');
+        throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("OpenSSL error: Could not extract data from signed S/MIME part."));
     }
 
     /**
@@ -246,7 +238,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
      * @param array $params               The parameters required for signing.
      *
      * @return mixed  A Horde_Mime_Part object that is signed.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function signMIMEPart($mime_part, $params)
     {
@@ -257,7 +249,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
         $mime_message = Horde_Mime_Part::parseMessage($message, array('forcemime' => true));
 
         $smime_sign = $mime_message->getPart('2');
-        $smime_sign->setDescription(_("S/MIME Cryptographic Signature"));
+        $smime_sign->setDescription(Horde_Crypt_Translation::t("S/MIME Cryptographic Signature"));
         $smime_sign->setTransferEncoding('base64', array('send' => true));
 
         $smime_part = new Horde_Mime_Part();
@@ -279,19 +271,16 @@ class Horde_Crypt_Smime extends Horde_Crypt
      *                                    encryption.
      *
      * @return mixed  A Horde_Mime_Part object that is encrypted.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function encryptMIMEPart($mime_part, $params = array())
     {
         /* Sign the part as a message */
         $message = $this->encrypt($mime_part->toString(array('headers' => true, 'canonical' => true)), $params);
 
-        /* Get charset for mime part description. */
-        $charset = Horde_Nls::getEmailCharset();
-
         $msg = new Horde_Mime_Part();
-        $msg->setCharset($charset);
-        $msg->setDescription(Horde_String::convertCharset(_("S/MIME Encrypted Message"), Horde_Nls::getCharset(), $charset));
+        $msg->setCharset($this->_params['email_charset']);
+        $msg->setDescription(Horde_String::convertCharset(Horde_Crypt_Translation::t("S/MIME Encrypted Message"), 'UTF-8', $this->_params['email_charset']));
         $msg->setDisposition('inline');
         $msg->setType('application/pkcs7-mime');
         $msg->setContentTypeParameter('smime-type', 'enveloped-data');
@@ -313,13 +302,13 @@ class Horde_Crypt_Smime extends Horde_Crypt
      * </pre>
      *
      * @return string  The encrypted message.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     protected function _encryptMessage($text, $params)
     {
         /* Check for required parameters. */
         if (!isset($params['pubkey'])) {
-            throw new Horde_Exception(_("A public S/MIME key is required to encrypt a message."), 'horde.error');
+            throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("A public S/MIME key is required to encrypt a message."));
         }
 
         /* Create temp files for input/output. */
@@ -338,7 +327,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
             }
         }
 
-        throw new Horde_Exception(_("Could not S/MIME encrypt message."), 'horde.error');
+        throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Could not S/MIME encrypt message."));
     }
 
     /**
@@ -360,7 +349,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
      * </pre>
      *
      * @return string  The signed message.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     protected function _encryptSignature($text, $params)
     {
@@ -368,7 +357,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
         if (!isset($params['pubkey']) ||
             !isset($params['privkey']) ||
             !array_key_exists('passphrase', $params)) {
-            throw new Horde_Exception(_("A public S/MIME key, private S/MIME key, and passphrase are required to sign a message."), 'horde.error');
+            throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("A public S/MIME key, private S/MIME key, and passphrase are required to sign a message."));
         }
 
         /* Create temp files for input/output/certificates. */
@@ -399,7 +388,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
         }
 
         if (!$res) {
-            throw new Horde_Exception(_("Could not S/MIME sign message."), 'horde.error');
+            throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Could not S/MIME sign message."));
         }
 
         $data = file_get_contents($output);
@@ -422,7 +411,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
      * </pre>
      *
      * @return string  The decrypted message.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     protected function _decryptMessage($text, $params)
     {
@@ -430,7 +419,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
         if (!isset($params['pubkey']) ||
             !isset($params['privkey']) ||
             !array_key_exists('passphrase', $params)) {
-            throw new Horde_Exception(_("A public S/MIME key, private S/MIME key, and passphrase are required to decrypt a message."), 'horde.error');
+            throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("A public S/MIME key, private S/MIME key, and passphrase are required to decrypt a message."));
         }
 
         /* Create temp files for input/output. */
@@ -448,7 +437,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
             return file_get_contents($output);
         }
 
-        throw new Horde_Exception(_("Could not decrypt S/MIME data."), 'horde.error');
+        throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Could not decrypt S/MIME data."));
     }
 
     /**
@@ -462,7 +451,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
      *                                     @see _encryptMessage().
      *
      * @return mixed  A Horde_Mime_Part object that is signed and encrypted.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function signAndEncryptMIMEPart($mime_part, $sign_params = array(),
                                            $encrypt_params = array())
@@ -482,45 +471,45 @@ class Horde_Crypt_Smime extends Horde_Crypt
     {
         /* Common Fields */
         $fieldnames = array(
-            'Email' => _("Email Address"),
-            'CommonName' => _("Common Name"),
-            'Organisation' => _("Organisation"),
-            'OrganisationalUnit' => _("Organisational Unit"),
-            'Country' => _("Country"),
-            'StateOrProvince' => _("State or Province"),
-            'Location' => _("Location"),
-            'StreetAddress' => _("Street Address"),
-            'TelephoneNumber' => _("Telephone Number"),
-            'Surname' => _("Surname"),
-            'GivenName' => _("Given Name")
+            'Email' => Horde_Crypt_Translation::t("Email Address"),
+            'CommonName' => Horde_Crypt_Translation::t("Common Name"),
+            'Organisation' => Horde_Crypt_Translation::t("Organisation"),
+            'OrganisationalUnit' => Horde_Crypt_Translation::t("Organisational Unit"),
+            'Country' => Horde_Crypt_Translation::t("Country"),
+            'StateOrProvince' => Horde_Crypt_Translation::t("State or Province"),
+            'Location' => Horde_Crypt_Translation::t("Location"),
+            'StreetAddress' => Horde_Crypt_Translation::t("Street Address"),
+            'TelephoneNumber' => Horde_Crypt_Translation::t("Telephone Number"),
+            'Surname' => Horde_Crypt_Translation::t("Surname"),
+            'GivenName' => Horde_Crypt_Translation::t("Given Name")
         );
 
         /* Netscape Extensions */
         $fieldnames += array(
-            'netscape-cert-type' => _("Netscape certificate type"),
-            'netscape-base-url' => _("Netscape Base URL"),
-            'netscape-revocation-url' => _("Netscape Revocation URL"),
-            'netscape-ca-revocation-url' => _("Netscape CA Revocation URL"),
-            'netscape-cert-renewal-url' => _("Netscape Renewal URL"),
-            'netscape-ca-policy-url' => _("Netscape CA policy URL"),
-            'netscape-ssl-server-name' => _("Netscape SSL server name"),
-            'netscape-comment' => _("Netscape certificate comment")
+            'netscape-cert-type' => Horde_Crypt_Translation::t("Netscape certificate type"),
+            'netscape-base-url' => Horde_Crypt_Translation::t("Netscape Base URL"),
+            'netscape-revocation-url' => Horde_Crypt_Translation::t("Netscape Revocation URL"),
+            'netscape-ca-revocation-url' => Horde_Crypt_Translation::t("Netscape CA Revocation URL"),
+            'netscape-cert-renewal-url' => Horde_Crypt_Translation::t("Netscape Renewal URL"),
+            'netscape-ca-policy-url' => Horde_Crypt_Translation::t("Netscape CA policy URL"),
+            'netscape-ssl-server-name' => Horde_Crypt_Translation::t("Netscape SSL server name"),
+            'netscape-comment' => Horde_Crypt_Translation::t("Netscape certificate comment")
         );
 
         /* X590v3 Extensions */
         $fieldnames += array(
-            'id-ce-extKeyUsage' => _("X509v3 Extended Key Usage"),
-            'id-ce-basicConstraints' => _("X509v3 Basic Constraints"),
-            'id-ce-subjectAltName' => _("X509v3 Subject Alternative Name"),
-            'id-ce-subjectKeyIdentifier' => _("X509v3 Subject Key Identifier"),
-            'id-ce-certificatePolicies' => _("Certificate Policies"),
-            'id-ce-CRLDistributionPoints' => _("CRL Distribution Points"),
-            'id-ce-keyUsage' => _("Key Usage")
+            'id-ce-extKeyUsage' => Horde_Crypt_Translation::t("X509v3 Extended Key Usage"),
+            'id-ce-basicConstraints' => Horde_Crypt_Translation::t("X509v3 Basic Constraints"),
+            'id-ce-subjectAltName' => Horde_Crypt_Translation::t("X509v3 Subject Alternative Name"),
+            'id-ce-subjectKeyIdentifier' => Horde_Crypt_Translation::t("X509v3 Subject Key Identifier"),
+            'id-ce-certificatePolicies' => Horde_Crypt_Translation::t("Certificate Policies"),
+            'id-ce-CRLDistributionPoints' => Horde_Crypt_Translation::t("CRL Distribution Points"),
+            'id-ce-keyUsage' => Horde_Crypt_Translation::t("Key Usage")
         );
 
         $cert_details = $this->parseCert($cert);
         if (!is_array($cert_details)) {
-            return '<pre class="fixed">' . _("Unable to extract certificate details") . '</pre>';
+            return '<pre class="fixed">' . Horde_Crypt_Translation::t("Unable to extract certificate details") . '</pre>';
         }
         $certificate = $cert_details['certificate'];
 
@@ -528,7 +517,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
 
         /* Subject (a/k/a Certificate Owner) */
         if (isset($certificate['subject'])) {
-            $text .= "<strong>" . _("Certificate Owner") . ":</strong>\n";
+            $text .= "<strong>" . Horde_Crypt_Translation::t("Certificate Owner") . ":</strong>\n";
 
             foreach ($certificate['subject'] as $key => $value) {
                 if (isset($fieldnames[$key])) {
@@ -542,7 +531,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
 
         /* Issuer */
         if (isset($certificate['issuer'])) {
-            $text .= "<strong>" . _("Issuer") . ":</strong>\n";
+            $text .= "<strong>" . Horde_Crypt_Translation::t("Issuer") . ":</strong>\n";
 
             foreach ($certificate['issuer'] as $key => $value) {
                 if (isset($fieldnames[$key])) {
@@ -555,14 +544,14 @@ class Horde_Crypt_Smime extends Horde_Crypt
         }
 
         /* Dates  */
-        $text .= "<strong>" . _("Validity") . ":</strong>\n";
-        $text .= sprintf("&nbsp;&nbsp;%s: %s\n", _("Not Before"), strftime("%x %X", $certificate['validity']['notbefore']));
-        $text .= sprintf("&nbsp;&nbsp;%s: %s\n", _("Not After"), strftime("%x %X", $certificate['validity']['notafter']));
+        $text .= "<strong>" . Horde_Crypt_Translation::t("Validity") . ":</strong>\n";
+        $text .= sprintf("&nbsp;&nbsp;%s: %s\n", Horde_Crypt_Translation::t("Not Before"), strftime("%x %X", $certificate['validity']['notbefore']));
+        $text .= sprintf("&nbsp;&nbsp;%s: %s\n", Horde_Crypt_Translation::t("Not After"), strftime("%x %X", $certificate['validity']['notafter']));
         $text .= "\n";
 
         /* Certificate Owner - Public Key Info */
-        $text .= "<strong>" . _("Public Key Info") . ":</strong>\n";
-        $text .= sprintf("&nbsp;&nbsp;%s: %s\n", _("Public Key Algorithm"), $certificate['subjectPublicKeyInfo']['algorithm']);
+        $text .= "<strong>" . Horde_Crypt_Translation::t("Public Key Info") . ":</strong>\n";
+        $text .= sprintf("&nbsp;&nbsp;%s: %s\n", Horde_Crypt_Translation::t("Public Key Algorithm"), $certificate['subjectPublicKeyInfo']['algorithm']);
         if ($certificate['subjectPublicKeyInfo']['algorithm'] == 'rsaEncryption') {
             if (Horde_Util::extensionExists('bcmath')) {
                 $modulus = $certificate['subjectPublicKeyInfo']['subjectPublicKey']['modulus'];
@@ -580,7 +569,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
                     str_pad($modulus_hex, 256, '0', STR_PAD_RIGHT);
                 }
 
-                $text .= "&nbsp;&nbsp;" . sprintf(_("RSA Public Key (%d bit)"), strlen($modulus_hex) * 4) . ":\n";
+                $text .= "&nbsp;&nbsp;" . sprintf(Horde_Crypt_Translation::t("RSA Public Key (%d bit)"), strlen($modulus_hex) * 4) . ":\n";
 
                 $modulus_str = '';
 
@@ -591,20 +580,20 @@ class Horde_Crypt_Smime extends Horde_Crypt
                     $modulus_str .= substr($modulus_hex, $i, 2) . ':';
                 }
 
-                $text .= sprintf("&nbsp;&nbsp;&nbsp;&nbsp;%s: %s\n", _("Modulus"), $modulus_str);
+                $text .= sprintf("&nbsp;&nbsp;&nbsp;&nbsp;%s: %s\n", Horde_Crypt_Translation::t("Modulus"), $modulus_str);
             }
 
-            $text .= sprintf("&nbsp;&nbsp;&nbsp;&nbsp;%s: %s\n", _("Exponent"), $certificate['subjectPublicKeyInfo']['subjectPublicKey']['publicExponent']);
+            $text .= sprintf("&nbsp;&nbsp;&nbsp;&nbsp;%s: %s\n", Horde_Crypt_Translation::t("Exponent"), $certificate['subjectPublicKeyInfo']['subjectPublicKey']['publicExponent']);
         }
         $text .= "\n";
 
         /* X509v3 extensions */
         if (isset($certificate['extensions'])) {
-            $text .= "<strong>" . _("X509v3 extensions") . ":</strong>\n";
+            $text .= "<strong>" . Horde_Crypt_Translation::t("X509v3 extensions") . ":</strong>\n";
 
             foreach ($certificate['extensions'] as $key => $value) {
                 if (is_array($value)) {
-                    $value = _("Unsupported Extension");
+                    $value = Horde_Crypt_Translation::t("Unsupported Extension");
                 }
                 if (isset($fieldnames[$key])) {
                     $text .= sprintf("&nbsp;&nbsp;%s:\n&nbsp;&nbsp;&nbsp;&nbsp;%s\n", $fieldnames[$key], wordwrap($value, 40, "\n&nbsp;&nbsp;&nbsp;&nbsp;"));
@@ -617,20 +606,20 @@ class Horde_Crypt_Smime extends Horde_Crypt
         }
 
         /* Certificate Details */
-        $text .= "<strong>" . _("Certificate Details") . ":</strong>\n";
-        $text .= sprintf("&nbsp;&nbsp;%s: %d\n", _("Version"), $certificate['version']);
-        $text .= sprintf("&nbsp;&nbsp;%s: %d\n", _("Serial Number"), $certificate['serialNumber']);
+        $text .= "<strong>" . Horde_Crypt_Translation::t("Certificate Details") . ":</strong>\n";
+        $text .= sprintf("&nbsp;&nbsp;%s: %d\n", Horde_Crypt_Translation::t("Version"), $certificate['version']);
+        $text .= sprintf("&nbsp;&nbsp;%s: %d\n", Horde_Crypt_Translation::t("Serial Number"), $certificate['serialNumber']);
 
         foreach ($cert_details['fingerprints'] as $hash => $fingerprint) {
-            $label = sprintf(_("%s Fingerprint"), Horde_String::upper($hash));
+            $label = sprintf(Horde_Crypt_Translation::t("%s Fingerprint"), Horde_String::upper($hash));
             $fingerprint_str = '';
             for ($i = 0, $f_len = strlen($fingerprint); $i < $f_len; $i += 2) {
                 $fingerprint_str .= substr($fingerprint, $i, 2) . ':';
             }
             $text .= sprintf("&nbsp;&nbsp;%s:\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%s\n", $label, $fingerprint_str);
         }
-        $text .= sprintf("&nbsp;&nbsp;%s: %s\n", _("Signature Algorithm"), $cert_details['signatureAlgorithm']);
-        $text .= sprintf("&nbsp;&nbsp;%s:", _("Signature"));
+        $text .= sprintf("&nbsp;&nbsp;%s: %s\n", Horde_Crypt_Translation::t("Signature Algorithm"), $cert_details['signatureAlgorithm']);
+        $text .= sprintf("&nbsp;&nbsp;%s:", Horde_Crypt_Translation::t("Signature"));
 
         $sig_str = '';
         for ($i = 0, $s_len = strlen($cert_details['signature']); $i < $s_len; ++$i) {
@@ -666,7 +655,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
              * openssl_x509_parse() works, but doesn't have a stable API.
              * Since v1 is such an old standard anyway, best just to abort
              * here. */
-            (count($cert_data[1][0][1]) != 7)) {
+            !isset($cert_data[1][0][1][6])) {
             return false;
         }
 
@@ -852,13 +841,13 @@ class Horde_Crypt_Smime extends Horde_Crypt
                     }
                     $cert_details['certificate']['extensions'][$oid] = $newVal;
                 } else {
-                    $cert_details['certificate']['extensions'][$oid] = _("Unsupported Extension");
+                    $cert_details['certificate']['extensions'][$oid] = Horde_Crypt_Translation::t("Unsupported Extension");
                 }
                 break;
 
             case 'id-ce-basicConstraints':
             case 'default':
-                $cert_details['certificate']['extensions'][$oid] = _("Unsupported Extension");
+                $cert_details['certificate']['extensions'][$oid] = Horde_Crypt_Translation::t("Unsupported Extension");
                 break;
             }
         }
@@ -1139,22 +1128,22 @@ class Horde_Crypt_Smime extends Horde_Crypt
      * @param array $params  The parameters needed for verification.
      *
      * @return string  The verification message.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     protected function _decryptSignature($text, $params)
     {
-        throw new Horde_Exception('_decryptSignature() ' . _("not yet implemented"));
+        throw new Horde_Crypt_Exception('_decryptSignature() ' . Horde_Crypt_Translation::t("not yet implemented"));
     }
 
     /**
      * Check for the presence of the OpenSSL extension to PHP.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function checkForOpenSSL()
     {
         if (!Horde_Util::extensionExists('openssl')) {
-            throw new Horde_Exception(_("The openssl module is required for the Horde_Crypt_Smime:: class."));
+            throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("The openssl module is required for the Horde_Crypt_Smime:: class."));
         }
     }
 
@@ -1217,7 +1206,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
      *                   'private' -  The private key in PEM format.
      *                   'public'  -  The public key in PEM format.
      *                   'certs'   -  An array of additional certs.
-     * @throws Horde_Exception
+     * @throws Horde_Crypt_Exception
      */
     public function parsePKCS12Data($pkcs12, $params)
     {
@@ -1225,7 +1214,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
         $this->checkForOpenSSL();
 
         if (!isset($params['sslpath'])) {
-            throw new Horde_Exception(_("No path to the OpenSSL binary provided. The OpenSSL binary is necessary to work with PKCS 12 data."), 'horde.error');
+            throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("No path to the OpenSSL binary provided. The OpenSSL binary is necessary to work with PKCS 12 data."));
         }
         $sslpath = escapeshellcmd($params['sslpath']);
 
@@ -1259,12 +1248,12 @@ class Horde_Crypt_Smime extends Horde_Crypt
             }
             pclose($fd);
         } else {
-            throw new Horde_Exception(_("Error while talking to smime binary."));
+            throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Error while talking to smime binary."));
         }
 
         $ob->private = trim(file_get_contents($output));
         if (empty($ob->private)) {
-            throw new Horde_Exception(_("Password incorrect"), 'horde.error');
+            throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Password incorrect"));
         }
 
         /* Extract the client public key next. */
@@ -1277,7 +1266,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
             fwrite($fd, $params['password'] . "\n");
             pclose($fd);
         } else {
-            throw new Horde_Exception(_("Error while talking to smime binary."));
+            throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Error while talking to smime binary."));
         }
 
         $ob->public = trim(file_get_contents($output));
@@ -1292,7 +1281,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
             fwrite($fd, $params['password'] . "\n");
             pclose($fd);
         } else {
-            throw new Horde_Exception(_("Error while talking to smime binary."));
+            throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Error while talking to smime binary."));
         }
 
         $ob->certs = trim(file_get_contents($output));

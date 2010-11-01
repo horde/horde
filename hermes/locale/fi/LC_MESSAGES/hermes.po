@@ -1,0 +1,541 @@
+# Finnish translation for Hermes.
+# Copyright
+# Leena Heino <liinu@uta.fi>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Hermes 0.1-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2005-03-14 11:02+0200\n"
+"PO-Revision-Date: 2004-12-10 12:59+0200\n"
+"Last-Translator: Leena Heino <liinu@uta.fi>\n"
+"Language-Team: Finnish <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+#: lib/Admin.php:39 lib/Search.php:71
+msgid " (DISABLED)"
+msgstr " (POIS KÄYTÖSTÄ)"
+
+#: templates/deliverables/list.inc:4
+#, fuzzy, php-format
+msgid "%s Deliverables"
+msgstr "Tapahtui virhe listattaessa asiakkaita: %s"
+
+#: lib/api.php:129
+#, php-format
+msgid "'%s' is not a defined table."
+msgstr "'%s' ei ole määritelty taulukko."
+
+#: lib/TimeForm.php:92
+msgid "--- No Deliverable ---"
+msgstr ""
+
+#: lib/Data/iif.php:67
+msgid "; Notes: "
+msgstr "; Muistiinpanot: "
+
+#: lib/Driver/sql.php:135
+msgid "Access denied; user cannot modify this timeslice."
+msgstr "Käyttö kielletty; käyttäjä ei voi muokata tämä aikasiivua."
+
+#: lib/DeliverableForm.php:59
+msgid "Active?"
+msgstr ""
+
+#: admin.php:57 admin.php:219
+msgid "Add Job Type"
+msgstr "Lisää työn tyyppi"
+
+#: lib/TimeForm.php:182 lib/TimeForm.php:265 lib/api.php:93
+msgid "Additional Notes"
+msgstr "Lisämuistiinpanot"
+
+#: admin.php:33
+msgid "Administration"
+msgstr "Ylläpito"
+
+#: lib/TimeForm.php:51 lib/Search.php:51 lib/DeliverableForm.php:37
+#, php-format
+msgid "An error occurred listing clients: %s"
+msgstr "Tapahtui virhe listattaessa asiakkaita: %s"
+
+#: lib/TimeForm.php:34 lib/Search.php:64
+#, php-format
+msgid "An error occurred listing job types: %s"
+msgstr "Tapahtui virhe listattaessa työn tyyppejä: %s"
+
+#: lib/Hermes.php:172
+#, php-format
+msgid "An error occurred listing users: %s"
+msgstr "Tapahtui virhe listattaessa käyttäjiä: %s"
+
+#: lib/TimeForm.php:70
+#, fuzzy, php-format
+msgid "An error occurred retrieving deliverables: %s"
+msgstr "Tapahtui virhe listattaessa asiakkaita: %s"
+
+#: lib/api.php:85
+msgid "Bill?"
+msgstr "Lasku?"
+
+#: lib/api.php:196
+msgid "Billable Hours"
+msgstr "Laskutettavat tunnit"
+
+#: lib/TimeForm.php:171 lib/TimeForm.php:261
+msgid "Billable?"
+msgstr "Laskutettavissa?"
+
+#: lib/Driver/sql.php:511
+msgid "Cannot delete deliverable; it has children."
+msgstr ""
+
+#: lib/Driver/sql.php:523
+msgid "Cannot delete deliverable; there is time entered on it."
+msgstr ""
+
+#: lib/Admin.php:154 lib/TimeForm.php:153 lib/TimeForm.php:251 lib/api.php:69
+#: lib/DeliverableForm.php:26
+msgid "Client"
+msgstr "Asiakas"
+
+#: lib/Admin.php:130
+msgid "Client Name"
+msgstr "Asiakkaan nimi"
+
+#: lib/Search.php:23
+msgid "Clients"
+msgstr "Asiakkaat"
+
+#: lib/Search.php:141
+msgid "Comma-Separated Variable (.csv)"
+msgstr "Pilkuilla erotetut muuttujat (.csv)"
+
+#: search.php:124
+msgid "Could not retrieve timeslice: invalid id"
+msgstr "Ei voitu hakea aikaviipaletta: epäkelpo id"
+
+#: lib/TimeForm.php:149 lib/TimeForm.php:247 lib/api.php:60
+msgid "Date"
+msgstr "Päiväys"
+
+#: lib/api.php:168 lib/api.php:169
+msgid "Delete Entry"
+msgstr "Poista merkintä"
+
+#: admin.php:86 admin.php:218
+msgid "Delete Job Type"
+msgstr "Poista työn tyyppi"
+
+#: admin.php:91 admin.php:206
+msgid "Delete Job Type: Confirmation"
+msgstr "Poista tuon tyyppi: Varmistus"
+
+#: deliverables.php:111
+#, fuzzy
+msgid "Delete This Deliverable"
+msgstr "Tapahtui virhe listattaessa asiakkaita: %s"
+
+#: scripts/purge.php:24
+#, php-format
+msgid "Deleting data that was exported/billed more than %s days ago.\n"
+msgstr "Poista tiedot, jotka viety/laskutettu %s päivää vanhempia.\n"
+
+#: lib/TimeForm.php:162 lib/api.php:76
+msgid "Deliverable"
+msgstr ""
+
+#: lib/Driver.php:85
+#, fuzzy, php-format
+msgid "Deliverable %d not found."
+msgstr "Aikamerkinnän poistaminen onnistui."
+
+#: lib/DeliverableForm.php:52
+msgid "Deliverable Detail"
+msgstr ""
+
+#: deliverables.php:40
+#, fuzzy
+msgid "Deliverable saved successfully."
+msgstr "Aikamerkinnän poistaminen onnistui."
+
+#: deliverables.php:53
+#, fuzzy
+msgid "Deliverable successfully deleted."
+msgstr "Aikamerkinnän poistaminen onnistui."
+
+#: deliverables.php:59 lib/api.php:31
+msgid "Deliverables"
+msgstr ""
+
+#: lib/TimeForm.php:180 lib/TimeForm.php:264 lib/api.php:91
+#: lib/DeliverableForm.php:61
+msgid "Description"
+msgstr "Kuvaus"
+
+#: lib/DeliverableForm.php:58
+msgid "Display Name"
+msgstr ""
+
+#: lib/Search.php:33
+msgid "Do not include entries after"
+msgstr "Älä sisällytä merkintöjä jälkeen"
+
+#: lib/Search.php:30
+msgid "Do not include entries before"
+msgstr "Älä sisällytä merkintöjä ennen"
+
+#: admin.php:128 admin.php:220
+msgid "Edit Client Settings"
+msgstr "Muokkaa asiakkaan asetuksia"
+
+#: admin.php:120 admin.php:179
+msgid "Edit Client Settings, Step 2"
+msgstr "Muokkaa asiakkaan asetuksia, askel 2"
+
+#: lib/api.php:166 lib/api.php:167
+msgid "Edit Entry"
+msgstr "Muokkaa merkintää"
+
+#: admin.php:73 admin.php:218
+msgid "Edit Job Type"
+msgstr "Muokkaa työn tyyppiä"
+
+#: admin.php:78
+msgid "Edit Job Type, Step 2"
+msgstr "Muokkaa työn tyyppiä, askel 2"
+
+#: admin.php:101
+msgid "Edit job type"
+msgstr "Muokkaa työn tyyppiä"
+
+#: admin.php:154
+msgid "Edit job type, Step 2"
+msgstr "Muokkaa työn tyyppiä, askel 2"
+
+#: lib/TimeForm.php:245 lib/api.php:65
+msgid "Employee"
+msgstr "Työntekijä"
+
+#: lib/Search.php:18
+msgid "Employees"
+msgstr "Työntekijät"
+
+#: lib/Admin.php:20 lib/Admin.php:80
+msgid "Enabled?"
+msgstr "Käytössä?"
+
+#: entry.php:61 lib/TimeForm.php:133
+msgid "Enter Time"
+msgstr "Anna aika"
+
+#: lib/TimeForm.php:134
+msgid "Enter my time"
+msgstr "Anna oma aika"
+
+#: deliverables.php:50
+#, fuzzy, php-format
+msgid "Error deleting deliverable: %s"
+msgstr "Tapahtui virhe listattaessa asiakkaita: %s"
+
+#: deliverables.php:36
+#, fuzzy, php-format
+msgid "Error saving deliverable: %s"
+msgstr "Tapahtui virhe listattaessa asiakkaita: %s"
+
+#: lib/DeliverableForm.php:60
+#, fuzzy
+msgid "Estimated Hours"
+msgstr "Laskutettavat tunnit"
+
+#: lib/Search.php:139
+msgid "Export Search Results"
+msgstr "Vie haun tulokset"
+
+#: lib/Search.php:43
+msgid "Exported?"
+msgstr "Viety"
+
+#: lib/TimeForm.php:167 lib/TimeForm.php:257 lib/api.php:79
+msgid "Hours"
+msgstr "Tunnit"
+
+#: lib/Admin.php:162
+msgid ""
+"ID for this client when exporting data, if different from the name displayed "
+"above."
+msgstr ""
+"ID tälle asiakkalle tietoja vietäessä, jos se on eri kuin yllä mainittu nimi."
+
+#: lib/Admin.php:19 lib/Admin.php:75 lib/Admin.php:102 lib/TimeForm.php:158
+#: lib/TimeForm.php:256 lib/api.php:73
+msgid "Job Type"
+msgstr "Työn tyyppi"
+
+#: lib/Search.php:27
+msgid "Job Types"
+msgstr "Työn tyypit"
+
+#: lib/Admin.php:50
+msgid "JobType Name"
+msgstr "Työn tyypin nimitys"
+
+#: lib/Search.php:152
+msgid "Mark the time as exported?"
+msgstr "Merkitse aika viedyksi?"
+
+#: time.php:54
+msgid "My Time"
+msgstr "Oma aika"
+
+#: time.php:75
+msgid "My Unsubmitted Time"
+msgstr "Oma lähettämätön aika"
+
+#: lib/Hermes.php:67
+msgid "My _Time"
+msgstr "Oma _Aika"
+
+#: deliverables.php:109
+msgid "New Sub-deliverable"
+msgstr ""
+
+#: templates/deliverables/list.inc:12
+msgid "New Top-level Deliverable"
+msgstr ""
+
+#: lib/Admin.php:98 lib/TimeForm.php:170 lib/TimeForm.php:260
+#: lib/Search.php:39 lib/Search.php:151 lib/api.php:48
+msgid "No"
+msgstr "Ei"
+
+#: lib/Driver.php:29
+#, php-format
+msgid "No job type with ID '%s'."
+msgstr "Ei työtyyppiä ID:llä '%s'."
+
+#: search.php:67 search.php:73
+msgid "No search to export!"
+msgstr "Ei hakuja vietäväksi!"
+
+#: search.php:83
+msgid "No time to export!"
+msgstr "Ei aikatietoja vietäväksi!"
+
+#: time.php:36
+msgid "No timeslices were selected to submit."
+msgstr "Ei aikaviipaleita merkitty lähetettäväksi."
+
+#: lib/api.php:201
+msgid "Non-billable Hours"
+msgstr "Ei laskutettavat tunnit"
+
+#: lib/Driver.php:50 lib/Driver.php:66 lib/Driver.php:115 lib/Driver.php:132
+#: lib/Driver.php:145
+msgid "Not implemented."
+msgstr "Ei toteutettu."
+
+#: lib/Search.php:143
+msgid "QuickBooks (.iif)"
+msgstr "QuickBooks (.iif)"
+
+#: lib/Admin.php:105
+msgid "Really delete this job type? This may cause data problems!!"
+msgstr "Poistaanko tämä työn tyyppi? Tämä voi aiheuttaa ongelmia!!"
+
+#: lib/Search.php:14
+msgid "Search For Time"
+msgstr "Etsi aikoja"
+
+#: search.php:152 lib/api.php:118
+msgid "Search Results"
+msgstr "Haun tulokset"
+
+#: search.php:115
+msgid "Search for Time"
+msgstr "Hae aikoja"
+
+#: lib/Admin.php:157 lib/TimeForm.php:177 lib/TimeForm.php:217
+msgid "See Attached Timesheet"
+msgstr "Katso liitettyä aikataulukkoa"
+
+#: lib/DeliverableForm.php:23
+#, fuzzy
+msgid "Select Client"
+msgstr "Asiakas"
+
+#: lib/Search.php:145
+msgid "Select the export format"
+msgstr "Valitse viennissä käytettävä muoto"
+
+#: lib/Admin.php:157
+#, php-format
+msgid ""
+"Should users enter descriptions of their timeslices for this client? If not, "
+"the description will automatically be \"%s\"."
+msgstr ""
+"Saavatko käyttäjät laittaa omia kuvauksia heidän aikaviipaleilleen tälle "
+"asiakkaalle? Jos ei niin, kuvaus on oletuksena \"%s\"."
+
+#: templates/time/form-footer.html:1
+msgid "Submit Selected Time"
+msgstr "Lähetä valitut ajat"
+
+#: lib/Search.php:40
+msgid "Submitted?"
+msgstr "Lähetetty?"
+
+#: lib/Search.php:142
+msgid "Tab-Separated Variable (.tsv,.txt)"
+msgstr "Tabulaattorilla erotetut muuttujat (.tsv,.txt)"
+
+#: admin.php:173
+msgid "The client settings have been modified."
+msgstr "Asiakkaan asetuksia on muokattu."
+
+#: admin.php:49
+#, php-format
+msgid "The job type '%s' has been added."
+msgstr "Työn tyyppi '%s' on lisätty."
+
+#: admin.php:195
+msgid "The job type has been deleted."
+msgstr "Työn tyyppi on poistettu."
+
+#: admin.php:146
+msgid "The job type has been modified."
+msgstr "Työn tyyppi on muokattu."
+
+#: admin.php:200
+msgid "The job type was not deleted."
+msgstr "Työn tyyppiä ei poistettu."
+
+#: search.php:29 time.php:26
+msgid "The time entry was successfully deleted."
+msgstr "Aikamerkinnän poistaminen onnistui."
+
+#: search.php:48
+msgid "The timeslice was successfully updated."
+msgstr "Aikaviipaleen päivitysä onnistui."
+
+#: lib/Admin.php:127
+msgid "There are no clients to edit"
+msgstr "Ei asiakkaita muokattavaksi"
+
+#: lib/TimeForm.php:57 lib/DeliverableForm.php:42
+msgid "There are no clients which you have access to."
+msgstr "Ei asiakkaita, joihin on pääsy sallittu."
+
+#: lib/TimeForm.php:43
+msgid "There are no job types configured."
+msgstr "Ei työn tyyppejä määriteltynä."
+
+#: lib/Admin.php:47
+msgid "There are no job types to edit"
+msgstr "Ei työn tyyppejä muokattavaksi"
+
+#: admin.php:51
+#, php-format
+msgid "There was an error adding the job type: %s."
+msgstr "Tapahtui virhe lisättäessä työn tyypiä: %s."
+
+#: admin.php:197
+#, php-format
+msgid "There was an error deleting the job type: %s."
+msgstr "Tapahtui virhe poistettaessa työn tyyppiä: %s."
+
+#: search.php:27 time.php:24
+#, php-format
+msgid "There was an error deleting the time: %s"
+msgstr "Tapahtui virhe poistettaessa aikaa: %s"
+
+#: admin.php:171
+#, php-format
+msgid "There was an error editing the client settings: %s."
+msgstr "Tapahtui virhe muokattaessa asiakkaan asetuksia: %s."
+
+#: admin.php:148
+#, php-format
+msgid "There was an error editing the job type: %s."
+msgstr "Tapahtui virhe muokattaessa työn tyyppiä: %s."
+
+#: search.php:46 entry.php:33
+#, php-format
+msgid "There was an error storing your timesheet: %s"
+msgstr "Tapahtui virhe talletettaessa aikataulukkoasi: %s"
+
+#: time.php:44
+#, php-format
+msgid "There was an error submitting your time: %s"
+msgstr "Tapahtui virhe talletettaessa aikaasi: %s"
+
+#: lib/Admin.php:147
+msgid "This is not a valid client."
+msgstr "Tämä ei ole kelvollinen asiakas."
+
+#: lib/Admin.php:67
+msgid "This is not a valid job type."
+msgstr "Tämä ei ole kelvollinen työn tyyppi"
+
+#: lib/api.php:29
+msgid "Time Review Screen"
+msgstr "Aikojen tarkistus ruutu"
+
+#: lib/api.php:205
+msgid "Total Hours"
+msgstr "Tunnit yhteensä"
+
+#: lib/TimeForm.php:207
+msgid "Update Submitted Time"
+msgstr "Päivitä lähetetty aika"
+
+#: lib/TimeForm.php:130
+msgid "Update Time"
+msgstr "Päivitä aika"
+
+#: lib/TimeForm.php:131
+msgid "Update my time"
+msgstr "Päivitä oma aika"
+
+#: lib/TimeForm.php:208
+msgid "Update time"
+msgstr "Päivitä aika"
+
+#: lib/Admin.php:98 lib/TimeForm.php:170 lib/TimeForm.php:260
+#: lib/Search.php:38 lib/Search.php:150 lib/api.php:47
+msgid "Yes"
+msgstr "Kyllä"
+
+#: entry.php:28
+msgid "Your time was successfully entered."
+msgstr "Aikasi merkittiin onnistuneesti."
+
+#: time.php:46
+msgid "Your time was successfully submitted."
+msgstr "Aikasi lähetettiin onnistuneesti."
+
+#: entry.php:25
+msgid "Your time was successfully updated."
+msgstr "Aikasi päivitettiin onnistuneesti."
+
+#: lib/Hermes.php:86
+msgid "_Admin"
+msgstr "_Ylläpito"
+
+#: lib/Hermes.php:76
+msgid "_Deliverables"
+msgstr ""
+
+#: lib/Hermes.php:68
+msgid "_Enter Time"
+msgstr "_Aseta aika"
+
+#: lib/Hermes.php:81
+msgid "_Print"
+msgstr "_Tulosta"
+
+#: lib/Hermes.php:69
+msgid "_Search"
+msgstr "_Haku"

@@ -28,7 +28,6 @@ class Ingo_MaildropTest extends Ingo_TestBase {
         $GLOBALS['ingo_script'] = Ingo_Script::factory(
             'maildrop',
             array('path_style' => 'mbox',
-                  'charset' => 'UTF-8',
                   'spam_compare' => 'string',
                   'spam_header' => 'X-Spam-Level',
                   'spam_char' => '*'));

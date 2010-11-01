@@ -26,7 +26,7 @@ class Horde_Argv_IndentedHelpFormatter extends Horde_Argv_HelpFormatter
 
     public function formatUsage($usage)
     {
-        return sprintf(_("Usage:") . " %s\n", $usage);
+        return sprintf(Horde_Argv_Translation::t("Usage:") . " %s\n", $usage);
     }
 
     public function formatHeading($heading)

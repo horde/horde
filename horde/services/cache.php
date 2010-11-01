@@ -18,8 +18,7 @@
  * DEFAULT: 525600 = 1 year */
 $expire_time = 525600;
 
-/* Load core first because we need access to Horde_Util::. */
-require_once dirname(__FILE__) . '/../lib/core.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
 
 if (!($path = Horde_Util::getFormData('cache'))) {
     exit;
@@ -41,14 +40,13 @@ if (empty($args['nocache'])) {
     $session_cache_limiter = 'nocache';
 }
 
-new Horde_Application(array('authentication' => 'none', 'session_control' => 'readonly'));
+Horde_Registry::appInit('horde', array('authentication' => 'none', 'session_cache_limiter' => $session_cache_limiter, 'session_control' => 'readonly'));
 
 switch ($type) {
 case 'app':
     if (empty($args['app'])) {
         exit;
     }
-    $registry = Horde_Registry::singleton();
     try {
         $result = $registry->callAppMethod($args['app'], 'cacheOutput', array('args' => array($args)));
         $data = $result['data'];
@@ -65,7 +63,7 @@ case 'js':
     }
 
     try {
-        $cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+        $cache = $injector->getInstance('Horde_Cache');
     } catch (Horde_Exception $e) {
         exit;
     }

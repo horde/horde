@@ -1,7 +1,4 @@
 <?php
-
-require_once 'Horde/Kolab.php';
-
 /**
  * Horde Kronolith driver for the Kolab IMAP Server.
  *
@@ -17,6 +14,13 @@ require_once 'Horde/Kolab.php';
  */
 class Kronolith_Driver_Kolab extends Kronolith_Driver
 {
+    /**
+     * The session handler.
+     *
+     * @var Horde_Kolab_Session
+     */
+    private $_session;
+
     /**
      * Our Kolab server connection.
      *
@@ -47,14 +51,11 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
 
     /**
      * Attempts to open a Kolab Groupware folder.
-     *
-     * @return boolean  True on success, PEAR_Error on failure.
      */
     public function initialize()
     {
-        $this->_kolab = new Kolab();
+        $this->_kolab = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage');
         $this->reset();
-        return true;
     }
 
     /**
@@ -79,11 +80,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
     public function backgroundColor()
     {
         if (isset($GLOBALS['all_calendars'][$this->calendar])) {
-            $share = $GLOBALS['all_calendars'][$this->calendar];
-            $color = $share->get('color');
-            if (!empty($color)) {
-                return $color;
-            }
+            return $GLOBALS['all_calendars'][$this->calendar]->background();
         }
         return '#dddddd';
     }
@@ -107,11 +104,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         }
 
         // Connect to the Kolab backend
-        $result = $this->_kolab->open($this->calendar, 1);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-        $this->_store = $this->_kolab->_storage;
+        $this->_store = $this->_kolab->getShareData($this->calendar, 'event');
 
         // build internal event cache
         $this->_events_cache = array();
@@ -123,17 +116,16 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         $this->_synchronized = true;
     }
 
+    /**
+     * @throws Kronolith_Exception
+     */
     public function listAlarms($date, $fullevent = false)
     {
         $allevents = $this->listEvents($date, null, false, true);
         $events = array();
 
-        foreach ($allevents as $eventId) {
+        foreach ($allevents as $eventId => $data) {
             $event = $this->getEvent($eventId);
-            if (is_a($event, 'PEAR_Error')) {
-                return $event;
-            }
-
             if (!$event->recurs()) {
                 $start = new Horde_Date($event->start);
                 $start->min -= $event->alarm;
@@ -180,19 +172,17 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
      *
      * @return string|boolean  Returns a string with event_id or false if
      *                         not found.
+     * @throws Kronolith_Exception
      */
     public function exists($uid, $calendar_id = null)
     {
         // Log error if someone uses this function in an unsupported way
         if ($calendar_id != $this->calendar) {
-            Horde::logMessage(sprintf("Kolab::exists called for calendar %s. Currently active is %s.", $calendar_id, $this->calendar), __FILE__, __LINE__, PEAR_LOG_ERR);
-            return PEAR::raiseError(sprintf("Kolab::exists called for calendar %s. Currently active is %s.", $calendar_id, $this->calendar));
+            Horde::logMessage(sprintf("Kolab::exists called for calendar %s. Currently active is %s.", $calendar_id, $this->calendar), 'ERR');
+            throw new Kronolith_Exception(sprintf("Kolab::exists called for calendar %s. Currently active is %s.", $calendar_id, $this->calendar));
         }
 
         $result = $this->synchronize();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
 
         if ($this->_store->objectUidExists($uid)) {
             return $uid;
@@ -214,27 +204,33 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
      * @param boolean $hasAlarm          Only return events with alarms?
      * @param boolean $json              Store the results of the events'
      *                                   toJson() method?
+     * @param boolean $coverDates        Whether to add the events to all days
+     *                                   that they cover.
      *
      * @return array  Events in the given time range.
      */
     public function listEvents($startDate = null, $endDate = null,
                                $showRecurrence = false, $hasAlarm = false,
-                               $json = false)
+                               $json = false, $coverDates = true,
+                               $fetchTags = false)
     {
         $result = $this->synchronize();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
 
-        if (is_null($startDate)) {
+        if (empty($startDate)) {
             $startDate = new Horde_Date(array('mday' => 1,
                                               'month' => 1,
                                               'year' => 0000));
         }
-        if (is_null($endDate)) {
+        if (empty($endDate)) {
             $endDate = new Horde_Date(array('mday' => 31,
                                             'month' => 12,
                                             'year' => 9999));
+        }
+        if (!is_a($startDate, 'Horde_Date')) {
+            $startDate = new Horde_Date($startDate);
+        }
+        if (!is_a($endDate, 'Horde_Date')) {
+            $endDate = new Horde_Date($endDate);
         }
 
         $startDate = clone $startDate;
@@ -265,12 +261,16 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
             }
 
             Kronolith::addEvents($events, $event, $startDate, $endDate,
-                                 $showRecurrence, $json);
+                                 $showRecurrence, $json, $coverDates);
         }
 
         return $events;
     }
 
+    /**
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
+     */
     public function getEvent($eventId = null)
     {
         if (!strlen($eventId)) {
@@ -278,15 +278,12 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         }
 
         $result = $this->synchronize();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
 
         if (array_key_exists($eventId, $this->_events_cache)) {
             return $this->_events_cache[$eventId];
         }
 
-        return PEAR::raiseError(sprintf(_("Event not found: %s"), $eventId));
+        throw new Horde_Exception_NotFound(sprintf(_("Event not found: %s"), $eventId));
     }
 
     /**
@@ -298,11 +295,13 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
      * an error will be returned if more than one event is found.
      *
      * @return Kronolith_Event
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function getByUID($uid, $calendars = null, $getAll = false)
     {
         if (!is_array($calendars)) {
-            $calendars = array_keys(Kronolith::listCalendars(true, Horde_Perms::READ));
+            $calendars = array_keys(Kronolith::listInternalCalendars(true, Horde_Perms::READ));
         }
 
         foreach ($calendars as $calendar) {
@@ -325,92 +324,104 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
             }
         }
 
-        return PEAR::raiseError(sprintf(_("Event not found: %s"), $uid));
+        throw new Horde_Exception_NotFound(sprintf(_("Event not found: %s"), $uid));
+    }
+
+    /**
+     * Updates an existing event in the backend.
+     *
+     * @param Kronolith_Event $event  The event to save.
+     *
+     * @return string  The event id.
+     * @throws Horde_Mime_Exception
+     */
+    protected function _updateEvent($event)
+    {
+        return $this->_saveEvent($event, true);
+    }
+
+    /**
+     * Adds an event to the backend.
+     *
+     * @param Kronolith_Event $event  The event to save.
+     *
+     * @return string  The event id.
+     * @throws Horde_Mime_Exception
+     */
+    protected function _addEvent($event)
+    {
+        return $this->_saveEvent($event, false);
     }
 
     /**
      * Saves an event in the backend.
-     * If it is a new event, it is added, otherwise the event is updated.
      *
      * @param Kronolith_Event $event  The event to save.
      *
-     * @return mixed  UID on success, a PEAR error otherwise
+     * @return string  The event id.
+     * @throws Horde_Mime_Exception
      */
-    public function saveEvent(&$event)
+    protected function _saveEvent($event, $edit)
     {
-        $result = $this->synchronize();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->synchronize();
 
-        $uid = $event->uid;
-        if ($uid == null) {
+        $action = $edit
+            ? array('action' => 'modify')
+            : array('action' => 'add');
+
+        if (!$event->uid) {
             $event->uid = $this->_store->generateUID();
         }
-
-        $attributes = $event->toDriver();
-
-        $edit = false;
-        $stored_uid = null;
-        if ($event->stored || $event->exists()) {
-            $stored_uid = $attributes['uid'];
-            $action = array('action' => 'modify');
-            $edit = true;
-        } else {
-            $action = array('action' => 'add');
-        }
-
-        $result = $this->_store->save($attributes, $stored_uid);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_store->save($event->toKolab(), $edit ? $event->uid : null);
 
         /* Deal with tags */
-        $tagger = Kronolith::getTagger();
-        if (!empty($edit)) {
-            $tagger->replaceTags($event->uid, $event->tags, 'event');
+        if ($edit) {
+            Kronolith::getTagger()->replaceTags($event->uid, $event->tags, $event->creator, 'event');
         } else {
-            $tagger->tag($event->uid, $event->tags, 'event');
+            Kronolith::getTagger()->tag($event->uid, $event->tags, $event->creator, 'event');
         }
+
+        $cal = $GLOBALS['kronolith_shares']->getShare($event->calendar);
+        $tagger->tag($event->uid, $event->tags, $cal->get('owner'), 'event');
 
         /* Notify about the changed event. */
-        $result = Kronolith::sendNotification($event, $edit ? 'edit' : 'add');
-        if (is_a($result, 'PEAR_Error')) {
-            Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-        }
+        Kronolith::sendNotification($event, $edit ? 'edit' : 'add');
 
         /* Log the creation/modification of this item in the history log. */
-        $history = Horde_History::singleton();
-        $history->log('kronolith:' . $event->calendar . ':' . $event->uid, $action, true);
+        try {
+            $GLOBALS['injector']->getInstance('Horde_History')->log('kronolith:' . $event->calendar . ':' . $event->uid, $action, true);
+        } catch (Exception $e) {
+            Horde::logMessage($e, 'ERR');
+        }
 
         // refresh IMAP cache
         $this->synchronize(true);
 
         if (is_callable('Kolab', 'triggerFreeBusyUpdate')) {
-            Kolab::triggerFreeBusyUpdate($this->_store->parseFolder($event->calendar));
+            //Kolab::triggerFreeBusyUpdate($this->_store->parseFolder($event->calendar));
         }
 
         return $event->uid;
     }
 
     /**
-     * Move an event to a new calendar.
+     * Moves an event to a new calendar.
      *
      * @param string $eventId      The event to move.
      * @param string $newCalendar  The new calendar.
+     *
+     * @return Kronolith_Event  The old event.
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
      */
-    public function move($eventId, $newCalendar)
+    protected function _move($eventId, $newCalendar)
     {
         $event = $this->getEvent($eventId);
-
         $result = $this->synchronize();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
 
         global $kronolith_shares;
         $target = $kronolith_shares->getShare($newCalendar);
-        $folder = $target->get('folder');
+        $folder = $target->getId();
 
         $result = $this->_store->move($eventId, $folder);
         if ($result) {
@@ -418,17 +429,11 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         }
 
         if (is_callable('Kolab', 'triggerFreeBusyUpdate')) {
-            Kolab::triggerFreeBusyUpdate($this->_store->parseFolder($this->calendar));
-            Kolab::triggerFreeBusyUpdate($this->_store->parseFolder($newCalendar));
+            //Kolab::triggerFreeBusyUpdate($this->_store->parseFolder($this->calendar));
+            //Kolab::triggerFreeBusyUpdate($this->_store->parseFolder($newCalendar));
         }
 
-        /* Log the moving of this item in the history log. */
-        $uid = $event->uid;
-        $history = Horde_History::singleton();
-        $history->log('kronolith:' . $event->calendar . ':' . $uid, array('action' => 'delete'), true);
-        $history->log('kronolith:' . $newCalendar . ':' . $uid, array('action' => 'add'), true);
-
-        return $result;
+        return $event;
     }
 
     /**
@@ -436,38 +441,17 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
      *
      * @param string $calendar  The name of the calendar to delete.
      *
-     * @return mixed  True or a PEAR_Error on failure.
+     * @throws Kronolith_Exception
      */
     public function delete($calendar)
     {
         $this->open($calendar);
         $result = $this->synchronize();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
 
         $result = $this->_store->deleteAll($calendar);
         if (is_callable('Kolab', 'triggerFreeBusyUpdate')) {
-            Kolab::triggerFreeBusyUpdate($this->_store->parseFolder($calendar));
+            //Kolab::triggerFreeBusyUpdate($this->_store->parseFolder($calendar));
         }
-        return true;
-    }
-
-    /**
-     * Rename a calendar.
-     *
-     * @param string $from  The current name of the calendar.
-     * @param string $to    The new name of the calendar.
-     *
-     * @return mixed  True or a PEAR_Error on failure.
-     */
-    public function rename($from, $to)
-    {
-        // FIXME: We can't do much here. We'd need to be called after
-        // renaming the share here. This needs to be checked again.
-        // kolab/issue2249 ([horde/kronolith] Kronolith is unable to
-        // trigger a free/busy update on a folder rename)
-        return true;
     }
 
     /**
@@ -475,44 +459,40 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
      *
      * @param string $eventId  The ID of the event to delete.
      *
-     * @return mixed  True or a PEAR_Error on failure.
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
+     * @throws Horde_Mime_Exception
      */
     public function deleteEvent($eventId, $silent = false)
     {
         $result = $this->synchronize();
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
 
         if (!$this->_store->objectUidExists($eventId)) {
-            return PEAR::raiseError(sprintf(_("Event not found: %s"), $eventId));
+            throw new Kronolith_Exception(sprintf(_("Event not found: %s"), $eventId));
         }
 
         $event = $this->getEvent($eventId);
-
         if ($this->_store->delete($eventId)) {
             // Notify about the deleted event.
             if (!$silent) {
-                $result = Kronolith::sendNotification($event, 'delete');
-                if (is_a($result, 'PEAR_Error')) {
-                    Horde::logMessage($result, __FILE__, __LINE__, PEAR_LOG_ERR);
-                }
+                Kronolith::sendNotification($event, 'delete');
             }
 
             /* Log the deletion of this item in the history log. */
-            $history = Horde_History::singleton();
-            $history->log('kronolith:' . $event->calendar . ':' . $event->uid, array('action' => 'delete'), true);
+            try {
+                $GLOBALS['injector']->getInstance('Horde_History')->log('kronolith:' . $event->calendar . ':' . $event->uid, array('action' => 'delete'), true);
+            } catch (Exception $e) {
+                Horde::logMessage($e, 'ERR');
+            }
 
             if (is_callable('Kolab', 'triggerFreeBusyUpdate')) {
-                Kolab::triggerFreeBusyUpdate($this->_store->parseFolder($event->calendar));
+                //Kolab::triggerFreeBusyUpdate($this->_store->parseFolder($event->calendar));
             }
 
             unset($this->_events_cache[$eventId]);
         } else {
-            return PEAR::raiseError(sprintf(_("Cannot delete event: %s"), $eventId));
+            throw new Kronolith_Exception(sprintf(_("Cannot delete event: %s"), $eventId));
         }
-
-        return true;
     }
 
 }

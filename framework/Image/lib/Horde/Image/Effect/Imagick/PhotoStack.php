@@ -149,9 +149,7 @@ class Horde_Image_Effect_Imagick_PhotoStack extends Horde_Image_Effect
                     }
                 }
                 $result = $imgk->polaroidImage(new ImagickDraw(), $angle);
-                if (is_a($result, 'PEAR_Error')) {
-                    return $result;
-                }
+   
                  // Get the geometry of the image and remember the largest.
                 $geo = $imgk->getImageGeometry();
                 $length = max(
@@ -200,8 +198,8 @@ class Horde_Image_Effect_Imagick_PhotoStack extends Horde_Image_Effect
     {
         $context = array('tmpdir' => $this->_image->getTmpDir());
         $size = $image->getImageGeometry();
-        $new = Horde_Image::factory('Imagick', array('context' => $context));
-        $new->loadString('somestring', $image->getImageBlob());
+        $new = new Horde_Image_Imagick(array(), $context);
+        $new->loadString($image->getImageBlob());
         $image->destroy();
         $new->addEffect('RoundCorners', array('border' => 2, 'bordercolor' => '#111'));
         $new->applyEffects();

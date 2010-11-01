@@ -1,0 +1,912 @@
+# Wicked Traditional Chinese Translation
+# Copyright 2004-2010 The Horde Project
+# David Chang <david@tmv.gov.tw>, 2004.
+msgid ""
+msgstr ""
+"Project-Id-Version: Wicked 0.1 CVS\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2007-01-25 15:10+0800\n"
+"PO-Revision-Date: 2006-04-21 10:23+0200\n"
+"Last-Translator: David Chang <david@tmv.gov.tw>\n"
+"Language-Team: Traditional Chinese <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: templates/edit/create.inc:13
+#, php-format
+msgid ""
+"%s does not exist, but maybe you were looking for one of the following pages?"
+msgstr "%s 不存在,不過或許你要找的就是下列其中的一個頁面?"
+
+#: templates/edit/create.inc:30
+#, php-format
+msgid ""
+"%s does not exist. Click on \"Create\" below if you want to create this page "
+"now and start editing."
+msgstr "%s 不存在. 如果要建立這個頁面並且開始編輯請點選下面的 \"建立\"."
+
+#: templates/edit/create.inc:37
+msgid "(None)"
+msgstr "(無)"
+
+#: scripts/wicked.php:161
+msgid ""
+"-d, --debug                  Run in debug mode (displays extra information)"
+msgstr "-d, --debug                  以偵錯模式執行 (顯示額外資訊)"
+
+#: scripts/wicked.php:163
+msgid ""
+"-g, --get[=pagetitle]        Return all pages (unless pagetitle specified)"
+msgstr "-g, --get[=pagetitle]        回傳所有頁面 (除頁面標題已指定外)"
+
+#: scripts/wicked.php:160
+msgid "-h, --help                   Show this help"
+msgstr "-h, --help                   顯示說明 "
+
+#: scripts/wicked.php:162
+msgid "-l, --list-pages             List pages"
+msgstr "-l, --list-pages             列出頁面"
+
+#: scripts/wicked.php:164
+msgid "-o, --out[=type]             Output type for results (default:xml)"
+msgstr "-o, --out[=type]             輸出型態 (預設:xml)"
+
+#: scripts/wicked.php:166
+msgid "-p, --password[=password]    Horde login password"
+msgstr "-p, --password[=password]    Horde 登入密碼"
+
+#: scripts/wicked.php:165
+msgid "-u, --username[=username]    Horde login username"
+msgstr "-u, --username[=username]    Horde 登入名稱"
+
+#: templates/display/MergeOrRename.html:31
+msgid "Add the text from this page"
+msgstr "從這個頁面中新增文字"
+
+#: lib/Page/AddPage.php:93
+#, php-format
+msgid "AddPage: %s"
+msgstr "新增頁面: %s"
+
+#: lib/Page/AllPages.php:81
+msgid "AllPages"
+msgstr "所有頁面"
+
+#: lib/Page/DeletePage.php:77
+msgid ""
+"Are you sure you want to delete this page? All versions will be permanently "
+"removed."
+msgstr "你確定要刪除這個頁面嗎? 所有此頁面的版本也將一併刪除."
+
+#: lib/Page/DeletePage.php:79
+#, php-format
+msgid "Are you sure you want to delete version %s of this page?"
+msgstr "你確定要刪除這個頁面的 %s 版本嗎?"
+
+#: lib/Page/RevertPage.php:65
+#, php-format
+msgid "Are you sure you want to revert to version %s of this page?"
+msgstr "你確定要回存這個頁面的 %s 版本嗎?"
+
+#: templates/display/AttachedFiles.html:88
+msgid "Attach File"
+msgstr "附加檔案"
+
+#: templates/display/AttachedFiles.html:52
+msgid "Attach a New File"
+msgstr "附加一個新的檔案"
+
+#: templates/display/standard.inc:68
+msgid "AttachedFiles"
+msgstr "附加檔案"
+
+#: lib/Page/AttachedFiles.php:158
+#, php-format
+msgid "AttachedFiles: %s"
+msgstr "附加檔案: %s"
+
+#: templates/display/standard.inc:69
+msgid "Attached_Files"
+msgstr "附加檔案_F"
+
+#: templates/display/AttachedFiles.html:7
+msgid "Attachment Name"
+msgstr "附件名稱"
+
+#: templates/display/standard.inc:119
+msgid "Attachments"
+msgstr "附件"
+
+#: lib/Page/AttachedFiles.php:203
+msgid "Attachments with spaces can't be embedded into a page."
+msgstr "附加檔案內含空白文字因此無法崁入頁面中."
+
+#: templates/pagelist/header.inc:5 templates/pagelist/pagesearch.inc:16
+#: templates/pagelist/titlesearch.inc:16 templates/history/header.inc:23
+#: templates/edit/create.inc:19 templates/display/AttachedFiles.html:10
+msgid "Author"
+msgstr "作者"
+
+#: templates/display/standard.inc:106
+msgid "Ba_ck to"
+msgstr "到_c"
+
+#: templates/display/standard.inc:106
+msgid "Back to"
+msgstr "到"
+
+#: templates/display/standard.inc:60
+msgid "BackLinks"
+msgstr "逆向連結"
+
+#: lib/Page/BackLinks.php:74
+#, php-format
+msgid "BackLinks: %s"
+msgstr "逆向連結: %s"
+
+#: lib/Page/AttachedFiles.php:208
+msgid "Can't read uploaded file."
+msgstr "無法讀取上傳檔案."
+
+#: lib/Page/RevertPage.php:113
+#, php-format
+msgid "Can't revert to an unknown version."
+msgstr "無法回存到一個未知的版本."
+
+#: lib/Page/AttachedFiles.php:243
+#, php-format
+msgid "Can't update \"%s\": no such attachment."
+msgstr "無法更新 \"%s\": 無此附件."
+
+#: templates/edit/create.inc:47 templates/edit/standard.inc:33
+#: lib/Page/DeletePage.php:98 lib/Page/MergeOrRename.php:135
+#: lib/Page/RevertPage.php:82 templates/display/MergeOrRename.html:62
+msgid "Cancel"
+msgstr "取消"
+
+#: templates/history/header.inc:29 templates/display/AttachedFiles.html:12
+msgid "Change Log"
+msgstr "變更記錄"
+
+#: templates/edit/standard.inc:35
+msgid "Change log"
+msgstr "變更記錄"
+
+#: templates/display/AttachedFiles.html:80
+#: templates/display/AttachedFiles.html:146
+msgid "Change log entry"
+msgstr "變更歷史記錄"
+
+#: config/prefs.php.dist:13
+msgid "Change menu preferences."
+msgstr "變更選單偏好設定."
+
+#: templates/display/MergeOrRename.html:40
+msgid "Change references to this page from:"
+msgstr "變更到下列頁面中的原始連結名稱:"
+
+#: lib/Page/MergeOrRename.php:248
+#, php-format
+msgid "Changed references from %s to %s"
+msgstr "%s到%s的參考已變更"
+
+#: templates/edit/standard.inc:34
+msgid "Changelog is required"
+msgstr "必須要有變更記錄"
+
+#: templates/edit/create.inc:26
+msgid ""
+"Click on \"Create\" below if you want to create this page now and start "
+"editing."
+msgstr "如果要建立這個頁面並且開始編輯請點選下面的 \"建立\"."
+
+#: scripts/wicked.php:42
+msgid "Couldn't read command-line options."
+msgstr "無法讀取命令列的選項."
+
+#: templates/edit/create.inc:46
+msgid "Create"
+msgstr "建立"
+
+#: lib/Page/NewPage.php:124
+#, php-format
+msgid "Create Failed: %s"
+msgstr "建立失敗: %s"
+
+#: templates/history/header.inc:24
+msgid "Created"
+msgstr "建立日"
+
+#: templates/pagelist/header.inc:6 templates/pagelist/pagesearch.inc:17
+#: templates/pagelist/titlesearch.inc:17 templates/edit/create.inc:20
+msgid "Creation Date"
+msgstr "建立日"
+
+#: templates/display/AttachedFiles.html:11
+msgid "Date"
+msgstr "日期"
+
+#: templates/display/standard.inc:89
+msgid "Debug"
+msgstr "偵錯"
+
+#: templates/display/standard.inc:88
+#, php-format
+msgid "Debug %s"
+msgstr "偵錯 %s"
+
+#: lib/Page/DeletePage.php:97
+msgid "Delete"
+msgstr "刪除"
+
+#: templates/display/standard.inc:47
+#, php-format
+msgid "Delete %s"
+msgstr "刪除 %s"
+
+#: templates/history/header.inc:16
+msgid "Delete Version"
+msgstr "刪除版本"
+
+#: templates/history/summary.inc:6
+#, php-format
+msgid "Delete Version %s"
+msgstr "刪除版本 %s"
+
+#: lib/Page/DeletePage.php:91 lib/Page/DeletePage.php:114
+msgid "DeletePage"
+msgstr "刪除頁面"
+
+#: lib/Page/DeletePage.php:137
+#, php-format
+msgid "Deleted version %s of \"%s\"."
+msgstr "刪除 \"%2$s\"  的版本 %1$s."
+
+#: templates/history/header.inc:26
+msgid "Diff From"
+msgstr "不同自"
+
+#: templates/history/header.inc:27
+msgid "Diff To"
+msgstr "不同到"
+
+#: diff.php:56 templates/diff/diff.inc:2
+#, php-format
+msgid "Diff for %s between %s and %s"
+msgstr "%s 的版本差異介於 %s 與 %s"
+
+#: templates/pagelist/summary.inc:3
+#, php-format
+msgid "Display %s"
+msgstr "顯示 %s"
+
+#: config/prefs.php.dist:11
+msgid "Display Options"
+msgstr "顯示選項"
+
+#: templates/pagelist/summary.inc:6 templates/history/summary.inc:2
+#, php-format
+msgid "Display Version %s"
+msgstr "顯示版本 %s"
+
+#: templates/display/AttachedFiles.html:13
+msgid "Downloads"
+msgstr "下載"
+
+#: preview.php:24 templates/display/standard.inc:23
+#, php-format
+msgid "Edit %s"
+msgstr "編輯 %s"
+
+#: templates/history/header.inc:18
+msgid "Edit Version"
+msgstr "編輯版本"
+
+#: templates/history/summary.inc:16
+#, php-format
+msgid "Edit Version %s"
+msgstr "編輯版本 %s"
+
+#: templates/edit/standard.inc:22 lib/Page/EditPage.php:88
+msgid "EditPage"
+msgstr "編輯頁面"
+
+#: templates/display/AttachedFiles.html:67
+msgid "Enter a name for this file (if blank, will use the file's current name)"
+msgstr "輸入檔案的名稱 (如果空白，預設使用檔案的現行名稱)"
+
+#: scripts/mail-filter.php:127
+#, php-format
+msgid "Error creating new page: %s"
+msgstr "新頁面建立時發生錯誤: %s"
+
+#: lib/Page/MergeOrRename.php:197
+#, php-format
+msgid "Error deleting %s: %s"
+msgstr "刪除 %s: %s 時發生錯誤"
+
+#: scripts/mail-filter.php:42
+#, php-format
+msgid "Error parsing MIME message: %s\n"
+msgstr "執行 MIME 郵件: %s 語句分析時發生錯誤\n"
+
+#: lib/Page/MergeOrRename.php:212
+#, php-format
+msgid "Error renaming \"%s\": %s"
+msgstr "更名 \"%s\": %s 時發生錯誤."
+
+#: lib/Page/MergeOrRename.php:242
+#, php-format
+msgid "Error retrieving %s: %s"
+msgstr "擷取 %s: %s 時發生錯誤"
+
+#: lib/Page/AttachedFiles.php:101 lib/Page/AttachedFiles.php:226
+#, php-format
+msgid "Error retrieving attachments: %s"
+msgstr "擷取附加檔案: %s 時發生錯誤"
+
+#: lib/Page/AddPage.php:53
+#, php-format
+msgid "Error retrieving templates: %s"
+msgstr "擷取範本頁面: %s 時發生錯誤"
+
+#: lib/Page/MergeOrRename.php:189 lib/Page/MergeOrRename.php:269
+#, php-format
+msgid "Error updating %s: %s"
+msgstr "更新 %s: %s 時發生錯誤"
+
+#: lib/Page/MergeOrRename.php:159
+#, php-format
+msgid "Failed to retrieve \"%s\": %s"
+msgstr "擷取 \"%s\": %s 失敗"
+
+#: templates/pagelist/titlesearch.inc:8
+msgid "Go"
+msgstr "前往"
+
+#: lib/Page.php:278
+msgid "Guest"
+msgstr "來賓"
+
+#: templates/display/standard.inc:75
+msgid "Hi_story"
+msgstr "歷史_s"
+
+#: templates/display/standard.inc:74
+#, php-format
+msgid "History of %s"
+msgstr "%s 的歷史"
+
+#: history.php:28 templates/history/header.inc:7
+#, php-format
+msgid "History: %s"
+msgstr "歷史: %s"
+
+#: lib/Wicked.php:131
+msgid "HowTo_UseWiki"
+msgstr "如何使用 Wiki_U"
+
+#: templates/display/MergeOrRename.html:26
+msgid "If a page with the new name already exists, then"
+msgstr "如果新名稱已經存在的話,那就"
+
+#: templates/display/standard.inc:82
+msgid "Info"
+msgstr "資訊"
+
+#: templates/display/standard.inc:81
+#, php-format
+msgid "Info about %s"
+msgstr "關於 %s 的資訊"
+
+#: display.php:24 history.php:16
+msgid "Internal error viewing requested page"
+msgstr "檢視頁面時發生一個內部錯誤."
+
+#: diff.php:39
+#, php-format
+msgid "Internal error viewing requested page: %s"
+msgstr "檢視頁面: %s 時發生一個內部錯誤."
+
+#: templates/display/AttachedFiles.html:133
+msgid "Is this a minor update?"
+msgstr "這是一個次要更新?"
+
+#: templates/display/standard.inc:64
+msgid "L_ikePages"
+msgstr "相似頁面_i"
+
+#: templates/display/title.inc:6 templates/edit/standard.inc:25
+#, php-format
+msgid "Last Modified %s by %s"
+msgstr "最近一次更新 %s 由 %s"
+
+#: lib/Page/LeastPopular.php:86
+msgid "LeastPopular"
+msgstr "最不受喜愛的"
+
+#: templates/display/standard.inc:64
+msgid "LikePages"
+msgstr "相似頁面"
+
+#: lib/Page/LikePages.php:76
+#, php-format
+msgid "LikePages: %s"
+msgstr "相似頁面: %s"
+
+#: templates/display/standard.inc:35
+#, php-format
+msgid "Lock %s"
+msgstr "鎖定 %s"
+
+#: templates/display/title.inc:34 templates/edit/standard.inc:22
+#: lib/Page/DeletePage.php:91 lib/Page/RevertPage.php:75
+msgid "Locked"
+msgstr "已鎖定"
+
+#: scripts/wicked.php:104
+#, php-format
+msgid "Logged in successfully as \"%s\"."
+msgstr "已成功登入為 \"%s\"."
+
+#: scripts/wicked.php:100
+msgid "Login is incorrect."
+msgstr "登入資料不正確."
+
+#: scripts/wicked.php:158
+msgid ""
+"Mandatory arguments to long options are mandatory for short options too."
+msgstr ""
+
+#: config/prefs.php.dist:12
+msgid "Menu Preferences"
+msgstr "選單偏好設定"
+
+#: templates/display/standard.inc:54
+msgid "MergeOrRename"
+msgstr "合併或更名"
+
+#: lib/Page/MergeOrRename.php:120
+#, php-format
+msgid "MergeOrRename: %s"
+msgstr "合併或更名: %s"
+
+#: lib/Page/MergeOrRename.php:202
+#, php-format
+msgid "Merged \"%s\" into \"%s\"."
+msgstr "合併 \"%s\" 到 \"%s\" 中."
+
+#: lib/Page/MergeOrRename.php:205
+#, php-format
+msgid "Merged \"%s\" into \"%s\". New page: %s\n"
+msgstr "已合併 \"%s\" 到 \"%s\" 中. 新頁面: %s\n"
+
+#: lib/Page/MergeOrRename.php:186
+#, php-format
+msgid "Merged from %s"
+msgstr "合併自 %s"
+
+#: templates/edit/standard.inc:36
+msgid "Minor Change"
+msgstr "次要變更"
+
+#: lib/Page/MostPopular.php:86
+msgid "MostPopular"
+msgstr "最受喜愛的"
+
+#: lib/Block/page.php:41
+msgid "Name of wiki page to display"
+msgstr "wiki 頁面的顯示名稱"
+
+#: lib/Page.php:267
+msgid "Never"
+msgstr "從未"
+
+#: lib/Page/AttachedFiles.php:269
+#, php-format
+msgid "New attachment \"%s\" to page \"%s\"."
+msgstr "新增附加檔案 \"%s\" 到頁面 \"%s\"."
+
+#: templates/display/MergeOrRename.html:15
+msgid "New name"
+msgstr "新名稱"
+
+#: lib/Page/MergeOrRename.php:146
+msgid "New name is the same as old name."
+msgstr "新名稱與舊名稱相同."
+
+#: lib/Page/NewPage.php:101
+msgid "NewPage"
+msgstr "新增頁面"
+
+#: templates/edit/new.inc:22
+#, php-format
+msgid "NewPage: %s"
+msgstr "新增頁面: %s"
+
+#: lib/Page/EditPage.php:119
+msgid "No changes made"
+msgstr "未變更."
+
+#: lib/Driver.php:126
+msgid "Not implemented."
+msgstr "程式尚未完成."
+
+#: templates/pagelist/header.inc:3 templates/pagelist/pagesearch.inc:14
+#: templates/pagelist/titlesearch.inc:14 templates/edit/create.inc:17
+msgid "Page"
+msgstr "頁面"
+
+#: lib/Page/MergeOrRename.php:174
+#, php-format
+msgid "Page \"%s\" already exists."
+msgstr "頁面 \"%s\" 已存在."
+
+#: lib/Page/NewPage.php:127
+msgid "Page Created"
+msgstr "頁面已建立"
+
+#: templates/menu.inc:15 config/prefs.php.dist:22
+msgid "Page Lookup"
+msgstr "頁面名稱"
+
+#: lib/Page/EditPage.php:126
+msgid "Page Saved"
+msgstr "頁面已儲存."
+
+#: templates/edit/create.inc:35
+msgid "Page Template:"
+msgstr "頁面樣板"
+
+#: templates/pagelist/header.inc:8
+msgid "Page Views"
+msgstr "頁面檢視"
+
+#: display.php:38
+#, php-format
+msgid "Page failed to lock: %s"
+msgstr "頁面鎖定失敗: %s"
+
+#: display.php:53
+#, php-format
+msgid "Page failed to unlock: %s"
+msgstr "頁面解除鎖定失敗: %s"
+
+#: display.php:41
+msgid "Page locked"
+msgstr "頁面已鎖定"
+
+#: display.php:56
+msgid "Page unlocked"
+msgstr "頁面已解除鎖定"
+
+#: templates/menu.inc:9 lib/Page/PageSearch.php:130 config/prefs.php.dist:24
+msgid "PageSearch"
+msgstr "頁面搜尋"
+
+#: lib/api.php:30 lib/api.php:33
+msgid "Pages"
+msgstr "所有頁面"
+
+#: lib/Page/NewPage.php:118
+msgid "Pages cannot be empty."
+msgstr "頁面不可空白."
+
+#: templates/display/standard.inc:102
+msgid "Permissio_ns"
+msgstr "權限_n"
+
+#: templates/edit/new.inc:29 templates/edit/standard.inc:32
+msgid "Preview"
+msgstr "預覽"
+
+#: lib/Page/EditPage.php:107
+msgid "Random string did not match."
+msgstr "隨機字串不吻合."
+
+#: lib/Page/RecentChanges.php:108
+msgid "RecentChanges"
+msgstr "最近的變更"
+
+#: lib/Page/AttachedFiles.php:58
+#, php-format
+msgid "Referrer \"%s\" does not exist."
+msgstr "參照 \"%s\" 不存在."
+
+#: lib/Page/AttachedFiles.php:118
+#, php-format
+msgid "Reload \"%s\""
+msgstr "重新檢視 \"%s\""
+
+#: templates/history/header.inc:8
+msgid "Reload History"
+msgstr "重新檢視歷史"
+
+#: templates/display/title.inc:32 templates/display/title.inc:33
+msgid "Reload Page"
+msgstr "重新檢視頁面"
+
+#: lib/Page/MergeOrRename.php:217
+#, php-format
+msgid "Renamed \"%s\" to \"%s\"."
+msgstr "\"%s\" 更名為 \"%s\"."
+
+#: lib/Page/MergeOrRename.php:220
+#, php-format
+msgid "Renamed \"%s\" to \"%s\". New page: %s\n"
+msgstr "已更名 \"%s\" 為 \"%s\". 新頁面: %s\n"
+
+#: lib/Driver/sql.php:658
+#, php-format
+msgid "Renamed page from %s"
+msgstr "更名頁面自 %s"
+
+#: templates/history/header.inc:20
+msgid "Restore Version"
+msgstr "回存版本"
+
+#: lib/Page/RevertPage.php:81
+msgid "Revert"
+msgstr "回存"
+
+#: templates/history/summary.inc:26
+#, php-format
+msgid "Revert to version %s"
+msgstr "回存到版本 %s"
+
+#: lib/Page/RevertPage.php:75 lib/Page/RevertPage.php:98
+msgid "RevertPage"
+msgstr "回存頁面"
+
+#: lib/Page/RevertPage.php:121
+#, php-format
+msgid "Reverted to version %s of \"%s\"."
+msgstr "回存 \"%2$s\"  的版本 %1$s."
+
+#: lib/Driver/sql.php:573
+msgid "Robots are not allowed to create pages."
+msgstr "不允許怪客建立頁面."
+
+#: templates/edit/new.inc:28 templates/edit/standard.inc:31
+msgid "Save"
+msgstr "儲存"
+
+#: lib/Page/EditPage.php:123
+#, php-format
+msgid "Save Failed: %s"
+msgstr "儲存失敗: %s"
+
+#: templates/pagelist/pagesearch.inc:8 lib/Block/TitleSearch.php:60
+msgid "Search"
+msgstr "搜尋"
+
+#: templates/display/AttachedFiles.html:58
+#: templates/display/AttachedFiles.html:110
+msgid "Select file to attach:"
+msgstr "選擇附加檔案:"
+
+#: templates/display/AttachedFiles.html:119
+msgid "Select the file to update"
+msgstr "選擇更新檔案"
+
+#: templates/display/standard.inc:101
+#, php-format
+msgid "Set permissions for %s"
+msgstr "設定 %s 的權限"
+
+#: templates/display/title.inc:16 lib/Page/RecentChanges.php:51
+#, php-format
+msgid "Show changes for %s"
+msgstr "顯示 %s 的變更"
+
+#: lib/Page/RecentChanges.php:58
+#, php-format
+msgid "Show version %s"
+msgstr "顯示版本 %s"
+
+#: templates/edit/standard.inc:49
+msgid "Spam Protection - Enter the letters below:"
+msgstr "Spam 防治 - 請輸入以下文字:"
+
+#: templates/display/MergeOrRename.html:33
+msgid "Stop and don't do anything"
+msgstr "停止，什麼也不要做"
+
+#: templates/display/MergeOrRename.html:61
+msgid "Submit"
+msgstr "送出"
+
+#: lib/Page/DeletePage.php:131
+#, php-format
+msgid "Successfully deleted \"%s\"."
+msgstr "\"%s\"已刪除完成."
+
+#: lib/Page/AttachedFiles.php:193
+#, php-format
+msgid "Successfully deleted version %s of \"%s\" from \"%s\""
+msgstr "已成功的自 \"%3$s\" 刪除 \"%2$s\" 的版本 %1$s."
+
+#: lib/Page.php:516
+msgid "Table of Contents"
+msgstr "內容索引"
+
+#: lib/Page/AttachedFiles.php:249
+#, php-format
+msgid "There is already an attachment named \"%s\"."
+msgstr "附件名稱 \"%s\" 已存在."
+
+#: lib/Page/MergeOrRename.php:144 lib/Page/MergeOrRename.php:150
+msgid "This is a required field."
+msgstr "此欄位是必需要的."
+
+#: display.php:68
+msgid "This page does not have a history"
+msgstr "此頁面無歷史資料"
+
+#: lib/Page/MergeOrRename.php:95
+#, php-format
+msgid "This page is referenced from %d other page(s)."
+msgstr "原始名稱出現在下列 %d 個頁面中,亦一併更改為新的名稱."
+
+#: templates/menu.inc:5 lib/Page/TitleSearch.php:116
+#: lib/Block/TitleSearch.php:3 lib/Block/TitleSearch.php:25
+#: config/prefs.php.dist:23
+msgid "TitleSearch"
+msgstr "標題搜尋"
+
+#: config/prefs.php.dist:25
+msgid "Type of search for the quick search box:"
+msgstr "快速搜尋的類型:"
+
+#: templates/display/standard.inc:32
+msgid "Un_lock"
+msgstr "解除鎖定_l"
+
+#: lib/Page/StandardPage.php:74
+#, php-format
+msgid "Unable to create %s"
+msgstr "無法建立 %s"
+
+#: lib/Page/StandardPage.php:82
+msgid "Unable to create WikiHome. The wiki is not configured."
+msgstr "無法建立 WikiHome. wiki 尚未設定."
+
+#: templates/display/standard.inc:31
+#, php-format
+msgid "Unlock %s"
+msgstr "解除鎖定 %s"
+
+#: lib/Driver.php:80 lib/Driver.php:94 lib/Driver.php:106 lib/Driver.php:111
+#: lib/Driver.php:131 lib/Driver.php:136 lib/Driver.php:194 lib/Driver.php:199
+#: lib/Driver.php:204 lib/Driver.php:218 lib/Driver.php:232 lib/Driver.php:246
+#: lib/Driver.php:251 lib/Driver.php:256 lib/Driver.php:274 lib/Driver.php:394
+#: lib/Driver.php:420 lib/Driver.php:436 lib/Page.php:259 lib/Page.php:293
+#: lib/Page.php:298 lib/Page.php:397 lib/Page.php:407 lib/Page.php:417
+#: lib/Page.php:427 lib/Page.php:437 lib/Page.php:448 lib/Page.php:557
+#: lib/Page.php:568 lib/Page.php:573 lib/Page.php:578 lib/Page.php:583
+#: lib/Page.php:623
+msgid "Unsupported"
+msgstr "未被支援"
+
+#: templates/display/AttachedFiles.html:154
+msgid "Update File"
+msgstr "變更檔案"
+
+#: templates/display/AttachedFiles.html:104
+msgid "Update an Attachment"
+msgstr "變更一個附件"
+
+#: lib/Page/AttachedFiles.php:267
+#, php-format
+msgid "Updated attachment \"%s\" on page \"%s\"."
+msgstr "頁面 \"%2$s\" 中的附加檔案 \"%1$s\" 已更新."
+
+#: scripts/wicked.php:156
+#, php-format
+msgid "Usage: %s [OPTIONS]..."
+msgstr "語法: %s [選項]..."
+
+#: templates/pagelist/header.inc:4 templates/pagelist/pagesearch.inc:15
+#: templates/pagelist/titlesearch.inc:15 templates/history/header.inc:13
+#: templates/edit/create.inc:18 templates/display/AttachedFiles.html:9
+msgid "Version"
+msgstr "版本"
+
+#: lib/Page/AttachedFiles.php:274
+msgid "View page: "
+msgstr "檢視頁面: "
+
+#: lib/Block/page.php:3
+msgid "Wiki page"
+msgstr "Wiki 頁面"
+
+#: display.php:32
+msgid "You are not allowed to lock this page"
+msgstr "你沒有此頁面的鎖定權限."
+
+#: display.php:47
+msgid "You are not allowed to unlock this page"
+msgstr "你沒有此頁面的解除鎖定權限."
+
+#: lib/Page/AttachedFiles.php:183
+msgid "You do not have permission to delete attachments from this page."
+msgstr "你沒有刪除此頁面中附加檔案的權限."
+
+#: lib/Page/AttachedFiles.php:213 lib/Page/MergeOrRename.php:164
+#: lib/Page/MergeOrRename.php:179
+#, php-format
+msgid "You do not have permission to edit \"%s\""
+msgstr "你沒有編輯 \"%s\" 的權限."
+
+#: lib/Page/NewPage.php:114
+#, php-format
+msgid "You don't have permission to create \"%s\"."
+msgstr "你沒有建立 \"%s\" 的權限."
+
+#: lib/Page/DeletePage.php:145
+#, php-format
+msgid "You don't have permission to delete \"%s\"."
+msgstr "你沒有刪除 \"%s\" 的權限."
+
+#: lib/Page/EditPage.php:102 lib/Page/RevertPage.php:127
+#, php-format
+msgid "You don't have permission to edit \"%s\"."
+msgstr "你沒有編輯 \"%s\" 的權限."
+
+#: display.php:80 display.php:83
+msgid "You don't have permission to view this page."
+msgstr "你沒有檢視此物件的權限."
+
+#: lib/Page/AttachedFiles.php:219
+msgid "You must enter a change description to attach this file."
+msgstr "你必須輸入一個變更描述以儲存附加檔案."
+
+#: lib/Page/EditPage.php:113
+msgid "You must provide a change log."
+msgstr "你必須輸入一個變更描述."
+
+#: lib/Wicked.php:132
+msgid "_AllPages"
+msgstr "所有頁面_A"
+
+#: templates/display/standard.inc:60
+msgid "_BackLinks"
+msgstr "逆向連結_B"
+
+#: templates/display/standard.inc:48
+msgid "_Delete"
+msgstr "刪除_D"
+
+#: templates/display/standard.inc:24
+msgid "_EditPage"
+msgstr "編輯頁面_E"
+
+#: templates/display/standard.inc:36
+msgid "_Lock"
+msgstr "鎖定_L"
+
+#: templates/display/standard.inc:55
+msgid "_MergeOrRename"
+msgstr "合併或更名_M"
+
+#: lib/Wicked.php:132
+msgid "_PageSearch"
+msgstr "頁面搜尋_P"
+
+#: lib/Wicked.php:131
+msgid "_RecentChanges"
+msgstr "最近的變更_R"
+
+#: lib/Wicked.php:132
+msgid "_TitleSearch"
+msgstr "標題搜尋_T"
+
+#: lib/Wicked.php:131
+msgid "_WikiHome"
+msgstr "Wiki 首頁_W"
+
+#: scripts/wicked.php:123
+#, php-format
+msgid "page \"%s\" doesn't exist."
+msgstr "頁面 \"%s\" 不存在."

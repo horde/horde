@@ -32,25 +32,25 @@ class Skeleton_Driver
      *                        or connection parameters a subclass might need.
      *
      * @return Skeleton_Driver  The newly created concrete instance.
-     * @throws Horde_Exception
+     * @throws Skeleton_Exception
      */
     static public function factory($driver = null, $params = null)
     {
         if (is_null($driver)) {
             $driver = $GLOBALS['conf']['storage']['driver'];
         }
-        $driver = ucfirst(basename($driver));
 
         if (is_null($params)) {
             $params = Horde::getDriverConfig('storage', $driver);
         }
 
+        $driver = ucfirst(basename($driver));
         $class = 'Skeleton_Driver_' . $driver;
         if (class_exists($class)) {
             return new $class($params);
         }
 
-        throw new Horde_Exception('Could not find driver ' . $class);
+        throw new Skeleton_Exception('Could not find driver ' . $class);
     }
 
     /**

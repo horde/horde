@@ -9,17 +9,19 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/base.php';
-new Horde_Application(array('authentication' => 'none'));
+Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
 // Make sure signups are enabled before proceeding
-$auth = Horde_Auth::singleton($conf['auth']['driver']);
+$auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 if ($conf['signup']['allow'] !== true ||
     !$auth->hasCapability('add')) {
     throw new Horde_Exception(_("User Registration has been disabled for this site."));
 }
-$signup = Horde_Auth_Signup::factory();
-if (is_a($signup, 'PEAR_Error')) {
-    Horde::logMessage($signup, __FILE__, __LINE__, PEAR_LOG_ERR);
+
+try {
+    $signup = $injector->getInstance('Horde_Core_Auth_Signup');
+} catch (Horde_Exception $e) {
+    Horde::logMessage($e, 'ERR');
     throw new Horde_Exception(_("User Registration is not properly configured for this site."));
 }
 
@@ -33,10 +35,7 @@ if (hash_hmac('sha1', $user, $conf['secret_key']) != $hash) {
 
 // Deny signup.
 if ($action == 'deny') {
-    $result = $signup->removeQueuedSignup($user);
-    if (is_a($result, 'PEAR_Error')) {
-        throw new Horde_Exception($result);
-    }
+    $signup->removeQueuedSignup($user);
     printf(_("The signup request for user \"%s\" has been removed."), $user);
     exit;
 }
@@ -69,8 +68,10 @@ if (isset($info['extra'])) {
 }
 
 // Add user.
-if (is_a($ret = $auth->addUser($info['user_name'], $credentials), 'PEAR_Error')) {
-    throw new Horde_Exception(sprintf(_("There was a problem adding \"%s\" to the system: %s"), $info['user_name'], $ret->getMessage()));
+try {
+     $auth->addUser($info['user_name'], $credentials);
+} catch (Horde_Auth_Exception $e) {
+    throw new Horde_Exception(sprintf(_("There was a problem adding \"%s\" to the system: %s"), $info['user_name'], $e->getMessage()));
 }
 if (isset($info['extra'])) {
     try {

@@ -23,13 +23,6 @@ class Horde_Perms_Datatree extends Horde_Perms
     protected $_datatree;
 
     /**
-     * Pointer to a Horde_Cache instance.
-     *
-     * @var Horde_Cache
-     */
-    protected $_cache;
-
-    /**
      * Incrementing version number if cached classes change.
      *
      * @var integer
@@ -46,25 +39,23 @@ class Horde_Perms_Datatree extends Horde_Perms
     /**
      * Constructor.
      *
-     * @throws Horde_Exception
+     * @param array $params  Configuration parameters (in addition to base
+     *                       Horde_Perms parameters):
+     * <pre>
+     * 'datatree' - (DataTree) A datatree object. [REQUIRED]
+     * </pre>
+     *
+     * @throws Horde_Perms_Exception
      */
-    public function __construct()
+    public function __construct($params = array())
     {
-        global $conf;
-
-        if (empty($conf['datatree']['driver'])) {
-            throw new Horde_Exception('You must configure a DataTree backend.');
+        if (empty($params['datatree'])) {
+            throw new Horde_Perms_Exception('You must configure a DataTree backend.');
         }
 
-        $driver = $conf['datatree']['driver'];
-        $this->_datatree = DataTree::singleton($driver,
-                                               array_merge(Horde::getDriverConfig('datatree', $driver),
-                                                           array('group' => 'horde.perms')));
+        $this->_datatree = $params['datatree'];
 
-        $this->_cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'],
-                                               Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
-
-        parent::__construct();
+        parent::__construct($params);
     }
 
     /**
@@ -92,7 +83,8 @@ class Horde_Perms_Datatree extends Horde_Perms
             } catch (Horde_Perms_Exception $e) {}
         }
 
-        $perm = new Horde_Perms_Permission_DataTreeObject($name, $type, $params);
+        $perm = new Horde_Perms_Permission_DataTreeObject($name, $this->_cacheVersion, $type, $params);
+        $perm->setCacheOb($this->_cache);
         $perm->setDataTree($this->_datatree);
 
         return $perm;
@@ -115,11 +107,15 @@ class Horde_Perms_Datatree extends Horde_Perms
         $perm = $this->_cache->get('perm_' . $this->_cacheVersion . $name, $GLOBALS['conf']['cache']['default_lifetime']);
         if ($perm === false) {
             $perm = $this->_datatree->getObject($name, 'Horde_Perms_Permission_DataTreeObject');
+            $perm->setCacheVersion($this->_cacheVersion);
             $this->_cache->set('perm_' . $this->_cacheVersion . $name, serialize($perm), $GLOBALS['conf']['cache']['default_lifetime']);
             $this->_permsCache[$name] = $perm;
         } else {
             $this->_permsCache[$name] = unserialize($perm);
         }
+
+        $this->_permsCache[$name]->setCacheOb($this->_cache);
+        $this->_permsCache[$name]->setDataTree($this->_datatree);
 
         return $this->_permsCache[$name];
     }
@@ -132,9 +128,12 @@ class Horde_Perms_Datatree extends Horde_Perms
      */
     public function getPermissionById($cid)
     {
-        return ($cid == Horde_Perms::ROOT)
-            ? $this->newPermission(Horde_Perms::ROOT)
-            : $this->_datatree->getObjectById($cid, 'Horde_Perms_Permission_DataTreeObject');
+        if ($cid == Horde_Perms::ROOT) {
+            return $this->newPermission(Horde_Perms::ROOT);
+        }
+        $perm = $this->_datatree->getObjectById($cid, 'Horde_Perms_Permission_DataTreeObject');
+        $perm->setCacheVersion($this->_cacheVersion);
+        return $perm;
     }
 
     /**
@@ -146,12 +145,8 @@ class Horde_Perms_Datatree extends Horde_Perms
      *                                                     object.
      * @throws Horde_Perms_Exception
      */
-    public function addPermission($perm)
+    public function addPermission(Horde_Perms_Permission_DataTreeObject $perm)
     {
-        if (!($perm instanceof Horde_Perms_Permission_DataTreeObject)) {
-            throw Horde_Perms_Exception('Permissions must be Horde_Perms_Permission_DataTreeObject objects.');
-        }
-
         $name = $perm->getName();
         if (empty($name)) {
             throw Horde_Perms_Exception('Permission names must be non-empty.');
@@ -170,12 +165,8 @@ class Horde_Perms_Datatree extends Horde_Perms
      * @param boolean $force                               Force to remove
      *                                                     every child.
      */
-    public function removePermission($perm, $force = false)
+    public function removePermission(Horde_Perms_Permission_DataTreeObject $perm, $force = false)
     {
-        if (!($perm instanceof Horde_Perms_Permission_DataTreeObject)) {
-            throw Horde_Perms_Exception('Permissions must be Horde_Perms_Permission_DataTreeObject objects.');
-        }
-
         $keys = $this->_datatree->get(DATATREE_FORMAT_FLAT, $perm->name, true);
         foreach ($keys as $key) {
             $this->_cache->expire('perm_' . $this->_cacheVersion . $key);

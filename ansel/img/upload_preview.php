@@ -8,13 +8,17 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/base.php';
-
-$gallery_id = (int)Horde_Util::getFormData('gallery');
-$gallery = $ansel_storage->getGallery($gallery_id);
-if (is_a($gallery, 'PEAR_Error') ||
-    !$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
-    die(sprintf(_("Gallery %s not found."), $gallery_id));
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('ansel');
+try {
+    $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery((int)Horde_Util::getFormData('gallery'));
+} catch (Ansel_Exception $e) {
+    echo $e->getMessage();
+    Horde::logMessage($e->getMessage(), 'err');
+    exit;
+}
+if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::READ)) {
+    throw new Horde_Exception_PermissionDenied();
 }
 
 $from = (int)Horde_Util::getFormData('from');
@@ -22,10 +26,6 @@ $to = (int)Horde_Util::getFormData('to');
 $count = $to - $from + 1;
 
 $images = $gallery->getImages($from, $count);
-if (is_a($images, 'PEAR_Error')) {
-    die($images->getError());
-}
-
 foreach ($images as $image) {
     echo  '<li class="small">';
     echo '<div style="width:90px;">';

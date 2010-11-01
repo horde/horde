@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>PEAR</name>
+ <channel>pear.php.net</channel>
+ <summary>Test fixture.</summary>
+ <description>A dummy PEAR package used for testing the Components package.</description>
+ <lead>
+  <name>Gunnar Wrobel</name>
+  <user>wrobel</user>
+  <email>p@rdus.de</email>
+  <active>yes</active>
+ </lead>
+ <date>2010-10-04</date>
+ <time>21:12:03</time>
+ <version>
+  <release>1.9.1</release>
+  <api>1.9.1</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+ <notes>
+* Initial release
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="lib">
+    <file name="PEAR.php" role="php" />
+   </dir> <!-- /lib -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.0.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="PEAR.php" name="lib/PEAR.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2010-08-22</date>
+   <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
+   <notes>
+* Initial release
+   </notes>
+  </release>
+ </changelog>
+</package>

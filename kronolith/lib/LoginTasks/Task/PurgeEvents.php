@@ -7,8 +7,9 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Horde_LoginTasks
+ * @author   Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @package  Kronolith
  */
 class Kronolith_LoginTasks_Task_PurgeEvents extends Horde_LoginTasks_Task
 {
@@ -27,9 +28,10 @@ class Kronolith_LoginTasks_Task_PurgeEvents extends Horde_LoginTasks_Task
     }
 
     /**
-     * Purge old messages in the Trash folder.
+     * Purge old events.
      *
-     * @return boolean  Whether any messages were purged from the Trash folder.
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
      */
     public function execute()
     {
@@ -39,38 +41,43 @@ class Kronolith_LoginTasks_Task_PurgeEvents extends Horde_LoginTasks_Task
         $del_time = new Horde_Date($_SERVER['REQUEST_TIME']);
         $del_time->mday -= $GLOBALS['prefs']->getValue('purge_events_keep');
 
-        /* Need to have Horde_Perms::DELETE on a calendar to delete events from it */
-        $calendars = Kronolith::listCalendars(false, Horde_Perms::DELETE);
+        /* Need to have Horde_Perms::DELETE on a calendar to delete events
+         * from it */
+        $calendars = Kronolith::listInternalCalendars(true, Horde_Perms::DELETE);
 
-        /* Start building an event object to use for the search */
+        /* Start building the search */
         $kronolith_driver = Kronolith::getDriver();
-        $query = &$kronolith_driver->getEvent();
+        $query = new StdClass();
         $query->start = null;
         $query->end = $del_time;
         $query->status = null;
-        $query->calendars = array_keys($calendars);
-        $query->creator = Horde_Auth::getAuth();
+        $query->calendars = array(Horde_String::ucfirst($GLOBALS['conf']['calendar']['driver']) => array_keys($calendars));
+        $query->creator = $GLOBALS['registry']->getAuth();
 
         /* Perform the search */
-        $events = Kronolith::search($query);
+        $days = Kronolith::search($query);
         $count = 0;
-        foreach ($events as $event) {
-            if (!$event->recurs()) {
-                if ($event->calendar != $kronolith_driver->calendar) {
-                    $kronolith_driver->open($event->calendar);
-                }
-                $results = $kronolith_driver->deleteEvent($event->id, true);
-                ++$count;
-                if (is_a($results, 'PEAR_Error')) {
-                    Horde::logMessage($results, __FILE__, __LINE__, PEAR_LOG_ERR);
-                    return $results;
+        foreach ($days as $events) {
+            foreach ($events as $event) {
+                /* Delete if no recurrence, or if we are past the last occurence */
+                if (!$event->recurs() ||
+                    $event->recurrence->nextRecurrence($del_time) == false) {
+
+                    if ($event->calendar != $kronolith_driver->calendar) {
+                        $kronolith_driver->open($event->calendar);
+                    }
+                    try {
+                        $kronolith_driver->deleteEvent($event->id, true);
+                        ++$count;
+                    } catch (Exception $e) {
+                        Horde::logMessage($e, 'ERR');
+                        throw $e;
+                    }
                 }
             }
         }
 
         $GLOBALS['notification']->push(sprintf(ngettext("Deleted %d event older than %d days.", "Deleted %d events older than %d days.", $count), $count, $GLOBALS['prefs']->getValue('purge_events_keep')));
-
-        return true;
     }
 
     /**

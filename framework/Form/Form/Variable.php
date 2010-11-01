@@ -451,7 +451,7 @@ class Horde_Form_Variable {
             $vals = $this->getValue($vars);
             if (!is_array($vals)) {
                 if ($this->required) {
-                    $message = _("This field is required.");
+                    $message = Horde_Form_Translation::t("This field is required.");
                     return false;
                 } else {
                     return true;
@@ -459,7 +459,7 @@ class Horde_Form_Variable {
             }
             foreach ($vals as $i => $value) {
                 if ($value === null && $this->required) {
-                    $message = _("This field is required.");
+                    $message = Horde_Form_Translation::t("This field is required.");
                     return false;
                 } else {
                     if (!$this->type->isValid($this, $vars, $value, $message)) {

@@ -1,6 +1,6 @@
-<?= $this->renderPartial('header'); ?>
-<?= $this->renderPartial('menu'); ?>
+<?php echo $this->renderPartial('header'); ?>
+<?php echo $this->renderPartial('menu'); ?>
 
 <div class="contenttext">
-   <h1><?= $this->welcome ?></h1>
+   <h1><?php echo $this->welcome ?></h1>
 </div>

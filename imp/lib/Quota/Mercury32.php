@@ -3,20 +3,8 @@
  * Implementation of the Quota API for Mercury/32 IMAP servers.
  * For reading Quota, read size folder user.
  *
- * Requires the following parameter settings in imp/servers.php:
- * <pre>
- * 'quota' => array(
- *     'driver' => 'mercury32',
- *     'params' => array(
- *         'mail_user_folder' => 'c:/mercry/mail'
- *     )
- * );
- *
- * 'mail_user_folder' --  The path to folder mail mercury
- * </pre>
- *
  *****************************************************************************
- * PROBLEM TO ACCESS NETWORK DIRECOTRY
+ * PROBLEM TO ACCESS NETWORK DIRECTORY
  *****************************************************************************
  * Matt Grimm
  * 06-Jun-2003 10:25
@@ -37,35 +25,59 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Frank Lupo <frank_lupo@email.it>
- * @package IMP_Quota
+ * @author   Frank Lupo <frank_lupo@email.it>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
-class IMP_Quota_Mercury32 extends IMP_Quota
+class IMP_Quota_Mercury32 extends IMP_Quota_Base
 {
+    /**
+     * Constructor.
+     *
+     * @param array $params  Parameters:
+     * <pre>
+     * 'mail_user_folder' - (string) [REQUIRED] The path to folder mail
+                             mercury.
+     * </pre>
+     *
+     * @throws IMP_Exception
+     */
+    public function __construct(array $params = array())
+    {
+        if (!isset($params['mail_user_folder'])) {
+            throw new IMP_Exception('Missing mail_user_folder parameter in quota config.');
+        }
+
+        parent::__construct($params);
+    }
+
     /**
      * Get quota information (used/allocated), in bytes.
      *
      * @return array  An array with the following keys:
      *                'limit' = Maximum quota allowed
      *                'usage' = Currently used portion of quota (in bytes)
+     * @throws IMP_Exception
      */
     public function getQuota()
     {
-        $quota = null;
+        $quota = 0;
 
-        $dir_path = $this->_params['mail_user_folder'] . '/' . $_SESSION['imp']['user'] . '/';
-        if ($dir = @opendir($dir_path)) {
-            while (($file = readdir($dir)) !== false) {
-                $quota += filesize($dir_path . $file);
-            }
-            closedir($dir);
-
-            if (!is_null($quota)) {
-                return array('usage' => $quota, 'limit' => 0);
-            }
+        try {
+            $di = new DirectoryIterator($this->_params['mail_user_folder'] . '/' . $this->_params['username'] . '/');
+        } catch (UnexpectedValueException $e) {
+            throw new IMP_Exception(_("Unable to retrieve quota"));
         }
 
-        throw new Horde_Exception(_("Unable to retrieve quota"), 'horde.error');
+        foreach ($di as $val) {
+            $quota += $val->getSize();
+        }
+
+        return array(
+            'limit' => 0,
+            'usage' => $quota
+        );
     }
 
 }

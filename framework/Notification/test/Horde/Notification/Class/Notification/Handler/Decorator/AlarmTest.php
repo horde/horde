@@ -2,8 +2,6 @@
 /**
  * Test the alarm notification handler class.
  *
- * PHP version 5
- *
  * @category Horde
  * @package  Notification
  * @author   Gunnar Wrobel <wrobel@pardus.de>
@@ -40,12 +38,9 @@ extends PHPUnit_Framework_TestCase
             $this->markTestSkipped('The Horde_Alarm package is not installed!');
         }
 
-        $this->handler = $this->getMock(
-            'Horde_Notification_Handler_Base', array(), array(), '', false, false
-        );
-        $this->alarm   = $this->getMock('Horde_Alarm');
+        $this->alarm = $this->getMockForAbstractClass('Horde_Alarm');
         $this->alarm_handler = new Horde_Notification_Handler_Decorator_Alarm(
-            $this->handler, $this->alarm
+            $this->alarm, null
         );
     }
 
@@ -54,92 +49,7 @@ extends PHPUnit_Framework_TestCase
         $this->alarm->expects($this->once())
             ->method('notify')
             ->with('');
-        $this->handler->expects($this->once())
-            ->method('setNotificationListeners')
-            ->with(array('listeners' => array('status')))
-            ->will($this->returnValue(array('listeners' => array('status'))));
-        $this->handler->expects($this->once())
-            ->method('notifyListeners')
-            ->with(array('listeners' => array('status')));
         $this->alarm_handler->notify(array('listeners' => array('status')));
-    }
-
-    public function testMethodAttachGetsDelegated()
-    {
-        $this->handler->expects($this->once())
-            ->method('attach')
-            ->with('listener', array(), 'class')
-            ->will($this->returnValue('instance'));
-        $this->assertEquals(
-            'instance',
-            $this->alarm_handler->attach('listener', array(), 'class')
-        );
-    }
-
-    public function testMethodDetachGetsDelegated()
-    {
-        $this->handler->expects($this->once())
-            ->method('detach')
-            ->with('listener');
-        $this->alarm_handler->detach('listener');
-    }
-
-    public function testMethodReplaceGetsDelegated()
-    {
-        $this->handler->expects($this->once())
-            ->method('replace')
-            ->with('listener', array(), 'class')
-            ->will($this->returnValue('instance'));
-        $this->assertEquals(
-            'instance',
-            $this->alarm_handler->replace('listener', array(), 'class')
-        );
-    }
-
-    public function testMethodPushGetsDelegated()
-    {
-        $this->handler->expects($this->once())
-            ->method('push')
-            ->with('event', 'type', array());
-        $this->alarm_handler->push('event', 'type', array());
-    }
-
-    public function testMethodNotifyGetsDelegated()
-    {
-        $this->handler->expects($this->once())
-            ->method('setNotificationListeners')
-            ->with(array('listeners' => array('test')))
-            ->will($this->returnValue(array('listeners' => array('test'))));
-        $this->handler->expects($this->once())
-            ->method('notifyListeners')
-            ->with(array('listeners' => array('test')));
-        $this->alarm_handler->notify(array('listeners' => array('test')));
-    }
-
-    public function testMethodSetnotificationlistenersGetsDelegated()
-    {
-        $this->handler->expects($this->once())
-            ->method('setNotificationListeners')
-            ->with(array());
-        $array = array();
-        $this->alarm_handler->setNotificationListeners($array);
-    }
-
-    public function testMethodNotifylistenersGetsDelegated()
-    {
-        $this->handler->expects($this->once())
-            ->method('notifyListeners')
-            ->with(array());
-        $this->alarm_handler->notifyListeners(array());
-    }
-
-    public function testMethodCountGetsDelegated()
-    {
-        $this->handler->expects($this->once())
-            ->method('count')
-            ->with('listener')
-            ->will($this->returnValue(1));
-        $this->assertEquals(1, $this->alarm_handler->count('listener'));
     }
 
 }

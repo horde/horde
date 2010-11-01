@@ -1,93 +1,168 @@
 <?php
 /**
- * The Horde_Cache:: class provides a common abstracted interface into
- * the various caching backends.  It also provides functions for
- * checking in, retrieving, and flushing a cache.
+ * The Horde_Cache:: class provides the abstract class definition for
+ * Horde_Cache drivers.
  *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Anil Madhavapeddy <anil@recoil.org>
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_Cache
+ * @author   Anil Madhavapeddy <anil@recoil.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @package  Cache
  */
-class Horde_Cache
+abstract class Horde_Cache
 {
     /**
-     * Singleton instances.
+     * Cache parameters.
      *
      * @var array
      */
-    static protected $_instances = array();
+    protected $_params = array(
+        'compress' => false,
+        'lifetime' => 86400,
+        'prefix' => '',
+    );
 
     /**
-     * Attempts to return a concrete Horde_Cache instance based on $driver.
+     * Logger.
      *
-     * @param mixed $driver  The type of concrete Horde_Cache subclass to
-     *                       return. If $driver is an array, then we will look
-     *                       in $driver[0]/lib/Cache/ for the subclass
-     *                       implementation named $driver[1].php.
-     * @param array $params  A hash containing any additional configuration
-     *                       or connection parameters a subclass might need.
-     *
-     * @return Horde_Cache  The newly created concrete Horde_Cache instance.
-     * @throws Horde_Exception
+     * @var Horde_Log_Logger
      */
-    static public function factory($driver, $params = array())
+    protected $_logger;
+
+    /**
+     * Construct a new Horde_Cache object.
+     *
+     * @param array $params  Parameter array:
+     * <pre>
+     * 'compress' - (boolean) Compress data? Requires the 'lzf' PECL
+     *              extension.
+     *              DEFAULT: false
+     * 'lifetime' - (integer) Lifetime of data, in seconds.
+     *              DEFAULT: 86400 seconds
+     * 'logger' - (Horde_Log_Logger) Log object to use for log/debug messages.
+     * </pre>
+     */
+    public function __construct($params = array())
     {
-        if (is_array($driver)) {
-            list($app, $driv_name) = $driver;
-            $driver = basename($driv_name);
-        } else {
-            $driver = basename($driver);
+        if (isset($params['logger'])) {
+            $this->_logger = $params['logger'];
+            unset($params['logger']);
         }
 
-        if (empty($driver) || $driver == 'none') {
-            return new Horde_Cache_Null($params);
+        if (!empty($params['compress']) && !extension_loaded('lzf')) {
+            unset($params['compress']);
         }
 
-        $class = (empty($app) ? 'Horde' : $app) . '_Cache_' . ucfirst($driver);
-
-        if (class_exists($class)) {
-            return new $class($params);
-        }
-
-        throw new Horde_Exception('Class definition of ' . $class . ' not found.');
+        $this->_params = array_merge($this->_params, $params);
     }
 
     /**
-     * Attempts to return a reference to a concrete Horde_Cache instance
-     * based on $driver. It will only create a new instance if no
-     * Horde_Cache instance with the same parameters currently exists.
+     * Attempts to directly output a cached object.
      *
-     * This should be used if multiple cache backends (and, thus,
-     * multiple Horde_Cache instances) are required.
+     * @param string $key        Object ID to query.
+     * @param integer $lifetime  Lifetime of the object in seconds.
      *
-     * This method must be invoked as:
-     *   $var = Horde_Cache::singleton()
-     *
-     * @param mixed $driver  The type of concrete Horde_Cache subclass to
-     *                       return. If $driver is an array, then we will look
-     *                       in $driver[0]/lib/Cache/ for the subclass
-     *                       implementation named $driver[1].php.
-     * @param array $params  A hash containing any additional configuration or
-     *                       connection parameters a subclass might need.
-     *
-     * @return Horde_Cache  The concrete Horde_Cache reference.
-     * @throws Horde_Exception
+     * @return boolean  True if output or false if no object was found.
      */
-    static public function singleton($driver, $params = array())
+    public function output($key, $lifetime = 1)
     {
-        ksort($params);
-        $signature = hash('md5', serialize(array($driver, $params)));
-
-        if (!isset(self::$_instances[$signature])) {
-            self::$_instances[$signature] = self::factory($driver, $params);
+        $data = $this->get($key, $lifetime);
+        if ($data === false) {
+            return false;
         }
 
-        return self::$_instances[$signature];
+        echo $data;
+        return true;
+    }
+
+    /**
+     * Retrieve cached data.
+     *
+     * @param string $key        Object ID to query.
+     * @param integer $lifetime  Lifetime of the object in seconds.
+     *
+     * @return mixed  Cached data, or false if none was found.
+     */
+    public function get($key, $lifetime = 1)
+    {
+        $res = $this->_get($key, $lifetime);
+
+        return ($this->_params['compress'] && ($res !== false))
+            // lzf_decompress() returns false on error
+            ? lzf_decompress($res)
+            : $res;
+    }
+
+    /**
+     * @see get()
+     */
+    abstract protected function _get($key, $lifetime);
+
+    /**
+     * Store an object in the cache.
+     *
+     * @param string $key        Object ID used as the caching key.
+     * @param mixed $data        Data to store in the cache.
+     * @param integer $lifetime  Object lifetime - i.e. the time before the
+     *                           data becomes available for garbage
+     *                           collection.  If null use the default Horde GC
+     *                           time.  If 0 will not be GC'd.
+     *
+     * @throws Horde_Cache_Exception
+     */
+    public function set($key, $data, $lifetime = null)
+    {
+        if (!is_string($data)) {
+            throw new Horde_Cache_Exception('Cache data must be a string.');
+        }
+
+        if ($this->_params['compress']) {
+            $data = lzf_compress($data);
+        }
+
+        $res = $this->_set($key, $data, $lifetime);
+    }
+
+    /**
+     * @see set()
+     */
+    abstract protected function _set($key, $data, $lifetime);
+
+    /**
+     * Checks if a given key exists in the cache, valid for the given
+     * lifetime.
+     *
+     * @param string $key        Cache key to check.
+     * @param integer $lifetime  Lifetime of the key in seconds.
+     *
+     * @return boolean  Existence.
+     */
+    abstract public function exists($key, $lifetime = 1);
+
+    /**
+     * Expire any existing data for the given key.
+     *
+     * @param string $key  Cache key to expire.
+     *
+     * @return boolean  Success or failure.
+     */
+    abstract public function expire($key);
+
+    /**
+     * Determine the default lifetime for data.
+     *
+     * @param mixed $lifetime  The lifetime to use or null for default.
+     *
+     * @return integer  The lifetime, in seconds.
+     */
+    protected function _getLifetime($lifetime)
+    {
+        return is_null($lifetime) ? $this->_params['lifetime'] : $lifetime;
     }
 
 }

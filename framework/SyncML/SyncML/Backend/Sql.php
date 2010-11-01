@@ -94,8 +94,7 @@ class SyncML_Backend_Sql extends SyncML_Backend {
 
         $this ->_db = &MDB2::connect($params['dsn']);
         if (is_a($this->_db, 'PEAR_Error')) {
-            $this->logMessage($this->_db,
-                              __FILE__, __LINE__, PEAR_LOG_ERR);
+            $this->logMessage($this->_db, 'ERR');
         }
     }
 
@@ -124,8 +123,7 @@ class SyncML_Backend_Sql extends SyncML_Backend {
 
         default:
             $this->logMessage('Invalid database ' . $database
-                              . '. Try tasks, calendar, notes or contacts.',
-                              __FILE__, __LINE__, PEAR_LOG_ERR);
+                              . '. Try tasks, calendar, notes or contacts.', 'ERR');
             return false;
         }
     }
@@ -175,8 +173,7 @@ class SyncML_Backend_Sql extends SyncML_Backend {
             if ($sync_ts && $sync_ts >= $suid_ts) {
                 // Change was done by us upon request of client, don't mirror
                 // that back to the client.
-                $this->logMessage("Added to server from client: $suid ignored",
-                                  __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                $this->logMessage("Added to server from client: $suid ignored", 'DEBUG');
                 continue;
             }
             $adds[$suid] = 0;
@@ -212,8 +209,7 @@ class SyncML_Backend_Sql extends SyncML_Backend {
                         // Change was done by us upon request of client, don't
                         // mirror that back to the client.
                         $this->logMessage(
-                            "Changed on server after sent from client: $suid ignored",
-                            __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                            "Changed on server after sent from client: $suid ignored", 'DEBUG');
                         continue;
                     }
                     $mods[$suid] = $this->_getCuid($databaseURI, $suid);
@@ -309,7 +305,7 @@ class SyncML_Backend_Sql extends SyncML_Backend {
 
         // Generate an id (suid). It's also possible to use a database
         // generated primary key here.
-        $suid = $this->_generateID();
+        $suid = strval(new Horde_Support_Uuid());
         $created_ts = $this->getCurrentTimeStamp();
 
         $r = $this->_db->exec(
@@ -807,25 +803,6 @@ class SyncML_Backend_Sql extends SyncML_Backend {
     }
 
     /**
-     * Generates a unique ID used as suid
-     *
-     * @return string  A unique ID.
-     */
-    function _generateID()
-    {
-        return date('YmdHis') . '.'
-            . substr(str_pad(base_convert(microtime(), 10, 36),
-                             16,
-                             uniqid(mt_rand()),
-                             STR_PAD_LEFT),
-                     -16)
-            . '@'
-            . (!empty($_SERVER['SERVER_NAME'])
-               ? $_SERVER['SERVER_NAME']
-               : 'localhost');
-    }
-
-    /**
      * Checks if the parameter is a PEAR_Error object and if so logs the
      * error.
      *
@@ -873,8 +850,7 @@ class SyncML_Backend_Sql extends SyncML_Backend {
         }
 
         $this->logMessage('_trackDeletes() with ' . count($currentSuids)
-                          . ' current ids',
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                          . ' current ids', 'DEBUG');
 
         $r = $this->_db->queryCol(
             'SELECT syncml_suid FROM syncml_suidlist '
@@ -889,8 +865,7 @@ class SyncML_Backend_Sql extends SyncML_Backend {
         }
 
         $this->logMessage('_trackDeletes() found ' . count($r)
-                          . ' items in prevlist',
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                          . ' items in prevlist', 'DEBUG');
 
         // Convert to hash with suid as key.
         if (is_array($r)) {
@@ -930,8 +905,7 @@ class SyncML_Backend_Sql extends SyncML_Backend {
         }
 
         $this->logMessage('_trackDeletes() with ' . count($prevSuids)
-                          . ' deleted items',
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+                          . ' deleted items', 'DEBUG');
 
         return array_keys($prevSuids);
     }
@@ -952,8 +926,7 @@ class SyncML_Backend_Sql extends SyncML_Backend {
     {
         $database = $this->_normalize($databaseURI);
 
-        $this->logMessage('_removeFromSuidList(): item ' . $suid,
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $this->logMessage('_removeFromSuidList(): item ' . $suid, 'DEBUG');
         $r = $this->_db->queryCol(
             'DELETE FROM syncml_suidlist '
             . 'WHERE syncml_syncpartner = '
@@ -968,8 +941,7 @@ class SyncML_Backend_Sql extends SyncML_Backend {
             return $r;
         }
 
-        $this->logMessage('_removeFromSuidList(): result ' . implode('!', $r),
-                          __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        $this->logMessage('_removeFromSuidList(): result ' . implode('!', $r), 'DEBUG');
 
         return true;
     }
@@ -1049,7 +1021,7 @@ class SyncML_Backend_Sql extends SyncML_Backend {
 
         // Generate an id (suid). It's also possible to use a database
         // generated primary key here. */
-        $suid = $this->_generateID();
+        $suid = strval(new Horde_Support_Uuid());
 
         $created_ts = $this->getCurrentTimeStamp();
         $r = $this->_db->exec(

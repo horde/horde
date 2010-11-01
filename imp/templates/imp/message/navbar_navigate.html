@@ -1,0 +1,56 @@
+<table class="msgActionTable">
+ <tr class="mboxcontrol">
+  <td>
+<if:readonly><else:readonly>
+<if:usepop><else:usepop>
+   <div class="leftFloat">
+    <form id="select<tag:id />">
+    <input type="hidden" name="mailbox" value="<tag:mailbox />" />
+    <label for="flag<tag:id />" class="hidden"><gettext>Mark Message</gettext></label>
+    <select id="flag<tag:id />" name="flag">
+     <option value="" selected="selected"><gettext>Mark Message</gettext></option>
+     <option value="" disabled="disabled">- - - - - - - -</option>
+     <option value=""><gettext>Mark as:</gettext></option>
+<loop:flaglist_set>
+     <option value="<tag:flaglist_set.f />">&nbsp;&nbsp;<tag:flaglist_set.l /></option>
+</loop:flaglist_set>
+     <option value="" disabled="disabled">- - - - - - - -</option>
+     <option value=""><gettext>Unmark as:</gettext></option>
+<loop:flaglist_unset>
+     <option value="<tag:flaglist_unset.f />">&nbsp;&nbsp;<tag:flaglist_unset.l /></option>
+</loop:flaglist_unset>
+    </select>
+    </form>
+   </div>
+<if:move>
+   <div class="leftFloat msgActions">
+    <ul class="msgactions">
+     <li><tag:move /></li>
+     <li class="lastnavbar"><tag:copy /></li>
+    </ul>
+   </div>
+   <div class="leftFloat">
+    <label for="target<tag:id />" class="hidden"><gettext>Target Folder</gettext></label>
+    <select id="target<tag:id />" name="target<tag:id />">
+     <tag:options />
+    </select>
+   </div>
+</if:move>
+</else:usepop></if:usepop>
+</else:readonly></if:readonly>
+   <div class="rightFloat nowrap">
+    <tag:back_to />
+    <if:prev><tag:prev /></if:prev><tag:prev_img /><if:prev></a></if:prev>
+    <if:next><tag:next /></if:next><tag:next_img /><if:next></a></if:next>
+   </div>
+  </td>
+ </tr>
+<if:isbottom>
+ <tr>
+  <td class="bottomborder" colspan="3"></td>
+ </tr>
+</if:isbottom>
+</table>
+<if:isbottom>
+</form>
+</if:isbottom>

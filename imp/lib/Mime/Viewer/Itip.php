@@ -1,6 +1,6 @@
 <?php
 /**
- * The IMP_Horde_Mime_Viewer_Itip class displays vCalendar/iCalendar data
+ * The IMP_Mime_Viewer_Itip class displays vCalendar/iCalendar data
  * and provides an option to import the data into a calendar source,
  * if one is available.
  *
@@ -9,11 +9,14 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @package Horde_Mime
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
-class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
+class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
 {
     /**
      * This driver's display capabilities.
@@ -28,18 +31,34 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
     );
 
     /**
+     * Metadata for the current viewer/data.
+     *
+     * @var array
+     */
+    protected $_metadata = array(
+        'compressed' => false,
+        'embedded' => false,
+        'forceinline' => true
+    );
+
+    /**
      * Return the full rendered version of the Horde_Mime_Part object.
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
     protected function _render()
     {
-        $ret = $this->_renderInline();
+        $ret = $this->_renderInline(true);
         if (!empty($ret)) {
+            $templates = $GLOBALS['registry']->get('templates', 'horde');
+
             reset($ret);
-            $ret[key($ret)]['data'] = Horde_Util::bufferOutput('include', $GLOBALS['registry']->get('templates', 'horde') . '/common-header.inc') .
-                $ret[key($ret)]['data'] .
-                Horde_Util::bufferOutput('include', $GLOBALS['registry']->get('templates', 'horde') . '/common-footer.inc');
+            Horde::startBuffer();
+            include $templates . '/common-header.inc';
+            echo $ret[key($ret)]['data'];
+            include $templates . '/common-footer.inc';
+
+            $ret[key($ret)]['data'] = Horde::endBuffer();
         }
         return $ret;
     }
@@ -53,18 +72,18 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
      * 'itip_action' - (array) TODO
      * </pre>
      *
-     * @return array  See Horde_Mime_Viewer_Driver::render().
+     * @return array  See parent::render().
      */
-    protected function _renderInline()
+    protected function _renderInline($full = false)
     {
         global $registry;
 
-        $charset = Horde_Nls::getCharset();
+        $charset = $this->getConfigParam('charset');
         $data = $this->_mimepart->getContents();
         $mime_id = $this->_mimepart->getMimeId();
 
         // Parse the iCal file.
-        $vCal = new Horde_iCalendar();
+        $vCal = new Horde_Icalendar();
         if (!$vCal->parsevCalendar($data, 'VCALENDAR', $this->_mimepart->getCharset())) {
             return array(
                 $mime_id => array(
@@ -78,12 +97,13 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
         // Check if we got vcard data with the wrong vcalendar mime type.
         $c = $vCal->getComponentClasses();
         if ((count($c) == 1) && !empty($c['horde_icalendar_vcard'])) {
-            return $this->_params['contents']->renderMIMEPart($mime_id, IMP_Contents::RENDER_INLINE, array('type' => 'text/x-vcard'));
+            return $this->getConfigParam('imp_contents')->renderMIMEPart($mime_id, IMP_Contents::RENDER_INLINE, array('type' => 'text/x-vcard'));
         }
 
         // Get the method type.
-        $method = $vCal->getAttribute('METHOD');
-        if ($method instanceof PEAR_Error) {
+        try {
+            $method = $vCal->getAttribute('METHOD');
+        } catch (Horde_Icalendar_Exception $e) {
             $method = '';
         }
 
@@ -99,8 +119,15 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                 // vEvent cancellation.
                 if ($registry->hasMethod('calendar/delete')) {
                     $guid = $components[$key]->getAttribute('UID');
+                    $deleteParams = array('guid' => $guid);
                     try {
-                        $registry->call('calendar/delete', array('guid' => $guid));
+                        $instance = $components[$key]->getAttribute('RECURRENCE-ID');
+                    } catch (Horde_Icalendar_Exception $e) {
+                        // This is a cancellation of a recurring event instance.
+                        $deleteParams['recurrenceId'] = $instance;
+                    }
+                    try {
+                        $registry->call('calendar/delete', $deleteParams);
                         $msgs[] = array('success', _("Event successfully deleted."));
                     } catch (Horde_Exception $e) {
                         $msgs[] = array('error', _("There was an error deleting the event:") . ' ' . $e->getMessage());
@@ -114,7 +141,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                 // vEvent reply.
                 if ($registry->hasMethod('calendar/updateAttendee')) {
                     try {
-                        $hdrs = $this->_params['contents']->getHeaderOb();
+                        $hdrs = $this->getConfigParam('imp_contents')->getHeaderOb();
                         $event = $registry->call('calendar/updateAttendee', array('response' => $components[$key], 'sender' => $hdrs->getValue('From')));
                         $msgs[] = array('success', _("Respondent Status Updated."));
                     } catch (Horde_Exception $e) {
@@ -137,24 +164,24 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                 case 'vEvent':
                     $handled = false;
                     $guid = $components[$key]->getAttribute('UID');
+
                     // Check if this is an update.
                     try {
                         $registry->call('calendar/export', array($guid, 'text/calendar'));
-                    } catch (Horde_Exception $e) {}
-
-                    // Try to update in calendar.
-                    if ($registry->hasMethod('calendar/replace')) {
-                        try {
-                            $registry->call('calendar/replace', array('uid' => $guid, 'content' => $components[$key], 'contentType' => $this->_mimepart->getType()));
-                            $handled = true;
-                            $url = Horde::url($registry->link('calendar/show', array('uid' => $guid)));
-                            $msgs[] = array('success', _("The event was updated in your calendar.") .
-                                            '&nbsp;' . Horde::link($url, _("View event"), null, '_blank') . Horde::img('mime/icalendar.png', _("View event"), null, $registry->getImageDir('horde')) . '</a>');
-                        } catch (Horde_Exception $e) {
-                            // Could be a missing permission.
-                            $msgs[] = array('warning', _("There was an error updating the event:") . ' ' . $e->getMessage() . '. ' . _("Trying to import the event instead."));
+                        // Try to update in calendar.
+                        if ($registry->hasMethod('calendar/replace')) {
+                            try {
+                                $registry->call('calendar/replace', array('uid' => $guid, 'content' => $components[$key], 'contentType' => $this->_mimepart->getType()));
+                                $handled = true;
+                                $url = Horde::url($registry->link('calendar/show', array('uid' => $guid)));
+                                $msgs[] = array('success', _("The event was updated in your calendar.") .
+                                                '&nbsp;' . Horde::link($url, _("View event"), null, '_blank') . Horde::img('mime/icalendar.png', _("View event")) . '</a>');
+                            } catch (Horde_Exception $e) {
+                                // Could be a missing permission.
+                                $msgs[] = array('warning', _("There was an error updating the event:") . ' ' . $e->getMessage() . '. ' . _("Trying to import the event instead."));
+                            }
                         }
-                    }
+                    } catch (Horde_Exception $e) {}
 
                     if (!$handled && $registry->hasMethod('calendar/import')) {
                         // Import into calendar.
@@ -163,7 +190,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                             $guid = $registry->call('calendar/import', array('content' => $components[$key], 'contentType' => $this->_mimepart->getType()));
                             $url = Horde::url($registry->link('calendar/show', array('uid' => $guid)));
                             $msgs[] = array('success', _("The event was added to your calendar.") .
-                                            '&nbsp;' . Horde::link($url, _("View event"), null, '_blank') . Horde::img('mime/icalendar.png', _("View event"), null, $registry->getImageDir('horde')) . '</a>');
+                                            '&nbsp;' . Horde::link($url, _("View event"), null, '_blank') . Horde::img('mime/icalendar.png', _("View event")) . '</a>');
                         } catch (Horde_Exception $e) {
                             $msgs[] = array('error', _("There was an error importing the event:") . ' ' . $e->getMessage());
                         }
@@ -194,7 +221,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                             $guid = $registry->call('tasks/import', array($components[$key], $this->_mimepart->getType()));
                             $url = Horde::url($registry->link('tasks/show', array('uid' => $guid)));
                             $msgs[] = array('success', _("The task has been added to your tasklist.") .
-                                                         '&nbsp;' . Horde::link($url, _("View task"), null, '_blank') . Horde::img('mime/icalendar.png', _("View task"), null, $registry->getImageDir('horde')) . '</a>');
+                                                         '&nbsp;' . Horde::link($url, _("View task"), null, '_blank') . Horde::img('mime/icalendar.png', _("View task")) . '</a>');
                         } catch (Horde_Exception $e) {
                             $msgs[] = array('error', _("There was an error importing the task:") . ' ' . $e->getMessage());
                         }
@@ -219,132 +246,46 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                 // vEvent request.
                 if (isset($components[$key]) &&
                     $components[$key]->getType() == 'vEvent') {
+
                     $vEvent = $components[$key];
 
-                    // Get the organizer details.
-                    $organizer = $vEvent->getAttribute('ORGANIZER');
-                    if ($organizer instanceof PEAR_Error) {
-                        break;
-                    }
-                    $organizer = parse_url($organizer);
-                    $organizerEmail = $organizer['path'];
-                    $organizer = $vEvent->getAttribute('ORGANIZER', true);
-                    $organizerName = isset($organizer['cn']) ? $organizer['cn'] : '';
-
-                    // Build the reply.
-                    $msg_headers = new Horde_Mime_Headers();
-                    $vCal = new Horde_iCalendar();
-                    $vCal->setAttribute('PRODID', '-//The Horde Project//' . $msg_headers->getUserAgent() . '//EN');
-                    $vCal->setAttribute('METHOD', 'REPLY');
-
-                    $vEvent_reply = Horde_iCalendar::newComponent('vevent', $vCal);
-                    $vEvent_reply->setAttribute('UID', $vEvent->getAttribute('UID'));
-                    if (!($vEvent->getAttribute('SUMMARY') instanceof PEAR_Error)) {
-                        $vEvent_reply->setAttribute('SUMMARY', $vEvent->getAttribute('SUMMARY'));
-                    }
-                    if (!($vEvent->getAttribute('DESCRIPTION') instanceof PEAR_Error)) {
-                        $vEvent_reply->setAttribute('DESCRIPTION', $vEvent->getAttribute('DESCRIPTION'));
-                    }
-                    $dtstart = $vEvent->getAttribute('DTSTART', true);
-                    $vEvent_reply->setAttribute('DTSTART', $vEvent->getAttribute('DTSTART'), array_pop($dtstart));
-                    if (!($vEvent->getAttribute('DTEND') instanceof PEAR_Error)) {
-                        $dtend = $vEvent->getAttribute('DTEND', true);
-                        $vEvent_reply->setAttribute('DTEND', $vEvent->getAttribute('DTEND'), array_pop($dtend));
-                    } else {
-                        $duration = $vEvent->getAttribute('DURATION', true);
-                        $vEvent_reply->setAttribute('DURATION', $vEvent->getAttribute('DURATION'), array_pop($duration));
-                    }
-                    if (!($vEvent->getAttribute('SEQUENCE') instanceof PEAR_Error)) {
-                        $vEvent_reply->setAttribute('SEQUENCE', $vEvent->getAttribute('SEQUENCE'));
-                    }
-                    $vEvent_reply->setAttribute('ORGANIZER', $vEvent->getAttribute('ORGANIZER'), array_pop($organizer));
-
-                    // Find out who we are and update status.
-                    $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
-                    $attendees = $vEvent->getAttribute('ATTENDEE');
-                    if (!is_array($attendees)) {
-                        $attendees = array($attendees);
-                    }
-                    foreach ($attendees as $attendee) {
-                        $attendee = preg_replace('/mailto:/i', '', $attendee);
-                        if (!is_null($id = $identity->getMatchingIdentity($attendee))) {
-                            $identity->setDefault($id);
-                            break;
-                        }
-                    }
-                    $name = $email = $identity->getFromAddress();
-                    $params = array();
-                    $cn = $identity->getValue('fullname');
-                    if (!empty($cn)) {
-                        $name = $params['CN'] = $cn;
-                    }
+                    $resource = new Horde_Itip_Resource_Identity(
+                        $GLOBALS['injector']->getInstance('IMP_Identity'),
+                        $vEvent->getAttribute('ATTENDEE'),
+                        Horde_Util::getFormData('identity')
+                    );
 
                     switch ($action) {
                     case 'accept':
                     case 'accept-import':
-                        $message = sprintf(_("%s has accepted."), $name);
-                        $subject = _("Accepted: ") . $vEvent->getAttribute('SUMMARY');
-                        $params['PARTSTAT'] = 'ACCEPTED';
+                        $type = new Horde_Itip_Response_Type_Accept($resource);
                         break;
-
                     case 'deny':
-                        $message = sprintf(_("%s has declined."), $name);
-                        $subject = _("Declined: ") . $vEvent->getAttribute('SUMMARY');
-                        $params['PARTSTAT'] = 'DECLINED';
+                        $type = new Horde_Itip_Response_Type_Decline($resource);
                         break;
-
                     case 'tentative':
-                        $message = sprintf(_("%s has tentatively accepted."), $name);
-                        $subject = _("Tentative: ") . $vEvent->getAttribute('SUMMARY');
-                        $params['PARTSTAT'] = 'TENTATIVE';
+                        $type = new Horde_Itip_Response_Type_Tentative($resource);
                         break;
                     }
 
-                    $vEvent_reply->setAttribute('ATTENDEE', 'mailto:' . $email, $params);
-                    $vCal->addComponent($vEvent_reply);
-
-                    $mime = new Horde_Mime_Part();
-                    $mime->setType('multipart/alternative');
-
-                    $body = new Horde_Mime_Part();
-                    $body->setType('text/plain');
-                    $body->setCharset($charset);
-                    $body->setContents(Horde_String::wrap($message, 76, "\n"));
-
-                    $ics = new Horde_Mime_Part();
-                    $ics->setType('text/calendar');
-                    $ics->setCharset($charset);
-                    $ics->setContents($vCal->exportvCalendar());
-                    $ics->setName('event-reply.ics');
-                    $ics->setContentTypeParameter('METHOD', 'REPLY');
-
-                    $mime->addPart($body);
-                    $mime->addPart($ics);
-
-                    // Build the reply headers.
-                    $msg_headers->addReceivedHeader();
-                    $msg_headers->addMessageIdHeader();
-                    $msg_headers->addHeader('Date', date('r'));
-                    $msg_headers->addHeader('From', $email);
-                    $msg_headers->addHeader('To', $organizerEmail);
-
-                    $identity->setDefault(Horde_Util::getFormData('identity'));
-                    $replyto = $identity->getValue('replyto_addr');
-                    if (!empty($replyto) && ($replyto != $email)) {
-                        $msg_headers->addHeader('Reply-to', $replyto);
-                    }
-                    $msg_headers->addHeader('Subject', Horde_Mime::encode($subject, $charset));
-
-                    // Send the reply.
-                    $mail_driver = IMP_Compose::getMailDriver();
                     try {
-                        $mime->send($organizerEmail, $msg_headers,
-                                    $mail_driver['driver'],
-                                    $mail_driver['params']);
+                        Horde_Itip::factory($vEvent, $resource)->sendMultiPartResponse(
+                            $type,
+                            new Horde_Itip_Response_Options_Horde(
+                                $charset,
+                                array(
+                                    'dns' => $GLOBALS['injector']->getInstance('Net_DNS_Resolver'),
+                                    'server' => $GLOBALS['conf']['server']['name']
+                                )
+                            ),
+                            $GLOBALS['injector']->getInstance('IMP_Mail')
+                        );
                         $msgs[] = array('success', _("Reply Sent."));
-                    } catch (Horde_Mime_Exception $e) {
+                    } catch (Horde_Itip_Exception $e) {
                         $msgs[] = array('error', sprintf(_("Error sending reply: %s."), $e->getMessage()));
                     }
+
+                    // Send the reply.
                 } else {
                     $msgs[] = array('warning', _("This action is not supported."));
                 }
@@ -366,8 +307,9 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                     $vFb = $components[$key];
 
                     // Get the organizer details.
-                    $organizer = $vFb->getAttribute('ORGANIZER');
-                    if ($organizer instanceof PEAR_Error) {
+                    try {
+                        $organizer = $vFb->getAttribute('ORGANIZER');
+                    } catch (Horde_Icalendar_Exception $e) {
                         break;
                     }
                     $organizer = parse_url($organizer);
@@ -379,17 +321,22 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                         $startStamp = time();
                         $endStamp = $startStamp + (60 * 24 * 3600);
                     } else {
-                        $startStamp = $vFb->getAttribute('DTSTART');
-                        if ($startStamp instanceof PEAR_Error) {
+                        try {
+                            $startStamp = $vFb->getAttribute('DTSTART');
+                        } catch (Horde_Icalendar_Exception $e) {
                             $startStamp = time();
                         }
-                        $endStamp = $vFb->getAttribute('DTEND');
-                        if ($endStamp instanceof PEAR_Error) {
-                            $duration = $vFb->getAttribute('DURATION');
-                            if ($duration instanceof PEAR_Error) {
-                                $endStamp = $startStamp + (60 * 24 * 3600);
-                            } else {
+
+                        try {
+                            $endStamp = $vFb->getAttribute('DTEND');
+                        } catch (Horde_Icalendar_Exception $e) {}
+
+                        if (!$endStamp) {
+                            try {
+                                $duration = $vFb->getAttribute('DURATION');
                                 $endStamp = $startStamp + $duration;
+                            } catch (Horde_Icalendar_Exception $e) {
+                                $endStamp = $startStamp + (60 * 24 * 3600);
                             }
                         }
                     }
@@ -397,19 +344,19 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                                                  array('startStamp' => $startStamp,
                                                        'endStamp' => $endStamp));
                     // Find out who we are and update status.
-                    $identity = Horde_Prefs_Identity::singleton();
+                    $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
                     $email = $identity->getFromAddress();
 
                     // Build the reply.
                     $msg_headers = new Horde_Mime_Headers();
-                    $vCal = new Horde_iCalendar();
+                    $vCal = new Horde_Icalendar();
                     $vCal->setAttribute('PRODID', '-//The Horde Project//' . $msg_headers->getUserAgent() . '//EN');
                     $vCal->setAttribute('METHOD', 'REPLY');
                     $vCal->addComponent($vfb_reply);
 
                     $message = _("Attached is a reply to a calendar request you sent.");
                     $body = new Horde_Mime_Part('text/plain',
-                                          Horde_String::wrap($message, 76, "\n"),
+                                          Horde_String::wrap($message, 76),
                                           $charset);
 
                     $ics = new Horde_Mime_Part('text/calendar', $vCal->exportvCalendar());
@@ -422,7 +369,10 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                     $mime->addPart($ics);
 
                     // Build the reply headers.
-                    $msg_headers->addReceivedHeader();
+                    $msg_headers->addReceivedHeader(array(
+                        'dns' => $GLOBALS['injector']->getInstance('Net_DNS_Resolver'),
+                        'server' => $GLOBALS['conf']['server']['name']
+                    ));
                     $msg_headers->addMessageIdHeader();
                     $msg_headers->addHeader('Date', date('r'));
                     $msg_headers->addHeader('From', $email);
@@ -436,13 +386,10 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                     $msg_headers->addHeader('Subject', Horde_Mime::encode(_("Free/Busy Request Response"), $charset));
 
                     // Send the reply.
-                    $mail_driver = IMP_Compose::getMailDriver();
                     try {
-                        $mime->send($organizerEmail, $msg_headers,
-                                    $mail_driver['driver'],
-                                    $mail_driver['params']);
+                        $mime->send($organizerEmail, $msg_headers, $GLOBALS['injector']->getInstance('IMP_Mail'));
                         $msgs[] = array('success', _("Reply Sent."));
-                    } catch (Horde_Mime_Exception $e) {
+                    } catch (Exception $e) {
                         $msgs[] = array('error', sprintf(_("Error sending reply: %s."), $e->getMessage()));
                     }
                 } else {
@@ -457,12 +404,29 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                 break;
             }
         }
+        if (Horde_Util::getFormData('ajax')) {
+            foreach ($msgs as $msg) {
+                $GLOBALS['notification']->push($msg[1], 'horde.' . $msg[0]);
+            }
+            return array(
+                $mime_id => array(
+                    'data' => Horde_String::convertCharset(Horde::escapeJson(Horde::prepareResponse(null, true), array('charset' => $this->getConfigParam('charset'))), $this->getConfigParam('charset'), 'UTF-8'),
+                    'status' => array(),
+                    'name' => null,
+                    'type' => 'application/json'
+                )
+            );
+        }
 
         // Create the HTML to display the iCal file.
-        $html = '';
-        if ($_SESSION['imp']['view'] == 'imp') {
-            $html .= '<form method="post" name="iCal" action="' . (IMP::selfUrl()) . '">';
+        if (!$full && ($GLOBALS['session']['imp:view'] != 'imp')) {
+            $url = $this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'view_attach', array('params' => array('ajax' => 1, 'mode' => IMP_Contents::RENDER_INLINE)));
+            $onsubmit = ' onsubmit="DimpCore.submitForm(\'impMimeViewerItip\');return false"';
+        } else {
+            $url = IMP::selfUrl();
+            $onsubmit = '';
         }
+        $html = '<form method="post" id="impMimeViewerItip" action="' . $url . '"' . $onsubmit . '>';
 
         foreach ($components as $key => $component) {
             switch ($component->getType()) {
@@ -488,10 +452,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
             }
         }
 
-        // Need to work out if we are inline and actually need this.
-        if ($_SESSION['imp']['view'] == 'imp') {
-            $html .= '</form>';
-        }
+        $html .= '</form>';
 
         return array(
             $mime_id => array(
@@ -518,7 +479,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
             break;
 
         case 'REQUEST':
-            $hdrs = $this->_params['contents']->getHeaderOb();
+            $hdrs = $this->getConfigParam('imp_contents')->getHeaderOb();
             $sender = $hdrs->getValue('From');
             $desc = _("%s requests your free/busy information.");
             break;
@@ -531,30 +492,26 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
         $html .= '<h1 class="header">' . sprintf($desc, $sender) . '</h1>';
 
         foreach ($msgs as $msg) {
-            $html .= '<p class="notice">' . Horde::img('alerts/' . $msg[0] . '.png', '', null, $registry->getImageDir('horde')) . $msg[1] . '</p>';
+            $html .= '<p class="notice">' . Horde::img('alerts/' . $msg[0] . '.png') . $msg[1] . '</p>';
         }
 
-        $start = $vfb->getAttribute('DTSTART');
-        if (!($start instanceof PEAR_Error)) {
+        try {
+            $start = $vfb->getAttribute('DTSTART');
             if (is_array($start)) {
                 $html .= '<p><strong>' . _("Start:") . '</strong> ' . strftime($prefs->getValue('date_format'), mktime(0, 0, 0, $start['month'], $start['mday'], $start['year'])) . '</p>';
             } else {
                 $html .= '<p><strong>' . _("Start:") . '</strong> ' . strftime($prefs->getValue('date_format'), $start) . ' ' . date($prefs->getValue('twentyFour') ? ' G:i' : ' g:i a', $start) . '</p>';
             }
-        }
+        } catch (Horde_Icalendar_Exception $e) {}
 
-        $end = $vfb->getAttribute('DTEND');
-        if (!($end instanceof PEAR_Error)) {
+        try {
+            $end = $vfb->getAttribute('DTEND');
             if (is_array($end)) {
                 $html .= '<p><strong>' . _("End:") . '</strong> ' . strftime($prefs->getValue('date_format'), mktime(0, 0, 0, $end['month'], $end['mday'], $end['year'])) . '</p>';
             } else {
                 $html .= '<p><strong>' . _("End:") . '</strong> ' . strftime($prefs->getValue('date_format'), $end) . ' ' . date($prefs->getValue('twentyFour') ? ' G:i' : ' g:i a', $end) . '</p>';
             }
-        }
-
-        if ($_SESSION['imp']['view'] != 'imp') {
-            return $html;
-        }
+        } catch (Horde_Icalendar_Exception $e) {}
 
         $html .= '<h2 class="smallheader">' . _("Actions") . '</h2>' .
             '<select name="itip_action[' . $id . ']">';
@@ -598,17 +555,18 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
     {
         global $registry, $prefs;
 
+        $attendees = null;
         $desc = $html = '';
         $sender = $vevent->organizerName();
         $options = array();
 
-        $attendees = $vevent->getAttribute('ATTENDEE');
-        if (!($attendees instanceof PEAR_Error) &&
-            !empty($attendees) &&
-            !is_array($attendees)) {
-            $attendees = array($attendees);
-        }
-        $attendee_params = $vevent->getAttribute('ATTENDEE', true);
+        try {
+            $attendees = $vevent->getAttribute('ATTENDEE');
+            $attendee_params = $vevent->getAttribute('ATTENDEE', true);
+            if (!empty($attendees) && !is_array($attendees)) {
+                $attendees = array($attendees);
+            }
+        } catch (Horde_Icalendar_Exception $e) {}
 
         switch ($method) {
         case 'PUBLISH':
@@ -629,8 +587,8 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
 
                 // Check that you are one of the attendees here.
                 $is_attendee = false;
-                if (!($attendees instanceof PEAR_Error) && !empty($attendees)) {
-                    $identity = Horde_Prefs_Identity::singleton(array('imp', 'imp'));
+                if (!empty($attendees)) {
+                    $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
                     for ($i = 0, $c = count($attendees); $i < $c; ++$i) {
                         $attendee = parse_url($attendees[$i]);
                         if (!empty($attendee['path']) &&
@@ -659,7 +617,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
             break;
 
         case 'ADD':
-            $desc = _("%s wishes to ammend \"%s\".");
+            $desc = _("%s wishes to amend \"%s\".");
             if ($registry->hasMethod('calendar/import')) {
                 $options[] = '<option value="import">' .   _("Update this event on my calendar") . '</option>';
             }
@@ -671,7 +629,7 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
             break;
 
         case 'REPLY':
-            $hdrs = $this->_params['contents']->getHeaderOb();
+            $hdrs = $this->getConfigParam('imp_contents')->getHeaderOb();
             $desc = _("%s has replied to the invitation to \"%s\".");
             $sender = $hdrs->getValue('From');
             if ($registry->hasMethod('calendar/updateAttendee')) {
@@ -680,70 +638,70 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
             break;
 
         case 'CANCEL':
-            $instance = $vevent->getAttribute('RECURRENCE-ID');
-            if ($instance instanceof PEAR_Error) {
+            try {
+                $vevent->getAttribute('RECURRENCE-ID');
+                $desc = _("%s has cancelled an instance of the recurring \"%s\".");
+                if ($registry->hasMethod('calendar/replace')) {
+                    $options[] = '<option value="delete">' . _("Update in my calendar") . '</option>';
+                }
+            } catch (Horde_Icalendar_Exception $e) {
                 $desc = _("%s has cancelled \"%s\".");
                 if ($registry->hasMethod('calendar/delete')) {
                     $options[] = '<option value="delete">' . _("Delete from my calendar") . '</option>';
-                }
-            } else {
-                $desc = _("%s has cancelled an instance of the recurring \"%s\".");
-                if ($registry->hasMethod('calendar/replace')) {
-                    $options[] = '<option value="import">' . _("Update in my calendar") . '</option>';
                 }
             }
             break;
         }
 
-        $summary = $vevent->getAttribute('SUMMARY');
-        if ($summary instanceof PEAR_Error) {
-            $desc = sprintf($desc, htmlspecialchars($sender), _("Unknown Meeting"));
-        } else {
+        try {
+            $summary = $vevent->getAttribute('SUMMARY');
             $desc = sprintf($desc, htmlspecialchars($sender), htmlspecialchars($summary));
+        } catch (Horde_Icalendar_Exception $e) {
+            $desc = sprintf($desc, htmlspecialchars($sender), _("Unknown Meeting"));
         }
 
         $html .= '<h2 class="header">' . $desc . '</h2>';
 
         foreach ($msgs as $msg) {
-            $html .= '<p class="notice">' . Horde::img('alerts/' . $msg[0] . '.png', '', null, $registry->getImageDir('horde')) . $msg[1] . '</p>';
+            $html .= '<p class="notice">' . Horde::img('alerts/' . $msg[0] . '.png') . $msg[1] . '</p>';
         }
 
-        $start = $vevent->getAttribute('DTSTART');
-        if (!($start instanceof PEAR_Error)) {
+        try {
+            $start = $vevent->getAttribute('DTSTART');
             if (is_array($start)) {
                 $html .= '<p><strong>' . _("Start:") . '</strong> ' . strftime($prefs->getValue('date_format'), mktime(0, 0, 0, $start['month'], $start['mday'], $start['year'])) . '</p>';
             } else {
                 $html .= '<p><strong>' . _("Start:") . '</strong> ' . strftime($prefs->getValue('date_format'), $start) . ' ' . date($prefs->getValue('twentyFour') ? ' G:i' : ' g:i a', $start) . '</p>';
             }
-        }
+        } catch (Horde_Icalendar_Exception $e) {}
 
-        $end = $vevent->getAttribute('DTEND');
-        if (!($end instanceof PEAR_Error)) {
+        try {
+            $end = $vevent->getAttribute('DTEND');
             if (is_array($end)) {
                 $html .= '<p><strong>' . _("End:") . '</strong> ' . strftime($prefs->getValue('date_format'), mktime(0, 0, 0, $end['month'], $end['mday'], $end['year'])) . '</p>';
             } else {
                 $html .= '<p><strong>' . _("End:") . '</strong> ' . strftime($prefs->getValue('date_format'), $end) . ' ' . date($prefs->getValue('twentyFour') ? ' G:i' : ' g:i a', $end) . '</p>';
             }
-        }
+        } catch (Horde_Icalendar_Exception $e) {}
 
-        $sum = $vevent->getAttribute('SUMMARY');
-        if (!($sum instanceof PEAR_Error)) {
+        try {
+            $sum = $vevent->getAttribute('SUMMARY');
             $html .= '<p><strong>' . _("Summary") . ':</strong> ' . htmlspecialchars($sum) . '</p>';
-        } else {
+        } catch (Horde_Icalendar_Exception $e) {
             $html .= '<p><strong>' . _("Summary") . ':</strong> <em>' . _("None") . '</em></p>';
         }
 
-        $desc = $vevent->getAttribute('DESCRIPTION');
-        if (!($desc instanceof PEAR_Error)) {
+        try {
+            $desc = $vevent->getAttribute('DESCRIPTION');
             $html .= '<p><strong>' . _("Description") . ':</strong> ' . nl2br(htmlspecialchars($desc)) . '</p>';
-        }
+        } catch (Horde_Icalendar_Exception $e) {}
 
-        $loc = $vevent->getAttribute('LOCATION');
-        if (!($loc instanceof PEAR_Error)) {
+        try {
+            $loc = $vevent->getAttribute('LOCATION');
             $html .= '<p><strong>' . _("Location") . ':</strong> ' . htmlspecialchars($loc) . '</p>';
-        }
+        } catch (Horde_Icalendar_Exception $e) {}
 
-        if (!($attendees instanceof PEAR_Error) && !empty($attendees)) {
+        if (!empty($attendees)) {
             $html .= '<h2 class="smallheader">' . _("Attendees") . '</h2>';
 
             $html .= '<table><thead class="leftAlign"><tr><th>' . _("Name") . '</th><th>' . _("Role") . '</th><th>' . _("Status") . '</th></tr></thead><tbody>';
@@ -787,7 +745,8 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
             $html .= '</tbody></table>';
         }
 
-        if ($registry->hasMethod('calendar/getFbCalendars') &&
+        if (($method == 'PUBLISH' || $method == 'REQUEST' || $method == 'ADD') &&
+            $registry->hasMethod('calendar/getFbCalendars') &&
             $registry->hasMethod('calendar/listEvents')) {
             try {
                 $calendars = $registry->call('calendar/getFbCalendars');
@@ -836,10 +795,6 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
             } catch (Horde_Exception $e) {}
         }
 
-        if ($_SESSION['imp']['view'] != 'imp') {
-            return $html;
-        }
-
         if ($options) {
             $html .= '<h2 class="smallheader">' . _("Actions") . '</h2>' .
                 '<label for="action_' . $id . '" class="hidden">' . _("Actions") . '</label>' .
@@ -854,8 +809,8 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
     /**
      * Returns the html for a vEvent.
      *
-     * @todo IMP 5: move organizerName() from Horde_iCalendar_vevent to
-     *       Horde_iCalendar
+     * @todo IMP 5: move organizerName() from Horde_Icalendar_Vevent to
+     *       Horde_Icalendar
      */
     protected function _vTodo($vtodo, $id, $method, $msgs)
     {
@@ -864,16 +819,16 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
         $desc = $html = '';
         $options = array();
 
-        $organizer = $vtodo->getAttribute('ORGANIZER', true);
-        if ($organizer instanceof PEAR_Error) {
-            $sender = _("An unknown person");
-        } else {
+        try {
+            $organizer = $vtodo->getAttribute('ORGANIZER', true);
             if (isset($organizer[0]['CN'])) {
                 $sender = $organizer[0]['CN'];
             } else {
                 $organizer = parse_url($vtodo->getAttribute('ORGANIZER'));
                 $sender = $organizer['path'];
             }
+        } catch (Horde_Icalendar_Exception $e) {
+            $sender = _("An unknown person");
         }
 
         switch ($method) {
@@ -885,40 +840,44 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
             break;
         }
 
-        $summary = $vtodo->getAttribute('SUMMARY');
-        if ($summary instanceof PEAR_Error) {
-            $desc = sprintf($desc, htmlspecialchars($sender), _("Unknown Task"));
-        } else {
+        try {
+            $summary = $vtodo->getAttribute('SUMMARY');
             $desc = sprintf($desc, htmlspecialchars($sender), htmlspecialchars($summary));
+        } catch (Horde_Icalendar_Exception $e) {
+            $desc = sprintf($desc, htmlspecialchars($sender), _("Unknown Task"));
         }
 
         $html .= '<h2 class="header">' . $desc . '</h2>';
 
         foreach ($msgs as $msg) {
-            $html .= '<p class="notice">' . Horde::img('alerts/' . $msg[0] . '.png', '', null, $registry->getImageDir('horde')) . $msg[1] . '</p>';
+            $html .= '<p class="notice">' . Horde::img('alerts/' . $msg[0] . '.png') . $msg[1] . '</p>';
         }
 
-        $priority = $vtodo->getAttribute('PRIORITY');
-        if (!($priority instanceof PEAR_Error)) {
+        try {
+            $priority = $vtodo->getAttribute('PRIORITY');
             $html .= '<p><strong>' . _("Priority") . ':</strong> ' . (int)$priority . '</p>';
-        }
+        } catch (Horde_Icalendar_Exception $e) {}
 
-        $sum = $vtodo->getAttribute('SUMMARY');
-        if (!($sum instanceof PEAR_Error)) {
+        try {
+            $sum = $vtodo->getAttribute('SUMMARY');
             $html .= '<p><strong>' . _("Summary") . ':</strong> ' . htmlspecialchars($sum) . '</p>';
-        } else {
+        } catch (Horde_Icalendar_Exception $e) {
             $html .= '<p><strong>' . _("Summary") . ':</strong> <em>' . _("None") . '</em></p>';
         }
 
-        $desc = $vtodo->getAttribute('DESCRIPTION');
-        if (!($desc instanceof PEAR_Error)) {
+        try {
+            $desc = $vtodo->getAttribute('DESCRIPTION');
             $html .= '<p><strong>' . _("Description") . ':</strong> ' . nl2br(htmlspecialchars($desc)) . '</p>';
+        } catch (Horde_Icalendar_Exception $e) {}
+
+        try {
+            $attendees = $vtodo->getAttribute('ATTENDEE');
+            $params = $vtodo->getAttribute('ATTENDEE', true);
+        } catch (Horde_Icalendar_Exception $e) {
+            $attendees = null;
         }
 
-        $attendees = $vtodo->getAttribute('ATTENDEE');
-        $params = $vtodo->getAttribute('ATTENDEE', true);
-
-        if (!($attendees instanceof PEAR_Error) && !empty($attendees)) {
+        if (!empty($attendees)) {
             $html .= '<h2 class="smallheader">' . _("Attendees") . '</h2>';
             if (!is_array($attendees)) {
                 $attendees = array($attendees);
@@ -963,10 +922,6 @@ class IMP_Horde_Mime_Viewer_Itip extends Horde_Mime_Viewer_Driver
                 $html .= '<tr><td>' . htmlspecialchars($attendee) . '</td><td>' . htmlspecialchars($role) . '</td><td>' . htmlspecialchars($status) . '</td></tr>';
             }
             $html .= '</tbody></table>';
-        }
-
-        if ($_SESSION['imp']['view'] != 'imp') {
-            return $html;
         }
 
         if ($options) {

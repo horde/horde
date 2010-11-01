@@ -1,0 +1,1 @@
+ALTER TABLE horde_perms CHANGE COLUMN perm_id perm_id INT(11) NOT NULL AUTO_INCREMENT;

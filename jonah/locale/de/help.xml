@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Horde: jonah/locale/en_US/help.xml,v 1.3 2006/01/07 19:41:26 chuck Exp $ -->
+<help>
+
+<entry id="overview">
+  <title>Übersicht</title>
+  <heading>Einführung</heading>
+    <para>
+      Diese Anwendung ermöglicht die Anzeige von Nachrichten und ähnlichen
+      Daten aus verschieden Quellen. Sie können die Informationen abonnieren,
+      für die Sie sich interessieren.
+    </para>
+</entry>
+
+<entry id="feed-type" md5="34a529ffaf205720a7c874300a3f9a14" state="uptodate">
+    <title>Feed-Typen</title>
+    <heading>Interne Feeds</heading>
+    <para>
+      Feeds, die durch dieses System zur Verfügung gestellt werden.
+    </para>
+
+    <heading>Externe Feeds</heading>
+    <para>
+      Feeds, die durch externe Systeme, z.B. andere Webseiten, zur Verfügung
+      gestellt werden.
+    </para>
+
+    <heading>Gesammelte Feeds</heading>
+    <para>
+      Feeds, deren Inhalt sich aus mehreren externen (über Umwegen auch
+      internen) Feeds zusammensetzt.
+    </para>
+
+    <heading>Zusammengefasste Feeds</heading>
+    <para>
+      Feeds, deren Inhalt sich aus mehreren internen Feeds zusammensetzt.
+    </para>
+</entry>
+</help>

@@ -1293,7 +1293,7 @@ class Net_IMSP_Book {
         if (isset($this->_imsp)) {
             return $this->_imsp->setLogger($params);
         } else {
-            return PEAR::raiseError(_("The IMSP log could not be initialized."));
+            return PEAR::raiseError(Horde_Net_IMSP_Translation::t("The IMSP log could not be initialized."));
         }
     }
 

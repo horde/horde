@@ -31,20 +31,30 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Initial Horde 4 package.</notes>
+ <notes>* Throw exceptions rather than returning PEAR_Errors.
+ * Add support for limited error handling for json encoding errors
+ (requires PHP 5.3+).
+ * Initial Horde 4 package.</notes>
  <contents>
   <dir name="/">
    <dir name="lib">
     <dir name="Horde">
+     <dir name="Serialize">
+      <file name="Exception.php" role="php" />
+     </dir> <!-- /lib/Horde/Serialize -->
      <file name="Serialize.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib/ -->
    <dir name="test">
     <dir name="Horde">
      <dir name="Serialize">
+      <dir name="fixtures">
+       <file name="badutf8.txt" role="test" />
+      </dir> <!-- /test/Horde/Serialize/fixtures -->
       <file name="json_assoc_array.phpt" role="test" />
       <file name="json_empty.phpt" role="test" />
       <file name="json_encode_decode.phpt" role="test" />
+      <file name="json_encode_badutf8.phpt" role="test" />
       <file name="json_nested_array.phpt" role="test" />
       <file name="json_object.phpt" role="test" />
       <file name="json_spaces_comments.phpt" role="test" />
@@ -63,13 +73,44 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.5.0</min>
    </pearinstaller>
    <package>
+    <name>Exception</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Util</name>
     <channel>pear.horde.org</channel>
    </package>
   </required>
+  <optional>
+   <package>
+    <name>DB</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>Imap_Client</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Mime</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <extension>
+    <name>bzip2</name>
+   </extension>
+   <extension>
+    <name>lzf</name>
+   </extension>
+   <extension>
+    <name>wddx</name>
+   </extension>
+   <extension>
+    <name>zlib</name>
+   </extension>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="lib/Horde/Serialize/Exception.php" as="Horde/Serialize/Exception.php" />
    <install name="lib/Horde/Serialize.php" as="Horde/Serialize.php" />
   </filelist>
  </phprelease>

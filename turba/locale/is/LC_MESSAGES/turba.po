@@ -1,0 +1,629 @@
+# Icelandic translations for disk package.
+# Copyright 2005-2010 The Horde Project
+# This file is distributed under the same license as the disk package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: disk 1\n"
+"Report-Msgid-Bugs-To: bjossi@snerpa.is\n"
+"POT-Creation-Date: 2005-11-19 20:33+0000\n"
+"PO-Revision-Date: 2005-11-19 20:33+0000\n"
+"Last-Translator: Bjorn Davidsson <bjossi@snerpa.is>\n"
+"Language-Team: support@snerpa.is\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: data.php:256
+#, fuzzy, php-format
+msgid "%s file successfully imported"
+msgstr "Mappan \"%s\" var búin til."
+
+#: templates/browse/footer.inc:5
+#, fuzzy, php-format
+msgid "%s to %s of %s"
+msgstr "%d til %d af %d skeytum"
+
+#: templates/browse/search.inc:65
+msgid "Ad_vanced Search"
+msgstr "Ítarleg leit"
+
+#: add.php:52
+msgid "Add"
+msgstr "Bæta við"
+
+#: templates/browse/actions.inc:22
+msgid "Add to"
+msgstr "Bæta við"
+
+#: browse.php:30 config/prefs.php.dist:99
+#, fuzzy
+msgid "Address Book Listing"
+msgstr "Netfangabók"
+
+#: add.php:86
+#, fuzzy
+msgid "Address book entry"
+msgstr "Netfangabækur"
+
+#: lib/Driver.php:478
+#, fuzzy
+msgid "Address book is read-only."
+msgstr "Netfangabækur"
+
+#: search.php:97 templates/browse/search.inc:65
+#: templates/browse/search.inc:113
+msgid "Advanced Search"
+msgstr "Ítarleg leit"
+
+#: config/attributes.php.dist:64
+msgid "Alias"
+msgstr "Stuttnefni"
+
+#: templates/browse/footerAlpha.inc:6 templates/browse/footerAlpha.inc:9
+msgid "All"
+msgstr "Allar skráningar"
+
+#: templates/browse/javascript.inc:89
+#, php-format
+msgid "Are you sure that you want to delete %s?"
+msgstr "Ert þú viss um að þú viljir eyða %s?"
+
+#: templates/browse/javascript.inc:63
+msgid "Are you sure that you want to delete the selected entries?"
+msgstr "Ert þú viss um að þú viljir eyða völdum línum?"
+
+#: config/prefs.php.dist:70
+msgid "Ascending"
+msgstr "Hækkandi"
+
+#: templates/prefs/columnselect.inc:233
+#, fuzzy
+msgid "Available Columns:"
+msgstr "Tiltækar netfangabækur:"
+
+#: templates/browse/actions.inc:44
+#, php-format
+msgid "Ba_ck to %s"
+msgstr "Til baka í %s"
+
+#: templates/browse/actions.inc:44
+msgid "Back to %s"
+msgstr "Til baka í %s"
+
+#: templates/browse/search.inc:116
+msgid "Basi_c Search"
+msgstr "Einföld leit"
+
+#: search.php:94 templates/browse/search.inc:62
+#: templates/browse/search.inc:116
+msgid "Basic Search"
+msgstr "Einföld leit"
+
+#: templates/browse/actions.inc:48
+#, fuzzy
+msgid "C_lear Search"
+msgstr "Leita í skeytum"
+
+#: templates/browse/column_headers.inc:5
+msgid "Check _All/None"
+msgstr "Velja alla/engan"
+
+#: add.php:44
+msgid "Choose an address book"
+msgstr "Veldu netfangabók"
+
+#: templates/prefs/columnselect.inc:228
+#, fuzzy
+msgid "Choose the order of the columns to display in the address list."
+msgstr ""
+"Veldu uppröðun netfangabóka sem á að leita í, þegar leitað er að netföngum."
+
+#: templates/browse/actions.inc:48
+#, fuzzy
+msgid "Clear Search"
+msgstr "Leita í skeytum"
+
+#: config/prefs.php.dist:10
+#, fuzzy
+msgid "Column Options"
+msgstr "Valstillingar"
+
+#: config/attributes.php.dist:76
+msgid "Company"
+msgstr "Fyrirtæki"
+
+#: lib/api.php:247 lib/api.php:268 lib/api.php:384 lib/api.php:454
+#: lib/api.php:544 lib/api.php:590 lib/api.php:638 lib/api.php:825
+#: lib/api.php:918
+#, fuzzy, php-format
+msgid "Connection failed: %s"
+msgstr "Endurvísun misheppaðist."
+
+#: browse.php:257
+#, php-format
+msgid "Contacts in list: %s"
+msgstr "Tengiliðir í lista: %s"
+
+#: browse.php:281
+#, php-format
+msgid "Contents of %s"
+msgstr "Innihald í %s"
+
+#: templates/browse/actions.inc:12
+msgid "Copy"
+msgstr "Afrit"
+
+#: lib/ObjectView.php:134
+#, fuzzy
+msgid "Created"
+msgstr "Búa til"
+
+#: config/prefs.php.dist:16
+#, fuzzy
+msgid "Default Display"
+msgstr "Sjálfgefið kennimark"
+
+#: config/prefs.php.dist:72
+msgid "Default sorting direction:"
+msgstr "Sjálfgefin uppröðun:"
+
+#: templates/browse/actions.inc:3 lib/Renderer.php:48
+msgid "Delete"
+msgstr "Eyða"
+
+#: config/prefs.php.dist:35
+#, fuzzy
+msgid "Delete Confirmation"
+msgstr "Upplýsingar netþjóns"
+
+#: lib/Driver/ldap.php:283
+#, fuzzy, php-format
+msgid "Delete failed: (%s) %s"
+msgstr "Eyða möppu(m)"
+
+#: delete.php:32
+#, fuzzy
+msgid "Deletion failed"
+msgstr "Endurvísun misheppaðist."
+
+#: config/prefs.php.dist:71
+msgid "Descending"
+msgstr "Lækkandi"
+
+#: templates/browse/search.inc:132
+msgid "Directory"
+msgstr "Netfangabók"
+
+#: config/prefs.php.dist:9 config/prefs.php.dist:15 config/prefs.php.dist:21
+#: config/prefs.php.dist:27
+msgid "Display Options"
+msgstr "Útlitsstillingar"
+
+#: config/prefs.php.dist:149
+#, fuzzy
+msgid "Do you want to confirm deleting entries?"
+msgstr "Viltu opna þessa möppu?"
+
+#: templates/browse/contactrow.inc:25
+#, fuzzy
+msgid "Download vCard"
+msgstr "Sækja yfir á vinnustöð"
+
+#: templates/browse/column_headers.inc:6 templates/browse/contactrow.inc:33
+#: lib/Renderer.php:46
+msgid "Edit"
+msgstr "Breyta"
+
+#: templates/browse/contactrow.inc:33
+#, fuzzy, php-format
+msgid "Edit \"%s\""
+msgstr "Breyta"
+
+#: config/attributes.php.dist:58
+msgid "Email"
+msgstr "Netfang"
+
+#: templates/browse/actions.inc:6 templates/data/export.inc:46
+msgid "Export"
+msgstr "Flytja út"
+
+#: templates/data/export.inc:7
+msgid "Export Address Book"
+msgstr "Flytja út netfangabók"
+
+#: search.php:52 data.php:110 data.php:228 add.php:63 browse.php:37
+#: browse.php:94 browse.php:109
+#, fuzzy, php-format
+msgid "Failed to access the address book: %s"
+msgstr "Bæta í netfangabók (%s)"
+
+#: templates/browse/search.inc:72
+msgid "Find"
+msgstr "Finna"
+
+#: config/attributes.php.dist:48
+#, fuzzy
+msgid "First Name"
+msgstr "Fyrsta síða"
+
+#: templates/browse/search.inc:85
+msgid "From"
+msgstr "í"
+
+#: config/sources.php.dist:562
+#, fuzzy
+msgid "Global Address Book"
+msgstr "Netfangabók"
+
+#: config/attributes.php.dist:82
+msgid "Home Address"
+msgstr "Heimilisfang"
+
+#: config/attributes.php.dist:150
+msgid "Home Phone"
+msgstr "Heimasími"
+
+#: config/attributes.php.dist:88
+#, fuzzy
+msgid "Home Street Address"
+msgstr "Sendandanetfang"
+
+#: templates/data/import.inc:9
+#, fuzzy, php-format
+msgid "Import Address Book, Step %d"
+msgstr "Netfangabók"
+
+#: data.php:274
+#, fuzzy
+msgid "Import/Export Address Books"
+msgstr "Netfangabók"
+
+#: lib/api.php:191 lib/api.php:334 lib/api.php:437 lib/api.php:527
+#: lib/api.php:580 lib/api.php:895
+#, fuzzy
+msgid "Invalid address book"
+msgstr "Tiltækar netfangabækur:"
+
+#: lib/Driver/ldap.php:279
+#, fuzzy
+msgid "Invalid key specified."
+msgstr "enginn texti tilgreindur"
+
+#: config/attributes.php.dist:53
+#, fuzzy
+msgid "Last Name"
+msgstr "síðasta bls."
+
+#: templates/browse/search.inc:79
+msgid "Matching"
+msgstr "sem passar við"
+
+#: lib/Block/minisearch.php:3
+#, fuzzy
+msgid "Mini Search"
+msgstr "Leita"
+
+#: config/attributes.php.dist:162
+msgid "Mobile Phone"
+msgstr "Farsími"
+
+#: templates/browse/actions.inc:11
+msgid "Move"
+msgstr "Flytja"
+
+#: templates/prefs/columnselect.inc:247
+#, fuzzy
+msgid "Move left"
+msgstr "Flytja upp"
+
+#: data.php:31 templates/data/import.inc:21
+#, fuzzy
+msgid "Mulberry Address Book"
+msgstr "Netfangabók"
+
+#: config/sources.php.dist:87 config/sources.php.dist:221
+#, fuzzy
+msgid "My Address Book"
+msgstr "Netfangabók"
+
+#: config/attributes.php.dist:42
+msgid "Name"
+msgstr "Nafn"
+
+#: add.php:36 add.php:102 lib/Block/minisearch.php:27
+msgid "New Contact"
+msgstr "Nýr tengiliður"
+
+#: templates/browse/actions.inc:26
+#, fuzzy
+msgid "New List"
+msgstr "Nýr póstur"
+
+#: templates/data/import.inc:42
+msgid "Next"
+msgstr "Næsta"
+
+#: config/attributes.php.dist:218
+#, fuzzy
+msgid "Nickname"
+msgstr "Nafn"
+
+#: lib/api.php:982
+#, fuzzy
+msgid "No address books found."
+msgstr "Netfangabækur"
+
+#: templates/browse/footer.inc:7
+msgid "None"
+msgstr "Engin"
+
+#: config/attributes.php.dist:184
+msgid "Notes"
+msgstr "Glósur"
+
+#: config/prefs.php.dist:34
+msgid "Other Options"
+msgstr "Aðrar stillingar"
+
+#: data.php:32 templates/data/import.inc:22
+#, fuzzy
+msgid "Pine Address Book"
+msgstr "Netfangabók"
+
+#: templates/browse/javascript.inc:30
+#, fuzzy
+msgid "Please enter the name of the new list:"
+msgstr "Sláðu inn nýtt möppunafn:"
+
+#: templates/prefs/columnselect.inc:221
+#, fuzzy
+msgid "Please select a directory:"
+msgstr "Veldu eða breyttu til hægri, næst:"
+
+#: config/sources.php.dist:399
+#, fuzzy
+msgid "Private Address Book"
+msgstr "Netfangabók"
+
+#: templates/block/minisearch.inc:18
+#, fuzzy
+msgid "Quick Search"
+msgstr "Leita"
+
+#: templates/prefs/columnselect.inc:239
+#, fuzzy
+msgid "Remove column"
+msgstr "færa niður"
+
+#: templates/browse/actions.inc:3
+msgid "Remove from this list"
+msgstr "Fjarlægja úr listanum"
+
+#: add.php:37 templates/browse/search.inc:126
+msgid "Reset to Defaults"
+msgstr "Endursetja leitarreiti"
+
+#: edit.php:57 add.php:37
+msgid "Save"
+msgstr "Vista"
+
+#: templates/browse/search.inc:98 templates/browse/search.inc:125
+#: templates/block/minisearch.inc:23 config/prefs.php.dist:100
+msgid "Search"
+msgstr "Leita"
+
+#: minisearch.php:66 browse.php:241
+msgid "Search Results"
+msgstr "Niðurstaða leitar"
+
+#: lib/api.php:829
+#, fuzzy
+msgid "Search failed"
+msgstr "Leita"
+
+#: config/prefs.php.dist:28
+msgid "Searching Options"
+msgstr "Leitarvalkostir"
+
+#: templates/block/minisearch.inc:24
+msgid "Searching..."
+msgstr "Leita..."
+
+#: templates/browse/select.inc:9
+msgid "Select Address Book"
+msgstr "Veljið netfangabók:"
+
+#: templates/browse/actions.inc:24
+msgid "Select List"
+msgstr "Valinn lista"
+
+#: templates/data/export.inc:37
+#, fuzzy
+msgid "Select the address book to export from:"
+msgstr "Valdar netfangabækur:"
+
+#: templates/data/import.inc:31
+#, fuzzy
+msgid "Select the address book to import to:"
+msgstr "Valdar netfangabækur:"
+
+#: templates/prefs/columnselect.inc:243
+#, fuzzy
+msgid "Selected Columns:"
+msgstr "Velja ekkert"
+
+#: add.php:50
+#, fuzzy, php-format
+msgid "Selected address book \"%s\"."
+msgstr "Valdar netfangabækur:"
+
+#: config/sources.php.dist:154
+#, fuzzy
+msgid "Shared Directory"
+msgstr "Röðunarátt"
+
+#: templates/browse/actions.inc:42
+msgid "Sho_w All"
+msgstr "Sýna allt"
+
+#: templates/browse/select.inc:11
+msgid "Show"
+msgstr "Sýna"
+
+#: templates/browse/actions.inc:42
+msgid "Show All"
+msgstr "Sýna allt"
+
+#: templates/browse/actions.inc:41
+msgid "Show Contacts"
+msgstr "Sýna tengiliði"
+
+#: templates/browse/actions.inc:40
+msgid "Show Lists"
+msgstr "Sýna lista"
+
+#: templates/browse/actions.inc:41
+msgid "Show _Contacts"
+msgstr "Sýna tengiliði"
+
+#: templates/browse/actions.inc:40
+msgid "Show _Lists"
+msgstr "Sýna lista"
+
+#: templates/browse/column_headers.inc:10
+#: templates/browse/column_headers.inc:15
+msgid "Sort Direction"
+msgstr "Röðunarátt"
+
+#: lib/api.php:154
+#, fuzzy
+msgid "Sources"
+msgstr "Framkvæmt"
+
+#: browse.php:185
+#, fuzzy
+msgid "There was an error creating a new list."
+msgstr "Villa kom upp þegar átti að vista uppkastið."
+
+#: browse.php:136
+#, fuzzy, php-format
+msgid "There was an error deleting %s from the source address book."
+msgstr ""
+"Villa kom upp þegar átti að eyða skeytum. Villutilkynning netþjónsins fylgir "
+"hér á eftir"
+
+#: delete.php:31
+#, fuzzy, php-format
+msgid "There was an error deleting this contact: %s"
+msgstr "Villa kom upp við birtingu þessa hluta skeytisins"
+
+#: browse.php:68
+#, fuzzy
+msgid "There was an error deleting this object."
+msgstr "Villa kom upp við birtingu þessa hluta skeytisins"
+
+#: browse.php:273
+#, fuzzy
+msgid "There was an error displaying the select List"
+msgstr "Villa kom upp við birtingu þessa hluta skeytisins"
+
+#: data.php:249
+#, fuzzy, php-format
+msgid "There was an error importing the data: %s"
+msgstr "Villa kom upp þegar átti að vista uppkastið."
+
+#: lib/api.php:352
+#, fuzzy
+msgid "There was an error importing the iCalendar data."
+msgstr "Villa kom upp þegar átti að vista uppkastið."
+
+#: browse.php:58
+#, fuzzy
+msgid "There was an error removing this object."
+msgstr "Villa kom upp þegar átti að vista uppkastið."
+
+#: edit.php:84
+#, fuzzy, php-format
+msgid "There was an error updating this entry: %s"
+msgstr "Villa kom upp við birtingu þessa hluta skeytisins"
+
+#: data.php:151
+#, fuzzy
+msgid "There were no addresses to export."
+msgstr "Það eru engin skeyti í þessu pósthólfi."
+
+#: config/attributes.php.dist:70
+msgid "Title"
+msgstr "Titill"
+
+#: edit.php:57
+msgid "Undo Changes"
+msgstr "Fjarlægja breytingar"
+
+#: templates/browse/contactrow.inc:27
+#, fuzzy, php-format
+msgid "View \"%s\""
+msgstr "Sýna %s"
+
+#: config/attributes.php.dist:113
+msgid "Work Address"
+msgstr "Heimilisf. vinnu"
+
+#: config/attributes.php.dist:156
+msgid "Work Phone"
+msgstr "Vinnusími"
+
+#: templates/browse/javascript.inc:30
+#, fuzzy
+msgid "You are creating a distribution list."
+msgstr "Þú ert um það bil að búa til undirmöppu í "
+
+#: templates/browse/javascript.inc:51
+#, fuzzy
+msgid "You must select a target address book."
+msgstr "Þú þarft að velja netfang fyrst."
+
+#: templates/browse/javascript.inc:23
+#, fuzzy
+msgid "You must select a target list."
+msgstr "Þú þarft að velja í hvaða möppu pósturinn á að fara fyrst."
+
+#: templates/browse/javascript.inc:17 templates/browse/javascript.inc:45
+#: templates/browse/javascript.inc:68
+#, fuzzy
+msgid "You must select at least one entry first."
+msgstr "Veldu a.m.k. eitt skeyti fyrst."
+
+#: lib/Turba.php:286
+msgid "_Add"
+msgstr "Bæta við"
+
+#: lib/Turba.php:283
+msgid "_Browse"
+msgstr "Skoða"
+
+#: templates/browse/actions.inc:3
+msgid "_Delete"
+msgstr "Eyða"
+
+#: lib/Turba.php:292
+msgid "_Import/Export"
+msgstr "Flytja inn/út"
+
+#: templates/browse/actions.inc:3
+msgid "_Remove from this list"
+msgstr "Fjarlægja úr listanum"
+
+#: lib/Turba.php:288
+msgid "_Search"
+msgstr "Leita"
+
+#: data.php:182
+#, fuzzy
+msgid "contacts.tsv"
+msgstr "Tengiliðalisti"
+
+#: templates/browse/actions.inc:14
+msgid "to Selected Address Book"
+msgstr "í valinni netfangabók"

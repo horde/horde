@@ -9,9 +9,8 @@
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  */
 
-@define('WHUPS_BASE', dirname(__FILE__) . '/..');
-require_once WHUPS_BASE . '/lib/base.php';
-require_once WHUPS_BASE . '/lib/Ticket.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('whups');
 
 /**
  * Queue editing forms.
@@ -32,11 +31,11 @@ class SetQueueStep1Form extends Horde_Form {
         $this->addVariable(_("Comment"), 'newcomment', 'longtext', false);
 
         /* Group restrictions. */
-        if (Horde_Auth::isAdmin('whups:admin', Horde_Perms::EDIT) ||
-            $GLOBALS['perms']->hasPermission('whups:hiddenComments',
-                                             Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
-            $groups = &Group::singleton();
-            $mygroups = $groups->getGroupMemberships(Horde_Auth::getAuth());
+        if ($GLOBALS['registry']->isAdmin(array('permission' => 'whups:admin', 'permlevel' => Horde_Perms::EDIT)) ||
+            $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('whups:hiddenComments',
+                                             $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
+            $groups = $injector->getInstance('Horde_Group');
+            $mygroups = $groups->getGroupMemberships($GLOBALS['registry']->getAuth());
             if ($mygroups) {
                 foreach (array_keys($mygroups) as $gid) {
                     $grouplist[$gid] = $groups->getGroupName($gid, true);
@@ -68,6 +67,7 @@ class SetQueueStep2Form extends Horde_Form {
 
         /* Give the user an opportunity to check that type, version,
          * etc. are still valid. */
+
         $queue = $vars->get('queue');
 
         $info = $whups_driver->getQueue($queue);
@@ -119,18 +119,24 @@ class SetQueueStep3Form extends Horde_Form {
 $ticket = Whups::getCurrentTicket();
 $vars = Horde_Variables::getDefaultVariables();
 $vars->set('id', $id = $ticket->getId());
+$form = $vars->get('formname');
+if ($form != 'setqueuestep1form') {
+    $q = $vars->get('queue');
+}
 foreach ($ticket->getDetails() as $varname => $value) {
     $vars->add($varname, $value);
+}
+if (!empty($q)) {
+    $vars->set('queue', $q);
 }
 
 // Check permissions on this ticket.
 if (!Whups::hasPermission($ticket->get('queue'), 'queue', Horde_Perms::DELETE)) {
     $notification->push(_("Permission Denied"), 'horde.error');
-    header('Location: ' . Horde::applicationUrl($prefs->getValue('whups_default_view') . '.php', true));
-    exit;
+    Horde::url($prefs->getValue('whups_default_view') . '.php', true)
+        ->redirect();
 }
 
-$form = $vars->get('formname');
 $action = '';
 
 if ($form == 'setqueuestep1form') {

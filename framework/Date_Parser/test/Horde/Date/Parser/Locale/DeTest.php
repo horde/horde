@@ -28,7 +28,12 @@ class Horde_Date_Parser_Locale_DeTest extends Horde_Test_Case
 
     public function testTomorrow()
     {
-        $this->assertEquals('2006-08-17 12:00:00', (string)$this->parser->parse('morgen'));
+        $this->assertEquals('2006-08-17 09:00:00', (string)$this->parser->parse('morgen früh', array(), false));
+    }
+
+    public function testMorning()
+    {
+        $this->assertEquals('2006-08-16 09:00:00', (string)$this->parser->parse('heute morgen', array(), false));
     }
 
 }

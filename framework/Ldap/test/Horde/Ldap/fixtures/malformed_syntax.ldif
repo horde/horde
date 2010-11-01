@@ -1,0 +1,20 @@
+#
+# This is a LDIF file to test syntax error
+#
+
+# wrong syntax (space too less at val of objectclass)
+dn: cn=test1,ou=example,dc=cno
+objectclass:oc1
+cn: test1
+attr3: foo
+
+# wrong syntax (no DN given)
+objectclass:oc1
+cn: test_invalid
+attr3: foo
+
+# entry ok
+version: 1
+dn: cn=test3,ou=example,dc=cno
+objectclass: oc1
+attr3: foo

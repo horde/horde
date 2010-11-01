@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Group</name>
  <channel>pear.horde.org</channel>
  <summary>Horde User Groups System</summary>
- <description>Package for managing and accessing the Horde groups system.
- </description>
+ <description>Package for managing and accessing the Horde groups system.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -20,71 +16,117 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2008-09-16</date>
+ <date>2010-08-15</date>
+ <time>15:32:50</time>
  <version>
-  <release>0.1.0</release>
-  <api>0.1.0</api>
+  <release>0.2.0</release>
+  <api>0.2.0</api>
  </version>
  <stability>
   <release>beta</release>
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Added a mock driver for installations that don't need groups (Request #6157).
-* Added a beta SQL Group driver (Request #6175).
-* Removed unused renameGroup() function.
-* Fixed loading subclasses before unserializing session objects (Bug #4650)
-* Added caching.
-* Fixed getGroupParents().
-* Fixed listAllUsers().
-* Switched from hook functions for every group to a single hook function for all groups (Request #4324).
-* Added a Group driver for the Kolab groupware server.
-* Allow group members to be stored as DNs in LDAP driver (Bug #4131).
-* Significant changes to the LDAP Group driver (Bug #4135).
-* Fixed chicken and egg problem for creating the first LDAP group (Bug #4668).
-* Fixed nextgid calculation in the LDAP driver (Bug #4699).
-* UTF-8-encoded DNs in the LDAP Groups driver (Bugs #4692 and #4918).
+ <notes>
+* Throw exceptions, not PEAR_Errors.
+ * Initial Horde 4 release.
  </notes>
  <contents>
-  <dir name="/">
-   <dir name="Group">
-    <file baseinstalldir="/Horde" name="hooks.php" role="php" />
-    <file baseinstalldir="/Horde" name="kolab.php" role="php" />
-    <file baseinstalldir="/Horde" name="ldap.php" role="php" />
-    <file baseinstalldir="/Horde" name="mock.php" role="php" />
-    <file baseinstalldir="/Horde" name="sql.php" role="php" />
-    <file baseinstalldir="/Horde" name="contactlists.php" role="php" />
-   </dir> <!-- /Group -->
-   <file baseinstalldir="/Horde" name="Group.php" role="php" />
+  <dir baseinstalldir="/" name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Group">
+      <file name="ContactListObject.php" role="php" />
+      <file name="Contactlists.php" role="php" />
+      <file name="DataTreeObject.php" role="php" />
+      <file name="Exception.php" role="php" />
+      <file name="Hooks.php" role="php" />
+      <file name="Kolab.php" role="php" />
+      <file name="KolabObject.php" role="php" />
+      <file name="Ldap.php" role="php" />
+      <file name="LdapObject.php" role="php" />
+      <file name="Mock.php" role="php" />
+      <file name="Sql.php" role="php" />
+      <file name="SqlObject.php" role="php" />
+     </dir> <!-- //lib/Horde/Group -->
+     <file name="Group.php" role="php" />
+    </dir> <!-- //lib/Horde -->
+   </dir> <!-- //lib -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
   <required>
    <php>
-    <min>4.3.0</min>
+    <min>5.2.0</min>
    </php>
    <pearinstaller>
-    <min>1.5.4</min>
+    <min>1.7.0</min>
    </pearinstaller>
    <package>
-    <name>Horde_Framework</name>
+    <name>Core</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
-    <name>Horde_DataTree</name>
+    <name>DataTree</name>
     <channel>pear.horde.org</channel>
    </package>
+   <package>
+    <name>Exception</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Util</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </required>
+  <optional>
    <package>
     <name>Auth</name>
     <channel>pear.horde.org</channel>
    </package>
-   <extension>
-    <name>gettext</name>
-   </extension>
-  </required>
+   <package>
+    <name>Db</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Ldap</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </optional>
  </dependencies>
- <phprelease />
+ <phprelease>
+  <filelist>
+   <install as="Horde/Group.php" name="lib/Horde/Group.php" />
+   <install as="Horde/Group/ContactListObject.php" name="lib/Horde/Group/ContactListObject.php" />
+   <install as="Horde/Group/Contactlists.php" name="lib/Horde/Group/Contactlists.php" />
+   <install as="Horde/Group/DataTreeObject.php" name="lib/Horde/Group/DataTreeObject.php" />
+   <install as="Horde/Group/Exception.php" name="lib/Horde/Group/Exception.php" />
+   <install as="Horde/Group/Hooks.php" name="lib/Horde/Group/Hooks.php" />
+   <install as="Horde/Group/Kolab.php" name="lib/Horde/Group/Kolab.php" />
+   <install as="Horde/Group/KolabObject.php" name="lib/Horde/Group/KolabObject.php" />
+   <install as="Horde/Group/Ldap.php" name="lib/Horde/Group/Ldap.php" />
+   <install as="Horde/Group/LdapObject.php" name="lib/Horde/Group/LdapObject.php" />
+   <install as="Horde/Group/Mock.php" name="lib/Horde/Group/Mock.php" />
+   <install as="Horde/Group/Sql.php" name="lib/Horde/Group/Sql.php" />
+   <install as="Horde/Group/SqlObject.php" name="lib/Horde/Group/SqlObject.php" />
+  </filelist>
+ </phprelease>
  <changelog>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2003-07-05</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+Initial release as a PEAR package
+   </notes>
+  </release>
   <release>
    <version>
     <release>0.0.2</release>
@@ -97,22 +139,53 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <date>2006-05-08</date>
    <time>21:51:02</time>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>* Added ldap driver.
+   <notes>
+* Added ldap driver.
 * Converted to package.xml 2.0 for pear.horde.org.
    </notes>
   </release>
   <release>
+   <date>2008-09-16</date>
    <version>
-    <release>0.0.1</release>
-    <api>0.0.1</api>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
    </version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api>
+    <release>beta</release>
+    <api>beta</api>
    </stability>
-   <date>2003-07-05</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Initial release as a PEAR package
+   <notes>
+* Added a mock driver for installations that don&apos;t need groups (Request #6157).
+   * Added a beta SQL Group driver (Request #6175).
+   * Removed unused renameGroup() function.
+   * Fixed loading subclasses before unserializing session objects (Bug #4650)
+   * Added caching.
+   * Fixed getGroupParents().
+   * Fixed listAllUsers().
+   * Switched from hook functions for every group to a single hook function for all groups (Request #4324).
+   * Added a Group driver for the Kolab groupware server.
+   * Allow group members to be stored as DNs in LDAP driver (Bug #4131).
+   * Significant changes to the LDAP Group driver (Bug #4135).
+   * Fixed chicken and egg problem for creating the first LDAP group (Bug #4668).
+   * Fixed nextgid calculation in the LDAP driver (Bug #4699).
+   * UTF-8-encoded DNs in the LDAP Groups driver (Bugs #4692 and #4918).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2010-08-15</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Throw exceptions, not PEAR_Errors.
+ * Initial Horde 4 release.
    </notes>
   </release>
  </changelog>

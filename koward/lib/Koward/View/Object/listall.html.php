@@ -1,9 +1,7 @@
-<?= $this->renderPartial('header'); ?>
-<?= $this->renderPartial('menu'); ?>
+<?php echo $this->renderPartial('header'); ?>
+<?php echo $this->renderPartial('menu'); ?>
 
-<?= $this->addBuiltinHelpers(); ?>
-
-<?= $this->tabs->render($this->object_type); ?>
+<?php echo $this->tabs->render($this->object_type); ?>
 
 <?php if (isset($this->objectlist)): ?>
 
@@ -11,13 +9,13 @@
  <thead>
   <tr>
    <?php if ($this->allowEdit): ?>
-    <th class="item" width="1%"><?php echo Horde::img('edit.png', _("Edit"), '', $GLOBALS['registry']->getImageDir('horde')) ?></th>
+    <th class="item" width="1%"><?php echo Horde::img('edit.png', _("Edit")) ?></th>
    <?php endif; ?>
    <?php if ($this->allowDelete): ?>
-    <th class="item" width="1%"><?php echo Horde::img('delete.png', _("Delete"), '', $GLOBALS['registry']->getImageDir('horde')) ?></th>
+    <th class="item" width="1%"><?php echo Horde::img('delete.png', _("Delete")) ?></th>
    <?php endif; ?>
    <?php foreach ($this->attributes as $attribute => $info): ?>
-     <th class="item leftAlign" width="<?php echo $info['width'] ?>%" nowrap="nowrap"><?= $info['title'] ?></th>
+     <th class="item leftAlign" width="<?php echo $info['width'] ?>%" nowrap="nowrap"><?php echo $info['title'] ?></th>
    <?php endforeach; ?>
   </tr>
  </thead>
@@ -26,24 +24,24 @@
   <tr>
    <?php if ($this->allowEdit): ?>
     <td>
-     <?= $info['edit_url'] ?>
-    </td> 
+     <?php echo $info['edit_url'] ?>
+    </td>
    <?php endif; ?>
    <?php if ($this->allowDelete): ?>
     <td>
-     <?= $info['delete_url'] ?>
-    </td> 
+     <?php echo $info['delete_url'] ?>
+    </td>
    <?php endif; ?>
    <?php foreach ($this->attributes as $attribute => $ainfo): ?>
    <td>
    <?php if (!empty($ainfo['link_view'])): ?>
-   <?= $info['view_url'] . $this->escape($info[$attribute]) . '</a>'; ?>
+   <?php echo $info['view_url'] . $this->escape($info[$attribute]) . '</a>'; ?>
    <?php else: ?>
-    <?= $this->escape($info[$attribute]) ?>
+    <?php echo $this->escape($info[$attribute]) ?>
    <?php endif; ?>
-   </td> 
+   </td>
    <?php endforeach; ?>
-  </tr> 
+  </tr>
   <?php endforeach; ?>
  </tbody>
 </table>

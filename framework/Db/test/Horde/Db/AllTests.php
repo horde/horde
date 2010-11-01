@@ -34,7 +34,12 @@ date_default_timezone_set('America/New_York');
  */
 class Horde_Db_AllTests extends Horde_Test_AllTests
 {
-    public static function main()
+    public static $connFactory;
+
+    /**
+     * Main entry point for running the suite.
+     */
+    public static function main($package = null, $file = null)
     {
         PHPUnit_TextUI_TestRunner::run(self::suite());
     }
@@ -49,9 +54,7 @@ class Horde_Db_AllTests extends Horde_Test_AllTests
 
         // Set up autoload
         set_include_path(dirname(dirname(dirname(dirname(__FILE__)))) . DIRECTORY_SEPARATOR . 'lib' . PATH_SEPARATOR . get_include_path());
-        if (!spl_autoload_functions()) {
-            spl_autoload_register(create_function('$class', '$filename = str_replace(array(\'::\', \'_\'), \'/\', $class); @include_once "$filename.php";'));
-        }
+        require_once 'Horde/Test/Autoload.php';
 
         // Build the suite
         $suite = new PHPUnit_Framework_TestSuite('Horde Framework - Horde_Db');

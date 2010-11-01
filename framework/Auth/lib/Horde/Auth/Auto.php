@@ -5,24 +5,15 @@
  * This is only for use in testing or behind a firewall; it should NOT be
  * used on a public, production machine.
  *
- * Optional parameters:
- * <pre>
- * 'password' - (string) The password to record in the user's credentials.
- *              DEFAULT: none
- * 'requestuser' - (boolean) If true, allow username to be passed by GET, POST
- *                 or cookie.
- *                DEFAULT: No
- * 'username' - (string) The username to authenticate everyone as.
- *              DEFAULT: 'horde_user'
- * </pre>
- *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_Auth
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
+ * @package  Auth
  */
 class Horde_Auth_Auto extends Horde_Auth_Base
 {
@@ -39,15 +30,26 @@ class Horde_Auth_Auto extends Horde_Auth_Base
     /**
      * Constructor.
      *
-     * @param array $params  A hash containing parameters.
+     * @param array $params  Optional parameters:
+     * <pre>
+     * 'password' - (string) The password to record in the user's credentials.
+     *              DEFAULT: none
+     * 'requestuser' - (boolean) If true, allow username to be passed by GET,
+     *                 POST or cookie.
+     *                 DEFAULT: No
+     * 'username' - (string) The username to authenticate everyone as.
+     *              DEFAULT: 'horde_user'
+     * </pre>
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
-        parent::__construct($params);
+        $params = array_merge(array(
+            'password' => '',
+            'requestuser' => false,
+            'username' => 'horde_user'
+        ), $params);
 
-        if (!isset($this->_params['username'])) {
-            $this->_params['username'] = 'horde_user';
-        }
+        parent::__construct($params);
     }
 
     /**
@@ -62,7 +64,7 @@ class Horde_Auth_Auto extends Horde_Auth_Base
      */
     protected function _authenticate($userId, $credentials)
     {
-        throw new Horde_Auth_Exception('unsupported');
+        throw new Horde_Auth_Exception('Unsupported.');
     }
 
     /**
@@ -70,7 +72,7 @@ class Horde_Auth_Auto extends Horde_Auth_Base
      *
      * @return boolean  Whether or not the client is allowed.
      */
-    protected function _transparent()
+    public function transparent()
     {
         $this->_credentials['userId'] = (!empty($this->_params['requestuser']) && isset($_REQUEST['username']))
             ? $_REQUEST['username']

@@ -18,8 +18,10 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package IMP
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
 class IMP_Filter
 {
@@ -31,12 +33,13 @@ class IMP_Filter
      */
     public function filter($mbox)
     {
-        if (empty($_SESSION['imp']['filteravail'])) {
+        if (!$GLOBALS['session']['imp:filteravail']) {
             return;
         }
 
-        $mbox_list = $GLOBALS['imp_search']->isSearchMbox($mbox)
-            ? $GLOBALS['imp_search']->getSearchFolders($mbox)
+        $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
+        $mbox_list = $imp_search->isSearchMbox($mbox)
+            ? $imp_search[$mbox]->mboxes
             : array($mbox);
 
         foreach ($mbox_list as $val) {
@@ -48,37 +51,35 @@ class IMP_Filter
      * Adds the From address from the message(s) to the blacklist and deletes
      * the message(s).
      *
-     * @param array $indices      See IMP::parseIndicesList().
-     * @param boolean $show_link  Show link to the blacklist management in the
-     *                            notification message?
+     * @param IMP_Indices $indices  An indices object.
+     * @param boolean $show_link    Show link to the blacklist management in
+     *                              the notification message?
      *
      * @return boolean  True if the messages(s) were deleted.
      * @throws Horde_Exception
      */
     public function blacklistMessage($indices, $show_link = true)
     {
-        if ($this->_processBWlist($indices, _("your blacklist"), 'blacklistFrom', 'showBlacklist', $show_link)) {
-            $imp_message = IMP_Message::singleton();
-
-            if (($msg_count = $imp_message->delete($indices))) {
-                if ($msg_count == 1) {
-                    $GLOBALS['notification']->push(_("The message has been deleted."), 'horde.message');
-                } else {
-                    $GLOBALS['notification']->push(_("The messages have been deleted."), 'horde.message');
-                }
-                return true;
-            }
+        if (!$this->_processBWlist($indices, _("your blacklist"), 'blacklistFrom', 'showBlacklist', $show_link) ||
+            !($msg_count = $GLOBALS['injector']->getInstance('IMP_Message')->delete($indices))) {
+            return false;
         }
 
-        return false;
+        if ($msg_count == 1) {
+            $GLOBALS['notification']->push(_("The message has been deleted."), 'horde.message');
+        } else {
+            $GLOBALS['notification']->push(_("The messages have been deleted."), 'horde.message');
+        }
+
+        return true;
     }
 
     /**
      * Adds the From address from the message(s) to the whitelist.
      *
-     * @param array $indices      See IMP::parseIndicesList().
-     * @param boolean $show_link  Show link to the whitelist management in the
-     *                            notification message?
+     * @param IMP_Indices $indices  An indices object.
+     * @param boolean $show_link    Show link to the whitelist management in
+     *                              the notification message?
      *
      * @return boolean  True if the messages(s) were whitelisted.
      * @throws Horde_Exception
@@ -91,34 +92,36 @@ class IMP_Filter
     /**
      * Internal function to handle adding addresses to [black|white]list.
      *
-     * @param array $indices   See IMP::parseIndicesList().
-     * @param string $descrip  The textual description to use.
-     * @param string $reg1     The name of the mail/ registry call to use for
-     *                         adding the addresses.
-     * @param string $reg2     The name of the mail/ registry call to use for
-     *                         linking to the filter management page.
-     * @param boolean $link    Show link to the whitelist management in the
-     *                         notification message?
+     * @param IMP_Indices $indices  An indices object.
+     * @param string $descrip       The textual description to use.
+     * @param string $reg1          The name of the mail/ registry call to use
+     *                              for adding the addresses.
+     * @param string $reg2          The name of the mail/ registry call to use
+     *                              for linking to the filter management page.
+     * @param boolean $link         Show link to the whitelist management in
+     *                              the notification message?
      *
      * @return boolean  True on success.
-     * @throws Horde_Exception
+     * @throws IMP_Exception
      */
     protected function _processBWlist($indices, $descrip, $reg1, $reg2, $link)
     {
-        if (!($msgList = IMP::parseIndicesList($indices))) {
+        if (!count($indices)) {
             return false;
         }
 
-        /* Get the list of from addresses. */
         $addr = array();
-        foreach ($msgList as $mbox => $msgIndices) {
-            $GLOBALS['imp_imap']->checkUidvalidity($mbox);
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
 
-            foreach ($msgIndices as $idx) {
-                $contents = IMP_Contents::singleton($idx . IMP::IDX_SEP . $mbox);
-                $hdr = $contents->getHeaderOb();
-                $addr[] = Horde_Mime_Address::bareAddress($hdr->getValue('from'));
-            }
+        foreach (array_keys($indices) as $mbox) {
+            $imp_imap->checkUidvalidity($mbox);
+        }
+
+        /* Get the list of from addresses. */
+        foreach ($indices as $mbox => $idx) {
+            $contents = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Contents')->create(new IMP_Indices($mbox, $idx));
+            $hdr = $contents->getHeaderOb();
+            $addr[] = Horde_Mime_Address::bareAddress($hdr->getValue('from'));
         }
 
         $GLOBALS['registry']->call('mail/' . $reg1, array($addr));
@@ -131,4 +134,5 @@ class IMP_Filter
 
         return true;
     }
+
 }

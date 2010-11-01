@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<help>
+  <entry id="hermes-job-types" state="unknown">
+    <title>Tipos de objetos de trabajo/facturables de Hermes</title>
+    <heading>Tipos de objetos de trabajo/facturables de Hermes</heading>
+    <para>Hermes introduce el concepto de tareas a las que pertenece un periodo de tiempo, as&#xED; como los periodos de tiempo correspondientes a un cliente, aunque  la terminolog&#xED;a utilizada es para una 'objeto de gastos', pero creo que &#xE9;sto puede resultar algo confuso y por ello esta entrada.</para>
+    <para>Hermes (as&#xED; parece) presenta posibles objetos de gastos desde m&#xFA;ltiples or&#xED;genes, uno de los cuales son las notas de Mnemo, por lo que si quiere tener una tarea a la que asignar periodos de tiempo, una forma f&#xE1;cil de hacerlo ser&#xED;a crear una nota en Mnemo y asignar los periodos al objeto de gasto representado por la nota.</para>
+    <para>Alguien pronto podr&#xED;a desear a&#xF1;adir informaci&#xF3;n sobre otros or&#xED;genes de objetos de gastos. Creo que las incidencias de Whups tambi&#xE9;n se pueden usar como objetos de gastos, pero no estoy seguro.</para>
+  <!-- English entry:
+<entry id="hermes-job-types">
+    <title>Hermes Job Types</title>
+    <para>A job type in Hermes characterizes what kind of work has been done
+    in a time slice. The administrator has set a number of job types to choose
+    from.</para>
+  </entry>--></entry>
+  <entry id="hermes-cost-objects" state="new">
+    <title>Hermes Cost Objects</title>
+    <para>Hermes draws possible cost objects from a variety of sources, for
+    example deliverable defined by the administator in Hermes, tasks from a
+    todo list manager, or tickets from a ticket-tracking system.</para>
+  </entry>
+  <entry id="hermes-time-format" state="new">
+    <title>Hermes Time Format</title>
+    <para>Hermes does not format its times as hours and minutes, rather the
+    time slices are formatted as decimal portions of an hour.</para>
+  </entry>
+  <entry id="hermes-submit-slices" state="new">
+    <title>Submitting Time Slices</title>
+    <para>Submitting time slices "marks" them as finshed. This is
+    also a sign for the administrator or bookkeeping department that they are
+    ready to be further processed. As long as you didn't submit your slices,
+    they are still considered due to be changed, but after submitting them you
+    can no longer change them.</para>
+    <heading>Submitting Certain Time Slices</heading>
+    <para>While this cannot be easily achieved from the default time slice
+    view, which shows all time slices for all clients, and the tabs simply
+    group the time slices differently, this can be accomplished by using the
+    search facility. Set the "Submitted?" field to "No"
+    and select any other criteria from the various from fields, then click
+    "Search".</para>
+    <para>On submission of the search form in that way, you are presented with
+    a view just like the initial time slice view, but containing just the
+    slices with the picked criteria, with all checkboxes already checked, so
+    you can just click "Submit Selected Time" to do so.</para>
+  </entry>
+</help>

@@ -2,10 +2,8 @@
 /**
  * A class that stores notifications in the session.
  *
- * PHP version 5
- *
  * @category Horde
- * @package  Horde_Notification
+ * @package  Notification
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Notification
@@ -33,12 +31,12 @@ implements Horde_Notification_Storage_Interface
      *
      * @var string
      */
-    private $_stack;
+    protected $_stack;
 
     /**
      * Constructor.
      *
-     * @param string $stack The name of the notification stack.
+     * @param string $stack  The name of the notification stack.
      */
     public function __construct($stack)
     {
@@ -51,13 +49,13 @@ implements Horde_Notification_Storage_Interface
     }
 
     /**
-     * Return the given stack by reference from the notification store.
+     * Return the given stack from the notification store.
      *
-     * @param string $key The key for the data.
+     * @param string $key  The key for the data.
      *
-     * @return mixed The notification data stored for the given key.
+     * @return mixed  The notification data stored for the given key.
      */
-    public function &get($key)
+    public function get($key)
     {
         return $_SESSION[$this->_stack][$key];
     }
@@ -66,9 +64,7 @@ implements Horde_Notification_Storage_Interface
      * Set the given stack in the notification store.
      *
      * @param string $key   The key for the data.
-     * @param mixed  $value The data.
-     *
-     * @return NULL
+     * @param mixed $value  The data.
      */
     public function set($key, $value)
     {
@@ -78,9 +74,9 @@ implements Horde_Notification_Storage_Interface
     /**
      * Is the given stack present in the notification store?
      *
-     * @param string $key The key of the data.
+     * @param string $key  The key of the data.
      *
-     * @return boolean True if the element is set, false otherwise.
+     * @return boolean  True if the element is set, false otherwise.
      */
     public function exists($key)
     {
@@ -90,9 +86,7 @@ implements Horde_Notification_Storage_Interface
     /**
      * Unset the given stack in the notification store.
      *
-     * @param string $key The key of the data.
-     *
-     * @return NULL
+     * @param string $key  The key of the data.
      */
     public function clear($key)
     {
@@ -102,13 +96,15 @@ implements Horde_Notification_Storage_Interface
     /**
      * Store a new event for the given listener stack.
      *
-     * @param string $listener The event will be stored for this listener.
-     * @param array  $event    The event to store.
-     *
-     * @return NULL
+     * @param string $listener                 The event will be stored for
+     *                                         this listener.
+     * @param Horde_Notification_Event $event  The event to store.
      */
-    public function push($listener, array $event)
+    public function push($listener, Horde_Notification_Event $event)
     {
+        /* No need to serialize() ourselves - PHP's session handling does
+         * this automatically. */
         $_SESSION[$this->_stack][$listener][] = $event;
     }
+
 }

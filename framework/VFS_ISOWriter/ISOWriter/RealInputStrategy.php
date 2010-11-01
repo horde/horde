@@ -10,9 +10,8 @@
  *
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
  * @package VFS_ISO
- * @since   Horde 3.0
  */
-class VFS_ISOWriter_RealInputStrategy {
+abstract class VFS_ISOWriter_RealInputStrategy {
 
     /**
      * A reference to the source VFS we want to read.
@@ -37,24 +36,16 @@ class VFS_ISOWriter_RealInputStrategy {
     /**
      * Get a real path to the input tree.
      *
-     * @abstract
      * @return mixed    A string with the real path, or PEAR_Error on failure.
      */
-    function getRealPath()
-    {
-        return PEAR::raiseError(_("Not implemented."));
-    }
+    abstract public function getRealPath();
 
     /**
      * Indicate we are finished with this input strategy.
      *
-     * @abstract
      * @return mixed        Null or PEAR_Error on failure.
      */
-    function finished()
-    {
-        return PEAR::raiseError(_("Not implemented."));
-    }
+    abstract public function finished();
 
     /**
      * Decide which strategy to use to get a real FS and create it.
@@ -79,7 +70,7 @@ class VFS_ISOWriter_RealInputStrategy {
         if (class_exists($class)) {
             $strategy = new $class($sourceVfs, $sourceRoot);
         } else {
-            $strategy = PEAR::raiseError(sprintf(_("Could not load strategy \"%s\"."),
+            $strategy = PEAR::raiseError(sprintf(Horde_VFS_ISOWriter_Translation::t("Could not load strategy \"%s\"."),
                                                  $method));
         }
 

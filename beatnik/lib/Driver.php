@@ -64,10 +64,10 @@ class Beatnik_Driver {
             return array();
         }
 
-        if (!Horde_Auth::isAdmin() &&
-            !$GLOBALS['perms']->hasPermission('beatnik:domains', Horde_Auth::getAuth(), $perms)) {
+        if (!$GLOBALS['registry']->isAdmin() &&
+            !$GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('beatnik:domains', $GLOBALS['registry']->getAuth(), $perms)) {
             foreach ($domains as $id => $domain) {
-                if (!$GLOBALS['perms']->hasPermission('beatnik:domains:' . $domain['zonename'], Horde_Auth::getAuth(), $perms)) {
+                if (!$GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('beatnik:domains:' . $domain['zonename'], $GLOBALS['registry']->getAuth(), $perms)) {
                     unset($domains[$id]);
                 }
             }
@@ -165,8 +165,7 @@ class Beatnik_Driver {
             $zonedata = $this->getRecords($_SESSION['beatnik']['curdomain']['zonename']);
         } catch (Exception $e) {
             $notification->push($e, 'horde.error');
-            header('Location:' . Horde::applicationUrl('listzones.php'));
-            exit;
+            Horde::url('listzones.php')->redirect;
         }
 
         if (isset($zonedata[$rectype])) {
@@ -218,7 +217,7 @@ class Beatnik_Driver {
                     throw new Beatnik_Exception(_('You do not have permssion to edit the SOA of this zone.'));
                 }
             } else {
-                $node = 'beatnik:domains:' . $_SESSION['beatnik']['curdomain']['zonename'] . ':' . $info['id'];
+                $node = 'beatnik:domains:' . $_SESSION['beatnik']['curdomain']['zonename'];
                 if (!Beatnik::hasPermission($node, Horde_Perms::EDIT, 2)) {
                     throw new Beatnik_Exception(_('You do not have permssion to edit this record.'));
                 }

@@ -4,11 +4,10 @@
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
- *
- * $Horde: incubator/hylax/folder.php,v 1.7 2009/06/10 05:24:17 slusarz Exp $
  */
+
 require_once dirname(__FILE__) . '/lib/Application.php';
-$hylax = new Hylax_Application(array('init' => true));
+$hylax = Horde_Registry::appInit('hylax');
 
 $folder = strtolower(Horde_Util::getFormData('folder', 'inbox'));
 $path = Horde_Util::getFormData('path');
@@ -18,25 +17,25 @@ $base_folders = Hylax::getBaseFolders();
 $folder_list = $hylax->storage->listFaxes($folder);
 
 /* Set up URLs which will be used in the list. */
-$view_url  = Horde::applicationUrl('view.php');
+$view_url  = Horde::url('view.php');
 $view_img  = Horde::img('view.gif', _("View"), 'align="middle"');
 
 $download_url = Horde_Util::addParameter($view_url, 'action', 'download');
-$download_img  = Horde::img('download.gif', _("Download"), 'align="middle"', $GLOBALS['registry']->getImageDir('horde'));
+$download_img  = Horde::img('download.gif', _("Download"));
 
-$edit_url = Horde::applicationUrl('edit.php');
+$edit_url = Horde::url('edit.php');
 $edit_label = ($folder == 'pending') ? _("Edit") : _("Resend");
-$edit_img = Horde::img('edit.gif', $edit_label, 'align="middle"', $GLOBALS['registry']->getImageDir('horde'));
+$edit_img = Horde::img('edit.gif', $edit_label);
 
-$del_url  = Horde::applicationUrl('delete.php');
-$del_img  = Horde::img('delete-small.gif', _("Delete"), 'align="middle"', $GLOBALS['registry']->getImageDir('horde'));
+$del_url  = Horde::url('delete.php');
+$del_img  = Horde::img('delete-small.gif', _("Delete"));
 
 $params = array('folder' => $folder, 'path' => $path);
-$warn_img = Horde::img('alerts/warning.gif', _("Warning"), 'align="middle"', $GLOBALS['registry']->getImageDir('horde'));
-$send_url  = Horde::applicationUrl('send.php');
+$warn_img = Horde::img('alerts/warning.gif', _("Warning"));
+$send_url  = Horde::url('send.php');
 
-$print_url  = Horde::applicationUrl('print.php');
-$print_img  = Horde::img('print.gif', _("Print"), 'align="middle"', $GLOBALS['registry']->getImageDir('horde'));
+$print_url  = Horde::url('print.php');
+$print_img  = Horde::img('print.gif', _("Print"));
 
 /* Loop through list and set up items. */
 $i = 0;
@@ -78,7 +77,7 @@ foreach ($folder_list as $key => $value) {
 $actions = array();
 foreach ($base_folders as $key => $value) {
     if ($folder != $key) {
-        $url = Horde_Util::addParameter(Horde::applicationUrl('folder.php'), 'folder', $key);
+        $url = Horde_Util::addParameter(Horde::url('folder.php'), 'folder', $key);
         $actions[] = Horde::link($url) . $value . '</a>';
     } else {
         $actions[] = $value;
@@ -86,7 +85,7 @@ foreach ($base_folders as $key => $value) {
 }
 
 /* Set up template. */
-$template = new Horde_Template();
+$template = $injector->createInstance('Horde_Template');
 if ($folder == 'archive') {
     $template->set('folder_name', $path);
 } else {
@@ -95,7 +94,10 @@ if ($folder == 'archive') {
 $template->set('folder', $folder_list, true);
 $template->set('actions', $actions);
 $template->set('menu', Hylax::getMenu('string'));
-$template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$template->set('notify', Horde::endBuffer());
 
 require HYLAX_TEMPLATES . '/common-header.inc';
 echo $template->fetch(HYLAX_TEMPLATES . '/folder/folder.html');

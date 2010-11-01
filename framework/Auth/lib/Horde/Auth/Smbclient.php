@@ -3,42 +3,40 @@
  * The Horde_Auth_Smbclient class provides an smbclient implementation of
  * the Horde authentication system.
  *
- * Required parameters:
- * <pre>
- * 'domain'          The domain name to authenticate with.
- * 'hostspec'        IP, DNS Name, or NetBios Name of the SMB server to
- *                   authenticate with.
- * 'smbclient_path'  The location of the smbclient(1) utility.
- * </pre>
- *
- * Optional parameters:
- * <pre>
- * 'group' - Group name that the user must be a member of. Will be
- *           ignored if the value passed is a zero length string.
- * </pre>
- *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
  *
- * @author  Jon Parise <jon@horde.org>
- * @author  Marcus I. Ryan <marcus@riboflavin.net>
- * @package Horde_Auth
+ * @author   Jon Parise <jon@horde.org>
+ * @author   Marcus I. Ryan <marcus@riboflavin.net>
+ * @category Horde
+ * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
+ * @package  Auth
  */
 class Horde_Auth_Smbclient extends Horde_Auth_Base
 {
     /**
      * Constructor.
      *
-     * @param array $params  A hash containing connection parameters.
+     * @param array $params  Parameters:
+     * <pre>
+     * 'domain' - (string) [REQUIRED] The domain name to authenticate with.
+     * 'group' - Group name that the user must be a member of.
+     *           DEFAULT: none
+     * 'hostspec' - (string) [REQUIRED] IP, DNS Name, or NetBios name of the
+     *              SMB server to authenticate with.
+     * 'smbclient_path' - (string) [REQUIRED] The location of the smbclient
+     *                    utility.
+     * </pre>
+     *
+     * @throws InvalidArgumentException
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
-        /* Ensure we've been provided with all of the necessary parameters. */
-        Horde::assertDriverConfig($params, 'auth',
-            array('hostspec', 'domain', 'smbclient_path'),
-            'authentication smbclient');
+        foreach (array('hostspec', 'domain', 'smbclient_path') as $val) {
+            throw new InvalidArgumentException('Missing ' . $val . ' parameter.');
+        }
 
         parent::__construct($params);
     }
@@ -58,23 +56,25 @@ class Horde_Auth_Smbclient extends Horde_Auth_Base
         }
 
         /* Authenticate. */
-        $cmdline = implode(' ', array($this->_params['smbclient_path'],
-                                      '-L',
-                                      $this->_params['hostspec'],
-                                      '-W',
-                                      $this->_params['domain'],
-                                      '-U',
-                                      $userId));
+        $cmdline = implode(' ', array(
+            $this->_params['smbclient_path'],
+            '-L',
+            $this->_params['hostspec'],
+            '-W',
+            $this->_params['domain'],
+            '-U',
+            $userId
+        ));
 
         $sc = popen($cmdline, 'w');
         if ($sc === false) {
-            throw new Horde_Auth_Exception(_("Unable to execute smbclient."));
+            throw new Horde_Auth_Exception('Unable to execute smbclient.');
         }
 
         fwrite($sc, $credentials['password']);
         $rc = pclose($sc);
 
-        if ((int)($rc & 0xff) != 0) {
+        if (intval($rc & 0xff) != 0) {
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
         }
     }

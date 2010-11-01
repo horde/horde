@@ -1,16 +1,16 @@
-<?xml version="1.0" encoding="BIG5"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
   <entry id="summary" md5="64666364eda4c20d8c5d5e69a31408b7" state="changed">
-<title>�K�n����</title>
+<title>摘要頁面</title>
  <para>
-  �o�ӭ������ѩҦ�����A�����I�K�n��T�C�Ҧp�A
-  ���i�H��ܥX�b�A������c���ثe���X�ʷs�l��C��ƾ䤤�Y�N�Ө쪺�Ʊ��A
-  �N��ï���������ǫݿ�ƶ��A�s�D�A�Ȫ��̷s���������C
-  �ӳo�ǺK�n�P�ɤ]�]�t�F�ֱ��\��AĴ�p�l��g�@�A�إ߷s����ƾ�ƥ󵥵��C
+  這個頁面提供所有關於你的重點摘要資訊。例如，
+  它可以顯示出在你的收件箱中目前有幾封新郵件。行事曆中即將來到的事情，
+  代辦簿中的有哪些待辦事項，新聞服務的最新消息等等。
+  而這些摘要同時也包含了快捷功能，譬如郵件寫作，建立新的行事曆事件等等。
  </para>
  <para>
- �ӳo�ǺK�n�����e�O�i�H���A�g�ѿﶵ�]�w�ۦ�w�ƪ��C �Ҧp�A
- �A�i�H��ܭn�[�J���@�Ƕ��ب�K�n�������C
+ 而這些摘要的內容是可以讓你經由選項設定自行安排的。 例如，
+ 你可以選擇要加入哪一些項目到摘要頁面中。
  </para>
 <!-- English entry:
 <entry id="summary">
@@ -30,10 +30,10 @@
  </para>
 </entry>--></entry>
   <entry id="navbar" md5="54db4eb21a7a31337c81b2782849f962" state="changed">
-<title>���ε{���s���C</title>
+<title>應用程式瀏覽列</title>
  <para>
-  �b�����̤U�誺�@�ƹϮ׺٬����ε{���s���C�C
-  �I��W�������@�Ӥp�ϥܱN�i�����ֳt�������󤣦P�����ε{���C
+  在頁面最下方的一排圖案稱為應用程式瀏覽列。
+  點選上面的任一個小圖示將可輕易快速的切換於不同的應用程式。
  </para>
 <!-- English entry:
 <entry id="navbar">

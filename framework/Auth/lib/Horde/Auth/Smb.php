@@ -11,47 +11,47 @@
  * and not equal to each other. In other words, to use this module you must
  * have a domain with at least one PDC and one BDC.
  *
- * Required parameters:
- * <pre>
- * 'hostspec' - IP, DNS Name, or NetBios Name of the SMB server to
- *              authenticate with.
- * 'domain' - The domain name to authenticate with.
- * </pre>
- *
- * Optional parameters:
- * <pre>
- * 'group' - Group name that the user must be a member of. Will be
- *           ignored if the value passed is a zero length string.
- * </pre>
- *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
  *
- * @author  Jon Parise <jon@horde.org>
- * @author  Marcus I. Ryan <marcus@riboflavin.net>
- * @package Horde_Auth
+ * @author   Jon Parise <jon@horde.org>
+ * @author   Marcus I. Ryan <marcus@riboflavin.net>
+ * @category Horde
+ * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
+ * @package  Auth
  */
 class Horde_Auth_Smb extends Horde_Auth_Base
 {
     /**
      * Constructor.
      *
-     * @param array $params  A hash containing connection parameters.
+     * @param array $params  Parameters:
+     * <pre>
+     * 'domain' - (string) [REQUIRED] The domain name to authenticate with.
+     * 'group' - Group name that the user must be a member of.
+     *           DEFAULT: none
+     * 'hostspec' - (string) [REQUIRED] IP, DNS Name, or NetBios name of the
+     *              SMB server to authenticate with.
+     * </pre>
      *
      * @throws Horde_Auth_Exception
+     * @throws InvalidArgumentException
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         if (!Horde_Util::extensionExists('smbauth')) {
-            throw new Horde_Auth_Exception(_("Horde_Auth_Smb: Required smbauth extension not found."));
+            throw new Horde_Auth_Exception(__CLASS__ . ': Required smbauth extension not found.');
         }
 
-        /* Ensure we've been provided with all of the necessary parameters. */
-        Horde::assertDriverConfig($params, 'auth',
-            array('hostspec', 'domain'),
-            'authentication Samba');
+        foreach (array('domain', 'hostspec') as $val) {
+            throw new InvalidArgumentException('Missing ' . $val . ' parameter.');
+        }
+
+        $params = array_merge(array(
+            'group' => null
+        ), $params);
 
         parent::__construct($params);
     }
@@ -78,7 +78,7 @@ class Horde_Auth_Smb extends Horde_Auth_Base
                          $credentials['password']);
 
         if ($rval === 1) {
-            throw new Horde_Auth_Exception(_("Failed to connect to SMB server."));
+            throw new Horde_Auth_Exception('Failed to connect to SMB server.');
         } elseif ($rval !== 0) {
             throw new Horde_Auth_Exception(err2str());
         }

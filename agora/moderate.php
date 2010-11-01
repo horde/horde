@@ -4,15 +4,12 @@
  *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
  *
- * $Horde: agora/moderate.php,v 1.32 2009-12-10 17:42:30 jan Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-define('AGORA_BASE', dirname(__FILE__));
-require_once AGORA_BASE . '/lib/base.php';
-require_once AGORA_BASE . '/lib/Messages.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('agora');
 
 /* Set up the messages object. */
 $scope = Horde_Util::getGet('scope', 'agora');
@@ -46,8 +43,7 @@ case _("Delete"):
 $messages_list = $messages->getModerateList($sort_by, $sort_dir);
 if ($messages_list instanceof PEAR_Error) {
     $notification->push($messages_list->getMessage(), 'horde.error');
-    header('Location: ' . Horde::applicationUrl('forums.php', true));
-    exit;
+    Horde::url('forums.php', true)->redirect();
 } elseif (empty($messages_list)) {
     $messages_count = 0;
     $notification->push(_("No messages are waiting for moderation."), 'horde.message');
@@ -67,11 +63,14 @@ $view->col_headers = $col_headers;
 $view->messages = $messages_list;
 $view->buttons = array(_("Approve"), _("Delete"));
 $view->session_tag = Horde_Util::formInput();
-$view->notify = Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status'));
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$view->notify = Horde::endBuffer();
 
 /* Set up pager. */
 $vars = Horde_Variables::getDefaultVariables();
-$pager_ob = new Horde_Ui_Pager('moderate_page', $vars, array('num' => $messages_count, 'url' => Horde::selfUrl(true), 'perpage' => $messages_per_page));
+$pager_ob = new Horde_Core_Ui_Pager('moderate_page', $vars, array('num' => $messages_count, 'url' => Horde::selfUrl(true), 'perpage' => $messages_per_page));
 $pager_ob->preserve('agora', Horde_Util::getFormData('agora'));
 $view->pager = $pager_ob->render();
 
@@ -79,9 +78,9 @@ if (isset($api_call)) {
     return $view->render('moderate.html.php');
 } else {
     $title = _("Messages Awaiting Moderation");
-    $view->menu = Agora::getMenu('string');
+    $view->menu = Horde::menu();
     Horde::addScriptFile('stripe.js', 'horde', true);
-    require_once AGORA_TEMPLATES . '/common-header.inc';
+    require AGORA_TEMPLATES . '/common-header.inc';
     echo $view->render('moderate.html.php');
-    require_once $registry->get('templates', 'horde') . '/common-footer.inc';
+    require $registry->get('templates', 'horde') . '/common-footer.inc';
 }

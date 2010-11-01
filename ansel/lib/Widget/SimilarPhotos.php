@@ -9,7 +9,7 @@
 class Ansel_Widget_SimilarPhotos extends Ansel_Widget_Base
 {
     /**
-     * @TODO
+     * Array of views that this widget may appear in.
      *
      * @var unknown_type
      */
@@ -44,55 +44,37 @@ class Ansel_Widget_SimilarPhotos extends Ansel_Widget_Base
     /**
      * Helper function for generating a widget of images related to this one.
      *
-     * @TODO Rethink the way we determine if an image is related. This one is
-     *       not ideal, as it just pops tags off the tag list until all the tags
-     *       match. This could miss many related images.
      *
      * @return string  The HTML
      */
     public function _getRelatedImages()
     {
-        global $ansel_storage;
+        $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create();
 
         $html = '';
-        $tags = array_values($this->_view->resource->getTags());
-        $imgs = Ansel_Tags::searchTags($tags);
+        $args = array('typeId' => 'image',
+                      'userId' => $this->_view->gallery->get('owner'));
 
-        while (count($imgs['images']) <= 5 && count($tags)) {
-            array_pop($tags);
-            $newImgs = Ansel_Tags::searchTags($tags);
-            $imgs['images'] = array_merge($imgs['images'], $newImgs['images']);
-        }
-        if (count($imgs['images'])) {
+        $results = $GLOBALS['injector']->getInstance('Ansel_Tagger')->listRelatedImages($this->_view->resource);
+        if (count($results)) {
             $i = 0;
-            foreach ($imgs['images'] as $imgId) {
-                if ($i >= min(count($imgs['images']), 5)) {
-                    break;
-                }
-                if ($imgId != $this->_view->resource->id) {
-                    $rImg = &$ansel_storage->getImage($imgId);
-                    if (is_a($rImg, 'PEAR_Error')) {
-                        continue;
-                    }
-                    $rGal = $ansel_storage->getGallery($rImg->gallery);
-                    if (is_a($rGal, 'PEAR_Error')) {
-                        continue;
-                    }
-                    $title = sprintf(_("%s from %s"), $rImg->filename, $rGal->get('name'));
-                    $html .= Horde::link(
-                        Ansel::getUrlFor('view',
-                                         array('image' => $imgId,
-                                               'view' => 'Image',
-                                               'gallery' => $rImg->gallery,
-                                               'slug' => $rGal->get('slug')),
-                                         true),
-                        $title)
-                    . '<img src="'. Ansel::getImageUrl($imgId, 'mini', true) . '" alt="' . htmlspecialchars($rImg->filename) . '" /></a>';
-                    $i++;
-                }
+            foreach ($results as $result) {
+                $img = $result['image'];
+                $rGal = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($img->gallery);
+                if ($rGal->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ))
+                $html .= Ansel::getUrlFor(
+                        'view',
+                         array('image' => $img->id,
+                               'view' => 'Image',
+                               'gallery' => $img->gallery,
+                               'slug' => $rGal->get('slug')),
+                         true)->link(array('title' =>  sprintf(_("%s from %s"), $img->filename, $rGal->get('name'))))
+                    . '<img src="'. Ansel::getImageUrl($img->id, 'mini', true) . '" alt="' . htmlspecialchars($img->filename) . '" /></a>';
+                $i++;
             }
         }
 
         return $html;
     }
+
 }

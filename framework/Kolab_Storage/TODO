@@ -1,0 +1,15 @@
+=====================================
+ Kolab_Storage Development TODO List
+=====================================
+
+ - Remove character set conversion from the namespace handler
+
+ - Do not hide the prefix of the shared namespace?
+
+ - Fix the triggering decorator
+
+ - Test the Driver implementations
+
+   - getNamespace() [DONE]
+
+ - replace imap_rfc822 use by Horde_Mail_Rfc822

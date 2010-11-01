@@ -128,7 +128,7 @@ class Folks_Hooks
             return $GLOBALS['registry']->callByPackage('ansel', 'listGalleries', array('ansel', Horde_Perms::SHOW, null, true, 0, 3, $user));
 
         case 'blogs':
-            return $GLOBALS['registry']->callByPackage('thomas', 'getRecentPosts', array($user, Horde_Auth::getAuth(), '', 3));
+            return $GLOBALS['registry']->callByPackage('thomas', 'getRecentPosts', array($user, $GLOBALS['registry']->getAuth(), '', 3));
 
         case 'classifieds':
             return $GLOBALS['registry']->callByPackage('classified', 'listAds', array(array('user_uid' => $user), 0, 3));
@@ -207,32 +207,31 @@ class Folks_Hooks
 
     public function prelogin($app)
     {
-        require_once 'Horde/Group.php';
-        $group = Group::singleton();
-        $user_uid = Horde_Auth::getAuth();
+        $group = $GLOBALS['injector']->getInstance('Horde_Group');
+        $user_uid = $GLOBALS['registry']->getAuth();
 
         switch ($app) {
 
         case 'gollem':
-
-            if (Horde_Auth::isAdmin() || $group->userIsInGroup($user_uid, 1, false)) {
+            if ($GLOBALS['registry']->isAdmin() ||
+                $group->userIsInGroup($user_uid, 1, false)) {
                 $_GET['backend_key'] = 'kjbnzi78';
                 require $GLOBALS['registry']->get('fileroot', 'gollem') .  '/redirect.php';
                 exit;
             } else {
-                header('Location: ' .  $GLOBALS['registry']->link('wiki/show',  array('page' => 'PaidFiles')));
-                exit;
+                $GLOBALS['registry']
+                    ->link('wiki/show', array('page' => 'PaidFiles'))
+                    ->redirect();
             }
             break;
 
         case 'imp':
-
-            if (Horde_Auth::isAdmin()
+            if ($GLOBALS['registry']->isAdmin()
                 || $group->userIsInGroup($user_uid, 1, false)
                 || $group->userIsInGroup($user_uid, 2, false)) {
 
-                $db = DB::connect($GLOBALS['conf']['sql']);
-                $password = $db->getOne('SELECT password FROM mails.accountuser WHERE username = ?', array($user_uid . '@' . $_SERVER['SERVER_NAME']));
+                $db = $GLOBALS['injector']->getInstance('Horde_Db_Adapter');
+                $password = $db->selectValue('SELECT password FROM mails.accountuser WHERE username = ?', array($user_uid . '@' . $_SERVER['SERVER_NAME']));
 
                 $try = $GLOBALS['registry']->callByPackage('imp', 'authenticate', array($user_uid, array('password' => $password)));
                 if ($try) {
@@ -272,13 +271,13 @@ class Folks_Hooks
             throw new Horde_Exception(_("Username can contain only alphanumeric characters, underscore and minus."));
         }
 
-        $_db = DB::connect($GLOBALS['conf']['sql'], true);
+        $db = $GLOBALS['injector']->getInstance('Horde_Db_Adapter');
 
         $query  = 'SELECT user_uid, user_email FROM folks_users WHERE user_uid = ? OR user_email = ?';
-        $result = $_db->getRow($query, array($username, $info['extra']['email']), DB_FETCHMODE_ASSOC);
+        $result = $db->selectOne($query, array($username, $info['extra']['email']), DB_FETCHMODE_ASSOC);
 
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
+            throw new Horde_Exception_Prior($result);
         } elseif (empty($result)) {
             return $info;
         } elseif ($result['user_uid'] == $username) {
@@ -295,11 +294,11 @@ class Folks_Hooks
 // Here we connect to the database and update folks user table
 // with additional user data and send confirmation code to check his email
 
-     public function signup_addextra($userID, $extra)
-     {
+    public function signup_addextra($userID, $extra)
+    {
         global $conf;
 
-        $_db = DB::connect($conf['sql']);
+        $db = $GLOBALS['injector']->getInstance('Horde_Db_Adapter');
         $fields = array();
         $values = array();
         foreach ($extra as $field => $value) {
@@ -310,21 +309,18 @@ class Folks_Hooks
                 $value = hash('md5', $value);
             }
             $fields[] = 'user_' . Horde_String::lower($field);
-            $values[] = Horde_String::convertCharset($value, Horde_Nls::getCharset(), $conf['sql']['charset']);
+            $values[] = Horde_String::convertCharset($value, 'UTF-8', $conf['sql']['charset']);
         }
 
         $values[] = $userID;
         $query  = 'UPDATE folks_users SET ' . implode(' = ?, ', $fields) . ' = ? '
                     . '  WHERE user_uid = ?';
 
-        $result = $_db->query($query, $values);
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
-        }
+        $result = $db->update($query, $values);
 
         require_once $GLOBALS['registry']->get('fileroot', 'folks') . '/lib/Folks.php';
         $code = Folks::encodeString($userID, 'activate' . hash('md5', $extra['password']));
-        $link = Horde_Util::addParameter(Horde::applicationUrl('account/approve.php', true, -1),
+        $link = Horde_Util::addParameter(Horde::url('account/approve.php', true, -1),
                                     array('user' => $userID, 'code' => $code),
                                     null, false);
 
@@ -336,11 +332,11 @@ class Folks_Hooks
 
         $result = Folks::sendMail($extra['email'], _("Confirmation code"), $body);
         if ($result instanceof PEAR_Error) {
-            $_db->query('DELETE FROM folks_users WHERE user_uid = ?', array($userID));
+            $db->delete('DELETE FROM folks_users WHERE user_uid = ?', array($userID));
         }
 
         return $result;
-     }
+    }
 
 // This is an example of a post-push hook; it is called right after an
 // application is pushed successfully onto the app stack. Here we check
@@ -355,7 +351,7 @@ class Folks_Hooks
             return;
         }
 
-        $user = Horde_Auth::getAuth();
+        $user = $GLOBALS['registry']->getAuth();
         if ($user) {
             return;
         }

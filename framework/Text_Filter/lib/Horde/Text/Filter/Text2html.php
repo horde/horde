@@ -5,14 +5,12 @@
  *
  * Parameters:
  * <pre>
- * parselevel -- The parselevel of the output. See the list of constants below.
- * charset    -- The charset to use for htmlspecialchars() calls.
- * class      -- The CSS class name for the links.
- * nofollow   -- Whether to set the 'rel="nofollow"' attribute on links.
- * callback   -- An optional callback function that the URL is passed through
- *               before being set as the href attribute.  Must be a string with
- *               the function name, the function must take the original as the
- *               first and only parameter.
+ * charset - (string) The charset to use for htmlspecialchars() calls.
+ * class - (string) See Horde_Text_Filter_Linkurls::.
+ * emails - (array)
+ * linkurls - (array)
+ * parselevel - (integer) The parselevel of the output (see below).
+ * space2html - (array)
  * </pre>
  *
  * <pre>
@@ -34,13 +32,14 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Jan Schneider <jan@horde.org>
- * @package Horde_Text
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Text_Filter
  */
-class Horde_Text_Filter_Text2html extends Horde_Text_Filter
+class Horde_Text_Filter_Text2html extends Horde_Text_Filter_Base
 {
-    /* TODO */
     const PASSTHRU = 0;
     const SYNTAX = 1;
     const MICRO = 2;
@@ -54,10 +53,13 @@ class Horde_Text_Filter_Text2html extends Horde_Text_Filter
      * @var array
      */
     protected $_params = array(
-        'callback' => 'Horde::externalUrl',
-        'charset' => null,
+        'charset' => 'ISO-8859-1',
         'class' => 'fixed',
-        'nofollow' => false
+        'emails' => false,
+        'linkurls' => false,
+        'text2html' => false,
+        'parselevel' => 0,
+        'space2html' => false
     );
 
     /**
@@ -84,12 +86,6 @@ class Horde_Text_Filter_Text2html extends Horde_Text_Filter
      */
     public function preProcess($text)
     {
-        if (is_null($this->_params['charset'])) {
-            $this->_params['charset'] = isset($GLOBALS['_HORDE_STRING_CHARSET'])
-                ? $GLOBALS['_HORDE_STRING_CHARSET']
-                : 'ISO-8859-1';
-        }
-
         /* Abort out on simple cases. */
         if ($this->_params['parselevel'] == self::PASSTHRU) {
             return $text;
@@ -100,11 +96,30 @@ class Horde_Text_Filter_Text2html extends Horde_Text_Filter
         }
 
         if ($this->_params['parselevel'] < self::NOHTML) {
-            $filters = array('linkurls' => array('callback' => $this->_params['callback'], 'nofollow' => $this->_params['nofollow'], 'encode' => true));
-            if ($this->_params['parselevel'] < self::MICRO_LINKURL) {
-                $filters['emails'] = array('encode' => true);
+            $filters = array();
+            if ($this->_params['linkurls']) {
+                reset($this->_params['linkurls']);
+                $this->_params['linkurls'][key($this->_params['linkurls'])]['encode'] = true;
+                $filters = $this->_params['linkurls'];
+            } else {
+                $filters['linkurls'] = array(
+                    'encode' => true
+                );
             }
-            $text = parent::filter($text, array_keys($filters), array_values($filters));
+
+            if ($this->_params['parselevel'] < self::MICRO_LINKURL) {
+                if ($this->_params['emails']) {
+                    reset($this->_params['emails']);
+                    $this->_params['emails'][key($this->_params['emails'])]['encode'] = true;
+                    $filters += $this->_params['emails'];
+                } else {
+                    $filters['emails'] = array(
+                        'encode' => true
+                    );
+                }
+            }
+
+            $text = Horde_Text_Filter::filter($text, array_keys($filters), array_values($filters));
         }
 
         /* For level MICRO or NOHTML, start with htmlspecialchars(). */
@@ -126,7 +141,15 @@ class Horde_Text_Filter_Text2html extends Horde_Text_Filter
                 $text = Horde_Text_Filter_Emails::decode($text);
             }
 
-            $text = parent::filter($text, 'space2html');
+            if ($this->_params['space2html']) {
+                $params = reset($this->_params['space2html']);
+                $driver = key($this->_params['space2html']);
+            } else {
+                $driver = 'space2html';
+                $params = array();
+            }
+
+            $text = Horde_Text_Filter::filter($text, $driver, $params);
         }
 
         /* Do the newline ---> <br /> substitution. Everybody gets this; if

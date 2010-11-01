@@ -1,0 +1,33 @@
+<div class="header mboxheader">
+ <div class="rightFloat rightAlign">
+  <tag:msgcount />
+ </div>
+<if:page>
+ <div class="rightFloat pageCount">
+  (<tag:page />)
+ </div>
+</if:page>
+ <div class="leftFloat">
+  <span dir="ltr"><tag:pagetitle /></span>
+<if:readonly>
+  <tag:readonly />
+</if:readonly>
+  <tag:refresh /><span class="reloadImg"></span></a>
+<if:filter_url>
+  <a href="<tag:filter_url />" title="<gettext>Apply Filters</gettext>"><tag:filter_img /></a>
+</if:filter_url>
+<if:search_url>
+  <a href="<tag:search_url />" title="<gettext>Search</gettext>"><tag:search_img /></a>
+<if:searchclose>
+  <a href="<tag:searchclose />" title="<gettext>Exit Search</gettext>"><span class="closeImg"</span></a>
+</if:searchclose>
+</if:search_url>
+<if:edit_search_url>
+  <a href="<tag:edit_search_url />" title="<tag:edit_search_title />"><tag:edit_search_img /></a>
+</if:edit_search_url>
+<if:empty>
+  <a href="<tag:empty />" id="empty_mailbox" title="<gettext>Empty Mailbox</gettext>"><tag:empty_img /></a>
+</if:empty>
+ </div>
+ <div class="clear"></div>
+</div>

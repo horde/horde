@@ -1,0 +1,4185 @@
+# Turkish translations for Horde package
+# Horde paketi için Türkçe çeviriler.
+# Copyright 2008-2010 The Horde Project (http://www.horde.org/)
+# This file is distributed under the same license as the Horde package.
+# horde-tr at metu.edu.tr, 2005-2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde 3.2-RC3\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 02:42+0200\n"
+"PO-Revision-Date: 2008-04-15 12:57+0300\n"
+"Last-Translator: horde-tr team\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: lib/Block/weatherdotcom.php:260 lib/Block/weatherdotcom.php:363
+#: lib/Block/weatherdotcom.php:409
+msgid " at "
+msgstr " de(da) "
+
+#: admin/groups.php:50
+#, php-format
+msgid "\"%s\" was added to the groups system."
+msgstr "\"%s\" grup sistemine eklendi."
+
+#: admin/perms/addchild.php:43
+#, php-format
+msgid "\"%s\" was added to the permissions system."
+msgstr "\"%s\" izin sistemine eklendi."
+
+#: admin/groups.php:56 admin/perms/addchild.php:47
+#, php-format
+msgid "\"%s\" was not created: %s."
+msgstr "\"%s\" yaratılamadı: %s."
+
+#: lib/Block/account.php:83
+#, php-format
+msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
+msgstr "%.2fMB kullanıldı. İzin verilen %.2fMB . (%.2f%%)"
+
+#: lib/Block/weatherdotcom.php:241
+#, php-format
+msgid "%d %s and %s"
+msgstr "%d %s ve %s"
+
+#: lib/Block/account.php:708 lib/Block/account.php:720
+#, php-format
+msgid "%d days until your password expires."
+msgstr "Şifrenizin son kullanım tarihine %d gün kaldı."
+
+#: lib/Block/metar.php:281
+#, php-format
+msgid "%d minutes"
+msgstr "%d dakika"
+
+#: services/facebook.php:114
+#, php-format
+msgid "%d person likes this"
+msgid_plural "%d persons like this"
+msgstr[0] ""
+
+#: templates/admin/user/list.inc:4
+#, php-format
+msgid "%d to %d of %d"
+msgstr "%d den %d e. toplam: %d"
+
+#: lib/Block/weatherdotcom.php:288
+#, php-format
+msgid "%d-day forecast"
+msgstr "%d-günlük hava tahmini"
+
+#: services/logintasks.php:83
+#, php-format
+msgid "%s - Notice"
+msgstr "%s - Bildirim"
+
+#: admin/config/config.php:21 admin/config/index.php:226
+#, fuzzy, php-format
+msgid "%s Configuration"
+msgstr "Yapılandırma"
+
+#: services/logintasks.php:64
+#, fuzzy, php-format
+msgid "%s Tasks - Confirmation"
+msgstr "Onaylı Şifre"
+
+#: services/logintasks.php:74
+#, php-format
+msgid "%s Terms of Agreement"
+msgstr "%s Anlaşma Koşulları"
+
+#: lib/Block/metar.php:154 lib/Block/metar.php:160 lib/Block/metar.php:234
+#: lib/Block/metar.php:340 lib/Block/metar.php:346
+#, php-format
+msgid "%s at %s %s"
+msgstr "%s de %s %s"
+
+#: services/logintasks.php:63
+#, fuzzy, php-format
+msgid ""
+"%s is ready to perform the tasks checked below. Check the box for any "
+"operation(s) you want to perform at this time."
+msgstr ""
+"%s aşağıda işaretlenmiş bakım işlemleri yapılmaya hazır. Şimdi uygulamak "
+"istediğiniz işlemlere ait kutuları işaretleyiniz."
+
+#: lib/Block/vatid.php:58
+#, php-format
+msgid "%s not found."
+msgstr "%s bulunamadı."
+
+#: lib/Block/weatherdotcom.php:367 lib/Block/weatherdotcom.php:412
+msgid ", gusting "
+msgstr ", fırtınalı "
+
+#: lib/Block/metar.php:183 lib/Block/metar.php:188
+#, php-format
+msgid ", gusting %s %s"
+msgstr ", fırtınalı %s %s"
+
+#: lib/Block/metar.php:196
+#, php-format
+msgid ", variable from %s to %s"
+msgstr ", değişim %s -> %s"
+
+#: lib/Block/time.php:26
+msgid "12 Hour Format"
+msgstr "12 Saatlik Zaman Biçimi"
+
+#: lib/Block/time.php:25
+msgid "24 Hour Format"
+msgstr "24 Saatlik Zaman Biçimi"
+
+#: templates/data/datetime.inc:109 templates/data/time.inc:28
+msgid "24 hours"
+msgstr "24 saat"
+
+#: templates/prefs/facebook.html:15
+msgid ""
+"<tag:app_name /> can interact with your Facebook account, but you must login "
+"to Facebook manually each time."
+msgstr ""
+
+#: templates/prefs/facebook.html:38
+msgid "<tag:app_name /> cannot read your stream messages."
+msgstr ""
+
+#: templates/prefs/facebook.html:26
+msgid ""
+"<tag:app_name /> cannot set your status messages or publish other content to "
+"Facebook."
+msgstr ""
+
+#: templates/prefs/twitter.html:9
+msgid "<tag:appname /> can interact with your Twitter account"
+msgstr ""
+
+#: services/keyboard.php:46
+msgid "A characters"
+msgstr "Bir karakter"
+
+#: lib/Block/metar.php:117
+msgid "A database backend is required for this block."
+msgstr "Bu öbek için veritabanı arka aracı gerekmektedir."
+
+#: admin/activesync.php:35
+msgid ""
+"A device wipe has been requested. Device will be wiped on next "
+"syncronization attempt."
+msgstr ""
+
+#: admin/config/index.php:92 admin/config/index.php:124
+#, php-format
+msgid "A newer version (%s) exists."
+msgstr "Daha yeni bir sürüm (%s) var."
+
+#: lib/Prefs/Ui.php:743
+#, php-format
+msgid ""
+"A remote wipe for device id %s has been initiated. The device will be wiped "
+"during the next synchronisation."
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:7
+msgid "AM Clouds"
+msgstr "ÖÖ Bulutlu"
+
+#: lib/Block/weatherdotcom_strings.php:8
+#, fuzzy
+msgid "AM Drizzle"
+msgstr "ÖÖ Hafif Yağışlı"
+
+#: lib/Block/weatherdotcom_strings.php:9
+msgid "AM Fog"
+msgstr "ÖÖ Sis"
+
+#: lib/Block/weatherdotcom_strings.php:10
+msgid "AM Light Rain"
+msgstr "ÖÖ Hafif Yağmur"
+
+#: lib/Block/weatherdotcom_strings.php:11
+msgid "AM Light Snow"
+msgstr "ÖÖ Hafif Kar"
+
+#: lib/Block/weatherdotcom_strings.php:12
+msgid "AM Rain"
+msgstr "ÖÖ Yağmur"
+
+#: lib/Block/weatherdotcom_strings.php:13
+msgid "AM Showers"
+msgstr "ÖÖ Sağnak"
+
+#: lib/Block/weatherdotcom_strings.php:14
+msgid "AM Snow"
+msgstr "ÖÖ Kar"
+
+#: lib/Block/weatherdotcom_strings.php:15
+msgid "AM Snow Showers"
+msgstr "ÖÖ Hafif Kar"
+
+#: lib/Block/weatherdotcom_strings.php:16
+msgid "AM Sun"
+msgstr "ÖÖ Güneşli"
+
+#: lib/Block/weatherdotcom_strings.php:17
+#, fuzzy
+msgid "AM T-Showers"
+msgstr "ÖÖ Sağnak"
+
+#: lib/Block/weatherdotcom_strings.php:18
+msgid "AM T-Storms"
+msgstr "ÖÖ Gökgürültülü"
+
+#: templates/data/datetime.inc:110 templates/data/time.inc:29
+msgid "AM/PM"
+msgstr "ÖÖ/ÖS"
+
+#: lib/Block/account.php:3
+msgid "Account Information"
+msgstr "Hesap Bilgileri"
+
+#: config/prefs.php.dist:276
+msgid "Account Password"
+msgstr "Hesap Paralosı"
+
+#: admin/activesync.php:126
+#, fuzzy
+msgid "Actions"
+msgstr "Seçenekler"
+
+#: config/prefs.php.dist:676
+msgid "ActiveSync"
+msgstr ""
+
+#: admin/activesync.php:71
+#, fuzzy
+msgid "ActiveSync Device Administration"
+msgstr "Kullanıcı Yönetimi"
+
+#: admin/activesync.php:199 lib/Api.php:80
+msgid "ActiveSync Devices"
+msgstr ""
+
+#: admin/activesync.php:20 lib/Prefs/Ui.php:376
+msgid "ActiveSync not activated."
+msgstr ""
+
+#: templates/admin/groups/addchild.inc:12 templates/portal/add.inc:14
+msgid "Add"
+msgstr "Ekle"
+
+#: services/portal/index.php:68
+msgid "Add Content"
+msgstr "İçerik Ekle"
+
+#: templates/portal/add.inc:5
+msgid "Add Here:"
+msgstr "Buraya Ekle:"
+
+#: templates/admin/groups/edit.inc:49
+msgid "Add Members"
+msgstr "Üye Ekle"
+
+#: admin/groups.php:253 templates/admin/groups/addchild.inc:7
+#, php-format
+msgid "Add a child group to \"%s\""
+msgstr "\"%s\" için alt grup ekle"
+
+#: admin/groups.php:238
+msgid "Add a new group"
+msgstr "Yeni grup ekle"
+
+#: admin/user.php:21
+msgid "Add a new user:"
+msgstr "Yeni kullanıcı ekle:"
+
+#: admin/alarms.php:22
+msgid "Add new alarm"
+msgstr "Yeni alarm ekle"
+
+#: templates/data/csvmap.inc:92
+msgid "Add pair"
+msgstr "İkili Ekle"
+
+#: admin/user.php:22
+msgid "Add user"
+msgstr "Kullanıcı Ekle"
+
+#: admin/signup_confirm.php:80 admin/user.php:92
+#, php-format
+msgid ""
+"Added \"%s\" to the system, but could not add additional signup information: "
+"%s."
+msgstr "\"%s\" sisteme eklendi, fakat ek giriş bilgileri eklenemedi: %s."
+
+#: signup.php:44
+#, php-format
+msgid "Added \"%s\" to the system. You can log in now."
+msgstr "\"%s\" sisteme eklendi.Giriş yapabilirsiniz."
+
+#: templates/admin/user/noadd.inc:2
+msgid "Adding users is disabled."
+msgstr "Kullanıcı ekleme seçilemez kılındı."
+
+#: lib/Block/vatid.php:101
+msgid "Address"
+msgstr "Adres"
+
+#: config/registry.php.dist:142
+msgid "Address Book"
+msgstr "Adres Defteri"
+
+#: admin/alarms.php:26
+msgid "Alarm end"
+msgstr "Alarm sonu"
+
+#: admin/alarms.php:28
+msgid "Alarm methods"
+msgstr "Alarm yöntemi"
+
+#: admin/alarms.php:25
+msgid "Alarm start"
+msgstr "Alarm başı"
+
+#: admin/alarms.php:27
+msgid "Alarm text"
+msgstr "Alarm metni"
+
+#: admin/alarms.php:24
+msgid "Alarm title"
+msgstr "Alarm başlığı"
+
+#: admin/alarms.php:133
+msgid "Alarms"
+msgstr "Alarmlar"
+
+#: lib/Block/fortune.php:94
+msgid "All"
+msgstr "Tümü"
+
+#: templates/shares/edit.inc:58
+msgid "All Authenticated Users"
+msgstr "Tüm Doğrulanmış Kullanıcılar"
+
+#: admin/groups.php:26 admin/groups.php:244
+msgid "All Groups"
+msgstr "Tüm Gruplar"
+
+#: admin/activesync.php:50
+msgid "All policy keys successfully reset."
+msgstr ""
+
+#: lib/Prefs/Ui.php:753
+msgid ""
+"All state removed for your devices. They will resynchronize next time they "
+"connect to the server."
+msgstr ""
+
+#: lib/Prefs/Ui.php:724
+msgid "All synchronization sessions deleted."
+msgstr ""
+
+#: config/prefs.php.dist:644
+msgid "Alternate IMSP Login"
+msgstr "Öteki IMSP Girişi"
+
+#: config/prefs.php.dist:658
+msgid "Alternate IMSP Password"
+msgstr "Öteki IMSP Şifresi"
+
+#: config/prefs.php.dist:652
+msgid "Alternate IMSP Username"
+msgstr "Öteki IMSP Kullanıcı Adı"
+
+#: services/resetpassword.php:31
+msgid "Alternate email address"
+msgstr "Öteki elektronik posta adresi"
+
+#: lib/Block/weatherdotcom.php:170
+msgid "An unknown error has occured."
+msgstr "Bilinmeyen bir hata oluştu."
+
+#: services/resetpassword.php:48
+msgid "Answer"
+msgstr "Cevap"
+
+#: templates/data/csvmap.inc:112 templates/admin/config/index.html:11
+msgid "Application"
+msgstr "Uygulama"
+
+#: admin/phpshell.php:44
+msgid "Application Context: "
+msgstr "Uygulama Bağlamı: "
+
+#: util/icon_browser.php:45
+msgid "Application List"
+msgstr "Uygulama Listesi"
+
+#: admin/config/index.php:160
+msgid "Application is ready."
+msgstr "Uygulama Hazır"
+
+#: admin/config/index.php:95 admin/config/index.php:127
+msgid "Application is up-to-date."
+msgstr "Uygulama güncel."
+
+#: templates/admin/user/approve.inc:33
+msgid "Approve"
+msgstr "Onayla"
+
+#: config/nls.php:167
+msgid "Arabic (Windows-1256)"
+msgstr "Arapça (Windows-1256)"
+
+#: admin/alarms.php:123
+#, php-format
+msgid "Are you sure you want to delete '%s'?"
+msgstr "'%s' silinecek. Emin misiniz?"
+
+#: templates/admin/user/removequeued.inc:10
+#, php-format
+msgid "Are you sure you want to remove the signup request for \"%s\"?"
+msgstr "\"%s\" için kayıt olma talebi iptal edilecek. Emin misiniz?"
+
+#: templates/admin/groups/delete.inc:7
+#, php-format
+msgid "Are you sure you wish to delete \"%s\" and any sub-groups?"
+msgstr "\"%s\" ve alt gruplarını silmek istediğinizden emin misiniz?"
+
+#: config/nls.php:168
+msgid "Armenian (ARMSCII-8)"
+msgstr "Ermenice (ARMSCII-8)"
+
+#: lib/Block/fortune.php:35
+msgid "Art"
+msgstr "Sanat"
+
+#: lib/Block/fortune.php:36
+msgid "Ascii Art"
+msgstr "Ascii Sanatı"
+
+#: templates/problem/problem.inc:43
+msgid "Attachment"
+msgstr "Ek Olarak"
+
+#: admin/groups.php:72
+msgid "Attempt to delete a non-existent group."
+msgstr "Var olmayan bir grubu silme girişimi."
+
+#: admin/perms/delete.php:24
+msgid "Attempt to delete a non-existent permission."
+msgstr "Var olmayan bir izni silme girişimi."
+
+#: admin/perms/edit.php:92
+msgid "Attempt to edit a non-existent permission."
+msgstr "Var olmayan bir grubu düzenleme girişimi."
+
+#: services/shares/edit.php:66
+msgid "Attempt to edit a non-existent share."
+msgstr "Var olmayan bir paylaşımı düzenleme girişimi."
+
+#: admin/sessions.php:40
+#, fuzzy
+msgid "Authenticated to:"
+msgstr "Tüm Doğrulanmış Kullanıcılar"
+
+#: templates/prefs/facebook.html:27
+msgid "Authorize Publish"
+msgstr ""
+
+#: templates/prefs/facebook.html:39
+msgid "Authorize Read:"
+msgstr ""
+
+#: templates/prefs/facebook.html:16
+msgid "Authorize an infinite session:"
+msgstr ""
+
+#: templates/data/csvmap.inc:70
+msgid "Available fields:"
+msgstr "Kullanılır alanlar:"
+
+#: themes/azur/info.php:6
+msgid "Azur"
+msgstr "Azur"
+
+#: lib/Block/fortune.php:37
+msgid "BOFH Excuses"
+msgstr "BOFH Açıklamaları"
+
+#: config/nls.php:169
+msgid "Baltic (ISO-8859-13)"
+msgstr "Baltık (ISO-8859-13)"
+
+#: themes/barbie/info.php:2
+msgid "Barbie"
+msgstr "Barbi"
+
+#: util/icon_browser.php:34
+#, php-format
+msgid "Base graphics directory \"%s\" not found."
+msgstr "Taban grafik dizini \"%s\" bulunamadı."
+
+#: templates/portal/layout.inc:90
+msgid "Block Settings"
+msgstr "Öbek Ayarları"
+
+#: templates/portal/layout.inc:72
+msgid "Block Type"
+msgstr "Öbek Türü"
+
+#: themes/bluemoon/info.php:2
+msgid "Blue Moon"
+msgstr "Mavi Ay"
+
+#: themes/bluewhite/info.php:2
+msgid "Blue and White"
+msgstr "Mavi ve Beyaz"
+
+#: config/registry.php.dist:226
+msgid "Bookmarks"
+msgstr "Yer İmleri"
+
+#: lib/Block/fortune.php:103
+msgid "Both"
+msgstr "Her İkisi"
+
+#: themes/brown/info.php:2
+msgid "Brown"
+msgstr "Kahverengi"
+
+#: admin/sessions.php:38
+msgid "Browser:"
+msgstr "Tarayıcı"
+
+#: themes/burntorange/info.php:7
+msgid "Burnt Orange"
+msgstr "Kırmızımsı Sarı"
+
+#: lib/Block/weatherdotcom.php:166
+msgid "Cache init was not completed."
+msgstr "Önbellek başlangıcı tamamlanamadı."
+
+#: config/registry.php.dist:157
+msgid "Calendar"
+msgstr "Takvim"
+
+#: lib/Block/weatherdotcom.php:250
+msgid "Calm"
+msgstr "Durgun"
+
+#: themes/camouflage/info.php:2
+msgid "Camouflage"
+msgstr "Kamuflaj"
+
+#: admin/user.php:115 admin/user.php:135 templates/admin/groups/delete.inc:11
+#: templates/admin/user/clear.inc:12 templates/admin/user/remove.inc:12
+msgid "Cancel"
+msgstr "İptal"
+
+#: templates/problem/problem.inc:58
+msgid "Cancel Problem Report"
+msgstr "Sorun Raporunu İptal Et"
+
+#: admin/activesync.php:183 templates/prefs/activesync.html:31
+#, fuzzy
+msgid "Cancel Wipe"
+msgstr "İptal"
+
+#: services/resetpassword.php:17
+msgid "Cannot reset password automatically, contact your administrator."
+msgstr "Otomatik olarak şifre sıfırlanamadı, sistem yönetisi ile görüşünüz."
+
+#: config/prefs.php.dist:440
+msgid "Categories and Labels"
+msgstr "Kategoriler ve Etiketler"
+
+#: config/nls.php:170
+msgid "Celtic (ISO-8859-14)"
+msgstr "Keltik (ISO-8859-14)"
+
+#: config/nls.php:171
+msgid "Central European (ISO-8859-2)"
+msgstr "Orta Avrupa (ISO-8859-2)"
+
+#: templates/prefs/rpc.html:33
+msgid "Change"
+msgstr "Değiştir"
+
+#: services/changepassword.php:23
+msgid "Change Your Password"
+msgstr "Şifre Değiştirme"
+
+#: config/prefs.php.dist:214
+msgid ""
+"Change the name and address that people see when they read and reply to your "
+"emails."
+msgstr ""
+"İnsanların sizden gelen elektronik postaları okurken ve cevaplarken "
+"gördükleri ad ve adresinizi değiştirin."
+
+#: services/changepassword.php:17
+msgid ""
+"Changing your password is not supported with the current configuration.  "
+"Contact your administrator."
+msgstr ""
+"Geçerli yapılandırmada, şifre değiştirme desteklenmiyor. Lütfen sistem "
+"yöneticiniz ile temasa geçiniz."
+
+#: lib/Block/vatid.php:45
+msgid "Check"
+msgstr "İşaret"
+
+#: templates/admin/config/index.html:4
+msgid "Check for newer versions"
+msgstr "Yeni sürüm varlığını kontrol et"
+
+#: lib/Block/vatid.php:47
+msgid "Checking"
+msgstr "Kontrol ediyor"
+
+#: templates/admin/groups/addchild.inc:10
+msgid "Child"
+msgstr "Alt Birim"
+
+#: config/nls.php:172
+msgid "Chinese Simplified (GB2312)"
+msgstr "Basitleştirilmiş Çince (GB2312)"
+
+#: config/nls.php:173
+msgid "Chinese Traditional (Big5)"
+msgstr "Geleneksel Çince (Big5)"
+
+#: services/obrowser/index.php:91
+#, php-format
+msgid "Choose %s"
+msgstr "%s seç"
+
+#: config/prefs.php.dist:403
+#, fuzzy
+msgid "Choose how to display dates (abbreviated format):"
+msgstr "Tarihlerin nasıl gösterileceğini seçin:"
+
+#: config/prefs.php.dist:377
+#, fuzzy
+msgid "Choose how to display dates (full format):"
+msgstr "Tarihlerin nasıl gösterileceğini seçin:"
+
+#: config/prefs.php.dist:419
+#, fuzzy
+msgid "Choose how to display times:"
+msgstr "Tarihlerin nasıl gösterileceğini seçin:"
+
+#: lib/Block/weatherdotcom_strings.php:19
+msgid "Clear"
+msgstr "Temizle"
+
+#: admin/sqlshell.php:109
+msgid "Clear Query"
+msgstr "Sorgulu Temizle"
+
+#: templates/admin/user/clear.inc:5
+#, php-format
+msgid "Clear out user: %s"
+msgstr "Kullanıcıyı temizle: %s"
+
+#: templates/admin/user/clear.inc:11
+msgid "Clear user"
+msgstr "Kullanıcı temizle"
+
+#: templates/admin/user/list.inc:37
+msgid "Clear user data"
+msgstr "Kullanıcı verisi temizle"
+
+#: lib/Block/weatherdotcom_strings.php:20
+msgid "Clearing Early"
+msgstr "Erken Saatte Açacak"
+
+#: lib/Block/weatherdotcom_strings.php:21
+msgid "Clearing Late"
+msgstr "Geç Vakitte Açacak"
+
+#: templates/prefs/addressbooks.html:3
+msgid ""
+"Click on one of your selected address books and then select all fields to "
+"search."
+msgstr ""
+
+#: templates/logintasks/logintasks.html:38
+msgid "Click to Continue"
+msgstr "Devam etmek için tıklayın"
+
+#: templates/prefs/syncml.html:13
+msgid "Client Anchor"
+msgstr ""
+
+#: services/keyboard.php:154 templates/shares/edit.inc:12
+msgid "Close Window"
+msgstr "Pencereyi Kapat"
+
+#: lib/Block/metar.php:239
+msgid "Clouds"
+msgstr "Bulutlar"
+
+#: lib/Block/weatherdotcom_strings.php:22
+msgid "Clouds Early"
+msgstr "Erken Saatte Bulutlu"
+
+#: lib/Block/weatherdotcom_strings.php:23
+msgid "Clouds Late"
+msgstr "Geç Saatte Bulutlu"
+
+#: lib/Block/weatherdotcom_strings.php:24
+msgid "Cloudy"
+msgstr "Bulutlu"
+
+#: admin/sessions.php:31
+msgid "Collapse"
+msgstr "Daralt"
+
+#: templates/sidebar/sidebar.inc:3
+msgid "Collapse Sidebar"
+msgstr "Kenar Çubuğunu Daralt"
+
+#: lib/Prefs/Ui.php:237
+msgid "Color Picker"
+msgstr "Renk Seçici"
+
+#: admin/cmdshell.php:20 admin/cmdshell.php:42
+msgid "Command"
+msgstr "Komut"
+
+#: admin/cmdshell.php:14
+msgid "Command Shell"
+msgstr "Komut Kabuğu"
+
+#: services/facebook.php:101
+#, fuzzy, php-format
+msgid "Comments: %d"
+msgstr "Açıklama"
+
+#: lib/Block/fortune.php:38
+msgid "Computers"
+msgstr "Bilgisayarlar"
+
+#: lib/Block/weatherdotcom.php:300
+msgid "Condition"
+msgstr "Durum"
+
+#: lib/Block/metar.php:244
+msgid "Conditions"
+msgstr "Koşullar"
+
+#: admin/config/config.php:65 templates/admin/config/config.html:9
+msgid "Configuration"
+msgstr "Yapılandırma"
+
+#: admin/config/diff.php:80
+msgid "Configuration Differences"
+msgstr "Yapılandırma Farkları"
+
+#: config/prefs.php.dist:665
+msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
+msgstr "PDAs, Smartphones ve Outlook ile eşleme yapılandırması"
+
+#: admin/config/index.php:155
+msgid "Configuration is out of date."
+msgstr "Yapılandırma güncel değil."
+
+#: templates/admin/config/index.html:61
+#, fuzzy
+msgid "Configuration upgrade scripts available"
+msgstr "Kurulum güncelleme betikleri kullanılabilir durumda."
+
+#: admin/config/index.php:111
+#, php-format
+msgid "Configure %s"
+msgstr "Yapılandır:%s"
+
+#: templates/admin/user/update.inc:28
+msgid "Confirm Password"
+msgstr "Paraloyı Doğrula"
+
+#: services/changepassword.php:25 services/resetpassword.php:25
+msgid "Continue"
+msgstr "Devam"
+
+#: lib/Block/fortune.php:39
+msgid "Cookie"
+msgstr "Çerez"
+
+#: themes/cornflower/info.php:2
+msgid "Cornflower"
+msgstr "Peygamber Çiçeği"
+
+#: lib/Block/account.php:484
+msgid "Could not bind to LDAP server."
+msgstr "LDAP sunucusuna bağlanılamadı."
+
+#: lib/Block/account.php:463
+msgid "Could not connect to LDAP server."
+msgstr "LDAP sunucusuna bağlantı kurulamadı."
+
+#: admin/config/index.php:27
+#, php-format
+msgid "Could not connect to server \"%s\" using FTP: %s"
+msgstr "Sunucu \"%s\"'e FTP kullanılarak bağlanılamadı: %s"
+
+#: admin/config/index.php:66
+#, fuzzy
+msgid "Could not contact server. Try again later."
+msgstr "Sunucudan beklenmeyen bir cevap geldi. Daha sonra tekrar deneyin."
+
+#: admin/config/scripts.php:35
+#, fuzzy, php-format
+msgid "Could not delete configuration upgrade script \"%s\"."
+msgstr "Ayar güncelleme betiği \"%s\" silinemedi."
+
+#: templates/prefs/twitter.html:14
+msgid ""
+"Could not find authorization for <tag:appname /> to interact with your "
+"Twitter account"
+msgstr ""
+
+#: services/resetpassword.php:92
+msgid ""
+"Could not reset the password for the requested user. Some or all of the "
+"details are not correct. Try again or contact your administrator if you need "
+"further help."
+msgstr ""
+"İstenen kullancı için şifre sıfırlanamadı. Bazı yada tüm ayrıntılar doğru "
+"değil. Yeniden deneyin yada daha fazla yardım için sistem yönetinizle "
+"görüşün."
+
+#: admin/config/config.php:43
+msgid "Could not revert configuration."
+msgstr "Yapılandırma geri döndürülemedi.."
+
+#: admin/config/index.php:41
+#, php-format
+msgid "Could not save a backup configuation: %s"
+msgstr "Yedek bir yapılandırma kaydedilemedi: %s"
+
+#: admin/config/scripts.php:94
+#, fuzzy, php-format
+msgid "Could not save configuration upgrade script to: \"%s\"."
+msgstr "Ayar güncelleme betiği kaydedilemedi: \"%s\"."
+
+#: admin/config/config.php:53
+#, php-format
+msgid "Could not save the backup configuration file %s."
+msgstr "Yedek yapılandırma dosyası %s kaydedilemedi."
+
+#: admin/config/config.php:65
+#, php-format
+msgid ""
+"Could not save the configuration file %s. You can either use one of the "
+"options to save the code back on %s or copy manually the code below to %s."
+msgstr ""
+"Yapılandırma dosyası %s kaydedilemedi. Bu durumda, kodu tekrar %s içine "
+"kaydetmek yada takip eden kodu el ile %s içine kopyalamak, seçeneklerini "
+"kullanabilirsiniz."
+
+#: admin/config/index.php:51
+#, php-format
+msgid "Could not write configuration for \"%s\": %s"
+msgstr "\"%s\" için yapılandırma yazılamadı: %s"
+
+#: lib/Block/vatid.php:91
+msgid "Country"
+msgstr "Ülke"
+
+#: templates/prefs/rpc.html:34
+msgid "Create"
+msgstr "Yarat"
+
+#: templates/prefs/identityselect.html:22
+#, fuzzy
+msgid "Create New Identity"
+msgstr "Ön Tanımlı Kimlik"
+
+#: lib/Block/moon.php:24
+msgid "Current 4 Phases"
+msgstr "Şu Andaki 4 Evre"
+
+#: templates/admin/alarms/list.html.php:2
+msgid "Current Alarms"
+msgstr "Şu Andaki Alarmlar"
+
+#: admin/sessions.php:23
+msgid "Current Sessions"
+msgstr "Şu Andaki Oturumlar"
+
+#: lib/Block/time.php:3 lib/Block/time.php:36
+msgid "Current Time"
+msgstr "Şu Andaki Zaman"
+
+#: lib/Block/metar.php:31
+msgid "Current Weather"
+msgstr "Şu Andaki Hava Durumu"
+
+#: lib/Block/weatherdotcom.php:279
+msgid "Current condition: "
+msgstr "Şu Andaki Şartlar:"
+
+#: config/nls.php:174
+msgid "Cyrillic (KOI8-R)"
+msgstr "Kiril (KOI8-R)"
+
+#: config/nls.php:175
+msgid "Cyrillic (Windows-1251)"
+msgstr "Kiril (Windows-1251)"
+
+#: config/nls.php:176
+msgid "Cyrillic/Ukrainian (KOI8-U)"
+msgstr "Kiril/Ukrayna (KOI8-U)"
+
+#: templates/data/date.inc:47 templates/data/date.inc:48
+#: templates/data/date.inc:49 templates/data/date.inc:50
+#: templates/data/datetime.inc:89 templates/data/datetime.inc:90
+#: templates/data/datetime.inc:91 templates/data/datetime.inc:92
+msgid "DD"
+msgstr "GG"
+
+#: templates/data/csvmap.inc:101
+msgid "Data"
+msgstr "Veri"
+
+#: admin/datatree.php:62
+msgid "DataTree"
+msgstr "Veri Ağacı"
+
+#: admin/datatree.php:59
+msgid "DataTree Browser"
+msgstr "Veri Ağacı Tarayıcısı"
+
+#: templates/prefs/syncml.html:11
+msgid "Database"
+msgstr "Veri Tabanı"
+
+#: lib/Block/vatid.php:94
+msgid "Date"
+msgstr "Tarih"
+
+#: templates/admin/user/approve.inc:23
+msgid "Date Received"
+msgstr "Geliş Tarihi"
+
+#: templates/data/datetime.inc:70 templates/data/datetime.inc:71
+#, php-format
+msgid "Date: %s; time: %s"
+msgstr "Tarih: %s; zaman: %s"
+
+#: lib/Block/weatherdotcom.php:295 lib/Block/weatherdotcom.php:324
+msgid "Day"
+msgstr "Gün"
+
+#: lib/Prefs/Ui.php:69 lib/Prefs/Ui.php:74
+msgid "Default"
+msgstr "Ön tanımlı"
+
+#: lib/Prefs/Ui.php:252 lib/Prefs/Ui.php:282
+msgid "Default Color"
+msgstr "Ön Tanımlı Renk"
+
+#: lib/Block/account.php:78
+msgid "Default Shell"
+msgstr "Varsayılan Kabuk"
+
+#: lib/Block/fortune.php:40
+msgid "Definitions"
+msgstr "Tanımlar"
+
+#: admin/groups.php:68 templates/admin/groups/delete.inc:10
+#: templates/admin/user/list.inc:34 templates/shares/edit.inc:63
+#: templates/shares/edit.inc:83 templates/shares/edit.inc:98
+#: templates/shares/edit.inc:118 templates/shares/edit.inc:134
+#: templates/shares/edit.inc:154 templates/shares/edit.inc:169
+#: templates/shares/edit.inc:193 templates/shares/edit.inc:228
+#: templates/shares/edit.inc:255 templates/shares/edit.inc:271
+#: templates/shares/edit.inc:291 templates/shares/edit.inc:320
+#: templates/prefs/identityselect.html:34 templates/prefs/rpc.html:35
+#: templates/prefs/syncml.html:14 templates/prefs/syncml.html:23
+msgid "Delete"
+msgstr "Sil"
+
+#: admin/alarms.php:122 admin/groups.php:254
+#, php-format
+msgid "Delete \"%s\""
+msgstr "Sil: \"%s\""
+
+#: templates/prefs/syncml.html:30
+msgid "Delete All SyncML Data"
+msgstr "Tüm SyncML Eşleme Verisini Sil"
+
+#: admin/groups.php:215
+msgid "Delete Group"
+msgstr "Grup Sil"
+
+#: admin/config/scripts.php:33
+#, fuzzy, php-format
+msgid "Deleted configuration upgrade script \"%s\"."
+msgstr "Ayar güncelleme betiği \"%s\" silindi."
+
+#: lib/Prefs/Ui.php:717
+#, fuzzy, php-format
+msgid "Deleted synchronization session for device \"%s\" and database \"%s\"."
+msgstr "%d eşleme çapaları silindi. Algıt: '%s', Veritabanı: '%s'"
+
+#: templates/problem/problem.inc:27
+msgid "Describe the Problem"
+msgstr "Sorunu Tanımlayın"
+
+#: config/registry.php.dist:239
+msgid "Development"
+msgstr "Gelişim"
+
+#: templates/prefs/activesync.html:20 templates/prefs/syncml.html:10
+msgid "Device"
+msgstr "Algıt"
+
+#: admin/activesync.php:119
+#, fuzzy
+msgid "Device ID"
+msgstr "Algıt"
+
+#: templates/prefs/activesync.html:11
+#, fuzzy
+msgid "Device Management"
+msgstr "Dosya Yöneticisi"
+
+#: lib/Prefs/Ui.php:432
+#, fuzzy
+msgid "Device id:"
+msgstr "Algıt"
+
+#: admin/activesync.php:167 lib/Prefs/Ui.php:420
+msgid "Device is wiped"
+msgstr ""
+
+#: admin/activesync.php:45
+#, fuzzy
+msgid "Device successfully removed."
+msgstr "%s başarıyla yazıldı."
+
+#: admin/activesync.php:40
+msgid "Device wipe successfully canceled."
+msgstr ""
+
+#: lib/Block/metar.php:212
+msgid "Dew Point"
+msgstr "Nem Miktarı"
+
+#: lib/Block/metar.php:289
+msgid "Dew Point for last hour: "
+msgstr "Son saatteki nem miktarı: "
+
+#: lib/Block/weatherdotcom.php:231
+msgid "Dew point: "
+msgstr "Nem miktarı: "
+
+#: templates/prefs/facebook.html:11 templates/prefs/facebook.html:22
+#: templates/prefs/facebook.html:34 templates/prefs/twitter.html:10
+#, fuzzy
+msgid "Disable"
+msgstr "Çizelgeleri Listele"
+
+#: config/prefs.php.dist:345
+msgid "Display 24-hour times?"
+msgstr "24 saatlik zaman mı gösterilsin?"
+
+#: config/prefs.php.dist:468
+#, fuzzy
+msgid "Display Preferences"
+msgstr "Detaylı tahmini görüntüle"
+
+#: lib/Block/weatherdotcom.php:86
+msgid "Display detailed forecast"
+msgstr "Detaylı tahmini görüntüle"
+
+#: lib/Block/metar.php:84
+msgid "Display forecast (TAF)"
+msgstr "Hava tahminini görüntüle (TAF)"
+
+#: scripts/import_squirrelmail_prefs.php:77
+#, fuzzy
+msgid "Do not use Drafts"
+msgstr "Silmeyin"
+
+#: scripts/import_squirrelmail_prefs.php:44
+#: scripts/import_squirrelmail_prefs.php:145
+#, fuzzy
+msgid "Do not use Sent"
+msgstr "Silmeyin"
+
+#: scripts/import_squirrelmail_prefs.php:183
+msgid "Do not use Trash"
+msgstr ""
+
+#: templates/data/csvinfo.inc:12 templates/data/tsvinfo.inc:12
+msgid "Does the first row contain the field names? If yes, check this box:"
+msgstr "İlk satır alan adlarını içeriyor mu? Evet ise bu kutuyu seçin:"
+
+#: templates/login/login.inc:72
+msgid "Don't have an account? Sign up."
+msgstr "Hesabınız yok mu? Kayıt olun."
+
+#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:61
+#, fuzzy
+msgid "Done"
+msgstr "Hiçbiri"
+
+#: admin/config/index.php:92 admin/config/index.php:124
+#, php-format
+msgid "Download %s"
+msgstr "%s İndir"
+
+#: admin/config/index.php:179
+msgid "Download generated configuration as PHP script."
+msgstr "Oluşturulan yapılandırmayı PHP betiği olarak indir."
+
+#: lib/Block/weatherdotcom_strings.php:25
+#, fuzzy
+msgid "Drizzle"
+msgstr "ÖÖ Hafif Yağışlı"
+
+#: lib/Block/fortune.php:41
+msgid "Drugs"
+msgstr "İlaçlar"
+
+#: services/keyboard.php:64
+msgid "E characters"
+msgstr "E karakterleri"
+
+#: lib/Block/vatid.php:3
+msgid "EU VAT identification"
+msgstr "AB KDV tanımlaması"
+
+#: templates/shares/edit.inc:62 templates/shares/edit.inc:79
+#: templates/shares/edit.inc:97 templates/shares/edit.inc:114
+#: templates/shares/edit.inc:133 templates/shares/edit.inc:150
+#: templates/shares/edit.inc:168 templates/shares/edit.inc:189
+#: templates/shares/edit.inc:224 templates/shares/edit.inc:251
+#: templates/shares/edit.inc:270 templates/shares/edit.inc:287
+#: templates/shares/edit.inc:316
+msgid "Edit"
+msgstr "Düzenle"
+
+#: admin/alarms.php:89
+#, php-format
+msgid "Edit \"%s\""
+msgstr "Düzenle \"%s\""
+
+#: admin/groups.php:214
+msgid "Edit Group"
+msgstr "Grup Düzenle"
+
+#: templates/prefs/app.html:7
+msgid "Edit Preferences for"
+msgstr ""
+
+#: services/shares/edit.php:259
+msgid "Edit permissions"
+msgstr "İzin Değiştirme"
+
+#: services/shares/edit.php:260 templates/shares/edit.inc:14
+#, php-format
+msgid "Edit permissions for \"%s\""
+msgstr "\"%s\" için izinleri düzenle"
+
+#: lib/Block/fortune.php:42
+msgid "Education"
+msgstr "Eğitim"
+
+#: templates/admin/groups/edit.inc:11 templates/admin/user/update.inc:45
+msgid "Email Address"
+msgstr "Elektronik Posta Adresi"
+
+#: lib/Prefs/Ui.php:225
+#, fuzzy
+msgid "Enter a name for the new category:"
+msgstr "Lütfen yeni kategorinin adını girin:"
+
+#: config/prefs.php.dist:288
+msgid ""
+"Enter a security question which you will be asked if you need to reset your "
+"password, e.g. 'what is the name of your pet?':"
+msgstr ""
+"Şifrenizi sıfırlamak istediğinizde sorulmak üzere bir güvenlik sorusu girin, "
+"Ör. 'Evcil hayvanınızın adı nedir?':"
+
+#: lib/Block/metar.php:41 lib/Block/weatherdotcom.php:50
+msgid "Error"
+msgstr "Hata"
+
+#: lib/Prefs/Ui.php:577 services/twitter.php:128 services/twitter.php:151
+#, fuzzy, php-format
+msgid ""
+"Error connecting to Twitter: %s Details have been logged for the "
+"administrator."
+msgstr "Ayrıntılar yönetici için günlük olarak kaydedildi."
+
+#: lib/Prefs/Ui.php:715
+#, fuzzy
+msgid "Error deleting synchronization session:"
+msgstr "Eşleme bilgisi silinemedi: %s"
+
+#: lib/Prefs/Ui.php:722
+#, fuzzy
+msgid "Error deleting synchronization sessions:"
+msgstr "Eşleme bilgisi silinemedi: %s"
+
+#: services/changepassword.php:61
+#, php-format
+msgid "Error updating password: %s"
+msgstr "Şifre güncellenirken hata oluştu: %s"
+
+#: lib/Block/fortune.php:43
+msgid "Ethnic"
+msgstr "Etnik"
+
+#: services/facebook.php:69
+msgid "Event Invites:"
+msgstr ""
+
+#: templates/portal/layout.inc:101 config/prefs.php.dist:520
+msgid "Every 15 minutes"
+msgstr "Her 15 dakika"
+
+#: config/prefs.php.dist:559
+msgid "Every 2 minutes"
+msgstr "Her 2 dakika"
+
+#: templates/portal/layout.inc:98 config/prefs.php.dist:517
+#: config/prefs.php.dist:557
+msgid "Every 30 seconds"
+msgstr "Her 30 saniye"
+
+#: templates/portal/layout.inc:100 config/prefs.php.dist:519
+#: config/prefs.php.dist:560
+msgid "Every 5 minutes"
+msgstr "Her 5 dakika"
+
+#: templates/portal/layout.inc:102 config/prefs.php.dist:521
+msgid "Every half hour"
+msgstr "Her yarım saat"
+
+#: templates/portal/layout.inc:103
+msgid "Every hour"
+msgstr "Her saat"
+
+#: templates/portal/layout.inc:99 config/prefs.php.dist:518
+#: config/prefs.php.dist:558
+msgid "Every minute"
+msgstr "Her dakika"
+
+#: templates/data/datemap.inc:24
+msgid "Example values:"
+msgstr "Örnek değerler:"
+
+#: admin/cmdshell.php:48 admin/phpshell.php:55 admin/sqlshell.php:108
+msgid "Execute"
+msgstr "Çalıştır"
+
+#: admin/sessions.php:30
+msgid "Expand"
+msgstr "Genişlet"
+
+#: lib/Block/iframe.php:29
+msgid "Extra Large"
+msgstr "Çok Büyük"
+
+#: templates/admin/config/index.html:74
+#, fuzzy
+msgid "FTP upload of configuration"
+msgstr "%s yapılandırması kaydedildi."
+
+#: config/prefs.php.dist:604
+msgid "Facebook Integration"
+msgstr ""
+
+#: themes/fadetogreen/info.php:9
+msgid "Fade to Green"
+msgstr "Uçuk Yeşil"
+
+#: lib/Block/weatherdotcom_strings.php:26
+msgid "Fair"
+msgstr "Uygun Hava"
+
+#: lib/Block/feed.php:41
+msgid "Feed"
+msgstr "Besleme"
+
+#: lib/Block/feed.php:17
+msgid "Feed Address"
+msgstr "Besleme Adresi"
+
+#: lib/Block/metar.php:215
+msgid "Feels Like"
+msgstr "Hissediliyor"
+
+#: lib/Block/weatherdotcom.php:235
+msgid "Feels like: "
+msgstr "Hissediliyor: "
+
+#: lib/Block/weatherdotcom_strings.php:27
+msgid "Few Showers"
+msgstr "Hafif Sağanak"
+
+#: lib/Block/weatherdotcom_strings.php:28
+msgid "Few Snow Showers"
+msgstr "Hafif Kar Sağanağı"
+
+#: templates/prefs/addressbooks.html:17
+msgid "Fields to search"
+msgstr ""
+
+#: config/registry.php.dist:340
+msgid "File Manager"
+msgstr "Dosya Yöneticisi"
+
+#: lib/Block/fb_stream.php:82
+#, fuzzy
+msgid "Filter"
+msgstr "Süzgeçler"
+
+#: config/registry.php.dist:93
+msgid "Filters"
+msgstr "Süzgeçler"
+
+#: lib/Block/moon.php:164
+msgid "First Half"
+msgstr "İlk Yarı"
+
+#: lib/Block/moon.php:72 lib/Block/moon.php:74
+msgid "First Quarter"
+msgstr "İlk Çeyrek"
+
+#: lib/Block/weatherdotcom_strings.php:29
+msgid "Fog"
+msgstr "Sis"
+
+#: lib/Block/weatherdotcom_strings.php:30
+msgid "Fog Early"
+msgstr "Erken Saatte Sis"
+
+#: lib/Block/weatherdotcom_strings.php:31
+msgid "Fog Late"
+msgstr "Geç Saatte Sis"
+
+#: lib/Block/weatherdotcom_strings.php:32
+msgid "Foggy"
+msgstr "Sisli"
+
+#: lib/Block/fortune.php:44
+msgid "Food"
+msgstr "Yemek"
+
+#: lib/Block/metar.php:329
+msgid "Forecast (TAF)"
+msgstr "Tahmin (TAF)"
+
+#: lib/Block/weatherdotcom.php:74
+msgid ""
+"Forecast Days (note that the returned forecast returns both day and night; a "
+"large number here could result in a wide block)"
+msgstr ""
+"Tahmin Günleri (Not: Geri dönülecekler hem gün hem gece olarak dönülecek; )"
+"büyük bir sayı geniş bir öbekle sonuçlanacaktır)"
+
+#: templates/login/login.inc:81
+msgid "Forgot your password?"
+msgstr "Şifrenizi mi unuttunuz?"
+
+#: lib/Block/fortune.php:28
+msgid "Fortune"
+msgstr "Deyiş"
+
+#: lib/Block/fortune.php:106
+msgid "Fortune type"
+msgstr "Deyiş türü"
+
+#: lib/Block/fortune.php:45
+msgid "Fortunes"
+msgstr "Deyişler"
+
+#: lib/Block/fortune.php:46
+msgid "Fortunes 2"
+msgstr "Deyişler 2"
+
+#: config/registry.php.dist:376
+msgid "Forums"
+msgstr "Forumlar"
+
+#: config/registry.php.dist:113
+msgid "Forwards"
+msgstr "Yöneltme"
+
+#: lib/Block/weatherdotcom_strings.php:33
+msgid "Freezing Drizzle"
+msgstr "Dondurucu Serpinti"
+
+#: services/facebook.php:68
+msgid "Friend Requests:"
+msgstr ""
+
+#: lib/Block/weatherdotcom.php:252 lib/Block/weatherdotcom.php:362
+#: lib/Block/weatherdotcom.php:408
+msgid "From the "
+msgstr "Kimden"
+
+#: templates/problem/problem.inc:48
+msgid "Full Description"
+msgstr "Tam Betimleme"
+
+#: lib/Block/moon.php:79 lib/Block/moon.php:174
+msgid "Full Moon"
+msgstr "Dolunay"
+
+#: lib/Block/account.php:68 templates/admin/user/update.inc:37
+msgid "Full Name"
+msgstr "Açık Ad"
+
+#: admin/config/config.php:31
+#, php-format
+msgid "Generate %s Configuration"
+msgstr "%s Yapılandırmasını Oluştur"
+
+#: templates/admin/config/config.html:6
+msgid "Generated Code"
+msgstr "Oluşturulan Kod"
+
+#: lib/Block/fb_stream.php:192 lib/Block/twitter_timeline.php:171
+msgid "Get More"
+msgstr ""
+
+#: templates/prefs/app.html:10
+msgid "Global Preferences"
+msgstr ""
+
+#: templates/prefs/app.html:17
+msgid "Go"
+msgstr "Git"
+
+#: lib/Block/fortune.php:47
+msgid "Goedel"
+msgstr "Goedel"
+
+#: lib/Block/google.php:3 lib/Block/google.php:19
+msgid "Google Search"
+msgstr "Google Arama"
+
+#: lib/Block/google.php:30
+msgid "Google search is not enabled."
+msgstr "Google arama etkinleştirilmedi."
+
+#: config/nls.php:177
+msgid "Greek (ISO-8859-7)"
+msgstr "Yunanca (ISO-8859-7)"
+
+#: themes/green/info.php:2
+msgid "Green"
+msgstr "Yeşil"
+
+#: themes/grey/info.php:2
+msgid "Grey"
+msgstr "Gri"
+
+#: admin/groups.php:195
+msgid "Group Administration"
+msgstr "Grup Yönetimi"
+
+#: admin/groups.php:44
+#, php-format
+msgid "Group was not created: %s."
+msgstr "Grup yaratıldı: %s."
+
+#: admin/groups.php:268 templates/shares/edit.inc:266
+msgid "Groups"
+msgstr "Gruplar"
+
+#: templates/shares/edit.inc:93
+msgid "Guest Permissions"
+msgstr "Konuk İzinleri"
+
+#: lib/Block/weatherdotcom_strings.php:34
+msgid "Haze"
+msgstr "Hafif Sis"
+
+#: lib/Block/weatherdotcom_strings.php:35
+msgid "Heavy Rain"
+msgstr "Sağnak Yağmur"
+
+#: lib/Block/weatherdotcom_strings.php:36
+msgid "Heavy T-Storm"
+msgstr "Ağır Gökgürültülü Fırtına"
+
+#: config/nls.php:178
+msgid "Hebrew (ISO-8859-8-I)"
+msgstr "İbranice (ISO-8859-8-I)"
+
+#: lib/Block/iframe.php:24
+msgid "Height"
+msgstr "Yükseklik"
+
+#: lib/Block/fb_stream.php:92 lib/Block/twitter_timeline.php:87
+msgid "Height of map (width automatically adjusts to block)"
+msgstr ""
+
+#: services/help/index.php:17 templates/help/index.inc:4
+msgid "Help"
+msgstr "Yardım"
+
+#: services/help/index.php:70
+msgid "Help _Topics"
+msgstr "Yardım _Başlıkları"
+
+#: lib/Block/moon.php:27
+msgid "Hemisphere"
+msgstr "Yarıküre"
+
+#: templates/data/csvinfo.inc:10 templates/data/tsvinfo.inc:10
+msgid "Here is the beginning of the file:"
+msgstr "Dosyanın başlangıcı: "
+
+#: themes/hi-contrast/info.php:3
+msgid "Hi-Contrast"
+msgstr "Yüksek Kontrast"
+
+#: templates/prefs/app.html:23
+msgid "Hide Advanced Preferences"
+msgstr ""
+
+#: services/portal/cloud_search.php:33
+msgid "Hide Results"
+msgstr "Sonuçları Gizle"
+
+#: lib/Block/weatherdotcom_strings.php:100
+msgid "High"
+msgstr "Yüksek"
+
+#: lib/Block/account.php:73
+msgid "Home Directory"
+msgstr "Ev Dizini"
+
+#: config/registry.php.dist:76
+msgid "Horde"
+msgstr "Horde"
+
+#: themes/hordeweb/info.php:2
+msgid "Horde Website"
+msgstr ""
+
+#: templates/data/csvinfo.inc:21
+msgid "How many fields (columns) are there?"
+msgstr "Kaç alan (kolon) var?"
+
+#: lib/Block/feed.php:21
+msgid "How many seconds before we check for new articles?"
+msgstr "Yeni makale kontrolleri arası kaç saniye olsun?"
+
+#: lib/Block/metar.php:225 lib/Block/weatherdotcom.php:303
+msgid "Humidity"
+msgstr "Nem"
+
+#: lib/Block/weatherdotcom.php:263
+msgid "Humidity: "
+msgstr "Nem: "
+
+#: lib/Block/fortune.php:48
+msgid "Humorists"
+msgstr "Mizahçılar"
+
+#: services/keyboard.php:78
+msgid "I characters"
+msgstr "I karakterleri"
+
+#: config/prefs.php.dist:545
+msgid "Icons Only"
+msgstr "Sadece Simgeler"
+
+#: util/icon_browser.php:53
+#, php-format
+msgid "Icons for %s"
+msgstr "%s için simgeler"
+
+#: config/prefs.php.dist:546
+msgid "Icons with text"
+msgstr "Metin ile birlikte simgeler"
+
+#: themes/ideas/info.php:2
+msgid "Ideas"
+msgstr "Fikirler"
+
+#: config/prefs.php.dist:226
+msgid "Identity's name:"
+msgstr "Kimliğin adı:"
+
+#: templates/data/csvinfo.inc:7 templates/data/csvmap.inc:54
+#: templates/data/datemap.inc:7 templates/data/tsvinfo.inc:7
+#, php-format
+msgid "Import, Step %d"
+msgstr "İçeri Aktar, Adım %d"
+
+#: templates/data/datemap.inc:15
+#, php-format
+msgid "Imported field: %s"
+msgstr "İçeri aktarılan alan: %s"
+
+#: templates/data/csvmap.inc:59
+msgid "Imported fields:"
+msgstr "İçeri aktarılan alanlar:"
+
+#: lib/Block/twitter_timeline.php:136
+msgid "In reply to:"
+msgstr ""
+
+#: templates/data/csvmap.inc:57
+msgid ""
+"In the lists below select both, a field imported from the source file at the "
+"left, and the matching field available in your address book at the right. "
+"Then hit \"Add pair\" to mark them for the import. Once your are finished "
+"hit \"Next\"."
+msgstr ""
+"Aşağıdaki listeden, solda kaynak dosyadaki alanı ve sağda bununla eşleşen "
+"adres defteri alanını seçiniz. Daha sonra \"İkili Ekle\" butonuna "
+"tıklayarak, ikilileri içeri taşımak için işaretleyiniz. Bitirince \"Devam\" "
+"butonuna tıklayınız."
+
+#: services/resetpassword.php:50
+msgid ""
+"Incorrect username or alternate address. Try again or contact your "
+"administrator if you need further help."
+msgstr ""
+"Yanlış kullanıcı adı veya öteki adres.Yeniden deneyin veya daha fazla yardım "
+"için yöneticinizle görüşün."
+
+#: templates/shares/edit.inc:164
+msgid "Individual Users"
+msgstr "Bireysel Kullanıcılar"
+
+#: templates/prefs/facebook.html:10
+#, fuzzy
+msgid "Infinite sessions enabled."
+msgstr "Oturum listeleme başarısız oldu: %s"
+
+#: config/registry.php.dist:281
+msgid "Information"
+msgstr "Bilgi"
+
+#: lib/Block/weatherdotcom.php:332
+msgid "Information no longer available."
+msgstr "Bu bilgiye artık ulaşılamıyor."
+
+#: templates/admin/groups/edit.inc:36
+msgid "Inherited Members"
+msgstr "Miras Üyelikler"
+
+#: config/prefs.php.dist:304
+msgid "Insert an email address to which you can receive the new password:"
+msgstr "Yeni bir paraloyı alabileceğiniz bir elektronik posta adresi girin:"
+
+#: config/prefs.php.dist:296
+msgid "Insert the required answer to the security question:"
+msgstr "Güvenlik sorusunun cevabı:"
+
+#: lib/Block/vatid.php:52
+msgid "Invalid VAT identification number format."
+msgstr "Geçersiz KDV tanımlama numarası biçimi."
+
+#: admin/signup_confirm.php:43
+#, fuzzy, php-format
+msgid "Invalid action %s"
+msgstr "Geçersiz uygulama."
+
+#: admin/config/config.php:24
+msgid "Invalid application."
+msgstr "Geçersiz uygulama."
+
+#: admin/signup_confirm.php:33
+#, fuzzy
+msgid "Invalid hash."
+msgstr "Geçersiz yığın kimliği."
+
+#: lib/Block/weatherdotcom.php:180
+msgid "Invalid license key."
+msgstr "Geçersiz lisans anahtarı."
+
+#: lib/Block/weatherdotcom.php:174
+msgid "Invalid location provided."
+msgstr "Geçersiz yer belirtildi."
+
+#: admin/perms/addchild.php:23
+msgid "Invalid parent permission."
+msgstr "Geçersiz üst izin."
+
+#: lib/Block/weatherdotcom.php:176
+msgid "Invalid partner id."
+msgstr "Geçersiz ortak kimliği."
+
+#: lib/Block/weatherdotcom.php:178
+msgid "Invalid product code."
+msgstr "Geçersiz ürün kodu"
+
+#: lib/Block/weatherdotcom_strings.php:37
+msgid "Isolated T-Storms"
+msgstr "Yalıtılmış gök gürültülü fırtına"
+
+#: config/nls.php:179
+msgid "Japanese (ISO-2022-JP)"
+msgstr "Japonca (ISO-2022-JP)"
+
+#: lib/Block/twitter_timeline.php:138
+msgid "Just now..."
+msgstr ""
+
+#: lib/Block/fortune.php:49
+msgid "Kernel Newbies"
+msgstr "Çekirdek Acemileri"
+
+#: services/help/index.php:138
+msgid "Keyword"
+msgstr "Anahtar Kelime"
+
+#: lib/Block/fortune.php:50
+msgid "Kids"
+msgstr "Çocuklar"
+
+#: themes/kolab/info.php:7
+msgid "Kolab"
+msgstr "Kolab"
+
+#: config/nls.php:180
+msgid "Korean (EUC-KR)"
+msgstr "Korece (euc-KR)"
+
+#: login.php:314 templates/login/login.inc:49
+msgid "Language"
+msgstr "Dil"
+
+#: lib/Block/iframe.php:28
+msgid "Large"
+msgstr "Geniş"
+
+#: lib/Block/moon.php:167
+msgid "Last Half"
+msgstr "Son Dördün"
+
+#: lib/Block/account.php:91
+msgid "Last Password Change"
+msgstr "Son Şifre Değişimi"
+
+#: lib/Block/moon.php:84 lib/Block/moon.php:86
+msgid "Last Quarter"
+msgstr "Şişkin Ay"
+
+#: admin/activesync.php:98 templates/prefs/activesync.html:21
+#, fuzzy
+msgid "Last Sync Time"
+msgstr "Yer ve Zaman"
+
+#: lib/Block/metar.php:146
+msgid "Last Updated:"
+msgstr "Son Güncelleme:"
+
+#: lib/LoginTasks/Task/LastLogin.php:46
+#, php-format
+msgid "Last login: %s"
+msgstr "Son Giriş: %s"
+
+#: lib/LoginTasks/Task/LastLogin.php:48
+#, php-format
+msgid "Last login: %s from %s"
+msgstr "Son Giriş: %s üzerinden %s"
+
+#: lib/LoginTasks/Task/LastLogin.php:44
+msgid "Last login: Never"
+msgstr "Son Giriş: Asla"
+
+#: lib/Block/twitter_timeline.php:168
+#, fuzzy
+msgid "Latest"
+msgstr "Lesotho"
+
+#: themes/lavander/info.php:2
+msgid "Lavender"
+msgstr "Lavanta"
+
+#: lib/Block/fortune.php:51
+msgid "Law"
+msgstr "Yasa"
+
+#: themes/lightblue/info.php:2
+msgid "Light Blue"
+msgstr "Açık Mavi"
+
+#: lib/Block/weatherdotcom_strings.php:38
+msgid "Light Drizzle"
+msgstr "Çiseliyor"
+
+#: lib/Block/weatherdotcom_strings.php:39
+msgid "Light Rain"
+msgstr "Hafif Yağmur"
+
+#: lib/Block/weatherdotcom_strings.php:40
+msgid "Light Rain Early"
+msgstr "Erken Saatlerde Hafif Yağmur"
+
+#: lib/Block/weatherdotcom_strings.php:41
+msgid "Light Rain Late"
+msgstr "Geç Saatlerde Hafif Yağmur"
+
+#: lib/Block/weatherdotcom_strings.php:42
+msgid "Light Rain Shower"
+msgstr "Hafif Yağmur Sağanağı"
+
+#: lib/Block/weatherdotcom_strings.php:43
+msgid "Light Rain with Thunder"
+msgstr "Gök gürültülü hafif yağmur"
+
+#: lib/Block/weatherdotcom_strings.php:44
+msgid "Light Snow"
+msgstr "Hafif Kar"
+
+#: lib/Block/weatherdotcom_strings.php:45
+#, fuzzy
+msgid "Light Snow Early"
+msgstr "Erken Saatlerde Hafif Yağmur"
+
+#: lib/Block/weatherdotcom_strings.php:46
+#, fuzzy
+msgid "Light Snow Late"
+msgstr "Geç Saatlerde Hafif Yağmur"
+
+#: lib/Block/weatherdotcom_strings.php:47
+msgid "Light Snow Shower"
+msgstr "Hafif Kar Sağanağı"
+
+#: services/facebook.php:105
+#, fuzzy
+msgid "Like"
+msgstr "Bağlantı"
+
+#: lib/Block/fortune.php:52
+msgid "Limerick"
+msgstr "Nükteli Şiir"
+
+#: lib/Block/fortune.php:53
+msgid "Linux Cookie"
+msgstr "Linux Çerezi"
+
+#: admin/sqlshell.php:113
+msgid "List Tables"
+msgstr "Çizelgeleri Listele"
+
+#: admin/alarms.php:130
+#, php-format
+msgid "Listing alarms failed: %s"
+msgstr "Alarm listeleme başarısız oldu: %s"
+
+#: admin/sessions.php:62
+#, php-format
+msgid "Listing sessions failed: %s"
+msgstr "Oturum listeleme başarısız oldu: %s"
+
+#: templates/admin/user/nolist.inc:2
+msgid "Listing users is disabled."
+msgstr "Kullanıcı listeleme seçilemez kılındı."
+
+#: lib/Block/fortune.php:54
+msgid "Literature"
+msgstr "Edebiyat"
+
+#: lib/Block/weatherdotcom.php:215
+msgid "Local time: "
+msgstr "Yerel zaman:"
+
+#: config/prefs.php.dist:313
+msgid "Locale and Time"
+msgstr "Yer ve Zaman"
+
+#: lib/Block/metar.php:64 lib/Block/sunrise.php:20
+#: lib/Block/weatherdotcom.php:59
+msgid "Location"
+msgstr "Yer"
+
+#: login.php:261 templates/login/login.inc:64
+msgid "Log in"
+msgstr "Giriş"
+
+#: lib/Block/account.php:64
+msgid "Login"
+msgstr "Giriş"
+
+#: login.php:286
+msgid "Login failed because your username or password was entered incorrectly."
+msgstr "Kullanıcı adı veya porola doğru olmadığı için giriş başarısız oldu."
+
+#: login.php:282
+msgid "Login failed."
+msgstr "Giriş başarısız oldu."
+
+#: templates/prefs/facebook.html:46
+msgid "Login to Facebook and authorize <tag:app_name />"
+msgstr ""
+
+#: templates/prefs/twitter.html:21
+msgid "Login to Twitter and authorize the <tag:appname /> application"
+msgstr ""
+
+#: lib/Block/fortune.php:55
+msgid "Love"
+msgstr "Aşk"
+
+#: lib/Block/weatherdotcom_strings.php:98
+msgid "Low"
+msgstr "Düşük"
+
+#: themes/luc/info.php:2
+msgid "Loyola"
+msgstr "Loyola"
+
+#: themes/lucblue/info.php:2
+msgid "Loyola Blue"
+msgstr "Loyola Mavi"
+
+#: templates/data/date.inc:47 templates/data/date.inc:48
+#: templates/data/date.inc:49 templates/data/date.inc:50
+#: templates/data/datetime.inc:89 templates/data/datetime.inc:90
+#: templates/data/datetime.inc:91 templates/data/datetime.inc:92
+msgid "MM"
+msgstr "AA"
+
+#: lib/Block/fortune.php:56
+msgid "Magic"
+msgstr "Büyü"
+
+#: config/registry.php.dist:85
+msgid "Mail"
+msgstr "Posta"
+
+#: config/registry.php.dist:403
+msgid "Mail Admin"
+msgstr "Posta Yöneticisi"
+
+#: config/prefs.php.dist:441
+msgid ""
+"Manage the list of categories you have to label items with, and colors "
+"associated with those categories."
+msgstr ""
+"Öğeleri etiketleyeceğiniz kategori listesini ve kategorileri "
+"ilişkilendireceğiniz renkleri yönetin."
+
+#: config/prefs.php.dist:677
+msgid "Manage your ActiveSync devices."
+msgstr ""
+
+#: templates/data/csvmap.inc:96
+msgid "Matching fields:"
+msgstr "Eşleşen alanlar:"
+
+#: lib/Block/metar.php:301
+msgid "Max temp last 24 hours: "
+msgstr "Son 24 saatteki en yüksek sıcaklık: "
+
+#: lib/Block/metar.php:293
+msgid "Max temp last 6 hours: "
+msgstr "Son 6 saatteki en yüksek sıcaklık: "
+
+#: lib/Application.php:38
+msgid "Maximum Number of Portal Blocks"
+msgstr "En Fazla Portal Öbeği Sayısı"
+
+#: lib/Block/fb_stream.php:86
+#, fuzzy
+msgid "Maximum number of entries to display"
+msgstr "Görüntülenecek makale sayısı"
+
+#: lib/Block/fortune.php:57
+msgid "Medicine"
+msgstr "Tıp"
+
+#: lib/Block/iframe.php:27
+msgid "Medium"
+msgstr "Orta"
+
+#: templates/admin/groups/edit.inc:17
+msgid "Members"
+msgstr "Üyeler"
+
+#: config/prefs.php.dist:548
+msgid "Menu mode:"
+msgstr "Menü Kipi:"
+
+#: lib/Block/metar.php:5
+msgid "Metar Weather"
+msgstr "Hava Raporu"
+
+#: lib/Block/metar.php:42
+msgid "Metar block not available."
+msgstr "Hava raporu öbeği kullanılabilir değil."
+
+#: lib/Block/metar.php:110
+msgid ""
+"Metar block not available. Details have been logged for the administrator."
+msgstr ""
+"Hava raporu öbeği kullanılabilir değil. Ayrıntılar yönetici için günlüklendi"
+
+#: lib/Block/weatherdotcom.php:168
+msgid "MetarDB is not connected."
+msgstr "MetarDB'ye bağlanılamadı."
+
+#: lib/Block/metar.php:74 lib/Block/weatherdotcom.php:69
+msgid "Metric"
+msgstr "Metrik"
+
+#: lib/Block/metar.php:305
+msgid "Min temp last 24 hours: "
+msgstr "Son 24 saatteki en düşük sıcaklık: "
+
+#: lib/Block/metar.php:297
+msgid "Min temp last 6 hours: "
+msgstr "Son 6 saatteki en düşük sıcaklık: "
+
+#: lib/Block/fortune.php:58
+msgid "Miscellaneous"
+msgstr "Muhtelif"
+
+#: admin/config/index.php:135
+msgid ""
+"Missing configuration. You must generate it before using this application."
+msgstr "Yapılandırma yok. Uygulamayı kullanmadan once yaratınız."
+
+#: lib/Block/weatherdotcom_strings.php:48
+#, fuzzy
+msgid "Mist"
+msgstr "Liste"
+
+#: lib/Block/weatherdotcom_strings.php:99
+msgid "Moderate"
+msgstr "Sakin"
+
+#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:57
+#, php-format
+msgid "Modified sequence for %s"
+msgstr ""
+
+#: config/prefs.php.dist:430
+msgid "Monday"
+msgstr "Pazartesi"
+
+#: lib/Block/moon.php:3 lib/Block/moon.php:14
+msgid "Moon Phases"
+msgstr "Ay Evreleri"
+
+#: lib/Block/weatherdotcom_strings.php:49
+msgid "Mostly Clear"
+msgstr "Genellikle Açık"
+
+#: lib/Block/weatherdotcom_strings.php:50
+msgid "Mostly Cloudy"
+msgstr "Genellikle Bulutlu"
+
+#: lib/Block/weatherdotcom_strings.php:51
+msgid "Mostly Cloudy and Windy"
+msgstr "Çoğunlukla Bulutlu ve Rüzgarlı"
+
+#: lib/Block/weatherdotcom_strings.php:52
+msgid "Mostly Sunny"
+msgstr "Genellikle Güneşli"
+
+#: themes/mozilla/info.php:2
+msgid "Mozilla"
+msgstr "Mozilla"
+
+#: config/registry.php.dist:333
+msgid "My Account"
+msgstr "Hesabım"
+
+#: lib/Block/account.php:27
+msgid "My Account Information"
+msgstr "Hesap Bilgilerim"
+
+#: lib/Block/fb_stream.php:3 lib/Block/fb_stream.php:105
+msgid "My Facebook Stream"
+msgstr ""
+
+#: services/portal/index.php:62
+msgid "My Portal"
+msgstr "Portalım"
+
+#: services/portal/edit.php:36
+msgid "My Portal Layout"
+msgstr "Portal Düzenim"
+
+#: templates/logintasks/logintasks.html:35
+msgid "NO, I Do NOT Agree"
+msgstr "Kabul ETMIYORUM"
+
+#: lib/Block/vatid.php:98
+msgid "Name"
+msgstr "Ad"
+
+#: themes/NeXTgrey/info.php:2
+msgid "NeXT"
+msgstr "NeXT"
+
+#: templates/portal/layout.inc:97 config/prefs.php.dist:516
+#: config/prefs.php.dist:556
+msgid "Never"
+msgstr "Asla"
+
+#: templates/prefs/category.html:3
+msgid "New Category"
+msgstr "Yeni Kategori"
+
+#: services/facebook.php:65
+#, fuzzy
+msgid "New Messages:"
+msgstr "%s'e Yeni İleti"
+
+#: lib/Block/moon.php:44 lib/Block/moon.php:66 lib/Block/moon.php:172
+msgid "New Moon"
+msgstr "Yeni Ay"
+
+#: templates/admin/user/update.inc:12
+msgid "New Username (optional)"
+msgstr "Yeni Kullanıcı Adı (Seçimli)"
+
+#: services/changepassword.php:29
+msgid "New password"
+msgstr "Yeni şifre"
+
+#: services/changepassword.php:40
+msgid "New passwords don't match."
+msgstr "Yeni şifre eşleşmedi."
+
+#: lib/Block/fortune.php:59 config/registry.php.dist:288
+msgid "News"
+msgstr "Haberler"
+
+#: templates/data/csvinfo.inc:25 templates/data/csvmap.inc:119
+#: templates/data/datemap.inc:41 templates/data/tsvinfo.inc:15
+msgid "Next"
+msgstr "Sonraki"
+
+#: lib/Block/moon.php:25
+msgid "Next 4 Phases"
+msgstr "Sonraki 4 Evre"
+
+#: lib/Block/weatherdotcom.php:382
+msgid "Night"
+msgstr "Gece"
+
+#: templates/prefs/alarm.html:32
+msgid "No Sound"
+msgstr "Ses Yok"
+
+#: templates/admin/config/diff.html:9
+msgid "No available configuration data to show differences for."
+msgstr "Farkların gösterilebileceği kullanılabilir yapılandırma verisi yok."
+
+#: admin/config/diff.php:39
+msgid "No change."
+msgstr "Değişiklik Yok"
+
+#: util/icon_browser.php:83
+msgid "No icons found."
+msgstr "Hiçbir simge bulunamadı."
+
+#: lib/Block/metar.php:121 lib/Block/sunrise.php:38
+#: lib/Block/weatherdotcom.php:133
+msgid "No location is set."
+msgstr "Hiçbir yer belirtilmedi."
+
+#: lib/Block/weatherdotcom.php:172
+msgid "No location provided."
+msgstr "Hiçbir yer belirtilmedi."
+
+#: lib/Block/fortune.php:101
+msgid "No offensive fortunes"
+msgstr "Saldırgan deyiş kullanma"
+
+#: templates/admin/user/approve.inc:15
+msgid "No pending signups."
+msgstr "Üye olmak için bekleyen yok."
+
+#: admin/config/index.php:89 admin/config/index.php:121
+msgid "No stable version exists yet."
+msgstr "Henüz duraylı bir sürüm yok."
+
+#: lib/Block/weatherdotcom.php:143
+msgid "No temporary directory available for cache."
+msgstr "Önbellek için geçici dizin bulunamadı."
+
+#: admin/signup_confirm.php:57
+#, fuzzy
+msgid "No username specified."
+msgstr "Ad belirtilmedi."
+
+#: admin/config/index.php:140
+msgid "No version found in original configuration. Regenerate configuration."
+msgstr "Özgün yapılandırmada sürüm bulunamadı.Yapılandırmayı tekrar üretin."
+
+#: admin/config/index.php:148
+msgid "No version found in your configuration. Regenerate configuration."
+msgstr "Özgün yapılandırmanızda sürüm bulunamadı.Yapılandırmayı tekrar üretin."
+
+#: lib/Prefs/Ui.php:411 templates/prefs/activesync.html:43
+#: templates/prefs/identityselect.html:20 templates/prefs/syncml.html:34
+msgid "None"
+msgstr "Hiçbiri"
+
+#: config/nls.php:181
+msgid "Nordic (ISO-8859-10)"
+msgstr "Kuzey Avrupalı (ISO-8859-10)"
+
+#: lib/Block/moon.php:30 lib/Block/moon.php:58
+msgid "Northern Hemisphere"
+msgstr "Kuzey Yarımküre"
+
+#: admin/activesync.php:171 lib/Prefs/Ui.php:426
+#, fuzzy
+msgid "Not Provisioned"
+msgstr "İzin Düzenle"
+
+#: config/registry.php.dist:211
+msgid "Notes"
+msgstr "Notlar"
+
+#: services/obrowser/index.php:32
+msgid "Nothing to browse, go back."
+msgstr "Göz atılacak birşey yok, geri dönün."
+
+#: lib/Block/feed.php:18
+msgid "Number of articles to display"
+msgstr "Görüntülenecek makale sayısı"
+
+#: lib/Block/twitter_timeline.php:91
+msgid "Number of seconds to wait to refresh"
+msgstr ""
+
+#: services/keyboard.php:92
+msgid "O characters"
+msgstr "O karakterleri"
+
+#: templates/shares/edit.inc:129
+msgid "Object Creator"
+msgstr "Nesne Yaratıcısı"
+
+#: lib/Block/fortune.php:99
+msgid "Offense filter"
+msgstr "Saldırganlık süzgeci"
+
+#: config/registry.php.dist:301
+msgid "Office"
+msgstr "Ofis"
+
+#: services/changepassword.php:42
+msgid "Old and new passwords must be different."
+msgstr "Eski ve yeni şifreler farklı olmalı."
+
+#: services/changepassword.php:28
+msgid "Old password"
+msgstr "Eski şifre"
+
+#: services/changepassword.php:38
+msgid "Old password is not correct."
+msgstr "Eski şifre doğru değil."
+
+#: lib/Block/fortune.php:102
+msgid "Only offensive fortunes"
+msgstr "Sadece saldırgan deyişler"
+
+#: services/shares/edit.php:83
+msgid ""
+"Only the owner or system administrator may change ownership or owner "
+"permissions for a share"
+msgstr ""
+"Bir paylaşımın sahipliğini veya sahibini sadece sisyem yöneticisi veya "
+"sahibi değiştirebilir."
+
+#: lib/Block/fortune.php:60
+msgid "Operating System"
+msgstr "İşletim Sistemi"
+
+#: templates/shares/edit.inc:236
+#, fuzzy
+msgid "Or enter a user name:"
+msgstr "Kullanıcı adı seçin"
+
+#: config/registry.php.dist:135
+msgid "Organizing"
+msgstr "Düzenleme"
+
+#: services/keyboard.php:124
+msgid "Other"
+msgstr "Diğer"
+
+#: config/prefs.php.dist:467 config/prefs.php.dist:582
+#: config/prefs.php.dist:603 config/prefs.php.dist:624
+#: config/prefs.php.dist:643 config/prefs.php.dist:663
+#: config/prefs.php.dist:675
+msgid "Other Information"
+msgstr "Diğer Bilgiler"
+
+#: services/keyboard.php:122
+msgid "Other characters"
+msgstr "Diğer karakterler"
+
+#: templates/shares/edit.inc:30
+#, fuzzy
+msgid "Owner"
+msgstr "Sahip:"
+
+#: templates/shares/edit.inc:36 templates/shares/edit.inc:45
+msgid "Owner:"
+msgstr "Sahip:"
+
+#: admin/phpshell.php:51
+msgid "PHP"
+msgstr "PHP"
+
+#: admin/phpshell.php:71
+msgid "PHP Code"
+msgstr "PHP Kodu"
+
+#: admin/phpshell.php:32
+msgid "PHP Shell"
+msgstr "PHP Kabuğu"
+
+#: lib/Block/weatherdotcom_strings.php:54
+msgid "PM Clouds"
+msgstr "ÖS Bulutlu"
+
+#: lib/Block/weatherdotcom_strings.php:55
+#, fuzzy
+msgid "PM Drizzle"
+msgstr "ÖÖ Hafif Yağmurlu"
+
+#: lib/Block/weatherdotcom_strings.php:56
+msgid "PM Fog"
+msgstr "ÖS Sisli"
+
+#: lib/Block/weatherdotcom_strings.php:57
+msgid "PM Light Rain"
+msgstr "ÖS Hafif Yağmur"
+
+#: lib/Block/weatherdotcom_strings.php:58
+msgid "PM Light Snow"
+msgstr "ÖS Hafif Karlı"
+
+#: lib/Block/weatherdotcom_strings.php:59
+msgid "PM Rain"
+msgstr "ÖS Yağmurlu"
+
+#: lib/Block/weatherdotcom_strings.php:60
+msgid "PM Showers"
+msgstr "ÖS Sağanakları"
+
+#: lib/Block/weatherdotcom_strings.php:61
+msgid "PM Snow"
+msgstr "ÖS Kar"
+
+#: lib/Block/weatherdotcom_strings.php:62
+msgid "PM Snow Showers"
+msgstr "ÖS Kar Sağanakları"
+
+#: lib/Block/weatherdotcom_strings.php:63
+msgid "PM Sun"
+msgstr "ÖS Güneşli"
+
+#: lib/Block/weatherdotcom_strings.php:64
+#, fuzzy
+msgid "PM T-Showers"
+msgstr "ÖS Sağanakları"
+
+#: lib/Block/weatherdotcom_strings.php:65
+msgid "PM T-Storms"
+msgstr "ÖS Gök gürültülü fırtına"
+
+#: lib/Block/account.php:287
+msgid "POSIX extension is missing"
+msgstr "POSIX uzantısı eksik"
+
+#: lib/Api.php:62
+msgid "P_HP Shell"
+msgstr "P_HP Kabuğu"
+
+#: lib/Block/weatherdotcom_strings.php:53
+msgid "Partly Cloudy"
+msgstr "Kısmen Bulutlu"
+
+#: admin/config/index.php:192 admin/user.php:35 admin/user.php:49 login.php:81
+#: templates/admin/user/update.inc:20 config/registry.php.dist:355
+msgid "Password"
+msgstr "Şifre"
+
+#: services/changepassword.php:52
+msgid "Password changed successfully."
+msgstr "Şifre başarı ile değiştirildi."
+
+#: lib/Prefs/Ui.php:326
+msgid "Password:"
+msgstr "Şifre:"
+
+#: admin/user.php:168 admin/user.php:220
+msgid "Passwords must match."
+msgstr "Şifreler eşleşmek zorundadır."
+
+#: admin/sqlshell.php:100
+msgid "Paste"
+msgstr "Yapıştır"
+
+#: templates/admin/user/approve.inc:9 templates/admin/user/removequeued.inc:7
+msgid "Pending Signups:"
+msgstr "Bekleyen Üyelikler:"
+
+#: lib/Block/fortune.php:61
+msgid "People"
+msgstr "İnsanlar"
+
+#: templates/logintasks/logintasks.html:30
+#, fuzzy
+msgid "Perform Login Tasks"
+msgstr "Giriş Görevleri"
+
+#: admin/perms/delete.php:42
+#, php-format
+msgid "Permission \"%s\" not deleted."
+msgstr "\"%s\" izni silindi."
+
+#: admin/perms/index.php:23
+msgid "Permissions"
+msgstr "İzinler"
+
+#: admin/perms/addchild.php:51 admin/perms/delete.php:46
+#: admin/perms/edit.php:110 admin/perms/index.php:17
+msgid "Permissions Administration"
+msgstr "İzin Yönetimi"
+
+#: config/prefs.php.dist:213
+msgid "Personal Information"
+msgstr "Kişisel Bilgiler"
+
+#: lib/Block/fortune.php:62
+msgid "Pets"
+msgstr "Evcil Hayvanlar"
+
+#: config/registry.php.dist:385
+msgid "Photos"
+msgstr "Fotoğraflar"
+
+#: lib/Block/fortune.php:63
+msgid "Platitudes"
+msgstr "Beylik Sözler"
+
+#: login.php:87
+#, fuzzy
+msgid "Please enter a password."
+msgstr "Lütfen geçerli bir zaman girin."
+
+#: login.php:86
+#, fuzzy
+msgid "Please enter a username."
+msgstr "Lütfen geçerli bir zaman girin."
+
+#: templates/problem/problem.inc:7
+msgid "Please provide a summary of the problem."
+msgstr "Lütfen sorunun bir özetini yapın."
+
+#: services/logintasks.php:73
+msgid ""
+"Please read the following text. You MUST agree with the terms to use the "
+"system."
+msgstr ""
+"Lütfen aşağıdaki metni okuyunuz. Sistemi kullanma şartlarını KABUL "
+"ETMELİSİNİZ."
+
+#: services/facebook.php:67
+#, fuzzy
+msgid "Pokes:"
+msgstr "Evcil Hayvanlar"
+
+#: admin/activesync.php:105
+#, fuzzy
+msgid "Policy Key"
+msgstr "Açık Anahtar"
+
+#: lib/Prefs/Ui.php:432
+#, fuzzy
+msgid "Policy Key:"
+msgstr "Açık Anahtar"
+
+#: lib/Block/fortune.php:64
+msgid "Politics"
+msgstr "Politika"
+
+#: services/facebook.php:101
+#, fuzzy, php-format
+msgid "Posted %s"
+msgstr "%s seç"
+
+#: templates/block/twitter_tweet.html.php:26
+#, fuzzy, php-format
+msgid "Posted %s via %s"
+msgstr "%d %s ve %s"
+
+#: themes/postnuke/info.php:2
+msgid "Postnuke"
+msgstr "Postnuke"
+
+#: lib/Block/metar.php:261 lib/Block/metar.php:266
+#, php-format
+msgid "Precipitation for last %d hour: "
+msgid_plural "Precipitation for last %d hours: "
+msgstr[0] "Son %d saat için yağış: "
+
+#: lib/Block/weatherdotcom.php:301
+msgid "Precipitation<br />chance"
+msgstr "Yağış<br />olasılığı"
+
+#: lib/Block/metar.php:220
+msgid "Pressure"
+msgstr "Basınç"
+
+#: lib/Block/metar.php:254
+msgid "Pressure at sea level: "
+msgstr "Deniz seviyesindeki basınç:"
+
+#: lib/Block/weatherdotcom.php:239
+msgid "Pressure: "
+msgstr "Basınç:"
+
+#: services/problem.php:145
+msgid "Problem Description"
+msgstr "Sorun Tanımlaması"
+
+#: admin/activesync.php:171 lib/Prefs/Ui.php:425
+#, fuzzy
+msgid "Provisioned"
+msgstr "İzin"
+
+#: templates/prefs/facebook.html:21
+msgid "Publish enabled."
+msgstr ""
+
+#: themes/purple/info.php:2
+msgid "Purple Horde"
+msgstr "Horde'u Temizle"
+
+#: admin/sqlshell.php:50
+msgid "Query"
+msgstr "Sorgu"
+
+#: lib/Block/account.php:83
+msgid "Quota"
+msgstr "Kota"
+
+#: lib/Block/weatherdotcom_strings.php:66
+msgid "Rain"
+msgstr "Yağmur"
+
+#: lib/Block/weatherdotcom_strings.php:67
+msgid "Rain Early"
+msgstr "Erken Saatlerde Yağmur"
+
+#: lib/Block/weatherdotcom_strings.php:68
+msgid "Rain Late"
+msgstr "Geç Saatlerde Yağmur"
+
+#: lib/Block/weatherdotcom_strings.php:69
+msgid "Rain Shower"
+msgstr "Sağanak Yağış"
+
+#: lib/Block/weatherdotcom_strings.php:70
+msgid "Rain and Snow"
+msgstr "Yağmur ve Kar"
+
+#: lib/Block/weatherdotcom_strings.php:71
+msgid "Rain to Snow"
+msgstr "Kara dönüşecek yağmur"
+
+#: lib/Block/fortune.php:6
+msgid "Random Fortune"
+msgstr "Rastgele Deyiş"
+
+#: templates/shares/edit.inc:61 templates/shares/edit.inc:75
+#: templates/shares/edit.inc:96 templates/shares/edit.inc:110
+#: templates/shares/edit.inc:132 templates/shares/edit.inc:146
+#: templates/shares/edit.inc:167 templates/shares/edit.inc:185
+#: templates/shares/edit.inc:220 templates/shares/edit.inc:247
+#: templates/shares/edit.inc:269 templates/shares/edit.inc:283
+#: templates/shares/edit.inc:312
+msgid "Read"
+msgstr "Okuma"
+
+#: templates/prefs/facebook.html:33
+#, fuzzy
+msgid "Read enabled"
+msgstr "İletileri Oku"
+
+#: templates/admin/user/remove.inc:8
+#, php-format
+msgid "Really delete \"%s\"? This operation cannot be undone."
+msgstr "\"%s\" gerçekten silinsin mi? Bu işlem geri döndürülemez."
+
+#: templates/admin/user/clear.inc:8
+#, php-format
+msgid ""
+"Really remove user data for user \"%s\"? This operation cannot be undone."
+msgstr ""
+"Gerçekten \"%s\" için kullanıcı verilerinin silinmesini istiyor musunuz? Bu "
+"işlemin geri dönüşü yoktur."
+
+#: config/prefs.php.dist:562
+msgid "Refresh Dynamic Menu Elements:"
+msgstr "Devingen Menü Öğelerini Tazele:"
+
+#: config/prefs.php.dist:523
+msgid "Refresh Portal View:"
+msgstr "Portal Görünümünü Tazele:"
+
+#: templates/portal/layout.inc:94
+msgid "Refresh rate:"
+msgstr "Tazeleme sıklığı"
+
+#: admin/activesync.php:134
+msgid "Registered User Devices"
+msgstr ""
+
+#: lib/Block/metar.php:321
+msgid "Remarks"
+msgstr "Açıklamalar"
+
+#: admin/sessions.php:39 admin/sessions.php:50
+msgid "Remote Host:"
+msgstr "Uzaktaki Sunucu:"
+
+#: config/prefs.php.dist:583
+msgid "Remote Servers"
+msgstr "Uzaktaki Sunucular"
+
+#: lib/Prefs/Ui.php:324
+msgid "Remote URL (http://www.example.com/horde):"
+msgstr "Uzaktaki URL (http://www.example.com/horde):"
+
+#: admin/activesync.php:185 templates/admin/groups/edit.inc:23
+#: templates/admin/user/approve.inc:40
+#: templates/admin/user/removequeued.inc:13 templates/prefs/activesync.html:33
+msgid "Remove"
+msgstr "Sil"
+
+#: templates/data/csvmap.inc:118
+msgid "Remove pair"
+msgstr "Ikiliyi Sil"
+
+#: admin/config/index.php:211
+msgid "Remove saved script from server's temporary directory."
+msgstr "Kaydedilmiş betiği sunucunu geçici dizininden sil."
+
+#: templates/admin/user/remove.inc:11
+msgid "Remove user"
+msgstr "Kullanıcı Sil"
+
+#: templates/admin/user/remove.inc:5
+#, php-format
+msgid "Remove user: %s"
+msgstr "Kullanıcıyı sil: %s"
+
+#: templates/block/twitter_tweet.html.php:34
+#, fuzzy
+msgid "Reply"
+msgstr "Yanıt-Adresi"
+
+#: admin/activesync.php:138
+#, fuzzy
+msgid "Reprovision All Devices"
+msgstr "İzin Yok"
+
+#: lib/Block/weatherdotcom.php:160
+msgid "Requested service could not be found."
+msgstr "Belirtilen servis bulunamadı."
+
+#: admin/user.php:22 templates/admin/user/update.inc:54
+#: templates/prefs/rpc.html:36
+msgid "Reset"
+msgstr "Temizle"
+
+#: services/resetpassword.php:45
+msgid "Reset Password"
+msgstr "Şifreyi Sıfırla"
+
+#: services/resetpassword.php:23
+msgid "Reset Your Password"
+msgstr "Şifrenizi Sıfırlayınız"
+
+#: templates/prefs/activesync.html:6
+msgid ""
+"Reset all device state. This will cause your devices to resyncronize all "
+"items."
+msgstr ""
+
+#: admin/sqlshell.php:111
+msgid "Restore Last Query"
+msgstr "Son Sorguyu Geri Al"
+
+#: admin/cmdshell.php:23 admin/phpshell.php:74 admin/sqlshell.php:53
+msgid "Results"
+msgstr "Sonuçlar"
+
+#: services/portal/cloud_search.php:30
+#, php-format
+msgid "Results for %s"
+msgstr "%s için sonuçlar"
+
+#: templates/prefs/end.html:7
+#, fuzzy
+msgid "Return to Main Screen"
+msgstr "Seçeneklere Dönün"
+
+#: templates/block/twitter_tweet.html.php:35
+#, fuzzy
+msgid "Retweet"
+msgstr "Temizle"
+
+#: templates/block/twitter_tweet.html.php:30
+#, php-format
+msgid "Retweeted by %s"
+msgstr ""
+
+#: services/changepassword.php:30
+msgid "Retype new password"
+msgstr "Yeni şifreyi tekrar yazınız"
+
+#: admin/config/config.php:33 admin/config/config.php:37
+msgid "Revert Configuration"
+msgstr "Yapılandırmayı Geri Döndür"
+
+#: lib/Block/fortune.php:65
+msgid "Riddles"
+msgstr "Bilmeceler"
+
+#: admin/sqlshell.php:101
+msgid "Run"
+msgstr "Çalıştır"
+
+#: admin/sqlshell.php:14
+msgid "SQL Shell"
+msgstr "SQL Kabuğu"
+
+#: config/registry.php.dist:363
+msgid "SSH"
+msgstr "SSH"
+
+#: lib/Api.php:67
+msgid "S_QL Shell"
+msgstr "S_QL Kabuğu"
+
+#: templates/portal/layout.inc:115 templates/prefs/end.html:3
+msgid "Save"
+msgstr "Kaydet"
+
+#: templates/admin/groups/edit.inc:63 templates/shares/edit.inc:330
+#, php-format
+msgid "Save \"%s\""
+msgstr "Sakla: \"%s\""
+
+#: templates/shares/edit.inc:331
+msgid "Save and Finish"
+msgstr "Kaydet ve Sonlandır"
+
+#: admin/config/index.php:183
+msgid ""
+"Save generated configuration as a PHP script to your server's temporary "
+"directory."
+msgstr ""
+"Oluşturulan yapılandırmayı PHP betiği olarak sunucunun geçici dizinine "
+"kaydet."
+
+#: admin/config/scripts.php:92
+#, fuzzy, php-format
+msgid "Saved configuration upgrade script to: \"%s\"."
+msgstr "Ayar güncelleme betiğini kaydet: \"%s\"."
+
+#: lib/Block/weatherdotcom_strings.php:72
+msgid "Scattered Showers"
+msgstr "Mevzi Sağnak"
+
+#: lib/Block/weatherdotcom_strings.php:73
+msgid "Scattered T-Storms"
+msgstr "Dağınık Gökgürülütülü Fırtınalar"
+
+#: lib/Block/fortune.php:66
+msgid "Science"
+msgstr "Bilim"
+
+#: services/help/index.php:71
+msgid "Sea_rch"
+msgstr "A_ra"
+
+#: services/help/index.php:134 templates/admin/user/list.inc:16
+msgid "Search"
+msgstr "Arama"
+
+#: templates/admin/user/list.inc:14
+msgid "Search:"
+msgstr "Ara:"
+
+#: templates/shares/edit.inc:298 templates/shares/edit.inc:300
+msgid "Select a group to add:"
+msgstr "Eklenecek grubu seçin:"
+
+#: templates/shares/edit.inc:38
+msgid "Select a new owner:"
+msgstr "Bir sahip seçin:"
+
+#: templates/prefs/rpc.html:4
+msgid "Select a server"
+msgstr "Bir sunucu seçin"
+
+#: templates/shares/edit.inc:202 templates/shares/edit.inc:204
+msgid "Select a user to add:"
+msgstr "Eklenecek kullanıcıyı seçin"
+
+#: templates/prefs/addressbooks.html:5
+msgid "Select all fields to search when expanding addresses."
+msgstr ""
+
+#: services/keyboard.php:38
+msgid ""
+"Select the characters you need from the boxes below. You can then copy and "
+"paste them from the text area."
+msgstr ""
+"İstediğniz karakterleri aşağıdaki kutulardan seçin. Daha sonra metin "
+"alanından kopyalayıp yapıştırabilirsiniz."
+
+#: templates/data/datetime.inc:57
+msgid "Select the date and time format:"
+msgstr "Tarih ve zaman biçimini seçin:"
+
+#: templates/data/date.inc:34 templates/data/datetime.inc:76
+msgid "Select the date delimiter:"
+msgstr "Tarih sınırlayıcısını seçın:"
+
+#: templates/data/date.inc:44 templates/data/datetime.inc:86
+msgid "Select the date format:"
+msgstr "Tarih biçimini seçin:"
+
+#: templates/data/datetime.inc:66
+msgid "Select the day and time order:"
+msgstr "Gün ve zaman sırasını seçin:"
+
+#: templates/data/datetime.inc:97 templates/data/time.inc:16
+msgid "Select the time delimiter:"
+msgstr "Saat sınırlayıcısını seçin:"
+
+#: templates/data/datetime.inc:106 templates/data/time.inc:25
+msgid "Select the time format:"
+msgstr "Saat biçimini seçin:"
+
+#: config/prefs.php.dist:509
+msgid "Select your color scheme."
+msgstr "Renk düzeninizi seçin."
+
+#: config/prefs.php.dist:328
+msgid "Select your preferred language:"
+msgstr "Tercih ettiğiniz dili seçin:"
+
+#: templates/problem/problem.inc:57
+msgid "Send Problem Report"
+msgstr "Sorun Raporu Gönder"
+
+#: lib/Block/metar.php:311
+msgid "Sensor: "
+msgstr "Algılayıcı:"
+
+#: templates/prefs/syncml.html:12
+#, fuzzy
+msgid "Server Time"
+msgstr "Sunucu TS"
+
+#: lib/Block/weatherdotcom.php:164
+msgid "Server data wrong or not available."
+msgstr "Sunucu bilgisi yanlış yada mevcut değil."
+
+#: admin/sessions.php:14
+msgid "Session Admin"
+msgstr "Oturum Yöneticisi"
+
+#: admin/sessions.php:37
+msgid "Session Timestamp:"
+msgstr "Oturum Zaman Bilgisi:"
+
+#: lib/Api.php:57
+msgid "Sessions"
+msgstr "Oturum"
+
+#: config/prefs.php.dist:277
+#, fuzzy
+msgid ""
+"Set preferences to allow you to reset your password if you ever forget it."
+msgstr ""
+"Şifrenizi unutursanız sıfırlamanıza izin verecek seçenekleri belirtin. "
+
+#: config/prefs.php.dist:605
+msgid "Set up integration with your Facebook account."
+msgstr ""
+
+#: config/prefs.php.dist:626
+msgid "Set up integration with your Twitter account."
+msgstr ""
+
+#: config/prefs.php.dist:584
+msgid "Set up remote servers that you want to access from your portal."
+msgstr "Ulaşmak isteğiniz uzaktaki sunucuları belirleyin."
+
+#: config/prefs.php.dist:314
+#, fuzzy
+msgid "Set your preferred language, timezone and date preferences."
+msgstr "Tercih ettiğiniz dil, saat dilimi ve tarih seçeneklerini belirleyin."
+
+#: config/prefs.php.dist:469
+#, fuzzy
+msgid ""
+"Set your startup application, color scheme, page refreshing, and other "
+"display preferences."
+msgstr ""
+"Başlangıç uygulamanızı, renk düzeninizi, sayfa tazeleme, ve diğer görüntü "
+"seçeneklerini belirleyin."
+
+#: lib/Block/weatherdotcom.php:190
+msgid "Several locations possible with the parameter: "
+msgstr "Değiştirge ile birden fazla yer mümkün: "
+
+#: templates/problem/problem.inc:38
+msgid "Short Summary"
+msgstr "Kısa Özet"
+
+#: config/prefs.php.dist:570
+msgid "Should access keys be defined for most links?"
+msgstr "Çoğu bağlantı için erişim anahtarı tanımlansın mı?"
+
+#: templates/shares/edit.inc:60 templates/shares/edit.inc:71
+#: templates/shares/edit.inc:95 templates/shares/edit.inc:106
+#: templates/shares/edit.inc:131 templates/shares/edit.inc:142
+#: templates/shares/edit.inc:166 templates/shares/edit.inc:181
+#: templates/shares/edit.inc:216 templates/shares/edit.inc:243
+#: templates/shares/edit.inc:268 templates/shares/edit.inc:279
+#: templates/shares/edit.inc:308
+msgid "Show"
+msgstr "Göster"
+
+#: templates/prefs/app.html:21
+#, fuzzy
+msgid "Show Advanced Preferences"
+msgstr "farkları göster"
+
+#: admin/config/index.php:173
+msgid ""
+"Show differences between currently saved and the newly generated "
+"configuration."
+msgstr ""
+"Halen kayıtlı olan yapılandırma ile yeni yaratılan yapılandırma arasındaki "
+"farkları göster."
+
+#: lib/Block/feed.php:24
+msgid "Show extra detail?"
+msgstr "Ek detay gösterilsin mi?"
+
+#: config/prefs.php.dist:491
+msgid "Show last login time when logging in?"
+msgstr "Girişte en son giriş tarihi gösterilsin mi?"
+
+#: lib/Block/fb_stream.php:89
+#, fuzzy
+msgid "Show notifications"
+msgstr "Açılan Uyarı"
+
+#: config/prefs.php.dist:530
+#, php-format
+msgid "Show the %s Menu on the left?"
+msgstr "%s Menüsü solda gösterilsin mi?"
+
+#: lib/Block/weatherdotcom_strings.php:74
+msgid "Showers"
+msgstr "Sağanak"
+
+#: lib/Block/weatherdotcom_strings.php:75
+msgid "Showers Early"
+msgstr "Erken Saatlerde Sağanak"
+
+#: lib/Block/weatherdotcom_strings.php:76
+msgid "Showers Late"
+msgstr "Geç Saatlerde Sağanak"
+
+#: lib/Block/weatherdotcom_strings.php:77
+msgid "Showers in the Vicinity"
+msgstr "Çevrede Sağanak"
+
+#: themes/simplex/info.php:2
+msgid "Simplex"
+msgstr "Tekli"
+
+#: templates/logintasks/logintasks.html:31
+#, fuzzy
+msgid "Skip Login Tasks"
+msgstr "Giriş Görevleri"
+
+#: lib/Block/iframe.php:26
+msgid "Small"
+msgstr "Küçük"
+
+#: lib/Block/weatherdotcom_strings.php:78
+msgid "Snow"
+msgstr "Kar"
+
+#: lib/Block/weatherdotcom_strings.php:79
+#, fuzzy
+msgid "Snow Early"
+msgstr "Erken Saatlerde Sağanak"
+
+#: lib/Block/weatherdotcom_strings.php:80
+#, fuzzy
+msgid "Snow Late"
+msgstr "Geç Saatlerde Sağanak"
+
+#: lib/Block/weatherdotcom_strings.php:81
+msgid "Snow Shower"
+msgstr "Kar Sağanağı"
+
+#: lib/Block/weatherdotcom_strings.php:82
+msgid "Snow Showers"
+msgstr "Kar Sağanakları"
+
+#: lib/Block/weatherdotcom_strings.php:83
+msgid "Snow Showers Early"
+msgstr "Erken Saatlerde Kar Sağanakları"
+
+#: lib/Block/weatherdotcom_strings.php:84
+msgid "Snow Showers Late"
+msgstr "Geç Saatlerde Kar Sağanakları"
+
+#: lib/Block/metar.php:273
+msgid "Snow depth: "
+msgstr "Kar Derinliği: "
+
+#: lib/Block/metar.php:277
+msgid "Snow equivalent in water: "
+msgstr "Yağan karın su eşiti: "
+
+#: lib/Block/fortune.php:67
+msgid "Songs & Poems"
+msgstr "Şarkılar & Şiirler"
+
+#: config/nls.php:182
+msgid "South European (ISO-8859-3)"
+msgstr "Güney Avrupa (ISO-8859-3)"
+
+#: lib/Block/moon.php:31 lib/Block/moon.php:60
+msgid "Southern Hemisphere"
+msgstr "Güney Yarımküre"
+
+#: config/registry.php.dist:102
+msgid "Spam"
+msgstr "İstenmeyen İleti"
+
+#: services/keyboard.php:14
+msgid "Special Character Input"
+msgstr "Özel Karakter Girişi"
+
+#: lib/Block/fortune.php:68
+msgid "Sports"
+msgstr "Sporlar"
+
+#: lib/Block/metar.php:73 lib/Block/weatherdotcom.php:68
+msgid "Standard"
+msgstr "Standart"
+
+#: lib/Block/fortune.php:69
+msgid "Star Trek"
+msgstr "Uzay Yolu"
+
+#: templates/prefs/activesync.html:2
+msgid "State Management"
+msgstr ""
+
+#: admin/activesync.php:112 templates/admin/config/index.html:17
+#: templates/prefs/activesync.html:22
+msgid "Status"
+msgstr "Durum"
+
+#: services/facebook.php:144
+msgid "Status unable to be set."
+msgstr ""
+
+#: util/icon_browser.php:40
+#, php-format
+msgid "Subdirectory \"%s\" not found."
+msgstr "Altdizin \"%s\" bulunamadı."
+
+#: signup.php:52
+#, php-format
+msgid ""
+"Submitted request to add \"%s\" to the system. You cannot log in until your "
+"request has been approved."
+msgstr ""
+"\"%s\" yi sisteme ekleme talebiniz alındı. Talep onaylanana kadar sisteme "
+"giriş yapamazsınız."
+
+#: services/facebook.php:38
+msgid "Succesfully connected your Facebook account."
+msgstr ""
+
+#: admin/sqlshell.php:88
+msgid "Success"
+msgstr "Başarı"
+
+#: admin/signup_confirm.php:85 admin/user.php:100
+#, php-format
+msgid "Successfully added \"%s\" to the system."
+msgstr "\"%s\" başarıyla sisteme eklendi."
+
+#: admin/user.php:138
+#, php-format
+msgid "Successfully cleared data for user \"%s\" from the system."
+msgstr "\"%s\" kullanıcısının bilgileri başarıyla sistemden temizlendi."
+
+#: admin/groups.php:78 admin/perms/delete.php:36
+#, php-format
+msgid "Successfully deleted \"%s\"."
+msgstr "\"%s\" başarıyla silindi."
+
+#: admin/user.php:118
+#, php-format
+msgid "Successfully removed \"%s\" from the system."
+msgstr "\"%s\" başarıyla sistemden kaldırıldı."
+
+#: admin/config/config.php:40
+msgid "Successfully reverted configuration. Reload to see changes."
+msgstr ""
+"Yapılandırma başarıyla geri döndürüldü. Değişiklikleri görmek için yeniden "
+"yükleyin."
+
+#: admin/config/index.php:39
+msgid "Successfully saved backup configuration."
+msgstr "Yedek yapılandırma başarıyla kaydedildi."
+
+#: admin/config/config.php:51
+#, php-format
+msgid "Successfully saved the backup configuration file %s."
+msgstr "Yedek yapılandırma dosyası %s başarıyla kaydedildi."
+
+#: admin/user.php:184
+#, php-format
+msgid "Successfully updated \"%s\""
+msgstr "\"%s\" başarıyla güncellendi"
+
+#: admin/config/config.php:60 admin/config/index.php:47
+#, php-format
+msgid "Successfully wrote %s"
+msgstr "%s başarıyla yazıldı."
+
+#: lib/Block/sunrise.php:63
+msgid "Sun Rise"
+msgstr "Gün Doğumu"
+
+#: lib/Block/sunrise.php:66
+msgid "Sun Set"
+msgstr "Gün batımı"
+
+#: config/prefs.php.dist:429
+msgid "Sunday"
+msgstr "Pazar"
+
+#: lib/Block/weatherdotcom_strings.php:85
+msgid "Sunny"
+msgstr "Güneşli"
+
+#: lib/Block/weatherdotcom.php:220
+msgid "Sunrise"
+msgstr "Gün doğumu"
+
+#: lib/Block/sunrise.php:3 lib/Block/sunrise.php:14
+msgid "Sunrise/Sunset"
+msgstr "Gün doğumu/Gün batımı"
+
+#: lib/Block/weatherdotcom.php:219
+msgid "Sunrise: "
+msgstr "Gün doğumu: "
+
+#: lib/Block/weatherdotcom.php:223
+msgid "Sunset"
+msgstr "Gün batımı"
+
+#: lib/Block/weatherdotcom.php:222
+msgid "Sunset: "
+msgstr "Gün batımı: "
+
+#: config/prefs.php.dist:664
+msgid "SyncML"
+msgstr "SyncML"
+
+#: lib/Block/feed.php:3
+msgid "Syndicated Feed"
+msgstr "Ortak Besleme"
+
+#: lib/Block/weatherdotcom_strings.php:86
+#, fuzzy
+msgid "T-Showers"
+msgstr "Sağanak"
+
+#: lib/Block/weatherdotcom_strings.php:87
+#, fuzzy
+msgid "T-Showers Early"
+msgstr "Erken Saatlerde Sağanak"
+
+#: lib/Block/weatherdotcom_strings.php:88
+#, fuzzy
+msgid "T-Showers Late"
+msgstr "Geç Saatlerde Sağanak"
+
+#: lib/Block/weatherdotcom_strings.php:89
+msgid "T-Storm"
+msgstr "Gök gürültülü fırtına"
+
+#: lib/Block/weatherdotcom_strings.php:90
+msgid "T-Storm and Windy"
+msgstr "Gökgürültülü Fırtına ve Rüzgarlı"
+
+#: lib/Block/weatherdotcom_strings.php:91
+msgid "T-Storms"
+msgstr "Gök gürültülü fırtınalar"
+
+#: lib/Block/weatherdotcom_strings.php:92
+msgid "T-Storms Early"
+msgstr "Erken Saatlerde Gökgürültülü Fırtına"
+
+#: lib/Block/weatherdotcom_strings.php:93
+msgid "T-Storms Late"
+msgstr "Geç Saatte Gökgürültülü Fırtına"
+
+#: lib/Block/cloud.php:3 lib/Block/cloud.php:23
+msgid "Tag Cloud"
+msgstr "Ağırlıklı Liste"
+
+#: themes/tango-blue/info.php:24
+msgid "Tango Blue"
+msgstr "Tango Mavisi"
+
+#: config/registry.php.dist:184
+msgid "Tasks"
+msgstr "Görevler"
+
+#: themes/gennevilliers/info.php:12
+msgid "Teal"
+msgstr "Ördek"
+
+#: lib/Block/metar.php:285
+msgid "Temp for last hour: "
+msgstr "Son saat için sıcaklık: "
+
+#: lib/Block/metar.php:209
+msgid "Temperature"
+msgstr "Sıcaklık"
+
+#: lib/Block/weatherdotcom.php:227
+msgid "Temperature: "
+msgstr "Sıcaklık: "
+
+#: lib/Block/weatherdotcom.php:296
+#, php-format
+msgid "Temperature<br />(%sHi%s/%sLo%s) &deg;%s"
+msgstr "Sıcaklık<br />(%sYük%s/%sAlç%s) &derece;%s"
+
+#: lib/Prefs/Ui.php:518 services/facebook.php:31
+msgid "Temporarily unable to connect with Facebook, Please try again."
+msgstr ""
+
+#: lib/Block/twitter_timeline.php:122
+#, fuzzy
+msgid "Temporarily unable to contact Twitter. Please try again later."
+msgstr ""
+"İletişim noktasının ayrıntılarını güncellerken hata oluştu. Lütfen daha "
+"sonra tekrar deneyin."
+
+#: services/keyboard.php:148
+msgid "Text Area"
+msgstr "Metin Alanı"
+
+#: config/prefs.php.dist:544
+msgid "Text Only"
+msgstr "Sadece Metin"
+
+#: config/nls.php:183
+msgid "Thai (TIS-620)"
+msgstr "Tai (TIS-620)"
+
+#: lib/Prefs/Ui.php:747
+#, fuzzy, php-format
+msgid "The Remote Wipe for device id %s has been cancelled."
+msgstr "\"%s\" sunucusu silindi."
+
+#: admin/alarms.php:81
+msgid "The alarm has been deleted."
+msgstr "Alarm silindi."
+
+#: admin/alarms.php:70
+msgid "The alarm has been saved."
+msgstr "Alarm sakladı."
+
+#: config/prefs.php.dist:246
+msgid "The default e-mail address to use with this identity:"
+msgstr ""
+
+#: lib/Block/vatid.php:76
+msgid ""
+"The member state service could not be reached in time. Try again later or "
+"with a different member state."
+msgstr ""
+"Üye ülke hizmetine ulaşılamadı. Daha sonra ya da farklı bir üye seçerek "
+"tekrar deneyiniz."
+
+#: lib/Block/vatid.php:73
+msgid ""
+"The member state service is currently not available. Try again later or with "
+"a different member state."
+msgstr ""
+"Üye ülke hizmeti şuanda kullanılabilir değil. Daha sonra ya da farklı bir "
+"üye seçerek tekrar deneyiniz."
+
+#: lib/Block/vatid.php:67
+msgid "The provided country code is invalid."
+msgstr "Belirtilen ülke kodu geçersiz."
+
+#: lib/Prefs/Ui.php:681
+#, php-format
+msgid "The server \"%s\" has been deleted."
+msgstr "\"%s\" sunucusu silindi."
+
+#: lib/Prefs/Ui.php:676
+#, php-format
+msgid "The server \"%s\" has been saved."
+msgstr "\"%s\" sunucusu kaydedildi."
+
+#: lib/Block/vatid.php:70
+msgid "The service is currently not available. Try again later."
+msgstr "Hizmet şu anda kullanılabilir değil. Daha sonra tekrar deneyin."
+
+#: lib/Block/vatid.php:79
+msgid "The service is currently too busy. Try again later."
+msgstr "Hizmet şu anda çok yoğun. Lütfen daha sonra tekrar deneyin."
+
+#: admin/user.php:209
+#, php-format
+msgid "The signup request for \"%s\" has been removed."
+msgstr "\"%s\" için kayıt talebi iptal edildi."
+
+#: admin/signup_confirm.php:39
+#, fuzzy, php-format
+msgid "The signup request for user \"%s\" has been removed."
+msgstr "\"%s\" için kayıt talebi iptal edildi."
+
+#: lib/LoginTasks/Task/TestScriptActive.php:38
+msgid ""
+"The test script is currently enabled. For security reasons, disable test "
+"scripts when you are done testing (see horde/docs/INSTALL)."
+msgstr ""
+
+#: admin/signup_confirm.php:60 admin/user.php:72
+#, php-format
+msgid "The user \"%s\" already exists."
+msgstr "\"%s\" kullanıcısı zaten var."
+
+#: services/shares/edit.php:85 services/shares/edit.php:177
+#, fuzzy, php-format
+msgid "The user \"%s\" does not exist."
+msgstr "\"%s\" paylaşımı yok."
+
+#: lib/Block/weatherdotcom.php:51 lib/Block/weatherdotcom.php:106
+msgid "The weather.com block is not available."
+msgstr "weather.com kullanılabilir değil."
+
+#: lib/Prefs/Ui.php:46
+#, fuzzy
+msgid "Theme directory can't be opened"
+msgstr "Tema dizini \"%s\" bulunamadı."
+
+#: util/icon_browser.php:28
+#, php-format
+msgid "Themes directory \"%s\" not found."
+msgstr "Tema dizini \"%s\" bulunamadı."
+
+#: admin/signup_confirm.php:74 admin/user.php:84 signup.php:38 signup.php:59
+#, php-format
+msgid "There was a problem adding \"%s\" to the system: %s"
+msgstr "\"%s\"'in sisteme eklenmesinde sorun oluştu: %s"
+
+#: admin/user.php:140
+#, php-format
+msgid "There was a problem clearing data for user \"%s\" from the system: "
+msgstr "\"%s\" kullanıcının verilerinin sistemden silinmesinde sorun var: "
+
+#: admin/user.php:120
+#, php-format
+msgid "There was a problem removing \"%s\" from the system: "
+msgstr "\"%s\" kullanıcısını sistemden çıkartılmasında sorun var: "
+
+#: admin/user.php:173
+#, php-format
+msgid "There was a problem updating \"%s\": %s"
+msgstr "\"%s\" güncellenirken sorun oluştu: %s"
+
+#: lib/Block/twitter_timeline.php:110 lib/Block/twitter_timeline.php:126
+#, fuzzy, php-format
+msgid "There was an error contacting Twitter: %s"
+msgstr "iCalendar verisini içeri aktarılırken hata oluştu."
+
+#: admin/config/config.php:70
+msgid ""
+"There was an error in the configuration form. Perhaps you left out a "
+"required field."
+msgstr ""
+"Yapılandırma formunda bir hata var. Gerekli bir alanı doldurmamış "
+"olabilirsiniz."
+
+#: lib/Block/fb_stream.php:158 lib/Block/fb_stream.php:183
+#: services/facebook.php:54 services/facebook.php:71
+#, fuzzy, php-format
+msgid "There was an error making the request: %s"
+msgstr "İletişim noktasının verileri (içeri) aktarılırken hata oluştu."
+
+#: lib/Api.php:284
+#, php-format
+msgid ""
+"There was an error removing global data for %s. Details have been logged."
+msgstr ""
+
+#: lib/Block/vatid.php:89
+msgid "This VAT identification number is invalid."
+msgstr "Bu KDV numarası geçersiz."
+
+#: lib/Block/vatid.php:86
+msgid "This VAT identification number is valid."
+msgstr "Bu KDV numarası geçerli."
+
+#: lib/Block/weatherdotcom_strings.php:94
+msgid "Thunder"
+msgstr "Gök gürültüsü"
+
+#: config/registry.php.dist:260
+msgid "Tickets"
+msgstr "Biletler"
+
+#: config/registry.php.dist:308
+msgid "Time Tracking"
+msgstr "Zaman İzleme"
+
+#: lib/Block/time.php:23
+msgid "Time format"
+msgstr "Zaman Biçimi"
+
+#: templates/data/datetime.inc:60 templates/data/datetime.inc:69
+msgid "Timestamp or unknown"
+msgstr "Zaman bilgisi ya da bilinmiyor"
+
+#: templates/prefs/syncml.html:2
+#, fuzzy
+msgid "Timestamps of successful synchronization sessions"
+msgstr "Başarılı eşleme oturumlarının zamanları"
+
+#: lib/Block/iframe.php:22
+msgid "Title"
+msgstr "Başlık"
+
+#: templates/data/csvmap.inc:95
+msgid ""
+"To exclude a particular field form the import or to correct a wrong match "
+"select a field in the lists below and hit \"Remove pair\"."
+msgstr ""
+"Dışarıdan taşınan veridenki bir alanı tipini almamak için ya da hatalı bir "
+"eşlemeyi düzeltmek için, aşağıdaki listeden bir alan seçerek \"İkili sil\".a "
+"tıklayınız."
+
+#: templates/prefs/addressbooks.html:10
+#, fuzzy
+msgid ""
+"To select multiple fields, hold down the Control (PC) or Command (Mac) while "
+"clicking."
+msgstr ""
+"Çoklu öğe seçimi için, tıklarken Control (PC) veya Command (Mac) tuşuna "
+"basın."
+
+#: lib/Block/weatherdotcom.php:313
+msgid "Today"
+msgstr "Bugün"
+
+#: lib/Block/weatherdotcom.php:315
+msgid "Tomorrow"
+msgstr "Yarın"
+
+#: lib/Block/fortune.php:70
+msgid "Translations"
+msgstr "Çeviriler"
+
+#: config/nls.php:184
+msgid "Turkish (ISO-8859-9)"
+msgstr "Türkçe (ISO-8859-9)"
+
+#: lib/Block/twitter_timeline.php:166
+#, fuzzy
+msgid "Tweet"
+msgstr "Metin"
+
+#: config/prefs.php.dist:625
+#, fuzzy
+msgid "Twitter Integration"
+msgstr "Diğer Bilgiler"
+
+#: lib/Block/twitter_timeline.php:23 lib/Block/twitter_timeline.php:64
+#: lib/Block/twitter_timeline.php:74 lib/Block/twitter_timeline.php:78
+#, php-format
+msgid "Twitter Timeline"
+msgstr ""
+
+#: lib/Block/twitter_timeline.php:70
+#, php-format
+msgid "Twitter Timeline for %s"
+msgstr ""
+
+#: services/keyboard.php:108
+msgid "U characters"
+msgstr "U karakterleri"
+
+#: lib/Block/weatherdotcom.php:273
+msgid "U.V. index: "
+msgstr "U.V. endeks: "
+
+#: lib/Block/iframe.php:19
+msgid "URL"
+msgstr "URL"
+
+#: services/twitter.php:64
+#, php-format
+msgid "Unable to contact Twitter. Please try again later. Error returned: %s"
+msgstr ""
+
+#: admin/groups.php:82 admin/perms/delete.php:39
+#, php-format
+msgid "Unable to delete \"%s\": %s."
+msgstr "\"%s\" silinemedi: %s"
+
+#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:55
+#, fuzzy, php-format
+msgid "Unable to modify the sequence for %s: %s"
+msgstr "\"%s\" silinemedi: %s"
+
+#: services/facebook.php:175
+#, fuzzy
+msgid "Unable to set like."
+msgstr "smbclient ağ istemcisi çalıştırılamadı."
+
+#: templates/prefs/end.html:4
+msgid "Undo Changes"
+msgstr "Değişiklikleri Geri Al"
+
+#: lib/Prefs/Ui.php:266
+msgid "Unfiled"
+msgstr "Doldurulmamış"
+
+#: config/nls.php:185
+msgid "Unicode (UTF-8)"
+msgstr "Unicode (UTF-8)"
+
+#: lib/Block/metar.php:70 lib/Block/weatherdotcom.php:64
+msgid "Units"
+msgstr "Birimler"
+
+#: lib/Block/weatherdotcom.php:162
+msgid "Unknown location provided."
+msgstr "Bilinmeyen yer belirtildi."
+
+#: lib/Block/fb_stream.php:179 templates/admin/user/list.inc:36
+msgid "Update"
+msgstr "Güncelle"
+
+#: templates/admin/user/update.inc:6
+#, php-format
+msgid "Update %s"
+msgstr "Güncelle: %s"
+
+#: templates/admin/user/update.inc:53
+msgid "Update user"
+msgstr "Kullanıcıyı güncelle"
+
+#: admin/groups.php:144 admin/perms/edit.php:104 services/shares/edit.php:249
+#, php-format
+msgid "Updated \"%s\"."
+msgstr "\"%s\" Güncellendi."
+
+#: admin/config/index.php:190
+msgid "Upload"
+msgstr "Yükle"
+
+#: admin/config/index.php:198
+#, fuzzy
+msgid "Uploaded all application configuration files to the server."
+msgstr "Bütün uygulamaların ayar dosyaları sunucuya yüklendi."
+
+#: config/prefs.php.dist:645
+msgid "Use if name/password is different for IMSP server."
+msgstr "Kullanıcı adınız/şifreniz IMSP sunucu için farklı ise kullanın."
+
+#: templates/admin/groups/edit.inc:22 templates/admin/groups/edit.inc:60
+msgid "User"
+msgstr "Kullanıcı"
+
+#: admin/user.php:224
+msgid "User Administration"
+msgstr "Kullanıcı Yönetimi"
+
+#: lib/Prefs/Ui.php:432
+#, fuzzy
+msgid "User Agent:"
+msgstr "Kullan: %s"
+
+#: signup.php:67
+msgid "User Registration"
+msgstr "Kullanıcı Kayıt"
+
+#: admin/signup_confirm.php:18 signup.php:19
+msgid "User Registration has been disabled for this site."
+msgstr "Bu site için kullanıcı kaydı seçilmez kılınmıştır."
+
+#: admin/signup_confirm.php:25 signup.php:27
+#, fuzzy
+msgid "User Registration is not properly configured for this site."
+msgstr "Bu site için kullanıcı kaydı seçilmez kılınmıştır."
+
+#: lib/Block/account.php:561
+msgid "User account not found"
+msgstr "Kullanıcı hesabı bulunamadı"
+
+#: templates/shares/edit.inc:238
+msgid "User to add:"
+msgstr "Eklenecek kullanıcı:"
+
+#: admin/config/index.php:191 admin/user.php:32 admin/user.php:48 login.php:76
+#: services/resetpassword.php:29 templates/admin/user/approve.inc:22
+msgid "Username"
+msgstr "Kullanıcı Adı"
+
+#: lib/Prefs/Ui.php:325
+msgid "Username:"
+msgstr "Kullanıcı Adı:"
+
+#: templates/admin/groups/edit.inc:53
+msgid "Users"
+msgstr "Kullanıcılar"
+
+#: templates/admin/user/list.inc:2
+msgid "Users in the system:"
+msgstr "Sistemdeki kullanıcılar:"
+
+#: lib/Block/vatid.php:19
+msgid "VAT id number verification"
+msgstr "KDV numarası doğrulama"
+
+#: lib/Block/vatid.php:42
+msgid "VAT identification number:"
+msgstr "KDV numarası:"
+
+#: lib/Block/vatid.php:93
+msgid "VAT number"
+msgstr "KDV numarası"
+
+#: config/registry.php.dist:122
+msgid "Vacation"
+msgstr "Tatil"
+
+#: lib/Block/weatherdotcom.php:248
+msgid "Variable"
+msgstr "Değişken"
+
+#: config/registry.php.dist:246
+msgid "Version Control"
+msgstr "Sürüm Kontolü"
+
+#: lib/Block/weatherdotcom_strings.php:101
+msgid "Very High"
+msgstr "Çok Yüksek"
+
+#: config/nls.php:186
+msgid "Vietnamese (VISCII)"
+msgstr "Vietnamca (VISCII)"
+
+#: lib/Block/iframe.php:3
+msgid "View an external web page"
+msgstr "Bir dış web sayfası görüntüle"
+
+#: lib/Block/metar.php:204
+msgid "Visibility"
+msgstr "Görüş"
+
+#: lib/Block/weatherdotcom.php:267
+msgid "Visibility: "
+msgstr "Görüş:"
+
+#: lib/Block/account.php:98
+msgid "Warning"
+msgstr "Uyarı"
+
+#: lib/Block/weatherdotcom.php:32
+msgid "Weather Forecast"
+msgstr "Hava Tahmini"
+
+#: lib/Block/weatherdotcom.php:429
+msgid "Weather data provided by"
+msgstr "Hava verisi sağlayıcısı"
+
+#: config/registry.php.dist:369
+msgid "Web Site"
+msgstr "Web Sitesi"
+
+#: services/portal/mobile.php:29
+msgid "Welcome"
+msgstr "Hoşgeldiniz"
+
+#: templates/login/login.inc:5 templates/login/mobile.inc:1
+#, php-format
+msgid "Welcome to %s"
+msgstr "%s Hoşgeldiniz"
+
+#: templates/portal/mobile.inc:1
+#, php-format
+msgid "Welcome, %s"
+msgstr "Hoşgeldiniz, %s"
+
+#: config/nls.php:187
+msgid "Western (ISO-8859-1)"
+msgstr "Batı (ISO-8859-1)"
+
+#: config/nls.php:188
+msgid "Western (ISO-8859-15)"
+msgstr "Batı (ISO-8859-15)"
+
+#: config/prefs.php.dist:483
+#, php-format
+msgid "What application should %s display after login?"
+msgstr "%s girişten sonra hangi uygulamayı görüntülesin?"
+
+#: lib/Block/twitter_timeline.php:131
+msgid "What are you working on now?"
+msgstr ""
+
+#: templates/data/csvinfo.inc:14
+msgid "What is the delimiter character?"
+msgstr "Sınırlayıcı karakter nedir?"
+
+#: templates/data/csvinfo.inc:17
+msgid "What is the quote character?"
+msgstr "Aktarım karakteri nedir?"
+
+#: lib/Block/fb_stream.php:165
+msgid "What's on your mind?"
+msgstr ""
+
+#: config/prefs.php.dist:427
+msgid "Which day would you like to be displayed as the first day of the week?"
+msgstr "Haftanın ilk günü olarak hangi gün görüntülensin?"
+
+#: lib/Block/moon.php:21
+msgid "Which phases"
+msgstr "Hangi Evre"
+
+#: config/prefs.php.dist:536
+#, fuzzy, php-format
+msgid "Width of the %s menu on the left:"
+msgstr "%s Menüsü solda gösterilsin mi?"
+
+#: config/registry.php.dist:394
+msgid "Wiki"
+msgstr "Wiki"
+
+#: lib/Block/weatherdotcom.php:303 lib/Block/weatherdotcom_strings.php:95
+msgid "Wind"
+msgstr "Rüzgar"
+
+#: lib/Block/weatherdotcom_strings.php:96
+msgid "Wind Early"
+msgstr "Erken Saatlerde Rüzgar"
+
+#: lib/Block/weatherdotcom_strings.php:97
+msgid "Wind Late"
+msgstr "Geç Saatte Rüzgarlı"
+
+#: lib/Block/metar.php:79
+msgid "Wind speed in knots"
+msgstr "Knot biriminde rüzgar hızı"
+
+#: lib/Block/metar.php:151
+msgid "Wind:"
+msgstr "Rüzgar:"
+
+#: lib/Block/weatherdotcom.php:246
+msgid "Wind: "
+msgstr "Rüzgar: "
+
+#: lib/Block/account.php:634
+msgid "Windows"
+msgstr "Pencereler"
+
+#: admin/activesync.php:181 templates/prefs/activesync.html:28
+#, fuzzy
+msgid "Wipe"
+msgstr "Çrş"
+
+#: admin/activesync.php:162 lib/Prefs/Ui.php:415
+msgid "Wipe is pending"
+msgstr ""
+
+#: lib/Block/fortune.php:71
+msgid "Wisdom"
+msgstr "Bilgelik"
+
+#: lib/Block/fortune.php:72
+msgid "Work"
+msgstr "İş"
+
+#: config/registry.php.dist:275
+msgid "X-Ref"
+msgstr "X-Ref"
+
+#: templates/data/date.inc:47 templates/data/date.inc:48
+#: templates/data/date.inc:49 templates/data/date.inc:50
+#: templates/data/datetime.inc:89 templates/data/datetime.inc:90
+#: templates/data/datetime.inc:91 templates/data/datetime.inc:92
+msgid "YY"
+msgstr "YY"
+
+#: templates/logintasks/logintasks.html:34
+msgid "Yes, I Agree"
+msgstr "Evet, Kabul Ediyorum"
+
+#: services/facebook.php:110 services/facebook.php:169
+#, php-format
+msgid "You and %d other person likes this"
+msgid_plural "You and %d other people like this"
+msgstr[0] ""
+
+#: lib/Api.php:301
+msgid "You are not allowed to add groups."
+msgstr "Grup ekleme izniniz yok."
+
+#: lib/Api.php:476
+msgid "You are not allowed to add shares."
+msgstr "Paylaşım ekleme izniniz yok."
+
+#: lib/Api.php:350 lib/Api.php:373 lib/Api.php:399 lib/Api.php:422
+msgid "You are not allowed to change groups."
+msgstr "Grupları değiştirme izniniz yok."
+
+#: lib/Api.php:561 lib/Api.php:598 lib/Api.php:640 lib/Api.php:667
+msgid "You are not allowed to change shares."
+msgstr "Paylaşımları değiştirme izniniz yok."
+
+#: lib/Api.php:327
+msgid "You are not allowed to delete groups."
+msgstr "Grupları silme izniniz yok."
+
+#: lib/Api.php:505
+msgid "You are not allowed to delete shares."
+msgstr "Paylaşımları silme izniniz yok."
+
+#: lib/Api.php:820
+msgid "You are not allowed to list groups of shares."
+msgstr "Paylaşım gruplarını listeleme izniniz yok."
+
+#: lib/Api.php:702 lib/Api.php:744
+msgid "You are not allowed to list share permissions."
+msgstr "Paylaşım izinlerini listeleme izniniz yok."
+
+#: lib/Api.php:532
+msgid "You are not allowed to list shares."
+msgstr "Paylaşımları listeleme izniniz yok."
+
+#: lib/Api.php:448
+msgid "You are not allowed to list users of groups."
+msgstr "Grup kullanıcılarını listeleme izniniz yok."
+
+#: lib/Api.php:786
+msgid "You are not allowed to list users of shares."
+msgstr "Paylaşım kullanıcılarını listeleme izniniz yok."
+
+#: lib/Api.php:216
+msgid "You are not allowed to remove user data."
+msgstr "Kullanıcı verisini silmeye yetkili değilsiniz."
+
+#: lib/Block/fb_stream.php:159 lib/Block/fb_stream.php:184
+#: services/facebook.php:55 services/facebook.php:72
+#, php-format
+msgid "You can also check your Facebook settings in your %s."
+msgstr ""
+
+#: lib/LoginTasks/Task/TosAgreement.php:54
+msgid ""
+"You did not agree to the Terms of Service agreement, so you were not allowed "
+"to login."
+msgstr ""
+
+#: login.php:278
+msgid "You have been logged out."
+msgstr "Çıkış yaptınız."
+
+#: lib/Block/fb_stream.php:124
+#, php-format
+msgid ""
+"You have not properly connected your Facebook account with Horde. You should "
+"check your Facebook settings in your %s."
+msgstr ""
+
+#: lib/Block/twitter_timeline.php:182
+#, php-format
+msgid ""
+"You have not properly connected your Twitter account with Horde. You should "
+"check your Twitter settings in your %s."
+msgstr ""
+
+#: services/facebook.php:112 services/facebook.php:163
+#: services/facebook.php:171
+msgid "You like this"
+msgstr ""
+
+#: templates/problem/problem.inc:11
+msgid "You must describe the problem before you can send the problem report."
+msgstr "Problem raporu göndermeden önce sorunu tarfi etmelisiniz."
+
+#: lib/Prefs/Ui.php:679
+msgid "You must select an server to be deleted."
+msgstr "Silinmesi için bir sunucu seçmelisiniz."
+
+#: admin/user.php:134
+msgid "You must specify a username to clear out."
+msgstr "Temizlenmesin için bir kullanıcı adı belirtmelisiniz."
+
+#: admin/user.php:114
+msgid "You must specify a username to remove."
+msgstr "Silinmesi için bir kullanıcı adı belirtmelisiniz."
+
+#: admin/user.php:70
+msgid "You must specify the username to add."
+msgstr "Eklenmesi için bir kullanıcı adı belirtmelisiniz."
+
+#: admin/user.php:164
+msgid "You must specify the username to update."
+msgstr "Güncellenmesi için bir kullanıcı adı belirtmelisiniz."
+
+#: templates/problem/problem.inc:34
+msgid "Your Email Address"
+msgstr "Elektronik Posta Adresiniz"
+
+#: config/prefs.php.dist:212 config/prefs.php.dist:275
+#: config/prefs.php.dist:312 config/prefs.php.dist:439
+msgid "Your Information"
+msgstr "Bilgileriniz"
+
+#: login.php:270
+#, fuzzy
+msgid ""
+"Your Internet Address has changed since the beginning of your session. To "
+"protect your security, you must login again."
+msgstr ""
+"%s oturumunuzun başlangıcında İnternet Adresininiz değişti. Güvenliğinizi "
+"korumak için, yeniden giriş yapmalısınız."
+
+#: templates/problem/problem.inc:30
+msgid "Your Name"
+msgstr "Adınız"
+
+#: templates/admin/user/noadd.inc:5
+msgid ""
+"Your authentication backend does not support adding users. If you wish to "
+"use Horde to administer user accounts, you must use a different "
+"authentication backend."
+msgstr ""
+"Yetkilendirme arka aracınız, kullanıcı eklemeyi desteklemiyor. Horde'un "
+"kullanıcı hesaplarını yönetmesini istiyorsanız, farklı bir yetkilendirme "
+"arka aracı kullanmalısınız."
+
+#: templates/admin/user/nolist.inc:5
+msgid ""
+"Your authentication backend does not support listing users, or the feature "
+"has been disabled for some other reason."
+msgstr ""
+"Kimlik denetiminiz kullanıcı listelemeyi desteklememektedir veya bu özellik "
+"bir neden yüzünden seçilemez kılınmıştır."
+
+#: login.php:274
+#, fuzzy
+msgid ""
+"Your browser appears to have changed since the beginning of your session. To "
+"protect your security, you must login again."
+msgstr ""
+"%s oturumunuzun başlangıcında tarayıcınız değişti. Güvenliğinizi korumak "
+"için, yeniden giriş yapmalısınız."
+
+#: lib/Block/iframe.php:58
+msgid "Your browser does not support this feature."
+msgstr "Tarayıcınız bu özelliği desteklememektedir."
+
+#: config/prefs.php.dist:337
+msgid "Your current time zone:"
+msgstr "Zaman Diliminiz:"
+
+#: config/prefs.php.dist:236
+msgid "Your full name:"
+msgstr "Tam Adınız:"
+
+#: login.php:290
+msgid "Your login has expired."
+msgstr "Girişiniz zaman aşımına uğradı."
+
+#: services/resetpassword.php:74
+#, php-format
+msgid "Your new password for %s is: %s"
+msgstr "%s için yeni şifreniz: %s"
+
+#: services/resetpassword.php:73
+msgid "Your password has been reset"
+msgstr "Şifreniz sıfırlandı."
+
+#: services/resetpassword.php:87
+#, fuzzy
+msgid ""
+"Your password has been reset, but couldn't be sent to you. Please contact "
+"the administrator."
+msgstr ""
+"Şifreniz sıfırlandı, elektronik postanızı kontol edin ve yeni şifrenizle "
+"giriş yapın."
+
+#: services/resetpassword.php:82
+msgid ""
+"Your password has been reset, check your email and log in with your new "
+"password."
+msgstr ""
+"Şifreniz sıfırlandı, elektronik postanızı kontol edin ve yeni şifrenizle "
+"giriş yapın."
+
+#: lib/Block/account.php:689 lib/Block/account.php:704
+msgid "Your password has expired"
+msgstr "Şifrenizin son kullanma tarihi doldu"
+
+#: login.php:178
+msgid "Your password has expired."
+msgstr "Şifrenizin son kullanma tarihi doldu."
+
+#: lib/Prefs/Ui.php:322
+msgid "Your remote servers:"
+msgstr "Uzaktaki sunucularınız:"
+
+#: login.php:266
+#, fuzzy
+msgid "Your session has expired. Please login again."
+msgstr "%s oturumunun süresi doldu. Lütfen tekrar giriş yapın."
+
+#: lib/Block/fortune.php:73
+msgid "Zippy"
+msgstr "Hızlı"
+
+#: services/problem.php:107
+msgid "[Problem Report]"
+msgstr "[Problem Raporu]"
+
+#: admin/sessions.php:39
+msgid "[Unknown]"
+msgstr "[Hiçbiri]"
+
+#: lib/Api.php:47
+msgid "_Alarms"
+msgstr "_Alarmlar"
+
+#: lib/Api.php:72
+msgid "_CLI"
+msgstr "_CLI"
+
+#: lib/Api.php:27
+#, fuzzy
+msgid "_Configuration"
+msgstr "Yapılandırma"
+
+#: lib/Api.php:52
+msgid "_DataTree"
+msgstr "_VeriAğacı"
+
+#: lib/Api.php:37
+msgid "_Groups"
+msgstr "_Gruplar"
+
+#: lib/Api.php:42
+msgid "_Permissions"
+msgstr "_Haklar"
+
+#: lib/Api.php:32
+msgid "_Users"
+msgstr "K_ullanıcılar"
+
+#: services/problem.php:56
+msgid "attachment"
+msgstr "Ek"
+
+#: lib/Block/metar.php:167 lib/Block/metar.php:353
+#, php-format
+msgid "calm"
+msgstr "ılımlı"
+
+#: lib/Block/weatherdotcom_strings.php:102
+msgid "falling"
+msgstr "düşüyor"
+
+#: lib/Block/metar.php:169 lib/Block/metar.php:355 lib/Block/metar.php:381
+#, php-format
+msgid "from the %s (%s) at %s %s"
+msgstr "%s (%s) den %s %s de"
+
+#: lib/Block/weatherdotcom.php:254
+msgid "gusting"
+msgstr "bora"
+
+#: admin/config/diff.php:51 admin/config/diff.php:63
+msgid "inline"
+msgstr "Metne gömülü"
+
+#: lib/Block/fb_stream.php:124 lib/Block/fb_stream.php:159
+#: lib/Block/fb_stream.php:184 lib/Block/twitter_timeline.php:182
+#: services/facebook.php:55 services/facebook.php:72
+msgid "preferences"
+msgstr ""
+
+#: lib/Block/weatherdotcom_strings.php:104
+msgid "rising"
+msgstr "yükseliyor"
+
+#: admin/config/config.php:80
+msgid "show differences"
+msgstr "farkları göster"
+
+#: lib/Block/weatherdotcom_strings.php:103
+msgid "steady"
+msgstr "sabit"
+
+#: admin/user.php:35 admin/user.php:49
+msgid "type the password twice to confirm"
+msgstr "şifreyi doğrulamak için iki defa girin"
+
+#: admin/config/diff.php:51 admin/config/diff.php:63
+msgid "unified"
+msgstr "birleştirilmiş"
+
+#: lib/Block/weatherdotcom.php:6
+msgid "weather.com"
+msgstr "weather.com"

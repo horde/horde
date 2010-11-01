@@ -112,6 +112,10 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
      */
     public function connect()
     {
+        if ($this->_active) {
+            return;
+        }
+
         $config = $this->_parseConfig();
 
         if (!empty($config['ssl'])) {
@@ -159,8 +163,7 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
      */
     public function disconnect()
     {
-        if ($this->_connection)
-            $this->_connection->close();
+        if ($this->_connection) { $this->_connection->close(); }
         $this->_connection = null;
         $this->_active = false;
     }
@@ -300,7 +303,7 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
             $name = $arg1;
         }
 
-        $t = new Horde_Support_Timer;
+        $t = new Horde_Support_Timer();
         $t->push();
 
         $stmt = $this->_connection->query($sql);
@@ -343,25 +346,6 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
     {
         $this->_transactionStarted = true;
         $this->_connection->autocommit(false);
-    }
-
-    /**
-     * Appends +LIMIT+ and +OFFSET+ options to a SQL statement.
-     *
-     * @param   string  $sql
-     * @param   array   $options
-     * @return  string
-     */
-    public function addLimitOffset($sql, $options)
-    {
-        if (isset($options['limit']) && $limit = $options['limit']) {
-            if (isset($options['offset']) && $offset = $options['offset']) {
-                $sql .= " LIMIT $offset, $limit";
-            } else {
-                $sql .= " LIMIT $limit";
-            }
-        }
-        return $sql;
     }
 
 

@@ -22,20 +22,39 @@ class Horde_Perms_Permission_SqlObject extends Horde_Perms_Permission
     protected $_id;
 
     /**
-     * Database handle for saving changes.
+     * Cache object.
      *
-     * @var DB
+     * @var Horde_Cache
      */
-    protected $_write_db;
+    protected $_cache;
 
     /**
-     * Associates a DB object with this share.
+     * Database handle for saving changes.
      *
-     * @param DB $write_db  The DB object.
+     * @var Horde_Db_Adapter
      */
-    public function setSqlOb($write_db)
+    protected $_db;
+
+    /**
+     * Tasks to run on serialize().
+     *
+     * @return array  Parameters that are stored.
+     */
+    public function __sleep()
     {
-        $this->_write_db = $write_db;
+        return array_diff(array_keys(get_class_vars(__CLASS__)), array('_cache', '_db'));
+    }
+
+    /**
+     * Sets the helper functions within the object.
+     *
+     * @param Horde_Cache $cache    The cache object.
+     * @param Horde_Db_Adapter $db  The database object.
+     */
+    public function setObs(Horde_Cache $cache, Horde_Db_Adapter $db)
+    {
+        $this->_cache = $cache;
+        $this->_db = $db;
     }
 
     /**
@@ -66,20 +85,26 @@ class Horde_Perms_Permission_SqlObject extends Horde_Perms_Permission
      */
     public function save()
     {
+        if (!isset($this->_db)) {
+            throw new Horde_Perms_Exception('Cannot save because the DB instances has not been set in this object.');
+        }
+
         $name = $this->getName();
         if (empty($name)) {
             throw new Horde_Perms_Exception('Permission names must be non-empty');
         }
+
         $query = 'UPDATE horde_perms SET perm_data = ? WHERE perm_id = ?';
         $params = array(serialize($this->data), $this->getId());
-        $result = $this->_write_db->query($query, $params);
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Perms_Exception($result);
+
+        try {
+            $this->_db->update($query, $params);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Perms_Exception($e);
         }
 
-        $cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
-        $cache->expire('perm_sql_' . $name);
-        $cache->expire('perm_sql_exists_' . $name);
+        $this->_cache->expire('perm_sql_' . $this->_cacheVersion . $name);
+        $this->_cache->expire('perm_sql_exists_' . $this->_cacheVersion . $name);
     }
 
 }

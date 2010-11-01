@@ -2,8 +2,6 @@
 /**
  * Message form class.
  *
- * $Horde: agora/lib/Forms/Message.php,v 1.11 2009/07/08 18:28:40 slusarz Exp $
- *
  * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -18,7 +16,7 @@ class MessageForm extends Horde_Form {
         global $conf;
 
         if (!parent::validate($vars, $canAutoFill)) {
-            if (!Horde_Auth::getAuth() && !empty($conf['forums']['captcha'])) {
+            if (!$GLOBALS['registry']->getAuth() && !empty($conf['forums']['captcha'])) {
                 $vars->remove('captcha');
                 $this->removeVariable($varname = 'captcha');
                 $this->insertVariableBefore('newcomment', _("Spam protection"), 'captcha', 'figlet', true, null, null, array(Agora::getCAPTCHA(true), $conf['forums']['figlet_font']));

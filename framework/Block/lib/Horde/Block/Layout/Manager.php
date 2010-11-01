@@ -117,7 +117,7 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
             }
             for ($col = 0; $col < $cols; $col++) {
                 if (!isset($this->_layout[$row][$col])) {
-                    $this->_blocks[$row][$col] = PEAR::raiseError(_("No block exists at the requested position"), 'horde.error');
+                    $this->_blocks[$row][$col] = PEAR::raiseError(Horde_Block_Translation::t("No block exists at the requested position"), 'horde.error');
                 } elseif (is_array($this->_layout[$row][$col])) {
                     $field = $this->_layout[$row][$col];
 
@@ -235,12 +235,13 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
                 !$this->rowExists($row) ||
                 !$this->colExists($col)) {
                 // Check permissions.
-                if (Horde::hasPermission('max_blocks') !== true &&
-                    Horde::hasPermission('max_blocks') <= $this->count()) {
+                $max_blocks = $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_blocks');
+                if (($max_blocks !== true) &&
+                    ($max_blocks <= $this->count())) {
                     try {
                         $message = Horde::callHook('perms_denied', array('horde:max_blocks'));
                     } catch (Horde_Exception_HookNotSet $e) {
-                        $message = @htmlspecialchars(sprintf(ngettext("You are not allowed to create more than %d block.", "You are not allowed to create more than %d blocks.", Horde::hasPermission('max_blocks')), Horde::hasPermission('max_blocks')), ENT_COMPAT, Horde_Nls::getCharset());
+                        $message = htmlspecialchars(sprintf(Horde_Block_Translation::ngettext("You are not allowed to create more than %d block.", "You are not allowed to create more than %d blocks.", $max_blocks), $max_blocks));
                     }
                     $GLOBALS['notification']->push($message, 'horde.error', array('content.raw'));
                     break;
@@ -293,8 +294,8 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
         }
 
         if (!empty($url)) {
-            header('Location: ' . Horde_Util::addParameter($url, 'unique',
-                                                     md5(microtime()), false));
+            $url = new Horde_Url($url);
+            $url->unique()->redirect();
         }
     }
 
@@ -393,7 +394,7 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
         if (!isset($this->_layout[$row][$col]) ||
             $this->isEmpty($row, $col) ||
             $this->isCovered($row, $col)) {
-            throw new Horde_Exception('No block exists at the requested position', 'horde.error');
+            throw new Horde_Exception('No block exists at the requested position');
         }
 
         return array(
@@ -419,7 +420,7 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
     public function setBlockInfo($row, $col, $info = array())
     {
         if (!isset($this->_layout[$row][$col])) {
-            throw new Horde_Exception('No block exists at the requested position', 'horde.error');
+            throw new Horde_Exception('No block exists at the requested position');
         }
 
         if (isset($info['app'])) {
@@ -484,7 +485,7 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
             return count($this->_layout[$row]);
         }
 
-        throw new Horde_Exception(sprintf('The specified row (%d) does not exist.', $row), 'horde.error');
+        throw new Horde_Exception(sprintf('The specified row (%d) does not exist.', $row));
     }
 
     /**
@@ -571,12 +572,12 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
 
         switch ($type[0]) {
         case 'expand':
-            $title = _("Expand");
+            $title = Horde_Block_Translation::t("Expand");
             $img = 'large_' . $type[1];
             break;
 
         case 'shrink':
-            $title = _("Shrink");
+            $title = Horde_Block_Translation::t("Shrink");
             $img = 'large_';
 
             switch ($type[1]) {
@@ -601,19 +602,19 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
         case 'move':
             switch ($type[1]) {
             case 'up':
-                $title = _("Move Up");
+                $title = Horde_Block_Translation::t("Move Up");
                 break;
 
             case 'down':
-                $title = _("Move Down");
+                $title = Horde_Block_Translation::t("Move Down");
                 break;
 
             case 'left':
-                $title = _("Move Left");
+                $title = Horde_Block_Translation::t("Move Left");
                 break;
 
             case 'right':
-                $title = _("Move Right");
+                $title = Horde_Block_Translation::t("Move Right");
                 break;
             }
 
@@ -622,7 +623,7 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
         }
 
         return Horde::link($url, $title) .
-            Horde::img('block/' . $img . '.png', $title, '', $GLOBALS['registry']->getImageDir('horde')) . '</a>';
+            Horde::img('block/' . $img . '.png', $title) . '</a>';
     }
 
     /**
@@ -869,7 +870,7 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
                         return;
                     }
                     // Nowhere to go.
-                    throw new Horde_Exception('Shrink or move neighboring block(s) out of the way first', 'horde.warning');
+                    throw new Horde_Exception('Shrink or move neighboring block(s) out of the way first');
                 }
             }
 
@@ -933,7 +934,7 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
                         return;
                     }
                     // No where to go
-                    throw new Horde_Exception('Shrink or move neighbouring block(s) out of the way first', 'horde.warning');
+                    throw new Horde_Exception('Shrink or move neighbouring block(s) out of the way first');
                 }
             }
         } else {
@@ -1026,7 +1027,7 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
                         return;
                     }
                     // No where to go
-                    throw new Horde_Exception('Shrink or move neighboring block(s) out of the way first', 'horde.warning');
+                    throw new Horde_Exception('Shrink or move neighboring block(s) out of the way first');
                 }
             }
 
@@ -1093,7 +1094,7 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
                         return;
                     }
                     // No where to go
-                    throw new Horde_Exception('Shrink or move neighboring block(s) out of the way first', 'horde.warning');
+                    throw new Horde_Exception('Shrink or move neighboring block(s) out of the way first');
                 }
             }
         } else {
@@ -1162,7 +1163,7 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
             for ($i = 0; $i < $width; $i++) {
                 if (!$this->isEmpty($row - 1, $col + $i)) {
                     if (!$this->moveDownBelow($row - 1)) {
-                        throw new Horde_Exception('Shrink or move neighboring block(s) out of the way first', 'horde.warning');
+                        throw new Horde_Exception('Shrink or move neighboring block(s) out of the way first');
                     } else {
                         $row++;
                     }
@@ -1204,7 +1205,7 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
             for ($i = 0; $i < $width; $i++) {
                 if (!$this->isEmpty($lastrow + 1, $col + $i)) {
                     if (!$this->moveDownBelow($lastrow)) {
-                        throw new Horde_Exception('Shrink or move neighboring block(s) out of the way first', 'horde.warning');
+                        throw new Horde_Exception('Shrink or move neighboring block(s) out of the way first');
                     }
                 }
             }
@@ -1235,7 +1236,7 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
             for ($i = 0; $i < $height; $i++) {
                 if (!$this->isEmpty($row + $i, $col - 1)) {
                     if (!$this->moveRightAfter($col - 1)) {
-                        throw new Horde_Exception('Shrink or move neighboring block(s) out of the way first', 'horde.warning');
+                        throw new Horde_Exception('Shrink or move neighboring block(s) out of the way first');
                     } else {
                         $col++;
                     }
@@ -1270,7 +1271,7 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
             for ($i = 0; $i < $height; $i++) {
                 if (!$this->isEmpty($row + $i, $lastcol + 1)) {
                     if (!$this->moveRightAfter($lastcol)) {
-                        throw new Horde_Exception('Shrink or move neighbouring block(s) out of the way first', 'horde.warning');
+                        throw new Horde_Exception('Shrink or move neighbouring block(s) out of the way first');
                     }
                 }
             }

@@ -95,9 +95,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
    </pearinstaller>
   </required>
   <optional>
-   <extension>
+   <package>
     <name>xdiff</name>
-   </extension>
+    <channel>pecl.php.net</channel>
+    <providesextension>xdiff</providesextension>
+   </package>
   </optional>
  </dependencies>
  <phprelease />

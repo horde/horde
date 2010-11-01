@@ -8,12 +8,14 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('whups');
+
 require_once 'Horde/Block/Layout/View.php';
 
 // @TODO: remove this when there are blocks useful to guests
 // available.
-if (!Horde_Auth::getAuth()) {
+if (!$GLOBALS['registry']->getAuth()) {
     require WHUPS_BASE . '/search.php';
     exit;
 }
@@ -23,8 +25,7 @@ if ($r_time = $prefs->getValue('summary_refresh_time')) {
     if ($browser->hasFeature('xmlhttpreq')) {
         Horde::addScriptFile('prototype.js', 'horde', true);
     } else {
-        $refresh_time = $r_time;
-        $refresh_url = Horde::applicationUrl('mybugs.php');
+        Horde::metaRefresh($r_time, Horde::url('mybugs.php'));
     }
 }
 
@@ -32,7 +33,7 @@ if ($r_time = $prefs->getValue('summary_refresh_time')) {
 // block set for guests.
 $mybugs_layout = @unserialize($prefs->getValue('mybugs_layout'));
 if (!$mybugs_layout) {
-    if (Horde_Auth::isAuthenticated()) {
+    if ($registry->isAuthenticated()) {
         $mybugs_layout = array(
             array(array('app' => 'whups', 'params' => array('type' => 'mytickets', 'params' => false), 'height' => 1, 'width' => 1)),
             array(array('app' => 'whups', 'params' => array('type' => 'myrequests', 'params' => false), 'height' => 1, 'width' => 1)),
@@ -45,12 +46,12 @@ if (!$mybugs_layout) {
 }
 $layout = new Horde_Block_Layout_View(
     $mybugs_layout,
-    Horde::applicationUrl('mybugs_edit.php'),
-    Horde::applicationUrl('mybugs.php', true));
+    Horde::url('mybugs_edit.php'),
+    Horde::url('mybugs.php', true));
 $layout_html = $layout->toHtml();
 
 $title = sprintf(_("My %s"), $registry->get('name'));
-$menuBottom = '<div id="menuBottom"><a href="' . Horde::applicationUrl('mybugs_edit.php') . '">' . _("Add Content") . '</a></div><div class="clear">&nbsp;</div>';
+$menuBottom = '<div id="menuBottom"><a href="' . Horde::url('mybugs_edit.php') . '">' . _("Add Content") . '</a></div><div class="clear">&nbsp;</div>';
 require WHUPS_TEMPLATES . '/common-header.inc';
 require WHUPS_TEMPLATES . '/menu.inc';
 echo $layout_html;

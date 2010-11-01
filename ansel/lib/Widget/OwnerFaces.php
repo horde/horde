@@ -23,29 +23,27 @@ class Ansel_Widget_OwnerFaces extends Ansel_Widget_Base
             return '';
         }
 
-        $this->_faces = Ansel_Faces::factory();
+        $this->_faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
         $this->_owner = $this->_view->gallery->get('owner');
-        //@TODO: Remove the PEAR_Error check when Faces is refactored.
         try {
             $this->_count = $this->_faces->countOwnerFaces($this->_owner);
-        } catch (Horde_Exception $e) {}
-        if (is_a($this->_count, 'PEAR_error')) {
+        } catch (Horde_Exception $e) {
+            Horde::logMessage($e->getMessage(), 'ERR');
             $this->_count = 0;
         }
-
-        $this->_title = '<a href="' . Horde_Util::addParameter(Horde::applicationUrl('faces/search/owner.php'), 'owner', $this->_owner) . '">'
-            . sprintf(_("People in galleries owned by %s (%d of %d)"),
-                      $this->_owner, min(12, $this->_count), number_format($this->_count))
-            . '</a>';
-        $html = $this->_htmlBegin();
-
         if (empty($this->_count)) {
             return null;
         }
 
+        $this->_title = Horde::url('faces/search/owner.php')->add('owner', $this->_owner)->link()
+            . sprintf(_("People in galleries owned by %s (%d of %d)"), $this->_owner, min(12, $this->_count), number_format($this->_count))
+            . '</a>';
+
+        $html = $this->_htmlBegin();
+
         $results = $this->_faces->ownerFaces($this->_owner, 0, 12, true);
         $html .= '<div style="display: block'
-            . ';background:' . $this->_style['background']
+            . ';background:' . $this->_style->background
             . ';width:100%;max-height:300px;overflow:auto;" id="faces_widget_content" >';
         foreach ($results as $face_id => $face) {
             $facename = htmlspecialchars($face['face_name']);

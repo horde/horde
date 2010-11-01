@@ -8,37 +8,23 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Duck <duck@obala.net>
- * @package Horde_Cache
+ * @author   Duck <duck@obala.net>
+ * @category Horde
+ * @package  Cache
  */
-class Horde_Cache_Null extends Horde_Cache_Base
+class Horde_Cache_Null extends Horde_Cache
 {
     /**
-     * Attempts to retrieve a piece of cached data and return it to
-     * the caller.
-     *
-     * @param string $key        Cache key to fetch.
-     * @param integer $lifetime  Lifetime of the key in seconds.
-     *
-     * @return mixed  Cached data, or false if none was found.
      */
-    public function get($key, $lifetime = 1)
+    protected function _get($key, $lifetime)
     {
         return false;
     }
 
     /**
-     * Attempts to store an object to the cache.
-     *
-     * @param string $key        Cache key (identifier).
-     * @param mixed $data        Data to store in the cache.
-     * @param integer $lifetime  Data lifetime.
-     *
-     * @return boolean  True on success, false on failure.
      */
-    public function set($key, $data, $lifetime = null)
+    protected function _set($key, $data, $lifetime)
     {
-        return false;
     }
 
     /**

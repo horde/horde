@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="Big5"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <help>
-  <entry id="keyboard-navigation" state="new">
+
+<entry id="keyboard-navigation" state="new">
     <title>Keyboard: Navigation</title>
     <para>You may use your keyboard to move between messages in the mailbox list, to the previous or next messages while viewing a message, and between pages of your mailbox list.</para>
     <heading>Message List Keyboard Navigation</heading>
@@ -11,36 +12,30 @@
     <heading>Message View: Previous/Next Message</heading>
     <para>Use the Left and Right keys on your keyboard to go to the previous message or the next message, respectively.</para>
 </entry>
-  <entry id="message-forward" state="new">
-  <title>Forwarding Email</title>
-  <para>When forwarding an email, you have several choices.</para>
 
-  <heading>Forwarding from the Mailbox View</heading>
-  <para>In the mailbox view, you can forward multiple messages at the same time. Each message that you select will be sent, in its entirety, to your recipients. You will see each message as an attachment in your compose window. On the receiving end, the recipient(s) will see each email as an embedded email.</para>
-
-  <heading>Forwarding from the Message View</heading>
-  <para>When forwarding individual messages in the message view, you can choose three different options:</para>
-  <para><b>1. Entire Message</b>: This option will attach the entire message to your email. The compose area will not contain any text from the forwarded message. This is the same as forwading a single email from the mailbox view, except that the Subject: line will be set for you.</para>
-  <para><b>2. Body Text Only</b>: If you only want to forward the body of the email, choose this option. Any attachments to the original email will not be included in your forward. The text will appear in the compose area, and you can edit it if you wish or add your own comments.</para>
-  <para><b>3. Body Text with Attachments</b>: To forward the attachments of an email along, along with the body as described in #2 Body Text Only, use this option. The body text will be placed in the compose area for you to edit, and all attachments to the original message will be copied to your forward.</para>
-
+<!--
+<entry id="keyboard-shortcuts">
+    <title>Keyboard: Shortcuts</title>
+    <heading>Using Keyboard Shortcuts</heading>
 </entry>
-  <entry id="compose-buttons" md5="301453c3a273ec0ba95b84aeb8661cca" state="changed">
-    <title>¶l¥ó¼g§@: §@¥Î¤è¦¡</title>
-    <heading>§@¥Î¤è¦¡</heading>
+-->
+
+<entry id="compose-buttons" md5="301453c3a273ec0ba95b84aeb8661cca" state="changed">
+    <title>éƒµä»¶å¯«ä½œ: ä½œç”¨æ–¹å¼</title>
+    <heading>ä½œç”¨æ–¹å¼</heading>
     <para>
-    ¶Ç°e¶l¥óÅU¦W«ä¸q´N¬O±N§Aªº¶l¥ó§ë»¼¥X¥hµ¹§A©Ò§Æ±æ¦¬¨ìªº¤H¡C
-    ¦b§A«ö¦¹«ö¶s¤§«e½Ğ½T»{¦¬¥ó¹ï¶H¡A¦]¬°¶l¥ó¤@¦ı°e¥X«á´NµLªk¨ú¦^¡C
+    å‚³é€éƒµä»¶é¡§åæ€ç¾©å°±æ˜¯å°‡ä½ çš„éƒµä»¶æŠ•éå‡ºå»çµ¦ä½ æ‰€å¸Œæœ›æ”¶åˆ°çš„äººã€‚
+    åœ¨ä½ æŒ‰æ­¤æŒ‰éˆ•ä¹‹å‰è«‹ç¢ºèªæ”¶ä»¶å°è±¡ï¼Œå› ç‚ºéƒµä»¶ä¸€ä½†é€å‡ºå¾Œå°±ç„¡æ³•å–å›ã€‚
     </para>
     <para>
-    ¦s¬°¯ó½Z±N¥¼§¹¦¨ªº¶l¥ó¦s©ñ©ó«H¥ó§X 'Drafts' ¤¤¡A
-    º¸«á§A¥i¥H¸g¥Ñ¥k¤W¤èªº«H¥ó§X¤U©Ô¥\¯àªí¶i¤J¯ó½Z§X 'Drafts'
-    ¨ÃÂI¿ï 'Ä~Äò½s¼g' ¥H§¹¦¨¸Ó¶l¥ó¡C
-    ¤Á°O¦b§A±N¶l¥ó¦s¬°¯ó½Z«e½Ğ¬°¸Ó¶l¥ó¶ñ¼g¥D¦®¥H¤è«K¤é«á¿ëÃÑ¡C
-    ¶l¥ó¤@¦ı¦s¬°¯ó½Z«á¡A§A¥i¦^¨ì­ì¥ı©Ò¥¿¦bÀËµøªº«H¥ó§X¤¤¡C
+    å­˜ç‚ºè‰ç¨¿å°‡æœªå®Œæˆçš„éƒµä»¶å­˜æ”¾æ–¼ä¿¡ä»¶åŒ£ 'Drafts' ä¸­ï¼Œ
+    çˆ¾å¾Œä½ å¯ä»¥ç¶“ç”±å³ä¸Šæ–¹çš„ä¿¡ä»¶åŒ£ä¸‹æ‹‰åŠŸèƒ½è¡¨é€²å…¥è‰ç¨¿åŒ£ 'Drafts'
+    ä¸¦é»é¸ 'ç¹¼çºŒç·¨å¯«' ä»¥å®Œæˆè©²éƒµä»¶ã€‚
+    åˆ‡è¨˜åœ¨ä½ å°‡éƒµä»¶å­˜ç‚ºè‰ç¨¿å‰è«‹ç‚ºè©²éƒµä»¶å¡«å¯«ä¸»æ—¨ä»¥æ–¹ä¾¿æ—¥å¾Œè¾¨è­˜ã€‚
+    éƒµä»¶ä¸€ä½†å­˜ç‚ºè‰ç¨¿å¾Œï¼Œä½ å¯å›åˆ°åŸå…ˆæ‰€æ­£åœ¨æª¢è¦–çš„ä¿¡ä»¶åŒ£ä¸­ã€‚
     </para>
     <para>
-    ¨ú®ø¶l¥óÅU¦W«ä¸q´N¬O©ñ±ó¥Ø«e©Ò¥¿¦b½s¼gªº¶l¥ó¨Ã¦^¨ì­ì¥ı©Ò¥¿¦bÀËµøªº«H¥ó§X¤¤¡C
+    å–æ¶ˆéƒµä»¶é¡§åæ€ç¾©å°±æ˜¯æ”¾æ£„ç›®å‰æ‰€æ­£åœ¨ç·¨å¯«çš„éƒµä»¶ä¸¦å›åˆ°åŸå…ˆæ‰€æ­£åœ¨æª¢è¦–çš„ä¿¡ä»¶åŒ£ä¸­ã€‚
     </para>
   <!-- English entry:
 <entry id="compose-buttons">
@@ -394,20 +389,38 @@
     <para>
     "Cancel Message" drops the message in progress and simply returns you to the last folder you were viewing.
     </para>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="compose-buttons">
+    <title>Message Composition: Actions</title>
+    <heading>Actions</heading>
+    <para>
+    "Send Message" transmits your email message to the intended recipient(s). Make sure you do want to send your message as this action is final and cannot be reversed.
+    </para>
+    <para>
+    "Save Draft" places an unfinished message in a folder called "Drafts" accessible through the folder drop-down box at the top-right of your screen. You can then finish the message later by switching to the "Drafts" folder, clicking on the saved message to open it, and then clicking on "Resume". Be sure to put a subject on the email before you save the draft so that you can easily identify which message you want within the Drafts folder.
+    </para>
+    <tip>
+    Depending on your installation, you can change in your preferences whether you are returned to the last folder you were viewing or back to the same message after saving a message as a draft.
+    </tip>
+    <para>
+    "Cancel Message" drops the message in progress and simply returns you to the last folder you were viewing.
+    </para>
 </entry>--></entry>
-  <entry id="compose-identity" state="new">
+
+<entry id="compose-identity" state="new">
     <title>Message Composition: Identity</title>
     <heading>Identity</heading>
     <para>
     Choose the identity to send email as from a drop-down list of identities that you entered under <qt>Options-&gt;Personal Information</qt>.
     </para>
 </entry>
-  <entry id="compose-from" md5="26bcca134b528a540e070ef96a4d5038" state="changed">
-    <title>¶l¥ó¼g§@: ±H¥ó¤H</title>
-    <heading>"±H¥ó¤H"</heading>
+
+<entry id="compose-from" md5="26bcca134b528a540e070ef96a4d5038" state="changed">
+    <title>éƒµä»¶å¯«ä½œ: å¯„ä»¶äºº</title>
+    <heading>"å¯„ä»¶äºº"</heading>
     <para>
-    µøª¬ªp§A¥i¥H¥Ñ¤U©Ô¥\¯àªí¿ï¾Ü¤@­Ó¥Ñ"¿ï¶µ-&gt;­Ó¤H¸ê°T"©Ò«Ø¥ßªº¨­¤ÀÃÑ§O¡A©ÎªÌ
-    §A¤]¥i¥H¦bÄæ¦ì¤¤ª½±µ¿é¤J§Aªº¶l¥ó¦a§}¡C
+    è¦–ç‹€æ³ä½ å¯ä»¥ç”±ä¸‹æ‹‰åŠŸèƒ½è¡¨é¸æ“‡ä¸€å€‹ç”±"é¸é …-&gt;å€‹äººè³‡è¨Š"æ‰€å»ºç«‹çš„èº«åˆ†è­˜åˆ¥ï¼Œæˆ–è€…
+    ä½ ä¹Ÿå¯ä»¥åœ¨æ¬„ä½ä¸­ç›´æ¥è¼¸å…¥ä½ çš„éƒµä»¶åœ°å€ã€‚
     </para>
   <!-- English entry:
 <entry id="compose-from">
@@ -570,14 +583,22 @@
     <para>
     Enter the email address that you want to send this message as.
     </para>
-</entry>--></entry>
-  <entry id="compose-to" md5="e1d101c96b942693818c7daf072f92c3" state="changed">
-    <title>¶l¥ó¼g§@: ¦¬¥ó¤H</title>
-    <heading>"¦¬¥ó¤H"</heading>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="compose-from">
+    <title>Message Composition: From</title>
+    <heading>From</heading>
     <para>
-    ¿é¤J¦¬¥ó¹ï¶Hªº¹q¤l¶l¥ó¦í§}¡C
-    ¬°Á×§K¿ù»~µo¥Í§A¥²¶·¨Ï¥Î¤@­Ó³r¸¹¡A¨Ó°Ï¹j¤£¦Pªº¹q¤l¶l¥ó¦í§}¡C
-    §A©Ò¿é¤Jªº¦¬¥ó¹ï¶H¹q¤l¶l¥ó¦í§}±N¦Û°Ê¦¨¬°°e¥X¶l¥óªº"¦¬¥ó¤H:"¦í§}¡C
+    Enter the email address that you want to send this message as.
+    </para>
+</entry>--></entry>
+
+<entry id="compose-to" md5="e1d101c96b942693818c7daf072f92c3" state="changed">
+    <title>éƒµä»¶å¯«ä½œ: æ”¶ä»¶äºº</title>
+    <heading>"æ”¶ä»¶äºº"</heading>
+    <para>
+    è¼¸å…¥æ”¶ä»¶å°è±¡çš„é›»å­éƒµä»¶ä½å€ã€‚
+    ç‚ºé¿å…éŒ¯èª¤ç™¼ç”Ÿä½ å¿…é ˆä½¿ç”¨ä¸€å€‹é€—è™Ÿï¼Œä¾†å€éš”ä¸åŒçš„é›»å­éƒµä»¶ä½å€ã€‚
+    ä½ æ‰€è¼¸å…¥çš„æ”¶ä»¶å°è±¡é›»å­éƒµä»¶ä½å€å°‡è‡ªå‹•æˆç‚ºé€å‡ºéƒµä»¶çš„"æ”¶ä»¶äºº:"ä½å€ã€‚
     </para>
   <!-- English entry:
 <entry id="compose-to">
@@ -733,17 +754,25 @@
     <para>
     Enter the correct email address for the recipient of your message. To enter multiple recipients, separate the email addresses with commas. Use of any other punctuation to separate multiple email addresses will result in an error.
     </para>
-</entry>--></entry>
-  <entry id="compose-cc" md5="7c40a96a23ce1fc3f93d026fd41d6289" state="changed">
-    <title>¶l¥ó¼g§@: °Æ¥»</title>
-    <heading>"°Æ¥»"</heading>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="compose-to">
+    <title>Message Composition: To</title>
+    <heading>To</heading>
     <para>
-    ¿é¤J°Æ¥»¦¬¥ó¹ï¶Hªº¹q¤l¶l¥ó¦í§}¡C
-    ¬°Á×§K¿ù»~µo¥Í§A¥²¶·¨Ï¥Î¤@­Ó³r¸¹¡A¨Ó°Ï¹j¤£¦Pªº¹q¤l¶l¥ó¦í§}¡C
-    §A©Ò¿é¤Jªº°Æ¥»¹q¤l¶l¥ó¦í§}±N¦Û°Ê¦¨¬°°e¥X¶l¥óªº"°Æ¥»:"¦í§}¡C
-    °Æ¥»³q±`¨Ï¥Î¦b»P¶l¥ó¨Ã«Dª½±µ¹ï¶H¦ı«o¦³­«­nÃö«Yªº®É­Ô¡C
-    ©Ò¦³ªº'¦¬¥ó¤H'¦¬¥ó¹ï¶H»P'°Æ¥»'¦¬¥ó¹ï¶H³£¥i¥H¦b¥L­Ì©Ò¦¬¨ìªº«H¥ó¤¤
-    ¬İ¨£©¼¦¹ªº¹q¤l¶l¥ó¡C
+    Enter the correct email address for the recipient of your message. To enter multiple recipients, separate the email addresses with commas. Use of any other punctuation to separate multiple email addresses will result in an error.
+    </para>
+</entry>--></entry>
+
+<entry id="compose-cc" md5="7c40a96a23ce1fc3f93d026fd41d6289" state="changed">
+    <title>éƒµä»¶å¯«ä½œ: å‰¯æœ¬</title>
+    <heading>"å‰¯æœ¬"</heading>
+    <para>
+    è¼¸å…¥å‰¯æœ¬æ”¶ä»¶å°è±¡çš„é›»å­éƒµä»¶ä½å€ã€‚
+    ç‚ºé¿å…éŒ¯èª¤ç™¼ç”Ÿä½ å¿…é ˆä½¿ç”¨ä¸€å€‹é€—è™Ÿï¼Œä¾†å€éš”ä¸åŒçš„é›»å­éƒµä»¶ä½å€ã€‚
+    ä½ æ‰€è¼¸å…¥çš„å‰¯æœ¬é›»å­éƒµä»¶ä½å€å°‡è‡ªå‹•æˆç‚ºé€å‡ºéƒµä»¶çš„"å‰¯æœ¬:"ä½å€ã€‚
+    å‰¯æœ¬é€šå¸¸ä½¿ç”¨åœ¨èˆ‡éƒµä»¶ä¸¦éç›´æ¥å°è±¡ä½†å»æœ‰é‡è¦é—œä¿‚çš„æ™‚å€™ã€‚
+    æ‰€æœ‰çš„'æ”¶ä»¶äºº'æ”¶ä»¶å°è±¡èˆ‡'å‰¯æœ¬'æ”¶ä»¶å°è±¡éƒ½å¯ä»¥åœ¨ä»–å€‘æ‰€æ”¶åˆ°çš„ä¿¡ä»¶ä¸­
+    çœ‹è¦‹å½¼æ­¤çš„é›»å­éƒµä»¶ã€‚
     </para>
   <!-- English entry:
 <entry id="compose-cc">
@@ -965,17 +994,28 @@
     <para>
     Carbon copies are usually sent to recipients who need not be the direct recipients of the message, but may need to receive the message for their information, usually indirectly concerned about the subject of the email. All "To:" recipients and "Cc:" recipients can see the entire list of both kinds of recipients.
     </para>
-</entry>--></entry>
-  <entry id="compose-bcc" md5="01c60e854a0a6ace7f911ab77f3380f5" state="changed">
-    <title>¶l¥ó¼g§@: ¯µ¥ó°Æ¥»</title>
-    <heading>"¯µ¥ó°Æ¥»"</heading>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="compose-cc">
+    <title>Message Composition: Cc</title>
+    <heading>Cc</heading>
     <para>
-    ¿é¤J¯µ¥ó°Æ¥»¦¬¥ó¹ï¶Hªº¹q¤l¶l¥ó¦í§}¡C
-    ¬°Á×§K¿ù»~µo¥Í§A¥²¶·¨Ï¥Î³r¸¹¡A¨Ó°Ï¹j¤£¦Pªº¹q¤l¶l¥ó¦í§}¡C
-    §A©Ò¿é¤Jªº¯µ¥ó°Æ¥»¹q¤l¶l¥ó¦í§}±N¦Û°Ê¦¨¬°°e¥X¶l¥óªº"¯µ¥ó°Æ¥»:"¦í§}¡C
-    ³q±`¯µ¥ó°Æ¥»¦b¨Ï¥Î¤W¦³§O©ó¶l¥óªºª½±µ©Î¶¡±µÃö«Y(¨Ò¦p"¦¬¥ó¤H"¤Î"°Æ¥»")¡A
-    ¦ÓµÛ­«©óÁô°Îªº®ÄªG¡C
-    ¯µ¥óªº·N¸q¦b©ó¡A±H¥Xªº¶l¥ó¤W±NÁôÂÃ¯µ¥ó°Æ¥»¹ï¶Hªº¸ê®Æ¡C
+    Enter the correct email address for the carbon copy recipient of your message. To enter multiple recipients, separate the email addresses with commas. Use of any other punctuation to separate multiple email addresses will result in an error.
+    </para>
+    <para>
+    Carbon copies are usually sent to recipients who need not be the direct recipients of the message, but may need to receive the message for their information, usually indirectly concerned about the subject of the email. All "To:" recipients and "Cc:" recipients can see the entire list of both kinds of recipients.
+    </para>
+</entry>--></entry>
+
+<entry id="compose-bcc" md5="01c60e854a0a6ace7f911ab77f3380f5" state="changed">
+    <title>éƒµä»¶å¯«ä½œ: ç§˜ä»¶å‰¯æœ¬</title>
+    <heading>"ç§˜ä»¶å‰¯æœ¬"</heading>
+    <para>
+    è¼¸å…¥ç§˜ä»¶å‰¯æœ¬æ”¶ä»¶å°è±¡çš„é›»å­éƒµä»¶ä½å€ã€‚
+    ç‚ºé¿å…éŒ¯èª¤ç™¼ç”Ÿä½ å¿…é ˆä½¿ç”¨é€—è™Ÿï¼Œä¾†å€éš”ä¸åŒçš„é›»å­éƒµä»¶ä½å€ã€‚
+    ä½ æ‰€è¼¸å…¥çš„ç§˜ä»¶å‰¯æœ¬é›»å­éƒµä»¶ä½å€å°‡è‡ªå‹•æˆç‚ºé€å‡ºéƒµä»¶çš„"ç§˜ä»¶å‰¯æœ¬:"ä½å€ã€‚
+    é€šå¸¸ç§˜ä»¶å‰¯æœ¬åœ¨ä½¿ç”¨ä¸Šæœ‰åˆ¥æ–¼éƒµä»¶çš„ç›´æ¥æˆ–é–“æ¥é—œä¿‚(ä¾‹å¦‚"æ”¶ä»¶äºº"åŠ"å‰¯æœ¬")ï¼Œ
+    è€Œè‘—é‡æ–¼éš±åŒ¿çš„æ•ˆæœã€‚
+    ç§˜ä»¶çš„æ„ç¾©åœ¨æ–¼ï¼Œå¯„å‡ºçš„éƒµä»¶ä¸Šå°‡éš±è—ç§˜ä»¶å‰¯æœ¬å°è±¡çš„è³‡æ–™ã€‚
     </para>
   <!-- English entry:
 <entry id="compose-bcc">
@@ -1197,21 +1237,32 @@
     <para>
     Blind carbon copies are usually sent to recipients who may need to read what is being written WITHOUT the other recipients knowing that they are receiving the email. Thus "blind" means that the identity of these recipients is hidden from all other recipients of the email. Only you the sender and the "Bcc" recipients will know that they received a copy.
     </para>
-</entry>--></entry>
-  <entry id="compose-subject" md5="607b6415ea1f6d0cf25e3cf57a2584cc" state="changed">
-    <title>¶l¥ó¼g§@: ¥D¦®</title>
-    <heading>"¥D¦®"</heading>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="compose-bcc">
+    <title>Message Composition: Bcc</title>
+    <heading>Bcc</heading>
     <para>
-    ¿é¤J¶l¥óªº¥D¦®¡C
-    §A©Ò¿é¤Jªº¥D¦®±N¦¨¬°°e¥X¶l¥óªº"¥D¦®:"¡C
-    ºÉ¥i¯à¥HÂ²³æ§ã­nªº´y­z¨Ó»¡©ú¥D¦®¡C
-    ¥D¦®¬O³Ì®e©öÅı¤H¯à°÷¦b¤é«á¦^·Q°_³o«Ê¶l¥ó¤º®eªº¤èªk¡A
-    ¦]¦¹¦b½s¼g¶l¥ó®É¥D¦®¬O¬Û·í­«­nªº¡C
-    ¦Ó¥B¡A·í§A'¦^ÂĞ'©Î'Âà±H'¶l¥ó®É¥D¦®¤]±N·|¤@¨Ö©ñ¶i·s¶l¥ó¤¤¡A
-    ¦p¦¹¤@¨Ó¶l¥ó¤§¶¡¤~¯à«¬¦¨¤@ºØÃöÁp¡C
-    µM¦Ó¡A¦pªG§A¹ï'¦^ÂĞ'©Î'Âà±H'ªº¶l¥ó¤º®e¤¤°µ¤F¨Ç³\ªº§ïÅÜ¡A
-    ©Î³\§A¥i¥H¦Ò¼{¦b'¥D¦®'¤W¼W¥[Â²³æªºÅÜ°Ê³qª¾¡A
-    ¦p¦¹©Ò¦³ªº¦¬«H¹ï¶H¤~¯àÄ~Äò¨Ì´`¦¹¤@"ÃöÁp"¡C
+    Enter the correct email address for the blind carbon copy recipient of your message. To enter multiple recipients, separate the email addresses with commas. Use of any other punctuation to separate multiple email addresses will result in an error.
+    </para>
+    <para>
+    Blind carbon copies are usually sent to recipients who may need to read what is being written WITHOUT the other recipients knowing that they are receiving the email. Thus "blind" means that the identity of these recipients is hidden from all other recipients of the email. Only you the sender and the "Bcc" recipients will know that they received a copy.
+    </para>
+</entry>--></entry>
+
+<entry id="compose-subject" md5="607b6415ea1f6d0cf25e3cf57a2584cc" state="changed">
+    <title>éƒµä»¶å¯«ä½œ: ä¸»æ—¨</title>
+    <heading>"ä¸»æ—¨"</heading>
+    <para>
+    è¼¸å…¥éƒµä»¶çš„ä¸»æ—¨ã€‚
+    ä½ æ‰€è¼¸å…¥çš„ä¸»æ—¨å°‡æˆç‚ºé€å‡ºéƒµä»¶çš„"ä¸»æ—¨:"ã€‚
+    ç›¡å¯èƒ½ä»¥ç°¡å–®æ‰¼è¦çš„æè¿°ä¾†èªªæ˜ä¸»æ—¨ã€‚
+    ä¸»æ—¨æ˜¯æœ€å®¹æ˜“è®“äººèƒ½å¤ åœ¨æ—¥å¾Œå›æƒ³èµ·é€™å°éƒµä»¶å…§å®¹çš„æ–¹æ³•ï¼Œ
+    å› æ­¤åœ¨ç·¨å¯«éƒµä»¶æ™‚ä¸»æ—¨æ˜¯ç›¸ç•¶é‡è¦çš„ã€‚
+    è€Œä¸”ï¼Œç•¶ä½ 'å›è¦†'æˆ–'è½‰å¯„'éƒµä»¶æ™‚ä¸»æ—¨ä¹Ÿå°‡æœƒä¸€ä½µæ”¾é€²æ–°éƒµä»¶ä¸­ï¼Œ
+    å¦‚æ­¤ä¸€ä¾†éƒµä»¶ä¹‹é–“æ‰èƒ½å‹æˆä¸€ç¨®é—œè¯ã€‚
+    ç„¶è€Œï¼Œå¦‚æœä½ å°'å›è¦†'æˆ–'è½‰å¯„'çš„éƒµä»¶å…§å®¹ä¸­åšäº†äº›è¨±çš„æ”¹è®Šï¼Œ
+    æˆ–è¨±ä½ å¯ä»¥è€ƒæ…®åœ¨'ä¸»æ—¨'ä¸Šå¢åŠ ç°¡å–®çš„è®Šå‹•é€šçŸ¥ï¼Œ
+    å¦‚æ­¤æ‰€æœ‰çš„æ”¶ä¿¡å°è±¡æ‰èƒ½ç¹¼çºŒä¾å¾ªæ­¤ä¸€"é—œè¯"ã€‚
     </para>
   <!-- English entry:
 <entry id="compose-subject">
@@ -1433,38 +1484,50 @@
     <para>
     Also, when you "Reply" or "Forward" an email, this subject line is copied over into the new message so that is becomes a valuable way of identifying which messages go together to form a "thread" to an email conversation. As a suggestion, if a replied or forwarded message contains new ideas, you may want to alter slightly the "Subject" line so that recipients can follow the progression of the "thread".
     </para>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="compose-subject">
+    <title>Message Composition: Subject</title>
+    <heading>Subject</heading>
+    <para>
+    Enter the subject of your message. It is best to keep the subject short, simple and descriptive. The subject line is the easiest way for you and your correspondents to remember what was in the email, thus is very important in organizing your email and finding important ones later.
+    </para>
+    <para>
+    Also, when you "Reply" or "Forward" an email, this subject line is copied over into the new message so that is becomes a valuable way of identifying which messages go together to form a "thread" to an email conversation. As a suggestion, if a replied or forwarded message contains new ideas, you may want to alter slightly the "Subject" line so that recipients can follow the progression of the "thread".
+    </para>
 </entry>--></entry>
-  <entry id="compose-charset" state="new">
+
+<entry id="compose-charset" state="new">
     <title>Message Composition: Charset</title>
     <heading>Character Set</heading>
     <para>
     Selects the character set to send the outgoing message with.
     </para>
 </entry>
-  <entry id="compose-options" md5="700a6844af3c7e6582da15929b5dd173" state="changed">
-    <title>¶l¥ó¼g§@: ¿ï¶µ</title>
-    <heading>"¿ï¶µ"</heading>
+
+<entry id="compose-options" md5="700a6844af3c7e6582da15929b5dd173" state="changed">
+    <title>éƒµä»¶å¯«ä½œ: é¸é …</title>
+    <heading>"é¸é …"</heading>
     <para>
-    ³o¨Ç¿ï¶µ¥Î¨Ó»²§U§A½s¼g¶l¥ó¡C
+    é€™äº›é¸é …ç”¨ä¾†è¼”åŠ©ä½ ç·¨å¯«éƒµä»¶ã€‚
     </para>
     <para>
-    ÂI¿ï"«÷¼gÀË¬d"¡AÀË¬d¶l¥ó¤º®eªº³æ¤å«÷¼g¬O§_¦³»~¡C
+    é»é¸"æ‹¼å¯«æª¢æŸ¥"ï¼Œæª¢æŸ¥éƒµä»¶å…§å®¹çš„å–®æ–‡æ‹¼å¯«æ˜¯å¦æœ‰èª¤ã€‚
     </para>
     <para>
-    ÂI¿ï"ªş¥ó"¡A§Ö³t¤Á´«¨ì­¶­±¤U¤èªºÀÉ®×ªş¥[«ö¶s¡AÅı§Aªş¥[ÀÉ®×¨ì¶l¥ó¤¤¡C
+    é»é¸"é™„ä»¶"ï¼Œå¿«é€Ÿåˆ‡æ›åˆ°é é¢ä¸‹æ–¹çš„æª”æ¡ˆé™„åŠ æŒ‰éˆ•ï¼Œè®“ä½ é™„åŠ æª”æ¡ˆåˆ°éƒµä»¶ä¸­ã€‚
     </para>
     <para>
-    ¤Ä¿ï"±H¥ó³Æ¤À"¡AÀx¦s±H¥ó¨ì§A¦b"¿ï¶µ -&gt;­Ó¤H¸ê°T -&gt;¨­¥÷ÃÑ§O"©Ò«ü©w
-    ªº«H¥ó¹h¡C¬Æ¦Ü§A¤]¥i¥H³z¹L¤U©Ô¥\¯àªí¿ï¾Ü¨ä¥Lªº«H¥ó¹h³Æ¥÷¡C
+    å‹¾é¸"å¯„ä»¶å‚™åˆ†"ï¼Œå„²å­˜å¯„ä»¶åˆ°ä½ åœ¨"é¸é … -&gt;å€‹äººè³‡è¨Š -&gt;èº«ä»½è­˜åˆ¥"æ‰€æŒ‡å®š
+    çš„ä¿¡ä»¶é–˜ã€‚ç”šè‡³ä½ ä¹Ÿå¯ä»¥é€éä¸‹æ‹‰åŠŸèƒ½è¡¨é¸æ“‡å…¶ä»–çš„ä¿¡ä»¶é–˜å‚™ä»½ã€‚
     </para>
     <para>
-    ¬°­«­nªº±H¥ó³Æ¤À¥H¨Ñ¤é«á°Ñ¦Ò¨Ã¥B§@¬°¤@ºØ°O¿ı¡C
-    ¥Ñ©óºÏºĞªÅ¶¡­­¨îªº¦Ò¶q¡A«O¯d½Æ¥ó±N³y¦¨¶l¥ó§Ö³t¦¨ªø¡A
-    ¦]¦¹§Ú­Ì¨Ã¤£¹ªÀy§A¬°¨C¤@«Ê±H¥ó°µ³Æ¥÷(¯S§O¬O·í§A±H¥ó¥]§tªş¥[ÀÉ®×ªºª¬ªp)¡A
-    ¥HÁ×§K§Aªº¶l½cÃBº¡µLªk¦¬¨ú·sªº¶l¥ó¡C
-    µM¦Ó¡A§AÁÙ¬O¥i¥HÂÇ¥Ñ°õ¦æ¿ï¶µ-&gt;­Ó¤H¸ê°T-&gt;½s¿è§Aªº¨­¥÷ÃÑ§O¸ê®Æ¡A
-    ±N¹w³]­È³]©w¬°'±Ò¥Î'¡C¦P®É¦b¿ï¶µ¤¤§A¤]¥i¥H³]©w¤@¨ÇºûÅ@¤u§@
-    (¿ï¶µ-&gt;µn¤J¤u§@)¡AÅı¨t²Î¯à©w®É²MªÅ©Î§ó¦W³o¨Ç«H¥ó¹h¥H¸Ñ¬ÙºÏºĞªÅ¶¡¡C
+    ç‚ºé‡è¦çš„å¯„ä»¶å‚™åˆ†ä»¥ä¾›æ—¥å¾Œåƒè€ƒä¸¦ä¸”ä½œç‚ºä¸€ç¨®è¨˜éŒ„ã€‚
+    ç”±æ–¼ç£ç¢Ÿç©ºé–“é™åˆ¶çš„è€ƒé‡ï¼Œä¿ç•™è¤‡ä»¶å°‡é€ æˆéƒµä»¶å¿«é€Ÿæˆé•·ï¼Œ
+    å› æ­¤æˆ‘å€‘ä¸¦ä¸é¼“å‹µä½ ç‚ºæ¯ä¸€å°å¯„ä»¶åšå‚™ä»½(ç‰¹åˆ¥æ˜¯ç•¶ä½ å¯„ä»¶åŒ…å«é™„åŠ æª”æ¡ˆçš„ç‹€æ³)ï¼Œ
+    ä»¥é¿å…ä½ çš„éƒµç®±é¡æ»¿ç„¡æ³•æ”¶å–æ–°çš„éƒµä»¶ã€‚
+    ç„¶è€Œï¼Œä½ é‚„æ˜¯å¯ä»¥è—‰ç”±åŸ·è¡Œé¸é …-&gt;å€‹äººè³‡è¨Š-&gt;ç·¨è¼¯ä½ çš„èº«ä»½è­˜åˆ¥è³‡æ–™ï¼Œ
+    å°‡é è¨­å€¼è¨­å®šç‚º'å•Ÿç”¨'ã€‚åŒæ™‚åœ¨é¸é …ä¸­ä½ ä¹Ÿå¯ä»¥è¨­å®šä¸€äº›ç¶­è­·å·¥ä½œ
+    (é¸é …-&gt;ç™»å…¥å·¥ä½œ)ï¼Œè®“ç³»çµ±èƒ½å®šæ™‚æ¸…ç©ºæˆ–æ›´åé€™äº›ä¿¡ä»¶é–˜ä»¥è§£çœç£ç¢Ÿç©ºé–“ã€‚
     </para>
   <!-- English entry:
 <entry id="compose-options">
@@ -1950,42 +2013,65 @@
     <warn>
     You may not want to save every email since you could have problems with your disk storage quota being used up quickly, especially when you send large attachments. A mailbox with full storage quota will not be able to receive new incoming email.
     </warn>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="compose-options">
+    <title>Message Composition: Options</title>
+    <heading>Options</heading>
+    <para>
+    These Options help you prepare your message.
+    </para>
+    <para>
+    Click "Spell Check" to check your spelling.
+    </para>
+    <para>
+    Click "Attachments" to go to the bottom of the page where you can attach files to this message.
+    </para>
+    <para>
+    If saving of sent mail has been enabled by your administrator, you can activate the checkbox next to "Save a copy" to keep a copy your this message you send. The destination folder will be either the default or the one you selected for this purpose under "Options-&gt;Personal Information-&gt;Identities". If your addminstrator has activated the selection of a sent mail destination, you will be able to choose the folder from a drop-down list next to this option.
+    </para>
+    <para>
+    Saving copies of important emails you send could be useful for record keeping of what was discussed. You can, however, turn this feature "on" as your default within your Identity, by going to "Options-&gt;Personal Information-&gt;Edit your identities". In your options you can also setup maintenance tasks that empty or rename these folders periodically.
+    </para>
+    <warn>
+    You may not want to save every email since you could have problems with your disk storage quota being used up quickly, especially when you send large attachments. A mailbox with full storage quota will not be able to receive new incoming email.
+    </warn>
 </entry>--></entry>
-  <entry id="compose-attachments" md5="5b62669ca09fe858b091c2221947cb87" state="changed">
-    <title>¶l¥ó¼g§@: ªş¥ó</title>
-    <heading>ªş¥ó</heading>
+
+<entry id="compose-attachments" md5="5b62669ca09fe858b091c2221947cb87" state="changed">
+    <title>éƒµä»¶å¯«ä½œ: é™„ä»¶</title>
+    <heading>é™„ä»¶</heading>
     <para>
-    ¦¹°Ï°ìÅã¥Ü¶l¥ó¤¤©Ò¦³ªş¥[ÀÉ®×²M³æ¡C
+    æ­¤å€åŸŸé¡¯ç¤ºéƒµä»¶ä¸­æ‰€æœ‰é™„åŠ æª”æ¡ˆæ¸…å–®ã€‚
     </para>
-    <heading>§R°£¤wªş¥[ÀÉ®×</heading>
+    <heading>åˆªé™¤å·²é™„åŠ æª”æ¡ˆ</heading>
     <para>
-    ±ı§R°£¤wªş¥[ÀÉ®×ªº¨BÆJ¦p¤U:
-    </para>
-    <para>
-    ¨BÆJ 1: ¤Ä¿ï¤wªş¥[ÀÉ®×®ÇÃäªº§R°£¤è¶ô¡C
+    æ¬²åˆªé™¤å·²é™„åŠ æª”æ¡ˆçš„æ­¥é©Ÿå¦‚ä¸‹:
     </para>
     <para>
-    ¨BÆJ 2: ÂI¿ï "ÅÜ§óªş¥ó¸ê°T"¡C
-    </para>
-    <heading>ÅÜ§óªş¥ó°t¸m¤è¦¡</heading>
-    <para>
-    ±ıÅÜ§óªş¥ó°t¸m¤è¦¡ªº¨BÆJ¦p¤U:
+    æ­¥é©Ÿ 1: å‹¾é¸å·²é™„åŠ æª”æ¡ˆæ—é‚Šçš„åˆªé™¤æ–¹å¡Šã€‚
     </para>
     <para>
-    ¨BÆJ 1: ÅÜ§ó¨C­Óªş¥óªº°t¸m¤è¦¡¬° 'ª½±µÅã¥Ü©ó¥»¤å°Ï' ©Î 'ªş¥ó'¡C
+    æ­¥é©Ÿ 2: é»é¸ "è®Šæ›´é™„ä»¶è³‡è¨Š"ã€‚
+    </para>
+    <heading>è®Šæ›´é™„ä»¶é…ç½®æ–¹å¼</heading>
+    <para>
+    æ¬²è®Šæ›´é™„ä»¶é…ç½®æ–¹å¼çš„æ­¥é©Ÿå¦‚ä¸‹:
     </para>
     <para>
-    ¨BÆJ 2: ÂI¿ï "ÅÜ§óªş¥ó¸ê°T"¡C
-    </para>
-    <heading>ÅÜ§óªş¥ó´y­z</heading>
-    <para>
-    ÅÜ§óªş¥ó´y­zªº¨BÆJ¦p¤U (©Ò¦³¦¬¥ó¹ï¶H±N·|¬İ¨ì¦¹¤@´y­z):
+    æ­¥é©Ÿ 1: è®Šæ›´æ¯å€‹é™„ä»¶çš„é…ç½®æ–¹å¼ç‚º 'ç›´æ¥é¡¯ç¤ºæ–¼æœ¬æ–‡å€' æˆ– 'é™„ä»¶'ã€‚
     </para>
     <para>
-    ¨BÆJ 1: ©ó´y­zÄæ¦ì¿é¤JÂ²µu±Ô­z¡C
+    æ­¥é©Ÿ 2: é»é¸ "è®Šæ›´é™„ä»¶è³‡è¨Š"ã€‚
+    </para>
+    <heading>è®Šæ›´é™„ä»¶æè¿°</heading>
+    <para>
+    è®Šæ›´é™„ä»¶æè¿°çš„æ­¥é©Ÿå¦‚ä¸‹ (æ‰€æœ‰æ”¶ä»¶å°è±¡å°‡æœƒçœ‹åˆ°æ­¤ä¸€æè¿°):
     </para>
     <para>
-    ¨BÆJ 2: ÂI¿ï "ÅÜ§óªş¥ó¸ê°T"¡C
+    æ­¥é©Ÿ 1: æ–¼æè¿°æ¬„ä½è¼¸å…¥ç°¡çŸ­æ•˜è¿°ã€‚
+    </para>
+    <para>
+    æ­¥é©Ÿ 2: é»é¸ "è®Šæ›´é™„ä»¶è³‡è¨Š"ã€‚
     </para>
   <!-- English entry:
 <entry id="compose-attachments">
@@ -2763,8 +2849,27 @@
     <tip>
     Please note that for large files and/or slower Internet connections, the process of uploading and attaching your file to the email may take a while. Please be patient and do not click other links or buttons while you are waiting for a file to upload.
     </tip>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="compose-attachments">
+    <title>Message Composition: Adding Attachments</title>
+    <heading>Adding Attachments</heading>
+    <para>
+    You may attach files to your message if your browser supports uploading of files. More than 1 file can be uploaded at once.
+    </para>
+    <para>Step 1: Either type the path and name of a file that you want attached to this message or click the "Browse" button and select the file to be attached. The path and name of that file now appears in the Attachment box. If your browser supports JavaScript, you will see an additional upload input now as well, for uploading other files at the same time.
+    </para>
+    <para>Step 2: Decide whether you want the file to be viewed as an attachment or inline with the rest of the message. The recipient's mail reading software must be able to handle the inline display of the file type, otherwise this part will be viewed as an attachment instead.
+    </para>
+    <para>
+    Unless you want to change an attachment's description or specify that it should be shown to the recipient inline, you are done. The attachments will be uploaded when you send your message. If you want to change the description or the attachment disposition, however, you can click the "Update" button to upload your attachments immediately and save any other changes you've made to existing attachments.
+    </para>
+
+    <tip>
+    Please note that for large files and/or slower Internet connections, the process of uploading and attaching your file to the email may take a while. Please be patient and do not click other links or buttons while you are waiting for a file to upload.
+    </tip>
 </entry>--></entry>
-  <entry id="compose-current-attachments" state="new">
+
+<entry id="compose-current-attachments" state="new">
     <title>Message Composition: Current Attachments</title>
     <heading>Current Attachments</heading>
     <para>
@@ -2801,22 +2906,24 @@
     Step 2: Either click the "Update" button above the Current Attachments section to immediately view changes or the changes will automatically be performed when the message is sent.
     </para>
 </entry>
-  <entry id="compose-priority" md5="b023367c36de3ce1567d27ccaa45640c" state="uptodate">
-    <title>¶l¥ó¼g§@: Àu¥ı¶¶§Ç</title>
-    <heading>"Àu¥ı¶¶§Ç"</heading>
+
+<entry id="compose-priority" md5="b023367c36de3ce1567d27ccaa45640c" state="uptodate">
+    <title>éƒµä»¶å¯«ä½œ: å„ªå…ˆé †åº</title>
+    <heading>"å„ªå…ˆé †åº"</heading>
     <para>
-    ¦¹¿ï¶µ¥Î¨Ó³]©w±H°e¶l¥óªº "X-Priority" ªíÀY¡C
-    "X-Priority" ¬O Netscape¡A Mozilla¡A Operar¤Î Outlook
-    µ¥¶l¥ó¾\Åª³nÅé©Ò»{¥iªº¤@ºØ "µêÀÀ" ¼ĞÅÒ¡C
-    ¥Ñ©ó¨ä¥Lªº¶l¥ó¾\Åª³nÅé¨Ã¤£¤ä´©³oºØªíÀY©Ò¥H±N·|©¿²¤¶l¥ó¤¤ªºÀu¥ı¶¶§Ç¡C
+    æ­¤é¸é …ç”¨ä¾†è¨­å®šå¯„é€éƒµä»¶çš„ "X-Priority" è¡¨é ­ã€‚
+    "X-Priority" æ˜¯ Netscapeï¼Œ Mozillaï¼Œ OperaråŠ Outlook
+    ç­‰éƒµä»¶é–±è®€è»Ÿé«”æ‰€èªå¯çš„ä¸€ç¨® "è™›æ“¬" æ¨™ç±¤ã€‚
+    ç”±æ–¼å…¶ä»–çš„éƒµä»¶é–±è®€è»Ÿé«”ä¸¦ä¸æ”¯æ´é€™ç¨®è¡¨é ­æ‰€ä»¥å°‡æœƒå¿½ç•¥éƒµä»¶ä¸­çš„å„ªå…ˆé †åºã€‚
     </para>
   </entry>
-  <entry id="compose-save-attachments" state="changed" md5="5353905ce9ba89d4b8b7ca56e37b4678">
-    <title>¶l¥ó¼g§@: Àx¦sªş¥ó</title>
+
+<entry id="compose-save-attachments" state="changed" md5="5353905ce9ba89d4b8b7ca56e37b4678">
+    <title>éƒµä»¶å¯«ä½œ: å„²å­˜é™„ä»¶</title>
     <para>
-    ¨M©wÀx¦s±H¥ó³Æ¥÷®É¡A¬O§_¤]­n¤@¨ÖÀx¦s±H¥ó¤¤ªºªş¥[ÀÉ®×¡C ¦pªG"¬O"¡Aªş¥[ÀÉ®×
-    ±N·|³QÀx¦s¡C ¦pªG"§_"¡Aªş¥[ÀÉ®×±N©ó¶l¥ó±H¥X«á¥h°£¦Ó¤£·|³QÀx¦s¦b±H¥ó³Æ¥÷
-    ¹h¤¤¡C ¿ï¾Ü"§_"¥iÂÇ¥Ñ¥h°£(¤j«¬¼çÂÃ)ªş¥ó¡A¦³§U©ó¸`¬Ù¶l½cºÏºĞªÅ¶¡¡C
+    æ±ºå®šå„²å­˜å¯„ä»¶å‚™ä»½æ™‚ï¼Œæ˜¯å¦ä¹Ÿè¦ä¸€ä½µå„²å­˜å¯„ä»¶ä¸­çš„é™„åŠ æª”æ¡ˆã€‚ å¦‚æœ"æ˜¯"ï¼Œé™„åŠ æª”æ¡ˆ
+    å°‡æœƒè¢«å„²å­˜ã€‚ å¦‚æœ"å¦"ï¼Œé™„åŠ æª”æ¡ˆå°‡æ–¼éƒµä»¶å¯„å‡ºå¾Œå»é™¤è€Œä¸æœƒè¢«å„²å­˜åœ¨å¯„ä»¶å‚™ä»½
+    é–˜ä¸­ã€‚ é¸æ“‡"å¦"å¯è—‰ç”±å»é™¤(å¤§å‹æ½›è—)é™„ä»¶ï¼Œæœ‰åŠ©æ–¼ç¯€çœéƒµç®±ç£ç¢Ÿç©ºé–“ã€‚
     </para>
   <!-- English entry:
 <entry id="compose-save-attachments">
@@ -2950,534 +3057,39 @@
     <para>
     Determines whether the attachments in your composition are saved with the message when stored in the sent-mail folder. If "Yes", the attachment data will be saved. If "No", the attachment data will be stripped from the message after it is sent to all recipients. Choosing "No" will help conserve disk space by removing (potentially large) attachment information from the saved messages.
     </para>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="compose-save-attachments">
+    <title>Message Composition: Save Attachments</title>
+    <para>
+    Determines whether the attachments in your composition are saved with the message when stored in the sent-mail folder. If "Yes", the attachment data will be saved. If "No", the attachment data will be stripped from the message after it is sent to all recipients. Choosing "No" will help conserve disk space by removing (potentially large) attachment information from the saved messages.
+    </para>
 </entry>--></entry>
-  <entry id="compose-link-attachments" state="new">
+
+<entry id="compose-link-attachments" state="new">
     <title>Message Composition: Link Attachments</title>
     <para>
     Determines whether the attachments in your composition are sent as a part of the mail message or whether those attachments are kept on a local server.  If attachments are linked, the recipient(s) of your message will be provided a weblink where they can download the attachment(s).  Linking attachments has the advantage of tremendously reducing the size of outgoing messages.  Linking attachments has the disadvantage that the content of the attachments can not be guaranteed to be available in the future since the attachment data is not located within the e-mail message.
     </para>
 </entry>
-  <entry id="search" md5="21b917f954ab9af23d96a6ad60409fe1" state="changed">
-    <title>¶l¥ó·j´M</title>
-    <heading>·j´M±ø¥ó</heading>
+
+<entry id="folder-options" md5="b45a4dedf0c4a684064cdf6ae98d1b54" state="changed">
+    <title>ä¿¡ä»¶åŒ£ç®¡ç†</title>
+    <heading>ä¿¡ä»¶åŒ£é¸é …</heading>
     <para>
-    ÂÇ¥Ñ¤£¦Pªº·j´M±ø¥ó§A¥i¥H·j´M©Ò¦³«H¥ó§X¤¤ªº¶l¥ó¡C
+      ä½ å¯ä»¥å‹¾é¸å·¦æ–¹æ¬„ä½ä¸­çš„ä¸€å€‹ä¿¡ä»¶åŒ£ã€‚
+      ç„¶å¾Œå†ä¸‹æ‹‰"é¸æ“‡ä½œç”¨æ–¹å¼"åŠŸèƒ½è¡¨ï¼Œä¸¦é¸æ“‡ä¸€å€‹ä½œç”¨æ–¹å¼
+      ä¾†å°ä¸Šè¿°çš„ä¿¡ä»¶åŒ£é€²è¡Œç®¡ç†ã€‚
     </para>
-    <para>¨BÆJ 1: ©ó±ı·j´M±ø¥óªºÄæ¦ì¤¤¿é¤JÃöÁä¤å¦r¡C
-    </para>
-    <para>¨BÆJ 2: ¿ï¾Ü¶l¥ó¼ĞÃÑ¥H¥[¤J¨ì·j´M±ø¥ó¤¤¡C
-    </para>
-    <para>¨BÆJ 3: ¿ï¾Ü­n·j´Mªº«H¥ó§X¡C
-    </para>
-    <para>¨BÆJ 4: ÂI¿ï "·j´M"¡C
-    </para>
-    <para>
-    ¦pªG¦³¥ô¦óªº¶l¥ó»P§Aªº·j´M±ø¥ó¬Û²Å¡A
-    ¸Ó¶l¥óªº¥D¦®±NÅã¥Ü©ó "·j´M" µ²ªGªºµe­±¤¤¡C
-    </para>
-  <!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Enter text to the fields you want to add to your search criteria.
-    </para>
-    <para>
-        Step 2: Choose the message flag(s) to add to your search criteria.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--><!-- English entry:
-<entry id="search">
-    <title>Message Search</title>
-    <heading>Search Criteria</heading>
-    <para>
-    You may search for messages from your folders using different search criteria.
-    </para>
-    <para>
-        Step 1: Select whether you want to match ALL queries (an AND search) or match ANY query (an OR search).
-    </para>
-    <para>
-        Step 2: Choose the fields(s) to add to your search criteria and, if necessary, identify the search parameters for these fields.
-    </para>
-    <para>
-        Step 3: Choose the folder(s) from which to search for the messages.
-    </para>
-    <para>
-        Step 4: Click "Search".
-    </para>
-    <para>
-    If any messages matched your search criteria, then the subjects of these messages will be shown in the "Search Results" view.
-    </para>
-</entry>--></entry>
-  <entry id="folder-options" md5="b45a4dedf0c4a684064cdf6ae98d1b54" state="changed">
-    <title>«H¥ó§XºŞ²z</title>
-    <heading>«H¥ó§X¿ï¶µ</heading>
-    <para>
-      §A¥i¥H¤Ä¿ï¥ª¤èÄæ¦ì¤¤ªº¤@­Ó«H¥ó§X¡C
-      µM«á¦A¤U©Ô"¿ï¾Ü§@¥Î¤è¦¡"¥\¯àªí¡A¨Ã¿ï¾Ü¤@­Ó§@¥Î¤è¦¡
-      ¨Ó¹ï¤W­zªº«H¥ó§X¶i¦æºŞ²z¡C
-    </para>
     <para>
-      §A±N·|³Q­n¨D¿é¤J¨Ç³\ªº¬ÛÃö¾Ş§@¸ê®Æ¡C
-      ½Ğ¤p¤ßªº°õ¦æ "§R°£«H¥ó§X" ¤Î "²MªÅ«H¥ó§X" ³o¤GºØ¾Ş§@¡A
-      ¦]¬°«H¥ó§X¤@¥¹¾D§R°£©Î²MªÅ¡A¨ä¤¤ªº¶l¥ó¤]±N¤@¨Ö®ø¥¢¡C
+      ä½ å°‡æœƒè¢«è¦æ±‚è¼¸å…¥äº›è¨±çš„ç›¸é—œæ“ä½œè³‡æ–™ã€‚
+      è«‹å°å¿ƒçš„åŸ·è¡Œ "åˆªé™¤ä¿¡ä»¶åŒ£" åŠ "æ¸…ç©ºä¿¡ä»¶åŒ£" é€™äºŒç¨®æ“ä½œï¼Œ
+      å› ç‚ºä¿¡ä»¶åŒ£ä¸€æ—¦é­åˆªé™¤æˆ–æ¸…ç©ºï¼Œå…¶ä¸­çš„éƒµä»¶ä¹Ÿå°‡ä¸€ä½µæ¶ˆå¤±ã€‚
     </para>
-    <heading>¶×¤J mbox «¬ºA¹q¤l¶l¥óÀÉ®×</heading>
+    <heading>åŒ¯å…¥ mbox å‹æ…‹é›»å­éƒµä»¶æª”æ¡ˆ</heading>
     <para>
-      ³o­Ó¿ï¶µ±N¶×¤J¤@­Ó mbox «¬ºA¹q¤l¶l¥óÀÉ®×¨ì§A©Ò¿ï©wªº«H¥ó§X¤¤¡C
-      ¿ï¾Ü¤@­Ó­n¶×¤J¶l¥óªº«H¥ó§XµM«á¦A¿ï¾Ü³o­Ó¿ï¶µ¡C
-      ¤§«á§A±N³Q¤Ş¾É¨ì¥t¤@­Ó­¶­±¤¤¶}©l°õ¦æ¶×¤J°Ê§@¡C
+      é€™å€‹é¸é …å°‡åŒ¯å…¥ä¸€å€‹ mbox å‹æ…‹é›»å­éƒµä»¶æª”æ¡ˆåˆ°ä½ æ‰€é¸å®šçš„ä¿¡ä»¶åŒ£ä¸­ã€‚
+      é¸æ“‡ä¸€å€‹è¦åŒ¯å…¥éƒµä»¶çš„ä¿¡ä»¶åŒ£ç„¶å¾Œå†é¸æ“‡é€™å€‹é¸é …ã€‚
+      ä¹‹å¾Œä½ å°‡è¢«å¼•å°åˆ°å¦ä¸€å€‹é é¢ä¸­é–‹å§‹åŸ·è¡ŒåŒ¯å…¥å‹•ä½œã€‚
     </para>
   <!-- English entry:
 <entry id="folder-options">
@@ -4492,62 +4104,138 @@
     <para>
     Collapse all folder entries.
     </para>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="folder-options">
+    <title>Folders: Folder Actions</title>
+    <para>
+      You can select folders by using the buttons along the left column. Once you have done this, select the action you wish to perform on the folders via the select box to the left.
+    </para>
+    <heading>Create</heading>
+    <para>
+      Create a new folder, if possible. To create a folder in the base level, select 'Create' without selecting a folder in the left column. To create a subfolder in a currently existing folder, select the existing folder in the left column before selecting 'Create'.
+    </para>
+    <heading>Rename</heading>
+    <para>
+      Rename a folder. To rename, select the folders in the left column to rename and click 'Rename'. When renaming, all subfolders will automatically be renamed.
+    </para>
+    <heading>Delete</heading>
+    <para>
+      Delete a folder and all messages inside the folder. To delete, select the folders in the left column to delete and click 'Delete'. When deleting a folder with children, these subfolders will not be automatically deleted. To remove these children, you must manually select all folders to delete using the left column.
+    </para>
+    <heading>Empty</heading>
+    <para>
+       To delete all messages inside a folder, but not delete the folder itself, select the folders in the left column and click 'Empty'.
+    </para>
+    <heading>Purge</heading>
+    <para>
+       To delete all messages inside a folder marked as deleted, but not delete the folder itself, select the folders in the left column and click 'Purge'. This option only appears if not using a trash folder.
+    </para>
+    <heading>Subscribe/Unsubscribe</heading>
+    <para>
+      Flags a folder as either subscribed or unsubscribed. When a folder is subscribed, it will appear in all drop down folder lists. These options only appear if using IMAP folder subscriptions.
+    </para>
+    <para>
+      To subscribe, select the folders in the left column to delete and click 'Subscribe'. To unsubscribe, select the folders in the left column to delete and click 'Unsubscribe'.
+    </para>
+    <heading>Check for New Mail/Do Not Check for New Mail</heading>
+    <para>
+      Flags a folder to be checked for new mail in the Folder Navigator and the sidebar (if activated).
+    </para>
+    <para>
+       To set this flag, select the folders in the left column to check and click 'Check for New Mail'. To unset this flag, select the folders in the left column to check and click 'Do Not Check for New Mail'.
+    </para>
+    <heading>Mark All Messages as Seen/Unseen</heading>
+    <para>
+       To mark all messages in a folder as seen, select the folders in the left column and click 'Mark All Messages as Seen'. To mark all messages in a folder as unseen, select the folders in the left column and click 'Mark All Messages as Unseen'.
+    </para>
+    <heading>Download</heading>
+    <para>
+       To download all messages in a folder in a single file (mbox format), select the folder in the left column and click 'Download'. To download the file in ZIP compressed format, instead select 'Download [.zip format].
+    </para>
+    <heading>Import Messages</heading>
+    <para>
+      This option will import mbox format or .eml files into the folder of your choice. Choose one folder via the left column to import the messages into and then select this option. You will then be taken to a page that will prompt for the mbox or .eml file to import.
+    </para>
+    <heading>Rebuild Folder Tree</heading>
+    <para>
+      Rebuild the graphical representation of the folder tree by requerying the mail server. You should not normally need to do this unless you are simultaneously accessing the mail server with another mail client and that mail client has made changes to the folder structure.
+    </para>
+
+    <heading>Show/Hide Unsubscribed</heading>
+    <para>
+    If using IMAP folder subscriptions, show/hide the unsubscribed folders. To subscribe/unsubscribe to a folder, select the checkbox next to the foldername and use the Subscribe/Unsubscribe action in the Folder Action drop-down menu.
+    </para>
+    <heading>Expand All</heading>
+    <para>
+    Expand all folder entries.
+    </para>
+    <heading>Collapse All</heading>
+    <para>
+    Collapse all folder entries.
+    </para>
 </entry>--></entry>
-  <entry id="filters" md5="5ef60786767e638fbf5ba8fc5bd5d9d2" state="uptodate">
-    <title>¶l¥ó¹LÂo: ®M¥Î</title>
-    <heading>®M¥Î©Ò¦³³W«h</heading>
+
+<entry id="filters" md5="5ef60786767e638fbf5ba8fc5bd5d9d2" state="uptodate">
+    <title>éƒµä»¶éæ¿¾: å¥—ç”¨</title>
+    <heading>å¥—ç”¨æ‰€æœ‰è¦å‰‡</heading>
     <para>
-    ¦b¶l½cÀËµøµe­±¤¤ÂI¿ï¦¬¥ó¹h®ÇÃäªº"¶l¥ó¹LÂo"¹Ï¥Ü¡A¥H®M¥Î«ü©wªº³W«h¨ì
-    ©Ò¦³¶l¥ó¤W¡C
+    åœ¨éƒµç®±æª¢è¦–ç•«é¢ä¸­é»é¸æ”¶ä»¶é–˜æ—é‚Šçš„"éƒµä»¶éæ¿¾"åœ–ç¤ºï¼Œä»¥å¥—ç”¨æŒ‡å®šçš„è¦å‰‡åˆ°
+    æ‰€æœ‰éƒµä»¶ä¸Šã€‚
     </para>
   </entry>
-  <entry id="filter-edit-rules" state="uptodate" md5="5baa5708ac9449e797f967313a9e1a27">
-    <title>¶l¥ó¹LÂo: ½s¿è¹LÂo³W«h</title>
-    <heading>½s¿è§Aªº¹LÂo³W«h</heading>
+
+<entry id="filter-edit-rules" state="uptodate" md5="5baa5708ac9449e797f967313a9e1a27">
+    <title>éƒµä»¶éæ¿¾: ç·¨è¼¯éæ¿¾è¦å‰‡</title>
+    <heading>ç·¨è¼¯ä½ çš„éæ¿¾è¦å‰‡</heading>
     <para>
-    ÂI¿ï"½s¿è§Aªº¹LÂo³W«h"Åı§A·s¼W¡A§R°£¥H¤Î½s¿è¥Ø«e¤w±Ò°Êªº³W«h¡C
+    é»é¸"ç·¨è¼¯ä½ çš„éæ¿¾è¦å‰‡"è®“ä½ æ–°å¢ï¼Œåˆªé™¤ä»¥åŠç·¨è¼¯ç›®å‰å·²å•Ÿå‹•çš„è¦å‰‡ã€‚
     </para>
   </entry>
-  <entry id="filter-edit-blacklist" state="uptodate" md5="80ff7803c66599c7035f7f8811d218cc">
-    <title>¶l¥ó¹LÂo: ½s¿è¶Â¦W³æ</title>
-    <heading>½s¿è§Aªº¶Â¦W³æ</heading>
+
+<entry id="filter-edit-blacklist" state="uptodate" md5="80ff7803c66599c7035f7f8811d218cc">
+    <title>éƒµä»¶éæ¿¾: ç·¨è¼¯é»‘åå–®</title>
+    <heading>ç·¨è¼¯ä½ çš„é»‘åå–®</heading>
     <para>
-    ÂI¿ï"½s¿è§Aªº¶Â¦W³æ"Åı§A·s¼W¡A§R°£¥H¤Î½s¿è¤@¥÷§A¥Ã»·¤£·Q¦¬«Hªº¹q¤l¶l¥ó¦W³æ¡C
+    é»é¸"ç·¨è¼¯ä½ çš„é»‘åå–®"è®“ä½ æ–°å¢ï¼Œåˆªé™¤ä»¥åŠç·¨è¼¯ä¸€ä»½ä½ æ°¸é ä¸æƒ³æ”¶ä¿¡çš„é›»å­éƒµä»¶åå–®ã€‚
     </para>
   </entry>
-  <entry id="filter-edit-whitelist" state="uptodate" md5="330c3a8fad198c7afe855c101c63cd0f">
-    <title>¶l¥ó¹LÂo: ½s¿è¤Íµ½¦W³æ</title>
-    <heading>½s¿è§Aªº¤Íµ½¦W³æ</heading>
+
+<entry id="filter-edit-whitelist" state="uptodate" md5="330c3a8fad198c7afe855c101c63cd0f">
+    <title>éƒµä»¶éæ¿¾: ç·¨è¼¯å‹å–„åå–®</title>
+    <heading>ç·¨è¼¯ä½ çš„å‹å–„åå–®</heading>
     <para>
-    ÂI¿ï"½s¿è§Aªº¤Íµ½¦W³æ"Åı§A·s¼W¡A§R°£¥H¤Î½s¿è¤@¥÷§A·Q¦¬«Hªº¹q¤l¶l¥ó¦W³æ¡C
-    ¤Íµ½¦W³æªº¥Øªº¦b©ó¡G¥Ñ©ó¤Íµ½¦W³æ¾Ö¦³¤ñ¸û°ªªº¹LÂoÀu¥ıÅv¡A¥iÁ×§K¶l¥ó¾D
-    ¨ä¥L³W«h·m¥ı®M¥Î³y¦¨¿ò¥¢µ¥«áªG¡A½T«O¹ï¤è«H¥ó·|³Q°e¹F¦¬¥ó¹h¤¤¡C
+    é»é¸"ç·¨è¼¯ä½ çš„å‹å–„åå–®"è®“ä½ æ–°å¢ï¼Œåˆªé™¤ä»¥åŠç·¨è¼¯ä¸€ä»½ä½ æƒ³æ”¶ä¿¡çš„é›»å­éƒµä»¶åå–®ã€‚
+    å‹å–„åå–®çš„ç›®çš„åœ¨æ–¼ï¼šç”±æ–¼å‹å–„åå–®æ“æœ‰æ¯”è¼ƒé«˜çš„éæ¿¾å„ªå…ˆæ¬Šï¼Œå¯é¿å…éƒµä»¶é­
+    å…¶ä»–è¦å‰‡æ¶å…ˆå¥—ç”¨é€ æˆéºå¤±ç­‰å¾Œæœï¼Œç¢ºä¿å°æ–¹ä¿¡ä»¶æœƒè¢«é€é”æ”¶ä»¶é–˜ä¸­ã€‚
     </para>
   </entry>
-  <entry id="filter-on-login" state="uptodate" md5="37d9297d1cca46435e36b6e38e45dcdb">
-    <title>¶l¥ó¹LÂo: µn¤J®É®M¥Î</title>
-    <heading>©óµn¤J®É®M¥Î©Ò¦³¹LÂo³W«h ?</heading>
+
+<entry id="filter-on-login" state="uptodate" md5="37d9297d1cca46435e36b6e38e45dcdb">
+    <title>éƒµä»¶éæ¿¾: ç™»å…¥æ™‚å¥—ç”¨</title>
+    <heading>æ–¼ç™»å…¥æ™‚å¥—ç”¨æ‰€æœ‰éæ¿¾è¦å‰‡ ?</heading>
     <para>
-    ¤Ä¿ï³o­Ó¿ï¶µ¡A¥H«K¤é«á¨C¦¸µn¤Jºô¸ô¶l§½®É¡A®M¥Î©Ò¦³³W«h¡C
+    å‹¾é¸é€™å€‹é¸é …ï¼Œä»¥ä¾¿æ—¥å¾Œæ¯æ¬¡ç™»å…¥ç¶²è·¯éƒµå±€æ™‚ï¼Œå¥—ç”¨æ‰€æœ‰è¦å‰‡ã€‚
     </para>
   </entry>
-  <entry id="filter-on-display" state="uptodate" md5="f5afc305402ef52bad108933f3f33291">
-    <title>¶l¥ó¹LÂo: ­«·s¾ã²z®É¤@¨Ö®M¥Î</title>
-    <heading>¨C¦¸¶}±Ò¦¬¥ó¹h®É¡A¤@¨Ö±N©Ò¦³¹LÂo³W«h®M¥Î¨ä¤W¡C</heading>
+
+<entry id="filter-on-display" state="uptodate" md5="f5afc305402ef52bad108933f3f33291">
+    <title>éƒµä»¶éæ¿¾: é‡æ–°æ•´ç†æ™‚ä¸€ä½µå¥—ç”¨</title>
+    <heading>æ¯æ¬¡é–‹å•Ÿæ”¶ä»¶é–˜æ™‚ï¼Œä¸€ä½µå°‡æ‰€æœ‰éæ¿¾è¦å‰‡å¥—ç”¨å…¶ä¸Šã€‚</heading>
     <para>
-    ¤Ä¿ï³o­Ó¿ï¶µ¡A¥H«á¨C¦¸¶}±Ò¦¬¥ó¹hªº¦P®É¡A¤]±N©Ò¦³¹LÂo³W«h®M¥Î©ó¦¬¥ó¹h ?
+    å‹¾é¸é€™å€‹é¸é …ï¼Œä»¥å¾Œæ¯æ¬¡é–‹å•Ÿæ”¶ä»¶é–˜çš„åŒæ™‚ï¼Œä¹Ÿå°‡æ‰€æœ‰éæ¿¾è¦å‰‡å¥—ç”¨æ–¼æ”¶ä»¶é–˜ ?
     </para>
   </entry>
-  <entry id="filter-any-mailbox" state="changed" md5="db1e4261ffcfc6d33e2a8cf806683f12">
-    <title>¶l¥ó¹LÂo: ®M¥Î©ó¥ô¤@­Ó«H¥ó¹h</title>
-    <heading>±N¹LÂo³W«h®M¥Î©ó¥ô¤@­Ó«H¥ó¹h ?</heading>
+
+<entry id="filter-any-mailbox" state="changed" md5="db1e4261ffcfc6d33e2a8cf806683f12">
+    <title>éƒµä»¶éæ¿¾: å¥—ç”¨æ–¼ä»»ä¸€å€‹ä¿¡ä»¶é–˜</title>
+    <heading>å°‡éæ¿¾è¦å‰‡å¥—ç”¨æ–¼ä»»ä¸€å€‹ä¿¡ä»¶é–˜ ?</heading>
     <para>
-    ¦pªG§A§Æ±æ¹LÂo³W«h¯à®M¥Î©ó¥ô¤@­Ó«H¥ó¹h¤¤¡A½Ğ¤Ä¿ï³o­Ó¿ï¶µ¡C
-    ³q±`¹LÂo³W«h¥u®M¥Î©ó¦¬¥ó¹h¤¤ªº·s¶l¥ó¡C¦pªG¤Ä¿ï³o­Ó¿ï¶µ¡A¦b©Ò¦³«H¥ó¹hªº¶l½c
-    ÀËµøµe­±¤¤±N¥X²{¤@­Ó¹Ï¥Ü¡AÂI¿ï¸Ó¹Ï¥Ü¥i±N¹LÂo³W«h®M¥Î¨ì¥Ø«eªº«H¥ó¹h¡Cµù:
-    ®M¥Î©ó"¥ô¤@«H¥ó¹h"¤ñ°_®M¥Î©ó"¦¬¥ó¹h"¦û¾Ú¸û¦hªººÏºĞªÅ¶¡(¨Ò¦p¡C³W«h³Q®M¥Î«á
-    «H¥ó¤S³Q­«½Æ»¼°e¨ì¦P¤@­Ó«H¥ó¹h¤¤)¥B/©Îµo¥ÍµLªk¹w´Áªºµ²ªG(¨Ò¦p¡C«á¨Ó«Ø¥ßªº
-    ·s³W«h­P¨Ï¥Ø«e«H¥ó¹h¤¤ªº«H¥ó³Q·h²¾/§R°£)¡C
+    å¦‚æœä½ å¸Œæœ›éæ¿¾è¦å‰‡èƒ½å¥—ç”¨æ–¼ä»»ä¸€å€‹ä¿¡ä»¶é–˜ä¸­ï¼Œè«‹å‹¾é¸é€™å€‹é¸é …ã€‚
+    é€šå¸¸éæ¿¾è¦å‰‡åªå¥—ç”¨æ–¼æ”¶ä»¶é–˜ä¸­çš„æ–°éƒµä»¶ã€‚å¦‚æœå‹¾é¸é€™å€‹é¸é …ï¼Œåœ¨æ‰€æœ‰ä¿¡ä»¶é–˜çš„éƒµç®±
+    æª¢è¦–ç•«é¢ä¸­å°‡å‡ºç¾ä¸€å€‹åœ–ç¤ºï¼Œé»é¸è©²åœ–ç¤ºå¯å°‡éæ¿¾è¦å‰‡å¥—ç”¨åˆ°ç›®å‰çš„ä¿¡ä»¶é–˜ã€‚è¨»:
+    å¥—ç”¨æ–¼"ä»»ä¸€ä¿¡ä»¶é–˜"æ¯”èµ·å¥—ç”¨æ–¼"æ”¶ä»¶é–˜"ä½”æ“šè¼ƒå¤šçš„ç£ç¢Ÿç©ºé–“(ä¾‹å¦‚ã€‚è¦å‰‡è¢«å¥—ç”¨å¾Œ
+    ä¿¡ä»¶åˆè¢«é‡è¤‡éé€åˆ°åŒä¸€å€‹ä¿¡ä»¶é–˜ä¸­)ä¸”/æˆ–ç™¼ç”Ÿç„¡æ³•é æœŸçš„çµæœ(ä¾‹å¦‚ã€‚å¾Œä¾†å»ºç«‹çš„
+    æ–°è¦å‰‡è‡´ä½¿ç›®å‰ä¿¡ä»¶é–˜ä¸­çš„ä¿¡ä»¶è¢«æ¬ç§»/åˆªé™¤)ã€‚
     </para>
   <!-- English entry:
 <entry id="filter-any-mailbox">
@@ -4703,14 +4391,22 @@
     <para>
     Check this option if you want to be allowed to apply filter rules to any mailbox. Normally, filtering rules are only applied to new mail that is delivered to your INBOX. If this option is checked, an icon will appear on all mailbox pagges that will allow you to apply filter rules to the messages in the current mailbox. NOTE: Filtering in mailboxes other than INBOX may produce strange (e.g. the filter may cause a copy of messages to be delivered to the same mailbox) and/or undesired results (e.g. it may cause messages to be moved/deleted if new filtering rules have been implemented since the message has been delivered to the current mailbox).
     </para>
-</entry>--></entry>
-  <entry id="pgp-compose-attach-pubkey" md5="426b99481a5ab2dbe8c00f0e8597e296" state="changed">
-    <title>PGP: ªş¤W¤½¶}ª÷Æ_</title>
-    <heading>ªş¤W¤½¶}ª÷Æ_</heading>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="filter-any-mailbox">
+    <title>Filters: Filter any Mailbox</title>
+    <heading>Apply filter rules to any mailbox?</heading>
     <para>
-    ¦pªG¤Ä¿ï¦¹¤@¶µ¥Ø¡A¥B§Aªº PGP ¤½¶}ª÷Æ_¤]¦s¦bªº¸Ü¡A«h±H¥Xªº«H¥ó¤¤±Nªş¤W
-    §Aªº PGP ¤½¶}ª÷Æ_¡C
-    §A¥i¥H¸g¥Ñ¦b PGP ¿ï¶µªºµe­±¤¤³]©w¦¹¤@¹w³]¦æ¬°¡C
+    Check this option if you want to be allowed to apply filter rules to any mailbox. Normally, filtering rules are only applied to new mail that is delivered to your INBOX. If this option is checked, an icon will appear on all mailbox pagges that will allow you to apply filter rules to the messages in the current mailbox. NOTE: Filtering in mailboxes other than INBOX may produce strange (e.g. the filter may cause a copy of messages to be delivered to the same mailbox) and/or undesired results (e.g. it may cause messages to be moved/deleted if new filtering rules have been implemented since the message has been delivered to the current mailbox).
+    </para>
+</entry>--></entry>
+
+<entry id="pgp-compose-attach-pubkey" md5="426b99481a5ab2dbe8c00f0e8597e296" state="changed">
+    <title>PGP: é™„ä¸Šå…¬é–‹é‡‘é‘°</title>
+    <heading>é™„ä¸Šå…¬é–‹é‡‘é‘°</heading>
+    <para>
+    å¦‚æœå‹¾é¸æ­¤ä¸€é …ç›®ï¼Œä¸”ä½ çš„ PGP å…¬é–‹é‡‘é‘°ä¹Ÿå­˜åœ¨çš„è©±ï¼Œå‰‡å¯„å‡ºçš„ä¿¡ä»¶ä¸­å°‡é™„ä¸Š
+    ä½ çš„ PGP å…¬é–‹é‡‘é‘°ã€‚
+    ä½ å¯ä»¥ç¶“ç”±åœ¨ PGP é¸é …çš„ç•«é¢ä¸­è¨­å®šæ­¤ä¸€é è¨­è¡Œç‚ºã€‚
     </para>
   <!-- English entry:
 <entry id="pgp-compose-attach-pubkey">
@@ -4866,14 +4562,22 @@
     <para>
     If selected then a copy of your PGP public key, if it exists, will be attached to the outgoing message. You can set the default behavior via the PGP Options screen.
     </para>
-</entry>--></entry>
-  <entry id="pgp-option-scan-body" md5="43cb3827064d451b64d42bdb06e034b8" state="changed">
-    <title>PGP: ±½´y¶l¥ó¤º®e</title>
-    <heading>±½´y¶l¥ó¤º®e</heading>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="pgp-compose-attach-pubkey">
+    <title>PGP: Attach Public Key</title>
+    <heading>Attach Public Key</heading>
     <para>
-    ¦pªG¤Ä¿ï¦¹¤@¶µ¥Ø¡Aºô¸ô¶l§½±N¦Û°Ê¦b¨C¤@«Ê¯Â¤å¦r®æ¦¡¶l¥ó¤¤±½´y PGP ¸ê®Æ¡A
-    ¦pªG¦³±½´y¨ì PGP ¸ê®Æ«hÅã¥Ü¸Ó¸ê®Æ¡C½Ğª`·N¡A¥Ñ©ó¨C¤@«Ê¯Â¤å¦r®æ¦¡¶l¥ó
-    ³£³Q±½´y¥H´M§ä PGP ¸ê®Æ¡A¦]¦¹³o¶µ¥\¯à±N¾É­P¨t²Î³t«×ÅÜºC¡C
+    If selected then a copy of your PGP public key, if it exists, will be attached to the outgoing message. You can set the default behavior via the PGP Options screen.
+    </para>
+</entry>--></entry>
+
+<entry id="pgp-option-scan-body" md5="43cb3827064d451b64d42bdb06e034b8" state="changed">
+    <title>PGP: æƒæéƒµä»¶å…§å®¹</title>
+    <heading>æƒæéƒµä»¶å…§å®¹</heading>
+    <para>
+    å¦‚æœå‹¾é¸æ­¤ä¸€é …ç›®ï¼Œç¶²è·¯éƒµå±€å°‡è‡ªå‹•åœ¨æ¯ä¸€å°ç´”æ–‡å­—æ ¼å¼éƒµä»¶ä¸­æƒæ PGP è³‡æ–™ï¼Œ
+    å¦‚æœæœ‰æƒæåˆ° PGP è³‡æ–™å‰‡é¡¯ç¤ºè©²è³‡æ–™ã€‚è«‹æ³¨æ„ï¼Œç”±æ–¼æ¯ä¸€å°ç´”æ–‡å­—æ ¼å¼éƒµä»¶
+    éƒ½è¢«æƒæä»¥å°‹æ‰¾ PGP è³‡æ–™ï¼Œå› æ­¤é€™é …åŠŸèƒ½å°‡å°è‡´ç³»çµ±é€Ÿåº¦è®Šæ…¢ã€‚
     </para>
   <!-- English entry:
 <entry id="pgp-option-scan-body">
@@ -5029,43 +4733,59 @@
     <para>
     If selected then IMP will scan the body of all text messages for PGP data, and display the results if any data is found. Note that this may slow down the system as every text message must be scanned in its entirety for PGP data.
     </para>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="pgp-option-scan-body">
+    <title>PGP: Scan Text Bodies</title>
+    <heading>Scan Text Bodies</heading>
+    <para>
+    If selected then IMP will scan the body of all text messages for PGP data, and display the results if any data is found. Note that this may slow down the system as every text message must be scanned in its entirety for PGP data.
+    </para>
 </entry>--></entry>
-  <entry id="compose-options-encrypt" md5="d1473a3e8905d603ef33f9d58506aac5" state="changed">
-    <title>¶l¥ó¼g§@: ¥[±K¿ï¶µ</title>
-    <heading>¶l¥ó¤£¥[±K</heading>
+
+<entry id="pgp-option-reply-pubkey" state="new">
+    <title>PGP: Validate PGP Public Keys When Replying</title>
+    <heading>Validate PGP Public Keys When Replying</heading>
     <para>
-    ¤£¥[±K¶l¥ó¦Óª½±µ¶Ç°e (©ú¤å)¡C
+    If set, and PGP encryption is used by default for composing messages, IMP will verify that it can access all recipients' public keys when the reply is first created. This has the disadvantage that it may cause a delay in opening the reply window. However, it has the advantage of informing you immediately if you will be able to correctly send the encrypted message to all recipients immediately.
     </para>
-    <heading>PGP ¶l¥ó¥[±K</heading>
+</entry>
+
+<entry id="compose-options-encrypt" md5="d1473a3e8905d603ef33f9d58506aac5" state="changed">
+    <title>éƒµä»¶å¯«ä½œ: åŠ å¯†é¸é …</title>
+    <heading>éƒµä»¶ä¸åŠ å¯†</heading>
     <para>
-    ³o­Ó¿ï¶µ±N¨Ï¥Î¦¬¥ó¹ï¶Hªº PGP ­Ó¤H¤½¶}ª÷Æ_¡A¬°¥Ø«e½s¼gªº¶l¥ó¥[±K¡C
-    ¨Ï¥Î³o­Ó¿ï¶µ½s¼g¶l¥ó®É¡A¦¬¥ó¹ï¶H¶È¥u¯à¦³¤@¦ì¡C
-    ¦b§Aªº³q°T¿ı¤¤¥²¶·¦s¦³³o¦ì¦¬¥ó¹ï¶Hªº PGP ¤½¶}ª÷Æ_¡A§_«h±N·|¥X²{¿ù»~ªºª¬ªp¡C
-    ¦pªG§Aªº³q°T¿ı¤¤½T¹ê¤w¦s¦b³o¦ì¦¬¥ó¹ï¶Hªº PGP ¤½¶}ª÷Æ_¡A
-    ¦ı¤´µM¦¬¨ì¿ù»~ªº°T®§®É¡A½ĞÀË¬d¤@¤U¦¬¥ó¹ï¶Hªº¹q¤l¶l¥ó¦í§}¬O§_»P³q°T¿ı¤¤
-    ¸Óµ§ PGP ¤½¶}ª÷Æ_ªº¹q¤l¶l¥ó¦í§}¬Û§k¦X¡C
-    ¥[±K¸ê®Æ±Nªş¥[©ó¶l¥ó¤¤¤@¨Ö±H¥X¡C
+    ä¸åŠ å¯†éƒµä»¶è€Œç›´æ¥å‚³é€ (æ˜æ–‡)ã€‚
     </para>
-    <heading>PGP ¶l¥óÃ±³¹</heading>
+    <heading>PGP éƒµä»¶åŠ å¯†</heading>
     <para>
-    ³o­Ó¿ï¶µ±N¨Ï¥Î§Aªº­Ó¤H¨p±Kª÷Æ_¬°¥Ø«e½s¼gªº¶l¥ó¬I¥H PGP ¼Æ¦ìÃ±³¹¡C
-    ¦pªG§A©|¥¼¦b³o­Óµn¤J¨ä¶¡¤¤¿é¤J§Aªº­Ó¤H¨p±Kª÷Æ_±K½X¡A¨º§A±N·|³Q­n¨D¿é¤J¡C
-    ¦¬¥ó¹ï¶H¥²¶·­n¾Ö¦³§Aªº­Ó¤H¤½¶}ª÷Æ_¥H¶i¦æ¼Æ¦ìÅçÃÒ§AªºÃ±³¹¡C
+    é€™å€‹é¸é …å°‡ä½¿ç”¨æ”¶ä»¶å°è±¡çš„ PGP å€‹äººå…¬é–‹é‡‘é‘°ï¼Œç‚ºç›®å‰ç·¨å¯«çš„éƒµä»¶åŠ å¯†ã€‚
+    ä½¿ç”¨é€™å€‹é¸é …ç·¨å¯«éƒµä»¶æ™‚ï¼Œæ”¶ä»¶å°è±¡åƒ…åªèƒ½æœ‰ä¸€ä½ã€‚
+    åœ¨ä½ çš„é€šè¨ŠéŒ„ä¸­å¿…é ˆå­˜æœ‰é€™ä½æ”¶ä»¶å°è±¡çš„ PGP å…¬é–‹é‡‘é‘°ï¼Œå¦å‰‡å°‡æœƒå‡ºç¾éŒ¯èª¤çš„ç‹€æ³ã€‚
+    å¦‚æœä½ çš„é€šè¨ŠéŒ„ä¸­ç¢ºå¯¦å·²å­˜åœ¨é€™ä½æ”¶ä»¶å°è±¡çš„ PGP å…¬é–‹é‡‘é‘°ï¼Œ
+    ä½†ä»ç„¶æ”¶åˆ°éŒ¯èª¤çš„è¨Šæ¯æ™‚ï¼Œè«‹æª¢æŸ¥ä¸€ä¸‹æ”¶ä»¶å°è±¡çš„é›»å­éƒµä»¶ä½å€æ˜¯å¦èˆ‡é€šè¨ŠéŒ„ä¸­
+    è©²ç­† PGP å…¬é–‹é‡‘é‘°çš„é›»å­éƒµä»¶ä½å€ç›¸å»åˆã€‚
+    åŠ å¯†è³‡æ–™å°‡é™„åŠ æ–¼éƒµä»¶ä¸­ä¸€ä½µå¯„å‡ºã€‚
     </para>
-    <heading>PGP ¶l¥óÃ±³¹/¶l¥ó¥[±K</heading>
+    <heading>PGP éƒµä»¶ç°½ç« </heading>
     <para>
-    ³o­Ó¿ï¶µ±N¥ı¹ï¶l¥ó°õ¦æ¼Æ¦ìÃ±³¹ªº°Ê§@µM«á¦A°õ¦æ¶l¥ó¥[±K¡C
-    §ó¶i¤@¨Bªº¸ê°T½Ğ°Ñ¦Ò 'PGP ¶l¥ó¥[±K' ¤Î 'PGP ¶l¥óÃ±³¹'¡C
+    é€™å€‹é¸é …å°‡ä½¿ç”¨ä½ çš„å€‹äººç§å¯†é‡‘é‘°ç‚ºç›®å‰ç·¨å¯«çš„éƒµä»¶æ–½ä»¥ PGP æ•¸ä½ç°½ç« ã€‚
+    å¦‚æœä½ å°šæœªåœ¨é€™å€‹ç™»å…¥å…¶é–“ä¸­è¼¸å…¥ä½ çš„å€‹äººç§å¯†é‡‘é‘°å¯†ç¢¼ï¼Œé‚£ä½ å°‡æœƒè¢«è¦æ±‚è¼¸å…¥ã€‚
+    æ”¶ä»¶å°è±¡å¿…é ˆè¦æ“æœ‰ä½ çš„å€‹äººå…¬é–‹é‡‘é‘°ä»¥é€²è¡Œæ•¸ä½é©—è­‰ä½ çš„ç°½ç« ã€‚
     </para>
-    <heading>S/MIME ¶l¥ó¥[±K</heading>
+    <heading>PGP éƒµä»¶ç°½ç« /éƒµä»¶åŠ å¯†</heading>
+    <para>
+    é€™å€‹é¸é …å°‡å…ˆå°éƒµä»¶åŸ·è¡Œæ•¸ä½ç°½ç« çš„å‹•ä½œç„¶å¾Œå†åŸ·è¡Œéƒµä»¶åŠ å¯†ã€‚
+    æ›´é€²ä¸€æ­¥çš„è³‡è¨Šè«‹åƒè€ƒ 'PGP éƒµä»¶åŠ å¯†' åŠ 'PGP éƒµä»¶ç°½ç« 'ã€‚
+    </para>
+    <heading>S/MIME éƒµä»¶åŠ å¯†</heading>
     <para>
     TODO
     </para>
-    <heading>S/MIME ¶l¥óÃ±³¹</heading>
+    <heading>S/MIME éƒµä»¶ç°½ç« </heading>
     <para>
     TODO
     </para>
-    <heading>S/MIME ¶l¥óÃ±³¹/¶l¥ó¥[±K</heading>
+    <heading>S/MIME éƒµä»¶ç°½ç« /éƒµä»¶åŠ å¯†</heading>
     <para>
     TODO
     </para>
@@ -5808,59 +5528,102 @@
     <para>
     This option will first digitally sign your message and then will encrypt the resulting output. See the "S/MIME Encrypt Message" and "S/MIME Sign Message" entries for further information.
     </para>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="compose-options-encrypt">
+    <title>Message Composition: Encryption Options</title>
+    <heading>No Encryption</heading>
+    <para>
+    Send the message with no encryption (cleartext).
+    </para>
+    <heading>PGP Encrypt Message</heading>
+    <para>
+    This option will encrypt the current message, using PGP and the recipients personal public key, and then send it. You MUST have the public key of the recipient stored in your addressbook or else this option will fail. If you have the public key for the recipient in your addressbook and are still receiving errors, verify that the e-mail address in the recipient field matches the e-mail address where the public key is stored. The encrypted data will be attached to the outgoing message.
+    </para>
+    <heading>PGP Sign Message</heading>
+    <para>
+    This option will digitally sign the current message using PGP and your personal private key. If you have not already entered the passphrase for your private key during this session you will be prompted for it. The recipient must have a copy of your public key to digitally verify your signature.
+    </para>
+    <heading>PGP Sign/Encrypt Message</heading>
+    <para>
+    This option will first digitally sign your message and then will encrypt the resulting output. See the "PGP Encrypt Message" and "PGP Sign Message" entries for further information.
+    </para>
+    <heading>PGP Encrypt Message with passphrase</heading>
+    <para>
+    This option will encrypt the current message, using PGP and a passphrase, and then send it. You will be prompted for the passphrase that should be used for the encryption. Give the passphrase to the recipient through a secure channel e.g. personally, by phone, etc. The encrypted data will be attached to the outgoing message.
+    </para>
+    <heading>PGP Sign/Encrypt Message with passphrase</heading>
+    <para>
+    This option will first digitally sign your message and then will encrypt the resulting output with a passphrase. See the "PGP Encrypt Message with passphrase" and "PGP Sign Message" entries for further information.
+    </para>
+    <heading>S/MIME Encrypt Message</heading>
+    <para>
+    This option will encrypt the current message, using S/MIME and the recipients certificate, and then send it. You MUST have the certificate of the recipient stored in your addressbook or else this option will fail. If you have the certificate for the recipient in your addressbook and are still receiving errors, verify that the e-mail address in the recipient field matches the e-mail address where the certificate is stored. The encrypted data will be attached to the outgoing message.
+    </para>
+    <heading>S/MIME Sign Message</heading>
+    <para>
+    This option will digitally sign the current message using S/MIME and your certificate. If you have not already entered the passphrase for your certificate during this session you will be prompted for it.
+    </para>
+    <heading>S/MIME Sign/Encrypt Message</heading>
+    <para>
+    This option will first digitally sign your message and then will encrypt the resulting output. See the "S/MIME Encrypt Message" and "S/MIME Sign Message" entries for further information.
+    </para>
 </entry>--></entry>
-  <entry id="pgp-overview" md5="24b5138b4b53f73b5f2f2739e4c1858d" state="uptodate">
-    <title>PGP: ·§­z</title>
-    <heading>¤°»ò¬O PGP?</heading>
+
+<entry id="pgp-overview" md5="24b5138b4b53f73b5f2f2739e4c1858d" state="uptodate">
+    <title>PGP: æ¦‚è¿°</title>
+    <heading>ä»€éº¼æ˜¯ PGP?</heading>
     <para>
-    PGP ¬O¤@ºØ¥Î©ó³q°T¥H¤Î¸ê®Æªº¥[±K¤u¨ã¡A¯S§O¬O¥Î©ó¹q¤l¶l¥ó¡C
-    PGP ¥i¥Î©ó¸ê®Æªº¥[±K¡B«Ø¥ß¼Æ¦ìÃ±³¹¡C
-    ºô¸ô¶l§½ IMP ¨Ï¥Î GnuPG (GNU Privacy Guard) ¥H´£¨Ñ¦¹¶µ¥\¯à¡C
+    PGP æ˜¯ä¸€ç¨®ç”¨æ–¼é€šè¨Šä»¥åŠè³‡æ–™çš„åŠ å¯†å·¥å…·ï¼Œç‰¹åˆ¥æ˜¯ç”¨æ–¼é›»å­éƒµä»¶ã€‚
+    PGP å¯ç”¨æ–¼è³‡æ–™çš„åŠ å¯†ã€å»ºç«‹æ•¸ä½ç°½ç« ã€‚
+    ç¶²è·¯éƒµå±€ IMP ä½¿ç”¨ GnuPG (GNU Privacy Guard) ä»¥æä¾›æ­¤é …åŠŸèƒ½ã€‚
     </para>
-    <heading>±Ò¥Î PGP ?</heading>
+    <heading>å•Ÿç”¨ PGP ?</heading>
     <para>
-    ¤Ä¿ï³o­Ó¶µ¥Ø«á¡A§A±N¯à°÷ «Ø¥ß/ÀËµø §Aªº PGP ­Ó¤Hª÷Æ_¹ï¡A·s¼W/§R°£ ¨Ó¦Û¥L¤H
-    ©Òªş°eªº¤½¶}ª÷Æ_¡AÅª¨ú¥[±K¶l¥ó¡AÅçÃÒ¼Æ¦ìÃ±³¹¶l¥ó¡A¥H¤Î¬°§A­n±Hµoªº¶l¥ó¬I¥H
-    ¥[±K/Ã±³¹ªº¥\¯à¡C
-    </para>
-  </entry>
-  <entry id="pgp-option-attach-pubkey" md5="561ce43370ac4afbcc3f9818c8fbc2f6" state="uptodate">
-    <title>PGP: ¿ï¶µ - ªş¤W¤½¶}ª÷Æ_</title>
-    <heading>¿ï¶µ - ªş¤W¤½¶}ª÷Æ_</heading>
-    <para>
-    ¦pªG¤Ä¿ï¦¹¤@¶µ¥Ø¡A¥B§Aªº PGP ¤½¶}ª÷Æ_¤]¦s¦bªº¸Ü¡A«h±H¥Xªº«H¥ó¤¤±Nªş¤W
-    §Aªº PGP ¤½¶}ª÷Æ_¡C
+    å‹¾é¸é€™å€‹é …ç›®å¾Œï¼Œä½ å°‡èƒ½å¤  å»ºç«‹/æª¢è¦– ä½ çš„ PGP å€‹äººé‡‘é‘°å°ï¼Œæ–°å¢/åˆªé™¤ ä¾†è‡ªä»–äºº
+    æ‰€é™„é€çš„å…¬é–‹é‡‘é‘°ï¼Œè®€å–åŠ å¯†éƒµä»¶ï¼Œé©—è­‰æ•¸ä½ç°½ç« éƒµä»¶ï¼Œä»¥åŠç‚ºä½ è¦å¯„ç™¼çš„éƒµä»¶æ–½ä»¥
+    åŠ å¯†/ç°½ç« çš„åŠŸèƒ½ã€‚
     </para>
   </entry>
-  <entry id="pgp-manage-pubkey" md5="b289ea5824b7f69f35c0751497f4e1c3" state="uptodate">
-    <title>PGP: ºŞ²z¤½¶}ª÷Æ_</title>
-    <heading>·§­z</heading>
+
+<entry id="pgp-option-attach-pubkey" md5="561ce43370ac4afbcc3f9818c8fbc2f6" state="uptodate">
+    <title>PGP: é¸é … - é™„ä¸Šå…¬é–‹é‡‘é‘°</title>
+    <heading>é¸é … - é™„ä¸Šå…¬é–‹é‡‘é‘°</heading>
     <para>
-    ³o­Óµe­±¦C¥X¥Ø«e¦b§Aªº³q°T¿ı¤¤¾Ö¦³¤½¶}ª÷Æ_ªº©Ò¦³¨Ï¥ÎªÌ¡C
-    ¥u¦³³o¨Ç¨Ï¥ÎªÌ¥i¥H 1)Åı§A¶Ç°e¤@«Ê¥[±Kªº¶l¥ó -©Î-
-    2)Åı§AÅçÃÒ¥L©Ò±Hµoªº¼Æ¦ìÃ±³¹¡C
-    </para>
-    <heading>ÀËµø</heading>
-    <para>
-    ¶}±Ò¤@­Óµøµ¡¥HÀËµø PGP ¤½¶}ª÷Æ_¡C
-    </para>
-    <heading>²Ó¸`</heading>
-    <para>
-    Åã¥ÜÃö©ó¦¹ PGP ¤½¶}ª÷Æ_ªº³¡¤À²Ó¸`¡C
-    </para>
-    <heading>§R°£</heading>
-    <para>
-    ¦Û§Aªº³q°T¿ı¤¤§R°£¦¹¤@¤½¶}ª÷Æ_¡C
+    å¦‚æœå‹¾é¸æ­¤ä¸€é …ç›®ï¼Œä¸”ä½ çš„ PGP å…¬é–‹é‡‘é‘°ä¹Ÿå­˜åœ¨çš„è©±ï¼Œå‰‡å¯„å‡ºçš„ä¿¡ä»¶ä¸­å°‡é™„ä¸Š
+    ä½ çš„ PGP å…¬é–‹é‡‘é‘°ã€‚
     </para>
   </entry>
-  <entry id="pgp-import-pubkey" md5="a0bb34a07de288201d27ba5e891257a9" state="changed">
-    <title>PGP: ºŞ²z¤½¶}ª÷Æ_ - ¶×¤J</title>
-    <heading>¶×¤J¤½¶}ª÷Æ_</heading>
+
+<entry id="pgp-manage-pubkey" md5="b289ea5824b7f69f35c0751497f4e1c3" state="uptodate">
+    <title>PGP: ç®¡ç†å…¬é–‹é‡‘é‘°</title>
+    <heading>æ¦‚è¿°</heading>
     <para>
-    ³o­Ó«ö¶s±N¶}±Ò¤@­Óµøµ¡¥H¨Ñ§A¤â°Ê¦a¶×¤J¤@­Ó PGP ¤½¶}ª÷Æ_¡C
-    §A¥i¥H±Nª÷Æ_¶K¤J¨ì¤å¦rÄæ¦ì¤¤¡A©ÎªÌ¦Û§Aªº­Ó¤H¹q¸£±N¤½¶}ª÷Æ_ª½±µ¶×¤J¡C
-    ¦pªG¸Óª÷Æ_¬O¦Xªkªº¥¦±N·|³Q¦s©ñ¦b§Aªº­Ó¤H³q°T¿ı¤¤¡AÀH«á³o­Óµøµ¡±N¤@¨ÖÃö³¬¡C
-    ¦pªG¤£¬O¦Xªkªºª÷Æ_¡A«h§A±N·|¬İ¨£¿ù»~ªº­ì¦]¡C
+    é€™å€‹ç•«é¢åˆ—å‡ºç›®å‰åœ¨ä½ çš„é€šè¨ŠéŒ„ä¸­æ“æœ‰å…¬é–‹é‡‘é‘°çš„æ‰€æœ‰ä½¿ç”¨è€…ã€‚
+    åªæœ‰é€™äº›ä½¿ç”¨è€…å¯ä»¥ 1)è®“ä½ å‚³é€ä¸€å°åŠ å¯†çš„éƒµä»¶ -æˆ–-
+    2)è®“ä½ é©—è­‰ä»–æ‰€å¯„ç™¼çš„æ•¸ä½ç°½ç« ã€‚
+    </para>
+    <heading>æª¢è¦–</heading>
+    <para>
+    é–‹å•Ÿä¸€å€‹è¦–çª—ä»¥æª¢è¦– PGP å…¬é–‹é‡‘é‘°ã€‚
+    </para>
+    <heading>ç´°ç¯€</heading>
+    <para>
+    é¡¯ç¤ºé—œæ–¼æ­¤ PGP å…¬é–‹é‡‘é‘°çš„éƒ¨åˆ†ç´°ç¯€ã€‚
+    </para>
+    <heading>åˆªé™¤</heading>
+    <para>
+    è‡ªä½ çš„é€šè¨ŠéŒ„ä¸­åˆªé™¤æ­¤ä¸€å…¬é–‹é‡‘é‘°ã€‚
+    </para>
+  </entry>
+
+<entry id="pgp-import-pubkey" md5="a0bb34a07de288201d27ba5e891257a9" state="changed">
+    <title>PGP: ç®¡ç†å…¬é–‹é‡‘é‘° - åŒ¯å…¥</title>
+    <heading>åŒ¯å…¥å…¬é–‹é‡‘é‘°</heading>
+    <para>
+    é€™å€‹æŒ‰éˆ•å°‡é–‹å•Ÿä¸€å€‹è¦–çª—ä»¥ä¾›ä½ æ‰‹å‹•åœ°åŒ¯å…¥ä¸€å€‹ PGP å…¬é–‹é‡‘é‘°ã€‚
+    ä½ å¯ä»¥å°‡é‡‘é‘°è²¼å…¥åˆ°æ–‡å­—æ¬„ä½ä¸­ï¼Œæˆ–è€…è‡ªä½ çš„å€‹äººé›»è…¦å°‡å…¬é–‹é‡‘é‘°ç›´æ¥åŒ¯å…¥ã€‚
+    å¦‚æœè©²é‡‘é‘°æ˜¯åˆæ³•çš„å®ƒå°‡æœƒè¢«å­˜æ”¾åœ¨ä½ çš„å€‹äººé€šè¨ŠéŒ„ä¸­ï¼Œéš¨å¾Œé€™å€‹è¦–çª—å°‡ä¸€ä½µé—œé–‰ã€‚
+    å¦‚æœä¸æ˜¯åˆæ³•çš„é‡‘é‘°ï¼Œå‰‡ä½ å°‡æœƒçœ‹è¦‹éŒ¯èª¤çš„åŸå› ã€‚
     </para>
   <!-- English entry:
 <entry id="pgp-import-pubkey">
@@ -6016,106 +5779,121 @@
     <para>
     This button will open a window where you can manually import a PGP public key. The key can either be pasted into a textfield or, if the key resides in a file on your local computer, you can import it. If the key is valid it will be inserted into your addressbook and the window will close; if not valid, an error message will be returned explaining why.
     </para>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="pgp-import-pubkey">
+    <title>PGP: Manage Public Keys - Import</title>
+    <heading>Import Public Keys</heading>
+    <para>
+    This button will open a window where you can manually import a PGP public key. The key can either be pasted into a textfield or, if the key resides in a file on your local computer, you can import it. If the key is valid it will be inserted into your addressbook and the window will close; if not valid, an error message will be returned explaining why.
+    </para>
 </entry>--></entry>
-  <entry id="pgp-overview-personalkey" md5="220af2b74a58f430efd72d6d6b1f993f" state="uptodate">
-    <title>PGP: ºŞ²z­Ó¤Hª÷Æ_</title>
-    <heading>·§­z</heading>
+
+<entry id="pgp-overview-personalkey" md5="220af2b74a58f430efd72d6d6b1f993f" state="uptodate">
+    <title>PGP: ç®¡ç†å€‹äººé‡‘é‘°</title>
+    <heading>æ¦‚è¿°</heading>
     <para>
-    ¦pªG§A·Q­n¹ï¶l¥ó¬I¥H¼Æ¦ìÃ±³¹©ÎªÌÅı¥L¤H¯à°÷±Hµ¹§A¥[±Kªº¶l¥ó¡A
-    ¨º§A¥²¶·­n¥ı¾Ö¦³Äİ©ó¦Û¤vªº¤½¶}/¨p±KPGPª÷Æ_¹ï¡C
+    å¦‚æœä½ æƒ³è¦å°éƒµä»¶æ–½ä»¥æ•¸ä½ç°½ç« æˆ–è€…è®“ä»–äººèƒ½å¤ å¯„çµ¦ä½ åŠ å¯†çš„éƒµä»¶ï¼Œ
+    é‚£ä½ å¿…é ˆè¦å…ˆæ“æœ‰å±¬æ–¼è‡ªå·±çš„å…¬é–‹/ç§å¯†PGPé‡‘é‘°å°ã€‚
     </para>
-    <heading>§Aªº¤½¶}ª÷Æ_</heading>
+    <heading>ä½ çš„å…¬é–‹é‡‘é‘°</heading>
     <para>
-    §Aªº¤½¶}ª÷Æ_¥i¥H±Hµ¹¨º¨Ç¡A§A§Æ±æ¹ï¤è·|±Hµo¥[±K¶l¥óµ¹§Aªº¤H¡C
-    ¥[±K«áªº¶l¥ó¥u¦³§A¯à¸Ñ±K(¨Ï¥Î§Aªº¨p±Kª÷Æ_)¡C
-    ¥t¥~¡A§Aªº¤½¶}ª÷Æ_¥i¥H±Hµ¹¥ô¦ó¤@¦ì¡A§A´¿±Hµoµ¹¥L¼Æ¦ìÃ±³¹¶l¥óªº¤H -
-    ¦]¬°¼Æ¦ìÃ±³¹ªºÅçÃÒ»İ­n§Aªº¤½¶}ª÷Æ_¡C
+    ä½ çš„å…¬é–‹é‡‘é‘°å¯ä»¥å¯„çµ¦é‚£äº›ï¼Œä½ å¸Œæœ›å°æ–¹æœƒå¯„ç™¼åŠ å¯†éƒµä»¶çµ¦ä½ çš„äººã€‚
+    åŠ å¯†å¾Œçš„éƒµä»¶åªæœ‰ä½ èƒ½è§£å¯†(ä½¿ç”¨ä½ çš„ç§å¯†é‡‘é‘°)ã€‚
+    å¦å¤–ï¼Œä½ çš„å…¬é–‹é‡‘é‘°å¯ä»¥å¯„çµ¦ä»»ä½•ä¸€ä½ï¼Œä½ æ›¾å¯„ç™¼çµ¦ä»–æ•¸ä½ç°½ç« éƒµä»¶çš„äºº -
+    å› ç‚ºæ•¸ä½ç°½ç« çš„é©—è­‰éœ€è¦ä½ çš„å…¬é–‹é‡‘é‘°ã€‚
     </para>
-    <heading>§Aªº¨p±Kª÷Æ_</heading>
+    <heading>ä½ çš„ç§å¯†é‡‘é‘°</heading>
     <para>
-    §Aªº¨p±Kª÷Æ_³Q¥Î¨Ó¡A¸Ñ±K©Ò¦³¥H§A¤½¶}ª÷Æ_¥[±Kªº¶l¥ó¡C
-    ¥t¥~¡A¦pªG§A·Q­n¹ï±Hµoªº¶l¥ó¬I¥H¼Æ¦ìÃ±³¹¡A³o¤]»İ­n§Aªº¨p±Kª÷Æ_¡C
-    §Aªº¨p±Kª÷Æ_±N³Q·íªìª÷Æ_«Ø¥ß®É©Ò²£¥Íªº¤@²Õ±K½X©Ò«OÅ@¡C
-    ¦]¦¹·í¦³¥ô¦ó»İ­n§Aªº¨p±Kª÷Æ_³õ¦X®É¡A
-    ºô¸ô¶l§½±N·|´£¥Ü§A¿é¤J±K½X¡C
-    §A¥u»İ­n¦b¨C­Óµn¤J´Á¶¡¿é¤J§Aªº±K½X§Y¥i -
-    ºô¸ô¶l§½±N·|¦Û°ÊÀx¦s§Aªº±K½Xª½¨ì§Aµn¥X¬°¤î
-    (©Ò¥H·í¤£¨Ï¥Îºô¸ô¶l§½ªº®É­Ô¡A°O±o­n½T¹êµn¥X®@¡I)
-    </para>
-  </entry>
-  <entry id="pgp-personalkey-public" md5="3c844d4ff8fdda3e0d446b47a63117e0" state="uptodate">
-    <title>PGP: ºŞ²z­Ó¤Hª÷Æ_ - ¤½¶}ª÷Æ_</title>
-    <heading>ÀËµø</heading>
-    <para>
-    ¶}±Ò¤@­Óµøµ¡¥HÀËµø PGP ¤½¶}ª÷Æ_¡C
-    </para>
-    <heading>²Ó¸`</heading>
-    <para>
-    Åã¥ÜÃö©ó¦¹ PGP ¤½¶}ª÷Æ_ªº³¡¤À²Ó¸`¡C
+    ä½ çš„ç§å¯†é‡‘é‘°è¢«ç”¨ä¾†ï¼Œè§£å¯†æ‰€æœ‰ä»¥ä½ å…¬é–‹é‡‘é‘°åŠ å¯†çš„éƒµä»¶ã€‚
+    å¦å¤–ï¼Œå¦‚æœä½ æƒ³è¦å°å¯„ç™¼çš„éƒµä»¶æ–½ä»¥æ•¸ä½ç°½ç« ï¼Œé€™ä¹Ÿéœ€è¦ä½ çš„ç§å¯†é‡‘é‘°ã€‚
+    ä½ çš„ç§å¯†é‡‘é‘°å°‡è¢«ç•¶åˆé‡‘é‘°å»ºç«‹æ™‚æ‰€ç”¢ç”Ÿçš„ä¸€çµ„å¯†ç¢¼æ‰€ä¿è­·ã€‚
+    å› æ­¤ç•¶æœ‰ä»»ä½•éœ€è¦ä½ çš„ç§å¯†é‡‘é‘°å ´åˆæ™‚ï¼Œ
+    ç¶²è·¯éƒµå±€å°‡æœƒæç¤ºä½ è¼¸å…¥å¯†ç¢¼ã€‚
+    ä½ åªéœ€è¦åœ¨æ¯å€‹ç™»å…¥æœŸé–“è¼¸å…¥ä½ çš„å¯†ç¢¼å³å¯ -
+    ç¶²è·¯éƒµå±€å°‡æœƒè‡ªå‹•å„²å­˜ä½ çš„å¯†ç¢¼ç›´åˆ°ä½ ç™»å‡ºç‚ºæ­¢
+    (æ‰€ä»¥ç•¶ä¸ä½¿ç”¨ç¶²è·¯éƒµå±€çš„æ™‚å€™ï¼Œè¨˜å¾—è¦ç¢ºå¯¦ç™»å‡ºå“¦ï¼)
     </para>
   </entry>
-  <entry id="pgp-personalkey-private" md5="1851b67a1aeef1242fc3a2b94af75c03" state="uptodate">
-    <title>PGP: ºŞ²z­Ó¤Hª÷Æ_ - ¨p±Kª÷Æ_</title>
-    <heading>¿é¤J±K½X</heading>
+
+<entry id="pgp-personalkey-public" md5="3c844d4ff8fdda3e0d446b47a63117e0" state="uptodate">
+    <title>PGP: ç®¡ç†å€‹äººé‡‘é‘° - å…¬é–‹é‡‘é‘°</title>
+    <heading>æª¢è¦–</heading>
     <para>
-    ¶}±Ò±K½X¹ï¸Üµøµ¡¡C¦pªG¿é¤J¥¿½Tªº±K½X¡A±K½X±N³Qºô¸ô¶l§½ IMP Àx¦s
-    ¡Aª½¨ì§Aªºµn¤J´Á¶¡µ²§ô¬°¤î¡C
+    é–‹å•Ÿä¸€å€‹è¦–çª—ä»¥æª¢è¦– PGP å…¬é–‹é‡‘é‘°ã€‚
     </para>
-    <heading>¨ø¸ü±K½X</heading>
+    <heading>ç´°ç¯€</heading>
     <para>
-    ¦Ûºô¸ô¶l§½²¾°£¤wÀx¦sªº±K½X - ¥ô¦ó«áÄòªº¨p±Kª÷Æ_³B²z
-    ³£¥²¶·¦A­«·s¿é¤J¦¹±K½X¡C
-    </para>
-    <heading>ÀËµø</heading>
-    <para>
-    ¶}±Ò¤@­Óµøµ¡¥HÀËµø PGP ¨p±Kª÷Æ_¡C "¤£­n±N¦¹¨p±Kª÷Æ_¶Ç°eµ¹¥ô¦ó¤H" -
-    ¦¹¿ï¶µ¬OÄYÂÔ¦a¡A¦p¦¹¤@¨Ó§A¥i¥H±N§Aªººô¸ô¶l§½¨p±Kª÷Æ_¶×¥X¨Ñ¨ä¥L
-    µ{¦¡¨Ï¥Î¡C
-    </para>
-    <heading>²Ó¸`</heading>
-    <para>
-    Åã¥ÜÃö©ó¦¹ PGP ¨p±Kª÷Æ_ªº³¡¤À²Ó¸`¡C
+    é¡¯ç¤ºé—œæ–¼æ­¤ PGP å…¬é–‹é‡‘é‘°çš„éƒ¨åˆ†ç´°ç¯€ã€‚
     </para>
   </entry>
-  <entry id="pgp-personalkey-delete" md5="dbd8cbe6bce71c4fb592dd1b3b27b7ce" state="uptodate">
-    <title>PGP: ºŞ²z­Ó¤Hª÷Æ_ - §R°£</title>
-    <heading>§R°£­Ó¤Hª÷Æ_</heading>
+
+<entry id="pgp-personalkey-private" md5="1851b67a1aeef1242fc3a2b94af75c03" state="uptodate">
+    <title>PGP: ç®¡ç†å€‹äººé‡‘é‘° - ç§å¯†é‡‘é‘°</title>
+    <heading>è¼¸å…¥å¯†ç¢¼</heading>
     <para>
-    ÂI¿ï³o­Ó«ö¶s¡A·|±N§AÀx¦s¦bºô¸ô¶l§½°¾¦n³]©w¤¤ªº­Ó¤H¤½¶}/¨p±Kª÷Æ_¹ï§R°£¡C
-    ½Ğª`·N¡G¥Ñ©ó­Ó¤H¨p±Kª÷Æ_»P­Ó¤H¤½¶}ª÷Æ_¬O¦¨¹ïªº¡A¤@¦ıª÷Æ_¹ï«Ø¥ß§¹¦¨¨Ï¥ÎªÌ
-    À³¸ÓºÉ¥i¯àÁ×§K¥h§R°£¥¦¡C¦]¬°¦pªG¤S¦A¦¸­«·s«Ø¥ßª÷Æ_¹ï¡A¤§«e©Ò¦³±Hµoµ¹ªB¤Í¨Ã¬y
-    ³q¦b¥~ªº¤½¶}ª÷Æ_±NµLªk»P·s«Øªº¨p±Kª÷Æ_§k¦X¡C(°£«D§A±N·s«Øªº¤½¶}ª÷Æ_­«·s±Hµo)
+    é–‹å•Ÿå¯†ç¢¼å°è©±è¦–çª—ã€‚å¦‚æœè¼¸å…¥æ­£ç¢ºçš„å¯†ç¢¼ï¼Œå¯†ç¢¼å°‡è¢«ç¶²è·¯éƒµå±€ IMP å„²å­˜
+    ï¼Œç›´åˆ°ä½ çš„ç™»å…¥æœŸé–“çµæŸç‚ºæ­¢ã€‚
+    </para>
+    <heading>å¸è¼‰å¯†ç¢¼</heading>
+    <para>
+    è‡ªç¶²è·¯éƒµå±€ç§»é™¤å·²å„²å­˜çš„å¯†ç¢¼ - ä»»ä½•å¾ŒçºŒçš„ç§å¯†é‡‘é‘°è™•ç†
+    éƒ½å¿…é ˆå†é‡æ–°è¼¸å…¥æ­¤å¯†ç¢¼ã€‚
+    </para>
+    <heading>æª¢è¦–</heading>
+    <para>
+    é–‹å•Ÿä¸€å€‹è¦–çª—ä»¥æª¢è¦– PGP ç§å¯†é‡‘é‘°ã€‚ "ä¸è¦å°‡æ­¤ç§å¯†é‡‘é‘°å‚³é€çµ¦ä»»ä½•äºº" -
+    æ­¤é¸é …æ˜¯åš´è¬¹åœ°ï¼Œå¦‚æ­¤ä¸€ä¾†ä½ å¯ä»¥å°‡ä½ çš„ç¶²è·¯éƒµå±€ç§å¯†é‡‘é‘°åŒ¯å‡ºä¾›å…¶ä»–
+    ç¨‹å¼ä½¿ç”¨ã€‚
+    </para>
+    <heading>ç´°ç¯€</heading>
+    <para>
+    é¡¯ç¤ºé—œæ–¼æ­¤ PGP ç§å¯†é‡‘é‘°çš„éƒ¨åˆ†ç´°ç¯€ã€‚
     </para>
   </entry>
-  <entry id="pgp-personalkey-create-name" md5="748cb124b7ff52820792e278037a8c27" state="uptodate">
-    <title>PGP: «Ø¥ß­Ó¤Hª÷Æ_ - ¦WºÙ</title>
-    <heading>¦WºÙ</heading>
+
+<entry id="pgp-personalkey-delete" md5="dbd8cbe6bce71c4fb592dd1b3b27b7ce" state="uptodate">
+    <title>PGP: ç®¡ç†å€‹äººé‡‘é‘° - åˆªé™¤</title>
+    <heading>åˆªé™¤å€‹äººé‡‘é‘°</heading>
     <para>
-    ³o­Ó¦WºÙ±N´O¤J¨ì§Aªº­Ó¤Hª÷Æ_¤¤¡C³o¬O¥²¶·Äæ¦ì¡C
+    é»é¸é€™å€‹æŒ‰éˆ•ï¼Œæœƒå°‡ä½ å„²å­˜åœ¨ç¶²è·¯éƒµå±€åå¥½è¨­å®šä¸­çš„å€‹äººå…¬é–‹/ç§å¯†é‡‘é‘°å°åˆªé™¤ã€‚
+    è«‹æ³¨æ„ï¼šç”±æ–¼å€‹äººç§å¯†é‡‘é‘°èˆ‡å€‹äººå…¬é–‹é‡‘é‘°æ˜¯æˆå°çš„ï¼Œä¸€ä½†é‡‘é‘°å°å»ºç«‹å®Œæˆä½¿ç”¨è€…
+    æ‡‰è©²ç›¡å¯èƒ½é¿å…å»åˆªé™¤å®ƒã€‚å› ç‚ºå¦‚æœåˆå†æ¬¡é‡æ–°å»ºç«‹é‡‘é‘°å°ï¼Œä¹‹å‰æ‰€æœ‰å¯„ç™¼çµ¦æœ‹å‹ä¸¦æµ
+    é€šåœ¨å¤–çš„å…¬é–‹é‡‘é‘°å°‡ç„¡æ³•èˆ‡æ–°å»ºçš„ç§å¯†é‡‘é‘°å»åˆã€‚(é™¤éä½ å°‡æ–°å»ºçš„å…¬é–‹é‡‘é‘°é‡æ–°å¯„ç™¼)
     </para>
   </entry>
-  <entry id="pgp-personalkey-create-comment" md5="e666eb9f0ee4b49fe04f74fc18db8640" state="uptodate">
-    <title>PGP: «Ø¥ß­Ó¤Hª÷Æ_ - µù¸Ñ</title>
-    <heading>µù¸Ñ</heading>
+
+<entry id="pgp-personalkey-create-name" md5="748cb124b7ff52820792e278037a8c27" state="uptodate">
+    <title>PGP: å»ºç«‹å€‹äººé‡‘é‘° - åç¨±</title>
+    <heading>åç¨±</heading>
     <para>
-    §A§Æ±æ¬°¦¹­Ó¤Hª÷Æ_´£¨Ñªº»¡©ú¡A³o¨Çµù¸Ñ±N´O¤J¨ì§Aªº­Ó¤Hª÷Æ_¤¤¡C
-    ³o¬O¿ï¾Ü©ÊÄæ¦ì¡C
+    é€™å€‹åç¨±å°‡åµŒå…¥åˆ°ä½ çš„å€‹äººé‡‘é‘°ä¸­ã€‚é€™æ˜¯å¿…é ˆæ¬„ä½ã€‚
     </para>
   </entry>
-  <entry id="pgp-personalkey-create-email" md5="c729f70fdb3a73cbb7ba5ef5888e3092" state="uptodate">
-    <title>PGP: «Ø¥ß­Ó¤Hª÷Æ_ - ¹q¤l¶l¥ó¦a§}</title>
-    <heading>¹q¤l¶l¥ó¦a§}</heading>
+
+<entry id="pgp-personalkey-create-comment" md5="e666eb9f0ee4b49fe04f74fc18db8640" state="uptodate">
+    <title>PGP: å»ºç«‹å€‹äººé‡‘é‘° - è¨»è§£</title>
+    <heading>è¨»è§£</heading>
     <para>
-    §A©Ò§Æ±æ»P­Ó¤Hª÷Æ_µ²¦Xªº¹q¤l¶l¥ó¦a§}¡C³o¬O¥²¶·Äæ¦ì¡C
+    ä½ å¸Œæœ›ç‚ºæ­¤å€‹äººé‡‘é‘°æä¾›çš„èªªæ˜ï¼Œé€™äº›è¨»è§£å°‡åµŒå…¥åˆ°ä½ çš„å€‹äººé‡‘é‘°ä¸­ã€‚
+    é€™æ˜¯é¸æ“‡æ€§æ¬„ä½ã€‚
     </para>
   </entry>
-  <entry id="pgp-personalkey-create-keylength" md5="546a087650cada2d1d4a01b478311bb9" state="changed">
-    <title>PGP: «Ø¥ß­Ó¤Hª÷Æ_ - ª÷Æ_ªø«×</title>
-    <heading>ª÷Æ_ªø«×</heading>
+
+<entry id="pgp-personalkey-create-email" md5="c729f70fdb3a73cbb7ba5ef5888e3092" state="uptodate">
+    <title>PGP: å»ºç«‹å€‹äººé‡‘é‘° - é›»å­éƒµä»¶åœ°å€</title>
+    <heading>é›»å­éƒµä»¶åœ°å€</heading>
     <para>
-    §A©Ò²£¥Íªºª÷Æ_¡A¨äªø«×¬O¥H¦ì¤¸²Õ¬°³æ¦ì¡Cªø«×¶Vªø¡A«OÅ@©Ê¶V¨Î (¬Û¹ïªº¡A¸ûªø
-    ªºª÷Æ_»İ­n¸û¦hªº®É¶¡¨Ó²£¥Í¡A¥H¤Î¥[±K)¡C1024 ¦ì¤¸²Õ¬O¹w³]ªø«× - ³o­Óªø«×
-    ´£¨Ñµ´¨Îªº«OÅ@©Ê¡C
+    ä½ æ‰€å¸Œæœ›èˆ‡å€‹äººé‡‘é‘°çµåˆçš„é›»å­éƒµä»¶åœ°å€ã€‚é€™æ˜¯å¿…é ˆæ¬„ä½ã€‚
+    </para>
+  </entry>
+
+<entry id="pgp-personalkey-create-keylength" md5="546a087650cada2d1d4a01b478311bb9" state="changed">
+    <title>PGP: å»ºç«‹å€‹äººé‡‘é‘° - é‡‘é‘°é•·åº¦</title>
+    <heading>é‡‘é‘°é•·åº¦</heading>
+    <para>
+    ä½ æ‰€ç”¢ç”Ÿçš„é‡‘é‘°ï¼Œå…¶é•·åº¦æ˜¯ä»¥ä½å…ƒçµ„ç‚ºå–®ä½ã€‚é•·åº¦è¶Šé•·ï¼Œä¿è­·æ€§è¶Šä½³ (ç›¸å°çš„ï¼Œè¼ƒé•·
+    çš„é‡‘é‘°éœ€è¦è¼ƒå¤šçš„æ™‚é–“ä¾†ç”¢ç”Ÿï¼Œä»¥åŠåŠ å¯†)ã€‚1024 ä½å…ƒçµ„æ˜¯é è¨­é•·åº¦ - é€™å€‹é•·åº¦
+    æä¾›çµ•ä½³çš„ä¿è­·æ€§ã€‚
     </para>
   <!-- English entry:
 <entry id="pgp-personalkey-create-keylength">
@@ -6250,30 +6028,39 @@
     <para>
     The keylength, in bit, of your generated key. The greater the value, the greater the protection (and also greater generation time and encryption time). 1024 bit is the default - this value provides excellent protection.
     </para>
-</entry>--></entry>
-  <entry id="pgp-personalkey-create-passphrase" md5="2fb9372970bf33f51e988ba39dbd7193" state="uptodate">
-    <title>PGP: «Ø¥ß­Ó¤Hª÷Æ_ - ±K½X</title>
-    <heading>±K½X</heading>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="pgp-personalkey-create-keylength">
+    <title>PGP: Create Personal Key - Keylength</title>
+    <heading>Keylength</heading>
     <para>
-    ±K½X¥Î¨Ó«OÅ@/¥[±K§Aªº­Ó¤H¨p±Kª÷Æ_¡C±K½Xªº³]©w¦³´X­Ó­ì«h¡G
-    1) ¦Ü¤Ö 6 ­Ó¦r(­^¤å©Î¼Æ¦r)¡C 2) ¤£­n©Mµn¤J±K½X¬Û¦P¡C 3) ¦b¦r¨å¤¤§ä¤£¨ì¡C
-    4) ­^¤å¦r»P¼Æ¦r¥æÂø¨Ï¥Î¡C
-    §A¥²¶·¿é¤J¤G¦¸±K½X¡A¥H½T«O§A¨S¦³»~³]¡C³o¬O¥²¶·Äæ¦ì¡C
+    The keylength, in bit, of your generated key. The greater the value, the greater the protection (and also greater generation time and encryption time). 1024 bit is the default - this value provides excellent protection.
+    </para>
+</entry>--></entry>
+
+<entry id="pgp-personalkey-create-passphrase" md5="2fb9372970bf33f51e988ba39dbd7193" state="uptodate">
+    <title>PGP: å»ºç«‹å€‹äººé‡‘é‘° - å¯†ç¢¼</title>
+    <heading>å¯†ç¢¼</heading>
+    <para>
+    å¯†ç¢¼ç”¨ä¾†ä¿è­·/åŠ å¯†ä½ çš„å€‹äººç§å¯†é‡‘é‘°ã€‚å¯†ç¢¼çš„è¨­å®šæœ‰å¹¾å€‹åŸå‰‡ï¼š
+    1) è‡³å°‘ 6 å€‹å­—(è‹±æ–‡æˆ–æ•¸å­—)ã€‚ 2) ä¸è¦å’Œç™»å…¥å¯†ç¢¼ç›¸åŒã€‚ 3) åœ¨å­—å…¸ä¸­æ‰¾ä¸åˆ°ã€‚
+    4) è‹±æ–‡å­—èˆ‡æ•¸å­—äº¤é›œä½¿ç”¨ã€‚
+    ä½ å¿…é ˆè¼¸å…¥äºŒæ¬¡å¯†ç¢¼ï¼Œä»¥ç¢ºä¿ä½ æ²’æœ‰èª¤è¨­ã€‚é€™æ˜¯å¿…é ˆæ¬„ä½ã€‚
     </para>
   </entry>
-  <entry id="pgp-personalkey-create-actions" md5="8b34a7b76424db822724a60271a33096" state="changed">
-    <title>PGP: «Ø¥ß­Ó¤Hª÷Æ_ - °Ê§@</title>
-    <heading>«Ø¥ßª÷Æ_</heading>
+
+<entry id="pgp-personalkey-create-actions" md5="8b34a7b76424db822724a60271a33096" state="changed">
+    <title>PGP: å»ºç«‹å€‹äººé‡‘é‘° - å‹•ä½œ</title>
+    <heading>å»ºç«‹é‡‘é‘°</heading>
     <para>
-    «Ø¥ß¨ÃÀx¦s§Aªº­Ó¤H¤½¶}/¨p±Kª÷Æ_¹ï¡C
+    å»ºç«‹ä¸¦å„²å­˜ä½ çš„å€‹äººå…¬é–‹/ç§å¯†é‡‘é‘°å°ã€‚
     </para>
-    <heading>¶×¤Jª÷Æ_¹ï</heading>
+    <heading>åŒ¯å…¥é‡‘é‘°å°</heading>
     <para>
-    ¶×¤J¤@²Õ­Ó¤H ¤½¶}/¨p±K ª÷Æ_¹ï¡C
-    ³o­Ó«ö¶s±N¶}±Ò¤@­Óµøµ¡¡A¨Ñ§A¶×¤J§AªºPGP­Ó¤H¤½¶}/¨p±Kª÷Æ_¹ï¡C
-    §A¥i¥H±Nª÷Æ_¶K¤J¨ì¤å¦rÄæ¦ì¤¤¡A©ÎªÌª½±µ¥Ñ§Aªº¹q¸£±N¤½¶}ª÷Æ_¶×¤J¡C
-    ¦pªG¸Óª÷Æ_¬O¦³®Äªº¥¦±N·|³Q¦s©ñ¦b§Aªº³]©w¤¤¡AÀH«á³o­Óµøµ¡±N¤@¨ÖÃö³¬¡C
-    ¦pªG¤£¬O¦³®Äªºª÷Æ_¡A«h§A±N·|¬İ¨£¿ù»~ªº­ì¦]¡C
+    åŒ¯å…¥ä¸€çµ„å€‹äºº å…¬é–‹/ç§å¯† é‡‘é‘°å°ã€‚
+    é€™å€‹æŒ‰éˆ•å°‡é–‹å•Ÿä¸€å€‹è¦–çª—ï¼Œä¾›ä½ åŒ¯å…¥ä½ çš„PGPå€‹äººå…¬é–‹/ç§å¯†é‡‘é‘°å°ã€‚
+    ä½ å¯ä»¥å°‡é‡‘é‘°è²¼å…¥åˆ°æ–‡å­—æ¬„ä½ä¸­ï¼Œæˆ–è€…ç›´æ¥ç”±ä½ çš„é›»è…¦å°‡å…¬é–‹é‡‘é‘°åŒ¯å…¥ã€‚
+    å¦‚æœè©²é‡‘é‘°æ˜¯æœ‰æ•ˆçš„å®ƒå°‡æœƒè¢«å­˜æ”¾åœ¨ä½ çš„è¨­å®šä¸­ï¼Œéš¨å¾Œé€™å€‹è¦–çª—å°‡ä¸€ä½µé—œé–‰ã€‚
+    å¦‚æœä¸æ˜¯æœ‰æ•ˆçš„é‡‘é‘°ï¼Œå‰‡ä½ å°‡æœƒçœ‹è¦‹éŒ¯èª¤çš„åŸå› ã€‚
     </para>
   <!-- English entry:
 <entry id="pgp-personalkey-create-actions">
@@ -6517,24 +6304,36 @@
     <para>
     Import a personal/private keypair. This button opens a window where you can manually import your existing PGP personal public/private keypair. The keys can either be pasted into a textfield or, if the keys reside in a file on your local computer, you can import them. If the keys are valid they will be inserted into your preferences and the window will close; if not valid, an error message will be returned explaining why.
     </para>
-</entry>--></entry>
-  <entry id="smime-overview" md5="fe45458fac111d224aca9d96f49acd99" state="changed">
-    <title>S/MIME: ·§­z</title>
-    <heading>¤°»ò¬O S/MIME?</heading>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="pgp-personalkey-create-actions">
+    <title>PGP: Create Personal Key - Actions</title>
+    <heading>Create Keys</heading>
     <para>
-    PGP ¬O¤@ºØ¥Î©ó³q°T¥H¤Î¸ê®Æªº¥[±K¤u¨ã¡A¯S§O¬O¥Î©ó¹q¤l¶l¥ó¡C 
-    PGP ¥i¥Î©ó¸ê®Æªº¥[±K¡B«Ø¥ß¼Æ¦ìÃ±³¹¡C ºô¸ô¶l§½¨Ï¥Î GnuPG (GNU Privacy Guard)
-    ¥H´£¨Ñ¤W­zªºªA°È¡C
-    S/MIME ¬O¥t¤@ºØ¨p±K/¤½¶}ª÷Æ_¹ï¨t²Î¡C¸Ó¨t²Î´£¨Ñ½Ñ¦p¡G¼Æ¦ìÃ±³¹¡A¶l¥ó¥[±K¡A¥H¤Î
-    ¦b¶}©ñ¦@¥Î¤W´£¨ÑÂ«§ï°»´úªº§Ş³N¡C S/MIME ¥i¥H´£¨Ñ¶l¥ó¥[±Kªº¥\¯à¡A¥[±K«áªº¶l
-    ¥ó¥u¦³±H°eªÌ¤Î¦¬¥óªÌ¥i¥H¸Ñ±K¡CS/MIME ÁÙ¥i¥H¸g¥Ñ¼Æ¦ìÃ±³¹¨Ó¿ëÃÑ±H°eªÌªº¶l¥ó¡C
-    ¥[±K»P¼Æ¦ìÃ±³¹¤@°_¨Ï¥Î§ó¥i¥H´£¨ÑÂ«§ï°»´úªº¥\¯à¡A¦nÅı©Ò¦³¦¬¥ó¹ï¶H§P©w¶l¥ó¦b
-    ±Hµo«á¬O§_´¿³QÂ«§ï¡C
+    Create and store your personal public/private keypair.
     </para>
-    <heading>±Ò°Ê S/MIME ?</heading>
+    <heading>Import Keypair</heading>
     <para>
-    ¤Ä¿ï³o­Ó¶µ¥Ø«á¡A§A±N¯à°÷¶×¤J§Aªº­Ó¤H S/MIME ª÷Æ_¡AÅª¨ú¥[±K¶l¥ó¡AÅçÃÒ¼Æ¦ìÃ±
-    ³¹¶l¥ó¡A¥H¤Î¬°§A­n±Hµoªº¶l¥ó¬I¥H¥[±K/Ã±³¹ªº¥\¯à¡C
+    Import a personal/private keypair. This button opens a window where you can manually import your existing PGP personal public/private keypair. The keys can either be pasted into a textfield or, if the keys reside in a file on your local computer, you can import them. If the keys are valid they will be inserted into your preferences and the window will close; if not valid, an error message will be returned explaining why.
+    </para>
+</entry>--></entry>
+
+<entry id="smime-overview" md5="fe45458fac111d224aca9d96f49acd99" state="changed">
+    <title>S/MIME: æ¦‚è¿°</title>
+    <heading>ä»€éº¼æ˜¯ S/MIME?</heading>
+    <para>
+    PGP æ˜¯ä¸€ç¨®ç”¨æ–¼é€šè¨Šä»¥åŠè³‡æ–™çš„åŠ å¯†å·¥å…·ï¼Œç‰¹åˆ¥æ˜¯ç”¨æ–¼é›»å­éƒµä»¶ã€‚ 
+    PGP å¯ç”¨æ–¼è³‡æ–™çš„åŠ å¯†ã€å»ºç«‹æ•¸ä½ç°½ç« ã€‚ ç¶²è·¯éƒµå±€ä½¿ç”¨ GnuPG (GNU Privacy Guard)
+    ä»¥æä¾›ä¸Šè¿°çš„æœå‹™ã€‚
+    S/MIME æ˜¯å¦ä¸€ç¨®ç§å¯†/å…¬é–‹é‡‘é‘°å°ç³»çµ±ã€‚è©²ç³»çµ±æä¾›è«¸å¦‚ï¼šæ•¸ä½ç°½ç« ï¼Œéƒµä»¶åŠ å¯†ï¼Œä»¥åŠ
+    åœ¨é–‹æ”¾å…±ç”¨ä¸Šæä¾›ç«„æ”¹åµæ¸¬çš„æŠ€è¡“ã€‚ S/MIME å¯ä»¥æä¾›éƒµä»¶åŠ å¯†çš„åŠŸèƒ½ï¼ŒåŠ å¯†å¾Œçš„éƒµ
+    ä»¶åªæœ‰å¯„é€è€…åŠæ”¶ä»¶è€…å¯ä»¥è§£å¯†ã€‚S/MIME é‚„å¯ä»¥ç¶“ç”±æ•¸ä½ç°½ç« ä¾†è¾¨è­˜å¯„é€è€…çš„éƒµä»¶ã€‚
+    åŠ å¯†èˆ‡æ•¸ä½ç°½ç« ä¸€èµ·ä½¿ç”¨æ›´å¯ä»¥æä¾›ç«„æ”¹åµæ¸¬çš„åŠŸèƒ½ï¼Œå¥½è®“æ‰€æœ‰æ”¶ä»¶å°è±¡åˆ¤å®šéƒµä»¶åœ¨
+    å¯„ç™¼å¾Œæ˜¯å¦æ›¾è¢«ç«„æ”¹ã€‚
+    </para>
+    <heading>å•Ÿå‹• S/MIME ?</heading>
+    <para>
+    å‹¾é¸é€™å€‹é …ç›®å¾Œï¼Œä½ å°‡èƒ½å¤ åŒ¯å…¥ä½ çš„å€‹äºº S/MIME é‡‘é‘°ï¼Œè®€å–åŠ å¯†éƒµä»¶ï¼Œé©—è­‰æ•¸ä½ç°½
+    ç« éƒµä»¶ï¼Œä»¥åŠç‚ºä½ è¦å¯„ç™¼çš„éƒµä»¶æ–½ä»¥åŠ å¯†/ç°½ç« çš„åŠŸèƒ½ã€‚
     </para>
   <!-- English entry:
 <entry id="smime-overview">
@@ -6778,30 +6577,45 @@
     <para>
     If this option is selected, you will be able to import your personal S/MIME keys, read encrypted mail, verify digitally signed mail, and encrypt/sign your outgoing mail.
     </para>
-</entry>--></entry>
-  <entry id="smime-overview-personalkey" md5="9f4f36ae72cb4abc731067d338be3b98" state="uptodate">
-    <title>S/MIME: ­Ó¤Hª÷Æ_</title>
-    <heading>·§­z</heading>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="smime-overview">
+    <title>S/MIME: Overview</title>
+    <heading>What is S/MIME?</heading>
     <para>
-    ¦pªG§A·Q­n¹ï¶l¥ó¬I¥H¼Æ¦ìÃ±³¹©ÎªÌ¥[±K¡A¨º§A¥²¶·­n¥ı¾Ö¦³Äİ©ó
-    ¦Û¤vªº¤½¶}/¨p±KS/MIMEª÷Æ_¹ï¡C
+    S/MIME is a private/public key pair system which provides digital signatures, message privacy, and tamper detection in a open, interoperable way. S/MIME can provide message privacy by encrypting messages that only the sender and the intended recipients can decode. It allows you to identify the sender of a message via a digital signature. Together, this encryption and digital signing help provide tamper detection, allowing recipients to determine whether a message was altered after it was sent.
+    </para>
+    <heading>Enable S/MIME functionality?</heading>
+    <para>
+    If this option is selected, you will be able to import your personal S/MIME keys, read encrypted mail, verify digitally signed mail, and encrypt/sign your outgoing mail.
+    </para>
+</entry>--></entry>
+
+<entry id="smime-overview-personalkey" md5="9f4f36ae72cb4abc731067d338be3b98" state="uptodate">
+    <title>S/MIME: å€‹äººé‡‘é‘°</title>
+    <heading>æ¦‚è¿°</heading>
+    <para>
+    å¦‚æœä½ æƒ³è¦å°éƒµä»¶æ–½ä»¥æ•¸ä½ç°½ç« æˆ–è€…åŠ å¯†ï¼Œé‚£ä½ å¿…é ˆè¦å…ˆæ“æœ‰å±¬æ–¼
+    è‡ªå·±çš„å…¬é–‹/ç§å¯†S/MIMEé‡‘é‘°å°ã€‚
     </para>
   </entry>
-  <entry id="smime-import-personal-certs" state="new">
+
+<entry id="smime-import-personal-certs" state="new">
     <title>S/MIME: Import Personal Certificates</title>
     <heading>Import Personal Certificates</heading>
     <para>
     Import personal certificates from a PKCS #12 format file. PKCS #12 files is the file usually generated when exporting a key from a browser (e.g. Internet Explorer, Firefox) or from a certificate store maintained by an Operating System (e.g. Windows XP). If the keys are valid they will be inserted into your preferences and the window will close; if not valid, an error message will be returned explaining why.
     </para>
 </entry>
-  <entry id="smime-delete-personal-certs" state="new">
+
+<entry id="smime-delete-personal-certs" state="new">
     <title>S/MIME: Delete Personal Certificates</title>
     <heading>Delete Personal Certificates</heading>
     <para>
     Delete your personal certificates from your preferences.  You will no longer be able to sign S/MIME messages or view any S/MIME encrypted messages addressed to you.
     </para>
 </entry>
-  <entry id="smime-manage-pubkey" state="new">
+
+<entry id="smime-manage-pubkey" state="new">
     <title>S/MIME: Manage Public Keys</title>
     <heading>S/MIME: Manage Public Keys</heading>
     <para>
@@ -6820,14 +6634,15 @@
     Deletes the selected public key from storage.  Deleting a public key for a user will prevent your from encrypting a message to that user.
     </para>
 </entry>
-  <entry id="printing" md5="d678fcc02ec59acaaa2ac24dff4123a8" state="changed">
-    <title>¦C¦L</title>
-    <heading>¦C¦L¤@«Ê¶l¥ó</heading>
+
+<entry id="printing" md5="d678fcc02ec59acaaa2ac24dff4123a8" state="changed">
+    <title>åˆ—å°</title>
+    <heading>åˆ—å°ä¸€å°éƒµä»¶</heading>
     <para>
-    ±ı¦C¤@«Ê¥¿¦bÀËµøªº¶l¥ó¡A ½ĞÂI¿ï¶l¥ó­¶­±¤W¤è©Î¤U¤èªº"¤Íµ½¦C¦L"¡C ®æ¦¡¤Æ«á
-    ªº¶l¥ó±N¶}±Ò©ó·sµøµ¡¤¤µ¥«İ¦C¦L¡C µø§AªºÂsÄı¾¹»P§@·~¨t²Î¦Ó©w¡A¦¹®É¬O§_¶}
-    ±Ò¤@­Ó¦C¦L¥æ½Íµøµ¡¡C ¦pªG¨S¦³¶}±Ò¡A½ĞÂI¿ïÂsÄı¾¹ªº"ÀÉ®×"«á¦AÂI¿ï"¦C¦L"
-    ¤w¶}±Ò¦C¦L¥æ½Íµøµ¡¡C
+    æ¬²åˆ—ä¸€å°æ­£åœ¨æª¢è¦–çš„éƒµä»¶ï¼Œ è«‹é»é¸éƒµä»¶é é¢ä¸Šæ–¹æˆ–ä¸‹æ–¹çš„"å‹å–„åˆ—å°"ã€‚ æ ¼å¼åŒ–å¾Œ
+    çš„éƒµä»¶å°‡é–‹å•Ÿæ–¼æ–°è¦–çª—ä¸­ç­‰å¾…åˆ—å°ã€‚ è¦–ä½ çš„ç€è¦½å™¨èˆ‡ä½œæ¥­ç³»çµ±è€Œå®šï¼Œæ­¤æ™‚æ˜¯å¦é–‹
+    å•Ÿä¸€å€‹åˆ—å°äº¤è«‡è¦–çª—ã€‚ å¦‚æœæ²’æœ‰é–‹å•Ÿï¼Œè«‹é»é¸ç€è¦½å™¨çš„"æª”æ¡ˆ"å¾Œå†é»é¸"åˆ—å°"
+    å·²é–‹å•Ÿåˆ—å°äº¤è«‡è¦–çª—ã€‚
     </para>
   <!-- English entry:
 <entry id="printing">
@@ -6983,18 +6798,26 @@
     <para>
     To print a message you are viewing, click on the "Print" link at either the top or bottom of the message. The message will open in a new window formated for printing. Depending on your web browser and operating system, the print dialog box may open for you. If it does not open, then pull down the web browser's "File" menu and choose "Print" to open the print dialog box.
     </para>
-</entry>--></entry>
-  <entry id="sorting" md5="149f1b5caf65e8b93bb3ef0491bfee26" state="changed">
-    <title>±Æ§Ç»PÃöÁp</title>
-    <heading>±Æ§Ç</heading>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="printing">
+    <title>Printing</title>
+    <heading>Print a message</heading>
     <para>
-    ÀËµø¶l¥ó²M³æ®É¡AÂÇ¥ÑÂI¿ï¤W¤èªº¥ô¤@­ÓÄæ¦ì¦WºÙ¹F¨ì¶l¥ó±Æ§Çªº¥Øªº¡C
-    ÂI¿ïÄæ¦ì¦WºÙ®Çªº½bÀY¹Ï¥Ü¥i¥HÅÜ§ó±Æ§Çªº¤è¦V¡C
+    To print a message you are viewing, click on the "Print" link at either the top or bottom of the message. The message will open in a new window formated for printing. Depending on your web browser and operating system, the print dialog box may open for you. If it does not open, then pull down the web browser's "File" menu and choose "Print" to open the print dialog box.
     </para>
-    <heading>ÃöÁp</heading>
+</entry>--></entry>
+
+<entry id="sorting" md5="149f1b5caf65e8b93bb3ef0491bfee26" state="changed">
+    <title>æ’åºèˆ‡é—œè¯</title>
+    <heading>æ’åº</heading>
     <para>
-    ÂÇ¥ÑÂI¿ï¥D¦®Äæ¦ì¤¤ªº [ÃöÁp] ³sµ²¡A¨Ï¶l¥ó¨Ì©¼¦¹ÃöÁp©Ê (¥D¦®)±Æ¦C¦Ó²£¥Í
-    ¸s»E®ÄªG¡C¦pªG­n¦^¨ì¤@¯ë¥¿±`ªº¥D¦®±Æ§Ç¡A½ĞÂI¿ï¥D¦®Äæ¦ì¤¤ªº [¥D¦®] ³sµ²¡C
+    æª¢è¦–éƒµä»¶æ¸…å–®æ™‚ï¼Œè—‰ç”±é»é¸ä¸Šæ–¹çš„ä»»ä¸€å€‹æ¬„ä½åç¨±é”åˆ°éƒµä»¶æ’åºçš„ç›®çš„ã€‚
+    é»é¸æ¬„ä½åç¨±æ—çš„ç®­é ­åœ–ç¤ºå¯ä»¥è®Šæ›´æ’åºçš„æ–¹å‘ã€‚
+    </para>
+    <heading>é—œè¯</heading>
+    <para>
+    è—‰ç”±é»é¸ä¸»æ—¨æ¬„ä½ä¸­çš„ [é—œè¯] é€£çµï¼Œä½¿éƒµä»¶ä¾å½¼æ­¤é—œè¯æ€§ (ä¸»æ—¨)æ’åˆ—è€Œç”¢ç”Ÿ
+    ç¾¤èšæ•ˆæœã€‚å¦‚æœè¦å›åˆ°ä¸€èˆ¬æ­£å¸¸çš„ä¸»æ—¨æ’åºï¼Œè«‹é»é¸ä¸»æ—¨æ¬„ä½ä¸­çš„ [ä¸»æ—¨] é€£çµã€‚
     </para>
   <!-- English entry:
 <entry id="sorting">
@@ -7238,25 +7061,38 @@
     <para>
     To group messages by threads (subject), so each message is grouped with all its replies, click the [Thread] link in the subject column heading. To return to normal subject sorting, click on the [Subject] link in the subject column heading.
     </para>
-</entry>--></entry>
-  <entry id="alternative-msg" md5="4978073f76977b6af6b69810e4d22a65" state="uptodate">
-    <title>¦h­«²Õ¦¨/¥i´À¥N «¬¶l¥ó (Multipart/Alternative Message)</title>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="sorting">
+    <title>Sorting and Threading</title>
+    <heading>Sorting Entries</heading>
     <para>
-    ¦bºô¸ô¤W¦³¤@¨Ç¶l¥ó¬O¥H¤@ºØ©Ò¿×ªº "multipart/alternative" «¬ºA³Q¶Ç°e¡A
-    ©Ò¿×"¦h­«²Õ¦¨"ªº·N«ä¬O«ü³o«Ê¶l¥ó¥]§t¼Æ­Ó²Õ¦¨¡A©Ò¦³²Õ¦¨ªº¤º®e¨ä¹ê¬O¤@¼Ëªº¡A
-    ¥u¤£¹L¬O¥H¤£¦Pªº®æ¦¡Àx¦s¡C
-    ¹q¤l¶l¥ó¾\Åª³nÅé¹J¨ì³oºØÃş«¬¶l¥óªº³B²z¤è¦¡¬O¡A¦bÂsÄı¾¹¤¤¥H¤º¤åª½±µÅã¥Ü
-    ³Ì«á¤@­Ó²Õ¦¨¡C¦Ü©ó¶l¥ó¤¤¨ä¾lªº²Õ¦¨¡A«h¨Ã¦CÅã¥Ü¦b "¦¹¶l¥óªº¨ä¥L®æ¦¡" ¤U
-    ¤è¡A¨Ñ­Ó§OÀËµø©Î¤U¸ü¡C
-    ½ĞÂÔ°O¦b¤ß¡A³o¨Ç²Õ¦¨¦³µÛ "¬Û¦P" ªº¤º®e - ¥u¬O®æ¦¡¤£¦P¦Ó¤w¡C
+    When viewing a list of messages, you can sort the messages by any column by clicking on the appropriate column heading. To switch columns between ascending and descending order, click on the arrow icon in the column heading.
+    </para>
+    <heading>Threading</heading>
+    <para>
+    To group messages by threads (subject), so each message is grouped with all its replies, click the [Thread] link in the subject column heading. To return to normal subject sorting, click on the [Subject] link in the subject column heading.
+    </para>
+</entry>--></entry>
+
+<entry id="alternative-msg" md5="4978073f76977b6af6b69810e4d22a65" state="uptodate">
+    <title>å¤šé‡çµ„æˆ/å¯æ›¿ä»£ å‹éƒµä»¶ (Multipart/Alternative Message)</title>
+    <para>
+    åœ¨ç¶²è·¯ä¸Šæœ‰ä¸€äº›éƒµä»¶æ˜¯ä»¥ä¸€ç¨®æ‰€è¬‚çš„ "multipart/alternative" å‹æ…‹è¢«å‚³é€ï¼Œ
+    æ‰€è¬‚"å¤šé‡çµ„æˆ"çš„æ„æ€æ˜¯æŒ‡é€™å°éƒµä»¶åŒ…å«æ•¸å€‹çµ„æˆï¼Œæ‰€æœ‰çµ„æˆçš„å…§å®¹å…¶å¯¦æ˜¯ä¸€æ¨£çš„ï¼Œ
+    åªä¸éæ˜¯ä»¥ä¸åŒçš„æ ¼å¼å„²å­˜ã€‚
+    é›»å­éƒµä»¶é–±è®€è»Ÿé«”é‡åˆ°é€™ç¨®é¡å‹éƒµä»¶çš„è™•ç†æ–¹å¼æ˜¯ï¼Œåœ¨ç€è¦½å™¨ä¸­ä»¥å…§æ–‡ç›´æ¥é¡¯ç¤º
+    æœ€å¾Œä¸€å€‹çµ„æˆã€‚è‡³æ–¼éƒµä»¶ä¸­å…¶é¤˜çš„çµ„æˆï¼Œå‰‡ä¸¦åˆ—é¡¯ç¤ºåœ¨ "æ­¤éƒµä»¶çš„å…¶ä»–æ ¼å¼" ä¸‹
+    æ–¹ï¼Œä¾›å€‹åˆ¥æª¢è¦–æˆ–ä¸‹è¼‰ã€‚
+    è«‹è¬¹è¨˜åœ¨å¿ƒï¼Œé€™äº›çµ„æˆæœ‰è‘— "ç›¸åŒ" çš„å…§å®¹ - åªæ˜¯æ ¼å¼ä¸åŒè€Œå·²ã€‚
     </para>
   </entry>
-  <entry id="prefs-rename_sentmail_monthly" md5="c2db56352b30ffa27b0c8b876218c411" state="changed">
-    <title>°¾¦n³]©w: ºûÅ@: ©ó¨C¤ëªì§ó§ï±H¥ó³Æ¥÷¹hªº¦WºÙ</title>
+
+<entry id="prefs-rename_sentmail_monthly" md5="c2db56352b30ffa27b0c8b876218c411" state="changed">
+    <title>åå¥½è¨­å®š: ç¶­è­·: æ–¼æ¯æœˆåˆæ›´æ”¹å¯„ä»¶å‚™ä»½é–˜çš„åç¨±</title>
     <para>
-    ¦pªG§A§Æ±æºô¸ô¶l§½¡A©ó¨C­Ó¤ëªì§ó§ï§Aªº±H¥ó³Æ¥÷¹h¦WºÙ¡A½Ğ¤Ä¿ï¡C
-    ±H¥ó³Æ¥÷¹h°£¤F§ó¦W¬°ÂÂªº±H¥ó³Æ¥÷¹h¥~(§ó¦W«áªº¦WºÙ¥]§t¤ë¤Î¦~¥÷)¡A
-    ¨Ã¦b§ó¦W«á«Ø¥ß¥t¤@­Ó·sªºªÅ¥Õ±H¥ó³Æ¥÷¹h¡C
+    å¦‚æœä½ å¸Œæœ›ç¶²è·¯éƒµå±€ï¼Œæ–¼æ¯å€‹æœˆåˆæ›´æ”¹ä½ çš„å¯„ä»¶å‚™ä»½é–˜åç¨±ï¼Œè«‹å‹¾é¸ã€‚
+    å¯„ä»¶å‚™ä»½é–˜é™¤äº†æ›´åç‚ºèˆŠçš„å¯„ä»¶å‚™ä»½é–˜å¤–(æ›´åå¾Œçš„åç¨±åŒ…å«æœˆåŠå¹´ä»½)ï¼Œ
+    ä¸¦åœ¨æ›´åå¾Œå»ºç«‹å¦ä¸€å€‹æ–°çš„ç©ºç™½å¯„ä»¶å‚™ä»½é–˜ã€‚
     </para>
   <!-- English entry:
 <entry id="prefs-rename_sentmail_monthly">
@@ -7390,13 +7226,20 @@
     <para>
     Turn this option on if you would like to rename your sent-mail folder at the beginning of every month. The folder will be renamed (to a name that contains the month and year) and a new sent-mail folder will be created.
     </para>
-</entry>--></entry>
-  <entry id="prefs-delete_sentmail_monthly" md5="bd65c23ed7a137e2d5f6f17b50df4e8b" state="changed">
-    <title>°¾¦n³]©w: ºûÅ@: ©ó¨C¤ëªì§R°£ÂÂªº±H¥ó³Æ¥÷¹h</title>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="prefs-rename_sentmail_monthly">
+    <title>Preferences: Maintenance: Rename Sent-mail Folder Monthly</title>
     <para>
-    ¦pªG§A§Æ±æºô¸ô¶l§½¡A©ó¨C­Ó¤ëªì§R°£ÂÂªº±H¥ó³Æ¥÷¹h¡A½Ğ¤Ä¿ï¡C
-    ¦pªGºô¸ô¶l§½°w¹ï¨Ï¥ÎªÌ³]©wºÏºĞªÅ¶¡°tÃB¡A³o­Ó¿ï¶µ±N¦³§U©óÁ×§KºÏºĞ
-    ªÅ¶¡¤£¨¬ªºµo¥Í¡C
+    Turn this option on if you would like to rename your sent-mail folder at the beginning of every month. The folder will be renamed (to a name that contains the month and year) and a new sent-mail folder will be created.
+    </para>
+</entry>--></entry>
+
+<entry id="prefs-delete_sentmail_monthly" md5="bd65c23ed7a137e2d5f6f17b50df4e8b" state="changed">
+    <title>åå¥½è¨­å®š: ç¶­è­·: æ–¼æ¯æœˆåˆåˆªé™¤èˆŠçš„å¯„ä»¶å‚™ä»½é–˜</title>
+    <para>
+    å¦‚æœä½ å¸Œæœ›ç¶²è·¯éƒµå±€ï¼Œæ–¼æ¯å€‹æœˆåˆåˆªé™¤èˆŠçš„å¯„ä»¶å‚™ä»½é–˜ï¼Œè«‹å‹¾é¸ã€‚
+    å¦‚æœç¶²è·¯éƒµå±€é‡å°ä½¿ç”¨è€…è¨­å®šç£ç¢Ÿç©ºé–“é…é¡ï¼Œé€™å€‹é¸é …å°‡æœ‰åŠ©æ–¼é¿å…ç£ç¢Ÿ
+    ç©ºé–“ä¸è¶³çš„ç™¼ç”Ÿã€‚
     </para>
   <!-- English entry:
 <entry id="prefs-delete_sentmail_monthly">
@@ -7530,38 +7373,49 @@
     <para>
     Turn this option on if you would like to delete old sent-mail folders at the beginning of every month. This may be useful if you have a quota, for example.
     </para>
-</entry>--></entry>
-  <entry id="prefs-delete_sentmail_monthly_keep" md5="71ed1c2eab48b91a25b5bcd4b14ccea9" state="uptodate">
-    <title>°¾¦n³]©w: ºûÅ@: ¦pªG¨C¤ë§R°£¤@¦¸¡A¦h¤Ö¤ë¥÷ªºÂÂ±H¥ó³Æ¥÷¹h±N³Q«O¦s</title>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="prefs-delete_sentmail_monthly">
+    <title>Preferences: Maintenance: Delete Sent-mail Folder Monthly</title>
     <para>
-    ¦pªG§A¤w¤Ä¿ï "©ó¨C¤ëªì§R°£ÂÂªº±H¥ó³Æ¥÷¹h" ³o­Ó¿ï¶µªº¸Ü¡A§A¥i¥H¦b¦¹¿é¤J¤@­Ó
-    «O¯d¤ë¥÷¼Æ­È¡C«O¯d¤ë¥÷¼Æ­È¤§«e©Ò¦³ÂÂªº±H¥ó³Æ¥÷¹h±N¤@«ß§R°£¡C
+    Turn this option on if you would like to delete old sent-mail folders at the beginning of every month. This may be useful if you have a quota, for example.
+    </para>
+</entry>--></entry>
+
+<entry id="prefs-delete_sentmail_monthly_keep" md5="71ed1c2eab48b91a25b5bcd4b14ccea9" state="uptodate">
+    <title>åå¥½è¨­å®š: ç¶­è­·: å¦‚æœæ¯æœˆåˆªé™¤ä¸€æ¬¡ï¼Œå¤šå°‘æœˆä»½çš„èˆŠå¯„ä»¶å‚™ä»½é–˜å°‡è¢«ä¿å­˜</title>
+    <para>
+    å¦‚æœä½ å·²å‹¾é¸ "æ–¼æ¯æœˆåˆåˆªé™¤èˆŠçš„å¯„ä»¶å‚™ä»½é–˜" é€™å€‹é¸é …çš„è©±ï¼Œä½ å¯ä»¥åœ¨æ­¤è¼¸å…¥ä¸€å€‹
+    ä¿ç•™æœˆä»½æ•¸å€¼ã€‚ä¿ç•™æœˆä»½æ•¸å€¼ä¹‹å‰æ‰€æœ‰èˆŠçš„å¯„ä»¶å‚™ä»½é–˜å°‡ä¸€å¾‹åˆªé™¤ã€‚
     </para>
   </entry>
-  <entry id="prefs-purge_sentmail" state="new">
+
+<entry id="prefs-purge_sentmail" state="new">
     <title>Preferences: Maintenance: Purge Sent-Mail</title>
     <para>
     Do you want to purge your sent-mail folder(s) every so often.
     </para>
 </entry>
-  <entry id="prefs-purge_sentmail_interval" state="new">
+
+<entry id="prefs-purge_sentmail_interval" state="new">
     <title>Preferences: Maintenance: Purge Sent-Mail Interval</title>
     <para>
     If you are purging your sent-mail folder(s), how often should it be purged?
     </para>
 </entry>
-  <entry id="prefs-purge_sentmail_keep" state="new">
+
+<entry id="prefs-purge_sentmail_keep" state="new">
     <title>Preferences: Maintenance: Purge Sent-Mail Keep</title>
     <para>
     If you are purging your sent-mail folder(s), message older than how many days should be purged?
     </para>
 </entry>
-  <entry id="prefs-delete_attachments_monthly" state="changed" md5="a9033d67e4a859740cc98092e022ae57">
-    <title>°¾¦n³]©w: ºûÅ@: ©ó¨C¤ëªì§R°£¤wÂà¦s¬°ºô§}ªºªş¥ó</title>
+
+<entry id="prefs-delete_attachments_monthly" state="changed" md5="a9033d67e4a859740cc98092e022ae57">
+    <title>åå¥½è¨­å®š: ç¶­è­·: æ–¼æ¯æœˆåˆåˆªé™¤å·²è½‰å­˜ç‚ºç¶²å€çš„é™„ä»¶</title>
     <para>
-    ¦pªG§A§Æ±æºô¸ô¶l§½¡A©ó¨C­Ó¤ëªì§R°£¤wÂà¦s¬°ºô§}ªºÂÂªş¥ó¡A½Ğ¤Ä¿ï¡C
-    ¦pªGºô¸ô¶l§½°w¹ï¨Ï¥ÎªÌ³]©wºÏºĞªÅ¶¡°tÃB¡A³o­Ó¿ï¶µ±N¦³§U©óÁ×§KºÏºĞªÅ¶¡
-    ¤£¨¬ªºµo¥Í¡C
+    å¦‚æœä½ å¸Œæœ›ç¶²è·¯éƒµå±€ï¼Œæ–¼æ¯å€‹æœˆåˆåˆªé™¤å·²è½‰å­˜ç‚ºç¶²å€çš„èˆŠé™„ä»¶ï¼Œè«‹å‹¾é¸ã€‚
+    å¦‚æœç¶²è·¯éƒµå±€é‡å°ä½¿ç”¨è€…è¨­å®šç£ç¢Ÿç©ºé–“é…é¡ï¼Œé€™å€‹é¸é …å°‡æœ‰åŠ©æ–¼é¿å…ç£ç¢Ÿç©ºé–“
+    ä¸è¶³çš„ç™¼ç”Ÿã€‚
     </para>
   <!-- English entry:
 <entry id="prefs-delete_attachments_monthly">
@@ -7695,104 +7549,123 @@
     <para>
     Turn this option on if you would like to delete old linked attachments at the beginning of every month. This may be useful if you have a quota, for example.
     </para>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="prefs-delete_attachments_monthly">
+    <title>Preferences: Maintenance: Delete Linked Attachments Monthly</title>
+    <para>
+    Turn this option on if you would like to delete old linked attachments at the beginning of every month. This may be useful if you have a quota, for example.
+    </para>
 </entry>--></entry>
-  <entry id="prefs-delete_attachments_monthly_keep" state="uptodate" md5="1b340a60214dffd04aec02cc1127df5d">
-    <title>°¾¦n³]©w: ºûÅ@: ¦pªG¨C¤ë§R°£¤@¦¸¡A¦h¤Ö¤ë¥÷¤wÂà¦s¬°ºô§}ªºÂÂªş¥ó±N³Q«O¦s</title>
+
+<entry id="prefs-delete_attachments_monthly_keep" state="uptodate" md5="1b340a60214dffd04aec02cc1127df5d">
+    <title>åå¥½è¨­å®š: ç¶­è­·: å¦‚æœæ¯æœˆåˆªé™¤ä¸€æ¬¡ï¼Œå¤šå°‘æœˆä»½å·²è½‰å­˜ç‚ºç¶²å€çš„èˆŠé™„ä»¶å°‡è¢«ä¿å­˜</title>
     <para>
-    ¦pªG§A¤w¤Ä¿ï "©ó¨C¤ëªì§R°£¤wÂà¦s¬°ºô§}ªºªş¥ó" ³o­Ó¿ï¶µªº¸Ü¡A§A¥i¥H¦b¦¹¿é
-    ¤J¤@­Ó«O¯d¤ë¥÷¼Æ­È¡C«O¯d¤ë¥÷¼Æ­È¤§«e©Ò¦³Âà¦s¬°ºô§}ªºÂÂªş¥ó±N¤@«ß§R°£¡C
+    å¦‚æœä½ å·²å‹¾é¸ "æ–¼æ¯æœˆåˆåˆªé™¤å·²è½‰å­˜ç‚ºç¶²å€çš„é™„ä»¶" é€™å€‹é¸é …çš„è©±ï¼Œä½ å¯ä»¥åœ¨æ­¤è¼¸
+    å…¥ä¸€å€‹ä¿ç•™æœˆä»½æ•¸å€¼ã€‚ä¿ç•™æœˆä»½æ•¸å€¼ä¹‹å‰æ‰€æœ‰è½‰å­˜ç‚ºç¶²å€çš„èˆŠé™„ä»¶å°‡ä¸€å¾‹åˆªé™¤ã€‚
     </para>
   </entry>
-  <entry id="prefs-purge_trash" md5="dc71871146be3e46ade0087a8cf18273" state="uptodate">
-    <title>°¾¦n³]©w: ºûÅ@: ²M°£©U§£½c¤¤ªºÂÂ¶l¥ó</title>
+
+<entry id="prefs-purge_trash" md5="dc71871146be3e46ade0087a8cf18273" state="uptodate">
+    <title>åå¥½è¨­å®š: ç¶­è­·: æ¸…é™¤åƒåœ¾ç®±ä¸­çš„èˆŠéƒµä»¶</title>
     <para>
-    §A¬O§_§Æ±æ¸g±`²M°£©U§£½c¤¤ªºÂÂ¶l¥ó¡C
+    ä½ æ˜¯å¦å¸Œæœ›ç¶“å¸¸æ¸…é™¤åƒåœ¾ç®±ä¸­çš„èˆŠéƒµä»¶ã€‚
     </para>
   </entry>
-  <entry id="prefs-purge_trash_interval" md5="7be91fbeb05b2d87289d4c5602d5a32f" state="uptodate">
-    <title>°¾¦n³]©w: ºûÅ@: ©U§£½c¦h¤[²M°£¤@¦¸</title>
+
+<entry id="prefs-purge_trash_interval" md5="7be91fbeb05b2d87289d4c5602d5a32f" state="uptodate">
+    <title>åå¥½è¨­å®š: ç¶­è­·: åƒåœ¾ç®±å¤šä¹…æ¸…é™¤ä¸€æ¬¡</title>
     <para>
-    ¦pªG§A¤w¤Ä¿ï "²M°£©U§£½c¤¤ªºÂÂ¶l¥ó" ³o­Ó¿ï¶µªº¸Ü¡A§A§Æ±æ¦h¤[²M°£¤@¦¸¡H
+    å¦‚æœä½ å·²å‹¾é¸ "æ¸…é™¤åƒåœ¾ç®±ä¸­çš„èˆŠéƒµä»¶" é€™å€‹é¸é …çš„è©±ï¼Œä½ å¸Œæœ›å¤šä¹…æ¸…é™¤ä¸€æ¬¡ï¼Ÿ
     </para>
   </entry>
-  <entry id="prefs-purge_trash_keep" md5="3cb5a2b5b80b7ac1179ae005f983970e" state="uptodate">
-    <title>°¾¦n³]©w: ºûÅ@: ¨C¦¸¾ã²z©U§£½c®É¡A²M°£¦h¤Ö¤Ñ¼Æ¥H«eªº¶l¥ó</title>
+
+<entry id="prefs-purge_trash_keep" md5="3cb5a2b5b80b7ac1179ae005f983970e" state="uptodate">
+    <title>åå¥½è¨­å®š: ç¶­è­·: æ¯æ¬¡æ•´ç†åƒåœ¾ç®±æ™‚ï¼Œæ¸…é™¤å¤šå°‘å¤©æ•¸ä»¥å‰çš„éƒµä»¶</title>
     <para>
-    ¦pªG§A¤w¤Ä¿ï "²M°£©U§£½c¤¤ªºÂÂ¶l¥ó" ³o­Ó¿ï¶µªº¸Ü¡A§A§Æ±æ²M°£¦h¤Ö¤Ñ¼Æ
-    ¥H«eªº¶l¥ó¡H
+    å¦‚æœä½ å·²å‹¾é¸ "æ¸…é™¤åƒåœ¾ç®±ä¸­çš„èˆŠéƒµä»¶" é€™å€‹é¸é …çš„è©±ï¼Œä½ å¸Œæœ›æ¸…é™¤å¤šå°‘å¤©æ•¸
+    ä»¥å‰çš„éƒµä»¶ï¼Ÿ
     </para>
   </entry>
-  <entry id="prefs-purge_spam" state="new">
+
+<entry id="prefs-purge_spam" state="new">
     <title>Preferences: Maintenance: Purge Spam</title>
     <para>
     Do you want to purge your spam folder every so often.
     </para>
 </entry>
-  <entry id="prefs-purge_spam_interval" state="new">
+
+<entry id="prefs-purge_spam_interval" state="new">
     <title>Preferences: Maintenance: Purge Spam Interval</title>
     <para>
     If you are purging your spam folder, how often should it be purged?
     </para>
 </entry>
-  <entry id="prefs-purge_spam_keep" state="new">
+
+<entry id="prefs-purge_spam_keep" state="new">
     <title>Preferences: Maintenance: Purge Spam Keep</title>
     <para>
     If you are purging your spam folder, message older than how many days should be purged?
     </para>
 </entry>
-  <entry id="prefs-attrib_text" state="uptodate" md5="721a09d7ca028c97e3bd2b38c597fff7">
-     <title>°¾¦n³]©w: ¶l¥ó¼g§@: ¤å¦rÄİ©Ê</title>
+
+<entry id="prefs-attrib_text" state="uptodate" md5="721a09d7ca028c97e3bd2b38c597fff7">
+     <title>åå¥½è¨­å®š: éƒµä»¶å¯«ä½œ: æ–‡å­—å±¬æ€§</title>
      <para>
-     §A¥i¥H¦b¦¹©w¸q¦^ÂĞ¤å¥óªº¤Ş­z¦C¡C
+     ä½ å¯ä»¥åœ¨æ­¤å®šç¾©å›è¦†æ–‡ä»¶çš„å¼•è¿°åˆ—ã€‚
      </para>
      <para>
-     §A¥i¥H¬°§A©Ò­n¦^ÂĞªº«H¥ó´¡¤J¤@¨ÇÅÜ¼Æ¡C ÅÜ¼Æªº«¬ºA¬O¥H '%'«á­±¦A¥[¤W
-     ¤@­Ó¦r¤¸©Ò²Õ¦¨¡C ¥H¤U¦C¥X¥i¨Ñ·f°t¨Ï¥ÎªºÅÜ¼Æ:
+     ä½ å¯ä»¥ç‚ºä½ æ‰€è¦å›è¦†çš„ä¿¡ä»¶æ’å…¥ä¸€äº›è®Šæ•¸ã€‚ è®Šæ•¸çš„å‹æ…‹æ˜¯ä»¥ '%'å¾Œé¢å†åŠ ä¸Š
+     ä¸€å€‹å­—å…ƒæ‰€çµ„æˆã€‚ ä»¥ä¸‹åˆ—å‡ºå¯ä¾›æ­é…ä½¿ç”¨çš„è®Šæ•¸:
      </para>
 
-     <para> %f : ±H¥óªÌªº¦WºÙ¤Î¹q¤l¶l¥ó¦í§}</para>
-     <para> %a : ±H¥óªÌªº¹q¤l¶l¥ó¦í§}</para>
-     <para> %p : ±H¥óªÌªº¦WºÙ</para>
-     <para> %r : §¹¾ãªº RFC 2822 ¤é´Á®æ¦¡¤Î®É°Ï</para>
-     <para> %d : ¤é´Á(¬P´Á¡A¤é ¤ë ¦è¤¸¦~)</para>
-     <para> %x : ·í¦a¹w³]®æ¦¡ªº¤é´Á</para>
-     <para> %c : ·í¦a¹w³]®æ¦¡ªº¤é´Á¤Î®É¶¡</para>
-     <para> %m : ¶l¥ó½s¸¹</para>
-     <para> %s : ¶l¥ó¥D¦®</para>
-     <para> %n : ¤@¦CªÅ¥Õ¦æ</para>
-     <para> %% : '%' ¦r¤¸</para>
+     <para> %f : å¯„ä»¶è€…çš„åç¨±åŠé›»å­éƒµä»¶ä½å€</para>
+     <para> %a : å¯„ä»¶è€…çš„é›»å­éƒµä»¶ä½å€</para>
+     <para> %p : å¯„ä»¶è€…çš„åç¨±</para>
+     <para> %r : å®Œæ•´çš„ RFC 2822 æ—¥æœŸæ ¼å¼åŠæ™‚å€</para>
+     <para> %d : æ—¥æœŸ(æ˜ŸæœŸï¼Œæ—¥ æœˆ è¥¿å…ƒå¹´)</para>
+     <para> %x : ç•¶åœ°é è¨­æ ¼å¼çš„æ—¥æœŸ</para>
+     <para> %c : ç•¶åœ°é è¨­æ ¼å¼çš„æ—¥æœŸåŠæ™‚é–“</para>
+     <para> %m : éƒµä»¶ç·¨è™Ÿ</para>
+     <para> %s : éƒµä»¶ä¸»æ—¨</para>
+     <para> %n : ä¸€åˆ—ç©ºç™½è¡Œ</para>
+     <para> %% : '%' å­—å…ƒ</para>
 
   </entry>
-  <entry id="prefs-default_msg_charset" state="new">
+
+<entry id="prefs-default_msg_charset" state="new">
     <title>Preferences: Default Message Character Set</title>
     <para>
     Define the default character set to use for text message parts that do not contain explicit character set information. Per RFC 2045, messages without a character set parameter are displayed using the 'US-ASCII' character set. However, certain badly broken mailers may send out text messages in other character sets without setting the proper parameters in the message header. Set this parameter to the default character set string to use locally. Select "Default" to use the MIME defaults.
     </para>
 </entry>
-  <entry id="prefs-disposition_request_read" state="uptodate" md5="89e92c4d68224b2345b59959878a7174">
-    <title>°¾¦n³]©w: ½Ğ¦¬¥ó¤H¶Ç°eÅª¨ú¦^±ø</title>
+
+<entry id="prefs-disposition_request_read" state="uptodate" md5="89e92c4d68224b2345b59959878a7174">
+    <title>åå¥½è¨­å®š: è«‹æ”¶ä»¶äººå‚³é€è®€å–å›æ¢</title>
     <para>
-    "½Ğ¦¬¥ó¤H¶Ç°eÅª¨ú¦^±ø" ¥Î¨Ó­n¨D¦¬¥ó¹ï¶H¡A¶}±Ò«H¥ó®É
-    ¶¶«K¶Ç°e¦^±øµ¹±H«H¤H¡Aªí©ú¨Ó«H¤w¦¬¨ì¡C½Ğª`·N¨Ã¤£¬O©Ò¦³ªº¶l¥ó¾\Åª³n
-    Åé³£¤ä´©³o¶µ¥\¯à¡C
+    "è«‹æ”¶ä»¶äººå‚³é€è®€å–å›æ¢" ç”¨ä¾†è¦æ±‚æ”¶ä»¶å°è±¡ï¼Œé–‹å•Ÿä¿¡ä»¶æ™‚
+    é †ä¾¿å‚³é€å›æ¢çµ¦å¯„ä¿¡äººï¼Œè¡¨æ˜ä¾†ä¿¡å·²æ”¶åˆ°ã€‚è«‹æ³¨æ„ä¸¦ä¸æ˜¯æ‰€æœ‰çš„éƒµä»¶é–±è®€è»Ÿ
+    é«”éƒ½æ”¯æ´é€™é …åŠŸèƒ½ã€‚
     </para>
   </entry>
-  <entry id="prefs-disposition_send_mdn" state="new">
+
+<entry id="prefs-disposition_send_mdn" state="new">
     <title>Preferences: Send MDN</title>
     <para>
     "Send a MDN" sends a Message Disposition Notification (also known as a read receipt) when you view a message in which the user has requested that they receive notification that you have read the message. In most cases, this will happen automatically without prompting you. In certain isolated cases, you may have to manually decide to send the notification by clicking on a link.
     </para>
 </entry>
-  <entry id="prefs-disposition_request_delivery" state="uptodate" md5="26598e29af05a07de5e13644669be712">
-    <title>°¾¦n³]©w: ½Ğ¦¬¥ó¦øªA¾¹¶Ç»¼°e¹F½T»{</title>
+
+<entry id="prefs-disposition_request_delivery" state="uptodate" md5="26598e29af05a07de5e13644669be712">
+    <title>åå¥½è¨­å®š: è«‹æ”¶ä»¶ä¼ºæœå™¨å‚³éé€é”ç¢ºèª</title>
     <para>
-    "½Ğ¦¬¥ó¦øªA¾¹¶Ç»¼°e¹F½T»{" ­n¨D¦¬¥ó¹ï¶H©ÒÄİªº¶l¥ó
-    ¦øªA¾¹¤@¥¹¦¬¨ì«H¥ó«á¥ß§Y¶Ç°e½T»{°T®§µ¹±H«H¤H¡C½Ğª`·N¡A¶l¥ó±H¹F¹ï¤èªº¦øªA¾¹
-    ¨Ã¤£ªí¥Ü¦¬¥ó¹ï¶H¤w¸g¬İ¹L§Aªº«H¥ó¡C¶È¯à¸ÑÅª¬°¡G«H¬O±H¨ì¤F¡A¦ı¦³¨S¦³¤H¥h¬İ«h¤£
-    ±o¦Óª¾¡C¨Ã«D©Ò¦³ªº¶l¥ó¦øªA¾¹³£¦³¤ä´©³o¶µ¥\¯à¡C
+    "è«‹æ”¶ä»¶ä¼ºæœå™¨å‚³éé€é”ç¢ºèª" è¦æ±‚æ”¶ä»¶å°è±¡æ‰€å±¬çš„éƒµä»¶
+    ä¼ºæœå™¨ä¸€æ—¦æ”¶åˆ°ä¿¡ä»¶å¾Œç«‹å³å‚³é€ç¢ºèªè¨Šæ¯çµ¦å¯„ä¿¡äººã€‚è«‹æ³¨æ„ï¼Œéƒµä»¶å¯„é”å°æ–¹çš„ä¼ºæœå™¨
+    ä¸¦ä¸è¡¨ç¤ºæ”¶ä»¶å°è±¡å·²ç¶“çœ‹éä½ çš„ä¿¡ä»¶ã€‚åƒ…èƒ½è§£è®€ç‚ºï¼šä¿¡æ˜¯å¯„åˆ°äº†ï¼Œä½†æœ‰æ²’æœ‰äººå»çœ‹å‰‡ä¸
+    å¾—è€ŒçŸ¥ã€‚ä¸¦éæ‰€æœ‰çš„éƒµä»¶ä¼ºæœå™¨éƒ½æœ‰æ”¯æ´é€™é …åŠŸèƒ½ã€‚
     </para>
   </entry>
-  <entry id="prefs-delete_spam_after_report" state="new">
+
+<entry id="prefs-delete_spam_after_report" state="new">
     <title>Preferences: Delete Spam After Reporting</title>
     <para>
     You may elect to do one of three items after reporting a message as either spam or innocent.
@@ -7807,32 +7680,48 @@
     Third, after reporting a message as spam the message will be deleted from the current mailbox and moved to your spam folder.  Alternatively, if reporting a message as innocent the message will be deleted from the current mailbox and moved to your INBOX.
     </para>
 </entry>
-  <entry id="prefs-html_image_replacement" state="uptodate" md5="28e1cf08e328345a8e7274c853492d4f">
-    <title>°¾¦n³]©w: ÁôÂÃ HTML ¶l¥ó¤¤ªº¹Ï¤ù</title>
+
+<entry id="prefs-move_ham_after_report" state="new">
+    <title>Preferences: Move Spam After Reporting As Innocent</title>
     <para>
-    HTML ¶l¥ó¤¤¡A©Ò¦³¯àª½±µÅã¥Üªº¹Ï¤ù¡A¬O§_À³¸ÓÁôÂÃ¨Ã¥H¬õ¦â¼Ğ¥Ü¥N´À ¡H
+    You may elect to do one of two items after reporting a message previously maked as spam as innocent.
     </para>
-    <para>¦³¨Ç©U§£¶l¥ó¦b¶}±Òªº¦P®É¡AÀH§Y±Ò°Ê»P¹Ï¤ù¬Û³sµ²ªº¡u°lÂÜ¸Ë¸m¡v¡A½Ğ¥B
-    ª½±µ§i¶D©U§£¶l¥ó±H°eªÌ¡G³o«Ê¼s§i«H¤w³Q¥´¶}¦Ó¥B³o­Ó«H½c¬O¦³®Äªº«H½c¡A¥¼¨Ó§A
-    ªº«H½cÂÂ·|·½·½¤£Â_ªº¦¬¨ì©U§£«H¡C
+    <para>
+    First, you can decide to do nothing - the message will be reported as innocent but will otherwise remain unchanged in your mailbox.
     </para>
-    <para>ÁôÂÃ¹Ï¤ù¥i¥H«OÅ@§A¥u¬İ¨ì§A·Q­n¬İªº¹Ï¤ù¡A¨Ã¥B¤]¦P®Éªı¾×¤F¡u°lÂÜ¸Ë¸m¡v
-    ªº¹B§@¡C¥u­n§A½T©w³o«Ê«H¤£¬O¼s§i«H¡AÂI¿ï¡uÅã¥Ü¹Ï¤ù¡v¡A´N¥i¥H¬İ¨ì³o«Ê«H¸Ì
-    ­±ªº¹Ï¤ù¤F¡C
+    <para>
+    Second, if reporting a message as innocent the message will be deleted from the current mailbox and moved to your Inbox.
+    </para>
+</entry>
+
+<entry id="prefs-html_image_replacement" state="uptodate" md5="28e1cf08e328345a8e7274c853492d4f">
+    <title>åå¥½è¨­å®š: éš±è— HTML éƒµä»¶ä¸­çš„åœ–ç‰‡</title>
+    <para>
+    HTML éƒµä»¶ä¸­ï¼Œæ‰€æœ‰èƒ½ç›´æ¥é¡¯ç¤ºçš„åœ–ç‰‡ï¼Œæ˜¯å¦æ‡‰è©²éš±è—ä¸¦ä»¥ç´…è‰²æ¨™ç¤ºä»£æ›¿ ï¼Ÿ
+    </para>
+    <para>æœ‰äº›åƒåœ¾éƒµä»¶åœ¨é–‹å•Ÿçš„åŒæ™‚ï¼Œéš¨å³å•Ÿå‹•èˆ‡åœ–ç‰‡ç›¸é€£çµçš„ã€Œè¿½è¹¤è£ç½®ã€ï¼Œè«‹ä¸”
+    ç›´æ¥å‘Šè¨´åƒåœ¾éƒµä»¶å¯„é€è€…ï¼šé€™å°å»£å‘Šä¿¡å·²è¢«æ‰“é–‹è€Œä¸”é€™å€‹ä¿¡ç®±æ˜¯æœ‰æ•ˆçš„ä¿¡ç®±ï¼Œæœªä¾†ä½ 
+    çš„ä¿¡ç®±èˆŠæœƒæºæºä¸æ–·çš„æ”¶åˆ°åƒåœ¾ä¿¡ã€‚
+    </para>
+    <para>éš±è—åœ–ç‰‡å¯ä»¥ä¿è­·ä½ åªçœ‹åˆ°ä½ æƒ³è¦çœ‹çš„åœ–ç‰‡ï¼Œä¸¦ä¸”ä¹ŸåŒæ™‚é˜»æ“‹äº†ã€Œè¿½è¹¤è£ç½®ã€
+    çš„é‹ä½œã€‚åªè¦ä½ ç¢ºå®šé€™å°ä¿¡ä¸æ˜¯å»£å‘Šä¿¡ï¼Œé»é¸ã€Œé¡¯ç¤ºåœ–ç‰‡ã€ï¼Œå°±å¯ä»¥çœ‹åˆ°é€™å°ä¿¡è£¡
+    é¢çš„åœ–ç‰‡äº†ã€‚
     </para>
   </entry>
-  <entry id="prefs-html_image_addrbook" state="uptodate" md5="759fa3df24e0a3cd89f320102252f91a">
-    <title>°¾¦n³]©w: ¦Û°ÊÅã¥Ü HTML ¶l¥ó¤¤ªº©Ò¦³¹Ï¤ù</title>
+
+<entry id="prefs-html_image_addrbook" state="uptodate" md5="759fa3df24e0a3cd89f320102252f91a">
+    <title>åå¥½è¨­å®š: è‡ªå‹•é¡¯ç¤º HTML éƒµä»¶ä¸­çš„æ‰€æœ‰åœ–ç‰‡</title>
     <para>
-    ¦pªG±Ò¥Î"ÁôÂÃ HTML ¶l¥ó¤¤ªº¹Ï¤ù"³o¶µ¥\¯à¡A¦Ó¥B±H¥ó¤H¥X²{¦b§Úªº³q°T¿ı¤¤¡A
-    ¬O§_¦Û°ÊÅã¥Ü¸Ó«H¥ó¤¤ªº¹Ï¤ù¡H 
+    å¦‚æœå•Ÿç”¨"éš±è— HTML éƒµä»¶ä¸­çš„åœ–ç‰‡"é€™é …åŠŸèƒ½ï¼Œè€Œä¸”å¯„ä»¶äººå‡ºç¾åœ¨æˆ‘çš„é€šè¨ŠéŒ„ä¸­ï¼Œ
+    æ˜¯å¦è‡ªå‹•é¡¯ç¤ºè©²ä¿¡ä»¶ä¸­çš„åœ–ç‰‡ï¼Ÿ 
     </para>
   </entry>
-  <entry id="prefs-mailbox_start" state="changed" md5="dc8c87959cc7893669bf85c6c6834565">
-    <title>°¾¦n³]©w: ¶l½c°_©l­¶­±</title>
+
+<entry id="prefs-mailbox_start" state="changed" md5="dc8c87959cc7893669bf85c6c6834565">
+    <title>åå¥½è¨­å®š: éƒµç®±èµ·å§‹é é¢</title>
     <para>
-    ·í¤@­Ó¶l½c²Ä¤@¦¸³Q¦s¨ú®É¡A¨M©w¨äÀËµøµe­±­n¥ıÅã¥Ü­ş¤@­Ó­¶­±¡C³Æµù¡G¥¼¬İ¹L
-    «H¥ó¿ï¶µ¦bÃöÁp±Æ§Ç¤¤µLªk§@¥Î¡A¨Ã¥B±N¥H«H½cªº"³Ì«á¤@­¶¥N´À"¡C
+    ç•¶ä¸€å€‹éƒµç®±ç¬¬ä¸€æ¬¡è¢«å­˜å–æ™‚ï¼Œæ±ºå®šå…¶æª¢è¦–ç•«é¢è¦å…ˆé¡¯ç¤ºå“ªä¸€å€‹é é¢ã€‚å‚™è¨»ï¼šæœªçœ‹é
+    ä¿¡ä»¶é¸é …åœ¨é—œè¯æ’åºä¸­ç„¡æ³•ä½œç”¨ï¼Œä¸¦ä¸”å°‡ä»¥ä¿¡ç®±çš„"æœ€å¾Œä¸€é ä»£æ›¿"ã€‚
     </para>
   <!-- English entry:
 <entry id="prefs-mailbox_start">
@@ -7966,32 +7855,42 @@
     <para>
     Determines which page in the mailbox view will be displayed when you access a mailbox for the first time.
     </para>
-</entry>--></entry>
-  <entry id="prefs-save_attachments" state="uptodate" md5="35b46334cdcc7fa416b9f9fca5874e80">
-    <title>°¾¦n³]©w: ªş¥óÀH±H¥ó¤@°_³Æ¥÷</title>
+</entry>--><!-- English entry (2010-08-16):
+<entry id="prefs-mailbox_start">
+    <title>Preferences: Mailbox Start Page</title>
     <para>
-    ¦pªGÀx¦s±H¥ó³Æ¥÷®É¡A¨M©w¬O§_¤]­n¤@¨ÖÀx¦sªş¥[ÀÉ®×¡C¤U¦C¿ï¶µ¥i¨Ñ°Ñ¦Ò¡G
+    Determines which page in the mailbox view will be displayed when you access a mailbox for the first time.
+    </para>
+</entry>--></entry>
+
+<entry id="prefs-save_attachments" state="uptodate" md5="35b46334cdcc7fa416b9f9fca5874e80">
+    <title>åå¥½è¨­å®š: é™„ä»¶éš¨å¯„ä»¶ä¸€èµ·å‚™ä»½</title>
+    <para>
+    å¦‚æœå„²å­˜å¯„ä»¶å‚™ä»½æ™‚ï¼Œæ±ºå®šæ˜¯å¦ä¹Ÿè¦ä¸€ä½µå„²å­˜é™„åŠ æª”æ¡ˆã€‚ä¸‹åˆ—é¸é …å¯ä¾›åƒè€ƒï¼š
     </para>
 
-    <para>* "¥Ã»·Àx¦sªş¥[ÀÉ®×" - ¦b¶l¥ó½s¼gµe­±¤¤¥Ã»·¤£­n´£¥ÜÀx¦sªş¥[ÀÉ®×¡F
-    ¦Ó¥Bªş¥[ÀÉ®×¥Ã»·ÀHµÛ«H¥ó¤@°_³Æ¤À¡C</para>
-    <para>* "´£¥Ü§Ú¡A¨C¤@«Ê¥]§tªş¥[ÀÉ®×ªº«H¥ó±H¥X«á; ¹w³]¬°­n" - ¦b¶l¥ó½s¼gµe
-     ­±¤¤¥Ã»·´£¥ÜÀx¦sªş¥[ÀÉ®×¡F¹w³]¬°Àx¦s¡C</para>
-    <para>* "´£¥Ü§Ú¡A¨C¤@«Ê¥]§tªş¥[ÀÉ®×ªº«H¥ó±H¥X«á; ¹w³]¬°¤£­n" - ¦b¶l¥ó½s¼gµe
-     ­±¤¤¥Ã»·´£¥ÜÀx¦sªş¥[ÀÉ®×¡F¹w³]¬°¤£Àx¦s¡C</para>
-    <para>* "¥Ã¤£Àx¦sªş¥[ÀÉ®×" - ¦b¶l¥ó½s¼gµe­±¤¤¥Ã»·¤£­n´£¥ÜÀx¦sªş¥[ÀÉ®×¡F
-     ¦Ó¥Bªş¥[ÀÉ®×¥Ã»·¤£·|ÀHµÛ«H¥ó¤@°_³Æ¤À¡C</para>
+    <para>* "æ°¸é å„²å­˜é™„åŠ æª”æ¡ˆ" - åœ¨éƒµä»¶ç·¨å¯«ç•«é¢ä¸­æ°¸é ä¸è¦æç¤ºå„²å­˜é™„åŠ æª”æ¡ˆï¼›
+    è€Œä¸”é™„åŠ æª”æ¡ˆæ°¸é éš¨è‘—ä¿¡ä»¶ä¸€èµ·å‚™åˆ†ã€‚</para>
+    <para>* "æç¤ºæˆ‘ï¼Œæ¯ä¸€å°åŒ…å«é™„åŠ æª”æ¡ˆçš„ä¿¡ä»¶å¯„å‡ºå¾Œ; é è¨­ç‚ºè¦" - åœ¨éƒµä»¶ç·¨å¯«ç•«
+     é¢ä¸­æ°¸é æç¤ºå„²å­˜é™„åŠ æª”æ¡ˆï¼›é è¨­ç‚ºå„²å­˜ã€‚</para>
+    <para>* "æç¤ºæˆ‘ï¼Œæ¯ä¸€å°åŒ…å«é™„åŠ æª”æ¡ˆçš„ä¿¡ä»¶å¯„å‡ºå¾Œ; é è¨­ç‚ºä¸è¦" - åœ¨éƒµä»¶ç·¨å¯«ç•«
+     é¢ä¸­æ°¸é æç¤ºå„²å­˜é™„åŠ æª”æ¡ˆï¼›é è¨­ç‚ºä¸å„²å­˜ã€‚</para>
+    <para>* "æ°¸ä¸å„²å­˜é™„åŠ æª”æ¡ˆ" - åœ¨éƒµä»¶ç·¨å¯«ç•«é¢ä¸­æ°¸é ä¸è¦æç¤ºå„²å­˜é™„åŠ æª”æ¡ˆï¼›
+     è€Œä¸”é™„åŠ æª”æ¡ˆæ°¸é ä¸æœƒéš¨è‘—ä¿¡ä»¶ä¸€èµ·å‚™åˆ†ã€‚</para>
   </entry>
-  <entry id="virtual_inbox" state="new">
+
+<entry id="virtual_inbox" state="new">
     <title>Virtual Folders: Virtual Inbox</title>
     <para>
     Virutal Inbox is a saved search that does away with the need to search every mailbox for messages marked as new.  Instead, all currently subscribed mailboxes are searched for new messages and the results are displayed in a single mailbox.
     </para>
 </entry>
-  <entry id="virtual_trash" state="new">
+
+<entry id="virtual_trash" state="new">
     <title>Virtual Folders: Virtual Trash</title>
     <para>
     Virtual Trash is a saved search that does away with the need for a separate Trash folder.  Instead of moving messages to a centralized trash folder, messages are simply marked as deleted in the current folder they live in.  When 'show deleted messages' is turned off, this results in these messages not appearing in a mailbox view.  When a user clicks on Virtual Trash, *all* mailboxes all searched for messages that are flagged deleted and these messages are displayed in a single mailbox.
     </para>
 </entry>
+
 </help>

@@ -9,14 +9,18 @@
  * @package Kronolith
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('kronolith');
 
 $viewName = Horde_Util::getFormData('view', 'Event');
 $view = Kronolith::getView($viewName);
-if (is_a($view->event, 'PEAR_Error')) {
+if (is_string($view->event)) {
     $notification->push($view->event, 'horde.error');
-    header('Location: ' . Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true));
-    exit;
+    Horde::url($prefs->getValue('defaultview') . '.php', true)->redirect();
+}
+
+if (Kronolith::showAjaxView()) {
+    Horde::url('', true)->setAnchor('event:' . $view->event->calendarType . '|' . $view->event->calendar . ':' . $view->event->id . ':' . Horde_Util::getFormData('datetime', Kronolith::currentDate()->dateString()))->redirect();
 }
 
 switch ($viewName) {
@@ -25,29 +29,29 @@ case 'DeleteEvent':
     if (!$view->event->recurs() &&
         !($prefs->getValue('confirm_delete') ||
           Horde_Util::getFormData('confirm'))) {
-        header('Location: ' . Horde::applicationUrl('delete.php?' . $_SERVER['QUERY_STRING'], true));
-        exit;
+        Horde::url('delete.php?' . $_SERVER['QUERY_STRING'], true)->redirect();
     }
     break;
 
 case 'EditEvent':
     if ($view->event->private &&
-        $view->event->creator != Horde_Auth::getAuth()) {
+        $view->event->creator != $GLOBALS['registry']->getAuth()) {
         $url = $url = Horde_Util::getFormData('url');
         if (!empty($url)) {
             $url = new Horde_Url($url, true);
         } else {
-            $url = Horde::applicationUrl($prefs->getValue('defaultview') . '.php', true);
+            $url = Horde::url($prefs->getValue('defaultview') . '.php', true);
         }
-        header('Location: ' . $url->add('unique', hash('md5', microtime())));
-        exit;
+        $url->unique()->redirect();
     }
     break;
 }
 
 $title = $view->getTitle();
+$menu = Horde::menu();
 require KRONOLITH_TEMPLATES . '/common-header.inc';
-require KRONOLITH_TEMPLATES . '/menu.inc';
+echo $menu;
+$notification->notify(array('listeners' => 'status'));
 
 echo '<div id="page">';
 Kronolith::eventTabs($viewName, $view->event);

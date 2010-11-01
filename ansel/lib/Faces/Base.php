@@ -7,7 +7,9 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  * @author  Duck <duck@obala.net>
- * @package Ansel
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  Ansel
  */
 class Ansel_Faces_Base
 {
@@ -35,16 +37,19 @@ class Ansel_Faces_Base
      *
      * @return mixed  Array of face data
      */
-    public function getFaces(&$image)
+    public function getFaces($image)
     {
         if ($image instanceof Ansel_Image) {
             // First check if screen view exists
             $image->load('screen');
 
             // Make sure we have an on-disk copy of the file.
-            $file = $GLOBALS['ansel_vfs']->readFile($image->getVFSPath('screen'),
+            $file = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->readFile($image->getVFSPath('screen'),
                                                     $image->getVFSName('screen'));
-        } elseif (empty($file) || !is_string($image)) {
+        } else {
+            $file = $image;
+        }
+        if (empty($file)) {
               return array();
         }
 
@@ -87,13 +92,12 @@ class Ansel_Faces_Base
             $sql .= ', gallery_id, face_x1, face_y1, face_x2, face_y2';
         }
         $sql .= ' FROM ansel_faces WHERE image_id = ' . (int)$image_id
-                . ' ORDER BY face_id DESC';
+            . ' ORDER BY face_id DESC';
 
-       Horde::logMessage('SQL Query by Ansel_Faces::getImageFacesData: ' . $sql,
-                         __FILE__, __LINE__, PEAR_LOG_DEBUG);
+       Horde::logMessage('SQL Query by Ansel_Faces::getImageFacesData: ' . $sql, 'DEBUG');
        $result = $GLOBALS['ansel_db']->query($sql);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
+            throw new Horde_Exception_Prior($result);
         } elseif ($result->numRows() == 0) {
             return array();
         }
@@ -129,11 +133,11 @@ class Ansel_Faces_Base
     public function getGalleryFaces($gallery)
     {
         $sql = 'SELECT face_id, image_id, gallery_id, face_name FROM ansel_faces '
-               . ' WHERE gallery_id = ' . (int)$gallery . ' ORDER BY face_id DESC';
+            . ' WHERE gallery_id = ' . (int)$gallery . ' ORDER BY face_id DESC';
 
         $result = $GLOBALS['ansel_db']->query($sql);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
+            throw new Horde_Exception_Prior($result);
         } elseif ($result->numRows() == 0) {
             return array();
         }
@@ -165,8 +169,8 @@ class Ansel_Faces_Base
         // should be encapsulated by the shares driver and not parsed from
         // an internally generated query string fragment. Will need to split
         // this out into two seperate operations somehow.
-        $share = substr($GLOBALS['ansel_storage']->shares->_getShareCriteria(
-            Horde_Auth::getAuth(), Horde_Perms::READ), 5);
+        $share = substr($GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->shares->getShareCriteria(
+            $GLOBALS['registry']->getAuth(), Horde_Perms::READ), 5);
 
         $sql = 'SELECT f.face_id, f.gallery_id, f.image_id, f.face_name FROM ansel_faces f, '
                 . str_replace('WHERE', 'WHERE (', $share)
@@ -177,7 +181,7 @@ class Ansel_Faces_Base
         $GLOBALS['ansel_db']->setLimit($count, $from);
         $result = $GLOBALS['ansel_db']->query($sql);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
+            throw new Horde_Exception_Prior($result);
         } elseif ($result->numRows() == 0) {
             return array();
         }
@@ -185,9 +189,9 @@ class Ansel_Faces_Base
         $faces = array();
         while ($face = $result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
             $faces[$face['face_id']] = array('face_name' => $face['face_name'],
-                                            'face_id' => $face['face_id'],
-                                            'gallery_id' => $face['gallery_id'],
-                                            'image_id' => $face['image_id']);
+                                             'face_id' => $face['face_id'],
+                                             'gallery_id' => $face['gallery_id'],
+                                             'image_id' => $face['image_id']);
         }
 
         return $faces;
@@ -197,20 +201,28 @@ class Ansel_Faces_Base
      * Count faces
      *
      * @param array $info Array of select criteria
+     *
+     * @return integer  The count of faces
+     * @throws Ansel_Exception
      */
     protected function _countFaces($info)
     {
         // add gallery permission
         // FIXME: Ditto on the REALLY ugly hack comment from above!
-        $share = substr($GLOBALS['ansel_storage']->shares->_getShareCriteria(
-            Horde_Auth::getAuth(), Horde_Perms::READ), 5);
+        $share = substr($GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->shares->getShareCriteria(
+            $GLOBALS['registry']->getAuth(), Horde_Perms::READ), 5);
 
         $sql = 'SELECT COUNT(*) FROM ansel_faces f, '
                 . str_replace('WHERE', 'WHERE (', $share)
                 . ' ) AND f.gallery_id = s.share_id'
                 . (isset($info['filter']) ? ' AND ' . $info['filter'] : '');
 
-        return $GLOBALS['ansel_db']->queryOne($sql);
+        $result = $GLOBALS['ansel_db']->queryOne($sql);
+        if ($result instanceof PEAR_Error) {
+            throw new Ansel_Exception($result);
+        }
+
+        return $result;
     }
 
     /**
@@ -248,9 +260,10 @@ class Ansel_Faces_Base
     {
         $info = array(
             'filter' => 's.share_owner = ' . $GLOBALS['ansel_db']->quote($owner),
-            'order' => 'f.face_id DESC');
+            'order' => 'f.face_id DESC'
+        );
 
-        if (!Horde_Auth::getAuth() || $owner != Horde_Auth::getAuth()) {
+        if (!$GLOBALS['registry']->getAuth() || $owner != $GLOBALS['registry']->getAuth()) {
             $info['filter'] .= ' AND s.gallery_passwd IS NULL';
         }
 
@@ -278,7 +291,7 @@ class Ansel_Faces_Base
     public function countOwnerFaces($owner)
     {
         $info = array('filter' => 's.share_owner = ' . $GLOBALS['ansel_db']->quote($owner));
-        if (!Horde_Auth::getAuth() || $owner != Horde_Auth::getAuth()) {
+        if (!$GLOBALS['registry']->getAuth() || $owner != $GLOBALS['registry']->getAuth()) {
             $info['filter'] .= ' AND s.gallery_passwd IS NULL';
         }
 
@@ -334,13 +347,12 @@ class Ansel_Faces_Base
     {
         $vfspath = Ansel_Faces::getVFSPath($image_id) . 'faces';
         $vfsname = $face_id . Ansel_Faces::getExtension();
-        if (!$GLOBALS['ansel_vfs']->exists($vfspath, $vfsname)) {
+        if (!$GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->exists($vfspath, $vfsname)) {
             if (!$create) {
                 return false;
             }
             $data = $this->getFaceById($face_id, true);
-
-            $image = &$GLOBALS['ansel_storage']->getImage($image_id);
+            $image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($image_id);
 
             // Actually create the image.
             $this->createView(
@@ -376,11 +388,12 @@ class Ansel_Faces_Base
         $vfspath = Ansel_Faces::getVFSPath($face['image_id']) . 'faces';
         $vfsname = $face_id . Ansel_Faces::getExtension();
         $img = Ansel::getImageObject();
-        $data = $GLOBALS['ansel_vfs']->read($vfspath, $vfsname);
-        if ($data instanceof PEAR_Error) {
-            throw new Horde_Exception($data);
+        try {
+            $data = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->read($vfspath, $vfsname);
+        } catch (VFS_Exception $e) {
+            throw new Horde_Exception_Prior($e);
         }
-        $img->loadString($face_id, $data);
+        $img->loadString($data);
 
         return $img;
     }
@@ -408,8 +421,7 @@ class Ansel_Faces_Base
 
         // If not viewing directly out of the VFS, hand off to img.php
         if ($conf['vfs']['src'] != 'direct') {
-            return Horde::applicationUrl(
-                Horde_Util::addParameter('faces/img.php', 'face', $face_id), $full);
+            return Horde::url('faces/img.php', $full)->add('face', $face_id);
         } else {
             $path = substr(str_pad($image_id, 2, 0, STR_PAD_LEFT), -2) . '/faces';
             return $GLOBALS['conf']['vfs']['path'] . htmlspecialchars($path . '/' . $face_id . Ansel_Faces::getExtension());
@@ -429,22 +441,21 @@ class Ansel_Faces_Base
      * @param string  $name      Face name
      *
      * @return array Faces found
-     * @throws Horde_Exception
+     * @throws Ansel_Exception, Horde_Exception_PermissionDenied
      */
     public function saveCustomFace($face_id, $image, $x1, $y1, $x2, $y2, $name = '')
     {
-        $image = &$GLOBALS['ansel_storage']->getImage($image);
-        $gallery = $GLOBALS['ansel_storage']->getGallery($image->gallery);
-        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
-            //TODO: Do we throw exceptions for access denied?
-            throw new Horde_Exception('Access denied editing the photo.');
+        $image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($image);
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($image->gallery);
+        if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
+            throw new Horde_Exception_PermissionDenied('Access denied editing the photo.');
         }
 
         if (empty($face_id)) {
             $new = true;
             $face_id = $GLOBALS['ansel_db']->nextId('ansel_faces');
             if ($face_id instanceof PEAR_Error) {
-                throw new Horde_Exception($face_id);
+                throw new Ansel_Exception($face_id);
             }
         }
 
@@ -453,15 +464,14 @@ class Ansel_Faces_Base
 
         // Process the image
         $this->createView($face_id,
-                                    $image,
-                                    $x1,
-                                    $y1,
-                                    $x2,
-                                    $y2);
+                          $image,
+                          $x1,
+                          $y1,
+                          $x2,
+                          $y2);
 
         // Clean up as images are static and all gallery images data will remain in memory
         $image->reset();
-
 
         // Store face id db
         if (empty($new)) {
@@ -490,12 +500,12 @@ class Ansel_Faces_Base
 
         $q = $GLOBALS['ansel_db']->prepare($sql, null, MDB2_PREPARE_MANIP);
         if ($q instanceof PEAR_Error) {
-            throw new Horde_Exception($q);
+            throw new Horde_Exception_Prior($q);
         }
         $result = $q->execute($params);
         $q->free();
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
+            throw new Horde_Exception_Prior($result);
         }
 
         // Update gallery and image counts
@@ -517,15 +527,17 @@ class Ansel_Faces_Base
      * @param boolen $create Create images or store data?
      *
      * @return array Faces found
+     * @throws Horde_Exception_PermissionDenied
+     * @throws Ansel_Exception
      */
-    public function getFromPicture(&$image, $create = false)
+    public function getFromPicture($image, $create = false)
     {
         // get image if ID is passed
-        if (!is_a($image, 'Ansel_Image')) {
-            $image = &$GLOBALS['ansel_storage']->getImage($image);
-            $gallery = $GLOBALS['ansel_storage']->getGallery($image->gallery);
-            if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
-                throw new Horde_Exception('Access denied editing the photo.');
+        if (!($image instanceof Ansel_Image)) {
+            $image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage($image);
+            $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($image->gallery);
+            if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
+                throw new Horde_Exception_PermissionDenied('Access denied editing the photo.');
             }
         }
 
@@ -536,7 +548,7 @@ class Ansel_Faces_Base
         }
 
         // Clean up any existing faces we may have had in this image.
-        $result = Ansel_Faces::delete($image);
+        Ansel_Faces::delete($image);
 
         // Process faces
         $fids = array();
@@ -544,7 +556,7 @@ class Ansel_Faces_Base
             // Create Face id
             $face_id = $GLOBALS['ansel_db']->nextId('ansel_faces');
             if ($face_id instanceof PEAR_Error) {
-                throw new Horde_Exception($face_id);
+                throw new Ansel_Exception($face_id);
             }
 
             // Store face id db
@@ -556,16 +568,15 @@ class Ansel_Faces_Base
 
             $q = $GLOBALS['ansel_db']->prepare($sql, null, MDB2_PREPARE_MANIP);
             if ($q instanceof PEAR_Error) {
-                throw new Horde_Exception($q);
+                throw new Ansel_Exception($q);
             }
             $result = $q->execute($params);
             $q->free();
             if ($result instanceof PEAR_Error) {
-                throw new Horde_Exception($result);
+                throw new Ansel_Exception($result);
             }
             if ($create) {
-                // Process image
-                $result = $this->_createView($face_id, $image, $rect);
+                $this->_createView($face_id, $image, $rect);
                 // Clear any loaded views to save on memory usage.
                 $image->reset();
                 $this->saveSignature($image->id, $face_id);
@@ -579,7 +590,7 @@ class Ansel_Faces_Base
 
         // Expire gallery cache
         if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-            $GLOBALS['cache']->expire('Ansel_Gallery' . $gallery->id);
+            $GLOBALS['injector']->getInstance('Horde_Cache')->expire('Ansel_Gallery' . $gallery->id);
         }
 
         return $fids;
@@ -588,34 +599,38 @@ class Ansel_Faces_Base
     /**
      * Create a face image from the given data.
      *
-     * @param integer $face_id   Face id to generate
-     * @param integer $image     Image face belongs to
-     * @param integer $x1        The top left corner of the cropped image.
-     * @param integer $y1        The top right corner of the cropped image.
-     * @param integer $x2        The bottom left corner of the cropped image.
-     * @param integer $y2        The bottom right corner of the cropped image.
+     * @param integer $face_id    Face id to generate
+     * @param Ansel_Image $image  Image face belongs to
+     * @param integer $x1         The top left corner of the cropped image.
+     * @param integer $y1         The top right corner of the cropped image.
+     * @param integer $x2         The bottom left corner of the cropped image.
+     * @param integer $y2         The bottom right corner of the cropped image.
      *
      * @return integer the face id
      */
-    public function createView($face_id, &$image, $x1, $y1, $x2, $y2)
+    public function createView($face_id, $image, $x1, $y1, $x2, $y2)
     {
         // Make sure screen view is created and loaded
         $image->load('screen');
 
         // Crop to the face
         try {
-            $result = $image->_image->crop($x1, $y1, $x2, $y2);
+            $result = $image->getHordeImage()->crop($x1, $y1, $x2, $y2);
         } catch (Horde_Image_Exception $e) {
             throw new Horde_Exception($e->getMessage());
         }
         // Resize and save
         $ext = Ansel_Faces::getExtension();
         $path = Ansel_Faces::getVFSPath($image->id);
-        $image->_image->resize(50, 50, false);
-        $result = $GLOBALS['ansel_vfs']->writeData($path . 'faces', $face_id . $ext,
-                                                   $image->_image->raw(), true);
-        if (is_a($result, 'PEAR_Error')) {
-            throw new Horde_Exception($result);
+        $image->getHordeImage()->resize(50, 50, false);
+        try {
+            $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->writeData(
+                $path . 'faces',
+                $face_id . $ext,
+                $image->getHordeImage()->raw(),
+                true);
+        } catch (VFS_Exception $e) {
+            throw new Horde_Exception_Prior($e);
         }
 
         return $face_id;
@@ -639,8 +654,9 @@ class Ansel_Faces_Base
         }
 
         // Ensure we have an on-disk file to read the signature from.
-        $path  = $GLOBALS['ansel_vfs']->readFile(Ansel_Faces::getVFSPath($image_id) . '/faces',
-                                                 $face_id . Ansel_Faces::getExtension());
+        $path  = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create('images')->readFile(
+            Ansel_Faces::getVFSPath($image_id) . '/faces',
+            $face_id . Ansel_Faces::getExtension());
 
         $signature = puzzle_fill_cvec_from_file($path);
         if (empty($signature)) {
@@ -651,12 +667,12 @@ class Ansel_Faces_Base
         $params = array(puzzle_compress_cvec($signature), $face_id);
         $q = $GLOBALS['ansel_db']->prepare($sql, null, MDB2_PREPARE_MANIP);
         if ($q instanceof PEAR_Error) {
-            throw new Horde_Exception($q);
+            throw new Horde_Exception_Prior($q);
         }
         $result = $q->execute($params);
         $q->free();
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
+            throw new Horde_Exception_Prior($result);
         }
 
         // create index
@@ -673,7 +689,7 @@ class Ansel_Faces_Base
         $GLOBALS['ansel_db']->exec('DELETE FROM ansel_faces_index WHERE face_id = ' . $face_id);
         $q = &$GLOBALS['ansel_db']->prepare('INSERT INTO ansel_faces_index (face_id, index_position, index_part) VALUES (?, ?, ?)');
         if ($q instanceof PEAR_Error) {
-            throw new Horde_Exception($q);
+            throw new Horde_Exception_Prior($q);
         }
 
         $GLOBALS['ansel_db']->loadModule('Extended');
@@ -714,8 +730,8 @@ class Ansel_Faces_Base
      */
     public function getFromGallery($gallery_id, $create = false, $force = false)
     {
-        $gallery = $GLOBALS['ansel_storage']->getGallery($gallery_id);
-        if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($gallery_id);
+        if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             throw new Horde_Exception(sprintf("Access denied editing gallery \"%s\".", $gallery->get('name')));
         }
 
@@ -745,10 +761,9 @@ class Ansel_Faces_Base
     {
         $sql = 'UPDATE ansel_faces SET face_name = ? WHERE face_id = ?';
         $params = array($name, $face);
-
         $q = $GLOBALS['ansel_db']->prepare($sql, null, MDB2_PREPARE_MANIP);
         if ($q instanceof PEAR_Error) {
-            throw new Horde_Exception($q);
+            throw new Horde_Exception_Prior($q);
         }
 
         return $q->execute($params);
@@ -769,26 +784,25 @@ class Ansel_Faces_Base
         $sql .= ' FROM ansel_faces WHERE face_id = ?';
         $q = $GLOBALS['ansel_db']->prepare($sql);
         if ($q instanceof PEAR_Error) {
-            throw new Horde_Exception($q);
+            throw new Horde_Exception_Prior($q);
         }
 
         $result = $q->execute((int)$face_id);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
+            throw new Horde_Exception_Prior($result);
         } elseif ($result->numRows() == 0) {
            throw new Horde_Exception('Face does not exist');
         }
 
         $face = $result->fetchRow(MDB2_FETCHMODE_ASSOC);
-        if (is_a($face, 'PEAR_Error')) {
-            throw new Horde_Exception($face);
+        if ($face instanceof PEAR_Error) {
+            throw new Horde_Exception_Prior($face);
         }
 
         // Always return the face_id
         $face['face_id'] = $face_id;
 
-        if ($full && $GLOBALS['conf']['faces']['search'] &&
-            function_exists('puzzle_uncompress_cvec')) {
+        if ($full && $GLOBALS['conf']['faces']['search'] && function_exists('puzzle_uncompress_cvec')) {
             $face['face_signature'] = puzzle_uncompress_cvec($face['face_signature']);
         }
 
@@ -800,7 +814,7 @@ class Ansel_Faces_Base
         $sql = 'SELECT gallery_id, image_id FROM ansel_faces WHERE face_name = ' . $GLOBALS['ansel_db']->quote($face['face_name']);
         $result = $GLOBALS['ansel_db']->query($sql);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
+            throw new Horde_Exception_Prior($result);
         } elseif ($result->numRows() == 0) {
             throw new Horde_Exception('Face does not exist');
         }
@@ -832,8 +846,7 @@ class Ansel_Faces_Base
             $indexes[] = '(index_position = '
                 . $GLOBALS['ansel_db']->quote($i, 'integer')
                 . ' AND index_part = '
-                . $GLOBALS['ansel_db']->quote(
-                    substr($signature, $i * $word_len, $word_len))
+                . $GLOBALS['ansel_db']->quote(substr($signature, $i * $word_len, $word_len))
                 . ')';
         }
 
@@ -854,7 +867,7 @@ class Ansel_Faces_Base
 
         $result = $GLOBALS['ansel_db']->query($sql);
         if ($result instanceof PEAR_Error) {
-            throw new Horde_Exception($result);
+            throw new Horde_Exception_Prior($result);
         } elseif ($result->numRows() == 0) {
             return array();
         }
@@ -868,7 +881,8 @@ class Ansel_Faces_Base
                 'image_id' => $face['image_id'],
                 'similarity' => puzzle_vector_normalized_distance(
                     $signature,
-                    puzzle_uncompress_cvec($face['face_signature'])));
+                    puzzle_uncompress_cvec($face['face_signature']))
+            );
         }
         uasort($faces, array($this, '_getSignatureMatches'));
 

@@ -3,12 +3,17 @@
  * IMP application API.
  *
  * This file defines Horde's core API interface. Other core Horde libraries
- * can interact with Horde through this API.
+ * can interact with IMP through this API.
+ *
+ * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @package IMP
+ * @author   Michael Slusarz <slusarz@curecanti.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  IMP
  */
 
 /* Determine the base directories. */
@@ -33,6 +38,13 @@ require_once HORDE_BASE . '/lib/core.php';
 class IMP_Application extends Horde_Registry_Application
 {
     /**
+     * Does this application support an ajax view?
+     *
+     * @var boolean
+     */
+    public $ajaxView = true;
+
+    /**
      * Does this application support a mobile view?
      *
      * @var boolean
@@ -47,192 +59,98 @@ class IMP_Application extends Horde_Registry_Application
     public $version = 'H4 (5.0-git)';
 
     /**
-     * Disable compression of pages?
-     *
-     * @var boolean
-     */
-    protected $_noCompress = false;
-
-    /**
-     * The auth type to use.
-     *
-     * @var string
-     */
-    static public $authType = null;
-
-    /**
-     * Cached data for prefs pages.
-     *
-     * @var array
-     */
-    static public $prefsCache = array();
-
-    /**
-     * Has init previously been called?
-     *
-     * @var boolean
-     */
-    static protected $_init = false;
-
-    /**
      * Constructor.
-     *
-     * @param array $args  The following entries:
-     * <pre>
-     * 'init' - (boolean|array) If true, perform application init. If an
-     *          array, perform application init and pass the array to
-     *          self::_impInit().
-     * 'tz' - (boolean) If true, sets the current time zone on the server.
-     * </pre>
      */
-    public function __construct($args = array())
+    public function __construct()
     {
-        if (!empty($args['init'])) {
-            $this->_impInit(is_array($args['init']) ? $args['init'] : array());
-        }
-
-        if (!empty($args['tz'])) {
-            Horde_Nls::setTimeZone();
-        }
-
-        /* Only available if admin config is set for this server/login. */
-        if (empty($_SESSION['imp']['admin'])) {
+        /* Methods only available if admin config is set for this
+         * server/login. */
+        if (!$GLOBALS['session']['imp:imap_admin']) {
             $this->disabled = array_merge($this->disabled, array('authAddUser', 'authRemoveUser', 'authUserList'));
         }
     }
 
     /**
-     * IMP base initialization.
+     * Application-specific code to run if application auth fails.
      *
-     * Global variables defined:
-     *   $imp_imap     - An IMP_Imap object
-     *   $imp_mbox     - Current mailbox information
-     *   $imp_notify   - A Horde_Notification_Listener object
-     *   $imp_search   - An IMP_Search object
-     *   $notification - Notification object
-     *   $registry     - Registry object
-     *
-     * Global constants defined:
-     *   IMP_TEMPLATES - (string) Location of template files.
-     *
-     * @param array $args  Optional arguments:
-     * <pre>
-     * 'authentication' - (string) The type of authentication to use:
-     *   'horde' - Only use horde authentication
-     *   'none'  - Do not authenticate
-     *   'throw' - Authenticate to IMAP/POP server; on no auth, throw a
-     *             Horde_Exception
-     *   [DEFAULT] - Authenticate to IMAP/POP server; on no auth redirect to
-     *               login screen
-     * 'nocompress' - (boolean) Controls whether the page should be
-     *                 compressed.
-     * 'session_control' - (string) Sets special session control limitations:
-     *   'netscape' - TODO; start read/write session
-     *   'none' - Do not start a session
-     *   'readonly' - Start session readonly
-     *   [DEFAULT] - Start read/write session
-     * </pre>
+     * @param Horde_Exception $e  The exception object.
      */
-    protected function _impInit($args = array())
+    public function appInitFailure($e)
     {
-        $args = array_merge(array(
-            'authentication' => null,
-            'nocompress' => false,
-            'session_control' => null
-        ), $args);
-
-        self::$authType = $args['authentication'];
-        $this->_noCompress = $args['nocompress'];
-
-        // Registry.
-        $s_ctrl = 0;
-        switch ($args['session_control']) {
-        case 'netscape':
-            if ($GLOBALS['browser']->isBrowser('mozilla')) {
-                session_cache_limiter('private, must-revalidate');
-            }
-            break;
-
-        case 'none':
-            $s_ctrl = Horde_Registry::SESSION_NONE;
-            break;
-
-        case 'readonly':
-            $s_ctrl = Horde_Registry::SESSION_READONLY;
-            break;
+        if (($e->getCode() == Horde_Registry::AUTH_FAILURE) &&
+            Horde_Util::getFormData('composeCache')) {
+            $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Compose')->create()->sessionExpireDraft(Horde_Variables::getDefaultVariables());
         }
-        $GLOBALS['registry'] = Horde_Registry::singleton($s_ctrl);
-
-        try {
-            $GLOBALS['registry']->pushApp('imp', array('check_perms' => ($args['authentication'] != 'none'), 'logintasks' => true));
-        } catch (Horde_Exception $e) {
-            if ($e->getCode() == Horde_Registry::AUTH_FAILURE) {
-                if (Horde_Util::getFormData('composeCache')) {
-                    $imp_compose = IMP_Compose::singleton();
-                    $imp_compose->sessionExpireDraft();
-                }
-
-                if ($args['authentication'] == 'throw') {
-                    throw $e;
-                }
-            }
-
-            Horde_Auth::authenticateFailure('imp', $e);
-        }
-
-        $this->init();
     }
 
     /**
      * Initialization function.
      */
-    public function init()
+    protected function _init()
     {
-        if (self::$_init) {
-            return;
+        /* Add IMP-specific factories. */
+        $factories = array(
+            'IMP_AuthImap' => 'IMP_Injector_Factory_AuthImap',
+            'IMP_Crypt_Pgp' => 'IMP_Injector_Factory_Pgp',
+            'IMP_Crypt_Smime' => 'IMP_Injector_Factory_Smime',
+            'IMP_Identity' => 'IMP_Injector_Factory_Identity',
+            'IMP_Imap_Tree' => 'IMP_Injector_Factory_Imaptree',
+            'IMP_Mail' => 'IMP_Injector_Factory_Mail',
+            'IMP_Quota' => 'IMP_Injector_Factory_Quota',
+            'IMP_Search' => 'IMP_Injector_Factory_Search',
+            'IMP_Sentmail' => 'IMP_Injector_Factory_Sentmail'
+        );
+
+        foreach ($factories as $key => $val) {
+            $GLOBALS['injector']->bindFactory($key, $val, 'create');
         }
 
-        if (!defined('IMP_TEMPLATES')) {
-            $registry = Horde_Registry::singleton();
-            define('IMP_TEMPLATES', $registry->get('templates'));
-        }
-
-        // Start compression.
-        if (!$this->_noCompress) {
-            Horde::compressOutput();
-        }
-
-        // Initialize global $imp_imap object.
-        if (!isset($GLOBALS['imp_imap'])) {
-            $GLOBALS['imp_imap'] = new IMP_Imap();
-        }
-
-        // Initialize some message parsing variables.
-        Horde_Mime::$brokenRFC2231 = !empty($GLOBALS['conf']['mailformat']['brokenrfc2231']);
-
-        // Set default message character set, if necessary
+        // Set default message character set.
         if ($def_charset = $GLOBALS['prefs']->getValue('default_msg_charset')) {
             Horde_Mime_Part::$defaultCharset = $def_charset;
             Horde_Mime_Headers::$defaultCharset = $def_charset;
         }
 
-        $GLOBALS['notification'] = Horde_Notification::singleton();
-        $viewmode = IMP::getViewMode();
-
-        if ($viewmode == 'mimp') {
-            $GLOBALS['imp_notify'] = $GLOBALS['notification']->attach('status', null, 'IMP_Notification_Listener_StatusMobile');
-        } else {
-            $GLOBALS['imp_notify'] = $GLOBALS['notification']->attach('status', array('viewmode' => $viewmode), 'IMP_Notification_Listener_Status');
-            if ($viewmode == 'imp') {
-                $GLOBALS['notification']->attach('audio');
-            }
-        }
-
-        // Initialize global $imp_mbox array. This call also initializes the
-        // IMP_Search object.
         IMP::setCurrentMailboxInfo();
 
-        self::$_init = true;
+        $GLOBALS['notification']->addDecorator(new IMP_Notification_Handler_Decorator_Imap());
+        $GLOBALS['notification']->addType('status', 'imp.*', 'IMP_Notification_Event_Status');
+
+        $redirect = false;
+
+        switch (IMP::getViewMode()) {
+        case 'dimp':
+            $redirect = (!empty($this->initParams['impmode']) &&
+                         ($this->initParams['impmode'] != 'dimp'));
+            $GLOBALS['notification']->addType('status', 'dimp.*', 'IMP_Notification_Event_Status');
+            break;
+
+        case 'mimp':
+            $redirect = (empty($this->initParams['impmode']) ||
+                         ($this->initParams['impmode'] != 'mimp'));
+            break;
+
+        case 'imp':
+            $redirect = (!empty($this->initParams['impmode']) &&
+                         ($this->initParams['impmode'] != 'imp'));
+            $GLOBALS['notification']->attach('audio');
+            break;
+        }
+
+        if ($redirect && ($GLOBALS['registry']->initialApp == 'imp')) {
+            IMP_Auth::getInitialPage(true)->redirect();
+        }
+    }
+
+    /**
+     * Tasks to perform at logout.
+     */
+    public function logout()
+    {
+        /* Clean up dangling IMP_Compose objects. */
+        foreach (array_keys($GLOBALS['session']['imp:compose_cache;array']) as $key) {
+            $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Compose')->create($key)->destroy('cancel');
+        }
     }
 
     /* Horde permissions. */
@@ -245,62 +163,142 @@ class IMP_Application extends Horde_Registry_Application
     public function perms()
     {
         return array(
-            'tree' => array(
-                'imp' => array(
-                     'create_folders' => false,
-                     'max_folders' => false,
-                     'max_recipients' => false,
-                     'max_timelimit' => false,
-                 ),
+            'create_folders' => array(
+                'title' => _("Allow Folder Creation?"),
+                'type' => 'boolean'
             ),
-            'title' => array(
-                'imp:create_folders' => _("Allow Folder Creation?"),
-                'imp:max_folders' => _("Maximum Number of Folders"),
-                'imp:max_recipients' => _("Maximum Number of Recipients per Message"),
-                'imp:max_timelimit' => _("Maximum Number of Recipients per Time Period"),
+            'max_folders' => array(
+                'title' => _("Maximum Number of Folders"),
+                'type' => 'int'
             ),
-            'type' => array(
-                'imp:create_folders' => 'boolean',
-                'imp:max_folders' => 'int',
-                'imp:max_recipients' => 'int',
-                'imp:max_timelimit' => 'int',
+            'max_recipients' => array(
+                'title' => _("Maximum Number of Recipients per Message"),
+                'type' => 'int'
+            ),
+            'max_timelimit' => array(
+                'title' => _("Maximum Number of Recipients per Time Period"),
+                'type' => 'int'
             )
         );
     }
 
     /**
-     * Returns the specified permission for the current user.
+     * Returns the specified permission for the given app permission.
      *
-     * @param mixed $allowed  The allowed permissions.
-     * @param array $opts     Additinal options ('value').
+     * @param string $permission  The permission to check.
+     * @param mixed $allowed      The allowed permissions.
+     * @param array $opts         Additional options ('value').
      *
      * @return mixed  The value of the specified permission.
      */
-    public function hasPermission($allowed, $opts = array())
+    public function hasPermission($permission, $allowed, $opts = array())
     {
-        if (is_array($allowed)) {
-            switch ($permission) {
-            case 'create_folders':
-                $allowed = (bool)count(array_filter($allowed));
-                break;
+        switch ($permission) {
+        case 'create_folders':
+            $allowed = (bool)count(array_filter($allowed));
+            break;
 
-            case 'max_folders':
-            case 'max_recipients':
-            case 'max_timelimit':
-                $allowed = max($allowed);
-                break;
+        case 'max_folders':
+            $allowed = max($allowed);
+            if (empty($opts['value'])) {
+                return ($allowed > count($GLOBALS['injector']->getInstance('IMP_Folder')->flist_IMP(array(), false)));
             }
-        }
+            break;
 
-        if (($permission == 'max_folders') && empty($opts['value'])) {
-            $folder = IMP_Folder::singleton();
-            $allowed = $allowed > count($folder->flist_IMP(array(), false));
+        case 'max_recipients':
+        case 'max_timelimit':
+            $allowed = max($allowed);
+            break;
         }
 
         return $allowed;
     }
 
-    /* Horde_Auth_Application methods. */
+    /* Menu methods. */
+
+    /**
+     * Add additional items to the menu.
+     *
+     * @param Horde_Menu $menu  The menu object.
+     */
+    public function menu($menu)
+    {
+        global $conf, $injector, $prefs, $registry;
+
+        $menu_mailbox_url = Horde::url('mailbox.php');
+
+        $menu->addArray(array(
+            'icon' => 'folders/inbox.png',
+            'text' => _("_Inbox"),
+            'url' => IMP::generateIMPUrl($menu_mailbox_url, 'INBOX')
+        ));
+
+        if ($GLOBALS['session']['imp:protocol'] != 'pop') {
+            if ($prefs->getValue('use_trash') &&
+                ($trash_folder = $prefs->getValue('trash_folder')) &&
+                $prefs->getValue('empty_trash_menu')) {
+                $imp_search = $injector->getInstance('IMP_Search');
+                $trash_folder = IMP::folderPref($trash_folder, true);
+
+                if ($injector->getInstance('IMP_Search')->isVTrash($trash_folder) ||
+                    !$injector->getInstance('IMP_Injector_Factory_Imap')->create()->isReadOnly($trash_folder)) {
+                    $menu->addArray(array(
+                        'class' => '__noselection',
+                        'icon' => 'empty_trash.png',
+                        'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash folder?"), Horde_Serialize::JSON, 'UTF-8') . ')',
+                        'text' => _("Empty _Trash"),
+                        'url' => IMP::generateIMPUrl($menu_mailbox_url, $trash_folder)->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => Horde::getRequestToken('imp.mailbox')))
+                    ));
+                }
+            }
+
+            $spam_folder = $prefs->getValue('spam_folder');
+            if (!empty($spam_folder) &&
+                $prefs->getValue('empty_spam_menu')) {
+                $menu->addArray(array(
+                    'class' => '__noselection',
+                    'icon' =>  'empty_spam.png',
+                    'onclick' => 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to empty your trash folder?"), Horde_Serialize::JSON, 'UTF-8') . ')',
+                    'text' => _("Empty _Spam"),
+                    'url' => IMP::generateIMPUrl($menu_mailbox_url, IMP::folderPref($spam_folder, true))->add(array('actionID' => 'empty_mailbox', 'mailbox_token' => Horde::getRequestToken('imp.mailbox')))
+                ));
+            }
+        }
+
+        if (IMP::canCompose()) {
+            $menu->addArray(array(
+                'icon' => 'compose.png',
+                'text' => _("_New Message"),
+                'url' => IMP::composeLink(array('mailbox' => IMP::$mailbox))
+            ));
+        }
+
+        if ($conf['user']['allow_folders']) {
+            $menu->addArray(array(
+                'icon' => 'folders/folder.png',
+                'text' => _("_Folders"),
+                'url' => Horde::url('folders.php')->unique()
+            ));
+        }
+
+        if ($GLOBALS['session']['imp:protocol'] != 'pop') {
+            $menu->addArray(array(
+                'icon' => 'search.png',
+                'text' =>_("_Search"),
+                'url' => Horde::url('search.php')
+            ));
+        }
+
+        if ($prefs->getValue('filter_menuitem')) {
+            $menu->addArray(array(
+                'icon' => 'filters.png',
+                'text' => _("Fi_lters"),
+                'url' => Horde::url('filterprefs.php')
+            ));
+        }
+    }
+
+    /* Horde_Core_Auth_Application methods. */
 
     /**
      * Return login parameters used on the login page.
@@ -329,20 +327,17 @@ class IMP_Application extends Horde_Registry_Application
         }
 
         /* Show selection of alternate views. */
-        if (empty($GLOBALS['conf']['user']['select_view'])) {
-            $view_cookie = empty($conf['user']['force_view'])
-                ? 'imp'
-                : $conf['user']['force_view'];
-        } else {
-            $views = array();
+        $js_code = array(
+            'ImpLogin.server_key_error' => _("Please choose a mail server.")
+        );
+        if (!empty($GLOBALS['conf']['user']['select_view'])) {
             if (!($view_cookie = Horde_Util::getFormData('imp_select_view'))) {
-                if (isset($_COOKIE['default_imp_view'])) {
-                    $view_cookie = $_COOKIE['default_imp_view'];
-                } else {
-                    $browser = Horde_Browser::singleton();
-                    $view_cookie = $browser->isMobile() ? 'mimp' : 'imp';
-                }
+                $view_cookie = isset($_COOKIE['default_imp_view'])
+                    ? $_COOKIE['default_imp_view']
+                    : ($GLOBALS['browser']->isMobile() ? 'mimp' : 'imp');
             }
+
+            $js_code['-ImpLogin.dimp_sel'] = intval($view_cookie == 'dimp');
 
             $params['imp_select_view'] = array(
                 'label' => _("Mode"),
@@ -358,7 +353,7 @@ class IMP_Application extends Horde_Registry_Application
                         // Dimp selected is handled by javascript (dimp_sel)
                     ),
                     'mimp' => array(
-                        'name' => _("Minimalist"),
+                        'name' => _("Mobile"),
                         'selected' => $view_cookie == 'mimp'
                     )
                 )
@@ -366,14 +361,10 @@ class IMP_Application extends Horde_Registry_Application
         }
 
         return array(
-            'js_code' => array(
-                'ImpLogin.dimp_sel=' . intval($view_cookie == 'dimp'),
-                'ImpLogin.server_key_error=' . Horde_Serialize::serialize(_("Please choose a mail server."), Horde_Serialize::JSON)
-            ),
+            'js_code' => $js_code,
             'js_files' => array(
                 array('login.js', 'imp')
             ),
-            'nosidebar' => ($view_cookie != 'imp'),
             'params' => $params
         );
     }
@@ -390,7 +381,7 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function authAuthenticate($userId, $credentials)
     {
-        $this->_impInit(array('authentication' => 'none'));
+        $this->init();
 
         $new_session = IMP_Auth::authenticate(array(
             'password' => $credentials['password'],
@@ -399,7 +390,7 @@ class IMP_Application extends Horde_Registry_Application
         ));
 
         if ($new_session) {
-            $_SESSION['imp']['cache']['select_view'] = empty($credentials['imp_select_view'])
+            $GLOBALS['session']['imp:select_view'] = empty($credentials['imp_select_view'])
                 ? ''
                 : $credentials['imp_select_view'];
         }
@@ -409,14 +400,14 @@ class IMP_Application extends Horde_Registry_Application
      * Tries to transparently authenticate with the mail server and create a
      * mail session.
      *
-     * @param Horde_Auth_Application $auth_ob  The authentication object.
+     * @param Horde_Core_Auth_Application $auth_ob  The authentication object.
      *
      * @return boolean  Whether transparent login is supported.
      * @throws Horde_Auth_Exception
      */
     public function authTransparent($auth_ob)
     {
-        $this->_impInit(array('authentication' => 'none'));
+        $this->init();
         return IMP_Auth::transparent($auth_ob);
     }
 
@@ -427,8 +418,8 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function authAuthenticateCallback()
     {
-        if (Horde_Auth::getAuth()) {
-            $this->_impInit();
+        if ($GLOBALS['registry']->getAuth()) {
+            $this->init();
             IMP_Auth::authenticateCallback();
         }
     }
@@ -440,21 +431,17 @@ class IMP_Application extends Horde_Registry_Application
      * @param array $credentials  An array of login credentials. For IMAP,
      *                            this must contain a password entry.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function authAddUser($userId, $credentials)
     {
-        $params = $GLOBALS['registry']->callByPackage('imp', 'server');
-        if (is_null($params)) {
-            return;
+        try {
+            $GLOBALS['injector']->getInstance('IMP_AuthImap')->addUser($userId, $credentials);
+        } catch (Horde_Exception $e) {
+            throw new Horde_Auth_Exception($e);
+        } catch (IMP_Exception $e) {
+            throw new Horde_Auth_Exception($e);
         }
-
-        $params = array_merge($params, $_SESSION['imp']['admin']['params']);
-        if (isset($params['admin_password'])) {
-            $params['admin_password'] = Horde_Secret::read(Horde_Secret::getKey('imp'), $params['admin_password']);
-        }
-        $auth = Horde_Auth::singleton('imap', $params);
-        $auth->addUser($userId, $credentials);
     }
 
     /**
@@ -462,608 +449,181 @@ class IMP_Application extends Horde_Registry_Application
      *
      * @param string $userId  The userId to delete.
      *
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function authRemoveUser($userId)
     {
-        $params = $GLOBALS['registry']->callByPackage('imp', 'server');
-        if (is_null($params)) {
-            return;
+        try {
+            $GLOBALS['injector']->getInstance('IMP_AuthImap')->removeUser($userId);
+        } catch (Horde_Exception $e) {
+            throw new Horde_Auth_Exception($e);
+        } catch (IMP_Exception $e) {
+            throw new Horde_Auth_Exception($e);
         }
-
-        $params = array_merge($params, $_SESSION['imp']['admin']['params']);
-        if (isset($params['admin_password'])) {
-            $params['admin_password'] = Horde_Secret::read(Horde_Secret::getKey('imp'), $params['admin_password']);
-        }
-        $auth = Horde_Auth::singleton('imap', $params);
-        $auth->removeUser($userId);
     }
 
     /**
      * Lists all users in the system.
      *
      * @return array  The array of userIds.
-     * @throws Horde_Exception
+     * @throws Horde_Auth_Exception
      */
     public function authUserList()
     {
-        $params = $GLOBALS['registry']->callByPackage('imp', 'server');
-        if (is_null($params)) {
-            return;
+        try {
+            return $GLOBALS['injector']->getInstance('IMP_AuthImap')->listUsers();
+        } catch (Horde_Exception $e) {
+            throw new Horde_Auth_Exception($e);
+        } catch (IMP_Exception $e) {
+            throw new Horde_Auth_Exception($e);
         }
-
-        $params = array_merge($params, $_SESSION['imp']['admin']['params']);
-        if (isset($params['admin_password'])) {
-            $params['admin_password'] = Horde_Secret::read(Horde_Secret::getKey('imp'), $params['admin_password']);
-        }
-        $auth = Horde_Auth::singleton('imap', $params);
-        return $auth->listUsers();
     }
 
-    /* Preferences display/handling methods. */
+    /* Preferences display/handling methods. Code is contained in
+     * IMP_Prefs_Ui so it doesn't have to be loaded on every page load. */
 
     /**
-     * Code to run when viewing prefs for this application.
+     * Populate dynamically-generated preference values.
      *
-     * @param string $group  The prefGroup name.
-     *
-     * @return array  A list of variables to export to the prefs display page.
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
      */
-    public function prefsInit($group)
+    public function prefsEnum($ui)
     {
-        /* Add necessary javascript files here (so they are added to the
-         * document HEAD). */
-        switch ($group) {
-        case 'accounts':
-            Horde::addScriptFile('accountsprefs.js', 'imp');
+        $GLOBALS['injector']->getInstance('IMP_Prefs_Ui')->prefsEnum($ui);
+    }
 
-            Horde::addInlineScript(array(
-                'ImpAccountsPrefs.confirm_delete = ' . Horde_Serialize::serialize(_("Are you sure you want to delete this account?"), Horde_Serialize::JSON, Horde_Nls::getCharset())
-            ));
-            break;
+    /**
+     * Code to run on init when viewing prefs for this application.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     */
+    public function prefsInit($ui)
+    {
+        $GLOBALS['injector']->getInstance('IMP_Prefs_Ui')->prefsInit($ui);
+    }
 
-        case 'addressbooks':
-            $this->_prefsPrepareSourceselect();
-            break;
-
-        case 'display':
-            /* Set the timezone on this page so the 'time_format' output uses
-             * the configured time zone's time, not the system's time zone. */
-            Horde_Nls::setTimeZone();
-            break;
-
-        case 'flags':
-            Horde::addScriptFile('colorpicker.js', 'horde');
-            Horde::addScriptFile('flagprefs.js', 'imp');
-
-            Horde::addInlineScript(array(
-                'ImpFlagPrefs.new_prompt = ' . Horde_Serialize::serialize(_("Please enter the label for the new flag:"), Horde_Serialize::JSON, Horde_Nls::getCharset()),
-                'ImpFlagPrefs.confirm_delete = ' . Horde_Serialize::serialize(_("Are you sure you want to delete this flag?"), Horde_Serialize::JSON, Horde_Nls::getCharset())
-            ));
-            break;
-
-        case 'identities':
-            if (!$GLOBALS['prefs']->isLocked('sent_mail_folder')) {
-                Horde::addScriptFile('folderprefs.js', 'imp');
-                Horde::addInlineScript(array(
-                    'ImpFolderPrefs.folders = ' . Horde_Serialize::serialize(array('sent_mail_folder', 'sent_mail_new', _("Enter the name for your new sent-mail folder"), _("Create a new sent-mail folder")), Horde_Serialize::JSON, Horde_Nls::getCharset())
-                ));
-            }
-            break;
-
-        case 'server':
-            $code = array();
-
-            if (!$GLOBALS['prefs']->isLocked('drafts_folder')) {
-                $code[] = array('drafts', 'drafts_new', _("Enter the name for your new drafts folder"), _("Create a new drafts folder"));
-            }
-
-            if (!$GLOBALS['prefs']->isLocked('spam_folder')) {
-                $code[] = array('spam', 'spam_new', _("Enter the name for your new spam folder"), _("Create a new spam folder"));
-            }
-
-            if (!$GLOBALS['prefs']->isLocked('trash_folder') &&
-                !$GLOBALS['prefs']->isLocked('use_vtrash')) {
-                $code[] = array('trash', 'trash_new', _("Enter the name for your new trash folder"), _("Create a new trash folder"));
-            }
-
-            if (!empty($code)) {
-                Horde::addScriptFile('folderprefs.js', 'imp');
-                Horde::addInlineScript(array(
-                    'ImpFolderPrefs.folders = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON, Horde_Nls::getCharset())
-                ));
-            }
-            break;
-        }
+    /**
+     * Generate code used to display a special preference.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     * @param string $item             The preference name.
+     *
+     * @return string  The HTML code to display on the options page.
+     */
+    public function prefsSpecial($ui, $item)
+    {
+        return $GLOBALS['injector']->getInstance('IMP_Prefs_Ui')->prefsSpecial($ui, $item);
     }
 
     /**
      * Special preferences handling on update.
      *
-     * @param string $item      The preference name.
-     * @param boolean $updated  Set to true if preference was updated.
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     * @param string $item             The preference name.
      *
      * @return boolean  True if preference was updated.
      */
-    public function prefsSpecial($item, $updated)
+    public function prefsSpecialUpdate($ui, $item)
     {
-        switch ($item) {
-        case 'sentmailselect':
-            return $this->_prefsSentmailSelect($updated);
-
-        case 'draftsselect':
-            return $updated | $this->_prefsSpecialFolders($updated, 'drafts_folder', 'drafts', 'drafts_new');
-
-        case 'spamselect':
-            return $updated | $this->_prefsSpecialFolders($updated, 'spam_folder', 'spam', 'spam_new');
-
-        case 'trashselect':
-            return $this->_prefsTrashSelect($updated);
-
-        case 'sourceselect':
-            return $this->_prefsSourceSelect($updated);
-
-        case 'initialpageselect':
-            $this->_prefsInitialPageSelect();
-            return true;
-
-        case 'encryptselect':
-            $this->_prefsEncryptSelect();
-            return true;
-
-        case 'soundselect':
-            return $GLOBALS['prefs']->setValue('nav_audio', Horde_Util::getFormData('nav_audio'));
-
-        case 'flagmanagement':
-            $this->_prefsFlagManagement();
-            return false;
-
-        case 'accountsmanagement':
-            $this->_prefsAccountsManagement();
-            return false;
-        }
+        return $GLOBALS['injector']->getInstance('IMP_Prefs_Ui')->prefsSpecialUpdate($ui, $item);
     }
 
     /**
-     * Special preferences handling on UI display.
+     * Called when preferences are changed.
      *
-     * @param string $item  The preference name.
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     */
+    public function prefsCallback($ui)
+    {
+        $GLOBALS['injector']->getInstance('IMP_Prefs_Ui')->prefsCallback($ui);
+    }
+
+    /* Sidebar method. */
+
+    /**
+     * Add node(s) to the sidebar tree.
      *
-     * @return boolean  True if the preference item should be displayed.
-     */
-    public function prefsSpecialGenerate($item)
-    {
-        switch ($item) {
-        case 'sentmailselect':
-            return !$GLOBALS['prefs']->isLocked('sent_mail_folder');
-
-        case 'draftsselect':
-            return !$GLOBALS['prefs']->isLocked('drafts_folder');
-
-        case 'spamselect':
-            return !$GLOBALS['prefs']->isLocked('spam_folder');
-
-        case 'trashselect':
-            return (!$GLOBALS['prefs']->isLocked('trash_folder') && !$GLOBALS['prefs']->isLocked('use_vtrash'));
-
-        case 'initialpageselect':
-            return !$GLOBALS['prefs']->isLocked('initial_page');
-
-        case 'encryptselect':
-            return !$GLOBALS['prefs']->isLocked('default_encrypt');
-
-        case 'soundselect':
-            return !$GLOBALS['prefs']->isLocked('nav_audio');
-
-        case 'accountsmanagement':
-            $GLOBALS['prefsui_no_save'] = true;
-            return !empty($GLOBALS['conf']['user']['allow_accounts']);
-
-        default:
-            return true;
-        }
-    }
-
-    /**
-     * Do anything that we need to do as a result of certain preferences
-     * changing.
+     * @param Horde_Tree_Base $tree  Tree object.
+     * @param string $parent         The current parent element.
+     * @param array $params          Additional parameters.
      *
-     * @param string $group  The prefGroup name.
+     * @throws Horde_Exception
      */
-    public function prefsCallback($group)
+    public function sidebarCreate(Horde_Tree_Base $tree, $parent = null,
+                                  array $params = array())
     {
-        global $prefs;
+        global $injector, $prefs, $registry;
 
-        /* Always check to make sure we have a valid trash folder if delete to
-         * trash is active. */
-        if (($prefs->isDirty('use_trash') || $prefs->isDirty('trash_folder')) &&
-            $prefs->getValue('use_trash') &&
-            !$prefs->getValue('trash_folder') &&
-            !$prefs->getValue('use_vtrash')) {
-            $GLOBALS['notification']->push(_("You have activated move to Trash but no Trash folder is defined. You will be unable to delete messages until you set a Trash folder in the preferences."), 'horde.warning');
+        /* Run filters now */
+        if ($prefs->getValue('filter_on_display')) {
+            $injector->getInstance('IMP_Filter')->filter('INBOX');
         }
 
-        switch ($group) {
-        case 'compose':
-            if ($prefs->isDirty('mail_domain')) {
-                $maildomain = preg_replace('/[^-\.a-z0-9]/i', '', $prefs->getValue('mail_domain'));
-                $prefs->setValue('maildomain', $maildomain);
-                if (!empty($maildomain)) {
-                    $_SESSION['imp']['maildomain'] = $maildomain;
-                }
-            }
+        $tree->addNode(
+            strval($parent) . 'compose',
+            $parent,
+            _("New Message"),
+            0,
+            false,
+            array(
+                'icon' => Horde_Themes::img('compose.png'),
+                'url' => IMP::composeLink()
+            )
+        );
 
-            if ($prefs->isDirty('compose_popup')) {
-                Horde::addInlineScript(array(
-                    'if (window.parent.frames.horde_menu) window.parent.frames.horde_menu.location.reload();'
-                ));
-            }
-            break;
+        /* Add link to the search page. */
+        $tree->addNode(
+            strval($parent) . 'search',
+            $parent,
+            _("Search"),
+            0,
+            false,
+            array(
+                'icon' => Horde_Themes::img('search.png'),
+                'url' => Horde::url('search.php')
+            )
+        );
 
-        case 'delmove':
-            if ($prefs->isDirty('use_vtrash')) {
-                $imp_search = new IMP_Search();
-                $imp_search->initialize(true);
-            }
-            break;
-
-        case 'display':
-            if ($prefs->isDirty('tree_view')) {
-                $this->_mailboxesChanged();
-            }
-            break;
-
-        case 'server':
-            if ($prefs->isDirty('use_vinbox')) {
-                $imp_search = new IMP_Search();
-                $imp_search->initialize(true);
-            }
-
-            if ($prefs->isDirty('subscribe')) {
-                $this->_mailboxesChanged();
-            }
-            break;
-        }
-    }
-
-    /**
-     * Generate the menu to use on the prefs page.
-     *
-     * @return Horde_Menu  A Horde_Menu object.
-     */
-    public function prefsMenu()
-    {
-        return IMP::getMenu();
-    }
-
-    /**
-     * Setup notifications handler for the preferences page. This will only
-     * be called if in dimp view mode.
-     */
-    public function prefsStatus()
-    {
-        require_once dirname(__FILE__) . '/Application.php';
-        new IMP_Application(array('init' => array('authentication' => 'none')));
-
-        $notification = Horde_Notification::singleton();
-        $notification->replace('status', array('prefs' => true, 'viewmode' => 'dimp'), 'IMP_Notification_Listener_Status');
-    }
-
-    /**
-     * TODO
-     */
-    protected function _prefsSentmailSelect($updated)
-    {
-        if (!$GLOBALS['conf']['user']['allow_folders'] ||
-            $GLOBALS['prefs']->isLocked('sent_mail_folder')) {
-            return $updated;
-        }
-
-        $sent_mail_folder = Horde_Util::getFormData('sent_mail_folder');
-        $sent_mail_new = Horde_String::convertCharset(Horde_Util::getFormData('sent_mail_new'), Horde_Nls::getCharset(), 'UTF7-IMAP');
-        $sent_mail_default = $GLOBALS['prefs']->getValue('sent_mail_folder');
-
-        if (empty($sent_mail_folder) && !empty($sent_mail_new)) {
-            $sent_mail_folder = $GLOBALS['imp_imap']->appendNamespace($sent_mail_new);
-        } elseif (($sent_mail_folder == '-1') && !empty($sent_mail_default)) {
-            $sent_mail_folder = $GLOBALS['imp_imap']->appendNamespace($sent_mail_default);
-        }
-
-        if (!empty($sent_mail_folder)) {
-            $imp_folder = IMP_Folder::singleton();
-            if (!$imp_folder->exists($sent_mail_folder)) {
-                $imp_folder->create($sent_mail_folder, $GLOBALS['prefs']->getValue('subscribe'));
-            }
-        }
-        $GLOBALS['identity']->setValue('sent_mail_folder', IMP::folderPref($sent_mail_folder, false));
-
-        return true;
-    }
-
-    /**
-     * TODO
-     */
-    protected function _prefsSpecialFolders($updated, $pref, $folder, $new)
-    {
-        if (!$GLOBALS['conf']['user']['allow_folders']) {
-            return $updated;
-        }
-
-        $folder = Horde_Util::getFormData($folder);
-        if (isset($folder) && !$GLOBALS['prefs']->isLocked($pref)) {
-            $new = Horde_String::convertCharset(Horde_Util::getFormData($new), Horde_Nls::getCharset(), 'UTF7-IMAP');
-            if ($folder == IMP::PREF_NO_FOLDER) {
-                $GLOBALS['prefs']->setValue($pref, '');
-            } else {
-                if (empty($folder) && !empty($new)) {
-                    $folder = $GLOBALS['imp_imap']->appendNamespace($new);
-                    $imp_folder = IMP_Folder::singleton();
-                    if (!$imp_folder->create($folder, $GLOBALS['prefs']->getValue('subscribe'))) {
-                        $folder = null;
-                    }
-                }
-                if (!empty($folder)) {
-                    $GLOBALS['prefs']->setValue($pref, IMP::folderPref($folder, false));
-                    return true;
-                }
-            }
-        }
-
-        return $updated;
-    }
-
-    /**
-     * TODO
-     */
-    protected function _prefsTrashSelect($updated)
-    {
-        global $prefs;
-
-        if (Horde_Util::getFormData('trash') == IMP::PREF_VTRASH) {
-            if ($prefs->isLocked('use_vtrash')) {
-                return false;
-            }
-
-            $prefs->setValue('use_vtrash', 1);
-            $prefs->setValue('trash_folder', '');
-        } else {
-            if ($prefs->isLocked('trash_folder')) {
-                return false;
-            }
-
-            $updated = $updated | $this->_prefsSpecialFolders($updated, 'trash_folder', 'trash', 'trash_new');
-            if ($updated) {
-                $prefs->setValue('use_vtrash', 0);
-                $prefs->setDirty('trash_folder', true);
-            }
-        }
-
-        return $updated;
-    }
-
-    /**
-     * TODO
-     */
-    protected function _prefsSourceSelect($updated)
-    {
-        $search_sources = Horde_Util::getFormData('search_sources');
-        if (!is_null($search_sources)) {
-            $GLOBALS['prefs']->setValue('search_sources', $search_sources);
-            unset($_SESSION['imp']['cache']['ac_ajax']);
-            $updated = true;
-        }
-
-        $search_fields_string = Horde_Util::getFormData('search_fields_string');
-        if (!is_null($search_fields_string)) {
-            $GLOBALS['prefs']->setValue('search_fields', $search_fields_string);
-            $updated = true;
-        }
-
-        $add_source = Horde_Util::getFormData('add_source');
-        if (!is_null($add_source)) {
-            $GLOBALS['prefs']->setValue('add_source', $add_source);
-            $updated = true;
-        }
-
-        return $updated;
-    }
-
-    /**
-     * TODO
-     */
-    protected function _prefsInitialPageSelect()
-    {
-        $initial_page = Horde_Util::getFormData('initial_page');
-        $GLOBALS['prefs']->setValue('initial_page', $initial_page);
-    }
-
-    /**
-     * TODO
-     */
-    protected function _prefsEncryptSelect()
-    {
-        $default_encrypt = Horde_Util::getFormData('default_encrypt');
-        $GLOBALS['prefs']->setValue('default_encrypt', $default_encrypt);
-    }
-
-    /**
-     * TODO
-     */
-    protected function _prefsFlagManagement()
-    {
-        $imp_flags = IMP_Imap_Flags::singleton();
-        $action = Horde_Util::getFormData('flag_action');
-        $data = Horde_Util::getFormData('flag_data');
-
-        if ($action == 'add') {
-            $imp_flags->addFlag($data);
+        if ($GLOBALS['session']['imp:protocol'] == 'pop') {
             return;
         }
 
-        $def_color = $GLOBALS['prefs']->getValue('msgflags_color');
+        $name_url = Horde::url('mailbox.php');
 
-        // Don't set updated on these actions. User may want to do more actions.
-        foreach ($imp_flags->getList() as $key => $val) {
-            $md5 = hash('md5', $key);
-
-            switch ($action) {
-            case 'delete':
-                if ($data == ('bg_' . $md5)) {
-                    $imp_flags->deleteFlag($key);
-                }
-                break;
-
-            default:
-                /* Change labels for user-defined flags. */
-                if ($val['t'] == 'imapp') {
-                    $label = Horde_Util::getFormData('label_' . $md5);
-                    if (strlen($label) && ($label != $val['l'])) {
-                        $imp_flags->updateFlag($key, array('l' => $label));
-                    }
-                }
-
-                /* Change background for all flags. */
-                $bg = strtolower(Horde_Util::getFormData('bg_' . $md5));
-                if ((isset($val['b']) && ($bg != $val['b'])) ||
-                    (!isset($val['b']) && ($bg != $def_color))) {
-                        $imp_flags->updateFlag($key, array('b' => $bg));
-                }
-                break;
-            }
-        }
-    }
-
-    /**
-     * TODO
-     */
-    protected function _prefsAccountsManagement()
-    {
-        $success = false;
-        $vars = Horde_Variables::getDefaultVariables();
-
-        switch ($vars->accounts_action) {
-        case 'add':
-            if (!$vars->accounts_server ||
-                !$vars->accounts_username) {
-                    $GLOBALS['notification']->push(_("Missing required values."), 'horde.error');
-                } else {
-                    /* Port is not required. */
-                    $port = $vars->accounts_port;
-                    if (!$port) {
-                        $port = ($vars->accounts_type == 'imap') ? 143 : 110;
-                    }
-
-                    /* Label is not required. */
-                    $label = $vars->accounts_label;
-                    if (!strlen($label)) {
-                        $label = $vars->accounts_server . ':' . $port . ' [' . $vars->accounts_type . ']';
-                    }
-
-                    $imp_accounts = IMP_Accounts::singleton();
-                    $imp_accounts->addAccount(array(
-                        'label' => $label,
-                        'port' => $port,
-                        'secure' => $vars->accounts_secure,
-                        'server' => $vars->accounts_server,
-                        'type' => $vars->accounts_type,
-                        'username' => $vars->accounts_username
-                    ));
-                    $GLOBALS['notification']->push(sprintf(_("Account \"%s\" added."), $vars->accounts_server), 'horde.success');
-
-                    $success = true;
-                }
-            break;
-
-        case 'delete':
-            $imp_accounts = IMP_Accounts::singleton();
-            $tmp = $imp_accounts->getAccount($vars->accounts_data);
-            if ($imp_accounts->deleteAccount($vars->accounts_data)) {
-                $GLOBALS['notification']->push(sprintf(_("Account \"%s\" deleted."), $tmp['server']), 'horde.success');
-                $success = true;
-            }
-            break;
-        }
-
-        if ($success) {
-            $this->_mailboxesChanged();
-        }
-    }
-
-    /**
-     * TODO
-     */
-    protected function _prefsPrepareSourceselect()
-    {
-        self::$prefsCache['sourceselect'] = array();
-
-        $registry = Horde_Registry::singleton();
-        if (!$registry->hasMethod('contacts/sources') ||
-            $GLOBALS['prefs']->isLocked('search_sources')) {
-            return;
-        }
-
-        $readable = $search_fields = $prefSelect = $writeable = $writeSelect = array();
-
-        try {
-            $readable = $registry->call('contacts/sources');
-        } catch (Horde_Exception $e) {}
-
-        try {
-            $writeable = $registry->call('contacts/sources', array(true));
-        } catch (Horde_Exception $e) {}
-
-        $search = IMP_Compose::getAddressSearchParams();
-
-        if (count($readable) == 1) {
-            // Only one source, no need to display the selection widget
-            $search['sources'] = array_keys($readable);
-        }
-
-        foreach ($search['sources'] as $source) {
-            if (!empty($readable[$source])) {
-                $prefSelect[$source] = $readable[$source];
-            }
-        }
-
-        $readSelect = array_diff(array_keys($readable), $search['sources']);
-
-        if (!$GLOBALS['prefs']->isLocked('add_source')) {
-            foreach ($writeable as $source => $name) {
-                $writeSelect[] = array(
-                    'val' => $source,
-                    'sel' => ($GLOBALS['prefs']->getValue('add_source') == $source),
-                    'name' => $name
-                );
-            }
-        }
-
-        $source_count = 0;
-
-        foreach (array_keys($readable) as $source) {
-            $search_fields[$source_count][] = $source;
-
-            try {
-                foreach ($registry->call('contacts/fields', array($source)) as $field) {
-                    if ($field['search']) {
-                        $search_fields[$source_count][] = array($field['name'], $field['label'], isset($search['fields'][$source]) && in_array($field['name'], $search['fields'][$source]));
-                    }
-                }
-            } catch (Horde_Exception $e) {}
-
-            ++$source_count;
-        }
-
-        Horde::addScriptFile('addressbooksprefs.js', 'imp');
-        Horde::addInlineScript(array(
-            'ImpAddressbooksPrefs.fields = ' . Horde_Serialize::serialize($search_fields, Horde_Serialize::JSON, Horde_Nls::getCharset())
+        /* Initialize the IMP_Tree object. */
+        $imaptree = $injector->getInstance('IMP_Imap_Tree');
+        $imaptree->setIteratorFilter(IMP_Imap_Tree::FLIST_VFOLDER);
+        $imaptree->createTree($tree, array(
+            'parent' => $parent,
+            'poll_info' => true
         ));
-        self::$prefsCache['sourceselect'] = array(
-            'prefSelect' => $prefSelect,
-            'readable' => $readable,
-            'readSelect' => $readSelect,
-            'search' => $search,
-            'writeable' => $writeable,
-            'writeSelect' => $writeSelect
+
+        /* We want to rewrite the parent node of the INBOX to include new mail
+         * notification. */
+        if (!($url = $registry->get('url', $parent))) {
+            $url = (($registry->get('status', $parent) == 'heading') || !$registry->get('webroot'))
+                ? null
+                : $registry->getInitialPage($parent);
+        }
+
+        $node_params = array(
+            'icon' => $registry->get('icon', $parent),
+            'url' => $url
+        );
+        $name = $registry->get('name', $parent);
+
+        if ($imaptree->unseen) {
+            $node_params['icon'] = Horde_Themes::img('newmail.png');
+            $name = sprintf('<strong>%s</strong> (%s)', $name, $imaptree->unseen);
+        }
+
+        $tree->addNode(
+            strval($parent),
+            $registry->get('menu_parent', $parent),
+            $name,
+            0,
+            $imaptree->isOpen($parent),
+            $node_params
         );
     }
 
@@ -1075,54 +635,8 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function changeLanguage()
     {
-        try {
-            $this->_impInit(array('authentication' => 'throw'));
-        } catch (Horde_Exception $e) {
-            return;
-        }
-
-        $this->_mailboxesChanged();
-        $GLOBALS['imp_search']->initialize(true);
-    }
-
-    /* Horde_Prefs_Credentials:: methods. */
-
-    /**
-     * Returns a list of authentication credentials, i.e. server settings that
-     * can be specified by the user on the login screen.
-     *
-     * @return array  A hash with credentials, suited for the preferences
-     *                interface.
-     */
-    public function authCredentials()
-    {
-        $app_name = $GLOBALS['registry']->get('name');
-
-        $servers = IMP_Imap::loadServerConfig();
-        $server_list = array();
-        foreach ($servers as $key => $val) {
-            $server_list[$key] = $val['name'];
-        }
-        reset($server_list);
-
-        $credentials = array(
-            'username' => array(
-                'desc' => sprintf(_("%s for %s"), _("Username"), $app_name),
-                'type' => 'text'
-            ),
-            'password' => array(
-                'desc' => sprintf(_("%s for %s"), _("Password"), $app_name),
-                'type' => 'password'
-            ),
-            'server' => array(
-                'desc' => sprintf(_("%s for %s"), _("Server"), $app_name),
-                'type' => 'enum',
-                'enum' => $server_list,
-                'value' => key($server_list)
-            )
-        );
-
-        return $credentials;
+        $this->init();
+        $this->mailboxesChanged();
     }
 
     /* Helper methods. */
@@ -1130,12 +644,9 @@ class IMP_Application extends Horde_Registry_Application
     /**
      * Run tasks when the mailbox list has changed.
      */
-    protected function _mailboxesChanged()
+    public function mailboxesChanged()
     {
-        $imp_folder = IMP_Folder::singleton();
-        $imp_folder->clearFlistCache();
-        $imaptree = IMP_Imap_Tree::singleton();
-        $imaptree->init();
+        $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->init();
     }
 
 }

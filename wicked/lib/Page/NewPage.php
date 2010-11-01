@@ -9,42 +9,37 @@
  */
 
 /**
- * StandardPage
- */
-require_once WICKED_BASE . '/lib/Page/StandardPage.php';
-
-/**
  * Wicked NewPage class.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Wicked
  */
-class NewPage extends Page {
+class Wicked_Page_NewPage extends Wicked_Page {
 
     /**
      * Display modes supported by this page.
      *
      * @var array
      */
-    var $supportedModes = array(
-        WICKED_MODE_DISPLAY => true,
-        WICKED_MODE_EDIT => true);
+    public $supportedModes = array(
+        Wicked::MODE_DISPLAY => true,
+        Wicked::MODE_EDIT => true);
 
     /**
      * The page that we're creating.
      *
      * @var string
      */
-    var $_referrer = null;
+    protected $_referrer = null;
 
     /**
      * Page template to use.
      *
      * @var string
      */
-    var $_template = null;
+    protected $_template = null;
 
-    function NewPage($referrer)
+    public function __construct($referrer)
     {
         $this->_referrer = $referrer;
         $this->_template = Horde_Util::getFormData('template');
@@ -55,7 +50,7 @@ class NewPage extends Page {
      *
      * @return integer  The permissions bitmask.
      */
-    function getPermissions()
+    public function getPermissions()
     {
         return parent::getPermissions($this->referrer());
     }
@@ -64,62 +59,61 @@ class NewPage extends Page {
      * Send them back whence they came if they aren't allowed to edit
      * this page.
      */
-    function preDisplay()
+    public function preDisplay()
     {
         if (!strlen($this->referrer())) {
             $GLOBALS['notification']->push(_("Page name must not be empty"));
-            header('Location: ' . Wicked::url('', true));
-            exit;
+            Wicked::url('', true)->redirect();
         }
 
-        if (!$this->allows(WICKED_MODE_EDIT)) {
-            header('Location: ' . Wicked::url($this->referrer(), true));
-            exit;
+        if (!$this->allows(Wicked::MODE_EDIT)) {
+            Wicked::url($this->referrer(), true)->redirect();
         }
     }
 
     /**
-     * Render this page in Display mode.
+     * Renders this page in display mode.
      *
-     * @return mixed Returns true or PEAR_Error.
+     * @throws Wicked_Exception
      */
-    function display()
+    public function display()
     {
-        global $notification;
-
         // Load the page template.
         if ($this->_template) {
-            $page = Page::getPage($this->_template);
+            $page = Wicked_Page::getPage($this->_template);
             $page_text = $page->getText();
         } else {
             $page_text = '';
         }
 
-        $notification->push('if (document.editform && document.editform.page_text) document.editform.page_text.focus();', 'javascript');
+        Horde::addInlineScript(array(
+            'if (document.editform && document.editform.page_text) document.editform.changelog.page_text()'
+        ), 'dom');
+
         require WICKED_TEMPLATES . '/edit/new.inc';
         return true;
     }
 
-    function pageName()
+    public function pageName()
     {
         return 'NewPage';
     }
 
-    function pageTitle()
+    public function pageTitle()
     {
-        return _("NewPage");
+        return _("New Page");
     }
 
-    function referrer()
+    public function referrer()
     {
         return $this->_referrer;
     }
 
-    function handleAction()
+    public function handleAction()
     {
         global $notification, $wicked;
 
-        if (!$this->allows(WICKED_MODE_EDIT)) {
+        if (!$this->allows(Wicked::MODE_EDIT)) {
             $notification->push(sprintf(_("You don't have permission to create \"%s\"."), $this->referrer()));
         } else {
             $text = Horde_Util::getPost('page_text');
@@ -128,18 +122,17 @@ class NewPage extends Page {
                 return;
             }
 
-            $result = $wicked->newPage($this->referrer(), $text);
-            if (is_a($result, 'PEAR_Error')) {
-                $notification->push(sprintf(_("Create Failed: %s"),
-                                            $result->getMessage()), 'horde.error');
-            } else {
+            try {
+                $result = $wicked->newPage($this->referrer(), $text);
                 $notification->push(_("Page Created"), 'horde.success');
+            } catch (Wicked_Exception $e) {
+                $notification->push(sprintf(_("Create Failed: %s"),
+                                            $e->getMessage()), 'horde.error');
             }
         }
 
         // Show the newly created page.
-        header('Location: ' . Wicked::url($this->referrer(), true));
-        exit;
+        Wicked::url($this->referrer(), true)->redirect();
     }
 
 }

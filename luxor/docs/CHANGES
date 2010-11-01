@@ -1,0 +1,24 @@
+----
+v0.1
+----
+
+[jan] Rename sources.php to backends.php.
+[ben] Better support for MS-SQL.
+[cjh] Support mod_rewrite style URLs in addition to GET.
+[mas] Change any output of <b> and <i> tags to <strong> and <em> for better
+      accessibility support.
+[cjh] Allow disabling the show_var javascript (Bug #1270).
+[jan] Add Spanish translation (Manuel Perez Ayala <mperaya@alcazaba.unex.es>).
+[cjh] Cache markup of files.
+[cjh] Improve layout of identifier pages.
+[cjh] genxref.php is now solely a command line script and lives
+      in the scripts/ directory.
+[cjh] Make sure to clean out the database before adding new data
+      so as not to get duplicate entries for identifiers.
+[jan] Add German translation.
+[cjh] Add symbol search functionality.
+[cjh] Fix spacing of source code.
+[cjh] Add settings to filter out certain directories and filenames.
+[jan] Add Romanian translation (Eugen Hoanca <eugenh@urban-grafx.ro>).
+[jan] Implement indexing and referencing.
+[jan] Initial port from LXR.

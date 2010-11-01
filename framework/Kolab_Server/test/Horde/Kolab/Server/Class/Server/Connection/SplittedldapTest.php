@@ -35,15 +35,15 @@ extends Horde_Kolab_Server_LdapTestCase
 {
     public function testMethodConstructHasParameterNetldap2ReadConnectionAndParameterNetldap2WriteConnection()
     {
-        $ldap_read = $this->getMock('Net_LDAP2');
-        $ldap_write = $this->getMock('Net_LDAP2');
+        $ldap_read = $this->getMock('Horde_Ldap');
+        $ldap_write = $this->getMock('Horde_Ldap');
         $conn = new Horde_Kolab_Server_Connection_Splittedldap($ldap_read, $ldap_write);
     }
 
     public function testMethodConstructHasPostconditionThatTheGivenServersWereStored()
     {
-        $ldap_read = $this->getMock('Net_LDAP2');
-        $ldap_write = $this->getMock('Net_LDAP2');
+        $ldap_read = $this->getMock('Horde_Ldap');
+        $ldap_write = $this->getMock('Horde_Ldap');
         $conn = new Horde_Kolab_Server_Connection_Splittedldap($ldap_read, $ldap_write);
         $this->assertSame($ldap_read, $conn->getRead());
         $this->assertSame($ldap_write, $conn->getWrite());
@@ -51,17 +51,17 @@ extends Horde_Kolab_Server_LdapTestCase
 
     public function testMethodGetreadHasResultNetldap2TheHandledConnection()
     {
-        $ldap_read = $this->getMock('Net_LDAP2');
-        $ldap_write = $this->getMock('Net_LDAP2');
+        $ldap_read = $this->getMock('Horde_Ldap');
+        $ldap_write = $this->getMock('Horde_Ldap');
         $conn = new Horde_Kolab_Server_Connection_Splittedldap($ldap_read, $ldap_write);
-        $this->assertType('Net_LDAP2', $conn->getRead());
-        $this->assertType('Net_LDAP2', $conn->getWrite());
+        $this->assertType('Horde_Ldap', $conn->getRead());
+        $this->assertType('Horde_Ldap', $conn->getWrite());
     }
 
     public function testMethodGetwriteHasResultNetldap2TheHandledConnection()
     {
-        $ldap_read = $this->getMock('Net_LDAP2');
-        $ldap_write = $this->getMock('Net_LDAP2');
+        $ldap_read = $this->getMock('Horde_Ldap');
+        $ldap_write = $this->getMock('Horde_Ldap');
         $conn = new Horde_Kolab_Server_Connection_Splittedldap($ldap_read, $ldap_write);
         $this->assertFalse($conn->getWrite() === $conn->getRead());
     }

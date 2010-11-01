@@ -25,16 +25,10 @@ abstract class Horde_Service_Twitter_Auth
      */
     protected $_config;
 
-    /**
-     * Const'r
-     *
-     * @param Horde_Serivce_Twitter $twitter
-     * @param array $config
-     */
-    public function __construct($twitter, $config)
+
+    public function setTwitter(Horde_Service_Twitter $twitter)
     {
         $this->_twitter = $twitter;
-        $this->_config = $config;
     }
 
     /**

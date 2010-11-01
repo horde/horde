@@ -26,7 +26,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Use exceptions, not PEAR_Errors.
+ <notes>* Add Horde_Token_Exception::.
+ * Move driver code into sub-classes.
+ * Use exceptions, not PEAR_Errors.
  * Initial Horde 4 package.
  </notes>
  <contents>
@@ -34,7 +36,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Token">
+      <file name="Base.php" role="php" />
+      <file name="Exception.php" role="php" />
       <file name="File.php" role="php" />
+      <file name="Null.php" role="php" />
       <file name="Sql.php" role="php" />
      </dir> <!-- /lib/Horde/Token -->
      <file name="Token.php" role="php" />
@@ -48,10 +53,14 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>5.2.0</min>
    </php>
    <pearinstaller>
-    <min>1.5.0</min>
+    <min>1.7.0</min>
    </pearinstaller>
    <package>
     <name>Exception</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Url</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
@@ -59,10 +68,23 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <channel>pear.horde.org</channel>
    </package>
   </required>
+  <optional>
+   <package>
+    <name>Db</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Log</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="lib/Horde/Token/Base.php" as="Horde/Token/Base.php" />
+   <install name="lib/Horde/Token/Exception.php" as="Horde/Token/Exception.php" />
    <install name="lib/Horde/Token/File.php" as="Horde/Token/File.php" />
+   <install name="lib/Horde/Token/Null.php" as="Horde/Token/Null.php" />
    <install name="lib/Horde/Token/Sql.php" as="Horde/Token/Sql.php" />
    <install name="lib/Horde/Token.php" as="Horde/Token.php" />
   </filelist>

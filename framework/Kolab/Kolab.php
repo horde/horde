@@ -461,7 +461,7 @@ class Kolab {
             return $default;
         }
 
-        return Horde_String::convertCharset($element->get_content(), 'utf-8');
+        return $element->get_content();
     }
 
     function getVal($name, $default = 0)
@@ -526,7 +526,7 @@ class Kolab {
 
     function &setElemStr(&$parent, $name, $value = '')
     {
-        return $this->setElemVal($parent, $name, Horde_String::convertCharset($value, Horde_Nls::getCharset(), 'utf-8'));
+        return $this->setElemVal($parent, $name, $value);
     }
 
     function &setVal($name, $value = '')
@@ -553,7 +553,7 @@ class Kolab {
      */
     function encodeImapFolderName($name)
     {
-        return Horde_String::convertCharset($name, Horde_Nls::getCharset(), 'UTF7-IMAP');
+        return Horde_String::convertCharset($name, 'UTF-8', 'UTF7-IMAP');
     }
 
     /**
@@ -568,7 +568,7 @@ class Kolab {
      */
     function decodeImapFolderName($name)
     {
-        return Horde_String::convertCharset($name, 'UTF7-IMAP');
+        return Horde_String::convertCharset($name, 'UTF7-IMAP', 'UTF-8');
     }
 
     /**
@@ -727,7 +727,7 @@ class Kolab {
                 'allowed_types'         => array(
                     'note',
                 ),
-                'default_folder_name'   => _("Notes"),
+                'default_folder_name'   => Horde_Kolab_Translation::t("Notes"),
                 'application'           => $app,
             );
 
@@ -738,7 +738,7 @@ class Kolab {
                 'allowed_types'         => array(
                     'event',
                 ),
-                'default_folder_name'   => _("Calendar"),
+                'default_folder_name'   => Horde_Kolab_Translation::t("Calendar"),
                 'application'           => $app,
             );
 
@@ -750,7 +750,7 @@ class Kolab {
                     'contact',
                     'distribution-list',
                 ),
-                'default_folder_name'   => _("Contacts"),
+                'default_folder_name'   => Horde_Kolab_Translation::t("Contacts"),
                 'application'           => $app,
             );
 
@@ -761,7 +761,7 @@ class Kolab {
                 'allowed_types'         => array(
                     'task',
                 ),
-                'default_folder_name'   => _("Tasks"),
+                'default_folder_name'   => Horde_Kolab_Translation::t("Tasks"),
                 'application'           => $app,
             );
 
@@ -772,12 +772,12 @@ class Kolab {
                 'allowed_types'         => array(
                     'h-prefs',
                 ),
-                'default_folder_name'   => _("Preferences"),
+                'default_folder_name'   => Horde_Kolab_Translation::t("Preferences"),
                 'application'           => $app,
             );
 
         default:
-            return PEAR::raiseError(sprintf(_("The Horde/Kolab integration engine does not support \"%s\""), $app));
+            return PEAR::raiseError(sprintf(Horde_Kolab_Translation::t("The Horde/Kolab integration engine does not support \"%s\""), $app));
         }
     }
 

@@ -47,7 +47,7 @@ class Horde_Date_Repeater_DayPortion extends Horde_Date_Repeater
         }
     }
 
-    public function next($pointer)
+    public function next($pointer = 'future')
     {
         parent::next($pointer);
 

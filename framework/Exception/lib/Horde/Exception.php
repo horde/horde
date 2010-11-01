@@ -1,66 +1,75 @@
 <?php
-/**
- * Horde base exception class, which includes the ability to take the
- * output of error_get_last() as $code and mask itself as that error.
- *
- * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
- *
- * @category Horde
- * @package  Horde_Exception
- */
-class Horde_Exception extends Exception
-{
+if (version_compare(PHP_VERSION, '5.3.0', '<')) {
     /**
-     * Exception constructor
+     * Horde base exception class that supports prior exception for PHP < 5.3.0
      *
-     * If $code_or_lasterror is passed the return value of
-     * error_get_last() (or a matching format), the exception will be
-     * rewritten to have its file and line parameters match that of
-     * the array, and any message in the array will be appended to
-     * $message.
+     * Originates from
+     * http://framework.zend.com/wiki/display/ZFPROP/previous+Exception+on+Zend_Exception+-+Marc+Bennewitz
      *
-     * @param mixed $message            The exception message, a PEAR_Error
-     *                                  object, or an Exception object.
-     * @param mixed $code_or_lasterror  Either a numeric error code, or
-     *                                  an array from error_get_last().
+     * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
+     *
+     * See the enclosed file COPYING for license information (LGPL). If you
+     * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+     *
+     * @category Horde
+     * @package  Horde_Exception
      */
-    public function __construct($message = null, $code_or_lasterror = null)
+    class Horde_Exception extends Exception
     {
-        if (is_object($message) &&
-            method_exists($message, 'getMessage')) {
-            if (is_null($code_or_lasterror) &&
-                method_exists($message, 'getCode')) {
-                $code_or_lasterror = $message->getCode();
-            }
-            $message = $message->getMessage();
+
+        private $_previous = null;
+
+        /**
+         * Construct the exception
+         *
+         * @param string $msg
+         * @param int $code
+         * @param Exception $previous
+         */
+        public function __construct($msg = '', $code = 0, Exception $previous = null)
+        {
+            parent::__construct($msg, $code);
+            $this->_previous = $previous;
         }
 
-        if (is_null($code_or_lasterror)) {
-            $code_or_lasterror = 0;
+        /**
+         * Returns previous Exception
+         *
+         * @return Exception|null
+         */
+        final public function getPrevious()
+        {
+            return $this->_previous;
         }
 
-        if (is_array($code_or_lasterror)) {
-            if ($message) {
-                $message .= $code_or_lasterror['message'];
+        /**
+         * String representation of the exception
+         *
+         * @return string
+         */
+        public function __toString()
+        {
+            if ($this->getPrevious()) {
+                return $this->getPrevious()->__toString() . "\n\nNext " . parent::__toString();
             } else {
-                $message = $code_or_lasterror['message'];
+                return parent::__toString();
             }
-
-            $this->file = $code_or_lasterror['file'];
-            $this->line = $code_or_lasterror['line'];
-            $code = $code_or_lasterror['type'];
-        } else {
-            $code = $code_or_lasterror;
         }
 
-        if (is_string($code)) {
-            $code = null;
-        }
-
-        parent::__construct($message, $code);
     }
-
+} else {
+    /**
+     * Horde base exception class.
+     *
+     * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
+     *
+     * See the enclosed file COPYING for license information (LGPL). If you
+     * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
+     *
+     * @category Horde
+     * @package  Horde_Exception
+     */
+    class Horde_Exception extends Exception
+    {
+    }
 }

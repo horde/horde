@@ -2,6 +2,9 @@
 /**
  * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
  *
+ * Resources:
+ * http://wezfurlong.org/blog/2006/nov/http-post-from-php-without-curl
+ *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://opensource.org/licenses/bsd-license.php BSD
  * @category Horde
@@ -65,6 +68,7 @@ class Horde_Http_Request_Fopen extends Horde_Http_Request_Base
         if ($this->username) {
             switch ($this->authenticationScheme) {
             case Horde_Http::AUTH_BASIC:
+            case Horde_Http::AUTH_ANY:
                 $headers['Authorization'] = 'Basic ' . base64_encode($this->username . ':' . $this->password);
                 break;
 

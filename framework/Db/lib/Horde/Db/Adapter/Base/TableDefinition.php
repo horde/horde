@@ -29,6 +29,9 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
     protected $_columns = null;
     protected $_primaryKey = null;
 
+    protected $_columntypes = array('string', 'text', 'integer', 'float',
+        'datetime', 'timestamp', 'time', 'date', 'binary', 'boolean');
+
     /**
      * Class Constructor
      *
@@ -92,6 +95,14 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
      * * <tt>:null</tt>:
      *   Allows or disallows +NULL+ values in the column.  This option could
      *   have been named <tt>:null_allowed</tt>.
+     * * <tt>:precision</tt>
+     *   TODO
+     * * <tt>:scale</tt>
+     *   TODO
+     * * <tt>:unsigned</tt>
+     *   TODO
+     * * <tt>:autoincrement</tt>
+     *   TODO
      *
      * This method returns <tt>self</tt>.
      *
@@ -110,12 +121,7 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
      */
     public function column($name, $type, $options = array())
     {
-        if ($this[$name]) {
-            $column = $this[$name];
-        } else {
-            $column = $this->_base->componentFactory('ColumnDefinition', array(
-                $this->_base, $name, $type));
-        }
+        $column = $this->_base->makeColumnDefinition($this->_base, $name, $type);
 
         $column->setLimit(isset($options['limit'])         ? $options['limit']     : null);
         $column->setPrecision(isset($options['precision']) ? $options['precision'] : null);
@@ -123,9 +129,59 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
         $column->setUnsigned(isset($options['unsigned'])   ? $options['unsigned']  : null);
         $column->setDefault(isset($options['default'])     ? $options['default']   : null);
         $column->setNull(isset($options['null'])           ? $options['null']      : null);
+        $column->setAutoIncrement(isset($options['autoincrement']) ? $options['autoincrement'] : null);
 
         $this[$name] ? $this[$name] = $column : $this->_columns[] = $column;
         return $this;
+    }
+
+    /**
+     * Adds created_at and updated_at columns to the table.
+     */
+    public function timestamps()
+    {
+        return $this->column('created_at', 'datetime')
+                    ->column('updated_at', 'datetime');
+    }
+
+    /**
+     * Add one or several references to foreign keys
+     *
+     * This method returns <tt>self</tt>.
+     */
+    public function belongsTo($columns)
+    {
+        if (!is_array($columns)) { $columns = array($columns); }
+        foreach ($columns as $col) {
+            $this->column($col . '_id', 'integer');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Alias for the belongsTo() method
+     *
+     * This method returns <tt>self</tt>.
+     */
+    public function references($columns)
+    {
+        return $this->belongsTo($columns);
+    }
+
+    /**
+     * Use __call to provide shorthand column creation ($this->integer(), etc.)
+     */
+    public function __call($method, $arguments)
+    {
+        if (!in_array($method, $this->_columntypes)) {
+            throw new BadMethodCallException('Call to undeclared method "'.$method.'"');
+        } elseif (count($arguments) > 0 && count($arguments) < 3) {
+            return $this->column($arguments[0], $method,
+                                 isset($arguments[1]) ? $arguments[1] : array());
+        } else {
+            throw new BadMethodCallException('Method "'.$method.'" takes two arguments');
+        }
     }
 
     /**
@@ -233,7 +289,7 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
 
 
     /*##########################################################################
-    # ArrayAccess
+    # IteratorAggregate
     ##########################################################################*/
 
     public function getIterator()

@@ -30,11 +30,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-2.1.php">LGPL</license>
- <notes>* Replaced Horde_Auth::addHook() and Horde_Auth::removeHook() with
- Horde_Auth::convertUsername().
- * Add ability to retrieve app-specific credentials via
- Horde_Auth::getCredential().
- * Add Horde_Auth::getOriginalAuth().
+ <notes>* Remove dependency on horde/Core.
+ * Remove all non-authentication backend related code.
+ * Removed Krb5 driver.
+ * Moved signup code to horde/Core.
  * Split Horde_Auth:: into Horde_Auth:: and Horde_Auth_Base:: components.
  * Initial Horde 4 package.
  </notes>
@@ -46,10 +45,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <dir name="Http">
        <file name="Remote.php" role="php" />
       </dir> <!-- /lib/Horde/Auth/Http -->
-      <dir name="Signup">
-       <file name="Sql.php" role="php" />
-      </dir> <!-- /lib/Horde/Auth/Signup -->
-      <file name="Application.php" role="php" />
       <file name="Auto.php" role="php" />
       <file name="Base.php" role="php" />
       <file name="Composite.php" role="php" />
@@ -63,7 +58,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="Imsp.php" role="php" />
       <file name="Ipbasic.php" role="php" />
       <file name="Kolab.php" role="php" />
-      <file name="Krb5.php" role="php" />
       <file name="Ldap.php" role="php" />
       <file name="Login.php" role="php" />
       <file name="Msad.php" role="php" />
@@ -72,7 +66,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="Peclsasl.php" role="php" />
       <file name="Radius.php" role="php" />
       <file name="Shibboleth.php" role="php" />
-      <file name="Signup.php" role="php" />
       <file name="Smb.php" role="php" />
       <file name="Smbclient.php" role="php" />
       <file name="Sql.php" role="php" />
@@ -112,15 +105,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.5.4</min>
    </pearinstaller>
    <package>
-    <name>Core</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
     <name>Exception</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>Secret</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
@@ -130,11 +115,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
   </required>
   <optional>
    <package>
-    <name>Form</name>
-    <channel>pear.horde.org</channel>
-   </package>
-   <package>
-    <name>History</name>
+    <name>Db</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
@@ -146,9 +127,14 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <channel>pear.horde.org</channel>
     <min>0.2.0</min>
    </package>
-   <extension>
-    <name>gettext</name>
-   </extension>
+   <package>
+    <name>Ldap</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Net_IMSP</name>
+    <channel>pear.horde.org</channel>
+   </package>
    <extension>
     <name>pam_auth</name>
    </extension>
@@ -159,7 +145,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Auth/Application.php" as="Horde/Auth/Application.php" />
    <install name="lib/Horde/Auth/Auto.php" as="Horde/Auth/Auto.php" />
    <install name="lib/Horde/Auth/Base.php" as="Horde/Auth/Base.php" />
    <install name="lib/Horde/Auth/Composite.php" as="Horde/Auth/Composite.php" />
@@ -174,7 +159,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Auth/Imsp.php" as="Horde/Auth/Imsp.php" />
    <install name="lib/Horde/Auth/Ipbasic.php" as="Horde/Auth/Ipbasic.php" />
    <install name="lib/Horde/Auth/Kolab.php" as="Horde/Auth/Kolab.php" />
-   <install name="lib/Horde/Auth/Krb5.php" as="Horde/Auth/Krb5.php" />
    <install name="lib/Horde/Auth/Ldap.php" as="Horde/Auth/Ldap.php" />
    <install name="lib/Horde/Auth/Login.php" as="Horde/Auth/Login.php" />
    <install name="lib/Horde/Auth/Msad.php" as="Horde/Auth/Msad.php" />
@@ -183,8 +167,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <install name="lib/Horde/Auth/Peclsasl.php" as="Horde/Auth/Peclsasl.php" />
    <install name="lib/Horde/Auth/Radius.php" as="Horde/Auth/Radius.php" />
    <install name="lib/Horde/Auth/Shibboleth.php" as="Horde/Auth/Shibboleth.php" />
-   <install name="lib/Horde/Auth/Signup/Sql.php" as="Horde/Auth/Signup/Sql.php" />
-   <install name="lib/Horde/Auth/Signup.php" as="Horde/Auth/Signup.php" />
    <install name="lib/Horde/Auth/Smb.php" as="Horde/Auth/Smb.php" />
    <install name="lib/Horde/Auth/Smbclient.php" as="Horde/Auth/Smbclient.php" />
    <install name="lib/Horde/Auth/Sql.php" as="Horde/Auth/Sql.php" />

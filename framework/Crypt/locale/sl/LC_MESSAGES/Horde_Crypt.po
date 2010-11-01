@@ -1,0 +1,438 @@
+# Slovenian translations for Horde_Crypt module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Crypt module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Crypt\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
+
+#: lib/Horde/Crypt/Smime.php:614
+#, php-format
+msgid "%s Fingerprint"
+msgstr "%s Odtis"
+
+#: lib/Horde/Crypt/Pgp.php:1240
+msgid "A passphrase is required to decrypt a message."
+msgstr "Za dešifriranje sporočila je potrebno geslo."
+
+#: lib/Horde/Crypt/Pgp.php:1307
+msgid "A public PGP key is required to verify a signed message."
+msgstr "Javni PGP ključ je potreben za preverjanje podpisanega sporočila."
+
+#: lib/Horde/Crypt/Pgp.php:1164
+msgid ""
+"A public PGP key, private PGP key, and passphrase are required to sign a "
+"message."
+msgstr ""
+"Javni PGP ključ, zasebni PGP ključ in geslo so potrebni za podpis sporočila."
+
+#: lib/Horde/Crypt/Smime.php:311
+#, fuzzy
+msgid "A public S/MIME key is required to encrypt a message."
+msgstr " Javni SMIME klju je potreben za odklepanje sporočila "
+
+#: lib/Horde/Crypt/Smime.php:422
+msgid ""
+"A public S/MIME key, private S/MIME key, and passphrase are required to "
+"decrypt a message."
+msgstr ""
+"Javni S/MIME ključ, zasebni S/MIME ključ in geslo so potrebni za podpis "
+"sporočila."
+
+#: lib/Horde/Crypt/Smime.php:360
+msgid ""
+"A public S/MIME key, private S/MIME key, and passphrase are required to sign "
+"a message."
+msgstr ""
+"Javni S/MIME ključ, zasebni S/MIME ključ in geslo so potrebni za podpis "
+"sporočila."
+
+#: lib/Horde/Crypt/Smime.php:506
+msgid "CRL Distribution Points"
+msgstr " CRL razdelitvene točke "
+
+#: lib/Horde/Crypt/Smime.php:609
+msgid "Certificate Details"
+msgstr "Podrobnosti potrdila"
+
+#: lib/Horde/Crypt/Smime.php:520
+msgid "Certificate Owner"
+msgstr "Lastnik potrdila"
+
+#: lib/Horde/Crypt/Smime.php:505
+msgid "Certificate Policies"
+msgstr "Pravila potrdila"
+
+#: lib/Horde/Crypt/Pgp.php:426
+msgid "Comment"
+msgstr "Komentar"
+
+#: lib/Horde/Crypt/Smime.php:475
+msgid "Common Name"
+msgstr "Skupno ime"
+
+#: lib/Horde/Crypt/Pgp.php:939
+msgid "Connection refused to the public keyserver."
+msgstr "Zavrnjena povezava z javnim ključnim strežnikom."
+
+#: lib/Horde/Crypt/Pgp.php:950
+#, php-format
+msgid "Connection refused to the public keyserver. Reason: %s (%s)"
+msgstr "Zavrnjena povezava z javnim ključnim strežnikom. Razlog: %s (%s)"
+
+#: lib/Horde/Crypt/Pgp.php:1132
+msgid "Could not PGP encrypt message: "
+msgstr "PGP ne more šifrirati sporočila:"
+
+#: lib/Horde/Crypt/Pgp.php:1201
+msgid "Could not PGP sign message: "
+msgstr "Ni mogoč PGP podpis sporočila."
+
+#: lib/Horde/Crypt/Smime.php:330
+msgid "Could not S/MIME encrypt message."
+msgstr "Ni mogoče S/MIME šifrirati sporočila."
+
+#: lib/Horde/Crypt/Smime.php:391
+msgid "Could not S/MIME sign message."
+msgstr "Ni mogoče S/MIME podpis sporočila."
+
+#: lib/Horde/Crypt/Pgp.php:1276
+msgid "Could not decrypt PGP data: "
+msgstr "Ni mogoče dešifrirati PGP podatkov:"
+
+#: lib/Horde/Crypt/Smime.php:440
+msgid "Could not decrypt S/MIME data."
+msgstr "Ni mogoče dešifrirati S/MIME podatke."
+
+#: lib/Horde/Crypt/Pgp.php:659
+msgid "Could not determine the recipient's e-mail address."
+msgstr "Ni mogoče določiti elektronskega naslova prejemnika."
+
+#: lib/Horde/Crypt/Pgp.php:759 lib/Horde/Crypt/Pgp.php:848
+msgid "Could not obtain public key from the keyserver."
+msgstr "Ni mogoče dobiti javnega ključa od ključnega strežnika."
+
+#: lib/Horde/Crypt/Smime.php:478
+msgid "Country"
+msgstr "Država"
+
+#: lib/Horde/Crypt/Pgp.php:426
+msgid "E-Mail"
+msgstr "Elektronski naslov"
+
+#: lib/Horde/Crypt/Smime.php:474
+msgid "Email Address"
+msgstr "Elektronski naslov"
+
+#: lib/Horde/Crypt/Pgp.php:1584 lib/Horde/Crypt/Pgp.php:1592
+msgid "Error while talking to pgp binary."
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:1251 lib/Horde/Crypt/Smime.php:1269
+#: lib/Horde/Crypt/Smime.php:1284
+msgid "Error while talking to smime binary."
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:425
+msgid "Expiration Date"
+msgstr "Datum zapadlosti"
+
+#: lib/Horde/Crypt/Smime.php:586
+msgid "Exponent"
+msgstr "Zastopnik"
+
+#: lib/Horde/Crypt/Smime.php:484
+msgid "Given Name"
+msgstr "Dano ime"
+
+#: lib/Horde/Crypt/Pgp.php:426
+msgid "Hash-Algorithm"
+msgstr "Hash Algoritem"
+
+#: lib/Horde/Crypt/Smime.php:534
+msgid "Issuer"
+msgstr "Izdajatelj"
+
+#: lib/Horde/Crypt/Pgp.php:424
+msgid "Key Creation"
+msgstr "Ustvari Ključ "
+
+#: lib/Horde/Crypt/Pgp.php:427
+msgid "Key Fingerprint"
+msgstr "Odtis Ključa"
+
+#: lib/Horde/Crypt/Pgp.php:427
+msgid "Key ID"
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:425
+msgid "Key Length"
+msgstr "Dolžina Ključa"
+
+#: lib/Horde/Crypt/Pgp.php:424
+msgid "Key Type"
+msgstr "Tip Ključa "
+
+#: lib/Horde/Crypt/Smime.php:507
+msgid "Key Usage"
+msgstr "Uporaba Ključa "
+
+#: lib/Horde/Crypt/Pgp.php:782
+msgid "Key already exists on the public keyserver."
+msgstr "Ključ že obstaja na javnem ključnem strežniku."
+
+#: lib/Horde/Crypt/Smime.php:480
+msgid "Location"
+msgstr "Mesto"
+
+#: lib/Horde/Crypt/Smime.php:189
+msgid ""
+"Message Verified Successfully but the signer's certificate could not be "
+"verified."
+msgstr ""
+"Sporočilo je bilo uspešno preverjeno, toda podpisnikovega potrdila ni bilo "
+"mogoče preveriti."
+
+#: lib/Horde/Crypt/Smime.php:583
+msgid "Modulus"
+msgstr "Moduli"
+
+#: lib/Horde/Crypt/Pgp.php:424
+msgid "Name"
+msgstr "Ime"
+
+#: lib/Horde/Crypt/Smime.php:490
+msgid "Netscape Base URL"
+msgstr "Netscape osnovni URL"
+
+#: lib/Horde/Crypt/Smime.php:492
+msgid "Netscape CA Revocation URL"
+msgstr " Netscape CA URL za preklic"
+
+#: lib/Horde/Crypt/Smime.php:494
+msgid "Netscape CA policy URL"
+msgstr "Naslov Netscape certifikata"
+
+#: lib/Horde/Crypt/Smime.php:493
+msgid "Netscape Renewal URL"
+msgstr " Netscape obnovitveni URL"
+
+#: lib/Horde/Crypt/Smime.php:491
+msgid "Netscape Revocation URL"
+msgstr " Netscape URL za preklic"
+
+#: lib/Horde/Crypt/Smime.php:495
+msgid "Netscape SSL server name"
+msgstr "Netscape SSL ime strežnika"
+
+#: lib/Horde/Crypt/Smime.php:496
+msgid "Netscape certificate comment"
+msgstr "Netscape uradni komentar"
+
+#: lib/Horde/Crypt/Smime.php:489
+msgid "Netscape certificate type"
+msgstr "Tip Netscape certifikata"
+
+#: lib/Horde/Crypt/Pgp.php:449
+msgid "Never"
+msgstr "Nikoli"
+
+#: lib/Horde/Crypt/Smime.php:1217
+msgid ""
+"No path to the OpenSSL binary provided. The OpenSSL binary is necessary to "
+"work with PKCS 12 data."
+msgstr ""
+"Pot do binarne datoteke OpenSSL ni bila nastavljena. OpenSSL binarna "
+"datoteka je potrebna za delo s PKCS 12 podatki."
+
+#: lib/Horde/Crypt/Pgp.php:451 lib/Horde/Crypt/Pgp.php:452
+msgid "None"
+msgstr "Nobeden"
+
+#: lib/Horde/Crypt/Smime.php:549
+msgid "Not After"
+msgstr "Ne kasneje"
+
+#: lib/Horde/Crypt/Smime.php:548
+msgid "Not Before"
+msgstr "Ne prej"
+
+#: lib/Horde/Crypt/Smime.php:231
+msgid "OpenSSL error: Could not extract data from signed S/MIME part."
+msgstr "OdprtaSSL napaka: Ne morem povzeti datuma iz označenega S/MIM dela."
+
+#: lib/Horde/Crypt/Smime.php:476
+msgid "Organisation"
+msgstr "Organizacija"
+
+#: lib/Horde/Crypt/Smime.php:477
+msgid "Organisational Unit"
+msgstr "Organizacijska enota"
+
+#: lib/Horde/Crypt/Pgp.php:1406
+msgid "PGP Digital Signature"
+msgstr "Digitalen podpis PGP"
+
+#: lib/Horde/Crypt/Pgp.php:1450
+msgid "PGP Encrypted Data"
+msgstr "Kodirani PGP podatki"
+
+#: lib/Horde/Crypt/Pgp.php:1511
+msgid "PGP Public Key"
+msgstr "Javni ključ PGP"
+
+#: lib/Horde/Crypt/Pgp.php:1493
+msgid "PGP Signed/Encrypted Data"
+msgstr "Podpisani/kodirani PGP podatki"
+
+#: lib/Horde/Crypt/Smime.php:1256
+msgid "Password incorrect"
+msgstr "Nepravilno geslo"
+
+#: lib/Horde/Crypt/Pgp.php:447
+msgid "Private Key"
+msgstr "Zaseben ključ"
+
+#: lib/Horde/Crypt/Pgp.php:447
+msgid "Public Key"
+msgstr "Javni ključ"
+
+#: lib/Horde/Crypt/Smime.php:554
+msgid "Public Key Algorithm"
+msgstr "Algoritem javnega ključa"
+
+#: lib/Horde/Crypt/Smime.php:553
+msgid "Public Key Info"
+msgstr "Informacije javnega ključa"
+
+#: lib/Horde/Crypt/Pgp.php:225
+msgid "Public/Private keypair not generated successfully."
+msgstr "Javni/zasebni par ključev ni bil uspešno generiran."
+
+#: lib/Horde/Crypt/Smime.php:572
+#, php-format
+msgid "RSA Public Key (%d bit)"
+msgstr "RSA javni ključ (%d bitov)"
+
+#: lib/Horde/Crypt/Pgp.php:227
+#, fuzzy
+msgid "Returned error message:"
+msgstr "Beri sporočila"
+
+#: lib/Horde/Crypt/Pgp.php:1644
+#, fuzzy
+msgid "Revocation key not generated successfully."
+msgstr "Javni/zasebni par ključev ni bil uspešno generiran."
+
+#: lib/Horde/Crypt/Smime.php:252
+msgid "S/MIME Cryptographic Signature"
+msgstr " S/MIME kriptografski podpis"
+
+#: lib/Horde/Crypt/Smime.php:283
+msgid "S/MIME Encrypted Message"
+msgstr "S/MIME kodirano sporočilo"
+
+#: lib/Horde/Crypt/Smime.php:611
+msgid "Serial Number"
+msgstr "Serijska številka"
+
+#: lib/Horde/Crypt/Smime.php:622
+msgid "Signature"
+msgstr "Podpis"
+
+#: lib/Horde/Crypt/Smime.php:621
+msgid "Signature Algorithm"
+msgstr "Algoritmičen podpis"
+
+#: lib/Horde/Crypt/Smime.php:479
+msgid "State or Province"
+msgstr "Država ali provinca"
+
+#: lib/Horde/Crypt/Smime.php:481
+msgid "Street Address"
+msgstr "Naslov ulice"
+
+#: lib/Horde/Crypt/Smime.php:483
+msgid "Surname"
+msgstr "Priimek"
+
+#: lib/Horde/Crypt/Smime.php:482
+msgid "Telephone Number"
+msgstr "Telefonska številka"
+
+#: lib/Horde/Crypt/Pgp.php:1311
+msgid ""
+"The detached PGP signature block is required to verify the signed message."
+msgstr ""
+"Potrebujem ločeno PGP podpisano beležnico, da previrim podpisano sporočilo."
+
+#: lib/Horde/Crypt/Smime.php:1146
+#, fuzzy
+msgid "The openssl module is required for the Horde_Crypt_Smime:: class."
+msgstr "Potrebujem openssl modul za Horde_Crypt_smime:: razred."
+
+#: lib/Horde/Crypt/Smime.php:512
+msgid "Unable to extract certificate details"
+msgstr "Ne morem izpisati potrjenih podrobnosti."
+
+#: lib/Horde/Crypt/Pgp.php:453 lib/Horde/Crypt/Pgp.php:454
+#: lib/Horde/Crypt/Pgp.php:455
+msgid "Unknown"
+msgstr "Neznano"
+
+#: lib/Horde/Crypt/Smime.php:596 lib/Horde/Crypt/Smime.php:844
+#: lib/Horde/Crypt/Smime.php:850
+msgid "Unsupported Extension"
+msgstr "Nepodprta razširitev"
+
+#: lib/Horde/Crypt/Smime.php:547
+msgid "Validity"
+msgstr "Veljavnost"
+
+#: lib/Horde/Crypt/Smime.php:191
+#, fuzzy
+msgid "Verification failed - an unknown error has occurred."
+msgstr "Pojavila se je neznana napaka."
+
+#: lib/Horde/Crypt/Smime.php:193
+msgid "Verification failed - this message may have been tampered with."
+msgstr "Preverjanje neuspešno - mogoče je bilo sporočilo spremenjeno."
+
+#: lib/Horde/Crypt/Smime.php:610
+msgid "Version"
+msgstr "Različica"
+
+#: lib/Horde/Crypt/Smime.php:502
+msgid "X509v3 Basic Constraints"
+msgstr "X509v3 osnovna omejitev"
+
+#: lib/Horde/Crypt/Smime.php:501
+msgid "X509v3 Extended Key Usage"
+msgstr "X509v3 Razširjena uporaba ključa"
+
+#: lib/Horde/Crypt/Smime.php:503
+msgid "X509v3 Subject Alternative Name"
+msgstr "X509v3 Zadeva alternativno ime"
+
+#: lib/Horde/Crypt/Smime.php:504
+msgid "X509v3 Subject Key Identifier"
+msgstr "X509v3 Kjue za doloeiti zadevo"
+
+#: lib/Horde/Crypt/Smime.php:592
+msgid "X509v3 extensions"
+msgstr "X509v3 razširitev"
+
+#: lib/Horde/Crypt/Smime.php:1135
+msgid "not yet implemented"
+msgstr "še ni podprta"

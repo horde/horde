@@ -1,0 +1,18 @@
+<table class="messageList">
+ <tr class="item">
+     <th id="checkheader">
+<if:show_checkbox>
+   <label for="checkAll" class="hidden"><gettext>Check All/None</gettext></label>
+   <input type="checkbox" class="checkbox" id="checkAll" name="checkAll" <tag:check_all /> />
+  </th>
+</if:show_checkbox>
+<loop:headers>
+  <th class="<tag:headers.class />" id="<tag:headers.id />">
+   <tag:headers.change_sort_link />
+   <tag:headers.change_sort_widget />
+<if:headers.altsort>
+   <span class="toggleSort">[<tag:headers.altsort />]</span>
+</if:headers.altsort>
+  </th>
+</loop:headers>
+ </tr>

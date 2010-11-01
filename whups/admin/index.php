@@ -8,11 +8,11 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-@define('WHUPS_BASE', dirname(dirname(__FILE__)));
-require_once WHUPS_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('whups');
 
-if (!Horde_Auth::isAdmin('whups:admin')) {
-    Horde_Auth::authenticateFailure('whups', $e);
+if (!$registry->isAdmin(array('permission' => 'whups:admin'))) {
+    $registry->authenticateFailure('whups', $e);
 }
 
 // Set up the page config vars.
@@ -26,7 +26,7 @@ if (!$vars->exists('action')) {
 
 // Admin actions.
 $adminurl = Horde::selfUrl(false, false);
-$tabs = new Horde_Ui_Tabs('action', $vars);
+$tabs = new Horde_Core_Ui_Tabs('action', $vars);
 $tabs->addTab(_("_Edit Queues"), $adminurl, 'queue');
 $tabs->addTab(_("Edit _Types"), $adminurl, 'type');
 $tabs->addTab(_("Queue/Type Matri_x"), $adminurl, 'mtmatrix');
@@ -91,8 +91,8 @@ case 'addtypestep1form':
         // First, add the type
         $tid = $whups_driver->addType($vars->get('name'),
                                       $vars->get('description'));
-        if (is_a($tid, 'PEAR_Error')) {
-            Horde::fatal($tid, __FILE__, __LINE__);
+        if ($tid instanceof PEAR_Error) {
+            throw new Horde_Exception($tid);
         }
 
         _open();
@@ -195,8 +195,7 @@ case 'clonetypeform':
         $notification->push(sprintf(_("Successfully Cloned %s to %s."),
                                     $type['name'], $vars->get('name')),
                             'horde.success');
-        header('Location: ' . Horde::applicationUrl('admin/?action=type', true));
-        exit;
+        Horde::url('admin/?action=type', true)->redirect();
     } else {
         _open();
         $form->renderActive($renderer, $vars, $adminurl, 'post');
@@ -356,13 +355,14 @@ case 'editqueuestep2form':
         if (!is_a($result, 'PEAR_Error')) {
             $notification->push(_("The queue has been modified."),
                                 'horde.success');
+            $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
             if (!$perms->exists('whups:queues:' . $vars->get('queue') . ':update')) {
-                $p = &$perms->newPermission('whups:queues:'
+                $p = $perms->newPermission('whups:queues:'
                                             . $vars->get('queue') . ':update');
                 $perms->addPermission($p);
             }
             if (!$perms->exists('whups:queues:' . $vars->get('queue') . ':assign')) {
-                $p = &$perms->newPermission('whups:queues:'
+                $p = $perms->newPermission('whups:queues:'
                                             . $vars->get('queue') . ':assign');
                 $perms->addPermission($p);
             }
@@ -897,7 +897,7 @@ case 'addattributedescform_reload':
             $vars->get('attribute_name'),
             $vars->get('attribute_description'),
             $vars->get('attribute_type'),
-            $vars->get('attribute_params'),
+            $vars->get('attribute_params', array()),
             $vars->get('attribute_required'));
         if (!is_a($result, 'PEAR_Error')) {
             $typename = $whups_driver->getType($vars->get('type'));
@@ -968,7 +968,7 @@ case 'editattributedescstep2form_reload':
             $info['attribute_name'],
             $info['attribute_description'],
             $info['attribute_type'],
-            $info['attribute_params'],
+            !empty($info['attribute_params']) ? $info['attribute_params'] : array(),
             $info['attribute_required']);
         if (!is_a($result, 'PEAR_Error')) {
             $notification->push( _("The attribute has been modified."),
@@ -1225,8 +1225,8 @@ if (!_open(true)) {
         _open();
         $queues = $whups_driver->getQueues();
         $types = $whups_driver->getAllTypes();
-        $tlink = Horde::applicationUrl('admin/?formname=edittypeform');
-        $mlink = Horde::applicationUrl('admin/?formname=editqueueform');
+        $tlink = Horde::url('admin/?formname=edittypeform');
+        $mlink = Horde::url('admin/?formname=editqueueform');
         require WHUPS_TEMPLATES . '/admin/mtmatrix.inc';
         break;
 

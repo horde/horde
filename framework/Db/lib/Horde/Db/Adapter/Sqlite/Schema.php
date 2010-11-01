@@ -24,6 +24,19 @@
 class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
 {
     /*##########################################################################
+    # Object factories
+    ##########################################################################*/
+
+    /**
+     * Factory for Column objects
+     */
+    public function makeColumn($name, $default, $sqlType = null, $null = true)
+    {
+        return new Horde_Db_Adapter_Sqlite_Column($name, $default, $sqlType, $null);
+    }
+
+
+    /*##########################################################################
     # Quoting
     ##########################################################################*/
 
@@ -61,26 +74,6 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
             'binary'     => array('name' => 'blob',     'limit' => null),
             'boolean'    => array('name' => 'boolean',  'limit' => null),
         );
-    }
-
-    /**
-     * Dump entire schema structure or specific table
-     *
-     * @param   string  $table
-     * @return  string
-     */
-    public function structureDump($table=null)
-    {
-        if ($table) {
-            return $this->selectValue('SELECT sql FROM (
-                SELECT * FROM sqlite_master UNION ALL
-                SELECT * FROM sqlite_temp_master) WHERE type != \'meta\' AND name = ' . $this->quote($table));
-        } else {
-            $dump = $this->selectValues('SELECT sql FROM (
-                SELECT * FROM sqlite_master UNION ALL
-                SELECT * FROM sqlite_temp_master) WHERE type != \'meta\' AND name != \'sqlite_sequence\'');
-            return implode("\n\n", $dump);
-        }
     }
 
     /**
@@ -143,7 +136,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
             $this->_cache->set("tables/columns/$tableName", serialize($rows));
         }
 
-        $pk = $this->componentFactory('Index', array($tableName, 'PRIMARY', true, true, array()));
+        $pk = $this->makeIndex($tableName, 'PRIMARY', true, true, array());
         foreach ($rows as $row) {
             if ($row['pk'] == 1) {
                 $pk->columns[] = $row['name'];
@@ -166,8 +159,8 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
         if (!$indexes) {
             $indexes = array();
             foreach ($this->select('PRAGMA index_list(' . $this->quoteTableName($tableName) . ')') as $row) {
-                $index = $this->componentFactory('Index', array(
-                    $tableName, $row['name'], false, (bool)$row['unique'], array()));
+                $index = $this->makeIndex(
+                    $tableName, $row['name'], false, (bool)$row['unique'], array());
                 foreach ($this->select('PRAGMA index_info(' . $this->quoteColumnName($index->name) . ')') as $field) {
                     $index->columns[] = $field['name'];
                 }
@@ -198,8 +191,8 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
         // create columns from rows
         $columns = array();
         foreach ($rows as $row) {
-            $columns[$row[1]] = $this->componentFactory('Column', array(
-                $row[1], $row[4], $row[2], !(bool)$row[3]));
+            $columns[$row[1]] = $this->makeColumn(
+                $row[1], $row[4], $row[2], !(bool)$row[3]);
         }
 
         return $columns;
@@ -227,6 +220,8 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
      */
     public function addColumn($tableName, $columnName, $type, $options=array())
     {
+        /* Ignore ':autoincrement' - it is handled automatically by SQLite
+         * for any 'INTEGER PRIMARY KEY' column. */
         if ($this->transactionStarted()) {
             throw new Horde_Db_Exception('Cannot add columns to a SQLite database while inside a transaction');
         }
@@ -265,10 +260,21 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
 
         $defs = array('$definition["'.$columnName.'"]->setType("'.$type.'");');
         if (isset($options['limit'])) { $defs[] = '$definition["'.$columnName.'"]->setLimit("'.$options['limit'].'");'; }
-        if (isset($options['default'])) { $defs[] = '$definition["'.$columnName.'"]->setDefault("'.$options['default'].'");'; }
         if (isset($options['null'])) { $defs[] = '$definition["'.$columnName.'"]->setNull("'.$options['null'].'");'; }
         if (isset($options['precision'])) { $defs[] = '$definition["'.$columnName.'"]->setPrecision("'.$options['precision'].'");'; }
         if (isset($options['scale'])) { $defs[] = '$definition["'.$columnName.'"]->setScale("'.$options['scale'].'");'; }
+
+        if (array_key_exists('default', $options)) {
+            if ($options['default'] === true) {
+                $default = 'true';
+            } elseif ($options['default'] === false) {
+                $default = 'false';
+            } elseif ($options['default'] === null) {
+                $default = 'null';
+            } else {
+                $default = '"' . $options['default'] . '"';
+            }
+            $defs[] = '$definition["'.$columnName.'"]->setDefault('.$default.');'; }
 
         return $this->_alterTable($tableName, array(),
             create_function('$definition', implode("\n", $defs)));
@@ -283,8 +289,9 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     {
         $this->_clearTableCache($tableName);
 
+        $default = is_null($default) ? 'null' : '"' . $default . '"';
         return $this->_alterTable($tableName, array(),
-            create_function('$definition', '$definition["'.$columnName.'"]->setDefault("'.$default.'");'));
+            create_function('$definition', '$definition["'.$columnName.'"]->setDefault('.$default.');'));
     }
 
     /**

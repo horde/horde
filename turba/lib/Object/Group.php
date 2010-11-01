@@ -37,10 +37,10 @@ class Turba_Object_Group extends Turba_Object {
      */
     function url($view = null, $full = false)
     {
-        $url = Horde_Util::addParameter('browse.php',
-                                  array('source' => $this->getSource(),
-                                        'key' => $this->getValue('__key')));
-        return Horde::applicationUrl($url, $full);
+        return Horde::url('browse.php', $full)->add(array(
+            'source' => $this->getSource(),
+            'key' => $this->getValue('__key')
+        ));
     }
 
     /**
@@ -48,6 +48,8 @@ class Turba_Object_Group extends Turba_Object {
      *
      * @param string $contactId  The id of the contact to add.
      * @param string $sourceId   The source $contactId is from.
+     *
+     * @throws Turba_Exception
      */
     function addMember($contactId, $sourceId = null)
     {
@@ -58,24 +60,15 @@ class Turba_Object_Group extends Turba_Object {
 
         // Can't add a group to itself.
         if ($contactId == $this->attributes['__key']) {
-            return PEAR::raiseError(_("Can't add a group to itself."));
+            throw new Turba_Exception(_("Can't add a group to itself."));
         }
 
         // Try to find the contact being added.
         if ($sourceId == $this->getSource()) {
             $contact = $this->driver->getObject($contactId);
         } else {
-            $driver = Turba_Driver::singleton($sourceId);
-            if (is_a($driver, 'PEAR_Error')) {
-                return $driver;
-            }
+            $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($sourceId);
             $contact = $driver->getObject($contactId);
-        }
-
-        // Bail out if the contact being added doesn't exist or can't
-        // be retrieved.
-        if (is_a($contact, 'PEAR_Error')) {
-            return $contact;
         }
 
         // Explode members.
@@ -161,11 +154,13 @@ class Turba_Object_Group extends Turba_Object {
         $modified = false;
         foreach ($children as $member) {
             if (strpos($member, ':') === false) {
-                $contact = $this->driver->getObject($member);
-                if (is_a($contact, 'PEAR_Error')) {
+                try {
+                    $contact = $this->driver->getObject($member);
+                } catch (Turba_Exception $e) {
                     // Remove the contact if it no longer exists
                     $this->removeMember($member);
                     $modified = true;
+                    continue;
                 }
             } else {
                 list($sourceId, $contactId) = explode(':', $member, 2);
@@ -173,13 +168,19 @@ class Turba_Object_Group extends Turba_Object {
                     list($owner, $contactId) = explode(':', $contactId, 2);
                     $sourceId .= ':' . $owner;
                 }
-                $driver = Turba_Driver::singleton($sourceId);
-                if (!is_a($driver, 'PEAR_Error')) {
+
+                try {
+                    $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($sourceId);
+                } catch (Turba_Exception $e) {
+                    continue;
+                }
+
+                try {
                     $contact = $driver->getObject($contactId);
-                    if (is_a($contact, 'PEAR_Error')) {
-                        continue;
-                    }
-                } else {
+                } catch (Turba_Exception $e) {
+                    // Remove the contact if it no longer exists
+                    $this->removeMember($member);
+                    $modified = true;
                     continue;
                 }
             }

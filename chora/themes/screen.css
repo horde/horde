@@ -14,7 +14,7 @@ form#repository-picker {
 div.options, div.browsefileoptions {
     margin: 0 0 8px 5px;
 }
-div.options span, div.browsefileoptions span {
+div.options div, div.browsefileoptions div {
     display: -moz-inline-stack;
     display: inline-block;
     border: 1px solid #ccc;
@@ -22,7 +22,7 @@ div.options span, div.browsefileoptions span {
     background: #e9e9e9;
     vertical-align: top;
 }
-div.browsefileoptions span {
+div.browsefileoptions div {
     width: 31.3%;
 }
 div.options em, div.browsefileoptions em {
@@ -91,7 +91,7 @@ ul.revision li.tags {
 }
 
 /* Labels. */
-h3.revision_log, h3.checkout {
+h3.revision_log, h3.checkout, h3.file-view-header {
     background: #e9e9e9;
     display: inline;
     font-weight: bold;
@@ -182,11 +182,14 @@ ul.singlepsfiles li {
     color: red;
 }
 
-/* Checkout. */
-div.checkout {
+/* Checkout, File view */
+div.checkout, div.file-view-contents {
     padding: 3px;
     margin: 2px 5px 8px 5px;
     border: 1px solid #ddd;
+}
+div.file-view {
+    margin-top: 2em;
 }
 
 .attic {
@@ -265,7 +268,7 @@ table.hrdiff caption {
     font-weight: bold;
     padding: 5px;
 }
-table.hrdiff caption img, .statsImg {
+table.hrdiff caption img, img.chora-stats {
     border: 1px solid #000;
 }
 table.hrdiff caption img {

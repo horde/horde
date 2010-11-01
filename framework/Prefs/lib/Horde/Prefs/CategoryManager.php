@@ -10,7 +10,7 @@
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
- * @package  Horde_Prefs
+ * @package  Prefs
  */
 class Horde_Prefs_CategoryManager
 {
@@ -45,13 +45,13 @@ class Horde_Prefs_CategoryManager
         if (!in_array($current, $categories) && !empty($current)) {
             $curr_html = htmlspecialchars($current);
             $html .= '<option value="*new*' . $curr_html . '">'
-                . sprintf(_("Use Current: %s"), $curr_html)
+                . sprintf(Horde_Prefs_Translation::t("Use Current: %s"), $curr_html)
                 . '</option>'
                 . '<option value="" disabled="disabled">- - - - - - - - -</option>';
         }
 
         if (!$GLOBALS['prefs']->isLocked('categories')) {
-            $html .= '<option value="*new*">' . _("New Category")
+            $html .= '<option value="*new*">' . Horde_Prefs_Translation::t("New Category")
                 . "</option>\n"
                 . '<option value="" disabled="disabled">- - - - - - - - -</option>';
         }
@@ -60,7 +60,7 @@ class Horde_Prefs_CategoryManager
         $html .= '<option value="" style="background:'
             . $colors['_unfiled_'] . ';color:' . $fgcolors['_unfiled_'] . '"'
             . (empty($current) ? ' selected="selected">' : '>')
-            . htmlspecialchars(_("Unfiled")) . '</option>';
+            . htmlspecialchars(Horde_Prefs_Translation::t("Unfiled")) . '</option>';
 
         foreach ($categories as $name) {
             $name_html = htmlspecialchars($name);
@@ -79,8 +79,8 @@ class Horde_Prefs_CategoryManager
      */
     static public function getJavaScript($formname, $elementname)
     {
-        $prompt = addslashes(_("Please type the new category name:"));
-        $error = addslashes(_("You must type a new category name."));
+        $prompt = addslashes(Horde_Prefs_Translation::t("Please type the new category name:"));
+        $error = addslashes(Horde_Prefs_Translation::t("You must type a new category name."));
 
         return <<<JAVASCRIPT
 
@@ -154,7 +154,7 @@ JAVASCRIPT;
         unset($categories[$key]);
         $GLOBALS['prefs']->setValue('categories', implode('|', $categories));
 
-        // Remove any color settings for $category.
+        // Remove any color preferences for $category.
         $colors = self::colors();
         unset($colors[$category]);
         self::setColors($colors);

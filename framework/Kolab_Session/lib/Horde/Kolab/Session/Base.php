@@ -14,12 +14,6 @@
 /**
  * The Horde_Kolab_Session class holds user details in the current session.
  *
- * The core user credentials (login, pass) are kept within the Auth module and
- * can be retrieved using <code>Auth::getAuth()</code> respectively
- * <code>Auth::getCredential('password')</code>. Any additional Kolab user data
- * relevant for the user session should be accessed via the Horde_Kolab_Session
- * class.
- *
  * Copyright 2008-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -31,7 +25,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @link     http://pear.horde.org/index.php?package=Kolab_Session
  */
-class Horde_Kolab_Session_Base implements Horde_Kolab_Session_Interface
+class Horde_Kolab_Session_Base implements Horde_Kolab_Session
 {
     /**
      * Kolab configuration parameters.
@@ -73,7 +67,7 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session_Interface
      *
      * @var string
      */
-    private $_imap_server;
+    private $_imap_server = false;
 
     /**
      * The free/busy server for the current user.
@@ -83,13 +77,6 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session_Interface
     private $_freebusy_server;
 
     /**
-     * The connection parameters for the Kolab storage system.
-     *
-     * @var array
-     */
-    private $_storage_params;
-
-    /**
      * The kolab user database connection.
      *
      * @var Horde_Kolab_Server
@@ -97,27 +84,23 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session_Interface
     private $_server;
 
     /**
-     * The connection to the Kolab storage system.
+     * Mark the session as connected.
      *
-     * @var Horde_Kolab_Storage
+     * @var true
      */
-    private $_storage;
+    private $_connected = false;
 
     /**
      * Constructor.
      *
-     * @param string             $user_id The session will be setup for the user
-     *                                    with this ID.
      * @param Horde_Kolab_Server $server  The connection to the Kolab user
      *                                    database.
      * @param array              $params  Kolab configuration settings.
      */
     public function __construct(
-        $user_id,
-        Horde_Kolab_Server_Composite_Interface $server,
+        Horde_Kolab_Server_Composite $server,
         array $params
     ) {
-        $this->_user_id = $user_id;
         $this->_server  = $server;
         $this->_params  = $params;
     }
@@ -125,15 +108,17 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session_Interface
     /**
      * Try to connect the session handler.
      *
-     * @param array $credentials An array of login credentials. For Kolab,
-     *                           this must contain a "password" entry.
+     * @param string $user_id     The user ID to connect with.
+     * @param array  $credentials An array of login credentials. For Kolab,
+     *                            this must contain a "password" entry.
      *
      * @return NULL
      *
      * @throws Horde_Kolab_Session_Exception If the connection failed.
      */
-    public function connect(array $credentials = null)
+    public function connect($user_id = null, array $credentials = null)
     {
+        $this->_user_id = $user_id;
         if (isset($credentials['password'])) {
             $password = $credentials['password'];
         } else {
@@ -144,9 +129,9 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session_Interface
             $this->_server->connect($this->_user_id, $password);
             $user_object = $this->_server->objects->fetch();
         } catch (Horde_Kolab_Server_Exception_Bindfailed $e) {
-            throw new Horde_Kolab_Session_Exception_Badlogin($e);
+            throw new Horde_Kolab_Session_Exception_Badlogin('Invalid credentials!', 0, $e);
         } catch (Horde_Kolab_Server_Exception $e) {
-            throw new Horde_Kolab_Session_Exception($e);
+            throw new Horde_Kolab_Session_Exception('Login failed!', 0, $e);
         }
 
         $this->_initMail($user_object);
@@ -186,7 +171,7 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session_Interface
         Horde_Kolab_Server_Object_Hash $user
     ) {
         try {
-            $this->_user_uid = $user->getExternal('uid');
+            $this->_user_uid = $user->getSingle('uid');
         } catch (Horde_Kolab_Server_Exception_Novalue $e) {
             $this->_user_uid = $this->_user_id;
         }
@@ -203,7 +188,7 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session_Interface
         Horde_Kolab_Server_Object_Hash $user
     ) {
         try {
-            $this->_user_name = $user->getExternal('Firstnamelastname');
+            $this->_user_name = $user->getSingle('Firstnamelastname');
         } catch (Horde_Kolab_Server_Exception_Novalue $e) {
             $this->_user_name = $this->_user_id;
         }
@@ -220,7 +205,7 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session_Interface
         Horde_Kolab_Server_Object_Hash $user
     ) {
         try {
-            $this->_imap_server = $user->getExternal('kolabHomeServer');
+            $this->_imap_server = $user->getSingle('kolabHomeServer');
         } catch (Horde_Kolab_Server_Exception_Novalue $e) {
             if (isset($this->_params['imap']['server'])) {
                 $this->_imap_server = $this->_params['imap']['server'];
@@ -241,7 +226,7 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session_Interface
         Horde_Kolab_Server_Object_Hash $user
     ) {
         try {
-            $fb_server = $user->getExternal('kolabFreebusyHost');
+            $fb_server = $user->getSingle('kolabFreebusyHost');
         } catch (Horde_Kolab_Server_Exception_Novalue $e) {
             if (isset($this->_params['freebusy']['url'])) {
                 $this->_freebusy_server = $this->_params['freebusy']['url'];
@@ -269,8 +254,6 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session_Interface
     {
         $properties = get_object_vars($this);
         unset($properties['_server']);
-        unset($properties['_storage']);
-        unset($properties['_auth']);
         $properties = array_keys($properties);
         return $properties;
     }
@@ -283,18 +266,6 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session_Interface
     public function getId()
     {
         return $this->_user_id;
-    }
-
-    /**
-     * Set the user id used for connecting the session.
-     *
-     * @param string $id The user id.
-     *
-     * @return NULL
-     */
-    public function setId($id)
-    {
-        $this->_user_id = $id;
     }
 
     /**
@@ -345,27 +316,5 @@ class Horde_Kolab_Session_Base implements Horde_Kolab_Session_Interface
     public function getFreebusyServer()
     {
         return $this->_freebusy_server;
-    }
-
-    /**
-     * Return a connection to the Kolab storage system.
-     *
-     * @return Horde_Kolab_Storage The storage connection.
-     *
-     * @todo Implement
-     */
-    public function getStorage()
-    {
-        if (empty($this->_storage)) {
-            //@todo: factory?
-            $this->_storage = new Horde_Kolab_Storage(
-                'Imap',
-                //@todo: Use Session_Auth
-                array('hostspec' => $this->getImapServer(),
-                      'username' => Horde_Auth::getAuth(),
-                      'password' => Horde_Auth::getCredential('password'))
-            );
-        }
-        return $this->_storage;
     }
 }

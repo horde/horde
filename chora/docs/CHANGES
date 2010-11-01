@@ -2,6 +2,7 @@
 v3.0-git
 --------
 
+[jan] Rename sourceroots.php to backends.php.
 [mms] Patchset page supports viewing a single patchset.
 [mms] Add configuration option to disable caching.
 [mms] Move log entries in annotate screen to an AJAX request.
@@ -9,9 +10,17 @@ v3.0-git
 
 
 ----------
-v2.1.1-cvs
+v2.1.2-cvs
 ----------
 
+
+
+
+------
+v2.1.1
+------
+
+[jan] Fix method name when displaying patchsets (Bug #8714).
 [mms] Upgrade prototype.js to v1.6.1.
 
 
@@ -214,7 +223,7 @@ v1.0
 [jan] Add Norwegian Bookmal translation (Oystein Steimler <oystein@rexta.net>).
 [avsm] Add .htaccess files to deny access to data directories.
 [jan] Add Brazilian Portugues translation (Antonio Dias <accdias@sst.com.br>).
-[jan] Add Swedish translation (Andreas Dahlén <andreas@dahlen.ws>).
+[jan] Add Swedish translation (Andreas DahlÃ©n <andreas@dahlen.ws>).
 
 
 ----------

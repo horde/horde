@@ -10,14 +10,14 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-function _cleanup()
+function _cleanupData()
 {
-    global $import_step;
-    $import_step = 1;
+    $GLOBALS['import_step'] = 1;
     return Horde_Data::IMPORT_FILE;
 }
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('nag');
 
 if (!$conf['menu']['import_export']) {
     require NAG_BASE . '/index.php';
@@ -34,12 +34,14 @@ $templates = array(
     Horde_Data::IMPORT_MAPPED => array($registry->get('templates', 'horde') . '/data/csvmap.inc'),
     Horde_Data::IMPORT_DATETIME => array($registry->get('templates', 'horde') . '/data/datemap.inc')
 );
-if ($GLOBALS['perms']->hasAppPermission('max_tasks') !== true &&
-    $GLOBALS['perms']->hasAppPermission('max_tasks') <= Nag::countTasks()) {
+
+$perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+if ($perms->hasAppPermission('max_tasks') !== true &&
+    $perms->hasAppPermission('max_tasks') <= Nag::countTasks()) {
     try {
         $message = Horde::callHook('perms_denied', array('nag:max_tasks'));
     } catch (Horde_Exception_HookNotSet $e) {
-        $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d tasks."), $GLOBALS['perms']->hasAppPermission('max_tasks')), ENT_COMPAT, Horde_Nls::getCharset());
+        $message = htmlspecialchars(sprintf(_("You are not allowed to create more than %d tasks."), $perms->hasAppPermission('max_tasks')));
     }
     $notification->push($message, 'horde.warning', array('content.raw'));
     $templates[Horde_Data::IMPORT_FILE] = array(NAG_TEMPLATES . '/data/export.inc');
@@ -111,12 +113,11 @@ case 'export':
                 unset($task['delete_link']);
                 $data[] = $task;
             }
-            $csv = Horde_Data::singleton('csv');
-            $csv->exportFile(_("tasks.csv"), $data, true);
+            $injector->getInstance('Horde_Core_Factory_Data')->create('Csv', array('cleanup' => '_cleanupData'))->exportFile(_("tasks.csv"), $data, true);
             exit;
 
         case Horde_Data::EXPORT_ICALENDAR:
-            $iCal = new Horde_iCalendar();
+            $iCal = new Horde_Icalendar();
             $iCal->setAttribute(
                 'PRODID',
                 '-//The Horde Project//Nag ' . $registry->getVersion() . '//EN');
@@ -136,16 +137,18 @@ case Horde_Data::IMPORT_FILE:
     break;
 }
 
-if (!$error) {
-    $data = Horde_Data::singleton($import_format);
-    if (is_a($data, 'PEAR_Error')) {
-        $notification->push(_("This file format is not supported."), 'horde.error');
-        $next_step = Horde_Data::IMPORT_FILE;
-    } else {
+if (!$error && $import_format) {
+    $data = null;
+    try {
+        $data = $injector->getInstance('Horde_Core_Factory_Data')->create($import_format, array('cleanup' => '_cleanupData'));
         $next_step = $data->nextStep($actionID, $param);
-        if (is_a($next_step, 'PEAR_Error')) {
-            $notification->push($next_step->getMessage(), 'horde.error');
+    } catch (Horde_Data_Exception $e) {
+        if ($data) {
+            $notification->push($e, 'horde.error');
             $next_step = $data->cleanup();
+        } else {
+            $notification->push(_("This file format is not supported."), 'horde.error');
+            $next_step = Horde_Data::IMPORT_FILE;
         }
     }
 }
@@ -158,7 +161,7 @@ if (is_array($next_step)) {
 
     /* Create a Nag storage instance. */
     $storage = Nag_Driver::singleton($_SESSION['import_data']['target']);
-    $max_tasks = $GLOBALS['perms']->hasAppPermission('max_tasks');
+    $max_tasks = $perms->hasAppPermission('max_tasks');
     $num_tasks = Nag::countTasks();
     $result = null;
     foreach ($next_step as $row) {
@@ -166,14 +169,14 @@ if (is_array($next_step)) {
             try {
                 $message = Horde::callHook('perms_denied', array('nag:max_tasks'));
             } catch (Horde_Exception_HookNotSet $e) {
-                $message = @htmlspecialchars(sprintf(_("You are not allowed to create more than %d tasks."), $GLOBALS['perms']->hasAppPermission('max_tasks')), ENT_COMPAT, Horde_Nls::getCharset());
+                $message = htmlspecialchars(sprintf(_("You are not allowed to create more than %d tasks."), $perms->hasAppPermission('max_tasks')));
             }
             $notification->push($message, 'horde.error', array('content.raw'));
             break;
         }
 
         if (!is_array($row)) {
-            if (!is_a($row, 'Horde_iCalendar_vtodo')) {
+            if (!is_a($row, 'Horde_Icalendar_Vtodo')) {
                 continue;
             }
             $task = new Nag_Task();
@@ -191,7 +194,7 @@ if (is_array($next_step)) {
                                 $row['estimate'], $row['completed'],
                                 $row['category'], $row['alarm'], $row['uid'],
                                 isset($row['parent']) ? $row['parent'] : '',
-                                $row['private'], Horde_Auth::getAuth(),
+                                $row['private'], $GLOBALS['registry']->getAuth(),
                                 $row['assignee']);
         if (is_a($result, 'PEAR_Error')) {
             break;
@@ -220,9 +223,32 @@ if (is_array($next_step)) {
     $next_step = $data->cleanup();
 }
 
+$import_tasklists = $export_tasklists = array();
+if ($GLOBALS['registry']->getAuth()) {
+    $tasklists = Nag::listTasklists(false, Horde_Perms::EDIT);
+    foreach ($tasklists as $id => $tasklist) {
+        if ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
+            !empty($GLOBALS['conf']['share']['hidden']) &&
+            !in_array($tasklist->getName(), $GLOBALS['display_tasklists'])) {
+            continue;
+        }
+        $import_tasklists[$id] = $tasklist;
+    }
+}
+$tasklists = Nag::listTasklists(false, Horde_Perms::READ);
+foreach ($tasklists as $id => $tasklist) {
+    if ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
+        !empty($GLOBALS['conf']['share']['hidden']) &&
+        !in_array($tasklist->getName(), $GLOBALS['display_tasklists'])) {
+        continue;
+    }
+    $export_tasklists[$id] = $tasklist;
+}
+
 $title = _("Import/Export Tasks");
 require NAG_TEMPLATES . '/common-header.inc';
-require NAG_TEMPLATES . '/menu.inc';
+echo Horde::menu();
+Nag::status();
 
 foreach ($templates[$next_step] as $template) {
     require $template;

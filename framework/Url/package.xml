@@ -29,15 +29,36 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Initial package.
+ <notes>* Add Horde_Url_Exception::.
+ * Add Horde_Url::redirect().
+ * Add Horde_Url::unique().
+ * Add support for callback function for toString conversion.
+ * Add support for URL anchors.
+ * Added Horde_Url::uriB64Encode() and Horde_Url::uriB64Decode().
+ * Initial package.
  </notes>
  <contents>
   <dir name="/">
    <dir name="lib">
     <dir name="Horde">
+     <dir name="Url">
+      <file name="Exception.php" role="php" />
+     </dir> <!-- /lib/Horde/Url -->
      <file name="Url.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Url">
+      <file name="AddTest.php" role="test" />
+      <file name="AllTests.php" role="test" />
+      <file name="CallbackTest.php" role="test" />
+      <file name="RawTest.php" role="test" />
+      <file name="RedirectTest.php" role="test" />
+      <file name="RemoveTest.php" role="test" />
+     </dir> <!-- /test/Horde/Url -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -48,10 +69,15 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <pearinstaller>
     <min>1.5.4</min>
    </pearinstaller>
+   <package>
+    <name>Exception</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </required>
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="lib/Horde/Url/Exception.php" as="Horde/Url/Exception.php" />
    <install name="lib/Horde/Url.php" as="Horde/Url.php" />
   </filelist>
  </phprelease>

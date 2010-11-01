@@ -8,20 +8,23 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('ansel');
 
-$style = Horde_Util::getFormData('style');
-$id = Horde_Util::getFormData('image');
-$image = &$ansel_storage->getImage($id);
-if (is_a($image, 'PEAR_Error')) {
-    Horde::fatal($image, __FILE__, __LINE__);
+$thumbstyle = Horde_Util::getFormData('t');
+$background = Horde_Util::getFormData('b');
+
+// Create a dummy style object with only what is needed to generate
+if ($thumbstyle && $background) {
+    $style = new Ansel_Style(array('thumbstyle' => $thumbstyle,
+                                   'background' => $background));
+} else {
+    $style = null;
 }
-$gallery = $ansel_storage->getGallery(abs($image->gallery));
-if (is_a($gallery, 'PEAR_Error')) {
-    Horde::fatal($gallery, __FILE__, __LINE__);
-}
-if (!$gallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
-    Horde::fatal(_("Access denied viewing this photo."), __FILE__, __LINE__);
+$image = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getImage(Horde_Util::getFormData('image'));
+$gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery(abs($image->gallery));
+if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::READ)) {
+    throw new Horde_Exception_PermissionDenied(_("Access denied viewing this photo."));
 }
 
 /* Sendfile support. Lighttpd < 1.5 only understands the X-LIGHTTPD-send-file header */
@@ -30,16 +33,14 @@ if ($conf['vfs']['src'] == 'sendfile') {
     try {
         $image->createView('prettythumb', $style);
     } catch (Horde_Exception $e) {
-        Horde::logMessage($e->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
+        Horde::logMessage($e, 'ERR');
         exit;
     }
-    $filename = $ansel_vfs->readFile($image->getVFSPath('prettythumb', $style), $image->getVFSName('prettythumb'));
+    $filename = $injector->getInstance('Horde_Core_Factory_Vfs')->create('images')->readFile($image->getVFSPath('prettythumb', $style), $image->getVFSName('prettythumb'));
     header('Content-Type: ' . $image->getType('prettythumb'));
     header('X-LIGHTTPD-send-file: ' . $filename);
     header('X-Sendfile: ' . $filename);
     exit;
 }
 
-if (is_a($result = $image->display('prettythumb', $style), 'PEAR_Error')) {
-    Horde::fatal($result, __FILE__, __LINE__);
-}
+$image->display('prettythumb', $style);

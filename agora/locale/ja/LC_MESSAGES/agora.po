@@ -1,0 +1,1116 @@
+# Japanese translations for Agora package.
+# Copyright 2008-2010 The Horde Project
+# This file is distributed under the same license as the Agora package.
+# Automatically generated, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Agora 1.0-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2008-02-07 11:24+0900\n"
+"PO-Revision-Date: 2010-08-18 19:58+0200\n"
+"Last-Translator: Takeshi Taguchi <taguchi@tcltk.jp>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: moderate.php:51
+#, php-format
+msgid "%d messages was approved."
+msgstr "%d 通のメッセージを承認しました。"
+
+#: moderate.php:57
+#, php-format
+msgid "%d messages was deleted."
+msgstr "%d 通のメッセージを削除しました。"
+
+#: scripts/phorum2agora.php:218
+msgid "-a, --agora_id[=aid]         Agora forum id to save message to"
+msgstr "-a, --agora_id[=aid]         メッセージを保存する agoraフォーラムID"
+
+#: scripts/phorum2agora.php:221
+msgid "-c, --count[=messages]       Number of messages to move at once"
+msgstr "-c, --count[=messages]       一度に移動するメッセージ数"
+
+#: scripts/phorum2agora.php:220
+msgid ""
+"-f, --from[=offset]          Offset from where to start to read messages"
+msgstr "-f, --from[=offset]          メッセージを読み始める所までのオフセット"
+
+#: scripts/phorum2agora.php:216
+msgid "-h, --help                   Show this help"
+msgstr "-h, --help                   このヘルプを表示"
+
+#: scripts/phorum2agora.php:217
+msgid "-p, --phorum_id[=pid]        Phorum forum id to read message from"
+msgstr "-p, --phorum_id[=pid]        メッセージを読むPhorum フォーラムID"
+
+#: scripts/phorum2agora.php:219
+msgid "-t, --phorum_table[=table]   Phorum messages tablename"
+msgstr "-t, --phorum_table[=table]   Phorum メッセージのテーブル名"
+
+#
+#: lib/api.php:813
+msgid "Add a comment"
+msgstr "コメントを追加"
+
+#
+#: lib/api.php:148
+msgid "Admin"
+msgstr "管理"
+
+#
+#: messages/merge.php:69
+msgid "After Message: "
+msgstr "処理後メッセージ："
+
+#
+#: forums.php:75
+msgid "All Forums"
+msgstr "全てのフォーラム"
+
+#
+#: lib/Forms/Forum.php:44
+msgid "Allow attachments in this forum?"
+msgstr "添付をこのフォーラムで許可しますか?"
+
+#: messages/lock.php:53
+msgid "Allow replies in this thread"
+msgstr "このスレッドでリプライを許可"
+
+#: moderate.php:48 moderate.php:70
+msgid "Approve"
+msgstr "承認"
+
+#: lib/View.php:72 config/prefs.php.dist:103 config/prefs.php.dist:138
+#: config/prefs.php.dist:179 config/prefs.php.dist:267
+msgid "Ascending"
+msgstr "昇順"
+
+#: lib/Messages.php:1454
+msgid "Attachment"
+msgstr "添付"
+
+#: lib/View.php:67 lib/Forms/Search.php:58
+msgid "Author"
+msgstr "作成者"
+
+#
+#: config/prefs.php.dist:11
+msgid "Avatar"
+msgstr "化身"
+
+#: config/prefs.php.dist:67
+#, php-format
+msgid ""
+"Avatars must be smaller than %s by %s pixels and less than %sKb in size."
+msgstr "化身は %s × %sピクセル以下であり、%sKb以下の容量でなければなりません。"
+
+#
+#: ban.php:58 lib/Messages.php:1399
+msgid "Ban"
+msgstr "追放"
+
+#: templates/forums/ban.html:10
+msgid "Banned"
+msgstr "追放済み"
+
+#: moderate.php:62
+msgid "Body"
+msgstr "本文"
+
+#
+#: deleteforum.php:47 messages/split.php:49 messages/delete.php:52
+#: messages/merge.php:50 messages/move.php:49 messages/abuse.php:50
+#: messages/abuse.php:58 lib/api.php:734
+msgid "Cancel"
+msgstr "キャンセル"
+
+#
+#: lib/Messages.php:1882
+msgid "Cannot create a forum with an empty name."
+msgstr "名前が空のフォーラムは作成できません。"
+
+#: templates/prefs/avatarselect.inc:8
+msgid "Choose from a gallery of avatars: "
+msgstr "化身一覧から選択:"
+
+#
+#: lib/View.php:78 lib/api.php:440
+msgid "Comments"
+msgstr "コメント"
+
+#
+#: config/prefs.php.dist:51
+msgid "Comments view"
+msgstr "コメント表示"
+
+#: editforum.php:44
+#, php-format
+msgid "Could not create the forum. %s"
+msgstr "フォーラムを作成できません:%s"
+
+#: deleteforum.php:68
+#, php-format
+msgid "Could not delete the forum. %s"
+msgstr "フォーラムを削除できません:%s"
+
+#: messages/delete.php:66 lib/api.php:717 lib/api.php:728 lib/api.php:742
+#, php-format
+msgid "Could not delete the message. %s"
+msgstr "メッセージを削除できません:%s"
+
+#: threads.php:33
+#, php-format
+msgid "Could not list threads. %s"
+msgstr "スレッド表示できません:%s"
+
+#: messages/lock.php:62
+#, php-format
+msgid "Could not lock the thread. %s"
+msgstr "スレッドをロックできません:%s"
+
+#: messages/split.php:33 messages/delete.php:36 messages/index.php:36
+#: messages/lock.php:35 messages/merge.php:34 messages/move.php:33
+#: messages/abuse.php:33
+#, php-format
+msgid "Could not open the message. %s"
+msgstr "メッセージを開けません:%s"
+
+#
+#: messages/edit.php:33 messages/edit.php:83 lib/api.php:581 lib/api.php:634
+msgid "Could not post the message: "
+msgstr "メッセージを投稿できません:"
+
+#: lib/Template.php:234
+#, php-format
+msgid "Could not save the compiled template file \"%s\"."
+msgstr "コンパイルした雛形ファイル '%s' を保存できませんでした。"
+
+#
+#: scripts/phorum2agora.php:65
+msgid "Couldn't read command-line options."
+msgstr "コマンドラインオプションを読めません。"
+
+#: lib/Forms/Forum.php:30
+msgid "Create"
+msgstr "作成"
+
+#
+#: lib/Messages.php:1450
+msgid "Current attachment"
+msgstr "現在の添付"
+
+#: moderate.php:62 forums.php:57 messages/index.php:146 lib/View.php:66
+#: lib/View.php:85 lib/View.php:100 lib/api.php:429 lib/Block/forums.php:87
+#: lib/Block/thread.php:84 lib/Block/threads.php:125 config/prefs.php.dist:94
+#: config/prefs.php.dist:128 config/prefs.php.dist:170
+#: config/prefs.php.dist:258
+msgid "Date"
+msgstr "日付"
+
+#
+#: config/prefs.php.dist:259
+msgid "Default comments view sort:"
+msgstr "デフォルトのコメント表示順:"
+
+#
+#: config/prefs.php.dist:95
+msgid "Default forums view sort:"
+msgstr "デフォルトのフォーラム表示順:"
+
+#
+#: config/prefs.php.dist:105 config/prefs.php.dist:140
+#: config/prefs.php.dist:181 config/prefs.php.dist:269
+msgid "Default sorting direction:"
+msgstr "デフォルトの並び替え順:"
+
+#
+#: config/prefs.php.dist:171
+msgid "Default thread view sort:"
+msgstr "デフォルトのスレッド表示順:"
+
+#
+#: config/prefs.php.dist:130
+msgid "Default threads view sort:"
+msgstr "デフォルトのスレッド群表示順:"
+
+#: ban.php:55 moderators.php:67 moderate.php:54 moderate.php:70
+#: deleteforum.php:47 deleteforum.php:65 messages/delete.php:52
+#: messages/delete.php:57 messages/index.php:122 lib/api.php:734
+#: lib/api.php:739 lib/Messages.php:801 lib/Messages.php:1700
+msgid "Delete"
+msgstr "削除"
+
+#: messages/delete.php:51 lib/api.php:733
+#, php-format
+msgid "Delete \"%s\" and all replies?"
+msgstr " \"%s\"と全てのリプライを削除しますか?"
+
+#
+#: deleteforum.php:45 lib/Messages.php:1397
+msgid "Delete Forum"
+msgstr "フォーラムを削除"
+
+#
+#: lib/Messages.php:1700
+msgid "Delete forum"
+msgstr "フォーラムを削除"
+
+#
+#: lib/Messages.php:801
+msgid "Delete message"
+msgstr "メッセージを削除"
+
+#
+#: lib/Messages.php:1449
+msgid "Delete the existing attachment?"
+msgstr "既存の添付を削除しますか?"
+
+#: lib/View.php:73 config/prefs.php.dist:104 config/prefs.php.dist:139
+#: config/prefs.php.dist:180 config/prefs.php.dist:268
+msgid "Descending"
+msgstr "降順"
+
+#: forums.php:57
+msgid "Description"
+msgstr "説明"
+
+#: config/prefs.php.dist:21 config/prefs.php.dist:28 config/prefs.php.dist:35
+#: config/prefs.php.dist:43 config/prefs.php.dist:50
+msgid "Display Options"
+msgstr "表示オプション"
+
+#: config/prefs.php.dist:248
+msgid "Display full message bodies in the comments view?"
+msgstr "コメント表示でメッセージ本文すべてを表示しますか?"
+
+#: config/prefs.php.dist:192
+msgid "Display full message bodies in the thread list view?"
+msgstr "スレッド表示でメッセージ本文すべてを表示しますか?"
+
+#
+#: config/prefs.php.dist:211
+msgid "Display graphical emoticons?"
+msgstr "グラフィカル顔文字を表示しますか?"
+
+#: messages/index.php:119 lib/Messages.php:797 lib/Messages.php:1694
+msgid "Edit"
+msgstr "編集"
+
+#
+#: editforum.php:25 lib/Messages.php:1394
+msgid "Edit Forum"
+msgstr "フォーラム編集"
+
+#
+#: lib/api.php:609
+msgid "Edit Message"
+msgstr "メッセージ編集"
+
+#: messages/edit.php:70
+#, php-format
+msgid "Edit Message in \"%s\""
+msgstr "\"%s\" へのメッセージ編集"
+
+#
+#: lib/api.php:811
+msgid "Edit a comment"
+msgstr "コメント編集"
+
+#
+#: lib/Messages.php:1694
+msgid "Edit forum"
+msgstr "フォーラム編集"
+
+#
+#: lib/Messages.php:797
+msgid "Edit message"
+msgstr "メッセージ編集"
+
+#
+#: lib/Forms/Forum.php:41
+msgid "Enter a brief description of this forum"
+msgstr "このフォーラムの説明を入力してください"
+
+#: messages/index.php:168 lib/View.php:59 config/prefs.php.dist:246
+msgid "Flat"
+msgstr "フラット"
+
+#
+#: moderators.php:79 moderators.php:82 moderate.php:62 forums.php:57
+#: messages/move.php:54 lib/Block/forums.php:87 lib/Block/threads.php:46
+#: config/prefs.php.dist:90 templates/moderators/moderators.html:8
+msgid "Forum"
+msgstr "フォーラム"
+
+#: lib/api.php:711 lib/Messages.php:1612
+#, php-format
+msgid "Forum %s does not exist."
+msgstr "フォーラム %s は存在しません。"
+
+#
+#: editforum.php:47
+msgid "Forum Modified"
+msgstr "フォーラム変更日時"
+
+#: editforum.php:47
+msgid "Forum created."
+msgstr "フォーラムは生成されました。"
+
+#
+#: deleteforum.php:70
+msgid "Forum deleted."
+msgstr "フォーラムは削除されました。"
+
+#
+#: deleteforum.php:51 lib/Forms/Forum.php:33
+#: templates/moderators/moderators.html:9
+msgid "Forum name"
+msgstr "フォーラム名"
+
+#
+#: deleteforum.php:73
+msgid "Forum not deleted."
+msgstr "フォーラムは削除されませんでした。"
+
+#: lib/api.php:149 lib/Block/forums.php:3 lib/Block/forums.php:28
+#: templates/forums/forums.html:9
+msgid "Forums"
+msgstr "フォーラム"
+
+#
+#: config/prefs.php.dist:22
+msgid "Forums View"
+msgstr "フォーラム表示"
+
+#: lib/Messages.php:1431
+msgid "From"
+msgstr "差出人"
+
+#: templates/threads/threads.html:43
+msgid "Goto page:"
+msgstr "ページへ移動:"
+
+#
+#: messages/index.php:158 messages/index.php:167
+msgid "Hide bodies"
+msgstr "本文を隠す"
+
+#
+#: lib/Messages.php:718
+msgid "Hot thread"
+msgstr "熱いスレッド"
+
+#: lib/Forms/Forum.php:44
+msgid "If selected users will be able to attach files to their messages."
+msgstr "選択されたユーザがメッセージにファイル添付できるならば。"
+
+#: messages/edit.php:113
+msgid ""
+"Invalid parent message, you will be posting this message as a new thread."
+msgstr "不正な親メッセージです。あなたの投稿は新規スレッドとして扱われます。"
+
+#
+#: lib/Forms/Forum.php:42
+msgid "Is this a moderated forum?"
+msgstr "これはモデレータ管理下にあるフォーラムですか？"
+
+#: lib/Forms/Search.php:46
+msgid "Keywords"
+msgstr "キーワード"
+
+#
+#: config/prefs.php.dist:92
+msgid "Last Message"
+msgstr "最後のメッセージ"
+
+#
+#: forums.php:57 lib/Block/forums.php:87
+msgid "Last Post"
+msgstr "最新の投稿"
+
+#
+#: threads.php:62 config/prefs.php.dist:129
+msgid "Last post"
+msgstr "最新の投稿"
+
+#
+#: lib/Messages.php:805
+msgid "Lock"
+msgstr "ロック"
+
+#
+#: messages/index.php:125
+msgid "Lock thread"
+msgstr "スレッドをロック"
+
+#: messages/lock.php:50
+#, php-format
+msgid "Locking thread \"%s\""
+msgstr "ロックされたスレッド \"%s\""
+
+#: lib/Agora.php:361
+msgid "Malformed avatar."
+msgstr "壊れた化身。"
+
+#: lib/Agora.php:384
+msgid "Malformed database entry."
+msgstr "壊れたデータベース項目。"
+
+#: scripts/phorum2agora.php:214
+msgid ""
+"Mandatory arguments to long options are mandatory for short options too."
+msgstr ""
+"Mandatory arguments to long options are mandatory for short options too."
+
+#: messages/merge.php:50 messages/merge.php:76 lib/Messages.php:816
+msgid "Merge"
+msgstr "マージ"
+
+#: messages/merge.php:49
+#, php-format
+msgid "Merge \"%s\" with another thread"
+msgstr "別のスレッドで\"%s\"をマージ"
+
+#
+#: lib/Messages.php:1444
+msgid "Message"
+msgstr "メッセージ"
+
+#: messages/abuse.php:80
+#, php-format
+msgid "Message %s reported as abuse"
+msgstr "メッセージ %s は不正なものとして報告されました。"
+
+#: lib/Messages.php:456
+#, php-format
+msgid "Message ID \"%d\" not found"
+msgstr "メッセージID \"%d\" は見つかりません。"
+
+#
+#: config/prefs.php.dist:44
+msgid "Message View"
+msgstr "メッセージ表示"
+
+#
+#: messages/delete.php:68 lib/api.php:744
+msgid "Message deleted."
+msgstr "メッセージは削除されました。"
+
+#
+#: messages/delete.php:58 lib/api.php:749
+msgid "Message not deleted."
+msgstr "メッセージは削除されませんでした。"
+
+#
+#: messages/edit.php:85 lib/api.php:636
+msgid "Message posted."
+msgstr "メッセージは投稿されました。"
+
+#: config/prefs.php.dist:91
+msgid "Messages"
+msgstr "メッセージ"
+
+#: moderate.php:82 templates/moderate/moderate.html:9
+msgid "Messages Awaiting Moderation"
+msgstr "メッセージは承認待ちです"
+
+#: lib/Messages.php:1719
+msgid "Moderate"
+msgstr "承認管理"
+
+#
+#: moderators.php:77 lib/Tree/flat.php:117 templates/messages/flat.html:25
+#: templates/messages/flat_thread.html:10 templates/messages/message.html:21
+msgid "Moderator"
+msgstr "承認者"
+
+#
+#: moderators.php:71 templates/moderators/moderators.html:4
+#: templates/moderators/moderators.html:10 templates/forums/forums.html:40
+msgid "Moderators"
+msgstr "承認者"
+
+#: messages/move.php:49 messages/move.php:61 lib/Messages.php:812
+msgid "Move"
+msgstr "移動"
+
+#: messages/move.php:48
+#, php-format
+msgid "Move \"%s\" to another forum"
+msgstr "\"%s\"を別のフォーラムに移動"
+
+#
+#: config/prefs.php.dist:10
+msgid "My Information"
+msgstr "私の情報"
+
+#
+#: editforum.php:25
+msgid "New Forum"
+msgstr "新規フォーラム"
+
+#
+#: lib/Messages.php:1689
+msgid "New Post"
+msgstr "新規投稿"
+
+#
+#: lib/Agora.php:267
+msgid "New Thread"
+msgstr "新規スレッド"
+
+#
+#: lib/Messages.php:719
+msgid "New posts"
+msgstr "新規投稿"
+
+#
+#: config/prefs.php.dist:189
+msgid "No"
+msgstr "いいえ"
+
+#
+#: lib/Block/threads.php:121
+msgid "No available threads."
+msgstr "スレッドがありません。"
+
+#
+#: lib/Block/threads.php:100
+msgid "No forum selected"
+msgstr "フォーラムが選択されていません。"
+
+#
+#: templates/forums/forums.html:65
+msgid "No forums have been created."
+msgstr "フォーラムは生成されませんでした。"
+
+#: config/prefs.php.dist:209
+msgid "No graphical emoticons"
+msgstr "グラフィック顔文字非表示"
+
+#: moderate.php:40
+msgid "No messages are waiting for moderation."
+msgstr "承認待ちのメッセージはありません。"
+
+#: messages/abuse.php:41
+msgid "No moderators are associated with this forum."
+msgstr "このフォーラムには承認者が居ません。"
+
+#
+#: templates/moderators/moderators.html:27
+msgid "No moderators have been created."
+msgstr "承認者は生成されませんでした。"
+
+#
+#: templates/block/threads.html:32
+msgid "No threads"
+msgstr "非スレッド"
+
+#: messages/lock.php:53
+msgid "No, do not allow replies"
+msgstr "リプライは許されません"
+
+#
+#: config/prefs.php.dist:114
+msgid "Number of forums to display on each page"
+msgstr "各ページに表示するフォーラム数"
+
+#
+#: config/prefs.php.dist:201
+msgid "Number of message to display on each page"
+msgstr "各ページに表示するメッセージ数"
+
+#
+#: config/prefs.php.dist:157 config/prefs.php.dist:278
+msgid "Number of messages to display on each page"
+msgstr "各ページに表示するメッセージ数"
+
+#: config/prefs.php.dist:148
+msgid "Number of views in 24hrs to trigger a 'hot-thread':"
+msgstr "「熱いスレッド」と認定する24時間のアクセス数:"
+
+#: lib/Block/forums.php:35
+msgid "Only display this many forums (0 to display all forums)"
+msgstr "この数だけのフォーラムを表示(0で全フォーラムを表示)"
+
+#: lib/Block/threads.php:53
+msgid "Only display this many threads (0 to display all threads)"
+msgstr "この数だけのスレッドを表示(0で全スレッドを表示)"
+
+#: templates/forums/forums.html:35
+msgid "Options"
+msgstr "オプション"
+
+#: lib/Messages.php:763
+#, php-format
+msgid "Page %d"
+msgstr "ページ %d"
+
+#
+#: lib/Forms/Forum.php:36
+msgid "Parent forum"
+msgstr "親フォーラム"
+
+#
+#: lib/Messages.php:1413
+msgid "Post"
+msgstr "投稿"
+
+#
+#: lib/api.php:609
+msgid "Post a New Message"
+msgstr "新規メッセージを投稿"
+
+#: messages/edit.php:71
+#, php-format
+msgid "Post a New Message to \"%s\""
+msgstr "%s への新規メッセージ投稿"
+
+#: messages/edit.php:69 messages/index.php:213
+#, php-format
+msgid "Post a Reply to \"%s\""
+msgstr "\"%s\"へのリプライを投稿"
+
+#
+#: lib/Messages.php:1389 lib/Messages.php:1689
+msgid "Post message"
+msgstr "メッセージを投稿"
+
+#: moderate.php:62 forums.php:57 messages/index.php:146 lib/View.php:83
+#: lib/View.php:99 lib/api.php:427 lib/Tree/flat.php:112
+#: lib/Block/forums.php:87 lib/Block/thread.php:84 lib/Block/threads.php:125
+#: config/prefs.php.dist:93 config/prefs.php.dist:126
+#: config/prefs.php.dist:169 config/prefs.php.dist:257
+#: templates/messages/flat.html:21 templates/messages/flat_thread.html:7
+msgid "Posted by"
+msgstr "投稿者"
+
+#: messages/index.php:90 lib/Messages.php:501
+#, php-format
+msgid "Posted by %s on %s"
+msgstr "%s の %sからの投稿"
+
+#
+#: threads.php:62 forums.php:57 lib/Block/forums.php:87
+#: config/prefs.php.dist:127
+msgid "Posts"
+msgstr "投稿"
+
+#
+#: lib/Messages.php:1436
+msgid "Quote"
+msgstr "容量制限"
+
+#: messages/index.php:113 lib/Messages.php:785
+msgid "Reply"
+msgstr "リプライ"
+
+#
+#: lib/Messages.php:785
+msgid "Reply to message"
+msgstr "送信者にリプライ"
+
+#
+#: messages/abuse.php:49 messages/abuse.php:50 lib/Messages.php:791
+msgid "Report as abuse"
+msgstr "不正使用と報告"
+
+#: lib/Forms/Search.php:47
+msgid "Require all keywords?"
+msgstr "全てのキーワードを求めますか?"
+
+#: lib/Messages.php:1413
+msgid "Save"
+msgstr "保存"
+
+#: lib/Forms/Search.php:60
+msgid "Search"
+msgstr "検索"
+
+#
+#: search.php:70 lib/Forms/Search.php:36
+msgid "Search Forums"
+msgstr "フォーラム検索"
+
+#: templates/search/search.html:5
+msgid "Search Results"
+msgstr "検索結果"
+
+#: lib/Forms/Search.php:55
+msgid "Search in message contents?"
+msgstr "メッセージ内検索"
+
+#
+#: lib/Forms/Search.php:51
+msgid "Search in subjects?"
+msgstr "件名検索"
+
+#
+#: lib/Forms/Search.php:40
+msgid "Search in these forums"
+msgstr "複数フォーラム間検索"
+
+#: config/prefs.php.dist:12
+msgid "Set the avatar image that is shown with your posts."
+msgstr "あなたが投稿する画像で化身を設定します。"
+
+#: lib/Forms/Forum.php:42
+msgid ""
+"Set this if you want all messages to be checked by a moderator before they "
+"are posted."
+msgstr ""
+"投稿される前に承認者によってすべてのメッセージがチェックされるようにするなら"
+"ば設定。"
+
+#: config/prefs.php.dist:23
+msgid "Set your options for the forums view."
+msgstr "フォーラム表示のオプションを設定。"
+
+#: config/prefs.php.dist:45
+msgid "Set your options for the message view."
+msgstr "メッセージ表示のオプションを設定。"
+
+#: config/prefs.php.dist:37 config/prefs.php.dist:52
+msgid "Set your options for the single thread view."
+msgstr "スレッド単体表示のオプションを設定。"
+
+#: config/prefs.php.dist:30
+msgid "Set your options for the threads view."
+msgstr "スレッド表示のオプションを設定。"
+
+#: config/prefs.php.dist:210
+msgid "Show graphical emoticons"
+msgstr "グラフィカル顔文字を表示"
+
+#
+#: lib/Block/thread.php:3 lib/Block/thread.php:53
+msgid "Single Thread"
+msgstr "単体スレッド"
+
+#
+#: config/prefs.php.dist:36
+msgid "Single Thread View"
+msgstr "単体スレッド表示"
+
+#
+#: lib/Agora.php:206
+msgid "Sort Ascending"
+msgstr "昇順並び替え"
+
+#
+#: lib/Agora.php:206
+msgid "Sort Descending"
+msgstr "降順並び替え"
+
+#
+#: lib/View.php:64
+msgid "Sort by"
+msgstr "以下で並べ替え"
+
+#: lib/Agora.php:214 lib/Agora.php:221
+#, php-format
+msgid "Sort by %s"
+msgstr "%s で並べ替え"
+
+#
+#: lib/View.php:70
+msgid "Sort direction"
+msgstr "並び替え方向："
+
+#
+#: lib/Messages.php:1458 lib/Forms/Message.php:26
+msgid "Spam protection"
+msgstr "SPAM防御"
+
+#: messages/split.php:49 messages/split.php:57 lib/Messages.php:821
+msgid "Split"
+msgstr "分割"
+
+#: messages/split.php:48
+#, php-format
+msgid "Split \"%s\""
+msgstr "分割 \"%s\""
+
+#
+#: threads.php:62
+msgid "Started"
+msgstr "開始"
+
+#
+#: deleteforum.php:59
+msgid "Subforums"
+msgstr "サブフォーラム"
+
+#: threads.php:62 moderate.php:62 messages/index.php:146 lib/View.php:68
+#: lib/View.php:81 lib/View.php:98 lib/api.php:425 lib/Messages.php:1438
+#: lib/Messages.php:1441 lib/Block/thread.php:84 lib/Block/threads.php:125
+#: config/prefs.php.dist:125 config/prefs.php.dist:168
+#: config/prefs.php.dist:256
+msgid "Subject"
+msgstr "件名"
+
+#: lib/Agora.php:243
+msgid "The VFS backend needs to be configured to enable attachment uploads."
+msgstr ""
+"VFS バックエンドは添付のアップロードを許可するよう設定されていなければなりま"
+"せん。"
+
+#: config/prefs.php.dist:64
+msgid "The location of your avatar image."
+msgstr "あなたの化身画像の場所。"
+
+#
+#: lib/Block/forums.php:78
+msgid "There are no forums."
+msgstr "フォーラムはありません。"
+
+#
+#: templates/threads/threads.html:72
+msgid "There are no threads in this forum."
+msgstr "このフォーラムにはスレッドはありません。"
+
+#
+#: lib/Messages.php:166
+msgid "This thread has been locked."
+msgstr "このスレッドはロックされました。"
+
+#: deleteforum.php:50
+msgid "This will delete the forum, any subforums and all relative messages."
+msgstr ""
+"このフォーラムは削除されます。何のサブフォーラムもメッセージも存在しません。"
+
+#: messages/index.php:146 messages/index.php:159 lib/View.php:60
+#: lib/View.php:97 lib/Block/thread.php:33 lib/Block/thread.php:84
+#: config/prefs.php.dist:124 config/prefs.php.dist:167
+#: config/prefs.php.dist:247
+msgid "Thread"
+msgstr "スレッド"
+
+#: messages/merge.php:81
+#, php-format
+msgid "Thread %s merged with thread %s after message %s."
+msgstr "メッセージ %s の後のスレッド%sで、スレッド%sは統合されました。"
+
+#: messages/move.php:66
+#, php-format
+msgid "Thread %s moved to from forum %s to %s."
+msgstr "スレッド%sは、フォーラム%sから%sへ移動しました。"
+
+#
+#: lib/Block/thread.php:91 templates/messages/index.html:9
+msgid "Thread List"
+msgstr "スレッド一覧"
+
+#
+#: templates/messages/message.html:34
+msgid "Thread Summary"
+msgstr "スレッド概要："
+
+#
+#: messages/delete.php:73
+msgid "Thread deleted."
+msgstr "スレッドは削除されました。"
+
+#
+#: messages/index.php:205 messages/lock.php:65
+msgid "Thread locked."
+msgstr "スレッドはロックされました。"
+
+#: messages/split.php:62
+#, php-format
+msgid "Thread splitted by message %s."
+msgstr "スレッドはメッセージ%s で分割されました。"
+
+#
+#: messages/lock.php:67
+msgid "Thread unlocked."
+msgstr "スレッドロック解除"
+
+#
+#: forums.php:57 lib/Block/threads.php:3 lib/Block/threads.php:72
+#: lib/Block/threads.php:78
+msgid "Threads"
+msgstr "スレッド"
+
+#
+#: config/prefs.php.dist:29
+msgid "Threads View"
+msgstr "スレッド表示"
+
+#: lib/Block/threads.php:82
+#, php-format
+msgid "Threads in \"%s\""
+msgstr "\"%s\"のスレッド"
+
+#: threads.php:70 threads.php:82
+#, php-format
+msgid "Threads in %s"
+msgstr "%sのスレッド"
+
+#
+#: lib/Block/thread.php:72
+msgid "Unable to fetch selected thread."
+msgstr "選択されたスレッドを読み込めません。"
+
+#
+#: lib/Block/threads.php:106
+msgid "Unable to fetch threads for selected forum."
+msgstr "選択されたフォーラムのスレッドを読み込めません。"
+
+#
+#: lib/Messages.php:805
+msgid "Unlock"
+msgstr "ロック解除"
+
+#
+#: messages/index.php:125
+msgid "Unlock thread"
+msgstr "ロック解除"
+
+#: messages/lock.php:51 lib/Forms/Forum.php:30
+msgid "Update"
+msgstr "更新"
+
+#: config/prefs.php.dist:79
+msgid "Upload your own avatar image."
+msgstr "化身画像を更新"
+
+#: scripts/phorum2agora.php:212
+#, php-format
+msgid "Usage: %s [OPTIONS]..."
+msgstr "使用法: %s [OPTIONS]..."
+
+#: ban.php:65
+msgid "User"
+msgstr "ユーザ"
+
+#: lib/View.php:58
+msgid "View"
+msgstr "表示"
+
+#
+#: messages/index.php:185
+msgid "View bodies"
+msgstr "本文表示"
+
+#
+#: threads.php:62
+msgid "Views"
+msgstr "表示"
+
+#
+#: messages/merge.php:60
+msgid "With Thread: "
+msgstr "スレッド表示: "
+
+#: config/prefs.php.dist:190
+msgid "Yes"
+msgstr "はい"
+
+#
+#: messages/lock.php:53
+msgid "Yes, allow replies"
+msgstr "はい、リプライを許可します。"
+
+#: config/prefs.php.dist:191
+msgid "Yes, and don't thread them"
+msgstr "はい、スレッド化しません"
+
+#: lib/Messages.php:1597
+#, php-format
+msgid "You don't have permission to access messages in forum %s."
+msgstr "あなたにはフォーラム%sのメッセージにアクセスする権限がありません。"
+
+#: messages/split.php:40 messages/delete.php:43 messages/lock.php:42
+#: messages/merge.php:41 messages/move.php:40 lib/api.php:722
+#: lib/Messages.php:522 lib/Messages.php:619
+#, php-format
+msgid "You don't have permission to delete messages in forum %s."
+msgstr "あなたにはフォーラム%sのメッセージを削除する権限がありません。"
+
+#: messages/edit.php:41 messages/index.php:199 lib/api.php:587
+#: lib/Messages.php:171
+#, php-format
+msgid "You don't have permission to post messages in forum %s."
+msgstr "あなたにはフォーラム%sに投稿する権限がありません。"
+
+#: lib/Messages.php:690
+#, php-format
+msgid "You don't have permission to read messages in forum %s."
+msgstr "あなたにはフォーラム%sのメッセージを読む権限がありません。"
+
+#: ban.php:30
+#, php-format
+msgid "You don't have permissions to ban users from forum %s."
+msgstr "あなたにはフォーラム%sからユーザを追放する権限がありません。"
+
+#: editforum.php:35
+#, php-format
+msgid "You don't have permissions to create a new forum in %s"
+msgstr "あなたには%sに新しいフォーラムを作成する権限がありません。"
+
+#: deleteforum.php:29
+#, php-format
+msgid "You don't have permissions to delete forums in %s"
+msgstr "あなたには%sでフォーラムを削除する権限がありません。"
+
+#: editforum.php:31
+#, php-format
+msgid "You don't have permissions to edit forum %s"
+msgstr "あなたにはフォーラム%sを編集する権限がありません。"
+
+#
+#: lib/Agora.php:260
+msgid "_Forums"
+msgstr "_Fフォーラム"
+
+#
+#: lib/Agora.php:277
+msgid "_Moderate"
+msgstr "_M承認業務"
+
+#
+#: lib/Agora.php:281
+msgid "_Moderators"
+msgstr "承認者管理"
+
+#
+#: lib/Agora.php:272
+msgid "_New Forum"
+msgstr "_N新規フォーラム"
+
+#: lib/Agora.php:285
+msgid "_Search"
+msgstr "_S検索"
+
+#
+#: lib/Agora.php:265
+msgid "_Threads"
+msgstr "_Tスレッド"
+
+#: templates/threads/threads.html:59 templates/forums/forums.html:52
+msgid "by"
+msgstr "by"
+
+#
+#: lib/Messages.php:1546
+msgid "download"
+msgstr "ダウンロード"
+
+#: lib/Tree/flat.php:113 templates/messages/flat.html:22
+#: templates/messages/flat_thread.html:8
+msgid "on: "
+msgstr "on: "
+
+#: lib/Messages.php:1547
+#, php-format
+msgid "size: %s"
+msgstr "容量: %s"
+
+#: lib/Messages.php:1547
+#, php-format
+msgid "type: %s"
+msgstr "形式: %s"

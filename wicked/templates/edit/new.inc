@@ -17,7 +17,7 @@ function preview()
 <input type="hidden" name="referrer" value="<?php echo htmlspecialchars($this->referrer()) ?>" />
 
 <h1 class="header">
- <?php printf(_("NewPage: %s"), htmlspecialchars($this->referrer())) ?>
+ <?php printf(_("New Page: %s"), htmlspecialchars($this->referrer())) ?>
 </h1>
 
 <div class="control">
@@ -26,7 +26,7 @@ function preview()
 </div>
 
 <div style="padding:8px">
- <textarea class="fixed" style="width:100%" name="page_text" rows="29" cols="100"><?php echo @htmlspecialchars($page_text, ENT_COMPAT, Horde_Nls::getCharset()) ?></textarea>
+ <textarea class="fixed" style="width:100%" name="page_text" rows="29" cols="100"><?php echo htmlspecialchars($page_text) ?></textarea>
 </div>
 
 </form>

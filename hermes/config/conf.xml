@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!-- $Id$ -->
+<configuration>
+ <configsection name="time">
+  <configheader>Time Tracking Settings</configheader>
+  <configboolean name="choose_ifbillable" desc="Should users enter whether
+  time is billable or not billable?">true</configboolean>
+  <configinteger name="days_to_keep" desc="How many days should we keep time
+  after it is exported/billed?">60</configinteger>
+  <configboolean name="deliverables" desc="Enable deliverables as cost
+  objects?">false</configboolean>
+  <configboolean name="sum_billable_only" desc="Only include billable times
+  when calculating time sums?">false</configboolean>
+ </configsection>
+
+ <configsection name="storage">
+  <configheader>Storage System Settings</configheader>
+  <configenum name="driver" desc="What storage driver should we use?">sql
+   <values>
+    <value>sql</value>
+   </values>
+  </configenum>
+  <configsection name="params">
+   <configsql switchname="driverconfig"/>
+  </configsection>
+ </configsection>
+
+ <configsection name="client">
+  <configheader>Clients</configheader>
+  <configstring name="field" desc="Field name from the client address book to
+  display in the client list">name</configstring>
+ </configsection>
+
+ <configsection name="invoices">
+  <configheader>Invoices</configheader>
+  <configswitch name="driver" desc="What invoices driver should we use?">false
+   <case name="false" desc="false"/>
+   <case name="minerva" desc="Minerva">
+    <configsection name="params">
+     <configstring name="type" desc="Type of created
+     invoices">proforma</configstring>
+     <configstring name="status" desc="Status of created
+     invoices">pending</configstring>
+     <configstring name="expire" desc="Due of created
+     invoices">8</configstring>
+     <configstring name="place" desc="Place of created invoices">City of
+     Internet</configstring>
+    </configsection>
+   </case>
+  </configswitch>
+ </configsection>
+
+ <configsection name="menu">
+  <configheader>Menu Settings</configheader>
+  <configboolean name="print" desc="Should we display a Print link in the
+  main menu?">true</configboolean>
+  <configmultienum name="apps" desc="Select any applications that should be
+  linked in Hermes' menu">
+   <values>
+    <configspecial name="list-horde-apps" />
+   </values>
+  </configmultienum>
+ </configsection>
+</configuration>

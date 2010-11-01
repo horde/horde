@@ -32,6 +32,10 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
      */
     public function connect()
     {
+        if ($this->_active) {
+            return;
+        }
+
         list($dsn, $user, $pass) = $this->_parseConfig();
 
         $oldErrorReporting = error_reporting(0);
@@ -59,7 +63,8 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
      */
     public function isActive()
     {
-       return isset($this->_connection) && $this->_connection->query('SELECT 1');
+        return isset($this->_connection) &&
+               $this->_connection->query('SELECT 1');
     }
 
 
@@ -136,6 +141,10 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
      */
     public function selectAssoc($sql, $arg1=null, $arg2=null)
     {
+        // PDO::FETCH_KEY_PAIR is only available since PHP 5.2.3
+        if (version_compare(PHP_VERSION, '5.2.3') < 0) {
+            return parent::selectAssoc($sql, $arg1, $arg2);
+        }
         $result = $this->execute($sql, $arg1, $arg2);
         return $result ? $result->fetchAll(PDO::FETCH_KEY_PAIR) : array();
     }
@@ -229,5 +238,4 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
             $this->_config['username'],
             $this->_config['password']);
     }
-
 }

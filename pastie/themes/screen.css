@@ -1,0 +1,46 @@
+/* Insert CSS definitions here. */
+#recentPastes {
+    float: right;
+    width: 150px;
+    margin: 10px;
+    height: 100%;
+    border: 1px solid #c00;
+    padding: 2px;
+    font-size: 0.8em;
+}
+
+.recentPaste {
+    margin-top: 3px;
+}
+
+#showpaste {
+    margin: 0 175px 0 5px;
+}
+
+.pasteTitle {
+    font-size: 1.3em;
+}
+
+.pasteOwner {
+    font-style: italic;
+    font-weight: bold;
+}
+
+.pasteDate {
+    font-style: italic;
+    font-weight: bold;
+}
+
+.pasteContents {
+    padding: 2px;
+    background-color: #ddd;
+    list-style-position: inside;
+    font-size: 1.3em;
+    overflow-x:auto;
+}
+
+.pasteForm {
+    border: 1px solid #ccc;
+    margin-right:175px;
+}
+

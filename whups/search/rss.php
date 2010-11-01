@@ -8,9 +8,10 @@
  * @author Duck <duck@obala.net>
  */
 
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('whups');
+
 require_once WHUPS_BASE . '/lib/Forms/Search.php';
-require_once 'Horde/Template.php';
 
 $vars = Horde_Variables::getDefaultVariables();
 $limit = (int)$vars->get('limit');
@@ -19,12 +20,12 @@ $form = new SearchForm($vars);
 if ($form->validate($vars, true)) {
     $form->getInfo($vars, $info);
     $tickets = $whups_driver->getTicketsByProperties($info);
-    if (is_a($tickets, 'PEAR_Error')) {
-        Horde::fatal($tickets, __FILE__, __LINE__);
+    if ($tickets instanceof PEAR_Error) {
+        throw new Horde_Exception($tickets);
     }
     Whups::sortTickets($tickets, 'date_updated', 'desc');
 } else {
-    Horde::fatal(_("Invalid search"), __FILE__, __LINE__);
+    throw new Horde_Exception(_("Invalid search"));
 }
 
 $count = 0;
@@ -45,13 +46,12 @@ foreach (array_keys($tickets) as $i) {
     $items[$i]['pubDate'] = htmlspecialchars(date('r', $tickets[$i]['timestamp']));
 }
 
-$template = new Horde_Template();
-$template->set('charset', Horde_Nls::getCharset());
+$template = $injector->createInstance('Horde_Template');
 $template->set('xsl', $registry->get('themesuri') . '/feed-rss.xsl');
 $template->set('pubDate', htmlspecialchars(date('r')));
 $template->set('title', _("Search Results"));
 $template->set('items', $items, true);
-$template->set('url', Horde::applicationUrl('search.php'));
+$template->set('url', Horde::url('search.php'));
 $template->set('rss_url', Horde::selfUrl());
 $template->set('description', _("Search Results"));
 

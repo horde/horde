@@ -13,23 +13,16 @@
  * @package Folks
  */
 
+// Disabled by default
 exit;
 
-$folks_authentication = 'none';
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('folks', array('authentication' => 'none', 'cli' => true));
 
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment.
-Horde_Cli::init();
-$cli = Horde_Cli::singleton();
-
-$db = DB::connect($conf['sql']);
-if ($db instanceof PEAR_Error) {
-    $cli->fatal($db);
+try {
+    $db = $injector->getInstance('Horde_Core_Factory_DbPear')->create();
+} catch (Horde_Exception $e) {
+    $cli->fatal($e);
 }
 
 $users = array();

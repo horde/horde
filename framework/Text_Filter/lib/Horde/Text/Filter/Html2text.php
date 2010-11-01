@@ -2,29 +2,41 @@
 /**
  * Takes HTML and converts it to formatted, plain text.
  *
- * Parameters:
+ * Optional parameters to constructor:
  * <pre>
- * charset - (string) The charset to use for html_entity_decode() calls.
- * width - (integer) The wrapping width.
- * wrap - (boolean) Whether to wrap the text or not.
+ * callback - (callback) Callback triggered on every node. Passed the
+ *            DOMDocument object and the DOMNode object. If the callback
+ *            returns non-null, add this text to the output and skip further
+ *            processing of the node.
+ * width - (integer) The wrapping width. Set to 0 to not wrap.
  * </pre>
  *
- * Copyright 2003-2004 Jon Abernathy <jon@chuggnutt.com>
- * Original source: http://www.chuggnutt.com/html2text.php
  * Copyright 2004-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Jon Abernathy <jon@chuggnutt.com>
- * @author  Jan Schneider <jan@horde.org>
- * @package Horde_Text
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Text_Filter
  */
-class Horde_Text_Filter_Html2text extends Horde_Text_Filter
+class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
 {
-    /* TODO */
-    static public $linkList;
-    static public $linkCount;
+    /**
+     * The list of links contained in the message.
+     *
+     * @var array
+     */
+    protected $_linkList = array();
+
+    /**
+     * Current list indentation level.
+     *
+     * @var integer
+     */
+    protected $_indent = 0;
 
     /**
      * Filter parameters.
@@ -32,29 +44,10 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter
      * @var array
      */
     protected $_params = array(
-        'charset' => null,
-        'width' => 70,
-        'wrap' => true
+        'callback' => null,
+        'charset' => 'UTF-8',
+        'width' => 75
     );
-
-    /**
-     * Executes any code necessaray before applying the filter patterns.
-     *
-     * @param string $text  The text before the filtering.
-     *
-     * @return string  The modified text.
-     */
-    public function preProcess($text)
-    {
-        if (is_null($this->_params['charset'])) {
-            $this->_params['charset'] = isset($GLOBALS['_HORDE_STRING_CHARSET']) ? $GLOBALS['_HORDE_STRING_CHARSET'] : 'ISO-8859-1';
-        }
-
-        self::$linkList = '';
-        self::$linkCount = 0;
-
-        return trim($text);
-    }
 
     /**
      * Returns a hash with replace patterns.
@@ -63,93 +56,35 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter
      */
     public function getPatterns()
     {
-        $regexp = array(
-            // Non-legal carriage return.
-            '/\r/' => '',
-
-            // Leading and trailing whitespace.
-            '/^\s*(.*?)\s*$/m' => '\1',
-
-            // Normalize <br>.
-            '/<br[^>]*>([^\n]*)\n/i' => "<br>\\1",
-
-            // Newlines and tabs.
-            '/[\n\t]+/' => ' ',
-
-            // <script>s -- which strip_tags() supposedly has problems with.
-            '/<script[^>]*>.*?<\/script>/i' => '',
-
-            // <style>s -- which strip_tags() supposedly has problems with.
-            '/<style[^>]*>.*?<\/style>/i' => '',
-
-            // Comments -- which strip_tags() might have a problem with.
-            // //'/<!-- .* -->/' => '',
-
-            // h1 - h3
-            '/<h[123][^>]*>(.+?)<\/h[123]> ?/ie' => 'strtoupper("\n\n" . \'\1\' . "\n\n")',
-
-            // h4 - h6
-            '/<h[456][^>]*>(.+?)<\/h[456]> ?/ie' => 'ucwords("\n\n" . \'\1\' . "\n\n")',
-
-            // <p>
-            '/<p[^>]*> ?/i' => "\n\n",
-
-            // <br>/<div>
-            '/<(br|div)[^>]*> ?/i' => "\n",
-
-            // <b>
-            '/<b[^>]*>(.+?)<\/b>/ie' => 'strtoupper(\'\1\')',
-
-            // <strong>
-            '/<strong[^>]*>(.+?)<\/strong>/ie' => 'strtoupper(\'\1\')',
-            '/<span\\s+style="font-weight:\\s*bold.*">(.+?)<\/span>/ie' => 'strtoupper(\'\1\')',
-
-            // <i>
-            '/<i[^>]*>(.+?)<\/i>/i' => '/\\1/',
-
-            // <em>
-            '/<em[^>]*>(.+?)<\/em>/i' => '/\\1/',
-
-            // <u>
-            '/<u[^>]*>(.+?)<\/u>/i' => '_\\1_',
-
-            // <ul>/<ol> and </ul>/</ol>
-            '/(<(u|o)l[^>]*>| ?<\/(u|o)l>) ?/i' => "\n\n",
-
-            // <li>
-            '/ ?<li[^>]*>/i' => "\n  * ",
-
-            // <a href="">
-            '/<a href="([^"]+)"[^>]*>(.+?)<\/a>/ie' => 'Horde_Text_Filter_Html2text::buildLinkList(Horde_Text_Filter_Html2text::$linkCount, \'\1\', \'\2\')',
-
-            // <hr>
-            '/<hr[^>]*> ?/i' => "\n-------------------------\n",
-
-            // <table> and </table>
-            '/(<table[^>]*>| ?<\/table>) ?/i' => "\n\n",
-
-            // <tr>
-            '/ ?<tr[^>]*> ?/i' => "\n\t",
-
-            // <td> and </td>
-            '/ ?<td[^>]*>(.+?)<\/td> ?/i' => '\1' . "\t\t",
-            '/\t\t<\/tr>/i' => '',
-
-            // entities
-            '/&nbsp;/i' => ' ',
-            '/&trade;/i' => '(tm)',
-            '/&#(\d+);/e' => 'Horde_String::convertCharset(Horde_Text_Filter_Html2text::int2Utf8(\'\1\'), "UTF-8", "' . $this->_params['charset'] . '")',
-
-            // Some mailers (e.g. Hotmail) use the following div tag as a way
-            // to define a block of text.
-            '/<div class=rte>(.+?)<\/div> ?/i' => '\1' . "\n"
+        $replace = array(
+            "\r" => '',
+            "\n" => ' ',
+            "\t" => ' '
         );
 
-        return array('regexp' => $regexp);
+        return array(
+            'replace' => $replace
+        );
     }
 
     /**
-     * Executes any code necessaray after applying the filter patterns.
+     * Executes any code necessary before applying the filter patterns.
+     *
+     * @param string $text  The text before the filtering.
+     *
+     * @return string  The modified text.
+     */
+    public function preProcess($text)
+    {
+        $this->_indent = 0;
+        $this->_linkList = array();
+        $this->_params['_bq'] = false;
+
+        return $text;
+    }
+
+    /**
+     * Executes any code necessary after applying the filter patterns.
      *
      * @param string $text  The text after the filtering.
      *
@@ -157,132 +92,197 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter
      */
     public function postProcess($text)
     {
-        /* Convert blockquote tags. */
-        $text = preg_replace(array('/<blockquote [^>]*(type="?cite"?|class="?gmail_quote"?)[^>]*>\n?/',
-                                   '/\n?<\/blockquote>\n?/is'),
-                             array(chr(0), chr(1)),
-                             $text);
-        if (strpos($text, chr(0)) !== false) {
-            $text = $this->_blockQuote($text);
+        try {
+            $dom = new Horde_Domhtml($text, $this->_params['charset']);
+            $text = Horde_String::convertCharset($this->_node($dom->dom, $dom->dom), null, $this->_params['charset']);
+            $dom_convert = true;
+        } catch (Exception $e) {
+            $text = strip_tags(preg_replace("/\<br\s*\/?\>/i", "\n", $text));
+            $dom_convert = false;
         }
 
-        /* Strip any other HTML tags. */
-        $text = strip_tags($text);
-
-        /* Convert HTML entities. */
-        $trans = array_flip(get_html_translation_table(HTML_ENTITIES));
-        $trans = Horde_String::convertCharset($trans, 'ISO-8859-1', $this->_params['charset']);
-        $text = strtr($text, $trans);
-
-        /* Bring down number of empty lines to 2 max. */
-        $text = preg_replace("/\n[[:space:]]+\n/", "\n\n", $text);
-        $text = preg_replace("/[\n]{3,}/", "\n\n", $text);
+        /* Bring down number of empty lines to 2 max, and remove trailing
+         * ws. */
+        $text = preg_replace(array("/\s*\n{3,}/", "/ +\n/"), array("\n\n", "\n"), $text);
 
         /* Wrap the text to a readable format. */
-        if ($this->_params['wrap']) {
-            $text = wordwrap($text, $this->_params['width']);
+        if ($this->_params['width']) {
+            if ($dom_convert &&
+                $this->_params['_bq'] &&
+                class_exists('Horde_Text_Flowed')) {
+                $flowed = new Horde_Text_Flowed($text, $this->_params['charset']);
+                $flowed->setOptLength($this->_params['width']);
+                $text = $flowed->toFlowed();
+            } else {
+                $text = wordwrap($text, $this->_params['width']);
+            }
         }
 
         /* Add link list. */
-        if (!empty(self::$linkList)) {
-            $text .= "\n\n" . _("Links") . ":\n" .
-                str_repeat('-', Horde_String::length(_("Links")) + 1) . "\n" .
-                self::$linkList;
+        if (!empty($this->_linkList)) {
+            $text .= "\n\n" . Horde_Text_Filter_Translation::t("Links") . ":\n" .
+                str_repeat('-', Horde_String::length(Horde_Text_Filter_Translation::t("Links")) + 1) . "\n";
+            foreach ($this->_linkList as $key => $val) {
+                $text .= '[' . ($key + 1) . '] ' . $val . "\n";
+            }
         }
 
-        return trim($text);
+        return ltrim(rtrim($text), "\n");
     }
 
     /**
-     * Replaces blockquote tags with > quotes.
+     * Process DOM node.
      *
-     * @param string $text  The text to quote.
+     * @param DOMDocument $doc  Document node.
+     * @param DOMElement $node  Element node.
      *
-     * @return string  The quoted text.
+     * @return string  The plaintext representation.
      */
-    protected function _blockQuote($text)
+    protected function _node($doc, $node)
     {
-        return preg_replace(
-            '/([^\x00\x01]*)\x00(((?>[^\x00\x01]*)|(?R))*)\x01([^\x00\x01]*)/se',
-            "stripslashes('$1') . \"\n\n\" . \$this->_quote('$2') . \"\n\n\" . stripslashes('$4')",
-            $text);
+        $out = '';
+
+        if ($node->hasChildNodes()) {
+            foreach ($node->childNodes as $child) {
+                if ($this->_params['callback'] &&
+                    ($txt = call_user_func($this->_params['callback'], $doc, $child)) !== null) {
+                    $out .= $txt;
+                    continue;
+                }
+
+                if ($child instanceof DOMElement) {
+                    switch (strtolower($child->tagName)) {
+                    case 'h1':
+                    case 'h2':
+                    case 'h3':
+                        $out .= "\n\n" .
+                            strtoupper($this->_node($doc, $child)) .
+                            "\n\n";
+                        break;
+
+                    case 'h4':
+                    case 'h5':
+                    case 'h6':
+                        $out .= "\n\n" .
+                            ucwords($this->_node($doc, $child))
+                            . "\n\n";
+                        break;
+
+                    case 'b':
+                    case 'strong':
+                        $out .= strtoupper($this->_node($doc, $child));
+                        break;
+
+                    case 'u':
+                        $out .= '_' . $this->_node($doc, $child) . '_';
+                        break;
+
+                    case 'em':
+                    case 'i':
+                        $out .= '/' . $this->_node($doc, $child) . '/';
+                        break;
+
+                    case 'hr':
+                        $out .= "\n-------------------------\n";
+                        break;
+
+                    case 'ol':
+                    case 'ul':
+                        ++$this->_indent;
+                        $out .= "\n\n" . $this->_node($doc, $child) . "\n\n";
+                        --$this->_indent;
+                        break;
+
+                    case 'p':
+                        if ($tmp = $this->_node($doc, $child)) {
+                            $out .= "\n" . $tmp . "\n";
+                        }
+                        break;
+
+                    case 'table':
+                        if ($tmp = $this->_node($doc, $child)) {
+                            $out .= "\n\n" . $tmp . "\n\n";
+                        }
+                        break;
+
+                    case 'tr':
+                        $out .= "\n  " . rtrim($this->_node($doc, $child));
+                        break;
+
+                    case 'th':
+                        $out .= strtoupper($this->_node($doc, $child)) . " \t";
+                        break;
+
+                    case 'td':
+                        $out .= $this->_node($doc, $child) . " \t";
+                        break;
+
+                    case 'li':
+                        $out .= "\n" . str_repeat('  ', $this->_indent) . '* ' . $this->_node($doc, $child);
+                        break;
+
+                    case 'a':
+                        $out .= $this->_node($doc, $child) . $this->_buildLinkList($doc, $child);
+                        break;
+
+                    case 'blockquote':
+                        $this->_params['_bq'] = true;
+                        foreach (explode("\n", $this->_node($doc, $child)) as $line) {
+                            $quote = '>';
+                            if ($line &&
+                                ($line[0] != '>') &&
+                                ($line[0] != ' ' || $line[0] != "\t")) {
+                                $quote .= ' ';
+                            }
+                            $out .= $quote . $line . "\n";
+                        }
+                        break;
+
+                    case 'div':
+                        $out .= $this->_node($doc, $child) . "\n";
+                        break;
+
+                    case 'br':
+                        $out .= "\n";
+                        break;
+
+                    default:
+                        $out .= $this->_node($doc, $child);
+                        break;
+                    }
+                } elseif ((get_class($child) == 'DOMText') &&
+                          !$child->isWhitespaceInElementContent()) {
+                    $tmp = $child->textContent;
+                    if ($child->parentNode->tagName == 'body' ||
+                        !$child->previousSibling) {
+                        $tmp = ltrim($tmp);
+                    }
+                    if (!$child->nextSibling) {
+                        $tmp = rtrim($tmp);
+                    }
+                    $out .= $tmp;
+                }
+            }
+        }
+
+        return $out;
     }
 
     /**
-     * Quotes a chunk of text.
-     *
-     * @param string $text  The text to quote.
-     *
-     * @return string  The quoted text.
-     */
-    protected function _quote($text)
-    {
-        $text = stripslashes($text);
-        if (strpos($text, chr(0)) !== false) {
-            $text = stripslashes($this->_blockQuote($text));
-        }
-
-        $text = trim(strip_tags($text));
-        if ($this->_params['wrap']) {
-            $text = wordwrap($text, $this->_params['width'] - 2);
-        }
-
-        return preg_replace(array('/^/m', '/(\n>\s*$){3,}/m', '/^>\s+$/m'),
-                            array('> ', "\n> ", '>'),
-                            $text);
-    }
-
-    /**
-     * Returns the UTF-8 character sequence of a Unicode value.
-     *
-     * @param integer $num  A Unicode value.
-     *
-     * @return string  The UTF-8 string.
-     */
-    static public function int2Utf8($num)
-    {
-        if ($num < 128) {
-            return chr($num);
-        }
-
-        if ($num < 2048) {
-            return chr(($num >> 6) + 192) . chr(($num & 63) + 128);
-        }
-
-        if ($num < 65536) {
-            return chr(($num >> 12) + 224) . chr((($num >> 6) & 63) + 128) .
-                chr(($num & 63) + 128);
-        }
-
-        if ($num < 2097152) {
-            return chr(($num >> 18) + 240) . chr((($num >> 12) & 63) + 128) .
-                chr((($num >> 6) & 63) + 128) . chr(($num & 63) + 128);
-        }
-
-        return '';
-    }
-
-    /**
-     * Helper function called by preg_replace() on link replacement.
-     *
      * Maintains an internal list of links to be displayed at the end
      * of the text, with numeric indices to the original point in the
      * text they appeared.
      *
-     * @param integer $link_count  Counter tracking current link number.
-     * @param string $link         URL of the link.
-     * @param string $display      Part of the text to associate number with.
-     *
-     * @return string  The link replacement.
+     * @param DOMDocument $doc  Document node.
+     * @param DOMElement $node  Element node.
      */
-    static public function buildLinkList($link_count, $link, $display)
+    protected function _buildLinkList($doc, $node)
     {
-        if ($link == strip_tags($display)) {
-            return $display;
-        }
+        $link = $node->getAttribute('href');
+        $display = $node->textContent;
 
         $parsed_link = parse_url($link);
-        $parsed_display = parse_url(strip_tags(preg_replace('/^&lt;|&gt;$/', '', $display)));
+        $parsed_display = @parse_url($display);
 
         if (isset($parsed_link['path'])) {
             $parsed_link['path'] = trim($parsed_link['path'], '/');
@@ -308,13 +308,15 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter
              (isset($parsed_link['path']) &&
               isset($parsed_display['path']) &&
               $parsed_link['path'] == $parsed_display['path']))) {
-            return $display;
+            return '';
         }
 
-        self::$linkCount++;
-        self::$linkList .= '[' . self::$linkCount . "] $link\n";
+        if (($pos = array_search($link, $this->_linkList)) === false) {
+            $this->_linkList[] = $link;
+            $pos = count($this->_linkList) - 1;
+        }
 
-        return $display . '[' . self::$linkCount . ']';
+        return '[' . ($pos + 1) . ']';
     }
 
 }

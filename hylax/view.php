@@ -4,12 +4,10 @@
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
- *
- * $Horde: incubator/hylax/view.php,v 1.7 2009/06/10 05:24:18 slusarz Exp $
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-$hylax = new Hylax_Application(array('init' => true));
+$hylax = Horde_Registry::appInit('hylax');
 
 $fax_id = Horde_Util::getFormData('fax_id');
 $url = Horde_Util::getFormData('url');
@@ -28,10 +26,11 @@ $fax = $hylax->storage->getFax($fax_id);
 if (is_a($fax, 'PEAR_Error')) {
     $notification->push(sprintf(_("Could not open fax ID \"%s\". %s"), $fax_id, $fax->getMessage()), 'horde.error');
     if (empty($url)) {
-        $url = Horde::applicationUrl('folder.php', true);
+        $url = Horde::url('folder.php', true);
+    } else {
+        $url = new Horde_Url($url);
     }
-    header('Location: ' . $url);
-    exit;
+    $url->redirect();
 }
 
 $title = _("View Fax");
@@ -40,11 +39,14 @@ $title = _("View Fax");
 $pages = Hylax::getPages($fax_id, $fax['fax_pages']);
 
 /* Set up template. */
-$template = new Horde_Template();
+$template = $injector->createInstance('Horde_Template');
 $template->set('form', '');
 $template->set('pages', $pages);
 $template->set('menu', Hylax::getMenu('string'));
-$template->set('notify', Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status')));
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$template->set('notify', Horde::endBuffer());
 
 require HYLAX_TEMPLATES . '/common-header.inc';
 echo $template->fetch(HYLAX_TEMPLATES . '/fax/fax.html');

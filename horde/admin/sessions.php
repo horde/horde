@@ -9,59 +9,48 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-new Horde_Application(array('admin' => true));
-
-$type = !empty($conf['sessionhandler']['type']) ? $conf['sessionhandler']['type'] : 'none';
-if ($type == 'external') {
-    $notification->push(_("Cannot administer external session handlers."), 'horde.error');
-} else {
-    $sh = Horde_SessionHandler::singleton($type);
-}
+Horde_Registry::appInit('horde', array('admin' => true));
 
 $title = _("Session Admin");
 Horde::addScriptFile('prototype.js', 'horde');
+Horde::addInlineScript(array(
+    '$$("DIV.sesstoggle").invoke("observe", "click", function() { [ this.nextSiblings(), this.immediateDescendants() ].flatten().compact().invoke("toggle"); })'
+), 'dom');
+
 require HORDE_TEMPLATES . '/common-header.inc';
 require HORDE_TEMPLATES . '/admin/menu.inc';
 
-if (empty($sh)) {
-    require HORDE_TEMPLATES . '/common-footer.inc';
-    exit;
-}
-
 echo '<h1 class="header">' . _("Current Sessions");
 try {
-    $session_info = $sh->getSessionsInfo();
+    $session_info = $session->sessionHandler->getSessionsInfo();
 
     echo ' (' . count($session_info) . ')</h1>' .
          '<ul class="headerbox linedRow">';
 
-    $plus = Horde::img('tree/plusonly.png', _("Expand"), '', $GLOBALS['registry']->getImageDir('horde'));
-    $minus = Horde::img('tree/minusonly.png', _("Collapse"), 'style="display:none"', $GLOBALS['registry']->getImageDir('horde'));
+    $plus = Horde::img('tree/plusonly.png', _("Expand"));
+    $minus = Horde::img('tree/minusonly.png', _("Collapse"), 'style="display:none"');
 
-    if (class_exists('Net_DNS')) {
-        $resolver = new Net_DNS_Resolver();
-        $resolver->retry = isset($GLOBALS['conf']['dns']['retry']) ? $GLOBALS['conf']['dns']['retry'] : 1;
-        $resolver->retrans = isset($GLOBALS['conf']['dns']['retrans']) ? $GLOBALS['conf']['dns']['retrans'] : 1;
-    }
+    $resolver = $injector->getInstance('Net_DNS_Resolver');
 
     foreach ($session_info as $id => $data) {
         $entry = array(
             _("Session Timestamp:") => date('r', $data['timestamp']),
             _("Browser:") => $data['browser'],
-            _("Remote Host:") => _("[Unknown]")
+            _("Remote Host:") => _("[Unknown]"),
+            _("Authenticated to:") => implode(', ', $data['apps'])
         );
 
-        if (!empty($data['remote_addr'])) {
-            if (class_exists('Net_DNS')) {
-                $response = $resolver->query($data['remote_addr'], 'PTR');
-                $host = $response ? $response->answer[0]->ptrdname : $data['remote_addr'];
+        if (!empty($data['remoteAddr'])) {
+            if ($resolver) {
+                $response = $resolver->query($data['remoteAddr'], 'PTR');
+                $host = $response ? $response->answer[0]->ptrdname : $data['remoteAddr'];
             } else {
-                $host = @gethostbyaddr($data['remote_addr']);
+                $host = @gethostbyaddr($data['remoteAddr']);
             }
-            $entry[_("Remote Host:")] = $host . ' [' . $data['remote_addr'] . '] ' . Horde_Nls::generateFlagImageByHost($host);
+            $entry[_("Remote Host:")] = $host . ' [' . $data['remoteAddr'] . '] ' . Horde_Core_Ui_FlagImage::generateFlagImageByHost($host);
         }
 
-        echo '<li><div onclick="$(this).nextSiblings().invoke(\'toggle\'); $(this).immediateDescendants().invoke(\'toggle\');">' . $plus . $minus . htmlspecialchars($data['userid']) . ' [' . htmlspecialchars($id) . ']'
+        echo '<li><div class="sesstoggle">' . $plus . $minus . htmlspecialchars($data['userid']) . ' [' . htmlspecialchars($id) . ']'
             . '</div><div style="padding-left:20px;display:none">';
         foreach ($entry as $key => $val) {
             echo '<div><strong>' . $key . '</strong> ' . $val . '</div>';

@@ -16,7 +16,7 @@ class Horde_Service_Twitter_Statuses
      *
      * @var string
      */
-    private $_endpoint = 'http://twitter.com/statuses/';
+    private $_endpoint = 'http://api.twitter.com/1/statuses/';
 
     /**
      * Format to use json or xml
@@ -66,20 +66,17 @@ class Horde_Service_Twitter_Statuses
      * Update the current user's status.
      *
      * @param string $status  The new status text.
-     * @param string $replyTo If specified, *and* the text of the status contains
-     *                        a mention of the author of the replied to status
-     *                        (i.e. `@username`) this update will be "in reply to"
-     *                        the specifed status message id.
+     * @param array $params   Any additional parameters.
+     *   <pre>
+     *     in_reply_to_status_id  - the status id this tweet is in response to.
+     *   </pre>
      *
      * @return string
      */
-    public function update($status, $replyTo = '')
+    public function update($status, $params = array())
     {
         $url = $this->_endpoint . 'update.' . $this->_format;
-        $params = array('status' => $status);
-        if (!empty($replyTo)) {
-            $params['in_reply_to_status_id'] = $replyTo;
-        }
+        $params['status'] = $status;
 
         return $this->_twitter->request->post($url, $params);
     }
@@ -97,10 +94,14 @@ class Horde_Service_Twitter_Statuses
      *
      * @param array $params  Parameters for the friends_timeline call
      *   <pre>
-     *     since_id   - Only tweets more recent the indicated tweet id
-     *     max_id     - Only tweets older then the indeicated tweet id
-     *     count      - Only return this many tweets (twitter limit = 200)
-     *     page       - The page number to return (note there are pagination limits)
+     *     since_id         - Only tweets more recent the indicated tweet id
+     *     max_id           - Only tweets older then the indeicated tweet id
+     *     count            - Only return this many tweets (twitter limit = 200)
+     *     page             - The page number to return (note there are
+     *                        pagination limits)
+     *     include_rts      - Include retweets
+     *     include_entities - Include twitter entities (will be mandatory in
+     *                        future twitter api release).
      *   </pre>
      *
      * @return string
@@ -202,10 +203,9 @@ class Horde_Service_Twitter_Statuses
      */
     public function retweet($id)
     {
-        $url = $this->_endpoint . 'retweet.' . $this->_format;
-        $params = array('id' => $id);
+        $url = $this->_endpoint . 'retweet/' . $id .  '.' . $this->_format;
 
-        return $this->_twitter->request->post($url, $params);
+        return $this->_twitter->request->post($url, array());
     }
 
     /**

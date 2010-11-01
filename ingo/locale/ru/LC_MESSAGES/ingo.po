@@ -1,0 +1,477 @@
+# Russian translations for Ingo package
+# Copyright
+# Automatically generated, 2008.
+# Alexey Zakharov <baber@mosga.net>, 2008
+# This file is distributed under the same license as the Ingo package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Ingo H3 (1.2)\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2008-01-22 17:27+0100\n"
+"PO-Revision-Date: 2008-01-22 17:27+0100\n"
+"Last-Translator: Alexey Zakharov <baber@mosga.net>\n"
+"Language-Team: Russian <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: filters.php:223
+msgid " and"
+msgstr " и"
+
+#: filters.php:223
+msgid " or"
+msgstr " или"
+
+#: templates/blacklist/blacklist.inc:17
+msgid "Action for blacklisted addresses:"
+msgstr "Действие для сообщений из черного списка:"
+
+#: templates/script/activate.inc:10
+msgid "Activate Script"
+msgstr "Запустить скрипт"
+
+#: templates/filters/settings.inc:8
+msgid "Additional Settings"
+msgstr "Дополнительные установки"
+
+#: forward.php:43
+msgid "Address(es) to forward to:"
+msgstr "Адреса для перенаправления:"
+
+#: vacation.php:50
+msgid "Advanced Settings"
+msgstr "Дополнительные установки:"
+
+#: templates/rule/header.inc:44
+msgid "All of the following"
+msgstr "Все из перечисленного"
+
+#: templates/rule/footer.inc:34
+msgid "Answered"
+msgstr "Отвеченные"
+
+#: templates/rule/header.inc:45
+msgid "Any of the following"
+msgstr "Любое из перечисленого"
+
+#: templates/filters/footer.inc:8
+msgid "Apply Filters"
+msgstr "Применить фильтры"
+
+#: filters.php:252
+msgid "Are you sure you want to delete this rule?"
+msgstr "Удалить это правило, вы уверены?"
+
+#: vacation.php:41
+msgid "Basic Settings"
+msgstr "Основные установки"
+
+#: lib/Storage.php:346
+msgid "Begins with"
+msgstr "Начинается с"
+
+#: filters.php:174 templates/blacklist/blacklist.inc:7
+#: lib/Block/overview.php:95 lib/Block/overview.php:98
+msgid "Blacklist"
+msgstr "Черный список"
+
+#: blacklist.php:104
+msgid "Blacklist Edit"
+msgstr "Редактирование черного списка"
+
+#: lib/Script/procmail.php:209 lib/Script/sieve.php:269
+#: lib/Script/maildrop.php:197
+msgid "Blacklisted Addresses"
+msgstr "Адреса из черного списка"
+
+#: config/fields.php.dist:100
+msgid "Body"
+msgstr "Тело"
+
+#: spam.php:90 rule.php:141 whitelist.php:38 forward.php:56 vacation.php:81
+#: blacklist.php:70
+msgid "Changes saved."
+msgstr "Изменения сохранены"
+
+#: lib/Driver/ldap.php:73
+msgid "Connection failure"
+msgstr "Ошибка соединения"
+
+#: lib/Storage.php:342
+msgid "Contains"
+msgstr "Содержит"
+
+#: lib/Storage.php:290
+msgid "Delete message completely"
+msgstr "Окончательно удалить сообщение"
+
+#: templates/rule/footer.inc:36
+msgid "Deleted"
+msgstr "Удалено"
+
+#: lib/Storage.php:278
+msgid "Deliver into my Inbox"
+msgstr "Доставить во Входящие"
+
+#: filters.php:277 filters.php:278
+#, php-format
+msgid "Disable %s"
+msgstr "Отключить %s"
+
+#: templates/filters/settings.inc:15
+msgid "Display detailed notification when each filter is applied?"
+msgstr "Отображать сообщение в случае каждого применения правила?"
+
+#: lib/Storage.php:343
+msgid "Doesn't contain"
+msgstr "Не содержит"
+
+#: lib/Storage.php:349
+msgid "Doesn't end with"
+msgstr "Не завершается на"
+
+#: lib/Storage.php:351
+msgid "Doesn't exist"
+msgstr "Не существует"
+
+#: lib/Storage.php:354
+msgid "Doesn't match (with placeholders)"
+msgstr "Не совпадает (с маской)"
+
+#: templates/filters/header.inc:26 lib/Block/overview.php:63
+#: lib/Block/overview.php:72 lib/Block/overview.php:87
+#: lib/Block/overview.php:97 lib/Block/overview.php:107
+msgid "Edit"
+msgstr "Редактировать"
+
+#: filters.php:241 filters.php:243 filters.php:247 filters.php:248
+#, php-format
+msgid "Edit %s"
+msgstr "Править %s"
+
+#: templates/filters/header.inc:28
+msgid "Enabled"
+msgstr "Активно"
+
+#: lib/Storage.php:348
+msgid "Ends with"
+msgstr "Заканчивается на"
+
+#: templates/filters/header.inc:20
+msgid "Existing Rules"
+msgstr "Существующие правила"
+
+#: lib/Storage.php:350
+msgid "Exists"
+msgstr "Существует"
+
+#: templates/rule/filter.inc:10
+msgid "Field"
+msgstr "Поле"
+
+#: templates/filters/settings.inc:22
+msgid "Filter All Messages"
+msgstr "Все сообщения"
+
+#: templates/filters/settings.inc:24
+msgid "Filter Only Seen Messages"
+msgstr "Только просмотренные"
+
+#: templates/filters/settings.inc:23
+msgid "Filter Only Unseen Messages"
+msgstr "Только непросмотренные"
+
+#: templates/filters/settings.inc:20
+msgid "Filter Options"
+msgstr "Область фильтрации"
+
+#: lib/Ingo.php:379
+msgid "Filter _Rules"
+msgstr "Правила"
+
+#: filters.php:192 forward.php:97 lib/Block/overview.php:71
+#: lib/Block/overview.php:73
+msgid "Forward"
+msgstr "Перенаправить"
+
+#: config/fields.php.dist:39
+msgid "From"
+msgstr "От"
+
+#: lib/Script/sieve.php:2927
+msgid "From:"
+msgstr "От:"
+
+#: lib/Storage.php:357
+msgid "Greater than"
+msgstr "Больше чем"
+
+#: lib/Storage.php:358
+msgid "Greater than or equal to"
+msgstr "Больше чем или равно"
+
+#: lib/Storage.php:355
+msgid "Less than"
+msgstr "Менее чем"
+
+#: lib/Storage.php:356
+msgid "Less than or equal to"
+msgstr "Менее чем или равно"
+
+#: templates/rule/footer.inc:25
+msgid "Mark message as:"
+msgstr "Отметить сообщение как:"
+
+#: lib/api.php:71
+msgid "Maximum Number of Rules"
+msgstr "Максимальное количество правил"
+
+#: templates/filters/header.inc:32
+msgid "Move"
+msgstr "Переместить"
+
+#: filters.php:156 filters.php:273
+msgid "Move Rule Down"
+msgstr "Переместить ниже"
+
+#: filters.php:157 filters.php:272
+msgid "Move Rule Up"
+msgstr "Переместить выше"
+
+#: templates/filters/filter-none.inc:3 templates/filters/footer.inc:6
+#: lib/Storage.php:889
+msgid "New Rule"
+msgstr "Новое правило"
+
+#: lib/Storage.php:360
+msgid "Not equal to"
+msgstr "Не равно"
+
+#: config/prefs.php.dist:17
+msgid "Other Options"
+msgstr "Прочие опции"
+
+#: vacation.php:48
+msgid "Reason:"
+msgstr "Причина"
+
+#: config/fields.php.dist:63
+msgid "Received"
+msgstr "Получено"
+
+#: lib/Storage.php:295
+msgid "Redirect to"
+msgstr "Перенаправить "
+
+#: lib/Storage.php:352
+msgid "Regular expression"
+msgstr "Регулярное выражение"
+
+#: spam.php:62 spam.php:130 forward.php:34 forward.php:88 vacation.php:34
+#: vacation.php:117 templates/whitelist/whitelist.inc:24
+#: templates/blacklist/blacklist.inc:42
+msgid "Return to Rules List"
+msgstr "Вернуться к Правилам"
+
+#: templates/filters/header.inc:27
+msgid "Rule"
+msgstr "Правило"
+
+#: filters.php:78
+msgid "Rule Copied"
+msgstr "Правило скопировано"
+
+#: filters.php:57
+msgid "Rule Deleted"
+msgstr "Правило удалено"
+
+#: spam.php:106 filters.php:94 forward.php:72 vacation.php:97
+msgid "Rule Disabled"
+msgstr "Правило отменено"
+
+#: spam.php:97 filters.php:99 forward.php:63 vacation.php:88
+msgid "Rule Enabled"
+msgstr "Правило активировано"
+
+#: templates/rule/header.inc:33
+msgid "Rule Name:"
+msgstr "Название правила"
+
+#: lib/Script/sieve.php:2929
+msgid "Rule:"
+msgstr "Правило:"
+
+#: lib/Ingo.php:393
+msgid "S_pam"
+msgstr "Спам"
+
+#: spam.php:79 forward.php:45 vacation.php:62
+#: templates/whitelist/whitelist.inc:23 templates/blacklist/blacklist.inc:41
+#: templates/rule/footer.inc:60
+msgid "Save"
+msgstr "Сохранить"
+
+#: templates/filters/settings.inc:31
+msgid "Save Settings"
+msgstr "Сохранить"
+
+#: spam.php:100 spam.php:126 forward.php:66 forward.php:84 vacation.php:91
+#: vacation.php:113
+msgid "Save and Disable"
+msgstr "Сохранить и отключить"
+
+#: spam.php:91 spam.php:128 forward.php:57 forward.php:86 vacation.php:82
+#: vacation.php:115
+msgid "Save and Enable"
+msgstr "Сохранить и включить"
+
+#: templates/script/header.inc:2
+msgid "Script"
+msgstr "Скрипт"
+
+#: templates/rule/footer.inc:30
+msgid "Seen"
+msgstr "Просмотрено"
+
+#: rule.php:218
+msgid "Select a field"
+msgstr "Выберите поле"
+
+#: rule.php:347 templates/blacklist/blacklist.inc:23 lib/Ingo.php:59
+msgid "Select target folder"
+msgstr "Выберите папку"
+
+#: config/fields.php.dist:35
+msgid "Sender"
+msgstr "Отправитель"
+
+#: filters.php:118
+msgid "Settings successfully updated."
+msgstr "Установки успешно обновлены"
+
+#: config/fields.php.dist:95
+msgid "Size"
+msgstr "Размер"
+
+#: filters.php:198 lib/Script/sieve.php:425 lib/Script/maildrop.php:301
+#: lib/Block/overview.php:105 lib/Block/overview.php:108
+msgid "Spam Filter"
+msgstr "Фильтр спама"
+
+#: spam.php:147 spam.php:154
+msgid "Spam Filtering"
+msgstr "Фильтрация спама"
+
+#: spam.php:71
+msgid "Spam Level:"
+msgstr "Уровень спама: "
+
+#: config/fields.php.dist:31
+msgid "Subject"
+msgstr "Тема"
+
+#: lib/Script/sieve.php:2928
+msgid "Subject:"
+msgstr "Тема:"
+
+#: lib/api.php:103
+#, php-format
+msgid "The address \"%s\" has been added to your blacklist."
+msgstr "Адрес \"%s\" добавлен в черный список"
+
+#: lib/api.php:126
+#, php-format
+msgid "The address \"%s\" has been added to your whitelist."
+msgstr "Адрес \"%s\" добавлен в белый список"
+
+#: templates/filters/filter.html:32
+msgid "To:"
+msgstr "Кому:"
+
+#: templates/rule/filter.inc:15
+msgid "User header"
+msgstr "Заголовок пользователя"
+
+#: rule.php:353
+msgid "Value"
+msgstr "Значение"
+
+#: templates/whitelist/whitelist.inc:16
+msgid "Wh_itelist addresses:"
+msgstr "Адреса белого списка:"
+
+#: filters.php:180 templates/whitelist/whitelist.inc:8
+#: lib/Block/overview.php:85 lib/Block/overview.php:88
+msgid "Whitelist"
+msgstr "Белый список"
+
+#: whitelist.php:57
+msgid "Whitelist Edit"
+msgstr "Редакирование белого списка"
+
+#: lib/Script/procmail.php:236 lib/Script/sieve.php:329
+#: lib/Script/maildrop.php:224
+msgid "Whitelisted Addresses"
+msgstr "Адреса для Белого списка"
+
+#: lib/Script/imap.php:307 lib/Script/imap.php:330 lib/Script/imap.php:345
+msgid "[No Subject]"
+msgstr "[Нет темы]"
+
+#: lib/Ingo.php:384
+msgid "_Blacklist"
+msgstr "Черный список"
+
+#: templates/blacklist/blacklist.inc:18
+msgid "_Delete message completely"
+msgstr "Окончательно удалить сообщение"
+
+#: templates/blacklist/blacklist.inc:32
+msgid "_Enter each address on a new line:"
+msgstr "Введите каждый адрес с новой строки:"
+
+#: lib/Ingo.php:390
+msgid "_Forward"
+msgstr "Переслать"
+
+#: templates/blacklist/blacklist.inc:22
+msgid "_Move message to folder:"
+msgstr "Переместить в папку:"
+
+#: lib/Ingo.php:399
+msgid "_Permissions"
+msgstr "Права"
+
+#: lib/Ingo.php:396
+msgid "_Script"
+msgstr "Скрипт"
+
+#: lib/Ingo.php:381
+msgid "_Whitelist"
+msgstr "Белый список"
+
+#: lib/Block/overview.php:54
+msgid "active"
+msgstr "активно"
+
+#: templates/rule/filter.inc:4
+msgid "and"
+msgstr "и"
+
+#: filters.php:218
+msgid "field"
+msgstr "поле"
+
+#: lib/Block/overview.php:52
+msgid "inactive"
+msgstr "неактивно"
+
+#: filters.php:218
+msgid "match"
+msgstr "равно"
+
+#: templates/rule/filter.inc:4
+msgid "or"
+msgstr "или"

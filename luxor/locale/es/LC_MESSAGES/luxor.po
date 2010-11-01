@@ -1,0 +1,169 @@
+# Spanish translations for luxor package
+# Traducciones al español para el paquete luxor.
+# Copyright 2008-2009 The Horde Project
+# This file is distributed under the same license as the luxor package.
+# Automatically generated, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Luxor 1.0-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2007-11-22 17:11+0100\n"
+"PO-Revision-Date: 2008-03-18 20:18+0100\n"
+"Last-Translator: Manuel P. Ayala <mayala@unex.es>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ident.php:73
+#, php-format
+msgid "%s :: Symbol \"%s\""
+msgstr "%s :: Símbolo \"%s\""
+
+#: lib/Tagger.php:46 lib/Tagger.php:101
+#, php-format
+msgid "%s was already indexed."
+msgstr "%s ya estaba indexado."
+
+#: lib/Tagger.php:30 lib/Tagger.php:84
+#, php-format
+msgid "Can't build language class for file %s."
+msgstr "No se puede contruir la clase idioma del archivo %s."
+
+#: lib/Tagger.php:57 lib/Tagger.php:112
+#, php-format
+msgid "Can't create copy of file %s."
+msgstr "No se puede crear una copia del archivo %s."
+
+#: lib/Files/plain.php:85
+#, php-format
+msgid "Can't open directory %s"
+msgstr "No se puede abrir el directorio %s"
+
+#: lib/Lang/Generic.php:117
+#, php-format
+msgid "Can't open file %s."
+msgstr "No se puede abrir el archivo %s."
+
+#: lib/Lang/Generic.php:75
+msgid "Can't run ectags."
+msgstr "No se puede ejecutar ectags."
+
+#: source.php:95
+#, php-format
+msgid "Could not markup file %s."
+msgstr "No se puede marcar el archivo %s."
+
+#: source.php:18
+msgid "Date (GMT)"
+msgstr "Fecha (GMT)"
+
+#: templates/ident/ident.html:7
+msgid "Declarations"
+msgstr "Declaraciones"
+
+#: search.php:60
+msgid "Declared as "
+msgstr "Declarada como "
+
+#: ident.php:40
+#, php-format
+msgid "Declared as a %s"
+msgstr "Declarada como una %s"
+
+#: source.php:19
+msgid "Description"
+msgstr "Descripción"
+
+#: source.php:150
+#, php-format
+msgid "Directory Listing :: %s"
+msgstr "Listado del directorio :: %s"
+
+#: lib/Lang/Generic.php:65
+#, php-format
+msgid "Exuberant ctags version 5 or above required, found version %s"
+msgstr ""
+"Se necesita exuberant ctags versión 5 o superior, se ha encontrado la "
+"versión %s"
+
+#: scripts/genxref.php:60
+#, php-format
+msgid "Indexing %s"
+msgstr "Indexando %s"
+
+#: ident.php:46 ident.php:69
+#, php-format
+msgid "Line %s"
+msgstr "Línea %s"
+
+#: templates/headerbar.inc:2
+msgid "Location:"
+msgstr "Ubicación:"
+
+#: source.php:153
+#, php-format
+msgid "Markup of %s"
+msgstr "Marcador de %s"
+
+#: source.php:16
+msgid "Name"
+msgstr "Nombre"
+
+#: lib/Luxor.php:60
+msgid "Other Sources"
+msgstr "Otros orígenes"
+
+#: lib/Luxor.php:138
+msgid "Parent Directory"
+msgstr "Directorio anterior"
+
+#: templates/ident/ident.html:8
+msgid "Referenced in"
+msgstr "Referenciado en"
+
+#: scripts/genxref.php:65
+#, php-format
+msgid "Referencing %s"
+msgstr "Remitiendo a %s"
+
+#: source.php:17
+msgid "Size"
+msgstr "Tamaño"
+
+#: search.php:35
+#, php-format
+msgid "Symbol Search for \"%s\""
+msgstr "Búsqueda simbólica de \"%s\""
+
+#: source.php:89
+#, php-format
+msgid "The file %s can't be opened or doesn't exist."
+msgstr "No se puede abrir el archivo %s o no existe."
+
+#: templates/headerbar.inc:9
+msgid "Tracking Branch"
+msgstr "Rama de seguimiento"
+
+#: lib/Luxor.php:137
+msgid "Up to parent"
+msgstr "Nivel anterior"
+
+#: source.php:39
+#, php-format
+msgid "You do not have permission to view %s."
+msgstr "No dispone de privilegios para ver %s."
+
+#: lib/Luxor.php:448
+msgid "_Browse"
+msgstr "_Examinar"
+
+#: lib/Luxor.php:149
+msgid "bytes"
+msgstr "bytes"
+
+#: lib/Luxor.php:151
+msgid "kbytes"
+msgstr "kbytes"

@@ -1,0 +1,22 @@
+=================
+ Upgrading Chora
+=================
+
+:Contact: chora@lists.horde.org
+
+
+These are instructions to upgrade from earlier Chora versions.
+
+
+Upgrading Chora from 2.x to 3.x
+===============================
+
+This is a non-exhaustive, quick explanation of what has changed between a Chora
+2.x installation to Chora 3.x.
+
+
+Configuration files
+-------------------
+
+The ``config/sourceroots.php`` configuration file has been renamed to
+``config/backends.php``.

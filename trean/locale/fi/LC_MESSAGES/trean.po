@@ -1,0 +1,449 @@
+# Finnish translation for Trean.
+# Copyright
+# Leena Heino <liinu@uta.fi>, 2003-2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Trean 0.1-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2005-02-10 10:56+0200\n"
+"PO-Revision-Date: 2004-12-10 12:59+0200\n"
+"Last-Translator: Leena Heino <liinu@uta.fi>\n"
+"Language-Team: Finnish <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+#: data.php:67
+#, php-format
+msgid "%d Folders and %d Bookmarks imported."
+msgstr "Tuotiin %d kansiota ja %d kirjanmerkkia."
+
+#: templates/browse/bookmarks.inc:65
+#, php-format
+msgid "%s Bookmarks"
+msgstr "%s kirjanmerkit"
+
+#: templates/browse/subcategories.inc:47
+#, fuzzy, php-format
+msgid "%s Categories"
+msgstr "Kategoriat"
+
+#: edit.php:127
+#, php-format
+msgid "'%s' was not renamed: %s."
+msgstr "'%s' ei voitu uudelleennimetä: %s."
+
+#: lib/Block/bookmarks.php:47 config/prefs.php.dist:33
+msgid "1 Line"
+msgstr "1-rivinen"
+
+#: lib/Block/bookmarks.php:46 config/prefs.php.dist:32
+msgid "2 Line"
+msgstr "2-rivinen"
+
+#: lib/Block/bookmarks.php:45 config/prefs.php.dist:31
+msgid "3 Line"
+msgstr "3-rivinen"
+
+#: lib/Trean.php:166
+msgid "Add"
+msgstr "Lisää"
+
+#: add.php:72
+msgid "Add Bookmark"
+msgstr "Lisää kirjanmerkki"
+
+#: templates/add/add.inc:12
+msgid "Add a new bookmark"
+msgstr "Lisää uusi kirjanmerkki"
+
+#: templates/add/add.inc:68
+msgid "Add to Bookmarks"
+msgstr "Lisää kirjanmerkkeihin"
+
+#: templates/browse/bookmarks.inc:82 templates/browse/subcategories.inc:55
+msgid "All"
+msgstr "Kaikki"
+
+#: templates/search/search.inc:29
+msgid "And"
+msgstr "Ja"
+
+#: templates/search/search.inc:38
+msgid "Any Part of field"
+msgstr "Missä tahansa kohdassa kenttää"
+
+#: templates/browse/bookmarks.inc:32
+msgid "Are you sure you want to delete the selected bookmarks?"
+msgstr "Oletko varma että haluat tuhota valitut kirjanmerkit?"
+
+#: templates/browse/subcategories.inc:23
+#, fuzzy
+msgid "Are you sure you want to delete the selected categories?"
+msgstr "Oletko varma että haluat tuhota valitut kirjanmerkit?"
+
+#: lib/Bookmarks.php:70
+msgid "Bookmark names must be non-empty"
+msgstr "Kirjanmerkkien nimet eivät saa olla tyhjiä"
+
+#: data.php:103 lib/Block/bookmarks.php:3
+msgid "Bookmarks"
+msgstr "Kirjanmerkit"
+
+#: browse.php:71 lib/Trean.php:165
+msgid "Browse"
+msgstr "Selaa"
+
+#: templates/edit/footer.inc:4
+msgid "Cancel"
+msgstr "Peru"
+
+#: templates/browse/subcategories.inc:47 templates/browse/browse.html:2
+msgid "Categories"
+msgstr "Kategoriat"
+
+#: templates/edit/edit.inc:26 templates/add/add.inc:36
+#: lib/Block/bookmarks.php:38
+msgid "Category"
+msgstr "Kategoria"
+
+#: lib/Trean.php:33 lib/Trean.php:66
+msgid "Category does not exist."
+msgstr "Kategoriaa ei ole olemassa."
+
+#: lib/Bookmarks.php:51
+msgid "Category names must be non-empty"
+msgstr "Kategorioiden nimetä eivät saa olla tyhjiä"
+
+#: templates/data/import.inc:12
+msgid "Category to import into:"
+msgstr "Kategoria johon tuodaan:"
+
+#: config/prefs.php.dist:11
+msgid "Change the number of columns to display in browse and search results."
+msgstr ""
+"Muuta näytettävien sarakkeiden lukumäärää selausnäkymässä ja haun tuloksissa."
+
+#: templates/search/search.inc:25
+msgid "Combine"
+msgstr "Yhdistä"
+
+#: config/prefs.php.dist:43
+msgid "Completely collapsed"
+msgstr "Kokonaan pienennetty"
+
+#: config/prefs.php.dist:45
+msgid "Completely expanded"
+msgstr "Kokonaan laajennettu"
+
+#: edit.php:105
+msgid "Copied bookmark: "
+msgstr "Kopioitu kirjanmerkki: "
+
+#: templates/browse/bookmarks.inc:89
+msgid "Copy"
+msgstr "Kopioi"
+
+#: templates/add/nocategories.inc:9
+msgid "Define one or more categories for your bookmarks"
+msgstr "Määrittele yksi tai useampi kategoria kirjanmerkeillesi"
+
+#: templates/browse/bookmarks.inc:87 templates/browse/subcategories.inc:59
+msgid "Delete"
+msgstr "Poista"
+
+#: edit.php:153
+#, fuzzy
+msgid "Delete category: "
+msgstr "Poista tämä luokitus"
+
+#: templates/browse/javascript.inc:29
+msgid "Delete current category?"
+msgstr "Poistetaanko nykyinen luokitus?"
+
+#: templates/browse/bookmarks.inc:72
+msgid "Delete this Category"
+msgstr "Poista tämä luokitus"
+
+#: edit.php:58
+msgid "Deleted bookmark: "
+msgstr "Poistettu kirjanmerkki: "
+
+#: templates/search/search.inc:20 templates/edit/edit.inc:21
+#: templates/add/add.inc:31
+msgid "Description"
+msgstr "Kuvaus"
+
+#: config/prefs.php.dist:10
+msgid "Display Options"
+msgstr "Näkymän asetukset"
+
+#: config/prefs.php.dist:55
+msgid "Display edit buttons when displaying Bookmarks?"
+msgstr "Näytä muokkauspainikkeet kun näytetään kirjanmerkkejä"
+
+#: templates/data/import.inc:27
+msgid "Download My Bookmarks"
+msgstr "Lataa kirjanmerkkini"
+
+#: templates/add/add.inc:63
+msgid "Drag the 'Add to Bookmarks' link below onto your 'Links' Bar"
+msgstr "Raahaa allaoleva 'Lisää kirjanmerkkeihin'-linkki 'Links' valikkoon"
+
+#: templates/add/add.inc:61
+msgid "Drag the 'Add to Bookmarks' link below onto your 'Personal Toolbar'"
+msgstr ""
+"Raahaa allaoleva 'Lisää kirjanmerkkeihin'-linkki 'Personal Toolbar' valikkoon"
+
+#: templates/browse/bookmarks.inc:86
+msgid "Edit"
+msgstr "Muokkaa"
+
+#: edit.php:191
+msgid "Edit Bookmark"
+msgstr "Muokkaa kirjanmerkkiä"
+
+#: templates/data/import.inc:26
+msgid "Export Bookmarks"
+msgstr "Vie kirjanmerkit"
+
+#: templates/data/import.inc:11
+msgid "File to import:"
+msgstr "Tiedosto, josta tuodaan:"
+
+#: config/prefs.php.dist:44
+msgid "First level shown"
+msgstr "Ensimmäinen taso näkyvissä"
+
+#: templates/data/import.inc:16
+msgid "Import"
+msgstr "Tuo"
+
+#: data.php:91 templates/data/import.inc:1
+msgid "Import Bookmarks"
+msgstr "Tuo kirjanmerkkejä"
+
+#: lib/Trean.php:171
+msgid "Import/Export"
+msgstr "Tuo/Vie"
+
+#: templates/add/add.inc:62
+msgid "Internet Explorer"
+msgstr "Internet Explorer"
+
+#: templates/data/import.inc:9
+msgid ""
+"Internet Explorer users will need to export their current Favorites by going "
+"to the 'File' menu and selecting 'Import and Export'."
+msgstr ""
+"Jos käytät Internet Explorer selainta ja haluat tuoda 'Favorites' "
+"kirjanmerkkisi, niin mene 'File' valikkoon ja valitse 'Import and Export'."
+
+#: templates/search/search.inc:35
+msgid "Match"
+msgstr "Täsmää"
+
+#: templates/browse/bookmarks.inc:88 templates/browse/subcategories.inc:60
+msgid "Move"
+msgstr "Siirrä"
+
+#: edit.php:82
+msgid "Moved bookmark: "
+msgstr "Siirretty kirjanmerkki: "
+
+#: edit.php:174
+#, fuzzy
+msgid "Moved category: "
+msgstr "Uusi aliluokitus"
+
+#: templates/add/add.inc:60
+msgid "Mozilla"
+msgstr "Mozilla"
+
+#: templates/data/import.inc:8
+msgid ""
+"Mozilla users will need to export their current Bookmarks by going into "
+"'Bookmark Manager' and selecting 'Export' from the 'Tools' menu."
+msgstr ""
+"Jos käytät Mozilla selainta ja haluat tuoda kirjanmerkkisi, niin mene "
+"'Bookmark Manager' valikkoon ja valitse 'Tools' valikosta 'Export' toiminto."
+
+#: browse.php:52 templates/browse/bookmarks.inc:65 lib/Trean.php:39
+#: lib/Trean.php:70 lib/Trean.php:139 lib/Block/bookmarks.php:29
+#: lib/Block/bookmarks.php:65
+msgid "My Bookmarks"
+msgstr "Kirjanmerkkini"
+
+#: templates/browse/bookmarks.inc:69 lib/Block/bookmarks.php:70
+msgid "New Bookmark"
+msgstr "Uusi kirjanmerkki"
+
+#: templates/browse/bookmarks.inc:70 templates/add/nocategories.inc:4
+msgid "New Subcategory"
+msgstr "Uusi aliluokitus"
+
+#: templates/search/results_none.inc:3
+msgid "No Bookmarks found"
+msgstr "Ei löytynyt kirjanmerkkejä"
+
+#: lib/Block/bookmarks.php:100
+msgid "No bookmarks to display"
+msgstr "Ei kirjanmerkkejä näytettäväksi"
+
+#: templates/browse/bookmarks.inc:83 templates/browse/subcategories.inc:56
+msgid "None"
+msgstr "Ei mitään"
+
+#: config/prefs.php.dist:22
+msgid "Number of columns to display in browse and search results:"
+msgstr ""
+"Näytettävien sarakkeiden lukumäärää selausnäkymässä ja haun tuloksissa:"
+
+#: config/prefs.php.dist:64
+msgid "Open links in a new window?"
+msgstr "Avaa linkit uudessa ikkunassa."
+
+#: templates/search/search.inc:28
+msgid "Or"
+msgstr "Tai"
+
+#: config/prefs.php.dist:9
+msgid "Other Options"
+msgstr "Muut asetukset"
+
+#: templates/browse/javascript.inc:19
+msgid "Please enter the name of the new category:"
+msgstr "Anna uuden luokituksen nimi:"
+
+#: templates/browse/javascript.inc:39
+msgid "Please modify the name accordingly"
+msgstr "Muokkaa nimea sen mukaisesti"
+
+#: templates/browse/bookmarks.inc:73
+msgid "Rename this Category"
+msgstr "Uudelleennimeä tämä kategoria"
+
+#: templates/add/add.inc:47
+msgid "Reset"
+msgstr "Tyhjennä"
+
+#: templates/edit/footer.inc:3 templates/add/add.inc:46
+msgid "Save"
+msgstr "Talleta"
+
+#: search.php:14 templates/search/search.inc:46 lib/Trean.php:167
+msgid "Search"
+msgstr "Haku"
+
+#: templates/search/search.inc:5
+msgid "Search Bookmarks"
+msgstr "Hae kirjanmerkeistä"
+
+#: templates/search/results_header.inc:5
+msgid "Search Results"
+msgstr "Haun tulokset"
+
+#: templates/browse/bookmarks.inc:82 templates/browse/subcategories.inc:55
+msgid "Select All"
+msgstr "Valitse kaikki"
+
+#: templates/browse/bookmarks.inc:83 templates/browse/subcategories.inc:56
+msgid "Select None"
+msgstr "Tyhjennä valinnat"
+
+#: templates/browse/bookmarks.inc:81 templates/browse/subcategories.inc:54
+#, php-format
+msgid "Select: %s | %s"
+msgstr "Valitse %s | %s"
+
+#: config/prefs.php.dist:46
+msgid "Should your list of bookmark categories be open when you log in?"
+msgstr ""
+"Näytä lista kaikista kirjanmerkkikategorioista sisäänkirjautumisen "
+"yhteydessä."
+
+#: lib/Block/bookmarks.php:42
+msgid "Template"
+msgstr "Malli"
+
+#: config/prefs.php.dist:34
+msgid "Template to use when displaying bookmarks:"
+msgstr "Kirjanmerkkien näyttämisessä käytettävä malli:"
+
+#: templates/browse/bookmarks.inc:117
+msgid "There are no bookmarks in this category"
+msgstr "Tässä kategoriassa ei ole ainuttakaan kirjanmerkkiä"
+
+#: edit.php:107
+#, php-format
+msgid "There was a problem copying the bookmark: %s"
+msgstr "Kirjanmerkkiä kopioitaessa tapahtui virhe: %s"
+
+#: edit.php:60
+#, php-format
+msgid "There was a problem deleting the bookmark: %s"
+msgstr "Kirjanmerkkiä poistettaessa tapahtui virhe: %s"
+
+#: edit.php:155
+#, fuzzy, php-format
+msgid "There was a problem deleting the category: %s"
+msgstr "Kirjanmerkkiä poistettaessa tapahtui virhe: %s"
+
+#: edit.php:84
+#, php-format
+msgid "There was a problem moving the bookmark: %s"
+msgstr "Kirjanmerkkiä siirrettäessä tapahtui virhe: %s"
+
+#: edit.php:176
+#, fuzzy, php-format
+msgid "There was a problem moving the category: %s"
+msgstr "Kirjanmerkkiä siirrettäessä tapahtui virhe: %s"
+
+#: add.php:35
+#, php-format
+msgid "There was an error adding the bookmark: %s"
+msgstr "Kirjanmerkkiä lisätessä tapahtui virhe: %s"
+
+#: add.php:61
+#, php-format
+msgid "There was an error adding the category: %s"
+msgstr "Kategoriaa lisätessä tapahtui virhe: %s"
+
+#: edit.php:42
+#, php-format
+msgid "There was an error saving the bookmark: %s"
+msgstr "Kirjanmerkkiä talletettaessa tapahtui virhe: %s"
+
+#: templates/search/search.inc:15 templates/edit/edit.inc:16
+#: templates/add/add.inc:26
+msgid "Title"
+msgstr "Otsikko"
+
+#: templates/add/add.inc:59
+msgid "To be able to quickly add bookmarks from your web browser:"
+msgstr "Jotta voisit nopeasti lisätä kirjanmerkkejä www-selaimeesi:"
+
+#: templates/search/search.inc:10 templates/edit/edit.inc:11
+#: templates/add/add.inc:21
+msgid "URL"
+msgstr "URL"
+
+#: templates/add/add.inc:64
+msgid ""
+"While browsing you will be able to add bookmarks by clicking your new 'Add "
+"to Bookmarks' shortcut."
+msgstr ""
+"Voit lisätä kirjanmerkkejä Napauttamalla 'Lisää kirjanmerkkeihin' oikopolkua."
+
+#: templates/search/search.inc:39
+msgid "Whole Field"
+msgstr "Koko kenttä"
+
+#: templates/browse/javascript.inc:19
+msgid "You are creating a category folder."
+msgstr "Olet luomassa luokituskansiota."
+
+#: templates/browse/javascript.inc:39
+msgid "You are renaming the current category folder."
+msgstr "Olet uudelleennimeämässä nykyistä kategoriakansiota."

@@ -5,8 +5,8 @@
  * @author  Robert E. Coyle <robertecoyle@hotmail.com>
  * @package Horde_Form
  */
-abstract class Horde_Form_Type {
-
+abstract class Horde_Form_Type
+{
     protected $_properties = array();
 
     /**

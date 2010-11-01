@@ -8,16 +8,16 @@ $block_name = _("Queue Summary");
  *
  * @package Horde_Block
  */
-class Horde_Block_Whups_queuesummary extends Horde_Block {
-
-    var $_app = 'whups';
+class Horde_Block_Whups_queuesummary extends Horde_Block
+{
+    protected $_app = 'whups';
 
     /**
      * The title to go in this block.
      *
      * @return string   The title text.
      */
-    function _title()
+    protected function _title()
     {
         return _("Queue Summary");
     }
@@ -27,9 +27,8 @@ class Horde_Block_Whups_queuesummary extends Horde_Block {
      *
      * @return string   The content
      */
-    function _content()
+    protected function _content()
     {
-        require_once dirname(__FILE__) . '/../base.php';
         global $whups_driver;
 
         $queues = Whups::permissionsFilter($whups_driver->getQueues(), 'queue', Horde_Perms::READ);
@@ -55,6 +54,7 @@ class Horde_Block_Whups_queuesummary extends Horde_Block {
         }
 
         Horde::addScriptFile('tables.js', 'horde', true);
+
         return '<table id="whups_block_queuesummary" cellspacing="0" class="tickets striped sortable">' . $html . '</tbody></table>';
     }
 

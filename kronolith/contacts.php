@@ -6,10 +6,15 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('kronolith');
 
-if (!Horde_Auth::getAuth()) {
-    Horde_Util::closeWindowJS();
+if (Kronolith::showAjaxView()) {
+    Horde::url('', true)->redirect();
+}
+
+if (!$GLOBALS['registry']->getAuth()) {
+    echo Horde::wrapInlineScript(array('window.close();'));
     exit;
 }
 
@@ -32,19 +37,17 @@ $apiargs['addresses'] = array($search);
 $apiargs['addressbooks'] = array($source);
 $apiargs['fields'] = array();
 
-if ($search_fields_pref = $prefs->getValue('search_fields')) {
-    foreach (explode("\n", $search_fields_pref) as $s) {
-        $s = trim($s);
-        $s = explode("\t", $s);
-        if (!empty($s[0]) && ($s[0] == $source)) {
-            $apiargs['fields'][array_shift($s)] = $s;
-            break;
-        }
-    }
+$searchpref = Kronolith::getAddressbookSearchParams();
+if (isset($searchpref[$source])) {
+    $apiargs['fields'][$source] = $searchpref[$source];
 }
 
 if ($search || $prefs->getValue('display_contact')) {
-    $results = $registry->call('contacts/search', $apiargs);
+    try {
+        $results = $registry->call('contacts/search', $apiargs);
+    } catch (Exception $e) {
+        $results = array();
+    }
 } else {
     $results = array();
 }
@@ -52,10 +55,8 @@ if ($search || $prefs->getValue('display_contact')) {
 /* The results list returns an array for each source searched - at least
    that's how it looks to me. Make it all one array instead. */
 $addresses = array();
-if (!is_a($results, 'PEAR_Error')) {
-    foreach ($results as $r) {
-        $addresses = array_merge($addresses, $r);
-    }
+foreach ($results as $r) {
+    $addresses = array_merge($addresses, $r);
 }
 
 /* If self-submitted, preserve the currently selected users encoded by

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!-- $Id$ -->
+<configuration>
+ <configsection name="storage">
+  <configheader>Storage System Settings</configheader>
+  <configsection name="params">
+   <configswitch name="driver" desc="What storage driver should we use?">sql
+    <case name="sql" desc="SQL">
+     <configsql switchname="driverconfig">
+     </configsql> 
+    </case>
+   </configswitch>
+  </configsection>
+ </configsection>
+ <configsection name="highlighter">
+  <configheader>Text Highlighting Engine</configheader>
+  <configswitch name="engine" desc="Which highlighting engine should we use?">TextHighlighter
+   <case name="TextHighlighter" desc="PEAR Text_Highlighter"/>
+   <case name="LibGeshi" desc="GeSHi - Generic Syntax Highlighter"/>
+  </configswitch>
+ </configsection>
+
+ <configsection name="menu">
+  <configheader>Menu Settings</configheader>
+  <configmultienum name="apps" desc="Select any applications that should be
+  linked in Pastie's menu">
+   <values>
+    <configspecial name="list-horde-apps" />
+   </values>
+  </configmultienum>
+ </configsection>
+</configuration>

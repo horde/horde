@@ -3,7 +3,7 @@ class Horde_Date_Repeater_Hour extends Horde_Date_Repeater
 {
     public $currentHourStart;
 
-    public function next($pointer)
+    public function next($pointer = 'future')
     {
         parent::next($pointer);
 

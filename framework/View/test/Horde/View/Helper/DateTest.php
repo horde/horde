@@ -123,6 +123,13 @@ class Horde_View_Helper_DateTest extends Horde_Test_Case
                             $this->helper->distanceOfTimeInWords($from + (4*3600), $from));
         $this->assertEquals('less than 20 seconds',
                             $this->helper->distanceOfTimeInWords($from + 19, $from, true));
+    }
+
+    public function testDistanceInWordsWithIntegers()
+    {
+        $this->markTestIncomplete('not yet passing');
+
+        $from = mktime(21, 45, 0, 6, 6, 2004);
 
         // test with integers (not yet passing)
         $this->assertEquals('less than a minute',

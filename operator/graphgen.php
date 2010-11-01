@@ -9,8 +9,8 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
+$operator = Horde_Registry::appInit('operator');
 
-$operator = new Operator_Application(array('init' => true));
 $cache = &$GLOBALS['cache'];
 
 // Work around warnings in Image_Graph
@@ -18,8 +18,8 @@ $cache = &$GLOBALS['cache'];
 //error_reporting(E_NONE);
 //ini_set("display_errors", 0);
 
-#setlocale(LC_ALL, Horde_Nls::select());
-#setlocale(LC_ALL, 'en_US');
+//setlocale(LC_ALL, $registry->preferredLang());
+//setlocale(LC_ALL, 'en');
 
 $graphtype = Horde_Util::getFormData('graph');
 $graphinfo = Operator::getGraphInfo($graphtype);
@@ -56,9 +56,9 @@ if (isset($graphinfo['orientation']) &&
     $graph->horizontal = false;
 }
 
-if (!empty($conf['ttf_font'])) {
+if (!empty($conf['graph']['ttf_font'])) {
     // add a TrueType font
-    $Font =& $graph->addNew('ttf_font', $conf['ttf_font']);
+    $Font =& $graph->addNew('ttf_font', $conf['graph']['ttf_font']);
     // Set the font size to 11 pixels.  Yes, 8 really does mean 11
     $Font->setSize(8);
     $graph->setFont($Font);

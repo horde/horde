@@ -4,25 +4,25 @@
  * various directory search drivers.  It includes functions for searching,
  * adding, removing, and modifying directory entries.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Jon Parise <jon@csh.rit.edu>
- * @package Turba
+ * Copyright 2000-2010 The Horde Project (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (ASL).  If you did
+ * did not receive this file, see http://www.horde.org/licenses/asl.php.
+ *
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Jon Parise <jon@csh.rit.edu>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/asl.php ASL
+ * @package  Turba
  */
-class Turba_Driver
+class Turba_Driver implements Countable
 {
-    /**
-     * The internal name of this source.
-     *
-     * @var string
-     */
-    var $name;
-
     /**
      * The symbolic title of this source.
      *
      * @var string
      */
-    var $title;
+    public $title;
 
     /**
      * Hash describing the mapping between Turba attributes and
@@ -30,14 +30,14 @@ class Turba_Driver
      *
      * @var array
      */
-    var $map = array();
+    public $map = array();
 
     /**
      * Hash with all tabs and their fields.
      *
      * @var array
      */
-    var $tabs = array();
+    public $tabs = array();
 
     /**
      * List of all fields that can be accessed in the backend (excludes
@@ -45,29 +45,29 @@ class Turba_Driver
      *
      * @var array
      */
-    var $fields = array();
+    public $fields = array();
 
     /**
      * Array of fields that must match exactly.
      *
      * @var array
      */
-    var $strict = array();
+    public $strict = array();
 
     /**
      * Array of fields to search "approximately" (@see
-     * config/sources.php.dist).
+     * config/backends.php.dist).
      *
      * @var array
      */
-    var $approximate = array();
+    public $approximate = array();
 
     /**
      * The name of a field to store contact list names in if not the default.
      *
      * @var string
      */
-    var $listNameField = null;
+    public $listNameField = null;
 
     /**
      * The name of a field to use as an alternative to the name field if that
@@ -75,35 +75,42 @@ class Turba_Driver
      *
      * @var string
      */
-    var $alternativeName = null;
+    public $alternativeName = null;
+
+    /**
+     * The internal name of this source.
+     *
+     * @var string
+     */
+    protected $_name;
 
     /**
      * Hash holding the driver's additional parameters.
      *
      * @var array
      */
-    var $_params = array();
+    protected $_params = array();
 
     /**
      * What can this backend do?
      *
      * @var array
      */
-    var $_capabilities = array();
+    protected $_capabilities = array();
 
     /**
      * Number of contacts in this source.
      *
      * @var integer
      */
-    var $_count = null;
+    protected $_count = null;
 
     /**
      * Hold the value for the owner of this address book.
      *
      * @var string
      */
-    var $_contact_owner = '';
+    protected $_contact_owner = '';
 
     /**
      * Constructs a new Turba_Driver object.
@@ -111,7 +118,7 @@ class Turba_Driver
      * @param array $params  Hash containing additional configuration
      *                       parameters.
      */
-    function Turba_Driver($params)
+    public function __construct($params = array())
     {
         $this->_params = $params;
     }
@@ -121,7 +128,7 @@ class Turba_Driver
      *
      * @return array  Hash containing the driver's additional parameters.
      */
-    function getParams()
+    public function getParams()
     {
         return $this->_params;
     }
@@ -133,7 +140,7 @@ class Turba_Driver
      *
      * @return boolean  Supported or not.
      */
-    function hasCapability($capability)
+    public function hasCapability($capability)
     {
         return !empty($this->_capabilities[$capability]);
     }
@@ -143,7 +150,7 @@ class Turba_Driver
      *
      * @return array  List of blob attributes in the array keys.
      */
-    function getBlobs()
+    public function getBlobs()
     {
         global $attributes;
 
@@ -167,7 +174,7 @@ class Turba_Driver
      *
      * @return array  Translated version of $hash.
      */
-    function toDriverKeys($hash)
+    public function toDriverKeys($hash)
     {
         /* Handle category. */
         if (!empty($hash['category'])) {
@@ -182,7 +189,8 @@ class Turba_Driver
         // and the composite field will be saved to storage.
         // Otherwise composite fields won't be computed during an import.
         foreach ($this->map as $key => $val) {
-            if (!is_array($val) || empty($this->map[$key]['attribute']) ||
+            if (!is_array($val) ||
+                empty($this->map[$key]['attribute']) ||
                 array_key_exists($key, $hash)) {
                 continue;
             }
@@ -196,11 +204,13 @@ class Turba_Driver
             }
         }
 
-        if (!empty($hash['name']) && !empty($this->listNameField) &&
-            !empty($hash['__type']) && is_array($this->map['name']) &&
-            $hash['__type'] == 'Group') {
-                $hash[$this->listNameField] = $hash['name'];
-                unset($hash['name']);
+        if (!empty($hash['name']) &&
+            !empty($this->listNameField) &&
+            !empty($hash['__type']) &&
+            is_array($this->map['name']) &&
+            ($hash['__type'] == 'Group')) {
+            $hash[$this->listNameField] = $hash['name'];
+            unset($hash['name']);
         }
 
         $fields = array();
@@ -211,19 +221,20 @@ class Turba_Driver
                 } elseif (!empty($this->map[$key]['attribute'])) {
                     $fieldarray = array();
                     foreach ($this->map[$key]['fields'] as $mapfields) {
-                        if (isset($hash[$mapfields])) {
-                            $fieldarray[] = $hash[$mapfields];
-                        } else {
-                            $fieldarray[] = '';
-                        }
+                        $fieldarray[] = isset($hash[$mapfields])
+                            ? $hash[$mapfields]
+                            : '';
                     }
                     $fields[$this->map[$key]['attribute']] = preg_replace('/\s+/', ' ', trim(vsprintf($this->map[$key]['format'], $fieldarray), " \t\n\r\0\x0B,"));
                 } else {
                     // If 'parse' is not specified, use 'format' and 'fields'.
                     if (!isset($this->map[$key]['parse'])) {
                         $this->map[$key]['parse'] = array(
-                            array('format' => $this->map[$key]['format'],
-                                  'fields' => $this->map[$key]['fields']));
+                            array(
+                                'format' => $this->map[$key]['format'],
+                                'fields' => $this->map[$key]['fields']
+                            )
+                        );
                     }
                     foreach ($this->map[$key]['parse'] as $parse) {
                         $splitval = sscanf($val, $parse['format']);
@@ -264,15 +275,12 @@ class Turba_Driver
      *
      * @return array  An array of search criteria.
      */
-    function makeSearch($criteria, $search_type, $strict, $match_begin = false)
+    public function makeSearch($criteria, $search_type, $strict,
+                               $match_begin = false)
     {
-        $search = array();
-        $strict_search = array();
-        $search_terms = array();
-        $subsearch = array();
-        $temp = '';
+        $search = $search_terms = $subsearch = $strict_search = array();
+        $glue = $temp = '';
         $lastChar = '\"';
-        $glue = '';
 
         foreach ($criteria as $key => $val) {
             if (isset($this->map[$key])) {
@@ -282,7 +290,7 @@ class Turba_Driver
                     if (count($parts) > 1) {
                         /* Only parse if there was more than 1 search term and
                          * 'AND' the cumulative subsearches. */
-                        for ($i = 0; $i < count($parts); $i++) {
+                        for ($i = 0; $i < count($parts); ++$i) {
                             $term = $parts[$i];
                             $firstChar = substr($term, 0, 1);
                             if ($firstChar == '"') {
@@ -293,11 +301,10 @@ class Turba_Driver
                                     if ($lastChar == '"') {
                                         $temp .= ' ' . substr($parts[$i + 1], 0, -1);
                                         $done = true;
-                                        $i++;
                                     } else {
                                         $temp .= ' ' . $parts[$i + 1];
-                                        $i++;
                                     }
+                                    ++$i;
                                 }
                                 $search_terms[] = $temp;
                             } else {
@@ -312,6 +319,7 @@ class Turba_Driver
                         $search_terms[0] = $val;
                         $glue = 'OR';
                     }
+
                     foreach ($this->map[$key]['fields'] as $field) {
                         $field = $this->toDriver($field);
                         if (!empty($strict[$field])) {
@@ -329,7 +337,7 @@ class Turba_Driver
                                 /* Build the 'OR' search for each search term
                                  * on this field. */
                                 $atomsearch = array();
-                                for ($i = 0; $i < count($search_terms); $i++) {
+                                for ($i = 0; $i < count($search_terms); ++$i) {
                                     $atomsearch[] = array(
                                         'field' => $field,
                                         'op' => 'LIKE',
@@ -389,15 +397,25 @@ class Turba_Driver
         }
 
         if (count($strict_search) && count($search)) {
-            return array('AND' => array($search_type => $strict_search,
-                                        array($search_type => $search)));
+            return array(
+                'AND' => array(
+                    $search_type => $strict_search,
+                    array(
+                        $search_type => $search
+                    )
+                )
+            );
         } elseif (count($strict_search)) {
-            return array('AND' => $strict_search);
+            return array(
+                'AND' => $strict_search
+            );
         } elseif (count($search)) {
-            return array($search_type => $search);
-        } else {
-            return array();
+            return array(
+                $search_type => $search
+            );
         }
+
+        return array();
     }
 
     /**
@@ -409,46 +427,38 @@ class Turba_Driver
      *
      * @return string  The driver name for this attribute.
      */
-    function toDriver($attribute)
+    public function toDriver($attribute)
     {
         if (!isset($this->map[$attribute])) {
             return null;
         }
 
-        if (is_array($this->map[$attribute])) {
-            return $this->map[$attribute]['fields'];
-        } else {
-            return $this->map[$attribute];
-        }
+        return is_array($this->map[$attribute])
+            ? $this->map[$attribute]['fields']
+            : $this->map[$attribute];
     }
 
     /**
-     * Translates an array of hashes from being keyed on driver-specific
-     * fields to being keyed on the generalized Turba attributes. The
-     * translation is based on the contents of $this->map.
+     * Translates a hash from being keyed on driver-specific fields to being
+     * keyed on the generalized Turba attributes. The translation is based on
+     * the contents of $this->map.
      *
-     * @param array $objects  Array of hashes using driver-specific keys.
+     * @param array $entry  A hash using driver-specific keys.
      *
-     * @return array  Translated version of $objects.
+     * @return array  Translated version of $entry.
      */
-    function toTurbaKeys($objects)
+    public function toTurbaKeys($entry)
     {
-        $attributes = array();
-        foreach ($objects as $entry) {
-            $new_entry = array();
-
-            foreach ($this->map as $key => $val) {
-                if (!is_array($val)) {
-                    $new_entry[$key] = null;
-                    if (isset($entry[$val]) && strlen($entry[$val])) {
-                        $new_entry[$key] = trim($entry[$val]);
-                    }
-                }
+        $new_entry = array();
+        foreach ($this->map as $key => $val) {
+            if (!is_array($val)) {
+                $new_entry[$key] = (isset($entry[$val]) && strlen($entry[$val]))
+                    ? trim($entry[$val])
+                    : null;
             }
-
-            $attributes[] = $new_entry;
         }
-        return $attributes;
+
+        return $new_entry;
     }
 
     /**
@@ -468,11 +478,12 @@ class Turba_Driver
      * @param boolean $match_begin    Whether to match only at beginning of
      *                                words.
      *
-     * @return  The sorted, filtered list of search results.
+     * @return Turba_List  The sorted, filtered list of search results.
+     * @throws Turba_Exception
      */
-    function &search($search_criteria, $sort_order = null,
-                     $search_type = 'AND', $return_fields = array(),
-                     $custom_strict = array(), $match_begin = false)
+    public function search($search_criteria, $sort_order = null,
+                           $search_type = 'AND', $return_fields = array(),
+                           $custom_strict = array(), $match_begin = false)
     {
         /* If we are not using Horde_Share, enforce the requirement that the
          * current user must be the owner of the addressbook. */
@@ -518,41 +529,54 @@ class Turba_Driver
 
         /* Retrieve the search results from the driver. */
         $objects = $this->_search($fields, $return_fields);
-        if (is_a($objects, 'PEAR_Error')) {
-            return $objects;
-        }
 
-        $results = $this->_toTurbaObjects($objects, $sort_order);
-        return $results;
+        return $this->_toTurbaObjects($objects, $sort_order);
+    }
+
+    /**
+     * Searches the current address book for duplicate entries.
+     *
+     * Duplicates are determined by comparing email and name or last name and
+     * first name values.
+     *
+     * @return array  A hash with the following format:
+     * <code>
+     * array('name' => array('John Doe' => Turba_List, ...), ...)
+     * </code>
+     * @throws Turba_Exception
+     */
+    public function searchDuplicates()
+    {
+        return array();
     }
 
     /**
      * Takes an array of object hashes and returns a Turba_List
      * containing the correct Turba_Objects
      *
-     * @param array $objects      An array of object hashes (keyed to backend).
-     * @param string $sort_order  Desired sort order to pass to
-     *                            Turba_List::sort()
+     * @param array $objects  An array of object hashes (keyed to backend).
+     * @param array $order    Array of hashes describing sort fields.  Each
+     *                        hash has the following fields:
+     * <pre>
+     * ascending - (boolean) Indicating sort direction.
+     * field - (string) Sort field.
+     * </pre>
      *
-     * @return Turba_List containing requested Turba_Objects
+     * @return Turba_List  A list object.
      */
-    function _toTurbaObjects($objects, $sort_order = null)
+    protected function _toTurbaObjects($objects, $sort_order = null)
     {
-        /* Translate the driver-specific fields in the result back to the more
-         * generalized common Turba attributes using the map. */
-        $objects = $this->toTurbaKeys($objects);
-
         $list = new Turba_List();
+
         foreach ($objects as $object) {
+            /* Translate the driver-specific fields in the result back to the
+             * more generalized common Turba attributes using the map. */
+            $object = $this->toTurbaKeys($object);
+
             $done = false;
             if (!empty($object['__type']) &&
                 ucwords($object['__type']) != 'Object') {
-                $type = ucwords($object['__type']);
-                $class = 'Turba_Object_' . $type;
-                if (!class_exists($class)) {
-                    require_once TURBA_BASE . '/lib/Object/' . $type . '.php';
-                }
-
+                $class = 'Turba_Object_' . ucwords($object['__type']);
                 if (class_exists($class)) {
                     $list->insert(new $class($this, $object));
                     $done = true;
@@ -562,7 +586,9 @@ class Turba_Driver
                 $list->insert(new Turba_Object($this, $object));
             }
         }
+
         $list->sort($sort_order);
+
         /* Return the filtered (sorted) results. */
         return $list;
     }
@@ -575,17 +601,16 @@ class Turba_Driver
      * @param Horde_Date $end    The end date of the valid period.
      * @param $category          The timeObjects category to return.
      *
-     * @return mixed  A list of timeObject hashes || PEAR_Error
+     * @return mixed  A list of timeObject hashes.
+     * @throws Turba Exception
      */
-    function listTimeObjects($start, $end, $category)
+    public function listTimeObjects($start, $end, $category)
     {
-        $res = $this->_getTimeObjectTurbaList($start, $end, $category);
-        if (is_a($res, 'PEAR_Error')) {
+        try {
+            $res = $this->getTimeObjectTurbaList($start, $end, $category);
+        } catch (Turba_Exception $e) {
             /* Try the default implementation before returning an error */
             $res = $this->_getTimeObjectTurbaListFallback($start, $end, $category);
-            if (is_a($res, 'PEAR_Error')) {
-                return $res;
-            }
         }
 
         $t_objects = array();
@@ -597,9 +622,11 @@ class Turba_Driver
                 continue;
             }
 
-            $t_object = new Horde_Date(array('mday' => $match[3],
-                                             'month' => $match[2],
-                                             'year' => $match[1]));
+            $t_object = new Horde_Date(array(
+                'mday' => $match[3],
+                'month' => $match[2],
+                'year' => $match[1]
+            ));
             if ($t_object->compareDate($end) > 0) {
                 continue;
             }
@@ -638,8 +665,8 @@ class Turba_Driver
                 'category' => $ob->getValue('category'),
                 'recurrence' => array('type' => Horde_Date_Recurrence::RECUR_YEARLY_DATE,
                                       'interval' => 1),
-                'params' => array('source' => $this->name, 'key' => $key),
-                'link' => Horde_Util::addParameter(Horde::applicationUrl('contact.php', true), array('source' => $this->name, 'key' => $key), null, false));
+                'params' => array('source' => $this->_name, 'key' => $key),
+                'link' => Horde::url('contact.php', true)->add(array('source' => $this->_name, 'key' => $key))->setRaw(true));
         }
 
         return $t_objects;
@@ -652,11 +679,13 @@ class Turba_Driver
      * @param Horde_Date $start  The starting date.
      * @param Horde_Date $end    The ending date.
      * @param string $field      The address book field containing the
-     *                           timeObject information (birthday, anniversary)
+     *                           timeObject information (birthday,
+     *                           anniversary).
      *
-     * @return mixed  A Tubra_List of objects || PEAR_Error
+     * @return Turba_List  A list of objects.
+     * @throws Turba_Exception
      */
-    function _getTimeObjectTurbaList($start, $end, $field)
+    public function getTimeObjectTurbaList($start, $end, $field)
     {
         return $this->_getTimeObjectTurbaListFallback($start, $end, $field);
     }
@@ -668,16 +697,15 @@ class Turba_Driver
      * @param Horde_Date $start  The starting date.
      * @param Horde_Date $end    The ending date.
      * @param string $field      The address book field containing the
-     *                           timeObject information (birthday, anniversary)
+     *                           timeObject information (birthday,
+     *                           anniversary).
      *
-     * @return mixed  A Tubra_List of objects || PEAR_Error
+     * @return Turba_List  A list of objects.
+     * @throws Turba_Exception
      */
-    function _getTimeObjectTurbaListFallback($start, $end, $field)
+    protected function _getTimeObjectTurbaListFallback($start, $end, $field)
     {
-        $res = $this->search(array(), null, 'AND',
-                             array('name', $field, 'category'));
-
-        return $res;
+        return $this->search(array(), null, 'AND', array('name', $field, 'category'));
     }
 
     /**
@@ -686,34 +714,25 @@ class Turba_Driver
      * @param array $objectIds  The unique ids of the objects to retrieve.
      *
      * @return array  The array of retrieved objects (Turba_Objects).
+     * @throws Turba_Exception
      */
-    function &getObjects($objectIds)
+    public function getObjects($objectIds)
     {
         $objects = $this->_read($this->map['__key'], $objectIds,
                                 $this->getContactOwner(),
                                 array_values($this->fields),
                                 $this->toDriverKeys($this->getBlobs()));
-        if (is_a($objects, 'PEAR_Error')) {
-            return $objects;
-        }
         if (!is_array($objects)) {
-            $result = PEAR::raiseError(_("Requested object not found."));
-            return $result;
+            throw new Turba_Exception(_("Requested object not found."));
         }
 
         $results = array();
-        $objects = $this->toTurbaKeys($objects);
         foreach ($objects as $object) {
+            $object = $this->toTurbaKeys($object);
             $done = false;
             if (!empty($object['__type']) &&
                 ucwords($object['__type']) != 'Object') {
-
-                $type = ucwords($object['__type']);
-                $class = 'Turba_Object_' . $type;
-                if (!class_exists($class)) {
-                    require_once TURBA_BASE . '/lib/Object/' . $type . '.php';
-                }
-
+                $class = 'Turba_Object_' . ucwords($object['__type']);
                 if (class_exists($class)) {
                     $results[] = new $class($this, $object);
                     $done = true;
@@ -733,19 +752,19 @@ class Turba_Driver
      * @param string $objectId  The unique id of the object to retrieve.
      *
      * @return Turba_Object  The retrieved object.
+     * @throws Turba_Exception
      */
-    function &getObject($objectId)
+    public function getObject($objectId)
     {
-        $result = &$this->getObjects(array($objectId));
-        if (is_a($result, 'PEAR_Error')) {
-            // Fall through.
-        } elseif (empty($result[0])) {
-            $result = PEAR::raiseError('No results');
-        } else {
-            $result = $result[0];
-            if (!isset($this->map['__owner'])) {
-                $result->attributes['__owner'] = $this->getContactOwner();
-            }
+        $result = $this->getObjects(array($objectId));
+
+        if (empty($result[0])) {
+            throw new Turba_Exception('No results');
+        }
+
+        $result = $result[0];
+        if (!isset($this->map['__owner'])) {
+            $result->attributes['__owner'] = $this->getContactOwner();
         }
 
         return $result;
@@ -756,10 +775,10 @@ class Turba_Driver
      *
      * @param array $attributes  The attributes of the new object to add.
      *
-     * @return mixed  The new __key value on success, or a PEAR_Error object
-     *                on failure.
+     * @return string  The new __key value on success.
+     * @throws Turba_Exception
      */
-    function add($attributes)
+    public function add($attributes)
     {
         /* Only set __type and __owner if they are not already set. */
         if (!isset($attributes['__type'])) {
@@ -770,22 +789,24 @@ class Turba_Driver
         }
 
         if (!isset($attributes['__uid'])) {
-            $attributes['__uid'] = $this->generateUID();
+            $attributes['__uid'] = strval(new Horde_Support_Guid());
         }
 
         $key = $attributes['__key'] = $this->_makeKey($this->toDriverKeys($attributes));
         $uid = $attributes['__uid'];
 
         $attributes = $this->toDriverKeys($attributes);
-        $result = $this->_add($attributes, $this->toDriverKeys($this->getBlobs()));
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+
+        $this->_add($attributes, $this->toDriverKeys($this->getBlobs()));
 
         /* Log the creation of this item in the history log. */
-        $history = &Horde_History::singleton();
-        $history->log('turba:' . $this->getName() . ':' . $uid,
+        try {
+            $GLOBALS['injector']->getInstance('Horde_History')
+                ->log('turba:' . $this->getName() . ':' . $uid,
                       array('action' => 'add'), true);
+        } catch (Exception $e) {
+            Horde::logMessage($e, 'ERR');
+        }
 
         return $key;
     }
@@ -793,14 +814,19 @@ class Turba_Driver
     /**
      * Returns ability of the backend to add new contacts.
      *
-     * @return boolean
+     * @return boolean  Can backend add?
      */
-    function canAdd()
+    public function canAdd()
     {
         return $this->_canAdd();
     }
 
-    function _canAdd()
+    /**
+     * Returns ability of the backend to add new contacts.
+     *
+     * @return boolean  Can backend add?
+     */
+    protected function _canAdd()
     {
         return false;
     }
@@ -809,22 +835,18 @@ class Turba_Driver
      * Deletes the specified entry from the contact source.
      *
      * @param string $object_id  The ID of the object to delete.
+     *
+     * @throws Turba_Exception
      */
-    function delete($object_id)
+    public function delete($object_id)
     {
-        $object = &$this->getObject($object_id);
-        if (is_a($object, 'PEAR_Error')) {
-            return $object;
-        }
+        $object = $this->getObject($object_id);
 
         if (!$object->hasPermission(Horde_Perms::DELETE)) {
-            return PEAR::raiseError(_("Permission denied"));
+            throw new Turba_Exception(_("Permission denied"));
         }
 
-        $result = $this->_delete($this->toDriver('__key'), $object_id);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_delete($this->toDriver('__key'), $object_id);
 
         $own_contact = $GLOBALS['prefs']->getValue('own_contact');
         if (!empty($own_contact)) {
@@ -836,9 +858,13 @@ class Turba_Driver
 
         /* Log the deletion of this item in the history log. */
         if ($object->getValue('__uid')) {
-            $history = Horde_History::singleton();
-            $history->log($object->getGuid(),
-                          array('action' => 'delete'), true);
+            try {
+                $GLOBALS['injector']->getInstance('Horde_History')->log($object->getGuid(),
+                                                array('action' => 'delete'),
+                                                true);
+            } catch (Exception $e) {
+                Horde::logMessage($e, 'ERR');
+            }
         }
 
         return true;
@@ -847,20 +873,27 @@ class Turba_Driver
     /**
      * Deletes all contacts from an address book.
      *
-     * @param string  $sourceName  The identifier of the address book to
-     *                             delete.  If omitted, will clear the current
-     *                             user's 'default' address book for this source
-     *                             type.
+     * @param string $sourceName  The identifier of the address book to
+     *                            delete.  If omitted, will clear the current
+     *                            user's 'default' address book for this
+     *                            source type.
      *
-     * @return mixed  True on success, PEAR_Error on failure.
+     * @throws Turba_Exception
      */
-    function deleteAll($sourceName = null)
+    public function deleteAll($sourceName = null)
     {
         if (!$this->hasCapability('delete_all')) {
-            return PEAR::raiseError('Not supported');
-        } else {
-            return $this->_deleteAll($sourceName);
+            throw new Turba_Exception('Not supported');
         }
+
+        $this->_deleteAll($sourceName);
+    }
+
+    /**
+     * TODO
+     */
+    protected function _deleteAll()
+    {
     }
 
     /**
@@ -869,39 +902,24 @@ class Turba_Driver
      * @param Turba_Object $object  The object to update.
      *
      * @return string  The object id, possibly updated.
+     * @throws Turba_Exception
      */
-    function save($object)
+    public function save($object)
     {
         $object_id = $this->_save($object);
-        if (is_a($object_id, 'PEAR_Error')) {
-            return $object_id;
-        }
 
         /* Log the modification of this item in the history log. */
         if ($object->getValue('__uid')) {
-            $history = &Horde_History::singleton();
-            $history->log($object->getGuid(),
-                          array('action' => 'modify'), true);
-        }
-        return $object_id;
-    }
-
-    /**
-     * Returns the number of contacts of the current user in this address book.
-     *
-     * @return integer  The number of contacts that the user owns.
-     */
-    function count()
-    {
-        if (is_null($this->_count)) {
-            $count = $this->_search(array('AND' => array(array('field' => $this->toDriver('__owner'), 'op' => '=', 'test' => $this->getContactOwner()))), array($this->toDriver('__key')));
-            if (is_a($count, 'PEAR_Error')) {
-                return $count;
+            try {
+                $GLOBALS['injector']->getInstance('Horde_History')->log($object->getGuid(),
+                                                array('action' => 'modify'),
+                                                true);
+            } catch (Exception $e) {
+                Horde::logMessage($e, 'ERR');
             }
-            $this->_count = count($count);
         }
 
-        return $this->_count;
+        return $object_id;
     }
 
     /**
@@ -909,10 +927,11 @@ class Turba_Driver
      *
      * @return array  An array containing the criteria.
      */
-    function getCriteria()
+    public function getCriteria()
     {
         $criteria = $this->map;
         unset($criteria['__key']);
+
         return $criteria;
     }
 
@@ -922,23 +941,9 @@ class Turba_Driver
      *
      * @return array  The field list.
      */
-    function getFields()
+    public function getFields()
     {
         return array_flip($this->fields);
-    }
-
-    /**
-     * Generates a universal/unique identifier for a contact. This is NOT
-     * something that we expect to be able to parse into an addressbook and a
-     * contactId.
-     *
-     * @return string  A nice unique string (should be 255 chars or less).
-     */
-    function generateUID()
-    {
-        return date('YmdHis') . '.'
-            . substr(str_pad(base_convert(microtime(), 10, 36), 16, uniqid(mt_rand()), STR_PAD_LEFT), -16)
-            . '@' . $GLOBALS['conf']['server']['name'];
     }
 
     /**
@@ -950,23 +955,21 @@ class Turba_Driver
      *                              properties with the requested fields.
      * @param boolean $skipEmpty    Whether to skip empty fields.
      *
-     * @return Horde_iCalendar_vcard  A Horde_iCalendar_vcard object.
+     * @return Horde_Icalendar_Vcard  A vcard object.
      */
-    function tovCard($object, $version = '2.1', $fields = null, $skipEmpty = false)
+    public function tovCard($object, $version = '2.1', $fields = null,
+                            $skipEmpty = false)
     {
         $hash = $object->getAttributes();
-        $vcard = new Horde_iCalendar_vcard($version);
+        $vcard = new Horde_Icalendar_Vcard($version);
         $formattedname = false;
-        $charset = $version == '2.1' ? array('CHARSET' => Horde_Nls::getCharset()) : array();
-        $geo = null;
+        $charset = ($version == '2.1')
+            ? array('CHARSET' => 'UTF-8')
+            : array();
 
         foreach ($hash as $key => $val) {
             if ($skipEmpty && !strlen($val)) {
                 continue;
-            }
-
-            if ($version != '2.1') {
-                $val = Horde_String::convertCharset($val, Horde_Nls::getCharset(), 'utf-8');
             }
 
             switch ($key) {
@@ -977,6 +980,7 @@ class Turba_Driver
                 $vcard->setAttribute('FN', $val, Horde_Mime::is8bit($val) ? $charset : array());
                 $formattedname = true;
                 break;
+
             case 'nickname':
             case 'alias':
                 if ($fields && !isset($fields['NICKNAME'])) {
@@ -999,6 +1003,7 @@ class Turba_Driver
                     $vcard->setAttribute('LABEL', $val, array('TYPE' => 'HOME'));
                 }
                 break;
+
             case 'workAddress':
                 if ($fields &&
                     (!isset($fields['LABEL']) ||
@@ -1012,27 +1017,21 @@ class Turba_Driver
                     $vcard->setAttribute('LABEL', $val, array('TYPE' => 'WORK'));
                 }
                 break;
+
             case 'otherAddress':
                 if ($fields && !isset($fields['LABEL'])) {
                     break;
                 }
-                if ($version == '2.1') {
-                    $vcard->setAttribute('LABEL', $val);
-                } else {
-                    $vcard->setAttribute('LABEL', $val);
-                }
+                $vcard->setAttribute('LABEL', $val);
                 break;
 
             case 'phone':
                 if ($fields && !isset($fields['TEL'])) {
                     break;
                 }
-                if ($version == '2.1') {
-                    $vcard->setAttribute('TEL', $val);
-                } else {
-                    $vcard->setAttribute('TEL', $val);
-                }
+                $vcard->setAttribute('TEL', $val);
                 break;
+
             case 'homePhone':
                 if ($fields &&
                     (!isset($fields['TEL']) ||
@@ -1046,6 +1045,7 @@ class Turba_Driver
                     $vcard->setAttribute('TEL', $val, array('TYPE' => 'HOME'));
                 }
                 break;
+
             case 'workPhone':
                 if ($fields &&
                     (!isset($fields['TEL']) ||
@@ -1059,6 +1059,7 @@ class Turba_Driver
                     $vcard->setAttribute('TEL', $val, array('TYPE' => 'WORK'));
                 }
                 break;
+
             case 'cellPhone':
                 if ($fields &&
                     (!isset($fields['TEL']) ||
@@ -1072,6 +1073,7 @@ class Turba_Driver
                     $vcard->setAttribute('TEL', $val, array('TYPE' => 'CELL'));
                 }
                 break;
+
             case 'homeCellPhone':
                 $parameters = array();
                 if ($fields) {
@@ -1106,6 +1108,7 @@ class Turba_Driver
                 }
                 $vcard->setAttribute('TEL', $val, $parameters);
                 break;
+
             case 'workCellPhone':
                 $parameters = array();
                 if ($fields) {
@@ -1154,6 +1157,7 @@ class Turba_Driver
                     $vcard->setAttribute('TEL', $val, array('TYPE' => 'VIDEO'));
                 }
                 break;
+
             case 'homeVideoCall':
                 $parameters = array();
                 if ($fields) {
@@ -1188,6 +1192,7 @@ class Turba_Driver
                 }
                 $vcard->setAttribute('TEL', $val, $parameters);
                 break;
+
             case 'workVideoCall':
                 $parameters = array();
                 if ($fields) {
@@ -1242,6 +1247,7 @@ class Turba_Driver
                     $vcard->setAttribute('X-SIP', $val, array('TYPE' => 'POC'));
                 }
                 break;
+
             case 'voip':
                 if ($fields &&
                     (!isset($fields['X-SIP']) ||
@@ -1255,6 +1261,7 @@ class Turba_Driver
                     $vcard->setAttribute('X-SIP', $val, array('TYPE' => 'VOIP'));
                 }
                 break;
+
             case 'shareView':
                 if ($fields &&
                     (!isset($fields['X-SIP']) ||
@@ -1289,6 +1296,7 @@ class Turba_Driver
                     $vcard->setAttribute('TEL', $val, array('TYPE' => 'FAX'));
                 }
                 break;
+
             case 'homeFax':
                 $parameters = array();
                 if ($fields) {
@@ -1323,6 +1331,7 @@ class Turba_Driver
                 }
                 $vcard->setAttribute('TEL', $val, $parameters);
                 break;
+
             case 'workFax':
                 $parameters = array();
                 if ($fields) {
@@ -1381,9 +1390,9 @@ class Turba_Driver
                 if ($fields && !isset($fields['EMAIL'])) {
                     break;
                 }
-                $vcard->setAttribute('EMAIL',
-                                     Horde_iCalendar_vcard::getBareEmail($val));
+                $vcard->setAttribute('EMAIL', Horde_Icalendar_Vcard::getBareEmail($val));
                 break;
+
             case 'homeEmail':
                 if ($fields &&
                     (!isset($fields['EMAIL']) ||
@@ -1393,14 +1402,15 @@ class Turba_Driver
                 }
                 if ($version == '2.1') {
                     $vcard->setAttribute('EMAIL',
-                                         Horde_iCalendar_vcard::getBareEmail($val),
+                                         Horde_Icalendar_Vcard::getBareEmail($val),
                                          array('HOME' => null));
                 } else {
                     $vcard->setAttribute('EMAIL',
-                                         Horde_iCalendar_vcard::getBareEmail($val),
+                                         Horde_Icalendar_Vcard::getBareEmail($val),
                                          array('TYPE' => 'HOME'));
                 }
                 break;
+
             case 'workEmail':
                 if ($fields &&
                     (!isset($fields['EMAIL']) ||
@@ -1410,22 +1420,22 @@ class Turba_Driver
                 }
                 if ($version == '2.1') {
                     $vcard->setAttribute('EMAIL',
-                                         Horde_iCalendar_vcard::getBareEmail($val),
+                                         Horde_Icalendar_Vcard::getBareEmail($val),
                                          array('WORK' => null));
                 } else {
                     $vcard->setAttribute('EMAIL',
-                                         Horde_iCalendar_vcard::getBareEmail($val),
+                                         Horde_Icalendar_Vcard::getBareEmail($val),
                                          array('TYPE' => 'WORK'));
                 }
                 break;
+
             case 'emails':
                 if ($fields && !isset($fields['EMAIL'])) {
                     break;
                 }
                 $emails = explode(',', $val);
                 foreach ($emails as $email) {
-                    $vcard->setAttribute('EMAIL',
-                                         Horde_iCalendar_vcard::getBareEmail($email));
+                    $vcard->setAttribute('EMAIL', Horde_Icalendar_Vcard::getBareEmail($email));
                 }
                 break;
 
@@ -1433,23 +1443,21 @@ class Turba_Driver
                 if ($fields && !isset($fields['TITLE'])) {
                     break;
                 }
-                $vcard->setAttribute('TITLE', $val,
-                                     Horde_Mime::is8bit($val) ? $charset : array());
+                $vcard->setAttribute('TITLE', $val, Horde_Mime::is8bit($val) ? $charset : array());
                 break;
+
             case 'role':
                 if ($fields && !isset($fields['ROLE'])) {
                     break;
                 }
-                $vcard->setAttribute('ROLE', $val,
-                                     Horde_Mime::is8bit($val) ? $charset : array());
+                $vcard->setAttribute('ROLE', $val, Horde_Mime::is8bit($val) ? $charset : array());
                 break;
 
             case 'notes':
                 if ($fields && !isset($fields['NOTE'])) {
                     break;
                 }
-                $vcard->setAttribute('NOTE', $val,
-                                     Horde_Mime::is8bit($val) ? $charset : array());
+                $vcard->setAttribute('NOTE', $val, Horde_Mime::is8bit($val) ? $charset : array());
                 break;
 
             case 'businessCategory':
@@ -1484,6 +1492,7 @@ class Turba_Driver
                 }
                 $vcard->setAttribute('URL', $val);
                 break;
+
             case 'homeWebsite':
                 if ($fields &&
                     (!isset($fields['URL']) ||
@@ -1497,6 +1506,7 @@ class Turba_Driver
                     $vcard->setAttribute('URL', $val, array('TYPE' => 'HOME'));
                 }
                 break;
+
             case 'workWebsite':
                 if ($fields &&
                     (!isset($fields['URL']) ||
@@ -1535,6 +1545,7 @@ class Turba_Driver
                                                'longitude' => $hash['longitude']));
                 }
                 break;
+
             case 'homeLatitude':
                 if ($fields &&
                     (!isset($fields['GEO']) ||
@@ -1556,6 +1567,7 @@ class Turba_Driver
                    }
                 }
                 break;
+
             case 'workLatitude':
                 if ($fields &&
                     (!isset($fields['GEO']) ||
@@ -1618,27 +1630,23 @@ class Turba_Driver
         }
 
         $a = array(
-            VCARD_N_FAMILY => isset($hash['lastname']) ? $hash['lastname'] : '',
-            VCARD_N_GIVEN  => isset($hash['firstname']) ? $hash['firstname'] : '',
-            VCARD_N_ADDL   => isset($hash['middlenames']) ? $hash['middlenames'] : '',
-            VCARD_N_PREFIX => isset($hash['namePrefix']) ? $hash['namePrefix'] : '',
-            VCARD_N_SUFFIX => isset($hash['nameSuffix']) ? $hash['nameSuffix'] : '',
+            Horde_Icalendar_Vcard::N_FAMILY => isset($hash['lastname']) ? $hash['lastname'] : '',
+            Horde_Icalendar_Vcard::N_GIVEN  => isset($hash['firstname']) ? $hash['firstname'] : '',
+            Horde_Icalendar_Vcard::N_ADDL   => isset($hash['middlenames']) ? $hash['middlenames'] : '',
+            Horde_Icalendar_Vcard::N_PREFIX => isset($hash['namePrefix']) ? $hash['namePrefix'] : '',
+            Horde_Icalendar_Vcard::N_SUFFIX => isset($hash['nameSuffix']) ? $hash['nameSuffix'] : '',
         );
         $val = implode(';', $a);
-        if ($version != '2.1') {
-            $val = Horde_String::convertCharset($val, Horde_Nls::getCharset(), 'utf-8');
-            $a = Horde_String::convertCharset($a, Horde_Nls::getCharset(), 'utf-8');
-        }
         if (!$fields || isset($fields['N'])) {
             $vcard->setAttribute('N', $val, Horde_Mime::is8bit($val) ? $charset : array(), false, $a);
         }
 
         if (!$formattedname && (!$fields || isset($fields['FN']))) {
-            if (!empty($this->alternativeName) &&
+            if ($object->getValue('name')) {
+                $val = $object->getValue('name');
+            } elseif (!empty($this->alternativeName) &&
                 isset($hash[$this->alternativeName])) {
                 $val = $hash[$this->alternativeName];
-            } elseif (isset($hash['lastname'])) {
-                $val = empty($hash['firstname']) ? $hash['lastname'] : $hash['firstname'] . ' ' . $hash['lastname'];
             } else {
                 $val = '';
             }
@@ -1656,10 +1664,6 @@ class Turba_Driver
         }
         if (count($org) && (!$fields || isset($fields['ORG']))) {
             $val = implode(';', $org);
-            if ($version != '2.1') {
-                $val = Horde_String::convertCharset($val, Horde_Nls::getCharset(), 'utf-8');
-                $org = Horde_String::convertCharset($org, Horde_Nls::getCharset(), 'utf-8');
-            }
             $vcard->setAttribute('ORG', $val, Horde_Mime::is8bit($val) ? $charset : array(), false, $org);
         }
 
@@ -1690,32 +1694,30 @@ class Turba_Driver
                 $hash['commonStreet'] = $hash['commonAddress'];
             }
             $a = array(
-                VCARD_ADR_POB      => isset($hash['commonPOBox'])
+                Horde_Icalendar_Vcard::ADR_POB      => isset($hash['commonPOBox'])
                     ? $hash['commonPOBox'] : '',
-                VCARD_ADR_EXTEND   => isset($hash['commonExtended'])
+                Horde_Icalendar_Vcard::ADR_EXTEND   => isset($hash['commonExtended'])
                     ? $hash['commonExtended'] : '',
-                VCARD_ADR_STREET   => isset($hash['commonStreet'])
+                Horde_Icalendar_Vcard::ADR_STREET   => isset($hash['commonStreet'])
                     ? $hash['commonStreet'] : '',
-                VCARD_ADR_LOCALITY => isset($hash['commonCity'])
+                Horde_Icalendar_Vcard::ADR_LOCALITY => isset($hash['commonCity'])
                     ? $hash['commonCity'] : '',
-                VCARD_ADR_REGION   => isset($hash['commonProvince'])
+                Horde_Icalendar_Vcard::ADR_REGION   => isset($hash['commonProvince'])
                     ? $hash['commonProvince'] : '',
-                VCARD_ADR_POSTCODE => isset($hash['commonPostalCode'])
+                Horde_Icalendar_Vcard::ADR_POSTCODE => isset($hash['commonPostalCode'])
                     ? $hash['commonPostalCode'] : '',
-                VCARD_ADR_COUNTRY  => isset($hash['commonCountry'])
-                    ? Turba_Driver::getCountry($hash['commonCountry']) : '',
+                Horde_Icalendar_Vcard::ADR_COUNTRY  => isset($hash['commonCountry'])
+                    ? Horde_Nls::getCountryISO($hash['commonCountry']) : '',
             );
 
             $val = implode(';', $a);
             if ($version == '2.1') {
                 $params = array();
                 if (Horde_Mime::is8bit($val)) {
-                    $params['CHARSET'] = Horde_Nls::getCharset();
+                    $params['CHARSET'] = 'UTF-8';
                 }
             } else {
                 $params = array('TYPE' => '');
-                $val = Horde_String::convertCharset($val, Horde_Nls::getCharset(), 'utf-8');
-                $a = Horde_String::convertCharset($a, Horde_Nls::getCharset(), 'utf-8');
             }
             $vcard->setAttribute('ADR', $val, $params, true, $a);
         }
@@ -1745,32 +1747,30 @@ class Turba_Driver
                 $hash['homeStreet'] = $hash['homeAddress'];
             }
             $a = array(
-                VCARD_ADR_POB      => isset($hash['homePOBox'])
+                Horde_Icalendar_Vcard::ADR_POB      => isset($hash['homePOBox'])
                     ? $hash['homePOBox'] : '',
-                VCARD_ADR_EXTEND   => isset($hash['homeExtended'])
+                Horde_Icalendar_Vcard::ADR_EXTEND   => isset($hash['homeExtended'])
                     ? $hash['homeExtended'] : '',
-                VCARD_ADR_STREET   => isset($hash['homeStreet'])
+                Horde_Icalendar_Vcard::ADR_STREET   => isset($hash['homeStreet'])
                     ? $hash['homeStreet'] : '',
-                VCARD_ADR_LOCALITY => isset($hash['homeCity'])
+                Horde_Icalendar_Vcard::ADR_LOCALITY => isset($hash['homeCity'])
                     ? $hash['homeCity'] : '',
-                VCARD_ADR_REGION   => isset($hash['homeProvince'])
+                Horde_Icalendar_Vcard::ADR_REGION   => isset($hash['homeProvince'])
                     ? $hash['homeProvince'] : '',
-                VCARD_ADR_POSTCODE => isset($hash['homePostalCode'])
+                Horde_Icalendar_Vcard::ADR_POSTCODE => isset($hash['homePostalCode'])
                     ? $hash['homePostalCode'] : '',
-                VCARD_ADR_COUNTRY  => isset($hash['homeCountry'])
-                    ? Turba_Driver::getCountry($hash['homeCountry']) : '',
+                Horde_Icalendar_Vcard::ADR_COUNTRY  => isset($hash['homeCountry'])
+                    ? Horde_Nls::getCountryISO($hash['homeCountry']) : '',
             );
 
             $val = implode(';', $a);
             if ($version == '2.1') {
                 $params = array('HOME' => null);
                 if (Horde_Mime::is8bit($val)) {
-                    $params['CHARSET'] = Horde_Nls::getCharset();
+                    $params['CHARSET'] = 'UTF-8';
                 }
             } else {
                 $params = array('TYPE' => 'HOME');
-                $val = Horde_String::convertCharset($val, Horde_Nls::getCharset(), 'utf-8');
-                $a = Horde_String::convertCharset($a, Horde_Nls::getCharset(), 'utf-8');
             }
             $vcard->setAttribute('ADR', $val, $params, true, $a);
         }
@@ -1800,32 +1800,30 @@ class Turba_Driver
                 $hash['workStreet'] = $hash['workAddress'];
             }
             $a = array(
-                VCARD_ADR_POB      => isset($hash['workPOBox'])
+                Horde_Icalendar_Vcard::ADR_POB      => isset($hash['workPOBox'])
                     ? $hash['workPOBox'] : '',
-                VCARD_ADR_EXTEND   => isset($hash['workExtended'])
+                Horde_Icalendar_Vcard::ADR_EXTEND   => isset($hash['workExtended'])
                     ? $hash['workExtended'] : '',
-                VCARD_ADR_STREET   => isset($hash['workStreet'])
+                Horde_Icalendar_Vcard::ADR_STREET   => isset($hash['workStreet'])
                     ? $hash['workStreet'] : '',
-                VCARD_ADR_LOCALITY => isset($hash['workCity'])
+                Horde_Icalendar_Vcard::ADR_LOCALITY => isset($hash['workCity'])
                     ? $hash['workCity'] : '',
-                VCARD_ADR_REGION   => isset($hash['workProvince'])
+                Horde_Icalendar_Vcard::ADR_REGION   => isset($hash['workProvince'])
                     ? $hash['workProvince'] : '',
-                VCARD_ADR_POSTCODE => isset($hash['workPostalCode'])
+                Horde_Icalendar_Vcard::ADR_POSTCODE => isset($hash['workPostalCode'])
                     ? $hash['workPostalCode'] : '',
-                VCARD_ADR_COUNTRY  => isset($hash['workCountry'])
-                    ? Turba_Driver::getCountry($hash['workCountry']) : '',
+                Horde_Icalendar_Vcard::ADR_COUNTRY  => isset($hash['workCountry'])
+                    ? Horde_Nls::getCountryISO($hash['workCountry']) : '',
             );
 
             $val = implode(';', $a);
             if ($version == '2.1') {
                 $params = array('WORK' => null);
                 if (Horde_Mime::is8bit($val)) {
-                    $params['CHARSET'] = Horde_Nls::getCharset();
+                    $params['CHARSET'] = 'UTF-8';
                 }
             } else {
                 $params = array('TYPE' => 'WORK');
-                $val = Horde_String::convertCharset($val, Horde_Nls::getCharset(), 'utf-8');
-                $a = Horde_String::convertCharset($a, Horde_Nls::getCharset(), 'utf-8');
             }
             $vcard->setAttribute('ADR', $val, $params, true, $a);
         }
@@ -1834,40 +1832,18 @@ class Turba_Driver
     }
 
     /**
-     * Returns the (localized) country name.
-     *
-     * @param string $country  The two-letter country code.
-     *
-     * @return string  The country name or the country code if a name cannot be
-     *                 found.
-     */
-    function getCountry($country)
-    {
-        static $countries;
-        if (!isset($countries)) {
-            include 'Horde/NLS/countries.php';
-        }
-
-        return isset($countries[$country]) ? $countries[$country] : $country;
-    }
-
-    /**
-     * Function to convert a Horde_iCalendar_vcard object into a Turba
+     * Function to convert a Horde_Icalendar_Vcard object into a Turba
      * Object Hash with Turba attributes suitable as a parameter for add().
      *
      * @see add()
      *
-     * @param Horde_iCalendar_vcard $vcard  The Horde_iCalendar_vcard object
+     * @param Horde_Icalendar_Vcard $vcard  The Horde_Icalendar_Vcard object
      *                                      to parse.
      *
      * @return array  A Turba attribute hash.
      */
-    function toHash(&$vcard)
+    public function toHash(Horde_Icalendar_Vcard $vcard)
     {
-        if (!is_a($vcard, 'Horde_iCalendar_vcard')) {
-            return PEAR::raiseError('Invalid parameter for Turba_Driver::toHash(), expected Horde_iCalendar_vcard object.');
-        }
-
         $hash = array();
         $attr = $vcard->getAllAttributes();
         foreach ($attr as $item) {
@@ -1878,20 +1854,20 @@ class Turba_Driver
 
             case 'N':
                 $name = $item['values'];
-                if (!empty($name[VCARD_N_FAMILY])) {
-                    $hash['lastname'] = $name[VCARD_N_FAMILY];
+                if (!empty($name[Horde_Icalendar_Vcard::N_FAMILY])) {
+                    $hash['lastname'] = $name[Horde_Icalendar_Vcard::N_FAMILY];
                 }
-                if (!empty($name[VCARD_N_GIVEN])) {
-                    $hash['firstname'] = $name[VCARD_N_GIVEN];
+                if (!empty($name[Horde_Icalendar_Vcard::N_GIVEN])) {
+                    $hash['firstname'] = $name[Horde_Icalendar_Vcard::N_GIVEN];
                 }
-                if (!empty($name[VCARD_N_ADDL])) {
-                    $hash['middlenames'] = $name[VCARD_N_ADDL];
+                if (!empty($name[Horde_Icalendar_Vcard::N_ADDL])) {
+                    $hash['middlenames'] = $name[Horde_Icalendar_Vcard::N_ADDL];
                 }
-                if (!empty($name[VCARD_N_PREFIX])) {
-                    $hash['namePrefix'] = $name[VCARD_N_PREFIX];
+                if (!empty($name[Horde_Icalendar_Vcard::N_PREFIX])) {
+                    $hash['namePrefix'] = $name[Horde_Icalendar_Vcard::N_PREFIX];
                 }
-                if (!empty($name[VCARD_N_SUFFIX])) {
-                    $hash['nameSuffix'] = $name[VCARD_N_SUFFIX];
+                if (!empty($name[Horde_Icalendar_Vcard::N_SUFFIX])) {
+                    $hash['nameSuffix'] = $name[Horde_Icalendar_Vcard::N_SUFFIX];
                 }
                 break;
 
@@ -1950,38 +1926,38 @@ class Turba_Driver
 
                     $hash[$prefix . 'Address'] = '';
 
-                    if (!empty($address[VCARD_ADR_STREET])) {
-                        $hash[$prefix . 'Street'] = $address[VCARD_ADR_STREET];
+                    if (!empty($address[Horde_Icalendar_Vcard::ADR_STREET])) {
+                        $hash[$prefix . 'Street'] = $address[Horde_Icalendar_Vcard::ADR_STREET];
                         $hash[$prefix . 'Address'] .= $hash[$prefix . 'Street'] . "\n";
                     }
-                    if (!empty($address[VCARD_ADR_EXTEND])) {
-                        $hash[$prefix . 'Extended'] = $address[VCARD_ADR_EXTEND];
+                    if (!empty($address[Horde_Icalendar_Vcard::ADR_EXTEND])) {
+                        $hash[$prefix . 'Extended'] = $address[Horde_Icalendar_Vcard::ADR_EXTEND];
                         $hash[$prefix . 'Address'] .= $hash[$prefix . 'Extended'] . "\n";
                     }
-                    if (!empty($address[VCARD_ADR_POB])) {
-                        $hash[$prefix . 'POBox'] = $address[VCARD_ADR_POB];
+                    if (!empty($address[Horde_Icalendar_Vcard::ADR_POB])) {
+                        $hash[$prefix . 'POBox'] = $address[Horde_Icalendar_Vcard::ADR_POB];
                         $hash[$prefix . 'Address'] .= $hash[$prefix . 'POBox'] . "\n";
                     }
-                    if (!empty($address[VCARD_ADR_LOCALITY])) {
-                        $hash[$prefix . 'City'] = $address[VCARD_ADR_LOCALITY];
+                    if (!empty($address[Horde_Icalendar_Vcard::ADR_LOCALITY])) {
+                        $hash[$prefix . 'City'] = $address[Horde_Icalendar_Vcard::ADR_LOCALITY];
                         $hash[$prefix . 'Address'] .= $hash[$prefix . 'City'];
                     }
-                    if (!empty($address[VCARD_ADR_REGION])) {
-                        $hash[$prefix . 'Province'] = $address[VCARD_ADR_REGION];
+                    if (!empty($address[Horde_Icalendar_Vcard::ADR_REGION])) {
+                        $hash[$prefix . 'Province'] = $address[Horde_Icalendar_Vcard::ADR_REGION];
                         $hash[$prefix . 'Address'] .= ', ' . $hash[$prefix . 'Province'];
                     }
-                    if (!empty($address[VCARD_ADR_POSTCODE])) {
-                        $hash[$prefix . 'PostalCode'] = $address[VCARD_ADR_POSTCODE];
+                    if (!empty($address[Horde_Icalendar_Vcard::ADR_POSTCODE])) {
+                        $hash[$prefix . 'PostalCode'] = $address[Horde_Icalendar_Vcard::ADR_POSTCODE];
                         $hash[$prefix . 'Address'] .= ' ' . $hash[$prefix . 'PostalCode'];
                     }
-                    if (!empty($address[VCARD_ADR_COUNTRY])) {
-                        include 'Horde/NLS/countries.php';
-                        $country = array_search($address[VCARD_ADR_COUNTRY], $countries);
+                    if (!empty($address[Horde_Icalendar_Vcard::ADR_COUNTRY])) {
+                        include 'Horde/Nls/Countries.php';
+                        $country = array_search($address[Horde_Icalendar_Vcard::ADR_COUNTRY], $countries);
                         if ($country === false) {
-                            $country = $address[VCARD_ADR_COUNTRY];
+                            $country = $address[Horde_Icalendar_Vcard::ADR_COUNTRY];
                         }
                         $hash[$prefix . 'Country'] = $country;
-                        $hash[$prefix . 'Address'] .= "\n" . $address[VCARD_ADR_COUNTRY];
+                        $hash[$prefix . 'Address'] .= "\n" . $address[Horde_Icalendar_Vcard::ADR_COUNTRY];
                     }
 
                     $hash[$prefix . 'Address'] = trim($hash[$prefix . 'Address']);
@@ -2121,12 +2097,12 @@ class Turba_Driver
                 if (isset($item['params']['HOME']) &&
                     (!isset($hash['homeEmail']) ||
                      isset($item['params']['PREF']))) {
-                    $hash['homeEmail'] = Horde_iCalendar_vcard::getBareEmail($item['value']);
+                    $hash['homeEmail'] = Horde_Icalendar_Vcard::getBareEmail($item['value']);
                     $email_set = true;
                 } elseif (isset($item['params']['WORK']) &&
                           (!isset($hash['workEmail']) ||
                            isset($item['params']['PREF']))) {
-                    $hash['workEmail'] = Horde_iCalendar_vcard::getBareEmail($item['value']);
+                    $hash['workEmail'] = Horde_Icalendar_Vcard::getBareEmail($item['value']);
                     $email_set = true;
                 } elseif (isset($item['params']['TYPE'])) {
                     if (!is_array($item['params']['TYPE'])) {
@@ -2135,25 +2111,25 @@ class Turba_Driver
                     if (in_array('HOME', $item['params']['TYPE']) &&
                         (!isset($hash['homeEmail']) ||
                          in_array('PREF', $item['params']['TYPE']))) {
-                        $hash['homeEmail'] = Horde_iCalendar_vcard::getBareEmail($item['value']);
+                        $hash['homeEmail'] = Horde_Icalendar_Vcard::getBareEmail($item['value']);
                         $email_set = true;
                     } elseif (in_array('WORK', $item['params']['TYPE']) &&
                               (!isset($hash['workEmail']) ||
                          in_array('PREF', $item['params']['TYPE']))) {
-                        $hash['workEmail'] = Horde_iCalendar_vcard::getBareEmail($item['value']);
+                        $hash['workEmail'] = Horde_Icalendar_Vcard::getBareEmail($item['value']);
                         $email_set = true;
                     }
                 }
                 if (!$email_set &&
                     (!isset($hash['email']) ||
                      isset($item['params']['PREF']))) {
-                    $hash['email'] = Horde_iCalendar_vcard::getBareEmail($item['value']);
+                    $hash['email'] = Horde_Icalendar_Vcard::getBareEmail($item['value']);
                 }
 
                 if (!isset($hash['emails'])) {
-                    $hash['emails'] = Horde_iCalendar_vcard::getBareEmail($item['value']);
+                    $hash['emails'] = Horde_Icalendar_Vcard::getBareEmail($item['value']);
                 } else {
-                    $hash['emails'] .= ', ' . Horde_iCalendar_vcard::getBareEmail($item['value']);
+                    $hash['emails'] .= ', ' . Horde_Icalendar_Vcard::getBareEmail($item['value']);
                 }
                 break;
 
@@ -2194,7 +2170,11 @@ class Turba_Driver
                 break;
 
             case 'BDAY':
-                $hash['birthday'] = $item['value']['year'] . '-' . $item['value']['month'] . '-' .  $item['value']['mday'];
+                if (empty($item['value'])) {
+                    $hash['birthday'] = '';
+                } else {
+                    $hash['birthday'] = $item['value']['year'] . '-' . $item['value']['month'] . '-' .  $item['value']['mday'];
+                }
                 break;
 
             case 'PHOTO':
@@ -2277,6 +2257,276 @@ class Turba_Driver
     }
 
     /**
+     * Convert the contact to an ActiveSync contact message
+     *
+     * @param Turba_Object $object  The turba object to convert
+     *
+     * @return Horde_ActiveSync_Message_Contact
+     */
+    public function toASContact(Turba_Object $object)
+    {
+        $message = new Horde_ActiveSync_Message_Contact(array('logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger')));
+        $hash = $object->getAttributes();
+        foreach ($hash as $field => $value) {
+            switch ($field) {
+            case 'name':
+                $message->fileas = $value;
+                break;
+
+            case 'lastname':
+                $message->lastname = $value;
+                break;
+
+            case 'firstname':
+                $message->firstname = $value;
+                break;
+
+            case 'middlenames':
+                $message->middlename = $value;
+                break;
+
+            case 'namePrefix':
+                $message->title = $value;
+                break;
+
+            case 'nameSuffix':
+                $message->suffix = $value;
+                break;
+
+            case 'photo':
+                $message->picture = base64_encode($value);
+                break;
+
+            case 'homeStreet':
+                /* Address (TODO: check for a single home/workAddress field
+                 * instead) */
+                $message->homestreet = $hash['homeStreet'];
+                break;
+
+            case 'homeCity':
+                $message->homecity = $hash['homeCity'];
+                break;
+
+            case 'homeProvince':
+                $message->homestate = $hash['homeProvince'];
+                break;
+
+            case 'homePostalCode':
+                $message->homepostalcode = $hash['homePostalCode'];
+                break;
+
+            case 'homeCountry':
+                $message->homecountry = !empty($hash['homeCountry']) ? Horde_Nls::getCountryISO($hash['homeCountry']) : null;
+                break;
+
+            case 'workStreet':
+                $message->businessstreet = $hash['workStreet'];
+                break;
+
+            case 'workCity':
+                $message->businesscity = $hash['workCity'];
+                break;
+
+            case 'workProvince':
+                $message->businessstate = $hash['workProvince'];
+                break;
+
+            case 'workPostalCode':
+                $message->businesspostalcode = $hash['workPostalCode'];
+                break;
+
+            case 'workCountry':
+                $message->businesscountry = !empty($hash['workCountry']) ? Horde_Nls::getCountryISO($hash['workCountry']) : null;
+
+            case 'homePhone':
+                /* Phone */
+                $message->homephonenumber = $hash['homePhone'];
+                break;
+
+            case 'cellPhone':
+                $message->mobilephonenumber = $hash['cellPhone'];
+                break;
+            case 'fax':
+                $message->businessfaxnumber = $hash['fax'];
+                break;
+
+            case 'workPhone':
+                $message->businessphonenumber = $hash['workPhone'];
+                break;
+
+            case 'pager':
+                $message->pagernumber = $hash['pager'];
+                break;
+
+            case 'email':
+                $message->email1address = Horde_Icalendar_Vcard::getBareEmail($value);
+                break;
+
+            case 'title':
+                $message->jobtitle = $value;
+                break;
+
+            case 'company':
+                $message->companyname = $value;
+                break;
+
+            case 'departnemt':
+                $message->department = $value;
+                break;
+
+            case 'category':
+                // Categories FROM horde are a simple string value, going BACK to horde are an array with 'value' and 'new' keys
+                $message->categories = explode(';', $value);
+                break;
+
+            case 'spouse':
+                $message->spouse = $value;
+                break;
+            case 'notes':
+                /* Assume no truncation - AS server will truncate as needed */
+                $message->body = $value;
+                $message->bodysize = strlen($message->body);
+                $message->bodytruncated = false;
+                break;
+
+            case 'website':
+                $message->webpage = $value;
+                break;
+
+            case 'birthday':
+            case 'anniversary':
+                if (!empty($value)) {
+                    $date = new Horde_Date($value);
+                    $message->{$field} = $date;
+                } else {
+                    $message->$field = null;
+                }
+                break;
+            }
+        }
+
+        if (empty($this->fileas)) {
+            $message->fileas = Turba::formatName($object);
+        }
+
+        return $message;
+    }
+
+    /**
+     * Convert an ActiveSync contact message into a hash suitable for
+     * importing via self::add().
+     *
+     * @param Horde_ActiveSync_Message_Contact $message  The contact message
+     *                                                   object.
+     *
+     * @return array  A contact hash.
+     */
+    public function fromASContact($message)
+    {
+        $hash = array();
+        $formattedname = false;
+
+        $textMap = array(
+            'fileas' => 'name',
+            'lastname' => 'lastname',
+            'firstname' => 'firstname',
+            'middlename' => 'middlenames',
+            'title' => 'namePrefix',
+            'suffix' => 'nameSuffix',
+            'homestreet' => 'homeStreet',
+            'homecity' => 'homeCity',
+            'homestate' => 'homeProvince',
+            'homepostalcode' => 'homePostalCode',
+            'businessstreet' => 'workStreet',
+            'businesscity' => 'workCity',
+            'businessstate' => 'workProvince',
+            'businesspostalcode' => 'workPostalCode',
+            'jobtitle' => 'title',
+            'companyname' => 'company',
+            'department' => 'department',
+            'spouse' => 'spouse',
+            'body' => 'notes',
+            'webpage' => 'website',
+            'assistantname' => 'assistant'
+        );
+        foreach ($textMap as $asField => $turbaField) {
+            if (!$message->isGhosted($asField)) {
+                $hash[$turbaField] = $message->{$asField};
+            }
+        }
+
+        $nonTextMap = array(
+            'homephonenumber' => 'homePhone',
+            'businessphonenumber' => 'workPhone',
+            'businessfaxnumber' => 'fax',
+            'pagernumber' => 'pager',
+            'mobilephonenumber' => 'cellPhone'
+        );
+        foreach ($nonTextMap as $asField => $turbaField) {
+            if (!$message->isGhosted($asField)) {
+                $hash[$turbaField] = $message->{$asField};
+            }
+        }
+
+        /* Requires special handling */
+
+        // picture ($message->picture *should* already be base64 encdoed)
+        if (!$message->isGhosted('picture')) {
+            $hash['photo'] = base64_decode($message->picture);
+        }
+
+        /* Email addresses */
+        if (!$message->isGhosted('email1address')) {
+            $hash['email'] = Horde_Icalendar_Vcard::getBareEmail($message->email1address);
+        }
+
+        /* Categories */
+        if (count($message->categories)) {
+            $hash['category'] = implode('|', $message->categories);
+        } elseif (!$message->isGhosted('categories')) {
+            $hash['category'] = '';
+        }
+
+        /* Birthday and Anniversary */
+        if (!empty($message->birthday)) {
+            $bday = new Horde_Date($message->birthday);
+            $hash['birthday'] = $bday->format('Y-m-d');
+        } elseif (!$message->isGhosted('birthday')) {
+            $hash['birthday'] = null;
+        }
+        if (!empty($message->anniversary)) {
+            $anniversary = new Horde_Date($message->anniversary);
+            $hash['anniversary'] = $anniversary->format('Y-m-d');
+        } elseif (!$message->isGhosted('anniversary')) {
+            $hash['anniversary'] = null;
+        }
+
+        /* Countries */
+        include 'Horde/Nls/Countries.php';
+        if (!empty($message->homecountry)) {
+            $country = array_search($message->homecountry, $countries);
+            if ($country === false) {
+                $country = $message->homecountry;
+            }
+            $hash['homeCountry'] = $country;
+        } elseif (!$message->isGhosted('homecountry')) {
+            $hash['homeCountry'] = null;
+        }
+
+        if (!empty($message->businesscountry)) {
+            $country = array_search($message->businesscountry, $countries);
+            if ($country === false) {
+                $country = $message->businesscountry;
+            }
+            $hash['workCountry'] = $country;
+        } elseif (!$message->isGhosted('businesscountry')) {
+            $hash['workCountry'] = null;
+        }
+
+        return $hash;
+    }
+
+    /**
      * Checks if the current user has the requested permissions on this
      * address book.
      *
@@ -2284,17 +2534,13 @@ class Turba_Driver
      *
      * @return boolean  True if the user has permission, otherwise false.
      */
-    function hasPermission($perm)
+    public function hasPermission($perm)
     {
-        if (!$GLOBALS['perms']->exists('turba:sources:' . $this->name)) {
-            // Assume we have permissions if they're not
-            // explicitly set.
-            return true;
-        } else {
-            return $GLOBALS['perms']->hasPermission('turba:sources:' . $this->name,
-                                                    Horde_Auth::getAuth(),
-                                                    $perm);
-        }
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+        return $perms->exists('turba:sources:' . $this->_name)
+            ? $perms->hasPermission('turba:sources:' . $this->_name, $GLOBALS['registry']->getAuth(), $perm)
+            // Assume we have permissions if they're not explicitly set.
+            : true;
     }
 
     /**
@@ -2303,28 +2549,33 @@ class Turba_Driver
      *
      * @string Address book name
      */
-    function getName()
+    public function getName()
     {
-        return $this->name;
+        return $this->_name;
     }
 
     /**
      * Return the owner to use when searching or creating contacts in
      * this address book.
      *
-     * @return string
+     * @return string  Contact owner.
      */
-    function getContactOwner()
+    public function getContactOwner()
     {
-        if (empty($this->_contact_owner)) {
-           return $this->_getContactOwner();
-        }
-        return $this->_contact_owner;
+        return empty($this->_contact_owner)
+            ? $this->_getContactOwner()
+            : $this->_contact_owner;
     }
 
-    function _getContactOwner()
+    /**
+     * Return the owner to use when searching or creating contacts in
+     * this address book.
+     *
+     * @return string  Contact owner.
+     */
+    protected function _getContactOwner()
     {
-        return Horde_Auth::getAuth();
+        return $GLOBALS['registry']->getAuth();
     }
 
     /**
@@ -2332,16 +2583,16 @@ class Turba_Driver
      *
      * @param array $params  The params for the share.
      *
-     * @return mixed  The share object or PEAR_Error.
+     * @return Horde_Share  The share object.
      */
-    function &createShare($share_id, $params)
+    public function createShare($share_id, $params)
     {
         // If the raw address book name is not set, use the share name
         if (empty($params['params']['name'])) {
             $params['params']['name'] = $share_id;
         }
-        $result = &Turba::createShare($share_id, $params);
-        return $result;
+
+        return Turba::createShare($share_id, $params);
     }
 
     /**
@@ -2352,46 +2603,38 @@ class Turba_Driver
      *
      * @return string  A unique ID for the new object.
      */
-    function _makeKey($attributes)
+    protected function _makeKey($attributes)
     {
-        return md5(mt_rand());
+        return hash('md5', mt_rand());
     }
 
     /**
-     * Static method to construct Turba_Driver objects. Use this so that we
-     * can return PEAR_Error objects if anything goes wrong.
-     *
-     * Should only be called by Turba_Driver::singleton().
-     *
-     * @see Turba_Driver::singleton()
-     * @access private
+     * Static method to construct Turba_Driver objects.
      *
      * @param string $name   String containing the internal name of this
      *                       source.
      * @param array $config  Array containing the configuration information for
      *                       this source.
+     *
+     * @return Turba_Driver  The concrete driver object.
+     * @throws Turba_Exception
      */
-    function &factory($name, $config)
+    static public function factory($name, $config)
     {
-        $class = 'Turba_Driver_' . ucfirst(basename($config['type']));
+        $class = __CLASS__ . '_' . ucfirst(basename($config['type']));
 
         if (class_exists($class)) {
             $driver = new $class($config['params']);
         } else {
-            $driver = PEAR::raiseError(sprintf(_("Unable to load the definition of %s."), $class));
-            return $driver;
+            throw new Turba_Exception(sprintf(_("Unable to load the definition of %s."), $class));
         }
 
         /* Store name and title. */
-        $driver->name = $name;
+        $driver->_name = $name;
         $driver->title = $config['title'];
 
         /* Initialize */
-        $result = $driver->_init();
-        if (is_a($result, 'PEAR_Error')) {
-            $driver = PEAR::raiseError($result->getMessage());
-            return $driver;
-        }
+        $driver->_init();
 
         /* Store and translate the map at the Source level. */
         $driver->map = $config['map'];
@@ -2424,55 +2667,12 @@ class Turba_Driver
     }
 
     /**
-     * Attempts to return a reference to a concrete Turba_Driver instance
-     * based on the $config array. It will only create a new instance if no
-     * Turba_Driver instance with the same parameters currently exists.
-     *
-     * This method must be invoked as:
-     *   $driver = &Turba_Driver::singleton()
-     *
-     * @param mixed $name  Either a string containing the internal name of this
-     *                     source, or a config array describing the source.
-     *
-     * @return Turba_Driver  The concrete Turba_Driver reference, or a
-     *                       PEAR_Error on error.
-     */
-    function &singleton($name)
-    {
-        static $instances = array();
-
-        if (is_array($name)) {
-            $key = md5(serialize($name));
-            $srcName = '';
-            $srcConfig = $name;
-        } else {
-            $key = $name;
-            $srcName = $name;
-            if (!empty($GLOBALS['cfgSources'][$name])) {
-                $srcConfig = $GLOBALS['cfgSources'][$name];
-            } else {
-                $error = PEAR::raiseError('Source not found');
-                return $error;
-            }
-        }
-
-        if (!isset($instances[$key])) {
-            if (!is_array($name) && !isset($GLOBALS['cfgSources'][$name])) {
-                $error = PEAR::raiseError(sprintf(_("The address book \"%s\" does not exist."), $name));
-                return $error;
-            }
-            $instances[$key] = Turba_Driver::factory($srcName, $srcConfig);
-        }
-
-        return $instances[$key];
-    }
-
-    /**
      * Initialize the driver.
+     *
+     * @throws Turba_Exception
      */
-    function _init()
+    protected function _init()
     {
-        return true;
     }
 
     /**
@@ -2484,10 +2684,11 @@ class Turba_Driver
      * @param array $fields    List of fields to return.
      *
      * @return array  Hash containing the search results.
+     * @throws Turba_Exception
      */
-    function _search($criteria, $fields)
+    protected function _search($criteria, $fields)
     {
-        return PEAR::raiseError(_("Searching is not available."));
+        throw new Turba_Exception(_("Searching is not available."));
     }
 
     /**
@@ -2499,36 +2700,47 @@ class Turba_Driver
      * @param array $fields  List of fields to return.
      *
      * @return array  Hash containing the search results.
+     * @throws Turba_Exception
      */
-    function _read($key, $ids, $owner, $fields)
+    protected function _read($key, $ids, $owner, $fields)
     {
-        return PEAR::raiseError(_("Reading contacts is not available."));
+        throw new Turba_Exception(_("Reading contacts is not available."));
     }
 
     /**
      * Adds the specified contact to the SQL database.
+     *
+     * @param array $attributes  TODO
+     *
+     * @throws Turba_Exception
      */
-    function _add($attributes)
+    protected function _add($attributes)
     {
-        return PEAR::raiseError(_("Adding contacts is not available."));
+        throw new Turba_Exception(_("Adding contacts is not available."));
     }
 
     /**
      * Deletes the specified contact from the SQL database.
+     *
+     * @param $object_key TODO
+     * @param $object_id TODO
+     *
+     * @throws Turba_Exception
      */
-    function _delete($object_key, $object_id)
+    protected function _delete($object_key, $object_id)
     {
-        return PEAR::raiseError(_("Deleting contacts is not available."));
+        throw new Turba_Exception(_("Deleting contacts is not available."));
     }
 
     /**
      * Saves the specified object in the SQL database.
      *
      * @return string  The object id, possibly updated.
+     * @throws Turba_Exception
      */
-    function _save($object)
+    protected function _save($object)
     {
-        return PEAR::raiseError(_("Saving contacts is not available."));
+        throw new Turba_Exception(_("Saving contacts is not available."));
     }
 
     /**
@@ -2536,32 +2748,48 @@ class Turba_Driver
      *
      * @param string $user  The user's data to remove.
      *
-     * @return mixed True | PEAR_Error
+     * @throws Turba_Exception
      */
-    function removeUserData($user)
+    public function removeUserData($user)
     {
-        return PEAR::raiseError(_("Removing user data is not supported in the current address book storage driver."));
+        throw new Turba_Exception(_("Removing user data is not supported in the current address book storage driver."));
     }
 
     /**
      * Check if the passed in share is the default share for this source.
      *
-     * @param Horde_Share $share  The share object e
-     * @param array $srcconfig    The cfgSource entry for the share (not used in
-     *                            this method, but a child class may need it).
+     * @param Horde_Share $share  The share object.
+     * @param array $srcconfig    The cfgSource entry for the share.
      *
-     * @return boolean
+     * @return boolean TODO
      */
-    function checkDefaultShare(&$share, $srcconfig)
+    public function checkDefaultShare($share, $srcconfig)
     {
         $params = @unserialize($share->get('params'));
         if (!isset($params['default'])) {
-            $params['default'] = ($params['name'] == Horde_Auth::getAuth());
+            $params['default'] = ($params['name'] == $GLOBALS['registry']->getAuth());
             $share->set('params', serialize($params));
             $share->save();
         }
 
         return $params['default'];
+    }
+
+    /* Countable methods. */
+
+    /**
+     * Returns the number of contacts of the current user in this address book.
+     *
+     * @return integer  The number of contacts that the user owns.
+     * @throws Turba_Exception
+     */
+    public function count()
+    {
+        if (is_null($this->_count)) {
+            $this->_count = count($this->_search(array('AND' => array(array('field' => $this->toDriver('__owner'), 'op' => '=', 'test' => $this->getContactOwner()))), array($this->toDriver('__key'))));
+        }
+
+        return $this->_count;
     }
 
 }

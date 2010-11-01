@@ -10,9 +10,8 @@
  * @author Michael J. Rubinsk <mrubinsk@horde.org>
  */
 
-@define('WHUPS_BASE', dirname(__FILE__) . '/..');
-require_once WHUPS_BASE . '/lib/base.php';
-require_once WHUPS_BASE . '/lib/View.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('whups');
 
 // See if we were passed a slug or id. Slug is tried first.
 $slug = Horde_Util::getFormData('slug');
@@ -26,8 +25,8 @@ if ($slug) {
 
 if (!$id || is_a($queue, 'PEAR_Error')) {
     $notification->push(_("Invalid queue"), 'horde.error');
-    header('Location: ' . Horde::applicationUrl(basename($prefs->getValue('whups_default_view')) . '.php', true));
-    exit;
+    Horde::url($prefs->getValue('whups_default_view') . '.php', true)
+        ->redirect();
 }
 
 // Update sorting preferences.

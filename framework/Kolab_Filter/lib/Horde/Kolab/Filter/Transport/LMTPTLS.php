@@ -3,9 +3,6 @@
  * @package Kolab_Filter
  */
 
-/* Require the base class */
-require_once 'Net/LMTP.php';
-
 /**
  * Extended LMTP class with support for TLS.
  *
@@ -33,29 +30,25 @@ class Net_LMTP_TLS extends Net_LMTP {
      */
     function auth($uid, $pwd , $method = '')
     {
-        if (version_compare(PHP_VERSION, '5.1.0', '>=')) {
-            if (!isset($this->_esmtp['STARTTLS'])) {
-                return PEAR::raiseError('LMTP server does not support authentication');
-            }
-            if (PEAR::isError($result = $this->_put('STARTTLS'))) {
-                return $result;
-            }
-            if (PEAR::isError($result = $this->_parseResponse(220))) {
-                return $result;
-            }
-            if (PEAR::isError($result = $this->_socket->enableCrypto(true, STREAM_CRYPTO_METHOD_TLS_CLIENT))) {
-                return $result;
-            }
-            elseif ($result !== true) {
-                return PEAR::raiseError('STARTTLS failed');
-            }
+        if (!isset($this->_esmtp['STARTTLS'])) {
+            return PEAR::raiseError('LMTP server does not support authentication');
+        }
+        if (PEAR::isError($result = $this->_put('STARTTLS'))) {
+            return $result;
+        }
+        if (PEAR::isError($result = $this->_parseResponse(220))) {
+            return $result;
+        }
+        if (PEAR::isError($result = $this->_socket->enableCrypto(true, STREAM_CRYPTO_METHOD_TLS_CLIENT))) {
+            return $result;
+        } elseif ($result !== true) {
+            return PEAR::raiseError('STARTTLS failed');
+        }
 
-            /* Send LHLO again to recieve the AUTH string from the
-             * LMTP server. */
-            $this->_negotiate();
-            if (empty($this->_esmtp['AUTH'])) {
-                return PEAR::raiseError('LMTP server does not support authentication');
-            }
+        /* Send LHLO again to recieve the AUTH string from the LMTP server. */
+        $this->_negotiate();
+        if (empty($this->_esmtp['AUTH'])) {
+            return PEAR::raiseError('LMTP server does not support authentication');
         }
 
         /*
@@ -66,7 +59,7 @@ class Net_LMTP_TLS extends Net_LMTP {
             if (PEAR::isError($method = $this->_getBestAuthMethod())) {
                 /* Return the PEAR_Error object from _getBestAuthMethod(). */
                 return $method;
-            } 
+            }
         } else {
             $method = strtoupper($method);
         }
@@ -84,7 +77,7 @@ class Net_LMTP_TLS extends Net_LMTP {
             case 'PLAIN':
                 $result = $this->_authPlain($uid, $pwd);
                 break;
-            default : 
+            default :
                 $result = new PEAR_Error("$method is not a supported authentication method");
                 break;
         }

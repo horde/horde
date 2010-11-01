@@ -10,7 +10,7 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_Ajax_Imple_LocationAutoCompleter extends Horde_Ajax_Imple_AutoCompleter
+class Ansel_Ajax_Imple_LocationAutoCompleter extends Horde_Core_Ajax_Imple_AutoCompleter
 {
     protected function _attach($js_params)
     {
@@ -27,11 +27,10 @@ class Ansel_Ajax_Imple_LocationAutoCompleter extends Horde_Ajax_Imple_AutoComple
 
         /* Use ajax? */
         if (!isset($_SESSION['ansel']['ajax_locationac'])) {
-            $results = $GLOBALS['ansel_storage']->searchLocations();
+            $results = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->searchLocations();
             if ($results instanceof PEAR_Error) {
-                Horde::logMessage($results, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($results, 'ERR');
             } else {
-                // @TODO: This should be a config param?
                 $_SESSION['ansel']['ajax_locationac'] = (count($results) > 50);
             }
         }
@@ -40,7 +39,7 @@ class Ansel_Ajax_Imple_LocationAutoCompleter extends Horde_Ajax_Imple_AutoComple
             $ret['ajax'] = 'LocationAutoCompleter';
         } else {
             if (empty($results)) {
-                $results = $GLOBALS['ansel_storage']->searchLocations();
+                $results = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->searchLocations();
             }
             $ret['browser'] = Horde_Serialize::serialize($results, Horde_Serialize::JSON);
         }
@@ -50,19 +49,18 @@ class Ansel_Ajax_Imple_LocationAutoCompleter extends Horde_Ajax_Imple_AutoComple
 
     public function handle($args, $post)
     {
-        include_once dirname(__FILE__) . '/../../base.php';
-
         // Avoid errors if 'input' isn't set and short-circuit empty searches.
         if (empty($args['input']) ||
             !($input = Horde_Util::getFormData($args['input']))) {
             return array();
         }
-        $locs = $GLOBALS['ansel_storage']->searchLocations($input);
-        if (is_a($locs, 'PEAR_Error')) {
-            Horde::logMessage($locs->getMessage(), __FILE__, __LINE__, PEAR_LOG_ERR);
-            $locs = new StdClass();
-        }
-        if (!count($locs)) {
+        try {
+            $locs = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->searchLocations($input);
+            if (!count($locs)) {
+                $locs = new StdClass();
+            }
+        } catch (Ansel_Exception $e) {
+            Horde::logMessage($e->getMessage(), 'ERR');
             $locs = new StdClass();
         }
         return $locs;

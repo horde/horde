@@ -44,8 +44,8 @@
   </configsection>
  </configtab>
 
- <configtab name="vfs" desc="VFS and Photo Options">
-  <configheader>VFS Options</configheader>
+ <configtab name="vfs" desc="VFS and Photo">
+  <configheader>VFS Settings</configheader>
   <configsection name="images">
    <configvfs switchname="type" default="horde"/>
   </configsection>
@@ -68,7 +68,7 @@
     </configswitch>
   </configsection>
   <configsection name="image">
-   <configheader>Photo Generation Options</configheader>
+   <configheader>Photo Generation Settings</configheader>
    <configenum name="type" desc="What format should photos be generated in?
    Make sure that your server supports whichever format you choose!">
     <values>
@@ -84,7 +84,8 @@
    0</configstring>
    <configboolean name="prettythumbs" desc="Allow the selection of gallery
    themes and generation of 'pretty' thumbnails?  This can be a performance
-    hit the first time the thumbnails are generated.">false</configboolean>
+    hit on some installations but is required for the generation of all but the
+    most basic image thumbnails." required="false">false</configboolean>
    <configstring name="num_uploads" desc="How many photos should a user be
    allowed to upload at once?">5</configstring>
    <configstring name="font" required="false" desc="What font would you like
@@ -102,6 +103,16 @@
    <configstring name="width" desc="Thumbnail width">150</configstring>
    <configstring name="height" desc="Thumbnail
    height">150</configstring>
+   <configswitch name="unsharp" desc="Should Horde apply an unsharpmask filter
+   to the image after it's resized?">
+    <case name="true" desc="Yes">
+      <configstring name="radius" desc="Radius">0.7</configstring>
+      <configstring name="amount" desc="Amount">1</configstring>
+      <configstring name="threshold" desc="Threshold">0.05</configstring>
+    </case>
+    <case name="false" desc="No" />
+   </configswitch>
+
   </configsection>
  </configtab>
 
@@ -112,6 +123,16 @@
    width">800</configstring>
    <configstring name="height" desc="Screen photo
    height">600</configstring>
+   <configswitch name="unsharp" desc="Should Horde apply an unsharpmask filter
+   to the image after it's resized?">
+    <case name="true" desc="Yes">
+      <configstring name="radius" desc="Radius">0.5</configstring>
+      <configstring name="amount" desc="Amount">1.2</configstring>
+      <configstring name="threshold" desc="Threshold">0.05</configstring>
+    </case>
+    <case name="false" desc="No" />
+   </configswitch>
+
   </configsection>
  </configtab>
 
@@ -231,9 +252,6 @@
    <configswitch name="driver">user
      <case name="false" desc="Disable" />
      <case name="user" desc="Manual selection of faces" />
-     <case name="opencv" desc="OpenCV PECL extension">
-       <configstring name="defs" desc="Path to frontalface XML definition file" >/usr/share/opencv/haarcascades/haarcascade_frontalface_alt.xml</configstring>
-     </case>
      <case name="facedetect" desc="Face Detect PECL extension">
        <configstring name="defs" desc="Path to frontalface XML definition file" >/usr/share/opencv/haarcascades/haarcascade_frontalface_alt.xml</configstring>
      </case>

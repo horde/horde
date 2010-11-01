@@ -7,47 +7,45 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
- * @author Max Kalika <max@horde.org>
- * @author Chuck Hagenbuch <chuck@horde.org>
+ * @author   Max Kalika <max@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @package  Gollem
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-new IMP_Application(array('init' => array('session_control' => 'readonly'));
+Horde_Registry::appInit('imp', array(
+    'session_control' => 'readonly'
+));
 
-$actionID = Horde_Util::getFormData('actionID');
-$driver = Horde_Util::getFormData('driver');
-$filedir = Horde_Util::getFormData('dir');
-$filename = Horde_Util::getFormData('file');
-$type = Horde_Util::getFormData('type');
+$vars = Horde_Variables::getDefaultVariables();
 
-if ($driver != $GLOBALS['gollem_be']['driver']) {
-    $url = Horde_Util::addParameter(Horde::applicationUrl('login.php'), array('backend_key' => $driver, 'change_backend' => 1, 'url' => Horde::selfURL(true)), null, false);
-    header('Location: ' . $url);
-    exit;
+if ($vars->driver != $gollem_be['driver']) {
+    Horde::url('login.php')->add(array(
+        'backend_key' => $vars->driver,
+        'change_backend' => 1,
+        'url' => Horde::selfURL(true)
+    ))->redirect();
 }
 
 $stream = null;
 $data = '';
-if (is_callable(array($GLOBALS['gollem_vfs'], 'readStream'))) {
-    $stream = $GLOBALS['gollem_vfs']->readStream($filedir, $filename);
-    if (is_a($stream, 'PEAR_Error')) {
-        Horde::logMessage($stream, __FILE__, __LINE__, PEAR_LOG_NOTICE);
-        printf(_("Access denied to %s"), $filename);
-        exit;
+try {
+    if (is_callable(array($gollem_vfs, 'readStream'))) {
+        $stream = $gollem_vfs->readStream($vars->dir, $vars->file);
+    } else {
+        $data = $gollem_vfs->read($vars->dir, $vars->file);
     }
-} else {
-    $data = $GLOBALS['gollem_vfs']->read($filedir, $filename);
-    if (is_a($data, 'PEAR_Error')) {
-        Horde::logMessage($data, __FILE__, __LINE__, PEAR_LOG_NOTICE);
-        printf(_("Access denied to %s"), $filename);
-        exit;
-    }
+} catch (VFS_Exception $e) {
+    Horde::logMessage($e, 'NOTICE');
+    throw $e;
 }
 
 /* Run through action handlers. */
-switch ($actionID) {
+switch ($vars->actionID) {
 case 'download_file':
-    $browser->downloadHeaders($filename, null, false, $GLOBALS['gollem_vfs']->size($filedir, $filename));
+    $browser->downloadHeaders($vars->file, null, false, $gollem_vfs->size($vars->dir, $vars->file));
     if (is_resource($stream)) {
         while ($buffer = fread($stream, 8192)) {
             echo $buffer;
@@ -70,8 +68,7 @@ case 'view_file':
     // TODO
     exit;
 
-    Horde_Mime_Magic::extToMIME($type), $data);
-    $mime->setName($filename);
+    $mime->setName($vars->name);
     $contents = new MIME_Contents($mime);
     $body = $contents->renderMIMEPart($mime);
     $type = $contents->getMIMEViewerType($mime);

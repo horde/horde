@@ -9,10 +9,8 @@
  * http://www.opensource.org/licenses/bsd-license.php.
  *
  * @author  Ben Klang <ben@alkaloid.net>
- * @since   Shout 0.1
  * @package Shout
  */
-
 class Shout_Driver {
 
     /**
@@ -28,85 +26,85 @@ class Shout_Driver {
     }
 
     /**
-    * Get a list of contexts from the instantiated driver and filter
-    * the returned contexts for those which the current user can see/edit
+    * Get a list of accounts from the instantiated driver and filter
+    * the returned accounts for those which the current user can see/edit
     *
-    * @param optional string $filter Filter for types of contexts to return.
+    * @param optional string $filter Filter for types of accounts to return.
     *                                One of "system" "customer" or "all"
     *
-    * @param optional string $filterperms Filter contexts for given permissions
+    * @param optional string $filterperms Filter accounts for given permissions
     *
-    * @return array Contexts valid for this user
+    * @return array Accounts valid for this user
     *
     * @access public
     */
-    function getContexts($filters = "all", $filterperms = null)
+    function getAccounts($filters = "all", $filterperms = null)
     {
         throw new Shout_Exception("This function is not implemented.");
     }
 
     /**
-     * For the given context and type, make sure the context has the
+     * For the given account and type, make sure the account has the
      * appropriate properties, that it is effectively of that "type"
      *
-     * @param string $context the context to check type for
+     * @param string $account the account to check type for
      *
-     * @param string $type the type to verify the context is of
+     * @param string $type the type to verify the account is of
      *
-     * @return boolean true of the context is of type, false if not
+     * @return boolean true of the account is of type, false if not
      *
      * @access public
      */
-    function checkContextType($context, $type)
+    function checkAccountType($account, $type)
     {
         throw new Shout_Exception("This function is not implemented.");
     }
 
     /**
-     * Get a list of users valid for the current context.  Return an array
+     * Get a list of users valid for the current account.  Return an array
      * indexed by the extension.
      *
-     * @param string $context Context for which users should be returned
+     * @param string $account Account for which users should be returned
      *
      * @return array User information indexed by voice mailbox number
      */
-    function getUsers($context)
+    function getUsers($account)
     {
         throw new Shout_Exception("This function is not implemented.");
     }
 
     /**
-     * Returns the name of the user's default context
+     * Returns the name of the user's default account
      *
-     * @return string User's default context
+     * @return string User's default account
      */
-    function getHomeContext()
+    function getHomeAccount()
     {
         throw new Shout_Exception("This function is not implemented.");
     }
 
     /**
-     * Get a context's properties
+     * Get a account's properties
      *
-     * @param string $context Context to get properties for
+     * @param string $account Account for which to get properties
      *
-     * @return integer Bitfield of properties valid for this context
+     * @return integer Bitfield of properties valid for this account
      */
-    function getContextProperties($context)
+    function getAccountProperties($account)
     {
         throw new Shout_Exception("This function is not implemented.");
     }
 
     /**
-     * Get a context's extensions and return as a multi-dimensional associative
+     * Get a account's extensions and return as a multi-dimensional associative
      * array
      *
-     * @param string $context Context to return extensions for
+     * @param string $account account to return extensions for
      *
      * @return array Multi-dimensional associative array of extensions data
      *
      */
-    function getDialplan($context)
+    function getDialplan($account)
     {
         throw new Shout_Exception("This function is not implemented.");
     }
@@ -118,7 +116,7 @@ class Shout_Driver {
      * also implements some basic checks, so a typical backend will still
      * call this method via parent::
      *
-     * @param string $context Context to which the user should be added
+     * @param string $account Account to which the user should be added
      *
      * @param string $extension Extension to be saved
      *
@@ -127,26 +125,26 @@ class Shout_Driver {
      * @return TRUE on success, PEAR::Error object on error
      * @throws Shout_Exception
      */
-    public function saveExtension($context, $extension, $details)
+    public function saveExtension($account, $extension, $details)
     {
-        if (empty($context) || empty($extension)) {
+        if (empty($account) || empty($extension)) {
             throw new Shout_Exception(_("Invalid extension."));
         }
         
-        if (!Shout::checkRights("shout:contexts:$context:extensions", PERMS_EDIT, 1)) {
-            throw new Shout_Exception(_("Permission denied to save extensions in this context."));
+        if (!Shout::checkRights("shout:accounts:$account:extensions", PERMS_EDIT, 1)) {
+            throw new Shout_Exception(_("Permission denied to save extensions in this account."));
         }
     }
 
-    public function deleteExtension($context, $extension)
+    public function deleteExtension($account, $extension)
     {
-        if (empty($context) || empty($extension)) {
+        if (empty($account) || empty($extension)) {
             throw new Shout_Exception(_("Invalid extension."));
         }
 
-        if (!Shout::checkRights("shout:contexts:$context:extensions",
+        if (!Shout::checkRights("shout:accounts:$account:extensions",
             PERMS_DELETE, 1)) {
-            throw new Shout_Exception(_("Permission denied to delete extensions in this context."));
+            throw new Shout_Exception(_("Permission denied to delete extensions in this account."));
         }
     }
 
@@ -157,7 +155,7 @@ class Shout_Driver {
      * also implements some basic checks, so a typical backend will still
      * call this method via parent::
      *
-     * @param string $context Context to which the user should be added
+     * @param string $account Account to which the user should be added
      *
      * @param string $extension Extension to be saved
      *
@@ -166,18 +164,18 @@ class Shout_Driver {
      * @return TRUE on success, PEAR::Error object on error
      * @throws Shout_Exception
      */
-    public function saveDevice($context, $devid, &$details)
+    public function saveDevice($account, $devid, &$details)
     {
-        if (empty($context)) {
+        if (empty($account)) {
             throw new Shout_Exception(_("Invalid device information."));
         }
 
-        if (!Shout::checkRights("shout:contexts:$context:devices", PERMS_EDIT, 1)) {
-            throw new Shout_Exception(_("Permission denied to save devices in this context."));
+        if (!Shout::checkRights("shout:accounts:$account:devices", PERMS_EDIT, 1)) {
+            throw new Shout_Exception(_("Permission denied to save devices in this account."));
         }
 
         if (empty($devid) || !empty($details['genauthtok'])) {
-            list($devid, $password) = Shout::genDeviceAuth($context);
+            list($devid, $password) = Shout::genDeviceAuth($account);
             $details['devid'] = $devid;
             $details['password'] = $password;
         }
@@ -192,18 +190,18 @@ class Shout_Driver {
      * also implements some basic checks, so a typical backend will still
      * call this method via parent::
      *
-     * @param <type> $context
+     * @param <type> $account
      * @param <type> $devid
      */
-    public function deleteDevice($context, $devid)
+    public function deleteDevice($account, $devid)
     {
-        if (empty($context) || empty($devid)) {
+        if (empty($account) || empty($devid)) {
             throw new Shout_Exception(_("Invalid device."));
         }
 
-        if (!Shout::checkRights("shout:contexts:$context:devices",
+        if (!Shout::checkRights("shout:accounts:$account:devices",
             PERMS_DELETE, 1)) {
-            throw new Shout_Exception(_("Permission denied to delete devices in this context."));
+            throw new Shout_Exception(_("Permission denied to delete devices in this account."));
         }
     }
 

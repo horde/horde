@@ -1,0 +1,281 @@
+# Slovak translations for passwd package
+# Slovenské preklady pre balík passwd.
+# Copyright 2005 Ivan Noris <vix@vazka.sk>
+# This file is distributed under the same license as the horde package.
+# (C) 2005 Ivan Noris <vix@vazka.sk>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: passwd 3.0\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2005-09-16 22:17+0200\n"
+"PO-Revision-Date: 2005-09-16 22:17+0200\n"
+"Last-Translator: Ivan Noris <vix@vazka.sk>\n"
+"Language-Team: Slovak <vix@vazka.sk>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#: lib/Driver/expect.php:34
+#, php-format
+msgid "%s does not exist or is not executable."
+msgstr "%s neexistuje alebo sa nedá spustiť."
+
+#: lib/Driver/composite.php:65
+#, php-format
+msgid "%s: unable to load driver: %s"
+msgstr "%s: nepodarilo sa načítať ovládač: %s"
+
+#: lib/Driver/adsi.php:61
+#, php-format
+msgid "ADSI error %s."
+msgstr "Chyba ADSI %s."
+
+#: lib/Driver/pspasswd.php:105 lib/Driver/adsi.php:64
+msgid "Access Denied."
+msgstr "Prístup zamietnutý."
+
+#: lib/Driver.php:85
+msgid "Backend not correctly implemented."
+msgstr "Backend nie je správne implementovaný."
+
+#: main.php:250 templates/main/main.inc:142
+msgid "Change Password"
+msgstr "Zmeniť heslo"
+
+#: templates/main/main.inc:127
+msgid "Change password on:"
+msgstr "Zmeniť heslo na:"
+
+#: templates/main/main.inc:62
+msgid "Change your password"
+msgstr "Zmeniť Vaše heslo"
+
+#: templates/main/main.inc:69
+#, php-format
+msgid "Changing password on %s"
+msgstr "Mení sa heslo na %s"
+
+#: templates/main/main.inc:114
+msgid "Confirm new password:"
+msgstr "Potvrďte nové heslo:"
+
+#: lib/Driver/ldap.php:95 lib/Driver/ldap.php:263 lib/Driver/kolab.php:54
+msgid "Could not bind to ldap server"
+msgstr "Nepodarilo sa prihlásiť k ldap serveru"
+
+#: lib/Driver/ldap.php:70 lib/Driver/kolab.php:46
+msgid "Could not connect to ldap server"
+msgstr "Nepodarilo sa pripojiť k ldap serveru"
+
+#: lib/Driver/smbpasswd.php:57
+msgid "Could not open pipe to smbpasswd."
+msgstr "Nepodarilo sa pripojiť k programu smbpasswd."
+
+#: lib/Driver/smbpasswd.php:79
+msgid "Error sending data to smbpasswd."
+msgstr "Nastala chyba pri posielaní údajov programu smbpasswd."
+
+#: lib/Driver/pspasswd.php:93
+msgid "Failed to verify old password."
+msgstr "Nepodarilo sa overiť staré heslo."
+
+#: main.php:207 lib/Driver/composite.php:99
+#, php-format
+msgid "Failure in changing password on %s: %s"
+msgstr "Chyba pri zmene hesla na %s: %s"
+
+#: lib/Driver.php:56 lib/Driver/ldap.php:264 lib/Driver/vmailmgr.php:42
+#: lib/Driver/kolab.php:78 lib/Driver/poppassd.php:114
+msgid "Incorrect Password"
+msgstr "Nesprávne heslo"
+
+#: lib/Driver/ldap.php:255
+msgid "Minimum password age has not yet expired"
+msgstr "Minimálna platnosť hesla ešte nevypršala"
+
+#: templates/main/main.inc:102
+msgid "New password:"
+msgstr "Nové heslo:"
+
+#: lib/Driver.php:112
+#, php-format
+msgid "No such backend \"%s\" found."
+msgstr "Backend \"%s\" nebol nájdený."
+
+#: templates/main/main.inc:90
+msgid "Old password:"
+msgstr "Staré heslo:"
+
+#: lib/Driver/smbpasswd.php:47
+msgid "Passwd is not properly configured."
+msgstr "Modul Passwd nie je správne nakonfigurovaný."
+
+#: main.php:199
+#, php-format
+msgid "Password changed on %s."
+msgstr "Heslo na %s zmenené."
+
+#: lib/Driver/pspasswd.php:75
+msgid "Password module can't find the supplied bin."
+msgstr "Modul na zmenu hesiel nemohol nájsť dodaný binárny program."
+
+#: lib/Driver/pspasswd.php:73
+msgid "Password module is missing required parameters."
+msgstr "Modulu Password chýbajú požadované parametre."
+
+#: lib/Driver/adsi.php:51
+msgid "Password module is missing target parameter."
+msgstr "Modulu Password chýba parameter cieľa."
+
+#: main.php:176 lib/Driver/servuftp.php:71
+msgid "Password module is not properly configured"
+msgstr "Modul Password nie je správne nakonfigurovaný"
+
+#: lib/Driver/servuftp.php:98
+msgid "Password module is not properly configured."
+msgstr "Modul Password nie je správne nakonfigurovaný."
+
+#: templates/main/main.inc:11
+msgid "Please provide a new password"
+msgstr "Prosím zadajte nové heslo"
+
+#: templates/main/main.inc:7
+msgid "Please provide your current password"
+msgstr "Prosím zadajte aktuálne heslo"
+
+#: templates/main/main.inc:15
+msgid "Please verify your new password"
+msgstr "Prosím zadajte ešte raz nové heslo"
+
+#: lib/Driver/composite.php:41
+msgid "Required 'drivers' is misconfigured in Composite configuration."
+msgstr ""
+"V konfigurácii Composite nie je špecifikovaná požadovaná položka 'drivers'"
+
+#: lib/Driver/sql.php:46
+msgid "Required 'phptype' not specified in Passwd SQL configuration."
+msgstr ""
+"V konfigurácii Passwd SQL nie je špecifikovaná požadovaná položka 'phptype'"
+
+#: lib/Driver/vpopmail.php:49
+msgid "Required 'phptype' not specified in SQL configuration."
+msgstr "V konfigurácii SQL nie je špecifikovaná požadovaná položka 'phptype'"
+
+#: templates/main/main.inc:143
+msgid "Reset"
+msgstr "Vymazať formulár"
+
+#: lib/Driver/sql.php:75 lib/Driver/vpopmail.php:83
+msgid "Unable to connect to SQL server."
+msgstr "Nepodarilo sa spojiť s SQL serverom."
+
+#: lib/Driver/sql.php:125 lib/Driver/poppassd.php:108
+#: lib/Driver/vpopmail.php:143
+msgid "User not found"
+msgstr "Používateľ nebol nájdený"
+
+#: lib/Driver/ldap.php:131 lib/Driver/kolab.php:70 lib/Driver/pine.php:231
+msgid "User not found."
+msgstr "Používateľ nebol nájdený."
+
+#: templates/main/main.inc:77
+msgid "Username:"
+msgstr "Používateľské meno:"
+
+#: main.php:45
+#, php-format
+msgid "You can't change password for user %s"
+msgstr "Nemôžete zmeniť heslo pre používateľa %s"
+
+#: main.php:53
+msgid "You must give your current password"
+msgstr "Musíte zadať Vaše aktuálne heslo"
+
+#: main.php:62
+msgid "You must give your new password"
+msgstr "Musíte zadať Vaše nové heslo"
+
+#: main.php:66
+msgid "You must verify your new password"
+msgstr "Musíte ešte raz zadať Vaše nové heslo"
+
+#: main.php:86
+#, php-format
+msgid ""
+"Your new password is too long; passwords may not be more than %d characters "
+"long!"
+msgstr "Vaše nové heslo je príliš dlhé; heslá nesmú byť dlhšie ako %d znakov!"
+
+#: main.php:165
+msgid "Your new password is too simple to guess!  Not changed!"
+msgstr "Vaše nové heslo je príliš jednoduché na uhádnutie! Nezmenené!"
+
+#: main.php:156
+msgid "Your new password is too simple to guess. Not changed!"
+msgstr "Vaše nové heslo je príliš jednoduché na uhádnutie. Nezmenené!"
+
+#: main.php:81
+#, php-format
+msgid "Your new password must be at least %d characters long!"
+msgstr "Vaše nové heslo musí mať aspoň %d znakov!"
+
+#: main.php:74
+msgid "Your new password must be different from your current password"
+msgstr "Vaše nové heslo musí byť iné ako aktuálne heslo"
+
+#: main.php:126
+#, php-format
+msgid "Your new password must contain at least %d alphabetic characters."
+msgstr "Vaše nové heslo musí obsahovať najmenej %d písmen."
+
+#: main.php:131
+#, php-format
+msgid "Your new password must contain at least %d alphanumeric characters."
+msgstr "Vaše nové heslo musí obsahovať najmenej %d alfanumerických znakov."
+
+#: main.php:136
+#, php-format
+msgid ""
+"Your new password must contain at least %d different types of characters. "
+"The types are: lower, upper, numeric, and symbols."
+msgstr ""
+"Vaše nové heslo musí obsahovať najmenej %d typov znakov. Typy znakov sú: "
+"malé písmená, veľké písmená, číslice a symboly."
+
+#: main.php:116
+#, php-format
+msgid "Your new password must contain at least %d lowercase characters."
+msgstr "Vaše nové heslo musí obsahovať najmenej %d malých písmen."
+
+#: main.php:121
+#, php-format
+msgid "Your new password must contain at least %d numeric characters."
+msgstr "Vaše nové heslo musí obsahovať najmenej %d číslic."
+
+#: main.php:111
+#, php-format
+msgid "Your new password must contain at least %d uppercase characters."
+msgstr "Vaše nové heslo musí obsahovať najmenej %d veľkých písmen."
+
+#: main.php:142
+#, php-format
+msgid "Your new password must contain less than %d whitespace characters."
+msgstr "Vaše nové heslo musí obsahovať menej ako %d medzier."
+
+#: main.php:144
+msgid "Your new password must not contain whitespace characters."
+msgstr "Vaše nové heslo nesmie obsahovať medzery."
+
+#: main.php:70
+msgid "Your new passwords didn't match"
+msgstr "Vaše nové heslá nie sú rovnaké"
+
+#: templates/main/main.inc:19
+msgid "Your passwords do not match"
+msgstr "Vaše heslá nie sú rovnaké"
+
+#: lib/Driver/ldap.php:76
+msgid "ldap_start_tls failed"
+msgstr "ldap_start_tls zlyhalo"

@@ -27,7 +27,7 @@ class Horde_Db_Adapter_MysqliTest extends PHPUnit_Framework_TestCase
     // @todo - add logger instance
     protected function setUp()
     {
-        list($this->_conn, $this->_cache) = $this->sharedFixture->getConnection();
+        list($this->_conn, $this->_cache) = Horde_Db_AllTests::$connFactory->getConnection();
 
         // clear out detritus from any previous test runs.
         $this->_dropTestTables();
@@ -363,7 +363,7 @@ class Horde_Db_Adapter_MysqliTest extends PHPUnit_Framework_TestCase
         $this->_conn->addColumn("users", "moment_of_truth", 'datetime');
         $this->_conn->addColumn("users", "male",            'boolean');
 
-        $this->_conn->insert('INSERT INTO USERS (first_name, last_name, bio, age, height, wealth, birthday, favorite_day, moment_of_truth, male, company_id) ' .
+        $this->_conn->insert('INSERT INTO users (first_name, last_name, bio, age, height, wealth, birthday, favorite_day, moment_of_truth, male, company_id) ' .
                              "VALUES ('bob', 'bobsen', 'I was born ....', 18, 1.78, 12345678901234567890.0123456789, '2005-01-01 12:23:40', '1980-03-05', '1582-10-10 21:40:18', 1, 1)");
 
         $bob = (object)$this->_conn->selectOne('SELECT * FROM users');
@@ -1027,46 +1027,6 @@ class Horde_Db_Adapter_MysqliTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('test', $name);
     }
 
-    public function testStructureDump()
-    {
-        $this->_createTestTable('sports');
-        // Avoid AUTO_INCREMENT being a part of the dump
-        $this->_conn->execute('TRUNCATE TABLE sports');
-
-        // single table
-        $structure = $this->_conn->structureDump('sports');
-
-        $expected = "CREATE TABLE `sports` (\n".
-        "  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,\n".
-        "  `name` varchar(255) DEFAULT NULL,\n".
-        "  `is_college` tinyint(1) DEFAULT NULL,\n".
-        "  PRIMARY KEY (`id`)\n".
-        ") ENGINE=InnoDB DEFAULT CHARSET=utf8";
-
-        // MySQL differs in how it dumps table structure between versions, so do
-        // some normalization.
-        $expected = strtolower(preg_replace('/\s+/', ' ', $expected));
-        $structure = strtolower(preg_replace('/\s+/', ' ', $structure));
-
-        $this->assertContains($expected, $structure);
-
-        // entire structure
-        $structure = $this->_conn->structureDump();
-        $structure = strtolower(preg_replace('/\s+/', ' ', $structure));
-
-        // contains, but doesn't match only sports table
-        $this->assertContains($expected, $structure);
-        $this->assertNotEquals($expected, $structure);
-    }
-
-    public function testInitializeSchemaInformation()
-    {
-        $this->_conn->initializeSchemaInformation();
-
-        $sql = "SELECT version FROM schema_info";
-        $this->assertEquals(0, $this->_conn->selectValue($sql));
-    }
-
     public function testTypeToSqlTypePrimaryKey()
     {
         $result = $this->_conn->typeToSql('primaryKey');
@@ -1366,5 +1326,4 @@ class Horde_Db_Adapter_MysqliTest extends PHPUnit_Framework_TestCase
             if ($columns == $indexes) return $index;
         }
     }
-
 }

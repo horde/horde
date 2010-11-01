@@ -126,7 +126,10 @@ class Horde_Rdo_Query
             // Add all non-lazy relationships.
             foreach ($mapper->relationships as $relationship => $rel) {
                 if (isset($rel['mapper'])) {
-                    $m = new $rel['mapper']();
+                    // @TODO - should be getting this instance from somewhere
+                    // else external, and not passing the adapter along
+                    // automatically.
+                    $m = new $rel['mapper']($this->mapper->adapter);
                 } else {
                     $m = $this->mapper->tableToMapper($relationship);
                     if (is_null($m)) {
@@ -364,7 +367,7 @@ class Horde_Rdo_Query
                 }
             }
 
-            $sql .= ' ' . $relationship['join_type'] . ' ' . $relationship['table'] . ' AS ' . $tableAlias . ' ON ' . implode(' AND ', $relsql);
+            $sql .= ' ' . $relationship['join_type'] . ' ' . $relationship['table'] . ' ' . $tableAlias . ' ON ' . implode(' AND ', $relsql);
         }
     }
 
@@ -387,7 +390,7 @@ class Horde_Rdo_Query
             if ($test['value'] instanceof Horde_Rdo_Query_Literal) {
                 $clauses[] = $clause . ' ' . (string)$test['value'];
             } else {
-                if ($test['test'] == 'IN' && is_array($test['value'])) {
+                if (($test['test'] == 'IN' || $test['test'] == 'NOT IN') && is_array($test['value'])) {
                     $clauses[] = $clause . '(?' . str_repeat(',?', count($test['value']) - 1) . ')';
                     $bindParams = array_merge($bindParams, array_values($test['value']));
                 } else {

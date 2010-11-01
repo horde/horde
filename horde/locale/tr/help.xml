@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<help>
+
+<!-- English entry:
+<entry id="summary">
+<title>The Portal Page</title>
+ <para>
+  This portal page provides a quick summary of all your important
+  information. For example, it might show how many new e-mail messages you
+  have in your INBOX, upcoming events on your calendar, tasks on your to-do
+  list, headlines from selected news services, and so on.  Many of these
+  summaries will contain quick shortcuts to common functions, such as
+  composing a new mail message, creating a new calendar event or task, etc.
+ </para>
+ <para>
+  The contents of this portal page are customizable via the Layout button.
+  For example, you can choose which items to include on this portal page as
+  well as in which order they are shown.
+ </para>
+</entry>
+-->
+<entry id="summary" md5="68ca33f7f0c9aae4c103eb47492cdc15" state="uptodate">
+<title>Giriş Sayfası</title>
+<para>
+Giriş sayfası size önemli bilgilerinizin kısa özetini verir. Örneğin, gelen kutunuzda kaç tane yeni elektronik posta olduğunu, takviminizdeki yaklaşan olayları, yapılacaklar listesindeki işlerinizi, seçili haber servisindeki başlıkları vs. gösterir. Bu özetlerin çoğu genel fonksiyonlar için kısayollar içerecektir,  yeni posta oluşturmak, yeni takvim olayı ya da işi oluşturmak gibi.
+</para>
+<para>
+Giriş sayfasının içeriği düzenleme tuşu ile isteğe uyarlanabilir. "Örneğin, giriş sayfasının hangi öğeleri içereceğinin yanında bu öğelerin gösterilme sıraları da seçilebilir.
+</para>
+</entry>
+
+
+<!-- English entry:
+<entry id="navbar">
+<title>The Application Navigation Bar</title>
+ <para>
+  At the left hand side of the web page is the application navigation bar.
+  Click on the icons on this navigation bar to quickly and easily switch
+  between the available applications.
+ </para>
+</entry>
+-->
+
+<entry id="navbar" md5="b8cf0ae19e57dfa0c2b962e516782f47" state="uptodate">
+<title>Uygulama Dolaşım Çubuğu</title>
+<para>
+Uygulama dolaşım çubuğu web sayfasının sol kenarıdır. Mevcut uygulamalar arasında  hızlı ve kolayca gezinebilmek için ulaşım çubuğundaki simgeleri tıklayınız.
+</para>
+</entry>
+
+
+<!-- English entry:
+<entry id="prefs-do_maintenance">
+    <title>Preferences: Maintenance: Do Maintenance</title>
+    <para>
+    If you would like to perform maintenance operations on login, check this box.
+    </para>
+</entry>
+-->
+
+<entry id="prefs-do_maintenance" md5="dd95df07a03031232baea919288b2d00" state="uptodate">
+<title>Tercihler: Bakım: Bakım Yapma</title>
+<para>
+Sisteme girerken bakım işlemleri yapmak isterseniz bu kutuyu işaretleyiniz.
+</para>
+</entry>
+
+<!-- English entry:
+<entry id="prefs-confirm_maintenance">
+    <title>Preferences: Maintenance: Confirm Maintenance</title>
+    <para>
+    If you would like to confirm all maintenance tasks before they are run, check this box. If left unchecked, all maintenance operations that need to be run will be performed automatically with no chance to cancel on login.
+    </para>
+</entry>
+-->
+
+<entry id="prefs-confirm_maintenance" md5="a21162cdff3b1d8faeadb7296240036e" state="uptodate">
+<title>Tercihler: Bakım: Bakım Doğrulama</title>
+<para>
+Bakım görevlerini çalışmaya başlamadan önce doğrulamak istiyorsanız bu kutuyu işaretleyiniz. Eğer kutu işaretlenmemiş ise çalışması gereken bütün bakım işlemleriniz sisteme girerken ,iptal etme şansınız olmadan otomatik olarak gerçekleşecektir.
+</para>
+</entry>
+
+</help>

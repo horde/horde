@@ -12,7 +12,7 @@ class AddCommentForm extends Horde_Form {
 
         $this->addHidden('', 'id', 'int', true, true);
 
-        if (!Horde_Auth::getAuth()) {
+        if (!$GLOBALS['registry']->getAuth()) {
             $this->addVariable(_("Your Email Address"), 'user_email', 'email', true);
             if (!empty($conf['guests']['captcha'])) {
                 $this->addVariable(_("Spam protection"), 'captcha', 'figlet', true, null, null, array(Whups::getCAPTCHA(!$this->isSubmitted()), $conf['guests']['figlet_font']));
@@ -23,10 +23,10 @@ class AddCommentForm extends Horde_Form {
         $this->addVariable(_("Watch this ticket"), 'add_watch', 'boolean', false);
 
         /* Group restrictions. */
-        if (Horde_Auth::isAdmin('whups:admin') ||
-            $GLOBALS['perms']->hasPermission('whups:hiddenComments', Horde_Auth::getAuth(), Horde_Perms::EDIT)) {
-            $groups = &Group::singleton();
-            $mygroups = $groups->getGroupMemberships(Horde_Auth::getAuth());
+        if ($GLOBALS['registry']->isAdmin(array('permission' => 'whups:admin')) ||
+            $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('whups:hiddenComments', $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
+            $groups = $GLOBALS['injector']->getInstance('Horde_Group');
+            $mygroups = $groups->getGroupMemberships($GLOBALS['registry']->getAuth());
             if ($mygroups) {
                 foreach (array_keys($mygroups) as $gid) {
                     $grouplist[$gid] = $groups->getGroupName($gid, true);
@@ -43,7 +43,7 @@ class AddCommentForm extends Horde_Form {
         global $conf;
 
         if (!parent::validate($vars, $canAutoFill)) {
-            if (!Horde_Auth::getAuth() && !empty($conf['guests']['captcha'])) {
+            if (!$GLOBALS['registry']->getAuth() && !empty($conf['guests']['captcha'])) {
                 $vars->remove('captcha');
                 $this->removeVariable($varname = 'captcha');
                 $this->insertVariableBefore('newcomment', _("Spam protection"), 'captcha', 'figlet', true, null, null, array(Whups::getCAPTCHA(true), $conf['guests']['figlet_font']));

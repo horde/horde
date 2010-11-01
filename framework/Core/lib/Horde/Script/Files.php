@@ -9,18 +9,12 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Core
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @package  Core
  */
 class Horde_Script_Files
 {
-    /**
-     * The singleton instance.
-     *
-     * @var Horde_Script_Files
-     */
-    static protected $_instance;
-
     /**
      * The list of script files to add.
      *
@@ -36,39 +30,24 @@ class Horde_Script_Files
     protected $_included = array();
 
     /**
-     * Singleton.
-     */
-    static public function singleton()
-    {
-        if (!self::$_instance) {
-            self::$_instance = new self();
-        }
-
-        return self::$_instance;
-    }
-
-    /**
      * Adds the javascript code to the output (if output has already started)
      * or to the list of script files to include.
      *
-     * @param string $file     The full javascript file name.
-     * @param string $app      The application name. Defaults to the current
-     *                         application.
-     * @param boolean $direct  Include the file directly without passing it
-     *                         through javascript.php?
-     * @param boolean $full    Output a full url?
+     * @param string $file   The full javascript file name.
+     * @param string $app    The application name. Defaults to the current
+     *                       application.
+     * @param boolean $full  Output a full url?
      */
-    public function add($file, $app = null, $direct = false, $full = false)
+    public function add($file, $app = null, $full = false)
     {
-        $res = $this->_add($file, $app, $direct, $full);
-
-        if (empty($res) || (!ob_get_length() && !headers_sent())) {
+        if (($this->_add($file, $app, $full) === false) ||
+            !Horde::contentSent()) {
             return;
         }
 
         // If headers have already been sent, we need to output a <script>
         // tag directly.
-        $this->outputTag($res['u']);
+        $this->includeFiles();
     }
 
     /**
@@ -82,7 +61,7 @@ class Horde_Script_Files
         // Force external scripts under Horde scope to better avoid duplicates,
         // and to ensure they are loaded before other application specific files
         $app = 'horde';
-        
+
         // Don't include scripts multiple times.
         if (!empty($this->_included[$app][$url])) {
             return false;
@@ -91,8 +70,8 @@ class Horde_Script_Files
         $this->_included[$app][$url] = true;
 
         // Always add prototype.js.
-        if (empty($this->_files)) {
-            $this->add('prototype.js', 'horde', true);
+        if (!isset($this->_included[$app]['prototype.js'])) {
+            $this->add('prototype.js', 'horde');
         }
 
         $this->_files[$app][] = array(
@@ -105,8 +84,10 @@ class Horde_Script_Files
 
     /**
      * Helper function to determine if given file needs to be output.
+     *
+     * @return boolean  True if the file needs to be output.
      */
-    public function _add($file, $app, $direct, $full)
+    public function _add($file, $app, $full)
     {
         global $registry;
 
@@ -121,68 +102,62 @@ class Horde_Script_Files
         $this->_included[$app][$file] = true;
 
         // Always add prototype.js.
-        if (empty($this->_files) && ($file != 'prototype.js')) {
-            $this->add('prototype.js', 'horde', true);
+        if (!isset($this->_included[$app]['prototype.js']) &&
+            ($file != 'prototype.js')) {
+            $this->add('prototype.js', 'horde', $full);
         }
 
         // Add localized string for popup.js
-        if ($file == 'popup.js' && $app == 'horde') {
-            Horde::addInlineScript('Horde.popup_block_text=' . Horde_Serialize::serialize(_("A popup window could not be opened. Your browser may be blocking popups."), Horde_Serialize::JSON), 'dom');
+        if (($file == 'popup.js') && ($app == 'horde')) {
+            Horde::addInlineJsVars(array(
+                'Horde.popup_block_text' => Horde_Core_Translation::t("A popup window could not be opened. Your browser may be blocking popups.")
+            ), 'dom');
         }
 
-        // Explicitly check for a directly serve-able version of the script.
-        $path = $registry->get('fileroot', $app);
-        if (!$direct &&
-            file_exists($file[0] == '/'
-                        ? $path . $file
-                        : $registry->get('jsfs', $app) . '/' . $file)) {
-            $direct = true;
-        }
-
-        if ($direct) {
-            if ($file[0] == '/') {
-                $url = Horde::url($registry->get('webroot', $app) . $file,
-                                  $full, -1);
-            } else {
-                $url = Horde::url($registry->get('jsuri', $app) . '/' . $file,
-                                  $full, -1);
-                $path = $registry->get('jsfs', $app) . '/';
-            }
-
+        if ($file[0] == '/') {
+            $url = Horde::url($registry->get('webroot', $app) . $file, $full, -1);
+            $path = $registry->get('fileroot', $app);
         } else {
-            $path = $registry->get('templates', $app) . '/javascript/';
-            $url = Horde::url(
-                Horde_Util::addParameter(
-                    $registry->get('webroot', 'horde') . '/services/javascript.php',
-                    array('file' => $file, 'app' => $app)));
+            $url = Horde::url($registry->get('jsuri', $app) . '/' . $file, $full, -1);
+            $path = $registry->get('jsfs', $app) . '/';
         }
 
-        $out = $this->_files[$app][] = array(
+        $this->_files[$app][] = array(
+            'd' => true,
             'f' => $file,
-            'd' => $direct,
-            'u' => $url,
-            'p' => $path
+            'p' => $path,
+            'u' => $url
         );
 
-        return $out;
+        return true;
     }
 
     /**
-     * Includes javascript files that are needed before any headers are sent.
+     * Output the list of javascript files needed.
      */
     public function includeFiles()
     {
-        foreach ($this->listFiles() as $app => $files) {
+        foreach ($this->listFiles() as $files) {
             foreach ($files as $file) {
                 $this->outputTag($file['u']);
             }
         }
+
+        $this->clear();
+    }
+
+    /**
+     * Clears the cached list of files to output.
+     */
+    public function clear()
+    {
+        $this->_files = array();
     }
 
     /**
      * Prepares the list of javascript files to include.
      *
-     * @return array
+     * @return array  The list of javascript files.
      */
     public function listFiles()
     {
@@ -194,7 +169,7 @@ class Horde_Script_Files
 
         /* Add accesskeys.js if access keys are enabled. */
         if ($GLOBALS['prefs']->getValue('widget_accesskey')) {
-            $this->_add('accesskeys.js', 'horde', true, false);
+            $this->_add('accesskeys.js', 'horde', false);
         }
 
         return $this->_files;

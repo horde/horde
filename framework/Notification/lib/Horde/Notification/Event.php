@@ -1,15 +1,16 @@
 <?php
 /**
- * The Horde_Notification_Event:: class provides a container for passing
- * messages to Horde_Notification_Listener classes.
+ * The Horde_Notification_Event:: class defines a single notification event.
  *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Hans Lellelid <hans@velum.net>
- * @package Horde_Notification
+ * @author   Hans Lellelid <hans@velum.net>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Notification
  */
 class Horde_Notification_Event
 {
@@ -18,38 +19,76 @@ class Horde_Notification_Event
      *
      * @var string
      */
-    protected $_message = '';
+    public $message = '';
 
     /**
-     * If passed, sets the message for this event.
+     * The flags for this message.
      *
-     * @param string $message  The text message for this event.
+     * @var array
      */
-    public function __construct($message = null)
+    public $flags = array();
+
+    /**
+     * The message type.
+     *
+     * @var string
+     */
+    public $type;
+
+    /**
+     * Constructor.
+     *
+     * @param mixed $data   Message: either a string or an Exception or
+     *                      PEAR_Error object.
+     * @param string $type  The event type.
+     * @param array $flags  The flag array.
+     */
+    public function __construct($data, $type = null, array $flags = array())
     {
-        if (!is_null($message)) {
-            $this->setMessage($message);
+        $this->flags = $flags;
+
+        $this->type = empty($type)
+            ? 'status'
+            : $type;
+
+        if ($data instanceof PEAR_Error) {
+            // DEPRECATED
+            if (($userinfo = $data->getUserInfo()) &&
+                  is_array($userinfo)) {
+                $userinfo_elts = array();
+                foreach ($userinfo as $userinfo_elt) {
+                    if (is_scalar($userinfo_elt)) {
+                        $userinfo_elts[] = $userinfo_elt;
+                    } elseif (is_object($userinfo_elt)) {
+                        if (is_callable(array($userinfo_elt, '__toString'))) {
+                            $userinfo_elts[] = $userinfo_elt->__toString();
+                        } elseif (is_callable(array($userinfo_elt, 'getMessage'))) {
+                            $userinfo_elts[] = $userinfo_elt->getMessage();
+                        }
+                    }
+                }
+
+                $this->message = $data->getMessage() . ' : ' . implode(', ', $userinfo_elts);
+            } else {
+                $this->message = $data->getMessage();
+            }
+        } elseif ($data instanceof Exception) {
+            // Exception
+            $this->message = $data->getMessage();
+        } else {
+            // String or object
+            $this->message = strval($data);
         }
     }
 
     /**
-     * Sets the text message for this event.
+     * String representation of this object.
      *
-     * @param string $message  The text message to display.
+     * @return string  String representation.
      */
-    public function setMessage($message)
+    public function __toString()
     {
-        $this->_message = $message;
-    }
-
-    /**
-     * Gets the text message for this event.
-     *
-     * @return string  The text message to display.
-     */
-    public function getMessage()
-    {
-        return $this->_message;
+        return $this->message;
     }
 
 }

@@ -5,17 +5,23 @@
  *
  * Parameters:
  * <pre>
- * target   -- The link target.  Defaults to _blank.
- * class    -- The CSS class of the generated links.  Defaults to none.
- * nofollow -- Whether to set the 'rel="nofollow"' attribute on links.
- * callback -- An optional callback function that the URL is passed through
- *             before being set as the href attribute.  Must be a string with
- *             the function name, the function must take the original as the
- *             first and only parameter.
- * encode   -- Whether to escape special HTML characters in the URLs and
- *             finally "encode" the complete tag so that it can be decoded
- *             later with the decode() method. This is useful if you want to
- *             run htmlspecialchars() or similar *after* using this filter.
+ * callback - (string) A callback function that the URL is passed through
+ *            before being set as the href attribute.  Must be a string with
+ *            the function name, the function must take the original URL as
+ *            the first and only parameter.
+ *            DEFAULT: No callback
+ * class - (string) The CSS class of the generated links.
+ *         DEFAULT: none
+ * encode - (boolean)  Whether to escape special HTML characters in the URLs
+ *          and finally "encode" the complete tag so that it can be decoded
+ *          later with the decode() method. This is useful if you want to
+ *          run htmlspecialchars() or similar *after* using this filter.
+ *          DEFAULT: false
+ * nofollow - (boolean) Whether to set the 'rel="nofollow"' attribute on
+ *            links.
+ *            DEFAULT: false
+ * target - (string) The link target.
+ *          DEFAULT: '_blank'
  * </pre>
  *
  * Copyright 2003-2010 The Horde Project (http://www.horde.org/)
@@ -23,11 +29,13 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Tyler Colbert <tyler@colberts.us>
- * @author  Jan Schneider <jan@horde.org>
- * @package Horde_Text
+ * @author   Tyler Colbert <tyler@colberts.us>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Text_Filter
  */
-class Horde_Text_Filter_Linkurls extends Horde_Text_Filter
+class Horde_Text_Filter_Linkurls extends Horde_Text_Filter_Base
 {
     /**
      * Filter parameters.
@@ -53,22 +61,31 @@ class Horde_Text_Filter_Linkurls extends Horde_Text_Filter
         if (!empty($class)) {
             $class = ' class="' . $class . '"';
         }
-        $nofollow = $this->_params['nofollow'] ? ' rel="nofollow"' : '';
 
-        $replacement = $this->_params['callback']
-            ? '\' . ' . $this->_params['callback'] . '(\'$0\') . \''
-            : '$0';
-        if ($this->_params['encode']) {
-            $replacement = 'chr(0).chr(0).chr(0).base64_encode(\'<a href="\'.htmlspecialchars(\'' . $replacement . '\').\'"' . $nofollow . ' target="_blank"' . $class . '>\'.htmlspecialchars(\'$0\').\'</a>\').chr(0).chr(0).chr(0)';
-        } else {
-            $replacement = '\'<a href="' . $replacement . '"' . $nofollow
-                . ' target="_blank"' . $class . '>$0</a>\'';
+        $href = $this->_params['callback']
+            ? '\' . htmlspecialchars(' . $this->_params['callback'] . '(\'$0\')) . \''
+            : '\' . htmlspecialchars(\'$0\') . \'';
+
+        $replacement = '<a href="' . $href . '"' .
+            ($this->_params['nofollow'] ? ' rel="nofollow"' : '') .
+            ' target="_blank"' . $class .
+            '>\' . htmlspecialchars(\'$0\') . \'</a>';
+
+        if (!empty($this->_params['noprefetch'])) {
+            $replacement = '<meta http-equiv="x-dns-prefetch-control" value="off" />' .
+                $replacement .
+                '<meta http-equiv="x-dns-prefetch-control" value="on" />';
         }
 
-        $regexp = array('|([\w+-]{1,20})://([^\s"<]*[\w+#?/&=])|e' =>
-                        $replacement);
+        $replacement = $this->_params['encode']
+            ? 'chr(0) . chr(0) . chr(0) . base64_encode(\'' . $replacement . '\') . chr(0) . chr(0) . chr(0)'
+            : '\'' . $replacement . '\'';
 
-        return array('regexp' => $regexp);
+        return array(
+            'regexp' => array(
+                '|([\w+-]{1,20})://([^\s"<]*[\w+#?/&=])|e' => $replacement
+            )
+        );
     }
 
     /**

@@ -1,0 +1,103 @@
+# Passwd module translations.
+# Copyright YEAR Free Software Foundation, Inc.
+# Mattias Webjörn Eriksson <mattias@webjorn>, 2002.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: passwd\n"
+"POT-Creation-Date: 2002-06-16 23:32+0200\n"
+"PO-Revision-Date: 2002-06-15 03:13+0200\n"
+"Last-Translator: Mattias Webjörn Eriksson <mattias@webjorn>\n"
+"Language-Team: Swedish <SE@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+msgid "Change your password"
+msgstr "Byt lösenord"
+
+msgid "Confirm new password:"
+msgstr "Bekräfta ditt lösenord:"
+
+msgid "Could not bind to ldap server as guest"
+msgstr "Kunde inte binda till ldap servern som gäst"
+
+msgid "Could not connect to ldap server"
+msgstr "Kunde inte ansluta till ldap servern"
+
+msgid "Failure in changing password : "
+msgstr "Misslyckades med att ändra lösenord : "
+
+msgid "Help"
+msgstr "Hjälp"
+
+msgid "Internal Error"
+msgstr "Internt fel"
+
+msgid "Logout"
+msgstr "Logga ut"
+
+msgid "New password:"
+msgstr "Nytt lösenord:"
+
+msgid ""
+"Note: You will need to logout and back in after you change your password!"
+msgstr "OBS! Du måste logga ut direkt efter att du har byt lösenord!"
+
+msgid "Old password:"
+msgstr "Gammalt lösenord:"
+
+msgid "Password changed!"
+msgstr "Lösenordet ändrades!"
+
+msgid "Password module is not properly configured"
+msgstr "Lösenordsmodulen är inte correct konfigurerad"
+
+msgid "Problem?"
+msgstr "Problem?"
+
+msgid "Reset"
+msgstr "Återställ"
+
+msgid "Some of Password module's configuration files are missing:"
+msgstr "Några av lösenordsmodulens konfigurations filer saknas"
+
+msgid ""
+"This file controls the default preferences for Password module, and also "
+"controls which preferences users can alter."
+msgstr ""
+"Denna fil hanterar standard inställningarna för lösenordsmodulen, samt vilka "
+"inställningar som användarna kan ändra"
+
+msgid ""
+"This file controls the stylesheet that is used to set colors and fonts in "
+"addition to or overriding Horde defaults."
+msgstr ""
+"Den här filen hanterar stylesheets, vilket används för färger och fonter, "
+"utöver de standard värden från Hordemodulen"
+
+msgid ""
+"This is the main Password module configuration file. It contains paths and "
+"options for all Password module scripts."
+msgstr ""
+"Det här är huvudkonfigurationsfilen för lösenordsmodulen. Den innehåller val "
+"för alla skript."
+
+#, c-format
+msgid "You can't change password for user %s"
+msgstr "Du kan inte ändra lösenord för användare %s"
+
+msgid "You must give your new password"
+msgstr "Du måste ange ditt nya lösenord"
+
+msgid "You must give your old password"
+msgstr "Du måste ange ditt gamla lösenord"
+
+msgid "You must verify your new password"
+msgstr "Du måste verifiera ditt nya lösenord"
+
+msgid "Your new passwords didn't match"
+msgstr "Ditt nya lösenord verifierades inte korrekt"
+
+msgid "Your old password isn't correct"
+msgstr "Ditt gamla lösenord är inte korrekt"

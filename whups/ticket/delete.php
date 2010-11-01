@@ -9,9 +9,8 @@
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  */
 
-@define('WHUPS_BASE', dirname(__FILE__) . '/..');
-require_once WHUPS_BASE . '/lib/base.php';
-require_once WHUPS_BASE . '/lib/Ticket.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('whups');
 
 class DeleteTicketForm extends Horde_Form {
 
@@ -46,8 +45,8 @@ $ticket = Whups::getCurrentTicket();
 $details = $ticket->getDetails();
 if (!Whups::hasPermission($details['queue'], 'queue', Horde_Perms::DELETE)) {
     $notification->push(_("Permission Denied"), 'horde.error');
-    header('Location: ' . Horde::applicationUrl($prefs->getValue('whups_default_view') . '.php', true));
-    exit;
+    Horde::url($prefs->getValue('whups_default_view') . '.php', true)
+        ->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -66,11 +65,10 @@ if ($vars->get('formname') == 'deleteticketform') {
 
             if (!is_a($result, 'PEAR_Error')) {
                 $notification->push(sprintf(_("Ticket %d has been deleted."), $info['id']), 'horde.success');
-                header('Location: ' . Horde::applicationUrl($prefs->getValue('whups_default_view') . '.php', true));
-                exit;
-            } else {
-                $notification->push(_("There was an error deleting the ticket:") . ' ' . $result->getMessage(), 'horde.error');
+                Horde::url($prefs->getValue('whups_default_view') . '.php', true)
+                    ->redirect();
             }
+            $notification->push(_("There was an error deleting the ticket:") . ' ' . $result->getMessage(), 'horde.error');
         } else {
             $notification->push(_("The ticket was not deleted."), 'horde.message');
         }

@@ -1,0 +1,12 @@
+<?php
+$conf['db']['adapter']['mysqli']['test']['host'] = 'localhost';
+$conf['db']['adapter']['mysqli']['test']['username'] = '';
+$conf['db']['adapter']['mysqli']['test']['password'] = '';
+$conf['db']['adapter']['mysqli']['test']['dbname'] = 'test';
+$conf['db']['adapter']['pdo']['mysql']['test']['host'] = 'localhost';
+$conf['db']['adapter']['pdo']['mysql']['test']['username'] = '';
+$conf['db']['adapter']['pdo']['mysql']['test']['password'] = '';
+$conf['db']['adapter']['pdo']['mysql']['test']['dbname'] = 'test';
+$conf['db']['adapter']['pdo']['pgsql']['test']['username'] = '';
+$conf['db']['adapter']['pdo']['pgsql']['test']['password'] = '';
+$conf['db']['adapter']['pdo']['pgsql']['test']['dbname'] = 'test';

@@ -2,8 +2,6 @@
 /**
  * Setup autoloading for the tests.
  *
- * PHP version 5
- *
  * @category Horde
  * @package  Notification
  * @author   Gunnar Wrobel <wrobel@pardus.de>
@@ -14,7 +12,7 @@
 if (!spl_autoload_functions()) {
     spl_autoload_register(
         create_function(
-            '$class', 
+            '$class',
             '$filename = str_replace(array(\'::\', \'_\'), \'/\', $class);'
             . '$err_mask = E_ALL ^ E_WARNING;'
             . '$oldErrorReporting = error_reporting($err_mask);'
@@ -26,3 +24,6 @@ if (!spl_autoload_functions()) {
 
 /** Catch strict standards */
 error_reporting(E_ALL | E_STRICT);
+
+/** Needed for PEAR_Error. */
+@require_once 'PEAR.php';

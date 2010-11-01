@@ -1,12 +1,12 @@
-<table style="width:100%; border-collapse:collapse;" class="item linedRow"> 
- <tr class="item"> 
-  <th style="width:60%" class="leftAlign"> 
+<table style="width:100%; border-collapse:collapse;" class="item linedRow">
+ <tr class="item">
+  <th style="width:60%" class="leftAlign">
    <?php echo $this->col_headers['message_thread']; ?>
-  </th> 
-  <th style="width:20%" class="leftAlign"> 
+  </th>
+  <th style="width:20%" class="leftAlign">
    <?php echo $this->col_headers['message_author']; ?>
-  </th> 
-  <th style="width:19%" class="leftAlign"> 
+  </th>
+  <th style="width:19%" class="leftAlign">
    <?php echo $this->col_headers['message_timestamp']; ?>
   </th>
  </tr>
@@ -46,5 +46,5 @@
  </tr>
  <?php endif; ?>
  <?php endforeach; ?>
- 
-</table> 
+
+</table>

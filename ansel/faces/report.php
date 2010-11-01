@@ -9,16 +9,18 @@
  *
  * @author Duck <duck@obala.net>
  */
-require_once dirname(__FILE__) . '/../lib/base.php';
+
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('ansel');
 
 $face_id = Horde_Util::getFormData('face');
 
-$faces = Ansel_Faces::factory();
+$faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
 try {
     $face = $faces->getFaceById($face_id);
 } catch (Horde_Exception $e) {
     $notification->push($e->getMessage());
-    header('Location: ' . Horde::applicationUrl('faces/search/all.php'));
+    Horde::url('faces/search/all.php')->redirect();
     exit;
 }
 
@@ -37,12 +39,12 @@ if ($form->validate()) {
     } else {
         require ANSEL_BASE . '/lib/Report.php';
         $report = Ansel_Report::factory();
-        $gallery = $ansel_storage->getGallery($face['gallery_id']);
+        $gallery = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery($face['gallery_id']);
 
-        $face_link = Horde_Util::addParameter(Horde::applicationUrl('faces/face.php', true),
-                        array('name' => $vars->get('person'),
-                              'face' => $face_id,
-                                'image' => $face['image_id']), null, false);
+        $face_link = Horde::url('faces/face.php', true)->add(
+                array('name' => $vars->get('person'),
+                      'face' => $face_id,
+                      'image' => $face['image_id']))->setRaw(true);
 
         $body = _("Gallery Name") . ': ' . $gallery->get('name') . "\n"
                 . _("Gallery Description") . ': ' . $gallery->get('desc') . "\n\n"
@@ -59,13 +61,12 @@ if ($form->validate()) {
         $notification->push(_("The owner of the photo was notified."), 'horde.success');
     }
 
-    header('Location: ' . Ansel_Faces::getLink($face));
+    Ansel_Faces::getLink($face)->redirect();
     exit;
 }
 
 require ANSEL_TEMPLATES . '/common-header.inc';
-require ANSEL_TEMPLATES . '/menu.inc';
-
+echo Horde::menu();
+$notification->notify(array('listeners' => 'status'));
 $form->renderActive(null, null, null, 'post');
-
 require $registry->get('templates', 'horde') . '/common-footer.inc';

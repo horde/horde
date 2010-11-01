@@ -154,7 +154,6 @@ class ScriptTester_imap extends ScriptTester {
         $GLOBALS['notification'] = new Ingo_Test_Notification;
 
         $params = array('api' => $this->api,
-                        'charset' => 'UTF-8',
                         'spam_compare' => 'string',
                         'spam_header' => 'X-Spam-Level',
                         'spam_char' => '*');
@@ -312,7 +311,6 @@ class ScriptTester_sieve extends ScriptTester {
     {
         $params = array('date_format' => '%x',
                         'time_format' => '%R',
-                        'charset' => 'UTF-8',
                         'spam_compare' => 'string',
                         'spam_header' => 'X-Spam-Level',
                         'spam_char' => '*');

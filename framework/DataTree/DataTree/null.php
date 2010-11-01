@@ -10,7 +10,6 @@
  *
  * @author  Stephane Huther <shuther1@free.fr>
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @since   Horde 3.0
  * @package Horde_DataTree
  */
 class DataTree_null extends DataTree {
@@ -97,8 +96,6 @@ class DataTree_null extends DataTree {
 
     /**
      * Get a tree sorted by the specified attribute name and/or key.
-     *
-     * @since Horde 3.1
      *
      * @param string  $root       Which portion of the tree to sort.
      *                            Defaults to all of it.

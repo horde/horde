@@ -2,14 +2,42 @@
 v3.0-git
 --------
 
+[jan] Rename sources.php to backends.php.
+[mjr] If default addressbook is not browsable, try one from the addressbook pref
+      (Request: 6536).
+[jan] Add duplicate search and merging.
 [mjr] The listTimeObjects API now returns categories for each source
       individually instead of returning only the categories available
       (Request #8504).
 
+
 ----------
-v2.3.4-cvs
+v2.3.6-cvs
 ----------
 
+[jan] Use name format preference not only for paging, but for sorting too
+      (Request #8806).
+[jan] Fix photo corruption when exporting to vCard 3.0 (Bug #9100).
+
+
+------
+v2.3.5
+------
+
+[jan] Correctly export FN vCard property if 'alternative_name' is set, but not
+      'name' (Bug #9207).
+[jan] Fix import of addresses from LDIF (Axel Jurak, Bug #9215).
+[jan] Speed up browsing of long address books.
+
+
+------
+v2.3.4
+------
+
+[jan] Remove deleted contacts from distribution lists in the same address book.
+[mjr] Allow creation of default, personal address book when other read-only
+      sources are present.
+[mjr] Log in history when deleting all of a user's contacts (Bug #8755).
 [jan] Only export non-empty fields if exporting manually.
 [jan] Add export to vCard 3.0.
 [jan] Only synchronize those fields that are supported by the client
@@ -481,7 +509,7 @@ v2.0.4
 v2.0.3
 ------
 
-[jan] Add Turkish translation (Servet Güney <sguney@metu.edu.tr>, Ahmet Öztürk
+[jan] Add Turkish translation (Servet GÃ¼ney <sguney@metu.edu.tr>, Ahmet Ã–ztÃ¼rk
       <oahmet@metu.edu.tr>).
 
 
@@ -618,7 +646,7 @@ v2.0-BETA
 [cjh] Turba's API has been consolidated somewhat, with a unified import method
       replacing add, addContact, and import_vcard.
 [jan] Add access keys.
-[cjh] Add Kolab drivers (Stuart Bingë <s.binge@codefusion.co.za>).
+[cjh] Add Kolab drivers (Stuart Bingï¿½ <s.binge@codefusion.co.za>).
 [cjh] The alphabetic pager now has an "All" option.
 
 
@@ -722,7 +750,7 @@ v1.2
 
 [cjh] Use the 'objectclass' entry from LDAP sources instead of defaulting to
       'objectclass=*'.
-[jan] Add Catalan translation (Angels Guimerà <angels.Guimera@uab.es>).
+[jan] Add Catalan translation (Angels Guimerï¿½ <angels.Guimera@uab.es>).
 [jan] Add a preference for viewing names as Lastname, Firstname (Marc Jauvin
       <marc@register4less.com>).
 [jan] Add Latvian translation (Kaspars Kapenieks <kaspars@rcc.lv>).
@@ -829,7 +857,7 @@ v1.0-RC4
 [jan] Add Brazilian Portuguese translation (Carlos Daniel Kibrit
       <kibrit@terra.com.br>).
 [jan] Add Greek translation (Stefanos I. Dimitriou <sdimitri@teiath.gr>).
-[jan] Add Swedish translation (Andreas Dahlén <andreas@dahlen.ws>).
+[jan] Add Swedish translation (Andreas Dahlï¿½n <andreas@dahlen.ws>).
 [jan] Add Korean translation (J.I Kim <aporie@netian.com>).
 [cjh] Remove duplicate entries from multiple sources from
       turbaExpandAddresses() results.

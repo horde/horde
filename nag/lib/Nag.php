@@ -6,6 +6,8 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Jon Parise <jon@horde.org>
+ * @author  Chuck Hagenbuch <chuck@horde.org>
+ * @author  Jan Schneider <jan@horde.org>
  * @package Nag
  */
 class Nag
@@ -24,6 +26,11 @@ class Nag
      * Sort by due date.
      */
     const SORT_DUE = 'due';
+
+    /**
+     * Sort by start date.
+     */
+    const SORT_START = 'start';
 
     /**
      * Sort by completion.
@@ -136,11 +143,11 @@ class Nag
      *
      * @return Nag_Task  A list of the requested tasks.
      */
-    function listTasks($sortby = null,
-                       $sortdir = null,
-                       $altsortby = null,
-                       $tasklists = null,
-                       $completed = null)
+    public static function listTasks($sortby = null,
+                                     $sortdir = null,
+                                     $altsortby = null,
+                                     $tasklists = null,
+                                     $completed = null)
     {
         global $prefs, $registry;
 
@@ -193,7 +200,7 @@ class Nag
                     if (!empty($types['taskHash'])) {
                         $newtasks = $registry->callByPackage($app, 'listAs', array('taskHash'));
                         if (is_a($newtasks, 'PEAR_Error')) {
-                            Horde::logMessage($newtasks, __FILE__, __LINE__, PEAR_LOG_ERR);
+                            Horde::logMessage($newtasks, 'ERR');
                         } else {
                             foreach ($newtasks as $task) {
                                 $task['tasklist_id'] = '**EXTERNAL**';
@@ -220,7 +227,7 @@ class Nag
      *
      * @return array  The task hash.
      */
-    function getTask($tasklist, $task)
+    public static function getTask($tasklist, $task)
     {
         $storage = Nag_Driver::singleton($tasklist);
         $task = $storage->get($task);
@@ -236,7 +243,7 @@ class Nag
      *
      * @return integer  The number of tasks that the user owns.
      */
-    function countTasks()
+    public static function countTasks()
     {
         static $count;
         if (isset($count)) {
@@ -321,7 +328,7 @@ class Nag
      *
      * @return array  The alarms (taskId) active on $date.
      */
-    function listAlarms($date, $tasklists = null)
+    public static function listAlarms($date, $tasklists = null)
     {
         if (is_null($tasklists)) {
             $tasklists = $GLOBALS['display_tasklists'];
@@ -360,14 +367,16 @@ class Nag
      *
      * @return array  The task lists.
      */
-    function listTasklists($owneronly = false, $permission = Horde_Perms::SHOW)
+    public static function listTasklists($owneronly = false,
+                                         $permission = Horde_Perms::SHOW)
     {
-        if ($owneronly && !Horde_Auth::getAuth()) {
+        if ($owneronly && !$GLOBALS['registry']->getAuth()) {
             return array();
         }
-        $tasklists = $GLOBALS['nag_shares']->listShares(Horde_Auth::getAuth(), $permission, $owneronly ? Horde_Auth::getAuth() : null, 0, 0, 'name');
-        if (is_a($tasklists, 'PEAR_Error')) {
-            Horde::logMessage($tasklists, __FILE__, __LINE__, PEAR_LOG_ERR);
+        try {
+            $tasklists = $GLOBALS['nag_shares']->listShares($GLOBALS['registry']->getAuth(), $permission, $owneronly ? $GLOBALS['registry']->getAuth() : null, 0, 0, 'name');
+        } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($e->getMessage(), 'ERR');
             return array();
         }
 
@@ -384,7 +393,7 @@ class Nag
      *
      * @return array  The filtered data.
      */
-    function permissionsFilter($in, $permission = Horde_Perms::READ)
+    public static function permissionsFilter($in, $permission = Horde_Perms::READ)
     {
         // FIXME: Must find a way to check individual tasklists for
         // permission.  Can't specify attributes as it does not check for the
@@ -407,7 +416,7 @@ class Nag
      * Returns the default tasklist for the current user at the specified
      * permissions level.
      */
-    function getDefaultTasklist($permission = Horde_Perms::SHOW)
+    public static function getDefaultTasklist($permission = Horde_Perms::SHOW)
     {
         global $prefs;
 
@@ -417,7 +426,7 @@ class Nag
         if (isset($tasklists[$default_tasklist])) {
             return $default_tasklist;
         } elseif ($prefs->isLocked('default_tasklist')) {
-            return Horde_Auth::getAuth();
+            return $GLOBALS['registry']->getAuth();
         } elseif (count($tasklists)) {
             reset($tasklists);
             return key($tasklists);
@@ -433,22 +442,20 @@ class Nag
      *
      * @return Horde_Share  The new share.
      */
-    function addTasklist($info)
+    public static function addTasklist($info)
     {
-        $tasklist = $GLOBALS['nag_shares']->newShare(md5(microtime()));
-        if (is_a($tasklist, 'PEAR_Error')) {
-            return $tasklist;
-        }
-        $tasklist->set('name', $info['name']);
-        $tasklist->set('color', $info['color']);
-        $tasklist->set('desc', $info['description']);
-        if (!empty($info['system'])) {
-            $tasklist->set('owner', null);
-        }
+        try {
+            $tasklist = $GLOBALS['nag_shares']->newShare(strval(new Horde_Support_Uuid()));
+            $tasklist->set('name', $info['name']);
+            $tasklist->set('color', $info['color']);
+            $tasklist->set('desc', $info['description']);
+            if (!empty($info['system'])) {
+                $tasklist->set('owner', null);
+            }
 
-        $result = $GLOBALS['nag_shares']->addShare($tasklist);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
+            $GLOBALS['nag_shares']->addShare($tasklist);
+        } catch (Horde_Share_Exception $e) {
+            throw new Nag_Exception($e);
         }
 
         $GLOBALS['display_tasklists'][] = $tasklist->getName();
@@ -462,22 +469,28 @@ class Nag
      *
      * @param Horde_Share $share  The share to update.
      * @param array $info         Hash with task list information.
+     *
+     * @throws Horde_Exception_PermissionDenied
+     * @throws Nag_Exception
      */
-    public static function updateTasklist(&$tasklist, $info)
+    public static function updateTasklist($tasklist, $info)
     {
-        if (!Horde_Auth::getAuth() ||
-            ($tasklist->get('owner') != Horde_Auth::getAuth() &&
-             (!is_null($tasklist->get('owner')) || !Horde_Auth::isAdmin()))) {
-            return PEAR::raiseError(_("You are not allowed to change this task list."));
+        if (!$GLOBALS['registry']->getAuth() ||
+            ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
+             (!is_null($tasklist->get('owner')) || !$GLOBALS['registry']->isAdmin()))) {
+
+            throw new Horde_Exception_PermissionDenied(_("You are not allowed to change this task list."));
         }
 
         $tasklist->set('name', $info['name']);
         $tasklist->set('color', $info['color']);
         $tasklist->set('desc', $info['description']);
-        $tasklist->set('owner', empty($info['system']) ? Horde_Auth::getAuth() : null);
-        $result = $tasklist->save();
-        if (is_a($result, 'PEAR_Error')) {
-            return PEAR::raiseError(sprintf(_("Unable to save task list \"%s\": %s"), $info['name'], $result->getMessage()));
+        $tasklist->set('owner', empty($info['system']) ? $GLOBALS['registry']->getAuth() : null);
+
+        try {
+            $tasklist->save();
+        } catch (Horde_Share_Exception $e) {
+            throw new Nag_Exception(sprintf(_("Unable to save task list \"%s\": %s"), $info['name'], $e->getMessage()));
         }
     }
 
@@ -488,25 +501,29 @@ class Nag
      */
     public static function deleteTasklist($tasklist)
     {
-        if ($tasklist->getName() == Horde_Auth::getAuth()) {
-            return PEAR::raiseError(_("This task list cannot be deleted."));
+        if ($tasklist->getName() == $GLOBALS['registry']->getAuth()) {
+            throw new Horde_Exception_PermissionDenied(_("This task list cannot be deleted."));
         }
 
-        if (!Horde_Auth::getAuth() ||
-            ($tasklist->get('owner') != Horde_Auth::getAuth() &&
-             (!is_null($tasklist->get('owner')) || !Horde_Auth::isAdmin()))) {
-            return PEAR::raiseError(_("You are not allowed to delete this task list."));
+        if (!$GLOBALS['registry']->getAuth() ||
+            ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
+             (!is_null($tasklist->get('owner')) || !$GLOBALS['registry']->isAdmin()))) {
+            throw new Horde_Exception_PermissionDenied(_("You are not allowed to delete this task list."));
         }
 
         // Delete the task list.
         $storage = &Nag_Driver::singleton($tasklist->getName());
         $result = $storage->deleteAll();
-        if (is_a($result, 'PEAR_Error')) {
-            return PEAR::raiseError(sprintf(_("Unable to delete \"%s\": %s"), $tasklist->get('name'), $result->getMessage()));
+        if ($result instanceof PEAR_Error) {
+            throw new Nag_Exception(sprintf(_("Unable to delete \"%s\": %s"), $tasklist->get('name'), $result->getMessage()));
         }
 
         // Remove share and all groups/permissions.
-        return $GLOBALS['nag_shares']->removeShare($tasklist);
+        try {
+            return $GLOBALS['nag_shares']->removeShare($tasklist);
+        } catch (Horde_Share_Exception $e) {
+            throw new Nag_Exception($e);
+        }
     }
 
     /**
@@ -517,7 +534,7 @@ class Nag
      *
      * @return string  The HTML <select> widget.
      */
-    function buildPriorityWidget($name, $selected = -1)
+    public static function buildPriorityWidget($name, $selected = -1)
     {
         $descs = array(1 => _("(highest)"), 5 => _("(lowest)"));
 
@@ -540,7 +557,7 @@ class Nag
      *
      * @return string  HTML for a checkbox representing the completion state.
      */
-    function buildCheckboxWidget($name, $checked = 0)
+    public static function buildCheckboxWidget($name, $checked = 0)
     {
         $name = htmlspecialchars($name);
         return "<input type=\"checkbox\" id=\"$name\" name=\"$name\"" .
@@ -555,7 +572,7 @@ class Nag
      *
      * @return string  The formatted due date string.
      */
-    function formatDate($unixdate = '', $hours = true)
+    public static function formatDate($unixdate = '', $hours = true)
     {
         global $prefs;
 
@@ -580,7 +597,7 @@ class Nag
      *
      * @return string  The HTML representation of $completed.
      */
-    function formatCompletion($completed)
+    public static function formatCompletion($completed)
     {
         return $completed ?
             Horde::img('checked.png', _("Completed")) :
@@ -594,7 +611,7 @@ class Nag
      *
      * @return string  The HTML representation of $priority.
      */
-    function formatPriority($priority)
+    public static function formatPriority($priority)
     {
         return '<span class="pri-' . (int)$priority . '">' . (int)$priority .
             '</span>';
@@ -607,7 +624,7 @@ class Nag
      *
      * @return string  The formatted alarm string.
      */
-    function formatAlarm($value)
+    public static function formatAlarm($value)
     {
         if ($value) {
             if ($value % 10080 == 0) {
@@ -638,13 +655,13 @@ class Nag
      *
      * @return string  The formatted assignee name.
      */
-    function formatAssignee($assignee, $link = false)
+    public static function formatAssignee($assignee, $link = false)
     {
         if (!strlen($assignee)) {
             return '';
         }
 
-        $identity = Horde_Prefs_Identity::singleton('none', $assignee);
+        $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($assignee);
         $fullname = $identity->getValue('fullname');
         if (!strlen($fullname)) {
             $fullname = $assignee;
@@ -655,18 +672,17 @@ class Nag
             return Horde::link($GLOBALS['registry']->call(
                                    'mail/compose',
                                    array(array('to' => $email))))
-                . @htmlspecialchars($fullname . ' <' . $email . '>',
-                                    ENT_COMPAT, Horde_Nls::getCharset())
+                . htmlspecialchars($fullname . ' <' . $email . '>')
                 . '</a>';
-        } else {
-            return @htmlspecialchars($fullname, ENT_COMPAT, Horde_Nls::getCharset());
         }
+
+        return htmlspecialchars($fullname);
     }
 
     /**
      * Initial app setup code.
      */
-    function initialize()
+    public static function initialize()
     {
         /* Store the request timestamp if it's not already present. */
         if (!isset($_SERVER['REQUEST_TIME'])) {
@@ -705,7 +721,7 @@ class Nag
 
         if (count($GLOBALS['display_tasklists']) == 0) {
             $lists = Nag::listTasklists(true);
-            if (!Horde_Auth::getAuth()) {
+            if (!$GLOBALS['registry']->getAuth()) {
                 /* All tasklists for guests. */
                 $GLOBALS['display_tasklists'] = array_keys($lists);
             } else {
@@ -716,19 +732,19 @@ class Nag
                 }
 
                 /* If the user's personal tasklist doesn't exist, then create it. */
-                if (!$GLOBALS['nag_shares']->exists(Horde_Auth::getAuth())) {
-                    $identity = Horde_Prefs_Identity::singleton();
+                if (!$GLOBALS['nag_shares']->exists($GLOBALS['registry']->getAuth())) {
+                    $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
                     $name = $identity->getValue('fullname');
                     if (trim($name) == '') {
-                        $name = Horde_Auth::getOriginalAuth();
+                        $name = $GLOBALS['registry']->getAuth('original');
                     }
-                    $share = $GLOBALS['nag_shares']->newShare(Horde_Auth::getAuth());
+                    $share = $GLOBALS['nag_shares']->newShare($GLOBALS['registry']->getAuth());
                     $share->set('name', sprintf(_("%s's Task List"), $name));
                     $GLOBALS['nag_shares']->addShare($share);
 
                     /* Make sure the personal tasklist is displayed by default. */
-                    if (!in_array(Horde_Auth::getAuth(), $GLOBALS['display_tasklists'])) {
-                        $GLOBALS['display_tasklists'][] = Horde_Auth::getAuth();
+                    if (!in_array($GLOBALS['registry']->getAuth(), $GLOBALS['display_tasklists'])) {
+                        $GLOBALS['display_tasklists'][] = $GLOBALS['registry']->getAuth();
                     }
                 }
             }
@@ -738,36 +754,9 @@ class Nag
     }
 
     /**
-     * Build Nag's list of menu items.
+     * Trigger notifications.
      */
-    function getMenu()
-    {
-        global $conf, $registry;
-
-        $menu = new Horde_Menu();
-        $menu->add(Horde::applicationUrl('list.php'), _("_List Tasks"), 'nag.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
-        if (Nag::getDefaultTasklist(Horde_Perms::EDIT) &&
-            (!empty($conf['hooks']['permsdenied']) ||
-             $GLOBALS['perms']->hasAppPermission('max_tasks') === true ||
-             $GLOBALS['perms']->hasAppPermission('max_tasks') > Nag::countTasks())) {
-            $menu->add(Horde::applicationUrl(Horde_Util::addParameter('task.php', 'actionID', 'add_task')), _("_New Task"), 'add.png', null, null, null, Horde_Util::getFormData('task') ? '__noselection' : null);
-            if ($GLOBALS['browser']->hasFeature('dom')) {
-                $menu->add('', _("_Quick Add"), 'add.png', null, null, 'Nag.quickAddPanel.show(); $(\'quickText\').focus(); return false;', Horde_Util::getFormData('task') ? 'quickAdd __noselection' : 'quickAdd');
-            }
-        }
-
-        /* Search. */
-        $menu->add(Horde::applicationUrl('search.php'), _("_Search"), 'search.png', $registry->getImageDir('horde'));
-
-        /* Import/Export. */
-        if ($conf['menu']['import_export']) {
-            $menu->add(Horde::applicationUrl('data.php'), _("_Import/Export"), 'data.png', $registry->getImageDir('horde'));
-        }
-
-        return $menu;
-    }
-
-    function status()
+    public static function status()
     {
         global $notification;
 
@@ -776,7 +765,7 @@ class Nag
             $now = time();
             $alarmList = Nag::listAlarms($now);
             if (is_a($alarmList, 'PEAR_Error')) {
-                Horde::logMessage($alarmList, __FILE__, __LINE__, PEAR_LOG_ERR);
+                Horde::logMessage($alarmList, 'ERR');
                 $notification->push($alarmList, 'horde.error');
             } else {
                 $messages = array();
@@ -787,10 +776,10 @@ class Nag
                         $key++;
                     }
                     if ($differential >= -60 && $differential < 60) {
-                        $messages[$key] = array(sprintf(_("%s is due now."), $task->name), 'nag.alarm');
+                        $messages[$key] = array(sprintf(_("%s is due now."), $task->name), 'horde.alarm');
                     } elseif ($differential >= 60) {
                         $messages[$key] = array(sprintf(_("%s is due in %s"), $task->name,
-                                                        Nag::secondsToString($differential)), 'nag.alarm');
+                                                        Nag::secondsToString($differential)), 'horde.alarm');
                     }
                 }
 
@@ -803,7 +792,7 @@ class Nag
 
         // Check here for guest task lists so that we don't get multiple
         // messages after redirects, etc.
-        if (!Horde_Auth::getAuth() && !count(Nag::listTasklists())) {
+        if (!$GLOBALS['registry']->getAuth() && !count(Nag::listTasklists())) {
             $notification->push(_("No task lists are available to guests."));
         }
 
@@ -820,22 +809,22 @@ class Nag
      * @param Nag_Task $task      The changed task.
      * @param Nag_Task $old_task  The original task if $action is "edit".
      */
-    function sendNotification($action, $task, $old_task = null)
+    public static function sendNotification($action, $task, $old_task = null)
     {
         if (!in_array($action, array('add', 'edit', 'delete'))) {
             return PEAR::raiseError('Unknown event action: ' . $action);
         }
 
-        $share = $GLOBALS['nag_shares']->getShare($task->tasklist);
-        if (is_a($share, 'PEAR_Error')) {
-            return $share;
+        try {
+            $share = $GLOBALS['nag_shares']->getShare($task->tasklist);
+        } catch (Horde_Share_Exception $e) {
+            Horde::logMessage($e->getMessage(), 'ERR');
+            throw new Nag_Exception($e);
         }
 
-        require_once 'Horde/Group.php';
-
-        $groups = Group::singleton();
+        $groups = $GLOBALS['injector']->getInstance('Horde_Group');
         $recipients = array();
-        $identity = Horde_Prefs_Identity::singleton();
+        $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
         $from = $identity->getDefaultFromAddress(true);
 
         $owner = $share->get('owner');
@@ -849,15 +838,14 @@ class Nag
             }
         }
         foreach ($share->listGroups(Horde_Perms::READ) as $group) {
-            $group = $groups->getGroupById($group);
-            if (is_a($group, 'PEAR_Error')) {
+            try {
+                $group = $groups->getGroupById($group);
+                $group_users = $group->listAllUsers();
+            } catch (Horde_Group_Exception $e) {
+                Horde::logMessage($e, 'ERR');
                 continue;
             }
-            $group_users = $group->listAllUsers();
-            if (is_a($group_users, 'PEAR_Error')) {
-                Horde::logMessage($group_users, __FILE__, __LINE__, PEAR_LOG_ERR);
-                continue;
-            }
+
             foreach ($group_users as $user) {
                 if (empty($recipients[$user])) {
                     $recipients[$user] = Nag::_notificationPref($user, 'read', $task->tasklist);
@@ -870,7 +858,7 @@ class Nag
             if (!$vals) {
                 continue;
             }
-            $identity = Horde_Prefs_Identity::singleton('none', $user);
+            $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($user);
             $email = $identity->getValue('from_addr');
             if (strpos($email, '@') === false) {
                 continue;
@@ -893,9 +881,9 @@ class Nag
         $mail->addHeader('From', $from);
 
         foreach ($addresses as $lang => $twentyFour) {
-            Horde_Nls::setLanguageEnvironment($lang);
+            $GLOBALS['registry']->setLanguageEnvironment($lang);
 
-            $view_link = Horde_Util::addParameter(Horde::applicationUrl('view.php', true),
+            $view_link = Horde_Util::addParameter(Horde::url('view.php', true),
                                             array('tasklist' => $task->tasklist,
                                                   'task' => $task->id),
                                             null, false);
@@ -934,15 +922,14 @@ class Nag
                 }
                 if ($old_task->parent_id != $task->parent_id) {
                     $old_parent = $old_task->getParent();
-                    if (!is_a($old_parent, 'PEAR_Error')) {
-                        $parent = $task->getParent();
-                        if (!is_a($parent, 'PEAR_Error')) {
-                            $notification_message .= "\n - "
-                                . sprintf(_("Changed parent task from \"%s\" to \"%s\""),
-                                          $old_parent ? $old_parent->name : _("no parent"),
-                                          $parent ? $parent->name : _("no parent"));
-                        }
+                    $parent = $task->getParent();
+                    if (!is_a($parent, 'PEAR_Error')) {
+                        $notification_message .= "\n - "
+                            . sprintf(_("Changed parent task from \"%s\" to \"%s\""),
+                                      $old_parent ? $old_parent->name : _("no parent"),
+                                      $parent ? $parent->name : _("no parent"));
                     }
+
                 }
                 if ($old_task->category != $task->category) {
                     $notification_message .= "\n - "
@@ -950,12 +937,12 @@ class Nag
                                   $old_task->category, $task->category);
                 }
                 if ($old_task->assignee != $task->assignee) {
-                    $identity = Horde_Prefs_Identity::singleton('none', $old_task->assignee);
+                    $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($old_task->assignee);
                     $old_name = $identity->getValue('fullname');
                     if (!strlen($old_name)) {
                         $old_name = $old_task->assignee;
                     }
-                    $identity = Horde_Prefs_Identity::singleton('none', $task->assignee);
+                    $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($task->assignee);
                     $new_name = $identity->getValue('fullname');
                     if (!strlen($new_name)) {
                         $new_name = $new_task->assignee;
@@ -1015,7 +1002,7 @@ class Nag
                 break;
             }
 
-            $mail->addHeader('Subject', $subject . ' ' . $task->name, Horde_Nls::getCharset());
+            $mail->addHeader('Subject', $subject . ' ' . $task->name, 'UTF-8');
 
             foreach ($twentyFour as $tf => $dateFormat) {
                 foreach ($dateFormat as $df => $df_recipients) {
@@ -1027,17 +1014,13 @@ class Nag
                         $message .= "\n\n" . _("Task description:") . "\n\n" . $task->desc;
                     }
 
-                    $mail->setBody($message, Horde_Nls::getCharset());
+                    $mail->setBody($message, 'UTF-8');
                     $mail->clearRecipients();
                     $mail->addRecipients($df_recipients);
 
                     Horde::logMessage(sprintf('Sending event notifications for %s to %s',
-                                              $task->name, implode(', ', $df_recipients)),
-                                      __FILE__, __LINE__, PEAR_LOG_INFO);
-                    $sent = $mail->send(Horde::getMailerConfig());
-                    if (is_a($sent, 'PEAR_Error')) {
-                        return $sent;
-                    }
+                                              $task->name, implode(', ', $df_recipients)), 'INFO');
+                    $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
                 }
             }
         }
@@ -1046,12 +1029,12 @@ class Nag
     /**
      * Returns the real name, if available, of a user.
      */
-    function getUserName($uid)
+    public static function getUserName($uid)
     {
         static $names = array();
 
         if (!isset($names[$uid])) {
-            $ident = Horde_Prefs_Identity::singleton('none', $uid);
+            $ident = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($uid);
             $ident->setDefault($ident->getDefault());
             $names[$uid] = $ident->getValue('fullname');
             if (empty($names[$uid])) {
@@ -1082,18 +1065,18 @@ class Nag
      *
      * @return boolean  True if the user wants notifications for the tasklist.
      */
-    function _notificationPref($user, $mode, $tasklist = null)
+    public static function _notificationPref($user, $mode, $tasklist = null)
     {
-        $prefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'],
-                                        'nag', $user, '', null,
-                                        false);
-        $prefs->retrieve();
+        $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create('nag', array(
+            'cache' => false,
+            'user' => $user
+        ));
         $vals = array('lang' => $prefs->getValue('language'),
                       'tf' => $prefs->getValue('twentyFour'),
                       'df' => $prefs->getValue('date_format'));
 
         if ($prefs->getValue('task_notification_exclude_self') &&
-            $user == Horde_Auth::getAuth()) {
+            $user == $GLOBALS['registry']->getAuth()) {
             return false;
         }
 
@@ -1124,7 +1107,7 @@ class Nag
      *                  0 if they are equal (though no tasks should ever be
      *                  equal in this comparison).
      */
-    function _sortByIdentity($a, $b)
+    public static function _sortByIdentity($a, $b)
     {
         return strcmp($a->id, $b->id);
     }
@@ -1138,7 +1121,7 @@ class Nag
      * @return integer  1 if task one is greater, -1 if task two is greater;
      *                  0 if they are equal.
      */
-    function _sortByPriority($a, $b)
+    public static function _sortByPriority($a, $b)
     {
         if ($a->priority == $b->priority) {
             return self::_sortByIdentity($a, $b);
@@ -1155,7 +1138,7 @@ class Nag
      * @return integer  -1 if task one is greater, 1 if task two is greater;
      *                  0 if they are equal.
      */
-    function _rsortByPriority($a, $b)
+    public static function _rsortByPriority($a, $b)
     {
         if ($a->priority == $b->priority) {
             return self::_sortByIdentity($b, $a);
@@ -1172,7 +1155,7 @@ class Nag
      * @return integer  1 if task one is greater, -1 if task two is greater;
      *                  0 if they are equal.
      */
-    function _sortByName($a, $b)
+    public static function _sortByName($a, $b)
     {
         return strcasecmp($a->name, $b->name);
     }
@@ -1186,7 +1169,7 @@ class Nag
      * @return integer  -1 if task one is greater, 1 if task two is greater;
      *                  0 if they are equal.
      */
-    function _rsortByName($a, $b)
+    public static function _rsortByName($a, $b)
     {
         return strcasecmp($b->name, $a->name);
     }
@@ -1200,7 +1183,7 @@ class Nag
      * @return integer  1 if task one is greater, -1 if task two is greater;
      *                  0 if they are equal.
      */
-    function _sortByAssignee($a, $b)
+    public static function _sortByAssignee($a, $b)
     {
         return strcasecmp($a->assignee, $b->assignee);
     }
@@ -1214,7 +1197,7 @@ class Nag
      * @return integer  -1 if task one is greater, 1 if task two is greater;
      *                  0 if they are equal.
      */
-    function _rsortByAssignee($a, $b)
+    public static function _rsortByAssignee($a, $b)
     {
         return strcasecmp($b->assignee, $a->assignee);
     }
@@ -1228,7 +1211,7 @@ class Nag
      * @return integer  1 if task one is greater, -1 if task two is greater;
      *                  0 if they are equal.
      */
-    function _sortByEstimate($a, $b)
+    public static function _sortByEstimate($a, $b)
     {
         $a_est = $a->estimation();
         $b_est = $b->estimation();
@@ -1247,7 +1230,7 @@ class Nag
      * @return integer  -1 if task one is greater, 1 if task two is greater;
      *                  0 if they are equal.
      */
-    function _rsortByEstimate($a, $b)
+    public static function _rsortByEstimate($a, $b)
     {
         $a_est = $a->estimation();
         $b_est = $b->estimation();
@@ -1266,7 +1249,7 @@ class Nag
      * @return integer  1 if task one is greater, -1 if task two is greater;
      *                  0 if they are equal.
      */
-    function _sortByCategory($a, $b)
+    public static function _sortByCategory($a, $b)
     {
         return strcasecmp($a->category ? $a->category : _("Unfiled"),
                           $b->category ? $b->category : _("Unfiled"));
@@ -1281,7 +1264,7 @@ class Nag
      * @return integer  -1 if task one is greater, 1 if task two is greater;
      *                  0 if they are equal.
      */
-    function _rsortByCategory($a, $b)
+    public static function _rsortByCategory($a, $b)
     {
         return strcasecmp($b->category ? $b->category : _("Unfiled"),
                           $a->category ? $a->category : _("Unfiled"));
@@ -1296,7 +1279,7 @@ class Nag
      * @return integer  1 if task one is greater, -1 if task two is greater;
      *                  0 if they are equal.
      */
-    function _sortByDue($a, $b)
+    public static function _sortByDue($a, $b)
     {
         if ($a->due == $b->due) {
             return self::_sortByIdentity($a, $b);
@@ -1322,7 +1305,7 @@ class Nag
      * @return integer  -1 if task one is greater, 1 if task two is greater,
      *                  0 if they are equal.
      */
-    function _rsortByDue($a, $b)
+    public static function _rsortByDue($a, $b)
     {
         if ($a->due == $b->due) {
             return self::_sortByIdentity($b, $a);
@@ -1340,6 +1323,58 @@ class Nag
     }
 
     /**
+     * Comparison function for sorting tasks by start date.
+     *
+     * @param array $a  Task one.
+     * @param array $b  Task two.
+     *
+     * @return integer  1 if task one is greater, -1 if task two is greater;
+     *                  0 if they are equal.
+     */
+    public static function _sortByStart($a, $b)
+    {
+        if ($a->start == $b->start) {
+            return self::_sortByIdentity($a, $b);
+        }
+
+        // Treat empty start dates as farthest into the future.
+        if ($a->start == 0) {
+            return 1;
+        }
+        if ($b->start == 0) {
+            return -1;
+        }
+
+        return ($a->start > $b->start) ? 1 : -1;
+    }
+
+    /**
+     * Comparison function for reverse sorting tasks by start date.
+     *
+     * @param array $a  Task one.
+     * @param array $b  Task two.
+     *
+     * @return integer  -1 if task one is greater, 1 if task two is greater,
+     *                  0 if they are equal.
+     */
+    public static function _rsortByStart($a, $b)
+    {
+        if ($a->start == $b->start) {
+            return self::_sortByIdentity($b, $a);
+        }
+
+        // Treat empty start dates as farthest into the future.
+        if ($a->start == 0) {
+            return -1;
+        }
+        if ($b->start == 0) {
+            return 1;
+        }
+
+        return ($a->start < $b->start) ? 1 : -1;
+    }
+
+    /**
      * Comparison function for sorting tasks by completion status.
      *
      * @param array $a  Task one.
@@ -1348,7 +1383,7 @@ class Nag
      * @return integer  1 if task one is greater, -1 if task two is greater;
      *                  0 if they are equal.
      */
-    function _sortByCompletion($a, $b)
+    public static function _sortByCompletion($a, $b)
     {
         if ($a->completed == $b->completed) {
             return self::_sortByIdentity($a, $b);
@@ -1365,7 +1400,7 @@ class Nag
      * @return integer  -1 if task one is greater, 1 if task two is greater;
      *                  0 if they are equal.
      */
-    function _rsortByCompletion($a, $b)
+    public static function _rsortByCompletion($a, $b)
     {
         if ($a->completed == $b->completed) {
             return self::_sortByIdentity($b, $a);
@@ -1382,7 +1417,7 @@ class Nag
      * @return integer  1 if task one is greater, -1 if task two is greater;
      *                  0 if they are equal.
      */
-    function _sortByOwner($a, $b)
+    public static function _sortByOwner($a, $b)
     {
         $ashare = $GLOBALS['nag_shares']->getShare($a->tasklist);
         $bshare = $GLOBALS['nag_shares']->getShare($b->tasklist);
@@ -1390,10 +1425,10 @@ class Nag
         $aowner = $a->tasklist;
         $bowner = $b->tasklist;
 
-        if (!is_a($ashare, 'PEAR_Error') && $aowner != $ashare->get('owner')) {
+        if ($aowner != $ashare->get('owner')) {
             $aowner = $ashare->get('name');
         }
-        if (!is_a($bshare, 'PEAR_Error') && $bowner != $bshare->get('owner')) {
+        if ($bowner != $bshare->get('owner')) {
             $bowner = $bshare->get('name');
         }
 
@@ -1414,7 +1449,7 @@ class Nag
      * @return integer  -1 if task one is greater, 1 if task two is greater;
      *                  0 if they are equal.
      */
-    function _rsortByOwner($a, $b)
+    public static function _rsortByOwner($a, $b)
     {
         $ashare = $GLOBALS['nag_shares']->getShare($a->tasklist);
         $bshare = $GLOBALS['nag_shares']->getShare($b->tasklist);
@@ -1422,10 +1457,10 @@ class Nag
         $aowner = $a->tasklist;
         $bowner = $b->tasklist;
 
-        if (!is_a($ashare, 'PEAR_Error') && $aowner != $ashare->get('owner')) {
+        if ($aowner != $ashare->get('owner')) {
             $aowner = $ashare->get('name');
         }
-        if (!is_a($bshare, 'PEAR_Error') && $bowner != $bshare->get('owner')) {
+        if ($bowner != $bshare->get('owner')) {
             $bowner = $bshare->get('name');
         }
 

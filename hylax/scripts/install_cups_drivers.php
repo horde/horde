@@ -1,21 +1,8 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
-/**
- * $Horde: incubator/hylax/scripts/install_cups_drivers.php,v 1.3 2009/06/10 19:57:57 slusarz Exp $
- */
-
-// No need for auth.
-@define('AUTH_HANDLER', true);
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-$hylax = new Hylax_Application(array('init' => true));
-
-// Make sure no one runs this from the web.
-if (!Horde_Cli::runningFromCLI()) {
-    exit("Must be run from the command line\n");
-}
-
-Horde_Cli::init();
+$hylax = Horde_Registry::appInit('hylax', array('authentication' => 'none', 'cli' => true));
 
 /* The CUPS backend file. */
 $hylafax_backend = file_get_contents(HYLAX_BASE . '/scripts/cups/hylafax');

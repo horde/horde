@@ -5,13 +5,15 @@
  *
  * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package Horde_Text_Filter
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Text_Filter
  */
-class Horde_Text_Filter_JavascriptMinify extends Horde_Text_Filter
+class Horde_Text_Filter_JavascriptMinify extends Horde_Text_Filter_Base
 {
     /**
      * Filter parameters.

@@ -48,7 +48,6 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
             //       Horde to set your current location, maybe with a google
             //       map?
         }
-
         if ($country != 'US') {
             $params['units'] = 'metric';
         }
@@ -180,9 +179,7 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
             throw new TimeObjects_Exception($location->getMessage());
         }
 
-        $date = strptime($forecast['update'], $prefs->getValue('date_format') . ' ' . ($prefs->getValue('twentyFour') ? '%H:%M' : '%I:%M %P'));
-        $day = new Horde_Date(gmmktime($date['tm_hour'], $date['tm_min'], $date['tm_sec'], $date['tm_mon'] + 1, $date['tm_mday'], $date['tm_year'] + 1900));
-
+        $day = new Horde_Date($forecast['update']);
         $objects = array();
         foreach ($forecast['days'] as $which => $data) {
             $day_end = clone $day;
@@ -254,11 +251,10 @@ class TimeObjects_Driver_Weatherdotcom extends TimeObjects_Driver
                                'recurrence' => Horde_Date_Recurrence::RECUR_NONE,
                                'params' => array(),
                                'link' => new Horde_Url('#'),
-                               'icon' =>  (string)Horde::url($GLOBALS['registry']->getImageDir('horde') . '/block/weatherdotcom/23x23/' . ($data['day']['conditionIcon'] == '-' ? 'na' : $data['day']['conditionIcon']) . '.png', true, false));
+                               'icon' =>  (string)Horde::url(Horde_Themes::img('block/weatherdotcom/23x23/' . ($data['day']['conditionIcon'] == '-' ? 'na' : $data['day']['conditionIcon']) . '.png'), true, false));
 
             $day->mday++;
         }
-
         return $objects;
     }
 

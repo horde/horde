@@ -10,7 +10,8 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @package  Horde_Imap_Client
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
+ * @package  Imap_Client
  */
 class Horde_Imap_Client_Sort
 {
@@ -46,13 +47,13 @@ class Horde_Imap_Client_Sort
      *             DEFAULT: Sort by $mbox values.
      * </pre>
      */
-    public static final function sortMailboxes(&$mbox, $options)
+    public static final function sortMailboxes(&$mbox, $options = array())
     {
         if (isset($options['delimiter'])) {
             self::$_delimiter = $options['delimiter'];
         }
 
-        if (empty($options['inbox'])) {
+        if (isset($options['inbox']) && empty($options['inbox'])) {
             self::$_sortinbox = false;
         }
 

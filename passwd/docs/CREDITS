@@ -1,0 +1,106 @@
+=========================
+ Passwd Development Team
+=========================
+
+
+Core Developers
+===============
+
+- Eric Rostetter <eric.rostetter@physics.utexas.edu>
+- Jan Schneider <jan@horde.org>
+
+
+Driver Developers
+=================
+
+- Anton Nekhoroshikh <anton@valuehost.ru>
+- Gaudenz Steinlin <gaudenz@soziologie.ch>
+- Ilya Krel <mail@krel.org>
+- Lucas <screen@brainkrash.com>
+- Luiz R Malheiros (malheiros@gmail.com)
+- Marco Kaiser <bate@php.net>
+- Mattias Webjörn Eriksson <mattias@webjorn.org>
+- Max Kalika <max@horde.org>
+- Mike Cochrane <mike@graftonhall.co.nz>
+- René Lund Jensen <lundeman@tbkol.dk>
+- Samuel Nicolary <sam@nicolary.org>
+- Shane Boulter <sboulter@ariasolutions.com>
+- Stuart Bingë <skbinge@gmail.com>
+- Tjeerd van der Zee <admin@xar.nl>
+
+
+Localization
+============
+
+=====================   ======================================================
+Arabian (Syria)         Platinum Development Team <devteam@platinum-sy.net>
+Brazilian Portuguese    Darci Antonio Tartari <dtartari@portoriogrande.com.br>
+                        Fabio de Almeida <fabiodealmeida@gmail.com>
+Bulgarian               Miroslav Pendev <miro@cybershade.us>
+Catalan                 Joan Jorba Calsina <joan.jorba@rusc.net>
+Chinese (Simplified)    Wenzhuo Zhang <wenzhuo@zhmail.com>
+                        Anna Chen <annachen2008@yahoo.com.cn>
+Chinese (Traditional)   David Chang <david@tmv.gov.tw>
+Croatian                Valentin Vidic <valentin.vidic@carnet.hr>
+Czech                   Pavel Chytil <pavel@chytil.tk>
+Dutch                   Tjeerd van der Zee
+                        Resan Sa-Ardnuam <horde@sa-ardnuam.nl>
+Danish                  Anders Bruun Olsen <anders@bruun-olsen.net>
+                        Brian Truelsen <horde+i18n@briantruelsen.dk>
+Estonian                Toomas Aas <toomas.aas@mail.ee>
+                        Alar Sing <alar.sing@err.ee>
+Finnish                 Tero Matinlassi <terom@iki.fi>
+                        Leena Heino <leena.heino@uta.fi>
+French                  Daniel Huhardeaux <daniel.huhardeaux@tootai.com>
+                        Benoit St-André
+                        Pierre Lachance <pl@pierrelachance.net>
+Galician                Rafael Varela <rafael.varela@usc.es>
+                        Guillermo Mendez <guille@usc.es>
+German                  Jens A Tkotz <jens.tkotz@f2h9.de>
+                        Jan Schneider <jan@horde.org>
+Hungarian               Robert Szokovacs
+                        Gyula Szabo <gyufi@sztaki.hu>
+Indonesian              Slamin <slamin@unej.ac.id>
+Italian                 Gianrico Fichera <gianrico.fichera@itesys.it>
+                        Marko Djukic <marko@oblo.com>
+                        Fabio Pedretti <fabio.pedretti@ing.unibs.it>
+Japanese                Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>
+Lithuanian              Darius Matuliauskas <darius@lnk.lt>
+                        Vilius Šumskas <vilius@lnk.lt>
+Norwegian Nynorsk       Per-Stian Vatne <psv@orsta.org>
+Persian                 MetaNET Amirkabir <persian-horde@metanetworking.com>
+Polish                  Mariusz Zynel <mariusz@solaris-x86.org>
+                        Piotr Adamcio <adamcios@o2.pl>
+                        Tadeusz Lesiecki <lesiecki@tmtsystem.pl>
+                        Piotr Tarnowski <drfugazi@drfugazi.eu.org>
+Portuguese              João César Marigonda <joao@webnow.com.br>
+                        Manuel Menezes de Sequeira <Manuel.Sequeira>
+Romanian                Marius Dragulescu <mariusd@urban-grafx.ro>
+                        Eugen Hoanca <eugenh@urban-grafx.ro>
+Russian                 Illya Belov <belov@iop.irkps.ru>
+Slovak                  Ivan Noris <vix@vazka.sk>
+Slovenian               Duck <duck@obala.net>
+Spanish                 Manuel Perez Ayala <mayala@unex.es>
+Swedish                 Mattias Webjörn Eriksson <mattias@webjorn>
+Turkish                 Middle East Technical University <horde-tr@metu.edu.tr>
+=====================   ======================================================
+
+
+Inactive Developers
+===================
+
+- Mathieu Clabaut
+
+
+Special thanks
+==============
+
+- Thanks to John Wedoff, who helped debug a session/login problem.
+- Thanks to Oliver Schultze (OSL) for help with bug fixes, documentation
+  suggestions, and moral support.
+- Thanks to Tero Tapani Matinlassi for pointing out my bad coding when I
+  rushed the realm changes into effect, and even providing the solution!
+- Thanks to Tjeerd van der Zee and Mattias Webjörn Eriksson for all their help
+  and patience coding the LDAP support.
+- Thanks to Amith Varghese <amith@xalan.com> for various contributions
+  including the LDAP binddn hook.

@@ -9,13 +9,13 @@
  */
 
 require_once dirname(__FILE__) . '/../lib/Application.php';
-new Horde_Application(array('admin' => true));
+Horde_Registry::appInit('horde', array('admin' => true));
 
 $title = _("Command Shell");
 require HORDE_TEMPLATES . '/common-header.inc';
 require HORDE_TEMPLATES . '/admin/menu.inc';
 
-echo '<div style="padding:10px">';
+echo '<div>';
 if ($command = trim(Horde_Util::getFormData('cmd'))) {
     echo '<h1 class="header">' . _("Command") . ':</h1><br />';
     echo '<p class="text"><code>' . nl2br(htmlspecialchars($command)) . '</code></p>';
@@ -40,7 +40,9 @@ if ($command = trim(Horde_Util::getFormData('cmd'))) {
 <form action="cmdshell.php" method="post">
 <?php Horde_Util::pformInput() ?>
 <label for="cmd" class="hidden"><?php echo _("Command") ?></label>
-<textarea class="fixed" id="cmd" name="cmd" rows="10" cols="60">
+<h1 class="header"><?php echo $title ?></h1>
+<br />
+<textarea class="fixed" id="cmd" name="cmd" rows="10" cols="80">
 <?php if (!empty($command)) echo htmlspecialchars($command) ?></textarea>
 <br />
 <input type="submit" class="button" value="<?php echo _("Execute") ?>" />

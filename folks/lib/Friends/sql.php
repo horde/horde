@@ -197,66 +197,17 @@ class Folks_Friends_sql extends Folks_Friends {
      * Attempts to open a persistent connection to the SQL server.
      *
      * @return boolean  True on success.
+     * @throws Horde_Exception
      */
     protected function _connect()
     {
-        $this->_params = Horde::getDriverConfig('storage', 'sql');
+        $this->_params = array_merge(array(
+            'blacklist' => 'folks_blacklist',
+            'friends' => 'folks_friends'
+        ), $this->_params);
 
-        if (!isset($this->_params['database'])) {
-            $this->_params['database'] = '';
-        }
-        if (!isset($this->_params['username'])) {
-            $this->_params['username'] = '';
-        }
-        if (!isset($this->_params['hostspec'])) {
-            $this->_params['hostspec'] = '';
-        }
-        if (!isset($this->_params['friends'])) {
-            $this->_params['friends'] = 'folks_friends';
-        }
-        if (!isset($this->_params['blacklist'])) {
-            $this->_params['blacklist'] = 'folks_blacklist';
-        }
-
-        /* Connect to the SQL server using the supplied parameters. */
-        require_once 'DB.php';
-        $this->_write_db = DB::connect($this->_params,
-                                        array('persistent' => !empty($this->_params['persistent'])));
-        if ($this->_write_db instanceof PEAR_Error) {
-            throw new Horde_Exception($this->_write_db);
-        }
-
-        // Set DB portability options.
-        switch ($this->_write_db->phptype) {
-        case 'mssql':
-            $this->_write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-            break;
-        default:
-            $this->_write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-        }
-
-        /* Check if we need to set up the read DB connection seperately. */
-        if (!empty($this->_params['splitread'])) {
-            $params = array_merge($this->_params, $this->_params['read']);
-            $this->_db = DB::connect($params,
-                                      array('persistent' => !empty($params['persistent'])));
-            if ($this->_db instanceof PEAR_Error) {
-                throw new Horde_Exception($this->_db);
-            }
-
-            // Set DB portability options.
-            switch ($this->_db->phptype) {
-            case 'mssql':
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-                break;
-            default:
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-            }
-
-        } else {
-            /* Default to the same DB handle for the writer too. */
-            $this->_db =& $this->_write_db;
-        }
+        $this->_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('read', 'folks', 'storage');
+        $this->_write_db = $GLOBALS['injector']->getInstance('Horde_Core_Factory_DbPear')->create('rw', 'folks', 'storage');
 
         return true;
     }

@@ -2,7 +2,7 @@
 /**
  * @category   Horde
  * @package    Support
- * @copyright  1999-2009 The Horde Project (http://www.horde.org/)
+ * @copyright  1999-2010 The Horde Project (http://www.horde.org/)
  * @license    http://opensource.org/licenses/bsd-license.php
  */
 
@@ -11,7 +11,7 @@
  *
  * @category   Horde
  * @package    Support
- * @copyright  1999-2009 The Horde Project (http://www.horde.org/)
+ * @copyright  1999-2010 The Horde Project (http://www.horde.org/)
  * @license    http://opensource.org/licenses/bsd-license.php
  */
 class Horde_Support_Backtrace
@@ -117,7 +117,7 @@ class Horde_Support_Backtrace
      *
      * @return string  The backtrace map.
      */
-    public function getMap()
+    public function __toString()
     {
         $count = count($this->_backtrace);
         $pad = strlen($count);

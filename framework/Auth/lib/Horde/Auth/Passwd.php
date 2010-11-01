@@ -3,35 +3,17 @@
  * The Horde_Auth_Passwd:: class provides a passwd-file implementation of
  * the Horde authentication system.
  *
- * Required parameters:
- * <pre>
- * 'filename' - (string) The passwd file to use.
- * </pre>
- *
- * Optional parameters:
- * <pre>
- * 'encryption'       The encryption to use to store the password in
- *                    the table (e.g. plain, crypt, md5-hex,
- *                    md5-base64, smd5, sha, ssha, aprmd5).
- *                    DEFAULT: 'crypt-des'
- * 'lock'             Should we lock the passwd file? (boolean) The password
- *                    file cannot be changed (add, edit, or delete users)
- *                    unless this is true.
- *                    DEFAULT: false<
- * 'show_encryption'  Whether or not to prepend the encryption in the
- *                    password field.
- *                    DEFAULT: 'false'
- * </pre>
- *
  * Copyright 1997-2007 Rasmus Lerdorf <rasmus@php.net>
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
  *
- * @author  Rasmus Lerdorf <rasmus@php.net>
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Horde_Auth
+ * @author   Rasmus Lerdorf <rasmus@php.net>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
+ * @package  Auth
  */
 class Horde_Auth_Passwd extends Horde_Auth_Base
 {
@@ -43,7 +25,7 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
      */
     protected $_capabilities = array(
         'list' => true,
-        'authentication' => true,
+        'authenticate' => true,
     );
 
     /**
@@ -63,7 +45,7 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
     /**
      * Filehandle for lockfile.
      *
-     * @var integer
+     * @var resource
      */
     protected $_fplock;
 
@@ -90,10 +72,30 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
     /**
      * Constructor.
      *
-     * @param array $params  A hash containing connection parameters.
+     * @param array $params  Connection parameters:
+     * <pre>
+     * 'encryption' - (string) The encryption to use to store the password in
+     *                the table (e.g. plain, crypt, md5-hex, md5-base64, smd5,
+     *                sha, ssha, aprmd5).
+     *                DEFAULT: 'crypt-des'
+     * 'filename' - (string) [REQUIRED] The passwd file to use.
+     * 'lock' - (boolean) Should we lock the passwd file? The password file
+     *          cannot be changed (add, edit, or delete users) unless this is
+     *          true.
+     *          DEFAULT: false
+     * 'show_encryption' - (boolean) Whether or not to prepend the encryption
+     *                     in the password field.
+     *                     DEFAULT: false
+     * </pre>
+     *
+     * @throws InvalidArgumentException
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
+        if (!isset($params['filename'])) {
+            throw new InvalidArgumentException('Missing filename parameter.');
+        }
+
         $params = array_merge(array(
             'encryption' => 'crypt-des',
             'lock' => false,
@@ -111,11 +113,11 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
     {
         if ($this->_locked) {
             foreach ($this->_users as $user => $pass) {
+                $data = $user . ':' . $pass;
                 if ($this->_users[$user]) {
-                    fputs($this->_fplock, "$user:$pass:" . $this->_users[$user] . "\n");
-                } else {
-                    fputs($this->_fplock, "$user:$pass\n");
+                    $data .= ':' . $this->_users[$user];
                 }
+                fputs($this->_fplock, $data . "\n");
             }
             rename($this->_lockfile, $this->_params['filename']);
             flock($this->_fplock, LOCK_UN);
@@ -240,8 +242,7 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
      * Find out if a set of login credentials are valid.
      *
      * @param string $userId      The userId to check.
-     * @param array $credentials  An array of login credentials. For MCAL,
-     *                            this must contain a password entry.
+     * @param array $credentials  An array of login credentials.
      *
      * @throws Horde_Auth_Exception
      */
@@ -254,7 +255,9 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
         try {
             $this->_read();
         } catch (Horde_Auth_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            if ($this->_logger) {
+                $this->_logger->log($e, 'ERR');
+            }
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
         }
 
@@ -374,6 +377,7 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
         /* Get a new random password. */
         $password = Horde_Auth::genRandomPassword();
         $this->updateUser($userId, $userId, array('password' => $password));
+
         return $password;
     }
 

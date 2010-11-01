@@ -9,7 +9,6 @@
  *
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
  * @package VFS_ISO
- * @since   Horde 3.0
  */
 class VFS_ISOWriter_RealOutputStrategy_copy extends VFS_ISOWriter_RealOutputStrategy {
 
@@ -46,7 +45,7 @@ class VFS_ISOWriter_RealOutputStrategy_copy extends VFS_ISOWriter_RealOutputStra
             }
 
             if (empty($tmp)) {
-                return PEAR::raiseError(_("Cannot find a temporary directory."));
+                return PEAR::raiseError(Horde_VFS_ISOWriter_Translation::t("Cannot find a temporary directory."));
             }
 
             $this->_tempFilename = tempnam($tmp, 'iso');

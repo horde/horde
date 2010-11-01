@@ -1,0 +1,1649 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Horde Project
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-08-17 17:46+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: edit/friends/invite.php:29
+#, php-format
+msgid "%s Invited to join %s."
+msgstr ""
+
+#: edit/friends/add.php:40
+#, php-format
+msgid "%s added you as a friend on %s"
+msgstr ""
+
+#: edit/friends/approve.php:37
+#, php-format
+msgid "%s approved you as a friend on %s"
+msgstr ""
+
+#: edit/friends/reject.php:36
+#, php-format
+msgid "%s rejected you as a friend on %s"
+msgstr ""
+
+#: user.php:64
+#, php-format
+msgid "%s's profile"
+msgstr ""
+
+#: edit/edit.php:29 edit/edit.php:43
+msgid "--- Select ---"
+msgstr ""
+
+#: scripts/mail.php:139
+msgid "-c, --count                  Limit count"
+msgstr ""
+
+#: scripts/mail.php:140
+msgid "-f, --from                   Limit offset"
+msgstr ""
+
+#: scripts/mail.php:138
+msgid "-h, --help                   Show this help"
+msgstr ""
+
+#: scripts/mail.php:142
+msgid "-p, --password[=password]    Horde login password"
+msgstr ""
+
+#: scripts/mail.php:141
+msgid "-u, --username[=username]    Horde login username"
+msgstr ""
+
+#: edit/friends/add.php:53
+#, php-format
+msgid "A confirmation was send to \"%s\"."
+msgstr ""
+
+#: lib/Friends/shared.php:79 lib/Friends/shared.php:153
+msgid "A group names cannot be empty"
+msgstr ""
+
+#: templates/edit/groups.php:14 templates/edit/activity.php:19
+#: templates/edit/friends.php:16
+msgid "Action"
+msgstr ""
+
+#: activity.php:16 templates/user/user.php:102 templates/user/user.php:341
+#: templates/list/list.php:7 templates/edit/activity.php:18 edit/tabs.php:25
+#: edit/activity.php:19 lib/Forms/Activity.php:22 lib/Forms/Activity.php:24
+msgid "Activity"
+msgstr ""
+
+#: config/prefs.php.dist:30
+msgid "Activity log"
+msgstr ""
+
+#: edit/activity.php:28
+msgid "Activity successfully deleted"
+msgstr ""
+
+#: user.php:56 friends.php:30 edit/activity.php:39
+msgid "Activity successfully posted"
+msgstr ""
+
+#: templates/edit/header.php:22 edit/friends/know.php:35
+msgid "Add"
+msgstr ""
+
+#: templates/user/actions.php:17 templates/user/user.php:123
+#, php-format
+msgid "Add %s as a friend?"
+msgstr ""
+
+#: templates/user/actions.php:20
+#, php-format
+msgid "Add %s to you blacklist?"
+msgstr ""
+
+#: lib/Forms/AddFriend.php:19
+msgid "Add / Remove"
+msgstr ""
+
+#: templates/user/actions.php:14 templates/user/actions.php:15
+msgid "Add a comment"
+msgstr ""
+
+#: templates/friends/friends.php:25 edit/friends/add.php:18
+#: lib/Block/know.php:45
+msgid "Add friend"
+msgstr ""
+
+#: edit/friends/groups.php:79
+msgid "Add group"
+msgstr ""
+
+#: edit/friends/add.php:63 edit/friends/blacklist.php:77
+msgid "Add or remove user"
+msgstr ""
+
+#: templates/user/user.php:148 templates/user/user.php:173
+#: templates/user/user.php:198 templates/user/user.php:225
+#: templates/user/user.php:251 templates/user/user.php:279
+#: templates/user/user.php:305 templates/user/user.php:338
+msgid "Add your content"
+msgstr ""
+
+#: account/signup.php:43
+#, php-format
+msgid "Added \"%s\" to the system. You can log in now."
+msgstr ""
+
+#: edit/friends/approve.php:49
+#, php-format
+msgid "Added user %s as a friend."
+msgstr ""
+
+#: report.php:28
+msgid "Advertisement content"
+msgstr ""
+
+#: templates/user/user.php:81 templates/list/list.php:28
+msgid "Age"
+msgstr ""
+
+#: lib/Forms/Search.php:23
+msgid "Age from"
+msgstr ""
+
+#: lib/Forms/Search.php:24
+msgid "Age to"
+msgstr ""
+
+#: templates/list/list.php:36
+msgid "Albums"
+msgstr ""
+
+#: templates/edit/header.php:24 edit/friends/index.php:17
+#: lib/Block/friends.php:35
+msgid "All"
+msgstr ""
+
+#: templates/list/list.php:10
+msgid "All users"
+msgstr ""
+
+#: edit/privacy.php:32
+msgid "All visitors"
+msgstr ""
+
+#: edit/comments.php:27
+msgid "Any one"
+msgstr ""
+
+#: templates/edit/activity.php:16
+msgid "Application"
+msgstr ""
+
+#: config/prefs.php.dist:129
+msgid ""
+"Application you would like NOT to log activitiy when you post a new PUBLIC "
+"COMMENT"
+msgstr ""
+
+#: config/prefs.php.dist:114
+msgid ""
+"Application you would like NOT to log your activitiy when you post a new "
+"PUBLIC CONTENT."
+msgstr ""
+
+#: edit/friends/for.php:39
+msgid "Approve"
+msgstr ""
+
+#: lib/Folks.php:142 lib/Folks.php:146
+msgid "Aquarius"
+msgstr ""
+
+#: lib/Folks.php:150 lib/Folks.php:154
+msgid "Aries"
+msgstr ""
+
+#: config/prefs.php.dist:50
+msgid "Ascesending"
+msgstr ""
+
+#: perms.php:42
+msgid "Attempt to edit a non-existent share."
+msgstr ""
+
+#: edit/comments.php:28
+msgid "Authenticated users"
+msgstr ""
+
+#: services.php:16
+msgid "Available services"
+msgstr ""
+
+#: birthday.php:16 templates/list/list.php:9 edit/edit.php:28
+msgid "Birthday"
+msgstr ""
+
+#: templates/user/actions.php:21 templates/edit/header.php:34 edit/tabs.php:22
+#: edit/friends/blacklist.php:18
+msgid "Blacklist"
+msgstr ""
+
+#: edit/friends/invite.php:31
+msgid "Body"
+msgstr ""
+
+#: report.php:26 edit/friends/groups.php:54 edit/friends/groups.php:60
+msgid "Cancel"
+msgstr ""
+
+#: lib/Folks.php:162 lib/Folks.php:166
+msgid "Cancer"
+msgstr ""
+
+#: scripts/mail-filter.php:103
+msgid "Cannot authenticate at mail server:"
+msgstr ""
+
+#: account/resetpassword.php:39
+msgid "Cannot reset password automatically, contact your administrator."
+msgstr ""
+
+#: lib/Folks.php:282
+msgid "Cannot retrieve user email."
+msgstr ""
+
+#: lib/Folks.php:142 lib/Folks.php:186
+msgid "Capricorn"
+msgstr ""
+
+#: edit/password.php:26
+msgid "Change Your Password"
+msgstr ""
+
+#: edit/password.php:31
+msgid "Choose a password"
+msgstr ""
+
+#: templates/user/user.php:97 templates/list/list.php:30 edit/edit.php:30
+#: lib/Forms/Search.php:20 lib/Forms/Search.php:22
+msgid "City"
+msgstr ""
+
+#: templates/user/private.php:9
+msgid "Click here"
+msgstr ""
+
+#: save_search.php:17 save_search.php:48
+msgid "Close"
+msgstr ""
+
+#: lib/Api.php:83
+#, php-format
+msgid "Commented user %s."
+msgstr ""
+
+#: edit/tabs.php:30 edit/comments.php:18
+msgid "Comments"
+msgstr ""
+
+#: edit/comments.php:54
+msgid "Comments deleted successfuly"
+msgstr ""
+
+#: account/approve.php:15
+msgid "Confirm email"
+msgstr ""
+
+#: config/hooks.php.dist:336
+msgid "Confirmation code"
+msgstr ""
+
+#: account/resetpassword.php:47 edit/password.php:29 edit/password.php:182
+msgid "Continue"
+msgstr ""
+
+#: report.php:31
+msgid "Copyright infringement"
+msgstr ""
+
+#: account/username.php:30
+msgid "Could not find any username with this email."
+msgstr ""
+
+#: edit/facebook.php:22 lib/Notification/facebook.php:134
+#, php-format
+msgid ""
+"Could not find authorization for %s to interact with your Facebook account."
+msgstr ""
+
+#: account/resetpassword.php:112
+msgid ""
+"Could not reset the password for the requested user. Some or all of the "
+"details are not correct. Try again or contact your administrator if you need "
+"further help."
+msgstr ""
+
+#: scripts/mail.php:22
+msgid "Couldn't read command-line options."
+msgstr ""
+
+#: edit/edit.php:31
+msgid "Country"
+msgstr ""
+
+#: edit/password.php:30
+msgid "Current password"
+msgstr ""
+
+#: templates/edit/activity.php:17
+msgid "Date"
+msgstr ""
+
+#: scripts/mail-filter.php:162
+#, php-format
+msgid ""
+"Dear %s, we tried to send you an email, but if turns out that the mail is "
+"usable any more. Maybe you run over quota. If your mail is discontinued, "
+"please update your profile with the email you are using now at %s."
+msgstr ""
+
+#: templates/list/search.php:14 templates/edit/groups.php:27
+#: templates/edit/activity.php:31
+msgid "Delete"
+msgstr ""
+
+#: edit/comments.php:39 edit/comments.php:46
+msgid "Delete all current comments"
+msgstr ""
+
+#: edit/edit.php:51 edit/edit.php:75
+msgid "Delete picture"
+msgstr ""
+
+#: config/prefs.php.dist:49
+msgid "Descesending"
+msgstr ""
+
+#: templates/user/user.php:325 templates/list/list.php:34 edit/edit.php:49
+#: lib/Forms/Search.php:20
+msgid "Description"
+msgstr ""
+
+#: templates/edit/groups.php:27
+msgid "Do you really want to delete this group?"
+msgstr ""
+
+#: report.php:22
+msgid "Do you really want to report this user?"
+msgstr ""
+
+#: lib/Block/random.php:39
+msgid "Does not metter"
+msgstr ""
+
+#: account/tabs.php:23
+msgid "Don't have an account? Sign up."
+msgstr ""
+
+#: lib/Notification/mail.php:22
+msgid "E-mail"
+msgstr ""
+
+#: perms.php:220
+msgid "Edit Permissions"
+msgstr ""
+
+#: perms.php:222
+#, php-format
+msgid "Edit Permissions for %s"
+msgstr ""
+
+#: templates/friends/friends.php:61
+msgid "Edit activities"
+msgstr ""
+
+#: templates/friends/friends.php:9
+msgid "Edit friends"
+msgstr ""
+
+#: templates/user/user.php:122
+msgid "Edit my firends"
+msgstr ""
+
+#: edit/edit.php:18 edit/tabs.php:20
+msgid "Edit my profile"
+msgstr ""
+
+#: lib/Folks.php:297
+msgid "Edit profile"
+msgstr ""
+
+#: edit/edit.php:27
+msgid "Email"
+msgstr ""
+
+#: scripts/mail-filter.php:161
+msgid "Email problem"
+msgstr ""
+
+#: edit/friends/groups.php:84
+msgid "Enter custom name"
+msgstr ""
+
+#: lib/Forms/Login.php:23
+#, php-format
+msgid "Enter the username you registered to %s"
+msgstr ""
+
+#: lib/Forms/Login.php:26
+msgid "Enter your password. Please be aware that password is case sensitive."
+msgstr ""
+
+#: edit/tabs.php:34 edit/facebook.php:18 lib/Notification/facebook.php:32
+msgid "Facebook"
+msgstr ""
+
+#: templates/user/user.php:255
+msgid "Faces"
+msgstr ""
+
+#: templates/user/user.php:255
+msgid "Faces in user galleries"
+msgstr ""
+
+#: templates/edit/header.php:42
+msgid "Feeds"
+msgstr ""
+
+#: templates/user/user.php:94 templates/list/list.php:69 edit/edit.php:29
+#: lib/Forms/Search.php:21
+msgid "Female"
+msgstr ""
+
+#: account/tabs.php:27
+msgid "Forgot your password?"
+msgstr ""
+
+#: account/username.php:17 account/tabs.php:30
+msgid "Forgot your username?"
+msgstr ""
+
+#: templates/user/actions.php:10
+msgid "Forward"
+msgstr ""
+
+#: templates/user/actions.php:18
+msgid "Friend"
+msgstr ""
+
+#: edit/friends/invite.php:49
+#, php-format
+msgid "Friend \"%s\" was invited to join %s."
+msgstr ""
+
+#: edit/friends/invite.php:26
+msgid "Friend's e-mail"
+msgstr ""
+
+#: friends.php:21 templates/user/user.php:125 templates/edit/header.php:1
+#: edit/tabs.php:23 edit/friends/friends.php:18 lib/Folks.php:296
+#: lib/Friends/prefs.php:163 lib/Friends/sql.php:193 lib/Block/friends.php:3
+#: lib/Block/friends.php:22
+msgid "Friends"
+msgstr ""
+
+#: lib/Api.php:236
+msgid "Friends Birthdays"
+msgstr ""
+
+#: templates/friends/friends.php:10 rss/activity.php:52
+#: lib/Block/activities.php:3 lib/Block/activities.php:22
+msgid "Friends activities"
+msgstr ""
+
+#: templates/common-header.inc:27 templates/edit/header.php:46
+msgid "Friends activity"
+msgstr ""
+
+#: edit/friends/from.php:17
+msgid "Friends we are waiting approval from"
+msgstr ""
+
+#: lib/Folks.php:158 lib/Folks.php:162
+msgid "Gemini"
+msgstr ""
+
+#: templates/user/user.php:93 templates/list/list.php:26 edit/edit.php:29
+#: lib/Forms/Search.php:21
+msgid "Gender"
+msgstr ""
+
+#: templates/edit/groups.php:12
+msgid "Group"
+msgstr ""
+
+#: edit/friends/groups.php:41
+#, php-format
+msgid "Group \"%s\" has been deleted."
+msgstr ""
+
+#: edit/friends/groups.php:69
+#, php-format
+msgid "Group \"%s\" has been renamed to \"%s\"."
+msgstr ""
+
+#: edit/friends/groups.php:61
+#, php-format
+msgid "Group \"%s\" has not been renamed."
+msgstr ""
+
+#: edit/friends/groups.php:100
+#, php-format
+msgid "Group \"%s\" was success added."
+msgstr ""
+
+#: edit/tabs.php:24 edit/friends/groups.php:18
+msgid "Groups"
+msgstr ""
+
+#: templates/user/user.php:29
+msgid "Has no picture"
+msgstr ""
+
+#: scripts/mail-filter.php:145 scripts/mail-filter.php:156
+msgid "Have no one to notify"
+msgstr ""
+
+#: templates/user/user.php:111 templates/list/list.php:32 edit/edit.php:33
+msgid "Homepage"
+msgstr ""
+
+#: config/prefs.php.dist:16
+msgid "How to preview users"
+msgstr ""
+
+#: account/resetpassword.php:73
+msgid "Human check"
+msgstr ""
+
+#: templates/edit/header.php:33
+msgid "I am friend of"
+msgstr ""
+
+#: templates/user/user.php:112
+msgid "I don't have it"
+msgstr ""
+
+#: templates/edit/header.php:23
+msgid "Invite"
+msgstr ""
+
+#: edit/friends/invite.php:18
+msgid "Invite friend"
+msgstr ""
+
+#: lib/Forms/Search.php:26
+msgid "Is online"
+msgstr ""
+
+#: templates/user/user.php:75
+msgid "Last activity"
+msgstr ""
+
+#: lib/Block/my_comments.php:3 lib/Block/my_comments.php:29
+msgid "Last comments on my profile"
+msgstr ""
+
+#: templates/user/user.php:57
+msgid "Last time online"
+msgstr ""
+
+#: lib/Folks.php:166 lib/Folks.php:170
+msgid "Leo"
+msgstr ""
+
+#: lib/Folks.php:174 lib/Folks.php:178
+msgid "Libra"
+msgstr ""
+
+#: lib/Block/random.php:32 lib/Block/new.php:32 lib/Block/recent.php:32
+msgid "Limit"
+msgstr ""
+
+#: list.php:16 templates/list/list.php:10 lib/Folks.php:300
+msgid "List"
+msgstr ""
+
+#: config/prefs.php.dist:99
+msgid "Log account changes?"
+msgstr ""
+
+#: config/prefs.php.dist:89
+msgid "Log when we comment a user?"
+msgstr ""
+
+#: scripts/mail.php:71
+#, php-format
+msgid "Logged in successfully as \"%s\"."
+msgstr ""
+
+#: account/tabs.php:20 lib/Forms/Login.php:20
+msgid "Login"
+msgstr ""
+
+#: scripts/mail.php:67
+msgid "Login is incorrect."
+msgstr ""
+
+#: login.php:56
+msgid "Login reminder"
+msgstr ""
+
+#: login.php:126
+#, php-format
+msgid "Login to %s"
+msgstr ""
+
+#: templates/user/actions.php:9
+msgid "Look at this profile"
+msgstr ""
+
+#: templates/user/user.php:94 templates/list/list.php:69 edit/edit.php:29
+#: lib/Forms/Search.php:21
+msgid "Male"
+msgstr ""
+
+#: scripts/mail.php:136
+msgid ""
+"Mandatory arguments to long options are mandatory for short options too."
+msgstr ""
+
+#: lib/Forms/Search.php:25
+msgid "Mast have"
+msgstr ""
+
+#: templates/edit/groups.php:24
+msgid "Members"
+msgstr ""
+
+#: templates/edit/header.php:30
+msgid "Might know"
+msgstr ""
+
+#: edit/comments.php:29
+msgid "Moderate comments - I will approve every single comment"
+msgstr ""
+
+#: config/prefs.php.dist:23
+msgid "Modify account preferences"
+msgstr ""
+
+#: templates/list/list.php:7
+msgid "Most active users"
+msgstr ""
+
+#: templates/list/list.php:6
+msgid "Most popular users"
+msgstr ""
+
+#: lib/Folks.php:295
+msgid "My profile"
+msgstr ""
+
+#: templates/list/search.php:11
+msgid "My queries"
+msgstr ""
+
+#: save_search.php:46 edit/friends/groups.php:83 edit/friends/groups.php:84
+#: lib/Forms/Search.php:20
+msgid "Name"
+msgstr ""
+
+#: new.php:16 templates/list/list.php:4
+msgid "New"
+msgstr ""
+
+#: edit/friends/groups.php:57
+msgid "New name"
+msgstr ""
+
+#: templates/list/list.php:4
+msgid "New registered user"
+msgstr ""
+
+#: lib/Block/new.php:3 lib/Block/new.php:22
+msgid "New users"
+msgstr ""
+
+#: templates/list/list.php:77 templates/list/list.php:78
+#: templates/list/list.php:79 templates/list/list.php:80 edit/privacy.php:48
+#: config/prefs.php.dist:67 config/prefs.php.dist:77 config/prefs.php.dist:87
+#: config/prefs.php.dist:97
+msgid "No"
+msgstr ""
+
+#: lib/Friends/facebook.php:71 lib/Notification/facebook.php:127
+msgid "No Facebook integration exists."
+msgstr ""
+
+#: edit/privacy.php:35 edit/comments.php:26
+msgid "No one"
+msgstr ""
+
+#: templates/edit/friends.php:6
+msgid "No user listed"
+msgstr ""
+
+#: templates/list/list.php:16
+msgid "No users found under selected criteria"
+msgstr ""
+
+#: lib/Forms/Login.php:29
+msgid "No, only for this view"
+msgstr ""
+
+#: lib/Notification.php:253
+#, php-format
+msgid "Notification driver %s does not exists."
+msgstr ""
+
+#: config/prefs.php.dist:69
+msgid "Notify friends that I loged in"
+msgstr ""
+
+#: edit/privacy.php:48
+msgid "Notify online friends that I logged in"
+msgstr ""
+
+#: lib/Block/activities.php:32
+msgid "Number of activities to display"
+msgstr ""
+
+#: lib/Block/my_comments.php:17
+msgid "Number of comments to display"
+msgstr ""
+
+#: config/prefs.php.dist:59
+msgid "Number of users perpage"
+msgstr ""
+
+#: report.php:30
+msgid "Offensive content"
+msgstr ""
+
+#: templates/block/users.php:17 templates/user/user.php:50
+#: templates/edit/friends.php:31 lib/Block/friends.php:37
+msgid "Offline"
+msgstr ""
+
+#: edit/friends/groups.php:55
+msgid "Old name"
+msgstr ""
+
+#: online.php:16 templates/block/users.php:15 templates/user/user.php:48
+#: templates/list/list.php:3 templates/edit/friends.php:29
+#: lib/Block/random.php:38 lib/Block/friends.php:36
+msgid "Online"
+msgstr ""
+
+#: templates/common-header.inc:26 templates/edit/header.php:45
+#: rss/friends.php:48
+msgid "Online friends"
+msgstr ""
+
+#: templates/common-header.inc:24 templates/edit/header.php:44
+#: rss/online.php:24
+msgid "Online users"
+msgstr ""
+
+#: edit/privacy.php:33
+msgid "Only authenticated users"
+msgstr ""
+
+#: templates/user/user.php:383 templates/user/user.php:392
+msgid "Only authenticated users can post comments."
+msgstr ""
+
+#: edit/privacy.php:34
+msgid "Only my friedns"
+msgstr ""
+
+#: perms.php:55
+msgid ""
+"Only the owner or system administrator may change ownership or owner "
+"permissions for a share"
+msgstr ""
+
+#: templates/user/user.php:151 templates/user/user.php:176
+#: templates/user/user.php:201 templates/user/user.php:228
+#: templates/user/user.php:254 templates/user/user.php:282
+#: templates/user/user.php:308
+msgid "Others user content"
+msgstr ""
+
+#: templates/edit/groups.php:13
+msgid "Owner"
+msgstr ""
+
+#: edit/tabs.php:26 lib/Forms/Login.php:26
+msgid "Password"
+msgstr ""
+
+#: edit/password.php:159
+msgid "Password changed."
+msgstr ""
+
+#: templates/common-header.inc:28 templates/friends/friends.php:19
+#: templates/edit/header.php:47 edit/friends/know.php:17 rss/know.php:61
+#: lib/Block/know.php:3 lib/Block/know.php:22
+msgid "People you might know"
+msgstr ""
+
+#: templates/edit/groups.php:28
+msgid "Permissions"
+msgstr ""
+
+#: edit/edit.php:50 lib/Forms/Search.php:25
+msgid "Picture"
+msgstr ""
+
+#: lib/Folks.php:146 lib/Folks.php:150
+msgid "Pisces"
+msgstr ""
+
+#: lib/Forms/Login.php:39
+msgid "Please enter the text above"
+msgstr ""
+
+#: account/resetpassword.php:68
+msgid "Please respond to your security question: "
+msgstr ""
+
+#: popularity.php:16 templates/user/user.php:106 templates/list/list.php:6
+msgid "Popularity"
+msgstr ""
+
+#: lib/Forms/Activity.php:27
+msgid "Post"
+msgstr ""
+
+#: templates/user/user.php:149 templates/user/user.php:174
+#: templates/user/user.php:199 templates/user/user.php:226
+#: templates/user/user.php:252 templates/user/user.php:280
+#: templates/user/user.php:306 templates/user/user.php:339
+#: config/prefs.php.dist:15
+msgid "Preview"
+msgstr ""
+
+#: edit/privacy.php:18 edit/tabs.php:21
+msgid "Privacy"
+msgstr ""
+
+#: edit/privacy.php:30
+msgid "Private"
+msgstr ""
+
+#: edit/privacy.php:26
+msgid "Public"
+msgstr ""
+
+#: edit/privacy.php:27
+msgid "Public - only authenticated users can see my personal data"
+msgstr ""
+
+#: edit/privacy.php:29
+msgid "Public - only my friends can see my presonal data"
+msgstr ""
+
+#: lib/Block/random.php:3 lib/Block/random.php:22
+msgid "Random users"
+msgstr ""
+
+#: lib/Block/recent.php:3 lib/Block/recent.php:22
+msgid "Recent visitors"
+msgstr ""
+
+#: edit/friends/for.php:43
+msgid "Reject"
+msgstr ""
+
+#: lib/Forms/Login.php:28
+msgid "Remember login?"
+msgstr ""
+
+#: edit/friends/index.php:35 edit/friends/blacklist.php:71
+#: edit/friends/friends.php:36
+msgid "Remove"
+msgstr ""
+
+#: templates/edit/groups.php:26 edit/friends/groups.php:54
+#: edit/friends/groups.php:63
+msgid "Rename"
+msgstr ""
+
+#: edit/friends/groups.php:51
+msgid "Rename group"
+msgstr ""
+
+#: account/renew.php:15
+msgid "Renew account"
+msgstr ""
+
+#: report.php:26 report.php:43 templates/user/actions.php:24
+msgid "Report"
+msgstr ""
+
+#: report.php:38 report.php:47
+msgid "Report reason"
+msgstr ""
+
+#: report.php:37 report.php:46
+msgid "Report type"
+msgstr ""
+
+#: templates/user/actions.php:23
+msgid "Report user"
+msgstr ""
+
+#: config/prefs.php.dist:79
+msgid ""
+"Require my confirmation if someone would like to add me to his freidn list."
+msgstr ""
+
+#: edit/password.php:182 edit/friends/groups.php:54
+msgid "Reset"
+msgstr ""
+
+#: account/resetpassword.php:45
+msgid "Reset Your Password"
+msgstr ""
+
+#: lib/Folks.php:182 lib/Folks.php:186
+msgid "Sagittarius"
+msgstr ""
+
+#: save_search.php:48 edit/edit.php:51 edit/edit.php:56 edit/comments.php:39
+msgid "Save"
+msgstr ""
+
+#: templates/list/search.php:3
+msgid "Save search criteria"
+msgstr ""
+
+#: lib/Folks.php:178 lib/Folks.php:182
+msgid "Scorpio"
+msgstr ""
+
+#: search.php:17 lib/Folks.php:299 lib/Forms/Search.php:27
+msgid "Search"
+msgstr ""
+
+#: lib/Forms/Search.php:20
+msgid "Search by"
+msgstr ""
+
+#: save_search.php:37
+msgid "Search criteria deleted."
+msgstr ""
+
+#: save_search.php:27
+msgid "Search criteria saved successfuly"
+msgstr ""
+
+#: account/resetpassword.php:70 edit/password.php:187
+msgid "Security answer"
+msgstr ""
+
+#: edit/password.php:184
+msgid "Security question"
+msgstr ""
+
+#: edit/password.php:181
+msgid "Security question used when reseting password"
+msgstr ""
+
+#: account/username.php:19
+msgid "Send me my username"
+msgstr ""
+
+#: templates/friends/friends.php:32 templates/friends/friends.php:51
+#: templates/user/actions.php:7 edit/friends/know.php:44
+#: edit/friends/for.php:48 edit/friends/index.php:44 edit/friends/of.php:40
+#: edit/friends/from.php:40 edit/friends/friends.php:45
+#: lib/Block/random.php:65 lib/Block/know.php:52 lib/Block/new.php:64
+#: lib/Block/recent.php:59 lib/Block/friends.php:86
+msgid "Send message"
+msgstr ""
+
+#: templates/user/actions.php:6
+msgid "Send private message"
+msgstr ""
+
+#: templates/user/actions.php:9
+msgid "Send this profile to a friend"
+msgstr ""
+
+#: lib/Folks.php:298
+msgid "Services"
+msgstr ""
+
+#: config/prefs.php.dist:24
+msgid "Set account action details"
+msgstr ""
+
+#: config/prefs.php.dist:31
+msgid "Set activity preferences"
+msgstr ""
+
+#: config/prefs.php.dist:17
+msgid "Set users preview paramaters"
+msgstr ""
+
+#: config/prefs.php.dist:22 config/prefs.php.dist:29
+msgid "Settings"
+msgstr ""
+
+#: lib/Block/friends.php:32
+msgid "Show friends that are"
+msgstr ""
+
+#: account/signup.php:52
+msgid "Sign up"
+msgstr ""
+
+#: templates/list/list.php:20 templates/list/list.php:41
+msgid "Sort Direction"
+msgstr ""
+
+#: config/prefs.php.dist:41 config/prefs.php.dist:51
+msgid "Sort by"
+msgstr ""
+
+#: templates/list/list.php:27
+msgid "Sort by Age"
+msgstr ""
+
+#: templates/list/list.php:35
+msgid "Sort by Albums"
+msgstr ""
+
+#: templates/list/list.php:29
+msgid "Sort by City"
+msgstr ""
+
+#: templates/list/list.php:33
+msgid "Sort by Description"
+msgstr ""
+
+#: templates/list/list.php:25
+msgid "Sort by Gender"
+msgstr ""
+
+#: templates/list/list.php:31
+msgid "Sort by Homepage"
+msgstr ""
+
+#: templates/list/list.php:23
+msgid "Sort by Username"
+msgstr ""
+
+#: templates/list/list.php:37
+msgid "Sort by Video"
+msgstr ""
+
+#: templates/user/user.php:44 templates/edit/friends.php:15
+#: edit/privacy.php:39
+msgid "Status"
+msgstr ""
+
+#: edit/friends/invite.php:28
+msgid "Subject"
+msgstr ""
+
+#: account/signup.php:38
+#, php-format
+msgid ""
+"Submitted request to add \"%s\" to the system. You cannot log in until your "
+"request has been approved."
+msgstr ""
+
+#: lib/Folks.php:154 lib/Folks.php:158
+msgid "Taurus"
+msgstr ""
+
+#: report.php:29
+msgid "Terms and conditions infringement"
+msgstr ""
+
+#: account/approve.php:60 account/renew.php:60
+msgid ""
+"The code is not right. If you copy and paste the link from your email, "
+"please check if you copied the whole string."
+msgstr ""
+
+#: account/resetpassword.php:72
+msgid ""
+"The picture above is for antispam checking. Please retype the characters "
+"from the picture. They are case sensitive."
+msgstr ""
+
+#: config/hooks.php.dist:286
+msgid "There is already an user registered with this email"
+msgstr ""
+
+#: config/hooks.php.dist:284
+msgid "There is already an user registered with this username"
+msgstr ""
+
+#: templates/edit/activity.php:7
+msgid "There is no activity logged for your account."
+msgstr ""
+
+#: account/signup.php:48
+#, php-format
+msgid "There was a problem adding \"%s\" to the system: %s"
+msgstr ""
+
+#: config/hooks.php.dist:241
+msgid "There was an error login into your mail account."
+msgstr ""
+
+#: login.php:187
+msgid "This account was deleted or is expired."
+msgstr ""
+
+#: login.php:181
+msgid ""
+"This account was still not activated. Check your inbox, we send you the "
+"activation code there."
+msgstr ""
+
+#: lib/Block/my_comments.php:53
+msgid "Title"
+msgstr ""
+
+#: lib/Friends/application.php:23 lib/Friends/application.php:38
+#: lib/Friends/application.php:53 lib/Friends/application.php:68
+#: lib/Friends/application.php:83 lib/Friends/application.php:98
+msgid "Unsupported"
+msgstr ""
+
+#: perms.php:212
+#, php-format
+msgid "Updated \"%s\"."
+msgstr ""
+
+#: edit/edit.php:67
+msgid "Updated his/her profile details."
+msgstr ""
+
+#: edit/edit.php:69
+msgid "Updated his/her profile picture."
+msgstr ""
+
+#: edit/edit.php:42
+msgid "Upload a new video"
+msgstr ""
+
+#: scripts/mail.php:134
+#, php-format
+msgid "Usage: %s [OPTIONS]..."
+msgstr ""
+
+#: report.php:45 lib/Block/my_comments.php:54
+msgid "User"
+msgstr ""
+
+#: lib/Driver.php:309 lib/Driver/sql.php:312
+#, php-format
+msgid "User \"%s\" does not exists."
+msgstr ""
+
+#: lib/Friends.php:225 lib/Friends.php:294
+#, php-format
+msgid "User \"%s\" does not exits"
+msgstr ""
+
+#: lib/Friends.php:302
+#, php-format
+msgid "User \"%s\" is already in fiend list"
+msgstr ""
+
+#: lib/Friends.php:310
+#, php-format
+msgid ""
+"User \"%s\" is already in fiend list, but we are waiting his/her approval."
+msgstr ""
+
+#: account/renew.php:40
+#, php-format
+msgid "User \"%s\" is not market to be in the removal process."
+msgstr ""
+
+#: edit/friends/add.php:57
+#, php-format
+msgid "User \"%s\" was added as your friend."
+msgstr ""
+
+#: edit/friends/blacklist.php:40
+#, php-format
+msgid "User \"%s\" was added to your blacklist."
+msgstr ""
+
+#: account/approve.php:40
+#, php-format
+msgid "User \"%s\" was already activated."
+msgstr ""
+
+#: edit/friends/approve.php:35
+#, php-format
+msgid "User \"%s\" was confirmed as a friend."
+msgstr ""
+
+#: edit/friends/reject.php:34
+#, php-format
+msgid "User \"%s\" was rejected as a friend."
+msgstr ""
+
+#: edit/friends/blacklist.php:32
+#, php-format
+msgid "User \"%s\" was removed from your blacklist."
+msgstr ""
+
+#: edit/friends/add.php:32
+#, php-format
+msgid "User \"%s\" was removed from your friend list."
+msgstr ""
+
+#: edit/friends/add.php:43
+#, php-format
+msgid ""
+"User %s added you to his firends list on %s. \n"
+"To approve, go to: %s \n"
+"To reject, go to: %s \n"
+"To see to his profile, go to: %s \n"
+msgstr ""
+
+#: edit/friends/approve.php:41
+#, php-format
+msgid ""
+"User %s confirmed you as a friend on %s.. \n"
+"To see to his profile, go to: %s \n"
+msgstr ""
+
+#: templates/user/user.php:372
+#, php-format
+msgid "User %s does not wish to be commented."
+msgstr ""
+
+#: templates/user/inactive.php:4
+#, php-format
+msgid "User %s is inactive."
+msgstr ""
+
+#: login.php:54
+#, php-format
+msgid ""
+"User %s just logged in.\n"
+"%s"
+msgstr ""
+
+#: edit/friends/reject.php:40
+#, php-format
+msgid ""
+"User %s rejected you as a friend on %s.. \n"
+"To see to his profile, go to: %s \n"
+msgstr ""
+
+#: templates/user/authenticated.php:4
+#, php-format
+msgid ""
+"User %s would like to his profile remains visible only to authenticated "
+"users."
+msgstr ""
+
+#: templates/user/friends.php:4
+#, php-format
+msgid "User %s would like to his profile remains visible only to his friends."
+msgstr ""
+
+#: templates/user/private.php:4
+#, php-format
+msgid "User %s would like to remain private."
+msgstr ""
+
+#: account/signup.php:20
+msgid "User Registration has been disabled for this site."
+msgstr ""
+
+#: lib/Friends/facebook.php:78
+msgid "User has no link."
+msgstr ""
+
+#: lib/Block/random.php:35
+msgid "User is currently online?"
+msgstr ""
+
+#: report.php:18
+msgid "User is not selected"
+msgstr ""
+
+#: templates/user/actions.php:26
+msgid "User list"
+msgstr ""
+
+#: report.php:54 report.php:60
+msgid "User was not reported."
+msgstr ""
+
+#: report.php:57
+msgid "User was reported."
+msgstr ""
+
+#: templates/list/list.php:24 templates/edit/friends.php:14
+#: account/resetpassword.php:64 lib/Forms/AddFriend.php:18
+#: lib/Forms/Login.php:22 config/prefs.php.dist:40
+msgid "Username"
+msgstr ""
+
+#: config/hooks.php.dist:271
+msgid ""
+"Username can contain only alphanumeric characters, underscore and minus."
+msgstr ""
+
+#: templates/user/actions.php:27
+msgid "Users"
+msgstr ""
+
+#: templates/list/list.php:9
+msgid "Users celebrating birthday today"
+msgstr ""
+
+#: templates/list/list.php:3
+msgid "Users currently online"
+msgstr ""
+
+#: edit/friends/for.php:17
+msgid "Users waiting our approval"
+msgstr ""
+
+#: templates/list/list.php:38 edit/edit.php:43 lib/Forms/Search.php:25
+msgid "Video"
+msgstr ""
+
+#: templates/friends/friends.php:28 templates/friends/friends.php:47
+#: edit/friends/know.php:39 edit/friends/for.php:35 edit/friends/index.php:39
+#: edit/friends/of.php:35 edit/friends/from.php:35
+#: edit/friends/blacklist.php:75 edit/friends/friends.php:40
+#: lib/Block/random.php:61 lib/Block/know.php:48 lib/Block/new.php:60
+#: lib/Block/recent.php:55 lib/Block/friends.php:82
+msgid "View profile"
+msgstr ""
+
+#: lib/Folks.php:170 lib/Folks.php:174
+msgid "Virgo"
+msgstr ""
+
+#: templates/user/user.php:112
+msgid "Visit my homepage"
+msgstr ""
+
+#: templates/edit/header.php:31
+msgid "Wainting for"
+msgstr ""
+
+#: templates/edit/header.php:32
+msgid "Wainting from"
+msgstr ""
+
+#: edit/friends/of.php:17
+msgid "We are friends of"
+msgstr ""
+
+#: user.php:50 friends.php:24 edit/activity.php:33
+msgid "What are you doing right now?"
+msgstr ""
+
+#: edit/comments.php:37
+msgid "Who can post comments to your profile"
+msgstr ""
+
+#: edit/privacy.php:45
+msgid "Who can see my acticity log on my profile"
+msgstr ""
+
+#: edit/privacy.php:42
+msgid "Who can see when I was last time online"
+msgstr ""
+
+#: lib/Forms/Search.php:19
+msgid "Word"
+msgstr ""
+
+#: templates/list/list.php:77 templates/list/list.php:78
+#: templates/list/list.php:79 templates/list/list.php:80 edit/privacy.php:48
+#: config/prefs.php.dist:68 config/prefs.php.dist:78 config/prefs.php.dist:88
+#: config/prefs.php.dist:98
+msgid "Yes"
+msgstr ""
+
+#: lib/Forms/Login.php:30
+msgid "Yes, remember me so the next time I don't neet to login"
+msgstr ""
+
+#: account/approve.php:57 account/renew.php:57
+msgid "You account is activated, you can login now."
+msgstr ""
+
+#: lib/Friends/shared.php:158
+#, php-format
+msgid "You already have a group named \"%s\"."
+msgstr ""
+
+#: login.php:137
+msgid "You are entering your data too fast!"
+msgstr ""
+
+#: templates/user/user.php:380 templates/user/user.php:399
+#, php-format
+msgid "You are on %s blacklist."
+msgstr ""
+
+#: templates/user/private.php:8
+#, php-format
+msgid "You can still send a private message to user %s."
+msgstr ""
+
+#: lib/Friends.php:230
+#, php-format
+msgid "You cannot add \"%s\" to your blacklist."
+msgstr ""
+
+#: lib/Friends.php:288
+msgid "You cannot add yourself as your own friend."
+msgstr ""
+
+#: lib/Friends.php:219
+msgid "You cannot add yourself to your blacklist."
+msgstr ""
+
+#: lib/Api.php:304
+msgid "You cannot log activities for other users."
+msgstr ""
+
+#: lib/Driver.php:676 lib/Forms/Activity.php:37
+msgid "You cannot post an empty activity message."
+msgstr ""
+
+#: account/approve.php:20 account/renew.php:20
+msgid "You must supply a confirmation code."
+msgstr ""
+
+#: account/approve.php:27 account/renew.php:27 edit/friends/approve.php:23
+#: edit/friends/reject.php:23
+msgid "You must supply a username."
+msgstr ""
+
+#: templates/friends/friends.php:62
+msgid "Your activities"
+msgstr ""
+
+#: edit/comments.php:80
+msgid "Your comments preference was sucessfuly saved."
+msgstr ""
+
+#: edit/edit.php:65 edit/privacy.php:64
+msgid "Your data were successfully updated."
+msgstr ""
+
+#: account/username.php:20
+msgid "Your email"
+msgstr ""
+
+#: edit/edit.php:80
+msgid "Your image was deleted successfully."
+msgstr ""
+
+#: account/resetpassword.php:99
+#, php-format
+msgid ""
+"Your new password for %s is: %s. \n"
+"\n"
+" It was requested by %s on %s"
+msgstr ""
+
+#: edit/password.php:66
+#, php-format
+msgid ""
+"Your new password is too long; passwords may not be more than %d characters "
+"long!"
+msgstr ""
+
+#: edit/password.php:145
+msgid "Your new password is too simple to guess!  Not changed!"
+msgstr ""
+
+#: edit/password.php:136
+msgid "Your new password is too simple to guess. Not changed!"
+msgstr ""
+
+#: edit/password.php:61
+#, php-format
+msgid "Your new password must be at least %d characters long!"
+msgstr ""
+
+#: edit/password.php:45
+msgid "Your new password must be different from your current password"
+msgstr ""
+
+#: edit/password.php:106
+#, php-format
+msgid "Your new password must contain at least %d alphabetic characters."
+msgstr ""
+
+#: edit/password.php:111
+#, php-format
+msgid "Your new password must contain at least %d alphanumeric characters."
+msgstr ""
+
+#: edit/password.php:116
+#, php-format
+msgid ""
+"Your new password must contain at least %d different types of characters. "
+"The types are: lower, upper, numeric, and symbols."
+msgstr ""
+
+#: edit/password.php:96
+#, php-format
+msgid "Your new password must contain at least %d lowercase characters."
+msgstr ""
+
+#: edit/password.php:101
+#, php-format
+msgid "Your new password must contain at least %d numeric characters."
+msgstr ""
+
+#: edit/password.php:91
+#, php-format
+msgid "Your new password must contain at least %d uppercase characters."
+msgstr ""
+
+#: edit/password.php:122
+#, php-format
+msgid "Your new password must contain less than %d whitespace characters."
+msgstr ""
+
+#: edit/password.php:124
+msgid "Your new password must not contain whitespace characters."
+msgstr ""
+
+#: edit/password.php:51
+msgid "Your old password didn't match"
+msgstr ""
+
+#: account/resetpassword.php:105
+msgid "Your password has been reset"
+msgstr ""
+
+#: account/resetpassword.php:107
+#, php-format
+msgid ""
+"Your password has been reset, check your email (%s) and log in with your new "
+"password."
+msgstr ""
+
+#: edit/password.php:177
+msgid "Your securiy questions was updated."
+msgstr ""
+
+#: account/username.php:34
+#, php-format
+msgid ""
+"Your username on %s %s is: %s. \n"
+"\n"
+" It was requested by %s on %s"
+msgstr ""
+
+#: config/hooks.php.dist:330
+#, php-format
+msgid ""
+"Your username on %s %s is: %s. \n"
+"\n"
+" Please confirm the registration by going to this link \n"
+" %s"
+msgstr ""
+
+#: login.php:158
+msgid "Your username or password is incorrect."
+msgstr ""
+
+#: account/username.php:41
+msgid "Your username was requested"
+msgstr ""
+
+#: account/username.php:43
+#, php-format
+msgid "Your username was sent, check your email (%s)."
+msgstr ""
+
+#: login.php:174
+#, php-format
+msgid ""
+"Your username was temporary deacirvated. For any additional information "
+"please write to %s, and don't forgot to incluide your username."
+msgstr ""
+
+#: edit/password.php:31
+msgid "type the password twice to confirm"
+msgstr ""

@@ -9,7 +9,9 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../lib/base.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('whups');
+
 require_once WHUPS_BASE . '/lib/Query.php';
 require_once WHUPS_BASE . '/lib/Forms/Query.php';
 require_once WHUPS_BASE . '/lib/Renderer/Query.php';
@@ -24,10 +26,10 @@ $showExtraForm = null;
 // Find our current query.
 if (isset($_SESSION['whups']['query'])) {
     $whups_query = unserialize($_SESSION['whups']['query']);
-    if (!$whups_query->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+    if (!$whups_query->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
         $notification->push(_("Permission denied."), 'horde.error');
-        header('Location: ' . Horde::applicationUrl($prefs->getValue('whups_default_view') . '.php', true));
-        exit;
+        Horde::url($prefs->getValue('whups_default_view') . '.php', true)
+            ->redirect();
     }
 } else {
     $whups_query = $qManager->newQuery();
@@ -144,9 +146,9 @@ if ($vars->get('qaction1') || $vars->get('qaction2')) {
 $queryTabs = $whups_query->getTabs($vars);
 
 // Criterion form types.
-$queryurl = Horde::applicationUrl('query/index.php');
+$queryurl = Horde::url('query/index.php');
 $vars->set('action', $_SESSION['whups']['query_form']);
-$criteriaTabs = new Horde_Ui_Tabs('action', $vars);
+$criteriaTabs = new Horde_Core_Ui_Tabs('action', $vars);
 $criteriaTabs->preserve('path', $vars->get('path'));
 $criteriaTabs->addTab(_("_Property Criteria"), $queryurl, 'props');
 $criteriaTabs->addTab(_("_User Criteria"), $queryurl, 'user');

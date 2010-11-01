@@ -1,0 +1,51 @@
+<form method="post" action="<tag:post_action />" id="redirect" name="redirect">
+<input type="hidden" name="composeCache" value="<tag:cacheid />" />
+<input type="hidden" id="actionID" name="actionID" value="redirect_send" />
+<input type="hidden" name="compose_requestToken" value="<tag:token />" />
+
+<tag:status />
+
+<h1 class="header">
+ <tag:title />
+</h1>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<if:abook>
+ <tr>
+  <td>&nbsp;</td>
+  <td class="item">
+   <table cellspacing="0" width="100%">
+    <tr>
+     <td align="center"><tag:abook /></td>
+    </tr>
+   </table>
+  </td>
+ </tr>
+</if:abook>
+
+ <tr>
+  <td class="light rightAlign"><strong><tag:to />&nbsp;</strong></td>
+  <td class="item leftAlign">
+   <table border="0" width="100%" cellpadding="0">
+    <tr>
+     <td class="leftAlign">
+      <input type="text" id="to" size="55" name="to" value="<tag:input_value />" />
+      <span id="to_loading_img" style="display:none;"><tag:loading_img /></span>
+     </td>
+     <td class="rightAlign"><tag:help />&nbsp;</td>
+    </tr>
+   </table>
+  </td>
+ </tr>
+ <tr>
+  <td>&nbsp;</td>
+  <td>
+<if:allow_compose>
+   <input name="btn_redirect" type="submit" class="button" value="<gettext>Redirect Message</gettext>" />
+</if:allow_compose>
+   <input name="btn_cancel_compose" type="button" class="button" value="<gettext>Cancel Message</gettext>" />
+  </td>
+ </tr>
+</table>
+</form>
+
+<br />

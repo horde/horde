@@ -1,0 +1,54 @@
+# Turkish translations for Horde_Rpc module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Rpc module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Rpc\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: lib/Horde/Rpc/Webdav.php:347
+#, php-format
+msgid "Error deleting from path %s; must be [app]/[path]"
+msgstr "Erişim yolundan (%s) silinemedi; [uygulama]/[yol] şeklinde olmalı."
+
+#: lib/Horde/Rpc/Phpgw.php:80 lib/Horde/Rpc/Phpgw.php:81
+#: lib/Horde/Rpc/Soap.php:206 lib/Horde/Rpc/Soap.php:214
+#, php-format
+msgid "Method \"%s\" is not defined"
+msgstr "Yöntem \"%s\" tanımlı değil"
+
+#: lib/Horde/Rpc/Phpgw.php:160
+#, fuzzy
+msgid "No valid XML data returned:"
+msgstr "Geçerli XML verisi geri dönmedi."
+
+#: lib/Horde/Rpc/Phpgw.php:158
+msgid "Request couldn't be answered. Returned errorcode: "
+msgstr "İstek cevaplanamadı.Dönülen hata kodu: "
+
+#: lib/Horde/Rpc/Webdav.php:408
+#, php-format
+msgid "Unable to create directory %s; must be [app]/[path]"
+msgstr "Dizin %s yaratılamadı; [uyglama]/[yol] şeklinde olmalı"
+
+#: lib/Horde/Rpc/Webdav.php:443
+#, php-format
+msgid ""
+"Unable to rename %s; must be [app]/[path] and within the same application."
+msgstr ""
+"%s yeniden adlandırılamadı; [uygulama]/[yol] şeklinde, aynı uygulamada "
+"olmalı."
+
+#: lib/Horde/Rpc/Phpgw.php:99
+msgid "You did not authenticate."
+msgstr "Yetkilendirilmediniz."

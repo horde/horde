@@ -8,9 +8,10 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author   Jan Schneider <jan@horde.org>
- * @author   Michael Slusarz <slusarz@curecanti.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @category Horde
- * @package  Horde_Url
+ * @package  Url
  */
 
 /**
@@ -18,9 +19,9 @@
  * manipulating URLs.
  *
  * @author   Jan Schneider <jan@horde.org>
- * @author   Michael Slusarz <slusarz@curecanti.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @package  Horde_Url
+ * @package  Url
  */
 class Horde_Url
 {
@@ -56,6 +57,20 @@ class Horde_Url
     public $pathInfo;
 
     /**
+     * The anchor string.
+     *
+     * @var string
+     */
+    public $anchor = '';
+
+    /**
+     * A callback function to use when converting to a string.
+     *
+     * @var callback
+     */
+    public $toStringCallback;
+
+    /**
      * Constructor.
      *
      * @param string $url   The basic URL, with or without query parameters.
@@ -64,28 +79,32 @@ class Horde_Url
      */
     public function __construct($url, $raw = null)
     {
-        /* @todo Remove if all code has been moved to Horde_Url. */
         if ($url instanceof Horde_Url) {
-            $this->url = $url->url;
+            $this->anchor = $url->anchor;
             $this->parameters = $url->parameters;
             $this->pathInfo = $url->pathInfo;
-            if (is_null($raw)) {
-                $this->raw = $url->raw;
-            }
+            $this->raw = is_null($raw) ? $url->raw : $raw;
+            $this->url = $url->url;
             return;
         }
 
-        if (strpos($url, '?') !== false) {
-            list($url, $query) = explode('?', $url);
+        if (($pos = strrpos($url, '#')) !== false) {
+            $this->anchor = urldecode(substr($url, $pos + 1));
+            $url = substr($url, 0, $pos);
+        }
+
+        if (($pos = strrpos($url, '?')) !== false) {
+            $query = substr($url, $pos + 1);
+            $url = substr($url, 0, $pos);
 
             /* Check if the argument separator has been already
              * htmlentities-ized in the URL. */
-            if (preg_match('/=.*?&amp;.*?=/', $query)) {
+            if (preg_match('/&amp;/', $query)) {
                 $query = html_entity_decode($query);
                 if (is_null($raw)) {
                     $raw = false;
                 }
-            } elseif (preg_match('/=.*?&.*?=/', $query)) {
+            } elseif (preg_match('/&/', $query)) {
                 if (is_null($raw)) {
                     $raw = true;
                 }
@@ -165,6 +184,19 @@ class Horde_Url
     }
 
     /**
+     * Sets the URL anchor.
+     *
+     * @param string $anchor  An anchor to add.
+     *
+     * @return Horde_Url  This (modified) object, to allow chaining.
+     */
+    public function setAnchor($anchor)
+    {
+        $this->anchor = $anchor;
+        return $this;
+    }
+
+    /**
      * Sets the $raw value.  This call can be chained.
      *
      * @param boolean $raw  Whether to output the URL in the raw URL format or
@@ -188,6 +220,14 @@ class Horde_Url
      */
     public function toString($raw = false)
     {
+        if ($this->toStringCallback) {
+            $callback = $this->toStringCallback;
+            $this->toStringCallback = null;
+            $ret = call_user_func($callback, $this);
+            $this->toStringCallback = $callback;
+            return $ret;
+        }
+
         $url_params = array();
         foreach ($this->parameters as $parameter => $value) {
             if (is_array($value)) {
@@ -205,13 +245,17 @@ class Horde_Url
 
         $url = $this->url;
         if (strlen($this->pathInfo)) {
+            $url = rtrim($url, '/');
             $url .= '/' . $this->pathInfo;
         }
         if (count($url_params)) {
             $url .= '?' . implode($raw ? '&' : '&amp;', $url_params);
         }
+        if ($this->anchor) {
+            $url .= '#' . rawurlencode($this->anchor);
+        }
 
-        return $url;
+        return strval($url);
     }
 
     /**
@@ -236,12 +280,15 @@ class Horde_Url
      */
     public function link(array $attributes = array())
     {
-        $url = (string)$this;
+        $url = (string)$this->setRaw(false);
         $link = '<a';
         if (!empty($url)) {
             $link .= " href=\"$url\"";
         }
         foreach ($attributes as $name => $value) {
+            if (!strlen($value)) {
+                continue;
+            }
             if (substr($name, -4) == '.raw') {
                 $link .= ' ' . htmlspecialchars(substr($name, 0, -4))
                     . '="' . $value . '"';
@@ -251,6 +298,61 @@ class Horde_Url
             }
         }
         return $link . '>';
+    }
+
+    /**
+     * Add a unique parameter to the URL to aid in cache-busting.
+     *
+     * @return Horde_Url  This (modified) object, to allow chaining.
+     */
+    public function unique()
+    {
+        return $this->add('u', uniqid(mt_rand()));
+    }
+
+    /**
+     * Sends a redirect request to the browser to the URL in this object.
+     *
+     * @throws Horde_Url_Exception
+     */
+    public function redirect()
+    {
+        $url = strval($this->setRaw(true));
+        if (!strlen($url)) {
+            throw new Horde_Url_Exception('Redirect failed: URL is empty.');
+        }
+
+        header('Location: ' . $url);
+        exit;
+    }
+
+    /**
+     * URL-safe base64 encoding, with trimmed '='.
+     *
+     * @param string $string  String to encode.
+     *
+     * @return string  URL-safe, base64 encoded data.
+     */
+    static public function uriB64Encode($string)
+    {
+        return str_replace(array('+', '/', '='), array('-', '_', ''), base64_encode($string));
+    }
+
+    /**
+     * Decode URL-safe base64 data, dealing with missing '='.
+     *
+     * @param string $string  Encoded data.
+     *
+     * @return string  Decoded data.
+     */
+    static public function uriB64Decode($string)
+    {
+        $data = str_replace(array('-', '_'), array('+', '/'), $string);
+        $mod4 = strlen($data) % 4;
+        if ($mod4) {
+            $data .= substr('====', $mod4);
+        }
+        return base64_decode($data);
     }
 
 }

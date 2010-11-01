@@ -9,7 +9,7 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Kronolith
  */
-class Kronolith_Ajax_Imple_Embed extends Horde_Ajax_Imple_Base
+class Kronolith_Ajax_Imple_Embed extends Horde_Core_Ajax_Imple
 {
     /**
      */
@@ -62,10 +62,6 @@ class Kronolith_Ajax_Imple_Embed extends Horde_Ajax_Imple_Base
             $nocss = true;
         }
 
-        /* Load the registry with no session control */
-        $registry = Horde_Registry::singleton(Horde_Registry::SESSION_NONE);
-
-
         /* Build the block parameters */
         $params = array(
             'calendar' => $calendar,
@@ -75,24 +71,24 @@ class Kronolith_Ajax_Imple_Embed extends Horde_Ajax_Imple_Base
         );
 
         /* Call the Horde_Block api to get the calendar HTML */
-        $title = $registry->call('horde/blockTitle', array('kronolith', $view, $params));
-        $results = $registry->call('horde/blockContent', array('kronolith', $view, $params));
+        $title = $GLOBALS['registry']->call('horde/blockTitle', array('kronolith', $view, $params));
+        $results = $GLOBALS['registry']->call('horde/blockContent', array('kronolith', $view, $params));
 
         /* Some needed paths */
-        $js_path = $registry->get('jsuri', 'kronolith');
+        $js_path = $GLOBALS['registry']->get('jsuri', 'kronolith');
 
         /* Local js */
         $jsurl = Horde::url($js_path . '/embed.js', true);
 
         /* Horde's js */
-        $hjs_path = $registry->get('jsuri', 'horde');
+        $hjs_path = $GLOBALS['registry']->get('jsuri', 'horde');
         $hjsurl = Horde::url($hjs_path . '/tooltips.js', true);
         $pturl = Horde::url($hjs_path . '/prototype.js', true);
 
         /* CSS */
         if (empty($nocss)) {
-            $cssurl = Horde::url($registry->get('themesuri', 'kronolith') . '/embed.css', true);
-            $hcssurl = Horde::url($registry->get('themesuri', 'horde') . '/embed.css', true);
+            $cssurl = Horde::url($GLOBALS['registry']->get('themesuri', 'kronolith') . '/embed.css', true);
+            $hcssurl = Horde::url($GLOBALS['registry']->get('themesuri', 'horde') . '/embed.css', true);
         } else {
             $cssurl= '';
         }

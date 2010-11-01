@@ -1,12 +1,7 @@
 <?php
 
-require_once 'PEAR.php';
 require_once 'Log.php';
-
-define('VFS_QUOTA_METRIC_BYTE', 1);
-define('VFS_QUOTA_METRIC_KB', 2);
-define('VFS_QUOTA_METRIC_MB', 3);
-define('VFS_QUOTA_METRIC_GB', 4);
+require_once dirname(__FILE__) . '/VFS/Exception.php';
 
 /**
  * VFS API for abstracted file storage and access.
@@ -18,16 +13,21 @@ define('VFS_QUOTA_METRIC_GB', 4);
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package VFS
- * @since   Horde 2.2
  */
-class VFS {
+class VFS
+{
+    /* Quota constants. */
+    const QUOTA_METRIC_BYTE = 1;
+    const QUOTA_METRIC_KB = 2;
+    const QUOTA_METRIC_MB = 3;
+    const QUOTA_METRIC_GB = 4;
 
     /**
      * Hash containing connection parameters.
      *
      * @var array
      */
-    var $_params = array();
+    protected $_params = array();
 
     /**
      * List of additional credentials required for this VFS backend (example:
@@ -35,17 +35,30 @@ class VFS {
      *
      * @var array
      */
-    var $_credentials = array();
+    protected $_credentials = array();
 
     /**
      * List of permissions and if they can be changed in this VFS backend.
      *
      * @var array
      */
-    var $_permissions = array(
-        'owner' => array('read' => false, 'write' => false, 'execute' => false),
-        'group' => array('read' => false, 'write' => false, 'execute' => false),
-        'all'   => array('read' => false, 'write' => false, 'execute' => false));
+    protected $_permissions = array(
+        'owner' => array(
+            'read' => false,
+            'write' => false,
+            'execute' => false
+        ),
+        'group' => array(
+            'read' => false,
+            'write' => false,
+            'execute' => false
+        ),
+        'all' => array(
+            'read' => false,
+            'write' => false,
+            'execute' => false
+        )
+    );
 
     /**
      * A PEAR Log object. If present, will be used to log errors and
@@ -53,7 +66,7 @@ class VFS {
      *
      * @var Log
      */
-    var $_logger = null;
+    protected $_logger = null;
 
     /**
      * The log level to use - messages with a higher log level than configured
@@ -61,56 +74,83 @@ class VFS {
      *
      * @var integer
      */
-    var $_logLevel = PEAR_LOG_ERR;
+    protected $_logLevel = PEAR_LOG_ERR;
 
     /**
      * The current size, in bytes, of the VFS item.
      *
      * @var integer
      */
-    var $_vfsSize = null;
+    protected $_vfsSize = null;
+
+    /**
+     * Attempts to return a concrete instance based on $driver.
+     *
+     * @param mixed $driver  The type of concrete subclass to return. This
+     *                       is based on the storage driver ($driver). The
+     *                       code is dynamically included.
+     * @param array $params  A hash containing any additional configuration or
+     *                       connection parameters a subclass might need.
+     *
+     * @return VFS  The newly created concrete VFS instance.
+     * @throws VFS_Exception
+     */
+    static public function factory($driver, $params = array())
+    {
+        $driver = basename($driver);
+        $class = __CLASS__ . '_' . $driver;
+
+        if (class_exists($class)) {
+            return new $class($params);
+        }
+
+        throw new VFS_Exception('Class definition of ' . $class . ' not found.');
+    }
 
     /**
      * Constructor.
      *
      * @param array $params  A hash containing connection parameters.
      */
-    function VFS($params = array())
+    public function __construct($params = array())
     {
-        if (empty($params['user'])) {
-            $params['user'] = '';
-        }
-        if (empty($params['vfs_quotalimit'])) {
-            $params['vfs_quotalimit'] = -1;
-        }
-        if (empty($params['vfs_quotaroot'])) {
-            $params['vfs_quotaroot'] = '/';
-        }
-        $this->_params = $params;
+        $this->setParams(array(
+            'user' => '',
+            'vfs_quotalimit' => -1,
+            'vfs_quotaroot' => '/'
+        ));
+        $this->setParams($params);
     }
 
     /**
      * Checks the credentials that we have by calling _connect(), to see if
      * there is a valid login.
      *
-     * @return mixed  True on success, PEAR_Error describing the problem if the
-     *                credentials are invalid.
+     * @throws VFS_Exception
      */
-    function checkCredentials()
+    public function checkCredentials()
     {
-        return $this->_connect();
+        $this->_connect();
+    }
+
+    /**
+     * TODO
+     *
+     * @throws VFS_Exception
+     */
+    protected function _connect()
+    {
     }
 
     /**
      * Sets configuration parameters.
      *
-     * @param array $params  An associative array with parameter names as keys.
+     * @param array $params  An associative array with parameter names as
+     *                       keys.
      */
-    function setParams($params = array())
+    public function setParams($params = array())
     {
-        foreach ($params as $name => $value) {
-            $this->_params[$name] = $value;
-        }
+        $this->_params = array_merge($this->_params, $params);
     }
 
     /**
@@ -120,9 +160,11 @@ class VFS {
      *
      * @return mixed  The parameter value or null if it doesn't exist.
      */
-    function getParam($name)
+    public function getParam($name)
     {
-        return isset($this->_params[$name]) ? $this->_params[$name] : null;
+        return isset($this->_params[$name])
+            ? $this->_params[$name]
+            : null;
     }
 
     /**
@@ -132,13 +174,13 @@ class VFS {
      * @param mixed   $message   The message to be logged.
      * @param integer $priority  The message's priority.
      */
-    function log($message, $priority = PEAR_LOG_ERR)
+    public function log($message, $priority = PEAR_LOG_ERR)
     {
-        if (!isset($this->_logger) || $priority > $this->_logLevel) {
+        if (!isset($this->_logger) || ($priority > $this->_logLevel)) {
             return;
         }
 
-        if (is_a($message, 'PEAR_Error')) {
+        if ($message instanceof PEAR_Error) {
             $userinfo = $message->getUserInfo();
             $message = $message->getMessage();
             if ($userinfo) {
@@ -162,17 +204,15 @@ class VFS {
     /**
      * Sets the PEAR Log object used to log informational or error messages.
      *
-     * @param Log &$logger  The Log object to use.
+     * @param Log $logger  The Log object to use.
      */
-    function setLogger(&$logger, $logLevel = null)
+    public function setLogger($logger, $logLevel = null)
     {
-        if (!is_callable(array($logger, 'log'))) {
-            return false;
-        }
-
-        $this->_logger = &$logger;
-        if (!is_null($logLevel)) {
-            $this->_logLevel = $logLevel;
+        if (is_callable(array($logger, 'log'))) {
+            $this->_logger = $logger;
+            if (!is_null($logLevel)) {
+                $this->_logLevel = $logLevel;
+            }
         }
     }
 
@@ -184,39 +224,33 @@ class VFS {
      * @param string $path  The pathname to the file.
      * @param string $name  The filename to retrieve.
      *
-     * @return integer The file size.
+     * @return integer  The file size.
+     * @throws VFS_Exception
      */
-    function size($path, $name)
+    public function size($path, $name)
     {
-        return PEAR::raiseError(_("Not supported."));
+        throw new VFS_Exception('Not supported.');
     }
 
     /**
      * Returns the size of a folder
      *
-     * @since Horde 3.1
-     *
      * @param string $path  The path to the folder.
      * @param string $name  The name of the folder.
      *
-     * @return integer  The size of the folder, in bytes, or PEAR_Error on
-     *                  failure.
+     * @return integer  The size of the folder, in bytes.
+     * @throws VFS_Exception
      */
-    function getFolderSize($path = null, $name = null)
+    public function getFolderSize($path = null, $name = null)
     {
         $size = 0;
-        $root = ((!is_null($path)) ? $path . '/' : '') . $name;
+        $root = (!is_null($path) ? $path . '/' : '') . $name;
         $object_list = $this->listFolder($root, null, true, false, true);
+
         foreach ($object_list as $key => $val) {
-            if (isset($val['subdirs'])) {
-                $size += $this->getFolderSize($root, $key);
-            } else {
-                $filesize = $this->size($root, $key);
-                if (is_a($filesize, 'PEAR_Error')) {
-                    return $filesize;
-                }
-                $size += $filesize;
-            }
+            $size += isset($val['subdirs'])
+                ? $this->getFolderSize($root, $key)
+                : $this->size($root, $key);
         }
 
         return $size;
@@ -230,11 +264,12 @@ class VFS {
      * @param string $path  The pathname to the file.
      * @param string $name  The filename to retrieve.
      *
-     * @return string The file data.
+     * @return string  The file data.
+     * @throws VFS_Exception
      */
-    function read($path, $name)
+    public function read($path, $name)
     {
-        return PEAR::raiseError(_("Not supported."));
+        throw new VFS_Exception('Not supported.');
     }
 
     /**
@@ -247,15 +282,15 @@ class VFS {
      * @param string $path  The pathname to the file.
      * @param string $name  The filename to retrieve.
      *
-     * @return string A local filename.
+     * @return string  A local filename.
+     * @throws VFS_Exception
      */
-    function readFile($path, $name)
+    public function readFile($path, $name)
     {
         // Create a temporary file and register it for deletion at the
         // end of this request.
-        $localFile = $this->_getTempFile();
-        if (!$localFile) {
-            return PEAR::raiseError(_("Unable to create temporary file."));
+        if (!($localFile = tempnam(null, 'vfs'))) {
+            throw new VFS_Exception('Unable to create temporary file.');
         }
         register_shutdown_function(create_function('', 'unlink(\'' . addslashes($localFile) . '\');'));
 
@@ -263,48 +298,16 @@ class VFS {
             // Use a stream from the VFS if possible, to avoid reading all data
             // into memory.
             $stream = $this->readStream($path, $name);
-            if (is_a($stream, 'PEAR_Error')) {
-                return $stream;
-            }
 
-            $localStream = fopen($localFile, 'w');
-            if (!$localStream) {
-                return PEAR::raiseError(_("Unable to open temporary file."));
+            if (!($localStream = fopen($localFile, 'w'))) {
+                throw new VFS_Exception('Unable to open temporary file.');
             }
-
-            if (is_callable('stream_copy_to_stream')) {
-                // If we have stream_copy_to_stream, it can do the data transfer
-                // in one go.
-                stream_copy_to_stream($stream, $localStream);
-            } else {
-                // Otherwise loop through in chunks.
-                while ($buffer = fread($stream, 8192)) {
-                    fwrite($localStream, $buffer);
-                }
-            }
-
+            stream_copy_to_stream($stream, $localStream);
             fclose($localStream);
         } else {
             // We have to read all of the data in one shot.
             $data = $this->read($path, $name);
-            if (is_a($data, 'PEAR_Error')) {
-                return $data;
-            }
-
-            if (is_callable('file_put_contents')) {
-                // file_put_contents is more efficient if we have it.
-                file_put_contents($localFile, $data);
-            } else {
-                // Open the local file and write to it.
-                $localStream = fopen($localFile, 'w');
-                if (!$localStream) {
-                    return PEAR::raiseError(_("Unable to open temporary file."));
-                }
-                if (!fwrite($localStream, $data)) {
-                    return PEAR::raiseError(_("Unable to write temporary file."));
-                }
-                fclose($localStream);
-            }
+            file_put_contents($localFile, $data);
         }
 
         // $localFile now has $path/$name's data in it.
@@ -330,11 +333,13 @@ class VFS {
      * @param integer $remaining  The bytes that are left, after the part that
      *                            is retrieved.
      *
-     * @return string The file data.
+     * @return string  The file data.
+     * @throws VFS_Exception
      */
-    function readByteRange($path, $name, &$offset, $length = -1, &$remaining)
+    public function readByteRange($path, $name, &$offset, $length = -1,
+                                  &$remaining)
     {
-        return PEAR::raiseError(_("Not supported."));
+        throw new VFS_Exception('Not supported.');
     }
 
     /**
@@ -348,11 +353,11 @@ class VFS {
      *                             be stored.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function write($path, $name, $tmpFile, $autocreate = false)
+    public function write($path, $name, $tmpFile, $autocreate = false)
     {
-        return PEAR::raiseError(_("Not supported."));
+        throw new VFS_Exception('Not supported.');
     }
 
     /**
@@ -365,11 +370,11 @@ class VFS {
      * @param string $data         The file data.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function writeData($path, $name, $data, $autocreate = false)
+    public function writeData($path, $name, $data, $autocreate = false)
     {
-        return PEAR::raiseError(_("Not supported."));
+        throw new VFS_Exception('Not supported.');
     }
 
     /**
@@ -380,14 +385,12 @@ class VFS {
      * @param string $dest         The destination file name.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function move($path, $name, $dest, $autocreate = false)
+    public function move($path, $name, $dest, $autocreate = false)
     {
-        if (is_a($result = $this->copy($path, $name, $dest, $autocreate), 'PEAR_Error')) {
-            return $result;
-        }
-        return $this->deleteFile($path, $name);
+        $this->copy($path, $name, $dest, $autocreate);
+        $this->deleteFile($path, $name);
     }
 
     /**
@@ -398,68 +401,49 @@ class VFS {
      * @param string $dest         The name of the destination directory.
      * @param boolean $autocreate  Automatically create directories?
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function copy($path, $name, $dest, $autocreate = false)
+    public function copy($path, $name, $dest, $autocreate = false)
     {
         $orig = $this->_getPath($path, $name);
         if (preg_match('|^' . preg_quote($orig) . '/?$|', $dest)) {
-            return PEAR::raiseError(_("Cannot copy file(s) - source and destination are the same."));
+            throw new VFS_Exception('Cannot copy file(s) - source and destination are the same.');
         }
 
         if ($autocreate) {
-            $result = $this->autocreatePath($dest);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
+            $this->autocreatePath($dest);
         }
+
         if ($this->isFolder($path, $name)) {
-            if (is_a($result = $this->_copyRecursive($path, $name, $dest), 'PEAR_Error')) {
-                return $result;
-            }
+            $this->_copyRecursive($path, $name, $dest);
         } else {
-            $data = $this->read($path, $name);
-            if (is_a($data, 'PEAR_Error')) {
-                return $data;
-            }
-            return $this->writeData($dest, $name, $data, $autocreate);
+            return $this->writeData($dest, $name, $this->read($path, $name), $autocreate);
         }
-        return true;
     }
 
     /**
      * Recursively copies a directory through the backend.
      *
-     * @access protected
+     * @param string $path  The path of the original file.
+     * @param string $name  The name of the original file.
+     * @param string $dest  The name of the destination directory.
      *
-     * @param string $path         The path of the original file.
-     * @param string $name         The name of the original file.
-     * @param string $dest         The name of the destination directory.
+     * @throws VFS_Exception
      */
-    function _copyRecursive($path, $name, $dest)
+    protected function _copyRecursive($path, $name, $dest)
     {
-        if (is_a($result = $this->createFolder($dest, $name), 'PEAR_Error')) {
-            return $result;
-        }
+        $this->createFolder($dest, $name);
 
-        if (is_a($file_list = $this->listFolder($this->_getPath($path, $name)), 'PEAR_Error')) {
-            return $file_list;
-        }
-
+        $file_list = $this->listFolder($this->_getPath($path, $name));
         foreach ($file_list as $file) {
-            $result = $this->copy($this->_getPath($path, $name),
-                                  $file['name'],
-                                  $this->_getPath($dest, $name));
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
+            $this->copy($this->_getPath($path, $name), $file['name'], $this->_getPath($dest, $name));
         }
     }
 
     /**
      * Alias to deleteFile()
      */
-    function delete($path, $name)
+    public function delete($path, $name)
     {
         return $this->deleteFile($path, $name);
     }
@@ -472,11 +456,11 @@ class VFS {
      * @param string $path  The path to delete the file from.
      * @param string $name  The filename to delete.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function deleteFile($path, $name)
+    public function deleteFile($path, $name)
     {
-        return PEAR::raiseError(_("Not supported."));
+        throw new VFS_Exception('Not supported.');
     }
 
     /**
@@ -489,11 +473,11 @@ class VFS {
      * @param string $newpath  The new path of the file.
      * @param string $newname  The new filename.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function rename($oldpath, $oldname, $newpath, $newname)
+    public function rename($oldpath, $oldname, $newpath, $newname)
     {
-        return PEAR::raiseError(_("Not supported."));
+        throw new VFS_Exception('Not supported.');
     }
 
     /**
@@ -504,13 +488,13 @@ class VFS {
      *
      * @return boolean  True if it exists, false otherwise.
      */
-    function exists($path, $name)
+    public function exists($path, $name)
     {
-        $list = $this->listFolder($path);
-        if (is_a($list, 'PEAR_Error')) {
-            return false;
-        } else {
+        try {
+            $list = $this->listFolder($path);
             return isset($list[$name]);
+        } catch (VFS_Exception $e) {
+            return false;
         }
     }
 
@@ -522,11 +506,11 @@ class VFS {
      * @param string $path  The parent folder.
      * @param string $name  The name of the new folder.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function createFolder($path, $name)
+    public function createFolder($path, $name)
     {
-        return PEAR::raiseError(_("Not supported."));
+        throw new VFS_Exception('Not supported.');
     }
 
     /**
@@ -534,8 +518,10 @@ class VFS {
      * $path.
      *
      * @param string $path  The VFS path to autocreate.
+     *
+     * @throws VFS_Exception
      */
-    function autocreatePath($path)
+    public function autocreatePath($path)
     {
         $dirs = explode('/', $path);
         if (is_array($dirs)) {
@@ -546,9 +532,6 @@ class VFS {
                 }
                 if (!$this->isFolder($cur, $dir)) {
                     $result = $this->createFolder($cur, $dir);
-                    if (is_a($result, 'PEAR_Error')) {
-                        return $result;
-                    }
                 }
                 if ($cur != '/') {
                     $cur .= '/';
@@ -556,8 +539,6 @@ class VFS {
                 $cur .= $dir;
             }
         }
-
-        return true;
     }
 
     /**
@@ -568,10 +549,14 @@ class VFS {
      *
      * @return boolean  True if it is a folder, false otherwise.
      */
-    function isFolder($path, $name)
+    public function isFolder($path, $name)
     {
-        $folderList = $this->listFolder($path, null, true, true);
-        return isset($folderList[$name]);
+        try {
+            $folderList = $this->listFolder($path, null, true, true);
+            return isset($folderList[$name]);
+        } catch (VFS_Exception $e) {
+            return false;
+        }
     }
 
     /**
@@ -583,11 +568,11 @@ class VFS {
      * @param string $name        The name of the folder to delete.
      * @param boolean $recursive  Force a recursive delete?
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function deleteFolder($path, $name, $recursive = false)
+    public function deleteFolder($path, $name, $recursive = false)
     {
-        return PEAR::raiseError(_("Not supported."));
+        throw new VFS_Exception('Not supported.');
     }
 
     /**
@@ -596,34 +581,19 @@ class VFS {
      *
      * @param string $path  The path of the folder to empty.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function emptyFolder($path)
+    public function emptyFolder($path)
     {
         // Get and delete the subfolders.
-        $list = $this->listFolder($path, null, true, true);
-        if (is_a($list, 'PEAR_Error')) {
-            return $list;
-        }
-        foreach ($list as $folder) {
-            $result = $this->deleteFolder($path, $folder['name'], true);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
-        }
-        // Only files are left, get and delete them.
-        $list = $this->listFolder($path);
-        if (is_a($list, 'PEAR_Error')) {
-            return $list;
-        }
-        foreach ($list as $file) {
-            $result = $this->deleteFile($path, $file['name']);
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
+        foreach ($this->listFolder($path, null, true, true) as $folder) {
+            $this->deleteFolder($path, $folder['name'], true);
         }
 
-        return true;
+        // Only files are left, get and delete them.
+        foreach ($this->listFolder($path) as $file) {
+            $this->deleteFile($path, $file['name']);
+        }
     }
 
     /**
@@ -635,13 +605,14 @@ class VFS {
      * @param boolean $dironly    Show only directories?
      * @param boolean $recursive  Return all directory levels recursively?
      *
-     * @return array  File list on success or PEAR_Error on failure.
+     * @return array  File list.
+     * @throws VFS_Exception
      */
-    function listFolder($path, $filter = null, $dotfiles = true,
-                        $dironly = false, $recursive = false)
+    public function listFolder($path, $filter = null, $dotfiles = true,
+                               $dironly = false, $recursive = false)
     {
         $list = $this->_listFolder($path, $filter, $dotfiles, $dironly);
-        if (!$recursive || is_a($list, 'PEAR_Error')) {
+        if (!$recursive) {
             return $list;
         }
 
@@ -664,12 +635,13 @@ class VFS {
      * @param boolean $dotfiles  Show dotfiles?
      * @param boolean $dironly   Show only directories?
      *
-     * @return array  File list on success or PEAR_Error on failure.
+     * @return array  File list.
+     * @throws VFS_Exception
      */
-    function _listFolder($path, $filter = null, $dotfiles = true,
-                         $dironly = false)
+    protected function _listFolder($path, $filter = null, $dotfiles = true,
+                                   $dironly = false)
     {
-        return PEAR::raiseError(_("Not supported."));
+        throw new VFS_Exception('Not supported.');
     }
 
     /**
@@ -677,7 +649,7 @@ class VFS {
      *
      * @return string  The current working directory.
      */
-    function getCurrentDirectory()
+    public function getCurrentDirectory()
     {
         return '';
     }
@@ -685,31 +657,28 @@ class VFS {
     /**
      * Returns whether or not a filename matches any filter element.
      *
-     * @access private
-     *
      * @param mixed $filter     String/hash to build the regular expression
      *                          from.
      * @param string $filename  String containing the filename to match.
      *
      * @return boolean  True on match, false on no match.
      */
-    function _filterMatch($filter, $filename)
+    protected function _filterMatch($filter, $filename)
     {
         $namefilter = null;
 
         // Build a regexp based on $filter.
-        if ($filter !== null) {
+        if (!is_null($filter)) {
             $namefilter = '/';
             if (is_array($filter)) {
                 $once = false;
                 foreach ($filter as $item) {
                     if ($once !== true) {
-                        $namefilter .= '(';
                         $once = true;
                     } else {
-                        $namefilter .= '|(';
+                        $namefilter .= '|';
                     }
-                    $namefilter .= $item . ')';
+                    $namefilter .= '(' . $item . ')';
                 }
             } else {
                 $namefilter .= '(' . $filter . ')';
@@ -718,7 +687,7 @@ class VFS {
         }
 
         $match = false;
-        if ($namefilter !== null) {
+        if (!is_null($namefilter)) {
             $match = preg_match($namefilter, $filename);
         }
 
@@ -734,11 +703,11 @@ class VFS {
      * @param string $name        The name of the item.
      * @param string $permission  The permission to set.
      *
-     * @return mixed  True on success or a PEAR_Error object on failure.
+     * @throws VFS_Exception
      */
-    function changePermissions($path, $name, $permission)
+    public function changePermissions($path, $name, $permission)
     {
-        return PEAR::raiseError(_("Not supported."));
+        throw new VFS_Exception('Not supported.');
     }
 
     /**
@@ -751,11 +720,12 @@ class VFS {
      * @param mixed $filter        Hash of items to filter based on folderlist.
      * @param boolean $dotfolders  Include dotfolders?
      *
-     * @return mixed  Folder list on success or a PEAR_Error object on failure.
+     * @return array  Folder list.
+     * @throws VFS_Exception
      */
-    function listFolders($path = '', $filter = null, $dotfolders = true)
+    public function listFolders($path = '', $filter = null, $dotfolders = true)
     {
-        return PEAR::raiseError(_("Not supported."));
+        throw new VFS_Exception('Not supported.');
     }
 
     /**
@@ -763,7 +733,7 @@ class VFS {
      *
      * @return array  Credential list.
      */
-    function getRequiredCredentials()
+    public function getRequiredCredentials()
     {
         return array_diff($this->_credentials, array_keys($this->_params));
     }
@@ -774,9 +744,149 @@ class VFS {
      *
      * @return array  Changeable permisions.
      */
-    function getModifiablePermissions()
+    public function getModifiablePermissions()
     {
         return $this->_permissions;
+    }
+
+    /**
+     * Returns the size of the VFS item.
+     *
+     * @return integer  The size, in bytes, of the VFS item.
+     */
+    public function getVFSSize()
+    {
+        if (is_null($this->_vfsSize)) {
+            $this->_vfsSize = $this->getFolderSize($this->_params['vfs_quotaroot']);
+        }
+        return $this->_vfsSize;
+    }
+
+    /**
+     * Sets the VFS quota limit.
+     *
+     * @param integer $quota   The limit to apply.
+     * @param integer $metric  The metric to multiply the quota into.
+     */
+    public function setQuota($quota, $metric = self::QUOTA_METRIC_BYTE)
+    {
+        switch ($metric) {
+        case self::QUOTA_METRIC_KB:
+            $quota *= pow(2, 10);
+            break;
+
+        case self::QUOTA_METRIC_MB:
+            $quota *= pow(2, 20);
+            break;
+
+        case self::QUOTA_METRIC_GB:
+            $quota *= pow(2, 30);
+            break;
+        }
+
+        $this->_params['vfs_quotalimit'] = $quota;
+    }
+
+    /**
+     * Sets the VFS quota root.
+     *
+     * @param string $dir  The root directory for the quota determination.
+     */
+    public function setQuotaRoot($dir)
+    {
+        $this->_params['vfs_quotaroot'] = $dir;
+    }
+
+    /**
+     * Get quota information (used/allocated), in bytes.
+     *
+     * @return mixed  An associative array.
+     * <pre>
+     * 'limit' = Maximum quota allowed
+     * 'usage' = Currently used portion of quota (in bytes)
+     * </pre>
+     * @throws VFS_Exception
+     */
+    public function getQuota()
+    {
+        if (empty($this->_params['vfs_quotalimit'])) {
+            throw new VFS_Exception('No quota set.');
+        }
+
+        return array(
+            'limit' => $this->_params['vfs_quotalimit'],
+            'usage' => $this->getVFSSize()
+        );
+    }
+
+    /**
+     * Checks the quota when preparing to write data.
+     *
+     * @param string $mode   Either 'string' or 'file'.  If 'string', $data is
+     *                       the data to be written.  If 'file', $data is the
+     *                       filename containing the data to be written.
+     * @param string $data   Either the data or the filename to the data.
+     *
+     * @throws VFS_Exception
+     */
+    protected function _checkQuotaWrite($mode, $data)
+    {
+        if ($this->_params['vfs_quotalimit'] == -1) {
+            return;
+        }
+
+        if ($mode == 'file') {
+            $filesize = filesize($data);
+            if ($filesize === false) {
+                throw new VFS_Exception('Unable to read VFS file (filesize() failed).');
+            }
+        } else {
+            $filesize = strlen($data);
+        }
+
+        $vfssize = $this->getVFSSize();
+        if (($vfssize + $filesize) > $this->_params['vfs_quotalimit']) {
+            throw new VFS_Exception('Unable to write VFS file, quota will be exceeded.');
+        } elseif ($this->_vfsSize !== 0) {
+            $this->_vfsSize += $filesize;
+        }
+    }
+
+    /**
+     * Checks the quota when preparing to delete data.
+     *
+     * @param string $path  The path the file is located in.
+     * @param string $name  The filename.
+     *
+     * @throws VFS_Exception
+     */
+    protected function _checkQuotaDelete($path, $name)
+    {
+        if (($this->_params['vfs_quotalimit'] != -1) &&
+            !empty($this->_vfsSize)) {
+            $this->_vfsSize -= $this->size($path, $name);
+        }
+    }
+
+    /**
+     * Returns the full path of an item.
+     *
+     * @param string $path  The path of directory of the item.
+     * @param string $name  The name of the item.
+     *
+     * @return mixed  Full path when $path isset and just $name when not set.
+     */
+    protected function _getPath($path, $name)
+    {
+        if (strlen($path) > 0) {
+            if (substr($path, -1) == '/') {
+                return $path . $name;
+            } else {
+                return $path . '/' . $name;
+            }
+        }
+
+        return $name;
     }
 
     /**
@@ -787,7 +897,7 @@ class VFS {
      *
      * @return string  The string with lowercase characters
      */
-    function strtolower($string)
+    public function strtolower($string)
     {
         $language = setlocale(LC_CTYPE, 0);
         setlocale(LC_CTYPE, 'C');
@@ -805,7 +915,7 @@ class VFS {
      *
      * @return string  The string's length.
      */
-    function strlen($string, $charset = null)
+    public function strlen($string, $charset = null)
     {
         if (extension_loaded('mbstring')) {
             if (is_null($charset)) {
@@ -819,283 +929,5 @@ class VFS {
         return strlen($string);
     }
 
-    /**
-     * Returns the size of the VFS item.
-     *
-     * @since Horde 3.1
-     *
-     * @return integer  The size, in bytes, of the VFS item.
-     */
-    function getVFSSize()
-    {
-        if (is_null($this->_vfsSize)) {
-            $this->_vfsSize = $this->getFolderSize($this->_params['vfs_quotaroot']);
-        }
-        return $this->_vfsSize;
-    }
-
-    /**
-     * Sets the VFS quota limit.
-     *
-     * @since Horde 3.1
-     *
-     * @param integer $quota   The limit to apply.
-     * @param integer $metric  The metric to multiply the quota into.
-     */
-    function setQuota($quota, $metric = VFS_QUOTA_METRIC_BYTE)
-    {
-        switch ($metric) {
-        case VFS_QUOTA_METRIC_KB:
-            $quota *= pow(2, 10);
-            break;
-
-        case VFS_QUOTA_METRIC_MB:
-            $quota *= pow(2, 20);
-            break;
-
-        case VFS_QUOTA_METRIC_GB:
-            $quota *= pow(2, 30);
-            break;
-        }
-
-        $this->_params['vfs_quotalimit'] = $quota;
-    }
-
-    /**
-     * Sets the VFS quota root.
-     *
-     * @since Horde 3.1
-     *
-     * @param string $dir  The root directory for the quota determination.
-     */
-    function setQuotaRoot($dir)
-    {
-        $this->_params['vfs_quotaroot'] = $dir;
-    }
-
-    /**
-     * Get quota information (used/allocated), in bytes.
-     *
-     * @since Horde 3.1
-     *
-     * @return mixed  An associative array.
-     *                'limit' = Maximum quota allowed
-     *                'usage' = Currently used portion of quota (in bytes)
-     *                Returns PEAR_Error on failure.
-     */
-    function getQuota()
-    {
-        if (empty($this->_params['vfs_quotalimit'])) {
-            return PEAR::raiseError(_("No quota set."));
-        }
-
-        $usage = $this->getVFSSize();
-        if (is_a($usage, 'PEAR_Error')) {
-            return $usage;
-        } else {
-            return array('usage' => $usage, 'limit' => $this->_params['vfs_quotalimit']);
-        }
-    }
-
-    /**
-     * Determines the location of the system temporary directory.
-     *
-     * @access protected
-     *
-     * @return string  A directory name which can be used for temp files.
-     *                 Returns false if one could not be found.
-     */
-    function _getTempDir()
-    {
-        $tmp_locations = array('/tmp', '/var/tmp', 'c:\WUTemp', 'c:\temp',
-                               'c:\windows\temp', 'c:\winnt\temp');
-
-        /* Try PHP's upload_tmp_dir directive. */
-        $tmp = ini_get('upload_tmp_dir');
-
-        /* Otherwise, try to determine the TMPDIR environment variable. */
-        if (!strlen($tmp)) {
-            $tmp = getenv('TMPDIR');
-        }
-
-        /* If we still cannot determine a value, then cycle through a list of
-         * preset possibilities. */
-        while (!strlen($tmp) && count($tmp_locations)) {
-            $tmp_check = array_shift($tmp_locations);
-            if (@is_dir($tmp_check)) {
-                $tmp = $tmp_check;
-            }
-        }
-
-        /* If it is still empty, we have failed, so return false; otherwise
-         * return the directory determined. */
-        return strlen($tmp) ? $tmp : false;
-    }
-
-    /**
-     * Creates a temporary file.
-     *
-     * @access protected
-     *
-     * @return string   Returns the full path-name to the temporary file or
-     *                  false if a temporary file could not be created.
-     */
-    function _getTempFile()
-    {
-        $tmp_dir = $this->_getTempDir();
-        if (!strlen($tmp_dir)) {
-            return false;
-        }
-
-        $tmp_file = tempnam($tmp_dir, 'vfs');
-        if (!strlen($tmp_file)) {
-            return false;
-        } else {
-            return $tmp_file;
-        }
-    }
-
-    /**
-     * Checks the quota when preparing to write data.
-     *
-     * @access private
-     *
-     * @param string $mode   Either 'string' or 'file'.  If 'string', $data is
-     *                       the data to be written.  If 'file', $data is the
-     *                       filename containing the data to be written.
-     * @param string $data   Either the data or the filename to the data.
-     *
-     * @return mixed  PEAR_Error on error, true on success.
-     */
-    function _checkQuotaWrite($mode, $data)
-    {
-        if ($this->_params['vfs_quotalimit'] != -1) {
-            if ($mode == 'file') {
-                $filesize = filesize($data);
-                if ($filesize === false) {
-                    return PEAR::raiseError(_("Unable to read VFS file (filesize() failed)."));
-               }
-            } else {
-                $filesize = strlen($data);
-            }
-            $vfssize = $this->getVFSSize();
-            if (is_a($vfssize, 'PEAR_Error')) {
-                return $vfssize;
-            }
-            if (($vfssize + $filesize) > $this->_params['vfs_quotalimit']) {
-                return PEAR::raiseError(_("Unable to write VFS file, quota will be exceeded."));
-            } elseif ($this->_vfsSize !== 0) {
-                $this->_vfsSize += $filesize;
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     * Checks the quota when preparing to delete data.
-     *
-     * @access private
-     *
-     * @param string $path  The path the file is located in.
-     * @param string $name  The filename.
-     *
-     * @return mixed  PEAR_Error on error, true on success.
-     */
-    function _checkQuotaDelete($path, $name)
-    {
-        if (($this->_params['vfs_quotalimit'] != -1) &&
-            !empty($this->_vfsSize)) {
-            $filesize = $this->size($path, $name);
-            if (is_a($filesize, 'PEAR_Error')) {
-                return PEAR::raiseError(_("Unable to read VFS file (size() failed)."));
-            }
-            $this->_vfsSize -= $filesize;
-        }
-
-        return true;
-    }
-
-    /**
-     * Returns the full path of an item.
-     *
-     * @access protected
-     *
-     * @param string $path  The path of directory of the item.
-     * @param string $name  The name of the item.
-     *
-     * @return mixed  Full path when $path isset and just $name when not set.
-     */
-    function _getPath($path, $name)
-    {
-        if (strlen($path) > 0) {
-            if (substr($path, -1) == '/') {
-                return $path . $name;
-            } else {
-                return $path . '/' . $name;
-            }
-        } else {
-            return $name;
-        }
-    }
-
-    /**
-     * Attempts to return a concrete VFS instance based on $driver.
-     *
-     * @param mixed $driver  The type of concrete VFS subclass to return. This
-     *                       is based on the storage driver ($driver). The
-     *                       code is dynamically included.
-     * @param array $params  A hash containing any additional configuration or
-     *                       connection parameters a subclass might need.
-     *
-     * @return VFS  The newly created concrete VFS instance, or a PEAR_Error
-     *              on failure.
-     */
-    function &factory($driver, $params = array())
-    {
-        $driver = basename($driver);
-        $class = 'VFS_' . $driver;
-        if (!class_exists($class)) {
-            include_once 'VFS/' . $driver . '.php';
-        }
-
-        if (class_exists($class)) {
-            $vfs = new $class($params);
-        } else {
-            $vfs = PEAR::raiseError(sprintf(_("Class definition of %s not found."), $class));
-        }
-
-        return $vfs;
-    }
-
-    /**
-     * Attempts to return a reference to a concrete VFS instance based on
-     * $driver. It will only create a new instance if no VFS instance with the
-     * same parameters currently exists.
-     *
-     * This should be used if multiple types of file backends (and, thus,
-     * multiple VFS instances) are required.
-     *
-     * This method must be invoked as: $var = &VFS::singleton()
-     *
-     * @param mixed $driver  The type of concrete VFS subclass to return. This
-     *                       is based on the storage driver ($driver). The
-     *                       code is dynamically included.
-     * @param array $params  A hash containing any additional configuration or
-     *                       connection parameters a subclass might need.
-     *
-     * @return VFS  The concrete VFS reference, or a PEAR_Error on failure.
-     */
-    function &singleton($driver, $params = array())
-    {
-        static $instances = array();
-
-        $signature = serialize(array($driver, $params));
-        if (!isset($instances[$signature])) {
-            $instances[$signature] = &VFS::factory($driver, $params);
-        }
-
-        return $instances[$signature];
-    }
 
 }

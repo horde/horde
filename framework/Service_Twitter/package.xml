@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Service_Twitter</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Twitter client</summary>
- <description>This package provides client libraries for the Twitter REST API
- </description>
+ <description>This package provides client libraries for the Twitter REST API</description>
  <lead>
   <name>Michael J. Rubinsky</name>
   <user>mrubinsk</user>
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2009-07-18</date>
+ <date>2010-07-01</date>
+ <time>12:46:10</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -28,25 +25,26 @@ http://pear.php.net/dtd/package-2.0.xsd">
 * Initial release
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <file name="twitter.php.example" role="doc" />
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Service">
       <dir name="Twitter">
        <dir name="Auth">
         <file name="Oauth.php" role="php" />
-        <file name="Basic.php" role="php" />
        </dir> <!-- /lib/Horde/Service/Twitter/Auth -->
        <dir name="Request">
         <file name="Oauth.php" role="php" />
-        <file name="Basic.php" role="php" />
        </dir> <!-- /lib/Horde/Service/Twitter/Request -->
-       <file name="Auth.php" role="php" />
-       <file name="Request.php" role="php" />
-       <file name="Exception.php" role="php" />
-       <file name="Statuses.php" role="php" />
        <file name="Account.php" role="php" />
-      </dir> <!-- /lib/Horde/Service/Twitter-->
+       <file name="Auth.php" role="php" />
+       <file name="Exception.php" role="php" />
+       <file name="Request.php" role="php" />
+       <file name="Statuses.php" role="php" />
+      </dir> <!-- /lib/Horde/Service/Twitter -->
       <file name="Twitter.php" role="php" />
      </dir> <!-- /lib/Horde/Service -->
     </dir> <!-- /lib/Horde -->
@@ -69,16 +67,32 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Service/Twitter/Auth.php" as="Horde/Service/Twitter/Auth.php" />
-   <install name="lib/Horde/Service/Twitter/Auth/Oauth.php" as="Horde/Service/Twitter/Auth/Oauth.php" />
-   <install name="lib/Horde/Service/Twitter/Auth/Basic.php" as="Horde/Service/Twitter/Auth/Basic.php" />
-   <install name="lib/Horde/Service/Twitter/Exception.php" as="Horde/Service/Twitter/Exception.php" />
-   <install name="lib/Horde/Service/Twitter/Statuses.php" as="Horde/Service/Twitter/Statuses.php" />
-   <install name="lib/Horde/Service/Twitter/Account.php" as="Horde/Service/Twitter/Account.php" />
-   <install name="lib/Horde/Service/Twitter/Request.php" as="Horde/Service/Twitter/Request.php" />
-   <install name="lib/Horde/Service/Twitter/Request/Oauth.php" as="Horde/Service/Twitter/Request/Oauth.php" />
-   <install name="lib/Horde/Service/Twitter/Request/Basic.php" as="Horde/Service/Twitter/Request/Basic.php" />
-   <install name="lib/Horde/Service/Twitter.php" as="Horde/Service/Twitter.php" />
+   <install as="twitter.php.example" name="doc/twitter.php.example" />
+   <install as="Horde/Service/Twitter.php" name="lib/Horde/Service/Twitter.php" />
+   <install as="Horde/Service/Twitter/Account.php" name="lib/Horde/Service/Twitter/Account.php" />
+   <install as="Horde/Service/Twitter/Auth.php" name="lib/Horde/Service/Twitter/Auth.php" />
+   <install as="Horde/Service/Twitter/Exception.php" name="lib/Horde/Service/Twitter/Exception.php" />
+   <install as="Horde/Service/Twitter/Request.php" name="lib/Horde/Service/Twitter/Request.php" />
+   <install as="Horde/Service/Twitter/Statuses.php" name="lib/Horde/Service/Twitter/Statuses.php" />
+   <install as="Horde/Service/Twitter/Auth/Oauth.php" name="lib/Horde/Service/Twitter/Auth/Oauth.php" />
+   <install as="Horde/Service/Twitter/Request/Oauth.php" name="lib/Horde/Service/Twitter/Request/Oauth.php" />
   </filelist>
  </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2010-07-01</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* Initial release
+   </notes>
+  </release>
+ </changelog>
 </package>

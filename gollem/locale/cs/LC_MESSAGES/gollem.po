@@ -1,0 +1,598 @@
+# Czech translations for Gollem package.
+# Copyright 2004-2010 The Horde Project
+# This file is distributed under the same license as the Horde package.
+# Pavel Chytil <pavel@chytil.tk>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gollem\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2004-12-22 10:04-0800\n"
+"PO-Revision-Date: 2004-11-25 09:19-0800\n"
+"Last-Translator: Pavel Chytil <pavel@chytil.tk>\n"
+"Language-Team: Czech <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: templates/manager/header.inc:580
+#, php-format
+msgid "%d items"
+msgstr "%d položek"
+
+#: templates/manager/file_footers.inc:15
+#, php-format
+msgid "%s Folders and %s Files (%s Kb)"
+msgstr "%s Adresářů a %s Souborů (%s Kb)"
+
+#: templates/manager/file_footers.inc:13
+#, php-format
+msgid "%s Folders and 1 File (%s Kb)"
+msgstr "%s Adresářů a 1 Soubor (%s Kb)"
+
+#: templates/xppublish/backend.inc:10 templates/login/login.inc:67
+#, php-format
+msgid "%s Login"
+msgstr "%s Přihlásit se"
+
+#: manager.php:170
+#, php-format
+msgid "%s was successfully pasted."
+msgstr "%s byl úspěšně vložen."
+
+#: manager.php:67
+#, php-format
+msgid "'%s' renamed to '%s'"
+msgstr "'%s' přejmenován na '%s'"
+
+#: templates/manager/file_footers.inc:10
+#, php-format
+msgid "1 Folder and %s Files (%s Kb)"
+msgstr "1 Adresář a %s Souborů (%s Kb)"
+
+#: templates/manager/file_footers.inc:8
+#, php-format
+msgid "1 Folder and 1 File (%s Kb)"
+msgstr "1 Adresář a 1 Soubor (%s Kb)"
+
+#: templates/manager/header.inc:580
+msgid "1 item"
+msgstr "1 položka"
+
+#: view.php:23
+#, php-format
+msgid "Access denied to %s"
+msgstr "Nebyl povolen přístup k: %s"
+
+#: lib/Gollem.php:100
+msgid "Access denied: "
+msgstr "Přístup zamítnut:"
+
+#: templates/prefs/columnselect.inc:236
+msgid "Add column"
+msgstr "Přidat sloupec"
+
+#: templates/manager/header.inc:435
+msgid "All"
+msgstr "Vše"
+
+#: templates/manager/header.inc:180
+msgid "Are you sure you wish to continue?"
+msgstr "Jste si jistí, že chcete pokračovat?"
+
+#: templates/manager/header.inc:176
+msgid "Are you sure?"
+msgstr "Opravdu?"
+
+#: config/prefs.php.dist:69
+msgid "Ascending"
+msgstr "Vzestupně"
+
+#: config/prefs.php.dist:94
+msgid "Ask"
+msgstr "Zeptat se"
+
+#: templates/manager/header.inc:429
+msgid "Attributes"
+msgstr "Atributy"
+
+#: templates/prefs/columnselect.inc:232
+msgid "Available Columns:"
+msgstr "Možné Sloupce:"
+
+#: lib/api.php:46
+msgid "Backends"
+msgstr "Backendy"
+
+#: templates/xppublish/browse.inc:7
+msgid "Browse to the folder to upload files to"
+msgstr "Přesunout se do adresáře a vložit tam soubory"
+
+#: templates/selectlist/footer.inc:5 templates/manager/header.inc:457
+#: templates/manager/header.inc:490 templates/manager/header.inc:522
+#: templates/manager/header.inc:554
+msgid "Cancel"
+msgstr "Storno"
+
+#: manager.php:89
+#, php-format
+msgid "Cannot chmod %s"
+msgstr "Nelze provést chmod %s"
+
+#: manager.php:146
+msgid "Cannot copy items onto clipboard."
+msgstr "Nelze kopírovat položky do přechodné schránky."
+
+#: manager.php:148
+msgid "Cannot cut items onto clipboard."
+msgstr "Nelze vložit položky do přechodné schránky."
+
+#: manager.php:97
+#, php-format
+msgid "Cannot delete '%s': %s"
+msgstr "Nelze smazat '%s': %s"
+
+#: manager.php:168
+#, php-format
+msgid "Cannot paste '%s' (clipboard cleared): %s"
+msgstr "Nelze vložit '%s' (přechodná schránka vyprázdněna): %s"
+
+#: templates/manager/header.inc:535 templates/manager/header.inc:615
+#: lib/Gollem.php:730
+msgid "Change Folder"
+msgstr "Změnit Adresář"
+
+#: config/prefs.php.dist:21
+msgid "Change file and folder handling settings."
+msgstr "Změnit nastavení pro práci se soubory a adresářemi."
+
+#: config/prefs.php.dist:14
+msgid "Change your file sorting options."
+msgstr "Změnit možnosti pro třídění souborů"
+
+#: templates/manager/file_headers.inc:11
+msgid "Check _All/None"
+msgstr "Vybrat _Vše/Žádné"
+
+#: templates/manager/header.inc:628
+msgid "Chmod Items"
+msgstr "Chmod Položek"
+
+#: manager.php:87
+msgid "Chmod done: "
+msgstr "Chmod proveden: "
+
+#: templates/manager/header.inc:613
+msgid "Choose Action:"
+msgstr "Vybrat Úkon:"
+
+#: templates/prefs/columnselect.inc:226
+msgid "Choose the columns to display in the file manager."
+msgstr "Vybrat zobrazení sloupců ve správci souborů."
+
+#: templates/xppublish/backend.inc:33 templates/login/login.inc:90
+#, php-format
+msgid "Connect to: %s"
+msgstr "Připojit se: %s"
+
+#: templates/manager/header.inc:631
+msgid "Copy Items"
+msgstr "Kopírovat Položky"
+
+#: templates/manager/header.inc:503 templates/manager/header.inc:618
+#: lib/Gollem.php:727
+msgid "Create Folder"
+msgstr "Vytvořit Adresář"
+
+#: templates/manager/header.inc:630
+msgid "Cut Items"
+msgstr "Vyjmout Položky"
+
+#: config/prefs.php.dist:59
+msgid "Default sorting criteria:"
+msgstr "Implicitní třídící kritéria:"
+
+#: config/prefs.php.dist:72
+msgid "Default sorting direction:"
+msgstr "Implicitní směr třídění:"
+
+#: templates/xppublish/backend.inc:33 templates/login/login.inc:90
+#, php-format
+msgid "Defaulted to: %s"
+msgstr "Přepnuto na: %s"
+
+#: templates/manager/header.inc:625
+msgid "Delete Items"
+msgstr "Smazat Položky"
+
+#: config/prefs.php.dist:96
+msgid "Delete folders recursively?"
+msgstr "Smazat Adresáře rekurzivně?"
+
+#: config/prefs.php.dist:70
+msgid "Descending"
+msgstr "Sestupně"
+
+#: templates/selectlist/footer.inc:4
+msgid "Done"
+msgstr "Provedeno"
+
+#: manager.php:218 templates/manager/file_headers.inc:25
+msgid "Download"
+msgstr "Download"
+
+#: xppublish.php:147
+#, php-format
+msgid "ERROR: %s"
+msgstr "CHYBA: %s"
+
+#: config/credentials.php.dist:28
+msgid "Email"
+msgstr "Email"
+
+#: templates/manager/header.inc:450
+msgid "Execute"
+msgstr "Provést"
+
+#: templates/manager/header.inc:592
+msgid "File 1:"
+msgstr "Soubor 1:"
+
+#: templates/manager/header.inc:599
+msgid "File 2:"
+msgstr "Soubor 2:"
+
+#: templates/manager/header.inc:603
+msgid "File 3:"
+msgstr "Soubor 3:"
+
+#: config/prefs.php.dist:13
+msgid "File Display"
+msgstr "Zobrazit Soubor"
+
+#: config/prefs.php.dist:56
+msgid "File Modification Time"
+msgstr "Čas Změny Souboru"
+
+#: config/prefs.php.dist:55
+msgid "File Name"
+msgstr "Název Souboru"
+
+#: config/prefs.php.dist:57
+msgid "File Size"
+msgstr "Velikost Souboru"
+
+#: config/prefs.php.dist:54
+msgid "File Type"
+msgstr "Typ Souboru"
+
+#: templates/xppublish/javascript.inc:63
+msgid "File Upload"
+msgstr "Vložit Soubor"
+
+#: manager.php:93
+msgid "File deleted: "
+msgstr "Soubor smazán: "
+
+#: manager.php:119
+#, php-format
+msgid "File received: %s"
+msgstr "Soubor přijat: %s"
+
+#: manager.php:95
+msgid "Folder removed: "
+msgstr "Adresář odstraněn: "
+
+#: templates/manager/header.inc:543
+msgid "Go to:"
+msgstr "Přesunout se na:"
+
+#: templates/manager/file_headers.inc:47 templates/manager/header.inc:434
+msgid "Group"
+msgstr "Skupina"
+
+#: lib/Gollem.php:723
+msgid "Home"
+msgstr "Gollem"
+
+#: manager.php:71
+msgid "Incorrect number of items."
+msgstr "Nesprávný počet položek."
+
+#: manager.php:139
+#, php-format
+msgid "Item copied to clipboard: %s"
+msgstr "Položka zkopírována do přechodné schránky: %s"
+
+#: manager.php:141
+#, php-format
+msgid "Item cut to clipboard: %s"
+msgstr "Položka přesunuta do přechodné schránky: %s"
+
+#: config/prefs.php.dist:81
+msgid "List folders first?"
+msgstr "Ukázat nejdříve seznam adresářů?"
+
+#: login.php:104 xppublish.php:84
+msgid "Locked"
+msgstr "Uzamčeno"
+
+#: templates/login/login.inc:119
+msgid "Log in"
+msgstr "Přihlásit se"
+
+#: templates/xppublish/login.inc:2
+#, php-format
+msgid "Login to %s"
+msgstr "Přihlásit se do %s"
+
+#: templates/manager/file_headers.inc:30
+msgid "Modified"
+msgstr "Změněno"
+
+#: templates/prefs/columnselect.inc:246
+msgid "Move left"
+msgstr "Posunout doleva"
+
+#: templates/prefs/columnselect.inc:248
+msgid "Move right"
+msgstr "Posunout doprava"
+
+#: templates/manager/file_headers.inc:21
+msgid "Name"
+msgstr "Název"
+
+#: templates/manager/header.inc:479 templates/manager/header.inc:511
+msgid "Name:"
+msgstr "Název:"
+
+#: manager.php:48
+msgid "New folder created: "
+msgstr "Založen nový adresář: "
+
+#: config/prefs.php.dist:92
+msgid "No"
+msgstr "Ne"
+
+#: templates/manager/header.inc:489 templates/manager/header.inc:521
+#: templates/manager/header.inc:553
+msgid "OK"
+msgstr "OK"
+
+#: templates/manager/file_headers.inc:43 templates/manager/header.inc:433
+msgid "Owner"
+msgstr "Vlastník"
+
+#: templates/xppublish/login.inc:14 config/credentials.php.dist:23
+msgid "Password"
+msgstr "Heslo"
+
+#: templates/manager/header.inc:637
+msgid "Paste Items"
+msgstr "Vložit Položky"
+
+#: templates/manager/file_headers.inc:39
+msgid "Permission"
+msgstr "Práva"
+
+#: manager.php:198 selectlist.php:65 templates/xppublish/browse.inc:28
+#, php-format
+msgid "Permission denied to %s: %s"
+msgstr "Nepovolený přístup k %s: %s"
+
+#: xppublish.php:55
+msgid "Please enter your Username and Password."
+msgstr "Prosím zadejte Vaše Uživatelské Jméno a Heslo"
+
+#: templates/login/login.inc:31
+msgid "Please provide your password."
+msgstr "Prosím zadejte Vaše heslo."
+
+#: templates/login/login.inc:26
+msgid "Please provide your username."
+msgstr "Prosím zadejte Vaše uživatelské jméno."
+
+#: templates/prefs/columnselect.inc:217
+msgid "Please select a backend:"
+msgstr "Prosim vyberte backend:"
+
+#: templates/manager/header.inc:109
+msgid "Please select an item before this action."
+msgstr "Prosím vyberte položku před provedeními tohoto úkonu."
+
+#: templates/manager/header.inc:226
+msgid "Please specify at least one file to upload."
+msgstr "Prosím zadejte alespoň jeden soubor pro upload."
+
+#: templates/manager/header.inc:438
+msgid "Read"
+msgstr "Čtecí"
+
+#: templates/manager/header.inc:577
+msgid "Refresh"
+msgstr "Obnovit"
+
+#: templates/prefs/columnselect.inc:238
+msgid "Remove column"
+msgstr "Odstranit sloupec"
+
+#: templates/manager/header.inc:471
+msgid "Rename"
+msgstr "Přejmenovat"
+
+#: templates/manager/header.inc:622
+msgid "Rename Items"
+msgstr "Přejmenovat Položky"
+
+#: lib/Gollem.php:689 lib/Gollem.php:694
+msgid "Root"
+msgstr "Kořenový adresář"
+
+#: templates/manager/header.inc:456
+msgid "Save"
+msgstr "Uložit"
+
+#: templates/xppublish/backend.inc:27 templates/selectlist/footer.inc:3
+msgid "Select"
+msgstr "Vybrat"
+
+#: templates/prefs/columnselect.inc:242
+msgid "Selected Columns:"
+msgstr "Vybrané Sloupce:"
+
+#: templates/xppublish/backend.inc:22 templates/xppublish/backend.inc:40
+#: templates/login/login.inc:80 templates/login/login.inc:97
+msgid "Server"
+msgstr "Server"
+
+#: config/prefs.php.dist:20
+msgid "Settings"
+msgstr "Možnosti Nastavení"
+
+#: config/prefs.php.dist:30
+msgid "Show dotfiles?"
+msgstr "Zobrazit soubory začínající tečkou?"
+
+#: templates/manager/file_headers.inc:35
+msgid "Size"
+msgstr "Velikost"
+
+#: templates/manager/file_headers.inc:15 templates/manager/file_headers.inc:20
+#: templates/manager/file_headers.inc:29 templates/manager/file_headers.inc:34
+msgid "Sort Direction"
+msgstr "Směr Třídění"
+
+#: templates/manager/header.inc:180
+msgid "The following item(s) are folders: "
+msgstr "Následující položka(y) je/jsou adresář(e): "
+
+#: templates/manager/header.inc:176
+msgid "The following items will be permanently deleted: "
+msgstr "Následujíci položky budou permanentně vymazány: "
+
+#: templates/selectlist/empty_dir.inc:2 templates/manager/empty_dir.inc:2
+msgid "There are no files in this folder."
+msgstr "Tento adresář neobsahuje žádné soubory."
+
+#: templates/xppublish/browse.inc:74
+msgid ""
+"There are no folders in the current folder; click 'Next' if you want to "
+"upload files to this folder."
+msgstr ""
+"Tento adresář neobsahuje žádné soubory; klikněte na 'Další' pokud si přejete "
+"uploadovat soubory do toho to adresáře."
+
+#: lib/MIME/Viewer/plain.php:30
+msgid "There was an error viewing this file"
+msgstr "Nastala chyba při prohlížení toho to souboru."
+
+#: templates/manager/file_headers.inc:16
+msgid "Type"
+msgstr "Typ"
+
+#: lib/Gollem.php:694 lib/Gollem.php:704
+#, php-format
+msgid "Up to %s"
+msgstr "Do %s"
+
+#: templates/manager/header.inc:595
+msgid "Upload File(s)"
+msgstr "Uploadovat Soubor(y)"
+
+#: templates/xppublish/javascript.inc:63
+#, php-format
+msgid "Upload Files to %s"
+msgstr "Uploadovat Soubory do %s"
+
+#: xppublish.php:37
+#, php-format
+msgid "Upload to %s"
+msgstr "Uploadovat do %s"
+
+#: xppublish.php:25
+#, php-format
+msgid "Upload your files to %s on %s."
+msgstr "Uploadovat soubory do %s na %s."
+
+#: config/prefs.php.dist:12 config/prefs.php.dist:19
+msgid "User Interface"
+msgstr "Uživatelské Rozhraní"
+
+#: templates/xppublish/login.inc:11 config/credentials.php.dist:18
+msgid "Username"
+msgstr "Uživatelské Jméno"
+
+#: xppublish.php:51
+msgid "Username and Password are incorrect."
+msgstr "Nesprávné Uživatelské Jméno a Heslo."
+
+#: login.php:148
+#, php-format
+msgid "Welcome to %s"
+msgstr "Vítejte v %s"
+
+#: templates/xppublish/browse.inc:10
+msgid ""
+"When you are inside the folder you wish to upload to, click the 'Next' "
+"button to upload files."
+msgstr ""
+"Pokud jste uvnitř adresáře, kde si přejete uploadovat soubory, klikněte na  "
+"'Další'."
+
+#: templates/manager/header.inc:444
+msgid "Write"
+msgstr "Zapsat"
+
+#: config/prefs.php.dist:93
+msgid "Yes"
+msgstr "Ano"
+
+#: manager.php:52
+msgid "You do not have permission to create this folder."
+msgstr "Nedostatečná práva pro založení adresáře %s."
+
+#: manager.php:152
+msgid "You do not have permission to cut/copy items."
+msgstr "Nedostatečná práva pro vyjmutí/kopírování položek.."
+
+#: manager.php:103
+msgid "You do not have permission to delete or change permissions on items."
+msgstr "Nedostatečná práva pro smazání nebo změnu práv pro tyto položky."
+
+#: manager.php:178
+msgid "You do not have permission to paste items."
+msgstr "Nedostatečná práva pro vložení položek."
+
+#: manager.php:74
+msgid "You do not have permission to rename items."
+msgstr "Nedostatečná práva pro přejmenování položek."
+
+#: manager.php:124
+msgid "You do not have permission to upload items."
+msgstr "Nedostatečná práva pro uploadování položek."
+
+#: lib/MIME/Viewer/images.php:41
+msgid "Your browser does not support inline display of this image type"
+msgstr "Váš prohlížeč nepodporuje zobrazení tohoto typu obrázku v těle zprávy."
+
+#: lib/Gollem.php:167 lib/Gollem.php:180
+msgid "[home]"
+msgstr "[domovský adresář]"
+
+#: lib/Gollem.php:749
+msgid "_Change Server"
+msgstr "_Změnit Server"
+
+#: lib/Gollem.php:740 lib/Gollem.php:743
+msgid "_Log out"
+msgstr "_Odhlášení"
+
+#: manager.php:219 selectlist.php:76
+msgid "folder"
+msgstr "adresář"
+
+#: manager.php:220 selectlist.php:77
+msgid "symlink"
+msgstr "symbolická linka"

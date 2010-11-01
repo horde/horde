@@ -14,12 +14,6 @@
 /**
  * A class to check if the given session is valid.
  *
- * The core user credentials (login, pass) are kept within the Auth module and
- * can be retrieved using <code>Auth::getAuth()</code> respectively
- * <code>Auth::getCredential('password')</code>. Any additional Kolab user data
- * relevant for the user session should be accessed via the Horde_Kolab_Session
- * class.
- *
  * Copyright 2009-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -37,27 +31,27 @@ implements Horde_Kolab_Session_Valid_Interface
     /**
      * The session handler this instance provides with anonymous access.
      *
-     * @var Horde_Kolab_Session_Interface
+     * @var Horde_Kolab_Session
      */
     private $_session;
 
     /**
      * Provides authentication information for this object.
      *
-     * @var Horde_Kolab_Session_Auth_Interface
+     * @var mixed The user ID or false if no user is logged in.
      */
     private $_auth;
 
     /**
      * Constructor.
      *
-     * @param Horde_Kolab_Session_Interface      $session The session that should be
-     *                                                     validated.
-     * @param Horde_Kolab_Session_Auth_Interface $auth    The authentication handler.
+     * @param Horde_Kolab_Session $session The session that should be validated.
+     * @param mixed               $auth    The user ID or false if no user is
+     *                                     logged in.
      */
     public function __construct(
-        Horde_Kolab_Session_Interface $session,
-        Horde_Kolab_Session_Auth_Interface $auth
+        Horde_Kolab_Session $session,
+        $auth
     ) {
         $this->_session = $session;
         $this->_auth    = $auth;
@@ -75,7 +69,7 @@ implements Horde_Kolab_Session_Valid_Interface
     public function isValid($user = null)
     {
         $mail = $this->_session->getMail();
-        if ($this->_auth->getCurrentUser() != $mail) {
+        if ($this->_auth != $mail) {
             return false;
         }
         if (empty($user)) {
@@ -90,7 +84,7 @@ implements Horde_Kolab_Session_Valid_Interface
     /**
      * Return the session this validator checks.
      *
-     * @return Horde_Kolab_Session_Interface The session checked by this
+     * @return Horde_Kolab_Session The session checked by this
      * validator.
      */
     public function getSession()
@@ -101,8 +95,7 @@ implements Horde_Kolab_Session_Valid_Interface
     /**
      * Return the auth driver of this validator.
      *
-     * @return Horde_Kolab_Session_Auth_Interface The auth driver set for this
-     * validator.
+     * @return mixed The user ID or false if no user is logged in.
      */
     public function getAuth()
     {

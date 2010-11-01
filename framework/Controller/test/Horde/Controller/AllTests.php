@@ -32,6 +32,8 @@ class Horde_Controller_AllTests extends Horde_Test_AllTests
 {
 }
 
+Horde_Controller_AllTests::init('Horde_Controller', __FILE__);
+
 if (PHPUnit_MAIN_METHOD == 'Horde_Controller_AllTests::main') {
-    Horde_Controller_AllTests::main('Horde_Controller', __FILE__);
+    Horde_Controller_AllTests::main();
 }

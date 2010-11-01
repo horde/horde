@@ -1,4 +1,4 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
 /**
  * This script imports SquirrelMail database preferences into Horde.
@@ -16,17 +16,8 @@
  */
 
 // Do CLI checks and environment setup first.
-require_once dirname(__FILE__) . '/../lib/core.php';
-
-// Makre sure no one runs this from the web.
-if (!Horde_Cli::runningFromCli()) {
-    exit("Must be run from the command line\n");
-}
-
-// Load the CLI environment - make sure there's no time limit, init some
-// variables, etc.
-$cli = Horde_Cli::singleton();
-$cli->init();
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('horde', array('authentication' => 'none', 'cli' => true));
 
 // Read command line parameters.
 if ($argc != 2) {
@@ -36,22 +27,20 @@ if ($argc != 2) {
 }
 $dsn = $argv[1];
 
-// Make sure we load Horde base to get the auth config
-new Horde_Application(array('authentication' => 'none'));
-
 require_once dirname(__FILE__) . '/import_squirrelmail_prefs.php';
 
 // Connect to database.
 $db = DB::connect($dsn);
-if (is_a($db, 'PEAR_Error')) {
+if ($db instanceof PEAR_Error) {
     $cli->fatal($db->toString());
 }
 
 // Loop through SquirrelMail address books.
 $handle = $db->query('SELECT user, prefkey, prefval FROM userprefs ORDER BY user');
-if (is_a($handle, 'PEAR_Error')) {
+if ($handle instanceof PEAR_Error) {
     $cli->fatal($handle->toString());
 }
+
 $user = null;
 $prefs_cache = array();
 while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
@@ -66,15 +55,19 @@ while ($row = $handle->fetchRow(DB_FETCHMODE_ASSOC)) {
 
     $prefs_cache[$row['prefkey']] = $row['prefval'];
 }
+
 importPrefs();
 
 function importPrefs()
 {
     global $cli, $conf, $user, $prefs_cache;
 
-    Horde_Auth::setAuth($user, array());
+    $GLOBALS['registry']->setAuth($user, array());
     $cli->message('Importing ' . $user . '\'s preferences');
-    $prefs = Horde_Prefs::factory($conf['prefs']['driver'], 'horde', $user, null, null, false);
+    $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create('horde', array(
+        'cache' => false,
+        'user' => $user
+    ));
     savePrefs($user, null, $prefs_cache);
 }
 

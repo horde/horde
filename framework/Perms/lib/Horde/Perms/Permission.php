@@ -14,27 +14,51 @@
  */
 class Horde_Perms_Permission
 {
-    // TODO
+    /**
+     * TODO
+     */
     public $data;
 
-    // TODO
+    /**
+     * TODO
+     */
     public $name;
+
+    /**
+     * Incrementing version number if cached classes change.
+     *
+     * @var integer
+     */
+    protected $_cacheVersion;
 
     /**
      * Constructor.
      *
-     * @param string $name   The name of the perm.
-     * @param string $type   The permission type.
-     * @param array $params  A hash with any parameters that the permission
-     *                       type needs.
+     * @param string $name           The name of the perm.
+     * @param integer $cacheVersion  The revision number of the class.
+     * @param string $type           The permission type.
+     * @param array $params          A hash with any parameters that the
+     *                               permission type needs.
      */
-    public function __construct($name, $type = 'matrix', $params = null)
+    public function __construct($name, $cacheVersion = null, $type = 'matrix',
+                                $params = null)
     {
         $this->setName($name);
+        $this->setCacheVersion($cacheVersion);
         $this->data['type'] = $type;
         if (is_array($params)) {
             $this->data['params'] = $params;
         }
+    }
+
+    /**
+     * Sets the revision number of the class.
+     *
+     * @param integer $cacheVersion  The revision number of the class.
+     */
+    public function setCacheVersion($cacheVersion)
+    {
+        $this->_cacheVersion = $cacheVersion;
     }
 
     /**
@@ -362,24 +386,30 @@ class Horde_Perms_Permission
      * Removes a permission that a user currently has on this object.
      *
      * @param string $user         The user to remove the permission from.
+     *                             Defaults to all users.
      * @param integer $permission  The permission (DELETE, etc.) to
-     *                             remove.
+     *                             remove. Defaults to all permissions.
      * @param boolean $update      Whether to automatically update the
      *                             backend.
      */
-    public function removeUserPermission($user, $permission, $update = true)
+    public function removeUserPermission($user = null, $permission = null,
+                                         $update = true)
     {
-        if (empty($user) || !isset($this->data['users'][$user])) {
-            return;
-        }
+        if (is_null($user)) {
+            $this->data['users'] = array();
+        } else {
+            if (!isset($this->data['users'][$user])) {
+                return;
+            }
 
-        if ($this->get('type') == 'matrix') {
-            $this->data['users'][$user] &= ~$permission;
-            if (empty($this->data['users'][$user])) {
+            if ($permission && $this->get('type') == 'matrix') {
+                $this->data['users'][$user] &= ~$permission;
+                if (empty($this->data['users'][$user])) {
+                    unset($this->data['users'][$user]);
+                }
+            } else {
                 unset($this->data['users'][$user]);
             }
-        } else {
-            unset($this->data['users'][$user]);
         }
 
         if ($update) {
@@ -391,17 +421,17 @@ class Horde_Perms_Permission
      * Removes a permission that guests currently have on this object.
      *
      * @param integer $permission  The permission (DELETE, etc.) to
-     *                             remove.
+     *                             remove. Defaults to all permissions.
      * @param boolean $update      Whether to automatically update the
      *                             backend.
      */
-    public function removeGuestPermission($permission, $update = true)
+    public function removeGuestPermission($permission = null, $update = true)
     {
         if (!isset($this->data['guest'])) {
             return;
         }
 
-        if ($this->get('type') == 'matrix') {
+        if ($permission && $this->get('type') == 'matrix') {
             $this->data['guest'] &= ~$permission;
         } else {
             unset($this->data['guest']);
@@ -416,17 +446,17 @@ class Horde_Perms_Permission
      * Removes a permission that creators currently have on this object.
      *
      * @param integer $permission  The permission (DELETE, etc.) to
-     *                             remove.
+     *                             remove. Defaults to all permissions.
      * @param boolean $update      Whether to automatically update the
      *                             backend.
      */
-    public function removeCreatorPermission($permission, $update = true)
+    public function removeCreatorPermission($permission = null, $update = true)
     {
         if (!isset($this->data['creator'])) {
             return;
         }
 
-        if ($this->get('type') == 'matrix') {
+        if ($permission && $this->get('type') == 'matrix') {
             $this->data['creator'] &= ~$permission;
         } else {
             unset($this->data['creator']);
@@ -441,17 +471,17 @@ class Horde_Perms_Permission
      * Removes a default permission on this object.
      *
      * @param integer $permission  The permission (DELETE, etc.) to
-     *                             remove.
+     *                             remove. Defaults to all permissions.
      * @param boolean $update      Whether to automatically update the
      *                             backend.
      */
-    public function removeDefaultPermission($permission, $update = true)
+    public function removeDefaultPermission($permission = null, $update = true)
     {
         if (!isset($this->data['default'])) {
             return;
         }
 
-        if ($this->get('type') == 'matrix') {
+        if ($permission && $this->get('type') == 'matrix') {
             $this->data['default'] &= ~$permission;
         } else {
             unset($this->data['default']);
@@ -466,26 +496,30 @@ class Horde_Perms_Permission
      * Removes a permission that a group currently has on this object.
      *
      * @param integer $groupId     The id of the group to remove the
-     *                             permission from.
+     *                             permission from. Defaults to all groups.
      * @param integer $permission  The permission (DELETE, etc.) to
-     *                             remove.
+     *                             remove. Defaults to all permissions.
      * @param boolean $update      Whether to automatically update the
      *                             backend.
      */
-    public function removeGroupPermission($groupId, $permission,
+    public function removeGroupPermission($groupId = null, $permission = null,
                                           $update = true)
     {
-        if (empty($groupId) || !isset($this->data['groups'][$groupId])) {
-            return;
-        }
+        if (is_null($groupId)) {
+            $this->data['groups'] = array();
+        } else {
+            if (!isset($this->data['groups'][$groupId])) {
+                return;
+            }
 
-        if ($this->get('type') == 'matrix') {
-            $this->data['groups'][$groupId] &= ~$permission;
-            if (empty($this->data['groups'][$groupId])) {
+            if ($permission && $this->get('type') == 'matrix') {
+                $this->data['groups'][$groupId] &= ~$permission;
+                if (empty($this->data['groups'][$groupId])) {
+                    unset($this->data['groups'][$groupId]);
+                }
+            } else {
                 unset($this->data['groups'][$groupId]);
             }
-        } else {
-            unset($this->data['groups'][$groupId]);
         }
 
         if ($update) {

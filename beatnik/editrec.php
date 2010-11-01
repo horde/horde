@@ -6,13 +6,14 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-define('BEATNIK_BASE', dirname(__FILE__));
-require_once BEATNIK_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+$beatnik = Horde_Registry::appInit('beatnik');
+
 require_once BEATNIK_BASE . '/lib/Forms/EditRecord.php';
 
 $vars = Horde_Variables::getDefaultVariables();
-$url = Horde::applicationUrl('editrec.php');
-list($type, $record) = $beatnik_driver->getRecord(Horde_Util::getFormData('id'));
+$url = Horde::url('editrec.php');
+list($type, $record) = $beatnik->driver->getRecord(Horde_Util::getFormData('id'));
 
 $form = new EditRecord($vars);
 
@@ -20,7 +21,7 @@ if ($form->validate($vars)) {
     $form->getInfo($vars, $info);
 
     try {
-        $result = $beatnik_driver->saveRecord($info);
+        $result = $beatnik->driver->saveRecord($info);
     } catch (Exception $e) {
         $notification->push($e->getMessage(), 'horde.error');
     }
@@ -31,14 +32,12 @@ if ($form->validate($vars)) {
     $edit = $vars->get('id');
     if ($info['rectype'] == 'soa' && !$edit) {
         // if added a soa redirect to the autogeneration page
-        $url = Horde_Util::addParameter(Horde::applicationUrl('autogenerate.php'),
-                                  array('rectype' => 'soa', 'curdomain' => $info['zonename']), false, false);
+        $url = Horde::url('autogenerate.php')->add(array('rectype' => 'soa', 'curdomain' => $info['zonename']));
     } else {
-        $url = Horde::applicationUrl('viewzone.php');
+        $url = Horde::url('viewzone.php');
     }
 
-    header('Location: ' . $url);
-    exit;
+    $url->redirect();
 
 } elseif (!$form->isSubmitted() && $record) {
     foreach ($record as $field => $value) {

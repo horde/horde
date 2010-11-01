@@ -3,7 +3,7 @@
 /**
  * The Autoloader allows us to omit "require/include" statements.
  */
-require_once 'Horde/Autoloader.php';
+require_once 'Horde/Autoloader/Default.php';
 
 /**
  * FIXME START
@@ -31,8 +31,7 @@ if (!$opts->base) {
  * Ensure that the base parameters (especially SERVER_NAME) get set for the
  * command line.
  */
-$cli = Horde_Cli::singleton();
-$cli->init();
+$cli = Horde_Cli::init();
 
 /**
  * Hm, the fact that we need the registry at this point for
@@ -47,10 +46,10 @@ require_once $opts->base . '/koward/config/base.php';
  * FIXME END
  */
 
-/** Configure the Autoloader to handle the "Koward" pattern */
-Horde_Autoloader::addClassPattern('/^Koward_/', 'Koward/');
+/* Configure the Autoloader to handle the "Koward" pattern */
+$__autoloader->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Koward_/', 'Koward/'));
 
-/** Dispatch the request. */
+/* Dispatch the request. */
 try {
   Koward::dispatch($opts->base . '/htdocs/koward/koward.php', 'Koward_Cli');
 } catch (Exception $e) {

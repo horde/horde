@@ -21,21 +21,22 @@ abstract class Ansel_View_GalleryRenderer_Base
 
     /**
      * The gallery id for this view's gallery
+     * (Convenience instead of $this->view->gallery->id)
      *
      * @var integer
      */
-    public $galleryId;   // TODO: probably can remove this (get the id from the view's gallery)
+    public $galleryId;
 
     /**
      * Gallery slug for current gallery.
      *
      * @var string
      */
-    var $gallerySlug; // Ditto.
+    public $gallerySlug;
 
     /**
      * The current page we are viewing
-     * //TODO: use __get() for these type of things...
+     *
      * @var integer
      */
     public $page = 0;
@@ -50,9 +51,9 @@ abstract class Ansel_View_GalleryRenderer_Base
     public $mode;
 
     /**
-     * The style definition array for this gallery.
+     * The style definition.
      *
-     * @var array
+     * @var Ansel_Style
      */
     public $style;
 
@@ -100,11 +101,16 @@ abstract class Ansel_View_GalleryRenderer_Base
     public $date = array();
 
     /**
+     * Human readable title for this view type
+     *
+     * @var string
+     */
+    public $title;
+
+    /**
      * Constructor
      *
      * @param Ansel_View_Gallery  The view object for this renderer.
-     *
-     * @return Ansel_View_Renderer_Gallery
      */
     public function __construct($view)
     {
@@ -116,7 +122,6 @@ abstract class Ansel_View_GalleryRenderer_Base
      * to display or otherwise interact with the renderer.
      *
      * @TODO: Not sure why I didn't put this in the const'r - try moving it.
-     *
      */
     public function init()
     {
@@ -127,8 +132,12 @@ abstract class Ansel_View_GalleryRenderer_Base
         $this->page = $this->view->page;
 
         /* Number perpage from prefs or config */
-        $this->perpage = min($prefs->getValue('tilesperpage'),
-                             $conf['thumbnail']['perpage']);
+        if ($this->view->tilesperpage) {
+            $this->perpage = $this->view->tilesperpage;
+        } else {
+            $this->perpage = min($prefs->getValue('tilesperpage'),
+                                 $conf['thumbnail']['perpage']);
+        }
 
         /* Calculate the starting and ending images on this page */
         $this->pagestart = ($this->page * $this->perpage) + 1;
@@ -136,7 +145,8 @@ abstract class Ansel_View_GalleryRenderer_Base
         /* Fetch the children */
         $this->fetchChildren($this->view->force_grouping);
 
-        /* Do we have an explicit style set? If not, use the gallery's */
+        // Do we have an explicit style set from the API?
+        //  If not, use the gallery's
         if (!empty($this->view->style)) {
             $this->style = Ansel::getStyleDefinition($this->view->style);
         } else {
@@ -144,32 +154,26 @@ abstract class Ansel_View_GalleryRenderer_Base
         }
 
         /* Include any widgets */
-        if (!empty($this->style['widgets']) && !$this->view->api) {
+        if (!empty($this->style->widgets) && !$this->view->api) {
+
             /* Special case widgets - these are built in */
-            if (array_key_exists('Actions', $this->style['widgets'])) {
+            if (array_key_exists('Actions', $this->style->widgets)) {
                 /* Don't show action widget if no actions */
-                if (Horde_Auth::getAuth() ||
+                if ($GLOBALS['registry']->getAuth() ||
                     !empty($conf['report_content']['driver']) &&
-                    (($conf['report_content']['allow'] == 'authenticated' && Horde_Auth::isAuthenticated()) ||
+                    (($conf['report_content']['allow'] == 'authenticated' &&
+                      $GLOBALS['registry']->isAuthenticated()) ||
                      $conf['report_content']['allow'] == 'all')) {
 
                     $this->view->addWidget(Ansel_Widget::factory('Actions'));
                 }
-                unset($this->style['widgets']['Actions']);
+                unset($this->style->widgets['Actions']);
             }
 
-            // I *think* this is more efficient, iterate over the children
-            // since we already have them instead of calling listImages.
-            //$image_ids = $this->view->gallery->listImages($this->pagestart, $this->pagestart + $this->perpage);
-            $ids = array();
-            foreach ($this->children as $child) {
-                if (is_a($child, 'Ansel_Image')) {
-                    $ids[] = $child->id;
-                }
-            }
             // Gallery widgets always receive an array of image ids for
             // the current page.
-            foreach ($this->style['widgets'] as $wname => $wparams) {
+            $ids = $this->getChildImageIds();
+            foreach ($this->style->widgets as $wname => $wparams) {
                 $wparams = array_merge($wparams, array('images' => $ids));
                 $this->view->addWidget(Ansel_Widget::factory($wname, $wparams));
             }
@@ -198,6 +202,17 @@ abstract class Ansel_View_GalleryRenderer_Base
 
         /* The last tile number to display on the current page */
         $this->pageend = min($this->numTiles, $this->pagestart + $this->perpage - 1);
+    }
+
+    public function getChildImageIds()
+    {
+        $ids = array();
+        foreach ($this->children as $child) {
+            if ($child instanceof Ansel_Image) {
+                $ids[] = $child->id;
+            }
+        }
+        return $ids;
     }
 
     /**

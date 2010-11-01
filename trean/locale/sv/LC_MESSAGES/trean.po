@@ -1,0 +1,835 @@
+# Trean Swedish translation
+# Copyright 2004 Andreas Dahlen.
+# Andreas Dahlén <andreas@dahlen.ws>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Trean 1.0-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2005-06-14 22:08+0200\n"
+"PO-Revision-Date: 2005-06-16 08:48+0100\n"
+"Last-Translator: Andreas Dahlén <andreas@dahlen.ws>\n"
+"Language-Team: Swedish <dev@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: data.php:153
+#, php-format
+msgid "%d Folders and %d Bookmarks imported."
+msgstr "%d mappar och %d bokmärken importerades."
+
+#: templates/reports/http-status.inc:127
+#, php-format
+msgid "%s Bookmarks"
+msgstr "%s bokmärken"
+
+#: templates/browse/subcategories.inc:10
+#, php-format
+msgid "%s Categories"
+msgstr "%s kategorier"
+
+#: templates/reports/clicks.inc:49
+#, php-format
+msgid "%s Clicks"
+msgstr "%s klick"
+
+#: reports.php:30
+#, php-format
+msgid "%s Response Codes"
+msgstr "%s svar"
+
+#: lib/base.php:61 scripts/upgrades/2005-03-15_move_to_horde_share.php:123
+#, php-format
+msgid "%s's Bookmarks"
+msgstr "%s bokmärken"
+
+#: edit.php:186
+#, php-format
+msgid "'%s' was not renamed: %s."
+msgstr "Namnet byttes inte på '%s': %s."
+
+#: templates/reports/clicks.inc:47
+msgid "1 Click"
+msgstr "1 klick"
+
+#: lib/Block/bookmarks.php:56 config/prefs.php.dist:33
+msgid "1 Line"
+msgstr "1 rad"
+
+#: templates/reports/http-status.inc:59
+#, php-format
+msgid "1xx Response Codes (%s)"
+msgstr "1xx svar (%s)"
+
+#: lib/Block/bookmarks.php:55 config/prefs.php.dist:32
+msgid "2 Line"
+msgstr "2 rad"
+
+#: templates/reports/http-status.inc:65
+#, php-format
+msgid "2xx Response Codes (%s)"
+msgstr "2xx svar (%s)"
+
+#: lib/Block/bookmarks.php:54 config/prefs.php.dist:31
+msgid "3 Line"
+msgstr "3 rad"
+
+#: templates/reports/http-status.inc:76
+#, php-format
+msgid "3xx Response Codes (%s)"
+msgstr "3xx svar (%s)"
+
+#: templates/reports/http-status.inc:87
+#, php-format
+msgid "4xx Response Codes (%s)"
+msgstr "4xx svar (%s)"
+
+#: templates/reports/http-status.inc:109
+#, php-format
+msgid "5xx Response Codes (%s)"
+msgstr "5xx svar (%s)"
+
+#: lib/Trean.php:247
+msgid "Accepted"
+msgstr "Accepterad"
+
+#: lib/Block/tree_menu.php:24
+msgid "Add"
+msgstr "Lägg till"
+
+#: add.php:111
+msgid "Add Bookmark"
+msgstr "Lägg till bokärke"
+
+#: templates/add/add.inc:31
+msgid "Add a new bookmark"
+msgstr "Lägg till nytt bokmärke"
+
+#: templates/add/add.inc:82
+msgid "Add to Bookmarks"
+msgstr "Lägg till bokärken"
+
+#: templates/browse/bookmarks.inc:28 templates/browse/subcategories.inc:17
+#: templates/search/results_header.inc:11
+msgid "All"
+msgstr "Alla"
+
+#: lib/Block/bookmarks.php:48
+msgid "All Bookmarks"
+msgstr "Alla bokmärken"
+
+#: lib/Trean.php:32
+#, php-format
+msgid "An error occured listing categories: %s"
+msgstr "Fel vid listning av kategorier: %s"
+
+#: lib/Trean.php:61
+#, php-format
+msgid "An error occurred counting categories: %s"
+msgstr "Fel vid räkning av kategorier: %s"
+
+#: templates/search/search.inc:30
+msgid "And"
+msgstr "och"
+
+#: templates/search/search.inc:39
+msgid "Any Part of field"
+msgstr "Del av fält"
+
+#: templates/browse/javascript.inc:107 templates/search/javascript.inc:31
+msgid "Are you sure you want to delete the selected bookmarks?"
+msgstr "Är du säker att du vill radera valda bokmärken?"
+
+#: templates/browse/javascript.inc:210
+msgid "Are you sure you want to delete the selected categories?"
+msgstr "Är du säker att du vill radera valda kategorier?"
+
+#: perms.php:50
+msgid "Attempt to edit a non-existent share."
+msgstr "Försök att ändra en utdelning som inte finns."
+
+#: lib/Trean.php:279
+msgid "Bad Gateway"
+msgstr "Felaktig gateway"
+
+#: lib/Trean.php:259
+msgid "Bad Request"
+msgstr "Felaktig request"
+
+#: lib/Bookmarks.php:52
+msgid "Bookmark names must be non-empty"
+msgstr "Namn på bokmärken får inte vara tomt"
+
+#: data.php:17 lib/Block/bookmarks.php:3 lib/Block/bookmarks.php:45
+#: lib/Block/bookmarks.php:74
+msgid "Bookmarks"
+msgstr "Bokmärken"
+
+#: browse.php:83
+msgid "Browse"
+msgstr "Lista"
+
+#: templates/edit/footer.inc:4
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: templates/browse/subcategories.inc:10 templates/browse/browse.html:4
+msgid "Categories"
+msgstr "Kategorier"
+
+#: lib/Block/bookmarks.php:41 templates/edit/edit.inc:75
+#: templates/add/add.inc:51
+msgid "Category"
+msgstr "Kategori"
+
+#: lib/Trean.php:83
+msgid "Category does not exist."
+msgstr "Kategori existerar inte."
+
+#: lib/Bookmarks.php:32
+msgid "Category names must be non-empty"
+msgstr "Kategorinamn måste vara angivet"
+
+#: templates/data/import.inc:11
+msgid "Category to import into:"
+msgstr "Kategori att importera till:"
+
+#: config/prefs.php.dist:11
+msgid "Change the number of columns to display in browse and search results."
+msgstr "Ändra antal kolumner som visas i listningen och sökresultat."
+
+#: templates/search/search.inc:26
+msgid "Combine"
+msgstr "Kombinera"
+
+#: config/prefs.php.dist:43
+msgid "Completely collapsed"
+msgstr "Helt förminskad"
+
+#: config/prefs.php.dist:45
+msgid "Completely expanded"
+msgstr "Helt expanderad"
+
+#: lib/Trean.php:268
+msgid "Conflict"
+msgstr "Konflikt"
+
+#: lib/Trean.php:243
+msgid "Continue"
+msgstr "Fortsätt"
+
+#: edit.php:164
+msgid "Copied bookmark: "
+msgstr "Kopierade bokmärken: "
+
+#: templates/browse/bookmarks.inc:48 templates/search/results_header.inc:18
+msgid "Copy"
+msgstr "Kopiera"
+
+#: lib/Trean.php:246
+msgid "Created"
+msgstr "Skapad"
+
+#: templates/reports/http-status.inc:119
+#, php-format
+msgid "DNS Failure or Other Error (%s)"
+msgstr "DNS-fel eller annat fel (%s)"
+
+#: templates/add/nocategories.inc:9
+msgid "Define one or more categories for your bookmarks"
+msgstr "Definiera en eller flera kategorierer för dina bokmärken"
+
+#: templates/browse/bookmarks.inc:39 templates/browse/subcategories.inc:21
+#: templates/search/results_header.inc:16
+msgid "Delete"
+msgstr "Radera"
+
+#: templates/edit/edit.inc:68
+msgid "Delete Bookmark"
+msgstr "Radera bokmärke"
+
+#: templates/browse/javascript.inc:34
+msgid "Delete current category?"
+msgstr "Radera aktuell kategori?"
+
+#: templates/browse/bookmarks.inc:66
+msgid "Delete this Category"
+msgstr "Radera aktuell kategorin"
+
+#: edit.php:37 edit.php:79
+msgid "Deleted bookmark: "
+msgstr "Raderade bokmärken: "
+
+#: edit.php:212
+msgid "Deleted category: "
+msgstr "Raderad kategori: "
+
+#: templates/edit/edit.inc:17 templates/search/search.inc:21
+#: templates/add/add.inc:46
+msgid "Description"
+msgstr "Beskrivning"
+
+#: config/prefs.php.dist:10
+msgid "Display Options"
+msgstr "Visningsinställningar"
+
+#: config/prefs.php.dist:55
+msgid "Display edit buttons when displaying Bookmarks?"
+msgstr "Visa ändraknapp vid visning av bokmärken:"
+
+#: templates/data/export.inc:11
+msgid "Download Category"
+msgstr "Ladda ner kategori"
+
+#: templates/add/add.inc:77
+msgid "Drag the \"Add to Bookmarks\" link below onto your \"Links\" Bar"
+msgstr "Dra länken 'Lägg till bokmärken' nedan till din 'Länkar' meny"
+
+#: templates/add/add.inc:75
+msgid ""
+"Drag the \"Add to Bookmarks\" link below onto your \"Personal Toolbar\"."
+msgstr "Dra länken 'Lägg till bokmärken' nedan till din 'Personliga ikonrad'"
+
+#: templates/browse/bookmarks.inc:33 templates/search/results_header.inc:15
+msgid "Edit"
+msgstr "Ändra"
+
+#: edit.php:271
+msgid "Edit Bookmark"
+msgstr "Ändra bokmärke"
+
+#: perms.php:241
+msgid "Edit Permissions"
+msgstr "Öndra behörighet"
+
+#: perms.php:244
+#, php-format
+msgid "Edit Permissions for %s"
+msgstr "Ändra behörigheter för %s"
+
+#: lib/Trean.php:276
+msgid "Expectation Failed"
+msgstr "Väntan misslyckades"
+
+#: templates/data/export.inc:4
+msgid "Export Bookmarks"
+msgstr "Exportera bokmärken"
+
+#: templates/data/import.inc:9
+msgid "File to import:"
+msgstr "Välj fil som skall importeras:"
+
+#: config/prefs.php.dist:44
+msgid "First level shown"
+msgstr "Första nivå som visas"
+
+#: lib/Trean.php:262
+msgid "Forbidden"
+msgstr "Förbjuden"
+
+#: lib/Trean.php:254
+msgid "Found"
+msgstr "Hittade"
+
+#: lib/Trean.php:281
+msgid "Gateway Time-out"
+msgstr "Gateway timeout"
+
+#: lib/Trean.php:269
+msgid "Gone"
+msgstr "Borta"
+
+#: reports.php:30 templates/edit/edit.inc:56
+#: templates/reports/http-status.inc:56 templates/reports/list.inc:7
+msgid "HTTP Status"
+msgstr "HTTP-status"
+
+#: lib/Trean.php:282
+msgid "HTTP Version not supported"
+msgstr "HTTP-version stöds inte."
+
+#: templates/data/import.inc:16
+msgid "Import"
+msgstr "Importera"
+
+#: data.php:181 templates/data/import.inc:4
+msgid "Import Bookmarks"
+msgstr "Importera bokmärken"
+
+#: templates/data/export.inc:9
+msgid "Include Subcategories"
+msgstr "Inkludera underkategorir"
+
+#: lib/Trean.php:277
+msgid "Internal Server Error"
+msgstr "Internt serverfel"
+
+#: templates/add/add.inc:76
+msgid "Internet Explorer"
+msgstr "Internet Explorer"
+
+#: templates/data/import.inc:7
+msgid ""
+"Internet Explorer users will need to export their current Favorites by going "
+"to the \"File\" menu and selecting \"Import and Export\"."
+msgstr ""
+"Användare av Internet Explorer måste exportera sina favoriter genom att gå "
+"till 'Arkiv' och välja 'Importera och Exportera'"
+
+#: lib/Trean.php:270
+msgid "Length Required"
+msgstr "Längs krävs"
+
+#: templates/search/search.inc:36
+msgid "Match"
+msgstr "Matcha"
+
+#: lib/api.php:34
+msgid "Maximum Number of Bookmarks"
+msgstr "Maximalt antal bokmärken"
+
+#: lib/api.php:31
+msgid "Maximum Number of Categories"
+msgstr "Maximalt antal kategorier"
+
+#: lib/Block/tree_menu.php:3
+msgid "Menu List"
+msgstr "Menylista"
+
+#: lib/Trean.php:264
+msgid "Method Not Allowed"
+msgstr "Metod stöds inte"
+
+#: templates/browse/bookmarks.inc:54
+msgid "More Actions"
+msgstr "Fler åtgärder"
+
+#: templates/browse/bookmarks.inc:41 templates/browse/subcategories.inc:22
+#: templates/search/results_header.inc:17
+msgid "Move"
+msgstr "Flytta"
+
+#: lib/Trean.php:253
+msgid "Moved Permanently"
+msgstr "Flyttat permanent"
+
+#: edit.php:122
+msgid "Moved bookmark: "
+msgstr "Flyttade bokmärken: "
+
+#: edit.php:254
+msgid "Moved category: "
+msgstr "Flyttade kategorier: "
+
+#: templates/add/add.inc:74
+msgid "Mozilla"
+msgstr "Mozilla"
+
+#: templates/data/import.inc:6
+msgid ""
+"Mozilla/Firefox users will need to export their current Bookmarks by going "
+"into \"Bookmark Manager\" and selecting \"Export\" from the \"Tools\" menu."
+msgstr ""
+"Användare av Mozilla/Firefox måste exportera sina bokmärken genom att gå "
+"till 'Bookmark Manager' och välja 'Export' från 'Tools'"
+
+#: lib/Trean.php:252
+msgid "Multiple Choices"
+msgstr "Flera val"
+
+#: lib/Trean.php:87
+msgid "My Bookmarks"
+msgstr "Mina bokmärken"
+
+#: lib/Block/bookmarks.php:79 templates/browse/bookmarks.inc:56
+msgid "New Bookmark"
+msgstr "Nytt bokmärke"
+
+#: lib/Trean.php:168
+msgid "New Category"
+msgstr "Ny kategori"
+
+#: templates/browse/bookmarks.inc:63 templates/add/nocategories.inc:4
+msgid "New Subcategory"
+msgstr "Ny underkategori"
+
+#: templates/search/results_none.inc:3
+msgid "No Bookmarks found"
+msgstr "Bokmärken saknas"
+
+#: lib/Trean.php:249
+msgid "No Content"
+msgstr "Inget innehåll"
+
+#: lib/Block/bookmarks.php:121
+msgid "No bookmarks to display"
+msgstr "Inga bokmärken att visa"
+
+#: lib/Trean.php:248
+msgid "Non-Authoritative Information"
+msgstr "Non-Authoritative information"
+
+#: templates/browse/bookmarks.inc:29 templates/browse/subcategories.inc:18
+#: templates/reports/rating.inc:48 templates/search/results_header.inc:12
+msgid "None"
+msgstr "Ingen"
+
+#: lib/Trean.php:265
+msgid "Not Acceptable"
+msgstr "Ej accepterad"
+
+#: lib/Trean.php:263
+msgid "Not Found"
+msgstr "Hittades inte"
+
+#: lib/Trean.php:278
+msgid "Not Implemented"
+msgstr "Ej implementerad"
+
+#: lib/Trean.php:256
+msgid "Not Modified"
+msgstr "Ej ändrad"
+
+#: templates/reports/clicks.inc:5 templates/reports/list.inc:13
+msgid "Number of Clicks"
+msgstr "Antal klick"
+
+#: config/prefs.php.dist:22
+msgid "Number of columns to display in browse and search results:"
+msgstr "Antal kolumner som visas i listningen och sökresultat:"
+
+#: lib/Trean.php:245
+msgid "OK"
+msgstr "OK"
+
+#: perms.php:62
+msgid ""
+"Only the owner or system administrator may change ownership or owner "
+"permissions for a share"
+msgstr ""
+"Endast ägare eller systemadministratör kan ändra ägare eller behörigheter på "
+"en utdelning"
+
+#: config/prefs.php.dist:64
+msgid "Open links in a new window?"
+msgstr "Öppna länkar i nytt fönster?"
+
+#: templates/search/search.inc:29
+msgid "Or"
+msgstr "eller"
+
+#: config/prefs.php.dist:9
+msgid "Other Options"
+msgstr "Andra inställningar"
+
+#: lib/Trean.php:251
+msgid "Partial Content"
+msgstr "Ofullständigt innehåll"
+
+#: lib/Trean.php:261
+msgid "Payment Required"
+msgstr "Betalning krävs"
+
+#: templates/browse/javascript.inc:26
+msgid "Please enter the name of the new category:"
+msgstr "Var god ange namnet på den nya kategorin."
+
+#: templates/browse/javascript.inc:42
+msgid "Please modify the name accordingly"
+msgstr "Var god ändra namnet"
+
+#: templates/browse/javascript.inc:93 templates/browse/javascript.inc:112
+#: templates/browse/javascript.inc:147 templates/browse/javascript.inc:182
+msgid "Please select a bookmark first"
+msgstr "Völj ett bokmärke först"
+
+#: templates/browse/javascript.inc:215 templates/browse/javascript.inc:250
+msgid "Please select a category first"
+msgstr "Välj en kategori först"
+
+#: lib/Trean.php:271
+msgid "Precondition Failed"
+msgstr "Förutsättningar misslyckades"
+
+#: lib/Trean.php:266
+msgid "Proxy Authentication Required"
+msgstr "Proxy-authentisering krävs"
+
+#: templates/edit/edit.inc:27
+msgid "Rating"
+msgstr "Klassning"
+
+#: templates/reports/list.inc:19 templates/reports/rating.inc:5
+msgid "Ratings"
+msgstr "Klassningar"
+
+#: templates/edit/edit.inc:63
+#, php-format
+msgid "Redirect to %s"
+msgstr "Eftersänd till %s"
+
+#: templates/browse/bookmarks.inc:67
+msgid "Rename this Category"
+msgstr "Byt namn på aktuell kategori"
+
+#: reports.php:18
+msgid "Reports"
+msgstr "Rapporter"
+
+#: lib/Trean.php:272
+msgid "Request Entity Too Large"
+msgstr "Begärt begrepp för stort"
+
+#: lib/Trean.php:267
+msgid "Request Time-out"
+msgstr "Begäran timeout"
+
+#: lib/Trean.php:273
+msgid "Request-URI Too Large"
+msgstr "Begärd URI för stor"
+
+#: lib/Trean.php:275
+msgid "Requested range not satisfiable"
+msgstr "Begärt begräsning är inte tillräcklig"
+
+#: templates/add/add.inc:64
+msgid "Reset"
+msgstr "Återställ"
+
+#: lib/Trean.php:250
+msgid "Reset Content"
+msgstr "Återställ innehåll"
+
+#: templates/edit/footer.inc:3 templates/add/add.inc:63
+msgid "Save"
+msgstr "Spara"
+
+#: search.php:14 lib/Block/tree_menu.php:33 templates/search/search.inc:47
+msgid "Search"
+msgstr "Sök"
+
+#: templates/search/search.inc:6
+msgid "Search Bookmarks"
+msgstr "Sök bokmärken"
+
+#: templates/search/results_none.inc:2
+msgid "Search Results"
+msgstr "Sökresultat"
+
+#: search.php:65
+#, php-format
+msgid "Search Results (%s)"
+msgstr "Sökresultat (%s)"
+
+#: lib/Trean.php:255
+msgid "See Other"
+msgstr "Se annan"
+
+#: templates/browse/bookmarks.inc:28 templates/browse/subcategories.inc:17
+#: templates/search/results_header.inc:11
+msgid "Select All"
+msgstr "Välj alla"
+
+#: templates/browse/bookmarks.inc:29 templates/browse/subcategories.inc:18
+#: templates/search/results_header.inc:12
+msgid "Select None"
+msgstr "Välj ingen"
+
+#: templates/browse/bookmarks.inc:27 templates/browse/subcategories.inc:16
+#: templates/search/results_header.inc:10
+#, php-format
+msgid "Select: %s, %s"
+msgstr "Välj: %s, %s"
+
+#: lib/Trean.php:280
+msgid "Service Unavailable"
+msgstr "Service ej tillgänglig"
+
+#: templates/browse/bookmarks.inc:70
+msgid "Set Permissions"
+msgstr "Sätt behörigheter"
+
+#: config/prefs.php.dist:46
+msgid "Should your list of bookmark categories be open when you log in?"
+msgstr "Skall din lista med bokmärkeskategorier öppnas vid inloggning?"
+
+#: lib/Trean.php:244
+msgid "Switching Protocols"
+msgstr "Byter protokoll"
+
+#: lib/Block/bookmarks.php:51
+msgid "Template"
+msgstr "Mall"
+
+#: config/prefs.php.dist:34
+msgid "Template to use when displaying bookmarks:"
+msgstr "Mall att använda vid visning av bokmärken:"
+
+#: lib/Trean.php:258
+msgid "Temporary Redirect"
+msgstr "Temporär eftersändning"
+
+#: templates/browse/bookmarks.inc:101
+msgid "There are no bookmarks in this category"
+msgstr "Det finns inga bokmärken i den här kategorin."
+
+#: edit.php:166
+#, php-format
+msgid "There was a problem copying the bookmark: %s"
+msgstr "Fel uppstod vid kopiering bokmärket: %s"
+
+#: edit.php:39 edit.php:81
+#, php-format
+msgid "There was a problem deleting the bookmark: %s"
+msgstr "Fel uppstod vid radering av bokmärket: %s"
+
+#: edit.php:214
+#, php-format
+msgid "There was a problem deleting the category: %s"
+msgstr "Fel uppstod vid radering av kategorin: %s"
+
+#: edit.php:124
+#, php-format
+msgid "There was a problem moving the bookmark: %s"
+msgstr "Fel uppstod vid flytt av bokmärket: %s"
+
+#: edit.php:256
+#, php-format
+msgid "There was a problem moving the category: %s"
+msgstr "Fel uppstod vid flytt av kategorin: %s"
+
+#: add.php:64
+#, php-format
+msgid "There was an error adding the bookmark: %s"
+msgstr "Fel uppstod när bokmärket skulle läggas till: %s"
+
+#: edit.php:108 edit.php:150 edit.php:240 add.php:43 add.php:100
+#, php-format
+msgid "There was an error adding the category: %s"
+msgstr "Fel uppstod när kategorin skulle läggas till: %s"
+
+#: edit.php:62
+#, php-format
+msgid "There was an error saving the bookmark: %s"
+msgstr "Fel uppstod när bokmärket skulle sparas: %s"
+
+#: templates/edit/edit.inc:12 templates/search/search.inc:16
+#: templates/add/add.inc:41
+msgid "Title"
+msgstr "Titel"
+
+#: templates/add/add.inc:73
+msgid "To be able to quickly add bookmarks from your web browser:"
+msgstr "För att snabbt lägga till bokmärken från din browser:"
+
+#: lib/Block/bookmarks.php:49
+msgid "Top 10 Highest Rated"
+msgstr "10 högst klassade"
+
+#: lib/Block/bookmarks.php:50
+msgid "Top 10 Most Clicked"
+msgstr "10 mest klickade"
+
+#: templates/reports/http-status.inc:126
+msgid "Total"
+msgstr "Totalt"
+
+#: templates/edit/edit.inc:22 templates/search/search.inc:11
+#: templates/add/add.inc:36
+msgid "URL"
+msgstr "URL"
+
+#: lib/Trean.php:260
+msgid "Unauthorized"
+msgstr "Obehörig"
+
+#: templates/reports/http-status.inc:123
+#, php-format
+msgid "Unknown (%s)"
+msgstr "Okänd (%s)"
+
+#: lib/Trean.php:274
+msgid "Unsupported Media Type"
+msgstr "Mediatyp stöds inte."
+
+#: perms.php:234
+#, php-format
+msgid "Updated %s."
+msgstr "Uppdaterad %s."
+
+#: lib/Trean.php:257
+msgid "Use Proxy"
+msgstr "Använd proxy"
+
+#: templates/reports/list.inc:1
+msgid "View Report"
+msgstr "Visa rapport"
+
+#: templates/add/add.inc:78
+msgid ""
+"While browsing you will be able to bookmark the current page by clicking "
+"your new \"Add to Bookmarks\" shortcut."
+msgstr ""
+"Vid surfning kan du lägga till bokmärken genom att klicka på din nya genväg "
+"till 'Lägg till bokmärken'"
+
+#: templates/search/search.inc:40
+msgid "Whole Field"
+msgstr "Hela fält"
+
+#: templates/browse/javascript.inc:26
+msgid "You are creating a category folder."
+msgstr "Du skapar en kategorimapp."
+
+#: data.php:61 data.php:128 add.php:21
+#, php-format
+msgid "You are not allowed to create more than %d bookmarks."
+msgstr "Du har inte behörighet skapa mer än %d bokmärken."
+
+#: data.php:52 data.php:103 add.php:84
+#, php-format
+msgid "You are not allowed to create more than %d categories."
+msgstr "Du har inte behörighet att skapa mer än %d kategorier."
+
+#: templates/browse/javascript.inc:42
+msgid "You are renaming the current category folder."
+msgstr "Du byter namn på aktuell kategorimapp."
+
+#: browse.php:25
+msgid "You do not have permission to view this category."
+msgstr "Du har inte behörighet att visa aktuell kategori."
+
+#: lib/Trean.php:219
+msgid "_Add"
+msgstr "Lägg _till"
+
+#: lib/Trean.php:215
+msgid "_Browse"
+msgstr "_Lista"
+
+#: lib/Trean.php:226
+msgid "_Import/Export"
+msgstr "_Importera/Exportera"
+
+#: lib/Trean.php:222
+msgid "_Reports"
+msgstr "_Rapporter"
+
+#: lib/Trean.php:221
+msgid "_Search"
+msgstr "_Sök"
+
+#: templates/search/results.inc:57 templates/block/1line.inc:28
+#: templates/block/2line.inc:31 templates/block/standard.inc:29
+#: templates/bookmark/1line.inc:33 templates/bookmark/2line.inc:37
+#: templates/bookmark/standard.inc:33
+msgid "click"
+msgstr "klicka"
+
+#: templates/search/results.inc:57 templates/block/1line.inc:28
+#: templates/block/2line.inc:31 templates/block/standard.inc:29
+#: templates/bookmark/1line.inc:33 templates/bookmark/2line.inc:37
+#: templates/bookmark/standard.inc:33
+msgid "clicks"
+msgstr "klick"

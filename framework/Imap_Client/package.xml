@@ -31,7 +31,19 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Add run-time configurable caching for headers fetch requests.
+ <notes>* Remove static logCallback variable in Horde_Imap_Client_Exception.
+ * Improved login error reporting (Request #9211).
+ * Add support for special-use mailboxes (draft-ietf-morg-list-specialuse-02).
+ * Add Horde_Imap_Client_Base::validSearchCharset().
+ * Add Horde_Imap_Client_Base::fetchFromSectionString().
+ * Add support for RFC 4469 (CATENATE).
+ * Correctly output 8-bit strings (RFC 3501 [4.3]).
+ * Add Horde_Imap_Client_Utils::stripNonAtomChars().
+ * Add sequence sort (numeric sort by UID/sequence number).
+ * Add ability to disable server capabilities.
+ * Add Horde_Imap_Client_Base::parseCacheId().
+ * Added STATUS_LASTMODSEQ and STATUS_LASTMODSEQUIDS status() entries.
+ * Add support for LIST-STATUS (draft-ietf-morg-status-in-list-01).
  * Add support for THREAD=REFS (draft-ietf-morg-inthread-00).
  * Add support for RFC 5258 (LIST-EXTENDED).
  * Add Horde_Imap_Client_Utils::createUrl().
@@ -103,8 +115,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <channel>pear.horde.org</channel>
    </package>
    <package>
-     <name>Serialize</name>
-     <channel>pear.horde.org</channel>
+    <name>Stream_Filter</name>
+    <channel>pear.horde.org</channel>
    </package>
    <extension>
     <name>imap</name>

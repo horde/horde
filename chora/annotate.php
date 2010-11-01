@@ -9,7 +9,8 @@
  * @package Chora
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('chora');
 
 /* Spawn the file object. */
 try {
@@ -21,7 +22,7 @@ try {
 /* Retrieve the desired revision from the GET variable. */
 $rev = Horde_Util::getFormData('rev');
 if (!$rev || !$VC->isValidRevision($rev)) {
-    Chora::fatal(sprintf(_("Revision %s not found"), $rev ? $rev : _("NONE")), '404 Not Found');
+    Chora::fatal(sprintf(_("Revision %s not found"), $rev), '404 Not Found');
 }
 
 switch (Horde_Util::getFormData('actionID')) {
@@ -41,7 +42,7 @@ try {
     Chora::fatal($e);
 }
 
-$title = sprintf(_("Source Annotation of %s (revision %s)"), Horde_Text_Filter::filter($where, 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true, 'encode_all' => true)), $rev);
+$title = sprintf(_("Source Annotation of %s (revision %s)"), $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($where, 'space2html', array('encode' => true, 'encode_all' => true)), $rev);
 $extraLink = sprintf('<a href="%s">%s</a> | <a href="%s">%s</a>',
                      Chora::url('co', $where, array('r' => $rev)), _("View"),
                      Chora::url('co', $where, array('r' => $rev, 'p' => 1)), _("Download"));
@@ -49,7 +50,7 @@ $extraLink = sprintf('<a href="%s">%s</a> | <a href="%s">%s</a>',
 Horde::addScriptFile('annotate.js', 'chora');
 
 $js_vars = array(
-    'ANNOTATE_URL' => (string)Horde_Util::addParameter(Horde::applicationUrl('annotate.php'), array('actionID' => 'log', 'f' => $where, 'rev' => ''), null, false),
+    'ANNOTATE_URL' => (string)Horde::url('annotate.php', true)->add(array('actionID' => 'log', 'f' => $where, 'rev' => '')),
     'loading_text' => _("Loading...")
 );
 
@@ -71,8 +72,9 @@ while (list(,$line) = each($lines)) {
     }
     $prev = $fl->queryPreviousRevision($rev);
 
-    $line = Horde_Text_Filter::filter($line['line'], 'space2html', array('charset' => Horde_Nls::getCharset(), 'encode' => true, 'encode_all' => true));
+    $line = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($line['line'], 'space2html', array('encode' => true, 'encode_all' => true));
     include CHORA_TEMPLATES . '/annotate/line.inc';
 }
 
+require CHORA_TEMPLATES . '/annotate/footer.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

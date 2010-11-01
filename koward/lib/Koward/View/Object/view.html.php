@@ -1,5 +1,5 @@
-<?= $this->renderPartial('header'); ?>
-<?= $this->renderPartial('menu'); ?>
+<?php echo $this->renderPartial('header'); ?>
+<?php echo $this->renderPartial('menu'); ?>
 <?php
 if (isset($this->actions)) {
     echo $this->actions->renderActive(new Horde_Form_Renderer(), $this->vars,

@@ -60,20 +60,20 @@ if (!empty($criteria)) {
     }
 
     $vars = Horde_Variables::getDefaultVariables();
-    $pager = new Horde_Ui_Pager('page',
+    $pager = new Horde_Core_Ui_Pager('page',
                                 $vars, array('num' => $count,
                                             'url' => 'search.php',
                                             'perpage' => $perpage));
 
     $pager->preserve($criteria);
-    $list_url = Horde::applicationUrl('search.php');
+    $list_url = Horde::url('search.php');
 
 } else {
     $count = 0;
     $users = array();
 }
 
-if (Horde_Auth::isAuthenticated()) {
+if ($registry->isAuthenticated()) {
     $queries = $folks_driver->getSavedSearch();
     if ($queries instanceof PEAR_Error) {
         $notification->push($queries);
@@ -92,7 +92,7 @@ require FOLKS_TEMPLATES . '/list/list.php';
 
 echo '<br />';
 $form->renderActive(null, null, null, 'post');
-if (Horde_Auth::isAuthenticated()) {
+if ($registry->isAuthenticated()) {
     require FOLKS_TEMPLATES . '/list/search.php';
 }
 

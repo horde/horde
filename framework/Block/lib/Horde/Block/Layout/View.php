@@ -53,7 +53,6 @@ class Horde_Block_Layout_View extends Horde_Block_Layout
      */
     public function toHtml()
     {
-        $browser = Horde_Browser::singleton();
         $tplDir = $GLOBALS['registry']->get('templates', 'horde');
         $interval = $GLOBALS['prefs']->getValue('summary_refresh_time');
 
@@ -69,37 +68,37 @@ class Horde_Block_Layout_View extends Horde_Block_Layout
                 }
                 if (is_array($item)) {
                     $this->_applications[$item['app']] = $item['app'];
-                    $block = Horde_Block_Collection::getBlock($item['app'], $item['params']['type'], $item['params']['params'], $row_num, $col_num);
-                    $rowspan = $item['height'];
-                    $colspan = $item['width'];
-                    for ($i = 0; $i < $item['height']; $i++) {
-                        if (!isset($covered[$row_num + $i])) {
-                            $covered[$row_num + $i] = array();
+                    $rowspan = $colspan = 1;
+                    try {
+                        $block = Horde_Block_Collection::getBlock($item['app'], $item['params']['type'], $item['params']['params'], $row_num, $col_num);
+                        $rowspan = $item['height'];
+                        $colspan = $item['width'];
+                        for ($i = 0; $i < $item['height']; $i++) {
+                            if (!isset($covered[$row_num + $i])) {
+                                $covered[$row_num + $i] = array();
+                            }
+                            for ($j = 0; $j < $item['width']; $j++) {
+                                $covered[$row_num + $i][$col_num + $j] = true;
+                            }
                         }
-                        for ($j = 0; $j < $item['width']; $j++) {
-                            $covered[$row_num + $i][$col_num + $j] = true;
+                        if ($block instanceof Horde_Block) {
+                            $header = $block->getTitle();
+                            $content = $block->getContent();
+                            if ($GLOBALS['browser']->hasFeature('xmlhttpreq')) {
+                                $refresh_time = isset($item['params']['params']['_refresh_time']) ? $item['params']['params']['_refresh_time'] : $interval;
+                            }
+                            ob_start();
+                            include $tplDir . '/portal/block.inc';
+                            $html .= ob_get_clean();
+                        } else {
+                            $html .= '<td width="' . ($width * $colspan) . '%">&nbsp;</td>';
                         }
-                    }
-                    if ($block instanceof PEAR_Error) {
-                        $header = _("Error");
-                        $content = $block->getMessage();
+                    } catch (Horde_Exception $e) {
+                        $header = Horde_Block_Translation::t("Error");
+                        $content = $e->getMessage();
                         ob_start();
                         include $tplDir . '/portal/block.inc';
                         $html .= ob_get_clean();
-                    } elseif ($block instanceof Horde_Block) {
-                        $header = $block->getTitle();
-                        $content = $block->getContent();
-                        if ($content instanceof PEAR_Error) {
-                            $content = $content->getMessage();
-                        }
-                        if ($browser->hasFeature('xmlhttpreq')) {
-                            $refresh_time = isset($item['params']['params']['_refresh_time']) ? $item['params']['params']['_refresh_time'] : $interval;
-                        }
-                        ob_start();
-                        include $tplDir . '/portal/block.inc';
-                        $html .= ob_get_clean();
-                    } else {
-                        $html .= '<td width="' . ($width * $colspan) . '%">&nbsp;</td>';
                     }
                 } else {
                     $html .= '<td width="' . ($width) . '%">&nbsp;</td>';

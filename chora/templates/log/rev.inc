@@ -9,8 +9,10 @@
 <?php $branchlist = array_diff($branch_info, array($onb)); if (!empty($branchlist)): ?>
   <span class="branch">
 <?php foreach ($branchlist as $val): ?>
-  <?php echo Horde::link(Chora::url('browsefile', $where, array('onb' => $val))) . htmlspecialchars($val) ?></a>
-<?php endforeach; endif; ?>
+  <?php echo Chora::url('browsefile', $where, array('onb' => $val))->link() . htmlspecialchars($val) ?></a>
+<?php endforeach; ?>
+  </span>
+<?php endif; ?>
 <?php if (!empty($changedlines)): ?>
   <small class="difflines">(<?php printf('%s lines', htmlspecialchars($changedlines)) ?>)</small>
 <?php elseif (!is_null($added)): ?>

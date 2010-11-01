@@ -1,0 +1,677 @@
+# Danish translations for Horde_Form module.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Horde_Form module.
+# Automatically generated, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Horde_Form\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: Form/Type.php:2520
+#, php-format
+msgid " (%s days ago)"
+msgstr " (%s dage siden)"
+
+#: Form/Type.php:2528
+#, php-format
+msgid " (in %s days)"
+msgstr " (om %s dage)"
+
+#: Form/Type.php:2524
+msgid " (today)"
+msgstr " (i dag)"
+
+#: Form/Type.php:2526
+msgid " (tomorrow)"
+msgstr " (i morgen)"
+
+#: Form/Type.php:2522
+msgid " (yesterday)"
+msgstr " (i går)"
+
+#: Form/Type.php:1460
+#, fuzzy, php-format
+msgid "\"%s\" is not a valid email address."
+msgstr "Du indtastede ikke en gyldig e-post-adresse."
+
+#: Form/Type.php:2475
+#, php-format
+msgid "%s is required"
+msgstr "%s krævet"
+
+#: Form/Type.php:2190 Form/Type.php:2253
+msgid "-- select --"
+msgstr "-- vælg --"
+
+#: Form/Type.php:843 Form/Type.php:886
+#, fuzzy
+msgid "A temporary directory"
+msgstr "Kan ikke finde et midlertidigt katalog."
+
+#: Form/Type.php:773
+msgid "Address"
+msgstr "Adresse"
+
+#: Form/Type.php:795
+#, fuzzy
+msgid "Address Link"
+msgstr "Adressekartotek"
+
+#: Form/Type.php:1620
+#, fuzzy
+msgid "Allow multiple addresses?"
+msgstr "Tillad multiple adresser"
+
+#: Form/Type.php:3473
+msgid "Assignment columns"
+msgstr "Tildel kolonner"
+
+#: Form/Type.php:3745
+#, fuzzy
+msgid "Category"
+msgstr "Ny kategori"
+
+#: Form/Type.php:1632
+#, fuzzy
+msgid "Character to split multiple addresses with"
+msgstr "Tillad multiple adresser"
+
+#: Form/Type.php:3161
+msgid "Colour selection"
+msgstr "Farvevalg"
+
+#: Form/Type.php:2072
+msgid "Column titles"
+msgstr "Kolonnetitler"
+
+#: Form/Type.php:662
+msgid "Counted text"
+msgstr "Optalt tekst"
+
+#: Form/Type.php:909
+#, fuzzy
+msgid "Country drop down list"
+msgstr "Rullegardin-liste"
+
+#: Form/Type.php:3588
+msgid "Credit card number"
+msgstr "Kreditkort-nummer"
+
+#: Form/Type.php:3643
+msgid ""
+"DSN (see http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
+msgstr ""
+"DSN (see http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
+
+#: Form/Type.php:3641
+#, fuzzy
+msgid "Database lookup"
+msgstr "Database-opslag"
+
+#: Form/Type.php:2549
+msgid "Date"
+msgstr "Dato"
+
+#: Form/Type.php:3121
+#, fuzzy
+msgid "Date and time selection"
+msgstr "Datovalg"
+
+#: Form/Type.php:2958
+msgid "Date selection"
+msgstr "Datovalg"
+
+#: Form/Type.php:132
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: Form/Type.php:2968 Form/Type.php:3131
+msgid "Display format"
+msgstr "Visningsformat"
+
+#: Form/Type.php:2233
+msgid "Drop down list"
+msgstr "Rullegardin-liste"
+
+#: Form/Type.php:1617
+msgid "Email"
+msgstr "eMail"
+
+#: Form/Type.php:2088
+msgid "Email addresses must match."
+msgstr "E-mail-adresser skal passe."
+
+#: Form/Type.php:2115
+msgid "Email with confirmation"
+msgstr "E-mail med bekræftelse"
+
+#: Form/Type.php:2746 Form/Type.php:2962 Form/Type.php:3125
+msgid "End year"
+msgstr "Slut-år"
+
+#: Form/Type.php:2070
+msgid "Field matrix"
+msgstr "Feltmatrice"
+
+#: Form/Type.php:3696
+msgid "Figlet CAPTCHA"
+msgstr "Figlet CAPTCHA"
+
+#: Form/Type.php:3700
+msgid "Figlet font"
+msgstr "Figlet skriftstypografi"
+
+#: Form/Type.php:3347
+msgid "File selection"
+msgstr "Filvalg"
+
+#: Form/Type.php:952
+msgid "File upload"
+msgstr "Fillagring"
+
+#: Form/Type.php:3719
+msgid "Font"
+msgstr ""
+
+#: Form/Type.php:152
+msgid "HTML"
+msgstr "HTML"
+
+#: Form/Type.php:115 Form/Type.php:3285
+msgid "Header"
+msgstr "Toptekst"
+
+#: Form/Type/tableset.php:58
+msgid "Headers"
+msgstr "Overskrifter"
+
+#: Form/Type.php:617
+#, fuzzy
+msgid "Helpers"
+msgstr "Hjælper"
+
+#: Form/Type.php:528
+#, fuzzy
+msgid "IP address"
+msgstr "IP-adresse"
+
+#: Form/Type.php:558
+#, fuzzy
+msgid "IPv6 address"
+msgstr "IP-adresse"
+
+#: Form/Type.php:3349
+msgid "Id"
+msgstr ""
+
+#: Form/Type.php:3715
+#, fuzzy
+msgid "Image CAPTCHA"
+msgstr "Figlet CAPTCHA"
+
+#: Form/Type.php:1292
+msgid "Image upload"
+msgstr "Billed-oplægning"
+
+#: Form/Type.php:263
+msgid "Integer"
+msgstr "Heltal"
+
+#: Form/Type.php:317
+msgid "Integer list"
+msgstr "Heltalsliste"
+
+#: Form/Type.php:2208 Form/Type.php:2283 Form/Type.php:2356 Form/Type.php:2435
+#: Form/Type/tableset.php:34
+msgid "Invalid data submitted."
+msgstr "Ugyldige data afsendt."
+
+#: Form/Type.php:3479
+msgid "Left header"
+msgstr "Venstre toptekst"
+
+#: Form/Type.php:3475
+msgid "Left values"
+msgstr "Venstre værdier"
+
+#: Form/Type.php:1352
+msgid "Link"
+msgstr "Henvisning"
+
+#: Form/Type.php:1355
+#, fuzzy
+msgid "Link URL"
+msgstr "Henvisning"
+
+#: Form/Type.php:1370
+#, fuzzy
+msgid "Link access key"
+msgstr " (Accesskey %s)"
+
+#: Form/Type.php:3353
+#, fuzzy
+msgid "Link style"
+msgstr "Henvisninger"
+
+#: Form/Type.php:1361
+msgid "Link target"
+msgstr ""
+
+#: Form/Type.php:1358 Form/Type.php:3351
+#, fuzzy
+msgid "Link text"
+msgstr "Lang tekst"
+
+#: Form/Type.php:1626
+#, fuzzy
+msgid "Link the email address to the compose page when displaying?"
+msgstr "Forbind e-mail-adressen med indskrivningssiden ved fremvisning"
+
+#: Form/Type.php:1367
+msgid "Link title attribute"
+msgstr ""
+
+#: Form/Type.php:611
+msgid "Long text"
+msgstr "Lang tekst"
+
+#: Form/Type.php:1298
+#, fuzzy
+msgid "Maximum file size in bytes"
+msgstr "Maksimumlængde"
+
+#: Form/Type.php:400 Form/Type.php:420 Form/Type.php:446
+msgid "Maximum length"
+msgstr "Maksimumlængde"
+
+#: Form/Type.php:487
+#, fuzzy
+msgid "Mobile phone number"
+msgstr "Telefonnummer"
+
+#: Form/Type.php:2742
+msgid "Month and year"
+msgstr "Måned og år"
+
+#: Form/Type.php:2309
+msgid "Multi-level drop down lists"
+msgstr "Multi-niveau rullegardinslister"
+
+#: Form/Type.php:2366
+msgid "Multiple selection"
+msgstr "Multiple valg"
+
+#: Form/Type.php:236
+msgid "Number"
+msgstr "Tal"
+
+#: Form/Type.php:668
+msgid "Number of characters"
+msgstr "Antal tegn"
+
+#: Form/Type.php:615 Form/Type.php:666 Form/Type.php:777 Form/Type.php:847
+#: Form/Type.php:890
+msgid "Number of columns"
+msgstr "Antal kolonner"
+
+#: Form/Type.php:613 Form/Type.php:664 Form/Type.php:775 Form/Type.php:845
+#: Form/Type.php:888
+msgid "Number of rows"
+msgstr "Antal rækker"
+
+#: Form/Type.php:290
+msgid "Octal"
+msgstr "Oktal"
+
+#: Form/Type.php:1364
+#, fuzzy
+msgid "Onclick event"
+msgstr "klik her"
+
+#: Form/Type.php:2098
+msgid "Only one email address allowed."
+msgstr "Kun én e-post-adresse tilladt."
+
+#: Form/Type.php:1449
+#, fuzzy
+msgid "Only one email address is allowed."
+msgstr "Kun én e-post-adresse tilladt."
+
+#: Form/Type.php:839
+#, fuzzy
+msgid "PGP Key"
+msgstr "Offentlig PGP-nøgle"
+
+#: Form/Type.php:2142
+msgid "Password"
+msgstr "Kodeord"
+
+#: Form/Type.php:2175
+msgid "Password with confirmation"
+msgstr "Kodeord med bekræftelse"
+
+#: Form/Type.php:2157
+msgid "Passwords must match."
+msgstr "Kodeordene skal være ens."
+
+#: Form/Type.php:841
+msgid "Path to the GnuPG binary"
+msgstr ""
+
+#: Form/Type.php:475
+#, fuzzy
+msgid "Phone number"
+msgstr "Telefonnummer"
+
+#: Form/Type.php:3191
+msgid "Please choose a sound."
+msgstr ""
+
+#: Form/Type.php:2720
+msgid "Please enter a month and a year."
+msgstr "Indtast en måned og et årstal."
+
+#: Form/Type.php:513 Form/Type.php:543
+msgid "Please enter a valid IP address."
+msgstr "Indtast en gyldig IP-adresse."
+
+#: Form/Type.php:2800
+msgid "Please enter a valid date, check the number of days in the month."
+msgstr "Indtast en gyldig dato, tjek antallet af dage i måneden."
+
+#: Form/Type.php:2598
+msgid "Please enter a valid time."
+msgstr "Indtast en gyldig tidsangivelse."
+
+#: Form/Type.php:911 Form/Type.php:2237 Form/Type.php:2313 Form/Type.php:3647
+msgid "Prompt text"
+msgstr "Stikordstekst"
+
+#: Form/Type.php:1623
+msgid "Protect address from spammers?"
+msgstr ""
+
+#: Form/Type.php:2401
+msgid "Radio selection"
+msgstr "Enkeltvis valg"
+
+#: Form/Type.php:396 Form/Type.php:416 Form/Type.php:442
+msgid "Regex"
+msgstr "Regulært udtryk"
+
+#: Form/Type.php:3605
+#, fuzzy
+msgid "Relationship browser"
+msgstr "Relationslæser"
+
+#: Form/Renderer.php:344
+msgid "Required Field"
+msgstr "Krævet felt"
+
+#: Form.php:632
+msgid "Required secret is invalid - potentially malicious request."
+msgstr ""
+
+#: Form.php:368 Form/Renderer.php:329
+msgid "Reset"
+msgstr "Nulstil"
+
+#: Form/Type.php:3481
+msgid "Right header"
+msgstr "Højre toptekst"
+
+#: Form/Type.php:3477
+msgid "Right values"
+msgstr "Højre værdier"
+
+#: Form/Type.php:884
+msgid "S/MIME Key"
+msgstr ""
+
+#: Form/Type.php:3645
+msgid "SQL statement for value lookups"
+msgstr "SQL-udtryk for opslag af værdier"
+
+#: Form/Type.php:3326
+msgid "Select Files"
+msgstr "Vælg filer"
+
+#: Form/Type.php:2803
+msgid "Select all date components."
+msgstr "Vælg alle dato-komponenter."
+
+#: Form/Type.php:2450
+msgid "Set"
+msgstr "Mængde"
+
+#: Form/Type.php:3355
+#, fuzzy
+msgid "Show icon?"
+msgstr "Vis snupper"
+
+#: Form/Type.php:1296
+#, fuzzy
+msgid "Show option to keep original?"
+msgstr "Vis mulighed for at beholde oprindelig"
+
+#: Form/Type.php:2964 Form/Type.php:3127
+#, fuzzy
+msgid "Show picker?"
+msgstr "Vis snupper"
+
+#: Form/Type.php:2688 Form/Type.php:3133
+#, fuzzy
+msgid "Show seconds?"
+msgstr "Byger"
+
+#: Form/Type.php:1294
+#, fuzzy
+msgid "Show upload?"
+msgstr "Vis afsendte"
+
+#: Form/Type.php:398 Form/Type.php:418 Form/Type.php:444 Form/Type.php:2370
+#: Form/Type.php:3283 Form/Type.php:3483
+msgid "Size"
+msgstr "Størrelse"
+
+#: Form/Type.php:3279
+msgid "Sort order selection"
+msgstr "Sorteringsvalg"
+
+#: Form/Type.php:3200
+#, fuzzy
+msgid "Sound selection"
+msgstr "Farvevalg"
+
+#: Form/Type.php:98
+msgid "Spacer"
+msgstr "Mellemrumstanget"
+
+#: Form/Type.php:2744 Form/Type.php:2960 Form/Type.php:3123
+msgid "Start year"
+msgstr "Begyndelsesår"
+
+#: Form/Type.php:2966 Form/Type.php:3129
+msgid "Storage format"
+msgstr "Lagringsformat"
+
+#: Form/Type.php:414
+msgid "String list"
+msgstr "Liste af strenge"
+
+#: Form/Type.php:440
+msgid "String list returning an array"
+msgstr ""
+
+#: Form.php:361 Form/Renderer.php:326
+msgid "Submit"
+msgstr "Godkend"
+
+#: Form/Type/tableset.php:54
+msgid "Table Set"
+msgstr "Tabelmængde"
+
+#: Form/Type.php:394 Form/Type.php:3698 Form/Type.php:3717
+msgid "Text"
+msgstr "Tekst"
+
+#: Form/Type.php:1056
+msgid ""
+"The image file size could not be determined or it was 0 bytes. The upload "
+"may have been interrupted."
+msgstr ""
+
+#: Form/Type.php:1060
+#, fuzzy, php-format
+msgid "The image file was larger than the maximum allowed size (%d bytes)."
+msgstr ""
+"Der opstod et problem under filoverførslen: %s var større end den maksimalt "
+"tilladte størrelse (%d bytes)."
+
+#: Form/Type.php:1629
+msgid "The name to use when linking to the compose page"
+msgstr "Navnet, der skal bruge, når der henvises til skrivesiden"
+
+#: Form/Type.php:3673
+msgid "The text you entered did not match the text on the screen."
+msgstr "Den tekst, som du indtastede, passer ikke til teksten på skærmen."
+
+#: Form/Type.php:644
+#, fuzzy, php-format
+msgid ""
+"There are too many characters in this field. You have entered %d character; "
+msgid_plural ""
+"There are too many characters in this field. You have entered %d characters; "
+msgstr[0] ""
+"Der er for mange tegn i dette felt. Du har indtastet %s tegn; du skal "
+"indtaste mindre end %s."
+msgstr[1] ""
+"Der er for mange tegn i dette felt. Du har indtastet %s tegn; du skal "
+"indtaste mindre end %s."
+
+#: Form/Type.php:3504
+msgid "This does not seem to be a valid card number."
+msgstr "Dette tyder ikke på at være et gyldigt kortnummer."
+
+#: Form/Type.php:169 Form/Type.php:246 Form/Type.php:273 Form/Type.php:300
+#: Form/Type.php:365 Form/Type.php:459 Form/Type.php:517 Form/Type.php:547
+#: Form/Type.php:641 Form/Type.php:1041 Form/Type.php:2083 Form/Type.php:2130
+#: Form/Type.php:2152 Form/Type.php:2199 Form/Type.php:2274 Form/Type.php:2345
+#: Form/Type.php:2559 Form/Type.php:2601 Form/Type.php:2795 Form/Type.php:3144
+#: Form/Type.php:3183 Form/Type.php:3496 Form/Type.php:3668 Form/Type.php:3751
+#: Form/Variable.php:471 Form/Variable.php:479
+msgid "This field is required."
+msgstr "Dette felt er krævet."
+
+#: Form/Type.php:254
+msgid "This field may only contain integers."
+msgstr "Dette felt må kun indeholde heltal."
+
+#: Form/Type.php:2567
+msgid "This field may only contain numbers and the colon."
+msgstr "Dette felt må kun indeholde numre og kolon."
+
+#: Form/Type.php:281
+msgid "This field may only contain octal values."
+msgstr "Dette felt må kun indeholde oktale værdier."
+
+#: Form/Type.php:308
+msgid "This field must be a comma or space separated list of integers"
+msgstr ""
+"Dette felt skal være en komma- eller mellemrumsadskildt liste af heltal"
+
+#: Form/Type.php:180
+msgid "This field must be a valid number."
+msgstr "Dette felt skal være et gyldigt nummer."
+
+#: Form/Type.php:3152
+msgid ""
+"This field must contain a color code in the RGB Hex format, for example "
+"'#1234af'."
+msgstr "Dette felt skal indeholde en farvekode i RGB hex-format, fx '#1234af'."
+
+#: Form.php:629
+msgid "This form has already been processed."
+msgstr "Denne formular er allerede processeret."
+
+#: Form/Type.php:2576
+msgid "Time"
+msgstr "Tid"
+
+#: Form/Type.php:2686
+msgid "Time selection"
+msgstr "Tidsvalg"
+
+#: Form/Type.php:1321
+msgid "True or false"
+msgstr "Sand eller falsk"
+
+#: Form/Type.php:360
+#, fuzzy, php-format
+msgid "Value is over the maximum length of %d."
+msgstr "Værdi er mere end den maksimale længde af %s."
+
+#: Form/Type.php:2368 Form/Type.php:2403 Form/Type.php:2452 Form/Type.php:3281
+#: Form/Type/tableset.php:56
+msgid "Values"
+msgstr "Værdier"
+
+#: Form/Type.php:2235 Form/Type.php:2311
+msgid "Values to select from"
+msgstr "Værdier, der kan vælges iblandt"
+
+#: Form/Type.php:3485
+msgid "Width in CSS units"
+msgstr "Bredde i CSS-enheder"
+
+#: Form/Type.php:2102
+msgid "You did not enter a valid email address."
+msgstr "Du indtastede ikke en gyldig e-post-adresse."
+
+#: Form/Type.php:3028
+#, fuzzy
+msgid "You must choose a date."
+msgstr "Du skal konfigurere end VFS-backend."
+
+#: Form/Type.php:3026
+#, fuzzy
+msgid "You must choose a time."
+msgstr "Du skal konfigurere end VFS-backend."
+
+#: Form/Type.php:463
+#, fuzzy
+msgid ""
+"You must enter a valid phone number, digits only with an optional '+' for "
+"the international dialing prefix."
+msgstr ""
+"Du skal indtaste et fungerende mobilnummer; kun cifre med et valgfri '+' for "
+"den international retningskode."
+
+#: Form/Type.php:371
+#, fuzzy
+msgid "You must enter a valid value."
+msgstr "Du skal indtaste en gyldig værdi."
+
+#: Form/Type.php:1470
+#, fuzzy
+msgid "You must enter an email address."
+msgstr "Du indtastede ikke en gyldig e-post-adresse."
+
+#: Form/Type.php:1468
+#, fuzzy
+msgid "You must enter at least one email address."
+msgstr "Du indtastede ikke en gyldig e-post-adresse."
+
+#: Form/Type.php:645
+#, php-format
+msgid "you must enter less than %d."
+msgstr ""

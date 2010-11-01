@@ -3,35 +3,36 @@
  * Ansel_Tile_DateGallery:: class wraps display of thumbnail tile for the
  * DateGallery psuedo gallery.
  *
- * @author Michael Rubinsky <mrubinsk@horde.org>
- * @package Ansel
+ * @author   Michael Rubinsky <mrubinsk@horde.org>
+ * @license  http://www.fsf.org/copyleft/gpl.html GPL
+ * @category Horde
+ * @package  Ansel
  */
-class Ansel_Tile_DateGallery {
-
+class Ansel_Tile_DateGallery
+{
     /**
      * Outputs the html for a DateGallery tile.
      *
      * @param Ansel_DateGallery $dgallery  The Ansel_Gallery_Date we are
-     *                                    displaying.
-     * @param array $style                A style definition array.
-     * @param boolean $mini               Force the use of a mini thumbail?
-     * @param array $params               An array containing additional
-     *                                    parameters. Currently,
-     *                                    gallery_view_url and
-     *                                    image_view_url are used to override
-     *                                    the respective urls. %g and %i are
-     *                                    replaced with image id and gallery id,
-     *                                    respectively
+     *                                     displaying.
+     * @param Ansel_Style $style           A style object.
+     * @param boolean $mini                Force the use of a mini thumbail?
+     * @param array $params                An array containing additional
+     *                                     parameters. Currently,
+     *                                     gallery_view_url and
+     *                                     image_view_url are used to override
+     *                                     the respective urls. %g and %i are
+     *                                     replaced with image id and gallery id,
+     *                                     respectively
      *
      * @return  Outputs the HTML for the tile.
      */
-    function getTile($dgallery, $style = null, $mini = false,
-                     $params = array())
+    public function getTile($dgallery, $style = null, $mini = false, $params = array())
     {
         /* User's preferred date format */
         $date_format = $GLOBALS['prefs']->getValue('date_format');
 
-        /* Easier to work with a Horde_Date obejct */
+        /* Easier to work with a Horde_Date object */
         $date_array = $dgallery->getDate();
         if (empty($date_array['month'])) {
             $date_array['month'] = 1;
@@ -45,9 +46,8 @@ class Ansel_Tile_DateGallery {
         /* Need the unaltered date part array */
         $date_array = $dgallery->getDate();
 
-        /* Figure out the needed link for the next drill down level.
-         * We *must* have at least a year since we are in a date tile.
-         */
+        /* Figure out the needed link for the next drill down level. We *must*
+         * have at least a year since we are in a date tile. */
         if (empty($date_array['month'])) {
             // unit == year
             $caption = $full_date->format('Y');
@@ -65,27 +65,22 @@ class Ansel_Tile_DateGallery {
                                'day' => date('j', $full_date->timestamp()));
         }
 
-        /* Get the currently displayed gallery view type */
-        // @TODO: $view would only be needed if we are displaying this tile in a
-        //        search result view as well. (Not implemented yet)
-        //$view = Horde_Util::getFormData('view', 'Gallery');
-
         /* Check permissions on the gallery and get appropriate tile image */
-        if ($dgallery->hasPermission(Horde_Auth::getAuth(), Horde_Perms::READ)) {
+        if ($dgallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
             if (is_null($style)) {
                 $style = $dgallery->getStyle();
             }
 
-            $thumbstyle = $mini ? 'mini' : $style['thumbstyle'];
+            $thumbstyle = $mini ? 'mini' : $style->thumbstyle;
             $gallery_image = Ansel::getImageUrl(
-                $dgallery->getDefaultImage(),
-                $thumbstyle, true, $style['name']);
+                $dgallery->getKeyImage(),
+                $thumbstyle,
+                true,
+                $style);
 
-            // No need to escape alt here since it's generated enitrely within
-            // horde from Horde_Date
             $gallery_image = '<img src="' . $gallery_image . '" alt="' . $caption . '" />' ;
         } else {
-            $gallery_image = Horde::img($GLOBALS['registry']->getImageDir() . '/thumb-error.png', '', '', '');
+            $gallery_image = Horde::img('thumb-error.png');
         }
 
         /* Check for being called via the api and generate correct view links */
@@ -93,34 +88,30 @@ class Ansel_Tile_DateGallery {
             if (empty($params['style'])) {
                 $gstyle = $dgallery->getStyle();
             } else {
-                $gstyle = Ansel::getStyleDefinition($params['style']);
+                $gstyle = $params['style'];
             }
             $params = array('gallery' => $dgallery->id,
                             'view' => 'Gallery',
                             'slug' => $dgallery->get('slug'));
             $params = array_merge($params, $next_date);
-            $view_link = Ansel::getUrlFor('view', $params);
-            $view_link = Horde::link($view_link);
+            $view_link = Ansel::getUrlFor('view', $params)->link();
         } else {
-            $url = str_replace(array('%g', '%s'),
-                array($dgallery->id, $dgallery->get('slug')),
-                urldecode($params['gallery_view_url']));
-
-            $url = Horde_Util::addParameter($url, $next_date);
-            $view_link = Horde::link($url);
+            $view_link = new Horde_Url(str_replace(array('%g', '%s'),
+                                                   array($dgallery->id, $dgallery->get('slug')),
+                                                   urldecode($params['gallery_view_url'])));
+            $view_link = $view_link->add($next_date)->link();
         }
 
         /* Variables used in the template file */
         $image_link = $view_link . $gallery_image . '</a>';
-        $text_link = $view_link . htmlspecialchars($caption, ENT_COMPAT, Horde_Nls::getCharset()) . '</a>';
+        $text_link = $view_link . htmlspecialchars($caption) . '</a>';
         $gallery_count = $dgallery->countImages(true);
 
         /* Background color is needed if displaying a mini tile */
-        $background_color = $style['background'];
+        $background_color = $style->background;
 
-        ob_start();
+        Horde::startBuffer();
         include ANSEL_TEMPLATES . '/tile/dategallery' . ($mini ? 'mini' : '') . '.inc';
-        return ob_get_clean();
+        return Horde::endBuffer();
     }
-
 }

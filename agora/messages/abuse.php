@@ -6,37 +6,31 @@
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
- *
- * $Horde: agora/messages/abuse.php,v 1.24 2009/09/07 07:38:36 duck Exp $
  */
 
-define('AGORA_BASE', dirname(__FILE__) . '/..');
-require_once AGORA_BASE . '/lib/base.php';
-require_once AGORA_BASE . '/lib/Messages.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('agora');
 
 /* Set up the messages object. */
 list($forum_id, $message_id, $scope) = Agora::getAgoraId();
 $messages = &Agora_Messages::singleton($scope, $forum_id);
 if ($messages instanceof PEAR_Error) {
     $notification->push($messages->getMessage(), 'horde.warning');
-    $url = Horde::applicationUrl('forums.php', true);
-    header('Location: ' . $url);
-    exit;
+    Horde::url('forums.php', true)->redirect();
 }
 
 /* Get requested message, if fail then back to forums list. */
 $message = $messages->getMessage($message_id);
 if ($message instanceof PEAR_Error) {
     $notification->push(sprintf(_("Could not open the message. %s"), $message->getMessage()), 'horde.warning');
-    header('Location: ' . Horde::applicationUrl('forums.php', true));
-    exit;
+    Horde::url('forums.php', true)->redirect();
 }
 
 /* We have any moderators? */
 $forum = $messages->getForum();
 if (!isset($forum['moderators'])) {
     $notification->push(_("No moderators are associated with this forum."), 'horde.warning');
-    $url = Agora::setAgoraId($forum_id, $message_id, Horde::applicationUrl('messages/index.php', true), $scope);
+    $url = Agora::setAgoraId($forum_id, $message_id, Horde::url('messages/index.php', true), $scope);
     header('Location: ' . $url);
     exit;
 }
@@ -50,7 +44,7 @@ $form->addHidden('', 'scope', 'text', false);
 
 if ($form->validate()) {
 
-    $url = Agora::setAgoraId($forum_id, $message_id, Horde::applicationUrl('messages/index.php', true), $scope);
+    $url = Agora::setAgoraId($forum_id, $message_id, Horde::url('messages/index.php', true), $scope);
 
     if ($vars->get('submitbutton') == _("Cancel")) {
         header('Location: ' . $url);
@@ -58,10 +52,9 @@ if ($form->validate()) {
     }
 
     /* Collect moderators emails, and send them the notify */
-    require_once 'Horde/Identity.php';
     $emails = array();
     foreach ($forum['moderators'] as $moderator) {
-        $identity = &Identity::singleton('none', $moderator);
+        $identity = $injector->getInstance('Horde_Core_Factory_Identity')->create($moderator);
         $address = $identity->getValue('from_addr');
         if (!empty($address)) {
             $emails[] = $address;
@@ -76,12 +69,12 @@ if ($form->validate()) {
     $mail = new Horde_Mime_Mail(array(
         'subject' => sprintf(_("Message %s reported as abuse"),
                              $message_id),
-        'body' => $url . "\n\n" . Horde_Auth::getAuth() . "\n\n" . $_SERVER["REMOTE_ADDR"],
+        'body' => $url . "\n\n" . $registry->getAuth() . "\n\n" . $_SERVER["REMOTE_ADDR"],
         'to' => $emails,
         'from' => $emails[0],
-        'charset' => Horde_Nls::getCharset()));
+        'charset' => 'UTF-8'));
     $mail->addHeader('User-Agent', 'Agora ' . $registry->getVersion());
-    $mail->send(Horde::getMailerConfig());
+    $mail->send($injector->getInstance('Horde_Mail'));
 
     $notification->push($subject, 'horde.success');
     header('Location: ' . $url);
@@ -90,9 +83,16 @@ if ($form->validate()) {
 
 /* Set up template data. */
 $view = new Agora_View();
-$view->menu = Agora::getMenu('string');
-$view->formbox = Horde_Util::bufferOutput(array($form, 'renderActive'), null, $vars, 'abuse.php', 'post');
-$view->notify = Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status'));
+$view->menu = Horde::menu();
+
+Horde::startBuffer();
+$form->renderActive(null, $vars, 'abuse.php', 'post');
+$view->formbox = Horde::endBuffer();
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$view->notify = Horde::endBuffer();
+
 $view->message_subject = $message['message_subject'];
 $view->message_author = $message['message_author'];
 $view->message_date = strftime($prefs->getValue('date_format'), $message['message_timestamp']);

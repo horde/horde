@@ -1,0 +1,52 @@
+<input type="hidden" name="last_selected" value="<tag:selected />" />
+<input type="hidden" name="last_type" value="<tag:last_type />" />
+
+<div>
+ <label for="stationery" class="hidden"><gettext>Stationery</gettext></label>
+ <select id="stationery" name="stationery" onchange="$('edit').click()">
+  <option value=""><gettext>Create new stationery</gettext></option>
+<loop:slist>
+  <option value="<tag:slist.val />"<if:slist.selected> selected="selected"</if:slist.selected>><tag:slist.text /></option>
+</loop:slist>
+ </select>
+ <input type="submit" id="edit" name="edit" class="button" value="<gettext>Edit</gettext>" />
+</div>
+
+<div>
+ <tag:name_label />
+</div>
+
+<div>
+ <input type="text" name="name" id="name" value="<tag:name />" />
+</div>
+
+<div>
+ <tag:type_label />
+</div>
+
+<div>
+ <select name="type" id="type" onchange="$('switch_type').click()">
+  <option value="plain"<if:plain> selected="selected"</if:plain>><gettext>Text</gettext></option>
+  <option value="html"<if:html> selected="selected"</if:html>><gettext>HTML</gettext></option>
+ </select>
+ <input type="submit" id="switch_type" name="switch_type" class="button" value="<gettext>Switch</gettext>" />
+</div>
+
+<div>
+ <tag:content_label />
+</div>
+
+<div>
+ <textarea name="content" id="content" rows="15" cols="80" class="fixed"><tag:content /></textarea>
+</div>
+
+<p>
+ <em><gettext>You can use the following placeholders in the stationery text: %c for the current message content; %s for the signature.</gettext></em>
+</p>
+
+<div>
+ <input type="submit" name="save" class="button" value="<gettext>Save Stationery</gettext>" />
+<if:show_delete>
+ <input type="submit" name="delete" class="button" value="<gettext>Delete Stationery</gettext>" />
+</if:show_delete>
+</div>

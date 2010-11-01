@@ -10,6 +10,7 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
+ * @package Hylax
  */
 
 if (!defined('HYLAX_BASE')) {
@@ -32,56 +33,19 @@ require_once HORDE_BASE . '/lib/core.php';
 
 class Hylax_Application extends Horde_Registry_Application
 {
+    public $version = 'H4 (0.1-git)';
+
     public $gateway = null;
     public $storage = null;
 
-    function __construct($args = array())
+    protected function _init()
     {
-        if (!empty($args['init'])) {
-            
-            // Registry.
-            $registry = &Horde_Registry::singleton();
-            $GLOBALS['registry'] = &$registry;
-            
-            try {
-                $registry->pushApp('hylax', !defined('AUTH_HANDLER'));
-            } catch (Horde_Exception $e) {
-                if ($e->getCode() == 'permission_denied') {
-                    Horde_Auth::authenticateFailure('hylax', $e);
-                }
-                Horde::fatal($e, __FILE__, __LINE__, false);
-            }
+        /* Hylax Driver */
+        $this->gateway = Hylax_Driver::singleton($conf['fax']['driver'],
+                                                 $conf['fax']['params']);
 
-            $conf = &$GLOBALS['conf'];
-            define('HYLAX_TEMPLATES', $registry->get('templates'));
-
-            /* Notification system. */
-            $notification = &Horde_Notification::singleton();
-            $notification->attach('status');
-            $GLOBALS['notification'] = &$notification;
-
-            /* Find the base file path of Hylax. */
-            define('HYLAX_BASE', dirname(__FILE__) . '/..');
-
-            /* Hylax Driver */
-            $this->gateway = &Hylax_Driver::singleton($conf['fax']['driver'],
-                                                     $conf['fax']['params']);
-
-            /* Hylax storage driver. */
-            $this->storage = &Hylax_Storage::singleton('sql', $conf['sql']);
-
-            /* Start compression, if requested. */
-            Horde::compressOutput();
-        }
+        /* Hylax storage driver. */
+        $this->storage = Hylax_Storage::singleton('sql', $conf['sql']);
     }
 
-    public function perms()
-    {
-        static $perms = array();
-        if (!empty($perms)) {
-            return $perms;
-        }
-
-        return $perms;
-    }
 }

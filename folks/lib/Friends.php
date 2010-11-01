@@ -93,7 +93,7 @@ class Folks_Friends {
     static public function singleton($driver = null, $params = null)
     {
         if (empty($params['user'])) {
-            $params['user'] = Horde_Auth::getAuth();
+            $params['user'] = $GLOBALS['registry']->getAuth();
         }
 
         $signature = $driver . ':' . $params['user'];
@@ -112,10 +112,9 @@ class Folks_Friends {
      */
     protected function __construct($params)
     {
-        $this->_user = empty($params['user']) ? Horde_Auth::getAuth() : $params['user'];
+        $this->_user = empty($params['user']) ? $GLOBALS['registry']->getAuth() : $params['user'];
 
-        $this->_cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'],
-                                            Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+        $this->_cache = $GLOBALS['injector']->getInstance('Horde_Cache');
     }
 
     /**
@@ -144,8 +143,10 @@ class Folks_Friends {
             return (boolean)$GLOBALS['prefs']->getValue('friends_approval');
         }
 
-        $prefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'], 'folks', Horde_Auth::convertUsername($user, true), '', null, false);
-        $prefs->retrieve();
+        $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create('folks', array(
+            'cache' => false,
+            'user' => $GLOBALS['registry']->convertUsername($user, true)
+        ));
 
         return (boolean)$prefs->getValue('friends_approval');
     }
@@ -219,7 +220,7 @@ class Folks_Friends {
         }
 
         // Check if users exits
-        $auth = Horde_Auth::singleton($GLOBALS['conf']['auth']['driver']);
+        $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
         if (!$auth->exists($user)) {
             return PEAR::raiseError(sprintf(_("User \"%s\" does not exits"), $user));
         }
@@ -288,7 +289,7 @@ class Folks_Friends {
         }
 
         // Check if users exits
-        $auth = Horde_Auth::singleton($GLOBALS['conf']['auth']['driver']);
+        $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
         if (!$auth->exists($friend)) {
             return PEAR::raiseError(sprintf(_("User \"%s\" does not exits"), $friend));
         }
@@ -520,11 +521,11 @@ class Folks_Friends {
      */
     private function _getAdmins()
     {
-        if (!$GLOBALS['perms']->exists('folks:admin')) {
+        if (!$GLOBALS['injector']->getInstance('Horde_Perms')->exists('folks:admin')) {
             return array();
         }
 
-        $permission = $GLOBALS['perms']->getPermission('folks:admin');
+        $permission = $GLOBALS['injector']->getInstance('Horde_Perms')->getPermission('folks:admin');
 
         return array_merge($permission->getUserPermissions(PERM_DELETE),
                             $GLOBALS['conf']['auth']['admins']);

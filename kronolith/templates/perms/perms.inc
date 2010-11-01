@@ -6,9 +6,9 @@
 <tr valign="middle">
   <td width="100%" colspan="7" class="header">
     <span class="rightFloat">
-      <a href="#" onclick="javascript:window.close();" style="cursor:pointer"><?php echo Horde::img('close.png', _("Close Window"), '', $registry->getImageDir('horde')) ?></a>
+      <a href="#" onclick="javascript:window.close();" style="cursor:pointer"><?php echo Horde::img('close.png', _("Close Window")) ?></a>
     </span>
-    <?php echo Horde::img('perms.png', '', '', $registry->getImageDir('horde')) . '&nbsp;' . sprintf(_("Edit permissions for %s"), htmlspecialchars($share->get('name'))) . '&nbsp;' . Horde_Help::link('kronolith', 'shares') ?>
+    <?php echo Horde::img('perms.png') . '&nbsp;' . sprintf(_("Edit permissions for %s"), htmlspecialchars($share->get('name'))) . '&nbsp;' . Horde_Help::link('kronolith', 'shares') ?>
   </td>
 </tr>
 <tr><td colspan="7">&nbsp;</td></tr>
@@ -19,7 +19,7 @@
 <!-- Ownership -->
 <tr valign="middle">
   <td class="header leftAlign" colspan="7">
-    <?php echo Horde::img('perms.png', '', '', $registry->getImageDir('horde')) . '&nbsp;' . _("Owner") ?>
+    <?php echo Horde::img('perms.png') . '&nbsp;' . _("Owner") ?>
   </td>
 </tr>
 <tr>
@@ -28,25 +28,26 @@
     <label for="owner_select" class="hidden"><?php echo _("Owner:") ?></label>
     <select id="owner_select" name="owner_select">
       <option value=""><?php echo _("Select a new owner:") ?></option>
-      <option value="<?php echo htmlspecialchars(Horde_Auth::convertUsername($owner, false)) ?>" selected="selected"><?php echo htmlspecialchars(Horde_Auth::convertUsername($owner, false)) ?></option>
-<?php foreach ($userList as $user) { if ($user != Horde_Auth::convertUsername($owner, false)) { ?>
+      <option value="<?php echo htmlspecialchars($registry->convertUsername($owner, false)) ?>" selected="selected"><?php echo htmlspecialchars($registry->convertUsername($owner, false)) ?></option>
+<?php foreach ($userList as $user) { if ($user != $registry->convertUsername($owner, false)) { ?>
       <option value="<?php echo htmlspecialchars($user) ?>"><?php echo htmlspecialchars($user) ?></option>
 <?php } } ?>
     </select>
 <?php else: ?>
     <label for="owner_input" class="hidden"><?php echo _("Owner:") ?></label>
-    <input type="text" id="owner_input" name="owner_input" value="<?php echo htmlspecialchars(Horde_Auth::convertUsername($owner, false)) ?>" />
+    <input type="text" id="owner_input" name="owner_input" value="<?php echo htmlspecialchars($registry->convertUsername($owner, false)) ?>" />
 <?php endif; ?>
   </td>
 </tr>
 
+<?php if ($GLOBALS['registry']->isAdmin() || !empty($GLOBALS['conf']['share']['world'])): ?>
 <!-- Spacer -->
 <tr><td colspan="7">&nbsp;</td></tr>
 
 <!-- Default Permissions -->
 <tr valign="middle">
   <td class="header leftAlign" width="55%">
-    <?php echo Horde::img('perms.png', '', '', $registry->getImageDir('horde')) . '&nbsp;' . _("All Authenticated Users") ?>
+    <?php echo Horde::img('perms.png') . '&nbsp;' . _("All Authenticated Users") ?>
   </td>
   <td class="header" align="center"><?php echo _("Show") ?></td>
   <td class="header" align="center"><?php echo _("Read") ?></td>
@@ -121,6 +122,7 @@
   </td>
   <td>&nbsp;</td>
 </tr>
+<?php endif; ?>
 
 <!-- Spacer -->
 <tr><td colspan="7">&nbsp;</td></tr>
@@ -128,7 +130,7 @@
 <!-- Creator Permissions -->
 <tr valign="middle">
   <td class="header leftAlign">
-    <?php echo Horde::img('user.png', '', '', $registry->getImageDir('horde')) . '&nbsp;' . _("Object Creator") ?>
+    <?php echo Horde::img('user.png') . '&nbsp;' . _("Object Creator") ?>
   </td>
   <td class="header" align="center"><?php echo _("Show") ?></td>
   <td class="header" align="center"><?php echo _("Read") ?></td>
@@ -169,7 +171,7 @@
 <!-- User Permissions -->
 <tr valign="middle">
   <td class="header leftAlign">
-    <?php echo Horde::img('user.png', '', '', $registry->getImageDir('horde')) . '&nbsp;' . _("Individual Users") ?>
+    <?php echo Horde::img('user.png') . '&nbsp;' . _("Individual Users") ?>
   </td>
   <td class="header" align="center"><?php echo _("Show") ?></td>
   <td class="header" align="center"><?php echo _("Read") ?></td>
@@ -181,7 +183,7 @@
 <?php
 foreach ($userperms as $user => $uperm) {
     if ($user != $owner) {
-        $user = Horde_Auth::convertUsername($user, false);
+        $user = $registry->convertUsername($user, false);
 ?>
 <tr>
   <td class="light"><?php echo htmlspecialchars($user) ?><input type="hidden" name="u_names[<?php echo htmlspecialchars($user) ?>]" value="<?php echo htmlspecialchars($user) ?>" /></td>
@@ -218,8 +220,8 @@ foreach ($userperms as $user => $uperm) {
       <option value=""><?php echo _("Select a user to add:") ?></option>
 <?php
 foreach ($userList as $user) {
-    if (!isset($userperms[Horde_Auth::convertUsername($user, true)]) &&
-        $user != Horde_Auth::convertUsername($owner, false)) {
+    if (!isset($userperms[$registry->convertUsername($user, true)]) &&
+        $user != $registry->convertUsername($owner, false)) {
 ?>
       <option value="<?php echo htmlspecialchars($user) ?>"><?php echo htmlspecialchars($user) ?></option>
 <?php } } ?>
@@ -286,7 +288,7 @@ foreach ($userList as $user) {
 <!-- Group Permissions -->
 <tr valign="middle">
   <td class="header leftAlign">
-    <?php echo Horde::img('group.png', '', '', $registry->getImageDir('horde')) . '&nbsp;' . _("Groups") ?>
+    <?php echo Horde::img('group.png') . '&nbsp;' . _("Groups") ?>
   </td>
   <td class="header" align="center"><?php echo _("Show") ?></td>
   <td class="header" align="center"><?php echo _("Read") ?></td>

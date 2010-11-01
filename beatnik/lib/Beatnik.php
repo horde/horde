@@ -21,22 +21,22 @@ class Beatnik {
         $editing = Horde_Util::getFormData('id');
         $editing = !empty($editing);
 
-        $hordeImgDir = $GLOBALS['registry']->getImageDir('horde');
-        $beatnikImgDir = $GLOBALS['registry']->getImageDir();
+        $hordeImgDir = Horde_Themes::img(null, 'horde');
+        $beatnikImgDir = Horde_Themes::img();
         $menu = new Horde_Menu();
 
-        $menu->add(Horde::applicationUrl('listzones.php'), _('List Domains'), 'website.png', $hordeImgDir);
+        $menu->add(Horde::url('listzones.php'), _('List Domains'), 'website.png', $hordeImgDir);
         if (!empty($_SESSION['beatnik']['curdomain'])) {
-            $menu->add(Horde_Util::addParameter(Horde::applicationUrl('editrec.php'), 'curdomain', $_SESSION['beatnik']['curdomain']['zonename']), ($editing) ? _("Edit Record") : _("Add Record"), 'edit.png', $hordeImgDir);
+            $menu->add(Horde_Util::addParameter(Horde::url('editrec.php'), 'curdomain', $_SESSION['beatnik']['curdomain']['zonename']), ($editing) ? _("Edit Record") : _("Add Record"), 'edit.png', $hordeImgDir);
         } else {
-            $menu->add(Horde::applicationUrl('editrec.php?rectype=soa'), _("Add Zone"), 'edit.png', $hordeImgDir);
+            $menu->add(Horde::url('editrec.php?rectype=soa'), _("Add Zone"), 'edit.png', $hordeImgDir);
         }
 
         $url = Horde_Util::addParameter(Horde::selfUrl(true), array('expertmode' => 'toggle'));
         $menu->add($url, _('Expert Mode'), 'hide_panel.png', $hordeImgDir, '', null, ($_SESSION['beatnik']['expertmode']) ? 'current' : '');
 
         if (count(Beatnik::needCommit())) {
-            $url = Horde_Util::addParameter(Horde::applicationUrl('commit.php'), array('domain' => 'all'));
+            $url = Horde_Util::addParameter(Horde::url('commit.php'), array('domain' => 'all'));
             $menu->add($url, _('Commit All'), 'commit-all.png', $beatnikImgDir);
         }
 
@@ -55,10 +55,13 @@ class Beatnik {
      */
     function getRecTypes()
     {
+        $beatnik = $GLOBALS['registry']->getApiInstance('beatnik', 'application');
+
         $records = array(
             'soa' => _("SOA (Start of Authority)"),
             'ns' => _("NS (Name Server)"),
             'a' => _("A (Address)"),
+            'aaaa' => _("AAAA (IPv6 Address)"),
             'ptr' => _("PTR (Reverse DNS)"),
             'cname' => _("CNAME (Alias)"),
             'mx' => _("MX (Mail eXchange)"),
@@ -66,7 +69,7 @@ class Beatnik {
             'txt' => _("TXT (Text Record)"),
         );
 
-        return array_merge($records, $GLOBALS['beatnik_driver']->getRecDriverTypes());
+        return array_merge($records, $beatnik->driver->getRecDriverTypes());
     }
 
     /**
@@ -87,6 +90,8 @@ class Beatnik {
         //      'infoset' is false then 'default' MUST be specified
         // 'default': the default value of the field.
         // 'index': Crude sort ordering.  Lower means show higher in the group
+
+        $beatnik = $GLOBALS['registry']->getApiInstance('beatnik', 'application');
 
         // Attempt to return cached results.
         static $recset = array();
@@ -197,6 +202,27 @@ class Beatnik {
                 'name' => _("IP Address"),
                 'description' => _("IPv4 Network Address"),
                 'type' => 'ipaddress',
+                'maxlength' => 0,
+                'required' => true,
+                'infoset' => 'basic',
+                'index' => 2,
+            );
+            break;
+
+        case 'aaaa':
+            $recset[$recordtype]['hostname'] = array(
+                'name' => _("Hostname"),
+                'description' => _("Short hostname for this record"),
+                'type' => 'text',
+                'maxlength' => 0,
+                'required' => true,
+                'infoset' => 'basic',
+                'index' => 1,
+            );
+            $recset[$recordtype]['ip6addr'] = array(
+                'name' => _("IPv6 Address"),
+                'description' => _("IPv6 Network Address"),
+                'type' => 'ip6address',
                 'maxlength' => 0,
                 'required' => true,
                 'infoset' => 'basic',
@@ -375,7 +401,7 @@ class Beatnik {
             'default' => $GLOBALS['prefs']->getValue('default_ttl')
         );
 
-        $recset[$recordtype] = array_merge($recset[$recordtype], $GLOBALS['beatnik_driver']->getRecDriverFields($recordtype));
+        //$recset[$recordtype] = array_merge($recset[$recordtype], $beatnik->driver->getRecDriverFields($recordtype));
         uasort($recset[$recordtype], array('Beatnik', 'fieldSort'));
 
         return $recset[$recordtype];
@@ -445,23 +471,22 @@ class Beatnik {
      */
     function hasPermission($permname, $permmask = null, $numparents = 0)
     {
-        if (Horde_Auth::isAdmin()) {
+        if ($GLOBALS['registry']->isAdmin()) {
             return true;
         }
 
-        $perms = Horde_Perms::singleton();
         if ($permmask === null) {
-            $permmask = Horde_Perms::SHOW|Horde_Perms::READ;
+            $permmask = Horde_Perms::SHOW | Horde_Perms::READ;
         }
 
         # Default deny all permissions
         $user = 0;
         $superadmin = 0;
 
-        $superadmin = $perms->hasPermission('beatnik:domains', Horde_Auth::getAuth(), $permmask);
+        $superadmin = $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('beatnik:domains', $GLOBALS['registry']->getAuth(), $permmask);
 
         while ($numparents >= 0) {
-            $tmpuser = $perms->hasPermission($permname, Horde_Auth::getAuth(), $permmask);
+            $tmpuser = $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission($permname, $GLOBALS['registry']->getAuth(), $permmask);
 
             $user = $user | $tmpuser;
             if ($numparents > 0) {
@@ -485,11 +510,12 @@ class Beatnik {
      */
     function autogenerate(&$vars)
     {
+        $beatnik = $GLOBALS['registry']->getApiInstance('beatnik', 'application');
 
         require BEATNIK_BASE . '/config/autogenerate.php';
         $template = $templates[$vars->get('template')];
         try {
-            $zonedata = $GLOBALS['beatnik_driver']->getRecords($_SESSION['beatnik']['curdomain']['zonename']);
+            $zonedata = $beatnik->driver->getRecords($_SESSION['beatnik']['curdomain']['zonename']);
         } catch (Exception $e) {
             $GLOBALS['notification']->push($e);
         }
@@ -502,7 +528,7 @@ class Beatnik {
                 case 'all':
                     foreach ($zonedata[$rectype] as $record) {
                         try {
-                        $result = $GLOBALS['beatnik_driver']->deleteRecord($record);
+                            $result = $beatnik->driver->deleteRecord($record);
                         } catch (Exception $e) {
                             $GLOBALS['notification']->push($e);
                         }
@@ -516,7 +542,7 @@ class Beatnik {
                         foreach ($definitions['records'] as $Trecord) {
                             if ($record['hostname'] == $Trecord['hostname']) {
                                 try {
-                                    $result = $GLOBALS['beatnik_driver']->deleteRecord($record);
+                                    $result = $beatnik->driver->deleteRecord($record);
                                 } catch (Exception $e) {
                                     $GLOBALS['notification']->push($e);
                                 }
@@ -533,16 +559,17 @@ class Beatnik {
             $defaults = array('rectype' => $rectype,
                               'zonename'=> $_SESSION['beatnik']['curdomain']['zonename']);
             foreach ($definitions['records'] as $info) {
-                if ($GLOBALS['beatnik_driver']->recordExists($info, $rectype)) {
+                if ($beatnik->driver->recordExists($info, $rectype)) {
                     $GLOBALS['notification']->push(_("Skipping existing identical record"));
                     continue;
                 }
                 try {
-                    $result = $GLOBALS['beatnik_driver']->saveRecord(array_merge($defaults, $info));
+                    $result = $beatnik->driver->saveRecord(array_merge($defaults, $info));
+                    $GLOBALS['notification']->push(sprintf(_('Record added: %s/%s'), $rectype, $info['hostname']), 'horde.success');
                 } catch (Exception $e) {
-                    $GLOBALS['notification']->push($result->getMessage() . ': ' . $result->getDebugInfo(), 'horde.error');
+                    $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
+                    return false;
                 }
-                $GLOBALS['notification']->push(sprintf(_('Record added: %s/%s'), $rectype, $info['hostname']), 'horde.success');
             }
         }
         return true;

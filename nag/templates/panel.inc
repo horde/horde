@@ -2,15 +2,19 @@
 
 Horde::addScriptFile('redbox.js', 'horde');
 
-$info_img = Horde::img('info_icon.png', _("Task List Information"), array('class' => 'tasklist-info'), $registry->getImageDir('horde'));
+$info_img = Horde::img('info_icon.png', _("Task List Information"), array('class' => 'tasklist-info'));
 
-$current_user = Horde_Auth::getAuth();
+$current_user = $GLOBALS['registry']->getAuth();
 $my_tasklists = array();
 $shared_tasklists = array();
 foreach (Nag::listTasklists() as $id => $tl) {
     if ($tl->get('owner') && $tl->get('owner') == $current_user) {
         $my_tasklists[$id] = $tl;
     } else {
+        if (!empty($conf['share']['hidden']) &&
+            !in_array($tl->getName(), $display_tasklists)) {
+            continue;
+        }
         $shared_tasklists[$id] = $tl;
     }
 }
@@ -30,14 +34,14 @@ function sbarToggle()
         Element.addClassName(document.body, 'rightPanel');
     }
 
-    new Ajax.Request('<?php echo Horde::getServiceLink('prefsapi', 'nag') ?>', { parameters: { pref: 'show_panel', value: pref_value } });
+    new Ajax.Request('<?php echo Horde::getServiceLink('ajax', 'nag')->url ?>setPrefValue', { parameters: { pref: 'show_panel', value: pref_value } });
 }
 
 document.observe('dom:loaded', function() {
     $$('#pageControlsInner .tasklist-info').invoke('observe', 'click', function() {
         RedBox.loading();
         var tasklist_id = this.previous().down('.checkbox').value;
-        new Ajax.Request('<?php echo Horde::applicationUrl('tasklists/info.php') ?>', {
+        new Ajax.Request('<?php echo Horde::url('tasklists/info.php') ?>', {
             parameters: { t: tasklist_id },
             method: 'get',
             onSuccess: function(transport) {
@@ -62,9 +66,9 @@ document.observe('dom:loaded', function() {
   <input id="tasklistSearch" type="text" for="mytasklists,sharedtasklists" />
  </p>
 
-<?php if (Horde_Auth::getAuth()): ?>
+<?php if ($GLOBALS['registry']->getAuth()): ?>
  <p>
-  <a href="<?php echo Horde::applicationUrl('tasklists/') ?>"><?php echo _("[Manage Task Lists]") ?></a>
+  <a href="<?php echo Horde::url('tasklists/') ?>"><?php echo _("[Manage Task Lists]") ?></a>
  </p>
 <?php endif; ?>
 
@@ -81,7 +85,7 @@ document.observe('dom:loaded', function() {
  <h4><?php echo _("Shared Task Lists:") ?></h4>
  <ul id="sharedtasklists">
 <?php foreach ($shared_tasklists as $id => $tl): ?>
-   <li><label><input type="checkbox" class="checkbox" name="display_tasklist[]" value="<?php echo htmlspecialchars($id) ?>"<?php echo (in_array($id, $display_tasklists) ? ' checked="checked"' : '') . ' /> ' . ($tl->get('owner') ? '[' . htmlspecialchars(Horde_Auth::convertUsername($tl->get('owner'), false)) . '] ' : '') . htmlspecialchars($tl->get('name')) ?></label> <?php echo $info_img ?></li>
+   <li><label><input type="checkbox" class="checkbox" name="display_tasklist[]" value="<?php echo htmlspecialchars($id) ?>"<?php echo (in_array($id, $display_tasklists) ? ' checked="checked"' : '') . ' /> ' . ($tl->get('owner') ? '[' . htmlspecialchars($registry->convertUsername($tl->get('owner'), false)) . '] ' : '') . htmlspecialchars($tl->get('name')) ?></label> <?php echo $info_img ?></li>
 <?php endforeach; ?>
  </ul>
 <?php endif; ?>

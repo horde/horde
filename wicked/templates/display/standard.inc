@@ -17,16 +17,16 @@ if (!function_exists('separator')) {
 
 separator(true);
 
-if ($this->allows(WICKED_MODE_EDIT) && !$this->isLocked()) {
+if ($this->allows(Wicked::MODE_EDIT) && !$this->isLocked(Wicked::lockUser())) {
     separator();
     $url = Horde_Util::addParameter(Wicked::url('EditPage'),
                               'referrer', $this->pageName());
     echo Horde::widget($url, sprintf(_("Edit %s"), $this->pageName()),
-                       'widget', '', '', _("_EditPage"));
+                       'widget', '', '', _("_Edit"));
 }
 
 if ($this->isLocked()) {
-    if ($this->allows(WICKED_MODE_UNLOCKING)) {
+    if ($this->allows(Wicked::MODE_UNLOCKING)) {
         separator();
         echo Horde::widget(Horde_Util::removeParameter(
                                $this->pageUrl(null, 'unlock'),
@@ -35,7 +35,7 @@ if ($this->isLocked()) {
                            'widget', '', '', _("Un_lock"));
     }
 } else {
-    if ($this->allows(WICKED_MODE_LOCKING)) {
+    if ($this->allows(Wicked::MODE_LOCKING)) {
         separator();
         echo Horde::widget(Horde_Util::removeParameter(
                                $this->pageUrl(null, 'lock'),
@@ -45,7 +45,7 @@ if ($this->isLocked()) {
     }
 }
 
-if ($this->allows(WICKED_MODE_REMOVE)) {
+if ($this->allows(Wicked::MODE_REMOVE)) {
     separator();
     $params = array('referrer' => $this->pageName());
     if ($this->isOld()) {
@@ -56,31 +56,31 @@ if ($this->allows(WICKED_MODE_REMOVE)) {
                        'widget', '', '', _("_Delete"));
 }
 
-if ($this->allows(WICKED_MODE_EDIT)) {
+if ($this->allows(Wicked::MODE_REMOVE) && !$this->isLocked(Wicked::lockUser())) {
     separator();
     $url = Horde_Util::addParameter(Wicked::url('MergeOrRename'),
                               'referrer', $this->pageName());
-    echo Horde::widget($url, _("MergeOrRename"), 'widget', '', '',
-                       _("_MergeOrRename"));
+    echo Horde::widget($url, _("Merge/Rename"), 'widget', '', '',
+                       _("_Merge/Rename"));
 }
 
 separator();
 $url = Horde_Util::addParameter(Wicked::url('BackLinks'),
                           'referrer', $this->pageName());
-echo Horde::widget($url, _("BackLinks"), 'widget', '', '', _("_BackLinks"));
+echo Horde::widget($url, _("Backlinks"), 'widget', '', '', _("_Backlinks"));
 
 separator();
 $url = Horde_Util::addParameter(Wicked::url('LikePages'),
                           'referrer', $this->pageName());
-echo Horde::widget($url, _("LikePages"), 'widget', '', '', _("L_ikePages"));
+echo Horde::widget($url, _("Similar Pages"), 'widget', '', '', _("S_imilar Pages"));
 
 separator();
 $url = Horde_Util::addParameter(Wicked::url('AttachedFiles'),
                           'referrer', $this->pageName());
-echo Horde::widget($url, _("AttachedFiles"), 'widget', '', '',
-                   _("Attached_Files"));
+echo Horde::widget($url, _("Attachments"), 'widget', '', '',
+                   _("Attachments"));
 
-if ($this->allows(WICKED_MODE_HISTORY)) {
+if ($this->allows(Wicked::MODE_HISTORY)) {
     separator();
     echo Horde::widget(Horde_Util::removeParameter($this->pageUrl('history.php'),
                                              'version'),
@@ -88,7 +88,7 @@ if ($this->allows(WICKED_MODE_HISTORY)) {
                        'widget', '', '', _("Hi_story"));
 }
 
-if (Horde_Auth::isAdmin()) {
+if ($GLOBALS['registry']->isAdmin()) {
     separator();
     $permsurl = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/admin/perms/edit.php');
     $permsurl = Horde_Util::addParameter(
@@ -124,7 +124,7 @@ foreach ($attachments as $attachment) {
                               array('page' => $this->pageName(),
                                     'file' => $attachment['attachment_name'],
                                     'version' => $attachment['attachment_majorversion'] . '.' . $attachment['attachment_minorversion']));
-    $icon = Horde_Mime_Viewer::getIcon(Horde_Mime_Magic::filenameToMime($attachment['attachment_name']));
+    $icon = $GLOBALS['injector']->getInstance('Horde_Core_Factory_MimeViewer')->getIcon(Horde_Mime_Magic::filenameToMime($attachment['attachment_name']));
     echo Horde::link($url) .
         '<img src="' . $icon . '" width="16" height="16" alt="" />&nbsp;' .
         htmlspecialchars($attachment['attachment_name']) . '</a><br />';

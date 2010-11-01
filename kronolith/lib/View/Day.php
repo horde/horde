@@ -27,9 +27,9 @@ class Kronolith_View_Day extends Kronolith_Day {
 
         $this->_sidebyside = $GLOBALS['prefs']->getValue('show_shared_side_by_side');
         if ($this->_sidebyside) {
-            $allCalendars = Kronolith::listCalendars();
+            $allCalendars = Kronolith::listInternalCalendars();
             foreach ($GLOBALS['display_calendars'] as $cid) {
-                 $this->_currentCalendars[$cid] = &$allCalendars[$cid];
+                 $this->_currentCalendars[$cid] = $allCalendars[$cid];
                  $this->_all_day_events[$cid] = array();
             }
         } else {
@@ -37,25 +37,21 @@ class Kronolith_View_Day extends Kronolith_Day {
         }
 
         if ($events === null) {
-            $events = Kronolith::listEvents(
-                $this,
-                new Horde_Date(array('year' => $this->year,
-                                     'month' => $this->month,
-                                     'mday' => $this->mday)),
-                $GLOBALS['display_calendars']);
-            if (is_a($events, 'PEAR_Error')) {
-                $this->_events = $events;
-            } else {
+            try {
+                $events = Kronolith::listEvents(
+                    $this,
+                    new Horde_Date(array('year' => $this->year,
+                                         'month' => $this->month,
+                                         'mday' => $this->mday)));
                 $this->_events = array_shift($events);
+            } catch (Exception $e) {
+                $GLOBALS['notification']->push($e, 'horde.error');
+                $this->_events = array();
             }
         } else {
             $this->_events = $events;
         }
 
-        if (is_a($this->_events, 'PEAR_Error')) {
-            $GLOBALS['notification']->push($this->_events, 'horde.error');
-            $this->_events = array();
-        }
         if (!is_array($this->_events)) {
             $this->_events = array();
         }
@@ -78,8 +74,8 @@ class Kronolith_View_Day extends Kronolith_Day {
         $first_row = true;
         $addLinks = Kronolith::getDefaultCalendar(Horde_Perms::EDIT) &&
             (!empty($GLOBALS['conf']['hooks']['permsdenied']) ||
-             $GLOBALS['perms']->hasAppPermission('max_events') === true ||
-             $GLOBALS['perms']->hasAppPermission('max_events') > Kronolith::countEvents());
+             $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') === true ||
+             $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') > Kronolith::countEvents());
         $showLocation = Kronolith::viewShowLocation();
         $showTime = Kronolith::viewShowTime();
 
@@ -90,7 +86,7 @@ class Kronolith_View_Day extends Kronolith_Day {
         echo '<tbody>';
 
         if ($addLinks) {
-            $newEventUrl = Horde::applicationUrl('new.php')
+            $newEventUrl = Horde::url('new.php')
                 ->add(array('datetime' => sprintf($this->dateString() . '%02d%02d00',
                                                   $this->slots[0]['hour'], $this->slots[0]['min']),
                             'allday' => 1,
@@ -115,7 +111,7 @@ class Kronolith_View_Day extends Kronolith_Day {
         $rowspan = ($this->_all_day_maxrowspan) ? ' rowspan="' . $this->_all_day_maxrowspan . '"' : '';
         for ($k = 0; $k < $this->_all_day_maxrowspan; ++$k) {
             $row = '';
-            foreach ($this->_currentCalendars as $cid => $cal) {
+            foreach (array_keys($this->_currentCalendars) as $cid) {
                 if (count($this->_all_day_events[$cid]) === $k) {
                     // There are no events or all events for this calendar
                     // have already been printed.
@@ -171,7 +167,7 @@ class Kronolith_View_Day extends Kronolith_Day {
                 $row .= '<td>&nbsp;</td>';
             }
 
-            foreach ($this->_currentCalendars as $cid => $cal) {
+            foreach (array_keys($this->_currentCalendars) as $cid) {
                 $hspan = 0;
                 foreach ($this->_event_matrix[$cid][$i] as $key) {
                     $event = &$this->_events[$key];
@@ -258,7 +254,7 @@ class Kronolith_View_Day extends Kronolith_Day {
             }
 
             if ($addLinks) {
-                $newEventUrl = Horde::applicationUrl('new.php')
+                $newEventUrl = Horde::url('new.php')
                     ->add(array('datetime' => sprintf($this->dateString() . '%02d%02d00',
                                                       $this->slots[$i]['hour'], $this->slots[$i]['min']),
                                 'url' => $this->link(0, true)))
@@ -273,7 +269,7 @@ class Kronolith_View_Day extends Kronolith_Day {
             $rows[] = array('row' => $row, 'slot' => $newEventUrl);
         }
 
-        $template = new Horde_Template();
+        $template = $GLOBALS['injector']->createInstance('Horde_Template');
         $template->set('row_height', round(20 / $this->_slotsPerHour));
         $template->set('rows', $rows);
         $template->set('show_slots', true, true);
@@ -298,7 +294,7 @@ class Kronolith_View_Day extends Kronolith_Day {
 
         // Separate out all day events and do some initialization/prep
         // for parsing.
-        foreach ($this->_currentCalendars as $cid => $cal) {
+        foreach (array_keys($this->_currentCalendars) as $cid) {
             $this->_all_day_events[$cid] = array();
             $this->_all_day_rowspan[$cid] = 0;
         }
@@ -343,7 +339,7 @@ class Kronolith_View_Day extends Kronolith_Day {
         // that we have here.
         for ($i = 0; $i < $this->_slotsPerDay; ++$i) {
             // Initialize this slot in the event matrix.
-            foreach ($this->_currentCalendars as $cid => $cal) {
+            foreach (array_keys($this->_currentCalendars) as $cid) {
                 $this->_event_matrix[$cid][$i] = array();
             }
 
@@ -458,7 +454,7 @@ class Kronolith_View_Day extends Kronolith_Day {
 
     function link($offset = 0, $full = false)
     {
-        return Horde::applicationUrl('day.php', $full)
+        return Horde::url('day.php', $full)
             ->add('date', $this->getTime('%Y%m%d', $offset));
     }
 

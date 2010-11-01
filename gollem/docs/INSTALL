@@ -44,7 +44,7 @@ To function properly, Gollem **REQUIRES** the following:
    for Web applications written in PHP.  You must install Horde before
    before installing Gollem.
 
-   .. Important:: Gollem 2.0 requires version 4.0 of the Horde Framework -
+   .. Important:: Gollem 2 requires version 4 of the Horde Framework -
                   earlier versions of Horde will **not** work.
 
    The Horde Framework can be obtained from the Horde website and FTP server,

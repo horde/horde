@@ -15,33 +15,18 @@
 class Horde_Perms_Sql extends Horde_Perms
 {
     /**
-     * Boolean indicating whether or not we're connected to the SQL server.
+     * Configuration parameters.
      *
-     * @var boolean
+     * @var array
      */
-    protected $_connected = false;
+    protected $_params = array();
 
     /**
      * Handle for the current database connection.
      *
-     * @var DB
+     * @var Horde_Db_Adapter
      */
     protected $_db;
-
-    /**
-     * Handle for the current database connection, used for writing. Defaults
-     * to the same handle as $db if a separate write database is not required.
-     *
-     * @var DB
-     */
-    protected $_write_db;
-
-    /**
-     * Pointer to a Horde_Cache instance
-     *
-     * @var Horde_Cache
-     */
-    protected $_cache;
 
     /**
      * Incrementing version number if cached classes change.
@@ -59,10 +44,30 @@ class Horde_Perms_Sql extends Horde_Perms
 
     /**
      * Constructor.
+     *
+     * @param array $params  Configuration parameters (in addition to base
+     *                       Horde_Perms parameters):
+     * <pre>
+     * 'db' - (Horde_Db_Adapter) [REQUIRED] The DB instance.
+     * 'table' - (string) The name of the perms table.
+     *           DEFAULT: 'horde_perms'
+     * </pre>
+     *
+     * @throws Horde_Perms_Exception
      */
-    public function __construct()
+    public function __construct($params = array())
     {
-        $this->_cache = Horde_Cache::singleton($GLOBALS['conf']['cache']['driver'], Horde::getDriverConfig('cache', $GLOBALS['conf']['cache']['driver']));
+        if (!isset($params['db'])) {
+            throw new Horde_Perms_Exception('Missing db parameter.');
+        }
+        $this->_db = $params['db'];
+        unset($params['db']);
+
+        $this->_params = array_merge(array(
+            'table' => 'horde_perms'
+        ), $this->_params, $params);
+
+        parent::__construct($params);
     }
 
     /**
@@ -90,7 +95,10 @@ class Horde_Perms_Sql extends Horde_Perms
             } catch (Horde_Perms_Exception $e) {}
         }
 
-        return new Horde_Perms_Permission_SqlObject($name, $type, $params);
+        $ob = new Horde_Perms_Permission_SqlObject($name, $this->_cacheVersion, $type, $params);
+        $ob->setObs($this->_cache, $this->_db);
+
+        return $ob;
     }
 
     /**
@@ -108,20 +116,22 @@ class Horde_Perms_Sql extends Horde_Perms
             return $this->_permsCache[$name];
         }
 
-        $this->_connect();
-
         $perm = $this->_cache->get('perm_sql' . $this->_cacheVersion . $name, $GLOBALS['conf']['cache']['default_lifetime']);
         if (empty($perm)) {
-            $query = 'SELECT perm_id, perm_data FROM horde_perms WHERE perm_name = ?';
-            $result = $this->_db->getRow($query, array($name), DB_FETCHMODE_ASSOC);
+            $query = 'SELECT perm_id, perm_data FROM ' .
+                $this->_params['table'] . ' WHERE perm_name = ?';
 
-            if ($result instanceof PEAR_Error) {
-                throw new Horde_Perms_Exception($result);
-            } elseif (empty($result)) {
+            try {
+                $result = $this->_db->selectOne($query, array($name));
+            } catch (Horde_Db_Exception $e) {
+                throw new Horde_Perms_Exception($e);
+            }
+
+            if (empty($result)) {
                 throw new Horde_Perms_Exception('Does not exist');
             }
 
-            $object = new Horde_Perms_Permission_SqlObject($name);
+            $object = new Horde_Perms_Permission_SqlObject($name, $this->_cacheVersion);
             $object->setId($result['perm_id']);
             $object->setData(unserialize($result['perm_data']));
 
@@ -132,7 +142,7 @@ class Horde_Perms_Sql extends Horde_Perms
             $this->_permsCache[$name] = unserialize($perm);
         }
 
-        $this->_permsCache[$name]->setSQLOb($this->_write_db);
+        $this->_permsCache[$name]->setObs($this->_cache, $this->_db);
 
         return $this->_permsCache[$name];
     }
@@ -148,24 +158,26 @@ class Horde_Perms_Sql extends Horde_Perms
      */
     public function getPermissionById($id)
     {
-        $this->_connect();
-
         if ($id == Horde_Perms::ROOT || empty($id)) {
             $object = $this->newPermission(Horde_Perms::ROOT);
         } else {
-            $query = 'SELECT perm_name, perm_data FROM horde_perms WHERE perm_id = ?';
-            $result = $this->_db->getRow($query, array($id), DB_FETCHMODE_ASSOC);
+            $query = 'SELECT perm_name, perm_data FROM ' .
+                $this->_params['table'] . ' WHERE perm_id = ?';
 
-            if ($result instanceof PEAR_Error) {
-                throw new Horde_Perms_Exception($result);
-            } elseif (empty($result)) {
+            try {
+                $result = $this->_db->selectOne($query, array($id));
+            } catch (Horde_Db_Exception $e) {
+                throw new Horde_Perms_Exception($e);
+            }
+
+            if (empty($result)) {
                 throw new Horde_Perms_Exception('Does not exist');
             }
 
-            $object = new Horde_Perms_Permission_SqlObject($result['perm_name']);
+            $object = new Horde_Perms_Permission_SqlObject($result['perm_name'], $this->_cacheVersion);
             $object->setId($id);
             $object->setData(unserialize($result['perm_data']));
-            $object->setSQLOb($this->_write_db);
+            $object->setObs($this->_cache, $this->_db);
         }
 
         return $object;
@@ -178,15 +190,11 @@ class Horde_Perms_Sql extends Horde_Perms
      *
      * @param Horde_Perms_Permission_SqlObject $perm  The perm object.
      *
-     * @return TODO
+     * @return integer  Permission ID in the database.
      * @throws Horde_Perms_Exception
      */
-    public function addPermission($perm)
+    public function addPermission(Horde_Perms_Permission_SqlObject $perm)
     {
-        if (!($perm instanceof Horde_Perms_Permission_SqlObject)) {
-            throw new Horde_Perms_Exception('Permissions must be a Horde_Perms_Permission_SqlObject object.');
-        }
-
         $name = $perm->getName();
         if (empty($name)) {
             throw new Horde_Perms_Exception('Permission name must be non-empty.');
@@ -195,34 +203,34 @@ class Horde_Perms_Sql extends Horde_Perms
         $this->_cache->expire('perm_sql' . $this->_cacheVersion . $name);
         $this->_cache->expire('perm_sql_exists_' . $this->_cacheVersion . $name);
 
-        $this->_connect();
-        $id = $this->_write_db->nextId('horde_perms');
-
         // remove root from the name
-        if (substr($name, 0, 3) == (Horde_Perms::ROOT . ':')) {
-            $name = substr($name, 3);
+        $root = Horde_Perms::ROOT . ':';
+        if (substr($name, 0, strlen($root)) == ($root)) {
+            $name = substr($name, strlen($root));
         }
 
         // build parents
         $parents = '';
         if (($pos = strrpos($name, ':')) !== false) {
             $parent_name = substr($name, 0, $pos);
-            $query = 'SELECT perm_id, perm_parents FROM horde_perms WHERE perm_name = ?';
-            $result = $this->_db->getRow($query, array($parent_name), DB_FETCHMODE_ASSOC);
+            $query = 'SELECT perm_id, perm_parents FROM ' .
+                $this->_params['table'] . ' WHERE perm_name = ?';
+            $result = $this->_db->selectOne($query, array($parent_name));
             if (!empty($result)) {
                 $parents = $result['perm_parents'] . ':' . $result['perm_id'];
             }
         }
 
-        $query = 'INSERT INTO horde_perms (perm_id, perm_name, perm_parents) VALUES (?, ?, ?)';
-        $perm->setId($id);
+        $query = 'INSERT INTO ' . $this->_params['table'] .
+            ' (perm_name, perm_parents) VALUES (?, ?)';
 
-        $result = $this->_write_db->query($query, array($id, $name, $parents));
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Perms_Exception($result);
+        try {
+            $id = $this->_db->insert($query, array($name, $parents));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Perms_Exception($e);
         }
 
-        $perm->setSQLOb($this->_write_db);
+        $perm->setId($id);
         $perm->save();
 
         return $id;
@@ -233,42 +241,50 @@ class Horde_Perms_Sql extends Horde_Perms
      *
      * @param Horde_Perms_Permission_SqlObject $perm  The permission to
      *                                                remove.
-     * @param boolean $force                          Force to remove ever
+     * @param boolean $force                          Force to remove every
      *                                                child.
      *
-     * @return TODO
+     * @return boolean  True if permission was deleted.
      * @throws Horde_Perms_Exception
      */
-    public function removePermission($perm, $force = false)
+    public function removePermission(Horde_Perms_Permission_SqlObject $perm,
+                                     $force = false)
     {
-        if (!($perm instanceof Horde_Perms_Permissions_SqlObject)) {
-            throw new Horde_Perms_Exception('Permissions must be Horde_Perms_Permission_SqlObject objects.');
-        }
-
         $name = $perm->getName();
         $this->_cache->expire('perm_sql' . $this->_cacheVersion . $name);
         $this->_cache->expire('perm_sql_exists_' . $this->_cacheVersion . $name);
 
-        $this->_connect();
-        $query = 'DELETE FROM horde_perms WHERE perm_name = ?';
-        $result = $this->_write_db->query($query, array($name));
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Perms_Exception($result);
-        } elseif ($force) {
-            return $result;
+        $query = 'DELETE FROM ' . $this->_params['table'] .
+            ' WHERE perm_name = ?';
+
+        try {
+            $result = $this->_db->delete($query, array($name));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Perms_Exception($e);
         }
 
-        $query = 'DELETE FROM horde_perms WHERE perm_name LIKE ?';
-        return $this->_write_db->query($query, array($name . ':%'));
+        if (!$force) {
+            return (bool)$result;
+        }
+
+        $query = 'DELETE FROM ' . $this->_params['table'] .
+            ' WHERE perm_name LIKE ?';
+
+        try {
+            return (bool)$this->_db->delete($query, array($name . ':%'));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Perms_Exception($e);
+        }
     }
 
     /**
      * Returns the unique identifier of this permission.
      *
      * @param Horde_Perms_Permission_SqlObject $perm  The permission object to
-     *                                                 get the ID of.
+     *                                                get the ID of.
      *
      * @return integer  The unique id.
+     * @throws Horde_Perms_Exception
      */
     public function getPermissionId($permission)
     {
@@ -276,9 +292,14 @@ class Horde_Perms_Sql extends Horde_Perms
             return Horde_Perms::ROOT;
         }
 
-        $this->_connect();
-        $query = 'SELECT perm_id FROM horde_perms WHERE perm_name = ?';
-        return $this->_db->getOne($query, array($permission->getName()));
+        $query = 'SELECT perm_id FROM ' . $this->_params['table'] .
+            ' WHERE perm_name = ?';
+
+        try {
+            return $this->_db->selectValue($query, array($permission->getName()));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Perms_Exception($e);
+        }
     }
 
     /**
@@ -294,11 +315,13 @@ class Horde_Perms_Sql extends Horde_Perms
         $key = 'perm_sql_exists_' . $this->_cacheVersion . $permission;
         $exists = $this->_cache->get($key, $GLOBALS['conf']['cache']['default_lifetime']);
         if ($exists === false) {
-            $this->_connect();
-            $query = 'SELECT COUNT(*) FROM horde_perms WHERE perm_name = ?';
-            $exists = $this->_db->getOne($query, array($permission));
-            if ($exists instanceof PEAR_Error) {
-                throw new Horde_Perms_Exception($exists);
+            $query = 'SELECT COUNT(*) FROM ' . $this->_params['table'] .
+                ' WHERE perm_name = ?';
+
+            try {
+                $exists = $this->_db->selectValue($query, array($permission));
+            } catch (Horde_Db_Exception $e) {
+                throw new Horde_Perms_Exception($e);
             }
 
             $this->_cache->set($key, (string)$exists);
@@ -318,12 +341,13 @@ class Horde_Perms_Sql extends Horde_Perms
      */
     public function getParent($child)
     {
-        $this->_connect();
-        $query = 'SELECT perm_parents FROM horde_perms WHERE perm_name = ?';
-        $parents = $this->_db->getOne($query, array($child));
+        $query = 'SELECT perm_parents FROM ' . $this->_params['table'] .
+            ' WHERE perm_name = ?';
 
-        if ($parents instanceof PEAR_Error) {
-            throw new Horde_Perms_Exception($parents);
+        try {
+            $parents = $this->_db->selectValue($query, array($child));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Perms_Exception($e);
         }
 
         if (empty($parents)) {
@@ -331,6 +355,7 @@ class Horde_Perms_Sql extends Horde_Perms
         }
 
         $parents = explode(':', $parents);
+
         return array_pop($parents);
     }
 
@@ -344,12 +369,16 @@ class Horde_Perms_Sql extends Horde_Perms
      */
     public function getParents($child)
     {
-        $this->_connect();
-        $query = 'SELECT perm_parents FROM horde_perms WHERE perm_name = ?';
-        $result = $this->_db->getOne($query, array($child));
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Perms_Exception($result);
-        } elseif (empty($result)) {
+        $query = 'SELECT perm_parents FROM ' .  $this->_params['table'] .
+            ' WHERE perm_name = ?';
+
+        try {
+            $result = $this->_db->selectValue($query, array($child));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Perms_Exception($e);
+        }
+
+        if (empty($result)) {
             throw new Horde_Perms_Exception('Does not exist');
         }
 
@@ -379,84 +408,18 @@ class Horde_Perms_Sql extends Horde_Perms
      */
     public function getTree()
     {
-        $this->_connect();
-        $query = 'SELECT perm_id, perm_name FROM horde_perms ORDER BY perm_name ASC';
-        $tree = $this->_db->getAssoc($query);
-        if ($tree instanceof PEAR_Error) {
-            throw new Horde_Perms_Exception($tree);
+        $query = 'SELECT perm_id, perm_name FROM ' . $this->_params['table'] .
+            ' ORDER BY perm_name ASC';
+
+        try {
+            $tree = $this->_db->selectAssoc($query);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Perms_Exception($e);
         }
 
         $tree[Horde_Perms::ROOT] = Horde_Perms::ROOT;
+
         return $tree;
-    }
-
-    /**
-     * Attempts to open a connection to the sql server.
-     *
-     * @throws Horde_Perms_Exception
-     */
-    protected function _connect()
-    {
-        if ($this->_connected) {
-            return;
-        }
-
-        $_params = $GLOBALS['conf']['sql'];
-        if (!isset($_params['database'])) {
-            $_params['database'] = '';
-        }
-        if (!isset($_params['username'])) {
-            $_params['username'] = '';
-        }
-        if (!isset($_params['hostspec'])) {
-            $_params['hostspec'] = '';
-        }
-
-        /* Connect to the sql server using the supplied parameters. */
-        $this->_write_db = DB::connect($_params,
-                                       array('persistent' => !empty($_params['persistent']),
-                                             'ssl' => !empty($this->_params['ssl'])));
-        if ($this->_write_db instanceof PEAR_Error) {
-            throw new Horde_Perms_Exception($this->_write_db);
-        }
-
-        /* Set DB portability options. */
-        switch ($this->_write_db->phptype) {
-        case 'mssql':
-            $this->_write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-            break;
-
-        default:
-            $this->_write_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-            break;
-        }
-
-        /* Check if we need to set up the read DB connection seperately. */
-        if (!empty($_params['splitread'])) {
-            $params = array_merge($_params, $_params['read']);
-            $this->_db = DB::connect($params,
-                                     array('persistent' => !empty($params['persistent']),
-                                           'ssl' => !empty($params['ssl'])));
-            if ($this->_db instanceof PEAR_Error) {
-                throw new Horde_Perms_Exception($this->_db);
-            }
-
-            /* Set DB portability options. */
-            switch ($this->_db->phptype) {
-            case 'mssql':
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS | DB_PORTABILITY_RTRIM);
-                break;
-
-            default:
-                $this->_db->setOption('portability', DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_ERRORS);
-                break;
-            }
-        } else {
-            /* Default to the same DB handle for the writer too. */
-            $this->_db = $this->_write_db;
-        }
-
-        $this->_connected = true;
     }
 
 }

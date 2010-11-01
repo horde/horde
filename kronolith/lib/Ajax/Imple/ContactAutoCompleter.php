@@ -10,27 +10,40 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Kronolith
  */
-class Kronolith_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_AutoCompleter
+class Kronolith_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_AutoCompleter
 {
     /**
      * Attach the Imple object to a javascript event.
      *
-     * @param array $js_params  See Horde_Ajax_Imple_AutoCompleter::_attach().
+     * @param array $js_params  See
+     *                          Horde_Core_Ajax_Imple_AutoCompleter::_attach().
      *
-     * @return array  See Horde_Ajax_Imple_AutoCompleter::_attach().
+     * @return array  See Horde_Core_Ajax_Imple_AutoCompleter::_attach().
      */
     protected function _attach($js_params)
     {
-        $js_params['indicator'] = $this->_params['triggerId'] . '_loading_img"';
+        $js_params['indicator'] = $this->_params['triggerId'] . '_loading_img';
 
-        return array(
-            'ajax' => 'ContactAutoCompleter',
-            'params' => $js_params,
-            'raw_params' => array(
-                'onSelect' => 'function (v) { if (!v.endsWith(";")) { v += ","; } return v + " "; }',
-                'onType' => 'function (e) { return e.include("<") ? "" : e; }'
-            ),
-        );
+        $ret = array('params' => $js_params,
+                     'raw_params' => array(
+                         'onSelect' => 'function (v) { if (!v.endsWith(";")) { v += ","; } return v + " "; }',
+                         'onType' => 'function (e) { return e.include("<") ? "" : e; }',
+                      ));
+        if (isset($this->_params['onAdd'])) {
+            $ret['raw_params']['onAdd'] = $this->_params['onAdd'];
+            $ret['raw_params']['onRemove'] = $this->_params['onRemove'];
+        }
+        if (empty($this->_params['pretty'])) {
+            $ret['ajax'] = 'ContactAutoCompleter';
+        } else {
+            $ret['pretty'] = 'ContactAutoCompleter';
+        }
+
+        if (!empty($this->_params['var'])) {
+            $ret['var'] = $this->_params['var'];
+        }
+
+        return $ret;
     }
 
     /**
@@ -67,30 +80,12 @@ class Kronolith_Ajax_Imple_ContactAutoCompleter extends Horde_Ajax_Imple_AutoCom
 
         $search = reset(array_filter(array_map('trim', Horde_Mime_Address::explode($addrString, ',;'))));
 
-        $src = explode("\t", $GLOBALS['prefs']->getValue('search_sources'));
-        if ((count($src) == 1) && empty($src[0])) {
-            $src = array();
-        }
-
-        $fields = array();
-        if (($val = $GLOBALS['prefs']->getValue('search_fields'))) {
-            $field_arr = explode("\n", $val);
-            foreach ($field_arr as $field) {
-                $field = trim($field);
-                if (!empty($field)) {
-                    $tmp = explode("\t", $field);
-                    if (count($tmp) > 1) {
-                        $source = array_splice($tmp, 0, 1);
-                        $fields[$source[0]] = $tmp;
-                    }
-                }
-            }
-        }
+        $searchpref = Kronolith::getAddressbookSearchParams();
 
         try {
-            $res = $GLOBALS['registry']->call('contacts/search', array($search, $src, $fields, true));
+            $res = $GLOBALS['registry']->call('contacts/search', array($search, $searchpref['sources'], $searchpref['fields'], true));
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($e, 'ERR');
             return array();
         }
 

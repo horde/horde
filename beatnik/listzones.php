@@ -6,7 +6,8 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-require_once dirname(__FILE__) . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+$beatnik = Horde_Registry::appInit('beatnik');
 
 // Unset the current domain since we are generating a zone list
 $_SESSION['beatnik']['curdomain'] = null;
@@ -26,16 +27,16 @@ $_SESSION['beatnik']['curpage'] = $page;
 $pager_vars = Horde_Variables::getDefaultVariables();
 $pager_vars->set('page', $page);
 $perpage = $prefs->getValue('domains_perpage');
-$pager = new Horde_Ui_Pager('page', $pager_vars,
-                            array('num' => count($domains),
+$pager = new Horde_Core_Ui_Pager('page', $pager_vars,
+                            array('num' => count($beatnik->domains),
                                   'url' => 'listzones.php',
                                   'page_count' => 10,
                                   'perpage' => $perpage));
 
 // Limit the domain list to the current page
-$domains = array_slice($domains, $page*$perpage, $perpage);
+$domains = array_slice($beatnik->domains, $page*$perpage, $perpage);
 
-$img_dir = $registry->getImageDir('horde');
+$img_dir = Horde_Themes::img();
 
 // Hide fields that the user does not want to see
 $fields = Beatnik::getRecFields('soa');
@@ -56,10 +57,10 @@ require BEATNIK_TEMPLATES . '/menu.inc';
 
 require BEATNIK_TEMPLATES . '/listzones/header.inc';
 foreach ($domains as $domain) {
-    $autourl = Horde_Util::addParameter(Horde::applicationUrl('autogenerate.php'), array('rectype' => 'soa', 'curdomain' => $domain['zonename']));
-    $deleteurl = Horde_Util::addParameter(Horde::applicationUrl('delete.php'), array('rectype' => 'soa', 'curdomain' => $domain['zonename']));
-    $viewurl = Horde_Util::addParameter(Horde::applicationUrl('viewzone.php'), 'curdomain', $domain['zonename']);
-    $editurl = Horde_Util::addParameter(Horde::applicationUrl('editrec.php'), array('curdomain' => $domain['zonename'], 'id' => $domain['id'], 'rectype' => 'soa'));
+    $autourl = Horde_Util::addParameter(Horde::url('autogenerate.php'), array('rectype' => 'soa', 'curdomain' => $domain['zonename']));
+    $deleteurl = Horde_Util::addParameter(Horde::url('delete.php'), array('rectype' => 'soa', 'curdomain' => $domain['zonename']));
+    $viewurl = Horde_Util::addParameter(Horde::url('viewzone.php'), 'curdomain', $domain['zonename']);
+    $editurl = Horde_Util::addParameter(Horde::url('editrec.php'), array('curdomain' => $domain['zonename'], 'id' => $domain['id'], 'rectype' => 'soa'));
     require BEATNIK_TEMPLATES . '/listzones/row.inc';
 }
 require BEATNIK_TEMPLATES . '/listzones/footer.inc';

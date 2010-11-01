@@ -9,9 +9,8 @@
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  */
 
-@define('WHUPS_BASE', dirname(__FILE__) . '/..');
-require_once WHUPS_BASE . '/lib/base.php';
-require_once WHUPS_BASE . '/lib/Ticket.php';
+require_once dirname(__FILE__) . '/../lib/Application.php';
+Horde_Registry::appInit('whups');
 
 class SetTypeStep1Form extends Horde_Form {
 
@@ -29,8 +28,8 @@ class SetTypeStep1Form extends Horde_Form {
         $this->addVariable(_("Comment"), 'newcomment', 'longtext', false);
 
         /* Group restrictions. */
-        $groups = &Group::singleton();
-        $mygroups = $groups->getGroupMemberships(Horde_Auth::getAuth());
+        $groups = $GLOBALS['injector']->getInstance('Horde_Group');
+        $mygroups = $groups->getGroupMemberships($GLOBALS['registry']->getAuth());
         if ($mygroups) {
             foreach (array_keys($mygroups) as $gid) {
                 $grouplist[$gid] = $groups->getGroupName($gid, true);
@@ -69,8 +68,8 @@ $ticket = Whups::getCurrentTicket();
 $details = $ticket->getDetails();
 if (!Whups::hasPermission($details['queue'], 'queue', 'update')) {
     $notification->push(_("Permission Denied"), 'horde.error');
-    header('Location: ' . Horde::applicationUrl($prefs->getValue('whups_default_view') . '.php', true));
-    exit;
+    Horde::url($prefs->getValue('whups_default_view') . '.php', true)
+        ->redirect();
 }
 
 $vars = Horde_Variables::getDefaultVariables();
@@ -116,7 +115,7 @@ if ($form == 'settypestep2form') {
             $ticket->show();
         }
     } else {
-        $notification->push(var_export($settypeform->_errors), 'horde.error');
+        $notification->push(var_export($settypeform->getErrors(), true), 'horde.error');
         $action = 'st2';
     }
 }

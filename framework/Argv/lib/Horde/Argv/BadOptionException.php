@@ -17,7 +17,7 @@ class Horde_Argv_BadOptionException extends Horde_Argv_OptionException
 {
     public function __construct($opt_str)
     {
-        parent::__construct(sprintf(_("no such option: %s"), $opt_str));
+        parent::__construct(sprintf('no such option: %s', $opt_str));
     }
 
 }

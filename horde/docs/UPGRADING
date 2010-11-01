@@ -2,7 +2,7 @@
  Upgrading Horde
 =================
 
-:Contact:       horde@lists.horde.org
+:Contact: horde@lists.horde.org
 
 
 These are instructions to upgrade from earlier Horde versions. Please backup
@@ -27,8 +27,9 @@ necessary SQL statements are found at::
 
 The following preferences are no longer used and can be removed:
 
-    * do_maintenance
     * confirm_maintenance
+    * do_maintenance
+    * editor_plugins
     * last_maintenance
 
 The following hooks have changed:
@@ -37,6 +38,23 @@ The following hooks have changed:
     * postauthenticate (parameters; return value)
     * username_tobackend, username_frombackend (combined and renamed to
       authusername).
+    * prefs init/change
+
+The format for the config/mime_drivers.php configuration files has changed.
+
+Horde_Alarm is using UTC dates now.
+
+Crypt_Blowfish is required.
+
+Removed support for dBase, Frontbase, and mSQL database servers.
+
+Removed support for krb5 authentication driver.
+
+Removed LDAP session handler.
+
+Removed Mime Viewer drivers: Enscript & Webcpp. Use 'Syntaxhandler' instead.
+
+The registry.php file has changed ('status' => 'sidebar').
 
 
 Upgrading Horde from 3.3.x to 3.3.5

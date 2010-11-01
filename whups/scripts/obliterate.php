@@ -1,4 +1,4 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
 /**
  * Obliterate Whups Data.
@@ -22,8 +22,7 @@ if (!Horde_Cli::runningFromCLI()) {
 }
 
 /* Load the command line environment. */
-Horde_Cli::init();
-$cli = &Horde_Cli::singleton();
+$cli = Horde_Cli::init();
 
 $confirm = $cli->prompt('Are you sure you want to obliterate all Whups data?',
                         array('n' => 'No', 'y' => 'Yes'));
@@ -35,7 +34,7 @@ if ($confirm !== 'y') {
 /* Load the Whups libraries. */
 require_once HORDE_BASE . '/lib/core.php';
 
-$registry = Horde_Registry::singleton();
+$registry = new Horde_Registry();
 $registry->pushApp('whups', false);
 $conf = &$GLOBALS['conf'];
 

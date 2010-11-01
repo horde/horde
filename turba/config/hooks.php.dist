@@ -25,28 +25,25 @@ class Turba_Hooks
      */
 //     public function default_dir($username = null)
 //     {
-//         if (!$username || empty($_SESSION['turba']['has_share'])) {
+//         if (!$username || !$GLOBALS['session']['turba:has_share']) {
 //             return;
 //         }
-// 
-//         require TURBA_BASE . '/config/sources.php';
+//
+//         require TURBA_BASE . '/config/backends.php';
 //         $shares = Turba::listShares(true);
-//         if (is_a($shares, 'PEAR_Error')) {
-//             return;
-//         }
-// 
+//
 //         foreach ($shares as $uid => $share) {
 //             $params = @unserialize($share->get('params'));
 //             if (empty($params['source'])) {
 //                 continue;
 //             }
-//             $driver = &Turba_Driver::factory($params['source'], $cfgSources[$params['source']]);
-//             if (is_a($driver, 'PEAR_Error')) {
-//                 continue;
-//             }
-//             if ($driver->checkDefaultShare($share, $cfgSources[$params['source']])) {
-//                 return $uid;
-//             }
+//
+//             try {
+//                 $driver = Turba_Driver::factory($params['source'], $cfgSources[$params['source']]);
+//                 if ($driver->checkDefaultShare($share, $cfgSources[$params['source']])) {
+//                     return $uid;
+//                 }
+//             } catch (Turba_Exception $e) {}
 //         }
 //     }
 // }
@@ -54,33 +51,48 @@ class Turba_Hooks
     /**
      * Called when we store a value.
      *
-     * Passwords should be MD5 encoded, but not displayed.
+     * @param string $attribute      Attribute name.
+     * @param string $new            New value.
+     * @param string $old            Old value.
+     * @param Turba_Object $contact  Contact object.
      *
-     * @todo Make this a generic encode() method.
+     * @return string  The encoded value.
      */
-//     public function encode_password($new_password, $old_password, &$contact)
+//     public function encode_attribute($attribute, $new, $old, $contact)
 //     {
-//         if (is_null($new_password) || $new_password == '' ||
-//             $new_password == '[Not Displayed]') {
-//             return $old_password;
-//         } else {
-//             return md5($new_password);
+//         switch ($attribute) {
+//         case 'password':
+//             /* Passwords should be MD5 encoded, but not displayed. */
+//             return (is_null($new) || ($new == '') || ($new == '[Not Displayed']))
+//                 ? $old
+//                 : hash('md5', $new);
 //         }
+//
+//         return $new;
 //     }
 
     /**
      * Called when we display a value.
      *
-     * Passwords should be MD5 encoded, but not displayed.
+     * @param string $attribute      Attribute name.
+     * @param string $new            New value.
+     * @param string $old            Old value.
+     * @param Turba_Object $contact  Contact object.
      *
-     * @todo Make this a generic decode() method.
+     * @return string  The decoded value.
+     * @throws Turba_Exception  Thrown if there is nothing to decode.
      */
-//     public function decode_password($password, &$contact)
+//     public function decode_attribute($attribute, $value, $contact)
 //     {
-//         if (strstr($_SERVER['PHP_SELF'], 'editobject')) {
-//             return null;
-//         } else {
-//             return '[Not Displayed]';
+//         switch ($attribute) {
+//         case 'password':
+//             /* Passwords should be MD5 encoded, but not displayed. */
+//             return (strstr($_SERVER['PHP_SELF'], 'editobject'))
+//                 ? null
+//                 : '[Not Displayed]';
 //         }
+//
+//         throw new Turba_Exception('No decode handler.');
 //     }
+
 }

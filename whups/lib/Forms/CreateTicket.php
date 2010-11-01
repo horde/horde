@@ -120,7 +120,7 @@ class CreateStep3Form extends Horde_Form {
         $queue = $vars->get('queue');
         $info = $whups_driver->getQueue($queue);
 
-        if (Horde_Auth::getAuth()) {
+        if ($GLOBALS['registry']->getAuth()) {
             $states2 = $whups_driver->getStates($vars->get('type'),
                                                 array('new', 'assigned'));
             if (is_array($states2)) {
@@ -131,7 +131,7 @@ class CreateStep3Form extends Horde_Form {
         if (Whups::hasPermission($queue, 'queue', 'requester')) {
             $this->addVariable(_("The Requester's Email Address"), 'user_email',
                                'whups_email', false);
-        } elseif (!Horde_Auth::getAuth()) {
+        } elseif (!$GLOBALS['registry']->getAuth()) {
             $this->addVariable(_("Your Email Address"), 'user_email', 'email',
                                true);
             if (!empty($conf['guests']['captcha'])) {
@@ -179,7 +179,7 @@ class CreateStep3Form extends Horde_Form {
         global $conf;
 
         if (!parent::validate($vars, $canAutoFill)) {
-            if (!Horde_Auth::getAuth() && !empty($conf['guests']['captcha'])) {
+            if (!$GLOBALS['registry']->getAuth() && !empty($conf['guests']['captcha'])) {
                 $vars->remove('captcha');
                 $this->removeVariable($varname = 'captcha');
                 $this->insertVariableBefore(
@@ -211,11 +211,11 @@ class CreateStep4Form extends Horde_Form {
         $this->addHidden('', 'deferred_attachment', 'text', false);
 
         /* Groups. */
-        $groups = &Group::singleton();
+        $groups = $GLOBALS['injector']->getInstance('Horde_Group');
         if ($conf['prefs']['assign_all_groups']) {
             $mygroups = $groups->listGroups();
         } else {
-            $mygroups = $groups->getGroupMemberships(Horde_Auth::getAuth());
+            $mygroups = $groups->getGroupMemberships($GLOBALS['registry']->getAuth());
         }
 
         $users = $whups_driver->getQueueUsers($vars->get('queue'));

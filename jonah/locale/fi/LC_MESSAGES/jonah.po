@@ -1,0 +1,1047 @@
+# Finnish translation for Jonah.
+# Copyright
+# Leena Heino <liinu@uta.fi>, 2003-2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Jonah 0.1-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2005-03-14 11:02+0200\n"
+"PO-Revision-Date: 2004-12-10 12:59+0200\n"
+"Last-Translator: Leena Heino <liinu@uta.fi>\n"
+"Language-Team: Finnish <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+#: lib/Block/delivery_email.php:60
+#, php-format
+msgid "%s by Email"
+msgstr "%s Sähköpostitse"
+
+#: lists/index.php:118
+#, php-format
+msgid "%s to %s of %s"
+msgstr "%s - %s / %s"
+
+#: lib/Block/delivery.php:77 delivery/index.php:47
+#, php-format
+msgid "'%s' stories by email"
+msgstr "'%s' artikkelia sähköpostitse"
+
+#: lib/Block/delivery.php:60 delivery/index.php:35
+#, php-format
+msgid "'%s' stories in HTML"
+msgstr "'%s' artikkelia HTML-muodossa"
+
+#: lib/Block/delivery.php:69 delivery/index.php:41
+#, php-format
+msgid "'%s' stories in XML"
+msgstr "'%s' artikkelia XML:llä"
+
+#: lib/News.php:417
+msgid "1 hour"
+msgstr "1 tunti"
+
+#: lib/News.php:421
+msgid "12 hours"
+msgstr "12 tuntia"
+
+#: lib/News.php:418
+msgid "2 hours"
+msgstr "2 tuntia"
+
+#: lib/News.php:422
+msgid "24 hours"
+msgstr "24 tuntia"
+
+#: lib/News.php:416
+msgid "30 mins"
+msgstr "30 minuuttia"
+
+#: lib/News.php:419
+msgid "4 hours"
+msgstr "4 tuntia"
+
+#: lib/News.php:420
+msgid "8 hours"
+msgstr "8 tuntia"
+
+#: delivery/email.php:95
+#, php-format
+msgid ""
+"A confirmation message has been sent to %s. Click on the link in that "
+"message to finally subscribe to channel \"%s\"."
+msgstr ""
+"Varmistusviesti on lähetetty osoitteeseen %s. Napsauta viestissä olevaan "
+"linkkiä tilataksesi kanavan \"%s\"."
+
+#: stories/share.php:104
+msgid "A link to the story"
+msgstr "Linkki artikkeliin"
+
+#: channels/aggregate.php:54
+msgid "Add"
+msgstr "Lisää"
+
+#: lib/Form/EditChannel.php:32
+msgid "Add New Channel"
+msgstr "Lisää uusi kanava"
+
+#: stories/edit.php:57
+msgid "Add New Story"
+msgstr "Lisää uusi artikkeli"
+
+#: stories/view.php:56
+msgid "Add a comment"
+msgstr "Lisää kommentti"
+
+#: channels/index.php:68
+msgid "Add story"
+msgstr "Lisää artikkeli"
+
+#: lib/Jonah.php:127 lib/News.php:455
+msgid "Aggregated"
+msgstr "Yhdistelty"
+
+#: channels/aggregate.php:53
+#, php-format
+msgid "Aggregated channels for channel \"%s\""
+msgstr "Yhdistetyt kanavat kanavalle \"%s\""
+
+#: channels/delete.php:54
+msgid "All stories created in this channel will be lost!"
+msgstr "Kaikki tälle kanavalle luodut artikkelit tuhoutuvat!"
+
+#: channels/index.php:33
+#, php-format
+msgid "An error occurred fetching channels: %s"
+msgstr "Taphtui virhe haettaessa kanavia: %s"
+
+#: channels/delete.php:56
+msgid "Any cached stories for this channel will be lost!"
+msgstr "Kaikki tämän kanavan välimuistissa olevat artikkelit tuhoutuvat!"
+
+#: channels/index.php:91
+msgid "Available Channels"
+msgstr "Saatavissaolevat kanavat"
+
+#: lib/Block/delivery.php:35
+#, php-format
+msgid "Available Channels from %s"
+msgstr "Saatavissaolevat kanavat %s:stä"
+
+#: delivery/index.php:29
+#, php-format
+msgid "Available Channels from %s (%s)"
+msgstr "Saatavissaolevat kanavat %s:stä (%s)"
+
+#: lib/Block/delivery.php:51
+msgid "Available News Channels"
+msgstr "Saatavissaolevat uutiskanavat"
+
+#: lib/Form/EditChannel.php:70 lib/Form/EditChannel.php:81
+msgid "Caching"
+msgstr "Haetaan välimuistiin"
+
+#: config/prefs.php.dist:18
+msgid "Change your content display options."
+msgstr "Voit muuttaa näkymään liittyviä asetuksia."
+
+#: lib/Block/delivery_email.php:83
+msgid "Channel"
+msgstr "kanavat"
+
+#: stories/index.php:114
+#, php-format
+msgid "Channel '%s'"
+msgstr "Kanava '%s'"
+
+#: lib/News.php:110
+#, php-format
+msgid "Channel '%s' is not an internally authored channel."
+msgstr "Kanava '%s' ei pidetä itse yllä."
+
+#: content.php:77
+msgid "Channel Listing"
+msgstr "Kanavan listaus"
+
+#: lists/index.php:128
+msgid "Channel Lists Admin"
+msgstr "Kanavalistauksien ylläpitäjä"
+
+#: templates/subscribe/column_headers.inc:7 lib/Form/EditChannel.php:43
+#: channels/aggregate.php:56
+msgid "Channel Name"
+msgstr "Kanavan nimi"
+
+#: subscribe.php:134
+msgid "Channel Subscriptions"
+msgstr "Kanavan tilaukset"
+
+#: subscribe.php:127
+msgid "Channel display failed."
+msgstr "Kanavan näyttäminen epäonnistui."
+
+#: channels/delete.php:76
+msgid "Channel has not been deleted."
+msgstr "Kanavaa ei ole poistettu."
+
+#: lib/News/sql.php:158
+#, php-format
+msgid "Channel id '%s' not found."
+msgstr "Kanavaa id '%s' ei löydy."
+
+#: stories/index.php:51
+msgid "Channel refreshed."
+msgstr "Kanava päivitetty."
+
+#: subscribe.php:86
+msgid "Channel subscription editing failed."
+msgstr "Kanavan tilaustietojen muokkaus epäonnistui."
+
+#: subscribe.php:41
+msgid "Channel subscription failed."
+msgstr "Kanavan tilaus epäonnistui."
+
+#: channels/edit.php:56
+msgid "Channel type changed."
+msgstr "Kanavan tyyppi on vaihdettu."
+
+#: subscribe.php:73
+msgid "Channel unsubscription failed."
+msgstr "Kanavan tilauksen lopettaminen."
+
+#: config/prefs.php.dist:11
+msgid "Choose which news channels you are subscribed to."
+msgstr "Voit valita ne uutiskanavat jotka haluat tilata."
+
+#: templates/stories/index.html:37
+msgid "Comments"
+msgstr "Kommentit"
+
+#: config/templates.php.dist:40
+msgid "Compact"
+msgstr "Pienennetty"
+
+#: lib/Jonah.php:130 lib/News.php:458
+msgid "Composite"
+msgstr "Yhdistelmä"
+
+#: lib/Form/EditChannel.php:100
+msgid "Composite channels"
+msgstr "Yhdistelmä kanavat"
+
+#: lib/Block/news.php:3
+msgid "Content Channel"
+msgstr "Sisältökanava"
+
+#: lib/News.php:281
+#, php-format
+msgid "Could not deliver to the %s distribution list. %s"
+msgstr "Ei voitu toimittaa %s jakelulistalle. %s"
+
+#: delivery/index.php:23
+#, php-format
+msgid "Could not get channel list. %s"
+msgstr "Kanavalistausta ei saatu. %s"
+
+#: lib/Jonah.php:71
+#, php-format
+msgid "Could not open %s."
+msgstr "Ei voitu aukaista %s."
+
+#: lists/index.php:107
+msgid "Current Recipients"
+msgstr "Nykyiset vastaanottajat"
+
+#: stories/delete.php:50 stories/delete.php:55 channels/delete.php:49
+#: channels/delete.php:60
+msgid "Delete"
+msgstr "Poista"
+
+#: channels/delete.php:46
+#, php-format
+msgid "Delete News Channel \"%s\"?"
+msgstr "Poista uutiskanava \"%s\"?"
+
+#: stories/delete.php:46
+#, php-format
+msgid "Delete News Story \"%s\"?"
+msgstr "Poista uutisartikkeli \"%s\"?"
+
+#: channels/index.php:49
+msgid "Delete channel"
+msgstr "Poista kanava"
+
+#: lists/index.php:80
+msgid "Delete recipient"
+msgstr "Poista vastaanottaja"
+
+#: stories/index.php:86
+msgid "Delete story"
+msgstr "Poista artikkeli"
+
+#: lib/Jonah.php:254 lists/edit.php:56 lists/edit.php:61
+msgid "Delivery"
+msgstr "Jakelu"
+
+#: channels/index.php:60
+msgid "Delivery lists"
+msgstr "Jakelulista"
+
+#: lists/edit.php:49
+#, php-format
+msgid "Delivery of '%s' stories"
+msgstr "'%s' artikkeleiden jakelu"
+
+#: lib/Form/EditChannel.php:64 lib/Form/EditChannel.php:80
+#: lib/Form/EditChannel.php:98
+msgid "Description"
+msgstr "Kuvaus"
+
+#: config/templates.php.dist:9
+msgid "Detailed"
+msgstr "Yksityiskohtainen"
+
+#: config/prefs.php.dist:17
+msgid "Display Options"
+msgstr "Näkymän asetukset"
+
+#: stories/delete.php:50 channels/delete.php:49
+msgid "Do not delete"
+msgstr "Ei saa poistaa"
+
+#: templates/subscribe/column_headers.inc:13
+#: templates/subscribe/subscribe.inc:49
+msgid "Edit"
+msgstr "Muokkaa"
+
+#: lib/Form/EditChannel.php:32
+msgid "Edit Channel"
+msgstr "Muokkaa kanavaa"
+
+#: templates/subscribe/header.inc:3
+msgid "Edit Channel Subscriptions"
+msgstr "Muokkaa kanavan tilaustietoja"
+
+#: stories/edit.php:57
+msgid "Edit Story"
+msgstr "Muokkaa artikkelia"
+
+#: templates/subscribe/subscribe.inc:49
+msgid "Edit Subscription Details"
+msgstr "Muokkaa kanavan tilauksen yksityiskohtia"
+
+#: lib/Form/EditChannel.php:87
+msgid "Edit aggregated channels"
+msgstr "Muokkaa yhdisteltyjä kanavia"
+
+#: channels/index.php:44
+msgid "Edit channel"
+msgstr "Muokkaa kanavaa"
+
+#: channels/aggregate.php:23
+#, php-format
+msgid "Edit channel \"%s\""
+msgstr "Muokkaa kanavaa \"%s\""
+
+#: stories/index.php:81
+msgid "Edit story"
+msgstr "Muokkaa artikkelia"
+
+#: templates/subscribe/edit.inc:5
+#, php-format
+msgid "Editing Channel %s"
+msgstr "Muokataan kanavaa %s"
+
+#: lib/Delivery/email.php:195 lib/Delivery/email.php:210
+msgid "Email"
+msgstr "Sähköposti"
+
+#: delivery/email.php:62
+#, php-format
+msgid "Email Delivery for \"%s\""
+msgstr "Jakelu sähköpostitse \"%s\":lle"
+
+#: lib/Block/delivery_email.php:92 delivery/email.php:76
+msgid "Email address"
+msgstr "Sähköpostiosoite"
+
+#: lib/News.php:499
+#, php-format
+msgid "Error fetching channel. %s"
+msgstr "Tapahtui virhe haettaessa kanavaa. %s"
+
+#: stories/share.php:83 stories/view.php:23
+#, php-format
+msgid "Error fetching story: %s"
+msgstr "Tapahtui virhe haettaessa artikkelia: %s"
+
+#: lib/News.php:391
+#, php-format
+msgid "Error parsing external channel from %s: %s"
+msgstr "Tapahtui virhe tulkittaessa ulkoista kanavaa lähteestä %s: %s"
+
+#: lib/Jonah.php:124 lib/News.php:449
+msgid "External"
+msgstr "Ulkopuolinen"
+
+#: lib/Form/EditChannel.php:44
+msgid "Extra information for this channel type"
+msgstr "Tämän kanavatyypin lisätietoja"
+
+#: lib/Block/news.php:62
+msgid "First Story"
+msgstr "Ensimmäinen artikkeli"
+
+#: stories/share.php:101
+msgid "From"
+msgstr "Lähettäjä"
+
+#: stories/edit.php:89 stories/edit.php:91
+msgid "Full Story Text"
+msgstr "Artikkeli kokonaisuudessaan"
+
+#: delivery/html.php:35
+#, php-format
+msgid "HTML Delivery for '%s'"
+msgstr "HTML jakelu '%s':lle"
+
+#: lib/News.php:584
+msgid "HTML Version of Story"
+msgstr "Artikkelin HTML-versio"
+
+#: templates/content/content.html:11
+msgid "Headlines"
+msgstr "Pääotsikot"
+
+#: lib/Delivery/email.php:74 lib/Delivery/email.php:77
+msgid "Hello"
+msgstr "Päivää"
+
+#: config/prefs.php.dist:35
+msgid "How many columns would you like to use to show headlines?"
+msgstr "Kuinka monta saraketta käytetään otsikoiden esittämiseen?"
+
+#: stories/edit.php:96
+msgid ""
+"If you enter a URL without a full story text, clicking on the story will "
+"send the reader straight to the URL, otherwise it will be shown at the end "
+"of the full story."
+msgstr ""
+"Jos laita URL:n ilman artikkelin teksti, niin artikkelia napsauttamalla "
+"lähetät lukijan siihen URL:iin. Muussa tapauksessa URL näkyy vasta "
+"artikkelin lopussa."
+
+#: lib/Form/EditChannel.php:74 channels/aggregate.php:59
+msgid "Image"
+msgstr "Kuva"
+
+#: stories/share.php:104
+msgid "Include"
+msgstr "Lisää"
+
+#: lib/Jonah.php:121 lib/News.php:452
+msgid "Internal"
+msgstr "Sisäinen"
+
+#: lib/api.php:47
+msgid "Internal Channels"
+msgstr "Sisäiset kanavat"
+
+#: stories/index.php:41
+#, php-format
+msgid "Invalid channel requested. %s"
+msgstr "Pyydettiin epäkelpoa kanavaa. %s"
+
+#: channels/delete.php:34
+msgid "Invalid channel specified for deletion."
+msgstr "Poistettavaksi määritelty kanava on epäkelpo."
+
+#: lists/edit.php:33 lists/delete.php:37 delivery/email.php:52
+#: delivery/html.php:29
+msgid "Invalid channel."
+msgstr "Epäkelpo kanava."
+
+#: lists/delete.php:27
+msgid "Invalid request to delete recipient from delivery list."
+msgstr "Epäkelpo pyyntö poistaa vastaanottaja jakelulistalta."
+
+#: delivery/email.php:67
+msgid "Join this channel"
+msgstr "Liity tälle kanavalle"
+
+#: delivery/index.php:53 channels/index.php:92
+msgid "Last Update"
+msgstr "Edellinen päivitys"
+
+#: templates/subscribe/column_headers.inc:9
+msgid "Last Updated"
+msgstr "Päivitetty viimeksi"
+
+#: delivery/email.php:68
+msgid "Leave this channel"
+msgstr "Poistu tältä kanavalta"
+
+#: lib/Form/EditChannel.php:73 channels/aggregate.php:58
+msgid "Link"
+msgstr "Linkki"
+
+#: stories/index.php:109
+msgid "Lists"
+msgstr "Listat"
+
+#: lib/Block/news.php:57
+msgid "Maximum Stories"
+msgstr "Maksimimäärä artikkeleita"
+
+#: lib/Block/tree_menu.php:3
+msgid "Menu List"
+msgstr "Valikkolista"
+
+#: stories/share.php:105
+msgid "Message"
+msgstr "Viesti"
+
+#: lists/index.php:123
+msgid "Method"
+msgstr "Metodi"
+
+#: lib/News.php:78
+msgid "Missing channel id."
+msgstr "Kanava id puuttuu."
+
+#: lib/Jonah.php:249
+msgid "My Content"
+msgstr "Oma sisältö"
+
+#: lib/Block/delivery_email.php:93 lib/Delivery/email.php:212
+#: lists/index.php:123 delivery/email.php:81 delivery/index.php:53
+#: channels/index.php:92
+msgid "Name"
+msgstr "Nimi"
+
+#: lib/Block/news.php:85 stories/index.php:104
+msgid "New Story"
+msgstr "Uusi artikkeli"
+
+#: channels/index.php:88
+msgid "New channel"
+msgstr "Uusi kanava"
+
+#: lists/index.php:104
+msgid "New recipient"
+msgstr "Uusi vastaanottaja"
+
+#: lib/api.php:46 config/prefs.php.dist:10
+msgid "News"
+msgstr "Uutiset"
+
+#: lib/Jonah.php:259 channels/index.php:97
+msgid "News Admin"
+msgstr "Uutisten ylläpitäjä"
+
+#: lib/Block/delivery_email.php:40
+msgid "News Channel"
+msgstr "Uutiskanava"
+
+#: lib/Block/news.php:38
+msgid "News Source"
+msgstr "Uutislähde"
+
+#: lib/Block/delivery_email.php:3
+msgid "News by Email"
+msgstr "Uutiset sähköpostitse"
+
+#: lib/Block/delivery.php:3
+msgid "News delivery"
+msgstr "Uutisjakelu"
+
+#: lists/index.php:37 channels/index.php:23
+msgid "News is not enabled."
+msgstr "Uutiset eivät ole päällä."
+
+#: delivery/index.php:49 channels/index.php:82
+msgid "No Data"
+msgstr "Ei tietoa"
+
+#: channels/index.php:36
+msgid "No available channels."
+msgstr "Ei kanavia saatavilla."
+
+#: stories/index.php:48
+msgid "No available stories."
+msgstr "Ei artikkeleita saatavilla."
+
+#: stories/index.php:21 lists/index.php:23
+msgid "No channel requested."
+msgstr "Ei pyydettyä kanavaa."
+
+#: lib/Block/news.php:94
+msgid "No channel specified."
+msgstr "Ei määriteltyä kanavaa."
+
+#: lib/Block/delivery_email.php:70
+msgid "No channels available."
+msgstr "Ainuttakaan kanavaa ei ole saatavilla."
+
+#: lists/index.php:77
+msgid "No recipients."
+msgstr "Ei vastaanottajia."
+
+#: lib/News.php:516
+msgid "No stories are currently available."
+msgstr "Artikkeleita ei ole saatavilla."
+
+#: lib/Delivery.php:223
+#, php-format
+msgid "No such action '%s' found"
+msgstr "Toimintoa '%s' ei löytynyt"
+
+#: lib/News.php:636
+#, php-format
+msgid "No such backend '%s' found"
+msgstr "Taustajärjestelmää '%s' ei löytynyt"
+
+#: stories/delete.php:35
+msgid "No valid story requested for deletion."
+msgstr "Poistettavaa artikkelia ei ole olemassa."
+
+#: stories/share.php:26
+msgid "Note"
+msgstr "Muistiinpano"
+
+#: stories/edit.php:67
+msgid ""
+"Note: this story won't get delivered to distribution lists automatically if "
+"this time is in the future."
+msgstr ""
+"Huomaa: Tätä artikkelia ei jaeta jakelulistalle automaattisesti, jos tämä "
+"aika on tulevaisuudessa."
+
+#: config/prefs.php.dist:16
+msgid "Other Options"
+msgstr "Muut asetukset"
+
+#: channels/delete.php:20
+msgid "Permission Denied."
+msgstr "Käyttö kielletty."
+
+#: lib/News.php:579
+msgid "Plaintext Version of Story"
+msgstr "Artikkeli tekstimuodossa."
+
+#: templates/stories/index.html:32
+msgid "Read"
+msgstr "Lue"
+
+#: channels/delete.php:52
+msgid "Really delete this News Channel?"
+msgstr "Poistetaanko uutiskanava?"
+
+#: stories/delete.php:53
+msgid "Really delete this News Story?"
+msgstr "Poistetaanko uutisartikkeli?"
+
+#: lists/index.php:123
+msgid "Recipient"
+msgstr "Vastaanottaja"
+
+#: lists/edit.php:85
+msgid "Recipient saved."
+msgstr "Vastaanottaja talletettu."
+
+#: lists/delete.php:52
+msgid "Recipient successfully removed."
+msgstr "Vastaanottajan poistaminen onnistui."
+
+#: stories/share.php:102
+msgid "Recipients"
+msgstr "Vastaanottajat"
+
+#: channels/index.php:76
+msgid "Refresh channel"
+msgstr "Päivitä kanava"
+
+#: stories/edit.php:67
+msgid "Release Date"
+msgstr "Julkaisupäivämäärä"
+
+#: stories/edit.php:66
+msgid "Release?"
+msgstr "Julkaise?"
+
+#: stories/index.php:115
+msgid "Released"
+msgstr "Julkaistu"
+
+#: lists/delete.php:54
+msgid "Removal of recipient failed."
+msgstr "Vastaanottajan poistaminen epäonnistui."
+
+#: channels/aggregate.php:24
+#, php-format
+msgid "Remove channel \"%s\""
+msgstr "Poista kanava \"%s\""
+
+#: delivery/email.php:41
+msgid "Request confirmed."
+msgstr "Pyyntö varmistettu."
+
+#: lib/Delivery/email.php:71
+#, php-format
+msgid "Request to receive news channel \"%s\""
+msgstr "Pyyntö vastaanottaa uutiskanavaa \"%s\""
+
+#: lib/Delivery/email.php:76
+#, php-format
+msgid "Request to stop receiving news channel \"%s\""
+msgstr "Pyyntö lopettaa uutiskanava \"%s\" vastaanotto"
+
+#: lib/Jonah.php:202
+msgid "Rich Text"
+msgstr "Rich Text"
+
+#: lib/Block/delivery_email.php:79 stories/edit.php:61 lists/edit.php:51
+#: delivery/email.php:64
+msgid "Save"
+msgstr "Talleta"
+
+#: templates/subscribe/edit.inc:19
+msgid "Save Changes"
+msgstr "Talleta muutokset"
+
+#: templates/delivery/html.html:14
+msgid "Select a format:"
+msgstr "Valitse muoto:"
+
+#: stories/share.php:98
+msgid "Send"
+msgstr "Lähetä"
+
+#: stories/share.php:102
+msgid "Separate multiple email addresses with commas."
+msgstr "Erota sähköpostiosoitteet toisistaan pilkuilla."
+
+#: stories/share.php:96
+msgid "Share Story"
+msgstr "Jaa artikkeli"
+
+#: stories/view.php:43
+msgid "Share this story"
+msgstr "Jaa tämä artikkeli"
+
+#: stories/edit.php:65
+msgid "Short Description"
+msgstr "Lyhyt kuvaus"
+
+#: lib/Form/EditChannel.php:72 channels/aggregate.php:57
+msgid "Source URL"
+msgstr "Lähde URL"
+
+#: lib/Form/EditChannel.php:87
+msgid "Source URLs"
+msgstr "Lähde URL:t"
+
+#: config/templates.php.dist:26
+msgid "Standard"
+msgstr "Standardi"
+
+#: stories/index.php:115
+msgid "Story"
+msgstr "Artikkeli"
+
+#: stories/share.php:127
+msgid "Story Link"
+msgstr "Artikkelilinkki"
+
+#: stories/edit.php:64
+msgid "Story Title (Headline)"
+msgstr "Artikkelin nimi (Otsikko)"
+
+#: stories/edit.php:96
+msgid "Story URL"
+msgstr "Artikkelin URL"
+
+#: lib/News/sql.php:343
+#, php-format
+msgid "Story URL '%s' not found."
+msgstr "Artikkeli URL '%s' ei löytynyt."
+
+#: lib/Form/EditChannel.php:65 lib/Form/EditChannel.php:99
+#, php-format
+msgid ""
+"Story URL if not the default one. %c gets replaced by the channel ID, %s by "
+"the story ID."
+msgstr ""
+"Artikkelin URL, jos ei ole sama kuin oletus. %c korvautuu kanavan ID:llä, %s "
+"artikkelin ID:llä."
+
+#: stories/edit.php:69
+msgid "Story body type"
+msgstr "Artikkelin body-tyyppi"
+
+#: stories/edit.php:31
+#, php-format
+msgid "Story editing failed: %s"
+msgstr "Artikkelin muokkaus epäonnistui: %s"
+
+#: stories/delete.php:72
+msgid "Story has not been deleted."
+msgstr "Artikkeli on poistettu."
+
+#: lib/News/sql.php:319
+#, php-format
+msgid "Story id '%s' not found."
+msgstr "Artikkelia id '%s' ei löytynyt."
+
+#: stories/share.php:103
+msgid "Subject"
+msgstr "Otsikko"
+
+#: subscribe.php:122 templates/subscribe/subscribe.inc:40
+msgid "Subscribe"
+msgstr "Tilaa"
+
+#: content.php:53
+#, php-format
+msgid ""
+"Subscribed channel '%s' is no longer available, it will be removed from your "
+"subscriptions."
+msgstr ""
+"Tilattua kanavaa '%s' ei ole enää saatavilla, kanavan tilaustiedot "
+"tilaustiedoistasi."
+
+#: templates/subscribe/column_headers.inc:11
+msgid "Subscription"
+msgstr "Tilaus"
+
+#: lib/News.php:283
+#, php-format
+msgid "Successfully delivered to the %s distribution list."
+msgstr "Lähetettiin onnistuneesta %s jakelulistalle."
+
+#: lib/Jonah.php:210
+msgid "Text"
+msgstr "Teksti"
+
+#: channels/aggregate.php:93
+#, php-format
+msgid "The channel \"%s\" has been removed."
+msgstr "Kanava \"%s\" on poistettu."
+
+#: channels/aggregate.php:74
+#, php-format
+msgid "The channel \"%s\" has been saved."
+msgstr "Kanava \"%s\" on talletettu."
+
+#: channels/aggregate.php:82 channels/aggregate.php:100
+#, php-format
+msgid "The channel \"%s\" has been updated."
+msgstr "Kanava \"%s\" on päivitetty."
+
+#: channels/edit.php:72
+#, php-format
+msgid "The channel '%s' has been saved."
+msgstr "Kanava '%s' on talletettu."
+
+#: channels/delete.php:69
+msgid "The channel has been deleted."
+msgstr "Kanava on poistettu."
+
+#: stories/share.php:104
+msgid "The complete text of the story"
+msgstr "Artikkelin teksti kokonaisuudessaan"
+
+#: lib/Form/EditChannel.php:81
+msgid ""
+"The interval before stories aggregated into this channel are rechecked for "
+"updates. If none, then stories will always be refetched from the sources."
+msgstr ""
+"Aikaväli, jonka jälkeen tarkistaan onko tälle kanavalle liitetyissä "
+"artikkeleissa tapahtunut päivityksiä. Jos ei ole, niin artikkelit haetaan "
+"joka kerta uudestaan uutislähteistä."
+
+#: lib/Form/EditChannel.php:70
+msgid ""
+"The interval before stories in this channel are rechecked for updates. If "
+"none, then stories will always be refetched from the source."
+msgstr ""
+"Kuinka usein tarkistetaan onko kanavan artikkeleita päivitetty. Jos valinta "
+"on ei kertaakaan, niin artikkelit haetaan joka kerta uutislähteestä."
+
+#: stories/edit.php:105
+#, php-format
+msgid "The story \"%s\" has been saved."
+msgstr "Artikkeli \"%s\" on talletettu."
+
+#: stories/delete.php:64
+msgid "The story has been deleted."
+msgstr "Artikkeli on poistettu."
+
+#: stories/share.php:138
+msgid "The story was sent successfully."
+msgstr "Artikkelin lähetys onnistui."
+
+#: lib/Form/EditChannel.php:72 channels/aggregate.php:57
+msgid ""
+"The url to use to fetch the stories, for example 'http://www.example.com/"
+"stories.rss'"
+msgstr ""
+"URL, josta haetaan artikkeleita, esimerkiksi: 'http://www.example.com/"
+"stories.rss'"
+
+#: channels/delete.php:67
+#, php-format
+msgid "There was an error deleting the channel: %s"
+msgstr "Tapahtui virhe poistettaessa kanavaa: %s"
+
+#: stories/delete.php:62
+#, php-format
+msgid "There was an error deleting the story: %s"
+msgstr "Tapahtui virhe poistettaessa artikkelia: %s"
+
+#: channels/aggregate.php:91
+#, php-format
+msgid "There was an error removing the channel: %s"
+msgstr "Tapahtui virhe poistettaessa kanavaa: %s"
+
+#: channels/edit.php:70
+#, php-format
+msgid "There was an error saving the channel. %s"
+msgstr "Tapahtui virhe talletettaessa kanavaa. %s"
+
+#: channels/aggregate.php:72
+#, php-format
+msgid "There was an error saving the channel: %s"
+msgstr "Tapahtui virhe talletettaessa kanavaa. %s"
+
+#: stories/edit.php:103
+#, php-format
+msgid "There was an error saving the story: %s"
+msgstr "Tapahtui virhe talletettaessa artikkelia: %s"
+
+#: channels/aggregate.php:80 channels/aggregate.php:98
+#, php-format
+msgid "There was an error updating the channel: %s"
+msgstr "Tapahtui virhe päivitettäessä kanavaa: %s"
+
+#: lib/Delivery/email.php:196
+msgid ""
+"This driver allows the delivery of news stories via email to one or more "
+"recipients."
+msgstr ""
+"Tämä ajuri mahdillistaa uutisartikkeleiden jakamisen sähköpostitse yhdelle "
+"tai useammalle vastaanottajalle."
+
+#: channels/aggregate.php:41
+msgid "This is no aggregated channel."
+msgstr "Tämä ei ole yhdistelty kanava."
+
+#: lib/Form/EditChannel.php:37 channels/index.php:92
+msgid "Type"
+msgstr "Tyyppi"
+
+#: config/templates.php.dist:54
+msgid "Ultracompact"
+msgstr "Ultrapieni"
+
+#: delivery/email.php:39
+#, php-format
+msgid "Unable to confirm request."
+msgstr "Pyyntöä ei pystytty varmistamaan."
+
+#: stories/share.php:136
+#, php-format
+msgid "Unable to send story: %s"
+msgstr "Artikkelia ei voitu lähettää: %s"
+
+#: templates/subscribe/edit.inc:20
+msgid "Undo Changes"
+msgstr "Peru muutokset"
+
+#: subscribe.php:118 templates/subscribe/subscribe.inc:36
+msgid "Unsubscribe"
+msgstr "Lopeta tilaus"
+
+#: channels/aggregate.php:105
+msgid "Update"
+msgstr "Päivitä"
+
+#: stories/index.php:115
+msgid "Updated"
+msgstr "Päivitetty"
+
+#: templates/subscribe/edit.inc:9 lib/Block/news.php:49
+msgid "View"
+msgstr "Näytä"
+
+#: delivery/email.php:65
+msgid "What do you want to do?"
+msgstr "Mitä haluat tehdä?"
+
+#: stories/delete.php:20 stories/edit.php:39 stories/index.php:29
+#: lists/edit.php:41 lists/index.php:31 lists/delete.php:45
+#: channels/edit.php:43 channels/index.php:17 channels/aggregate.php:48
+msgid "You are not authorised for this action."
+msgstr "Sinulla ei ole oikeuksia suorittaa tätä toimenpidettä."
+
+#: channels/edit.php:74
+msgid "You can now edit the sub-channels."
+msgstr "Voit nyt muokata alikanavia."
+
+#: subscribe.php:84
+#, php-format
+msgid "You have edited your subscription to the channel '%s'."
+msgstr "Olet muokannut tilaustietojasi kanavalle '%s'."
+
+#: templates/content/content.html:28
+msgid "You have no news subscriptions."
+msgstr "Sinulla ei ole uutistilauksia."
+
+#: lib/Delivery/email.php:74
+#, php-format
+msgid ""
+"You have requested to receive \"%s\" stories by email. Click on this link to "
+"confirm the request: %s"
+msgstr ""
+"Olet pyytänyt saada \"%s\" artikkeli sähköpostitse. Napsauta tätä linkkiä "
+"vahvistaaksesi: %s"
+
+#: lib/Delivery/email.php:77
+#, php-format
+msgid ""
+"You have requested to stop receiving \"%s\" stories by email. Click on this "
+"link to confirm the request: %s"
+msgstr ""
+"Olet pyytänyt lopettamaan \"%s\" artikkeleiden saapumista sähköpostitse "
+"Napsauta tätä linkkiä vahvistaaksesi: %s"
+
+#: subscribe.php:39
+#, php-format
+msgid "You have subscribed to the channel '%s'."
+msgstr "Olet tilannut kanavan '%s'."
+
+#: subscribe.php:62
+#, php-format
+msgid "You have unsubscribed from the channel '%s'."
+msgstr "Olet lopettanut tilauksen kanavaan '%s'."
+
+#: lib/Delivery.php:282
+msgid "You must configure a Horde Datatree backend to use Jonah."
+msgstr ""
+"Sinun pitää asentaa Horde Datatree taustajärjestelmä ennen kuin voit käyttää "
+"Jonah:ia."
+
+#: config/prefs.php.dist:9
+msgid "Your Content"
+msgstr "Oma sisältö"
+
+#: lib/News.php:403
+msgid "[No title]"
+msgstr "[Ei otsikkoa]"
+
+#: lib/News.php:415
+msgid "none"
+msgstr "ei mitään"

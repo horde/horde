@@ -41,9 +41,9 @@
  * @category Horde
  * @author   Michael Slusarz <slusarz@horde.org>
  * @author   Didi Rieder <adrieder@sbox.tugraz.at>
- * @package  Horde_Memcache
+ * @package  Memcache
  */
-class Horde_Memcache
+class Horde_Memcache implements Serializable
 {
     /**
      * The max storage size of the memcache server.  This should be slightly
@@ -53,11 +53,9 @@ class Horde_Memcache
     const MAX_SIZE = 1000000;
 
     /**
-     * The singleton instance.
-     *
-     * @var Horde_Memcache
+     * Serializable version.
      */
-    static protected $_instance = null;
+    const VERSION = 1;
 
     /**
      * Memcache object.
@@ -80,13 +78,6 @@ class Horde_Memcache
     );
 
     /**
-     * Allow large data items?
-     *
-     * @var boolean
-     */
-    protected $_large = true;
-
-    /**
      * A list of items known not to exist.
      *
      * @var array
@@ -94,28 +85,77 @@ class Horde_Memcache
     protected $_noexist = array();
 
     /**
-     * Singleton.
+     * Logger instance.
+     *
+     * @var Horde_Log_Logger
      */
-    public static function singleton()
-    {
-        if (!self::$_instance) {
-            self::$_instance = new self();
-        }
-
-        return self::$_instance;
-    }
+    protected $_logger;
 
     /**
      * Constructor.
+     *
+     * @param array $params  TODO
+     *
+     * @throws Horde_Exception
      */
-    protected function __construct()
+    public function __construct($params = array())
     {
-        $this->_params = array_merge($this->_params, $GLOBALS['conf']['memcache']);
+        $this->_params = array_merge($this->_params, $params);
         $this->_params['prefix'] = (empty($this->_params['prefix'])) ? 'horde' : $this->_params['prefix'];
-        $this->_large = !empty($this->_params['large_items']);
 
+        if (isset($params['logger'])) {
+            $this->_logger = $params['logger'];
+        }
+
+        $this->_init();
+    }
+
+    /**
+     * Serialize.
+     *
+     * @return string  Serialized representation of this object.
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            self::VERSION,
+            $this->_params,
+            $this->_logger
+        ));
+    }
+
+    /**
+     * Unserialize.
+     *
+     * @param string $data  Serialized data.
+     *
+     * @throws Exception
+     * @throws Horde_Exception
+     */
+    public function unserialize($data)
+    {
+        $data = @unserialize($data);
+        if (!is_array($data) ||
+            !isset($data[0]) ||
+            ($data[0] != self::VERSION)) {
+            throw new Exception('Cache version change');
+        }
+
+        $this->_params = $data[1];
+        $this->_logger = $data[2];
+
+        $this->_init();
+    }
+
+    /**
+     * Do initialization.
+     *
+     * @throws Horde_Exception
+     */
+    public function _init()
+    {
         $servers = array();
-        $this->_memcache = new Memcache;
+        $this->_memcache = new Memcache();
         for ($i = 0, $n = count($this->_params['hostspec']); $i < $n; ++$i) {
             if ($this->_memcache->addServer($this->_params['hostspec'][$i], empty($this->_params['port'][$i]) ? 0 : $this->_params['port'][$i], !empty($this->_params['persistent']), !empty($this->_params['weight'][$i]) ? $this->_params['weight'][$i] : 1)) {
                 $servers[] = $this->_params['hostspec'][$i] . (!empty($this->_params['port'][$i]) ? ':' . $this->_params['port'][$i] : '');
@@ -134,7 +174,9 @@ class Horde_Memcache
         // Force consistent hashing
         ini_set('memcache.hash_strategy', 'consistent');
 
-        Horde::logMessage('Connected to the following memcache servers:' . implode($servers, ', '), __FILE__, __LINE__, PEAR_LOG_DEBUG);
+        if ($this->_logger) {
+            $this->_logger->log('Connected to the following memcache servers:' . implode($servers, ', '), 'DEBUG');
+        }
     }
 
     /**
@@ -149,7 +191,7 @@ class Horde_Memcache
      */
     public function delete($key, $timeout = 0)
     {
-        if ($this->_large) {
+        if (!empty($this->_params['large_items'])) {
             /* No need to delete the oversized parts - memcache's LRU
              * algorithm will eventually cause these pieces to be recycled. */
             if (!isset($this->_noexist[$key . '_os'])) {
@@ -183,7 +225,7 @@ class Horde_Memcache
         }
         $search_keys = $keys;
 
-        if ($this->_large) {
+        if (!empty($this->_params['large_items'])) {
             foreach ($keys as $val) {
                 $os_keys[$val] = $search_keys[] = $val . '_os';
             }
@@ -297,7 +339,7 @@ class Horde_Memcache
             $len = strlen($var);
         }
 
-        if (!$this->_large && ($len > self::MAX_SIZE)) {
+        if (empty($this->_params['large_items']) && ($len > self::MAX_SIZE)) {
             return false;
         }
 
@@ -312,7 +354,7 @@ class Horde_Memcache
             unset($this->_noexist[$curr_key]);
         }
 
-        if (($res !== false) && $this->_large) {
+        if (($res !== false) && !empty($this->_params['large_items'])) {
             $os_key = $this->_key($key . '_os');
             if (--$i) {
                 $this->_memcache->set($os_key, $i, 0, $expire);
@@ -343,7 +385,7 @@ class Horde_Memcache
         $len = strlen($var);
 
         if ($len > self::MAX_SIZE) {
-            if ($this->_large) {
+            if (!empty($this->_params['large_items'])) {
                 $res = $this->_memcache->get(array($this->_key($key), $this->_key($key . '_os')));
                 if (!empty($res)) {
                     return $this->_set($key, $var, $expire, $len);
@@ -353,7 +395,8 @@ class Horde_Memcache
         }
 
         if ($this->_memcache->replace($this->_key($key), $var, empty($this->_params['compression']) ? 0 : MEMCACHE_COMPRESSED, $expire)) {
-            if ($this->_large && !isset($this->_noexist[$key . '_os'])) {
+            if (!empty($this->_params['large_items']) &&
+                !isset($this->_noexist[$key . '_os'])) {
                 $this->_memcache->delete($this->_key($key . '_os'));
             }
             return true;

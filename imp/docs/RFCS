@@ -26,6 +26,7 @@ RFC 2342        NAMESPACE
 RFC 2595/4616   TLS & AUTH=PLAIN
 RFC 2831        DIGEST-MD5 authentication mechanism.
 RFC 2971        ID
+RFC 3348        CHILDREN
 RFC 3502        MULTIAPPEND
 RFC 3503        $MDNSent keyword
 RFC 3516        BINARY
@@ -33,6 +34,7 @@ RFC 3691        UNSELECT
 RFC 4315        UIDPLUS
 RFC 4422        SASL Authentication (for DIGEST-MD5)
 RFC 4466        Collected extensions (updates RFCs 2088, 3501, 3502, 3516)
+RFC 4469/5550   CATENATE
 RFC 4551        CONDSTORE
 RFC 4731        ESEARCH
 RFC 4959        SASL-IR
@@ -47,10 +49,11 @@ RFC 5267        ESORT
 RFC 5464        METADATA
 RFC 5530        IMAP Response Codes
 RFC 5550        Lemonade Profile (specifically [2.8] - $Forwarded flag)
+RFC 5819        LIST-STATUS
 
-draft-ietf-morg-sortdisplay-02    SORT=DISPLAY
-draft-ietf-morg-inthread-00       THREAD=REFS
-
+draft-ietf-morg-list-specialuse-02  CREATE-SPECIAL-USE
+draft-ietf-morg-sortdisplay-02      SORT=DISPLAY
+draft-ietf-morg-inthread-00         THREAD=REFS
 
 
 POP3
@@ -128,6 +131,9 @@ RFC 2231
 
 RFC 2387
     - The MIME Multipart/Related Content-type
+
+RFC 2392
+    - Content-ID and Message-ID Uniform Resource Locators
 
 RFC 2633
     - S/MIME Version 3 Message Specification

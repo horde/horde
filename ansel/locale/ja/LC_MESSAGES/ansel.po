@@ -1,0 +1,1969 @@
+# Japanese translations for Ansel package.
+# Copyright 2008-2010 The Horde Project
+# This file is distributed under the same license as the Ansel package.
+# Automatically generated, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Ansel 1.0-cvs\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2008-02-08 10:50+0900\n"
+"PO-Revision-Date: 2010-08-18 19:59+0200\n"
+"Last-Translator: taguchi@tcltk.jp\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: scripts/recursive_import.php:111
+#, php-format
+msgid "\"%s\" is not a directory."
+msgstr "\"%s\" はディレクトリではありません。"
+
+#: templates/group/category.inc:51 templates/group/owner.inc:52
+#, php-format
+msgid "%d Galleries"
+msgstr "%d ギャラリ"
+
+#: lib/Exif.php:285
+#, php-format
+msgid "%d bytes"
+msgstr "%d バイト"
+
+#: templates/tile/image.inc:13
+#, php-format
+msgid "%d comment"
+msgid_plural "%d comments"
+msgstr[0] "%d コメント"
+msgstr[1] "%d コメント"
+
+#: templates/list/header.inc:3
+#, php-format
+msgid "%d galleries"
+msgstr "%d ギャラリ"
+
+#: xrequest.php:24 lib/Views/Gallery.php:113 lib/Views/Image.php:209
+#: lib/Views/Results.php:256
+#, php-format
+msgid "%d photo"
+msgid_plural "%d photos"
+msgstr[0] "%d 写真"
+msgstr[1] "%d 写真"
+
+#: img/upload.php:192
+#, php-format
+msgid "%d photo was uploaded."
+msgid_plural "%d photos were uploaded."
+msgstr[0] "%d 枚の写真がアップロードされました。"
+msgstr[1] "%d 枚の写真がアップロードされました。"
+
+#: lib/Exif.php:136 lib/Exif.php:142
+#, php-format
+msgid "%d pixels"
+msgstr "%d ピクセル"
+
+#: lib/Exif.php:166 lib/Exif.php:181
+#, php-format
+msgid "%d sec"
+msgstr "%d 秒"
+
+#: templates/list/header.inc:3
+#, php-format
+msgid "%d to %d of %d galleries"
+msgstr "ギャラリ %d 〜 %d / %d"
+
+#: templates/group/header.inc:3
+#, php-format
+msgid "%d to %d of %d groups"
+msgstr "グループ %d 〜 %d / %d"
+
+#: templates/view/results.inc:83
+#, php-format
+msgid "%d to %d of %d photos"
+msgstr "写真 %d 〜 %d / %d"
+
+#: gallery/sort.php:48
+#, php-format
+msgid "%s :: Sort"
+msgstr "%s :: 並べ替え"
+
+#: xrequest.php:214 lib/Views/Image.php:275
+#, php-format
+msgid "%s from %s"
+msgstr "%s - %sより"
+
+#: templates/view/gallery.inc:118 templates/view/results.inc:83
+#, php-format
+msgid "%s items"
+msgstr "%s アイテム"
+
+#: rss.php:99
+#, php-format
+msgid "%s on %s"
+msgstr "%s (%s)"
+
+#: list.php:47 lib/Ansel.php:440 templates/group/owner.inc:16
+#, php-format
+msgid "%s's Galleries"
+msgstr "%s のギャラリ"
+
+#: lib/Ansel.php:3034
+#, php-format
+msgid "(c) %s %s"
+msgstr "(c) %s %s"
+
+#: templates/xppublish/new.inc:14
+msgid "(must be unique)"
+msgstr "(他と同じではいけません)"
+
+#: scripts/ansel.php:323
+msgid "-a, --add[=filename]         Add local file to selected gallery"
+msgstr ""
+"-a, --add[=filename]         ローカルファイルを選択されたギャラリに追加"
+
+#: scripts/ansel.php:321
+msgid ""
+"-c, --create[=shortname/name/description/owner]\n"
+"                             Create gallery (and use it)  Combined with -g "
+"to create a subgallery."
+msgstr ""
+"-c, --create[=shortname/name/description/owner]\n"
+"                             ギャラリを生成(し、使用する) -g と組み合わせた場"
+"合、サブギャラリを生成。"
+
+#: scripts/ansel.php:324
+msgid ""
+"-d, --dir[=directory]        Add all files from the directory to the "
+"selected\n"
+"                             gallery"
+msgstr ""
+"-d, --dir[=directory]        指定されたディレクトリ内のすべてのファイルを、\n"
+"選択されているギャラリに追加する。"
+
+#: scripts/recursive_import.php:190
+msgid ""
+"-d, --dir[=directory]        Recursively add all files from the directory, "
+"creating\n"
+"                             a gallery for each directory"
+msgstr ""
+"-d, --dir[=directory]        指定されたディレクトリ内のサブディレクトリを再"
+"帰\n"
+"的に検索し、ディレクトリ毎にギャラリを生成、すべてのファイルを追加する。"
+
+#: scripts/ansel.php:322
+msgid "-g, --gallery[=shortname]    Select gallery to use"
+msgstr "-g, --gallery[=shortname]    使用するギャラリを選択"
+
+#: scripts/ansel.php:319 scripts/recursive_import.php:189
+msgid "-h, --help                   Show this help"
+msgstr "-h, --help                   このヘルプを表示"
+
+#: scripts/ansel.php:320
+msgid ""
+"-l, --list                   List galleries or photos (if combined with -g)"
+msgstr ""
+"-l, --list                   ギャラリ、または写真(-gオプション指定の場合)をリ"
+"スト表示。"
+
+#: scripts/ansel.php:326 scripts/recursive_import.php:192
+msgid "-p, --password[=password]    Horde login password"
+msgstr "-p, --password[=password]    Horde ログインパスワード"
+
+#: scripts/ansel.php:327
+msgid "-t, --caption[=caption]      Caption for photo (if combined with -a)"
+msgstr ""
+"-t, --caption[=caption]      写真のキャプション(-aと共に指定された場合)"
+
+#: scripts/ansel.php:325 scripts/recursive_import.php:191
+msgid "-u, --username[=username]    Horde login username"
+msgstr "-u, --username[=username]    Horde ログインユーザ名"
+
+#: templates/group/category.inc:51 templates/group/owner.inc:52
+msgid "1 Gallery"
+msgstr "1 ギャラリ"
+
+#: lib/Exif.php:157
+#, php-format
+msgid "90 deg CCW"
+msgstr "90度 CCW"
+
+#: lib/Exif.php:159
+#, php-format
+msgid "90 deg CCW Mirrored"
+msgstr "90度 CCW 反転"
+
+#: lib/Exif.php:161
+#, php-format
+msgid "90 deg CW"
+msgstr "90度 CW"
+
+#: lib/Exif.php:155
+#, php-format
+msgid "90 deg CW Mirrored"
+msgstr "90度 CW 反転"
+
+#: lib/api.php:262
+msgid "A gallery to add this photo to is required."
+msgstr "この写真を追加するギャラリが必要です。"
+
+#: lib/Exif.php:128
+msgid "A-DEP"
+msgstr "A-DEP"
+
+#: gallery/delete.php:28 gallery/delete.php:54 lib/api.php:393
+#, php-format
+msgid "Access denied deleting gallery %s."
+msgstr "ギャラリ %s を削除する権限がありません。"
+
+#: lib/api.php:332
+msgid "Access denied deleting image."
+msgstr "写真を削除する権限がありません。"
+
+#: image.php:441 lib/Views/Results.php:121
+#, php-format
+msgid "Access denied deleting photo %s."
+msgstr "写真 %s を削除する権限がありません。"
+
+#: gallery.php:73
+#, php-format
+msgid "Access denied downloading %s."
+msgstr "%s をダウンロードする権限がありません。"
+
+#: gallery.php:131
+msgid "Access denied editing galleries."
+msgstr "ギャラリを編集する権限がありません。"
+
+#: gallery.php:161
+#, php-format
+msgid "Access denied saving gallery %s."
+msgstr "ギャラリ %s を保存する権限がありません。"
+
+#: image.php:198 image.php:287
+#, php-format
+msgid "Access denied saving photo to %s."
+msgstr "写真 %s を保存する権限がありません。"
+
+#: gallery/captions.php:31
+#, php-format
+msgid "Access denied setting captions for %s."
+msgstr "%sのキャプションを設定する権限がありません。"
+
+#: templates/view/gallery.inc:139 templates/view/results.inc:97
+msgid "Actions: "
+msgstr "アクション:"
+
+#: templates/view/image.inc:115
+msgid "Add"
+msgstr "追加"
+
+#: browse.php:22
+msgid "Add Content"
+msgstr "コメントを追加"
+
+#: img/upload.php:203
+msgid "Add Photo"
+msgstr "写真を追加"
+
+#: gallery.php:35 gallery.php:198
+msgid "Adding A New Gallery"
+msgstr "新規ギャラリを追加"
+
+#: gallery.php:63
+#, php-format
+msgid "Adding A Subgallery to %s"
+msgstr "%sにサブギャラリを追加"
+
+#: scripts/recursive_import.php:171
+msgid "Adding subdirectories:"
+msgstr "サブディレクトリを追加"
+
+#
+#: lib/api.php:167
+msgid "Administrators"
+msgstr "管理者"
+
+#: templates/view/gallery.inc:135 templates/view/results.inc:93
+msgid "All"
+msgstr "すべて"
+
+#: lib/Block/recent_comments.php:59 lib/Block/recently_added.php:62
+msgid "All Galleries"
+msgstr "すべてのギャラリ"
+
+#: lib/Ansel.php:3508
+#, php-format
+msgid "An error occurred listing galleries: %s"
+msgstr "ギャラリを出力する際にエラーが発生しました: %s"
+
+#: lib/Exif.php:343
+msgid "Aperture"
+msgstr "アパチャ"
+
+#: templates/view/gallery.inc:20 templates/view/results.inc:20
+msgid "Are you sure you want to delete the selected photos?"
+msgstr "選択された写真を本当に削除しますか？"
+
+#: lib/Exif.php:356
+msgid "Artist"
+msgstr "作者"
+
+#: perms.php:53
+msgid "Attempt to edit a non-existent share."
+msgstr "存在しない共有を編集しようとしました。"
+
+#: lib/Exif.php:124
+msgid "Av-priority"
+msgstr "Av-優先"
+
+#: lib/Exif.php:228
+msgid "Average"
+msgstr "平均"
+
+#: image.php:477 image.php:508 lib/Views/Results.php:151
+#: lib/Views/Results.php:189
+msgid "Bad input."
+msgstr "誤った入力。"
+
+#: image.php:71
+msgid "Bottom"
+msgstr "下"
+
+#: lib/Ansel.php:347 config/prefs.php.dist:33
+msgid "Browse"
+msgstr "閲覧"
+
+#: lib/Ansel.php:448
+msgid "Browse Tags"
+msgstr "タグを閲覧"
+
+#: lib/Exif.php:327
+msgid "Camera Make"
+msgstr "カメラ製造元"
+
+#: lib/Exif.php:328
+msgid "Camera Model"
+msgstr "カメラ型番"
+
+#: lib/Exif.php:354
+msgid "Camera Orientation"
+msgstr "カメラ方向"
+
+#: lib/Ansel.php:297
+#, php-format
+msgid "Can't get unknown file type \"%s\"."
+msgstr "ファイルの種別を判別できません:\"%s\""
+
+#: templates/gallery/delete_confirmation.inc:11
+msgid "Cancel"
+msgstr "キャンセル"
+
+#: templates/image/preview_image.inc:28
+msgid "Cancel Change"
+msgstr "変更をキャンセル"
+
+#: image.php:38 lib/Forms/Upload.php:38
+msgid "Caption"
+msgstr "キャプション"
+
+#: gallery/captions.php:54
+msgid "Caption Editor"
+msgstr "キャプション編集"
+
+#: gallery/captions.php:49
+msgid "Captions Saved."
+msgstr "キャプションを保存。"
+
+#: config/prefs.php.dist:46
+msgid "Category"
+msgstr "カテゴリ"
+
+#: image.php:67 image.php:71
+msgid "Center"
+msgstr "中央"
+
+#: lib/Exif.php:229
+msgid "Center Weighted Average"
+msgstr "Center Weighted Average"
+
+#: lib/Views/Gallery.php:256
+msgid "Change gallery properties"
+msgstr "ギャラリのプロパティを変更"
+
+#: config/prefs.php.dist:14
+msgid "Change your display options."
+msgstr "表示オプションの変更"
+
+#: lib/Views/Gallery.php:249
+msgid "Choose Action:"
+msgstr "処理を選択"
+
+#: lib/Exif.php:242
+msgid "Cloudy"
+msgstr "曇り"
+
+#: lib/Exif.php:293
+msgid "Color Sequential Area Sensor"
+msgstr "色順次エリアセンサ"
+
+#: lib/Exif.php:295
+msgid "Color Sequential Linear Sensor"
+msgstr "色順次リニアセンサ"
+
+#: lib/Exif.php:351
+msgid "Color Space"
+msgstr "色空間"
+
+#
+#: lib/Forms/Ecard.php:42
+msgid "Comments:"
+msgstr "コメント:"
+
+#: lib/Exif.php:263
+msgid "Compulsory Flash"
+msgstr "強制フラッシュ"
+
+#: lib/Exif.php:265
+msgid "Compulsory Flash, Return light detected"
+msgstr "強制フラッシュ、ストロボリターン検出"
+
+#: lib/Exif.php:264
+msgid "Compulsory Flash, Return light not detected"
+msgstr "強制フラッシュ、ストロボリターン検出せず"
+
+#: lib/Views/Results.php:203
+#, php-format
+msgid "Copied %d photo from %s to %s"
+msgid_plural "Copied %d photos from %s to %s"
+msgstr[0] "%d枚の写真を%sから%sへコピーしました"
+msgstr[1] "%d枚の写真を%sから%sへコピーしました"
+
+# php-format
+#: image.php:514
+#, php-format
+msgid "Copied one photo to %s"
+msgid_plural "Copied %d photos to %s"
+msgstr[0] "%d 枚の写真を %s へコピーしました"
+msgstr[1] "%d 枚の写真を %s へコピーしました"
+
+#
+#: templates/view/gallery.inc:147 templates/view/results.inc:103
+msgid "Copy"
+msgstr "コピー"
+
+#: lib/Exif.php:355
+msgid "Copyright"
+msgstr "著作権"
+
+#
+#: scripts/ansel.php:184
+msgid "Couldn't list galleries."
+msgstr "ギャラリをリスト表示できません。"
+
+#
+#
+#: scripts/ansel.php:43
+msgid "Couldn't read command-line options."
+msgstr "コマンドラインオプションを読めません。"
+
+#
+#: templates/xppublish/list.inc:19
+msgid "Create"
+msgstr "生成"
+
+#
+#: templates/xppublish/new.inc:8
+msgid "Create a new Gallery"
+msgstr "新規ギャラリを生成"
+
+#: templates/xppublish/list.inc:18
+msgid "Create a new gallery:"
+msgstr "新規ギャラリ生成:"
+
+#: lib/Views/Gallery.php:255
+msgid "Create a subgallery"
+msgstr "サブギャラリ生成"
+
+#: lib/Tile/Gallery.php:114
+msgid "Created:"
+msgstr "生成済み:"
+
+#: scripts/recursive_import.php:120
+#, php-format
+msgid "Creating gallery: \"%s\" (%s)"
+msgstr "ギャラリ生成: \"%s\" (%s)"
+
+#: lib/Exif.php:246
+msgid "Custom"
+msgstr "カスタム"
+
+#: image.php:60
+msgid "Custom Watermark"
+msgstr "電子透かしを変更"
+
+#: config/prefs.php.dist:26
+msgid ""
+"Custom text to display describing your galleries. This will be displayed in "
+"place of your username when grouping galleries by username."
+msgstr ""
+"ギャラリを説明する文章を編集して下さい。これは、ユーザ名でギャラリをグループ"
+"分けする際に、ユーザ名の代わりに表示されます。"
+
+#: config/prefs.php.dist:89
+msgid "Custom watermark to use for photos"
+msgstr "写真に使われる電子透かしを変更"
+
+#: lib/Exif.php:334
+msgid "Date Photo Digitized"
+msgstr "写真デジタイズ日"
+
+#: lib/Exif.php:332
+msgid "Date Photo Modified"
+msgstr "写真変更日"
+
+#: lib/Exif.php:333
+msgid "Date Photo Taken"
+msgstr "写真撮影日"
+
+#: scripts/create_serialized_styles.php:41 config/prefs.php.dist:112
+msgid "Default"
+msgstr "デフォルト"
+
+#: config/prefs.php.dist:111
+msgid "Default style for galleries"
+msgstr "ギャラリのデフォルト形式"
+
+#: templates/view/gallery.inc:141 templates/view/image.inc:60
+#: templates/view/results.inc:98 templates/view/slideshow.inc:25
+msgid "Delete"
+msgstr "削除"
+
+#: lib/Views/Gallery.php:268
+msgid "Delete this gallery"
+msgstr "このギャラリを削除"
+
+#: image.php:450 lib/Views/Results.php:127
+msgid "Deleted the photo."
+msgstr "写真を削除"
+
+#
+#: config/prefs.php.dist:13
+msgid "Display Options"
+msgstr "表示オプション"
+
+#: templates/view/gallery.inc:118
+#, php-format
+msgid "Displaying from %s to %s of %s items"
+msgstr "%sから%s (全%s) のアイテムを表示"
+
+#: templates/view/image.inc:60 templates/view/slideshow.inc:25
+#, php-format
+msgid "Do you want to permanently delete %s?"
+msgstr "%sを本当に完全に消去しますか？"
+
+#: gallery/sort.php:62
+msgid "Done"
+msgstr "完了"
+
+#: templates/view/image.inc:68 templates/view/slideshow.inc:33
+msgid "Download Full Photo"
+msgstr "全写真をダウンロード"
+
+#: lib/Views/Gallery.php:251
+msgid "Download as .zip"
+msgstr ".zip でダウンロード"
+
+#: gallery/sort.php:61
+msgid "Drag photos to the desired sort position."
+msgstr "望む並び位置に写真をドロップして下さい。"
+
+#: xppublish.php:210
+#, php-format
+msgid "ERROR: %s"
+msgstr "エラー: %s"
+
+#: lib/Exif.php:118
+msgid "Easy shooting"
+msgstr "Easy shooting"
+
+#: img/ecard.php:60
+msgid "Ecard - "
+msgstr "Eカード -"
+
+#: templates/tile/image.inc:20 templates/view/image.inc:57
+#: templates/view/slideshow.inc:22
+msgid "Edit"
+msgstr "編集"
+
+#: image.php:271
+#, php-format
+msgid "Edit %s :: %s"
+msgstr "%s を編集 :: %s"
+
+#
+#: perms.php:246
+msgid "Edit Permissions"
+msgstr "アクセス権の編集"
+
+#: perms.php:250
+#, php-format
+msgid "Edit Permissions for %s"
+msgstr "%s のアクセス権の編集"
+
+#
+#: image.php:366
+msgid "Edit Photo"
+msgstr "写真を編集"
+
+#
+#: image.php:209
+msgid "Edit an photo"
+msgstr "写真を編集"
+
+#: image.php:169
+#, php-format
+msgid "Edit properties :: %s"
+msgstr "プロパティ編集 :: %s"
+
+#: lib/Views/Gallery.php:267
+msgid "Empty this gallery"
+msgstr "このギャラリを空にする"
+
+#: gallery/captions.php:25
+#, php-format
+msgid "Error accessing %s: %s"
+msgstr "%s のアクセスでエラー: %s"
+
+#: rss.php:36
+msgid "Error retrieving feed"
+msgstr "フィードの受け取りでエラー"
+
+#
+#: templates/xppublish/list.inc:12
+msgid "Existing galleries:"
+msgstr "存在するギャラリ:"
+
+#: lib/Exif.php:340
+msgid "Exposure"
+msgstr "露出"
+
+#: lib/Exif.php:346
+msgid "Exposure Bias"
+msgstr "露出バイアス"
+
+#: lib/Exif.php:347
+msgid "Exposure Mode"
+msgstr "露出モード"
+
+#: lib/Exif.php:344
+msgid "F-Number"
+msgstr "F値"
+
+#: lib/Forms/Upload.php:45
+#, php-format
+msgid "File %s"
+msgstr "ファイル %s"
+
+#
+#: lib/Exif.php:331
+msgid "File Size"
+msgstr "ファイルサイズ"
+
+#: lib/Forms/Upload.php:34 lib/Forms/Upload.php:53
+msgid "File to upload"
+msgstr "アップロードするファイル"
+
+#: lib/Exif.php:245 lib/Exif.php:260
+msgid "Flash"
+msgstr "フラッシュ"
+
+#: lib/Exif.php:349
+msgid "Flash Setting"
+msgstr "フラッシュ設定"
+
+#: lib/Exif.php:268
+msgid "Flash, Auto-Mode"
+msgstr "フラッシュ、自動モード"
+
+#: lib/Exif.php:270
+msgid "Flash, Auto-Mode, Return light detected"
+msgstr "フラッシュ、自動モード、ストロボリターン検出"
+
+#: lib/Exif.php:269
+msgid "Flash, Auto-Mode, Return light not detected"
+msgstr "フラッシュ、自動モード、ストロボリターン検出せず"
+
+#: lib/Exif.php:262
+msgid "Flash, strobe return light detected"
+msgstr "フラッシュ、ストロボ、ストロボリターン検出"
+
+#: lib/Exif.php:261
+msgid "Flash, strobe return light not detected"
+msgstr "フラッシュ、ストロボ、ストロボリターン検出せず"
+
+#: templates/image/edit_image.inc:22
+msgid "Flip"
+msgstr "フリップ"
+
+#: lib/Exif.php:244
+msgid "Fluorescent"
+msgstr "蛍光灯"
+
+#: lib/Exif.php:341
+msgid "Focal Length"
+msgstr "焦点距離"
+
+#: lib/Exif.php:342
+msgid "Focal Length (35mm equiv)"
+msgstr "焦点距離(35mm相当)"
+
+#: templates/tile/image.inc:10
+msgid "From: "
+msgstr "From: "
+
+#
+#: lib/Ansel.php:448 config/prefs.php.dist:34
+msgid "Galleries"
+msgstr "ギャラリ"
+
+#: templates/group/header.inc:6
+#, php-format
+msgid "Galleries grouped by %s"
+msgstr "%sでグループ化されたギャラリ"
+
+#: list.php:54 list.php:57
+#, php-format
+msgid "Galleries in category %s"
+msgstr "カテゴリ%sに属するギャラリ"
+
+#
+#: lib/Block/gallery.php:3 lib/Block/gallery.php:30 lib/Block/gallery.php:46
+#: lib/Block/recent_comments.php:31 lib/Block/recent_comments.php:50
+#: lib/Block/recently_added.php:28 lib/Block/recently_added.php:51
+msgid "Gallery"
+msgstr "ギャラリ"
+
+#
+#: templates/gallery/gallery.inc:17
+msgid "Gallery Category"
+msgstr "ギャラリカテゴリ"
+
+#: templates/gallery/gallery.inc:46
+msgid "Gallery Description"
+msgstr "ギャラリの説明"
+
+#: templates/gallery/gallery.inc:39
+msgid "Gallery Display Name"
+msgstr "ギャラリ表示名"
+
+#
+#: list.php:62 list.php:136
+msgid "Gallery List"
+msgstr "ギャラリリスト"
+
+#
+#: lib/Block/my_galleries.php:45
+msgid "Gallery Name"
+msgstr "ギャラリ名"
+
+#
+#: lib/Tile/Gallery.php:89
+msgid "Gallery Properties"
+msgstr "ギャラリプロパティ"
+
+#: templates/xppublish/new.inc:14
+msgid "Gallery Short Name"
+msgstr "ギャラリ短縮名"
+
+#
+#: templates/gallery/gallery.inc:52
+msgid "Gallery Tags"
+msgstr "ギャラリタグ"
+
+#: xppublish.php:121
+msgid "Gallery Unique name is already taken."
+msgstr "ギャラリの一意名は既に取られています。"
+
+#: lib/Block/gallery.php:101 lib/Block/recent_comments.php:138
+#: lib/Block/recently_added.php:151
+msgid "Gallery does not exist."
+msgstr "ギャラリが存在しません。"
+
+#: lib/Ansel.php:730
+msgid "Gallery names must be non-empty"
+msgstr "ギャラリ名は空であってはいけません。"
+
+#: image.php:372
+msgid "Gallery not found."
+msgstr "ギャラリが見つかりません。"
+
+#: gallery/sort.php:40
+msgid "Gallery sorted."
+msgstr "ギャラリは並べ替えられました。"
+
+#: image.php:63
+msgid "Giant"
+msgstr "巨大"
+
+#: templates/image/edit_image.inc:28
+msgid "Grayscale"
+msgstr "グレイスケール"
+
+#
+#: config/prefs.php.dist:48
+msgid "Group galleries by"
+msgstr "ギャラリをグループ分け: "
+
+#: lib/Exif.php:336
+msgid "Height"
+msgstr "高さ"
+
+#: image.php:68
+msgid "Horizontal Alignment"
+msgstr "水平位置合わせ"
+
+#: lib/Exif.php:345
+msgid "ISO Setting"
+msgstr "ISO設定"
+
+#: lib/Ansel.php:2819
+msgid "Incomplete photo"
+msgstr "不完全な写真"
+
+#: lib/Ansel.php:1020 lib/Ansel.php:1069
+msgid "Invalid data"
+msgstr "不正なデータ"
+
+#: scripts/ansel.php:125
+#, php-format
+msgid "Invalid gallery \"%s\" specified."
+msgstr "不正なギャラリ \"%s\" が指定されました。"
+
+#: xppublish.php:87 xppublish.php:180
+msgid "Invalid gallery specified."
+msgstr "不正なギャラリが指定されました。"
+
+#: image.php:63
+msgid "Large"
+msgstr "大きい"
+
+#
+#: lib/Block/my_galleries.php:45
+msgid "Last Modified"
+msgstr "最終変更"
+
+#: img/upload.php:209
+msgid "Learn how to publish photos directly from Windows."
+msgstr "Windowsから直接写真を公開するには。"
+
+#: image.php:67
+msgid "Left"
+msgstr "左"
+
+#: scripts/ansel.php:189
+msgid "Listing Gallery/Name"
+msgstr "ギャラリ/名前をリスト表示"
+
+#: scripts/ansel.php:173
+#, php-format
+msgid "Listing photos in %s"
+msgstr "%s の写真をリスト表示"
+
+#: scripts/ansel.php:116 scripts/recursive_import.php:81
+#, php-format
+msgid "Logged in successfully as \"%s\"."
+msgstr "\"%s\"としてログインに成功しました。"
+
+#: scripts/ansel.php:112
+msgid "Login is incorrect."
+msgstr "ログインは正しくありません。"
+
+#: templates/xppublish/login.inc:2
+#, php-format
+msgid "Login to %s"
+msgstr "%sにログイン"
+
+#: image.php:37 lib/Forms/Upload.php:37
+msgid "Make this the default photo for this gallery?"
+msgstr "この写真をこのギャラリのデフォルト写真にしますか？"
+
+#: scripts/ansel.php:317 scripts/recursive_import.php:187
+msgid ""
+"Mandatory arguments to long options are mandatory for short options too."
+msgstr ""
+"Mandatory arguments to long options are mandatory for short options too."
+
+#: lib/Exif.php:126 lib/Exif.php:247
+msgid "Manual"
+msgstr "マニュアル"
+
+#: lib/Block/recently_added.php:33
+msgid "Maximum number of photos"
+msgstr "写真の最大数"
+
+#: image.php:63
+msgid "Medium"
+msgstr "中"
+
+#: lib/Exif.php:348
+msgid "Metering Mode"
+msgstr "測光モード"
+
+#: templates/image/edit_image.inc:25
+msgid "Mirror"
+msgstr "反転"
+
+#: lib/Exif.php:149
+#, php-format
+msgid "Mirrored"
+msgstr "反転済み"
+
+#
+#: lib/Tile/Gallery.php:117
+msgid "Modified"
+msgstr "最終変更"
+
+#: gallery.php:120
+#, php-format
+msgid "Modifying: %s"
+msgstr "変更: %s"
+
+#: templates/view/gallery.inc:144 templates/view/results.inc:100
+msgid "Move"
+msgstr "移動"
+
+#: lib/Views/Results.php:165
+#, php-format
+msgid "Moved %d photo from %s to %s"
+msgid_plural "Moved %d photos from %s to %s"
+msgstr[0] "%d 枚の写真を%sから%sへ移動"
+msgstr[1] "%d 枚の写真を%sから%sへ移動"
+
+#: image.php:483
+#, php-format
+msgid "Moved %d photo to %s"
+msgid_plural "Moved %d photos to %s"
+msgstr[0] "%d枚の写真を%sへ移動"
+msgstr[1] "%d枚の写真を%sへ移動"
+
+#: lib/Exif.php:232
+msgid "Multi-Segment"
+msgstr "マルチセグメント"
+
+#: lib/Exif.php:231
+msgid "Multi-Spot"
+msgstr "マルチスポット"
+
+#: lib/Forms/Upload.php:41
+msgid "Multiple Photos"
+msgstr "複数の写真"
+
+#
+#: list.php:34 lib/Ansel.php:427 lib/Block/my_galleries.php:3
+#: lib/Block/my_galleries.php:28 templates/group/owner.inc:3
+#: config/prefs.php.dist:35
+msgid "My Galleries"
+msgstr "私のギャラリ"
+
+#
+#: browse_edit.php:28
+msgid "My Photos :: Add Content"
+msgstr "私のギャラリ :: コメントを追加"
+
+#: templates/xppublish/new.inc:33
+msgid "New Gallery Description"
+msgstr "新規ギャラリの説明"
+
+#
+#: templates/xppublish/new.inc:24
+msgid "New Gallery Title"
+msgstr "新規ギャラリの題名"
+
+#: templates/view/image.inc:81 templates/view/image.inc:82
+#: templates/view/slideshow.inc:46 templates/view/slideshow.inc:47
+msgid "Next"
+msgstr "次"
+
+#: lib/Exif.php:259 lib/Exif.php:266 lib/Exif.php:267 lib/Exif.php:271
+msgid "No Flash"
+msgstr "フラッシュ抑制"
+
+#: xppublish.php:123
+msgid "No Gallery Name Specified."
+msgstr "ギャラリ名が指定されていません。"
+
+#: xppublish.php:119
+msgid "No Gallery Unique Name Specified."
+msgstr "ギャラリ一意名が指定されていません。"
+
+#: xppublish.php:190
+msgid "No file specified"
+msgstr "ファイルが指定されていません。"
+
+#: lib/Views/Abstract.php:22
+msgid "No gallery specified."
+msgstr "ギャラリが指定されていません。"
+
+#
+#: templates/view/gallery.inc:136 templates/view/results.inc:94
+#: config/prefs.php.dist:47
+msgid "None"
+msgstr "なし"
+
+#: lib/Exif.php:147
+#, php-format
+msgid "Normal (O deg)"
+msgstr "正位 (0度)"
+
+#: lib/Exif.php:289
+msgid "Not defined"
+msgstr "定義されていません"
+
+#: image.php:112 img/upload.php:22
+msgid "Not found or error accessing gallery."
+msgstr "見つからないか、ギャラリへのアクセスでエラーがありました。"
+
+#: config/prefs.php.dist:73
+msgid "Number of groups per page"
+msgstr "ページごとのグループ数"
+
+#: config/prefs.php.dist:65
+msgid "Number of tiles per page"
+msgstr "ページごとのタイル数"
+
+#: config/prefs.php.dist:57
+msgid "Number of tiles per row"
+msgstr "桁ごとのタイル数"
+
+#: lib/Exif.php:290
+msgid "One Chip Color Area Sensor"
+msgstr "単板カラーセンサ"
+
+#
+#: perms.php:66
+msgid ""
+"Only the owner or system administrator may change ownership or owner "
+"permissions for a share"
+msgstr "所有者かシステム管理者だけが共有の所有権とアクセス権を変更できます"
+
+#: lib/Exif.php:234
+msgid "Other"
+msgstr "その他"
+
+#
+#: config/prefs.php.dist:12
+msgid "Other Options"
+msgstr "その他のオプション"
+
+#: templates/group/owner.inc:51
+#, php-format
+msgid "Owned by: %s <br />"
+msgstr "所有者: %s <br />"
+
+#: config/prefs.php.dist:45 templates/tile/gallery.html:13
+msgid "Owner"
+msgstr "所有者"
+
+#: lib/Ansel.php:1100
+msgid "Parent does not exist."
+msgstr "親が存在しません。"
+
+#: lib/Exif.php:233
+msgid "Partial"
+msgstr "部分"
+
+#: templates/xppublish/login.inc:14
+msgid "Password"
+msgstr "パスワード"
+
+#: templates/view/slideshow.inc:43
+msgid "Pause"
+msgstr "一時停止"
+
+#: templates/view/slideshow.inc:43
+msgid "Pause Slideshow"
+msgstr "スライドショーを一時停止"
+
+#: lib/Block/my_galleries.php:46
+msgid "Photo Count"
+msgstr "写真計数"
+
+#: lib/Exif.php:330
+msgid "Photo Description"
+msgstr "写真の説明"
+
+#
+#: browse.php:18
+msgid "Photo Galleries"
+msgstr "写真ギャラリ"
+
+#: lib/Exif.php:329
+msgid "Photo Type"
+msgstr "写真タイプ"
+
+#: templates/xppublish/javascript.inc:63
+msgid "Photo Upload"
+msgstr "写真アップロード"
+
+#: lib/Ansel.php:3293
+msgid "Photo not found"
+msgstr "写真が見つかりません"
+
+#: rss.php:131
+#, php-format
+msgid "Photos by %s"
+msgstr "%sによる写真"
+
+#: lib/Ansel.php:2269 lib/Ansel.php:3325
+msgid "Photos not found"
+msgstr "写真が見つかりません"
+
+#: rss.php:153 rss.php:159
+#, php-format
+msgid "Photos tagged with %s on %s"
+msgstr "タグ%sを持つ%sの写真"
+
+#: templates/view/image.inc:78 templates/view/slideshow.inc:42
+msgid "Play"
+msgstr "再生"
+
+#: xppublish.php:54
+msgid "Please enter your Username and Password."
+msgstr "ユーザ名とパスワードを入力してください。"
+
+#: scripts/create_serialized_styles.php:71 config/prefs.php.dist:116
+msgid "Polaroid"
+msgstr "ポラロイド"
+
+#: xppublish.php:99 xppublish.php:155
+msgid "Press the \"Back\" button and try again."
+msgstr "\"戻る\"ボタンを押して再試行して下さい。"
+
+#: scripts/create_serialized_styles.php:48 config/prefs.php.dist:113
+msgid "Pretty Thumbnails"
+msgstr "サムネイル"
+
+#: scripts/create_serialized_styles.php:56 config/prefs.php.dist:114
+msgid "Pretty Thumbnails on White Background"
+msgstr "背景白地のサムネイル"
+
+#: image.php:378
+#, php-format
+msgid "Preview changes for %s :: %s"
+msgstr "%sの変更をプレビュー :: %s"
+
+#: templates/view/image.inc:79 templates/view/image.inc:80
+#: templates/view/slideshow.inc:44 templates/view/slideshow.inc:45
+msgid "Previous"
+msgstr "前"
+
+#: lib/Exif.php:120
+msgid "Program"
+msgstr "プログラム"
+
+#: templates/tile/image.inc:19 templates/view/image.inc:56
+#: templates/view/slideshow.inc:21
+msgid "Properties"
+msgstr "プロパティ"
+
+#: templates/xppublish/list.inc:7
+msgid "Publish Photos to:"
+msgstr "写真を公開:"
+
+#: xppublish.php:35
+#, php-format
+msgid "Publish to %s"
+msgstr "%sへ公開"
+
+#: xppublish.php:24
+#, php-format
+msgid "Publish your photos to %s on %s."
+msgstr "写真を%s (%s) へ公開"
+
+#
+#: lib/Block/gallery.php:33 lib/Block/gallery.php:52
+msgid "Random Gallery"
+msgstr "ランダムギャラリ"
+
+#
+#: lib/Block/random_gallery.php:3 lib/Block/random_gallery.php:25
+msgid "Random gallery"
+msgstr "ランダムギャラリ"
+
+#
+#: lib/Block/random_photo.php:3 lib/Block/random_photo.php:26
+msgid "Random photo"
+msgstr "ランダム写真"
+
+#: templates/gallery/delete_confirmation.inc:10
+msgid "Really Delete"
+msgstr "完全削除"
+
+#: templates/gallery/delete_confirmation.inc:10
+msgid "Really Empty"
+msgstr "完全廃棄"
+
+#: templates/gallery/delete_confirmation.inc:2
+#, php-format
+msgid "Really delete %s?"
+msgstr "本当に%sを削除しますか？"
+
+#: templates/gallery/delete_confirmation.inc:5
+msgid ""
+"Really delete this gallery and all of the photos in it? This action cannot "
+"be undone."
+msgstr ""
+"本当にこのギャラリとその中の写真を削除しますか？ この処理は取り消せません。"
+
+#: templates/gallery/delete_confirmation.inc:2
+#, php-format
+msgid "Really empty %s?"
+msgstr "本当に%sを廃棄しますか？"
+
+#: templates/gallery/delete_confirmation.inc:5
+msgid ""
+"Really empty this gallery and all of the photos in it? This action cannot be "
+"undone."
+msgstr ""
+"本当にこのギャラリとその中の写真を廃棄しますか？ この操作は取り消せません。"
+
+#: lib/Block/recent_comments.php:62
+#, php-format
+msgid "Recent Comments In %s"
+msgstr "%sの最新のコメント"
+
+#: lib/Block/recent_comments.php:5
+msgid "Recent Photo Comments"
+msgstr "最新の写真コメント"
+
+#: templates/view/gallery.inc:200
+#, php-format
+msgid "Recent photos by %s"
+msgstr "%sによる最新の写真"
+
+#: templates/view/gallery.inc:201
+#, php-format
+msgid "Recent photos in %s"
+msgstr "%s中の最新の写真"
+
+#
+#: lib/Block/recently_added.php:3
+msgid "Recently Added Photos"
+msgstr "最新の追加写真"
+
+#: lib/Block/recently_added.php:64
+#, php-format
+msgid "Recently Added Photos From %s"
+msgstr "%sから追加された最新写真"
+
+#: rss.php:134
+#, php-format
+msgid "Recently added photos by %s on %s"
+msgstr "%sから%sへ追加された最新写真"
+
+#: rss.php:57 rss.php:60
+#, php-format
+msgid "Recently added photos on %s"
+msgstr "%sへ追加された最新写真"
+
+#: lib/Exif.php:272
+msgid "Red Eye"
+msgstr "赤目"
+
+#: lib/Exif.php:278
+msgid "Red Eye, Auto-Mode"
+msgstr "赤目、自動モード"
+
+#: lib/Exif.php:280
+msgid "Red Eye, Auto-Mode, Return light detected"
+msgstr "赤目、自動モード、ストロボリターン検出"
+
+#: lib/Exif.php:279
+msgid "Red Eye, Auto-Mode, Return light not detected"
+msgstr "赤目、自動モード、ストロボリターン検出せず"
+
+#: lib/Exif.php:275
+msgid "Red Eye, Compulsory Flash"
+msgstr "赤目、強制フラッシュ"
+
+#: lib/Exif.php:277
+msgid "Red Eye, Compulsory Flash, Return light detected"
+msgstr "赤目、強制フラッシュ、ストロボリターン検出"
+
+#: lib/Exif.php:276
+msgid "Red Eye, Compulsory Flash, Return light not detected"
+msgstr "赤目、強制フラッシュ、ストロボリターン検出せず"
+
+#: lib/Exif.php:274
+msgid "Red Eye, Return light detected"
+msgstr "赤目、ストロボリターン検出"
+
+#: lib/Exif.php:273
+msgid "Red Eye, Return light not detected"
+msgstr "赤目、ストロボリターン検出せず"
+
+#: templates/group/header.inc:7 templates/group/header.inc:8
+#: templates/list/header.inc:5
+msgid "Refresh List"
+msgstr "ストロボリターン検出"
+
+#: templates/view/results.inc:144
+msgid "Related Tags"
+msgstr "関連するタグ"
+
+#: lib/Tags.php:563
+#, php-format
+msgid "Remove %s from search"
+msgstr "検索から%sを削除"
+
+#: xrequest.php:24 lib/Views/Gallery.php:103 lib/Views/Image.php:209
+msgid "Remove Tag"
+msgstr "削除タグ"
+
+#: lib/Views/Gallery.php:261
+msgid "Reset default photo"
+msgstr "デフォルト写真をリセット"
+
+#: image.php:67
+msgid "Right"
+msgstr "右"
+
+#: templates/image/edit_image.inc:18
+msgid "Rotate 180"
+msgstr "180度回転"
+
+#: templates/image/edit_image.inc:17
+msgid "Rotate Left"
+msgstr "左に回転"
+
+#: templates/image/edit_image.inc:19
+msgid "Rotate Right"
+msgstr "右に回転"
+
+#: image.php:31 image.php:54
+msgid "Save"
+msgstr "保存"
+
+#
+#: templates/captions/captions.inc:47
+msgid "Save Captions"
+msgstr "キャプションを保存"
+
+#
+#: templates/image/preview_image.inc:23
+msgid "Save Change"
+msgstr "変更を保存"
+
+#
+#: templates/gallery/gallery.inc:59
+msgid "Save Gallery"
+msgstr "ギャラリを保存"
+
+#
+#: image.php:195
+msgid "Save Photo"
+msgstr "写真を保存"
+
+#: lib/Views/Results.php:85
+#, php-format
+msgid "Searching %s's photos tagged: "
+msgstr "タグ付けされた %sの写真を検索: "
+
+#: lib/Views/Results.php:85
+msgid "Searching all photos tagged: "
+msgstr "タグ付けされた全ての写真を検索: "
+
+#
+#: templates/view/gallery.inc:135 templates/view/results.inc:93
+msgid "Select All"
+msgstr "すべて選択"
+
+#: templates/view/gallery.inc:136 templates/view/results.inc:94
+msgid "Select None"
+msgstr "選択取り消し"
+
+#: templates/tile/image.inc:7
+msgid "Select for Action"
+msgstr "操作を選択"
+
+#: templates/view/gallery.inc:134 templates/view/results.inc:92
+#, php-format
+msgid "Select: %s, %s"
+msgstr "選択: %s、 %s"
+
+#: templates/view/gallery.inc:149 templates/view/results.inc:105
+msgid "Selected photos to"
+msgstr "選択された写真を"
+
+#: lib/Forms/Ecard.php:25
+msgid "Send"
+msgstr "送信"
+
+#: img/ecard.php:104
+#, php-format
+msgid "Send Ecard :: %s"
+msgstr "Eカード送信 :: %s"
+
+#: templates/view/image.inc:66 templates/view/slideshow.inc:31
+msgid "Send an Ecard"
+msgstr "Eカード送信"
+
+#: lib/Forms/Ecard.php:41
+msgid "Send ecard to the following address:"
+msgstr "以下のアドレスにEカード送信:"
+
+#: lib/Exif.php:352
+msgid "Sensing Method"
+msgstr "検知方法"
+
+#
+#: lib/Views/Gallery.php:257
+msgid "Set captions"
+msgstr "キャプションを設定"
+
+#
+#: lib/Views/Gallery.php:264
+msgid "Set gallery permissions"
+msgstr "ギャラリの権限を変更"
+
+#: scripts/create_serialized_styles.php:63 config/prefs.php.dist:115
+msgid "Shadowed Thumbnails on White Background"
+msgstr "白地背景の黒サムネイル"
+
+#: config/prefs.php.dist:81
+msgid "Show EXIF data"
+msgstr "EXIFデータ表示"
+
+#: lib/Exif.php:339
+msgid "Shutter Speed"
+msgstr "シャッター速度"
+
+#: templates/view/image.inc:122
+msgid "Similar Photos"
+msgstr "似た写真"
+
+#: lib/Forms/Upload.php:31
+msgid "Single Photo"
+msgstr "シングル写真"
+
+#: image.php:63
+msgid "Small"
+msgstr "小"
+
+#: lib/Views/Gallery.php:258
+msgid "Sort images"
+msgstr "写真並べ替え"
+
+#: lib/Exif.php:230
+msgid "Spot"
+msgstr "スポット"
+
+#: templates/view/image.inc:78 templates/view/slideshow.inc:42
+msgid "Start Slideshow"
+msgstr "スライドショー開始"
+
+#: scripts/ansel.php:209 scripts/ansel.php:292
+#: scripts/recursive_import.php:156
+#, php-format
+msgid "Storing photo \"%s\"..."
+msgstr "写真 \"%s\" ... を並べ替え"
+
+#: templates/gallery/gallery.inc:31
+msgid "Style for this gallery"
+msgstr "このギャラリのスタイル"
+
+#: templates/view/gallery.inc:199
+msgid "Subscribe"
+msgstr "購読"
+
+#: scripts/ansel.php:232 scripts/recursive_import.php:166
+#, php-format
+msgid "Successfully added %d photo (%s) to gallery \"%s\" from \"%s\"."
+msgid_plural "Successfully added %d photos (%s) to gallery \"%s\" from \"%s\"."
+msgstr[0] ""
+"%d枚の写真(%s)をギャラリ \"%s\" へ \"%s\"から追加することに成功しました。"
+msgstr[1] ""
+"%d枚の写真(%s)をギャラリ \"%s\" へ \"%s\"から追加することに成功しました。"
+
+#: scripts/ansel.php:218
+#, php-format
+msgid "Successfully added photo \"%s\" to gallery \"%s\"."
+msgstr "写真\"%s\"のギャラリ\"%s\"への追加に成功しました。"
+
+#: gallery/delete.php:42
+#, php-format
+msgid "Successfully deleted %s."
+msgstr "%sの削除に成功しました。"
+
+#: lib/Exif.php:241
+msgid "Sunny"
+msgstr "晴れ"
+
+#
+#: lib/Block/cloud.php:3 lib/Block/cloud.php:28
+msgid "Tag Cloud"
+msgstr "タグクラウド"
+
+#: image.php:39 lib/Forms/Upload.php:39 templates/view/gallery.inc:184
+#: templates/view/image.inc:108
+msgid "Tags"
+msgstr "タグ"
+
+#: scripts/ansel.php:259
+#, php-format
+msgid "The directory \"%s\" doesn't exist."
+msgstr "ディレクトリ\"%s\"は存在しません。"
+
+#: scripts/ansel.php:237
+#, php-format
+msgid "The directory \"%s\" had no valid photos."
+msgstr "ディレクトリ\"%s\"には、正しい写真がありません。"
+
+#: scripts/ansel.php:276
+#, php-format
+msgid "The directory \"%s\" is empty."
+msgstr "ディレクトリ\"%s\"は空です。"
+
+#: lib/Ansel.php:287
+#, php-format
+msgid "The file \"%s\" doesn't exist."
+msgstr "ファイル\"%s\"は存在しません。"
+
+#: lib/api.php:249 img/upload.php:160
+msgid "The file you uploaded does not appear to be a valid photo."
+msgstr "アップロードされたファイルは、正しい写真データに見えません。"
+
+#: scripts/recursive_import.php:125
+#, php-format
+msgid "The gallery \"%s\" (%s) was created successfully."
+msgstr "ギャラリ \"%s\" (%s)は正常に生成されました。"
+
+#: lib/Ansel.php:136
+#, php-format
+msgid "The gallery \"%s\" could not be created: %s"
+msgstr "ギャラリ\"%s\"は生成出来ませんでした: %s"
+
+#: xppublish.php:129 gallery.php:214 scripts/ansel.php:153
+#: scripts/recursive_import.php:123
+#, php-format
+msgid "The gallery \"%s\" couldn't be created: %s"
+msgstr "ギャラリ\"%s\"は生成出来ませんでした: %s"
+
+#: xppublish.php:133 gallery.php:220 scripts/ansel.php:158
+#, php-format
+msgid "The gallery \"%s\" was created successfully."
+msgstr "ギャラリ\"%s\"は生成されました。"
+
+#: gallery.php:174
+msgid "The gallery was saved."
+msgstr "ギャラリは保存されました。"
+
+#: gallery.php:273
+msgid "The gallery's default photo has successfully been reset."
+msgstr "ギャラリのデフォルト写真はリセットされました。"
+
+#: img/upload.php:184
+msgid ""
+"The uploaded file appears to be empty. It may not exist on your computer."
+msgstr ""
+"アップロードされたファイルは空です。あなたのコンピュータ上に存在しないので"
+"しょう。"
+
+#: list.php:74 lib/Block/random_gallery.php:34 lib/Block/random_photo.php:35
+msgid "There are no photo galleries available."
+msgstr "利用できる写真ギャラリがありません。"
+
+#: gallery.php:81
+#, php-format
+msgid "There are no photos in %s to download."
+msgstr "%sにはダウンロードできる写真はありません。"
+
+#: templates/captions/captions.inc:49 templates/view/gallery.inc:159
+#: templates/view/gallerysimple.inc:7 templates/view/results.inc:115
+msgid "There are no photos in this gallery."
+msgstr "このギャラリには写真がありません。"
+
+#: scripts/ansel.php:295
+#, php-format
+msgid "There was a problem adding the photo \"%s\" to gallery \"%s\"."
+msgstr "写真\"%s\"のギャラリ\"%s\"への追加で問題が発生しました。"
+
+#: scripts/ansel.php:212
+#, php-format
+msgid "There was a problem adding the photo \"%s\" to gallery \"%s\": %s"
+msgstr "写真\"%s\"のギャラリ\"%s\"への追加で問題が発生しました: %s"
+
+#: lib/api.php:406
+#, php-format
+msgid "There was a problem deleting %s: %s"
+msgstr "%s を削除中に問題がありました: %s"
+
+#: gallery/delete.php:40
+#, php-format
+msgid "There was a problem deleting %s: %s."
+msgstr "%s を削除中に問題がありました: %s。"
+
+#: image.php:447 lib/Views/Results.php:125
+#, php-format
+msgid "There was a problem deleting photos: %s"
+msgstr "写真を削除中に問題がありました: %s"
+
+#: img/upload.php:94 img/upload.php:146 img/upload.php:170
+#, php-format
+msgid "There was a problem saving the photo: %s"
+msgstr "写真を保存中に問題がありました: %s"
+
+#: xppublish.php:199
+msgid "There was a problem uploading the photo."
+msgstr "写真をアップロード中に問題がありました。"
+
+#: img/upload.php:182
+#, php-format
+msgid "There was a problem uploading the photo: %s"
+msgstr "写真をアップロード中に問題がありました: %s"
+
+#: img/upload.php:57 img/upload.php:79 img/upload.php:110 img/upload.php:131
+#, php-format
+msgid "There was an error processing the uploaded archive: %s"
+msgstr "アップロードされたアーカイブの処理中に問題がありました: %s"
+
+#: lib/Ansel.php:3245
+msgid "There was an error retrieving the galleries."
+msgstr "ギャラリを受信中にエラーが発生しました。"
+
+#: img/ecard.php:96
+#, php-format
+msgid "There was an error sending your message: %s"
+msgstr "メールの送信中にエラーが発生しました: %s"
+
+#: lib/ImageView.php:77
+#, php-format
+msgid ""
+"This install does not support the %s feature. Please contact your "
+"administrator."
+msgstr ""
+"本システムでは%s機能はサポートされていません。管理者に問い合わせて下さい。"
+
+#: lib/Exif.php:292
+msgid "Three Chip Color Area Sensor"
+msgstr "３板カラーセンサ"
+
+#: image.php:63
+msgid "Tiny"
+msgstr "簡易"
+
+#: image.php:71
+msgid "Top"
+msgstr "上"
+
+#: lib/Exif.php:294
+msgid "Trilinear Sensor"
+msgstr "３線リニアセンサ"
+
+#: lib/Exif.php:243
+msgid "Tungsten"
+msgstr "タングステン灯"
+
+#
+#: lib/Exif.php:122
+msgid "Tv-priority"
+msgstr "Tv-優先"
+
+#: lib/Exif.php:291
+msgid "Two Chip Color Area Sensor"
+msgstr "2板カラーセンサ"
+
+#: lib/Ansel.php:146
+msgid "Unable to create gallery."
+msgstr "ギャラリを生成できません。"
+
+#: lib/ImageView.php:82
+#, php-format
+msgid "Unable to load the definition of %s."
+msgstr "%s の定義がロードできません。"
+
+#: rss.php:38
+msgid "Unable to retrieve requested feed"
+msgstr "要求されたフィードを受信できません"
+
+#: lib/Exif.php:305
+msgid "Uncalibrated"
+msgstr "未キャリブレート"
+
+#
+#: templates/gallery/gallery.inc:60
+msgid "Undo Changes"
+msgstr "変更をキャンセル"
+
+#: list.php:54 templates/group/category.inc:11
+msgid "Unfiled"
+msgstr "未整理"
+
+#: lib/Exif.php:227
+msgid "Unknown"
+msgstr "不明"
+
+#: gallery.php:122
+msgid "Unknown gallery"
+msgstr "知らないギャラリ"
+
+#
+#: lib/Ansel.php:111 lib/tests/GalleryTest.php:42
+msgid "Unnamed"
+msgstr "名前なし"
+
+#: xppublish.php:141
+msgid "Untitled"
+msgstr "題名なし"
+
+#: perms.php:238
+#, php-format
+msgid "Updated %s."
+msgstr "%s を更新。"
+
+#: lib/Forms/Upload.php:27
+msgid "Upload"
+msgstr "アップロード"
+
+#: templates/xppublish/javascript.inc:63
+#, php-format
+msgid "Upload Photos to %s"
+msgstr "%sへ写真をアップロード"
+
+#: img/upload.php:30
+msgid "Upload new photos"
+msgstr "新規写真をアップロード"
+
+#
+#: lib/Views/Gallery.php:254
+msgid "Upload photos"
+msgstr "写真アップロード"
+
+#: lib/Exif.php:151
+#, php-format
+msgid "Upsidedown"
+msgstr "上下反転"
+
+#: lib/Exif.php:153
+#, php-format
+msgid "Upsidedown Mirrored"
+msgstr "上下左右反転"
+
+#: scripts/ansel.php:315 scripts/recursive_import.php:185
+#, php-format
+msgid "Usage: %s [OPTIONS]..."
+msgstr "使用法: %s [OPTIONS]..."
+
+#: templates/xppublish/new.inc:17
+msgid "Use Default"
+msgstr "デフォルトを使用"
+
+#: lib/Forms/Ecard.php:32
+msgid "Use the following return address:"
+msgstr "以下の返信アドレスを使用:"
+
+#
+#: lib/Exif.php:350
+msgid "User Comment"
+msgstr "ユーザコメント"
+
+#: templates/xppublish/login.inc:11
+msgid "Username"
+msgstr "ユーザ名"
+
+#: xppublish.php:50
+msgid "Username and Password are incorrect."
+msgstr "ユーザ名とパスワードが不正です。"
+
+#: scripts/recursive_import.php:79
+msgid "Username or password is incorrect."
+msgstr "ユーザ名かパスワードが不正です。"
+
+#: image.php:72
+msgid "Vertical Alignment"
+msgstr "垂直位置合わせ"
+
+#: lib/Block/random_gallery.php:38 lib/Block/gallery.php:73
+#, php-format
+msgid "View %s"
+msgstr "%s を表示"
+
+#: templates/view/results.inc:81
+msgid "View All Results"
+msgstr "すべての結果を表示"
+
+#
+#: lib/Block/random_photo.php:48
+msgid "View Photo"
+msgstr "写真を表示"
+
+#: templates/view/results.inc:81
+msgid "View Results from All Users"
+msgstr "全ユーザからの結果を表示"
+
+#: config/prefs.php.dist:37
+msgid "View to display by default"
+msgstr "デフォルト表示"
+
+#: image.php:329 image.php:335 templates/image/edit_image.inc:32
+msgid "Watermark"
+msgstr "電子透かし"
+
+#: image.php:64
+msgid "Watermark Font"
+msgstr "電子透かし用フォント"
+
+#: lib/Exif.php:353
+msgid "White Balance"
+msgstr "ホワイトバランス"
+
+#: lib/Exif.php:335
+msgid "Width"
+msgstr "幅"
+
+#: lib/Exif.php:337
+msgid "X Resolution"
+msgstr "X解像度"
+
+#: lib/Exif.php:338
+msgid "Y Resolution"
+msgstr "Y解像度"
+
+#: lib/Ansel.php:1960
+#, php-format
+msgid "You are not allowed to copy photos to %s."
+msgstr "%sへ写真をコピーする権限がありません。"
+
+#: image.php:261
+msgid "You are not allowed to edit this photo."
+msgstr "この写真を編集する権限がありません。"
+
+#: lib/Ansel.php:1922
+#, php-format
+msgid "You are not allowed to move photos to %s."
+msgstr "%sへ写真を移動する権限がありません。"
+
+#: lib/Ansel.php:1924
+#, php-format
+msgid "You are not allowed to remove photos from %s."
+msgstr "%sから写真を削除する権限がありません。"
+
+#: xppublish.php:91 xppublish.php:184
+msgid "You cannot add photos in that gallery."
+msgstr "このギャラリに写真を追加する権限がありません。"
+
+#: scripts/ansel.php:132
+#, php-format
+msgid "You cannot add photos to the gallery \"%s\"."
+msgstr "ギャラリ\"%s\"に写真を追加する権限がありません。"
+
+#: gallery/delete.php:30
+#, php-format
+msgid "You cannot delete %s, it contains nested galleries."
+msgstr "子ギャラリが存在するため、%sを削除できません。"
+
+#: lib/Views/Abstract.php:29
+msgid "You do not have permission to access this gallery."
+msgstr "このギャラリにアクセスする権限がありません。"
+
+#: gallery.php:49 gallery.php:186
+#, php-format
+msgid "You do not have permission to add children to %s."
+msgstr "%sに子を追加する権限がありません。"
+
+#: lib/Ansel.php:2477
+msgid "You do not have permission to add tags to this gallery"
+msgstr "このギャラリにタグをつける権限がありません。"
+
+#: gallery/sort.php:26
+msgid "You do not have permission to change this gallery."
+msgstr "このギャラリを変更する権限がありません。"
+
+#: lib/Ansel.php:2462
+msgid "You do not have permission to view this gallery"
+msgstr "このギャラリを閲覧する権限がありません。"
+
+#: lib/api.php:842 lib/Block/gallery.php:104 lib/Block/recent_comments.php:141
+#: lib/Block/recently_added.php:154
+msgid "You do not have permission to view this gallery."
+msgstr "このギャラリを閲覧する権限がありません。"
+
+#: lib/Ansel.php:3116
+msgid "You do not have permissions to add tags to this photo."
+msgstr "この写真にタグを追加する権限がありません。"
+
+#: lib/Ansel.php:3095
+msgid "You do not have permissions to view this photo."
+msgstr "この写真を見る権限がありません。"
+
+#: img/ecard.php:69
+msgid ""
+"You have been sent an Ecard. To view the Ecard, you must be able to view "
+"text/html messages in your mail reader. If you are viewing this message, "
+"then most likely your mail reader does not support viewing text/html "
+"messages."
+msgstr ""
+"あなたは、Eカードを受け取りました。これを見るには、お使いのメーラで、HTMLメー"
+"ルの表示がサポートされている必要があります。もし、今このメッセージを読まれて"
+"いるならば、お使いのメーラはHTMLメールをサポートしていないと考えられます。"
+
+#
+#: list.php:70
+msgid "You have no photo galleries, add one!"
+msgstr "利用できる写真ギャラリがありません。"
+
+#: templates/view/gallery.inc:46 templates/view/gallery.inc:60
+#: templates/view/results.inc:46 templates/view/results.inc:60
+msgid "You must choose a gallery to move photos to."
+msgstr "写真を移動する先のギャラリを選んでください。"
+
+#: lib/Ansel.php:37 lib/Ansel.php:45
+msgid "You must configure a VFS backend to use Ansel."
+msgstr "VFSバックエンドをAnselを使うように設定しなければなりません。"
+
+#: img/ecard.php:45
+msgid "You must enter an e-mail address to send the message to."
+msgstr "メッセージを送信する電子メールアドレスを入力して下さい。"
+
+#: img/ecard.php:40
+msgid "You must enter your e-mail address."
+msgstr "あなたの電子メールアドレスを入力してください。"
+
+#: gallery.php:195
+msgid "You must provide a display name for your new gallery."
+msgstr "新規ギャラリの表示名を指定しなければなりません。"
+
+#: scripts/recursive_import.php:88
+msgid "You must specify a valid directory."
+msgstr "正しいディレクトリを指定しなければなりません。"
+
+#: scripts/recursive_import.php:84
+msgid "You must specify a valid username and password."
+msgstr "正しいユーザ名とパスワードを指定しなければなりません。"
+
+#: lib/Forms/Upload.php:50
+msgid "Zip File Upload"
+msgstr "Zipファイルアップロード"
+
+#
+#: lib/Ansel.php:355
+msgid "_Galleries"
+msgstr "_Gギャラリ"
+
+#
+#: lib/Ansel.php:366
+msgid "_My Galleries"
+msgstr "_M私のギャラリ"
+
+#
+#: lib/Ansel.php:377
+msgid "_New Gallery"
+msgstr "_N新規ギャラリ"
+
+#: lib/Ansel.php:386
+msgid "_Print"
+msgstr "_P印刷"
+
+#: lib/Exif.php:302
+msgid "sRGB"
+msgstr "sRGB"

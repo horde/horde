@@ -13,7 +13,7 @@
    </select>
 <?php if ($header_entry): ?>
    <label for="userheader_<?php echo (int)$cond_num ?>" class="hidden"><?php echo _("User header") ?></label>
-   <input id="userheader_<?php echo (int)$cond_num ?>" name="userheader[<?php echo (int)$cond_num ?>]" value="<?php echo htmlspecialchars($userheader) ?>" />
+   <input id="userheader_<?php echo (int)$cond_num ?>" name="userheader[<?php echo (int)$cond_num ?>]" value="<?php echo htmlspecialchars($vars->userheader) ?>" />
 <?php endif; ?>
   </td>
 <?php if ($lastfield): ?>
@@ -30,7 +30,7 @@
   </td>
 <?php endif; ?>
 <?php if (!$lastfield): ?>
-  <td><?php echo Horde::link('javascript:IngoRule.delete_condition(' . (int)$cond_num . ');', _("Delete Condition")) . Horde::img('delete.png', _("Delete Condition"), null, $registry->getImageDir('horde')) ?></a></td>
+  <td><?php echo Horde::link('javascript:IngoRule.delete_condition(' . (int)$cond_num . ');', _("Delete Condition")) . Horde::img('delete.png', _("Delete Condition")) ?></a></td>
 <?php elseif ($cond_num != 0): ?>
   <td>&nbsp;</td>
 <?php endif; ?>

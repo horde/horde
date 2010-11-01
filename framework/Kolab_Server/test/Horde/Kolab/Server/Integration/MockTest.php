@@ -85,16 +85,9 @@ class Horde_Kolab_Server_Integration_MockTest extends Horde_Kolab_Server_Integra
             $this->markTestSuiteSkipped('Ldap extension is missing!');
         };
 
-        /** Hide strict errors from the Net_LDAP2 library */
-        $error_reporting = error_reporting();
-        error_reporting($error_reporting & ~E_STRICT);
-
-        if (!class_exists('Net_LDAP2')) {
-            $this->markTestSuiteSkipped('PEAR package Net_LDAP2 is not installed!');
+        if (!class_exists('Horde_Ldap')) {
+            $this->markTestSuiteSkipped('PEAR package Horde_Ldap is not installed!');
         }
-
-        /** Reactivate original error reporting */
-        error_reporting($error_reporting);
 
         $this->markTestIncomplete('Needs to be fixed');
 
@@ -396,7 +389,7 @@ class Horde_Kolab_Server_Integration_MockTest extends Horde_Kolab_Server_Integra
     {
         foreach ($this->servers as $server) {
             $filter = '(&(objectClass=kolabGroupOfNames)(member='
-                . Net_LDAP2_Util::escape_filter_value('cn=The Administrator,dc=example,dc=org') . '))';
+                . Horde_Ldap_Util::escapeFilterValue('cn=The Administrator,dc=example,dc=org') . '))';
             $result = $server->search($filter, array());
             $this->assertTrue(!empty($result));
 

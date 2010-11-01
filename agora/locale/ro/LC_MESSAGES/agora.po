@@ -1,0 +1,263 @@
+# Romanian translations for Agora package.
+# Copyright 2003-2010 The Horde Project
+# This file is distributed under the same license as the Agora package.
+# Eugen Hoanca <eugenh@urban-grafx.ro>, 2003.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Agora 0.0.1\n"
+"POT-Creation-Date: 2003-03-04 13:46+0100\n"
+"PO-Revision-Date: 2003-03-24 15:16+0200\n"
+"Last-Translator: Eugen Hoanca <eugenh@urban-grafx.ro>\n"
+"Language-Team: Romanian <i18n@lists.horde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: managemessage.php:96
+msgid "... as a reply to message"
+msgstr "... ca raspuns la mesaj"
+
+#: lib/Agora.php:180 lib/Menu.php:76
+msgid "Add Forum"
+msgstr "Adauga forum"
+
+#: templates/index/notconfigured.inc:4
+msgid "Agora is not properly configured"
+msgstr "Agora nu este corect configurat"
+
+#: lib/ManageMessage.php:46 forums.php:58
+msgid "Author"
+msgstr "Autor"
+
+#: lib/Agora.php:102
+msgid "Can not create a forum with an empty name."
+msgstr "Nu se poate crea un forum fara nume."
+
+#: lib/Agora.php:111
+msgid "Can not create a message thread without message id."
+msgstr "Nu se poate crea un fir fara identificator de mesaj."
+
+#: manageforum.php:82
+msgid "Could not create the forum. %s"
+msgstr "Nu se poate crea forumul. %s"
+
+#: managemessage.php:79
+msgid "Could not submit the message. %s"
+msgstr "Nu s-a putut trimite mesajul. %s"
+
+#: manageforum.php:64
+msgid "Create a New Forum"
+msgstr "Creare forum nou"
+
+#: lib/ManageForum.php:31
+msgid "Creating a subforum of %s."
+msgstr "Creare subforum al %s."
+
+#: lib/ManageMessage.php:47 forums.php:58
+msgid "Date"
+msgstr "Data"
+
+#: lib/ManageForum.php:35
+msgid "Enter a brief description of this forum"
+msgstr "Introduceti o scurta descriere a acestui forum"
+
+#: forums.php:52
+msgid "Forum"
+msgstr "Forum"
+
+#: manageforum.php:86
+msgid "Forum Details"
+msgstr "Detalii forum"
+
+#: lib/Agora.php:173 lib/Menu.php:62
+msgid "Forum Home"
+msgstr "Pagina principala forum"
+
+#: manageforum.php:84
+msgid "Forum created."
+msgstr "Forum creat."
+
+#: lib/ManageForum.php:33
+msgid "Forum name"
+msgstr "Nume forum"
+
+#: forums.php:51
+msgid "Forums"
+msgstr "Forumuri"
+
+#: lib/api.php:54
+msgid "Forums Summary"
+msgstr "Cuprins forumuri"
+
+#: lib/ManageForum.php:34
+msgid "Is this a moderated forum?"
+msgstr "Este forum moderat?"
+
+#: config/prefs.php.dist:6
+msgid "Language"
+msgstr "Limba"
+
+#: forums.php:52
+msgid "Last Message"
+msgstr "Ultimul mesaj"
+
+#: lib/Menu.php:102
+msgid "Login"
+msgstr "Intrare"
+
+#: lib/Menu.php:99
+msgid "Logout"
+msgstr "Iesire"
+
+#: lib/Agora.php:248
+msgid "Main"
+msgstr "Principal"
+
+#: manageforum.php:37
+msgid "Manage Forums"
+msgstr "Administrare forumuri"
+
+#: managemessage.php:39
+msgid "Manage Messages"
+msgstr "Administrare mesaje"
+
+#: lib/ManageMessage.php:28 lib/ManageMessage.php:48 managemessage.php:83
+msgid "Message"
+msgstr "Mesaj"
+
+#: lib/ManageMessage.php:27
+msgid "Message subject"
+msgstr "Subiect mesaj"
+
+#: managemessage.php:81
+msgid "Message submitted."
+msgstr "Mesaj trimis"
+
+#: forums.php:52
+msgid "Messages"
+msgstr "Mesaje"
+
+#: lib/Agora.php:176
+msgid "Moderated"
+msgstr "Moderat"
+
+#: lib/Block/summary.php:41
+msgid "New Forum"
+msgstr "Forum nou"
+
+#: lib/Agora.php:183 lib/Menu.php:84
+msgid "New Message"
+msgstr "Mesaj nou"
+
+#: lib/Block/summary.php:57
+msgid "No forums available."
+msgstr "Nu exista forumuri disponibile."
+
+#: lib/Agora.php:178
+msgid "Permissions"
+msgstr "Permisiuni"
+
+#: managemessage.php:66
+msgid "Post a New Message"
+msgstr "Publicare mesaj nou"
+
+#: forums.php:52
+msgid "Posted By"
+msgstr "Publicat de"
+
+#: managemessage.php:99
+msgid "Re: %s"
+msgstr "Re: %s"
+
+#: lib/Agora.php:186 lib/Menu.php:92
+msgid "Reply"
+msgstr "Raspuns"
+
+#: config/prefs.php.dist:16
+msgid "Select your preferred language:"
+msgstr "Selecteaza limba favorita:"
+
+#: lib/ManageForum.php:34
+msgid ""
+"Set this if you want all messages to be checked by a moderator before they "
+"are posted"
+msgstr ""
+"Setare pentru ca toate mesajele sa fie verificate de un moderator inainte de "
+"a fi publicate."
+
+#: config/prefs.php.dist:7
+msgid "Set your preferred display language."
+msgstr "Setare limba favorita pentru afisare."
+
+#: templates/index/notconfigured.inc:40
+msgid "Some of Agora's configuration files are missing:"
+msgstr "Anumite fisiere de configurare agora lipsesc:"
+
+#: templates/index/notconfigured.inc:69
+msgid ""
+"Some of the HTML templates in agora/config/templates/ are missing. These "
+"files control the look and feel of Agora."
+msgstr ""
+"Cateva din fisierele HTML predefinite din agora/config/templates lipsesc. "
+"Aceste fisiere seteaza afisajul Agorei."
+
+#: lib/ManageForum.php:36
+msgid "Store"
+msgstr "Stocare"
+
+#: lib/ManageMessage.php:45 forums.php:58
+msgid "Subject"
+msgstr "Subiect"
+
+#: lib/ManageMessage.php:29
+msgid "Submit"
+msgstr "Trimitere"
+
+#: templates/index/notconfigured.inc:59
+msgid ""
+"This file controls the default preferences for Agora, and also controls "
+"which preferences users can alter."
+msgstr ""
+"Acest fisier controleaza atat preferintele implicite pentru Agora, precum si "
+"alte preferinte pentru utilizatori."
+
+#: templates/index/notconfigured.inc:52
+msgid ""
+"This file controls the stylesheet that is used to set colors and fonts in "
+"addition to or overriding Horde defaults."
+msgstr ""
+"Acest fisier controleaza schema de culori si fonturi diferite de cele "
+"implicite Horde."
+
+#: managemessage.php:59 manageforum.php:57
+msgid "This forum has been deleted."
+msgstr "Acest forum a fost sters."
+
+#: managemessage.php:57 manageforum.php:55
+msgid "This forum has been deleted. %s"
+msgstr "Acest forum a fost sters. %s"
+
+#: templates/index/notconfigured.inc:45
+msgid ""
+"This is the main Agora configuration file. It contains options for all Agora "
+"scripts."
+msgstr ""
+"Acesta este principalul fisier de configurare Agora. Contine optiuni pentru "
+"toate scripturile Agora."
+
+#: lib/Menu.php:68
+msgid "Thread Home"
+msgstr "Pagina principala de fire"
+
+#: forums.php:57
+msgid "Threads"
+msgstr "Fire"
+
+#: lib/Agora.php:67
+msgid "You must configure a Horde Categories backend to use Agora."
+msgstr "Trebuie configurate Categoriile Horde pentru a utiliza Agora."
+
+#: config/prefs.php.dist:5
+msgid "Your Information"
+msgstr "Detalii Personale"

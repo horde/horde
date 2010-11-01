@@ -77,11 +77,11 @@ class EditTypeStep2Form extends Horde_Form {
         $tstates->setDefault(array_keys($states));
         $statelink = array(
             array('text' => _("Edit States"),
-                  'url' => Horde::applicationUrl('admin/?formname=editstatestep1form&type=' . $type)));
+                  'url' => Horde::url('admin/?formname=editstatestep1form&type=' . $type)));
         if (!count($states)) {
             $statelink[] = array(
                 'text' => _("Create Default States"),
-                'url' => Horde::applicationUrl('admin/?formname=createdefaultstates&type=' . $type));
+                'url' => Horde::url('admin/?formname=createdefaultstates&type=' . $type));
         }
         $this->addVariable('', 'link', 'link', false, true, null,
                            array($statelink));
@@ -94,11 +94,11 @@ class EditTypeStep2Form extends Horde_Form {
         $tpriorities->setDefault(array_keys($priorities));
         $prioritylink = array(
             array('text' => _("Edit Priorities"),
-                  'url' => Horde::applicationUrl('admin/?formname=editprioritystep1form&type=' . $type)));
+                  'url' => Horde::url('admin/?formname=editprioritystep1form&type=' . $type)));
         if (!count($priorities)) {
             $prioritylink[] = array(
                 'text' => _("Create Default Priorities"),
-                'url' => Horde::applicationUrl('admin/?formname=createdefaultpriorities&type=' . $type));
+                'url' => Horde::url('admin/?formname=createdefaultpriorities&type=' . $type));
         }
         $this->addVariable('', 'link', 'link', false, true, null,
                            array($prioritylink));
@@ -115,7 +115,7 @@ class EditTypeStep2Form extends Horde_Form {
         $tattributes->setDefault(array_keys($attributes));
         $attributelink = array(
             'text' => _("Edit Attributes"),
-            'url' => Horde::applicationUrl('admin/?formname=editattributedescstep1form&type=' . $type));
+            'url' => Horde::url('admin/?formname=editattributedescstep1form&type=' . $type));
         $this->addVariable('', 'link', 'link', false, true, null,
                            array($attributelink));
 
@@ -131,7 +131,7 @@ class EditTypeStep2Form extends Horde_Form {
         $treplies->setDefault(array_keys($replies));
         $replylink = array(
             'text' => _("Edit Form Replies"),
-            'url' => Horde::applicationUrl('admin/?formname=editreplystep1form&type=' . $type));
+            'url' => Horde::url('admin/?formname=editreplystep1form&type=' . $type));
         $this->addVariable('', 'link', 'link', false, true, null,
                            array($replylink));
     }

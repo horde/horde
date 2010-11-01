@@ -8,8 +8,6 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
- * $Horde: agora/lib/Tree/flat.php,v 1.11 2009/01/06 17:48:47 jan Exp $
- *
  * @author Ben Chavet <ben@horde.org>
  * @author Duck <duck@obala.net>
  */

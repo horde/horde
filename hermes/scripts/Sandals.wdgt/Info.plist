@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AllowMultipleInstances</key>
+	<true/>
+	<key>AllowNetworkAccess</key>
+	<true/>
+	<key>AllowSystem</key>
+	<true/>
+	<key>CFBundleDisplayName</key>
+	<string>Horde Sandals</string>
+	<key>CFBundleIdentifier</key>
+	<string>org.horde.widget.sandals</string>
+	<key>CFBundleName</key>
+	<string>Horde Sandals</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.0.1</string>
+	<key>CFBundleVersion</key>
+	<string>0.0.1</string>
+	<key>CloseBoxInsetX</key>
+	<integer>5</integer>
+	<key>CloseBoxInsetY</key>
+	<integer>5</integer>
+	<key>MainHTML</key>
+	<string>Sandals.html</string>
+	<key>Plugin</key>
+	<string>KeychainPlugIn.widgetplugin</string>
+</dict>
+</plist>

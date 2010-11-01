@@ -1,5 +1,5 @@
 CREATE TABLE horde_groups (
-    group_uid INTEGER NOT NULL,
+    group_uid INTEGER NOT NULL AUTO_INCREMENT,
     group_name VARCHAR(255) NOT NULL,
     group_parents VARCHAR(255) NOT NULL,
     group_email VARCHAR(255),

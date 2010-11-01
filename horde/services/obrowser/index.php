@@ -9,7 +9,7 @@
  */
 
 require_once dirname(__FILE__) . '/../../lib/Application.php';
-new Horde_Application();
+Horde_Registry::appInit('horde');
 
 $path = Horde_Util::getFormData('path');
 
@@ -84,9 +84,8 @@ foreach ($list as $path => $values) {
 
     // Set the name/link.
     if (!empty($values['browseable'])) {
-        $url = Horde::url($registry->get('webroot', 'horde') . '/services/obrowser/');
-        $url = Horde_Util::addParameter($url, 'path', $path);
-        $row['name'] = Horde::link($url) . htmlspecialchars($values['name']) . '</a>';
+        $url = Horde::url('services/obrowser', false, array('app' => 'horde'))->add('path', $path);
+        $row['name'] = $url->link() . htmlspecialchars($values['name']) . '</a>';
     } else {
         $js = "return chooseObject('" . addslashes($path) . "');";
         $row['name'] = Horde::link('#', sprintf(_("Choose %s"), $values['name']), '', '', $js) . htmlspecialchars($values['name']) . '</a>';
@@ -95,7 +94,7 @@ foreach ($list as $path => $values) {
     $rows[] = $row;
 }
 
-$template = new Horde_Template();
+$template = $injector->createInstance('Horde_Template');
 $template->setOption('gettext', true);
 $template->set('rows', $rows);
 $template->set('close', '<a href="#" onclick="window.close(); return false;">' . Horde::img('close.png') . '</a>');

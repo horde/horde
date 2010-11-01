@@ -4,16 +4,15 @@
  *
  * Copyright 2005-2010 The Horde Project (http://www.horde.org/)
  *
- * $Horde: agora/search.php,v 1.27 2009-12-10 17:42:30 jan Exp $
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @author  Jason Felice <jason.m.felice@gmail.com>
  */
 
-define('AGORA_BASE', dirname(__FILE__));
-require_once AGORA_BASE . '/lib/base.php';
+require_once dirname(__FILE__) . '/lib/Application.php';
+Horde_Registry::appInit('agora');
+
 require_once AGORA_BASE . '/lib/Forms/Search.php';
 
 /* Set up the forums object. */
@@ -41,12 +40,11 @@ if ($form->isSubmitted() || $thread_page != null) {
     $searchResults = $messages->search($info, $sort_by, $sort_dir, $thread_start, $thread_per_page);
     if ($searchResults instanceof PEAR_Error) {
         $notification->push($searchResults->getMessage(), 'horde.error');
-        header('Location:' . Horde::applicationUrl('search.php'));
-        exit;
+        Horde::url('search.php')->redirect();
     }
 
     if ($searchResults['total'] > count($searchResults['results'])) {
-        $pager_ob = new Horde_Ui_Pager('thread_page', $vars, array('num' => $searchResults['total'], 'url' => 'search.php', 'perpage' => $thread_per_page));
+        $pager_ob = new Horde_Core_Ui_Pager('thread_page', $vars, array('num' => $searchResults['total'], 'url' => 'search.php', 'perpage' => $thread_per_page));
         foreach ($info as $key => $val) {
             if ($val) {
                 if ($key == 'keywords') {
@@ -62,9 +60,15 @@ if ($form->isSubmitted() || $thread_page != null) {
     $view->searchResults = $searchResults['results'];
 }
 
-$view->menu = Agora::getMenu('string');
-$view->notify = Horde_Util::bufferOutput(array($notification, 'notify'), array('listeners' => 'status'));
-$view->searchForm = Horde_Util::bufferOutput(array($form, 'renderActive'), null, $vars, 'search.php', 'get');
+$view->menu = Horde::menu();
+
+Horde::startBuffer();
+$notification->notify(array('listeners' => 'status'));
+$view->notify = Horde::endBuffer();
+
+Horde::startBuffer();
+$form->renderActive(null, $vars, 'search.php', 'get');
+$view->searchForm = Horde::endBuffer();
 
 $title = _("Search Forums");
 require AGORA_TEMPLATES . '/common-header.inc';

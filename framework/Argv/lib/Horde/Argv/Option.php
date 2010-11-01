@@ -91,8 +91,8 @@ class Horde_Argv_Option
             $number = self::parseNumber($value);
             if ($number === false) {
                 $message = $this->type == 'int'
-                    ? _("option %s: invalid integer value: '%s'")
-                    : _("option %s: invalid long integer value: '%s'");
+                    ? Horde_Argv_Translation::t("option %s: invalid integer value: '%s'")
+                    : Horde_Argv_Translation::t("option %s: invalid long integer value: '%s'");
                 throw new Horde_Argv_OptionValueException(
                     sprintf($message, $opt, $value));
             }
@@ -101,7 +101,7 @@ class Horde_Argv_Option
         case 'float':
             if (!is_numeric($value)) {
                 throw new Horde_Argv_OptionValueException(
-                    sprintf(_("option %s: invalid floating-point value: '%s'"),
+                    sprintf(Horde_Argv_Translation::t("option %s: invalid floating-point value: '%s'"),
                             $opt, $value));
             }
             return floatval($value);
@@ -119,7 +119,7 @@ class Horde_Argv_Option
             }
             $choices = "'" . implode("', '", $choices) . "'";
             throw new Horde_Argv_OptionValueException(sprintf(
-                _("option %s: invalid choice: '%s' (choose from %s)"),
+                Horde_Argv_Translation::t("option %s: invalid choice: '%s' (choose from %s)"),
                 $opt, $value, $choices));
         }
     }
@@ -247,6 +247,9 @@ class Horde_Argv_Option
     public $dest;
     public $default;
 
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         // The last argument to this function is an $attrs hash, if it

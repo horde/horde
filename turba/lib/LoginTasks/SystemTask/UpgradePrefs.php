@@ -31,13 +31,13 @@ class Turba_LoginTasks_SystemTask_UpgradePrefs extends Horde_LoginTasks_SystemTa
     /**
      * Perform all functions for this task.
      *
-     * @return mixed True | PEAR_Error
+     * @return boolean  Success.
      */
     public function execute()
     {
         global $registry;
 
-        if (!empty($_SESSION['turba']['has_share'])) {
+        if ($GLOBALS['session']['turba:has_share']) {
             $this->_doAddressbooks();
             $this->_doColumns();
             $this->_doAddSource();
@@ -67,14 +67,19 @@ class Turba_LoginTasks_SystemTask_UpgradePrefs extends Horde_LoginTasks_SystemTa
     {
         global $prefs;
 
-        $abooks = explode("\n", $prefs->getValue('addressbooks'));
+        $abooks = $prefs->getValue('addressbooks');
+        if (is_array(json_decode($abooks))) {
+            return;
+        }
+
+        $abooks = explode("\n", $abooks);
         if (is_array($abooks) && !empty($abooks[0])) {
             $new_prefs = array();
             foreach ($abooks as $abook) {
                 $new_prefs[] = $this->_updateShareName($abook);
             }
 
-            return $prefs->setValue('addressbooks', implode("\n", $new_prefs));
+            return $prefs->setValue('addressbooks', json_encode($new_prefs));
         }
 
         return true;

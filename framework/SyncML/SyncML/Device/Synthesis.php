@@ -98,7 +98,7 @@ class SyncML_Device_Synthesis extends SyncML_Device {
      */
     function UTC2LocalDate($s)
     {
-        $t = Horde_iCalendar::_parseDateTime($s);
+        $t = Horde_Icalendar::_parseDateTime($s);
         return date('Ymd', $t) . 'T000000';
     }
 }

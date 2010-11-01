@@ -80,10 +80,11 @@ implements Horde_Kolab_Server_Interface
         } catch (Horde_Kolab_Server_Exception $e) {
             $this->_logger->info(
                 sprintf(
-                    "Failed saving object \"%s\"! Error: %s",
-                    $object->getGuid(), $e->getMessage()
+                    "Failed connecting to the Kolab Server as \"%s\"! Error: %s",
+                    $guid, $e->getMessage()
                 )
             );
+            throw $e;
         }
     }
 
@@ -152,7 +153,14 @@ implements Horde_Kolab_Server_Interface
      */
     public function find($query, array $params = array())
     {
-        return $this->_server->find($query, $params);
+        $result = $this->_server->find($query, $params);
+        $this->_logger->debug(
+            sprintf(
+                "Query %s identified %s result(s).",
+                $query, $result->count()
+            )
+        );
+        return $result;
     }
 
     /**
@@ -301,7 +309,7 @@ implements Horde_Kolab_Server_Interface
     /**
      * Return the ldap schema.
      *
-     * @return Net_LDAP2_Schema The LDAP schema.
+     * @return Horde_Ldap_Schema The LDAP schema.
      *
      * @throws Horde_Kolab_Server_Exception If retrieval of the schema failed.
      */

@@ -43,8 +43,12 @@ if ($tasks->hasTasks()) {
             $share = $GLOBALS['nag_shares']->newShare('**EXTERNAL**');
             $owner = $task->tasklist_name;
         } else {
-            $share = $GLOBALS['nag_shares']->getShare($task->tasklist);
-            $owner = is_a($share, 'PEAR_Error') ? $task->tasklist : $share->get('name');
+            try {
+                $share = $GLOBALS['nag_shares']->getShare($task->tasklist);
+                $owner = $share->get('name');
+            } catch (Horde_Share_Exception $e) {
+                $owner = $task->tasklist;
+            }
         }
 
         require NAG_TEMPLATES . '/list/task_summaries.inc';

@@ -14,34 +14,28 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2006-05-08</date>
- <time>23:07:47</time>
+ <date>2010-03-09</date>
  <version>
-  <release>0.0.2</release>
-  <api>0.0.2</api>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>Converted to package.xml 2.0 for pear.horde.org
+ <notes>* Removed Horde-specific command line script.
+ * Initial Horde 4 package.
  </notes>
  <contents>
   <dir name="/">
-   <dir name="scripts">
-    <dir name="Horde">
-     <dir name="Scheduler">
-      <file name="horde-crond.php" role="script">
-       <tasks:replace from="@php_bin@" to="php_bin" type="pear-config"/>
-      </file>
-     </dir> <!-- /scripts/Horde/Scheduler -->
-    </dir> <!-- /scripts/Horde -->
-   </dir> <!-- /scripts -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Scheduler">
-      <file name="cron.php" role="php" />
+      <file name="Cron.php" role="php" />
+      <dir name="Cron">
+       <file name="Date.php" role="php" />
+      </dir> <!-- /lib/Horde/Scheduler/Cron -->
      </dir> <!-- /lib/Horde/Scheduler -->
      <file name="Scheduler.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -51,13 +45,13 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <dependencies>
   <required>
    <php>
-    <min>4.0.0</min>
+    <min>5.2.0</min>
    </php>
    <pearinstaller>
-    <min>1.4.0b1</min>
+    <min>1.7.0</min>
    </pearinstaller>
    <package>
-    <name>Horde_Framework</name>
+    <name>Core</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
@@ -72,12 +66,27 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="scripts/Horde/Scheduler/horde-crond.php" as="horde-crond" />
-   <install name="lib/Horde/Scheduler/cron.php" as="Horde/Scheduler/cron.php" />
+   <install name="lib/Horde/Scheduler/Cron/Date.php" as="Horde/Scheduler/Cron/Date.php" />
+   <install name="lib/Horde/Scheduler/Cron.php" as="Horde/Scheduler/Cron.php" />
    <install name="lib/Horde/Scheduler.php" as="Horde/Scheduler.php" />
   </filelist>
  </phprelease>
  <changelog>
+  <release>
+   <date>2006-05-08</date>
+   <time>23:07:47</time>
+   <version>
+    <release>0.0.2</release>
+    <api>0.0.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Converted to package.xml 2.0 for pear.horde.org
+   </notes>
+  </release>
   <release>
    <version>
     <release>0.0.1</release>

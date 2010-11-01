@@ -5,12 +5,13 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Kronolith
  */
-class Kronolith_FreeBusy {
+class Kronolith_FreeBusy
+{
     /**
-     * Generates the free/busy text for $calendar. Cache it for at least an
+     * Generates the free/busy text for $calendars. Cache it for at least an
      * hour, as well.
      *
-     * @param string|array $calendar  The calendar to view free/busy slots for.
+     * @param string|array $calendars  The calendar to view free/busy slots for.
      * @param integer $startstamp     The start of the time period to retrieve.
      * @param integer $endstamp       The end of the time period to retrieve.
      * @param boolean $returnObj      Default false. Return a vFreebusy object
@@ -18,28 +19,38 @@ class Kronolith_FreeBusy {
      * @param string $user            Set organizer to this user.
      *
      * @return string  The free/busy text.
+     * @throws Horde_Exception
      */
-    function generate($calendar, $startstamp = null, $endstamp = null,
-                      $returnObj = false, $user = null)
+    public static function generate($calendars, $startstamp = null,
+                                    $endstamp = null, $returnObj = false,
+                                    $user = null)
     {
         global $kronolith_shares;
 
-        if (!is_array($calendar)) {
-            $calendar = array($calendar);
+        if (!is_array($calendars)) {
+            $calendars = array($calendars);
         }
 
-        /* Fetch the appropriate share and check permissions. */
-        $share = &$kronolith_shares->getShare($calendar[0]);
-        if (is_a($share, 'PEAR_Error')) {
-            // Might be a Kronolith_Resource
-            try {
-                $resource = Kronolith_Resource::isResourceCalendar($calendar[0]);
-                $owner = $calendar[0];
-            } catch (Horde_Exception $e) {
-                return $returnObj ? $share : '';
+        if ($user) {
+            /* Find a share and retrieve owner. */
+            foreach ($calendars as $calendar) {
+                if (strpos($calendar, 'remote_') === 0) {
+                    continue;
+                }
+                try {
+                    $share = $kronolith_shares->getShare($calendar);
+                    $user = $share->get('owner');
+                    break;
+                } catch (Horde_Share_Exception $e) {
+                    /* Might be a Kronolith_Resource. */
+                    if (Kronolith_Resource::isResourceCalendar($calendar)) {
+                        $user = $calendar;
+                        break;
+                    } else {
+                        throw ($e);
+                    }
+                }
             }
-        } else {
-            $owner = $share->get('owner');
         }
 
         /* Default the start date to today. */
@@ -57,23 +68,33 @@ class Kronolith_FreeBusy {
         }
 
         /* Get the Identity for the owner of the share. */
-        $identity = Horde_Prefs_Identity::singleton('none', $user ? $user : $owner);
+        $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($user);
         $email = $identity->getValue('from_addr');
         $cn = $identity->getValue('fullname');
+        if (empty($mail) && empty($cn)) {
+            $cn = $user;
+        }
 
         /* Fetch events. */
-        $busy = Kronolith::listEvents(new Horde_Date($startstamp), $enddate, $calendar);
-        if (is_a($busy, 'PEAR_Error')) {
-            return $busy;
+        $busy = array();
+        foreach ($calendars as $calendar) {
+            if (strpos($calendar, 'remote_') === 0) {
+                $driver = Kronolith::getDriver('Ical', substr($calendar, 7));
+            } else {
+                $driver = Kronolith::getDriver(null, $calendar);
+            }
+            $events = $driver->listEvents(new Horde_Date($startstamp),
+                                          $enddate, true);
+            Kronolith::mergeEvents($busy, $events);
         }
 
         /* Create the new iCalendar. */
-        $vCal = new Horde_iCalendar();
+        $vCal = new Horde_Icalendar();
         $vCal->setAttribute('PRODID', '-//The Horde Project//Kronolith ' . $GLOBALS['registry']->getVersion() . '//EN');
         $vCal->setAttribute('METHOD', 'PUBLISH');
 
         /* Create new vFreebusy. */
-        $vFb = &Horde_iCalendar::newComponent('vfreebusy', $vCal);
+        $vFb = Horde_Icalendar::newComponent('vfreebusy', $vCal);
         $params = array();
         if (!empty($cn)) {
             $params['CN'] = $cn;
@@ -87,7 +108,7 @@ class Kronolith_FreeBusy {
         $vFb->setAttribute('DTSTAMP', $_SERVER['REQUEST_TIME']);
         $vFb->setAttribute('DTSTART', $startstamp);
         $vFb->setAttribute('DTEND', $endstamp);
-        $vFb->setAttribute('URL', Horde::applicationUrl('fb.php?u=' . $owner, true, -1));
+        $vFb->setAttribute('URL', Horde::url('fb.php?u=' . $user, true, -1));
 
         /* Add all the busy periods. */
         foreach ($busy as $events) {
@@ -99,7 +120,7 @@ class Kronolith_FreeBusy {
                     continue;
                 }
 
-                /* Horde_iCalendar_vfreebusy only supports timestamps at the
+                /* Horde_Icalendar_Vfreebusy only supports timestamps at the
                  * moment. */
                 $vFb->addBusyPeriod('BUSY', $event->start->timestamp(), null,
                                     $event->end->timestamp() - $event->start->timestamp());
@@ -127,31 +148,31 @@ class Kronolith_FreeBusy {
      * @param boolean $json  Whether to return the free/busy data as a simple
      *                       object suitable to be transferred as json.
      *
-     * @return Horde_iCalendar_vfreebusy  Free/busy component on success,
-     *                                    PEAR_Error on failure.
+     * @return Horde_Icalendar_Vfreebusy  Free/busy component.
+     * @throws Kronolith_Exception
      */
-    function get($email, $json = false)
+    public static function get($email, $json = false)
     {
-        /* Properly handle RFC822-compliant email addresses. */
-        static $rfc822;
-        if (is_null($rfc822)) {
-            $rfc822 = new Mail_RFC822();
+        $default_domain = empty($GLOBALS['conf']['storage']['default_domain']) ? null : $GLOBALS['conf']['storage']['default_domain'];
+        $rfc822 = new Horde_Mail_Rfc822();
+
+        try {
+            $res = $rfc822->parseAddressList($email, array(
+                'default_domain' => $default_domain
+            ));
+        } catch (Horde_Mail_Exception $e) {
+            throw new Kronolith_Exception($e);
         }
 
-        $default_domain = empty($GLOBALS['conf']['storage']['default_domain']) ? null : $GLOBALS['conf']['storage']['default_domain'];
-        $res = $rfc822->parseAddressList($email, $default_domain);
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
         if (!count($res)) {
-            return PEAR::raiseError(_("No valid email address found"));
+            throw new Kronolith_Exception(_("No valid email address found"));
         }
 
         $email = Horde_Mime_Address::writeAddress($res[0]->mailbox, $res[0]->host);
 
         /* Check if we can retrieve a VFB from the Free/Busy URL, if one is
          * set. */
-        $url = Kronolith_FreeBusy::getUrl($email);
+        $url = self::getUrl($email);
         if ($url) {
             $url = trim($url);
             $options['method'] = 'GET';
@@ -163,8 +184,9 @@ class Kronolith_FreeBusy {
             }
 
             $http = new HTTP_Request($url, $options);
-            if (is_a($response = @$http->sendRequest(), 'PEAR_Error')) {
-                return PEAR::raiseError(sprintf(_("The free/busy url for %s cannot be retrieved."), $email));
+            $response = @$http->sendRequest();
+            if ($response instanceof PEAR_Error) {
+                throw new Kronolith_Exception(sprintf(_("The free/busy url for %s cannot be retrieved."), $email));
             }
             if ($http->getResponseCode() == 200 &&
                 $data = $http->getResponseBody()) {
@@ -172,50 +194,53 @@ class Kronolith_FreeBusy {
                 $contentType = $http->getResponseHeader('Content-Type');
                 if ($contentType && strpos($contentType, ';') !== false) {
                     list(,$charset,) = explode(';', $contentType);
-                    $charset = trim(str_replace('charset=', '', $charset));
-                } else {
-                    $charset = 'UTF-8';
+                    $data = Horde_String::convertCharset($data, trim(str_replace('charset=', '', $charset)), 'UTF-8');
                 }
 
-                $vCal = new Horde_iCalendar();
-                $vCal->parsevCalendar($data, 'VCALENDAR', $charset);
+                $vCal = new Horde_Icalendar();
+                $vCal->parsevCalendar($data, 'VCALENDAR');
                 $components = $vCal->getComponents();
 
-                $vCal = new Horde_iCalendar();
-                $vFb = Horde_iCalendar::newComponent('vfreebusy', $vCal);
+                $vCal = new Horde_Icalendar();
+                $vFb = Horde_Icalendar::newComponent('vfreebusy', $vCal);
                 $vFb->setAttribute('ORGANIZER', $email);
                 $found = false;
                 foreach ($components as $component) {
-                    if (is_a($component, 'Horde_iCalendar_vfreebusy')) {
+                    if ($component instanceof Horde_Icalendar_Vfreebusy) {
                         $found = true;
                         $vFb->merge($component);
                     }
                 }
 
                 if ($found) {
-                    return $json ? Kronolith_FreeBusy::toJson($vFb) : $vFb;
+                    // @todo: actually store the results in the storage, so
+                    // that they can be retrieved later. We should store the
+                    // plain iCalendar data though, to avoid versioning
+                    // problems with serialize iCalendar objects.
+                    return $json ? self::toJson($vFb) : $vFb;
                 }
             }
         }
 
         /* Check storage driver. */
-        $storage = Kronolith_Storage::singleton();
+        $storage = Kronolith_Storage::factory();
 
-        $fb = $storage->search($email);
-        if (!is_a($fb, 'PEAR_Error')) {
-            return $json ? Kronolith_FreeBusy::toJson($fb) : $fb;
-        } elseif ($fb->getCode() == Kronolith::ERROR_FB_NOT_FOUND) {
-            return $url ?
-                PEAR::raiseError(sprintf(_("No free/busy information found at the free/busy url of %s."), $email)) :
-                PEAR::raiseError(sprintf(_("No free/busy url found for %s."), $email));
+        try {
+            $fb = $storage->search($email);
+            return $json ? self::toJson($fb) : $fb;
+        } catch (Horde_Exception_NotFound $e) {
+            if ($url) {
+                throw new Kronolith_Exception(sprintf(_("No free/busy information found at the free/busy url of %s."), $email));
+            }
+            throw new Kronolith_Exception(sprintf(_("No free/busy url found for %s."), $email));
         }
 
         /* Or else return an empty VFB object. */
-        $vCal = new Horde_iCalendar();
-        $vFb = Horde_iCalendar::newComponent('vfreebusy', $vCal);
+        $vCal = new Horde_Icalendar();
+        $vFb = Horde_Icalendar::newComponent('vfreebusy', $vCal);
         $vFb->setAttribute('ORGANIZER', $email);
 
-        return $json ? Kronolith_FreeBusy::toJson($vFb) : $vFb;
+        return $json ? self::toJson($vFb) : $vFb;
     }
 
     /**
@@ -225,10 +250,12 @@ class Kronolith_FreeBusy {
      *
      * @return mixed  The url on success or false on failure.
      */
-    function getUrl($email)
+    public static function getUrl($email)
     {
-        $sources = $GLOBALS['prefs']->getValue('search_sources');
-        $sources = empty($sources) ? array() : explode("\t", $sources);
+        $sources = json_decode($GLOBALS['prefs']->getValue('search_sources'));
+        if (empty($sources)) {
+            $sources = array();
+        }
 
         try {
             $result = $GLOBALS['registry']->call('contacts/getField',
@@ -247,20 +274,19 @@ class Kronolith_FreeBusy {
      * Converts free/busy data to a simple object suitable to be transferred
      * as json.
      *
-     * @param Horde_iCalendar_vfreebusy $fb  A Free/busy component.
+     * @param Horde_Icalendar_Vfreebusy $fb  A Free/busy component.
      *
      * @return object  A simple object representation.
      */
-    function toJson($fb)
+    function toJson(Horde_Icalendar_Vfreebusy $fb)
     {
         $json = new stdClass;
-        $json->e = $fb->getEmail();
         $start = $fb->getStart();
         if ($start) {
             $start = new Horde_Date($start);
             $json->s = $start->dateString();
         }
-        $end = $fb->getStart();
+        $end = $fb->getEnd();
         if ($end) {
             $end = new Horde_Date($end);
             $json->e = $end->dateString();

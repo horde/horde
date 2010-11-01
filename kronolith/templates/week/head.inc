@@ -1,11 +1,11 @@
 <h1 class="header" style="text-align:center">
 <?php
-$currentView = is_a($this, 'Kronolith_View_WorkWeek') ? 'WorkWeek' : 'Week';
+$currentView = $this instanceof Kronolith_View_WorkWeek ? 'WorkWeek' : 'Week';
 $prev = $this->getWeek(-1);
 $next = $this->getWeek(1);
-echo $this->link(-1)->link(array('title' => _("Last week"), 'class' => 'iconNav', 'onclick' => 'return ShowView(\'' . $currentView . '\', \'' . $prev->dateString() . '\');')) . Horde::img('nav/left.png', '<', '', $GLOBALS['registry']->getImageDir('horde')) . '</a>';
+echo $this->link(-1)->link(array('title' => _("Last week"), 'class' => 'iconNav', 'onclick' => 'return ShowView(\'' . $currentView . '\', \'' . $prev->dateString() . '\');')) . Horde::img('nav/left.png', '<') . '</a>';
 echo '<span id="view_title">' . htmlspecialchars($this->days[$this->startDay]->getTime($prefs->getValue('date_format')) . ' - ' . $this->days[$this->endDay]->getTime($prefs->getValue('date_format'))) . '</span>';
-echo $this->link(1)->link(array('title' => _("Next week"), 'class' => 'iconNav', 'onclick' => 'return ShowView(\'' . $currentView . '\', \'' . $next->dateString() . '\');')) . Horde::img('nav/right.png', '>', '', $GLOBALS['registry']->getImageDir('horde')) . '</a>';
+echo $this->link(1)->link(array('title' => _("Next week"), 'class' => 'iconNav', 'onclick' => 'return ShowView(\'' . $currentView . '\', \'' . $next->dateString() . '\');')) . Horde::img('nav/right.png', '>') . '</a>';
 ?>
 </h1>
 
@@ -20,9 +20,9 @@ echo $this->link(1)->link(array('title' => _("Next week"), 'class' => 'iconNav',
 <?php
 if (Kronolith::getDefaultCalendar(Horde_Perms::EDIT) &&
     (!empty($conf['hooks']['permsdenied']) ||
-     $GLOBALS['perms']->hasAppPermission('max_events') === true ||
-     $GLOBALS['perms']->hasAppPermission('max_events') > Kronolith::countEvents())) {
-    echo Horde::applicationUrl('new.php')
+     $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') === true ||
+     $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') > Kronolith::countEvents())) {
+    echo Horde::url('new.php')
         ->add(array('date' => $day->dateString(),
                     'url' => $this->link(0, true)))
         ->link(array('title' => _("Create a New Event"),

@@ -62,7 +62,7 @@ class Horde_Kolab_FreeBusy_View_vfb extends Horde_Kolab_FreeBusy_View {
     /**
      * The free/busy data that should be displayed.
      *
-     * @var Horde_iCalendar
+     * @var Horde_Icalendar
      */
     var $_vfb;
 
@@ -76,7 +76,7 @@ class Horde_Kolab_FreeBusy_View_vfb extends Horde_Kolab_FreeBusy_View {
     /**
      * Constructor.
      *
-     * @param Horde_iCalendar $vfb The free/busy data to display.
+     * @param Horde_Icalendar $vfb The free/busy data to display.
      */
     function Horde_Kolab_FreeBusy_View_vfb(&$data)
     {
@@ -203,9 +203,9 @@ class Horde_Kolab_FreeBusy_View_error extends Horde_Kolab_FreeBusy_View {
         } else {
             $url = '/';
         }
-        $message = sprintf(_("The requested URL %s was not found on this server."), $url);
+        $message = sprintf(Horde_Kolab_FreeBusy_Translation::t("The requested URL %s was not found on this server."), $url);
 
-        $this->_errorPage($error, $headers, _("404 Not Found"), _("Not found"), $message);
+        $this->_errorPage($error, $headers, Horde_Kolab_FreeBusy_Translation::t("404 Not Found"), Horde_Kolab_FreeBusy_Translation::t("Not found"), $message);
     }
 
     /**
@@ -226,8 +226,8 @@ class Horde_Kolab_FreeBusy_View_error extends Horde_Kolab_FreeBusy_View {
         $headers = array('WWW-Authenticate: Basic realm="freebusy-' . $email_domain . '"',
                          'HTTP/1.0 401 Unauthorized');
 
-        $this->_errorPage($error, $headers, _("401 Unauthorized"), _("Unauthorized"),
-                  _("You are not authorized to access the requested URL."));
+        $this->_errorPage($error, $headers, Horde_Kolab_FreeBusy_Translation::t("401 Unauthorized"), Horde_Kolab_FreeBusy_Translation::t("Unauthorized"),
+                  Horde_Kolab_FreeBusy_Translation::t("You are not authorized to access the requested URL."));
     }
 
     /**
@@ -243,7 +243,7 @@ class Horde_Kolab_FreeBusy_View_error extends Horde_Kolab_FreeBusy_View {
         } else {
             $url = '/';
         }
-        $this->_errorPage($error, $headers, _("500 Server Error"), _("Error"),
+        $this->_errorPage($error, $headers, Horde_Kolab_FreeBusy_Translation::t("500 Server Error"), Horde_Kolab_FreeBusy_Translation::t("Error"),
                   htmlentities($$url));
     }
 
@@ -273,7 +273,7 @@ class Horde_Kolab_FreeBusy_View_error extends Horde_Kolab_FreeBusy_View {
         echo "<p>" . $body . "</p>\n";
         if (!empty($error)) {
             echo "<hr><pre>" . $error->getMessage() . "</pre>\n";
-            Horde::logMessage($error, __FILE__, __LINE__, PEAR_LOG_ERR);
+            Horde::logMessage($error, 'ERR');
         }
         echo "<hr>\n";
         echo isset($_SERVER['SERVER_SIGNATURE'])?$_SERVER['SERVER_SIGNATURE']:'' . "\n";

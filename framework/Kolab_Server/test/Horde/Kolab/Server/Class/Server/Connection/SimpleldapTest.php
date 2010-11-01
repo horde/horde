@@ -35,27 +35,27 @@ extends Horde_Kolab_Server_LdapTestCase
 {
     public function testMethodConstructHasParameterNetldap2Connection()
     {
-        $ldap = $this->getMock('Net_LDAP2');
+        $ldap = $this->getMock('Horde_Ldap');
         $conn = new Horde_Kolab_Server_Connection_Simpleldap($ldap);
     }
 
     public function testMethodConstructHasPostconditionThatTheGivenServerWasStored()
     {
-        $ldap = $this->getMock('Net_LDAP2');
+        $ldap = $this->getMock('Horde_Ldap');
         $conn = new Horde_Kolab_Server_Connection_Simpleldap($ldap);
         $this->assertSame($ldap, $conn->getRead());
     }
 
     public function testMethodGetreadHasResultNetldap2TheHandledConnection()
     {
-        $ldap = $this->getMock('Net_LDAP2');
+        $ldap = $this->getMock('Horde_Ldap');
         $conn = new Horde_Kolab_Server_Connection_Simpleldap($ldap);
-        $this->assertType('Net_LDAP2', $conn->getRead());
+        $this->assertType('Horde_Ldap', $conn->getRead());
     }
 
     public function testMethodGetwriteHasResultNetldap2TheHandledConnection()
     {
-        $ldap = $this->getMock('Net_LDAP2');
+        $ldap = $this->getMock('Horde_Ldap');
         $conn = new Horde_Kolab_Server_Connection_Simpleldap($ldap);
         $this->assertSame($conn->getWrite(), $conn->getRead());
     }

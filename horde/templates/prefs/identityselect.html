@@ -1,0 +1,39 @@
+<if:defaultid>
+<div>
+ <tag:defaultid />
+</div>
+
+<div>
+ <select id="default_identity" name="default_identity">
+<loop:entry>
+  <option value="<tag:entry.i />"<if:entry.sel> selected="selected"</if:entry.sel>><tag:entry.label /></option>
+</loop:entry>
+ </select>
+</div>
+
+<div>
+ <tag:label />
+</div>
+
+<div>
+ <select name="identity" id="identity">
+  <option value="-2" selected="selected"><gettext>None</gettext></option>
+  <option value="" disabled="disabled">- - - - - - - - - -</option>
+  <option value="-1"><gettext>Create New Identity</gettext></option>
+<if:entry>
+  <option value="" disabled="disabled">- - - - - - - - - -</option>
+<loop:entry>
+  <option value="<tag:entry.i />"<if:entry.sel> selected="selected"</if:entry.sel>><tag:entry.label /></option>
+</loop:entry>
+</if:entry>
+ </select>
+</div>
+
+<div>
+ <p>
+  <input type="submit" name="delete_identity" class="button" value="<gettext>Delete</gettext>" />
+ </p>
+</div>
+<else:defaultid>
+<input type="hidden" name="identity" value="<tag:default_identity />" />
+</else:defaultid></if:defaultid>
