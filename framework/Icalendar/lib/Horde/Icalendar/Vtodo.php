@@ -20,6 +20,13 @@
 class Horde_Icalendar_Vtodo extends Horde_Icalendar_Base
 {
     /**
+     * Whether this is a group scheduled entity.
+     *
+     * @var boolean
+     */
+    protected $_groupScheduled = false;
+
+    /**
      * Constructor.
      *
      * @param array $properties  A hash of properties and values to populate
@@ -48,7 +55,12 @@ class Horde_Icalendar_Vtodo extends Horde_Icalendar_Base
                                'type' => 'string'),
             'description' => array('required' => false,
                                    'multiple' => false,
-                                   'type' => 'string'));
+                                   'type' => 'string'),
+            // @todo: check MUST/MUST NOT re 4.8.4.3 and CAL-ADDRESS type.
+            'organizer' => array('required' => false,
+                                 'multiple' => false,
+                                 'type' => 'string'),
+        );
         parent::__construct($properties);
     }
 }

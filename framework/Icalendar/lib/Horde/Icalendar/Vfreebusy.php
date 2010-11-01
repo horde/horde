@@ -40,6 +40,10 @@ class Horde_Icalendar_Vfreebusy extends Horde_Icalendar_Base
             'stamp' => array('required' => true,
                              'multiple' => false,
                              'class' => 'Horde_Date'),
+            // @todo: check MUST/MUST NOT re 4.8.4.3 and CAL-ADDRESS type.
+            'organizer' => array('required' => false,
+                                 'multiple' => false,
+                                 'type' => 'string'),
         );
         parent::__construct($properties);
     }
