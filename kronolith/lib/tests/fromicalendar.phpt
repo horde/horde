@@ -35,8 +35,8 @@ foreach ($components as $content) {
     if (is_a($content, 'Horde_Icalendar_Vevent')) {
         $event = new Kronolith_Event(new Driver);
         $event->fromiCalendar($content);
-        echo $event->start->rfc3339DateTime() . "\n";
-        echo $event->end->rfc3339DateTime() . "\n";
+        echo (string)$event->start . "\n";
+        echo (string)$event->end . "\n";
         var_export($event->isAllDay());
         echo "\n";
         if ($event->recurs()) {
@@ -49,8 +49,8 @@ foreach ($components as $content) {
 
 ?>
 --EXPECT--
-2010-11-01T10:00:00
-2010-11-01T11:00:00
+2010-11-01 10:00:00
+2010-11-01 11:00:00
 false
 FREQ=WEEKLY;INTERVAL=1;BYDAY=MO;UNTIL=20101129T230000Z
 array(2) {

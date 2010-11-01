@@ -13,11 +13,11 @@ $object->start = new Horde_Date('2007-03-15 13:10:20');
 $object->end = new Horde_Date('2007-03-15 14:20:00');
 $object->creator = 'joe';
 $object->uid = '20070315143732.4wlenqz3edq8@horde.org';
-$object->title = 'H¸bscher Termin';
-$object->description = "Schˆne Bescherung\nNew line";
-$object->location = 'Allg‰u';
+$object->title = 'H√ºbscher Termin';
+$object->description = "Sch√∂ne Bescherung\nNew line";
+$object->location = 'Allg√§u';
 $object->alarm = 10;
-$object->tags = array('Schˆngeistiges');
+$object->tags = array('Sch√∂ngeistiges');
 $object->recurrence = new Horde_Date_Recurrence($object->start);
 $object->recurrence->setRecurType(Horde_Date_Recurrence::RECUR_DAILY);
 $object->recurrence->setRecurInterval(2);
@@ -44,7 +44,7 @@ $object->attendees =
     array('juergen@example.com' =>
           array('attendance' => Kronolith::PART_REQUIRED,
                 'response' => Kronolith::RESPONSE_NONE,
-                'name' => 'J¸rgen Doe'),
+                'name' => 'J√ºrgen Doe'),
           0 =>
           array('attendance' => Kronolith::PART_OPTIONAL,
                 'response' => Kronolith::RESPONSE_ACCEPTED,
@@ -78,12 +78,12 @@ DTSTART:20070315T121020Z
 DTEND:20070315T132000Z
 DTSTAMP:%d%d%d%d%d%d%d%dT%d%d%d%d%d%dZ
 UID:20070315143732.4wlenqz3edq8@horde.org
-SUMMARY:Event from 1:10pm to 2:20pm
+SUMMARY:busy
 ORGANIZER;CN=joe:mailto:joe
-DESCRIPTION;ENCODING=QUOTED-PRINTABLE;CHARSET=ISO-8859-1:Sch=F6ne Bescherung=0D=0A=
+DESCRIPTION;ENCODING=QUOTED-PRINTABLE;CHARSET=UTF-8:Sch=C3=B6ne Bescherung=0D=0A=
 New line
-CATEGORIES;ENCODING=QUOTED-PRINTABLE;CHARSET=ISO-8859-1:Sch=F6ngeistiges
-LOCATION;ENCODING=QUOTED-PRINTABLE;CHARSET=ISO-8859-1:Allg=E4u
+CATEGORIES;ENCODING=QUOTED-PRINTABLE;CHARSET=UTF-8:Sch=C3=B6ngeistiges
+LOCATION;ENCODING=QUOTED-PRINTABLE;CHARSET=UTF-8:Allg=C3=A4u
 CLASS:PUBLIC
 STATUS:CONFIRMED
 TRANSP:0
@@ -102,7 +102,7 @@ DTSTART:20070315T121020Z
 DTEND:20070315T132000Z
 DTSTAMP:%d%d%d%d%d%d%d%dT%d%d%d%d%d%dZ
 UID:20070315143732.4wlenqz3edq8@horde.org
-SUMMARY:Event from 1:10pm to 2:20pm
+SUMMARY:busy
 ORGANIZER;CN=joe:mailto:joe
 DESCRIPTION:Sch√∂ne Bescherung\nNew line
 CATEGORIES:Sch√∂ngeistiges
@@ -133,7 +133,7 @@ ORGANIZER;CN=joe:mailto:joe
 CLASS:PRIVATE
 STATUS:TENTATIVE
 TRANSP:0
-ATTENDEE;EXPECT=REQUIRE;STATUS=NEEDS ACTION;RSVP=YES;ENCODING=QUOTED-PRINTABLE;CHARSET=ISO-8859-1:J=FCrgen Doe <juergen@example.com>
+ATTENDEE;EXPECT=REQUIRE;STATUS=NEEDS ACTION;RSVP=YES;ENCODING=QUOTED-PRINTABLE;CHARSET=UTF-8:J=C3=BCrgen Doe <juergen@example.com>
 ATTENDEE;EXPECT=REQUEST;STATUS=ACCEPTED:Jane Doe
 ATTENDEE;EXPECT=FYI;STATUS=DECLINED:Jack Doe <jack@example.com>
 ATTENDEE;EXPECT=FYI;STATUS=TENTATIVE:jenny@example.com
@@ -157,8 +157,8 @@ ORGANIZER;CN=joe:mailto:joe
 CLASS:PRIVATE
 STATUS:TENTATIVE
 TRANSP:OPAQUE
-ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=TRUE;CN=J√ºrgen
-  Doe:mailto:juergen@example.com
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=TRUE;CN="J√ºrgen
+  Doe":mailto:juergen@example.com
 ATTENDEE;ROLE=OPT-PARTICIPANT;PARTSTAT=ACCEPTED;CN=Jane Doe:
 ATTENDEE;ROLE=NON-PARTICIPANT;PARTSTAT=DECLINED;CN=Jack
   Doe:mailto:jack@example.com
