@@ -33,28 +33,30 @@ class Horde_Icalendar_Writer_Vcalendar_20 extends Horde_Icalendar_Writer_Base
      * Prepares a property value.
      *
      * @param mixed $value  A property value.
-     * @param array $params    Property parameters.
-     * @param array $property  A complete property hash.
      *
      * @return string  The prepared value.
      * @throws Horde_Icalendar_Exception if the value contains invalid
      *                                   characters.
      */
-    protected function _prepareProperty($value, array $params, array $property)
+    protected function _prepareProperty($value)
     {
         if ($value instanceof Horde_Date) {
-            if (isset($params['value']) && $params['value'] == 'date') {
+            $params = $this->_property['params'][$this->_num];
+            if (isset($params['value']) && Horde_String::upper($params['value']) == 'DATE') {
                 return $value->format('Ymd');
             }
             return $value->timezone == 'UTC'
                 ? $value->format('Ymd\THis\Z')
                 : $value->format('Ymd\THis');
         }
-        if (isset($property['type']) && $property['type'] == 'string') {
+        if (isset($this->_property['type']) &&
+            $this->_property['type'] == 'string') {
             // TEXT value as of Section 4.3.11.
-            return preg_replace('/(\r?\n|;|,|\\\\)/', '\\\\$1', $value);
+            return preg_replace(array('/[;,\\\\]/', '/\r?\n/'),
+                                array('\\\\$0', '\n'),
+                                $value);
         }
-        return parent::_prepareProperty($value, $params);
+        return parent::_prepareProperty($value);
     }
 
     /**
@@ -68,10 +70,8 @@ class Horde_Icalendar_Writer_Vcalendar_20 extends Horde_Icalendar_Writer_Base
      */
     protected function _prepareParameter($value)
     {
-        if (preg_match('/[\x00-\x08\x0a-\x1f\x7f"]/', $value)) {
-            // Not a QSAFE-CHAR.
-            throw new Horde_Icalendar_Exception('Invalid parameter value');
-        }
+        // Strip not QSAFE-CHARs.
+        $value = preg_replace('/[\x00-\x08\x0a-\x1f\x7f"]/', '', $value);
         if (preg_match('/[;:,]/', $value)) {
             // Not a SAFE-CHAR.
             $value = '"' . $value . '"';
@@ -95,13 +95,20 @@ class Horde_Icalendar_Writer_Vcalendar_20 extends Horde_Icalendar_Writer_Base
             return;
         }
         while ($contentLen) {
-            $char = Horde_String::substr($content, 0, 1);
+            $char = Horde_String::substr($content, 0, 1, 'UTF-8');
             $charLen = strlen($char);
             if ($bufferLen + $charLen > 75) {
-                // Wrap
-                $this->_output .= $this->_lineBuffer . "\r\n ";
-                $this->_lineBuffer = '';
-                $bufferLen = 0;
+                // Try wrapping at last space.
+                $pos = strrpos($this->_lineBuffer, ' ');
+                if ($pos !== false) {
+                    $this->_output .= substr($this->_lineBuffer, 0, $pos) . "\r\n ";
+                    $this->_lineBuffer = substr($this->_lineBuffer, $pos);
+                    $bufferLen = strlen($this->_lineBuffer);
+                } else {
+                    $this->_output .= $this->_lineBuffer . "\r\n ";
+                    $this->_lineBuffer = '';
+                    $bufferLen = 0;
+                }
             }
             $this->_lineBuffer .= $char;
             $bufferLen += $charLen;

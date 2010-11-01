@@ -78,7 +78,7 @@ class Horde_Icalendar_Vevent extends Horde_Icalendar_Base
         if ($property == 'startDate') {
             $this->_validate('start', $value);
             $property = 'start';
-            $params['value'] = 'date';
+            $params['value'] = 'DATE';
         }
         parent::_setProperty($property, $value, $params, $add);
     }

@@ -43,6 +43,21 @@ abstract class Horde_Icalendar_Writer_Base
     protected $_lineBuffer = '';
 
     /**
+     * Reference to the property currently being written.
+     *
+     * @var array
+     */
+    protected $_property;
+
+    /**
+     * Number of the property value currently being written, for properties
+     * that allow multiple values.
+     *
+     * @var integer
+     */
+    protected $_num;
+
+    /**
      * Exports a complete Horde_Icalendar object into a string.
      *
      * @param Horde_Icalendar_Base $object  An object to export.
@@ -54,6 +69,64 @@ abstract class Horde_Icalendar_Writer_Base
         $this->_output = '';
         $this->_exportComponent($object);
         return $this->_output;
+    }
+
+    /**
+     * Converts an 8bit string to a quoted-printable string according to RFC
+     * 2045 Section 6.7.
+     *
+     * imap_8bit() and Horde_Mime::quotedPrintableEncode don't apply all
+     * necessary rules.
+     *
+     * @param string $input  The string to be encoded.
+     *
+     * @return string  The quoted-printable encoded string.
+     */
+    public function quotedPrintableEncode($input = '')
+    {
+        $output = $line = '';
+
+        for ($i = 0, $len = strlen($input); $i < $len; ++$i) {
+            $ord = ord($input[$i]);
+            // Encode non-printable characters (rule 2).
+            if ($ord == 9 ||
+                ($ord >= 32 && $ord <= 60) ||
+                ($ord >= 62 && $ord <= 126)) {
+                $chunk = $input[$i];
+            } else {
+                // Quoted printable encoding (rule 1).
+                $chunk = '=' . Horde_String::upper(sprintf('%02X', $ord));
+            }
+            $line .= $chunk;
+            // Wrap long lines (rule 5)
+            if (strlen($line) + 1 > 76) {
+                $line = Horde_String::wordwrap($line, 75, "=\r\n", true, 'us-ascii', true);
+                $newline = strrchr($line, "\r\n");
+                if ($newline !== false) {
+                    $output .= substr($line, 0, -strlen($newline) + 2);
+                    $line = substr($newline, 2);
+                } else {
+                    $output .= $line;
+                }
+                continue;
+            }
+            // Wrap at line breaks for better readability (rule 4).
+            if (substr($line, -3) == '=0A') {
+                $output .= $line . "=\r\n";
+                $line = '';
+            }
+        }
+        $output .= $line;
+
+        // Trailing whitespace must be encoded (rule 3).
+        $lastpos = strlen($output) - 1;
+        if ($output[$lastpos] == chr(9) ||
+            $output[$lastpos] == chr(32)) {
+            $output[$lastpos] = '=';
+            $output .= Horde_String::upper(sprintf('%02X', ord($output[$lastpos])));
+        }
+
+        return $output;
     }
 
     /**
@@ -82,19 +155,28 @@ abstract class Horde_Icalendar_Writer_Base
      */
     protected function _exportProperty($name, array $property)
     {
-        if (isset($property['values'])) {
-            if (isset($this->_propertyMap[$name])) {
-                $name = $this->_propertyMap[$name];
+        if (!isset($property['values'])) {
+            return;
+        }
+        if (isset($this->_propertyMap[$name])) {
+            $name = $this->_propertyMap[$name];
+            if (!strlen($name)) {
+                return;
             }
-            foreach ($property['values'] as $num => $value) {
-                $this->_lineBuffer = Horde_String::upper($name);
-                foreach ($property['params'][$num] as $parameter => $pvalue) {
-                    $this->_exportParameter($parameter, $pvalue);
-                }
-                $value = $this->_prepareProperty($value, $property['params'][$num], $property);
-                $this->_addToLineBuffer(':' . $value);
-                $this->_output .= $this->_lineBuffer . "\r\n";
+        }
+
+        $this->_property = $property;
+        foreach ($this->_property['values'] as $num => $value) {
+            $this->_num = $num;
+            // Prepare property first, because preparation might change
+            // property parameters.
+            $value = $this->_prepareProperty($value);
+            $this->_lineBuffer = Horde_String::upper($name);
+            foreach ($this->_property['params'][$num] as $parameter => $pvalue) {
+                $this->_exportParameter($parameter, $pvalue);
             }
+            $this->_addToLineBuffer(':' . $value);
+            $this->_output .= $this->_lineBuffer . "\r\n";
         }
     }
 
@@ -108,7 +190,7 @@ abstract class Horde_Icalendar_Writer_Base
     {
         $this->_addToLineBuffer(';' . Horde_String::upper($name));
         $value = $this->_prepareParameter($value);
-        $this->_addToLineBuffer('=' . Horde_String::upper($value));
+        $this->_addToLineBuffer('=' . $value);
     }
 
     /**
@@ -117,16 +199,14 @@ abstract class Horde_Icalendar_Writer_Base
      * Sub-classes can extend this the method to apply specific escaping.
      *
      * @param mixed $value     A property value.
-     * @param array $params    Property parameters.
-     * @param array $property  A complete property hash.
      *
      * @return string  The prepared value.
      * @throws Horde_Icalendar_Exception if the value contains invalid
      *                                   characters.
      */
-    protected function _prepareProperty($value, array $params, array $property)
+    protected function _prepareProperty($value)
     {
-        return (string)$property;
+        return (string)$value;
     }
 
     /**

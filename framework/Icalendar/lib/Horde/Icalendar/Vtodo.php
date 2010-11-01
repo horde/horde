@@ -63,4 +63,23 @@ class Horde_Icalendar_Vtodo extends Horde_Icalendar_Base
         );
         parent::__construct($properties);
     }
+
+    /**
+     * Sets the value of a property.
+     *
+     * @param string $property  A property name.
+     * @param mixed $value      A property value.
+     * @param array $params     Property parameters.
+     * @param boolean $add      Whether to add (instead of replace) the value.
+     */
+    protected function _setProperty($property, $value, array $params = array(),
+                                    $add = false)
+    {
+        if ($property == 'startDate') {
+            $this->_validate('start', $value);
+            $property = 'start';
+            $params['value'] = 'DATE';
+        }
+        parent::_setProperty($property, $value, $params, $add);
+    }
 }
