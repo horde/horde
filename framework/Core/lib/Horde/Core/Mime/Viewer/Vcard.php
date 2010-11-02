@@ -136,12 +136,15 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
                 $html .= '<tr><td colspan="2">&nbsp;</td></tr>';
             }
 
+            $addresses = $vc->getAllAttributes('EMAIL');
+
             $html .= '<tr><td colspan="2" class="header">';
-            $fullname = $vc->getAttributeDefault('FN', false);
-            if ($fullname !== false) {
-                $html .= $fullname;
+            if (($fullname = $vc->getAttributeDefault('FN', false)) === false) {
+                $fullname = count($addresses)
+                    ? $addresses[0]['value']
+                    : Horde_Core_Translation::t("[No Label]");
             }
-            $html .= '</td></tr>';
+            $html .= $fullname . '</td></tr>';
 
             $n = $vc->printableName();
             if (!empty($n)) {
@@ -324,7 +327,6 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
                 }
             }
 
-            $addresses = $vc->getAllAttributes('EMAIL');
             $emails = array();
             foreach ($addresses as $address) {
                 if (isset($address['params']['TYPE'])) {
