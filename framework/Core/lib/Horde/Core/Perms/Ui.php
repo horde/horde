@@ -90,7 +90,7 @@ class Horde_Core_Perms_Ui
                 ? array('class' => 'selected')
                 : array();
             if ($perm_id == Horde_Perms::ROOT) {
-                $add_link = $add->add('perm_id', $perm_id)->link(array('title' => Horde_Core_Translation::t("Add New Permission"))) . $add_img . '</a>';
+                $add_link = $add->add('perm_id', $perm_id)->link(array('class' => 'permsAdd', 'title' => Horde_Core_Translation::t("Add New Permission"))) . $add_img . '</a>';
                 $base_node_params = array('icon' => Horde_Themes::img('administration.png'));
 
                 $tree->addNode($perm_id, null, Horde_Core_Translation::t("All Permissions"), 0, true,
@@ -119,15 +119,15 @@ class Horde_Core_Perms_Ui
 
                 if (isset($app_perms['tree']) &&
                     is_array(Horde_Array::getElement($app_perms['tree'], $parents))) {
-                    $add_link = $add->add('perm_id', $perm_id)->link(array('title' => Horde_Core_Translation::t("Add Child Permission"))) . $add_img . '</a>';
+                    $add_link = $add->add('perm_id', $perm_id)->link(array('class' => 'permsAdd', 'title' => Horde_Core_Translation::t("Add Child Permission"))) . $add_img . '</a>';
                     $perms_extra[] = $add_link;
                 } else {
                     $perms_extra[] = $blank_img;
                 }
 
-                $edit_link = $edit->add('perm_id', $perm_id)->link(array('title' => Horde_Core_Translation::t("Edit Permission"))) . $edit_img . '</a>';
+                $edit_link = $edit->add('perm_id', $perm_id)->link(array('class' => 'permsEdit', 'title' => Horde_Core_Translation::t("Edit Permission"))) . $edit_img . '</a>';
                 $perms_extra[] = $edit_link;
-                $delete_link = $delete->add('perm_id', $perm_id)->link(array('title' => Horde_Core_Translation::t("Delete Permission"))) . $delete_img . '</a>';
+                $delete_link = $delete->add('perm_id', $perm_id)->link(array('class' => 'permsDelete', 'title' => Horde_Core_Translation::t("Delete Permission"))) . $delete_img . '</a>';
                 $perms_extra[] = $delete_link;
                 $name = $this->_perms->getTitle($node);
 

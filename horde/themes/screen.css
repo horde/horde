@@ -1026,6 +1026,11 @@ ul.sound-list {
     color: #090;
 }
 
+/* Permissions. */
+.permsAdd, .permsDelete, .permsEdit {
+    padding-left: 3px;
+}
+
 /* KeyNavList styling. */
 .KeyNavList {
     background: #f4f4f4;
