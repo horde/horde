@@ -260,10 +260,10 @@ class Text_Wiki_Parse_Wikilink extends Text_Wiki_Parse {
                     if (preg_match('/\dpx\s*$/i', $split)) {
                         $split = preg_replace("/\s/", "", $split);
                         $split = preg_replace("/px$/i", "", $split);
-                        list($width,$height) = explode("x", $split);
-                        $attr['width'] = $width;
-                        if ($height) {
-                            $attr['height'] = $height;
+                        $dimensions = explode("x", $split);
+                        $attr['width'] = $dimensions[0];
+                        if (isset($dimensions[1])) {
+                            $attr['height'] = $dimensions[1];
                         }
                     }
 					else {
