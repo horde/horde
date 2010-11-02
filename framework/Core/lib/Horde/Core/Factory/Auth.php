@@ -150,7 +150,11 @@ class Horde_Core_Factory_Auth
 
             case 'customsql':
             case 'sql':
-                $params['db'] = $this->_injector->getInstance('Horde_Db_Adapter');
+                if (!empty($params['driverconfig']) && $params['driverconfig'] == 'horde') {
+                    $params['db'] = $this->_injector->getInstance('Horde_Db_Adapter');
+                } else {
+                    $params['db'] = $this->_injector->getInstance('Horde_Core_Factory_Db')->create('horde', 'auth');
+                }
                 break;
             }
 
