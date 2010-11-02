@@ -35,6 +35,34 @@ class Components_Pear_Package_Contents
     private $_package;
 
     /**
+     * A tasks helper.
+     *
+     * @var Components_Pear_Package_Tasks
+     */
+    private $_tasks;
+
+    /**
+     * Provides access to the filelist handler.
+     *
+     * @var Components_Pear_Package_Filelist_Factory
+     */
+    private $_filelist_factory;
+
+    /**
+     * Constructor.
+     *
+     * @param Components_Pear_Package_Tasks            $tasks   A tasks helper.
+     * @param Components_Pear_Package_Filelist_Factory $factory Creates the filelist handler.
+     */
+    public function __construct(
+        Components_Pear_Package_Tasks $tasks,
+        Components_Pear_Package_Filelist_Factory $factory
+    ) {
+        $this->_tasks = $tasks;
+        $this->_filelist_factory = $factory;
+    }
+
+    /**
      * Set the package that should be handled.
      *
      * @param PEAR_PackageFileManager2 $package The package to work on.
@@ -62,70 +90,13 @@ class Components_Pear_Package_Contents
     }
 
     /**
-     * Update the content listing of the provided package.
+     * Generate an updated contents listing.
      *
      * @return NULL
      */
-    private function _updateContents()
+    private function _generateContents()
     {
-        $contents = $this->getPackage()->getContents();
-        $contents = $contents['dir']['file'];
-        $taskfiles = array();
-        foreach ($contents as $file) {
-            if (!isset($file['attribs'])) {
-                continue;
-            }
-            $atts = $file['attribs'];
-            unset($file['attribs']);
-            if (count($file)) {
-                $taskfiles[$atts['name']] = $file;
-            }
-        }
-
         $this->getPackage()->generateContents();
-
-        $updated = $this->getPackage()->getContents();
-        $updated = $updated['dir']['file'];
-        foreach ($updated as $file) {
-            if (!isset($file['attribs'])) {
-                continue;
-            }
-            if (isset($taskfiles[$file['attribs']['name']])) {
-                foreach ($taskfiles[$file['attribs']['name']] as $tag => $raw) {
-                    $taskname = $this->getPackage()->getTask($tag) . '_rw';
-                    if (!class_exists($taskname)) {
-                        throw new Components_Exception(
-                            sprintf('Read/write task %s is missing!', $taskname)
-                        );
-                    }
-                    $logger = new stdClass;
-                    $task = new $taskname(
-                        $this->getPackage(),
-                        $this->getPackage()->_config,
-                        $logger,
-                        ''
-                    );
-                    switch ($taskname) {
-                    case 'PEAR_Task_Replace_rw':
-                        $task->setInfo(
-                            $raw['attribs']['from'],
-                            $raw['attribs']['to'],
-                            $raw['attribs']['type']
-                        );
-                        break;
-                    default:
-                        throw new Components_Exception(
-                            sprintf('Unsupported task type %s!', $tag)
-                        );
-                    }
-                    $task->init(
-                        $raw,
-                        $file['attribs']
-                    );
-                    $this->getPackage()->addTaskToFile($file['attribs']['name'], $task);
-                }
-            }
-        }
     }
 
     /**
@@ -135,79 +106,10 @@ class Components_Pear_Package_Contents
      */
     public function update()
     {
-        $this->_updateContents();
+        $taskfiles = $this->_tasks->denote($this->getPackage());
+        $this->_generateContents();
+        $this->_tasks->annotate($this->getPackage(), $taskfiles);
 
-        /**
-         * This is required to clear the <phprelease><filelist></filelist></phprelease>
-         * section.
-         */
-        $this->getPackage()->setPackageType('php');
-
-        $contents = $this->getPackage()->getContents();
-        $files = $contents['dir']['file'];
-        $horde_role = false;
-
-        foreach ($files as $file) {
-            if (!isset($file['attribs'])) {
-                continue;
-            }
-            $components = explode('/', $file['attribs']['name'], 2);
-            switch ($components[0]) {
-            case 'doc':
-            case 'example':
-            case 'lib':
-            case 'test':
-            case 'data':
-                $this->getPackage()->addInstallAs(
-                    $file['attribs']['name'], $components[1]
-                );
-            break;
-            case 'js':
-            case 'horde':
-                $horde_role = true;
-            case 'locale':
-                $this->getPackage()->addInstallAs(
-                    $file['attribs']['name'], $file['attribs']['name']
-                );
-            break;
-            case 'migration':
-                $components = explode('/', $components[1]);
-                array_splice($components, count($components) - 1, 0, 'migration');
-                $this->getPackage()->addInstallAs(
-                    $file['attribs']['name'], implode('/', $components)
-                );
-                break;
-            case 'bin':
-            case 'script':
-                $filename = basename($file['attribs']['name']);
-                if (substr($filename, strlen($filename) - 4) == '.php') {
-                    $filename = substr($filename, 0, strlen($filename) - 4);
-                }
-                $this->getPackage()->addInstallAs(
-                    $file['attribs']['name'], $filename
-                );
-                break;
-            }
-        }
-
-        if ($horde_role) {
-            $roles = $this->getPackage()->getUsesrole();
-            if (!empty($roles)) {
-                if (isset($roles['role'])) {
-                    $roles = array($roles);
-                }
-                foreach ($roles as $role) {
-                    if (isset($role['role']) && $role['role'] == 'horde') {
-                        $horde_role = false;
-                        break;
-                    }
-                }
-            }
-            if ($horde_role) {
-                $this->getPackage()->addUsesrole(
-                    'horde', 'Role', 'pear.horde.org'
-                );
-            }
-        }
+        $this->_filelist_factory->create($this->getPackage())->update();
     }
 }
