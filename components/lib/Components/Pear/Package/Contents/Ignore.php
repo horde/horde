@@ -52,6 +52,7 @@ class Components_Pear_Package_Contents_Ignore
     public function __construct($gitignore, $base = '')
     {
         $this->_base = $base;
+        $this->_prepare($gitignore);
     }
 
     /**
@@ -95,6 +96,28 @@ class Components_Pear_Package_Contents_Ignore
             }
         }
         return false;
+    }
+
+    /**
+     * Prepare the list of ignores and include from the gitignore input.
+     *
+     * @param string $gitignore
+     *
+     * @return NULL
+     */
+    private function _prepare($gitignore)
+    {
+        foreach (split("\n", $gitignore) as $line) {
+            $line = strtr($line, ' ', '');
+            if (empty($line) || strpos($line, '#') == 1) {
+                continue;
+            }
+            if (strpos($line, '!') == 1) {
+                $this->_include[] = $this->_getRegExpableSearchString($line);
+            } else {
+                $this->_ignore[] = $this->_getRegExpableSearchString($line);
+            }
+        }
     }
 
     /**
