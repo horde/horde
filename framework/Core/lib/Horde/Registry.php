@@ -1306,11 +1306,11 @@ class Horde_Registry
             if (empty($appConfig)) {
                 $appConfig = array();
             }
-            $this->_cache['conf-' . $app] = Horde_Array::array_merge_recursive_overwrite($this->_cache['conf-horde'], $appConfig);
+            $this->_cache['conf-' . $app] = $appConfig;
             $this->_saveCacheVar('conf-' . $app);
         }
-
-        $GLOBALS['conf'] = &$this->_cache['conf-' . $app];
+        
+        $GLOBALS['conf'] = Horde_Array::array_merge_recursive_overwrite($this->_cache['conf-horde'], $this->_cache['conf-' . $app]);
     }
 
     /**
