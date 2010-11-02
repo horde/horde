@@ -57,7 +57,9 @@ class Components_Helper_Root
         while ($current != '/' || $i < 10) {
             if (is_dir($current)) {
                 $objects = scandir($current);
-                if (in_array('framework', $objects) && in_array('horde', $objects)) {
+                if (in_array('framework', $objects)
+                    && in_array('horde', $objects)
+                    && in_array('.gitignore', $objects)) {
                     $this->_root_path = $current;
                     break;
                 }
@@ -106,7 +108,7 @@ class Components_Helper_Root
      */
     public function getGitIgnore()
     {
-        return '';
+        return file_get_contents($this->_root_path . DIRECTORY_SEPARATOR . '.gitignore');
     }
 
     /**
