@@ -219,9 +219,10 @@ class Horde_Perms
 
                 foreach ($GLOBALS['registry']->callAppMethod($app, 'perms') as $key => $val) {
                     $ptr = &$perms['tree'][$app];
+
                     foreach (explode(':', $key) as $kval) {
                         $ptr[$kval] = false;
-                        $ptr = &$perms['tree'][$app];
+                        $ptr = &$ptr[$kval];
                     }
                     if (isset($val['title'])) {
                         $perms['title'][$app . ':' . $key] = $val['title'];
