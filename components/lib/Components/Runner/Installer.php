@@ -85,7 +85,6 @@ class Components_Runner_Installer
                 $environment, realpath($arguments[0]), $options
             );
         $tree->getEnvironment()->provideChannel('pear.horde.org');
-        $tree->getEnvironment()->addPackageFromSource($tree->getRoot()->getPackageXml('Role'));
         $tree->getEnvironment()->getPearConfig()->setChannels(array('pear.horde.org', true));
         $tree->getEnvironment()->getPearConfig()->set('horde_dir', $options['horde_dir'], 'user', 'pear.horde.org');
         Components_Exception_Pear::catchError($tree->getEnvironment()->getPearConfig()->store());
