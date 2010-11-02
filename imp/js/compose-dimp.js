@@ -839,15 +839,16 @@ var DimpCompose = {
 
     toggleCC: function(type)
     {
-        var t;
+        var t = $('toggle' + type),
+            s = t.siblings().first();
 
         $('send' + type).show();
-        t = $('toggle' + type);
-        if (t.siblings().size()) {
-            t.remove();
+        if (s && s.visible()) {
+            t.hide();
         } else {
-            t.up('TR').remove();
+            t.up('TR').hide();
         }
+
         this.resizeMsgArea();
     },
 
