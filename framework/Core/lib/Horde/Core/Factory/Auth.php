@@ -147,7 +147,7 @@ class Horde_Core_Factory_Auth
             case 'horde_core_auth_msad':
                 $params['ldap'] = $this->_injector->getInstance('Horde_Core_Factory_Ldap')->getLdap('horde', 'auth');
                 break;
-
+            case 'customsql':
             case 'sql':
                 $params['db'] = $this->_injector->getInstance('Horde_Db_Adapter');
                 break;
