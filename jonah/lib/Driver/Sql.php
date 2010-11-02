@@ -455,7 +455,7 @@ class Jonah_Driver_Sql extends Jonah_Driver
         Horde::logMessage('SQL Query by Jonah_Driver_sql::_getStories(): ' . $sql, 'DEBUG');
         if ($limit || $start != 0) {
             $results = array();
-            $rows = $this->_db->limitQuery($sql, $start, $limit, $values    );
+            $rows = $this->_db->limitQuery($sql, $start, $limit, $values);
             while ($rows->fetchInto($row, DB_FETCHMODE_ASSOC)) {
                 $results[] = $row;
             }
