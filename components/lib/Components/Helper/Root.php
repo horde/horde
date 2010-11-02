@@ -37,6 +37,13 @@ class Components_Helper_Root
     private $_root_path;
 
     /**
+     * Relative position of the path that has been used to determine the root positionq.
+     *
+     * @var string
+     */
+    private $_base = '';
+
+    /**
      * Constructor.
      *
      * @param string $path The helper will try to determine the root of the
@@ -55,6 +62,7 @@ class Components_Helper_Root
                     break;
                 }
             }
+            $this->_base .= basename($current) . DIRECTORY_SEPARATOR;
             $current = dirname($current);
             $i++;
         }
@@ -96,8 +104,19 @@ class Components_Helper_Root
      *
      * @return string The information from the gitignore file.
      */
-    public function fetchGitIgnore()
+    public function getGitIgnore()
     {
         return '';
+    }
+
+    /**
+     * Return the relative position of the path originally used to determine the
+     * root position of the repository.
+     *
+     * @return string The relative path.
+     */
+    public function getBase()
+    {
+        return $this->_base;
     }
 }

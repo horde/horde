@@ -300,19 +300,6 @@ class Components_Pear_Factory
                     'clearcontents' => false,
                     'clearchangelog' => false,
                     'simpleoutput' => true,
-                    'dir_roles' =>
-                    array(
-                        'bin'       => 'script',
-                        'script'    => 'script',
-                        'doc'       => 'doc',
-                        'example'   => 'doc',
-                        'js'        => 'horde',
-                        'horde'     => 'horde',
-                        'lib'       => 'php',
-                        'migration' => 'data',
-                        'scripts'   => 'data',
-                        'test'      => 'test',
-                    ),
                 )
             )
         );

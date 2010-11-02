@@ -41,10 +41,23 @@ class Components_Pear_Package_Contents_Factory
         $root = new Components_Helper_Root(
             $package->_options['packagedirectory']
         );
+        $package->_options['dir_roles'] = array(
+            'bin'       => 'script',
+            'script'    => 'script',
+            'doc'       => 'doc',
+            'example'   => 'doc',
+            'js'        => 'horde',
+            'horde'     => 'horde',
+            'lib'       => 'php',
+            'migration' => 'data',
+            'scripts'   => 'data',
+            'test'      => 'test',
+        );
         return new Components_Pear_Package_Contents_List(
             $package->_options['packagedirectory'],
             new Components_Pear_Package_Contents_Ignore(
-                $root->fetchGitIgnore()
+                $root->getGitIgnore(),
+                $root->getBase()
             )
         );
     }

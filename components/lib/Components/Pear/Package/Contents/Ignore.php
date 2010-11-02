@@ -30,20 +30,28 @@
 class Components_Pear_Package_Contents_Ignore
 {
     /**
-     * The gitignore information.
+     * The regular expressions for files to ignore.
      *
-     * @var string
+     * @var array
      */
-    private $_gitignore;
+    private $_ignore = array();
+
+    /**
+     * The regular expressions for files to exclude from ignoring.
+     *
+     * @var array
+     */
+    private $_include = array();
 
     /**
      * Constructor.
      *
      * @param string $gitignore The gitignore information
+     * @param string $base      An optional base for the files that should be checked.
      */
-    public function __construct($gitignore)
+    public function __construct($gitignore, $base = '')
     {
-        $this->_gitignore = $gitignore;
+        $this->_base = $base;
     }
 
     /**
@@ -62,6 +70,57 @@ class Components_Pear_Package_Contents_Ignore
      */
     public function checkIgnore($file, $path, $return = 1)
     {
+        if (!$return) {
+            // This class is not about identifying included files.
+            return !$return;
+        }
+
+        if ($this->_matches($this->_ignore, $this->_base . $path)
+            && !$this->_matches($this->_include, $this->_base . $path)) {
+            return $return;
+        }
+        if ($this->_matches($this->_ignore, $file)
+            && !$this->_matches($this->_include, $file)) {
+            return $return;
+        }
         return !$return;
+    }
+
+    private function _matches($matches, $path)
+    {
+        foreach ($matches as $match) {
+            preg_match('/^' . strtoupper($match).'$/', strtoupper($path), $find);
+            if (count($find)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Converts $s into a string that can be used with preg_match
+     *
+     * @param string $s string with wildcards ? and *
+     *
+     * @return string converts * to .*, ? to ., etc.
+     * @access private
+     */
+    private function _getRegExpableSearchString($s)
+    {
+        $y = '\/';
+        if (DIRECTORY_SEPARATOR == '\\') {
+            $y = '\\\\';
+        }
+
+        $s = str_replace('/', DIRECTORY_SEPARATOR, $s);
+        $x = strtr($s, array('?' => '.', '*' => '.*', '.' => '\\.', '\\' => '\\\\', '/' => '\\/',
+                             '[' => '\\[', ']' => '\\]', '-' => '\\-'));
+
+        if (strpos($s, DIRECTORY_SEPARATOR) !== false &&
+              strrpos($s, DIRECTORY_SEPARATOR) === strlen($s) - 1) {
+            $x = "(?:.*$y$x?.*|$x.*)";
+        }
+
+        return $x;
     }
 }
