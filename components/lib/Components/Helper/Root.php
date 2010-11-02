@@ -121,4 +121,14 @@ class Components_Helper_Root
     {
         return $this->_base;
     }
+
+    /**
+     * Return the root position of the repository.
+     *
+     * @return string The root path.
+     */
+    public function getRoot()
+    {
+        return $this->_root_path;
+    }
 }

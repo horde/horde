@@ -1,1 +1,5 @@
+# Comment
+
 IGNORE.txt
+/simple/ignore/
+!/simple/ignore/test2

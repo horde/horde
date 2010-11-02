@@ -57,7 +57,7 @@ class Components_Pear_Package_Contents_Factory
             $package->_options['packagedirectory'],
             new Components_Pear_Package_Contents_Ignore(
                 $root->getGitIgnore(),
-                $root->getBase()
+                $root->getRoot()
             )
         );
     }

@@ -358,6 +358,18 @@ extends PHPUnit_Extensions_Story_TestCase
                 $world['output']
             );
             break;
+        case 'the new package.xml of the Horde component will not contain the file':
+            $this->assertNotRegExp(
+                '#' . $arguments[0] . '#',
+                $world['output']
+            );
+            break;
+        case 'the new package.xml of the Horde component will contain the file':
+            $this->assertRegExp(
+                '#' . $arguments[0] . '#',
+                $world['output']
+            );
+            break;
         case 'a new package.xml will be created.':
             $this->assertTrue(
                 file_exists($this->_temp_dir . DIRECTORY_SEPARATOR . 'package.xml')

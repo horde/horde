@@ -44,14 +44,21 @@ class Components_Pear_Package_Contents_Ignore
     private $_include = array();
 
     /**
+     * The root position of the repository.
+     *
+     * @var string
+     */
+    private $_root;
+
+    /**
      * Constructor.
      *
      * @param string $gitignore The gitignore information
-     * @param string $base      An optional base for the files that should be checked.
+     * @param string $root      The root position for the files that should be checked.
      */
-    public function __construct($gitignore, $base = '')
+    public function __construct($gitignore, $root)
     {
-        $this->_base = $base;
+        $this->_root = $root;
         $this->_prepare($gitignore);
     }
 
@@ -76,12 +83,9 @@ class Components_Pear_Package_Contents_Ignore
             return !$return;
         }
 
-        if ($this->_matches($this->_ignore, $this->_base . $path)
-            && !$this->_matches($this->_include, $this->_base . $path)) {
-            return $return;
-        }
-        if ($this->_matches($this->_ignore, $file)
-            && !$this->_matches($this->_include, $file)) {
+        $rooted_path = substr($path, strlen($this->_root));
+        if ($this->_matches($this->_ignore, $rooted_path)
+            && !$this->_matches($this->_include, $rooted_path)) {
             return $return;
         }
         return !$return;
@@ -90,7 +94,7 @@ class Components_Pear_Package_Contents_Ignore
     private function _matches($matches, $path)
     {
         foreach ($matches as $match) {
-            preg_match('/^' . strtoupper($match).'$/', strtoupper($path), $find);
+            preg_match('/' . $match.'/', $path, $find);
             if (count($find)) {
                 return true;
             }
@@ -109,11 +113,11 @@ class Components_Pear_Package_Contents_Ignore
     {
         foreach (split("\n", $gitignore) as $line) {
             $line = strtr($line, ' ', '');
-            if (empty($line) || strpos($line, '#') == 1) {
+            if (empty($line) || strpos($line, '#') === 0) {
                 continue;
             }
-            if (strpos($line, '!') == 1) {
-                $this->_include[] = $this->_getRegExpableSearchString($line);
+            if (strpos($line, '!') === 0) {
+                $this->_include[] = $this->_getRegExpableSearchString(substr($line, 1));
             } else {
                 $this->_ignore[] = $this->_getRegExpableSearchString($line);
             }
@@ -130,20 +134,21 @@ class Components_Pear_Package_Contents_Ignore
      */
     private function _getRegExpableSearchString($s)
     {
-        $y = '\/';
-        if (DIRECTORY_SEPARATOR == '\\') {
-            $y = '\\\\';
+        if ($s[0] == DIRECTORY_SEPARATOR) {
+            $pre = '^';
+        } else {
+            $pre = '.*';
         }
 
-        $s = str_replace('/', DIRECTORY_SEPARATOR, $s);
-        $x = strtr($s, array('?' => '.', '*' => '.*', '.' => '\\.', '\\' => '\\\\', '/' => '\\/',
-                             '[' => '\\[', ']' => '\\]', '-' => '\\-'));
+        $x = strtr($s, array('?' => '.', '*' => '[^\/]*', '.' => '\\.', '\\' => '\\\\',
+                             '/' => '\\/', '-' => '\\-'));
 
-        if (strpos($s, DIRECTORY_SEPARATOR) !== false &&
-              strrpos($s, DIRECTORY_SEPARATOR) === strlen($s) - 1) {
-            $x = "(?:.*$y$x?.*|$x.*)";
+        if (substr($s, strlen($s) - 1) == DIRECTORY_SEPARATOR) {
+            $post = '.*';
+        } else {
+            $post = '$';
         }
 
-        return $x;
+        return $pre . $x . $post;
     }
 }
