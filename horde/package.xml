@@ -1,0 +1,2483 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+ <name>horde</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde Application Framework</summary>
+ <description>The Horde Application Framework is a modular, general-purpose web application
+framework written in PHP.  It provides an extensive array of classes that are
+targeted at the common problems and tasks involved in developing modern web
+applications.</description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2010-11-02</date>
+ <time>21:51:07</time>
+ <version>
+  <release>4.0.0</release>
+  <api>4.0.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>
+* Initial package.xml.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="admin">
+    <dir name="locale">
+     <dir name="de">
+      <file name="help.xml" role="horde" />
+     </dir> <!-- /admin/locale/de -->
+     <dir name="en">
+      <file name="help.xml" role="horde" />
+     </dir> <!-- /admin/locale/en -->
+     <dir name="eu">
+      <file name="help.xml" role="horde" />
+     </dir> <!-- /admin/locale/eu -->
+     <dir name="fi">
+      <file name="help.xml" role="horde" />
+     </dir> <!-- /admin/locale/fi -->
+     <dir name="hr">
+      <file name="help.xml" role="horde" />
+     </dir> <!-- /admin/locale/hr -->
+     <dir name="hu">
+      <file name="help.xml" role="horde" />
+     </dir> <!-- /admin/locale/hu -->
+    </dir> <!-- /admin/locale -->
+    <dir name="perms">
+     <file name="addchild.php" role="horde" />
+     <file name="delete.php" role="horde" />
+     <file name="edit.php" role="horde" />
+     <file name="index.php" role="horde" />
+    </dir> <!-- /admin/perms -->
+    <file name="activesync.php" role="horde" />
+    <file name="alarms.php" role="horde" />
+    <file name="cmdshell.php" role="horde" />
+    <file name="datatree.php" role="horde" />
+    <file name="groups.php" role="horde" />
+    <file name="index.html" role="horde" />
+    <file name="phpshell.php" role="horde" />
+    <file name="sessions.php" role="horde" />
+    <file name="signup_confirm.php" role="horde" />
+    <file name="sqlshell.php" role="horde" />
+    <file name="user.php" role="horde" />
+   </dir> <!-- /admin -->
+   <dir name="bin">
+    <file name="active_sessions" role="script" />
+    <file name="alarms" role="script" />
+    <file name="crond" role="script" />
+    <file name="db_migrate" role="script" />
+    <file name="memcache_stats" role="script" />
+    <file name="run_task" role="script" />
+    <file name="translation" role="script" />
+   </dir> <!-- /bin -->
+   <dir name="config">
+    <dir name="registry.d">
+     <file name="README" role="horde" />
+    </dir> <!-- /config/registry.d -->
+    <file name="conf.php.dist" role="horde" />
+    <file name="conf.xml" role="horde" />
+    <file name="hooks.php.dist" role="horde" />
+    <file name="mime_drivers.php.dist" role="horde" />
+    <file name="motd.php.dist" role="horde" />
+    <file name="nls.php" role="horde" />
+    <file name="prefs.php.dist" role="horde" />
+    <file name="registry.php.dist" role="horde" />
+    <file name="spelling.php.dist" role="horde" />
+   </dir> <!-- /config -->
+   <dir name="docs">
+    <file name="CHANGES" role="data" />
+    <file name="CODING_STANDARDS" role="data" />
+    <file name="CODING_STANDARDS.H3" role="doc" />
+    <file name="CONTRIBUTING" role="data" />
+    <file name="CREDITS" role="data" />
+    <file name="INSTALL" role="data" />
+    <file name="LICENSES" role="data" />
+    <file name="lighttpd-horde.conf" role="doc" />
+    <file name="PERFORMANCE" role="data" />
+    <file name="RELEASE" role="data" />
+    <file name="RELEASE_NOTES" role="data" />
+    <file name="SECURITY" role="data" />
+    <file name="TRANSLATIONS" role="data" />
+    <file name="UPGRADING" role="data" />
+   </dir> <!-- /docs -->
+   <dir name="js">
+    <dir name="date">
+     <file name="ar-SY.js" role="horde" />
+     <file name="bg-BG.js" role="horde" />
+     <file name="bs-BA.js" role="horde" />
+     <file name="ca-ES.js" role="horde" />
+     <file name="cs-CZ.js" role="horde" />
+     <file name="da-DK.js" role="horde" />
+     <file name="date.js" role="horde" />
+     <file name="de-DE.js" role="horde" />
+     <file name="el-GR.js" role="horde" />
+     <file name="en-US.js" role="horde" />
+     <file name="es-ES.js" role="horde" />
+     <file name="et-EE.js" role="horde" />
+     <file name="eu-ES.js" role="horde" />
+     <file name="extras.js" role="horde" />
+     <file name="fa-IR.js" role="horde" />
+     <file name="fi-FI.js" role="horde" />
+     <file name="fr-FR.js" role="horde" />
+     <file name="gl-ES.js" role="horde" />
+     <file name="he-IL.js" role="horde" />
+     <file name="hu-HU.js" role="horde" />
+     <file name="id-ID.js" role="horde" />
+     <file name="is-IS.js" role="horde" />
+     <file name="it-IT.js" role="horde" />
+     <file name="ja-JP.js" role="horde" />
+     <file name="ko-KR.js" role="horde" />
+     <file name="lt-LT.js" role="horde" />
+     <file name="lv-LV.js" role="horde" />
+     <file name="mk-MK.js" role="horde" />
+     <file name="nb-NO.js" role="horde" />
+     <file name="nl-NL.js" role="horde" />
+     <file name="nn-NO.js" role="horde" />
+     <file name="pl-PL.js" role="horde" />
+     <file name="pt-BR.js" role="horde" />
+     <file name="pt-PT.js" role="horde" />
+     <file name="ro-RO.js" role="horde" />
+     <file name="ru-RU.js" role="horde" />
+     <file name="sk-SK.js" role="horde" />
+     <file name="sl-SI.js" role="horde" />
+     <file name="sv-SE.js" role="horde" />
+     <file name="time.js" role="horde" />
+     <file name="tr-TR.js" role="horde" />
+     <file name="uk-UA.js" role="horde" />
+     <file name="zh-CN.js" role="horde" />
+     <file name="zh-TW.js" role="horde" />
+    </dir> <!-- /js/date -->
+    <dir name="hordemap">
+     <dir name="img">
+      <file name="blank.gif" role="horde" />
+      <file name="cloud-popup-relative.png" role="horde" />
+      <file name="drag-rectangle-off.png" role="horde" />
+      <file name="drag-rectangle-on.png" role="horde" />
+      <file name="east-mini.png" role="horde" />
+      <file name="layer-switcher-maximize.png" role="horde" />
+      <file name="layer-switcher-minimize.png" role="horde" />
+      <file name="measuring-stick-off.png" role="horde" />
+      <file name="measuring-stick-on.png" role="horde" />
+      <file name="north-mini.png" role="horde" />
+      <file name="panning-hand-off.png" role="horde" />
+      <file name="panning-hand-on.png" role="horde" />
+      <file name="slider.png" role="horde" />
+      <file name="south-mini.png" role="horde" />
+      <file name="west-mini.png" role="horde" />
+      <file name="zoom-minus-mini.png" role="horde" />
+      <file name="zoom-plus-mini.png" role="horde" />
+      <file name="zoom-world-mini.png" role="horde" />
+      <file name="zoombar.png" role="horde" />
+     </dir> <!-- /js/hordemap/img -->
+     <dir name="lang">
+      <file name="ar_SY.js" role="horde" />
+      <file name="bg_BG.js" role="horde" />
+      <file name="ca_ES.js" role="horde" />
+      <file name="cs_CZ.js" role="horde" />
+      <file name="da_DK.js" role="horde" />
+      <file name="de_DE.js" role="horde" />
+      <file name="el_GR.js" role="horde" />
+      <file name="en_CA.js" role="horde" />
+      <file name="es_ES.js" role="horde" />
+      <file name="fi_FI.js" role="horde" />
+      <file name="fr_FR.js" role="horde" />
+      <file name="gl_ES.js" role="horde" />
+      <file name="hu_HU.js" role="horde" />
+      <file name="id_ID.js" role="horde" />
+      <file name="is_IS.js" role="horde" />
+      <file name="it_IT.js" role="horde" />
+      <file name="ja_JP.js" role="horde" />
+      <file name="km_KH.js" role="horde" />
+      <file name="nl_NL.js" role="horde" />
+      <file name="nn_NO.js" role="horde" />
+      <file name="pt_BR.js" role="horde" />
+      <file name="pt_PT.js" role="horde" />
+      <file name="ru_RU.js" role="horde" />
+      <file name="sk_SK.js" role="horde" />
+      <file name="sv_SE.js" role="horde" />
+      <file name="zh_CN.js" role="horde" />
+      <file name="zh_TW.js" role="horde" />
+     </dir> <!-- /js/hordemap/lang -->
+     <dir name="theme">
+      <dir name="default">
+       <dir name="img">
+        <file name="add_point_off.png" role="horde" />
+        <file name="add_point_on.png" role="horde" />
+        <file name="blank.gif" role="horde" />
+        <file name="close.gif" role="horde" />
+        <file name="drag-rectangle-off.png" role="horde" />
+        <file name="drag-rectangle-on.png" role="horde" />
+        <file name="draw_line_off.png" role="horde" />
+        <file name="draw_line_on.png" role="horde" />
+        <file name="draw_point_off.png" role="horde" />
+        <file name="draw_point_on.png" role="horde" />
+        <file name="draw_polygon_off.png" role="horde" />
+        <file name="draw_polygon_on.png" role="horde" />
+        <file name="editing_tool_bar.png" role="horde" />
+        <file name="move_feature_off.png" role="horde" />
+        <file name="move_feature_on.png" role="horde" />
+        <file name="navigation_history.png" role="horde" />
+        <file name="overview_replacement.gif" role="horde" />
+        <file name="pan-panel-NOALPHA.png" role="horde" />
+        <file name="pan-panel.png" role="horde" />
+        <file name="panning-hand-off.png" role="horde" />
+        <file name="panning-hand-on.png" role="horde" />
+        <file name="pan_off.png" role="horde" />
+        <file name="pan_on.png" role="horde" />
+        <file name="remove_point_off.png" role="horde" />
+        <file name="remove_point_on.png" role="horde" />
+        <file name="ruler.png" role="horde" />
+        <file name="save_features_off.png" role="horde" />
+        <file name="save_features_on.png" role="horde" />
+        <file name="view_next_off.png" role="horde" />
+        <file name="view_next_on.png" role="horde" />
+        <file name="view_previous_off.png" role="horde" />
+        <file name="view_previous_on.png" role="horde" />
+        <file name="zoom-panel-NOALPHA.png" role="horde" />
+        <file name="zoom-panel.png" role="horde" />
+       </dir> <!-- /js/hordemap/theme/default/img -->
+       <file name="framedCloud.css" role="horde" />
+       <file name="google.css" role="horde" />
+       <file name="ie6-style.css" role="horde" />
+       <file name="style.css" role="horde" />
+      </dir> <!-- /js/hordemap/theme/default -->
+     </dir> <!-- /js/hordemap/theme -->
+     <file name="cloudmade.js" role="horde" />
+     <file name="google.js" role="horde" />
+     <file name="horde.js" role="horde" />
+     <file name="map.js" role="horde" />
+     <file name="null.js" role="horde" />
+     <file name="OpenLayers-debug.js" role="horde" />
+     <file name="OpenLayers.js" role="horde" />
+     <file name="public.js" role="horde" />
+     <file name="ve.js" role="horde" />
+     <file name="yahoo.js" role="horde" />
+    </dir> <!-- /js/hordemap -->
+    <dir name="plupload">
+     <dir name="i18n">
+      <file name="da.js" role="horde" />
+      <file name="sv.js" role="horde" />
+     </dir> <!-- /js/plupload/i18n -->
+     <file name="jquery.plupload.queue.js" role="horde" />
+     <file name="plupload.browserplus.js" role="horde" />
+     <file name="plupload.flash.js" role="horde" />
+     <file name="plupload.flash.swf" role="horde" />
+     <file name="plupload.gears.js" role="horde" />
+     <file name="plupload.html4.js" role="horde" />
+     <file name="plupload.html5.js" role="horde" />
+     <file name="plupload.js" role="horde" />
+     <file name="plupload.silverlight.js" role="horde" />
+     <file name="plupload.silverlight.xap" role="horde" />
+     <file name="uploader.js" role="horde" />
+    </dir> <!-- /js/plupload -->
+    <file name="accesskeys.js" role="horde" />
+    <file name="activesyncadmin.js" role="horde" />
+    <file name="activesyncprefs.js" role="horde" />
+    <file name="builder.js" role="horde" />
+    <file name="categoryprefs.js" role="horde" />
+    <file name="colorpicker.js" role="horde" />
+    <file name="contextsensitive.js" role="horde" />
+    <file name="controls.js" role="horde" />
+    <file name="dragdrop.js" role="horde" />
+    <file name="dragdrop2.js" role="horde" />
+    <file name="effects.js" role="horde" />
+    <file name="facebookclient.js" role="horde" />
+    <file name="form_assign.js" role="horde" />
+    <file name="form_helpers.js" role="horde" />
+    <file name="form_sections.js" role="horde" />
+    <file name="growler.js" role="horde" />
+    <file name="horde.js" role="horde" />
+    <file name="ieescguard.js" role="horde" />
+    <file name="image.js" role="horde" />
+    <file name="inplaceeditor.js" role="horde" />
+    <file name="keynavlist.js" role="horde" />
+    <file name="login.js" role="horde" />
+    <file name="logintasks.js" role="horde" />
+    <file name="md5.js" role="horde" />
+    <file name="popup.js" role="horde" />
+    <file name="prototype.js" role="horde" />
+    <file name="quickfinder.js" role="horde" />
+    <file name="redbox.js" role="horde" />
+    <file name="rpcprefs.js" role="horde" />
+    <file name="scriptaculous.js" role="horde" />
+    <file name="sidebar.js" role="horde" />
+    <file name="slider.js" role="horde" />
+    <file name="slider2.js" role="horde" />
+    <file name="sorter.js" role="horde" />
+    <file name="sound.js" role="horde" />
+    <file name="stripe.js" role="horde" />
+    <file name="syncmlprefs.js" role="horde" />
+    <file name="tables.js" role="horde" />
+    <file name="textarearesize.js" role="horde" />
+    <file name="twitterclient.js" role="horde" />
+    <file name="userupdate.js" role="horde" />
+   </dir> <!-- /js -->
+   <dir name="lib">
+    <dir name="Ajax">
+     <file name="Application.php" role="horde" />
+    </dir> <!-- /lib/Ajax -->
+    <dir name="Block">
+     <file name="account.php" role="horde" />
+     <file name="cloud.php" role="horde" />
+     <file name="fb_stream.php" role="horde" />
+     <file name="feed.php" role="horde" />
+     <file name="fortune.php" role="horde" />
+     <file name="google.php" role="horde" />
+     <file name="iframe.php" role="horde" />
+     <file name="metar.php" role="horde" />
+     <file name="moon.php" role="horde" />
+     <file name="sunrise.php" role="horde" />
+     <file name="time.php" role="horde" />
+     <file name="twitter_timeline.php" role="horde" />
+     <file name="vatid.php" role="horde" />
+     <file name="weatherdotcom.php" role="horde" />
+     <file name="weatherdotcom_strings.php" role="horde" />
+    </dir> <!-- /lib/Block -->
+    <dir name="LoginTasks">
+     <dir name="SystemTask">
+      <file name="GarbageCollection.php" role="horde" />
+      <file name="UpgradeFromHorde3.php" role="horde" />
+     </dir> <!-- /lib/LoginTasks/SystemTask -->
+     <dir name="Task">
+      <file name="LastLogin.php" role="horde" />
+      <file name="TestScriptActive.php" role="horde" />
+      <file name="TosAgreement.php" role="horde" />
+     </dir> <!-- /lib/LoginTasks/Task -->
+    </dir> <!-- /lib/LoginTasks -->
+    <dir name="Prefs">
+     <file name="Ui.php" role="horde" />
+    </dir> <!-- /lib/Prefs -->
+    <dir name="tests">
+     <file name="webroot.phpt" role="php" />
+    </dir> <!-- /lib/tests -->
+    <file name="Api.php" role="horde" />
+    <file name="Application.php" role="horde" />
+    <file name="core.php" role="horde" />
+    <file name="Test.php" role="horde" />
+   </dir> <!-- /lib -->
+   <dir name="locale">
+    <dir name="ar">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/ar/LC_MESSAGES -->
+    </dir> <!-- /locale/ar -->
+    <dir name="bg">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/bg/LC_MESSAGES -->
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/bg -->
+    <dir name="bs">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/bs/LC_MESSAGES -->
+    </dir> <!-- /locale/bs -->
+    <dir name="ca">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/ca/LC_MESSAGES -->
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/ca -->
+    <dir name="cs">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/cs/LC_MESSAGES -->
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/cs -->
+    <dir name="da">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/da/LC_MESSAGES -->
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/da -->
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/de -->
+    <dir name="el">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/el/LC_MESSAGES -->
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/el -->
+    <dir name="en">
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/en -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/es -->
+    <dir name="et">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/et/LC_MESSAGES -->
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/et -->
+    <dir name="eu">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/eu/LC_MESSAGES -->
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/eu -->
+    <dir name="fa">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/fa/LC_MESSAGES -->
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/fa -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/fi -->
+    <dir name="fr">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/fr/LC_MESSAGES -->
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/fr -->
+    <dir name="gl">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/gl/LC_MESSAGES -->
+    </dir> <!-- /locale/gl -->
+    <dir name="he">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/he/LC_MESSAGES -->
+    </dir> <!-- /locale/he -->
+    <dir name="hr">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/hr/LC_MESSAGES -->
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/hr -->
+    <dir name="hu">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/hu/LC_MESSAGES -->
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/hu -->
+    <dir name="id">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/id/LC_MESSAGES -->
+    </dir> <!-- /locale/id -->
+    <dir name="is">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/is/LC_MESSAGES -->
+    </dir> <!-- /locale/is -->
+    <dir name="it">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/it/LC_MESSAGES -->
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/it -->
+    <dir name="ja">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/ja/LC_MESSAGES -->
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/ja -->
+    <dir name="km">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/km/LC_MESSAGES -->
+    </dir> <!-- /locale/km -->
+    <dir name="ko">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/ko/LC_MESSAGES -->
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/ko -->
+    <dir name="lt">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/lt/LC_MESSAGES -->
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/lt -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+    </dir> <!-- /locale/lv -->
+    <dir name="mk">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/mk/LC_MESSAGES -->
+    </dir> <!-- /locale/mk -->
+    <dir name="nb">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/nb/LC_MESSAGES -->
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/nb -->
+    <dir name="nl">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/nl/LC_MESSAGES -->
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/nl -->
+    <dir name="nn">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/nn/LC_MESSAGES -->
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/nn -->
+    <dir name="pl">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/pl/LC_MESSAGES -->
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/pl -->
+    <dir name="pt">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/pt/LC_MESSAGES -->
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/pt -->
+    <dir name="pt_BR">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/pt_BR/LC_MESSAGES -->
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/pt_BR -->
+    <dir name="ro">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/ro/LC_MESSAGES -->
+    </dir> <!-- /locale/ro -->
+    <dir name="ru">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/ru/LC_MESSAGES -->
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/ru -->
+    <dir name="sk">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/sk/LC_MESSAGES -->
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/sk -->
+    <dir name="sl">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/sl/LC_MESSAGES -->
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/sl -->
+    <dir name="sv">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/sv/LC_MESSAGES -->
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/sv -->
+    <dir name="tr">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/tr/LC_MESSAGES -->
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/tr -->
+    <dir name="uk">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/uk/LC_MESSAGES -->
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/uk -->
+    <dir name="zh_CN">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/zh_CN/LC_MESSAGES -->
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/zh_CN -->
+    <dir name="zh_TW">
+     <dir name="LC_MESSAGES">
+      <file name="horde.mo" role="data" />
+      <file name="horde.po" role="data" />
+     </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
+     <file name="help.xml" role="data" />
+    </dir> <!-- /locale/zh_TW -->
+    <file name="compendium.po.tmp" role="data" />
+    <file name="horde.pot" role="data" />
+   </dir> <!-- /locale -->
+   <dir name="rpc">
+    <file name="index.php" role="php" />
+   </dir> <!-- /rpc -->
+   <dir name="scripts">
+    <dir name="ldap">
+     <file name="horde.ldif" role="data" />
+     <file name="horde.prefs.acl" role="data" />
+     <file name="horde.schema" role="data" />
+     <file name="rfc2739.ldif" role="data" />
+     <file name="rfc2739.schema" role="data" />
+    </dir> <!-- /scripts/ldap -->
+    <dir name="sql">
+     <file name="create.mssql.sql" role="data" />
+     <file name="create.mysql.sql" role="data" />
+     <file name="create.oci8.sql" role="data" />
+     <file name="create.pgsql.sql" role="data" />
+     <file name="create.sql" role="data" />
+     <file name="create.sybase.sql" role="data" />
+     <file name="create.xml" role="data" />
+     <file name="horde_activesync.mssql.sql" role="data" />
+     <file name="horde_activesync.mysql.sql" role="data" />
+     <file name="horde_activesync.oci8.sql" role="data" />
+     <file name="horde_activesync.pgsql.sql" role="data" />
+     <file name="horde_activesync.sql" role="data" />
+     <file name="horde_alarms.mssql.sql" role="data" />
+     <file name="horde_alarms.oci8.sql" role="data" />
+     <file name="horde_alarms.pgsql.sql" role="data" />
+     <file name="horde_alarms.sql" role="data" />
+     <file name="horde_cache.pgsql.sql" role="data" />
+     <file name="horde_cache.sql" role="data" />
+     <file name="horde_datatree.mssql.sql" role="data" />
+     <file name="horde_datatree.mysql.sql" role="data" />
+     <file name="horde_datatree.pgsql.sql" role="data" />
+     <file name="horde_datatree.sql" role="data" />
+     <file name="horde_groups.mysql.sql" role="data" />
+     <file name="horde_groups.oci8.sql" role="data" />
+     <file name="horde_groups.pgsql.sql" role="data" />
+     <file name="horde_groups.sql" role="data" />
+     <file name="horde_histories.mssql.sql" role="data" />
+     <file name="horde_histories.sql" role="data" />
+     <file name="horde_locks.sql" role="data" />
+     <file name="horde_log.mssql.sql" role="data" />
+     <file name="horde_log.sql" role="data" />
+     <file name="horde_muvfs.mssql.sql" role="data" />
+     <file name="horde_muvfs.sql" role="data" />
+     <file name="horde_perms.mysql.sql" role="data" />
+     <file name="horde_perms.oci8.sql" role="data" />
+     <file name="horde_perms.pgsql.sql" role="data" />
+     <file name="horde_perms.sql" role="data" />
+     <file name="horde_prefs.mssql.sql" role="data" />
+     <file name="horde_prefs.pgsql.sql" role="data" />
+     <file name="horde_prefs.sql" role="data" />
+     <file name="horde_sessionhandler.mssql.sql" role="data" />
+     <file name="horde_sessionhandler.mysql.sql" role="data" />
+     <file name="horde_sessionhandler.oci8.sql" role="data" />
+     <file name="horde_sessionhandler.pgsql.sql" role="data" />
+     <file name="horde_sessionhandler.sql" role="data" />
+     <file name="horde_signups.mysql.sql" role="data" />
+     <file name="horde_signups.sql" role="data" />
+     <file name="horde_syncml.sql" role="data" />
+     <file name="horde_tokens.sql" role="data" />
+     <file name="horde_users.sql" role="data" />
+     <file name="horde_vfs.mssql.sql" role="data" />
+     <file name="horde_vfs.oci8.sql" role="data" />
+     <file name="horde_vfs.pgsql.sql" role="data" />
+     <file name="horde_vfs.sql" role="data" />
+     <file name="README" role="data" />
+     <file name="README.OCI8" role="data" />
+     <file name="script.initial_horde_user.sql" role="data" />
+    </dir> <!-- /scripts/sql -->
+    <dir name="upgrades">
+     <file name="2.2_to_3.0.mysql.sql" role="data" />
+     <file name="2.2_to_3.0.oci8.sql" role="data" />
+     <file name="2.2_to_3.0.pgsql.sql" role="data" />
+     <file name="3.1_to_3.2.mssql.sql" role="data" />
+     <file name="3.1_to_3.2.mysql.sql" role="data" />
+     <file name="3.1_to_3.2.oci8.sql" role="data" />
+     <file name="3.1_to_3.2.pgsql.sql" role="data" />
+     <file name="3.1_to_3.2.sql" role="data" />
+     <file name="3.1_to_3.2.sybase.sql" role="data" />
+     <file name="3.3_to_3.3.5.sql" role="data" />
+     <file name="3.0_to_3.1.mysql.sql" role="data" />
+     <file name="3.0_to_3.1.oci8.sql" role="data" />
+     <file name="3.0_to_3.1.sql" role="data" />
+     <file name="2005-09-22_horde_prefs_varchar2.oci8.sql" role="data" />
+     <file name="2006-06-29_horde_prefs_indexes.sql" role="data" />
+     <file name="2007-02-21_horde_alarms_primary.sql" role="data" />
+     <file name="2007-04-25_horde_alarms_drop_primary.sql" role="data" />
+     <file name="2007-05-24_horde_alarms_add_dismissed.sql" role="data" />
+     <file name="2008-04-04_horde_syncml_map_split_indexes.pgsql.sql" role="data" />
+     <file name="2008-04-04_horde_syncml_map_split_indexes.sql" role="data" />
+     <file name="2008-04-09_horde_syncml_map.php" role="data" />
+     <file name="2008-04-09_horde_syncml_map.sql" role="data" />
+     <file name="2008-04-23-horde_cache_expiry.sql" role="data" />
+     <file name="2008-05-15-horde_lock_schema.sql" role="data" />
+     <file name="2008-05-16_horde_lock_uuid.sql" role="data" />
+     <file name="2008-08-29_fix_mdb2_sequences.php" role="data" />
+     <file name="2009-02-13_horde_sessionhandler_lastmodified_index.sql" role="data" />
+     <file name="2009-04-13_horde_pgsql_upgrade.sql" role="data" />
+     <file name="2009-09-10_horde_signup_drop_email.sql" role="data" />
+     <file name="2010-05-11_horde_activesync_adduserkey.sql" role="data" />
+     <file name="2010-05-24_horde_perms_autoincrement.mysql.sql" role="data" />
+     <file name="2010-05-24_horde_perms_autoincrement.oci8.sql" role="data" />
+     <file name="2010-05-24_horde_perms_autoincrement.pgsql.sql" role="data" />
+     <file name="2010-06-01_horde_groups_autoincrement.mysql.sql" role="data" />
+     <file name="2010-06-01_horde_groups_autoincrement.oci8.sql" role="data" />
+     <file name="2010-06-01_horde_groups_autoincrement.pgsql.sql" role="data" />
+     <file name="2010-06-22_activesync_fix_syncdata_type.mysql.sql" role="data" />
+     <file name="convert_datatree_groups_to_sql.php" role="data" />
+     <file name="convert_datatree_perms_to_sql.php" role="data" />
+     <file name="migrate_user_categories.php" role="data" />
+     <file name="move_history_out_of_datatree.php" role="data" />
+    </dir> <!-- /scripts/upgrades -->
+    <file name="cookie_login.php" role="data" />
+    <file name="get_login.php" role="data" />
+    <file name="horde.logrotate" role="data" />
+    <file name="http_login_refer.php" role="data" />
+    <file name="import_squirrelmail_file_prefs.php" role="data" />
+    <file name="import_squirrelmail_prefs.php" role="data" />
+    <file name="import_squirrelmail_sql_prefs.php" role="data" />
+    <file name="SCRIPTS" role="data" />
+    <file name="set_perms.sh" role="data" />
+    <file name="temp-cleanup.cron" role="data" />
+   </dir> <!-- /scripts -->
+   <dir name="services">
+    <dir name="download">
+     <file name="index.php" role="horde" />
+    </dir> <!-- /services/download -->
+    <dir name="help">
+     <file name="index.php" role="horde" />
+    </dir> <!-- /services/help -->
+    <dir name="images">
+     <file name="pixel.php" role="horde" />
+     <file name="view.php" role="horde" />
+    </dir> <!-- /services/images -->
+    <dir name="obrowser">
+     <file name="index.php" role="horde" />
+    </dir> <!-- /services/obrowser -->
+    <dir name="portal">
+     <file name="cloud_search.php" role="horde" />
+     <file name="edit.php" role="horde" />
+     <file name="index.php" role="horde" />
+     <file name="mobile.php" role="horde" />
+    </dir> <!-- /services/portal -->
+    <dir name="shares">
+     <file name="edit.php" role="horde" />
+    </dir> <!-- /services/shares -->
+    <file name="ajax.php" role="horde" />
+    <file name="cache.php" role="horde" />
+    <file name="cacheview.php" role="horde" />
+    <file name="changepassword.php" role="horde" />
+    <file name="confirm.php" role="horde" />
+    <file name="facebook.php" role="horde" />
+    <file name="go.php" role="horde" />
+    <file name="imple.php" role="horde" />
+    <file name="keyboard.php" role="horde" />
+    <file name="language.php" role="horde" />
+    <file name="logintasks.php" role="horde" />
+    <file name="prefs.php" role="horde" />
+    <file name="problem.php" role="horde" />
+    <file name="resetpassword.php" role="horde" />
+    <file name="sidebar.php" role="horde" />
+    <file name="snooze.php" role="horde" />
+    <file name="twitter.php" role="horde" />
+   </dir> <!-- /services -->
+   <dir name="static">
+    <file name="README" role="data" />
+   </dir> <!-- /static -->
+   <dir name="templates">
+    <dir name="admin">
+     <dir name="alarms">
+      <file name="list.html.php" role="horde" />
+     </dir> <!-- /templates/admin/alarms -->
+     <dir name="config">
+      <file name="config.html" role="horde" />
+      <file name="diff.html" role="horde" />
+      <file name="index.html" role="horde" />
+     </dir> <!-- /templates/admin/config -->
+     <dir name="groups">
+      <file name="addchild.inc" role="horde" />
+      <file name="delete.inc" role="horde" />
+      <file name="edit.inc" role="horde" />
+     </dir> <!-- /templates/admin/groups -->
+     <dir name="user">
+      <file name="add.inc" role="horde" />
+      <file name="approve.inc" role="horde" />
+      <file name="clear.inc" role="horde" />
+      <file name="list.inc" role="horde" />
+      <file name="noadd.inc" role="horde" />
+      <file name="nolist.inc" role="horde" />
+      <file name="remove.inc" role="horde" />
+      <file name="removequeued.inc" role="horde" />
+      <file name="update.inc" role="horde" />
+     </dir> <!-- /templates/admin/user -->
+     <file name="menu.inc" role="horde" />
+    </dir> <!-- /templates/admin -->
+    <dir name="block">
+     <file name="cloud.inc" role="horde" />
+     <file name="facebook_story.html.php" role="horde" />
+     <file name="twitter_tweet.html.php" role="horde" />
+    </dir> <!-- /templates/block -->
+    <dir name="data">
+     <file name="csvinfo.inc" role="horde" />
+     <file name="csvmap.inc" role="horde" />
+     <file name="date.inc" role="horde" />
+     <file name="datemap.inc" role="horde" />
+     <file name="datetime.inc" role="horde" />
+     <file name="time.inc" role="horde" />
+     <file name="tsvinfo.inc" role="horde" />
+    </dir> <!-- /templates/data -->
+    <dir name="help">
+     <file name="index.inc" role="horde" />
+     <file name="menu.inc" role="horde" />
+     <file name="sidebar.inc" role="horde" />
+    </dir> <!-- /templates/help -->
+    <dir name="login">
+     <file name="login.inc" role="horde" />
+     <file name="mobile.inc" role="horde" />
+    </dir> <!-- /templates/login -->
+    <dir name="logintasks">
+     <file name="logintasks.html" role="horde" />
+    </dir> <!-- /templates/logintasks -->
+    <dir name="menu">
+     <file name="menu.inc" role="horde" />
+    </dir> <!-- /templates/menu -->
+    <dir name="portal">
+     <file name="add.inc" role="horde" />
+     <file name="block.inc" role="horde" />
+     <file name="edit.inc" role="horde" />
+     <file name="layout.inc" role="horde" />
+     <file name="mobile.inc" role="horde" />
+    </dir> <!-- /templates/portal -->
+    <dir name="prefs">
+     <file name="activesync.html" role="horde" />
+     <file name="addressbooks.html" role="horde" />
+     <file name="alarm.html" role="horde" />
+     <file name="app.html" role="horde" />
+     <file name="begin.html" role="horde" />
+     <file name="category.html" role="horde" />
+     <file name="checkbox.html" role="horde" />
+     <file name="end.html" role="horde" />
+     <file name="enum.html" role="horde" />
+     <file name="facebook.html" role="horde" />
+     <file name="identityselect.html" role="horde" />
+     <file name="link.html" role="horde" />
+     <file name="multienum.html" role="horde" />
+     <file name="number.html" role="horde" />
+     <file name="overview.html" role="horde" />
+     <file name="password.html" role="horde" />
+     <file name="rawhtml.html" role="horde" />
+     <file name="rpc.html" role="horde" />
+     <file name="source.html" role="horde" />
+     <file name="syncml.html" role="horde" />
+     <file name="text.html" role="horde" />
+     <file name="textarea.html" role="horde" />
+     <file name="twitter.html" role="horde" />
+    </dir> <!-- /templates/prefs -->
+    <dir name="problem">
+     <file name="problem.inc" role="horde" />
+    </dir> <!-- /templates/problem -->
+    <dir name="shares">
+     <file name="edit.inc" role="horde" />
+    </dir> <!-- /templates/shares -->
+    <dir name="sidebar">
+     <file name="sidebar.inc" role="horde" />
+    </dir> <!-- /templates/sidebar -->
+    <dir name="test">
+     <file name="extensions.inc" role="horde" />
+     <file name="footer.inc" role="horde" />
+     <file name="header.inc" role="horde" />
+     <file name="php_version.inc" role="horde" />
+     <file name="version.inc" role="horde" />
+    </dir> <!-- /templates/test -->
+    <file name="common-footer.inc" role="horde" />
+    <file name="common-header.inc" role="horde" />
+   </dir> <!-- /templates -->
+   <dir name="themes">
+    <dir name="azur">
+     <file name="info.php" role="horde" />
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/azur -->
+    <dir name="barbie">
+     <file name="info.php" role="horde" />
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/barbie -->
+    <dir name="bluemoon">
+     <file name="info.php" role="horde" />
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/bluemoon -->
+    <dir name="bluewhite">
+     <file name="info.php" role="horde" />
+     <file name="rtl.css" role="horde" />
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/bluewhite -->
+    <dir name="brown">
+     <dir name="graphics">
+      <file name="button.gif" role="horde" />
+     </dir> <!-- /themes/brown/graphics -->
+     <file name="info.php" role="horde" />
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/brown -->
+    <dir name="burntorange">
+     <file name="info.php" role="horde" />
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/burntorange -->
+    <dir name="camouflage">
+     <dir name="graphics">
+      <file name="menu.png" role="horde" />
+     </dir> <!-- /themes/camouflage/graphics -->
+     <file name="info.php" role="horde" />
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/camouflage -->
+    <dir name="cornflower">
+     <dir name="graphics">
+      <file name="active_tab_left.gif" role="horde" />
+      <file name="active_tab_right.gif" role="horde" />
+      <file name="tab_bottom.gif" role="horde" />
+      <file name="tab_left.gif" role="horde" />
+      <file name="tab_right.gif" role="horde" />
+     </dir> <!-- /themes/cornflower/graphics -->
+     <file name="info.php" role="horde" />
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/cornflower -->
+    <dir name="fadetogreen">
+     <dir name="graphics">
+      <file name="control.png" role="horde" />
+      <file name="header.png" role="horde" />
+      <file name="headerbox.png" role="horde" />
+      <file name="menucurrent.png" role="horde" />
+      <file name="menuhover.png" role="horde" />
+      <file name="message.png" role="horde" />
+      <file name="notice.png" role="horde" />
+      <file name="sidebar.png" role="horde" />
+      <file name="sidebarhover.png" role="horde" />
+     </dir> <!-- /themes/fadetogreen/graphics -->
+     <file name="info.php" role="horde" />
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/fadetogreen -->
+    <dir name="gennevilliers">
+     <file name="info.php" role="horde" />
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/gennevilliers -->
+    <dir name="graphics">
+     <dir name="alerts">
+      <file name="alarm.png" role="horde" />
+      <file name="error.png" role="horde" />
+      <file name="message.png" role="horde" />
+      <file name="success.png" role="horde" />
+      <file name="warning.png" role="horde" />
+     </dir> <!-- /themes/graphics/alerts -->
+     <dir name="avatars">
+      <file name="alien.jpg" role="horde" />
+      <file name="aly.jpg" role="horde" />
+      <file name="angryboy.gif" role="horde" />
+      <file name="ape.jpg" role="horde" />
+      <file name="au.jpg" role="horde" />
+      <file name="baby.gif" role="horde" />
+      <file name="barbarian.jpg" role="horde" />
+      <file name="bart.gif" role="horde" />
+      <file name="batman.gif" role="horde" />
+      <file name="bert.jpg" role="horde" />
+      <file name="bert2.jpg" role="horde" />
+      <file name="bobafett.gif" role="horde" />
+      <file name="boo.jpg" role="horde" />
+      <file name="boyandmower.gif" role="horde" />
+      <file name="boyandpc.gif" role="horde" />
+      <file name="bret.jpg" role="horde" />
+      <file name="bunny.gif" role="horde" />
+      <file name="charlie_brown.gif" role="horde" />
+      <file name="clown.jpg" role="horde" />
+      <file name="cocky.jpg" role="horde" />
+      <file name="devil.gif" role="horde" />
+      <file name="digimon.gif" role="horde" />
+      <file name="dilbert.gif" role="horde" />
+      <file name="dino.gif" role="horde" />
+      <file name="dog.gif" role="horde" />
+      <file name="duck.gif" role="horde" />
+      <file name="einstein.jpg" role="horde" />
+      <file name="elmerfudd.gif" role="horde" />
+      <file name="elmo.jpg" role="horde" />
+      <file name="evil.jpg" role="horde" />
+      <file name="female1.jpg" role="horde" />
+      <file name="female2.jpg" role="horde" />
+      <file name="franc.jpg" role="horde" />
+      <file name="fredflinstone.gif" role="horde" />
+      <file name="garfield.gif" role="horde" />
+      <file name="gopher.gif" role="horde" />
+      <file name="greenhead.gif" role="horde" />
+      <file name="gremlin.jpg" role="horde" />
+      <file name="grover.jpg" role="horde" />
+      <file name="homer.gif" role="horde" />
+      <file name="hump.jpg" role="horde" />
+      <file name="iceskatekid.gif" role="horde" />
+      <file name="jeri.jpg" role="horde" />
+      <file name="kid.gif" role="horde" />
+      <file name="kirk.jpg" role="horde" />
+      <file name="kryton.jpg" role="horde" />
+      <file name="linux.gif" role="horde" />
+      <file name="lisa.gif" role="horde" />
+      <file name="lovebird.gif" role="horde" />
+      <file name="male1.jpg" role="horde" />
+      <file name="male2.jpg" role="horde" />
+      <file name="man.jpg" role="horde" />
+      <file name="marge.gif" role="horde" />
+      <file name="maul.gif" role="horde" />
+      <file name="melon.jpg" role="horde" />
+      <file name="mib.gif" role="horde" />
+      <file name="monkey.jpg" role="horde" />
+      <file name="neo.jpg" role="horde" />
+      <file name="ninja.jpg" role="horde" />
+      <file name="paintingbird.gif" role="horde" />
+      <file name="picard.jpg" role="horde" />
+      <file name="puff.jpg" role="horde" />
+      <file name="redcreature.gif" role="horde" />
+      <file name="rei.jpg" role="horde" />
+      <file name="rei2.jpg" role="horde" />
+      <file name="ryu.gif" role="horde" />
+      <file name="sexy.gif" role="horde" />
+      <file name="smiley.gif" role="horde" />
+      <file name="smurfs.gif" role="horde" />
+      <file name="sonic.gif" role="horde" />
+      <file name="speedy.gif" role="horde" />
+      <file name="stan.jpg" role="horde" />
+      <file name="superman.gif" role="horde" />
+      <file name="sylvester.gif" role="horde" />
+      <file name="thomas.gif" role="horde" />
+      <file name="tigger.gif" role="horde" />
+      <file name="trin.jpg" role="horde" />
+      <file name="us.jpg" role="horde" />
+      <file name="vampire.jpg" role="horde" />
+      <file name="vampire2.jpg" role="horde" />
+      <file name="wacko.gif" role="horde" />
+      <file name="winnie.gif" role="horde" />
+      <file name="wizard.jpg" role="horde" />
+      <file name="wolverine.jpg" role="horde" />
+      <file name="woman.jpg" role="horde" />
+      <file name="woodie.jpg" role="horde" />
+      <file name="xena.gif" role="horde" />
+     </dir> <!-- /themes/graphics/avatars -->
+     <dir name="block">
+      <dir name="moon">
+       <file name="firstquarter.png" role="horde" />
+       <file name="fullmoon.png" role="horde" />
+       <file name="lastquarter.png" role="horde" />
+       <file name="newmoon.png" role="horde" />
+      </dir> <!-- /themes/graphics/block/moon -->
+      <dir name="sunrise">
+       <file name="sunrise.png" role="horde" />
+       <file name="sunset.png" role="horde" />
+      </dir> <!-- /themes/graphics/block/sunrise -->
+      <dir name="weatherdotcom">
+       <dir name="23x23">
+        <file name="0.png" role="horde" />
+        <file name="1.png" role="horde" />
+        <file name="2.png" role="horde" />
+        <file name="3.png" role="horde" />
+        <file name="4.png" role="horde" />
+        <file name="5.png" role="horde" />
+        <file name="6.png" role="horde" />
+        <file name="7.png" role="horde" />
+        <file name="8.png" role="horde" />
+        <file name="9.png" role="horde" />
+        <file name="10.png" role="horde" />
+        <file name="11.png" role="horde" />
+        <file name="12.png" role="horde" />
+        <file name="13.png" role="horde" />
+        <file name="14.png" role="horde" />
+        <file name="15.png" role="horde" />
+        <file name="16.png" role="horde" />
+        <file name="17.png" role="horde" />
+        <file name="18.png" role="horde" />
+        <file name="19.png" role="horde" />
+        <file name="20.png" role="horde" />
+        <file name="21.png" role="horde" />
+        <file name="22.png" role="horde" />
+        <file name="23.png" role="horde" />
+        <file name="24.png" role="horde" />
+        <file name="25.png" role="horde" />
+        <file name="26.png" role="horde" />
+        <file name="27.png" role="horde" />
+        <file name="28.png" role="horde" />
+        <file name="29.png" role="horde" />
+        <file name="30.png" role="horde" />
+        <file name="31.png" role="horde" />
+        <file name="32.png" role="horde" />
+        <file name="33.png" role="horde" />
+        <file name="34.png" role="horde" />
+        <file name="35.png" role="horde" />
+        <file name="36.png" role="horde" />
+        <file name="37.png" role="horde" />
+        <file name="38.png" role="horde" />
+        <file name="39.png" role="horde" />
+        <file name="40.png" role="horde" />
+        <file name="41.png" role="horde" />
+        <file name="42.png" role="horde" />
+        <file name="43.png" role="horde" />
+        <file name="44.png" role="horde" />
+        <file name="45.png" role="horde" />
+        <file name="46.png" role="horde" />
+        <file name="47.png" role="horde" />
+        <file name="na.png" role="horde" />
+       </dir> <!-- /themes/graphics/block/weatherdotcom/23x23 -->
+       <dir name="32x32">
+        <file name="0.png" role="horde" />
+        <file name="1.png" role="horde" />
+        <file name="2.png" role="horde" />
+        <file name="3.png" role="horde" />
+        <file name="4.png" role="horde" />
+        <file name="5.png" role="horde" />
+        <file name="6.png" role="horde" />
+        <file name="7.png" role="horde" />
+        <file name="8.png" role="horde" />
+        <file name="9.png" role="horde" />
+        <file name="10.png" role="horde" />
+        <file name="11.png" role="horde" />
+        <file name="12.png" role="horde" />
+        <file name="13.png" role="horde" />
+        <file name="14.png" role="horde" />
+        <file name="15.png" role="horde" />
+        <file name="16.png" role="horde" />
+        <file name="17.png" role="horde" />
+        <file name="18.png" role="horde" />
+        <file name="19.png" role="horde" />
+        <file name="20.png" role="horde" />
+        <file name="21.png" role="horde" />
+        <file name="22.png" role="horde" />
+        <file name="23.png" role="horde" />
+        <file name="24.png" role="horde" />
+        <file name="25.png" role="horde" />
+        <file name="26.png" role="horde" />
+        <file name="27.png" role="horde" />
+        <file name="28.png" role="horde" />
+        <file name="29.png" role="horde" />
+        <file name="30.png" role="horde" />
+        <file name="31.png" role="horde" />
+        <file name="32.png" role="horde" />
+        <file name="33.png" role="horde" />
+        <file name="34.png" role="horde" />
+        <file name="35.png" role="horde" />
+        <file name="36.png" role="horde" />
+        <file name="37.png" role="horde" />
+        <file name="38.png" role="horde" />
+        <file name="39.png" role="horde" />
+        <file name="40.png" role="horde" />
+        <file name="41.png" role="horde" />
+        <file name="42.png" role="horde" />
+        <file name="43.png" role="horde" />
+        <file name="44.png" role="horde" />
+        <file name="45.png" role="horde" />
+        <file name="46.png" role="horde" />
+        <file name="47.png" role="horde" />
+        <file name="na.png" role="horde" />
+        <file name="TWClogo_32px.png" role="horde" />
+       </dir> <!-- /themes/graphics/block/weatherdotcom/32x32 -->
+      </dir> <!-- /themes/graphics/block/weatherdotcom -->
+      <file name="down.png" role="horde" />
+      <file name="large_down.png" role="horde" />
+      <file name="large_left.png" role="horde" />
+      <file name="large_right.png" role="horde" />
+      <file name="large_up.png" role="horde" />
+      <file name="left.png" role="horde" />
+      <file name="right.png" role="horde" />
+      <file name="up.png" role="horde" />
+     </dir> <!-- /themes/graphics/block -->
+     <dir name="emoticons">
+      <file name="angel.png" role="horde" />
+      <file name="angelwink.png" role="horde" />
+      <file name="angry.png" role="horde" />
+      <file name="annoyed.png" role="horde" />
+      <file name="asleep.png" role="horde" />
+      <file name="bigfrown.png" role="horde" />
+      <file name="biggrin.png" role="horde" />
+      <file name="blush.png" role="horde" />
+      <file name="clown.png" role="horde" />
+      <file name="confused.png" role="horde" />
+      <file name="cool.png" role="horde" />
+      <file name="coolgrin.png" role="horde" />
+      <file name="cooltongue.png" role="horde" />
+      <file name="dazed.png" role="horde" />
+      <file name="devil.png" role="horde" />
+      <file name="deviltongue.png" role="horde" />
+      <file name="disappointed.png" role="horde" />
+      <file name="embarrassed.png" role="horde" />
+      <file name="enraged.png" role="horde" />
+      <file name="frown.png" role="horde" />
+      <file name="frustrated.png" role="horde" />
+      <file name="grin.png" role="horde" />
+      <file name="hangover.png" role="horde" />
+      <file name="hippie.png" role="horde" />
+      <file name="hippiegrin.png" role="horde" />
+      <file name="hippietongue.png" role="horde" />
+      <file name="hurt.png" role="horde" />
+      <file name="indifferent.png" role="horde" />
+      <file name="love.png" role="horde" />
+      <file name="mad.png" role="horde" />
+      <file name="mrt.png" role="horde" />
+      <file name="punk.png" role="horde" />
+      <file name="punkmohawk.png" role="horde" />
+      <file name="punktongue.png" role="horde" />
+      <file name="raspberry.png" role="horde" />
+      <file name="sad.png" role="horde" />
+      <file name="shout.png" role="horde" />
+      <file name="smile.png" role="horde" />
+      <file name="tired.png" role="horde" />
+      <file name="tongueout.png" role="horde" />
+      <file name="vampire.png" role="horde" />
+      <file name="wink.png" role="horde" />
+      <file name="winkgrin.png" role="horde" />
+      <file name="winktongue.png" role="horde" />
+      <file name="winktongueout.png" role="horde" />
+      <file name="worried.png" role="horde" />
+     </dir> <!-- /themes/graphics/emoticons -->
+     <dir name="flags">
+      <file name="ad.png" role="horde" />
+      <file name="ae.png" role="horde" />
+      <file name="af.png" role="horde" />
+      <file name="ag.png" role="horde" />
+      <file name="ai.png" role="horde" />
+      <file name="al.png" role="horde" />
+      <file name="am.png" role="horde" />
+      <file name="an.png" role="horde" />
+      <file name="ao.png" role="horde" />
+      <file name="ar.png" role="horde" />
+      <file name="as.png" role="horde" />
+      <file name="at.png" role="horde" />
+      <file name="au.png" role="horde" />
+      <file name="aw.png" role="horde" />
+      <file name="ax.png" role="horde" />
+      <file name="az.png" role="horde" />
+      <file name="ba.png" role="horde" />
+      <file name="bb.png" role="horde" />
+      <file name="bd.png" role="horde" />
+      <file name="be.png" role="horde" />
+      <file name="bf.png" role="horde" />
+      <file name="bg.png" role="horde" />
+      <file name="bh.png" role="horde" />
+      <file name="bi.png" role="horde" />
+      <file name="bj.png" role="horde" />
+      <file name="bm.png" role="horde" />
+      <file name="bn.png" role="horde" />
+      <file name="bo.png" role="horde" />
+      <file name="br.png" role="horde" />
+      <file name="bs.png" role="horde" />
+      <file name="bt.png" role="horde" />
+      <file name="bv.png" role="horde" />
+      <file name="bw.png" role="horde" />
+      <file name="by.png" role="horde" />
+      <file name="bz.png" role="horde" />
+      <file name="ca.png" role="horde" />
+      <file name="cc.png" role="horde" />
+      <file name="cd.png" role="horde" />
+      <file name="cf.png" role="horde" />
+      <file name="cg.png" role="horde" />
+      <file name="ch.png" role="horde" />
+      <file name="ci.png" role="horde" />
+      <file name="ck.png" role="horde" />
+      <file name="cl.png" role="horde" />
+      <file name="cm.png" role="horde" />
+      <file name="cn.png" role="horde" />
+      <file name="co.png" role="horde" />
+      <file name="cr.png" role="horde" />
+      <file name="cs.png" role="horde" />
+      <file name="cu.png" role="horde" />
+      <file name="cv.png" role="horde" />
+      <file name="cx.png" role="horde" />
+      <file name="cy.png" role="horde" />
+      <file name="cz.png" role="horde" />
+      <file name="de.png" role="horde" />
+      <file name="dj.png" role="horde" />
+      <file name="dk.png" role="horde" />
+      <file name="dm.png" role="horde" />
+      <file name="do.png" role="horde" />
+      <file name="dz.png" role="horde" />
+      <file name="ec.png" role="horde" />
+      <file name="ee.png" role="horde" />
+      <file name="eg.png" role="horde" />
+      <file name="eh.png" role="horde" />
+      <file name="er.png" role="horde" />
+      <file name="es.png" role="horde" />
+      <file name="et.png" role="horde" />
+      <file name="eu.png" role="horde" />
+      <file name="fam.png" role="horde" />
+      <file name="fi.png" role="horde" />
+      <file name="fj.png" role="horde" />
+      <file name="fk.png" role="horde" />
+      <file name="fm.png" role="horde" />
+      <file name="fo.png" role="horde" />
+      <file name="fr.png" role="horde" />
+      <file name="ga.png" role="horde" />
+      <file name="gb.png" role="horde" />
+      <file name="gd.png" role="horde" />
+      <file name="ge.png" role="horde" />
+      <file name="gf.png" role="horde" />
+      <file name="gh.png" role="horde" />
+      <file name="gi.png" role="horde" />
+      <file name="gl.png" role="horde" />
+      <file name="gm.png" role="horde" />
+      <file name="gn.png" role="horde" />
+      <file name="gp.png" role="horde" />
+      <file name="gq.png" role="horde" />
+      <file name="gr.png" role="horde" />
+      <file name="gs.png" role="horde" />
+      <file name="gt.png" role="horde" />
+      <file name="gu.png" role="horde" />
+      <file name="gw.png" role="horde" />
+      <file name="gy.png" role="horde" />
+      <file name="hk.png" role="horde" />
+      <file name="hm.png" role="horde" />
+      <file name="hn.png" role="horde" />
+      <file name="hr.png" role="horde" />
+      <file name="ht.png" role="horde" />
+      <file name="hu.png" role="horde" />
+      <file name="id.png" role="horde" />
+      <file name="ie.png" role="horde" />
+      <file name="il.png" role="horde" />
+      <file name="in.png" role="horde" />
+      <file name="io.png" role="horde" />
+      <file name="iq.png" role="horde" />
+      <file name="ir.png" role="horde" />
+      <file name="is.png" role="horde" />
+      <file name="it.png" role="horde" />
+      <file name="jm.png" role="horde" />
+      <file name="jo.png" role="horde" />
+      <file name="jp.png" role="horde" />
+      <file name="ke.png" role="horde" />
+      <file name="kg.png" role="horde" />
+      <file name="kh.png" role="horde" />
+      <file name="ki.png" role="horde" />
+      <file name="km.png" role="horde" />
+      <file name="kn.png" role="horde" />
+      <file name="kp.png" role="horde" />
+      <file name="kr.png" role="horde" />
+      <file name="kw.png" role="horde" />
+      <file name="ky.png" role="horde" />
+      <file name="kz.png" role="horde" />
+      <file name="la.png" role="horde" />
+      <file name="lb.png" role="horde" />
+      <file name="lc.png" role="horde" />
+      <file name="li.png" role="horde" />
+      <file name="lk.png" role="horde" />
+      <file name="lr.png" role="horde" />
+      <file name="ls.png" role="horde" />
+      <file name="lt.png" role="horde" />
+      <file name="lu.png" role="horde" />
+      <file name="lv.png" role="horde" />
+      <file name="ly.png" role="horde" />
+      <file name="ma.png" role="horde" />
+      <file name="mc.png" role="horde" />
+      <file name="md.png" role="horde" />
+      <file name="me.png" role="horde" />
+      <file name="mg.png" role="horde" />
+      <file name="mh.png" role="horde" />
+      <file name="mk.png" role="horde" />
+      <file name="ml.png" role="horde" />
+      <file name="mm.png" role="horde" />
+      <file name="mn.png" role="horde" />
+      <file name="mo.png" role="horde" />
+      <file name="mp.png" role="horde" />
+      <file name="mq.png" role="horde" />
+      <file name="mr.png" role="horde" />
+      <file name="ms.png" role="horde" />
+      <file name="mt.png" role="horde" />
+      <file name="mu.png" role="horde" />
+      <file name="mv.png" role="horde" />
+      <file name="mw.png" role="horde" />
+      <file name="mx.png" role="horde" />
+      <file name="my.png" role="horde" />
+      <file name="mz.png" role="horde" />
+      <file name="na.png" role="horde" />
+      <file name="nc.png" role="horde" />
+      <file name="ne.png" role="horde" />
+      <file name="nf.png" role="horde" />
+      <file name="ng.png" role="horde" />
+      <file name="ni.png" role="horde" />
+      <file name="nl.png" role="horde" />
+      <file name="no.png" role="horde" />
+      <file name="np.png" role="horde" />
+      <file name="nr.png" role="horde" />
+      <file name="nu.png" role="horde" />
+      <file name="nz.png" role="horde" />
+      <file name="om.png" role="horde" />
+      <file name="pa.png" role="horde" />
+      <file name="pe.png" role="horde" />
+      <file name="pf.png" role="horde" />
+      <file name="pg.png" role="horde" />
+      <file name="ph.png" role="horde" />
+      <file name="pk.png" role="horde" />
+      <file name="pl.png" role="horde" />
+      <file name="pm.png" role="horde" />
+      <file name="pn.png" role="horde" />
+      <file name="pr.png" role="horde" />
+      <file name="ps.png" role="horde" />
+      <file name="pt.png" role="horde" />
+      <file name="pw.png" role="horde" />
+      <file name="py.png" role="horde" />
+      <file name="qa.png" role="horde" />
+      <file name="re.png" role="horde" />
+      <file name="ro.png" role="horde" />
+      <file name="rs.png" role="horde" />
+      <file name="ru.png" role="horde" />
+      <file name="rw.png" role="horde" />
+      <file name="sa.png" role="horde" />
+      <file name="sb.png" role="horde" />
+      <file name="sc.png" role="horde" />
+      <file name="scotland.png" role="horde" />
+      <file name="sd.png" role="horde" />
+      <file name="se.png" role="horde" />
+      <file name="sg.png" role="horde" />
+      <file name="sh.png" role="horde" />
+      <file name="si.png" role="horde" />
+      <file name="sj.png" role="horde" />
+      <file name="sk.png" role="horde" />
+      <file name="sl.png" role="horde" />
+      <file name="sm.png" role="horde" />
+      <file name="sn.png" role="horde" />
+      <file name="so.png" role="horde" />
+      <file name="sr.png" role="horde" />
+      <file name="st.png" role="horde" />
+      <file name="sv.png" role="horde" />
+      <file name="sy.png" role="horde" />
+      <file name="sz.png" role="horde" />
+      <file name="tc.png" role="horde" />
+      <file name="td.png" role="horde" />
+      <file name="tf.png" role="horde" />
+      <file name="tg.png" role="horde" />
+      <file name="th.png" role="horde" />
+      <file name="tj.png" role="horde" />
+      <file name="tk.png" role="horde" />
+      <file name="tl.png" role="horde" />
+      <file name="tm.png" role="horde" />
+      <file name="tn.png" role="horde" />
+      <file name="to.png" role="horde" />
+      <file name="tp.png" role="horde" />
+      <file name="tr.png" role="horde" />
+      <file name="tt.png" role="horde" />
+      <file name="tv.png" role="horde" />
+      <file name="tw.png" role="horde" />
+      <file name="tz.png" role="horde" />
+      <file name="ua.png" role="horde" />
+      <file name="ug.png" role="horde" />
+      <file name="uk.png" role="horde" />
+      <file name="um.png" role="horde" />
+      <file name="us.png" role="horde" />
+      <file name="uy.png" role="horde" />
+      <file name="uz.png" role="horde" />
+      <file name="va.png" role="horde" />
+      <file name="vc.png" role="horde" />
+      <file name="ve.png" role="horde" />
+      <file name="vg.png" role="horde" />
+      <file name="vi.png" role="horde" />
+      <file name="vn.png" role="horde" />
+      <file name="vu.png" role="horde" />
+      <file name="wales.png" role="horde" />
+      <file name="wf.png" role="horde" />
+      <file name="ws.png" role="horde" />
+      <file name="ye.png" role="horde" />
+      <file name="yt.png" role="horde" />
+      <file name="yu.png" role="horde" />
+      <file name="za.png" role="horde" />
+      <file name="zm.png" role="horde" />
+      <file name="zw.png" role="horde" />
+     </dir> <!-- /themes/graphics/flags -->
+     <dir name="image">
+      <file name="crop.png" role="horde" />
+      <file name="flip.png" role="horde" />
+      <file name="grayscale.png" role="horde" />
+      <file name="mirror.png" role="horde" />
+      <file name="ratio.png" role="horde" />
+      <file name="refresh.png" role="horde" />
+      <file name="rotate-90.png" role="horde" />
+      <file name="rotate-180.png" role="horde" />
+      <file name="rotate-270.png" role="horde" />
+     </dir> <!-- /themes/graphics/image -->
+     <dir name="map">
+      <file name="marker-blue.png" role="horde" />
+      <file name="marker-gold.png" role="horde" />
+      <file name="marker-green.png" role="horde" />
+      <file name="marker-shadow.png" role="horde" />
+      <file name="marker.png" role="horde" />
+     </dir> <!-- /themes/graphics/map -->
+     <dir name="mime">
+      <file name="audio.png" role="horde" />
+      <file name="binary.png" role="horde" />
+      <file name="compressed.png" role="horde" />
+      <file name="deb.png" role="horde" />
+      <file name="encryption.png" role="horde" />
+      <file name="html.png" role="horde" />
+      <file name="icalendar.png" role="horde" />
+      <file name="image.png" role="horde" />
+      <file name="mail.png" role="horde" />
+      <file name="msexcel.png" role="horde" />
+      <file name="mspowerpoint.png" role="horde" />
+      <file name="msword.png" role="horde" />
+      <file name="ooo_calc.png" role="horde" />
+      <file name="ooo_draw.png" role="horde" />
+      <file name="ooo_impress.png" role="horde" />
+      <file name="ooo_math.png" role="horde" />
+      <file name="ooo_writer.png" role="horde" />
+      <file name="pdf.png" role="horde" />
+      <file name="php.png" role="horde" />
+      <file name="rpm.png" role="horde" />
+      <file name="script-js.png" role="horde" />
+      <file name="source-c.png" role="horde" />
+      <file name="source-cpp.png" role="horde" />
+      <file name="source-h.png" role="horde" />
+      <file name="source-java.png" role="horde" />
+      <file name="source-python.png" role="horde" />
+      <file name="text.png" role="horde" />
+      <file name="vcard.png" role="horde" />
+      <file name="video.png" role="horde" />
+      <file name="wordperfect.png" role="horde" />
+      <file name="xml.png" role="horde" />
+     </dir> <!-- /themes/graphics/mime -->
+     <dir name="mobile">
+      <file name="bottom.jpg" role="horde" />
+      <file name="display.jpg" role="horde" />
+      <file name="left.jpg" role="horde" />
+      <file name="right.jpg" role="horde" />
+      <file name="top.jpg" role="horde" />
+     </dir> <!-- /themes/graphics/mobile -->
+     <dir name="nav">
+      <file name="bottom-grey.png" role="horde" />
+      <file name="bottom.png" role="horde" />
+      <file name="down-grey.png" role="horde" />
+      <file name="down.png" role="horde" />
+      <file name="first-grey.png" role="horde" />
+      <file name="first.png" role="horde" />
+      <file name="last-grey.png" role="horde" />
+      <file name="last.png" role="horde" />
+      <file name="left-grey.png" role="horde" />
+      <file name="left.png" role="horde" />
+      <file name="right-grey.png" role="horde" />
+      <file name="right.png" role="horde" />
+      <file name="top-grey.png" role="horde" />
+      <file name="top.png" role="horde" />
+      <file name="up-grey.png" role="horde" />
+      <file name="up.png" role="horde" />
+     </dir> <!-- /themes/graphics/nav -->
+     <dir name="tree">
+      <file name="blank.png" role="horde" />
+      <file name="folder.png" role="horde" />
+      <file name="folderopen.png" role="horde" />
+      <file name="join.png" role="horde" />
+      <file name="joinbottom-down.png" role="horde" />
+      <file name="joinbottom.png" role="horde" />
+      <file name="leaf.png" role="horde" />
+      <file name="line.png" role="horde" />
+      <file name="minus.png" role="horde" />
+      <file name="minusbottom.png" role="horde" />
+      <file name="minusonly.png" role="horde" />
+      <file name="minustop.png" role="horde" />
+      <file name="nullonly.png" role="horde" />
+      <file name="plus.png" role="horde" />
+      <file name="plusbottom.png" role="horde" />
+      <file name="plusonly.png" role="horde" />
+      <file name="plustop.png" role="horde" />
+      <file name="rev-join.png" role="horde" />
+      <file name="rev-joinbottom-down.png" role="horde" />
+      <file name="rev-joinbottom.png" role="horde" />
+      <file name="rev-leaf.png" role="horde" />
+      <file name="rev-line.png" role="horde" />
+      <file name="rev-minus.png" role="horde" />
+      <file name="rev-minusbottom.png" role="horde" />
+      <file name="rev-minusonly.png" role="horde" />
+      <file name="rev-minustop.png" role="horde" />
+      <file name="rev-nullonly.png" role="horde" />
+      <file name="rev-plus.png" role="horde" />
+      <file name="rev-plusbottom.png" role="horde" />
+      <file name="rev-plusonly.png" role="horde" />
+      <file name="rev-plustop.png" role="horde" />
+     </dir> <!-- /themes/graphics/tree -->
+     <file name="about.png" role="horde" />
+     <file name="add_group.png" role="horde" />
+     <file name="add_perm.png" role="horde" />
+     <file name="administration.png" role="horde" />
+     <file name="az.png" role="horde" />
+     <file name="blank.gif" role="horde" />
+     <file name="block.png" role="horde" />
+     <file name="calendar.png" role="horde" />
+     <file name="close.png" role="horde" />
+     <file name="color-picker-cursor.gif" role="horde" />
+     <file name="color-picker-palette.png" role="horde" />
+     <file name="color-picker-resize.gif" role="horde" />
+     <file name="colorpicker.png" role="horde" />
+     <file name="colorscale.png" role="horde" />
+     <file name="config.png" role="horde" />
+     <file name="data.png" role="horde" />
+     <file name="datatree.png" role="horde" />
+     <file name="delete-small.png" role="horde" />
+     <file name="delete.png" role="horde" />
+     <file name="devel.png" role="horde" />
+     <file name="download.png" role="horde" />
+     <file name="edit-small.png" role="horde" />
+     <file name="edit.png" role="horde" />
+     <file name="external.png" role="horde" />
+     <file name="favicon.ico" role="horde" />
+     <file name="feed.png" role="horde" />
+     <file name="google.png" role="horde" />
+     <file name="group.png" role="horde" />
+     <file name="help.png" role="horde" />
+     <file name="help_index.png" role="horde" />
+     <file name="hide_panel.png" role="horde" />
+     <file name="horde-power1.png" role="horde" />
+     <file name="horde-power2.png" role="horde" />
+     <file name="horde-power3.png" role="horde" />
+     <file name="horde.png" role="horde" />
+     <file name="info.png" role="horde" />
+     <file name="info_icon.png" role="horde" />
+     <file name="keyboard.png" role="horde" />
+     <file name="layout.png" role="horde" />
+     <file name="lhand.png" role="horde" />
+     <file name="loading.gif" role="horde" />
+     <file name="locked.png" role="horde" />
+     <file name="login.png" role="horde" />
+     <file name="logout.png" role="horde" />
+     <file name="map.png" role="horde" />
+     <file name="map_eu.png" role="horde" />
+     <file name="minus.png" role="horde" />
+     <file name="mobile.png" role="horde" />
+     <file name="myaccount.png" role="horde" />
+     <file name="office.png" role="horde" />
+     <file name="organizing.png" role="horde" />
+     <file name="perms.png" role="horde" />
+     <file name="phone.png" role="horde" />
+     <file name="plus.png" role="horde" />
+     <file name="popright.png" role="horde" />
+     <file name="prefs.png" role="horde" />
+     <file name="print.png" role="horde" />
+     <file name="problem.png" role="horde" />
+     <file name="redbox_spinner.gif" role="horde" />
+     <file name="reload.png" role="horde" />
+     <file name="required.png" role="horde" />
+     <file name="rhand.png" role="horde" />
+     <file name="save.png" role="horde" />
+     <file name="search.png" role="horde" />
+     <file name="shadow.gif" role="horde" />
+     <file name="shadow.png" role="horde" />
+     <file name="shell.png" role="horde" />
+     <file name="show_panel.png" role="horde" />
+     <file name="sql.png" role="horde" />
+     <file name="tab_bottom.gif" role="horde" />
+     <file name="unlocked.png" role="horde" />
+     <file name="user.png" role="horde" />
+     <file name="website.png" role="horde" />
+     <file name="za.png" role="horde" />
+    </dir> <!-- /themes/graphics -->
+    <dir name="green">
+     <file name="info.php" role="horde" />
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/green -->
+    <dir name="grey">
+     <file name="info.php" role="horde" />
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/grey -->
+    <dir name="hi-contrast">
+     <file name="info.php" role="horde" />
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/hi-contrast -->
+    <dir name="hordeweb">
+     <dir name="graphics">
+      <file name="horde-halfgear-ie.png" role="horde" />
+      <file name="horde-halfgear.png" role="horde" />
+     </dir> <!-- /themes/hordeweb/graphics -->
+     <file name="ie6_or_less.css" role="horde" />
+     <file name="info.php" role="horde" />
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/hordeweb -->
+    <dir name="ideas">
+     <dir name="graphics">
+      <file name="background.png" role="horde" />
+      <file name="left_menu_bottom.png" role="horde" />
+      <file name="left_menu_top.png" role="horde" />
+      <file name="menu_top.png" role="horde" />
+     </dir> <!-- /themes/ideas/graphics -->
+     <file name="info.php" role="horde" />
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/ideas -->
+    <dir name="kolab">
+     <dir name="graphics">
+      <file name="bg.png" role="horde" />
+      <file name="kolab.png" role="horde" />
+      <file name="kolablogo.png" role="horde" />
+     </dir> <!-- /themes/kolab/graphics -->
+     <file name="info.php" role="horde" />
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/kolab -->
+    <dir name="lavander">
+     <file name="info.php" role="horde" />
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/lavander -->
+    <dir name="lightblue">
+     <dir name="graphics">
+      <file name="menu.png" role="horde" />
+     </dir> <!-- /themes/lightblue/graphics -->
+     <file name="info.php" role="horde" />
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/lightblue -->
+    <dir name="luc">
+     <dir name="graphics">
+      <file name="currentTab_left.gif" role="horde" />
+      <file name="currentTab_right.gif" role="horde" />
+      <file name="tab_bottom.gif" role="horde" />
+      <file name="tab_left.gif" role="horde" />
+      <file name="tab_right.gif" role="horde" />
+     </dir> <!-- /themes/luc/graphics -->
+     <file name="info.php" role="horde" />
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/luc -->
+    <dir name="lucblue">
+     <file name="info.php" role="horde" />
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/lucblue -->
+    <dir name="mobile">
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/mobile -->
+    <dir name="mozilla">
+     <dir name="graphics">
+      <file name="header.png" role="horde" />
+      <file name="menu-active.png" role="horde" />
+      <file name="menu.png" role="horde" />
+     </dir> <!-- /themes/mozilla/graphics -->
+     <file name="info.php" role="horde" />
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/mozilla -->
+    <dir name="NeXTgrey">
+     <file name="info.php" role="horde" />
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/NeXTgrey -->
+    <dir name="postnuke">
+     <file name="info.php" role="horde" />
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/postnuke -->
+    <dir name="purple">
+     <file name="info.php" role="horde" />
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/purple -->
+    <dir name="silver">
+     <dir name="graphics">
+      <dir name="alerts">
+       <file name="alarm.png" role="horde" />
+       <file name="error.png" role="horde" />
+       <file name="message.png" role="horde" />
+       <file name="success.png" role="horde" />
+       <file name="warning.png" role="horde" />
+      </dir> <!-- /themes/silver/graphics/alerts -->
+      <dir name="block">
+       <file name="large_up.png" role="horde" />
+      </dir> <!-- /themes/silver/graphics/block -->
+      <dir name="image">
+       <file name="crop.png" role="horde" />
+      </dir> <!-- /themes/silver/graphics/image -->
+      <dir name="map">
+       <file name="marker-blue.png" role="horde" />
+       <file name="marker-gold.png" role="horde" />
+       <file name="marker-green.png" role="horde" />
+       <file name="marker-shadow.png" role="horde" />
+       <file name="marker.png" role="horde" />
+      </dir> <!-- /themes/silver/graphics/map -->
+      <dir name="mime">
+       <file name="audio.png" role="horde" />
+       <file name="binary.png" role="horde" />
+       <file name="compressed.png" role="horde" />
+       <file name="deb.png" role="horde" />
+       <file name="encryption.png" role="horde" />
+       <file name="html.png" role="horde" />
+       <file name="icalendar.png" role="horde" />
+       <file name="image.png" role="horde" />
+       <file name="mail.png" role="horde" />
+       <file name="msexcel.png" role="horde" />
+       <file name="mspowerpoint.png" role="horde" />
+       <file name="msword.png" role="horde" />
+       <file name="ooo_calc.png" role="horde" />
+       <file name="ooo_draw.png" role="horde" />
+       <file name="ooo_impress.png" role="horde" />
+       <file name="ooo_math.png" role="horde" />
+       <file name="ooo_writer.png" role="horde" />
+       <file name="pdf.png" role="horde" />
+       <file name="php.png" role="horde" />
+       <file name="rpm.png" role="horde" />
+       <file name="script-js.png" role="horde" />
+       <file name="source-c.png" role="horde" />
+       <file name="source-cpp.png" role="horde" />
+       <file name="source-h.png" role="horde" />
+       <file name="source-java.png" role="horde" />
+       <file name="source-python.png" role="horde" />
+       <file name="text.png" role="horde" />
+       <file name="vcard.png" role="horde" />
+       <file name="video.png" role="horde" />
+       <file name="xml.png" role="horde" />
+      </dir> <!-- /themes/silver/graphics/mime -->
+      <dir name="nav">
+       <file name="bottom-grey.png" role="horde" />
+       <file name="bottom.png" role="horde" />
+       <file name="down-grey.png" role="horde" />
+       <file name="down.png" role="horde" />
+       <file name="first-grey.png" role="horde" />
+       <file name="first.png" role="horde" />
+       <file name="last-grey.png" role="horde" />
+       <file name="last.png" role="horde" />
+       <file name="left-grey.png" role="horde" />
+       <file name="left.png" role="horde" />
+       <file name="right-grey.png" role="horde" />
+       <file name="right.png" role="horde" />
+       <file name="top-grey.png" role="horde" />
+       <file name="top.png" role="horde" />
+       <file name="up-grey.png" role="horde" />
+       <file name="up.png" role="horde" />
+      </dir> <!-- /themes/silver/graphics/nav -->
+      <dir name="tree">
+       <file name="folder.png" role="horde" />
+       <file name="folderopen.png" role="horde" />
+       <file name="leaf.png" role="horde" />
+       <file name="rev-leaf.png" role="horde" />
+      </dir> <!-- /themes/silver/graphics/tree -->
+      <file name="about.png" role="horde" />
+      <file name="add_group.png" role="horde" />
+      <file name="add_perm.png" role="horde" />
+      <file name="administration.png" role="horde" />
+      <file name="az.png" role="horde" />
+      <file name="block.png" role="horde" />
+      <file name="calendar.png" role="horde" />
+      <file name="close.png" role="horde" />
+      <file name="colorpicker.png" role="horde" />
+      <file name="config.png" role="horde" />
+      <file name="currentTab_left.png" role="horde" />
+      <file name="currentTab_right.png" role="horde" />
+      <file name="data.png" role="horde" />
+      <file name="datatree.png" role="horde" />
+      <file name="delete-small.png" role="horde" />
+      <file name="delete.png" role="horde" />
+      <file name="devel.png" role="horde" />
+      <file name="download.png" role="horde" />
+      <file name="edit-small.png" role="horde" />
+      <file name="edit.png" role="horde" />
+      <file name="external.png" role="horde" />
+      <file name="favicon.ico" role="horde" />
+      <file name="feed.png" role="horde" />
+      <file name="group.png" role="horde" />
+      <file name="help.png" role="horde" />
+      <file name="help_index.png" role="horde" />
+      <file name="hide_panel.png" role="horde" />
+      <file name="horde.png" role="horde" />
+      <file name="info.png" role="horde" />
+      <file name="info_icon.png" role="horde" />
+      <file name="keyboard.png" role="horde" />
+      <file name="layout.png" role="horde" />
+      <file name="lhand.png" role="horde" />
+      <file name="locked.png" role="horde" />
+      <file name="login.png" role="horde" />
+      <file name="logout.png" role="horde" />
+      <file name="map.png" role="horde" />
+      <file name="map_eu.png" role="horde" />
+      <file name="menu-active.png" role="horde" />
+      <file name="menu.png" role="horde" />
+      <file name="minus.png" role="horde" />
+      <file name="mobile.png" role="horde" />
+      <file name="myaccount.png" role="horde" />
+      <file name="office.png" role="horde" />
+      <file name="organizing.png" role="horde" />
+      <file name="perms.png" role="horde" />
+      <file name="phone.png" role="horde" />
+      <file name="plus.png" role="horde" />
+      <file name="popright.png" role="horde" />
+      <file name="prefs.png" role="horde" />
+      <file name="print.png" role="horde" />
+      <file name="problem.png" role="horde" />
+      <file name="reload.png" role="horde" />
+      <file name="required.png" role="horde" />
+      <file name="rhand.png" role="horde" />
+      <file name="save.png" role="horde" />
+      <file name="search.png" role="horde" />
+      <file name="shell.png" role="horde" />
+      <file name="show_panel.png" role="horde" />
+      <file name="sql.png" role="horde" />
+      <file name="tab_left.png" role="horde" />
+      <file name="tab_right.png" role="horde" />
+      <file name="unlocked.png" role="horde" />
+      <file name="user.png" role="horde" />
+      <file name="website.png" role="horde" />
+      <file name="za.png" role="horde" />
+     </dir> <!-- /themes/silver/graphics -->
+     <file name="info.php" role="horde" />
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/silver -->
+    <dir name="simplex">
+     <dir name="graphics">
+      <file name="background.png" role="horde" />
+     </dir> <!-- /themes/simplex/graphics -->
+     <file name="info.php" role="horde" />
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/simplex -->
+    <dir name="sounds">
+     <file name="doorbell.wav" role="horde" />
+     <file name="gnid3.wav" role="horde" />
+     <file name="jetsndb.wav" role="horde" />
+     <file name="reminder.wav" role="horde" />
+     <file name="theetone.wav" role="horde" />
+    </dir> <!-- /themes/sounds -->
+    <dir name="tango-blue">
+     <dir name="graphics">
+      <dir name="alerts">
+       <file name="error.png" role="horde" />
+       <file name="message.png" role="horde" />
+       <file name="success.png" role="horde" />
+       <file name="warning.png" role="horde" />
+      </dir> <!-- /themes/tango-blue/graphics/alerts -->
+      <dir name="block">
+       <dir name="sunrise">
+        <file name="sunrise.png" role="horde" />
+        <file name="sunset.png" role="horde" />
+       </dir> <!-- /themes/tango-blue/graphics/block/sunrise -->
+       <file name="down.png" role="horde" />
+       <file name="large_down.png" role="horde" />
+       <file name="large_left.png" role="horde" />
+       <file name="large_right.png" role="horde" />
+       <file name="large_up.png" role="horde" />
+       <file name="left.png" role="horde" />
+       <file name="right.png" role="horde" />
+       <file name="up.png" role="horde" />
+      </dir> <!-- /themes/tango-blue/graphics/block -->
+      <dir name="image">
+       <file name="crop.png" role="horde" />
+       <file name="flip.png" role="horde" />
+       <file name="mirror.png" role="horde" />
+       <file name="refresh.png" role="horde" />
+       <file name="rotate-90.png" role="horde" />
+       <file name="rotate-270.png" role="horde" />
+      </dir> <!-- /themes/tango-blue/graphics/image -->
+      <dir name="mime">
+       <file name="audio.png" role="horde" />
+       <file name="binary.png" role="horde" />
+       <file name="compressed.png" role="horde" />
+       <file name="deb.png" role="horde" />
+       <file name="encryption.png" role="horde" />
+       <file name="html.png" role="horde" />
+       <file name="icalendar.png" role="horde" />
+       <file name="image.png" role="horde" />
+       <file name="mail.png" role="horde" />
+       <file name="msword.png" role="horde" />
+       <file name="ooo_calc.png" role="horde" />
+       <file name="ooo_impress.png" role="horde" />
+       <file name="ooo_math.png" role="horde" />
+       <file name="ooo_writer.png" role="horde" />
+       <file name="pdf.png" role="horde" />
+       <file name="php.png" role="horde" />
+       <file name="rpm.png" role="horde" />
+       <file name="source-python.png" role="horde" />
+       <file name="text.png" role="horde" />
+       <file name="vcard.png" role="horde" />
+       <file name="video.png" role="horde" />
+      </dir> <!-- /themes/tango-blue/graphics/mime -->
+      <dir name="nav">
+       <file name="bottom.png" role="horde" />
+       <file name="down.png" role="horde" />
+       <file name="first.png" role="horde" />
+       <file name="last.png" role="horde" />
+       <file name="left.png" role="horde" />
+       <file name="right.png" role="horde" />
+       <file name="top.png" role="horde" />
+       <file name="up.png" role="horde" />
+      </dir> <!-- /themes/tango-blue/graphics/nav -->
+      <dir name="tree">
+       <file name="folder.png" role="horde" />
+       <file name="folderopen.png" role="horde" />
+       <file name="leaf.png" role="horde" />
+       <file name="rev-leaf.png" role="horde" />
+      </dir> <!-- /themes/tango-blue/graphics/tree -->
+      <file name="add_group.png" role="horde" />
+      <file name="add_perm.png" role="horde" />
+      <file name="administration.png" role="horde" />
+      <file name="az.png" role="horde" />
+      <file name="calendar.png" role="horde" />
+      <file name="close.png" role="horde" />
+      <file name="colorpicker.png" role="horde" />
+      <file name="config.png" role="horde" />
+      <file name="data.png" role="horde" />
+      <file name="delete-small.png" role="horde" />
+      <file name="delete.png" role="horde" />
+      <file name="devel.png" role="horde" />
+      <file name="download.png" role="horde" />
+      <file name="edit-small.png" role="horde" />
+      <file name="edit.png" role="horde" />
+      <file name="group.png" role="horde" />
+      <file name="help.png" role="horde" />
+      <file name="help_index.png" role="horde" />
+      <file name="info.png" role="horde" />
+      <file name="info_icon.png" role="horde" />
+      <file name="keyboard.png" role="horde" />
+      <file name="lhand.png" role="horde" />
+      <file name="locked.png" role="horde" />
+      <file name="login.png" role="horde" />
+      <file name="logout.png" role="horde" />
+      <file name="myaccount.png" role="horde" />
+      <file name="office.png" role="horde" />
+      <file name="organizing.png" role="horde" />
+      <file name="perms.png" role="horde" />
+      <file name="prefs.png" role="horde" />
+      <file name="print.png" role="horde" />
+      <file name="problem.png" role="horde" />
+      <file name="reload.png" role="horde" />
+      <file name="required.png" role="horde" />
+      <file name="rhand.png" role="horde" />
+      <file name="search.png" role="horde" />
+      <file name="shell.png" role="horde" />
+      <file name="sql.png" role="horde" />
+      <file name="unlocked.png" role="horde" />
+      <file name="user.png" role="horde" />
+      <file name="website.png" role="horde" />
+      <file name="za.png" role="horde" />
+     </dir> <!-- /themes/tango-blue/graphics -->
+     <file name="info.php" role="horde" />
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/tango-blue -->
+    <file name="embed.css" role="horde" />
+    <file name="facebook.css" role="horde" />
+    <file name="ie6_or_less.css" role="horde" />
+    <file name="ie7.css" role="horde" />
+    <file name="opera.css" role="horde" />
+    <file name="rtl.css" role="horde" />
+    <file name="screen.css" role="horde" />
+    <file name="webkit.css" role="horde" />
+   </dir> <!-- /themes -->
+   <dir name="util">
+    <file name="barcode.php" role="horde" />
+    <file name="icon_browser.php" role="horde" />
+   </dir> <!-- /util -->
+   <file name="COPYING" role="data" />
+   <file name="index.php" role="horde" />
+   <file name="login.php" role="horde" />
+   <file name="rampage.php" role="horde" />
+   <file name="README" role="data" />
+   <file name="rpc.php" role="horde" />
+   <file name="signup.php" role="horde" />
+   <file name="test.php" role="horde" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.9.0</min>
+   </pearinstaller>
+   <package>
+    <name>Core</name>
+    <channel>pear.horde.org</channel>
+   </package>
+  </required>
+ </dependencies>
+ <usesrole>
+  <role>horde</role>
+  <package>Role</package>
+  <channel>pear.horde.org</channel>
+ </usesrole>
+ <phprelease>
+  <filelist>
+   <install as="active_sessions" name="bin/active_sessions" />
+   <install as="alarms" name="bin/alarms" />
+   <install as="crond" name="bin/crond" />
+   <install as="db_migrate" name="bin/db_migrate" />
+   <install as="memcache_stats" name="bin/memcache_stats" />
+   <install as="run_task" name="bin/run_task" />
+   <install as="translation" name="bin/translation" />
+   <install as="js/accesskeys.js" name="js/accesskeys.js" />
+   <install as="js/activesyncadmin.js" name="js/activesyncadmin.js" />
+   <install as="js/activesyncprefs.js" name="js/activesyncprefs.js" />
+   <install as="js/builder.js" name="js/builder.js" />
+   <install as="js/categoryprefs.js" name="js/categoryprefs.js" />
+   <install as="js/colorpicker.js" name="js/colorpicker.js" />
+   <install as="js/contextsensitive.js" name="js/contextsensitive.js" />
+   <install as="js/controls.js" name="js/controls.js" />
+   <install as="js/dragdrop.js" name="js/dragdrop.js" />
+   <install as="js/dragdrop2.js" name="js/dragdrop2.js" />
+   <install as="js/effects.js" name="js/effects.js" />
+   <install as="js/facebookclient.js" name="js/facebookclient.js" />
+   <install as="js/form_assign.js" name="js/form_assign.js" />
+   <install as="js/form_helpers.js" name="js/form_helpers.js" />
+   <install as="js/form_sections.js" name="js/form_sections.js" />
+   <install as="js/growler.js" name="js/growler.js" />
+   <install as="js/horde.js" name="js/horde.js" />
+   <install as="js/ieescguard.js" name="js/ieescguard.js" />
+   <install as="js/image.js" name="js/image.js" />
+   <install as="js/inplaceeditor.js" name="js/inplaceeditor.js" />
+   <install as="js/keynavlist.js" name="js/keynavlist.js" />
+   <install as="js/login.js" name="js/login.js" />
+   <install as="js/logintasks.js" name="js/logintasks.js" />
+   <install as="js/md5.js" name="js/md5.js" />
+   <install as="js/popup.js" name="js/popup.js" />
+   <install as="js/prototype.js" name="js/prototype.js" />
+   <install as="js/quickfinder.js" name="js/quickfinder.js" />
+   <install as="js/redbox.js" name="js/redbox.js" />
+   <install as="js/rpcprefs.js" name="js/rpcprefs.js" />
+   <install as="js/scriptaculous.js" name="js/scriptaculous.js" />
+   <install as="js/sidebar.js" name="js/sidebar.js" />
+   <install as="js/slider.js" name="js/slider.js" />
+   <install as="js/slider2.js" name="js/slider2.js" />
+   <install as="js/sorter.js" name="js/sorter.js" />
+   <install as="js/sound.js" name="js/sound.js" />
+   <install as="js/stripe.js" name="js/stripe.js" />
+   <install as="js/syncmlprefs.js" name="js/syncmlprefs.js" />
+   <install as="js/tables.js" name="js/tables.js" />
+   <install as="js/textarearesize.js" name="js/textarearesize.js" />
+   <install as="js/twitterclient.js" name="js/twitterclient.js" />
+   <install as="js/userupdate.js" name="js/userupdate.js" />
+   <install as="js/date/ar-SY.js" name="js/date/ar-SY.js" />
+   <install as="js/date/bg-BG.js" name="js/date/bg-BG.js" />
+   <install as="js/date/bs-BA.js" name="js/date/bs-BA.js" />
+   <install as="js/date/ca-ES.js" name="js/date/ca-ES.js" />
+   <install as="js/date/cs-CZ.js" name="js/date/cs-CZ.js" />
+   <install as="js/date/da-DK.js" name="js/date/da-DK.js" />
+   <install as="js/date/date.js" name="js/date/date.js" />
+   <install as="js/date/de-DE.js" name="js/date/de-DE.js" />
+   <install as="js/date/el-GR.js" name="js/date/el-GR.js" />
+   <install as="js/date/en-US.js" name="js/date/en-US.js" />
+   <install as="js/date/es-ES.js" name="js/date/es-ES.js" />
+   <install as="js/date/et-EE.js" name="js/date/et-EE.js" />
+   <install as="js/date/eu-ES.js" name="js/date/eu-ES.js" />
+   <install as="js/date/extras.js" name="js/date/extras.js" />
+   <install as="js/date/fa-IR.js" name="js/date/fa-IR.js" />
+   <install as="js/date/fi-FI.js" name="js/date/fi-FI.js" />
+   <install as="js/date/fr-FR.js" name="js/date/fr-FR.js" />
+   <install as="js/date/gl-ES.js" name="js/date/gl-ES.js" />
+   <install as="js/date/he-IL.js" name="js/date/he-IL.js" />
+   <install as="js/date/hu-HU.js" name="js/date/hu-HU.js" />
+   <install as="js/date/id-ID.js" name="js/date/id-ID.js" />
+   <install as="js/date/is-IS.js" name="js/date/is-IS.js" />
+   <install as="js/date/it-IT.js" name="js/date/it-IT.js" />
+   <install as="js/date/ja-JP.js" name="js/date/ja-JP.js" />
+   <install as="js/date/ko-KR.js" name="js/date/ko-KR.js" />
+   <install as="js/date/lt-LT.js" name="js/date/lt-LT.js" />
+   <install as="js/date/lv-LV.js" name="js/date/lv-LV.js" />
+   <install as="js/date/mk-MK.js" name="js/date/mk-MK.js" />
+   <install as="js/date/nb-NO.js" name="js/date/nb-NO.js" />
+   <install as="js/date/nl-NL.js" name="js/date/nl-NL.js" />
+   <install as="js/date/nn-NO.js" name="js/date/nn-NO.js" />
+   <install as="js/date/pl-PL.js" name="js/date/pl-PL.js" />
+   <install as="js/date/pt-BR.js" name="js/date/pt-BR.js" />
+   <install as="js/date/pt-PT.js" name="js/date/pt-PT.js" />
+   <install as="js/date/ro-RO.js" name="js/date/ro-RO.js" />
+   <install as="js/date/ru-RU.js" name="js/date/ru-RU.js" />
+   <install as="js/date/sk-SK.js" name="js/date/sk-SK.js" />
+   <install as="js/date/sl-SI.js" name="js/date/sl-SI.js" />
+   <install as="js/date/sv-SE.js" name="js/date/sv-SE.js" />
+   <install as="js/date/time.js" name="js/date/time.js" />
+   <install as="js/date/tr-TR.js" name="js/date/tr-TR.js" />
+   <install as="js/date/uk-UA.js" name="js/date/uk-UA.js" />
+   <install as="js/date/zh-CN.js" name="js/date/zh-CN.js" />
+   <install as="js/date/zh-TW.js" name="js/date/zh-TW.js" />
+   <install as="js/hordemap/cloudmade.js" name="js/hordemap/cloudmade.js" />
+   <install as="js/hordemap/google.js" name="js/hordemap/google.js" />
+   <install as="js/hordemap/horde.js" name="js/hordemap/horde.js" />
+   <install as="js/hordemap/map.js" name="js/hordemap/map.js" />
+   <install as="js/hordemap/null.js" name="js/hordemap/null.js" />
+   <install as="js/hordemap/OpenLayers-debug.js" name="js/hordemap/OpenLayers-debug.js" />
+   <install as="js/hordemap/OpenLayers.js" name="js/hordemap/OpenLayers.js" />
+   <install as="js/hordemap/public.js" name="js/hordemap/public.js" />
+   <install as="js/hordemap/ve.js" name="js/hordemap/ve.js" />
+   <install as="js/hordemap/yahoo.js" name="js/hordemap/yahoo.js" />
+   <install as="js/hordemap/img/blank.gif" name="js/hordemap/img/blank.gif" />
+   <install as="js/hordemap/img/cloud-popup-relative.png" name="js/hordemap/img/cloud-popup-relative.png" />
+   <install as="js/hordemap/img/drag-rectangle-off.png" name="js/hordemap/img/drag-rectangle-off.png" />
+   <install as="js/hordemap/img/drag-rectangle-on.png" name="js/hordemap/img/drag-rectangle-on.png" />
+   <install as="js/hordemap/img/east-mini.png" name="js/hordemap/img/east-mini.png" />
+   <install as="js/hordemap/img/layer-switcher-maximize.png" name="js/hordemap/img/layer-switcher-maximize.png" />
+   <install as="js/hordemap/img/layer-switcher-minimize.png" name="js/hordemap/img/layer-switcher-minimize.png" />
+   <install as="js/hordemap/img/measuring-stick-off.png" name="js/hordemap/img/measuring-stick-off.png" />
+   <install as="js/hordemap/img/measuring-stick-on.png" name="js/hordemap/img/measuring-stick-on.png" />
+   <install as="js/hordemap/img/north-mini.png" name="js/hordemap/img/north-mini.png" />
+   <install as="js/hordemap/img/panning-hand-off.png" name="js/hordemap/img/panning-hand-off.png" />
+   <install as="js/hordemap/img/panning-hand-on.png" name="js/hordemap/img/panning-hand-on.png" />
+   <install as="js/hordemap/img/slider.png" name="js/hordemap/img/slider.png" />
+   <install as="js/hordemap/img/south-mini.png" name="js/hordemap/img/south-mini.png" />
+   <install as="js/hordemap/img/west-mini.png" name="js/hordemap/img/west-mini.png" />
+   <install as="js/hordemap/img/zoom-minus-mini.png" name="js/hordemap/img/zoom-minus-mini.png" />
+   <install as="js/hordemap/img/zoom-plus-mini.png" name="js/hordemap/img/zoom-plus-mini.png" />
+   <install as="js/hordemap/img/zoom-world-mini.png" name="js/hordemap/img/zoom-world-mini.png" />
+   <install as="js/hordemap/img/zoombar.png" name="js/hordemap/img/zoombar.png" />
+   <install as="js/hordemap/lang/ar_SY.js" name="js/hordemap/lang/ar_SY.js" />
+   <install as="js/hordemap/lang/bg_BG.js" name="js/hordemap/lang/bg_BG.js" />
+   <install as="js/hordemap/lang/ca_ES.js" name="js/hordemap/lang/ca_ES.js" />
+   <install as="js/hordemap/lang/cs_CZ.js" name="js/hordemap/lang/cs_CZ.js" />
+   <install as="js/hordemap/lang/da_DK.js" name="js/hordemap/lang/da_DK.js" />
+   <install as="js/hordemap/lang/de_DE.js" name="js/hordemap/lang/de_DE.js" />
+   <install as="js/hordemap/lang/el_GR.js" name="js/hordemap/lang/el_GR.js" />
+   <install as="js/hordemap/lang/en_CA.js" name="js/hordemap/lang/en_CA.js" />
+   <install as="js/hordemap/lang/es_ES.js" name="js/hordemap/lang/es_ES.js" />
+   <install as="js/hordemap/lang/fi_FI.js" name="js/hordemap/lang/fi_FI.js" />
+   <install as="js/hordemap/lang/fr_FR.js" name="js/hordemap/lang/fr_FR.js" />
+   <install as="js/hordemap/lang/gl_ES.js" name="js/hordemap/lang/gl_ES.js" />
+   <install as="js/hordemap/lang/hu_HU.js" name="js/hordemap/lang/hu_HU.js" />
+   <install as="js/hordemap/lang/id_ID.js" name="js/hordemap/lang/id_ID.js" />
+   <install as="js/hordemap/lang/is_IS.js" name="js/hordemap/lang/is_IS.js" />
+   <install as="js/hordemap/lang/it_IT.js" name="js/hordemap/lang/it_IT.js" />
+   <install as="js/hordemap/lang/ja_JP.js" name="js/hordemap/lang/ja_JP.js" />
+   <install as="js/hordemap/lang/km_KH.js" name="js/hordemap/lang/km_KH.js" />
+   <install as="js/hordemap/lang/nl_NL.js" name="js/hordemap/lang/nl_NL.js" />
+   <install as="js/hordemap/lang/nn_NO.js" name="js/hordemap/lang/nn_NO.js" />
+   <install as="js/hordemap/lang/pt_BR.js" name="js/hordemap/lang/pt_BR.js" />
+   <install as="js/hordemap/lang/pt_PT.js" name="js/hordemap/lang/pt_PT.js" />
+   <install as="js/hordemap/lang/ru_RU.js" name="js/hordemap/lang/ru_RU.js" />
+   <install as="js/hordemap/lang/sk_SK.js" name="js/hordemap/lang/sk_SK.js" />
+   <install as="js/hordemap/lang/sv_SE.js" name="js/hordemap/lang/sv_SE.js" />
+   <install as="js/hordemap/lang/zh_CN.js" name="js/hordemap/lang/zh_CN.js" />
+   <install as="js/hordemap/lang/zh_TW.js" name="js/hordemap/lang/zh_TW.js" />
+   <install as="js/hordemap/theme/default/framedCloud.css" name="js/hordemap/theme/default/framedCloud.css" />
+   <install as="js/hordemap/theme/default/google.css" name="js/hordemap/theme/default/google.css" />
+   <install as="js/hordemap/theme/default/ie6-style.css" name="js/hordemap/theme/default/ie6-style.css" />
+   <install as="js/hordemap/theme/default/style.css" name="js/hordemap/theme/default/style.css" />
+   <install as="js/hordemap/theme/default/img/add_point_off.png" name="js/hordemap/theme/default/img/add_point_off.png" />
+   <install as="js/hordemap/theme/default/img/add_point_on.png" name="js/hordemap/theme/default/img/add_point_on.png" />
+   <install as="js/hordemap/theme/default/img/blank.gif" name="js/hordemap/theme/default/img/blank.gif" />
+   <install as="js/hordemap/theme/default/img/close.gif" name="js/hordemap/theme/default/img/close.gif" />
+   <install as="js/hordemap/theme/default/img/drag-rectangle-off.png" name="js/hordemap/theme/default/img/drag-rectangle-off.png" />
+   <install as="js/hordemap/theme/default/img/drag-rectangle-on.png" name="js/hordemap/theme/default/img/drag-rectangle-on.png" />
+   <install as="js/hordemap/theme/default/img/draw_line_off.png" name="js/hordemap/theme/default/img/draw_line_off.png" />
+   <install as="js/hordemap/theme/default/img/draw_line_on.png" name="js/hordemap/theme/default/img/draw_line_on.png" />
+   <install as="js/hordemap/theme/default/img/draw_point_off.png" name="js/hordemap/theme/default/img/draw_point_off.png" />
+   <install as="js/hordemap/theme/default/img/draw_point_on.png" name="js/hordemap/theme/default/img/draw_point_on.png" />
+   <install as="js/hordemap/theme/default/img/draw_polygon_off.png" name="js/hordemap/theme/default/img/draw_polygon_off.png" />
+   <install as="js/hordemap/theme/default/img/draw_polygon_on.png" name="js/hordemap/theme/default/img/draw_polygon_on.png" />
+   <install as="js/hordemap/theme/default/img/editing_tool_bar.png" name="js/hordemap/theme/default/img/editing_tool_bar.png" />
+   <install as="js/hordemap/theme/default/img/move_feature_off.png" name="js/hordemap/theme/default/img/move_feature_off.png" />
+   <install as="js/hordemap/theme/default/img/move_feature_on.png" name="js/hordemap/theme/default/img/move_feature_on.png" />
+   <install as="js/hordemap/theme/default/img/navigation_history.png" name="js/hordemap/theme/default/img/navigation_history.png" />
+   <install as="js/hordemap/theme/default/img/overview_replacement.gif" name="js/hordemap/theme/default/img/overview_replacement.gif" />
+   <install as="js/hordemap/theme/default/img/pan-panel-NOALPHA.png" name="js/hordemap/theme/default/img/pan-panel-NOALPHA.png" />
+   <install as="js/hordemap/theme/default/img/pan-panel.png" name="js/hordemap/theme/default/img/pan-panel.png" />
+   <install as="js/hordemap/theme/default/img/panning-hand-off.png" name="js/hordemap/theme/default/img/panning-hand-off.png" />
+   <install as="js/hordemap/theme/default/img/panning-hand-on.png" name="js/hordemap/theme/default/img/panning-hand-on.png" />
+   <install as="js/hordemap/theme/default/img/pan_off.png" name="js/hordemap/theme/default/img/pan_off.png" />
+   <install as="js/hordemap/theme/default/img/pan_on.png" name="js/hordemap/theme/default/img/pan_on.png" />
+   <install as="js/hordemap/theme/default/img/remove_point_off.png" name="js/hordemap/theme/default/img/remove_point_off.png" />
+   <install as="js/hordemap/theme/default/img/remove_point_on.png" name="js/hordemap/theme/default/img/remove_point_on.png" />
+   <install as="js/hordemap/theme/default/img/ruler.png" name="js/hordemap/theme/default/img/ruler.png" />
+   <install as="js/hordemap/theme/default/img/save_features_off.png" name="js/hordemap/theme/default/img/save_features_off.png" />
+   <install as="js/hordemap/theme/default/img/save_features_on.png" name="js/hordemap/theme/default/img/save_features_on.png" />
+   <install as="js/hordemap/theme/default/img/view_next_off.png" name="js/hordemap/theme/default/img/view_next_off.png" />
+   <install as="js/hordemap/theme/default/img/view_next_on.png" name="js/hordemap/theme/default/img/view_next_on.png" />
+   <install as="js/hordemap/theme/default/img/view_previous_off.png" name="js/hordemap/theme/default/img/view_previous_off.png" />
+   <install as="js/hordemap/theme/default/img/view_previous_on.png" name="js/hordemap/theme/default/img/view_previous_on.png" />
+   <install as="js/hordemap/theme/default/img/zoom-panel-NOALPHA.png" name="js/hordemap/theme/default/img/zoom-panel-NOALPHA.png" />
+   <install as="js/hordemap/theme/default/img/zoom-panel.png" name="js/hordemap/theme/default/img/zoom-panel.png" />
+   <install as="js/plupload/jquery.plupload.queue.js" name="js/plupload/jquery.plupload.queue.js" />
+   <install as="js/plupload/plupload.browserplus.js" name="js/plupload/plupload.browserplus.js" />
+   <install as="js/plupload/plupload.flash.js" name="js/plupload/plupload.flash.js" />
+   <install as="js/plupload/plupload.flash.swf" name="js/plupload/plupload.flash.swf" />
+   <install as="js/plupload/plupload.gears.js" name="js/plupload/plupload.gears.js" />
+   <install as="js/plupload/plupload.html4.js" name="js/plupload/plupload.html4.js" />
+   <install as="js/plupload/plupload.html5.js" name="js/plupload/plupload.html5.js" />
+   <install as="js/plupload/plupload.js" name="js/plupload/plupload.js" />
+   <install as="js/plupload/plupload.silverlight.js" name="js/plupload/plupload.silverlight.js" />
+   <install as="js/plupload/plupload.silverlight.xap" name="js/plupload/plupload.silverlight.xap" />
+   <install as="js/plupload/uploader.js" name="js/plupload/uploader.js" />
+   <install as="js/plupload/i18n/da.js" name="js/plupload/i18n/da.js" />
+   <install as="js/plupload/i18n/sv.js" name="js/plupload/i18n/sv.js" />
+   <install as="Api.php" name="lib/Api.php" />
+   <install as="Application.php" name="lib/Application.php" />
+   <install as="core.php" name="lib/core.php" />
+   <install as="Test.php" name="lib/Test.php" />
+   <install as="Ajax/Application.php" name="lib/Ajax/Application.php" />
+   <install as="Block/account.php" name="lib/Block/account.php" />
+   <install as="Block/cloud.php" name="lib/Block/cloud.php" />
+   <install as="Block/fb_stream.php" name="lib/Block/fb_stream.php" />
+   <install as="Block/feed.php" name="lib/Block/feed.php" />
+   <install as="Block/fortune.php" name="lib/Block/fortune.php" />
+   <install as="Block/google.php" name="lib/Block/google.php" />
+   <install as="Block/iframe.php" name="lib/Block/iframe.php" />
+   <install as="Block/metar.php" name="lib/Block/metar.php" />
+   <install as="Block/moon.php" name="lib/Block/moon.php" />
+   <install as="Block/sunrise.php" name="lib/Block/sunrise.php" />
+   <install as="Block/time.php" name="lib/Block/time.php" />
+   <install as="Block/twitter_timeline.php" name="lib/Block/twitter_timeline.php" />
+   <install as="Block/vatid.php" name="lib/Block/vatid.php" />
+   <install as="Block/weatherdotcom.php" name="lib/Block/weatherdotcom.php" />
+   <install as="Block/weatherdotcom_strings.php" name="lib/Block/weatherdotcom_strings.php" />
+   <install as="LoginTasks/SystemTask/GarbageCollection.php" name="lib/LoginTasks/SystemTask/GarbageCollection.php" />
+   <install as="LoginTasks/SystemTask/UpgradeFromHorde3.php" name="lib/LoginTasks/SystemTask/UpgradeFromHorde3.php" />
+   <install as="LoginTasks/Task/LastLogin.php" name="lib/LoginTasks/Task/LastLogin.php" />
+   <install as="LoginTasks/Task/TestScriptActive.php" name="lib/LoginTasks/Task/TestScriptActive.php" />
+   <install as="LoginTasks/Task/TosAgreement.php" name="lib/LoginTasks/Task/TosAgreement.php" />
+   <install as="Prefs/Ui.php" name="lib/Prefs/Ui.php" />
+   <install as="tests/webroot.phpt" name="lib/tests/webroot.phpt" />
+   <install as="locale/compendium.po.tmp" name="locale/compendium.po.tmp" />
+   <install as="locale/horde.pot" name="locale/horde.pot" />
+   <install as="locale/ar/LC_MESSAGES/horde.mo" name="locale/ar/LC_MESSAGES/horde.mo" />
+   <install as="locale/ar/LC_MESSAGES/horde.po" name="locale/ar/LC_MESSAGES/horde.po" />
+   <install as="locale/bg/help.xml" name="locale/bg/help.xml" />
+   <install as="locale/bg/LC_MESSAGES/horde.mo" name="locale/bg/LC_MESSAGES/horde.mo" />
+   <install as="locale/bg/LC_MESSAGES/horde.po" name="locale/bg/LC_MESSAGES/horde.po" />
+   <install as="locale/bs/LC_MESSAGES/horde.mo" name="locale/bs/LC_MESSAGES/horde.mo" />
+   <install as="locale/bs/LC_MESSAGES/horde.po" name="locale/bs/LC_MESSAGES/horde.po" />
+   <install as="locale/ca/help.xml" name="locale/ca/help.xml" />
+   <install as="locale/ca/LC_MESSAGES/horde.mo" name="locale/ca/LC_MESSAGES/horde.mo" />
+   <install as="locale/ca/LC_MESSAGES/horde.po" name="locale/ca/LC_MESSAGES/horde.po" />
+   <install as="locale/cs/help.xml" name="locale/cs/help.xml" />
+   <install as="locale/cs/LC_MESSAGES/horde.mo" name="locale/cs/LC_MESSAGES/horde.mo" />
+   <install as="locale/cs/LC_MESSAGES/horde.po" name="locale/cs/LC_MESSAGES/horde.po" />
+   <install as="locale/da/help.xml" name="locale/da/help.xml" />
+   <install as="locale/da/LC_MESSAGES/horde.mo" name="locale/da/LC_MESSAGES/horde.mo" />
+   <install as="locale/da/LC_MESSAGES/horde.po" name="locale/da/LC_MESSAGES/horde.po" />
+   <install as="locale/de/help.xml" name="locale/de/help.xml" />
+   <install as="locale/de/LC_MESSAGES/horde.mo" name="locale/de/LC_MESSAGES/horde.mo" />
+   <install as="locale/de/LC_MESSAGES/horde.po" name="locale/de/LC_MESSAGES/horde.po" />
+   <install as="locale/el/help.xml" name="locale/el/help.xml" />
+   <install as="locale/el/LC_MESSAGES/horde.mo" name="locale/el/LC_MESSAGES/horde.mo" />
+   <install as="locale/el/LC_MESSAGES/horde.po" name="locale/el/LC_MESSAGES/horde.po" />
+   <install as="locale/en/help.xml" name="locale/en/help.xml" />
+   <install as="locale/es/help.xml" name="locale/es/help.xml" />
+   <install as="locale/es/LC_MESSAGES/horde.mo" name="locale/es/LC_MESSAGES/horde.mo" />
+   <install as="locale/es/LC_MESSAGES/horde.po" name="locale/es/LC_MESSAGES/horde.po" />
+   <install as="locale/et/help.xml" name="locale/et/help.xml" />
+   <install as="locale/et/LC_MESSAGES/horde.mo" name="locale/et/LC_MESSAGES/horde.mo" />
+   <install as="locale/et/LC_MESSAGES/horde.po" name="locale/et/LC_MESSAGES/horde.po" />
+   <install as="locale/eu/help.xml" name="locale/eu/help.xml" />
+   <install as="locale/eu/LC_MESSAGES/horde.mo" name="locale/eu/LC_MESSAGES/horde.mo" />
+   <install as="locale/eu/LC_MESSAGES/horde.po" name="locale/eu/LC_MESSAGES/horde.po" />
+   <install as="locale/fa/help.xml" name="locale/fa/help.xml" />
+   <install as="locale/fa/LC_MESSAGES/horde.mo" name="locale/fa/LC_MESSAGES/horde.mo" />
+   <install as="locale/fa/LC_MESSAGES/horde.po" name="locale/fa/LC_MESSAGES/horde.po" />
+   <install as="locale/fi/help.xml" name="locale/fi/help.xml" />
+   <install as="locale/fi/LC_MESSAGES/horde.mo" name="locale/fi/LC_MESSAGES/horde.mo" />
+   <install as="locale/fi/LC_MESSAGES/horde.po" name="locale/fi/LC_MESSAGES/horde.po" />
+   <install as="locale/fr/help.xml" name="locale/fr/help.xml" />
+   <install as="locale/fr/LC_MESSAGES/horde.mo" name="locale/fr/LC_MESSAGES/horde.mo" />
+   <install as="locale/fr/LC_MESSAGES/horde.po" name="locale/fr/LC_MESSAGES/horde.po" />
+   <install as="locale/gl/LC_MESSAGES/horde.mo" name="locale/gl/LC_MESSAGES/horde.mo" />
+   <install as="locale/gl/LC_MESSAGES/horde.po" name="locale/gl/LC_MESSAGES/horde.po" />
+   <install as="locale/he/LC_MESSAGES/horde.mo" name="locale/he/LC_MESSAGES/horde.mo" />
+   <install as="locale/he/LC_MESSAGES/horde.po" name="locale/he/LC_MESSAGES/horde.po" />
+   <install as="locale/hr/help.xml" name="locale/hr/help.xml" />
+   <install as="locale/hr/LC_MESSAGES/horde.mo" name="locale/hr/LC_MESSAGES/horde.mo" />
+   <install as="locale/hr/LC_MESSAGES/horde.po" name="locale/hr/LC_MESSAGES/horde.po" />
+   <install as="locale/hu/help.xml" name="locale/hu/help.xml" />
+   <install as="locale/hu/LC_MESSAGES/horde.mo" name="locale/hu/LC_MESSAGES/horde.mo" />
+   <install as="locale/hu/LC_MESSAGES/horde.po" name="locale/hu/LC_MESSAGES/horde.po" />
+   <install as="locale/id/LC_MESSAGES/horde.mo" name="locale/id/LC_MESSAGES/horde.mo" />
+   <install as="locale/id/LC_MESSAGES/horde.po" name="locale/id/LC_MESSAGES/horde.po" />
+   <install as="locale/is/LC_MESSAGES/horde.mo" name="locale/is/LC_MESSAGES/horde.mo" />
+   <install as="locale/is/LC_MESSAGES/horde.po" name="locale/is/LC_MESSAGES/horde.po" />
+   <install as="locale/it/help.xml" name="locale/it/help.xml" />
+   <install as="locale/it/LC_MESSAGES/horde.mo" name="locale/it/LC_MESSAGES/horde.mo" />
+   <install as="locale/it/LC_MESSAGES/horde.po" name="locale/it/LC_MESSAGES/horde.po" />
+   <install as="locale/ja/help.xml" name="locale/ja/help.xml" />
+   <install as="locale/ja/LC_MESSAGES/horde.mo" name="locale/ja/LC_MESSAGES/horde.mo" />
+   <install as="locale/ja/LC_MESSAGES/horde.po" name="locale/ja/LC_MESSAGES/horde.po" />
+   <install as="locale/km/LC_MESSAGES/horde.mo" name="locale/km/LC_MESSAGES/horde.mo" />
+   <install as="locale/km/LC_MESSAGES/horde.po" name="locale/km/LC_MESSAGES/horde.po" />
+   <install as="locale/ko/help.xml" name="locale/ko/help.xml" />
+   <install as="locale/ko/LC_MESSAGES/horde.mo" name="locale/ko/LC_MESSAGES/horde.mo" />
+   <install as="locale/ko/LC_MESSAGES/horde.po" name="locale/ko/LC_MESSAGES/horde.po" />
+   <install as="locale/lt/help.xml" name="locale/lt/help.xml" />
+   <install as="locale/lt/LC_MESSAGES/horde.mo" name="locale/lt/LC_MESSAGES/horde.mo" />
+   <install as="locale/lt/LC_MESSAGES/horde.po" name="locale/lt/LC_MESSAGES/horde.po" />
+   <install as="locale/lv/LC_MESSAGES/horde.mo" name="locale/lv/LC_MESSAGES/horde.mo" />
+   <install as="locale/lv/LC_MESSAGES/horde.po" name="locale/lv/LC_MESSAGES/horde.po" />
+   <install as="locale/mk/LC_MESSAGES/horde.mo" name="locale/mk/LC_MESSAGES/horde.mo" />
+   <install as="locale/mk/LC_MESSAGES/horde.po" name="locale/mk/LC_MESSAGES/horde.po" />
+   <install as="locale/nb/help.xml" name="locale/nb/help.xml" />
+   <install as="locale/nb/LC_MESSAGES/horde.mo" name="locale/nb/LC_MESSAGES/horde.mo" />
+   <install as="locale/nb/LC_MESSAGES/horde.po" name="locale/nb/LC_MESSAGES/horde.po" />
+   <install as="locale/nl/help.xml" name="locale/nl/help.xml" />
+   <install as="locale/nl/LC_MESSAGES/horde.mo" name="locale/nl/LC_MESSAGES/horde.mo" />
+   <install as="locale/nl/LC_MESSAGES/horde.po" name="locale/nl/LC_MESSAGES/horde.po" />
+   <install as="locale/nn/help.xml" name="locale/nn/help.xml" />
+   <install as="locale/nn/LC_MESSAGES/horde.mo" name="locale/nn/LC_MESSAGES/horde.mo" />
+   <install as="locale/nn/LC_MESSAGES/horde.po" name="locale/nn/LC_MESSAGES/horde.po" />
+   <install as="locale/pl/help.xml" name="locale/pl/help.xml" />
+   <install as="locale/pl/LC_MESSAGES/horde.mo" name="locale/pl/LC_MESSAGES/horde.mo" />
+   <install as="locale/pl/LC_MESSAGES/horde.po" name="locale/pl/LC_MESSAGES/horde.po" />
+   <install as="locale/pt/help.xml" name="locale/pt/help.xml" />
+   <install as="locale/pt/LC_MESSAGES/horde.mo" name="locale/pt/LC_MESSAGES/horde.mo" />
+   <install as="locale/pt/LC_MESSAGES/horde.po" name="locale/pt/LC_MESSAGES/horde.po" />
+   <install as="locale/pt_BR/help.xml" name="locale/pt_BR/help.xml" />
+   <install as="locale/pt_BR/LC_MESSAGES/horde.mo" name="locale/pt_BR/LC_MESSAGES/horde.mo" />
+   <install as="locale/pt_BR/LC_MESSAGES/horde.po" name="locale/pt_BR/LC_MESSAGES/horde.po" />
+   <install as="locale/ro/LC_MESSAGES/horde.mo" name="locale/ro/LC_MESSAGES/horde.mo" />
+   <install as="locale/ro/LC_MESSAGES/horde.po" name="locale/ro/LC_MESSAGES/horde.po" />
+   <install as="locale/ru/help.xml" name="locale/ru/help.xml" />
+   <install as="locale/ru/LC_MESSAGES/horde.mo" name="locale/ru/LC_MESSAGES/horde.mo" />
+   <install as="locale/ru/LC_MESSAGES/horde.po" name="locale/ru/LC_MESSAGES/horde.po" />
+   <install as="locale/sk/help.xml" name="locale/sk/help.xml" />
+   <install as="locale/sk/LC_MESSAGES/horde.mo" name="locale/sk/LC_MESSAGES/horde.mo" />
+   <install as="locale/sk/LC_MESSAGES/horde.po" name="locale/sk/LC_MESSAGES/horde.po" />
+   <install as="locale/sl/help.xml" name="locale/sl/help.xml" />
+   <install as="locale/sl/LC_MESSAGES/horde.mo" name="locale/sl/LC_MESSAGES/horde.mo" />
+   <install as="locale/sl/LC_MESSAGES/horde.po" name="locale/sl/LC_MESSAGES/horde.po" />
+   <install as="locale/sv/help.xml" name="locale/sv/help.xml" />
+   <install as="locale/sv/LC_MESSAGES/horde.mo" name="locale/sv/LC_MESSAGES/horde.mo" />
+   <install as="locale/sv/LC_MESSAGES/horde.po" name="locale/sv/LC_MESSAGES/horde.po" />
+   <install as="locale/tr/help.xml" name="locale/tr/help.xml" />
+   <install as="locale/tr/LC_MESSAGES/horde.mo" name="locale/tr/LC_MESSAGES/horde.mo" />
+   <install as="locale/tr/LC_MESSAGES/horde.po" name="locale/tr/LC_MESSAGES/horde.po" />
+   <install as="locale/uk/help.xml" name="locale/uk/help.xml" />
+   <install as="locale/uk/LC_MESSAGES/horde.mo" name="locale/uk/LC_MESSAGES/horde.mo" />
+   <install as="locale/uk/LC_MESSAGES/horde.po" name="locale/uk/LC_MESSAGES/horde.po" />
+   <install as="locale/zh_CN/help.xml" name="locale/zh_CN/help.xml" />
+   <install as="locale/zh_CN/LC_MESSAGES/horde.mo" name="locale/zh_CN/LC_MESSAGES/horde.mo" />
+   <install as="locale/zh_CN/LC_MESSAGES/horde.po" name="locale/zh_CN/LC_MESSAGES/horde.po" />
+   <install as="locale/zh_TW/help.xml" name="locale/zh_TW/help.xml" />
+   <install as="locale/zh_TW/LC_MESSAGES/horde.mo" name="locale/zh_TW/LC_MESSAGES/horde.mo" />
+   <install as="locale/zh_TW/LC_MESSAGES/horde.po" name="locale/zh_TW/LC_MESSAGES/horde.po" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>4.0.0</release>
+    <api>4.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2010-11-02</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Initial package.xml.
+   </notes>
+  </release>
+ </changelog>
+</package>
