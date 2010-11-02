@@ -25,6 +25,11 @@ class Horde_Controller_Response
         $this->_headers[$name] = $value;
     }
 
+    public function setContentType($contentType, $charset = 'UTF-8')
+    {
+        $this->setHeader('Content-Type', "$contentType; charset=$charset");
+    }
+
     public function setBody($body)
     {
         $this->_body = $body;
