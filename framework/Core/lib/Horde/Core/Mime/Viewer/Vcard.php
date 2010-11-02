@@ -144,7 +144,7 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
                     ? $addresses[0]['value']
                     : Horde_Core_Translation::t("[No Label]");
             }
-            $html .= $fullname . '</td></tr>';
+            $html .= htmlspecialchars($fullname) . '</td></tr>';
 
             $n = $vc->printableName();
             if (!empty($n)) {
