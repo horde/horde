@@ -64,7 +64,7 @@ class Components_Helper_Root
                     break;
                 }
             }
-            $this->_base .= basename($current) . DIRECTORY_SEPARATOR;
+            $this->_base = basename($current) . DIRECTORY_SEPARATOR . $this->_base;
             $current = dirname($current);
             $i++;
         }
