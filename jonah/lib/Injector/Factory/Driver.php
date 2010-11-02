@@ -46,9 +46,12 @@ class Jonah_Injector_Factory_Driver
      * @return Jonah_Driver
      * @throws Jonah_Exception
      */
-    public function getDriver($driver, $params = array())
+    public function create()
     {
+        $driver = Horde_String::ucfirst($GLOBALS['conf']['news']['storage']['driver']);
         $driver = basename($driver);
+        $params = Horde::getDriverConfig(array('news', 'storage'), $driver);
+
         $sig = md5($driver . serialize($params));
         if (isset($this->_instances[$sig])) {
             return $this->_instances[$sig];
@@ -64,5 +67,4 @@ class Jonah_Injector_Factory_Driver
 
         return $this->_instances[$sig];
     }
-
 }
