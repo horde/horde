@@ -49,17 +49,27 @@ class Components_Pear_Package_Contents
     private $_filelist_factory;
 
     /**
+     * Provides access to the contents handler.
+     *
+     * @var Components_Pear_Package_Contents_Factory
+     */
+    private $_contents_factory;
+
+    /**
      * Constructor.
      *
-     * @param Components_Pear_Package_Tasks            $tasks   A tasks helper.
-     * @param Components_Pear_Package_Filelist_Factory $factory Creates the filelist handler.
+     * @param Components_Pear_Package_Tasks            $tasks    A tasks helper.
+     * @param Components_Pear_Package_Filelist_Factory $filelist Creates the filelist handler.
+     * @param Components_Pear_Package_Contents_Factory $contents Creates the contents handler.
      */
     public function __construct(
         Components_Pear_Package_Tasks $tasks,
-        Components_Pear_Package_Filelist_Factory $factory
+        Components_Pear_Package_Filelist_Factory $filelist,
+        Components_Pear_Package_Contents_Factory $contents
     ) {
         $this->_tasks = $tasks;
-        $this->_filelist_factory = $factory;
+        $this->_filelist_factory = $filelist;
+        $this->_contents_factory = $contents;
     }
 
     /**
@@ -90,16 +100,6 @@ class Components_Pear_Package_Contents
     }
 
     /**
-     * Generate an updated contents listing.
-     *
-     * @return NULL
-     */
-    private function _generateContents()
-    {
-        $this->getPackage()->generateContents();
-    }
-
-    /**
      * Return an updated package description.
      *
      * @return PEAR_PackageFileManager2 The updated package.
@@ -107,7 +107,12 @@ class Components_Pear_Package_Contents
     public function update()
     {
         $taskfiles = $this->_tasks->denote($this->getPackage());
-        $this->_generateContents();
+
+        $generator = $this->_contents_factory->create($this->getPackage());
+        $this->getPackage()->clearContents('/');
+        $this->getPackage()->_struc = $generator->getFileList();
+        $this->getPackage()->_getSimpleDirTag($this->getPackage()->_struc);
+
         $this->_tasks->annotate($this->getPackage(), $taskfiles);
 
         $this->_filelist_factory->create($this->getPackage())->update();

@@ -297,12 +297,9 @@ class Components_Pear_Factory
                 $package_xml_path,
                 array(
                     'packagedirectory' => dirname($package_xml_path),
-                    'filelistgenerator' => 'file',
                     'clearcontents' => false,
                     'clearchangelog' => false,
                     'simpleoutput' => true,
-                    'ignore' => array('*~', 'conf.php', 'CVS/*'),
-                    'include' => '*',
                     'dir_roles' =>
                     array(
                         'bin'       => 'script',

@@ -90,4 +90,14 @@ class Components_Helper_Root
         }
         return $package_file;
     }
+
+    /**
+     * Return the contents of the gitignore file.
+     *
+     * @return string The information from the gitignore file.
+     */
+    public function fetchGitIgnore()
+    {
+        return '';
+    }
 }
