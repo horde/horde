@@ -245,12 +245,12 @@ if (!empty($conf['auth']['alternate_login'])) {
 
 /* Build the <select> widget containing the available languages. */
 if (!$is_auth && !$prefs->isLocked('language')) {
-    $session['horde:language'] = $registry->preferredLang($vars->new_lang);
+    $session->set('horde', 'language', $registry->preferredLang($vars->new_lang));
     $langs = array();
 
     foreach ($registry->nlsconfig['languages'] as $key => $val) {
         $langs[] = array(
-            'sel' => ($key == $session['horde:language']),
+            'sel' => ($key == $session->get('horde', 'language')),
             'val' => $key,
             // Language names are already encoded.
             'name' => $val

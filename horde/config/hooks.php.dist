@@ -685,13 +685,13 @@ class Horde_Hooks
 //            (!empty($cfgSources['imsp']['use_shares']))) {
 //            // Only do this once per session or when this session variable
 //            // is purposely unset.
-//            if ($session['horde:imsp_synched']) {
+//            if ($session->get('horde', 'imsp_synched')) {
 //                return;
 //            }
 //
 //            $results = Net_IMSP_Utils::synchShares($share_obj, $cfgSources['imsp']);
 //            if (!$results instanceof PEAR_Error) {
-//                $session['horde:imsp_synched'] = true;
+//                $session->set('horde', 'imsp_synched') = true;
 //
 //                // Now deal with adding or removing address books from prefs.
 //                // FIXME: Updating prefs seems to hang the server. Narrowed
@@ -730,7 +730,7 @@ class Horde_Hooks
 //                // We have to save the connection info for the imsp server
 //                // since the share_modify hook will not occur from within
 //                // turba's context.
-//                $session['horde:imsp_config'] = $cfgSources['imsp']['params'];
+//                $session->set('horde', 'imsp_config', $cfgSources['imsp']['params']);
 //            }
 //        }
 //    }
@@ -749,7 +749,7 @@ class Horde_Hooks
 //        if (is_array($params) &&
 //            !empty($params['source']) &&
 //            ($params['source'] == 'imsp') &&
-//            $session['horde:imsp_config']) {
+//            ($config = $session->get('horde', 'imsp_config'))) {
 //            // Ensure we don't try to change ownership.
 //            $params = @unserialize($share->get('params'));
 //            $bookName = $params['name'];
@@ -762,7 +762,7 @@ class Horde_Hooks
 //            $users = $injector->getInstance('Horde_Perms')->getUserPermissions();
 //            foreach ($users as $user => $perm) {
 //                $acl = Net_IMSP_Utils::permsToACL($perm);
-//                $result = Net_IMSP_Utils::setACL($session['horde:imsp_config'], $bookName, $user, $acl);
+//                $result = Net_IMSP_Utils::setACL($config, $bookName, $user, $acl);
 //            }
 //        }
 //    }
