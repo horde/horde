@@ -17,6 +17,7 @@ class Horde_Session implements ArrayAccess
 {
     /* Class constants. */
     const DATA = '_d';
+    const MODIFIED = '_m';
     const PRUNE = '_p';
     const SERIALIZED = '_s';
 
@@ -103,6 +104,9 @@ class Horde_Session implements ArrayAccess
 
             /* Create internal data arrays. */
             if (!isset($_SESSION[self::SERIALIZED])) {
+                /* Last modification time of session. */
+                $_SESSION[self::MODIFIED] = 0;
+
                 /* Is this key serialized? */
                 $_SESSION[self::SERIALIZED] = array();
             }
@@ -116,8 +120,8 @@ class Horde_Session implements ArrayAccess
              * we are accessing the server via a periodic mechanism (think
              * folder refreshing in IMP) that we will catch this refresh. */
             $curr_time = time();
-            if ($curr_time >= intval($this['horde:session_mod'])) {
-                $this['horde:session_mod'] = $curr_time + (ini_get('session.gc_maxlifetime') / 2);
+            if ($curr_time >= $_SESSION[self::MODIFIED]) {
+                $_SESSION[self::MODIFIED] = intval($curr_time + (ini_get('session.gc_maxlifetime') / 2));
                 $this->sessionHandler->changed = true;
             }
         }
