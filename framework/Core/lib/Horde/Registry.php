@@ -1368,7 +1368,7 @@ class Horde_Registry
         }
 
         return ($parameter == 'name')
-            ? Horde_Core_Translation::t($pval)
+            ? _($pval)
             : $pval;
     }
 

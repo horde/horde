@@ -136,10 +136,11 @@ class Horde_Core_Sidebar
                 break;
 
             default:
-                // Need to run the name through gettext since the user's
-                // locale may not have been loaded when registry.php was
-                // parsed.
-                $name = Horde_Core_Translation::t($params['name']);
+                // Need to run the name through Horde's gettext since the
+                // user's locale may not have been loaded when registry.php was
+                // parsed, and the translations of the application names are
+                // not in the Core package.
+                $name = _($params['name']);
 
                 // Headings have no webroot; they're just containers for other
                 // menu items.
