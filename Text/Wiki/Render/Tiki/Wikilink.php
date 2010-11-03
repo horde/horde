@@ -20,15 +20,15 @@ class Text_Wiki_Render_Tiki_Wikilink extends Text_Wiki_Render {
         if (isset($options['type'])) {
             if ($options['type'] == 'start') {
                 return '(('.$options['page'].
-                    (strlen($options['anchor']) ? '#'.$options['anchor'] : '').
+                    (isset($options['anchor']) && strlen($options['anchor']) ? '#'.$options['anchor'] : '').
                     (strlen($options['text']) /*&& $options['page'] != $options['text']*/ ? '|' : '');
             } else {
                 return '))';
             }
         } else {
             return '(('.$options['page'].
-                (strlen($options['anchor']) ? '#'.$options['anchor'] : '').
-                (strlen($options['text']) && $options['page'] != $options['text'] ? '|' . $options['text'] : '').
+                (isset($options['anchor']) && strlen($options['anchor']) ? '#'.$options['anchor'] : '').
+                (isset($options['text']) && strlen($options['text']) && $options['page'] != $options['text'] ? '|' . $options['text'] : '').
                 '))';
         }
     }

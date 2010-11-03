@@ -30,7 +30,7 @@ class Text_Wiki_Render_Tiki_Image extends Text_Wiki_Render {
             $img .= $this->conf['prefix'];
         $img .= $options['src'] . '"';
 
-        if (is_array($options['attr'])) {
+        if (isset($options['attr']) && is_array($options['attr'])) {
             foreach ($options['attr'] as $var => $val) {
                 $img .= ' '.$var.'="'.$val.'"';
             }

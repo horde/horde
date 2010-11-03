@@ -664,7 +664,7 @@ class Text_Wiki {
 
     function setFormatConf($format, $arg1, $arg2 = null)
     {
-        if (! is_array($this->formatConf[$format])) {
+        if (! isset($this->formatConf[$format]) || ! is_array($this->formatConf[$format])) {
             $this->formatConf[$format] = array();
         }
 
@@ -1278,14 +1278,14 @@ class Text_Wiki {
 
     function setToken($id, $rule, $options = array())
     {
-        $oldRule = $this->tokens[$id][0];
+        $oldRule = isset($this->tokens[$id]) ? $this->tokens[$id][0] : null;
         // reset the token
         $this->tokens[$id] = array(
             0 => $rule,
             1 => $options
         );
         if ($rule != $oldRule) {
-            if (!($this->_countRulesTokens[$oldRule]--)) {
+            if (isset($oldRule) && !($this->_countRulesTokens[$oldRule]--)) {
                 unset($this->_countRulesTokens[$oldRule]);
             }
             if (!isset($this->_countRulesTokens[$rule])) {

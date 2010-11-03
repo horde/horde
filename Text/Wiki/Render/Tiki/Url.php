@@ -18,18 +18,18 @@ class Text_Wiki_Render_Tiki_Url extends Text_Wiki_Render {
 
     function token($options)
     {
-        if ($options['type'] == 'start') {
-            if (! strlen($options['text']) || $options['href'] == $options['text']) {
+        if (isset($options['type']) && $options['type'] == 'start') {
+            if ((! isset($options['text']) || ! strlen($options['text'])) || $options['href'] == $options['text']) {
                 return '['.$options['href'];
             } else {
                 return '['.$options['href'].'|';
             }
         }
-        else if ($options['type'] == 'end') {
+        else if (isset($options['type']) && $options['type'] == 'end') {
             return ']';
         }
         else {
-            if (! strlen($options['text']) || $options['href'] == $options['text']) {
+            if ((! isset($options['text']) || ! strlen($options['text'])) || $options['href'] == $options['text']) {
                 return '['.$options['href'].']';
             } else {
                 return '['.$options['href'].'|'.$options['text'].']';
