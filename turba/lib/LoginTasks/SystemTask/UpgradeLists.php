@@ -35,7 +35,7 @@ class Turba_LoginTasks_SystemTask_UpgradeLists extends Horde_LoginTasks_SystemTa
      */
     public function execute()
     {
-        if ($GLOBALS['session']['turba:has_share']) {
+        if ($GLOBALS['session']->get('turba', 'has_share')) {
             $criteria = array('__type' => 'Group');
             $sources = array_keys($GLOBALS['cfgSources']);
             foreach ($sources as $sourcekey) {

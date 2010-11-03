@@ -527,7 +527,7 @@ class Turba {
      */
     function listShares($owneronly = false, $permission = Horde_Perms::READ)
     {
-        if (!$GLOBALS['session']['turba:has_share']) {
+        if (!$GLOBALS['session']->get('turba', 'has_share')) {
             // No backends are configured to provide shares
             return array();
         }

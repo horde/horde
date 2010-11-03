@@ -125,7 +125,7 @@ class Turba_Api extends Horde_Registry_Api
         // Bring in a clean copy of sources.
         require TURBA_BASE . '/config/backends.php';
 
-        if ($session['turba:has_share']) {
+        if ($session->get('turba', 'has_share')) {
             $shares = Turba::listShares(true);
             foreach ($shares as $uid => $share) {
                 $params = @unserialize($share->get('params'));
@@ -257,7 +257,7 @@ class Turba_Api extends Horde_Registry_Api
             } else {
                 // Assume $parts[0] is a valid username and we need to list their
                 // shared addressbooks.
-                if (!$session['turba:has_share']) {
+                if (!$session->get('turba', 'has_share')) {
                     // No backends are configured to provide shares
                     return array();
                 }
