@@ -48,7 +48,7 @@ class Horde_Db_Migration_Base
 
     /**
      */
-    public function __construct(Horde_Db_Adapter_Base $connection, $version = null)
+    public function __construct(Horde_Db_Adapter $connection, $version = null)
     {
         $this->_connection = $connection;
         $this->version = $version;

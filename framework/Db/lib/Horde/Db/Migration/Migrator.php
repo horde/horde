@@ -52,7 +52,7 @@ class Horde_Db_Migration_Migrator
      *
      * @throws Horde_Db_Migration_Exception
      */
-    public function __construct(Horde_Db_Adapter_Base $connection,
+    public function __construct(Horde_Db_Adapter $connection,
                                 Horde_Log_Logger $logger = null,
                                 array $options = array())
     {
