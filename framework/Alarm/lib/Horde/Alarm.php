@@ -112,8 +112,8 @@ abstract class Horde_Alarm
         // TODO: This must be moved to horde/Core.
         global $session;
 
-        if (isset($session['horde:alarm_loaded']) &&
-            (time() - $session['horde:alarm_loaded']) < $this->_params['ttl']) {
+        if ($session->exists('horde', 'alarm_loaded') &&
+            (time() - $session->get('horde', 'alarm_loaded')) < $this->_params['ttl']) {
             return;
         }
 
@@ -135,7 +135,7 @@ abstract class Horde_Alarm
 
             /* Load current alarms if no preloading requested or if this
              * is the first call in this session. */
-            if (!$preload || !$session['horde:alarm_loaded']) {
+            if (!$preload || !$session->get('horde', 'alarm_loaded')) {
                 try {
                     $app_alarms = $GLOBALS['registry']->callByPackage($app, 'listAlarms', array(time(), $user), array('noperms' => true));
                 } catch (Horde_Exception $e) {
@@ -152,7 +152,7 @@ abstract class Horde_Alarm
             }
         }
 
-        $session['horde:alarm_loaded'] = time();
+        $session->set('horde', 'alarm_loaded', time());
     }
 
     /**

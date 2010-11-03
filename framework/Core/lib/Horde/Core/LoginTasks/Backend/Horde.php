@@ -51,7 +51,7 @@ class Horde_Core_LoginTasks_Backend_Horde extends Horde_LoginTasks_Backend
      */
     public function getTasklistFromCache()
     {
-        return $GLOBALS['session']['horde:logintasks/' . $this->_app];
+        return $GLOBALS['session']->get('horde', 'logintasks/' . $this->_app);
     }
 
     /**
@@ -62,7 +62,7 @@ class Horde_Core_LoginTasks_Backend_Horde extends Horde_LoginTasks_Backend
      */
     public function storeTasklistInCache($tasklist)
     {
-        $GLOBALS['session']['horde:logintasks/' . $this->_app] = $tasklist;
+        $GLOBALS['session']->set('horde', 'logintasks/' . $this->_app, $tasklist);
     }
 
     /**
@@ -79,13 +79,13 @@ class Horde_Core_LoginTasks_Backend_Horde extends Horde_LoginTasks_Backend
 
         switch ($this->_app) {
         case 'horde':
-            if (isset($session['horde:logintasks/horde'])) {
+            if ($session->exists('horde', 'logintasks/horde')) {
                 return $tasks;
             }
             break;
 
         default:
-            if (!isset($session['horde:logintasks/horde'])) {
+            if (!$session->exists('horde', 'logintasks/horde')) {
                 array_unshift($app_list, 'horde');
             }
             break;
@@ -138,9 +138,9 @@ class Horde_Core_LoginTasks_Backend_Horde extends Horde_LoginTasks_Backend
         $lasttasks = $this->getLastRun();
         $lasttasks[$this->_app] = time();
         if (($this->_app != 'horde') &&
-            !isset($session['horde:logintasks/horde'])) {
+            !$session->exists('horde', 'logintasks/horde')) {
             $lasttasks['horde'] = time();
-            $session['horde:logintasks/horde'] = true;
+            $session->set('horde', 'logintasks/horde', true);
         }
         $this->setLastRun($lasttasks);
     }

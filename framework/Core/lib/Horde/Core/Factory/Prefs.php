@@ -121,8 +121,8 @@ class Horde_Core_Factory_Prefs
             try {
                 $this->_instances[$sig] = new Horde_Core_Prefs($driver, $scope, $opts, $params);
             } catch (Horde_Prefs_Exception $e) {
-                if (!$GLOBALS['session']['horde:no_prefs']) {
-                    $GLOBALS['session']['horde:no_prefs'] = true;
+                if (!$GLOBALS['session']->get('horde', 'no_prefs')) {
+                    $GLOBALS['session']->set('horde', 'no_prefs', true);
                     if (isset($GLOBALS['notification'])) {
                         $GLOBALS['notification']->push(Horde_Core_Translation::t("The preferences backend is currently unavailable and your preferences have not been loaded. You may continue to use the system with default preferences."));
                     }

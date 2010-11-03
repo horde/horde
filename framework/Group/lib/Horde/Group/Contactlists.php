@@ -563,8 +563,8 @@ class Horde_Group_Contactlists extends Horde_Group
     public function userIsInGroup($user, $gid, $subgroups = true)
     {
         $id = implode('-', array($user, $subgroups, $gid));
-        if (isset($GLOBALS['session']['horde:groups_i/' . $id])) {
-            return $GLOBALS['session']['horde:groups_i/' . $id];
+        if ($GLOBALS['session']->exists('horde', 'groups_i/' . $id)) {
+            return $GLOBALS['session']->get('horde', 'groups_i/' . $id);
         }
 
         try {
@@ -574,7 +574,7 @@ class Horde_Group_Contactlists extends Horde_Group
             return false;
         }
 
-        $GLOBALS['session']['horde:groups_i/' . $id] = $result = (bool)!empty($users[$user]);
+        $GLOBALS['session']->set('horde', 'groups_i/' . $id, $result = (bool)!empty($users[$user]));
 
         return $result;
     }

@@ -416,7 +416,7 @@ class Horde_Form {
 
         if ($this->_useFormToken) {
             $token = Horde_Token::generateId($this->_name);
-            $GLOBALS['session']['horde:form_secrets/' . $token] = true;
+            $GLOBALS['session']->set('horde', 'form_secrets/' . $token, true);
             $this->_preserveVarByPost($this->_name . '_formToken', $token);
         }
 
@@ -476,7 +476,7 @@ class Horde_Form {
 
         if ($this->_useFormToken) {
             $token = Horde_Token::generateId($this->_name);
-            $GLOBALS['session']['horde:form_secrets/' . $token] = true;
+            $GLOBALS['session']->set('horde', 'form_secrets/' . $token, true);
             $this->_preserveVarByPost($this->_name . '_formToken', $token);
         }
 
@@ -533,7 +533,7 @@ class Horde_Form {
     {
         if ($this->_useFormToken) {
             $token = Horde_Token::generateId($this->_name);
-            $GLOBALS['session']['horde:form_secrets/' . $token] = true;
+            $GLOBALS['session']->set('horde', 'form_secrets/' . $token, true);
             $this->_preserveVarByPost($this->_name . '_formToken', $token);
         }
 
@@ -617,7 +617,7 @@ class Horde_Form {
             if (!empty($passedToken) && !$tokenSource->verify($passedToken)) {
                 $this->_errors['_formToken'] = Horde_Form_Translation::t("This form has already been processed.");
             }
-            if (!$GLOBALS['session']['horde:form_secrets/' . $passedToken]) {
+            if (!$GLOBALS['session']->get('horde', 'form_secrets/' . $passedToken)) {
                 $this->_errors['_formSecret'] = Horde_Form_Translation::t("Required secret is invalid - potentially malicious request.");
             }
         }

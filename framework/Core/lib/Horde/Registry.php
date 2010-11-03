@@ -396,7 +396,7 @@ class Horde_Registry
          * 'notification_override' session variable. */
         $GLOBALS['notification'] = $injector->getInstance('Horde_Notification');
         if (Horde_Util::getFormData('ajaxui') &&
-            ($override = $session['horde:notification_override'])) {
+            ($override = $session->get('horde', 'notification_override'))) {
             require_once $override[0];
             $GLOBALS['notification']->attach('status', null, $override[1]);
         } else {
@@ -457,7 +457,7 @@ class Horde_Registry
      */
     public function clearCache()
     {
-        unset($GLOBALS['session']['horde:registry/']);
+        $GLOBALS['session']->remove('horde', 'registry/');
         $this->_saveCacheVar('api', true);
         $this->_saveCacheVar('appcache', true);
     }
@@ -1513,7 +1513,8 @@ class Horde_Registry
             }
         } else {
             $data = serialize($this->_cache[$name]);
-            $GLOBALS['session']['horde:registry/' . $name] = $md5sum = hash('md5', $data);
+            $md5sum = hash('md5', $data);
+            $GLOBALS['session']->set('horde', 'registry/' . $name, $md5sum);
             $id = $this->_getCacheId($name, false) . '|' . $md5sum;
             if ($ob->set($id, $data, 86400)) {
                 Horde::logMessage('Horde_Registry: stored ' . $name . ' with cache ID ' . $id, 'DEBUG');
@@ -1565,7 +1566,7 @@ class Horde_Registry
 
         if (!$md5) {
             return $id;
-        } elseif ($hash = $GLOBALS['session']['horde:registry/' . $name]) {
+        } elseif ($hash = $GLOBALS['session']->get('horde', 'registry/' . $name)) {
             return $id . '|' . $hash;
         }
 
@@ -1601,13 +1602,14 @@ class Horde_Registry
         global $session;
 
         /* Do logout tasks. */
-        foreach (array_keys($session['horde:auth_app/;array']) as $app) {
+        foreach (array_keys($session->get('horde', 'auth_app/', Horde_Session::TYPE_ARRAY)) as $app) {
             try {
                 $this->callAppMethod($app, 'logout');
             } catch (Horde_Exception $e) {}
         }
 
-        unset($session['horde:auth'], $session['horde:auth_app/']);
+        $session->remove('horde', 'auth');
+        $session->remove('horde', 'auth_app/');
 
         /* Remove the user's cached preferences if they are present. */
         $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->clearCache();
@@ -1673,7 +1675,7 @@ class Horde_Registry
         /* Check for cached authentication results. */
         if ($this->getAuth() &&
             (($app == 'horde') ||
-             isset($GLOBALS['session']['horde:auth_app/' . $app]))) {
+             $GLOBALS['session']->exists('horde', 'auth_app/' . $app))) {
             return $this->checkExistingAuth();
         }
 
@@ -1823,12 +1825,12 @@ class Horde_Registry
         global $session;
 
         if ($format == 'original') {
-            return isset($session['horde:auth/authId'])
-                ? $session['horde:auth/authId']
+            return $session->exists('horde', 'auth/authId')
+                ? $session->get('horde', 'auth/authId')
                 : false;
         }
 
-        $user = $session['horde:auth/userId'];
+        $user = $session->get('horde', 'auth/userId');
         if (is_null($user)) {
             return false;
         }
@@ -1856,7 +1858,7 @@ class Horde_Registry
      */
     public function passwordChangeRequested()
     {
-        return (bool)$GLOBALS['session']['horde:auth/change'];
+        return (bool)$GLOBALS['session']->get('horde', 'auth/change');
     }
 
     /**
@@ -1919,12 +1921,12 @@ class Horde_Registry
         $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
         $entry = $secret->write($secret->getKey('auth'), serialize($credentials));
 
-        if (($base_app = $session['horde:auth/credentials']) &&
-            ($session['horde:auth_app/' . $base_app] == $entry)) {
+        if (($base_app = $session->get('horde', 'auth/credentials')) &&
+            ($session->get('horde', 'auth_app/' . $base_app) == $entry)) {
             $entry = null;
         }
 
-        $session['horde:auth_app/' . $app] = $entry;
+        $session->set('horde', 'auth_app/' . $app, $entry);
     }
 
     /**
@@ -1938,7 +1940,7 @@ class Horde_Registry
     {
         global $session;
 
-        $base_app = $session['horde:auth/credentials'];
+        $base_app = $session->get('horde', 'auth/credentials');
         if (is_null($base_app)) {
             return false;
         }
@@ -1947,14 +1949,14 @@ class Horde_Registry
             $app = $base_app;
         }
 
-        if (!isset($session['horde:auth_app/' . $app])) {
+        if (!$session->exists('horde', 'auth_app/' . $app)) {
             return ($base_app != $app)
                 ? $this->_getAuthCredentials($app)
                 : false;
         }
 
         $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
-        return @unserialize($secret->read($secret->getKey('auth'), $session['horde:auth_app/' . $app]));
+        return @unserialize($secret->read($secret->getKey('auth'), $session->get('horde', 'auth_app/' . $app)));
     }
 
     /**
@@ -2007,17 +2009,17 @@ class Horde_Registry
             return;
         }
 
-        $session['horde:auth/authId'] = $authId;
-        $session['horde:auth/browser'] = $GLOBALS['browser']->getAgentString();
+        $session->set('horde', 'auth/authId', $authId);
+        $session->set('horde', 'auth/browser', $GLOBALS['browser']->getAgentString());
         if (!empty($options['change'])) {
-            $session['horde:auth/change'] = 1;
+            $session->set('horde', 'auth/change', 1);
         }
-        $session['horde:auth/credentials'] = $app;
+        $session->set('horde', 'auth/credentials', $app);
         if (isset($_SERVER['REMOTE_ADDR'])) {
-            $session['horde:auth/remoteAddr'] = $_SERVER['REMOTE_ADDR'];
+            $session->set('horde', 'auth/remoteAddr', $_SERVER['REMOTE_ADDR']);
         }
-        $session['horde:auth/timestamp'] = time();
-        $session['horde:auth/userId'] = $this->convertUsername(trim($authId), true);
+        $session->set('horde', 'auth/timestamp', time());
+        $session->set('horde', 'auth/userId', $this->convertUsername(trim($authId), true));
 
         $this->setAuthCredential($credentials, null, $app);
 
@@ -2041,14 +2043,14 @@ class Horde_Registry
         $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
 
         if (!empty($GLOBALS['conf']['auth']['checkip']) &&
-            ($remoteaddr = $session['horde:auth/remoteAddr']) &&
+            ($remoteaddr = $session->get('horde', 'auth/remoteAddr')) &&
             ($remoteaddr != $_SERVER['REMOTE_ADDR'])) {
             $auth->setError(Horde_Core_Auth_Application::REASON_SESSIONIP);
             return false;
         }
 
         if (!empty($GLOBALS['conf']['auth']['checkbrowser']) &&
-            ($session['horde:auth/browser'] != $GLOBALS['browser']->getAgentString())) {
+            ($session->get('horde', 'auth/browser') != $GLOBALS['browser']->getAgentString())) {
             $auth->setError(Horde_Core_Auth_Application::REASON_BROWSER);
             return false;
         }
@@ -2107,8 +2109,8 @@ class Horde_Registry
         } elseif (!empty($lang) && $this->isValidLang($lang)) {
             $language = $lang;
         /* Check if we have a language set in the session */
-        } elseif (isset($GLOBALS['session']['horde:language'])) {
-            $language = $GLOBALS['session']['horde:language'];
+        } elseif ($GLOBALS['session']->exists('horde', 'language')) {
+            $language = $GLOBALS['session']->get('horde', 'language');
         /* Use site-wide default, if one is defined */
         } elseif (!empty($this->nlsconfig['defaults']['language'])) {
             $language = $this->nlsconfig['defaults']['language'];
@@ -2179,7 +2181,7 @@ class Horde_Registry
             $lang = $this->preferredLang();
         }
 
-        $GLOBALS['session']['horde:language'] = $lang;
+        $GLOBALS['session']->set('horde', 'language', $lang);
 
         if (isset($GLOBALS['language'])) {
             if ($GLOBALS['language'] == $lang) {
