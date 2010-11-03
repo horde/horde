@@ -969,6 +969,8 @@ HTML;
             }
 
             $url = $protocol . '://' . $server_name;
+        } elseif (isset($puri['scheme'])) {
+            $url = $puri['scheme'] . '://' . $puri['host'];
         }
 
         if (isset($puri['path']) && substr($puri['path'], 0, 1) == '/' && !preg_match('|^([\w+-]{1,20})://|', $webroot)) {
