@@ -38,10 +38,21 @@ extends Horde_Nonce_StoryTestCase
     /**
      * @scenario
      */
-    public function aDefaultNonceHasADefinedLengthOf()
+    public function aDefaultNonceHasADefinedLengthOfEightBytes()
     {
         $this->given('the default nonce setup')
             ->when('retrieving a nonce')
             ->then('the nonce has a length of 8 bytes');
+    }
+
+    /**
+     * @scenario
+     */
+    public function aNonceWillBeInvalidIfItHasTimedOut()
+    {
+        $this->given('the default nonce setup')
+            ->when('retrieving a nonce')
+            ->and('waiting for the tenth of a second')
+            ->then('the nonce is invalid given a timeout of a twentieth of a second');
     }
 }
