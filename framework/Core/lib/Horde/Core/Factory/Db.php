@@ -86,17 +86,18 @@ class Horde_Core_Factory_Db
         }
 
         // Prevent DSN from getting polluted
-        if ($type == 'auth' && $conf['driver'] == 'custom') {
-            unset($conf['query_auth'],
-                  $conf['query_add'],
-                  $conf['query_getpw'],
-                  $conf['query_update'],
-                  $conf['query_resetpassword'],
-                  $conf['query_remove'],
-                  $conf['query_list'],
-                  $conf['query_exists'],
-                  $conf['encryption'],
-                  $conf['show_encryption']);
+        if ($type == 'auth' && !empty($config['driver']) &&
+            $config['driver'] == 'customsql') {
+            unset($config['query_auth'],
+                  $config['query_add'],
+                  $config['query_getpw'],
+                  $config['query_update'],
+                  $config['query_resetpassword'],
+                  $config['query_remove'],
+                  $config['query_list'],
+                  $config['query_exists'],
+                  $config['encryption'],
+                  $config['show_encryption']);
         }
         try {
             $this->_instances[$sig] = $this->_createDb($config);
