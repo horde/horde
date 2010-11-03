@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Nonce</name>
+ <channel>pear.horde.org</channel>
+ <summary>Provides nonces (numbers used once)</summary>
+ <description>Nonces (numbers used once) protect against reuse. They
+ can be used to disallow sending forms or using links twice. They can
+ can also be combined with tokens protecting against XSRF (though they
+ do not neccesarily provide any additional security in that
+ context). Generation of nonces is trivial but storage of used nonces
+ can be complex. This library relies primarily on modified Bloom
+ filters as suggested by Martin Schönert (who in turn refers to Robert
+ Floyd as the first one suggesting such an approach).</description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chuck</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Gunnar Wrobel</name>
+  <user>wrobel</user>
+  <email>wrobel@pardus.de</email>
+  <active>yes</active>
+ </lead>
+ <date>2010-11-03</date>
+ <time>17:30:13</time>
+ <version>
+  <release>0.0.1</release>
+  <api>0.0.1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>
+* Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="lib">
+    <dir name="Horde">
+     <file name="Nonce.php" role="php" />
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Nonce">
+      <dir name="Integration">
+       <file name="NonceTest.php" role="test" />
+      </dir> <!-- /test/Horde/Nonce/Integration -->
+      <file name="AllTests.php" role="test" />
+      <file name="Autoload.php" role="test" />
+      <file name="phpunit.xml" role="test" />
+      <file name="StoryTestCase.php" role="test" />
+     </dir> <!-- /test/Horde/Nonce -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.9.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="Horde/Nonce.php" name="lib/Horde/Nonce.php" />
+   <install as="Horde/Nonce/AllTests.php" name="test/Horde/Nonce/AllTests.php" />
+   <install as="Horde/Nonce/Autoload.php" name="test/Horde/Nonce/Autoload.php" />
+   <install as="Horde/Nonce/phpunit.xml" name="test/Horde/Nonce/phpunit.xml" />
+   <install as="Horde/Nonce/StoryTestCase.php" name="test/Horde/Nonce/StoryTestCase.php" />
+   <install as="Horde/Nonce/Integration/NonceTest.php" name="test/Horde/Nonce/Integration/NonceTest.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2010-11-03</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>
