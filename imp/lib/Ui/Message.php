@@ -320,7 +320,7 @@ class IMP_Ui_Message
 
         $add_link = null;
         $addr_array = array();
-        $mimp_view = ($GLOBALS['session']['imp:view'] == 'mimp');
+        $mimp_view = ($GLOBALS['session']->get('imp', 'view') == 'mimp');
 
         /* Set up the add address icon link if contact manager is
          * available. */
@@ -389,7 +389,7 @@ class IMP_Ui_Message
             }
         }
 
-        if ($GLOBALS['session']['imp:view'] == 'mimp') {
+        if ($GLOBALS['session']->get('imp', 'view') == 'mimp') {
             return implode(', ', $addr_array);
         }
 
@@ -653,7 +653,7 @@ class IMP_Ui_Message
      */
     public function moveAfterAction()
     {
-        return (($GLOBALS['session']['imp:protocol'] != 'pop') &&
+        return (($GLOBALS['session']->get('imp', 'protocol') != 'pop') &&
                 !IMP::hideDeletedMsgs(IMP::$mailbox) &&
                 !$GLOBALS['prefs']->getValue('use_trash'));
     }

@@ -114,7 +114,7 @@ try {
 $envelope = $fetch_ret[$uid]['envelope'];
 $flags = $flags_ret[$uid]['flags'];
 $mime_headers = reset($fetch_ret[$uid]['headertext']);
-$use_pop = ($session['imp:protocol'] == 'pop');
+$use_pop = ($session->get('imp', 'protocol') == 'pop');
 
 /* Parse the message. */
 try {

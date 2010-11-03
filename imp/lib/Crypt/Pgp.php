@@ -394,7 +394,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
             $id = 'personal';
         }
 
-        if (!($cache = $GLOBALS['session']['imp:pgp']) ||
+        if (!($cache = $GLOBALS['session']->get('imp', 'pgp')) ||
             !isset($cache[$type][$id])) {
             return null;
         }
@@ -425,9 +425,9 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
 
         $secret = $GLOBALS['injector']->getInstance('Horde_Secret');
 
-        $cache = $GLOBALS['session']['imp:pgp;array'];
+        $cache = $GLOBALS['session']->get('imp', 'pgp', Horde_Session::TYPE_ARRAY);
         $cache[$type][$id] = $secret->write($secret->getKey('imp'), $passphrase);
-        $GLOBALS['session']['imp:pgp'] = $cache;
+        $GLOBALS['session']->set('imp', 'pgp', $cache);
 
         return true;
     }
@@ -443,13 +443,13 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      */
     public function unsetPassphrase($type, $id = null)
     {
-        if ($cache = $GLOBALS['session']['imp:pgp']) {
+        if ($cache = $GLOBALS['session']->get('imp', 'pgp')) {
             if (($type == 'symmetric') && !is_null($id)) {
                 unset($cache['symmetric'][$id]);
             } else {
                 unset($cache[$type]);
             }
-            $GLOBALS['session']['imp:pgp'] = $cache;
+            $GLOBALS['session']->set('imp', 'pgp', $cache);
         }
     }
 
@@ -524,7 +524,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         $addr_list = array();
 
         foreach ($addresses as $val) {
-            $addrOb = Horde_Mime_Address::bareAddress($val, $GLOBALS['session']['imp:maildomain'], true);
+            $addrOb = Horde_Mime_Address::bareAddress($val, $GLOBALS['session']->get('imp', 'maildomain'), true);
             $key_addr = array_pop($addrOb);
 
             /* Get the public key for the address. */

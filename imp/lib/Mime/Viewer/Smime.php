@@ -310,7 +310,7 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
                 $status[] = $e->getMessage();
             }
         } else {
-            switch ($GLOBALS['session']['imp:view']) {
+            switch ($GLOBALS['session']->get('imp', 'view')) {
             case 'imp':
                 $status[] = Horde::link(IMP::selfUrl()->add('smime_verify_msg', 1)) . _("Click HERE to verify the data.") . '</a>';
                 break;

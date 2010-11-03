@@ -329,7 +329,7 @@ class IMP_Imap_Flags
             }
         }
 
-        if ($GLOBALS['session']['imp:protocol'] == 'imap') {
+        if ($GLOBALS['session']->get('imp', 'protocol') == 'imap') {
             $flaglist = empty($options['flags'])
                 ? array()
                 : array_map('strtolower', $options['flags']);

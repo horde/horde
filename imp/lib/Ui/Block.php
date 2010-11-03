@@ -49,7 +49,7 @@ class IMP_Ui_Block
         foreach ($poll as $folder) {
             if (isset($status[$folder]) &&
                 (($folder == 'INBOX') ||
-                 ($GLOBALS['session']['imp:protocol'] != 'pop')) &&
+                 ($GLOBALS['session']->get('imp', 'protocol') != 'pop')) &&
                 (empty($this->_params['show_unread']) ||
                  !empty($status[$folder]['unseen']))) {
                 if (!empty($status[$folder]['recent'])) {

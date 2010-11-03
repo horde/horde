@@ -35,7 +35,7 @@ class IMP_Injector_Factory_Search
     public function create(Horde_Injector $injector)
     {
         try {
-            $instance = $GLOBALS['session']['imp:search'];
+            $instance = $GLOBALS['session']->get('imp', 'search');
         } catch (Exception $e) {
             Horde::logMessage('Could not unserialize stored IMP_Search object.', 'DEBUG');
             $instance = null;
@@ -59,7 +59,7 @@ class IMP_Injector_Factory_Search
     {
         /* Only need to store the object if the object has changed. */
         if ($instance->changed) {
-            $GLOBALS['session']['imp:search'] = $instance;
+            $GLOBALS['session']->set('imp', 'search', $instance);
         }
     }
 

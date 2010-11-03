@@ -83,7 +83,7 @@ class IMP_Injector_Factory_Compose
     {
         global $session;
 
-        $cache = $session['imp:compose_cache:array'];
+        $cache = $session->get('imp', 'compose_cache', Horde_Session::TYPE_ARRAY);
         $changed = false;
 
         foreach ($this->_instances as $key => $val) {
@@ -105,7 +105,7 @@ class IMP_Injector_Factory_Compose
         }
 
         if ($changed) {
-            $GLOBALS['session']['imp:compose_cache'] = $cache;
+            $session->set('imp', 'compose_cache', $cache);
         }
     }
 

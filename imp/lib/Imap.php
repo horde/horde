@@ -74,7 +74,7 @@ class IMP_Imap
     {
         /* Only need to serialize object once a session. */
         if ($this->ob) {
-            $GLOBALS['session']['imp:imap_ob/' . $this->_serverkey] = $this->ob;
+            $GLOBALS['session']->set('imp', 'imap_ob/' . $this->_serverkey, $this->ob);
         }
     }
 
@@ -93,7 +93,7 @@ class IMP_Imap
         }
 
         try {
-            if (!($this->ob = $GLOBALS['session']['imp:imap_ob/' . $this->_serverkey])) {
+            if (!($this->ob = $session->get('imp', 'imap_ob/' . $this->_serverkey))) {
                 return false;
             }
         } catch (Exception $e) {
@@ -102,7 +102,7 @@ class IMP_Imap
             throw new IMP_Exception(_("Could not acquire mail server credentials from the session."));
         }
 
-        $this->_postcreate($session['imp:protocol']);
+        $this->_postcreate($session->get('imp', 'protocol'));
 
         return true;
     }
@@ -237,7 +237,7 @@ class IMP_Imap
             /* This check can only be done for regular IMAP mailboxes. */
             // TODO: POP3 also?
             if (!$res &&
-                ($GLOBALS['session']['imp:protocol'] == 'imap') &&
+                ($GLOBALS['session']->get('imp', 'protocol') == 'imap') &&
                 !$GLOBALS['injector']->getInstance('IMP_Search')->isSearchMbox($mailbox)) {
                 try {
                     $status = $this->ob->status($mailbox, Horde_Imap_Client::STATUS_UIDNOTSTICKY);
@@ -265,16 +265,14 @@ class IMP_Imap
         global $session;
 
         // TODO: POP3 also?
-        if ($session['imp:protocol'] == 'pop') {
+        if ($session->get('imp', 'protocol') == 'pop') {
             return;
         }
 
         if (!isset($this->_uidvalid[$mailbox])) {
             $status = $this->ob->status($mailbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
-            $val = isset($session['imp:uidvalid/' . $mailbox])
-                ? $session['imp:uidvalid/' . $mailbox]
-                : null;
-            $session['imp:uidvalid/' . $mailbox] = $status['uidvalidity'];
+            $val = $session->get('imp', 'uidvalid/' . $mailbox);
+            $session->set('imp', 'uidvalid/' . $mailbox, $status['uidvalidity']);
 
             $this->_uidvalid[$mailbox] = (!is_null($val) && ($status['uidvalidity'] != $val));
         }
@@ -283,7 +281,7 @@ class IMP_Imap
             throw new IMP_Exception(_("Mailbox structure on server has changed."));
         }
 
-        return $session['imp:uidvalid/' . $mailbox];
+        return $session->get('imp', 'uidvalid/' . $mailbox);
     }
 
     /**
@@ -294,7 +292,7 @@ class IMP_Imap
     public function getNamespaceList()
     {
         try {
-            return $this->ob->getNamespaces($GLOBALS['session']['imp:imap_namespace;array']);
+            return $this->ob->getNamespaces($GLOBALS['session']->get('imp', 'imap_namespace', Horde_Session::TYPE_ARRAY));
         } catch (Horde_Imap_Client_Exception $e) {
             // @todo Error handling
             return array();
@@ -313,7 +311,7 @@ class IMP_Imap
      */
     public function getNamespace($mailbox = null, $personal = false)
     {
-        if ($GLOBALS['session']['imp:protocol'] == 'pop') {
+        if ($GLOBALS['session']->get('imp', 'protocol') == 'pop') {
             return null;
         }
 
@@ -343,7 +341,7 @@ class IMP_Imap
      */
     public function defaultNamespace()
     {
-        if ($GLOBALS['session']['imp:protocol'] == 'pop') {
+        if ($GLOBALS['session']->get('imp', 'protocol') == 'pop') {
             return null;
         }
 

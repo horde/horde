@@ -35,7 +35,7 @@ class IMP_Injector_Factory_Quota
      */
     public function create(Horde_Injector $injector)
     {
-        $qparams = $GLOBALS['session']['imp:imap_quota'];
+        $qparams = $GLOBALS['session']->get('imp', 'imap_quota');
 
         if (!isset($qparams['driver'])) {
             throw new IMP_Exception('Quota config missing driver parameter.');
