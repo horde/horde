@@ -1453,6 +1453,26 @@ class Whups_Driver_sql extends Whups_Driver {
      */
     function deleteQueue($queueId)
     {
+        // Clean up the tickets associated with the queue.
+        $query = 'SELECT ticket_id FROM whups_tickets WHERE queue_id = ?';
+        $values = array($queueId);
+        Horde::logMessage(sprintf('Whups_Driver_sql::deleteQueue: query="%s"; values=%s"', $query, implode(',', $values)), 'DEBUG');
+
+        $result = $this->_db->getAll($query, $values, DB_FETCHMODE_ASSOC);
+        if (is_a($result, 'PEAR_Error')) {
+            Horde::logMessage($result, 'ERR');
+            return $result;
+        }
+
+        foreach ($result as $ticket) {
+          $info['id'] = $ticket['ticket_id'];
+          $this->deleteTicket($info);
+        }
+
+        // Now remove all references to the queue itself
+        // Note that whups_tickets could be in this list below, but there
+        // should never be tickets left for the queue at this point
+        // because they were all deleted above.
         $tables = array('whups_queues_users',
                         'whups_types_queues',
                         'whups_versions',
