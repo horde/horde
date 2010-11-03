@@ -66,32 +66,20 @@ class Components_Pear_Package_Filelist_Default
                 continue;
             }
             $components = explode('/', $file['attribs']['name'], 2);
-            switch ($components[0]) {
-            case 'doc':
-            case 'example':
-            case 'lib':
-            case 'test':
-            case 'data':
-                $this->_package->addInstallAs(
-                    $file['attribs']['name'], $components[1]
-                );
-            break;
-            case 'js':
+            $role = isset($file['attribs']['role']) ? $file['attribs']['role'] : '';
+            switch ($role) {
             case 'horde':
                 $horde_role = true;
-            case 'locale':
                 $this->_package->addInstallAs(
                     $file['attribs']['name'], $file['attribs']['name']
                 );
-            break;
-            case 'migration':
-                $components = explode('/', $components[1]);
-                array_splice($components, count($components) - 1, 0, 'migration');
+                break;
+            case 'doc':
+            case 'test':
                 $this->_package->addInstallAs(
-                    $file['attribs']['name'], implode('/', $components)
+                    $file['attribs']['name'], $components[1]
                 );
                 break;
-            case 'bin':
             case 'script':
                 $filename = basename($file['attribs']['name']);
                 if (substr($filename, strlen($filename) - 4) == '.php') {
@@ -101,6 +89,34 @@ class Components_Pear_Package_Filelist_Default
                     $file['attribs']['name'], $filename
                 );
                 break;
+            case 'php':
+            case 'data':
+            default:
+                switch ($components[0]) {
+                case 'lib':
+                case 'data':
+                    $this->_package->addInstallAs(
+                        $file['attribs']['name'], $components[1]
+                    );
+                break;
+                case 'locale':
+                    $this->_package->addInstallAs(
+                        $file['attribs']['name'], $file['attribs']['name']
+                    );
+                    break;
+                case 'migration':
+                    $components = explode('/', $components[1]);
+                    array_splice($components, count($components) - 1, 0, 'migration');
+                    $this->_package->addInstallAs(
+                        $file['attribs']['name'], implode('/', $components)
+                    );
+                    break;
+                default:
+                    $this->_package->addInstallAs(
+                        $file['attribs']['name'], $file['attribs']['name']
+                    );
+                    break;
+                }
             }
         }
 
