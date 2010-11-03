@@ -98,20 +98,20 @@ applications.</description>
     <file name="spelling.php.dist" role="horde" />
    </dir> <!-- /config -->
    <dir name="docs">
-    <file name="CHANGES" role="data" />
-    <file name="CODING_STANDARDS" role="data" />
+    <file name="CHANGES" role="doc" />
+    <file name="CODING_STANDARDS" role="doc" />
     <file name="CODING_STANDARDS.H3" role="doc" />
-    <file name="CONTRIBUTING" role="data" />
-    <file name="CREDITS" role="data" />
-    <file name="INSTALL" role="data" />
-    <file name="LICENSES" role="data" />
+    <file name="CONTRIBUTING" role="doc" />
+    <file name="CREDITS" role="doc" />
+    <file name="INSTALL" role="doc" />
+    <file name="LICENSES" role="doc" />
     <file name="lighttpd-horde.conf" role="doc" />
-    <file name="PERFORMANCE" role="data" />
-    <file name="RELEASE" role="data" />
-    <file name="RELEASE_NOTES" role="data" />
-    <file name="SECURITY" role="data" />
-    <file name="TRANSLATIONS" role="data" />
-    <file name="UPGRADING" role="data" />
+    <file name="PERFORMANCE" role="doc" />
+    <file name="RELEASE" role="doc" />
+    <file name="RELEASE_NOTES" role="doc" />
+    <file name="SECURITY" role="doc" />
+    <file name="TRANSLATIONS" role="doc" />
+    <file name="UPGRADING" role="doc" />
    </dir> <!-- /docs -->
    <dir name="js">
     <dir name="date">
@@ -361,7 +361,7 @@ applications.</description>
      <file name="Ui.php" role="horde" />
     </dir> <!-- /lib/Prefs -->
     <dir name="tests">
-     <file name="webroot.phpt" role="php" />
+     <file name="webroot.phpt" role="horde" />
     </dir> <!-- /lib/tests -->
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
@@ -371,296 +371,296 @@ applications.</description>
    <dir name="locale">
     <dir name="ar">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/ar/LC_MESSAGES -->
     </dir> <!-- /locale/ar -->
     <dir name="bg">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/bg/LC_MESSAGES -->
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/bg -->
     <dir name="bs">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/bs/LC_MESSAGES -->
     </dir> <!-- /locale/bs -->
     <dir name="ca">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/ca/LC_MESSAGES -->
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/ca -->
     <dir name="cs">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/cs/LC_MESSAGES -->
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/cs -->
     <dir name="da">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/da/LC_MESSAGES -->
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/da -->
     <dir name="de">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/de/LC_MESSAGES -->
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/de -->
     <dir name="el">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/el/LC_MESSAGES -->
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/el -->
     <dir name="en">
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/en -->
     <dir name="es">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/es/LC_MESSAGES -->
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/es -->
     <dir name="et">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/et/LC_MESSAGES -->
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/et -->
     <dir name="eu">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/eu/LC_MESSAGES -->
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/eu -->
     <dir name="fa">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/fa/LC_MESSAGES -->
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/fa -->
     <dir name="fi">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/fi/LC_MESSAGES -->
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/fi -->
     <dir name="fr">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/fr/LC_MESSAGES -->
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/fr -->
     <dir name="gl">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/gl/LC_MESSAGES -->
     </dir> <!-- /locale/gl -->
     <dir name="he">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/he/LC_MESSAGES -->
     </dir> <!-- /locale/he -->
     <dir name="hr">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/hr/LC_MESSAGES -->
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/hr -->
     <dir name="hu">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/hu/LC_MESSAGES -->
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/hu -->
     <dir name="id">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/id/LC_MESSAGES -->
     </dir> <!-- /locale/id -->
     <dir name="is">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/is/LC_MESSAGES -->
     </dir> <!-- /locale/is -->
     <dir name="it">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/it/LC_MESSAGES -->
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/it -->
     <dir name="ja">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/ja/LC_MESSAGES -->
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/ja -->
     <dir name="km">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/km/LC_MESSAGES -->
     </dir> <!-- /locale/km -->
     <dir name="ko">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/ko/LC_MESSAGES -->
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/ko -->
     <dir name="lt">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/lt/LC_MESSAGES -->
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/lt -->
     <dir name="lv">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/lv/LC_MESSAGES -->
     </dir> <!-- /locale/lv -->
     <dir name="mk">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/mk/LC_MESSAGES -->
     </dir> <!-- /locale/mk -->
     <dir name="nb">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/nb/LC_MESSAGES -->
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/nb -->
     <dir name="nl">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/nl/LC_MESSAGES -->
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/nl -->
     <dir name="nn">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/nn/LC_MESSAGES -->
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/nn -->
     <dir name="pl">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/pl/LC_MESSAGES -->
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/pl -->
     <dir name="pt">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/pt/LC_MESSAGES -->
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/pt -->
     <dir name="pt_BR">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/pt_BR/LC_MESSAGES -->
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/pt_BR -->
     <dir name="ro">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/ro/LC_MESSAGES -->
     </dir> <!-- /locale/ro -->
     <dir name="ru">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/ru/LC_MESSAGES -->
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/ru -->
     <dir name="sk">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/sk/LC_MESSAGES -->
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/sk -->
     <dir name="sl">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/sl/LC_MESSAGES -->
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/sl -->
     <dir name="sv">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/sv/LC_MESSAGES -->
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/sv -->
     <dir name="tr">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/tr/LC_MESSAGES -->
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/tr -->
     <dir name="uk">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/uk/LC_MESSAGES -->
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/uk -->
     <dir name="zh_CN">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/zh_CN/LC_MESSAGES -->
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/zh_CN -->
     <dir name="zh_TW">
      <dir name="LC_MESSAGES">
-      <file name="horde.mo" role="data" />
-      <file name="horde.po" role="data" />
+      <file name="horde.mo" role="horde" />
+      <file name="horde.po" role="horde" />
      </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
-     <file name="help.xml" role="data" />
+     <file name="help.xml" role="horde" />
     </dir> <!-- /locale/zh_TW -->
-    <file name="compendium.po.tmp" role="data" />
-    <file name="horde.pot" role="data" />
+    <file name="compendium.po.tmp" role="horde" />
+    <file name="horde.pot" role="horde" />
    </dir> <!-- /locale -->
    <dir name="rpc">
-    <file name="index.php" role="php" />
+    <file name="index.php" role="horde" />
    </dir> <!-- /rpc -->
    <dir name="scripts">
     <dir name="ldap">
@@ -825,7 +825,7 @@ applications.</description>
     <file name="twitter.php" role="horde" />
    </dir> <!-- /services -->
    <dir name="static">
-    <file name="README" role="data" />
+    <file name="README" role="horde" />
    </dir> <!-- /static -->
    <dir name="templates">
     <dir name="admin">
