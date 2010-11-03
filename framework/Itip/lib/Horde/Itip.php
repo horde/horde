@@ -68,7 +68,7 @@ class Horde_Itip
      * @param string                   $product_id The ID that should be set as
      *                                             the iCalendar product id.
      *
-     * @return Horde_iCalendar The response object.
+     * @return Horde_Icalendar The response object.
      */
     public function getIcalendarResponse(
         Horde_Itip_Response_Type $type,

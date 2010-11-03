@@ -23,7 +23,7 @@ Horde_Registry::appInit('horde', array(
 array_shift($_SERVER['argv']);
 $args = $_SERVER['argv'];
 if (empty($args[0])) {
-    $cli->fatal("An application argument is required");
+    $cli->fatal('Usage: db_migrate application [up | down | version]');
 }
 
 $app = $args[0];

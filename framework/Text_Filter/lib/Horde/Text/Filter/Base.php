@@ -24,24 +24,12 @@ class Horde_Text_Filter_Base
     protected $_params = array();
 
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_dict;
-
-    /**
      * Constructor.
      *
      * @param array $params  Any parameters that the filter instance needs.
      */
     public function __construct($params = array())
     {
-        if (isset($params['translation'])) {
-            $this->_dict = $params['translation'];
-        } else {
-            $this->_dict = new Horde_Translation_Gettext('Horde_Text_Filter', dirname(__FILE__) . '/../../../../locale');
-        }
         $this->_params = array_merge($this->_params, $params);
     }
 

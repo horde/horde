@@ -71,7 +71,7 @@ class Horde_Compress_Tar extends Horde_Compress
         while ($position < $data_len) {
             $info = @unpack("a100filename/a8mode/a8uid/a8gid/a12size/a12mtime/a8checksum/Ctypeflag/a100link/a6magic/a2version/a32uname/a32gname/a8devmajor/a8devminor", substr($data, $position));
             if (!$info) {
-                throw new Horde_Exception($this->_dict->t("Unable to decompress data."));
+                throw new Horde_Exception(Horde_Compress_Translation::t("Unable to decompress data."));
             }
 
             $position += 512;

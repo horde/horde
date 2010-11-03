@@ -21,10 +21,10 @@ class Horde_Image_Exif_Exiftool extends Horde_Image_Exif_Base
 
     public function __construct($params)
     {
+        parent::__construct($params);
         if (empty($this->_params['exiftool'])) {
             throw new InvalidArgumentException('Missing required exiftool path');
         }
-        parent::__construct($params);
         $this->_exiftool = $this->_params['exiftool'];
     }
 

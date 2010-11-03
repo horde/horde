@@ -26,13 +26,13 @@
 interface Horde_Notification_Storage_Interface
 {
     /**
-     * Return the given stack by reference from the notification store.
+     * Return the given stack from the notification store.
      *
      * @param string $key  The key for the data.
      *
      * @return mixed  The notification data stored for the given key.
      */
-    public function &get($key);
+    public function get($key);
 
     /**
      * Set the given stack in the notification store.

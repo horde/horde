@@ -30,17 +30,18 @@ class Horde_Core_Controller_RequestMapper
         } else {
             list($app,) = explode('/', $uri, 2);
         }
+        $config->setApplication($app);
 
         // Check for route definitions.
         $fileroot = $registry->get('fileroot', $app);
         $routeFile = $fileroot . '/config/routes.php';
         if (!file_exists($routeFile)) {
-            throw new Horde_Routes_Exception('Not routable: ' . $uri . '. ' . $routeFile . ' does not exist.');
+            $config->setControllerName('Horde_Core_Controller_NotFound');
+            return $config;
         }
 
         // Push $app onto the registry
         $registry->pushApp($app);
-        $config->setApplication($app);
 
         // Application routes are relative only to the application. Let the
         // mapper know where they start.

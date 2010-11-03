@@ -7,6 +7,7 @@ require_once dirname(__FILE__) . '/common.php';
 date_default_timezone_set('UTC');
 
 $test_files = glob(dirname(__FILE__) . '/fixtures/vTimezone/*.???');
+sort($test_files);
 foreach ($test_files as $file) {
     echo basename($file) . "\n";
     $ical = new Horde_Icalendar();
@@ -93,7 +94,7 @@ Host-Herpesvirus Standoff:  Good News From the Front in an Ancient Battle
 New Event
 17:00
 Matthew Welch
-Exploitation of the Host Actin Cytoskeleton by Bacterial and Viral Pathogens
+Exploitation of the Host Actin Cytoskeleton byÂ Bacterial and Viral Pathogens
 17:00
 Theresa Koeher
 Virulence Gene Expression by Bacillus anthracis and Implications for the Host
@@ -437,7 +438,7 @@ Everton 1-0 Arsenal
 12:45
 Porto 1-2 Arsenal
 16:30
-Bayern München 3-1 Arsenal
+Bayern MÃ¼nchen 3-1 Arsenal
 19:45
 Arsenal 4-2 Liverpool
 11:30
@@ -655,7 +656,7 @@ Arsenal - Manchester Utd
 15:00
 Charlton Athletic 0-1 Arsenal
 12:45
-Arsenal 1-0 Bayern München
+Arsenal 1-0 Bayern MÃ¼nchen
 19:45
 Arsenal 5-1 Rosenborg
 19:45

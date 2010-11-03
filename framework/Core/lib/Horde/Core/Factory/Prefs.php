@@ -42,13 +42,6 @@ class Horde_Core_Factory_Prefs
     private $_injector;
 
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_coreDict;
-
-    /**
      * Constructor.
      *
      * @param Horde_Injector $injector  The injector to use.
@@ -56,14 +49,14 @@ class Horde_Core_Factory_Prefs
     public function __construct(Horde_Injector $injector)
     {
         $this->_injector = $injector;
-        $this->_coreDict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../../../../locale');
     }
 
     /**
      * Return the Horde_Prefs:: instance.
      *
      * @param string $scope  The scope for this set of preferences.
-     * @param array $opts    See Horde_Prefs::factory(). Additional options:
+     * @param array $opts    See Horde_Prefs::__construct(). Additional
+     *                       options:
      * <pre>
      * 'session' - (boolean) Use the session driver.
      *             DEFAULT: false
@@ -75,7 +68,7 @@ class Horde_Core_Factory_Prefs
     {
         if (empty($GLOBALS['conf']['prefs']['driver']) ||
             !empty($opts['session'])) {
-            $driver = 'Session';
+            $driver = 'Horde_Core_Prefs_Storage_Session';
             $params = array();
             unset($opts['session']);
         } else {
@@ -84,7 +77,7 @@ class Horde_Core_Factory_Prefs
         }
 
         $opts = array_merge(array(
-            'cache' => true,
+            'cache' => 'Horde_Core_Prefs_Storage_Session',
             'charset' => 'UTF-8',
             'logger' => $this->_injector->getInstance('Horde_Log_Logger'),
             'password' => '',
@@ -92,6 +85,11 @@ class Horde_Core_Factory_Prefs
             'user' => ''
         ), $opts);
         ksort($opts);
+
+        /* Allow no caching to be specified as false-y value. */
+        if (!$opts['cache']) {
+            unset($opts['cache']);
+        }
 
         /* If $params['user_hook'] is defined, use it to retrieve the value to
          * use for the username. */
@@ -110,6 +108,10 @@ class Horde_Core_Factory_Prefs
                 $params['ldap'] = $this->_injector->getInstance('Horde_Core_Factory_Ldap')->getLdap('horde', 'ldap');
                 break;
 
+            case 'Session':
+                unset($opts['cache']);
+                break;
+
             case 'Sql':
                 $params['db'] = $this->_injector->getInstance('Horde_Db_Adapter');
                 $opts['charset'] = $params['db']->getOption('charset');
@@ -117,15 +119,16 @@ class Horde_Core_Factory_Prefs
             }
 
             try {
-                $this->_instances[$sig] = Horde_Prefs::factory($driver, $scope, $opts, $params);
+                $this->_instances[$sig] = new Horde_Core_Prefs($driver, $scope, $opts, $params);
             } catch (Horde_Prefs_Exception $e) {
                 if (!$GLOBALS['session']['horde:no_prefs']) {
                     $GLOBALS['session']['horde:no_prefs'] = true;
                     if (isset($GLOBALS['notification'])) {
-                        $GLOBALS['notification']->push($this->_coreDict("The preferences backend is currently unavailable and your preferences have not been loaded. You may continue to use the system with default preferences."));
+                        $GLOBALS['notification']->push(Horde_Core_Translation::t("The preferences backend is currently unavailable and your preferences have not been loaded. You may continue to use the system with default preferences."));
                     }
                 }
-                $this->_instances[$sig] = Horde_Prefs::factory('Session', $scope);
+                unset($opts['cache']);
+                $this->_instances[$sig] = new Horde_Core_Prefs('Horde_Core_Prefs_Storage_Session', $scope, $opts);
             }
         }
 
@@ -154,7 +157,7 @@ class Horde_Core_Factory_Prefs
             return false;
         }
 
-        $GLOBALS['notification']->push(sprintf($this->_coreDict("The preference \"%s\" could not be saved because its data exceeds the maximum allowable size"), $pref), 'horde.error');
+        $GLOBALS['notification']->push(sprintf(Horde_Core_Translation::t("The preference \"%s\" could not be saved because its data exceeds the maximum allowable size"), $pref), 'horde.error');
         return true;
     }
 

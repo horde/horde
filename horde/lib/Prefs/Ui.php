@@ -376,10 +376,7 @@ class Horde_Prefs_Ui
             return _("ActiveSync not activated.");
         }
 
-        $state_params = array_merge($GLOBALS['conf']['activesync']['state']['params'], array(
-            'db' => $GLOBALS['injector']->getInstance('Horde_Db_Adapter')
-        ));
-        $stateMachine = new Horde_ActiveSync_State_History($state_params);
+        $stateMachine = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
         $devices = $stateMachine->listDevices($GLOBALS['registry']->getAuth());
 
         $js = array();
@@ -733,9 +730,7 @@ class Horde_Prefs_Ui
      */
     protected function _updateActiveSyncManagement($ui)
     {
-        $state_params = $GLOBALS['conf']['activesync']['state']['params'];
-        $state_params['db'] = $GLOBALS['injector']->getInstance('Horde_Db_Adapter');
-        $stateMachine = new Horde_ActiveSync_State_History($state_params);
+        $stateMachine = $GLOBALS['injector']->getInstance('Horde_ActiveSyncState');
         $stateMachine->setLogger($GLOBALS['injector']->getInstance('Horde_Log_Logger'));
         if ($ui->vars->wipeid) {
             $stateMachine->loadDeviceInfo($ui->vars->wipeid, $GLOBALS['registry']->getAuth());

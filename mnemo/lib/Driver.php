@@ -252,15 +252,15 @@ class Mnemo_Driver {
      * Export this memo in iCalendar format.
      *
      * @param array  memo      the memo (hash array) to export
-     * @param object vcal      a Horde_iCalendar object that acts as container.
+     * @param object vcal      a Horde_Icalendar object that acts as container.
      *
-     * @return object  Horde_iCalendar_vnote object for this event.
+     * @return object  Horde_Icalendar_Vnote object for this event.
      */
     function toiCalendar($memo, &$calendar)
     {
         global $prefs;
 
-        $vnote = &Horde_iCalendar::newComponent('vnote', $calendar);
+        $vnote = Horde_Icalendar::newComponent('vnote', $calendar);
 
         $vnote->setAttribute('UID', $memo['uid']);
         $vnote->setAttribute('BODY', $memo['body']);
@@ -298,9 +298,9 @@ class Mnemo_Driver {
     }
 
     /**
-     * Create a memo (hash array) from a Horde_iCalendar_vnote object.
+     * Create a memo (hash array) from a Horde_Icalendar_Vnote object.
      *
-     * @param Horde_iCalendar_vnote $vnote  The iCalendar data to update from.
+     * @param Horde_Icalendar_Vnote $vnote  The iCalendar data to update from.
      *
      * @return array  Memo (hash array) created from the vNote.
      */

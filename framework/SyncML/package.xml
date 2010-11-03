@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>SyncML</name>
  <channel>pear.horde.org</channel>
  <summary>SyncML provides an API for processing SyncML requests.</summary>
- <description>This package provides classes for implementing a SyncML server.
- </description>
+ <description>This package provides classes for implementing a SyncML server.</description>
  <lead>
   <name>Karsten Fourmont</name>
   <user>karsten</user>
@@ -20,8 +16,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2007-01-11</date>
- <time>13:58:57</time>
+ <date>2010-10-22</date>
+ <time>19:02:58</time>
  <version>
   <release>0.7.0</release>
   <api>0.7.0</api>
@@ -31,39 +27,303 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>Make the SyncML package independant from Horde, provide a new Sql backend as a reference implementation for a backend.</notes>
+ <notes>
+Make the SyncML package independant from Horde, provide a new Sql backend as a reference implementation for a backend.
+ </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="docs">
     <file name="INSTALL.p900.txt" role="doc" />
     <file name="README.program_flow.txt" role="doc" />
     <file name="README.syncml_primer.txt" role="doc" />
     <file name="TODO" role="doc" />
    </dir> <!-- /docs -->
+   <dir name="locale">
+    <dir name="ar">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/ar/LC_MESSAGES -->
+    </dir> <!-- /locale/ar -->
+    <dir name="bg">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/bg/LC_MESSAGES -->
+    </dir> <!-- /locale/bg -->
+    <dir name="bs">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/bs/LC_MESSAGES -->
+    </dir> <!-- /locale/bs -->
+    <dir name="ca">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/ca/LC_MESSAGES -->
+    </dir> <!-- /locale/ca -->
+    <dir name="cs">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/cs/LC_MESSAGES -->
+    </dir> <!-- /locale/cs -->
+    <dir name="da">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/da/LC_MESSAGES -->
+    </dir> <!-- /locale/da -->
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+    </dir> <!-- /locale/de -->
+    <dir name="el">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/el/LC_MESSAGES -->
+    </dir> <!-- /locale/el -->
+    <dir name="en">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/en/LC_MESSAGES -->
+    </dir> <!-- /locale/en -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+    </dir> <!-- /locale/es -->
+    <dir name="et">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/et/LC_MESSAGES -->
+    </dir> <!-- /locale/et -->
+    <dir name="eu">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/eu/LC_MESSAGES -->
+    </dir> <!-- /locale/eu -->
+    <dir name="fa">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/fa/LC_MESSAGES -->
+    </dir> <!-- /locale/fa -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+    </dir> <!-- /locale/fi -->
+    <dir name="fr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/fr/LC_MESSAGES -->
+    </dir> <!-- /locale/fr -->
+    <dir name="gl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/gl/LC_MESSAGES -->
+    </dir> <!-- /locale/gl -->
+    <dir name="he">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/he/LC_MESSAGES -->
+    </dir> <!-- /locale/he -->
+    <dir name="hr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/hr/LC_MESSAGES -->
+    </dir> <!-- /locale/hr -->
+    <dir name="hu">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/hu/LC_MESSAGES -->
+    </dir> <!-- /locale/hu -->
+    <dir name="id">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/id/LC_MESSAGES -->
+    </dir> <!-- /locale/id -->
+    <dir name="is">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/is/LC_MESSAGES -->
+    </dir> <!-- /locale/is -->
+    <dir name="it">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/it/LC_MESSAGES -->
+    </dir> <!-- /locale/it -->
+    <dir name="ja">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/ja/LC_MESSAGES -->
+    </dir> <!-- /locale/ja -->
+    <dir name="km">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/km/LC_MESSAGES -->
+    </dir> <!-- /locale/km -->
+    <dir name="ko">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/ko/LC_MESSAGES -->
+    </dir> <!-- /locale/ko -->
+    <dir name="lt">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/lt/LC_MESSAGES -->
+    </dir> <!-- /locale/lt -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+    </dir> <!-- /locale/lv -->
+    <dir name="mk">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/mk/LC_MESSAGES -->
+    </dir> <!-- /locale/mk -->
+    <dir name="nb">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/nb/LC_MESSAGES -->
+    </dir> <!-- /locale/nb -->
+    <dir name="nl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/nl/LC_MESSAGES -->
+    </dir> <!-- /locale/nl -->
+    <dir name="nn">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/nn/LC_MESSAGES -->
+    </dir> <!-- /locale/nn -->
+    <dir name="pl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/pl/LC_MESSAGES -->
+    </dir> <!-- /locale/pl -->
+    <dir name="pt">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/pt/LC_MESSAGES -->
+    </dir> <!-- /locale/pt -->
+    <dir name="pt_BR">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/pt_BR/LC_MESSAGES -->
+    </dir> <!-- /locale/pt_BR -->
+    <dir name="ro">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/ro/LC_MESSAGES -->
+    </dir> <!-- /locale/ro -->
+    <dir name="ru">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/ru/LC_MESSAGES -->
+    </dir> <!-- /locale/ru -->
+    <dir name="sk">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/sk/LC_MESSAGES -->
+    </dir> <!-- /locale/sk -->
+    <dir name="sl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/sl/LC_MESSAGES -->
+    </dir> <!-- /locale/sl -->
+    <dir name="sv">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/sv/LC_MESSAGES -->
+    </dir> <!-- /locale/sv -->
+    <dir name="tr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/tr/LC_MESSAGES -->
+    </dir> <!-- /locale/tr -->
+    <dir name="uk">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/uk/LC_MESSAGES -->
+    </dir> <!-- /locale/uk -->
+    <dir name="zh_CN">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/zh_CN/LC_MESSAGES -->
+    </dir> <!-- /locale/zh_CN -->
+    <dir name="zh_TW">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_SyncML.mo" role="data" />
+      <file name="Horde_SyncML.po" role="data" />
+     </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
+    </dir> <!-- /locale/zh_TW -->
+    <file name="Horde_SyncML.pot" role="data" />
+   </dir> <!-- /locale -->
    <dir name="SyncML">
+    <dir name="Backend">
+     <file name="Horde.php" role="php" />
+     <file name="Sql.php" role="php" />
+    </dir> <!-- /SyncML/Backend -->
     <dir name="Command">
      <file name="Alert.php" role="php" />
      <file name="Final.php" role="php" />
      <file name="Get.php" role="php" />
      <file name="Map.php" role="php" />
      <file name="Put.php" role="php" />
+     <file name="Replace.php" role="php" />
      <file name="Results.php" role="php" />
      <file name="Status.php" role="php" />
      <file name="Sync.php" role="php" />
-     <file name="SyncHdr.php" role="php" />
      <file name="SyncElement.php" role="php" />
+     <file name="SyncHdr.php" role="php" />
     </dir> <!-- /SyncML/Command -->
     <dir name="Device">
      <file name="Nokia.php" role="php" />
      <file name="P800.php" role="php" />
      <file name="Sync4j.php" role="php" />
-     <file name="Synthesis.php" role="php" />
      <file name="Sync4JMozilla.php" role="php" />
+     <file name="Synthesis.php" role="php" />
     </dir> <!-- /SyncML/Device -->
-    <dir name="Backend">
-     <file name="Horde.php" role="php" />
-     <file name="Sql.php" role="php" />
-    </dir> <!-- /SyncML/Backend -->
     <file name="Backend.php" role="php" />
     <file name="Command.php" role="php" />
     <file name="Constants.php" role="php" />
@@ -71,8 +331,229 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <file name="DeviceInfo.php" role="php" />
     <file name="State.php" role="php" />
     <file name="Sync.php" role="php" />
+    <file name="Translation.php" role="php">
+      <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+    </file>
     <file name="XMLOutput.php" role="php" />
    </dir> <!-- /SyncML -->
+   <dir name="tests">
+    <dir name="testcase_funambol_outlook3015_calendar">
+     <file name="data.txt" role="test" />
+     <file name="syncml_client_10.xml" role="test" />
+     <file name="syncml_client_11.xml" role="test" />
+     <file name="syncml_client_12.xml" role="test" />
+     <file name="syncml_client_13.xml" role="test" />
+     <file name="syncml_client_20.xml" role="test" />
+     <file name="syncml_client_21.xml" role="test" />
+     <file name="syncml_client_22.xml" role="test" />
+     <file name="syncml_client_23.xml" role="test" />
+     <file name="syncml_client_30.xml" role="test" />
+     <file name="syncml_client_31.xml" role="test" />
+     <file name="syncml_client_32.xml" role="test" />
+     <file name="syncml_client_33.xml" role="test" />
+     <file name="syncml_client_40.xml" role="test" />
+     <file name="syncml_client_41.xml" role="test" />
+     <file name="syncml_client_42.xml" role="test" />
+     <file name="syncml_client_43.xml" role="test" />
+     <file name="syncml_client_50.xml" role="test" />
+     <file name="syncml_client_51.xml" role="test" />
+     <file name="syncml_client_52.xml" role="test" />
+     <file name="syncml_client_53.xml" role="test" />
+     <file name="syncml_log.txt" role="test" />
+     <file name="syncml_server_10.xml" role="test" />
+     <file name="syncml_server_11.xml" role="test" />
+     <file name="syncml_server_12.xml" role="test" />
+     <file name="syncml_server_13.xml" role="test" />
+     <file name="syncml_server_20.xml" role="test" />
+     <file name="syncml_server_21.xml" role="test" />
+     <file name="syncml_server_22.xml" role="test" />
+     <file name="syncml_server_23.xml" role="test" />
+     <file name="syncml_server_30.xml" role="test" />
+     <file name="syncml_server_31.xml" role="test" />
+     <file name="syncml_server_32.xml" role="test" />
+     <file name="syncml_server_33.xml" role="test" />
+     <file name="syncml_server_40.xml" role="test" />
+     <file name="syncml_server_41.xml" role="test" />
+     <file name="syncml_server_42.xml" role="test" />
+     <file name="syncml_server_43.xml" role="test" />
+     <file name="syncml_server_50.xml" role="test" />
+     <file name="syncml_server_51.xml" role="test" />
+     <file name="syncml_server_52.xml" role="test" />
+     <file name="syncml_server_53.xml" role="test" />
+    </dir> <!-- /tests/testcase_funambol_outlook3015_calendar -->
+    <dir name="testcase_P900_tasksandcalendar">
+     <file name="data.txt" role="test" />
+     <file name="devinf.txt" role="test" />
+     <file name="syncml_client_10.xml" role="test" />
+     <file name="syncml_client_11.xml" role="test" />
+     <file name="syncml_client_12.xml" role="test" />
+     <file name="syncml_client_20.xml" role="test" />
+     <file name="syncml_client_21.xml" role="test" />
+     <file name="syncml_client_22.xml" role="test" />
+     <file name="syncml_client_30.xml" role="test" />
+     <file name="syncml_client_31.xml" role="test" />
+     <file name="syncml_client_32.xml" role="test" />
+     <file name="syncml_client_40.xml" role="test" />
+     <file name="syncml_client_41.xml" role="test" />
+     <file name="syncml_client_42.xml" role="test" />
+     <file name="syncml_client_50.xml" role="test" />
+     <file name="syncml_client_51.xml" role="test" />
+     <file name="syncml_client_52.xml" role="test" />
+     <file name="syncml_client_60.xml" role="test" />
+     <file name="syncml_client_61.xml" role="test" />
+     <file name="syncml_client_62.xml" role="test" />
+     <file name="syncml_log.txt" role="test" />
+     <file name="syncml_server_10.xml" role="test" />
+     <file name="syncml_server_11.xml" role="test" />
+     <file name="syncml_server_12.xml" role="test" />
+     <file name="syncml_server_20.xml" role="test" />
+     <file name="syncml_server_21.xml" role="test" />
+     <file name="syncml_server_22.xml" role="test" />
+     <file name="syncml_server_30.xml" role="test" />
+     <file name="syncml_server_31.xml" role="test" />
+     <file name="syncml_server_32.xml" role="test" />
+     <file name="syncml_server_40.xml" role="test" />
+     <file name="syncml_server_41.xml" role="test" />
+     <file name="syncml_server_42.xml" role="test" />
+     <file name="syncml_server_50.xml" role="test" />
+     <file name="syncml_server_51.xml" role="test" />
+     <file name="syncml_server_52.xml" role="test" />
+     <file name="syncml_server_60.xml" role="test" />
+     <file name="syncml_server_61.xml" role="test" />
+     <file name="syncml_server_62.xml" role="test" />
+    </dir> <!-- /tests/testcase_P900_tasksandcalendar -->
+    <dir name="testcase_sync4j_pocketpc_calendar">
+     <file name="syncml_client_10.xml" role="test" />
+     <file name="syncml_client_11.xml" role="test" />
+     <file name="syncml_client_12.xml" role="test" />
+     <file name="syncml_client_13.xml" role="test" />
+     <file name="syncml_client_20.xml" role="test" />
+     <file name="syncml_client_21.xml" role="test" />
+     <file name="syncml_client_22.xml" role="test" />
+     <file name="syncml_client_23.xml" role="test" />
+     <file name="syncml_client_30.xml" role="test" />
+     <file name="syncml_client_31.xml" role="test" />
+     <file name="syncml_client_32.xml" role="test" />
+     <file name="syncml_client_33.xml" role="test" />
+     <file name="syncml_client_40.xml" role="test" />
+     <file name="syncml_client_41.xml" role="test" />
+     <file name="syncml_client_42.xml" role="test" />
+     <file name="syncml_client_43.xml" role="test" />
+     <file name="syncml_server_10.xml" role="test" />
+     <file name="syncml_server_11.xml" role="test" />
+     <file name="syncml_server_12.xml" role="test" />
+     <file name="syncml_server_13.xml" role="test" />
+     <file name="syncml_server_20.xml" role="test" />
+     <file name="syncml_server_21.xml" role="test" />
+     <file name="syncml_server_22.xml" role="test" />
+     <file name="syncml_server_23.xml" role="test" />
+     <file name="syncml_server_30.xml" role="test" />
+     <file name="syncml_server_31.xml" role="test" />
+     <file name="syncml_server_32.xml" role="test" />
+     <file name="syncml_server_33.xml" role="test" />
+     <file name="syncml_server_40.xml" role="test" />
+     <file name="syncml_server_41.xml" role="test" />
+     <file name="syncml_server_42.xml" role="test" />
+     <file name="syncml_server_43.xml" role="test" />
+    </dir> <!-- /tests/testcase_sync4j_pocketpc_calendar -->
+    <dir name="testcase_sync4j_pocketpc_contacts">
+     <file name="syncml_client_10.xml" role="test" />
+     <file name="syncml_client_11.xml" role="test" />
+     <file name="syncml_client_12.xml" role="test" />
+     <file name="syncml_client_13.xml" role="test" />
+     <file name="syncml_client_20.xml" role="test" />
+     <file name="syncml_client_21.xml" role="test" />
+     <file name="syncml_client_22.xml" role="test" />
+     <file name="syncml_client_23.xml" role="test" />
+     <file name="syncml_client_30.xml" role="test" />
+     <file name="syncml_client_31.xml" role="test" />
+     <file name="syncml_client_32.xml" role="test" />
+     <file name="syncml_client_33.xml" role="test" />
+     <file name="syncml_client_40.xml" role="test" />
+     <file name="syncml_client_41.xml" role="test" />
+     <file name="syncml_client_42.xml" role="test" />
+     <file name="syncml_client_43.xml" role="test" />
+     <file name="syncml_server_10.xml" role="test" />
+     <file name="syncml_server_11.xml" role="test" />
+     <file name="syncml_server_12.xml" role="test" />
+     <file name="syncml_server_13.xml" role="test" />
+     <file name="syncml_server_20.xml" role="test" />
+     <file name="syncml_server_21.xml" role="test" />
+     <file name="syncml_server_22.xml" role="test" />
+     <file name="syncml_server_23.xml" role="test" />
+     <file name="syncml_server_30.xml" role="test" />
+     <file name="syncml_server_31.xml" role="test" />
+     <file name="syncml_server_32.xml" role="test" />
+     <file name="syncml_server_33.xml" role="test" />
+     <file name="syncml_server_40.xml" role="test" />
+     <file name="syncml_server_41.xml" role="test" />
+     <file name="syncml_server_42.xml" role="test" />
+     <file name="syncml_server_43.xml" role="test" />
+    </dir> <!-- /tests/testcase_sync4j_pocketpc_contacts -->
+    <dir name="testcase_sync4j_pocketpc_notes">
+     <file name="syncml_client_10.xml" role="test" />
+     <file name="syncml_client_11.xml" role="test" />
+     <file name="syncml_client_12.xml" role="test" />
+     <file name="syncml_client_13.xml" role="test" />
+     <file name="syncml_client_20.xml" role="test" />
+     <file name="syncml_client_21.xml" role="test" />
+     <file name="syncml_client_22.xml" role="test" />
+     <file name="syncml_client_23.xml" role="test" />
+     <file name="syncml_client_30.xml" role="test" />
+     <file name="syncml_client_31.xml" role="test" />
+     <file name="syncml_client_32.xml" role="test" />
+     <file name="syncml_client_33.xml" role="test" />
+     <file name="syncml_client_40.xml" role="test" />
+     <file name="syncml_client_41.xml" role="test" />
+     <file name="syncml_client_42.xml" role="test" />
+     <file name="syncml_client_43.xml" role="test" />
+     <file name="syncml_server_10.xml" role="test" />
+     <file name="syncml_server_11.xml" role="test" />
+     <file name="syncml_server_12.xml" role="test" />
+     <file name="syncml_server_13.xml" role="test" />
+     <file name="syncml_server_20.xml" role="test" />
+     <file name="syncml_server_21.xml" role="test" />
+     <file name="syncml_server_22.xml" role="test" />
+     <file name="syncml_server_23.xml" role="test" />
+     <file name="syncml_server_30.xml" role="test" />
+     <file name="syncml_server_31.xml" role="test" />
+     <file name="syncml_server_32.xml" role="test" />
+     <file name="syncml_server_33.xml" role="test" />
+     <file name="syncml_server_40.xml" role="test" />
+     <file name="syncml_server_41.xml" role="test" />
+     <file name="syncml_server_42.xml" role="test" />
+     <file name="syncml_server_43.xml" role="test" />
+    </dir> <!-- /tests/testcase_sync4j_pocketpc_notes -->
+    <dir name="testcase_synthesis_tasks">
+     <file name="syncml_client_10.xml" role="test" />
+     <file name="syncml_client_11.xml" role="test" />
+     <file name="syncml_client_12.xml" role="test" />
+     <file name="syncml_client_20.xml" role="test" />
+     <file name="syncml_client_21.xml" role="test" />
+     <file name="syncml_client_22.xml" role="test" />
+     <file name="syncml_client_30.xml" role="test" />
+     <file name="syncml_client_31.xml" role="test" />
+     <file name="syncml_client_32.xml" role="test" />
+     <file name="syncml_client_40.xml" role="test" />
+     <file name="syncml_client_41.xml" role="test" />
+     <file name="syncml_client_42.xml" role="test" />
+     <file name="syncml_server_10.xml" role="test" />
+     <file name="syncml_server_11.xml" role="test" />
+     <file name="syncml_server_12.xml" role="test" />
+     <file name="syncml_server_20.xml" role="test" />
+     <file name="syncml_server_21.xml" role="test" />
+     <file name="syncml_server_22.xml" role="test" />
+     <file name="syncml_server_30.xml" role="test" />
+     <file name="syncml_server_31.xml" role="test" />
+     <file name="syncml_server_32.xml" role="test" />
+     <file name="syncml_server_40.xml" role="test" />
+     <file name="syncml_server_41.xml" role="test" />
+     <file name="syncml_server_42.xml" role="test" />
+    </dir> <!-- /tests/testcase_synthesis_tasks -->
+    <file name="sif.phpt" role="test" />
+    <file name="testpacket.php" role="test" />
+    <file name="testsync.php" role="test" />
+   </dir> <!-- /tests -->
    <file name="SyncML.php" role="php" />
   </dir> <!-- / -->
  </contents>
@@ -92,22 +573,117 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <name>XML_WBXML</name>
     <channel>pear.horde.org</channel>
    </package>
+   <package>
+    <name>Translation</name>
+    <channel>pear.horde.org</channel>
+   </package>
   </required>
  </dependencies>
- <phprelease />
+ <phprelease>
+  <filelist>
+   <install as="locale/Horde_SyncML.pot" name="locale/Horde_SyncML.pot" />
+   <install as="locale/ar/LC_MESSAGES/Horde_SyncML.mo" name="locale/ar/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/ar/LC_MESSAGES/Horde_SyncML.po" name="locale/ar/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/bg/LC_MESSAGES/Horde_SyncML.mo" name="locale/bg/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/bg/LC_MESSAGES/Horde_SyncML.po" name="locale/bg/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/bs/LC_MESSAGES/Horde_SyncML.mo" name="locale/bs/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/bs/LC_MESSAGES/Horde_SyncML.po" name="locale/bs/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/ca/LC_MESSAGES/Horde_SyncML.mo" name="locale/ca/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/ca/LC_MESSAGES/Horde_SyncML.po" name="locale/ca/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/cs/LC_MESSAGES/Horde_SyncML.mo" name="locale/cs/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/cs/LC_MESSAGES/Horde_SyncML.po" name="locale/cs/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/da/LC_MESSAGES/Horde_SyncML.mo" name="locale/da/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/da/LC_MESSAGES/Horde_SyncML.po" name="locale/da/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/de/LC_MESSAGES/Horde_SyncML.mo" name="locale/de/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/de/LC_MESSAGES/Horde_SyncML.po" name="locale/de/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/el/LC_MESSAGES/Horde_SyncML.mo" name="locale/el/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/el/LC_MESSAGES/Horde_SyncML.po" name="locale/el/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/en/LC_MESSAGES/Horde_SyncML.mo" name="locale/en/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/en/LC_MESSAGES/Horde_SyncML.po" name="locale/en/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/es/LC_MESSAGES/Horde_SyncML.mo" name="locale/es/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/es/LC_MESSAGES/Horde_SyncML.po" name="locale/es/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/et/LC_MESSAGES/Horde_SyncML.mo" name="locale/et/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/et/LC_MESSAGES/Horde_SyncML.po" name="locale/et/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/eu/LC_MESSAGES/Horde_SyncML.mo" name="locale/eu/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/eu/LC_MESSAGES/Horde_SyncML.po" name="locale/eu/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/fa/LC_MESSAGES/Horde_SyncML.mo" name="locale/fa/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/fa/LC_MESSAGES/Horde_SyncML.po" name="locale/fa/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/fi/LC_MESSAGES/Horde_SyncML.mo" name="locale/fi/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/fi/LC_MESSAGES/Horde_SyncML.po" name="locale/fi/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/fr/LC_MESSAGES/Horde_SyncML.mo" name="locale/fr/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/fr/LC_MESSAGES/Horde_SyncML.po" name="locale/fr/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/gl/LC_MESSAGES/Horde_SyncML.mo" name="locale/gl/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/gl/LC_MESSAGES/Horde_SyncML.po" name="locale/gl/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/he/LC_MESSAGES/Horde_SyncML.mo" name="locale/he/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/he/LC_MESSAGES/Horde_SyncML.po" name="locale/he/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/hr/LC_MESSAGES/Horde_SyncML.mo" name="locale/hr/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/hr/LC_MESSAGES/Horde_SyncML.po" name="locale/hr/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/hu/LC_MESSAGES/Horde_SyncML.mo" name="locale/hu/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/hu/LC_MESSAGES/Horde_SyncML.po" name="locale/hu/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/id/LC_MESSAGES/Horde_SyncML.mo" name="locale/id/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/id/LC_MESSAGES/Horde_SyncML.po" name="locale/id/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/is/LC_MESSAGES/Horde_SyncML.mo" name="locale/is/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/is/LC_MESSAGES/Horde_SyncML.po" name="locale/is/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/it/LC_MESSAGES/Horde_SyncML.mo" name="locale/it/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/it/LC_MESSAGES/Horde_SyncML.po" name="locale/it/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/ja/LC_MESSAGES/Horde_SyncML.mo" name="locale/ja/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/ja/LC_MESSAGES/Horde_SyncML.po" name="locale/ja/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/km/LC_MESSAGES/Horde_SyncML.mo" name="locale/km/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/km/LC_MESSAGES/Horde_SyncML.po" name="locale/km/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/ko/LC_MESSAGES/Horde_SyncML.mo" name="locale/ko/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/ko/LC_MESSAGES/Horde_SyncML.po" name="locale/ko/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/lt/LC_MESSAGES/Horde_SyncML.mo" name="locale/lt/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/lt/LC_MESSAGES/Horde_SyncML.po" name="locale/lt/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/lv/LC_MESSAGES/Horde_SyncML.mo" name="locale/lv/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/lv/LC_MESSAGES/Horde_SyncML.po" name="locale/lv/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/mk/LC_MESSAGES/Horde_SyncML.mo" name="locale/mk/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/mk/LC_MESSAGES/Horde_SyncML.po" name="locale/mk/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/nb/LC_MESSAGES/Horde_SyncML.mo" name="locale/nb/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/nb/LC_MESSAGES/Horde_SyncML.po" name="locale/nb/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/nl/LC_MESSAGES/Horde_SyncML.mo" name="locale/nl/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/nl/LC_MESSAGES/Horde_SyncML.po" name="locale/nl/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/nn/LC_MESSAGES/Horde_SyncML.mo" name="locale/nn/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/nn/LC_MESSAGES/Horde_SyncML.po" name="locale/nn/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/pl/LC_MESSAGES/Horde_SyncML.mo" name="locale/pl/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/pl/LC_MESSAGES/Horde_SyncML.po" name="locale/pl/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/pt/LC_MESSAGES/Horde_SyncML.mo" name="locale/pt/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/pt/LC_MESSAGES/Horde_SyncML.po" name="locale/pt/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/pt_BR/LC_MESSAGES/Horde_SyncML.mo" name="locale/pt_BR/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/pt_BR/LC_MESSAGES/Horde_SyncML.po" name="locale/pt_BR/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/ro/LC_MESSAGES/Horde_SyncML.mo" name="locale/ro/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/ro/LC_MESSAGES/Horde_SyncML.po" name="locale/ro/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/ru/LC_MESSAGES/Horde_SyncML.mo" name="locale/ru/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/ru/LC_MESSAGES/Horde_SyncML.po" name="locale/ru/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/sk/LC_MESSAGES/Horde_SyncML.mo" name="locale/sk/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/sk/LC_MESSAGES/Horde_SyncML.po" name="locale/sk/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/sl/LC_MESSAGES/Horde_SyncML.mo" name="locale/sl/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/sl/LC_MESSAGES/Horde_SyncML.po" name="locale/sl/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/sv/LC_MESSAGES/Horde_SyncML.mo" name="locale/sv/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/sv/LC_MESSAGES/Horde_SyncML.po" name="locale/sv/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/tr/LC_MESSAGES/Horde_SyncML.mo" name="locale/tr/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/tr/LC_MESSAGES/Horde_SyncML.po" name="locale/tr/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/uk/LC_MESSAGES/Horde_SyncML.mo" name="locale/uk/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/uk/LC_MESSAGES/Horde_SyncML.po" name="locale/uk/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/zh_CN/LC_MESSAGES/Horde_SyncML.mo" name="locale/zh_CN/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/zh_CN/LC_MESSAGES/Horde_SyncML.po" name="locale/zh_CN/LC_MESSAGES/Horde_SyncML.po" />
+   <install as="locale/zh_TW/LC_MESSAGES/Horde_SyncML.mo" name="locale/zh_TW/LC_MESSAGES/Horde_SyncML.mo" />
+   <install as="locale/zh_TW/LC_MESSAGES/Horde_SyncML.po" name="locale/zh_TW/LC_MESSAGES/Horde_SyncML.po" />
+  </filelist>
+ </phprelease>
  <changelog>
-   <release>
+  <release>
    <version>
-    <release>0.6.0</release>
-    <api>0.6.0</api>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>alpha</release>
+    <api>alpha</api>
    </stability>
-   <date>2006-01-01</date>
+   <date>2004-01-19</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Passes all tests of SyncML conformance suite now.
+   <notes>
+Initial implementation
    </notes>
   </release>
   <release>
@@ -121,21 +697,38 @@ http://pear.php.net/dtd/package-2.0.xsd">
    </stability>
    <date>2005-04-23</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Major update
+   <notes>
+Major update
    </notes>
   </release>
   <release>
    <version>
-    <release>0.0.1</release>
-    <api>0.0.1</api>
+    <release>0.6.0</release>
+    <api>0.6.0</api>
    </version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api>
+    <release>beta</release>
+    <api>beta</api>
    </stability>
-   <date>2004-01-19</date>
+   <date>2006-01-01</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Initial implementation
+   <notes>
+Passes all tests of SyncML conformance suite now.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.7.0</release>
+    <api>0.7.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2010-10-22</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+Make the SyncML package independant from Horde, provide a new Sql backend as a reference implementation for a backend.
    </notes>
   </release>
  </changelog>

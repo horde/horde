@@ -203,11 +203,18 @@ v5.0-git
 [mms] Add preference to delete draft on resume & send.
 
 
-----------
-v4.3.9-cvs
-----------
+-----------
+v4.3.10-cvs
+-----------
 
 
+
+
+------
+v4.3.9
+------
+
+[mms] Fix error if user's account only contains an INBOX (Bug #9273).
 
 
 ------
@@ -2489,10 +2496,17 @@ OLD DIMP CHANGELOG
 ==================
 
 ----------
-v1.1.6-cvs
+v1.1.7-cvs
 ----------
 
 
+
+
+------
+v1.1.6
+------
+
+[jan] Fix redirecting to login screen if session times out (Bug #9281).
 
 
 ------

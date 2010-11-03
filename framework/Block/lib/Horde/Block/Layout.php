@@ -31,29 +31,6 @@ class Horde_Block_Layout
     protected $_viewUrl;
 
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_dict;
-
-    /**
-     * Constructor.
-     *
-     * @param array $params  Hash with configuration data. Possible values:
-     *                       - 'translation': A translation handler
-     *                                        implementing Horde_Translation.
-     */
-    public function __construct($params = array())
-    {
-        if (isset($params['translation'])) {
-            $this->_dict = $params['translation'];
-        } else {
-            $this->_dict = new Horde_Translation_Gettext('Horde_Block', dirname(__FILE__) . '/../../../locale');
-        }
-    }
-
-    /**
      * Returns whether the specified block may be removed.
      *
      * @param integer $row  A layout row.
@@ -127,17 +104,17 @@ class Horde_Block_Layout
         $icons = '';
         if ($edit) {
             $icons .= Horde::link($this->getActionUrl('edit', $row, $col),
-                                  $this->_dict->t("Edit"))
-                . Horde::img('edit.png', $this->_dict->t("Edit"))
+                                  Horde_Block_Translation::t("Edit"))
+                . Horde::img('edit.png', Horde_Block_Translation::t("Edit"))
                 . '</a>';
         }
         if ($this->isRemovable($row, $col)) {
             $icons .= Horde::link(
-                $this->getActionUrl('removeBlock', $row, $col), $this->_dict->t("Remove"),
+                $this->getActionUrl('removeBlock', $row, $col), Horde_Block_Translation::t("Remove"),
                 '', '',
                 'return window.confirm(\''
-                . addslashes($this->_dict->t("Really delete this block?")) . '\')')
-                . Horde::img('delete.png', $this->_dict->t("Remove"))
+                . addslashes(Horde_Block_Translation::t("Really delete this block?")) . '\')')
+                . Horde::img('delete.png', Horde_Block_Translation::t("Remove"))
                 . '</a>';
         }
         return $icons;

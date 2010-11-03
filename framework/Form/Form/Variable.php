@@ -114,13 +114,6 @@ class Horde_Form_Variable {
     var $_options = array();
 
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_dict;
-
-    /**
      * Variable constructor.
      *
      * @param string $humanName      A short description of the variable's
@@ -131,13 +124,9 @@ class Horde_Form_Variable {
      * @param boolean $readonly      Whether this is a readonly variable.
      * @param string $description    A long description of the variable's
      *                               purpose, special instructions, etc.
-     * @param array $params  Hash with configuration data. Possible values:
-     *                       - 'translation': A translation handler
-     *                                        implementing Horde_Translation.
      */
     function Horde_Form_Variable($humanName, $varName, &$type, $required,
-                                 $readonly = false, $description = null,
-                                 $params = array())
+                                 $readonly = false, $description = null)
     {
         $this->humanName   = $humanName;
         $this->varName     = $varName;
@@ -146,12 +135,6 @@ class Horde_Form_Variable {
         $this->readonly    = $readonly;
         $this->description = $description;
         $this->_arrayVal   = (strpos($varName, '[]') !== false);
-
-        if (isset($params['translation'])) {
-            $this->_dict = $params['translation'];
-        } else {
-            $this->_dict = new Horde_Translation_Gettext('Horde_Form', dirname(__FILE__) . '/../locale');
-        }
     }
 
     /**
@@ -468,7 +451,7 @@ class Horde_Form_Variable {
             $vals = $this->getValue($vars);
             if (!is_array($vals)) {
                 if ($this->required) {
-                    $message = $this->_dict->t("This field is required.");
+                    $message = Horde_Form_Translation::t("This field is required.");
                     return false;
                 } else {
                     return true;
@@ -476,7 +459,7 @@ class Horde_Form_Variable {
             }
             foreach ($vals as $i => $value) {
                 if ($value === null && $this->required) {
-                    $message = $this->_dict->t("This field is required.");
+                    $message = Horde_Form_Translation::t("This field is required.");
                     return false;
                 } else {
                     if (!$this->type->isValid($this, $vars, $value, $message)) {

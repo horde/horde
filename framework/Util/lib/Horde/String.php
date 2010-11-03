@@ -260,6 +260,9 @@ class Horde_String
     static public function ucfirst($string, $locale = false, $charset = null)
     {
         if ($locale) {
+            if (is_null($charset)) {
+                throw new InvalidArgumentException('$charset argument must not be null');
+            }
             $first = self::substr($string, 0, 1, $charset);
             if (self::isAlpha($first, $charset)) {
                 $string = self::upper($first, true, $charset) . self::substr($string, 1, null, $charset);
@@ -581,7 +584,7 @@ class Horde_String
      *
      * @return boolean  True if the parameter was alphabetic only.
      */
-    static public function isAlpha($string, $charset = null)
+    static public function isAlpha($string, $charset)
     {
         if (!Horde_Util::extensionExists('mbstring')) {
             return ctype_alpha($string);
@@ -613,7 +616,7 @@ class Horde_String
      *
      * @return boolean  True if the parameter was lowercase.
      */
-    static public function isLower($string, $charset = null)
+    static public function isLower($string, $charset)
     {
         return ((self::lower($string, true, $charset) === $string) &&
                 self::isAlpha($string, $charset));
@@ -628,7 +631,7 @@ class Horde_String
      *
      * @return boolean  True if the parameter was uppercase.
      */
-    static public function isUpper($string, $charset = null)
+    static public function isUpper($string, $charset)
     {
         return ((self::upper($string, true, $charset) === $string) &&
                 self::isAlpha($string, $charset));

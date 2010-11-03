@@ -41,7 +41,17 @@ class Horde_LoginTasks_Task_TosAgreement extends Horde_LoginTasks_Task
      */
     public function __construct()
     {
-        $this->active = !empty($GLOBALS['conf']['tos']['file']);
+        global $conf;
+
+        $this->active = false;
+
+        if (!empty($conf['tos']['file'])) {
+            if (file_exists($conf['tos']['file'])) {
+                $this->active = true;
+            } else {
+                Horde::logMessage('Terms of Service Agreement file was not found: ' . $conf['tos']['file'], 'ERR');
+            }
+        }
     }
 
     /**

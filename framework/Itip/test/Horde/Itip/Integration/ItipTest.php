@@ -81,8 +81,8 @@ extends PHPUnit_Framework_TestCase
 
     public function testForCopiedDurationFromRequestToResponse()
     {
-        $vCal = new Horde_iCalendar();
-        $inv = Horde_iCalendar::newComponent('VEVENT', $vCal);
+        $vCal = new Horde_Icalendar();
+        $inv = Horde_Icalendar::newComponent('VEVENT', $vCal);
         $inv->setAttribute('METHOD', 'REQUEST');
         $inv->setAttribute('UID', '1');
         $inv->setAttribute('SUMMARY', 'Test Invitation');

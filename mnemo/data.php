@@ -130,7 +130,7 @@ if (is_array($next_step)) {
         }
 
         /* Check if we need to convert from iCalendar data into an array. */
-        if (is_a($row, 'Horde_iCalendar_vnote')) {
+        if (is_a($row, 'Horde_Icalendar_vnote')) {
             $row = $storage->fromiCalendar($row);
         }
 

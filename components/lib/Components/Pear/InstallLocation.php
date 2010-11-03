@@ -37,6 +37,13 @@ class Components_Pear_InstallLocation
     private $_output;
 
     /**
+     * The factory for PEAR class instances.
+     *
+     * @param Components_Pear_Factory
+     */
+    private $_factory;
+
+    /**
      * The base directory for the PEAR install location.
      *
      * @param string
@@ -69,9 +76,20 @@ class Components_Pear_InstallLocation
      *
      * @param Component_Output $output The output handler.
      */
-    public function __construct(Components_Output $output)
-    {
+    public function __construct(Components_Output $output) {
         $this->_output = $output;
+    }
+
+    /**
+     * Define the factory that creates our PEAR dependencies.
+     *
+     * @param Components_Pear_Factory
+     *
+     * @return NULL
+     */
+    public function setFactory(Components_Pear_Factory $factory)
+    {
+        $this->_factory = $factory;
     }
 
     /**
@@ -171,10 +189,28 @@ class Components_Pear_InstallLocation
             );
         }
         ob_start();
-        $command_config = new PEAR_Command_Config(new PEAR_Frontend_CLI(), new stdClass);
-        $command_config->doConfigCreate(
-            'config-create', array(), array($this->_base_directory, $this->_config_file)
+        $config = Components_Exception_Pear::catchError(
+            PEAR_Config::singleton($this->_config_file, '#no#system#config#', false)
         );
+        $root = dirname($this->_config_file);
+        $config->noRegistry();
+        $config->set('php_dir', "$root/pear/php", 'user');
+        $config->set('data_dir', "$root/pear/data");
+        $config->set('www_dir', "$root/pear/www");
+        $config->set('cfg_dir', "$root/pear/cfg");
+        $config->set('ext_dir', "$root/pear/ext");
+        $config->set('doc_dir', "$root/pear/docs");
+        $config->set('test_dir', "$root/pear/tests");
+        $config->set('cache_dir', "$root/pear/cache");
+        $config->set('download_dir', "$root/pear/download");
+        $config->set('temp_dir', "$root/pear/temp");
+        $config->set('bin_dir', "$root/pear");
+        $config->writeConfigFile();
+        $config->_noRegistry = false;
+        $config->_registry['default'] = new PEAR_Registry("$root/pear/php");
+        $config->_noRegistry = true;
+        mkdir("$root/pear");
+        mkdir("$root/pear/php");
         $this->_output->pear(ob_get_clean());
         $this->_output->ok(
             sprintf(
@@ -201,7 +237,9 @@ class Components_Pear_InstallLocation
         if (!file_exists($this->_config_file)) {
             $this->createPearConfig();
         }
-        return PEAR_Config::singleton($this->_config_file);
+        return Components_Exception_Pear::catchError(
+            PEAR_Config::singleton($this->_config_file)
+        );
     }
 
     /**
@@ -226,21 +264,31 @@ class Components_Pear_InstallLocation
      * Add a channel within the install location.
      *
      * @param string $channel The channel name.
+     * @param string $reason  Optional reason for adding the channel.
      *
      * @return NULL
      */
-    public function addChannel($channel)
+    public function addChannel($channel, $reason = '')
     {
         $channel_handler = new PEAR_Command_Channels(
             new PEAR_Frontend_CLI(),
             $this->getPearConfig()
         );
 
+        $this->_output->ok(
+            sprintf(
+                'About to add channel %s%s',
+                $channel,
+                $reason
+            )
+        );
         $static = $this->_channel_directory . DIRECTORY_SEPARATOR
             . $channel . '.channel.xml';
         if (file_exists($static)) {
             ob_start();
-            $channel_handler->doAdd('channel-add', array(), array($static));
+            Components_Exception_Pear::catchError(
+                $channel_handler->doAdd('channel-add', array(), array($static))
+            );
             $this->_output->pear(ob_get_clean());
         } else {
             $this->_output->warn(
@@ -250,13 +298,16 @@ class Components_Pear_InstallLocation
                 )
             );
             ob_start();
-            $channel_handler->doDiscover('channel-discover', array(), array($channel));
+            Components_Exception_Pear::catchError(
+                $channel_handler->doDiscover('channel-discover', array(), array($channel))
+            );
             $this->_output->pear(ob_get_clean());
         }
         $this->_output->ok(
             sprintf(
-                'Successfully added channel %s',
-                $channel
+                'Successfully added channel %s%s',
+                $channel,
+                $reason
             )
         );
     }
@@ -265,13 +316,14 @@ class Components_Pear_InstallLocation
      * Ensure the specified channel exists within the install location.
      *
      * @param string $channel The channel name.
+     * @param string $reason  Optional reason for adding the channel.
      *
      * @return NULL
      */
-    public function provideChannel($channel)
+    public function provideChannel($channel, $reason = '')
     {
         if (!$this->channelExists($channel)) {
-            $this->addChannel($channel);
+            $this->addChannel($channel, $reason);
         }
     }
 
@@ -279,13 +331,14 @@ class Components_Pear_InstallLocation
      * Ensure the specified channels exists within the install location.
      *
      * @param array $channels The list of channels.
+     * @param string $reason  Optional reason for adding the channels.
      *
      * @return NULL
      */
-    public function provideChannels(array $channels)
+    public function provideChannels(array $channels, $reason = '')
     {
         foreach ($channels as $channel) {
-            $this->provideChannel($channel);
+            $this->provideChannel($channel, $reason);
         }
     }
 
@@ -295,7 +348,6 @@ class Components_Pear_InstallLocation
             new PEAR_Frontend_CLI(),
             $this->getPearConfig()
         );
-        $installer->setErrorHandling(PEAR_ERROR_EXCEPTION);
         return $installer;
     }
 
@@ -303,74 +355,217 @@ class Components_Pear_InstallLocation
      * Add a package based on a source directory.
      *
      * @param string $package The path to the package.xml in the source directory.
+     * @param string $reason  Optional reason for adding the package.
      *
      * @return NULL
      */
-    public function addPackageFromSource($package)
+    public function addPackageFromSource($package, $reason = '')
     {
         $installer = $this->getInstallationHandler();
+        $this->_output->ok(
+            sprintf(
+                'About to add package %s%s',
+                $package,
+                $reason
+            )
+        );
         ob_start();
-        $installer->doInstall(
-            'install',
-            array('nodeps' => true),
-            array($package)
+        Components_Exception_Pear::catchError(
+            $installer->doInstall(
+                'install',
+                array('nodeps' => true),
+                array($package)
+            )
         );
         $this->_output->pear(ob_get_clean());
         $this->_output->ok(
             sprintf(
-                'Successfully added package %s',
-                $package
+                'Successfully added package %s%s',
+                $package,
+                $reason
             )
         );
     }
 
     /**
-     * Add a package based on a package name or package tarball.
+     * Add a package based on a source directory.
      *
-     * @param string $channel The channel name for the package.
-     * @param string $package The name of the package of the path of the tarball.
+     * @param string $package The path to the package.xml in the source directory.
+     * @param string $reason  Optional reason for adding the package.
      *
      * @return NULL
      */
-    public function addPackageFromPackage($channel, $package)
+    public function linkPackageFromSource($package, $reason = '')
     {
+        $this->_output->ok(
+            sprintf(
+                'About to symlink package %s%s',
+                $package,
+                $reason
+            )
+        );
+
+        $hordeDir = $this->getPearConfig()->get('horde_dir', 'user', 'pear.horde.org');
+        $destDir = $this->getPearConfig()->get('php_dir');
+
+        ob_start();
+        $warnings = array();
+        $pkg = $this->_factory->createPackageForEnvironment($package, $this);
+        $dir = dirname($package);
+        foreach ($pkg->getInstallationFilelist() as $file) {
+            $orig = realpath($dir . '/' . $file['attribs']['name']);
+            if (empty($orig)) {
+                $warnings[] = 'Install file does not seem to exist: ' . $dir . '/' . $file['attribs']['name'];
+                continue;
+            }
+
+            switch ($file['attribs']['role']) {
+            case 'horde':
+                if (isset($file['attribs']['install-as'])) {
+                    $dest = $hordeDir . '/' . $file['attribs']['install-as'];
+                } else {
+                    $warnings[] = 'Could not determine install directory (role "horde") for ' . $hordeDir;
+                    continue;
+                }
+                break;
+
+            case 'php':
+                if (isset($file['attribs']['install-as'])) {
+                    $dest = $destDir . '/' . $file['attribs']['install-as'];
+                } elseif (isset($file['attribs']['baseinstalldir'])) {
+                    $dest = $destDir . $file['attribs']['baseinstalldir'] . '/' . $file['attribs']['name'];
+                } else {
+                    $dest = $destDir . '/' . $file['attribs']['name'];
+                }
+                break;
+
+            default:
+                $dest = null;
+                break;
+            }
+
+            if (!is_null($dest)) {
+                if (file_exists($dest)) {
+                    @unlink($dest);
+                } elseif (!file_exists(dirname($dest))) {
+                    @mkdir(dirname($dest), 0777, true);
+                }
+
+                print 'SYMLINK: ' . $orig . ' -> ' . $dest . "\n";
+                if (!symlink($orig, $dest)) {
+                    $warnings[] = 'Could not link ' . $orig . '.';
+                }
+            }
+        }
+        $this->_output->pear(ob_get_clean());
+
+        foreach ($warnings as $warning) {
+            $this->_output->warn($warning);
+        }
+
+        $this->_output->ok(
+            sprintf(
+                'Successfully symlinked package %s%s',
+                $package,
+                $reason
+            )
+        );
+    }
+
+    /**
+     * Add an external dependency based on a package name or package tarball.
+     *
+     * @param Components_Pear_Dependency $dependency The package dependency.
+     * @param string $package The name of the package of the path of the tarball.
+     * @param string $reason  Optional reason for adding the package.
+     *
+     * @return NULL
+     */
+    public function addPackageFromPackage(
+        Components_Pear_Dependency $dependency,
+        $reason = ''
+    ) {
         $installer = $this->getInstallationHandler();
-        if ($local = $this->_identifyMatchingLocalPackage($package)) {
+        $this->_output->ok(
+            sprintf(
+                'About to add external package %s%s',
+                $dependency->key(),
+                $reason
+            )
+        );
+        if ($local = $this->_identifyMatchingLocalPackage($dependency->name())) {
+            $pkg = $this->_factory->getPackageFileFromTgz($local, $this);
+
             ob_start();
-            $installer->doInstall(
-                'install',
-                array(
-                    'offline' => true
-                ),
-                array($local)
+            Components_Exception_Pear::catchError(
+                $installer->doInstall(
+                    'install',
+                    array(
+                        'offline' => true
+                    ),
+                    array($local)
+                )
             );
             $this->_output->pear(ob_get_clean());
         } else {
             $this->_output->warn(
                 sprintf(
-                    'Adding package %s via network.',
-                    $package
+                    'Adding external package %s via network.',
+                    $dependency->key()
                 )
             );
             ob_start();
-            $installer->doInstall(
-                'install',
-                array(
-                    'channel' => $channel,
-                ),
-                array($package)
+            Components_Exception_Pear::catchError(
+                $installer->doInstall(
+                    'install',
+                    array(
+                        'channel' => $dependency->channel(),
+                    ),
+                    array($dependency->name())
+                )
             );
+            $this->_output->pear(ob_get_clean());
         }
         $this->_output->ok(
             sprintf(
-                'Successfully added package %s',
-                $package
+                'Successfully added external package %s%s',
+                $dependency->key(),
+                $reason
             )
         );
     }
 
+    /**
+     * Identify any dependencies we need when installing via downloaded packages.
+     *
+     * @param Components_Pear_Dependency $dependency The package dependency.
+     *
+     * @return Components_Pear_Dependencies The dependency helper for the local package.
+     */
+    public function identifyRequiredLocalDependencies(
+        Components_Pear_Dependency $dependency
+    ) {
+        if ($local = $this->_identifyMatchingLocalPackage($dependency->name())) {
+            $this->_checkSetup();
+            return $this->_factory
+                ->createTgzPackageForInstallLocation($local, $this)
+                ->getDependencyHelper();
+        }
+        return false;
+    }
+
+    /**
+     * Identify a dependency that is available via a downloaded *.tgz archive.
+     *
+     * @param string $package The package name.
+     *
+     * @return string A path to the local archive if it was found.
+     */
     private function _identifyMatchingLocalPackage($package)
     {
+        if (empty($this->_source_directory)) {
+            return false;
+        }
         foreach (new DirectoryIterator($this->_source_directory) as $file) {
             if (preg_match('/' . $package . '-[0-9]+(\.[0-9]+)+([a-z0-9]+)?/', $file->getBasename('.tgz'), $matches)) {
                 return $file->getPathname();
@@ -378,4 +573,19 @@ class Components_Pear_InstallLocation
         }
         return false;
     }
+
+    /**
+     * Validate that the required instance parameters are set.
+     *
+     * @return NULL
+     *
+     * @throws Components_Exception In case some settings are missing.
+     */
+    private function _checkSetup()
+    {
+        if ($this->_factory === null) {
+            throw new Components_Exception('You need to set the factory, the environment and the path to the package file first!');
+        }
+    }
+
 }

@@ -36,13 +36,10 @@ class Horde_Core_Tree_Javascript extends Horde_Core_Tree_Html
         if (($session = $this->getOption('session')) &&
             isset($_COOKIE[$this->_instance . '_expanded'])) {
             /* Remove "exp" prefix from cookie value. */
-            $nodes = explode(',', substr($_COOKIE[$this->_instance . '_expanded'], 3));
-
-            /* Save nodes to the session. */
-            $_SESSION[$session][$this->_instance]['expanded'] = array_combine(
-                $nodes,
-                array_fill(0, count($nodes), true)
-            );
+            foreach (explode(',', substr($_COOKIE[$this->_instance . '_expanded'], 3)) as $val) {
+                /* Save nodes to the session. */
+                call_user_func($session['set'], $this->_instance, $val, true);
+            }
         }
     }
 

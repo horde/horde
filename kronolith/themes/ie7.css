@@ -3,7 +3,7 @@
 }
 #kronolithViewMonth {
     width: 100%;
-    height: expression(document.body.clientHeight-53+'px');
+    height: expression(kronolithBody.offsetHeight+'px');
 }
 #kronolithViewMonthContainer {
     top: 45px;

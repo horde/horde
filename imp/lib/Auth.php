@@ -157,7 +157,7 @@ class IMP_Auth
 
         $msg = sprintf(
             $msg . ' %s [%s]%s to {%s:%s%s}',
-            !strlen($auth_id) ? '' : ' for ' . $auth_id,
+            !strlen($auth_id) ? '' : 'for ' . $auth_id,
             $_SERVER['REMOTE_ADDR'],
             empty($_SERVER['HTTP_X_FORWARDED_FOR']) ? '' : ' (forwarded for [' . $_SERVER['HTTP_X_FORWARDED_FOR'] . '])',
             $imap_ob ? $imap_ob->getParam('hostspec') : '',

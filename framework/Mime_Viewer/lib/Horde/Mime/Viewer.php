@@ -44,12 +44,11 @@ class Horde_Mime_Viewer
         }
 
         /* Explicit class name, */
-        $class = $driver;
-        if (class_exists($class)) {
-            return new $class($part, $params);
+        if (class_exists($driver)) {
+            return new $driver($part, $params);
         }
 
-        throw new Horde_Mime_Viewer_Exception(__CLASS__ . ': Class definition of ' . $driver . ' not found.');
+        throw new Horde_Mime_Viewer_Exception(__CLASS__ . ': Class definition of ' . $class . ' not found.');
     }
 
 }

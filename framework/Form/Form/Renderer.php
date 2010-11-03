@@ -41,13 +41,6 @@ class Horde_Form_Renderer {
     var $_attrColumnWidth = '15%';
 
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_dict;
-
-    /**
      * Construct a new Horde_Form_Renderer::.
      *
      * @param array $params  This is a hash of renderer-specific parameters.
@@ -55,17 +48,9 @@ class Horde_Form_Renderer {
      *                       - 'varrenderer_driver': specifies the driver
      *                         parameter to Horde_Core_Ui_VarRenderer::factory().
      *                       - 'encode_title': @see $_encodeTitle
-     *                       - 'translation': A translation handler
-     *                                        implementing Horde_Translation.
      */
     function Horde_Form_Renderer($params = array())
     {
-        if (isset($params['translation'])) {
-            $this->_dict = $params['translation'];
-        } else {
-            $this->_dict = new Horde_Translation_Gettext('Horde_Form', dirname(__FILE__) . '/../locale');
-        }
-
         global $registry;
         if (isset($registry) && is_a($registry, 'Registry')) {
             /* Registry available, so use a pretty image. */
@@ -323,10 +308,10 @@ try {
     function submit($submit = null, $reset = false)
     {
         if (is_null($submit) || empty($submit)) {
-            $submit = $this->_dict->t("Submit");
+            $submit = Horde_Form_Translation::t("Submit");
         }
         if ($reset === true) {
-            $reset = $this->_dict->t("Reset");
+            $reset = Horde_Form_Translation::t("Reset");
         }
         $this->_renderSubmit($submit, $reset);
     }
@@ -341,7 +326,7 @@ try {
             $this->_sectionHeader($name, $extra);
         }
         if ($this->_requiredLegend) {
-            echo '<span class="form-error">' . $this->_requiredMarker . '</span> = ' . $this->_dict->t("Required Field");
+            echo '<span class="form-error">' . $this->_requiredMarker . '</span> = ' . Horde_Form_Translation::t("Required Field");
         }
     }
 

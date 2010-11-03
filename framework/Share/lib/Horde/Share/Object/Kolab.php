@@ -45,29 +45,14 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object
     private $_session;
 
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_dict;
-
-    /**
      * Constructor.
      *
      * Sets the folder name.
      *
      * @param string $id  The share id.
-     * @param Horde_Translation $dict  A translation handler implementing
-     *                                 Horde_Translation.
      */
-    public function __construct($id, $type, $dict = null)
+    public function __construct($id, $type)
     {
-        if ($dict) {
-            $this->_dict = $dict;
-        } else {
-            $this->_dict = new Horde_Translation_Gettext('Horde_Share', dirname(__FILE__) . '/../../../../locale');
-        }
-
         // We actually ignore the random id string that all horde apps provide
         // as initial name and wait for a set('name', 'xyz') call. But we want
         // to know if we should create a default share.
@@ -124,17 +109,17 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object
     {
         switch ($this->_type) {
         case 'contact':
-            return $this->_dict->t("Contacts");
+            return Horde_Share_Translation::t("Contacts");
         case 'note':
-            return $this->_dict->t("Notes");
+            return Horde_Share_Translation::t("Notes");
         case 'event':
-            return $this->_dict->t("Calendar");
+            return Horde_Share_Translation::t("Calendar");
         case 'task':
-            return $this->_dict->t("Tasks");
+            return Horde_Share_Translation::t("Tasks");
         case 'filter':
-            return $this->_dict->t("Filters");
+            return Horde_Share_Translation::t("Filters");
         case 'h-prefs':
-            return $this->_dict->t("Preferences");
+            return Horde_Share_Translation::t("Preferences");
         }
     }
 
@@ -150,7 +135,7 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object
             $this->_folder = &$folder;
             $this->_folder_name = $folder->name;
         } else {
-           throw new Horde_Share_Exception($this->_dict->t("The share has already been initialized!"));
+           throw new Horde_Share_Exception(Horde_Share_Translation::t("The share has already been initialized!"));
         }
     }
 
@@ -370,6 +355,6 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object
      */
     protected function _folderError()
     {
-        throw new Horde_Share_Exception($this->_dict->t("The Kolab share object has not been initialized yet!"));
+        throw new Horde_Share_Exception(Horde_Share_Translation::t("The Kolab share object has not been initialized yet!"));
     }
 }

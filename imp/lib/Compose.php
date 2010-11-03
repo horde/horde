@@ -399,7 +399,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         }
 
         if ($val) {
-            $imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->crerate();
+            $imp_imap = $injector->getInstance('IMP_Injector_Factory_Imap')->create();
             $imap_url = $imp_imap->getUtils()->parseUrl(rtrim(ltrim($val, '<'), '>'));
 
             try {

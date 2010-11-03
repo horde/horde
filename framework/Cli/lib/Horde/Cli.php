@@ -119,29 +119,13 @@ class Horde_Cli
     );
 
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_dict;
-
-    /**
      * Detect the current environment (web server or console) and sets
      * internal values accordingly.
      *
      * The constructor must not be called after init().
-     *
-     * @param Horde_Translation $dict  A translation handler implementing
-     *                                 Horde_Translation.
      */
-    public function __construct($dict = null)
+    public function __construct()
     {
-        if ($dict) {
-            $this->_dict = $dict;
-        } else {
-            $this->_dict = new Horde_Translation_Gettext('Horde_Cli', dirname(__FILE__) . '/../../locale');
-        }
-
         $this->_console = $this->runningFromCLI();
 
         if ($this->_console) {
@@ -335,7 +319,7 @@ class Horde_Cli
         }
         $this->writeln($this->red('===================='));
         $this->writeln();
-        $this->writeln($this->red($this->_dict->t("Fatal Error:")));
+        $this->writeln($this->red(Horde_Cli_Translation::t("Fatal Error:")));
         $this->writeln($this->red($error));
         $this->writeln();
         $this->writeln((string)$backtrace);
@@ -369,7 +353,7 @@ class Horde_Cli
                 foreach ($choices as $key => $choice) {
                     $this->writeln($this->indent('(' . $this->bold($key) . ') ' . $choice));
                 }
-                $this->writeln($this->_dict->t("Type your choice: "), true);
+                $this->writeln(Horde_Cli_Translation::t("Type your choice: "), true);
                 @ob_flush();
 
                 // Get the user choice.
@@ -380,7 +364,7 @@ class Horde_Cli
                 if (isset($choices[$response])) {
                     return $response;
                 } else {
-                    $this->writeln($this->red(sprintf($this->_dict->t("\"%s\" is not a valid choice."), $response)));
+                    $this->writeln($this->red(sprintf(Horde_Cli_Translation::t("\"%s\" is not a valid choice."), $response)));
                 }
             } else {
                 @ob_flush();
@@ -454,16 +438,13 @@ class Horde_Cli
      * Either use the singleton() method to retrieve a Horde_Cli object after
      * calling init(), or don't call init() statically.
      *
-     * @param Horde_Translation $dict  A translation handler implementing
-     *                                 Horde_Translation.
-     *
      * @return Horde_Cli  A Horde_Cli instance.
      */
-    static public function init($dict = null)
+    static public function init()
     {
         /* Run constructor now because it requires $_SERVER['SERVER_NAME'] to
          * be empty if called with a CGI SAPI. */
-        $cli = new self($dict);
+        $cli = new self();
 
         @set_time_limit(0);
         ob_implicit_flush(true);

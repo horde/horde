@@ -46,5 +46,5 @@ var_dump($event->getAttribute('SUMMARY'));
 
 ?>
 --EXPECT--
-string(6) "möchen"
-string(6) "möchen"
+string(7) "mÃ¶chen"
+string(7) "mÃ¶chen"

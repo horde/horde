@@ -123,7 +123,7 @@ case 'unregister':
 
 /* Get the status output now. */
 $pear_output = $test_ob->pearModuleCheck();
-
+Horde::startBuffer();
 require $test_templates . '/header.inc';
 require $test_templates . '/version.inc';
 
@@ -216,3 +216,4 @@ if ($config_output = $test_ob->requiredFileCheck()) {
 echo $test_ob->appTests();
 
 require $test_templates . '/footer.inc';
+echo Horde::endBuffer();

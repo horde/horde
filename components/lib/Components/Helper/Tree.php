@@ -1,7 +1,6 @@
 <?php
 /**
- * Components_Helper_Tree:: handles a tree of dependencies and takes the Horde
- * component layout into account.
+ * Components_Helper_Tree:: handles a tree of dependencies.
  *
  * PHP version 5
  *
@@ -13,8 +12,7 @@
  */
 
 /**
- * Components_Helper_Tree:: handles a tree of dependencies and takes the Horde
- * component layout into account.
+ * Components_Helper_Tree:: handles a tree of dependencies.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -44,11 +42,11 @@ class Components_Helper_Tree
     private $_environment;
 
     /**
-     * The root path for the Horde package hierarchy.
+     * The root handler for the Horde package hierarchy.
      *
-     * @var string
+     * @var Components_Helper_Root
      */
-    private $_root_path;
+    private $_root;
 
     /**
      * Constructor.
@@ -56,33 +54,37 @@ class Components_Helper_Tree
      * @param Components_Pear_Factory         $factory     The factory for PEAR
      *                                                     dependencies.
      * @param Components_Pear_InstallLocation $environment The PEAR environment.
-     * @param string                          $root_path   The basic root path for
+     * @param Components_Helper_Root          $root        The root handler for
      *                                                     Horde packages.
      *
      */
     public function __construct(
         Components_Pear_Factory $factory,
         Components_Pear_InstallLocation $environment,
-        $root_path
+        Components_Helper_Root $root
     ) {
         $this->_factory = $factory;
         $this->_environment = $environment;
-        $this->_root_path = $root_path;
+        $this->_root = $root;
     }
 
     /**
      * Install the tree of packages into the specified environment.
      *
-     * @param string $package_file Path to the package file representing the element
-     *                             at the root of the dependency tree.
+     * @param string           $package_file Path to the package file representing the element
+     *                                       at the root of the dependency tree.
+     * @param Component_Output $output       The output handler.
+     * @param array            $options      Options for this installation.
      *
      * @return NULL
      */
-    public function installTreeInEnvironment($package_file) {
-        $this->_getHordeChildElement($package_file)
-            ->installInTree(
-                new Components_Helper_InstallationRun($this->_environment)
-            );
+    public function installTreeInEnvironment(
+        $package_file,
+        Components_Output $output,
+        array $options
+    ) {
+        $run = new Components_Helper_InstallationRun($this->_environment, $this, $output, $options);
+        $run->install($this->_getHordeChildElement($package_file));
     }
 
     /**
@@ -99,9 +101,8 @@ class Components_Helper_Tree
         $package_file,
         Components_Output $output
     ) {
-        $run = new Components_Helper_ListRun($output);
-        $this->_getHordeChildElement($package_file)
-            ->listDependencies($run, 0);
+        $run = new Components_Helper_ListRun($output, $this);
+        $run->listTree($this->_getHordeChildElement($package_file));
         $run->finish();
     }
 
@@ -110,22 +111,14 @@ class Components_Helper_Tree
      *
      * @param array $dependencies The dependencies of a package to be
      *                            transformed in elements.
-     * @return array The list of children elements.
+     * @return array The list of children.
      */
     public function getChildren(array $dependencies)
     {
         $children = array();
         foreach ($dependencies as $dependency) {
-            $package_file = $this->_root_path . DIRECTORY_SEPARATOR
-                 . $dependency['name'] . DIRECTORY_SEPARATOR . 'package.xml';
-            if (!file_exists($package_file)) {
-                $package_file = $this->_root_path . DIRECTORY_SEPARATOR
-                    . 'framework' . DIRECTORY_SEPARATOR . $dependency['name']
-                    . DIRECTORY_SEPARATOR . 'package.xml';
-            }
-            $children[] = $this->_getHordeChildElement(
-                $package_file,
-                isset($dependency['optional']) && $dependency['optional'] == 'no'
+            $children[$dependency->key()] = $this->_getHordeChildElement(
+                $this->_root->getPackageXml($dependency->name())
             );
         }
         return $children;
@@ -136,18 +129,33 @@ class Components_Helper_Tree
      *
      * @param string  $package_file Path to the package file representing the
      *                              element at the root of the dependency tree.
-     * @param boolean $required     Is this a required element?
-     * @return NULL
+     *
+     * @return Components_Pear_Package The child package.
      */
-    private function _getHordeChildElement($package_file, $required = true)
+    private function _getHordeChildElement($package_file)
     {
-        return new Components_Helper_Tree_Element(
-            $this->_factory->createPackageForEnvironment(
-                $package_file, $this->_environment
-            ),
-            $package_file,
-            $required,
-            $this
+        return $this->_factory->createPackageForEnvironment(
+            $package_file, $this->_environment
         );
+    }
+
+    /**
+     * Return the environment for this tree.
+     *
+     * @return Components_Pear_InstallLocation The installation environment.
+     */
+    public function getEnvironment()
+    {
+        return $this->_environment;
+    }
+
+    /**
+     * Return the root handler for the horde repository.
+     *
+     * @return Components_Helper_Root The root handler.
+     */
+    public function getRoot()
+    {
+        return $this->_root;
     }
 }

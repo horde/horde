@@ -1,5 +1,7 @@
 <?php
 /**
+ * $Id$
+ *
  * See horde/config/prefs.php for documentation on the structure of this file.
  */
 
@@ -8,6 +10,5 @@ $_prefs = array();
 $_prefs['sync_data'] = array(
     'value' => 'a:0:{}',
     'locked' => false,
-    'shared' => false,
     'type' => 'implicit'
 );

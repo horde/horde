@@ -79,6 +79,7 @@ extends Components_Module_Base
     {
         $options = $config->getOptions();
         if (!empty($options['distribute'])) {
+            $this->requirePackageXml($config->getPackageDirectory());
             $this->_dependencies->getRunnerDistribute()->run();
         }
     }

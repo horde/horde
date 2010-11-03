@@ -28,7 +28,7 @@
  * @link     http://pear.horde.org/index.php?package=Components
  */
 class Components_Module_DevPackage
-implements Components_Module
+extends Components_Module_Base
 {
     public function getOptionGroupTitle()
     {
@@ -51,6 +51,14 @@ implements Components_Module
                     'help'   => 'generate a development snapshot'
                 )
             ),
+            new Horde_Argv_Option(
+                '-Z',
+                '--archivedir',
+                array(
+                    'action' => 'store',
+                    'help'   => 'the path to the directory where any resulting source archives will be placed.'
+                )
+            )
         );
     }
 
@@ -58,25 +66,8 @@ implements Components_Module
     {
         $options = $config->getOptions();
         if (!empty($options['devpackage'])) {
-            $this->run($config);
+            $this->requirePackageXml($config->getPackageDirectory());
+            $this->_dependencies->getRunnerDevPackage()->run();
         }
-    }
-
-    public function run(Components_Config $config)
-    {
-        $options = $config->getOptions();
-
-        $pear = new PEAR();
-        $pear->setErrorHandling(PEAR_ERROR_DIE);
-
-        $arguments = $config->getArguments();
-        $pkgfile = $arguments[0] . DIRECTORY_SEPARATOR . 'package.xml';
-
-        $pkg     = new PEAR_PackageFile(new PEAR_Config());
-        $pf      = $pkg->fromPackageFile($pkgfile, PEAR_VALIDATE_NORMAL);
-        $pf->_packageInfo['version']['release'] = $pf->getVersion()
-            . 'dev' . strftime('%Y%m%d%H%M');
-        $gen     = $pf->getDefaultGenerator();
-        $tgzfile = $gen->toTgz(new PEAR_Common());
     }
 }

@@ -50,7 +50,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         // if the path was invalid, this error will catch it
         if (!$in || !$seek) {
             $result['Errors'] = 1;
-            $result['Error'][$result['Errors']] = $this->_dict->t("The file could not be opened.");
+            $result['Error'][$result['Errors']] = Horde_Image_Translation::t("The file could not be opened.");
             return $result;
         }
 
@@ -229,7 +229,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         $v = fseek($in, $globalOffset + $ExitOffset);
         if ($v == -1) {
             $result['Errors'] = $result['Errors'] + 1;
-            $result['Error'][$result['Errors']] = $this->_dict->t("Couldnt Find SubIFD");
+            $result['Error'][$result['Errors']] = Horde_Image_Translation::t("Couldnt Find SubIFD");
         }
 
         //===========================================================
@@ -248,7 +248,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
             }
         } else {
             $result['Errors'] = $result['Errors'] + 1;
-            $result['Error'][$result['Errors']] = $this->_dict->t("Illegal size for SubIFD");
+            $result['Error'][$result['Errors']] = Horde_Image_Translation::t("Illegal size for SubIFD");
         }
 
         // Add the 35mm equivalent focal length:
@@ -266,7 +266,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         $v = fseek($in, $globalOffset + $result['IFD1Offset']);
         if ($v == -1) {
             $result['Errors'] = $result['Errors'] + 1;
-            $result['Error'][$result['Errors']] = $this->_dict->t("Couldnt Find IFD1");
+            $result['Error'][$result['Errors']] = Horde_Image_Translation::t("Couldnt Find IFD1");
         }
 
         //===========================================================
@@ -285,7 +285,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
             }
         } else {
             $result['Errors'] = $result['Errors'] + 1;
-            $result['Error'][$result['Errors']] = $this->_dict->t("Illegal size for IFD1");
+            $result['Error'][$result['Errors']] = Horde_Image_Translation::t("Illegal size for IFD1");
         }
 
         // include the thumbnail raw data...
@@ -312,7 +312,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         $v = fseek($in, $globalOffset + $result['SubIFD']['ExifInteroperabilityOffset']);
         if ($v == -1) {
             $result['Errors'] = $result['Errors'] + 1;
-            $result['Error'][$result['Errors']] = $this->_dict->t("Couldnt Find InteroperabilityIFD");
+            $result['Error'][$result['Errors']] = Horde_Image_Translation::t("Couldnt Find InteroperabilityIFD");
         }
 
         //===========================================================
@@ -331,7 +331,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
             }
         } else {
             $result['Errors'] = $result['Errors'] + 1;
-            $result['Error'][$result['Errors']] = $this->_dict->t("Illegal size for InteroperabilityIFD");
+            $result['Error'][$result['Errors']] = Horde_Image_Translation::t("Illegal size for InteroperabilityIFD");
         }
 
         fclose($in);
@@ -410,22 +410,22 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
             $make = Horde_String::lower($result['IFD0']['Make']);
             $parser = null;
             if (strpos($make, 'nikon') !== false) {
-                $parser = new Horde_Image_Exif_Parser_Nikon($this->_dict);
+                $parser = new Horde_Image_Exif_Parser_Nikon();
                 $result[$ifd_name]['KnownMaker'] = 1;
             } elseif (strpos($make, 'olympus') !== false) {
-                $parser = new Horde_Image_Exif_Parser_Olympus($this->_dict);
+                $parser = new Horde_Image_Exif_Parser_Olympus();
                 $result[$ifd_name]['KnownMaker'] = 1;
             } elseif (strpos($make, 'canon') !== false) {
-                $parser = new Horde_Image_Exif_Parser_Canon($this->_dict);
+                $parser = new Horde_Image_Exif_Parser_Canon();
                 $result[$ifd_name]['KnownMaker'] = 1;
             } elseif (strpos($make, 'fujifilm') !== false) {
-                $parser = new Horde_Image_Exif_Parser_Fujifilm($this->_dict);
+                $parser = new Horde_Image_Exif_Parser_Fujifilm();
                 $result[$ifd_name]['KnownMaker'] = 1;
             } elseif (strpos($make, 'sanyo') !== false) {
-                $parser = new Horde_Image_Exif_Parser_Sanyo($this->_dict);
+                $parser = new Horde_Image_Exif_Parser_Sanyo();
                 $result[$ifd_name]['KnownMaker'] = 1;
             } elseif (strpos($make, 'panasonic') !== false) {
-                $parser = new Horde_Image_Exif_Parser_Panasonic($this->_dict);
+                $parser = new Horde_Image_Exif_Parser_Panasonic();
                 $result[$ifd_name]['KnownMaker'] = 1;
             } else {
                 $result[$ifd_name]['KnownMaker'] = 0;
@@ -438,7 +438,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         case 'GPSInfoOffset':
             $formated_data = $this->_formatData($type, $tag, $intel, $data);
             $result[$ifd_name]['GPSInfo'] = $formated_data;
-            $parser = new Horde_Image_Exif_Parser_Gps($this->_dict);
+            $parser = new Horde_Image_Exif_Parser_Gps();
             $parser->parse($data, $result, $formated_data, $seek, $globalOffset);
             break;
 
@@ -797,7 +797,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         case 'UNDEFINED':
             // ExifVersion,FlashPixVersion,InteroperabilityVersion
             if ($tag == '9000' || $tag == 'a000' || $tag == '0002') {
-                $data = sprintf($this->_dict->t("version %d"), $data / 100);
+                $data = sprintf(Horde_Image_Translation::t("version %d"), $data / 100);
             }
             break;
 

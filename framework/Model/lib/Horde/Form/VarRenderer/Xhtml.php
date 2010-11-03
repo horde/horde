@@ -15,25 +15,6 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer
     protected $_onLoadJS = array();
 
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_dict;
-
-    /**
-     * Constructor.
-     */
-    public function __construct($params = array())
-    {
-        if (isset($params['translation'])) {
-            $this->_dict = $params['translation'];
-        } else {
-            $this->_dict = new Horde_Translation_Gettext('Horde_Model', dirname(__FILE__) . '/../../../../locale');
-        }
-    }
-
-    /**
      * Handles the end of rendering of variables; writes onload JavaScript.
      *
      * @access public
@@ -197,8 +178,8 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer
                     'Horde_Html_Helper.iconlist' => $icon_list
                 ));
 
-                $html .= Horde::link('#', $this->_dict->t("Emoticons"), '', '', 'Horde_Html_Helper.open(\'emoticons\', \'' . $var->getVarName() . '\'); return false;')
-                    . Horde::img('emoticons/smile.png', $this->_dict->t("Emoticons"), 'id="' . $imgId . '" align="middle"')
+                $html .= Horde::link('#', Horde_Model_Translation::t("Emoticons"), '', '', 'Horde_Html_Helper.open(\'emoticons\', \'' . $var->getVarName() . '\'); return false;')
+                    . Horde::img('emoticons/smile.png', Horde_Model_Translation::t("Emoticons"), 'id="' . $imgId . '" align="middle"')
                     . '</a>'."\n";
             }
             $html .= '</div><div id="htmlhelper_' . $var->getVarName()
@@ -256,7 +237,7 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer
         $time = $var->type->getTimeParts($var->getValue($vars));
 
         /* Output hours. */
-        $hours = array('' => $this->_dict->t("hh"));
+        $hours = array('' => Horde_Model_Translation::t("hh"));
         for ($i = 0; $i <= 23; $i++) {
             $hours[sprintf('%02d', $i)] = $i;
         }
@@ -266,7 +247,7 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer
                         $this->_getActionScripts($form, $var));
 
         /* Output minutes. */
-        $minutes = array('' => $this->_dict->t("mm"));
+        $minutes = array('' => Horde_Model_Translation::t("mm"));
         for ($i = 0; $i <= 59; $i++) {
             $minutes[sprintf('%02d', $i)] = $i;
         }
@@ -278,7 +259,7 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer
         /* Return if seconds are not required. */
         if ($var->type->show_seconds) {
             /* Output seconds. */
-            $seconds = array('' => $this->_dict->t("ss"));
+            $seconds = array('' => Horde_Model_Translation::t("ss"));
             for ($i = 0; $i <= 59; $i++) {
                 $seconds[sprintf('%02d', $i)] = $i;
             }
@@ -294,20 +275,20 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer
     function _renderVarInput_monthyear($form, $var, $vars)
     {
         $dates = array();
-        $dates['month'] = array('' => $this->_dict->t("MM"),
-                                1 => $this->_dict->t("January"),
-                                2 => $this->_dict->t("February"),
-                                3 => $this->_dict->t("March"),
-                                4 => $this->_dict->t("April"),
-                                5 => $this->_dict->t("May"),
-                                6 => $this->_dict->t("June"),
-                                7 => $this->_dict->t("July"),
-                                8 => $this->_dict->t("August"),
-                                9 => $this->_dict->t("September"),
-                                10 => $this->_dict->t("October"),
-                                11 => $this->_dict->t("November"),
-                                12 => $this->_dict->t("December"));
-        $dates['year'] = array('' => $this->_dict->t("YYYY"));
+        $dates['month'] = array('' => Horde_Model_Translation::t("MM"),
+                                1 => Horde_Model_Translation::t("January"),
+                                2 => Horde_Model_Translation::t("February"),
+                                3 => Horde_Model_Translation::t("March"),
+                                4 => Horde_Model_Translation::t("April"),
+                                5 => Horde_Model_Translation::t("May"),
+                                6 => Horde_Model_Translation::t("June"),
+                                7 => Horde_Model_Translation::t("July"),
+                                8 => Horde_Model_Translation::t("August"),
+                                9 => Horde_Model_Translation::t("September"),
+                                10 => Horde_Model_Translation::t("October"),
+                                11 => Horde_Model_Translation::t("November"),
+                                12 => Horde_Model_Translation::t("December"));
+        $dates['year'] = array('' => Horde_Model_Translation::t("YYYY"));
         if ($var->type->start_year > $var->type->end_year) {
             for ($i = $var->type->start_year; $i >= $var->type->end_year; $i--) {
                 $dates['year'][$i] = $i;
@@ -333,24 +314,24 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer
     function _renderVarInput_monthdayyear($form, $var, $vars)
     {
         $dates = array();
-        $dates['month'] = array(''   => $this->_dict->t("MM"),
-                                '1'  => $this->_dict->t("January"),
-                                '2'  => $this->_dict->t("February"),
-                                '3'  => $this->_dict->t("March"),
-                                '4'  => $this->_dict->t("April"),
-                                '5'  => $this->_dict->t("May"),
-                                '6'  => $this->_dict->t("June"),
-                                '7'  => $this->_dict->t("July"),
-                                '8'  => $this->_dict->t("August"),
-                                '9'  => $this->_dict->t("September"),
-                                '10' => $this->_dict->t("October"),
-                                '11' => $this->_dict->t("November"),
-                                '12' => $this->_dict->t("December"));
-        $dates['day'] = array('' => $this->_dict->t("DD"));
+        $dates['month'] = array(''   => Horde_Model_Translation::t("MM"),
+                                '1'  => Horde_Model_Translation::t("January"),
+                                '2'  => Horde_Model_Translation::t("February"),
+                                '3'  => Horde_Model_Translation::t("March"),
+                                '4'  => Horde_Model_Translation::t("April"),
+                                '5'  => Horde_Model_Translation::t("May"),
+                                '6'  => Horde_Model_Translation::t("June"),
+                                '7'  => Horde_Model_Translation::t("July"),
+                                '8'  => Horde_Model_Translation::t("August"),
+                                '9'  => Horde_Model_Translation::t("September"),
+                                '10' => Horde_Model_Translation::t("October"),
+                                '11' => Horde_Model_Translation::t("November"),
+                                '12' => Horde_Model_Translation::t("December"));
+        $dates['day'] = array('' => Horde_Model_Translation::t("DD"));
         for ($i = 1; $i <= 31; $i++) {
             $dates['day'][$i] = $i;
         }
-        $dates['year'] = array('' => $this->_dict->t("YYYY"));
+        $dates['year'] = array('' => Horde_Model_Translation::t("YYYY"));
         if ($var->type->start_year > $var->type->end_year) {
             for ($i = $var->type->start_year; $i >= $var->type->end_year; $i--) {
                 $dates['year'][$i] = $i;
@@ -395,8 +376,8 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer
             $html .= Horde::img('blank.gif', '', array('class' => 'form-colorpicker-preview',
                                                        'id' => 'colordemo_' . $var->getVarName(),
                                                        'style' => 'background:' . $var->getValue($vars)))
-                . Horde::link('#', $this->_dict->t("Color Picker"), '', '', 'openColorPicker(\''. $var->getVarName() .'\'); return false;')
-                . Horde::img('colorpicker.png', $this->_dict->t("Color Picker")) . '</a>'
+                . Horde::link('#', Horde_Model_Translation::t("Color Picker"), '', '', 'openColorPicker(\''. $var->getVarName() .'\'); return false;')
+                . Horde::img('colorpicker.png', Horde_Model_Translation::t("Color Picker")) . '</a>'
                 . '<div id="colorpicker_' . $var->getVarName() . '" class="form-colorpicker-palette"></div>';
         }
 
@@ -419,11 +400,11 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer
             . '[list]" onchange="' . $instance . '.deselectHeader();" '
             . ' id="'. $varname . '-list-">'
             . $var->type->getOptions($var->getValue($vars)) . '    </select><div class="leftFloat">'
-            . Horde::link('#', $this->_dict->t("Move up"), '', '', $instance . '.moveColumnUp(); return false;')
-                . Horde::img('nav/up.png', $this->_dict->t("Move up"))
+            . Horde::link('#', Horde_Model_Translation::t("Move up"), '', '', $instance . '.moveColumnUp(); return false;')
+                . Horde::img('nav/up.png', Horde_Model_Translation::t("Move up"))
                 . '</a><br />'
-            . Horde::link('#', $this->_dict->t("Move up"), '', '', $instance . '.moveColumnDown(); return false;')
-                . Horde::img('nav/down.png', $this->_dict->t("Move down"))
+            . Horde::link('#', Horde_Model_Translation::t("Move up"), '', '', $instance . '.moveColumnDown(); return false;')
+                . Horde::img('nav/down.png', Horde_Model_Translation::t("Move down"))
                 . '</a></div>'
             . '<script type="text/javascript">' . "\n"
             . sprintf('%1$s = new Horde_Form_Sorter(\'%1$s\', \'%2$s\', \'%3$s\');' . "\n",
@@ -453,10 +434,10 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer
              . $var->type->getOptions(0, $fname)
              . '    </select>'
              . '<div><a href="" onclick="Horde_Form_Assign.move(\''. $fname .'\', 0); return false;">'
-             . Horde::img('rhand.png', $this->_dict->t("Add column"))
+             . Horde::img('rhand.png', Horde_Model_Translation::t("Add column"))
              . '</a><br /><a href="" onclick="Horde_Form_Assign.move(\''
              . $fname . '\', 1); return false;">'
-             . Horde::img('lhand.png', $this->_dict->t("Remove column"))
+             . Horde::img('lhand.png', Horde_Model_Translation::t("Remove column"))
              . '</a></div>'
              . sprintf('    <select name="%s__right" multiple="multiple" size="%d" style="width:%s"%s>',
                      $name, $size, $width,
@@ -548,7 +529,7 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer
                         $this->_getActionScripts($form, $var),
                         $this->_multiSelectOptions($values, $selected));
         return $html . '<p class="form-hint">'
-            . $this->_dict->t("To select multiple items, hold down the Control (PC) or Command (Mac) key while clicking.")
+            . Horde_Model_Translation::t("To select multiple items, hold down the Control (PC) or Command (Mac) key while clicking.")
             . "</p>\n";
     }
 
@@ -576,9 +557,9 @@ class Horde_Form_VarRenderer_Xhtml extends Horde_Form_VarRenderer
             $form_name = $form->getName();
             $var_name = $var->getVarName() . '[]';
             $function_name = 'select'  . $form_name . $var->getVarName();
-            $enable = $this->_dict->t("Select all");
-            $disable = $this->_dict->t("Select none");
-            $invert = $this->_dict->t("Invert selection");
+            $enable = Horde_Model_Translation::t("Select all");
+            $disable = Horde_Model_Translation::t("Select none");
+            $invert = Horde_Model_Translation::t("Invert selection");
             $html .= <<<EOT
 <script type="text/javascript">
 function $function_name()
@@ -647,7 +628,7 @@ EOT;
                 $html .= sprintf('    <select%s name="%s[n][r]"><option value="">%s</option>%s    </select><br />'."\n",
                        ' id="'. $varname .'-n--r-"',
                        $varname,
-                       $this->_dict->t("-- select --"),
+                       Horde_Model_Translation::t("-- select --"),
                        $this->_selectOptions($new_input, $var_array['n']['r']));
             } elseif ($new_input == true) {
                 $html .= sprintf('    <input%s type="text" name="%s[n][r]" value="%s" />',
@@ -774,7 +755,7 @@ EOT;
         if ($GLOBALS['browser']->hasFeature('javascript')) {
             $imgId = $varname .'goto';
             $html .= '<div id="goto" class="headerbox" style="position:absolute;visibility:hidden;padding:0"></div>';
-            $html .= Horde::link('#', $this->_dict->t("Select an object"), '', '', 'obrowserWindow = ' . Horde::popupJs($GLOBALS['registry']->get('webroot', 'horde') . '/services/obrowser/') . 'obrowserWindowName = obrowserWindow.name; return false;') . Horde::img('tree/leaf.png', $this->_dict->t("Object"), 'id="' . $imgId . '" align="middle"') . "</a>\n";
+            $html .= Horde::link('#', Horde_Model_Translation::t("Select an object"), '', '', 'obrowserWindow = ' . Horde::popupJs($GLOBALS['registry']->get('webroot', 'horde') . '/services/obrowser/') . 'obrowserWindowName = obrowserWindow.name; return false;') . Horde::img('tree/leaf.png', Horde_Model_Translation::t("Object"), 'id="' . $imgId . '" align="middle"') . "</a>\n";
         }
 
         return $html;
@@ -791,7 +772,7 @@ EOT;
                        $var->getVarName(),
                        strlen($var->type->text),
                        htmlspecialchars($var->getValue($vars))) .
-            '<p class="form-input-figlet">' . $this->_dict->t("Enter the letters below:") . '</p>' .
+            '<p class="form-input-figlet">' . Horde_Model_Translation::t("Enter the letters below:") . '</p>' .
             $this->_renderVarDisplay_figlet($form, $var, $vars);
     }
 
@@ -862,7 +843,7 @@ EOT;
 
     function _renderVarDisplay_boolean($form, $var, $vars)
     {
-        return $var->getValue($vars) ? $this->_dict->t("Yes") : $this->_dict->t("No");
+        return $var->getValue($vars) ? Horde_Model_Translation::t("Yes") : Horde_Model_Translation::t("No");
     }
 
     function _renderVarDisplay_enum($form, $var, $vars)
@@ -870,7 +851,7 @@ EOT;
         $values = $var->getValues();
         $value = $var->getValue($vars);
         if (count($values) == 0) {
-            return $this->_dict->t("No values");
+            return Horde_Model_Translation::t("No values");
         } elseif (isset($values[$value]) && $value != '') {
             return htmlspecialchars($values[$value]);
         }
@@ -880,7 +861,7 @@ EOT;
     {
         $values = $var->getValues();
         if (count($values) == 0) {
-            return $this->_dict->t("No values");
+            return Horde_Model_Translation::t("No values");
         } elseif (isset($values[$var->getValue($vars)])) {
             return htmlspecialchars($values[$var->getValue($vars)]);
         }
@@ -891,7 +872,7 @@ EOT;
         $values = $var->getValues();
         $on = $var->getValue($vars);
         if (!count($values) || !count($on)) {
-            return $this->_dict->t("No values");
+            return Horde_Model_Translation::t("No values");
         } else {
             $display = array();
             foreach ($values as $value => $name) {
@@ -908,7 +889,7 @@ EOT;
         $values = $var->getValues();
         $on = $var->getValue($vars);
         if (!count($values) || !count($on)) {
-            return $this->_dict->t("No values");
+            return Horde_Model_Translation::t("No values");
         } else {
             $display = array();
             foreach ($values as $value => $name) {
@@ -929,7 +910,7 @@ EOT;
 
         if ($number && $registry->hasMethod('telephony/dial')) {
             $url = $registry->call('telephony/dial', array($number));
-            $label = sprintf($this->_dict->t("Dial %s"), $number);
+            $label = sprintf(Horde_Model_Translation::t("Dial %s"), $number);
             $html .= ' ' . Horde::link($url, $label) . Horde::img('phone.png', $label) . '</a>';
         }
 
@@ -945,7 +926,7 @@ EOT;
         $number = $var->getValue($vars);
         if ($number && $registry->hasMethod('sms/compose')) {
             $url = $registry->link('sms/compose', array('to' => $number));
-            $html .= ' ' . Horde::link($url, $this->_dict->t("Send SMS")) . Horde::img('mobile.png', $this->_dict->t("Send SMS")) . '</a>';
+            $html .= ' ' . Horde::link($url, Horde_Model_Translation::t("Send SMS")) . Horde::img('mobile.png', Horde_Model_Translation::t("Send SMS")) . '</a>';
         }
 
         return $html;
@@ -961,13 +942,13 @@ EOT;
             /* UK postcode detected. */
             /* Multimap.co.uk generated map */
             $mapurl = 'http://www.multimap.com/map/browse.cgi?pc=' . urlencode($postcode[1]);
-            $desc = $this->_dict->t("Multimap UK map");
+            $desc = Horde_Model_Translation::t("Multimap UK map");
             $icon = 'map.png';
         } elseif (preg_match('/ACT|NSW|NT|QLD|SA|TAS|VIC|WA/', $address)) {
             /* Australian state detected. */
             /* Whereis.com.au generated map */
             $mapurl = 'http://www.whereis.com.au/whereis/mapping/geocodeAddress.do?';
-            $desc = $this->_dict->t("Whereis Australia map");
+            $desc = Horde_Model_Translation::t("Whereis Australia map");
             $icon = 'map.png';
             /* Split out the address, line-by-line. */
             $addressLines = explode("\n", $address);
@@ -990,7 +971,7 @@ EOT;
             /* American/Canadian address style. */
             /* Mapquest generated map */
             $mapurl = 'http://www.mapquest.com/maps/map.adp?size=big&zoom=7';
-            $desc = $this->_dict->t("MapQuest map");
+            $desc = Horde_Model_Translation::t("MapQuest map");
             $icon = 'map.png';
             $country = null;
             if (!empty($addressParts[4]) && preg_match('|[a-zA-Z]\d[a-zA-Z]\s?\d[a-zA-Z]\d|', $addressParts[4])) {
@@ -1014,7 +995,7 @@ EOT;
 
             /* Yahoo! generated map. */
             $mapurl2 = 'http://us.rd.yahoo.com/maps/home/submit_a/*-http://maps.yahoo.com/maps?srchtype=a&getmap=Get+Map&';
-            $desc2 = $this->_dict->t("Yahoo! map");
+            $desc2 = Horde_Model_Translation::t("Yahoo! map");
             $icon2 = 'map.png';
             if (!empty($addressParts[1])) {
                 $mapurl2 .= '&addr=' . urlencode($addressParts[1]);
@@ -1034,7 +1015,7 @@ EOT;
 
             /* Google generated map. */
             $mapurl3 = 'http://maps.google.com/maps?q=' . urlencode($addressParts[0]) . '&hl=en';
-            $desc3 = $this->_dict->t("Google Maps");
+            $desc3 = Horde_Model_Translation::t("Google Maps");
             $icon3 = 'map.png';
 
         } elseif (preg_match('/(.*?)\r?\n([A-Z]{1,3})-(\d{5})\s+(.*)/i', $address, $addressParts)) {
@@ -1059,7 +1040,7 @@ EOT;
                     $mirror = 'uk';
                 }
                 $mapurl = 'http://www.' . $mirror . '.map24.com/source/address/v2.0.0/cnt_nav_maplet.php?cid=validateaddr&country=' . $country;
-                $desc = $this->_dict->t("Map24 map");
+                $desc = Horde_Model_Translation::t("Map24 map");
                 $icon = 'map_eu.png';
                 if (!empty($addressParts[1])) {
                     $mapurl .= '&street=' . urlencode($addressParts[1]);
@@ -1074,7 +1055,7 @@ EOT;
 
             /* Mapquest generated map. */
             $mapurl2 = 'http://www.mapquest.com/maps/map.adp?country=' . Horde_String::upper($country);
-            $desc2 = $this->_dict->t("MapQuest map");
+            $desc2 = Horde_Model_Translation::t("MapQuest map");
             $icon2 = 'map_eu.png';
             if (!empty($addressParts[1])) {
                 $mapurl2 .= '&address=' . urlencode($addressParts[1]);
@@ -1215,7 +1196,7 @@ EOT;
                     if ($GLOBALS['registry']->hasMethod('files/getViewLink')) {
                         $filename = basename($filename);
                         $url = $GLOBALS['registry']->call('files/getViewLink', array($dir, $filename));
-                        $filename = Horde::link($url, $this->_dict->t("Preview"), null, 'form_file_view') . htmlspecialchars(Horde_Util::realPath($dir . '/' . $filename), ENT_QUOTES, $this->_charset) . '</a>';
+                        $filename = Horde::link($url, Horde_Model_Translation::t("Preview"), null, 'form_file_view') . htmlspecialchars(Horde_Util::realPath($dir . '/' . $filename), ENT_QUOTES, $this->_charset) . '</a>';
                     } else {
                         if (!empty($dir) && ($dir != '.')) {
                             $filename = $dir . '/' . $filename;

@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Prefs</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Preferances API</summary>
- <description>The Horde_Prefs:: package provides a common abstracted interface into the various preferences storage mediums.  It also includes all of the functions for retrieving, storing, and checking preference values.
- </description>
+ <description>The Horde_Prefs:: package provides a common abstracted interface into the various preferences storage mediums.  It also includes all of the functions for retrieving, storing, and checking preference values.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2009-11-21</date>
+ <date>2010-10-22</date>
+ <time>19:02:57</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -24,38 +21,300 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Add array access API to Horde_Prefs.
+ <notes> * Removed Horde_Prefs_Storage_Kolab driver.
+ * Abstract storage code into Horde_Prefs_Storage.
+ * Add array access API to Horde_Prefs.
  * Remove dependency on horde/Core.
  * Use Horde_Db as backend for Sql driver.
  * Moved UI code to horde/Core.
  * Initial Horde 4 package.
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Prefs">
+      <dir name="Storage">
+       <file name="File.php" role="php" />
+       <file name="Imsp.php" role="php" />
+       <file name="KolabImap.php" role="php" />
+       <file name="Ldap.php" role="php" />
+       <file name="Null.php" role="php" />
+       <file name="Session.php" role="php" />
+       <file name="Sql.php" role="php" />
+      </dir> <!-- /lib/Horde/Prefs/Storage -->
       <file name="CategoryManager.php" role="php" />
       <file name="Exception.php" role="php" />
-      <file name="File.php" role="php" />
       <file name="Identity.php" role="php" />
-      <file name="Imsp.php" role="php" />
-      <file name="Kolab.php" role="php" />
-      <file name="KolabImap.php" role="php" />
-      <file name="Ldap.php" role="php" />
-      <file name="Session.php" role="php" />
-      <file name="Sql.php" role="php" />
+      <file name="Storage.php" role="php" />
+      <file name="Translation.php" role="php">
+       <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+      </file>
      </dir> <!-- /lib/Horde/Prefs -->
      <file name="Prefs.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
-   <dir name="test">
-    <dir name="Horde">
-     <dir name="Prefs">
-      <file name="bug_2838.phpt" role="test" />
-     </dir> <!-- /test/Horde/Prefs -->
-    </dir> <!-- /test/Horde -->
-   </dir> <!-- /test -->
+   <dir name="locale">
+    <dir name="ar">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/ar/LC_MESSAGES -->
+    </dir> <!-- /locale/ar -->
+    <dir name="bg">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/bg/LC_MESSAGES -->
+    </dir> <!-- /locale/bg -->
+    <dir name="bs">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/bs/LC_MESSAGES -->
+    </dir> <!-- /locale/bs -->
+    <dir name="ca">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/ca/LC_MESSAGES -->
+    </dir> <!-- /locale/ca -->
+    <dir name="cs">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/cs/LC_MESSAGES -->
+    </dir> <!-- /locale/cs -->
+    <dir name="da">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/da/LC_MESSAGES -->
+    </dir> <!-- /locale/da -->
+    <dir name="de">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/de/LC_MESSAGES -->
+    </dir> <!-- /locale/de -->
+    <dir name="el">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/el/LC_MESSAGES -->
+    </dir> <!-- /locale/el -->
+    <dir name="en">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/en/LC_MESSAGES -->
+    </dir> <!-- /locale/en -->
+    <dir name="es">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/es/LC_MESSAGES -->
+    </dir> <!-- /locale/es -->
+    <dir name="et">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/et/LC_MESSAGES -->
+    </dir> <!-- /locale/et -->
+    <dir name="eu">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/eu/LC_MESSAGES -->
+    </dir> <!-- /locale/eu -->
+    <dir name="fa">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/fa/LC_MESSAGES -->
+    </dir> <!-- /locale/fa -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+    </dir> <!-- /locale/fi -->
+    <dir name="fr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/fr/LC_MESSAGES -->
+    </dir> <!-- /locale/fr -->
+    <dir name="gl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/gl/LC_MESSAGES -->
+    </dir> <!-- /locale/gl -->
+    <dir name="he">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/he/LC_MESSAGES -->
+    </dir> <!-- /locale/he -->
+    <dir name="hr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/hr/LC_MESSAGES -->
+    </dir> <!-- /locale/hr -->
+    <dir name="hu">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/hu/LC_MESSAGES -->
+    </dir> <!-- /locale/hu -->
+    <dir name="id">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/id/LC_MESSAGES -->
+    </dir> <!-- /locale/id -->
+    <dir name="is">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/is/LC_MESSAGES -->
+    </dir> <!-- /locale/is -->
+    <dir name="it">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/it/LC_MESSAGES -->
+    </dir> <!-- /locale/it -->
+    <dir name="ja">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/ja/LC_MESSAGES -->
+    </dir> <!-- /locale/ja -->
+    <dir name="km">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/km/LC_MESSAGES -->
+    </dir> <!-- /locale/km -->
+    <dir name="ko">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/ko/LC_MESSAGES -->
+    </dir> <!-- /locale/ko -->
+    <dir name="lt">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/lt/LC_MESSAGES -->
+    </dir> <!-- /locale/lt -->
+    <dir name="lv">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/lv/LC_MESSAGES -->
+    </dir> <!-- /locale/lv -->
+    <dir name="mk">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/mk/LC_MESSAGES -->
+    </dir> <!-- /locale/mk -->
+    <dir name="nb">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/nb/LC_MESSAGES -->
+    </dir> <!-- /locale/nb -->
+    <dir name="nl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/nl/LC_MESSAGES -->
+    </dir> <!-- /locale/nl -->
+    <dir name="nn">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/nn/LC_MESSAGES -->
+    </dir> <!-- /locale/nn -->
+    <dir name="pl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/pl/LC_MESSAGES -->
+    </dir> <!-- /locale/pl -->
+    <dir name="pt">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/pt/LC_MESSAGES -->
+    </dir> <!-- /locale/pt -->
+    <dir name="pt_BR">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/pt_BR/LC_MESSAGES -->
+    </dir> <!-- /locale/pt_BR -->
+    <dir name="ro">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/ro/LC_MESSAGES -->
+    </dir> <!-- /locale/ro -->
+    <dir name="ru">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/ru/LC_MESSAGES -->
+    </dir> <!-- /locale/ru -->
+    <dir name="sk">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/sk/LC_MESSAGES -->
+    </dir> <!-- /locale/sk -->
+    <dir name="sl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/sl/LC_MESSAGES -->
+    </dir> <!-- /locale/sl -->
+    <dir name="sv">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/sv/LC_MESSAGES -->
+    </dir> <!-- /locale/sv -->
+    <dir name="tr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/tr/LC_MESSAGES -->
+    </dir> <!-- /locale/tr -->
+    <dir name="uk">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/uk/LC_MESSAGES -->
+    </dir> <!-- /locale/uk -->
+    <dir name="zh_CN">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/zh_CN/LC_MESSAGES -->
+    </dir> <!-- /locale/zh_CN -->
+    <dir name="zh_TW">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Prefs.mo" role="data" />
+      <file name="Horde_Prefs.po" role="data" />
+     </dir> <!-- /locale/zh_TW/LC_MESSAGES -->
+    </dir> <!-- /locale/zh_TW -->
+    <file name="Horde_Prefs.pot" role="data" />
+   </dir> <!-- /locale -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -75,6 +334,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Translation</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Util</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -84,42 +347,126 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <name>Db</name>
     <channel>pear.horde.org</channel>
    </package>
-   <extension>
-    <name>gettext</name>
-   </extension>
   </optional>
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Prefs/CategoryManager.php" as="Horde/Prefs/CategoryManager.php" />
-   <install name="lib/Horde/Prefs/Exception.php" as="Horde/Prefs/Exception.php" />
-   <install name="lib/Horde/Prefs/File.php" as="Horde/Prefs/File.php" />
-   <install name="lib/Horde/Prefs/Identity.php" as="Horde/Prefs/Identity.php" />
-   <install name="lib/Horde/Prefs/Imsp.php" as="Horde/Prefs/Imsp.php" />
-   <install name="lib/Horde/Prefs/Kolab.php" as="Horde/Prefs/Kolab.php" />
-   <install name="lib/Horde/Prefs/KolabImap.php" as="Horde/Prefs/KolabImap.php" />
-   <install name="lib/Horde/Prefs/Ldap.php" as="Horde/Prefs/Ldap.php" />
-   <install name="lib/Horde/Prefs/Session.php" as="Horde/Prefs/Session.php" />
-   <install name="lib/Horde/Prefs/Sql.php" as="Horde/Prefs/Sql.php" />
-   <install name="lib/Horde/Prefs.php" as="Horde/Prefs.php" />
+   <install as="Horde/Prefs.php" name="lib/Horde/Prefs.php" />
+   <install as="Horde/Prefs/CategoryManager.php" name="lib/Horde/Prefs/CategoryManager.php" />
+   <install as="Horde/Prefs/Exception.php" name="lib/Horde/Prefs/Exception.php" />
+   <install as="Horde/Prefs/Identity.php" name="lib/Horde/Prefs/Identity.php" />
+   <install as="Horde/Prefs/Storage.php" name="lib/Horde/Prefs/Storage.php" />
+   <install as="Horde/Prefs/Translation.php" name="lib/Horde/Prefs/Translation.php" />
+   <install as="Horde/Prefs/Storage/File.php" name="lib/Horde/Prefs/Storage/File.php" />
+   <install as="Horde/Prefs/Storage/Imsp.php" name="lib/Horde/Prefs/Storage/Imsp.php" />
+   <install as="Horde/Prefs/Storage/KolabImap.php" name="lib/Horde/Prefs/Storage/KolabImap.php" />
+   <install as="Horde/Prefs/Storage/Ldap.php" name="lib/Horde/Prefs/Storage/Ldap.php" />
+   <install as="Horde/Prefs/Storage/Null.php" name="lib/Horde/Prefs/Storage/Null.php" />
+   <install as="Horde/Prefs/Storage/Session.php" name="lib/Horde/Prefs/Storage/Session.php" />
+   <install as="Horde/Prefs/Storage/Sql.php" name="lib/Horde/Prefs/Storage/Sql.php" />
+   <install as="locale/Horde_Prefs.pot" name="locale/Horde_Prefs.pot" />
+   <install as="locale/ar/LC_MESSAGES/Horde_Prefs.mo" name="locale/ar/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/ar/LC_MESSAGES/Horde_Prefs.po" name="locale/ar/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/bg/LC_MESSAGES/Horde_Prefs.mo" name="locale/bg/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/bg/LC_MESSAGES/Horde_Prefs.po" name="locale/bg/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/bs/LC_MESSAGES/Horde_Prefs.mo" name="locale/bs/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/bs/LC_MESSAGES/Horde_Prefs.po" name="locale/bs/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/ca/LC_MESSAGES/Horde_Prefs.mo" name="locale/ca/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/ca/LC_MESSAGES/Horde_Prefs.po" name="locale/ca/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/cs/LC_MESSAGES/Horde_Prefs.mo" name="locale/cs/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/cs/LC_MESSAGES/Horde_Prefs.po" name="locale/cs/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/da/LC_MESSAGES/Horde_Prefs.mo" name="locale/da/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/da/LC_MESSAGES/Horde_Prefs.po" name="locale/da/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/de/LC_MESSAGES/Horde_Prefs.mo" name="locale/de/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/de/LC_MESSAGES/Horde_Prefs.po" name="locale/de/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/el/LC_MESSAGES/Horde_Prefs.mo" name="locale/el/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/el/LC_MESSAGES/Horde_Prefs.po" name="locale/el/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/en/LC_MESSAGES/Horde_Prefs.mo" name="locale/en/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/en/LC_MESSAGES/Horde_Prefs.po" name="locale/en/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/es/LC_MESSAGES/Horde_Prefs.mo" name="locale/es/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/es/LC_MESSAGES/Horde_Prefs.po" name="locale/es/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/et/LC_MESSAGES/Horde_Prefs.mo" name="locale/et/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/et/LC_MESSAGES/Horde_Prefs.po" name="locale/et/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/eu/LC_MESSAGES/Horde_Prefs.mo" name="locale/eu/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/eu/LC_MESSAGES/Horde_Prefs.po" name="locale/eu/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/fa/LC_MESSAGES/Horde_Prefs.mo" name="locale/fa/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/fa/LC_MESSAGES/Horde_Prefs.po" name="locale/fa/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/fi/LC_MESSAGES/Horde_Prefs.mo" name="locale/fi/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/fi/LC_MESSAGES/Horde_Prefs.po" name="locale/fi/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/fr/LC_MESSAGES/Horde_Prefs.mo" name="locale/fr/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/fr/LC_MESSAGES/Horde_Prefs.po" name="locale/fr/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/gl/LC_MESSAGES/Horde_Prefs.mo" name="locale/gl/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/gl/LC_MESSAGES/Horde_Prefs.po" name="locale/gl/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/he/LC_MESSAGES/Horde_Prefs.mo" name="locale/he/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/he/LC_MESSAGES/Horde_Prefs.po" name="locale/he/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/hr/LC_MESSAGES/Horde_Prefs.mo" name="locale/hr/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/hr/LC_MESSAGES/Horde_Prefs.po" name="locale/hr/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/hu/LC_MESSAGES/Horde_Prefs.mo" name="locale/hu/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/hu/LC_MESSAGES/Horde_Prefs.po" name="locale/hu/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/id/LC_MESSAGES/Horde_Prefs.mo" name="locale/id/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/id/LC_MESSAGES/Horde_Prefs.po" name="locale/id/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/is/LC_MESSAGES/Horde_Prefs.mo" name="locale/is/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/is/LC_MESSAGES/Horde_Prefs.po" name="locale/is/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/it/LC_MESSAGES/Horde_Prefs.mo" name="locale/it/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/it/LC_MESSAGES/Horde_Prefs.po" name="locale/it/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/ja/LC_MESSAGES/Horde_Prefs.mo" name="locale/ja/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/ja/LC_MESSAGES/Horde_Prefs.po" name="locale/ja/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/km/LC_MESSAGES/Horde_Prefs.mo" name="locale/km/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/km/LC_MESSAGES/Horde_Prefs.po" name="locale/km/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/ko/LC_MESSAGES/Horde_Prefs.mo" name="locale/ko/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/ko/LC_MESSAGES/Horde_Prefs.po" name="locale/ko/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/lt/LC_MESSAGES/Horde_Prefs.mo" name="locale/lt/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/lt/LC_MESSAGES/Horde_Prefs.po" name="locale/lt/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/lv/LC_MESSAGES/Horde_Prefs.mo" name="locale/lv/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/lv/LC_MESSAGES/Horde_Prefs.po" name="locale/lv/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/mk/LC_MESSAGES/Horde_Prefs.mo" name="locale/mk/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/mk/LC_MESSAGES/Horde_Prefs.po" name="locale/mk/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/nb/LC_MESSAGES/Horde_Prefs.mo" name="locale/nb/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/nb/LC_MESSAGES/Horde_Prefs.po" name="locale/nb/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/nl/LC_MESSAGES/Horde_Prefs.mo" name="locale/nl/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/nl/LC_MESSAGES/Horde_Prefs.po" name="locale/nl/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/nn/LC_MESSAGES/Horde_Prefs.mo" name="locale/nn/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/nn/LC_MESSAGES/Horde_Prefs.po" name="locale/nn/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/pl/LC_MESSAGES/Horde_Prefs.mo" name="locale/pl/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/pl/LC_MESSAGES/Horde_Prefs.po" name="locale/pl/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/pt/LC_MESSAGES/Horde_Prefs.mo" name="locale/pt/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/pt/LC_MESSAGES/Horde_Prefs.po" name="locale/pt/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/pt_BR/LC_MESSAGES/Horde_Prefs.mo" name="locale/pt_BR/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/pt_BR/LC_MESSAGES/Horde_Prefs.po" name="locale/pt_BR/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/ro/LC_MESSAGES/Horde_Prefs.mo" name="locale/ro/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/ro/LC_MESSAGES/Horde_Prefs.po" name="locale/ro/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/ru/LC_MESSAGES/Horde_Prefs.mo" name="locale/ru/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/ru/LC_MESSAGES/Horde_Prefs.po" name="locale/ru/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/sk/LC_MESSAGES/Horde_Prefs.mo" name="locale/sk/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/sk/LC_MESSAGES/Horde_Prefs.po" name="locale/sk/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/sl/LC_MESSAGES/Horde_Prefs.mo" name="locale/sl/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/sl/LC_MESSAGES/Horde_Prefs.po" name="locale/sl/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/sv/LC_MESSAGES/Horde_Prefs.mo" name="locale/sv/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/sv/LC_MESSAGES/Horde_Prefs.po" name="locale/sv/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/tr/LC_MESSAGES/Horde_Prefs.mo" name="locale/tr/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/tr/LC_MESSAGES/Horde_Prefs.po" name="locale/tr/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/uk/LC_MESSAGES/Horde_Prefs.mo" name="locale/uk/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/uk/LC_MESSAGES/Horde_Prefs.po" name="locale/uk/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/zh_CN/LC_MESSAGES/Horde_Prefs.mo" name="locale/zh_CN/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/zh_CN/LC_MESSAGES/Horde_Prefs.po" name="locale/zh_CN/LC_MESSAGES/Horde_Prefs.po" />
+   <install as="locale/zh_TW/LC_MESSAGES/Horde_Prefs.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Prefs.mo" />
+   <install as="locale/zh_TW/LC_MESSAGES/Horde_Prefs.po" name="locale/zh_TW/LC_MESSAGES/Horde_Prefs.po" />
   </filelist>
  </phprelease>
  <changelog>
   <release>
-   <date>2006-05-08</date>
-   <time>22:57:02</time>
    <version>
-    <release>0.0.3</release>
-    <api>0.0.3</api>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
+   <date>2003-07-05</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>* Data in postgres must be stored in a BYTEA field, not a TEXT field (Bug #8130).
-   * Converted to package.xml 2.0 for pear.horde.org
-   * Added files-based preferences backend (thomas.jarosch@intra2net.com, Request #6653)
+   <notes>
+Initial release as a PEAR package
    </notes>
   </release>
   <release>
@@ -133,22 +480,47 @@ http://pear.php.net/dtd/package-2.0.xsd">
    </stability>
    <date>2004-01-01</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>* Add failover functionality, if one of the drivers is not available will fall back to session-based preferences.
+   <notes>
+* Add failover functionality, if one of the drivers is not available will fall back to session-based preferences.
 * Add support for separate read and write DB servers for the sql driver.
    </notes>
   </release>
   <release>
+   <date>2006-05-08</date>
+   <time>22:57:02</time>
    <version>
-    <release>0.0.1</release>
-    <api>0.0.1</api>
+    <release>0.0.3</release>
+    <api>0.0.3</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2003-07-05</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Initial release as a PEAR package
+   <notes>
+* Data in postgres must be stored in a BYTEA field, not a TEXT field (Bug #8130).
+   * Converted to package.xml 2.0 for pear.horde.org
+   * Added files-based preferences backend (thomas.jarosch@intra2net.com, Request #6653)
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2010-10-22</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Abstract storage code into Horde_Prefs_Storage.
+ * Add array access API to Horde_Prefs.
+ * Remove dependency on horde/Core.
+ * Use Horde_Db as backend for Sql driver.
+ * Moved UI code to horde/Core.
+ * Initial Horde 4 package.
    </notes>
   </release>
  </changelog>

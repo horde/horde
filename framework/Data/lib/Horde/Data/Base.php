@@ -22,11 +22,11 @@ abstract class Horde_Data_Base
     protected $_browser;
 
     /**
-     * File extension.
+     * Cleanup callback function.
      *
-     * @var string
+     * @var callback
      */
-    protected $_extension = '';
+    protected $_cleanupCallback;
 
     /**
      * MIME content type.
@@ -36,11 +36,11 @@ abstract class Horde_Data_Base
     protected $_contentType = 'text/plain';
 
     /**
-     * Cleanup callback function.
+     * File extension.
      *
-     * @var callback
+     * @var string
      */
-    protected $_cleanupCallback;
+    protected $_extension = '';
 
     /**
      * Variables object.
@@ -57,46 +57,32 @@ abstract class Horde_Data_Base
     protected $_warnings = array();
 
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_dict;
-
-    /**
      * Constructor.
      *
-     * @param array $params  Optional parameters:
-     *                       - 'browser' (Horde_Browser) A Horde_Browser object.
-     *                       - 'cleanup': (callback) A callback to call at
-     *                                    cleanup time.
-     *                       - 'vars': (Horde_Variables) Form data.
-     *                       - 'translation': (object) A translation handler
-     *                                        implementing Horde_Translation.
+     * @param array $params  Parameters:
+     * <pre>
+     * OPTIONAL:
+     * ---------
+     * browser - (Horde_Browser) A browser object.
+     * cleanup - (callback) A callback to call at cleanup time.
+     * vars - (Horde_Variables) Form data.
+     * </pre>
      *
      * @throws InvalidArgumentException
      */
     public function __construct(array $params = array())
     {
-        if (!isset($params['browser'])) {
-            throw new InvalidArgumentException('Missing browser parameter.');
+        if (isset($params['browser'])) {
+            $this->_browser = $params['browser'];
         }
-        $this->_browser = $params['browser'];
 
-        if (isset($params['cleanup']) &&
-            is_callable($params['cleanup'])) {
+        if (isset($params['cleanup']) && is_callable($params['cleanup'])) {
             $this->_cleanupCallback = $params['cleanup'];
         }
 
         $this->_vars = isset($params['vars'])
             ? $params['vars']
             : Horde_Variables::getDefaultVariables();
-
-        if (isset($params['translation'])) {
-            $this->_dict = $params['translation'];
-        } else {
-            $this->_dict = new Horde_Translation_Gettext('Horde_Data', dirname(__FILE__) . '/../../../locale');
-        }
     }
 
     /**
@@ -134,6 +120,10 @@ abstract class Horde_Data_Base
      */
     public function getNewline()
     {
+        if (!isset($this->_browser)) {
+            throw new Horde_Data_Exception('Missing browser parameter.');
+        }
+
         switch ($this->_browser->getPlatform()) {
         case 'win':
             return "\r\n";
@@ -276,6 +266,9 @@ abstract class Horde_Data_Base
 
         switch ($action) {
         case Horde_Data::IMPORT_FILE:
+            if (!isset($this->_browser)) {
+                throw new Horde_Data_Exception('Missing browser parameter.');
+            }
             /* Sanitize uploaded file. */
             try {
                 $this->_browser->wasFileUploaded('import_file', $param['file_types'][$this->_vars->import_format]);
@@ -283,7 +276,7 @@ abstract class Horde_Data_Base
                 throw new Horde_Data_Exception($e);
             }
             if ($_FILES['import_file']['size'] <= 0) {
-                return PEAR::raiseError($this->_dict->t("The file contained no data."));
+                throw new Horde_Data_Exception(Horde_Data_Translation::t("The file contained no data."));
             }
             $_SESSION['import_data']['format'] = $this->_vars->import_format;
             break;

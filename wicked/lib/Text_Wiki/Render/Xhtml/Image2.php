@@ -4,9 +4,9 @@
  *
  * @package Wicked
  */
-class Text_Wiki_Render_Xhtml_Image2 extends Text_Wiki_Render {
-
-    var $conf = array(
+class Text_Wiki_Render_Xhtml_Image2 extends Text_Wiki_Render
+{
+    public $conf = array(
         'base' => '',
         'url_base' => null,
         'css'  => null,
@@ -21,7 +21,7 @@ class Text_Wiki_Render_Xhtml_Image2 extends Text_Wiki_Render {
      *
      * @return string  The text rendered from the token options.
      */
-    function token($options)
+    public function token($options)
     {
         if (!isset($options['attr']['alt'])) {
             $options['attr']['alt'] = $options['src'];
@@ -71,7 +71,7 @@ class Text_Wiki_Render_Xhtml_Image2 extends Text_Wiki_Render {
      *
      * @return string The text rendered from the token options.
      */
-    function _token($options)
+    protected function _token($options)
     {
         // note the image source
         $src = $options['src'];
@@ -151,5 +151,4 @@ class Text_Wiki_Render_Xhtml_Image2 extends Text_Wiki_Render {
 
         return $output;
     }
-
 }

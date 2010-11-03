@@ -63,6 +63,10 @@ class Components_Runner_PearPackageXml
         $arguments = $this->_config->getArguments();
         $options = $this->_config->getOptions();
 
+        if (!file_exists($arguments[0] . '/package.xml')) {
+            $this->_factory->createPackageFile($arguments[0]);
+        }
+
         if (isset($options['pearrc'])) {
             $package = $this->_factory->createPackageForInstallLocation(
                 $arguments[0] . '/package.xml',

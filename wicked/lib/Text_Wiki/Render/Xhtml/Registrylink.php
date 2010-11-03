@@ -4,8 +4,8 @@
  *
  * @package Wicked
  */
-class Text_Wiki_Render_Xhtml_Registrylink extends Text_Wiki_Render {
-
+class Text_Wiki_Render_Xhtml_Registrylink extends Text_Wiki_Render
+{
     /**
      * Renders a token into text matching the requested format.
      *
@@ -16,7 +16,7 @@ class Text_Wiki_Render_Xhtml_Registrylink extends Text_Wiki_Render {
      *
      * @return string The text rendered from the token options.
      */
-    function token($options)
+    public function token($options)
     {
         try {
             $link = new Horde_Url($GLOBALS['registry']->link($options['method'], $options['args']));
@@ -26,5 +26,4 @@ class Text_Wiki_Render_Xhtml_Registrylink extends Text_Wiki_Render {
 
         return $link->link() . $options['title'] . '</a>';
     }
-
 }

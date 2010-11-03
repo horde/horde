@@ -52,26 +52,27 @@ class Horde_Session implements ArrayAccess
 
     /**
      * Constructor.
-     *
-     * @param boolean $start  Initiate the session?
      */
-    public function __construct($start = true)
+    public function __construct()
     {
         $this->_lzf = Horde_Util::extensionExists('lzf');
 
-        $this->setup($start);
+        /* Make sure global session variable is always initialized. */
+        $_SESSION = array();
     }
 
     /**
      * Sets a custom session handler up, if there is one.
      *
-     * @param boolean $start  Initiate the session?
+     * @param boolean $start         Initiate the session?
+     * @param string $cache_limiter  Override for the session cache limiter
+     *                               value.
      *
      * @throws Horde_Exception
      */
-    public function setup($start = true)
+    public function setup($start = true, $cache_limiter = null)
     {
-        global $conf, $registry;
+        global $conf;
 
         ini_set('url_rewriter.tags', 0);
         if (empty($conf['session']['use_only_cookies'])) {
@@ -90,7 +91,7 @@ class Horde_Session implements ArrayAccess
             $conf['cookie']['domain'],
             $conf['use_ssl'] == 1 ? 1 : 0
         );
-        session_cache_limiter(is_null($registry->initParams['session_cache_limiter']) ? $conf['session']['cache_limiter'] : $registry->initParams['session_cache_limiter']);
+        session_cache_limiter(is_null($cache_limiter) ? $conf['session']['cache_limiter'] : $cache_limiter);
         session_name(urlencode($conf['session']['name']));
 
         /* We want to create an instance here, not get, since we may be
@@ -104,6 +105,20 @@ class Horde_Session implements ArrayAccess
             if (!isset($_SESSION[self::SERIALIZED])) {
                 /* Is this key serialized? */
                 $_SESSION[self::SERIALIZED] = array();
+            }
+
+            /* Determine if we need to force write the session to avoid a
+             * session timeout, even though the session is unchanged.
+             * Theory: On initial login, set the current time plus half of the
+             * max lifetime in the session.  Then check this timestamp before
+             * saving. If we exceed, force a write of the session and set a
+             * new timestamp. Why half the maxlifetime?  It guarantees that if
+             * we are accessing the server via a periodic mechanism (think
+             * folder refreshing in IMP) that we will catch this refresh. */
+            $curr_time = time();
+            if ($curr_time >= intval($this['horde:session_mod'])) {
+                $this['horde:session_mod'] = $curr_time + (ini_get('session.gc_maxlifetime') / 2);
+                $this->sessionHandler->changed = true;
             }
         }
     }
@@ -288,8 +303,10 @@ class Horde_Session implements ArrayAccess
             return $data;
         }
 
-        if ($this->_lzf) {
-            $data = lzf_decompress($data);
+        if ($this->_lzf &&
+            (($data = @lzf_decompress($data)) === false)) {
+            unset($this[$offset]);
+            return $this[$offset];
         }
 
         return ($_SESSION[self::SERIALIZED][$ob->key] == 's')
@@ -316,24 +333,27 @@ class Horde_Session implements ArrayAccess
     private function _offsetSet($ob, $value)
     {
         /* Each particular piece of session data is generally not used on any
-         * given page load.  Thus, for arrays ans objects, it is beneficial to
+         * given page load.  Thus, for arrays and objects, it is beneficial to
          * always convert to string representations so that the object/array
          * does not need to be rebuilt every time the session is reloaded. */
-        if (is_object($value)) {
+        if (is_object($value) || ($ob->type == 'object')) {
             $value = serialize($value);
             if ($this->_lzf) {
                 $value = lzf_compress($value);
             }
             $_SESSION[self::SERIALIZED][$ob->key] = 's';
-        } elseif (is_array($value)) {
+        } elseif (is_array($value) || ($ob->type == 'array')) {
             $value = json_encode($value);
             if ($this->_lzf) {
                 $value = lzf_compress($value);
             }
             $_SESSION[self::SERIALIZED][$ob->key] = 'j';
+        } else {
+            unset($_SESSION[self::SERIALIZED][$ob->key]);
         }
 
         $_SESSION[$ob->app][$ob->name] = $value;
+        $this->sessionHandler->changed = true;
     }
 
     /**
@@ -343,7 +363,7 @@ class Horde_Session implements ArrayAccess
         $ob = $this->_parseOffset($offset);
 
         if (isset($_SESSION[$ob->app])) {
-            if (!strlen($ob->key)) {
+            if (!strlen($ob->name)) {
                 foreach (array_keys($_SESSION[$ob->app]) as $key) {
                     unset($_SESSION[self::SERIALIZED][$key]);
                 }

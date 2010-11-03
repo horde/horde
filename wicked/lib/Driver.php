@@ -4,16 +4,6 @@
  */
 
 /**
- * VFS
- */
-require_once 'VFS.php';
-
-define('WICKED_PAGE_MATCH_LEFT', 1);
-define('WICKED_PAGE_MATCH_RIGHT', 2);
-define('WICKED_PAGE_MATCH_ENDS', 3);
-define('WICKED_PAGE_MATCH_ANY', 4);
-
-/**
  * Wicked_Driver:: defines an API for implementing storage backends for
  * Wicked.
  *
@@ -25,28 +15,28 @@ define('WICKED_PAGE_MATCH_ANY', 4);
  * @author  Tyler Colbert <tyler@colberts.us>
  * @package Wicked
  */
-class Wicked_Driver {
+abstract class Wicked_Driver {
 
     /**
      * Hash containing connection parameters.
      *
      * @var array
      */
-    var $_params = array();
+    protected $_params = array();
 
     /**
      * VFS object for storing attachments.
      *
      * @var VFS
      */
-    var $_vfs;
+    protected $_vfs;
 
     /**
      * Constructs a new Wicked driver object.
      *
      * @param array $params  A hash containing connection parameters.
      */
-    function Wicked_Driver($params = array())
+    public function __construct($params = array())
     {
         $this->_params = $params;
     }
@@ -54,15 +44,15 @@ class Wicked_Driver {
     /**
      * Accessor to manage a VFS instance.
      *
-     * @throws VFS_Exception
+     * @throws Wicked_Exception
      */
-    function getVFS()
+    public function getVFS()
     {
         if (!$this->_vfs) {
             try {
                 $this->_vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
             } catch (VFS_Exception $e) {
-                return PEAR::raiseError($e->getMessage());
+                throw new Wicked_Exception($e);
             }
         }
 
@@ -74,12 +64,8 @@ class Wicked_Driver {
      *
      * @param string $pagename     The name of the page to retrieve
      *
-     * @return boolean  True on success, PEAR_Error on failure.
      */
-    function retrieveByName($pagename)
-    {
-        return PEAR::raiseError(_("Unsupported"));
-    }
+    abstract function retrieveByName($pagename);
 
     /**
      * Retrieves a historic version of a page.
@@ -88,24 +74,15 @@ class Wicked_Driver {
      * @param string $pagename  The name of the page to retrieve.
      * @param string $version   The version to retrieve.
      *
-     * @return array  The page hash, or PEAR_Error on failure.
      */
-    function retrieveHistory($pagename, $version)
-    {
-        return PEAR::raiseError(_("Unsupported"));
-    }
+    abstract function retrieveHistory($pagename, $version);
 
     /**
      * Logs a hit to $pagename.
      *
      * @param string $pagename  The page that was viewed.
-     *
-     * @return boolean  True or PEAR_Error on failure.
      */
-    function logPageView($pagename)
-    {
-        return PEAR::raiseError(_("Unsupported"));
-    }
+    abstract function logPageView($pagename);
 
     /**
      * Creates a new page.
@@ -114,45 +91,31 @@ class Wicked_Driver {
      *
      * @param string $pagename  The new page's name.
      * @param string $text      The new page's text.
-     *
-     * @return mixed  True, or PEAR_Error on failure.
      */
-    function newPage($pagename, $text)
-    {
-        return PEAR::raiseError(_("Not implemented."));
-    }
+    abstract function newPage($pagename, $text);
 
-    function updateText($pagename, $text, $changelog, $minorchange)
-    {
-        return PEAR::raiseError(_("Unsupported"));
-    }
+    abstract function updateText($pagename, $text, $changelog, $minorchange);
 
-    function renamePage($pagename, $newname)
-    {
-        return PEAR::raiseError(_("Unsupported"));
-    }
+    abstract function renamePage($pagename, $newname);
 
-    function getPageId($pagename)
+    public function getPageId($pagename)
     {
         $pages = $this->getPages();
-        if (is_a($pages, 'PEAR_Error')) {
-            return $pages;
-        }
         $ids = array_flip($pages);
         return isset($ids[$pagename]) ? $ids[$pagename] : false;
     }
 
-    function getPage($pagename)
+    public function getPage($pagename)
     {
         return array();
     }
 
-    function getPageById($id)
+    public function getPageById($id)
     {
         return array();
     }
 
-    function getSpecialPages()
+    public function getSpecialPages()
     {
         static $pages;
         if (isset($pages)) {
@@ -175,37 +138,28 @@ class Wicked_Driver {
         return $pages;
     }
 
-    function getPages($special = true)
+    public function getPages($special = true)
     {
         return array();
     }
 
-    function pageExists($pagename)
+    public function pageExists($pagename)
     {
         return in_array($pagename, $this->getPages());
     }
 
-    function getAllPages()
-    {
-        return PEAR::raiseError(_("Unsupported"));
-    }
+    abstract function getAllPages();
 
-    function getHistory($pagename)
-    {
-        return PEAR::raiseError(_("Unsupported"));
-    }
+    abstract function getHistory($pagename);
 
     /**
      * Returns the most recently changed pages.
      *
      * @param integer $days  The number of days to look back.
      *
-     * @return mixed  An array of pages, or PEAR_Error on failure.
+     * @return array  Pages.
      */
-    function getRecentChanges($days = 3)
-    {
-        return PEAR::raiseError(_("Unsupported"));
-    }
+    abstract function getRecentChanges($days = 3);
 
     /**
      * Returns the most popular pages.
@@ -214,12 +168,9 @@ class Wicked_Driver {
      *
      * @param integer $limit  The number of most popular pages to return.
      *
-     * @return mixed  An array of pages, or PEAR_Error on failure.
+     * @return array  Pages.
      */
-    function mostPopular($limit = 10)
-    {
-        return PEAR::raiseError(_("Unsupported"));
-    }
+    abstract function mostPopular($limit = 10);
 
     /**
      * Returns the least popular pages.
@@ -228,12 +179,9 @@ class Wicked_Driver {
      *
      * @param integer $limit  The number of least popular pages to return.
      *
-     * @return mixed  An array of pages, or PEAR_Error on failure.
+     * @return array  Pages.
      */
-    function leastPopular($limit = 10)
-    {
-        return PEAR::raiseError(_("Unsupported"));
-    }
+    abstract function leastPopular($limit = 10);
 
     /**
      * Finds pages with matches in text or title.
@@ -242,22 +190,13 @@ class Wicked_Driver {
      *
      * @param string $searchtext  The search expression (Google-like).
      *
-     * @return array  A list of pages, or PEAR_Error on failure.
+     * @return array  A list of pages
      */
-    function searchText($searchtext)
-    {
-        return PEAR::raiseError(_("Unsupported"));
-    }
+    abstract function searchText($searchtext);
 
-    function getBackLinks($pagename)
-    {
-        return PEAR::raiseError(_("Unsupported"));
-    }
+    abstract function getBackLinks($pagename);
 
-    function getLikePages($pagename)
-    {
-        return PEAR::raiseError(_("Unsupported"));
-    }
+    abstract function getLikePages($pagename);
 
     /**
      * Retrieves data on files attached to a page.
@@ -269,13 +208,10 @@ class Wicked_Driver {
      * @param boolean $allversions  Whether to include all versions. If false
      *                              or omitted, only the most recent version
      *                              of each attachment is returned.
-     * @return mixed  An array of key/value arrays describing the attached
-     *                files or a PEAR_Error:: instance on failure.
+     * @return array  An array of key/value arrays describing the attached
+     *                files.
      */
-    function getAttachedFiles($pageId, $allversions = false)
-    {
-        return PEAR::raiseError(_("Unsupported"));
-    }
+    abstract function getAttachedFiles($pageId, $allversions = false);
 
     /**
      * Attaches a file to a page or update an attachment.
@@ -293,23 +229,15 @@ class Wicked_Driver {
      *                         the currently logged-in user is assumed.</pre>
      * @param string $data  This is the contents of the file to be attached.
      *
-     * @return boolean  True or PEAR_Error:: instance on failure.
+     * @throws Wicked_Exception
      */
-    function attachFile($file, $data)
+    public function attachFile($file, $data)
     {
-        $vfs =& $this->getVFS();
-        if (is_a($vfs, 'PEAR_Error')) {
-            return $vfs;
-        }
-
+        $vfs = $this->getVFS();
         if (!isset($file['change_author'])) {
             $file['change_author'] = $GLOBALS['registry']->getAuth();
         }
-
         $result = $this->_attachFile($file);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
 
         /* We encode the path quoted printable so we won't get any nasty
          * characters the filesystem might reject. */
@@ -317,7 +245,7 @@ class Wicked_Driver {
         try {
             $vfs->writeData($path, $file['attachment_name'] . ';' . $result, $data, true);
         } catch (VFS_Exception $e) {
-            return PEAR::raiseError($e->getMessage());
+            throw new Wicked_Exception($e);
         }
     }
 
@@ -330,15 +258,11 @@ class Wicked_Driver {
      * @param string $version  If specified, the version to delete. If null,
      *                         then all versions of $attachment will be removed.
      *
-     * @return boolean|PEAR_Error  Either true or a PEAR_Error describing failure.
+     * @throws Wicked_Exception
      */
-    function removeAttachment($pageId, $attachment, $version = null)
+    public function removeAttachment($pageId, $attachment, $version = null)
     {
-        $vfs =& $this->getVFS();
-        if (is_a($vfs, 'PEAR_Error')) {
-            return $vfs;
-        }
-
+        $vfs = $this->getVFS();
         $path = WICKED_VFS_ATTACH_PATH . '/' . $pageId;
 
         $fileList = $this->getAttachedFiles($pageId, true);
@@ -354,12 +278,10 @@ class Wicked_Driver {
                 try {
                     $vfs->deleteFile($path, $attachment . ';' . $fileversion);
                 } catch (VFS_Exception $e) {
-                    return PEAR::raiseError($result->getMessage());
+                    throw new Wicked_Exception($e);
                 }
             }
         }
-
-        return true;
     }
 
     /**
@@ -367,24 +289,19 @@ class Wicked_Driver {
      *
      * @param integer $pageId  The Id of the page to remove attachments from.
      *
-     * @return boolean|PEAR_Error  Either true or a PEAR_Error describing failure.
+     * @throws Wicked_Exception
      */
-    function removeAllAttachments($pageId)
+    public function removeAllAttachments($pageId)
     {
-        $vfs =& $this->getVFS();
-        if (is_a($vfs, 'PEAR_Error')) {
-            return $vfs;
-        }
-
+        $vfs = $this->getVFS();
         if (!$vfs->isFolder(WICKED_VFS_ATTACH_PATH, $pageId)) {
-            return true;
+            return;
         }
 
         try {
             $vfs->deleteFolder(WICKED_VFS_ATTACH_PATH, $pageId, true);
-            return true;
         } catch (VFS_Exception $e) {
-            return PEAR::raiseError($e->getMessage());
+            throw new Wicked_Exception($e);
         }
     }
 
@@ -400,13 +317,10 @@ class Wicked_Driver {
      *
      * @param array $file  See Wicked_Driver::attachFile().
      *
-     * @return boolean  The new version of the file attached, or a PEAR_Error::
-     *                  instance on failure.
+     * @return boolean  The new version of the file attached
+     * @throws Wicked_Exception
      */
-    function _attachFile($file)
-    {
-        return PEAR::raiseError(_("Unsupported"));
-    }
+    abstract protected function _attachFile($file);
 
     /**
      * Retrieves the contents of an attachment.
@@ -416,51 +330,37 @@ class Wicked_Driver {
      * @param string $filename  This is the name of the attachment.
      * @param string $version   This is the version of the attachment.
      *
-     * @return string  The file's contents or a PEAR_Error on error.
+     * @return string  The file's contents.
+     * @throws Wicked_Exception
      */
-    function getAttachmentContents($pageId, $filename, $version)
+    public function getAttachmentContents($pageId, $filename, $version)
     {
-        $vfs =& $this->getVFS();
-        if (is_a($vfs, 'PEAR_Error')) {
-            return $vfs;
-        }
-
+        $vfs = $this->getVFS();
         $path = WICKED_VFS_ATTACH_PATH . '/' . $pageId;
 
         try {
             return $vfs->read($path, $filename . ';' . $version);
         } catch (VFS_Exception $e) {
-            return PEAR::raiseError($e->getMessage());
+            throw new Wicked_Exception($e);
         }
     }
 
-    function removeVersion($pagename, $version)
-    {
-        return PEAR::raiseError(_("Unsupported"));
-    }
+    abstract function removeVersion($pagename, $version);
 
-    function removeAllVersions($pagename)
+    public function removeAllVersions($pagename)
     {
         /* When deleting a page, also delete all its attachments. */
-        $result = $this->removeAllAttachments($this->getPageId($pagename));
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
-        return true;
+        $this->removeAllAttachments($this->getPageId($pagename));
     }
 
-    function searchTitles($searchtext)
-    {
-        return PEAR::raiseError(_("Unsupported"));
-    }
+    abstract function searchTitles($searchtext);
 
     /**
      * Returns the charset used by the backend.
      *
      * @return string  The backend's charset
      */
-    function getCharset()
+    public function getCharset()
     {
         return 'UTF-8';
     }
@@ -473,15 +373,15 @@ class Wicked_Driver {
      * @param array $params   A hash containing any additional configuration or
      *                        connection parameters a subclass might need.
      *
-     * @return mixed  The newly created concrete Wicked_Driver instance, or
-     *                false on an error.
+     * @return Wicked_Driver  The newly created concrete Wicked_Driver instance.
+     * @throws Wicked_Exception
      */
-    function factory($driver = null, $params = null)
+    public function factory($driver = null, $params = null)
     {
         if ($driver === null) {
             $driver = $GLOBALS['conf']['storage']['driver'];
         }
-        $driver = basename($driver);
+        $driver = Horde_String::ucfirst(basename($driver));
 
         if ($params === null) {
             $params = Horde::getDriverConfig('storage', $driver);
@@ -489,19 +389,11 @@ class Wicked_Driver {
 
         $class = 'Wicked_Driver_' . $driver;
         if (!class_exists($class)) {
-            include_once dirname(__FILE__) . '/Driver/' . $driver . '.php';
-        }
-        if (class_exists($class)) {
-            $wicked = new $class($params);
-            $result = $wicked->connect();
-            if (is_a($result, 'PEAR_Error')) {
-                return $result;
-            }
-            return $wicked;
-        } else {
-            return PEAR::raiseError('Definition of ' . $class . ' not found.');
+            throw new Wicked_Exception('Definition of ' . $class . ' not found.');
         }
 
+        $wicked = new $class($params);
+        $result = $wicked->connect();
         return $wicked;
     }
 

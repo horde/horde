@@ -17,9 +17,9 @@ SQLite tests will always be run. This is possible using the sqlite:memory
 database; no file access or permissions are required.
 
 For the other adapters, the Horde_Db test suite looks for environment variables
-named HORDE_DB_TEST_DSN_$driverName. For the MySQLi driver, that would be
-HORDE_DB_TEST_DSN_MYSQLI. For the PDO PostgreSQL driver, that would be
-Horde_DB_TEST_DSN_PDO_PGSQL, and so on. The value of the environment variable is
+named DB_ADAPTER_$driverName_TEST_CONFIG. For the MySQLi driver, that would be
+DB_ADAPTER_MYSQLI_TEST_CONFIG. For the PDO PostgreSQL driver, that would be
+DB_ADAPTER_PDO_PGSQL_TEST_CONFIG, and so on. The value of the environment variable is
 a JSON string with the configuration array for the adapter. Here is an example
 for setting up a test DSN for the MySQL test database on localhost, connecting
 as the user horde_db with no password:

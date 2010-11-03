@@ -1261,8 +1261,8 @@ var DimpBase = {
         // Add date
         [ $('msgHeadersColl').select('.date'), $('msgHeaderDate').select('.date') ].flatten().invoke('update', r.localdate);
 
-        // Add from/to/cc headers
-        [ 'from', 'to', 'cc' ].each(function(a) {
+        // Add from/to/cc/bcc headers
+        [ 'from', 'to', 'cc', 'bcc' ].each(function(a) {
             if (r[a]) {
                 (a == 'from' ? pm.select('.' + a) : [ t.down('.' + a) ]).each(function(elt) {
                     elt.replace(DimpCore.buildAddressLinks(r[a], elt.clone(false)));
@@ -2265,7 +2265,6 @@ var DimpBase = {
         if (val) {
             switch (mode) {
             case 'rename':
-                folder = folder.up('LI');
                 if (folder.retrieve('l') != val) {
                     action = 'renameMailbox';
                     params = {

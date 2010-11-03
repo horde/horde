@@ -25,10 +25,8 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 
 // We have a chicken-and-egg problem here regarding app initialization. Since
 // different RPC servers have different session requirements, we can't call
-// appInit() until we know which server we are requesting. The Request object
-// also needs to know that we don't want a session since it tries to access/
-// initialize the session state.  We therfore don't create the Request object
-// or initialize the application until after we know the rpc server we want.
+// appInit() until we know which server we are requesting. We therefor don't
+// initialize the application until after we know the rpc server we want.
 $input = $session_control = null;
 $nocompress = false;
 $params = array();
@@ -96,32 +94,8 @@ case 'ActiveSync':
     if (empty($conf['activesync']['enabled'])) {
         exit;
     }
-
-    if ($conf['activesync']['logging']['type'] == 'custom') {
-        $params['logger'] = new Horde_Log_Logger(new Horde_Log_Handler_Stream(fopen($conf['activesync']['logging']['path'], 'a')));
-    }
-
-    $state_params = $conf['activesync']['state']['params'];
-    $state_params['db'] = $injector->getInstance('Horde_Db_Adapter');
-    $stateMachine = new Horde_ActiveSync_State_History($state_params);
-    $params['registry'] = $registry;
-    $driver_params = array(
-        'connector' => new Horde_ActiveSync_Driver_Horde_Connector_Registry($params),
-        'ping' => $conf['activesync']['ping'],
-        'state_basic' => $stateMachine,
-    );
-
-    if ($params['provisioning'] = $conf['activesync']['securitypolicies']['provisioning']) {
-        $driver_params['policies'] = $conf['activesync']['securitypolicies'];
-    }
-    $params['backend'] = new Horde_ActiveSync_Driver_Horde($driver_params);
-    $params['server'] = new Horde_ActiveSync(
-        $params['backend'],
-        new Horde_ActiveSync_Wbxml_Decoder(fopen('php://input', 'r')),
-        new Horde_ActiveSync_Wbxml_Encoder(fopen('php://output', 'w+')),
-        $request
-    );
-    $params['server']->setLogger($params['logger']);
+    $params['backend'] = $injector->getInstance('Horde_ActiveSyncBackend');
+    $params['server'] = $injector->getInstance('Horde_ActiveSyncServer');
     break;
 
 case 'Soap':

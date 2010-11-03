@@ -108,7 +108,7 @@ class Chora_Application extends Horde_Registry_Application
         }
 
         if (!isset($sourceroots[$acts['rt']])) {
-            throw new Chora_Exception(_("Malformed URL"));
+            throw new Chora_Exception(sprintf(_("The repository with the slug '%s' was not found"), $acts['rt']));
         }
 
         $sourcerootopts = $sourceroots[$acts['rt']];

@@ -24,8 +24,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-10-13</date>
- <time>23:49:33</time>
+ <date>2010-10-26</date>
+ <time>10:08:57</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -40,6 +40,11 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="bin">
+    <file name="horde-components" role="script">
+     <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
+    </file>
+   </dir> <!-- /bin -->
    <dir name="data">
     <file name="distribute_package.spec" role="data" />
     <file name="hudson-component-build.xml.template" role="data" />
@@ -55,6 +60,9 @@
      <dir name="Dependencies">
       <file name="Injector.php" role="php" />
      </dir> <!-- /lib/Components/Dependencies -->
+     <dir name="Exception">
+      <file name="Pear.php" role="php" />
+     </dir> <!-- /lib/Components/Exception -->
      <dir name="Helper">
       <dir name="Tree">
        <file name="Element.php" role="php" />
@@ -81,6 +89,7 @@
       <file name="CiPrebuild.php" role="php" />
       <file name="CiSetup.php" role="php" />
       <file name="Dependencies.php" role="php" />
+      <file name="DevPackage.php" role="php" />
       <file name="Distribute.php" role="php" />
       <file name="Installer.php" role="php" />
       <file name="PearPackageXml.php" role="php" />
@@ -98,11 +107,6 @@
     </dir> <!-- /lib/Components -->
     <file name="Components.php" role="php" />
    </dir> <!-- /lib -->
-   <dir name="script">
-    <file name="horde-components.php" role="script">
-     <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
-    </file>
-   </dir> <!-- /script -->
    <dir name="test">
     <dir name="Components">
      <dir name="fixture">
@@ -214,6 +218,10 @@
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Role</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Util</name>
     <channel>pear.horde.org</channel>
    </package>
@@ -231,6 +239,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="horde-components" name="bin/horde-components" />
    <install as="distribute_package.spec" name="data/distribute_package.spec" />
    <install as="hudson-component-build.xml.template" name="data/hudson-component-build.xml.template" />
    <install as="hudson-component-config.xml.template" name="data/hudson-component-config.xml.template" />
@@ -247,6 +256,7 @@
    <install as="Components/Config/Application.php" name="lib/Components/Config/Application.php" />
    <install as="Components/Config/Cli.php" name="lib/Components/Config/Cli.php" />
    <install as="Components/Dependencies/Injector.php" name="lib/Components/Dependencies/Injector.php" />
+   <install as="Components/Exception/Pear.php" name="lib/Components/Exception/Pear.php" />
    <install as="Components/Helper/InstallationRun.php" name="lib/Components/Helper/InstallationRun.php" />
    <install as="Components/Helper/ListRun.php" name="lib/Components/Helper/ListRun.php" />
    <install as="Components/Helper/Tree.php" name="lib/Components/Helper/Tree.php" />
@@ -264,10 +274,10 @@
    <install as="Components/Runner/CiPrebuild.php" name="lib/Components/Runner/CiPrebuild.php" />
    <install as="Components/Runner/CiSetup.php" name="lib/Components/Runner/CiSetup.php" />
    <install as="Components/Runner/Dependencies.php" name="lib/Components/Runner/Dependencies.php" />
+   <install as="Components/Runner/DevPackage.php" name="lib/Components/Runner/DevPackage.php" />
    <install as="Components/Runner/Distribute.php" name="lib/Components/Runner/Distribute.php" />
    <install as="Components/Runner/Installer.php" name="lib/Components/Runner/Installer.php" />
    <install as="Components/Runner/PearPackageXml.php" name="lib/Components/Runner/PearPackageXml.php" />
-   <install as="horde-components" name="script/horde-components.php" />
    <install as="Components/AllTests.php" name="test/Components/AllTests.php" />
    <install as="Components/Autoload.php" name="test/Components/Autoload.php" />
    <install as="Components/phpunit.xml" name="test/Components/phpunit.xml" />
@@ -312,7 +322,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-10-13</date>
+   <date>2010-10-26</date>
    <license uri="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL</license>
    <notes>
 * Initial release

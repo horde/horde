@@ -205,21 +205,17 @@ class Horde_Date_Recurrence
      *
      * @return string  Human readable recurring type.
      */
-    public function getRecurName($dict = null)
+    public function getRecurName()
     {
-        if (!$dict) {
-            $dict = new Horde_Translation_Gettext('Horde_Date', dirname(__FILE__) . '/../../../locale');
-        }
-
         switch ($this->getRecurType()) {
-        case self::RECUR_NONE: return $dict->t("No recurrence");
-        case self::RECUR_DAILY: return $dict->t("Daily");
-        case self::RECUR_WEEKLY: return $dict->t("Weekly");
+        case self::RECUR_NONE: return Horde_Date_Translation::t("No recurrence");
+        case self::RECUR_DAILY: return Horde_Date_Translation::t("Daily");
+        case self::RECUR_WEEKLY: return Horde_Date_Translation::t("Weekly");
         case self::RECUR_MONTHLY_DATE:
-        case self::RECUR_MONTHLY_WEEKDAY: return $dict->t("Monthly");
+        case self::RECUR_MONTHLY_WEEKDAY: return Horde_Date_Translation::t("Monthly");
         case self::RECUR_YEARLY_DATE:
         case self::RECUR_YEARLY_DAY:
-        case self::RECUR_YEARLY_WEEKDAY: return $dict->t("Yearly");
+        case self::RECUR_YEARLY_WEEKDAY: return Horde_Date_Translation::t("Yearly");
         }
     }
 

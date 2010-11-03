@@ -42,14 +42,11 @@ class Wicked_Api extends Horde_Registry_Api
      * @param string $pagename Page name
      *
      * @return array  An array of page parameters.
+     * @throws Wicked_Exception
      */
     public function getPageInfo($pagename)
     {
         $page = Wicked_Page::getPage($pagename);
-        if (is_a($page, 'PEAR_Error')) {
-            return $page;
-        }
-
         return array(
             'page_majorversion' => $page->_page['page_majorversion'],
             'page_minorversion' => $page->_page['page_minorversion'],
@@ -66,6 +63,7 @@ class Wicked_Api extends Horde_Registry_Api
      * @param array $pagenames Page names
      *
      * @return array  An array of arrays of page parameters.
+     * @throws Wicked_Exception
      */
     public function getMultiplePageInfo($pagenames = array())
     {
@@ -73,18 +71,12 @@ class Wicked_Api extends Horde_Registry_Api
 
         if (empty($pagenames)) {
             $pagenames = $GLOBALS['wicked']->getPages(false);
-            if (is_a($pagenames, 'PEAR_Error')) {
-                return $pagenames;
-            }
         }
 
         $info = array();
 
         foreach ($pagenames as $pagename) {
             $page = Wicked_Page::getPage($pagename);
-            if (is_a($page, 'PEAR_Error')) {
-                return $page;
-            }
             $info[$pagename] = array(
                 'page_majorversion' => $page->_page['page_majorversion'],
                 'page_minorversion' => $page->_page['page_minorversion'],
@@ -104,18 +96,12 @@ class Wicked_Api extends Horde_Registry_Api
      * @param string $pagename Page name
      *
      * @return array  An array of page parameters.
+     * @throws Wicked_Exception
      */
     public function getPageHistory($pagename)
     {
         $page = Wicked_Page::getPage($pagename);
-        if (is_a($page, 'PEAR_Error')) {
-            return $page;
-        }
-
         $summaries = $GLOBALS['wicked']->getHistory($pagename);
-        if (is_a($summaries, 'PEAR_Error')) {
-            return $summaries;
-        }
 
         foreach ($summaries as $i => $summary) {
             $summaries[$i]['page_checksum'] = md5($summary['page_text']);
@@ -143,16 +129,12 @@ class Wicked_Api extends Horde_Registry_Api
      * @param string $pagename Page to display
      *
      * @return array  Page without CSS link
+     * @throws Wicked_Exception
      */
     public function display($pagename)
     {
         $page = Wicked_Page::getPage($pagename);
-        if (is_a($page, 'PEAR_Error')) {
-            return $page;
-        }
-
         $GLOBALS['wicked']->logPageView($page->pageName());
-
         return $page->displayContents(false);
     }
 
@@ -163,20 +145,12 @@ class Wicked_Api extends Horde_Registry_Api
      * @param string $format Format to render page to (Plain, XHtml)
      *
      * @return array  Rendered page
+     * @throws Wicked_Exception
      */
     public function renderPage($pagename, $format = 'Plain')
     {
         $page = Wicked_Page::getPage($pagename);
-        if (is_a($page, 'PEAR_Error')) {
-            return $page;
-        }
-
-        $wiki = &$page->getProcessor();
-        $content = $wiki->transform($page->getText(), $format);
-        if (is_a($content, 'PEAR_Error')) {
-            return $content;
-        }
-
+        $content = $page->getProcessor()->transform($page->getText(), $format);
         $GLOBALS['wicked']->logPageView($page->pageName());
         return $content;
     }
@@ -190,55 +164,48 @@ class Wicked_Api extends Horde_Registry_Api
      * @param string $changelog Description of the change
      * @param boolean $minorchange True if this is a minor change
      *
-     * @return boolean | PEAR_Error True on success, PEAR_Error on failure.
+     * @throws Wicked_Exception
      */
     public function edit($pagename, $text, $changelog = '',
                          $minorchange = false)
     {
         $page = Wicked_Page::getPage($pagename);
-        if (is_a($page, 'PEAR_Error')) {
-            return $page;
-        }
         if (!$page->allows(Wicked::MODE_EDIT)) {
-            return PEAR::RaiseError(sprintf(_("You don't have permission to edit \"%s\"."), $pagename));
+            throw new Wicked_Exception(sprintf(_("You don't have permission to edit \"%s\"."), $pagename));
         }
         if ($GLOBALS['conf']['wicked']['require_change_log'] &&
             empty($changelog)) {
-                return PEAR::raiseError(_("You must provide a change log."));
-            }
+            throw new Wicked_Exception(_("You must provide a change log."));
+        }
 
-        $content = $page->getText();
-        if (is_a($content, 'PEAR_Error')) {
+        try {
+            $content = $page->getText();
+        } catch (Wicked_Exception $e) {
             // Maybe the page does not exists, if not create it
             if ($GLOBALS['wicked']->pageExists($pagename)) {
-                return $content;
-            } else {
-                return $GLOBALS['wicked']->newPage($pagename, $text);
+                throw $e;
             }
+            $GLOBALS['wicked']->newPage($pagename, $text);
         }
 
         if (trim($text) == trim($content)) {
-            return PEAR::raiseError(_("No changes made"));
+            throw new Wicked_Exception(_("No changes made"));
         }
 
-        $result = $page->updateText($text, $changelog, $minorchange);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        } else {
-            return true;
-        }
+        $page->updateText($text, $changelog, $minorchange);
     }
 
     /**
      * Get a list of templates provided by Wicked.  A template is any page
      * whose name begins with "Template"
      *
-     * @return mixed  Array on success; PEAR_Error on failure
+     * @return arrary  Array on success.
+     * @throws Wicked_Exception
      */
     public function listTemplates()
     {
         global $wicked;
-        $templates = $wicked->getMatchingPages('Template', WICKED_PAGE_MATCH_ENDS);
+        $templates = $wicked->getMatchingPages('Template', Wicked_Page::MATCH_ENDS);
         $list = array(array('category' => _("Wiki Templates"),
             'templates' => array()));
         foreach ($templates as $page) {
@@ -256,7 +223,8 @@ class Wicked_Api extends Horde_Registry_Api
      *
      * @param string $name  The name of the template to fetch
      *
-     * @return mixed  String of template data on success; PEAR_Error on fail.
+     * @return string  Template data.
+     * @throws Wicked_Exception
      */
     public function getTemplate($name)
     {
@@ -269,7 +237,8 @@ class Wicked_Api extends Horde_Registry_Api
      * @param string $name     The name of the page to fetch
      * @param string $version  Page version
      *
-     * @return mixed  String of page data on success; PEAR_Error on fail
+     * @return string  Page data.
+     * @throws Wicked_Exception
      */
     public function getPageSource($pagename, $version = null)
     {
@@ -278,11 +247,11 @@ class Wicked_Api extends Horde_Registry_Api
         $page = Wicked_Page::getPage($pagename, $version);
 
         if (!$page->allows(Wicked::MODE_CONTENT)) {
-            return PEAR::raiseError(_("Permission denied."));
+            throw new Wicked_Exception(_("Permission denied."));
         }
 
         if (!$page->isValid()) {
-            return PEAR::raiseError(_("Invalid page requested."));
+            throw new Wicked_Exception(_("Invalid page requested."));
         }
 
         return $page->getText();
@@ -295,11 +264,11 @@ class Wicked_Api extends Horde_Registry_Api
      * @param string $name   Name of the new or modified page
      * @param string $data   Text content of the populated template
      *
-     * @return mixed         True on success; PEAR_Error on failure
+     * @throws Wicked_Exception
      */
     public function saveTemplate($name, $data)
     {
-        return $this->edit($name, $data, 'Template Auto-fill', false);
+        $this->edit($name, $data, 'Template Auto-fill', false);
     }
 
     /**
@@ -307,17 +276,13 @@ class Wicked_Api extends Horde_Registry_Api
      *
      * @param integer $days  The number of days to look back.
      *
-     * @return mixed  An array of pages, or PEAR_Error on failure.
+     * @return array  Pages.
+     * @throws Wicked_Exception
      */
     public function getRecentChanges($days = 3)
     {
-        $summaries = $GLOBALS['wicked']->getRecentChanges($days);
-        if (is_a($summaries, 'PEAR_Error')) {
-            return $summaries;
-        }
-
         $info = array();
-        foreach ($summaries as $page) {
+        foreach ($GLOBALS['wicked']->getRecentChanges($days) as $page) {
             $info[$page['page_name']] = array(
                 'page_majorversion' => $page['page_majorversion'],
                 'page_minorversion' => $page['page_minorversion'],

@@ -292,6 +292,10 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
             <td class="label"><?php echo _("Cc") ?>:</td>
             <td class="cc"></td>
            </tr>
+           <tr id="msgHeaderBcc">
+            <td class="label"><?php echo _("Bcc") ?>:</td>
+            <td class="bcc"></td>
+           </tr>
            <tr id="msgAtc" style="display:none">
             <td class="label" id="partlist_toggle">
              <span class="iconImg attachmentImg attachmentImage"></span>

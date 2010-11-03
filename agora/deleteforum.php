@@ -71,11 +71,11 @@ if ($form->validate()) {
 $view = new Agora_View();
 $view->menu = Horde::menu();
 
-Horde::startBuffer()
+Horde::startBuffer();
 $form->renderActive(null, $vars, 'deleteforum.php', 'post');
 $view->main = Horde::endBuffer();
 
-Horde::startBuffer()
+Horde::startBuffer();
 $notification->notify(array('listeners' => 'status'));
 $view->notify = Horde::endBuffer();
 

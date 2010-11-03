@@ -110,7 +110,7 @@ case 'download_render':
         if ($contents->canDisplay($vars->id, IMP_Contents::RENDER_RAW)) {
             $render = $contents->renderMIMEPart($vars->id, IMP_Contents::RENDER_RAW);
             reset($render);
-            $mime->setContents($render[key($render)]['data']);
+            $mime->setContents($render[key($render)]['data'], array('encoding' => 'binary'));
         }
 
         if (!$name = $mime->getName(true)) {
@@ -302,6 +302,16 @@ case 'print_attach':
                     $bodyelt = $doc->dom->getElementsByTagName('body')->item(0);
                     $bodyelt->insertBefore($doc->dom->importNode($div, true), $bodyelt->firstChild);
 
+                    /* Make the title the e-mail subject. */
+                    $headers = $contents->getHeaderOb();
+                    $imp_ui_mbox = new IMP_Ui_Mailbox();
+
+                    $headelt = $doc->dom->getElementsByTagName('head')->item(0);
+                    foreach ($headelt->getElementsByTagName('title') as $node) {
+                        $headelt->removeChild($node);
+                    }
+                    $headelt->appendChild($doc->dom->createElement('title', htmlspecialchars($imp_ui_mbox->getSubject($headers->getValue('subject')))));
+
                     echo $doc->returnHtml();
                 } else {
                     echo $render[$key]['data'];
@@ -312,8 +322,12 @@ case 'print_attach':
         break;
 
     default:
+        $headers = $contents->getHeaderOb();
+        $imp_ui_mbox = new IMP_Ui_Mailbox();
         $self_url = Horde::selfUrl(true, true);
+
         $t = $injector->createInstance('Horde_Template');
+        $t->set('title', htmlspecialchars($imp_ui_mbox->getSubject($headers->getValue('subject'))));
         $t->set('headers', $self_url->copy()->add('pmode', 'headers'));
         $t->set('content', $self_url->copy()->add('pmode', 'content'));
         echo $t->fetch(IMP_TEMPLATES . '/print/print.html');

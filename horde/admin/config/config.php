@@ -63,8 +63,9 @@ if (Horde_Util::getFormData('submitbutton') == _("Revert Configuration")) {
     } else {
         /* Cannot write. */
         $notification->push(sprintf(_("Could not save the configuration file %s. You can either use one of the options to save the code back on %s or copy manually the code below to %s."), Horde_Util::realPath($path . '/conf.php'), Horde::link(Horde::url('admin/config/index.php') . '#update', _("Configuration")) . _("Configuration") . '</a>', Horde_Util::realPath($path . '/conf.php')), 'horde.warning', array('content.raw'));
+
         /* Save to session. */
-        $_SESSION['_config'][$app] = $php;
+        $session['horde:config/' . $app] = $php;
     }
 } elseif ($form->isSubmitted()) {
     $notification->push(_("There was an error in the configuration form. Perhaps you left out a required field."), 'horde.error');
@@ -75,7 +76,7 @@ $template = $injector->createInstance('Horde_Template');
 $template->set('php', htmlspecialchars($php), true);
 /* Create the link for the diff popup only if stored in session. */
 $diff_link = '';
-if (!empty($_SESSION['_config'][$app])) {
+if (isset($session['horde:config/' . $app])) {
     $url = Horde::url('admin/config/diff.php', true)->add('app', $app);
     $diff_link = Horde::link('#', '', '', '', Horde::popupJs($url, array('height' => 480, 'width' => 640, 'urlencode' => true)) . 'return false;') . _("show differences") . '</a>';
 }

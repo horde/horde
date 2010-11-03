@@ -30,7 +30,7 @@ class Horde_SQL {
      */
     function buildClause($dbh, $lhs, $op, $rhs, $bind = false, $params = array())
     {
-        $type = $dbh instanceof Horde_Db_Adapter_Base ? Horde_String::lower($dbh->adapterName()) : $dbh->phptype;
+        $type = $dbh instanceof Horde_Db_Adapter ? Horde_String::lower($dbh->adapterName()) : $dbh->phptype;
 
         switch ($op) {
         case '|':

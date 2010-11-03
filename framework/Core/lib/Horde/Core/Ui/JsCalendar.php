@@ -23,13 +23,6 @@ class Horde_Core_Ui_JsCalendar
     static protected $_initRun = false;
 
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    static protected $_coreDict;
-
-    /**
      * Output the necessary javascript code to allow display of the calendar
      * widget.
      *
@@ -55,8 +48,6 @@ class Horde_Core_Ui_JsCalendar
             return;
         }
         self::$_initRun = true;
-
-        self::$_coreDict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../../../../locale');
 
         $params = array_merge(array(
             'click_month' => false,
@@ -97,13 +88,13 @@ class Horde_Core_Ui_JsCalendar
     static public function weekdays()
     {
         return array(
-            self::$_coreDict->t("Su"),
-            self::$_coreDict->t("Mo"),
-            self::$_coreDict->t("Tu"),
-            self::$_coreDict->t("We"),
-            self::$_coreDict->t("Th"),
-            self::$_coreDict->t("Fr"),
-            self::$_coreDict->t("Sa")
+            Horde_Core_Translation::t("Su"),
+            Horde_Core_Translation::t("Mo"),
+            Horde_Core_Translation::t("Tu"),
+            Horde_Core_Translation::t("We"),
+            Horde_Core_Translation::t("Th"),
+            Horde_Core_Translation::t("Fr"),
+            Horde_Core_Translation::t("Sa")
         );
     }
 
@@ -115,13 +106,13 @@ class Horde_Core_Ui_JsCalendar
     static public function fullWeekdays()
     {
         return array(
-            self::$_coreDict->t("Sunday"),
-            self::$_coreDict->t("Monday"),
-            self::$_coreDict->t("Tuesday"),
-            self::$_coreDict->t("Wednesday"),
-            self::$_coreDict->t("Thursday"),
-            self::$_coreDict->t("Friday"),
-            self::$_coreDict->t("Saturday"),
+            Horde_Core_Translation::t("Sunday"),
+            Horde_Core_Translation::t("Monday"),
+            Horde_Core_Translation::t("Tuesday"),
+            Horde_Core_Translation::t("Wednesday"),
+            Horde_Core_Translation::t("Thursday"),
+            Horde_Core_Translation::t("Friday"),
+            Horde_Core_Translation::t("Saturday"),
         );
     }
 
@@ -133,18 +124,18 @@ class Horde_Core_Ui_JsCalendar
     static public function months()
     {
         return array(
-            self::$_coreDict->t("January"),
-            self::$_coreDict->t("February"),
-            self::$_coreDict->t("March"),
-            self::$_coreDict->t("April"),
-            self::$_coreDict->t("May"),
-            self::$_coreDict->t("June"),
-            self::$_coreDict->t("July"),
-            self::$_coreDict->t("August"),
-            self::$_coreDict->t("September"),
-            self::$_coreDict->t("October"),
-            self::$_coreDict->t("November"),
-            self::$_coreDict->t("December")
+            Horde_Core_Translation::t("January"),
+            Horde_Core_Translation::t("February"),
+            Horde_Core_Translation::t("March"),
+            Horde_Core_Translation::t("April"),
+            Horde_Core_Translation::t("May"),
+            Horde_Core_Translation::t("June"),
+            Horde_Core_Translation::t("July"),
+            Horde_Core_Translation::t("August"),
+            Horde_Core_Translation::t("September"),
+            Horde_Core_Translation::t("October"),
+            Horde_Core_Translation::t("November"),
+            Horde_Core_Translation::t("December")
         );
     }
 

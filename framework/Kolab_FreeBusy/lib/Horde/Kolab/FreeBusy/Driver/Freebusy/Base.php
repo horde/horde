@@ -215,7 +215,7 @@ class Horde_Kolab_FreeBusy_Driver_Freebusy_Base extends Horde_Kolab_FreeBusy_Dri
             }
 
             if (empty($access->owner)) {
-                $message = sprintf($this->_dict->t("No such account %s!"),
+                $message = sprintf(Horde_Kolab_FreeBusy_Translation::t("No such account %s!"),
                                    htmlentities($access->req_owner));
                 $error = array('type' => FREEBUSY_ERROR_NOTFOUND,
                                'error' => PEAR::raiseError($message));
@@ -292,7 +292,7 @@ class Horde_Kolab_FreeBusy_Driver_Freebusy_Base extends Horde_Kolab_FreeBusy_Dri
                 $redirect = 'https://' . urlencode($this->user) . ':' . urlencode($GLOBALS['registry']->getAuthCredential('password'))
                     . '@' . $this->freebusyserver . $path;
                 if (!@readfile($redirect)) {
-                    $message = sprintf($this->_dict->t("Unable to read free/busy information from %s"),
+                    $message = sprintf(Horde_Kolab_FreeBusy_Translation::t("Unable to read free/busy information from %s"),
                                        'https://' . urlencode($this->user) . ':XXX'
                                        . '@' . $this->freebusyserver . $_SERVER['REQUEST_URI']);
                     return PEAR::raiseError($message);

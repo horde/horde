@@ -35,13 +35,6 @@ abstract class VFS_ISOWriter
     var $_params = array();
 
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_dict;
-
-    /**
      * Constructs a new VFS_ISOWriter object
      *
      * @param array $params  A hash containing parameters.
@@ -51,11 +44,6 @@ abstract class VFS_ISOWriter
         $this->_sourceVfs = &$sourceVfs;
         $this->_targetVfs = &$targetVfs;
         $this->_params = $params;
-        if (isset($params['translation'])) {
-            $this->_dict = $params['translation'];
-        } else {
-            $this->_dict = new Horde_Translation_Gettext('VFS_ISOWriter', dirname(__FILE__) . '/locale');
-        }
     }
 
     /**
@@ -90,7 +78,7 @@ abstract class VFS_ISOWriter
     function &factory(&$sourceVfs, &$targetVfs, $params)
     {
         if (empty($params['targetFile'])) {
-            return PEAR::raiseError($this->_dict->t("Cannot proceed without 'targetFile' parameter."));
+            return PEAR::raiseError(Horde_VFS_ISOWriter_Translation::t("Cannot proceed without 'targetFile' parameter."));
         }
         if (empty($params['sourceRoot'])) {
             $params['sourceRoot'] = '/';
@@ -105,7 +93,7 @@ abstract class VFS_ISOWriter
             return $isowriter;
         }
 
-        return PEAR::raiseError($this->_dict->t("No available strategy for making ISO images."));
+        return PEAR::raiseError(Horde_VFS_ISOWriter_Translation::t("No available strategy for making ISO images."));
     }
 
 }

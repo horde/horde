@@ -88,15 +88,20 @@ document.observe('dom:loaded', function() {
         this.iframeResize(id);
     };
 
-    IMP.iframeResize = function(id, delay)
+    IMP.iframeResize = function(id)
     {
+        var lc, val;
+
         if (id = $(id)) {
-            id.setStyle({ height: Math.max(id.contentWindow.document.body.scrollHeight, id.contentWindow.document.lastChild.scrollHeight) + 'px' });
-            if (!delay) {
-                // For whatever reason, browsers will report different heights
-                // after the initial height setting. Delaying a second height
-                // setting seems to work most of the time to fix this.
-                this.iframeResize.bind(this, id, true).delay(0.5);
+            lc = id.contentWindow.document.lastChild;
+            val = Math.max(id.contentWindow.document.body.scrollHeight, lc.scrollHeight);
+            id.setStyle({ height: val + 'px' });
+
+            // For whatever reason, browsers will report different heights
+            // after the initial height setting.
+            // Try expanding IFRAME if we detect a scroll.
+            if (lc.clientHeight != lc.scrollHeight) {
+                id.setStyle({ height: (val + 25) + 'px' });
             }
          }
     };

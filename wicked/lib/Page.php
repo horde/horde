@@ -10,7 +10,12 @@
  * @author  Tyler Colbert <tyler@colberts.us>
  * @package Wicked
  */
-class Wicked_Page {
+class Wicked_Page
+{
+    const MATCH_LEFT = 1;
+    const MATCH_RIGHT = 2;
+    const MATCH_ENDS = 3;
+    const MATCH_ANY = 4;
 
     /**
      * Display modes supported by this page. Possible modes:
@@ -27,30 +32,30 @@ class Wicked_Page {
      *
      * @var array
      */
-    var $supportedModes = array();
+    public $supportedModes = array();
 
     /**
      * Instance of a Text_Wiki processor.
      *
      * @var Text_Wiki
      */
-    var $_proc;
+    protected $_proc;
 
     /**
      * The loaded page info.
      *
      * @var array
      */
-    var $_page;
+    protected $_page;
 
     /**
      * Is this a validly loaded page?
      *
      * @return boolean  True if we've loaded data, false otherwise.
      */
-    function isValid()
+    public function isValid()
     {
-        return !empty($this->_page) && !is_a($this->_page, 'PEAR_Error');
+        return !empty($this->_page);
     }
 
     /**
@@ -60,7 +65,7 @@ class Wicked_Page {
      *
      * @return integer  The permissions bitmask.
      */
-    function getPermissions($pageName = null)
+    public function getPermissions($pageName = null)
     {
         global $wicked;
 
@@ -95,7 +100,7 @@ class Wicked_Page {
      *
      * @return boolean  True if the mode is allowed.
      */
-    function allows($mode)
+    public function allows($mode)
     {
         global $browser;
 
@@ -174,29 +179,31 @@ class Wicked_Page {
      *
      * @return boolean            True or false
      */
-    function supports($mode)
+    public function supports($mode)
     {
         return !empty($this->supportedModes[$mode]);
     }
 
     /**
-     * Get the page we are currently on.
+     * Returns the page we are currently on.
      *
-     * @return  Returns a Page or PEAR_Error.
+     * @return Wicked_Page  The current page.
+     * @throws Wicked_Exception
      */
-    function getCurrentPage()
+    public function getCurrentPage()
     {
         return Wicked_Page::getPage(rtrim(Horde_Util::getFormData('page'), '/'),
-                             Horde_Util::getFormData('version'),
-                             Horde_Util::getFormData('referrer'));
+                                    Horde_Util::getFormData('version'),
+                                    Horde_Util::getFormData('referrer'));
     }
 
     /**
-     * Get the page we are currently on.
+     * Returns the requested page.
      *
-     * @return mixed  Returns a Page or PEAR_Error.
+     * @return Wicked_Page  The requested page.
+     * @throws Wicked_Exception
      */
-    function getPage($pagename, $pagever = null, $referrer = null)
+    public function getPage($pagename, $pagever = null, $referrer = null)
     {
         global $conf, $notification, $wicked;
 
@@ -204,52 +211,46 @@ class Wicked_Page {
             $pagename = 'WikiHome';
         }
 
-        $file = WICKED_BASE . '/lib/Page/' . basename($pagename) . '.php';
-        if ($pagename == basename($pagename) &&
-            file_exists($file)) {
-            require_once $file;
-            return new $pagename($referrer);
+        $classname = 'Wicked_Page_' . $pagename;
+        if ($pagename == basename($pagename) && class_exists($classname)) {
+            return new $classname($referrer);
         }
-
-        require_once WICKED_BASE . '/lib/Page/StandardPage.php';
 
         /* If we have a version, but it is actually the most recent version,
          * ignore it. */
         if (!empty($pagever)) {
-            $page = new StandardPage($pagename, false, null);
+            $page = new Wicked_Page_StandardPage($pagename, false, null);
             if ($page->isValid() && $page->version() == $pagever) {
                 return $page;
             }
-            require_once WICKED_BASE . '/lib/Page/StandardPage/StdHistoryPage.php';
-            return new StdHistoryPage($pagename, $pagever);
+            return new Wicked_Page_StandardHistoryPage($pagename, $pagever);
         }
 
-        $page = new StandardPage($pagename);
+        $page = new Wicked_Page_StandardPage($pagename);
         if ($page->isValid() || !$page->allows(Wicked::MODE_EDIT)) {
             return $page;
         }
 
-        require_once WICKED_BASE . '/lib/Page/AddPage.php';
-        return new AddPage($pagename);
+        return new Wicked_Page_AddPage($pagename);
     }
 
-    function versionCreated()
+    public function versionCreated()
     {
-        return PEAR::raiseError(_("Unsupported"));
+        throw new Wicked_Exception(_("Unsupported"));
     }
 
-    function formatVersionCreated()
+    public function formatVersionCreated()
     {
-        global $prefs;
-        $v = $this->versionCreated();
-        if (is_a($v, 'PEAR_Error') || !$v) {
-            return _("Never");
-        } else {
-            return strftime($prefs->getValue('date_format'), $v);
-        }
+        try {
+            $v = $this->versionCreated();
+            if ($v) {
+                return strftime($GLOBALS['prefs']->getValue('date_format'), $v);
+            }
+        } catch (Wicked_Exception $e) {}
+        return _("Never");
     }
 
-    function author()
+    public function author()
     {
         if (isset($this->_page['change_author'])) {
             $modify = $this->_page['change_author'];
@@ -266,35 +267,29 @@ class Wicked_Page {
         return $modify;
     }
 
-    function hits()
+    public function hits()
     {
-        return PEAR::raiseError(_("Unsupported"));
+        throw new Wicked_Exception(_("Unsupported"));
     }
 
-    function version()
+    public function version()
     {
-        return PEAR::raiseError(_("Unsupported"));
+        throw new Wicked_Exception(_("Unsupported"));
     }
 
     /**
-     * Retrieve the previous version number for this page
+     * Returns the previous version number for this page.
      *
-     * @return mixed A string containing the previous version or null if this
-     *               is the first version.
+     * @return string  A string containing the previous version or null if this
+     *                 is the first version.
+     * @throws Wicked_Exception
      */
-    function previousVersion()
+    public function previousVersion()
     {
         global $wicked;
 
-        $res = $this->version();
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
-
+        $this->version();
         $history = $wicked->getHistory($this->pageName());
-        if (is_a($history, 'PEAR_Error')) {
-            return $history;
-        }
 
         if (count($history) == 0) {
             return null;
@@ -324,23 +319,22 @@ class Wicked_Page {
                        $history[$i]['page_minorversion']);
     }
 
-    function isOld()
+    public function isOld()
     {
         return false;
     }
 
     /**
-     * Render this page in Display mode. You really must override this
-     * function if your page is to be anything like a real page.
+     * Renders this page in display mode.
      *
-     * @return mixed  Returns true or PEAR_Error.
+     * This must be overridden if the page is to be anything like a real page.
+     *
+     * @throws Wicked_Exception
      */
-    function display()
+    public function display()
     {
+        // Get content first, it might throw an exception.
         $inner = $this->displayContents(false);
-        if (is_a($inner, 'PEAR_Error')) {
-            return $inner;
-        }
         require WICKED_TEMPLATES . '/display/title.inc';
         echo $inner;
     }
@@ -355,57 +349,53 @@ class Wicked_Page {
      * $param integer $mode    The page render mode.
      * $param array   $params  Any page parameters.
      */
-    function preDisplay($mode, $params)
+    public function preDisplay($mode, $params)
     {
     }
 
     /**
-     * Render this page for displaying in a block. You really must override
-     * this function if your page is to be anything like a real page.
+     * Renders this page for displaying in a block.
      *
-     * @return mixed  Returns true or PEAR_Error.
+     * This must be overridden if the page is to be anything like a real page.
+     *
+     * @return string  The content.
+     * @throws Wicked_Exception
      */
-    function block()
+    public function block()
     {
         return $this->displayContents(true);
     }
 
-    function displayContents($isBlock)
+    public function displayContents($isBlock)
     {
-        return PEAR::raiseError(_("Unsupported"));
+        throw new Wicked_Exception(_("Unsupported"));
     }
 
     /**
-     * Render this page in Remove mode.
-     *
-     * @return mixed  Returns true or PEAR_Error.
+     * Renders this page in remove mode.
      */
-    function remove()
+    public function remove()
     {
-        return PEAR::raiseError(_("Unsupported"));
+        throw new Wicked_Exception(_("Unsupported"));
     }
 
     /**
-     * Render this page in History mode.
-     *
-     * @return mixed  Returns true or PEAR_Error.
+     * Renders this page in history mode.
      */
-    function history()
+    public function history()
     {
-        return PEAR::raiseError(_("Unsupported"));
+        throw new Wicked_Exception(_("Unsupported"));
     }
 
     /**
-     * Render this page in Diff mode.
-     *
-     * @return mixed  Returns true or PEAR_Error.
+     * Renders this page in diff mode.
      */
-    function diff()
+    public function diff()
     {
-        return PEAR::raiseError(_("Unsupported"));
+        throw new Wicked_Exception(_("Unsupported"));
     }
 
-    function &getProcessor($output_format = 'Xhtml')
+    public function &getProcessor($output_format = 'Xhtml')
     {
         if (isset($this->_proc)) {
             return $this->_proc;
@@ -485,7 +475,7 @@ class Wicked_Page {
         return $this->_proc;
     }
 
-    function render($mode, $params = null)
+    public function render($mode, $params = null)
     {
         switch ($mode) {
         case Wicked::MODE_CONTENT:
@@ -507,46 +497,46 @@ class Wicked_Page {
             return $this->diff($params);
 
         default:
-            return PEAR::raiseError(_("Unsupported"));
+            throw new Wicked_Exception(_("Unsupported"));
         }
     }
 
-    function isLocked()
+    public function isLocked()
     {
         return false;
     }
 
-    function lock()
+    public function lock()
     {
-        return PEAR::raiseError(_("Unsupported"));
+        throw new Wicked_Exception(_("Unsupported"));
     }
 
-    function unlock()
+    public function unlock()
     {
-        return PEAR::raiseError(_("Unsupported"));
+        throw new Wicked_Exception(_("Unsupported"));
     }
 
-    function updateText($newtext, $changelog, $minorchange)
+    public function updateText($newtext, $changelog, $minorchange)
     {
-        return PEAR::raiseError(_("Unsupported"));
+        throw new Wicked_Exception(_("Unsupported"));
     }
 
-    function getText()
+    public function getText()
     {
-        return PEAR::raiseError(_("Unsupported"));
+        throw new Wicked_Exception(_("Unsupported"));
     }
 
-    function pageName()
-    {
-        return null;
-    }
-
-    function referrer()
+    public function pageName()
     {
         return null;
     }
 
-    function pageUrl($linkpage = null, $actionId = null)
+    public function referrer()
+    {
+        return null;
+    }
+
+    public function pageUrl($linkpage = null, $actionId = null)
     {
         $params = array('page' => $this->pageName());
         if ($this->referrer()) {
@@ -566,14 +556,14 @@ class Wicked_Page {
         return Horde_Util::addParameter($url, $params);
     }
 
-    function pageTitle()
+    public function pageTitle()
     {
         return $this->pageName();
     }
 
-    function handleAction()
+    public function handleAction()
     {
-        return PEAR::raiseError(_("Unsupported"));
+        throw new Wicked_Exception(_("Unsupported"));
     }
 
 }

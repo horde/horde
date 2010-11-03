@@ -350,7 +350,9 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * @TODO: This will replace the above two methods
+     * @TODO: This will replace the above two methods. (They are still called
+     * from the (unused/unsupported MoveItems and CreateFolder Requests).
+     *
      * @return Horde_ActiveSync_Connector_Importer
      */
     public function getImporter()

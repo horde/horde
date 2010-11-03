@@ -2,9 +2,9 @@
 /**
  * @package Wicked
  */
-class Text_Wiki_Render_Xhtml_Interwiki extends Text_Wiki_Render {
-
-    var $conf = array(
+class Text_Wiki_Render_Xhtml_Interwiki extends Text_Wiki_Render
+{
+    public $conf = array(
         'sites' => array(
             'MeatBall' => 'http://www.usemod.com/cgi-bin/mb.pl?%s',
             'Advogato' => 'http://advogato.org/%s',
@@ -22,7 +22,7 @@ class Text_Wiki_Render_Xhtml_Interwiki extends Text_Wiki_Render {
      *
      * @return string  The text rendered from the token options.
      */
-    function token($options)
+    public function token($options)
     {
         $site = $options['site'];
         $page = $options['page'];
@@ -53,5 +53,4 @@ class Text_Wiki_Render_Xhtml_Interwiki extends Text_Wiki_Render {
 
         return '<a' . $target . ' href="' . Horde::externalUrl($href) . '">' . $text . '</a>';
     }
-
 }

@@ -153,8 +153,7 @@ case 'export':
                         $row['recur_interval'] = null;
                         $row['recur_data'] = null;
                     }
-                    $tags = $event->getTags();
-                    $row['tags'] = $tags ? implode(', ', $tags) : '';
+                    $row['tags'] = implode(', ', $event->tags);
                     $data[] = $row;
                 }
             }
@@ -204,7 +203,7 @@ if (!$error && $import_format) {
         if ($actionID == Horde_Data::IMPORT_FILE) {
             $cleanup = true;
             try {
-                if (!in_array($_SESSION['import_data']['import_cal'], Kronolith::listCalendars(Horde_Perms::EDIT))) {
+                if (!in_array($_SESSION['import_data']['import_cal'], array_keys(Kronolith::listCalendars(Horde_Perms::EDIT)))) {
                     $notification->push(_("You do not have permission to add events to the selected calendar."), 'horde.error');
                 } else {
                     $next_step = $data->nextStep($actionID, $param);

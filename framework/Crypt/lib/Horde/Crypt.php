@@ -30,13 +30,6 @@ class Horde_Crypt
     protected $_tempdir;
 
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_dict;
-
-    /**
      * Attempts to return a concrete Horde_Crypt instance based on $driver.
      *
      * @param string $driver  Either a driver name, or the full class name to
@@ -77,19 +70,11 @@ class Horde_Crypt
      *                                          charset. DEFAULT: NONE
      *                       - 'temp': (string) [REQUIRED] Location of
      *                                          temporary directory.
-     *                       - 'translation': (object) A translation handler
-     *                                        implementing Horde_Translation.
      *
      * @throws InvalidArgumentException
      */
     public function __construct(array $params = array())
     {
-        if (isset($params['translation'])) {
-            $this->_dict = $params['translation'];
-        } else {
-            $this->_dict = new Horde_Translation_Gettext('Horde_Crypt', dirname(__FILE__) . '/../../locale');
-        }
-
         if (empty($params['temp'])) {
             throw new InvalidArgumentException('A temporary directory must be provided.');
         }

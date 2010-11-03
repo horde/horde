@@ -55,25 +55,6 @@ define('RM_ITIP_TENTATIVE',                 3);
 class Kolab_Resource
 {
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_dict;
-
-    /**
-     * Constructor.
-     */
-    public function __construct($dict = null)
-    {
-        if ($dict) {
-            $this->_dict = $dict;
-        } else {
-            $this->_dict = new Horde_Translation_Gettext('Horde_Kolab_Resource', dirname(__FILE__) . '/../../../locale');
-        }
-    }
-
-    /**
      * Returns the resource policy applying for the given sender
      *
      * @param string $sender   The sender address
@@ -551,13 +532,13 @@ class Kolab_Resource
             Horde::logMessage(sprintf('Removing event %s', $uid), 'INFO');
 
             if (is_a($imap_error, 'PEAR_Error')) {
-                $body = sprintf($this->_dict->t("Unable to access %s's calendar:"), $resource) . "\n\n" . $summary;
-                $subject = sprintf($this->_dict->t("Error processing \"%s\""), $summary);
+                $body = sprintf(Horde_Kolab_Resource_Translation::t("Unable to access %s's calendar:"), $resource) . "\n\n" . $summary;
+                $subject = sprintf(Horde_Kolab_Resource_Translation::t("Error processing \"%s\""), $summary);
             } else if (!$data->objectUidExists($uid)) {
                 Horde::logMessage(sprintf('Canceled event %s is not present in %s\'s calendar',
                                           $uid, $resource), 'WARNING');
-                $body = sprintf($this->_dict->t("The following event that was canceled is not present in %s's calendar:"), $resource) . "\n\n" . $summary;
-                $subject = sprintf($this->_dict->t("Error processing \"%s\""), $summary);
+                $body = sprintf(Horde_Kolab_Resource_Translation::t("The following event that was canceled is not present in %s's calendar:"), $resource) . "\n\n" . $summary;
+                $subject = sprintf(Horde_Kolab_Resource_Translation::t("Error processing \"%s\""), $summary);
             } else {
                 /**
                  * Delete the messages from IMAP
@@ -572,8 +553,8 @@ class Kolab_Resource
                                               $uid, $result->getMessage()), 'DEBUG');
                 }
 
-                $body = $this->_dict->t("The following event has been successfully removed:") . "\n\n" . $summary;
-                $subject = sprintf($this->_dict->t("%s has been cancelled"), $summary);
+                $body = Horde_Kolab_Resource_Translation::t("The following event has been successfully removed:") . "\n\n" . $summary;
+                $subject = sprintf(Horde_Kolab_Resource_Translation::t("%s has been cancelled"), $summary);
             }
 
             Horde::logMessage(sprintf('Sending confirmation of cancelation to %s', $organiser), 'WARNING');

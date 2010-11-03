@@ -120,8 +120,8 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
 
         /* Add link list. */
         if (!empty($this->_linkList)) {
-            $text .= "\n\n" . $this->_dict->t("Links") . ":\n" .
-                str_repeat('-', Horde_String::length($this->_dict->t("Links")) + 1) . "\n";
+            $text .= "\n\n" . Horde_Text_Filter_Translation::t("Links") . ":\n" .
+                str_repeat('-', Horde_String::length(Horde_Text_Filter_Translation::t("Links")) + 1) . "\n";
             foreach ($this->_linkList as $key => $val) {
                 $text .= '[' . ($key + 1) . '] ' . $val . "\n";
             }
@@ -282,7 +282,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
         $display = $node->textContent;
 
         $parsed_link = parse_url($link);
-        $parsed_display = parse_url($display);
+        $parsed_display = @parse_url($display);
 
         if (isset($parsed_link['path'])) {
             $parsed_link['path'] = trim($parsed_link['path'], '/');

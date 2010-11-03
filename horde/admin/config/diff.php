@@ -22,7 +22,7 @@ $renderer = new $class();
  */
 function _getDiff($app)
 {
-    global $renderer, $registry;
+    global $registry, $renderer, $session;
 
     /* Read the existing configuration. */
     $current_config = '';
@@ -31,18 +31,17 @@ function _getDiff($app)
 
     /* Calculate the differences. */
     $diff = new Text_Diff(explode("\n", $current_config),
-                          explode("\n", $_SESSION['_config'][$app]));
+                          explode("\n", $session['horde:config/' . $app]));
     $diff = $renderer->render($diff);
-    if (!empty($diff)) {
-        return $diff;
-    } else {
-        return _("No change.");
-    }
+
+    return empty($diff)
+        ? _("No change.")
+        : $diff;
 }
 
 $diffs = array();
 /* Only bother to do anything if there is any config. */
-if (!empty($_SESSION['_config'])) {
+if ($config = $session['horde:config/']) {
     /* Set up the toggle button for inline/unified. */
     $url = Horde::url('admin/config/diff.php')->add('render', ($render_type == 'inline') ? 'unified' : 'inline');
 
@@ -58,8 +57,8 @@ if (!empty($_SESSION['_config'])) {
                          'toggle_renderer' => $toggle_renderer);
     } else {
         /* List all the apps with generated configuration. */
-        ksort($_SESSION['_config']);
-        foreach ($_SESSION['_config'] as $app => $config) {
+        ksort($config);
+        foreach ($config as $app => $config) {
             $toggle_renderer = Horde::link($url . '#' . $app) . (($render_type == 'inline') ? _("unified") : _("inline")) . '</a>';
             $diff = _getDiff($app);
             if ($render_type != 'inline') {

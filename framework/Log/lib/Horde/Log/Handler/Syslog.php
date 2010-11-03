@@ -95,11 +95,9 @@ class Horde_Log_Handler_Syslog extends Horde_Log_Handler_Base
      */
     protected function _toSyslog($level)
     {
-        if (isset($this->_priorities[$level])) {
-            return $this->_priorities[$level];
-        }
-
-        return $this->_options['defaultPriority'];
+        return isset($this->_priorities[$level])
+            ? $this->_priorities[$level]
+            : $this->_options['defaultPriority'];
     }
 
     /**
@@ -113,7 +111,7 @@ class Horde_Log_Handler_Syslog extends Horde_Log_Handler_Base
     protected function _initializeSyslog()
     {
         $this->_lastIdent = $this->_options['ident'];
-        $_this->lastFacility = $this->_options['facility'];
+        $this->_lastFacility = $this->_options['facility'];
 
         if (!openlog($this->_options['ident'], $this->_options['openlogOptions'], $this->_options['facility'])) {
             throw new Horde_Log_Exception('Unable to open syslog');

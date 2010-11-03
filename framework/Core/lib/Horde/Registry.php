@@ -64,13 +64,6 @@ class Horde_Registry
     protected $_apis = array();
 
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_coreDict;
-
-    /**
      * Hash storing information on each registry-aware application.
      *
      * @var array
@@ -184,7 +177,7 @@ class Horde_Registry
             // Chicken/egg: Browser object doesn't exist yet.
             $browser = new Horde_Core_Browser();
             if ($browser->isBrowser('mozilla')) {
-                session_cache_limiter('private, must-revalidate');
+                $args['session_cache_limiter'] = 'private, must-revalidate';
             }
             break;
 
@@ -198,7 +191,7 @@ class Horde_Registry
         }
 
         $classname = __CLASS__;
-        $registry = $GLOBALS['registry'] = new $classname($s_ctrl);
+        $registry = $GLOBALS['registry'] = new $classname($s_ctrl, $args['session_cache_limiter']);
         $registry->initialApp = $app;
 
         $appob = $registry->getApiInstance($app, 'application');
@@ -244,10 +237,11 @@ class Horde_Registry
      * Create a new Horde_Registry instance.
      *
      * @param integer $session_flags  Any session flags.
+     * @param string $cache_limiter   The cache limiter to use.
      *
      * @throws Horde_Exception
      */
-    public function __construct($session_flags = 0)
+    protected function __construct($session_flags, $cache_limiter)
     {
         /* Define autoloader callbacks. */
         $callbacks = array(
@@ -259,6 +253,9 @@ class Horde_Registry
          * classname (string). If other function needed, define as the
          * second element in an array. */
         $factories = array(
+            'Horde_ActiveSyncBackend' => 'Horde_Core_Factory_ActiveSyncBackend',
+            'Horde_ActiveSyncServer' => 'Horde_Core_Factory_ActiveSyncServer',
+            'Horde_ActiveSyncState' => 'Horde_Core_Factory_ActiveSyncState',
             'Horde_Alarm' => 'Horde_Core_Factory_Alarm',
             'Horde_Browser' => 'Horde_Core_Factory_Browser',
             'Horde_Cache' => 'Horde_Core_Factory_Cache',
@@ -274,18 +271,9 @@ class Horde_Registry
             'Horde_History' => 'Horde_Core_Factory_History',
             'Horde_Log_Logger' => 'Horde_Core_Factory_Logger',
             'Horde_Service_Facebook' => 'Horde_Core_Factory_Facebook',
-            'Horde_Kolab_Server_Composite' => array(
-                'Horde_Core_Factory_KolabServer',
-                'getComposite',
-            ),
-            'Horde_Kolab_Session' => array(
-                'Horde_Core_Factory_KolabSession',
-                'getSession',
-            ),
-            'Horde_Kolab_Storage' => array(
-                'Horde_Core_Factory_KolabStorage',
-                'getStorage',
-            ),
+            'Horde_Kolab_Server_Composite' => 'Horde_Core_Factory_KolabServer',
+            'Horde_Kolab_Session' => 'Horde_Core_Factory_KolabSession',
+            'Horde_Kolab_Storage' => 'Horde_Core_Factory_KolabStorage',
             'Horde_Lock' => 'Horde_Core_Factory_Lock',
             'Horde_Mail' => 'Horde_Core_Factory_Mail',
             'Horde_Memcache' => 'Horde_Core_Factory_Memcache',
@@ -368,15 +356,16 @@ class Horde_Registry
         }
 
         /* Start a session. */
+        $GLOBALS['session'] = $session = new Horde_Session();
         if ($session_flags & self::SESSION_NONE ||
             (PHP_SAPI == 'cli') ||
             (((PHP_SAPI == 'cgi') || (PHP_SAPI == 'cgi-fcgi')) &&
              empty($_SERVER['SERVER_NAME']))) {
             /* Never start a session if the session flags include
                SESSION_NONE. */
-            $GLOBALS['session'] = $session = new Horde_Session(false);
+            $session->setup(false, $cache_limiter);
         } else {
-            $GLOBALS['session'] = $session = new Horde_Session();
+            $session->setup(true, $cache_limiter);
             if ($session_flags & self::SESSION_READONLY) {
                 /* Close the session immediately so no changes can be made but
                    values are still available. */
@@ -393,14 +382,13 @@ class Horde_Registry
 
         /* Initialize the localization routines and variables. */
         $this->setLanguageEnvironment(null, 'horde');
-        $this->_coreDict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../../locale');
 
         $this->_regmtime = max(filemtime(HORDE_BASE . '/config/registry.php'),
                                filemtime(HORDE_BASE . '/config/registry.d'));
 
         /* Stop system if Horde is inactive. */
         if ($this->applications['horde']['status'] == 'inactive') {
-            throw new Horde_Exception($this->_coreDict->t("This system is currently deactivated."));
+            throw new Horde_Exception(Horde_Core_Translation::t("This system is currently deactivated."));
         }
 
         /* Initialize notification object. Always attach status listener by
@@ -1047,7 +1035,7 @@ class Horde_Registry
         }
 
         if (!isset($this->applications[$app])) {
-            throw new Horde_Exception(sprintf($this->_coreDict->t("\"%s\" is not configured in the Horde Registry."), $app));
+            throw new Horde_Exception(sprintf(Horde_Core_Translation::t("\"%s\" is not configured in the Horde Registry."), $app));
         }
 
         return str_replace('%application%', $this->applications[$app]['fileroot'], $path);
@@ -1145,7 +1133,7 @@ class Horde_Registry
                 }
 
                 Horde::logMessage(sprintf('%s does not have READ permission for %s', $this->getAuth() ? 'User ' . $this->getAuth() : 'Guest user', $app), 'DEBUG');
-                throw new Horde_Exception(sprintf($this->_coreDict->t('%s is not authorized for %s.'), $this->getAuth() ? 'User ' . $this->getAuth() : 'Guest user', $this->applications[$app]['name']), self::PERMISSION_DENIED);
+                throw new Horde_Exception(sprintf(Horde_Core_Translation::t('%s is not authorized for %s.'), $this->getAuth() ? 'User ' . $this->getAuth() : 'Guest user', $this->applications[$app]['name']), self::PERMISSION_DENIED);
             }
         }
 
@@ -1342,10 +1330,10 @@ class Horde_Registry
                 'user' => $this->getAuth()
             );
         } else {
-            /* If there is no logged in user, return an empty Horde_Prefs::
+            /* If there is no logged in user, return an empty Horde_Prefs
              * object with just default preferences. */
             $opts = array(
-                'cache' => false,
+                'cache' => null,
                 'session' => true
             );
         }
@@ -1380,7 +1368,7 @@ class Horde_Registry
         }
 
         return ($parameter == 'name')
-            ? $this->_coreDict->t($pval)
+            ? Horde_Core_Translation::t($pval)
             : $pval;
     }
 
@@ -1499,7 +1487,7 @@ class Horde_Registry
             return $this->applications[$app]['webroot'] . '/' . (isset($this->applications[$app]['initial_page']) ? $this->applications[$app]['initial_page'] : '');
         }
 
-        throw new Horde_Exception(sprintf($this->_coreDict->t("\"%s\" is not configured in the Horde Registry."), $app));
+        throw new Horde_Exception(sprintf(Horde_Core_Translation::t("\"%s\" is not configured in the Horde Registry."), $app));
     }
 
     /**
@@ -1613,7 +1601,7 @@ class Horde_Registry
         global $session;
 
         /* Do logout tasks. */
-        foreach (array_keys($session['horde:auth_app/']) as $app) {
+        foreach (array_keys($session['horde:auth_app/;array']) as $app) {
             try {
                 $this->callAppMethod($app, 'logout');
             } catch (Horde_Exception $e) {}
@@ -1713,7 +1701,7 @@ class Horde_Registry
     {
         if (Horde_Cli::runningFromCLI()) {
             $cli = new Horde_Cli();
-            $cli->fatal($this->_coreDict->t("You are not authenticated."));
+            $cli->fatal(Horde_Core_Translation::t("You are not authenticated."));
         }
 
         if (is_null($e)) {

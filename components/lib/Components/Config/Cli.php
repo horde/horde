@@ -148,6 +148,18 @@ implements Components_Config
     }
 
     /**
+     * Return the first argument - the package directory - provided by the
+     * configuration handlers.
+     *
+     * @return string The package directory.
+     */
+    public function getPackageDirectory()
+    {
+        $arguments = $this->getArguments();
+        return $arguments[0];
+    }
+
+    /**
      * Add an option group from the provided module to the parser.
      *
      * @param Horde_Argv_Parser $parser The parser.

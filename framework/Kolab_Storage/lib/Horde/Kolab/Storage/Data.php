@@ -90,24 +90,13 @@ class Horde_Kolab_Storage_Data
     private $_cache_cyrus_optimize = true;
 
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_dict;
-
-    /**
      * Creates a Kolab Folder Data representation.
      *
      * @param string $type         Type of the folder.
      * @param string $object_type  Type of the objects we want to read.
      * @param int    $data_version Format version of the object data.
-     * @param array $params  Hash with configuration data. Possible values:
-     *                       - 'translation': A translation handler
-     *                                        implementing Horde_Translation.
      */
-    public function __construct($type, $object_type = null, $data_version = 1,
-                                $params = array())
+    public function __construct($type, $object_type = null, $data_version = 1)
     {
         $this->_type = $type;
         if (!empty($object_type)) {
@@ -121,12 +110,6 @@ class Horde_Kolab_Storage_Data
             $this->_type_key = '@' . $this->_object_type;
         } else {
             $this->_type_key = '';
-        }
-
-        if (isset($params['translation'])) {
-            $this->_dict = $params['translation'];
-        } else {
-            $this->_dict = new Horde_Translation_Gettext('Horde_Block', dirname(__FILE__) . '/../../../locale');
         }
     }
 
@@ -312,14 +295,14 @@ class Horde_Kolab_Storage_Data
         if ($old_object_id != null) {
             // check if object really exists
             if (!$this->objectUidExists($old_object_id)) {
-                throw new Horde_Kolab_Storage_Exception(sprintf($this->_dict->t("Old object %s does not exist."),
+                throw new Horde_Kolab_Storage_Exception(sprintf(Horde_Kolab_Storage_Translation::t("Old object %s does not exist."),
                                                                 $old_object_id));
             }
 
             // get the storage ID
             $id = $this->getStorageId($old_object_id);
             if ($id === false) {
-                throw new Horde_Kolab_Storage_Exception(sprintf($this->_dict->t("Old object %s does not map to a uid."),
+                throw new Horde_Kolab_Storage_Exception(sprintf(Horde_Kolab_Storage_Translation::t("Old object %s does not map to a uid."),
                                                                 $old_object_id));
             }
 
@@ -627,7 +610,7 @@ class Horde_Kolab_Storage_Data
         $this->_cache->load($this->_cache_key, $this->_data_version);
 
         if (!isset($this->_cache->objects[$object_id])) {
-            throw new Horde_Kolab_Storage_Exception(sprintf($this->_dict->t("Kolab cache: Object uid %s does not exist in the cache!"), $object_id));
+            throw new Horde_Kolab_Storage_Exception(sprintf(Horde_Kolab_Storage_Translation::t("Kolab cache: Object uid %s does not exist in the cache!"), $object_id));
         }
         return $this->_cache->objects[$object_id];
     }

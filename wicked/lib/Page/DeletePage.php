@@ -9,33 +9,28 @@
  */
 
 /**
- * Page
- */
-require_once WICKED_BASE . '/lib/Page.php';
-
-/**
  * Wicked DeletePage class (for confirming deletion).
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Wicked
  */
-class DeletePage extends Wicked_Page {
+class Wicked_Page_DeletePage extends Wicked_Page {
 
     /**
      * Display modes supported by this page.
      *
      * @var array
      */
-    var $supportedModes = array(Wicked::MODE_DISPLAY => true);
+    public $supportedModes = array(Wicked::MODE_DISPLAY => true);
 
     /**
      * The page that we're confirming deletion for.
      *
      * @var string
      */
-    var $_referrer = null;
+    protected $_referrer = null;
 
-    function DeletePage($referrer)
+    public function __construct($referrer)
     {
         $this->_referrer = $referrer;
     }
@@ -45,7 +40,7 @@ class DeletePage extends Wicked_Page {
      *
      * @return integer  The permissions bitmask.
      */
-    function getPermissions()
+    public function getPermissions()
     {
         return parent::getPermissions($this->referrer());
     }
@@ -54,7 +49,7 @@ class DeletePage extends Wicked_Page {
      * Send them back whence they came if they aren't allowed to
      * delete this page.
      */
-    function preDisplay()
+    public function preDisplay()
     {
         $page = Wicked_Page::getPage($this->referrer());
         if (!$page->allows(Wicked::MODE_REMOVE)) {
@@ -65,9 +60,9 @@ class DeletePage extends Wicked_Page {
     /**
      * Render this page in Display mode.
      *
-     * @return mixed True or PEAR_Error.
+     * @throws Wicked_Exception
      */
-    function display()
+    public function display()
     {
         $version = Horde_Util::getFormData('version');
         $page = Wicked_Page::getPage($this->referrer(), $version);
@@ -103,25 +98,24 @@ class DeletePage extends Wicked_Page {
 
 </form>
 <?php
-        return true;
     }
 
-    function pageName()
+    public function pageName()
     {
         return 'DeletePage';
     }
 
-    function pageTitle()
+    public function pageTitle()
     {
         return _("Delete Page");
     }
 
-    function referrer()
+    public function referrer()
     {
         return $this->_referrer;
     }
 
-    function handleAction()
+    public function handleAction()
     {
         $pagename = $this->referrer();
         $page = Wicked_Page::getPage($pagename);

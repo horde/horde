@@ -448,19 +448,9 @@ class Ansel
      */
     static public function getImageObject($params = array())
     {
-        global $conf;
-        $context = array('tmpdir' => Horde::getTempDir(),
-                         'logger' => $GLOBALS['injector']->getInstance('Horde_Log_Logger'));
-        if (!empty($conf['image']['convert'])) {
-            $context['convert'] = $conf['image']['convert'];
-            $context['identify'] = $conf['image']['identify'];
-        }
-        $params = array_merge(array('type' => $conf['image']['type'],
-                                    'context' => $context),
-                              $params);
-
-        $driver = $conf['image']['driver'];
-        return Horde_Image::factory($driver, $params);
+        return $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Image')
+            ->create(array('type' => $GLOBALS['conf']['image']['type']));
     }
 
     /**

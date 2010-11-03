@@ -31,9 +31,10 @@ if (!$v1 || ($v2 && version_compare($v1, $v2) > 0) || $v2 == '?') {
     $v2 = $tmp;
 }
 
-$page = Wicked_Page::getPage(Horde_Util::getFormData('page'), $v2);
-if (is_a($page, 'PEAR_Error')) {
-    $notification->push(sprintf(_("Internal error viewing requested page: %s"), $page->getMessage()), 'horde.error');
+try {
+    $page = Wicked_Page::getPage(Horde_Util::getFormData('page'), $v2);
+} catch (Wicked_Exception $e) {
+    $notification->push(sprintf(_("Internal error viewing requested page: %s"), $e->getMessage()), 'horde.error');
     Wicked::url('WikiHome', true)->redirect();
 }
 

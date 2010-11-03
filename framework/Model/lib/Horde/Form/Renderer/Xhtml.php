@@ -276,10 +276,10 @@ try {
     function submit($submit = null, $reset = false)
     {
         if (is_null($submit) || empty($submit)) {
-            $submit = $this->_dict->t("Submit");
+            $submit = Horde_Model_Translation::t("Submit");
         }
         if ($reset === true) {
-            $reset = $this->_dict->t("Reset");
+            $reset = Horde_Model_Translation::t("Reset");
         }
         $this->_renderSubmit($submit, $reset);
     }
@@ -295,7 +295,7 @@ try {
         }
         if ($this->_requiredLegend) {
             echo '<div class="form-error-example">' . $this->_requiredMarker
-                . ' &#61; ' . $this->_dict->t("Required Field") . '</div>'."\n";
+                . ' &#61; ' . Horde_Model_Translation::t("Required Field") . '</div>'."\n";
         }
     }
 

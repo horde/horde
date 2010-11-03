@@ -81,13 +81,6 @@ class Horde_Mime_Mail
     protected $_mailer_params = array();
 
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_dict;
-
-    /**
      * Constructor.
      *
      * @param array $params  A hash with basic message information. 'charset'
@@ -97,14 +90,8 @@ class Horde_Mime_Mail
      *
      * @throws Horde_Mime_Exception
      */
-    public function __construct($params = array(), $dict = null)
+    public function __construct($params = array())
     {
-        if ($dict) {
-            $this->_dict = $dict;
-        } else {
-            $this->_dict = new Horde_Translation_Gettext('Horde_Mime', dirname(__FILE__) . '/../../../locale');
-        }
-
         /* Set SERVER_NAME. */
         if (!isset($_SERVER['SERVER_NAME'])) {
             $_SERVER['SERVER_NAME'] = php_uname('n');
@@ -401,7 +388,7 @@ class Horde_Mime_Mail
 
         foreach (Horde_Mime_Address::bareAddress(implode(', ', $addrlist), null, true) as $val) {
             if (Horde_Mime::is8bit($val)) {
-                throw new Horde_Mime_Exception(sprintf($this->_dict->t("Invalid character in e-mail address: %s."), $val));
+                throw new Horde_Mime_Exception(sprintf(Horde_Mime_Translation::t("Invalid character in e-mail address: %s."), $val));
             }
         }
 
@@ -455,9 +442,9 @@ class Horde_Mime_Mail
             $body = new Horde_Mime_Part();
             if (!empty($this->_body) && !empty($this->_htmlBody)) {
                 $body->setType('multipart/alternative');
-                $this->_body->setDescription($this->_dict->t("Plaintext Version of Message"));
+                $this->_body->setDescription(Horde_Mime_Translation::t("Plaintext Version of Message"));
                 $body->addPart($this->_body);
-                $this->_htmlBody->setDescription($this->_dict->t("HTML Version of Message"));
+                $this->_htmlBody->setDescription(Horde_Mime_Translation::t("HTML Version of Message"));
                 $body->addPart($this->_htmlBody);
             } elseif (!empty($this->_htmlBody)) {
                 $body = $this->_htmlBody;

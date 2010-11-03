@@ -6,7 +6,7 @@
 /** Horde_Date */
 require_once 'Horde/Date.php';
 
-/** Horde_iCalendar */
+/** Horde_Icalendar */
 require_once 'Horde/Icalendar.php';
 
 /**

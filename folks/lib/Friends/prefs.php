@@ -7,14 +7,12 @@
  *  $_prefs['whitelist'] = array(
  *      'value' => '',
  *      'locked' => false,
- *      'shared' => false,
  *     'type' => 'implicit'
  *  );
  *
  *  $_prefs['blacklist'] = array(
  *      'value' => '',
  *      'locked' => false,
- *      'shared' => false,
  *      'type' => 'implicit'
  *  );
  *

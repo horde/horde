@@ -14,7 +14,7 @@ class Horde_Form_Type_Date extends Horde_Form_Type {
             $valid = strlen(trim($value)) > 0;
 
             if (!$valid) {
-                $message = $this->_dict->t("This field is required.");
+                $message = Horde_Model_Translation::t("This field is required.");
             }
         }
 
@@ -43,15 +43,15 @@ class Horde_Form_Type_Date extends Horde_Form_Type {
                                                    date('j'), date('n'),
                                                    date('Y'));
         if ($ago < -1) {
-            return sprintf($this->_dict->t(" (%s days ago)"), $diffdays);
+            return sprintf(Horde_Model_Translation::t(" (%s days ago)"), $diffdays);
         } elseif ($ago == -1) {
-            return $this->_dict->t(" (yesterday)");
+            return Horde_Model_Translation::t(" (yesterday)");
         } elseif ($ago == 0) {
-            return $this->_dict->t(" (today)");
+            return Horde_Model_Translation::t(" (today)");
         } elseif ($ago == 1) {
-            return $this->_dict->t(" (tomorrow)");
+            return Horde_Model_Translation::t(" (tomorrow)");
         } else {
-            return sprintf($this->_dict->t(" (in %s days)"), $diffdays);
+            return sprintf(Horde_Model_Translation::t(" (in %s days)"), $diffdays);
         }
     }
 

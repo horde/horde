@@ -84,7 +84,13 @@ if (!$disable_compose) {
 
     /* Attach spellchecker & auto completer. */
     $imp_ui = new IMP_Ui_Compose();
-    $imp_ui->attachAutoCompleter(array('to', 'cc', 'bcc', 'redirect_to'));
+    $acomplete = array('to', 'redirect_to');
+    foreach (array('cc', 'bcc') as $val) {
+        if ($prefs->getValue('compose_' . $val)) {
+            $acomplete[] = $val;
+        }
+    }
+    $imp_ui->attachAutoCompleter($acomplete);
     $imp_ui->attachSpellChecker();
 
     $js_out = array_merge($js_out, $compose_result['js']);

@@ -53,6 +53,13 @@ interface Components_Dependencies
     public function getRunnerCiPrebuild();
 
     /**
+     * Returns the snapshot packaging handler for a package.
+     *
+     * @return Components_Runner_DevPackage The snapshot handler.
+     */
+    public function getRunnerDevPackage();
+
+    /**
      * Returns the distribution handler for a package.
      *
      * @return Components_Runner_Distribute The distribution handler.

@@ -40,13 +40,6 @@ class Horde_Argv_Option
      */
     public static $NO_DEFAULT = array('NO', 'DEFAULT');
 
-    /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_dict;
-
     public static function parseNumber($value)
     {
         if (!strlen($value)) {
@@ -98,8 +91,8 @@ class Horde_Argv_Option
             $number = self::parseNumber($value);
             if ($number === false) {
                 $message = $this->type == 'int'
-                    ? $this->_dict->t("option %s: invalid integer value: '%s'")
-                    : $this->_dict->t("option %s: invalid long integer value: '%s'");
+                    ? Horde_Argv_Translation::t("option %s: invalid integer value: '%s'")
+                    : Horde_Argv_Translation::t("option %s: invalid long integer value: '%s'");
                 throw new Horde_Argv_OptionValueException(
                     sprintf($message, $opt, $value));
             }
@@ -108,7 +101,7 @@ class Horde_Argv_Option
         case 'float':
             if (!is_numeric($value)) {
                 throw new Horde_Argv_OptionValueException(
-                    sprintf($this->_dict->t("option %s: invalid floating-point value: '%s'"),
+                    sprintf(Horde_Argv_Translation::t("option %s: invalid floating-point value: '%s'"),
                             $opt, $value));
             }
             return floatval($value);
@@ -126,7 +119,7 @@ class Horde_Argv_Option
             }
             $choices = "'" . implode("', '", $choices) . "'";
             throw new Horde_Argv_OptionValueException(sprintf(
-                $this->_dict->t("option %s: invalid choice: '%s' (choose from %s)"),
+                Horde_Argv_Translation::t("option %s: invalid choice: '%s' (choose from %s)"),
                 $opt, $value, $choices));
         }
     }
@@ -259,8 +252,6 @@ class Horde_Argv_Option
      */
     public function __construct()
     {
-        $this->_dict = new Horde_Translation_Gettext('Horde_Argv', dirname(__FILE__) . '/../../../locale');
-
         // The last argument to this function is an $attrs hash, if it
         // is present and an array. All other arguments are $opts.
         $opts = func_get_args();
@@ -289,17 +280,6 @@ class Horde_Argv_Option
         foreach ($this->CHECK_METHODS as $checker) {
             call_user_func(array($this, $checker));
         }
-    }
-
-    /**
-     * Passes a translation handler.
-     *
-     * @param Horde_Translation $dict  A translation handler implementing
-     *                                 Horde_Translation.
-     */
-    public function setDictionary($dict)
-    {
-        $this->_dict = $dict;
     }
 
     protected function _checkOptStrings($opts)

@@ -719,7 +719,6 @@ class Kolab {
      */
     function getAppConsts($app)
     {
-        $dict = new Horde_Translation_Gettext('Horde_Kolab', dirname(__FILE__) . '/locale');
         switch ($app) {
         case 'mnemo':
             return array(
@@ -728,7 +727,7 @@ class Kolab {
                 'allowed_types'         => array(
                     'note',
                 ),
-                'default_folder_name'   => $dict->t("Notes"),
+                'default_folder_name'   => Horde_Kolab_Translation::t("Notes"),
                 'application'           => $app,
             );
 
@@ -739,7 +738,7 @@ class Kolab {
                 'allowed_types'         => array(
                     'event',
                 ),
-                'default_folder_name'   => $dict->t("Calendar"),
+                'default_folder_name'   => Horde_Kolab_Translation::t("Calendar"),
                 'application'           => $app,
             );
 
@@ -751,7 +750,7 @@ class Kolab {
                     'contact',
                     'distribution-list',
                 ),
-                'default_folder_name'   => $dict->t("Contacts"),
+                'default_folder_name'   => Horde_Kolab_Translation::t("Contacts"),
                 'application'           => $app,
             );
 
@@ -762,7 +761,7 @@ class Kolab {
                 'allowed_types'         => array(
                     'task',
                 ),
-                'default_folder_name'   => $dict->t("Tasks"),
+                'default_folder_name'   => Horde_Kolab_Translation::t("Tasks"),
                 'application'           => $app,
             );
 
@@ -773,12 +772,12 @@ class Kolab {
                 'allowed_types'         => array(
                     'h-prefs',
                 ),
-                'default_folder_name'   => $dict->t("Preferences"),
+                'default_folder_name'   => Horde_Kolab_Translation::t("Preferences"),
                 'application'           => $app,
             );
 
         default:
-            return PEAR::raiseError(sprintf($dict->t("The Horde/Kolab integration engine does not support \"%s\""), $app));
+            return PEAR::raiseError(sprintf(Horde_Kolab_Translation::t("The Horde/Kolab integration engine does not support \"%s\""), $app));
         }
     }
 

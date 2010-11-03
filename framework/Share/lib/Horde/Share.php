@@ -78,28 +78,14 @@ class Horde_Share
     protected $_permsObject;
 
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_dict;
-
-    /**
      * Constructor.
      *
      * @param string $app              The application that the shares belong
      *                                 to.
      * @param Horde_Perms $perms       The permissions object
-     * @param Horde_Translation $dict  A translation handler implementing
-     *                                 Horde_Translation.
      */
-    public function __construct($app, Horde_Perms $perms, $dict = null)
+    public function __construct($app, Horde_Perms $perms)
     {
-        if ($dict) {
-            $this->_dict = $dict;
-        } else {
-            $this->_dict = new Horde_Translation_Gettext('Horde_Share', dirname(__FILE__) . '/../../locale');
-        }
         $this->_app = $app;
         $this->_permsObject = $perms;
         $this->__wakeup();

@@ -21,9 +21,9 @@ class Horde_Core_Ui_VarRenderer_TablesetHtml extends Horde_Core_Ui_VarRenderer_H
         $checkedValues = $var->getValue($vars);
         $actions = $this->_getActionScripts($form, $var);
         $function_name = 'select'  . $form_name . $var->getVarName();
-        $enable = $this->_coreDict->t("Select all");
-        $disable = $this->_coreDict->t("Select none");
-        $invert = $this->_coreDict->t("Invert selection");
+        $enable = Horde_Core_Translation::t("Select all");
+        $disable = Horde_Core_Translation::t("Select none");
+        $invert = Horde_Core_Translation::t("Invert selection");
 
         Horde::addScriptFile('tables.js', 'horde');
 

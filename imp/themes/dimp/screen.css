@@ -615,13 +615,19 @@ div.dimpActionsCompose, div.dimpActionsMsg {
 }
 
 /* Message Composition. */
-.composeAddrbook {
+.composeAddrbook, #togglebcc, #togglecc {
     color: blue;
     cursor: pointer;
     text-decoration: underline;
 }
+#togglebcc, #togglecc {
+    padding-right: 5px;
+}
 .composeAddrbook:hover {
     font-weight: bold;
+}
+#togglebcc:hover, #togglecc:hover {
+    color: red;
 }
 
 #writemsg input.checkbox {

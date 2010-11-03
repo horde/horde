@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Db</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Database Libraries</summary>
- <description>Horde Database/SQL abstraction layer
- </description>
+ <description>Horde Database/SQL abstraction layer</description>
  <lead>
   <name>Mike Naberezny</name>
   <user>mnaberez</user>
@@ -20,7 +16,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2008-09-19</date>
+ <date>2010-10-22</date>
+ <time>09:45:53</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -30,11 +27,16 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
- <notes>* Add support for adding autoincrement to a column.
+ <notes>
+* Add support for adding autoincrement to a column.
  * Initial release
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <file name="README.TESTING.txt" role="doc" />
+    <file name="TODO.txt" role="doc" />
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Db">
@@ -72,6 +74,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
        <file name="Base.php" role="php" />
        <file name="Mysql.php" role="php" />
        <file name="Mysqli.php" role="php" />
+       <file name="SplitRead.php" role="php" />
       </dir> <!-- /lib/Horde/Db/Adapter -->
       <dir name="Migration">
        <file name="Base.php" role="php" />
@@ -84,6 +87,73 @@ http://pear.php.net/dtd/package-2.0.xsd">
      </dir> <!-- /lib/Horde/Db -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Db">
+      <dir name="Adapter">
+       <dir name="Mysql">
+        <file name="ColumnDefinitionTest.php" role="test" />
+        <file name="ColumnTest.php" role="test" />
+        <file name="TableDefinitionTest.php" role="test" />
+       </dir> <!-- /test/Horde/Db/Adapter/Mysql -->
+       <dir name="Pdo">
+        <file name="MysqlSuite.php" role="test" />
+        <file name="MysqlTest.php" role="test" />
+        <file name="PgsqlSuite.php" role="test" />
+        <file name="PgsqlTest.php" role="test" />
+        <file name="SqliteSuite.php" role="test" />
+        <file name="SqliteTest.php" role="test" />
+       </dir> <!-- /test/Horde/Db/Adapter/Pdo -->
+       <dir name="Postgresql">
+        <file name="ColumnDefinitionTest.php" role="test" />
+        <file name="ColumnTest.php" role="test" />
+        <file name="TableDefinitionTest.php" role="test" />
+       </dir> <!-- /test/Horde/Db/Adapter/Postgresql -->
+       <dir name="Sqlite">
+        <file name="ColumnDefinitionTest.php" role="test" />
+        <file name="ColumnTest.php" role="test" />
+        <file name="TableDefinitionTest.php" role="test" />
+       </dir> <!-- /test/Horde/Db/Adapter/Sqlite -->
+       <file name="conf.php.dist" role="test" />
+       <file name="MissingTest.php" role="test" />
+       <file name="MysqliSuite.php" role="test" />
+       <file name="MysqliTest.php" role="test" />
+       <file name="MysqlSuite.php" role="test" />
+       <file name="MysqlTest.php" role="test" />
+      </dir> <!-- /test/Horde/Db/Adapter -->
+      <dir name="fixtures">
+       <dir name="migrations">
+        <file name="1_users_have_last_names1.php" role="test" />
+        <file name="2_we_need_reminders1.php" role="test" />
+        <file name="3_innocent_jointable1.php" role="test" />
+       </dir> <!-- /test/Horde/Db/fixtures/migrations -->
+       <dir name="migrations_with_decimal">
+        <file name="1_give_me_big_numbers.php" role="test" />
+       </dir> <!-- /test/Horde/Db/fixtures/migrations_with_decimal -->
+       <dir name="migrations_with_duplicate">
+        <file name="1_users_have_last_names2.php" role="test" />
+        <file name="2_we_need_reminders2.php" role="test" />
+        <file name="3_foo.php" role="test" />
+        <file name="3_innocent_jointable2.php" role="test" />
+       </dir> <!-- /test/Horde/Db/fixtures/migrations_with_duplicate -->
+       <dir name="migrations_with_missing_versions">
+        <file name="1_users_have_last_names3.php" role="test" />
+        <file name="3_we_need_reminders.php" role="test" />
+        <file name="4_innocent_jointable3.php" role="test" />
+        <file name="1000_users_have_middle_names.php" role="test" />
+       </dir> <!-- /test/Horde/Db/fixtures/migrations_with_missing_versions -->
+       <file name="drop_create_table.sql" role="test" />
+       <file name="unit_tests.sql" role="test" />
+      </dir> <!-- /test/Horde/Db/fixtures -->
+      <dir name="Migration">
+       <file name="BaseTest.php" role="test" />
+       <file name="MigratorTest.php" role="test" />
+      </dir> <!-- /test/Horde/Db/Migration -->
+      <file name="AllTests.php" role="test" />
+      <file name="StatementParserTest.php" role="test" />
+     </dir> <!-- /test/Horde/Db -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -112,40 +182,93 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Db/Adapter/Base/Column.php" as="Horde/Db/Adapter/Base/Column.php" />
-   <install name="lib/Horde/Db/Adapter/Base/ColumnDefinition.php" as="Horde/Db/Adapter/Base/ColumnDefinition.php" />
-   <install name="lib/Horde/Db/Adapter/Base/Index.php" as="Horde/Db/Adapter/Base/Index.php" />
-   <install name="lib/Horde/Db/Adapter/Base/Schema.php" as="Horde/Db/Adapter/Base/Schema.php" />
-   <install name="lib/Horde/Db/Adapter/Base/Table.php" as="Horde/Db/Adapter/Base/Table.php" />
-   <install name="lib/Horde/Db/Adapter/Base/TableDefinition.php" as="Horde/Db/Adapter/Base/TableDefinition.php" />
-   <install name="lib/Horde/Db/Adapter/Base.php" as="Horde/Db/Adapter/Base.php" />
-
-   <install name="lib/Horde/Db/Adapter/Mysql/Column.php" as="Horde/Db/Adapter/Mysql/Column.php" />
-   <install name="lib/Horde/Db/Adapter/Mysql/Result.php" as="Horde/Db/Adapter/Mysql/Result.php" />
-   <install name="lib/Horde/Db/Adapter/Mysql/Schema.php" as="Horde/Db/Adapter/Mysql/Schema.php" />
-   <install name="lib/Horde/Db/Adapter/Mysql.php" as="Horde/Db/Adapter/Mysql.php" />
-
-   <install name="lib/Horde/Db/Adapter/Mysqli/Result.php" as="Horde/Db/Adapter/Mysqli/Result.php" />
-   <install name="lib/Horde/Db/Adapter/Mysqli.php" as="Horde/Db/Adapter/Mysqli.php" />
-
-   <install name="lib/Horde/Db/Adapter/Pdo/Base.php" as="Horde/Db/Adapter/Pdo/Base.php" />
-   <install name="lib/Horde/Db/Adapter/Pdo/Mysql.php" as="Horde/Db/Adapter/Pdo/Mysql.php" />
-   <install name="lib/Horde/Db/Adapter/Pdo/Pgsql.php" as="Horde/Db/Adapter/Pdo/Pgsql.php" />
-   <install name="lib/Horde/Db/Adapter/Pdo/Sqlite.php" as="Horde/Db/Adapter/Pdo/Sqlite.php" />
-
-   <install name="lib/Horde/Db/Adapter/Postgresql/Column.php" as="Horde/Db/Adapter/Postgresql/Column.php" />
-   <install name="lib/Horde/Db/Adapter/Postgresql/Schema.php" as="Horde/Db/Adapter/Postgresql/Schema.php" />
-
-   <install name="lib/Horde/Db/Adapter/Sqlite/Column.php" as="Horde/Db/Adapter/Sqlite/Column.php" />
-   <install name="lib/Horde/Db/Adapter/Sqlite/Schema.php" as="Horde/Db/Adapter/Sqlite/Schema.php" />
-
-   <install name="lib/Horde/Db/Migration/Base.php" as="Horde/Db/Migration/Base.php" />
-   <install name="lib/Horde/Db/Migration/Exception.php" as="Horde/Db/Migration/Exception.php" />
-   <install name="lib/Horde/Db/Migration/Migrator.php" as="Horde/Db/Migration/Migrator.php" />
-
-   <install name="lib/Horde/Db/Adapter.php" as="Horde/Db/Adapter.php" />
-   <install name="lib/Horde/Db/Exception.php" as="Horde/Db/Exception.php" />
-   <install name="lib/Horde/Db/StatementParser.php" as="Horde/Db/StatementParser.php" />
+   <install as="README.TESTING.txt" name="doc/README.TESTING.txt" />
+   <install as="TODO.txt" name="doc/TODO.txt" />
+   <install as="Horde/Db/Adapter.php" name="lib/Horde/Db/Adapter.php" />
+   <install as="Horde/Db/Exception.php" name="lib/Horde/Db/Exception.php" />
+   <install as="Horde/Db/StatementParser.php" name="lib/Horde/Db/StatementParser.php" />
+   <install as="Horde/Db/Adapter/Base.php" name="lib/Horde/Db/Adapter/Base.php" />
+   <install as="Horde/Db/Adapter/Mysql.php" name="lib/Horde/Db/Adapter/Mysql.php" />
+   <install as="Horde/Db/Adapter/Mysqli.php" name="lib/Horde/Db/Adapter/Mysqli.php" />
+   <install as="Horde/Db/Adapter/SplitRead.php" name="lib/Horde/Db/Adapter/SplitRead.php" />
+   <install as="Horde/Db/Adapter/Base/Column.php" name="lib/Horde/Db/Adapter/Base/Column.php" />
+   <install as="Horde/Db/Adapter/Base/ColumnDefinition.php" name="lib/Horde/Db/Adapter/Base/ColumnDefinition.php" />
+   <install as="Horde/Db/Adapter/Base/Index.php" name="lib/Horde/Db/Adapter/Base/Index.php" />
+   <install as="Horde/Db/Adapter/Base/Schema.php" name="lib/Horde/Db/Adapter/Base/Schema.php" />
+   <install as="Horde/Db/Adapter/Base/Table.php" name="lib/Horde/Db/Adapter/Base/Table.php" />
+   <install as="Horde/Db/Adapter/Base/TableDefinition.php" name="lib/Horde/Db/Adapter/Base/TableDefinition.php" />
+   <install as="Horde/Db/Adapter/Mysql/Column.php" name="lib/Horde/Db/Adapter/Mysql/Column.php" />
+   <install as="Horde/Db/Adapter/Mysql/Result.php" name="lib/Horde/Db/Adapter/Mysql/Result.php" />
+   <install as="Horde/Db/Adapter/Mysql/Schema.php" name="lib/Horde/Db/Adapter/Mysql/Schema.php" />
+   <install as="Horde/Db/Adapter/Mysqli/Result.php" name="lib/Horde/Db/Adapter/Mysqli/Result.php" />
+   <install as="Horde/Db/Adapter/Pdo/Base.php" name="lib/Horde/Db/Adapter/Pdo/Base.php" />
+   <install as="Horde/Db/Adapter/Pdo/Mysql.php" name="lib/Horde/Db/Adapter/Pdo/Mysql.php" />
+   <install as="Horde/Db/Adapter/Pdo/Pgsql.php" name="lib/Horde/Db/Adapter/Pdo/Pgsql.php" />
+   <install as="Horde/Db/Adapter/Pdo/Sqlite.php" name="lib/Horde/Db/Adapter/Pdo/Sqlite.php" />
+   <install as="Horde/Db/Adapter/Postgresql/Column.php" name="lib/Horde/Db/Adapter/Postgresql/Column.php" />
+   <install as="Horde/Db/Adapter/Postgresql/Schema.php" name="lib/Horde/Db/Adapter/Postgresql/Schema.php" />
+   <install as="Horde/Db/Adapter/Sqlite/Column.php" name="lib/Horde/Db/Adapter/Sqlite/Column.php" />
+   <install as="Horde/Db/Adapter/Sqlite/Schema.php" name="lib/Horde/Db/Adapter/Sqlite/Schema.php" />
+   <install as="Horde/Db/Migration/Base.php" name="lib/Horde/Db/Migration/Base.php" />
+   <install as="Horde/Db/Migration/Exception.php" name="lib/Horde/Db/Migration/Exception.php" />
+   <install as="Horde/Db/Migration/Migrator.php" name="lib/Horde/Db/Migration/Migrator.php" />
+   <install as="Horde/Db/AllTests.php" name="test/Horde/Db/AllTests.php" />
+   <install as="Horde/Db/StatementParserTest.php" name="test/Horde/Db/StatementParserTest.php" />
+   <install as="Horde/Db/Adapter/conf.php.dist" name="test/Horde/Db/Adapter/conf.php.dist" />
+   <install as="Horde/Db/Adapter/MissingTest.php" name="test/Horde/Db/Adapter/MissingTest.php" />
+   <install as="Horde/Db/Adapter/MysqliSuite.php" name="test/Horde/Db/Adapter/MysqliSuite.php" />
+   <install as="Horde/Db/Adapter/MysqliTest.php" name="test/Horde/Db/Adapter/MysqliTest.php" />
+   <install as="Horde/Db/Adapter/MysqlSuite.php" name="test/Horde/Db/Adapter/MysqlSuite.php" />
+   <install as="Horde/Db/Adapter/MysqlTest.php" name="test/Horde/Db/Adapter/MysqlTest.php" />
+   <install as="Horde/Db/Adapter/Mysql/ColumnDefinitionTest.php" name="test/Horde/Db/Adapter/Mysql/ColumnDefinitionTest.php" />
+   <install as="Horde/Db/Adapter/Mysql/ColumnTest.php" name="test/Horde/Db/Adapter/Mysql/ColumnTest.php" />
+   <install as="Horde/Db/Adapter/Mysql/TableDefinitionTest.php" name="test/Horde/Db/Adapter/Mysql/TableDefinitionTest.php" />
+   <install as="Horde/Db/Adapter/Pdo/MysqlSuite.php" name="test/Horde/Db/Adapter/Pdo/MysqlSuite.php" />
+   <install as="Horde/Db/Adapter/Pdo/MysqlTest.php" name="test/Horde/Db/Adapter/Pdo/MysqlTest.php" />
+   <install as="Horde/Db/Adapter/Pdo/PgsqlSuite.php" name="test/Horde/Db/Adapter/Pdo/PgsqlSuite.php" />
+   <install as="Horde/Db/Adapter/Pdo/PgsqlTest.php" name="test/Horde/Db/Adapter/Pdo/PgsqlTest.php" />
+   <install as="Horde/Db/Adapter/Pdo/SqliteSuite.php" name="test/Horde/Db/Adapter/Pdo/SqliteSuite.php" />
+   <install as="Horde/Db/Adapter/Pdo/SqliteTest.php" name="test/Horde/Db/Adapter/Pdo/SqliteTest.php" />
+   <install as="Horde/Db/Adapter/Postgresql/ColumnDefinitionTest.php" name="test/Horde/Db/Adapter/Postgresql/ColumnDefinitionTest.php" />
+   <install as="Horde/Db/Adapter/Postgresql/ColumnTest.php" name="test/Horde/Db/Adapter/Postgresql/ColumnTest.php" />
+   <install as="Horde/Db/Adapter/Postgresql/TableDefinitionTest.php" name="test/Horde/Db/Adapter/Postgresql/TableDefinitionTest.php" />
+   <install as="Horde/Db/Adapter/Sqlite/ColumnDefinitionTest.php" name="test/Horde/Db/Adapter/Sqlite/ColumnDefinitionTest.php" />
+   <install as="Horde/Db/Adapter/Sqlite/ColumnTest.php" name="test/Horde/Db/Adapter/Sqlite/ColumnTest.php" />
+   <install as="Horde/Db/Adapter/Sqlite/TableDefinitionTest.php" name="test/Horde/Db/Adapter/Sqlite/TableDefinitionTest.php" />
+   <install as="Horde/Db/fixtures/drop_create_table.sql" name="test/Horde/Db/fixtures/drop_create_table.sql" />
+   <install as="Horde/Db/fixtures/unit_tests.sql" name="test/Horde/Db/fixtures/unit_tests.sql" />
+   <install as="Horde/Db/fixtures/migrations/1_users_have_last_names1.php" name="test/Horde/Db/fixtures/migrations/1_users_have_last_names1.php" />
+   <install as="Horde/Db/fixtures/migrations/2_we_need_reminders1.php" name="test/Horde/Db/fixtures/migrations/2_we_need_reminders1.php" />
+   <install as="Horde/Db/fixtures/migrations/3_innocent_jointable1.php" name="test/Horde/Db/fixtures/migrations/3_innocent_jointable1.php" />
+   <install as="Horde/Db/fixtures/migrations_with_decimal/1_give_me_big_numbers.php" name="test/Horde/Db/fixtures/migrations_with_decimal/1_give_me_big_numbers.php" />
+   <install as="Horde/Db/fixtures/migrations_with_duplicate/1_users_have_last_names2.php" name="test/Horde/Db/fixtures/migrations_with_duplicate/1_users_have_last_names2.php" />
+   <install as="Horde/Db/fixtures/migrations_with_duplicate/2_we_need_reminders2.php" name="test/Horde/Db/fixtures/migrations_with_duplicate/2_we_need_reminders2.php" />
+   <install as="Horde/Db/fixtures/migrations_with_duplicate/3_foo.php" name="test/Horde/Db/fixtures/migrations_with_duplicate/3_foo.php" />
+   <install as="Horde/Db/fixtures/migrations_with_duplicate/3_innocent_jointable2.php" name="test/Horde/Db/fixtures/migrations_with_duplicate/3_innocent_jointable2.php" />
+   <install as="Horde/Db/fixtures/migrations_with_missing_versions/1_users_have_last_names3.php" name="test/Horde/Db/fixtures/migrations_with_missing_versions/1_users_have_last_names3.php" />
+   <install as="Horde/Db/fixtures/migrations_with_missing_versions/3_we_need_reminders.php" name="test/Horde/Db/fixtures/migrations_with_missing_versions/3_we_need_reminders.php" />
+   <install as="Horde/Db/fixtures/migrations_with_missing_versions/4_innocent_jointable3.php" name="test/Horde/Db/fixtures/migrations_with_missing_versions/4_innocent_jointable3.php" />
+   <install as="Horde/Db/fixtures/migrations_with_missing_versions/1000_users_have_middle_names.php" name="test/Horde/Db/fixtures/migrations_with_missing_versions/1000_users_have_middle_names.php" />
+   <install as="Horde/Db/Migration/BaseTest.php" name="test/Horde/Db/Migration/BaseTest.php" />
+   <install as="Horde/Db/Migration/MigratorTest.php" name="test/Horde/Db/Migration/MigratorTest.php" />
   </filelist>
  </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2010-10-22</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* Add support for adding autoincrement to a column.
+ * Initial release
+   </notes>
+  </release>
+ </changelog>
 </package>

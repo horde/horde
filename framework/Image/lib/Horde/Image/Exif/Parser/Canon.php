@@ -42,7 +42,7 @@ class Horde_Image_Exif_Parser_Canon extends Horde_Image_Exif_Parser_Base
         case '0009': $tag = 'OwnerName'; break;
         case '000c': $tag = 'CameraSerialNumber'; break;
         case '000f': $tag = 'CustomFunctions'; break;
-        default:     $tag = sprintf($this->_dict->t("Unknown: (%s)"), $tag); break;
+        default:     $tag = sprintf(Horde_Image_Translation::t("Unknown: (%s)"), $tag); break;
         }
 
         return $tag;
@@ -102,57 +102,57 @@ class Horde_Image_Exif_Parser_Canon extends Horde_Image_Exif_Parser_Base
                 $result['Macro'] = hexdec(Horde_Image_Exif::intel2Moto(substr($data, $place, 4)));
                 $place += 4;//1
                 switch($result['Macro']) {
-                case 1: $result['Macro'] = $this->_dict->t("Macro"); break;
-                case 2: $result['Macro'] = $this->_dict->t("Normal"); break;
-                default: $result['Macro'] = $this->_dict->t("Unknown");
+                case 1: $result['Macro'] = Horde_Image_Translation::t("Macro"); break;
+                case 2: $result['Macro'] = Horde_Image_Translation::t("Normal"); break;
+                default: $result['Macro'] = Horde_Image_Translation::t("Unknown");
                 }
                 $result['SelfTimer'] = hexdec(Horde_Image_Exif::intel2Moto(substr($data, $place, 4)));
                 $place += 4;//2
                 switch($result['SelfTimer']) {
-                case 0: $result['SelfTimer'] = $this->_dict->t("Off"); break;
-                default: $result['SelfTimer'] .= $this->_dict->t("/10s");
+                case 0: $result['SelfTimer'] = Horde_Image_Translation::t("Off"); break;
+                default: $result['SelfTimer'] .= Horde_Image_Translation::t("/10s");
                 }
                 $result['Quality'] = hexdec(Horde_Image_Exif::intel2Moto(substr($data, $place, 4)));
                 $place += 4;//3
                 switch($result['Quality']) {
-                case 2: $result['Quality'] = $this->_dict->t("Normal"); break;
-                case 3: $result['Quality'] = $this->_dict->t("Fine"); break;
-                case 5: $result['Quality'] = $this->_dict->t("Superfine"); break;
-                default: $result['Quality'] = $this->_dict->t("Unknown");
+                case 2: $result['Quality'] = Horde_Image_Translation::t("Normal"); break;
+                case 3: $result['Quality'] = Horde_Image_Translation::t("Fine"); break;
+                case 5: $result['Quality'] = Horde_Image_Translation::t("Superfine"); break;
+                default: $result['Quality'] = Horde_Image_Translation::t("Unknown");
                 }
                 $result['Flash'] = hexdec(Horde_Image_Exif::intel2Moto(substr($data, $place, 4)));
                 $place += 4;//4
                 switch($result['Flash']) {
-                case 0: $result['Flash'] = $this->_dict->t("Off"); break;
-                case 1: $result['Flash'] = $this->_dict->t("Auto"); break;
-                case 2: $result['Flash'] = $this->_dict->t("On"); break;
-                case 3: $result['Flash'] = $this->_dict->t("Red Eye Reduction"); break;
-                case 4: $result['Flash'] = $this->_dict->t("Slow Synchro"); break;
-                case 5: $result['Flash'] = $this->_dict->t("Auto + Red Eye Reduction"); break;
-                case 6: $result['Flash'] = $this->_dict->t("On + Red Eye Reduction"); break;
-                case 16: $result['Flash'] = $this->_dict->t("External Flash"); break;
-                default: $result['Flash'] = $this->_dict->t("Unknown");
+                case 0: $result['Flash'] = Horde_Image_Translation::t("Off"); break;
+                case 1: $result['Flash'] = Horde_Image_Translation::t("Auto"); break;
+                case 2: $result['Flash'] = Horde_Image_Translation::t("On"); break;
+                case 3: $result['Flash'] = Horde_Image_Translation::t("Red Eye Reduction"); break;
+                case 4: $result['Flash'] = Horde_Image_Translation::t("Slow Synchro"); break;
+                case 5: $result['Flash'] = Horde_Image_Translation::t("Auto + Red Eye Reduction"); break;
+                case 6: $result['Flash'] = Horde_Image_Translation::t("On + Red Eye Reduction"); break;
+                case 16: $result['Flash'] = Horde_Image_Translation::t("External Flash"); break;
+                default: $result['Flash'] = Horde_Image_Translation::t("Unknown");
                 }
                 $result['DriveMode'] = hexdec(Horde_Image_Exif::intel2Moto(substr($data, $place, 4)));
                 $place += 4;//5
                 switch($result['DriveMode']) {
-                case 0: $result['DriveMode'] = $this->_dict->t("Single/Timer"); break;
-                case 1: $result['DriveMode'] = $this->_dict->t("Continuous"); break;
-                default: $result['DriveMode'] = $this->_dict->t("Unknown");
+                case 0: $result['DriveMode'] = Horde_Image_Translation::t("Single/Timer"); break;
+                case 1: $result['DriveMode'] = Horde_Image_Translation::t("Continuous"); break;
+                default: $result['DriveMode'] = Horde_Image_Translation::t("Unknown");
                 }
                 $result['Unknown'] = hexdec(Horde_Image_Exif::intel2Moto(substr($data, $place, 4)));
                 $place += 4;//6
                 $result['FocusMode'] = hexdec(Horde_Image_Exif::intel2Moto(substr($data, $place, 4)));
                 $place += 4;//7
                 switch($result['FocusMode']) {
-                case 0: $result['FocusMode'] = $this->_dict->t("One-Shot"); break;
-                case 1: $result['FocusMode'] = $this->_dict->t("AI Servo"); break;
-                case 2: $result['FocusMode'] = $this->_dict->t("AI Focus"); break;
-                case 3: $result['FocusMode'] = $this->_dict->t("Manual Focus"); break;
-                case 4: $result['FocusMode'] = $this->_dict->t("Single"); break;
-                case 5: $result['FocusMode'] = $this->_dict->t("Continuous"); break;
-                case 6: $result['FocusMode'] = $this->_dict->t("Manual Focus"); break;
-                default: $result['FocusMode'] = $this->_dict->t("Unknown");
+                case 0: $result['FocusMode'] = Horde_Image_Translation::t("One-Shot"); break;
+                case 1: $result['FocusMode'] = Horde_Image_Translation::t("AI Servo"); break;
+                case 2: $result['FocusMode'] = Horde_Image_Translation::t("AI Focus"); break;
+                case 3: $result['FocusMode'] = Horde_Image_Translation::t("Manual Focus"); break;
+                case 4: $result['FocusMode'] = Horde_Image_Translation::t("Single"); break;
+                case 5: $result['FocusMode'] = Horde_Image_Translation::t("Continuous"); break;
+                case 6: $result['FocusMode'] = Horde_Image_Translation::t("Manual Focus"); break;
+                default: $result['FocusMode'] = Horde_Image_Translation::t("Unknown");
                 }
                 $result['Unknown'] = hexdec(Horde_Image_Exif::intel2Moto(substr($data, $place, 4)));
                 $place += 4;//8
@@ -161,60 +161,60 @@ class Horde_Image_Exif_Parser_Canon extends Horde_Image_Exif_Parser_Base
                 $result['ImageSize'] = hexdec(Horde_Image_Exif::intel2Moto(substr($data, $place, 4)));
                 $place += 4;//10
                 switch($result['ImageSize']) {
-                case 0: $result['ImageSize'] = $this->_dict->t("Large"); break;
-                case 1: $result['ImageSize'] = $this->_dict->t("Medium"); break;
-                case 2: $result['ImageSize'] = $this->_dict->t("Small"); break;
-                default: $result['ImageSize'] = $this->_dict->t("Unknown");
+                case 0: $result['ImageSize'] = Horde_Image_Translation::t("Large"); break;
+                case 1: $result['ImageSize'] = Horde_Image_Translation::t("Medium"); break;
+                case 2: $result['ImageSize'] = Horde_Image_Translation::t("Small"); break;
+                default: $result['ImageSize'] = Horde_Image_Translation::t("Unknown");
                 }
                 $result['EasyShooting'] = hexdec(Horde_Image_Exif::intel2Moto(substr($data, $place, 4)));
                 $place += 4;//11
                 switch($result['EasyShooting']) {
-                case 0: $result['EasyShooting'] = $this->_dict->t("Full Auto"); break;
-                case 1: $result['EasyShooting'] = $this->_dict->t("Manual"); break;
-                case 2: $result['EasyShooting'] = $this->_dict->t("Landscape"); break;
-                case 3: $result['EasyShooting'] = $this->_dict->t("Fast Shutter"); break;
-                case 4: $result['EasyShooting'] = $this->_dict->t("Slow Shutter"); break;
-                case 5: $result['EasyShooting'] = $this->_dict->t("Night"); break;
-                case 6: $result['EasyShooting'] = $this->_dict->t("Black & White"); break;
-                case 7: $result['EasyShooting'] = $this->_dict->t("Sepia"); break;
-                case 8: $result['EasyShooting'] = $this->_dict->t("Portrait"); break;
-                case 9: $result['EasyShooting'] = $this->_dict->t("Sport"); break;
-                case 10: $result['EasyShooting'] = $this->_dict->t("Macro/Close-Up"); break;
-                case 11: $result['EasyShooting'] = $this->_dict->t("Pan Focus"); break;
-                default: $result['EasyShooting'] = $this->_dict->t("Unknown");
+                case 0: $result['EasyShooting'] = Horde_Image_Translation::t("Full Auto"); break;
+                case 1: $result['EasyShooting'] = Horde_Image_Translation::t("Manual"); break;
+                case 2: $result['EasyShooting'] = Horde_Image_Translation::t("Landscape"); break;
+                case 3: $result['EasyShooting'] = Horde_Image_Translation::t("Fast Shutter"); break;
+                case 4: $result['EasyShooting'] = Horde_Image_Translation::t("Slow Shutter"); break;
+                case 5: $result['EasyShooting'] = Horde_Image_Translation::t("Night"); break;
+                case 6: $result['EasyShooting'] = Horde_Image_Translation::t("Black & White"); break;
+                case 7: $result['EasyShooting'] = Horde_Image_Translation::t("Sepia"); break;
+                case 8: $result['EasyShooting'] = Horde_Image_Translation::t("Portrait"); break;
+                case 9: $result['EasyShooting'] = Horde_Image_Translation::t("Sport"); break;
+                case 10: $result['EasyShooting'] = Horde_Image_Translation::t("Macro/Close-Up"); break;
+                case 11: $result['EasyShooting'] = Horde_Image_Translation::t("Pan Focus"); break;
+                default: $result['EasyShooting'] = Horde_Image_Translation::t("Unknown");
                 }
                 $result['DigitalZoom'] = hexdec(Horde_Image_Exif::intel2Moto(substr($data, $place, 4)));
                 $place += 4;//12
                 switch($result['DigitalZoom']) {
                 case 0:
-                case 65535: $result['DigitalZoom'] = $this->_dict->t("None"); break;
-                case 1: $result['DigitalZoom'] = $this->_dict->t("2x"); break;
-                case 2: $result['DigitalZoom'] = $this->_dict->t("4x"); break;
-                default: $result['DigitalZoom'] = $this->_dict->t("Unknown");
+                case 65535: $result['DigitalZoom'] = Horde_Image_Translation::t("None"); break;
+                case 1: $result['DigitalZoom'] = Horde_Image_Translation::t("2x"); break;
+                case 2: $result['DigitalZoom'] = Horde_Image_Translation::t("4x"); break;
+                default: $result['DigitalZoom'] = Horde_Image_Translation::t("Unknown");
                 }
                 $result['Contrast'] = hexdec(Horde_Image_Exif::intel2Moto(substr($data, $place, 4)));
                 $place += 4;//13
                 switch($result['Contrast']) {
-                case 0: $result['Contrast'] = $this->_dict->t("Normal"); break;
-                case 1: $result['Contrast'] = $this->_dict->t("High"); break;
-                case 65535: $result['Contrast'] = $this->_dict->t("Low"); break;
-                default: $result['Contrast'] = $this->_dict->t("Unknown");
+                case 0: $result['Contrast'] = Horde_Image_Translation::t("Normal"); break;
+                case 1: $result['Contrast'] = Horde_Image_Translation::t("High"); break;
+                case 65535: $result['Contrast'] = Horde_Image_Translation::t("Low"); break;
+                default: $result['Contrast'] = Horde_Image_Translation::t("Unknown");
                 }
                 $result['Saturation'] = hexdec(Horde_Image_Exif::intel2Moto(substr($data, $place, 4)));
                 $place += 4;//14
                 switch($result['Saturation']) {
-                   case 0: $result['Saturation'] = $this->_dict->t("Normal"); break;
-                    case 1: $result['Saturation'] = $this->_dict->t("High"); break;
-                    case 65535: $result['Saturation'] = $this->_dict->t("Low"); break;
-                    default: $result['Saturation'] = $this->_dict->t("Unknown");
+                   case 0: $result['Saturation'] = Horde_Image_Translation::t("Normal"); break;
+                    case 1: $result['Saturation'] = Horde_Image_Translation::t("High"); break;
+                    case 65535: $result['Saturation'] = Horde_Image_Translation::t("Low"); break;
+                    default: $result['Saturation'] = Horde_Image_Translation::t("Unknown");
                 }
                 $result['Sharpness'] = hexdec(Horde_Image_Exif::intel2Moto(substr($data, $place, 4)));
                 $place += 4;//15
                 switch($result['Sharpness']) {
-                case 0: $result['Sharpness'] = $this->_dict->t("Normal"); break;
-                case 1: $result['Sharpness'] = $this->_dict->t("High"); break;
-                case 65535: $result['Sharpness'] = $this->_dict->t("Low"); break;
-                default: $result['Sharpness'] = $this->_dict->t("Unknown");
+                case 0: $result['Sharpness'] = Horde_Image_Translation::t("Normal"); break;
+                case 1: $result['Sharpness'] = Horde_Image_Translation::t("High"); break;
+                case 65535: $result['Sharpness'] = Horde_Image_Translation::t("Low"); break;
+                default: $result['Sharpness'] = Horde_Image_Translation::t("Unknown");
                 }
                 $result['ISO'] = hexdec(Horde_Image_Exif::intel2Moto(substr($data, $place, 4)));
                 $place += 4;//16
@@ -226,7 +226,7 @@ class Horde_Image_Exif_Parser_Canon extends Horde_Image_Exif_Parser_Base
                         'Unknown';
                      break;
                 case 15:
-                    $result['ISO'] = $this->_dict->t("Auto");
+                    $result['ISO'] = Horde_Image_Translation::t("Auto");
                     break;
                 case 16:
                     $result['ISO'] = 50;
@@ -241,45 +241,45 @@ class Horde_Image_Exif_Parser_Canon extends Horde_Image_Exif_Parser_Base
                     $result['ISO'] = 400;
                      break;
                 default:
-                    $result['ISO'] = $this->_dict->t("Unknown");
+                    $result['ISO'] = Horde_Image_Translation::t("Unknown");
                 }
                 $result['MeteringMode'] = hexdec(Horde_Image_Exif::intel2Moto(substr($data, $place, 4)));
                 $place += 4;//17
                 switch($result['MeteringMode']) {
-                case 3: $result['MeteringMode'] = $this->_dict->t("Evaluative"); break;
-                case 4: $result['MeteringMode'] = $this->_dict->t("Partial"); break;
-                case 5: $result['MeteringMode'] = $this->_dict->t("Center-weighted"); break;
-                default: $result['MeteringMode'] = $this->_dict->t("Unknown");
+                case 3: $result['MeteringMode'] = Horde_Image_Translation::t("Evaluative"); break;
+                case 4: $result['MeteringMode'] = Horde_Image_Translation::t("Partial"); break;
+                case 5: $result['MeteringMode'] = Horde_Image_Translation::t("Center-weighted"); break;
+                default: $result['MeteringMode'] = Horde_Image_Translation::t("Unknown");
                 }
                 $result['FocusType'] = hexdec(Horde_Image_Exif::intel2Moto(substr($data, $place, 4)));
                 $place += 4;//18
                 switch($result['FocusType']) {
-                case 0: $result['FocusType'] = $this->_dict->t("Manual"); break;
-                case 1: $result['FocusType'] = $this->_dict->t("Auto"); break;
-                case 3: $result['FocusType'] = $this->_dict->t("Close-up (Macro)"); break;
-                case 8: $result['FocusType'] = $this->_dict->t("Locked (Pan Mode)"); break;
-                default: $result['FocusType'] = $this->_dict->t("Unknown");
+                case 0: $result['FocusType'] = Horde_Image_Translation::t("Manual"); break;
+                case 1: $result['FocusType'] = Horde_Image_Translation::t("Auto"); break;
+                case 3: $result['FocusType'] = Horde_Image_Translation::t("Close-up (Macro)"); break;
+                case 8: $result['FocusType'] = Horde_Image_Translation::t("Locked (Pan Mode)"); break;
+                default: $result['FocusType'] = Horde_Image_Translation::t("Unknown");
                 }
                 $result['AFPointSelected'] = hexdec(Horde_Image_Exif::intel2Moto(substr($data, $place, 4)));
                 $place += 4;//19
                 switch($result['AFPointSelected']) {
-                case 12288: $result['AFPointSelected'] = $this->_dict->t("Manual Focus"); break;
-                case 12289: $result['AFPointSelected'] = $this->_dict->t("Auto Selected"); break;
-                case 12290: $result['AFPointSelected'] = $this->_dict->t("Right"); break;
-                case 12291: $result['AFPointSelected'] = $this->_dict->t("Center"); break;
-                case 12292: $result['AFPointSelected'] = $this->_dict->t("Left"); break;
-                default: $result['AFPointSelected'] = $this->_dict->t("Unknown");
+                case 12288: $result['AFPointSelected'] = Horde_Image_Translation::t("Manual Focus"); break;
+                case 12289: $result['AFPointSelected'] = Horde_Image_Translation::t("Auto Selected"); break;
+                case 12290: $result['AFPointSelected'] = Horde_Image_Translation::t("Right"); break;
+                case 12291: $result['AFPointSelected'] = Horde_Image_Translation::t("Center"); break;
+                case 12292: $result['AFPointSelected'] = Horde_Image_Translation::t("Left"); break;
+                default: $result['AFPointSelected'] = Horde_Image_Translation::t("Unknown");
                 }
                 $result['ExposureMode'] = hexdec(Horde_Image_Exif::intel2Moto(substr($data, $place, 4)));
                 $place += 4;//20
                 switch($result['ExposureMode']) {
-                case 0: $result['ExposureMode'] = $this->_dict->t("EasyShoot"); break;
-                case 1: $result['ExposureMode'] = $this->_dict->t("Program"); break;
-                case 2: $result['ExposureMode'] = $this->_dict->t("Tv"); break;
-                case 3: $result['ExposureMode'] = $this->_dict->t("Av"); break;
-                case 4: $result['ExposureMode'] = $this->_dict->t("Manual"); break;
-                case 5: $result['ExposureMode'] = $this->_dict->t("Auto-DEP"); break;
-                default: $result['ExposureMode'] = $this->_dict->t("Unknown");
+                case 0: $result['ExposureMode'] = Horde_Image_Translation::t("EasyShoot"); break;
+                case 1: $result['ExposureMode'] = Horde_Image_Translation::t("Program"); break;
+                case 2: $result['ExposureMode'] = Horde_Image_Translation::t("Tv"); break;
+                case 3: $result['ExposureMode'] = Horde_Image_Translation::t("Av"); break;
+                case 4: $result['ExposureMode'] = Horde_Image_Translation::t("Manual"); break;
+                case 5: $result['ExposureMode'] = Horde_Image_Translation::t("Auto-DEP"); break;
+                default: $result['ExposureMode'] = Horde_Image_Translation::t("Unknown");
                 }
                 $result['Unknown'] = hexdec(Horde_Image_Exif::intel2Moto(substr($data, $place, 4)));
                 $place += 4;//21
@@ -301,27 +301,27 @@ class Horde_Image_Exif_Parser_Canon extends Horde_Image_Exif_Parser_Base
                 $result['FlashActivity'] = hexdec(Horde_Image_Exif::intel2Moto(substr($data, $place, 4)));
                 $place += 4;//28
                 switch($result['FlashActivity']) {
-                case 0: $result['FlashActivity'] = $this->_dict->t("Flash Did Not Fire"); break;
-                case 1: $result['FlashActivity'] = $this->_dict->t("Flash Fired"); break;
-                default: $result['FlashActivity'] = $this->_dict->t("Unknown");
+                case 0: $result['FlashActivity'] = Horde_Image_Translation::t("Flash Did Not Fire"); break;
+                case 1: $result['FlashActivity'] = Horde_Image_Translation::t("Flash Fired"); break;
+                default: $result['FlashActivity'] = Horde_Image_Translation::t("Unknown");
                 }
                 $result['FlashDetails'] = str_pad(base_convert(Horde_Image_Exif::intel2Moto(substr($data, $place, 4)), 16, 2), 16, '0', STR_PAD_LEFT);
                 $place += 4;//29
                 $flashDetails = array();
                 if (substr($result['FlashDetails'], 1, 1) == 1) {
-                    $flashDetails[] = $this->_dict->t("External E-TTL");
+                    $flashDetails[] = Horde_Image_Translation::t("External E-TTL");
                 }
                 if (substr($result['FlashDetails'], 2, 1) == 1) {
-                    $flashDetails[] = $this->_dict->t("Internal Flash");
+                    $flashDetails[] = Horde_Image_Translation::t("Internal Flash");
                 }
                 if (substr($result['FlashDetails'], 4, 1) == 1) {
-                    $flashDetails[] = $this->_dict->t("FP sync used");
+                    $flashDetails[] = Horde_Image_Translation::t("FP sync used");
                 }
                 if (substr($result['FlashDetails'], 8, 1) == 1) {
-                    $flashDetails[] = $this->_dict->t("2nd(rear)-curtain sync used");
+                    $flashDetails[] = Horde_Image_Translation::t("2nd(rear)-curtain sync used");
                  }
                 if (substr($result['FlashDetails'], 12, 1) == 1) {
-                    $flashDetails[] = $this->_dict->t("1st curtain sync");
+                    $flashDetails[] = Horde_Image_Translation::t("1st curtain sync");
                 }
                 $result['FlashDetails'] = implode(',', $flashDetails);
                 $result['Unknown'] = hexdec(Horde_Image_Exif::intel2Moto(substr($data, $place, 4)));
@@ -332,9 +332,9 @@ class Horde_Image_Exif_Parser_Canon extends Horde_Image_Exif_Parser_Base
                 $place += 4;//32
                 if (strpos(strtoupper($exif['IFD0']['Model']), 'G1') !== false) {
                     switch($anotherFocusMode) {
-                    case 0: $result['FocusMode'] = $this->_dict->t("Single"); break;
-                    case 1: $result['FocusMode'] = $this->_dict->t("Continuous"); break;
-                    default: $result['FocusMode'] = $this->_dict->t("Unknown");
+                    case 0: $result['FocusMode'] = Horde_Image_Translation::t("Single"); break;
+                    case 1: $result['FocusMode'] = Horde_Image_Translation::t("Continuous"); break;
+                    default: $result['FocusMode'] = Horde_Image_Translation::t("Unknown");
                     }
                 }
                 break;
@@ -361,14 +361,14 @@ class Horde_Image_Exif_Parser_Canon extends Horde_Image_Exif_Parser_Base
                 $result['WhiteBalance'] = hexdec(Horde_Image_Exif::intel2Moto(substr($data, $place, 4)));
                 $place += 4;//7
                 switch($result['WhiteBalance']) {
-                case 0: $result['WhiteBalance'] = $this->_dict->t("Auto"); break;
-                case 1: $result['WhiteBalance'] = $this->_dict->t("Sunny"); break;
-                case 2: $result['WhiteBalance'] = $this->_dict->t("Cloudy"); break;
-                case 3: $result['WhiteBalance'] = $this->_dict->t("Tungsten"); break;
-                case 4: $result['WhiteBalance'] = $this->_dict->t("Fluorescent"); break;
-                case 5: $result['WhiteBalance'] = $this->_dict->t("Flash"); break;
-                case 6: $result['WhiteBalance'] = $this->_dict->t("Custom"); break;
-                default: $result['WhiteBalance'] = $this->_dict->t("Unknown");
+                case 0: $result['WhiteBalance'] = Horde_Image_Translation::t("Auto"); break;
+                case 1: $result['WhiteBalance'] = Horde_Image_Translation::t("Sunny"); break;
+                case 2: $result['WhiteBalance'] = Horde_Image_Translation::t("Cloudy"); break;
+                case 3: $result['WhiteBalance'] = Horde_Image_Translation::t("Tungsten"); break;
+                case 4: $result['WhiteBalance'] = Horde_Image_Translation::t("Fluorescent"); break;
+                case 5: $result['WhiteBalance'] = Horde_Image_Translation::t("Flash"); break;
+                case 6: $result['WhiteBalance'] = Horde_Image_Translation::t("Custom"); break;
+                default: $result['WhiteBalance'] = Horde_Image_Translation::t("Unknown");
                 }
                 $result['Unknown'] = hexdec(Horde_Image_Exif::intel2Moto(substr($data, $place, 4)));
                 $place += 4;//8
@@ -386,13 +386,13 @@ class Horde_Image_Exif_Parser_Canon extends Horde_Image_Exif_Parser_Base
                 $place += 4;//14
                 $afPointUsed = array();
                 if ($result['AFPointUsed'] & 0x0001) {
-                    $afPointUsed[] = $this->_dict->t("Right"); //bit 0
+                    $afPointUsed[] = Horde_Image_Translation::t("Right"); //bit 0
                 }
                 if ($result['AFPointUsed'] & 0x0002) {
-                    $afPointUsed[] = $this->_dict->t("Center"); //bit 1
+                    $afPointUsed[] = Horde_Image_Translation::t("Center"); //bit 1
                 }
                 if ($result['AFPointUsed'] & 0x0004) {
-                    $afPointUsed[] = $this->_dict->t("Left"); //bit 2
+                    $afPointUsed[] = Horde_Image_Translation::t("Left"); //bit 2
                 }
                 if ($result['AFPointUsed'] & 0x0800) {
                     $afPointUsed[] = 12; //bit 12
@@ -427,7 +427,7 @@ class Horde_Image_Exif_Parser_Canon extends Horde_Image_Exif_Parser_Base
                 case '0030': $result['FlashBias'] = '1.5 EV'; break;
                 case '0034': $result['FlashBias'] = '1.67 EV'; break;
                 case '0040': $result['FlashBias'] = '2 EV'; break;
-                default: $result['FlashBias'] = $this->_dict->t("Unknown");
+                default: $result['FlashBias'] = Horde_Image_Translation::t("Unknown");
                 }
                 $result['Unknown'] = hexdec(Horde_Image_Exif::intel2Moto(substr($data, $place, 4)));
                 $place += 4;//16

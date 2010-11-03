@@ -35,7 +35,6 @@ $prefGroups['Activities'] = array(
 $_prefs['sort_by'] = array(
     'value' => 'user_uid',
     'locked' => false,
-    'shared' => true,
     'type' => 'enum',
     'enum' => array('user_uid' => _("Username")),
     'desc' => _("Sort by")
@@ -44,7 +43,6 @@ $_prefs['sort_by'] = array(
 $_prefs['sort_dir'] = array(
     'value' => 1,
     'locked' => false,
-    'shared' => true,
     'type' => 'enum',
     'enum' => array(0 => _("Descesending"),
                     1 => _("Ascesending")),
@@ -54,7 +52,6 @@ $_prefs['sort_dir'] = array(
 $_prefs['per_page'] = array(
     'value' => 20,
     'locked' => false,
-    'shared' => true,
     'type' => 'number',
     'desc' => _("Number of users perpage")
 );
@@ -62,7 +59,6 @@ $_prefs['per_page'] = array(
 $_prefs['login_notify'] = array(
     'value' => 1,
     'locked' => false,
-    'shared' => true,
     'type' => 'enum',
     'enum' => array(0 => _("No"),
                     1 => _("Yes")),
@@ -72,7 +68,6 @@ $_prefs['login_notify'] = array(
 $_prefs['friends_approval'] = array(
     'value' => 1,
     'locked' => false,
-    'shared' => true,
     'type' => 'enum',
     'enum' => array(0 => _("No"),
                     1 => _("Yes")),
@@ -82,7 +77,6 @@ $_prefs['friends_approval'] = array(
 $_prefs['log_user_comments'] = array(
     'value' => 1,
     'locked' => false,
-    'shared' => true,
     'type' => 'enum',
     'enum' => array(0 => _("No"),
                     1 => _("Yes")),
@@ -92,7 +86,6 @@ $_prefs['log_user_comments'] = array(
 $_prefs['log_account_changes'] = array(
     'value' => 1,
     'locked' => false,
-    'shared' => true,
     'type' => 'enum',
     'enum' => array(0 => _("No"),
                     1 => _("Yes")),
@@ -110,7 +103,6 @@ asort($apps);
 $_prefs['log_scopes'] = array(
     'value' => 'a:0:{}',
     'locked' => false,
-    'shared' => true,
     'type' => 'multienum',
     'enum' => $apps,
     'desc' => _("Application you would like NOT to log your activitiy when you post a new PUBLIC CONTENT.")
@@ -125,7 +117,6 @@ foreach ($apps as $app) {
 $_prefs['log_scope_comments'] = array(
     'value' => 'a:0:{}',
     'locked' => false,
-    'shared' => true,
     'type' => 'multienum',
     'enum' => $apps,
     'desc' => _("Application you would like NOT to log activitiy when you post a new PUBLIC COMMENT")

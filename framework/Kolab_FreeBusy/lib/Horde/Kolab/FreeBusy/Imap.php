@@ -91,23 +91,10 @@ class Horde_Kolab_FreeBusy_Imap {
     var $_xacl;
 
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_dict;
-
-    /**
      * Initialize the free/busy IMAP handler.
      */
     public function __construct($params = array())
     {
-        if (isset($params['translation'])) {
-            $this->_dict = $params['translation'];
-        } else {
-            $this->_dict = new Horde_Translation_Gettext('Kolab_FreeBusy', dirname(__FILE__) . '/../../../../locale');
-        }
-
         //@todo: Make Kolab_FreeBusy session-less again and ensure we get the
         //driver information as well as the login credentials here.
         $params = array('driver'   => 'Mock',
@@ -138,14 +125,14 @@ class Horde_Kolab_FreeBusy_Imap {
             return $this->_data;
         }
         if (!$this->_folder->exists()) {
-            return PEAR::raiseError(sprintf($this->_dict->t("Folder %s does not exist!"), $folder));
+            return PEAR::raiseError(sprintf(Horde_Kolab_FreeBusy_Translation::t("Folder %s does not exist!"), $folder));
         }
         $type = $this->_folder->getType();
         if (is_a($type, 'PEAR_Error')) {
             return $type;
         }
         if ($type != 'event') {
-            return PEAR::raiseError(sprintf($this->_dict->t("Folder %s has type \"%s\" not \"event\"!"),
+            return PEAR::raiseError(sprintf(Horde_Kolab_FreeBusy_Translation::t("Folder %s has type \"%s\" not \"event\"!"),
                                             $folder, $type));
         }
     }

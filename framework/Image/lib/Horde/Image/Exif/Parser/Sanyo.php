@@ -95,15 +95,15 @@ class Horde_Image_Exif_Parser_Sanyo extends Horde_Image_Exif_Parser_Base
             switch ($tag) {
             case '0200':
                 //SpecialMode
-                $data = $data == 0 ? $this->_dict->t("Normal") : $this->_dict->t("Unknown") . ': ' . $data;
+                $data = $data == 0 ? Horde_Image_Translation::t("Normal") : Horde_Image_Translation::t("Unknown") . ': ' . $data;
                 break;
             case '0201':
                 //Quality
-                $data = $data == 2 ? $this->_dict->t("High") : $this->_dict->t("Unknown") . ': ' . $data;
+                $data = $data == 2 ? Horde_Image_Translation::t("High") : Horde_Image_Translation::t("Unknown") . ': ' . $data;
                 break;
             case '0202':
                 //Macro
-                $data = $data == 0 ? $this->_dict->t("Normal") : $this->_dict->t("Unknown") . ': ' . $data;
+                $data = $data == 0 ? Horde_Image_Translation::t("Normal") : Horde_Image_Translation::t("Unknown") . ': ' . $data;
                 break;
             }
             break;

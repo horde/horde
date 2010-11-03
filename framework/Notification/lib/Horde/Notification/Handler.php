@@ -300,7 +300,8 @@ class Horde_Notification_Handler
                 $name = $instance->getName();
 
                 foreach (array_keys($unattached) as $val) {
-                    if ($instance->handles($unattached[$val]->type)) {
+                    if ($unattached[$val] instanceof Horde_Notification_Event
+                        && $instance->handles($unattached[$val]->type)) {
                         $this->_storage->push($name, $unattached[$val]);
                         unset($unattached[$val]);
                     }

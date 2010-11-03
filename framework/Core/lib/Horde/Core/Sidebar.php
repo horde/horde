@@ -23,7 +23,6 @@ class Horde_Core_Sidebar
     {
         global $injector, $registry;
 
-        $dict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../../../locale');
         $isAdmin = $registry->isAdmin();
         $menu = $parents = array();
 
@@ -35,8 +34,8 @@ class Horde_Core_Sidebar
              * applications except those marked 'inactive'. */
             if ($isAdmin ||
                 ($params['status'] == 'heading') ||
-                (in_array($params['status'], array('active', 'sidebar') &&
-                 $registry->hasPermission($app, Horde_Perms::SHOW)))) {
+                (in_array($params['status'], array('active', 'sidebar')) &&
+                 $registry->hasPermission($app, Horde_Perms::SHOW))) {
                 $menu[$app] = $params;
 
                 if (isset($params['menu_parent'])) {
@@ -55,7 +54,7 @@ class Horde_Core_Sidebar
         // Add the administration menu if the user is an admin.
         if ($isAdmin) {
             $menu['administration'] = array(
-                'name' => $dict->t("Administration"),
+                'name' => Horde_Core_Translation::t("Administration"),
                 'icon' => Horde_Themes::img('administration.png'),
                 'status' => 'heading'
             );
@@ -77,7 +76,7 @@ class Horde_Core_Sidebar
             !($injector->getInstance('Horde_Core_Factory_Prefs')->create() instanceof Horde_Prefs_Session)) {
             $menu['prefs'] = array(
                 'icon' => Horde_Themes::img('prefs.png'),
-                'name' => $dict->t("Preferences"),
+                'name' => Horde_Core_Translation::t("Preferences"),
                 'status' => 'active'
             );
 
@@ -88,7 +87,7 @@ class Horde_Core_Sidebar
                 $menu['prefs_' . 'horde'] = array(
                     'icon' => $registry->get('icon', 'horde'),
                     'menu_parent' => 'prefs',
-                    'name' => $dict->t("Global Preferences"),
+                    'name' => Horde_Core_Translation::t("Global Preferences"),
                     'status' => 'active',
                     'url' => Horde::getServiceLink('prefs', 'horde')
                 );
@@ -110,14 +109,14 @@ class Horde_Core_Sidebar
         if ($registry->getAuth()) {
             $menu['logout'] = array(
                 'icon' => Horde_Themes::img('logout.png'),
-                'name' => $dict->t("Log out"),
+                'name' => Horde_Core_Translation::t("Log out"),
                 'status' => 'active',
                 'url' => Horde::getServiceLink('logout', 'horde')
             );
         } else {
             $menu['login'] = array(
                 'icon' => Horde_Themes::img('login.png'),
-                'name' => $dict->t("Log in"),
+                'name' => Horde_Core_Translation::t("Log in"),
                 'status' => 'active',
                 'url' => Horde::getServiceLink('login', 'horde')
             );
@@ -140,7 +139,7 @@ class Horde_Core_Sidebar
                 // Need to run the name through gettext since the user's
                 // locale may not have been loaded when registry.php was
                 // parsed.
-                $name = $dict->t($params['name']);
+                $name = Horde_Core_Translation::t($params['name']);
 
                 // Headings have no webroot; they're just containers for other
                 // menu items.

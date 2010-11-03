@@ -118,8 +118,7 @@ class Horde_Icalendar_Vevent extends Horde_Icalendar
         try {
             $organizer = $this->getAttribute('ORGANIZER', true);
         } catch (Horde_Icalendar_Exception $e) {
-            $dict = new Horde_Translation_Gettext('Horde_Icalendar', dirname(__FILE__) . '/../../../locale');
-            return $this->_dict->t("An unknown person");
+            return Horde_Icalendar_Translation::t("An unknown person");
         }
 
         if (isset($organizer[0]['CN'])) {

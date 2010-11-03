@@ -4,18 +4,19 @@
 
  - Document usage
 
- - Add module for generating component documentation.
+ - Allow channel dependency detection with external/local package
+   dependencies.
 
- - Add module for an initial empty PEAR template
+ - Fix dependency listing with the --optional=yes/no flag
+
+ - Allow downloading documentation from the wiki.
+
+ - Add module for generating component documentation.
 
  - Add a commit module that automatically adds a changelog entry in
    the notes section of the package.xml
 
  - Add a release helper module.
-
- - Allow downloading documentation from the wiki.
-
- - Maybe prefix the job names of packages from the framework with Horde_
 
  - Allow absolute/relative paths as arguments
 

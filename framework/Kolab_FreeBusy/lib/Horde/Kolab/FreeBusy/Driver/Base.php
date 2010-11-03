@@ -54,19 +54,12 @@ class Horde_Kolab_FreeBusy_Driver_Base
     protected $logger;
 
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_dict;
-
-    /**
      * Constructor.
      *
      * @param array       $params        Any additional options
      */
     public function __construct($callee = null, $callee_part = null,
-                                $logger = null, $params = array())
+                                $logger = null)
     {
         list($this->user, $this->pass) = $this->getCredentials();
 
@@ -82,12 +75,6 @@ class Horde_Kolab_FreeBusy_Driver_Base
         }
 
         $this->logger = $logger;
-
-        if (isset($params['translation'])) {
-            $this->_dict = $params['translation'];
-        } else {
-            $this->_dict = new Horde_Translation_Gettext('Kolab_FreeBusy', dirname(__FILE__) . '/../../../../../locale');
-        }
     }
 
     /**
@@ -189,11 +176,11 @@ class Horde_Kolab_FreeBusy_Driver_Base
 
         if (empty($this->user)) {
             header('WWW-Authenticate: Basic realm="Kolab Freebusy"');
-            return PEAR::raiseError($this->_dict->t("Please authenticate!"));
+            return PEAR::raiseError(Horde_Kolab_FreeBusy_Translation::t("Please authenticate!"));
         }
 
         if (!$this->_authenticated) {
-            return PEAR::raiseError(sprintf($this->_dict->t("Invalid authentication for user %s!"),
+            return PEAR::raiseError(sprintf(Horde_Kolab_FreeBusy_Translation::t("Invalid authentication for user %s!"),
                                             $this->user));
         }
         return true;

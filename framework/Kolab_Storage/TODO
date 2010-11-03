@@ -11,3 +11,5 @@
  - Test the Driver implementations
 
    - getNamespace() [DONE]
+
+ - replace imap_rfc822 use by Horde_Mail_Rfc822

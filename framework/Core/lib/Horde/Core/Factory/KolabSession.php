@@ -108,10 +108,9 @@ class Horde_Core_Factory_KolabSession
      */
     public function getStorage()
     {
-        $storage = new Horde_Kolab_Session_Storage_Sessionobjects(
-            new Horde_SessionObjects()
+        return new Horde_Kolab_Session_Storage_Session(
+            $GLOBALS['session']
         );
-        return $storage;
     }
 
     /**
@@ -185,7 +184,7 @@ class Horde_Core_Factory_KolabSession
      *
      * @return Horde_Kolab_Session The session handler.
      */
-    public function getSession()
+    public function create()
     {
         $storage = $this->_injector->getInstance('Horde_Kolab_Session_Storage_Interface');
         $session = $storage->load();

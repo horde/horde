@@ -58,8 +58,6 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     {
         $this->_in = $input;
         $this->_logger = new Horde_Support_Stub();
-        // @TODO - these don't seem to be used anywhere, do we really need
-        // to keep them in an instance variable?
         $this->version = $this->_getByte();
         $this->publicid = $this->_getMBUInt();
         if ($this->publicid == 0) {

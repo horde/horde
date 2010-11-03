@@ -6,12 +6,6 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  *
  * @package Wicked
- */
-
-/**
- * Page
- */
-require_once WICKED_BASE . '/lib/Page.php';
 
 /**
  * Wicked EditPage class.
@@ -19,14 +13,14 @@ require_once WICKED_BASE . '/lib/Page.php';
  * @author  Jason M. Felice <jason.m.felice@gmail.com>
  * @package Wicked
  */
-class EditPage extends Wicked_Page {
+class Wicked_Page_EditPage extends Wicked_Page {
 
     /**
      * Display modes supported by this page.
      *
      * @var array
      */
-    var $supportedModes = array(
+    public $supportedModes = array(
         Wicked::MODE_DISPLAY => true,
         Wicked::MODE_EDIT => true);
 
@@ -35,9 +29,9 @@ class EditPage extends Wicked_Page {
      *
      * @var string
      */
-    var $_referrer = null;
+    protected $_referrer = null;
 
-    function EditPage($referrer)
+    public function __construct($referrer)
     {
         $this->_referrer = $referrer;
         if ($GLOBALS['conf']['lock']['driver'] != 'none') {
@@ -55,7 +49,7 @@ class EditPage extends Wicked_Page {
      *
      * @return boolean  True if the mode is allowed.
      */
-    function allows($mode)
+    public function allows($mode)
     {
         if ($mode == Wicked::MODE_EDIT) {
             $page = Wicked_Page::getPage($this->referrer());
@@ -71,7 +65,7 @@ class EditPage extends Wicked_Page {
      *
      * @return integer  The permissions bitmask.
      */
-    function getPermissions()
+    public function getPermissions()
     {
         return parent::getPermissions($this->referrer());
     }
@@ -80,7 +74,7 @@ class EditPage extends Wicked_Page {
      * Send them back whence they came if they aren't allowed to edit
      * this page.
      */
-    function preDisplay()
+    public function preDisplay()
     {
         if (!$this->allows(Wicked::MODE_EDIT)) {
             Wicked::url($this->referrer(), true)->redirect();
@@ -90,64 +84,63 @@ class EditPage extends Wicked_Page {
             if ($page->isLocked()) {
                 $page->unlock();
             }
-            $result = $page->lock();
-            if (is_a($result, 'PEAR_Error')) {
-                $GLOBALS['notification']->push(sprintf(_("Page failed to lock: %s"), $result->getMessage()), 'horde.error');
+            try {
+                $page->lock();
+            } catch (Wicked_Exception $e) {
+                $GLOBALS['notification']->push(sprintf(_("Page failed to lock: %s"), $e->getMessage()), 'horde.error');
             }
         }
     }
 
     /**
-     * Render this page in Display mode.
+     * Renders this page in display mode.
      *
-     * @return mixed  Returns true or PEAR_Error.
+     * @throws Wicked_Exception
      */
-    function display()
+    public function display()
     {
         $page = Wicked_Page::getPage($this->referrer());
         $page_text = Horde_Util::getFormData('page_text');
         if (is_null($page_text)) {
             $page_text = $page->getText();
         }
-
         require WICKED_TEMPLATES . '/edit/standard.inc';
-        return true;
     }
 
-    function pageName()
+    public function pageName()
     {
         return 'EditPage';
     }
 
-    function pageTitle()
+    public function pageTitle()
     {
         return _("Edit Page");
     }
 
-    function referrer()
+    public function referrer()
     {
         return $this->_referrer;
     }
 
-    function isLocked()
+    public function isLocked()
     {
         $page = Wicked_Page::getPage($this->referrer());
         return $page->isLocked();
     }
 
-    function getLockRequestor()
+    public function getLockRequestor()
     {
         $page = Wicked_Page::getPage($this->referrer());
         return $page->getLockRequestor();
     }
 
-    function getLockTime()
+    public function getLockTime()
     {
         $page = Wicked_Page::getPage($this->referrer());
         return $page->getLockTime();
     }
 
-    function handleAction()
+    public function handleAction()
     {
         global $notification, $conf;
 
@@ -174,20 +167,12 @@ class EditPage extends Wicked_Page {
             if (trim($text) == trim($page->getText())) {
                 $notification->push(_("No changes made"), 'horde.warning');
             } else {
-                $result = $page->updateText($text, $changelog, $minorchange);
-                if (is_a($result, 'PEAR_Error')) {
-                    $notification->push(sprintf(_("Save Failed: %s"),
-                                                $result->getMessage()), 'horde.error');
-                } else {
-                    $notification->push(_("Page Saved"), 'horde.success');
-                }
+                $page->updateText($text, $changelog, $minorchange);
+                $notification->push(_("Page Saved"), 'horde.success');
             }
 
             if ($page->allows(Wicked::MODE_UNLOCKING)) {
-                $result = $page->unlock();
-                if (is_a($result, 'PEAR_Error')) {
-                    $GLOBALS['notification']->push(sprintf(_("Page failed to unlock: %s"), $result->getMessage()), 'horde.error');
-                }
+                $page->unlock();
             }
         }
 

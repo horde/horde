@@ -2,9 +2,9 @@
 /**
  * @package Wicked
  */
-class Text_Wiki_Render_Xhtml_Url extends Text_Wiki_Render {
-
-    var $conf = array(
+class Text_Wiki_Render_Xhtml_Url extends Text_Wiki_Render
+{
+    public $conf = array(
         'target' => '_blank'
     );
 
@@ -16,7 +16,7 @@ class Text_Wiki_Render_Xhtml_Url extends Text_Wiki_Render {
      *
      * @return string  The text rendered from the token options.
      */
-    function token($options)
+    public function token($options)
     {
         // Create local variables from the options array (text, href,
         // type).
@@ -44,5 +44,4 @@ class Text_Wiki_Render_Xhtml_Url extends Text_Wiki_Render {
 
         return $output;
     }
-
 }

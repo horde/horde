@@ -228,4 +228,17 @@ class Ingo_Application extends Horde_Registry_Application
         }
     }
 
+    /**
+     * Code to run on init when viewing prefs for this application.
+     *
+     * @param Horde_Core_Prefs_Ui $ui  The UI object.
+     */
+    public function prefsInit($ui)
+    {
+        if (!isset($GLOBALS['session']['ingo:script_generate']) ||
+            $GLOBALS['session']['ingo:script_generate']) {
+            $ui->suppressGroups[] = 'script';
+        }
+    }
+
 }

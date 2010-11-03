@@ -1,7 +1,4 @@
 <?php
-
-require_once WICKED_BASE . '/lib/Page/StandardPage.php';
-
 /**
  * Wicked BackLinks class.
  *
@@ -13,14 +10,14 @@ require_once WICKED_BASE . '/lib/Page/StandardPage.php';
  * @author  Tyler Colbert <tyler@colberts.us>
  * @package Wicked
  */
-class BackLinks extends Wicked_Page {
+class Wicked_Page_BackLinks extends Wicked_Page {
 
     /**
      * Display modes supported by this page.
      *
      * @var array
      */
-    var $supportedModes = array(
+    public $supportedModes = array(
         Wicked::MODE_DISPLAY => true);
 
     /**
@@ -28,57 +25,48 @@ class BackLinks extends Wicked_Page {
      *
      * @var string
      */
-    var $_referrer = null;
+    protected $_referrer = null;
 
-    function BackLinks($referrer)
+    public function __construct($referrer)
     {
         $this->_referrer = $referrer;
     }
 
     /**
-     * Render this page in display or block mode.
+     * Renders this page in display or block mode.
      *
-     * @return mixed  Returns contents or PEAR_Error.
+     * @return string  The contents.
+     * @throws Wicked_Exception
      */
-    function displayContents($isBlock)
+    public function displayContents($isBlock)
     {
-        global $wicked, $notification;
-
-        $summaries = $wicked->getBackLinks($this->_referrer);
-        if (is_a($summaries, 'PEAR_Error')) {
-            $notification->push('Error retrieving summaries: ' .
-                                $summaries->getMessage(), 'horde.error');
-            return $summaries;
-        }
-
+        $summaries = $GLOBALS['wicked']->getBackLinks($this->_referrer);
         Horde::addScriptFile('tables.js', 'horde', true);
-
         ob_start();
         require WICKED_TEMPLATES . '/pagelist/header.inc';
         foreach ($summaries as $page) {
             if (!empty($page['page_history'])) {
-                $page = new StdHistoryPage($page);
+                $page = new Wicked_Page_StandardHistoryPage($page);
             } else {
-                $page = new StandardPage($page);
+                $page = new Wicked_Page_StandardPage($page);
             }
             require WICKED_TEMPLATES . '/pagelist/summary.inc';
         }
         require WICKED_TEMPLATES . '/pagelist/footer.inc';
-
         return ob_get_clean();
     }
 
-    function pageName()
+    public function pageName()
     {
         return 'BackLinks';
     }
 
-    function pageTitle()
+    public function pageTitle()
     {
         return sprintf(_("Backlinks: %s"), $this->referrer());
     }
 
-    function referrer()
+    public function referrer()
     {
         return $this->_referrer;
     }

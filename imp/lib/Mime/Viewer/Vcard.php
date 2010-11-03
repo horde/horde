@@ -36,7 +36,7 @@ class IMP_Mime_Viewer_Vcard extends Horde_Core_Mime_Viewer_Vcard
 
         /* Send the requested photo. */
         $data = $this->_mimepart->getContents();
-        $ical = new Horde_iCalendar();
+        $ical = new Horde_Icalendar();
         if (!$ical->parsevCalendar($data, 'VCALENDAR', $this->_mimepart->getCharset())) {
             // TODO: Error reporting
             return array();

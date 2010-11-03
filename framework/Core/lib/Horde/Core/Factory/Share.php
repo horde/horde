@@ -79,8 +79,7 @@ class Horde_Core_Factory_Share
         if (empty($ob)) {
             $class = 'Horde_Share_' . ucfirst(basename($driver));
             if (!class_exists($class)) {
-                $dict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../../../../locale');
-                throw new Horde_Exception(sprintf($dict->t("\"%s\" share driver not found."), $driver));
+                throw new Horde_Exception(sprintf(Horde_Core_Translation::t("\"%s\" share driver not found."), $driver));
             }
 
             $ob = new $class($app, $this->_injector->getInstance('Horde_Perms'));

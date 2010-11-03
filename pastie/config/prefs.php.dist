@@ -15,7 +15,6 @@ $prefGroups['Sample'] = array(
 $_prefs['sample'] = array(
     'value' => '',
     'locked' => false,
-    'shared' => false,
     'type' => 'text',
     'desc' => _("This is your sample preference.")
 );

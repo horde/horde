@@ -325,6 +325,7 @@ abstract class Kronolith_Event
         case 'span':
         case 'rowspan':
         case 'geoLocation':
+        case 'tags':
             $this->{'_' . $name} = $value;
             return;
         }
@@ -359,9 +360,18 @@ abstract class Kronolith_Event
         case 'rowspan':
             return $this->{'_' . $name};
         case 'tags':
-            return $this->getTags();
+            if (!isset($this->_tags)) {
+                $this->_tags = Kronolith::getTagger()->getTags($this->uid, 'event');
+            }
+            return $this->_tags;
         case 'geoLocation':
-            return $this->getGeolocation();
+            if (!isset($this->_geoLocation) &&
+                ($gDriver = Kronolith::getGeoDriver())) {
+                try {
+                    $this->_geoLocation = $gDriver->getLocation($this->id);
+                } catch (Exception $e) {}
+            }
+            return $this->_geoLocation;
         }
 
         $trace = debug_backtrace();
@@ -513,7 +523,7 @@ abstract class Kronolith_Event
     /**
      * Exports this event in iCalendar format.
      *
-     * @param Horde_Icalendar $calendar  A Horde_iCalendar object that acts as
+     * @param Horde_Icalendar $calendar  A Horde_Icalendar object that acts as
      *                                   a container.
      *
      * @return array  An array of Horde_Icalendar_Vevent objects for this event.
@@ -571,10 +581,7 @@ abstract class Kronolith_Event
             }
 
             // Tags
-            $tags = $this->tags;
-            if (is_array($tags)) {
-                $tags = implode(', ', $tags);
-            }
+            $tags = implode(', ', $this->tags);
             if (!empty($tags)) {
                 $vEvent->setAttribute('CATEGORIES', $tags);
             }
@@ -1210,10 +1217,7 @@ abstract class Kronolith_Event
         }
 
         /* Categories (Tags) */
-        $tags = $message->getCategories();
-        foreach ($tags as $tag) {
-            $this->tags[] = $tag;
-        }
+        $this->_tags = $message->getCategories();
 
         /* Flag that we are initialized */
         $this->initialized = true;
@@ -1976,7 +1980,7 @@ abstract class Kronolith_Event
 
     public function readForm()
     {
-        global $prefs, $cManager;
+        global $prefs, $cManager, $session;
 
         // Event owner.
         $targetcalendar = Horde_Util::getFormData('targetcalendar');
@@ -2343,13 +2347,13 @@ abstract class Kronolith_Event
         }
 
         // Tags.
-        $this->_tags = Horde_Util::getFormData('tags', $this->tags);
+        $this->tags = Horde_Util::getFormData('tags', $this->tags);
 
         // Geolocation
         if (Horde_Util::getFormData('lat') && Horde_Util::getFormData('lon')) {
-            $this->setGeoLocation(array('lat' => Horde_Util::getFormData('lat'),
-                                        'lon' => Horde_Util::getFormData('lon'),
-                                        'zoom' => Horde_Util::getFormData('zoom')));
+            $this->geoLocation = array('lat' => Horde_Util::getFormData('lat'),
+                                       'lon' => Horde_Util::getFormData('lon'),
+                                       'zoom' => Horde_Util::getFormData('zoom'));
         }
 
         $this->initialized = true;
@@ -2771,58 +2775,6 @@ abstract class Kronolith_Event
         }
 
         return 'kronolithEvent';
-    }
-
-    /**
-     * Setter for tags
-     *
-     * @param array $tags  An array of tag_names
-     */
-    public function setTags($tags)
-    {
-        $this->_tags = $tags;
-    }
-
-    /**
-     * Getter for tags
-     *
-     * @return mixed  An array of tag_names, or false if tags were never set.
-     */
-    public function getTags()
-    {
-        if (!isset($this->_tags)) {
-            $this->_tags = Kronolith::getTagger()->getTags($this->uid, 'event');
-        }
-
-        return $this->_tags;
-    }
-
-    /**
-     * Setter for geo data
-     *
-     * @param array $data  An array of lat/lng data.
-     */
-    public function setGeoLocation($data)
-    {
-        $this->_geoLocation = $data;
-    }
-
-    /**
-     * Getter for geo data
-     *
-     * @return array  An array of lat/lng data.
-     */
-    public function getGeolocation()
-    {
-        /* Get geolocation data */
-        if (!isset($this->_geoLocation) &&
-            ($gDriver = Kronolith::getGeoDriver())) {
-            try {
-                $this->_geoLocation = $gDriver->getLocation($this->id);
-            } catch (Exception $e) {}
-        }
-
-        return $this->_geoLocation;
     }
 
     private function _formIDEncode($id)

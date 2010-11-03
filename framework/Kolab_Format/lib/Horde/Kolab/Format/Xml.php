@@ -281,25 +281,12 @@ class Horde_Kolab_Format_Xml
     );
 
     /**
-     * Translation provider.
-     *
-     * @var Horde_Translation
-     */
-    protected $_dict;
-
-    /**
      * Constructor
      *
      * @param array $params Any additional options
      */
     public function __construct($params = null)
     {
-        if (isset($params['translation'])) {
-            $this->_dict = $params['translation'];
-        } else {
-            $this->_dict = new Horde_Translation_Gettext('Horde_Kolab_Format', dirname(__FILE__) . '/../../../../locale');
-        }
-
         if (is_array($params) && isset($params['version'])) {
             $this->_version = $params['version'];
         } else {
@@ -453,7 +440,7 @@ class Horde_Kolab_Format_Xml
             $this->_parseXml($xmltext);
         }
         if (!$this->_xmldoc->documentElement->hasChildNodes()) {
-            throw new Horde_Kolab_Format_Exception($this->_dict->t("No or unreadable content in Kolab XML object"));
+            throw new Horde_Kolab_Format_Exception(Horde_Kolab_Format_Translation::t("No or unreadable content in Kolab XML object"));
         }
 
         // fresh object data
@@ -468,7 +455,7 @@ class Horde_Kolab_Format_Xml
 
         // uid is vital
         if (!isset($object['uid'])) {
-            throw new Horde_Kolab_Format_Exception($this->_dict->t("UID not found in Kolab XML object"));
+            throw new Horde_Kolab_Format_Exception(Horde_Kolab_Format_Translation::t("UID not found in Kolab XML object"));
         }
 
         return $object;
@@ -559,7 +546,7 @@ class Horde_Kolab_Format_Xml
                 return null;
             } elseif ($params['value'] == self::VALUE_NOT_EMPTY) {
                 // May not be empty. Return an error
-                throw new Horde_Kolab_Format_Exception(sprintf($this->_dict->t("Data value for %s is empty in Kolab XML object!"),
+                throw new Horde_Kolab_Format_Exception(sprintf(Horde_Kolab_Format_Translation::t("Data value for %s is empty in Kolab XML object!"),
                                                   $name));
             } elseif ($params['value'] == self::VALUE_DEFAULT) {
                 // Return the default
@@ -608,7 +595,7 @@ class Horde_Kolab_Format_Xml
 
         @$this->_xmldoc->loadXML($xmltext);
         if (empty($this->_xmldoc->documentElement)) {
-            throw new Horde_Kolab_Format_Exception($this->_dict->t("No or unreadable content in Kolab XML object"));
+            throw new Horde_Kolab_Format_Exception(Horde_Kolab_Format_Translation::t("No or unreadable content in Kolab XML object"));
         }
 
     }
@@ -724,7 +711,7 @@ class Horde_Kolab_Format_Xml
                 $value = $params['default'];
             } elseif ($params['value'] == self::VALUE_NOT_EMPTY) {
                 // May not be empty. Return an error
-                throw new Horde_Kolab_Format_Exception(sprintf($this->_dict->t("Data value for %s is empty in Kolab XML object!"),
+                throw new Horde_Kolab_Format_Exception(sprintf(Horde_Kolab_Format_Translation::t("Data value for %s is empty in Kolab XML object!"),
                                                   $name));
             } elseif ($params['value'] == self::VALUE_MAYBE_MISSING) {
                 /**

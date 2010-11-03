@@ -277,6 +277,13 @@ class Horde_Mime_Part implements ArrayAccess, Countable
     public function setDispositionParameter($label, $data)
     {
         $this->_dispParams[$label] = $data;
+
+        switch ($label) {
+        case 'size':
+            // RFC 2183 [2.7] - size parameter
+            $this->_bytes = intval($data);
+            break;
+        }
     }
 
     /**
@@ -924,14 +931,21 @@ class Horde_Mime_Part implements ArrayAccess, Countable
         }
 
         /* Don't show Content-Disposition unless a disposition has explicitly
-         * been set or there is a name parameter. If there is a name, but no
-         * disposition, default to 'attachment'.
+         * been set or there are parameters.
+         * If there is a name, but no disposition, default to 'attachment'.
          * RFC 2183 [2] indicates that default is no requested disposition -
          * the receiving MUA is responsible for display choice. */
         $disposition = $this->getDisposition();
+        $disp_params = $this->getAllDispositionParameters();
         $name = $this->getName();
-        if ($disposition || !empty($name)) {
-            $headers->replaceHeader('Content-Disposition', $disposition ? $disposition : 'attachment', array('params' => (!empty($name) ? array('filename' => $name) : array())));
+        if ($disposition || !empty($name) || !empty($disp_params)) {
+            if (!$disposition) {
+                $disposition = 'attachment';
+            }
+            if ($name) {
+                $disp_params['filename'] = $name;
+            }
+            $headers->replaceHeader('Content-Disposition', $disposition, array('params' => $disp_params));
         } else {
             $headers->removeHeader('Content-Disposition');
         }
@@ -1282,7 +1296,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable
      */
     public function setBytes($bytes)
     {
-        $this->_bytes = $bytes;
+        $this->setDispositionParameter('size', $bytes);
     }
 
     /**
@@ -1428,7 +1442,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable
         }
 
         if ($sort) {
-            uksort($map, 'strnatcasecmp');
+            uksort($map, 'strnatcmp');
         }
 
         return $map;
@@ -1768,6 +1782,10 @@ class Horde_Mime_Part implements ArrayAccess, Countable
             $ob->setContents($data['contents']);
         }
 
+        if (isset($data['size'])) {
+            $ob->setBytes($data['size']);
+        }
+
         if (isset($data['disposition'])) {
             $ob->setDisposition($data['disposition']);
             if (!empty($data['dparameters'])) {
@@ -1776,10 +1794,6 @@ class Horde_Mime_Part implements ArrayAccess, Countable
                     $ob->setDispositionParameter($key, $val);
                 }
             }
-        }
-
-        if (isset($data['size'])) {
-            $ob->setBytes($data['size']);
         }
 
         if (isset($data['id'])) {

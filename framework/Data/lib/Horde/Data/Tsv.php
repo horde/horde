@@ -115,6 +115,10 @@ class Horde_Data_Tsv extends Horde_Data_Base
      */
     public function exportFile($filename, $data, $header = false)
     {
+        if (!isset($this->_browser)) {
+            throw new Horde_Data_Exception('Missing browser parameter.');
+        }
+
         $export = $this->exportData($data, $header);
         $this->_browser->downloadHeaders($filename, 'text/tab-separated-values', false, strlen($export));
         echo $export;
@@ -200,7 +204,7 @@ class Horde_Data_Tsv extends Horde_Data_Base
             /* Move uploaded file so that we can read it again in the next step
                after the user gave some format details. */
             try {
-                $this->_browser->wasFileUploaded('import_file', $this->_dict->t("TSV file"));
+                $this->_browser->wasFileUploaded('import_file', Horde_Data_Translation::t("TSV file"));
             } catch (Horde_Browser_Exception $e) {
                 throw new Horde_Data_Exception($e);
             }

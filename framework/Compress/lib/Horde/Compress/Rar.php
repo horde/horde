@@ -51,7 +51,7 @@ class Horde_Compress_Rar extends Horde_Compress
     {
         $blockStart = strpos($data, "\x52\x61\x72\x21\x1a\x07\x00");
         if ($blockStart === false) {
-            throw new Horde_Exception($this->_dict->t("Invalid RAR data."));
+            throw new Horde_Exception(Horde_Compress_Translation::t("Invalid RAR data."));
         }
 
         $data_len = strlen($data);

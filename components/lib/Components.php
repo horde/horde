@@ -63,7 +63,7 @@ class Components
                 $module->handle($config);
             }
         } catch (Components_Exception $e) {
-            $dependencies->getOutput()->fail($e->getMessage());
+            $dependencies->getOutput()->fail($e);
             return;
         }
     }
@@ -109,10 +109,6 @@ class Components
 
         if (!is_dir($arguments[0])) {
             throw new Components_Exception(sprintf('%s specifies no directory!', $arguments[0]));
-        }
-
-        if (!file_exists($arguments[0] . '/package.xml')) {
-            throw new Components_Exception(sprintf('There is no package.xml at %s!', $arguments[0]));
         }
     }
 }

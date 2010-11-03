@@ -42,12 +42,10 @@ class Horde_Image_Imagick extends Horde_Image_Base
                                      'canvas',
                                      'multipage',
                                      'pdf');
-
     /**
      * Const'r
      *
-     * @param array $params
-     * @param array $context
+     * @see Horde_Image_Base::_construct
      */
     public function __construct($params, $context = array())
     {

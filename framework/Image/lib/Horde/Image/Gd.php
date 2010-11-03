@@ -47,7 +47,11 @@ class Horde_Image_Gd extends Horde_Image_Base
     public function __construct($params, $context = array())
     {
         parent::__construct($params, $context);
-        if (!empty($params['width'])) {
+        if (!empty($params['filename'])) {
+            $this->loadFile($params['filename']);
+        } elseif (!empty($params['data'])) {
+            $this->loadString($params['data']);
+        } elseif (!empty($params['width'])) {
             $this->_im = $this->create($this->_width, $this->_height);
             $this->call('imageFill', array($this->_im, 0, 0, $this->_allocateColor($this->_background)));
         }

@@ -79,25 +79,25 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
                 //AFMode
                 switch ($data) {
                 case 256:
-                    $data = $this->_dict->t("9-area-focusing");
+                    $data = Horde_Image_Translation::t("9-area-focusing");
                     break;
                 case 16:
-                    $data = $this->_dict->t("1-area-focusing");
+                    $data = Horde_Image_Translation::t("1-area-focusing");
                     break;
                 case 4096:
-                    $data = $this->_dict->t("3-area-focusing (High speed)");
+                    $data = Horde_Image_Translation::t("3-area-focusing (High speed)");
                     break;
                 case 4112:
-                    $data = $this->_dict->t("1-area-focusing (High speed)");
+                    $data = Horde_Image_Translation::t("1-area-focusing (High speed)");
                     break;
                 case 16:
-                    $data = $this->_dict->t("1-area-focusing");
+                    $data = Horde_Image_Translation::t("1-area-focusing");
                     break;
                 case 1:
-                    $data = $this->_dict->t("Spot-focusing");
+                    $data = Horde_Image_Translation::t("Spot-focusing");
                     break;
                 default:
-                    $data = sprintf($this->_dict->t("Unknown (%s)"), $data);
+                    $data = sprintf(Horde_Image_Translation::t("Unknown (%s)"), $data);
                     break;
                 }
             }
@@ -137,19 +137,19 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
                 //Image Quality
                 switch ($data) {
                 case 2:
-                    $data = $this->_dict->t("High");
+                    $data = Horde_Image_Translation::t("High");
                     break;
                 case 3:
-                    $data = $this->_dict->t("Standard");
+                    $data = Horde_Image_Translation::t("Standard");
                     break;
                 case 6:
-                    $data = $this->_dict->t("Very High");
+                    $data = Horde_Image_Translation::t("Very High");
                     break;
                 case 7:
-                    $data = $this->_dict->t("RAW");
+                    $data = Horde_Image_Translation::t("RAW");
                     break;
                 default:
-                    $data = sprintf($this->_dict->t("Unknown (%s)"), $data);
+                    $data = sprintf(Horde_Image_Translation::t("Unknown (%s)"), $data);
                     break;
                 }
                 break;
@@ -158,31 +158,31 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
                 //White Balance
                 switch ($data) {
                 case 1:
-                    $data = $this->_dict->t("Auto");
+                    $data = Horde_Image_Translation::t("Auto");
                     break;
                 case 2:
-                    $data = $this->_dict->t("Daylight");
+                    $data = Horde_Image_Translation::t("Daylight");
                     break;
                 case 3:
-                    $data = $this->_dict->t("Cloudy");
+                    $data = Horde_Image_Translation::t("Cloudy");
                     break;
                 case 4:
-                    $data = $this->_dict->t("Halogen");
+                    $data = Horde_Image_Translation::t("Halogen");
                     break;
                 case 5:
-                    $data = $this->_dict->t("Manual");
+                    $data = Horde_Image_Translation::t("Manual");
                     break;
                 case 8:
-                    $data = $this->_dict->t("Flash");
+                    $data = Horde_Image_Translation::t("Flash");
                     break;
                 case 10:
-                    $data = $this->_dict->t("Black and White");
+                    $data = Horde_Image_Translation::t("Black and White");
                     break;
                 case 11:
-                    $data = $this->_dict->t("Manual");
+                    $data = Horde_Image_Translation::t("Manual");
                     break;
                 default:
-                    $data = sprintf($this->_dict->t("Unknown(%s)"), $data);
+                    $data = sprintf(Horde_Image_Translation::t("Unknown(%s)"), $data);
                     break;
                 }
                 break;
@@ -191,19 +191,19 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
                 //Focus Mode
                 switch ($data) {
                 case 1:
-                    $data = $this->_dict->t("Auto");
+                    $data = Horde_Image_Translation::t("Auto");
                     break;
                 case 2:
-                    $data = $this->_dict->t("Manual");
+                    $data = Horde_Image_Translation::t("Manual");
                     break;
                 case 4:
-                    $data = $this->_dict->t("Auto, Focus button");
+                    $data = Horde_Image_Translation::t("Auto, Focus button");
                     break;
                 case 5:
-                    $data = $this->_dict->t("Auto, Continuous");
+                    $data = Horde_Image_Translation::t("Auto, Continuous");
                     break;
                 default:
-                    $data = sprintf($this->_dict->t("Unknown(%s)"), $data);
+                    $data = sprintf(Horde_Image_Translation::t("Unknown(%s)"), $data);
                     break;
                 }
                 break;
@@ -212,16 +212,16 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
                 //Image Stabilizer
                 switch ($data) {
                 case 2:
-                    $data = $this->_dict->t("Mode 1");
+                    $data = Horde_Image_Translation::t("Mode 1");
                     break;
                 case 3:
-                    $data = $this->_dict->t("Off");
+                    $data = Horde_Image_Translation::t("Off");
                     break;
                 case 4:
-                    $data = $this->_dict->t("Mode 2");
+                    $data = Horde_Image_Translation::t("Mode 2");
                     break;
                 default:
-                    $data = sprintf($this->_dict->t("Unknown(%s)"), $data);
+                    $data = sprintf(Horde_Image_Translation::t("Unknown(%s)"), $data);
                     break;
                 }
                 break;
@@ -230,13 +230,13 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
                 //Macro mode
                 switch ($data) {
                 case 1:
-                    $data = $this->_dict->t("On");
+                    $data = Horde_Image_Translation::t("On");
                     break;
                 case 2:
-                    $data = $this->_dict->t("Off");
+                    $data = Horde_Image_Translation::t("Off");
                     break;
                 default:
-                    $data = sprintf($this->_dict->t("Unknown(%s)"), $data);
+                    $data = sprintf(Horde_Image_Translation::t("Unknown(%s)"), $data);
                     break;
                 }
                 break;
@@ -245,70 +245,70 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
                 //Shooting Mode
                 switch ($data) {
                 case 1:
-                    $data = $this->_dict->t("Normal");
+                    $data = Horde_Image_Translation::t("Normal");
                     break;
                 case 2:
-                    $data = $this->_dict->t("Portrait");
+                    $data = Horde_Image_Translation::t("Portrait");
                     break;
                 case 3:
-                    $data = $this->_dict->t("Scenery");
+                    $data = Horde_Image_Translation::t("Scenery");
                     break;
                 case 4:
-                    $data = $this->_dict->t("Sports");
+                    $data = Horde_Image_Translation::t("Sports");
                     break;
                 case 5:
-                    $data = $this->_dict->t("Night Portrait");
+                    $data = Horde_Image_Translation::t("Night Portrait");
                     break;
                 case 6:
-                    $data = $this->_dict->t("Program");
+                    $data = Horde_Image_Translation::t("Program");
                     break;
                 case 7:
-                    $data = $this->_dict->t("Aperture Priority");
+                    $data = Horde_Image_Translation::t("Aperture Priority");
                     break;
                 case 8:
-                    $data = $this->_dict->t("Shutter Priority");
+                    $data = Horde_Image_Translation::t("Shutter Priority");
                     break;
                 case 9:
-                    $data = $this->_dict->t("Macro");
+                    $data = Horde_Image_Translation::t("Macro");
                     break;
                 case 11:
-                    $data = $this->_dict->t("Manual");
+                    $data = Horde_Image_Translation::t("Manual");
                     break;
                 case 13:
-                    $data = $this->_dict->t("Panning");
+                    $data = Horde_Image_Translation::t("Panning");
                     break;
                 case 14:
-                    $data = $this->_dict->t("Simple");
+                    $data = Horde_Image_Translation::t("Simple");
                     break;
                 case 18:
-                    $data = $this->_dict->t("Fireworks");
+                    $data = Horde_Image_Translation::t("Fireworks");
                     break;
                 case 19:
-                    $data = $this->_dict->t("Party");
+                    $data = Horde_Image_Translation::t("Party");
                     break;
                 case 20:
-                    $data = $this->_dict->t("Snow");
+                    $data = Horde_Image_Translation::t("Snow");
                     break;
                 case 21:
-                    $data = $this->_dict->t("Night Scenery");
+                    $data = Horde_Image_Translation::t("Night Scenery");
                     break;
                 case 22:
-                    $data = $this->_dict->t("Food");
+                    $data = Horde_Image_Translation::t("Food");
                     break;
                 case 23:
-                    $data = $this->_dict->t("Baby");
+                    $data = Horde_Image_Translation::t("Baby");
                     break;
                 case 27:
-                    $data = $this->_dict->t("High Sensitivity");
+                    $data = Horde_Image_Translation::t("High Sensitivity");
                     break;
                 case 29:
-                    $data = $this->_dict->t("Underwater");
+                    $data = Horde_Image_Translation::t("Underwater");
                     break;
                 case 33:
-                    $data = $this->_dict->t("Pet");
+                    $data = Horde_Image_Translation::t("Pet");
                     break;
                 default:
-                    $data = sprintf($this->_dict->t("Unknown(%s)"), $data);
+                    $data = sprintf(Horde_Image_Translation::t("Unknown(%s)"), $data);
                     break;
                 }
                 break;
@@ -317,13 +317,13 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
                 //Audio
                 switch ($data) {
                 case 1:
-                    $data = $this->_dict->t("Yes");
+                    $data = Horde_Image_Translation::t("Yes");
                     break;
                 case 2:
-                    $data = $this->_dict->t("No");
+                    $data = Horde_Image_Translation::t("No");
                     break;
                 default:
-                    $data = sprintf($this->_dict->t("Unknown (%s)"), $data);
+                    $data = sprintf(Horde_Image_Translation::t("Unknown (%s)"), $data);
                     break;
                 }
                 break;
@@ -342,22 +342,22 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
                 //Colour Effect
                 switch ($data) {
                 case 1:
-                    $data = $this->_dict->t("Off");
+                    $data = Horde_Image_Translation::t("Off");
                     break;
                 case 2:
-                    $data = $this->_dict->t("Warm");
+                    $data = Horde_Image_Translation::t("Warm");
                     break;
                 case 3:
-                    $data = $this->_dict->t("Cool");
+                    $data = Horde_Image_Translation::t("Cool");
                     break;
                 case 4:
-                    $data = $this->_dict->t("Black and White");
+                    $data = Horde_Image_Translation::t("Black and White");
                     break;
                 case 5:
-                    $data = $this->_dict->t("Sepia");
+                    $data = Horde_Image_Translation::t("Sepia");
                     break;
                 default:
-                    $data = sprintf($this->_dict->t("Unknown (%s)"), $data);
+                    $data = sprintf(Horde_Image_Translation::t("Unknown (%s)"), $data);
                     break;
                 }
                 break;
@@ -366,16 +366,16 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
                 //Burst Mode
                 switch ($data) {
                 case 0:
-                    $data = $this->_dict->t("Off");
+                    $data = Horde_Image_Translation::t("Off");
                     break;
                 case 1:
-                    $data = $this->_dict->t("Low/High Quality");
+                    $data = Horde_Image_Translation::t("Low/High Quality");
                     break;
                 case 2:
-                    $data = $this->_dict->t("Infinite");
+                    $data = Horde_Image_Translation::t("Infinite");
                     break;
                 default:
-                    $data = sprintf($this->_dict->t("Unknown (%s)"), $data);
+                    $data = sprintf(Horde_Image_Translation::t("Unknown (%s)"), $data);
                     break;
                 }
                 break;
@@ -384,16 +384,16 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
                 //Contrast
                 switch ($data) {
                 case 0:
-                    $data = $this->_dict->t("Standard");
+                    $data = Horde_Image_Translation::t("Standard");
                     break;
                 case 1:
-                    $data = $this->_dict->t("Low");
+                    $data = Horde_Image_Translation::t("Low");
                     break;
                 case 2:
-                    $data = $this->_dict->t("High");
+                    $data = Horde_Image_Translation::t("High");
                     break;
                 default:
-                    $data = sprintf($this->_dict->t("Unknown (%s)"), $data);
+                    $data = sprintf(Horde_Image_Translation::t("Unknown (%s)"), $data);
                     break;
                 }
                 break;
@@ -402,16 +402,16 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
                 //Noise Reduction
                 switch ($data) {
                 case 0:
-                    $data = $this->_dict->t("Standard");
+                    $data = Horde_Image_Translation::t("Standard");
                     break;
                 case 1:
-                    $data = $this->_dict->t("Low");
+                    $data = Horde_Image_Translation::t("Low");
                     break;
                 case 2:
-                    $data = $this->_dict->t("High");
+                    $data = Horde_Image_Translation::t("High");
                     break;
                 default:
-                    $data = sprintf($this->_dict->t("Unknown (%s)"), $data);
+                    $data = sprintf(Horde_Image_Translation::t("Unknown (%s)"), $data);
                     break;
                 }
                 break;
@@ -420,16 +420,16 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
                 //Self Timer
                 switch ($data) {
                 case 1:
-                    $data = $this->_dict->t("Off");
+                    $data = Horde_Image_Translation::t("Off");
                     break;
                 case 2:
-                    $data = $this->_dict->t("10s");
+                    $data = Horde_Image_Translation::t("10s");
                     break;
                 case 3:
-                    $data = $this->_dict->t("2s");
+                    $data = Horde_Image_Translation::t("2s");
                     break;
                 default:
-                    $data = sprintf($this->_dict->t("Unknown (%s)"), $data);
+                    $data = sprintf(Horde_Image_Translation::t("Unknown (%s)"), $data);
                     break;
                 }
                 break;
@@ -438,16 +438,16 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
                 //Rotation
                 switch ($data) {
                 case 1:
-                    $data = $this->_dict->t("Horizontal (normal)");
+                    $data = Horde_Image_Translation::t("Horizontal (normal)");
                     break;
                 case 6:
-                    $data = $this->_dict->t("Rotate 90 CW");
+                    $data = Horde_Image_Translation::t("Rotate 90 CW");
                     break;
                 case 8:
-                    $data = $this->_dict->t("Rotate 270 CW");
+                    $data = Horde_Image_Translation::t("Rotate 270 CW");
                     break;
                 default:
-                    $data = sprintf($this->_dict->t("Unknown (%s)"), $data);
+                    $data = sprintf(Horde_Image_Translation::t("Unknown (%s)"), $data);
                     break;
                 }
                 break;
@@ -456,13 +456,13 @@ class Horde_Image_Exif_Parser_Panasonic extends Horde_Image_Exif_Parser_Base
                 //Color Mode
                 switch ($data) {
                 case 0:
-                    $data = $this->_dict->t("Normal");
+                    $data = Horde_Image_Translation::t("Normal");
                     break;
                 case 1:
-                    $data = $this->_dict->t("Natural");
+                    $data = Horde_Image_Translation::t("Natural");
                     break;
                 default:
-                    $data = sprintf($this->_dict->t("Unknown (%s)"), $data);
+                    $data = sprintf(Horde_Image_Translation::t("Unknown (%s)"), $data);
                     break;
                 }
                 break;

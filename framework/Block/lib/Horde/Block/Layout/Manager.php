@@ -103,7 +103,6 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
      */
     function __construct($collection, $layout = array())
     {
-        parent::__construct();
         $this->_collection = $collection;
         $this->_layout = $layout;
         $this->_editUrl = Horde::selfUrl();
@@ -118,7 +117,7 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
             }
             for ($col = 0; $col < $cols; $col++) {
                 if (!isset($this->_layout[$row][$col])) {
-                    $this->_blocks[$row][$col] = PEAR::raiseError($this->_dict->t("No block exists at the requested position"), 'horde.error');
+                    $this->_blocks[$row][$col] = PEAR::raiseError(Horde_Block_Translation::t("No block exists at the requested position"), 'horde.error');
                 } elseif (is_array($this->_layout[$row][$col])) {
                     $field = $this->_layout[$row][$col];
 
@@ -242,7 +241,7 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
                     try {
                         $message = Horde::callHook('perms_denied', array('horde:max_blocks'));
                     } catch (Horde_Exception_HookNotSet $e) {
-                        $message = htmlspecialchars(sprintf($this->_dict->ngettext("You are not allowed to create more than %d block.", "You are not allowed to create more than %d blocks.", $max_blocks), $max_blocks));
+                        $message = htmlspecialchars(sprintf(Horde_Block_Translation::ngettext("You are not allowed to create more than %d block.", "You are not allowed to create more than %d blocks.", $max_blocks), $max_blocks));
                     }
                     $GLOBALS['notification']->push($message, 'horde.error', array('content.raw'));
                     break;
@@ -573,12 +572,12 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
 
         switch ($type[0]) {
         case 'expand':
-            $title = $this->_dict->t("Expand");
+            $title = Horde_Block_Translation::t("Expand");
             $img = 'large_' . $type[1];
             break;
 
         case 'shrink':
-            $title = $this->_dict->t("Shrink");
+            $title = Horde_Block_Translation::t("Shrink");
             $img = 'large_';
 
             switch ($type[1]) {
@@ -603,19 +602,19 @@ class Horde_Block_Layout_Manager extends Horde_Block_Layout
         case 'move':
             switch ($type[1]) {
             case 'up':
-                $title = $this->_dict->t("Move Up");
+                $title = Horde_Block_Translation::t("Move Up");
                 break;
 
             case 'down':
-                $title = $this->_dict->t("Move Down");
+                $title = Horde_Block_Translation::t("Move Down");
                 break;
 
             case 'left':
-                $title = $this->_dict->t("Move Left");
+                $title = Horde_Block_Translation::t("Move Left");
                 break;
 
             case 'right':
-                $title = $this->_dict->t("Move Right");
+                $title = Horde_Block_Translation::t("Move Right");
                 break;
             }
 

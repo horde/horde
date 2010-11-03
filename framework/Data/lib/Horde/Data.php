@@ -58,7 +58,7 @@ class Horde_Data
      * @return Horde_Data_Driver  The newly created concrete instance.
      * @throws Horde_Data_Exception
      */
-    public function factory($format, array $params = array())
+    static public function factory($format, array $params = array())
     {
         $format = ucfirst(strtolower(basename($format)));
         $class = __CLASS__ . '_' . $format;

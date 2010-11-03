@@ -28,6 +28,6 @@
  * @link     http://pear.horde.org/index.php?package=Components
  */
 class Components_Exception
-extends Exception
+extends Horde_Exception
 {
 }

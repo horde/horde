@@ -104,9 +104,8 @@ class Horde
     {
         $admin = $GLOBALS['registry']->isAdmin();
         $cli = Horde_Cli::runningFromCLI();
-        $dict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../locale');
 
-        $errortext = '<h1>' . $dict->t("A fatal error has occurred") . '</h1>';
+        $errortext = '<h1>' . Horde_Core_Translation::t("A fatal error has occurred") . '</h1>';
 
         if (($error instanceof PEAR_Error) ||
             (is_object($error) && method_exists($error, 'getMessage'))) {
@@ -124,12 +123,12 @@ class Horde
             $backtrace = new Horde_Support_Backtrace($trace);
             $errortext .= '<div id="backtrace"><pre>' . (string)$backtrace . '</pre></div>';
             if (is_object($error)) {
-                $errortext .= '<h3>' . $dict->t("Details") . '</h3>';
-                $errortext .= '<h4>' . $dict->t("The full error message is logged in Horde's log file, and is shown below only to administrators. Non-administrative users will not see error details.") . '</h4>';
+                $errortext .= '<h3>' . Horde_Core_Translation::t("Details") . '</h3>';
+                $errortext .= '<h4>' . Horde_Core_Translation::t("The full error message is logged in Horde's log file, and is shown below only to administrators. Non-administrative users will not see error details.") . '</h4>';
                 $errortext .= '<div id="details"><pre>' . htmlspecialchars(print_r($error, true)) . '</pre></div>';
             }
         } elseif ($log) {
-            $errortext .= '<h3>' . $dict->t("Details have been logged for the administrator.") . '</h3>';
+            $errortext .= '<h3>' . Horde_Core_Translation::t("Details have been logged for the administrator.") . '</h3>';
         }
 
         // Log the error via logMessage() if requested.
@@ -375,13 +374,11 @@ HTML;
         global $conf, $session;
 
         if (!isset($session['horde:form_secrets/' . $token])) {
-            $dict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../locale');
-            throw new Horde_Exception($dict->t("We cannot verify that this request was really sent by you. It could be a malicious request. If you intended to perform this action, you can retry it now."));
+            throw new Horde_Exception(Horde_Core_Translation::t("We cannot verify that this request was really sent by you. It could be a malicious request. If you intended to perform this action, you can retry it now."));
         }
 
         if (($session['horde:form_secrets/' . $token] + $GLOBALS['conf']['urls']['token_lifetime'] * 60) < time()) {
-            $dict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../locale');
-            throw new Horde_Exception(sprintf($dict->t("This request cannot be completed because the link you followed or the form you submitted was only valid for %s minutes. Please try again now."), $GLOBALS['conf']['urls']['token_lifetime']));
+            throw new Horde_Exception(sprintf(Horde_Core_Translation::t("This request cannot be completed because the link you followed or the form you submitted was only valid for %s minutes. Please try again now."), $GLOBALS['conf']['urls']['token_lifetime']));
         }
     }
 
@@ -674,8 +671,7 @@ HTML;
     static public function requireSecureConnection()
     {
         if (!self::isConnectionSecure()) {
-            $dict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../locale');
-            throw new Horde_Exception($dict->t("The encryption features require a secure web connection."));
+            throw new Horde_Exception(Horde_Core_Translation::t("The encryption features require a secure web connection."));
         }
     }
 
@@ -714,30 +710,18 @@ HTML;
         $config_dir = (($app == 'horde') && defined('HORDE_BASE'))
             ? HORDE_BASE . '/config/'
             : $registry->get('fileroot', $app) . '/config/';
-        $file = $config_dir . $config_file;
+        $base_path = $file = $config_dir . $config_file;
         if (file_exists($file)) {
             $filelist[$file] = 1;
         }
 
         // Load global configuration stanzas in .d directory
-        $directory = preg_replace('/\.php$/', '.d', $config_dir . $config_file);
+        $directory = preg_replace('/\.php$/', '.d', $base_path);
         if (file_exists($directory) &&
             is_dir($directory) &&
             ($sub_files = glob("$directory/*.php"))) {
             foreach ($sub_files as $val) {
                 $filelist[$val] = 0;
-            }
-        }
-
-        // Load vhost configuration file.
-        if (!empty($conf['vhosts']) || !empty($GLOBALS['conf']['vhosts'])) {
-            $server_name = isset($GLOBALS['conf'])
-                ? $GLOBALS['conf']['server']['name']
-                : $conf['server']['name'];
-            $file = $config_dir . substr($config_file, 0, -4) . '-' . $server_name . '.php';
-
-            if (file_exists($file)) {
-                $filelist[$file] = 0;
             }
         }
 
@@ -750,6 +734,10 @@ HTML;
                 ? include_once $file
                 : include $file;
             $output = self::endBuffer();
+
+            if (!$success) {
+                throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $file));
+            }
 
             if (!empty($output) && !$show_output) {
                 /* Horde 3 -> 4 conversion checking. This is the only place
@@ -764,17 +752,40 @@ HTML;
                 }
             }
 
-            if (!$success) {
-                throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $file));
-            }
-
             $was_included = true;
+        }
+
+        // Load vhost configuration file.
+        if (!empty($GLOBALS['conf']['vhosts']) ||
+            (($app == 'horde') &&
+             ($config_file == 'conf.php') &&
+             !empty($conf['vhosts']))) {
+            $server_name = isset($GLOBALS['conf'])
+                ? $GLOBALS['conf']['server']['name']
+                : $conf['server']['name'];
+            $file = $config_dir . substr($config_file, 0, -4) . '-' . $server_name . '.php';
+
+            if (file_exists($file)) {
+                self::startBuffer();
+                $success = (is_null($var_names) && !$show_output)
+                    ? include_once $file
+                    : include $file;
+                $output = self::endBuffer();
+
+                if (!$success) {
+                    throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $file));
+                } elseif (!empty($output) && !$show_output) {
+                    throw new Horde_Exception(sprintf('Failed to import configuration file "%s": ', $file) . strip_tags($output));
+                }
+
+                $was_included = true;
+            }
         }
 
         // Return an error if neither main or vhosted versions of the config
         // file exist.
         if (!$was_included) {
-            throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $config_dir . $config_file));
+            throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $base_path));
         }
 
         if (isset($output) && $show_output) {
@@ -787,9 +798,9 @@ HTML;
             return compact($var_names);
         } elseif (isset($$var_names)) {
             return $$var_names;
-        } else {
-            return array();
         }
+
+        return array();
     }
 
     /**
@@ -866,20 +877,18 @@ HTML;
         $fileroot = isset($registry) ? $registry->get('fileroot') : '';
 
         if (!is_array($params) || !count($params)) {
-            $dict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../locale');
             throw new Horde_Exception(
-                sprintf($dict->t("No configuration information specified for %s."), $name) . "\n\n" .
-                sprintf($dict->t("The file %s should contain some %s settings."),
+                sprintf(Horde_Core_Translation::t("No configuration information specified for %s."), $name) . "\n\n" .
+                sprintf(Horde_Core_Translation::t("The file %s should contain some %s settings."),
                     $fileroot . '/config/' . $file,
                     sprintf("%s['%s']['params']", $variable, $driver)));
         }
 
         foreach ($fields as $field) {
             if (!isset($params[$field])) {
-                $dict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../locale');
                 throw new Horde_Exception(
-                    sprintf($dict->t("Required \"%s\" not specified in %s configuration."), $field, $name) . "\n\n" .
-                    sprintf($dict->t("The file %s should contain a %s setting."),
+                    sprintf(Horde_Core_Translation::t("Required \"%s\" not specified in %s configuration."), $field, $name) . "\n\n" .
+                    sprintf(Horde_Core_Translation::t("The file %s should contain a %s setting."),
                         $fileroot . '/config/' . $file,
                         sprintf("%s['%s']['params']['%s']", $variable, $driver, $field)));
             }
@@ -1614,8 +1623,7 @@ HTML;
         $ak = self::getAccessKey($label, $nocheck);
         $attributes = 'title="' . self::stripAccessKey($label);
         if (!empty($ak)) {
-            $dict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../locale');
-            $attributes .= sprintf($dict->t(" (Accesskey %s)"), strtoupper($ak))
+            $attributes .= sprintf(Horde_Core_Translation::t(" (Accesskey %s)"), strtoupper($ak))
               . '" accesskey="' . $ak;
         }
 
@@ -2084,8 +2092,7 @@ HTML;
         $menu = new Horde_Menu(isset($opts['mask']) ? $opts['mask'] : Horde_Menu::MASK_ALL);
 
         if (!in_array($registry->get('status', 'horde'), array('notoolbar', 'hidden', 'inactive'))) {
-            $dict = new Horde_Translation_Gettext('Horde_Core', dirname(__FILE__) . '/../locale');
-            $menu->add(Horde::url('services/portal/', false, array('app' => 'horde')), $dict->t("_Home"), 'horde.png');
+            $menu->add(Horde::url('services/portal/', false, array('app' => 'horde')), Horde_Core_Translation::t("_Home"), 'horde.png');
         }
 
         $registry->callAppMethod($opts['app'], 'menu', array(

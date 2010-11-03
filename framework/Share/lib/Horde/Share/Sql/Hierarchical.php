@@ -544,7 +544,7 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
      */
     public function getShare($name)
     {
-        throw new Horde_Share_Exception($this->_dict->t("Share names are not supported in this driver"));
+        throw new Horde_Share_Exception(Horde_Share_Translation::t("Share names are not supported in this driver"));
     }
 
     /**

@@ -41,7 +41,6 @@ class Horde_Block_Layout_View extends Horde_Block_Layout
     public function __construct($layout = array(), $editUrl = '',
                                 $viewUrl = '')
     {
-        parent::__construct();
         $this->_layout = $layout;
         $this->_editUrl = $editUrl;
         $this->_viewUrl = $viewUrl;
@@ -95,7 +94,7 @@ class Horde_Block_Layout_View extends Horde_Block_Layout
                             $html .= '<td width="' . ($width * $colspan) . '%">&nbsp;</td>';
                         }
                     } catch (Horde_Exception $e) {
-                        $header = $this->_dict->t("Error");
+                        $header = Horde_Block_Translation::t("Error");
                         $content = $e->getMessage();
                         ob_start();
                         include $tplDir . '/portal/block.inc';

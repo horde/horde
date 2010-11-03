@@ -109,137 +109,137 @@ class Horde_Image_Exif_Parser_Fujifilm extends Horde_Image_Exif_Parser_Base
             case '1001':
                 //Sharpness
                 switch ($data) {
-                case 1:  $data = $this->_dict->t("Soft"); break;
-                case 2:  $data = $this->_dict->t("Soft"); break;
-                case 3:  $data = $this->_dict->t("Normal"); break;
-                case 4:  $data = $this->_dict->t("Hard"); break;
-                case 5:  $data = $this->_dict->t("Hard"); break;
-                default: $data = $this->_dict->t("Unknown") . ': ' . $data; break;
+                case 1:  $data = Horde_Image_Translation::t("Soft"); break;
+                case 2:  $data = Horde_Image_Translation::t("Soft"); break;
+                case 3:  $data = Horde_Image_Translation::t("Normal"); break;
+                case 4:  $data = Horde_Image_Translation::t("Hard"); break;
+                case 5:  $data = Horde_Image_Translation::t("Hard"); break;
+                default: $data = Horde_Image_Translation::t("Unknown") . ': ' . $data; break;
                 }
                 break;
 
             case '1002':
                 //WhiteBalance
                 switch ($data) {
-                case 0:    $data = $this->_dict->t("Auto"); break;
-                case 256:  $data = $this->_dict->t("Daylight"); break;
-                case 512:  $data = $this->_dict->t("Cloudy"); break;
-                case 768:  $data = $this->_dict->t("DaylightColor-fluorescence"); break;
-                case 769:  $data = $this->_dict->t("DaywhiteColor-fluorescence"); break;
-                case 770:  $data = $this->_dict->t("White-fluorescence"); break;
-                case 1024: $data = $this->_dict->t("Incandescense"); break;
-                case 3840: $data = $this->_dict->t("Custom"); break;
-                default:   $data = $this->_dict->t("Unknown") . ': ' . $data; break;
+                case 0:    $data = Horde_Image_Translation::t("Auto"); break;
+                case 256:  $data = Horde_Image_Translation::t("Daylight"); break;
+                case 512:  $data = Horde_Image_Translation::t("Cloudy"); break;
+                case 768:  $data = Horde_Image_Translation::t("DaylightColor-fluorescence"); break;
+                case 769:  $data = Horde_Image_Translation::t("DaywhiteColor-fluorescence"); break;
+                case 770:  $data = Horde_Image_Translation::t("White-fluorescence"); break;
+                case 1024: $data = Horde_Image_Translation::t("Incandescense"); break;
+                case 3840: $data = Horde_Image_Translation::t("Custom"); break;
+                default:   $data = Horde_Image_Translation::t("Unknown") . ': ' . $data; break;
                 }
                 break;
 
             case '1003':
                 //Color
                 switch ($data) {
-                case 0:   $data = $this->_dict->t("Chroma Saturation Normal(STD)"); break;
-                case 256: $data = $this->_dict->t("Chroma Saturation High"); break;
-                case 512: $data = $this->_dict->t("Chroma Saturation Low(ORG)"); break;
-                default:  $data = $this->_dict->t("Unknown: ") . $data; break;
+                case 0:   $data = Horde_Image_Translation::t("Chroma Saturation Normal(STD)"); break;
+                case 256: $data = Horde_Image_Translation::t("Chroma Saturation High"); break;
+                case 512: $data = Horde_Image_Translation::t("Chroma Saturation Low(ORG)"); break;
+                default:  $data = Horde_Image_Translation::t("Unknown: ") . $data; break;
                 }
                 break;
 
             case '1004':
                 //Tone
                 switch ($data) {
-                case 0: $data = $this->_dict->t("Contrast Normal(STD)"); break;
-                case 256: $data = $this->_dict->t("Contrast High(HARD)"); break;
-                case 512: $data = $this->_dict->t("Contrast Low(ORG)"); break;
-                default: $data = $this->_dict->t("Unknown: ") . $data; break;
+                case 0: $data = Horde_Image_Translation::t("Contrast Normal(STD)"); break;
+                case 256: $data = Horde_Image_Translation::t("Contrast High(HARD)"); break;
+                case 512: $data = Horde_Image_Translation::t("Contrast Low(ORG)"); break;
+                default: $data = Horde_Image_Translation::t("Unknown: ") . $data; break;
                 }
                 break;
 
             case '1010':
                 //FlashMode
                 switch ($data) {
-                case 0:  $data = $this->_dict->t("Auto"); break;
-                case 1:  $data = $this->_dict->t("On"); break;
-                case 2:  $data = $this->_dict->t("Off"); break;
-                case 3:  $data = $this->_dict->t("Red-Eye Reduction"); break;
-                default: $data = $this->_dict->t("Unknown: ") . $data; break;
+                case 0:  $data = Horde_Image_Translation::t("Auto"); break;
+                case 1:  $data = Horde_Image_Translation::t("On"); break;
+                case 2:  $data = Horde_Image_Translation::t("Off"); break;
+                case 3:  $data = Horde_Image_Translation::t("Red-Eye Reduction"); break;
+                default: $data = Horde_Image_Translation::t("Unknown: ") . $data; break;
                 }
                 break;
 
             case '1020':
                 //Macro
                 switch ($data) {
-                case 0:  $data = $this->_dict->t("Off"); break;
-                case 1:  $data = $this->_dict->t("On"); break;
-                default: $data = $this->_dict->t("Unknown: ") . $data; break;
+                case 0:  $data = Horde_Image_Translation::t("Off"); break;
+                case 1:  $data = Horde_Image_Translation::t("On"); break;
+                default: $data = Horde_Image_Translation::t("Unknown: ") . $data; break;
                 }
                 break;
 
             case '1021':
                 //FocusMode
                 switch ($data) {
-                case 0:  $data = $this->_dict->t("Auto"); break;
-                case 1:  $data = $this->_dict->t("Manual"); break;
-                default: $data = $this->_dict->t("Unknown: ") . $data; break;
+                case 0:  $data = Horde_Image_Translation::t("Auto"); break;
+                case 1:  $data = Horde_Image_Translation::t("Manual"); break;
+                default: $data = Horde_Image_Translation::t("Unknown: ") . $data; break;
                 }
                 break;
 
             case '1030':
                 //SlowSync
                 switch ($data) {
-                case 0:  $data = $this->_dict->t("Off"); break;
-                case 1:  $data = $this->_dict->t("On"); break;
-                default: $data = $this->_dict->t("Unknown: ") . $data; break;
+                case 0:  $data = Horde_Image_Translation::t("Off"); break;
+                case 1:  $data = Horde_Image_Translation::t("On"); break;
+                default: $data = Horde_Image_Translation::t("Unknown: ") . $data; break;
                 }
                 break;
 
             case '1031':
                 //PictureMode
                 switch ($data) {
-                case 0:  $data = $this->_dict->t("Auto"); break;
-                case 1:  $data = $this->_dict->t("Portrait"); break;
-                case 2:  $data = $this->_dict->t("Landscape"); break;
-                case 4:  $data = $this->_dict->t("Sports"); break;
-                case 5:  $data = $this->_dict->t("Night"); break;
-                case 6:  $data = $this->_dict->t("Program AE"); break;
-                case 256:  $data = $this->_dict->t("Aperture Prority AE"); break;
-                case 512:  $data = $this->_dict->t("Shutter Priority"); break;
-                case 768:  $data = $this->_dict->t("Manual Exposure"); break;
-                default: $data = $this->_dict->t("Unknown: ") . $data; break;
+                case 0:  $data = Horde_Image_Translation::t("Auto"); break;
+                case 1:  $data = Horde_Image_Translation::t("Portrait"); break;
+                case 2:  $data = Horde_Image_Translation::t("Landscape"); break;
+                case 4:  $data = Horde_Image_Translation::t("Sports"); break;
+                case 5:  $data = Horde_Image_Translation::t("Night"); break;
+                case 6:  $data = Horde_Image_Translation::t("Program AE"); break;
+                case 256:  $data = Horde_Image_Translation::t("Aperture Prority AE"); break;
+                case 512:  $data = Horde_Image_Translation::t("Shutter Priority"); break;
+                case 768:  $data = Horde_Image_Translation::t("Manual Exposure"); break;
+                default: $data = Horde_Image_Translation::t("Unknown: ") . $data; break;
                 }
                 break;
 
             case '1100':
                 //ContinuousTakingBracket
                 switch ($data) {
-                case 0:  $data = $this->_dict->t("Off"); break;
-                case 1:  $data = $this->_dict->t("On"); break;
-                default: $data = $this->_dict->t("Unknown: ") . $data; break;
+                case 0:  $data = Horde_Image_Translation::t("Off"); break;
+                case 1:  $data = Horde_Image_Translation::t("On"); break;
+                default: $data = Horde_Image_Translation::t("Unknown: ") . $data; break;
                 }
                 break;
 
             case '1300':
                 //BlurWarning
                 switch ($data) {
-                case 0:  $data = $this->_dict->t("No Warning"); break;
-                case 1:  $data = $this->_dict->t("Warning"); break;
-                default: $data = $this->_dict->t("Unknown: ") . $data; break;
+                case 0:  $data = Horde_Image_Translation::t("No Warning"); break;
+                case 1:  $data = Horde_Image_Translation::t("Warning"); break;
+                default: $data = Horde_Image_Translation::t("Unknown: ") . $data; break;
                 }
                 break;
 
             case '1301':
                 //FocusWarning
                 switch ($data) {
-                case 0:  $data = $this->_dict->t("Auto Focus Good"); break;
-                case 1:  $data = $this->_dict->t("Out of Focus"); break;
-                default: $data = $this->_dict->t("Unknown: ") . $data; break;
+                case 0:  $data = Horde_Image_Translation::t("Auto Focus Good"); break;
+                case 1:  $data = Horde_Image_Translation::t("Out of Focus"); break;
+                default: $data = Horde_Image_Translation::t("Unknown: ") . $data; break;
                 }
                 break;
 
             case '1302':
                 //AEWarning
                 switch ($data) {
-                case 0:  $data = $this->_dict->t("AE Good"); break;
-                case 1:  $data = $this->_dict->t("Over Exposure"); break;
-                default: $data = $this->_dict->t("Unknown: ") . $data; break;
+                case 0:  $data = Horde_Image_Translation::t("AE Good"); break;
+                case 1:  $data = Horde_Image_Translation::t("Over Exposure"); break;
+                default: $data = Horde_Image_Translation::t("Unknown: ") . $data; break;
                 }
                 break;
             }

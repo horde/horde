@@ -120,7 +120,7 @@ case 'getPage':
 /* No requested action, check to see if we have a valid token */
 if (!empty($auth_token)) {
     $profile = Horde_Serialize::unserialize($twitter->account->verifyCredentials(), Horde_Serialize::JSON);
-} elseif ($r_secret = $session->retrieve('twitter_request_secret'])) {
+} elseif ($r_secret = $session->retrieve('twitter_request_secret')) {
      /* No existing auth token, maybe we are in the process of getting it? */
     try {
         $auth_token = $twitter->auth->getAccessToken($GLOBALS['injector']->getInstance('Horde_Controller_Request'), $r_secret);

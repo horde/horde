@@ -32,7 +32,7 @@ interface Horde_Itip_Event
     /**
      * Returns the event as vEvent.
      *
-     * @return Horde_iCalendar_vevent The wrapped event.
+     * @return Horde_Icalendar_Vevent The wrapped event.
      */
     public function getVevent();
 

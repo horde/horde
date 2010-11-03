@@ -44,19 +44,29 @@ class Components_Runner_Installer
     private $_factory;
 
     /**
+     * The output handler.
+     *
+     * @param Component_Output
+     */
+    private $_output;
+
+    /**
      * Constructor.
      *
      * @param Components_Config       $config  The configuration for the current
      *                                         job.
      * @param Components_Pear_Factory $factory The factory for PEAR
      *                                         dependencies.
+     * @param Component_Output        $output  The output handler.
      */
     public function __construct(
         Components_Config $config,
-        Components_Pear_Factory $factory
+        Components_Pear_Factory $factory,
+        Components_Output $output
     ) {
         $this->_config = $config;
         $this->_factory = $factory;
+        $this->_output = $output;
     }
 
     public function run()
@@ -66,12 +76,22 @@ class Components_Runner_Installer
         if (!$environment) {
             $environment = $options['install'];
         }
+        if (empty($options['horde_dir'])) {
+            $options['horde_dir'] = dirname($environment) . DIRECTORY_SEPARATOR . 'horde';
+        }
         $arguments = $this->_config->getArguments();
-        $this->_factory
+        $tree = $this->_factory
             ->createTreeHelper(
-                $environment, dirname(realpath($arguments[0])), $options
-            )->installTreeInEnvironment(
-                realpath($arguments[0]) . DIRECTORY_SEPARATOR . 'package.xml'
+                $environment, realpath($arguments[0]), $options
             );
+        $tree->getEnvironment()->provideChannel('pear.horde.org');
+        $tree->getEnvironment()->getPearConfig()->setChannels(array('pear.horde.org', true));
+        $tree->getEnvironment()->getPearConfig()->set('horde_dir', $options['horde_dir'], 'user', 'pear.horde.org');
+        Components_Exception_Pear::catchError($tree->getEnvironment()->getPearConfig()->store());
+        $tree->installTreeInEnvironment(
+            realpath($arguments[0]) . DIRECTORY_SEPARATOR . 'package.xml',
+            $this->_output,
+            $options
+        );
     }
 }

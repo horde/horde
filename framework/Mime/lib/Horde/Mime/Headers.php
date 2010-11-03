@@ -499,26 +499,20 @@ class Horde_Mime_Headers implements Serializable
     /**
      * Returns the list of valid mailing list headers.
      *
-     * @param Horde_Translation $dict  A translation handler implementing
-     *                                 Horde_Translation.
-     *
      * @return array  The list of valid mailing list headers.
      */
-    static public function listHeaders($dict = null)
+    static public function listHeaders()
     {
-        if (!$dict) {
-            $dict = new Horde_Translation_Gettext('Horde_Mime', dirname(__FILE__) . '/../../../locale');
-        }
         return array(
             /* RFC 2369 */
-            'list-help'         =>  $dict->t("List-Help"),
-            'list-unsubscribe'  =>  $dict->t("List-Unsubscribe"),
-            'list-subscribe'    =>  $dict->t("List-Subscribe"),
-            'list-owner'        =>  $dict->t("List-Owner"),
-            'list-post'         =>  $dict->t("List-Post"),
-            'list-archive'      =>  $dict->t("List-Archive"),
+            'list-help'         =>  Horde_Mime_Translation::t("List-Help"),
+            'list-unsubscribe'  =>  Horde_Mime_Translation::t("List-Unsubscribe"),
+            'list-subscribe'    =>  Horde_Mime_Translation::t("List-Subscribe"),
+            'list-owner'        =>  Horde_Mime_Translation::t("List-Owner"),
+            'list-post'         =>  Horde_Mime_Translation::t("List-Post"),
+            'list-archive'      =>  Horde_Mime_Translation::t("List-Archive"),
             /* RFC 2919 */
-            'list-id'           =>  $dict->t("List-Id")
+            'list-id'           =>  Horde_Mime_Translation::t("List-Id")
         );
     }
 

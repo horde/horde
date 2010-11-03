@@ -701,9 +701,18 @@ class IMP_Prefs_Ui
             $curr_acl = $acl->getACL($folder);
         } catch (IMP_Exception $e) {
             $GLOBALS['notification']->push($e);
-            return '';
+            $curr_acl = array();
         }
         $canEdit = $acl->canEdit($folder, $GLOBALS['registry']->getAuth());
+        $canEdit = false;
+
+        if (!$canEdit) {
+            $GLOBALS['notification']->push(_("You do not have permission to change access to this folder."), 'horde.warning');
+        }
+
+        if (!count($curr_acl)) {
+            $GLOBALS['notification']->push(_("The current list of users with access to this folder could not be retrieved."), 'horde.warning');
+        }
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->setOption('gettext', true);
@@ -711,10 +720,9 @@ class IMP_Prefs_Ui
         $t->set('options', IMP::flistSelect(array('selected' => $folder)));
         $t->set('current', sprintf(_("Current access to %s"), IMP::displayFolder($folder)));
         $t->set('folder', IMP::formMbox($folder, true));
-        $t->set('noacl', !count($curr_acl));
-        $t->set('maxrule', 1);
+        $t->set('hasacl', count($curr_acl));
 
-        if (!$t->get('noacl')) {
+        if (!$t->get('hasacl')) {
             $i = 0;
             $cval = array();
             $protected = $acl->getProtected();
@@ -740,15 +748,11 @@ class IMP_Prefs_Ui
              }
 
              $t->set('curr_acl', $cval);
-             $t->set('maxval', count($curr_acl));
-
-             /* Number of individual ACL options, for table rendering. */
-             $t->set('maxrule', count($rights));
         }
 
         $t->set('canedit', $canEdit);
 
-        if ($session['imp:imap_admin']) {
+        if ($GLOBALS['session']['imp:imap_admin']) {
             $current_users = array_keys($curr_acl);
             $new_user = array();
 

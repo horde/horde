@@ -49,13 +49,13 @@ implements Horde_Notification_Storage_Interface
     }
 
     /**
-     * Return the given stack by reference from the notification store.
+     * Return the given stack from the notification store.
      *
      * @param string $key  The key for the data.
      *
      * @return mixed  The notification data stored for the given key.
      */
-    public function &get($key)
+    public function get($key)
     {
         return $_SESSION[$this->_stack][$key];
     }
@@ -96,8 +96,8 @@ implements Horde_Notification_Storage_Interface
     /**
      * Store a new event for the given listener stack.
      *
-     * @param string $listener                    The event will be stored for
-     *                                            this listener.
+     * @param string $listener                 The event will be stored for
+     *                                         this listener.
      * @param Horde_Notification_Event $event  The event to store.
      */
     public function push($listener, Horde_Notification_Event $event)

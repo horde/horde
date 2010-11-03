@@ -1,7 +1,4 @@
 <?php
-
-require_once WICKED_BASE . '/lib/Page/StandardPage.php';
-
 /**
  * Wicked RevertPage class (for confirming reversions).
  *
@@ -13,23 +10,23 @@ require_once WICKED_BASE . '/lib/Page/StandardPage.php';
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Wicked
  */
-class RevertPage extends Wicked_Page {
+class Wicked_Page_RevertPage extends Wicked_Page {
 
     /**
      * Display modes supported by this page.
      *
      * @var array
      */
-    var $supportedModes = array(Wicked::MODE_DISPLAY => true);
+    public $supportedModes = array(Wicked::MODE_DISPLAY => true);
 
     /**
      * The page that we're confirming reversion for.
      *
      * @var string
      */
-    var $_referrer = null;
+    protected $_referrer = null;
 
-    function RevertPage($referrer)
+    public function __construct($referrer)
     {
         $this->_referrer = $referrer;
     }
@@ -39,7 +36,7 @@ class RevertPage extends Wicked_Page {
      *
      * @return integer  The permissions bitmask.
      */
-    function getPermissions()
+    public function getPermissions()
     {
         return parent::getPermissions($this->referrer());
     }
@@ -48,7 +45,7 @@ class RevertPage extends Wicked_Page {
      * Send them back whence they came if they aren't allowed to
      * edit this page.
      */
-    function preDisplay()
+    public function preDisplay()
     {
         $page = Wicked_Page::getPage($this->referrer());
         if (!$page->allows(Wicked::MODE_EDIT)) {
@@ -57,11 +54,11 @@ class RevertPage extends Wicked_Page {
     }
 
     /**
-     * Render this page in Display mode.
+     * Renders this page in display mode.
      *
-     * @return mixed True or PEAR_Error.
+     * @throws Wicked_Exception
      */
-    function display()
+    public function display()
     {
         $version = Horde_Util::getFormData('version');
         $page = Wicked_Page::getPage($this->referrer(), $version);
@@ -88,25 +85,24 @@ class RevertPage extends Wicked_Page {
 
 </form>
 <?php
-        return true;
     }
 
-    function pageName()
+    public function pageName()
     {
         return 'RevertPage';
     }
 
-    function pageTitle()
+    public function pageTitle()
     {
         return _("Revert Page");
     }
 
-    function referrer()
+    public function referrer()
     {
         return $this->_referrer;
     }
 
-    function handleAction()
+    public function handleAction()
     {
         global $notification;
 

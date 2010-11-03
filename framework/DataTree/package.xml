@@ -45,7 +45,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <min>1.4.0b1</min>
    </pearinstaller>
    <package>
-    <name>Horde_Framework</name>
+    <name>Core</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
