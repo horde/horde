@@ -86,8 +86,7 @@ class Horde_Core_Factory_Db
         }
 
         // Prevent DSN from getting polluted
-        if ($type == 'auth' && !empty($config['driver']) &&
-            $config['driver'] == 'customsql') {
+        if (!is_array($type) && $type == 'auth') {
             unset($config['query_auth'],
                   $config['query_add'],
                   $config['query_getpw'],
@@ -99,6 +98,8 @@ class Horde_Core_Factory_Db
                   $config['encryption'],
                   $config['show_encryption']);
         }
+        unset($config['umask']);
+
         try {
             $this->_instances[$sig] = $this->_createDb($config);
         } catch (Horde_Exception $e) {
