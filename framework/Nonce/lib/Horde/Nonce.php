@@ -36,4 +36,21 @@ class Horde_Nonce
     {
         return pack('Nn2', time(), mt_rand(), mt_rand());
     }
+
+    /**
+     * Validate a nonce.
+     *
+     * @param string $nonce   The nonce that should be validate.
+     * @param float  $timeout The nonce should be invalid after this amount of time.
+     *
+     * @return boolean True if the nonce is still valid.
+     */
+    public function isValid($nonce, $timeout)
+    {
+        $timestamp = unpack('N', substr($nonce, 0, 4));
+        if (array_pop($timestamp) < (time() - $timeout)) {
+            return false;
+        }
+        return true;
+    }
 }

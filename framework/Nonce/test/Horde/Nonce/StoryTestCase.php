@@ -65,6 +65,9 @@ extends PHPUnit_Extensions_Story_TestCase
         case 'retrieving a nonce':
             $world['nonce'] = $world['nonce_handler']->get();
             break;
+        case 'waiting for two seconds':
+            sleep(2);
+            break;
         default:
             return $this->notImplemented($action);
         }
@@ -84,6 +87,9 @@ extends PHPUnit_Extensions_Story_TestCase
         switch($action) {
         case 'the nonce has a length of 8 bytes':
             $this->assertEquals(8, strlen($world['nonce']));
+            break;
+        case 'the nonce is invalid given a timeout of one second':
+            $this->assertFalse($world['nonce_handler']->isValid($world['nonce'], 1));
             break;
         default:
             return $this->notImplemented($action);

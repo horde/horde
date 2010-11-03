@@ -52,7 +52,7 @@ extends Horde_Nonce_StoryTestCase
     {
         $this->given('the default nonce setup')
             ->when('retrieving a nonce')
-            ->and('waiting for the tenth of a second')
-            ->then('the nonce is invalid given a timeout of a twentieth of a second');
+            ->and('waiting for two seconds')
+            ->then('the nonce is invalid given a timeout of one second');
     }
 }
