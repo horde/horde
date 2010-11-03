@@ -140,12 +140,16 @@ class Components_Helper_ListRun
                 return true;
             }
         } else {
-            $this->_quiet_list[$key] = array(
-                'channel' => 'pear.horde.org',
-                'name' => $package->getName(),
-                'color' => 'green'
-            );
-            return true;
+            if (!isset($this->_quiet_list[$key])) {
+                $this->_quiet_list[$key] = array(
+                    'channel' => 'pear.horde.org',
+                    'name' => $package->getName(),
+                    'color' => 'green'
+                );
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 
