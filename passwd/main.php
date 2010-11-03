@@ -43,12 +43,10 @@ do {
     if ($conf['user']['change'] === true) {
         $userid = Horde_Util::getFormData('userid');
     } else {
-        if ($conf['hooks']['default_username']) {
-            $userid = Horde::callHook('_passwd_hook_default_username',
-                                      array(Auth::getAuth()),
-                                      'passwd');
-        } else {
-            $userid = $registry->getAuth($conf['hooks']['full_name'] ? null : 'bare');
+        try {
+            $userid = Horde::callHook('default_username', array($registry->getAuth()), 'passwd');
+        } catch (Horde_Exception_HookNotSet $e) {
+            $userid = $registry->getAuth();
         }
     }
 
@@ -195,16 +193,10 @@ do {
         break;
     }
 
-    $backend_userid = $userid;
-
-    if ($conf['hooks']['username']) {
-        $backend_userid = Horde::callHook('_passwd_hook_username',
-                                          array($userid, &$daemon),
-                                          'passwd');
-        if (is_a($backend_userid, 'PEAR_Error')) {
-            $notification->push($backend_userid, 'horde.error');
-            break;
-        }
+    try {
+        $backend_userid = Horde::callHook('username', array($userid, $daemon), 'passwd');
+    } catch (Horde_Exception_HookNotSet $e) {
+        $backend_userid = $userid;
     }
 
     $res = $daemon->changePassword($backend_userid, $old_password,
@@ -219,9 +211,9 @@ do {
         $notification->push(sprintf(_("Password changed on %s."),
                                     $backends[$backend_key]['name']), 'horde.success');
 
-        Horde::callHook('_passwd_password_changed',
-                        array($backend_userid, $old_password, $new_password0),
-                        'passwd');
+        try {
+            Horde::callHook('password_changed', array($backend_userid, $old_password, $new_password0), 'passwd');
+        } catch (Horde_Exception_HookNotSet $e) {}
 
         $return_to = Horde_Util::getFormData('return_to');
         if (!empty($return_to)) {
@@ -259,12 +251,10 @@ if ($conf['backend']['backend_list'] == 'shown') {
 
 // Extract userid to be shown in the username field.
 if (empty($userid)) {
-    if ($conf['hooks']['default_username']) {
-        $userid = Horde::callHook('_passwd_hook_default_username',
-                                  array(Auth::getAuth()),
-                                  'passwd');
-    } else {
-        $userid = $registry->getAuth($conf['hooks']['full_name'] ? null : 'bare');
+    try {
+        $userid = Horde::callHook('default_username', array($registry->getAuth()), 'passwd');
+    } catch (Horde_Exception_HookNotSet $e) {
+        $userid = $registry->getAuth();
     }
 }
 

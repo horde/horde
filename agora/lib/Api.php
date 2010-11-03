@@ -453,11 +453,11 @@ class Agora_Api extends Horde_Registry_Api
 
         /* Check post permissions. */
         if (!$messages->hasPermission(Horde_Perms::EDIT)) {
-            $message = sprintf(_("You don't have permission to post messages in forum %s."), $params['forum_id']);
-            if (!empty($GLOBALS['conf']['hooks']['permsdenied'])) {
-                $message = Horde::callHook('perms_denied', array('agora'), 'horde', $message);
+            try {
+                return Horde::callHook('perms_denied', array('agora'));
+            } catch (Horde_Exception_HookNotSet $e) {
+                return sprintf(_("You don't have permission to post messages in forum %s."), $params['forum_id']);
             }
-            return $message;
         }
 
         if (isset($params['message_id'])) {

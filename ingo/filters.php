@@ -257,8 +257,7 @@ if (count($filter_list) == 0) {
 
         /* Create copy link. */
         if (!is_null($copyurl) &&
-            (!empty($conf['hooks']['permsdenied']) ||
-             $perms->hasAppPermission('max_rules') === true ||
+            ($perms->hasAppPermission('max_rules') === true ||
              $perms->hasAppPermission('max_rules') > count($filter_list))) {
             $entry['copylink'] = Horde::link($copyurl, sprintf(_("Copy %s"), $name));
             $entry['copyimg'] = Horde::img('copy.png', sprintf(_("Copy %s"), $name));
@@ -314,10 +313,9 @@ if (count($filter_list) == 0) {
 
 $actions = $ingo_script->availableActions();
 $createrule = (!empty($actions) &&
-               (!empty($conf['hooks']['permsdenied']) ||
-                ($perms->hasAppPermission('allow_rules') &&
-                 ($perms->hasAppPermission('max_rules') === true ||
-                  $perms->hasAppPermission('max_rules') > count($filter_list)))));
+               ($perms->hasAppPermission('allow_rules') &&
+                ($perms->hasAppPermission('max_rules') === true ||
+                 $perms->hasAppPermission('max_rules') > count($filter_list))));
 $canapply = $ingo_script->canApply();
 require INGO_TEMPLATES . '/filters/footer.inc';
 if ($on_demand && $edit_allowed) {

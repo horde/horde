@@ -78,8 +78,7 @@ class Kronolith_View_EditEvent {
 
         $buttons = array();
         if (!$this->event->hasPermission(Horde_Perms::EDIT) &&
-            (!empty($GLOBALS['conf']['hooks']['permsdenied']) ||
-             $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') === true ||
+            ($GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') === true ||
              $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') > Kronolith::countEvents())) {
             $buttons[] = '<input type="submit" class="button" name="saveAsNew" value="' . _("Save As New") . '" />';
         } else {
@@ -88,8 +87,7 @@ class Kronolith_View_EditEvent {
             }
             if ($this->event->initialized) {
                 if (!$this->event->recurs() &&
-                    (!empty($conf['hooks']['permsdenied']) ||
-                     $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') === true ||
+                    ($GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') === true ||
                      $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') > Kronolith::countEvents())) {
                     $buttons[] = '<input type="submit" class="button" name="saveAsNew" value="' . _("Save As New") . '" />';
                 }

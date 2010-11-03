@@ -83,8 +83,7 @@ class Nag_Application extends Horde_Registry_Application
         $menu->add(Horde::url('list.php'), _("_List Tasks"), 'nag.png', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
 
         if (Nag::getDefaultTasklist(Horde_Perms::EDIT) &&
-            (!empty($conf['hooks']['permsdenied']) ||
-             $injector->getInstance('Horde_Perms')->hasAppPermission('max_tasks') === true ||
+            ($injector->getInstance('Horde_Perms')->hasAppPermission('max_tasks') === true ||
              $injector->getInstance('Horde_Perms')->hasAppPermission('max_tasks') > Nag::countTasks())) {
             $menu->add(Horde::url('task.php')->add('actionID', 'add_task'), _("_New Task"), 'add.png', null, null, null, Horde_Util::getFormData('task') ? '__noselection' : null);
             if ($GLOBALS['browser']->hasFeature('dom')) {

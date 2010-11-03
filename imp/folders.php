@@ -382,7 +382,7 @@ if ($a_template->get('javascript')) {
     $a_template->set('go', _("Go"));
 }
 
-$a_template->set('create_folder', !empty($conf['hooks']['permsdenied']) || ($injector->getInstance('Horde_Perms')->hasAppPermission('create_folders') && $injector->getInstance('Horde_Perms')->hasAppPermission('max_folders')));
+$a_template->set('create_folder', $injector->getInstance('Horde_Perms')->hasAppPermission('create_folders') && $injector->getInstance('Horde_Perms')->hasAppPermission('max_folders'));
 if ($prefs->getValue('subscribe')) {
     $a_template->set('subscribe', true);
     $subToggleText = ($showAll) ? _("Hide Unsubscribed") : _("Show Unsubscribed");
