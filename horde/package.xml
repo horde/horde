@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
  <name>horde</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Application Framework</summary>
@@ -20,7 +20,7 @@ applications.</description>
   <active>yes</active>
  </lead>
  <date>2010-11-03</date>
- <time>06:27:19</time>
+ <time>14:58:55</time>
  <version>
   <release>4.0.0</release>
   <api>4.0.0</api>
@@ -733,6 +733,9 @@ applications.</description>
      <file name="2.2_to_3.0.mysql.sql" role="data" />
      <file name="2.2_to_3.0.oci8.sql" role="data" />
      <file name="2.2_to_3.0.pgsql.sql" role="data" />
+     <file name="3.0_to_3.1.mysql.sql" role="data" />
+     <file name="3.0_to_3.1.oci8.sql" role="data" />
+     <file name="3.0_to_3.1.sql" role="data" />
      <file name="3.1_to_3.2.mssql.sql" role="data" />
      <file name="3.1_to_3.2.mysql.sql" role="data" />
      <file name="3.1_to_3.2.oci8.sql" role="data" />
@@ -740,9 +743,6 @@ applications.</description>
      <file name="3.1_to_3.2.sql" role="data" />
      <file name="3.1_to_3.2.sybase.sql" role="data" />
      <file name="3.3_to_3.3.5.sql" role="data" />
-     <file name="3.0_to_3.1.mysql.sql" role="data" />
-     <file name="3.0_to_3.1.oci8.sql" role="data" />
-     <file name="3.0_to_3.1.sql" role="data" />
      <file name="2005-09-22_horde_prefs_varchar2.oci8.sql" role="data" />
      <file name="2006-06-29_horde_prefs_indexes.sql" role="data" />
      <file name="2007-02-21_horde_alarms_primary.sql" role="data" />
@@ -2141,13 +2141,13 @@ applications.</description>
    <install as="admin/perms/delete.php" name="admin/perms/delete.php" />
    <install as="admin/perms/edit.php" name="admin/perms/edit.php" />
    <install as="admin/perms/index.php" name="admin/perms/index.php" />
-   <install as="active_sessions" name="bin/active_sessions" />
-   <install as="alarms" name="bin/alarms" />
-   <install as="crond" name="bin/crond" />
-   <install as="db_migrate" name="bin/db_migrate" />
-   <install as="memcache_stats" name="bin/memcache_stats" />
-   <install as="run_task" name="bin/run_task" />
-   <install as="translation" name="bin/translation" />
+   <install as="bin/active_sessions" name="bin/active_sessions" />
+   <install as="bin/alarms" name="bin/alarms" />
+   <install as="bin/crond" name="bin/crond" />
+   <install as="bin/db_migrate" name="bin/db_migrate" />
+   <install as="bin/memcache_stats" name="bin/memcache_stats" />
+   <install as="bin/run_task" name="bin/run_task" />
+   <install as="bin/translation" name="bin/translation" />
    <install as="config/conf.php.dist" name="config/conf.php.dist" />
    <install as="config/conf.xml" name="config/conf.xml" />
    <install as="config/hooks.php.dist" name="config/hooks.php.dist" />
@@ -2158,20 +2158,20 @@ applications.</description>
    <install as="config/registry.php.dist" name="config/registry.php.dist" />
    <install as="config/spelling.php.dist" name="config/spelling.php.dist" />
    <install as="config/registry.d/README" name="config/registry.d/README" />
-   <install as="docs/CHANGES" name="docs/CHANGES" />
-   <install as="docs/CODING_STANDARDS" name="docs/CODING_STANDARDS" />
+   <install as="CHANGES" name="docs/CHANGES" />
+   <install as="CODING_STANDARDS" name="docs/CODING_STANDARDS" />
    <install as="CODING_STANDARDS.H3" name="docs/CODING_STANDARDS.H3" />
-   <install as="docs/CONTRIBUTING" name="docs/CONTRIBUTING" />
-   <install as="docs/CREDITS" name="docs/CREDITS" />
-   <install as="docs/INSTALL" name="docs/INSTALL" />
-   <install as="docs/LICENSES" name="docs/LICENSES" />
+   <install as="CONTRIBUTING" name="docs/CONTRIBUTING" />
+   <install as="CREDITS" name="docs/CREDITS" />
+   <install as="INSTALL" name="docs/INSTALL" />
+   <install as="LICENSES" name="docs/LICENSES" />
    <install as="lighttpd-horde.conf" name="docs/lighttpd-horde.conf" />
-   <install as="docs/PERFORMANCE" name="docs/PERFORMANCE" />
-   <install as="docs/RELEASE" name="docs/RELEASE" />
-   <install as="docs/RELEASE_NOTES" name="docs/RELEASE_NOTES" />
-   <install as="docs/SECURITY" name="docs/SECURITY" />
-   <install as="docs/TRANSLATIONS" name="docs/TRANSLATIONS" />
-   <install as="docs/UPGRADING" name="docs/UPGRADING" />
+   <install as="PERFORMANCE" name="docs/PERFORMANCE" />
+   <install as="RELEASE" name="docs/RELEASE" />
+   <install as="RELEASE_NOTES" name="docs/RELEASE_NOTES" />
+   <install as="SECURITY" name="docs/SECURITY" />
+   <install as="TRANSLATIONS" name="docs/TRANSLATIONS" />
+   <install as="UPGRADING" name="docs/UPGRADING" />
    <install as="js/accesskeys.js" name="js/accesskeys.js" />
    <install as="js/activesyncadmin.js" name="js/activesyncadmin.js" />
    <install as="js/activesyncprefs.js" name="js/activesyncprefs.js" />
@@ -2390,7 +2390,7 @@ applications.</description>
    <install as="lib/LoginTasks/Task/TestScriptActive.php" name="lib/LoginTasks/Task/TestScriptActive.php" />
    <install as="lib/LoginTasks/Task/TosAgreement.php" name="lib/LoginTasks/Task/TosAgreement.php" />
    <install as="lib/Prefs/Ui.php" name="lib/Prefs/Ui.php" />
-   <install as="tests/webroot.phpt" name="lib/tests/webroot.phpt" />
+   <install as="lib/tests/webroot.phpt" name="lib/tests/webroot.phpt" />
    <install as="locale/compendium.po.tmp" name="locale/compendium.po.tmp" />
    <install as="locale/horde.pot" name="locale/horde.pot" />
    <install as="locale/ar/LC_MESSAGES/horde.mo" name="locale/ar/LC_MESSAGES/horde.mo" />
@@ -2586,6 +2586,9 @@ applications.</description>
    <install as="scripts/upgrades/2.2_to_3.0.mysql.sql" name="scripts/upgrades/2.2_to_3.0.mysql.sql" />
    <install as="scripts/upgrades/2.2_to_3.0.oci8.sql" name="scripts/upgrades/2.2_to_3.0.oci8.sql" />
    <install as="scripts/upgrades/2.2_to_3.0.pgsql.sql" name="scripts/upgrades/2.2_to_3.0.pgsql.sql" />
+   <install as="scripts/upgrades/3.0_to_3.1.mysql.sql" name="scripts/upgrades/3.0_to_3.1.mysql.sql" />
+   <install as="scripts/upgrades/3.0_to_3.1.oci8.sql" name="scripts/upgrades/3.0_to_3.1.oci8.sql" />
+   <install as="scripts/upgrades/3.0_to_3.1.sql" name="scripts/upgrades/3.0_to_3.1.sql" />
    <install as="scripts/upgrades/3.1_to_3.2.mssql.sql" name="scripts/upgrades/3.1_to_3.2.mssql.sql" />
    <install as="scripts/upgrades/3.1_to_3.2.mysql.sql" name="scripts/upgrades/3.1_to_3.2.mysql.sql" />
    <install as="scripts/upgrades/3.1_to_3.2.oci8.sql" name="scripts/upgrades/3.1_to_3.2.oci8.sql" />
@@ -2593,9 +2596,6 @@ applications.</description>
    <install as="scripts/upgrades/3.1_to_3.2.sql" name="scripts/upgrades/3.1_to_3.2.sql" />
    <install as="scripts/upgrades/3.1_to_3.2.sybase.sql" name="scripts/upgrades/3.1_to_3.2.sybase.sql" />
    <install as="scripts/upgrades/3.3_to_3.3.5.sql" name="scripts/upgrades/3.3_to_3.3.5.sql" />
-   <install as="scripts/upgrades/3.0_to_3.1.mysql.sql" name="scripts/upgrades/3.0_to_3.1.mysql.sql" />
-   <install as="scripts/upgrades/3.0_to_3.1.oci8.sql" name="scripts/upgrades/3.0_to_3.1.oci8.sql" />
-   <install as="scripts/upgrades/3.0_to_3.1.sql" name="scripts/upgrades/3.0_to_3.1.sql" />
    <install as="scripts/upgrades/2005-09-22_horde_prefs_varchar2.oci8.sql" name="scripts/upgrades/2005-09-22_horde_prefs_varchar2.oci8.sql" />
    <install as="scripts/upgrades/2006-06-29_horde_prefs_indexes.sql" name="scripts/upgrades/2006-06-29_horde_prefs_indexes.sql" />
    <install as="scripts/upgrades/2007-02-21_horde_alarms_primary.sql" name="scripts/upgrades/2007-02-21_horde_alarms_primary.sql" />
