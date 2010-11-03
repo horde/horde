@@ -150,7 +150,7 @@ class Horde_Core_Sidebar
                           !isset($params['webroot'])) {
                     $url = null;
                 } else {
-                    $url = Horde::url($registry->getInitialPage($app));
+                    $url = Horde::url($registry->getInitialPage($app), false, array('app' => $app));
                 }
 
                 $tree->addNode(
