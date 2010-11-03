@@ -38,8 +38,8 @@ if ($calendar_id == 'internal_') {
 }
 
 $event = Kronolith::getDriver()->getEvent();
-$session['kronolith:attendees'] = $event->attendees;
-$session['kronolith:resources'] = $event->getResources();
+$session->set('kronolith', 'attendees', $event->attendees);
+$session->set('kronolith', 'resources', $event->getResources());
 
 $date = Horde_Util::getFormData('datetime');
 if (!$date) {
