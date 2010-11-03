@@ -75,13 +75,13 @@ applications.</description>
     <file name="user.php" role="horde" />
    </dir> <!-- /admin -->
    <dir name="bin">
-    <file name="active_sessions" role="script" />
-    <file name="alarms" role="script" />
-    <file name="crond" role="script" />
-    <file name="db_migrate" role="script" />
-    <file name="memcache_stats" role="script" />
-    <file name="run_task" role="script" />
-    <file name="translation" role="script" />
+    <file name="active_sessions" role="horde" />
+    <file name="alarms" role="horde" />
+    <file name="crond" role="horde" />
+    <file name="db_migrate" role="horde" />
+    <file name="memcache_stats" role="horde" />
+    <file name="run_task" role="horde" />
+    <file name="translation" role="horde" />
    </dir> <!-- /bin -->
    <dir name="config">
     <dir name="registry.d">
