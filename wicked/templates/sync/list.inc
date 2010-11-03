@@ -13,7 +13,7 @@ function _format_date($timestamp)
 }
 
 /* Find new pages to download */
-echo  '<h2>' . _("New pages on remote server") . ': ' . $_SESSION['wicked']['sync']['url'] . ' (' . $_SESSION['wicked']['sync']['user'] . ')</h2>';
+echo  '<h2>' . _("New pages on remote server") . ': ' . $GLOBALS['session']->get('wicked', 'sync_url') . ' (' . $GLOBALS['session']->get('wicked', 'sync_user') . ')</h2>';
 if (empty($new_remote)) {
     echo _("No pages found");
 } else {

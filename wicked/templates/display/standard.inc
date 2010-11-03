@@ -103,10 +103,10 @@ if ($GLOBALS['registry']->isAdmin()) {
                        'widget', '_blank', '', _("Permissio_ns"));
 }
 ?>
-<?php if (empty($isBlock) && !empty($_SESSION['wickedSession']['history'])): ?>
+<?php if (empty($isBlock) && $GLOBALS['session']->get('wicked', 'history')): ?>
   <?php separator(); echo Horde::widget('#', _("Back to"), 'widget', '', 'document.location = document.display.history[document.display.history.selectedIndex].value;', _("Ba_ck to")) ?>
   <select name="history" onchange="document.location = document.display.history[document.display.history.selectedIndex].value">
-<?php foreach ($_SESSION['wickedSession']['history'] as $history): if (!strlen($history)) continue; ?>
+<?php foreach ($GLOBALS['session']->get('wicked', 'history') as $history): if (!strlen($history)) continue; ?>
    <option value="<?php echo Wicked::url($history) ?>"><?php echo htmlspecialchars($history) ?></option>
 <?php endforeach; ?>
   </select>
