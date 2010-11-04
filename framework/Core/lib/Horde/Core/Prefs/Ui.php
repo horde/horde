@@ -588,9 +588,9 @@ class Horde_Core_Prefs_Ui
         $t->set('header', htmlspecialchars(($this->app == 'horde') ? Horde_Core_Translation::t("Global Preferences") : sprintf(Horde_Core_Translation::t("Preferences for %s"), $registry->get('name', $this->app))));
 
         if ($GLOBALS['session']->get('horde', 'prefs_advanced')) {
-            $t->set('advanced', $this->selfUrl()->add('show_advanced', 1));
-        } else {
             $t->set('basic', $this->selfUrl()->add('show_basic', 1));
+        } else {
+            $t->set('advanced', $this->selfUrl()->add('show_advanced', 1));
         }
 
         echo $t->fetch($h_templates . '/prefs/app.html');
