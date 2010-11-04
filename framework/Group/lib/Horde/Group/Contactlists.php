@@ -51,7 +51,7 @@ class Horde_Group_Contactlists extends Horde_Group
     public function __construct(array $params = array())
     {
         // Get a list of all available Turba sources
-        $turba_sources = Horde::loadConfiguration('sources.php',
+        $turba_sources = Horde::loadConfiguration('backends.php',
                                                   'cfgSources', 'turba');
 
         // We only support sql type sources.
