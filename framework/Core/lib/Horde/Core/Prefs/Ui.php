@@ -97,6 +97,8 @@ class Horde_Core_Prefs_Ui
      */
     public function __construct($vars)
     {
+        global $registry;
+
         $this->app = isset($vars->app)
             ? $vars->app
             : $this->getDefaultApp();
@@ -105,10 +107,10 @@ class Horde_Core_Prefs_Ui
 
         /* Load the application's base environment. */
         try {
-            $GLOBALS['registry']->pushApp($this->app);
+            $registry->pushApp($this->app);
         } catch (Horde_Exception $e) {
             if ($e->getCode() == Horde_Registry::AUTH_FAILURE) {
-                $GLOBALS['registry']->authenticateFailure($this->app, $e);
+                $registry->authenticateFailure($this->app, $e);
             }
             throw $e;
         }
@@ -118,9 +120,14 @@ class Horde_Core_Prefs_Ui
 
         /* Populate enums. */
         if ($this->group &&
-            $GLOBALS['registry']->hasAppMethod($this->app, 'prefsEnum') &&
+            $registry->hasAppMethod($this->app, 'prefsEnum') &&
             $this->groupIsEditable($this->group)) {
-            $GLOBALS['registry']->callAppMethod($this->app, 'prefsEnum', array('args' => array($this)));
+            $registry->callAppMethod($this->app, 'prefsEnum', array('args' => array($this)));
+        }
+
+        /* Run app-specific init code. */
+        if ($registry->hasAppMethod($this->app, 'prefsInit')) {
+            $registry->callAppMethod($this->app, 'prefsInit', array('args' => array($this)));
         }
     }
 
@@ -353,11 +360,6 @@ class Horde_Core_Prefs_Ui
 
         $columns = $pref_list = array();
         $identities = false;
-
-        /* Run app-specific init code. */
-        if ($registry->hasAppMethod($this->app, 'prefsInit')) {
-            $registry->callAppMethod($this->app, 'prefsInit', array('args' => array($this)));
-        }
 
         $prefgroups = $this->_getPrefGroups();
 
