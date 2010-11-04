@@ -39,9 +39,9 @@ div.msgSubject span.treeImg {
 }
 
 /* Fixes broken inline-block. */
-#upload_wait,
+.msgwrite span.loadingImg,
 #noticerow .notices li,
-.msgwrite span.loadingImg {
+#upload_wait {
     zoom: 1;
     *display: inline;
 }
