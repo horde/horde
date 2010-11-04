@@ -445,20 +445,21 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      * @param string $body     The message body.
      * @param array $header    List of message headers.
      * @param string $charset  The sending charset.
-     * @param boolean $html    Whether this is an HTML message.
      * @param array $opts      An array of options w/the following keys:
      * <pre>
-     * 'encrypt' => (integer) A flag whether to encrypt or sign the message.
-     *              One of IMP::PGP_ENCRYPT, IMP::PGP_SIGNENC,
-     *              IMP::SMIME_ENCRYPT, or IMP::SMIME_SIGNENC.
-     * 'identity' => (IMP_Prefs_Identity) If set, checks for proper tie-to
-     *               addresses.
-     * 'priority' => (string) The message priority ('high', 'normal', 'low').
-     * 'save_sent' = (bool) Save sent mail?
-     * 'sent_folder' = (string) The sent-mail folder (UTF7-IMAP).
-     * 'save_attachments' = (bool) Save attachments with the message?
-     * 'readreceipt' => (bool) Add return receipt headers?
-     * 'useragent' => (string) The User-Agent string to use.
+     * encrypt - (integer) A flag whether to encrypt or sign the message.
+     *           One of IMP::PGP_ENCRYPT, IMP::PGP_SIGNENC,
+     *           IMP::SMIME_ENCRYPT, or IMP::SMIME_SIGNENC.
+     * html - (boolean) Whether this is an HTML message.
+     *        DEFAULT: false
+     * identity - (IMP_Prefs_Identity) If set, checks for proper tie-to
+     *            addresses.
+     * priority - (string) The message priority ('high', 'normal', 'low').
+     * save_sent - (boolean) Save sent mail?
+     * sent_folder - (string) The sent-mail folder (UTF7-IMAP).
+     * save_attachments - (bool) Save attachments with the message?
+     * readreceipt - (boolean) Add return receipt headers?
+     * useragent - (string) The User-Agent string to use.
      * </pre>
      *
      * @return boolean  Whether the sent message has been saved in the
@@ -467,8 +468,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      * @throws IMP_Compose_Exception
      * @throws IMP_Exception
      */
-    public function buildAndSendMessage($body, $header, $charset, $html,
-                                        $opts = array())
+    public function buildAndSendMessage($body, $header, $charset,
+                                        array $opts = array())
     {
         global $conf, $notification, $prefs, $registry;
 
@@ -501,7 +502,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         $send_msgs = array();
         $msg_options = array(
             'encrypt' => $encrypt,
-            'html' => $html
+            'html' => !empty($opts['html'])
         );
 
         /* Must encrypt & send the message one recipient at a time. */

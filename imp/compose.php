@@ -417,6 +417,7 @@ case 'send_message':
 
     $options = array(
         'encrypt' => $prefs->isLocked('default_encrypt') ? $prefs->getValue('default_encrypt') : $vars->encrypt_options,
+        'html' => $rtemode,
         'identity' => $identity,
         'priority' => $vars->priority,
         'save_sent' => $save_sent_mail,
@@ -426,7 +427,7 @@ case 'send_message':
     );
 
     try {
-        $sent = $imp_compose->buildAndSendMessage($message, $header, $charset, $rtemode, $options);
+        $sent = $imp_compose->buildAndSendMessage($message, $header, $charset, $options);
         $imp_compose->destroy('send');
     } catch (IMP_Compose_Exception $e) {
         $get_sig = false;
