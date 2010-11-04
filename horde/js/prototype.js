@@ -166,10 +166,12 @@ var Class = (function() {
       NUMBER_TYPE = 'Number',
       STRING_TYPE = 'String',
       OBJECT_TYPE = 'Object',
+      FUNCTION_CLASS = '[object Function]',
       BOOLEAN_CLASS = '[object Boolean]',
       NUMBER_CLASS = '[object Number]',
       STRING_CLASS = '[object String]',
       ARRAY_CLASS = '[object Array]',
+      DATE_CLASS = '[object Date]',
       NATIVE_JSON_STRINGIFY_SUPPORT = window.JSON &&
         typeof JSON.stringify === 'function' &&
         JSON.stringify(0) === '0' &&
@@ -322,7 +324,7 @@ var Class = (function() {
   }
 
   function isFunction(object) {
-    return typeof object === "function";
+    return _toString.call(object) === FUNCTION_CLASS;
   }
 
   function isString(object) {
@@ -331,6 +333,10 @@ var Class = (function() {
 
   function isNumber(object) {
     return _toString.call(object) === NUMBER_CLASS;
+  }
+
+  function isDate(object) {
+    return _toString.call(object) === DATE_CLASS;
   }
 
   function isUndefined(object) {
@@ -352,6 +358,7 @@ var Class = (function() {
     isFunction:    isFunction,
     isString:      isString,
     isNumber:      isNumber,
+    isDate:        isDate,
     isUndefined:   isUndefined
   });
 })();
@@ -1079,9 +1086,10 @@ Array.from = $A;
       slice = arrayProto.slice,
       _each = arrayProto.forEach; // use native browser JS 1.6 implementation if available
 
-  function each(iterator) {
-    for (var i = 0, length = this.length; i < length; i++)
-      iterator(this[i]);
+  function each(iterator, context) {
+    for (var i = 0, length = this.length >>> 0; i < length; i++) {
+      if (i in this) iterator.call(context, this[i], i, this);
+    }
   }
   if (!_each) _each = each;
 
@@ -1493,11 +1501,8 @@ Ajax.Request = Class.create(Ajax.Base, {
       this.method = 'post';
     }
 
-    if (params) {
-      if (this.method == 'get')
-        this.url += (this.url.include('?') ? '&' : '?') + params;
-      else if (/Konqueror|Safari|KHTML/.test(navigator.userAgent))
-        params += '&_=';
+    if (params && this.method === 'get') {
+      this.url += (this.url.include('?') ? '&' : '?') + params;
     }
 
     this.parameters = params.toQueryParams();
@@ -1570,11 +1575,12 @@ Ajax.Request = Class.create(Ajax.Base, {
 
   success: function() {
     var status = this.getStatus();
-    return !status || (status >= 200 && status < 300);
+    return !status || (status >= 200 && status < 300) || status == 304;
   },
 
   getStatus: function() {
     try {
+      if (this.transport.status === 1223) return 204;
       return this.transport.status || 0;
     } catch (e) { return 0 }
   },
@@ -1849,6 +1855,11 @@ if (!Node.ELEMENT_NODE) {
 
 
 (function(global) {
+  function shouldUseCache(tagName, attributes) {
+    if (tagName === 'select') return false;
+    if ('type' in attributes) return false;
+    return true;
+  }
 
   var HAS_EXTENDED_CREATE_ELEMENT_SYNTAX = (function(){
     try {
@@ -1875,8 +1886,8 @@ if (!Node.ELEMENT_NODE) {
 
     if (!cache[tagName]) cache[tagName] = Element.extend(document.createElement(tagName));
 
-    var node = ('type' in attributes) ? document.createElement(tagName) :
-     cache[tagName].cloneNode(false);
+    var node = shouldUseCache(tagName, attributes) ?
+     cache[tagName].cloneNode(false) : document.createElement(tagName);
 
     return Element.writeAttribute(node, attributes);
   };
@@ -1954,6 +1965,21 @@ Element.Methods = {
       }
     })();
 
+    var LINK_ELEMENT_INNERHTML_BUGGY = (function() {
+      try {
+        var el = document.createElement('div');
+        el.innerHTML = "<link>";
+        var isBuggy = (el.childNodes.length === 0);
+        el = null;
+        return isBuggy;
+      } catch(e) {
+        return true;
+      }
+    })();
+
+    var ANY_INNERHTML_BUGGY = SELECT_ELEMENT_INNERHTML_BUGGY ||
+     TABLE_ELEMENT_INNERHTML_BUGGY || LINK_ELEMENT_INNERHTML_BUGGY;
+
     var SCRIPT_ELEMENT_REJECTS_TEXTNODE_APPENDING = (function () {
       var s = document.createElement("script"),
           isBuggy = false;
@@ -1967,6 +1993,7 @@ Element.Methods = {
       s = null;
       return isBuggy;
     })();
+
 
     function update(element, content) {
       element = $(element);
@@ -1991,7 +2018,7 @@ Element.Methods = {
         return element;
       }
 
-      if (SELECT_ELEMENT_INNERHTML_BUGGY || TABLE_ELEMENT_INNERHTML_BUGGY) {
+      if (ANY_INNERHTML_BUGGY) {
         if (tagName in Element._insertionTranslations.tags) {
           while (element.firstChild) {
             element.removeChild(element.firstChild);
@@ -2000,6 +2027,12 @@ Element.Methods = {
             .each(function(node) {
               element.appendChild(node)
             });
+        } else if (LINK_ELEMENT_INNERHTML_BUGGY && Object.isString(content) && content.indexOf('<link') > -1) {
+          while (element.firstChild) {
+            element.removeChild(element.firstChild);
+          }
+          var nodes = Element._getContentFromAnonymousElement(tagName, content.stripScripts(), true);
+          nodes.each(function(node) { element.appendChild(node) });
         }
         else {
           element.innerHTML = content.stripScripts();
@@ -2462,8 +2495,6 @@ if (Prototype.Browser.Opera) {
   Element.Methods.getStyle = Element.Methods.getStyle.wrap(
     function(proceed, element, style) {
       switch (style) {
-        case 'left': case 'top': case 'right': case 'bottom':
-          if (proceed(element, 'position') === 'static') return null;
         case 'height': case 'width':
           if (!Element.visible(element)) return null;
 
@@ -2765,11 +2796,20 @@ Element._returnOffset = function(l, t) {
   return result;
 };
 
-Element._getContentFromAnonymousElement = function(tagName, html) {
+Element._getContentFromAnonymousElement = function(tagName, html, force) {
   var div = new Element('div'),
       t = Element._insertionTranslations.tags[tagName];
-  if (t) {
-    div.innerHTML = t[0] + html + t[1];
+
+  var workaround = false;
+  if (t) workaround = true;
+  else if (force) {
+    workaround = true;
+    t = ['', '', 0];
+  }
+
+  if (workaround) {
+    div.innerHTML = '&nbsp;' + t[0] + html + t[1];
+    div.removeChild(div.firstChild);
     for (var i = t[2]; i--; ) {
       div = div.firstChild;
     }
@@ -2928,7 +2968,8 @@ Element.addMethods = function(methods) {
       "FORM":     Object.clone(Form.Methods),
       "INPUT":    Object.clone(Form.Element.Methods),
       "SELECT":   Object.clone(Form.Element.Methods),
-      "TEXTAREA": Object.clone(Form.Element.Methods)
+      "TEXTAREA": Object.clone(Form.Element.Methods),
+      "BUTTON":   Object.clone(Form.Element.Methods)
     });
   }
 
@@ -3640,15 +3681,17 @@ Element.addMethods({
   }
 
   function getOffsetParent(element) {
-    if (isDetached(element)) return $(document.body);
+    element = $(element);
+
+    if (isDocument(element) || isDetached(element) || isBody(element) || isHtml(element))
+      return $(document.body);
 
     var isInline = (Element.getStyle(element, 'display') === 'inline');
     if (!isInline && element.offsetParent) return $(element.offsetParent);
-    if (element === document.body) return $(element);
 
     while ((element = element.parentNode) && element !== document.body) {
       if (Element.getStyle(element, 'position') !== 'static') {
-        return (element.nodeName === 'HTML') ? $(document.body) : $(element);
+        return isHtml(element) ? $(document.body) : $(element);
       }
     }
 
@@ -3657,6 +3700,7 @@ Element.addMethods({
 
 
   function cumulativeOffset(element) {
+    element = $(element);
     var valueT = 0, valueL = 0;
     if (element.parentNode) {
       do {
@@ -3669,6 +3713,8 @@ Element.addMethods({
   }
 
   function positionedOffset(element) {
+    element = $(element);
+
     var layout = element.getLayout();
 
     var valueT = 0, valueL = 0;
@@ -3700,6 +3746,7 @@ Element.addMethods({
   }
 
   function viewportOffset(forElement) {
+    element = $(element);
     var valueT = 0, valueL = 0, docBody = document.body;
 
     var element = forElement;
@@ -3769,7 +3816,9 @@ Element.addMethods({
     getOffsetParent = getOffsetParent.wrap(
       function(proceed, element) {
         element = $(element);
-        if (isDetached(element)) return $(document.body);
+
+        if (isDocument(element) || isDetached(element) || isBody(element) || isHtml(element))
+          return $(document.body);
 
         var position = element.getStyle('position');
         if (position !== 'static') return proceed(element);
@@ -3798,6 +3847,7 @@ Element.addMethods({
     });
   } else if (Prototype.Browser.Webkit) {
     cumulativeOffset = function(element) {
+      element = $(element);
       var valueT = 0, valueL = 0;
       do {
         valueT += element.offsetTop  || 0;
@@ -3828,6 +3878,14 @@ Element.addMethods({
 
   function isBody(element) {
     return element.nodeName.toUpperCase() === 'BODY';
+  }
+
+  function isHtml(element) {
+    return element.nodeName.toUpperCase() === 'HTML';
+  }
+
+  function isDocument(element) {
+    return element.nodeType === Node.DOCUMENT_NODE;
   }
 
   function isDetached(element) {
@@ -4995,7 +5053,8 @@ Form.Methods = {
 
   focusFirstElement: function(form) {
     form = $(form);
-    form.findFirstElement().activate();
+    var element = form.findFirstElement();
+    if (element) element.activate();
     return form;
   },
 
@@ -5102,67 +5161,77 @@ var $F = Form.Element.Methods.getValue;
 
 /*--------------------------------------------------------------------------*/
 
-Form.Element.Serializers = {
-  input: function(element, value) {
+Form.Element.Serializers = (function() {
+  function input(element, value) {
     switch (element.type.toLowerCase()) {
       case 'checkbox':
       case 'radio':
-        return Form.Element.Serializers.inputSelector(element, value);
+        return inputSelector(element, value);
       default:
-        return Form.Element.Serializers.textarea(element, value);
+        return valueSelector(element, value);
     }
-  },
+  }
 
-  inputSelector: function(element, value) {
-    if (Object.isUndefined(value)) return element.checked ? element.value : null;
+  function inputSelector(element, value) {
+    if (Object.isUndefined(value))
+      return element.checked ? element.value : null;
     else element.checked = !!value;
-  },
+  }
 
-  textarea: function(element, value) {
+  function valueSelector(element, value) {
     if (Object.isUndefined(value)) return element.value;
     else element.value = value;
-  },
+  }
 
-  select: function(element, value) {
+  function select(element, value) {
     if (Object.isUndefined(value))
-      return this[element.type == 'select-one' ?
-        'selectOne' : 'selectMany'](element);
-    else {
-      var opt, currentValue, single = !Object.isArray(value);
-      for (var i = 0, length = element.length; i < length; i++) {
-        opt = element.options[i];
-        currentValue = this.optionValue(opt);
-        if (single) {
-          if (currentValue == value) {
-            opt.selected = true;
-            return;
-          }
+      return (element.type === 'select-one' ? selectOne : selectMany)(element);
+
+    var opt, currentValue, single = !Object.isArray(value);
+    for (var i = 0, length = element.length; i < length; i++) {
+      opt = element.options[i];
+      currentValue = this.optionValue(opt);
+      if (single) {
+        if (currentValue == value) {
+          opt.selected = true;
+          return;
         }
-        else opt.selected = value.include(currentValue);
       }
+      else opt.selected = value.include(currentValue);
     }
-  },
+  }
 
-  selectOne: function(element) {
+  function selectOne(element) {
     var index = element.selectedIndex;
-    return index >= 0 ? this.optionValue(element.options[index]) : null;
-  },
+    return index >= 0 ? optionValue(element.options[index]) : null;
+  }
 
-  selectMany: function(element) {
+  function selectMany(element) {
     var values, length = element.length;
     if (!length) return null;
 
     for (var i = 0, values = []; i < length; i++) {
       var opt = element.options[i];
-      if (opt.selected) values.push(this.optionValue(opt));
+      if (opt.selected) values.push(optionValue(opt));
     }
     return values;
-  },
-
-  optionValue: function(opt) {
-    return Element.extend(opt).hasAttribute('value') ? opt.value : opt.text;
   }
-};
+
+  function optionValue(opt) {
+    return Element.hasAttribute(opt, 'value') ? opt.value : opt.text;
+  }
+
+  return {
+    input:         input,
+    inputSelector: inputSelector,
+    textarea:      valueSelector,
+    select:        select,
+    selectOne:     selectOne,
+    selectMany:    selectMany,
+    optionValue:   optionValue,
+    button:        valueSelector
+  };
+})();
 
 /*--------------------------------------------------------------------------*/
 
@@ -5272,26 +5341,54 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
   var docEl = document.documentElement;
   var MOUSEENTER_MOUSELEAVE_EVENTS_SUPPORTED = 'onmouseenter' in docEl
     && 'onmouseleave' in docEl;
-  var IE_LEGACY_EVENT_SYSTEM = (window.attachEvent && !window.addEventListener);
+
+
+
+  var isIELegacyEvent = function(event) { return false; };
+
+  if (window.attachEvent) {
+    if (window.addEventListener) {
+      isIELegacyEvent = function(event) {
+        return !(event instanceof window.Event);
+      };
+    } else {
+      isIELegacyEvent = function(event) { return true; };
+    }
+  }
 
   var _isButton;
-  if (IE_LEGACY_EVENT_SYSTEM) {
-    var buttonMap = { 0: 1, 1: 4, 2: 2 };
-    _isButton = function(event, code) {
-      return event.button === buttonMap[code];
-    };
-  } else if (Prototype.Browser.WebKit) {
-    _isButton = function(event, code) {
-      switch (code) {
-        case 0: return event.which == 1 && !event.metaKey;
-        case 1: return event.which == 1 && event.metaKey;
-        default: return false;
+
+  function _isButtonForDOMEvents(event, code) {
+    return event.which ? (event.which === code + 1) : (event.button === code);
+  }
+
+  var legacyButtonMap = { 0: 1, 1: 4, 2: 2 };
+  function _isButtonForLegacyEvents(event, code) {
+    return event.button === legacyButtonMap[code];
+  }
+
+  function _isButtonForWebKit(event, code) {
+    switch (code) {
+      case 0: return event.which == 1 && !event.metaKey;
+      case 1: return event.which == 2 || (event.which == 1 && event.metaKey);
+      case 2: return event.which == 3;
+      default: return false;
+    }
+  }
+
+  if (window.attachEvent) {
+    if (!window.addEventListener) {
+      _isButton = _isButtonForLegacyEvents;
+    } else {
+      _isButton = function(event, code) {
+        return isIELegacyEvent(event) ? _isButtonForLegacyEvents(event, code) :
+         _isButtonForDOMEvents(event, code);
       }
-    };
+    }
+  } else if (Prototype.Browser.WebKit) {
+    _isButton = _isButtonForWebKit;
   } else {
-    _isButton = function(event, code) {
-      return event.which ? (event.which === code + 1) : (event.button === code);
-    };
+    _isButton = _isButtonForDOMEvents;
   }
 
   function isLeftClick(event)   { return _isButton(event, 0) }
@@ -5362,49 +5459,59 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
     event.stopped = true;
   }
 
-  Event.Methods = {
-    isLeftClick: isLeftClick,
-    isMiddleClick: isMiddleClick,
-    isRightClick: isRightClick,
 
-    element: element,
+  Event.Methods = {
+    isLeftClick:   isLeftClick,
+    isMiddleClick: isMiddleClick,
+    isRightClick:  isRightClick,
+
+    element:     element,
     findElement: findElement,
 
-    pointer: pointer,
+    pointer:  pointer,
     pointerX: pointerX,
     pointerY: pointerY,
 
     stop: stop
   };
 
-
   var methods = Object.keys(Event.Methods).inject({ }, function(m, name) {
     m[name] = Event.Methods[name].methodize();
     return m;
   });
 
-  if (IE_LEGACY_EVENT_SYSTEM) {
+  if (window.attachEvent) {
     function _relatedTarget(event) {
       var element;
       switch (event.type) {
-        case 'mouseover': element = event.fromElement; break;
-        case 'mouseout':  element = event.toElement;   break;
-        default: return null;
+        case 'mouseover':
+        case 'mouseenter':
+          element = event.fromElement;
+          break;
+        case 'mouseout':
+        case 'mouseleave':
+          element = event.toElement;
+          break;
+        default:
+          return null;
       }
       return Element.extend(element);
     }
 
-    Object.extend(methods, {
+    var additionalMethods = {
       stopPropagation: function() { this.cancelBubble = true },
       preventDefault:  function() { this.returnValue = false },
       inspect: function() { return '[object Event]' }
-    });
+    };
 
     Event.extend = function(event, element) {
       if (!event) return false;
-      if (event._extendedByPrototype) return event;
 
+      if (!isIELegacyEvent(event)) return event;
+
+      if (event._extendedByPrototype) return event;
       event._extendedByPrototype = Prototype.emptyFunction;
+
       var pointer = Event.pointer(event);
 
       Object.extend(event, {
@@ -5414,12 +5521,16 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
         pageY:  pointer.y
       });
 
-      return Object.extend(event, methods);
+      Object.extend(event, methods);
+      Object.extend(event, additionalMethods);
     };
   } else {
+    Event.extend = Prototype.K;
+  }
+
+  if (window.addEventListener) {
     Event.prototype = window.Event.prototype || document.createEvent('HTMLEvents').__proto__;
     Object.extend(Event.prototype, methods);
-    Event.extend = Prototype.K;
   }
 
   function _createResponder(element, eventName, handler) {
@@ -5628,7 +5739,7 @@ Form.EventObserver = Class.create(Abstract.EventObserver, {
     },
 
     handleEvent: function(event) {
-      var element = event.findElement(this.selector);
+      var element = Event.findElement(event, this.selector);
       if (element) this.callback.call(this.element, event, element);
     }
   });
