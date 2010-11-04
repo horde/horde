@@ -181,6 +181,31 @@ require dirname(__FILE__) . '/agenda.inc';
 </div>
 <!-- end body -->
 
+<!-- ini sapoAds -->
+<div id="sapoAds">
+   <script type="text/javascript"><!--
+   var sas_affiliate_id = '9';
+   var sas_site_id  = '259';
+   var sas_position_id  = '805';
+   var sas_cluster = '1';
+   var sas_ad_width = '160';
+   var sas_ad_height= '600';
+   var sas_ad_format = '160x600';
+   var sas_c = '4';
+   var sas_ad_type = 'text';
+   var sas_location_id = '0';
+   var sas_color_border = 'FFFFFF';
+   var sas_color_link = '678204';
+   var sas_color_bg = 'FFFFFF';
+   var sas_color_text = '000000';
+   var sas_color_url = '678204';
+   var sas_ic = 'baab1857fe173f8f45ef402397d5e007';
+   var sas_medium = '0';
+   //-->
+   </script><script type="text/javascript" src="http://js.sl.pt/Snippets/SAS.js"></script>
+</div>
+<!-- end sapoAds -->
+
 </div>
 <!-- end main area -->
 
