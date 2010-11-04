@@ -39,10 +39,5 @@ $bc = (isset($view) && is_object($view) && $prefs->getValue('show_panel'))
 <?php endforeach; ?>
 <?php Horde::outputInlineScript(); ?>
 </head>
+
 <body<?php if ($bc) echo ' class="' . $bc . '"' ?>>
-
-<div id="bsu_root">
-   <div class="bsu_almofada"></div>
-   <div class="bsu_almofada"></div>
-</div>
-
