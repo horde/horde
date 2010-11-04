@@ -38,6 +38,17 @@ input[type=image] {
     background: transparent;
 }
 
+.iconImg {
+    background-color: transparent;
+    background-position: center right;
+    background-repeat: no-repeat;
+    display: -moz-inline-stack;
+    display: inline-block;
+    height: 16px;
+    vertical-align: bottom;
+    width: 16px;
+}
+
 ins {
     background: #cfc;
 }
@@ -1336,6 +1347,9 @@ div.GrowlerNoticeExit:hover {
 }
 .contextSelected {
     background: #ffa;
+}
+.contextMenu .iconImg {
+    vertical-align: top;
 }
 
 /* Social Media Related CSS */

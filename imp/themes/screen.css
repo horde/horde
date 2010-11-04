@@ -344,12 +344,6 @@ span.trashImg {
 /* Message flags definitions.
  * For background color, see config/prefs.php [msgflags preference]. */
 div.msgflags {
-    display: -moz-inline-stack;
-    display: inline-block;
-    padding-right: 2px;
-    width: 16px;
-    height: 16px;
-    background-repeat: no-repeat;
     vertical-align: middle;
 }
 .mboxheader div.msgflags {
@@ -380,25 +374,25 @@ div.msgflags.flagAttachmsg {
 tr.flagUnseen {
     font-weight: bold;
 }
-div.msgflags.flagUnseen, span.contextImg.flagUnseen {
+div.msgflags.flagUnseen, span.iconImg.flagUnseen {
     background-image: url("graphics/mail_unseen.png");
 }
-div.msgflags.flagAnswered, span.contextImg.flagAnswered {
+div.msgflags.flagAnswered, span.iconImg.flagAnswered {
     background-image: url("graphics/mail_answered.png");
 }
-div.msgflags.flagDraft, span.contextImg.flagDraft {
+div.msgflags.flagDraft, span.iconImg.flagDraft {
     background-image: url("graphics/mail_draft.png");
 }
-div.msgflags.flagForwarded, span.contextImg.flagForwarded {
+div.msgflags.flagForwarded, span.iconImg.flagForwarded {
     background-image: url("graphics/mail_forwarded.png");
 }
-div.msgflags.flagFlagged, span.contextImg.flagFlagged {
+div.msgflags.flagFlagged, span.iconImg.flagFlagged {
     background-image: url("graphics/mail_flagged.png");
 }
 tr.flagDeleted * {
     text-decoration: line-through;
 }
-div.msgflags.flagDeleted, span.contextImg.flagDeleted {
+div.msgflags.flagDeleted, span.iconImg.flagDeleted {
     background-image: url("graphics/mail_deleted.png");
 }
 
@@ -500,10 +494,6 @@ td.msgheader {
 span.spellcheckPopdownImg {
     cursor: pointer;
     background: url("graphics/popdown.png") no-repeat center center;
-    display: -moz-inline-stack;
-    display: inline-block;
-    height: 16px;
-    width: 16px;
     vertical-align: top;
     margin-left: 3px;
 }
@@ -644,16 +634,6 @@ div.mimeStatusMessage, div.mimePartInfo {
 }
 
 /* Other images. */
-.downloadAtc, .downloadZipAtc, .saveImgAtc, .printAtc, .closeImg, .deleteImg, .folderImg, .foldersImg, .searchuiImg, .reloadImg, .editImg {
-    display: -moz-inline-stack;
-    display: inline-block;
-    height: 16px;
-    width: 16px;
-    background-color: transparent;
-    background-position: center right;
-    background-repeat: no-repeat;
-    vertical-align: bottom;
-}
 .downloadAtc, .downloadZipAtc, .saveImgAtc {
     margin-left: 1px;
 }

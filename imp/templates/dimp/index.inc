@@ -37,7 +37,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
         (strlen($id) ? ' id="' . $id . '"' : '') .
         (strlen($ak) ? ' accesskey="' . $ak . '"' : '') .
         ($nodisplay ? ' style="display:none"' : '') . '>' .
-        '<span class="iconSpan ' . $image . '"></span>' .
+        '<span class="iconImgSidebar ' . $image . '"></span>' .
         '<a>' . Horde::highlightAccessKey($text, $ak) . '</a></li>';
 }
 
@@ -114,11 +114,11 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
     <div class="sepfull"></div>
     <ul class="folderlist" id="normalfolders">
      <li class="folder" id="folderopts">
-      <span class="iconSpan folderImg"></span>
+      <span class="iconImg iconImgSidebar folderImg"></span>
       <a id="folderopts_link" title="<?php echo _("Folder Options") ?>"><?php echo _("Folder Options") ?></a>
      </li>
      <li class="folder" id="dropbase" style="display:none">
-      <span class="iconSpan folderImg"></span>
+      <span class="iconImg iconImgSidebar folderImg"></span>
       <a title="<?php echo _("Move to Base Level") ?>"><?php echo _("Move to Base Level") ?></a>
      </li>
     </ul>
@@ -171,7 +171,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
      <div class="dimpActions">
 <?php if ($session->get('imp', 'protocol') != 'pop'): ?>
       <div id="qsearch">
-       <span id="qsearch_icon"></span>
+       <span class="iconImg" id="qsearch_icon"></span>
        <form action="#" method="post">
         <input autocomplete="off" id="qsearch_input" type="text" />
        </form>
@@ -200,7 +200,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
     </div>
 
      <div id="msglistHeader" class="item">
-      <div class="msgStatus"></div>
+      <div class="iconImg msgStatus"></div>
       <div class="msgFrom sep"></div>
       <div class="msgSubject sep"></div>
       <div class="msgDate sep"></div>
@@ -335,50 +335,50 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 </div>
 
 <div class="context" id="ctx_folder" style="display:none">
- <a id="ctx_folder_create"><span class="contextImg"></span><?php echo _("Create subfolder") ?></a>
- <a id="ctx_folder_rename"><span class="contextImg"></span><?php echo _("Rename Folder") ?></a>
- <a id="ctx_folder_empty"><span class="contextImg"></span><?php echo _("Empty Folder") ?></a>
- <a id="ctx_folder_delete"><span class="contextImg"></span><?php echo _("Delete Folder") ?></a>
+ <a id="ctx_folder_create"><span class="iconImg"></span><?php echo _("Create subfolder") ?></a>
+ <a id="ctx_folder_rename"><span class="iconImg"></span><?php echo _("Rename Folder") ?></a>
+ <a id="ctx_folder_empty"><span class="iconImg"></span><?php echo _("Empty Folder") ?></a>
+ <a id="ctx_folder_delete"><span class="iconImg"></span><?php echo _("Delete Folder") ?></a>
  <div class="sep"></div>
- <a id="ctx_folder_setflag"><span class="contextImg"></span><?php echo _("Mark all as") ?></a>
+ <a id="ctx_folder_setflag"><span class="iconImg"></span><?php echo _("Mark all as") ?></a>
  <div class="sep"></div>
- <a id="ctx_folder_poll"><span class="contextImg"></span><?php echo _("Check for New Mail") ?></a>
- <a id="ctx_folder_nopoll"><span class="contextImg"></span><?php echo _("Do Not Check for New Mail") ?></a>
+ <a id="ctx_folder_poll"><span class="iconImg"></span><?php echo _("Check for New Mail") ?></a>
+ <a id="ctx_folder_nopoll"><span class="iconImg"></span><?php echo _("Do Not Check for New Mail") ?></a>
 <?php if ($use_sub): ?>
- <a id="ctx_folder_sub"><span class="contextImg"></span><?php echo _("Subscribe") ?></a>
- <a id="ctx_folder_unsub"><span class="contextImg"></span><?php echo _("Unsubscribe") ?></a>
+ <a id="ctx_folder_sub"><span class="iconImg"></span><?php echo _("Subscribe") ?></a>
+ <a id="ctx_folder_unsub"><span class="iconImg"></span><?php echo _("Unsubscribe") ?></a>
 <?php endif; ?>
  <div style="display:none">
   <div class="sep"></div>
-  <a id="ctx_folder_expand"><span class="contextImg"></span><?php echo _("Expand All") ?></a>
-  <a id="ctx_folder_collapse"><span class="contextImg"></span><?php echo _("Collapse All") ?></a>
+  <a id="ctx_folder_expand"><span class="iconImg"></span><?php echo _("Expand All") ?></a>
+  <a id="ctx_folder_collapse"><span class="iconImg"></span><?php echo _("Collapse All") ?></a>
  </div>
 </div>
 
 <div class="context" id="ctx_folder_flag" style="display:none">
- <a id="ctx_folder_seen"><span class="contextImg"></span><?php echo _("Read") ?></a>
- <a id="ctx_folder_unseen"><span class="contextImg"></span><?php echo _("Unseen") ?></a>
+ <a id="ctx_folder_seen"><span class="iconImg"></span><?php echo _("Read") ?></a>
+ <a id="ctx_folder_unseen"><span class="iconImg"></span><?php echo _("Unseen") ?></a>
 </div>
 
 <div class="context" id="ctx_container" style="display:none">
- <a id="ctx_container_create"><span class="contextImg"></span><?php echo _("Create subfolder") ?></a>
- <a id="ctx_container_rename"><span class="contextImg"></span><?php echo _("Rename Folder") ?></a>
+ <a id="ctx_container_create"><span class="iconImg"></span><?php echo _("Create subfolder") ?></a>
+ <a id="ctx_container_rename"><span class="iconImg"></span><?php echo _("Rename Folder") ?></a>
  <div class="sep"></div>
- <a id="ctx_container_expand"><span class="contextImg"></span><?php echo _("Expand All") ?></a>
- <a id="ctx_container_collapse"><span class="contextImg"></span><?php echo _("Collapse All") ?></a>
+ <a id="ctx_container_expand"><span class="iconImg"></span><?php echo _("Expand All") ?></a>
+ <a id="ctx_container_collapse"><span class="iconImg"></span><?php echo _("Collapse All") ?></a>
 </div>
 
 <?php if ($conf['user']['allow_folders']): ?>
 <div class="context" id="ctx_folderopts" style="display:none">
- <a id="ctx_folderopts_new"><span class="contextImg"></span><?php echo _("New Folder") ?></a>
+ <a id="ctx_folderopts_new"><span class="iconImg"></span><?php echo _("New Folder") ?></a>
 <?php if ($use_sub): ?>
- <a id="ctx_folderopts_sub" style="display:none"><span class="contextImg"></span><?php echo _("Hide Unsubscribed") ?></a>
- <a id="ctx_folderopts_unsub"><span class="contextImg"></span><?php echo _("Show Unsubscribed") ?></a>
+ <a id="ctx_folderopts_sub" style="display:none"><span class="iconImg"></span><?php echo _("Hide Unsubscribed") ?></a>
+ <a id="ctx_folderopts_unsub"><span class="iconImg"></span><?php echo _("Show Unsubscribed") ?></a>
 <?php endif; ?>
- <a id="ctx_folderopts_expand"><span class="contextImg"></span><?php echo _("Expand All") ?></a>
- <a id="ctx_folderopts_collapse"><span class="contextImg"></span><?php echo _("Collapse All") ?></a>
+ <a id="ctx_folderopts_expand"><span class="iconImg"></span><?php echo _("Expand All") ?></a>
+ <a id="ctx_folderopts_collapse"><span class="iconImg"></span><?php echo _("Collapse All") ?></a>
  <div class="sep"></div>
- <a id="ctx_folderopts_reload"><span class="contextImg"></span><?php echo _("Rebuild Folder List") ?></a>
+ <a id="ctx_folderopts_reload"><span class="iconImg"></span><?php echo _("Rebuild Folder List") ?></a>
 </div>
 <?php endif; ?>
 
@@ -387,92 +387,92 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 </div>
 
 <div class="context" id="ctx_vcontainer" style="display:none">
- <a id="ctx_vcontainer_edit"><span class="contextImg"></span><?php echo _("Edit Virtual Folders") ?></a>
+ <a id="ctx_vcontainer_edit"><span class="iconImg"></span><?php echo _("Edit Virtual Folders") ?></a>
 </div>
 
 <div class="context" id="ctx_vfolder" style="display:none">
- <a id="ctx_vfolder_edit"><span class="contextImg"></span><?php echo _("Edit Virtual Folder") ?></a>
- <a id="ctx_vfolder_delete"><span class="contextImg"></span><?php echo _("Delete Virtual Folder") ?></a>
+ <a id="ctx_vfolder_edit"><span class="iconImg"></span><?php echo _("Edit Virtual Folder") ?></a>
+ <a id="ctx_vfolder_delete"><span class="iconImg"></span><?php echo _("Delete Virtual Folder") ?></a>
 </div>
 
 <div class="context" id="ctx_message" style="display:none">
- <a id="ctx_message_resume" style="display:none"><span class="contextImg"></span><?php echo _("Resume Draft") ?></a>
- <a id="ctx_message_reply"><span class="contextImg"></span><?php echo _("Reply") ?></a>
- <a id="ctx_message_forward"><span class="contextImg"></span><?php echo _("Forward") ?></a>
+ <a id="ctx_message_resume" style="display:none"><span class="iconImg"></span><?php echo _("Resume Draft") ?></a>
+ <a id="ctx_message_reply"><span class="iconImg"></span><?php echo _("Reply") ?></a>
+ <a id="ctx_message_forward"><span class="iconImg"></span><?php echo _("Forward") ?></a>
  <div id="ctx_message_flagopts" style="display:none">
   <div class="sep"></div>
-  <a id="ctx_message_setflag"><span class="contextImg"></span><?php echo _("Mark as") ?>...</a>
-  <a id="ctx_message_unsetflag"><span class="contextImg"></span><?php echo _("Unmark as") ?>...</a>
+  <a id="ctx_message_setflag"><span class="iconImg"></span><?php echo _("Mark as") ?>...</a>
+  <a id="ctx_message_unsetflag"><span class="iconImg"></span><?php echo _("Unmark as") ?>...</a>
  </div>
  <div class="sep"></div>
 <?php if (!empty($conf['spam']['reporting'])): ?>
- <a id="ctx_message_spam"><span class="contextImg"></span><?php echo _("Report as Spam") ?></a>
+ <a id="ctx_message_spam"><span class="iconImg"></span><?php echo _("Report as Spam") ?></a>
 <?php endif; ?>
 <?php if (!empty($conf['notspam']['reporting'])): ?>
- <a id="ctx_message_ham"><span class="contextImg"></span><?php echo _("Report as Innocent") ?></a>
+ <a id="ctx_message_ham"><span class="iconImg"></span><?php echo _("Report as Innocent") ?></a>
 <?php endif; ?>
 <?php if ($has_blacklist): ?>
- <a id="ctx_message_blacklist"><span class="contextImg"></span><?php echo _("Blacklist") ?></a>
+ <a id="ctx_message_blacklist"><span class="iconImg"></span><?php echo _("Blacklist") ?></a>
 <?php endif; ?>
 <?php if ($has_whitelist): ?>
- <a id="ctx_message_whitelist"><span class="contextImg"></span><?php echo _("Whitelist") ?></a>
+ <a id="ctx_message_whitelist"><span class="iconImg"></span><?php echo _("Whitelist") ?></a>
 <?php endif; ?>
- <a id="ctx_message_deleted"><span class="contextImg"></span><?php echo _("Delete") ?></a>
+ <a id="ctx_message_deleted"><span class="iconImg"></span><?php echo _("Delete") ?></a>
 <?php if (!$use_trash): ?>
- <a id="ctx_message_undeleted"><span class="contextImg"></span><?php echo _("Undelete") ?></a>
+ <a id="ctx_message_undeleted"><span class="iconImg"></span><?php echo _("Undelete") ?></a>
 <?php endif; ?>
  <div style="display:none">
   <div class="sep"></div>
-  <a id="ctx_message_source"><span class="contextImg"></span><?php echo _("View Source") ?></a>
+  <a id="ctx_message_source"><span class="iconImg"></span><?php echo _("View Source") ?></a>
  </div>
 </div>
 
 <div class="context" id="ctx_reply" style="display:none;">
- <a id="ctx_reply_reply"><span class="contextImg"></span><?php echo _("To Sender") ?></a>
- <a id="ctx_reply_reply_all"><span class="contextImg"></span><?php echo _("To All") ?></a>
- <a id="ctx_reply_reply_list"><span class="contextImg"></span><?php echo _("To List") ?></a>
+ <a id="ctx_reply_reply"><span class="iconImg"></span><?php echo _("To Sender") ?></a>
+ <a id="ctx_reply_reply_all"><span class="iconImg"></span><?php echo _("To All") ?></a>
+ <a id="ctx_reply_reply_list"><span class="iconImg"></span><?php echo _("To List") ?></a>
 </div>
 
 <div class="context" id="ctx_forward" style="display:none;">
 <?php if (!$prefs->isLocked('forward_default')): ?>
- <a id="ctx_forward_attach"><span class="contextImg"></span><?php echo _("As Attachment") ?></a>
- <a id="ctx_forward_body"><span class="contextImg"></span><?php echo _("In Body Text") ?></a>
- <a id="ctx_forward_both"><span class="contextImg"></span><?php echo _("Attachment and Body Text") ?></a>
+ <a id="ctx_forward_attach"><span class="iconImg"></span><?php echo _("As Attachment") ?></a>
+ <a id="ctx_forward_body"><span class="iconImg"></span><?php echo _("In Body Text") ?></a>
+ <a id="ctx_forward_both"><span class="iconImg"></span><?php echo _("Attachment and Body Text") ?></a>
  <div class="sep"></div>
 <?php endif; ?>
- <a id="ctx_forward_redirect"><span class="contextImg"></span><?php echo _("Redirect") ?></a>
+ <a id="ctx_forward_redirect"><span class="iconImg"></span><?php echo _("Redirect") ?></a>
 </div>
 
 <div class="context" id="ctx_otheractions" style="display:none">
- <a id="oa_preview_hide"><span class="contextImg"></span><?php echo _("Hide Preview") ?></a>
- <a id="oa_preview_show"><span class="contextImg"></span><?php echo _("Show Preview") ?></a>
- <a id="oa_layout_horiz"><span class="contextImg"></span><?php echo _("Horizontal Layout") ?></a>
- <a id="oa_layout_vert"><span class="contextImg"></span><?php echo _("Vertical Layout") ?></a>
+ <a id="oa_preview_hide"><span class="iconImg"></span><?php echo _("Hide Preview") ?></a>
+ <a id="oa_preview_show"><span class="iconImg"></span><?php echo _("Show Preview") ?></a>
+ <a id="oa_layout_horiz"><span class="iconImg"></span><?php echo _("Horizontal Layout") ?></a>
+ <a id="oa_layout_vert"><span class="iconImg"></span><?php echo _("Vertical Layout") ?></a>
  <div id="oa_flagopts" style="display:none">
   <div class="sep"></div>
-  <a id="oa_setflag"><span class="contextImg"></span><?php echo _("Mark as") ?>...</a>
-  <a id="oa_unsetflag"><span class="contextImg"></span><?php echo _("Unmark as") ?>...</a>
+  <a id="oa_setflag"><span class="iconImg"></span><?php echo _("Mark as") ?>...</a>
+  <a id="oa_unsetflag"><span class="iconImg"></span><?php echo _("Unmark as") ?>...</a>
  </div>
 <?php if ($has_blacklist || $has_whitelist): ?>
 <?php if ($has_blacklist): ?>
  <div>
   <div class="sep"></div>
-  <a id="oa_blacklist"><span class="contextImg"></span><?php echo _("Blacklist") ?></a>
+  <a id="oa_blacklist"><span class="iconImg"></span><?php echo _("Blacklist") ?></a>
  </div>
 <?php endif; ?>
 <?php if ($has_whitelist): ?>
  <div>
   <div<?php if (!$has_blacklist) echo ' class="sep"'; ?>></div>
-  <a id="oa_whitelist"><span class="contextImg"></span><?php echo _("Whitelist") ?></a>
+  <a id="oa_whitelist"><span class="iconImg"></span><?php echo _("Whitelist") ?></a>
  </div>
 <?php endif; ?>
 <?php endif; ?>
  <div class="sep"></div>
- <a id="oa_selectall"><span class="contextImg"></span><?php echo _("Select All") ?></a>
+ <a id="oa_selectall"><span class="iconImg"></span><?php echo _("Select All") ?></a>
 <?php if (!$use_trash): ?>
  <div class="sep"></div>
- <a id="oa_purge_deleted"><span class="contextImg"></span><?php echo _("Purge Deleted") ?></a>
- <a id="oa_undeleted"><span class="contextImg"></span><?php echo _("Undelete") ?></a>
+ <a id="oa_purge_deleted"><span class="iconImg"></span><?php echo _("Purge Deleted") ?></a>
+ <a id="oa_undeleted"><span class="iconImg"></span><?php echo _("Undelete") ?></a>
 <?php endif; ?>
 </div>
 
@@ -483,8 +483,8 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
 </div>
 
 <div class="context" id="ctx_contacts" style="display:none">
- <a id="ctx_contacts_new"><span class="contextImg"></span><?php echo _("New Message") ?></a>
- <a id="ctx_contacts_add"><span class="contextImg"></span><?php echo _("Add to Address Book") ?></a>
+ <a id="ctx_contacts_new"><span class="iconImg"></span><?php echo _("New Message") ?></a>
+ <a id="ctx_contacts_add"><span class="iconImg"></span><?php echo _("Add to Address Book") ?></a>
 </div>
 
 <div class="context" id="ctx_mboxsort" style="display:none">

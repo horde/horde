@@ -1,10 +1,10 @@
-#ctx_folder_sub span.contextImg, #ctx_folder_unsub span.contextImg, #ctx_folderopts_sub span.contextImg, #ctx_folderopts_unsub span.contextImg {
+#ctx_folder_sub span.iconImg, #ctx_folder_unsub span.iconImg, #ctx_folderopts_sub span.iconImg, #ctx_folderopts_unsub span.iconImg {
     background-image: url("../graphics/folders/explore.png");
 }
-#sidebar span.col, #ctx_folderopts_collapse span.contextImg, #ctx_container_collapse span.contextImg, #ctx_folder_collapse span.contextImg {
+#sidebar span.col, #ctx_folderopts_collapse span.iconImg, #ctx_container_collapse span.iconImg, #ctx_folder_collapse span.iconImg {
     background-image: url("../graphics/folders/minus.png");
 }
-#sidebar span.exp, #ctx_folderopts_expand span.contextImg, #ctx_container_expand span.contextImg, #ctx_folder_expand span.contextImg {
+#sidebar span.exp, #ctx_folderopts_expand span.iconImg, #ctx_container_expand span.iconImg, #ctx_folder_expand span.iconImg {
     background-image: url("../graphics/folders/plus.png");
 }
 
@@ -79,79 +79,79 @@ span.dimpactionEditsearch {
 }
 
 /* Context menu images */
-#ctx_message_reply span.contextImg {
+#ctx_message_reply span.iconImg {
     background-image: url("../graphics/reply.png");
 }
-#ctx_reply_reply span.contextImg, #ctx_reply_reply_all span.contextImg, #ctx_reply_reply_list span.contextImg {
+#ctx_reply_reply span.iconImg, #ctx_reply_reply_all span.iconImg, #ctx_reply_reply_list span.iconImg {
     background-image: url("../graphics/replyall.png");
 }
-#ctx_message_forward span.contextImg, #ctx_forward_attach span.contextImg, #ctx_forward_body span.contextImg, #ctx_forward_both span.contextImg, #ctx_forward_redirect span.contextImg {
+#ctx_message_forward span.iconImg, #ctx_forward_attach span.iconImg, #ctx_forward_body span.iconImg, #ctx_forward_both span.iconImg, #ctx_forward_redirect span.iconImg {
     background-image: url("../graphics/forward.png");
 }
-#ctx_folder_empty span.contextImg, #ctx_message_deleted span.contextImg, #oa_purge_deleted span.contextImg {
+#ctx_folder_empty span.iconImg, #ctx_message_deleted span.iconImg, #oa_purge_deleted span.iconImg {
     background-image: url("../graphics/delete.png");
 }
-#ctx_message_undeleted span.contextImg, #oa_undeleted span.contextImg {
+#ctx_message_undeleted span.iconImg, #oa_undeleted span.iconImg {
     background-image: url("../graphics/undelete.png");
 }
-#ctx_folder_seen span.contextImg {
+#ctx_folder_seen span.iconImg {
     background-image: url("../graphics/mail_seen.png");
 }
-#ctx_folder_unseen span.contextImg, #ctx_folder_poll span.contextImg, #ctx_folder_nopoll span.contextImg {
+#ctx_folder_unseen span.iconImg, #ctx_folder_poll span.iconImg, #ctx_folder_nopoll span.iconImg {
     background-image: url("../graphics/mail_unseen.png");
 }
-#ctx_message_setflag span.contextImg, #oa_setflag span.contextImg, #ctx_folder_setflag span.contextImg {
+#ctx_message_setflag span.iconImg, #oa_setflag span.iconImg, #ctx_folder_setflag span.iconImg {
     background-image: url("../graphics/mail_flagged.png");
 }
-#ctx_message_unsetflag span.contextImg, #oa_unsetflag span.contextImg {
+#ctx_message_unsetflag span.iconImg, #oa_unsetflag span.iconImg {
     background-image: url("../graphics/mail_clearflag.png");
 }
-#ctx_message_resume span.contextImg, #msg_resume_draft span.iconImg {
+#ctx_message_resume span.iconImg, #msg_resume_draft span.iconImg {
     background-image: url("../graphics/mail_draft.png");
 }
-#oa_preview_hide span.contextImg, #oa_preview_show span.contextImg {
+#oa_preview_hide span.iconImg, #oa_preview_show span.iconImg {
     background-image: url("../graphics/preview.png");
 }
-#oa_layout_horiz span.contextImg {
+#oa_layout_horiz span.iconImg {
     background-image: url("../graphics/application_tile_vertical.png");
 }
-#oa_layout_vert span.contextImg {
+#oa_layout_vert span.iconImg {
     background-image: url("../graphics/application_tile_horizontal.png");
 }
-#oa_selectall span.contextImg {
+#oa_selectall span.iconImg {
     background-image: url("../graphics/tick.png");
 }
-#ctx_folder_create span.contextImg, #ctx_container_create span.contextImg, #ctx_folderopts_new span.contextImg {
+#ctx_folder_create span.iconImg, #ctx_container_create span.iconImg, #ctx_folderopts_new span.iconImg {
     background-image: url("../graphics/folders/create.png");
 }
-#ctx_folder_rename span.contextImg, #ctx_container_rename span.contextImg, #ctx_vcontainer_edit span.contextImg, #ctx_vfolder_edit span.contextImg {
+#ctx_folder_rename span.iconImg, #ctx_container_rename span.iconImg, #ctx_vcontainer_edit span.iconImg, #ctx_vfolder_edit span.iconImg {
     background-image: url("../graphics/folders/edit.png");
 }
-#ctx_folder_delete span.contextImg, #ctx_vfolder_delete span.contextImg {
+#ctx_folder_delete span.iconImg, #ctx_vfolder_delete span.iconImg {
     background-image: url("../graphics/folders/delete.png");
 }
-#ctx_message_spam span.contextImg {
+#ctx_message_spam span.iconImg {
     background-image: url("../graphics/spam.png");
 }
-#ctx_message_ham span.contextImg {
+#ctx_message_ham span.iconImg {
     background-image: url("../graphics/ham.png");
 }
-#ctx_message_blacklist span.contextImg, #oa_blacklist span.contextImg {
+#ctx_message_blacklist span.iconImg, #oa_blacklist span.iconImg {
     background-image: url("../graphics/blacklist.png");
 }
-#ctx_message_whitelist span.contextImg, #oa_whitelist span.contextImg {
+#ctx_message_whitelist span.iconImg, #oa_whitelist span.iconImg {
     background-image: url("../graphics/whitelist.png");
 }
-#ctx_message_source span.contextImg, #msg_view_source span.iconImg {
+#ctx_message_source span.iconImg, #msg_view_source span.iconImg {
     background-image: url("../graphics/message_source.png");
 }
-#ctx_contacts_new span.contextImg {
+#ctx_contacts_new span.iconImg {
     background-image: url("../graphics/compose.png");
 }
-#ctx_contacts_add span.contextImg {
+#ctx_contacts_add span.iconImg {
     background-image: url("../graphics/add_contact.png");
 }
-#ctx_folderopts_reload span.contextImg {
+#ctx_folderopts_reload span.iconImg {
     background-image: url("../graphics/reload.png");
 }
 

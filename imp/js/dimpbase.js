@@ -411,7 +411,7 @@ var DimpBase = {
                             r.subjectdata += ptr.elt;
                         } else {
                             if (!ptr.elt) {
-                                ptr.elt = '<div class="msgflags ' + ptr.c + '" title="' + ptr.l + '"></div>';
+                                ptr.elt = '<div class="iconImg msgflags ' + ptr.c + '" title="' + ptr.l + '"></div>';
                             }
                             r.status += ptr.elt;
 
@@ -1047,7 +1047,7 @@ var DimpBase = {
 
         $('ctx_flag').insert(
             a.insert(
-                new Element('SPAN', { className: 'contextImg' }).addClassName(f.c.escapeHTML()).setStyle(style)
+                new Element('SPAN', { className: 'iconImg' }).addClassName(f.c.escapeHTML()).setStyle(style)
             ).insert(
                 f.l.escapeHTML()
             )
@@ -2582,7 +2582,7 @@ var DimpBase = {
             cname += ' unsubFolder';
         }
 
-        div = new Element('SPAN', { className: 'iconSpan' });
+        div = new Element('SPAN', { className: 'iconImgSidebar' });
         if (ob.i) {
             div.setStyle({ backgroundImage: 'url("' + ob.i + '")' });
         }

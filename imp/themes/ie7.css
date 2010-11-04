@@ -3,7 +3,7 @@
  */
 
 /* Fixes broken inline-block. */
-div.msgflags, span.spellcheckPopdownImg, span.treeImg, .downloadAtc, .downloadZipAtc, .saveImgAtc, .deleteImg, .mimePartInfo div, .mimeStatusMessage {
+.mimePartInfo div, .mimeStatusMessage {
     zoom: 1;
     *display: inline;
 }

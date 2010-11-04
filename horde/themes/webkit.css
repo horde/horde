@@ -7,7 +7,7 @@
     height: 20px;
 }
 
-.treeRow img {
+.iconImg, .treeRow img {
     vertical-align: middle;
 }
 
