@@ -1,3 +1,0 @@
-ALTER TABLE whups_types_queues ADD COLUMN type_default SMALLINT DEFAULT 0 NOT NULL;
-ALTER TABLE whups_states ADD COLUMN state_default SMALLINT DEFAULT 0 NOT NULL;
-ALTER TABLE whups_priorities ADD COLUMN priority_default SMALLINT DEFAULT 0 NOT NULL;
