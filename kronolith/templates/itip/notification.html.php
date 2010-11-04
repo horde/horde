@@ -16,7 +16,13 @@
     <?php if (strlen($this->event->location)): ?>
     <tr>
       <td style="font-weight:bold;vertical-align:top"><?php echo _("Location:") ?></td>
-      <td><?php echo $this->h($this->event->location) ?></td>
+      <td><?php echo $this->h($this->event->location) ?>
+      <?php if (strtolower($GLOBALS['conf']['maps']['driver']) == 'sapo'): ?>
+        <?php if ($this->event->geoLocation['lat'] != null && $this->event->geoLocation['lon'] != null): ?>
+            <?php echo "<a href='http://mapas.sapo.pt/?ll=".$this->event->geoLocation['lon'].",".$this->event->geoLocation['lat']."&z=6&t=m&mks=".$this->event->geoLocation['lon'].",".$this->event->geoLocation['lat'].",1,".urlencode($this->event->getTitle()).$_descr."'>"._("Ver no Mapa")."</a>"; ?>
+        <? endif; ?>
+      <? endif; ?>      
+      </td>
     </tr>
     <?php endif; ?>
     <?php if (strlen($this->event->description)): ?>

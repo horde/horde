@@ -3,6 +3,11 @@
 <?php if (strlen($this->event->location)): ?>
 <?php echo _("Location:") ?> <?php echo $this->event->location ?>
 
+    <?php if (strtolower($GLOBALS['conf']['maps']['driver']) == 'sapo'): ?>
+        <?php if ($this->event->geoLocation['lat'] != null && $this->event->geoLocation['lon'] != null): ?>
+            <?php echo _("Ver no Mapa:"); ?> <?= "http://mapas.sapo.pt/?ll=".$this->event->geoLocation['lon'].",".$this->event->geoLocation['lat']."&z=6&t=m&mks=".$this->event->geoLocation['lon'].",".$this->event->geoLocation['lat'].",1,".urlencode($this->event->getTitle()).$_descr; ?>
+        <? endif; ?>
+     <? endif; ?>
 
 <?php endif; ?>
 <?php if ($this->attendees): ?>
