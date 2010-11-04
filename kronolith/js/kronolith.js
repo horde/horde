@@ -4580,8 +4580,10 @@ KronolithCore = {
                        (elt.name == 'event_alarms[]' ||
                         elt.name == 'task[alarm_methods][]')) {
                 if (elt.name == 'event_alarms[]') {
+                    $('kronolithEventAlarmOn').setValue(1);
                     $('kronolithEventAlarmDefaultOff').setValue(1);
                 } else {
+                    $('kronolithTaskAlarmOn').setValue(1);
                     $('kronolithTaskAlarmDefaultOff').setValue(1);
                 }
                 if ($(elt.id + 'Params')) {
