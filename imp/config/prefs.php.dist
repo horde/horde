@@ -525,6 +525,7 @@ $_prefs['compose_cursor'] = array(
 // Select widget for the possible charsets
 $_prefs['sending_charset'] = array(
     'value' => '',
+    'advanced' => true,
     'type' => 'enum',
     'enum' => array_merge(array('' => _("Default")), $GLOBALS['registry']->nlsconfig['encodings']),
     'desc' => _("Your default charset for sending messages:")
