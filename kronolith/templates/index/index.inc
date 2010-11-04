@@ -183,7 +183,6 @@ require dirname(__FILE__) . '/agenda.inc';
 
 <!-- ini sapoAds -->
 <div id="sapoAds">
-   <div class="sapoAdsBack"><div class="sapoAdsLogo"></div></div>
    <script type="text/javascript"><!--
    var sas_affiliate_id = '9';
    var sas_site_id  = '259';
