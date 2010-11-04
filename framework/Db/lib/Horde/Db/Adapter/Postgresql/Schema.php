@@ -260,12 +260,12 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
             $indexes = array();
 
             foreach ($result as $row) {
-                if ($currentIndex != $row[0]) {
-                    $currentIndex = $row[0];
+                if ($currentIndex != $row['relname']) {
+                    $currentIndex = $row['relname'];
                     $indexes[] = $this->makeIndex(
-                        $tableName, $row[0], false, $row[1] == 't', array());
+                        $tableName, $row['relname'], false, $row['indisunique'] == 't', array());
                 }
-                $indexes[count($indexes) - 1]->columns[] = $row[2];
+                $indexes[count($indexes) - 1]->columns[] = $row['attname'];
             }
 
             $this->_cache->set("tables/indexes/$tableName", serialize($indexes));
@@ -433,7 +433,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
         }
 
         // [primary_key, sequence]
-        return array($result[0], $result[1]);
+        return array($result['attname'], $result['relname']);
     }
 
     /**
