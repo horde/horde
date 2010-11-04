@@ -11,7 +11,7 @@
  * @author  Michael Slusarz <slusarz@horde.org>
  * @package Horde_Vcs
  */
-class Horde_Vcs_Directory_Cvs extends Horde_Vcs_Directory_Base
+class Horde_Vcs_Directory_Cvs extends Horde_Vcs_Directory
 {
     /**
      * Create a Directory object to store information about the files in a
