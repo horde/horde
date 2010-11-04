@@ -37,7 +37,7 @@ class Horde_Alarm_Handler_Mail extends Horde_Alarm_Handler
      * @param array $params  Any parameters that the handler might need.
      *                       Required parameter:
      *                       - identity: An identity factory that implements
-     *                                   getIdentity().
+     *                                   create().
      *                       - mail: A Horde_Mail_Transport instance.
      */
     public function __construct(array $params = null)
@@ -48,7 +48,7 @@ class Horde_Alarm_Handler_Mail extends Horde_Alarm_Handler
             }
         }
         if (!method_exists($params['identity'], 'create')) {
-            throw new Horde_Alarm_Exception('Parameter \'identity\' does not implement getIdentity().');
+            throw new Horde_Alarm_Exception('Parameter \'identity\' does not implement create().');
         }
         if (!($params['mail'] instanceof Horde_Mail_Transport)) {
             throw new Horde_Alarm_Exception('Parameter \'mail\' is not a Horde_Mail_Transport object.');
@@ -73,7 +73,7 @@ class Horde_Alarm_Handler_Mail extends Horde_Alarm_Handler
                 return;
             }
             $email = $this->_identity
-                ->getIdentity($alarm['user'])
+                ->create($alarm['user'])
                 ->getDefaultFromAddress(true);
         } else {
             $email = $alarm['params']['mail']['email'];
