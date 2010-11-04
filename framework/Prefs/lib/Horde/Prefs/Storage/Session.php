@@ -23,11 +23,11 @@ class Horde_Prefs_Storage_Session extends Horde_Prefs_Storage
 
     /**
      */
-    public function __construct($user)
+    public function __construct($user, array $params = array())
     {
-        parent::__construct($user);
+        parent::__construct($user, $params);
 
-        $this->_key = 'horde_prefs_' . $this->_user;
+        $this->_key = 'horde_prefs_' . $this->_params['user'];
     }
 
     /**

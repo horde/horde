@@ -34,6 +34,7 @@ class Horde_Prefs_Storage_File extends Horde_Prefs_Storage
     /**
      * Constructor.
      *
+     * @param string $user   The username.
      * @param array $params  Configuration parameters:
      * <pre>
      * 'directory' - (string) [REQUIRED] Preference storage directory.
@@ -41,7 +42,7 @@ class Horde_Prefs_Storage_File extends Horde_Prefs_Storage
      *
      * @throws InvalidArgumentException
      */
-    public function __construct(array $params = array())
+    public function __construct($user, array $params = array())
     {
         // Sanity check for directory
         if (empty($params['directory']) || !is_dir($params['directory'])) {
@@ -51,7 +52,7 @@ class Horde_Prefs_Storage_File extends Horde_Prefs_Storage
             throw new InvalidArgumentException(sprintf('Directory %s is not writeable.', $params['directory']));
         }
 
-        parent::__construct($scope, $opts, $params);
+        parent::__construct($user, $params);
 
         $this->_fullpath = $this->params['directory'] . '/' . basename($this->_params['user']) . '.prefs';
     }

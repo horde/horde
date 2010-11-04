@@ -70,14 +70,13 @@ class Horde_Core_Factory_Prefs
             !empty($opts['session'])) {
             $driver = 'Horde_Core_Prefs_Storage_Session';
             $params = array();
-            unset($opts['session']);
         } else {
-            $driver = ucfirst($GLOBALS['conf']['prefs']['driver']);
+            $driver = 'Horde_Prefs_Storage_' . ucfirst($GLOBALS['conf']['prefs']['driver']);
             $params = Horde::getDriverConfig('prefs', $driver);
         }
 
         $opts = array_merge(array(
-            'cache' => 'Horde_Core_Prefs_Storage_Session',
+            'cache' => true,
             'charset' => 'UTF-8',
             'logger' => $this->_injector->getInstance('Horde_Log_Logger'),
             'password' => '',
@@ -85,11 +84,6 @@ class Horde_Core_Factory_Prefs
             'user' => ''
         ), $opts);
         ksort($opts);
-
-        /* Allow no caching to be specified as false-y value. */
-        if (!$opts['cache']) {
-            unset($opts['cache']);
-        }
 
         /* If $params['user_hook'] is defined, use it to retrieve the value to
          * use for the username. */
@@ -104,22 +98,32 @@ class Horde_Core_Factory_Prefs
             $this->_instances[$sig]->retrieve($scope);
         } else {
             switch ($driver) {
-            case 'Ldap':
+            case 'Horde_Prefs_Storage_Ldap':
                 $params['ldap'] = $this->_injector->getInstance('Horde_Core_Factory_Ldap')->getLdap('horde', 'ldap');
                 break;
 
-            case 'Session':
-                unset($opts['cache']);
+            case 'Horde_Prefs_Storage_Session':
+                $opts['cache'] = false;
                 break;
 
-            case 'Sql':
+            case 'Horde_Prefs_Storage_Sql':
                 $params['db'] = $this->_injector->getInstance('Horde_Db_Adapter');
                 $opts['charset'] = $params['db']->getOption('charset');
                 break;
             }
 
+            $drivers = array(
+                new $driver($opts['user'], $params)
+            );
+
+            if ($opts['cache']) {
+                $opts['cache'] = new Horde_Core_Prefs_Storage_Session($opts['user']);
+            } else {
+                unset($opts['cache']);
+            }
+
             try {
-                $this->_instances[$sig] = new Horde_Core_Prefs($driver, $scope, $opts, $params);
+                $this->_instances[$sig] = new Horde_Core_Prefs($scope, $drivers, $opts);
             } catch (Horde_Prefs_Exception $e) {
                 if (!$GLOBALS['session']->get('horde', 'no_prefs')) {
                     $GLOBALS['session']->set('horde', 'no_prefs', true);
@@ -128,7 +132,7 @@ class Horde_Core_Factory_Prefs
                     }
                 }
                 unset($opts['cache']);
-                $this->_instances[$sig] = new Horde_Core_Prefs('Horde_Core_Prefs_Storage_Session', $scope, $opts);
+                $this->_instances[$sig] = new Horde_Core_Prefs($scope, new Horde_Core_Prefs_Storage_Session($opts['user']), $opts);
             }
         }
 

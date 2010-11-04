@@ -16,6 +16,7 @@ abstract class Horde_Prefs_Storage
 {
     /**
      * Configuration parameters.
+     * 'user' is always available as an entry.
      *
      * @var string
      */
@@ -24,14 +25,13 @@ abstract class Horde_Prefs_Storage
     /**
      * Constructor.
      *
-     * @param array $params  Configuration parameters.
-     * <pre>
-     * 'user' - (string) The current username.
-     * </pre>
+     * @param string $user   The username.
+     * @param array $params  Additional configuration parameters.
      */
-    public function __construct(array $params = array())
+    public function __construct($user, array $params = array())
     {
-        $this->_params = $params;
+        $this->_params = array_merge($this->_params, $params);
+        $this->_params['user'] = $user;
     }
 
     /**
