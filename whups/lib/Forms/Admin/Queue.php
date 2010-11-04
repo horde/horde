@@ -171,7 +171,7 @@ class DeleteQueueForm extends Horde_Form {
 
         $yesno = array(array(0 => _("No"), 1 => _("Yes")));
         $this->addVariable(
-            _("Really delete this queue? This may cause data problems!"),
+            _("Really delete this queue? This will also delete all associated tickets and their comments. This can not be undone!"),
             'yesno', 'enum', true, false, null, $yesno);
     }
 

@@ -205,9 +205,11 @@ KronolithCore = {
                                 { parameters: { alarm: alarm.id,
                                                 snooze: e.element().getValue() } });
                         }
-                    }.bindAsEventListener(this));
+                    }.bindAsEventListener(this))
+                    .observe('click', function(e) {
+                        e.stop();
+                    });
                     message.down('input[type=button]').observe('click', function(e) {
-                        this.Growler.ungrowl(growl);
                         new Ajax.Request(
                             Kronolith.conf.URI_SNOOZE,
                             { parameters: { alarm: alarm.id,

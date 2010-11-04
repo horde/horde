@@ -67,7 +67,7 @@ class Text_Wiki_Render_Xhtml_Wikilink2 extends Text_Wiki_Render_Xhtml_Wikilink
                 return $this->textEncode($text);
             }
 
-            $href = sprintf($new_url, (!empty($GLOBALS['conf']['options']['use_mod_rewrite']) ? htmlspecialchars($page) : $this->urlEncode($page)));
+            $href = sprintf($new_url, (($GLOBALS['conf']['urls']['pretty'] == 'rewrite') ? htmlspecialchars($page) : $this->urlEncode($page)));
 
             // get the appropriate CSS class and new-link text
             $css = ' class="'.$this->textEncode($this->getConf('css_new')).'"';
