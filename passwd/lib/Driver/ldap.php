@@ -157,13 +157,11 @@ class Passwd_Driver_ldap extends Passwd_Driver {
         }
 
         // Get the user's dn.
-        if ($GLOBALS['conf']['hooks']['userdn']) {
-            $this->_userdn = Horde::callHook('_passwd_hook_userdn',
-                                             array($username),
-                                             'passwd');
-        } else {
+        try {
+            $this->_userdn = Horde::callHook('userdn', array($username), 'passwd');
+        } catch (Horde_Exception_HookNotSet $e) {
             $this->_userdn = $this->_lookupdn($username, $old_password);
-            if (is_a($this->_userdn, 'PEAR_Error')) {
+            if ($this->_userdn instanceof PEAR_Error) {
                 return $this->_userdn;
             }
         }

@@ -30,28 +30,28 @@ implements Horde_Notification_Storage_Interface
      */
     public function get($key)
     {
-        return $GLOBALS['session']['horde:notify/' . $key];
+        return $GLOBALS['session']->get('horde', 'notify/' . $key);
     }
 
     /**
      */
     public function set($key, $value)
     {
-        $GLOBALS['session']['horde:notify/' . $key] = $value;
+        $GLOBALS['session']->set('horde', 'notify/' . $key, $value);
     }
 
     /**
      */
     public function exists($key)
     {
-        return isset($GLOBALS['session']['horde:notify/' . $key]);
+        return $GLOBALS['session']->exists('horde', 'notify/' . $key);
     }
 
     /**
      */
     public function clear($key)
     {
-        unset($GLOBALS['session']['horde:notify/' . $key]);
+        $GLOBALS['session']->remove('horde', 'notify/' . $key);
     }
 
     /**
@@ -60,9 +60,9 @@ implements Horde_Notification_Storage_Interface
     {
         global $session;
 
-        $events = $session['horde:notify/' . $listener . ';array'];
+        $events = $session->get('horde', 'notify/' . $listener, Horde_Session::TYPE_ARRAY);
         $events[] = $event;
-        $session['horde:notify/' . $listener . ';object'] = $events;
+        $session->set('horde', 'notify/' . $listener, $events, Horde_Session::TYPE_OBJECT);
     }
 
 }

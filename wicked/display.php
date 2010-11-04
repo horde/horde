@@ -123,13 +123,11 @@ if (!$page->allows(Wicked::MODE_DISPLAY)) {
 $params = Horde_Util::getFormData('params');
 $page->preDisplay(Wicked::MODE_DISPLAY, $params);
 
-if (!isset($_SESSION['wickedSession']['history'])) {
-    $_SESSION['wickedSession']['history'] = array();
-}
-
 if ($page->isLocked()) {
     $notification->push(sprintf(_("This page is locked by %s for %d Minutes."), $page->getLockRequestor(), $page->getLockTime()), 'horde.message');
 }
+
+$history = $session->get('wicked', 'history', Horde_Session::TYPE_ARRAY);
 
 $title = $page->pageTitle();
 require WICKED_TEMPLATES . '/common-header.inc';
@@ -138,10 +136,13 @@ $page->render(Wicked::MODE_DISPLAY, $params);
 require $registry->get('templates', 'horde') . '/common-footer.inc';
 
 if ($page instanceof Wicked_Page_StandardPage &&
-    (!isset($_SESSION['wickedSession']['history'][0]) ||
-     $_SESSION['wickedSession']['history'][0] != $page->pageName())) {
-    array_unshift($_SESSION['wickedSession']['history'], $page->pageName());
+    (!isset($history[0]) ||
+     $history[0] != $page->pageName())) {
+    array_unshift($history, $page->pageName());
+    $session->set('wicked', 'history', $history);
 }
-if (count($_SESSION['wickedSession']['history']) > 10) {
-    array_pop($_SESSION['wickedSession']['history']);
+
+if (count($history) > 10) {
+    array_pop($history);
+    $session->set('wicked', 'history', $history);
 }

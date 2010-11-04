@@ -76,13 +76,17 @@ class Agora {
      */
     function getCAPTCHA($new = false)
     {
-        if ($new || empty($_SESSION['agora']['CAPTCHA'])) {
-            $_SESSION['agora']['CAPTCHA'] = '';
-            for ($i = 0; $i < 5; $i++) {
-                $_SESSION['agora']['CAPTCHA'] .= chr(rand(65, 90));
+        global $session;
+
+        if ($new || !$session->get('agora', 'captcha')) {
+            $captcha = '';
+            for ($i = 0; $i < 5; ++$i) {
+                $captcha .= chr(rand(65, 90));
             }
+            $session->set('agora', 'captcha', $captcha);
         }
-        return $_SESSION['agora']['CAPTCHA'];
+
+        return $session->get('agora', 'captcha');
     }
 
     /**

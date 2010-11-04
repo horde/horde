@@ -130,7 +130,7 @@ case 'forward_both':
             break;
         }
 
-        $rte = $show_editor = ($prefs->getValue('compose_html') && $session['imp:rteavail']);
+        $rte = $show_editor = ($prefs->getValue('compose_html') && $session->get('imp', 'rteavail'));
     } else {
         try {
             $contents = $imp_ui->getContents($vars);
@@ -192,7 +192,7 @@ case 'resume':
     break;
 
 case 'new':
-    $rte = $show_editor = ($prefs->getValue('compose_html') && $session['imp:rteavail']);
+    $rte = $show_editor = ($prefs->getValue('compose_html') && $session->get('imp', 'rteavail'));
     break;
 }
 

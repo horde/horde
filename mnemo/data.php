@@ -34,11 +34,11 @@ $templates = array(
 );
 if ($GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_notes') !== true &&
     $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_notes') <= Mnemo::countMemos()) {
-    $message = htmlspecialchars(sprintf(_("You are not allowed to create more than %d notes."), $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_notes')));
-    if (!empty($conf['hooks']['permsdenied'])) {
-        $message = Horde::callHook('_perms_hook_denied', array('mnemo:max_notes'), 'horde', $message);
-    }
-    $notification->push($message, 'horde.warning', array('content.raw'));
+    Horde::permissionDeniedError(
+        'mnemo',
+        'max_notes',
+        sprintf(_("You are not allowed to create more than %d notes."), $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_notes'))
+    );
     $templates[Horde_Data::IMPORT_FILE] = array(MNEMO_TEMPLATES . '/data/export.inc');
 } else {
     $templates[Horde_Data::IMPORT_FILE] = array(MNEMO_TEMPLATES . '/data/import.inc', MNEMO_TEMPLATES . '/data/export.inc');
@@ -121,11 +121,11 @@ if (is_array($next_step)) {
     $num_memos = Mnemo::countMemos();
     foreach ($next_step as $row) {
         if ($max_memos !== true && $num_memos >= $max_memos) {
-            $message = htmlspecialchars(sprintf(_("You are not allowed to create more than %d notes."), $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_notes')));
-            if (!empty($conf['hooks']['permsdenied'])) {
-                $message = Horde::callHook('_perms_hook_denied', array('mnemo:max_notes'), 'horde', $message);
-            }
-            $notification->push($message, 'horde.error', array('content.raw'));
+            Horde::permissionDeniedError(
+                'mnemo',
+                'max_notes',
+                sprintf(_("You are not allowed to create more than %d notes."), $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_notes'))
+            );
             break;
         }
 

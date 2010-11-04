@@ -176,6 +176,33 @@ class Horde_SQL {
     }
 
     /**
+     * Build appropriate INTERVAL clause for the database in use
+     *
+     * @param mixed $dbh
+     * @param string $interval
+     * @param string $precision
+     *
+     * @return string
+     */
+    public function buildIntervalClause($dbh, $interval, $precision)
+    {
+        $type = $dbh instanceof Horde_Db_Adapter ? Horde_String::lower($dbh->adapterName()) : $dbh->phptype;
+        switch ($type) {
+        case 'pgsql':
+        case 'pdo_postgresql':
+            $clause = 'INTERVAL \'' . $interval . ' ' . $precision . '\'';
+            break;
+        case 'oci8':
+            $clause = 'INTERVAL ' . $interval . '(' . $precision . ')';
+            break;
+        default:
+            $clause = 'INTERVAL ' . $precision . ' ' . $interval;
+        }
+
+        return $clause;
+    }
+
+    /**
      * Escapes all characters in a string that are placeholders for the
      * prepare/execute methods of the DB package.
      *

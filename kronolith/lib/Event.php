@@ -2049,10 +2049,10 @@ abstract class Kronolith_Event
         // Attendees.
         $this->attendees = ($attendees = Horde_Util::getFormData('attendees'))
             ? $attendees
-            : $session['kronolith:attendees;array'];
+            : $session->get('kronolith', 'attendees', Horde_Session::TYPE_ARRAY);
 
         // Resources
-        $this->_resources = $session['kronolith:resources;array'];
+        $this->_resources = $session->get('kronolith', 'resources', Horde_Session::TYPE_ARRAY);
 
         // strptime() is locale dependent, i.e. %p is not always matching
         // AM/PM. Set the locale to C to workaround this, but grab the

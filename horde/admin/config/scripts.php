@@ -44,7 +44,7 @@ if ($setup == 'conf' && $type == 'php') {
      * to be run at the command prompt. */
     $data = '#!/usr/bin/env php' . "\n";
     $data .= '<?php' . "\n";
-    foreach ($session['horde:config/'] as $app => $php) {
+    foreach ($session->get('horde', 'config/') as $app => $php) {
         $path = $registry->get('fileroot', $app) . '/config';
         /* Add code to save backup. */
         $data .= 'if (file_exists(\'' . $path . '/conf.php\')) {' . "\n";

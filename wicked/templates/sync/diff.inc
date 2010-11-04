@@ -96,7 +96,7 @@ $GLOBALS['notification']->notify(array('listeners' => 'status'));
 <a href="" target="_blank"><?php echo _("Download") ?></a> |
 <a href="" target="_blank"><?php echo _("Upload") ?></a> |
 <a href="<?php  echo Horde_Util::addParameter(Wicked::url('EditPage'), 'referrer', $this->_pageName) ?>" target="_blank"><?php echo _("Edit local") ?></a> |
-<a href="<?php  echo $_SESSION['wicked']['sync']['edit'] . $this->_pageName ?>" target="_blank"><?php echo _("Edit remote") ?></a>
+<a href="<?php  echo $GLOBALS['session']->get('wicked', 'sync_edit') . $this->_pageName ?>" target="_blank"><?php echo _("Edit remote") ?></a>
 </span>
 <?php echo sprintf(_("Diff for %s between %s and %s"), $page->pageTitle(), $name1, $name2) ?>
 </h1>

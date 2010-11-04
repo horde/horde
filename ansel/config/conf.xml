@@ -263,14 +263,4 @@
     libpuzzle pecl extension to use this feature." >7</configstring>
   </configsection>
  </configtab>
-
- <configtab name="hooks" desc="Custom Hooks">
-  <configsection name="hooks">
-    <configboolean name="postupload" required="false" desc="Should we use a
-       custom post upload hook? If so, make sure you define _ansel_hook_postupload()
-       in hooks.php. The hook will be called after the user successfully uploads
-       a set of images and can be used for things like sending notifications to
-       external websites/APIs.">false</configboolean>
-   </configsection>
-  </configtab>
 </configuration>

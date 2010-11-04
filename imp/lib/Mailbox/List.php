@@ -271,7 +271,7 @@ class IMP_Mailbox_List implements Countable, Serializable
                 $threadob = $this->getThreadOb();
                 $this->_sorted = $threadob->messageList((bool)$sortpref['dir']);
             } else {
-                if (($GLOBALS['session']['imp:protocol'] != 'pop') &&
+                if (($GLOBALS['session']->get('imp', 'protocol') != 'pop') &&
                     IMP::hideDeletedMsgs($this->_mailbox)) {
                     $query = new Horde_Imap_Client_Search_Query();
                     $query->flag('\\deleted', false);
@@ -410,8 +410,8 @@ class IMP_Mailbox_List implements Countable, Serializable
                     $page = ceil($start / $page_size);
                 } else {
                     /* Search for the last visited page first. */
-                    if (isset($GLOBALS['session']['imp:mbox_page/' . $this->_mailbox])) {
-                        $page = $GLOBALS['session']['imp:mbox_page/' . $this->_mailbox];
+                    if ($GLOBALS['session']->exists('imp', 'mbox_page/' . $this->_mailbox)) {
+                        $page = $GLOBALS['session']->get('imp', 'mbox_page/' . $this->_mailbox);
                     } elseif ($this->_searchmbox) {
                         $page = 1;
                     } else {
@@ -456,7 +456,7 @@ class IMP_Mailbox_List implements Countable, Serializable
         }
 
         /* Store the page value now. */
-        $GLOBALS['session']['imp:mbox_page/' . $this->_mailbox] = $ret['page'];
+        $GLOBALS['session']->set('imp', 'mbox_page/' . $this->_mailbox, $ret['page']);
 
         return $ret;
     }
@@ -521,7 +521,7 @@ class IMP_Mailbox_List implements Countable, Serializable
     {
         if (is_null($this->_threadob)) {
             try {
-                $this->_threadob = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->thread($this->_mailbox, array('criteria' => $GLOBALS['session']['imp:imap_thread']));
+                $this->_threadob = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->thread($this->_mailbox, array('criteria' => $GLOBALS['session']->get('imp', 'imap_thread')));
             } catch (Horde_Imap_Client_Exception $e) {
                 $GLOBALS['notification']->push($e);
                 return new Horde_Imap_Client_Thread(array(), 'uid');

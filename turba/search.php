@@ -51,17 +51,18 @@ Horde_Registry::appInit('turba');
 /* Verify if the search mode variable is passed in form or is registered in
  * the session. Always use basic search by default. */
 if (Horde_Util::getFormData('search_mode')) {
-    $session['turba:search_mode'] = Horde_Util::getFormData('search_mode');
+    $session->set('turba', 'search_mode', Horde_Util::getFormData('search_mode'));
 }
-if (!in_array($session['turba:search_mode'], array('basic', 'advanced', 'duplicate'))) {
-    $session['turba:search_mode'] = 'basic';
+if (!in_array($session->get('turba', 'search_mode'), array('basic', 'advanced', 'duplicate'))) {
+    $session->set('turba', 'search_mode', 'basic');
 }
+$search_mode = $session->get('turba', 'search_mode');
 
 /* Get the current source. */
 $addressBooks = Turba::getAddressBooks();
 $editableAddressBooks = Turba::getAddressBooks(Horde_Perms::EDIT & Horde_Perms::DELETE,
                                                array('require_add' => true));
-if ($session['turba:search_mode'] == 'duplicate') {
+if ($search_mode == 'duplicate') {
     $addressBooks = $editableAddressBooks;
 }
 $source = Horde_Util::getFormData('source', $default_source);
@@ -93,7 +94,7 @@ try {
 
 if ($driver) {
     $map = $driver->getCriteria();
-    if ($session['turba:search_mode'] == 'advanced') {
+    if ($search_mode == 'advanced') {
         $criteria = array();
         foreach (array_keys($map) as $key) {
             if ($key != '__key') {
@@ -111,7 +112,7 @@ if ($driver) {
     /* Only try to perform a search if we actually have search criteria. */
     if ((is_array($criteria) && count($criteria)) ||
         !empty($val) ||
-        ($session['turba:search_mode'] == 'duplicate' &&
+        ($search_mode == 'duplicate' &&
          (Horde_Util::getFormData('search') ||
           Horde_Util::getFormData('dupe') ||
           count($addressBooks) == 1))) {
@@ -131,7 +132,7 @@ if ($driver) {
                 'params' => serialize(array(
                     'type' => 'vbook',
                     'source' => $source,
-                    'criteria' => $session['turba:search_mode'] == 'basic' ? array($criteria => $val) : $criteria
+                    'criteria' => $search_mode == 'basic' ? array($criteria => $val) : $criteria
                 ))
             );
 
@@ -151,7 +152,7 @@ if ($driver) {
         }
 
         /* Perform a search. */
-        if ($session['turba:search_mode'] == 'duplicate') {
+        if ($search_mode == 'duplicate') {
             try {
                 $duplicates = $driver->searchDuplicates();
                 $dupe = Horde_Util::getFormData('dupe');
@@ -163,9 +164,9 @@ if ($driver) {
             }
         } else {
             try {
-                if ((($session['turba:search_mode'] == 'basic') &&
+                if ((($search_mode == 'basic') &&
                      ($results = $driver->search(array($criteria => $val)))) ||
-                    (($session['turba:search_mode'] == 'advanced') &&
+                    (($search_mode == 'advanced') &&
                      ($results = $driver->search($criteria)))) {
                     /* Read the columns to display from the preferences. */
                     $sources = Turba::getColumns();
@@ -227,14 +228,14 @@ $searchView->criteria = $criteria;
 $searchView->value = $val;
 
 /* The form footer and vbook section. */
-if ($session['turba:search_mode'] != 'duplicate') {
+if ($search_mode != 'duplicate') {
     $vbookView = new Horde_View(array('templatePath' => TURBA_TEMPLATES . '/search'));
-    $vbookView->hasShare = isset($session['turba:has_share']);
+    $vbookView->hasShare = $session->get('turba', 'has_share');
     $vbookView->shareSources = $shareSources;
     $vbookView->source = $source;
 }
 
-switch ($session['turba:search_mode']) {
+switch ($search_mode) {
 case 'basic':
     $title = _("Basic Search");
     Horde::addInlineScript(array(
@@ -264,10 +265,10 @@ if (isset($view) && is_object($view)) {
 
 require TURBA_TEMPLATES . '/common-header.inc';
 require TURBA_TEMPLATES . '/menu.inc';
-echo $tabs->render($session['turba:search_mode']);
+echo $tabs->render($search_mode);
 echo $headerView->render('header');
-echo $searchView->render($session['turba:search_mode']);
-if ($session['turba:search_mode'] != 'duplicate') {
+echo $searchView->render($search_mode);
+if ($search_mode != 'duplicate') {
     echo $vbookView->render('vbook');
 }
 if (isset($view) && is_object($view)) {

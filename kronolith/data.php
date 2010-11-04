@@ -43,12 +43,11 @@ $templates = array(
 $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 if ($perms->hasAppPermission('max_events') !== true &&
     $perms->hasAppPermission('max_events') <= Kronolith::countEvents()) {
-    try {
-        $message = Horde::callHook('perms_denied', array('kronolith:max_events'));
-    } catch (Horde_Exception_HookNotSet $e) {
-        $message = htmlspecialchars(sprintf(_("You are not allowed to create more than %d events."), $perms->hasAppPermission('max_events')));
-    }
-    $notification->push($message, 'horde.warning', array('content.raw'));
+    Horde::permissionDeniedError(
+        'kronolith',
+        'max_events',
+        sprintf(_("You are not allowed to create more than %d events."), $perms->hasAppPermission('max_events'))
+    );
     $templates[Horde_Data::IMPORT_FILE] = array(KRONOLITH_TEMPLATES . '/data/export.inc');
 } else {
     $templates[Horde_Data::IMPORT_FILE] = array(KRONOLITH_TEMPLATES . '/data/import.inc', KRONOLITH_TEMPLATES . '/data/export.inc');
@@ -260,12 +259,11 @@ if (is_array($next_step)) {
     $recurrences = array();
     foreach ($next_step as $row) {
         if ($max_events !== true && $num_events >= $max_events) {
-            try {
-                $message = Horde::callHook('perms_denied', array('kronolith:max_events'));
-            } catch (Horde_Exception_HookNotSet $e) {
-                $message = htmlspecialchars(sprintf(_("You are not allowed to create more than %d events."), $perms->hasAppPermission('max_events')));
-            }
-            $notification->push($message, 'horde.error', array('content.raw'));
+            Horde::permissionDeniedError(
+                'kronolith',
+                'max_events',
+                sprintf(_("You are not allowed to create more than %d events."), $perms->hasAppPermission('max_events'))
+            );
             break;
         }
         try {

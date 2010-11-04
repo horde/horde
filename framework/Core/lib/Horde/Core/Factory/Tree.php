@@ -103,14 +103,14 @@ class Horde_Core_Factory_Tree
      */
     public function getSession($instance, $id)
     {
-        return $GLOBALS['session']['horde:tree-' . $instance . '/' . $id];
+        return $GLOBALS['session']->get('horde', 'tree-' . $instance . '/' . $id);
     }
 
     /**
      */
     public function setSession($instance, $id, $val)
     {
-        $GLOBALS['session']['horde:tree-' . $instance . '/' . $id] = $val;
+        $GLOBALS['session']->set('horde', 'tree-' . $instance . '/' . $id, $val);
     }
 
 }

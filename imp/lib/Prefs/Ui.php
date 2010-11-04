@@ -51,7 +51,7 @@ class IMP_Prefs_Ui
             break;
 
         case 'delmove':
-            if ($GLOBALS['session']['imp:protocol'] == 'pop') {
+            if ($GLOBALS['session']->get('imp', 'protocol') == 'pop') {
                 $tmp = $ui->prefs['delete_spam_after_report']['enum'];
                 unset($tmp[2]);
                 $ui->override['delete_spam_after_report'] = $tmp;
@@ -69,7 +69,7 @@ class IMP_Prefs_Ui
     {
         global $conf, $prefs, $registry, $session;
 
-        $pop3 = ($session['imp:protocol'] == 'pop');
+        $pop3 = ($session->get('imp', 'protocol') == 'pop');
 
         switch ($ui->group) {
         case 'accounts':
@@ -147,7 +147,7 @@ class IMP_Prefs_Ui
             break;
 
         case 'filters':
-            if (!$session['imp:filteravail']) {
+            if (!$session->get('imp', 'filteravail')) {
                 $ui->suppress[] = 'filter_on_login';
                 $ui->suppress[] = 'filter_on_display';
                 $ui->suppress[] = 'filter_any_mailbox';
@@ -181,7 +181,7 @@ class IMP_Prefs_Ui
             }
 
             if ($prefs->isLocked('signature_html') ||
-                !$session['imp:rteavail']) {
+                !$session->get('imp', 'rteavail')) {
                 $ui->suppress[] = 'signature_html_select';
             } else {
                 Horde::addScriptFile('signaturehtml.js', 'imp');
@@ -542,7 +542,7 @@ class IMP_Prefs_Ui
                 $maildomain = preg_replace('/[^-\.a-z0-9]/i', '', $prefs->getValue('mail_domain'));
                 $prefs->setValue('maildomain', $maildomain);
                 if (!empty($maildomain)) {
-                    $session['imp:maildomain'] = $maildomain;
+                    $session->set('imp', 'maildomain', $maildomain);
                 }
             }
             break;
@@ -555,9 +555,13 @@ class IMP_Prefs_Ui
 
         case 'dimp':
             if ($prefs->isDirty('dynamic_view')) {
-                $session['imp:view'] = $prefs->getValue('dynamic_view')
-                    ? 'dimp'
-                    : ($GLOBALS['browser']->isMobile() ? 'mimp' : 'imp');
+                $session->set(
+                    'imp',
+                    'view',
+                    $prefs->getValue('dynamic_view')
+                        ? 'dimp'
+                        : ($GLOBALS['browser']->isMobile() ? 'mimp' : 'imp')
+                );
             }
             break;
 
@@ -752,7 +756,7 @@ class IMP_Prefs_Ui
 
         $t->set('canedit', $canEdit);
 
-        if ($GLOBALS['session']['imp:imap_admin']) {
+        if ($GLOBALS['session']->get('imp', 'imap_admin')) {
             $current_users = array_keys($curr_acl);
             $new_user = array();
 
@@ -1147,7 +1151,7 @@ class IMP_Prefs_Ui
                     '$("create_pgp_key").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Key generation may take a long time to complete.  Continue with key generation?"), Horde_Serialize::JSON, 'UTF-8') . ')) { e.stop(); } })'
                 ), 'dom');
 
-                if ($GLOBALS['session']['imp:file_upload']) {
+                if ($GLOBALS['session']->get('imp', 'file_upload')) {
                     Horde::addInlineScript(array(
                         '$("import_pgp_personal").observe("click", function(e) { ' . Horde::popupJs($pgp_url, array('params' => array('actionID' => 'import_personal_public_key', 'reload' => $GLOBALS['session']->store($ui->selfUrl()->setRaw(true), false)), 'height' => 275, 'width' => 750, 'urlencode' => true)) . '; e.stop(); })'
                     ), 'dom');
@@ -1246,7 +1250,7 @@ class IMP_Prefs_Ui
             $t->set('pubkey_list', $plist);
         }
 
-        if ($GLOBALS['session']['imp:file_upload']) {
+        if ($GLOBALS['session']->get('imp', 'file_upload')) {
             $t->set('can_import', true);
             $t->set('no_source', !$GLOBALS['prefs']->getValue('add_source'));
             if (!$t->get('no_source')) {
@@ -1527,7 +1531,7 @@ class IMP_Prefs_Ui
                 Horde::addInlineScript(array(
                     '$("delete_smime_personal").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Are you sure you want to delete your keypair? (This is NOT recommended!)"), Horde_Serialize::JSON, 'UTF-8') . ')) { e.stop(); } })'
                 ), 'dom');
-            } elseif ($GLOBALS['session']['imp:file_upload']) {
+            } elseif ($GLOBALS['session']->get('imp', 'file_upload')) {
                 $t->set('import-cert-help', Horde_Help::link('imp', 'smime-import-personal-certs'));
 
                 Horde::addInlineScript(array(
@@ -1598,7 +1602,7 @@ class IMP_Prefs_Ui
             $t->set('pubkey_list', $plist);
         }
 
-        if ($GLOBALS['session']['imp:file_upload']) {
+        if ($GLOBALS['session']->get('imp', 'file_upload')) {
             $t->set('can_import', true);
             $t->set('no_source', !$GLOBALS['prefs']->getValue('add_source'));
             if (!$t->get('no_source')) {
@@ -1704,7 +1708,7 @@ class IMP_Prefs_Ui
 
         if (isset($data['sources'])) {
             $prefs->setValue('search_sources', $data['sources']);
-            unset($GLOBALS['session']['imp:ac_ajax']);
+            $GLOBALS['session']->remove('imp', 'ac_ajax');
             $updated = true;
         }
 

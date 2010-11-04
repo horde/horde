@@ -78,7 +78,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         $data = $this->_IMPrender(true);
 
         /* Catch case where using mimp on a javascript browser. */
-        if ($GLOBALS['session']['imp:view'] != 'mimp') {
+        if ($GLOBALS['session']->get('imp', 'view') != 'mimp') {
             $uid = strval(new Horde_Support_Randomid());
 
             Horde::addScriptFile('imp.js', 'imp');
@@ -136,7 +136,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
         /* Don't do IMP DOM processing if in mimp mode or converting to
          * text. */
-        if (($GLOBALS['session']['imp:view'] == 'mimp') ||
+        if (($GLOBALS['session']->get('imp', 'view') == 'mimp') ||
             (!$inline && Horde_Util::getFormData('convert_text'))) {
             $this->_imptmp = null;
         } else {
@@ -173,7 +173,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
         /* Sanitize the HTML. */
         $data = $this->_cleanHTML($data, array(
-            'noprefetch' => ($inline && ($GLOBALS['session']['imp:view'] != 'mimp')),
+            'noprefetch' => ($inline && ($GLOBALS['session']->get('imp', 'view') != 'mimp')),
             'phishing' => $inline
         ));
 

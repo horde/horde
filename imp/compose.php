@@ -145,7 +145,7 @@ $isPopup = ($prefs->getValue('compose_popup') || $vars->popup);
 /* Determine the composition type - text or HTML.
    $rtemode is null if browser does not support it. */
 $rtemode = null;
-if ($session['imp:rteavail']) {
+if ($session->get('imp', 'rteavail')) {
     if ($prefs->isLocked('compose_html')) {
         $rtemode = $prefs->getValue('compose_html');
     } else {
@@ -160,7 +160,7 @@ if ($session['imp:rteavail']) {
 }
 
 /* Update the file attachment information. */
-if ($session['imp:file_upload']) {
+if ($session->get('imp', 'file_upload')) {
     /* Only notify if we are reloading the compose screen. */
     $notify = !in_array($vars->actionID, array('send_message', 'save_draft'));
 
@@ -711,7 +711,7 @@ if ($redirect) {
     /* Prepare the compose template. */
     $tabindex = 0;
 
-    $t->set('file_upload', $session['imp:file_upload']);
+    $t->set('file_upload', $session->get('imp', 'file_upload'));
     $t->set('forminput', Horde_Util::formInput());
 
     $hidden = array(
@@ -726,8 +726,8 @@ if ($redirect) {
         'user' => $registry->getAuth()
     );
 
-    if (isset($session['imp:file_upload'])) {
-        $hidden['MAX_FILE_SIZE'] = $session['imp:file_upload'];
+    if ($session->exists('imp', 'file_upload')) {
+        $hidden['MAX_FILE_SIZE'] = $session->get('imp', 'file_upload');
     }
     foreach (array('page', 'start', 'popup') as $val) {
         $hidden[$val] = htmlspecialchars($vars->$val);
@@ -869,7 +869,7 @@ if ($redirect) {
             'label' => ''
         );
     }
-    if ($session['imp:file_upload']) {
+    if ($session->get('imp', 'file_upload')) {
         $url = new Horde_Url('#attachments');
         $compose_options[] = array(
             'url' => $url->link(array('class' => 'widget')),
@@ -956,7 +956,7 @@ if ($redirect) {
         $t->set('vcard', Horde::label('vcard', _("Attach your contact information to the message?")));
         $t->set('attach_vcard', $vars->vcard);
     }
-    if ($session['imp:file_upload']) {
+    if ($session->get('imp', 'file_upload')) {
         $localeinfo = Horde_Nls::getLocaleInfo();
         try {
             $t->set('selectlistlink', $registry->call('files/selectlistLink', array(_("Attach Files"), 'widget', 'compose', true)));

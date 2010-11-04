@@ -40,7 +40,7 @@ class IMP_Injector_Factory_AuthImap
             throw new IMP_Exception('No server parameters found.');
         }
 
-        $aparams = $GLOBALS['session']['imp:imap_admin;array'];
+        $aparams = $GLOBALS['session']->get('imp', 'imap_admin', Horde_Session::TYPE_ARRAY);
 
         $params = array_merge(
             $params,

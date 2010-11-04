@@ -15,8 +15,8 @@ if (Kronolith::showAjaxView()) {
 }
 
 // Get the current attendees array from the session cache.
-$attendees = $session['kronolith:attendees;array'];
-$resources = $session['kronolith:resources;array'];
+$attendees = $session->get('kronolith', 'attendees', Horde_Session::TYPE_ARRAY);
+$resources = $session->get('kronolith', 'resources', Horde_Session::TYPE_ARRAY);
 $editAttendee = null;
 
 // Get the action ID and value. This specifies what action the user initiated.
@@ -36,7 +36,7 @@ case 'add':
 
     $newAttendees = Kronolith::parseAttendees($newAttendees);
     if ($newAttendees) {
-        $session['kronolith:attendees'] = $attendees + $newAttendees;
+        $session->set('kronolith', 'attendees', $attendees + $newAttendees);
     }
 
     // Any new resources?
@@ -55,7 +55,7 @@ case 'add':
             'name'       => $resource->get('name'),
         );
 
-        $session['kronolith:resources'] = $resources;
+        $session->set('kronolith', 'resources', $resources);
     }
 
     if (Horde_Util::getFormData('addNewClose')) {
@@ -78,7 +78,7 @@ case 'edit':
                    : ' <' . $actionValue . '>'));
         }
         unset($attendees[$actionValue]);
-        $session['kronolith:attendees'] = $attendees;
+        $session->set('kronolith', 'attendees', $attendees);
     }
     break;
 
@@ -87,7 +87,7 @@ case 'remove':
     $actionValue = Horde_String::lower($actionValue);
     if (isset($attendees[$actionValue])) {
         unset($attendees[$actionValue]);
-        $session['kronolith:attendees'] = $attendees;
+        $session->set('kronolith', 'attendees', $attendees);
     }
     break;
 
@@ -95,16 +95,16 @@ case 'removeResource':
     // Remove the specified resource
     if (isset($resources[$actionValue])) {
         unset($resources[$actionValue]);
-        $session['kronolith:resources'] = $resources;
+        $session->set('kronolith', 'resources', $resources);
     }
     break;
 
 case 'changeResourceResp':
-    //@TODO: What else to do here? Dissallow if responsetype is auto?
+    //@TODO: What else to do here? Disallow if responsetype is auto?
     list($partval, $partname) = explode(' ', $actionValue, 2);
     if (isset($resources[$partname])) {
         $resources[$partname]['response'] = $partval;
-        $session['kronolith:resources'] = $resources;
+        $session->set('kronolith', 'resources', $resources);
     }
     break;
 
@@ -114,7 +114,7 @@ case 'changeatt':
     $partname = Horde_String::lower($partname);
     if (isset($attendees[$partname])) {
         $attendees[$partname]['attendance'] = $partval;
-        $session['kronolith:attendees'] = $attendees;
+        $session->set('kronolith', 'attendees', $attendees);
     }
     break;
 
@@ -124,7 +124,7 @@ case 'changeResourceAtt':
     $partname = Horde_String::lower($partname);
     if (isset($resources[$partname])) {
         $resources[$partname]['attendance'] = $partval;
-        $session['kronolith:resources'] = $resources;
+        $session->set('kronolith', 'resources', $resources);
     }
     break;
 
@@ -134,7 +134,7 @@ case 'changeresp':
     $partname = Horde_String::lower($partname);
     if (isset($attendees[$partname])) {
         $attendees[$partname]['response'] = $partval;
-        $session['kronolith:attendees'] = $attendees;
+        $session->set('kronolith', 'attendees', $attendees);
     }
     break;
 
@@ -159,7 +159,8 @@ case 'dismiss':
 
 case 'clear':
     // Remove all the attendees and resources.
-    unset($session['kronolith:attendees'], $session['kronolith:resources']);
+    $session->remove('kronolith', 'attendees');
+    $session->remove('kronolith', 'resources');
     break;
 }
 
@@ -209,7 +210,7 @@ try {
 }
 
 // Add the Free/Busy information for each attendee.
-foreach ($session['kronolith:attendees;array'] as $email => $status) {
+foreach ($session->get('kronolith', 'attendees', Horde_Session::TYPE_ARRAY) as $email => $status) {
     if (strpos($email, '@') !== false &&
         ($status['attendance'] == Kronolith::PART_REQUIRED ||
          $status['attendance'] == Kronolith::PART_OPTIONAL)) {

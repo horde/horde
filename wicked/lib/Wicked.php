@@ -204,13 +204,17 @@ class Wicked
      */
     public static function getCAPTCHA($new = false)
     {
-        if ($new || empty($_SESSION['wickedSession']['CAPTCHA'])) {
-            $_SESSION['wickedSession']['CAPTCHA'] = '';
-            for ($i = 0; $i < 5; $i++) {
-                $_SESSION['wickedSession']['CAPTCHA'] .= chr(rand(65, 90));
+        global $session;
+
+        if ($new || !$session->get('wicked', 'captcha')) {
+            $captcha = '';
+            for ($i = 0; $i < 5; ++$i) {
+                $captcha .= chr(rand(65, 90));
             }
+            $session->set('wicked', 'captcha', $captcha);
         }
-        return $_SESSION['wickedSession']['CAPTCHA'];
+
+        return $session->get('wicked', 'captcha');
     }
 
     /**

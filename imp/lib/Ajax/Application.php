@@ -1534,7 +1534,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $result->action = 'addAttachment';
         $result->success = 0;
 
-        if ($GLOBALS['session']['imp:file_upload'] &&
+        if ($GLOBALS['session']->get('imp', 'file_upload') &&
             $imp_compose->addFilesFromUpload('file_')) {
             $result->atc = end(IMP_Dimp::getAttachmentInfo($imp_compose));
             $result->success = 1;
@@ -2060,7 +2060,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      */
     protected function _getQuota()
     {
-        if ($GLOBALS['session']['imp:imap_quota']) {
+        if ($GLOBALS['session']->get('imp', 'imap_quota')) {
             $quotadata = IMP::quotaData(false);
             if (!empty($quotadata)) {
                 return array(

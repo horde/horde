@@ -13,12 +13,16 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Core
  */
-class Horde_Session implements ArrayAccess
+class Horde_Session
 {
     /* Class constants. */
     const DATA = '_d';
+    const MODIFIED = '_m';
     const PRUNE = '_p';
     const SERIALIZED = '_s';
+
+    const TYPE_ARRAY = 1;
+    const TYPE_OBJECT = 2;
 
     /**
      * Maximum size of the pruneable data store.
@@ -103,6 +107,9 @@ class Horde_Session implements ArrayAccess
 
             /* Create internal data arrays. */
             if (!isset($_SESSION[self::SERIALIZED])) {
+                /* Last modification time of session. */
+                $_SESSION[self::MODIFIED] = 0;
+
                 /* Is this key serialized? */
                 $_SESSION[self::SERIALIZED] = array();
             }
@@ -116,8 +123,8 @@ class Horde_Session implements ArrayAccess
              * we are accessing the server via a periodic mechanism (think
              * folder refreshing in IMP) that we will catch this refresh. */
             $curr_time = time();
-            if ($curr_time >= intval($this['horde:session_mod'])) {
-                $this['horde:session_mod'] = $curr_time + (ini_get('session.gc_maxlifetime') / 2);
+            if ($curr_time >= $_SESSION[self::MODIFIED]) {
+                $_SESSION[self::MODIFIED] = intval($curr_time + (ini_get('session.gc_maxlifetime') / 2));
                 $this->sessionHandler->changed = true;
             }
         }
@@ -163,22 +170,179 @@ class Horde_Session implements ArrayAccess
         $this->_cleansession = true;
     }
 
+    /* Session variable access. */
+
+    /**
+     * Does the session variable exist?
+     *
+     * @param string $app   Application name.
+     * @param string $name  Session variable name.
+     *
+     * @return boolean  True if session variable exists.
+     */
+    public function exists($app, $name)
+    {
+        return isset($_SESSION[$app][$name]);
+    }
+
+    /**
+     * Get the value of a session variable.
+     *
+     * @param string $app    Application name.
+     * @param string $name   Session variable name.
+     * @param integer $mask  One of:
+     * <pre>
+     * self::TYPE_ARRAY - Return an array value.
+     * self::TYPE_OBJECT - Return an object value.
+     * </pre>
+     *
+     * @return mixed  The value or null if the value doesn't exist.
+     */
+    public function get($app, $name, $mask = 0)
+    {
+        if (!$this->exists($app, $name)) {
+            if ($subkeys = $this->_subkeys($app, $name)) {
+                $ret = array();
+                foreach ($subkeys as $k => $v) {
+                    $ret[$k] = $this->get($app, $v, $mask);
+                }
+                return $ret;
+            }
+
+            if (strpos($name, self::DATA) === 0) {
+                return $this->retrieve($name);
+            }
+
+            switch ($mask) {
+            case self::TYPE_ARRAY:
+                return array();
+
+            case self::TYPE_OBJECT:
+                return new stdClass;
+
+            default:
+                return null;
+            }
+        }
+
+        $data = $_SESSION[$app][$name];
+        $key = $this->_getKey($app, $name);
+
+        if (!isset($_SESSION[self::SERIALIZED][$key])) {
+            return $data;
+        }
+
+        if ($this->_lzf &&
+            (($data = @lzf_decompress($data)) === false)) {
+            $this->remove($app, $name);
+            return $this->get($app, $name);
+        }
+
+        return ($_SESSION[self::SERIALIZED][$key] == 's')
+            ? @unserialize($data)
+            : json_decode($data, true);
+    }
+
+    /**
+     * Sets the value of a session variable.
+     *
+     * @param string $app    Application name.
+     * @param string $name   Session variable name.
+     * @param mixed $value   Session variable value.
+     * <pre>
+     * self::TYPE_ARRAY - Force save as an array value.
+     * self::TYPE_OBJECT - Force save as an object value.
+     * </pre>
+     */
+    public function set($app, $name, $value, $mask = 0)
+    {
+        $key = $this->_getKey($app, $name);
+
+        /* Each particular piece of session data is generally not used on any
+         * given page load.  Thus, for arrays and objects, it is beneficial to
+         * always convert to string representations so that the object/array
+         * does not need to be rebuilt every time the session is reloaded. */
+        if (is_object($value) || ($mask & self::TYPE_OBJECT)) {
+            $value = serialize($value);
+            if ($this->_lzf) {
+                $value = lzf_compress($value);
+            }
+            $_SESSION[self::SERIALIZED][$key] = 's';
+        } elseif (is_array($value) || ($mask & self::TYPE_ARRAY)) {
+            $value = json_encode($value);
+            if ($this->_lzf) {
+                $value = lzf_compress($value);
+            }
+            $_SESSION[self::SERIALIZED][$key] = 'j';
+        } else {
+            unset($_SESSION[self::SERIALIZED][$key]);
+        }
+
+        $_SESSION[$app][$name] = $value;
+        $this->sessionHandler->changed = true;
+    }
+
+    /**
+     * Remove session key(s).
+     *
+     * @param string $app    Application name.
+     * @param string $name   Session variable name.
+     */
+    public function remove($app, $name = null)
+    {
+        if (!isset($_SESSION[$app])) {
+            return;
+        }
+
+        if (is_null($name)) {
+            foreach (array_keys($_SESSION[$app]) as $key) {
+                unset($_SESSION[self::SERIALIZED][$key]);
+            }
+            unset($_SESSION[$app]);
+        } elseif (isset($_SESSION[$app][$name])) {
+            $key = $this->_getKey($app, $name);
+            unset(
+                $_SESSION[$app][$name],
+                $_SESSION[self::PRUNE][$key],
+                $_SESSION[self::SERIALIZED][$key]
+            );
+        } else {
+            foreach ($this->_subkeys($app, $name) as $val) {
+                $this->remove($app, $val);
+            }
+        }
+    }
+
+    /**
+     * Generates the unique storage key.
+     *
+     * @param string $app    Application name.
+     * @param string $name   Session variable name.
+     *
+     * @return string  The unique storage key.
+     */
+    private function _getKey($app, $name)
+    {
+        return $app . ':' . $name;
+    }
+
     /**
      * Return the list of subkeys for a master key.
      *
-     * @param object $ob  See _parseOffset().
+     * @param string $app    Application name.
+     * @param string $name   Session variable name.
      *
      * @return array  Subkeyname (keys) and session variable name (values).
      */
-    private function _subkeys($ob)
+    private function _subkeys($app, $name)
     {
         $ret = array();
 
-        if (isset($_SESSION[$ob->app]) &&
-            ($ob->name[strlen($ob->name) - 1] == '/')) {
-            foreach (array_keys($_SESSION[$ob->app]) as $k) {
-                if (strpos($k, $ob->name) === 0) {
-                    $ret[substr($k, strlen($ob->name))] = $k;
+        if (isset($_SESSION[$app]) &&
+            ($name[strlen($name) - 1] == '/')) {
+            foreach (array_keys($_SESSION[$app]) as $k) {
+                if (strpos($k, $name) === 0) {
+                    $ret[substr($k, strlen($name))] = $k;
                 }
             }
         }
@@ -190,25 +354,20 @@ class Horde_Session implements ArrayAccess
 
     /**
      * Store an arbitrary piece of data in the session.
-     * Equivalent to: $this[self::DATA . ':' . $id] = $value;
      *
      * @param mixed $data     Data to save.
      * @param boolean $prune  Is data pruneable?
      * @param string $id      ID to use (otherwise, is autogenerated).
      *
-     * @return string  The session storage id (used to get session data).
+     * @return string  The session storage id (used to retrieve session data).
      */
     public function store($data, $prune = true, $id = null)
     {
-        if (is_null($id)) {
-            $id = strval(new Horde_Support_Randomid());
-        } else {
-            $offset = $this->_parseOffset($id);
-            $id = $offset->name;
-        }
+        $id = is_null($id)
+            ? strval(new Horde_Support_Randomid())
+            : $this->_getStoreId($id);
 
-        $full_id = self::DATA . ':' . $id;
-        $this->_offsetSet($this->_parseOffset($full_id), $data);
+        $this->set(self::DATA, $id, $data);
 
         if ($prune) {
             $ptr = &$_SESSION[self::PRUNE];
@@ -219,12 +378,11 @@ class Horde_Session implements ArrayAccess
             }
         }
 
-        return $full_id;
+        return $this->_getKey(self::DATA, $id);
     }
 
     /**
      * Retrieve data from the session data store (created via store()).
-     * Equivalent to: $value = $this[self::DATA . ':' . $id];
      *
      * @param string $id  The session data ID.
      *
@@ -232,202 +390,35 @@ class Horde_Session implements ArrayAccess
      */
     public function retrieve($id)
     {
-        $id = trim($id);
-
-        if (strpos($id, self::DATA) !== 0) {
-            $id = self::DATA . ':' . $id;
-        }
-
-        return $this[$id];
+        return $this->get(self::DATA, $this->_getStoreId($id));
     }
 
     /**
      * Purge data from the session data store (created via store()).
-     * Equivalent to: unset($this[self::DATA . ':' . $id]);
      *
      * @param string $id  The session data ID.
      */
     public function purge($id)
     {
+        $this->remove(self::DATA, $this->_getStoreId($id));
+    }
+
+    /**
+     * Returns the base storage ID.
+     *
+     * @param string $id  The session data ID.
+     *
+     * @return string  The base storage ID (without prefix).
+     */
+    private function _getStoreId($id)
+    {
         $id = trim($id);
 
-        if (strpos($id, self::DATA) !== 0) {
-            $id = self::DATA . ':' . $id;
+        if (strpos($id, self::DATA) === 0) {
+            $id = substr($id, strlen(self::DATA) + 1);
         }
 
-        unset($this[$id]);
-    }
-
-    /* ArrayAccess methods. */
-
-    /**
-     */
-    public function offsetExists($offset)
-    {
-        $ob = $this->_parseOffset($offset);
-
-        return isset($_SESSION[$ob->app][$ob->name]);
-    }
-
-    /**
-     */
-    public function offsetGet($offset)
-    {
-        $ob = $this->_parseOffset($offset);
-
-        if (!isset($_SESSION[$ob->app][$ob->name])) {
-            $subkeys = $this->_subkeys($ob);
-            if (!empty($subkeys)) {
-                $ret = array();
-                foreach ($subkeys as $k => $v) {
-                    $ret[$k] = $this[$v];
-                }
-                return $ret;
-            }
-
-            switch ($ob->type) {
-            case 'array':
-                return array();
-
-            case 'object':
-                return new stdClass;
-
-            default:
-                return null;
-            }
-        }
-
-        $data = $_SESSION[$ob->app][$ob->name];
-
-        if (!isset($_SESSION[self::SERIALIZED][$ob->key])) {
-            return $data;
-        }
-
-        if ($this->_lzf &&
-            (($data = @lzf_decompress($data)) === false)) {
-            unset($this[$offset]);
-            return $this[$offset];
-        }
-
-        return ($_SESSION[self::SERIALIZED][$ob->key] == 's')
-            ? @unserialize($data)
-            : json_decode($data, true);
-    }
-
-    /**
-     */
-    public function offsetSet($offset, $value)
-    {
-        $ob = $this->_parseOffset($offset);
-
-        if ($ob->app == self::DATA) {
-            $this->store($value, false, $ob->name);
-        } else {
-            $this->_offsetSet($ob, $value);
-        }
-    }
-
-    /**
-     * TODO
-     */
-    private function _offsetSet($ob, $value)
-    {
-        /* Each particular piece of session data is generally not used on any
-         * given page load.  Thus, for arrays and objects, it is beneficial to
-         * always convert to string representations so that the object/array
-         * does not need to be rebuilt every time the session is reloaded. */
-        if (is_object($value) || ($ob->type == 'object')) {
-            $value = serialize($value);
-            if ($this->_lzf) {
-                $value = lzf_compress($value);
-            }
-            $_SESSION[self::SERIALIZED][$ob->key] = 's';
-        } elseif (is_array($value) || ($ob->type == 'array')) {
-            $value = json_encode($value);
-            if ($this->_lzf) {
-                $value = lzf_compress($value);
-            }
-            $_SESSION[self::SERIALIZED][$ob->key] = 'j';
-        } else {
-            unset($_SESSION[self::SERIALIZED][$ob->key]);
-        }
-
-        $_SESSION[$ob->app][$ob->name] = $value;
-        $this->sessionHandler->changed = true;
-    }
-
-    /**
-     */
-    public function offsetUnset($offset)
-    {
-        $ob = $this->_parseOffset($offset);
-
-        if (isset($_SESSION[$ob->app])) {
-            if (!strlen($ob->name)) {
-                foreach (array_keys($_SESSION[$ob->app]) as $key) {
-                    unset($_SESSION[self::SERIALIZED][$key]);
-                }
-                unset($_SESSION[$ob->app]);
-            } elseif (isset($_SESSION[$ob->app][$ob->name])) {
-                unset(
-                    $_SESSION[$ob->app][$ob->name],
-                    $_SESSION[self::PRUNE][$ob->key],
-                    $_SESSION[self::SERIALIZED][$ob->key]
-                );
-            } else {
-                foreach ($this->_subkeys($ob) as $val) {
-                    unset($this[$val]);
-                }
-            }
-        }
-    }
-
-    /* ArrayAccess helper methods. */
-
-    /**
-     * Parses a session variable identifier.
-     * Format:
-     * <pre>
-     * [app:]name[/subkey][;default]
-     *
-     * app - Application name.
-     *       DEFAULT: horde
-     * default - Default value type to return if value doesn't exist.
-     *           Valid types: array, object
-     *           DEFAULT: none
-     * subkey - Indicate that this entry is a subkey of the master name key.
-     *          Requesting a session key with a trailing '/' will retrieve all
-     *          subkeys of the given master key.
-     * </pre>
-     *
-     * @return object  Object with the following properties:
-     * <pre>
-     * app - Application name.
-     * key - Offset key.
-     * name - Variable name.
-     * type - Variable type.
-     * </pre>
-     */
-    private function _parseOffset($offset)
-    {
-        $ob = new stdClass;
-
-        $parts = explode(':', $offset);
-        if (isset($parts[1])) {
-            $ob->app = $parts[0];
-            $type = explode(';', $parts[1]);
-        } else {
-            $ob->app = 'horde';
-            $type = explode(';', $parts[0]);
-        }
-
-        $ob->name = $type[0];
-        $ob->key = $ob->app . ':' . $ob->name;
-        $ob->type = isset($type[1])
-            ? $type[1]
-            : 'scalar';
-
-        return $ob;
+        return $id;
     }
 
 }

@@ -25,6 +25,7 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage
     /**
      * Constructor.
      *
+     * @param string $user   The username.
      * @param array $params  Configuration parameters.
      * <pre>
      * 'db' - (Horde_Db_Adapter) [REQUIRED] The DB instance.
@@ -34,7 +35,7 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage
      *
      * @throws InvalidArgumentException
      */
-    public function __construct(array $params = array())
+    public function __construct($user, array $params = array())
     {
         if (!isset($params['db'])) {
             throw new InvalidArgumentException('Missing db parameter.');
@@ -46,7 +47,7 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage
             'table' => 'horde_prefs'
         ), $params);
 
-        parent::__construct($params);
+        parent::__construct($user, $params);
     }
 
     /**

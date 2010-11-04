@@ -177,7 +177,7 @@ class Turba_View_List implements Countable
             $listHtml = $this->getPage($numDisplayed, $min, $max);
 
             $crit = array();
-            if ($session['turba:search_mode'] == 'advanced') {
+            if ($session->get('turba', 'search_mode') == 'advanced') {
                 $map = $driver->getCriteria();
                 foreach ($map as $key => $value) {
                     if ($key != '__key') {

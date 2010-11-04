@@ -68,7 +68,7 @@ class IMP_Injector_Factory_MailboxList
             case 'imp':
             case 'mimp':
                 try {
-                    $ob = $GLOBALS['session']['imp:imp_mailbox/' . $mailbox];
+                    $ob = $GLOBALS['session']->get('imp', 'imp_mailbox/' . $mailbox);
                 } catch (Exception $e) {
                     $ob = null;
                 }
@@ -107,7 +107,7 @@ class IMP_Injector_Factory_MailboxList
              * unseen flag). */
             foreach ($this->_instances as $key => $val) {
                 if ($val->changed) {
-                    $GLOBALS['session']['imp:imp_mailbox/' . $key] = $val;
+                    $GLOBALS['session']->set('imp', 'imp_mailbox/' . $key, $val);
                 }
             }
         }

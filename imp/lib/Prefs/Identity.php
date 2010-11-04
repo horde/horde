@@ -127,7 +127,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
         }
 
         try {
-            $ob = Horde_Mime_Address::parseAddressList($address, array('defserver' => $GLOBALS['session']['imp:maildomain']));
+            $ob = Horde_Mime_Address::parseAddressList($address, array('defserver' => $GLOBALS['session']->get('imp', 'maildomain')));
         } catch (Horde_Mime_Exception $e) {
             throw new Horde_Exception (_("Your From address is not a valid email address. This can be fixed in your Personal Information preferences page."));
         }
@@ -207,7 +207,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
             }
 
             if (!strstr($val, '@')) {
-                $val .= '@' . $GLOBALS['session']['imp:maildomain'];
+                $val .= '@' . $GLOBALS['session']->get('imp', 'maildomain');
             }
 
             $this->_cached['fromList'][$ident] = $val;

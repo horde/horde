@@ -202,7 +202,7 @@ case 'view_messages':
 $mailbox_token = Horde::getRequestToken('imp.mailbox');
 
 /* Deal with filter options. */
-if (!$readonly && $session['imp:filteravail']) {
+if (!$readonly && $session->get('imp', 'filteravail')) {
     /* Only allow filter on display for INBOX. */
     if ((IMP::$mailbox == 'INBOX') &&
         $prefs->getValue('filter_on_display')) {
@@ -391,7 +391,7 @@ if (isset($filter_url)) {
     $hdr_template->set('filter_img', Horde::img('filters.png', _("Apply Filters")));
 }
 $hdr_template->set('search', false);
-if ($session['imp:protocol'] != 'pop') {
+if ($session->get('imp', 'protocol') != 'pop') {
     $hdr_template->set('search_img', Horde::img('search.png', _("Search")));
 
     if (!$search_mbox) {
@@ -470,7 +470,7 @@ if ($pageOb['msgcount']) {
     $n_template->set('sessiontag', Horde_Util::formInput());
     $n_template->set('use_folders', $conf['user']['allow_folders']);
     $n_template->set('readonly', $readonly);
-    $n_template->set('use_pop', $session['imp:protocol'] == 'pop');
+    $n_template->set('use_pop', $session->get('imp', 'protocol') == 'pop');
 
     if (!$n_template->get('use_pop')) {
         $tmp = $imp_flags->getFlagList($search_mbox ? null : IMP::$mailbox);

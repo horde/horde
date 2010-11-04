@@ -307,6 +307,8 @@ class Kronolith
             'no_url' => _("You must specify a URL."),
             'no_calendar_title' => _("The calendar title must not be empty."),
             'no_tasklist_title' => _("The task list title must not be empty."),
+            'delete_calendar' => _("Are you sure you want to delete this calendar and all the events in it?"),
+            'delete_tasklist' => _("Are you sure you want to delete this task list and all the tasks in it?"),
             'wrong_auth' => _("The authentication information you specified wasn't accepted."),
             'geocode_error' => _("Unable to locate requested address"),
             'wrong_date_format' => sprintf(_("You used an unknown date format \"%s\". Please try something like \"%s\"."), '#{wrong}', '#{right}'),
@@ -960,10 +962,10 @@ class Kronolith
          * back to an available calendar. An empty string passed in this
          * parameter will clear any existing session value.*/
         if (($calendarId = Horde_Util::getFormData('display_cal')) !== null) {
-            $GLOBALS['session']['kronolith:display_cal'] = $calendarId;
+            $GLOBALS['session']->set('kronolith', 'display_cal', $calendarId);
         }
 
-        if (isset($GLOBALS['session']['kronolith:display_cal'])) {
+        if ($GLOBALS['session']->exists('kronolith', 'display_cal')) {
             /* Specifying a value for display_cal is always to make sure
              * that only the specified calendars are shown. Use the
              * "toggle_calendar" argument  to toggle the state of a single
@@ -973,7 +975,7 @@ class Kronolith
             $GLOBALS['display_external_calendars'] = array();
             $GLOBALS['display_resource_calendars'] = array();
             $GLOBALS['display_holidays'] = array();
-            $calendars = $GLOBALS['session']['kronolith:display_cal'];
+            $calendars = $GLOBALS['session']->get('kronolith', 'display_cal');
             if (!is_array($calendars)) {
                 $calendars = array($calendars);
             }
@@ -1098,13 +1100,13 @@ class Kronolith
 
         /* Get a list of external calendars. */
         $GLOBALS['all_external_calendars'] = array();
-        if (isset($GLOBALS['session']['kronolith:all_external_calendars'])) {
-            foreach ($GLOBALS['session']['kronolith:all_external_calendars'] as $calendar) {
+        if ($GLOBALS['session']->exists('kronolith', 'all_external_calendars')) {
+            foreach ($GLOBALS['session']->get('kronolith', 'all_external_calendars') as $calendar) {
                 $GLOBALS['all_external_calendars'][$calendar['a'] . '/' . $calendar['n']] = new Kronolith_Calendar_External(array('api' => $calendar['a'], 'name' => $calendar['d']));
             }
         } else {
             $apis = array_unique($GLOBALS['registry']->listAPIs());
-            $ext_cals = $GLOBALS['session']['kronolith:all_external_calendars;array'];
+            $ext_cals = $GLOBALS['session']->get('kronolith', 'all_external_calendars', Horde_Session::TYPE_ARRAY);
 
             foreach ($apis as $api) {
                 if (!$GLOBALS['registry']->hasMethod($api . '/listTimeObjects')) {
@@ -1127,7 +1129,7 @@ class Kronolith
                 }
             }
 
-            $GLOBALS['session']['kronolith:all_external_calendars'] = $ext_cals;
+            $GLOBALS['session']->set('kronolith', 'all_external_calendars', $ext_cals);
         }
 
         /* Make sure all the external calendars still exist. */
@@ -2207,12 +2209,12 @@ class Kronolith
     {
         /* Attendees */
         $attendees = array();
-        foreach ($GLOBALS['session']['kronolith:attendees;array'] as $email => $attendee) {
+        foreach ($GLOBALS['session']->get('kronolith', 'attendees', Horde_Session::TYPE_ARRAY) as $email => $attendee) {
             $attendees[] = empty($attendee['name']) ? $email : Horde_Mime_Address::trimAddress($attendee['name'] . (strpos($email, '@') === false ? '' : ' <' . $email . '>'));
         }
 
         /* Resources */
-        foreach ($GLOBALS['session']['kronolith:resources;array'] as $resource) {
+        foreach ($GLOBALS['session']->get('kronolith', 'resources', Horde_Session::TYPE_ARRAY) as $resource) {
             $attendees[] = $resource['name'];
         }
 

@@ -68,12 +68,11 @@ case 'add_task':
     $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
     if ($perms->hasAppPermission('max_tasks') !== true &&
         $perms->hasAppPermission('max_tasks') <= Nag::countTasks()) {
-        try {
-            $message = Horde::callHook('perms_denied', array('nag:max_tasks'));
-        } catch (Horde_Exception_HookNotSet $e) {
-            $message = htmlspecialchars(sprintf(_("You are not allowed to create more than %d tasks."), $perms->hasAppPermission('max_tasks')));
-        }
-        $notification->push($message, 'horde.error', array('content.raw'));
+        Horde::permissionDeniedError(
+            'nag',
+            'max_tasks',
+            sprintf(_("You are not allowed to create more than %d tasks."), $perms->hasAppPermission('max_tasks'))
+        );
         Horde::url('list.php', true)->redirect();
     }
 
