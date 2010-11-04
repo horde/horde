@@ -4532,10 +4532,19 @@ KronolithCore = {
                 e.stop();
                 break;
             } else if (elt.hasClassName('kronolithCalendarDelete')) {
-                elt.disable();
                 var form = elt.up('form'),
                     type = form.id.replace(/kronolithCalendarForm/, ''),
                     calendar = $F('kronolithCalendar' + type + 'Id');
+
+                if ((type == 'tasklists' &&
+                     !window.confirm(Kronolith.text.delete_tasklist)) ||
+                    (type != 'tasklists' &&
+                     !window.confirm(Kronolith.text.delete_calendar))) {
+                    e.stop();
+                    break;
+                }
+
+                elt.disable();
                 this.doAction('deleteCalendar',
                               { type: type, calendar: calendar },
                               function(r) {
