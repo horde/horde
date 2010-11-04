@@ -205,7 +205,7 @@
 $prefGroups['identities'] = array(
     'column' => _("Your Information"),
     'label' => _("Personal Information"),
-    'desc' => _("Change the name and address that people see when they read and reply to your emails."),
+    'desc' => _("Change your personal information."),
     'members' => array('id', 'fullname', 'from_addr'),
     'type' => 'identities'
 );
