@@ -562,7 +562,7 @@ class Horde_Group_Contactlists extends Horde_Group
      */
     public function userIsInGroup($user, $gid, $subgroups = true)
     {
-        $id = implode('-', array($user, $subgroups, $gid);
+        $id = implode('-', array($user, $subgroups, $gid));
         if (isset($GLOBALS['session']['horde:groups_i/' . $id])) {
             return $GLOBALS['session']['horde:groups_i/' . $id];
         }
