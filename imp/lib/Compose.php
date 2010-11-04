@@ -782,12 +782,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             }
 
             if ($recipients > $timelimit) {
-                try {
-                    $error = Horde::callHook('perms_denied', array('imp:max_timelimit'));
-                } catch (Horde_Exception_HookNotSet $e) {
-                    $error = @htmlspecialchars(sprintf(_("You are not allowed to send messages to more than %d recipients within %d hours."), $timelimit, $GLOBALS['conf']['sentmail']['params']['limit_period']), ENT_COMPAT, 'UTF-8');
-                }
-                throw new IMP_Compose_Exception($error);
+                Horde::permissionDeniedError('imp', 'max_timelimit');
+                throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients within %d hours."), $timelimit, $GLOBALS['conf']['sentmail']['params']['limit_period']));
             }
         }
 
@@ -967,12 +963,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                     $num_recipients += count(explode(',', $recipient));
                 }
                 if ($num_recipients > $max_recipients) {
-                    try {
-                        $message = Horde::callHook('perms_denied', array('imp:max_recipients'));
-                    } catch (Horde_Exception_HookNotSet $e) {
-                        $message = @htmlspecialchars(sprintf(_("You are not allowed to send messages to more than %d recipients."), $max_recipients), ENT_COMPAT, 'UTF-8');
-                    }
-                    throw new IMP_Compose_Exception($message);
+                    Horde::permissionDeniedError('imp', 'max_recipients');
+                    throw new IMP_Compose_Exception(sprintf(_("You are not allowed to send messages to more than %d recipients."), $max_recipients));
                 }
             }
         }

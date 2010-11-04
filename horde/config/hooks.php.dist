@@ -619,23 +619,18 @@ class Horde_Hooks
     /**
      * Hook called if a user tries to make an action that is under permission
      * control that they don't have sufficient permissions for.  It can be
-     * used to show the user a custom message including HTML code (you have to
-     * take care about HTML escaping on your own), or to interrupt the code
-     * flow and send the user to a different page.
+     * used to show the user a custom message including HTML code (via the
+     * notification system), or to interrupt the code flow and send the user
+     * to a different page.
      *
+     * @param string $app         Horde application.
      * @param string $permission  Permission that failed.
-     *
-     * @return string  An error message.
      */
-//    public function perms_denied($permission)
+//    public function perms_denied($app, $permission)
 //    {
-//        // Example #1: Provide link to upgrade script.
-//        $app = (($pos = strpos($? $mission, ':')) === false)
-//            ? $permission
-//            : substr($permission, 0, $pos);
-//
-//        // TODO: Notification
-//        return sprintf('Permission denied. Click <a href="http://www.example.com/upgrade.php?app=%s">HERE</a> to upgrade %s.', $app, $GLOBALS['registry']->get('name'));
+//        // Example #1: Provide link to upgrade script in notification
+//        // message.
+//        $GLOBALS['notification']->push(sprintf('Permission denied. Click <a href="http://www.example.com/upgrade.php?app=%s">HERE</a> to upgrade %s.', $app, $GLOBALS['registry']->get('name')), 'horde.error', array('content.raw'));
 //    }
 
 
@@ -645,7 +640,7 @@ class Horde_Hooks
      * function will be called to dynamically include users in the group.
      *
      * @param string $groupName  TODO
-     * @param string $userName  TODO
+     * @param string $userName   TODO
      *
      * @return TODO
      */

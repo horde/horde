@@ -38,12 +38,11 @@ $templates = array(
 $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 if ($perms->hasAppPermission('max_tasks') !== true &&
     $perms->hasAppPermission('max_tasks') <= Nag::countTasks()) {
-    try {
-        $message = Horde::callHook('perms_denied', array('nag:max_tasks'));
-    } catch (Horde_Exception_HookNotSet $e) {
-        $message = htmlspecialchars(sprintf(_("You are not allowed to create more than %d tasks."), $perms->hasAppPermission('max_tasks')));
-    }
-    $notification->push($message, 'horde.warning', array('content.raw'));
+    Horde::permissionDeniedError(
+        'nag',
+        'max_tasks',
+        sprintf(_("You are not allowed to create more than %d tasks."), $perms->hasAppPermission('max_tasks'))
+    );
     $templates[Horde_Data::IMPORT_FILE] = array(NAG_TEMPLATES . '/data/export.inc');
 } else {
     $templates[Horde_Data::IMPORT_FILE] = array(NAG_TEMPLATES . '/data/import.inc', NAG_TEMPLATES . '/data/export.inc');
@@ -166,12 +165,11 @@ if (is_array($next_step)) {
     $result = null;
     foreach ($next_step as $row) {
         if ($max_tasks !== true && $num_tasks >= $max_tasks) {
-            try {
-                $message = Horde::callHook('perms_denied', array('nag:max_tasks'));
-            } catch (Horde_Exception_HookNotSet $e) {
-                $message = htmlspecialchars(sprintf(_("You are not allowed to create more than %d tasks."), $perms->hasAppPermission('max_tasks')));
-            }
-            $notification->push($message, 'horde.error', array('content.raw'));
+            Horde::permissionDeniedError(
+                'nag',
+                'max_tasks',
+                sprintf(_("You are not allowed to create more than %d tasks."), $perms->hasAppPermission('max_tasks'))
+            );
             break;
         }
 

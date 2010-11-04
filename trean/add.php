@@ -20,12 +20,11 @@ case 'add_bookmark':
     /* Check permissions. */
     if (Trean::hasPermission('max_bookmarks') !== true &&
         Trean::hasPermission('max_bookmarks') <= $trean_shares->countBookmarks()) {
-        try {
-            $message = Horde::callHook('perms_denied', array('trean:max_bookmarks'));
-        } catch (Horde_Exception_HookNotSet $e) {
-            $message = htmlspecialchars(sprintf(_("You are not allowed to create more than %d bookmarks."), Trean::hasPermission('max_bookmarks')));
-        }
-        $notification->push($message, 'horde.error', array('content.raw'));
+        Horde::permissionDeniedError(
+            'trean',
+            'max_bookmarks',
+            sprintf(_("You are not allowed to create more than %d bookmarks."), Trean::hasPermission('max_bookmarks'))
+        );
         Horde::url('browse.php', true)->redirect();
     }
 
@@ -84,12 +83,11 @@ case 'add_folder':
     /* Check permissions. */
     if (Trean::hasPermission('max_folders') !== true &&
         Trean::hasPermission('max_folders') <= Trean::countFolders()) {
-        try {
-            $message = Horde::callHook('perms_denied', array('trean:max_folders'));
-        } catch (Horde_Exception_HookNotSet $e) {
-            $message = htmlspecialchars(sprintf(_("You are not allowed to create more than %d folders."), Trean::hasPermission('max_folders')));
-        }
-        $notification->push($message, 'horde.error', array('content.raw'));
+        Horde::permissionDeniedError(
+            'trean',
+            'max_folders',
+            sprintf(_("You are not allowed to create more than %d folders."), Trean::hasPermission('max_folders'))
+        );
         Horde::url('browse.php', true)
             ->add('f', $parent_id)
             ->redirect();

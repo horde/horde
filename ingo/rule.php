@@ -17,12 +17,11 @@ Horde_Registry::appInit('ingo');
 /* Check rule permissions. */
 $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 if (!$perms->hasAppPermission('allow_rules')) {
-    try {
-        $message = Horde::callHook('perms_denied', array('ingo:allow_rules'));
-    } catch (Horde_Exception_HookNotSet $e) {
-        $message = htmlspecialchars(_("You are not allowed to create or edit custom rules."));
-    }
-    $notification->push($message, 'horde.error', array('content.raw'));
+    Horde::permissionDeniedError(
+        'ingo',
+        'allow_rules',
+        _("You are not allowed to create or edit custom rules.")
+    );
     Horde::url('filters.php', true)->redirect();
 }
 
@@ -166,12 +165,11 @@ default:
     if (!isset($vars->edit)) {
         if ($perms->hasAppPermission('max_rules') !== true &&
             $perms->hasAppPermission('max_rules') <= count($filters->getFilterList())) {
-            try {
-                $message = Horde::callHook('perms_denied', array('ingo:max_rules'));
-            } catch (Horde_Exception_HookNotSet $e) {
-                $message = htmlspecialchars(sprintf(_("You are not allowed to create more than %d rules."), $perms->hasAppPermission('max_rules')));
-            }
-            $notification->push($message, 'horde.error', array('content.raw'));
+            Horde::permissionDeniedError(
+                'ingo',
+                'max_rules',
+                sprintf(_("You are not allowed to create more than %d rules."), $perms->hasAppPermission('max_rules'))
+            );
             header('Location: ' . Horde::url('filters.php', true));
             exit;
         }

@@ -2110,4 +2110,24 @@ HTML;
         return self::endBuffer();
     }
 
+    /**
+     * Process a permission denied error, running a user-defined hook if
+     * necessary.
+     *
+     * @param string $app    Application name.
+     * @param string $perm   Permission name.
+     * @param string $error  An error message to output via the notification
+     *                       system.
+     */
+    static public function permissionDeniedError($app, $perm, $error = null)
+    {
+        try {
+            self::callHook('perms_denied', array($app, $perm));
+        } catch (Horde_Exception_HookNotSet $e) {}
+
+        if (!is_null($error)) {
+            $GLOBALS['notification']->push($error, 'horde.warning');
+        }
+    }
+
 }
