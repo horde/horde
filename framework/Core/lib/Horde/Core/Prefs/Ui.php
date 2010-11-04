@@ -91,6 +91,13 @@ class Horde_Core_Prefs_Ui
     public $nobuttons = false;
 
     /**
+     * List of update errors.
+     *
+     * @var array
+     */
+    protected $_errors = array();
+
+    /**
      * Constructor.
      *
      * @param Horde_Variables $vars  Form variables.
@@ -254,7 +261,7 @@ class Horde_Core_Prefs_Ui
                 if (isset($enum[$this->vars->$pref])) {
                     $updated |= $save->setValue($pref, $this->vars->$pref);
                 } else {
-                    $notification->push(Horde_Core_Translation::t("An illegal value was specified."), 'horde.error');
+                    $this->_errors[$pref] = Horde_Core_Translation::t("An illegal value was specified.");
                 }
                 break;
 
@@ -270,7 +277,7 @@ class Horde_Core_Prefs_Ui
                         if (isset($enum[$val])) {
                             $set[] = $val;
                         } else {
-                            $notification->push(Horde_Core_Translation::t("An illegal value was specified."), 'horde.error');
+                            $this->_errors[$pref] = Horde_Core_Translation::t("An illegal value was specified.");
                             break 2;
                         }
                     }
@@ -282,9 +289,9 @@ class Horde_Core_Prefs_Ui
             case 'number':
                 $num = $this->vars->$pref;
                 if ((string)(double)$num !== $num) {
-                    $notification->push(Horde_Core_Translation::t("This value must be a number."), 'horde.error');
+                    $this->_errors[$pref] = Horde_Core_Translation::t("This value must be a number.");
                 } elseif (empty($num)) {
-                    $notification->push(Horde_Core_Translation::t("This number must be non-zero."), 'horde.error');
+                    $this->_errors[$pref] = Horde_Core_Translation::t("This value must be non-zero.");
                 } else {
                     $updated |= $save->setValue($pref, $num);
                 }
@@ -305,6 +312,10 @@ class Horde_Core_Prefs_Ui
                 }
                 break;
             }
+        }
+
+        if (count($this->_errors)) {
+            $notification->push(Horde_Core_Translation::t("There were errors encountered while updating your preferences."), 'horde.error');
         }
 
         if ($updated) {
@@ -419,6 +430,11 @@ class Horde_Core_Prefs_Ui
                 }
 
                 $t = clone $base;
+
+                if (isset($this->_errors[$pref])) {
+                    echo $t->fetch(HORDE_TEMPLATES . '/prefs/error_start.html');
+                }
+
                 if (isset($this->prefs[$pref]['desc'])) {
                     $t->set('desc', Horde::label($pref, $this->prefs[$pref]['desc']));
                 }
@@ -506,6 +522,11 @@ class Horde_Core_Prefs_Ui
                 }
 
                 echo $t->fetch(HORDE_TEMPLATES . '/prefs/' . $type . '.html');
+
+                if (isset($this->_errors[$pref])) {
+                    $t->set('error', htmlspecialchars($this->_errors[$pref]));
+                    echo $t->fetch(HORDE_TEMPLATES . '/prefs/error_end.html');
+                }
             }
 
             $t = clone $base;
