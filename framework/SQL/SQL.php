@@ -187,7 +187,6 @@ class Horde_SQL {
     public function buildIntervalClause($dbh, $interval, $precision)
     {
         $type = $dbh instanceof Horde_Db_Adapter ? Horde_String::lower($dbh->adapterName()) : $dbh->phptype;
-        var_dump($type);
         switch ($type) {
         case 'pgsql':
         case 'pdo_postgresql':
@@ -197,7 +196,7 @@ class Horde_SQL {
             $clause = 'INTERVAL ' . $interval . '(' . $precision . ')';
             break;
         default:
-            $clause = 'INTERVAL ' . $interval . ' ' . $precision;
+            $clause = 'INTERVAL ' . $precision . ' ' . $interval;
         }
 
         return $clause;
