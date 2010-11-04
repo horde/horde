@@ -75,6 +75,42 @@ EVENT;
 echo $device->vevent2sif($data);
 echo "\n\n";
 
+$data = <<<EVENT
+BEGIN:VCALENDAR
+VERSION:2.0
+X-WR-CALNAME:Agenda de Pruebas
+PRODID:-//The Horde Project//Horde_iCalendar Library\, Horde 3.3.8//EN
+METHOD:PUBLISH
+BEGIN:VEVENT
+DTSTART:20101101T090000Z
+DTEND:20101101T100000Z
+DTSTAMP:20101025T104946Z
+UID:20101025124222.12755wqg94msihvy@example.com
+CREATED:20101025T104222Z
+LAST-MODIFIED:20101025T104846Z
+SUMMARY:Cinco-Lunes
+ORGANIZER;CN=Pruebas:mailto:pruebas@example.com
+CATEGORIES:Trabajo
+LOCATION:Korta
+CLASS:PUBLIC
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO;UNTIL=20101130T225959Z
+EXDATE:20101108T090000Z
+EXDATE:20101122T090000Z
+EXDATE:20101129T090000Z
+EXDATE:20101115T090000Z
+BEGIN:VALARM
+ACTION:DISPLAY
+TRIGGER;VALUE=DURATION:-PT15M
+END:VALARM
+END:VEVENT
+END:VCALENDAR
+EVENT;
+
+echo $device->vevent2sif($data);
+echo "\n\n";
+
 $data = <<<CONTACT
 <?xml version="1.0" encoding="UTF-8"?>
 <contact>
@@ -176,6 +212,8 @@ echo $device->sif2vcard($data);
 <?xml version="1.0"?><appointment><ReminderSet>1</ReminderSet><IsRecurring>0</IsRecurring><BusyStatus>2</BusyStatus><AllDayEvent>0</AllDayEvent><Start>20080630T110000Z</Start><End>20080630T120000Z</End><Subject>Server02</Subject><Sensitivity>0</Sensitivity><ReminderMinutesBeforeStart>15</ReminderMinutesBeforeStart><Duration>60</Duration></appointment>
 
 <?xml version="1.0"?><appointment><ReminderSet>1</ReminderSet><IsRecurring>0</IsRecurring><BusyStatus>2</BusyStatus><AllDayEvent>1</AllDayEvent><Start>2008-06-30</Start><End>2008-06-30</End><Subject>Server02</Subject><Sensitivity>0</Sensitivity><ReminderMinutesBeforeStart>15</ReminderMinutesBeforeStart></appointment>
+
+<?xml version="1.0"?><appointment><ReminderSet>1</ReminderSet><IsRecurring>1</IsRecurring><BusyStatus>2</BusyStatus><AllDayEvent>0</AllDayEvent><Start>20101101T090000Z</Start><End>20101101T100000Z</End><Subject>Cinco-Lunes</Subject><Categories>Trabajo</Categories><Location>Korta</Location><Sensitivity>0</Sensitivity><Interval>1</Interval><RecurrenceType>1</RecurrenceType><DayOfWeekMask>2</DayOfWeekMask><NoEndDate>0</NoEndDate><PatternEndDate>20101130T225959Z</PatternEndDate><ReminderMinutesBeforeStart>15</ReminderMinutesBeforeStart><Duration>60</Duration></appointment>
 
 BEGIN:VCARD
 VERSION:3.0

@@ -28,30 +28,6 @@ require_once 'Horde/Icalendar.php';
  */
 class SyncML_Device_sync4j extends SyncML_Device {
 
-    function getPreferredContentTypeClient($serverSyncURI, $sourceSyncURI)
-    {
-        $database = strtolower($serverSyncURI); // no string api needed here
-
-        // Code copied from parent function. But we must not use device
-        // mimetype from device information here as this would result in
-        // us asking the horde backend to provide crazy text/x-s4j-sifn
-        // stuff. Instead we ask backend for default type and convert it
-        // internally in this class (in convertServer2Client).
-        if (strpos($database, 'contact') !== false ||
-            strpos($database, 'card') !== false) {
-            return 'text/x-vcard';
-        } elseif (strpos($database, 'note') !== false ||
-                  strpos($database, 'memo') !== false) {
-            return 'text/x-vnote';
-        } elseif (strpos($database, 'task') !== false ||
-                  strpos($database, 'cal') !== false ||
-                  strpos($database, 'event') !== false) {
-            return 'text/calendar';
-        }
-
-        return parent::getPreferredContentTypeClient($serverSyncURI, $sourceSyncURI);
-    }
-
     /**
      * Convert the content.
      */
@@ -84,6 +60,18 @@ class SyncML_Device_sync4j extends SyncML_Device {
             $content = SyncML_Device_sync4j::sif2vtodo($content);
             $contentType = 'text/calendar';
             break;
+
+        case 'text/calendar':
+        case 'text/x-vcalendar':
+            $si = $_SESSION['SyncML.state']->sourceURI;
+            if (stristr($si, 'fol-') !== false) {
+                // The Funambol Outlook connector uses invalid STATUS
+                // values. Actually it maps MeetingStatus values of the
+                // Outlook event to the STATUS property, which is
+                // completely useless. So drop the STATUS altogether.
+                $content = preg_replace('/^STATUS:.*\r?\n/im', '', $content);
+            }
+            break;
         }
 
         $GLOBALS['backend']->logFile(
@@ -115,6 +103,21 @@ class SyncML_Device_sync4j extends SyncML_Device {
 
         list($content, $contentType, $encodingType) =
             parent::convertServer2Client($content, $contentType, $database);
+
+        if ($this->requestedContentType == $contentType) {
+            if ($contentType == 'text/calendar' ||
+                $contentType == 'text/x-vcalendar') {
+                $si = $_SESSION['SyncML.state']->sourceURI;
+                if (stristr($si, 'fol-') !== false) {
+                    // The Funambol Outlook connector uses invalid STATUS
+                    // values. Actually it maps MeetingStatus values of the
+                    // Outlook event to the STATUS property, which is
+                    // completely useless. So drop the STATUS altogether.
+                    $content = preg_replace('/^STATUS:.*\r?\n/im', '', $content);
+                }
+            }
+            return array($content, $contentType, $encodingType);
+        }
 
         switch ($contentType) {
         case 'text/calendar' :

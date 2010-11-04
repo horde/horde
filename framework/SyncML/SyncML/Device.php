@@ -21,6 +21,14 @@
 class SyncML_Device {
 
     /**
+     * The original preferred content type of the client, if provided through
+     * DevInf.
+     *
+     * @var string
+     */
+    var $requestedContentType;
+
+    /**
      * Attempts to return a concrete SyncML_Device instance based on $driver.
      *
      * @param string $driver  The type of concrete SyncML_Device subclass to
@@ -112,6 +120,7 @@ class SyncML_Device {
         if (!empty($ds)) {
             $r = $ds->getPreferredRXContentType();
             if (!empty($r)) {
+                $this->requestedContentType = $r;
                 return $r;
             }
         }
