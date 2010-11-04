@@ -119,8 +119,6 @@
     <span><?php echo _("Shared Calendars") ?></span>
   </h3>
 
-  <div class="kronolithDialogInfo infoNoIcon"><a href="/portal"><?php echo _("Browse Shared Calendars") ?></a></div>
-
   <div class="kronolithDialogInfo"><?php echo _("No items to display") ?></div>
   <div id="kronolithSharedCalendars" class="kronolithCalendars">
   </div>
