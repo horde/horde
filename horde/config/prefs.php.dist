@@ -298,7 +298,7 @@ $prefGroups['language'] = array(
     'label' => _("Locale and Time"),
     'desc' => _("Set your preferred language, timezone and date preferences."),
     'members' => array(
-        'language', 'timezone', 'twentyFour', 'date_format',
+        'language', 'sending_charset', 'timezone', 'twentyFour', 'date_format',
         'date_format_mini', 'time_format', 'first_week_day'
     )
 );
@@ -310,6 +310,18 @@ $_prefs['language'] = array(
     'type' => 'enum',
     'escaped' => true,
     'desc' => _("Select your preferred language:")
+);
+
+// Select widget for email charsets
+$_prefs['sending_charset'] = array(
+    'value' => '',
+    'advanced' => true,
+    'type' => 'enum',
+    'enum' => array_merge(
+        array('' => _("Default")),
+        $GLOBALS['registry']->nlsconfig['encodings']
+    ),
+    'desc' => _("Default charset for sending e-mail messages:")
 );
 
 // user time zone
@@ -545,6 +557,8 @@ $_prefs['portal_layout'] = array(
     'value' => 'a:0:{}'
 );
 
+
+
 // *** Remote Servers Preferences ***
 
 $prefGroups['remote'] = array(
@@ -626,6 +640,8 @@ $_prefs['imsp_auth_pass'] = array(
     'desc' => _("Alternate IMSP Password")
 );
 
+
+
 // *** SyncML Preferences ***
 $prefGroups['syncml'] = array(
     'column' => _("Other Information"),
@@ -649,6 +665,8 @@ $prefGroups['activesync'] = array(
 $_prefs['activesyncmanagement'] = array(
     'type' => 'special'
 );
+
+
 
 // *** Internal Preferences ***
 

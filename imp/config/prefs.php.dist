@@ -423,8 +423,8 @@ $prefGroups['compose'] = array(
         'mailto_handler', 'compose_cc', 'compose_bcc', 'compose_spellcheck',
         'compose_confirm', 'set_priority', 'compose_popup', 'compose_html',
         'compose_html_font_family', 'compose_html_font_size', 'mail_domain',
-        'compose_cursor', 'sending_charset', 'encryptselect',
-        'save_attachments', 'disposition_request_read'
+        'compose_cursor', 'encryptselect', 'save_attachments',
+        'disposition_request_read'
     )
 );
 
@@ -520,15 +520,6 @@ $_prefs['compose_cursor'] = array(
         'sig' => _("Before Signature")
     ),
     'desc' => _("Where should the cursor be located in the compose text area by default?")
-);
-
-// Select widget for the possible charsets
-$_prefs['sending_charset'] = array(
-    'value' => '',
-    'advanced' => true,
-    'type' => 'enum',
-    'enum' => array_merge(array('' => _("Default")), $GLOBALS['registry']->nlsconfig['encodings']),
-    'desc' => _("Your default charset for sending messages:")
 );
 
 // Select widget for the 'default_encrypt' preference

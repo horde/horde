@@ -102,11 +102,6 @@ class IMP_Prefs_Ui
                 $ui->suppress[] = 'compose_html_font_family';
                 $ui->suppress[] = 'compose_html_font_size';
             }
-
-            /* Sort encodings. */
-            if (!$prefs->isLocked('sending_charset')) {
-                asort($registry->nlsconfig['encodings']);
-            }
             break;
 
         case 'delmove':

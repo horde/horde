@@ -84,9 +84,15 @@ class Horde_Prefs_Ui
      */
     public function prefsInit($ui)
     {
-        global $conf;
+        global $conf, $injector, $prefs, $registry;
 
         switch ($ui->group) {
+        case 'language':
+            if (!$prefs->isLocked('sending_charset')) {
+                asort($registry->nlsconfig['encodings']);
+            }
+            break;
+
         case 'remote':
             Horde::addScriptFile('rpcprefs.js', 'horde');
             $ui->nobuttons = true;
@@ -95,7 +101,7 @@ class Horde_Prefs_Ui
 
         /* Hide appropriate prefGroups. */
         try {
-            $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create()->hasCapability('update');
+            $injector->getInstance('Horde_Core_Factory_Auth')->create()->hasCapability('update');
         } catch (Horde_Exception $e) {
             $ui->suppressGroups[] = 'forgotpass';
         }

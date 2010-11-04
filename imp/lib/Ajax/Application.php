@@ -1638,8 +1638,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         );
 
         try {
-            // TODO: Use 'sending_charset'
-            $sent = $imp_compose->buildAndSendMessage($this->_vars->message, $headers, $GLOBALS['registry']->getEmailCharset(), $options);
+            $sent = $imp_compose->buildAndSendMessage($this->_vars->message, $headers, $options);
         } catch (IMP_Compose_Exception $e) {
             $result->success = 0;
 

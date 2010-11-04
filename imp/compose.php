@@ -128,16 +128,10 @@ try {
 $imp_ui = new IMP_Ui_Compose();
 $stationery = $injector->getInstance('IMP_Compose_Stationery');
 
-/* Set the default charset & encoding.
- * $charset - charset to use when sending messages
- * $encoding - best guessed charset offered to the user as the default value
- *             in the charset dropdown list. */
+/* Set charset defaults. */
 $charset = $prefs->isLocked('sending_charset')
-    ? $registry->getEmailCharset()
+    ? $prefs->getValue('sending_charset')
     : $vars->charset;
-$encoding = empty($charset)
-    ? $registry->getEmailCharset()
-    : $charset;
 
 /* Is this a popup window? */
 $isPopup = ($prefs->getValue('compose_popup') || $vars->popup);
@@ -279,7 +273,7 @@ case 'reply_list':
     }
     $title .= ' ' . $header['subject'];
 
-    $encoding = empty($charset) ? $reply_msg['encoding'] : $charset;
+    $charset = $reply_msg['encoding'];
     break;
 
 case 'forward_attach':
@@ -299,7 +293,7 @@ case 'forward_both':
     $format = $fwd_msg['format'];
     $rtemode = ($rtemode || (!is_null($rtemode) && ($format == 'html')));
     $title = $header['title'];
-    $encoding = empty($charset) ? $fwd_msg['encoding'] : $charset;
+    $charset = $fwd_msg['encoding'];
     break;
 
 case 'redirect_compose':
@@ -416,6 +410,7 @@ case 'send_message':
     }
 
     $options = array(
+        'charset' => $charset,
         'encrypt' => $prefs->isLocked('default_encrypt') ? $prefs->getValue('default_encrypt') : $vars->encrypt_options,
         'html' => $rtemode,
         'identity' => $identity,
@@ -427,7 +422,7 @@ case 'send_message':
     );
 
     try {
-        $sent = $imp_compose->buildAndSendMessage($message, $header, $charset, $options);
+        $sent = $imp_compose->buildAndSendMessage($message, $header, $options);
         $imp_compose->destroy('send');
     } catch (IMP_Compose_Exception $e) {
         $get_sig = false;
@@ -811,8 +806,12 @@ if ($redirect) {
         $t->set('charset_tabindex', ++$tabindex);
         $charset_array = array();
         asort($registry->nlsconfig['encodings']);
-        foreach ($registry->nlsconfig['encodings'] as $charset => $label) {
-            $charset_array[] = array('value' => $charset, 'selected' => (strtolower($charset) == strtolower($encoding)), 'label' => $label);
+        foreach (array_merge(array('' => _("Default")), $registry->nlsconfig['encodings']) as $encoding => $label) {
+            $charset_array[] = array(
+                'label' => $label,
+                'selected' => (strcasecmp($encoding, $charset) === 0),
+                'value' => $encoding
+            );
         }
         $t->set('charset_array', $charset_array);
     }

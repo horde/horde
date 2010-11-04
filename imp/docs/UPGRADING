@@ -66,7 +66,7 @@ The following configuration options have been removed:
 Preferences
 -----------
 
-The 'time_format' preference has been moved to Horde.
+The 'sending_charset' and 'time_format' preferences have been moved to Horde.
 
 The following preferences are no longer used and may be safely removed from
 your ``config/prefs.php`` file and your preferences backend::

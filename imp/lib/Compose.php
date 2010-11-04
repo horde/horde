@@ -177,7 +177,12 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
                                      $session)
     {
         /* Set up the base message now. */
-        $mime = $this->_createMimeMessage(array(null), $message, $charset, array('html' => $html, 'nofinal' => true, 'noattach' => !$session));
+        $mime = $this->_createMimeMessage(array(null), $message, array(
+            'charset' => $charset,
+            'html' => $html,
+            'noattach' => !$session,
+            'nofinal' => true
+        ));
         $base = $mime['msg'];
         $base->isBasePart(true);
 
@@ -444,9 +449,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      *
      * @param string $body     The message body.
      * @param array $header    List of message headers.
-     * @param string $charset  The sending charset.
      * @param array $opts      An array of options w/the following keys:
      * <pre>
+     * charset - (string) The charset to use for sending the message.
+     *           DEFAULT: Horde default email charset.
      * encrypt - (integer) A flag whether to encrypt or sign the message.
      *           One of IMP::PGP_ENCRYPT, IMP::PGP_SIGNENC,
      *           IMP::SMIME_ENCRYPT, or IMP::SMIME_SIGNENC.
@@ -468,8 +474,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      * @throws IMP_Compose_Exception
      * @throws IMP_Exception
      */
-    public function buildAndSendMessage($body, $header, $charset,
-                                        array $opts = array())
+    public function buildAndSendMessage($body, $header, array $opts = array())
     {
         global $conf, $notification, $prefs, $registry;
 
@@ -501,6 +506,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
          * are storing an encrypted message locally. */
         $send_msgs = array();
         $msg_options = array(
+            'charset' => empty($opts['charset']) ? null : $opts['charset'],
             'encrypt' => $encrypt,
             'html' => !empty($opts['html'])
         );
@@ -509,17 +515,17 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
         if ($prefs->getValue('use_smime') &&
             in_array($encrypt, array(IMP::SMIME_ENCRYPT, IMP::SMIME_SIGNENC))) {
             foreach ($recip['list'] as $val) {
-                $send_msgs[] = $this->_createMimeMessage(array($val), $body, $charset, $msg_options);
+                $send_msgs[] = $this->_createMimeMessage(array($val), $body, $msg_options);
             }
 
             /* Must target the encryption for the sender before saving message
              * in sent-mail. */
-            $save_msg = $this->_createMimeMessage(array($header['from']), $body, $charset, $msg_options);
+            $save_msg = $this->_createMimeMessage(array($header['from']), $body, $msg_options);
         } else {
             /* Can send in clear-text all at once, or PGP can encrypt
              * multiple addresses in the same message. */
             $msg_options['from'] = $barefrom;
-            $send_msgs[] = $save_msg = $this->_createMimeMessage($recip['list'], $body, $charset, $msg_options);
+            $send_msgs[] = $save_msg = $this->_createMimeMessage($recip['list'], $body, $msg_options);
         }
 
         /* Initalize a header object for the outgoing message. */
@@ -1001,9 +1007,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      *
      * @param array $to        The recipient list.
      * @param string $body     Message body.
-     * @param string $charset  The charset of the message body.
      * @param array $options   Additional options:
      * <pre>
+     * 'charset' - (string) The charset of the message body.
+     *             DEFAULT: Horde default email charset.
      * 'encrypt' - (integer) The encryption flag.
      * 'from' - (string) The outgoing from address - only needed for multiple
      *          PGP encryption.
@@ -1021,9 +1028,12 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
      * @throws Horde_Exception
      * @throws IMP_Compose_Exception
      */
-    protected function _createMimeMessage($to, $body, $charset,
-                                          $options = array())
+    protected function _createMimeMessage($to, $body, array $options = array())
     {
+        $charset = empty($opts['charset'])
+            ? $GLOBALS['registry']->getEmailCharset()
+            : $opts['charset'];
+
         $body = Horde_String::convertCharset($body, 'UTF-8', $charset);
 
         if (!empty($options['html'])) {
