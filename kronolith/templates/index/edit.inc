@@ -206,7 +206,7 @@
 </div>
 
 <div id="kronolithEventTabTags" class="kronolithTabsOption" style="display:none">
-  <div class="kronolithDialogInfo"><?php echo _("To make it easier to find, you can enter comma separated tags related to the event subject.") ?><br /><?php echo _("More information at") ?> <a href="http://ajuda.sapo.pt/">ajuda.sapo.pt</a></div>
+  <div class="kronolithDialogInfo"><?php echo _("To make it easier to find, you can enter comma separated tags related to the event subject.") ?></div>
   <input id="kronolithEventTags" name="tags" />
   <label for="kronolithEventTopTags"><?php echo _("Previously used tags") ?>:</label><br />
   <span id="kronolithEventTags_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
@@ -218,7 +218,7 @@
 </div>
 
 <div id="kronolithEventTabExport" class="kronolithTabsOption" style="display:none">
-  <div class="kronolithDialogInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics.") ?> <?php echo _("More information at") ?> <a href="http://ajuda.sapo.pt/">ajuda.sapo.pt</a></div>
+  <div class="kronolithDialogInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics.") ?></div>
   <label><?php echo _("Export ICS file") ?>:</label>
   <a id="kronolithEventExport"><?php echo _("Event ICS file") ?></a>
 </div>
@@ -228,7 +228,6 @@
   <input id="kronolithEventSaveAsNew" type="button" value="<?php echo _("Save As New") ?>" class="button ok" />
   <input id="kronolithEventDelete" type="button" value="<?php echo _("Delete") ?>" class="button ko" />
   <span class="kronolithSeparator"><?php echo _("or") ?></span> <a class="kronolithFormCancel"><?php echo _("Cancel") ?></a>
-  <span class="kronolithDialogHelp"><a href="http://ajuda.sapo.pt/" target="help"><?php echo _("Need help? See ajuda.sapo.pt") ?></a></span>
 </div>
 
 </form>
