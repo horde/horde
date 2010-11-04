@@ -1490,8 +1490,16 @@ KronolithCore = {
             break;
         }
 
-        var day = dates[0].clone(), date, more, title, busy, events, monthDay;
+        var day = dates[0].clone(),
+                  viewDates = this.viewDates(this.date, this.view),
+                  date, more, title, busy, events, monthDay;
         while (!day.isAfter(dates[1])) {
+            // Skip if somehow events slipped in though the view is gone.
+            if (!day.between(viewDates[0], viewDates[1])) {
+                console.log(day, this.dates);
+                continue;
+            }
+
             date = day.dateString();
             switch (view) {
             case 'day':
