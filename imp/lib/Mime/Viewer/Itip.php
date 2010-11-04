@@ -419,7 +419,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         }
 
         // Create the HTML to display the iCal file.
-        if (!$full && ($GLOBALS['session']['imp:view'] != 'imp')) {
+        if (!$full && ($GLOBALS['session']->get('imp', 'view') != 'imp')) {
             $url = $this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'view_attach', array('params' => array('ajax' => 1, 'mode' => IMP_Contents::RENDER_INLINE)));
             $onsubmit = ' onsubmit="DimpCore.submitForm(\'impMimeViewerItip\');return false"';
         } else {

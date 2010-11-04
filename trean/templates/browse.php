@@ -47,8 +47,7 @@ function confirm_delete()
 <?php
 $option_move = Trean::countFolders(Horde_Perms::EDIT);
 $option_copy = $option_move
-    && (!empty($conf['hooks']['permsdenied'])
-        || Trean::hasPermission('max_bookmarks') === true
+    && (Trean::hasPermission('max_bookmarks') === true
         || Trean::hasPermission('max_bookmarks') > $GLOBALS['trean_shares']->countBookmarks());
 
 $option_edit = (!empty($GLOBALS['folder']) ? $GLOBALS['folder']->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT) : false);
@@ -73,8 +72,7 @@ if (!empty($folder)):
   <a id="faShow" href="#" onclick="faToggle(); return false;"><?php echo _("Folder Actions") ?></a>
   <a id="faHide" href="#" onclick="faToggle(); return false;"><?php echo _("Folder Actions") ?></a>
   <div id="folderActionsInner">
- <?php if (!empty($conf['hooks']['permsdenied']) ||
-           Trean::hasPermission('max_folders') === true ||
+ <?php if (Trean::hasPermission('max_folders') === true ||
            Trean::hasPermission('max_folders') > Trean::countFolders()): ?>
   <form name="trean_new_subfolder" action="add.php" method="post">
    <?php echo Horde_Util::formInput() ?>

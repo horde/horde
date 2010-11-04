@@ -89,7 +89,7 @@ class IMP
      */
     static public function getViewMode()
     {
-        return ($view = $GLOBALS['session']['imp:view'])
+        return ($view = $GLOBALS['session']->get('imp', 'view'))
             ? $view
             : 'imp';
     }
@@ -426,7 +426,7 @@ class IMP
     {
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
         $t->set('forminput', Horde_Util::formInput());
-        $t->set('use_folders', ($GLOBALS['session']['imp:protocol'] != 'pop') && $GLOBALS['conf']['user']['allow_folders'], true);
+        $t->set('use_folders', ($GLOBALS['session']->get('imp', 'protocol') != 'pop') && $GLOBALS['conf']['user']['allow_folders'], true);
         if ($t->get('use_folders')) {
             Horde::addScriptFile('imp.js', 'imp');
             $menu_view = $GLOBALS['prefs']->getValue('menu_view');
@@ -480,7 +480,7 @@ class IMP
      */
     static public function quotaData($long = true)
     {
-        if (!$GLOBALS['session']['imp:imap_quota']) {
+        if (!$GLOBALS['session']->get('imp', 'imap_quota')) {
             return false;
         }
 
@@ -518,7 +518,7 @@ class IMP
             $ret['percent'] = sprintf("%.2f", $ret['percent']);
         } else {
             // Hide unlimited quota message?
-            if ($GLOBALS['session']['imp:quota_hide_when_unlimited']) {
+            if ($GLOBALS['session']->get('imp', 'quota_hide_when_unlimited')) {
                 return false;
             }
 
@@ -756,7 +756,7 @@ class IMP
         /* Restrict POP3 sorting to sequence only.  Although possible to
          * abstract other sorting methods, all other methods require a
          * download of all messages, which is too much overhead.*/
-        if ($GLOBALS['session']['imp:protocol'] == 'pop') {
+        if ($GLOBALS['session']->get('imp', 'protocol') == 'pop') {
             $ob['by'] = Horde_Imap_Client::SORT_SEQUENCE;
             return $ob;
         }
@@ -809,7 +809,7 @@ class IMP
          * Horde_Imap_Client_Socket has a built-in ORDEREDSUBJECT
          * implementation. We will always prefer REFERENCES, but will fallback
          * to ORDEREDSUBJECT if the server doesn't support THREAD sorting. */
-        return (($GLOBALS['session']['imp:protocol'] == 'imap') &&
+        return (($GLOBALS['session']->get('imp', 'protocol') == 'imap') &&
                 !$GLOBALS['injector']->getInstance('IMP_Search')->isSearchMbox($mbox));
     }
 
@@ -972,7 +972,7 @@ class IMP
             $t->set('folders', $folders);
 
             $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
-            if (($GLOBALS['session']['imp:protocol'] != 'pop') &&
+            if (($GLOBALS['session']->get('imp', 'protocol') != 'pop') &&
                 ($vinbox = $imp_search['vinbox']) &&
                 $vinbox->enabled) {
                 $t->set('vinbox', self::generateIMPUrl('mailbox.php', strval($vinbox))->link());

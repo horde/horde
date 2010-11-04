@@ -370,10 +370,8 @@ class Ansel_Api extends Horde_Registry_Api
         $image_id = $gallery->addImage($image_data, !empty($params['default']));
 
         /* Call the postupload hook if needed */
-        if (!empty($GLOBALS['conf']['hooks']['postupload']) && empty($params['skiphook'])) {
-            try {
-                Horde::callHook('postupload', array($image_id));
-            } catch (Horde_Exception_HookNotSet $e) {}
+        if (empty($params['skiphook'])) {
+            $this->postBatchUpload($image_id);
         }
 
         return array('image_id'   => (int)$image_id,
@@ -391,9 +389,9 @@ class Ansel_Api extends Horde_Registry_Api
      */
     public function postBatchUpload($image_ids)
     {
-        if (!empty($conf['hooks']['postupload'])) {
-            return Horde::callHook('_ansel_hook_postupload', array($image_ids), 'ansel');
-        }
+        try {
+            Horde::callHook('postupload', array($image_ids), 'ansel');
+        } catch (Horde_Exception_HookNotSet $e) {}
     }
 
     /**

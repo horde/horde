@@ -19,8 +19,7 @@ echo $this->link(1)->link(array('title' => _("Next week"), 'class' => 'iconNav',
   <th class="nowrap <?php echo ($day->isToday() ? 'selected-control' : 'control') ?>" width="<?php echo $colwidth ?>%" colspan="<?php echo $day->_totalspan ?>">
 <?php
 if (Kronolith::getDefaultCalendar(Horde_Perms::EDIT) &&
-    (!empty($conf['hooks']['permsdenied']) ||
-     $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') === true ||
+    ($GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') === true ||
      $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_events') > Kronolith::countEvents())) {
     echo Horde::url('new.php')
         ->add(array('date' => $day->dateString(),

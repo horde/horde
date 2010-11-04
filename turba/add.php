@@ -45,12 +45,11 @@ if ($source) {
         $max_contacts = Turba::getExtendedPermission($driver, 'max_contacts');
         if ($max_contacts !== true &&
             $max_contacts <= count($driver)) {
-            try {
-                $message = Horde::callHook('perms_denied', array('turba:max_contacts'));
-            } catch (Horde_Exception_HookNotSet $e) {
-                $message = htmlspecialchars(sprintf(_("You are not allowed to create more than %d contacts in \"%s\"."), $max_contacts, $cfgSources[$source]['title']));
-            }
-            $notification->push($message, 'horde.error', array('content.raw'));
+            Horde::permissionDeniedError(
+                'turba',
+                'max_contacts',
+                sprintf(_("You are not allowed to create more than %d contacts in \"%s\"."), $max_contacts, $cfgSources[$source]['title'])
+            );
             $url = $url
                 ? Horde::url($url, true)
                 : Horde::url('index.php', true);

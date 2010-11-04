@@ -52,13 +52,13 @@ class Wicked_Page_SyncPages extends Wicked_Page {
      */
     public function content()
     {
-        global $wicked;
+        global $session, $wicked;
 
         // Used in all cases.
         $form = $this->_syncForm();
 
         // We have no data to check
-        if (empty($_SESSION['wicked']['sync'])) {
+        if (!$session->get('wicked', 'sync')) {
             ob_start();
             require WICKED_TEMPLATES . '/sync/header.inc';
             require WICKED_TEMPLATES . '/sync/footer.inc';
@@ -67,7 +67,7 @@ class Wicked_Page_SyncPages extends Wicked_Page {
 
         // New pages on remote server
         $new_remote = array();
-        foreach ($_SESSION['wicked']['sync']['pages'] as $pageName => $info) {
+        foreach ($session->get('wicked', 'sync_pages/') as $pageName => $info) {
             if (!$wicked->pageExists($pageName)) {
                 $new_remote[$pageName] = array(
                     'page_majorversion' => $info['page_majorversion'],
@@ -84,7 +84,7 @@ class Wicked_Page_SyncPages extends Wicked_Page {
         $new_local = array();
         $local_pages = $wicked->getPages(false);
         foreach ($local_pages as $pageName) {
-            if (isset($_SESSION['wicked']['sync']['pages'][$pageName])) {
+            if ($session->exists('wicked', 'sync_pages/' . $pageName)) {
                 continue;
             }
             $page = Wicked_Page::getPage($pageName);
@@ -109,7 +109,8 @@ class Wicked_Page_SyncPages extends Wicked_Page {
 
             // Compare checksum
             $page = Wicked_Page::getPage($pageName);
-            if (md5($page->getText()) == $_SESSION['wicked']['sync']['pages'][$pageName]['page_checksum']) {
+            $spage = $session->get('wicked', 'sync_pages/' . $pageName);
+            if (md5($page->getText()) == $spage['page_checksum']) {
                 continue;
             }
 
@@ -160,7 +161,7 @@ class Wicked_Page_SyncPages extends Wicked_Page {
         if ($local) {
             return  '<a href="' .  Wicked::url($pageName) . '" target="_blank">' . _("View local") . '</a>';
         } else {
-            return  '<a href="' .  $_SESSION['wicked']['sync']['display']  . $pageName . '" target="_blank">' . _("View remote") . '</a>';
+            return  '<a href="' .  $GLOBALS['session']->get('wicked', 'sync_display')  . $pageName . '" target="_blank">' . _("View remote") . '</a>';
         }
     }
 
@@ -171,6 +172,8 @@ class Wicked_Page_SyncPages extends Wicked_Page {
      */
     protected function _syncForm()
     {
+        global $session;
+
         require_once 'Horde/Form.php';
 
         $vars = Horde_Variables::getDefaultVariables();
@@ -191,7 +194,7 @@ class Wicked_Page_SyncPages extends Wicked_Page {
         // Prepare default values
         $stored = @unserialize($GLOBALS['prefs']->getValue('sync_data'));
         if (isset($_GET['__old_sync_select'])) {
-            unset($_SESSION['wicked']['sync']);
+            $session->remove('wicked', 'sync');
         }
         if ($vars->get('sync_select') && isset($stored[$vars->get('sync_select')])) {
             $defaults = $stored[$vars->get('sync_select')];
@@ -201,8 +204,9 @@ class Wicked_Page_SyncPages extends Wicked_Page {
                 }
             }
         }
-        if (!empty($_SESSION['wicked']['sync'])) {
-            $defaults = $_SESSION['wicked']['sync'];
+
+        if ($session->exists('wicked', 'sync')) {
+            $defaults = $session->get('wicked', 'sync');
         }
 
         // Add stored info selection
@@ -254,13 +258,15 @@ class Wicked_Page_SyncPages extends Wicked_Page {
             switch (Horde_Util::getFormData('submitbutton')) {
             case _("Fetch page list"):
                 // Load driver
-                $_SESSION['wicked']['sync'] = $info;
+                $session->set('wicked', 'sync', $info);
                 $this->_loadSyncDriver();
 
                 // We submitted the form so we should fetch pages
                 $pages = $this->_sync->getMultiplePageInfo();
                 if (!empty($pages)) {
-                    $_SESSION['wicked']['sync']['pages'] = $pages;
+                    foreach ($pages as $key => $val) {
+                        $session->set('wicked', 'sync_pages/' . $key, $val);
+                    }
                 }
                 break;
 
@@ -318,10 +324,13 @@ class Wicked_Page_SyncPages extends Wicked_Page {
      */
     public function getRemotePageInfo($pageName)
     {
-        if (!isset($_SESSION['wicked']['sync']['pages'][$pageName])) {
-            $_SESSION['wicked']['sync']['pages'][$pageName] = $this->_sync->getPageInfo($pageName);
+        global $session;
+
+        if (!$session->exists('wicked', 'sync_pages/' . $pageName)) {
+            $session->set('wicked', 'sync_pages/' . $pageName, $this->_sync->getPageInfo($pageName));
         }
-        return $_SESSION['wicked']['sync']['pages'][$pageName];
+
+        return $session->get('wicked', 'sync_pages/' . $pageName);
     }
 
     /**
@@ -377,14 +386,16 @@ class Wicked_Page_SyncPages extends Wicked_Page {
      */
     protected function _loadSyncDriver()
     {
+        global $session;
+
         if ($this->_sync) {
             return true;
-        } elseif (empty($_SESSION['wicked']['sync']['driver'])) {
+        } elseif (!$session->get('wicked', 'sync_driver')) {
             return false;
         }
 
-        $this->_sync = Wicked_Sync::factory($_SESSION['wicked']['sync']['driver'],
-                                            $_SESSION['wicked']['sync']);
+        $this->_sync = Wicked_Sync::factory($session->get('wicked', 'sync_driver'),
+                                            $session->get('wicked', 'sync'));
     }
 
 }

@@ -23,12 +23,11 @@ $url = Horde::url($prefs->getValue('defaultview') . '.php', true)
 $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 if ($perms->hasAppPermission('max_events') !== true &&
     $perms->hasAppPermission('max_events') <= Kronolith::countEvents()) {
-    try {
-        $message = Horde::callHook('perms_denied', array('kronolith:max_events'));
-    } catch (Horde_Exception_HookNotSet $e) {
-        $message = htmlspecialchars(sprintf(_("You are not allowed to create more than %d events."), $perms->hasAppPermission('max_events')));
-    }
-    $notification->push($message, 'horde.error', array('content.raw'));
+    Horde::permissionDeniedError(
+        'kronolith',
+        'max_events',
+        sprintf(_("You are not allowed to create more than %d events."), $perms->hasAppPermission('max_events'))
+    );
     $url->redirect();
 }
 
@@ -38,8 +37,8 @@ if ($calendar_id == 'internal_') {
 }
 
 $event = Kronolith::getDriver()->getEvent();
-$session['kronolith:attendees'] = $event->attendees;
-$session['kronolith:resources'] = $event->getResources();
+$session->set('kronolith', 'attendees', $event->attendees);
+$session->set('kronolith', 'resources', $event->getResources());
 
 $date = Horde_Util::getFormData('datetime');
 if (!$date) {

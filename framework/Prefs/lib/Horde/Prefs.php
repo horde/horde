@@ -79,18 +79,19 @@ class Horde_Prefs implements ArrayAccess
     protected $_scopes = array();
 
     /**
-     * The storage driver.
+     * The storage driver(s).
      *
-     * @var Horde_Prefs_Storage
+     * @var array
      */
     protected $_storage;
 
     /**
      * Constructor.
      *
-     * @param string $driver  THe storage driver name. Either a driver name,
-     *                        or the full class name to use.
      * @param string $scope   The scope for this set of preferences.
+     * @param mixed $storage  The storage object(s) to use. Either a single
+     *                        Horde_Prefs_Storage object, or an array of
+     *                        objects.
      * @param array $opts     Additional confguration options:
      * <pre>
      * REQUIRED:
@@ -111,13 +112,10 @@ class Horde_Prefs implements ArrayAccess
      * user - (string) The name of the user who owns this set of preferences.
      *        DEFAULT: NONE
      * </pre>
-     * @param array $params   A hash containing any additional configuration
-     *                        or connection parameters a subclass might need.
      *
      * @throws InvalidArgumentException
      */
-    public function __construct($driver, $scope, array $opts,
-                                array $params = array())
+    public function __construct($scope, $storage = null, array $opts = array())
     {
         if (!isset($opts['charset'])) {
             throw new InvalidArgumentException(__CLASS__ . ': Missing charset parameter.');
@@ -125,43 +123,24 @@ class Horde_Prefs implements ArrayAccess
 
         $this->_opts = array_merge($this->_opts, $opts);
 
-        $this->_cache = $this->_getStorage($this->_opts['cache']);
+        $default = __CLASS__ . '_Storage_Null';
+
+        $this->_cache = isset($this->_opts['cache'])
+            ? $this->_opts['cache']
+            : new $default($this->getUser());
         $this->_scope = $scope;
-        $this->_storage = $this->_getStorage($driver, $params);
+        if (is_null($storage)) {
+            $this->_storage = array(new $default($this->getUser()));
+        } else {
+            if (!is_array($storage)) {
+                $storage = array($storage);
+            }
+            $this->_storage = $storage;
+        }
 
         register_shutdown_function(array($this, 'store'));
 
         $this->retrieve($scope);
-    }
-
-    /**
-     * Instantiate storage driver.
-     *
-     * @param string $driver  Storage driver name.
-     * @param array $params   Storage driver parameters.
-     *
-     * @return Horde_Prefs_Storage  The storage object.
-     * @throws Horde_Prefs_Exception
-     */
-    protected function _getStorage($driver, $params = array())
-    {
-        if (is_null($driver)) {
-            $class = __CLASS__ . '_Storage_Null';
-        } else {
-            /* Built-in drivers (in Storage/ directory). */
-            $class = __CLASS__ . '_Storage_' . $driver;
-            if (!class_exists($class)) {
-                /* Explicit class name, */
-                $class = $driver;
-                if (!class_exists($class)) {
-                    throw new Horde_Prefs_Exception(__CLASS__ . ': class definition not found - ' . $class);
-                }
-            }
-        }
-
-        $params['user'] = $this->getUser();
-
-        return new $class($params);
     }
 
     /**
@@ -217,10 +196,12 @@ class Horde_Prefs implements ArrayAccess
             $this->_scopes[$scope][$pref]
         );
 
-        try {
-            $this->_storage->remove($scope, $pref);
-        } catch (Horde_Prefs_Exception $e) {
-            // TODO: logging
+        foreach ($this->_storage as $storage) {
+            try {
+                $storage->remove($scope, $pref);
+            } catch (Horde_Prefs_Exception $e) {
+                // TODO: logging
+            }
         }
 
         try {
@@ -559,19 +540,21 @@ class Horde_Prefs implements ArrayAccess
 
         $this->_loadScopePre($scope);
 
-        if (($prefs = $this->_storage->get($scope)) !== false) {
-            foreach ($prefs as $name => $val) {
-                if (isset($this->_scopes[$scope][$name])) {
-                    if ($this->isDefault($name)) {
-                        $this->_scopes[$scope][$name]['d'] = $this->_scopes[$scope][$name]['v'];
+        foreach ($this->_storage as $storage) {
+            if (($prefs = $storage->get($scope)) !== false) {
+                foreach ($prefs as $name => $val) {
+                    if (isset($this->_scopes[$scope][$name])) {
+                        if ($this->isDefault($name)) {
+                            $this->_scopes[$scope][$name]['d'] = $this->_scopes[$scope][$name]['v'];
+                        }
+                    } else {
+                        $this->_scopes[$scope][$name] = array(
+                            'm' => 0
+                        );
                     }
-                } else {
-                    $this->_scopes[$scope][$name] = array(
-                        'm' => 0
-                    );
+                    $this->_scopes[$scope][$name]['v'] = $val;
+                    $this->setDefault($name, false);
                 }
-                $this->_scopes[$scope][$name]['v'] = $val;
-                $this->setDefault($name, false);
             }
         }
 
@@ -607,16 +590,18 @@ class Horde_Prefs implements ArrayAccess
     public function store()
     {
         if (!empty($this->_dirty)) {
-            try {
-                $this->_storage->store($this->_dirty);
+            foreach ($this->_storage as $storage) {
+                try {
+                    $storage->store($this->_dirty);
 
-                /* Clear the dirty flag. */
-                foreach ($this->_dirty as $k => $v) {
-                    foreach (array_keys($v) as $name) {
-                        $this->setDirty($name, false);
+                    /* Clear the dirty flag. */
+                    foreach ($this->_dirty as $k => $v) {
+                        foreach (array_keys($v) as $name) {
+                            $this->setDirty($name, false);
+                        }
                     }
-                }
-            } catch (Horde_Prefs_Exception $e) {}
+                } catch (Horde_Prefs_Exception $e) {}
+            }
         }
     }
 

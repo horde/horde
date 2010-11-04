@@ -42,7 +42,7 @@ class IMP_Injector_Factory_Mail
 
         /* Force the SMTP host and port value to the current SMTP server if
          * one has been selected for this connection. */
-        $params = array_merge($params, $GLOBALS['session']['imp:smtp;array']);
+        $params = array_merge($params, $GLOBALS['session']->get('imp', 'smtp', Horde_Session::TYPE_ARRAY));
 
         /* If SMTP authentication has been requested, use either the username
          * and password provided in the configuration or populate the username

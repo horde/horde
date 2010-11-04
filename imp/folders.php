@@ -30,7 +30,7 @@ if (!$conf['user']['allow_folders']) {
 
 /* Decide whether or not to show all the unsubscribed folders */
 $subscribe = $prefs->getValue('subscribe');
-$showAll = (!$subscribe || $session['imp:showunsub']);
+$showAll = (!$subscribe || $session->get('imp', 'showunsub'));
 
 $vars = Horde_Variables::getDefaultVariables();
 
@@ -204,7 +204,7 @@ case 'unsubscribe_folder':
 case 'toggle_subscribed_view':
     if ($subscribe) {
         $showAll = !$showAll;
-        $session['imp:showunsub'] = $showAll;
+        $session->set('imp', 'showunsub', $showAll);
         $imaptree->showUnsubscribed($showAll);
     }
     break;
@@ -331,7 +331,8 @@ $folders_token = Horde::getRequestToken('imp.folders');
 $folders_url_ob = new Horde_Url($folders_url);
 $folders_url_ob->add('folders_token', $folders_token);
 
-if ($session['imp:file_upload'] && ($vars->actionID == 'import_mbox')) {
+if ($session->get('imp', 'file_upload') &&
+    ($vars->actionID == 'import_mbox')) {
     $title = _("Folder Navigator");
     $menu = IMP::menu();
     require IMP_TEMPLATES . '/common-header.inc';
@@ -381,7 +382,7 @@ if ($a_template->get('javascript')) {
     $a_template->set('go', _("Go"));
 }
 
-$a_template->set('create_folder', !empty($conf['hooks']['permsdenied']) || ($injector->getInstance('Horde_Perms')->hasAppPermission('create_folders') && $injector->getInstance('Horde_Perms')->hasAppPermission('max_folders')));
+$a_template->set('create_folder', $injector->getInstance('Horde_Perms')->hasAppPermission('create_folders') && $injector->getInstance('Horde_Perms')->hasAppPermission('max_folders'));
 if ($prefs->getValue('subscribe')) {
     $a_template->set('subscribe', true);
     $subToggleText = ($showAll) ? _("Hide Unsubscribed") : _("Show Unsubscribed");
@@ -389,7 +390,7 @@ if ($prefs->getValue('subscribe')) {
 }
 $a_template->set('nav_poll', !$prefs->isLocked('nav_poll') && !$prefs->getValue('nav_poll_all'));
 $a_template->set('notrash', !$prefs->getValue('use_trash'));
-$a_template->set('file_upload', $session['imp:file_upload']);
+$a_template->set('file_upload', $session->get('imp', 'file_upload'));
 $a_template->set('expand_all', Horde::widget($folders_url_ob->copy()->add(array('actionID' => 'expand_all_folders', 'folders_token' => $folders_token)), _("Expand All Folders"), 'widget', '', '', _("Expand All"), true));
 $a_template->set('collapse_all', Horde::widget($folders_url_ob->copy()->add(array('actionID' => 'collapse_all_folders', 'folders_token' => $folders_token)), _("Collapse All Folders"), 'widget', '', '', _("Collapse All"), true));
 

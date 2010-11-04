@@ -39,6 +39,7 @@ class Horde_Prefs_Storage_Ldap extends Horde_Prefs_Storage
     /**
      * Constructor.
      *
+     * @param string $user   The username.
      * @param array $params  Configuration options:
      * <pre>
      * basedn - (string) [REQUIRED] The base DN for the LDAP server.
@@ -61,7 +62,7 @@ class Horde_Prefs_Storage_Ldap extends Horde_Prefs_Storage
      *           DEFAULT: NONE (system default will be used)
      * </pre>
      */
-    public function __construct(array $params = array())
+    public function __construct($user, array $params = array())
     {
         /* If a valid server port has not been specified, set the default. */
         if (!isset($params['port']) || !is_integer($params['port'])) {

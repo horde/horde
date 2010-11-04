@@ -66,7 +66,7 @@ class Horde_Block_Collection
         global $session;
 
         $signature = serialize($apps);
-        if ($this->_blocks = $session['horde:blocks/' . $signature]) {
+        if ($this->_blocks = $session->get('horde', 'blocks/' . $signature)) {
             return;
         }
 
@@ -108,7 +108,7 @@ class Horde_Block_Collection
         }
 
         uksort($this->_blocks, array($this, 'sortBlockCollection'));
-        $session['horde:blocks/' . $signature] = $this->_blocks;
+        $session->set('horde', 'blocks/' . $signature, $this->_blocks);
     }
 
     /**

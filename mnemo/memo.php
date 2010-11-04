@@ -72,11 +72,11 @@ case 'add_memo':
     /* Check permissions. */
     if ($injector->getInstance('Horde_Perms')->hasAppPermission('max_notes') !== true &&
         $injector->getInstance('Horde_Perms')->hasAppPermission('max_notes') <= Mnemo::countMemos()) {
-        $message = htmlspecialchars(sprintf(_("You are not allowed to create more than %d notes."), $injector->getInstance('Horde_Perms')->hasAppPermission('max_notes')));
-        if (!empty($conf['hooks']['permsdenied'])) {
-            $message = Horde::callHook('_perms_hook_denied', array('mnemo:max_notes'), 'horde', $message);
-        }
-        $notification->push($message, 'horde.error', array('content.raw'));
+        Horde::permissionDeniedError(
+            'mnemo',
+            'max_notes',
+            sprintf(_("You are not allowed to create more than %d notes."), $injector->getInstance('Horde_Perms')->hasAppPermission('max_notes'))
+        );
         Horde::url('list.php', true)->redirect();
     }
     /* Set up the note attributes. */

@@ -163,7 +163,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
          * Although there is a fallback to a PHP-based display sort, for
          * performance reasons only do a display sort if it is supported
          * on the server. */
-        if (($GLOBALS['session']['imp:protocol'] == 'imap') &&
+        if (($GLOBALS['session']->get('imp', 'protocol') == 'imap') &&
             !empty($opts['sort'])) {
             $sort_cap = $imp_imap->queryCapability('SORT');
 

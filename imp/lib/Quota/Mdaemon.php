@@ -46,7 +46,7 @@ class IMP_Quota_Mdaemon extends IMP_Quota_Base
         $imap_ob = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
         $userDetails = $this->_getUserDetails(
             $this->_params['username'],
-            $GLOBALS['session']['imp:maildomain']
+            $GLOBALS['session']->get('imp', 'maildomain')
         );
 
         if ($userDetails !== false) {

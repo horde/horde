@@ -1490,8 +1490,16 @@ KronolithCore = {
             break;
         }
 
-        var day = dates[0].clone(), date, more, title, busy, events, monthDay;
+        var day = dates[0].clone(),
+                  viewDates = this.viewDates(this.date, this.view),
+                  date, more, title, busy, events, monthDay;
         while (!day.isAfter(dates[1])) {
+            // Skip if somehow events slipped in though the view is gone.
+            if (!day.between(viewDates[0], viewDates[1])) {
+                console.log(day, this.dates);
+                continue;
+            }
+
             date = day.dateString();
             switch (view) {
             case 'day':
@@ -4524,10 +4532,19 @@ KronolithCore = {
                 e.stop();
                 break;
             } else if (elt.hasClassName('kronolithCalendarDelete')) {
-                elt.disable();
                 var form = elt.up('form'),
                     type = form.id.replace(/kronolithCalendarForm/, ''),
                     calendar = $F('kronolithCalendar' + type + 'Id');
+
+                if ((type == 'tasklists' &&
+                     !window.confirm(Kronolith.text.delete_tasklist)) ||
+                    (type != 'tasklists' &&
+                     !window.confirm(Kronolith.text.delete_calendar))) {
+                    e.stop();
+                    break;
+                }
+
+                elt.disable();
                 this.doAction('deleteCalendar',
                               { type: type, calendar: calendar },
                               function(r) {
@@ -4572,8 +4589,10 @@ KronolithCore = {
                        (elt.name == 'event_alarms[]' ||
                         elt.name == 'task[alarm_methods][]')) {
                 if (elt.name == 'event_alarms[]') {
+                    $('kronolithEventAlarmOn').setValue(1);
                     $('kronolithEventAlarmDefaultOff').setValue(1);
                 } else {
+                    $('kronolithTaskAlarmOn').setValue(1);
                     $('kronolithTaskAlarmDefaultOff').setValue(1);
                 }
                 if ($(elt.id + 'Params')) {

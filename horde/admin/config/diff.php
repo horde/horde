@@ -31,7 +31,7 @@ function _getDiff($app)
 
     /* Calculate the differences. */
     $diff = new Text_Diff(explode("\n", $current_config),
-                          explode("\n", $session['horde:config/' . $app]));
+                          explode("\n", $session->get('horde', 'config/' . $app)));
     $diff = $renderer->render($diff);
 
     return empty($diff)
@@ -41,7 +41,7 @@ function _getDiff($app)
 
 $diffs = array();
 /* Only bother to do anything if there is any config. */
-if ($config = $session['horde:config/']) {
+if ($config = $session->get('horde', 'config/')) {
     /* Set up the toggle button for inline/unified. */
     $url = Horde::url('admin/config/diff.php')->add('render', ($render_type == 'inline') ? 'unified' : 'inline');
 

@@ -33,7 +33,7 @@ class IMP_Filter
      */
     public function filter($mbox)
     {
-        if (!$GLOBALS['session']['imp:filteravail']) {
+        if (!$GLOBALS['session']->get('imp', 'filteravail')) {
             return;
         }
 

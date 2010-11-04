@@ -164,7 +164,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
      */
     public function __construct()
     {
-        if ($GLOBALS['session']['imp:protocol'] == 'imap') {
+        if ($GLOBALS['session']->get('imp', 'protocol') == 'imap') {
             $ns = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->getNamespaceList();
             $ptr = reset($ns);
             $this->_delimiter = $ptr['delimiter'];
@@ -183,9 +183,9 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
     {
         global $conf, $injector, $prefs, $session;
 
-        $unsubmode = (($session['imp:protocol'] == 'pop') ||
+        $unsubmode = (($session->get('imp', 'protocol') == 'pop') ||
                       !$prefs->getValue('subscribe') ||
-                      $session['imp:showunsub']);
+                      $session->get('imp', 'showunsub'));
 
         /* Reset class variables to the defaults. */
         $this->changed = true;
@@ -204,7 +204,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
         /* Add INBOX and exit if folders aren't allowed or if we are using
          * POP3. */
         if (empty($conf['user']['allow_folders']) ||
-            ($session['imp:protocol'] == 'pop')) {
+            ($session->get('imp', 'protocol') == 'pop')) {
             $this->_insertElt($this->_makeElt('INBOX', self::ELT_IS_SUBSCRIBED));
             return;
         }
@@ -335,7 +335,7 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
             ? $label
             : substr($label, $pos + 1);
 
-        if ($GLOBALS['session']['imp:protocol'] != 'pop') {
+        if ($GLOBALS['session']->get('imp', 'protocol') != 'pop') {
             try {
                 $this->_setInvisible($elt, !Horde::callHook('display_folder', array($elt['v']), 'imp'));
             } catch (Horde_Exception_HookNotSet $e) {}

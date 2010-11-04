@@ -192,11 +192,8 @@ $view->rss = Horde_Util::addParameter(Horde::url('rss/messages.php', true, -1), 
 
 /* Display an edit-dialogue if the thread is not locked and we can edit messages in them. */
 if (!$messages->hasPermission(Horde_Perms::EDIT)) {
-    $message = sprintf(_("You don't have permission to post messages in forum %s."), $forum['forum_name']);
-    if (!empty($conf['hooks']['permsdenied'])) {
-        $message = Horde::callHook('perms_denied', array('agora'), 'horde', $message);
-    }
-    $view->form = $message;
+    Horde::permissionDeniedError('agora', null);
+    $view->form = sprintf(_("You don't have permission to post messages in forum %s."), $forum['forum_name']);
 } elseif ($message['locked']) {
     $view->form = _("Thread locked.");
 } else {

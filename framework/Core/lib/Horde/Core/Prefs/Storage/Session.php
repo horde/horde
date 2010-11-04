@@ -14,7 +14,7 @@
  */
 class Horde_Core_Prefs_Storage_Session extends Horde_Prefs_Storage
 {
-    const SESS_KEY = 'horde:prefs_session/';
+    const SESS_KEY = 'prefs_session/';
 
     /**
      */
@@ -22,8 +22,8 @@ class Horde_Core_Prefs_Storage_Session extends Horde_Prefs_Storage
     {
         global $session;
 
-        return isset($session[self::SESS_KEY . $scope])
-            ? $session[self::SESS_KEY . $scope]
+        return $session->exists('horde', self::SESS_KEY . $scope)
+            ? $session->get('horde', self::SESS_KEY . $scope)
             : false;
     }
 
@@ -35,7 +35,7 @@ class Horde_Core_Prefs_Storage_Session extends Horde_Prefs_Storage
             if (($old_vals = $this->get($scope)) === false) {
                 $old_vals = array();
             }
-            $GLOBALS['session'][self::SESS_KEY . $scope] = array_merge($old_vals, $vals);
+            $GLOBALS['session']->set('horde', self::SESS_KEY . $scope, array_merge($old_vals, $vals));
         }
     }
 
@@ -46,13 +46,13 @@ class Horde_Core_Prefs_Storage_Session extends Horde_Prefs_Storage
         global $session;
 
         if (is_null($scope)) {
-            unset($session[self::SESS_KEY]);
+            $session->remove('horde', self::SESS_KEY);
         } elseif (is_null($pref)) {
-            unset($session[self::SESS_KEY . $this->_scope]);
+            $session->remove('horde', self::SESS_KEY . $this->_scope);
         } elseif ((($vals = $this->get($scope)) !== false) &&
                   isset($vals[$pref])) {
             unset($vals[$pref]);
-            $session[self::SESS_KEY . $scope] = $vals;
+            $session->set('horde', self::SESS_KEY . $scope, $vals);
         }
     }
 

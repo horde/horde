@@ -105,8 +105,7 @@ class Kronolith_Application extends Horde_Registry_Application
 
         $menu->add(Horde::url($prefs->getValue('defaultview') . '.php'), _("_Today"), 'today.png', null, null, null, '__noselection');
         if (Kronolith::getDefaultCalendar(Horde_Perms::EDIT) &&
-            (!empty($conf['hooks']['permsdenied']) ||
-             $injector->getInstance('Horde_Perms')->hasAppPermission('max_events') === true ||
+            ($injector->getInstance('Horde_Perms')->hasAppPermission('max_events') === true ||
              $injector->getInstance('Horde_Perms')->hasAppPermission('max_events') > self::countEvents())) {
             $menu->add(Horde::url('new.php')->add('url', Horde::selfUrl(true, false, true)), _("_New Event"), 'new.png');
         }

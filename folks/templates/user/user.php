@@ -380,10 +380,8 @@ case 'authenticated':
             $comments_reason = sprintf(_("You are on %s blacklist."), $user);
         }
     } else {
+        Horde::permissionDeniedError('folks', null);
         $comments_reason = _("Only authenticated users can post comments.");
-        if ($conf['hooks']['permsdenied']) {
-            $comments_reason = Horde::callHook('perms_denied', array('folks'));
-        }
     }
     break;
 

@@ -14,8 +14,8 @@ require_once dirname(__FILE__) . '/../lib/Application.php';
 Horde_Registry::appInit('horde');
 
 /* Set the language. */
-$session['horde:language'] = $registry->preferredLanguage(Horde_Util::getForm('new_lang'));
-$prefs->setValue('language', $sessoin['horde:language']);
+$session->set('horde', 'language', $registry->preferredLanguage(Horde_Util::getForm('new_lang')));
+$prefs->setValue('language', $session->get('horde', 'language'));
 
 /* Update apps language */
 foreach ($registry->listApps() as $app) {

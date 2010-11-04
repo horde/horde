@@ -3,9 +3,7 @@
 $rows = $layout->rows();
 $max_blocks = $GLOBALS['injector']->getInstance('Horde_Perms')->hasAppPermission('max_blocks');
 list($current_row, $current_col) = $layout->getCurrentBlock();
-$allow_add = !empty($conf['hooks']['permsdenied']) ||
-    ($max_blocks === true) ||
-    ($max_blocks > $layout->count());
+$allow_add = ($max_blocks === true) || ($max_blocks > $layout->count());
 $columns = 0;
 for ($row = 0; $row < $rows; ++$row):
 ?>
