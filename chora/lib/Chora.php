@@ -114,7 +114,9 @@ class Chora
         $script .= '.php';
 
         if ($GLOBALS['conf']['options']['urls'] == 'rewrite') {
-            if (in_array($script, array('browsefile.php', 'browsedir.php'))) {
+            switch ($script) {
+            case 'browsefile.php':
+            case 'browsedir.php':
                 if (substr($uri, 0, 1) == '/') {
                     $script = "browse$uri";
                 } else {
@@ -122,7 +124,16 @@ class Chora
                 }
                 $script = urlencode(isset($args['rt']) ? $args['rt'] : $GLOBALS['acts']['rt']) . "/-/$script";
                 unset($arglist['rt']);
-            } else {
+                break;
+
+            case 'patchsets.php':
+                if (!empty($args['ps'])) {
+                    $script = urlencode(isset($args['rt']) ? $args['rt'] : $GLOBALS['acts']['rt']) . '/-/commits/' . $args['ps'];
+                    unset($arglist['ps']);
+                }
+                break;
+
+            default:
                 $script .= '/' . $uri;
             }
         } elseif (!empty($uri)) {
@@ -130,7 +141,6 @@ class Chora
         }
 
         return Horde::url($script)->add($arglist)->setAnchor($anchor);
-
     }
 
     /**
@@ -466,5 +476,4 @@ class Chora
             ? $log
             : preg_replace($GLOBALS['conf']['tickets']['regexp'], $GLOBALS['conf']['tickets']['replacement'], $log);
     }
-
 }

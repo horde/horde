@@ -173,6 +173,9 @@ class IMP_Views_Compose
             ), true));
         }
 
+        $t->set('bcc', $prefs->getValue('compose_bcc'));
+        $t->set('cc', $prefs->getValue('compose_cc'));
+        $t->set('bcc_or_cc', $t->get('bcc') || $t->get('cc'));
         $t->set('compose_enable', IMP::canCompose());
         $t->set('forminput', Horde_Util::formInput());
         $t->set('redirect_button', IMP_Dimp::actionButton(array(
@@ -180,6 +183,7 @@ class IMP_Views_Compose
             'id' => 'send_button_redirect',
             'title' => _("Redirect")
         )));
+
         $result['html'] = $t->fetch(IMP_TEMPLATES . '/dimp/compose/compose.html');
 
         return $result;

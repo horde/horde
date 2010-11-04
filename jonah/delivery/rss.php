@@ -20,10 +20,12 @@ $criteria = Horde_Util::nonInputVar('criteria');
 if (!$criteria) {
     $criteria = array(
         'channel_id' => Horde_Util::getFormData('channel_id'),
-        'tags' => array(Horde_Util::getFormData('tag_id')),
         'feed_type' => basename(Horde_Util::getFormData('type')),
         'limit' => 10,
     );
+    if ($tag_id = Horde_Util::getFormData('tag_id')) {
+        $criteria['tags'] = array($tag_id);
+    }
 }
 
 // Default to RSS2

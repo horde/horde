@@ -172,7 +172,8 @@ IMAP tuning
 
 * Follow the IMAP servers' performance hints:
 
-  - Cyrus: http://asg.web.cmu.edu/cyrus/download/imapd/install-perf.html
+  - Cyrus: http://www.cyrusimap.org/docs/cyrus-imapd/2.4.2/install-perf.php
+  - Cyrus: http://git.cyrusimap.org/cyrus-imapd/tree/doc/install-perf.html
   - Dovecot: http://wiki.dovecot.org/PerformanceTuning
 
 .. _up-imapproxy: http://www.imapproxy.org/

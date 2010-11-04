@@ -56,6 +56,13 @@ class Components_Pear_Package
     private $_package_xml_path;
 
     /**
+     * The path to the package *.tgz file.
+     *
+     * @param string
+     */
+    private $_package_tgz_path;
+
+    /**
      * The package representation.
      *
      * @param PEAR_PackageFile_v2
@@ -129,6 +136,31 @@ class Components_Pear_Package
     }
 
     /**
+     * Return the path to the package.xml.
+     *
+     * @return string
+     */
+    public function getPackageXml()
+    {
+        if ($this->_package_xml_path === null) {
+            throw new Component_Exception('You need to set the package.xml path first!');
+        }
+        return $this->_package_xml_path;
+    }
+
+    /**
+     * Define the package to work on.
+     *
+     * @param string $package_tgz_path Path to the *.tgz file.
+     *
+     * @return NULL
+     */
+    public function setPackageTgz($package_tgz_path)
+    {
+        $this->_package_tgz_path = $package_tgz_path;
+    }
+
+    /**
      * Return the PEAR Package representation.
      *
      * @return PEAR_PackageFile
@@ -137,10 +169,17 @@ class Components_Pear_Package
     {
         $this->_checkSetup();
         if ($this->_package_file === null) {
-            $this->_package_file = $this->_factory->getPackageFile(
-                $this->_package_xml_path,
-                $this->getEnvironment()
-            );
+            if (!empty($this->_package_xml_path)) {
+                $this->_package_file = $this->_factory->getPackageFile(
+                    $this->_package_xml_path,
+                    $this->getEnvironment()
+                );
+            } else {
+                $this->_package_file = $this->_factory->getPackageFileFromTgz(
+                    $this->_package_tgz_path,
+                    $this->getEnvironment()
+                );
+            }
         }
         return $this->_package_file;
     }
@@ -172,7 +211,8 @@ class Components_Pear_Package
     private function _checkSetup()
     {
         if ($this->_environment === null
-            || $this->_package_xml_path === null
+            || ($this->_package_xml_path === null
+                && $this->_package_tgz_path === null)
             || $this->_factory === null) {
             throw new Components_Exception('You need to set the factory, the environment and the path to the package file first!');
         }
@@ -186,6 +226,16 @@ class Components_Pear_Package
     public function getName()
     {
         return $this->_getPackageFile()->getName();
+    }
+
+    /**
+     * Return the channel for the package.
+     *
+     * @return string The package channel.
+     */
+    public function getChannel()
+    {
+        return $this->_getPackageFile()->getChannel();
     }
 
     /**
@@ -229,72 +279,13 @@ class Components_Pear_Package
     }
 
     /**
-     * Update the content listing of the provided package.
+     * Return the list of files that should be installed for this package.
      *
-     * @param PEAR_PackageFileManager2 $package The package to update.
-     *
-     * @return NULL
+     * @return array The file list.
      */
-    private function _updateContents(PEAR_PackageFileManager2 $package)
+    public function getInstallationFilelist()
     {
-        $contents = $package->getContents();
-        $contents = $contents['dir']['file'];
-        $taskfiles = array();
-        foreach ($contents as $file) {
-            if (!isset($file['attribs'])) {
-                continue;
-            }
-            $atts = $file['attribs'];
-            unset($file['attribs']);
-            if (count($file)) {
-                $taskfiles[$atts['name']] = $file;
-            }
-        }
-
-        $package->generateContents();
-
-        $updated = $package->getContents();
-        $updated = $updated['dir']['file'];
-        foreach ($updated as $file) {
-            if (!isset($file['attribs'])) {
-                continue;
-            }
-            if (isset($taskfiles[$file['attribs']['name']])) {
-                foreach ($taskfiles[$file['attribs']['name']] as $tag => $raw) {
-                    $taskname = $package->getTask($tag) . '_rw';
-                    if (!class_exists($taskname)) {
-                        throw new Components_Exception(
-                            sprintf('Read/write task %s is missing!', $taskname)
-                        );
-                    }
-                    $logger = new stdClass;
-                    $task = new $taskname(
-                        $package,
-                        $this->getEnvironment()->getPearConfig(),
-                        $logger,
-                        ''
-                    );
-                    switch ($taskname) {
-                    case 'PEAR_Task_Replace_rw':
-                        $task->setInfo(
-                            $raw['attribs']['from'],
-                            $raw['attribs']['to'],
-                            $raw['attribs']['type']
-                        );
-                        break;
-                    default:
-                        throw new Components_Exception(
-                            sprintf('Unsupported task type %s!', $tag)
-                        );
-                    }
-                    $task->init(
-                        $raw,
-                        $file['attribs']
-                    );
-                    $package->addTaskToFile($file['attribs']['name'], $task);
-                }
-            }
-        }
+        return $this->_getPackageFile()->getInstallationFilelist();
     }
 
     /**
@@ -305,82 +296,8 @@ class Components_Pear_Package
     private function _getUpdatedPackageFile()
     {
         $package = $this->_getPackageRwFile();
-
-        $this->_updateContents($package);
-
-        /**
-         * This is required to clear the <phprelease><filelist></filelist></phprelease>
-         * section.
-         */
-        $package->setPackageType('php');
-
-        $contents = $package->getContents();
-        $files = $contents['dir']['file'];
-        $horde_role = false;
-
-        foreach ($files as $file) {
-            if (!isset($file['attribs'])) {
-                continue;
-            }
-            $components = explode('/', $file['attribs']['name'], 2);
-            switch ($components[0]) {
-            case 'doc':
-            case 'example':
-            case 'lib':
-            case 'test':
-            case 'data':
-                $package->addInstallAs(
-                    $file['attribs']['name'], $components[1]
-                );
-            break;
-            case 'js':
-            case 'horde':
-                $horde_role = true;
-            case 'locale':
-                $package->addInstallAs(
-                    $file['attribs']['name'], $file['attribs']['name']
-                );
-            break;
-            case 'migration':
-                $components = explode('/', $components[1]);
-                array_splice($components, count($components) - 1, 0, 'migration');
-                $package->addInstallAs(
-                    $file['attribs']['name'], implode('/', $components)
-                );
-                break;
-            case 'bin':
-            case 'script':
-                $filename = basename($file['attribs']['name']);
-                if (substr($filename, strlen($filename) - 4) == '.php') {
-                    $filename = substr($filename, 0, strlen($filename) - 4);
-                }
-                $package->addInstallAs(
-                    $file['attribs']['name'], $filename
-                );
-                break;
-            }
-        }
-
-        if ($horde_role) {
-            $roles = $package->getUsesrole();
-            if (!empty($roles)) {
-                if (isset($roles['role'])) {
-                    $roles = array($roles);
-                }
-                foreach ($roles as $role) {
-                    if (isset($role['role']) && $role['role'] == 'horde') {
-                        $horde_role = false;
-                        break;
-                    }
-                }
-            }
-            if ($horde_role) {
-                $package->addUsesrole(
-                    'horde', 'Role', 'pear.horde.org'
-                );
-            }
-        }
-
+        $contents = $this->_factory->createContents($package);
+        $contents->update();
         return $package;
     }
 
@@ -406,53 +323,25 @@ class Components_Pear_Package
     }    
 
     /**
-     * Return all channels required for this package and its dependencies.
+     * Return the dependencies for the package.
      *
-     * @return array The list of channels.
+     * @return array The list of dependencies.
      */
-    public function listAllRequiredChannels()
+    public function getDependencies()
     {
-        $dependencies = array();
-        foreach ($this->_getPackageFile()->getDeps() as $dependency) {
-            if (isset($dependency['channel'])) {
-                $dependencies[] = $dependency['channel'];
-            }
-        }
-        $dependencies[] = $this->_getPackageFile()->getChannel();
-        return array_unique($dependencies);
-    }    
+        return $this->_getPackageFile()->getDeps();
+    }
 
     /**
-     * Return all channels required for this package and its dependencies.
+     * Return the dependency helper for the package.
      *
-     * @return array The list of channels.
+     * @return Components_Pear_Dependencies The dependency helper.
      */
-    public function listAllExternalDependencies()
+    public function getDependencyHelper()
     {
-        $dependencies = array();
-        foreach ($this->_getPackageFile()->getDeps() as $dependency) {
-            if (isset($dependency['channel']) && $dependency['channel'] != 'pear.horde.org') {
-                $dependencies[] = $dependency;
-            }
-        }
-        return $dependencies;
-    }    
-
-    /**
-     * Return all channels required for this package and its dependencies.
-     *
-     * @return array The list of channels.
-     */
-    public function listAllHordeDependencies()
-    {
-        $dependencies = array();
-        foreach ($this->_getPackageFile()->getDeps() as $dependency) {
-            if (isset($dependency['channel']) && $dependency['channel'] == 'pear.horde.org') {
-                $dependencies[] = $dependency;
-            }
-        }
-        return $dependencies;
-    }    
+        $this->_checkSetup();
+        return $this->_factory->createDependencies($this);
+    }
 
     /**
      * Generate a snapshot of the package using the provided version number.

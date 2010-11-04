@@ -177,7 +177,7 @@ class Horde_Db_Adapter_Mysql extends Horde_Db_Adapter_Base
         $result = $this->execute($sql, $arg1, $arg2);
         $rows = array();
         if ($result) {
-            while ($row = mysql_fetch_array($result)) {
+            while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
                 $rows[] = $row;
             }
         }
@@ -196,7 +196,7 @@ class Horde_Db_Adapter_Mysql extends Horde_Db_Adapter_Base
     public function selectOne($sql, $arg1=null, $arg2=null)
     {
         $result = $this->execute($sql, $arg1, $arg2);
-        return $result ? mysql_fetch_array($result) : array();
+        return $result ? mysql_fetch_array($result, MYSQL_ASSOC) : array();
     }
 
     /**

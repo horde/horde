@@ -226,11 +226,11 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Base
     {
         $result = $this->execute($sql, $arg1, $arg2);
         if ($this->_hasMysqliFetchAll) {
-            return $result->fetch_all(MYSQLI_BOTH);
+            return $result->fetch_all(MYSQLI_ASSOC);
         } else {
             $rows = array();
             if ($result) {
-                while ($row = $result->fetch_array()) {
+                while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
                     $rows[] = $row;
                 }
             }

@@ -66,7 +66,7 @@
     <dir name="Horde">
      <dir name="Kolab">
       <dir name="Server">
-       <file name="server.php" role="php" />
+       <file name="server.php" role="doc" />
       </dir> <!-- /examples/Horde/Kolab/Server -->
      </dir> <!-- /examples/Horde/Kolab -->
     </dir> <!-- /examples/Horde -->

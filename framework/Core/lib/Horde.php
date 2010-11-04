@@ -710,30 +710,18 @@ HTML;
         $config_dir = (($app == 'horde') && defined('HORDE_BASE'))
             ? HORDE_BASE . '/config/'
             : $registry->get('fileroot', $app) . '/config/';
-        $file = $config_dir . $config_file;
+        $base_path = $file = $config_dir . $config_file;
         if (file_exists($file)) {
             $filelist[$file] = 1;
         }
 
         // Load global configuration stanzas in .d directory
-        $directory = preg_replace('/\.php$/', '.d', $config_dir . $config_file);
+        $directory = preg_replace('/\.php$/', '.d', $base_path);
         if (file_exists($directory) &&
             is_dir($directory) &&
             ($sub_files = glob("$directory/*.php"))) {
             foreach ($sub_files as $val) {
                 $filelist[$val] = 0;
-            }
-        }
-
-        // Load vhost configuration file.
-        if (!empty($conf['vhosts']) || !empty($GLOBALS['conf']['vhosts'])) {
-            $server_name = isset($GLOBALS['conf'])
-                ? $GLOBALS['conf']['server']['name']
-                : $conf['server']['name'];
-            $file = $config_dir . substr($config_file, 0, -4) . '-' . $server_name . '.php';
-
-            if (file_exists($file)) {
-                $filelist[$file] = 0;
             }
         }
 
@@ -746,6 +734,10 @@ HTML;
                 ? include_once $file
                 : include $file;
             $output = self::endBuffer();
+
+            if (!$success) {
+                throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $file));
+            }
 
             if (!empty($output) && !$show_output) {
                 /* Horde 3 -> 4 conversion checking. This is the only place
@@ -760,17 +752,40 @@ HTML;
                 }
             }
 
-            if (!$success) {
-                throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $file));
-            }
-
             $was_included = true;
+        }
+
+        // Load vhost configuration file.
+        if (!empty($GLOBALS['conf']['vhosts']) ||
+            (($app == 'horde') &&
+             ($config_file == 'conf.php') &&
+             !empty($conf['vhosts']))) {
+            $server_name = isset($GLOBALS['conf'])
+                ? $GLOBALS['conf']['server']['name']
+                : $conf['server']['name'];
+            $file = $config_dir . substr($config_file, 0, -4) . '-' . $server_name . '.php';
+
+            if (file_exists($file)) {
+                self::startBuffer();
+                $success = (is_null($var_names) && !$show_output)
+                    ? include_once $file
+                    : include $file;
+                $output = self::endBuffer();
+
+                if (!$success) {
+                    throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $file));
+                } elseif (!empty($output) && !$show_output) {
+                    throw new Horde_Exception(sprintf('Failed to import configuration file "%s": ', $file) . strip_tags($output));
+                }
+
+                $was_included = true;
+            }
         }
 
         // Return an error if neither main or vhosted versions of the config
         // file exist.
         if (!$was_included) {
-            throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $config_dir . $config_file));
+            throw new Horde_Exception(sprintf('Failed to import configuration file "%s".', $base_path));
         }
 
         if (isset($output) && $show_output) {
@@ -783,9 +798,9 @@ HTML;
             return compact($var_names);
         } elseif (isset($$var_names)) {
             return $$var_names;
-        } else {
-            return array();
         }
+
+        return array();
     }
 
     /**
@@ -954,6 +969,8 @@ HTML;
             }
 
             $url = $protocol . '://' . $server_name;
+        } elseif (isset($puri['scheme'])) {
+            $url = $puri['scheme'] . '://' . $puri['host'];
         }
 
         if (isset($puri['path']) && substr($puri['path'], 0, 1) == '/' && !preg_match('|^([\w+-]{1,20})://|', $webroot)) {

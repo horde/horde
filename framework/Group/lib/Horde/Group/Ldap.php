@@ -355,11 +355,11 @@ class Horde_Group_Ldap extends Horde_Group
     {
         try {
             $ldapGroup = $this->getGroup($group);
+            // If we're still here the group exists.
+            return true;
         } catch (Horde_Exception_NotFound $e) {
             return false;
         }
-
-        return $ldapGroup->getName() == $group->getName();
     }
 
     /**

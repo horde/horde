@@ -131,6 +131,18 @@ extends Components_StoryTestCase
             ->and('the new package.xml will install script files in a default location');
     }
 
+    /**
+     * @scenario
+     */
+    public function thePOptionHeedsTheGitIgnoreFile()
+    {
+        $this->given('the default Components setup')
+            ->when('calling the package with the packagexml option and a Horde component')
+            ->then('the new package.xml of the Horde component will not contain the file', 'IGNORE.txt')
+            ->and('the new package.xml of the Horde component will not contain the file', 'test1')
+            ->and('the new package.xml of the Horde component will contain the file', 'test2');
+    }
+
 
     /**
      * @todo Test (and fix) the reactions to three more scenarios:

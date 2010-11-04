@@ -537,11 +537,27 @@ Application Framework.</description>
     <min>1.5.4</min>
    </pearinstaller>
    <package>
+    <name>Alarm</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Auth</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
     <name>Autoloader</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Block</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Browser</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Cache</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>
@@ -569,7 +585,23 @@ Application Framework.</description>
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Notification</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Perms</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Prefs</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>Secret</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
+    <name>SessionHandler</name>
     <channel>pear.horde.org</channel>
    </package>
    <package>

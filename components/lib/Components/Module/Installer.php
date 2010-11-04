@@ -47,7 +47,7 @@ extends Components_Module_Base
      */
     public function getOptionGroupDescription()
     {
-        return 'This module installs a Horde element including its dependencies.';
+        return 'This module installs a Horde component including its dependencies.';
     }
 
     /**
@@ -80,6 +80,50 @@ extends Components_Module_Base
                 array(
                     'action' => 'store',
                     'help'   => 'Location of static channel XML descriptions. These files need to be named CHANNEL.channel.xml (e.g. pear.php.net.channel.xml). Specifying this path allows you to avoid accessing the network for installing new channels. If this is not specified but SOURCEPATH is given then SOURCEPATH will be checked for such channel XML files.'
+                )
+            ),
+            new Horde_Argv_Option(
+                '-I',
+                '--include',
+                array(
+                    'action' => 'store',
+                    'help'   => 'The list of optional dependencies that should be included in the installation. You can either specify packages by name (e.g. PEAR), by a combination of channel and name (e.g. pear.php.net/PEAR), a channel name (e.g. channel:pear.php.net), or all packages by the special keyword ALL. Several entries need to be separated by ",". The default for this option is "ALL".',
+                    'default' => 'ALL',
+                    'dest' => 'include',
+                )
+            ),
+            new Horde_Argv_Option(
+                '-E',
+                '--exclude',
+                array(
+                    'action' => 'store',
+                    'help'   => 'The list of optional dependencies that should be excluded during the installation. You can either specify packages by name (e.g. PEAR), by a combination of channel and name (e.g. pear.php.net/PEAR), a channel name (e.g. channel:pear.php.net), or all packages by the special keyword ALL. Several entries need to be separated by ",". The default for this option is "channel:pecl.php.net".',
+                    'default' => 'channel:pecl.php.net',
+                    'dest' => 'exclude',
+                )
+            ),
+            new Horde_Argv_Option(
+                '-P',
+                '--pretend',
+                array(
+                    'action' => 'store_true',
+                    'help'   => 'Just indicate what would be installed.',
+                )
+            ),
+            new Horde_Argv_Option(
+                '-s',
+                '--symlink',
+                array(
+                    'action' => 'store_true',
+                    'help'   => 'Symlink the files from the source repository rather than copying them to the install location. This is intended for the development mode where you want to have your edits to have a direct effect on your installation while still retaining the possibility of commiting to your repository.',
+                )
+            ),
+            new Horde_Argv_Option(
+                '-H',
+                '--horde-dir',
+                array(
+                    'action' => 'store',
+                    'help'   => 'The location of the horde installation directory. The default will be the INSTALL/horde directory',
                 )
             ),
         );

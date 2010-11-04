@@ -385,11 +385,11 @@ case 'deletequeueform':
     $form = new DeleteQueueForm($vars);
     if ($form->validate($vars)) {
         if ($vars->get('yesno') == 1) {
-            $result = $whups_driver->deleteQueue($vars->get('queue'));
-            if (!is_a($result, 'PEAR_Error')) {
+            try {
+                $result = $whups_driver->deleteQueue($vars->get('queue'));
                 $notification->push( _("The queue has been deleted."),
                                      'horde.success');
-            } else {
+            } catch (Horde_Exception $e) {
                 $notification->push(_("There was an error deleting the queue:")
                                     . ' ' . $result->getMessage(),
                                     'horde.error');

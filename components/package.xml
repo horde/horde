@@ -218,6 +218,10 @@
     <channel>pear.horde.org</channel>
    </package>
    <package>
+    <name>Role</name>
+    <channel>pear.horde.org</channel>
+   </package>
+   <package>
     <name>Util</name>
     <channel>pear.horde.org</channel>
    </package>

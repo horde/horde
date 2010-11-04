@@ -102,7 +102,7 @@ class Horde_Core_Prefs extends Horde_Prefs
                     ? $val
                     : $this->convertToDriver($val);
 
-                if (!$this->_isLocked($name)) {
+                if (!$this->isLocked($name)) {
                     $this->setDirty($pref, true);
                 }
             }

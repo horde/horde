@@ -196,6 +196,30 @@ extends PHPUnit_Extensions_Story_TestCase
             );
             $world['output'] = $this->_callUnstrictComponents();
             break;
+        case 'calling the package with the install option, the pretend option and a path to a Horde framework component':
+            $_SERVER['argv'] = array(
+                'horde-components',
+                '--channelxmlpath=' . dirname(__FILE__) . '/fixture/channels',
+                '--sourcepath=' . dirname(__FILE__) . '/fixture/packages',
+                '--pretend',
+                '--install=' . $this->_getTemporaryDirectory() . DIRECTORY_SEPARATOR . '.pearrc',
+                dirname(__FILE__) . '/fixture/framework/Install'
+            );
+            $world['output'] = $this->_callUnstrictComponents();
+            break;
+        case 'calling the package with the install option, a path to a Horde framework component, and the following include/exclude options':
+            $_SERVER['argv'] = array(
+                'horde-components',
+                '--channelxmlpath=' . dirname(__FILE__) . '/fixture/channels',
+                '--sourcepath=' . dirname(__FILE__) . '/fixture/packages',
+                '--pretend',
+                '--include=' . $arguments[0],
+                '--exclude=' . $arguments[1],
+                '--install=' . $this->_getTemporaryDirectory() . DIRECTORY_SEPARATOR . '.pearrc',
+                dirname(__FILE__) . '/fixture/framework/Install'
+            );
+            $world['output'] = $this->_callUnstrictComponents();
+            break;
         case 'calling the package with the list dependencies option and a path to a Horde framework component':
             $_SERVER['argv'] = array(
                 'horde-components',
@@ -334,6 +358,18 @@ extends PHPUnit_Extensions_Story_TestCase
                 $world['output']
             );
             break;
+        case 'the new package.xml of the Horde component will not contain the file':
+            $this->assertNotRegExp(
+                '#' . $arguments[0] . '#',
+                $world['output']
+            );
+            break;
+        case 'the new package.xml of the Horde component will contain the file':
+            $this->assertRegExp(
+                '#' . $arguments[0] . '#',
+                $world['output']
+            );
+            break;
         case 'a new package.xml will be created.':
             $this->assertTrue(
                 file_exists($this->_temp_dir . DIRECTORY_SEPARATOR . 'package.xml')
@@ -394,6 +430,77 @@ extends PHPUnit_Extensions_Story_TestCase
                 )
             );
             break;
+        case 'the dummy PEAR package will be listed':
+            $this->assertContains(
+                'Would install external package pear.php.net/PEAR',
+                $world['output']
+            );
+            break;
+        case 'the non-Horde dependencies of the component would be installed':
+            $this->assertContains(
+                'Would install external package pear.php.net/Console_Getopt',
+                $world['output']
+            );
+            break;
+        case 'the PECL will package will be listed':
+            $this->assertContains(
+                'Would install external package pecl.php.net/PECL',
+                $world['output']
+            );
+            break;
+        case 'the PECL will package will not be listed':
+            $this->assertNotContains(
+                'Would install external package pecl.php.net/PECL',
+                $world['output']
+            );
+            break;
+        case 'the Console_Getopt package will be listed':
+            $this->assertContains(
+                'Would install external package pear.php.net/Console_Getopt',
+                $world['output']
+            );
+            break;
+        case 'the Console_Getopt package will not be listed':
+            $this->assertNotContains(
+                'Would install external package pear.php.net/Console_Getopt',
+                $world['output']
+            );
+            break;
+        case 'the Horde dependencies of the component would be installed':
+            $trimmed = strtr($world['output'], array(' ' => '', "\n" => ''));
+            $this->assertRegExp(
+                '#Wouldinstallpackage.*Dependency/package.xml#',
+                $trimmed
+            );
+            break;
+        case 'the old-style Horde dependencies of the component would be installed':
+            $trimmed = strtr($world['output'], array(' ' => '', "\n" => ''));
+            $this->assertRegExp(
+                '#Wouldinstallpackage.*Old/package.xml#',
+                $trimmed
+            );
+            break;
+        case 'the Optional package will be listed':
+            $trimmed = strtr($world['output'], array(' ' => '', "\n" => ''));
+            $this->assertRegExp(
+                '#Wouldinstallpackage.*Optional/package.xml#',
+                $trimmed
+            );
+            break;
+        case 'the Optional package will not be listed':
+            $trimmed = strtr($world['output'], array(' ' => '', "\n" => ''));
+            $this->assertNotRegExp(
+                '#Wouldinstallpackage.*Optional/package.xml#',
+                $trimmed
+            );
+            break;
+        case 'the component will be listed':
+            $trimmed = strtr($world['output'], array(' ' => '', "\n" => ''));
+            $this->assertRegExp(
+                '#Wouldinstallpackage.*Install/package.xml#',
+                $trimmed
+            );
+            break;
         case 'the CI configuration will be installed.':
             $this->assertTrue(
                 file_exists(
@@ -437,6 +544,12 @@ extends PHPUnit_Extensions_Story_TestCase
         case 'the call will fail with':
             $this->assertContains(
                 $arguments[0],
+                $world['output']
+            );
+            break;
+        case 'the non-Horde dependencies of the component will not be listed':
+            $this->assertNotContains(
+                'Console_Getopt',
                 $world['output']
             );
             break;

@@ -260,12 +260,12 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
             $indexes = array();
 
             foreach ($result as $row) {
-                if ($currentIndex != $row[0]) {
-                    $currentIndex = $row[0];
+                if ($currentIndex != $row['relname']) {
+                    $currentIndex = $row['relname'];
                     $indexes[] = $this->makeIndex(
-                        $tableName, $row[0], false, $row[1] == 't', array());
+                        $tableName, $row['relname'], false, $row['indisunique'] == 't', array());
                 }
-                $indexes[count($indexes) - 1]->columns[] = $row[2];
+                $indexes[count($indexes) - 1]->columns[] = $row['attname'];
             }
 
             $this->_cache->set("tables/indexes/$tableName", serialize($indexes));
@@ -290,8 +290,8 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
         // create columns from rows
         $columns = array();
         foreach ($rows as $row) {
-            $columns[$row[0]] = $this->makeColumn(
-                $row[0], $row[2], $row[1], !(boolean)$row[3]);
+            $columns[$row['attname']] = $this->makeColumn(
+                $row['attname'], $row['adsrc'], $row['format_type'], !(boolean)$row['attnotnull']);
         }
         return $columns;
     }
@@ -433,7 +433,7 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
         }
 
         // [primary_key, sequence]
-        return array($result[0], $result[1]);
+        return array($result['attname'], $result['relname']);
     }
 
     /**
@@ -550,9 +550,9 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
 
         if ($autoincrement) {
             $seq_name = $this->defaultSequenceName($tableName, $columnName);
-            if ($this->table($seq_name)) {
+            try {
                 $this->execute('DROP SEQUENCE ' . $seq_name . ' CASCADE');
-            }
+            } catch (Horde_Db_Exception $e) {}
             $this->execute('CREATE SEQUENCE ' . $seq_name);
 
             /* Can't use changeColumnDefault() since it quotes the

@@ -48,12 +48,12 @@
    <dir name="examples">
     <dir name="Horde">
      <dir name="Injector">
-      <file name="annotatedsetters.php" role="php" />
-      <file name="binder.php" role="php" />
-      <file name="closure.php" role="php" />
-      <file name="factory.php" role="php" />
-      <file name="implementation.php" role="php" />
-      <file name="setget.php" role="php" />
+      <file name="annotatedsetters.php" role="doc" />
+      <file name="binder.php" role="doc" />
+      <file name="closure.php" role="doc" />
+      <file name="factory.php" role="doc" />
+      <file name="implementation.php" role="doc" />
+      <file name="setget.php" role="doc" />
      </dir> <!-- /examples/Horde/Injector -->
     </dir> <!-- /examples/Horde -->
    </dir> <!-- /examples -->

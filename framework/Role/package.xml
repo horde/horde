@@ -15,10 +15,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-08-27</date>
+ <date>2010-10-28</date>
  <version>
-  <release>0.1.0</release>
-  <api>0.1.0</api>
+  <release>0.2.0</release>
+  <api>0.2.0</api>
  </version>
  <stability>
   <release>beta</release>
@@ -29,20 +29,22 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </notes>
  <contents>
   <dir name="/">
+   <dir name="Horde">
+    <file name="Role.php" role="php">
+     <tasks:postinstallscript>
+      <tasks:paramgroup>
+       <tasks:id>first</tasks:id>
+       <tasks:param>
+        <tasks:name>horde_dir</tasks:name>
+        <tasks:prompt>Filesystem location where the Horde application is installed.</tasks:prompt>
+        <tasks:type>string</tasks:type>
+       </tasks:param>
+      </tasks:paramgroup>
+     </tasks:postinstallscript>
+    </file>
+   </dir> <!-- /Horde -->
    <file name="Horde.php" role="php" />
    <file name="Horde.xml" role="php" />
-   <file name="Setconfig.php" role="php">
-    <tasks:postinstallscript>
-     <tasks:paramgroup>
-      <tasks:id>first</tasks:id>
-      <tasks:param>
-       <tasks:name>horde_dir</tasks:name>
-       <tasks:prompt>Filesystem location where the Horde application is installed.</tasks:prompt>
-       <tasks:type>string</tasks:type>
-      </tasks:param>
-     </tasks:paramgroup>
-    </tasks:postinstallscript>
-   </file>
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -57,6 +59,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
+   <install name="Horde/Role.php" as="PEAR/Installer/Role/Horde/Role.php" />
    <install name="Horde.php" as="PEAR/Installer/Role/Horde.php" />
    <install name="Horde.xml" as="PEAR/Installer/Role/Horde.xml" />
   </filelist>

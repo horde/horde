@@ -21,7 +21,7 @@
  * @license   http://www.fsf.org/copyleft/gpl.html GPL
  * @package   Role
  */
-class Setconfig_postinstall
+class Horde_Role_postinstall
 {
     /**
      * PEAR config object.

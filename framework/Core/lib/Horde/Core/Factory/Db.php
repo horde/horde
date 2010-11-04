@@ -85,6 +85,21 @@ class Horde_Core_Factory_Db
             return $this->_instances[$sig];
         }
 
+        // Prevent DSN from getting polluted
+        if (!is_array($type) && $type == 'auth') {
+            unset($config['query_auth'],
+                  $config['query_add'],
+                  $config['query_getpw'],
+                  $config['query_update'],
+                  $config['query_resetpassword'],
+                  $config['query_remove'],
+                  $config['query_list'],
+                  $config['query_exists'],
+                  $config['encryption'],
+                  $config['show_encryption']);
+        }
+        unset($config['umask']);
+
         try {
             $this->_instances[$sig] = $this->_createDb($config);
         } catch (Horde_Exception $e) {

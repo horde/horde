@@ -4,29 +4,19 @@
 
  - Document usage
 
- - Add module for generating component documentation.
-
- - Allow activating/deactivating optional install elements
-
- - Allow handling various Horde package locations (horde/, horde/framework/, Horde_SQL -> horde/framework/SQL)
-
- - Allow linking files during the installation.
-
- - Allow filtering (see http://github.com/horde/horde/commit/404e8d1ea7c0bf99373aec2ce7f2534a442149b3)
-   Potentially check with git if the file is relevant or not.
+ - Allow channel dependency detection with external/local package
+   dependencies.
 
  - Fix dependency listing with the --optional=yes/no flag
 
- - Allow optional installation of PECL packages
+ - Allow downloading documentation from the wiki.
+
+ - Add module for generating component documentation.
 
  - Add a commit module that automatically adds a changelog entry in
    the notes section of the package.xml
 
  - Add a release helper module.
-
- - Allow downloading documentation from the wiki.
-
- - Maybe prefix the job names of packages from the framework with Horde_
 
  - Allow absolute/relative paths as arguments
 

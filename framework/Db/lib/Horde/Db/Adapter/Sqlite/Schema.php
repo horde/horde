@@ -184,15 +184,14 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
 
         if (!$rows) {
             $rows = $this->selectAll('PRAGMA table_info(' . $this->quoteTableName($tableName) . ')', $name);
-
             $this->_cache->set("tables/columns/$tableName", serialize($rows));
         }
 
         // create columns from rows
         $columns = array();
         foreach ($rows as $row) {
-            $columns[$row[1]] = $this->makeColumn(
-                $row[1], $row[4], $row[2], !(bool)$row[3]);
+            $columns[$row['name']] = $this->makeColumn(
+                $row['name'], $row['dflt_value'], $row['type'], !(bool)$row['notnull']);
         }
 
         return $columns;

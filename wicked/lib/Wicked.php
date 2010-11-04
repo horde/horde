@@ -81,7 +81,10 @@ class Wicked
             $script = Horde_Util::addParameter('display.php', 'page', $page);
         }
 
-        return Horde::url($script, $full, $append_session);
+        $url = Horde::url($script, $full, array('append_session' => $append_session));
+        $url->url = preg_replace('|^[\w+-]{1,20}://[^/]*|', '', $url->url);
+
+        return $url;
     }
 
     /**

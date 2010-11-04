@@ -292,7 +292,9 @@ class Jonah_Driver
         if ($max !== null) {
             $stories = $this->getStories(
                     array('channel_id' => $channel_id,
-                          'published' => true),
+                          'published' => true,
+                          'startnumber' => $from,
+                          'limit' => $max),
                     $order);
         } else {
             $stories = $this->getStories(array('channel_id' => $channel_id,

@@ -83,7 +83,7 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
     public function selectAll($sql, $arg1=null, $arg2=null)
     {
         $result = $this->execute($sql, $arg1, $arg2);
-        return $result ? $result->fetchAll(PDO::FETCH_BOTH) : array();
+        return $result ? $result->fetchAll(PDO::FETCH_ASSOC) : array();
     }
 
     /**
@@ -98,7 +98,7 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
     public function selectOne($sql, $arg1=null, $arg2=null)
     {
         $result = $this->execute($sql, $arg1, $arg2);
-        return $result ? $result->fetch(PDO::FETCH_BOTH) : array();
+        return $result ? $result->fetch(PDO::FETCH_ASSOC) : array();
     }
 
     /**
