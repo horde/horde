@@ -1431,20 +1431,6 @@
   </configsection>
  </configtab>
 
- <configtab name="dns" desc="DNS Lookups">
-  <configsection name="dns">
-   <configheader>DNS Lookup Settings</configheader>
-   <configinteger name="retrans" required="false" desc="If installed, Horde
-   can use the PEAR Net_DNS module for DNS lookups. Set the amount of time
-   in seconds the resolver will wait for a response from a remote name server
-   before retrying the query. Defaults to 1."/>
-   <configinteger name="retry" required="false" desc="If installed, Horde
-   can use the PEAR Net_DNS module for DNS lookups. Set the number of times
-   the resolver will send a query to its name servers before giving
-   up. Defaults to 1."/>
-  </configsection>
- </configtab>
-
  <configtab name="problems" desc="Problem Reporting">
   <configsection name="problems">
    <configheader>Problem Reporting Settings</configheader>

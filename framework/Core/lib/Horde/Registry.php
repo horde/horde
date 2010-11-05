@@ -287,7 +287,7 @@ class Horde_Registry
             'Horde_Token' => 'Horde_Core_Factory_Token',
             'Horde_View' => 'Horde_Core_Factory_View',
             'Horde_View_Base' => 'Horde_Core_Factory_View',
-            'Net_DNS_Resolver' => 'Horde_Core_Factory_Dns',
+            'Net_DNS2_Resolver' => 'Horde_Core_Factory_Dns',
         );
 
         /* Define implementations. */

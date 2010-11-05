@@ -2,6 +2,7 @@
 v4.0-cvs
 --------
 
+[cjh] Move from Net_DNS to Net_DNS2.
 [jan] Translations for the framework packages are now bundled with those
       packages.
 [bak] Remove LDAP driver from Horde_SessionHandler
