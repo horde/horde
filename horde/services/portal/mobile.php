@@ -22,7 +22,7 @@ if (empty($fullname)) {
 $links = array();
 foreach ($registry->listApps() as $app) {
     if ($app != 'horde') {
-        $links[htmlspecialchars($registry->get('name', $app))] = Horde::url('', true, array('app' => $app));
+        $links[htmlspecialchars($registry->get('name', $app))] = array(Horde::url('', true, array('app' => $app)), $registry->get('icon', $app));
     }
 }
 
