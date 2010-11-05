@@ -143,15 +143,10 @@ class IMP_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
                         $ret[$id] = $render[$id];
                     }
                 }
-            } elseif (($disp_id != $val) && !array_key_exists($val, $ret)) {
-                // Need array_key_exists() here since we are checking if the
-                // key exists AND is null.
-                $ret[$val] = array(
-                    'attach' => true,
-                    'data' => '',
-                    'status' => array(),
-                    'type' => 'application/octet-stream'
-                );
+            } elseif ($disp_id != $val) {
+                /* Parts that we can't display within a multipart are marked
+                 * as not being handled by this viewer. Bug #9365. */
+                unset($ret[$val]);
             }
         }
 

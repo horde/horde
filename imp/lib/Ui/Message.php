@@ -503,8 +503,9 @@ class IMP_Ui_Message
     public function getInlineOutput($imp_contents, $options = array())
     {
         $atc_parts = $display_ids = $js_onload = $wrap_ids = array();
-        $msgtext = '';
+        $msgtext = array();
         $parts_list = $imp_contents->getContentTypeMap();
+        $text_out = '';
 
         $contents_mask = isset($options['mask'])
             ? $options['mask']
@@ -533,7 +534,9 @@ class IMP_Ui_Message
                     }
 
                     if ($contents_mask) {
-                        $msgtext .= $this->formatSummary($imp_contents->getSummary($mime_id, $contents_mask), $part_info_display, true);
+                        $msgtext[$mime_id] = array(
+                            'text' => $this->formatSummary($imp_contents->getSummary($mime_id, $contents_mask), $part_info_display, true)
+                        );
                     }
                 }
                 continue;
@@ -548,10 +551,10 @@ class IMP_Ui_Message
             }
 
             if (empty($render_part)) {
-                if ($imp_contents->isAttachment($mime_type)) {
-                    if ($contents_mask) {
-                        $msgtext .= $this->formatSummary($imp_contents->getSummary($mime_id, $contents_mask), $part_info_display, true);
-                    }
+                if ($contents_mask && $imp_contents->isAttachment($mime_type)) {
+                    $msgtext[$mime_id] = array(
+                        'text' => $this->formatSummary($imp_contents->getSummary($mime_id, $contents_mask), $part_info_display, true)
+                    );
                 }
                 continue;
             }
@@ -569,27 +572,18 @@ class IMP_Ui_Message
                     continue;
                 }
 
-                while (count($wrap_ids) &&
-                       !Horde_Mime::isChild(end($wrap_ids), $id)) {
-                    array_pop($wrap_ids);
-                    $msgtext .= '</div>';
-                }
-
-                if (!empty($info['wrap'])) {
-                    $msgtext .= '<div class="' . $info['wrap'] . '">';
-                    $wrap_ids[] = $mime_id;
-                }
+                $part_text = '';
 
                 if (empty($info['attach'])) {
                     if ($contents_mask) {
-                        $msgtext .= $this->formatSummary($imp_contents->getSummary($id, $contents_mask), $part_info_display) .
+                        $part_text .= $this->formatSummary($imp_contents->getSummary($id, $contents_mask), $part_info_display) .
                             $this->formatStatusMsg($info['status']) .
                             '<div class="mimePartData">' . $info['data'] . '</div>';
                     } else {
-                        if ($msgtext && !empty($options['sep'])) {
-                            $msgtext .= $options['sep'];
+                        if ($part_text && !empty($options['sep'])) {
+                            $part_text .= $options['sep'];
                         }
-                        $msgtext .= $info['data'];
+                        $part_text .= $info['data'];
                     }
                 } else {
                     if ($show_parts == 'atc') {
@@ -597,9 +591,14 @@ class IMP_Ui_Message
                     }
 
                     if ($contents_mask) {
-                        $msgtext .= $this->formatSummary($imp_contents->getSummary($id, $contents_mask), $part_info_display, true);
+                        $part_text .= $this->formatSummary($imp_contents->getSummary($id, $contents_mask), $part_info_display, true);
                     }
                 }
+
+                $msgtext[$id] = array(
+                    'text' => $part_text,
+                    'wrap' => empty($info['wrap']) ? null : $info['wrap']
+                );
 
                 if (isset($info['js'])) {
                     $js_onload = array_merge($js_onload, $info['js']);
@@ -611,13 +610,30 @@ class IMP_Ui_Message
             }
         }
 
-        while (count($wrap_ids)) {
-            $msgtext .= '</div>';
-            array_pop($wrap_ids);
+        if (!empty($msgtext)) {
+            uksort($msgtext, 'strnatcmp');
         }
 
-        if (!strlen($msgtext)) {
-            $msgtext = $this->formatStatusMsg(array(array('text' => array(_("There are no parts that can be shown inline.")))));
+        reset($msgtext);
+        while (list($id, $part) = each($msgtext)) {
+            while (count($wrap_ids) &&
+                   !Horde_Mime::isChild(end($wrap_ids), $id)) {
+                array_pop($wrap_ids);
+                $text_out .= '</div>';
+            }
+
+            if (!empty($part['wrap'])) {
+                $text_out .= '<div class="' . $info['wrap'] . '">';
+                $wrap_ids[] = $id;
+            }
+
+            $text_out .= $part['text'];
+        }
+
+        $text_out .= str_repeat('</div>', count($wrap_ids));
+
+        if (!strlen($text_out)) {
+            $text_out = $this->formatStatusMsg(array(array('text' => array(_("There are no parts that can be shown inline.")))));
         }
 
         $atc_parts = ($show_parts == 'all')
@@ -628,7 +644,7 @@ class IMP_Ui_Message
             'atc_parts' => $atc_parts,
             'display_ids' => array_keys($display_ids),
             'js_onload' => $js_onload,
-            'msgtext' => $msgtext
+            'msgtext' => $text_out
         );
     }
 
