@@ -563,6 +563,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
             $mdn->addMdnRequestHeaders($barefrom);
         }
 
+        $charset = empty($opts['charset'])
+            ? $GLOBALS['registry']->getEmailCharset()
+            : $opts['charset'];
+
         $headers->addHeader('From', Horde_String::convertCharset($header['from'], 'UTF-8', $charset));
 
         if (!empty($header['replyto']) &&
