@@ -488,9 +488,6 @@ span.treeImg16 {
     line-height: 48px;
     vertical-align: bottom;
 }
-#menu h1.loginmenu {
-    text-align: center;
-}
 #menu input, #menu select {
     margin-top: 16px;
 }
@@ -501,6 +498,55 @@ span.treeImg16 {
     text-align: right;
     font-size: 90%;
     background: #eee;
+}
+
+/* Login form */
+body.login-form {
+    background-color: #e9e9e9;
+}
+#login-form {
+    font-size: 150%;
+    width: 20em;
+    margin: 5em auto;
+
+    background-color: #fff;
+
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+
+    box-shadow: 0 0 2em #ccc;
+    -moz-box-shadow: 0 0 2em #ccc;
+    -webkit-box-shadow: 0 0 2em #ccc;
+}
+#login-form .notices {
+    padding-top: 1em;
+    font-size: 75%;
+}
+#login-form a {
+    color: #00f;
+}
+#login-form form {
+    padding: 1em;
+}
+#login-form label {
+    font-weight: bold;
+}
+#login-form input, #login-form select {
+    -webkit-transition-property: -webkit-box-shadow, background;
+    -webkit-transition-duration: 0.25s;
+
+    width: 18em;
+    margin-bottom: .5em;
+}
+#login-form #login-button {
+    margin: .5em auto;
+    text-align: center;
+    width: 5em;
+}
+#login-form .extras {
+    font-size: 75%;
+    border-top: thin dashed #ccc;
+    margin: .5em 0;
 }
 
 /* Sidebar styles. */

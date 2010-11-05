@@ -321,9 +321,6 @@ if ($browser->isMobile()) {
     exit;
 }
 
-$menu = new Horde_Menu(Horde_Menu::MASK_NONE);
-$hmenu = $menu->render();
-
 if (!empty($js_files)) {
     Horde::addScriptFile('prototype.js', 'horde');
     foreach ($js_files as $val) {
@@ -332,7 +329,7 @@ if (!empty($js_files)) {
 }
 
 Horde::addInlineJsVars($js_code);
-
+$bodyClass = 'login-form';
 require $registry->get('templates', 'horde') . '/common-header.inc';
 require $registry->get('templates', 'horde') . '/login/login.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';
