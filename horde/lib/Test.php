@@ -567,7 +567,7 @@ class Horde_Test
             if (!empty($val['depends']) && empty($succeeded[$val['depends']])) {
                 $result = false;
             } elseif (empty($val['path'])) {
-                $result = class_exists($key);
+                $result = @class_exists($key);
             } else {
                 $result = @include_once $val['path'];
             }

@@ -64,13 +64,13 @@ class Horde_Auth
     {
         /* Base drivers (in Auth/ directory). */
         $class = __CLASS__ . '_' . $driver;
-        if (class_exists($class)) {
+        if (@class_exists($class)) {
             return new $class($params);
         }
 
         /* Explicit class name, */
         $class = $driver;
-        if (class_exists($class)) {
+        if (@class_exists($class)) {
             return new $class($params);
         }
 
