@@ -79,15 +79,15 @@
     <name>Url</name>
     <channel>pear.horde.org</channel>
    </package>
+   <extension>
+    <name>dom</name>
+   </extension>
   </required>
   <optional>
    <package>
     <name>Imap_Client</name>
     <channel>pear.horde.org</channel>
    </package>
-   <extension>
-    <name>dom</name>
-   </extension>
    <extension>
     <name>iconv</name>
    </extension>
