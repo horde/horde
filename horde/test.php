@@ -135,10 +135,9 @@ if ($app == 'horde') {
     /* Get Horde module version information. */
     if (!$init_exception) {
         try {
-            $app_list = $registry->listApps(null, true);
-            unset($app_list[$app]);
-            ksort($app_list);
-            foreach (array_keys($app_list) as $val) {
+            $app_list = array_diff($registry->listAllApps(), array($app));
+            sort($app_list);
+            foreach ($app_list as $val) {
                 echo '<li>' . ucfirst($val) . ' [' . $registry->get('name', $val) . ']: ' . $registry->getVersion($val) .
                     ' (<a href="' . $url->copy()->add('app', $val) . "\">run tests</a>)</li>\n";
             }

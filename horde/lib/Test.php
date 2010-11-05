@@ -689,7 +689,7 @@ class Horde_Test
     {
         $output = '';
 
-        $horde_apps = $GLOBALS['registry']->listApps(null, true);
+        $horde_apps = $GLOBALS['registry']->listApps(null, true, null);
 
         foreach ($this->_appList as $key => $val) {
             $entry = array();
