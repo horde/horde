@@ -2132,7 +2132,7 @@ var DimpBase = {
                 this.composeMailbox('resume');
                 break;
 
-            case 'applicationfolders':
+            case 'sidebar_apps':
                 tmp = e.element();
                 if (!tmp.hasClassName('custom')) {
                     tmp = tmp.up('LI.custom');

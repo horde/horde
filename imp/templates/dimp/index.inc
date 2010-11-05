@@ -82,7 +82,7 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
     <ul class="folderlist" id="specialfolders"></ul>
 <?php if (!empty($application_folders)): ?>
     <div class="sepfull"></div>
-    <ul id="applicationfolders">
+    <ul id="sidebar_apps">
 <?php foreach ($application_folders as $val): ?>
      <li class="custom">
       <img src="<?php echo $val['icon'] ?>" alt="<?php echo $val['name'] ?>" />
