@@ -82,8 +82,8 @@ if (!class_exists($classname)) {
 $test_ob = new $classname();
 
 /* Register a session. */
-if (!isset($_SESSION['horde_test_count'])) {
-    $_SESSION['horde_test_count'] = 0;
+if (!$session->exists('horde', 'test_count')) {
+    $session->set('horde', 'test_count', 0);
 }
 
 /* Template location. */
@@ -109,7 +109,7 @@ case 'phpinfo':
 
 case 'unregister':
     echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">';
-    unset($_SESSION['horde_test_count']);
+    $session->remove('horde', 'test_count');
 ?>
 <html>
  <body>
@@ -198,7 +198,7 @@ if ($config_output = $test_ob->requiredFileCheck()) {
 <h1>PHP Sessions</h1>
 <ul>
 <?php if (!$init_exception): ?>
- <li>Session counter: <?php echo ++$_SESSION['horde_test_count'] ?> [refresh the page to increment the counter]</li>
+ <li>Session counter: <?php $tc = $session->get('horde', 'test_count'); echo ++$tc; $session->set('horde', 'test_count', $tc); ?> [refresh the page to increment the counter]</li>
  <li>To unregister the session: <a href="<?php $self_url->copy()->add('mode', 'unregister') ?>">click here</a></li>
 <?php else: ?>
  <li style="color:red"><strong>The PHP session test is disabled until Horde is correctly configured.</strong></li>
