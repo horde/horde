@@ -22,7 +22,7 @@ class Horde_Nls
     /**
      * DNS resolver.
      *
-     * @var Net_DNS_Resolver
+     * @var Net_DNS2_Resolver
      */
     static public $dnsResolver;
 
@@ -130,19 +130,24 @@ class Horde_Nls
             'museum', 'name', 'net', 'org', 'pro'
         );
 
-        $checkHost = $host;
+        $checkHost = null;
         if (preg_match('/^\d+\.\d+\.\d+\.\d+$/', $host)) {
-            if (isset(self::$dnsResolver) &&
-                ($response = self::$dnsResolver->query($host, 'PTR'))) {
-                foreach ($response->answer as $val) {
-                    if (isset($val->ptrdname)) {
-                        $checkHost = $val->ptrdname;
-                        break;
+            if (isset(self::$dnsResolver)) {
+                try {
+                    $response = self::$dnsResolver->query($host, 'PTR');
+                    foreach ($response->answer as $val) {
+                        if (isset($val->ptrdname)) {
+                            $checkHost = $val->ptrdname;
+                            break;
+                        }
                     }
-                }
-            } else {
+                } catch (Net_DNS2_Exception $e) {}
+            }
+            if (is_null($checkHost)) {
                 $checkHost = @gethostbyaddr($host);
             }
+        } else {
+            $checkHost = $host;
         }
 
         /* Get the TLD of the hostname. */

@@ -21,13 +21,13 @@ if (empty($fullname)) {
 
 $links = array();
 foreach ($registry->listApps() as $app) {
-    if ($registry->hasMobileView($app)) {
-        $links[htmlspecialchars($registry->get('name', $app))] = Horde::url('/', false, array('app' => $app));
+    if ($app != 'horde') {
+        $links[htmlspecialchars($registry->get('name', $app))] = array(Horde::url('', true, array('app' => $app)), $registry->get('icon', $app));
     }
 }
 
 $title = _("Welcome");
 
-require HORDE_TEMPLATES . '/common-header.inc';
+require HORDE_TEMPLATES . '/common-header-mobile.inc';
 require HORDE_TEMPLATES . '/portal/mobile.inc';
-require HORDE_TEMPLATES . '/common-footer.inc';
+require HORDE_TEMPLATES . '/common-footer-mobile.inc';

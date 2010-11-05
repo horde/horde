@@ -1774,7 +1774,7 @@ class Kronolith
                                            $share->get('name'));
                     }
                     $mail->addHeader('Subject', _("Ownership assignment"));
-                    $mail->addHeader('To', $to);
+                    $mail->addHeader('To', $to, 'UTF-8', false);
                     $mail->setBody($message, 'UTF-8');
                     $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
                 }
@@ -1928,7 +1928,7 @@ class Kronolith
                                        $userName,
                                        $share->get('name'));
                 }
-                $mail->addHeader('To', $to);
+                $mail->addHeader('To', $to, 'UTF-8', false);
                 $mail->setBody($message, 'UTF-8');
                 $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
             }
@@ -1984,7 +1984,7 @@ class Kronolith
                                            $groupOb->getName(),
                                            $share->get('name'));
                     }
-                    $mail->addHeader('To', $groupOb->getName() . ' <' . $groupOb->data['email'] . '>');
+                    $mail->addHeader('To', $groupOb->getName() . ' <' . $groupOb->data['email'] . '>', 'UTF-8', false);
                     $mail->setBody($message, 'UTF-8');
                     $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
                 }

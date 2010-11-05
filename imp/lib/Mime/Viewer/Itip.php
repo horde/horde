@@ -274,7 +274,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                             new Horde_Itip_Response_Options_Horde(
                                 $charset,
                                 array(
-                                    'dns' => $GLOBALS['injector']->getInstance('Net_DNS_Resolver'),
+                                    'dns' => $GLOBALS['injector']->getInstance('Net_DNS2_Resolver'),
                                     'server' => $GLOBALS['conf']['server']['name']
                                 )
                             ),

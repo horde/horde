@@ -54,16 +54,18 @@ class Horde_LoginTasks_Task_LastLogin extends Horde_LoginTasks_Task
             ? $_SERVER['REMOTE_ADDR']
             : $_SERVER['HTTP_X_FORWARDED_FOR'];
 
-        if ($dns = $GLOBALS['injector']->getInstance('Net_DNS_Resolver')) {
+        if ($dns = $GLOBALS['injector']->getInstance('Net_DNS2_Resolver')) {
             $ptrdname = $host;
-            if ($response = $dns->query($host, 'PTR')) {
-                foreach ($response->answer as $val) {
-                    if (isset($val->ptrdname)) {
-                        $ptrdname = $val->ptrdname;
-                        break;
+            try {
+                if ($response = $dns->query($host, 'PTR')) {
+                    foreach ($response->answer as $val) {
+                        if (isset($val->ptrdname)) {
+                            $ptrdname = $val->ptrdname;
+                            break;
+                        }
                     }
                 }
-            }
+            } catch (Net_DNS2_Exception $e) {}
         } else {
             $ptrdname = @gethostbyaddr($host);
         }

@@ -526,7 +526,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator
 
         /* Add a Received header for the hop from browser to server. */
         $headers->addReceivedHeader(array(
-            'dns' => $GLOBALS['injector']->getInstance('Net_DNS_Resolver'),
+            'dns' => $GLOBALS['injector']->getInstance('Net_DNS2_Resolver'),
             'server' => $GLOBALS['conf']['server']['name']
         ));
         $headers->addMessageIdHeader();
