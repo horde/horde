@@ -15,20 +15,10 @@ $has_blacklist = $registry->hasMethod('mail/blacklistFrom');
 $has_whitelist = $registry->hasMethod('mail/whitelistFrom');
 
 // Quota information
-$show_quota = $session->get('imp', 'imap_quota');
+$show_quota = $session->get('imp', 'imap_quota')
+    ? '<span class="used">' . Horde::img('quotauncover.gif') . '</span>'
+    : '';
 
-// Get application folders list.
-$application_folders = array();
-foreach (IMP_Dimp::menuList() as $app) {
-    if (($registry->get('status', $app) != 'inactive') &&
-        $registry->hasPermission($app, Horde_Perms::SHOW)) {
-        $application_folders[] = array(
-            'app' => rawurlencode($app),
-            'icon' => $registry->get('icon', $app),
-            'name' => htmlspecialchars($registry->get('name', $app))
-        );
-    }
-}
 
 function _simpleButton($id, $text, $image, $nodisplay = false)
 {
@@ -80,35 +70,11 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
    <div id="foldersLoading"><?php echo _("Loading...") ?></div>
    <div id="foldersSidebar" style="display:none">
     <ul class="folderlist" id="specialfolders"></ul>
-<?php if (!empty($application_folders)): ?>
+<?php if ($render_sidebar): ?>
     <div class="sepfull"></div>
     <ul id="sidebar_apps">
-<?php foreach ($application_folders as $val): ?>
-     <li class="custom">
-      <img src="<?php echo $val['icon'] ?>" alt="<?php echo $val['name'] ?>" />
-      <a title="<?php echo $val['name'] ?>" id="app<?php echo $val['app'] ?>"><?php echo $val['name'] ?></a>
-     </li>
-<?php endforeach; ?>
+     <?php echo $render_sidebar ?>
     </ul>
-<?php endif; ?>
-<?php if (!empty($site_menu)): ?>
-    <div id="sitemenu">
-     <div class="sepfull"></div>
-     <ul>
-<?php foreach ($site_menu as $key => $menu_item): ?>
-<?php if ($menu_item == 'separator'): ?>
-     </ul>
-     <div class="sepfull"></div>
-     <ul>
-<?php else: ?>
-      <li class="custom">
-       <img src="<?php echo $menu_item['icon'] ?>" alt="<?php echo $menu_item['text'] ?>" />
-       <a title="<?php echo $menu_item['text'] ?>" id="menu<?php echo $key ?>"><?php echo $menu_item['text'] ?></a>
-      </li>
-<?php endif; ?>
-<?php endforeach; ?>
-     </ul>
-    </div>
 <?php endif; ?>
 <?php if ($session->get('imp', 'protocol') != 'pop'): ?>
     <div class="sepfull"></div>
@@ -131,32 +97,23 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
    <div id="dimpmain_folder" style="display:none">
     <div id="dimpmain_folder_top">
      <div id="tabbar">
-<?php if (!empty($application_folders) || !empty($site_menu)): ?>
+<?php if (!empty($render_tabs)): ?>
       <div class="tabset">
        <ul>
         <li>
          <a id="hometab"><img src="<?php echo $registry->get('icon', 'horde') ?>" alt="<?php echo _("Portal") ?>" /><?php echo _("Portal") ?></a>
         </li>
-<?php foreach ($application_folders as $val): ?>
-        <li<?php if ($val['app'] == 'dimp') echo ' class="activeTab"' ?>>
-         <a class="applicationtab" id="apptab<?php echo $val['app'] ?>"><img src="<?php echo $val['icon'] ?>" alt="<?php echo $val['name'] ?>" /><?php echo $val['name'] ?></a>
-        </li>
-<?php endforeach; ?>
-<?php foreach ($site_menu as $key => $menu_item): if ($menu_item == 'separator') continue; ?>
-        <li>
-         <a id="tab<?php echo $key ?>"><img src="<?php echo $menu_item['icon'] ?>" alt="<?php echo $menu_item['text'] ?>" /><?php echo $menu_item['text'] ?></a>
-        </li>
-<?php endforeach; ?>
+        <?php echo $render_tabs ?>
 <?php if ($show_quota): ?>
         <li id="quota">
-         <span class="used"><?php echo Horde::img('quotauncover.gif') ?></span>
+         <?php echo $show_quota ?>
         </li>
 <?php endif; ?>
        </ul>
       </div>
 <?php elseif ($show_quota): ?>
       <div id="quota">
-        <span class="used"><?php echo Horde::img('quotauncover.gif') ?></span>
+        <?php echo $show_quota ?>
       </div>
 <?php endif; ?>
      </div>

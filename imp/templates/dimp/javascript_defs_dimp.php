@@ -8,18 +8,19 @@
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.
  */
 
-$app_urls = $code = $filters = $flags = array();
+$code = $filters = $flags = $portal_urls = array();
 
-foreach (IMP_Dimp::menuList() as $app) {
-    $app_urls[$app] = strval(Horde::url($GLOBALS['registry']->getInitialPage($app), true)->add('ajaxui', 1));
-}
+$compose_page = in_array(basename($_SERVER['PHP_SELF']), array('compose-dimp.php', 'message-dimp.php'));
 
-include IMP_BASE . '/config/portal.php';
-foreach ($dimp_block_list as $block) {
-    if ($block['ob'] instanceof Horde_Block) {
-        $app = $block['ob']->getApp();
-        if (empty($app_urls[$app])) {
-            $app_urls[$app] = strval(Horde::url($GLOBALS['registry']->getInitialPage($app), true)->add('ajaxui', 1));
+/* Add portal links - base page only. */
+if (!$compose_page) {
+    include IMP_BASE . '/config/portal.php';
+    foreach ($dimp_block_list as $block) {
+        if ($block['ob'] instanceof Horde_Block) {
+            $app = $block['ob']->getApp();
+            if (empty($portal_urls[$app])) {
+                $portal_urls[$app] = strval(Horde::url($GLOBALS['registry']->getInitialPage($app), true));
+            }
         }
     }
 }
@@ -63,7 +64,6 @@ $code['conf'] = array_filter(array(
     'SESSION_ID' => defined('SID') ? SID : '',
 
     // Other variables
-    'app_urls' => $app_urls,
     'buffer_pages' => intval($GLOBALS['conf']['dimp']['viewport']['buffer_pages']),
     'disable_compose' => !IMP::canCompose(),
     'filter_any' => intval($GLOBALS['prefs']->getValue('filter_any_mailbox')),
@@ -84,6 +84,7 @@ $code['conf'] = array_filter(array(
     'pop3' => intval($GLOBALS['session']->get('imp', 'protocol') == 'pop'),
     'popup_height' => 610,
     'popup_width' => 820,
+    'portal_urls' => $portal_urls,
     'preview_pref' => $GLOBALS['prefs']->getValue('dimp_show_preview'),
     'qsearchid' => IMP_Search::MBOX_PREFIX . IMP_Search::DIMP_QUICKSEARCH,
     'qsearchfield' => $GLOBALS['prefs']->getValue('dimp_qsearch_field'),
@@ -165,7 +166,7 @@ $code['text'] = array(
     'vp_empty' => _("There are no messages in this mailbox."),
 );
 
-if (in_array(basename($_SERVER['PHP_SELF']), array('compose-dimp.php', 'message-dimp.php'))){
+if ($compose_page) {
     $compose_cursor = $GLOBALS['prefs']->getValue('compose_cursor');
 
     /* Variables used in compose page. */

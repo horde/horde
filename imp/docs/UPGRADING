@@ -140,6 +140,13 @@ CSS
 TODO
 
 
+Menu
+----
+
+The dynamic view (DIMP) no longer supports the 'action' parameter located
+in config/menu.php.
+
+
 
 Upgrading IMP From 4.1.x To 4.2.x
 =================================
