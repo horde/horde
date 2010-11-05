@@ -132,11 +132,10 @@ class Ingo_Storage
         /* Don't cache if using shares. */
         if ($cache && empty($GLOBALS['ingo_shares'])) {
             if (!isset($this->_cache[$field])) {
+                $cached = $GLOBALS['session']->retrieve($_SESSION['ingo']['storage'][$field]);
                 $this->_cache[$field] = array(
                     'mod' => false,
-                    'ob' => isset($_SESSION['ingo']['storage'][$field])
-                        ? $GLOBALS['session'][$_SESSION['ingo']['storage'][$field]]
-                        : $this->_retrieve($field, $readonly)
+                    'ob' => $cached ? $cached : $this->_retrieve($field, $readonly)
                 );
             }
             $ob = $this->_cache[$field]['ob'];
