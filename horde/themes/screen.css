@@ -552,7 +552,7 @@ body.login-form {
 #login-form #login-button {
     margin: .5em auto;
     text-align: center;
-    width: 5em;
+    width: auto;
 }
 #login-form .extras {
     font-size: 75%;
