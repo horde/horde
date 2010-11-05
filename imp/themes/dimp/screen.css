@@ -329,7 +329,6 @@ div.vpRowVert.flagUnseen {
 #sidebar li.custom img {
     float: left;
     padding: 1px 4px 0 0;
-    margin-bottom: -1px;
 }
 #sidebar li.on {
     background: #ffa;
@@ -373,9 +372,6 @@ div.vpRowVert.flagUnseen {
 
 #logo, #dimpbarActions, #serviceActions, #foldersSidebar, #normalfolders {
     overflow-x: hidden;
-}
-#applicationfolders {
-    overflow: hidden;
 }
 
 #folderopts a {
