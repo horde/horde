@@ -30,7 +30,7 @@ try {
     $plus = Horde::img('tree/plusonly.png', _("Expand"));
     $minus = Horde::img('tree/minusonly.png', _("Collapse"), 'style="display:none"');
 
-    $resolver = $injector->getInstance('Net_DNS_Resolver');
+    $resolver = $injector->getInstance('Net_DNS2_Resolver');
 
     foreach ($session_info as $id => $data) {
         $entry = array(
@@ -41,10 +41,15 @@ try {
         );
 
         if (!empty($data['remoteAddr'])) {
+            $host = null;
             if ($resolver) {
-                $response = $resolver->query($data['remoteAddr'], 'PTR');
-                $host = $response ? $response->answer[0]->ptrdname : $data['remoteAddr'];
-            } else {
+                try {
+                    if ($response = $resolver->query($data['remoteAddr'], 'PTR')) {
+                        $host = $response->answer[0]->ptrdname;
+                    }
+                } catch (Net_DNS2_Exception $e) {}
+            }
+            if (is_null($host)) {
                 $host = @gethostbyaddr($data['remoteAddr']);
             }
             $entry[_("Remote Host:")] = $host . ' [' . $data['remoteAddr'] . '] ' . Horde_Core_Ui_FlagImage::generateFlagImageByHost($host);

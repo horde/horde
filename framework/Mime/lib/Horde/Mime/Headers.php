@@ -163,7 +163,7 @@ class Horde_Mime_Headers implements Serializable
      *
      * @param array $options  Additional options:
      * <pre>
-     * 'dns' - (Net_DNS_Resolver) Use the DNS resolver object to lookup
+     * 'dns' - (Net_DNS2_Resolver) Use the DNS resolver object to lookup
      *         hostnames.
      *         DEFAULT: Use gethostbyaddr() function.
      * 'server' - (string) Use this server name.
@@ -179,22 +179,7 @@ class Horde_Mime_Headers implements Serializable
             $remote_addr = $remote_path[0];
             if (!empty($options['dns'])) {
                 $remote = $remote_addr;
-                if ($response = $options['dns']->query($remote_addr, 'PTR')) {
-                    foreach ($response->answer as $val) {
-                        if (isset($val->ptrdname)) {
-                            $remote = $val->ptrdname;
-                            break;
-                        }
-                    }
-                }
-            } else {
-                $remote = gethostbyaddr($remote_addr);
-            }
-        } else {
-            $remote_addr = $_SERVER['REMOTE_ADDR'];
-            if (empty($_SERVER['REMOTE_HOST'])) {
-                if (!empty($options['dns'])) {
-                    $remote = $remote_addr;
+                try {
                     if ($response = $options['dns']->query($remote_addr, 'PTR')) {
                         foreach ($response->answer as $val) {
                             if (isset($val->ptrdname)) {
@@ -203,6 +188,25 @@ class Horde_Mime_Headers implements Serializable
                             }
                         }
                     }
+                } catch (Net_DNS2_Exception $e) {}
+            } else {
+                $remote = gethostbyaddr($remote_addr);
+            }
+        } else {
+            $remote_addr = $_SERVER['REMOTE_ADDR'];
+            if (empty($_SERVER['REMOTE_HOST'])) {
+                if (!empty($options['dns'])) {
+                    $remote = $remote_addr;
+                    try {
+                        if ($response = $options['dns']->query($remote_addr, 'PTR')) {
+                            foreach ($response->answer as $val) {
+                                if (isset($val->ptrdname)) {
+                                    $remote = $val->ptrdname;
+                                    break;
+                                }
+                            }
+                        }
+                    } catch (Net_DNS2_Exception $e) {}
                 } else {
                     $remote = gethostbyaddr($remote_addr);
                 }

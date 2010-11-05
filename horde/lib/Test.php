@@ -294,8 +294,8 @@ class Horde_Test
         'MDB2' => array(
             'error' => 'You will need MDB2 if you are using the SQL driver for Shares.',
         ),
-        'Net_DNS' => array(
-            'error' => 'Net_DNS can speed up hostname lookups against broken DNS servers.'
+        'Net_DNS2' => array(
+            'error' => 'Net_DNS2 can speed up hostname lookups against broken DNS servers.'
         ),
         'Net_SMTP' => array(
             'error' => 'Make sure you are using the Net_SMTP module if you want "smtp" to work as a mailer option.'
