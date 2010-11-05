@@ -623,7 +623,7 @@ class IMP_Ui_Message
             }
 
             if (!empty($part['wrap'])) {
-                $text_out .= '<div class="' . $info['wrap'] . '">';
+                $text_out .= '<div class="' . $part['wrap'] . '">';
                 $wrap_ids[] = $id;
             }
 
