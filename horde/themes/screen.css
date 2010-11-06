@@ -522,8 +522,8 @@ body.login-form {
 
     background-color: #fff;
 
-    -moz-border-radius: 20px;
-    -webkit-border-radius: 20px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
 
     box-shadow: 0 0 2em #ccc;
     -moz-box-shadow: 0 0 2em #ccc;
