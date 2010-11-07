@@ -106,10 +106,8 @@ class Horde_Session
             session_start();
 
             /* Create internal data arrays. */
-            if (!isset($_SESSION[self::MODIFIED])) {
-                /* Last modification time of session.
-                 * This will cause the check below to always return true
-                 * (time() >= 0) and will set the initial value */
+            if (!isset($_SESSION[self::SERIALIZED])) {
+                /* Last modification time of session. */
                 $_SESSION[self::MODIFIED] = 0;
 
                 /* Is this key serialized? */
@@ -125,7 +123,7 @@ class Horde_Session
              * we are accessing the server via a periodic mechanism (think
              * folder refreshing in IMP) that we will catch this refresh. */
             $curr_time = time();
-            if ($curr_time >= $_SESSION[self::MODIFIED]) {
+            if (!isset($_SESSION[self::MODIFIED]) || $curr_time >= $_SESSION[self::MODIFIED]) {
                 $_SESSION[self::MODIFIED] = intval($curr_time + (ini_get('session.gc_maxlifetime') / 2));
                 $this->sessionHandler->changed = true;
             }
