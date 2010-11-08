@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<help>
+
+<entry id="Overview" md5="90121a4de0888ca80c3655099269ebc4" state="uptodate">
+    <title>Áttekintés</title>
+    <heading>Mi a Hibakezelő?</heading>
+    <para>
+    A Hibakezelő (a Whups) a Horde projekt hibakezelő alkalmazása.
+	Ezt a rugalmas kialakítású rendszert ügyfélszolgálatok, szoftverfejlesztők, illetve bárki használhatja,
+    akinek bejelentések kezelésére, követésére van szüksége.
+    </para>
+    <para>
+	A Whups csomag egy komplex keresővel, jelentéskészítővel, emailes értesítő rendszerrel, és egy egyszerű jogosultságkezelő rendszerrel rendelkezik.
+    </para>
+</entry>
+
+</help>
