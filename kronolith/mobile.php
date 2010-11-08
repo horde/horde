@@ -64,95 +64,87 @@ require KRONOLITH_TEMPLATES . '/common-header-mobile.inc';
 
 <script type="text/javascript">
     $(function() {
-       $.ajaxSetup({
-           dataFilter: function(data, type)
-           {
-               filter = /^\/\*-secure-([\s\S]*)\*\/s*$/;
-               return data.replace(filter, "$1");
-           }
-       });
+        // Global ajax options.
+        $.ajaxSetup({
+            dataFilter: function(data, type)
+            {
+                // Remove json security token
+                filter = /^\/\*-secure-([\s\S]*)\*\/s*$/;
+                return data.replace(filter, "$1");
+            }
+        });
 
-       // Initial day view:
-       Kronolith.now = new Date();
-        $('body').bind('swipeleft',
-            function(e) {
-                Kronolith.now.addDays(1);
-               $.post('/horde/services/ajax.php/kronolith/listEvents',
-                      {'start': Kronolith.now.toString("yyyyMMdd"), 'end': Kronolith.now.toString("yyyyMMdd"), 'cal': Kronolith.conf.default_calendar},
-                      function(data) {
-                          Kronolith.updateView(data.response);
-                      },
-                      'json'
-               ); 
-            });
+        // For now, start at today's day view
+        Kronolith.currentDate = new Date();
+        $('body').bind('swipeleft', function(e) {
+            Kronolith.currentDate.addDays(1);
+            KronolithMobile.doAction('listEvents',
+                                     {'start': Kronolith.currentDate.toString("yyyyMMdd"), 'end': Kronolith.currentDate.toString("yyyyMMdd"), 'cal': Kronolith.conf.default_calendar},
+                                     KronolithMobile.listEventsCallback
+            );
+        });
 
-        $('body').bind('swiperight',
-            function(e) {
-               Kronolith.now.addDays(-1);
-               $.post('/horde/services/ajax.php/kronolith/listEvents',
-                      {'start': Kronolith.now.toString("yyyyMMdd"), 'end': Kronolith.now.toString("yyyyMMdd"), 'cal': Kronolith.conf.default_calendar},
-                      function(data)
-                      {
-                          Kronolith.updateView(data.response);
-                      },
-                      'json'
-               );
-            });
+        $('body').bind('swiperight', function(e) {
+                Kronolith.currentDate.addDays(-1);
+                KronolithMobile.doAction('listEvents',
+                                         {'start': Kronolith.currentDate.toString("yyyyMMdd"), 'end': Kronolith.currentDate.toString("yyyyMMdd"), 'cal': Kronolith.conf.default_calendar},
+                                         KronolithMobile.listEventsCallback
+                );
+        });
 
-       $.post('/horde/services/ajax.php/kronolith/listEvents',
-              {'start': Kronolith.now.toString("yyyyMMdd"), 'end': Kronolith.now.toString("yyyyMMdd"), 'cal': Kronolith.conf.default_calendar},
-              function(data) {
-                  Kronolith.updateView(data.response);
-              },
-              'json'
-       );
+        // Load today
+        KronolithMobile.doAction('listEvents',
+                                 {'start': Kronolith.currentDate.toString("yyyyMMdd"), 'end': Kronolith.currentDate.toString("yyyyMMdd"), 'cal': Kronolith.conf.default_calendar},
+                                 KronolithMobile.listEventsCallback
+        );
     });
 
-    /**
-     * Updates the day view.
-     * @TODO: LOTS!! (Sort events, multiple calendars etc...)
-     */
-    Kronolith.updateView = function(data)
-    {
-        $("#daycontent ul").detach();
-        $("#todayheader").html(Kronolith.now.toString(Kronolith.conf.date_format));
-        var list = $('<ul>').attr({'data-role': 'listview'});
-        var type = data.cal.split('|')[0], cal = data.cal.split('|')[1];
-        if (data.events) {
-            $.each(data.events, function(datestring, events) {
-                $.each(events, function(index, event) {
-                    // set .text() first, then .html() to escape
-                    var d = $('<div style="color:' + Kronolith.conf.calendars[type][cal].bg + '">');
-                    var item = $('<li>').append();
-                    d.text(Date.parse(event.s).toString(Kronolith.conf.time_format)
-                        + ' - '
-                        + Date.parse(event.e).toString(Kronolith.conf.time_format)
-                        + ' '
-                        + event.t).html();
-                    var a = $('<a>').attr({'href': '#eventview'}).click(function(e) {
-                        Kronolith.loadEvent(data.cal, index, Date.parse(event.e));
-                    }).append(d);
-                    list.append(item.append(a));
-                });
-            });
-            list.listview();
-            $("#daycontent").append(list);
-        }
-    };
+    KronolithMobile = {
 
-    /**
-     * Requests a single event from the backend, the (will eventually) populate
-     * the event view.
-     */
-    Kronolith.loadEvent = function(cal, idy, d)
-    {
-        $.post(Kronolith.conf.URI_AJAX + 'getEvent',
-               {'cal': cal, 'id': idy, 'date': d.toString('yyyyMMdd')},
-               function(data)
-               {
-                   $("#eventcontent").text(data.response.event.t);
-               },
-               'json');
-    };
+        doAction: function(action, params, callback)
+        {
+            $.post(Kronolith.conf.URI_AJAX + action, params, callback, 'json');
+        },
+
+        listEventsCallback: function(data)
+        {
+            data = data.response;
+            $("#daycontent ul").detach();
+            $("#todayheader").html(Kronolith.currentDate.toString(Kronolith.conf.date_format));
+            var list = $('<ul>').attr({'data-role': 'listview'});
+            var type = data.cal.split('|')[0], cal = data.cal.split('|')[1];
+            if (data.events) {
+                $.each(data.events, function(datestring, events) {
+                    $.each(events, function(index, event) {
+                        // set .text() first, then .html() to escape
+                        var d = $('<div style="color:' + Kronolith.conf.calendars[type][cal].bg + '">');
+                        var item = $('<li>').append();
+                        d.text(Date.parse(event.s).toString(Kronolith.conf.time_format)
+                            + ' - '
+                            + Date.parse(event.e).toString(Kronolith.conf.time_format)
+                            + ' '
+                            + event.t).html();
+                        var a = $('<a>').attr({'href': '#eventview'}).click(function(e) {
+                            KronolithMobile.loadEvent(data.cal, index, Date.parse(event.e));
+                        }).append(d);
+                        list.append(item.append(a));
+                    });
+                });
+                list.listview();
+                $("#daycontent").append(list);
+            }
+        },
+
+        loadEvent: function(cal, idy, d)
+        {
+            $.post(Kronolith.conf.URI_AJAX + 'getEvent',
+                   {'cal': cal, 'id': idy, 'date': d.toString('yyyyMMdd')},
+                   function(data)
+                   {
+                       $("#eventcontent").text(data.response.event.t);
+                   },
+                   'json');
+        }
+}
 </script>
 <?php  $registry->get('templates', 'horde') . '/common-footer-mobile.inc';
