@@ -46,19 +46,24 @@
  *              false: Basic preference; shown regardless of preferences mode.
  *            DEFAULT: false
  *
- * locked - (boolean) Allow preference to be changed from the preferences screen?
- *          VALUES:
- *            true: Do not show this preference in the UI and don't allow
- *                  changing by any mechanism.
- *            false: Show this preference in the UI and allow changing.
- *          DEFAULT: false
- *
  * help - (string) The help file identifier for this preference.
  *        VALUES:
  *          If present, a help icon will be displayed next to the preference.
  *          Clicking on this icon will open the entry in the help viewer in
  *          a popup window.
  *        DEFAULT: No help icon is displayed
+ *
+ * hook - (boolean) If true, the prefs_init hook will be run for this entry.
+ *        VALUES: true/false
+ *        DEFAULT: false
+ *
+ * locked - (boolean) Allow preference to be changed from the preferences
+ *          screen?
+ *          VALUES:
+ *            true: Do not show this preference in the UI and don't allow
+ *                  changing by any mechanism.
+ *            false: Show this preference in the UI and allow changing.
+ *          DEFAULT: false
  *
  * The UI display for a preference is controlled by the 'type' key. This key
  * controls how the preference is displayed on the preferences screen. If this

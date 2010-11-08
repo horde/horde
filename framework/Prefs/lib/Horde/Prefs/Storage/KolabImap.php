@@ -9,6 +9,7 @@
  *
  * @author   Gunnar Wrobel <p@rdus.de>
  * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Prefs
  */
 class Horde_Prefs_Storage_KolabImap extends Horde_Prefs_Storage
@@ -29,32 +30,32 @@ class Horde_Prefs_Storage_KolabImap extends Horde_Prefs_Storage
 
     /**
      */
-    public function get($scope)
+    public function get($scope_ob)
     {
         $this->_connect();
 
-        $pref = $this->_getPref($scope);
+        $pref = $this->_getPref($scope_ob->scope);
 
         if (is_null($pref)) {
             /* No preferences saved yet. */
             return false;
         }
 
-        $ret = array();
-
         foreach ($pref['pref'] as $prefstr) {
             // If the string doesn't contain a colon delimiter, skip it.
             if (strpos($prefstr, ':') !== false) {
                 // Split the string into its name:value components.
                 list($name, $val) = explode(':', $prefstr, 2);
-                $ret[$name] = base64_decode($val);
+                $pref_ob->set($name, base64_decode($val));
             }
         }
+
+        return $pref_ob;
     }
 
     /**
      */
-    public function store($prefs)
+    public function store($scope_ob)
     {
         $this->_connect();
 
@@ -62,33 +63,33 @@ class Horde_Prefs_Storage_KolabImap extends Horde_Prefs_Storage
         // to be stored on the IMAP server. Because we have to update
         // all of the values of a multi-value entry wholesale, we
         // can't just pick out the dirty preferences; we must update
-        // every scope that has dirty preferences.
-        foreach ($prefs as $scope => $vals) {
-            $new_values = array();
-            foreach ($vals as $name => $pref) {
-                $new_values[] = $name . ':' . base64_encode($pref['v']);
-            }
+        // the entire dirty scope.
+        $new_vals = array();
 
-            $pref = $this->_getPref($scope);
+        /* Driver does not support storing locked status. */
+        foreach ($scope_ob->getDirty() as $name) {
+            $new_vals[] = $name . ':' . base64_encode($scope_ob->get($name));
+        }
 
-            if (is_null($pref)) {
-                $old_uid = null;
-                $prefs_uid = $this->_connection->_storage->generateUID();
-            } else {
-                $old_uid = $pref['uid'];
-                $prefs_uid = $pref['uid'];
-            }
+        $pref = $this->_getPref($scope_ob->scope);
 
-            $object = array(
-                'uid' => $prefs_uid,
-                'application' => $scope,
-                'pref' => $new_values
-            );
+        if (is_null($pref)) {
+            $old_uid = null;
+            $prefs_uid = $this->_connection->_storage->generateUID();
+        } else {
+            $old_uid = $pref['uid'];
+            $prefs_uid = $pref['uid'];
+        }
 
-            $result = $this->_connection->_storage->save($object, $old_uid);
-            if ($result instanceof PEAR_Error) {
-                throw new Horde_Prefs_Exception($result);
-            }
+        $object = array(
+            'application' => $scope_ob->scope,
+            'pref' => $new_vals,
+            'uid' => $prefs_uid
+        );
+
+        $result = $this->_connection->_storage->save($object, $old_uid);
+        if ($result instanceof PEAR_Error) {
+            throw new Horde_Prefs_Exception($result);
         }
     }
 

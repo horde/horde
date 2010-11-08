@@ -52,20 +52,19 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage
 
     /**
      */
-    public function get($scope)
+    public function get($scope_ob)
     {
+        $charset = $this->_db->getOption('charset');
         $query = 'SELECT pref_scope, pref_name, pref_value FROM ' .
             $this->_params['table'] . ' ' .
             'WHERE pref_uid = ? AND pref_scope = ?';
-        $values = array($this->_params['user'], $scope);
+        $values = array($this->_params['user'], $scope_ob->scope);
 
         try {
             $result = $this->_db->selectAll($query, $values);
         } catch (Horde_Db_Exception $e) {
             throw Horde_Prefs_Exception($e);
         }
-
-        $ret = array();
 
         foreach ($result as $row) {
             $name = trim($row['pref_name']);
@@ -82,33 +81,48 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage
                 break;
             }
 
-            $ret[$name] = $row['pref_value'];
+            $scope_ob->set($name, Horde_String::convertCharset($row['pref_value'], $charset, 'UTF-8'));
         }
 
-        return $ret;
+        return $scope_ob;
     }
 
     /**
      */
-    public function store($prefs)
+    public function store($scope_ob)
     {
+        $charset = $this->_db->getOption('charset');
+
         // For each preference, check for an existing table row and
         // update it if it's there, or create a new one if it's not.
-        foreach ($prefs as $scope => $p) {
-            foreach ($p as $name => $pref) {
+        foreach ($scope_ob->getDirty() as $name) {
+            $value = $scope_ob->get($name);
+            $values = array($this->_params['user'], $name, $scope_ob->scope);
+
+            if (is_null($value)) {
+                $query = 'DELETE FROM ' . $this->_params['table'] .
+                    ' WHERE pref_uid = ? AND pref_name = ?' .
+                    ' AND pref_scope = ?';
+
+                try {
+                    $this->_db->delete($query, $values);
+                } catch (Horde_Db_Exception $e) {
+                    throw new Horde_Prefs_Exception($e);
+                }
+            } else {
                 // Does a row already exist for this preference?
                 $query = 'SELECT 1 FROM ' . $this->_params['table'] .
                     ' WHERE pref_uid = ? AND pref_name = ?' .
                     ' AND pref_scope = ?';
-                $values = array($this->_params['user'], $name, $scope);
 
                 try {
                     $check = $this->_db->selectValue($query, $values);
                 } catch (Horde_Db_Exception $e) {
-                    throw Horde_Prefs_Exception($e);
+                    throw new Horde_Prefs_Exception($e);
                 }
 
-                $value = strval(isset($pref['v']) ? $pref['v'] : null);
+                /* Driver has no support for storing locked status. */
+                $value = Horde_String::convertCharset($value, 'UTF-8', $charset);
 
                 switch ($this->_db->adapterName()) {
                 case 'PDO_PostgreSQL':
@@ -124,7 +138,7 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage
                         '(?, ?, ?, ?)';
                     $values = array(
                         $this->_params['user'],
-                        $scope,
+                        $scope_ob->scope,
                         $name,
                         $value
                     );
@@ -145,7 +159,7 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage
                         $value,
                         $this->_params['user'],
                         $name,
-                        $scope
+                        $scope_ob->scope
                     );
 
                     try {

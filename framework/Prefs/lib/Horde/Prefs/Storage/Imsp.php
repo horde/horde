@@ -29,42 +29,37 @@ class Horde_Prefs_Storage_Imsp extends Horde_Prefs_Storage
 
     /**
      */
-    public function get($scope)
+    public function get($scope_ob)
     {
         $this->_connect();
 
-        $prefs = $this->_imsp->get($scope . '.*');
+        $prefs = $this->_imsp->get($scope_ob->scope . '.*');
         if ($prefs instanceof PEAR_Error) {
             throw new Horde_Prefs_Exception($prefs);
         }
 
-        $ret = array();
-
         foreach ($prefs as $name => $val) {
-            $name = str_replace($scope . '.', '', $name);
+            $name = str_replace($scope_ob->scope . '.', '', $name);
             if ($val != '-') {
-                $ret[$name] = $val;
+                $scope_ob->set($name, $val);
             }
         }
+
+        return $scope_ob;
     }
 
     /**
      */
-    public function store($prefs)
+    public function store($scope_ob)
     {
         $this->_connect();
 
-        foreach ($prefs as $scope => $p) {
-            foreach ($p as $name => $pref) {
-                $value = $pref['v'];
-                if (empty($value)) {
-                    $value = '-';
-                }
-
-                $result = $this->_imsp->set($scope . '.' . $name, $value);
-                if ($result instanceof PEAR_Error) {
-                    throw new Horde_Prefs_Exception($result);
-                }
+        /* Driver has no support for storing locked status. */
+        foreach ($scope_ob->getDirty() as $name) {
+            $value = $scope_ob->get($name);
+            $result = $this->_imsp->set($scope_ob->scope . '.' . $name, $value ? $value : '-');
+            if ($result instanceof PEAR_Error) {
+                throw new Horde_Prefs_Exception($result);
             }
         }
     }

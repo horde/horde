@@ -59,18 +59,36 @@ class Horde_Prefs_Storage_File extends Horde_Prefs_Storage
 
     /**
      */
-    public function get($scope)
+    public function get($scope_ob)
     {
-        if (!isset($this->_params['directory'])) {
-            return false;
+        if ($this->_loadFileCache() &&
+            isset($this->_fileCache[$scope_ob->scope])) {
+            foreach ($this->_fileCache[$scope_ob->scope] as $name => $val) {
+                $scope_ob->set($name, $val);
+            }
         }
 
+        return $scope_ob;
+    }
+
+    /**
+     * Load the preferences from the files.
+     *
+     * @return boolean  True on success.
+     * @throws Horde_Prefs_Exception
+     */
+    protected function _loadFileCache()
+    {
         if (is_null($this->_fileCache)) {
             // Try to read
             if (!file_exists($this->_fullpath)) {
+                $this->_fileCache = array(
+                    '__file_version' => self::VERSION
+                );
                 return false;
             }
-            $this->_fileCache = unserialize(file_get_contents($this->_fullpath));
+
+            $this->_fileCache = @unserialize(file_get_contents($this->_fullpath));
 
             // Check version number. We can call format transformations hooks
             // in the future.
@@ -78,44 +96,29 @@ class Horde_Prefs_Storage_File extends Horde_Prefs_Storage
                 !array_key_exists('__file_version', $this->_fileCache) ||
                 !($this->_fileCache['__file_version'] == self::VERSION)) {
                 if ($this->_fileCache['__file_version'] == 1) {
-                    $this->transformV1V2();
+                    $this->updateFileFormat();
                 } else {
                     throw new Horde_Prefs_Exception(sprintf('Wrong version number found: %s (should be %d)', $this->_fileCache['__file_version'], self::VERSION));
                 }
             }
         }
 
-        // Check if the scope exists
-        if (empty($scope) || !isset($this->_fileCache[$scope])) {
-            return false;
-        }
-
-        $ret = array();
-
-        foreach ($this->_fileCache[$scope] as $name => $val) {
-            $ret[$name] = $val;
-        }
-
-        return $ret;
+        return true;
     }
 
     /**
      */
-    public function store($prefs)
+    public function store($scope_ob)
     {
-        if (!isset($this->_params['directory'])) {
-            return;
-        }
+        $this->_loadFileCache();
 
-        // Read in all existing preferences, if any.
-        $this->get('');
-        if (!is_array($this->_fileCache)) {
-            $this->_fileCache = array('__file_version' => self::VERSION);
-        }
-
-        foreach ($prefs as $scope => $p) {
-            foreach ($p as $name => $val) {
-                $this->_fileCache[$scope][$name] = $pref['v'];
+        /* Driver has no support for storing locked status. */
+        foreach ($scope_ob->getDirty() as $name) {
+            $value = $scope_ob->get($name);
+            if (is_null($value)) {
+                unset($this->_fileCache[$scope_ob->scope][$name]);
+            } else {
+                $this->_fileCache[$scope_ob->scope][$name] = $value;
             }
         }
 
@@ -137,20 +140,20 @@ class Horde_Prefs_Storage_File extends Horde_Prefs_Storage
     /* Helper functions. */
 
     /**
-     * Transforms the broken version 1 format into version 2.
+     * Updates format of file.
      */
-    public function transformV1V2()
+    public function updateFileFormat()
     {
-        $version2 = array('__file_version' => 2);
+        $new_vers = array('__file_version' => self::VERSION);
+        unset($this->_fileCache['__file_version']);
+
         foreach ($this->_fileCache as $scope => $prefs) {
-            if ($scope != '__file_version') {
-                foreach ($prefs as $name => $pref) {
-                    $version2[$scope][$name] = $pref['v'];
-                }
+            foreach ($prefs as $name => $pref) {
+                $new_vers[$scope][$name] = $pref['v'];
             }
         }
 
-        $this->_fileCache = $version2;
+        $this->_fileCache = $new_vers;
     }
 
 }

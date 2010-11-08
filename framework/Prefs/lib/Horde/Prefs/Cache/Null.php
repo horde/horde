@@ -1,6 +1,6 @@
 <?php
 /**
- * Null storage driver for the preferences system.
+ * Null cache implementation for the preferences system.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -12,13 +12,13 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Prefs
  */
-class Horde_Prefs_Storage_Null extends Horde_Prefs_Storage
+class Horde_Prefs_Cache_Null extends Horde_Prefs_Cache
 {
     /**
      */
-    public function get($scope_ob)
+    public function get($scope)
     {
-        return $scope_ob;
+        return false;
     }
 
     /**
@@ -29,7 +29,7 @@ class Horde_Prefs_Storage_Null extends Horde_Prefs_Storage
 
     /**
      */
-    public function remove($scope = null, $pref = null)
+    public function remove($scope = null)
     {
     }
 

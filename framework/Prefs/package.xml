@@ -21,7 +21,8 @@
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes> * Removed Horde_Prefs_Storage_Kolab driver.
+ <notes>* Abstract caching code into Horde_Prefs_Cache.
+ * Removed Horde_Prefs_Storage_Kolab driver.
  * Abstract storage code into Horde_Prefs_Storage.
  * Add array access API to Horde_Prefs.
  * Remove dependency on horde/Core.
@@ -34,18 +35,23 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="Prefs">
+      <dir name="Cache">
+       <file name="Null.php" role="php" />
+       <file name="Session.php" role="php" />
+      </dir> <!-- /lib/Horde/Prefs/Cache -->
       <dir name="Storage">
        <file name="File.php" role="php" />
        <file name="Imsp.php" role="php" />
        <file name="KolabImap.php" role="php" />
        <file name="Ldap.php" role="php" />
        <file name="Null.php" role="php" />
-       <file name="Session.php" role="php" />
        <file name="Sql.php" role="php" />
       </dir> <!-- /lib/Horde/Prefs/Storage -->
+      <file name="Cache.php" role="php" />
       <file name="CategoryManager.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Identity.php" role="php" />
+      <file name="Scope.php" role="php" />
       <file name="Storage.php" role="php" />
       <file name="Translation.php" role="php">
        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
@@ -352,17 +358,20 @@
  <phprelease>
   <filelist>
    <install as="Horde/Prefs.php" name="lib/Horde/Prefs.php" />
+   <install as="Horde/Prefs/Cache.php" name="lib/Horde/Prefs/Cache.php" />
    <install as="Horde/Prefs/CategoryManager.php" name="lib/Horde/Prefs/CategoryManager.php" />
    <install as="Horde/Prefs/Exception.php" name="lib/Horde/Prefs/Exception.php" />
    <install as="Horde/Prefs/Identity.php" name="lib/Horde/Prefs/Identity.php" />
+   <install as="Horde/Prefs/Scope.php" name="lib/Horde/Prefs/Scope.php" />
    <install as="Horde/Prefs/Storage.php" name="lib/Horde/Prefs/Storage.php" />
    <install as="Horde/Prefs/Translation.php" name="lib/Horde/Prefs/Translation.php" />
+   <install as="Horde/Prefs/Cache/Null.php" name="lib/Horde/Prefs/Cache/Null.php" />
+   <install as="Horde/Prefs/Cache/Session.php" name="lib/Horde/Prefs/Cache/Session.php" />
    <install as="Horde/Prefs/Storage/File.php" name="lib/Horde/Prefs/Storage/File.php" />
    <install as="Horde/Prefs/Storage/Imsp.php" name="lib/Horde/Prefs/Storage/Imsp.php" />
    <install as="Horde/Prefs/Storage/KolabImap.php" name="lib/Horde/Prefs/Storage/KolabImap.php" />
    <install as="Horde/Prefs/Storage/Ldap.php" name="lib/Horde/Prefs/Storage/Ldap.php" />
    <install as="Horde/Prefs/Storage/Null.php" name="lib/Horde/Prefs/Storage/Null.php" />
-   <install as="Horde/Prefs/Storage/Session.php" name="lib/Horde/Prefs/Storage/Session.php" />
    <install as="Horde/Prefs/Storage/Sql.php" name="lib/Horde/Prefs/Storage/Sql.php" />
    <install as="locale/Horde_Prefs.pot" name="locale/Horde_Prefs.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Prefs.mo" name="locale/ar/LC_MESSAGES/Horde_Prefs.mo" />

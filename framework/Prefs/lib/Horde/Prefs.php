@@ -16,29 +16,15 @@
  */
 class Horde_Prefs implements ArrayAccess
 {
-    /** Preference is administratively locked. */
-    const LOCKED = 1;
-
-    /** Preference value is the application default.
-     *  DEFAULT is a reserved PHP constant. */
-    const IS_DEFAULT = 2;
-
     /* The default scope name. */
     const DEFAULT_SCOPE = 'horde';
 
     /**
      * Caching object.
      *
-     * @var Horde_Prefs_Storage
+     * @var Horde_Prefs_Cache
      */
     protected $_cache;
-
-    /**
-     * List of dirty prefs.
-     *
-     * @var array
-     */
-    protected $_dirty = array();
 
     /**
      * General library options.
@@ -56,23 +42,16 @@ class Horde_Prefs implements ArrayAccess
 
     /**
      * String containing the name of the current scope. This is used
-     * to differentiate between sets of preferences.  By default, preferences
-     * belong to the "global" (Horde) scope.
+     * to differentiate between sets of preferences. By default, preferences
+     * belong to this scope.
      *
      * @var string
      */
     protected $_scope = self::DEFAULT_SCOPE;
 
     /**
-     * Preferences list.  Stored by scope name.  Each preference has the
-     * following format:
-     * <pre>
-     * [pref_name] => array(
-     *     [d] => (string) Default value
-     *     [m] => (integer) Pref mask
-     *     [v] => (string) Current pref value
-     * )
-     * </pre>
+     * Scope list.  Keys are scope names, values are Horde_Prefs_Scope
+     * objects.
      *
      * @var array
      */
@@ -94,14 +73,8 @@ class Horde_Prefs implements ArrayAccess
      *                        objects.
      * @param array $opts     Additional confguration options:
      * <pre>
-     * REQUIRED:
-     * ---------
-     * charset - (string) Default charset.
-     *
-     * OPTIONAL:
-     * ---------
-     * cache - (string) The class name defining the cache driver to use.
-     *         DEFAULT: Caching is not used
+     * cache - (Horde_Prefs_Cache) The cache driver to use.
+     *         DEFAULT: No caching.
      * logger - (Horde_Log_Logger) Logging object.
      *          DEFAULT: NONE
      * password - (string) The password associated with 'user'.
@@ -112,45 +85,27 @@ class Horde_Prefs implements ArrayAccess
      * user - (string) The name of the user who owns this set of preferences.
      *        DEFAULT: NONE
      * </pre>
-     *
-     * @throws InvalidArgumentException
      */
     public function __construct($scope, $storage = null, array $opts = array())
     {
-        if (!isset($opts['charset'])) {
-            throw new InvalidArgumentException(__CLASS__ . ': Missing charset parameter.');
-        }
-
         $this->_opts = array_merge($this->_opts, $opts);
-
-        $default = __CLASS__ . '_Storage_Null';
 
         $this->_cache = isset($this->_opts['cache'])
             ? $this->_opts['cache']
-            : new $default($this->getUser());
+            : new Horde_Prefs_Cache_Null($this->getUser());
+
         $this->_scope = $scope;
+
         if (is_null($storage)) {
-            $this->_storage = array(new $default($this->getUser()));
-        } else {
-            if (!is_array($storage)) {
-                $storage = array($storage);
-            }
-            $this->_storage = $storage;
+            $storage = array(new Horde_Prefs_Storage_Null($this->getUser()));
+        } elseif (!is_array($storage)) {
+            $storage = array($storage);
         }
+        $this->_storage = $storage;
 
         register_shutdown_function(array($this, 'store'));
 
         $this->retrieve($scope);
-    }
-
-    /**
-     * Returns the charset used by the concrete preference backend.
-     *
-     * @return string  The preference backend's charset.
-     */
-    public function getCharset()
-    {
-        return $this->_opts['charset'];
     }
 
     /**
@@ -174,40 +129,14 @@ class Horde_Prefs implements ArrayAccess
     }
 
     /**
-     * Change scope without explicitly retrieving preferences.
-     *
-     * @param string $scope  The new scope.
-     */
-    public function setScope($scope)
-    {
-        $this->_scope = $scope;
-    }
-
-    /**
      * Removes a preference entry from the $prefs hash.
      *
      * @param string $pref  The name of the preference to remove.
      */
     public function remove($pref)
     {
-        $scope = $this->_getPrefScope($pref);
-        unset(
-            $this->_dirty[$scope][$pref],
-            $this->_scopes[$scope][$pref]
-        );
-
-        foreach ($this->_storage as $storage) {
-            try {
-                $storage->remove($scope, $pref);
-            } catch (Horde_Prefs_Exception $e) {
-                // TODO: logging
-            }
-        }
-
-        try {
-            $this->_cache->remove($scope, $pref);
-        } catch (Horde_Prefs_Exception $e) {
-            // TODO: logging
+        if ($scope = $this->_getScope($pref)) {
+            $this->_scopes[$scope]->remove($pref);
         }
     }
 
@@ -215,34 +144,44 @@ class Horde_Prefs implements ArrayAccess
      * Sets the given preference to the specified value if the preference is
      * modifiable.
      *
-     * @param string $pref      The name of the preference to modify.
-     * @param string $val       The new value for this preference.
-     * @param boolean $convert  If true the preference value gets converted
-     *                          from the current charset to the backend's
-     *                          charset.
+     * @param string $pref  The preference name to modify.
+     * @param string $val   The preference value (UTF-8).
+     * @param array $opts   Additional options:
+     * <pre>
+     * nosave - (boolean) If true, the preference will not be saved to the
+     *          storage backend(s).
+     * </pre>
      *
      * @return boolean  True if the value was successfully set, false on a
      *                  failure.
      * @throws Horde_Prefs_Exception
      */
-    public function setValue($pref, $val, $convert = true)
+    public function setValue($pref, $val, array $opts = array())
     {
-        $scope = $this->_getPrefScope($pref);
-
-        /* Exit early if this preference is locked or doesn't exist. */
-        if (!isset($this->_scopes[$scope][$pref]) || $this->isLocked($pref)) {
+        /* Exit early if preference doesn't exist or is locked. */
+        if (!($scope = $this->_getScope($pref)) ||
+            $this->_scopes[$scope]->isLocked($pref)) {
             return false;
         }
 
-        if (!$this->_setValue($pref, $val, $convert)) {
+        // Check to see if the value exceeds the allowable storage limit.
+        if ($this->_opts['sizecallback'] &&
+            call_user_func($this->_opts['sizecallback'], $pref, strlen($val))) {
             return false;
         }
 
-        $this->_cache->store(array(
-            $scope => array(
-                $pref => $this->_scopes[$scope][$pref]
-            )
-        ));
+        $this->_scopes[$scope]->set($pref, $val);
+        if (!empty($opts['nosave'])) {
+            $this->_scopes[$scope]->setDirty($pref, false);
+        }
+
+        foreach ($this->_storage as $storage) {
+            $storage->onChange($scope, $pref);
+        }
+
+        if ($this->_opts['logger']) {
+            $this->_opts['logger']->log(__CLASS__ . ': Storing preference value (' . $pref . ')', 'DEBUG');
+        }
 
         return true;
     }
@@ -256,90 +195,18 @@ class Horde_Prefs implements ArrayAccess
     }
 
     /**
-     * Sets the given preferences ($pref) to the specified value
-     * ($val), whether or not the preference is user-modifiable, unset
-     * the default bit, and set the dirty bit.
-     *
-     * @param string $pref      The name of the preference to modify.
-     * @param string $val       The new value for this preference.
-     * @param boolean $convert  If true the preference value gets converted
-     *                          from the current charset to the backend's
-     *                          charset.
-     *
-     * @return boolean  True if the value was successfully set, false on a
-     *                  failure.
-     */
-    protected function _setValue($pref, $val, $convert = true)
-    {
-        if ($convert) {
-            $val = $this->convertToDriver($val);
-        }
-
-        $scope = $this->_getPrefScope($pref);
-
-        // If the preference's value is already equal to $val, don't
-        // bother changing it. Changing it would set the "dirty" bit,
-        // causing an unnecessary update later.
-        if (isset($this->_scopes[$scope][$pref]) &&
-            (($this->_scopes[$scope][$pref]['v'] == $val) &&
-             !$this->isDefault($pref))) {
-            return true;
-        }
-
-        // Check to see if the value exceeds the allowable storage
-        // limit.
-        if ($this->_opts['sizecallback'] &&
-            call_user_func($this->_opts['sizecallback'], $pref, strlen($val))) {
-            return false;
-        }
-
-        // Assign the new value, unset the "default" bit, and set the
-        // "dirty" bit.
-        $ptr = &$this->_scopes[$scope][$pref];
-        if (empty($ptr['m'])) {
-            $ptr['m'] = 0;
-        }
-        if (!isset($ptr['d'])) {
-            $ptr['d'] = $ptr['v'];
-        }
-        $ptr['v'] = $val;
-        $this->setDefault($pref, false);
-        $this->setDirty($pref, true);
-
-        if ($this->_opts['logger']) {
-            $this->_opts['logger']->log(__CLASS__ . ': Storing preference value (' . $pref . ')', 'DEBUG');
-        }
-
-        return true;
-    }
-
-    /**
      * Returns the value of the requested preference.
      *
-     * @param string $pref      The name of the preference to retrieve.
-     * @param boolean $convert  If true the preference value gets converted
-     *                          from the backend's charset to the current
-     *                          charset.
+     * @param string $pref  The preference name.
      *
-     * @return string  The value of the preference, null if it doesn't exist.
+     * @return string  The value of the preference (UTF-8), null if it doesn't
+     *                 exist.
      */
-    public function getValue($pref, $convert = true)
+    public function getValue($pref)
     {
-        $scope = $this->_getPrefScope($pref);
-
-        $value = isset($this->_scopes[$scope][$pref]['v'])
-            ? $this->_scopes[$scope][$pref]['v']
+        return ($scope = $this->_getScope($pref))
+            ? $this->_scopes[$scope]->get($pref)
             : null;
-
-        if ($convert &&
-            !is_null($value) &&
-            !$this->isDefault($pref)) {
-            /* Default values have the current UI charset.
-             * Stored values have the backend charset. */
-            $value = $this->convertFromDriver($value);
-        }
-
-        return $value;
     }
 
     /**
@@ -351,67 +218,44 @@ class Horde_Prefs implements ArrayAccess
     }
 
     /**
-     * Modifies the "locked" bit for the given preference.
+     * Mark a preference as locked.
      *
-     * @param string $pref   The name of the preference to modify.
-     * @param boolean $bool  The new boolean value for the "locked" bit.
+     * @param string $pref     The preference name.
+     * @param boolean $locked  Is the preference locked?
      */
     public function setLocked($pref, $bool)
     {
-        $this->_setMask($pref, $bool, self::LOCKED);
-    }
-
-    /**
-     * Returns the state of the "locked" bit for the given preference.
-     *
-     * @param string $pref  The name of the preference to check.
-     *
-     * @return boolean  The boolean state of $pref's "locked" bit.
-     */
-    public function isLocked($pref)
-    {
-        return $this->_getMask($pref, self::LOCKED);
-    }
-
-    /**
-     * Modifies the "dirty" bit for the given preference.
-     *
-     * @param string $pref   The name of the preference to modify.
-     * @param boolean $bool  The new boolean value for the "dirty" bit.
-     */
-    public function setDirty($pref, $bool)
-    {
-        $scope = $this->_getPrefScope($pref);
-
-        if ($bool) {
-            $this->_dirty[$scope][$pref] = $this->_scopes[$scope][$pref];
-        } else {
-            unset($this->_dirty[$scope][$pref]);
+        if ($scope = $this->_getScope($pref)) {
+            $this->_scopes[$scope]->setLocked($pref, $bool);
         }
     }
 
     /**
-     * Returns the state of the "dirty" bit for the given preference.
+     * Is a preference locked?
      *
-     * @param string $pref  The name of the preference to check.
+     * @param string $pref  The preference name.
      *
-     * @return boolean  The boolean state of $pref's "dirty" bit.
+     * @return boolean  Whether the preference is locked.
      */
-    public function isDirty($pref)
+    public function isLocked($pref)
     {
-        $scope = $this->_getPrefScope($pref);
-        return isset($this->_dirty[$scope][$pref]);
+        return ($scope = $this->_getScope($pref))
+            ? $this->_scopes[$scope]->isLocked($pref)
+            : false;
     }
 
     /**
-     * Modifies the "default" bit for the given preference.
+     * Is a preference marked dirty?
      *
-     * @param string $pref   The name of the preference to modify.
-     * @param boolean $bool  The new boolean value for the "default" bit.
+     * @param string $pref  The preference name.
+     *
+     * @return boolean  True if the preference is marked dirty.
      */
-    public function setDefault($pref, $bool)
+    public function isDirty($pref)
     {
-        $this->_setMask($pref, $bool, self::IS_DEFAULT);
+        return ($scope = $this->_getScope($pref))
+            ? $this->_scopes[$scope]->isDirty($pref)
+            : false;
     }
 
     /**
@@ -423,11 +267,9 @@ class Horde_Prefs implements ArrayAccess
      */
     public function getDefault($pref)
     {
-        $scope = $this->_getPrefScope($pref);
-
-        return isset($this->_scopes[$scope][$pref]['d'])
-            ? $this->_scopes[$scope][$pref]['d']
-            : '';
+        return ($scope = $this->_getScope($pref))
+            ? $this->_scopes[$scope]->getDefault($pref)
+            : null;
     }
 
     /**
@@ -440,59 +282,29 @@ class Horde_Prefs implements ArrayAccess
      */
     public function isDefault($pref)
     {
-        return $this->_getMask($pref, self::IS_DEFAULT);
-    }
-
-    /**
-     * Sets the value for a given mask.
-     *
-     * @param string $pref   The name of the preference to modify.
-     * @param boolean $bool  The new boolean value for the "default" bit.
-     * @param integer $mask  The mask to add.
-     */
-    protected function _setMask($pref, $bool, $mask)
-    {
-        $scope = $this->_getPrefScope($pref);
-
-        if (isset($this->_scopes[$scope][$pref]) &&
-            ($bool != $this->_getMask($pref, $mask))) {
-            if ($bool) {
-                $this->_scopes[$scope][$pref]['m'] |= $mask;
-            } else {
-                $this->_scopes[$scope][$pref]['m'] &= ~$mask;
-            }
-        }
-    }
-
-    /**
-     * Gets the boolean state for a given mask.
-     *
-     * @param string $pref   The name of the preference to modify.
-     * @param integer $mask  The mask to get.
-     *
-     * @return boolean  The boolean state for the given mask.
-     */
-    protected function _getMask($pref, $mask)
-    {
-        $scope = $this->_getPrefScope($pref);
-
-        return isset($this->_scopes[$scope][$pref]['m'])
-            ? (bool)($this->_scopes[$scope][$pref]['m'] & $mask)
+        return ($scope = $this->_getScope($pref))
+            ? $this->_scopes[$scope]->isDefault($pref)
             : false;
     }
 
     /**
-     * Returns the scope of the given preference.
+     * Returns the scope of a preference.
      *
-     * @param string $pref  The name of the preference to examine.
+     * @param string $pref  The preference name.
      *
-     * @return string  The scope of the $pref.
+     * @return mixed  The scope of the preference, or null if it doesn't
+     *                exist.
      */
-    protected function _getPrefScope($pref)
+    protected function _getScope($pref)
     {
-        return (isset($this->_scopes[$this->_scope][$pref]) || !isset($this->_scopes[self::DEFAULT_SCOPE][$pref]))
-            ? $this->_scope
-            : self::DEFAULT_SCOPE;
+        if ($this->_scopes[$this->_scope]->exists($pref)) {
+            return $this->_scope;
+        } elseif (($this->_scope != self::DEFAULT_SCOPE) &&
+            ($this->_scopes[self::DEFAULT_SCOPE]->exists($pref))) {
+            return self::DEFAULT_SCOPE;
+        }
+
+        return null;
     }
 
     /**
@@ -506,7 +318,7 @@ class Horde_Prefs implements ArrayAccess
         if (is_null($scope)) {
             $scope = $this->getScope();
         } else {
-            $this->setScope($scope);
+            $this->_scope = $scope;
         }
 
         $this->_loadScope(self::DEFAULT_SCOPE);
@@ -527,9 +339,6 @@ class Horde_Prefs implements ArrayAccess
             return;
         }
 
-        // Basic initialization so _something_ is always set.
-        $this->_scopes[$scope] = array();
-
         // Now check the prefs cache for existing values.
         try {
             if (($cached = $this->_cache->get($scope)) !== false) {
@@ -538,127 +347,57 @@ class Horde_Prefs implements ArrayAccess
             }
         } catch (Horde_Prefs_Exception $e) {}
 
-        $this->_loadScopePre($scope);
+        $scope_ob = new Horde_Prefs_Scope($scope);
+        $scope_ob->init = true;
 
         foreach ($this->_storage as $storage) {
-            if (($prefs = $storage->get($scope)) !== false) {
-                foreach ($prefs as $name => $val) {
-                    if (isset($this->_scopes[$scope][$name])) {
-                        if ($this->isDefault($name)) {
-                            $this->_scopes[$scope][$name]['d'] = $this->_scopes[$scope][$name]['v'];
-                        }
-                    } else {
-                        $this->_scopes[$scope][$name] = array(
-                            'm' => 0
-                        );
-                    }
-                    $this->_scopes[$scope][$name]['v'] = $val;
-                    $this->setDefault($name, false);
-                }
-            }
+            $scope_ob = $storage->get($scope_ob);
         }
 
-        $this->_loadScopePost($scope);
+        $scope_ob->init = false;
 
-        /* Update the cache. */
-        $this->_cache->store(array($scope => $this->_scopes[$scope]));
-    }
-
-    /**
-     * Actions to perform before a scope is loaded from storage.
-     *
-     * @param string $scope  The scope to load.
-     */
-    protected function _loadScopePre($scope)
-    {
-    }
-
-    /**
-     * Actions to perform after a scope is loaded from storage.
-     *
-     * @param string $scope  The loaded scope.
-     */
-    protected function _loadScopePost($scope)
-    {
+        $this->_scopes[$scope] = $scope_ob;
+        $this->_cache->store($scope_ob);
     }
 
     /**
      * This function will be run at the end of every request as a shutdown
-     * function (registered by the constructor).  All prefs with the
-     * dirty bit set will be saved to the storage backend.
+     * function (registered by the constructor).  All dirty prefs will be
+     * saved to the storage backend.
      */
     public function store()
     {
-        if (!empty($this->_dirty)) {
-            foreach ($this->_storage as $storage) {
-                try {
-                    $storage->store($this->_dirty);
+        foreach ($this->_scopes as $scope) {
+            if ($scope->isDirty()) {
+                foreach ($this->_storage as $storage) {
+                    $storage->store($scope);
+                }
 
-                    /* Clear the dirty flag. */
-                    foreach ($this->_dirty as $k => $v) {
-                        foreach (array_keys($v) as $name) {
-                            $this->setDirty($name, false);
-                        }
-                    }
-                } catch (Horde_Prefs_Exception $e) {}
+                $this->_cache->store($scope);
             }
         }
     }
 
     /**
-     * This function provides common cleanup functions for all of the driver
-     * implementations.
+     * Cleanup (e.g. remove) scope(s).
      *
-     * @param boolean $all  Clean up all Horde preferences.
+     * @param boolean $all  Cleanup all scopes. If false, clean present scope
+     *                      only.
      */
     public function cleanup($all = false)
     {
-        /* Perform a Horde-wide cleanup? */
         if ($all) {
-            /* Destroy the contents of the preferences hash. */
-            $this->_dirty = $this->_scopes = array();
-
-            /* Destroy the contents of the preferences cache. */
-            try {
-                $this->_cache->remove();
-            } catch (Horde_Prefs_Exception $e) {}
+            /* Destroy all scopes. */
+            $this->_scopes = array();
+            $scope = null;
         } else {
-            $scope = $this->getScope();
-
-            $this->_dirty[$scope] = $this->_scopes[$scope] = array();
-            /* Remove this scope from the preferences cache. */
-            try {
-                $this->_cache->remove($scope);
-            } catch (Horde_Prefs_Exception $e) {}
+            unset($this->_scopes[$this->_scope]);
+            $scope = $this->_scope;
         }
-    }
 
-    /**
-     * Converts a value from the driver's charset to the specified charset.
-     *
-     * @param mixed $value  A value to convert.
-     *
-     * @return mixed  The converted value.
-     */
-    public function convertFromDriver($value)
-    {
-        return is_bool($value)
-            ? $value
-            : Horde_String::convertCharset($value, $this->getCharset(), 'UTF-8');
-    }
-
-    /**
-     * Converts a value from the specified charset to the driver's charset.
-     *
-     * @param mixed $value  A value to convert.
-     *
-     * @return mixed  The converted value.
-     */
-    public function convertToDriver($value)
-    {
-        return is_bool($value)
-            ? $value
-            : Horde_String::convertCharset($value, 'UTF-8', $this->getCharset());
+        try {
+            $this->_cache->remove($scope);
+        } catch (Horde_Prefs_Exception $e) {}
     }
 
     /* ArrayAccess methods. */

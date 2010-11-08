@@ -42,8 +42,7 @@ class Ingo_Storage_Prefs extends Ingo_Storage
         switch ($field) {
         case self::ACTION_BLACKLIST:
             $ob = new Ingo_Storage_Blacklist();
-            $data = @unserialize($prefs->getValue('blacklist'));
-            if ($data) {
+            if ($data = @unserialize($prefs->getValue('blacklist'))) {
                 $ob->setBlacklist($data['a'], false);
                 $ob->setBlacklistFolder($data['f']);
             }
@@ -51,30 +50,21 @@ class Ingo_Storage_Prefs extends Ingo_Storage
 
         case self::ACTION_WHITELIST:
             $ob = new Ingo_Storage_Whitelist();
-            $data = @unserialize($prefs->getValue('whitelist'));
-            if ($data) {
+            if ($data = @unserialize($prefs->getValue('whitelist'))) {
                 $ob->setWhitelist($data, false);
             }
             break;
 
         case self::ACTION_FILTERS:
             $ob = new Ingo_Storage_Filters();
-            $data = @unserialize($prefs->getValue('rules', false));
-            if ($data === false) {
-                /* Convert rules from the old format. */
-                $data = @unserialize($prefs->getValue('rules'));
-            } else {
-                $data = Horde_String::convertCharset($data, $prefs->getCharset(), 'UTF-8');
-            }
-            if ($data) {
+            if ($data = @unserialize($prefs->getValue('rules'))) {
                 $ob->setFilterlist($data);
             }
             break;
 
         case self::ACTION_FORWARD:
             $ob = new Ingo_Storage_Forward();
-            $data = @unserialize($prefs->getValue('forward'));
-            if ($data) {
+            if ($data = @unserialize($prefs->getValue('forward'))) {
                 $ob->setForwardAddresses($data['a'], false);
                 $ob->setForwardKeep($data['k']);
             }
@@ -82,14 +72,7 @@ class Ingo_Storage_Prefs extends Ingo_Storage
 
         case self::ACTION_VACATION:
             $ob = new Ingo_Storage_Vacation();
-            $data = @unserialize($prefs->getValue('vacation', false));
-            if ($data === false) {
-                /* Convert vacation from the old format. */
-                $data = unserialize($prefs->getValue('vacation'));
-            } elseif (is_array($data)) {
-                $data = $prefs->convertFromDriver($data);
-            }
-            if ($data) {
+            if ($data = @unserialize($prefs->getValue('vacation'))) {
                 $ob->setVacationAddresses($data['addresses'], false);
                 $ob->setVacationDays($data['days']);
                 $ob->setVacationExcludes($data['excludes'], false);
@@ -107,8 +90,7 @@ class Ingo_Storage_Prefs extends Ingo_Storage
 
         case self::ACTION_SPAM:
             $ob = new Ingo_Storage_Spam();
-            $data = @unserialize($prefs->getValue('spam'));
-            if ($data) {
+            if ($data = @unserialize($prefs->getValue('spam'))) {
                 $ob->setSpamFolder($data['folder']);
                 $ob->setSpamLevel($data['level']);
             }
@@ -145,7 +127,7 @@ class Ingo_Storage_Prefs extends Ingo_Storage
             return $prefs->setValue('blacklist', serialize($data));
 
         case self::ACTION_FILTERS:
-            return $prefs->setValue('rules', serialize(Horde_String::convertCharset($ob->getFilterList(), 'UTF-8', $prefs->getCharset())), false);
+            return $prefs->setValue('rules', serialize($ob->getFilterList()));
 
         case self::ACTION_FORWARD:
             $data = array(
@@ -165,7 +147,7 @@ class Ingo_Storage_Prefs extends Ingo_Storage
                 'start' => $ob->getVacationStart(),
                 'end' => $ob->getVacationEnd(),
             );
-            return $prefs->setValue('vacation', serialize($prefs->convertToDriver($data)), false);
+            return $prefs->setValue('vacation', serialize($data));
 
         case self::ACTION_WHITELIST:
             return $prefs->setValue('whitelist', serialize($ob->getWhitelist()));

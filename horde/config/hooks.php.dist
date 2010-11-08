@@ -28,23 +28,13 @@
  *
  * Setting value
  * -------------
- * If
- *   'hook' => true
- * exists for a preference (config/prefs.php), the prefs_init hook will be run
- * on login to allow alteration of the default value. This hook receives the
- * preference name and the username as parameters and uses the return value
- * from the hook as the new preference value.
+ * If the 'hook' parameter is non-empty for a preference (config/prefs.php),
+ * the prefs_init hook will be run on login to allow alteration of the value.
+ * This hook receives the preference name and the username as parameters and
+ * uses the return value from the hook as the new preference value.
  *
  * This hook is ONLY executed on login and preferences are cached during a
  * users' session.
- *
- * Any preference that is NOT LOCKED, that is set by a hook, WILL BE SAVED
- * WITH THAT VALUE. This means:
- * 1) Users will get the results of the hook set for them in their
- *    preferences.
- * 2) The next time they login and load their preferences, the hook will NOT
- *    be called. However, if the preference is locked, the result of the hook
- *    will never be saved.
  *
  * Authentication/Login Hooks
  * ==========================

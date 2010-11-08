@@ -32,9 +32,9 @@ class IMP_Compose_Stationery implements ArrayAccess, Countable, Iterator
      */
     public function __construct()
     {
-        $slist = @unserialize($GLOBALS['prefs']->getValue('stationery', false));
+        $slist = @unserialize($GLOBALS['prefs']->getValue('stationery'));
         $this->_stationery = is_array($slist)
-            ? Horde_String::convertCharset($slist, $GLOBALS['prefs']->getCharset(), 'UTF-8')
+            ? $slist
             : array();
     }
 
@@ -84,7 +84,7 @@ class IMP_Compose_Stationery implements ArrayAccess, Countable, Iterator
      */
     protected function _save()
     {
-        $GLOBALS['prefs']->setValue('stationery', serialize(Horde_String::convertCharset($this->_stationery, 'UTF-8', $GLOBALS['prefs']->getCharset())), false);
+        $GLOBALS['prefs']->setValue('stationery', serialize($this->_stationery));
     }
 
     /* ArrayAccess methods. */

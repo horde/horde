@@ -91,10 +91,8 @@ class Horde_Prefs_Identity
         $this->_prefs = $params['prefs'];
         $this->_user = $params['user'];
 
-        if (!($this->_identities = @unserialize($this->_prefs->getValue($this->_prefnames['identities'], false)))) {
+        if (!($this->_identities = @unserialize($this->_prefs->getValue($this->_prefnames['identities'])))) {
             $this->_identities = $this->_prefs->getDefault($this->_prefnames['identities']);
-        } elseif (is_array($this->_identities)) {
-            $this->_identities = $this->_prefs->convertFromDriver($this->_identities);
         }
 
         $this->setDefault($this->_prefs->getValue($this->_prefnames['default_identity']));
@@ -124,8 +122,7 @@ class Horde_Prefs_Identity
                 if (is_array($value)) {
                     $value = implode("\n", $value);
                 }
-                $this->_prefs->setValue($key, $value);
-                $this->_prefs->setDirty($key, false);
+                $this->_prefs->setValue($key, $value, array('nosave' => true));
             }
         }
     }

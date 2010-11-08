@@ -98,7 +98,6 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
 
         default:
             $prefs->setValue('forward_default', 'attach');
-            $prefs->setDefault('forward_default', true);
             break;
         }
     }

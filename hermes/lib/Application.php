@@ -138,13 +138,13 @@ class Hermes_Application extends Horde_Registry_Application
                 )
             );
 
-            if ($timers = @unserialize($GLOBALS['prefs']->getValue('running_timers', false))) {
+            if ($timers = @unserialize($GLOBALS['prefs']->getValue('running_timers'))) {
                 foreach ($timers as $i => $timer) {
                     $hours = round((float)(time() - $i) / 3600, 2);
                     $tree->addNode(
                         $parent . '__timer_' . $i,
                         $parent,
-                        Horde_String::convertCharset($timer['name'], $prefs->getCharset(), 'UTF-8') . sprintf(" (%s)", $hours),
+                        $timer['name'] . sprintf(" (%s)", $hours),
                         1,
                         false,
                         array(

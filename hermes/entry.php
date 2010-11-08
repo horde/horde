@@ -17,9 +17,9 @@ $vars = Horde_Variables::getDefaultVariables();
 
 if (!$vars->exists('id') && $vars->exists('timer')) {
     $timer_id = $vars->get('timer');
-    $timers = @unserialize($prefs->getValue('running_timers', false));
+    $timers = @unserialize($prefs->getValue('running_timers'));
     if ($timers && isset($timers[$timer_id])) {
-        $tname = Horde_String::convertCharset($timers[$timer_id]['name'], $prefs->getCharset(), 'UTF-8');
+        $tname = $timers[$timer_id]['name'];
         $tformat = $prefs->getValue('twentyFour') ? 'G:i' : 'g:i a';
         $vars->set('hours', round((float)(time() - $timer_id) / 3600, 2));
         if ($prefs->getValue('add_description')) {
@@ -27,7 +27,7 @@ if (!$vars->exists('id') && $vars->exists('timer')) {
         }
         $notification->push(sprintf(_("The stop watch \"%s\" has been stopped."), $tname), 'horde.success');
         unset($timers[$timer_id]);
-        $prefs->setValue('running_timers', serialize($timers), false);
+        $prefs->setValue('running_timers', serialize($timers));
     }
 }
 

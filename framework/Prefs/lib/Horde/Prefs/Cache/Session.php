@@ -1,6 +1,6 @@
 <?php
 /**
- * Session storage driver for the preferences system.
+ * Session cache implementation for the preferences system.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -12,7 +12,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Prefs
  */
-class Horde_Prefs_Storage_Session extends Horde_Prefs_Storage
+class Horde_Prefs_Cache_Session extends Horde_Prefs_Cache
 {
     /**
      * Session key.
@@ -27,7 +27,7 @@ class Horde_Prefs_Storage_Session extends Horde_Prefs_Storage
     {
         parent::__construct($user, $params);
 
-        $this->_key = 'horde_prefs_' . $this->_params['user'];
+        $this->_key = 'horde_prefs_cache_' . $this->_params['user'];
     }
 
     /**
@@ -41,25 +41,19 @@ class Horde_Prefs_Storage_Session extends Horde_Prefs_Storage
 
     /**
      */
-    public function store($prefs)
+    public function store($scope_ob)
     {
-        foreach ($prefs as $scope => $vals) {
-            $_SESSION[$this->_key][$scope] = isset($_SESSION[$this->_key][$scope])
-                ? array_merge($_SESSION[$this->_key][$scope], $vals)
-                : array();
-        }
+        $_SESSION[$this->_key][$scope_ob->getScope()] = $scope_ob;
     }
 
     /**
      */
-    public function remove($scope = null, $pref = null)
+    public function remove($scope = null)
     {
         if (is_null($scope)) {
             unset($_SESSION[$this->_key]);
-        } elseif (is_null($pref)) {
-            unset($_SESSION[$this->_key][$scope]);
         } else {
-            unset($_SESSION[$this->_key][$scope][$pref]);
+            unset($_SESSION[$this->_key][$scope]);
         }
     }
 

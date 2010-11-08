@@ -74,15 +74,17 @@ class Horde_Prefs_Storage_Ldap extends Horde_Prefs_Storage
 
     /**
      */
-    public function get($scope)
+    public function get($scope_ob)
     {
         $this->_connect();
 
         // Search for the multi-valued field containing the array of
         // preferences.
-        $search = @ldap_search($this->_connection, $this->_params['basedn'],
-                              $this->_params['uid'] . '=' . $this->params['user'],
-                              array($scope . 'Prefs'));
+        $search = @ldap_search(
+            $this->_connection,
+            $this->_params['basedn'],
+            $this->_params['uid'] . '=' . $this->params['user'],
+            array($scope_ob->scope . 'Prefs'));
         if ($search === false) {
             throw new Horde_Prefs_Exception(sprintf('Error while searching for the user\'s prefs: [%d]: %s', @ldap_errno($this->_connection), @ldap_error($this->_connection)));
         }
@@ -94,31 +96,29 @@ class Horde_Prefs_Storage_Ldap extends Horde_Prefs_Storage
 
         // Preferences are stored as colon-separated name:value pairs.
         // Each pair is stored as its own attribute off of the multi-
-        // value attribute named in: $scope . 'Prefs'
+        // value attribute named in: $scope_ob->scope . 'Prefs'
 
         // ldap_get_entries() converts attribute indexes to lowercase.
-        $field = Horde_String::lower($scope . 'prefs');
+        $field = Horde_String::lower($scope_ob->scope . 'prefs');
         $prefs = isset($result[0][$field])
             ? $result[0][$field]
             : array();
-
-        $ret = array();
 
         foreach ($prefs as $prefstr) {
             // If the string doesn't contain a colon delimiter, skip it.
             if (strpos($prefstr, ':') !== false) {
                 // Split the string into its name:value components.
                 list($name, $val) = explode(':', $prefstr, 2);
-                $ret[$name] = base64_decode($val);
+                $scope_ob->set($name, base64_decode($val));
             }
         }
 
-        return $ret;
+        return $scope_ob;
     }
 
     /**
      */
-    public function store($prefs)
+    public function store($scope_ob)
     {
         $this->_connect();
 
@@ -126,20 +126,23 @@ class Horde_Prefs_Storage_Ldap extends Horde_Prefs_Storage
         // to be stored on the LDAP server. Because we have to update
         // all of the values of a multi-value entry wholesale, we
         // can't just pick out the dirty preferences; we must update
-        // every scope that has dirty preferences.
-        $new_values = array();
-        foreach ($prefs as $scope => $vals) {
-            foreach ($vals as $name => $pref) {
-                $new_values[$scope . 'Prefs'][] = $name . ':' . base64_encode($pref['v']);
-            }
+        // the entire dirty scope.
+        $new_vals = array();
+
+        /* Driver has no support for storing locked status. */
+        foreach ($scope_ob->getDirty() as $name) {
+            $new_vals[$scope_ob->scope . 'Prefs'][] = $name . ':' . base64_encode($scope_ob->get($name));
         }
 
         // Entries must have the objectclasses 'top' and 'hordeperson'
         // to successfully store LDAP prefs. Check for both of them,
         // and add them if necessary.
-        $search = @ldap_search($this->_connection, $this->_params['basedn'],
-                              $this->_params['uid'] . '=' . $this->prefs['user'],
-                              array('objectclass'));
+        $search = @ldap_search(
+            $this->_connection,
+            $this->_params['basedn'],
+            $this->_params['uid'] . '=' . $this->prefs['user'],
+            array('objectclass')
+        );
         if ($search === false) {
             throw new Horde_Prefs_Exception(sprintf('Error searching the directory for required objectClasses: [%d] %s', @ldap_errno($this->_connection), @ldap_error($this->_connection)));
         }
@@ -150,10 +153,9 @@ class Horde_Prefs_Storage_Ldap extends Horde_Prefs_Storage
         }
 
         if ($result['count'] > 0) {
-            $top = false;
-            $hordeperson = false;
+            $hordeperson = $top = false;
 
-            for ($i = 0; $i < $result[0]['objectclass']['count']; $i++) {
+            for ($i = 0; $i < $result[0]['objectclass']['count']; ++$i) {
                 if ($result[0]['objectclass'][$i] == 'top') {
                     $top = true;
                 } elseif ($result[0]['objectclass'][$i] == 'hordePerson') {
@@ -172,8 +174,7 @@ class Horde_Prefs_Storage_Ldap extends Horde_Prefs_Storage
         }
 
         // Send the hash to the LDAP server.
-        $result = @ldap_mod_replace($this->_connection, $this->_dn,
-                                    $new_values);
+        $result = @ldap_mod_replace($this->_connection, $this->_dn, $new_vals);
         if ($result === false) {
             throw new Horde_Prefs_Exception(sprintf('Unable to modify user\'s objectClass for preferences: [%d] %s', @ldap_errno($this->_connection), @ldap_error($this->_connection)));
         }

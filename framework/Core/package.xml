@@ -195,8 +195,12 @@ Application Framework.</description>
        <file name="Ui.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Perms -->
       <dir name="Prefs">
-       <dir name="Storage">
+       <dir name="Cache">
         <file name="Session.php" role="php" />
+       </dir> <!-- /lib/Horde/Core/Prefs/Cache -->
+       <dir name="Storage">
+        <file name="Configuration.php" role="php" />
+        <file name="Hooks.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Prefs/Storage -->
        <dir name="Ui">
         <file name="Widgets.php" role="php" />
@@ -237,7 +241,6 @@ Application Framework.</description>
        <file name="Widget.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Ui -->
       <file name="Browser.php" role="php" />
-      <file name="Prefs.php" role="php" />
       <file name="Sidebar.php" role="php" />
       <file name="Translation.php" role="php">
        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
@@ -712,7 +715,6 @@ Application Framework.</description>
    <install as="Horde/Themes.php" name="lib/Horde/Themes.php" />
    <install as="Horde/Config/Form.php" name="lib/Horde/Config/Form.php" />
    <install as="Horde/Core/Browser.php" name="lib/Horde/Core/Browser.php" />
-   <install as="Horde/Core/Prefs.php" name="lib/Horde/Core/Prefs.php" />
    <install as="Horde/Core/Sidebar.php" name="lib/Horde/Core/Sidebar.php" />
    <install as="Horde/Core/Translation.php" name="lib/Horde/Core/Translation.php" />
    <install as="Horde/Core/ActiveSync/Connector.php" name="lib/Horde/Core/ActiveSync/Connector.php" />
@@ -796,7 +798,9 @@ Application Framework.</description>
    <install as="Horde/Core/Perms/Ui.php" name="lib/Horde/Core/Perms/Ui.php" />
    <install as="Horde/Core/Prefs/Identity.php" name="lib/Horde/Core/Prefs/Identity.php" />
    <install as="Horde/Core/Prefs/Ui.php" name="lib/Horde/Core/Prefs/Ui.php" />
-   <install as="Horde/Core/Prefs/Storage/Session.php" name="lib/Horde/Core/Prefs/Storage/Session.php" />
+   <install as="Horde/Core/Prefs/Cache/Session.php" name="lib/Horde/Core/Prefs/Cache/Session.php" />
+   <install as="Horde/Core/Prefs/Storage/Configuration.php" name="lib/Horde/Core/Prefs/Storage/Configuration.php" />
+   <install as="Horde/Core/Prefs/Storage/Hooks.php" name="lib/Horde/Core/Prefs/Storage/Hooks.php" />
    <install as="Horde/Core/Prefs/Ui/Widgets.php" name="lib/Horde/Core/Prefs/Ui/Widgets.php" />
    <install as="Horde/Core/Share/Driver.php" name="lib/Horde/Core/Share/Driver.php" />
    <install as="Horde/Core/Share/FactoryCallback.php" name="lib/Horde/Core/Share/FactoryCallback.php" />

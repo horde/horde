@@ -18,7 +18,7 @@ $form = new Horde_Form($vars, _("Stop Watch"));
 $form->addVariable(_("Stop watch description"), 'description', 'text', true);
 
 if ($form->validate($vars)) {
-    $timers = $prefs->getValue('running_timers', false);
+    $timers = $prefs->getValue('running_timers');
     if (empty($timers)) {
         $timers = array();
     } else {
@@ -28,11 +28,9 @@ if ($form->validate($vars)) {
         }
     }
     $now = time();
-    $timers[$now] = array('name' => Horde_String::convertCharset($vars->get('description'),
-                                                                 'UTF-8',
-                                                                 $prefs->getCharset()),
+    $timers[$now] = array('name' => $vars->get('description'),
                           'time' => $now);
-    $prefs->setValue('running_timers', serialize($timers), false);
+    $prefs->setValue('running_timers', serialize($timers));
 
     echo Horde::wrapInlineScript(array(
         'alert(\'' . addslashes(sprintf(_("The stop watch \"%s\" has been started and will appear in the sidebar at the next refresh."), $vars->get('description'))),

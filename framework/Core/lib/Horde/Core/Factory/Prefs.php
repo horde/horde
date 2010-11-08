@@ -55,20 +55,14 @@ class Horde_Core_Factory_Prefs
      * Return the Horde_Prefs:: instance.
      *
      * @param string $scope  The scope for this set of preferences.
-     * @param array $opts    See Horde_Prefs::__construct(). Additional
-     *                       options:
-     * <pre>
-     * 'session' - (boolean) Use the session driver.
-     *             DEFAULT: false
-     * </pre>
+     * @param array $opts    See Horde_Prefs::__construct().
      *
      * @return Horde_Prefs  The singleton instance.
      */
     public function create($scope = 'horde', array $opts = array())
     {
-        if (empty($GLOBALS['conf']['prefs']['driver']) ||
-            !empty($opts['session'])) {
-            $driver = 'Horde_Core_Prefs_Storage_Session';
+        if (empty($GLOBALS['conf']['prefs']['driver'])) {
+            $driver = null;
             $params = array();
         } else {
             $driver = 'Horde_Prefs_Storage_' . ucfirst($GLOBALS['conf']['prefs']['driver']);
@@ -77,7 +71,6 @@ class Horde_Core_Factory_Prefs
 
         $opts = array_merge(array(
             'cache' => true,
-            'charset' => 'UTF-8',
             'logger' => $this->_injector->getInstance('Horde_Log_Logger'),
             'password' => '',
             'sizecallback' => ((isset($GLOBALS['conf']['prefs']['maxsize'])) ? array($this, 'sizeCallback') : null),
@@ -108,22 +101,31 @@ class Horde_Core_Factory_Prefs
 
             case 'Horde_Prefs_Storage_Sql':
                 $params['db'] = $this->_injector->getInstance('Horde_Db_Adapter');
-                $opts['charset'] = $params['db']->getOption('charset');
                 break;
             }
 
-            $drivers = array(
-                new $driver($opts['user'], $params)
-            );
+            $config_driver = new Horde_Core_Prefs_Storage_Configuration($opts['user']);
+            $hooks_driver = new Horde_Core_Prefs_Storage_Hooks($opts['user'], array('conf_ob' => $config_driver));
+
+            $drivers = $driver
+                ? array(
+                      $config_driver,
+                      new $driver($opts['user'], $params),
+                      $hooks_driver
+                  )
+                : array(
+                      $config_driver,
+                      $hooks_driver
+                  );
 
             if ($opts['cache']) {
-                $opts['cache'] = new Horde_Core_Prefs_Storage_Session($opts['user']);
+                $opts['cache'] = new Horde_Core_Prefs_Cache_Session($opts['user']);
             } else {
                 unset($opts['cache']);
             }
 
             try {
-                $this->_instances[$sig] = new Horde_Core_Prefs($scope, $drivers, $opts);
+                $this->_instances[$sig] = new Horde_Prefs($scope, $drivers, $opts);
             } catch (Horde_Prefs_Exception $e) {
                 if (!$GLOBALS['session']->get('horde', 'no_prefs')) {
                     $GLOBALS['session']->set('horde', 'no_prefs', true);
@@ -131,8 +133,10 @@ class Horde_Core_Factory_Prefs
                         $GLOBALS['notification']->push(Horde_Core_Translation::t("The preferences backend is currently unavailable and your preferences have not been loaded. You may continue to use the system with default preferences."));
                     }
                 }
-                unset($opts['cache']);
-                $this->_instances[$sig] = new Horde_Core_Prefs($scope, new Horde_Core_Prefs_Storage_Session($opts['user']), $opts);
+
+                /* Store data in the cached session object. */
+                $opts['cache'] = new Horde_Core_Prefs_Cache_Session($opts['user']);
+                $this->_instances[$sig] = new Horde_Prefs($scope, array($config_driver, $hooks_driver), $opts);
             }
         }
 
