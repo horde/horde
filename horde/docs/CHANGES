@@ -56,7 +56,7 @@ v3.3.11-cvs
 
 [jan] Skip event status synchronization with Outlook, which is broken.
 [jan] Don't send SIF data to recent Funambol clients, unless requested.
-[jan] Log all queries by the history library.
+[jan] Log all queries and errors by the history library.
 
 
 -------
