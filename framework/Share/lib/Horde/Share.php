@@ -382,7 +382,7 @@ class Horde_Share
     {
         // Run the results through the callback, if configured.
         if (!empty($this->_callbacks['remove'])) {
-            return call_user_func($this->_callbacks['remove'], $share);
+            call_user_func($this->_callbacks['remove'], $share);
         }
 
         /* Remove share from the caches. */
