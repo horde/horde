@@ -104,29 +104,38 @@ class Horde_Session
 
         if ($start) {
             session_start();
+            $this->_start();
+        }
+    }
 
-            /* Create internal data arrays. */
-            if (!isset($_SESSION[self::SERIALIZED])) {
-                /* Last modification time of session. */
-                $_SESSION[self::MODIFIED] = 0;
+    /**
+     * Tasks to perform when starting a session.
+     */
+    private function _start()
+    {
+        /* Create internal data arrays. */
+        if (!isset($_SESSION[self::MODIFIED])) {
+            /* Last modification time of session.
+             * This will cause the check below to always return true
+             * (time() >= 0) and will set the initial value. */
+            $_SESSION[self::MODIFIED] = 0;
 
-                /* Is this key serialized? */
-                $_SESSION[self::SERIALIZED] = array();
-            }
+            /* Is this key serialized? */
+            $_SESSION[self::SERIALIZED] = array();
+        }
 
-            /* Determine if we need to force write the session to avoid a
-             * session timeout, even though the session is unchanged.
-             * Theory: On initial login, set the current time plus half of the
-             * max lifetime in the session.  Then check this timestamp before
-             * saving. If we exceed, force a write of the session and set a
-             * new timestamp. Why half the maxlifetime?  It guarantees that if
-             * we are accessing the server via a periodic mechanism (think
-             * folder refreshing in IMP) that we will catch this refresh. */
-            $curr_time = time();
-            if (!isset($_SESSION[self::MODIFIED]) || $curr_time >= $_SESSION[self::MODIFIED]) {
-                $_SESSION[self::MODIFIED] = intval($curr_time + (ini_get('session.gc_maxlifetime') / 2));
-                $this->sessionHandler->changed = true;
-            }
+        /* Determine if we need to force write the session to avoid a
+         * session timeout, even though the session is unchanged.
+         * Theory: On initial login, set the current time plus half of the
+         * max lifetime in the session.  Then check this timestamp before
+         * saving. If we exceed, force a write of the session and set a
+         * new timestamp. Why half the maxlifetime?  It guarantees that if
+         * we are accessing the server via a periodic mechanism (think
+         * folder refreshing in IMP) that we will catch this refresh. */
+        $curr_time = time();
+        if ($curr_time >= $_SESSION[self::MODIFIED]) {
+            $_SESSION[self::MODIFIED] = intval($curr_time + (ini_get('session.gc_maxlifetime') / 2));
+            $this->sessionHandler->changed = true;
         }
     }
 
@@ -147,6 +156,8 @@ class Horde_Session
         // session data.
         session_regenerate_id(true);
         session_unset();
+        $_SESSION = array();
+        $this->_start();
 
         $this->_cleansession = true;
 
