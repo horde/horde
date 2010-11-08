@@ -147,7 +147,7 @@ class Horde_Group
      */
     public function shutdown()
     {
-        // TODO: Mve to core.
+        // TODO: Move to core.
         $GLOBALS['session']->store($this, false, 'horde_group');
     }
 

@@ -42,6 +42,7 @@ class Horde_Group_Sql extends Horde_Group
      */
     public function __sleep()
     {
+        return array();
     }
 
     /**

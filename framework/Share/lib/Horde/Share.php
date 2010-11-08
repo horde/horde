@@ -133,7 +133,7 @@ class Horde_Share
      * (re)connect the share object to this share driver. Userful for when
      * share objects are unserialized from a cache separate from the share
      * driver.
-     * 
+     *
      * @param Horde_Share_Object $object
      */
     public function initShareObject($object)
@@ -483,8 +483,8 @@ class Horde_Share
      *
      * @param string $type   The callback to run
      * @param array $params  The parameters to pass to the callback.
-     * 
-     * @return mixed 
+     *
+     * @return mixed
      */
     public function runCallback($type, $params)
     {

@@ -76,7 +76,9 @@ class Horde_Share_Sql extends Horde_Share implements Serializable
             $this->_shareMap,
             $this->_listcache,
             $this->_shareObject,
-            $this->_permsObject);
+            $this->_permsObject,
+            $this->_groups
+        );
 
         return serialize($data);
     }
@@ -103,7 +105,8 @@ class Horde_Share_Sql extends Horde_Share implements Serializable
         $this->_shareMap = $data[4];
         $this->_listcache = $data[5];
         $this->_shareObject = $data[6];
-        $this->_permsObject = $data [7];
+        $this->_permsObject = $data[7];
+        $this->_groups = $data[8];
 
         $this->_table = $this->_app . '_shares';
 
@@ -379,7 +382,7 @@ class Horde_Share_Sql extends Horde_Share implements Serializable
         foreach ($rows as $share) {
             $shares[(int)$share['share_id']] = $this->_fromDriverCharset($share);
         }
-        
+
         // Get users permissions
         try {
             $rows = $this->_db->selectAll('SELECT share_id, user_uid, perm FROM ' . $this->_table . '_users');
@@ -610,7 +613,7 @@ class Horde_Share_Sql extends Horde_Share implements Serializable
         $tables = array($this->_table,
                         $this->_table . '_users',
                         $this->_table . '_groups');
-        foreach ($tables as $table) { 
+        foreach ($tables as $table) {
             try {
                 $this->_db->delete('DELETE FROM ' . $table . ' WHERE share_id = ?', $params);
             } catch (Horde_Db_Exception $e) {
@@ -631,7 +634,7 @@ class Horde_Share_Sql extends Horde_Share implements Serializable
      * @throws Horde_Share_Exception
      */
     protected function _exists($share)
-    {   
+    {
         try {
             return (boolean)$this->_db->selectOne('SELECT 1 FROM ' . $this->_table . ' WHERE share_name = ?', array($share));
         } catch (Horde_Db_Exception $e) {
@@ -674,7 +677,6 @@ class Horde_Share_Sql extends Horde_Share implements Serializable
             . ' AND (' . Horde_SQL::buildClause($this->_db, 'u.perm', '&', $perm) . '))';
 
             // If the user has any group memberships, check for those also.
-            // @TODO: Inject the group driver
             try {
                 $groups = $this->_groups->getGroupMemberships($userid, true);
                 if ($groups) {
