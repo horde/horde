@@ -450,7 +450,7 @@ class Turba {
                     continue;
                 }
 
-                $sourceKey = md5(mt_rand());
+                $sourceKey = strval(new Horde_Support_RandomId());
                 try {
                     $share = $driver->createShare(
                         $sourceKey,
