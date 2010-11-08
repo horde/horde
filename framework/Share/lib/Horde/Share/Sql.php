@@ -517,7 +517,7 @@ class Horde_Share_Sql extends Horde_Share implements Serializable
 
         // Run the results through the callback, if configured.
         if (!empty($this->_callbacks['list'])) {
-            return call_user_func_array($this->_callbacks['list'], array($userid, $sharelist, $params));
+            return $this->runCallback('list', array($userid, $sharelist, $params));
         }
 
         return $sharelist;

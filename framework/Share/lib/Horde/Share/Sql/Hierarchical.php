@@ -152,7 +152,7 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
 
         // Run the results through the callback, if configured.
         if (!empty($this->_callbacks['list'])) {
-            return call_user_func_array($this->_callbacks['list'], array($userid, $sharelist, $params));
+            return $this->runCallback('list', array($userid, $sharelist, $params));
         }
 
         return $sharelist;
