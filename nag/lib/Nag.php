@@ -376,7 +376,8 @@ class Nag
         try {
             $tasklists = $GLOBALS['nag_shares']->listShares(
                 $GLOBALS['registry']->getAuth(),
-                array('perm' => $permission, $owneronly ? $GLOBALS['registry']->getAuth() : null,
+                array('perm' => $permission,
+                      'attributes' => $owneronly ? $GLOBALS['registry']->getAuth() : null,
                       'sort_by' => 'name'));
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e->getMessage(), 'ERR');
