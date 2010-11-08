@@ -275,8 +275,10 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
     {
         global $registry;
 
+        $is_auth = $registry->getAuth();
+
         if (!($userId = $this->getCredential('userId'))) {
-            $userId = $registry->getAuth();
+            $userId = $is_auth;
         }
         if (!($credentials = $this->getCredential('credentials'))) {
             $credentials = $registry->getAuthCredential();
@@ -289,13 +291,22 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
 
         if ($this->_base) {
             $result = $this->_base->transparent();
+        } elseif ($this->hasCapability('transparent')) {
+            /* Only clean session if we are trying to do transparent
+             * authentication to an application that has a transparent
+             * capability. This prevents session fixation issues when using
+             * transparent authentication to do initial authentication to
+             * Horde, while not destroying session information for guest
+             * users. See Bug #9311. */
+            if (!$is_auth) {
+                $registry->getCleanSession();
+            }
+            $result = $registry->callAppMethod($this->_app, $this->_apiMethods['transparent'], array('args' => array($this), 'noperms' => true));
         } else {
-            $result = $this->hasCapability('transparent')
-                ? $registry->callAppMethod($this->_app, $this->_apiMethods['transparent'], array('args' => array($this), 'noperms' => true))
-                /* If this application contains neither transparent nor
-                 * authenticate capabilities, it does not require any
-                 * authentication if already authenticated to Horde. */
-                : ($registry->getAuth() && !$this->hasCapability('authenticate'));
+            /* If this application contains neither transparent nor
+             * authenticate capabilities, it does not require any
+             * authentication if already authenticated to Horde. */
+            $result = ($registry->getAuth() && !$this->hasCapability('authenticate'));
         }
 
         return $result && $this->_setAuth();
