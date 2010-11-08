@@ -82,7 +82,7 @@ var HordeLogin = {
 
         while (Object.isElement(elt)) {
             switch (elt.readAttribute('id')) {
-            case 'login_button':
+            case 'login-button':
                 this.submit();
                 e.stop();
                 break;
