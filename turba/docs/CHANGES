@@ -2,6 +2,7 @@
 v3.0-git
 --------
 
+[jan] Create a default address book if the user doesn't own any yet.
 [jan] Rename sources.php to backends.php.
 [mjr] If default addressbook is not browsable, try one from the addressbook pref
       (Request: 6536).

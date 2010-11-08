@@ -2,6 +2,8 @@
 v3.0-git
 --------
 
+[jan] Default calendars no longer have the user name as the ID.
+[jan] Create a default calendar if the user doesn't own any yet.
 [jan] Add CalDAV client support (Request #8525).
 [jan] Send agenda emails with HTML part and convert to Horde_View.
 [mjr] More complete handling of recurring event exceptions when dealing with the

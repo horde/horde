@@ -505,10 +505,6 @@ class Nag
      */
     public static function deleteTasklist($tasklist)
     {
-        if ($tasklist->getName() == $GLOBALS['registry']->getAuth()) {
-            throw new Horde_Exception_PermissionDenied(_("This task list cannot be deleted."));
-        }
-
         if (!$GLOBALS['registry']->getAuth() ||
             ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
              (!is_null($tasklist->get('owner')) || !$GLOBALS['registry']->isAdmin()))) {
@@ -723,35 +719,21 @@ class Nag
             }
         }
 
-        if (count($GLOBALS['display_tasklists']) == 0) {
-            $lists = Nag::listTasklists(true);
-            if (!$GLOBALS['registry']->getAuth()) {
-                /* All tasklists for guests. */
-                $GLOBALS['display_tasklists'] = array_keys($lists);
-            } else {
-                /* Make sure at least the default tasklist is visible. */
-                $default_tasklist = Nag::getDefaultTasklist(Horde_Perms::READ);
-                if ($default_tasklist) {
-                    $GLOBALS['display_tasklists'] = array($default_tasklist);
-                }
+        /* All tasklists for guests. */
+        if (!count($GLOBALS['display_tasklists']) &&
+            !$GLOBALS['registry']->getAuth()) {
+            $GLOBALS['display_tasklists'] = array_keys($GLOBALS['all_tasklists']);
+        }
 
-                /* If the user's personal tasklist doesn't exist, then create it. */
-                if (!$GLOBALS['nag_shares']->exists($GLOBALS['registry']->getAuth())) {
-                    $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
-                    $name = $identity->getValue('fullname');
-                    if (trim($name) == '') {
-                        $name = $GLOBALS['registry']->getAuth('original');
-                    }
-                    $share = $GLOBALS['nag_shares']->newShare($GLOBALS['registry']->getAuth(), $GLOBALS['registry']->getAuth());
-                    $share->set('name', sprintf(_("%s's Task List"), $name));
-                    $GLOBALS['nag_shares']->addShare($share);
-
-                    /* Make sure the personal tasklist is displayed by default. */
-                    if (!in_array($GLOBALS['registry']->getAuth(), $GLOBALS['display_tasklists'])) {
-                        $GLOBALS['display_tasklists'][] = $GLOBALS['registry']->getAuth();
-                    }
-                }
-            }
+        /* If the user doesn't own a task list, create one. */
+        if (!empty($GLOBALS['conf']['share']['auto_create']) &&
+            $GLOBALS['registry']->getAuth() &&
+            !count(Nag::listTasklists(true))) {
+            $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
+            $share = $GLOBALS['nag_shares']->newShare($GLOBALS['registry']->getAuth(), strval(new Horde_Support_Randomid()));
+            $share->set('name', sprintf(_("Task list of %s"), $identity->getName()));
+            $GLOBALS['nag_shares']->addShare($share);
+            $GLOBALS['display_tasklists'][] = $share->getName();
         }
 
         $GLOBALS['prefs']->setValue('display_tasklists', serialize($GLOBALS['display_tasklists']));

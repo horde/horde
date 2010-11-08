@@ -18,10 +18,6 @@ if (!$GLOBALS['registry']->getAuth()) {
 
 $vars = Horde_Variables::getDefaultVariables();
 $tasklist_id = $vars->get('t');
-if ($tasklist_id == $GLOBALS['registry']->getAuth()) {
-    $notification->push(_("This task list cannot be deleted."), 'horde.warning');
-    Horde::url('tasklists/', true)->redirect();
-}
 try {
     $tasklist = $nag_shares->getShare($tasklist_id);
 } catch (Horde_Share_Exception $e) {

@@ -375,59 +375,45 @@ class Turba {
      */
     function getConfigFromShares($sources)
     {
-        global $notification;
-
         try {
             $shares = Turba::listShares();
         } catch (Horde_Share_Exception $e) {
-            // Notify the user if we failed, but still return the $cfgSource array.
-            $notification->push($e, 'horde.error');
+            // Notify the user if we failed, but still return the $cfgSource
+            // array.
+            $GLOBALS['notification']->push($e, 'horde.error');
             return $sources;
         }
 
         $sortedShares = $defaults = $vbooks = array();
-        $defaults = array();
-        foreach (array_keys($shares) as $name) {
+        $personal = false;
+        foreach ($shares as $name => &$share) {
             if (isset($sources[$name])) {
                 continue;
             }
 
-            $params = @unserialize($shares[$name]->get('params'));
+            $personal |= $share->get('owner') == $GLOBALS['registry']->getAuth();
+
+            $params = @unserialize($share->get('params'));
             if (isset($params['type']) && $params['type'] == 'vbook') {
                 // We load vbooks last in case they're based on other shares.
-                $params['share'] = $shares[$name];
+                $params['share'] = $share;
                 $vbooks[$name] = $params;
             } elseif (!empty($params['source']) &&
                       !empty($sources[$params['source']]['use_shares'])) {
                 if (empty($params['name'])) {
                     $params['name'] = $name;
-                    $shares[$name]->set('params', serialize($params));
-                    $shares[$name]->save();
+                    $share->set('params', serialize($params));
+                    $share->save();
                 }
 
-                // Default share?
-                if (empty($defaults[$params['source']])) {
-                    try {
-                        $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($params['source']);
-                        if ($driver->hasPermission(Horde_Perms::EDIT)) {
-                            $defaults[$params['source']] = $driver->checkDefaultShare(
-                                $shares[$name],
-                                $sources[$params['source']]
-                            );
-                        }
-                    } catch (Turba_Exception $e) {
-                        $notification->push($e, 'horde.error');
-                    }
-                }
-
-                $share = $sources[$params['source']];
-                $share['params']['config'] = $sources[$params['source']];
-                $share['params']['config']['params']['share'] = $shares[$name];
-                $share['params']['config']['params']['name'] = $params['name'];
-                $share['title'] = $shares[$name]->get('name');
-                $share['type'] = 'share';
-                $share['use_shares'] = false;
-                $sortedSources[$params['source']][$name] = $share;
+                $info = $sources[$params['source']];
+                $info['params']['config'] = $sources[$params['source']];
+                $info['params']['config']['params']['share'] = $share;
+                $info['params']['config']['params']['name'] = $params['name'];
+                $info['title'] = $share->get('name');
+                $info['type'] = 'share';
+                $info['use_shares'] = false;
+                $sortedSources[$params['source']][$name] = $info;
             }
         }
 
@@ -441,16 +427,16 @@ class Turba {
             if (isset($sortedSources[$source])) {
                 $newSources = array_merge($newSources, $sortedSources[$source]);
             }
-            if ($GLOBALS['registry']->getAuth() && empty($defaults[$source])) {
+            if ($GLOBALS['registry']->getAuth() && !$personal) {
                 // User's default share is missing.
                 try {
                     $driver = $GLOBALS['injector']->getInstance('Turba_Driver')->getDriver($source);
                 } catch (Turba_Exception $e) {
-                    $notification->push($driver, 'horde.error');
+                    $GLOBALS['notification']->push($driver, 'horde.error');
                     continue;
                 }
 
-                $sourceKey = strval(new Horde_Support_RandomId());
+                $sourceKey = strval(new Horde_Support_Randomid());
                 try {
                     $share = $driver->createShare(
                         $sourceKey,
@@ -470,6 +456,7 @@ class Turba {
                 $source_config = $sources[$source];
                 $source_config['params']['share'] = $share;
                 $newSources[$sourceKey] = $source_config;
+                $personal = true;
             }
         }
 
@@ -562,11 +549,7 @@ class Turba {
         if (!isset($params['name'])) {
             /* Sensible default for empty display names */
             $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
-            $name = $identity->getValue('fullname');
-            if (trim($name) == '') {
-                $name = $GLOBALS['registry']->getAuth('original');
-            }
-            $name = sprintf(_("%s's Address Book"), $name);
+            $name = sprintf(_("Address book of %s"), $identity->getName());
         } else {
             $name = $params['name'];
             unset($params['name']);
