@@ -28,7 +28,7 @@
   <tr>
    <td><?php echo htmlspecialchars($tasklist->get('name')) ?></td>
    <td><?php echo is_null($tasklist->get('owner')) ? _("System") : _("Local") ?></td>
-   <td><?php $url = Horde_Util::addParameter($display_url_base, 'display_cal', $tasklist->getName(), false); echo Horde::link($url, _("Click or copy this URL to display this task list"), '', '_blank') . htmlspecialchars(shorten_url($url)) . '</a>' ?></td>
+   <td><?php $url = Horde_Util::addParameter($display_url_base, 'display_tasklist', $tasklist->getName(), false); echo Horde::link($url, _("Click or copy this URL to display this task list"), '', '_blank') . htmlspecialchars(shorten_url($url)) . '</a>' ?></td>
    <td><?php $url = $subscribe_url_base . ($tasklist->get('owner') ? $tasklist->get('owner') : '-system-') . '/' . $tasklist->getName() . '.ics'; echo Horde::link($url, _("Click or copy this URL to display this task list"), '', '_blank') . htmlspecialchars(shorten_url($url)) . '</a>' ?></td>
    <td><?php echo Horde::link(Horde_Util::addParameter($edit_url_base, 't', $tasklist->getName()), _("Edit")) . $edit_img . '</a>' ?></td>
 <?php if (empty($conf['share']['no_sharing'])): ?>
