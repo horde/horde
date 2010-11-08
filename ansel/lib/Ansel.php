@@ -71,10 +71,10 @@ class Ansel
      *   <pre>
      *     (integer)selected  The gallery_id of the gallery that is selected
      *     (integer)perm      The permissions filter to use [Horde_Perms::SHOW]
-     *     (mixed)filter      Restrict the galleries returned to those matching
+     *     (mixed)attributes  Restrict the galleries returned to those matching
      *                        the filters. Can be an array of attribute/values
      *                        pairs or a gallery owner username.
-     *     (boolean)allLevels
+     *     (boolean)all_levels
      *     (integer)parent    The parent share to start listing at.
      *     (integer)from      The gallery to start listing at.
      *     (integer)count     The number of galleries to return.
@@ -85,12 +85,12 @@ class Ansel
      */
     static public function selectGalleries($params = array())
     {
-        $params = new Horde_Support_Array($params);
         $galleries = $GLOBALS['injector']
             ->getInstance('Ansel_Injector_Factory_Storage')
             ->create()
             ->listGalleries($params);
 
+        $params = new Horde_Support_Array($params);
         $tree = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Tree')->create('gallery_tree', 'Select');
 
         /* Remove the ignored gallery, make sure it's also not the selected

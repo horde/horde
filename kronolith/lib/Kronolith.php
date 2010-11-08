@@ -1159,7 +1159,7 @@ class Kronolith
             if (trim($name) == '') {
                 $name = $GLOBALS['registry']->getAuth('original');
             }
-            $share = &$GLOBALS['kronolith_shares']->newShare($GLOBALS['registry']->getAuth());
+            $share = $GLOBALS['kronolith_shares']->newShare($GLOBALS['registry']->getAuth(), $GLOBALS['registry']->getAuth());
             $share->set('name', sprintf(_("%s's Calendar"), $name));
             $GLOBALS['kronolith_shares']->addShare($share);
             $GLOBALS['all_calendars'][$GLOBALS['registry']->getAuth()] = new Kronolith_Calendar_Internal(array('share' => $share));
@@ -1519,7 +1519,11 @@ class Kronolith
         }
 
         try {
-            $calendars = $GLOBALS['kronolith_shares']->listShares($GLOBALS['registry']->getAuth(), $permission, $owneronly ? $GLOBALS['registry']->getAuth() : null, 0, 0, 'name');
+            $calendars = $GLOBALS['kronolith_shares']->listShares(
+                $GLOBALS['registry']->getAuth(),
+                array('perm' => $permission,
+                      'attributes' => $owneronly ? $GLOBALS['registry']->getAuth() : null,
+                      'sort_by' => 'name'));
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e, 'ERR');
             return array();
@@ -1631,7 +1635,7 @@ class Kronolith
     public static function addShare($info)
     {
         try {
-            $calendar = $GLOBALS['kronolith_shares']->newShare(strval(new Horde_Support_Randomid()));
+            $calendar = $GLOBALS['kronolith_shares']->newShare($GLOBALS['registry']->getAuth(), strval(new Horde_Support_Randomid()));
         } catch (Horde_Share_Exception $e) {
             throw new Kronolith_Exception($e);
         }
@@ -1646,7 +1650,7 @@ class Kronolith
         $tagger->tag($calendar->getName(), $info['tags'], $calendar->get('owner'), 'calendar');
 
         try {
-            $result = $GLOBALS['kronolith_shares']->addShare($calendar);
+            $GLOBALS['kronolith_shares']->addShare($calendar);
         } catch (Horde_Share_Exception $e) {
             throw new Kronolith_Exception($e);
         }

@@ -537,8 +537,9 @@ class Turba {
 
         try {
             $sources = $GLOBALS['turba_shares']->listShares(
-                $GLOBALS['registry']->getAuth(), $permission,
-                $owneronly ? $GLOBALS['registry']->getAuth() : null);
+                $GLOBALS['registry']->getAuth(),
+                array('perm' => $permission,
+                      'attributes' => $owneronly ? $GLOBALS['registry']->getAuth() : null));
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e, 'ERR');
             return array();
@@ -573,7 +574,7 @@ class Turba {
 
         /* Generate the new share. */
         try {
-            $share = $GLOBALS['turba_shares']->newShare($share_id);
+            $share = $GLOBALS['turba_shares']->newShare($GLOBALS['registry']->getAuth(), $share_id);
 
             /* Set the display name for this share. */
             $share->set('name', $name);

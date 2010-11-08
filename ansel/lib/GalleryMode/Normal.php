@@ -46,7 +46,7 @@ class Ansel_GalleryMode_Normal extends Ansel_GalleryMode_Base
             if ($num_galleries > $from) {
                 $galleries = $storage->listGalleries(
                         array('parent' => $this->_gallery,
-                              'allLevels' => false,
+                              'all_levels' => false,
                               'from' => $from,
                               'count' => $to));
             }

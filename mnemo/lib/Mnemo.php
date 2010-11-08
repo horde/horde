@@ -171,7 +171,11 @@ class Mnemo {
             return array();
         }
         try {
-            $notepads = $GLOBALS['mnemo_shares']->listShares($GLOBALS['registry']->getAuth(), $permission, $owneronly ? $GLOBALS['registry']->getAuth() : null, 0, 0, 'name');
+            $notepads = $GLOBALS['mnemo_shares']->listShares(
+                $GLOBALS['registry']->getAuth(),
+                array('perm' => $permission,
+                      'attributes' => $owneronly ? $GLOBALS['registry']->getAuth() : null,
+                      'sort_by' => 'name'));
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e->getMessage(), 'ERR');
             return array();
@@ -448,7 +452,7 @@ class Mnemo {
                     if (trim($name) == '') {
                         $name = $GLOBALS['registry']->getAuth();
                     }
-                    $share = $GLOBALS['mnemo_shares']->newShare($GLOBALS['registry']->getAuth());
+                    $share = $GLOBALS['mnemo_shares']->newShare($GLOBALS['registry']->getAuth(), $GLOBALS['registry']->getAuth());
                     $share->set('name', sprintf(_("%s's Notepad"), $name));
                     $GLOBALS['mnemo_shares']->addShare($share);
 

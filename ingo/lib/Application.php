@@ -75,7 +75,7 @@ class Ingo_Application extends Horde_Registry_Application
                 if (trim($name) == '') {
                     $name = $GLOBALS['registry']->getAuth('original');
                 }
-                $share = $GLOBALS['ingo_shares']->newShare($signature);
+                $share = $GLOBALS['ingo_shares']->newShare($GLOBALS['registry']->getAuth(), $signature);
                 $share->set('name', $name);
                 $GLOBALS['ingo_shares']->addShare($share);
                 $GLOBALS['all_rulesets'][$signature] = $share;
@@ -216,7 +216,8 @@ class Ingo_Application extends Horde_Registry_Application
             /* Get a list of all shares this user owns and has perms to delete
              * and remove them. */
             try {
-                $shares = $GLOBALS['ingo_shares']->listShares($user, Horde_Perms::DELETE, $user);
+                $shares = $GLOBALS['ingo_shares']->listShares($user, array('perm' => Horde_Perms::DELETE,
+                                                                           'attributes' => $user));
             } catch (Horde_Share_Exception $e) {
                 Horde::logMessage($e, 'ERR');
                 throw new Ingo_Exception($e);

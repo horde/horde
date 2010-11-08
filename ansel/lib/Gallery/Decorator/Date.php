@@ -162,14 +162,15 @@ class Ansel_Gallery_Decorator_Date
     /**
      * Return a count of the number of children this share has
      *
-     * @param integer $perm  A Horde_Perms::* constant
+     * @param string  $user       The user to use for checking perms
+     * @param integer $perm       A Horde_Perms::* constant
      * @param boolean $allLevels  Count grandchildren or just children
      *
      * @return mixed  The number of child shares || PEAR_Error
      */
-    public function countChildren($perm = Horde_Perms::SHOW, $allLevels = true)
+    public function countChildren($user, $perm = Horde_Perms::SHOW, $allLevels = true)
     {
-        return $this->_gallery->getShareOb()->countShares($GLOBALS['registry']->getAuth(), $perm, null, $this, $allLevels);
+        return $this->_gallery->getShareOb()->countShares($user, $perm, null, $this, $allLevels);
     }
 
     /**

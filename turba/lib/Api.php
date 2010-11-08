@@ -261,9 +261,10 @@ class Turba_Api extends Horde_Registry_Api
                     // No backends are configured to provide shares
                     return array();
                 }
-                $addressbooks = $GLOBALS['turba_shares']->listShares($parts[0],
-                    Horde_Perms::READ,
-                    $parts[0]);
+                $addressbooks = $GLOBALS['turba_shares']->listShares(
+                    $parts[0],
+                    array('perm' => Horde_Perms::READ,
+                          'attributes' => $parts[0]));
                 // The last check returns all addressbooks for the requested user,
                 // but that does not mean the requesting user has access to them.
                 // Filter out those address books for which the requesting user has

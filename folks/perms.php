@@ -19,33 +19,33 @@ $reload = false;
 $actionID = Horde_Util::getFormData('actionID', 'edit');
 switch ($actionID) {
 case 'edit':
-    $share = &$shares->getShareById(Horde_Util::getFormData('cid'));
-    if (!is_a($share, 'PEAR_Error')) {
-        $perm = &$share->getPermission();
-    } elseif (($category = Horde_Util::getFormData('share')) !== null) {
-        $share = &$shares->getShare($category);
-        if (!is_a($share, 'PEAR_Error')) {
-            $perm = &$share->getPermission();
+    try {
+        $share = $shares->getShareById(Horde_Util::getFormData('cid'));
+        $perm = $share->getPermission();
+    } catch (Horde_Exception_NotFound $e) {
+        if (($category = Horde_Util::getFormData('share')) !== null) {
+            $share = $shares->getShare($category);
+            $perm = $share->getPermission();
         }
     }
-    if (is_a($share, 'PEAR_Error')) {
-        $notification->push($share, 'horde.error');
-    } elseif (!$GLOBALS['registry']->getAuth() ||
-              (isset($share) && $GLOBALS['registry']->getAuth() != $share->get('owner'))) {
+    if (!$GLOBALS['registry']->getAuth() ||
+        (isset($share) && $GLOBALS['registry']->getAuth() != $share->get('owner'))) {
         exit('permission denied');
     }
     break;
 
 case 'editform':
-    $share = &$shares->getShareById(Horde_Util::getFormData('cid'));
-    if (is_a($share, 'PEAR_Error')) {
+    try {
+        $share = $shares->getShareById(Horde_Util::getFormData('cid'));
+    } catch (Horde_Exception_NotFound $e) {
         $notification->push(_("Attempt to edit a non-existent share."), 'horde.error');
-    } else {
+    }
+    if ($share) {
         if (!$GLOBALS['registry']->getAuth() ||
             $GLOBALS['registry']->getAuth() != $share->get('owner')) {
             exit('permission denied');
         }
-        $perm = &$share->getPermission();
+        $perm = $share->getPermission();
 
         // Process owner and owner permissions.
         $old_owner = $share->get('owner');

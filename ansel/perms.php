@@ -29,8 +29,8 @@ case 'edit':
     try {
         $share = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->getGallery(Horde_Util::getFormData('cid'));
         $form = 'edit.inc';
-        $perm = &$share->getPermission();
-    } catch (Horde_Share_Exception $e) {
+        $perm = $share->getPermission();
+    } catch (Horde_Exception_NotFound $e) {
         if (($share_name = Horde_Util::getFormData('share')) !== null) {
             try {
                 $share = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->shares->getShare($share_name);

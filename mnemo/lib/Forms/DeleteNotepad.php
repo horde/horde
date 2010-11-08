@@ -80,7 +80,7 @@ class Mnemo_DeleteNotepadForm extends Horde_Form {
                     $name = $GLOBALS['registry']->getAuth();
                 }
                 try {
-                    $notepad = $GLOBALS['mnemo_shares']->newShare($GLOBALS['registry']->getAuth());
+                    $notepad = $GLOBALS['mnemo_shares']->newShare($GLOBALS['registry']->getAuth(), $GLOBALS['registry']->getAuth());
                 } catch (Horde_Share_Exception $e) {
                     return;
                 }

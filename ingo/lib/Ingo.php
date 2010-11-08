@@ -368,7 +368,10 @@ class Ingo
                                         $permission = Horde_Perms::SHOW)
     {
         try {
-            $rulesets = $GLOBALS['ingo_shares']->listShares($GLOBALS['registry']->getAuth(), $permission, $owneronly ? $GLOBALS['registry']->getAuth() : null);
+            $rulesets = $GLOBALS['ingo_shares']->listShares(
+                $GLOBALS['registry']->getAuth(),
+                array('perm' => $permission,
+                      'attributes' => $owneronly ? $GLOBALS['registry']->getAuth() : null));
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e, 'ERR');
             return array();

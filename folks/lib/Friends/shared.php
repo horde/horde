@@ -58,7 +58,7 @@ class Folks_Friends_shared extends  Folks_Friends_sql {
     protected function _getGroups()
     {
         $GLOBALS['folks_shares'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create();
-        $groups = $GLOBALS['folks_shares']->listShares($this->_user, Horde_Perms::READ);
+        $groups = $GLOBALS['folks_shares']->listShares($this->_user, array('perm' => Horde_Perms::READ));
 
         $list = array();
         foreach ($groups as $group) {

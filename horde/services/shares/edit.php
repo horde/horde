@@ -39,7 +39,7 @@ case 'edit':
         $share = $shares->getShareById(Horde_Util::getFormData('cid'));
         $form = 'edit.inc';
         $perm = $share->getPermission();
-    } catch (Horde_Share_Exception $e) {
+    } catch (Horde_Exception_NotFound $e) {
         if (($category = Horde_Util::getFormData('share')) !== null) {
             try {
                 $share = $shares->getShare($category);

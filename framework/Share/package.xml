@@ -11,8 +11,8 @@ resources a user owns or has access to.</description>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-10-22</date>
- <time>19:03:00</time>
+ <date>2010-10-29</date>
+ <time>13:19:48</time>
  <version>
   <release>0.0.4</release>
   <api>0.0.4</api>
@@ -518,7 +518,7 @@ Initial release as a PEAR package
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2010-10-22</date>
+   <date>2010-10-29</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Converted to Horde 4 coding standards

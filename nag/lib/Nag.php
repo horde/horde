@@ -374,7 +374,10 @@ class Nag
             return array();
         }
         try {
-            $tasklists = $GLOBALS['nag_shares']->listShares($GLOBALS['registry']->getAuth(), $permission, $owneronly ? $GLOBALS['registry']->getAuth() : null, 0, 0, 'name');
+            $tasklists = $GLOBALS['nag_shares']->listShares(
+                $GLOBALS['registry']->getAuth(),
+                array('perm' => $permission, $owneronly ? $GLOBALS['registry']->getAuth() : null,
+                      'sort_by' => 'name'));
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e->getMessage(), 'ERR');
             return array();
@@ -445,7 +448,7 @@ class Nag
     public static function addTasklist($info)
     {
         try {
-            $tasklist = $GLOBALS['nag_shares']->newShare(strval(new Horde_Support_Uuid()));
+            $tasklist = $GLOBALS['nag_shares']->newShare($GLOBALS['registry']->getAuth(), strval(new Horde_Support_Uuid()));
             $tasklist->set('name', $info['name']);
             $tasklist->set('color', $info['color']);
             $tasklist->set('desc', $info['description']);
@@ -738,7 +741,7 @@ class Nag
                     if (trim($name) == '') {
                         $name = $GLOBALS['registry']->getAuth('original');
                     }
-                    $share = $GLOBALS['nag_shares']->newShare($GLOBALS['registry']->getAuth());
+                    $share = $GLOBALS['nag_shares']->newShare($GLOBALS['registry']->getAuth(), $GLOBALS['registry']->getAuth());
                     $share->set('name', sprintf(_("%s's Task List"), $name));
                     $GLOBALS['nag_shares']->addShare($share);
 
