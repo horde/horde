@@ -308,7 +308,7 @@ class Horde_Share_Datatree extends Horde_Share
                     $criteria['OR'][] = array(
                         'AND' => array(
                             array('field' => 'name', 'op' => '=', 'test' => 'perm_groups'),
-o                           array('field' => 'key', 'op' => 'IN', 'test' => array_keys($groups)),
+                            array('field' => 'key', 'op' => 'IN', 'test' => array_keys($groups)),
                             array('field' => 'value', 'op' => '&', 'test' => $perm)));
                 }
             } catch (Horde_Group_Exception $e) {}
