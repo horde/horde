@@ -285,7 +285,7 @@ class Horde_Share
 
         // Run the results through the callback, if configured.
         if (!empty($this->_callbacks['list'])) {
-            return call_user_func_array($this->_callbacks['list'], array($userid, $shares, $params));
+            return $this->runCallback('list', array($userid, $shares, $params));
         }
 
         return $shares;
@@ -353,10 +353,7 @@ class Horde_Share
     public function addShare(Horde_Share_Object $share)
     {
         // Run the results through the callback, if configured.
-        if (!empty($this->_callbacks['add'])) {
-            call_user_func($this->_callbacks['add'], $share);
-        }
-
+        $this->runCallback('add', array($share));
         $result = $this->_addShare($share);
 
         /* Store new share in the caches. */
@@ -381,9 +378,7 @@ class Horde_Share
     public function removeShare(Horde_Share_Object $share)
     {
         // Run the results through the callback, if configured.
-        if (!empty($this->_callbacks['remove'])) {
-            call_user_func($this->_callbacks['remove'], $share);
-        }
+        $this->runCallback('remove', array($share));
 
         /* Remove share from the caches. */
         $id = $share->getId();
