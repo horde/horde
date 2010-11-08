@@ -252,7 +252,7 @@ class Horde_Share
      * @param array $params   Additional parameters for the search.
      *<pre>
      *  'perm'        Require this level of permissions. Horde_Perms constant.
-     *  'attribtues'  Restrict shares to these attributes. A hash or username.
+     *  'attributes'  Restrict shares to these attributes. A hash or username.
      *  'from'        Offset. Start at this share
      *  'count'       Limit.  Only return this many.
      *  'sort_by'     Sort by attribute.
