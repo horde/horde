@@ -350,7 +350,7 @@ class IMP_Ui_Compose
 
         return Horde::addInlineJsVars(array(
             'IMP_Compose_Base.identities' => $identities
-        ), true);
+        ), array('ret_vars' => true));
     }
 
     /**

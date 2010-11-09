@@ -335,7 +335,9 @@ class Kronolith
         // Maps
         $code['conf']['maps'] = $GLOBALS['conf']['maps'];
 
-        return array('var Kronolith = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON) . ';');
+        return Horde::addInlineJsVars(array(
+            'var Kronolith' => $code
+        ), array('ret_vars' => true));
     }
 
     /**

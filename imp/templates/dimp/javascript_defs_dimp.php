@@ -240,6 +240,6 @@ if ($compose_page) {
     }
 }
 
-Horde::addInlineScript(array(
-    'var DIMP = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON, 'UTF-8')
-), null, true);
+Horde::addInlineJsVars(array(
+    'var DIMP' => $code
+), array('top' => true));

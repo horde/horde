@@ -1789,17 +1789,31 @@ HTML;
     /**
      * Add inline javascript variable definitions to the output buffer.
      *
-     * @param array $data     Keys are the variable names, values are the data
-     *                        to JSON encode.  If the key begins with a '-', the
-     *                        data will be added to the output as-is.
-     * @param boolean $ret    If true, will return the list of variable
-     *                        definitions instead of outputting to page.
-     * @param string $onload  Wrap the definition in an onload handler?
-     *                        Either 'dom' (on dom:loaded), 'load'.
+     * @param array $data  Keys are the variable names, values are the data
+     *                     to JSON encode.  If the key begins with a '-',
+     *                     the data will be added to the output as-is.
+     * @param array $opts  Options:
+     * <pre>
+     * onload - (string) Wrap the definition in an onload handler? Either
+     *          'dom' (on dom:loaded), 'load'.
+     *          DEFAULT: false
+     * ret_vars - (boolean) If true, will return the list of variable
+     *            definitions instead of outputting to page.
+     *            DEFAULT: false
+     * top - (boolean) Add definitions to top of stack?
+     *       DEFAULT: false
+     * </pre>
+     *
+     * @return array  Returns the variable list of 'ret_vars' option is true.
      */
-    static public function addInlineJsVars($data, $ret = false, $onload = null)
+    static public function addInlineJsVars($data, array $opts = array())
     {
         $out = array();
+        $opts = array_merge(array(
+            'onload' => null,
+            'ret_vars' => false,
+            'top' => false
+        ), $opts);
 
         foreach ($data as $key => $val) {
             if ($key[0] == '-') {
@@ -1811,11 +1825,11 @@ HTML;
             $out[] = $key . '=' . $val;
         }
 
-        if ($ret) {
+        if ($opts['ret_vars']) {
             return $out;
-        } else {
-            self::addInlineScript($out, $onload);
         }
+
+        self::addInlineScript($out, $opts['onload'], $opts['top']);
     }
 
     /**

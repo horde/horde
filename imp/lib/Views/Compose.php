@@ -112,7 +112,7 @@ class IMP_Views_Compose
                 }
                 $result['js'] = array_merge($result['js'], Horde::addInlineJsVars(array(
                     'DIMP.conf_compose.flist' => $flist
-                ), true));
+                ), array('ret_vars' => true)));
             }
 
             $compose_link = Horde::getServiceLink('ajax', 'imp');
@@ -170,7 +170,7 @@ class IMP_Views_Compose
         } else {
             $result['js'] = array_merge($result['js'], Horde::addInlineJsVars(array(
                 '-DIMP.conf_compose.redirect' => 1
-            ), true));
+            ), array('ret_vars' => true)));
         }
 
         $t->set('bcc', $prefs->getValue('compose_bcc'));

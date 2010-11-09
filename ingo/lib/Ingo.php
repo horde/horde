@@ -460,8 +460,8 @@ class Ingo
     {
         if ($GLOBALS['registry']->hasMethod('mail/createFolder')) {
             Horde::addScriptFile('new_folder.js', 'ingo');
-            Horde::addInlineScript(array(
-                'IngoNewFolder.folderprompt = ' . Horde_Serialize::serialize(_("Please enter the name of the new folder:"), Horde_Serialize::JSON)
+            Horde::addInlineJsVars(array(
+                'IngoNewFolder.folderprompt' => _("Please enter the name of the new folder:")
             ));
         }
     }

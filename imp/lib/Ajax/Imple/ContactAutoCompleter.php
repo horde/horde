@@ -70,7 +70,7 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_AutoComp
                     'if (!window.IMP) window.IMP = {}'
                 ), Horde::addInlineJsVars(array(
                     'IMP.ac_list' => $addrlist
-                ), true)));
+                ), array('ret_vars' => true))));
                 self::$_listOutput = true;
             }
 
