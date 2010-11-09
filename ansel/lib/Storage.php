@@ -297,7 +297,8 @@ class Ansel_Storage
        if (!count($overrides) && $GLOBALS['conf']['ansel_cache']['usecache'] &&
            ($gallery = $GLOBALS['injector']->getInstance('Horde_Cache')->get('Ansel_Gallery' . $gallery_id, $GLOBALS['conf']['cache']['default_lifetime'])) !== false) {
 
-           return unserialize($gallery);
+           $cached_gallery = @unserialize($gallery);
+           if ($cached_gallery) { return $cached_gallery; }
        }
 
        try {
