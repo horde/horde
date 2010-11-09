@@ -79,31 +79,23 @@ class Ingo_Script_Imap_Live extends Ingo_Script_Imap_Api
      */
     public function getCache()
     {
-        if (empty($_SESSION['ingo']['imapcache'][$this->_params['mailbox']])) {
-            return false;
-        }
-        $ptr = &$_SESSION['ingo']['imapcache'][$this->_params['mailbox']];
-
-        if ($this->_cacheId() != $ptr['id']) {
-            $ptr = array();
+        if ($cache = $GLOBALS['session']->get('ingo', 'imapcache/' . $this->_params['mailbox'])) {
             return false;
         }
 
-        return $ptr['ts'];
+        return ($this->_cacheId() != $cache['id'])
+            ? false
+            : $cache['ts'];
     }
 
     /**
      */
     public function storeCache($timestamp)
     {
-        if (!isset($_SESSION['ingo']['imapcache'])) {
-            $_SESSION['ingo']['imapcache'] = array();
-        }
-
-        $_SESSION['ingo']['imapcache'][$this->_params['mailbox']] = array(
+        $GLOBALS['session']->set('ingo', 'imapcache/' . $this->_params['mailbox'], array(
             'id' => $this->_cacheId(),
             'ts' => $timestamp
-        );
+        ));
     }
 
     /**

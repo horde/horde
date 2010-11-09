@@ -16,7 +16,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('ingo');
 
 /* Redirect if whitelist not available. */
-if (!in_array(Ingo_Storage::ACTION_WHITELIST, $_SESSION['ingo']['script_categories'])) {
+if (!in_array(Ingo_Storage::ACTION_WHITELIST, $session->get('ingo', 'script_categories'))) {
     $notification->push(_("Whitelist is not supported in the current filtering driver."), 'horde.error');
     Horde::url('filters.php', true)->redirect();
 }
@@ -40,7 +40,7 @@ case 'rule_update':
         }
 
         /* Update the timestamp for the rules. */
-        $_SESSION['ingo']['change'] = time();
+        $session->set('ingo', 'change', time());
     } catch (Ingo_Exception $e) {
         $notification->push($e);
     }

@@ -51,7 +51,7 @@ while (!feof(STDIN)) {
     echo 'Converting filters for user: ' . $user;
 
     Horde_Auth::setAuth($user, array());
-    $_SESSION['ingo']['current_share'] = ':' . $user;
+    $session->set('ingo', 'current_share', ':' . $user);
 
     foreach ($rules as $rule) {
         $filter = $prefs_storage->retrieve($rule, false);

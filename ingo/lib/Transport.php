@@ -77,7 +77,7 @@ class Ingo_Transport
     public function supportShares()
     {
         return ($this->_support_shares &&
-                !empty($_SESSION['ingo']['backend']['shares']));
+                $GLOBALS['session']->get('ingo', 'backend/shares'));
     }
 
 }

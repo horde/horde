@@ -68,7 +68,7 @@ class Ingo_Application extends Horde_Registry_Application
             $GLOBALS['all_rulesets'] = Ingo::listRulesets();
 
             /* If personal share doesn't exist then create it. */
-            $signature = $_SESSION['ingo']['backend']['id'] . ':' . $GLOBALS['registry']->getAuth();
+            $signature = $GLOBALS['session']->get('ingo', 'backend/id') . ':' . $GLOBALS['registry']->getAuth();
             if (!$GLOBALS['ingo_shares']->exists($signature)) {
                 $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
                 $name = $identity->getValue('fullname');
@@ -82,11 +82,11 @@ class Ingo_Application extends Horde_Registry_Application
             }
 
             /* Select current share. */
-            $_SESSION['ingo']['current_share'] = Horde_Util::getFormData('ruleset', @$_SESSION['ingo']['current_share']);
-            if (empty($_SESSION['ingo']['current_share']) ||
-                empty($GLOBALS['all_rulesets'][$_SESSION['ingo']['current_share']]) ||
-                !$GLOBALS['all_rulesets'][$_SESSION['ingo']['current_share']]->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
-                $_SESSION['ingo']['current_share'] = $signature;
+            $GLOBALS['session']->set('ingo', 'current_share', Horde_Util::getFormData('ruleset', $GLOBALS['session']->get('ingo', 'current_share')));
+            if (!$GLOBALS['session']->get('ingo', 'current_share') ||
+                empty($GLOBALS['all_rulesets'][$GLOBALS['session']->get('ingo', 'current_share')]) ||
+                !$GLOBALS['all_rulesets'][$GLOBALS['session']->get('ingo', 'current_share')]->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
+                $GLOBALS['session']->set('ingo', 'current_share', $signature);
             }
         } else {
             $GLOBALS['ingo_shares'] = null;
@@ -127,26 +127,28 @@ class Ingo_Application extends Horde_Registry_Application
             Horde::logMessage($e->getMessage(), 'ERR');
         }
 
-        if (in_array(Ingo_Storage::ACTION_VACATION, $_SESSION['ingo']['script_categories'])) {
+        $s_categories = $GLOBALS['session']->get('ingo', 'script_categories');
+
+        if (in_array(Ingo_Storage::ACTION_VACATION, $s_categories)) {
             $menu->add(Horde::url('vacation.php'), _("_Vacation"), 'vacation.png');
         }
 
-        if (in_array(Ingo_Storage::ACTION_FORWARD, $_SESSION['ingo']['script_categories'])) {
+        if (in_array(Ingo_Storage::ACTION_FORWARD, $s_categories)) {
             $menu->add(Horde::url('forward.php'), _("_Forward"), 'forward.png');
         }
 
-        if (in_array(Ingo_Storage::ACTION_SPAM, $_SESSION['ingo']['script_categories'])) {
+        if (in_array(Ingo_Storage::ACTION_SPAM, $s_categories)) {
             $menu->add(Horde::url('spam.php'), _("S_pam"), 'spam.png');
         }
 
-        if ($_SESSION['ingo']['script_generate'] &&
+        if ($GLOBALS['session']->get('ingo', 'script_generate') &&
             (!$GLOBALS['prefs']->isLocked('auto_update') ||
              !$GLOBALS['prefs']->getValue('auto_update'))) {
             $menu->add(Horde::url('script.php'), _("_Script"), 'script.png');
         }
 
         if (!empty($GLOBALS['ingo_shares']) && empty($GLOBALS['conf']['share']['no_sharing'])) {
-            $menu->add('#', _("_Permissions"), 'perms.png', Horde_Themes::img(null, 'horde'), '', Horde::popupJs(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/shares/edit.php', true), array('params' => array('app' => 'ingo', 'share' => $_SESSION['ingo']['backend']['id'] . ':' . $GLOBALS['registry']->getAuth()), 'urlencode' => true)) . 'return false;');
+            $menu->add('#', _("_Permissions"), 'perms.png', Horde_Themes::img(null, 'horde'), '', Horde::popupJs(Horde::url($GLOBALS['registry']->get('webroot', 'horde') . '/services/shares/edit.php', true), array('params' => array('app' => 'ingo', 'share' => $GLOBALS['session']->get('ingo', 'backend/id') . ':' . $GLOBALS['registry']->getAuth()), 'urlencode' => true)) . 'return false;');
         }
     }
 
@@ -236,8 +238,8 @@ class Ingo_Application extends Horde_Registry_Application
      */
     public function prefsInit($ui)
     {
-        if (!isset($_SESSION['ingo']['script_generate']) ||
-            $_SESSION['ingo']['script_generate']) {
+        if (!$GLOBALS['session']->exists('ingo', 'script_generate') ||
+            $GLOBALS['session']->get('ingo', 'script_generate')) {
             $ui->suppressGroups[] = 'script';
         }
     }
