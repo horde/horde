@@ -39,7 +39,7 @@ KronolithCore = {
     mapInitialized: false,
     freeBusy: $H(),
     search: 'future',
-    effectDur: 0,
+    effectDur: 0.4,
     macos: navigator.appVersion.indexOf('Mac') != -1,
     lastLocation: '',
     currentLocation: '',
