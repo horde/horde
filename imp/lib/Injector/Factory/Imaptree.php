@@ -46,7 +46,7 @@ class IMP_Injector_Factory_Imaptree
              * backend is setup. */
             $cache = $injector->getInstance('Horde_Cache');
             if ($cache instanceof Horde_Cache_Null) {
-                $instance = $session[Horde_Session::DATA . ':imp_imaptree'];
+                $instance = $session->retrieve('imp_imaptree');
             } else {
                 try {
                     $instance = @unserialize($cache->get($session->get('imp', 'treeob'), 86400));

@@ -90,18 +90,18 @@ document.observe('dom:loaded', function() {
 
     IMP.iframeResize = function(id)
     {
-        var lc, val;
+        var lc;
 
         if (id = $(id)) {
             lc = id.contentWindow.document.lastChild;
-            val = Math.max(id.contentWindow.document.body.scrollHeight, lc.scrollHeight);
-            id.setStyle({ height: val + 'px' });
+            id.setStyle({ height: Math.max(id.contentWindow.document.body.scrollHeight, lc.scrollHeight) + 'px' });
 
             // For whatever reason, browsers will report different heights
             // after the initial height setting.
             // Try expanding IFRAME if we detect a scroll.
-            if (lc.clientHeight != lc.scrollHeight) {
-                id.setStyle({ height: (val + 25) + 'px' });
+            if (lc.clientHeight != lc.scrollHeight ||
+                id.clientHeight != lc.clientHeight) {
+                id.setStyle({ height: Math.max(lc.clientHeight, lc.scrollHeight) + 'px' });
             }
          }
     };

@@ -96,14 +96,11 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter_Base
      *
      * @return string|Horde_Domhtml  The modified text or a Domhtml object if
      *                               the 'return_dom' parameter is set.
+     * @throws Exception
      */
     public function postProcess($text)
     {
-        try {
-            $dom = new Horde_Domhtml($text, $this->_params['charset']);
-        } catch (Exception $e) {
-            return $text;
-        }
+        $dom = new Horde_Domhtml($text, $this->_params['charset']);
 
         $this->_node($dom->dom, $dom->dom);
 

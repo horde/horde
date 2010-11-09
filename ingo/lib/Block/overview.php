@@ -45,9 +45,11 @@ class Horde_Block_ingo_overview extends Horde_Block
                 $active = _("active");
             }
 
-            switch($filter['name']) {
+            $s_categories = $GLOBALS['session']->get('ingo', 'script_categories');
+
+            switch ($filter['name']) {
             case 'Vacation':
-                if (in_array(Ingo_Storage::ACTION_VACATION, $_SESSION['ingo']['script_categories'])) {
+                if (in_array(Ingo_Storage::ACTION_VACATION, $s_categories)) {
                     $html .= $html_pre .
                         Horde::img('vacation.png', _("Vacation")) .
                         '</td><td>' .
@@ -57,7 +59,7 @@ class Horde_Block_ingo_overview extends Horde_Block
                 break;
 
             case 'Forward':
-                if (in_array(Ingo_Storage::ACTION_FORWARD, $_SESSION['ingo']['script_categories'])) {
+                if (in_array(Ingo_Storage::ACTION_FORWARD, $s_categories)) {
                     $html .= $html_pre .
                         Horde::img('forward.png', _("Forward")) . '</td><td>' .
                         Horde::url('forward.php')->link(array('title' => _("Edit"))) .
@@ -71,7 +73,7 @@ class Horde_Block_ingo_overview extends Horde_Block
                 break;
 
             case 'Whitelist':
-                if (in_array(Ingo_Storage::ACTION_WHITELIST, $_SESSION['ingo']['script_categories'])) {
+                if (in_array(Ingo_Storage::ACTION_WHITELIST, $s_categories)) {
                     $html .= $html_pre .
                         Horde::img('whitelist.png', _("Whitelist")) .
                         '</td><td>' .
@@ -81,7 +83,7 @@ class Horde_Block_ingo_overview extends Horde_Block
                 break;
 
             case 'Blacklist':
-                if (in_array(Ingo_Storage::ACTION_BLACKLIST, $_SESSION['ingo']['script_categories'])) {
+                if (in_array(Ingo_Storage::ACTION_BLACKLIST, $s_categories)) {
                     $html .= $html_pre .
                         Horde::img('blacklist.png', _("Blacklist")) .
                         '</td><td>' .
@@ -91,7 +93,7 @@ class Horde_Block_ingo_overview extends Horde_Block
                 break;
 
             case 'Spam Filter':
-                if (in_array(Ingo_Storage::ACTION_SPAM, $_SESSION['ingo']['script_categories'])) {
+                if (in_array(Ingo_Storage::ACTION_SPAM, $s_categories)) {
                     $html .= $html_pre .
                         Horde::img('spam.png', _("Spam Filter")) .
                         '</td><td>' .

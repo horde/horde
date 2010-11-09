@@ -29,9 +29,8 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
     {
         /* Pass on up the chain */
         parent::__construct($attributes);
-        $this->setShareOb($GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->shares);
-        $mode = isset($attributes['attribute_view_mode']) ? $attributes['attribute_view_mode'] : 'Normal';
-        $this->_setModeHelper($mode);
+        $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->shares->initShareObject($this);
+        $this->_setModeHelper(isset($attributes['attribute_view_mode']) ? $attributes['attribute_view_mode'] : 'Normal');
     }
 
     /**
@@ -171,8 +170,8 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
         try {
             $this->save();
         } catch (Horde_Share_Exception $e) {
-            Horde::logMessage($e->getMessage, 'ERR');
-            throw Ansel_Exception($e);
+            Horde::logMessage($e->getMessage(), 'ERR');
+            throw new Ansel_Exception($e);
         }
 
         /* Make sure we get rid of key image/stacks if no more images */
@@ -667,7 +666,7 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
                     $galleries = $GLOBALS['injector']
                         ->getInstance('Ansel_Injector_Factory_Storage')
                         ->create()
-                        ->listGalleries(array('parent' => $this, 'allLevels' => false));
+                        ->listGalleries(array('parent' => $this, 'all_levels' => false));
 
                     foreach ($galleries as $galleryId => $gallery) {
                         if ($default_img = $gallery->getKeyImage($style)) {
@@ -933,19 +932,14 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
 
         /* Update the backend, but only this current change */
         if ($update) {
-            $db = $this->getShareOb()->getWriteDb();
+            $db = $this->getShareOb()->getStorage();
             // Manually convert the charset since we're not going through save()
             $data = $this->getshareOb()->toDriverCharset(array($driver_key => $value));
-            $query = $db->prepare('UPDATE ' . $this->getShareOb()->getTable() . ' SET ' . $driver_key . ' = ? WHERE share_id = ?', null, MDB2_PREPARE_MANIP);
+            $sql = 'UPDATE ' . $this->getShareOb()->getTable() . ' SET ' . $driver_key . ' = ? WHERE share_id = ?';
             if ($GLOBALS['conf']['ansel_cache']['usecache']) {
                 $GLOBALS['injector']->getInstance('Horde_Cache')->expire('Ansel_Gallery' . $this->id);
             }
-            $result = $query->execute(array($data[$driver_key], $this->id));
-            $query->free();
-            if ($result instanceof PEAR_Error) {
-                throw new Horde_Exception($result->getMessage());
-            }
-
+           $db->update($sql, array($data[$driver_key], $this->id));
         }
 
         return true;
@@ -972,23 +966,11 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
         return $this->_modeHelper->getGalleryCrumbData();
     }
 
-    /**
-     *
-     */
-    public function __sleep()
+    public function unserialize($data)
     {
-        $properties = get_object_vars($this);
-        unset($properties['_shareOb']);
-        unset($properties['_modeHelper']);
-        $properties = array_keys($properties);
-        return $properties;
-    }
-
-    public function __wakeup()
-    {
-        $this->setShareOb($GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->shares);
-        $mode = $this->get('view_mode');
-        $this->_setModeHelper($mode);
+        parent::unserialize($data);
+        $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->shares->initShareObject($this);
+        $this->_setModeHelper($this->get('view_mode'));
     }
 
 }

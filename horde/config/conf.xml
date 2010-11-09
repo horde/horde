@@ -949,6 +949,9 @@
    editing permissions on their shares. This will keep a user from granting
    other users (or guests) access to their address book, notebook, calendar,
    etc.">false</configboolean>
+   <configboolean name="auto_create" required="false" desc="Automatically
+   create personal default shares for any users that don't own any
+   shares?">true</configboolean>
    <configboolean name="world" required="false" desc="If you enable this
    option, users will be able to share their resources with all (authenticated
    and guest) users on the system.">true</configboolean>

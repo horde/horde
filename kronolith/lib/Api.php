@@ -127,9 +127,10 @@ class Kronolith_Api extends Horde_Registry_Api
 
         } elseif (count($parts) == 1) {
             // This request is for all calendars owned by the requested user
-            $calendars = $GLOBALS['kronolith_shares']->listShares($GLOBALS['registry']->getAuth(),
-                                                                  Horde_Perms::SHOW,
-                                                                  $parts[0]);
+            $calendars = $GLOBALS['kronolith_shares']->listShares(
+                $GLOBALS['registry']->getAuth(),
+                array('perm' => Horde_Perms::SHOW,
+                      'attributes' => $parts[0]));
             $results = array();
             foreach ($calendars as $calendarId => $calendar) {
                 $retpath = 'kronolith/' . $parts[0] . '/' . $calendarId;
@@ -666,7 +667,7 @@ class Kronolith_Api extends Horde_Registry_Api
                     }
                 }
             }
-            
+
             if (count($ids) == 0) {
                 throw new Kronolith_Exception(_("No iCalendar data was found."));
             } else if (count($ids) == 1) {
@@ -1330,6 +1331,7 @@ class Kronolith_Api extends Horde_Registry_Api
         if (!empty($event)) {
             $uid = $calendar . ':' . $event;
         }
+
         return $GLOBALS['kronolith_shares']->getShare($calendar)->lock($GLOBALS['injector']->getInstance('Horde_Lock'), $uid);
     }
 

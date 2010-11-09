@@ -35,7 +35,7 @@
 <!-- begin top bar -->
 <div id="kronolithBar">
   <div class="kronolithDateChoice" <?php $todayAccessKey = Horde::getAccessKey(_("_Today")); echo Horde::getAccessKeyAndTitle(_("_Today"), true) ?>>
-    <div><?php echo $today->strftime('%a, %e %b %Y') ?></div>
+    <div><?php echo $today->strftime($prefs->getValue('date_format_mini')) ?></div>
   </div>
   <div id="kronolithNav">
     <ul>

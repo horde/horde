@@ -477,16 +477,13 @@ class Horde_Api extends Horde_Registry_Api
         }
 
         $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create($scope);
-
-        if (is_a($share = &$shares->newShare($shareName), 'PEAR_Error')) {
-            throw new Horde_Exception($share);
-        }
-
-        $share->set('owner', $userName);
-        $share->set('name', $shareTitle);
-
-        if (is_a($result = $shares->addShare($share), 'PEAR_Error')) {
-            throw new Horde_Exception($result);
+        try {
+            $share = $shares->newShare($GLOBALS['registry']->getAuth(), $shareName);
+            $share->set('owner', $userName);
+            $share->set('name', $shareTitle);
+            $shares->addShare($share);
+        } catch (Horde_Share_Exception $e) {
+            throw new Horde_Exception($e);
         }
     }
 
@@ -506,13 +503,11 @@ class Horde_Api extends Horde_Registry_Api
         }
 
         $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create($scope);
-
-        if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
-            throw new Horde_Exception($share);
-        }
-
-        if (is_a($result = $shares->removeShare($share), 'PEAR_Error')) {
-            throw new Horde_Exception($result);
+        $share = $shares->getShare($shareName);
+        try {
+            $shares->removeShare($share);
+        } catch (Horde_Share_Exception $e) {
+            throw new Horde_Exception_Prior($e);
         }
     }
 
@@ -534,7 +529,9 @@ class Horde_Api extends Horde_Registry_Api
 
         $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create($scope);
 
-        $share_list = &$shares->listShares($userName, Horde_Perms::SHOW, $userName);
+        $share_list = $shares->listShares($userName,
+                                          array('perm' => Horde_Perms::SHOW,
+                                                'attributes' => $userName));
         $myshares = array();
         foreach ($share_list as $share) {
             $myshares[] = $share->getName();
@@ -562,12 +559,13 @@ class Horde_Api extends Horde_Registry_Api
         }
 
         $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create($scope);
-
-        if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
-            throw new Horde_Exception($share);
+        $share = $shares->getShare($shareName);
+        try {
+            $perm = $share->getPermission();
+        } catch (Horde_Share_Exception $e) {
+            throw new Horde_Exception_Prior($e);
         }
 
-        $perm = &$share->getPermission();
         foreach ($permissions as $permission) {
             $permission = Horde_String::upper($permission);
             if (defined('Horde_Perms::' . $permission)) {
@@ -575,8 +573,10 @@ class Horde_Api extends Horde_Registry_Api
             }
         }
 
-        if (is_a($result = $share->setPermission($perm), 'PEAR_Error')) {
-            throw new Horde_Exception($result);
+        try {
+            $share->setPermission($perm);
+        } catch (Horde_Share_Exception $e) {
+            throw new Horde_Exception_Prior($e);
         }
     }
 
@@ -599,11 +599,7 @@ class Horde_Api extends Horde_Registry_Api
         }
 
         $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create($scope);
-
-        if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
-            throw new Horde_Exception($share);
-        }
-
+        $shares->getShare($shareName);
         try {
             $groups = $GLOBALS['injector']->getInstance('Horde_Group');
             $groupId = $groups->getGroupId($groupName);
@@ -611,7 +607,7 @@ class Horde_Api extends Horde_Registry_Api
             throw new Horde_Exception($e);
         }
 
-        $perm = &$share->getPermission();
+        $perm = $share->getPermission();
         foreach ($permissions as $permission) {
             $permission = Horde_String::upper($permission);
             if (defined('Horde_Perms::' . $permission)) {
@@ -619,8 +615,10 @@ class Horde_Api extends Horde_Registry_Api
             }
         }
 
-        if (is_a($result = $share->setPermission($perm), 'PEAR_Error')) {
-            throw new Horde_Exception($result);
+        try {
+            $share->setPermission($perm);
+        } catch (Horde_Share_Exception $e) {
+            throw new Horde_Exception($e);
         }
     }
 
@@ -641,12 +639,10 @@ class Horde_Api extends Horde_Registry_Api
         }
 
         $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create($scope);
-
-        if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
-            throw new Horde_Exception($share);
-        }
-
-        if (is_a($result = $share->removeUser($userName), 'PEAR_Error')) {
+        $share = $shares->getShare($shareName);
+        try {
+            $share->removeUser($userName);
+        } catch (Horde_Share_Exception $e) {
             throw new Horde_Exception($result);
         }
     }
@@ -668,20 +664,17 @@ class Horde_Api extends Horde_Registry_Api
         }
 
         $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create($scope);
-
-        if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
-            throw new Horde_Exception($share);
-        }
-
+        $share = $shares->getShare($shareName);
         try {
             $groups = $GLOBALS['injector']->getInstance('Horde_Group');
             $groupId = $groups->getGroupId($groupName);
         } catch (Horde_Group_Exception $e) {
             throw new Horde_Exception($e);
         }
-
-        if (is_a($result = $share->removeGroup($groupId), 'PEAR_Error')) {
-            throw new Horde_Exception($result);
+        try {
+            $share->removeGroup($groupId);
+        } catch (Horde_Share_Exception $e) {
+            throw new Horde_Exception($e);
         }
     }
 
@@ -708,12 +701,8 @@ class Horde_Api extends Horde_Registry_Api
             Horde_Perms::DELETE => 'delete');
 
         $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create($scope);
-
-        if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
-            throw new Horde_Exception($share);
-        }
-
-        $perm = &$share->getPermission();
+        $share = $shares->getShare($shareName);
+        $perm = $share->getPermission();
         $permissions = $perm->getUserPermissions();
         if (empty($permissions[$userName])) {
             return array();
@@ -750,12 +739,8 @@ class Horde_Api extends Horde_Registry_Api
             Horde_Perms::DELETE => 'delete');
 
         $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create($scope);
-
-        if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
-            throw new Horde_Exception($share);
-        }
-
-        $perm = &$share->getPermission();
+        $share = $shares->getShare($shareName);
+        $perm = $share->getPermission();
         $permissions = $perm->getGroupPermissions();
         if (empty($permissions[$groupName])) {
             return array();
@@ -787,11 +772,7 @@ class Horde_Api extends Horde_Registry_Api
         }
 
         $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create($scope);
-
-        if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
-            throw new Horde_Exception($share);
-        }
-
+        $share = $shares->getShare($shareName);
         $perm = 0;
         foreach ($permissions as $permission) {
             $permission = Horde_String::upper($permission);
@@ -821,11 +802,7 @@ class Horde_Api extends Horde_Registry_Api
         }
 
         $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create($scope);
-
-        if (is_a($share = &$shares->getShare($shareName), 'PEAR_Error')) {
-            throw new Horde_Exception($share);
-        }
-
+        $share = $shares->getShare($shareName);
         $perm = 0;
         foreach ($permissions as $permission) {
             $permission = Horde_String::upper($permission);

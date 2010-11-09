@@ -46,20 +46,23 @@ class Ingo
      */
     static public function createSession()
     {
-        if (isset($_SESSION['ingo'])) {
+        global $prefs, $session;
+
+        $session->remove('ingo');
+        if ($session->exists('ingo', 'change')) {
             return;
         }
 
-        global $prefs;
+        /* getBackend() and loadIngoScript() will both throw Exceptions, so
+         * do these first as errors are fatal. */
+        foreach (self::getBackend() as $key => $val) {
+            $session->set('ingo', 'backend/' . $key, $val);
+        }
 
-        $_SESSION['ingo'] = array(
-            'backend' => Ingo::getBackend(),
-            'change' => 0,
-            'storage' => array()
-        );
+        $ingo_script = self::loadIngoScript();
+        $session->set('ingo', 'script_generate', $ingo_script->generateAvailable());
 
-        $ingo_script = Ingo::loadIngoScript();
-        $_SESSION['ingo']['script_generate'] = $ingo_script->generateAvailable();
+        $session->set('ingo', 'change', 0);
 
         /* Disable categories as specified in preferences */
         $categories = array_merge($ingo_script->availableActions(), $ingo_script->availableCategories());
@@ -80,7 +83,7 @@ class Ingo
         }
 
         /* Set the list of categories this driver supports. */
-        $_SESSION['ingo']['script_categories'] = $categories;
+        $session->set('ingo', 'script_categories', $categories);
     }
 
     /**
@@ -168,11 +171,10 @@ class Ingo
     {
         if (empty($GLOBALS['ingo_shares'])) {
             $baseuser = ($full ||
-                        (isset($_SESSION['ingo']['backend']['hordeauth']) &&
-                         $_SESSION['ingo']['backend']['hordeauth'] === 'full'));
+                        ($GLOBALS['session']->get('ingo', 'backend/hordeauth') === 'full'));
             $user = $GLOBALS['registry']->getAuth($baseuser ? null : 'bare');
         } else {
-            list(, $user) = explode(':', $_SESSION['ingo']['current_share'], 2);
+            list(, $user) = explode(':', $GLOBALS['session']->get('ingo', 'current_share'), 2);
         }
 
         return $user;
@@ -244,7 +246,7 @@ class Ingo
      */
     static public function updateScript()
     {
-        if ($_SESSION['ingo']['script_generate']) {
+        if ($GLOBALS['session']->get('ingo', 'script_generate')) {
             try {
                 $ingo_script = self::loadIngoScript();
 
@@ -272,7 +274,7 @@ class Ingo
     {
         include INGO_BASE . '/config/backends.php';
         if (!isset($backends) || !is_array($backends)) {
-            throw new Horde_Exception(_("No backends configured in backends.php"));
+            throw new Ingo_Exception(_("No backends configured in backends.php"));
         }
 
         $backend = null;
@@ -302,10 +304,10 @@ class Ingo
         $backends[$backend]['id'] = $name;
         $backend = $backends[$backend];
 
-        if (empty($backend['script'])) {
-            throw new Ingo_Exception(sprintf(_("No \"%s\" element found in backend configuration."), 'script'));
-        } elseif (empty($backend['transport'])) {
-            throw new Ingo_Exception(sprintf(_("No \"%s\" element found in backend configuration."), 'transport'));
+        foreach (array('script', 'transport') as $val) {
+            if (empty($backend[$val])) {
+                throw new Ingo_Exception(sprintf(_("No \"%s\" element found in backend configuration."), $val));
+            }
         }
 
         /* Make sure the 'params' entry exists. */
@@ -324,8 +326,10 @@ class Ingo
      */
     static public function loadIngoScript()
     {
-        return Ingo_Script::factory($_SESSION['ingo']['backend']['script'],
-                                    isset($_SESSION['ingo']['backend']['scriptparams']) ? $_SESSION['ingo']['backend']['scriptparams'] : array());
+        return Ingo_Script::factory(
+            $GLOBALS['session']->get('ingo', 'backend/script'),
+            $GLOBALS['session']->get('ingo', 'backend/scriptparams', Horde_Session::TYPE_ARRAY)
+        );
     }
 
     /**
@@ -336,22 +340,19 @@ class Ingo
      */
     static public function getTransport()
     {
-        $params = $_SESSION['ingo']['backend']['params'];
+        global $registry, $session;
+
+        $params = $session->get('ingo', 'backend/params');
 
         // Set authentication parameters.
-        if (!empty($_SESSION['ingo']['backend']['hordeauth'])) {
-            $params['username'] = $GLOBALS['registry']->getAuth(($_SESSION['ingo']['backend']['hordeauth'] === 'full') ? null : 'bare');
-            $params['password'] = $GLOBALS['registry']->getAuthCredential('password');
-        } elseif (isset($_SESSION['ingo']['backend']['params']['username']) &&
-                  isset($_SESSION['ingo']['backend']['params']['password'])) {
-            $params['username'] = $_SESSION['ingo']['backend']['params']['username'];
-            $params['password'] = $_SESSION['ingo']['backend']['params']['password'];
-        } else {
-            $params['username'] = $GLOBALS['registry']->getAuth('bare');
-            $params['password'] = $GLOBALS['registry']->getAuthCredential('password');
+        if (($hordeauth = $session->get('ingo', 'backend/hordeauth')) ||
+            !isset($params['username']) ||
+            !isset($params['password'])) {
+            $params['username'] = $registry->getAuth(($hordeauth === 'full') ? null : 'bare');
+            $params['password'] = $registry->getAuthCredential('password');
         }
 
-        return Ingo_Transport::factory($_SESSION['ingo']['backend']['transport'], $params);
+        return Ingo_Transport::factory($GLOBALS['session']->get('ingo', 'backend/transport'), $params);
     }
 
     /**
@@ -368,7 +369,10 @@ class Ingo
                                         $permission = Horde_Perms::SHOW)
     {
         try {
-            $rulesets = $GLOBALS['ingo_shares']->listShares($GLOBALS['registry']->getAuth(), $permission, $owneronly ? $GLOBALS['registry']->getAuth() : null);
+            $rulesets = $GLOBALS['ingo_shares']->listShares(
+                $GLOBALS['registry']->getAuth(),
+                array('perm' => $permission,
+                      'attributes' => $owneronly ? $GLOBALS['registry']->getAuth() : null));
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e, 'ERR');
             return array();
@@ -387,7 +391,7 @@ class Ingo
         }
 
         if (is_null(self::$_shareCache)) {
-            self::$_shareCache = $GLOBALS['ingo_shares']->getPermissions($_SESSION['ingo']['current_share'], $GLOBALS['registry']->getAuth());
+            self::$_shareCache = $GLOBALS['ingo_shares']->getPermissions($GLOBALS['session']->get('ingo', 'current_share'), $GLOBALS['registry']->getAuth());
         }
 
         return self::$_shareCache & $mask;
@@ -423,7 +427,7 @@ class Ingo
             foreach (array_keys($GLOBALS['all_rulesets']) as $id) {
                 $options[] = array(
                     'name' => htmlspecialchars($GLOBALS['all_rulesets'][$id]->get('name')),
-                    'selected' => ($_SESSION['ingo']['current_share'] == $id),
+                    'selected' => ($GLOBALS['session']->get('ingo', 'current_share') == $id),
                     'val' => htmlspecialchars($id)
                 );
             }
@@ -456,8 +460,8 @@ class Ingo
     {
         if ($GLOBALS['registry']->hasMethod('mail/createFolder')) {
             Horde::addScriptFile('new_folder.js', 'ingo');
-            Horde::addInlineScript(array(
-                'IngoNewFolder.folderprompt = ' . Horde_Serialize::serialize(_("Please enter the name of the new folder:"), Horde_Serialize::JSON)
+            Horde::addInlineJsVars(array(
+                'IngoNewFolder.folderprompt' => _("Please enter the name of the new folder:")
             ));
         }
     }

@@ -433,7 +433,10 @@ class Turba_Application extends Horde_Registry_Application
             return;
         }
 
-        $shares = $GLOBALS['turba_shares']->listShares($user, Horde_Perms::EDIT, $user);
+        $shares = $GLOBALS['turba_shares']->listShares(
+            $user,
+            array('perm' => Horde_Perms::EDIT,
+                  'attributes' => $user));
 
         /* Look for the deleted user's default share and remove it */
         foreach ($shares as $share) {

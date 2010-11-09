@@ -40,7 +40,7 @@ class Ansel_Storage
      *
      * @return Ansel_Storage
      */
-    public function __construct(Horde_Share_Sql_Hierarchical $shareOb)
+    public function __construct(Horde_Core_Share_Driver $shareOb)
     {
         /* This is the only supported share backend for Ansel */
         $this->_shares = $shareOb;
@@ -121,7 +121,7 @@ class Ansel_Storage
 
         /* Create the gallery */
         try {
-            $gallery = $this->_shares->newShare('');
+            $gallery = $this->_shares->newShare($GLOBALS['registry']->getAuth(), '');
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e->getMessage, 'ERR');
             throw new Ansel_Exception($e);
@@ -396,7 +396,7 @@ class Ansel_Storage
     public function removeGallery(Ansel_Gallery $gallery)
     {
         /* Get any children and empty them */
-        $children = $gallery->getChildren(null, true);
+        $children = $gallery->getChildren(null, null, true);
         foreach ($children as $child) {
             $this->emptyGallery($child);
             $child->setTags(array());
@@ -426,7 +426,7 @@ class Ansel_Storage
 
         /* See if we need to clear the has_subgalleries field */
         if ($parent instanceof Ansel_Gallery) {
-            if (!$parent->countChildren(Horde_Perms::SHOW, false)) {
+            if (!$parent->countChildren($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW, false)) {
                 $parent->set('has_subgalleries', 0, true);
                 if ($GLOBALS['conf']['ansel_cache']['usecache']) {
                     $GLOBALS['injector']->getInstance('Horde_Cache')->expire('Ansel_Gallery' . $parent->id);
@@ -820,11 +820,11 @@ class Ansel_Storage
     * @param array $params  Optional parameters:
     *   <pre>
     *     (integer)perm      The permissions filter to use [Horde_Perms::SHOW]
-    *     (mixed)filter      Restrict the galleries returned to those matching
+    *     (mixed)attributes  Restrict the galleries returned to those matching
     *                        the filters. Can be an array of attribute/values
     *                        pairs or a gallery owner username.
     *     (integer)parent    The parent share to start listing at.
-    *     (boolean)allLevels If set, return all levels below parent, not just
+    *     (boolean)all_levels If set, return all levels below parent, not just
     *                        direct children [TRUE]
     *     (integer)from      The gallery to start listing at.
     *     (integer)count     The number of galleries to return.
@@ -837,19 +837,8 @@ class Ansel_Storage
     */
     public function listGalleries($params = array())
     {
-        $params = new Horde_Support_Array($params);
-
         try {
-            $shares = $this->_shares->listShares(
-                $GLOBALS['registry']->getAuth(),
-                $params->get('perm', Horde_Perms::SHOW),
-                $params->get('filter', null),
-                $params->get('from', 0),
-                $params->get('count', 0),
-                $params->get('sort_by', null),
-                $params->get('direction', Ansel::SORT_ASCENDING),
-                $params->get('parent', null),
-                $params->get('allLevels', true));
+            $shares = $this->_shares->listShares($GLOBALS['registry']->getAuth(), $params);
         } catch (Horde_Share_Exception $e) {
             throw new Ansel_Exception($e);
         }
@@ -938,13 +927,12 @@ class Ansel_Storage
      */
     public function getRandomGallery($params = array())
     {
-        $params = new Horde_Support_Array($params);
         $galleries = $this->listGalleries($params);
         if (!$galleries) {
             return false;
         }
-
         $gallery_key = array_rand($galleries);
+
         return $galleries[$gallery_key];
     }
 
@@ -1059,7 +1047,7 @@ class Ansel_Storage
     public function getRecentImagesGeodata($user = null, $start = 0, $count = 8)
     {
         $galleries = $this->listGalleries(array('perm' => Horde_Perms::EDIT,
-                                                'filter' => $user));
+                                                'attributes' => $user));
         if (empty($galleries)) {
             return array();
         }

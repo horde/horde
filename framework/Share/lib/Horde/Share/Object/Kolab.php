@@ -7,8 +7,11 @@
  * @author  Gunnar Wrobel <wrobel@pardus.de>
  * @package Horde_Share
  */
-class Horde_Share_Object_Kolab extends Horde_Share_Object
+class Horde_Share_Object_Kolab extends Horde_Share_Object implements Serializable
 {
+    /** Serializable version **/
+    const VERSION = 1;
+
     /**
      * The Kolab folder this share is based on.
      *
@@ -38,13 +41,6 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object
     protected $_list;
 
     /**
-     * The session handler.
-     *
-     * @var Horde_Kolab_Session
-     */
-    private $_session;
-
-    /**
      * Constructor.
      *
      * Sets the folder name.
@@ -72,32 +68,46 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object
      */
     public function setShareOb($shareOb)
     {
-        /** Ignore the parent as we don't need it */
-    }
-
-    /**
-     * Initializes the object.
-     */
-    public function __wakeup()
-    {
-        $this->_list = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage');
+        $this->_list = $shareOb->getStorage();
         if (isset($this->_folder_name)) {
             $this->_folder = $this->_list->getFolder($this->_folder_name);
         }
     }
 
-    /**
-     * Returns the properties that need to be serialized.
-     *
-     * @return array  List of serializable properties.
-     */
-    public function __sleep()
+    public function serialize()
     {
-        $properties = get_object_vars($this);
-        unset($properties['_shareOb'], $properties['_list'],
-              $properties['_folder']);
-        $properties = array_keys($properties);
-        return $properties;
+        $data = array(
+            self::VERSION,
+            $this->_data,
+            $this->_folder_name
+        );
+    }
+
+    /**
+     * Unserialize object. You MUST call setShareOb() after unserializtion.
+     * @param <type> $data
+     */
+    public function unserialize($data)
+    {
+        $data = @unserialize($data);
+        if (!is_array($data) ||
+            !isset($data[0]) ||
+            ($data[0] != self::VERSION)) {
+            throw new Exception('Cache version change');
+        }
+
+        $this->_data = $data[1];
+        $this->_folder_name = $data[2];
+    }
+
+    /**
+     * Sets the kolab storage object.
+     *
+     * @param Horde_Kolab_Storage $driver
+     */
+    public function setStorage($driver)
+    {
+        $this->_list = $driver;
     }
 
     /**

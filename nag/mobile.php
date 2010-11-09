@@ -26,6 +26,14 @@ if (is_a($tasks, 'PEAR_Error')) {
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a1/jquery.mobile-1.0a1.min.css" />
     <script src="http://code.jquery.com/jquery-1.4.3.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.0a1/jquery.mobile-1.0a1.min.js"></script>
+<style type="text/css">
+.ui-icon-nag-checked {
+    background-image: url("themes/graphics/checked.png");
+}
+.ui-icon-nag-unchecked {
+    background-image: url("themes/graphics/unchecked.png");
+}
+</style>
 </head>
 <body>
 
@@ -61,18 +69,18 @@ if ($tasks->hasTasks()) {
     while ($task = $tasks->each()) {
         $dynamic_sort &= !$task->hasSubTasks();
 
+        $style = '';
         if (!empty($task->completed)) {
-            $style = 'linedRow closed';
+            $style = 'closed';
         } elseif (!empty($task->due) && $task->due < time()) {
-            $style = 'linedRow overdue';
-        } else {
-            $style = 'linedRow';
+            $style = 'overdue';
         }
+        if ($style) { $style = ' class="' . $style . '"'; }
 
         if ($task->tasklist == '**EXTERNAL**') {
             // Just use a new share that this user owns for tasks from
             // external calls - if the API gives them back, we'll trust it.
-            $share = $GLOBALS['nag_shares']->newShare('**EXTERNAL**');
+            $share = $GLOBALS['nag_shares']->newShare($GLOBALS['registry']->getAuth(), '**EXTERNAL**');
             $owner = $task->tasklist_name;
         } else {
             try {
@@ -83,14 +91,48 @@ if ($tasks->hasTasks()) {
             }
         }
 
-        echo '<li><a href="#">' . htmlspecialchars($task->name) . '</a></li>';
+        $task_link = '#';
+        if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
+            $task_link = $task->view_link;
+        }
+
+        if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
+            if (!$task->completed) {
+                $icon = 'nag-unchecked';
+                if (!$task->childrenCompleted()) {
+                    $href = '#';
+                    $label = _("Incomplete sub tasks, complete them first");
+                } else {
+                    $href = $task->complete_link;
+                    $label = sprintf(_("Complete \"%s\""), $task->name);
+                }
+            } else {
+                $icon = 'nag-checked';
+                if ($task->parent && $task->parent->completed) {
+                    $href = '#';
+                    $label = _("Completed parent task, mark it as incomplete first");
+                } else {
+                    $href = $task->complete_link;
+                    $label = sprintf(_("Mark \"%s\" as incomplete"), $task->name);
+                }
+            }
+        } else {
+            $href = '#';
+            if ($task->completed) {
+                $label = _("Completed");
+                $icon = 'nag-checked';
+            } else {
+                $label = _("Not completed");
+                $icon = 'nag-unchecked';
+            }
+        }
+
+        echo '<li' . $style . ' data-split-icon="' . $icon . '"><a href="' . $task_link . '">' . htmlspecialchars($task->name) . '</a><a href="' . $href . '">' . $label . '</a></li>';
     }
 }
 ?>
  </ul>
 </div>
-
-<div data-role="footer"></div>
 
 </div>
 

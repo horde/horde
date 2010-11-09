@@ -4,15 +4,19 @@
  * the sql driver.
  *
  * @author  Duck <duck@obala.net>
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Horde_Share
  */
 class Horde_Share_Object_Sql extends Horde_Share_Object
 {
+    /** Serializable version **/
+    const VERSION = 1;
+
     /**
      * The actual storage object that holds the data.
      *
      * @TODO: Check visibility - should be protected/private
-     * @var mixed
+     * @var array
      */
     public $data = array();
 
@@ -42,13 +46,46 @@ class Horde_Share_Object_Sql extends Horde_Share_Object
     }
 
     /**
+     * Serialize this object. You *MUST* call setShareOb() after unserializing.
+     *
+     * @return string  The serialized data.
+     */
+    public function serialize()
+    {
+        $data = array(
+            self::VERSION,
+            $data
+        );
+
+        return serialize($data);
+    }
+
+    /**
+     * Reconstruct the object from serialized data.
+     *
+     * You *MUST* call setShareOb() after unserializing.
+     *
+     * @param string $data  The serialized data.
+     */
+    public function unserialize($data)
+    {
+        $data = @unserialize($data);
+        if (!is_array($data) ||
+            !isset($data[0]) ||
+            ($data[0] != self::VERSION)) {
+            throw new Exception('Cache version change');
+        }
+
+        $this->data = $data[1];
+    }
+
+    /**
      * Sets an attribute value in this object.
      *
      * @param string $attribute  The attribute to set.
      * @param mixed $value       The value for $attribute.
      *
-     * @return mixed  True if setting the attribute did succeed, a PEAR_Error
-     *                otherwise.
+     * @return boolean
      */
     public function _set($attribute, $value)
     {
@@ -101,12 +138,13 @@ class Horde_Share_Object_Sql extends Horde_Share_Object
      */
     protected function _save()
     {
-        $db = $this->_shareOb->getWriteDb();
+        $db = $this->_shareOb->getStorage();
         $table = $this->_shareOb->getTable();
 
         $fields = array();
         $params = array();
 
+        // Build the parameter arrays for the sql statement.
         foreach ($this->_shareOb->toDriverCharset($this->data) as $key => $value) {
             if ($key != 'share_id' && $key != 'perm' && $key != 'share_flags') {
                 $fields[] = $key;
@@ -133,91 +171,39 @@ class Horde_Share_Object_Sql extends Horde_Share_Object
         }
         $params[] = $flags;
 
+        // Insert new share record, or update existing
         if (empty($this->data['share_id'])) {
-            $share_id = $db->nextId($table);
-            if ($share_id instanceof PEAR_Error) {
-                Horde::logMessage($share_id, 'ERR');
-                throw new Horde_Share_Exception($share_id->getMessage());
+            $sql = 'INSERT INTO ' . $table . ' (' . implode(', ', $fields) . ') VALUES (?' . str_repeat(', ?', count($fields) - 1) . ')';
+            try {
+                $this->data['share_id'] = $db->insert($sql, $params);
+            } catch (Horde_Db_Exception $e) {
+                throw new Horde_Share_Exception($e);
             }
-
-            $this->data['share_id'] = $share_id;
-            $fields[] = 'share_id';
-            $params[] = $this->data['share_id'];
-
-            $query = 'INSERT INTO ' . $table . ' (' . implode(', ', $fields) . ') VALUES (?' . str_repeat(', ?', count($fields) - 1) . ')';
         } else {
-            $query = 'UPDATE ' . $table . ' SET ' . implode(' = ?, ', $fields) . ' = ? WHERE share_id = ?';
+            $sql = 'UPDATE ' . $table . ' SET ' . implode(' = ?, ', $fields) . ' = ? WHERE share_id = ?';
             $params[] = $this->data['share_id'];
+            try {
+                $db->update($sql, $params);
+            } catch (Horde_Db_Exception $e) {
+                throw new Horde_Share_Exception($e);
+            }
         }
-        $stmt = $db->prepare($query, null, MDB2_PREPARE_MANIP);
-        if ($stmt instanceof PEAR_Error) {
-            Horde::logMessage($stmt, 'ERR');
-            throw new Horde_Share_Exception($stmt->getMessage());
-        }
-        $result = $stmt->execute($params);
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
-            throw new Horde_Share_Exception($result->getMessage());
-        }
-        $stmt->free();
 
         // Update the share's user permissions
-        $stmt = $db->prepare('DELETE FROM ' . $table . '_users WHERE share_id = ?', null, MDB2_PREPARE_MANIP);
-        if ($stmt instanceof PEAR_Error) {
-            Horde::logMessage($stmt, 'ERR');
-            throw new Horde_Share_Exception($stmt->getMessage());
-        }
-        $result = $stmt->execute(array($this->data['share_id']));
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
-            throw new Horde_Share_Exception($result->getMessage());
-        }
-        $stmt->free();
-
+        $db->delete('DELETE FROM ' . $table . '_users WHERE share_id = ?', array($this->data['share_id']));
         if (!empty($this->data['perm']['users'])) {
             $data = array();
             foreach ($this->data['perm']['users'] as $user => $perm) {
-                $stmt = $db->prepare('INSERT INTO ' . $table . '_users (share_id, user_uid, perm) VALUES (?, ?, ?)', null, MDB2_PREPARE_MANIP);
-                if ($stmt instanceof PEAR_Error) {
-                    Horde::logMessage($stmt, 'ERR');
-                    throw new Horde_Share_Exception($stmt->getMessage());
-                }
-                $result = $stmt->execute(array($this->data['share_id'], $user, $perm));
-                if ($result instanceof PEAR_Error) {
-                    Horde::logMessage($result, 'ERR');
-                    throw new Horde_Share_Exception($result->getMessage());
-                }
-                $stmt->free();
+                $db->insert('INSERT INTO ' . $table . '_users (share_id, user_uid, perm) VALUES (?, ?, ?)', array($this->data['share_id'], $user, $perm));
             }
         }
 
         // Update the share's group permissions
-        $stmt = $db->prepare('DELETE FROM ' . $table . '_groups WHERE share_id = ?', null, MDB2_PREPARE_MANIP);
-        if ($stmt instanceof PEAR_Error) {
-            Horde::logMessage($stmt, 'ERR');
-            throw new Horde_Share_Exception($stmt->getMessage());
-        }
-        $result = $stmt->execute(array($this->data['share_id']));
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
-            throw new Horde_Share_Exception($result->getMessage());
-        }
-        $stmt->free();
-
+        $db->delete('DELETE FROM ' . $table . '_groups WHERE share_id = ?', array($this->data['share_id']));
         if (!empty($this->data['perm']['groups'])) {
             $data = array();
             foreach ($this->data['perm']['groups'] as $group => $perm) {
-                $stmt = $db->prepare('INSERT INTO ' . $table . '_groups (share_id, group_uid, perm) VALUES (?, ?, ?)', null, MDB2_PREPARE_MANIP);
-                if ($stmt instanceof PEAR_Error) {
-                    Horde::logMessage($stmt, 'ERR');
-                    throw new Horde_Share_Exception($stmt->getMessage());
-                }
-                $result = $stmt->execute(array($this->data['share_id'], $group, $perm));
-                if ($result instanceof PEAR_Error) {
-                    Horde::logMessage($result, 'ERR');
-                    throw new Horde_Share_Exception($result->getMessage());
-                }
-                $stmt->free();
+                $db->insert('INSERT INTO ' . $table . '_groups (share_id, group_uid, perm) VALUES (?, ?, ?)', array($this->data['share_id'], $group, $perm));
             }
         }
 
@@ -248,11 +234,7 @@ class Horde_Share_Object_Sql extends Horde_Share_Object
      * @param boolean $update               Should the share be saved
      *                                      after this operation?
      *
-     * @TODO: Look at storing the Perm object itself, instead of the data
-     *        (Make it easier to inject the perm object instead of instantiating
-     *        it in the library).
-     *
-     * @return boolean  True if no error occured, PEAR_Error otherwise
+     * @return boolean
      */
     public function setPermission($perm, $update = true)
     {

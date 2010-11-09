@@ -51,9 +51,10 @@ $view = new Horde_Block_Layout_View(
     Horde::url('services/portal/index.php', true));
 $layout_html = $view->toHtml();
 
-$horde_css_stylesheets = array();
 foreach ($view->getApplications() as $app) {
-    $horde_css_stylesheets = array_merge($horde_css_stylesheets, Horde_Themes::getStylesheets('', array('app' => $app)));
+    foreach (Horde_Themes::getStylesheets('', array('app' => $app)) as $f => $u) {
+        Horde_Themes::addStylesheetFile($f, $u);
+    }
 }
 
 $linkTags = $view->getLinkTags();

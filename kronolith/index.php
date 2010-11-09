@@ -8,7 +8,11 @@
 
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
-
+/* Load mobile? */
+if ($browser->isMobile()) {
+    include KRONOLITH_BASE . '/mobile.php';
+    exit;
+}
 /* Load traditional interface? */
 if (!Kronolith::showAjaxView()) {
     if ($prefs->getValue('dynamic_view')) {

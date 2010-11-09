@@ -21,10 +21,9 @@ $gettext = array(
     'loading' => _("Loading ..."),
 );
 
-?>
-<script type="text/javascript">//<![CDATA[
-var KronolithDate = new Date(<?php printf('%d, %d, %d', $currentDate->year, $currentDate->month - 1, $currentDate->mday) ?>);
-var KronolithText = <?php echo Horde_Serialize::serialize($gettext, Horde_Serialize::JSON) ?>;
-var KronolithVar = <?php echo Horde_Serialize::serialize($var, Horde_Serialize::JSON) ?>;
-var KronolithView = '<?php if (isset($view) && is_object($view)) echo $view->getName() ?>';
-//]]></script>
+Horde::addInlineJsVars(array(
+    '-var KronolithDate' => 'new Date(' . sprintf('%d, %d, %d', $currentDate->year, $currentDate->month - 1, $currentDate->mday) . ')',
+    'var KronolithText' => $gettext,
+    'var KronolithVar' => $var,
+    'var KronolithView' => (isset($view) && is_object($view)) ? $view->getName() : ''
+), array('top' => true));

@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Add post_spam hook called after reporting spam/ham (Request #6455).
 [mms] Implement stationery support in DIMP.
 [mms] Add preference to control displayed content for multipart/alternative
       parts (Request #6711).
@@ -25,8 +26,6 @@ v5.0-git
       server.
 [mms] Add preference to control if we check for recipient PGP public keys
       when replying (Request #7962).
-[mms] Add preference to allow for automatic spam reporting when explicitly
-      moving messages to the Spam mailbox (Request #6455).
 [mms] Automatically determine view based on browser and 'dynamic_view'
       preference (Request #9159).
 [mms] Add preference to define default font family/size for the HTML compose

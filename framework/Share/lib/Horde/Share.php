@@ -15,6 +15,7 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Jan Schneider <jan@horde.org>
  * @author  Gunnar Wrobel <wrobel@pardus.de>
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Horde_Share
  */
 class Horde_Share
@@ -78,42 +79,66 @@ class Horde_Share
     protected $_permsObject;
 
     /**
+     * The current user
+     *
+     * @var string
+     */
+    protected $_user;
+
+    /**
+     * The Horde_Group driver
+     *
+     * @var Horde_Group
+     */
+    protected $_groups;
+
+    /**
+     * Configured callbacks. We currently support:
+     *<pre>
+     * add      - Called immediately before a new share is added. Receives the
+     *            share object as a parameter.
+     * modify   - Called immediately before a share object's changes are saved
+     *            to storage. Receives the share object as a parameter.
+     * remove   - Called immediately before a share is removed from storage.
+     *            Receives the share object as a parameter.
+     * list     - Called immediately after a list of shares is received from
+     *            storage. Passed the userid, share list, and any parameters
+     *            passed to the listShare call. Should return the (possibly
+     *            modified) share list. @see Horde_Share::listShares() for more
+     *            info.
+     *</pre>
+     *
+     * @var array
+     */
+    protected $_callbacks;
+
+    /**
      * Constructor.
      *
-     * @param string $app              The application that the shares belong
-     *                                 to.
-     * @param Horde_Perms $perms       The permissions object
+     * @param string $app          The application that the shares belong to
+     * @param string $user         The current user
+     * @param Horde_Perms $perms   The permissions object
+     * @param Horde_Group $groups  The Horde_Group object
+     *
      */
-    public function __construct($app, Horde_Perms $perms)
+    public function __construct($app, $user, Horde_Perms $perms, Horde_Group $groups)
     {
         $this->_app = $app;
+        $this->_user = $user;
         $this->_permsObject = $perms;
-        $this->__wakeup();
+        $this->_groups = $groups;
     }
 
     /**
-     * Initializes the object.
+     * (re)connect the share object to this share driver. Userful for when
+     * share objects are unserialized from a cache separate from the share
+     * driver.
      *
-     * @throws Horde_Exception
+     * @param Horde_Share_Object $object
      */
-    public function __wakeup()
+    public function initShareObject($object)
     {
-        try {
-            Horde::callHook('share_init', array($this, $this->_app));
-        } catch (Horde_Exception_HookNotSet $e) {}
-    }
-
-    /**
-     * Returns the properties that need to be serialized.
-     *
-     * @return array  List of serializable properties.
-     */
-    public function __sleep()
-    {
-        $properties = get_object_vars($this);
-        unset($properties['_sortList']);
-        $properties = array_keys($properties);
-        return $properties;
+        // noop
     }
 
     /**
@@ -223,20 +248,30 @@ class Horde_Share
     /**
      * Returns an array of all shares that $userid has access to.
      *
-     * @param string $userid     The userid of the user to check access for.
-     * @param integer $perm      The level of permissions required.
-     * @param mixed $attributes  Restrict the shares counted to those
-     *                           matching $attributes. An array of
-     *                           attribute/values pairs or a share owner
-     *                           username.
+     * @param string $userid  The userid of the user to check access for.
+     * @param array $params   Additional parameters for the search.
+     *<pre>
+     *  'perm'        Require this level of permissions. Horde_Perms constant.
+     *  'attributes'  Restrict shares to these attributes. A hash or username.
+     *  'from'        Offset. Start at this share
+     *  'count'       Limit.  Only return this many.
+     *  'sort_by'     Sort by attribute.
+     *  'direction'   Sort by direction.
+     *</pre>
      *
      * @return array  The shares the user has access to.
      */
-    public function listShares($userid, $perm = Horde_Perms::SHOW, $attributes = null,
-                        $from = 0, $count = 0, $sort_by = null, $direction = 0)
+    public function listShares($userid, $params = array())
     {
-        $shares = $this->_listShares($userid, $perm, $attributes, $from,
-                                     $count, $sort_by, $direction);
+        $params = array_merge(array('perm' => Horde_Perms::SHOW,
+                                    'attributes' => null,
+                                    'from' => 0,
+                                    'count' => 0,
+                                    'sort_by' => null,
+                                    'direction' => 0),
+                              $params);
+
+        $shares = $this->_listShares($userid, $params);
         if (!count($shares)) {
             return $shares;
         }
@@ -248,9 +283,10 @@ class Horde_Share
             $this->_sortList = null;
         }
 
-        try {
-            return Horde::callHook('share_list', array($userid, $perm, $attributes, $shares));
-        } catch (Horde_Exception_HookNotSet $e) {}
+        // Run the results through the callback, if configured.
+        if (!empty($this->_callbacks['list'])) {
+            return $this->runCallback('list', array($userid, $shares, $params));
+        }
 
         return $shares;
     }
@@ -285,19 +321,20 @@ class Horde_Share
     /**
      * Returns a new share object.
      *
+     * @param string $owner The share owner name.
      * @param string $name  The share's name.
      *
      * @return Horde_Share_Object  A new share object.
      * @throws Horde_Share_Exception
      */
-    public function newShare($name)
+    public function newShare($owner, $name)
     {
         if (empty($name)) {
             throw new Horde_Share_Exception('Share names must be non-empty');
         }
         $share = $this->_newShare($name);
-        $share->setShareOb($this);
-        $share->set('owner', $GLOBALS['registry']->getAuth());
+        $this->initShareObject($share);
+        $share->set('owner', $owner);
 
         return $share;
     }
@@ -315,10 +352,8 @@ class Horde_Share
      */
     public function addShare(Horde_Share_Object $share)
     {
-        try {
-            Horde::callHook('share_add', array($share));
-        } catch (Horde_Exception_HookNotSet $e) {}
-
+        // Run the results through the callback, if configured.
+        $this->runCallback('add', array($share));
         $result = $this->_addShare($share);
 
         /* Store new share in the caches. */
@@ -342,9 +377,8 @@ class Horde_Share
      */
     public function removeShare(Horde_Share_Object $share)
     {
-        try {
-            Horde::callHook('share_remove', array($share));
-        } catch (Horde_Exception_HookNotSet $e) {}
+        // Run the results through the callback, if configured.
+        $this->runCallback('remove', array($share));
 
         /* Remove share from the caches. */
         $id = $share->getId();
@@ -426,7 +460,34 @@ class Horde_Share
     {
         // noop
     }
-    
+
+    /**
+     * Add a callback to the collection
+     *
+     * @param string $type
+     * @param array $callback
+     */
+    public function addCallback($type, $callback)
+    {
+        $this->_callbacks[$type] = $callback;
+    }
+
+    /**
+     * Give public access to call the share callbacks. Needed to run the
+     * callbacks from the Horde_Share_Object objects.
+     *
+     * @param string $type   The callback to run
+     * @param array $params  The parameters to pass to the callback.
+     *
+     * @return mixed
+     */
+    public function runCallback($type, $params)
+    {
+        if (!empty($this->_callbacks[$type])) {
+            return call_user_func_array($this->_callbacks[$type], $params);
+        }
+    }
+
     /**
      * Utility function to be used with uasort() for sorting arrays of
      * Horde_Share objects.

@@ -340,7 +340,8 @@ class Horde_Group_Contactlists extends Horde_Group
                 if (empty($contact_shares)) {
                     $scope = $GLOBALS['registry']->hasInterface('contacts');
                     $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create($scope);
-                    $this->_contact_shares = $shares->listShares($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW, $GLOBALS['registry']->getAuth());
+                    $this->_contact_shares = $shares->listShares($GLOBALS['registry']->getAuth(), 
+                                                                 array('perm' => Horde_Perms::SHOW, 'attributes' => $GLOBALS['registry']->getAuth()));
                 }
                 // Contruct a list of owner ids to use
                 foreach ($this->_contact_shares as $id => $share) {

@@ -40,7 +40,7 @@ if ($tasks->hasTasks()) {
         if ($task->tasklist == '**EXTERNAL**') {
             // Just use a new share that this user owns for tasks from
             // external calls - if the API gives them back, we'll trust it.
-            $share = $GLOBALS['nag_shares']->newShare('**EXTERNAL**');
+            $share = $GLOBALS['nag_shares']->newShare($GLOBALS['registry']->getAuth(), '**EXTERNAL**');
             $owner = $task->tasklist_name;
         } else {
             try {

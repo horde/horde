@@ -12,7 +12,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('ingo');
 
 /* Redirect if script updating is not available. */
-if (!$_SESSION['ingo']['script_generate']) {
+if (!$session->get('ingo', 'script_generate')) {
     Horde::url('filters.php', true)->redirect();
 }
 

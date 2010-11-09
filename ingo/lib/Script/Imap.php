@@ -114,7 +114,7 @@ class Ingo_Script_Imap extends Ingo_Script
            2. The mailbox has changed -or-
            3. The rules have changed. */
         $cache = $this->_api->getCache();
-        if (($cache !== false) && ($cache == $_SESSION['ingo']['change'])) {
+        if (($cache !== false) && ($cache == $GLOBALS['session']->get('ingo', 'change'))) {
             return true;
         }
 
@@ -339,7 +339,7 @@ class Ingo_Script_Imap extends Ingo_Script
         }
 
         /* Set cache flag. */
-        $this->_api->storeCache($_SESSION['ingo']['change']);
+        $this->_api->storeCache($GLOBALS['session']->get('ingo', 'change'));
 
         return true;
     }

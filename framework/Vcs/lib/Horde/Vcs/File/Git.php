@@ -129,6 +129,7 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
      */
     public function getHashForRevision($rev)
     {
+        $this->_ensureLogsInitialized();
         if (!isset($this->logs[$rev])) {
             throw new Horde_Vcs_Exception('This file doesn\'t exist at that revision');
         }
@@ -198,7 +199,24 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
         return $revlist;
     }
 
-   /**
+    /**
+     * TODO
+     */
+    public function queryLogs($rev = null)
+    {
+        if (is_null($rev)) {
+            $this->_ensureLogsInitialized();
+            return $this->logs;
+        } else {
+            if (!isset($this->logs[$rev])) {
+                $this->logs[$rev] = $this->_rep->getLogObject($this, $rev);
+            }
+
+            return isset($this->logs[$rev]) ? $this->logs[$rev] : null;
+        }
+    }
+
+    /**
      * Return the last Horde_Vcs_Log object in the file.
      *
      * @return Horde_Vcs_Log  Log object of the last entry in the file.
@@ -209,6 +227,8 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
         if (empty($this->_branch)) {
             return parent::queryLastLog();
         }
+
+        $this->_ensureLogsInitialized();
 
         $rev = reset($this->_revlist[$this->_branch]);
         if (!is_null($rev)) {

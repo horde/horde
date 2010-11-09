@@ -38,6 +38,17 @@ input[type=image] {
     background: transparent;
 }
 
+.iconImg {
+    background-color: transparent;
+    background-position: center right;
+    background-repeat: no-repeat;
+    display: -moz-inline-stack;
+    display: inline-block;
+    height: 16px;
+    vertical-align: bottom;
+    width: 16px;
+}
+
 ins {
     background: #cfc;
 }
@@ -511,8 +522,8 @@ body.login-form {
 
     background-color: #fff;
 
-    -moz-border-radius: 20px;
-    -webkit-border-radius: 20px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
 
     box-shadow: 0 0 2em #ccc;
     -moz-box-shadow: 0 0 2em #ccc;
@@ -541,7 +552,7 @@ body.login-form {
 #login-form #login-button {
     margin: .5em auto;
     text-align: center;
-    width: 5em;
+    width: auto;
 }
 #login-form .extras {
     font-size: 75%;
@@ -697,6 +708,18 @@ img.prefsLinkImg {
 span.prefsAdvanced {
     padding: 3px 10px 0 0;
     font-size: 80%;
+}
+
+div.prefsErrorDiv {
+    border: 1px solid red;
+    display: inline-block;
+    padding: 2px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+}
+
+div.prefsError {
+    color: red;
 }
 
 /* Block styles. */
@@ -1324,6 +1347,9 @@ div.GrowlerNoticeExit:hover {
 }
 .contextSelected {
     background: #ffa;
+}
+.contextMenu .iconImg {
+    vertical-align: top;
 }
 
 /* Social Media Related CSS */

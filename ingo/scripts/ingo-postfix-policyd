@@ -63,6 +63,8 @@
 require_once dirname(__FILE__) . '/../../lib/Application.php';
 Horde_Registry::appInit('ingo', array('authentication' => 'none', 'cli' => true));
 
+exit('Not updated');
+
 // Initialize authentication manager.
 $auth = $injector->getInstance('Horde_Auth')->getAuth();
 
@@ -133,7 +135,7 @@ function smtpd_access_policy($query)
 
         // Retrieve the data.
         $GLOBALS['auth']->setAuth($user, array());
-        $_SESSION['ingo']['current_share'] = ':' . $user;
+        $GLOBALS['session']->set('ingo', 'current_share', ':' . $user);
 
         try {
             $whitelists[$user] = $GLOBALS['rules_storage']->retrieve(Ingo_Storage::ACTION_WHITELIST, false)->getWhitelist();

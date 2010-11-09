@@ -65,7 +65,7 @@ var SpellChecker = Class.create({
                 onChoose: this.setLocale.bindAsEventListener(this)
             });
 
-            this.statusButton.insert({ after: new Element('SPAN', { className: 'spellcheckPopdownImg' }) });
+            this.statusButton.insert({ after: new Element('SPAN', { className: 'iconImg spellcheckPopdownImg' }) });
         }
 
         this.setStatus('CheckSpelling');

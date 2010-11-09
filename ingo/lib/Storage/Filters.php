@@ -212,7 +212,7 @@ class Ingo_Storage_Filters
             $this->_filters[$id - 1] = $this->_filters[$id];
             $this->_filters[$id] = $temp;
             /* Continue to move up until we swap with a viewable category. */
-            if (in_array($temp['action'], $_SESSION['ingo']['script_categories'])) {
+            if (in_array($temp['action'], $GLOBALS['session']->get('ingo', 'script_categories'))) {
                 $i++;
             }
             $id--;
@@ -234,7 +234,7 @@ class Ingo_Storage_Filters
             $this->_filters[$id] = $temp;
             /* Continue to move down until we swap with a viewable
                category. */
-            if (in_array($temp['action'], $_SESSION['ingo']['script_categories'])) {
+            if (in_array($temp['action'], $GLOBALS['session']->get('ingo', 'script_categories'))) {
                 $i++;
             }
             $id++;

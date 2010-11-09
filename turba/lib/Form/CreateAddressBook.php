@@ -42,7 +42,7 @@ class Turba_Form_CreateAddressBook extends Horde_Form
             'name' => $this->_vars->get('name'),
             'desc' => $this->_vars->get('description'),
         );
-        return $driver->createShare(md5(mt_rand()), $params);
+        return $driver->createShare(strval(new Horde_Support_RandomId()), $params);
     }
 
 }

@@ -67,7 +67,7 @@ foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log', 'uid', 'mailbox') as
         $js_vars['DimpFullmessage.' . $val] = $show_msg_result[$val];
     }
 }
-$js_out = Horde::addInlineJsVars($js_vars, true);
+$js_out = Horde::addInlineJsVars($js_vars, array('ret_vars' => true));
 
 /* Determine if compose mode is disabled. */
 $disable_compose = !IMP::canCompose();

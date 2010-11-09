@@ -415,7 +415,7 @@ class IMP_Imap_Flags
      */
     protected function _getDiv($c, $l)
     {
-        return '<div class="msgflags ' . $c . '" title="' . htmlspecialchars($l) . '"></div>';
+        return '<div class="iconImg msgflags ' . $c . '" title="' . htmlspecialchars($l) . '"></div>';
     }
 
     /**

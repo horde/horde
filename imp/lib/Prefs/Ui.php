@@ -102,31 +102,19 @@ class IMP_Prefs_Ui
                 $ui->suppress[] = 'compose_html_font_family';
                 $ui->suppress[] = 'compose_html_font_size';
             }
-
-            /* Sort encodings. */
-            if (!$prefs->isLocked('sending_charset')) {
-                asort($registry->nlsconfig['encodings']);
-            }
             break;
 
         case 'delmove':
             if ($pop3) {
                 $ui->suppress[] = 'move_ham_after_report';
-                $ui->suppress[] = 'move_spam_report';
                 $ui->suppress[] = 'empty_spam_menu';
                 $ui->suppress[] = 'use_trash';
                 $ui->suppress[] = 'trashselect';
                 $ui->suppress[] = 'empty_trash_menu';
-            } else {
-                if ($prefs->isLocked('use_trash') ||
-                    !$prefs->getValue('use_trash')) {
-                    $ui->suppress[] = 'trashselect';
-                    $ui->suppress[] = 'empty_trash_menu';
-                }
-
-                if (!$prefs->getValue('spam_folder')) {
-                    $ui->suppress[] = 'move_spam_report';
-                }
+            } elseif ($prefs->isLocked('use_trash') ||
+                     !$prefs->getValue('use_trash')) {
+                $ui->suppress[] = 'trashselect';
+                $ui->suppress[] = 'empty_trash_menu';
             }
             break;
 
@@ -185,7 +173,7 @@ class IMP_Prefs_Ui
                 $ui->suppress[] = 'signature_html_select';
             } else {
                 Horde::addScriptFile('signaturehtml.js', 'imp');
-                $GLOBALS['injector']->getInstance('Horde_Editor')->initialize(array('id' => 'signature_html'));
+                IMP_Ui_Editor::init(false, 'signature_html');
             }
             break;
 
@@ -1759,7 +1747,7 @@ class IMP_Prefs_Ui
         $stationery = $GLOBALS['injector']->getInstance('IMP_Compose_Stationery');
 
         if ($ob->type == 'html') {
-            $GLOBALS['injector']->getInstance('Horde_Editor')->initialize(array('id' => 'content'));
+            IMP_Ui_Editor::init(false, 'content');
         }
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');

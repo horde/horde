@@ -450,12 +450,12 @@ class IMP_Imap
 
     /* Callback functions used in Horde_Imap_Client_Base. */
 
-    public function getEncryptKey()
+    static public function getEncryptKey()
     {
         return $GLOBALS['injector']->getInstance('Horde_Secret')->getKey('imp');
     }
 
-    public function logError($e)
+    static public function logError($e)
     {
         Horde::logMessage($e, 'ERR');
     }

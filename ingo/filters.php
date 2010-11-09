@@ -148,8 +148,14 @@ if (count($filter_list) == 0) {
     require INGO_TEMPLATES . '/filters/filter-none.inc';
 } else {
     $display = array();
-    $i = 0;
-    $rule_count = array_sum(array_map(create_function('$a', "return (in_array(\$a['action'], \$_SESSION['ingo']['script_categories'])) ? 1 : 0;"), $filter_list));
+    $i = $rule_count = 0;
+    $s_categories = $session->get('ingo', 'script_categories');
+
+    foreach ($filter_list as $val) {
+        if (in_array($val['action'], $s_categories)) {
+            ++$rule_count;
+        }
+    }
 
     /* Common graphics. */
     $down_img = Horde::img('nav/down.png', _("Move Rule Down"));
@@ -157,7 +163,7 @@ if (count($filter_list) == 0) {
 
     foreach ($filter_list as $rule_number => $filter) {
         /* Skip non-display categories. */
-        if (!in_array($filter['action'], $_SESSION['ingo']['script_categories'])) {
+        if (!in_array($filter['action'], $s_categories)) {
             continue;
         }
 

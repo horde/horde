@@ -966,7 +966,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
         }
 
         try {
-            $shares = $GLOBALS['kronolith_shares']->listShares($user, Horde_Perms::EDIT);
+            $shares = $GLOBALS['kronolith_shares']->listShares($user, array('perm' => Horde_Perms::EDIT));
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($shares, 'ERR');
             throw new Kronolith_Exception($shares);

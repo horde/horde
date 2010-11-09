@@ -567,7 +567,7 @@ class Horde_Test
             if (!empty($val['depends']) && empty($succeeded[$val['depends']])) {
                 $result = false;
             } elseif (empty($val['path'])) {
-                $result = class_exists($key);
+                $result = @class_exists($key);
             } else {
                 $result = @include_once $val['path'];
             }
@@ -689,7 +689,7 @@ class Horde_Test
     {
         $output = '';
 
-        $horde_apps = $GLOBALS['registry']->listApps(null, true);
+        $horde_apps = $GLOBALS['registry']->listApps(null, true, null);
 
         foreach ($this->_appList as $key => $val) {
             $entry = array();

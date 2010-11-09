@@ -392,9 +392,6 @@
     <name>Text_Flowed</name>
     <channel>pear.horde.org</channel>
    </package>
-   <extension>
-    <name>dom</name>
-   </extension>
    <package>
     <name>Translation</name>
     <channel>pear.horde.org</channel>

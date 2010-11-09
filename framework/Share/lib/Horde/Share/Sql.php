@@ -9,13 +9,14 @@
  * did not receive this file, see http://www.fsf.org/copyleft/lgpl.html.
  *
  * @author  Duck <duck@obala.net>
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Horde_Share
  */
 
 /**
  * @package Horde_Share
  */
-class Horde_Share_Sql extends Horde_Share
+class Horde_Share_Sql extends Horde_Share implements Serializable
 {
     /* Share has user perms */
     const SQL_FLAG_USERS = 1;
@@ -23,26 +24,15 @@ class Horde_Share_Sql extends Horde_Share
     /* Share has group perms */
     const SQL_FLAG_GROUPS = 2;
 
+    /* Serializable version */
+    const VERSION = 1;
+
     /**
      * Handle for the current database connection.
-     * @TODO: port to Horde_Db
      *
-     * @var MDB2
+     * @var Horde_Db_Adapter
      */
     protected $_db;
-
-    /**
-     * Handle for the current database connection, used for writing. Defaults
-     * to the same handle as $db if a separate write database is not required.
-     *
-     * @var MDB2
-     */
-    protected $_write_db;
-
-    /**
-     * SQL connection parameters
-     */
-    protected $_params = array();
 
     /**
      * Main share table for the current scope.
@@ -59,36 +49,88 @@ class Horde_Share_Sql extends Horde_Share
     protected $_shareObject = 'Horde_Share_Object_Sql';
 
     /**
-     * Initializes the object.
+     *
+     * @see Horde_Share::__construct()
      */
-    public function __wakeup()
+    public function __construct($app, $user, Horde_Perms $perms, Horde_Group $groups)
     {
+        parent::__construct($app, $user, $perms, $groups);
         $this->_table = $this->_app . '_shares';
-        $this->_connect();
-
-        foreach (array_keys($this->_cache) as $name) {
-            $this->_cache[$name]->setShareOb($this);
-        }
-
-        parent::__wakeup();
     }
 
     /**
-     * Returns the properties that need to be serialized.
+     * Serializes the object. Includes all properties except _table (this can
+     * be determined by _app), and _db (which is injected when unserialized).
+     * Note that you MUST set the db adapter after unserializing, but calling
+     * the setDb() method.
      *
-     * @return array  List of serializable properties.
+     * @return string  The serialized object.
      */
-    public function __sleep()
+    public function serialize()
     {
-        $properties = get_object_vars($this);
-        unset($properties['_sortList'],
-              $properties['_db'],
-              $properties['_write_db']);
-        return array_keys($properties);
+        $data = array(
+            self::VERSION,
+            $this->_app,
+            $this->_root,
+            $this->_cache,
+            $this->_shareMap,
+            $this->_listcache,
+            $this->_shareObject,
+            $this->_permsObject,
+            $this->_groups
+        );
+
+        return serialize($data);
+    }
+
+    /**
+     * Reconstructs object from serialized properties.
+     * Note: You MUST set the db adapter via setDb() after unserializing this
+     * object.
+     *
+     * @param string $serialized
+     */
+    public function unserialize($data)
+    {
+        $data = @unserialize($data);
+        if (!is_array($data) ||
+            !isset($data[0]) ||
+            ($data[0] != self::VERSION)) {
+            throw new Exception('Cache version change');
+        }
+
+        $this->_app = $data[1];
+        $this->_root = $data[2];
+        $this->_cache = $data[3];
+        $this->_shareMap = $data[4];
+        $this->_listcache = $data[5];
+        $this->_shareObject = $data[6];
+        $this->_permsObject = $data[7];
+        $this->_groups = $data[8];
+
+        $this->_table = $this->_app . '_shares';
+
+        foreach (array_keys($this->_cache) as $name) {
+            $this->initShareObject($this->_cache[$name]);
+        }
+    }
+
+    /**
+     * (re)connect the share object to this share driver. Userful for when
+     * share objects are unserialized from a cache separate from the share
+     * driver.
+     *
+     * @param Horde_Share_Object $object
+     */
+    public function initShareObject($object)
+    {
+        $object->setShareOb($this);
     }
 
     /**
      * Get storage table
+     *
+     * @return string
      */
     public function getTable()
     {
@@ -96,20 +138,18 @@ class Horde_Share_Sql extends Horde_Share
     }
 
     /**
-     * Refetence to write db
+     *
+     * @return Horde_Db_Adapter_Base
      */
-    public function getWriteDb()
-    {
-        return $this->_write_db;
-    }
-
-    public function getReadDb()
+    public function getStorage()
     {
         return $this->_db;
     }
 
     /**
      * Finds out if the share has user set
+     * @TODO: fix method prefix or make protected
+     * @param boolean
      */
     public function _hasUsers($share)
     {
@@ -134,22 +174,15 @@ class Horde_Share_Sql extends Horde_Share
     protected function _getShareUsers(&$share)
     {
         if ($this->_hasUsers($share)) {
-            $stmt = $this->_db->prepare('SELECT user_uid, perm FROM ' . $this->_table . '_users WHERE share_id = ?');
-            if ($stmt instanceof PEAR_Error) {
-                Horde::logMessage($stmt, 'ERR');
-                throw new Horde_Share_Exception($stmt->getMessage());
-            }
-            $result = $stmt->execute(array($share['share_id']));
-            if ( $result instanceof PEAR_Error) {
-                Horde::logMessage($result, 'ERR');
-                throw new Horde_Share_Exception($result->getMessage());
-            } elseif (!empty($result)) {
-                while ($row = $result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
+            try {
+                $rows = $this->_db->selectAll('SELECT user_uid, perm FROM ' . $this->_table . '_users WHERE share_id = ?', array($share['share_id']));
+                foreach ($rows as $row) {
                     $share['perm']['users'][$row['user_uid']] = (int)$row['perm'];
                 }
+            } catch (Horde_Db_Exception $e) {
+                Horde::logMessage($e->getMessage(), 'ERR');
+                throw new Horde_Share_Exception($e->getMessage());
             }
-            $stmt->free();
-            $result->free();
         }
     }
 
@@ -157,28 +190,21 @@ class Horde_Share_Sql extends Horde_Share
      * Get groups permissions
      *
      * @param array $share Share data array
+     *
      * @throws Horde_Share_Exception
      */
     protected function _getShareGroups(&$share)
     {
         if ($this->_hasGroups($share)) {
-            // Get groups permissions
-            $stmt = $this->_db->prepare('SELECT group_uid, perm FROM ' . $this->_table . '_groups WHERE share_id = ?');
-            if ($stmt instanceof PEAR_Error) {
-                Horde::logMessage($stmt, 'ERR');
-                throw new Horde_Share_Exception($stmt->getMessage());
-            }
-            $result = $stmt->execute(array($share['share_id']));
-            if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, 'ERR');
-                throw new Horde_Share_Exception($result->getMessage());
-            } elseif (!empty($result)) {
-                while ($row = $result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
+            try {
+                $rows = $this->_db->selectAll('SELECT group_uid, perm FROM ' . $this->_table . '_groups WHERE share_id = ?', array($share['share_id']));
+                foreach ($rows as $row) {
                     $share['perm']['groups'][$row['group_uid']] = (int)$row['perm'];
                 }
+            } catch (Horde_Db_Exception $e) {
+                Horde::logMessage($e->getMessage(), 'ERR');
+                throw new Horde_Share_Exception($e->getMessage());
             }
-            $stmt->free();
-            $result->free();
         }
     }
 
@@ -189,33 +215,21 @@ class Horde_Share_Sql extends Horde_Share
      * @param string $name  The name of the share to retrieve.
      *
      * @return Horde_Share_Object_sql  The requested share.
+     * @throws Horde_Exception_NotFound
+     * @throws Horde_Share_Exception
      */
     protected function _getShare($name)
     {
-        $stmt = $this->_db->prepare('SELECT * FROM ' . $this->_table . ' WHERE share_name = ?');
-        if ($stmt instanceof PEAR_Error) {
-            Horde::logMessage($stmt, 'ERR');
-            throw new Horde_Share_Exception($stmt->getMessage());
+        try {
+            $results = $this->_db->selectOne('SELECT * FROM ' . $this->_table . ' WHERE share_name = ?', array($name));
+        } catch (Horde_Db_Exception $e) {
+            Horde::logMessage($e, 'ERR');
+            throw new Horde_Share_Exception($e->getMessage());
         }
-        $results = $stmt->execute(array($name));
-        if ($results instanceof PEAR_Error) {
-            Horde::logMessage($results, 'ERR');
-            throw new Horde_Share_Exception($results->getMessage());
+        if (!$results) {
+            throw new Horde_Exception_NotFound();
         }
-        $data = $results->fetchRow(MDB2_FETCHMODE_ASSOC);
-        if ($data instanceof PEAR_Error) {
-            Horde::logMessage($data, 'ERR');
-            throw new Horde_Share_Exception($data->getMessage());
-        } elseif (empty($data)) {
-            throw new Horde_Share_Exception(sprintf(Horde_Share_Translation::t("Share \"%s\" does not exist."), $name));
-        }
-        $stmt->free();
-        $results->free();
-
-        // Convert charset
-        $data = $this->_fromDriverCharset($data);
-
-        // Populate the perms array
+        $data = $this->_fromDriverCharset($results);
         $this->_loadPermissions($data);
 
         return new $this->_shareObject($data);
@@ -246,39 +260,23 @@ class Horde_Share_Sql extends Horde_Share
      * Returns a Horde_Share_Object_sql object corresponding to the given
      * unique ID, with the details retrieved appropriately.
      *
-     * @param integer $cid  The id of the share to retrieve.
+     * @param integer $id  The id of the share to retrieve.
      *
      * @return Horde_Share_Object_sql  The requested share.
      * @throws Horde_Share_Exception
      */
     protected function _getShareById($id)
     {
-        $params = array($id);
-        $stmt = $this->_db->prepare('SELECT * FROM ' . $this->_table . ' WHERE share_id = ?');
-        if ($stmt instanceof PEAR_Error) {
-            Horde::logMessage($stmt, 'ERR');
-            throw new Horde_Share_Exception($stmt->getMessage());
+        try {
+            $results = $this->_db->selectOne('SELECT * FROM ' . $this->_table . ' WHERE share_id = ?', array($id));
+        } catch (Horde_Db_Exception $e) {
+            Horde::logMessage($e, 'ERR');
+            throw new Horde_Share_Exception($e->getMessage());
         }
-        $results = $stmt->execute($params);
-        if ($results instanceof PEAR_Error) {
-            Horde::logMessage($results, 'ERR');
-            throw new Horde_Share_Exception($results->getMessage());
+        if (!$results) {
+            throw new Horde_Exception_NotFound();
         }
-        $data = $results->fetchRow(MDB2_FETCHMODE_ASSOC);
-        if ($data instanceof PEAR_Error) {
-            Horde::logMessage($data, 'ERR');
-            throw new Horde_Share_Exception($data->getMessage());
-        } elseif (empty($data)) {
-            throw new Horde_Share_Exception(sprintf(Horde_Share_Translation::t("Share ID %d does not exist."), $id));
-        }
-
-        $stmt->free();
-        $results->free();
-
-        // Convert charset
-        $data = $this->_fromDriverCharset($data);
-
-        // Get permissions
+        $data = $this->_fromDriverCharset($results);
         $this->_loadPermissions($data);
 
         return new $this->_shareObject($data);
@@ -289,25 +287,23 @@ class Horde_Share_Sql extends Horde_Share
      * to the given set of unique IDs, with the details retrieved
      * appropriately.
      *
-     * @param array $cids  The array of ids to retrieve.
+     * @param array $ids  The array of ids to retrieve.
      *
      * @return array  The requested shares.
      */
     protected function _getShares($ids)
     {
         $shares = array();
-        $query = 'SELECT * FROM ' . $this->_table . ' WHERE share_id IN (' . implode(', ', $ids) . ')';
-        $result = $this->_db->query($query);
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
-            throw new Horde_Share_Exception($result->getMessage());
-        } elseif (empty($result)) {
-            return array();
+        try {
+            $rows = $this->_db->selectAll('SELECT * FROM ' . $this->_table . ' WHERE share_id IN (' . str_repeat('?', count($ids) - 1) . '?) ', $ids);
+        } catch (Horde_Db_Exception $e) {
+            Horde::logMessage($e, 'ERR');
+            throw new Horde_Share_Exception($e->getMessage());
         }
 
         $groups = array();
         $users = array();
-        while ($share = $result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
+        foreach ($rows as $share) {
             $shares[(int)$share['share_id']] = $this->_fromDriverCharset($share);
             if ($this->_hasUsers($share)) {
                 $users[] = (int)$share['share_id'];
@@ -316,37 +312,30 @@ class Horde_Share_Sql extends Horde_Share
                 $groups[] = (int)$share['share_id'];
             }
         }
-        $result->free();
 
-        // Get users permissions
+        // Get users' permissions
         if (!empty($users)) {
-            $query = 'SELECT share_id, user_uid, perm FROM ' . $this->_table . '_users '
-                    . ' WHERE share_id IN (' . implode(', ', $users) . ')';
-            $result = $this->_db->query($query);
-            if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, 'ERR');
-                throw new Horde_Share_Exception($result->getMessage());
-            } elseif (!empty($result)) {
-                while ($share = $result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
-                    $shares[$share['share_id']]['perm']['users'][$share['user_uid']] = (int)$share['perm'];
-                }
-                $result->free();
+            try {
+                $rows = $this->_db->selectAll('SELECT share_id, user_uid, perm FROM ' . $this->_table . '_users WHERE share_id IN (' . str_repeat('?', count($users) - 1) . '?) ', $users);
+            } catch (Horde_Db_Exception $e) {
+                Horde::logMessage($e, 'ERR');
+                throw new Horde_Share_Exception($e->getMessage());
+            }
+            foreach ($rows as $share) {
+                $shares[$share['share_id']]['perm']['users'][$share['user_uid']] = (int)$share['perm'];
             }
         }
 
-        // Get groups permissions
+        // Get groups' permissions
         if (!empty($groups)) {
-            $query = 'SELECT share_id, group_uid, perm FROM ' . $this->_table . '_groups'
-                   . ' WHERE share_id IN (' . implode(', ', $groups) . ')';
-            $result = $this->_db->query($query);
-            if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, 'ERR');
-                throw new Horde_Share_Exception($result->getMessage());
-            } elseif (!empty($result)) {
-                while ($share = $result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
-                    $shares[$share['share_id']]['perm']['groups'][$share['group_uid']] = (int)$share['perm'];
-                }
-                $result->free();
+            try {
+                $rows = $this->_db->selectAll('SELECT share_id, group_uid, perm FROM ' . $this->_table . '_groups WHERE share_id IN (' .  str_repeat('?', count($groups) - 1) . '?) ', $groups);
+            } catch (Horde_Db_Exception $e) {
+                Horde::logMessage($e, 'ERR');
+                throw new Horde_Share_Exception($e->getMessage());
+            }
+            foreach ($rows as $share) {
+                $shares[$share['share_id']]['perm']['groups'][$share['group_uid']] = (int)$share['perm'];
             }
         }
 
@@ -360,8 +349,7 @@ class Horde_Share_Sql extends Horde_Share
     }
 
     /**
-     * Lists *all* shares for the current app/share, regardless of
-     * permissions.
+     * Lists *all* shares for the current app/share, regardless of permissions.
      *
      * This is for admin functionality and scripting tools, and shouldn't be
      * called from user-level code!
@@ -375,52 +363,46 @@ class Horde_Share_Sql extends Horde_Share
     }
 
     /**
-     * Lists *all* shares for the current app/share, regardless of
-     * permissions.
+     * Lists *all* shares for the current app/share, regardless of permissions.
      *
      * @return array  All shares for the current app/share.
+     * @throws Horde_Share_Exception
      */
     protected function _listAllShares()
     {
         $shares = array();
-        $query = 'SELECT * FROM ' . $this->_table . ' ORDER BY share_name ASC';
-        $result = $this->_db->query($query);
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
-            throw new Horde_Share_Exception($result->getMessage());
-        } elseif (empty($result)) {
-            return array();
+
+        try {
+            $rows = $this->_db->selectAll('SELECT * FROM ' . $this->_table . ' ORDER BY share_name ASC');
+        } catch (Horde_Db_Exception $e) {
+            Horde::logMessage($e, 'ERR');
+            throw new Horde_Share_Exception($e->getMessage());
         }
 
-        while ($share = $result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
+        foreach ($rows as $share) {
             $shares[(int)$share['share_id']] = $this->_fromDriverCharset($share);
         }
-        $result->free();
 
         // Get users permissions
-        $query = 'SELECT share_id, user_uid, perm FROM ' . $this->_table . '_users';
-        $result = $this->_db->query($query);
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
-            return $result;
-        } elseif (!empty($result)) {
-            while ($share = $result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
-                $shares[$share['share_id']]['perm']['users'][$share['user_uid']] = (int)$share['perm'];
-            }
-            $result->free();
+        try {
+            $rows = $this->_db->selectAll('SELECT share_id, user_uid, perm FROM ' . $this->_table . '_users');
+        } catch (Horde_Db_Exception $e) {
+            Horde::logMessage($e->getMessage(), 'ERR');
+            throw new Horde_Share_Exception($e);
+        }
+        foreach ($rows as $share) {
+            $shares[$share['share_id']]['perm']['users'][$share['user_uid']] = (int)$share['perm'];
         }
 
         // Get groups permissions
-        $query = 'SELECT share_id, group_uid, perm FROM ' . $this->_table . '_groups';
-        $result = $this->_db->query($query);
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
-            throw new Horde_Share_Exception($result->getMessage());
-        } elseif (!empty($result)) {
-            while ($share = $result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
-                $shares[$share['share_id']]['perm']['groups'][$share['group_uid']] = (int)$share['perm'];
-            }
-            $result->free();
+        try {
+            $rows = $this->_db->selectAll('SELECT share_id, group_uid, perm FROM ' . $this->_table . '_groups');
+        } catch (Horde_Db_Exception $e) {
+            Horde::logMessage($e->getMessage(), 'ERR');
+            throw new Horde_Share_Exception($e->getMessage());
+        }
+        foreach ($rows as $share) {
+            $shares[$share['share_id']]['perm']['groups'][$share['group_uid']] = (int)$share['perm'];
         }
 
         $sharelist = array();
@@ -436,56 +418,54 @@ class Horde_Share_Sql extends Horde_Share
     /**
      * Returns an array of all shares that $userid has access to.
      *
-     * @param string $userid     The userid of the user to check access for.
-     * @param integer $perm      The level of permissions required.
-     * @param mixed $attributes  Restrict the shares counted to those
-     *                           matching $attributes. An array of
-     *                           attribute/values pairs or a share owner
-     *                           username.
+     * @param string $userid  The userid of the user to check access for.
+     * @param array $params   Additional parameters for the search.
+     *<pre>
+     *  'perm'        Require this level of permissions. Horde_Perms constant.
+     *  'attribtues'  Restrict shares to these attributes. A hash or username.
+     *  'from'        Offset. Start at this share
+     *  'count'       Limit.  Only return this many.
+     *  'sort_by'     Sort by attribute.
+     *  'direction'   Sort by direction.
+     *</pre>
      *
      * @return array  The shares the user has access to.
-     * @throws Horde_Share_Exception
      */
-    public function listShares($userid, $perm = Horde_Perms::SHOW, $attributes = null,
-                        $from = 0, $count = 0, $sort_by = null, $direction = 0)
+    public function listShares($userid, $params = array())
     {
+        //var_dump($params);
+        $params = array_merge(array('perm' => Horde_Perms::SHOW,
+                                    'attributes' => null,
+                                    'from' => 0,
+                                    'count' => 0,
+                                    'sort_by' => null,
+                                    'direction' => 0),
+                              $params);
         $shares = array();
-        if (is_null($sort_by)) {
+        if (is_null($params['sort_by'])) {
             $sortfield = 's.share_name';
-        } elseif ($sort_by == 'owner' || $sort_by == 'id') {
-            $sortfield = 's.share_' . $sort_by;
+        } elseif ($params['sort_by'] == 'owner' || $params['sort_by'] == 'id') {
+            $sortfield = 's.share_' . $params['sort_by'];
         } else {
-            $sortfield = 's.attribute_' . $sort_by;
+            $sortfield = 's.attribute_' . $params['sort_by'];
         }
 
         $query = 'SELECT DISTINCT s.* '
-            . $this->getShareCriteria($userid, $perm, $attributes)
+            . $this->getShareCriteria($userid, $params['perm'], $params['attributes'])
             . ' ORDER BY ' . $sortfield
-            . (($direction == 0) ? ' ASC' : ' DESC');
-        if ($from > 0 || $count > 0) {
-            $this->_db->setLimit($count, $from);
-        }
+            . (($params['direction'] == 0) ? ' ASC' : ' DESC');
 
-        // Fix field names for sqlite. MDB2 tries to handle this with
-        // MDB2_PORTABILITY_FIX_ASSOC_FIELD_NAMES, but it doesn't stick.
-        if ($this->_db->phptype == 'sqlite') {
-            $connection = $this->_db->getConnection();
-            @sqlite_query('PRAGMA full_column_names=0', $connection);
-            @sqlite_query('PRAGMA short_column_names=1', $connection);
-        }
-
+        $query = $this->_db->addLimitOffset($query, array('limit' => $params['count'], 'offset' => $params['from']));
         Horde::logMessage(sprintf("SQL Query by Horde_Share_sql::listShares: %s", $query), 'DEBUG');
-        $result = $this->_db->query($query);
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
-            throw new Horde_Share_Exception($result->getMessage());
-        } elseif (empty($result)) {
-            return array();
+        try {
+            $rows = $this->_db->selectAll($query);
+        } catch (Horde_Db_Exception $e) {
+            Horde::logMessage($e->getMessage(), 'ERR');
+            throw new Horde_Share_Exception($e->getMessage());
         }
-
         $users = array();
         $groups = array();
-        while ($share = $result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
+        foreach ($rows as $share) {
             $shares[(int)$share['share_id']] = $this->_fromDriverCharset($share);
             if ($this->_hasUsers($share)) {
                 $users[] = (int)$share['share_id'];
@@ -494,22 +474,20 @@ class Horde_Share_Sql extends Horde_Share
                 $groups[] = (int)$share['share_id'];
             }
         }
-        $result->free();
 
         // Get users permissions
         if (!empty($users)) {
             $query = 'SELECT share_id, user_uid, perm FROM ' . $this->_table
                  . '_users WHERE share_id IN (' . implode(', ', $users)
                  . ')';
-            $result = $this->_db->query($query);
-            if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, 'ERR');
-                throw new Horde_Share_Exception($result->getMessage());
-            } elseif (!empty($result)) {
-                while ($share = $result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
-                    $shares[$share['share_id']]['perm']['users'][$share['user_uid']] = (int)$share['perm'];
-                }
-                $result->free();
+            try {
+                $rows = $this->_db->selectAll($query);
+            } catch (Horde_Db_Exception $e) {
+                Horde::logMessage($e->getMessage(), 'ERR');
+                throw new Horde_Share_Exception($e->getMessage());
+            }
+            foreach ($rows as $share) {
+                $shares[$share['share_id']]['perm']['users'][$share['user_uid']] = (int)$share['perm'];
             }
         }
 
@@ -518,15 +496,14 @@ class Horde_Share_Sql extends Horde_Share
             $query = 'SELECT share_id, group_uid, perm FROM ' . $this->_table
                      . '_groups WHERE share_id IN (' . implode(', ', $groups)
                      . ')';
-            $result = $this->_db->query($query);
-            if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, 'ERR');
-                throw new Horde_Share_Exception($result->getMessage());
-            } elseif (!empty($result)) {
-                while ($share = $result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
-                    $shares[$share['share_id']]['perm']['groups'][$share['group_uid']] = (int)$share['perm'];
-                }
-                $result->free();
+            try {
+                $rows = $this->_db->selectAll($query);
+            } catch (Horde_Db_Exception $e) {
+                Horde::logMessage($e, 'ERR');
+                throw new Horde_Share_Exception($e->getMessage());
+            }
+            foreach ($rows as $share) {
+                $shares[$share['share_id']]['perm']['groups'][$share['group_uid']] = (int)$share['perm'];
             }
         }
 
@@ -538,9 +515,10 @@ class Horde_Share_Sql extends Horde_Share
         }
         unset($shares);
 
-        try {
-            return Horde::callHook('share_list', array($userid, $perm, $attributes, $sharelist));
-        } catch (Horde_Exception_HookNotSet $e) {}
+        // Run the results through the callback, if configured.
+        if (!empty($this->_callbacks['list'])) {
+            return $this->runCallback('list', array($userid, $sharelist, $params));
+        }
 
         return $sharelist;
     }
@@ -553,32 +531,22 @@ class Horde_Share_Sql extends Horde_Share
      */
     public function listSystemShares()
     {
-        // Fix field names for sqlite. MDB2 tries to handle this with
-        // MDB2_PORTABILITY_FIX_ASSOC_FIELD_NAMES, but it doesn't stick.
-        if ($this->_db->phptype == 'sqlite') {
-            $connection = $this->_db->getConnection();
-            @sqlite_query('PRAGMA full_column_names=0', $connection);
-            @sqlite_query('PRAGMA short_column_names=1', $connection);
-        }
-
         $query = 'SELECT * FROM ' . $this->_table . ' WHERE share_owner IS NULL';
         Horde::logMessage('SQL Query by Horde_Share_sql::listSystemShares: ' . $query, 'DEBUG');
-        $result = $this->_db->query($query);
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
-            throw new Horde_Share_Exception($result->getMessage());;
-        } elseif (empty($result)) {
-            return array();
+        try {
+            $rows = $this->_db->selectAll($query);
+        } catch (Horde_Db_Exception $e) {
+            Horde::logMessage($e->getMessage(), 'ERR');
+            throw new Horde_Share_Exception($e->getMessage());;
         }
 
         $sharelist = array();
-        while ($share = $result->fetchRow(MDB2_FETCHMODE_ASSOC)) {
+        foreach ($rows as $share) {
             $data = $this->_fromDriverCharset($share);
             $this->_getSharePerms($data);
             $sharelist[$data['share_name']] = new $this->_shareObject($data);
             $sharelist[$data['share_name']]->setShareOb($this);
         }
-        $result->free();
 
         return $sharelist;
     }
@@ -601,13 +569,14 @@ class Horde_Share_Sql extends Horde_Share
         $query = $this->getShareCriteria($userid, $perm, $attributes);
         $query = 'SELECT COUNT(DISTINCT s.share_id) ' . $query;
         Horde::logMessage(sprintf("SQL Query by Horde_Share_sql::_countShares: %s", $query), 'DEBUG');
-        return $this->_db->queryOne($query);
+
+        return $this->_db->selectValue($query);
     }
 
     /**
      * Returns a new share object.
      *
-     * @param string $name  The share's name.
+     * @param string $name   The share's name.
      *
      * @return Horde_Share_Object_sql  A new share object.
      */
@@ -645,19 +614,12 @@ class Horde_Share_Sql extends Horde_Share
                         $this->_table . '_users',
                         $this->_table . '_groups');
         foreach ($tables as $table) {
-
-            /* Remove the share entry */
-            $stmt = $this->_write_db->prepare('DELETE FROM ' . $table . ' WHERE share_id = ?', null, MDB2_PREPARE_MANIP);
-            if ($stmt instanceof PEAR_Error) {
-                Horde::logMessage($stmt, 'ERR');
-                throw new Horde_Share_Exception($stmt->getMessage());
+            try {
+                $this->_db->delete('DELETE FROM ' . $table . ' WHERE share_id = ?', $params);
+            } catch (Horde_Db_Exception $e) {
+                Horde::logMessage($e->getMessage(), 'ERR');
+                throw new Horde_Share_Exception($e->getMessage());
             }
-            $result = $stmt->execute($params);
-            if ($result instanceof PEAR_Error) {
-                Horde::logMessage($result, 'ERR');
-                throw new Horde_Share_Exception($result->getMessage());
-            }
-            $stmt->free();
         }
 
         return true;
@@ -673,30 +635,19 @@ class Horde_Share_Sql extends Horde_Share
      */
     protected function _exists($share)
     {
-        $stmt = $this->_db->prepare('SELECT 1 FROM ' . $this->_table
-                . ' WHERE share_name = ?');
-
-        if ($stmt instanceof PEAR_Error) {
-            Horde::logMessage($stmt, 'ERR');
-            throw new Horde_Share_Exception($stmt->getMessage());
+        try {
+            return (boolean)$this->_db->selectOne('SELECT 1 FROM ' . $this->_table . ' WHERE share_name = ?', array($share));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Share_Exception($e);
         }
-        $result = $stmt->execute(array($share));
-        if ($result instanceof PEAR_Error) {
-            Horde::logMessage($result, 'ERR');
-            throw new Horde_Share_Exception($result->getMessage());
-        }
-
-        $exists = (bool)$result->fetchOne();
-        $stmt->free();
-        $result->free();
-
-        return $exists;
     }
 
     /**
      * Returns an array of criteria for querying shares.
      * @access protected
      *
+     * @TODO: Horde_SQL:: stuff should be refactored/removed when it's ported
+     *        to Horde_Db
      * @param string  $userid      The userid of the user to check access for.
      * @param integer $perm        The level of permissions required.
      * @param mixed   $attributes  Restrict the shares returned to those who
@@ -705,14 +656,14 @@ class Horde_Share_Sql extends Horde_Share
      * @return string  The criteria string for fetching this user's shares.
      */
     public function getShareCriteria($userid, $perm = Horde_Perms::SHOW,
-                               $attributes = null)
+                                     $attributes = null)
     {
         $query = ' FROM ' . $this->_table . ' s ';
         $where = '';
 
         if (!empty($userid)) {
             // (owner == $userid)
-            $where .= 's.share_owner = ' . $this->_write_db->quote($userid);
+            $where .= 's.share_owner = ' . $this->_db->quote($userid);
 
             // (name == perm_creator and val & $perm)
             $where .= ' OR (' . Horde_SQL::buildClause($this->_db, 's.perm_creator', '&', $perm) . ')';
@@ -722,14 +673,12 @@ class Horde_Share_Sql extends Horde_Share
 
             // (name == perm_users and key == $userid and val & $perm)
             $query .= ' LEFT JOIN ' . $this->_table . '_users u ON u.share_id = s.share_id';
-             $where .= ' OR ( u.user_uid = ' .  $this->_write_db->quote($userid)
+            $where .= ' OR ( u.user_uid = ' .  $this->_db->quote($userid)
             . ' AND (' . Horde_SQL::buildClause($this->_db, 'u.perm', '&', $perm) . '))';
 
             // If the user has any group memberships, check for those also.
-            // @TODO: Inject the group driver
             try {
-                $group = $GLOBALS['injector']->getInstance('Horde_Group');
-                $groups = $group->getGroupMemberships($userid, true);
+                $groups = $this->_groups->getGroupMemberships($userid, true);
                 if ($groups) {
                     // (name == perm_groups and key in ($groups) and val & $perm)
                     $ids = array_keys($groups);
@@ -767,20 +716,6 @@ class Horde_Share_Sql extends Horde_Share
     }
 
     /**
-     * Resets the current database name so that MDB2 is always selecting the
-     * database before sending a query.
-     *
-     * @TODO: This needs to be public since it's used as a callback in MDB2.
-     *        Remove when refactored to use Horde_Db
-     */
-    public function _selectDB($db, $scope, $message, $is_manip = null)
-    {
-        if ($scope == 'query') {
-            $db->connected_database_name = '';
-        }
-    }
-
-    /**
      * Set the SQL table name to use for the current scope's share storage.
      *
      * @var string $table  The table name
@@ -789,103 +724,9 @@ class Horde_Share_Sql extends Horde_Share
         $this->_table = $table;
     }
 
-    /**
-     * Attempts to open a connection to the sql server.
-     *
-     * @return boolean  True on success.
-     * @throws Horde_Share_Exception
-     */
-    protected function _connect()
+    public function setStorage(Horde_Db_Adapter $db)
     {
-        $this->_params = $GLOBALS['conf']['sql'];
-        if (!isset($this->_params['database'])) {
-            $this->_params['database'] = '';
-        }
-        if (!isset($this->_params['username'])) {
-            $_params['username'] = '';
-        }
-        if (!isset($this->_params['hostspec'])) {
-            $this->_params['hostspec'] = '';
-        }
-
-        /* Connect to the sql server using the supplied parameters. */
-        $params = $this->_params;
-        unset($params['charset']);
-        $this->_write_db = &MDB2::factory($params);
-        if ($this->_write_db instanceof PEAR_Error) {
-            throw new Horde_Share_Exception($this->_write_db->getMessage());
-        }
-
-        /* Attach debug handler. */
-        $this->_write_db->setOption('debug', true);
-        $this->_write_db->setOption('debug_handler', array($this, '_selectDB'));
-        $this->_write_db->setOption('seqcol_name', 'id');
-
-        /* Set DB portability options. */
-        switch ($this->_write_db->phptype) {
-        case 'mssql':
-            $this->_write_db->setOption('field_case', CASE_LOWER);
-            $this->_write_db->setOption('portability', MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_ERRORS | MDB2_PORTABILITY_RTRIM | MDB2_PORTABILITY_FIX_ASSOC_FIELD_NAMES);
-            break;
-
-        default:
-            switch ($this->_write_db->phptype) {
-            case 'oci8':
-                $this->_write_db->setOption('emulate_database', false);
-                break;
-
-            case 'pgsql':
-                /* The debug handler breaks PostgreSQL. In most cases it
-                 * shouldn't be necessary, but this may mean we simply can't
-                 * support use of multiple Postgres databases right now. See
-                 * http://bugs.horde.org/ticket/7825 */
-                $this->_write_db->setOption('debug', false);
-                break;
-            }
-            $this->_write_db->setOption('field_case', CASE_LOWER);
-            $this->_write_db->setOption('portability', MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_ERRORS | MDB2_PORTABILITY_FIX_ASSOC_FIELD_NAMES);
-        }
-
-        /* Check if we need to set up the read DB connection seperately. */
-        if (!empty($this->_params['splitread'])) {
-            $params = array_merge($params, $this->_params['read']);
-            unset($params['charset']);
-            $this->_db = &MDB2::singleton($params);
-            if ($this->_db instanceof PEAR_Error) {
-                throw new Horde_Share_Exception($this->_db);
-            }
-
-            $this->_db->setOption('seqcol_name', 'id');
-            /* Set DB portability options. */
-            switch ($this->_db->phptype) {
-            case 'mssql':
-                $this->_db->setOption('field_case', CASE_LOWER);
-                $this->_db->setOption('portability', MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_ERRORS | MDB2_PORTABILITY_RTRIM | MDB2_PORTABILITY_FIX_ASSOC_FIELD_NAMES);
-                break;
-
-            default:
-                switch ($this->_db->phptype) {
-                case 'oci8':
-                    $this->_db->setOption('emulate_database', false);
-                    break;
-
-                case 'pgsql':
-                    /* The debug handler breaks PostgreSQL. In most cases it
-                     * shouldn't be necessary, but this may mean we simply
-                     * can't support use of multiple Postgres databases right
-                     * now. See http://bugs.horde.org/ticket/7825 */
-                    $this->_write_db->setOption('debug', false);
-                    break;
-                }
-                $this->_db->setOption('field_case', CASE_LOWER);
-                $this->_db->setOption('portability', MDB2_PORTABILITY_FIX_CASE | MDB2_PORTABILITY_ERRORS | MDB2_PORTABILITY_FIX_ASSOC_FIELD_NAMES);
-            }
-        } else {
-            /* Default to the same DB handle as the writer for reading too */
-            $this->_db = $this->_write_db;
-        }
-
-        return true;
+        $this->_db = $db;
     }
 
     /**
@@ -896,7 +737,7 @@ class Horde_Share_Sql extends Horde_Share
         foreach ($data as $key => $value) {
             if (substr($key, 0, 9) == 'attribute') {
                 $data[$key] = Horde_String::convertCharset(
-                    $data[$key], $this->_params['charset'], 'UTF-8');
+                    $data[$key], $this->_db->getOption('charset'), 'UTF-8');
             }
         }
 
@@ -917,7 +758,7 @@ class Horde_Share_Sql extends Horde_Share
         foreach ($data as $key => $value) {
             if (substr($key, 0, 9) == 'attribute') {
                 $data[$key] = Horde_String::convertCharset(
-                    $data[$key], 'UTF-8', $this->_params['charset']);
+                    $data[$key], 'UTF-8', $this->_db->getOption('charset'));
             }
         }
 

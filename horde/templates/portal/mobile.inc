@@ -1,6 +1,6 @@
 <div data-role="page">
     <div data-role="header">
-     <?php echo sprintf(_("Welcome, %s"), $fullname) ?>
+     <h1><?php echo sprintf(_("Welcome, %s"), $fullname) ?></h1>
     </div>
     <div data-role="content" class="ui-body"">
         <ul data-role="listview" data-theme="a">

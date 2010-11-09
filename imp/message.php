@@ -318,12 +318,12 @@ if ($subject = $mime_headers->getValue('subject')) {
 switch ($priority = $imp_hdr_ui->getPriority($mime_headers)) {
 case 'high':
     $basic_headers['priority'] = _("Priority");
-    $display_headers['priority'] = '<div class="msgflags flagHighpriority" title="' . htmlspecialchars(_("High Priority")) . '"></div>&nbsp;' . _("High");
+    $display_headers['priority'] = '<div class="iconImg msgflags flagHighpriority" title="' . htmlspecialchars(_("High Priority")) . '"></div>&nbsp;' . _("High");
     break;
 
 case 'low':
     $basic_headers['priority'] = _("Priority");
-    $display_headers['priority'] = '<div class="msgflags flagLowpriority" title="' . htmlspecialchars(_("Low Priority")) . '"></div>&nbsp;' . _("Low");
+    $display_headers['priority'] = '<div class="iconImg msgflags flagLowpriority" title="' . htmlspecialchars(_("Low Priority")) . '"></div>&nbsp;' . _("Low");
     break;
 }
 
