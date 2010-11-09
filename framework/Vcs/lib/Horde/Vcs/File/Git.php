@@ -198,7 +198,24 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
         return $revlist;
     }
 
-   /**
+    /**
+     * TODO
+     */
+    public function queryLogs($rev = null)
+    {
+        if (is_null($rev)) {
+            $this->_ensureLogsInitialized();
+            return $this->logs;
+        } else {
+            if (!isset($this->logs[$rev])) {
+                $this->logs[$rev] = $this->_rep->getLogObject($this, $rev);
+            }
+
+            return isset($this->logs[$rev]) ? $this->logs[$rev] : null;
+        }
+    }
+
+    /**
      * Return the last Horde_Vcs_Log object in the file.
      *
      * @return Horde_Vcs_Log  Log object of the last entry in the file.
