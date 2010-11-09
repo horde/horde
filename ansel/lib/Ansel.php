@@ -760,22 +760,22 @@ class Ansel
         $themesuri = $GLOBALS['registry']->get('themesuri', 'ansel');
         $themesfs = $GLOBALS['registry']->get('themesfs', 'ansel');
         $css = array();
+
         if (!empty($GLOBALS['ansel_stylesheets'])) {
             foreach ($GLOBALS['ansel_stylesheets'] as $css_file) {
-                $css[] = array('u' => Horde::url($themesuri . '/' . $css_file, true),
-                               'f' => $themesfs . '/' . $css_file);
+                $css[$themesfs . '/' . $css_file] = Horde::url($themesuri . '/' . $css_file, true);
             }
         }
 
         /* Use Horde's stylesheet code if we aren't ouputting css directly */
         if (!$custom_only) {
-            Horde_Themes::includeStylesheetFiles(array('additional' => $css));
+            foreach ($css as $f => $u) {
+                Horde_Themes::addStylesheetFile($f, $u);
+            }
+            Horde_Themes::includeStylesheetFiles();
         } else {
-            foreach ($css as $file) {
-                echo '<link href="' . $file['u']
-                     . '" rel="stylesheet" type="text/css"'
-                     . (isset($file['m']) ? ' media="' . $file['m'] . '"' : '')
-                     . ' />' . "\n";
+            foreach ($css as $u) {
+                echo '<link href="' . $u . '" rel="stylesheet" type="text/css" />' . "\n";
             }
         }
     }

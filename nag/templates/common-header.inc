@@ -17,6 +17,8 @@ if (!empty($title)) {
 Horde::outputMetaTags();
 Horde::includeScriptFiles();
 
+Horde::addStylesheetFile($registry->get('themesfs') . '/categoryCSS.php', $registry->get('themesuri') . '/categoryCSS.php');
+
 $bc = $prefs->getValue('show_panel')
     ? 'rightPanel'
     : '';
@@ -25,7 +27,6 @@ $bc = $prefs->getValue('show_panel')
 <title><?php echo htmlspecialchars($page_title) ?></title>
 <link href="<?php echo Horde_Themes::img('favicon.ico', array('nohorde' => true)) ?>" rel="SHORTCUT ICON" />
 <?php Horde_Themes::includeStylesheetFiles() ?>
-<link href="<?php echo Horde::url('themes/categoryCSS.php') ?>" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
 var Nag = {};
 </script>

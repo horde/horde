@@ -65,10 +65,9 @@ EOT;
 
         $sh_js_fs = $GLOBALS['registry']->get('jsfs', 'horde') . '/syntaxhighlighter/styles/';
         $sh_js_uri = Horde::url($GLOBALS['registry']->get('jsuri', 'horde'), false, -1) . '/syntaxhighlighter/styles/';
-        Horde_Themes::includeStylesheetFiles(array('additional' => array(
-            array('f' => $sh_js_fs . 'shCoreEclipse.css', 'u' => $sh_js_uri . 'shCoreEclipse.css'),
-            array('f' => $sh_js_fs . 'shThemeEclipse.css', 'u' => $sh_js_uri . 'shThemeEclipse.css'),
-        )));
+
+        Horde_Themes::addStylesheetFile($sh_js_fs . 'shCoreEclipse.css', $sh_js_uri . 'shCoreEclipse.css');
+        Horde_Themes::addStylesheetFile($sh_js_fs . 'shThemeEclipse.css', $sh_js_uri . 'shThemeEclipse.css');
 
         $driver = $GLOBALS['injector']->getInstance('Jonah_Driver');
         try {

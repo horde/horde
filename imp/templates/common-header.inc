@@ -36,7 +36,9 @@ Horde::outputMetaTags();
 
 switch ($imp_view) {
 case 'dimp':
-    Horde_Themes::includeStylesheetFiles(array('sub' => 'dimp'));
+    Horde_Themes::includeStylesheetFiles(array(
+        'sub' => 'dimp'
+    ));
     if (!in_array(basename($_SERVER['PHP_SELF']), array('compose-dimp.php', 'index-dimp.php', 'message-dimp.php'))) {
         Horde::includeScriptFiles();
         Horde::outputInlineScript();

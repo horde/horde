@@ -14,12 +14,28 @@
 class Horde_Themes
 {
     /**
+     * A list of additional stylesheet files to add to the output.
+     *
+     * @var array
+     */
+    static protected $_cssFiles = array();
+
+    /**
+     * Adds an external stylesheet to the output.
+     *
+     * @param string $file
+     */
+    static public function addStylesheet($file, $url)
+    {
+        $this->_cssFiles[$file] = $url;
+    }
+
+    /**
      * Outputs the necessary style tags, honoring configuration choices as
      * to stylesheet caching.
      *
      * @param array $options  Additional options:
      * <pre>
-     * 'additional' - (array) TODO
      * 'nohorde' - (boolean) If true, don't load files from Horde.
      * 'sub' - (string) A subdirectory containing additional CSS files to
      *         load as an overlay to the base CSS files.
@@ -38,10 +54,6 @@ class Horde_Themes
 
         $css = self::getStylesheets(isset($options['theme']) ? $options['theme'] : $prefs->getValue('theme'), $options);
         $css_out = array();
-
-        if (!empty($options['additional'])) {
-            $css = array_merge($css, $options['additional']);
-        }
 
         $cache_type = empty($conf['cachecss'])
             ? 'none'
@@ -123,8 +135,6 @@ class Horde_Themes
 
     /**
      * Return the list of base stylesheets to display.
-     * Callback for includeStylesheetFiles() to convert images to base64
-     * data strings.
      *
      * @param mixed $theme    The theme to use; specify an empty value to
      *                        retrieve the theme from user preferences, and
@@ -215,6 +225,9 @@ class Horde_Themes
                 }
             }
         }
+
+        /* Add additional stylesheets added by code. */
+        $css = array_merge($css, $this->_cssFiles);
 
         /* Add user-defined additional stylesheets. */
         try {

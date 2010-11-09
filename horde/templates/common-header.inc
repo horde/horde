@@ -25,7 +25,7 @@ Horde::outputMetaTags();
 <?php if (!$GLOBALS['browser']->isMobile()): ?>
 <link href="<?php echo Horde_Themes::img('favicon.ico', array('nohorde' => true)) ?>" rel="SHORTCUT ICON" />
 <?php
-echo Horde_Themes::includeStylesheetFiles(array('additional' => Horde_Util::nonInputVar('horde_css_stylesheets', array())));
+echo Horde_Themes::includeStylesheetFiles();
 echo Horde::includeScriptFiles();
 echo implode("\n", Horde_Util::nonInputVar('linkTags', array()));
 Horde::outputInlineScript();
