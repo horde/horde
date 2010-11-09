@@ -126,20 +126,6 @@ class IMP_Dimp
     }
 
     /**
-     * Return a list of DIMP specific menu items.
-     *
-     * @return array  The array of menu items.
-     */
-    static public function menuList()
-    {
-        return (isset($GLOBALS['conf']['menu']['apps']) &&
-                is_array($GLOBALS['conf']['menu']['apps']) &&
-                count($GLOBALS['conf']['menu']['apps']))
-            ? $GLOBALS['conf']['menu']['apps']
-            : array();
-    }
-
-    /**
      * Build data structure needed by DimpCore javascript to display message
      * log information.
      *

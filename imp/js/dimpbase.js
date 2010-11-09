@@ -212,12 +212,22 @@ var DimpBase = {
                 this.go('folder:INBOX');
                 return;
             }
-            this.highlightSidebar('app' + app);
+            this.highlightSidebar();
             this.setHash(loc);
             if (data) {
                 this.iframeContent(loc, data);
-            } else if (DIMP.conf.app_urls[app]) {
-                this.iframeContent(loc, DIMP.conf.app_urls[app]);
+            } else if (DIMP.conf.portal_urls[app]) {
+                this.iframeContent(loc, DIMP.conf.portal_urls[app]);
+            }
+            return;
+        }
+
+        if (loc.startsWith('menu:')) {
+            app = loc.substr(5);
+            this.highlightSidebar();
+            this.setHash(loc);
+            if (DIMP.conf.menu_urls[app]) {
+                this.iframeContent(loc, DIMP.conf.menu_urls[app]);
             }
             return;
         }
@@ -2138,7 +2148,8 @@ var DimpBase = {
                     tmp = tmp.up('LI.custom');
                 }
                 if (tmp) {
-                    this.go('app:' + tmp.down('A').identify().substring(3));
+                    // Prefix is 'sidebarapp_'
+                    this.go('menu:' + tmp.down('A').identify().substring(11));
                     e.stop();
                     return;
                 }
@@ -2146,7 +2157,8 @@ var DimpBase = {
 
             case 'tabbar':
                 if (e.element().hasClassName('applicationtab')) {
-                    this.go('app:' + e.element().identify().substring(6));
+                    // Prefix is 'apptab_'
+                    this.go('menu:' + e.element().identify().substring(7));
                     e.stop();
                     return;
                 }

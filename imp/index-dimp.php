@@ -17,7 +17,14 @@
 require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('imp', array('impmode' => 'dimp'));
 
-$scripts = array(
+/* Get site specific menu items. */
+$dimp_menu = new IMP_Menu_Dimp(Horde_Menu::MASK_BASE);
+$render_sidebar = $dimp_menu->render('sidebar');
+$render_tabs = $dimp_menu->render('tabs');
+$dimp_menu->addJs();
+
+Horde::noDnsPrefetch();
+IMP_Dimp::header('', array(
     array('dimpbase.js', 'imp'),
     array('viewport.js', 'imp'),
     array('dialog.js', 'imp'),
@@ -28,28 +35,7 @@ $scripts = array(
     array('popup.js', 'horde'),
     array('redbox.js', 'horde'),
     array('slider2.js', 'horde')
-);
-
-/* Get site specific menu items. */
-$js_code = $site_menu = array();
-if (is_readable(IMP_BASE . '/config/menu.php')) {
-    include IMP_BASE . '/config/menu.php';
-}
-
-/* Add the site specific javascript now. */
-if (!empty($site_menu)) {
-    foreach ($site_menu as $key => $menu_item) {
-        if ($menu_item != 'separator') {
-            foreach (array('menu', 'tab') as $val) {
-                $js_code[] = 'DimpCore.clickObserveHandler({ d: $(\'' . $val . $key . '\'), f: function() { ' . $menu_item['action'] . ' } })';
-            }
-        }
-    }
-}
-
-Horde::addInlineScript($js_code, 'load');
-Horde::noDnsPrefetch();
-IMP_Dimp::header('', $scripts);
+));
 
 echo "<body>\n";
 require IMP_TEMPLATES . '/dimp/index.inc';
