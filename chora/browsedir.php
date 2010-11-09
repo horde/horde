@@ -36,7 +36,7 @@ try {
 /* Decide what title to display. */
 $title = ($where == '')
     ? $conf['options']['introTitle']
-    : sprintf(_("Source Directory of /%s"), $where);
+    : "/$where";
 
 $extraLink = $VC->hasFeature('deleted')
     ? Horde::widget(Chora::url('browsedir', $where . '/', $branchArgs + array('sa' => ($acts['sa'] ? 0 : 1))), $acts['sa'] ? _("Hide Deleted Files") : _("Show Deleted Files"), 'widget', '', '', $acts['sa'] ? _("Hide _Deleted Files") : _("Show _Deleted Files"))

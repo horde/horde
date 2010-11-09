@@ -27,7 +27,7 @@ try {
     Chora::fatal($e);
 }
 
-$title = sprintf(_("Revisions for %s"), $where);
+$title = $where;
 
 $extraLink = Chora::getFileViews($where, 'browsefile');
 $logs = $fl->queryLogs();
