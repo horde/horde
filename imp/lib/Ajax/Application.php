@@ -1624,6 +1624,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         $options = array(
             'encrypt' => ($GLOBALS['prefs']->isLocked('default_encrypt') ? $GLOBALS['prefs']->getValue('default_encrypt') : $this->_vars->encrypt),
+            'html' => $this->_vars->html,
             'identity' => $identity,
             'priority' => $this->_vars->priority,
             'readreceipt' => $this->_vars->request_read_receipt,
@@ -1637,8 +1638,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         );
 
         try {
-            // TODO: Use 'sending_charset'
-            $sent = $imp_compose->buildAndSendMessage($this->_vars->message, $headers, $GLOBALS['registry']->getEmailCharset(), $this->_vars->html, $options);
+            $sent = $imp_compose->buildAndSendMessage($this->_vars->message, $headers, $options);
         } catch (IMP_Compose_Exception $e) {
             $result->success = 0;
 

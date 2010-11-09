@@ -30,10 +30,10 @@
    <td>
 <if:flags.locked><else:flags.locked>
     <input type="hidden" id="<tag:flags.colorid />" name="<tag:flags.colorid />" value="<tag:flags.color />" />
-    <div class="msgflags flagUser" style="<tag:flags.colorstyle />"></div>
+    <div class="iconImg msgflags flagUser" style="<tag:flags.colorstyle />"></div>
     <a class="flagcolorpicker" href="#"><tag:picker_img /></a>
 <if:flags.flag_del>
-    <a class="flagdelete" href="#"><span class="deleteImg"></span></a>
+    <a class="flagdelete" href="#"><span class="iconImg deleteImg"></span></a>
 </if:flags.flag_del>
 </else:flags.locked></if:flags.locked>
    </td>

@@ -91,12 +91,21 @@ class Horde_Core_Prefs_Ui
     public $nobuttons = false;
 
     /**
+     * List of update errors.
+     *
+     * @var array
+     */
+    protected $_errors = array();
+
+    /**
      * Constructor.
      *
      * @param Horde_Variables $vars  Form variables.
      */
     public function __construct($vars)
     {
+        global $registry;
+
         $this->app = isset($vars->app)
             ? $vars->app
             : $this->getDefaultApp();
@@ -105,10 +114,10 @@ class Horde_Core_Prefs_Ui
 
         /* Load the application's base environment. */
         try {
-            $GLOBALS['registry']->pushApp($this->app);
+            $registry->pushApp($this->app);
         } catch (Horde_Exception $e) {
             if ($e->getCode() == Horde_Registry::AUTH_FAILURE) {
-                $GLOBALS['registry']->authenticateFailure($this->app, $e);
+                $registry->authenticateFailure($this->app, $e);
             }
             throw $e;
         }
@@ -118,9 +127,14 @@ class Horde_Core_Prefs_Ui
 
         /* Populate enums. */
         if ($this->group &&
-            $GLOBALS['registry']->hasAppMethod($this->app, 'prefsEnum') &&
+            $registry->hasAppMethod($this->app, 'prefsEnum') &&
             $this->groupIsEditable($this->group)) {
-            $GLOBALS['registry']->callAppMethod($this->app, 'prefsEnum', array('args' => array($this)));
+            $registry->callAppMethod($this->app, 'prefsEnum', array('args' => array($this)));
+        }
+
+        /* Run app-specific init code. */
+        if ($registry->hasAppMethod($this->app, 'prefsInit')) {
+            $registry->callAppMethod($this->app, 'prefsInit', array('args' => array($this)));
         }
     }
 
@@ -247,7 +261,7 @@ class Horde_Core_Prefs_Ui
                 if (isset($enum[$this->vars->$pref])) {
                     $updated |= $save->setValue($pref, $this->vars->$pref);
                 } else {
-                    $notification->push(Horde_Core_Translation::t("An illegal value was specified."), 'horde.error');
+                    $this->_errors[$pref] = Horde_Core_Translation::t("An illegal value was specified.");
                 }
                 break;
 
@@ -263,7 +277,7 @@ class Horde_Core_Prefs_Ui
                         if (isset($enum[$val])) {
                             $set[] = $val;
                         } else {
-                            $notification->push(Horde_Core_Translation::t("An illegal value was specified."), 'horde.error');
+                            $this->_errors[$pref] = Horde_Core_Translation::t("An illegal value was specified.");
                             break 2;
                         }
                     }
@@ -275,9 +289,9 @@ class Horde_Core_Prefs_Ui
             case 'number':
                 $num = $this->vars->$pref;
                 if ((string)(double)$num !== $num) {
-                    $notification->push(Horde_Core_Translation::t("This value must be a number."), 'horde.error');
+                    $this->_errors[$pref] = Horde_Core_Translation::t("This value must be a number.");
                 } elseif (empty($num)) {
-                    $notification->push(Horde_Core_Translation::t("This number must be non-zero."), 'horde.error');
+                    $this->_errors[$pref] = Horde_Core_Translation::t("This value must be non-zero.");
                 } else {
                     $updated |= $save->setValue($pref, $num);
                 }
@@ -298,6 +312,10 @@ class Horde_Core_Prefs_Ui
                 }
                 break;
             }
+        }
+
+        if (count($this->_errors)) {
+            $notification->push(Horde_Core_Translation::t("There were errors encountered while updating your preferences."), 'horde.error');
         }
 
         if ($updated) {
@@ -353,11 +371,6 @@ class Horde_Core_Prefs_Ui
 
         $columns = $pref_list = array();
         $identities = false;
-
-        /* Run app-specific init code. */
-        if ($registry->hasAppMethod($this->app, 'prefsInit')) {
-            $registry->callAppMethod($this->app, 'prefsInit', array('args' => array($this)));
-        }
 
         $prefgroups = $this->_getPrefGroups();
 
@@ -417,6 +430,11 @@ class Horde_Core_Prefs_Ui
                 }
 
                 $t = clone $base;
+
+                if (isset($this->_errors[$pref])) {
+                    echo $t->fetch(HORDE_TEMPLATES . '/prefs/error_start.html');
+                }
+
                 if (isset($this->prefs[$pref]['desc'])) {
                     $t->set('desc', Horde::label($pref, $this->prefs[$pref]['desc']));
                 }
@@ -504,6 +522,11 @@ class Horde_Core_Prefs_Ui
                 }
 
                 echo $t->fetch(HORDE_TEMPLATES . '/prefs/' . $type . '.html');
+
+                if (isset($this->_errors[$pref])) {
+                    $t->set('error', htmlspecialchars($this->_errors[$pref]));
+                    echo $t->fetch(HORDE_TEMPLATES . '/prefs/error_end.html');
+                }
             }
 
             $t = clone $base;
@@ -588,9 +611,9 @@ class Horde_Core_Prefs_Ui
         $t->set('header', htmlspecialchars(($this->app == 'horde') ? Horde_Core_Translation::t("Global Preferences") : sprintf(Horde_Core_Translation::t("Preferences for %s"), $registry->get('name', $this->app))));
 
         if ($GLOBALS['session']->get('horde', 'prefs_advanced')) {
-            $t->set('advanced', $this->selfUrl()->add('show_advanced', 1));
-        } else {
             $t->set('basic', $this->selfUrl()->add('show_basic', 1));
+        } else {
+            $t->set('advanced', $this->selfUrl()->add('show_advanced', 1));
         }
 
         echo $t->fetch($h_templates . '/prefs/app.html');

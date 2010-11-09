@@ -445,7 +445,7 @@ Horde::addInlineJsVars(array_merge($js_vars, array(
         'or' => _("OR"),
         'search_term' => _("Search Term:")
     )
-)), false, 'dom');
+)), array('onload' => 'dom'));
 
 if ($dimp_view) {
     if (!$vars->edit_query) {

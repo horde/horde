@@ -21,10 +21,18 @@ class Horde_Menu
     const MASK_LOGIN = 2;
     const MASK_PREFS = 4;
     const MASK_PROBLEM = 8;
-    const MASK_ALL = 15;
+    const MASK_BASE = 16;
+    const MASK_ALL = 31;
 
     /* TODO */
     const POS_LAST = 999;
+
+    /**
+     * Mask defining what menu items to show.
+     *
+     * @var integer
+     */
+    protected $_mask;
 
     /**
      * Menu array.
@@ -34,22 +42,13 @@ class Horde_Menu
     protected $_menu = array();
 
     /**
-     * Mask defining what general Horde links are shown in this Menu.
-     *
-     * @var integer
-     */
-    protected $_mask;
-
-    /**
      * Constructor
+     *
+     * @param integer $mask  Display mask.
      */
     public function __construct($mask = self::MASK_ALL)
     {
-        /* Menuitem mask. */
         $this->_mask = $mask;
-
-        /* Location of the menufile. */
-        $this->_menufile = $GLOBALS['registry']->get('fileroot') . '/config/menu.php';
     }
 
     /**
@@ -146,11 +145,9 @@ class Horde_Menu
     }
 
     /**
-     * Return the unordered list representing the list of menu items. Styling
-     * is done through CSS.
+     * Return the rendered representation of the menu items.
      *
-     * @return string  An unordered list of menu elements that can be entirely
-     *                 styled with CSS.
+     * @return string  The rendered representation.
      */
     public function render()
     {
@@ -223,8 +220,21 @@ class Horde_Menu
             $this->_menu = array_reverse($this->_menu);
         }
 
-        $menu_view = $prefs->getValue('menu_view');
+        return $this->_render();
+    }
+
+    /**
+     * Unordered list representing the list of menu items. Styling is done
+     * through CSS.
+     *
+     * @return string  An unordered list of menu elements that can be entirely
+     *                 styled with CSS.
+     */
+    protected function _render()
+    {
+        $menu_view = $GLOBALS['prefs']->getValue('menu_view');
         $output = '<ul>';
+
         foreach ($this->_menu as $m) {
             /* Check for separators. */
             if ($m == 'separator') {
@@ -270,32 +280,51 @@ class Horde_Menu
     }
 
     /**
-     * Any links to other Horde applications defined in an application's config
-     * file by the $conf['menu']['apps'] array are added to the menu array.
+     * Add links to other Horde applications defined in an application's
+     * config file.
      */
     public function addAppLinks()
     {
-        global $conf, $registry;
+        global $registry;
 
-        if (isset($conf['menu']['apps']) && is_array($conf['menu']['apps'])) {
-            foreach ($conf['menu']['apps'] as $app) {
-                if ($registry->get('status', $app) != 'inactive' && $registry->hasPermission($app, Horde_Perms::SHOW)) {
-                    try {
-                        $this->add(Horde::url($registry->getInitialPage($app)), $registry->get('name', $app), $registry->get('icon', $app), '');
-                    } catch (Horde_Exception $e) {}
-                }
-            }
+        foreach ($this->getAppLinks() as $app) {
+            try {
+                $this->add(Horde::url($registry->getInitialPage($app)), $registry->get('name', $app), $registry->get('icon', $app), '');
+            } catch (Horde_Exception $e) {}
         }
     }
 
     /**
-     * Add any other links found in $this->_menufile to be included in the
-     * menu.
+     * List any links to other Horde applications defined in an application's
+     * config file.
+     *
+     * @return array  A list of applications to create menu items for.
+     */
+    public function getAppLinks()
+    {
+        global $conf, $registry;
+
+        $out = array();
+
+        if (isset($conf['menu']['apps']) && is_array($conf['menu']['apps'])) {
+            foreach ($conf['menu']['apps'] as $app) {
+                if (($registry->get('status', $app) != 'inactive') &&
+                    $registry->hasPermission($app, Horde_Perms::SHOW)) {
+                    $out[] = $app;
+                }
+            }
+        }
+
+        return $out;
+    }
+
+    /**
+     * Add links found in the application's menu configuration.
      */
     public function addSiteLinks()
     {
-        foreach ($this->getSiteLinks() as $menuitem) {
-            $this->addArray($menuitem);
+        foreach ($this->getSiteLinks() as $item) {
+            $this->addArray($item);
         }
     }
 
@@ -306,8 +335,10 @@ class Horde_Menu
      */
     public function getSiteLinks()
     {
-        if (is_readable($this->_menufile)) {
-            include $this->_menufile;
+        $menufile = $GLOBALS['registry']->get('fileroot') . '/config/menu.php';
+
+        if (is_readable($menufile)) {
+            include $menufile;
             if (isset($_menu) && is_array($_menu)) {
                 return $_menu;
             }

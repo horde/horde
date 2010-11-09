@@ -891,7 +891,7 @@ class Whups_QueryManager {
     {
         try {
             $share = $this->_shareManager->getShareById($queryId);
-        } catch (Horde_Share_Exception $e) {
+        } catch (Horde_Exception_NotFound $e) {
             throw new Whups_Exception($e);
         }
         return $this->_getQuery($share);
@@ -908,8 +908,10 @@ class Whups_QueryManager {
     function getQueryBySlug($slug)
     {
         try {
-            $shares = $this->_shareManager->listShares($GLOBALS['registry']->getAuth(), Horde_Perms::READ,
-                                                       array('slug' => $slug));
+            $shares = $this->_shareManager->listShares(
+                $GLOBALS['registry']->getAuth(),
+                array('perm' => Horde_Perms::READ,
+                      'attribtues' => array('slug' => $slug)));
         } catch (Horde_Share_Exception $e) {
             throw new Whups_Exception($e);
         }
@@ -955,7 +957,7 @@ class Whups_QueryManager {
     {
         try {
             $share = $this->_shareManager->getShareById($queryId);
-        } catch (Horde_Share_Exception $e) {
+        } catch (Horde_Exception_NotFound $e) {
             // If the share doesn't exist yet, then it has open perms.
             return true;
         }
@@ -1002,7 +1004,7 @@ class Whups_QueryManager {
             // if necessary.
             try {
                 $share = $this->_shareManager->getShareById($query->id);
-            } catch (Horde_Share_Exception $e) {
+            } catch (Horde_Exception_NotFound $e) {
                 // Share has an id but doesn't exist; just throw an
                 // error.
                 throw new Whups_Exception($e);
@@ -1015,7 +1017,7 @@ class Whups_QueryManager {
             }
         } else {
             // Create a new share for the query.
-            $share = $this->_shareManager->newShare((string)new Horde_Support_Uuid());
+            $share = $this->_shareManager->newShare($GLOBALS['registry']->getAuth(), (string)new Horde_Support_Uuid());
             $share->set('name', $query->name);
             $share->set('slug', $query->slug);
             try {
@@ -1043,7 +1045,7 @@ class Whups_QueryManager {
         try {
             $share = $this->_shareManager->getShareById($query->id);
             $this->_shareManager->removeShare($share);
-        } catch (Horde_Share_Exception $e) {
+        } catch (Exception $e) {
             throw new Whups_Exception($e);
         }
         $result = $GLOBALS['whups_driver']->deleteQuery($query->id);

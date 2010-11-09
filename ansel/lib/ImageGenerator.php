@@ -151,7 +151,7 @@ class Ansel_ImageGenerator
         $galleries = $GLOBALS['injector']
             ->getInstance('Ansel_Injector_Factory_Storage')
             ->create()
-            ->listGalleries(array('parent' => $parent, 'allLevels' => false));
+            ->listGalleries(array('parent' => $parent, 'all_levels' => false));
 
         foreach ($galleries as $gallery) {
             if ($gallery->countImages()) {

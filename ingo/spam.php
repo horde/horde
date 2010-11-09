@@ -41,7 +41,7 @@ class Horde_Form_Type_ingo_folders extends Horde_Form_Type {
 
 }
 
-if (!in_array(Ingo_Storage::ACTION_SPAM, $_SESSION['ingo']['script_categories'])) {
+if (!in_array(Ingo_Storage::ACTION_SPAM, $session->get('ingo', 'script_categories'))) {
     $notification->push(_("Simple spam filtering is not supported in the current filtering driver."), 'horde.error');
     Horde::url('filters.php', true)->redirect();
 }
@@ -118,7 +118,7 @@ if ($form->validate($vars)) {
     }
 
     /* Update the timestamp for the rules. */
-    $_SESSION['ingo']['change'] = time();
+    $session->set('ingo', 'change', time());
 }
 
 /* Add buttons depending on the above actions. */

@@ -246,7 +246,7 @@ var ImpSearch = {
             div2.insert(node);
         });
 
-        div2.insert(new Element('A', { href: '#', className: 'searchuiImg searchuiDelete' }));
+        div2.insert(new Element('A', { href: '#', className: 'iconImg searchuiImg searchuiDelete' }));
 
         $('search_criteria_add').clear();
         $('search_criteria').insert(div);
@@ -306,7 +306,7 @@ var ImpSearch = {
 
         var tmp = [
                 new Element('EM').insert(this.getLabel(id)),
-                new Element('SPAN').insert(new Element('SPAN')).insert(new Element('A', { href: '#', className: 'calendarPopup', title: this.text.dateselection }).insert(new Element('SPAN', { className: 'searchuiImg searchuiCalendar' })))
+                new Element('SPAN').insert(new Element('SPAN')).insert(new Element('A', { href: '#', className: 'calendarPopup', title: this.text.dateselection }).insert(new Element('SPAN', { className: 'iconImg searchuiImg searchuiCalendar' })))
             ];
         this.replaceDate(this.insertCriteria(tmp), id, data);
     },

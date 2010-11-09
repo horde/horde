@@ -142,7 +142,7 @@ class Net_IMSP_Utils {
      *
      * @return mixed  Array describing any shares added or removed  | PEAR_Error.
      */
-    function synchShares(&$share_obj, $serverInfo)
+    function synchShares($share_obj, $serverInfo)
     {
         $found_shares = array();
         $return = array('added' => array(), 'removed' => array());
@@ -167,7 +167,7 @@ class Net_IMSP_Utils {
             }
         }
 
-        $shares = &$share_obj->listShares($GLOBALS['registry']->getAuth());
+        $shares = $share_obj->listShares($GLOBALS['registry']->getAuth());
         // A share for each IMSP adress book we can see.
         foreach ($abooks as $abook_uid) {
             $found = false;
@@ -215,7 +215,7 @@ class Net_IMSP_Utils {
         }
 
         // Now prune any shares that no longer exist on the IMSP server.
-        $existing = $share_obj->listShares($GLOBALS['registry']->getAuth(), Horde_Perms::READ);
+        $existing = $share_obj->listShares($GLOBALS['registry']->getAuth(), array('perm' => Horde_Perms::READ));
         foreach ($existing as $key => $share) {
             $temp = unserialize($share->get('params'));
             if (is_array($temp)) {
@@ -243,9 +243,9 @@ class Net_IMSP_Utils {
      *
      * @return mixed  True | PEAR_Error
      */
-    function _createShare(&$share_obj, $params, $shareparams)
+    function _createShare($share_obj, $params, $shareparams)
     {
-        $share = &$share_obj->newShare($params['uid']);
+        $share = $share_obj->newShare($GLOBALS['registry']->getAuth(), $params['uid']);
         if (is_a($share, 'PEAR_Error')) {
             return $share;
         }

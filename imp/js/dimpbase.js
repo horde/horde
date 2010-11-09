@@ -212,12 +212,22 @@ var DimpBase = {
                 this.go('folder:INBOX');
                 return;
             }
-            this.highlightSidebar('app' + app);
+            this.highlightSidebar();
             this.setHash(loc);
             if (data) {
                 this.iframeContent(loc, data);
-            } else if (DIMP.conf.app_urls[app]) {
-                this.iframeContent(loc, DIMP.conf.app_urls[app]);
+            } else if (DIMP.conf.portal_urls[app]) {
+                this.iframeContent(loc, DIMP.conf.portal_urls[app]);
+            }
+            return;
+        }
+
+        if (loc.startsWith('menu:')) {
+            app = loc.substr(5);
+            this.highlightSidebar();
+            this.setHash(loc);
+            if (DIMP.conf.menu_urls[app]) {
+                this.iframeContent(loc, DIMP.conf.menu_urls[app]);
             }
             return;
         }
@@ -411,7 +421,7 @@ var DimpBase = {
                             r.subjectdata += ptr.elt;
                         } else {
                             if (!ptr.elt) {
-                                ptr.elt = '<div class="msgflags ' + ptr.c + '" title="' + ptr.l + '"></div>';
+                                ptr.elt = '<div class="iconImg msgflags ' + ptr.c + '" title="' + ptr.l + '"></div>';
                             }
                             r.status += ptr.elt;
 
@@ -1047,7 +1057,7 @@ var DimpBase = {
 
         $('ctx_flag').insert(
             a.insert(
-                new Element('SPAN', { className: 'contextImg' }).addClassName(f.c.escapeHTML()).setStyle(style)
+                new Element('SPAN', { className: 'iconImg' }).addClassName(f.c.escapeHTML()).setStyle(style)
             ).insert(
                 f.l.escapeHTML()
             )
@@ -2132,13 +2142,14 @@ var DimpBase = {
                 this.composeMailbox('resume');
                 break;
 
-            case 'applicationfolders':
+            case 'sidebar_apps':
                 tmp = e.element();
                 if (!tmp.hasClassName('custom')) {
                     tmp = tmp.up('LI.custom');
                 }
                 if (tmp) {
-                    this.go('app:' + tmp.down('A').identify().substring(3));
+                    // Prefix is 'sidebarapp_'
+                    this.go('menu:' + tmp.down('A').identify().substring(11));
                     e.stop();
                     return;
                 }
@@ -2146,7 +2157,8 @@ var DimpBase = {
 
             case 'tabbar':
                 if (e.element().hasClassName('applicationtab')) {
-                    this.go('app:' + e.element().identify().substring(6));
+                    // Prefix is 'apptab_'
+                    this.go('menu:' + e.element().identify().substring(7));
                     e.stop();
                     return;
                 }
@@ -2582,7 +2594,7 @@ var DimpBase = {
             cname += ' unsubFolder';
         }
 
-        div = new Element('SPAN', { className: 'iconSpan' });
+        div = new Element('SPAN', { className: 'iconImgSidebar' });
         if (ob.i) {
             div.setStyle({ backgroundImage: 'url("' + ob.i + '")' });
         }

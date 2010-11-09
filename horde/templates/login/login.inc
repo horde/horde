@@ -43,15 +43,22 @@
  <input id="login-button" name="login_button" class="button" value="<?php echo _("Log in") ?>" type="submit" />
 </div>
 
+<?php
+    $add_user = (!empty($conf['signup']['allow']) && $auth->hasCapability('add'));
+    $reset_passwd = $auth->hasCapability('resetpassword');
+?>
+
+<?php if ($add_user || $reset_passwd): ?>
 <div class="extras">
-<?php if (!empty($conf['signup']['allow']) && $auth->hasCapability('add')): ?>
+<?php if ($add_user): ?>
  <?php echo Horde::link(Horde::url('signup.php', false, array('app' => 'horde'))->add('url', $vars->url), _("Don't have an account? Sign up."), 'light') . _("Don't have an account? Sign up.") ?></a>
 <?php endif; ?>
 
-<?php if ($auth->hasCapability('resetpassword')): ?>
+<?php if ($reset_passwd): ?>
  <?php echo Horde::link(Horde::url('services/resetpassword.php', false, array('app' => 'horde'))->add('url', $vars->url), _("Forgot your password?"), 'light') . _("Forgot your password?") ?></a>
 <?php endif; ?>
 </div>
+<?php endif; ?>
 
 </form>
 </div>

@@ -2,6 +2,8 @@
 v3.0-git
 --------
 
+[jan] Default task lists no longer have the user name as the ID.
+[jan] Create a default task list if the user doesn't own any yet.
 [jan] Add start date to possible colums in task list (Joel Smith
       <js-horde@jk1.net>, Request #9083).
 [jan] Add system task lists (Request #2059).

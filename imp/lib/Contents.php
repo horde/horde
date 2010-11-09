@@ -667,7 +667,7 @@ class IMP_Contents
         if ($is_atc &&
             (is_null($part['bytes']) || $part['bytes'])) {
             if ($mask & self::SUMMARY_DOWNLOAD) {
-                $part['download'] = $this->linkView($mime_part, 'download_attach', '', array('class' => 'downloadAtc', 'dload' => true, 'jstext' => _("Download")));
+                $part['download'] = $this->linkView($mime_part, 'download_attach', '', array('class' => 'iconImg downloadAtc', 'dload' => true, 'jstext' => _("Download")));
             } elseif ($mask & self::SUMMARY_DOWNLOAD_NOJS) {
                 $part['download'] = $this->urlView($mime_part, 'download_attach', array('dload' => true));
             }
@@ -680,7 +680,7 @@ class IMP_Contents
             ($part['bytes'] > 204800)) {
             $viewer = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_MimeViewer')->create($mime_part, $this, $mime_type);
             if (!$viewer->getMetadata('compressed')) {
-                $part['download_zip'] = $this->linkView($mime_part, 'download_attach', null, array('class' => 'downloadZipAtc', 'dload' => true, 'jstext' => sprintf(_("Download %s in .zip Format"), $mime_part->getDescription(true)), 'params' => array('zip' => 1)));
+                $part['download_zip'] = $this->linkView($mime_part, 'download_attach', null, array('class' => 'iconImg downloadZipAtc', 'dload' => true, 'jstext' => sprintf(_("Download %s in .zip Format"), $mime_part->getDescription(true)), 'params' => array('zip' => 1)));
             }
         }
 
@@ -689,7 +689,7 @@ class IMP_Contents
         if (($mask & self::SUMMARY_IMAGE_SAVE) &&
             $GLOBALS['registry']->hasMethod('images/selectGalleries') &&
             ($mime_part->getPrimaryType() == 'image')) {
-            $part['img_save'] = Horde::link('#', _("Save Image in Gallery"), 'saveImgAtc', null, Horde::popupJs(Horde::url('saveimage.php'), array('params' => array('mbox' => $this->_mailbox, 'uid' => $this->_uid, 'id' => $id), 'height' => 200, 'width' => 450, 'urlencode' => true)) . 'return false;') . '</a>';
+            $part['img_save'] = Horde::link('#', _("Save Image in Gallery"), 'iconImg saveImgAtc', null, Horde::popupJs(Horde::url('saveimage.php'), array('params' => array('mbox' => $this->_mailbox, 'uid' => $this->_uid, 'id' => $id), 'height' => 200, 'width' => 450, 'urlencode' => true)) . 'return false;') . '</a>';
         }
 
         /* Add print link? */
@@ -697,8 +697,8 @@ class IMP_Contents
              ($mask & self::SUMMARY_PRINT_STUB)) &&
             $this->canDisplay($id, self::RENDER_FULL)) {
             $part['print'] = ($mask & self::SUMMARY_PRINT)
-                ? $this->linkViewJS($mime_part, 'print_attach', '', array('css' => 'printAtc', 'jstext' => _("Print"), 'onload' => 'IMP.printWindow', 'params' => $param_array))
-                : Horde::link('#', _("Print"), 'printAtc', null, null, null, null, array('mimeid' => $id)) . '</a>';
+                ? $this->linkViewJS($mime_part, 'print_attach', '', array('css' => 'iconImg printAtc', 'jstext' => _("Print"), 'onload' => 'IMP.printWindow', 'params' => $param_array))
+                : Horde::link('#', _("Print"), 'iconImg printAtc', null, null, null, null, array('mimeid' => $id)) . '</a>';
         }
 
         /* Strip Attachment? Allow stripping of base parts other than the
@@ -710,9 +710,9 @@ class IMP_Contents
             (strpos($id, '.') === false)) {
             if ($mask & self::SUMMARY_STRIP_LINK) {
                 $url = Horde::selfUrl(true)->remove(array('actionID', 'imapid', 'uid'))->add(array('actionID' => 'strip_attachment', 'imapid' => $id, 'uid' => $this->_uid, 'message_token' => Horde::getRequestToken('imp.impcontents')));
-                $part['strip'] = Horde::link($url, _("Strip Attachment"), 'deleteImg', null, 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to PERMANENTLY delete this attachment?"), Horde_Serialize::JSON, 'UTF-8') . ')') . '</a>';
+                $part['strip'] = Horde::link($url, _("Strip Attachment"), 'iconImg deleteImg', null, 'return window.confirm(' . Horde_Serialize::serialize(_("Are you sure you wish to PERMANENTLY delete this attachment?"), Horde_Serialize::JSON, 'UTF-8') . ')') . '</a>';
             } else {
-                $part['strip'] = Horde::link('#', _("Strip Attachment"), 'deleteImg stripAtc', null, null, null, null, array('mimeid' => $id)) . '</a>';
+                $part['strip'] = Horde::link('#', _("Strip Attachment"), 'iconImg deleteImg stripAtc', null, null, null, null, array('mimeid' => $id)) . '</a>';
             }
         }
 

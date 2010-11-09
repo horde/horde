@@ -68,7 +68,7 @@ class Turba_Form_DeleteAddressBook extends Horde_Form
             $GLOBALS['session']->remove('turba', 'source');
         }
 
-        $abooks = json_decode($GLOBALS['prefs']->getValue('addressbooks'));
+        $abooks = json_decode($GLOBALS['prefs']->getValue('addressbooks'), true);
         if (($pos = array_search($this->_addressbook->getName(), $abooks)) !== false) {
             unset($abooks[$pos]);
             $GLOBALS['prefs']->setValue('addressbooks', json_encode($abooks));

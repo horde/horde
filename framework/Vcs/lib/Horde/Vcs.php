@@ -533,7 +533,6 @@ class Horde_Vcs
 
         }
         $ob->setRepository($this);
-        $ob->applySort(self::SORT_AGE);
 
         if (!empty($this->_cache) && !$fetchedFromCache) {
             $this->_cache->set($cacheId, serialize($ob));

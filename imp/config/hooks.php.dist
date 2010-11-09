@@ -592,6 +592,23 @@ class IMP_Hooks
 
 
     /**
+     * Perform an action after messages have been reported as spam/ham.
+     *
+     * @param string $action        Either 'spam' or 'ham'.
+     * @param IMP_Indices $indices  The list of indices that have been
+                                    reported as spam/ham.
+     */
+//    public function post_spam($action, $indices)
+//    {
+//        // Example #1: Copy messages to a (not)spam mailbox.
+//        $targetMbox = 'foo';
+//
+//        $imp_message = $GLOBALS['injector']->getInstance('IMP_Message');
+//        $imp_message->copy($targetMbox, 'copy', $indices, array('create' => true));
+//    }
+
+
+    /**
      * Determine quota for a user.
      *
      * @param array $params  Parameters for the function, set in backends.php.

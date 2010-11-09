@@ -118,7 +118,7 @@ case 'rule_delete':
     }
 
     /* Update the timestamp for the rules. */
-    $_SESSION['ingo']['change'] = time();
+    $session->set('ingo', 'change', time());
 
     /* Save the rule. */
     if ($vars->actionID == 'rule_save' && $valid) {

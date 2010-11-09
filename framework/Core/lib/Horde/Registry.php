@@ -1680,14 +1680,9 @@ class Horde_Registry
         }
 
         /* Try transparent authentication. */
-        if (empty($options['notransparent'])) {
-            if (!$this->getAuth()) {
-                $this->getCleanSession();
-            }
-            return $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create($app)->transparent();
-        }
-
-        return false;
+        return empty($options['notransparent'])
+            ? $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create($app)->transparent()
+            : false;
     }
 
     /**
@@ -2081,8 +2076,7 @@ class Horde_Registry
      */
     public function getEmailCharset()
     {
-        $charset = $GLOBALS['prefs']->getValue('sending_charset');
-        if (!empty($charset)) {
+        if ($charset = $GLOBALS['prefs']->getValue('sending_charset')) {
             return $charset;
         }
 

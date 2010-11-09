@@ -40,7 +40,7 @@ class Mnemo_CreateNotepadForm extends Horde_Form {
     {
         // Create new share.
         try {
-            $notepad = $GLOBALS['mnemo_shares']->newShare(strval(new Horde_Support_Uuid()));
+            $notepad = $GLOBALS['mnemo_shares']->newShare($GLOBALS['registry']->getAuth(), strval(new Horde_Support_Uuid()));
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e->getMessage(), 'ERR');
             throw new Mnemo_Exception($e);

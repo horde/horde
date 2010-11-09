@@ -39,7 +39,7 @@ class Ansel_Api extends Horde_Registry_Api
         $storage = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create();
         if (empty($path)) {
             $owners = array();
-            $galleries = $storage->listGalleries(array('allLevels' => false));
+            $galleries = $storage->listGalleries(array('all_levels' => false));
             foreach ($galleries  as $gallery) {
                 $owners[$gallery->data['share_owner'] ? $gallery->data['share_owner'] : '-system-'] = true;
             }
@@ -73,8 +73,8 @@ class Ansel_Api extends Horde_Registry_Api
         } else {
             if (count($parts) == 1) {
                 // This request is for all galleries owned by the requested user.
-                $galleries = $storage->listGalleries(array('filter' => $parts[0],
-                                                           'allLevels' => false));
+                $galleries = $storage->listGalleries(array('attributes' => $parts[0],
+                                                           'all_levels' => false));
                 $images = array();
             } elseif ($this->galleryExists(null, end($parts))) {
                 // This request if for a certain gallery, list all sub-galleries
@@ -87,7 +87,7 @@ class Ansel_Api extends Horde_Registry_Api
                     throw new Horde_Exception_NotFound(_("Invalid gallery specified."));
                 }
                 $galleries = $storage->listGalleries(array('parent' => $gallery_id,
-                                                           'allLevels' => false));
+                                                           'all_levels' => false));
                 $images = $this->listImages(null, $gallery_id, Horde_Perms::SHOW, 'mini');
 
             } elseif (count($parts) > 2 &&
@@ -658,11 +658,11 @@ class Ansel_Api extends Horde_Registry_Api
      *   <pre>
      *     (string)scope      The application scope, if not default.
      *     (integer)perm      The permissions filter to use [Horde_Perms::SHOW]
-     *     (mixed)filter      Restrict the galleries returned to those matching
+     *     (mixed)attributes  Restrict the galleries returned to those matching
      *                        the filters. Can be an array of attribute/values
      *                        pairs or a gallery owner username.
      *     (integer)parent    The parent share to start listing at.
-     *     (boolean)allLevels If set, return all levels below parent, not just
+     *     (boolean)all_levels If set, return all levels below parent, not just
      *                        direct children [TRUE]
      *     (integer)from      The gallery to start listing at.
      *     (integer)count     The number of galleries to return.

@@ -86,11 +86,6 @@ class IMP_Message
             }
         }
 
-        /* Determine if report on move to Spam mailbox is active. */
-        $spam_report =
-            $prefs->getValue('move_spam_report') &&
-            ($targetMbox == IMP::folderPref($prefs->getValue('spam_folder'), true));
-
         $imap_move = false;
         $return_value = true;
 
@@ -137,10 +132,6 @@ class IMP_Message
                         !empty($opts['mailboxob']) &&
                         $opts['mailboxob']->isBuilt()) {
                         $opts['mailboxob']->removeMsgs(new IMP_Indices($mbox, $msgIndices));
-                    }
-
-                    if ($spam_report) {
-                        IMP_Spam::reportSpam(new IMP_Indices($mbox, $msgIndices), 'spam', array('noaction' => true));
                     }
                 } catch (Horde_Imap_Client_Exception $e) {
                     $error = $e->getMessage();

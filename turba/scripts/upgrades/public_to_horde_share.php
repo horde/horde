@@ -59,7 +59,7 @@ if (!$sourceKey) {
 
 // Create the new share.
 $owner_uid = strval(new Horde_Support_Randomid());
-$share = &$turba_shares->newShare($sourceKey . ':' . $owner_uid);
+$share = &$turba_shares->newShare($GLOBALS['registry']->getAuth(), $sourceKey . ':' . $owner_uid);
 if ($share instanceof Horde_Share_Exception) {
     var_dump($share);
     exit;

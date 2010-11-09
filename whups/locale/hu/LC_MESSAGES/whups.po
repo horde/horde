@@ -1,0 +1,2323 @@
+# Hungarian translations for Whups package.
+# Copyright (C) 2010 Horde Project
+# This file is distributed under the same license as the Whups package.
+# Andras Galos <galosa@netinform.hu>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Whups H3 (1.0.1)\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2010-11-05 11:22+0100\n"
+"PO-Revision-Date: 2010-11-08 13:33+0100\n"
+"Last-Translator: Andras Galos <galosa@netinform.hu>\n"
+"Language-Team: i18n@lists.horde.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: admin/index.php:746
+#, php-format
+msgid "\"%s\" is no longer among those responsible for \"%s\""
+msgstr "\"%s\" már nincs a \"%s\" területért felelősök között"
+
+#: templates/menu.inc:5
+msgid "#Id"
+msgstr "#Id"
+
+#: templates/ticket/watchers.inc:3
+#, php-format
+msgid "%d people watching, %d people responsible"
+msgstr "%d felhasználó figyeli, %d felelőse van"
+
+#: queue/rss.php:96
+msgid "%s %s tickets in %s"
+msgstr "%s %s hibajegy a %s területen"
+
+#: queue/rss.php:100
+#, php-format
+msgid "%s %s tickets in all queues"
+msgstr "%s %s hibajegy az összes területen"
+
+#: lib/Renderer/Comment.php:125
+#, php-format
+msgid "%s &rArr; %s"
+msgstr "%s &rArr; %s"
+
+#: lib/Driver.php:530
+#, php-format
+msgid "%s (%s) wrote:"
+msgstr "%s (%s) írta:"
+
+#: admin/index.php:701
+#, php-format
+msgid "%s added to those responsible for \"%s\""
+msgstr "%s hozzáadva a \"%s\" területért felelősökhöz"
+
+#: templates/reports/stats.inc:15
+msgid "%s days"
+msgstr "%s nap"
+
+#: queue/rss.php:104
+msgid "%s tickets in %s"
+msgstr "%s hibajegy a %s területen"
+
+#: queue/rss.php:108
+#, php-format
+msgid "%s tickets in all queues"
+msgstr "%s hibajegy az összes területen"
+
+#: ticket/watch.php:60
+#, php-format
+msgid "%s will be notified when this ticket is updated."
+msgstr "%s értesítve lesz, ha ez a hibajegy frissül."
+
+#: ticket/watch.php:72
+#, php-format
+msgid "%s will no longer receive updates for this ticket."
+msgstr "%s nem fog több értesítést kapni erről a hibajegyről."
+
+#: lib/Driver.php:190
+msgid "(inactive)"
+msgstr "(inaktív)"
+
+#: admin/index.php:109
+msgid "- Stage 1"
+msgstr "- 1. rész"
+
+#: admin/index.php:114
+msgid "- Stage 2"
+msgstr "- 2. rész"
+
+#: scripts/mail-filter.php:172
+msgid "--queue-name or --queue-id must specify a valid and public queue."
+msgstr "--queue-name vagy --queue-id meg kell adjon egy publikus területet."
+
+#: templates/prevnext.inc:16
+msgid "<<First"
+msgstr "<<Első"
+
+#: templates/prevnext.inc:20
+msgid "<Prev"
+msgstr "<Előző"
+
+#: view.php:69
+#, php-format
+msgid "Access denied to %s"
+msgstr "%s eléréséhez nem rendelkezik megfelelő jogosultsággal."
+
+#: lib/Forms/Admin/Attribute.php:22
+msgid "Add Attribute"
+msgstr "Attribútum hozzáadása"
+
+#: lib/Forms/Query.php:266
+msgid "Add Attribute Criterion"
+msgstr "Attribútum szűrő hozzáadása"
+
+#: mybugs.php:55
+msgid "Add Content"
+msgstr "Tartalom hozzáadása"
+
+#: query/index.php:233
+msgid "Add Criterion"
+msgstr "Szűrő hozzáadása"
+
+#: lib/Forms/Query.php:320
+msgid "Add Date Criterion"
+msgstr "Dátum szűrő hozzáadása"
+
+#: lib/Forms/Admin/Reply.php:22
+msgid "Add Form Reply"
+msgstr "Formaválasz hozzáadása"
+
+#: lib/Forms/Query.php:90
+msgid "Add Group Criterion"
+msgstr "Csoport szűrő hozzáadása"
+
+#: lib/Forms/Admin/Priority.php:20
+msgid "Add Priority"
+msgstr "Prioritáshozzáadása"
+
+#: lib/Forms/Query.php:168
+msgid "Add Property Criterion"
+msgstr "Jogosultság szűrő hozzáadása"
+
+#: lib/Forms/Admin/Queue.php:20 lib/Forms/Admin/Queue.php:21
+msgid "Add Queue"
+msgstr "Új terület hozzáadása"
+
+#: lib/Forms/Admin/State.php:20
+msgid "Add State"
+msgstr "Állapot hozzáadása"
+
+#: lib/Forms/Query.php:125
+msgid "Add Text Criterion"
+msgstr "Szövegszűrő hozzáadása"
+
+#: lib/Forms/Admin/Type.php:20 lib/Forms/Admin/Type.php:21
+msgid "Add Type"
+msgstr "Típus hozzáadása"
+
+#: admin/index.php:109 admin/index.php:114
+#, php-format
+msgid "Add Type %s"
+msgstr "%s típus hozzáadása"
+
+#: lib/Forms/Query.php:41
+msgid "Add User Criterion"
+msgstr "Felhasználó szűrő hozzáadása"
+
+#: lib/Forms/Admin/User.php:21
+msgid "Add Users"
+msgstr "Új felhasználók hozzáadása"
+
+#: lib/Forms/Admin/Version.php:20
+msgid "Add Version"
+msgstr "Verzió hozzáadása"
+
+#: ticket/watch.php:48
+msgid "Add Watcher"
+msgstr "Új figyelő hozzáadása"
+
+#: templates/prefs/sourceselect.inc:298
+msgid "Add source"
+msgstr "Forrás hozzáadása"
+
+#: ticket/create.php:55
+msgid "Adding your ticket failed: %s."
+msgstr "Hibajegy felvétele nem sikerült: %s"
+
+#: admin/index.php:54 lib/api.php:776
+msgid "Administration"
+msgstr "Adminisztráció"
+
+#: lib/Forms/Query.php:24 lib/Renderer/Query.php:77
+msgid "And"
+msgstr "És"
+
+#: lib/Forms/Query.php:175 lib/Forms/Query.php:182 lib/Forms/Query.php:187
+#: lib/Forms/Query.php:194 lib/Forms/Query.php:199 lib/Forms/Search.php:32
+msgid "Any"
+msgstr "Bármelyik"
+
+#: ticket/queue.php:48 ticket/type.php:42
+msgid "Any Group"
+msgstr "Minden csoport"
+
+#: lib/api.php:796
+msgid "Assign"
+msgstr "Hozzárendelés"
+
+#: lib/Driver.php:215 lib/Renderer/Query.php:156 lib/Ticket.php:986
+#: lib/Whups.php:688 lib/api.php:914
+msgid "Assigned"
+msgstr "Hozzárendelve"
+
+#: lib/Forms/Query.php:333 lib/Forms/Search.php:62
+msgid "Assigned from"
+msgstr "Hozzárendelve után"
+
+#: lib/Forms/Query.php:334
+msgid "Assigned to"
+msgstr "Hozzárendelve előtt"
+
+#: lib/Renderer/Comment.php:73
+msgid "Assigned to %s"
+msgstr "Hozzárendelve: %s"
+
+#: admin/index.php:1205
+msgid "Associations updated successfully."
+msgstr "Kapcsolatok sikeresen frissítve."
+
+#: lib/Forms/AddComment.php:24 lib/Forms/CreateTicket.php:166
+#: lib/Forms/EditTicket.php:145
+msgid "Attachment"
+msgstr "Melléklet"
+
+#: ticket/deleteAttachment.php:32
+#, php-format
+msgid "Attachment %s deleted."
+msgstr "A(z) %s melléklet törölve."
+
+#: lib/Ticket.php:499
+msgid "Attachment %s not found."
+msgstr "A %s melléklet nem található."
+
+#: lib/Ticket.php:996
+msgid "Attachments"
+msgstr "Mellékletek"
+
+#: query/index.php:159
+msgid "Attri_bute Criteria"
+msgstr "Szűrés attri_bútumra"
+
+#: lib/Driver.php:121
+msgid "Attribute %d"
+msgstr "%d. attribútum"
+
+#: lib/Forms/Admin/Attribute.php:26 lib/Forms/Admin/Attribute.php:96
+#: lib/Forms/Admin/Attribute.php:142
+msgid "Attribute Description"
+msgstr "Attribútum leírása"
+
+#: lib/Forms/Admin/Attribute.php:25 lib/Forms/Admin/Attribute.php:74
+#: lib/Forms/Admin/Attribute.php:93 lib/Forms/Admin/Attribute.php:139
+msgid "Attribute Name"
+msgstr "Attribútum név"
+
+#: lib/Forms/Admin/Attribute.php:31 lib/Forms/Admin/Attribute.php:103
+msgid "Attribute Type"
+msgstr "Attribútum típus"
+
+#: lib/Forms/Search.php:20
+msgid "Attributes"
+msgstr "Attribútumok"
+
+#: lib/Forms/Admin/Type.php:114
+msgid "Attributes for this Type"
+msgstr "Attribútumok ehhez a típushoz"
+
+#: templates/prefs/sourceselect.inc:291 templates/prefs/sourceselect.inc:293
+msgid "Available Address books:"
+msgstr "A rendelkezésre álló címjegyzékek:"
+
+#: scripts/mail-filter.php:174
+msgid "Available queues:"
+msgstr "A rendelkezésre álló területek:"
+
+#: reports.php:24
+msgid "Average days to close by Owner"
+msgstr "Átlagos lezárási idő (nap) felelős szerint"
+
+#: reports.php:26
+msgid "Average days to close by Queue"
+msgstr "Átlagos lezárási idő (nap) terület szerint"
+
+#: reports.php:25
+msgid "Average days to close by Requester"
+msgstr "Átlagos lezárási idő (nap) feladó szerint"
+
+#: reports.php:29
+msgid "Average time a ticket is unresolved"
+msgstr "Átlagos idő, amíg egy hibajegy megoldatlan"
+
+#: lib/Forms/Query.php:29
+msgid "Branch Type"
+msgstr "Ágtípus"
+
+#: scripts/mail-filter.php:199
+msgid "Cannot authenticate at mail server:"
+msgstr "Nem sikerült bejelentkezni a távoli levelezőszerverbe: "
+
+#: lib/Query.php:164
+msgid "Case Insensitive Substring"
+msgstr "Kis/nagybetű érzéketlen szövegrész"
+
+#: templates/renderer/querysetcurrenttype.inc:6
+msgid "Change"
+msgstr "Változtatás"
+
+#: query/index.php:162
+msgid "Choose Action:"
+msgstr "Válasszon teendőt:"
+
+#: lib/Query.php:678
+msgid "Choose New Query instead of deleting the root node."
+msgstr "Válaszd a Lekérdezés hozzáadását a gyökér elem törlése helyett"
+
+#: templates/prefs/sourceselect.inc:287
+msgid "Choose the order of address books to search when expanding addresses."
+msgstr ""
+"A címrészlet teljes címmé alakításakor milyen sorrendben keressen a gép a "
+"címjegyzékekben."
+
+#: lib/Forms/CreateTicket.php:52 lib/Forms/CreateTicket.php:82
+msgid "Choose:"
+msgstr "Válasszon:"
+
+#: templates/prefs/sourceselect.inc:317
+msgid ""
+"Click on one of your selected address books and then select all fields to "
+"search."
+msgstr ""
+"Kattintson az egyik kiválasztott címjegyzékre, majd válassza ki, hogy melyik "
+"mezőkben történjen keresés."
+
+#: lib/Forms/Admin/Type.php:195
+msgid "Clone"
+msgstr "Másolat"
+
+#: lib/Forms/Admin/Type.php:202
+msgid "Clone Description"
+msgstr "Leírás másolása"
+
+#: admin/index.php:151 lib/Forms/Admin/Type.php:36
+msgid "Clone Type"
+msgstr "Típus másolása"
+
+#: lib/Forms/AddComment.php:23 lib/Forms/EditTicket.php:150
+#: lib/Renderer/Query.php:88 ticket/queue.php:35 ticket/type.php:32
+msgid "Comment"
+msgstr "Megjegyzés"
+
+#: lib/Renderer/Comment.php:164
+msgid "Comment #%d"
+msgstr "%d. megjegyzés"
+
+#: lib/Renderer/Comment.php:162
+msgid "Comment #%d (Private)"
+msgstr "%d. megjegyzés (privát)"
+
+#: ticket/comment.php:70
+msgid "Comment added"
+msgstr "Megjegyzés hozzáadva"
+
+#: ticket/comment.php:35
+msgid "Comment on %s"
+msgstr "Megjegyzés %s-hez"
+
+#: lib/Renderer/Query.php:87
+msgid "Commentor"
+msgstr "Készítette"
+
+#: lib/Forms/Admin/Type.php:200
+#, php-format
+msgid "Copy of %s"
+msgstr "%s másolata"
+
+#: lib/MIME/Viewer/zip.php:52
+msgid "Could not extract the requested file from the Zip archive."
+msgstr "A kívánt állományt nem sikerült kibontani a Zip fájlból."
+
+#: lib/Forms/Query.php:97
+msgid "Could not find any groups."
+msgstr "Egyetlen csoportot sem találtam."
+
+#: lib/Mail.php:100
+msgid "Could not find ticket \"%s\"."
+msgstr "Nincs \"%s\" hibajegy."
+
+#: lib/Forms/Admin/Type.php:102
+msgid "Create Default Priorities"
+msgstr "Alapértelmezett tulajdonságok létrehozása"
+
+#: lib/Forms/Admin/Type.php:85
+msgid "Create Default States"
+msgstr "Alapértelmezett állapotok létrehozása"
+
+#: lib/Forms/CreateTicket.php:28
+msgid "Create Ticket - Step 1"
+msgstr "Új hibajegy - 1. lépés"
+
+#: lib/Forms/CreateTicket.php:70
+msgid "Create Ticket - Step 2"
+msgstr "Új hibajegy - 2. lépés"
+
+#: lib/Forms/CreateTicket.php:117
+msgid "Create Ticket - Step 3"
+msgstr "Új hibajegy - 3. lépés"
+
+#: lib/Forms/CreateTicket.php:210
+msgid "Create Ticket - Step 4"
+msgstr "Új hibajegy - 4. lépés"
+
+#: lib/Renderer/Query.php:141 lib/Ticket.php:971 lib/Whups.php:686
+#: lib/api.php:919
+msgid "Created"
+msgstr "Létrehozva"
+
+#: lib/Ticket.php:614 lib/Ticket.php:640
+msgid "Created By"
+msgstr "Létrehozta"
+
+#: lib/Forms/Query.php:324 lib/Forms/Search.php:56
+msgid "Created from"
+msgstr "Létrehozva után"
+
+#: lib/Forms/Query.php:325
+msgid "Created to"
+msgstr "Létrehozva előtt"
+
+#: query/index.php:223 query/index.php:240
+msgid "Current Query"
+msgstr "Aktuális lekérdezés"
+
+#: templates/renderer/querysetcurrenttype.inc:4
+msgid "Current Ticket Type"
+msgstr "Aktuális hibajegy típus"
+
+#: lib/Ticket.php:725
+msgid "DO NOT REPLY TO THIS MESSAGE. THIS EMAIL ADDRESS IS NOT MONITORED."
+msgstr "KÉRJÜK NE VÁLASZOLJON ERRE A LEVÉLRE."
+
+#: lib/Forms/Search.php:55
+msgid "Dates"
+msgstr "Dátumok"
+
+#: lib/Forms/Admin/Queue.php:106
+msgid "Default Ticket Type"
+msgstr "Alapértelmezett hibajegy típus"
+
+#: query/index.php:163
+msgid "Delete"
+msgstr "Törlés"
+
+#: lib/Whups.php:870 lib/Whups.php:871
+#, php-format
+msgid "Delete %s"
+msgstr "%s törlése"
+
+#: ticket/delete.php:61
+msgid "Delete %s?"
+msgstr "%s törlése?"
+
+#: admin/index.php:950 lib/Forms/Admin/Attribute.php:57
+msgid "Delete Attribute"
+msgstr "Attribútum törlése"
+
+#: lib/Forms/Admin/Attribute.php:132
+msgid "Delete Attribute Confirmation"
+msgstr "Attribútum törlésének megerősítése"
+
+#: admin/index.php:1085 lib/Forms/Admin/Reply.php:36
+msgid "Delete Form Reply"
+msgstr "Formaválasz törlése"
+
+#: lib/Forms/Admin/Reply.php:94
+msgid "Delete Form Reply Confirmation"
+msgstr "Formaválasz törlésének megerősítése"
+
+#: admin/index.php:590 lib/Forms/Admin/Priority.php:36
+msgid "Delete Priority"
+msgstr "Prioritás törlése"
+
+#: lib/Forms/Admin/Priority.php:107
+msgid "Delete Priority Confirmation"
+msgstr "Prioritás törlésének megerősítése"
+
+#: lib/Forms/Query.php:447
+msgid "Delete Query?"
+msgstr "Töröljük a területet?"
+
+#: admin/index.php:332 lib/Forms/Admin/Queue.php:44
+msgid "Delete Queue"
+msgstr "Terület törlése"
+
+#: lib/Forms/Admin/Queue.php:159
+msgid "Delete Queue Confirmation"
+msgstr "Terület törlésének megerősítése"
+
+#: admin/index.php:455 lib/Forms/Admin/State.php:35
+msgid "Delete State"
+msgstr "Állapot törlése"
+
+#: lib/Forms/Admin/State.php:107
+msgid "Delete State Confirmation"
+msgstr "Állapot törlésének megerősítése"
+
+#: admin/index.php:145 lib/Forms/Admin/Type.php:37
+msgid "Delete Type"
+msgstr "Típus törlése"
+
+#: lib/Forms/Admin/Type.php:149
+msgid "Delete Type Confirmation"
+msgstr "Típus törlésének megerősítése"
+
+#: admin/index.php:818 lib/Forms/Admin/Version.php:38
+msgid "Delete Version"
+msgstr "Verzió törlése"
+
+#: lib/Forms/Admin/Version.php:86
+msgid "Delete Version Confirmation"
+msgstr "Verzió törlésének megerősítése"
+
+#: lib/Ticket.php:619 lib/Ticket.php:717
+msgid "Deleted Attachment"
+msgstr "Csatomány törölve"
+
+#: lib/Renderer/Comment.php:68
+msgid "Deleted Attachment: %s"
+msgstr "A \"%s\" melléklet törölve"
+
+#: lib/Forms/CreateTicket.php:167
+msgid "Description"
+msgstr "Leírás"
+
+#: lib/Whups.php:861
+msgid "Download"
+msgstr "Letöltés"
+
+#: templates/view/results.inc:90
+msgid "Download these results as: "
+msgstr "Az eredmény letöltése mint: "
+
+#: lib/Renderer/Query.php:161 lib/Ticket.php:611 lib/Ticket.php:808
+#: lib/Ticket.php:976 lib/api.php:923
+msgid "Due"
+msgstr "Határidő"
+
+#: lib/Renderer/Comment.php:133
+#, php-format
+msgid "Due &rArr; %s"
+msgstr "Határidő &rArr; %s"
+
+#: lib/Forms/CreateTicket.php:164 lib/Forms/EditTicket.php:93
+msgid "Due Date"
+msgstr "Határidő"
+
+#: lib/Forms/Query.php:336 lib/Forms/Search.php:64
+msgid "Due from"
+msgstr "Határidő után"
+
+#: lib/Forms/Query.php:337
+msgid "Due to"
+msgstr "Határidő előtt"
+
+#: lib/Query.php:230
+msgid "E_xecute Query"
+msgstr "Lekérdezés _Végrehajtása"
+
+#: query/index.php:164
+msgid "Edit"
+msgstr "Szerkesztés"
+
+#: lib/Forms/Admin/Queue.php:82 lib/Forms/Admin/Type.php:63
+msgid "Edit %s"
+msgstr "%s szerkesztése"
+
+#: admin/index.php:945 lib/Forms/Admin/Attribute.php:57
+#: lib/Forms/Admin/Attribute.php:86
+msgid "Edit Attribute"
+msgstr "Attribútom szerkesztése"
+
+#: lib/Forms/Query.php:266
+msgid "Edit Attribute Criterion"
+msgstr "Attribútum szűrő szerkesztése"
+
+#: lib/Forms/Admin/Type.php:119
+msgid "Edit Attributes"
+msgstr "Attribútumok szerkesztése"
+
+#: lib/Forms/Query.php:320
+msgid "Edit Date Criterion"
+msgstr "Dátum szűrő szerkesztése"
+
+#: lib/Forms/Admin/Type.php:135
+msgid "Edit Form Replies"
+msgstr "Formaválaszok szerkesztése"
+
+#: admin/index.php:1080 lib/Forms/Admin/Reply.php:36
+#: lib/Forms/Admin/Reply.php:64
+msgid "Edit Form Reply"
+msgstr "Formaválasz szerkesztése"
+
+#: lib/Forms/Query.php:90
+msgid "Edit Group Criterion"
+msgstr "Csoport szűrő szerkesztése"
+
+#: lib/Forms/Admin/Type.php:98
+msgid "Edit Priorities"
+msgstr "Prioritások szerkesztése"
+
+#: admin/index.php:585 lib/Forms/Admin/Priority.php:36
+#: lib/Forms/Admin/Priority.php:59
+msgid "Edit Priority"
+msgstr "Prioritás szerkesztése"
+
+#: lib/Forms/Query.php:168
+msgid "Edit Property Criterion"
+msgstr "Tulajdonság szűrő szerkesztése"
+
+#: admin/index.php:326 lib/Forms/Admin/Queue.php:44
+#: lib/Forms/Admin/Queue.php:47
+msgid "Edit Queue"
+msgstr "Terület szerkesztése"
+
+#: lib/Forms/Admin/Queue.php:46
+msgid "Edit Queues"
+msgstr "Területek szerkesztése"
+
+#: admin/index.php:450 lib/Forms/Admin/State.php:35
+#: lib/Forms/Admin/State.php:56
+msgid "Edit State"
+msgstr "Állapot szerkesztése"
+
+#: lib/Forms/Admin/Type.php:81
+msgid "Edit States"
+msgstr "Állapotok szerkesztése"
+
+#: lib/Forms/Query.php:125
+msgid "Edit Text Criterion"
+msgstr "Szövegszűrő szerkesztése"
+
+#: admin/index.php:139 lib/Forms/Admin/Type.php:35
+msgid "Edit Type"
+msgstr "Típusok szerkesztése"
+
+#: lib/Forms/Query.php:41
+msgid "Edit User Criterion"
+msgstr "Felhasználó szűrő szerkesztése"
+
+#: admin/index.php:813 lib/Forms/Admin/Version.php:38
+#: lib/Forms/Admin/Version.php:61
+msgid "Edit Version"
+msgstr "Verzió szerkesztése"
+
+#: lib/Query.php:226
+msgid "Edit _Permissions"
+msgstr "_Jogosultság szerkesztése"
+
+#: admin/index.php:34
+msgid "Edit _Types"
+msgstr "_Típusok szerkesztése"
+
+#: lib/Forms/Admin/Attribute.php:56
+msgid "Edit or Delete Attributes"
+msgstr "Attribútumok szerkesztése vagy törlése"
+
+#: lib/Forms/Admin/Reply.php:35
+msgid "Edit or Delete Form Replies"
+msgstr "Formaválaszok szerkesztése vagy törlése"
+
+#: lib/Forms/Admin/Priority.php:35
+msgid "Edit or Delete Priorities"
+msgstr "Prioritások szerkesztése vagy törlése"
+
+#: lib/Forms/Admin/Queue.php:43
+msgid "Edit or Delete Queues"
+msgstr "Területek szerkesztése vagy törlése"
+
+#: lib/Forms/Admin/State.php:34
+msgid "Edit or Delete States"
+msgstr "Állapotok szerkesztése vagy törlése"
+
+#: lib/Forms/Admin/Type.php:34
+msgid "Edit or Delete Types"
+msgstr "Típusok szerkesztése vagy törlése"
+
+#: lib/Forms/Admin/Version.php:37
+msgid "Edit or Delete Versions"
+msgstr "Verziók szerkesztése vagy törlése"
+
+#: lib/Forms/Admin/Reply.php:81
+msgid "Edit the permissions on this form reply"
+msgstr "A formaválasz jogosultságainak szerkesztése"
+
+#: lib/Forms/Admin/Queue.php:144
+msgid "Edit the permissions on this queue"
+msgstr "A terület jogosultságainak szerkesztése"
+
+#: lib/Forms/Admin/Queue.php:136
+msgid "Edit the users responsible for this queue"
+msgstr "A felelős felhasználók szerkesztése"
+
+#: lib/Forms/Admin/Queue.php:118
+msgid "Edit the versions for this queue"
+msgstr "A terület verzióinak szerkesztése"
+
+#: ticket/watch.php:24
+msgid "Email address to notify"
+msgstr "Értesítési email cím"
+
+#: ticket/watch.php:36
+msgid "Email address to remove"
+msgstr "Értesítési emailcím törlése"
+
+#: lib/api.php:504
+msgid "Empty attachment"
+msgstr "Üres melléklet"
+
+#: scripts/mail-filter.php:188 scripts/mail-filter.php:208
+msgid "Error processing message:"
+msgstr "Hiba történt a levél kiértékelésekor:"
+
+#: query/index.php:191
+#, php-format
+msgid "Error: Unknown query form \"%s\", defaulting to properties"
+msgstr "Hiba: Ismeretlen lekérdezés \"%s\", visszatérve az alapértelmezetthez"
+
+#: lib/Query.php:163
+msgid "Exact Match"
+msgstr "Pontos egyezés"
+
+#: query/run.php:111
+msgid "Execute Query"
+msgstr "Végrehajtás"
+
+#: templates/prefs/sourceselect.inc:327
+msgid "Fields to search"
+msgstr "A keresendő mezők"
+
+#: lib/Forms/Admin.php:35
+msgid "For tickets from these queues"
+msgstr "Ezen területek hibajegyeihez"
+
+#: lib/Forms/Admin.php:39
+msgid "For tickets which are"
+msgstr "Azokhoz a hibajegyekhely, amelyek"
+
+#: lib/api.php:807
+msgid "Form Replies"
+msgstr "Formaválaszok"
+
+#: lib/Forms/Admin/Type.php:130
+msgid "Form Replies for this Type"
+msgstr "Formaválaszok ehhez a típushoz"
+
+#: lib/Forms/Admin/Reply.php:25 lib/Forms/Admin/Reply.php:52
+#: lib/Forms/Admin/Reply.php:71 lib/Forms/Admin/Reply.php:101
+msgid "Form Reply Name"
+msgstr "Formaválasz név"
+
+#: lib/Forms/Admin/Reply.php:26 lib/Forms/Admin/Reply.php:74
+#: lib/Forms/Admin/Reply.php:104
+msgid "Form Reply Text"
+msgstr "Formaválasz szöveg"
+
+#: lib/Forms/EditTicket.php:162
+msgid "Form Reply:"
+msgstr "Formaválasz"
+
+#: templates/menu.inc:5
+msgid "Go"
+msgstr "Mehet"
+
+#: lib/Forms/CreateTicket.php:245 lib/Forms/EditTicket.php:133
+msgid "Group Owners"
+msgstr "Felelős csoportok"
+
+#: lib/Forms/Query.php:98 lib/Forms/Query.php:100 lib/Renderer/Query.php:85
+msgid "Groups"
+msgstr "Csoportok"
+
+#: lib/api.php:779
+msgid "Hidden Comments"
+msgstr "Rejtett megjegyzések"
+
+#: ticket/index.php:43
+msgid "History"
+msgstr "Történet"
+
+#: query/index.php:165
+msgid "Hoist Children"
+msgstr "Gyermekek"
+
+#: lib/Forms/Query.php:171 lib/Renderer/Query.php:83 lib/Whups.php:671
+#: lib/Whups.php:678
+msgid "Id"
+msgstr "Id"
+
+#: lib/Forms/Admin.php:42
+msgid ""
+"If you select any tickets that do not have an owner, who should we send "
+"email to?"
+msgstr ""
+"Hova küldjünk emailt azoknál a hibajegyeknél, melyekhez nincsenek kiosztva "
+"felelősök?"
+
+#: query/index.php:166
+msgid "Insert And"
+msgstr "És beillesztése"
+
+#: lib/Forms/Query.php:21
+msgid "Insert Branch"
+msgstr "Ág beillesztése"
+
+#: query/index.php:168
+msgid "Insert Not"
+msgstr "Nem beillesztése"
+
+#: query/index.php:167
+msgid "Insert Or"
+msgstr "Vagy beillesztése"
+
+#: lib/Forms/Admin/Queue.php:77 lib/Forms/Admin/Queue.php:78
+msgid "Invalid Queue"
+msgstr "Érvénytelen terület"
+
+#: lib/Whups.php:265 lib/api.php:495
+msgid "Invalid Ticket Id"
+msgstr "Érvénytelen hibajegy azonosító"
+
+#: lib/api.php:548
+msgid "Invalid argument: Missing attribute name or value."
+msgstr "Hibás paraméter: Hiányzó attribútum név vagy érték."
+
+#: lib/api.php:533
+msgid "Invalid arguments: Must supply a ticket number and new attributes."
+msgstr "Hibás paraméterek: Hibajegy azonosító és új attribútumok szükségesek."
+
+#: queue/index.php:30
+msgid "Invalid queue"
+msgstr "Érvénytelen terület"
+
+#: search/rss.php:30
+msgid "Invalid search"
+msgstr "Érvénytelen keresés"
+
+#: lib/api.php:397
+msgid "Invalid ticket data supplied: %s"
+msgstr "Érvénytelen a hibajegy adat: %s"
+
+#: lib/Forms/Admin/Queue.php:113
+msgid "Keep a set of versions for this queue?"
+msgstr "Verziókövetés?"
+
+#: templates/prevnext.inc:30
+msgid "Last>>"
+msgstr "Utolsó>>"
+
+#: lib/Forms/Query.php:411
+msgid "Load Query"
+msgstr "Lekérdezés betöltése"
+
+#: lib/Forms/VarRenderer.php:46
+msgid "Loading..."
+msgstr "Betöltés..."
+
+#: lib/Forms/Admin/Type.php:193
+#, php-format
+msgid "Make a clone of %s"
+msgstr "%s másolása"
+
+#: lib/Forms/AddComment.php:38 lib/Forms/EditTicket.php:186
+msgid "Make this comment visible only to members of a group?"
+msgstr "Láthatóság"
+
+#: lib/Forms/Query.php:274
+msgid "Match"
+msgstr "Egyezés"
+
+#: lib/Forms/Query.php:45 lib/Forms/Query.php:129 lib/Forms/Query.php:275
+msgid "Match Operator"
+msgstr "Egyezőségi operátor"
+
+#: lib/Query.php:167
+msgid "Match Pattern"
+msgstr "Minta egyezése"
+
+#: lib/Query.php:166
+msgid "Match Word"
+msgstr "Szó egyezése"
+
+#: reports.php:30
+msgid "Maximum time a ticket is unresolved"
+msgstr "A leghosszabb idő, amíg egy hibajegy megoldatlan volt"
+
+#: lib/Block/tree_menu.php:3
+msgid "Menu List"
+msgstr "Menülista"
+
+#: reports.php:31
+msgid "Minimum time a ticket is unresolved"
+msgstr "A legrövidebb idő, amíg egy hibajegy megoldatlan volt"
+
+#: templates/prefs/sourceselect.inc:312
+msgid "Move down"
+msgstr "Tegyük lejjebb"
+
+#: templates/prefs/sourceselect.inc:310
+msgid "Move up"
+msgstr "Tegyük följebb"
+
+#: ticket/queue.php:181
+#, php-format
+msgid "Moved ticket %d to \"%s\""
+msgstr "A %d. hibajegy áthelyezve a \"%s\" területre"
+
+#: mybugs.php:54
+msgid "My %s"
+msgstr "%s"
+
+#: mybugs_edit.php:33
+msgid "My %s :: Add Content"
+msgstr "%s :: Tartalom hozzáadása"
+
+#: lib/Block/myqueries.php:3 lib/Block/myqueries.php:24 search.php:178
+msgid "My Queries"
+msgstr "Lekérdezéseim"
+
+#: lib/Block/myrequests.php:3 lib/Block/myrequests.php:24
+msgid "My Requests"
+msgstr "Kiosztatlan hibajegyeim"
+
+#: lib/Block/mytickets.php:3 lib/Block/mytickets.php:24
+msgid "My Tickets"
+msgstr "Engem érintő hibajegyek"
+
+#: lib/api.php:885
+msgid "My tickets by assignment date"
+msgstr "Hibajegyeim a hozzárendelés dátuma szerint"
+
+#: lib/api.php:884
+msgid "My tickets by creation date"
+msgstr "Hibajegyeim a létrehozás dátuma szerint"
+
+#: lib/api.php:886
+msgid "My tickets by due date"
+msgstr "Hibajegyeim a határidő szerint"
+
+#: lib/api.php:887
+msgid "My tickets by resolution date"
+msgstr "Hibajegyeim a megoldás dátuma szerint"
+
+#: lib/Forms/Query.php:422
+msgid "Name"
+msgstr "Név"
+
+#: lib/Forms/Admin/Type.php:198
+msgid "Name of the cloned copy"
+msgstr "A másolat neve"
+
+#: lib/Query.php:216
+msgid "Ne_w Query"
+msgstr "Ú_j lekérdezés"
+
+#: lib/Driver.php:214
+msgid "New"
+msgstr "Új"
+
+#: lib/Ticket.php:618 lib/Ticket.php:711
+msgid "New Attachment"
+msgstr "Új melléklet"
+
+#: lib/Renderer/Comment.php:58 lib/Renderer/Comment.php:62
+msgid "New Attachment: %s"
+msgstr "Új melléklet: %s"
+
+#: ticket/queue.php:32
+msgid "New Queue"
+msgstr "Új terület"
+
+#: lib/Block/tree_menu.php:21 ticket/create.php:67
+msgid "New Ticket"
+msgstr "Új hibajegy"
+
+#: ticket/type.php:31
+msgid "New Type"
+msgstr "Új típus"
+
+#: templates/prevnext.inc:26
+msgid "Next>"
+msgstr "Következő>"
+
+#: lib/Forms/Admin/Attribute.php:149 lib/Forms/Admin/Priority.php:121
+#: lib/Forms/Admin/Queue.php:174 lib/Forms/Admin/Reply.php:110
+#: lib/Forms/Admin/State.php:121 lib/Forms/Admin/Type.php:176
+#: lib/Forms/Admin/Version.php:100 lib/Forms/Query.php:449
+#: ticket/delete.php:33
+msgid "No"
+msgstr "Nem"
+
+#: lib/Ticket.php:100
+#, php-format
+msgid ""
+"No priority for this ticket and no default priority for ticket type \"%s\" "
+"specified."
+msgstr ""
+"Nincs megadva prioritás a hibajegyhez, sem alapértelmezett prioritás a \"%s"
+"\" hibajegy típushoz"
+
+#: lib/Block/myqueries.php:46
+msgid "No queries have been saved."
+msgstr "A lekérdezés nem lett elmentve."
+
+#: lib/Block/query.php:62 lib/Driver/sql.php:555
+msgid "No query to run"
+msgstr "Nincs futtatandó lekérdezés."
+
+#: lib/Block/queuecontents.php:25
+msgid "No queues available."
+msgstr "Nincsenek területek."
+
+#: lib/Ticket.php:92
+#, php-format
+msgid ""
+"No state for this ticket and no default state for ticket type \"%s\" "
+"specified."
+msgstr ""
+"Nincs megadva állapot a hibajegyhez, sem alapértelmezett állapot a \"%s\" "
+"hibajegy típushoz"
+
+#: reports.php:35
+msgid "No stats available."
+msgstr "Nincs statisztika."
+
+#: lib/Driver.php:566
+msgid "No such backend \"%s\" found"
+msgstr "Nem létezik a \"%s\" alrendszer"
+
+#: lib/View.php:33
+msgid "No such view \"%s\" found"
+msgstr "Nem létezik a \"%s\" nézet"
+
+#: lib/Block/mytickets.php:47
+msgid "No tickets are assigned to you."
+msgstr "Nincs hozzád tartozó hibajegy"
+
+#: lib/Block/unassigned.php:47
+msgid "No tickets are unassigned!"
+msgstr "Nincsenek kiosztatlan hibajegyek!"
+
+#: lib/Block/queuecontents.php:62 lib/Block/queuecontents.php:73
+msgid "No tickets in queue."
+msgstr "Nincsenek hibajegyek a területen"
+
+#: lib/Whups.php:720
+msgid "No tickets matched your search criteria."
+msgstr "A keresés nem talált hibajegyet."
+
+#: lib/Ticket.php:84
+#, php-format
+msgid "No type for this ticket and no default type for queue \"%s\" specified."
+msgstr ""
+"Nincs megadva típus a hibajegyhez, sem alapértelmezett típus a \"%s\" "
+"területhez"
+
+#: lib/Reports.php:67 templates/prefs/sourceselect.inc:35
+msgid "None"
+msgstr "egyik sem"
+
+#: lib/Forms/Query.php:26 lib/Renderer/Query.php:79
+msgid "Not"
+msgstr "Nem"
+
+#: lib/Driver.php:195
+msgid "Older? Please update first!"
+msgstr "Idősebb? Kérem frissítse előbb!"
+
+#: queue/rss.php:43
+msgid "Open"
+msgstr "Nyitva"
+
+#: lib/Block/queuesummary.php:49
+msgid "Open Tickets"
+msgstr "Nyitott hibajegyek"
+
+#: reports.php:23
+msgid "Open Tickets by Owner"
+msgstr "Nyitott hibajegyek felelős szerint"
+
+#: reports.php:21
+msgid "Open Tickets by Priority"
+msgstr "Nyitott hibajegyek prioritás szerint"
+
+#: reports.php:18
+msgid "Open Tickets by Queue"
+msgstr "Nyitott hibajegyek terület szerint"
+
+#: reports.php:22
+msgid "Open Tickets by Requester"
+msgstr "Nyitott hibajegyek rögzítő szerint"
+
+#: reports.php:19
+msgid "Open Tickets by State"
+msgstr "Nyitott hibajegyek állapot szerint"
+
+#: reports.php:20
+msgid "Open Tickets by Type"
+msgstr "Nyitott hibajegyek típus szerint"
+
+#: lib/Block/queuecontents.php:47
+#, php-format
+msgid "Open Tickets in %s"
+msgstr "Nyitott hibajegyek a %s területen"
+
+#: queue/index.php:43 queue/index.php:57 queue/rss.php:119
+#, php-format
+msgid "Open tickets in %s"
+msgstr "Nyitott hibajegyek a %s területen"
+
+#: queue/rss.php:121
+msgid "Open tickets in all queues."
+msgstr "Nyitott hibajegyek az összes területen."
+
+#: lib/Forms/Query.php:25 lib/Renderer/Query.php:78
+msgid "Or"
+msgstr "Vagy"
+
+#: lib/Forms/CreateTicket.php:238 lib/Forms/CreateTicket.php:256
+#: lib/Forms/EditTicket.php:123 lib/Renderer/Query.php:84 lib/Ticket.php:617
+#: lib/Ticket.php:701 lib/Ticket.php:702 lib/Ticket.php:705 lib/Ticket.php:812
+#: lib/Ticket.php:833 lib/Ticket.php:958 lib/Whups.php:685
+msgid "Owners"
+msgstr "Felelősök"
+
+#: lib/Whups.php:870
+msgid "Permanently delete %s?"
+msgstr "Véglegesen töröljük: %s?"
+
+#: ticket/delete.php:51 ticket/deleteAttachment.php:21 ticket/queue.php:131
+#: ticket/type.php:74 ticket/update.php:22
+msgid "Permission Denied"
+msgstr "Hozzáférés megtagadva"
+
+#: lib/Forms/EditTicket.php:216 ticket/delete.php:40
+msgid "Permission Denied."
+msgstr "Hozzáférés megtagadva."
+
+#: lib/Forms/Query.php:459 query/index.php:31 query/run.php:44
+msgid "Permission denied."
+msgstr "Hozzáférés megtagadva."
+
+#: lib/Imple/ContactAutoCompleter.php:227
+msgid "Please resolve ambiguous or invalid addresses."
+msgstr "Kérem javítsa ki a hibás vagy nem egyértelmű címeket."
+
+#: lib/Forms/Admin/Type.php:93 lib/Forms/Admin/Type.php:171
+msgid "Priorities for this Type"
+msgstr "Prioritások ehhez a típushoz"
+
+#: lib/Forms/CreateTicket.php:160 lib/Forms/EditTicket.php:87
+#: lib/Forms/Query.php:198 lib/Renderer/Query.php:125 lib/Ticket.php:610
+#: lib/Ticket.php:807 lib/Ticket.php:953 lib/Whups.php:673 lib/Whups.php:682
+#: ticket/queue.php:117 ticket/type.php:66
+msgid "Priority"
+msgstr "Prioritás"
+
+#: lib/Renderer/Comment.php:120
+msgid "Priority &rArr; %s"
+msgstr "Prioritás &rArr; %s"
+
+#: lib/Forms/Admin/Priority.php:24 lib/Forms/Admin/Priority.php:70
+#: lib/Forms/Admin/Priority.php:118
+msgid "Priority Description"
+msgstr "A prioritás leírása"
+
+#: lib/Forms/Admin/Priority.php:23 lib/Forms/Admin/Priority.php:48
+#: lib/Forms/Admin/Priority.php:67 lib/Forms/Admin/Priority.php:94
+#: lib/Forms/Admin/Priority.php:115
+msgid "Priority Name"
+msgstr "A prioritás neve"
+
+#: search.php:178
+msgid "Public Queries"
+msgstr "Nyilvános lekérdezések"
+
+#: query/index.php:172
+msgid "Query Builder"
+msgstr "Lekérdezéskezelő"
+
+#: lib/Forms/Query.php:387
+msgid "Query Name"
+msgstr "Lekérdezés neve"
+
+#: lib/Forms/QueryParameterForm.php:20
+msgid "Query Parameters"
+msgstr "Lekérdezés paraméterek"
+
+#: lib/Block/query.php:3 lib/Block/query.php:49 query/rss.php:63
+#: query/run.php:79
+msgid "Query Results"
+msgstr "Lekérdezés eredmények"
+
+#: lib/Forms/Query.php:389
+msgid "Query Slug"
+msgstr "Lekérdezés azonosító"
+
+#: lib/Block/query.php:33
+msgid "Query to run"
+msgstr "Futtatandó lekérdezés"
+
+#: lib/Block/queuecontents.php:32 lib/Block/queuesummary.php:49
+#: lib/Forms/Query.php:181 lib/Forms/Search.php:40 lib/Renderer/Query.php:94
+#: lib/Ticket.php:606 lib/Ticket.php:803 lib/Ticket.php:918 lib/Ticket.php:923
+#: lib/Whups.php:683
+msgid "Queue"
+msgstr "Terület"
+
+#: lib/Renderer/Comment.php:100
+#, php-format
+msgid "Queue &rArr; %s"
+msgstr "Terület &rArr; %s"
+
+#: lib/Block/queuecontents.php:3 lib/Block/queuecontents.php:49
+msgid "Queue Contents"
+msgstr "Terület tartalma"
+
+#: lib/Forms/Admin/Queue.php:24 lib/Forms/Admin/Queue.php:89
+#: lib/Forms/Admin/Queue.php:170
+msgid "Queue Description"
+msgstr "Terület leírása"
+
+#: lib/Forms/Admin/Queue.php:30 lib/Forms/Admin/Queue.php:97
+msgid "Queue Email"
+msgstr "Terület emailcíme"
+
+#: lib/Forms/Admin/Queue.php:23 lib/Forms/Admin/Queue.php:60
+#: lib/Forms/Admin/Queue.php:85 lib/Forms/Admin/Queue.php:166
+#: lib/Forms/CreateTicket.php:34 lib/Forms/CreateTicket.php:50
+msgid "Queue Name"
+msgstr "Terület neve"
+
+#: lib/Forms/Admin/Queue.php:26 lib/Forms/Admin/Queue.php:93
+msgid "Queue Slug"
+msgstr "Terület azonosítója"
+
+#: lib/Block/queuesummary.php:3 lib/Block/queuesummary.php:24
+msgid "Queue Summary"
+msgstr "Terület összefoglalója"
+
+#: lib/Forms/CreateTicket.php:98 lib/Forms/EditTicket.php:77
+#: lib/Ticket.php:932 lib/Ticket.php:938 ticket/queue.php:86
+msgid "Queue Version"
+msgstr "Terület verziója"
+
+#: admin/index.php:35
+msgid "Queue/Type Matri_x"
+msgstr "Terület/típus mátri_x"
+
+#: templates/admin/mtmatrix.inc:6
+msgid "Queue/Type Matrix"
+msgstr "Terület/típus mátrix"
+
+#: lib/api.php:163 lib/api.php:782
+msgid "Queues"
+msgstr "Területek"
+
+#: templates/prevnext.inc:32
+msgid "Re_turn to Search Results"
+msgstr "_Vissza a keresési eredményekhez"
+
+#: lib/Forms/Admin/Attribute.php:147
+msgid "Really delete this attribute? This may cause data problems!"
+msgstr ""
+"Valóban törölni kívánja ezt az attribútumot? Ez inkonzisztenciát okozhat."
+
+#: lib/Forms/Admin/Reply.php:108
+msgid "Really delete this form reply?"
+msgstr "Valóban törölni kívánja ezt a formaválaszt?"
+
+#: lib/Forms/Admin/Priority.php:122
+msgid "Really delete this priority? This may cause data problems!"
+msgstr "Valóban törölni kívánja ezt a prioritást? Ez inkonzisztenciát okozhat."
+
+#: lib/Forms/Query.php:450
+msgid "Really delete this query? This operation is not undoable."
+msgstr "Valóban törölni kívánja ezt lekérdezést? Ez visszavonhatatlan."
+
+#: lib/Forms/Admin/Queue.php:176
+msgid "Really delete this queue? This may cause data problems!"
+msgstr "Valóban törölni kívánja ezt a területet? Ez inkonzisztenciát okozhat."
+
+#: lib/Forms/Admin/State.php:122
+msgid "Really delete this state? This may cause data problems!"
+msgstr "Valóban törölni kívánja ezt az állapotot? Ez inkonzisztenciát okozhat."
+
+#: ticket/delete.php:34
+msgid ""
+"Really delete this ticket? It will NOT be archived, and will be gone forever."
+msgstr ""
+"Valóban visszavonhatatlanul és véglegesen törölni kívánja ezt a hibajegyet?"
+
+#: lib/Forms/Admin/Type.php:178
+msgid "Really delete this type? This may cause data problems!"
+msgstr "Valóban törölni kívánja ezt a típust? Ez inkonzisztenciát okozhat."
+
+#: lib/Forms/Admin/Version.php:101
+msgid "Really delete this version? This may cause data problems!"
+msgstr "Valóban törölni kívánja ezt a verziót? Ez inkonzisztenciát okozhat."
+
+#: lib/Mail.php:217
+msgid "Received message:"
+msgstr "Fogadott üzenetek:"
+
+#: search.php:162
+msgid "Refine Search"
+msgstr "Keresés finomítása"
+
+#: admin/index.php:1173
+msgid "Reminders were sent."
+msgstr "Emlékeztetők elküldve."
+
+#: lib/Forms/Admin/User.php:59
+msgid "Remove User"
+msgstr "A felhasználó törlése"
+
+#: ticket/watch.php:49
+msgid "Remove Watcher"
+msgstr "Figyelő törlése"
+
+#: templates/prefs/sourceselect.inc:300
+msgid "Remove source"
+msgstr "Forrás törlése"
+
+#: lib/Renderer/Comment.php:95
+msgid "Reply to this comment"
+msgstr "Válasz a megjegyzésre"
+
+#: reports.php:40
+msgid "Reports"
+msgstr "Jelentések"
+
+#: lib/Renderer/Query.php:86 lib/Ticket.php:965 lib/Whups.php:684
+msgid "Requester"
+msgstr "Létrehozó"
+
+#: lib/Forms/Admin/Attribute.php:28 lib/Forms/Admin/Attribute.php:99
+msgid "Required Attribute?"
+msgstr "Szükséges attribútum?"
+
+#: lib/Driver.php:216 lib/Renderer/Query.php:151 lib/Ticket.php:991
+#: lib/Whups.php:689 lib/api.php:928
+msgid "Resolved"
+msgstr "Megoldva"
+
+#: lib/Forms/Query.php:330 lib/Forms/Search.php:60
+msgid "Resolved from"
+msgstr "Megoldás után"
+
+#: lib/Forms/Query.php:331
+msgid "Resolved to"
+msgstr "Megoldás előtt"
+
+#: lib/Forms/Admin/User.php:61
+msgid "Responsible Users"
+msgstr "Felelősök"
+
+#: lib/Whups.php:310
+msgid "S_et Queue"
+msgstr "Terület _beállítása"
+
+#: lib/Query.php:234
+msgid "Sa_ve Query"
+msgstr "Lekérdezés _mentése"
+
+#: lib/Forms/Query.php:385 templates/view/results.inc:96
+msgid "Save"
+msgstr "Mentés"
+
+#: query/index.php:233
+msgid "Save Criterion"
+msgstr "Kritéria mentése"
+
+#: lib/Forms/Query.php:384
+msgid "Save Query"
+msgstr "Lekérdezés mentése"
+
+#: lib/Forms/Search.php:19 search.php:69
+msgid "Save as Query"
+msgstr "Mentés lekérdezésként"
+
+#: lib/Block/tree_menu.php:30 search.php:155
+msgid "Search"
+msgstr "Keresés"
+
+#: lib/Forms/Query.php:278
+msgid "Search %s Attribute"
+msgstr "%s attribútum keresése"
+
+#: lib/Forms/Query.php:272 lib/Forms/Query.php:281
+msgid "Search Attribute"
+msgstr "Attribútum keresése"
+
+#: lib/Forms/Query.php:48 lib/Forms/Query.php:131
+msgid "Search Comments"
+msgstr "Megjegyzések keresése"
+
+#: lib/Forms/Query.php:46
+msgid "Search Owners"
+msgstr "Felelős keresése"
+
+#: lib/Forms/Query.php:47
+msgid "Search Requester"
+msgstr "Létrehozó keresése"
+
+#: search.php:147 search/rss.php:55 search/rss.php:59
+msgid "Search Results"
+msgstr "Eredmény keresése"
+
+#: templates/prevnext.inc:38
+msgid "Search Results: %s of %s"
+msgstr "Keresés eredménye: %s/%s"
+
+#: lib/Forms/Query.php:130
+msgid "Search Summary"
+msgstr "Összefoglaló"
+
+#: templates/prefs/sourceselect.inc:319
+msgid "Select all fields to search when expanding addresses."
+msgstr ""
+"A címrészlet teljes címmé alakításakor a címjegyzékek minden mezőjében "
+"történjen keresés?"
+
+#: templates/prefs/sourceselect.inc:303 templates/prefs/sourceselect.inc:305
+msgid "Selected Address books:"
+msgstr "A kiválasztott címjegyzékek:"
+
+#: admin/index.php:36
+msgid "Sen_d Reminders"
+msgstr "Emlékeztető _küldése"
+
+#: lib/Forms/Admin.php:23
+msgid "Send Reminders"
+msgstr "Emlékeztető küldése"
+
+#: lib/Forms/Admin.php:34
+msgid "Send only for this list of ticket ids"
+msgstr "Csak ezen hibajegyekre küldd"
+
+#: lib/Forms/Admin/Priority.php:80 lib/Forms/Admin/Priority.php:82
+msgid "Set Default Priority"
+msgstr "Alapértelmezett prioritás beállítása"
+
+#: lib/Forms/Admin/State.php:80 lib/Forms/Admin/State.php:82
+msgid "Set Default State"
+msgstr "Alapértelmezett állapot beállítása"
+
+#: ticket/queue.php:201 ticket/queue.php:210 ticket/queue.php:222
+msgid "Set Queue - Step 1"
+msgstr "Terület beállítása - 1. lépés"
+
+#: ticket/queue.php:202 ticket/queue.php:211
+msgid "Set Queue - Step 2"
+msgstr "Terület beállítása - 2. lépés"
+
+#: ticket/queue.php:212
+msgid "Set Queue - Step 3"
+msgstr "Terület beállítása - 3. lépés"
+
+#: ticket/queue.php:189
+msgid "Set Queue for %s"
+msgstr "Terület beállítása %s-hez"
+
+#: lib/api.php:801
+msgid "Set Requester"
+msgstr "Létrehozó megadása"
+
+#: ticket/type.php:139 ticket/type.php:148
+msgid "Set Type - Step 1"
+msgstr "Típus beállítása - 1. lépés"
+
+#: ticket/type.php:140
+msgid "Set Type - Step 2"
+msgstr "Típus beállítása - 2. lépés"
+
+#: ticket/type.php:127
+msgid "Set Type for %s"
+msgstr "Típus beállítása %s részére"
+
+#: lib/Whups.php:315
+msgid "Set _Type"
+msgstr "_Típus megadása"
+
+#: lib/Forms/Admin/Queue.php:27
+#, php-format
+msgid ""
+"Slugs allows direct access to this queue's open tickets by visiting: %s. "
+"<br /> Slug names may contain only letters, numbers or the _ (underscore) "
+"character."
+msgstr ""
+"Az azonosítók közvetlen hozzáférést tesznek lehetővé a következő linket "
+"keresztül: %s. <br /> Az azonosító nevek csak betűket, számokat és az "
+"aláhúzás jelet tartalmazhatják."
+
+#: templates/view/results.inc:37 templates/view/results.inc:41
+#, php-format
+msgid "Sort by %s"
+msgstr "%s szerinti sorrend"
+
+#: lib/Forms/AddComment.php:20 lib/Forms/AddComment.php:51
+#: lib/Forms/CreateTicket.php:141 lib/Forms/CreateTicket.php:188
+msgid "Spam protection"
+msgstr "Spamvédelem"
+
+#: lib/Forms/EditTicket.php:81 lib/Forms/Query.php:193
+#: lib/Renderer/Query.php:117 lib/Ticket.php:609 lib/Ticket.php:806
+#: lib/Ticket.php:949 lib/Whups.php:674 lib/Whups.php:680 ticket/queue.php:116
+#: ticket/type.php:65
+msgid "State"
+msgstr "Állapot"
+
+#: lib/Renderer/Comment.php:115
+#, php-format
+msgid "State &rArr; %s"
+msgstr "Állapot &rArr; %s"
+
+#: lib/Forms/Admin/State.php:25 lib/Forms/Admin/State.php:70
+msgid "State Category"
+msgstr "Az állapot kategóriája"
+
+#: lib/Forms/Admin/State.php:24 lib/Forms/Admin/State.php:67
+#: lib/Forms/Admin/State.php:118
+msgid "State Description"
+msgstr "Az állapot leírása"
+
+#: lib/Forms/Admin/State.php:23 lib/Forms/Admin/State.php:47
+#: lib/Forms/Admin/State.php:64 lib/Forms/Admin/State.php:96
+#: lib/Forms/Admin/State.php:115
+msgid "State Name"
+msgstr "Az állapot neve"
+
+#: lib/Forms/Admin/Type.php:76 lib/Forms/Admin/Type.php:165
+msgid "States for this Type"
+msgstr "A típushoz tartozó állapotok"
+
+#: templates/ticket/watchers.inc:1
+msgid "Status"
+msgstr "Állapot"
+
+#: ticket/create.php:146
+msgid "Submit"
+msgstr "Küldés"
+
+#: query/run.php:93 query/run.php:94
+msgid "Subscribe to this query"
+msgstr "Lekérdezés használatba vétele"
+
+#: admin/index.php:198
+msgid "Successfully Cloned %s to %s."
+msgstr "%s sikeresen másolva %s néven."
+
+#: ticket/type.php:118
+msgid "Successfully changed ticket type."
+msgstr "A hibajegy típusa sikeresen megváltoztatva."
+
+#: lib/Forms/CreateTicket.php:165 lib/Forms/EditTicket.php:65
+#: lib/Renderer/Query.php:89 lib/Ticket.php:616 lib/Ticket.php:643
+#: lib/Ticket.php:646 lib/Ticket.php:650 lib/Ticket.php:812 lib/Ticket.php:821
+#: lib/Ticket.php:912 lib/Whups.php:672 lib/Whups.php:679 ticket/delete.php:30
+msgid "Summary"
+msgstr "Összefoglaló"
+
+#: lib/Renderer/Comment.php:51
+#, php-format
+msgid "Summary &rArr; %s"
+msgstr "Összefoglaló &rArr; %s"
+
+#: lib/Forms/Search.php:43
+msgid "Summary like"
+msgstr "Összefoglaló mint"
+
+#: lib/Renderer/Comment.php:79
+msgid "Taken from %s"
+msgstr "Levéve: %s"
+
+#: lib/Forms/Query.php:128
+msgid "Text"
+msgstr "Szöveg"
+
+#: lib/Driver/sql.php:80 lib/Driver/sql.php:1327
+msgid "That queue slug is already taken. Please select another."
+msgstr "A területazonosító már foglalt. Kérjük válasszon másikat."
+
+#: lib/Forms/CreateTicket.php:134
+msgid "The Requester's Email Address"
+msgstr "Az létrehozó email címe"
+
+#: lib/Ticket.php:439 lib/Ticket.php:487 view.php:58
+msgid "The VFS backend needs to be configured to enable attachment uploads."
+msgstr "A VFS alrendszert be kell állítani a mellékletek feltöltéséhez."
+
+#: admin/index.php:909
+msgid "The attribute \"%s\" has been added to %s."
+msgstr "A(z) \"%s\" attribútum sikeresen hozzáadva %s-hez."
+
+#: admin/index.php:1009
+msgid "The attribute has been deleted."
+msgstr "Az attribútum törölve."
+
+#: admin/index.php:977
+msgid "The attribute has been modified."
+msgstr "Az attribútum módosítva."
+
+#: admin/index.php:1018
+msgid "The attribute was not deleted."
+msgstr "Az attribútum nem lett törölve."
+
+#: admin/index.php:643
+msgid "The default priority has been set."
+msgstr "Az alapértelmezett priorítás beállítva."
+
+#: admin/index.php:507
+msgid "The default state has been set."
+msgstr "Az alapértelmezett állapot beállítva.."
+
+#: admin/index.php:1046
+msgid "The form reply \"%s\" has been added to %s."
+msgstr "A \"%s\" formaválasz hozzáadva %s-hez."
+
+#: admin/index.php:1138
+msgid "The form reply has been deleted."
+msgstr "A formaválasz törölve."
+
+#: admin/index.php:1111
+msgid "The form reply has been modified."
+msgstr "A formaválasz módosítva."
+
+#: admin/index.php:1147
+msgid "The form reply was not deleted."
+msgstr "A formaválasz nem lett törölve."
+
+#: admin/index.php:557
+msgid "The priority \"%s\" has been added to %s."
+msgstr "A \"%s\" prioritás hozzáadva %s-hez."
+
+#: admin/index.php:662
+msgid "The priority has been deleted."
+msgstr "A prioritás törölve."
+
+#: admin/index.php:610
+msgid "The priority has been modified."
+msgstr "A prioritás módosítva."
+
+#: admin/index.php:671
+msgid "The priority was not deleted."
+msgstr "A prioritás nem lett törölve."
+
+#: lib/Forms/Query.php:463
+msgid "The query \"%s\" couldn't be deleted: %s"
+msgstr "A(z) \"%s\" lekérdezés törlése nem sikerült: %s"
+
+#: lib/Forms/Query.php:465
+msgid "The query \"%s\" has been deleted."
+msgstr "A(z) \"%s\" lekérdezés törölve."
+
+#: lib/Forms/Query.php:430
+msgid "The query couldn't be loaded:"
+msgstr "A lekérdezés törlése nem sikerült."
+
+#: admin/index.php:300
+msgid "The queue \"%s\" has been created."
+msgstr "A(z) \"%s\" terület létrehozva."
+
+#: admin/index.php:393
+msgid "The queue has been deleted."
+msgstr "A terület törölve."
+
+#: admin/index.php:360
+msgid "The queue has been modified."
+msgstr "A terület sikeresen módosítva."
+
+#: admin/index.php:401
+msgid "The queue was not deleted."
+msgstr "A terület törlése nem sikerült."
+
+#: lib/MIME/Viewer/zip.php:58
+msgid "The requested file does not exist in the Zip attachment."
+msgstr "A kívánt állomány nincs benne a Zip mellékletben."
+
+#: data.php:26
+msgid "The requested template does not exist."
+msgstr "A keresett sablon nem létezik."
+
+#: admin/index.php:423
+msgid "The state \"%s\" has been added to %s."
+msgstr "A(z) \"%s\" állapot sikeresen hozzáadva %s-hez."
+
+#: admin/index.php:526
+msgid "The state has been deleted."
+msgstr "Az állapot törölve."
+
+#: admin/index.php:476
+msgid "The state has been modified."
+msgstr "Az állapot módosítva."
+
+#: admin/index.php:534
+msgid "The state was not deleted."
+msgstr "Az állapot nem lett törölve."
+
+#: ticket/delete.php:78
+msgid "The ticket was not deleted."
+msgstr "A hibajegy nem lett törölve."
+
+#: admin/index.php:223
+msgid "The type \"%s\" has been modified."
+msgstr "A(z) \"%s\" típus módosítva."
+
+#: admin/index.php:272
+msgid "The type has been deleted."
+msgstr "A típus törölve."
+
+#: admin/index.php:280
+msgid "The type was not deleted."
+msgstr "A típus nem lett törölve."
+
+#: admin/index.php:778
+msgid "The version \"%s\" has been added to %s."
+msgstr "A(z) \"%s\" verzió sikeresn hozzáadva %s-hez."
+
+#: admin/index.php:868
+msgid "The version has been deleted."
+msgstr "A verzió törölve."
+
+#: admin/index.php:838
+msgid "The version has been modified."
+msgstr "A verzió módosítva."
+
+#: admin/index.php:876
+msgid "The version was not deleted."
+msgstr "A verzió nem lett törölve."
+
+#: lib/Forms/Admin/Attribute.php:70
+msgid "There are no attribute types to edit"
+msgstr "Nincsenek szerkeszthető attribútum típusok"
+
+#: lib/Forms/Query.php:281
+msgid "There are no attributes defined."
+msgstr "Nincsenek attribútumok definiálva."
+
+#: lib/Forms/Admin/Reply.php:48
+msgid "There are no form replies to edit"
+msgstr "Nincsenek szerkeszthető formaválaszok"
+
+#: lib/Block/queuesummary.php:44
+msgid "There are no open tickets."
+msgstr "Nincsenek nyitott hibajegyek."
+
+#: lib/Forms/Admin/Priority.php:44 lib/Forms/Admin/Priority.php:90
+msgid "There are no priorities to edit"
+msgstr "Nincsenek szerkeszthető prioritások"
+
+#: lib/Forms/Admin.php:31
+msgid "There are no queues available."
+msgstr "Nincsenek területek."
+
+#: lib/Forms/Admin/Queue.php:57
+msgid "There are no queues to edit"
+msgstr "Nincsenek szerkeszthető területek"
+
+#: lib/Forms/CreateTicket.php:35
+msgid "There are no queues which you can create tickets in."
+msgstr "Nincsenek területek, melyeken Ön hibajegyet létrehozhat"
+
+#: lib/Forms/Search.php:38
+msgid "There are no queues which you can search."
+msgstr "Nincsenek területek, melyeken Ön kereshet."
+
+#: lib/Forms/Admin/State.php:43 lib/Forms/Admin/State.php:92
+msgid "There are no states to edit"
+msgstr "Nincsenek szerkeszthető állapotok"
+
+#: lib/Forms/CreateTicket.php:77
+msgid ""
+"There are no ticket types associated with this queue; until there are, you "
+"cannot create any tickets in this queue."
+msgstr ""
+"Nincsenek hibajegy típusok definiálva ehhez a területhez, így egyelőre nem "
+"hozhatók létre új hibajegyek benne."
+
+#: lib/Forms/Admin/Type.php:45
+msgid "There are no types to edit"
+msgstr "Nincsenek szerkeszthető típusok"
+
+#: lib/Forms/Admin/User.php:75
+msgid "There are no users responsible for this queue."
+msgstr "Ennek a területnek nincsenek felelősei"
+
+#: lib/Forms/CreateTicket.php:255
+msgid "There are no users to which this ticket can be assigned."
+msgstr "Nincsenek felhasználók, akikhez ez a hibajegy rendelhető lehetne."
+
+#: lib/Forms/Admin/Version.php:46
+msgid "There are no versions to edit"
+msgstr "Nincsenek szerkeszthető verziók"
+
+#: lib/Reports.php:143
+msgid "There is no data for this report."
+msgstr "Nincs adat ehhez a jelentéshez"
+
+#: admin/index.php:706
+msgid "There was an error adding \"%s\" to the responsible list for \"%s\":"
+msgstr "Hiba történt \"%s\"-nak a(z) \"%s\" területhez való hozzáadása során:"
+
+#: admin/index.php:914
+msgid "There was an error creating the attribute:"
+msgstr "Hiba történt az attribútum létrehozása során:"
+
+#: admin/index.php:1054
+msgid "There was an error creating the form reply:"
+msgstr "Hiba történt a formaválasz létrehozása során:"
+
+#: admin/index.php:562
+msgid "There was an error creating the priority:"
+msgstr "Hiba történt a prioritás létrehozása során:"
+
+#: admin/index.php:309
+msgid "There was an error creating the queue:"
+msgstr "Hiba történt a terület létrehozása során:"
+
+#: admin/index.php:427
+msgid "There was an error creating the state:"
+msgstr "Hiba történt az állapot létrehozása során:"
+
+#: admin/index.php:782
+msgid "There was an error creating the version:"
+msgstr "Hiba történt a verzió létrehozása során:"
+
+#: admin/index.php:1013
+msgid "There was an error deleting the attribute:"
+msgstr "Hiba történt az attribútum létrehozása során:"
+
+#: admin/index.php:1142
+msgid "There was an error deleting the form reply:"
+msgstr "Hiba történt az esemény törlésekor: %s."
+
+#: admin/index.php:666
+msgid "There was an error deleting the priority:"
+msgstr "Hiba történt a prioritás törlésekor:"
+
+#: admin/index.php:396
+msgid "There was an error deleting the queue:"
+msgstr "Hiba történt a terület törlésekor:"
+
+#: admin/index.php:529
+msgid "There was an error deleting the state:"
+msgstr "Hiba történt az állapot törlésekor:"
+
+#: ticket/delete.php:75
+msgid "There was an error deleting the ticket:"
+msgstr "Hiba történt a hibajegy törlésekor:"
+
+#: admin/index.php:275
+msgid "There was an error deleting the type:"
+msgstr "Hiba történt a típus törlésekor:"
+
+#: admin/index.php:871
+msgid "There was an error deleting the version:"
+msgstr "Hiba történt a verzió törlésekor:"
+
+#: admin/index.php:985
+msgid "There was an error editing the attribute:"
+msgstr "Hiba történt az attribútum törlésekor:"
+
+#: admin/index.php:1107
+msgid "There was an error editing the form reply:"
+msgstr "Hiba történt a formaválasz szerkesztésekor:"
+
+#: admin/index.php:616
+msgid "There was an error editing the priority:"
+msgstr "Hiba történt a prioritás szerkesztésekor:"
+
+#: admin/index.php:376
+msgid "There was an error editing the queue:"
+msgstr "Hiba történt a terület szerkesztésekor:"
+
+#: admin/index.php:481
+msgid "There was an error editing the state:"
+msgstr "Hiba történt az állapot szerkesztésekor:"
+
+#: admin/index.php:844
+msgid "There was an error editing the version:"
+msgstr "Hiba történt a verzió szerkesztésekor:"
+
+#: lib/Forms/Admin/User.php:35
+msgid "There was an error listing users: %s; %s"
+msgstr "Hiba történt a felhasználók listázása során: %s; %s"
+
+#: queue/index.php:52
+msgid "There was an error locating tickets in this queue: "
+msgstr "Hiba történt a(z) %s terület hibajegyeinek listázása során"
+
+#: admin/index.php:219
+msgid "There was an error modifying the type:"
+msgstr "Hiba történt a típus módosításakor:"
+
+#: search.php:140
+msgid "There was an error performing your search: %s"
+msgstr "Hiba történt a keresés futtatásakor: %s"
+
+#: admin/index.php:751
+msgid ""
+"There was an error removing \"%s\" from the responsible list for \"%s\":"
+msgstr ""
+"Hiba történt \"%s\" a(z) \"%s\" terület felelőslistájából való törlése során:"
+
+#: admin/index.php:639
+msgid "There was an error setting the default priority:"
+msgstr "Hiba történt az alapértelmezett prioritás beállítása során:"
+
+#: admin/index.php:503
+msgid "There was an error setting the default state:"
+msgstr "Hiba történt az alapértelmezett állapot beállítása során:"
+
+#: lib/Forms/AddComment.php:37 lib/Forms/EditTicket.php:185
+msgid "This comment is visible to everyone"
+msgstr "Ez egy publikus megjegyzés"
+
+#: lib/Forms/Admin/Queue.php:31
+msgid ""
+"This email address will be used when sending notifications for any queue "
+"tickets."
+msgstr ""
+"Ez az emailcím lesz használva minden terület hibajegyeinek értesítése során"
+
+#: data.php:29
+msgid "This is not a search results template."
+msgstr "Ez nem egy keresési eredmény sablon."
+
+#: lib/Query.php:435 lib/Query.php:668
+msgid "This query element cannot be edited."
+msgstr "Ez a lekérdezés elem nem szerkeszthető."
+
+#: lib/Forms/CreateTicket.php:93 lib/Forms/EditTicket.php:72
+#: ticket/queue.php:81
+msgid ""
+"This queue requires that you specify a version, but there are no versions "
+"associated with it. Until versions are created for this queue, you will not "
+"be able to create tickets."
+msgstr ""
+"Ehhez a területhez verziókra is szükség van, de egyelőre nincsenek verziók "
+"kapcsolva hozzá. Amíg ez meg nem történik, nem lehetséges hibajegyet "
+"felvenni itt."
+
+#: lib/Ticket.php:638 lib/Ticket.php:820
+msgid "Ticket"
+msgstr "Hibajegy"
+
+#: ticket/delete.php:71
+msgid "Ticket %d has been deleted."
+msgstr "A(z) %s azonosítójú hibajegy törölve."
+
+#: lib/api.php:851
+msgid "Ticket %s - %s"
+msgstr "Hibajegy %s - %s"
+
+#: lib/Driver/sql.php:1084
+msgid "Ticket %s was not found."
+msgstr "%s azonosítójú hibajegy nem található."
+
+#: search.php:170
+msgid "Ticket Search"
+msgstr "Hibajegy keresés"
+
+#: lib/Forms/CreateTicket.php:150 lib/Forms/CreateTicket.php:153
+msgid "Ticket State"
+msgstr "Hibajegy állapot"
+
+#: templates/reports/stats.inc:1
+msgid "Ticket Stats"
+msgstr "Hibajegy statisztika"
+
+#: lib/Forms/CreateTicket.php:85
+msgid "Ticket Type"
+msgstr "Hibajegy típus"
+
+#: lib/Forms/Admin/Queue.php:103
+msgid "Ticket Types associated with this Queue"
+msgstr "Hibajegy típusok ehhez a területhez"
+
+#: lib/Ticket.php:633
+msgid "Ticket URL: %s"
+msgstr "Hibajegy URL: %s"
+
+#: ticket/update.php:97
+msgid "Ticket Updated"
+msgstr "Hibajegy frissítve"
+
+#: lib/api.php:872
+msgid "Tickets"
+msgstr "Hibajegyek"
+
+#: query/rss.php:70
+#, php-format
+msgid "Tickets matching the query \"%s\"."
+msgstr "A \"%s\" lekérdezésre illeszkedő hibajegyek."
+
+#: templates/prefs/sourceselect.inc:322
+msgid ""
+"To select multiple fields, hold down the Control (PC) or Command (Mac) while "
+"clicking."
+msgstr ""
+"Ha több mezőt kíván kijelölni, akkor tartsa nyomva a Control (PC-n) ill. "
+"Command (Mac-en) billentyűt, és úgy kattintson az egérrel a további mezőkre."
+
+#: lib/Forms/Query.php:174 lib/Renderer/Query.php:108 lib/Ticket.php:608
+#: lib/Ticket.php:805 lib/Ticket.php:945 lib/Whups.php:681 ticket/queue.php:89
+msgid "Type"
+msgstr "Típus"
+
+#: lib/Renderer/Comment.php:110
+#, php-format
+msgid "Type &rArr; %s"
+msgstr "Típus &rArr; %s"
+
+#: lib/Forms/Admin/Type.php:23 lib/Forms/Admin/Type.php:70
+#: lib/Forms/Admin/Type.php:160
+msgid "Type Description"
+msgstr "Típus leírás"
+
+#: lib/Forms/Admin/Type.php:22 lib/Forms/Admin/Type.php:48
+#: lib/Forms/Admin/Type.php:67 lib/Forms/Admin/Type.php:156
+msgid "Type Name"
+msgstr "Típus név"
+
+#: search/rss.php:39
+msgid "Type: %s; State: %s"
+msgstr "Típus: %s; állapot: %s"
+
+#: lib/Ticket.php:961
+msgid "Unassigned"
+msgstr "Kiosztatlan"
+
+#: lib/Block/unassigned.php:3 lib/Block/unassigned.php:24
+msgid "Unassigned Tickets"
+msgstr "Kiosztatlan hibajegyek"
+
+#: lib/Forms/Admin.php:42
+msgid "Unassigned tickets"
+msgstr "Kiosztatlan hibajegyek"
+
+#: lib/Driver.php:213
+msgid "Unconfirmed"
+msgstr "Jóvá nem hagyott hibajegyek"
+
+#: lib/Renderer/Query.php:167 lib/Renderer/Query.php:207
+msgid "Unknown node type %s"
+msgstr "Ismeretlen elemtípus %s"
+
+#: lib/api.php:791
+msgid "Update"
+msgstr "Frissítés"
+
+#: ticket/update.php:111
+#, php-format
+msgid "Update %s"
+msgstr "%s frissítése"
+
+#: templates/admin/mtmatrix.inc:29
+msgid "Update Associations"
+msgstr "Hozzárendelések mentése"
+
+#: lib/Renderer/Query.php:146 lib/Ticket.php:981 lib/Whups.php:687
+msgid "Updated"
+msgstr "Módosítva"
+
+#: lib/Ticket.php:615 lib/Ticket.php:640
+msgid "Updated By"
+msgstr "Módosítva:"
+
+#: lib/Forms/Query.php:327 lib/Forms/Search.php:58
+msgid "Updated from"
+msgstr "Frissítve után"
+
+#: lib/Forms/Query.php:328
+msgid "Updated to"
+msgstr "Frissítve előtt"
+
+#: lib/Forms/Admin/User.php:34 lib/Forms/Admin/User.php:44
+#: lib/Forms/Admin/User.php:47
+msgid "User"
+msgstr "Felhasználó"
+
+#: lib/Forms/Query.php:44
+msgid "User ID"
+msgstr "Felhasználói név"
+
+#: lib/Forms/Admin/Queue.php:131
+msgid "Users responsible for this Queue"
+msgstr "A területért felelős felhasználók"
+
+#: lib/Forms/Admin/User.php:79
+msgid "Users responsible for this queue"
+msgstr "A területért felelős felhasználók"
+
+#: lib/Forms/Query.php:185 lib/Renderer/Query.php:102 lib/Ticket.php:607
+#: lib/Ticket.php:804
+msgid "Version"
+msgstr "Verzió"
+
+#: lib/Renderer/Comment.php:105
+#, php-format
+msgid "Version &rArr; %s"
+msgstr "Verzió &rArr; %s"
+
+#: lib/Forms/Admin/Version.php:25 lib/Forms/Admin/Version.php:74
+msgid "Version Active?"
+msgstr "Verzió aktív?"
+
+#: lib/Forms/Admin/Version.php:24 lib/Forms/Admin/Version.php:72
+#: lib/Forms/Admin/Version.php:97
+msgid "Version Description"
+msgstr "A verzió leírása"
+
+#: lib/Forms/Admin/Version.php:23 lib/Forms/Admin/Version.php:50
+#: lib/Forms/Admin/Version.php:69 lib/Forms/Admin/Version.php:94
+msgid "Version Name"
+msgstr "Verzió név"
+
+#: ticket/queue.php:50 ticket/type.php:43
+msgid "Viewable only by members of"
+msgstr "Csak a következő csoport tagjai számára látható:"
+
+#: lib/Forms/AddComment.php:25
+msgid "Watch this ticket"
+msgstr "Hibajegy figyelése"
+
+#: ticket/watch.php:78
+msgid "Watchers for %s"
+msgstr "%s figyelői"
+
+#: lib/Forms/Admin/Attribute.php:149 lib/Forms/Admin/Priority.php:121
+#: lib/Forms/Admin/Queue.php:174 lib/Forms/Admin/Reply.php:110
+#: lib/Forms/Admin/State.php:121 lib/Forms/Admin/Type.php:176
+#: lib/Forms/Admin/Version.php:100 lib/Forms/Query.php:449
+#: ticket/delete.php:33
+msgid "Yes"
+msgstr "Igen"
+
+#: view.php:54
+msgid "You are not allowed to view ticket %d."
+msgstr "Ön nem jogosult a %d hibajegy megtekintésére."
+
+#: lib/Driver/sql.php:1093
+msgid "You do not have permission to access this ticket (%s)."
+msgstr "Nincs jogosultsága a %s hibajegy kezeléséhez."
+
+#: lib/api.php:375
+msgid "You do not have permission to update this ticket."
+msgstr "Nincs jogosultsága a %s hibajegy frissítéséhez."
+
+#: lib/Block/myrequests.php:48
+msgid "You have no open requests."
+msgstr "Nincsenek nyitott kérései."
+
+#: lib/Block/query.php:28 lib/Forms/Query.php:419
+msgid "You have no saved queries."
+msgstr "Nincsenek elmentett lekérdezései."
+
+#: lib/Whups.php:714
+msgid "You must select at least one queue to send reminders for."
+msgstr "Legalább egy területet ki kell választania az emlékeztetőküldéshez."
+
+#: lib/Forms/AddComment.php:18 lib/Forms/CreateTicket.php:137
+msgid "Your Email Address"
+msgstr "Az Ön email címe"
+
+#: ticket/create.php:60
+#, php-format
+msgid ""
+"Your ticket ID is %s. An appropriate person has been notified of this "
+"request."
+msgstr ""
+"A hibajegy azonosítója %s. A terület felelősei értesítést kaptak a "
+"hibajegyről."
+
+#: lib/Mail.php:244
+msgid "[ Could not render body of message. ]"
+msgstr "[ Nem sikerült a levél szövegének összeállítása. ]"
+
+#: lib/Whups.php:778
+msgid "_Admin"
+msgstr "_Adminisztráció"
+
+#: lib/Whups.php:302
+msgid "_Comment"
+msgstr "_Megjegyzés"
+
+#: query/index.php:157
+msgid "_Date Criteria"
+msgstr "Szűrés _dátumra"
+
+#: lib/Whups.php:320
+msgid "_Delete"
+msgstr "_Törlés"
+
+#: lib/Query.php:237
+msgid "_Delete Query"
+msgstr "_Lekérdezés törlése"
+
+#: lib/Query.php:218
+msgid "_Edit Query"
+msgstr "Lekérdezés _szerkesztése"
+
+#: admin/index.php:33
+msgid "_Edit Queues"
+msgstr "_Területek szerkesztése"
+
+#: templates/menu.inc:5
+msgid "_Go"
+msgstr "_Mehet"
+
+#: query/index.php:156
+msgid "_Group Criteria"
+msgstr "Szűrés _csoportra"
+
+#: lib/Whups.php:296
+msgid "_History"
+msgstr "_Történet"
+
+#: lib/Query.php:231
+msgid "_Load Query"
+msgstr "Lekérdezés _betöltése"
+
+#: lib/Whups.php:769
+msgid "_My %s"
+msgstr "%s"
+
+#: lib/Whups.php:772
+msgid "_New Ticket"
+msgstr "Ú_j hibajegy"
+
+#: query/index.php:154
+msgid "_Property Criteria"
+msgstr "Szűrés _tulajdonságra"
+
+#: lib/Whups.php:773
+msgid "_Query Builder"
+msgstr "_Lekérdezések"
+
+#: lib/Whups.php:774
+msgid "_Reports"
+msgstr "_Jelentések"
+
+#: lib/Whups.php:771
+msgid "_Search"
+msgstr "Kere_sés"
+
+#: query/index.php:158
+msgid "_Text Criteria"
+msgstr "Szűrés _szövegre"
+
+#: lib/Whups.php:298
+msgid "_Update"
+msgstr "Frissítés"
+
+#: query/index.php:155
+msgid "_User Criteria"
+msgstr "Szűrés felhasználóra"
+
+#: lib/Whups.php:306
+msgid "_Watch"
+msgstr "_Figyelés"
+
+#: lib/Renderer/Query.php:187
+msgid "contains (case insensitive) substring"
+msgstr "nagybetű érzéketlen szövegrészt tartalmaz"
+
+#: lib/Renderer/Query.php:191
+msgid "contains (case sensitive) substring"
+msgstr "nagybetű érzékeny szövegrészt tartalmaz"
+
+#: lib/Renderer/Query.php:195
+msgid "contains the word"
+msgstr "tartalmazza a szót"
+
+#: lib/Mail.php:94 lib/Mail.php:118 lib/Mail.php:146
+msgid "current user:"
+msgstr "Bejelentkezett felhasználó:"
+
+#: lib/api.php:860
+msgid "estimated time"
+msgstr "Becsült időtartam"
+
+#: lib/Renderer/Query.php:183
+msgid "is"
+msgstr " egy "
+
+#: lib/Renderer/Query.php:175
+msgid "is greater than"
+msgstr "nagyobb mint"
+
+#: lib/Renderer/Query.php:179
+msgid "is less than"
+msgstr "kisebb, mint"
+
+#: lib/Renderer/Query.php:199
+msgid "matches the pattern"
+msgstr "Illeszkedik a mintára"
+
+#: lib/Forms/Search.php:57 lib/Forms/Search.php:59 lib/Forms/Search.php:61
+#: lib/Forms/Search.php:63 lib/Forms/Search.php:65
+msgid "to"
+msgstr "ig"

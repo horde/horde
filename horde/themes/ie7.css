@@ -3,7 +3,7 @@
  */
 
 /* Fixes broken inline-block. */
-.mimeHeaders {
+.iconImg, .mimeHeaders, .treeImg {
     zoom: 1;
     *display: inline;
 }

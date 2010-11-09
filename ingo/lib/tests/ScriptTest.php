@@ -128,7 +128,7 @@ class ScriptTester {
 
     function _setupStorage()
     {
-        $_SESSION['ingo']['change'] = 0;
+        $GLOBALS['session']->set('ingo', 'change', 0);
         $GLOBALS['ingo_storage'] = Ingo_Storage::factory('mock', array());
         foreach ($this->rules as $ob) {
             $GLOBALS['ingo_storage']->store($ob);

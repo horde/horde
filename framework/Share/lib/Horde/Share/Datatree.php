@@ -229,7 +229,7 @@ class Horde_Share_Datatree extends Horde_Share
      *
      * @param Horde_Share_Object_datatree $share  The new share object.
      */
-    protected function _addShare(&$share)
+    protected function _addShare($share)
     {
         return $this->_datatree->add($share->datatreeObject);
     }
@@ -239,7 +239,7 @@ class Horde_Share_Datatree extends Horde_Share
      *
      * @param Horde_Share_Object_datatree $share  The share to remove.
      */
-    protected function _removeShare(&$share)
+    protected function _removeShare($share)
     {
         return $this->_datatree->remove($share->datatreeObject);
     }
@@ -308,7 +308,7 @@ class Horde_Share_Datatree extends Horde_Share
                     $criteria['OR'][] = array(
                         'AND' => array(
                             array('field' => 'name', 'op' => '=', 'test' => 'perm_groups'),
-o                           array('field' => 'key', 'op' => 'IN', 'test' => array_keys($groups)),
+                            array('field' => 'key', 'op' => 'IN', 'test' => array_keys($groups)),
                             array('field' => 'value', 'op' => '&', 'test' => $perm)));
                 }
             } catch (Horde_Group_Exception $e) {}

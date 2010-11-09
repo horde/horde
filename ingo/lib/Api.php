@@ -169,7 +169,7 @@ class Ingo_Api extends Horde_Registry_Api
             }
 
             /* Update the timestamp for the rules. */
-            $_SESSION['ingo']['change'] = time();
+            $GLOBALS['session']->set('ingo', 'change', time());
 
             return true;
         } catch (Ingo_Exception $e) {}
@@ -198,7 +198,7 @@ class Ingo_Api extends Horde_Registry_Api
             }
 
             /* Update the timestamp for the rules. */
-            $_SESSION['ingo']['change'] = time();
+            $GLOBALS['session']->set('ingo', 'change', time());
 
             return true;
         } catch (Ingo_Exception $e) {}

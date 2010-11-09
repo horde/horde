@@ -69,7 +69,7 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
         try {
             $galleries = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')
                     ->create()
-                    ->listGalleries(array('filter' => $owner));
+                    ->listGalleries(array('attributes' => $owner));
         } catch (Ansel_Exception $e) {
             Horde::logMessage($e, 'ERR');
             return '';

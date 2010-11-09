@@ -11,10 +11,10 @@
 class Horde_Share_Object_Sql_Hierarchical extends Horde_Share_Object_Sql
 {
     /**
-     * Constructor. This is here primarily to make calling the parent
-     * constructor(s) from any subclasses cleaner.
+     * Constructor.
      *
-     * @param unknown_type $data
+     * @param array $data
+     *
      * @return Horde_Share_Object_sql_hierarchical
      */
     public function __construct($data)
@@ -25,44 +25,44 @@ class Horde_Share_Object_Sql_Hierarchical extends Horde_Share_Object_Sql
         parent::__construct($data);
     }
 
-    public function inheritPermissions()
-    {
-        throw new Horde_Share_Exception('Not implemented.');
-    }
-
     /**
      * Return a count of the number of children this share has
      *
-     * @param integer $perm  A Horde_Perms::* constant
+     * @param string $user        The user to use for checking perms
+     * @param integer $perm       A Horde_Perms::* constant
      * @param boolean $allLevels  Count grandchildren or just children
      *
-     * @return mixed  The number of child shares || PEAR_Error
+     * @return integer  The number of child shares
      */
-    public function countChildren($perm = Horde_Perms::SHOW, $allLevels = true)
+    public function countChildren($user, $perm = Horde_Perms::SHOW, $allLevels = true)
     {
-        return $this->_shareOb->countShares($GLOBALS['registry']->getAuth(), $perm, null, $this, $allLevels);
+        return $this->_shareOb->countShares($user, $perm, null, $this, $allLevels);
     }
 
     /**
      * Get all children of this share.
      *
-     * @param int $perm           Horde_Perms::* constant. If NULL will return
+     * @param string $user        The user to use for checking perms
+     * @param integer $perm       Horde_Perms::* constant. If NULL will return
      *                            all shares regardless of permissions.
      * @param boolean $allLevels  Return all levels.
      *
-     * @return mixed  An array of Horde_Share_Object objects || PEAR_Error
+     * @return array  An array of Horde_Share_Object objects
      */
-    public function getChildren($perm = Horde_Perms::SHOW, $allLevels = true)
+    public function getChildren($user, $perm = Horde_Perms::SHOW, $allLevels = true)
     {
-        return $this->_shareOb->listShares($GLOBALS['registry']->getAuth(), $perm, null, 0, 0,
-             null, 1, $this, $allLevels, is_null($perm));
-
+        return $this->_shareOb->listShares(
+            $user, array('perm' => $perm,
+                         'direction' => 1,
+                         'parent' => $this,
+                         'all_levels' => $allLevels,
+                         'ignore_perms' => is_null($perm)));
     }
 
     /**
      * Returns a child's direct parent
      *
-     * @return mixed  The direct parent Horde_Share_Object or PEAR_Error
+     * @return Horde_Share_Object The direct parent Horde_Share_Object
      */
     public function getParent()
     {
@@ -78,10 +78,11 @@ class Horde_Share_Object_Sql_Hierarchical extends Horde_Share_Object_Sql
     {
         $parents = array();
         $share = $this->getParent();
-        while (is_a($share, 'Horde_Share_Object')) {
+        while ($share instanceof Horde_Share_Object) {
             $parents[] = $share;
             $share = $share->getParent();
         }
+
         return array_reverse($parents);
     }
 
@@ -90,23 +91,21 @@ class Horde_Share_Object_Sql_Hierarchical extends Horde_Share_Object_Sql
      *
      * @param mixed $parent    A Horde_Share object or share id for the parent.
      *
-     * @return mixed  true || PEAR_Error
+     * @return boolean
      */
     public function setParent($parent)
     {
         if (!is_null($parent) && !is_a($parent, 'Horde_Share_Object')) {
             $parent = $this->_shareOb->getShareById($parent);
-            if ($parent instanceof PEAR_Error) {
-                Horde::logMessage($parent, 'ERR');
-                throw new Horde_Share_Exception($parent->getMessage());
-            }
         }
 
         /* If we are an existing share, check for any children */
         if ($this->getId()) {
-            $children = $this->_shareOb->listShares(
-                $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT, null, 0, 0, null, 0,
-                $this->getId());
+            $children = $this->_shareOb->listShares(null,
+                array('perm' => Horde_Perms::EDIT,
+                      'parent' => $this,
+                      'all_levels' => true,
+                      'ignore_perms' => true));
         } else {
             $children = array();
         }
@@ -122,11 +121,11 @@ class Horde_Share_Object_Sql_Hierarchical extends Horde_Share_Object_Sql
             $parent_string = null;
         }
         $this->data['share_parents'] = $parent_string;
-        $query = $this->_shareOb->getWriteDb()->prepare('UPDATE ' . $this->_shareOb->getTable() . ' SET share_parents = ? WHERE share_id = ?', null, MDB2_PREPARE_MANIP);
-        $result = $query->execute(array($this->data['share_parents'], $this->getId()));
-        $query->free();
-        if ($result instanceof PEAR_Error) {
-            throw new Horde_Share_Exception($result->getMessage());
+        $sql = 'UPDATE ' . $this->_shareOb->getTable() . ' SET share_parents = ? WHERE share_id = ?';
+        try {
+            $this->_shareOb->getStorage()->update($sql, array($this->data['share_parents'], $this->getId()));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Share_Exception($e->getMessage());
         }
 
         /* Now we can reset the children's parent */
@@ -141,7 +140,7 @@ class Horde_Share_Object_Sql_Hierarchical extends Horde_Share_Object_Sql
      * Returns the permission of this share.
      *
      * @return Horde_Perms_Permission  Permission object that represents the
-     *                               permissions on this share.
+     *                                 permissions on this share.
      */
     public function getPermission()
     {
@@ -183,4 +182,3 @@ class Horde_Share_Object_Sql_Hierarchical extends Horde_Share_Object_Sql
     }
 
 }
-

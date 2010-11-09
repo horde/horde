@@ -171,7 +171,11 @@ class Mnemo {
             return array();
         }
         try {
-            $notepads = $GLOBALS['mnemo_shares']->listShares($GLOBALS['registry']->getAuth(), $permission, $owneronly ? $GLOBALS['registry']->getAuth() : null, 0, 0, 'name');
+            $notepads = $GLOBALS['mnemo_shares']->listShares(
+                $GLOBALS['registry']->getAuth(),
+                array('perm' => $permission,
+                      'attributes' => $owneronly ? $GLOBALS['registry']->getAuth() : null,
+                      'sort_by' => 'name'));
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e->getMessage(), 'ERR');
             return array();
@@ -429,35 +433,21 @@ class Mnemo {
             }
         }
 
-        if (count($GLOBALS['display_notepads']) == 0) {
-            $lists = Mnemo::listNotepads(true);
-            if (!$GLOBALS['registry']->getAuth()) {
-                /* All notepads for guests. */
-                $GLOBALS['display_notepads'] = array_keys($lists);
-            } else {
-                /* Make sure at least the default notepad is visible. */
-                $default_notepad = Mnemo::getDefaultNotepad(Horde_Perms::READ);
-                if ($default_notepad) {
-                    $GLOBALS['display_notepads'] = array($default_notepad);
-                }
+        /* All tasklists for guests. */
+        if (!count($GLOBALS['display_notepads']) &&
+            !$GLOBALS['registry']->getAuth()) {
+            $GLOBALS['display_tasklists'] = array_keys($_all);
+        }
 
-                /* If the user's personal notepad doesn't exist, then create it. */
-                if (!$GLOBALS['mnemo_shares']->exists($GLOBALS['registry']->getAuth())) {
-                    $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
-                    $name = $identity->getValue('fullname');
-                    if (trim($name) == '') {
-                        $name = $GLOBALS['registry']->getAuth();
-                    }
-                    $share = $GLOBALS['mnemo_shares']->newShare($GLOBALS['registry']->getAuth());
-                    $share->set('name', sprintf(_("%s's Notepad"), $name));
-                    $GLOBALS['mnemo_shares']->addShare($share);
-
-                    /* Make sure the personal notepad is displayed by default. */
-                    if (!in_array($GLOBALS['registry']->getAuth(), $GLOBALS['display_notepads'])) {
-                        $GLOBALS['display_notepads'][] = $GLOBALS['registry']->getAuth();
-                    }
-                }
-            }
+        /* If the user doesn't own a notepad, create one. */
+        if (!empty($GLOBALS['conf']['share']['auto_create']) &&
+            $GLOBALS['registry']->getAuth() &&
+            !count(Mnemo::listNotepads(true))) {
+            $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
+            $share = $GLOBALS['mnemo_shares']->newShare($GLOBALS['registry']->getAuth(), strval(new Horde_Support_Randomid()));
+            $share->set('name', sprintf(_("Notepad of %s"), $identity->getName()));
+            $GLOBALS['mnemo_shares']->addShare($share);
+            $GLOBALS['display_notepads'][] = $share->getName();
         }
 
         $GLOBALS['prefs']->setValue('display_notepads', serialize($GLOBALS['display_notepads']));

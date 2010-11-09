@@ -33,12 +33,12 @@ $num_galleries = $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Stora
 if ($num_galleries < 5) {
     $mini_galleries = $GLOBALS['injector']->
         getInstance('Ansel_Injector_Factory_Storage')->
-        create()->listGalleries(array('filter' => $group, 'allLevels' => false));
+        create()->listGalleries(array('attributes' => $group, 'all_levels' => false));
 } else {
     $mini_galleries = $GLOBALS['injector']
         ->getInstance('Ansel_Injector_Factory_Storage')
         ->create()
-        ->listGalleries(array('filter' => $group,
+        ->listGalleries(array('attributes' => $group,
                               'from' => rand(0, $num_galleries - 4),
                               'count' => 4));
 }

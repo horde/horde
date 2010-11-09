@@ -14,7 +14,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('ingo');
 
 /* Redirect if forward is not available. */
-if (!in_array(Ingo_Storage::ACTION_FORWARD, $_SESSION['ingo']['script_categories'])) {
+if (!in_array(Ingo_Storage::ACTION_FORWARD, $session->get('ingo', 'script_categories'))) {
     $notification->push(_("Forward is not supported in the current filtering driver."), 'horde.error');
     Horde::url('filters.php', true)->redirect();
 }

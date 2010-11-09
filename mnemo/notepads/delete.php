@@ -21,10 +21,6 @@ if (!$GLOBALS['registry']->getAuth()) {
 
 $vars = Horde_Variables::getDefaultVariables();
 $notepad_id = $vars->get('n');
-if ($notepad_id == $GLOBALS['registry']->getAuth()) {
-    $notification->push(_("This notepad cannot be deleted"), 'horde.warning');
-    Horde::url('notepads/', true)->redirect();
-}
 try {
     $notepad = $mnemo_shares->getShare($notepad_id);
 } catch (Horde_Share_Exception $e) {

@@ -128,8 +128,8 @@ class Ansel_View_List extends Ansel_View_Base
             } else {
                 $this->_galleryList = $ansel_storage->listGalleries(
                     array('perm' => Horde_Perms::SHOW,
-                          'filter' => $filter,
-                          'allLevels' => false,
+                          'attributes' => $filter,
+                          'all_levels' => false,
                           'from' => $this->_page * $this->_g_perPage,
                           'count' => $this->_g_perPage,
                           'sort_by' => $this->_sortBy,

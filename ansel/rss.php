@@ -127,7 +127,7 @@ if (empty($rss)) {
             $shares = $GLOBALS['injector']
                 ->getInstance('Ansel_Injector_Factory_Storage')
                 ->create()
-                ->listGalleries(array('filter' => $id));
+                ->listGalleries(array('attributes' => $id));
             foreach ($shares as $gallery) {
                 if ($gallery->isOldEnough() && !$gallery->hasPasswd()) {
                     $galleries[] = $gallery->id;

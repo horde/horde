@@ -20,10 +20,6 @@ if (!$GLOBALS['registry']->getAuth()) {
 
 $vars = Horde_Variables::getDefaultVariables();
 $calendar_id = $vars->get('c');
-if ($calendar_id == $GLOBALS['registry']->getAuth()) {
-    $notification->push(_("This calendar cannot be deleted."), 'horde.warning');
-    Horde::url('calendars/', true)->redirect();
-}
 
 if (Kronolith::showAjaxView()) {
     Horde::url('', true)->setAnchor('calendar:internal|' . $calendar_id)->redirect();

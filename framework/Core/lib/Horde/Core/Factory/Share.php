@@ -81,8 +81,8 @@ class Horde_Core_Factory_Share
             if (!class_exists($class)) {
                 throw new Horde_Exception(sprintf(Horde_Core_Translation::t("\"%s\" share driver not found."), $driver));
             }
-
-            $ob = new $class($app, $this->_injector->getInstance('Horde_Perms'));
+            $sob = new $class($app, $GLOBALS['registry']->getAuth(), $this->_injector->getInstance('Horde_Perms'), $this->_injector->getInstance('Horde_Group'));
+            $ob = new Horde_Core_Share_Driver($sob);
         }
 
         if (!empty($GLOBALS['conf']['share']['cache'])) {

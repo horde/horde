@@ -17,7 +17,7 @@ var HordeLogin = {
             alert(HordeLogin.pass_error);
             $('horde_pass').focus();
         } else {
-            $('login_button').disable();
+            $('login-button').disable();
             if (Prototype.Browser.IE) {
                 try {
                     document.body.style.behavior = "url(#default#clientCaps)";
@@ -82,7 +82,7 @@ var HordeLogin = {
 
         while (Object.isElement(elt)) {
             switch (elt.readAttribute('id')) {
-            case 'login_button':
+            case 'login-button':
                 this.submit();
                 e.stop();
                 break;

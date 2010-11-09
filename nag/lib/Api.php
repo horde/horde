@@ -243,9 +243,10 @@ class Nag_Api extends Horde_Registry_Api
             //
             // This request is for all tasklists owned by the requested user
             //
-            $tasklists = $GLOBALS['nag_shares']->listShares($parts[0],
-                Horde_Perms::SHOW,
-                $parts[0]);
+            $tasklists = $GLOBALS['nag_shares']->listShares(
+                $parts[0],
+                array('perm' => Horde_Perms::SHOW,
+                      'attributes' => $parts[0]));
 
             // The last check returns all addressbooks for the requested user,
             // but that does not mean the requesting user has access to them.

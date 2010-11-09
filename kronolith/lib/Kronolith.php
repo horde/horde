@@ -335,7 +335,9 @@ class Kronolith
         // Maps
         $code['conf']['maps'] = $GLOBALS['conf']['maps'];
 
-        return array('var Kronolith = ' . Horde_Serialize::serialize($code, Horde_Serialize::JSON) . ';');
+        return Horde::addInlineJsVars(array(
+            'var Kronolith' => $code
+        ), array('ret_vars' => true));
     }
 
     /**
@@ -367,7 +369,7 @@ class Kronolith
             }
         }
         return $json;
-    }
+   }
 
     /**
      * Returns all the alarms active on a specific date.
@@ -965,7 +967,7 @@ class Kronolith
             $GLOBALS['session']->set('kronolith', 'display_cal', $calendarId);
         }
 
-        if ($GLOBALS['session']->exists('kronolith', 'display_cal')) {
+        if (strlen($GLOBALS['session']->get('kronolith', 'display_cal'))) {
             /* Specifying a value for display_cal is always to make sure
              * that only the specified calendars are shown. Use the
              * "toggle_calendar" argument  to toggle the state of a single
@@ -1149,25 +1151,16 @@ class Kronolith
         }
         $GLOBALS['prefs']->setValue('display_external_cals', serialize($GLOBALS['display_external_calendars']));
 
-        /* If an authenticated user has no calendars visible and their
-         * personal calendar doesn't exist, create it. */
-        if ($GLOBALS['registry']->getAuth() &&
-            !count($GLOBALS['display_calendars']) &&
-            !$GLOBALS['kronolith_shares']->exists($GLOBALS['registry']->getAuth())) {
+        /* If an authenticated doesn't own a calendar, create it. */
+        if (!empty($GLOBALS['conf']['share']['auto_create']) &&
+            $GLOBALS['registry']->getAuth() &&
+            !count(Kronolith::listInternalCalendars(true))) {
             $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
-            $name = $identity->getValue('fullname');
-            if (trim($name) == '') {
-                $name = $GLOBALS['registry']->getAuth('original');
-            }
-            $share = &$GLOBALS['kronolith_shares']->newShare($GLOBALS['registry']->getAuth());
-            $share->set('name', sprintf(_("%s's Calendar"), $name));
+            $share = $GLOBALS['kronolith_shares']->newShare($GLOBALS['registry']->getAuth(), strval(new Horde_Support_Randomid()));
+            $share->set('name', sprintf(_("Calendar of %s"), $identity->getName()));
             $GLOBALS['kronolith_shares']->addShare($share);
             $GLOBALS['all_calendars'][$GLOBALS['registry']->getAuth()] = new Kronolith_Calendar_Internal(array('share' => $share));
-
-            /* Make sure the personal calendar is displayed by default. */
-            if (!in_array($GLOBALS['registry']->getAuth(), $GLOBALS['display_calendars'])) {
-                $GLOBALS['display_calendars'][] = $GLOBALS['registry']->getAuth();
-            }
+            $GLOBALS['display_calendars'][] = $share->getName();
 
             /* Calendar auto-sharing with the user's groups */
             if ($GLOBALS['conf']['autoshare']['shareperms'] != 'none') {
@@ -1519,7 +1512,11 @@ class Kronolith
         }
 
         try {
-            $calendars = $GLOBALS['kronolith_shares']->listShares($GLOBALS['registry']->getAuth(), $permission, $owneronly ? $GLOBALS['registry']->getAuth() : null, 0, 0, 'name');
+            $calendars = $GLOBALS['kronolith_shares']->listShares(
+                $GLOBALS['registry']->getAuth(),
+                array('perm' => $permission,
+                      'attributes' => $owneronly ? $GLOBALS['registry']->getAuth() : null,
+                      'sort_by' => 'name'));
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e, 'ERR');
             return array();
@@ -1631,7 +1628,7 @@ class Kronolith
     public static function addShare($info)
     {
         try {
-            $calendar = $GLOBALS['kronolith_shares']->newShare(strval(new Horde_Support_Randomid()));
+            $calendar = $GLOBALS['kronolith_shares']->newShare($GLOBALS['registry']->getAuth(), strval(new Horde_Support_Randomid()));
         } catch (Horde_Share_Exception $e) {
             throw new Kronolith_Exception($e);
         }
@@ -1646,7 +1643,7 @@ class Kronolith
         $tagger->tag($calendar->getName(), $info['tags'], $calendar->get('owner'), 'calendar');
 
         try {
-            $result = $GLOBALS['kronolith_shares']->addShare($calendar);
+            $GLOBALS['kronolith_shares']->addShare($calendar);
         } catch (Horde_Share_Exception $e) {
             throw new Kronolith_Exception($e);
         }
@@ -1698,10 +1695,6 @@ class Kronolith
      */
     public static function deleteShare($calendar)
     {
-        if ($calendar->getName() == $GLOBALS['registry']->getAuth()) {
-            throw new Kronolith_Exception(_("This calendar cannot be deleted."));
-        }
-
         if (!$GLOBALS['registry']->getAuth() ||
             ($calendar->get('owner') != $GLOBALS['registry']->getAuth() &&
              (!is_null($calendar->get('owner')) || !$GLOBALS['registry']->isAdmin()))) {

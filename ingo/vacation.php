@@ -14,7 +14,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('ingo');
 
 /* Redirect if vacation is not available. */
-if (!in_array(Ingo_Storage::ACTION_VACATION, $_SESSION['ingo']['script_categories'])) {
+if (!in_array(Ingo_Storage::ACTION_VACATION, $session->get('ingo', 'script_categories'))) {
     $notification->push(_("Vacation is not supported in the current filtering driver."), 'horde.error');
     Horde::url('filters.php', true)->redirect();
 }
@@ -90,7 +90,7 @@ if ($form->validate($vars)) {
     }
 
     /* Update the timestamp for the rules. */
-    $_SESSION['ingo']['change'] = time();
+    $session->set('ingo', 'change', time());
 }
 
 /* Add buttons depending on the above actions. */

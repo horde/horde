@@ -71,10 +71,10 @@ class Ansel
      *   <pre>
      *     (integer)selected  The gallery_id of the gallery that is selected
      *     (integer)perm      The permissions filter to use [Horde_Perms::SHOW]
-     *     (mixed)filter      Restrict the galleries returned to those matching
+     *     (mixed)attributes  Restrict the galleries returned to those matching
      *                        the filters. Can be an array of attribute/values
      *                        pairs or a gallery owner username.
-     *     (boolean)allLevels
+     *     (boolean)all_levels
      *     (integer)parent    The parent share to start listing at.
      *     (integer)from      The gallery to start listing at.
      *     (integer)count     The number of galleries to return.
@@ -85,12 +85,12 @@ class Ansel
      */
     static public function selectGalleries($params = array())
     {
-        $params = new Horde_Support_Array($params);
         $galleries = $GLOBALS['injector']
             ->getInstance('Ansel_Injector_Factory_Storage')
             ->create()
             ->listGalleries($params);
 
+        $params = new Horde_Support_Array($params);
         $tree = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Tree')->create('gallery_tree', 'Select');
 
         /* Remove the ignored gallery, make sure it's also not the selected
@@ -760,22 +760,22 @@ class Ansel
         $themesuri = $GLOBALS['registry']->get('themesuri', 'ansel');
         $themesfs = $GLOBALS['registry']->get('themesfs', 'ansel');
         $css = array();
+
         if (!empty($GLOBALS['ansel_stylesheets'])) {
             foreach ($GLOBALS['ansel_stylesheets'] as $css_file) {
-                $css[] = array('u' => Horde::url($themesuri . '/' . $css_file, true),
-                               'f' => $themesfs . '/' . $css_file);
+                $css[$themesfs . '/' . $css_file] = Horde::url($themesuri . '/' . $css_file, true);
             }
         }
 
         /* Use Horde's stylesheet code if we aren't ouputting css directly */
         if (!$custom_only) {
-            Horde_Themes::includeStylesheetFiles(array('additional' => $css));
+            foreach ($css as $f => $u) {
+                Horde_Themes::addStylesheetFile($f, $u);
+            }
+            Horde_Themes::includeStylesheetFiles();
         } else {
-            foreach ($css as $file) {
-                echo '<link href="' . $file['u']
-                     . '" rel="stylesheet" type="text/css"'
-                     . (isset($file['m']) ? ' media="' . $file['m'] . '"' : '')
-                     . ' />' . "\n";
+            foreach ($css as $u) {
+                echo '<link href="' . $u . '" rel="stylesheet" type="text/css" />' . "\n";
             }
         }
     }

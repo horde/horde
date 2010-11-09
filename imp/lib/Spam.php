@@ -200,6 +200,11 @@ class IMP_Spam
             $mbox_args['mailboxob'] = $opts['mailboxob'];
         }
 
+        /* Run post-reporting hook. */
+        try {
+            Horde::callHook('post_spam', array($action, $indices), 'imp');
+        } catch (Horde_Exception_HookNotSet $e) {}
+
         /* Delete/move message after report. */
         switch ($action) {
         case 'spam':

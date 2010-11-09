@@ -169,7 +169,8 @@ class Horde_Log_Logger implements Serializable
             $event = array('message' => $event, 'level' => $level);
         }
 
-        if (!isset($this->_levels[$event['level']])) {
+        if (!isset($this->_levels[$event['level']]) ||
+            !is_string($this->_levels[$event['level']])) {
             throw new Horde_Log_Exception('Bad log level: ' . $event['level']);
         }
 

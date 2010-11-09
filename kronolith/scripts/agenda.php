@@ -80,18 +80,25 @@ function send_agendas()
         // If we found an email address, generate the agenda.
         switch ($agenda_calendars) {
         case 'owner':
-            $calendars = $GLOBALS['kronolith_shares']->listShares($user, Horde_Perms::SHOW, $user);
+            $calendars = $GLOBALS['kronolith_shares']->listShares(
+                $user,
+                array('perm' => Horde_Perms::SHOW,
+                      'attributes' => $user));
             break;
 
         case 'read':
-            $calendars = $GLOBALS['kronolith_shares']->listShares($user, Horde_Perms::SHOW, null);
+            $calendars = $GLOBALS['kronolith_shares']->listShares(
+                $user,
+                array('perm' => Horde_Perms::SHOW));
             break;
 
         case 'show':
         default:
             $calendars = array();
             $shown_calendars = unserialize($prefs->getValue('display_cals'));
-            $cals = $GLOBALS['kronolith_shares']->listShares($user, Horde_Perms::SHOW, null);
+            $cals = $GLOBALS['kronolith_shares']->listShares(
+                $user,
+                array('perm' => Horde_Perms::SHOW));
             foreach ($cals as $calId => $cal) {
                 if (in_array($calId, $shown_calendars)) {
                     $calendars[$calId] = $cal;

@@ -41,22 +41,22 @@ div.msgflags.flagEncryptmsg {
 div.msgflags.flagAttachmsg {
     background-image: url("graphics/attachment.png");
 }
-div.msgflags.flagUnseen, span.contextImg.flagUnseen {
+div.msgflags.flagUnseen, span.iconImg.flagUnseen {
     background-image: url("graphics/mail_unseen.png");
 }
-div.msgflags.flagAnswered, span.contextImg.flagAnswered {
+div.msgflags.flagAnswered, span.iconImg.flagAnswered {
     background-image: url("graphics/mail_answered.png");
 }
-div.msgflags.flagDraft, span.contextImg.flagDraft {
+div.msgflags.flagDraft, span.iconImg.flagDraft {
     background-image: url("graphics/mail_draft.png");
 }
-div.msgflags.flagForwarded, span.contextImg.flagForwarded {
+div.msgflags.flagForwarded, span.iconImg.flagForwarded {
     background-image: url("graphics/mail_forwarded.png");
 }
-div.msgflags.flagFlagged, span.contextImg.flagFlagged {
+div.msgflags.flagFlagged, span.iconImg.flagFlagged {
     background-image: url("graphics/mail_flagged.png");
 }
-div.msgflags.flagDeleted, span.contextImg.flagDeleted {
+div.msgflags.flagDeleted, span.iconImg.flagDeleted {
     background-image: url("graphics/mail_deleted.png");
 }
 
