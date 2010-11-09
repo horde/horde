@@ -22,7 +22,7 @@ Horde::outputMetaTags();
 Horde::includeScriptFiles();
 Horde::outputInlineScript();
 
-Horde::addStylesheetFile($registry->get('themesfs') . '/categoryCSS.php', $registry->get('themesuri') . '/categoryCSS.php');
+Horde_Themes::addStylesheet($registry->get('themesfs') . '/categoryCSS.php', $registry->get('themesuri') . '/categoryCSS.php');
 
 $bc = $prefs->getValue('show_panel')
     ? 'rightPanel'

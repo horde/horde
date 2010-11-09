@@ -20,7 +20,7 @@ if (!empty($title)) {
 Horde::outputMetaTags();
 Horde::includeScriptFiles();
 
-Horde_Themes::addStylesheetFile($registry->get('themesfs') . '/grids-min.css', $registry->get('themesuri')  . '/grids-min.css');
+Horde_Themes::addStylesheet($registry->get('themesfs') . '/grids-min.css', $registry->get('themesuri')  . '/grids-min.css');
 
 $rss = Horde::url('rss.php', true, -1);
 if (Horde_Util::getFormData('f')) {
