@@ -879,8 +879,7 @@ $prefGroups['delmove'] = array(
     'desc' => _("Set preferences for what happens when you move and delete messages."),
     'members' => array(
         'mailbox_return', 'delete_spam_after_report', 'move_ham_after_report',
-        'move_spam_report', 'empty_spam_menu', 'use_trash', 'trashselect',
-        'empty_trash_menu'
+        'empty_spam_menu', 'use_trash', 'trashselect', 'empty_trash_menu'
     )
 );
 
@@ -914,14 +913,6 @@ $_prefs['move_ham_after_report'] = array(
     ),
     'desc' => _("What should we do with messages after they have been reported as innocent?"),
     'help' => 'prefs-move_ham_after_report'
-);
-
-// If moving a message to the Spam mailbox, should they be reported as spam?
-$_prefs['move_spam_report'] = array(
-    'value' => 0,
-    'advanced' => true,
-    'type' => 'checkbox',
-    'desc' => _("If moving a message to the Spam mailbox, should those messages be reported as spam?")
 );
 
 // should we move messages to a trash folder instead of just marking

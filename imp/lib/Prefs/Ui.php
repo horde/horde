@@ -107,21 +107,14 @@ class IMP_Prefs_Ui
         case 'delmove':
             if ($pop3) {
                 $ui->suppress[] = 'move_ham_after_report';
-                $ui->suppress[] = 'move_spam_report';
                 $ui->suppress[] = 'empty_spam_menu';
                 $ui->suppress[] = 'use_trash';
                 $ui->suppress[] = 'trashselect';
                 $ui->suppress[] = 'empty_trash_menu';
-            } else {
-                if ($prefs->isLocked('use_trash') ||
-                    !$prefs->getValue('use_trash')) {
-                    $ui->suppress[] = 'trashselect';
-                    $ui->suppress[] = 'empty_trash_menu';
-                }
-
-                if (!$prefs->getValue('spam_folder')) {
-                    $ui->suppress[] = 'move_spam_report';
-                }
+            } elseif ($prefs->isLocked('use_trash') ||
+                     !$prefs->getValue('use_trash')) {
+                $ui->suppress[] = 'trashselect';
+                $ui->suppress[] = 'empty_trash_menu';
             }
             break;
 
