@@ -515,7 +515,7 @@ var DimpBase = {
             },
             onCachedList: function(id) {
                 if (!this.cacheids[id]) {
-                    var vs = this.viewport.getSelection(id);
+                    var vs = this.viewport.createSelectionBuffer(id);
                     if (!vs.size()) {
                         return '';
                     }
@@ -526,7 +526,7 @@ var DimpBase = {
             }.bind(this),
             onContentOffset: function(offset) {
                 if (this.uid) {
-                    var row = this.viewport.createSelection('rownum', this.viewport.getAllRows()).search({ imapuid: { equal: [ this.uid ] }, view: { equal: [ this.folder ] } });
+                    var row = this.viewport.createSelectionBuffer().search({ imapuid: { equal: [ this.uid ] }, view: { equal: [ this.folder ] } });
                     if (row.size()) {
                         this.rownum = row.get('rownum').first();
                     }
@@ -2383,7 +2383,7 @@ var DimpBase = {
         if (r.response &&
             r.response.mbox == this.folder) {
             r.response.flags.each(function(f) {
-                this.updateFlag(this.viewport.createSelection('rownum', this.viewport.getAllRows()), f, r.response.set);
+                this.updateFlag(this.viewport.createSelectionBuffer(), f, r.response.set);
             }, this);
         }
     },
@@ -2806,7 +2806,7 @@ var DimpBase = {
             vs = opts.vs;
         } else if (opts.uid) {
             vs = opts.mailbox
-                ? this.viewport.createSelection('rownum', this.viewport.getAllRows()).search({ imapuid: { equal: [ opts.uid ] }, view: { equal: [ opts.mailbox ] } })
+                ? this.viewport.createSelectionBuffer().search({ imapuid: { equal: [ opts.uid ] }, view: { equal: [ opts.mailbox ] } })
                 : this.viewport.createSelection('dataob', opts.uid);
         } else {
             vs = this.viewport.getSelected();

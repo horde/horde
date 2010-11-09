@@ -1268,6 +1268,13 @@ var ViewPort = Class.create({
             : new ViewPort_Selection(this._getBuffer(this.view));
     },
 
+    // Creates a selection object comprising all entries contained in the buffer.
+    createSelectionBuffer: function(view)
+    {
+        return this.createSelection('rownum', this.getAllRows(view), view);
+    },
+
+
     getSelection: function(view)
     {
         var buffer = this._getBuffer(view);
