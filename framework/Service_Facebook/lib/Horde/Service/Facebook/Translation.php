@@ -14,7 +14,7 @@
  * @author  Jan Schneider <jan@horde.org>
  * @package Services_Facebook
  */
-class Horde_Services_Facebook_Translation extends Horde_Translation
+class Horde_Service_Facebook_Translation extends Horde_Translation
 {
     /**
      * Returns the translation of a message.
