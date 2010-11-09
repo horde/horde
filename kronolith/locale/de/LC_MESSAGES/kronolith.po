@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Kronolith 3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2010-08-18 15:57+0200\n"
-"PO-Revision-Date: 2010-08-18 22:06+0200\n"
+"PO-Revision-Date: 2010-11-09 22:14+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
@@ -81,7 +81,7 @@ msgstr "%s %sMit der %s %sGruppe%s teilen und %sihnen erlauben%s %s"
 #: templates/chunks/permissions.inc:48
 #, php-format
 msgid "%s %sShare with the users:%s %s and %sallow them to%s %s"
-msgstr "%s %sMit der Benutzern:%s %s teilen und %sihnen erlauben%s %s"
+msgstr "%s %sMit den Benutzern:%s %s teilen und %sihnen erlauben%s %s"
 
 #: templates/edit/edit_timespan.inc:110
 #, php-format
@@ -2501,7 +2501,7 @@ msgstr "Externen Kalender abonnieren"
 
 #: templates/chunks/calendar.php:58 templates/chunks/calendar.php:166
 msgid "Subscription"
-msgstr "Abonnieren"
+msgstr "Abonnement"
 
 #: templates/calendar_list.php:27 templates/chunks/calendar.php:81
 #: templates/chunks/calendar.php:181
