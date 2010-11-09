@@ -49,8 +49,8 @@
  *                return: NONE
  * onAjaxRequest: (function) Callback function that allows additional
  *                parameters to be added to the outgoing AJAX request.
-                  params: (string) The current view.
-                  return: (Hash) Parameters to add to the outgoing request.
+ *                params: (string) The current view.
+ *                return: (Hash) Parameters to add to the outgoing request.
  * onAjaxResponse: (function) Callback function that allows user-defined code
  *                 to additionally process the AJAX return data.
  *                params: (XMLHttpRequest object)
@@ -59,8 +59,8 @@
  *                return: NONE
  * onCachedList: (function) Callback function that allows the cache ID string
  *               to be dynamically generated.
-                 params: (string) The current view.
-                 return: (string) The cache ID string to use.
+ *               params: (string) The current view.
+ *               return: (string) The cache ID string to use.
  * onContentOffset: (function) Callback function that alters the starting
  *                  offset of the content about to be rendered.
  *                  params: (integer) The current offset.

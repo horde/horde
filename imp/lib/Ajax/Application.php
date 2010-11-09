@@ -1946,7 +1946,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     /**
      * Determine if the cache information has changed.
      *
-     * The following variables:
+     * Variables used:
      * <pre>
      * 'cacheid' - (string) The browser (ViewPort) cache identifier.
      * 'forceUpdate' - (integer) If 1, forces an update,
