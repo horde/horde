@@ -173,7 +173,7 @@ class IMP_Prefs_Ui
                 $ui->suppress[] = 'signature_html_select';
             } else {
                 Horde::addScriptFile('signaturehtml.js', 'imp');
-                $GLOBALS['injector']->getInstance('Horde_Editor')->initialize(array('id' => 'signature_html'));
+                IMP_Ui_Editor::init(false, 'signature_html');
             }
             break;
 
@@ -1747,7 +1747,7 @@ class IMP_Prefs_Ui
         $stationery = $GLOBALS['injector']->getInstance('IMP_Compose_Stationery');
 
         if ($ob->type == 'html') {
-            $GLOBALS['injector']->getInstance('Horde_Editor')->initialize(array('id' => 'content'));
+            IMP_Ui_Editor::init(false, 'content');
         }
 
         $t = $GLOBALS['injector']->createInstance('Horde_Template');

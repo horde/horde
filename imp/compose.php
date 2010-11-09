@@ -1040,7 +1040,7 @@ if ($redirect) {
 }
 
 if ($rtemode && !$redirect) {
-    $imp_ui->initRTE();
+    IMP_Ui_Editor::init();
     Horde::addInlineScript('CKEDITOR.replace("composeMessage", IMP.ckeditor_config)', 'load');
 }
 

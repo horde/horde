@@ -148,68 +148,6 @@ class IMP_Ui_Compose
     }
 
     /**
-     * Initialize the Rich Text Editor (RTE).
-     *
-     * @param boolean $mini  Load the basic ckeditor stub?
-     */
-    public function initRTE($basic = false)
-    {
-        $GLOBALS['injector']->getInstance('Horde_Editor')->initialize(array('basic' => $basic));
-
-        $font_family = $GLOBALS['prefs']->getValue('compose_html_font_family');
-        if (!$font_family) {
-            $font_family = 'Arial';
-        }
-
-        $font_size = intval($GLOBALS['prefs']->getValue('compose_html_font_size'));
-        $font_size = $font_size
-            /* Font size should be between 8 and 24 pixels. Or else recipients
-             * will hate us. Default to 14px. */
-            ? min(24, max(8, $font_size)) . 'px'
-            : '14px';
-
-        $config = array(
-            /* To more closely match "normal" textarea behavior, send <BR> on
-             * enter instead of <P>. */
-            // CKEDITOR.ENTER_BR
-            'enterMode: 2',
-            // CKEDITOR.ENTER_P
-            'shiftEnterMode: 1',
-
-            /* Don't load the config.js file. */
-            'customConfig: ""',
-
-            /* Disable resize of the textarea. */
-            'resize_enabled: false',
-
-            /* Disable spell check as you type. */
-            'scayt_autoStartup: false',
-
-            /* Convert HTML entities. */
-            'entities: false',
-
-            /* Set language to Horde language. */
-            'language: "' . Horde_String::lower($GLOBALS['language']) . '"',
-
-            /* Default display font. This is NOT the font used to send
-             * the message, however. */
-            'contentsCss: "body { font-family: ' . $font_family . '; font-size: ' . $font_size . '; }"',
-            'font_defaultLabel: "' . $font_family . '"',
-            'fontSize_defaultLabel: "' . $font_size . '"'
-        );
-
-        $buttons = $GLOBALS['prefs']->getValue('ckeditor_buttons');
-        if (!empty($buttons)) {
-            $config[] = 'toolbar: ' . $GLOBALS['prefs']->getValue('ckeditor_buttons');
-        }
-
-        Horde::addInlineScript(array(
-            'window.IMP = window.IMP || {}',
-            'IMP.ckeditor_config = {' . implode(',', $config) . '}'
-        ));
-    }
-
-    /**
      * Create the IMP_Contents objects needed to create a message.
      *
      * @param Horde_Variables $vars  The variables object.

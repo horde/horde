@@ -55,8 +55,7 @@ class IMP_Views_Compose
             $t->set('selected_identity', intval($identity->getDefault()));
 
             /* Generate identities list. */
-            $imp_ui = $injector->getInstance('IMP_Ui_Compose');
-            $result['js'] = array_merge($result['js'], $imp_ui->identityJs());
+            $result['js'] = array_merge($result['js'], $injector->getInstance('IMP_Ui_Compose')->identityJs());
 
             if ($t->get('composeCache') && count($imp_compose)) {
                 foreach ($imp_compose as $num => $atc) {
@@ -79,7 +78,7 @@ class IMP_Views_Compose
                 $t->set('compose_html', $prefs->getValue('compose_html'));
                 $t->set('rte', true);
 
-                $imp_ui->initRTE(!$t->get('compose_html'));
+                IMP_Ui_Editor::init(!$t->get('compose_html'));
             }
 
             /* Create list for sent-mail selection. */
