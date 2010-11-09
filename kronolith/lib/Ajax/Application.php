@@ -799,7 +799,6 @@ class Kronolith_Ajax_Application extends Horde_Core_Ajax_Application
             'fg' => $calendar->foreground(),
             'bg' => $calendar->background(),
             'show' => false,
-            'perms' => Kronolith::permissionToJson($calendar->permission()),
             'edit' => $calendar->hasPermission(Horde_Perms::EDIT),
             'tg' => array_values($tagger->getTags($this->_vars->cal, 'calendar')));
         return $result;

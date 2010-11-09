@@ -1858,6 +1858,15 @@ class Kronolith
             $perm->removeCreatorPermission(Kronolith::PERMS_DELEGATE, false);
         }
 
+        // Build subscription link if necessary.
+        $subscription = $sublink = '';
+        if ($GLOBALS['conf']['share']['hidden']) {
+            $sublink = Horde::url('calendars/subscribe.php', true)->add('calendar', $share->getName());
+            $subscription = "\n"
+                . _("To subscribe to this calendar, you need to click the following link:")
+                . ' ' . $sublink;
+        }
+
         // Process user permissions.
         $u_names = Horde_Util::getFormData('u_names');
         $u_show = Horde_Util::getFormData('u_show');
@@ -1915,11 +1924,12 @@ class Kronolith
                     ->create($user)
                     ->getDefaultFromAddress(true);
                 try {
-                    $message = Horde::callHook('shareUserNotification', array($user, $share));
+                    $message = Horde::callHook('shareUserNotification', array($user, $share, $sublink));
                 } catch (Horde_Exception_HookNotSet $e) {
                     $message = sprintf(_("%s has given you access to \"%s\"."),
                                        $userName,
-                                       $share->get('name'));
+                                       $share->get('name'))
+                        . $subscription;
                 }
                 $mail->addHeader('To', $to, 'UTF-8', false);
                 $mail->setBody($message, 'UTF-8');
@@ -1970,12 +1980,13 @@ class Kronolith
                 $groupOb = $GLOBALS['injector']->getInstance('Horde_Group')->getGroupById($group);
                 if (!empty($groupOb->data['email'])) {
                     try {
-                        $message = Horde::callHook('shareGroupNotification', array($group, $share));
+                        $message = Horde::callHook('shareGroupNotification', array($group, $share, $sublink));
                     } catch (Horde_Exception_HookNotSet $e) {
                         $message = sprintf(_("%s has given your group \"%s\" access to \"%s\"."),
                                            $userName,
                                            $groupOb->getName(),
-                                           $share->get('name'));
+                                           $share->get('name'))
+                            . $subscription;
                     }
                     $mail->addHeader('To', $groupOb->getName() . ' <' . $groupOb->data['email'] . '>', 'UTF-8', false);
                     $mail->setBody($message, 'UTF-8');
