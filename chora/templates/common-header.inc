@@ -10,7 +10,7 @@ echo !empty($language) ? '<html lang="' . strtr($language, '_', '-') . '">' : '<
 
 $page_title = $GLOBALS['registry']->get('name');
 if (!empty($title)) {
-    $page_title .= ' :: ' . $title;
+    $page_title = $title . ' - ' . $page_title;
 }
 
 Horde::outputMetaTags();
