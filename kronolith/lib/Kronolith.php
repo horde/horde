@@ -965,7 +965,7 @@ class Kronolith
             $GLOBALS['session']->set('kronolith', 'display_cal', $calendarId);
         }
 
-        if ($GLOBALS['session']->exists('kronolith', 'display_cal')) {
+        if (strlen($GLOBALS['session']->get('kronolith', 'display_cal'))) {
             /* Specifying a value for display_cal is always to make sure
              * that only the specified calendars are shown. Use the
              * "toggle_calendar" argument  to toggle the state of a single
