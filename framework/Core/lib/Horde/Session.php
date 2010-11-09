@@ -349,7 +349,8 @@ class Horde_Session
     {
         $ret = array();
 
-        if (isset($_SESSION[$app]) &&
+        if ($name &&
+            isset($_SESSION[$app]) &&
             ($name[strlen($name) - 1] == '/')) {
             foreach (array_keys($_SESSION[$app]) as $k) {
                 if (strpos($k, $name) === 0) {
