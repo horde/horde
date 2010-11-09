@@ -53,7 +53,7 @@ $layout_html = $view->toHtml();
 
 foreach ($view->getApplications() as $app) {
     foreach (Horde_Themes::getStylesheets('', array('app' => $app)) as $f => $u) {
-        Horde_Themes::addStylesheetFile($f, $u);
+        Horde_Themes::addStylesheet($f, $u);
     }
 }
 
