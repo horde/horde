@@ -151,6 +151,12 @@ class IMP_Application extends Horde_Registry_Application
         foreach (array_keys($GLOBALS['session']->get('imp', 'compose_cache', Horde_Session::TYPE_ARRAY)) as $key) {
             $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Compose')->create($key)->destroy('cancel');
         }
+
+        /* No need to keep Tree object in cache - it will be recreated next
+         * login. */
+        if ($treeob = $GLOBALS['session']->get('imp', 'treeob')) {
+            $GLOBALS['injector']->getInstance('Horde_Cache')->expire($treeob);
+        }
     }
 
     /* Horde permissions. */
