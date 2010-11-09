@@ -1824,6 +1824,10 @@ class Horde_Registry
     {
         global $session;
 
+        if (!isset($session)) {
+            return false;
+        }
+
         if ($format == 'original') {
             return $session->exists('horde', 'auth/authId')
                 ? $session->get('horde', 'auth/authId')
