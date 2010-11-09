@@ -14,8 +14,13 @@ if (!empty($title)) {
     $page_title .= ' :: ' . $title;
 }
 
+Horde::addInlineJsVars(array(
+    '-var Nag' => '{}'
+), array('top' => true));
+
 Horde::outputMetaTags();
 Horde::includeScriptFiles();
+Horde::outputInlineScript();
 
 Horde::addStylesheetFile($registry->get('themesfs') . '/categoryCSS.php', $registry->get('themesuri') . '/categoryCSS.php');
 
@@ -27,9 +32,6 @@ $bc = $prefs->getValue('show_panel')
 <title><?php echo htmlspecialchars($page_title) ?></title>
 <link href="<?php echo Horde_Themes::img('favicon.ico', array('nohorde' => true)) ?>" rel="SHORTCUT ICON" />
 <?php Horde_Themes::includeStylesheetFiles() ?>
-<script type="text/javascript">
-var Nag = {};
-</script>
 </head>
 
 <body<?php if ($bc) echo ' class="' . $bc . '"' ?>>
