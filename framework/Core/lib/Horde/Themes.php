@@ -27,7 +27,7 @@ class Horde_Themes
      */
     static public function addStylesheet($file, $url)
     {
-        $this->_cssFiles[$file] = $url;
+        self::$_cssFiles[$file] = $url;
     }
 
     /**
@@ -227,7 +227,7 @@ class Horde_Themes
         }
 
         /* Add additional stylesheets added by code. */
-        $css = array_merge($css, $this->_cssFiles);
+        $css = array_merge($css, self::$_cssFiles);
 
         /* Add user-defined additional stylesheets. */
         try {
