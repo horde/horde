@@ -129,6 +129,7 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
      */
     public function getHashForRevision($rev)
     {
+        $this->_ensureLogsInitialized();
         if (!isset($this->logs[$rev])) {
             throw new Horde_Vcs_Exception('This file doesn\'t exist at that revision');
         }
@@ -226,6 +227,8 @@ class Horde_Vcs_File_Git extends Horde_Vcs_File
         if (empty($this->_branch)) {
             return parent::queryLastLog();
         }
+
+        $this->_ensureLogsInitialized();
 
         $rev = reset($this->_revlist[$this->_branch]);
         if (!is_null($rev)) {
