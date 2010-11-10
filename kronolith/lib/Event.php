@@ -776,12 +776,15 @@ abstract class Kronolith_Event
             }
 
             /* The remaining exceptions represent deleted recurrences */
+            $exdates = array();
             foreach ($exceptions as $exception) {
                 if (!empty($exception)) {
                     list($year, $month, $mday) = sscanf($exception, '%04d%02d%02d');
-                    $exdate = new Horde_Date($year, $month, $mday);
-                    $vEvent->setAttribute('EXDATE', array($exdate));
+                    $exdates[] = new Horde_Date($year, $month, $mday);
                 }
+            }
+            if ($exdates) {
+                $vEvent->setAttribute('EXDATE', $exdates);
             }
         }
         array_unshift($vEvents, $vEvent);
