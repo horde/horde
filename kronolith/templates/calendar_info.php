@@ -25,14 +25,14 @@
  <?php echo _("To subscribe to this calendar from a feed reader, use this URL:") ?>
 </p>
 <p class="calendar-info-url">
- <?php echo htmlspecialchars(Kronolith::feedUrl($calendar->name())) ?>
+ <?php echo htmlspecialchars(Kronolith::feedUrl($calendar->share()->getName())) ?>
 </p>
 
 <p>
  <?php echo _("To embed this calendar in another website, use this code:") ?>
 </p>
 <p class="calendar-info-url">
-<?php echo htmlspecialchars(Kronolith::embedCode($calendar->name())); ?>
+ <?php echo htmlspecialchars(Kronolith::embedCode($calendar->share()->getName())); ?>
 </p>
 <?php if (Horde_Menu::showService('help')) {
     echo '<p>' . Horde_Help::link('kronolith', 'embed') . ' ' . _("Learn how to embed other calendar views.") . '</p>';

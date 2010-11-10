@@ -2107,7 +2107,7 @@ class Kronolith
     {
         /* Get the base url */
         $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create(array('kronolith', 'Embed'), array(
-            'calendar' => $calendar,
+            'calendar' => 'internal_' . $calendar,
             'container' => 'kronolithCal',
             'view' => 'month'
         ), true);
