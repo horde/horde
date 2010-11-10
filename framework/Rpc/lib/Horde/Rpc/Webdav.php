@@ -271,13 +271,18 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         } else {
             // Ensure we only retrieve the exact item
             $options['depth'] = 0;
-            $result = $this->_list($options, false);
-            if (is_a($result, 'PEAR_Error') && $result->getCode()) {
-                // Allow called applications to set the result code
-                return $this->_checkHTTPCode($result->getCode())
-                    . ' ' . $result->getMessage();
-            } elseif ($result === false) {
-                return '404 File Not Found';
+            try {
+                $result = $this->_list($options, false);
+                if ($result === false) {
+                    return '404 File Not Found';
+                }
+            } catch (Horde_Rpc_Exception $e) {
+                if ($e->getCode()) {
+                    // Allow called applications to set the result code
+                    return $this->_checkHTTPCode($e->getCode())
+                        . ' ' . $e->getMessage();
+                }
+                return '500 Internal Server Error';
             }
             $options = $result;
         }
@@ -378,11 +383,15 @@ class Horde_Rpc_Webdav extends Horde_Rpc
      */
     function PROPFIND($options, &$files)
     {
-        $list = $this->_list($options, true);
-        if ($list === false || is_a($list, 'PEAR_Error')) {
-            // Always return '404 File Not Found';
-            // Work around HTTP_WebDAV_Server behavior.
-            // See: http://pear.php.net/bugs/bug.php?id=11390
+        // Always return '404 File Not Found';
+        // Work around HTTP_WebDAV_Server behavior.
+        // See: http://pear.php.net/bugs/bug.php?id=11390
+        try {
+            $list = $this->_list($options, true);
+            if ($list === false) {
+                return false;
+            }
+        } catch (Horde_Rpc_Exception $e) {
             return false;
         }
         $files['files'] = $list;
@@ -502,10 +511,11 @@ class Horde_Rpc_Webdav extends Horde_Rpc
             $list[] = array('path' => $path,
                             'props' => $this->_getProps($options['props'], $root));
 
-            $apps = $registry->listApps(null, false, Horde_Perms::READ);
-            if (is_a($apps, 'PEAR_Error')) {
-                Horde::logMessage($apps, 'ERR');
-                return $apps;
+            try {
+                $apps = $registry->listApps(null, false, Horde_Perms::READ);
+            } catch (Horde_Exception $e) {
+                Horde::logMessage($e);
+                throw new Horde_Rpc_Exception($e);
             }
             foreach ($apps as $app) {
                 // Only include apps that have browse() methods.
@@ -522,8 +532,8 @@ class Horde_Rpc_Webdav extends Horde_Rpc
             try {
                 $items = $registry->callByPackage($pieces[0], 'browse', array('path' => $path, 'properties' => array('name', 'browseable', 'contenttype', 'contentlength', 'created', 'modified')));
             } catch (Horde_Exception $e) {
-                Horde::logMessage($e, 'ERR');
-                return $e;
+                Horde::logMessage($e);
+                throw new Horde_Rpc_Exception($e);
             }
 
             if ($items === false) {
@@ -895,7 +905,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         // WebDAV has no concept of a query string and clients (including cadaver)
         // seem to pass '?' unencoded, so we need to extract the path info out
         // of the request URI ourselves
-        $path_info = substr($this->_SERVER["REQUEST_URI"], strlen($this->_SERVER["SCRIPT_NAME"]));
+        $path_info = substr($this->_SERVER["REQUEST_URI"], strlen(preg_replace('/index.php$/', '', $this->_SERVER["SCRIPT_NAME"])));
 
         // just in case the path came in empty ...
         if (empty($path_info)) {
