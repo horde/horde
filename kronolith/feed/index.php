@@ -86,7 +86,7 @@ if (isset($conf['urls']['pretty']) && $conf['urls']['pretty'] == 'rewrite') {
 }
 
 $owner = $share->get('owner');
-$identity = $injectory->getInstance('Horde_Core_Factory_Identity')->create($owner);
+$identity = $injector->getInstance('Horde_Core_Factory_Identity')->create($owner);
 $history = $injector->getInstance('Horde_History');
 $now = new Horde_Date(time());
 
@@ -123,7 +123,7 @@ foreach ($events as $day_events) {
         /* Time. */
         $desc .= _("When:") . ' ' . $event->start->strftime($prefs->getValue('date_format')) . ' ' . $event->start->format($twentyFour ? 'H:i' : 'H:ia') . _(" to ");
         if ($event->start->compareDate($event->end->timestamp()) == 0) {
-            $desc .= $event->end->format($twentyFor ? 'H:i' : 'h:ia');
+            $desc .= $event->end->format($twentyFour ? 'H:i' : 'h:ia');
         } else {
             $desc .= $event->end->strftime($prefs->getValue('date_format')) . ' ' . $event->end->format($twentyFor ? 'H:i' : 'h:ia');
         }
