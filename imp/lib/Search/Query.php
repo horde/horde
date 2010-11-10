@@ -116,7 +116,9 @@ class IMP_Search_Query implements Serializable
      * 'label' - (string) The query label.
      * 'mboxes' - (array) The list of mailboxes to query.
      * 'mid' - (string) The query ID with the search mailbox prefix.
-     * 'query' - (Horde_Imap_Client_Search_Query) The IMAP query object.
+     * 'query' - (array) The list of IMAP queries that comprise this search.
+     *           Keys are mailbox names, values are
+     *           Horde_Imap_Client_Search_Query objects.
      * 'querytext' - (string) The textual representation of the query.
      * </pre>
      *
@@ -151,11 +153,17 @@ class IMP_Search_Query implements Serializable
             return IMP_Search::MBOX_PREFIX . $this->_id;
 
         case 'query':
-            $query = new Horde_Imap_Client_Search_Query();
-            foreach ($this->_criteria as $elt) {
-                $query = $elt->createQuery($query);
+            $qout = array();
+
+            foreach ($this->_mboxes as $mbox) {
+                $query = new Horde_Imap_Client_Search_Query();
+                foreach ($this->_criteria as $elt) {
+                    $query = $elt->createQuery($mbox, $query);
+                }
+                $qout[$mbox] = $query;
             }
-            return $query;
+
+            return $qout;
 
         case 'querytext':
             $text = array(_("Search"));

@@ -30,7 +30,7 @@ class IMP_Search_Element_Mailinglist extends IMP_Search_Element
 
     /**
      */
-    public function createQuery($queryob)
+    public function createQuery($mbox, $queryob)
     {
         $queryob->headerText('list-id', '', $this->_data);
 

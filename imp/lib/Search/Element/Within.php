@@ -45,7 +45,7 @@ class IMP_Search_Element_Within extends IMP_Search_Element
 
     /**
      */
-    public function createQuery($queryob)
+    public function createQuery($mbox, $queryob)
     {
         /* Limited to day granularity because that is the technical
          * limit for IMAP servers without 'WITHIN' extension. */

@@ -39,7 +39,7 @@ class IMP_Search_Element_Size extends IMP_Search_Element
 
     /**
      */
-    public function createQuery($queryob)
+    public function createQuery($mbox, $queryob)
     {
         $queryob->size($this->_data->s, $this->_data->l);
 

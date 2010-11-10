@@ -30,7 +30,7 @@ class IMP_Search_Element_Personal extends IMP_Search_Element
 
     /**
      */
-    public function createQuery($queryob)
+    public function createQuery($mbox, $queryob)
     {
         $and_ob = new Horde_Imap_Client_Search_Query();
         $identity = $GLOBALS['injector']->getInstance('IMP_Identity');

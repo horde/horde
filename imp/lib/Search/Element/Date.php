@@ -42,7 +42,7 @@ class IMP_Search_Element_Date extends IMP_Search_Element
 
     /**
      */
-    public function createQuery($queryob)
+    public function createQuery($mbox, $queryob)
     {
         $date = new DateTime($this->_data->d);
         $queryob->dateSearch($date, ($this->_data->t == self::DATE_ON) ? Horde_Imap_Client_Search_Query::DATE_ON : (($this->_data->t == self::DATE_BEFORE) ? Horde_Imap_Client_Search_Query::DATE_BEFORE : Horde_Imap_Client_Search_Query::DATE_SINCE));

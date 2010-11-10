@@ -16,7 +16,7 @@ class IMP_Search_Element_Or extends IMP_Search_Element
 {
     /**
      */
-    public function createQuery($queryob)
+    public function createQuery($mbox, $queryob)
     {
         $ob = new Horde_Imap_Client_Search_Query();
         $ob->orSearch(array($queryob));

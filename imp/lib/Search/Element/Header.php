@@ -35,7 +35,7 @@ class IMP_Search_Element_Header extends IMP_Search_Element
 
     /**
      */
-    public function createQuery($queryob)
+    public function createQuery($mbox, $queryob)
     {
         $queryob->headerText($this->_data->h, $this->_data->t, $this->_data->n);
 

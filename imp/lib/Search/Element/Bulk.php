@@ -31,7 +31,7 @@ class IMP_Search_Element_Bulk extends IMP_Search_Element
 
     /**
      */
-    public function createQuery($queryob)
+    public function createQuery($mbox, $queryob)
     {
         $queryob->headerText('precedence', 'bulk', $this->_data);
 

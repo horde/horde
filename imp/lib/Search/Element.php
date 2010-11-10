@@ -34,9 +34,13 @@ abstract class IMP_Search_Element implements Serializable
     /**
      * Adds the current query item to the query object.
      *
-     * @param Horde_Imap_Client_Search_Query  The query object.
+     * @param string $mbox                             The mailbox to create
+     *                                                 the query for.
+     * @param Horde_Imap_Client_Search_Query $queryob  The query object.
+     *
+     * @return Horde_Imap_Client_Search_Query  The altered query object.
      */
-    abstract public function createQuery($queryob);
+    abstract public function createQuery($mbox, $queryob);
 
     /**
      * Return search query text representation.

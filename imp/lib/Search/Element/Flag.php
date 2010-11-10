@@ -41,7 +41,7 @@ class IMP_Search_Element_Flag extends IMP_Search_Element
 
     /**
      */
-    public function createQuery($queryob)
+    public function createQuery($mbox, $queryob)
     {
         $queryob->flag($this->_data->f, $this->_data->s);
 

@@ -95,14 +95,8 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
         $mbox = '';
         $sorted = new IMP_Indices();
 
-        $query = $this[$id]->query;
-        if (!$query) {
+        if (!($query_list = $this[$id]->query)) {
             return $sorted;
-        }
-
-        /* Prepare the search query. */
-        if (!empty($ob)) {
-            $query->andSearch(array($ob));
         }
 
         /* How do we want to sort results? */
@@ -111,9 +105,12 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
             $sortpref['by'] = $GLOBALS['prefs']->getValue('sortdate');
         }
 
-        foreach ($this[$id]->mboxes as $val) {
-            $results = $this->imapSearch($val, $query, array('reverse' => $sortpref['dir'], 'sort' => array($sortpref['by'])));
-            $sorted->add($val, $results['sort']);
+        foreach ($query_list as $mbox => $query) {
+            if (!empty($ob)) {
+                $query->andSearch(array($ob));
+            }
+            $results = $this->imapSearch($mbox, $query, array('reverse' => $sortpref['dir'], 'sort' => array($sortpref['by'])));
+            $sorted->add($mbox, $results['sort']);
         }
 
         return $sorted;

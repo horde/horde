@@ -36,7 +36,7 @@ class IMP_Search_Element_Text extends IMP_Search_Element
 
     /**
      */
-    public function createQuery($queryob)
+    public function createQuery($mbox, $queryob)
     {
         $queryob->text($this->_data->t, $this->_data->b, $this->_data->n);
 
