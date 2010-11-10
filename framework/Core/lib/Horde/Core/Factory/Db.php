@@ -64,7 +64,7 @@ class Horde_Core_Factory_Db
      */
     public function create($app = 'horde', $type = null)
     {
-        $sig = hash('md5', serialize($app . '|' . $type));
+        $sig = hash('md5', serialize(array($app, $type)));
 
         if (isset($this->_instances[$sig])) {
             return $this->_instances[$sig];
