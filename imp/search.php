@@ -108,6 +108,10 @@ $filters = array(
         'label' => _("Bulk Messages"),
         'type' => 'filter'
     ),
+    'attach' => array(
+        'label' => _("Contains Attachment(s)"),
+        'type' => 'filter'
+    ),
     'mailinglist' => array(
         'label' => _("Mailing List Messages"),
         'type' => 'filter'
@@ -228,6 +232,12 @@ if ($vars->criteria_form) {
 
         case 'bulk':
             $c_list[] = new IMP_Search_Element_Bulk(
+                $val->n
+            );
+            break;
+
+        case 'attach':
+            $c_list[] = new IMP_Search_Element_Attachment(
                 $val->n
             );
             break;

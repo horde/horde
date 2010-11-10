@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Add attachment message filter.
 [mms] Add post_spam hook called after reporting spam/ham (Request #6455).
 [mms] Implement stationery support in DIMP.
 [mms] Add preference to control displayed content for multipart/alternative
