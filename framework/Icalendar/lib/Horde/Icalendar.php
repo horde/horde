@@ -964,7 +964,7 @@ class Horde_Icalendar
                         $dates[] = $this->_exportDateTime($date);
                     }
                 }
-                $value = implode($this->isOldFormat() ? ';' : ',', $dates);
+                $value = implode($this->oldFormat ? ';' : ',', $dates);
                 break;
 
             case 'TRIGGER':
