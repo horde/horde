@@ -259,20 +259,17 @@ class IMP_Imap_Flags
      *
      * @param array $options  Additional options:
      * <pre>
-     * 'atc' - (Horde_Mime_Part) Attachment info. A Horde_Mime_Part object
-     *         representing the message structure.
-     *         DEFAULT: not parsed
      * 'div' - (boolean) If true, return a DIV tag containing the code
      *         necessary to display the icon.
      *         DEFAULT: false
      * 'flags' - (array) [REQUIRED] IMAP flag info. A lowercase list of flags
      *           returned by the IMAP server.
+     * 'headers' - (Horde_Mime_Headers) Determines attachment and priority
+     *             information from a headers object.
      * 'personal' - (mixed) Personal message info. Either an array of to
      *              addresses as returned by
      *              Horde_Mime_Address::getAddressesFromObject(), or the
      *              identity that matched the address list.
-     * 'priority' - (Horde_Mime_Headers) Determines priority information from
-     *              a headers object.
      * </pre>
      *
      * @return array  A list of flags with the following keys:
@@ -309,9 +306,9 @@ class IMP_Imap_Flags
             }
         }
 
-        if (!empty($options['priority'])) {
+        if (!empty($options['headers'])) {
             $imp_hdr_ui = new IMP_Ui_Headers();
-            switch ($imp_hdr_ui->getPriority($options['priority'])) {
+            switch ($imp_hdr_ui->getPriority($options['headers'])) {
             case 'high':
                 $process['highpri'] = $f['highpri'];
                 break;
@@ -320,12 +317,12 @@ class IMP_Imap_Flags
                 $process['lowpri'] = $f['lowpri'];
                 break;
             }
-        }
 
-        if (!empty($options['atc'])) {
-            $imp_mbox_ui = new IMP_Ui_Mailbox();
-            if ($type = $imp_mbox_ui->getAttachmentType($options['atc']->getType())) {
-                $process[$type] = $f[$type];
+            if ($ctype = $options['headers']->getValue('content-type', Horde_Mime_Headers::VALUE_BASE)) {
+                $imp_mbox_ui = new IMP_Ui_Mailbox();
+                if ($type = $imp_mbox_ui->getAttachmentType($ctype)) {
+                    $process[$type] = $f[$type];
+                }
             }
         }
 

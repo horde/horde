@@ -399,7 +399,10 @@ class IMP_Views_ListMessages
         }
 
         /* Get mailbox information. */
-        $overview = $imp_mailbox->getMailboxArray($msglist, array('headers' => true, 'structure' => $GLOBALS['prefs']->getValue('atc_flag')));
+        $overview = $imp_mailbox->getMailboxArray($msglist, array(
+            'headers' => true,
+            'type' => $GLOBALS['prefs']->getValue('atc_flag')
+        ));
         $charset = 'UTF-8';
         $imp_ui = new IMP_Ui_Mailbox($folder);
         $no_flags_hook = false;
@@ -423,10 +426,9 @@ class IMP_Views_ListMessages
             }
 
             $flag_parse = $GLOBALS['injector']->getInstance('IMP_Imap_Flags')->parse(array(
-                'atc' => isset($ob['structure']) ? $ob['structure'] : null,
                 'flags' => $ob['flags'],
-                'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']['to'], array('charset' => $charset)),
-                'priority' => $ob['headers']
+                'headers' => $ob['headers'],
+                'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']['to'], array('charset' => $charset))
             ));
 
             if (!empty($flag_parse)) {

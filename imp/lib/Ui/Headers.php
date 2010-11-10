@@ -24,13 +24,15 @@ class IMP_Ui_Headers
      */
     public function getPriority($header)
     {
-        if (preg_match('/\s*(\d+)\s*/', $header->getValue('x-priority'), $matches)) {
+        if (($xpriority = $header->getValue('x-priority')) &&
+            (preg_match('/\s*(\d+)\s*/', $xpriority, $matches))) {
             if (in_array($matches[1], array(1, 2))) {
                 return 'high';
             } elseif (in_array($matches[1], array(4, 5))) {
                 return 'low';
             }
-        } elseif (preg_match('/:\s*(\w+)\s*/', $header->getValue('importance'), $matches)) {
+        } elseif (($importance = $header->getValue('importance')) &&
+                  preg_match('/:\s*(\w+)\s*/', $importance, $matches)) {
             if (strcasecmp($matches[1], 'high') === 0) {
                 return 'high';
             } elseif (strcasecmp($matches[1], 'low') === 0) {

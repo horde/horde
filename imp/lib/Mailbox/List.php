@@ -85,16 +85,16 @@ class IMP_Mailbox_List implements Countable, Serializable
      * @param array $msgnum   An array of message sequence numbers.
      * @param array $options  Additional options:
      * <pre>
-     * 'headers' - (boolean) Return info on the non-envelope headers
-     *             'Importance', 'List-Post', and 'X-Priority'.
-     *             DEFAULT: false (only envelope headers returned)
-     * 'preview' - (mixed) Include preview information?  If empty, add no
-     *                     preview information. If 1, uses value from prefs.
-     *                     If 2, forces addition of preview info.
-     *                     DEFAULT: No preview information.
-     * 'structure' - (boolean) Get structure information from server.
-     *               Contained in the 'structure' entry.
-     *               DEFAULT: false
+     * headers - (boolean) Return info on the non-envelope headers
+     *           'Importance', 'List-Post', and 'X-Priority'.
+     *           DEFAULT: false (only envelope headers returned)
+     * preview - (mixed) Include preview information?  If empty, add no
+     *                   preview information. If 1, uses value from prefs.
+     *                   If 2, forces addition of preview info.
+     *                   DEFAULT: No preview information.
+     * type - (boolean) Return info on the MIME Content-Type of the base
+     *        message part ('Content-Type' header).
+     *        DEFAULT: false
      * </pre>
      *
      * @return array  An array with the following keys:
@@ -104,17 +104,14 @@ class IMP_Mailbox_List implements Countable, Serializable
      *                server. See Horde_Imap_Client::fetch() for format.
      *     flags - (array) The list of IMAP flags returned from the server.
      *             See Horde_Imap_Client::fetch() for the format.
-     *     headers - (array) Any headers requested in $options['headers'].
-     *               Horde_Mime_Headers objects are returned.  See
-     *               Horde_Imap_Client::fetch() for the format.
+     *     headers - (array) Horde_Mime_Headers objects containing header data
+     *               if either $options['headers'] or $options['type'] are
+     *               true. See Horde_Imap_Client::fetch() for the format.
      *     mailbox - (string) The mailbox containing the message.
      *     preview - (string) If requested in $options['preview'], the preview
      *               text.
      *     previewcut - (boolean) Has the preview text been cut?
      *     size - (integer) The size of the message in bytes.
-     *     structure - (array) The structure of the message. Only set if
-     *                 $options['structure'] is true. See
-     *                 Horde_Imap_Client::fetch() for format.
      *     uid - (string) The unique ID of the message.
      * uids - (IMP_Indices) An indices object.
      * </pre>
@@ -123,7 +120,7 @@ class IMP_Mailbox_List implements Countable, Serializable
     {
         $this->_buildMailbox();
 
-        $overview = $to_process = $uids = array();
+        $headers = $overview = $to_process = $uids = array();
 
         /* Build the list of mailboxes and messages. */
         foreach ($msgnum as $i) {
@@ -146,11 +143,25 @@ class IMP_Mailbox_List implements Countable, Serializable
         );
 
         if (!empty($options['headers'])) {
-            $fetch_criteria[Horde_Imap_Client::FETCH_HEADERS] = array(array('cache' => true, 'headers' => array('importance', 'list-post', 'x-priority'), 'label' => 'imp', 'parse' => true, 'peek' => true));
+            $headers = array_merge($headers, array(
+                'importance',
+                'list-post',
+                'x-priority'
+            ));
         }
 
-        if (!empty($options['structure'])) {
-            $fetch_criteria[Horde_Imap_Client::FETCH_STRUCTURE] = array('parse' => true);
+        if (!empty($options['type'])) {
+            $headers[] = 'content-type';
+        }
+
+        if (!empty($headers)) {
+            $fetch_criteria[Horde_Imap_Client::FETCH_HEADERS] = array(array(
+                'cache' => true,
+                'headers' => $headers,
+                'label' => 'imp',
+                'parse' => true,
+                'peek' => true
+            ));
         }
 
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();

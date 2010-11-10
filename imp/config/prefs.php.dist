@@ -1263,13 +1263,11 @@ $_prefs['from_link'] = array(
 );
 
 // Display attachment information in mailbox list.
-// Disabled by default, and not shown to user, because this display requires
-// substantial overhead to parse the message structures of all message in
-// the mailbox list at view time.
+// Disabled by default since display requires a bit of extra overhead to
+// obtain the MIME Content-Type of the base portion of the message.
 $_prefs['atc_flag'] = array(
     'value' => 0,
-    // Locked by default
-    'locked' => true,
+    'advanced' => true,
     'type' => 'checkbox',
     'desc' => _("Display attachment information about a message in the mailbox listing?")
 );

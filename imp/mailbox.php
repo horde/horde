@@ -231,7 +231,11 @@ $imp_mailbox = $injector->getInstance('IMP_Injector_Factory_MailboxList')->creat
 $pageOb = $imp_mailbox->buildMailboxPage($vars->page, $start);
 $show_preview = $prefs->getValue('preview_enabled');
 
-$mbox_info = $imp_mailbox->getMailboxArray(range($pageOb['begin'], $pageOb['end']), array('preview' => $show_preview, 'headers' => true, 'structure' => $prefs->getValue('atc_flag')));
+$mbox_info = $imp_mailbox->getMailboxArray(range($pageOb['begin'], $pageOb['end']), array(
+    'headers' => true,
+    'preview' => $show_preview,
+    'type' => $prefs->getValue('atc_flag')
+));
 
 /* Determine sorting preferences. */
 $sortpref = IMP::getSort(IMP::$mailbox);
@@ -743,11 +747,10 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     } catch (Horde_Exception_HookNotSet $e) {}
 
     $flag_parse = $imp_flags->parse(array(
-        'atc' => isset($ob['structure']) ? $ob['structure'] : null,
         'div' => true,
         'flags' => $ob['flags'],
-        'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']['to'], array('charset' => 'UTF-8')),
-        'priority' => $ob['headers']
+        'headers' => $ob['headers'],
+        'personal' => Horde_Mime_Address::getAddressesFromObject($ob['envelope']['to'], array('charset' => 'UTF-8'))
     ));
 
     $subject_flags = array();
