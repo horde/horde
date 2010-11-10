@@ -93,34 +93,30 @@ class IMP_Mailbox_List implements Countable, Serializable
      *                     If 2, forces addition of preview info.
      *                     DEFAULT: No preview information.
      * 'structure' - (boolean) Get structure information from server.
-     *               Contained in the 'strucutre' entry.
+     *               Contained in the 'structure' entry.
      *               DEFAULT: false
      * </pre>
      *
      * @return array  An array with the following keys:
      * <pre>
-     * 'overview' - (array) The overview information. Contains the following:
-     *              'envelope' - (array) Envelope information returned from
-     *                           the IMAP server. See
-     *                           Horde_Imap_Client::fetch() for format.
-     *              'flags' - (array) The list of IMAP flags returned from
-     *                        the server. See Horde_Imap_Client::fetch() for
-     *                        the format.
-     *              'headers' - (array) Any headers requested in
-     *                          $options['headers']. Horde_Mime_Headers objects
-     *                          are returned.  See Horde_Imap_Client::fetch()
-     *                          for the format.
-     *              'mailbox' - (string) The mailbox containing the message.
-     *              'preview' - (string) If requested in $options['preview'],
-     *                          the preview text.
-     *              'previewcut'- (boolean) Has the preview text been cut?
-     *              'size' - (integer) The size of the message in bytes.
-     *              'structure'- (array) The structure of the message. Only
-     *                           set if $options['structure'] is true. See
-     *                           Horde_Imap_Client::fetch() for format.
-     *              'uid' - (string) The unique ID of the message.
-     *
-     * 'uids' - (IMP_Indices) An indices object.
+     * overview - (array) The overview information. Contains the following:
+     *     envelope - (array) Envelope information returned from the IMAP
+     *                server. See Horde_Imap_Client::fetch() for format.
+     *     flags - (array) The list of IMAP flags returned from the server.
+     *             See Horde_Imap_Client::fetch() for the format.
+     *     headers - (array) Any headers requested in $options['headers'].
+     *               Horde_Mime_Headers objects are returned.  See
+     *               Horde_Imap_Client::fetch() for the format.
+     *     mailbox - (string) The mailbox containing the message.
+     *     preview - (string) If requested in $options['preview'], the preview
+     *               text.
+     *     previewcut - (boolean) Has the preview text been cut?
+     *     size - (integer) The size of the message in bytes.
+     *     structure - (array) The structure of the message. Only set if
+     *                 $options['structure'] is true. See
+     *                 Horde_Imap_Client::fetch() for format.
+     *     uid - (string) The unique ID of the message.
+     * uids - (IMP_Indices) An indices object.
      * </pre>
      */
     public function getMailboxArray($msgnum, $options = array())

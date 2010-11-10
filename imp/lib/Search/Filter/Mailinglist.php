@@ -15,7 +15,6 @@
 class IMP_Search_Filter_Mailinglist extends IMP_Search_Filter_Builtin
 {
     /**
-     * Initialization tasks.
      */
     protected function _init()
     {

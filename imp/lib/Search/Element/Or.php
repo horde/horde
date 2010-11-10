@@ -15,12 +15,6 @@
 class IMP_Search_Element_Or extends IMP_Search_Element
 {
     /**
-     * Adds the current query item to the query object.
-     *
-     * @param Horde_Imap_Client_Search_Query  The query object.
-     *
-     * @return Horde_Imap_Client_Search_Query  The query object.
-     *
      */
     public function createQuery($queryob)
     {
@@ -31,9 +25,6 @@ class IMP_Search_Element_Or extends IMP_Search_Element
     }
 
     /**
-     * Return search query text representation.
-     *
-     * @return array  The textual description of this search element.
      */
     public function queryText()
     {

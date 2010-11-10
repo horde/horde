@@ -15,16 +15,10 @@
 abstract class IMP_Search_Filter_Builtin extends IMP_Search_Filter
 {
     /**
-     * Can this query be edited?
-     *
-     * @var boolean
      */
     protected $_canEdit = false;
 
     /**
-     * List of serialize entries not to save.
-     *
-     * @var array
      */
     protected $_nosave = array('c', 'i', 'l');
 
@@ -43,16 +37,10 @@ abstract class IMP_Search_Filter_Builtin extends IMP_Search_Filter
     }
 
     /**
-     * Initialization tasks.
      */
     abstract protected function _init();
 
     /**
-     * Unserialization.
-     *
-     * @param string $data  Serialized data.
-     *
-     * @throws Exception
      */
     public function unserialize($data)
     {

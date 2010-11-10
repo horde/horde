@@ -111,13 +111,13 @@ class IMP_Search_Query implements Serializable
      *
      * @param string $name  Available properties:
      * <pre>
-     * 'canEdit' - (boolean)
-     * 'id' - (string)
-     * 'label' - (string)
-     * 'mboxes' - (array)
-     * 'mid' - (string)
-     * 'query' - (Horde_Imap_Client_Search_Query)
-     * 'querytext' - (string)
+     * 'canEdit' - (boolean) Can this query be edited?
+     * 'id' - (string) The query ID.
+     * 'label' - (string) The query label.
+     * 'mboxes' - (array) The list of mailboxes to query.
+     * 'mid' - (string) The query ID with the search mailbox prefix.
+     * 'query' - (Horde_Imap_Client_Search_Query) The IMAP query object.
+     * 'querytext' - (string) The textual representation of the query.
      * </pre>
      *
      * @return mixed  Property value.

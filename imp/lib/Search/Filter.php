@@ -15,9 +15,6 @@
 class IMP_Search_Filter extends IMP_Search_Query
 {
     /**
-     * Get object properties.
-     *
-     * @see __get()
      */
     public function __get($name)
     {
