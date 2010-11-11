@@ -265,6 +265,22 @@ extends PHPUnit_Extensions_Story_TestCase
             );
             $world['output'] = $this->_callUnstrictComponents();
             break;
+        case 'calling the package with the devpackage option, the archive directory option and a path to an invalid Horde framework component':
+            $this->_setPearGlobals();
+            $_SERVER['argv'] = array(
+                'horde-components',
+                '--verbose',
+                '--devpackage',
+                '--archivedir=' . $this->_getTemporaryDirectory(),
+                dirname(__FILE__) . '/fixture/simple'
+            );
+            try {
+                $world['output'] = $this->_callUnstrictComponents();
+            } catch (Components_Exception_Pear $e) {
+                ob_end_clean();
+                $world['output'] = (string) $e;
+            }
+            break;
         case 'calling the package with the distribute option and a path to a Horde framework component':
             $_SERVER['argv'] = array(
                 'horde-components',
@@ -582,6 +598,12 @@ extends PHPUnit_Extensions_Story_TestCase
                 )
             );
             break;
+        case 'the output should indicate an invalid package.xml':
+            $this->assertContains(
+                'PEAR_Packagefile_v2::toTgz: invalid package.xml',
+                $world['output']
+            );
+            break;
         default:
             return $this->notImplemented($action);
         }
@@ -648,5 +670,13 @@ extends PHPUnit_Extensions_Story_TestCase
     private function _callStrict(array $parameters)
     {
         Components::main($parameters);
+    }
+
+    private function _setPearGlobals()
+    {
+        $GLOBALS['_PEAR_ERRORSTACK_DEFAULT_CALLBACK'] = array(
+            '*' => false,
+        );
+        $GLOBALS['_PEAR_ERRORSTACK_DEFAULT_LOGGER'] = false;
     }
 }

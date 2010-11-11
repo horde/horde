@@ -38,7 +38,7 @@ extends Components_StoryTestCase
     /**
      * @scenario
      */
-    public function theDevPackageModuleAddsTheDOptionInTheHelpOutput()
+    public function testOption()
     {
         $this->given('the default Components setup')
             ->when('calling the package with the help option')
@@ -48,10 +48,20 @@ extends Components_StoryTestCase
     /**
      * @scenario
      */
-    public function theTheLowerCaseDOptionGeneratesAPackageSnapshot()
+    public function testSnapshotGeneration()
     {
         $this->given('the default Components setup')
             ->when('calling the package with the devpackage option, the archive directory option and a path to a Horde framework component')
             ->then('a package snapshot will be generated at the indicated archive directory');
+    }
+
+    /**
+     * @scenario
+     */
+    public function testErrorHandling()
+    {
+        $this->given('the default Components setup')
+            ->when('calling the package with the devpackage option, the archive directory option and a path to an invalid Horde framework component')
+            ->then('the output should indicate an invalid package.xml');
     }
 }
