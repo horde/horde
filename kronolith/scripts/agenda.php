@@ -128,7 +128,7 @@ function send_agendas()
 
         // If there are any events, generate and send the email.
         ksort($eventlist);
-        $lang = $prefs->getValue('language');
+        $GLOBALS['registry']->setLanguageEnvironment($prefs->getValue('language'));
         $twentyFour = $prefs->getValue('twentyFour');
         $dateFormat = $prefs->getValue('date_format');
 
@@ -137,7 +137,6 @@ function send_agendas()
         $view->timeformat = $twentyFour  ? 'H:i' : 'h:ia';
         $view->events = $eventlist;
 
-        $GLOBALS['registry']->setLanguageEnvironment($lang);
         $mime_mail = new Horde_Mime_Mail(
             array('subject' => sprintf(_("Your daily agenda for %s"), $view->date),
                   'to' => $email,
