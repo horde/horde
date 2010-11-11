@@ -319,7 +319,7 @@ class Horde_Hooks
 //    }
 
 
-//    // Preauthenticate hook. See above for description of format.
+//    // PREAUTHENTICATE HOOK: See above for description of format.
 //    public function preauthenticate($userId, $credentials)
 //    {
 //        // Example #1: Make Horde respect the Unix convention of not
@@ -373,7 +373,7 @@ class Horde_Hooks
 //     }
 
 
-//    // Postauthenticate hook. See above for description of format.
+//    // POSTAUTHENTICATE HOOK: See above for description of format.
 //    public function postauthenticate($userId, $credentials)
 //    {
 //        // Example #1: Validating the user's right to login to Horde by
@@ -426,7 +426,7 @@ class Horde_Hooks
 //     }
 
 
-    // Username conversion hook. See above for description of format.
+//    // USERNAME HOOK: See above for description of format.
 //    public function authusername($userId, $toHorde)
 //    {
 //        // Example #1: Append the virtual domain to the username.
@@ -455,19 +455,21 @@ class Horde_Hooks
 //    }
 
 
-    // Post-push hook. See above for format.
+//    // POST-PUSH HOOK: See above for format.
 //    public function pushapp()
 //    {
-//        // Code to run if the app is switched to horde
+//        // Code to run when the app is switched to horde
 //    }
 
-    // Add CSS files hook. See above for description of format.
+
+//    // ADD CSS HOOK: See above for description of format.
 //    public function cssfiles($theme)
 //    {
 //        return array(
 //            '/file/path/to/css' => 'uri/to/css'
 //        );
 //    }
+
 
     /**
      * Allow altering or validating data submitted by a user during a signup
