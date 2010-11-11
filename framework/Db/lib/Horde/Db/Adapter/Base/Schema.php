@@ -42,12 +42,19 @@ abstract class Horde_Db_Adapter_Base_Schema
      * @param Horde_Db_Adapter_Base $adapter
      * @param array $config
      */
-    public function __construct($adapter, $config = array())
+    public function __construct(Horde_Db_Adapter $adapter, $config = array())
+    {
+        $this->setAdapter($adapter);
+    }
+
+    /**
+     * @param Horde_Db_Adapter $adapter
+     */
+    public function setAdapter(Horde_Db_Adapter $adapter)
     {
         $this->_adapter = $adapter;
         $this->_adapterMethods = array_flip(get_class_methods($adapter));
     }
-
 
     /*##########################################################################
     # Object factories

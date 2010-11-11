@@ -157,6 +157,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
      */
     public function __wakeup()
     {
+        $this->_schema->setAdapter($this);
         $this->connect();
     }
 
