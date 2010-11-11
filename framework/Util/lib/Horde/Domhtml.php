@@ -32,6 +32,13 @@ class Horde_Domhtml
     public $encoding;
 
     /**
+     * Was charset forced by adding <?xml> tag?
+     *
+     * @var string
+     */
+    protected $_forced;
+
+    /**
      * Original charset of data.
      *
      * @var string
@@ -52,6 +59,7 @@ class Horde_Domhtml
             throw new Exception('DOM extension is not available.');
         }
 
+        $this->_forced = null;
         $this->_origCharset = $charset;
 
         $old_error = libxml_use_internal_errors(true);
@@ -61,7 +69,8 @@ class Horde_Domhtml
 
         if (!is_null($charset)) {
             if (!$doc->encoding) {
-                $doc->loadHTML('<?xml encoding="UTF-8">' . Horde_String::convertCharset($text, $charset, 'UTF-8'));
+                $this->_forced = '<?xml encoding="UTF-8">';
+                $doc->loadHTML($this->_forced . Horde_String::convertCharset($text, $charset, 'UTF-8'));
                 $this->encoding = 'UTF-8';
             } elseif ($doc->encoding != $charset) {
                 /* If libxml can't auto-detect encoding, convert to what it
@@ -84,7 +93,11 @@ class Horde_Domhtml
      */
     public function returnHtml()
     {
-        return Horde_String::convertCharset($this->dom->saveHTML(), $this->encoding, $this->_origCharset);
+        $ret = Horde_String::convertCharset($this->dom->saveHTML(), $this->encoding, $this->_origCharset);
+
+        return $this->_forced
+            ? str_replace($this->_forced, '', $ret)
+            : $ret;
     }
 
 }
