@@ -109,6 +109,19 @@ if ($vars->url) {
 if (!($logout_reason = $auth->getError())) {;
     $logout_reason = $vars->logout_reason;
 }
+
+switch ($logout_reason) {
+case Horde_Auth::REASON_SESSION:
+case Horde_Core_Auth_Application::REASON_SESSIONIP:
+case Horde_Core_Auth_Application::REASON_BROWSER:
+case Horde_Auth::REASON_LOGOUT:
+    /* Don't show these logout reasons more than once. */
+    if (!$is_auth) {
+        $logout_reason = null;
+    }
+    break;
+}
+
 if ($logout_reason) {
     if ($is_auth) {
         try {
