@@ -249,9 +249,7 @@ class Horde_Session
             return $this->get($app, $name);
         }
 
-        return ($_SESSION[self::SERIALIZED][$key] == 's')
-            ? @unserialize($data)
-            : json_decode($data, true);
+        return @unserialize($data);
     }
 
     /**
@@ -279,7 +277,7 @@ class Horde_Session
             if ($this->_lzf) {
                 $value = lzf_compress($value);
             }
-            $_SESSION[self::SERIALIZED][$key] = 's';
+            $_SESSION[self::SERIALIZED][$key] = true;
         } else {
             unset($_SESSION[self::SERIALIZED][$key]);
         }
