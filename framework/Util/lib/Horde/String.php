@@ -398,7 +398,7 @@ class Horde_String
      * @return string  The padded string.
      */
     static public function pad($input, $length, $pad = ' ',
-                               $type = STR_PAD_RIGHT, $charset = null)
+                               $type = STR_PAD_RIGHT, $charset = 'UTF-8')
     {
         $mb_length = self::length($input, $charset);
         $sb_length = strlen($input);
