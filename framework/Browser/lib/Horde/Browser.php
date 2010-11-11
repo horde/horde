@@ -323,7 +323,7 @@ class Horde_Browser
             $this->setFeature('frames', false);
             $this->setFeature('javascript', false);
             $this->setQuirk('avoid_popup_windows');
-            $this->_mobile = true;
+            $this->setMobile(true);
         } elseif (preg_match('|Opera[/ ]([0-9.]+)|', $agent, $version)) {
             $this->setBrowser('opera');
             list($this->_majorVersion, $this->_minorVersion) = explode('.', $version[1]);
@@ -333,7 +333,7 @@ class Horde_Browser
             /* Opera Mobile reports its screen resolution in the user
              * agent strings. */
             if (preg_match('/; (120x160|240x280|240x320|320x320)\)/', $agent)) {
-                $this->_mobile = true;
+                $this->setMobile(true);
             }
 
             if ($this->_majorVersion >= 7) {
@@ -361,7 +361,7 @@ class Horde_Browser
             $this->setFeature('frames', false);
             $this->setFeature('javascript', false);
             $this->setQuirk('avoid_popup_windows');
-            $this->_mobile = true;
+            $this->setMobile(true);
         } elseif ((preg_match('|MSIE ([0-9.]+)|', $agent, $version)) ||
                   (preg_match('|Internet Explorer/([0-9.]+)|', $agent, $version))) {
             $this->setBrowser('msie');
@@ -387,7 +387,7 @@ class Horde_Browser
              * agent string, which we can use to look for mobile
              * agents. */
             if (preg_match('/; (120x160|240x280|240x320|320x320)\)/', $agent)) {
-                $this->_mobile = true;
+                $this->setMobile(true);
             }
 
             switch ($this->_majorVersion) {
@@ -474,7 +474,7 @@ class Horde_Browser
             $this->setQuirk('avoid_popup_windows');
         } elseif (strpos($lowerAgent, 'avantgo') !== false) {
             $this->setBrowser('avantgo');
-            $this->_mobile = true;
+            $this->setMobile(true);
         } elseif (preg_match('|Konqueror/([0-9]+)\.?([0-9]+)?|', $agent, $version) ||
                   preg_match('|Safari/([0-9]+)\.?([0-9]+)?|', $agent, $version)) {
             $this->setBrowser('webkit');
@@ -486,7 +486,7 @@ class Horde_Browser
                 strpos($agent, 'NokiaN') !== false ||
                 strpos($agent, 'SymbianOS') !== false) {
                 // WebKit Mobile
-                $this->_mobile = true;
+                $this->setMobile(true);
             }
 
             $this->_majorVersion = $version[1];
@@ -629,68 +629,68 @@ class Horde_Browser
                  * so exclude them. */
                 $this->setQuirk('ow_gui_1.3');
             }
-            $this->_mobile = true;
+            $this->setMobile(true);
         } elseif (strpos($agent, 'Xiino/') !== false) {
             $this->setBrowser('xiino');
             $this->setFeature('hdml');
             $this->setFeature('wml');
-            $this->_mobile = true;
+            $this->setMobile(true);
         } elseif (strpos($agent, 'Palmscape/') !== false) {
             $this->setBrowser('palmscape');
             $this->setFeature('javascript', false);
             $this->setFeature('hdml');
             $this->setFeature('wml');
-            $this->_mobile = true;
+            $this->setMobile(true);
         } elseif (strpos($agent, 'Nokia') !== false) {
             $this->setBrowser('nokia');
             $this->setFeature('html', false);
             $this->setFeature('wml');
             $this->setFeature('xhtml');
-            $this->_mobile = true;
+            $this->setMobile(true);
         } elseif (strpos($agent, 'Ericsson') !== false) {
             $this->setBrowser('ericsson');
             $this->setFeature('html', false);
             $this->setFeature('wml');
-            $this->_mobile = true;
+            $this->setMobile(true);
         } elseif (strpos($agent, 'Grundig') !== false) {
             $this->setBrowser('grundig');
             $this->setFeature('xhtml');
             $this->setFeature('wml');
-            $this->_mobile = true;
+            $this->setMobile(true);
         } elseif (strpos($agent, 'NetFront') !== false) {
             $this->setBrowser('netfront');
             $this->setFeature('xhtml');
             $this->setFeature('wml');
-            $this->_mobile = true;
+            $this->setMobile(true);
         } elseif (strpos($lowerAgent, 'wap') !== false) {
             $this->setBrowser('wap');
             $this->setFeature('html', false);
             $this->setFeature('javascript', false);
             $this->setFeature('hdml');
             $this->setFeature('wml');
-            $this->_mobile = true;
+            $this->setMobile(true);
         } elseif (strpos($lowerAgent, 'docomo') !== false ||
                   strpos($lowerAgent, 'portalmmm') !== false) {
             $this->setBrowser('imode');
             $this->setFeature('images', false);
-            $this->_mobile = true;
+            $this->setMobile(true);
         } elseif (strpos($agent, 'BlackBerry') !== false) {
             $this->setBrowser('blackberry');
             $this->setFeature('html', false);
             $this->setFeature('javascript', false);
             $this->setFeature('hdml');
             $this->setFeature('wml');
-            $this->_mobile = true;
+            $this->setMobile(true);
         } elseif (strpos($agent, 'MOT-') !== false) {
             $this->setBrowser('motorola');
             $this->setFeature('html', false);
             $this->setFeature('javascript', false);
             $this->setFeature('hdml');
             $this->setFeature('wml');
-            $this->_mobile = true;
+            $this->setMobile(true);
         } elseif (strpos($lowerAgent, 'j-') !== false) {
             $this->setBrowser('mml');
-            $this->_mobile = true;
+            $this->setMobile(true);
         }
     }
 
@@ -744,7 +744,17 @@ class Horde_Browser
     }
 
     /**
-     * Do we consider the current browser to be a mobile device?
+     * Set this browser as a mobile device.
+     *
+     * @param boolean $mobile  True if the browser is a mobile device.
+     */
+    public function setMobile($mobile)
+    {
+        $this->_mobile = (bool)$mobile;
+    }
+
+    /**
+     * Is the current browser to be a mobile device?
      *
      * @return boolean  True if we do, false if we don't.
      */
@@ -754,7 +764,7 @@ class Horde_Browser
     }
 
     /**
-     * Determines if the browser is a robot or not.
+     * Is the browser a robot?
      *
      * @return boolean  True if browser is a known robot.
      */

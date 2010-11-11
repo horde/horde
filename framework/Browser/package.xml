@@ -25,7 +25,8 @@ about the current user&apos;s browser and its capabilities.
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Remove PEAR and horde/Core dependencies.
+ <notes>* Add Horde_Browser::setMobile().
+ * Remove PEAR and horde/Core dependencies.
  * Remove Horde_Browser::escapeJSCode().
  * Add Horde_Browser_Exception::.
  * Initial Horde 4 package.</notes>
