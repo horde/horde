@@ -104,20 +104,12 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter_Base
 
         $this->_node($dom->dom, $dom->dom);
 
-        if (!$this->_params['return_document']) {
-            $body = $dom->dom->getElementsByTagName('body')->item(0);
-        }
-
         if ($this->_params['noprefetch']) {
             $meta = $dom->dom->createElement('meta');
             $meta->setAttribute('http-equiv', 'x-dns-prefetch-control');
             $meta->setAttribute('value-equiv', 'off');
 
-            if ($this->_params['return_document']) {
-                $dom->dom->getElementsByTagName('head')->item(0)->appendChild($meta);
-            } elseif ($body) {
-                $body->appendChild($meta);
-            }
+            $dom->dom->getElementsByTagName('head')->item(0)->appendChild($meta);
         }
 
         if ($this->_params['return_dom']) {
@@ -128,7 +120,9 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter_Base
             return $dom->returnHtml();
         }
 
+        $body = $dom->dom->getElementsByTagName('body')->item(0);
         $text = '';
+
         if ($body && $body->hasChildNodes()) {
             foreach ($body->childNodes as $child) {
                 $text .= $dom->dom->saveXML($child);
