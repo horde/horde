@@ -156,6 +156,7 @@ function send_agendas()
                   'from' => $GLOBALS['conf']['reminder']['from_addr'],
                   'charset' => 'UTF-8'));
         $mime_mail->addHeader('User-Agent', 'Kronolith ' . $GLOBALS['registry']->getVersion());
+        $mime_mail->addHeader('Auto-Submitted', 'auto-generated');
         try {
             $mime_mail->addRecipients($email);
         } catch (Horde_Mime_Exception $e) {}
