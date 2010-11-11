@@ -344,6 +344,7 @@ span.trashImg {
 /* Message flags definitions.
  * For background color, see config/prefs.php [msgflags preference]. */
 div.msgflags {
+    padding-right: 1px;
     vertical-align: middle;
 }
 .mboxheader div.msgflags {
