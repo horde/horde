@@ -267,6 +267,7 @@ extends PHPUnit_Extensions_Story_TestCase
             break;
         case 'calling the package with the devpackage option, the archive directory option and a path to an invalid Horde framework component':
             $this->_setPearGlobals();
+            $cwd = getcwd();
             $_SERVER['argv'] = array(
                 'horde-components',
                 '--verbose',
@@ -280,6 +281,7 @@ extends PHPUnit_Extensions_Story_TestCase
                 ob_end_clean();
                 $world['output'] = (string) $e;
             }
+            chdir($cwd);
             break;
         case 'calling the package with the distribute option and a path to a Horde framework component':
             $_SERVER['argv'] = array(
