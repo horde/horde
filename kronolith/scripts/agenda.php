@@ -32,7 +32,7 @@ function send_agendas()
     }
 
     if (!empty($GLOBALS['conf']['reminder']['server_name'])) {
-        $GLOBALS['conf']['server']['name'] = $GLOBALS['conf']['reminder']['server_name'];
+        $_SERVER['SERVER_NAME'] = $GLOBALS['conf']['server']['name'] = $GLOBALS['conf']['reminder']['server_name'];
     }
 
     // Retrieve a list of users associated with each calendar, and
@@ -51,11 +51,25 @@ function send_agendas()
     // Remove duplicates.
     $users = array_unique($users);
 
+    // Generate image mime part first and only once, because we need
+    // the Content-ID.
+    $background = new Horde_Themes_Image('big_agenda.png');
+    $image = new Horde_Mime_Part();
+    $image->setType('image/png');
+    $image->setContents(file_get_contents($background->fs));
+    $image->setContentId();
+    $image->setDisposition('attachment');
+
     $runtime = new Horde_Date($runtime);
     $default_timezone = date_default_timezone_get();
     $kronolith_driver = Kronolith::getDriver();
     $view = new Horde_View(array('templatePath' => KRONOLITH_TEMPLATES . '/agenda', 'encoding' => 'UTF-8'));
     new Horde_View_Helper_Text($view);
+    $view->imageId = $image->getContentId();
+    $view->date = $runtime;
+    if (!$GLOBALS['prefs']->isLocked('daily_agenda')) {
+        $view->prefsUrl = Horde::url(Horde::getServiceLink('prefs', 'kronolith'), true)->remove(session_name());
+    }
 
     // Loop through the users and generate an agenda for them
     foreach ($users as $user) {
@@ -130,15 +144,14 @@ function send_agendas()
         ksort($eventlist);
         $GLOBALS['registry']->setLanguageEnvironment($prefs->getValue('language'));
         $twentyFour = $prefs->getValue('twentyFour');
-        $dateFormat = $prefs->getValue('date_format');
 
         $view->pad = max(Horde_String::length(_("All day")) + 2, $twentyFour ? 6 : 8);
-        $view->date = $runtime->strftime($dateFormat);
+        $view->dateFormat = $prefs->getValue('date_format');
         $view->timeformat = $twentyFour  ? 'H:i' : 'h:ia';
         $view->events = $eventlist;
 
         $mime_mail = new Horde_Mime_Mail(
-            array('subject' => sprintf(_("Your daily agenda for %s"), $view->date),
+            array('subject' => sprintf(_("Your daily agenda for %s"), $runtime->strftime($view->dateFormat)),
                   'to' => $email,
                   'from' => $GLOBALS['conf']['reminder']['from_addr'],
                   'charset' => 'UTF-8'));
@@ -153,12 +166,19 @@ function send_agendas()
         $bodyText->setType('text/plain');
         $bodyText->setCharset('UTF-8');
         $bodyText->setContents($view->render('notification.plain.php'));
+        $bodyText->setDisposition('inline');
         $multipart->addPart($bodyText);
         $bodyHtml = new Horde_Mime_Part();
         $bodyHtml->setType('text/html');
         $bodyHtml->setCharset('UTF-8');
         $bodyHtml->setContents($view->render('notification.html.php'));
-        $multipart->addPart($bodyHtml);
+        $bodyHtml->setDisposition('inline');
+        $related = new Horde_Mime_Part();
+        $related->setType('multipart/related');
+        $related->setContentTypeParameter('start', $bodyHtml->setContentId());
+        $related->addPart($bodyHtml);
+        $related->addPart($image);
+        $multipart->addPart($related);
         $mime_mail->setBasePart($multipart);
 
         Horde::logMessage(sprintf('Sending daily agenda to %s', $email), 'DEBUG');
