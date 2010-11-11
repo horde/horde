@@ -273,18 +273,13 @@ class Horde_Session
          * given page load.  Thus, for arrays and objects, it is beneficial to
          * always convert to string representations so that the object/array
          * does not need to be rebuilt every time the session is reloaded. */
-        if (is_object($value) || ($mask & self::TYPE_OBJECT)) {
+        if (is_object($value) || ($mask & self::TYPE_OBJECT) ||
+            is_array($value) || ($mask & self::TYPE_ARRAY)) {
             $value = serialize($value);
             if ($this->_lzf) {
                 $value = lzf_compress($value);
             }
             $_SESSION[self::SERIALIZED][$key] = 's';
-        } elseif (is_array($value) || ($mask & self::TYPE_ARRAY)) {
-            $value = json_encode($value);
-            if ($this->_lzf) {
-                $value = lzf_compress($value);
-            }
-            $_SESSION[self::SERIALIZED][$key] = 'j';
         } else {
             unset($_SESSION[self::SERIALIZED][$key]);
         }
