@@ -472,6 +472,20 @@ class Horde_Hooks
 
 
     /**
+     * Modify the browser object.
+     *
+     * @param Horde_Core_Browser $browser  The browser object.
+     */
+//    public function browser_modify($browser)
+//    {
+//        // Example #1: Mark all browsers as mobile. Useful if this
+//        // particular Horde installation is dedicated solely to serving
+//        // mobile devices.
+//        $browser->setMobile(true);
+//    }
+
+
+    /**
      * Allow altering or validating data submitted by a user during a signup
      * request before any attempts are made to add them to the system.
      *

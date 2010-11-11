@@ -51,6 +51,10 @@ class Horde_Core_Browser extends Horde_Browser
                 $this->setQuirk('buggy_compression');
             }
         }
+
+        try {
+            Horde::callHook('browser_modify', array($this), 'horde');
+        } catch (Horde_Exception_HookNotSet $e) {}
     }
 
     /**
