@@ -1573,13 +1573,51 @@ abstract class Kronolith_Event
             }
         }
         if (isset($methods['mail'])) {
-            $methods['mail']['body'] = sprintf(
-                _("We would like to remind you of this upcoming event.\n\n%s\n\nLocation: %s\n\nDate: %s\nTime: %s\n\n%s"),
-                $this->getTitle($user),
-                $this->location,
-                $this->start->strftime($prefs->getValue('date_format')),
-                $this->start->format($prefs->getValue('twentyFour') ? 'H:i' : 'h:ia'),
-                $this->description);
+            $background = new Horde_Themes_Image('big_alarm.png');
+            $image = new Horde_Mime_Part();
+            $image->setType('image/png');
+            $image->setContents(file_get_contents($background->fs));
+            $image->setContentId();
+            $image->setDisposition('attachment');
+
+            $view = new Horde_View(array('templatePath' => KRONOLITH_TEMPLATES . '/alarm', 'encoding' => 'UTF-8'));
+            new Horde_View_Helper_Text($view);
+            $view->event = $this;
+            $view->imageId = $image->getContentId();
+            $view->user = $user;
+            $view->dateFormat = $prefs->getValue('date_format');
+            $view->timeFormat = $prefs->getValue('twentyFour') ? 'H:i' : 'h:ia';
+            if (!$prefs->isLocked('event_reminder')) {
+                $view->prefsUrl = Horde::url(Horde::getServiceLink('prefs', 'kronolith'), true)->remove(session_name());
+            }
+            if ($this->attendees) {
+                $attendees = array();
+                foreach ($this->attendees as $mail => $attendee) {
+                    $attendees[] = empty($attendee['name']) ? $mail : Horde_Mime_Address::trimAddress($attendee['name'] . (strpos($mail, '@') === false ? '' : ' <' . $mail . '>'));
+                }
+                $view->attendees = $attendees;
+            }
+
+            $multipart = new Horde_Mime_Part();
+            $multipart->setType('multipart/alternative');
+            $bodyText = new Horde_Mime_Part();
+            $bodyText->setType('text/plain');
+            $bodyText->setCharset('UTF-8');
+            $bodyText->setContents($view->render('mail.plain.php'));
+            $bodyText->setDisposition('inline');
+            $multipart->addPart($bodyText);
+            $bodyHtml = new Horde_Mime_Part();
+            $bodyHtml->setType('text/html');
+            $bodyHtml->setCharset('UTF-8');
+            $bodyHtml->setContents($view->render('mail.html.php'));
+            $bodyHtml->setDisposition('inline');
+            $related = new Horde_Mime_Part();
+            $related->setType('multipart/related');
+            $related->setContentTypeParameter('start', $bodyHtml->setContentId());
+            $related->addPart($bodyHtml);
+            $related->addPart($image);
+            $multipart->addPart($related);
+            $methods['mail']['mimepart'] = $multipart;
         }
 
         return array(

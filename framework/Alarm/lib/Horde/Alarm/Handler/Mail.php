@@ -81,13 +81,20 @@ class Horde_Alarm_Handler_Mail extends Horde_Alarm_Handler
 
         $mail = new Horde_Mime_Mail(array(
             'subject' => $alarm['title'],
-            'body' => empty($alarm['params']['mail']['body']) ? $alarm['text'] : $alarm['params']['mail']['body'],
             'to' => $email,
             'from' => $email,
             'charset' => 'UTF-8'
         ));
         $mail->addHeader('Auto-Submitted', 'auto-generated');
         $mail->addHeader('X-Horde-Alarm', $alarm['title'], 'UTF-8');
+        if (isset($alarm['params']['mail']['mimepart'])) {
+            $mail->setBasePart($alarm['params']['mail']['mimepart']);
+        } elseif (empty($alarm['params']['mail']['body'])) {
+            $mail->setBody($alarm['text']);
+        } else {
+            $mail->setBody($alarm['params']['mail']['body']);
+        }
+
         $mail->send($this->_mail);
 
         $alarm['internal']['mail']['sent'] = true;
