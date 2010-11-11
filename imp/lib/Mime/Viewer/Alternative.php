@@ -128,13 +128,21 @@ class IMP_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
             $curr_id = Horde_Mime::mimeIdArithmetic($curr_id, 'up');
         }
 
-        /* Now grab all keys under this ID. */
+        /* At this point, $ret contains stubs for all parts living in the base
+         * alternative part.
+         * Go through all subparts of displayable part and make sure all parts
+         * are rendered.  Parts not rendered will be markes as not being
+         * handled by this viewer (Bug #9365). */
         $render_part = $this->_mimepart->getPart($disp_id);
-        foreach (array_keys($render_part->contentTypeMap()) as $val) {
-            if (isset($display_ids[$val])) {
+        $need_render = $subparts = $render_part->contentTypeMap();
+
+        foreach (array_keys($subparts) as $val) {
+            if (isset($need_render[$val])) {
                 $render = $this->getConfigParam('imp_contents')->renderMIMEPart($val, $inline ? IMP_Contents::RENDER_INLINE : IMP_Contents::RENDER_FULL);
+
                 foreach (array_keys($render) as $id) {
-                    unset($display_ids[$id]);
+                    unset($need_render[$id]);
+
                     if (!$inline) {
                         if (!is_null($render[$id])) {
                             return array($base_id => $render[$id]);
@@ -143,11 +151,12 @@ class IMP_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
                         $ret[$id] = $render[$id];
                     }
                 }
-            } elseif ($disp_id != $val) {
-                /* Parts that we can't display within a multipart are marked
-                 * as not being handled by this viewer. Bug #9365. */
-                unset($ret[$val]);
             }
+        }
+
+        unset($need_render[$disp_id]);
+        foreach (array_keys($need_render) as $val) {
+            unset($ret[$val]);
         }
 
         return $inline
