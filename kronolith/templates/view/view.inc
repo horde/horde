@@ -172,7 +172,7 @@ if ($this->event->initialized && $this->event->alarm > 0):
  </tr>
  <?php $link_emails = $GLOBALS['registry']->hasMethod('mail/compose'); foreach ($attendees as $email => $status): $full = empty($status['name']) ? $email : Horde_Mime_Address::trimAddress($status['name'] . (strpos($email, '@') === false ? '' : ' <' . $email . '>')) ?>
  <tr>
-  <td class="nowrap"><?php echo ($link_emails && strpos($email, '@') !== false) ? (Horde::url($GLOBALS['registry']->call('mail/compose', array(array('to' => $full))))->link(array('title' => sprintf(_("Send an email to %s"), empty($status['name']) ? $email : $status['name']))) . htmlspecialchars($full) . '</a>') : htmlspecialchars($full) ?></td>
+  <td class="nowrap"><?php echo ($link_emails && strpos($email, '@') !== false) ? ($GLOBALS['registry']->call('mail/compose', array(array('to' => $full)))->link(array('title' => sprintf(_("Send an email to %s"), empty($status['name']) ? $email : $status['name']))) . htmlspecialchars($full) . '</a>') : htmlspecialchars($full) ?></td>
   <td><?php echo Kronolith::partToString($status['attendance']) ?></td>
   <td><?php echo Kronolith::responseToString($status['response']) ?></td>
  </tr>

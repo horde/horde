@@ -581,8 +581,8 @@ abstract class Kronolith_Event
             }
 
             // Tags
-            $tags = implode(', ', $this->tags);
-            if (!empty($tags)) {
+            if ($this->tags) {
+                $tags = implode(', ', $this->tags);
                 $vEvent->setAttribute('CATEGORIES', $tags);
             }
 
