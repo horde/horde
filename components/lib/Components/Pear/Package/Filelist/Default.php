@@ -65,7 +65,11 @@ class Components_Pear_Package_Filelist_Default
             if (!isset($file['attribs'])) {
                 continue;
             }
-            $components = explode('/', $file['attribs']['name'], 2);
+            if (strpos($file['attribs']['name'], '/') !== false) {
+                $components = explode('/', $file['attribs']['name'], 2);
+            } else {
+                $components = array('', $file['attribs']['name']);
+            }
             $role = isset($file['attribs']['role']) ? $file['attribs']['role'] : '';
             switch ($role) {
             case 'horde':
