@@ -39,8 +39,10 @@ class Horde_Domhtml
     protected $_origCharset;
 
     /**
-     * @param string $text
-     * @param string $charset
+     * Constructor.
+     *
+     * @param string $text     The text of the HTML document.
+     * @param string $charset  The charset of the HTML document.
      *
      * @throws Exception
      */
@@ -76,7 +78,9 @@ class Horde_Domhtml
     }
 
     /**
-     * @return string
+     * Returns the full HTML text in the original charset.
+     *
+     * @return string  HTML text.
      */
     public function returnHtml()
     {
