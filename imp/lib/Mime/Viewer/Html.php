@@ -383,7 +383,8 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                     $node->removeAttribute($val);
                 }
 
-                if ($this->_imptmp['img'] && $node->hasAttribute('style')) {
+                if ($node->hasAttribute('style') &&
+                    ($this->_imptmp['img'] || $this->_imptmp['cid'])) {
                     $this->_imptmp['node'] = $node;
                     $style = preg_replace_callback('/(background(?:-image)?:[^;\}]*(?:url\(["\']?))(.*?)((?:["\']?\)))/i', array($this, '_styleCallback'), $node->getAttribute('style'), -1, $matches);
                     if ($matches) {
@@ -395,7 +396,8 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
     }
 
     /**
-     * preg_replace_callback() callback for style/background matching.
+     * preg_replace_callback() callback for style/background matching of
+     * images.
      *
      * @param array $matches  The list of matches.
      *
@@ -403,9 +405,17 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
      */
     protected function _styleCallback($matches)
     {
-        $this->_imptmp['node']->setAttribute('htmlimgblocked', $matches[2]);
-        $this->_imptmp['imgblock'] = true;
-        return $matches[1] . $this->_imptmp['blockimg'] . $matches[3];
+        if (isset($this->_imptmp['cid'][$matches[2]])) {
+            $replace = $this->getConfigParam('imp_contents')->urlView(null, 'view_attach', array('params' => array(
+                'id' => $this->_imptmp['cid'][$matches[2]],
+                'imp_img_view' => 'data'
+            )));
+        } else {
+            $this->_imptmp['node']->setAttribute('htmlimgblocked', $matches[2]);
+            $this->_imptmp['imgblock'] = true;
+            $replace = $this->_imptmp['blockimg'];
+        }
+        return $matches[1] . $replace . $matches[3];
     }
 
 }
