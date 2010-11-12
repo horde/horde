@@ -94,14 +94,18 @@ document.observe('dom:loaded', function() {
 
         if (id = $(id)) {
             lc = id.contentWindow.document.lastChild;
-            id.setStyle({ height: Math.max(id.contentWindow.document.body.scrollHeight, lc.scrollHeight) + 'px' });
+            id.setStyle({ height: lc.scrollHeight + 'px' });
 
             // For whatever reason, browsers will report different heights
             // after the initial height setting.
             // Try expanding IFRAME if we detect a scroll.
             if (lc.clientHeight != lc.scrollHeight ||
                 id.clientHeight != lc.clientHeight) {
-                id.setStyle({ height: Math.max(lc.clientHeight, lc.scrollHeight) + 'px' });
+                id.setStyle({ height: lc.scrollHeight + 'px' });
+                if (lc.clientHeight != lc.scrollHeight) {
+                    // Finally, brute force if it still isn't working.
+                    id.setStyle({ height: (lc.scrollHeight + 25) + 'px' });
+                }
             }
          }
     };
