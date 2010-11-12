@@ -34,7 +34,7 @@
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>
+ <notes>* Abstracted storage-specific code into &apos;Storage&apos; drivers.
 * Removed LDAP driver
 * Abstracted memcache persistent-backend code into &apos;Stack&apos; driver.
 * Renamed &apos;none&apos; driver to &apos;Builtin&apos;.
@@ -50,12 +50,15 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="SessionHandler">
-      <file name="Builtin.php" role="php" />
+      <dir name="Storage">
+       <file name="Builtin.php" role="php" />
+       <file name="External.php" role="php" />
+       <file name="Memcache.php" role="php" />
+       <file name="Sql.php" role="php" />
+       <file name="Stack.php" role="php" />
+      </dir> <!-- //lib/Horde/SessionHandler/Storage -->
       <file name="Exception.php" role="php" />
-      <file name="External.php" role="php" />
-      <file name="Memcache.php" role="php" />
-      <file name="Sql.php" role="php" />
-      <file name="Stack.php" role="php" />
+      <file name="Storage.php" role="php" />
      </dir> <!-- //lib/Horde/SessionHandler -->
      <file name="SessionHandler.php" role="php" />
     </dir> <!-- //lib/Horde -->
@@ -97,12 +100,13 @@
  <phprelease>
   <filelist>
    <install as="Horde/SessionHandler.php" name="lib/Horde/SessionHandler.php" />
-   <install as="Horde/SessionHandler/Builtin.php" name="lib/Horde/SessionHandler/Builtin.php" />
+   <install as="Horde/SessionHandler/Storage/Builtin.php" name="lib/Horde/SessionHandler/Storage/Builtin.php" />
+   <install as="Horde/SessionHandler/Storage/External.php" name="lib/Horde/SessionHandler/Storage/External.php" />
+   <install as="Horde/SessionHandler/Storage/Memcache.php" name="lib/Horde/SessionHandler/Storage/Memcache.php" />
+   <install as="Horde/SessionHandler/Storage/Sql.php" name="lib/Horde/SessionHandler/Storage/Sql.php" />
+   <install as="Horde/SessionHandler/Storage/Stack.php" name="lib/Horde/SessionHandler/Storage/Stack.php" />
    <install as="Horde/SessionHandler/Exception.php" name="lib/Horde/SessionHandler/Exception.php" />
-   <install as="Horde/SessionHandler/External.php" name="lib/Horde/SessionHandler/External.php" />
-   <install as="Horde/SessionHandler/Memcache.php" name="lib/Horde/SessionHandler/Memcache.php" />
-   <install as="Horde/SessionHandler/Sql.php" name="lib/Horde/SessionHandler/Sql.php" />
-   <install as="Horde/SessionHandler/Stack.php" name="lib/Horde/SessionHandler/Stack.php" />
+   <install as="Horde/SessionHandler/Storage.php" name="lib/Horde/SessionHandler/Storage.php" />
   </filelist>
  </phprelease>
  <changelog>

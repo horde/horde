@@ -35,53 +35,57 @@ class Horde_Core_Factory_SessionHandler
         }
         $params = Horde::getDriverConfig('sessionhandler', $driver);
 
-        if (strcasecmp($driver, 'Sql') === 0) {
-            $params['db'] = $injector->getInstance('Horde_Db_Adapter');
-        } elseif (strcasecmp($driver, 'Memcache') === 0) {
-            $params['memcache'] = $injector->getInstance('Horde_Memcache');
-        } elseif (strcasecmp($driver, 'Ldap') === 0) {
+        $driver = basename(Horde_String::lower($driver));
+        $noset = false;
+
+        switch ($driver) {
+        case 'builtin':
+            $noset = true;
+            break;
+
+        case 'ldap':
             $params['ldap'] = $injector->getInstances('Horde_Core_Factory_Ldap')->getLdap('horde', 'sessionhandler');
+            break;
+
+        case 'memcache':
+            $params['memcache'] = $injector->getInstance('Horde_Memcache');
+            break;
+
+        case 'sql':
+            $params['db'] = $injector->getInstance('Horde_Db_Adapter');
+            break;
         }
 
-        $logger = $injector->getInstance('Horde_Log_Logger');
+        $class = 'Horde_SessionHandler_Storage_' . Horde_String::ucfirst($driver);
+        if (!class_exists($class)) {
+            throw new Horde_SessionHandler_Exception('Driver not found: ' . $class);
+        }
+        $storage = new $class($params);
 
         if (!empty($conf['sessionhandler']['memcache']) &&
-            (strcasecmp($driver, 'Builtin') != 0) &&
-            (strcasecmp($driver, 'Memcache') != 0)) {
-            $params = array(
+            !in_array($driver, array('builtin', 'memcache'))) {
+            $storage = new Horde_SessionHandler_Storage_Stack(array(
                 'stack' => array(
-                    array(
-                        'driver' => 'Memcache',
-                        'params' => array(
-                            'memcache' => $injector->getInstance('Horde_Memcache'),
-                            'logger' => $logger
-                        )
-                    ),
-                    array(
-                        'driver' => $driver,
-                        'params' => array_merge($params, array(
-                            'logger' => $logger
-                        ))
-                    )
+                    new Horde_SessionHandler_Storage_Memcache(array(
+                        'memcache' => $injector->getInstance('Horde_Memcache')
+                    )),
+                    $storage
                 )
-            );
-            $driver = 'Stack';
+            ));
         }
 
-        $params['logger'] = $logger;
-        // TODO: Uncomment once all session data is saved through
-        //  Horde_Session.
-        //$params['no_md5'] = true
-        $params['parse'] = array($this, 'readSessionData');
 
-        $driver = basename(strtolower($driver));
-        $class = 'Horde_SessionHandler_' . ucfirst($driver);
-
-        if (class_exists($class)) {
-            return new $class($params);
-        }
-
-        throw new Horde_SessionHandler_Exception('Driver not found: ' . $driver);
+        return new Horde_SessionHandler(
+            $storage,
+            array(
+                'logger' => $injector->getInstance('Horde_Log_Logger'),
+                // TODO: Uncomment once all session data is saved through
+                //  Horde_Session.
+                //'no_md5' => true,
+                'noset' => $noset,
+                'parse' => array($this, 'readSessionData')
+            )
+        );
     }
 
     /**

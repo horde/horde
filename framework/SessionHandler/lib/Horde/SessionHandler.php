@@ -1,6 +1,6 @@
 <?php
 /**
- * This is the abstract class that all drivers inherit from.
+ * This class provides the interface to the session storage backend.
  *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
@@ -12,7 +12,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  SessionHandler
  */
-abstract class Horde_SessionHandler
+class Horde_SessionHandler
 {
     /**
      * If true, indicates the session data has changed.
@@ -36,7 +36,7 @@ abstract class Horde_SessionHandler
     protected $_logger;
 
     /**
-     * Hash containing connection parameters.
+     * Configuration parameters.
      *
      * @var array
      */
@@ -50,9 +50,17 @@ abstract class Horde_SessionHandler
     protected $_sig;
 
     /**
+     * The storage object.
+     *
+     * @var Horde_SessionHandler_Storage
+     */
+    protected $_storage;
+
+    /**
      * Constructor.
      *
-     * @param array $params  Parameters:
+     * @param Horde_SessionHandler_Storage $storage  The storage object.
+     * @param array $params                          Configuration parameters:
      * <pre>
      * logger - (Horde_Log_Logger) A logger instance.
      *          DEFAULT: No logging
@@ -70,16 +78,20 @@ abstract class Horde_SessionHandler
      *         DEFAULT: No
      * </pre>
      */
-    public function __construct(array $params = array())
+    public function __construct(Horde_SessionHandler_Storage $storage,
+                                array $params = array())
     {
         $params = array_merge($this->_params, $params);
 
         if (isset($params['logger'])) {
             $this->_logger = $params['logger'];
             unset($params['logger']);
+
+            $storage->setLogger($this->_logger);
         }
 
         $this->_params = $params;
+        $this->_storage = $storage;
 
         if (empty($this->_params['noset'])) {
             ini_set('session.save_handler', 'user');
@@ -117,7 +129,7 @@ abstract class Horde_SessionHandler
     {
         if (!$this->_connected) {
             try {
-                $this->_open($save_path, $session_name);
+                $this->_storage->open($save_path, $session_name);
             } catch (Horde_SessionHandler_Exception $e) {
                 if ($this->_logger) {
                     $this->_logger->log($e, 'ERR');
@@ -132,16 +144,6 @@ abstract class Horde_SessionHandler
     }
 
     /**
-     * Open the backend.
-     *
-     * @param string $save_path     The path to the session object.
-     * @param string $session_name  The name of the session.
-     *
-     * @throws Horde_SessionHandler_Exception
-     */
-    abstract protected function _open($save_path = null, $session_name = null);
-
-    /**
      * Close the backend.
      *
      * @return boolean  True on success, false otherwise.
@@ -149,7 +151,7 @@ abstract class Horde_SessionHandler
     public function close()
     {
         try {
-            $this->_close();
+            $this->_storage->close();
         } catch (Horde_SessionHandler_Exception $e) {
             if ($this->_logger) {
                 $this->_logger->log($e, 'ERR');
@@ -162,13 +164,6 @@ abstract class Horde_SessionHandler
     }
 
     /**
-     * Close the backend.
-     *
-     * @throws Horde_SessionHandler_Exception
-     */
-    abstract protected function _close();
-
-    /**
      * Read the data for a particular session identifier from the backend.
      * This method should only be called internally by PHP via
      * session_set_save_handler().
@@ -179,21 +174,12 @@ abstract class Horde_SessionHandler
      */
     public function read($id)
     {
-        $result = $this->_read($id);
+        $result = $this->_storage->read($id);
         if (empty($this->_params['no_md5'])) {
             $this->_sig = md5($result);
         }
         return $result;
     }
-
-    /**
-     * Read the data for a particular session identifier from the backend.
-     *
-     * @param string $id  The session identifier.
-     *
-     * @return string  The session data.
-     */
-    abstract protected function _read($id);
 
     /**
      * Write session data to the backend.
@@ -210,7 +196,7 @@ abstract class Horde_SessionHandler
         if ($this->changed ||
             (empty($this->_params['no_md5']) &&
              ($this->_sig != md5($session_data)))) {
-            return $this->_write($id, $session_data);
+            return $this->_storage->write($id, $session_data);
         }
 
         if ($this->_logger) {
@@ -221,16 +207,6 @@ abstract class Horde_SessionHandler
     }
 
     /**
-     * Write session data to the backend.
-     *
-     * @param string $id            The session identifier.
-     * @param string $session_data  The session data.
-     *
-     * @return boolean  True on success, false otherwise.
-     */
-    abstract protected function _write($id, $session_data);
-
-    /**
      * Destroy the data for a particular session identifier in the backend.
      * This method should only be called internally by PHP via
      * session_set_save_handler().
@@ -239,7 +215,10 @@ abstract class Horde_SessionHandler
      *
      * @return boolean  True on success, false otherwise.
      */
-    abstract public function destroy($id);
+    public function destroy($id)
+    {
+        return $this->_storage->destroy($id);
+    }
 
     /**
      * Garbage collect stale sessions from the backend.
@@ -250,18 +229,9 @@ abstract class Horde_SessionHandler
      *
      * @return boolean  True on success, false otherwise.
      */
-    abstract public function gc($maxlifetime = 300);
-
-    /**
-     * Get session data read-only.
-     *
-     * @param string $id  The session identifier.
-     *
-     * @return string  The session data.
-     */
-    protected function _readOnly($id)
+    public function gc($maxlifetime = 300)
     {
-        return $this->read($id);
+        return $this->_storage->gc($id);
     }
 
     /**
@@ -270,7 +240,10 @@ abstract class Horde_SessionHandler
      * @return array  A list of valid session identifiers.
      * @throws Horde_SessionHandler_Exception
      */
-    abstract public function getSessionIDs();
+    public function getSessionIDs()
+    {
+        return $this->_storage->getSessionIDs();
+    }
 
     /**
      * Returns a list of authenticated users and data about their session.
@@ -291,9 +264,11 @@ abstract class Horde_SessionHandler
 
         $sessions = $this->getSessionIDs();
 
+        $this->_storage->readonly = true;
+
         foreach ($sessions as $id) {
             try {
-                $data = $this->_readOnly($id);
+                $data = $this->read($id);
             } catch (Horde_SessionHandler_Exception $e) {
                 continue;
             }
@@ -303,6 +278,8 @@ abstract class Horde_SessionHandler
                 $info[$id] = $data;
             }
         }
+
+        $this->_storage->readonly = false;
 
         return $info;
     }

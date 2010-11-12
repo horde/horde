@@ -1,9 +1,21 @@
 <?php
 /**
- * Horde_SessionHandler implementation for SQL databases.
+ * SessionHandler storage implementation for SQL databases.
  *
- * The table structure can be found in:
- *   horde/scripts/sql/horde_sessionhandler.sql.
+ * Uses the following SQL table structure:
+ * <pre>
+ * CREATE TABLE horde_sessionhandler (
+ *     VARCHAR(32) NOT NULL,
+ *     session_lastmodified   INT NOT NULL,
+ *     session_data           LONGBLOB,
+ *     -- Or, on some DBMS systems:
+ *     --  session_data           IMAGE,
+ *
+ *     PRIMARY KEY (session_id)
+ * );
+ *
+ * CREATE INDEX session_lastmodified_idx ON horde_sessionhandler (session_lastmodified);
+ * </pre>
  *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
@@ -12,9 +24,10 @@
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
  * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  SessionHandler
  */
-class Horde_SessionHandler_Sql extends Horde_SessionHandler
+class Horde_SessionHandler_Storage_Sql extends Horde_SessionHandler_Storage
 {
     /**
      * Handle for the current database connection.
@@ -49,11 +62,14 @@ class Horde_SessionHandler_Sql extends Horde_SessionHandler
     }
 
     /**
-     * Close the backend.
-     *
-     * @throws Horde_SessionHandler_Exception
      */
-    protected function _close()
+    public function open($save_path = null, $session_name = null)
+    {
+    }
+
+    /**
+     */
+    public function close()
     {
         /* Close any open transactions. */
         try {
@@ -64,13 +80,8 @@ class Horde_SessionHandler_Sql extends Horde_SessionHandler
     }
 
     /**
-     * Read the data for a particular session identifier from the backend.
-     *
-     * @param string $id  The session identifier.
-     *
-     * @return string  The session data.
      */
-    protected function _read($id)
+    public function read($id)
     {
         /* Begin a transaction. */
         // TODO: Rowlocking in Mysql
@@ -90,14 +101,8 @@ class Horde_SessionHandler_Sql extends Horde_SessionHandler
     }
 
     /**
-     * Write session data to the backend.
-     *
-     * @param string $id            The session identifier.
-     * @param string $session_data  The session data.
-     *
-     * @return boolean  True on success, false otherwise.
      */
-    protected function _write($id, $session_data)
+    public function write($id, $session_data)
     {
         /* Build the SQL query. */
         $query = sprintf('SELECT session_id FROM %s WHERE session_id = ?',
@@ -135,11 +140,6 @@ class Horde_SessionHandler_Sql extends Horde_SessionHandler
     }
 
     /**
-     * Destroy the data for a particular session identifier in the backend.
-     *
-     * @param string $id  The session identifier.
-     *
-     * @return boolean  True on success, false otherwise.
      */
     public function destroy($id)
     {
@@ -160,11 +160,6 @@ class Horde_SessionHandler_Sql extends Horde_SessionHandler
     }
 
     /**
-     * Garbage collect stale sessions from the backend.
-     *
-     * @param integer $maxlifetime  The maximum age of a session.
-     *
-     * @return boolean  True on success, false otherwise.
      */
     public function gc($maxlifetime = 300)
     {
@@ -184,9 +179,6 @@ class Horde_SessionHandler_Sql extends Horde_SessionHandler
     }
 
     /**
-     * Get a list of the valid session identifiers.
-     *
-     * @return array  A list of valid session identifiers.
      */
     public function getSessionIDs()
     {

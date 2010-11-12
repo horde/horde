@@ -12,7 +12,7 @@
  * @category Horde
  * @package  SessionHandler
  */
-class Horde_SessionHandler_Memcache extends Horde_SessionHandler
+class Horde_SessionHandler_Storage_Memcache extends Horde_SessionHandler_Storage
 {
     /**
      * Memcache object.
@@ -27,13 +27,6 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
      * @var string
      */
     protected $_id;
-
-    /**
-     * Do read-only get?
-     *
-     * @var boolean
-     */
-    protected $_readonly = false;
 
     /**
      * The ID used for session tracking.
@@ -76,21 +69,14 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
     }
 
     /**
-     * Open the backend.
-     *
-     * @param string $save_path     The path to the session object.
-     * @param string $session_name  The name of the session.
-     *
-     * @throws Horde_SessionHandler_Exception
      */
-    protected function _open($save_path = null, $session_name = null)
+    public function open($save_path = null, $session_name = null)
     {
     }
 
     /**
-     * Close the backend.
      */
-    protected function _close()
+    public function close()
     {
         if (isset($this->_id)) {
             $this->_memcache->unlock($this->_id);
@@ -98,21 +84,16 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
     }
 
     /**
-     * Read the data for a particular session identifier.
-     *
-     * @param string $id  The session identifier.
-     *
-     * @return string  The session data.
      */
-    protected function _read($id)
+    public function read($id)
     {
-        if (!$this->_readonly) {
+        if (!$this->readonly) {
             $this->_memcache->lock($id);
         }
         $result = $this->_memcache->get($id);
 
         if ($result === false) {
-            if (!$this->_readonly) {
+            if (!$this->readonly) {
                 $this->_memcache->unlock($id);
             }
 
@@ -124,7 +105,7 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
             }
         }
 
-        if (!$this->_readonly) {
+        if (!$this->readonly) {
             $this->_id = $id;
         }
 
@@ -136,14 +117,8 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
     }
 
     /**
-     * Write session data to the backend.
-     *
-     * @param string $id            The session identifier.
-     * @param string $session_data  The session data.
-     *
-     * @return boolean  True on success, false otherwise.
      */
-    protected function _write($id, $session_data)
+    public function write($id, $session_data)
     {
         if (!empty($this->_params['track'])) {
             // Do a replace - the only time it should fail is if we are
@@ -183,11 +158,6 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
     }
 
     /**
-     * Destroy the data for a particular session identifier.
-     *
-     * @param string $id  The session identifier.
-     *
-     * @return boolean  True on success, false otherwise.
      */
     public function destroy($id)
     {
@@ -219,11 +189,6 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
     }
 
     /**
-     * Garbage collect stale sessions from the backend.
-     *
-     * @param integer $maxlifetime  The maximum age of a session.
-     *
-     * @return boolean  True on success, false otherwise.
      */
     public function gc($maxlifetime = 300)
     {
@@ -232,10 +197,6 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
     }
 
     /**
-     * Get a list of (possibly) valid session identifiers.
-     *
-     * @return array  A list of session identifiers.
-     * @throws Horde_SessionHandler_Exception
      */
     public function getSessionIDs()
     {
@@ -250,22 +211,6 @@ class Horde_SessionHandler_Memcache extends Horde_SessionHandler
         return ($ids === false)
             ? array()
             : array_keys($ids);
-    }
-
-    /**
-     * Get session data read-only.
-     *
-     * @param string $id  The session identifier.
-     *
-     * @return string  The session data.
-     */
-    protected function _readOnly($id)
-    {
-        $this->_readonly = true;
-        $result = $this->_memcache->get($id);
-        $this->_readonly = false;
-
-        return $result;
     }
 
     /**

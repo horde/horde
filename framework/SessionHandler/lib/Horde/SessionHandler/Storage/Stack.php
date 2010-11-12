@@ -1,9 +1,9 @@
 <?php
 /**
- * Horde_SessionHandler_Stack is an implementation that will loop through a
- * given list of Horde_SessionHandler drivers to return the session
- * information.  This driver allows for use of caching backends on top of
- * persistent backends.
+ * SessionHandler storage implementation that will loop through a list of
+ * storage drivers to handle the session information.
+ * This driver allows for use of caching backends on top of persistent
+ * backends, for example.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -12,14 +12,15 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  SessionHandler
  */
-class Horde_SessionHandler_Stack extends Horde_SessionHandler
+class Horde_SessionHandler_Storage_Stack extends Horde_SessionHandler_Storage
 {
     /**
-     * Stack of sessionhandlers.
+     * Stack of storage objects.
      *
-     * @var string
+     * @var array
      */
     protected $_stack = array();
 
@@ -28,12 +29,9 @@ class Horde_SessionHandler_Stack extends Horde_SessionHandler
      *
      * @param array $params  Parameters:
      * <pre>
-     * 'stack' - (array) [REQUIRED] A list of sessionhandlers to loop
-     *           through, in order of priority. The last entry is considered
-     *           the "master" server.
-     *           Each value should contain an array with two keys: 'driver', a
-     *           string value with the SessionHandler driver to use, and
-     *           'params', containing any parameters needed by this driver.
+     * stack - (array) [REQUIRED] A list of storage objects to loop
+     *         through, in order of priority. The last entry is considered
+     *         the "master" server.
      * </pre>
      *
      * @throws InvalidArgumentException
@@ -44,24 +42,29 @@ class Horde_SessionHandler_Stack extends Horde_SessionHandler
             throw new InvalidArgumentException('Missing stack parameter.');
         }
 
-        foreach ($params['stack'] as $val) {
-            $this->_stack[] = Horde_SessionHandler::factory($val['driver'], $val['params']);
-        }
-
+        $this->_stack = $params['stack'];
         unset($params['stack']);
 
         parent::__construct($params);
     }
 
     /**
-     * Open the backend.
+     * Set the logger object.
      *
-     * @param string $save_path     The path to the session object.
-     * @param string $session_name  The name of the session.
-     *
-     * @throws Horde_SessionHandler_Exception
+     * @param Horde_Log_Logger $log  The logger instance.
      */
-    protected function _open($save_path = null, $session_name = null)
+    public function setLogger(Horde_Log_Logger $log)
+    {
+        parent::setLogger($log);
+
+        foreach ($this->_stack as $ob) {
+            $ob->setLogger($log);
+        }
+    }
+
+    /**
+     */
+    public function open($save_path = null, $session_name = null)
     {
         foreach ($this->_stack as $val) {
             $val->open($save_path, $session_name);
@@ -69,11 +72,8 @@ class Horde_SessionHandler_Stack extends Horde_SessionHandler
     }
 
     /**
-     * Close the backend.
-     *
-     * @throws Horde_SessionHandler_Exception
      */
-    protected function _close()
+    public function close()
     {
         foreach ($this->_stack as $val) {
             $val->close();
@@ -81,13 +81,8 @@ class Horde_SessionHandler_Stack extends Horde_SessionHandler
     }
 
     /**
-     * Read the data for a particular session identifier from the backend.
-     *
-     * @param string $id  The session identifier.
-     *
-     * @return string  The session data.
      */
-    protected function _read($id)
+    public function read($id)
     {
         foreach ($this->_stack as $val) {
             $result = $val->read($id);
@@ -100,14 +95,8 @@ class Horde_SessionHandler_Stack extends Horde_SessionHandler
     }
 
     /**
-     * Write session data to the backend.
-     *
-     * @param string $id            The session identifier.
-     * @param string $session_data  The session data.
-     *
-     * @return boolean  True on success, false otherwise.
      */
-    protected function _write($id, $session_data)
+    public function write($id, $session_data)
     {
         /* Do writes in *reverse* order - it is OK if a write to one of the
          * non-master backends fails. */
@@ -129,13 +118,6 @@ class Horde_SessionHandler_Stack extends Horde_SessionHandler
     }
 
     /**
-     * Destroy the data for a particular session identifier in the backend.
-     * This method should only be called internally by PHP via
-     * session_set_save_handler().
-     *
-     * @param string $id  The session identifier.
-     *
-     * @return boolean  True on success, false otherwise.
      */
     public function destroy($id)
     {
@@ -154,13 +136,6 @@ class Horde_SessionHandler_Stack extends Horde_SessionHandler
     }
 
     /**
-     * Garbage collect stale sessions from the backend.
-     * This method should only be called internally by PHP via
-     * session_set_save_handler().
-     *
-     * @param integer $maxlifetime  The maximum age of a session.
-     *
-     * @return boolean  True on success, false otherwise.
      */
     public function gc($maxlifetime = 300)
     {
@@ -173,10 +148,6 @@ class Horde_SessionHandler_Stack extends Horde_SessionHandler
     }
 
     /**
-     * Get a list of the valid session identifiers.
-     *
-     * @return array  A list of valid session identifiers.
-     * @throws Horde_SessionHandler_Exception
      */
     public function getSessionIDs()
     {
