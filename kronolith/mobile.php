@@ -22,10 +22,14 @@ Horde_Registry::appInit('kronolith');
 // Probably want to use a customized Kronolith::header() method as well instead
 // of including a common-header-mobile file.
 
-Horde::addInlineScript(Kronolith::includeJSVars());
 $title = _("My Calendar");
-require KRONOLITH_TEMPLATES . '/common-header-mobile.inc';
+require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
+Horde::addInlineScript(Kronolith::includeJSVars());
 ?>
+  <script type="text/javascript" src="<?php echo $registry->get('jsuri', 'horde') ?>/date/en-US.js"></script>
+  <script type="text/javascript" src="<?php echo $registry->get('jsuri', 'horde') ?>/date/date.js"></script>
+</head>
+<body>
 <!-- Day View -->
 <div data-role="page">
   <div data-role="header" data-position="fixed">
@@ -147,4 +151,5 @@ require KRONOLITH_TEMPLATES . '/common-header-mobile.inc';
         }
 }
 </script>
-<?php  $registry->get('templates', 'horde') . '/common-footer-mobile.inc';
+
+<?php $registry->get('templates', 'horde') . '/common-footer-mobile.inc';

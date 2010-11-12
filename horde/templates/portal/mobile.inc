@@ -1,3 +1,5 @@
+</head>
+<body>
 <div data-role="page">
   <div data-role="header">
     <h1><?php echo sprintf(_("Welcome, %s"), $fullname) ?></h1>

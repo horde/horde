@@ -18,14 +18,9 @@ if (is_a($tasks, 'PEAR_Error')) {
     $tasks = new Nag_Task();
 }
 
+require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
+
 ?>
-<!DOCTYPE html>
-<html>
-    <head>
-    <title><?php echo htmlspecialchars($title) ?></title>
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a1/jquery.mobile-1.0a1.min.css" />
-    <script src="http://code.jquery.com/jquery-1.4.3.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.0a1/jquery.mobile-1.0a1.min.js"></script>
 <style type="text/css">
 .ui-icon-nag-checked {
     background-image: url("themes/graphics/checked.png");
@@ -35,8 +30,8 @@ if (is_a($tasks, 'PEAR_Error')) {
 }
 </style>
 </head>
-<body>
 
+<body>
 <div data-role="page">
 
 <div data-role="header"><h1>My Tasks</h1></div>
@@ -136,5 +131,4 @@ if ($tasks->hasTasks()) {
 
 </div>
 
-</body>
-</html>
+<?php $registry->get('templates', 'horde') . '/common-footer-mobile.inc';

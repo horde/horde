@@ -330,7 +330,9 @@ if ($browser->isMobile()) {
         );
     }
 
+    require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
     require $registry->get('templates', 'horde') . '/login/mobile.inc';
+    require $registry->get('templates', 'horde') . '/common-footer-mobile.inc';
     exit;
 }
 
