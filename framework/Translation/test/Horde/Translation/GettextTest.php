@@ -34,4 +34,16 @@ class Horde_Translation_GettextTest extends Horde_Translation_TestBase
         $this->assertEquals('1 Woche', sprintf($this->_dict->ngettext('%d week', '%d weeks', 1), 1));
         $this->assertEquals('2 Wochen', sprintf($this->_dict->ngettext('%d week', '%d weeks', 2), 2));
     }
+
+    public function testInvalidConstruction()
+    {
+        try {
+            new Horde_Translation_Handler_Gettext('Horde_Translation', dirname(__FILE__) . '/DOES_NOT_EXIST');
+        } catch (InvalidArgumentException $e) {
+            $this->assertEquals(
+                dirname(__FILE__) . '/DOES_NOT_EXIST is not a directory',
+                $e->getMessage()
+            );
+        }
+    }
 }

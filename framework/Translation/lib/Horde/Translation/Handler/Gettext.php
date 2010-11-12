@@ -40,7 +40,7 @@ class Horde_Translation_Handler_Gettext implements Horde_Translation_Handler
     public function __construct($domain, $path)
     {
         if (!is_dir($path)) {
-            throw new InvalidArgumentException('$path is not a directory');
+            throw new InvalidArgumentException("$path is not a directory");
         }
         $this->_gettext = function_exists('_');
         if (!$this->_gettext) {
