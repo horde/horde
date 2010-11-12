@@ -92,6 +92,12 @@ class Horde_Share
      */
     protected $_groups;
 
+    /**
+     * A callback that is passed to the share objects for setting the objects'
+     * Horde_Share object.
+     *
+     * @var callback
+     */
     protected $_shareCallback;
 
     /**
