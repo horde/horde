@@ -148,6 +148,7 @@ function send_agendas()
         $view->pad = max(Horde_String::length(_("All day")) + 2, $twentyFour ? 6 : 8);
         $view->dateFormat = $prefs->getValue('date_format');
         $view->timeformat = $twentyFour  ? 'H:i' : 'h:ia';
+        $view->user = $user;
         $view->events = $eventlist;
 
         $mime_mail = new Horde_Mime_Mail(
