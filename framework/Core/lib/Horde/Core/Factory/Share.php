@@ -1,6 +1,6 @@
 <?php
 /**
- * A Horde_Injector:: based Horde_Share:: factory.
+ * A Horde_Injector:: based Horde_Core_Share_Driver:: factory.
  *
  * @category Horde
  * @package  Core

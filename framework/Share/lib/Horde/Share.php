@@ -368,7 +368,7 @@ class Horde_Share
         $this->_shareMap[$id] = $name;
 
         /* Reset caches that depend on unknown criteria. */
-        $this->_listCache = array();
+        $this->_listcache = array();
 
         return $result;
     }
@@ -391,7 +391,7 @@ class Horde_Share
         unset($this->_cache[$share->getName()]);
 
         /* Reset caches that depend on unknown criteria. */
-        $this->_listCache = array();
+        $this->_listcache = array();
 
         return $this->_removeShare($share);
     }
