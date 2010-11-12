@@ -54,7 +54,7 @@ class Horde_Share_Object_Sql extends Horde_Share_Object
     {
         $data = array(
             self::VERSION,
-            $data
+            $this->data,
         );
 
         return serialize($data);
@@ -260,5 +260,4 @@ class Horde_Share_Object_Sql extends Horde_Share_Object
 
         return $perm;
     }
-
 }
