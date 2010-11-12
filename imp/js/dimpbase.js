@@ -162,7 +162,7 @@ var DimpBase = {
             $('appprefs').hasClassName('on')) {
             $('dimpPage').hide();
             $('dimpLoading').show();
-            return DimpCore.redirect(DIMP.conf.URI_DIMP + '#' + escape(loc), true);
+            return DimpCore.redirect(loc, true);
         }
 
         if (loc.startsWith('compose:')) {
