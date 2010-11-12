@@ -972,5 +972,4 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
         $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->shares->initShareObject($this);
         $this->_setModeHelper($this->get('view_mode'));
     }
-
 }

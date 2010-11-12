@@ -40,7 +40,6 @@ class Ansel_Injector_Factory_Storage
             $this->_instances[$scope] = new Ansel_Storage($this->_injector->getInstance('Horde_Core_Factory_Share')->create($scope, 'Sql_Hierarchical'));
         }
 
-       return $this->_instances[$scope];
+        return $this->_instances[$scope];
     }
-
 }

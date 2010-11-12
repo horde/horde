@@ -294,29 +294,29 @@ class Ansel_Storage
      */
     public function getGallery($gallery_id, $overrides = array())
     {
-       if (!count($overrides) && $GLOBALS['conf']['ansel_cache']['usecache'] &&
-           ($gallery = $GLOBALS['injector']->getInstance('Horde_Cache')->get('Ansel_Gallery' . $gallery_id, $GLOBALS['conf']['cache']['default_lifetime'])) !== false) {
+        if (!count($overrides) && $GLOBALS['conf']['ansel_cache']['usecache'] &&
+            ($gallery = $GLOBALS['injector']->getInstance('Horde_Cache')->get('Ansel_Gallery' . $gallery_id, $GLOBALS['conf']['cache']['default_lifetime'])) !== false) {
 
-           $cached_gallery = @unserialize($gallery);
-           if ($cached_gallery) { return $cached_gallery; }
-       }
+            $cached_gallery = unserialize($gallery);
+            if ($cached_gallery) { return $cached_gallery; }
+        }
 
-       try {
-           $result = $this->_shares->getShareById($gallery_id);
-       } catch (Horde_Share_Exception $e) {
-           throw new Ansel_Exception($e);
-       }
+        try {
+            $result = $this->_shares->getShareById($gallery_id);
+        } catch (Horde_Share_Exception $e) {
+            throw new Ansel_Exception($e);
+        }
 
-       // Don't cache if we have overridden anything
-       if (!count($overrides)) {
-           if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-               $GLOBALS['injector']->getInstance('Horde_Cache')->set('Ansel_Gallery' . $gallery_id, serialize($result));
-           }
-       } else {
-           foreach ($overrides as $key => $value) {
-               $result->set($key, $value, false);
-           }
-       }
+        // Don't cache if we have overridden anything
+        if (!count($overrides)) {
+            if ($GLOBALS['conf']['ansel_cache']['usecache']) {
+                $GLOBALS['injector']->getInstance('Horde_Cache')->set('Ansel_Gallery' . $gallery_id, serialize($result));
+            }
+        } else {
+            foreach ($overrides as $key => $value) {
+                $result->set($key, $value, false);
+            }
+        }
 
         return $result;
     }
@@ -1165,7 +1165,6 @@ class Ansel_Storage
      */
     public function getHashes()
     {
-        $hashes = $this->_db->query('SELECT style_hash FROM ansel_hashes;');
+        $hashes = $this->_db->query('SELECT style_hash FROM ansel_hashes');
     }
-
 }

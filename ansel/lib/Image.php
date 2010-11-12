@@ -1354,5 +1354,4 @@ class Ansel_Image Implements Iterator
 
         return $newImage;
     }
-
 }
