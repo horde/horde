@@ -1,3 +1,12 @@
+<script type="text/javascript">
+$.mobile.ajaxFormsEnabled = false;
+$(function() {
+    $('#horde-login-button').click(function() {
+        $('#horde-login-post').val(1);
+        $(this).closest('form').submit();
+    });
+});
+</script>
 </head>
 <body>
 
@@ -11,6 +20,7 @@
   <input type="hidden" name="anchor_string" value="<?php echo htmlspecialchars(strval($vars->anchor_string)) ?>">
   <input type="hidden" name="app" value="<?php echo htmlspecialchars($vars->app) ?>">
   <input type="hidden" name="url" value="<?php echo htmlspecialchars($vars->url) ?>">
+  <input type="hidden" id="horde-login-post" name="login_post">
 
   <fieldset>
 <?php
@@ -44,7 +54,7 @@ foreach ($loginparams as $key => $val) {
   </fieldset>
 
   <fieldset data-role="controlgroup">
-    <input type="submit" data-theme="a" name="login_button" value="<?php echo htmlspecialchars($title) ?>">
+    <input type="button" data-theme="a" id="horde-login-button" value="<?php echo htmlspecialchars($title) ?>">
   </fieldset>
 
 </form>
