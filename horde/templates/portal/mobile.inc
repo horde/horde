@@ -3,7 +3,7 @@
 <div data-role="page">
   <div data-role="header">
     <h1><?php echo sprintf(_("Welcome, %s"), $fullname) ?></h1>
-    <a rel="external" class="ui-btn-right" href="<?php echo $logout_link = Horde::getServiceLink('logout', 'horde')?>"><?php echo _("Logout")?></a>
+    <a rel="external" class="ui-btn-right" href="<?php echo Horde::getServiceLink('logout', 'horde')?>"><?php echo _("Logout")?></a>
   </div>
   <div data-role="content">
     <ul data-role="listview">
