@@ -456,6 +456,7 @@ HTML;
      * 'login'
      * 'logintasks'
      * 'logout'
+     * 'portal'
      * 'problem'
      * 'sidebar'
      * 'prefs'
@@ -516,7 +517,13 @@ HTML;
                 return $url;
             }
             break;
-
+        case 'portal':
+            if ($GLOBALS['browser']->isMobile()) {
+                return self::url('services/portal/mobile.php', false, $opts);
+            } else {
+                return self::url('services/portal/', false, $opts);
+            }
+            break;
         case 'problem':
             return self::url('services/problem.php', false, $opts)
                 ->add('return_url', urlencode(self::selfUrl(true, true, true)));

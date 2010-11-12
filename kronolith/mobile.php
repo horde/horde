@@ -34,6 +34,8 @@ Horde::addInlineScript(Kronolith::includeJSVars());
 <div data-role="page">
   <div data-role="header" data-position="fixed">
    <h1>My Calendar:Day</h1>
+   <a class="ui-btn-left" href="<?php echo Horde::getServiceLink('portal', 'horde')?>"><?php echo _("Home")?></a>
+   <a rel="external" class="ui-btn-right" href="<?php echo Horde::getServiceLink('logout', 'horde')?>"><?php echo _("Logout")?></a>
      <h3 id="todayheader"></h3>
   </div>
   <div data-role="content" class="ui-body" id="daycontent"></div>
