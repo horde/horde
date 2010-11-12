@@ -5,3 +5,6 @@
   <link type="text/css" rel="stylesheet" href="<?php echo $GLOBALS['registry']->get('jsuri', 'horde') ?>/jquery.mobile/jquery.mobile.min.css" />
   <script type="text/javascript" src="<?php echo $GLOBALS['registry']->get('jsuri', 'horde') ?>/jquery.mobile/jquery.min.js"></script>
   <script type="text/javascript" src="<?php echo $GLOBALS['registry']->get('jsuri', 'horde') ?>/jquery.mobile/jquery.mobile.min.js"></script>
+  <script type="text/javascript">
+  $.mobile.page.prototype.options.backBtnText = '<?php echo _("Back") ?>';
+  </script>
