@@ -157,7 +157,9 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
     </div>
 
      <div id="msglistHeader" class="item">
-      <div class="iconImg msgStatus"></div>
+      <div class="iconImg msgStatus">
+       <div class="iconImg msCheck" title="<?php echo _("Select All") ?>"></div>
+      </div>
       <div class="msgFrom sep"></div>
       <div class="msgSubject sep"></div>
       <div class="msgDate sep"></div>
@@ -424,8 +426,6 @@ function _simpleButton($id, $text, $image, $nodisplay = false)
  </div>
 <?php endif; ?>
 <?php endif; ?>
- <div class="sep"></div>
- <a id="oa_selectall"><span class="iconImg"></span><?php echo _("Select All") ?></a>
 <?php if (!$use_trash): ?>
  <div class="sep"></div>
  <a id="oa_purge_deleted"><span class="iconImg"></span><?php echo _("Purge Deleted") ?></a>

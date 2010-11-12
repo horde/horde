@@ -977,9 +977,6 @@ span.dimpactionResume {
 #oa_layout_vert span.iconImg {
     background-image: url("../graphics/application_tile_horizontal.png");
 }
-#oa_selectall span.iconImg {
-    background-image: url("../graphics/tick.png");
-}
 #ctx_folder_create span.iconImg, #ctx_container_create span.iconImg, #ctx_folderopts_new span.iconImg {
     background-image: url("../graphics/folders/create.png");
 }

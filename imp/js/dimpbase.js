@@ -880,10 +880,6 @@ var DimpBase = {
             this.flag('\\deleted', false);
             break;
 
-        case 'oa_selectall':
-            this.selectAll();
-            break;
-
         case 'oa_purge_deleted':
             this.purgeDeleted();
             break;
@@ -2105,7 +2101,12 @@ var DimpBase = {
                 return;
 
             case 'msglistHeader':
-                this.sort(e.element().retrieve('sortby'));
+                tmp = e.element();
+                if (tmp.hasClassName('msCheck')) {
+                    this.selectAll();
+                } else {
+                    this.sort(tmp.retrieve('sortby'));
+                }
                 e.stop();
                 return;
 
