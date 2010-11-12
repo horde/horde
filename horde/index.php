@@ -61,7 +61,7 @@ if ($main_page) {
             ($initial_app != 'horde') &&
             $registry->hasPermission($initial_app)) {
             $main_page = Horde::url($initial_app, true);
-        } else if ($browser->isMobile()) {
+        } elseif ($browser->isMobile()) {
             $main_page = Horde::url('services/portal/mobile.php', true);
         } else {
             /* Next, try the initial horde page if it is something other than
