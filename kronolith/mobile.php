@@ -14,7 +14,7 @@ require_once dirname(__FILE__) . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 //@TODO: Will eventually need a separate Horde::includeScriptFiles for mobile
-//       apps to avoid outputing all the prototype dependant stuff.
+//       apps to avoid outputing all the prototype dependent stuff.
 //
 //Horde::addScriptFile('http://code.jquery.com/jquery-1.4.3.min.js', 'horde', array('external' => true));
 //Horde::addScriptFile('http://code.jquery.com/mobile/1.0a1/jquery.mobile-1.0a1.min.js', 'horde', array('external' => true));
