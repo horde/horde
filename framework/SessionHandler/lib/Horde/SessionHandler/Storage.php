@@ -42,7 +42,7 @@ abstract class Horde_SessionHandler_Storage
      */
     public function __construct(array $params = array())
     {
-        $params = array_merge($this->_params, $params);
+        $this->_params = array_merge($this->_params, $params);
     }
 
     /**

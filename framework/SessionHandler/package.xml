@@ -34,7 +34,8 @@
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Abstracted storage-specific code into &apos;Storage&apos; drivers.
+ <notes>* Added &apos;File&apos; driver.
+* Abstracted storage-specific code into &apos;Storage&apos; drivers.
 * Removed LDAP driver
 * Abstracted memcache persistent-backend code into &apos;Stack&apos; driver.
 * Renamed &apos;none&apos; driver to &apos;Builtin&apos;.
@@ -53,6 +54,7 @@
       <dir name="Storage">
        <file name="Builtin.php" role="php" />
        <file name="External.php" role="php" />
+       <file name="File.php" role="php" />
        <file name="Memcache.php" role="php" />
        <file name="Sql.php" role="php" />
        <file name="Stack.php" role="php" />
@@ -102,6 +104,7 @@
    <install as="Horde/SessionHandler.php" name="lib/Horde/SessionHandler.php" />
    <install as="Horde/SessionHandler/Storage/Builtin.php" name="lib/Horde/SessionHandler/Storage/Builtin.php" />
    <install as="Horde/SessionHandler/Storage/External.php" name="lib/Horde/SessionHandler/Storage/External.php" />
+   <install as="Horde/SessionHandler/Storage/File.php" name="lib/Horde/SessionHandler/Storage/File.php" />
    <install as="Horde/SessionHandler/Storage/Memcache.php" name="lib/Horde/SessionHandler/Storage/Memcache.php" />
    <install as="Horde/SessionHandler/Storage/Sql.php" name="lib/Horde/SessionHandler/Storage/Sql.php" />
    <install as="Horde/SessionHandler/Storage/Stack.php" name="lib/Horde/SessionHandler/Storage/Stack.php" />
