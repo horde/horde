@@ -225,7 +225,7 @@ div.msCheck {
     background-image: url("../graphics/checkbox_off.png");
 }
 div.msCheck:hover {
-    background-image: url("../graphics/checkbox_over.png");
+    background-image: url("../graphics/checkbox_over.png") !important;
 }
 div.vpRowSelected div.msCheck {
     background-image: url("../graphics/checkbox_on.png");
