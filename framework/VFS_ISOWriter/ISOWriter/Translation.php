@@ -27,7 +27,7 @@ class Horde_VFS_ISOWriter_Translation extends Horde_Translation
     static public function t($message)
     {
         self::$_domain = 'Horde_VFS_ISOWriter';
-        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? '../locale' : '@data_dir@/VFS_ISOWriter/locale';
+        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? dirname(__FILE__) . '/../locale' : '@data_dir@/VFS_ISOWriter/locale';
         return parent::t($message);
     }
 
@@ -44,7 +44,7 @@ class Horde_VFS_ISOWriter_Translation extends Horde_Translation
     static public function ngettext($singular, $plural, $number)
     {
         self::$_domain = 'Horde_VFS_ISOWriter';
-        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? '../locale' : '@data_dir@/VFS_ISOWriter/locale';
+        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? dirname(__FILE__) . '/../locale' : '@data_dir@/VFS_ISOWriter/locale';
         return parent::ngettext($singular, $plural, $number);
     }
 }

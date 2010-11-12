@@ -23,14 +23,14 @@ class Horde_Translation_TestWrapper extends Horde_Translation
     static public function t($message)
     {
         self::$_domain = 'Horde_Translation';
-        self::$_directory = 'locale';
+        self::$_directory = dirname(__FILE__) . '/locale';
         return parent::t($message);
     }
 
     static public function ngettext($singular, $plural, $number)
     {
         self::$_domain = 'Horde_Translation';
-        self::$_directory = 'locale';
+        self::$_directory = dirname(__FILE__) . '/locale';
         return parent::ngettext($singular, $plural, $number);
     }
 }

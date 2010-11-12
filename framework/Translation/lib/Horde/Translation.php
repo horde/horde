@@ -54,9 +54,7 @@ abstract class Horde_Translation
         if (!self::$_domain || !self::$_directory) {
             throw new Horde_Translation_Exception('The domain and directory properties must be set by the class that extends Horde_Translation.');
         }
-        $backtrace = debug_backtrace();
-        $directory = dirname($backtrace[1]['file']) . '/' . self::$_directory;
-        self::setHandler(new $handlerClass(self::$_domain, $directory));
+        self::setHandler(new $handlerClass(self::$_domain, self::$_directory));
     }
 
     /**

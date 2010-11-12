@@ -27,7 +27,7 @@ class Horde_Block_Translation extends Horde_Translation
     static public function t($message)
     {
         self::$_domain = 'Horde_Block';
-        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? '../../../locale' : '@data_dir@/Block/locale';
+        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? dirname(__FILE__) . '/../../../locale' : '@data_dir@/Block/locale';
         return parent::t($message);
     }
 
@@ -44,7 +44,7 @@ class Horde_Block_Translation extends Horde_Translation
     static public function ngettext($singular, $plural, $number)
     {
         self::$_domain = 'Horde_Block';
-        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? '../../../locale' : '@data_dir@/Block/locale';
+        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? dirname(__FILE__) . '/../../../locale' : '@data_dir@/Block/locale';
         return parent::ngettext($singular, $plural, $number);
     }
 }
