@@ -1,7 +1,6 @@
 <?php
 /**
- * Horde specific wrapper for Horde_Share drivers. Adds serializable interface,
- * Horde hook calls etc...
+ * Horde specific wrapper for Horde_Share drivers. Adds Horde hook calls etc...
  *
  * Copyright 2002-2010 The Horde Project (http://www.horde.org/)
  *
@@ -13,11 +12,8 @@
  * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
  * @package  Core
  */
-class Horde_Core_Share_Driver implements Serializable
+class Horde_Core_Share_Driver
 {
-    /** Serializable version **/
-    const VERSION = 1;
-
     /**
      * The composed Horde_Share driver
      *
@@ -62,45 +58,6 @@ class Horde_Core_Share_Driver implements Serializable
     public function __call($method, $args)
     {
         return call_user_func_array(array($this->_share, $method), $args);
-    }
-
-    /**
-     * Serializes the object.
-     *
-     * @return string  The serialized object.
-     */
-    public function serialize()
-    {
-        $data = array(
-            self::VERSION,
-            $this->_share);
-
-        return serialize($data);
-    }
-
-    /**
-     * Reconstructs object from serialized properties.
-     *
-     * @param <type> $serialized
-     */
-    public function unserialize($data)
-    {
-        // Rebuild the object
-        $data = @unserialize($data);
-        if (!is_array($data) ||
-            !isset($data[0]) ||
-            ($data[0] != self::VERSION)) {
-            throw new Exception('Cache version change');
-        }
-        $this->_share = $data[1];
-
-        // Set the storage adapter.
-        $this->_share->setStorage($GLOBALS['injector']->getInstance($this->_storageMap[get_class($this->_share)]));
-
-        // Call the init hook
-         try {
-            Horde::callHook('share_init', array($this, $this->_share->getApp()));
-        } catch (Horde_Exception_HookNotSet $e) {}
     }
 
     /**

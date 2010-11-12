@@ -10,7 +10,7 @@
 class Horde_Share_Object_Kolab extends Horde_Share_Object implements Serializable
 {
     /** Serializable version **/
-    const VERSION = 1;
+    const VERSION = 2;
 
     /**
      * The Kolab folder this share is based on.
@@ -79,12 +79,14 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object implements Serializabl
         $data = array(
             self::VERSION,
             $this->_data,
-            $this->_folder_name
+            $this->_folder_name,
+            $this->_shareCallback
         );
     }
 
     /**
-     * Unserialize object. You MUST call setShareOb() after unserializtion.
+     * Unserialize object.
+     *
      * @param <type> $data
      */
     public function unserialize($data)
@@ -98,16 +100,11 @@ class Horde_Share_Object_Kolab extends Horde_Share_Object implements Serializabl
 
         $this->_data = $data[1];
         $this->_folder_name = $data[2];
-    }
-
-    /**
-     * Sets the kolab storage object.
-     *
-     * @param Horde_Kolab_Storage $driver
-     */
-    public function setStorage($driver)
-    {
-        $this->_list = $driver;
+        if (empty($data[3])) {
+            throw new Exception('Missing callback for unserializing Horde_Share_Object');
+        }
+        $this->_shareCallback = $data[3];
+        $this->setShareOb(call_user_func($this->_shareCallback));
     }
 
     /**

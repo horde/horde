@@ -98,7 +98,7 @@ class Horde_Share_Object_Datatree extends Horde_Share_Object
             return true;
         }
 
-        return $this->_shareOb->getPermsObject()->hasPermission($this->getPermission(), $userid, $permission, $creator);
+        return $this->getShareOb()->getPermsObject()->hasPermission($this->getPermission(), $userid, $permission, $creator);
     }
 
     /**

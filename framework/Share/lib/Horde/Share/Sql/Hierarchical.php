@@ -17,21 +17,6 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
     protected $_shareObject = 'Horde_Share_Object_Sql_Hierarchical';
 
     /**
-     * Override new share creation so we can allow for shares with empty
-     * share_names.
-     *
-     * @see Horde_Share::newShare
-     */
-    public function newShare($owner, $name = '')
-    {
-        $share = $this->_newShare();
-        $this->initShareObject($share);
-        $share->set('owner', $owner);
-
-        return $share;
-    }
-
-    /**
      * Returns a new share object.
      *
      * @param string $name  The share's name.
@@ -40,8 +25,7 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
      */
     protected function _newShare()
     {
-        $share = new $this->_shareObject();
-        return $share;
+        return $this->_createObject();
     }
 
     /**
@@ -76,6 +60,10 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
                                     'all_levels' => true,
                                     'ignore_perms' => false),
                               $params);
+        $key = md5(serialize(array($userid, $params)));
+        if (!empty($this->_listcache[$key])) {
+            return $this->_listcache[$key];
+        }
         $shares = array();
         if (is_null($params['sort_by'])) {
             $sortfield = 's.share_id';
@@ -145,15 +133,16 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
         $sharelist = array();
         foreach ($shares as $id => $data) {
             $this->_getSharePerms($data);
-            $sharelist[$id] = new $this->_shareObject($data);
-            $sharelist[$id]->setShareOb($this);
+            $sharelist[$id] = $this->_createObject($data);
         }
         unset($shares);
 
         // Run the results through the callback, if configured.
         if (!empty($this->_callbacks['list'])) {
-            return $this->runCallback('list', array($userid, $sharelist, $params));
+            $sharelist = $this->runCallback('list', array($userid, $sharelist, $params));
         }
+
+        $this->_listcache[$key] = $sharelist;
 
         return $sharelist;
     }
@@ -189,7 +178,7 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
         }
         $key = hash('sha1', serialize(array($userid, $perm, $parent_id, $allLevels, $attributes, $ignorePerms)));
         if (isset($criteria[$key])) {
-            //return $criteria[$key];
+            return $criteria[$key];
         }
 
         $query = ' FROM ' . $this->_table . ' s ';
@@ -381,8 +370,7 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
     {
         if (!isset($this->_cache[$cid])) {
             $share = $this->_getShareById($cid);
-            $share->setShareOb($this);
-            $this->_cache[$cid] = &$share;
+            $this->_cache[$cid] = $share;
         }
 
         return $this->_cache[$cid];
@@ -403,7 +391,7 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
         $missing_ids = array();
         foreach ($cids as $cid) {
             if (isset($this->_cache[$cid])) {
-                $all_shares[] = &$this->_cache[$cid];
+                $all_shares[] = $this->_cache[$cid];
             } else {
                 $missing_ids[] = $cid;
             }
@@ -412,9 +400,8 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
         if (count($missing_ids)) {
             $shares = $this->_getShares($missing_ids);
             foreach (array_keys($shares) as $key) {
-                $this->_cache[$key] = &$shares[$key];
-                $this->_cache[$key]->setShareOb($this);
-                $all_shares[$key] = &$this->_cache[$key];
+                $this->_cache[$key] = $shares[$key];
+                $all_shares[$key] = $this->_cache[$key];
             }
         }
 
@@ -507,7 +494,7 @@ class Horde_Share_Sql_Hierarchical extends Horde_Share_Sql
 
         $sharelist = array();
         foreach ($shares as $id => $data) {
-            $sharelist[$id] = new $this->_shareObject($data);
+            $sharelist[$id] = $this->_createObject($data);
         }
 
         return $sharelist;

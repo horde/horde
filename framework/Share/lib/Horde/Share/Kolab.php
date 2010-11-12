@@ -64,88 +64,6 @@ class Horde_Share_kolab extends Horde_Share
         }
     }
 
-//    /**
-//     * Returns the properties that need to be serialized.
-//     *
-//     * @return array  List of serializable properties.
-//     */
-//    public function __sleep()
-//    {
-//        $properties = get_object_vars($this);
-//        unset($properties['_sortList'], $properties['_list']);
-//        $properties = array_keys($properties);
-//        return $properties;
-//    }
-//    /**
-//     * Initializes the object.
-//     *
-//     * @throws Horde_Exception
-//     */
-//    public function __wakeup()
-//    {
-//        if (empty($GLOBALS['conf']['kolab']['enabled'])) {
-//            throw new Horde_Exception('You must enable the kolab settings to use the Kolab Share driver.');
-//        }
-//        $this->_type = $this->_getFolderType($this->_app);
-//        $this->_list = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage');
-//
-//        parent::__wakeup();
-//    }
-
-    /**
-     * Serialize the object. You *MUST* call setStorage() after unserialized.
-     *
-     * @return string
-     */
-    public function serialize()
-    {
-        $data = array(
-            self::VERSION,
-            $this->_app,
-            $this->_root,
-            $this->_cache,
-            $this->_shareMap,
-            $this->_listcache,
-            $this->_shareObject,
-            $this->_permsObject,
-            $this->_type,
-            $this->_listCacheValidity,
-            $this->_session);
-
-        return serialize($data);
-    }
-
-    /**
-     * Reconstruct object from serialized data. You MUST call setStorage()
-     * after unserialize.
-     *
-     * @param <type> $data
-     */
-    public function unserialize($data)
-    {
-        // Rebuild the object
-        $data = @unserialize($data);
-        if (!is_array($data) ||
-            !isset($data[0]) ||
-            ($data[0] != self::VERSION)) {
-            throw new Exception('Cache version change');
-        }
-        $this->_app = $data[1];
-        $this->_root = $data[2];
-        $this->_cache = $data[3];
-        $this->_shareMap = $data[4];
-        $this->_listcache = $data[5];
-        $this->_shareObject = $data[6];
-        $this->_permsObject = $data [7];
-        $this->_type = $data[8];
-        $this->_listCacheValidity = $data[9];
-        $this->_session = $data[10];
-
-        foreach (array_keys($this->_cache) as $name) {
-            $this->_initShareObject($this->_cache[$name]);
-        }
-    }
-
     /**
      * (re)connect the share object to this share driver. Userful for when
      * share objects are unserialized from a cache separate from the share
@@ -328,6 +246,9 @@ class Horde_Share_kolab extends Horde_Share
      */
     protected function &_newShare($name)
     {
+        if (empty($name)) {
+            throw new Horde_Share_Exception('Share names must be non-empty');
+        }
         $storageObject = new Horde_Share_Object_Kolab($name, $this->_type);
         return $storageObject;
     }

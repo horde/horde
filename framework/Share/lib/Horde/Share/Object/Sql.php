@@ -7,10 +7,10 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Horde_Share
  */
-class Horde_Share_Object_Sql extends Horde_Share_Object
+class Horde_Share_Object_Sql extends Horde_Share_Object implements Serializable
 {
     /** Serializable version **/
-    const VERSION = 1;
+    const VERSION = 2;
 
     /**
      * The actual storage object that holds the data.
@@ -46,7 +46,7 @@ class Horde_Share_Object_Sql extends Horde_Share_Object
     }
 
     /**
-     * Serialize this object. You *MUST* call setShareOb() after unserializing.
+     * Serialize this object.
      *
      * @return string  The serialized data.
      */
@@ -55,6 +55,7 @@ class Horde_Share_Object_Sql extends Horde_Share_Object
         $data = array(
             self::VERSION,
             $this->data,
+            $this->_shareCallback,
         );
 
         return serialize($data);
@@ -62,8 +63,6 @@ class Horde_Share_Object_Sql extends Horde_Share_Object
 
     /**
      * Reconstruct the object from serialized data.
-     *
-     * You *MUST* call setShareOb() after unserializing.
      *
      * @param string $data  The serialized data.
      */
@@ -77,6 +76,10 @@ class Horde_Share_Object_Sql extends Horde_Share_Object
         }
 
         $this->data = $data[1];
+        if (empty($data[2])) {
+            throw new Exception('Missing callback for Horde_Share_Object unserializing');
+        }
+        $this->_shareCallback = $data[2];
     }
 
     /**
@@ -138,14 +141,14 @@ class Horde_Share_Object_Sql extends Horde_Share_Object
      */
     protected function _save()
     {
-        $db = $this->_shareOb->getStorage();
-        $table = $this->_shareOb->getTable();
+        $db = $this->getShareOb()->getStorage();
+        $table = $this->getShareOb()->getTable();
 
         $fields = array();
         $params = array();
 
         // Build the parameter arrays for the sql statement.
-        foreach ($this->_shareOb->toDriverCharset($this->data) as $key => $value) {
+        foreach ($this->getShareOb()->toDriverCharset($this->data) as $key => $value) {
             if ($key != 'share_id' && $key != 'perm' && $key != 'share_flags') {
                 $fields[] = $key;
                 $params[] = $value;
@@ -224,7 +227,7 @@ class Horde_Share_Object_Sql extends Horde_Share_Object
         if ($userid == $this->data['share_owner']) {
             return true;
         }
-        return $this->_shareOb->getPermsObject()->hasPermission($this->getPermission(), $userid, $permission, $creator);
+        return $this->getShareOb()->getPermsObject()->hasPermission($this->getPermission(), $userid, $permission, $creator);
     }
 
     /**

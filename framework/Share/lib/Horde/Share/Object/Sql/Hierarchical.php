@@ -36,7 +36,7 @@ class Horde_Share_Object_Sql_Hierarchical extends Horde_Share_Object_Sql
      */
     public function countChildren($user, $perm = Horde_Perms::SHOW, $allLevels = true)
     {
-        return $this->_shareOb->countShares($user, $perm, null, $this, $allLevels);
+        return $this->getShareOb()->countShares($user, $perm, null, $this, $allLevels);
     }
 
     /**
@@ -51,7 +51,7 @@ class Horde_Share_Object_Sql_Hierarchical extends Horde_Share_Object_Sql
      */
     public function getChildren($user, $perm = Horde_Perms::SHOW, $allLevels = true)
     {
-        return $this->_shareOb->listShares(
+        return $this->getShareOb()->listShares(
             $user, array('perm' => $perm,
                          'direction' => 1,
                          'parent' => $this,
@@ -66,7 +66,7 @@ class Horde_Share_Object_Sql_Hierarchical extends Horde_Share_Object_Sql
      */
     public function getParent()
     {
-        return $this->_shareOb->getParent($this);
+        return $this->getShareOb()->getParent($this);
     }
 
     /**
@@ -96,12 +96,12 @@ class Horde_Share_Object_Sql_Hierarchical extends Horde_Share_Object_Sql
     public function setParent($parent)
     {
         if (!is_null($parent) && !is_a($parent, 'Horde_Share_Object')) {
-            $parent = $this->_shareOb->getShareById($parent);
+            $parent = $this->getShareOb()->getShareById($parent);
         }
 
         /* If we are an existing share, check for any children */
         if ($this->getId()) {
-            $children = $this->_shareOb->listShares(null,
+            $children = $this->getShareOb()->listShares(null,
                 array('perm' => Horde_Perms::EDIT,
                       'parent' => $this,
                       'all_levels' => true,
@@ -121,9 +121,9 @@ class Horde_Share_Object_Sql_Hierarchical extends Horde_Share_Object_Sql
             $parent_string = null;
         }
         $this->data['share_parents'] = $parent_string;
-        $sql = 'UPDATE ' . $this->_shareOb->getTable() . ' SET share_parents = ? WHERE share_id = ?';
+        $sql = 'UPDATE ' . $this->getShareOb()->getTable() . ' SET share_parents = ? WHERE share_id = ?';
         try {
-            $this->_shareOb->getStorage()->update($sql, array($this->data['share_parents'], $this->getId()));
+            $this->getShareOb()->getStorage()->update($sql, array($this->data['share_parents'], $this->getId()));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Share_Exception($e->getMessage());
         }

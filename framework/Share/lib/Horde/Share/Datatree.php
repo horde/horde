@@ -79,7 +79,7 @@ class Horde_Share_Datatree extends Horde_Share
         if ($datatreeObject instanceof PEAR_Error) {
             throw new Horde_Share_Exception($datatreeObject->getMessage());
         }
-        $share = new $this->_shareObject($datatreeObject);
+        $share = $this->_createObject($datatreeObject);
 
         return $share;
     }
@@ -99,7 +99,7 @@ class Horde_Share_Datatree extends Horde_Share
         if (is_a($datatreeObject, 'PEAR_Error')) {
             throw new Horde_Share_Exception($datatreeObject->getMessage());
         }
-        $share = new $this->_shareObject($datatreeObject);
+        $share = $this->_createObject($datatreeObject);
 
         return $share;
     }
@@ -125,7 +125,7 @@ class Horde_Share_Datatree extends Horde_Share
             if (is_a($objects[$key], 'PEAR_Error')) {
                 return $objects[$key];
             }
-            $shares[$key] = new $this->_shareObject($objects[$key]);
+            $shares[$key] = $this->_createObject($objects[$key]);
         }
         return $shares;
     }
@@ -205,17 +205,21 @@ class Horde_Share_Datatree extends Horde_Share
     }
 
     /**
-     * Returns a new share object.
+     * Returns a new share object. Share objects should *ALWAYS* be instantiated
+     * via the Horde_Share object.
      *
      * @param string $name  The share's name.
      *
      * @return Horde_Share_Object_datatree  A new share object.
      */
-    protected function &_newShare($name)
+    protected function _newShare($name)
     {
+        if (empty($name)) {
+            throw new Horde_Share_Exception('Share names must be non-empty');
+        }
         $datatreeObject = new Horde_Share_Object_DataTree_Share($name);
         $datatreeObject->setDataTree($this->_datatree);
-        $share = new $this->_shareObject($datatreeObject);
+        $share = $this->_createObject($datatreeObject);
 
         return $share;
     }

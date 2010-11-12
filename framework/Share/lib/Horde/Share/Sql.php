@@ -16,7 +16,7 @@
 /**
  * @package Horde_Share
  */
-class Horde_Share_Sql extends Horde_Share implements Serializable
+class Horde_Share_Sql extends Horde_Share
 {
     /* Share has user perms */
     const SQL_FLAG_USERS = 1;
@@ -56,75 +56,6 @@ class Horde_Share_Sql extends Horde_Share implements Serializable
     {
         parent::__construct($app, $user, $perms, $groups);
         $this->_table = $this->_app . '_shares';
-    }
-
-    /**
-     * Serializes the object. Includes all properties except _table (this can
-     * be determined by _app), and _db (which is injected when unserialized).
-     * Note that you MUST set the db adapter after unserializing, but calling
-     * the setDb() method.
-     *
-     * @return string  The serialized object.
-     */
-    public function serialize()
-    {
-        $data = array(
-            self::VERSION,
-            $this->_app,
-            $this->_root,
-            $this->_cache,
-            $this->_shareMap,
-            $this->_listcache,
-            $this->_shareObject,
-            $this->_permsObject,
-            $this->_groups
-        );
-
-        return serialize($data);
-    }
-
-    /**
-     * Reconstructs object from serialized properties.
-     * Note: You MUST set the db adapter via setDb() after unserializing this
-     * object.
-     *
-     * @param string $serialized
-     */
-    public function unserialize($data)
-    {
-        $data = @unserialize($data);
-        if (!is_array($data) ||
-            !isset($data[0]) ||
-            ($data[0] != self::VERSION)) {
-            throw new Exception('Cache version change');
-        }
-
-        $this->_app = $data[1];
-        $this->_root = $data[2];
-        $this->_cache = $data[3];
-        $this->_shareMap = $data[4];
-        $this->_listcache = $data[5];
-        $this->_shareObject = $data[6];
-        $this->_permsObject = $data[7];
-        $this->_groups = $data[8];
-
-        $this->_table = $this->_app . '_shares';
-
-        foreach (array_keys($this->_cache) as $name) {
-            $this->initShareObject($this->_cache[$name]);
-        }
-    }
-
-    /**
-     * (re)connect the share object to this share driver. Userful for when
-     * share objects are unserialized from a cache separate from the share
-     * driver.
-     *
-     * @param Horde_Share_Object $object
-     */
-    public function initShareObject($object)
-    {
-        $object->setShareOb($this);
     }
 
     /**
@@ -232,7 +163,15 @@ class Horde_Share_Sql extends Horde_Share implements Serializable
         $data = $this->_fromDriverCharset($results);
         $this->_loadPermissions($data);
 
-        return new $this->_shareObject($data);
+        return $this->_createObject($data);
+    }
+
+    protected function _createObject($data = array())
+    {
+        $object = new $this->_shareObject($data);
+        $this->initShareObject($object);
+
+        return $object;
     }
 
     /**
@@ -279,7 +218,7 @@ class Horde_Share_Sql extends Horde_Share implements Serializable
         $data = $this->_fromDriverCharset($results);
         $this->_loadPermissions($data);
 
-        return new $this->_shareObject($data);
+        return $this->_createObject($data);
     }
 
     /**
@@ -342,7 +281,7 @@ class Horde_Share_Sql extends Horde_Share implements Serializable
         $sharelist = array();
         foreach ($shares as $id => $data) {
             $this->_getSharePerms($data);
-            $sharelist[$data['share_name']] = new $this->_shareObject($data);
+            $sharelist[$data['share_name']] = $this->_createObject($data);
         }
 
         return $sharelist;
@@ -408,8 +347,7 @@ class Horde_Share_Sql extends Horde_Share implements Serializable
         $sharelist = array();
         foreach ($shares as $id => $data) {
             $this->_getSharePerms($data);
-            $sharelist[$data['share_name']] = new $this->_shareObject($data);
-            $sharelist[$data['share_name']]->setShareOb($this);
+            $sharelist[$data['share_name']] = $this->_createObject($data);
         }
 
         return $sharelist;
@@ -433,7 +371,6 @@ class Horde_Share_Sql extends Horde_Share implements Serializable
      */
     public function listShares($userid, $params = array())
     {
-        //var_dump($params);
         $params = array_merge(array('perm' => Horde_Perms::SHOW,
                                     'attributes' => null,
                                     'from' => 0,
@@ -441,6 +378,11 @@ class Horde_Share_Sql extends Horde_Share implements Serializable
                                     'sort_by' => null,
                                     'direction' => 0),
                               $params);
+
+        $key = md5(serialize(array($userid, $params)));
+        if (!empty($this->_listcache[$key])) {
+            return $this->_listcache[$key];
+        }
         $shares = array();
         if (is_null($params['sort_by'])) {
             $sortfield = 's.share_name';
@@ -510,17 +452,17 @@ class Horde_Share_Sql extends Horde_Share implements Serializable
         $sharelist = array();
         foreach ($shares as $id => $data) {
             $this->_getSharePerms($data);
-            $sharelist[$data['share_name']] = new $this->_shareObject($data);
-            $sharelist[$data['share_name']]->setShareOb($this);
+            $sharelist[$data['share_name']] = $this->_createObject($data);
         }
         unset($shares);
 
         // Run the results through the callback, if configured.
         if (!empty($this->_callbacks['list'])) {
-            return $this->runCallback('list', array($userid, $sharelist, $params));
+            $sharelist = $this->runCallback('list', array($userid, $sharelist, $params));
         }
+        $this->_listcache[$key] = $sharelist;
 
-        return $sharelist;
+        return $this->_listcache[$key];
     }
 
     /**
@@ -544,8 +486,7 @@ class Horde_Share_Sql extends Horde_Share implements Serializable
         foreach ($rows as $share) {
             $data = $this->_fromDriverCharset($share);
             $this->_getSharePerms($data);
-            $sharelist[$data['share_name']] = new $this->_shareObject($data);
-            $sharelist[$data['share_name']]->setShareOb($this);
+            $sharelist[$data['share_name']] = $this->_createObject($data);
         }
 
         return $sharelist;
@@ -582,7 +523,10 @@ class Horde_Share_Sql extends Horde_Share implements Serializable
      */
     protected function _newShare($name)
     {
-        return new $this->_shareObject(array('share_name' => $name));
+        if (empty($name)) {
+            throw new Horde_Share_Exception('Share names must be non-empty');
+        }
+        return $this->_createObject(array('share_name' => $name));
     }
 
     /**

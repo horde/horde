@@ -11,7 +11,7 @@
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
+class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical implements Serializable
 {
     /**
      * The gallery mode helper
@@ -965,11 +965,25 @@ class Ansel_Gallery extends Horde_Share_Object_Sql_Hierarchical
     {
         return $this->_modeHelper->getGalleryCrumbData();
     }
+/**
+     * Serialize this object.
+     *
+     * @return string  The serialized data.
+     */
+    public function serialize()
+    {
+        $data = array(
+            self::VERSION,
+            $this->data,
+            $this->_shareCallback,
+        );
+
+        return serialize($data);
+    }
 
     public function unserialize($data)
     {
         parent::unserialize($data);
-        $GLOBALS['injector']->getInstance('Ansel_Injector_Factory_Storage')->create()->shares->initShareObject($this);
         $this->_setModeHelper($this->get('view_mode'));
     }
 }

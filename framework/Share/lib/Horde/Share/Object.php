@@ -12,30 +12,34 @@
 abstract class Horde_Share_Object implements Serializable
 {
     /**
+     * A function to be called when a Horde_Share object is needed and not
+     * available.
+     *
+     * @var callback
+     */
+    protected $_shareCallback;
+
+    /**
      * The Horde_Share object which this share is associated with.
+     * If this is empty, the $_shareCallback is called to obtain it.
      *
      * @var Horde_Share
      */
     protected $_shareOb;
 
     /**
-     * Associates a Share object with this share.
+     * Associates a Share object with this share, or provides a callback that
+     * knows how to provide it.
      *
-     * @param Horde_Share $shareOb  The Share object.
+     * @param mixed Horde_Share | Callback $shareOb  The Share object.
      */
-    public function setShareOb(Horde_Share $shareOb)
+    public function setShareOb($shareOb)
     {
-        $this->_shareOb = $shareOb;
-    }
-
-    /**
-     * Sets any additional storage driver this object may need.
-     *
-     * @param mixed $driver  The storage driver. 
-     */
-    public function setStorage($driver)
-    {
-        // Noop
+        if ($shareOb instanceof Horde_Share) {
+            $this->_shareOb = $shareOb;
+        } else {
+            $this->_shareCallback = $shareOb;
+        }
     }
 
     /**
@@ -45,6 +49,10 @@ abstract class Horde_Share_Object implements Serializable
      */
     public function getShareOb()
     {
+        if (empty($this->_shareOb)) {
+            $this->_shareOb = call_user_func($this->_shareCallback);
+        }
+
         return $this->_shareOb;
     }
 
@@ -101,7 +109,7 @@ abstract class Horde_Share_Object implements Serializable
      */
     public function save()
     {
-        $this->_shareOb->runCallback('modify', array($this));
+        $this->getShareOb()->runCallback('modify', array($this));
         return $this->_save();
     }
 

@@ -92,6 +92,8 @@ class Horde_Share
      */
     protected $_groups;
 
+    protected $_shareCallback;
+
     /**
      * Configured callbacks. We currently support:
      *<pre>
@@ -130,15 +132,24 @@ class Horde_Share
     }
 
     /**
-     * (re)connect the share object to this share driver. Userful for when
-     * share objects are unserialized from a cache separate from the share
-     * driver.
+     * (re)connect the share object to this share driver.
      *
      * @param Horde_Share_Object $object
      */
-    public function initShareObject($object)
+    public function initShareObject(Horde_Share_Object $object)
     {
-        // noop
+        $object->setShareOb($this->_shareCallback);
+        $this->_initShareObject($object);
+    }
+
+    protected function _initShareObject(Horde_Share_Object $object)
+    {
+        // noop here
+    }
+
+    public function setShareCallback($callback)
+    {
+        $this->_shareCallback = $callback;
     }
 
     /**
@@ -166,7 +177,6 @@ class Horde_Share
         }
 
         $share = $this->_getShare($name);
-        $share->setShareOb($this);
         $this->_shareMap[$share->getId()] = $name;
         $this->_cache[$name] = $share;
 
@@ -185,7 +195,6 @@ class Horde_Share
     {
         if (!isset($this->_shareMap[$cid])) {
             $share = $this->_getShareById($cid);
-            $share->setShareOb($this);
             $name = $share->getName();
             $this->_cache[$name] = $share;
             $this->_shareMap[$cid] = $name;
@@ -217,7 +226,6 @@ class Horde_Share
             $shares = $this->_getShares($missing_ids);
             foreach (array_keys($shares) as $key) {
                 $this->_cache[$key] = $shares[$key];
-                $this->_cache[$key]->setShareOb($this);
                 $this->_shareMap[$shares[$key]->getId()] = $key;
                 $all_shares[$key] = $this->_cache[$key];
             }
@@ -327,14 +335,11 @@ class Horde_Share
      * @return Horde_Share_Object  A new share object.
      * @throws Horde_Share_Exception
      */
-    public function newShare($owner, $name)
+    public function newShare($owner, $name = '')
     {
-        if (empty($name)) {
-            throw new Horde_Share_Exception('Share names must be non-empty');
-        }
         $share = $this->_newShare($name);
-        $this->initShareObject($share);
         $share->set('owner', $owner);
+        $share->setShareOb(empty($this->_shareCallback) ? $this : $this->_shareCallback);
 
         return $share;
     }
@@ -470,6 +475,26 @@ class Horde_Share
     public function addCallback($type, $callback)
     {
         $this->_callbacks[$type] = $callback;
+    }
+
+    /**
+     * Returns an opaque value representing this share's listcache.
+     *
+     * @return string
+     */
+    public function getListCache()
+    {
+        return serialize($this->_listcache);
+    }
+
+    /**
+     * Set the list cache by passing in a previously retrieved listcache.
+     *
+     * @param string $cache
+     */
+    public function setListCache($cache)
+    {
+        $this->_listcache = unserialize($cache);
     }
 
     /**

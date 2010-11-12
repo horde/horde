@@ -23,8 +23,8 @@ Application Framework.</description>
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2010-11-04</date>
- <time>01:53:57</time>
+ <date>2010-11-12</date>
+ <time>13:50:27</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -161,6 +161,7 @@ Application Framework.</description>
        <file name="Secret.php" role="php" />
        <file name="SessionHandler.php" role="php" />
        <file name="Share.php" role="php" />
+       <file name="ShareBase.php" role="php" />
        <file name="Template.php" role="php" />
        <file name="TextFilter.php" role="php" />
        <file name="Token.php" role="php" />
@@ -205,6 +206,7 @@ Application Framework.</description>
       </dir> <!-- /lib/Horde/Core/Prefs -->
       <dir name="Share">
        <file name="Driver.php" role="php" />
+       <file name="FactoryCallback.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Share -->
       <dir name="Text">
        <dir name="Filter">
@@ -776,6 +778,7 @@ Application Framework.</description>
    <install as="Horde/Core/Factory/Secret.php" name="lib/Horde/Core/Factory/Secret.php" />
    <install as="Horde/Core/Factory/SessionHandler.php" name="lib/Horde/Core/Factory/SessionHandler.php" />
    <install as="Horde/Core/Factory/Share.php" name="lib/Horde/Core/Factory/Share.php" />
+   <install as="Horde/Core/Factory/ShareBase.php" name="lib/Horde/Core/Factory/ShareBase.php" />
    <install as="Horde/Core/Factory/Template.php" name="lib/Horde/Core/Factory/Template.php" />
    <install as="Horde/Core/Factory/TextFilter.php" name="lib/Horde/Core/Factory/TextFilter.php" />
    <install as="Horde/Core/Factory/Token.php" name="lib/Horde/Core/Factory/Token.php" />
@@ -796,6 +799,7 @@ Application Framework.</description>
    <install as="Horde/Core/Prefs/Storage/Session.php" name="lib/Horde/Core/Prefs/Storage/Session.php" />
    <install as="Horde/Core/Prefs/Ui/Widgets.php" name="lib/Horde/Core/Prefs/Ui/Widgets.php" />
    <install as="Horde/Core/Share/Driver.php" name="lib/Horde/Core/Share/Driver.php" />
+   <install as="Horde/Core/Share/FactoryCallback.php" name="lib/Horde/Core/Share/FactoryCallback.php" />
    <install as="Horde/Core/Text/Filter/Bbcode.php" name="lib/Horde/Core/Text/Filter/Bbcode.php" />
    <install as="Horde/Core/Text/Filter/Emails.php" name="lib/Horde/Core/Text/Filter/Emails.php" />
    <install as="Horde/Core/Text/Filter/Emoticons.php" name="lib/Horde/Core/Text/Filter/Emoticons.php" />
@@ -945,7 +949,7 @@ Initial packaging
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2010-11-04</date>
+   <date>2010-11-12</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Add Horde_Session.
