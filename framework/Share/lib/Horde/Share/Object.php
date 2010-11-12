@@ -9,7 +9,7 @@
  * @author  Gunnar Wrobel <wrobel@pardus.de>
  * @package Horde_Share
  */
-class Horde_Share_Object
+abstract class Horde_Share_Object implements Serializable
 {
     /**
      * The Horde_Share object which this share is associated with.
@@ -235,5 +235,4 @@ class Horde_Share_Object
     public function getPermission()
     {
     }
-
 }
