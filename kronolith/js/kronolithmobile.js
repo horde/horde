@@ -20,6 +20,7 @@
         data = data.response;
         $("#daycontent ul").detach();
         $("#todayheader").html(KronolithMobile.currentDate.toString(Kronolith.conf.date_format));
+
         var list = $('<ul>').attr({ 'data-role': 'listview' });
         var type = data.cal.split('|')[0], cal = data.cal.split('|')[1];
         if (data.events) {
@@ -40,9 +41,11 @@
                     list.append(item.append(a));
                 });
             });
-            list.listview();
-            $("#daycontent").append(list);
+        } else {
+            list.append($('<li>').append(Kronolith.text.noevents));
         }
+        list.listview();
+        $("#daycontent").append(list);
     },
 
     loadEvent: function(cal, idy, d)

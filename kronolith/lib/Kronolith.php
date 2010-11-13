@@ -314,6 +314,7 @@ class Kronolith
             'wrong_date_format' => sprintf(_("You used an unknown date format \"%s\". Please try something like \"%s\"."), '#{wrong}', '#{right}'),
             'wrong_time_format' => sprintf(_("You used an unknown time format \"%s\". Please try something like \"%s\"."), '#{wrong}', '#{right}'),
             'fix_form_values' => _("Please enter correct values in the form first."),
+            'noevents' => _("No events to display"),
         );
         for ($i = 1; $i <= 12; ++$i) {
             $code['text']['month'][$i - 1] = Horde_Nls::getLangInfo(constant('MON_' . $i));
