@@ -24,134 +24,48 @@ Horde_Registry::appInit('kronolith');
 
 $title = _("My Calendar");
 require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
-Horde::addInlineScript(Kronolith::includeJSVars());
 ?>
+  <?php Horde::addInlineScript(Kronolith::includeJSVars());?>
   <script type="text/javascript" src="<?php echo $registry->get('jsuri', 'horde') ?>/date/en-US.js"></script>
   <script type="text/javascript" src="<?php echo $registry->get('jsuri', 'horde') ?>/date/date.js"></script>
+  <script type="text/javascript" src="<?php echo $registry->get('jsuri', 'kronolith') ?>/kronolithmobile.js"></script>
 </head>
 <body>
-<!-- Day View -->
-<div data-role="page">
+
+<!-- Initial, Day view -->
+<div data-role="page" id="dayview">
   <div data-role="header" data-position="fixed">
    <h1>My Calendar:Day</h1>
    <a class="ui-btn-left" href="<?php echo Horde::getServiceLink('portal', 'horde')?>"><?php echo _("Home")?></a>
    <a rel="external" class="ui-btn-right" href="<?php echo Horde::getServiceLink('logout', 'horde')?>"><?php echo _("Logout")?></a>
-     <h3 id="todayheader"></h3>
+   <h4 id="todayheader"></h4>
   </div>
   <div data-role="content" class="ui-body" id="daycontent"></div>
   <div data-role="footer">
-    <a href="mobile.php?test=1">Summary</a>
-    <a href="mobile.php?test=2">Month</a>
-    <a href="mobile.php?view=day" data-role="button">Day</a>
+    <a href="#">Summary</a>
+    <a href="#">Month</a>
+    <a href="#" data-role="button">Day</a>
   </div>
+</div>
+
+<!-- Single Event -->
+<div data-role="page" id="eventview">
+  <div data-role="header" data-position="fixed"><h1>Event Title Here?</h1></div>
+  <div data-role="content" class="ui-body" id="eventcontent"></div>
+  <div data-role="footer"></div>
 </div>
 
 <!-- Overview Page -->
 <div data-role="page" id="overview">
-  <div data-role="header" data-position="fixed">
-   <h1>My Calendar:List</h1>
-  </div>
+  <div data-role="header" data-position="fixed"><h1>My Calendar: Overview</h1></div>
   <div data-role="content" class="ui-body"></div>
+  <div data-role="footer"></div>
 </div>
 
-<!-- Singe Event View -->
-<div data-role="page" id="eventview">
-    <div data-role="header" data-position="fixed"><h1>Event</h1></div>
-    <div data-role="content" class="ui-body" id="eventcontent"></div>
-    <div data-role="footer"></div>
-</div>
-
-<!-- Month View -->
 <div data-role="page" id="monthview">
-    <div data-role="header" data-position="fixed"><h1>Event</h1></div>
-    <div data-role="content" class="ui-body" id="monthcontent"></div>
-    <div data-role="footer"></div>
+ <div data-role="header" data-position="fixed"><h1>Month</h1></div>
+ <div data-role="content" class="ui-body" id="monthcontent"></div>
+ <div data-role="footer"></div>
 </div>
-
-<script type="text/javascript">
-    $(function() {
-        // Global ajax options.
-        $.ajaxSetup({
-            dataFilter: function(data, type)
-            {
-                // Remove json security token
-                filter = /^\/\*-secure-([\s\S]*)\*\/s*$/;
-                return data.replace(filter, "$1");
-            }
-        });
-
-        // For now, start at today's day view
-        Kronolith.currentDate = new Date();
-        $('body').bind('swipeleft', function(e) {
-            Kronolith.currentDate.addDays(1);
-            KronolithMobile.doAction('listEvents',
-                                     {'start': Kronolith.currentDate.toString("yyyyMMdd"), 'end': Kronolith.currentDate.toString("yyyyMMdd"), 'cal': Kronolith.conf.default_calendar},
-                                     KronolithMobile.listEventsCallback
-            );
-        });
-
-        $('body').bind('swiperight', function(e) {
-                Kronolith.currentDate.addDays(-1);
-                KronolithMobile.doAction('listEvents',
-                                         {'start': Kronolith.currentDate.toString("yyyyMMdd"), 'end': Kronolith.currentDate.toString("yyyyMMdd"), 'cal': Kronolith.conf.default_calendar},
-                                         KronolithMobile.listEventsCallback
-                );
-        });
-
-        // Load today
-        KronolithMobile.doAction('listEvents',
-                                 {'start': Kronolith.currentDate.toString("yyyyMMdd"), 'end': Kronolith.currentDate.toString("yyyyMMdd"), 'cal': Kronolith.conf.default_calendar},
-                                 KronolithMobile.listEventsCallback
-        );
-    });
-
-    KronolithMobile = {
-
-        doAction: function(action, params, callback)
-        {
-            $.post(Kronolith.conf.URI_AJAX + action, params, callback, 'json');
-        },
-
-        listEventsCallback: function(data)
-        {
-            data = data.response;
-            $("#daycontent ul").detach();
-            $("#todayheader").html(Kronolith.currentDate.toString(Kronolith.conf.date_format));
-            var list = $('<ul>').attr({'data-role': 'listview'});
-            var type = data.cal.split('|')[0], cal = data.cal.split('|')[1];
-            if (data.events) {
-                $.each(data.events, function(datestring, events) {
-                    $.each(events, function(index, event) {
-                        // set .text() first, then .html() to escape
-                        var d = $('<div style="color:' + Kronolith.conf.calendars[type][cal].bg + '">');
-                        var item = $('<li>').append();
-                        d.text(Date.parse(event.s).toString(Kronolith.conf.time_format)
-                            + ' - '
-                            + Date.parse(event.e).toString(Kronolith.conf.time_format)
-                            + ' '
-                            + event.t).html();
-                        var a = $('<a>').attr({'href': '#eventview'}).click(function(e) {
-                            KronolithMobile.loadEvent(data.cal, index, Date.parse(event.e));
-                        }).append(d);
-                        list.append(item.append(a));
-                    });
-                });
-                list.listview();
-                $("#daycontent").append(list);
-            }
-        },
-
-        loadEvent: function(cal, idy, d)
-        {
-            $.post(Kronolith.conf.URI_AJAX + 'getEvent',
-                   {'cal': cal, 'id': idy, 'date': d.toString('yyyyMMdd')},
-                   function(data)
-                   {
-                       $("#eventcontent").text(data.response.event.t);
-                   },
-                   'json');
-        }
-}
-</script>
 
 <?php $registry->get('templates', 'horde') . '/common-footer-mobile.inc';

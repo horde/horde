@@ -42,6 +42,13 @@ class Kronolith_Application extends Horde_Registry_Application
     public $ajaxView = true;
 
     /**
+     * Does this application support a mobile view?
+     *
+     * @var boolean
+     */
+    public $mobileView = true;
+
+    /**
      * The application's version.
      *
      * @var string
