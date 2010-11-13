@@ -34,18 +34,21 @@ require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
 
 <!-- Initial, Day view -->
 <div data-role="page" id="dayview">
-  <div data-role="header" data-position="fixed">
+  <div data-role="header">
    <h1>My Calendar:Day</h1>
    <a class="ui-btn-left" href="<?php echo Horde::getServiceLink('portal', 'horde')?>"><?php echo _("Home")?></a>
    <a rel="external" class="ui-btn-right" href="<?php echo Horde::getServiceLink('logout', 'horde')?>"><?php echo _("Logout")?></a>
    <div class="ui-bar-b" style="width:100%;text-align:center;"><a href="#" data-icon="arrow-l" id="prevDay"><?php echo _("Previous")?></a><span id="todayheader"></span><a href="#" data-icon="arrow-r" id="nextDay"><?php echo _("Next")?></a></div>
-
   </div>
   <div data-role="content" class="ui-body" id="daycontent"></div>
-  <div data-role="footer">
-    <a href="#">Summary</a>
-    <a href="#">Month</a>
-    <a href="#" data-role="button">Day</a>
+  <div data-role="footer" data-position="fixed">
+   <div data-role="navbar">
+    <ul>
+     <li><a href="#" class="ui-btn-active">Day</a></li>
+     <li><a href="#monthview">Month</a></li>
+     <li><a href="#overview">Summary</a></li>
+    </ul>
+   </div>
   </div>
 </div>
 
@@ -58,15 +61,31 @@ require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
 
 <!-- Overview Page -->
 <div data-role="page" id="overview">
-  <div data-role="header" data-position="fixed"><h1>My Calendar: Overview</h1></div>
+  <div data-role="header"><h1>My Calendar: Overview</h1></div>
   <div data-role="content" class="ui-body"></div>
-  <div data-role="footer"></div>
+  <div data-role="footer" data-position="fixed">
+   <div data-role="navbar">
+    <ul>
+     <li><a href="#dayview">Day</a></li>
+     <li><a href="#monthview">Month</a></li>
+     <li><a href="#" class="ui-btn-active">Summary</a></li>
+    </ul>
+   </div>
+  </div>
 </div>
 
 <div data-role="page" id="monthview">
- <div data-role="header" data-position="fixed"><h1>Month</h1></div>
+ <div data-role="header"><h1>Month</h1></div>
  <div data-role="content" class="ui-body" id="monthcontent"></div>
- <div data-role="footer"></div>
+  <div data-role="footer" data-position="fixed">
+   <div data-role="navbar">
+    <ul>
+     <li><a href="#dayview">Day</a></li>
+     <li><a href="#" class="ui-btn-active">Month</a></li>
+     <li><a href="#overview">Summary</a></li>
+    </ul>
+   </div>
+  </div>
 </div>
 
 <?php $registry->get('templates', 'horde') . '/common-footer-mobile.inc';
