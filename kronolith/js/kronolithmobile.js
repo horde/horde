@@ -48,37 +48,43 @@
         $("#daycontent").append(list);
     },
 
-    loadEvent: function(cal, idy, d)
+    loadEvent: function(cal, id, d)
     {
         $.post(Kronolith.conf.URI_AJAX + 'getEvent',
-               {'cal': cal, 'id': idy, 'date': d.toString('yyyyMMdd')},
-               function(data)
-               {
-                    $('#eventcontent ul').detach();
-                    var event = data.response.event;
-                    console.log(event);
-
-                    var list = $('<ul>').attr({ 'data-role': 'listview', 'data-inset': true });
-
-                    // @TODO: Use css classes
-                    var text = '<strong>' + event.t + '</strong>'
-                     + '<div style="color:grey">' + event.l + '</div>';
-
-                    if (event.al) {
-                        text = text + '<div>' + Kronolith.text.allday + '</div>';
-                    } else {
-                        text = text + '<div>' + Date.parse(event.s).toString('D') + '</div>'
-                            + '<div>' + Date.parse(event.s).toString(Kronolith.conf.time_format) + ' - ' + Date.parse(event.e).toString(Kronolith.conf.time_format);
-                    }
-                    var item = $('<li>').append(text);
-                    list.append(item);
-
-                    text = event.d;
-                    list.append($('<li>').append(text));
-                    list.listview();
-                    $('#eventcontent').append(list);
-               },
+               {'cal': cal, 'id': id, 'date': d.toString('yyyyMMdd')},
+                KronolithMobile.loadEventCallback,
                'json');
+    },
+
+    loadEventCallback: function(data)
+    {
+         $('#eventcontent ul').detach();
+         var event = data.response.event;
+         var list = $('<ul>').attr({ 'data-role': 'listview', 'data-inset': true });
+
+         // @TODO: Use css classes
+
+         // Title and location
+         var text = '<strong>' + event.t + '</strong>'
+          + '<div style="color:grey">' + event.l + '</div>';
+
+         // Time
+         if (event.r) {
+             // Recurrence still TODO
+             text = text + '<div>Recurrence</div>';
+         } else if (event.al) {
+             text = text + '<div>' + Kronolith.text.allday + '</div>';
+         } else {
+             text = text + '<div>' + Date.parse(event.s).toString('D') + '</div>'
+                 + '<div>' + Date.parse(event.s).toString(Kronolith.conf.time_format) + ' - ' + Date.parse(event.e).toString(Kronolith.conf.time_format);
+         }
+         var item = $('<li>').append(text);
+         list.append(item);
+
+         text = event.d;
+         list.append($('<li>').append(text));
+         list.listview();
+         $('#eventcontent').append(list);
     },
 
     showNextDay: function()
