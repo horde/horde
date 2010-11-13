@@ -133,7 +133,7 @@ echo '</table>';
 if ($readmes) {
     $readmeCollection = new Chora_Readme_Collection($readmes);
     $readmeFile = $readmeCollection->chooseReadme();
-    $readmeRenderer = new Chora_Renderer_File_Pretty($injector->createInstance('Horde_View_Base'), $readmeFile, $readmeFile->queryRevision());
+    $readmeRenderer = new Chora_Renderer_File_Html($injector->createInstance('Horde_View_Base'), $readmeFile, $readmeFile->queryRevision());
     echo $readmeRenderer->render();
 }
 require $registry->get('templates', 'horde') . '/common-footer.inc';

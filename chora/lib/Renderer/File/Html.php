@@ -8,7 +8,7 @@
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @package Chora
  */
-class Chora_Renderer_File_Pretty extends Chora_Renderer_File
+class Chora_Renderer_File_Html extends Chora_Renderer_File
 {
     public function render()
     {
@@ -28,6 +28,6 @@ class Chora_Renderer_File_Pretty extends Chora_Renderer_File
             $this->_view->pretty->setConfigParam('inline', true);
         }
 
-        return $this->_view->render('app/views/file/pretty.html.php');
+        return $this->_view->render('app/views/file/html.html.php');
     }
 }
