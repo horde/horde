@@ -22,11 +22,17 @@ require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
 
 ?>
 <style type="text/css">
-.ui-icon-nag-checked {
-    background-image: url("themes/graphics/checked.png");
-}
 .ui-icon-nag-unchecked {
-    background-image: url("themes/graphics/unchecked.png");
+    background-image: none;
+}
+.overdue {
+    color: #f00;
+}
+.closed {
+    color: #aaa;
+}
+.closed a {
+    text-decoration: line-through;
 }
 </style>
 </head>
@@ -102,7 +108,7 @@ if ($tasks->hasTasks()) {
                     $label = sprintf(_("Complete \"%s\""), $task->name);
                 }
             } else {
-                $icon = 'nag-checked';
+                $icon = 'check';
                 if ($task->parent && $task->parent->completed) {
                     $href = '#';
                     $label = _("Completed parent task, mark it as incomplete first");
@@ -115,14 +121,14 @@ if ($tasks->hasTasks()) {
             $href = '#';
             if ($task->completed) {
                 $label = _("Completed");
-                $icon = 'nag-checked';
+                $icon = 'check';
             } else {
                 $label = _("Not completed");
                 $icon = 'nag-unchecked';
             }
         }
 
-        echo '<li' . $style . ' data-split-icon="' . $icon . '"><a href="' . $task_link . '">' . htmlspecialchars($task->name) . '</a><a href="' . $href . '">' . $label . '</a></li>';
+        echo '<li' . $style . '><a rel="external" href="' . $task_link . '">' . htmlspecialchars($task->name) . '</a><a rel="external" data-icon="' . $icon . '" href="' . $href . '">' . $label . '</a></li>';
     }
 }
 ?>
