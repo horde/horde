@@ -51,7 +51,7 @@ require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
 
 <!-- Single Event -->
 <div data-role="page" id="eventview">
-  <div data-role="header" data-position="fixed"><h1>Event Title Here?</h1></div>
+  <div data-role="header" data-theme="b"><h1>Event</h1></div>
   <div data-role="content" class="ui-body" id="eventcontent"></div>
   <div data-role="footer"></div>
 </div>
