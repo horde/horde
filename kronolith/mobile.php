@@ -38,7 +38,8 @@ require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
    <h1>My Calendar:Day</h1>
    <a class="ui-btn-left" href="<?php echo Horde::getServiceLink('portal', 'horde')?>"><?php echo _("Home")?></a>
    <a rel="external" class="ui-btn-right" href="<?php echo Horde::getServiceLink('logout', 'horde')?>"><?php echo _("Logout")?></a>
-   <h4 id="todayheader"></h4>
+   <div class="ui-bar-b" style="width:100%;text-align:center;"><a href="#" data-icon="arrow-l" id="prevDay"><?php echo _("Previous")?></a><span id="todayheader"></span><a href="#" data-icon="arrow-r" id="nextDay"><?php echo _("Next")?></a></div>
+
   </div>
   <div data-role="content" class="ui-body" id="daycontent"></div>
   <div data-role="footer">

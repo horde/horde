@@ -53,6 +53,24 @@
                    $("#eventcontent").text(data.response.event.t);
                },
                'json');
+    },
+
+    showNextDay: function()
+    {
+        KronolithMobile.currentDate.addDays(1);
+        KronolithMobile.doAction('listEvents',
+                                 {'start': KronolithMobile.currentDate.toString("yyyyMMdd"), 'end': KronolithMobile.currentDate.toString("yyyyMMdd"), 'cal': Kronolith.conf.default_calendar},
+                                 KronolithMobile.listEventsCallback
+        );
+    },
+
+    showPrevDay: function()
+    {
+        KronolithMobile.currentDate.addDays(-1);
+        KronolithMobile.doAction('listEvents',
+                                 {'start': KronolithMobile.currentDate.toString("yyyyMMdd"), 'end': KronolithMobile.currentDate.toString("yyyyMMdd"), 'cal': Kronolith.conf.default_calendar},
+                                 KronolithMobile.listEventsCallback
+        );
     }
 };
 
@@ -71,21 +89,10 @@ $(function() {
     // For now, start at today's day view
     KronolithMobile.currentDate = new Date();
 
-    $('body').bind('swipeleft', function(e) {
-        KronolithMobile.currentDate.addDays(1);
-        KronolithMobile.doAction('listEvents',
-                                 {'start': KronolithMobile.currentDate.toString("yyyyMMdd"), 'end': KronolithMobile.currentDate.toString("yyyyMMdd"), 'cal': Kronolith.conf.default_calendar},
-                                 KronolithMobile.listEventsCallback
-        );
-    });
-
-    $('body').bind('swiperight', function(e) {
-            KronolithMobile.currentDate.addDays(-1);
-            KronolithMobile.doAction('listEvents',
-                                     {'start': KronolithMobile.currentDate.toString("yyyyMMdd"), 'end': KronolithMobile.currentDate.toString("yyyyMMdd"), 'cal': Kronolith.conf.default_calendar},
-                                     KronolithMobile.listEventsCallback
-            );
-    });
+    $('body').bind('swipeleft', KronolithMobile.showNextDay);
+    $('body').bind('swiperight', KronolithMobile.showPrevDay);
+    $('#prevDay').bind('click', KronolithMobile.showPrevDay);
+    $('#nextDay').bind('click', KronolithMobile.showNextDay);
 
     // Load today
     KronolithMobile.doAction('listEvents',
