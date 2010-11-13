@@ -8,7 +8,7 @@
   <div data-role="content">
     <ul data-role="listview">
       <?php foreach ($links as $key => $val): ?>
-      <li class="extlink"><img class="ui-li-icon" src="<?php echo $val[1] ?>"><?php echo $val[0]->link(array('rel' => 'external')) ?><?php echo $key ?></a></li>
+       <li class="extlink"><img class="ui-li-icon" src="<?php echo $val[1] ?>"><?php echo $val[0]->link(array('rel' => 'external')) ?><?php echo $key ?></a></li>
       <?php endforeach; ?>
     </ul>
   </div>
