@@ -78,14 +78,11 @@ foreach ($VC->getRevisionRange($fl, $r1, $r2) as $val) {
     }
 }
 
-/* Get list of diff types. */
-$diff_types = array_flip($VC->availableDiffTypes());
-
 Horde::addScriptFile('stripe.js', 'horde');
 require CHORA_TEMPLATES . '/common-header.inc';
 require CHORA_TEMPLATES . '/menu.inc';
 require CHORA_TEMPLATES . '/headerbar.inc';
-require CHORA_TEMPLATES . '/diff/hr/header.inc';
+require CHORA_TEMPLATES . '/diff/header.inc';
 
 $mime_type = Horde_Mime_Magic::filenameToMIME($fullname);
 if (substr($mime_type, 0, 6) == 'image/') {
@@ -96,74 +93,10 @@ if (substr($mime_type, 0, 6) == 'image/') {
     echo "<tr><td><img src=\"$url1\" alt=\"" . htmlspecialchars($r1) . '" /></td>' .
         "<td><img src=\"$url2\" alt=\"" . htmlspecialchars($r2) . '" /></td></tr>';
 } else {
-    /* Retrieve the tree of changes. */
-    $lns = $VC->diff($fl, $r1, $r2, array('human' => true, 'num' => $num, 'ws' => $ws));
-    if (!$lns) {
-        /* Is the diff empty? */
-        require CHORA_TEMPLATES . '/diff/hr/nochange.inc';
-    } else {
-        /* Iterate through every header block of changes. */
-        foreach ($lns as $header) {
-            $lefthead = $header['oldline'];
-            $righthead = $header['newline'];
-            require CHORA_TEMPLATES . '/diff/hr/row.inc';
-
-            /* Each header block consists of a number of changes
-             * (add, remove, change). */
-            $curContext = '';
-            foreach ($header['contents'] as $change) {
-                if (!empty($curContext) && $change['type'] != 'empty') {
-                    $line = $curContext;
-                    $curContext = '';
-                    require CHORA_TEMPLATES . '/diff/hr/empty.inc';
-                }
-
-                switch ($change['type']) {
-                case 'add':
-                    $line = '';
-                    foreach ($change['lines'] as $l) {
-                        $line .= htmlspecialchars($l) . '<br />';
-                    }
-                    require CHORA_TEMPLATES . '/diff/hr/add.inc';
-                    break;
-
-                case 'remove':
-                    $line = '';
-                    foreach ($change['lines'] as $l) {
-                        $line .= htmlspecialchars($l) . '<br />';
-                    }
-                    require CHORA_TEMPLATES . '/diff/hr/remove.inc';
-                    break;
-
-                case 'empty':
-                    $curContext .= htmlspecialchars($change['line']) . '<br />';
-                    break;
-
-                case 'change':
-                    /* Pop the old/new stacks one by one, until both are
-                     * empty. */
-                    $oldsize = count($change['old']);
-                    $newsize = count($change['new']);
-                    $left = $right = '';
-                    for ($row = 0, $rowMax = max($oldsize, $newsize); $row < $rowMax; ++$row) {
-                        $left .= isset($change['old'][$row]) ? htmlspecialchars($change['old'][$row]) : '';
-                        $left .= '<br />';
-                        $right .= isset($change['new'][$row]) ? htmlspecialchars($change['new'][$row]) : '';
-                        $right .= '<br />';
-                    }
-                    require CHORA_TEMPLATES . '/diff/hr/change.inc';
-                    break;
-                }
-            }
-
-            if (!empty($curContext)) {
-                $line = $curContext;
-                $curContext = '';
-                require CHORA_TEMPLATES . '/diff/hr/empty.inc';
-            }
-        }
-    }
+    $view = $injector->createInstance('Horde_View_Base');
+    $view->addHelper('Chora_Diff_Helper');
+    echo $view->diff($VC->diff($fl, $r1, $r2, array('human' => true, 'num' => $num, 'ws' => $ws)));
+    echo $view->diffCaption();
 }
 
-require CHORA_TEMPLATES . '/diff/hr/footer.inc';
 require $registry->get('templates', 'horde') . '/common-footer.inc';

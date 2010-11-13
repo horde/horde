@@ -12,7 +12,7 @@ form#repository-picker {
 
 /* Options boxes. */
 div.options, div.browsefileoptions {
-    margin: 0 0 8px 5px;
+    margin: 0 0 8px 0;
 }
 div.options div, div.browsefileoptions div {
     display: -moz-inline-stack;
@@ -34,9 +34,9 @@ div.browsefileoptions form {
 
 /* Tables. */
 table.revlog, table.headerbar, table.browse, table.stats {
-    width: 99%;
+    width: 100%;
     font-size: 100%;
-    margin: 0 0 8px 5px;
+    margin: 0 0 8px 0;
     border-top: 1px solid #ddd;
     border-left: 1px solid #ddd;
 }
@@ -66,7 +66,7 @@ table.headerbar td {
 
 /* History View. */
 table.history, p.history {
-    margin: 0 0 8px 5px;
+    margin: 0 0 8px 0;
     border: 1px solid #ddd;
 }
 table.history a {
@@ -76,7 +76,7 @@ table.history a {
 
 /* Individual revision information. */
 div.revision_log {
-    margin: 2px 5px 8px 5px;
+    margin: 2px 5px 8px 0;
     border: 1px solid #ddd;
     padding: 3px;
 }
@@ -95,7 +95,7 @@ h3.revision_log, h3.checkout, h3.file-view-header {
     background: #e9e9e9;
     display: inline;
     font-weight: bold;
-    margin: 0 0 0 5px;
+    margin: 0;
     font-size: 90%;
     padding: 2px;
     border: 1px solid #ddd;
@@ -185,7 +185,7 @@ ul.singlepsfiles li {
 /* Checkout, File view */
 div.checkout, div.file-view-contents {
     padding: 3px;
-    margin: 2px 5px 8px 5px;
+    margin: 2px 5px 8px 0;
     border: 1px solid #ddd;
 }
 div.file-view {
@@ -200,7 +200,7 @@ div.file-view {
 /* Annotate styles. */
 table.annotate {
     width: 99%;
-    margin: 0 0 8px 5px;
+    margin: 0 0 8px 0;
     border-top: 1px solid #ddd;
     border-left: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
@@ -224,54 +224,49 @@ table.annotate .logentry {
 }
 
 /* Diff styles. */
-table.hrdiff {
-    width: 99%;
+table.diff {
+    width: 100%;
     font-size: 100%;
-    margin: 0 0 8px 5px;
+    margin: 0 0 8px 0;
 }
-table.hrdiff th {
-    text-align: left;
-    width: 50%;
-}
-table.hrdiff thead th {
-    font-weight: bold;
-    font-size: 110%;
-    padding: 2px;
-}
-table.hrdiff tbody th {
-    padding: 2em 1px 1px 1px;
+table.diff th {
     font-size: 80%;
+    font-weight: bold;
 }
-table.hrdiff .unmodified {
+
+div.diff {
+    overflow: auto;
+}
+
+.diff-unmodified {
     background: #fff;
+    color: #666;
 }
-table.hrdiff .added {
-    background: #9f9;
+.diff-added {
+    background: #afa;
 }
-table.hrdiff .added_empty {
+.diff-added-empty {
     background: #cfc;
 }
-table.hrdiff .modified {
-    background: #fd9;
+.diff-modified {
+    background: #cdf;
 }
-table.hrdiff .removed {
+.diff-removed {
     background: #f99;
 }
-table.hrdiff .removed_empty {
+.diff-removed-empty {
     background: #fcc;
 }
-table.hrdiff caption {
-    caption-side: top;
+
+.diff-caption {
     text-align: left;
-    margin: 0 0 8px 5px;
+    margin: 0 0 8px 0;
     font-size: 90%;
     font-weight: bold;
     padding: 5px;
 }
-table.hrdiff caption img, img.chora-stats {
+.diff-caption img {
     border: 1px solid #000;
-}
-table.hrdiff caption img {
     height: 10px;
     width: 10px;
     margin-left: 0.5em;
@@ -280,7 +275,7 @@ table.hrdiff caption img {
 
 div.difflog {
     padding: 2px;
-    margin: 5px;
+    margin: 0;
     border: 1px solid #ddd;
 }
 div.diffclear {
@@ -290,6 +285,10 @@ div.diffclear {
 /* Browsefile definitions. */
 td.browseLocation em {
     display: block;
+}
+
+img.chora-stats {
+    border: 1px solid #000;
 }
 
 .historybg {

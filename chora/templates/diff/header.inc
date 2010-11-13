@@ -7,18 +7,7 @@
    <input type="hidden" name="r2" value="<?php echo htmlspecialchars(Horde_Util::getFormData('r2')) ?>" />
    <?php echo _("Download diff as: ") ?>
    <select name="t" onchange="this.form.submit()">
-<?php if (isset($diff_types['unified'])): ?>
     <option value="unified"><?php echo _("Unified") ?></option>
-<?php endif; ?>
-<?php if (isset($diff_types['context'])): ?>
-    <option value="context"><?php echo _("Context") ?></option>
-<?php endif; ?>
-<?php if (isset($diff_types['column'])): ?>
-    <option value="column"><?php echo _("Column") ?></option>
-<?php endif; ?>
-<?php if (isset($diff_types['ed'])): ?>
-    <option value="ed"><?php echo _("Ed Script") ?></option>
-<?php endif; ?>
    </select>
    <input class="button" type="submit" value="<?php echo _("Get Diff") ?>" /><br />
   </form>
@@ -49,19 +38,3 @@
 <?php endforeach; ?>
 </div>
 <?php endif; ?>
-
-<table cellspacing="0" class="hrdiff">
-<caption>
- <?php $blank = Horde_Themes::img('blank.gif') ?>
- <img class="unmodified" src="<?php echo $blank ?>" alt="<?php echo _("Unmodified") ?>" /> <?php echo _("Unmodified") ?>
- <img class="added" src="<?php echo $blank ?>" alt="<?php echo _("Added") ?>" /> <?php echo _("Added") ?>
- <img class="modified" src="<?php echo $blank ?>" alt="<?php echo _("Modified") ?>" /> <?php echo _("Modified") ?>
- <img class="removed" src="<?php echo $blank ?>" alt="<?php echo _("Removed") ?>" /> <?php echo _("Removed") ?>
-</caption>
-<thead>
-<tr>
- <th><a href="<?php echo Chora::url('co', $where, array('r' => $r1)) ?>" title="<?php echo htmlspecialchars($r1) ?>"><?php printf(_("Version %s"), htmlspecialchars($abbrev_r1)) ?></a></th>
- <th><a href="<?php echo Chora::url('co', $where, array('r' => $r2)) ?>" title="<?php echo htmlspecialchars($r2) ?>"><?php printf(_("Version %s"), htmlspecialchars($abbrev_r2)) ?></a></th>
-</tr>
-</thead>
-<tbody>
