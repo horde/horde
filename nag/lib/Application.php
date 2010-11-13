@@ -40,6 +40,13 @@ class Nag_Application extends Horde_Registry_Application
     public $version = 'H4 (3.0-git)';
 
     /**
+     * Indicate this app has a mobile view available.
+     *
+     * @var boolean
+     */
+    public $mobileView = true;
+
+    /**
      * Initialization function.
      *
      * Global variables defined:
