@@ -21,7 +21,7 @@
         $("#daycontent ul").detach();
         $("#todayheader").html(KronolithMobile.currentDate.toString(Kronolith.conf.date_format));
 
-        var list = $('<ul>').attr({ 'data-role': 'listview' });
+        var list = $('<ul>').attr({'data-role': 'listview'});
         var type = data.cal.split('|')[0], cal = data.cal.split('|')[1];
         if (data.events) {
             $.each(data.events, function(datestring, events) {
@@ -60,7 +60,7 @@
     {
          $('#eventcontent ul').detach();
          var event = data.response.event;
-         var list = $('<ul>').attr({ 'data-role': 'listview', 'data-inset': true });
+         var list = $('<ul>').attr({'data-role': 'listview', 'data-inset': true});
 
          // @TODO: Use css classes
 
@@ -103,6 +103,120 @@
                                  {'start': KronolithMobile.currentDate.toString("yyyyMMdd"), 'end': KronolithMobile.currentDate.toString("yyyyMMdd"), 'cal': Kronolith.conf.default_calendar},
                                  KronolithMobile.listEventsCallback
         );
+    },
+
+    showPrevMonth: function()
+    {
+        var d = KronolithMobile.parseDate($('#kronolithMinicalDate').data('date'));
+        KronolithMobile.buildCal(d.addMonths(-1));
+    },
+
+    showNextMonth: function()
+    {
+        var d = KronolithMobile.parseDate($('#kronolithMinicalDate').data('date'));
+        KronolithMobile.buildCal(d.addMonths(1));
+    },
+
+    /**
+     * Calculates first and last days being displayed.
+     *
+     * @var Date date    The date of the view.
+     * @var string view  A view name.
+     *
+     * @return array  Array with first and last day of the view.
+     */
+    viewDates: function(date, view)
+    {
+        var start = date.clone(), end = date.clone();
+
+        switch (view) {
+        case 'week':
+            start.moveToBeginOfWeek(Kronolith.conf.week_start);
+            end.moveToEndOfWeek(Kronolith.conf.week_start);
+            break;
+        case 'month':
+            start.setDate(1);
+            start.moveToBeginOfWeek(Kronolith.conf.week_start);
+            end.moveToLastDayOfMonth();
+            end.moveToEndOfWeek(Kronolith.conf.week_start);
+            break;
+        case 'year':
+            start.setDate(1);
+            start.setMonth(0);
+            end.setMonth(11);
+            end.moveToLastDayOfMonth();
+            break;
+        case 'agenda':
+            end.add(6).days();
+            break;
+        }
+
+        return [start, end];
+    },
+    /**
+     * Creates a mini calendar suitable for the navigation calendar and the
+     * year view.
+     *
+     * @param Element tbody    The table body to add the days to.
+     * @param Date date        The date to show in the calendar.
+     * @param string view      The view that's displayed, determines which days
+     *                         in the mini calendar are highlighted.
+     * @param string idPrefix  If present, each day will get a DOM ID with this
+     *                         prefix
+     */
+    buildCal: function(date)
+    {
+        var tbody = $('#kronolithMinical table tbody');
+        var dates = this.viewDates(date, 'month'), day = dates[0].clone(),
+        today = Date.today(), dateString, td, tr, i;
+
+        // Remove old calendar rows.
+        tbody.children().remove();
+
+        // Update title
+        $('#kronolithMinicalDate')
+            .data('date', date.toString('yyyyMMdd'))
+            .html(date.toString('MMMM yyyy'));
+        for (i = 0; i < 42; i++) {
+            dateString = day.toString('yyyyMMdd');
+            // Create calendar row and insert week number.
+            if (day.getDay() == Kronolith.conf.week_start) {
+                tr = $('<tr>');
+                tbody.append(tr);
+            }
+
+            // Insert day cell.
+            td = $('<td>').data('date', dateString);
+            if (day.getMonth() != date.getMonth()) {
+                td.addClass('kronolithMinicalEmpty');
+            }
+            // Highlight today.
+            if (day.equals(today)) {
+                td.addClass('kronolithToday');
+            }
+            td.html(day.getDate());
+            tr.append(td);
+            day.next().day();
+        }
+    },
+
+    /**
+     * Parses a date attribute string into a Date object.
+     *
+     * For other strings use Date.parse().
+     *
+     * @param string date  A yyyyMMdd date string.
+     *
+     * @return Date  A date object.
+     */
+    parseDate: function(date)
+    {
+        var d = new Date(date.substr(0, 4), date.substr(4, 2) - 1, date.substr(6, 2));
+        if (date.length == 12) {
+            d.setHours(date.substr(8, 2));
+            d.setMinutes(date.substr(10, 2));
+        }
+        return d;
     }
 };
 
@@ -120,7 +234,6 @@ $(function() {
 
     // For now, start at today's day view
     KronolithMobile.currentDate = new Date();
-
     $('body').bind('swipeleft', KronolithMobile.showNextDay);
     $('body').bind('swiperight', KronolithMobile.showPrevDay);
     $('#prevDay').bind('click', KronolithMobile.showPrevDay);
@@ -131,4 +244,55 @@ $(function() {
                              {'start': KronolithMobile.currentDate.toString("yyyyMMdd"), 'end': KronolithMobile.currentDate.toString("yyyyMMdd"), 'cal': Kronolith.conf.default_calendar},
                              KronolithMobile.listEventsCallback
     );
+
+    // Test the month building
+    var date = KronolithMobile.currentDate;
+    KronolithMobile.buildCal(date);
+
+    $('#kronolithMinicalPrev').bind('click', KronolithMobile.showPrevMonth);
+    $('#kronolithMinicalNext').bind('click', KronolithMobile.showNextMonth);
+    $('#monthcontent').bind('swipeleft', KronolithMobile.showNextMonth);
+    $('#monthcontent').bind('swiperight', KronolithMobile.showPrevMonth);
 });
+
+// Some Date extensions from horde.js that can't be included because of it's
+// use of prototype.js
+Date.prototype.getRealWeek = function()
+{
+    var monday = this;
+    if (monday.getDay() < 1) {
+        monday = monday.clone().next().monday();
+    }
+    return monday.getWeek();
+};
+
+/**
+ * Moves a date to the end of the corresponding week.
+ *
+ * @return Date  The same Date object, now pointing to the end of the week.
+ */
+Date.prototype.moveToEndOfWeek = function(weekStart)
+{
+    var weekEndDay = weekStart + 6;
+    if (weekEndDay > 6) {
+        weekEndDay -= 7;
+    }
+    if (this.getDay() != weekEndDay) {
+        this.moveToDayOfWeek(weekEndDay, 1);
+    }
+    return this;
+};
+
+/**
+ * Moves a date to the begin of the corresponding week.
+ *
+ * @return Date  The same Date object, now pointing to the begin of the
+ *               week.
+ */
+Date.prototype.moveToBeginOfWeek = function(weekStart)
+{
+    if (this.getDay() != weekStart) {
+        this.moveToDayOfWeek(weekStart, -1);
+    }
+    return this;
+};

@@ -24,11 +24,13 @@ Horde_Registry::appInit('kronolith');
 
 $title = _("My Calendar");
 require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
+$today = new Horde_Date($_SERVER['REQUEST_TIME']);
 ?>
   <?php Horde::addInlineScript(Kronolith::includeJSVars());?>
   <script type="text/javascript" src="<?php echo $registry->get('jsuri', 'horde') ?>/date/en-US.js"></script>
   <script type="text/javascript" src="<?php echo $registry->get('jsuri', 'horde') ?>/date/date.js"></script>
   <script type="text/javascript" src="<?php echo $registry->get('jsuri', 'kronolith') ?>/kronolithmobile.js"></script>
+  <link href="/horde/kronolith/themes/screen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 
@@ -74,9 +76,31 @@ require $registry->get('templates', 'horde') . '/common-header-mobile.inc';
   </div>
 </div>
 
+<!-- Month View -->
 <div data-role="page" id="monthview">
  <div data-role="header"><h1>Month</h1></div>
- <div data-role="content" class="ui-body" id="monthcontent"></div>
+ <div data-role="content" class="ui-body" id="monthcontent">
+  <div id="kronolithMinical" class="kronolithMinical">
+    <table>
+    <caption>
+      <a href="#" id="kronolithMinicalPrev" title="<?php echo _("Previous month") ?>">&lt;</a>
+      <a href="#" id="kronolithMinicalNext" title="<?php echo _("Next month") ?>">&gt;</a>
+      <span id="kronolithMinicalDate"><?php echo $today->format('F Y') ?></span>
+    </caption>
+
+    <thead>
+      <tr>
+        <?php for ($i = $prefs->getValue('week_start_monday'), $c = $i + 7; $i < $c; $i++): ?>
+        <th title="<?php echo Horde_Nls::getLangInfo(constant('DAY_' . ($i % 7 + 1))) ?>"><?php echo substr(Horde_Nls::getLangInfo(constant('DAY_' . ($i % 7 + 1))), 0, 1) ?></th>
+        <?php endfor; ?>
+      </tr>
+    </thead>
+
+    <tbody><tr><td>test</td></tr></tbody>
+    </table>
+  </div>
+
+ </div>
   <div data-role="footer" data-position="fixed">
    <div data-role="navbar">
     <ul>
