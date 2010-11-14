@@ -41,6 +41,13 @@ class Horde_Db_AllTests extends Horde_Test_AllTests
      */
     public static function main($package = null, $file = null)
     {
+        if ($package) {
+            self::$_package = $package;
+        }
+        if ($file) {
+            self::$_file = $file;
+        }
+
         PHPUnit_TextUI_TestRunner::run(self::suite());
     }
 
@@ -85,6 +92,8 @@ class Horde_Db_AllTests extends Horde_Test_AllTests
     }
 }
 
+Horde_Db_AllTests::init('Horde_Db', __FILE__);
+
 if (PHPUnit_MAIN_METHOD == 'Horde_Db_AllTests::main') {
-    Horde_Db_AllTests::main('Horde_Db', __FILE__);
+    Horde_Db_AllTests::main();
 }
