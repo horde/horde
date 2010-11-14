@@ -1689,6 +1689,7 @@ abstract class Kronolith_Event
         $json->al = is_null($allDay) ? $this->isAllDay() : $allDay;
         $json->pe = $this->hasPermission(Horde_Perms::EDIT);
         $json->pd = $this->hasPermission(Horde_Perms::DELETE);
+        $json->l = $this->location;
         if ($this->icon) {
             $json->ic = $this->icon;
         }
@@ -1720,7 +1721,6 @@ abstract class Kronolith_Event
             $json->id = $this->id;
             $json->ty = $this->calendarType;
             $json->d = $this->description;
-            $json->l = $this->location;
             $json->u = $this->url;
             $json->sd = $this->start->strftime('%x');
             $json->st = $this->start->format($time_format);
