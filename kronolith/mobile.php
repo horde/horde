@@ -77,7 +77,7 @@ $today = new Horde_Date($_SERVER['REQUEST_TIME']);
 </div>
 
 <!-- Month View -->
-<div data-role="page" id="monthview">
+<div data-role="page" id="monthview" class="monthview">
  <div data-role="header"><h1>Month</h1></div>
  <div data-role="content" class="ui-body" id="monthcontent">
   <div id="kronolithMinical" class="kronolithMinical">
