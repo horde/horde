@@ -1653,6 +1653,8 @@ abstract class Kronolith_Event
      * - a: alarm text or minutes
      * - r: recurrence type (Horde_Date_Recurrence::RECUR_* constant) or json
      *      representation of Horde_Date_Recurrence object.
+     * - bid: The baseid for an event representing an exception
+     * - eod: The original date that an exception is replacing
      * - ic: icon
      * - ln: link
      * - aj: ajax link
