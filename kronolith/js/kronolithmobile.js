@@ -18,8 +18,8 @@
     listEventsCallback: function(data)
     {
         data = data.response;
-        $("#daycontent ul").detach();
-        $("#todayheader").html(KronolithMobile.currentDate.toString(Kronolith.conf.date_format));
+        $("#dayview [data-role=content] ul").detach();
+        $(".kronolithDayDate").html(KronolithMobile.currentDate.toString(Kronolith.conf.date_format));
 
         var list = $('<ul>').attr({'data-role': 'listview'});
         var type = data.cal.split('|')[0], cal = data.cal.split('|')[1];
@@ -45,7 +45,7 @@
             list.append($('<li>').append(Kronolith.text.noevents));
         }
         list.listview();
-        $("#daycontent").append(list);
+        $("#dayview [data-role=content]").append(list);
     },
 
     loadEvent: function(cal, id, d)
@@ -58,7 +58,7 @@
 
     loadEventCallback: function(data)
     {
-         $('#eventcontent ul').detach();
+         $('#eventview [data-role=content] ul').detach();
          var event = data.response.event;
          var list = $('<ul>').attr({'data-role': 'listview', 'data-inset': true});
 
@@ -84,7 +84,7 @@
          text = event.d;
          list.append($('<li>').append(text));
          list.listview();
-         $('#eventcontent').append(list);
+         $('#eventview [data-role=content]').append(list);
     },
 
     showNextDay: function()

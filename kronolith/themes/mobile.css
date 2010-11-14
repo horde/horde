@@ -15,6 +15,20 @@
     padding: .5em;
 }
 
+/* Header container for day view */
+.kronolithDayHeader {
+    width: 100%;
+    text-align: center;
+}
+.kronolithDayHeader a {
+    vertical-align: middle;
+}
+.kronolithDayDate {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
 /* Mini calendar */
 .kronolithMinical {
     position: relative;

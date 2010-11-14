@@ -40,10 +40,9 @@ $today = new Horde_Date($_SERVER['REQUEST_TIME']);
    <h1>My Calendar:Day</h1>
    <a class="ui-btn-left" href="<?php echo Horde::getServiceLink('portal', 'horde')?>"><?php echo _("Home")?></a>
    <a rel="external" class="ui-btn-right" href="<?php echo Horde::getServiceLink('logout', 'horde')?>"><?php echo _("Logout")?></a>
-   <div class="ui-bar-b" style="width:100%;text-align:center;"><a href="#" style="vertical-align: middle;" data-icon="arrow-l" data-iconpos="notext" id="prevDay"><?php echo _("Previous")?></a><span id="todayheader"></span><a href="#" style="vertical-align: middle;" data-icon="arrow-r" data-iconpos="notext" id="nextDay"><?php echo _("Next")?></a></div>
+   <div class="ui-bar-b kronolithDayHeader"><a href="#" class="kronolithPrevDay" data-icon="arrow-l" data-iconpos="notext"><?php echo _("Previous")?></a><span class="kronolithDayDate"></span><a href="#" data-icon="arrow-r" data-iconpos="notext" id="nextDay"><?php echo _("Next")?></a></div>
   </div>
-  <div data-role="content" id="daycontent">
-  </div>
+  <div data-role="content"></div>
   <div data-role="footer" data-position="fixed">
    <div data-role="navbar">
     <ul>
@@ -58,7 +57,7 @@ $today = new Horde_Date($_SERVER['REQUEST_TIME']);
 <!-- Single Event -->
 <div data-role="page" id="eventview">
   <div data-role="header" data-theme="b"><h1>Event</h1></div>
-  <div data-role="content" class="ui-body" id="eventcontent"></div>
+  <div data-role="content" class="ui-body"></div>
   <div data-role="footer"></div>
 </div>
 
