@@ -15,7 +15,7 @@
     padding: .5em;
 }
 
-/* Header container for day view */
+/* Day view styles */
 .kronolithDayHeader {
     width: 100%;
     text-align: center;
@@ -27,7 +27,22 @@
     margin-left: 10px;
     margin-right: 10px;
 }
-
+.kronolithTimeWrapper {
+    float: left;
+    padding-right: 4px;
+    margin-right: 6px;
+    border-right: 2px solid black;
+}
+.kronolithStartTime {
+}
+.kronolithEndTime {
+  font-size: 80%;
+}
+.kronolithDayLocation {
+  padding-left: 6px;
+  font-style: italic;
+  color: gray;
+}
 
 /* Mini calendar */
 .kronolithMinical {

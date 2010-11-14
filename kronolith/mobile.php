@@ -40,7 +40,7 @@ $today = new Horde_Date($_SERVER['REQUEST_TIME']);
    <h1>My Calendar:Day</h1>
    <a class="ui-btn-left" href="<?php echo Horde::getServiceLink('portal', 'horde')?>"><?php echo _("Home")?></a>
    <a rel="external" class="ui-btn-right" href="<?php echo Horde::getServiceLink('logout', 'horde')?>"><?php echo _("Logout")?></a>
-   <div class="ui-bar-b kronolithDayHeader"><a href="#" class="kronolithPrevDay" data-icon="arrow-l" data-iconpos="notext"><?php echo _("Previous")?></a><span class="kronolithDayDate"></span><a href="#" data-icon="arrow-r" data-iconpos="notext" id="nextDay"><?php echo _("Next")?></a></div>
+   <div class="ui-bar-b kronolithDayHeader"><a href="#" class="kronolithPrevDay" data-icon="arrow-l" data-iconpos="notext"><?php echo _("Previous")?></a><span class="kronolithDayDate"></span><a href="#" data-icon="arrow-r" data-iconpos="notext" class="kronolithNextDay"><?php echo _("Next")?></a></div>
   </div>
   <div data-role="content"></div>
   <div data-role="footer" data-position="fixed">

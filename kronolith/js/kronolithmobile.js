@@ -10,35 +10,34 @@
  */
  KronolithMobile = {
 
+    /**
+     * Perform an Ajax action
+     *
+     * @param string action      The AJAX request
+     * @param object params      The parameter hash
+     * @param function callback  The callback function
+     */
     doAction: function(action, params, callback)
     {
         $.post(Kronolith.conf.URI_AJAX + action, params, callback, 'json');
     },
 
+    /**
+     * Callback for the listEvents AJAX request.
+     */
     listEventsCallback: function(data)
     {
+        var list;
+
         data = data.response;
         $("#dayview [data-role=content] ul").detach();
         $(".kronolithDayDate").html(KronolithMobile.currentDate.toString(Kronolith.conf.date_format));
 
-        var list = $('<ul>').attr({'data-role': 'listview'});
-        var type = data.cal.split('|')[0], cal = data.cal.split('|')[1];
+        list = $('<ul>').attr({'data-role': 'listview'});
         if (data.events) {
             $.each(data.events, function(datestring, events) {
                 $.each(events, function(index, event) {
-                    // set .text() first, then .html() to escape
-                    var d = $('<div style="color:' + Kronolith.conf.calendars[type][cal].bg + '">');
-                    var item = $('<li>');
-                    if (event.al) {
-                        var timetext = Kronolith.text.allday;
-                    } else {
-                        var timetext = Date.parse(event.s).toString(Kronolith.conf.time_format) + ' - ' + Date.parse(event.e).toString(Kronolith.conf.time_format);
-                    }
-                    d.text(timetext + ' ' + event.t).html();
-                    var a = $('<a>').attr({'href': '#eventview'}).click(function(e) {
-                        KronolithMobile.loadEvent(data.cal, index, Date.parse(event.e));
-                    }).append(d);
-                    list.append(item.append(a));
+                    list.append(KronolithMobile.buildDayEvent(data.cal, event, index));
                 });
             });
         } else {
@@ -48,24 +47,66 @@
         $("#dayview [data-role=content]").append(list);
     },
 
+    /**
+     * Build the dom element for an event to insert into the event view.
+     *
+     * @param string cal    The calendar name returned from the ajax request.
+     * @param object event  The event object returned from the ajax request.
+     */
+    buildDayEvent: function(cal, event, id)
+    {
+        var type = cal.split('|')[0], c = cal.split('|')[1],
+        d = $('<div>').attr({ 'style': 'color:' + Kronolith.conf.calendars[type][c].bg }),
+        item = $('<li>'), a;
+
+        // Time
+        var timeWrapper = $('<div>').addClass('kronolithTimeWrapper');
+        if (event.al) {
+            timeWrapper.append(Kronolith.text.allday).html();
+        } else {
+            var startTime = Date.parse(event.s).toString(Kronolith.conf.time_format);
+            var endTime = '- ' + Date.parse(event.e).toString(Kronolith.conf.time_format);
+            timeWrapper
+              .append($('<div>').addClass('kronolithStartTime').append(startTime))
+              .append($('<div>').addClass('kronolithEndTime').append(endTime));
+        }
+
+        e = $('<h2>').text(event.t);
+        l = $('<p>').addClass('kronolithDayLocation').text(event.l);
+        d.append(timeWrapper).append(e).append(l);
+
+        // Add the link to view the event detail.
+        a = $('<a>').attr({'href': '#eventview'}).click(function(e) {
+            KronolithMobile.loadEvent(cal, id, Date.parse(event.e));
+        }).append(d);
+
+        return item.append(a);
+    },
+
     loadEvent: function(cal, id, d)
     {
-        $.post(Kronolith.conf.URI_AJAX + 'getEvent',
-               {'cal': cal, 'id': id, 'date': d.toString('yyyyMMdd')},
-                KronolithMobile.loadEventCallback,
-               'json');
+        KronolithMobile.doAction('getEvent',
+                                 { 'cal': cal, 'id': id, 'date': d.toString('yyyyMMdd') },
+                                 KronolithMobile.loadEventCallback);
     },
 
     loadEventCallback: function(data)
     {
+         var event, list, text;
+
          $('#eventview [data-role=content] ul').detach();
-         var event = data.response.event;
-         var list = $('<ul>').attr({'data-role': 'listview', 'data-inset': true});
+         if (!data.response.event) {
+             // @TODO: Error handling.
+             return;
+         }
+
+         event = data.response.event;
+         list = $('<ul>').attr({'data-role': 'listview', 'data-inset': true});
 
          // @TODO: Use css classes
 
          // Title and location
-         var text = '<strong>' + event.t + '</strong>'
+         text = '<strong>' + event.t + '</strong>'
           + '<div style="color:grey">' + event.l + '</div>';
 
          // Time
@@ -244,8 +285,10 @@ $(function() {
         $('body').unbind('swipeleft', KronolithMobile.showNextDay);
         $('body').unbind('swiperight', KronolithMobile.showPrevDay);
     });
-    $('#prevDay').bind('click', KronolithMobile.showPrevDay);
-    $('#nextDay').bind('click', KronolithMobile.showNextDay);
+
+    // Next and Prev day links for the day view.
+    $('.kronolithDayHeader .kronolithPrevDay').bind('click', KronolithMobile.showPrevDay);
+    $('.kronolithDayHeader .kronolithNextDay').bind('click', KronolithMobile.showNextDay);
 
     // Load today
     KronolithMobile.doAction('listEvents',
