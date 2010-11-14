@@ -43,6 +43,15 @@
         }
     },
 
+    sortEvents: function(events)
+    {
+        return  events.sort(function(a, b) {
+           sortA = a.e.s;
+           sortB = b.e.s;
+           return (sortA < sortB) ? -1 : (sortA > sortB) ? 1 : 0;
+         });
+    },
+
     /**
      * Callback for the listEvents AJAX request.
      */
@@ -60,8 +69,9 @@
             });
         }
         if (KronolithMobile.loadedCalendars.length == KronolithMobile.calendars.length) {
+            var events = KronolithMobile.sortEvents(KronolithMobile.events);
             list = $('<ul>').attr({'data-role': 'listview'});
-            $.each(KronolithMobile.events, function(index, event) {
+            $.each(events, function(index, event) {
                 list.append(KronolithMobile.buildDayEvent(event.cal, event.e, event.id));
             });
             if (!list.children().length) {
