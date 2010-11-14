@@ -224,43 +224,62 @@ table.annotate .logentry {
 }
 
 /* Diff styles. */
-table.diff {
-    width: 100%;
+div.diff {
     font-size: 100%;
-    margin: 0 0 8px 0;
+    color: #111;
 }
-table.diff th {
-    font-size: 80%;
+div.diff-section {
+    margin-top: 1em;
+}
+div.diff-container:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+div.diff-container h3 {
     font-weight: bold;
 }
 
-div.diff {
-    overflow: auto;
+div.diff-left {
+    float: left;
+    width: 50%;
+    overflow-y: auto;
+}
+div.diff-right {
+    float: right;
+    width: 50%;
+    overflow-y: auto;
 }
 
 .diff-unmodified {
     background: #fff;
-    color: #666;
+    color: #999;
 }
 .diff-added {
-    background: #afa;
-}
-.diff-added-empty {
     background: #cfc;
 }
+.diff-added-empty {
+    background: #efe;
+    background: -webkit-gradient(linear, left top, right top, from(#efe), to(#cfc));
+    background: -moz-linear-gradient(left top, #efe, #cfc);
+}
 .diff-modified {
-    background: #cdf;
+    background: #def;
 }
 .diff-removed {
-    background: #f99;
+    background: #fcc;
 }
 .diff-removed-empty {
-    background: #fcc;
+    background: #fee;
+    background: -webkit-gradient(linear, left top, right top, from(#fcc), to(#fee));
+    background: -moz-linear-gradient(left top, #fcc, #fee);
 }
 
 .diff-caption {
     text-align: left;
-    margin: 0 0 8px 0;
+    margin-top: 1em;
     font-size: 90%;
     font-weight: bold;
     padding: 5px;

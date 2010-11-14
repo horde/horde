@@ -1,20 +1,17 @@
-<tr>
+<div class="diff-container">
 <?php if (!empty($left)): ?>
- <td class="diff-modified">
-  <div class="diff"><pre><?php echo $left ?></pre></div>
- </td>
+ <div class="diff-left diff-modified"><pre><?php echo $left ?></pre></div>
 <?php elseif ($row < $oldsize): ?>
- <td class="diff-modified"></td>
+ <div class="diff-left diff-modified">&nbsp;</div>
 <?php else: ?>
- <td class="diff-unmodified"></td>
+ <div class="diff-left diff-unmodified">&nbsp;</div>
 <?php endif; ?>
+
 <?php if (!empty($right)): ?>
- <td class="diff-modified">
-  <div class="diff"><pre><?php echo $right ?></pre></div>
- </td>
+ <div class="diff-right diff-modified"><pre><?php echo $right ?></pre></div>
 <?php elseif ($row < $newsize): ?>
- <td class="diff-modified"></td>
+ <div class="diff-right diff-modified">&nbsp;</div>
 <?php else: ?>
- <td class="diff-unmodified"></td>
+ <div class="diff-right diff-unmodified">&nbsp;</div>
 <?php endif; ?>
-</tr>
+</div>

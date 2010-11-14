@@ -1,10 +1,9 @@
-<table cellspacing="0" class="diff">
+<div class="diff">
 <?php foreach ($diff as $section): ?>
-<tbody>
-<tr>
- <th><?php printf(_("Line %s"), $section['oldline']) ?></th>
- <th><?php printf(_("Line %s"), $section['newline']) ?></th>
-</tr>
+<div class="diff-container diff-section">
+ <div class="diff-left"><h3><?php printf(_("Line %s"), $section['oldline']) ?></h3></div>
+ <div class="diff-right"><h3><?php printf(_("Line %s"), $section['newline']) ?></h3></div>
+</div>
 <?php
 foreach ($section['contents'] as $change) {
     if ($this->hasContext() && $change['type'] != 'empty') {
@@ -18,7 +17,7 @@ foreach ($section['contents'] as $change) {
 if ($this->hasContext()) {
     echo $this->diffContext();
 }
+
+endforeach;
 ?>
-</tbody>
-<?php endforeach ?>
-</table>
+</div>

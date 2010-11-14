@@ -1,4 +1,4 @@
-<tr class="diff-unmodified">
- <td><div class="diff"><pre><?php echo $context ?></pre></div></td>
- <td><div class="diff"><pre><?php echo $context ?></pre></div></td>
-</tr>
+<div class="diff-container">
+ <div class="diff-left diff-unmodified"><pre><?php echo $context ?></pre></div>
+ <div class="diff-right diff-unmodified"><pre><?php echo $context ?></pre></div>
+</div>
