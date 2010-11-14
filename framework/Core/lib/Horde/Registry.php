@@ -1111,6 +1111,7 @@ class Horde_Registry
         $autoloader->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^' . $app . '(?:$|_)/i', $app_lib));
         $applicationMapper = new Horde_Autoloader_ClassPathMapper_Application($this->get('fileroot', $app) . '/app');
         $applicationMapper->addMapping('Controller', 'controllers');
+        $applicationMapper->addMapping('Helper', 'helpers');
         $applicationMapper->addMapping('SettingsExporter', 'settings');
         $autoloader->addClassPathMapper($applicationMapper);
 
@@ -1297,7 +1298,7 @@ class Horde_Registry
             $this->_cache['conf-' . $app] = $appConfig;
             $this->_saveCacheVar('conf-' . $app);
         }
-        
+
         $GLOBALS['conf'] = Horde_Array::array_merge_recursive_overwrite($this->_cache['conf-horde'], $this->_cache['conf-' . $app]);
     }
 
