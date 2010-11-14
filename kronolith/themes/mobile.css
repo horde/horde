@@ -32,6 +32,7 @@
     padding-right: 4px;
     margin-right: 6px;
     border-right: 2px solid black;
+    min-width: 90px;
 }
 .kronolithStartTime {
 }
