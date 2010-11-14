@@ -285,14 +285,16 @@
 
     onDocumentReady: function()
     {
+        // Build list of calendars we want.
         KronolithMobile.calendars = [];
-        for (var key in Kronolith.conf.calendars) {
-           for (var cal in Kronolith.conf.calendars[key]) {
-               if (Kronolith.conf.calendars[key][cal].show) {
-                  KronolithMobile.calendars.push([key, cal]);
-               }
-           }
-        }
+        $.each(Kronolith.conf.calendars, function(key, value) {
+            $.each(value, function(cal, info) {
+                if (info.show) {
+                    KronolithMobile.calendars.push([key, cal]);
+                }
+            });
+        });
+
         // Global ajax options.
         $.ajaxSetup({
             dataFilter: function(data, type)
