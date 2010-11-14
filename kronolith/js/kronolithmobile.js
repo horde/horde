@@ -236,6 +236,14 @@ $(function() {
     KronolithMobile.currentDate = new Date();
     $('body').bind('swipeleft', KronolithMobile.showNextDay);
     $('body').bind('swiperight', KronolithMobile.showPrevDay);
+    $('#dayview').bind('pageshow', function(event, ui) {
+        $('body').bind('swipeleft', KronolithMobile.showNextDay);
+        $('body').bind('swiperight', KronolithMobile.showPrevDay);
+    });
+    $('#dayview').bind('pagebeforehide', function(event, ui) {
+        $('body').unbind('swipeleft', KronolithMobile.showNextDay);
+        $('body').unbind('swiperight', KronolithMobile.showPrevDay);
+    });
     $('#prevDay').bind('click', KronolithMobile.showPrevDay);
     $('#nextDay').bind('click', KronolithMobile.showNextDay);
 
@@ -245,14 +253,23 @@ $(function() {
                              KronolithMobile.listEventsCallback
     );
 
-    // Test the month building
+    // Set up the month view
+    // Build the first month, should due this on first page show, but the
+    // pagecreate event doesn't seem to fire for the internal page? Not sure how
+    // else to do it, so just build the first month outright.
     var date = KronolithMobile.currentDate;
     KronolithMobile.buildCal(date);
-
     $('#kronolithMinicalPrev').bind('click', KronolithMobile.showPrevMonth);
     $('#kronolithMinicalNext').bind('click', KronolithMobile.showNextMonth);
-    $('#monthcontent').bind('swipeleft', KronolithMobile.showNextMonth);
-    $('#monthcontent').bind('swiperight', KronolithMobile.showPrevMonth);
+
+    $('#monthview').bind('pageshow', function(event, ui) {
+        $('body').bind('swipeleft', KronolithMobile.showNextMonth);
+        $('body').bind('swiperight', KronolithMobile.showPrevMonth);
+    });
+    $('#monthview').bind('pagebeforehide', function(event, ui) {
+        $('body').unbind('swipeleft', KronolithMobile.showNextMonth);
+        $('body').unbind('swiperight', KronolithMobile.showPrevMonth);
+    });
 });
 
 // Some Date extensions from horde.js that can't be included because of it's

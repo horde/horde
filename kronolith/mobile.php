@@ -30,7 +30,7 @@ $today = new Horde_Date($_SERVER['REQUEST_TIME']);
   <script type="text/javascript" src="<?php echo $registry->get('jsuri', 'horde') ?>/date/en-US.js"></script>
   <script type="text/javascript" src="<?php echo $registry->get('jsuri', 'horde') ?>/date/date.js"></script>
   <script type="text/javascript" src="<?php echo $registry->get('jsuri', 'kronolith') ?>/kronolithmobile.js"></script>
-  <link href="/horde/kronolith/themes/screen.css" rel="stylesheet" type="text/css" />
+  <link href="<?php echo $registry->get('themesuri');?>/mobile.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 
@@ -40,9 +40,10 @@ $today = new Horde_Date($_SERVER['REQUEST_TIME']);
    <h1>My Calendar:Day</h1>
    <a class="ui-btn-left" href="<?php echo Horde::getServiceLink('portal', 'horde')?>"><?php echo _("Home")?></a>
    <a rel="external" class="ui-btn-right" href="<?php echo Horde::getServiceLink('logout', 'horde')?>"><?php echo _("Logout")?></a>
-   <div class="ui-bar-b" style="width:100%;text-align:center;"><a href="#" data-icon="arrow-l" data-iconpos="notext" id="prevDay"><?php echo _("Previous")?></a><span id="todayheader"></span><a href="#" data-icon="arrow-r" data-iconpos="notext" id="nextDay"><?php echo _("Next")?></a></div>
+   <div class="ui-bar-b" style="width:100%;text-align:center;"><a href="#" style="vertical-align: middle;" data-icon="arrow-l" data-iconpos="notext" id="prevDay"><?php echo _("Previous")?></a><span id="todayheader"></span><a href="#" style="vertical-align: middle;" data-icon="arrow-r" data-iconpos="notext" id="nextDay"><?php echo _("Next")?></a></div>
   </div>
-  <div data-role="content" class="ui-body" id="daycontent"></div>
+  <div data-role="content" id="daycontent">
+  </div>
   <div data-role="footer" data-position="fixed">
    <div data-role="navbar">
     <ul>
@@ -78,7 +79,11 @@ $today = new Horde_Date($_SERVER['REQUEST_TIME']);
 
 <!-- Month View -->
 <div data-role="page" id="monthview" class="monthview">
- <div data-role="header"><h1>Month</h1></div>
+ <div data-role="header">
+   <h1>Month</h1>
+   <a class="ui-btn-left" href="<?php echo Horde::getServiceLink('portal', 'horde')?>"><?php echo _("Home")?></a>
+   <a rel="external" class="ui-btn-right" href="<?php echo Horde::getServiceLink('logout', 'horde')?>"><?php echo _("Logout")?></a>
+ </div>
  <div data-role="content" class="ui-body" id="monthcontent">
   <div id="kronolithMinical" class="kronolithMinical">
     <table>

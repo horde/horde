@@ -1,0 +1,87 @@
+
+.kronolithEventTentative {
+    font-style: italic;
+}
+.kronolithEventCancelled {
+    text-decoration: line-through;
+}
+.event-time, .event-location {
+    font-size: 85%;
+}
+.weekend {
+    background: #ffc;
+}
+.description {
+    padding: .5em;
+}
+
+/* Mini calendar */
+.kronolithMinical {
+    position: relative;
+}
+#kronolithMinical {
+/*    top: 15px;*/
+}
+.kronolithMinical table {
+    width: 100%;
+    border-spacing: 1px;
+}
+.kronolithMinical caption, #kronolithBody .kronolithMinical caption {
+    position: relative;
+    margin: 0 1px 1px 1px;
+    height: 20px;
+    line-height: 20px;
+    font-weight: bold;
+    font-size: 100%;
+    border-bottom: 1px #999 dotted;
+    text-align: left;
+}
+.kronolithMinical caption span {
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+}
+#kronolithMinicalPrev, #kronolithMinicalNext {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 16px;
+    text-indent: -10000px;
+    cursor: pointer;
+    background: transparent url("graphics/right.png") no-repeat right center;
+}
+#kronolithMinicalPrev {
+    background-image: url("graphics/left.png");
+    right: 15px;
+}
+
+.kronolithMinical th, .kronolithMinical td {
+    font-size: 90%;
+}
+.kronolithMinical th, .kronolithMinical td.kronolithMinicalWeek {
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+    background-color: #d6d6d6;
+    color: #202020;
+    border: 1px #999 solid !important;
+}
+.kronolithMinical tbody td {
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    border: 1px #999 solid;
+    text-align: center;
+    color: #808080;
+    empty-cells: show;
+    cursor: pointer;
+}
+.kronolithMinical .kronolithMinicalEmpty {
+    background: none;
+    border-color: #e2e2e2;
+    color: silver;
+}
+.kronolithMinical .kronolithSelected {
+    background-color: #ffc;
+}
