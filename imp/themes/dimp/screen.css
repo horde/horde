@@ -553,11 +553,11 @@ div.dimpActionsCompose, div.dimpActionsMsg {
     margin-right: 0;
 }
 
-#msgloglist {
-    padding-top: 4px;
-}
 #msgloglist ul {
     list-style-type: none;
+}
+#msgloglist li {
+    line-height: 18px;
 }
 
 #msgloglist_toggle, #partlist_toggle {
