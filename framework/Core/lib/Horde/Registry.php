@@ -318,9 +318,6 @@ class Horde_Registry
             $GLOBALS['__autoloader']->addCallback($key, array($val, 'callback'));
         }
 
-        /* Initialize browser object. */
-        $GLOBALS['browser'] = $injector->getInstance('Horde_Browser');
-
         /* Import and global Horde's configuration values. Almost a chicken
          * and egg issue - since loadConfiguration() uses registry in certain
          * instances. However, if HORDE_BASE is defined, and app is
@@ -328,6 +325,9 @@ class Horde_Registry
          * call it here (prevents us from duplicating a bunch of code). */
         $this->_cache['conf-horde'] = Horde::loadConfiguration('conf.php', 'conf', 'horde');
         $conf = $GLOBALS['conf'] = &$this->_cache['conf-horde'];
+
+        /* Initialize browser object. */
+        $GLOBALS['browser'] = $injector->getInstance('Horde_Browser');
 
         /* Initial Horde-wide settings. */
 

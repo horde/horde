@@ -78,4 +78,5 @@ class Horde_Core_Browser extends Horde_Browser
             ? $GLOBALS['session']->get('horde', 'ie_version')
             : null;
     }
+
 }
