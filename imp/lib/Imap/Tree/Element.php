@@ -75,7 +75,7 @@ class IMP_Imap_Tree_Element
      *   'iconopen' - (Horde_Themes_Image) The openicon to use.
      *   'user_icon' - (boolean) Use a user defined icon?
      * 'invisible' - (boolean) Is element invisible?
-     * 'label' - (string)
+     * 'label' - (string) The mailbox name run through IMP::getLabel().
      * 'level' - (integer) The deepness level of this element.
      * 'mbox_val' - (string) A html-ized version of 'value'.
      * 'name' - (string) A html-ized version of 'label'.
