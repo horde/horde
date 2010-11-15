@@ -114,7 +114,6 @@ class Horde_Ldap_Util
 
                     if ($options['onlyvalues']) {
                         preg_match('/(.+?)(?<!\\\\)=(.+)/', $subrdn_v, $matches);
-                        $rdn_ocl         = $matches[1];
                         $rdn_val         = $matches[2];
                         $unescaped       = self::unescapeDNValue($rdn_val);
                         $rdns[$subrdn_k] = $unescaped[0];
@@ -137,7 +136,6 @@ class Horde_Ldap_Util
 
                 if ($options['onlyvalues']) {
                     preg_match('/(.+?)(?<!\\\\)=(.+)/', $value, $matches);
-                    $dn_ocl         = $matches[1];
                     $dn_val         = $matches[2];
                     $unescaped      = self::unescapeDNValue($dn_val);
                     $dn_array[$key] = $unescaped[0];

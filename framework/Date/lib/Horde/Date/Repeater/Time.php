@@ -5,7 +5,7 @@ class Horde_Date_Repeater_Time extends Horde_Date_Repeater
     public $type;
     public $ambiguous;
 
-    public function __construct($time, $options = array())
+    public function __construct($time)
     {
         $t = str_replace(':', '', $time);
 

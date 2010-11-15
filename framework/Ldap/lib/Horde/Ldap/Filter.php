@@ -390,7 +390,6 @@ class Horde_Ldap_Filter
         // operator.
         $subfilters_o = array();
         foreach ($subfilters as $s_s) {
-            $o = self::parse($s_s);
             array_push($subfilters_o, self::parse($s_s));
         }
         if (count($subfilters_o) == 1) {

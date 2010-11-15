@@ -699,10 +699,7 @@ class Horde_Ldap
                 } catch (Exception $e) {
                     /* We have a failure.  What kind?  We may be able to
                      * reconnect and try again. */
-                    $error_code = $e->getCode();
-                    $error_name = $this->errorName($error_code);
-
-                    if ($this->errorName($error_code) != 'LDAP_OPERATIONS_ERROR' ||
+                    if ($this->errorName($e->getCode()) != 'LDAP_OPERATIONS_ERROR' ||
                         !$this->_config['auto_reconnect']) {
                         /* Errors other than the above catched are just passed
                          * back to the user so he may react upon them. */
@@ -1005,14 +1002,7 @@ class Horde_Ldap
 
         /* Make dn relative to parent. */
         $base = Horde_Ldap_Util::explodeDN($dn, array('casefold' => 'none', 'reverse' => false, 'onlyvalues' => false));
-
         $entry_rdn = array_shift($base);
-        if (is_array($entry_rdn)) {
-            /* Maybe the dn consist of a multivalued RDN. We must
-             * build the dn in this case because the $entry_rdn is an
-             * array. */
-            $filter_dn = Horde_Ldap_Util::canonicalDN($entry_rdn);
-        }
         $base = Horde_Ldap_Util::canonicalDN($base);
 
         $result = @ldap_list($this->_link, $base, $entry_rdn, array(), 1, 1);

@@ -194,7 +194,6 @@ class Horde_Date
         }
 
         if (func_num_args() > 2) {
-            $args = func_get_args();
             // Handle args in order: year month day hour min sec tz
             $this->_initializeFromArgs(func_get_args());
             return;

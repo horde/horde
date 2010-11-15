@@ -350,7 +350,7 @@ class Horde_Ldap_Entry
     public function getValues()
     {
         $attrs = array();
-        foreach ($this->_attributes as $attr => $value) {
+        foreach (array_keys($this->_attributes) as $attr) {
             $attrs[$attr] = $this->getValue($attr);
         }
         return $attrs;
@@ -645,7 +645,7 @@ class Horde_Ldap_Entry
 
         /* New entry. */
         if ($this->_new) {
-            $msg = $ldap->add($this);
+            $ldap->add($this);
             $this->_new                = false;
             $this->_changes['add']     = array();
             $this->_changes['delete']  = array();

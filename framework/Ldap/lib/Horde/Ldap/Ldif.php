@@ -307,7 +307,7 @@ class Horde_Ldap_Ldif
         } elseif ($entry->willBeMoved()) {
             $this->_writeLine('changetype: modrdn');
             $olddn     = Horde_Ldap_Util::explodeDN($entry->currentDN(), array('casefold' => 'none'));
-            $oldrdn    = array_shift($olddn);
+            array_shift($olddn);
             $oldparent = implode(',', $olddn);
             $newdn     = Horde_Ldap_Util::explodeDN($entry->dn(), array('casefold' => 'none'));
             $rdn       = array_shift($newdn);
@@ -449,7 +449,7 @@ class Horde_Ldap_Ldif
         }
 
         // Free variables.
-        foreach (get_object_vars($this) as $name => $value) {
+        foreach (array_keys(get_object_vars($this)) as $name) {
             unset($this->$name);
         }
     }

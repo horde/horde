@@ -51,8 +51,6 @@ class Horde_Date_Repeater_DayPortion extends Horde_Date_Repeater
     {
         parent::next($pointer);
 
-        $fullDay = 60 * 60 * 24;
-
         if (!$this->currentSpan) {
             $nowSeconds = $this->now->hour * 3600 + $this->now->min * 60 + $this->now->sec;
             if ($nowSeconds < $this->range[0]) {

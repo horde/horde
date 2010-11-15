@@ -321,7 +321,7 @@ class Horde_Ldap_Search implements Iterator
     {
         $return = array();
         $sorted = $this->sortedAsArray($attrs, $order);
-        foreach ($sorted as $key => $row) {
+        foreach ($sorted as $row) {
             $entry = $this->_ldap->getEntry($row['dn'], $this->searchedAttributes());
             array_push($return, $entry);
         }
