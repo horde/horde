@@ -532,9 +532,14 @@ class IMP_Auth
     static public function setViewMode($view)
     {
         /* Enforce minimum browser standards for DIMP. */
-        if (($view == 'dimp') && !Horde::ajaxAvailable()) {
-            $view = 'imp';
-            $GLOBALS['notification']->push(_("Your browser is too old to display the dynamic mode. Using traditional mode instead."), 'horde.warning');
+        if (($view == 'dimp' || $view == 'mobile') && !Horde::ajaxAvailable()) {
+            if ($view == 'dimp') {
+                $view = 'imp';
+                $GLOBALS['notification']->push(_("Your browser is too old to display the dynamic mode. Using traditional mode instead."), 'horde.warning');
+            } else {
+                $view = 'mimp';
+                $GLOBALS['notification']->push(_("Your browser is too old to display the smartphone mode. Using mobile mode instead."), 'horde.warning');
+            }
         }
 
         $GLOBALS['session']->set('imp', 'view', $view);

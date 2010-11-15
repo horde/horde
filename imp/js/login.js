@@ -26,8 +26,9 @@ var ImpLogin = {
         var s = $('imp_select_view');
         if (s) {
             s.down('option[value=dimp]').show();
-            if (this.dimp_sel) {
-                s.selectedIndex = s.down('option[value=dimp]').index;
+            s.down('option[value=mobile]').show();
+            if (this.pre_sel) {
+                s.selectedIndex = s.down('option[value=' + this.pre_sel + ']').index;
             }
         }
     }

@@ -345,10 +345,14 @@ class IMP_Application extends Horde_Registry_Application
             if (!($view_cookie = Horde_Util::getFormData('imp_select_view'))) {
                 $view_cookie = isset($_COOKIE['default_imp_view'])
                     ? $_COOKIE['default_imp_view']
-                    : ($GLOBALS['browser']->isMobile() ? 'mimp' : 'imp');
+                    : ($GLOBALS['browser']->isMobile()
+                       ? ($GLOBALS['browser']->getBrowser() == 'webkit'
+                          ? 'mimp'
+                          : 'mobile')
+                       : 'imp');
             }
 
-            $js_code['-ImpLogin.dimp_sel'] = intval($view_cookie == 'dimp');
+            $js_code['ImpLogin.pre_sel'] = $view_cookie;
 
             $params['imp_select_view'] = array(
                 'label' => _("Mode"),
@@ -361,7 +365,10 @@ class IMP_Application extends Horde_Registry_Application
                     'dimp' => array(
                         'hidden' => true,
                         'name' => _("Dynamic")
-                        // Dimp selected is handled by javascript (dimp_sel)
+                    ),
+                    'mobile' => array(
+                        'hidden' => true,
+                        'name' => _("Mobile (Smartphone)")
                     ),
                     'mimp' => array(
                         'name' => _("Mobile"),
