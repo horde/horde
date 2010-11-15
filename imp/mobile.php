@@ -14,7 +14,7 @@
  */
 
 require_once dirname(__FILE__) . '/lib/Application.php';
-Horde_Registry::appInit('imp', array('impmode' => 'imp'));
+Horde_Registry::appInit('imp', array('impmode' => 'mobile'));
 
 $view = new Horde_View(array('templatePath' => IMP_TEMPLATES . '/mobile'));
 new Horde_View_Helper_Text($view);

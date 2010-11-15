@@ -130,6 +130,11 @@ class IMP_Application extends Horde_Registry_Application
                          ($this->initParams['impmode'] != 'mimp'));
             break;
 
+        case 'mobile':
+            $redirect = (!empty($this->initParams['impmode']) &&
+                         ($this->initParams['impmode'] != 'mobile'));
+            break;
+
         case 'imp':
             $redirect = (!empty($this->initParams['impmode']) &&
                          ($this->initParams['impmode'] != 'imp'));

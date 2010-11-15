@@ -338,6 +338,10 @@ class IMP_Auth
             $page = 'mailbox-mimp.php';
             break;
 
+        case 'mobile':
+            $page = 'mobile.php';
+            break;
+
         default:
             $init_url = ($GLOBALS['session']->get('imp', 'protocol') == 'pop')
                 ? 'INBOX'
@@ -467,9 +471,16 @@ class IMP_Auth
         if (empty($conf['user']['force_view'])) {
             if (empty($conf['user']['select_view']) ||
                 !$session->get('imp', 'select_view')) {
-                $view = $browser->isMobile()
-                    ? 'mimp'
-                    : ($prefs->getValue('dynamic_view') ? 'dimp' : 'imp');
+                // THIS IS A HACK. DO PROPER SMARTPHONE DETECTION.
+                if ($browser->isMobile()) {
+                    if ($browser->getBrowser() == 'webkit') {
+                        $view = 'mobile';
+                    } else {
+                        $view = 'mimp';
+                    }
+                } else {
+                    $view = $prefs->getValue('dynamic_view') ? 'dimp' : 'imp';
+                }
             } else {
                 $setcookie = true;
                 $view = $session->get('imp', 'select_view');
