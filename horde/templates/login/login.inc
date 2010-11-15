@@ -13,7 +13,7 @@
 <?php if ($val['type'] == 'hidden'): ?>
 <input type="hidden" id="<?php echo $key ?>" name="<?php echo $key ?>" value="<?php echo isset($val['value']) ? htmlspecialchars($val['value']) : '' ?>" />
 <?php else: ?>
-<div><label><?php echo Horde::label($key, $val['label']) ?></label></div>
+<div><?php echo Horde::label($key, $val['label']) ?></div>
 <div>
 <?php if ($val['type'] == 'text'): ?>
        <input type="text" autocapitalize="off" autocorrect="off" id="<?php echo $key ?>" name="<?php echo $key ?>" value="<?php echo isset($val['value']) ? htmlspecialchars($val['value']) : '' ?>" style="direction:ltr" />
