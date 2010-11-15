@@ -1103,16 +1103,22 @@ class Horde_Registry
             throw new Horde_Exception($app . ' is not activated.', self::NOT_ACTIVE);
         }
 
+        $app_mappers = array(
+            'Controller' =>  'controllers',
+            'Helper' => 'helpers',
+            'SettingsExporter' => 'settings'
+        );
+
         /* Set up autoload paths for the current application. This needs to
          * be done here because it is possible to try to load app-specific
          * libraries from other applications. */
-        $app_lib = $this->get('fileroot', $app) . '/lib';
         $autoloader = $GLOBALS['injector']->getInstance('Horde_Autoloader');
-        $autoloader->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^' . $app . '(?:$|_)/i', $app_lib));
+        $autoloader->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^' . $app . '(?:$|_)/i', $this->get('fileroot', $app) . '/lib'));
+
         $applicationMapper = new Horde_Autoloader_ClassPathMapper_Application($this->get('fileroot', $app) . '/app');
-        $applicationMapper->addMapping('Controller', 'controllers');
-        $applicationMapper->addMapping('Helper', 'helpers');
-        $applicationMapper->addMapping('SettingsExporter', 'settings');
+        foreach ($app_mappers as $key => $val) {
+            $applicationMapper->addMapping($key, $val);
+        }
         $autoloader->addClassPathMapper($applicationMapper);
 
         $checkPerms = !isset($options['check_perms']) || !empty($options['check_perms']);
