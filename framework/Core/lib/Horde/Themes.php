@@ -331,13 +331,16 @@ class Horde_Themes
     /**
      * Returns a list of available sounds for a theme.
      *
+     * @param string $app  The app to search in.
+     *
      * @return array  An array of Horde_Themes_Sound objects. Keys are the
      *                base filenames.
      */
-    static public function soundList()
+    static public function soundList($app = null)
     {
-        $app = $GLOBALS['registry']->getApp();
-
+        if (is_null($app)) {
+            $app = $GLOBALS['registry']->getApp();
+        }
         /* Do search in reverse order - app + theme sounds have the highest
          * priority and will overwrite previous sound definitions. */
         $locations = array(
