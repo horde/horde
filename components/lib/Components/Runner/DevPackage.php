@@ -69,13 +69,20 @@ class Components_Runner_DevPackage
 
     public function run()
     {
+        $options = $this->_config->getOptions();
         $arguments = $this->_config->getArguments();
 
-        $package = $this->_factory->createPackageForDefaultLocation(
-            $arguments[0] . DIRECTORY_SEPARATOR . 'package.xml'
-        );
+        if (!isset($options['pearrc'])) {
+            $package = $this->_factory->createPackageForDefaultLocation(
+                $arguments[0] . DIRECTORY_SEPARATOR . 'package.xml'
+            );
+        } else {
+            $package = $this->_factory->createPackageForInstallLocation(
+                $arguments[0] . DIRECTORY_SEPARATOR . 'package.xml',
+                $options['pearrc']
+            );
+        }
 
-        $options = $this->_config->getOptions();
         if ($options['archivedir']) {
             $archivedir = $options['archivedir'];
         } else {
