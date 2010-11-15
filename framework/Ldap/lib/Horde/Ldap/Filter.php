@@ -209,9 +209,15 @@ class Horde_Ldap_Filter
     {
         // Substitute named operators with logical operators.
         switch ($operator) {
-        case 'and': $operator = '&'; break;
-        case 'or':  $operator = '|'; break;
-        case 'not': $operator = '!'; break;
+        case 'and':
+            $operator = '&';
+            break;
+        case 'or':
+            $operator = '|';
+            break;
+        case 'not':
+            $operator = '!';
+            break;
         }
 
         // Tests for sane operation.
@@ -235,7 +241,7 @@ class Horde_Ldap_Filter
             if (!is_array($filters) || count($filters) < 2) {
                 throw new Horde_Ldap_Exception('Parameter $filters is not an array or contains less than two Horde_Ldap_Filter objects');
             }
-        break;
+            break;
 
         default:
             throw new Horde_Ldap_Exception('Logical operator is unknown');
@@ -274,19 +280,19 @@ class Horde_Ldap_Filter
     public static function build(array $params, $operator = 'and')
     {
         if (!empty($params['filter'])) {
-            return Horde_Ldap_Filter::parse($params['filter']);
+            return self::parse($params['filter']);
         }
         if (!is_array($params['objectclass'])) {
-            return Horde_Ldap_Filter::create('objectclass', 'equals', $params['objectclass']);
+            return self::create('objectclass', 'equals', $params['objectclass']);
         }
         $filters = array();
         foreach ($params['objectclass'] as $objectclass) {
-            $filters[] = Horde_Ldap_Filter::create('objectclass', 'equals', $objectclass);
+            $filters[] = self::create('objectclass', 'equals', $objectclass);
         }
         if (count($filters) == 1) {
             return $filters[0];
         }
-        return Horde_Ldap_Filter::combine($operator, $filters);
+        return self::combine($operator, $filters);
     }
 
     /**
@@ -342,7 +348,7 @@ class Horde_Ldap_Filter
         // Denotes the current bracket level we are, >1 is too deep, 1 is ok, 0
         // is outside any subcomponent.
         $level = 0;
-        for ($curpos = 0; $curpos < strlen($filter); $curpos++) {
+        for ($curpos = 0, $len = strlen($filter); $curpos < $len; $curpos++) {
             $cur_char = $filter{$curpos};
 
             // Rise/lower bracket level.
@@ -370,15 +376,12 @@ class Horde_Ldap_Filter
             $oldpos = $s_pos;
         }
 
-        // Some error checking...
-        if (count($subfilters) == 1) {
-            // Only one subfilter found.
-        } elseif (count($subfilters) > 1) {
+        if (count($subfilters) > 1) {
             // Several subfilters found.
             if ($operator == '!') {
                 throw new Horde_Ldap_Exception('Invalid filter syntax: NOT operator detected but several arguments given');
             }
-        } else {
+        } elseif (!count($subfilters)) {
             // This should not happen unless the user specified a wrong filter.
             throw new Horde_Ldap_Exception('Invalid filter syntax: got operator ' . $operator . ' but no argument');
         }

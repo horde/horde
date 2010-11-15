@@ -475,7 +475,7 @@ class Horde_Ldap_Util
      */
     public static function asc2hex32($string)
     {
-        for ($i = 0; $i < strlen($string); $i++) {
+        for ($i = 0, $len = strlen($string); $i < $len; $i++) {
             $char = substr($string, $i, 1);
             if (ord($char) < 32) {
                 $hex = dechex(ord($char));

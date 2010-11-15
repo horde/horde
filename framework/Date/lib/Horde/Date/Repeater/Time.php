@@ -119,7 +119,9 @@ class Horde_Date_Repeater_Time extends Horde_Date_Repeater
     {
         parent::this($context);
 
-        if ($context == 'none') { $context = 'future'; }
+        if ($context == 'none') {
+            $context = 'future';
+        }
         return $this->next($context);
     }
 

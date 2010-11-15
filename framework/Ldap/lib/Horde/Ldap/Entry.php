@@ -215,7 +215,7 @@ class Horde_Ldap_Entry
      */
     public static function createExisting($dn, array $attrs = array())
     {
-        $entry = Horde_Ldap_Entry::createFresh($dn, $attrs);
+        $entry = self::createFresh($dn, $attrs);
         $entry->markAsNew(false);
         return $entry;
     }

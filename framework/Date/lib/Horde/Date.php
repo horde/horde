@@ -188,7 +188,9 @@ class Horde_Date
     {
         if (!self::$_supportedSpecs) {
             self::$_supportedSpecs = self::$_defaultSpecs;
-            if (function_exists('nl_langinfo')) { self::$_supportedSpecs .= 'bBpxX'; }
+            if (function_exists('nl_langinfo')) {
+                self::$_supportedSpecs .= 'bBpxX';
+            }
         }
 
         if (func_num_args() > 2) {
@@ -310,7 +312,7 @@ class Horde_Date
     public function toDays()
     {
         if (function_exists('GregorianToJD')) {
-            return GregorianToJD($this->_month, $this->_mday, $this->_year);
+            return gregoriantojd($this->_month, $this->_mday, $this->_year);
         }
 
         $day = $this->_mday;
@@ -617,7 +619,7 @@ class Horde_Date
 
         $this->_mday = 1;
         $first = $this->dayOfWeek();
-         if ($weekday < $first) {
+        if ($weekday < $first) {
             $this->_mday = 8 + $weekday - $first;
         } else {
             $this->_mday = $weekday - $first + 1;

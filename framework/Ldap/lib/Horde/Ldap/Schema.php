@@ -398,7 +398,7 @@ class Horde_Ldap_Schema
 
         $tokens  = array();
         // Number of tokens (full pattern match).
-        for ($i = 0; $i < count($matches[0]); $i++) {
+        for ($i = 0, $c = count($matches[0]); $i < $c; $i++) {
             // Each subpattern.
             for ($j = 1; $j < 4; $j++) {
                 // Pattern match in this subpattern.

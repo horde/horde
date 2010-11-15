@@ -737,7 +737,7 @@ class Horde_Ldap_Ldif
         }
 
         // Test for illegal content char.
-        for ($i = 0; $i < strlen($value); $i++) {
+        for ($i = 0, $len = strlen($value); $i < $len; $i++) {
             $char_ord = ord(substr($value, $i, 1));
             if ($char_ord >= 127 || in_array($char_ord, $unsafe)) {
                 $binary = true;

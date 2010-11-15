@@ -56,28 +56,28 @@ class Horde_Date_Recurrence
      *
      * @var Horde_Date
      */
-    var $start;
+    public $start;
 
     /**
      * The end date of the recurrence interval.
      *
      * @var Horde_Date
      */
-    var $recurEnd = null;
+    public $recurEnd = null;
 
     /**
      * The number of recurrences.
      *
      * @var integer
      */
-    var $recurCount = null;
+    public $recurCount = null;
 
     /**
      * The type of recurrence this event follows. RECUR_* constant.
      *
      * @var integer
      */
-    var $recurType = self::RECUR_NONE;
+    public $recurType = self::RECUR_NONE;
 
     /**
      * The length of time between recurrences. The time unit depends on the
@@ -85,28 +85,28 @@ class Horde_Date_Recurrence
      *
      * @var integer
      */
-    var $recurInterval = 1;
+    public $recurInterval = 1;
 
     /**
      * Any additional recurrence data.
      *
      * @var integer
      */
-    var $recurData = null;
+    public $recurData = null;
 
     /**
      * All the exceptions from recurrence for this event.
      *
      * @var array
      */
-    var $exceptions = array();
+    public $exceptions = array();
 
     /**
      * All the dates this recurrence has been marked as completed.
      *
      * @var array
      */
-    var $completions = array();
+    public $completions = array();
 
     /**
      * Constructor.
@@ -976,7 +976,7 @@ class Horde_Date_Recurrence
             $rrule = 'W' . $this->recurInterval;
             $vcaldays = array('SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA');
 
-            for ($i = 0; $i <= 7 ; ++$i) {
+            for ($i = 0; $i <= 7; ++$i) {
                 if ($this->recurOnDay(pow(2, $i))) {
                     $rrule .= ' ' . $vcaldays[$i];
                 }
@@ -1142,7 +1142,7 @@ class Horde_Date_Recurrence
             $rrule = 'FREQ=WEEKLY;INTERVAL=' . $this->recurInterval . ';BYDAY=';
             $vcaldays = array('SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA');
 
-            for ($i = $flag = 0; $i <= 7 ; ++$i) {
+            for ($i = $flag = 0; $i <= 7; ++$i) {
                 if ($this->recurOnDay(pow(2, $i))) {
                     if ($flag) {
                         $rrule .= ',';
@@ -1218,7 +1218,7 @@ class Horde_Date_Recurrence
             return false;
         }
 
-        $this->setRecurInterval((int) $hash['interval']);
+        $this->setRecurInterval((int)$hash['interval']);
 
         $parse_day = false;
         $set_daymask = false;
@@ -1252,7 +1252,7 @@ class Horde_Date_Recurrence
 
             case 'weekday':
                 $this->setRecurType(self::RECUR_MONTHLY_WEEKDAY);
-                $nth_weekday = (int) $hash['daynumber'];
+                $nth_weekday = (int)$hash['daynumber'];
                 $hash['daynumber'] = 1;
                 $parse_day = true;
                 $update_daynumber = true;
@@ -1294,7 +1294,7 @@ class Horde_Date_Recurrence
                 }
 
                 $this->setRecurType(self::RECUR_YEARLY_WEEKDAY);
-                $nth_weekday = (int) $hash['daynumber'];
+                $nth_weekday = (int)$hash['daynumber'];
                 $hash['daynumber'] = 1;
                 $parse_day = true;
                 $update_month = true;
@@ -1311,7 +1311,7 @@ class Horde_Date_Recurrence
                 return false;
             }
 
-            $this->setRecurCount((int) $hash['range']);
+            $this->setRecurCount((int)$hash['range']);
             break;
 
         case 'date':
@@ -1469,7 +1469,7 @@ class Horde_Date_Recurrence
                 'sunday' => Horde_Date::MASK_SUNDAY,
             );
             $days = array();
-            foreach($bits as $name => $bit) {
+            foreach ($bits as $name => $bit) {
                 if ($this->recurOnDay($bit)) {
                     $days[] = $name;
                 }
