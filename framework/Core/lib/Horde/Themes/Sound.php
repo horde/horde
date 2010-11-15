@@ -19,6 +19,6 @@ class Horde_Themes_Sound extends Horde_Themes_Element
      *
      * @var string
      */
-    protected $_dirname = 'sound';
+    protected $_dirname = 'sounds';
 
 }
