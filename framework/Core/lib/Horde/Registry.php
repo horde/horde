@@ -1164,12 +1164,7 @@ class Horde_Registry
         /* Initialize application. */
         if ($checkPerms || empty($options['noinit'])) {
             try {
-                if (file_exists($app_lib . '/base.php')) {
-                    // TODO: Remove once there is no more base.php files
-                    require_once $app_lib . '/base.php';
-                } else {
-                    $this->callAppMethod($app, 'init');
-                }
+                $this->callAppMethod($app, 'init');
             } catch (Horde_Exception $e) {
                 $this->popApp();
                 throw $e;
