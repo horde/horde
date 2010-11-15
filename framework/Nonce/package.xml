@@ -29,8 +29,8 @@
   <email>wrobel@pardus.de</email>
   <active>yes</active>
  </lead>
- <date>2010-11-03</date>
- <time>17:30:13</time>
+ <date>2010-11-09</date>
+ <time>09:04:00</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -47,6 +47,10 @@
   <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
+     <dir name="Nonce">
+      <file name="Generator.php" role="php" />
+      <file name="Hash.php" role="php" />
+     </dir> <!-- /lib/Horde/Nonce -->
      <file name="Nonce.php" role="php" />
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
@@ -78,6 +82,8 @@
  <phprelease>
   <filelist>
    <install as="Horde/Nonce.php" name="lib/Horde/Nonce.php" />
+   <install as="Horde/Nonce/Generator.php" name="lib/Horde/Nonce/Generator.php" />
+   <install as="Horde/Nonce/Hash.php" name="lib/Horde/Nonce/Hash.php" />
    <install as="Horde/Nonce/AllTests.php" name="test/Horde/Nonce/AllTests.php" />
    <install as="Horde/Nonce/Autoload.php" name="test/Horde/Nonce/Autoload.php" />
    <install as="Horde/Nonce/phpunit.xml" name="test/Horde/Nonce/phpunit.xml" />
@@ -95,7 +101,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-11-03</date>
+   <date>2010-11-09</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Initial release.

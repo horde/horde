@@ -28,13 +28,43 @@
 class Horde_Nonce
 {
     /**
+     * The nonce generator.
+     *
+     * @var Horde_Nonce_Generator
+     */
+    private $_generator;
+
+    /**
+     * Hashes the random part of a nonce for storage in the Bloom filter.
+     *
+     * @var Horde_Nonce_Hash
+     */
+    private $_hash;
+
+    /**
+     * Constructor.
+     *
+     * @param Horde_Nonce_Hash $hash Hashes the random part of a nonce for
+     *                               storage in the Bloom filter.
+     * @param int              $size Size of the random part of the generated
+     *                               nonces.
+     */
+    public function __construct(
+        Horde_Nonce_Generator $generator,
+        Horde_Nonce_Hash $hash
+    ) {
+        $this->_generator = $generator;
+        $this->_hash = $hash;
+    }
+
+    /**
      * Return a nonce.
      *
      * @return string The nonce.
      */
-    public function get()
+    public function create()
     {
-        return pack('Nn2', time(), mt_rand(), mt_rand());
+        return $this->_generator->create();
     }
 
     /**
@@ -45,12 +75,13 @@ class Horde_Nonce
      *
      * @return boolean True if the nonce is still valid.
      */
-    public function isValid($nonce, $timeout)
+    public function isValid($nonce, $timeout = -1)
     {
-        $timestamp = unpack('N', substr($nonce, 0, 4));
-        if (array_pop($timestamp) < (time() - $timeout)) {
+        list($timestamp, $random) = $this->_generator->split($nonce);
+        if ($timeout > 0 && $timestamp < (time() - $timeout)) {
             return false;
         }
+        
         return true;
     }
 }

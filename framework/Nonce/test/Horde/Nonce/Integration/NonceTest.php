@@ -38,7 +38,7 @@ extends Horde_Nonce_StoryTestCase
     /**
      * @scenario
      */
-    public function aDefaultNonceHasADefinedLengthOfEightBytes()
+    public function defaultLength()
     {
         $this->given('the default nonce setup')
             ->when('retrieving a nonce')
@@ -48,11 +48,95 @@ extends Horde_Nonce_StoryTestCase
     /**
      * @scenario
      */
-    public function aNonceWillBeInvalidIfItHasTimedOut()
+    public function nonceTimeOut()
     {
         $this->given('the default nonce setup')
             ->when('retrieving a nonce')
             ->and('waiting for two seconds')
             ->then('the nonce is invalid given a timeout of one second');
+    }
+
+    /**
+     * @scenario
+     */
+    public function nonceWithoutTimeout()
+    {
+        $this->given('the default nonce setup')
+            ->when('retrieving a nonce')
+            ->and('waiting for two seconds')
+            ->then('the nonce is valid given no timeout');
+    }
+
+    /**
+     * @scenario
+     */
+    public function nonceCounterValue()
+    {
+        $this->given('the default nonce generator')
+            ->when('splitting nonce', 'MABBCCDD')
+            ->then('the extracted counter value (here: timestamp) is', 1296122434);
+    }
+
+    /**
+     * @scenario
+     */
+    public function nonceRandomValue()
+    {
+        $this->given('the default nonce generator')
+            ->when('splitting nonce', 'MABBCCDD')
+            ->then('the extracted random part matches', array(1 => 17219, 2 => 17476));
+    }
+
+    /**
+     * @scenario
+     */
+    public function nonceHashes()
+    {
+        $this->given('the default hash setup')
+            ->when('hashing nonce', 'MABBCCDD')
+            ->then('the hash representation provides the hashes', 62, 165, 118);
+    }
+
+    /**
+     * @scenario
+     */
+    public function emptyFilter()
+    {
+        $this->given('the default filter setup')
+            ->when('testing whether a nonce is unused if it has the following counter and hash values', 50, 3, 10, 47)
+            ->then('the nonce is unused');
+    }
+
+    /**
+     * @scenario
+     */
+    public function lowerCounter()
+    {
+        $this->given('the default filter setup')
+            ->and('the following counter and hash values are marked', 10, 3, 10, 47)
+            ->when('testing whether a nonce is unused if it has the following counter and hash values', 50, 3, 10, 47)
+            ->then('the nonce is unused');
+    }
+
+    /**
+     * @scenario
+     */
+    public function unusedElement()
+    {
+        $this->given('the default filter setup')
+            ->and('the following counter and hash values are marked', 100, 3, 11, 47)
+            ->when('testing whether a nonce is unused if it has the following counter and hash values', 50, 3, 10, 47)
+            ->then('the nonce is unused');
+    }
+
+    /**
+     * @scenario
+     */
+    public function used()
+    {
+        $this->given('the default filter setup')
+            ->and('the following counter and hash values are marked', 100, 3, 10, 47)
+            ->when('testing whether a nonce is unused if it has the following counter and hash values', 50, 3, 10, 47)
+            ->then('the nonce is used');
     }
 }

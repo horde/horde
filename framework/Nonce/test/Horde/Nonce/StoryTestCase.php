@@ -43,7 +43,15 @@ extends PHPUnit_Extensions_Story_TestCase
     {
         switch($action) {
         case 'the default nonce setup':
-            $world['nonce_handler'] = new Horde_Nonce();
+            $world['nonce_handler'] = new Horde_Nonce(
+                new Horde_Nonce_Generator(),
+                new Horde_Nonce_Hash()
+            );
+            break;
+        case 'the default hash setup':
+            $world['nonce_hash'] = new Horde_Nonce_Hash();
+        case 'the default nonce generator':
+            $world['nonce_generator'] = new Horde_Nonce_Generator();
             break;
         default:
             return $this->notImplemented($action);
@@ -63,10 +71,19 @@ extends PHPUnit_Extensions_Story_TestCase
     {
         switch($action) {
         case 'retrieving a nonce':
-            $world['nonce'] = $world['nonce_handler']->get();
+            $world['nonce'] = $world['nonce_handler']->create();
             break;
         case 'waiting for two seconds':
             sleep(2);
+            break;
+        case 'splitting nonce':
+            list($timestamp, $random) = $world['nonce_generator']->split($arguments[0]);
+            $world['timestamp'] = $timestamp;
+            $world['random'] = $random;
+            break;
+        case 'hashing nonce':
+            list($timestamp, $random) = $world['nonce_generator']->split($arguments[0]);
+            $world['hashes'] = $world['nonce_hash']->hash($random);
             break;
         default:
             return $this->notImplemented($action);
@@ -90,6 +107,27 @@ extends PHPUnit_Extensions_Story_TestCase
             break;
         case 'the nonce is invalid given a timeout of one second':
             $this->assertFalse($world['nonce_handler']->isValid($world['nonce'], 1));
+            break;
+        case 'the nonce is valid given no timeout':
+            $this->assertTrue($world['nonce_handler']->isValid($world['nonce']));
+            break;
+        case 'the extracted counter value (here: timestamp) is':
+            $this->assertEquals(
+                $world['timestamp'],
+                $arguments[0]
+            );
+            break;
+        case 'the extracted random part matches':
+            $this->assertEquals(
+                $world['random'],
+                $arguments[0]
+            );
+            break;
+        case 'the hash representation provides the hashes':
+            $this->assertEquals(
+                $world['hashes'],
+                $arguments
+            );
             break;
         default:
             return $this->notImplemented($action);
