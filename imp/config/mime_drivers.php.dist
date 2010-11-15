@@ -59,12 +59,7 @@ $mime_drivers = array(
         'limit_inline_size' => 1048576,
 
         /* Check for phishing exploits? */
-        'phishing_check' => true,
-
-        /* A list of from e-mail addresses that are considered "safe" for
-         * purposes of image blocking (if image blocking is enabled in the
-         * preferences). */
-        'safe_addrs' => array()
+        'phishing_check' => true
     ),
 
     /* Default smil driver. */
@@ -86,7 +81,12 @@ $mime_drivers = array(
         'allthumbs' => true,
 
         /* Display images inline that are less than this size (in bytes). */
-        'inlinesize' => 262144
+        'inlinesize' => 262144,
+
+        /* A list of from e-mail addresses that are considered "safe" for
+         * purposes of image blocking (if image blocking is enabled in the
+         * preferences). */
+        'safe_addrs' => array()
     ),
 
     /* Enriched text display. */

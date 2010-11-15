@@ -79,6 +79,8 @@ your ``config/prefs.php`` file and your preferences backend::
    fetchmail_menu
    filter_on_sidebar
    forward_bodytext
+   image_addrbook
+   image_replacement
    nav_expanded_sidebar
    use_vinbox
    use_vtrash

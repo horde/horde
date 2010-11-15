@@ -812,17 +812,17 @@
     </para>
 </entry>
 
-<entry id="prefs-html_image_replacement">
-    <title>Preferences: HTML Image Replacement</title>
+<entry id="prefs-image_replacement">
+    <title>Preferences: Image Replacement</title>
     <para>
-    For HTML messages displayed inline, should all image tags be blocked until you specifically decide to view those images? Note that, if viewing an HTML attachment, the images will always be displayed.
+    For messages displayed inline, should all image tags be blocked until you specifically decide to view those images? Note that, if viewing as an attachment, the images will always be displayed.
     </para>
 </entry>
 
-<entry id="prefs-html_image_addrbook">
-    <title>Preferences: HTML Image Replacement/Addressbook Show</title>
+<entry id="prefs-image_addrbook">
+    <title>Preferences: Image Replacement/Addressbook Show</title>
     <para>
-    If blocking images for inline HTML messages, should we automatically display them instead if the sender appears in your addressbook?
+    If blocking images for inline messages, should they be displayed automatically if the sender appears in your addressbook?
     </para>
 </entry>
 

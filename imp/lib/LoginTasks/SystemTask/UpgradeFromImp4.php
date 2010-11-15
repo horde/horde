@@ -29,6 +29,7 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
         $this->_upgradeAbookPrefs();
         $this->_upgradeForwardPrefs();
         $this->_upgradeLoginTasksPrefs();
+        $this->_upgradeMsgDisplayPrefs();
         $this->_upgradeSortPrefs();
         $this->_upgradeVirtualFolders();
     }
@@ -106,6 +107,24 @@ class IMP_LoginTasks_SystemTask_UpgradeFromImp4 extends Horde_LoginTasks_SystemT
      * Upgrade to the new login tasks preferences.
      */
     protected function _upgradeLoginTasksPrefs()
+    {
+        global $prefs;
+
+        $replace = $prefs->getValue('html_image_replacement');
+        if (!is_null($replace) && !$replace) {
+            $prefs->setValue('image_replacement', 0);
+        }
+
+        $addrbook = $prefs->getValue('html_image_addrbook');
+        if (!is_null($addrbook) && !$addrbook) {
+            $prefs->setValue('image_addrbook', 0);
+        }
+    }
+
+    /**
+     * Upgrade to the new message display preferences.
+     */
+    protected function _upgradeMsgDisplayPrefs()
     {
         global $prefs;
 

@@ -729,7 +729,7 @@ $prefGroups['viewing'] = array(
     'desc' => _("Configure how messages are displayed."),
     'members' => array(
         'filtering', 'strip_attachments', 'alternative_display',
-        'html_image_replacement', 'html_image_addrbook', 'highlight_text',
+        'image_replacement', 'image_addrbook', 'highlight_text',
         'highlight_simple_markup', 'show_quoteblocks', 'dim_signature',
         'emoticons', 'parts_display', 'mail_hdr', 'default_msg_charset',
         'disposition_send_mdn'
@@ -762,21 +762,21 @@ $_prefs['alternative_display'] = array(
     'desc' => _("For messages with alternative representations of the text part, which part should we display?")
 );
 
-// Replace image tags in inline viewed HTML messages with blank images?
-$_prefs['html_image_replacement'] = array(
+// Replace image tags in inline messages with blank images?
+$_prefs['image_replacement'] = array(
     'value' => 1,
     'type' => 'checkbox',
-    'desc' => _("Block images in inline viewed HTML messages unless they are specifically requested?"),
-    'help' => 'prefs-html_image_replacement'
+    'desc' => _("Block images in messages unless they are specifically requested?"),
+    'help' => 'prefs-image_replacement'
 );
 
-// By default, automatically show images in inline viewed HTML messages if the
-// sender is in the user's addressbook?
-$_prefs['html_image_addrbook'] = array(
+// By default, automatically show images in inline messages if the sender is
+// in the user's addressbook?
+$_prefs['image_addrbook'] = array(
     'value' => 1,
     'type' => 'checkbox',
-    'desc' => _("Automatically show images in inline viewed HTML messages when the sender is in my address book?"),
-    'help' => 'prefs-html_image_addrbook'
+    'desc' => _("Automatically show images in messages when the sender is in my address book?"),
+    'help' => 'prefs-image_addrbook'
 );
 
 // should we try to mark different conversations with different colors?

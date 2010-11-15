@@ -2,6 +2,8 @@
 v5.0-git
 --------
 
+[mms] Refactor inline message image blocking to operate on all messages, not
+      just HTML messages.
 [mms] Add attachment message filter.
 [mms] Add post_spam hook called after reporting spam/ham (Request #6455).
 [mms] Implement stationery support in DIMP.

@@ -81,20 +81,27 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
         /* Only display the image inline if the browser can display it and the
          * size of the image is below the config value. */
         if ($GLOBALS['browser']->isViewable($this->_getType())) {
-            if (isset($this->_conf['inlinesize']) &&
+            if (!isset($this->_conf['inlinesize']) ||
                 ($this->_mimepart->getBytes() < $this->_conf['inlinesize'])) {
-                /* Viewing inline, and the browser can handle the image type
-                 * directly. So output an <img> tag to load the image. */
-                return array(
-                    $this->_mimepart->getMimeId() => array(
-                        'data' => $this->_outputImgTag('data', $this->_mimepart->getName(true)),
-                        'status' => array(),
-                        'type' => 'text/html; charset=' . $this->getConfigParam('charset')
-                    )
-                );
+                $imgview = new IMP_Ui_Imageview();
+                $showimg = $imgview->showInlineImage($this->getConfigParam('imp_contents'));
             } else {
+                $showimg = false;
+            }
+
+            if (!$showimg) {
                 return $this->_renderInfo();
             }
+
+            /* Viewing inline, and the browser can handle the image type
+             * directly. So output an <img> tag to load the image. */
+            return array(
+                $this->_mimepart->getMimeId() => array(
+                    'data' => $this->_outputImgTag('data', $this->_mimepart->getName(true)),
+                    'status' => array(),
+                    'type' => 'text/html; charset=' . $this->getConfigParam('charset')
+                )
+            );
         }
 
         /* The browser cannot view this image. Inform the user of this and

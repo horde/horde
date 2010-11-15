@@ -301,8 +301,6 @@ class IMP_Prefs_Ui
 
             if (!$v->canRender('inline')) {
                 $ui->suppress[] = 'alternative_display';
-                $ui->suppress[] = 'html_image_replacement';
-                $ui->suppress[] = 'html_image_addrbook';
             }
 
             /* Sort encodings. */

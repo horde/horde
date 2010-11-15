@@ -140,10 +140,17 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             (!$inline && Horde_Util::getFormData('convert_text'))) {
             $this->_imptmp = null;
         } else {
+            if ($inline) {
+                $imgview = new IMP_Ui_Imageview();
+                $blockimg = !$imgview->showInlineImage($this->getConfigParam('imp_contents'));
+            } else {
+                $blockimg = false;
+            }
+
             $this->_imptmp = array(
                 'blockimg' => null,
                 'cid' => null,
-                'img' => ($inline && $GLOBALS['prefs']->getValue('html_image_replacement') && !$this->_inAddressBook()),
+                'img' => $blockimg,
                 'imgblock' => false,
                 'inline' => $inline,
                 'target' => strval(new Horde_Support_Randomid())
