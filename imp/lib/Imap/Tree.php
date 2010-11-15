@@ -1519,21 +1519,35 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
                 $is_open = $val->is_open;
                 $label = htmlspecialchars(Horde_String::abbreviate($val->label, 30 - ($val->level * 2)));
                 break;
+
+            case 'Jquerymobile':
+                $is_open = true;
+                $label = htmlspecialchars($val->display);
+                $icon = $val->icon;
+                $params['icon'] = $icon->icon;
+                $params['special'] = $val->special;
+                break;
             }
 
             if (!empty($opts['poll_info']) && $val->polled) {
                 $poll_info = $val->poll_info;
 
-                if ($poll_info->unseen) {
-                    $this->unseen += $poll_info->unseen;
-                    if ($poll_info->recent) {
-                        $recent[$val->value] = $poll_info->recent;
+                if ($opts['render_type'] == 'Jquerymobile') {
+                    if ($poll_info->unseen) {
+                        $after = $poll_info->unseen;
+                    }
+                } else {
+                    if ($poll_info->unseen) {
+                        $this->unseen += $poll_info->unseen;
+                        if ($poll_info->recent) {
+                            $recent[$val->value] = $poll_info->recent;
+                        }
+
+                        $label = '<strong>' . $label . '</strong>';
                     }
 
-                    $label = '<strong>' . $label . '</strong>';
+                    $after = '&nbsp;(' . $poll_info->unseen . '/' . $poll_info->msgs . ')';
                 }
-
-                $after = '&nbsp;(' . $poll_info->unseen . '/' . $poll_info->msgs . ')';
             }
 
             if (!$val->container) {

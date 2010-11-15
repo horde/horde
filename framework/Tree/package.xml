@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Tree</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Tree API</summary>
- <description>This package provides a tree view of hierarchical information. It allows for expanding/collapsing of branches and maintains their state.
- </description>
+ <description>This package provides a tree view of hierarchical information. It allows for expanding/collapsing of branches and maintains their state.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -26,7 +22,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2009-12-15</date>
+ <date>2010-11-15</date>
+ <time>20:08:17</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -36,27 +33,30 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/gpl.html">GPL</license>
- <notes>* Split driver code from main class into Base class.
- * Add simple HTML renderer.
- * Remove dependency on horde/Core.
- * Move javascript renderer to horde/Core.
- * Add Horde_Tree_Exception::.
- * Initial Horde 4 package.
+ <notes>
+* Add jQuery Mobile list view renderer.
+* Split driver code from main class into Base class.
+* Add simple HTML renderer.
+* Remove dependency on horde/Core.
+* Move javascript renderer to horde/Core.
+* Add Horde_Tree_Exception::.
+* Initial Horde 4 package.
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Tree">
       <file name="Base.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Html.php" role="php" />
+      <file name="Jquerymobile.php" role="php" />
       <file name="Select.php" role="php" />
       <file name="Simplehtml.php" role="php" />
-     </dir> <!-- /lib/Horde/Tree -->
+     </dir> <!-- //lib/Horde/Tree -->
      <file name="Tree.php" role="php" />
-    </dir> <!-- /lib/Horde -->
-   </dir> <!-- /lib -->
+    </dir> <!-- //lib/Horde -->
+   </dir> <!-- //lib -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -84,15 +84,31 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Tree/Base.php" as="Horde/Tree/Base.php" />
-   <install name="lib/Horde/Tree/Exception.php" as="Horde/Tree/Exception.php" />
-   <install name="lib/Horde/Tree/Html.php" as="Horde/Tree/Html.php" />
-   <install name="lib/Horde/Tree/Select.php" as="Horde/Tree/Select.php" />
-   <install name="lib/Horde/Tree/Simplehtml.php" as="Horde/Tree/Simplehtml.php" />
-   <install name="lib/Horde/Tree.php" as="Horde/Tree.php" />
+   <install as="Horde/Tree.php" name="lib/Horde/Tree.php" />
+   <install as="Horde/Tree/Base.php" name="lib/Horde/Tree/Base.php" />
+   <install as="Horde/Tree/Exception.php" name="lib/Horde/Tree/Exception.php" />
+   <install as="Horde/Tree/Html.php" name="lib/Horde/Tree/Html.php" />
+   <install as="Horde/Tree/Jquerymobile.php" name="lib/Horde/Tree/Jquerymobile.php" />
+   <install as="Horde/Tree/Select.php" name="lib/Horde/Tree/Select.php" />
+   <install as="Horde/Tree/Simplehtml.php" name="lib/Horde/Tree/Simplehtml.php" />
   </filelist>
  </phprelease>
  <changelog>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2003-07-05</date>
+   <license uri="http://www.gnu.org/copyleft/gpl.html">GPL</license>
+   <notes>
+Initial release as a PEAR package
+   </notes>
+  </release>
   <release>
    <date>2006-05-08</date>
    <time>23:51:48</time>
@@ -105,21 +121,28 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <api>alpha</api>
    </stability>
    <license uri="http://www.gnu.org/copyleft/gpl.html">GPL</license>
-   <notes>Converted to package.xml 2.0 for pear.horde.org
+   <notes>
+Converted to package.xml 2.0 for pear.horde.org
    </notes>
   </release>
   <release>
    <version>
-    <release>0.0.1</release>
-    <api>0.0.1</api>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
    </version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api>
+    <release>beta</release>
+    <api>beta</api>
    </stability>
-   <date>2003-07-05</date>
+   <date>2010-11-15</date>
    <license uri="http://www.gnu.org/copyleft/gpl.html">GPL</license>
-   <notes>Initial release as a PEAR package
+   <notes>
+* Split driver code from main class into Base class.
+ * Add simple HTML renderer.
+ * Remove dependency on horde/Core.
+ * Move javascript renderer to horde/Core.
+ * Add Horde_Tree_Exception::.
+ * Initial Horde 4 package.
    </notes>
   </release>
  </changelog>
