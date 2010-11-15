@@ -98,9 +98,17 @@ class Components_Runner_Distribute
             );
         }
 
-        $package = $this->_factory->createPackageForDefaultLocation(
-            $arguments[0] . DIRECTORY_SEPARATOR . 'package.xml'
-        );
+        if (!isset($options['pearrc'])) {
+            $package = $this->_factory->createPackageForDefaultLocation(
+                $arguments[0] . DIRECTORY_SEPARATOR . 'package.xml'
+            );
+        } else {
+            $package = $this->_factory->createPackageForInstallLocation(
+                $arguments[0] . DIRECTORY_SEPARATOR . 'package.xml',
+                $options['pearrc']
+            );
+        }
+
         $version = $package->getVersion() . 'dev' . strftime('%Y%m%d%H%M');
         $package->generateSnapshot($version, dirname($options['distribute']));
 
