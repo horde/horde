@@ -50,11 +50,11 @@ class Horde_Core_Factory_Cache
 
         $lc_driver = Horde_String::lower($driver);
         switch ($lc_driver) {
-        case 'Memcache':
+        case 'memcache':
             $params['memcache'] = $injector->getInstance('Horde_Memcache');
             break;
 
-        case 'Sql':
+        case 'sql':
             $params['db'] = $injector->getInstance('Horde_Db_Adapter');
             break;
         }
@@ -62,7 +62,7 @@ class Horde_Core_Factory_Cache
         $storage = $this->_getStorage($driver, $params);
 
         if (!empty($GLOBALS['conf']['cache']['use_memorycache']) &&
-            in_array($lc_driver, array('File', 'Sql'))) {
+            in_array($lc_driver, array('file', 'sql'))) {
             if (strcasecmp($GLOBALS['conf']['cache']['use_memorycache'], 'Memcache') === 0) {
                 $params['memcache'] = $injector->getInstance('Horde_Memcache');
             }
