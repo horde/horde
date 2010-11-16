@@ -13,7 +13,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Cache
  */
-abstract class Horde_Cache_Storage
+abstract class Horde_Cache_Storage_Base
 {
     /**
      * Logger.

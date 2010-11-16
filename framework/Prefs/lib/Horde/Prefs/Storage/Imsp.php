@@ -11,7 +11,7 @@
  * @category Horde
  * @package  Prefs
  */
-class Horde_Prefs_Storage_Imsp extends Horde_Prefs_Storage
+class Horde_Prefs_Storage_Imsp extends Horde_Prefs_Storage_Base
 {
     /**
      * Boolean indicating whether or not we're connected to the IMSP server.

@@ -14,7 +14,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Cache
  */
-class Horde_Cache_Storage_Stack extends Horde_Cache_Storage
+class Horde_Cache_Storage_Stack extends Horde_Cache_Storage_Base
 {
     /**
      * Stack of cache drivers.

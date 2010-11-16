@@ -15,7 +15,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Cache
  */
-class Horde_Cache_Storage_Memcache extends Horde_Cache_Storage implements Serializable
+class Horde_Cache_Storage_Memcache extends Horde_Cache_Storage_Base implements Serializable
 {
     /**
      * Cache results of expire() calls (since we will get the entire object

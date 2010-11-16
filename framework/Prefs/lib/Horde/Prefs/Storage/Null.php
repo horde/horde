@@ -12,7 +12,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Prefs
  */
-class Horde_Prefs_Storage_Null extends Horde_Prefs_Storage
+class Horde_Prefs_Storage_Null extends Horde_Prefs_Storage_Base
 {
     /**
      */

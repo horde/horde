@@ -12,7 +12,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Prefs
  */
-class Horde_Prefs_Cache_Session extends Horde_Prefs_Cache
+class Horde_Prefs_Cache_Session extends Horde_Prefs_Cache_Base
 {
     /**
      * Session key.

@@ -1,6 +1,6 @@
 <?php
 /**
- * Cache driver for the preferences system.
+ * Storage driver for the preferences system.
  *
  * Copyright 2010 The Horde Project (http://www.horde.org/)
  *
@@ -12,7 +12,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Prefs
  */
-abstract class Horde_Prefs_Cache
+abstract class Horde_Prefs_Storage_Base
 {
     /**
      * Configuration parameters.
@@ -35,33 +35,44 @@ abstract class Horde_Prefs_Cache
     }
 
     /**
-     * Retrieves the requested preferences scope from the cache backend.
+     * Retrieves the requested preferences scope from the storage backend.
      *
-     * @param string $scope  Scope specifier.
+     * @param Horde_Prefs_Scope $scope_ob  The scope object.
      *
-     * @return mixed  Returns false if no data is available, otherwise the
-     *                Horde_Prefs_Scope object.
+     * @return Horde_Prefs_Scope  The modified scope object.
      * @throws Horde_Prefs_Exception
      */
-    abstract public function get($scope);
+    abstract public function get($scope_ob);
 
     /**
-     * Stores preferences in the cache backend.
+     * Stores changed preferences in the storage backend.
      *
-     * @param Horde_Prefs_Scope $scope_ob  The scope object to store.
+     * @param Horde_Prefs_Scope $scope_ob  The scope object.
      *
      * @throws Horde_Prefs_Exception
      */
     abstract public function store($scope_ob);
 
     /**
-     * Removes preferences from the cache.
+     * Called whenever a preference value is changed.
      *
-     * @param string $scope  The scope to remove. If null, clears entire
-     *                       cache.
-     *
-     * @throws Horde_Prefs_Exception
+     * @param string $scope  Scope specifier.
+     * @param string $pref   The preference name.
      */
-    abstract public function remove($scope = null);
+    public function onChange($scope, $pref)
+    {
+    }
+
+    /**
+     * Removes preferences from the backend.
+     *
+     * @param string $scope  The scope of the prefs to clear. If null, clears
+     *                       all scopes.
+     * @param string $pref   The pref to clear. If null, clears the entire
+     *                       scope.
+     *
+     * @throws Horde_Db_Exception
+     */
+    abstract public function remove($scope = null, $pref = null);
 
 }

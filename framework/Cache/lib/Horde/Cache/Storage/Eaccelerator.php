@@ -12,7 +12,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Cache
  */
-class Horde_Cache_Storage_Eaccelerator extends Horde_Cache_Storage
+class Horde_Cache_Storage_Eaccelerator extends Horde_Cache_Storage_Base
 {
     /**
      * @throws Horde_Cache_Exception

@@ -13,7 +13,7 @@
  * @category Horde
  * @package  Prefs
  */
-class Horde_Prefs_Storage_Ldap extends Horde_Prefs_Storage
+class Horde_Prefs_Storage_Ldap extends Horde_Prefs_Storage_Base
 {
     /**
      * Handle for the current LDAP connection.

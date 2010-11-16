@@ -13,7 +13,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Core
  */
-class Horde_Core_Prefs_Storage_Configuration extends Horde_Prefs_Storage
+class Horde_Core_Prefs_Storage_Configuration extends Horde_Prefs_Storage_Base
 {
     /**
      * The list of preference hooks defined.

@@ -13,7 +13,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Prefs
  */
-class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage
+class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
 {
     /**
      * Handle for the current database connection.

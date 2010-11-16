@@ -54,7 +54,7 @@ class Horde_Cache
      * 'logger' - (Horde_Log_Logger) Log object to use for log/debug messages.
      * </pre>
      */
-    public function __construct(Horde_Cache_Storage $storage,
+    public function __construct(Horde_Cache_Storage_Base $storage,
                                 array $params = array())
     {
         if (isset($params['logger'])) {

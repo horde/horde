@@ -15,7 +15,7 @@
  * @link     http://pear.horde.org/index.php?package=Cache
  * @package  Cache
  */
-class Horde_Cache_Storage_Mock extends Horde_Cache_Storage
+class Horde_Cache_Storage_Mock extends Horde_Cache_Storage_Base
 {
     /**
      * The storage location for this cache.

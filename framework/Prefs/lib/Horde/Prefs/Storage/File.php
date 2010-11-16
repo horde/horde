@@ -12,7 +12,7 @@
  * @category Horde
  * @package  Prefs
  */
-class Horde_Prefs_Storage_File extends Horde_Prefs_Storage
+class Horde_Prefs_Storage_File extends Horde_Prefs_Storage_Base
 {
     /* Current version number of the data format */
     const VERSION = 2;

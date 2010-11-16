@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Cache</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Caching API</summary>
  <description>This package provides a simple, functional caching API,
 with the option to store the cached data on the filesystem, in one of
 the PHP opcode cache systems (APC, eAcclerator, XCache, or Zend
-Performance Suite&apos;s content cache), memcached, or an SQL table.
- </description>
+Performance Suite&apos;s content cache), memcached, or an SQL table.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -23,7 +19,8 @@ Performance Suite&apos;s content cache), memcached, or an SQL table.
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2008-03-04</date>
+ <date>2010-11-16</date>
+ <time>15:41:39</time>
  <version>
   <release>0.2.0</release>
   <api>0.2.0</api>
@@ -33,15 +30,17 @@ Performance Suite&apos;s content cache), memcached, or an SQL table.
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Abstracted storage-specific code into &apos;Storage&apos; drivers.
+ <notes>
+* Abstracted storage-specific code into &apos;Storage&apos; drivers.
  * Add option to transparently compress cache data using lzf.
  * Added Horde_Cache_Session::.
  * Horde_Cache::set() no longer returns a boolean result.
  * Added Horde_Cache_Exception::.
  * Removed dependency on Horde Core.
- * Initial Horde 4 package.</notes>
+ * Initial Horde 4 package.
+ </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="data">
     <file name="cache.sql" role="data" />
    </dir> <!-- /data -->
@@ -50,6 +49,7 @@ Performance Suite&apos;s content cache), memcached, or an SQL table.
      <dir name="Cache">
       <dir name="Storage">
        <file name="Apc.php" role="php" />
+       <file name="Base.php" role="php" />
        <file name="Eaccelerator.php" role="php" />
        <file name="File.php" role="php" />
        <file name="Memcache.php" role="php" />
@@ -61,7 +61,6 @@ Performance Suite&apos;s content cache), memcached, or an SQL table.
        <file name="Xcache.php" role="php" />
       </dir> <!-- /lib/Horde/Cache/Storage -->
       <file name="Exception.php" role="php" />
-      <file name="Storage.php" role="php" />
      </dir> <!-- /lib/Horde/Cache -->
      <file name="Cache.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -113,38 +112,23 @@ Performance Suite&apos;s content cache), memcached, or an SQL table.
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Cache/Storage/Apc.php" as="Horde/Cache/Storage/Apc.php" />
-   <install name="lib/Horde/Cache/Storage/Eaccelerator.php" as="Horde/Cache/Storage/Eaccelerator.php" />
-   <install name="lib/Horde/Cache/Storage/File.php" as="Horde/Cache/Storage/File.php" />
-   <install name="lib/Horde/Cache/Storage/Memcache.php" as="Horde/Cache/Storage/Memcache.php" />
-   <install name="lib/Horde/Cache/Storage/Mock.php" as="Horde/Cache/Storage/Mock.php" />
-   <install name="lib/Horde/Cache/Storage/Null.php" as="Horde/Cache/Storage/Null.php" />
-   <install name="lib/Horde/Cache/Storage/Session.php" as="Horde/Cache/Storage/Session.php" />
-   <install name="lib/Horde/Cache/Storage/Sql.php" as="Horde/Cache/Storage/Sql.php" />
-   <install name="lib/Horde/Cache/Storage/Stack.php" as="Horde/Cache/Storage/Stack.php" />
-   <install name="lib/Horde/Cache/Storage/Xcache.php" as="Horde/Cache/Storage/Xcache.php" />
-   <install name="lib/Horde/Cache/Exception.php" as="Horde/Cache/Exception.php" />
-   <install name="lib/Horde/Cache/Storage.php" as="Horde/Cache/Storage.php" />
-   <install name="lib/Horde/Cache.php" as="Horde/Cache.php" />
+   <install as="cache.sql" name="data/cache.sql" />
+   <install as="Horde/Cache.php" name="lib/Horde/Cache.php" />
+   <install as="Horde/Cache/Exception.php" name="lib/Horde/Cache/Exception.php" />
+   <install as="Horde/Cache/Storage/Apc.php" name="lib/Horde/Cache/Storage/Apc.php" />
+   <install as="Horde/Cache/Storage/Base.php" name="lib/Horde/Cache/Storage/Base.php" />
+   <install as="Horde/Cache/Storage/Eaccelerator.php" name="lib/Horde/Cache/Storage/Eaccelerator.php" />
+   <install as="Horde/Cache/Storage/File.php" name="lib/Horde/Cache/Storage/File.php" />
+   <install as="Horde/Cache/Storage/Memcache.php" name="lib/Horde/Cache/Storage/Memcache.php" />
+   <install as="Horde/Cache/Storage/Mock.php" name="lib/Horde/Cache/Storage/Mock.php" />
+   <install as="Horde/Cache/Storage/Null.php" name="lib/Horde/Cache/Storage/Null.php" />
+   <install as="Horde/Cache/Storage/Session.php" name="lib/Horde/Cache/Storage/Session.php" />
+   <install as="Horde/Cache/Storage/Sql.php" name="lib/Horde/Cache/Storage/Sql.php" />
+   <install as="Horde/Cache/Storage/Stack.php" name="lib/Horde/Cache/Storage/Stack.php" />
+   <install as="Horde/Cache/Storage/Xcache.php" name="lib/Horde/Cache/Storage/Xcache.php" />
   </filelist>
  </phprelease>
  <changelog>
-  <release>
-   <date>2006-05-08</date>
-   <version>
-    <release>0.1.0</release>
-    <api>0.1.0</api>
-   </version>
-   <stability>
-    <release>beta</release>
-    <api>beta</api>
-   </stability>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>* Add SQL backend.
-* Converted to package.xml 2.0 for pear.horde.org.
-* Add APC, eAccelerator, and XCache backends (duck@obala.net).
-   </notes>
-  </release>
   <release>
    <version>
     <release>0.0.1</release>
@@ -156,7 +140,46 @@ Performance Suite&apos;s content cache), memcached, or an SQL table.
    </stability>
    <date>2004-01-01</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
-   <notes>Initial packaging.
+   <notes>
+Initial packaging.
+   </notes>
+  </release>
+  <release>
+   <date>2006-05-08</date>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Add SQL backend.
+* Converted to package.xml 2.0 for pear.horde.org.
+* Add APC, eAccelerator, and XCache backends (duck@obala.net).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2010-11-16</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Abstracted storage-specific code into &apos;Storage&apos; drivers.
+ * Add option to transparently compress cache data using lzf.
+ * Added Horde_Cache_Session::.
+ * Horde_Cache::set() no longer returns a boolean result.
+ * Added Horde_Cache_Exception::.
+ * Removed dependency on Horde Core.
+ * Initial Horde 4 package.
    </notes>
   </release>
  </changelog>

@@ -28,7 +28,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Cache
  */
-class Horde_Cache_Storage_Sql extends Horde_Cache_Storage
+class Horde_Cache_Storage_Sql extends Horde_Cache_Storage_Base
 {
     /**
      * Handle for the current database connection.

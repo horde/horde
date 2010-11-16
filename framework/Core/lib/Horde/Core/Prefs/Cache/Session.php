@@ -12,7 +12,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Core
  */
-class Horde_Core_Prefs_Cache_Session extends Horde_Prefs_Cache
+class Horde_Core_Prefs_Cache_Session extends Horde_Prefs_Cache_Base
 {
     const SESS_KEY = 'prefs_cache/';
 

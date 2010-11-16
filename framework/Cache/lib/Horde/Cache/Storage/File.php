@@ -14,7 +14,7 @@
  * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Cache
  */
-class Horde_Cache_Storage_File extends Horde_Cache_Storage
+class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
 {
     /* Location of the garbage collection data file. */
     const GC_FILE = 'horde_cache_gc';
