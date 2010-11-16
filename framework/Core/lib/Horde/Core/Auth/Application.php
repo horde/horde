@@ -292,16 +292,14 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         if ($this->_base) {
             $result = $this->_base->transparent();
         } elseif ($this->hasCapability('transparent')) {
-            /* Only clean session if we are trying to do transparent
-             * authentication to an application that has a transparent
-             * capability. This prevents session fixation issues when using
-             * transparent authentication to do initial authentication to
-             * Horde, while not destroying session information for guest
-             * users. See Bug #9311. */
-            if (!$is_auth) {
+            if ($result = $registry->callAppMethod($this->_app, $this->_apiMethods['transparent'], array('args' => array($this), 'noperms' => true)) &&
+                $is_auth) {
+                /* Only clean session if we were successfully authenticated
+                 * into Horde via transparent auth. Have to wait until after
+                 * we check transparent auth or else we would blow away guest
+                 * sessions.  See Bug #9311. */
                 $registry->getCleanSession();
             }
-            $result = $registry->callAppMethod($this->_app, $this->_apiMethods['transparent'], array('args' => array($this), 'noperms' => true));
         } else {
             /* If this application contains neither transparent nor
              * authenticate capabilities, it does not require any
