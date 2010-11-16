@@ -70,13 +70,13 @@
    </pearinstaller>
   </required>
   <optional>
-   <extension>
-    <name>gettext</name>
-   </extension>
    <package>
     <name>Test</name>
     <channel>pear.horde.org</channel>
    </package>
+   <extension>
+    <name>gettext</name>
+   </extension>
   </optional>
  </dependencies>
  <phprelease>
