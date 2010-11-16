@@ -292,14 +292,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         if ($this->_base) {
             $result = $this->_base->transparent();
         } elseif ($this->hasCapability('transparent')) {
-            if ($result = $registry->callAppMethod($this->_app, $this->_apiMethods['transparent'], array('args' => array($this), 'noperms' => true)) &&
-                $is_auth) {
-                /* Only clean session if we were successfully authenticated
-                 * into Horde via transparent auth. Have to wait until after
-                 * we check transparent auth or else we would blow away guest
-                 * sessions.  See Bug #9311. */
-                $registry->getCleanSession();
-            }
+            $result = $registry->callAppMethod($this->_app, $this->_apiMethods['transparent'], array('args' => array($this), 'noperms' => true));
         } else {
             /* If this application contains neither transparent nor
              * authenticate capabilities, it does not require any
@@ -562,6 +555,12 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
     {
         if ($GLOBALS['registry']->isAuthenticated(array('app' => $this->_app, 'notransparent' => true))) {
             return true;
+        }
+
+        /* Destroy any existing session on login and make sure to use a
+         * new session ID, to avoid session fixation issues. */
+        if (!$GLOBALS['registry']->getAuth()) {
+            $GLOBALS['registry']->getCleanSession();
         }
 
         $userId = $this->getCredential('userId');

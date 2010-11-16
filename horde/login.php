@@ -158,12 +158,6 @@ if ($logout_reason) {
     $_GET['new_lang'] = $language;
 } elseif (Horde_Util::getPost('login_post') ||
           Horde_Util::getPost('login_button')) {
-    if (!$is_auth) {
-        /* Destroy any existing session on login and make sure to use a
-         * new session ID, to avoid session fixation issues. */
-        $registry->getCleanSession();
-    }
-
     /* Get the login params from the login screen. */
     $auth_params = array(
         'password' => Horde_Util::getPost('horde_pass')
