@@ -345,6 +345,10 @@ class Horde_Registry
             umask($conf['umask']);
         }
 
+        /* Get modified time of registry files. */
+        $this->_regmtime = max(filemtime(HORDE_BASE . '/config/registry.php'),
+                               filemtime(HORDE_BASE . '/config/registry.d'));
+
         $vhost = null;
         if (!empty($conf['vhosts'])) {
             $vhost = HORDE_BASE . '/config/registry-' . $conf['server']['name'] . '.php';
@@ -382,9 +386,6 @@ class Horde_Registry
 
         /* Initialize the localization routines and variables. */
         $this->setLanguageEnvironment(null, 'horde');
-
-        $this->_regmtime = max(filemtime(HORDE_BASE . '/config/registry.php'),
-                               filemtime(HORDE_BASE . '/config/registry.d'));
 
         /* Stop system if Horde is inactive. */
         if ($this->applications['horde']['status'] == 'inactive') {
