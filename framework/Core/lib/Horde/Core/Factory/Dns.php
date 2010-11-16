@@ -7,6 +7,10 @@ class Horde_Core_Factory_Dns
 {
     public function create(Horde_Injector $injector)
     {
+        if (!class_exists('Net_DNS2_Resolver')) {
+            return null;
+        }
+
         $resolver = new Net_DNS2_Resolver();
         if (is_readable('/etc/resolv.conf')) {
             $resolver->setServers('/etc/resolv.conf');
