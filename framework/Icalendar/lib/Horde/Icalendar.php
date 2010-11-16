@@ -934,7 +934,6 @@ class Horde_Icalendar
                                 'year' => $d->year,
                                 'month' => $d->month,
                                 'mday' => $d->mday - 1));
-                            $value->correct();
                             $value = $this->_exportDate($value, '235959');
                         } else {
                             $value = $this->_exportDate($value, '000000');
