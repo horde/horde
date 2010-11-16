@@ -60,33 +60,33 @@ foreach (new DirectoryIterator($horde_git . '/horde') as $it) {
     if ($it->isDir()) {
         if (strpos($it->getPathname(), $horde_git . '/horde/js') !== false) {
             if ($debug) {
-                print 'CREATING DIRECTORY: ' . $web_dir . '/' . $it->getFilename() . "\n";
+                print 'CREATING DIRECTORY: ' . $web_dir . '/' . $it . "\n";
             }
-            mkdir($web_dir . '/' . $it->getFilename());
-            foreach (new DirectoryIterator($horde_git . '/horde/' . $it->getFilename()) as $sub) {
+            mkdir($web_dir . '/' . $it);
+            foreach (new DirectoryIterator($horde_git . '/horde/' . $it) as $sub) {
                 if ($sub->isDot()) {
                     continue;
                 }
                 if ($debug) {
                     if ($sub->isDir()) {
-                        print 'LINKING DIRECTORY: ' . $web_dir . '/' . $it->getFilename() . '/' . $sub->getFilename() . "\n";
+                        print 'LINKING DIRECTORY: ' . $web_dir . '/' . $it . '/' . $sub . "\n";
                     } else {
-                        print 'LINKING FILE: ' . $web_dir . '/' . $it->getFilename() . '/' . $sub->getFilename() . "\n";
+                        print 'LINKING FILE: ' . $web_dir . '/' . $it . '/' . $sub . "\n";
                     }
-                    symlink($it->getPathname(), $web_dir . '/' . $it->getFilename() . '/' . $sub->getFilename());
                 }
+                symlink($sub->getPathname(), $web_dir . '/' . $it . '/' . $sub);
             }
         } else {
             if ($debug) {
-                print 'LINKING DIRECTORY: ' . $web_dir . '/' . $it->getFilename() . "\n";
+                print 'LINKING DIRECTORY: ' . $web_dir . '/' . $it . "\n";
             }
-            symlink($it->getPathname(), $web_dir . '/' . $it->getFilename());
+            symlink($it->getPathname(), $web_dir . '/' . $it);
         }
     } else {
         if ($debug) {
-            print 'LINKING FILE: ' . $web_dir . '/' . $it->getFilename() . "\n";
+            print 'LINKING FILE: ' . $web_dir . '/' . $it . "\n";
         }
-        symlink($it->getPathname(), $web_dir . '/' . $it->getFilename());
+        symlink($it->getPathname(), $web_dir . '/' . $it);
     }
 }
 
