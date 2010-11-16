@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
  <name>horde</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Application Framework</summary>
@@ -19,8 +19,8 @@ applications.</description>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2010-11-03</date>
- <time>14:58:55</time>
+ <date>2010-11-16</date>
+ <time>18:53:26</time>
  <version>
   <release>4.0.0</release>
   <api>4.0.0</api>
@@ -160,6 +160,23 @@ applications.</description>
      <file name="zh-CN.js" role="horde" />
      <file name="zh-TW.js" role="horde" />
     </dir> <!-- /js/date -->
+    <dir name="jquery.mobile">
+     <dir name="images">
+      <file name="ajax-loader.png" role="horde" />
+      <file name="form-check-off.png" role="horde" />
+      <file name="form-check-on.png" role="horde" />
+      <file name="form-radio-off.png" role="horde" />
+      <file name="form-radio-on.png" role="horde" />
+      <file name="icon-search-black.png" role="horde" />
+      <file name="icons-18-black.png" role="horde" />
+      <file name="icons-18-white.png" role="horde" />
+      <file name="icons-36-black.png" role="horde" />
+      <file name="icons-36-white.png" role="horde" />
+     </dir> <!-- /js/jquery.mobile/images -->
+     <file name="jquery.min.js" role="horde" />
+     <file name="jquery.mobile.min.css" role="horde" />
+     <file name="jquery.mobile.min.js" role="horde" />
+    </dir> <!-- /js/jquery.mobile -->
     <dir name="map">
      <dir name="img">
       <file name="blank.gif" role="horde" />
@@ -349,7 +366,6 @@ applications.</description>
     <dir name="LoginTasks">
      <dir name="SystemTask">
       <file name="GarbageCollection.php" role="horde" />
-      <file name="UpgradeFromHorde3.php" role="horde" />
      </dir> <!-- /lib/LoginTasks/SystemTask -->
      <dir name="Task">
       <file name="LastLogin.php" role="horde" />
@@ -733,9 +749,6 @@ applications.</description>
      <file name="2.2_to_3.0.mysql.sql" role="data" />
      <file name="2.2_to_3.0.oci8.sql" role="data" />
      <file name="2.2_to_3.0.pgsql.sql" role="data" />
-     <file name="3.0_to_3.1.mysql.sql" role="data" />
-     <file name="3.0_to_3.1.oci8.sql" role="data" />
-     <file name="3.0_to_3.1.sql" role="data" />
      <file name="3.1_to_3.2.mssql.sql" role="data" />
      <file name="3.1_to_3.2.mysql.sql" role="data" />
      <file name="3.1_to_3.2.oci8.sql" role="data" />
@@ -743,6 +756,9 @@ applications.</description>
      <file name="3.1_to_3.2.sql" role="data" />
      <file name="3.1_to_3.2.sybase.sql" role="data" />
      <file name="3.3_to_3.3.5.sql" role="data" />
+     <file name="3.0_to_3.1.mysql.sql" role="data" />
+     <file name="3.0_to_3.1.oci8.sql" role="data" />
+     <file name="3.0_to_3.1.sql" role="data" />
      <file name="2005-09-22_horde_prefs_varchar2.oci8.sql" role="data" />
      <file name="2006-06-29_horde_prefs_indexes.sql" role="data" />
      <file name="2007-02-21_horde_alarms_primary.sql" role="data" />
@@ -901,6 +917,8 @@ applications.</description>
      <file name="checkbox.html" role="horde" />
      <file name="end.html" role="horde" />
      <file name="enum.html" role="horde" />
+     <file name="error_end.html" role="horde" />
+     <file name="error_start.html" role="horde" />
      <file name="facebook.html" role="horde" />
      <file name="identityselect.html" role="horde" />
      <file name="link.html" role="horde" />
@@ -932,7 +950,9 @@ applications.</description>
      <file name="php_version.inc" role="horde" />
      <file name="version.inc" role="horde" />
     </dir> <!-- /templates/test -->
+    <file name="common-footer-mobile.inc" role="horde" />
     <file name="common-footer.inc" role="horde" />
+    <file name="common-header-mobile.inc" role="horde" />
     <file name="common-header.inc" role="horde" />
    </dir> <!-- /templates -->
    <dir name="themes">
@@ -2257,6 +2277,19 @@ applications.</description>
    <install as="js/date/uk-UA.js" name="js/date/uk-UA.js" />
    <install as="js/date/zh-CN.js" name="js/date/zh-CN.js" />
    <install as="js/date/zh-TW.js" name="js/date/zh-TW.js" />
+   <install as="js/jquery.mobile/jquery.min.js" name="js/jquery.mobile/jquery.min.js" />
+   <install as="js/jquery.mobile/jquery.mobile.min.css" name="js/jquery.mobile/jquery.mobile.min.css" />
+   <install as="js/jquery.mobile/jquery.mobile.min.js" name="js/jquery.mobile/jquery.mobile.min.js" />
+   <install as="js/jquery.mobile/images/ajax-loader.png" name="js/jquery.mobile/images/ajax-loader.png" />
+   <install as="js/jquery.mobile/images/form-check-off.png" name="js/jquery.mobile/images/form-check-off.png" />
+   <install as="js/jquery.mobile/images/form-check-on.png" name="js/jquery.mobile/images/form-check-on.png" />
+   <install as="js/jquery.mobile/images/form-radio-off.png" name="js/jquery.mobile/images/form-radio-off.png" />
+   <install as="js/jquery.mobile/images/form-radio-on.png" name="js/jquery.mobile/images/form-radio-on.png" />
+   <install as="js/jquery.mobile/images/icon-search-black.png" name="js/jquery.mobile/images/icon-search-black.png" />
+   <install as="js/jquery.mobile/images/icons-18-black.png" name="js/jquery.mobile/images/icons-18-black.png" />
+   <install as="js/jquery.mobile/images/icons-18-white.png" name="js/jquery.mobile/images/icons-18-white.png" />
+   <install as="js/jquery.mobile/images/icons-36-black.png" name="js/jquery.mobile/images/icons-36-black.png" />
+   <install as="js/jquery.mobile/images/icons-36-white.png" name="js/jquery.mobile/images/icons-36-white.png" />
    <install as="js/map/cloudmade.js" name="js/map/cloudmade.js" />
    <install as="js/map/google.js" name="js/map/google.js" />
    <install as="js/map/horde.js" name="js/map/horde.js" />
@@ -2385,7 +2418,6 @@ applications.</description>
    <install as="lib/Block/weatherdotcom.php" name="lib/Block/weatherdotcom.php" />
    <install as="lib/Block/weatherdotcom_strings.php" name="lib/Block/weatherdotcom_strings.php" />
    <install as="lib/LoginTasks/SystemTask/GarbageCollection.php" name="lib/LoginTasks/SystemTask/GarbageCollection.php" />
-   <install as="lib/LoginTasks/SystemTask/UpgradeFromHorde3.php" name="lib/LoginTasks/SystemTask/UpgradeFromHorde3.php" />
    <install as="lib/LoginTasks/Task/LastLogin.php" name="lib/LoginTasks/Task/LastLogin.php" />
    <install as="lib/LoginTasks/Task/TestScriptActive.php" name="lib/LoginTasks/Task/TestScriptActive.php" />
    <install as="lib/LoginTasks/Task/TosAgreement.php" name="lib/LoginTasks/Task/TosAgreement.php" />
@@ -2586,9 +2618,6 @@ applications.</description>
    <install as="scripts/upgrades/2.2_to_3.0.mysql.sql" name="scripts/upgrades/2.2_to_3.0.mysql.sql" />
    <install as="scripts/upgrades/2.2_to_3.0.oci8.sql" name="scripts/upgrades/2.2_to_3.0.oci8.sql" />
    <install as="scripts/upgrades/2.2_to_3.0.pgsql.sql" name="scripts/upgrades/2.2_to_3.0.pgsql.sql" />
-   <install as="scripts/upgrades/3.0_to_3.1.mysql.sql" name="scripts/upgrades/3.0_to_3.1.mysql.sql" />
-   <install as="scripts/upgrades/3.0_to_3.1.oci8.sql" name="scripts/upgrades/3.0_to_3.1.oci8.sql" />
-   <install as="scripts/upgrades/3.0_to_3.1.sql" name="scripts/upgrades/3.0_to_3.1.sql" />
    <install as="scripts/upgrades/3.1_to_3.2.mssql.sql" name="scripts/upgrades/3.1_to_3.2.mssql.sql" />
    <install as="scripts/upgrades/3.1_to_3.2.mysql.sql" name="scripts/upgrades/3.1_to_3.2.mysql.sql" />
    <install as="scripts/upgrades/3.1_to_3.2.oci8.sql" name="scripts/upgrades/3.1_to_3.2.oci8.sql" />
@@ -2596,6 +2625,9 @@ applications.</description>
    <install as="scripts/upgrades/3.1_to_3.2.sql" name="scripts/upgrades/3.1_to_3.2.sql" />
    <install as="scripts/upgrades/3.1_to_3.2.sybase.sql" name="scripts/upgrades/3.1_to_3.2.sybase.sql" />
    <install as="scripts/upgrades/3.3_to_3.3.5.sql" name="scripts/upgrades/3.3_to_3.3.5.sql" />
+   <install as="scripts/upgrades/3.0_to_3.1.mysql.sql" name="scripts/upgrades/3.0_to_3.1.mysql.sql" />
+   <install as="scripts/upgrades/3.0_to_3.1.oci8.sql" name="scripts/upgrades/3.0_to_3.1.oci8.sql" />
+   <install as="scripts/upgrades/3.0_to_3.1.sql" name="scripts/upgrades/3.0_to_3.1.sql" />
    <install as="scripts/upgrades/2005-09-22_horde_prefs_varchar2.oci8.sql" name="scripts/upgrades/2005-09-22_horde_prefs_varchar2.oci8.sql" />
    <install as="scripts/upgrades/2006-06-29_horde_prefs_indexes.sql" name="scripts/upgrades/2006-06-29_horde_prefs_indexes.sql" />
    <install as="scripts/upgrades/2007-02-21_horde_alarms_primary.sql" name="scripts/upgrades/2007-02-21_horde_alarms_primary.sql" />
@@ -2652,7 +2684,9 @@ applications.</description>
    <install as="services/portal/mobile.php" name="services/portal/mobile.php" />
    <install as="services/shares/edit.php" name="services/shares/edit.php" />
    <install as="static/README" name="static/README" />
+   <install as="templates/common-footer-mobile.inc" name="templates/common-footer-mobile.inc" />
    <install as="templates/common-footer.inc" name="templates/common-footer.inc" />
+   <install as="templates/common-header-mobile.inc" name="templates/common-header-mobile.inc" />
    <install as="templates/common-header.inc" name="templates/common-header.inc" />
    <install as="templates/admin/menu.inc" name="templates/admin/menu.inc" />
    <install as="templates/admin/alarms/list.html.php" name="templates/admin/alarms/list.html.php" />
@@ -2702,6 +2736,8 @@ applications.</description>
    <install as="templates/prefs/checkbox.html" name="templates/prefs/checkbox.html" />
    <install as="templates/prefs/end.html" name="templates/prefs/end.html" />
    <install as="templates/prefs/enum.html" name="templates/prefs/enum.html" />
+   <install as="templates/prefs/error_end.html" name="templates/prefs/error_end.html" />
+   <install as="templates/prefs/error_start.html" name="templates/prefs/error_start.html" />
    <install as="templates/prefs/facebook.html" name="templates/prefs/facebook.html" />
    <install as="templates/prefs/identityselect.html" name="templates/prefs/identityselect.html" />
    <install as="templates/prefs/link.html" name="templates/prefs/link.html" />
@@ -3744,7 +3780,7 @@ applications.</description>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2010-11-03</date>
+   <date>2010-11-16</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
 * Initial package.xml.
