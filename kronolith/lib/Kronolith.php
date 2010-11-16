@@ -336,7 +336,9 @@ class Kronolith
             Horde_Date_Recurrence::RECUR_WEEKLY => array(sprintf(_("Recurs weekly on every %s"), "#{weekday}"),
                                                          sprintf(_("Recurs every %s weeks on %s"), "#{interval}", "#{weekday}")),
             Horde_Date_Recurrence::RECUR_MONTHLY_DATE => array(sprintf(_("Recurs on the %s of every month"), "#{date}"),
-                                                               sprintf(_("Recurs on the %s of every %s months"), "#{date}", "#{interval}"))
+                                                               sprintf(_("Recurs every %s months on the %s"), "#{interval}", "#{date}")),
+            Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY => array(_("Recurs every month on the same weekday"),
+                                                               sprintf(_("Recurs every %s months on the same weekday"), "#{interval}"))
         );
         $code['text']['recur']['exception'] = _("Exception");
 

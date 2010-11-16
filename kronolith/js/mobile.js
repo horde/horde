@@ -214,7 +214,11 @@
                  t.append($('<div>').addClass('kronolithEventDetailRecurring').append(recur));
                  break;
              case 4:
-                 // Monthly
+                 // Monthly_Day
+                 recur = Kronolith.text.recur.desc[e.r.t][(e.r.i > 1) ? 1 : 0];
+                 recur = recur.replace('#{interval}', e.r.i);
+                 t.append($('<div>').addClass('kronolithEventDetailRecurring').append(recur));
+                 break;
              case 5:
              case 6:
              case 7:
