@@ -351,7 +351,10 @@ class Horde_Prefs implements ArrayAccess
         $scope_ob->init = true;
 
         foreach ($this->_storage as $storage) {
-            $scope_ob = $storage->get($scope_ob);
+            $value = $storage->get($scope_ob);
+            if (!$value) {
+                break;
+            }
         }
 
         $scope_ob->init = false;
