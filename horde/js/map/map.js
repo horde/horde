@@ -109,7 +109,7 @@ HordeMap = {
      */
     _getScriptLocation: function () {
         var scriptLocation = "";
-        var isMap = new RegExp("(^|(.*?\hordemap\/))(map.js)(\\?|$)");
+        var isMap = new RegExp("(^|(.*?\map\/))(map.js)(\\?|$)");
 
         var scripts = document.getElementsByTagName('script');
         for (var i=0, len=scripts.length; i<len; i++) {

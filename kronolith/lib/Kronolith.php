@@ -1217,7 +1217,7 @@ class Kronolith
             // Language specific file needed?
             //$language = str_replace('_', '-', $GLOBALS['language']);
             $language = $GLOBALS['language'];
-            if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/hordemap/' . $language . '.js')) {
+            if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/map/' . $language . '.js')) {
                 $language = 'en-US';
             }
             $params['conf'] = array(
@@ -1255,8 +1255,8 @@ class Kronolith
                 break;
             }
         }
-        $params['jsuri'] = $GLOBALS['registry']->get('jsuri', 'horde') . '/hordemap/';
-        Horde::addScriptFile('hordemap/map.js', 'horde');
+        $params['jsuri'] = $GLOBALS['registry']->get('jsuri', 'horde') . '/map/';
+        Horde::addScriptFile('map/map.js', 'horde');
         $js = 'HordeMap.initialize(' . Horde_Serialize::serialize($params, HORDE_SERIALIZE::JSON) . ');';
         Horde::addinlineScript($js);
     }
