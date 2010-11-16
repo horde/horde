@@ -15,6 +15,14 @@
 class Horde_Cache_Storage_Eaccelerator extends Horde_Cache_Storage_Base
 {
     /**
+     * Constructor.
+     *
+     * @param array $params  Optional parameters:
+     * <pre>
+     * 'prefix' - (string) The prefix to use for the cache keys.
+     *            DEFAULT: ''
+     * </pre>
+     *
      * @throws Horde_Cache_Exception
      */
     public function __construct(array $params = array())
@@ -23,7 +31,9 @@ class Horde_Cache_Storage_Eaccelerator extends Horde_Cache_Storage_Base
             throw new Horde_Cache_Exception('eAccelerator must be compiled with support for shared memory to use as caching backend.');
         }
 
-        parent::__construct($params);
+        parent::__construct(array_merge(array(
+            'prefix' => '',
+        ), $params));
     }
 
     /**

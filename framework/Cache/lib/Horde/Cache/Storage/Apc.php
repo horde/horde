@@ -15,6 +15,22 @@
 class Horde_Cache_Storage_Apc extends Horde_Cache_Storage_Base
 {
     /**
+     * Constructor.
+     *
+     * @param array $params  Optional parameters:
+     * <pre>
+     * 'prefix' - (string) The prefix to use for the cache keys.
+     *            DEFAULT: ''
+     * </pre>
+     */
+    public function __construct(array $params = array())
+    {
+        parent::__construct(array_merge(array(
+            'prefix' => '',
+        ), $params));
+    }
+
+    /**
      */
     public function get($key, $lifetime)
     {

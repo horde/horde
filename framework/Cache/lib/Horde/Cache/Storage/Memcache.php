@@ -37,12 +37,14 @@ class Horde_Cache_Storage_Memcache extends Horde_Cache_Storage_Base implements S
      *
      * @param array $params  Parameter array:
      * <pre>
-     * 'memcache' - (Horde_Memcache) A Horde_Memcache object.
+     * 'memcache' - (Horde_Memcache) [REQUIRED] A Horde_Memcache object.
+     * 'prefix' - (string) The prefix to use for the cache keys.
+     *            DEFAULT: ''
      * </pre>
      *
      * @throws InvalidArgumentException
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         if (!isset($params['memcache'])) {
             throw new InvalidArgumentException('Missing memcache object');
@@ -51,7 +53,9 @@ class Horde_Cache_Storage_Memcache extends Horde_Cache_Storage_Base implements S
         $this->_memcache = $params['memcache'];
         unset($params['memcache']);
 
-        parent::__construct($params);
+        parent::__construct(array_merge(array(
+            'prefix' => '',
+        ), $params));
     }
 
     /**
