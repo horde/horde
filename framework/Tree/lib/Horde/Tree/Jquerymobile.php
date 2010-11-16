@@ -22,9 +22,11 @@ class Horde_Tree_Jquerymobile extends Horde_Tree_Base
      * @var array
      */
     protected $_allowed = array(
+        'class',
         'icon',
         'special',
         'url',
+        'urlattributes',
     );
 
     /**
@@ -57,12 +59,22 @@ class Horde_Tree_Jquerymobile extends Horde_Tree_Base
         $output = '';
 
         if ($node['special'] == $special) {
-            $output = '<li>';
+            $output = '<li';
+            if (isset($node['class'])) {
+                $output .= ' class="' . $node['class'] . '"';
+            }
+            $output .= '>';
             if (isset($node['extra'][Horde_Tree::EXTRA_LEFT])) {
                 $output .= implode(' ', $node['extra'][Horde_Tree::EXTRA_LEFT]);
             }
             if (!empty($node['url'])) {
-                $output .= '<a href="#mailbox" foo="' . strval($node['url']) . '">';
+                $output .= '<a href="' . (string)$node['url'] . '"';
+                if (isset($node['urlattributes'])) {
+                    foreach ($node['urlattributes'] as $attribute => $value) {
+                        $output .= ' ' . $attribute . '="' . htmlspecialchars($value) . '"';
+                    }
+                }
+                $output .= '>';
             }
             $output .= $this->_getIcon($node_id) . $node['label'];
             if (!empty($node['url'])) {

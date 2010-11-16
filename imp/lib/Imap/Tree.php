@@ -1526,6 +1526,8 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
                 $icon = $val->icon;
                 $params['icon'] = $icon->icon;
                 $params['special'] = $val->special;
+                $params['class'] = 'imp-folder';
+                $params['urlattributes'] = array('mailbox' => $val->value);
                 break;
             }
 
@@ -1551,10 +1553,13 @@ class IMP_Imap_Tree implements ArrayAccess, Iterator, Serializable
             }
 
             if (!$val->container) {
-                $params['url'] = $mailbox_url->add('mailbox', $val->value);
-
-                if ($this->_showunsub && !$val->sub) {
-                    $params['class'] = 'folderunsub';
+                if ($opts['render_type'] == 'Jquerymobile') {
+                    $params['url'] = '#';
+                } else {
+                    $params['url'] = $mailbox_url->add('mailbox', $val->value);
+                    if ($this->_showunsub && !$val->sub) {
+                        $params['class'] = 'folderunsub';
+                    }
                 }
             }
 
