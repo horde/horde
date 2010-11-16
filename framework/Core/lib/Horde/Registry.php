@@ -29,6 +29,41 @@ class Horde_Registry
     const HOOK_FATAL = 4;
 
     /**
+     * Hash storing information on each registry-aware application.
+     *
+     * @var array
+     */
+    public $applications = array();
+
+    /**
+     * The application that called appInit().
+     *
+     * @var string
+     */
+    public $initialApp;
+
+    /**
+     * NLS configuration.
+     *
+     * @var array
+     */
+    public $nlsconfig = array();
+
+    /**
+     * Stack of in-use applications.
+     *
+     * @var array
+     */
+    protected $_appStack = array();
+
+    /**
+     * The list of APIs.
+     *
+     * @param array
+     */
+    protected $_apis = array();
+
+    /**
      * Cached information.
      *
      * @var array
@@ -50,39 +85,11 @@ class Horde_Registry
     protected $_regmtime;
 
     /**
-     * Stack of in-use applications.
+     * The list of cache entries to save on shutdown.
      *
      * @var array
      */
-    protected $_appStack = array();
-
-    /**
-     * The list of APIs.
-     *
-     * @param array
-     */
-    protected $_apis = array();
-
-    /**
-     * Hash storing information on each registry-aware application.
-     *
-     * @var array
-     */
-    public $applications = array();
-
-    /**
-     * The application that called appInit().
-     *
-     * @var string
-     */
-    public $initialApp;
-
-    /**
-     * NLS configuration.
-     *
-     * @var array
-     */
-    public $nlsconfig = array();
+    protected $_savecache = array();
 
     /**
      * Application bootstrap initialization.
@@ -411,6 +418,27 @@ class Horde_Registry
      */
     public function shutdown()
     {
+        /* Store cache entries to persistent storage. */
+        if (!empty($this->_savecache)) {
+            $ob = $GLOBALS['injector']->getInstance('Horde_Cache');
+
+            foreach ($this->_savecache as $key => $val) {
+                if ($val) {
+                    // Entry has been updated.
+                    $data = serialize($this->_cache[$key]);
+                    $md5sum = hash('md5', $data);
+                    $GLOBALS['session']->set('horde', 'registry/' . $key, $md5sum);
+                    $id = $this->_getCacheId($key, false) . '|' . $md5sum;
+                    if ($ob->set($id, $data, 86400)) {
+                        Horde::logMessage('Horde_Registry: stored ' . $key . ' with cache ID ' . $id, 'DEBUG');
+                    }
+                } elseif ($id = $this->_getCacheId($name)) {
+                    // Entry has been deleted.
+                    $ob->expire($id);
+                }
+            }
+        }
+
         /* Register access key logger for translators. */
         if (!empty($GLOBALS['conf']['log_accesskeys'])) {
             Horde::getAccessKey(null, null, true);
@@ -458,8 +486,9 @@ class Horde_Registry
     public function clearCache()
     {
         $GLOBALS['session']->remove('horde', 'registry/');
-        $this->_saveCacheVar('api', true);
-        $this->_saveCacheVar('appcache', true);
+        $this->_cache = array();
+        $this->_savecache['api'] = false;
+        $this->_savecache['appcache'] = false;
     }
 
     /**
@@ -470,7 +499,7 @@ class Horde_Registry
     protected function _loadApplicationsCache($vhost)
     {
         /* First, try to load from cache. */
-        if ($this->_loadCacheVar('appcache')) {
+        if ($this->_loadCache('appcache')) {
             $this->applications = $this->_cache['appcache'][0];
             $this->_cache['interfaces'] = $this->_cache['appcache'][1];
             return;
@@ -549,7 +578,7 @@ class Horde_Registry
             // Index 1
             $this->_cache['interfaces']
         );
-        $this->_saveCacheVar('appcache');
+        $this->_savecache['appcache'] = true;
     }
 
     /**
@@ -560,7 +589,7 @@ class Horde_Registry
     protected function _loadApiCache()
     {
         /* First, try to load from cache. */
-        if ($this->_loadCacheVar('api')) {
+        if ($this->_loadCache('api')) {
             return;
         }
 
@@ -587,7 +616,7 @@ class Horde_Registry
             }
         }
 
-        $this->_saveCacheVar('api');
+        $this->_savecache['api'] = true;
     }
 
     /**
@@ -1291,13 +1320,13 @@ class Horde_Registry
      */
     public function importConfig($app)
     {
-        if (($app != 'horde') && !$this->_loadCacheVar('conf-' . $app)) {
+        if (($app != 'horde') && !$this->_loadCache('conf-' . $app)) {
             $appConfig = Horde::loadConfiguration('conf.php', 'conf', $app);
             if (empty($appConfig)) {
                 $appConfig = array();
             }
             $this->_cache['conf-' . $app] = $appConfig;
-            $this->_saveCacheVar('conf-' . $app);
+            $this->_savecache['conf-' . $app] = true;
         }
 
         $GLOBALS['conf'] = Horde_Array::array_merge_recursive_overwrite($this->_cache['conf-horde'], $this->_cache['conf-' . $app]);
@@ -1492,38 +1521,13 @@ class Horde_Registry
     }
 
     /**
-     * Saves a cache variable.
-     *
-     * @param string $name     Cache variable name.
-     * @param boolean $expire  Expire the entry?
-     */
-    protected function _saveCacheVar($name, $expire = false)
-    {
-        $ob = $GLOBALS['injector']->getInstance('Horde_Cache');
-
-        if ($expire) {
-            if ($id = $this->_getCacheId($name)) {
-                $ob->expire($id);
-            }
-        } else {
-            $data = serialize($this->_cache[$name]);
-            $md5sum = hash('md5', $data);
-            $GLOBALS['session']->set('horde', 'registry/' . $name, $md5sum);
-            $id = $this->_getCacheId($name, false) . '|' . $md5sum;
-            if ($ob->set($id, $data, 86400)) {
-                Horde::logMessage('Horde_Registry: stored ' . $name . ' with cache ID ' . $id, 'DEBUG');
-            }
-        }
-    }
-
-    /**
      * Retrieves a cache variable.
      *
      * @param string $name  Cache variable name.
      *
      * @return boolean  True if value loaded from cache.
      */
-    protected function _loadCacheVar($name)
+    protected function _loadCache($name)
     {
         if (isset($this->_cache[$name])) {
             return true;
