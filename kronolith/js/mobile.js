@@ -17,7 +17,7 @@
     calendars:  [],
     loadedCalendars: [],
     events: [],
-    
+
     /**
      * Perform an Ajax action
      *
@@ -30,6 +30,13 @@
         $.post(Kronolith.conf.URI_AJAX + action, params, callback, 'json');
     },
 
+    /**
+     * Load all events between start and end time. Returns short version of
+     * event info.
+     *
+     * @param Date start
+     * @param Date end
+     */
     loadEvents: function(start, end)
     {
         KronolithMobile.loadedCalendars = [];
@@ -47,6 +54,9 @@
         }
     },
 
+    /**
+     * Used as sorting funtion to Array.sort for sorting events by start time
+     */
     sortEvents: function(events)
     {
         return  events.sort(function(a, b) {
@@ -57,7 +67,11 @@
     },
 
     /**
-     * Callback for the listEvents AJAX request.
+     * Callback for the listEvents AJAX request. For now, assume we are in
+     * day view, wait for all calendar responses to be received and then build
+     * the event elements in the listview.
+     *
+     * @param object data  The ajax response.
      */
     listEventsCallback: function(data)
     {
@@ -72,6 +86,7 @@
                 });
             });
         }
+
         if (KronolithMobile.loadedCalendars.length == KronolithMobile.calendars.length) {
             var events = KronolithMobile.sortEvents(KronolithMobile.events);
             list = $('<ul>').attr({'data-role': 'listview'});
@@ -91,6 +106,7 @@
      *
      * @param string cal    The calendar name returned from the ajax request.
      * @param object event  The event object returned from the ajax request.
+     * @param string id     The event identifier
      */
     buildDayEvent: function(cal, event, id)
     {
@@ -122,6 +138,13 @@
         return item.append(a);
     },
 
+    /**
+     * Retrieve a single event from the server.
+     *
+     * @param string cal  The calendar identifier.
+     * @param string id   The event identifier.
+     * @param Date   d    The date the event occurs.
+     */
     loadEvent: function(cal, id, d)
     {
         KronolithMobile.doAction('getEvent',
@@ -129,6 +152,12 @@
                                  KronolithMobile.loadEventCallback);
     },
 
+    /**
+     * Callback for loadEvent call.  Assume we are in Event view for now, build
+     * the event view structure and attach to DOM.
+     *
+     * @param object data  The ajax response.
+     */
     loadEventCallback: function(data)
     {
          var event, list, text;
@@ -231,6 +260,7 @@
 
         return [start, end];
     },
+
     /**
      * Creates a mini calendar suitable for the navigation calendar and the
      * year view.
@@ -335,7 +365,7 @@
         // Next and Prev day links for the day view.
         $('.kronolithDayHeader .kronolithPrevDay').bind('click', KronolithMobile.showPrevDay);
         $('.kronolithDayHeader .kronolithNextDay').bind('click', KronolithMobile.showNextDay);
-        
+
         // Load today's events
         $(".kronolithDayDate").html(KronolithMobile.currentDate.toString(Kronolith.conf.date_format));
         KronolithMobile.loadEvents(KronolithMobile.currentDate, KronolithMobile.currentDate);
