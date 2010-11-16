@@ -333,7 +333,6 @@ class Horde_Registry
 
         /* Set the maximum execution time in accordance with the config
          * settings. */
-        error_reporting(0);
         set_time_limit($conf['max_exec_time']);
 
         /* Set the error reporting level in accordance with the config
