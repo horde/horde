@@ -1,7 +1,7 @@
 <?php
 /**
- * The Horde_Cache_File:: class provides a filesystem implementation of the
- * Horde caching system.
+ * This class provides a filesystem implementation of the Horde caching
+ * system.
  *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
@@ -11,10 +11,14 @@
  * @author   Anil Madhavapeddy <anil@recoil.org>
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
+ * @license  http://www.fsf.org/copyleft/lgpl.html LGPL
  * @package  Cache
  */
 class Horde_Cache_File extends Horde_Cache
 {
+    /* Location of the garbage collection data file. */
+    const GC_FILE = 'horde_cache_gc';
+
     /**
      * The location of the temp directory.
      *
@@ -30,7 +34,7 @@ class Horde_Cache_File extends Horde_Cache
     protected $_file = array();
 
     /**
-     * Construct a new Horde_Cache_File object.
+     * Constructor.
      *
      * @param array $params  Optional parameters:
      * <pre>
@@ -43,19 +47,16 @@ class Horde_Cache_File extends Horde_Cache
      *         DEFAULT: 0
      * </pre>
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
-        $this->_dir = (!empty($params['dir']) && @is_dir($params['dir']))
+        $params = array_merge(array(
+            'prefix' => 'cache_',
+            'sub' => 0
+        ), $params);
+
+        $this->_dir = (isset($params['dir']) && @is_dir($params['dir']))
             ? $params['dir']
             : Horde_Util::getTempDir();
-
-        if (!isset($params['prefix'])) {
-            $params['prefix'] = 'cache_';
-        }
-
-        if (!isset($params['sub'])) {
-            $params['sub'] = 0;
-        }
 
         parent::__construct($params);
     }
@@ -70,36 +71,49 @@ class Horde_Cache_File extends Horde_Cache
             return;
         }
 
-        $filename = $this->_dir . '/horde_cache_gc';
+        $filename = $this->_dir . '/' . self::GC_FILE;
         $excepts = array();
 
         if (file_exists($filename)) {
-            $flags = defined('FILE_IGNORE_NEW_LINES')
-                ? FILE_IGNORE_NEW_LINES
-                : 0;
-
-            $gc_file = file($filename, $flags);
-            array_pop($gc_file);
+            $gc_file = file($filename, FILE_IGNORE_NEW_LINES);
             reset($gc_file);
+            next($gc_file);
             while (list(,$data) = each($gc_file)) {
-                if (!$flags) {
-                    $data = rtrim($data);
-                }
                 $parts = explode("\t", $data, 2);
                 $excepts[$parts[0]] = $parts[1];
             }
         }
 
         try {
-            $this->_gcDir($this->_dir, $excepts);
-        } catch (Horde_Cache_Exception $e) {}
-
-        $out = '';
-        foreach ($excepts as $key => $val) {
-            $out .= $key . "\t" . $val . "\n";
+            $it = empty($this->_params['sub'])
+                ? new DirectoryIterator($this->_dir)
+                : new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->_dir), RecursiveIteratorIterator::CHILD_FIRST);
+        } catch (UnexpectedValueException $e) {
+            return;
         }
 
-        file_put_contents($filename, $out);
+        $c_time = time();
+
+        foreach ($it as $key => $val) {
+            if (!$val->isDir() &&
+                (strpos($val->getFilename(), $this->_params['prefix']) === 0)) {
+                $d_time = isset($excepts[$key])
+                    ? $excepts[$key]
+                    : $this->_params['lifetime'];
+
+                if (!empty($d_time) &&
+                    (($c_time - $d_time) > filemtime($key))) {
+                    @unlink($key);
+                    unset($excepts[$key]);
+                }
+            }
+        }
+
+        $fp = fopen($filename, 'w');
+        foreach ($excepts as $key => $val) {
+            fwrite($fp, $key . "\t" . $val . "\n");
+        }
+        fclose($fp);
     }
 
     /**
@@ -113,11 +127,10 @@ class Horde_Cache_File extends Horde_Cache
 
         $filename = $this->_keyToFile($key);
         $size = filesize($filename);
-        if (!$size) {
-            return '';
-        }
 
-        return @file_get_contents($filename);
+        return $size
+            ? @file_get_contents($filename)
+            : '';
     }
 
     /**
@@ -137,26 +150,17 @@ class Horde_Cache_File extends Horde_Cache
         @rename($tmp_file, $filename);
 
         $lifetime = $this->_getLifetime($lifetime);
-        if ($lifetime != $this->_params['lifetime']) {
+        if (($lifetime != $this->_params['lifetime']) &&
+            ($fp = @fopen($this->_dir . '/horde_cache_gc', 'a'))) {
             // This may result in duplicate entries in horde_cache_gc, but we
             // will take care of these whenever we do GC and this is quicker
             // than having to check every time we access the file.
-            $fp = @fopen($this->_dir . '/horde_cache_gc', 'a');
-            if ($fp) {
-                fwrite($fp, $filename . "\t" . (empty($lifetime) ? 0 : time() + $lifetime) . "\n");
-                fclose($fp);
-            }
+            fwrite($fp, $filename . "\t" . (empty($lifetime) ? 0 : time() + $lifetime) . "\n");
+            fclose($fp);
         }
     }
 
     /**
-     * Checks if a given key exists in the cache, valid for the given
-     * lifetime. If it exists but is expired, delete the file.
-     *
-     * @param string $key        Cache key to check.
-     * @param integer $lifetime  Lifetime of the key in seconds.
-     *
-     * @return boolean  Existence.
      */
     public function exists($key, $lifetime = 1)
     {
@@ -179,11 +183,6 @@ class Horde_Cache_File extends Horde_Cache
     }
 
     /**
-     * Expire any existing data for the given key.
-     *
-     * @param string $key  Cache key to expire.
-     *
-     * @return boolean  Success or failure.
      */
     public function expire($key)
     {
@@ -192,12 +191,6 @@ class Horde_Cache_File extends Horde_Cache
     }
 
     /**
-     * Attempts to directly output a cached object.
-     *
-     * @param string $key        Object ID to query.
-     * @param integer $lifetime  Lifetime of the object in seconds.
-     *
-     * @return boolean  True if output or false if no object was found.
      */
     public function output($key, $lifetime = 1)
     {
@@ -221,8 +214,9 @@ class Horde_Cache_File extends Horde_Cache
     {
         if ($create || !isset($this->_file[$key])) {
             $dir = $this->_dir . '/';
+            $md5 = hash('md5', $key);
             $sub = '';
-            $md5 = md5($key);
+
             if (!empty($this->_params['sub'])) {
                 $max = min($this->_params['sub'], strlen($md5));
                 for ($i = 0; $i < $max; $i++) {
@@ -236,6 +230,7 @@ class Horde_Cache_File extends Horde_Cache
                     $sub .= '/';
                 }
             }
+
             $this->_file[$key] = $dir . $sub . $this->_params['prefix'] . $md5;
         }
 
@@ -249,31 +244,6 @@ class Horde_Cache_File extends Horde_Cache
      */
     protected function _gcDir($dir, &$excepts)
     {
-        $d = @dir($dir);
-        if (!$d) {
-            throw new Horde_Cache_Exception('Permission denied to ' . $dir);
-        }
-
-        $c_time = time();
-
-        while (($entry = $d->read()) !== false) {
-            $path = $dir . '/' . $entry;
-            if (($entry == '.') || ($entry == '..')) {
-                continue;
-            }
-
-            if (strpos($entry, $this->_params['prefix']) === 0) {
-                $d_time = isset($excepts[$path]) ? $excepts[$path] : $this->_params['lifetime'];
-                if (!empty($d_time) &&
-                    (($c_time - $d_time) > filemtime($path))) {
-                    @unlink($path);
-                    unset($excepts[$path]);
-                }
-            } elseif (!empty($this->_params['sub']) && is_dir($path)) {
-                $this->_gcDir($path, $excepts);
-            }
-        }
-        $d->close();
     }
 
 }
