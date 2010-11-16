@@ -1465,12 +1465,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *             DEFAULT: false (results cached, if possible)
      * 'results' - (array) The data to return. Consists of zero or more of the
      *                     following flags:
-     * Horde_Imap_Client::SORT_RESULTS_COUNT
-     * Horde_Imap_Client::SORT_RESULTS_MATCH (DEFAULT)
-     * Horde_Imap_Client::SORT_RESULTS_MAX
-     * Horde_Imap_Client::SORT_RESULTS_MIN
-     * Horde_Imap_Client::SORT_RESULTS_SAVE - (This option is currently meant
-     *   for internal use only)
+     *
+     *             Horde_Imap_Client::SORT_RESULTS_COUNT
+     *             Horde_Imap_Client::SORT_RESULTS_MATCH (DEFAULT)
+     *             Horde_Imap_Client::SORT_RESULTS_MAX
+     *             Horde_Imap_Client::SORT_RESULTS_MIN
+     *             Horde_Imap_Client::SORT_RESULTS_SAVE (This option is
+     *             currently meant for internal use only)
      * 'reverse' - (boolean) Sort the entire returned list of messages in
      *             reverse (i.e. descending) order.
      *             DEFAULT: Sorted in ascending order.
@@ -1479,18 +1480,20 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * 'sort' - (array) Sort the returned list of messages. Multiple sort
      *          criteria can be specified. The following sort criteria
      *          are available:
-     * Horde_Imap_Client::SORT_ARRIVAL
-     * Horde_Imap_Client::SORT_CC
-     * Horde_Imap_Client::SORT_DATE
-     * Horde_Imap_Client::SORT_FROM
-     * Horde_Imap_Client::SORT_SEQUENCE
-     * Horde_Imap_Client::SORT_SIZE
-     * Horde_Imap_Client::SORT_SUBJECT
-     * Horde_Imap_Client::SORT_TO
-     * [On servers that support SORT=DISPLAY, these criteria are also
-     *  available:]
-     * Horde_Imap_Client::SORT_DISPLAYFROM
-     * Horde_Imap_Client::SORT_DISPLAYTO
+     *
+     *          Horde_Imap_Client::SORT_ARRIVAL
+     *          Horde_Imap_Client::SORT_CC
+     *          Horde_Imap_Client::SORT_DATE
+     *          Horde_Imap_Client::SORT_FROM
+     *          Horde_Imap_Client::SORT_SEQUENCE
+     *          Horde_Imap_Client::SORT_SIZE
+     *          Horde_Imap_Client::SORT_SUBJECT
+     *          Horde_Imap_Client::SORT_TO
+     *          [On servers that support SORT=DISPLAY, these criteria are also
+     *           available:]
+     *          Horde_Imap_Client::SORT_DISPLAYFROM
+     *          Horde_Imap_Client::SORT_DISPLAYTO
+     *
      *          Additionally, any sort criteria can be sorted in reverse order
      *          (instead of the default ascending order) by adding a
      *          Horde_Imap_Client::SORT_REVERSE element to the array directly

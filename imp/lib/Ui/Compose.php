@@ -120,8 +120,8 @@ class IMP_Ui_Compose
      * Given an address input, parses the input to obtain the list of
      * addresses to use on the compose page.
      *
-     * @param string $addr   The value of the header string.
-     * @param array $opts  Additional options:
+     * @param string $addr  The value of the header string.
+     * @param array $opts   Additional options:
      * <pre>
      * 'addr_list' - (boolean) Return the list of address components?
      *               DEFAULT: false

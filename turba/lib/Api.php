@@ -1310,7 +1310,8 @@ class Turba_Api extends Horde_Registry_Api
     }
 
     /**
-     * Retrieves a list of all possible values of a field in specified source(s).
+     * Retrieves a list of all possible values of a field in specified
+     * source(s).
      *
      * @param string $field   Field name to check
      * @param array $sources  Array containing the sources to look in
@@ -1493,7 +1494,7 @@ class Turba_Api extends Horde_Registry_Api
      * Search for clients
      *
      * @param array $names         The search filter values
-     * @param array $fields        The fields to serach in
+     * @param array $fields        The fields to search in
      * @param boolean $matchBegin  Match word boundaries only
      *
      * @return array  A hash containing the search results.
