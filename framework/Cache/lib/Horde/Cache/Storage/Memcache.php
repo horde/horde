@@ -1,7 +1,6 @@
 <?php
 /**
  * This class provides cache storage in a memcache installation.
- * Horde caching system.
  *
  * Copyright 2006-2007 Duck <duck@obala.net>
  * Copyright 2007-2010 The Horde Project (http://www.horde.org/)
@@ -127,14 +126,17 @@ class Horde_Cache_Storage_Memcache extends Horde_Cache_Storage_Base implements S
      */
     public function serialize()
     {
-        return serialize($this->_memcache);
+        return serialize(array(
+            $this->_memcache,
+            $this->_params
+        ));
     }
 
     /**
      */
     public function unserialize($data)
     {
-        $this->_memcache = unserialize($data);
+        list($this->_memcache, $this->_params) = unserialize($data);
     }
 
 }
