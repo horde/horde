@@ -262,8 +262,8 @@ div.diff-right {
 }
 .diff-added-empty {
     background: #efe;
-    background: -webkit-gradient(linear, left top, right top, from(#efe), to(#cfc));
-    background: -moz-linear-gradient(left top, #efe, #cfc);
+    background: -webkit-gradient(linear, left top, right top, from(#efe), to(#cfc), color-stop(0.5, #cfc));
+    background: -moz-linear-gradient(left top, #efe, #cfc 50%);
 }
 .diff-modified {
     background: #def;
@@ -273,8 +273,8 @@ div.diff-right {
 }
 .diff-removed-empty {
     background: #fee;
-    background: -webkit-gradient(linear, left top, right top, from(#fcc), to(#fee));
-    background: -moz-linear-gradient(left top, #fcc, #fee);
+    background: -webkit-gradient(linear, right top, left top, from(#fee), to(#fcc), color-stop(0.5, #fcc));
+    background: -moz-linear-gradient(right top, #fee, #fcc 50%);
 }
 
 .diff-caption {
