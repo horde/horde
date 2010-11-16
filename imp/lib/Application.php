@@ -59,6 +59,13 @@ class IMP_Application extends Horde_Registry_Application
     public $version = 'H4 (5.0-git)';
 
     /**
+     * Cached values to add to the session after authentication.
+     *
+     * @var array
+     */
+    protected $_cacheSess = array();
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -388,7 +395,7 @@ class IMP_Application extends Horde_Registry_Application
     }
 
     /**
-     * Tries to authenticate with the mail server and create a mail session.
+     * Tries to authenticate with the mail server.
      *
      * @param string $userId      The username of the user.
      * @param array $credentials  Credentials of the user. Allowed keys:
@@ -408,13 +415,9 @@ class IMP_Application extends Horde_Registry_Application
         ));
 
         if ($new_session) {
-            $GLOBALS['session']->set(
-                'imp',
-                'select_view',
-                empty($credentials['imp_select_view'])
-                    ? ''
-                    : $credentials['imp_select_view']
-            );
+            $this->_cacheSess = array_merge($new_session, array(
+                'select_view' => empty($credentials['imp_select_view']) ? '' : $credentials['imp_select_view']
+            ));
         }
     }
 
@@ -425,12 +428,17 @@ class IMP_Application extends Horde_Registry_Application
      * @param Horde_Core_Auth_Application $auth_ob  The authentication object.
      *
      * @return boolean  Whether transparent login is supported.
-     * @throws Horde_Auth_Exception
      */
     public function authTransparent($auth_ob)
     {
         $this->init();
-        return IMP_Auth::transparent($auth_ob);
+
+        if ($result = IMP_Auth::transparent($auth_ob)) {
+            $this->_cacheSess = $result;
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -442,6 +450,12 @@ class IMP_Application extends Horde_Registry_Application
     {
         if ($GLOBALS['registry']->getAuth()) {
             $this->init();
+
+            foreach ($this->_cacheSess as $key => $val) {
+                $GLOBALS['session']->set('imp', $key, $val);
+            }
+            $this->_cacheSess = array();
+
             IMP_Auth::authenticateCallback();
         }
     }

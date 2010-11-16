@@ -2,6 +2,34 @@
 /**
  * The IMP_Auth:: class provides authentication for IMP.
  *
+ * The following is the list of session variables in the imp namespace:
+ * <pre>
+ * compose_cache - (array) TODO
+ * file_upload - (integer) If file uploads are allowed, the max size.
+ * filteravail - (boolean) Can we apply filters manually?
+ * imap_acl - (boolean) TODO
+ * imap_admin - (array) TODO [params]
+ * imap_namespace - (array) TODO
+ * imap_ob/* - (Horde_Imap_Client_Base) The IMAP client objects. Stored by
+ *             server key.
+ * imap_quota - (array) TODO [driver, hide_when_unlimited, params]
+ * imap_thread - (string) TODO
+ * maildomain - (string) See config/backends.php.
+ * notepadavail - (boolean) Is listing of notepads available?
+ * pgp - (array) TODO
+ * protocol - (string) Either 'imap' or 'pop'.
+ * rteavail - (boolean) Is the HTML editor available?
+ * search - (IMP_Search) The IMP_Search object.
+ * select_view - (string) TODO
+ * server_key - (string) Server used to login.
+ * smime - (array) Settings related to the S/MIME viewer.
+ * smtp - (array) SMTP options ('host' and 'port')
+ * showunsub - (boolean) Show unsusubscribed mailboxes on the folders
+ *             screen.
+ * tasklistavail - (boolean) Is listing of tasklists available?
+ * view - (string) The imp view mode (dimp, imp, or mimp)
+ * </pre>
+ *
  * Copyright 1999-2010 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -27,23 +55,33 @@ class IMP_Auth
      * 'userId' - (string) The username.
      * </pre>
      *
-     * @return boolean  True if session was created, false if pre-existing
-     *                  session used.
+     * @return mixed  If authentication was successful, and no session
+     *                exists, an array of data to add to the session.
+     *                Otherwise returns false.
      * @throws Horde_Auth_Exception
      */
     static public function authenticate($credentials = array())
     {
+        global $injector, $registry;
+
+        $result = false;
+
         // Do 'horde' authentication.
-        $imp_app = $GLOBALS['registry']->getApiInstance('imp', 'application');
+        $imp_app = $registry->getApiInstance('imp', 'application');
         if (!empty($imp_app->initParams['authentication']) &&
             ($imp_app->initParams['authentication'] == 'horde')) {
-            if ($GLOBALS['registry']->getAuth()) {
-                return false;
+            if ($registry->getAuth()) {
+                return $result;
             }
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
         }
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create();
+        if (!isset($credentials['server'])) {
+            $credentials['server'] = self::getAutoLoginServer();
+        }
+
+        $factory_imap = $injector->getInstance('IMP_Injector_Factory_Imap');
+        $imp_imap = $factory_imap->create($credentials['server']);
 
         // Check for valid IMAP Client object.
         if (!$imp_imap->ob) {
@@ -52,22 +90,14 @@ class IMP_Auth
                 throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
             }
 
-            if (!isset($credentials['server'])) {
-                $credentials['server'] = self::getAutoLoginServer();
-            }
-
-            /* _createSession() will create the imp session variable, so there
-             * is no concern for an infinite loop here. */
-            if (!$GLOBALS['session']->exists('imp', 'server_key')) {
-                self::_createSession($credentials);
-                return true;
-            }
-
             if (!$imp_imap->createImapObject($credentials['userId'], $credentials['password'], $credentials['server'])) {
                 self::_logMessage(false);
-                Horde::logMessage('Could not create IMAP object', 'ERR');
                 throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
             }
+
+            $result = array(
+                'server_key' => $credentials['server']
+            );
         }
 
         try {
@@ -102,7 +132,7 @@ class IMP_Auth
             throw new Horde_Auth_Exception($e, $code);
         }
 
-        return false;
+        return $result;
     }
 
     /**
@@ -110,7 +140,9 @@ class IMP_Auth
      *
      * @param Horde_Auth_Application $auth_ob  The authentication object.
      *
-     * @return boolean  Whether transparent login is supported.
+     * @return mixed  If authentication was successful, and no session
+     *                exists, an array of data to add to the session.
+     *                Otherwise returns false.
      */
     static public function transparent($auth_ob)
     {
@@ -118,9 +150,6 @@ class IMP_Auth
          * If so, use that information instead of hordeauth. */
         if ($auth_ob->getCredential('transparent')) {
             $credentials = $auth_ob->getCredential();
-            if (!isset($credentials['server'])) {
-                $credentials['server'] = self::getAutoLoginServer();
-            }
         } else {
             /* Attempt hordeauth authentication. */
             $credentials = self::_canAutoLogin();
@@ -130,8 +159,11 @@ class IMP_Auth
         }
 
         try {
-            self::_createSession($credentials);
-            return true;
+            return self::authenticate(array(
+                'password' => $credentials['password'],
+                'server' => $credentials['server'],
+                'userId' => $credentials['userId']
+            ));
         } catch (Horde_Auth_Exception $e) {
             return false;
         }
@@ -166,70 +198,6 @@ class IMP_Auth
         );
 
         Horde::logMessage($msg, $level);
-    }
-
-    /**
-     * Set up the IMP session. Handle authentication, if required, and only do
-     * enough work to see if the user can log in.
-     *
-     * The following is the list of session variables in the imp namespace:
-     * <pre>
-     * compose_cache - (array) TODO
-     * file_upload - (integer) If file uploads are allowed, the max size.
-     * filteravail - (boolean) Can we apply filters manually?
-     * imap_acl - (boolean) TODO
-     * imap_admin - (array) TODO [params]
-     * imap_namespace - (array) TODO
-     * imap_ob/* - (Horde_Imap_Client_Base) The IMAP client objects. Stored by
-     *             server key.
-     * imap_quota - (array) TODO [driver, hide_when_unlimited, params]
-     * imap_thread - (string) TODO
-     * maildomain - (string) See config/backends.php.
-     * notepadavail - (boolean) Is listing of notepads available?
-     * pgp - (array) TODO
-     * protocol - (string) Either 'imap' or 'pop'.
-     * rteavail - (boolean) Is the HTML editor available?
-     * search - (IMP_Search) The IMP_Search object.
-     * select_view - (string) TODO
-     * server_key - (string) Server used to login.
-     * smime - (array) Settings related to the S/MIME viewer.
-     * smtp - (array) SMTP options ('host' and 'port')
-     * showunsub - (boolean) Show unsusubscribed mailboxes on the folders
-     *             screen.
-     * tasklistavail - (boolean) Is listing of tasklists available?
-     * view - (string) The imp view mode (dimp, imp, or mimp)
-     * </pre>
-     *
-     * @param array $credentials  An array of login credentials.
-     * <pre>
-     * 'password' - (string) The user password.
-     * 'server' - (string) The server key to use (from backends.php).
-     * 'userId' - (string) The username.
-     * </pre>
-     *
-     * @throws Horde_Auth_Exception
-     */
-    static protected function _createSession($credentials)
-    {
-        $GLOBALS['session']->set('imp', 'server_key', $credentials['server']);
-
-        /* Load the server configuration. */
-        $ptr = $GLOBALS['injector']->getInstance('IMP_Injector_Factory_Imap')->create()->loadServerConfig($credentials['server']);
-        if ($ptr === false) {
-            throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
-        }
-
-        /* Try authentication. */
-        try {
-            self::authenticate(array(
-                'password' => $credentials['password'],
-                'server' => $credentials['server'],
-                'userId' => $credentials['userId']
-            ));
-        } catch (Horde_Auth_Exception $e) {
-            $GLOBALS['session']->remove('imp');
-            throw $e;
-        }
     }
 
     /**
@@ -374,8 +342,8 @@ class IMP_Auth
     }
 
     /**
-     * Perform login tasks. Must wait until now because we need the full
-     * IMP environment to properly setup the session.
+     * Perform post-login tasks. Session creation requires the full IMP
+     * environment, which is not available until this callback.
      *
      * @throws Horde_Auth_Exception
      */
