@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Url</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Url class</summary>
@@ -19,7 +16,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2009-12-03</date>
+ <date>2010-11-16</date>
+ <time>23:08:45</time>
  <version>
   <release>0.1.0</release>
   <api>0.1.0</api>
@@ -29,7 +27,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
- <notes>* Add Horde_Url_Exception::.
+ <notes>
+* Add Horde_Url_Exception::.
  * Add Horde_Url::redirect().
  * Add Horde_Url::unique().
  * Add support for callback function for toString conversion.
@@ -38,7 +37,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  * Initial package.
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="lib">
     <dir name="Horde">
      <dir name="Url">
@@ -53,6 +52,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
       <file name="AddTest.php" role="test" />
       <file name="AllTests.php" role="test" />
       <file name="CallbackTest.php" role="test" />
+      <file name="LinkTest.php" role="test" />
       <file name="RawTest.php" role="test" />
       <file name="RedirectTest.php" role="test" />
       <file name="RemoveTest.php" role="test" />
@@ -77,9 +77,38 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </dependencies>
  <phprelease>
   <filelist>
-   <install name="lib/Horde/Url/Exception.php" as="Horde/Url/Exception.php" />
-   <install name="lib/Horde/Url.php" as="Horde/Url.php" />
+   <install as="Horde/Url.php" name="lib/Horde/Url.php" />
+   <install as="Horde/Url/Exception.php" name="lib/Horde/Url/Exception.php" />
+   <install as="Horde/Url/AddTest.php" name="test/Horde/Url/AddTest.php" />
+   <install as="Horde/Url/AllTests.php" name="test/Horde/Url/AllTests.php" />
+   <install as="Horde/Url/CallbackTest.php" name="test/Horde/Url/CallbackTest.php" />
+   <install as="Horde/Url/LinkTest.php" name="test/Horde/Url/LinkTest.php" />
+   <install as="Horde/Url/RawTest.php" name="test/Horde/Url/RawTest.php" />
+   <install as="Horde/Url/RedirectTest.php" name="test/Horde/Url/RedirectTest.php" />
+   <install as="Horde/Url/RemoveTest.php" name="test/Horde/Url/RemoveTest.php" />
   </filelist>
  </phprelease>
- <changelog/>
+ <changelog>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2010-11-16</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+* Add Horde_Url_Exception::.
+ * Add Horde_Url::redirect().
+ * Add Horde_Url::unique().
+ * Add support for callback function for toString conversion.
+ * Add support for URL anchors.
+ * Added Horde_Url::uriB64Encode() and Horde_Url::uriB64Decode().
+ * Initial package.
+   </notes>
+  </release>
+ </changelog>
 </package>
