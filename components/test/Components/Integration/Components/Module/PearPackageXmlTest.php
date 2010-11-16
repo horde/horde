@@ -143,6 +143,16 @@ extends Components_StoryTestCase
             ->and('the new package.xml of the Horde component will contain the file', 'test2');
     }
 
+    /**
+     * @scenario
+     */
+    public function testEmptyChangelog()
+    {
+        $this->given('the default Components setup')
+            ->when('calling the package with the packagexml option and a component with empty changelog')
+            ->then('the new package.xml of the Horde component will have a changelog entry');
+    }
+
 
     /**
      * @todo Test (and fix) the reactions to three more scenarios:

@@ -107,6 +107,15 @@ extends PHPUnit_Extensions_Story_TestCase
             );
             $world['output'] = $this->_callUnstrictComponents();
             break;
+        case 'calling the package with the packagexml option and a component with empty changelog':
+            $_SERVER['argv'] = array(
+                'horde-components',
+                '--pearrc=' . $this->_getTemporaryDirectory() . DIRECTORY_SEPARATOR . '.pearrc',
+                '--packagexml',
+                dirname(__FILE__) . '/fixture/changelog'
+            );
+            $world['output'] = $this->_callUnstrictComponents();
+            break;
         case 'calling the package with the packagexml option and the path':
             $_SERVER['argv'] = array(
                 'horde-components',
@@ -391,6 +400,12 @@ extends PHPUnit_Extensions_Story_TestCase
         case 'a new package.xml will be created.':
             $this->assertTrue(
                 file_exists($this->_temp_dir . DIRECTORY_SEPARATOR . 'package.xml')
+            );
+            break;
+        case 'the new package.xml of the Horde component will have a changelog entry':
+            $this->assertRegExp(
+                '#</changelog>#',
+                $world['output']
             );
             break;
         case 'a new PEAR configuration file will be installed':
