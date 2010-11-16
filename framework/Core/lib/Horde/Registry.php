@@ -182,7 +182,9 @@ class Horde_Registry
         switch ($args['session_control']) {
         case 'netscape':
             // Chicken/egg: Browser object doesn't exist yet.
-            $browser = new Horde_Core_Browser();
+            // Can't use Horde_Core_Browser since it depends on registry to be
+            // configured.
+            $browser = new Horde_Browser();
             if ($browser->isBrowser('mozilla')) {
                 $args['session_cache_limiter'] = 'private, must-revalidate';
             }
