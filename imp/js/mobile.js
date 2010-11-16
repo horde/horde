@@ -31,7 +31,35 @@ var ImpMobile = {
     toMailbox: function(mailbox, label)
     {
         $('#imp-mailbox-header').text(label);
+        $('#imp-mailbox-list').empty();
         $.mobile.changePage('#mailbox', 'slide', false, true);
+        $.mobile.pageLoading();
+        ImpMobile.doAction(
+            'viewPort',
+            { view: mailbox, initial: 1, slice: '1', requestid: 1, after: 25 },
+            ImpMobile.messagesLoaded);
+    },
+
+    /**
+     * Callback method after message list has been loaded.
+     *
+     * @param object r  The Ajax response object.
+     */
+    messagesLoaded: function(r)
+    {
+        var list = $('#imp-mailbox-list');
+        $.mobile.pageLoading(true);
+        if (r.response && r.response.ViewPort) {
+            $.each(r.response.ViewPort.data, function(key, data) {
+                list.append(
+                    $('<li>').append(
+                        $('<h3>').append(
+                            $('<a href="#">').text(data.subject))).append(
+                        $('<p class="ui-li-aside">').text(data.date)).append(
+                        $('<p>').text(data.from)));
+            });
+            list.listview('refresh');
+        }
     },
 
     /**

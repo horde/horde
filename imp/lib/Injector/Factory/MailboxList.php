@@ -62,6 +62,7 @@ class IMP_Injector_Factory_MailboxList
         if (!isset($this->_instances[$mailbox])) {
             switch ($mode) {
             case 'dimp':
+            case 'mobile':
                 $ob = new IMP_Mailbox_List($mailbox);
                 break;
 

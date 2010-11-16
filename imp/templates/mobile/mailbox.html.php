@@ -9,7 +9,7 @@
     <?php endif ?>
   </div>
   <div data-role="content">
-    <ul data-role="listview">
+    <ul id="imp-mailbox-list" data-role="listview">
       <li>
          <h3><a href="#message">Subject 1</a></h3>
          <p class="ui-li-aside">99</p>
